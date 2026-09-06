@@ -168,7 +168,7 @@
             if (item.type === 'youtube' && item.embedUrl) {
                 const parent = targetEl.parentElement;
                 if (parent) {
-                    let iframe = parent.querySelector('iframe.post-youtube-embed');
+                    let iframe = parent.querySelector('iframe.post-youtube-embed, iframe');
                     if (!iframe) {
                         iframe = document.createElement('iframe');
                         iframe.className = 'post-youtube-embed';
@@ -186,8 +186,8 @@
             targetEl.style.display = 'block';
             targetEl.src = item.imageUrl || item.downloadUrl || item.replacementUrl;
             if (targetEl.parentElement) {
-                const prevIframe = targetEl.parentElement.querySelector('iframe.post-youtube-embed');
-                if (prevIframe) prevIframe.remove();
+                const prevIframes = targetEl.parentElement.querySelectorAll('iframe.post-youtube-embed, iframe');
+                prevIframes.forEach(f => f.remove());
             }
             return;
         }
@@ -203,7 +203,7 @@
             const artworkBox = targetEl.querySelector('.media-container-1x1, .campaign-media-container, .broadcast-preview-wrap, .post-featured-artwork-box, .post-image-box, .post-body, .post-content') || (img ? img.parentElement : targetEl);
 
             if (item.type === 'youtube' && item.embedUrl) {
-                let iframe = artworkBox.querySelector('iframe.post-youtube-embed');
+                let iframe = artworkBox.querySelector('iframe.post-youtube-embed, iframe');
                 if (!iframe) {
                     iframe = document.createElement('iframe');
                     iframe.className = 'post-youtube-embed';
@@ -226,8 +226,8 @@
                     currentImg.style.display = 'block';
                     currentImg.src = item.imageUrl || item.downloadUrl || item.replacementUrl;
                 }
-                const prevIframe = artworkBox.querySelector('iframe.post-youtube-embed, iframe');
-                if (prevIframe) prevIframe.remove();
+                const prevIframes = artworkBox.querySelectorAll('iframe.post-youtube-embed, iframe');
+                prevIframes.forEach(f => f.remove());
             }
             return;
         }
@@ -250,7 +250,7 @@
                 }
                 img.src = item.imageUrl || item.downloadUrl || item.replacementUrl;
                 img.style.display = 'block';
-                targetEl.style.display = 'none';
+                targetEl.remove();
             }
             return;
         }
@@ -736,6 +736,29 @@
                 link.parentNode.insertBefore(replaceBtn, link.nextSibling);
             }
         });
+
+        // 5. Samodzielne grafiki, avatary profilowe, banery i okładki radiowe
+        const profileAndMediaImgs = document.querySelectorAll('.profile-avatar-wrap img, .author-avatar-wrap img, .hero-avatar-box img, .profile-cover img, .radio-player-artwork img, .now-playing-art img, .album-art img, .profile-hero img, img.profile-avatar, img.post-author-img');
+        profileAndMediaImgs.forEach(img => {
+            const parent = img.parentElement || img;
+            if (!parent.querySelector('.btn-lumina-replace-floating') && !img.dataset.hasReplacerBtn) {
+                if (getComputedStyle(parent).position === 'static') {
+                    parent.style.position = 'relative';
+                }
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'btn-lumina-replace-floating';
+                btn.title = 'Wymień tę grafikę na link z Dysku Google';
+                btn.style.padding = '4px 10px';
+                btn.style.fontSize = '0.72rem';
+                btn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Wymień';
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    openReplacerForElement(img, 'image');
+                };
+                parent.appendChild(btn);
+            }
+        });
     }
 
     function openReplacerForElement(el, type) {
@@ -807,6 +830,70 @@
         return hash;
     }
 
+    function normStr(str) {
+        return String(str || '').toLowerCase().replace(/[^a-z0-9ąćęłńóśźż]/gi, '');
+    }
+
+    let _cachedDbInstance = null;
+    let _cachedDbPromise = null;
+
+    async function getFirestoreInstance() {
+        if (_cachedDbInstance) return _cachedDbInstance;
+        if (window.luminaDb) {
+            _cachedDbInstance = window.luminaDb;
+            return _cachedDbInstance;
+        }
+        if (window.db) {
+            _cachedDbInstance = window.db;
+            return _cachedDbInstance;
+        }
+        if (window._luminaFirestore) {
+            _cachedDbInstance = window._luminaFirestore;
+            return _cachedDbInstance;
+        }
+
+        if (_cachedDbPromise) return _cachedDbPromise;
+
+        _cachedDbPromise = (async () => {
+            try {
+                const { initializeApp, getApps, getApp } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+                const { getFirestore, initializeFirestore } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+                const LUMINA_FIREBASE_CONFIG = {
+                    apiKey: "AIzaSyAkX7XDMWjeUPeaIk0WdvoY4d9VhIPyD7M",
+                    authDomain: "lumina-cc.firebaseapp.com",
+                    databaseURL: "https://lumina-cc-default-rtdb.europe-west1.firebasedatabase.app",
+                    projectId: "lumina-cc",
+                    storageBucket: "lumina-cc.firebasestorage.app",
+                    messagingSenderId: "413985877183",
+                    appId: "1:413985877183:web:b0c99a686a4fb1b875aa0a",
+                    measurementId: "G-6440T9VBQB"
+                };
+                const app = getApps().length > 0 ? getApp() : initializeApp(LUMINA_FIREBASE_CONFIG);
+                let db = null;
+                try {
+                    db = initializeFirestore(app, {
+                        experimentalAutoDetectLongPolling: true
+                    });
+                } catch(e) {
+                    db = getFirestore(app);
+                }
+                _cachedDbInstance = db;
+                window._luminaFirestore = db;
+                window.luminaDb = window.luminaDb || db;
+                try {
+                    window.dispatchEvent(new CustomEvent('lumina:dbReady', { detail: { db } }));
+                } catch(e) {}
+                console.log('✅ [MediaReplacer] Firestore (lumina-cc) gotowy');
+                return db;
+            } catch (err) {
+                console.warn('[MediaReplacer] Inicjalizacja Firestore w replacerze:', err);
+                return null;
+            }
+        })();
+
+        return _cachedDbPromise;
+    }
+
     // ── 7. Zapis i natychmiastowe zastosowanie w czasie rzeczywistym ──
     async function submitReplacement() {
         const input = document.getElementById('luminaReplacerInput');
@@ -842,7 +929,7 @@
         // 1. Zapis w LocalStorage dla natychmiastowej trwałości w przeglądarce
         saveStoredReplacement(targetId, itemData);
 
-        // 2. Natychmiastowa podmiana w DOM w czasie rzeczywistym
+        // 2. Natychmiastowa podmiana w DOM w czasie rzeczywistym (0 ms)
         applyReplacementToElement(element, itemData);
 
         // 3. Aktualizacja obiektów w pamięci podręcznej (np. feedPosts, DEFAULT_FEED_POSTS)
@@ -872,29 +959,31 @@
             window.dispatchEvent(new CustomEvent('lumina:mediaReplaced', { detail: itemData }));
         } catch(e) {}
 
-        // 5. Aktualizacja w chmurze Firestore (lumina_posts)
-        const dbInstance = window.db || window.luminaDb || window._luminaFirestore;
-        if (dbInstance) {
-            try {
-                const { doc, getDoc, updateDoc, collection, getDocs, limit, query } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+        // 5. Autonomiczna aktualizacja w chmurze Firestore (lumina_posts i lumina_profiles)
+        try {
+            console.log('[MediaReplacer Debug] Rozpoczynam zapis Firestore dla targetId:', targetId);
+            const dbInstance = await getFirestoreInstance();
+            console.log('[MediaReplacer Debug] dbInstance:', !!dbInstance);
+            if (dbInstance) {
+                const { doc, getDoc, updateDoc, setDoc, collection, getDocs, limit, query } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
 
-                const candidates = [targetId];
-                if (targetId) {
-                    if (targetId.startsWith('post_')) {
-                        candidates.push(targetId.replace(/^post_/, ''));
-                    } else {
-                        candidates.push('post_' + targetId);
-                    }
-                }
+                // Przygotuj pełną listę unikalnych wariantów ID (czyste ID, z pojedynczym post_, bez post_)
+                const rawCandidates = [
+                    targetId,
+                    (targetId || '').replace(/^post_/, ''),
+                    (targetId || '').replace(/^(post_)+/, ''),
+                    (targetId || '').replace(/^(post_)+/, 'post_'),
+                    (targetId || '').replace(/^(post_cuda_)+/, 'cuda_')
+                ];
                 const cardEl = (element && element.closest) ? element.closest('.feed-post-card, .post-card, .post-card-1x1, article') : null;
-                if (cardEl && cardEl.id && !candidates.includes(cardEl.id)) {
-                    candidates.push(cardEl.id);
-                    if (cardEl.id.startsWith('post_')) {
-                        candidates.push(cardEl.id.replace(/^post_/, ''));
-                    } else {
-                        candidates.push('post_' + cardEl.id);
-                    }
+                if (cardEl && cardEl.id) {
+                    rawCandidates.push(cardEl.id);
+                    rawCandidates.push(cardEl.id.replace(/^post_/, ''));
+                    rawCandidates.push(cardEl.id.replace(/^(post_)+/, ''));
+                    rawCandidates.push(cardEl.id.replace(/^(post_)+/, 'post_'));
                 }
+                const candidates = [...new Set(rawCandidates.filter(Boolean))];
+                console.log('[MediaReplacer Debug] Kandydaci Firestore:', candidates);
 
                 const cloudUpdate = {
                     updatedAt: new Date().toISOString()
@@ -906,7 +995,9 @@
                     cloudUpdate.image = itemData.imageUrl || itemData.replacementUrl;
                     cloudUpdate.videoUrl = ''; // Wyzerowanie starego wideo, aby karta natychmiast przełączyła się na grafikę
                 }
-                if (itemData.downloadUrl) cloudUpdate.downloadUrl = itemData.downloadUrl;
+                if (type === 'download' && itemData.downloadUrl) {
+                    cloudUpdate.downloadUrl = itemData.downloadUrl;
+                }
 
                 let updated = false;
                 for (const cId of candidates) {
@@ -920,29 +1011,75 @@
                             updated = true;
                             break;
                         }
-                    } catch(e) {}
+                    } catch(e) {
+                        console.warn('[MediaReplacer Debug] Błąd getDoc dla', cId, e.message);
+                    }
                 }
 
-                // Fallback: dopasowanie po tytule posta
+                // Fallback: dopasowanie po tytule lub slugu posta
                 if (!updated && cardEl) {
                     const titleEl = cardEl.querySelector('.post-title, .post-headline, h2, h1');
-                    if (titleEl) {
-                        const titleText = titleEl.textContent.trim();
-                        const qSnap = await getDocs(query(collection(dbInstance, 'lumina_posts'), limit(60)));
+                    const titleText = titleEl ? titleEl.textContent.trim().replace(/\s+/g, ' ') : '';
+                    const normTitle = normStr(titleText);
+                    const slugCandidate = (targetId || cardEl.id || '').replace(/^post_cuda_|^post_/, '');
+
+                    try {
+                        const qSnap = await getDocs(query(collection(dbInstance, 'lumina_posts'), limit(100)));
                         for (const d of qSnap.docs) {
                             const pData = d.data();
-                            if (pData.title && (pData.title.includes(titleText) || titleText.includes(pData.title))) {
+                            const pTitleNorm = normStr(pData.title);
+                            const pSlug = pData.sourceSlug || pData.slug || '';
+
+                            const titleMatch = normTitle && pTitleNorm && (normTitle.includes(pTitleNorm) || pTitleNorm.includes(normTitle));
+                            const slugMatch = slugCandidate && pSlug && (pSlug === slugCandidate || slugCandidate.includes(pSlug));
+
+                            if (titleMatch || slugMatch) {
                                 await updateDoc(d.ref, cloudUpdate);
-                                console.log('✅ Zaktualizowano wpis w Firestore lumina_posts po tytule:', d.id);
+                                console.log('✅ Zaktualizowano wpis w Firestore lumina_posts po dopasowaniu (tytuł/slug):', d.id);
                                 updated = true;
                                 break;
                             }
                         }
+                    } catch(e) {}
+
+                    // Jeśli wpis nie istnieje jeszcze w Firestore, utwórz go na bazie karty z DOM
+                    if (!updated) {
+                        const newDocId = candidates.find(c => c && c.startsWith('post_')) || ('post_' + Date.now());
+                        try {
+                            await setDoc(doc(dbInstance, 'lumina_posts', newDocId), {
+                                title: titleText || 'Wpis LUMINA',
+                                author: cardEl.querySelector('.post-author-name')?.textContent.trim() || 'Andrzej Thiel',
+                                authorSlug: 'andrzejthiel',
+                                ...cloudUpdate
+                            }, { merge: true });
+                            console.log('✅ Utworzono wpis w Firestore lumina_posts:', newDocId);
+                            updated = true;
+                        } catch(e) {}
                     }
                 }
-            } catch(err) {
-                console.warn('[MediaReplacer] Firestore update notice:', err.message);
+
+                // Aktualizacja profili w Firestore (lumina_profiles), jeśli dotyczy
+                const profileWrap = (element && element.closest) ? element.closest('[data-profile-slug], .profile-container, .profile-hero, .author-box') : null;
+                const profileSlug = profileWrap?.getAttribute('data-profile-slug') || window._currentProfileSlug;
+                if (profileSlug) {
+                    try {
+                        const pRef = doc(dbInstance, 'lumina_profiles', profileSlug);
+                        const pSnap = await getDoc(pRef);
+                        if (pSnap.exists()) {
+                            const pUpdate = { updatedAt: new Date().toISOString() };
+                            if (type === 'avatar' || element.classList?.contains('profile-avatar') || element.classList?.contains('post-author-img')) {
+                                pUpdate.avatar = itemData.imageUrl || itemData.replacementUrl;
+                            } else {
+                                pUpdate.coverImage = itemData.imageUrl || itemData.replacementUrl;
+                            }
+                            await updateDoc(pRef, pUpdate);
+                            console.log('✅ Zaktualizowano profil w Firestore lumina_profiles:', profileSlug);
+                        }
+                    } catch(e) {}
+                }
             }
+        } catch(err) {
+            console.warn('[MediaReplacer] Firestore update notice:', err.message);
         }
 
         closeModal();
@@ -1003,6 +1140,8 @@
             injectStyles();
             applySavedReplacements();
             initObserver();
+            // Samoczynna inicjalizacja instancji Firestore w tle (dla profili i postów)
+            getFirestoreInstance().catch(() => {});
             if (isMasterAdmin()) {
                 scanAndAttachButtons();
             }
@@ -1020,7 +1159,8 @@
         parseMediaUrl,
         scanAndAttachButtons,
         applySavedReplacements,
-        isMasterAdmin
+        isMasterAdmin,
+        getFirestoreInstance
     };
 
     // Automatyczny start po załadowaniu dokumentu

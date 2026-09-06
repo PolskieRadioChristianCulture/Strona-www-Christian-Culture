@@ -2411,7 +2411,7 @@ A może w swoim zabieganiu nie znajdujesz czasu na modlitwę? Może nawet myśli
         });
     </script>
     <input type="file" id="adminCudaGraphicInput" accept="image/*" style="display:none;" onchange="handleCudaGraphicUpload(event)">
-    <script src="js/lumina-admin-media-replacer.js?v=20260906_realtime_v5"></script>
+    <script src="js/lumina-admin-media-replacer.js?v=20260906_realtime_v6"></script>
     <script src="lumina-admin-profile-suite.js"></script>
     <script src="lumina-premium-video-avatar.js"></script>
     <script type="module">
@@ -2507,7 +2507,12 @@ A może w swoim zabieganiu nie znajdujesz czasu na modlitwę? Może nawet myśli
         }
         loadAndrzejBazaJson();
 
-        function startAndrzejFeed(retriesLeft = 40) {
+        async function startAndrzejFeed(retriesLeft = 60) {
+            if (!window.luminaDb && window.LuminaMediaReplacer?.getFirestoreInstance) {
+                try {
+                    await window.LuminaMediaReplacer.getFirestoreInstance();
+                } catch(e) {}
+            }
             if (!window.luminaDb) {
                 if (retriesLeft > 0) return setTimeout(() => startAndrzejFeed(retriesLeft - 1), 250);
                 return;
@@ -2547,6 +2552,7 @@ A może w swoim zabieganiu nie znajdujesz czasu na modlitwę? Może nawet myśli
         } else {
             startAndrzejFeed();
         }
+        window.addEventListener('lumina:dbReady', () => startAndrzejFeed());
     </script>
     <script type="module" src="lumina-badges-engine.js?v=4.0.0"></script>
 </body>

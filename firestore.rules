@@ -39,7 +39,7 @@ service cloud.firestore {
       // Modyfikacja treści tylko dla autora; inni mogą aktualizować licznik polubień/reakcji oraz wymieniać media (Zero-Egress)
       allow update: if isMasterAdmin() || 
         (isAuthenticated() && (request.auth.uid == resource.data.authorId || request.auth.uid == resource.data.authorUid)) ||
-        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'amen', 'reactions', 'comments', 'likesCount', 'amenCount', 'isPinnedByAdmin', 'pinned', 'image', 'videoUrl', 'mediaUrl', 'mediaType', 'updatedAt']);
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likes', 'amen', 'reactions', 'comments', 'likesCount', 'amenCount', 'isPinnedByAdmin', 'pinned', 'image', 'videoUrl', 'mediaUrl', 'mediaType', 'downloadUrl', 'externalUrl', 'updatedAt']);
       allow delete: if isMasterAdmin() || 
         (isAuthenticated() && (request.auth.uid == resource.data.authorId || request.auth.uid == resource.data.authorUid));
     }
