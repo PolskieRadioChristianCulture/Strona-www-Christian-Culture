@@ -6053,7 +6053,7 @@
 
                 // ── Specjalna karta rozważania "Dobrze, że jesteś / Cuda Każdego Dnia" (Zaraz pod Patronem) ──
                 if (item._isReflection) {
-                    const baseStreamUrl = item.streamUrl || 'https://polskieradio.cc/master-live';
+                    const baseStreamUrl = item.streamUrl || 'master-live';
                     const streamUrl = baseStreamUrl.includes('muted=1') ? baseStreamUrl : (baseStreamUrl + (baseStreamUrl.includes('?') ? '&' : '?') + 'muted=1&noticker=1&embed=1');
                     const livePlayerHtml = `
                         <div class="mission-live-player-wrapper" style="margin: 0 0 18px 0;">
