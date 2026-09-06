@@ -3030,7 +3030,7 @@
             </div>
             <div style="display:flex; align-items:center; gap:8px;">
                 <div style="font-size: 0.76rem; color: #94a3b8; font-weight: 600; margin-right:6px;">
-                    <i class="fa-solid fa-shield-check" style="color:#22c55e;"></i> Master Admin
+                    <i class="fa-solid fa-shield-halved" style="color:#22c55e;"></i> Master Admin
                 </div>
                 <button type="button" 
                         id="localHudMinimizeBtn" 
@@ -5584,7 +5584,7 @@
 
             const tagsContainer = document.getElementById('userTagsEl');
             if (tagsContainer && data.tags) {
-                tagsContainer.innerHTML = data.tags.map(t => `<span class="tag-chip"><i class="fa-solid fa-sparkle"></i> ${t}</span>`).join('');
+                tagsContainer.innerHTML = data.tags.map(t => `<span class="tag-chip"><i class="fa-solid fa-star"></i> ${t}</span>`).join('');
             }
 
             // Real photo requirement check for owner

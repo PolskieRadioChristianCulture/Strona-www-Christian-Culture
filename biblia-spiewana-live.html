@@ -2286,14 +2286,18 @@ body.za-polske-wallpaper #livePrayerOverlay { position: fixed !important; bottom
                 const min = String(now.getMinutes()).padStart(2, '0');
                 const sec = String(now.getSeconds()).padStart(2, '0');
                 
-                document.getElementById("timeHour").textContent = hr;
-                document.getElementById("timeMin").textContent = min;
-                document.getElementById("timeSec").textContent = sec;
+                const elHour = document.getElementById("timeHour");
+                const elMin = document.getElementById("timeMin");
+                const elSec = document.getElementById("timeSec");
+                if (elHour) elHour.textContent = hr;
+                if (elMin) elMin.textContent = min;
+                if (elSec) elSec.textContent = sec;
 
                 const days = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
                 const months = ["Stycznia", "Lutego", "Marca", "Kwietnia", "Maja", "Czerwca", "Lipca", "Sierpnia", "Września", "Października", "Listopada", "Grudnia"];
                 
-                document.getElementById("clockDateLabel").textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
+                const elDate = document.getElementById("clockDateLabel");
+                if (elDate) elDate.textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`;
 
                 // Real-time schedule highlights & program names based on hour of day
                 const currentHour = now.getHours();
@@ -3293,21 +3297,24 @@ function getWeatherPreset(city) {
                     reflectionsData = data;
                     if (reflectionsData.length === 0) return;
 
-                    // Populate select list
-                    daySelect.innerHTML = "";
-                    reflectionsData.forEach((ref, idx) => {
-                        const dayLabel = ref.id.replace("ref_day", "Dzień ").replace("ref_", "");
-                        const dateLabel = ref.date ? ` (${ref.date})` : "";
-                        const opt = document.createElement("option");
-                        opt.value = idx;
-                        opt.textContent = `${dayLabel}: ${ref.title}${dateLabel}`;
-                        daySelect.appendChild(opt);
-                    });
+                    // Populate select list if exists
+                    const daySelect = document.getElementById("daySelect");
+                    if (daySelect) {
+                        daySelect.innerHTML = "";
+                        reflectionsData.forEach((ref, idx) => {
+                            const dayLabel = ref.id.replace("ref_day", "Dzień ").replace("ref_", "");
+                            const dateLabel = ref.date ? ` (${ref.date})` : "";
+                            const opt = document.createElement("option");
+                            opt.value = idx;
+                            opt.textContent = `${dayLabel}: ${ref.title}${dateLabel}`;
+                            daySelect.appendChild(opt);
+                        });
 
-                    if (currentDayIndex >= reflectionsData.length) {
-                        currentDayIndex = 0;
+                        if (currentDayIndex >= reflectionsData.length) {
+                            currentDayIndex = 0;
+                        }
+                        daySelect.value = currentDayIndex;
                     }
-                    daySelect.value = currentDayIndex;
 
                     // Match today's date if no manual index override is saved
                     const todayStr = new Date().toISOString().split('T')[0];
@@ -3345,9 +3352,10 @@ function getWeatherPreset(city) {
                     runQrSidecarLoop(); // Start weather/Patronite QR sidecar loop
                 })
                 .catch(err => {
-                    console.error("Error loading reflections:", err);
-                    document.querySelector(".slide-title").textContent = "Błąd Bazy Danych";
-                    document.querySelector(".slide-text").textContent = "Nie udało się wczytać pliku rozważań. Upewnij się, że plik rozwazania_baza.json istnieje.";
+                    const titleEl = document.querySelector(".slide-title");
+                    if (titleEl) titleEl.textContent = "Błąd Bazy Danych";
+                    const textEl = document.querySelector(".slide-text");
+                    if (textEl) textEl.textContent = "Nie udało się wczytać pliku rozważań. Upewnij się, że plik rozwazania_baza.json istnieje.";
                 });
         });
     </script>

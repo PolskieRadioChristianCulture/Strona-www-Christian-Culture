@@ -5,7 +5,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/CCM%20(1).mp3"
+    "url": "./audio/worship/CCM%20(1).mp3"
   },
   {
     "id": "worship_2",
@@ -13,7 +13,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/CCM%20(2).mp3"
+    "url": "./audio/worship/CCM%20(2).mp3"
   },
   {
     "id": "worship_3",
@@ -21,7 +21,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/CCM%20(3).mp3"
+    "url": "./audio/worship/CCM%20(3).mp3"
   },
   {
     "id": "worship_4",
@@ -29,7 +29,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/CCM%20(4).mp3"
+    "url": "./audio/worship/CCM%20(4).mp3"
   },
   {
     "id": "worship_5",
@@ -37,7 +37,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/CCM%20(5).mp3"
+    "url": "./audio/worship/CCM%20(5).mp3"
   },
   {
     "id": "worship_6",
@@ -45,7 +45,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/CCM%20(6).mp3"
+    "url": "./audio/worship/CCM%20(6).mp3"
   },
   {
     "id": "worship_7",
@@ -53,7 +53,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/CCM%20(7).mp3"
+    "url": "./audio/worship/CCM%20(7).mp3"
   },
   {
     "id": "worship_8",
@@ -61,7 +61,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/CCM.mp3"
+    "url": "./audio/worship/CCM.mp3"
   },
   {
     "id": "worship_9",
@@ -69,7 +69,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/DEEP%20FOREST%202.mp3"
+    "url": "./audio/worship/DEEP%20FOREST%202.mp3"
   },
   {
     "id": "worship_10",
@@ -77,7 +77,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/DEEP%20FOREST%203.mp3"
+    "url": "./audio/worship/DEEP%20FOREST%203.mp3"
   },
   {
     "id": "worship_11",
@@ -85,7 +85,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/DEEP%20FOREST%204.mp3"
+    "url": "./audio/worship/DEEP%20FOREST%204.mp3"
   },
   {
     "id": "worship_12",
@@ -93,7 +93,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/DEEP%20FOREST.mp3"
+    "url": "./audio/worship/DEEP%20FOREST.mp3"
   },
   {
     "id": "worship_13",
@@ -101,7 +101,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/deep_forest_1.mp3"
+    "url": "./audio/worship/deep_forest_1.mp3"
   },
   {
     "id": "worship_14",
@@ -109,7 +109,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/deep_forest_2.mp3"
+    "url": "./audio/worship/deep_forest_2.mp3"
   },
   {
     "id": "worship_15",
@@ -117,7 +117,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/deep_forest_3.mp3"
+    "url": "./audio/worship/deep_forest_3.mp3"
   },
   {
     "id": "worship_16",
@@ -125,7 +125,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/deep_forest_4.mp3"
+    "url": "./audio/worship/deep_forest_4.mp3"
   },
   {
     "id": "worship_17",
@@ -133,7 +133,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(1).mp3"
+    "url": "./audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(1).mp3"
   },
   {
     "id": "worship_18",
@@ -141,7 +141,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(10).mp3"
+    "url": "./audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(10).mp3"
   },
   {
     "id": "worship_19",
@@ -149,7 +149,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(11).mp3"
+    "url": "./audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(11).mp3"
   },
   {
     "id": "worship_20",
@@ -157,7 +157,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(12).mp3"
+    "url": "./audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(12).mp3"
   },
   {
     "id": "worship_21",
@@ -165,7 +165,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(13).mp3"
+    "url": "./audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(13).mp3"
   },
   {
     "id": "worship_22",
@@ -173,7 +173,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(14).mp3"
+    "url": "./audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(14).mp3"
   },
   {
     "id": "worship_23",
@@ -181,7 +181,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(15).mp3"
+    "url": "./audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(15).mp3"
   },
   {
     "id": "worship_24",
@@ -189,7 +189,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(2).mp3"
+    "url": "./audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(2).mp3"
   },
   {
     "id": "worship_25",
@@ -197,7 +197,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(3).mp3"
+    "url": "./audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(3).mp3"
   },
   {
     "id": "worship_26",
@@ -205,7 +205,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(4).mp3"
+    "url": "./audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(4).mp3"
   },
   {
     "id": "worship_27",
@@ -213,7 +213,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(5).mp3"
+    "url": "./audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(5).mp3"
   },
   {
     "id": "worship_28",
@@ -221,7 +221,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(6).mp3"
+    "url": "./audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(6).mp3"
   },
   {
     "id": "worship_29",
@@ -229,7 +229,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(7).mp3"
+    "url": "./audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(7).mp3"
   },
   {
     "id": "worship_30",
@@ -237,7 +237,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(8).mp3"
+    "url": "./audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad%20(8).mp3"
   },
   {
     "id": "worship_31",
@@ -245,7 +245,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(9).mp3"
+    "url": "./audio/worship/Dom%20z%20pasj%C4%85%20-%20podk%C5%82ad%20(9).mp3"
   },
   {
     "id": "worship_32",
@@ -253,7 +253,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad.mp3"
+    "url": "./audio/worship/Dom%20z%20Pasj%C4%85%20-%20podk%C5%82ad.mp3"
   },
   {
     "id": "worship_33",
@@ -261,7 +261,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Maj%2017.mp3"
+    "url": "./audio/worship/Maj%2017.mp3"
   },
   {
     "id": "worship_34",
@@ -269,7 +269,7 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Sardes%20(1).mp3"
+    "url": "./audio/worship/Sardes%20(1).mp3"
   },
   {
     "id": "worship_35",
@@ -277,6 +277,6 @@
     "artist": "Christian Culture Music",
     "album": "Instrumental Worship 24/7",
     "duration": 200,
-    "url": "https://cdn.jsdelivr.net/gh/PolskieRadioChristianCulture/Strona-www-Christian-Culture@main/audio/worship/Sardes.mp3"
+    "url": "./audio/worship/Sardes.mp3"
   }
 ]

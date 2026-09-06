@@ -350,7 +350,7 @@
             title: '☀️ Lato z Jezusem — Wielkie Pytania (Dzień 22)',
             fullTextHtml: LUMINA_DAY22_DEVOTIONAL_HTML,
             image: 'promo_dzj.jpg',
-            streamUrl: 'https://polskieradio.cc/master-live?muted=1&noticker=1&embed=1',
+            streamUrl: 'master-live.html?muted=1&noticker=1&embed=1',
             isLiveBroadcastPost: true,
             likes: 215,
             amen: 192,
@@ -3564,11 +3564,11 @@
 
                     <!-- Filter Categories Row -->
                     <div class="filter-chips-row">
-                        <button class="chip-btn active" onclick="filterFeed('all', this)" title="Wszystkie Wpisy"><i class="fa-solid fa-grid-2"></i> <span class="chip-text">Wszystkie Wpisy</span></button>
+                        <button class="chip-btn active" onclick="filterFeed('all', this)" title="Wszystkie Wpisy"><i class="fa-solid fa-table-cells"></i> <span class="chip-text">Wszystkie Wpisy</span></button>
                         <button class="chip-btn" onclick="filterFeed('post', this)" title="Wpisy Użytkowników"><i class="fa-solid fa-users"></i> <span class="chip-text">Wpisy Użytkowników</span></button>
                         <button class="chip-btn" onclick="filterFeed('ad', this)" title="Dzieła Misji CC"><i class="fa-solid fa-bullhorn"></i> <span class="chip-text">Dzieła Misji CC</span></button>
                         <button class="chip-btn" onclick="filterFeed('promo', this)" title="Cegiełki Misyjne"><i class="fa-solid fa-gift"></i> <span class="chip-text">Cegiełki Misyjne</span></button>
-                        <button class="chip-btn" onclick="filterFeed('event', this)" title="Wydarzenia Wiary"><i class="fa-solid fa-calendar-star"></i> <span class="chip-text">Wydarzenia Wiary</span></button>
+                        <button class="chip-btn" onclick="filterFeed('event', this)" title="Wydarzenia Wiary"><i class="fa-solid fa-calendar-check"></i> <span class="chip-text">Wydarzenia Wiary</span></button>
                     </div>
                 </div>
             </header>
@@ -3943,7 +3943,7 @@
                     <button type="button" class="btn-camp-quick btn-camp-ad" id="btnTypeAd" onclick="selectCampaignType('ad')" style="padding:6px; font-size:0.70rem; justify-content:center;"><i class="fa-solid fa-rectangle-ad"></i> Reklama</button>
                     <button type="button" class="btn-camp-quick btn-camp-promo" id="btnTypePromo" onclick="selectCampaignType('promo')" style="padding:6px; font-size:0.70rem; justify-content:center; opacity:0.5;"><i class="fa-solid fa-rocket"></i> Promocja</button>
                     <button type="button" class="btn-camp-quick btn-camp-ann" id="btnTypeAnn" onclick="selectCampaignType('announcement')" style="padding:6px; font-size:0.70rem; justify-content:center; opacity:0.5;"><i class="fa-solid fa-scroll"></i> Ogłoszenie</button>
-                    <button type="button" class="btn-camp-quick btn-camp-event" id="btnTypeEvent" onclick="selectCampaignType('event')" style="padding:6px; font-size:0.70rem; justify-content:center; opacity:0.5;"><i class="fa-solid fa-calendar-star"></i> Wydarzenie</button>
+                    <button type="button" class="btn-camp-quick btn-camp-event" id="btnTypeEvent" onclick="selectCampaignType('event')" style="padding:6px; font-size:0.70rem; justify-content:center; opacity:0.5;"><i class="fa-solid fa-calendar-check"></i> Wydarzenie</button>
                 </div>
 
                 <div style="margin-bottom: 10px;">
@@ -6121,7 +6121,7 @@
                 else if (item.type === 'ad') badgeHtml = '<span class="badge-type-tag badge-type-ad" title="Reklama Misji CC"><i class="fa-solid fa-rectangle-ad"></i> <span class="badge-type-tag-text">Reklama CC</span></span>';
                 else if (item.type === 'promo') badgeHtml = '<span class="badge-type-tag badge-type-promo" title="Promocja CC"><i class="fa-solid fa-rocket"></i> <span class="badge-type-tag-text">Promocja CC</span></span>';
                 else if (item.type === 'announcement') badgeHtml = '<span class="badge-type-tag badge-type-ann" title="Ogłoszenie CC"><i class="fa-solid fa-scroll"></i> <span class="badge-type-tag-text">Ogłoszenie</span></span>';
-                else if (item.type === 'event') badgeHtml = '<span class="badge-type-tag badge-type-event" title="Wydarzenie"><i class="fa-solid fa-calendar-star"></i> <span class="badge-type-tag-text">Wydarzenie</span></span>';
+                else if (item.type === 'event') badgeHtml = '<span class="badge-type-tag badge-type-event" title="Wydarzenie"><i class="fa-solid fa-calendar-check"></i> <span class="badge-type-tag-text">Wydarzenie</span></span>';
                 else badgeHtml = '<span class="badge-type-tag badge-type-post" title="Społeczność"><i class="fa-solid fa-wand-magic-sparkles"></i> <span class="badge-type-tag-text">Społeczność</span></span>';
 
                 const authorLink = item.authorSlug ? (item.authorSlug === 'cezaryrgowski' ? 'lumina.cezaryrgowski.html' : (item.authorSlug === 'wiolettarogowska' ? 'lumina.wiolettarogowska.html' : (item.authorSlug === 'jolawojcik' ? 'lumina.jolawojcik.html' : (item.authorSlug === 'andrzejthiel' ? 'lumina.andrzejthiel.html' : (item.authorSlug === 'magdalena' ? 'lumina.magdalena.html' : `lumina-profile.html?u=${item.authorSlug}`))))) : '#';

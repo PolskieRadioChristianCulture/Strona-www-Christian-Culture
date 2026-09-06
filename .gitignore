@@ -29,4 +29,7 @@ commander_ai_state.json
 *.pem
 *.key
 .env*
-
+scripts/agent-matrix/.matrix_sessions/
+firebase_functions/node_modules/
+_downloads_backup/
+_audio_backup/

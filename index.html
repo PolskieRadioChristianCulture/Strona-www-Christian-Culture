@@ -1028,6 +1028,7 @@
                             <span style="color: #ff0000; font-weight: 800; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 1.5px;">Transmisja na żywo</span>
                         </div>
                         <div style="display: flex; align-items: center; gap: 12px;">
+                            <a href="https://youtube.com/@ChristianCultureTV/live" target="_blank" style="color: #ff4d4d; text-decoration: none; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" title="Oglądaj na żywo na YouTube"><i class="fa-brands fa-youtube" style="font-size: 0.95rem;"></i> Na YouTube</a>
                             <a href="nadawaj" style="color: var(--gold-primary); text-decoration: none; font-weight: 700; font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'" title="Przejdź do panelu nadawania"><i class="fa-solid fa-tower-broadcast"></i> NADAWAJ</a>
                             <button onclick="shareLiveStream()" style="background: none; border: none; color: rgba(255, 255, 255, 0.4); cursor: pointer; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; padding: 2px 6px; transition: color 0.2s;" onmouseover="this.style.color='var(--gold-primary)'" onmouseout="this.style.color='rgba(255, 255, 255, 0.4)'" title="Udostępnij transmisję"><i class="fa-solid fa-share-nodes"></i></button>
                         </div>
@@ -1133,7 +1134,12 @@
                         (function() {
                             window.playMasterLiveInline = function(event) {
                                 if (event) event.preventDefault();
-                                window.location.href = "master-live.html";
+                                const box = document.querySelector('.hero-section .video-container');
+                                if (box) {
+                                    box.innerHTML = '<iframe src="master-live.html?muted=0&autoplay=1&embed=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 12px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                                } else {
+                                    window.location.href = "master-live.html";
+                                }
                             };
 
                             window.shareLiveStream = function() {
@@ -1207,7 +1213,10 @@
                             <i class="fa-solid fa-heart" style="color: var(--gold-primary); font-size: 1rem;"></i>
                             <span style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; color: var(--gold-primary); font-family: 'Cinzel', serif;">POSŁUCHAJ HYMNU — DOBRZE, ŻE JESTEŚ</span>
                         </div>
-                        <span style="font-size: 0.65rem; color: rgba(255,255,255,0.5); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Oficjalny Utwór CC</span>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 0.65rem; color: rgba(255,255,255,0.5); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Oficjalny Utwór CC</span>
+                            <a href="https://www.youtube.com/playlist?list=PLQBdxcl9HBc8jNIM45udIp2N6ucvK75rW" target="_blank" style="color: #ff4d4d; font-size: 0.75rem; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'"><i class="fa-brands fa-youtube" style="font-size: 0.95rem;"></i> Na YouTube</a>
+                        </div>
                     </div>
                     <div class="dzj-video-container" style="position: relative; width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden;">
                         <iframe 
@@ -1520,7 +1529,7 @@
                         </p>
                         <div class="app-download-links">
                             <a href="lumina" class="download-badge play-store-badge" style="border-color: rgba(168, 85, 247, 0.6); background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(99, 102, 241, 0.25)); color: #fff; cursor: pointer; text-decoration: none;">
-                                <i class="fa-solid fa-sparkles" style="color: #ffd700;"></i>
+                                <i class="fa-solid fa-wand-magic-sparkles" style="color: #ffd700;"></i>
                                 <span class="badge-text">
                                      <span class="badge-sub">Wczesny Dostęp (Beta)</span>
                                      <span class="badge-main" style="color: #ffd700;">Wejdź do Portalu ➔</span>
@@ -1568,9 +1577,14 @@
                     <h4>CC MEN</h4>
                     <span class="channel-handle">@CCMen7</span>
                     <p class="channel-description">Męska strona formacji duchowej. Wyzwania, konferencje, świadectwa i budowanie tożsamości w świetle Ewangelii.</p>
-                    <a href="https://youtube.com/@CCMen7" target="_blank" class="btn-channel btn-channel-men">
-                        <i class="fa-brands fa-youtube"></i> Subskrybuj
-                    </a>
+                    <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: center;">
+                        <a href="https://youtube.com/@CCMen7/videos" target="_blank" class="btn-channel btn-channel-men">
+                            <i class="fa-brands fa-youtube"></i> Oglądaj Wideo
+                        </a>
+                        <a href="https://youtube.com/@CCMen7?sub_confirmation=1" target="_blank" style="font-size: 0.75rem; color: rgba(255,255,255,0.65); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: color 0.2s;" onmouseover="this.style.color='var(--gold-primary)'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">
+                            <i class="fa-solid fa-bell" style="font-size: 0.75rem;"></i> Subskrybuj kanał
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Channel 2: CC WOMEN -->
@@ -1582,9 +1596,14 @@
                     <h4>CC WOMEN</h4>
                     <span class="channel-handle">@CCWomen7</span>
                     <p class="channel-description">Duchowość, inspiracje i rozwój dla kobiet. Powołanie, budowanie relacji, codzienna formacja oraz piękno kobiecego serca.</p>
-                    <a href="https://youtube.com/@CCWomen7" target="_blank" class="btn-channel btn-channel-women">
-                        <i class="fa-brands fa-youtube"></i> Subskrybuj
-                    </a>
+                    <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: center;">
+                        <a href="https://youtube.com/@CCWomen7/videos" target="_blank" class="btn-channel btn-channel-women">
+                            <i class="fa-brands fa-youtube"></i> Oglądaj Wideo
+                        </a>
+                        <a href="https://youtube.com/@CCWomen7?sub_confirmation=1" target="_blank" style="font-size: 0.75rem; color: rgba(255,255,255,0.65); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: color 0.2s;" onmouseover="this.style.color='var(--gold-primary)'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">
+                            <i class="fa-solid fa-bell" style="font-size: 0.75rem;"></i> Subskrybuj kanał
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Channel 3: Personality Plus -->
@@ -1594,11 +1613,16 @@
                         <i class="fa-solid fa-brain"></i>
                     </div>
                     <h4>Personality Plus</h4>
-                    <span class="channel-handle">@bibliaaudiocc</span>
+                    <span class="channel-handle">@bibliaaudiocc • @osobowoscplus</span>
                     <p class="channel-description">Rozwój osobisty z perspektywy wiary. Odkryj swój temperament, talenty i powołanie do pełni chrześcijańskiego życia.</p>
-                    <a href="https://youtube.com/@bibliaaudiocc?si=eCmuMbEAgx7cHsjz" target="_blank" class="btn-channel btn-channel-personality">
-                        <i class="fa-brands fa-youtube"></i> Subskrybuj
-                    </a>
+                    <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: center;">
+                        <a href="https://youtube.com/@bibliaaudiocc/videos" target="_blank" class="btn-channel btn-channel-personality">
+                            <i class="fa-brands fa-youtube"></i> Oglądaj Wideo
+                        </a>
+                        <a href="https://youtube.com/@bibliaaudiocc?sub_confirmation=1" target="_blank" style="font-size: 0.75rem; color: rgba(255,255,255,0.65); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: color 0.2s;" onmouseover="this.style.color='var(--gold-primary)'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">
+                            <i class="fa-solid fa-bell" style="font-size: 0.75rem;"></i> Subskrybuj kanał
+                        </a>
+                    </div>
                 </div>
             </div>
             
@@ -1637,28 +1661,28 @@
                         Nasz projekt tworzy szeroką sieć kanałów tematycznych na YouTube. Wybierz kanał, aby oglądać codzienne rozważania wideo, muzykę lub programy:
                     </p>
                     <div class="youtube-channels-list">
-                        <a href="https://youtube.com/@bibliaaudiocc?si=eCmuMbEAgx7cHsjz" target="_blank" class="yt-channel-item">
+                        <a href="https://youtube.com/@bibliaaudiocc/videos" target="_blank" class="yt-channel-item">
                             <i class="fa-brands fa-youtube"></i> Personality Plus
                         </a>
-                        <a href="https://youtube.com/@CCMen7" target="_blank" class="yt-channel-item">
+                        <a href="https://youtube.com/@CCMen7/videos" target="_blank" class="yt-channel-item">
                             <i class="fa-brands fa-youtube"></i> CC MEN
                         </a>
-                        <a href="https://youtube.com/@CCWomen7" target="_blank" class="yt-channel-item">
+                        <a href="https://youtube.com/@CCWomen7/videos" target="_blank" class="yt-channel-item">
                             <i class="fa-brands fa-youtube"></i> CC WOMEN
                         </a>
-                        <a href="https://youtube.com/@ChristianCultureTV" target="_blank" class="yt-channel-item">
+                        <a href="https://youtube.com/@ChristianCultureTV/videos" target="_blank" class="yt-channel-item">
                             <i class="fa-brands fa-youtube"></i> CC TV
                         </a>
-                        <a href="https://youtube.com/@RadioChristianCulture" target="_blank" class="yt-channel-item">
+                        <a href="https://youtube.com/@RadioChristianCulture/videos" target="_blank" class="yt-channel-item">
                             <i class="fa-brands fa-youtube"></i> Radio CC
                         </a>
-                        <a href="https://youtube.com/@ToDlaCiebieGramy" target="_blank" class="yt-channel-item">
+                        <a href="https://youtube.com/@ToDlaCiebieGramy/videos" target="_blank" class="yt-channel-item">
                             <i class="fa-brands fa-youtube"></i> RCC TV 24
                         </a>
-                        <a href="https://youtube.com/@TopSeven_CC" target="_blank" class="yt-channel-item">
+                        <a href="https://youtube.com/@TopSeven_CC/videos" target="_blank" class="yt-channel-item">
                             <i class="fa-brands fa-youtube"></i> Top Seven CC
                         </a>
-                        <a href="https://youtube.com/@CCNations" target="_blank" class="yt-channel-item">
+                        <a href="https://youtube.com/@CCNations/videos" target="_blank" class="yt-channel-item">
                             <i class="fa-brands fa-youtube"></i> CC Nations
                         </a>
                     </div>

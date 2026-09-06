@@ -1,0 +1,14 @@
+.git/
+.vscode/
+.gemini/
+_backup/
+scripts/
+firebase_functions/
+functions_legacy/
+functions/
+node_modules/
+tests/
+internal/
+*.tmp
+*.log
+*.zip
