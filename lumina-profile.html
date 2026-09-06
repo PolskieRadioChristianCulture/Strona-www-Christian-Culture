@@ -1189,8 +1189,7 @@
         .rich-og-thumb-wrapper {
             position: relative;
             width: 100%;
-            height: 240px;
-            max-height: 280px;
+            aspect-ratio: 1 / 1;
             overflow: hidden;
             background: #0b1329;
             display: flex;
@@ -1200,13 +1199,20 @@
         .rich-og-thumb {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: contain !important;
             background: #0f172a;
             display: block;
             transition: transform 0.4s ease;
         }
         .rich-og-card:hover .rich-og-thumb {
             transform: scale(1.03);
+        }
+        .rich-og-card-store .rich-og-thumb-wrapper {
+            background: #ffffff !important;
+        }
+        .rich-og-card-store .rich-og-thumb {
+            background: #ffffff !important;
+            object-fit: contain !important;
         }
         .rich-og-floating-badge {
             position: absolute;
