@@ -3226,16 +3226,18 @@
             #tabBtnPrivateChat .tab-label,
             #tabBtnGroupsChat .tab-label,
             .messenger-tab-btn .tab-label,
-            #tabBtnPublicChat span:not(.tab-badge),
-            #tabBtnCommanderChat span:not(.tab-badge),
-            #tabBtnPrivateChat span:not(.tab-badge),
-            #tabBtnGroupsChat span:not(.tab-badge),
-            .messenger-tab-btn span:not(.tab-badge) { display: none !important; }
+            #tabBtnPublicChat span:not(.tab-badge):not(.tab-icon-wrap),
+            #tabBtnCommanderChat span:not(.tab-badge):not(.tab-icon-wrap),
+            #tabBtnPrivateChat span:not(.tab-badge):not(.tab-icon-wrap),
+            #tabBtnGroupsChat span:not(.tab-badge):not(.tab-icon-wrap),
+            .messenger-tab-btn span:not(.tab-badge):not(.tab-icon-wrap) { display: none !important; }
             #tabBtnPublicChat,
             #tabBtnCommanderChat,
             #tabBtnPrivateChat,
             #tabBtnGroupsChat,
             .messenger-tab-btn {
+                position: relative !important;
+                overflow: visible !important;
                 min-height: 44px !important; min-width: 44px !important;
                 padding: 0 !important; gap: 0 !important;
                 display: inline-flex !important;
@@ -4570,7 +4572,10 @@
                             <i class="fa-solid fa-comments"></i>
                         </div>
                         <div>
-                            <h3 style="font-size: 1.12rem; font-family:'Outfit',sans-serif; margin:0; color:#fff; font-weight:800;">Centrum Rozmów LUMINA</h3>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <h3 style="font-size: 1.12rem; font-family:'Outfit',sans-serif; margin:0; color:#fff; font-weight:800;">Centrum Rozmów LUMINA</h3>
+                                <span id="chatHeaderUnreadBadge" style="display:none; align-items:center; gap:4px; background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.4); color:#fca5a5; font-size:0.72rem; font-weight:800; padding:2px 8px; border-radius:10px; line-height:1.2;"></span>
+                            </div>
                             <div style="font-size: 0.72rem; color: #10b981; display:flex; align-items:center; gap:4px;">
                                 <span style="width:6px; height:6px; border-radius:50%; background:#10b981; display:inline-block;"></span> Na żywo w Chrystusie ✨ </div>
                         </div>
@@ -4580,14 +4585,14 @@
 
                 <!-- Navigation Tabs: [ ✨ Czat Ogólny (Publiczny) ] [ ✨ Prywatne (1:1) ] -->
                 <div style="display:flex; background:rgba(255,255,255,0.05); padding:4px; border-radius:14px; gap:6px;">
-                    <button type="button" id="tabBtnPublicChat" onclick="switchMessengerMainTab('public')" style="flex:1; min-height:44px; min-width:44px; padding:0; border-radius:10px; border:none; background:linear-gradient(135deg,#ec4899,#8b5cf6); color:#fff; font-weight:800; font-family:inherit; font-size:0.8rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:0; box-shadow:0 2px 8px rgba(236,72,153,0.3); transition:all 0.2s; touch-action:manipulation;">
-                        <i class="fa-solid fa-earth-europe"></i> <span class="tab-label">Czat Ogólny (Publiczny)</span>
+                    <button type="button" id="tabBtnPublicChat" onclick="switchMessengerMainTab('public')" style="position:relative; flex:1; min-height:44px; min-width:44px; padding:0; border-radius:10px; border:none; background:linear-gradient(135deg,#ec4899,#8b5cf6); color:#fff; font-weight:800; font-family:inherit; font-size:0.8rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:0; box-shadow:0 2px 8px rgba(236,72,153,0.3); transition:all 0.2s; touch-action:manipulation;">
+                        <i class="fa-solid fa-earth-europe"></i> <span class="tab-label" style="margin-left:6px;">Czat Ogólny (Publiczny)</span>
                     </button>
-                                        <button type="button" id="tabBtnCommanderChat" onclick="switchMessengerMainTab('commander')" style="display:none; flex:1; min-height:44px; min-width:44px; padding:0; border-radius:10px; border:none; background:linear-gradient(135deg, #f59e0b, #d97706); color:#000; font-weight:800; font-family:inherit; font-size:0.8rem; cursor:pointer; align-items:center; justify-content:center; gap:0; box-shadow:0 0 12px rgba(245,158,11,0.45); transition:all 0.2s; touch-action:manipulation;">
-                        <i class="fa-solid fa-crown"></i> <span class="tab-label">Sztab Dowództwa CC</span>
+                                        <button type="button" id="tabBtnCommanderChat" onclick="switchMessengerMainTab('commander')" style="position:relative; display:none; flex:1; min-height:44px; min-width:44px; padding:0; border-radius:10px; border:none; background:linear-gradient(135deg, #f59e0b, #d97706); color:#000; font-weight:800; font-family:inherit; font-size:0.8rem; cursor:pointer; align-items:center; justify-content:center; gap:0; box-shadow:0 0 12px rgba(245,158,11,0.45); transition:all 0.2s; touch-action:manipulation;">
+                        <i class="fa-solid fa-crown"></i> <span class="tab-label" style="margin-left:6px;">Sztab Dowództwa CC</span>
                     </button>
-                    <button type="button" id="tabBtnPrivateChat" onclick="switchMessengerMainTab('private')" style="flex:1; min-height:44px; min-width:44px; padding:0; border-radius:10px; border:none; background:transparent; color:#94a3b8; font-weight:700; font-family:inherit; font-size:0.8rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:0; transition:all 0.2s; touch-action:manipulation;">
-                        <i class="fa-solid fa-lock"></i> <span class="tab-label">Rozmowy Prywatne (1:1)</span>
+                    <button type="button" id="tabBtnPrivateChat" onclick="switchMessengerMainTab('private')" style="position:relative; flex:1; min-height:44px; min-width:44px; padding:0; border-radius:10px; border:none; background:transparent; color:#94a3b8; font-weight:700; font-family:inherit; font-size:0.8rem; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:0; transition:all 0.2s; touch-action:manipulation;">
+                        <i class="fa-solid fa-lock"></i> <span class="tab-label" style="margin-left:6px;">Rozmowy Prywatne (1:1)</span>
                     </button>
                 </div>
             </div>
@@ -9303,9 +9308,18 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             const btnPrivateTab = document.getElementById('tabBtnPrivateChat');
             if (btnPrivateTab) {
                 if (totalPrivateUnread > 0) {
-                    btnPrivateTab.innerHTML = `<i class="fa-solid fa-user-group"></i><span class="tab-badge" style="position:absolute; top:4px; right:4px; background:#ef4444; color:#fff; font-size:10px; font-weight:900; border-radius:50%; min-width:16px; height:16px; display:inline-flex; align-items:center; justify-content:center; padding:0 3px; line-height:1;">${totalPrivateUnread}</span><span class="tab-label"> Rozmowy (<span style="color:#fca5a5; font-weight:900;">🔴 ${totalPrivateUnread}</span>)</span>`;
+                    btnPrivateTab.innerHTML = `<span class="tab-icon-wrap" style="position:relative; display:inline-flex; align-items:center; justify-content:center;"><i class="fa-solid fa-user-group"></i><span class="tab-badge" style="position:absolute; top:-6px; right:-8px; background:#ef4444; color:#fff; font-size:10px; font-weight:900; border-radius:10px; min-width:16px; height:16px; display:inline-flex; align-items:center; justify-content:center; padding:0 3px; line-height:1; box-shadow:0 2px 5px rgba(239,68,68,0.5); border:1.5px solid #0b1120;">${totalPrivateUnread}</span></span><span class="tab-label" style="margin-left:8px;"> Rozmowy Prywatne</span>`;
                 } else {
-                    btnPrivateTab.innerHTML = `<i class="fa-solid fa-user-group"></i><span class="tab-label"> Rozmowy Prywatne</span>`;
+                    btnPrivateTab.innerHTML = `<i class="fa-solid fa-user-group"></i><span class="tab-label" style="margin-left:8px;"> Rozmowy Prywatne</span>`;
+                }
+            }
+            const chatHeaderBadge = document.getElementById('chatHeaderUnreadBadge');
+            if (chatHeaderBadge) {
+                if (totalPrivateUnread > 0) {
+                    chatHeaderBadge.textContent = `${totalPrivateUnread} ${totalPrivateUnread === 1 ? 'nowa' : 'nowe'}`;
+                    chatHeaderBadge.style.display = 'inline-flex';
+                } else {
+                    chatHeaderBadge.style.display = 'none';
                 }
             }
 
@@ -10748,7 +10762,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 btn.style.height = '';
                 btn.style.width = '';
                 // Hide label span if present
-                btn.querySelectorAll('span:not(.tab-badge)').forEach(function(s) { s.style.display = 'none'; });
+                btn.querySelectorAll('span.tab-label, span:not(.tab-badge):not(.tab-icon-wrap)').forEach(function(s) { s.style.display = 'none'; });
             });
             // Fix .modal-close-btn: must stay perfectly round 44x44, NOT oval
             document.querySelectorAll('.modal-close-btn').forEach(function(btn) {

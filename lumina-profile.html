@@ -2571,16 +2571,18 @@
             #tabBtnPrivateChat .tab-label,
             #tabBtnGroupsChat .tab-label,
             .messenger-tab-btn .tab-label,
-            #tabBtnPublicChat span:not(.tab-badge),
-            #tabBtnCommanderChat span:not(.tab-badge),
-            #tabBtnPrivateChat span:not(.tab-badge),
-            #tabBtnGroupsChat span:not(.tab-badge),
-            .messenger-tab-btn span:not(.tab-badge) { display: none !important; }
+            #tabBtnPublicChat span:not(.tab-badge):not(.tab-icon-wrap),
+            #tabBtnCommanderChat span:not(.tab-badge):not(.tab-icon-wrap),
+            #tabBtnPrivateChat span:not(.tab-badge):not(.tab-icon-wrap),
+            #tabBtnGroupsChat span:not(.tab-badge):not(.tab-icon-wrap),
+            .messenger-tab-btn span:not(.tab-badge):not(.tab-icon-wrap) { display: none !important; }
             #tabBtnPublicChat,
             #tabBtnCommanderChat,
             #tabBtnPrivateChat,
             #tabBtnGroupsChat,
             .messenger-tab-btn {
+                position: relative !important;
+                overflow: visible !important;
                 min-height: 44px !important; min-width: 44px !important;
                 padding: 0 !important; gap: 0 !important;
                 display: inline-flex !important;
@@ -9255,7 +9257,7 @@
                 btn.style.height = '';
                 btn.style.width = '';
                 // Hide label span if present
-                btn.querySelectorAll('span:not(.tab-badge)').forEach(function(s) { s.style.display = 'none'; });
+                btn.querySelectorAll('span.tab-label, span:not(.tab-badge):not(.tab-icon-wrap)').forEach(function(s) { s.style.display = 'none'; });
             });
             // Fix .modal-close-btn: must stay perfectly round 44x44, NOT oval
             document.querySelectorAll('.modal-close-btn').forEach(function(btn) {
