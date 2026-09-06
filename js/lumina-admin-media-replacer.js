@@ -10,21 +10,54 @@
 (function(global) {
     'use strict';
 
-    // ── 1. Sprawdzenie uprawnień Administratora ──
+    // ── 1. Wszechstronne sprawdzenie uprawnień Administratora ──
     function isMasterAdmin() {
+        // 1. Główne flagi w Storage
         if (sessionStorage.getItem('lumina_auth_master_admin') === 'true' || 
-            localStorage.getItem('lumina_auth_master_admin') === 'true') {
+            localStorage.getItem('lumina_auth_master_admin') === 'true' ||
+            sessionStorage.getItem('lumina_admin') === '1' ||
+            localStorage.getItem('lumina_admin') === '1' ||
+            localStorage.getItem('lumina_admin_unlocked') === 'true' ||
+            localStorage.getItem('lumina_auth_owner_cezaryrgowski') === 'true' ||
+            sessionStorage.getItem('lumina_auth_owner_cezaryrgowski') === 'true') {
             return true;
         }
+
+        // 2. Klasy na body aktywowane przez systemy autoryzacji
+        if (document.body && (
+            document.body.classList.contains('lumina-admin-mode') || 
+            document.body.classList.contains('owner-mode-active') ||
+            document.body.classList.contains('has-admin-hud')
+        )) {
+            return true;
+        }
+
+        // 3. Flagi w URL (?admin=1 itp.)
+        if (window.location && (
+            window.location.search.includes('admin=1') ||
+            window.location.search.includes('admin=true') ||
+            window.location.search.includes('master=1') ||
+            window.location.search.includes('master=true')
+        )) {
+            return true;
+        }
+
+        // 4. Globalny pakiet LuminaAdminSuite
+        if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.isMasterAdmin === 'function' && window.LuminaAdminSuite.isMasterAdmin()) {
+            return true;
+        }
+
+        // 5. Zalogowany profil w localStorage lub na oknie
         try {
             const u = JSON.parse(localStorage.getItem('lumina_current_user') || '{}');
-            if (u && (u.isAdmin === true || u.role === 'admin' || u.email === 'nazirczarkes@gmail.com')) {
+            if (u && (u.isAdmin === true || u.role === 'admin' || u.email === 'nazirczarkes@gmail.com' || u.slug === 'cezaryrgowski')) {
                 return true;
             }
         } catch(e) {}
-        if (window.currentUser && (window.currentUser.isAdmin || window.currentUser.role === 'admin' || window.currentUser.email === 'nazirczarkes@gmail.com')) {
+        if (window.currentUser && (window.currentUser.isAdmin || window.currentUser.role === 'admin' || window.currentUser.email === 'nazirczarkes@gmail.com' || window.currentUser.slug === 'cezaryrgowski')) {
             return true;
         }
+
         return false;
     }
 
@@ -94,7 +127,7 @@
         }
     }
 
-    // Aplikuje zapisane podmiany na starcie strony dla każdego użytkownika
+    // Aplikuje zapisane podmiany na starcie strony i po każdej zmianie DOM
     function applySavedReplacements() {
         const replacements = getStoredReplacements();
         const keys = Object.keys(replacements);
@@ -107,7 +140,16 @@
             // 1. Szukaj po ID posta lub data-media-id
             let targetEl = document.getElementById(key) || document.querySelector(`[data-media-id="${key}"]`);
 
-            // 2. Jeśli nie znaleziono po ID, a zapisano originalSrc, szukaj po atrybucie src / href
+            // 2. Jeśli klucz ma prefiks 'post_' lub go nie ma
+            if (!targetEl && key.startsWith('post_')) {
+                const subKey = key.replace(/^post_/, '');
+                targetEl = document.getElementById(subKey) || document.querySelector(`[data-media-id="${subKey}"]`);
+            }
+            if (!targetEl && !key.startsWith('post_')) {
+                targetEl = document.getElementById('post_' + key) || document.querySelector(`[data-media-id="post_${key}"]`);
+            }
+
+            // 3. Jeśli nie znaleziono po ID, a zapisano originalSrc, szukaj po atrybucie src / href
             if (!targetEl && item.originalSrc) {
                 targetEl = document.querySelector(`img[src="${item.originalSrc}"], a[href="${item.originalSrc}"], iframe[src="${item.originalSrc}"], video[src="${item.originalSrc}"], audio[src="${item.originalSrc}"]`);
             }
@@ -136,6 +178,7 @@
                         parent.appendChild(iframe);
                     }
                     iframe.src = item.embedUrl;
+                    iframe.style.display = 'block';
                     targetEl.style.display = 'none';
                     return;
                 }
@@ -149,22 +192,28 @@
             return;
         }
 
-        // Jeśli to kontener karty posta (dowolnego typu w Lumina)
-        if (targetEl.classList.contains('feed-post-card') || targetEl.classList.contains('post-card') || targetEl.classList.contains('post-card-1x1') || targetEl.tagName === 'ARTICLE') {
-            const img = targetEl.querySelector('.post-featured-artwork-box img, img.post-artwork, .post-image, .post-image-box img, .post-body img, .post-content img');
-            const artworkBox = targetEl.querySelector('.post-featured-artwork-box, .post-image-box, .post-body, .post-content') || targetEl;
+        // Jeśli to kontener karty posta (dowolnego typu w Lumina: .feed-post-card, .post-card, .post-card-1x1, article)
+        if (targetEl.classList.contains('feed-post-card') || 
+            targetEl.classList.contains('post-card') || 
+            targetEl.classList.contains('post-card-1x1') || 
+            targetEl.tagName === 'ARTICLE') {
+            
+            // Szukamy głównej grafiki posta (uwzględniając wszystkie warianty Tablicy, Profili i Patronów)
+            const img = targetEl.querySelector('.media-container-1x1 img, .campaign-media-container img, .broadcast-preview-wrap img, .post-featured-artwork-box img, img.post-artwork, .post-image, .post-image-box img, .post-body img, .post-content img, img:not(.post-author-img):not(.comment-avatar):not(.author-avatar):not(.nav-avatar):not(.modal-avatar)');
+            const artworkBox = targetEl.querySelector('.media-container-1x1, .campaign-media-container, .broadcast-preview-wrap, .post-featured-artwork-box, .post-image-box, .post-body, .post-content') || (img ? img.parentElement : targetEl);
 
             if (item.type === 'youtube' && item.embedUrl) {
                 let iframe = artworkBox.querySelector('iframe.post-youtube-embed');
                 if (!iframe) {
                     iframe = document.createElement('iframe');
                     iframe.className = 'post-youtube-embed';
-                    iframe.style.cssText = 'width:100%; aspect-ratio:16/9; border:none; border-radius:14px; margin:14px 0; display:block;';
+                    iframe.style.cssText = 'width:100%; aspect-ratio:16/9; border:none; border-radius:14px; margin:10px 0; display:block;';
                     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
                     iframe.allowFullscreen = true;
                     artworkBox.prepend(iframe);
                 }
                 iframe.src = item.embedUrl;
+                iframe.style.display = 'block';
                 if (img) img.style.display = 'none';
             } else {
                 if (img) {
@@ -211,7 +260,7 @@
                 position: absolute;
                 top: 10px;
                 right: 10px;
-                z-index: 120;
+                z-index: 120 !important;
                 background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
                 border: 1.5px solid #f59e0b;
                 color: #fef08a;
@@ -259,7 +308,7 @@
                 box-shadow: 0 0 14px rgba(245, 158, 11, 0.5) !important;
             }
 
-            /* 🪟 MODAL MEDIA REPLACER */
+            /* 🪟 MODAL MEDIA REPLACER (z-index ponad wszelkimi banerami i cookies: 99999999) */
             .lumina-replacer-overlay {
                 position: fixed;
                 top: 0;
@@ -268,7 +317,8 @@
                 height: 100vh;
                 background: rgba(3, 7, 18, 0.88);
                 backdrop-filter: blur(14px);
-                z-index: 999999;
+                -webkit-backdrop-filter: blur(14px);
+                z-index: 99999999 !important;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -469,7 +519,7 @@
 
                     <div class="lumina-replacer-body">
                         <div style="background:rgba(245,158,11,0.08); border-left:3px solid #f59e0b; padding:10px 14px; border-radius:8px; font-size:0.80rem; color:#cbd5e1; margin-bottom:14px; line-height:1.45;">
-                            🛡️ <b>Misja Bez Kosztów (@B / JOMA-D006):</b> Podmień plik na link z <b>Dysku Google</b> lub <b>YouTube</b>. Zasób nie będzie obciążać darmowego transferu Firebase.
+                            🛡️ <b>Misja Bez Kosztów (@B / JOMA-D006):</b> Podmień plik na link z <b>Dysku Google</b> lub <b>YouTube</b>. Zasób nie obciąża transferu Firebase.
                         </div>
 
                         <div id="luminaReplacerCurrentSrc" style="font-size:0.78rem; color:#94a3b8; margin-bottom:12px; word-break:break-all;">
@@ -542,8 +592,7 @@
         } else if (parsed.type === 'google_drive') {
             previewBox.innerHTML = `
                 <div style="width:100%; max-width:220px; max-height:120px; border-radius:10px; overflow:hidden; border:1px solid #3b82f6; display:flex; align-items:center; justify-content:center; background:#0f172a; margin-bottom:6px;">
-                    <img src="${parsed.imageUrl}" style="max-width:100%; max-height:120px; object-fit:contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div style="display:none; padding:12px; font-size:0.82rem; color:#93c5fd;"><i class="fa-brands fa-google-drive"></i> Plik z Dysku Google</div>
+                    <img src="${parsed.imageUrl}" style="max-width:100%; max-height:120px; object-fit:contain;" onerror="this.onerror=null; this.src='${parsed.thumbnailUrl}';">
                 </div>
                 <div style="font-size:0.75rem; color:#93c5fd;">✅ Rozpoznano Dysk Google (ID: ${parsed.id}) — transfer bezpośredni</div>
             `;
@@ -560,7 +609,7 @@
         if (!isMasterAdmin()) return;
 
         // 1. Karty postów (.feed-post-card, .post-card, .post-card-1x1, article)
-        const postCards = document.querySelectorAll('.feed-post-card, .post-card, .post-card-1x1, article[id^="post_"], article.mission-live-broadcast-card');
+        const postCards = document.querySelectorAll('.feed-post-card, .post-card, .post-card-1x1, article, .mission-live-broadcast-card');
         postCards.forEach(card => {
             // Przycisk w belce akcji posta
             const actionsBar = card.querySelector('.post-actions-bar, .post-footer, .post-header-actions');
@@ -578,7 +627,7 @@
             }
 
             // Pływający przycisk na grafice / wideo posta
-            const artworkBox = card.querySelector('.post-featured-artwork-box, .post-image-box, .post-media-box, .post-image, .post-body img, .post-content img');
+            const artworkBox = card.querySelector('.media-container-1x1, .campaign-media-container, .broadcast-preview-wrap, .post-featured-artwork-box, .post-image-box, .post-media-box, .post-image, .post-body img, .post-content img');
             if (artworkBox) {
                 const targetWrapper = (artworkBox.tagName === 'IMG') ? (artworkBox.parentElement || artworkBox) : artworkBox;
                 if (!targetWrapper.querySelector('.btn-lumina-replace-floating') && !artworkBox.classList.contains('btn-lumina-replace-floating')) {
@@ -698,8 +747,8 @@
                 targetId = 'media_' + (currentSrc ? Math.abs(hashCode(currentSrc)) : Math.random().toString(36).substring(7));
                 el.setAttribute('data-media-id', targetId);
             }
-        } else if (el.classList?.contains('feed-post-card') || el.classList?.contains('post-card') || el.tagName === 'ARTICLE') {
-            const img = el.querySelector('img');
+        } else if (el.classList?.contains('feed-post-card') || el.classList?.contains('post-card') || el.classList?.contains('post-card-1x1') || el.tagName === 'ARTICLE') {
+            const img = el.querySelector('img:not(.post-author-img):not(.comment-avatar)');
             currentSrc = img ? img.getAttribute('src') : '';
             targetId = el.id || 'post_' + Math.random().toString(36).substring(7);
             el.setAttribute('data-media-id', targetId);
@@ -735,7 +784,7 @@
         return hash;
     }
 
-    // ── 7. Zapis i natychmiastowe zastosowanie ──
+    // ── 7. Zapis i natychmiastowe zastosowanie w czasie rzeczywistym ──
     async function submitReplacement() {
         const input = document.getElementById('luminaReplacerInput');
         if (!input || !activeTargetInfo) return;
@@ -763,16 +812,44 @@
             imageUrl: parsed.imageUrl,
             downloadUrl: parsed.downloadUrl,
             embedUrl: parsed.embedUrl,
+            thumbnailUrl: parsed.thumbnailUrl,
             updatedAt: new Date().toISOString()
         };
 
-        // 1. Zapis w LocalStorage dla trwałości
+        // 1. Zapis w LocalStorage dla natychmiastowej trwałości w przeglądarce
         saveStoredReplacement(targetId, itemData);
 
-        // 2. Natychmiastowa podmiana w DOM
+        // 2. Natychmiastowa podmiana w DOM w czasie rzeczywistym
         applyReplacementToElement(element, itemData);
 
-        // 3. Jeśli powiązane z Firestore (lumina_posts) — zaktualizuj w chmurze
+        // 3. Aktualizacja obiektów w pamięci podręcznej (np. feedPosts, DEFAULT_FEED_POSTS)
+        try {
+            if (Array.isArray(window.DEFAULT_FEED_POSTS)) {
+                const cleanTgt = (targetId || '').replace(/^post_/, '');
+                window.DEFAULT_FEED_POSTS.forEach(p => {
+                    if (p.id === targetId || p.id === cleanTgt || ('post_' + p.id) === targetId) {
+                        if (itemData.imageUrl) p.image = itemData.imageUrl;
+                        if (itemData.embedUrl) p.videoUrl = itemData.embedUrl;
+                    }
+                });
+            }
+            if (Array.isArray(window._feedPosts)) {
+                const cleanTgt = (targetId || '').replace(/^post_/, '');
+                window._feedPosts.forEach(p => {
+                    if (p.id === targetId || p.id === cleanTgt || ('post_' + p.id) === targetId) {
+                        if (itemData.imageUrl) p.image = itemData.imageUrl;
+                        if (itemData.embedUrl) p.videoUrl = itemData.embedUrl;
+                    }
+                });
+            }
+        } catch(e) {}
+
+        // 4. Rozgłoszenie zdarzenia w całym oknie (oraz innych kartach)
+        try {
+            window.dispatchEvent(new CustomEvent('lumina:mediaReplaced', { detail: itemData }));
+        } catch(e) {}
+
+        // 5. Aktualizacja w chmurze Firestore (lumina_posts)
         const dbInstance = window.db || window.luminaDb || window._luminaFirestore;
         if (dbInstance) {
             try {
@@ -799,12 +876,12 @@
                 const cloudUpdate = {
                     updatedAt: new Date().toISOString()
                 };
-                if (itemData.imageUrl) cloudUpdate.image = itemData.imageUrl;
-                if (itemData.embedUrl) {
+                if (itemData.type === 'youtube' && itemData.embedUrl) {
                     cloudUpdate.videoUrl = itemData.embedUrl;
-                    if (!cloudUpdate.image && itemData.imageUrl) {
-                        cloudUpdate.image = itemData.imageUrl;
-                    }
+                    cloudUpdate.image = itemData.thumbnailUrl || '';
+                } else {
+                    cloudUpdate.image = itemData.imageUrl || itemData.replacementUrl;
+                    cloudUpdate.videoUrl = ''; // Wyzerowanie starego wideo, aby karta natychmiast przełączyła się na grafikę
                 }
                 if (itemData.downloadUrl) cloudUpdate.downloadUrl = itemData.downloadUrl;
 
@@ -825,7 +902,7 @@
 
                 // Fallback: dopasowanie po tytule posta
                 if (!updated && cardEl) {
-                    const titleEl = cardEl.querySelector('.post-title, h2, h1');
+                    const titleEl = cardEl.querySelector('.post-title, .post-headline, h2, h1');
                     if (titleEl) {
                         const titleText = titleEl.textContent.trim();
                         const qSnap = await getDocs(query(collection(dbInstance, 'lumina_posts'), limit(60)));
@@ -872,7 +949,11 @@
     }
 
     // ── 8. Obserwator zmian DOM (dla dynamicznie wczytywanych postów) ──
+    let observerInitialized = false;
     function initObserver() {
+        if (observerInitialized) return;
+        observerInitialized = true;
+
         let debounceTimer = null;
         const observer = new MutationObserver(() => {
             if (debounceTimer) clearTimeout(debounceTimer);
@@ -881,20 +962,33 @@
                 if (isMasterAdmin()) {
                     scanAndAttachButtons();
                 }
-            }, 60);
+            }, 50);
         });
         observer.observe(document.body, { childList: true, subtree: true });
     }
+
+    // Nasłuch zmian w localStorage z innych kart przeglądarki
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'lumina_media_replacements') {
+            applySavedReplacements();
+        }
+    });
 
     // ── 9. Globalne API ──
     global.LuminaMediaReplacer = {
         init: function() {
             injectStyles();
             applySavedReplacements();
+            initObserver();
             if (isMasterAdmin()) {
                 scanAndAttachButtons();
-                initObserver();
             }
+            // Cykliczne sprawdzanie uprawnień (gdy admin loguje się w trakcie przeglądania)
+            setInterval(() => {
+                if (isMasterAdmin()) {
+                    scanAndAttachButtons();
+                }
+            }, 1500);
         },
         openReplacerForElement,
         submitReplacement,
@@ -902,6 +996,7 @@
         setSampleHint,
         parseMediaUrl,
         scanAndAttachButtons,
+        applySavedReplacements,
         isMasterAdmin
     };
 

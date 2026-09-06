@@ -6213,8 +6213,12 @@
                             </div>
                         </div>
 
-                        <!-- Media Container (Live Broadcast / Campaigns: FULL uncropped graphic / User Posts: 1:1 square) -->
-                        ${item.isLiveBroadcastPost && item.streamUrl ? `
+                        <!-- Media Container (Video / Live Broadcast / Campaigns / User Posts 1:1) -->
+                        ${item.videoUrl ? `
+                            <div class="media-container-1x1" style="position:relative; aspect-ratio:16/9; width:100%; border-radius:18px; overflow:hidden; border:1.5px solid rgba(245,158,11,0.4); background:#000; margin-bottom:14px;">
+                                <iframe src="${item.videoUrl}" style="width:100%; height:100%; border:none; display:block;" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        ` : (item.isLiveBroadcastPost && item.streamUrl ? `
                             <div class="mission-live-player-wrapper" style="margin: 0 0 12px 0;">
                                 <iframe src="${item.streamUrl}" 
                                         title="${item.title || 'Transmisja na Żywo'}" 
@@ -6242,7 +6246,7 @@
                                     <div class="media-container-1x1">${mediaTag}</div>
                                 `;
                             })()
-                        )}
+                        ))}
 
                         <!-- Details & Text -->
                         <div class="post-details-box">
@@ -6291,7 +6295,7 @@
                 `;
             }).join('');
             if (window.LuminaDB?.hydrateOpenGraphCards) {
-                window.LuminaDB.hydrateOpenGraphCards(feedContainer);
+                window.LuminaDB.hydrateOpenGraphCards(container);
             }
         }
 
@@ -9272,7 +9276,7 @@
     </script>
 
 
-<script src="js/lumina-admin-media-replacer.js"></script>
+<script src="js/lumina-admin-media-replacer.js?v=20260906_realtime_v5"></script>
 <script src="lumina-admin-profile-suite.js?v=20260825_urszula_real_face_v370"></script>
 <script src="lumina-premium-video-avatar.js"></script>
 <script>
