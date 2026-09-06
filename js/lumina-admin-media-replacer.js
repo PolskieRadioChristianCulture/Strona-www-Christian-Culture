@@ -40,9 +40,10 @@
             return {
                 type: 'youtube',
                 id: id,
-                embedUrl: `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`,
+                embedUrl: `https://www.youtube-nocookie.com/embed/${id}?rel=0&enablejsapi=1&playsinline=1`,
                 thumbnailUrl: `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
                 previewUrl: `https://img.youtube.com/vi/${id}/hqdefault.jpg`,
+                imageUrl: `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
                 original: str
             };
         }
@@ -55,6 +56,7 @@
                 type: 'google_drive',
                 id: id,
                 imageUrl: `https://lh3.googleusercontent.com/d/${id}`,
+                thumbnailUrl: `https://drive.google.com/thumbnail?id=${id}&sz=w1920`,
                 downloadUrl: `https://drive.google.com/uc?export=download&id=${id}`,
                 previewUrl: `https://drive.google.com/file/d/${id}/preview`,
                 original: str
@@ -121,31 +123,56 @@
 
         // Jeśli to obraz (IMG)
         if (targetEl.tagName === 'IMG') {
-            targetEl.src = item.imageUrl || item.replacementUrl;
+            if (item.type === 'youtube' && item.embedUrl) {
+                const parent = targetEl.parentElement;
+                if (parent) {
+                    let iframe = parent.querySelector('iframe.post-youtube-embed');
+                    if (!iframe) {
+                        iframe = document.createElement('iframe');
+                        iframe.className = 'post-youtube-embed';
+                        iframe.style.cssText = 'width:100%; aspect-ratio:16/9; border:none; border-radius:14px; margin:0; display:block;';
+                        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                        iframe.allowFullscreen = true;
+                        parent.appendChild(iframe);
+                    }
+                    iframe.src = item.embedUrl;
+                    targetEl.style.display = 'none';
+                    return;
+                }
+            }
+            targetEl.style.display = 'block';
+            targetEl.src = item.imageUrl || item.downloadUrl || item.replacementUrl;
+            if (targetEl.parentElement) {
+                const prevIframe = targetEl.parentElement.querySelector('iframe.post-youtube-embed');
+                if (prevIframe) prevIframe.remove();
+            }
             return;
         }
 
         // Jeśli to kontener karty posta (dowolnego typu w Lumina)
         if (targetEl.classList.contains('feed-post-card') || targetEl.classList.contains('post-card') || targetEl.classList.contains('post-card-1x1') || targetEl.tagName === 'ARTICLE') {
             const img = targetEl.querySelector('.post-featured-artwork-box img, img.post-artwork, .post-image, .post-image-box img, .post-body img, .post-content img');
-            if (img && (item.imageUrl || item.replacementUrl)) {
-                img.src = item.imageUrl || item.replacementUrl;
-            }
-            // Jeśli podmieniono na YouTube
+            const artworkBox = targetEl.querySelector('.post-featured-artwork-box, .post-image-box, .post-body, .post-content') || targetEl;
+
             if (item.type === 'youtube' && item.embedUrl) {
-                const box = targetEl.querySelector('.post-featured-artwork-box, .post-image-box, .post-body, .post-content') || targetEl;
-                if (box) {
-                    let iframe = box.querySelector('iframe.post-youtube-embed');
-                    if (!iframe) {
-                        iframe = document.createElement('iframe');
-                        iframe.className = 'post-youtube-embed';
-                        iframe.style.cssText = 'width:100%; aspect-ratio:16/9; border:none; border-radius:14px; margin:14px 0; display:block;';
-                        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-                        iframe.allowFullscreen = true;
-                        box.prepend(iframe);
-                    }
-                    iframe.src = item.embedUrl;
+                let iframe = artworkBox.querySelector('iframe.post-youtube-embed');
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.className = 'post-youtube-embed';
+                    iframe.style.cssText = 'width:100%; aspect-ratio:16/9; border:none; border-radius:14px; margin:14px 0; display:block;';
+                    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                    iframe.allowFullscreen = true;
+                    artworkBox.prepend(iframe);
                 }
+                iframe.src = item.embedUrl;
+                if (img) img.style.display = 'none';
+            } else {
+                if (img) {
+                    img.style.display = 'block';
+                    img.src = item.imageUrl || item.downloadUrl || item.replacementUrl;
+                }
+                const prevIframe = artworkBox.querySelector('iframe.post-youtube-embed');
+                if (prevIframe) prevIframe.remove();
             }
             return;
         }
@@ -747,16 +774,72 @@
 
         // 3. Jeśli powiązane z Firestore (lumina_posts) — zaktualizuj w chmurze
         const dbInstance = window.db || window.luminaDb || window._luminaFirestore;
-        if (dbInstance && targetId && targetId.startsWith('post_')) {
+        if (dbInstance) {
             try {
-                const cleanDocId = targetId.replace(/^post_/, '');
-                const { doc, updateDoc } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
-                const docRef = doc(dbInstance, 'lumina_posts', cleanDocId);
-                const cloudUpdate = {};
+                const { doc, getDoc, updateDoc, collection, getDocs, limit, query } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+
+                const candidates = [targetId];
+                if (targetId) {
+                    if (targetId.startsWith('post_')) {
+                        candidates.push(targetId.replace(/^post_/, ''));
+                    } else {
+                        candidates.push('post_' + targetId);
+                    }
+                }
+                const cardEl = (element && element.closest) ? element.closest('.feed-post-card, .post-card, .post-card-1x1, article') : null;
+                if (cardEl && cardEl.id && !candidates.includes(cardEl.id)) {
+                    candidates.push(cardEl.id);
+                    if (cardEl.id.startsWith('post_')) {
+                        candidates.push(cardEl.id.replace(/^post_/, ''));
+                    } else {
+                        candidates.push('post_' + cardEl.id);
+                    }
+                }
+
+                const cloudUpdate = {
+                    updatedAt: new Date().toISOString()
+                };
                 if (itemData.imageUrl) cloudUpdate.image = itemData.imageUrl;
-                if (itemData.embedUrl) cloudUpdate.videoUrl = itemData.embedUrl;
-                await updateDoc(docRef, cloudUpdate);
-                console.log('✅ Zaktualizowano wpis w Firestore lumina_posts:', cleanDocId);
+                if (itemData.embedUrl) {
+                    cloudUpdate.videoUrl = itemData.embedUrl;
+                    if (!cloudUpdate.image && itemData.imageUrl) {
+                        cloudUpdate.image = itemData.imageUrl;
+                    }
+                }
+                if (itemData.downloadUrl) cloudUpdate.downloadUrl = itemData.downloadUrl;
+
+                let updated = false;
+                for (const cId of candidates) {
+                    if (!cId) continue;
+                    try {
+                        const dRef = doc(dbInstance, 'lumina_posts', cId);
+                        const snap = await getDoc(dRef);
+                        if (snap.exists()) {
+                            await updateDoc(dRef, cloudUpdate);
+                            console.log('✅ Zaktualizowano wpis w Firestore lumina_posts po ID:', cId);
+                            updated = true;
+                            break;
+                        }
+                    } catch(e) {}
+                }
+
+                // Fallback: dopasowanie po tytule posta
+                if (!updated && cardEl) {
+                    const titleEl = cardEl.querySelector('.post-title, h2, h1');
+                    if (titleEl) {
+                        const titleText = titleEl.textContent.trim();
+                        const qSnap = await getDocs(query(collection(dbInstance, 'lumina_posts'), limit(60)));
+                        for (const d of qSnap.docs) {
+                            const pData = d.data();
+                            if (pData.title && (pData.title.includes(titleText) || titleText.includes(pData.title))) {
+                                await updateDoc(d.ref, cloudUpdate);
+                                console.log('✅ Zaktualizowano wpis w Firestore lumina_posts po tytule:', d.id);
+                                updated = true;
+                                break;
+                            }
+                        }
+                    }
+                }
             } catch(err) {
                 console.warn('[MediaReplacer] Firestore update notice:', err.message);
             }
@@ -790,10 +873,15 @@
 
     // ── 8. Obserwator zmian DOM (dla dynamicznie wczytywanych postów) ──
     function initObserver() {
+        let debounceTimer = null;
         const observer = new MutationObserver(() => {
-            if (isMasterAdmin()) {
-                scanAndAttachButtons();
-            }
+            if (debounceTimer) clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                applySavedReplacements();
+                if (isMasterAdmin()) {
+                    scanAndAttachButtons();
+                }
+            }, 60);
         });
         observer.observe(document.body, { childList: true, subtree: true });
     }

@@ -2469,10 +2469,13 @@ A może w swoim zabieganiu nie znajdujesz czasu na modlitwę? Może nawet myśli
                     </div>
                     <div class="post-body">
                         <div class="post-series-tag"><i class="fa-solid fa-sun"></i> ${seriesLabel}</div>
-                        ${p.image ? `
+                        ${p.videoUrl ? `
+                        <div class="post-featured-artwork-box" style="position:relative; margin:16px 0 20px; border-radius:18px; overflow:hidden; border:1.5px solid rgba(245,158,11,0.4); box-shadow:0 12px 35px rgba(0,0,0,0.65); background:#0b1428;">
+                            <iframe src="${escapeHtml(p.videoUrl)}" style="width:100%; aspect-ratio:16/9; border:none; display:block;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>` : (p.image ? `
                         <div class="post-featured-artwork-box" style="position:relative; margin:16px 0 20px; border-radius:18px; overflow:hidden; border:1.5px solid rgba(245,158,11,0.4); box-shadow:0 12px 35px rgba(0,0,0,0.65); background:#0b1428;">
                             <img src="${escapeHtml(p.image)}" alt="${title}" style="width:100%; aspect-ratio:16/9; object-fit:cover; display:block;" onerror="this.src='lumina_logo.jpg'">
-                        </div>` : ''}
+                        </div>` : '')}
                         <h2 class="post-title">${title}</h2>
                         ${renderBodyParagraphs(p.text)}
                     </div>
