@@ -216,11 +216,17 @@
                 iframe.style.display = 'block';
                 if (img) img.style.display = 'none';
             } else {
-                if (img) {
-                    img.style.display = 'block';
-                    img.src = item.imageUrl || item.downloadUrl || item.replacementUrl;
+                let currentImg = img;
+                if (!currentImg && artworkBox) {
+                    currentImg = document.createElement('img');
+                    currentImg.style.cssText = 'width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:14px; display:block;';
+                    artworkBox.appendChild(currentImg);
                 }
-                const prevIframe = artworkBox.querySelector('iframe.post-youtube-embed');
+                if (currentImg) {
+                    currentImg.style.display = 'block';
+                    currentImg.src = item.imageUrl || item.downloadUrl || item.replacementUrl;
+                }
+                const prevIframe = artworkBox.querySelector('iframe.post-youtube-embed, iframe');
                 if (prevIframe) prevIframe.remove();
             }
             return;
@@ -228,7 +234,24 @@
 
         // Jeśli to iframe wideo
         if (targetEl.tagName === 'IFRAME') {
-            targetEl.src = item.embedUrl || item.replacementUrl;
+            if (item.type === 'youtube' && item.embedUrl) {
+                targetEl.src = item.embedUrl;
+                targetEl.style.display = 'block';
+                return;
+            }
+            // Jeśli podmieniamy istniejący iframe na grafikę
+            const parent = targetEl.parentElement;
+            if (parent) {
+                let img = parent.querySelector('img');
+                if (!img) {
+                    img = document.createElement('img');
+                    img.style.cssText = 'width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:14px; display:block;';
+                    parent.appendChild(img);
+                }
+                img.src = item.imageUrl || item.downloadUrl || item.replacementUrl;
+                img.style.display = 'block';
+                targetEl.style.display = 'none';
+            }
             return;
         }
 
