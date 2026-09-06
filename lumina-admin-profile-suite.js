@@ -602,6 +602,9 @@
                         <button type="button" class="admin-suite-btn btn-purple" onclick="window.LuminaAdminSuite.openNewPostModal()">
                             <i class="fa-solid fa-plus"></i> Nowy Wpis
                         </button>
+                        <button type="button" class="admin-suite-btn btn-gold" onclick="if(window.LuminaMediaReplacer) { window.LuminaMediaReplacer.scanAndAttachButtons(); if(typeof window.showToast==='function') window.showToast('🔍 Kliknij przycisk Wymień przy pliku lub grafice!'); }" title="Wymień dowolny plik/multimedia na link z Dysku Google lub YouTube (Zero-Egress Standard)">
+                            <i class="fa-solid fa-arrows-rotate"></i> Wymień Plik (Dysk/YT)
+                        </button>
                         <button type="button" class="admin-suite-btn btn-warn" id="hudBtnToggleBlock" onclick="window.LuminaAdminSuite.toggleBlockCurrentProfile()">
                             <i class="fa-solid fa-ban"></i> Zablokuj Profil
                         </button>
@@ -1235,6 +1238,7 @@
         slug: detectCurrentProfileSlug(),
 
         init: function() {
+            this.ensureMediaReplacerLoaded();
             this.slug = detectCurrentProfileSlug();
             injectAdminStyles();
             injectAdminDOM(this.slug);
@@ -1243,6 +1247,19 @@
             this.loadProfileFromStorage(this.slug);
             this.checkIfCurrentProfileIsBlocked();
             window.addEventListener('resize', () => this.repositionHudBar());
+        },
+
+        ensureMediaReplacerLoaded: function() {
+            if (!window.LuminaMediaReplacer && !document.querySelector('script[src*="lumina-admin-media-replacer"]')) {
+                const s = document.createElement('script');
+                s.src = 'js/lumina-admin-media-replacer.js?v=20260906_replacer_v2';
+                s.onload = () => {
+                    if (isUserMasterAdmin() && window.LuminaMediaReplacer) {
+                        window.LuminaMediaReplacer.scanAndAttachButtons();
+                    }
+                };
+                document.head.appendChild(s);
+            }
         },
 
         repositionHudBar: function() {
@@ -1292,11 +1309,19 @@
                 }
                 if (shield) shield.classList.add('unlocked');
                 if (shieldContainer) shieldContainer.classList.add('unlocked');
+
+                // Standard Zero-Egress: aktywuj przyciski "Wymień" (Dysk Google / YouTube)
+                if (window.LuminaMediaReplacer && typeof window.LuminaMediaReplacer.scanAndAttachButtons === 'function') {
+                    window.LuminaMediaReplacer.scanAndAttachButtons();
+                }
             } else {
                 document.body.classList.remove('lumina-admin-mode', 'owner-mode-active', 'has-admin-hud', 'hud-minimized');
                 if (hud) hud.classList.remove('active', 'minimized');
                 if (shield) shield.classList.remove('unlocked');
                 if (shieldContainer) shieldContainer.classList.remove('unlocked');
+
+                // Usuń przyciski wymiany po wylogowaniu
+                document.querySelectorAll('.btn-lumina-replace-floating, .btn-lumina-replace-action').forEach(el => el.remove());
             }
 
             this.updateHudBlockBtnState();
@@ -1344,6 +1369,9 @@
                 sessionStorage.setItem('lumina_auth_master_admin', 'true');
                 localStorage.setItem('lumina_auth_master_admin', 'true');
                 this.checkAndApplyAdminState();
+                if (window.LuminaMediaReplacer && typeof window.LuminaMediaReplacer.scanAndAttachButtons === 'function') {
+                    window.LuminaMediaReplacer.scanAndAttachButtons();
+                }
                 if (typeof window.showToast === 'function') {
                     window.showToast('✨ Zalogowano do Panelu Głównego Administratora! Pełny dostęp aktywny.');
                 } else {
