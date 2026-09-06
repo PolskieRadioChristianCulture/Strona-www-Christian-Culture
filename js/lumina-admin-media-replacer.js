@@ -631,7 +631,7 @@
     function scanAndAttachButtons() {
         if (!isMasterAdmin()) return;
 
-        // 1. Karty postów (.feed-post-card, .post-card, .post-card-1x1, article)
+        // 1. Karty postów (.feed-post-card, .post-card, .post-card-1x1, article, .mission-live-broadcast-card)
         const postCards = document.querySelectorAll('.feed-post-card, .post-card, .post-card-1x1, article, .mission-live-broadcast-card');
         postCards.forEach(card => {
             // Przycisk w belce akcji posta
@@ -650,24 +650,28 @@
             }
 
             // Pływający przycisk na grafice / wideo posta
-            const artworkBox = card.querySelector('.media-container-1x1, .campaign-media-container, .broadcast-preview-wrap, .post-featured-artwork-box, .post-image-box, .post-media-box, .post-image, .post-body img, .post-content img');
-            if (artworkBox) {
-                const targetWrapper = (artworkBox.tagName === 'IMG') ? (artworkBox.parentElement || artworkBox) : artworkBox;
-                if (!targetWrapper.querySelector('.btn-lumina-replace-floating') && !artworkBox.classList.contains('btn-lumina-replace-floating')) {
-                    if (getComputedStyle(targetWrapper).position === 'static') {
-                        targetWrapper.style.position = 'relative';
+            // (Jeśli post zawiera już dedykowany odtwarzacz wideo, obsłuży go krok 2 - nie dublujemy przycisku!)
+            const hasDedicatedPlayer = card.querySelector('.mission-live-player-wrapper, .live-player-container, .video-container, .stream-player-box');
+            if (!hasDedicatedPlayer) {
+                const artworkBox = card.querySelector('.media-container-1x1, .campaign-media-container, .broadcast-preview-wrap, .post-featured-artwork-box, .post-image-box, .post-media-box, .post-image, .post-body img, .post-content img');
+                if (artworkBox) {
+                    const targetWrapper = (artworkBox.tagName === 'IMG') ? (artworkBox.parentElement || artworkBox) : artworkBox;
+                    if (!targetWrapper.querySelector('.btn-lumina-replace-floating') && !artworkBox.classList.contains('btn-lumina-replace-floating')) {
+                        if (getComputedStyle(targetWrapper).position === 'static') {
+                            targetWrapper.style.position = 'relative';
+                        }
+                        const floatBtn = document.createElement('button');
+                        floatBtn.type = 'button';
+                        floatBtn.className = 'btn-lumina-replace-floating';
+                        floatBtn.title = 'Wymień ten plik/grafikę na link z Dysku Google lub YouTube';
+                        floatBtn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Wymień';
+                        floatBtn.onclick = (e) => {
+                            e.stopPropagation();
+                            const img = targetWrapper.querySelector('img') || (artworkBox.tagName === 'IMG' ? artworkBox : null);
+                            openReplacerForElement(img || card, 'image');
+                        };
+                        targetWrapper.appendChild(floatBtn);
                     }
-                    const floatBtn = document.createElement('button');
-                    floatBtn.type = 'button';
-                    floatBtn.className = 'btn-lumina-replace-floating';
-                    floatBtn.title = 'Wymień ten plik/grafikę na link z Dysku Google lub YouTube';
-                    floatBtn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Wymień';
-                    floatBtn.onclick = (e) => {
-                        e.stopPropagation();
-                        const img = targetWrapper.querySelector('img') || (artworkBox.tagName === 'IMG' ? artworkBox : null);
-                        openReplacerForElement(img || card, 'image');
-                    };
-                    targetWrapper.appendChild(floatBtn);
                 }
             }
         });
@@ -693,11 +697,16 @@
             }
         });
 
-        // 3. Samodzielne tagi AUDIO i VIDEO
+        // 3. Samodzielne tagi AUDIO i VIDEO (poza playerami wideo i postami)
         const mediaTags = document.querySelectorAll('video, audio, .audio-player-container');
         mediaTags.forEach(media => {
+            // Ignoruj media wewnątrz gotowych wrapperów playerów (obsługiwanych w kroku 2)
+            if (media.closest('.mission-live-player-wrapper, .live-player-container, .video-container, .stream-player-box')) return;
             const parent = media.parentElement || media;
-            if (!parent.querySelector('.btn-lumina-replace-floating')) {
+            // Bezwzględny zakaz wstrzykiwania do document.body lub documentElement
+            if (!parent || parent === document.body || parent === document.documentElement) return;
+
+            if (!parent.querySelector('.btn-lumina-replace-floating') && !parent.closest('.btn-lumina-replace-floating')) {
                 if (getComputedStyle(parent).position === 'static') {
                     parent.style.position = 'relative';
                 }
@@ -737,11 +746,15 @@
             }
         });
 
-        // 5. Samodzielne grafiki, avatary profilowe, banery i okładki radiowe
-        const profileAndMediaImgs = document.querySelectorAll('.profile-avatar-wrap img, .author-avatar-wrap img, .hero-avatar-box img, .profile-cover img, .radio-player-artwork img, .now-playing-art img, .album-art img, .profile-hero img, img.profile-avatar, img.post-author-img');
+        // 5. Samodzielne grafiki, avatary profilowe, banery i okładki radiowe (BEZ małych ikonek autorów postów!)
+        const profileAndMediaImgs = document.querySelectorAll('.profile-avatar-wrap img, .author-avatar-wrap img, .hero-avatar-box img, .profile-cover img, .radio-player-artwork img, .now-playing-art img, .album-art img, .profile-hero img, img.profile-avatar');
         profileAndMediaImgs.forEach(img => {
+            // Ignoruj awatary w nagłówkach postów i wewnątrz kart społeczności
+            if (img.closest('.feed-post-card, .post-card, .post-card-1x1, article, .post-author-box, .post-header, .post-top-header')) return;
             const parent = img.parentElement || img;
-            if (!parent.querySelector('.btn-lumina-replace-floating') && !img.dataset.hasReplacerBtn) {
+            if (!parent || parent === document.body || parent === document.documentElement) return;
+
+            if (!parent.querySelector('.btn-lumina-replace-floating') && !parent.closest('.btn-lumina-replace-floating') && !img.dataset.hasReplacerBtn) {
                 if (getComputedStyle(parent).position === 'static') {
                     parent.style.position = 'relative';
                 }
