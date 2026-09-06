@@ -3472,13 +3472,82 @@
                 </div>
                 <div class="card-916-media-wrap" style="position: relative; aspect-ratio: 9 / 16; width: 100%; overflow: hidden; background: #000;">
                     <a href="https://my-store-1009741.creator-spring.com/listing/alleluja?product=375" target="_blank" rel="noopener noreferrer" style="display:block; width:100%; height:100%; text-decoration:none;">
-                        <video src="reklama_sklep_alleluja.mp4" 
+                        <video id="reklamaAllelujaVideo"
+                               src="reklama_sklep_alleluja.mp4" 
                                poster="reklama_sklep_alleluja_poster.jpg" 
                                class="card-916-img" 
                                autoplay loop muted playsinline 
                                style="object-fit:cover; width:100%; height:100%; display:block;"></video>
                     </a>
+                    <!-- Przycisk włączania / wyłączania dźwięku (44px SMCC touch-target) -->
+                    <button type="button" 
+                            id="btnToggleAllelujaAudio" 
+                            onclick="toggleAllelujaVideoAudio(event)" 
+                            aria-label="Włącz lub wyłącz dźwięk" 
+                            title="Włącz dźwięk" 
+                            style="position: absolute; bottom: 12px; right: 12px; width: 44px; height: 44px; min-width: 44px; min-height: 44px; border-radius: 50%; background: rgba(0, 0, 0, 0.7); border: 1.5px solid rgba(255, 255, 255, 0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; cursor: pointer; z-index: 10; transition: all 0.25s ease; box-shadow: 0 4px 14px rgba(0,0,0,0.6);"
+                            onmouseover="this.style.transform='scale(1.08)'; this.style.borderColor='#38bdf8';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.borderColor='rgba(255, 255, 255, 0.5)';">
+                        <i class="fa-solid fa-volume-xmark" id="iconAllelujaAudio"></i>
+                    </button>
+                    <!-- Etykietka podpowiedzi dotykowej -->
+                    <div id="badgeAllelujaAudioTip" 
+                         onclick="toggleAllelujaVideoAudio(event)"
+                         style="position: absolute; bottom: 14px; left: 12px; background: rgba(0,0,0,0.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 5px 11px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.25); cursor: pointer; z-index: 9; transition: opacity 0.3s ease;">
+                        <i class="fa-solid fa-headphones" style="color: #38bdf8; font-size: 0.8rem;"></i>
+                        <span id="labelAllelujaAudioTip">Dotknij, aby włączyć dźwięk</span>
+                    </div>
                 </div>
+                <script>
+                function toggleAllelujaVideoAudio(event) {
+                    if (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    var v = document.getElementById('reklamaAllelujaVideo');
+                    var icon = document.getElementById('iconAllelujaAudio');
+                    var btn = document.getElementById('btnToggleAllelujaAudio');
+                    var label = document.getElementById('labelAllelujaAudioTip');
+                    if (!v) return;
+                    if (v.muted) {
+                        v.muted = false;
+                        v.volume = 1.0;
+                        v.play().catch(function(e) { console.log(e); });
+                        if (icon) {
+                            icon.className = 'fa-solid fa-volume-high';
+                            icon.style.color = '#38bdf8';
+                        }
+                        if (btn) {
+                            btn.title = 'Wycisz dźwięk';
+                            btn.style.background = 'rgba(2, 132, 199, 0.85)';
+                            btn.style.borderColor = '#38bdf8';
+                        }
+                        if (label) {
+                            label.textContent = 'Dźwięk włączony';
+                            setTimeout(function() {
+                                var tip = document.getElementById('badgeAllelujaAudioTip');
+                                if (tip && v && !v.muted) tip.style.opacity = '0.35';
+                            }, 3000);
+                        }
+                    } else {
+                        v.muted = true;
+                        if (icon) {
+                            icon.className = 'fa-solid fa-volume-xmark';
+                            icon.style.color = '#ffffff';
+                        }
+                        if (btn) {
+                            btn.title = 'Włącz dźwięk';
+                            btn.style.background = 'rgba(0, 0, 0, 0.7)';
+                            btn.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+                        }
+                        if (label) {
+                            label.textContent = 'Wyciszono';
+                            var tip = document.getElementById('badgeAllelujaAudioTip');
+                            if (tip) tip.style.opacity = '1';
+                        }
+                    }
+                }
+                </script>
                 <div style="padding: 14px 16px; background: rgba(11, 24, 56, 0.95); display: flex; flex-direction: column; gap: 8px;">
                     <a href="https://my-store-1009741.creator-spring.com/listing/alleluja?product=375" target="_blank" rel="noopener noreferrer" style="text-decoration:none;" class="card-916-title">
                         Kolekcja „Alleluja” ✨
