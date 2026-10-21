@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {validateJob,dedupeKey,transition,dryRun} from '../lib/cc-social-publisher/queue.mjs';
+const sample={channel:'facebook_page',targetId:'cc-page-1',contentId:'approved-article-21',text:'Dobrze, że jesteś',approvedBy:'owner',approvedAt:'2026-10-21T12:00:00Z',url:'https://polskieradio.cc/news'};
+test('approved job is valid and dry-run never publishes',()=>{const r=dryRun(sample);assert.equal(r.action,'ready_for_queue');assert.equal(r.job.state,'approved');});
+test('approval is mandatory',()=>assert.throws(()=>validateJob({...sample,approvedBy:''}),/approval/i));
+test('target-specific dedupe',()=>{assert.equal(dedupeKey(sample),dedupeKey({...sample,text:'new copy'}));assert.notEqual(dedupeKey(sample),dedupeKey({...sample,targetId:'other'}));});
+test('duplicate never requeues',()=>assert.equal(dryRun(sample,new Set([dedupeKey(sample)])).action,'skip_duplicate'));
+test('future scheduled item waits',()=>assert.equal(dryRun({...sample,scheduledAt:'2030-01-01T00:00:00Z'},new Set(),new Date('2026-10-21')).action,'wait'));
+test('youtube requires media',()=>assert.throws(()=>validateJob({...sample,channel:'youtube'}),/media/i));
+test('only allowed transitions',()=>{assert.equal(transition({state:'approved'},'queued').state,'queued');assert.throws(()=>transition({state:'approved'},'published'),/Illegal/);});
+test('reject insecure URLs',()=>assert.throws(()=>validateJob({...sample,url:'http://example.com'}),/HTTPS/));
