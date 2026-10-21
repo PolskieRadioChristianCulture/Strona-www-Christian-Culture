@@ -151,12 +151,6 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-21</loc>
-    <lastmod>2026-10-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
     <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-21</loc>
     <lastmod>2026-10-21</lastmod>
     <changefreq>daily</changefreq>
