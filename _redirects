@@ -174,10 +174,12 @@
 /podcast/ /podcasty 301
 
 # === CHRISTIAN CULTURE GLOBAL ===
-/GLOBAL /Global/ 301
-/global /Global/ 301
-/global/ /Global/ 301
-/Global /Global/ 301
+# Unikaj 301 /Global -> /Global/; normalizacja slash przez hosting moze powodowac petle.
+# Wszystkie warianty kieruj bezposrednio do fizycznego pliku, bez lancucha redirectow.
+/GLOBAL /Global/index.html 200
+/global /Global/index.html 200
+/global/ /Global/index.html 200
+/Global /Global/index.html 200
 /Global/ /Global/index.html 200
 
 # === BIBLIJNE UWIELBIENIE & KARAOKE ===
