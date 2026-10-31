@@ -590,7 +590,8 @@ function formatBroadcasterTweet(item) {
   if (calcLen() > 270) {
     while (calcLen() > 270 && bodyText.includes(' ')) {
       bodyText = bodyText.replace(/\s+\S+$/, '').trim();
-      tweet = `${header}${subLine}${bodyText}…\n\n${callToAction}${url}\n\n${hashtags}`;
+      const cleaned = bodyText.replace(/\s+(według|w|z|do|i|a|o|na|oraz|ze|od|po|dla)\s*$/i, '').trim();
+      tweet = `${header}${subLine}${cleaned}…\n\n${callToAction}${url}\n\n${hashtags}`;
     }
   }
 
