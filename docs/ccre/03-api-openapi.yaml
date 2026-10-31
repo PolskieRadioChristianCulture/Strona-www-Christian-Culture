@@ -1,0 +1,196 @@
+openapi: 3.1.0
+info:
+  title: CC Relationship Engine (CCRE) API
+  description: >
+    Prywatny i lekki interfejs API dla silnika relacyjnego ekosystemu Christian Culture (polskieradio.cc).
+    Działa na Cloudflare Workers i D1 w architekturze ZERO COST.
+  version: 1.0.0
+  contact:
+    name: Christian Culture Tech Team (@001 / Antigravity)
+    url: https://polskieradio.cc
+
+servers:
+  - url: https://polskieradio.cc/api/ccre/v1
+    description: Produkcyjny Edge Worker Cloudflare
+
+paths:
+  /today:
+    get:
+      summary: Pobiera zagregowany pulpit "CC Dzisiaj" (M2)
+      description: Zwraca werset dnia, audycję na żywo, premierę Biblii Audio oraz polecany artykuł.
+      operationId: getTodayFeed
+      responses:
+        '200':
+          description: Pomyślna odpowiedź z pulpitem dnia
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodayFeedResponse'
+        '500':
+          description: Błąd serwera (fallback do lokalnego feedu statycznego)
+
+  /catalog:
+    get:
+      summary: Zunifikowany katalog treści CCRE (M1)
+      description: Zwraca zindeksowane materiały z podziałem na kategorie (Biblia Audio, Radio, Artykuły CCN, Kurs).
+      operationId: getCatalog
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [all, bible, audio, article, course, video]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Lista zunifikowanych materiałów
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
+
+  /community/submit:
+    post:
+      summary: Zgłoszenie tematu, świadectwa lub intencji modlitewnej (M7)
+      description: Przyjmuje moderowane zgłoszenie od użytkownika z ochroną anty-spamową (honeypot + rate limit).
+      operationId: submitCommunityItem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommunitySubmissionRequest'
+      responses:
+        '201':
+          description: Zgłoszenie przyjęte do moderacji
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Dziękujemy. Twoja propozycja trafiła do zespołu redakcyjnego."
+        '400':
+          description: Niepoprawne dane lub wykryto spambota
+        '429':
+          description: Przekroczono limit zapytań (Rate limit)
+
+components:
+  schemas:
+    TodayFeedResponse:
+      type: object
+      required:
+        - date
+        - verseOfTheDay
+        - radioNowPlaying
+        - featuredAudio
+      properties:
+        date:
+          type: string
+          format: date
+          example: "2026-10-31"
+        verseOfTheDay:
+          type: object
+          properties:
+            reference:
+              type: string
+              example: "Rdz 1:1"
+            text:
+              type: string
+              example: "Na początku stworzył Bóg niebo i ziemię."
+            translation:
+              type: string
+              example: "UBG"
+        radioNowPlaying:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "Biblia Audio • Pasmo Popołudniowe"
+            streamUrl:
+              type: string
+              example: "https://stream.zeno.fm/gn3uhltrrytuv"
+        featuredAudio:
+          $ref: '#/components/schemas/ContentItem'
+        featuredArticle:
+          $ref: '#/components/schemas/ContentItem'
+
+    ContentItem:
+      type: object
+      required:
+        - id
+        - title
+        - category
+        - url
+      properties:
+        id:
+          type: string
+          example: "ccre_ba_gen_01"
+        title:
+          type: string
+          example: "Księga Rodzaju • Rozdział 1"
+        subtitle:
+          type: string
+          example: "Stworzenie świata i człowieka"
+        category:
+          type: string
+          enum: [audio, bible, article, course, video, prayer]
+        url:
+          type: string
+          example: "/biblia-audio#rdz-1"
+        thumbnailUrl:
+          type: string
+          example: "/images/hero-biblia-audio.jpg"
+        durationText:
+          type: string
+          example: "12 min"
+        badgeText:
+          type: string
+          example: "ROZDZIAŁ 1"
+        actionType:
+          type: string
+          enum: [play, read, watch]
+
+    CatalogResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 54
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentItem'
+
+    CommunitySubmissionRequest:
+      type: object
+      required:
+        - category
+        - content
+      properties:
+        category:
+          type: string
+          enum: [topic_suggestion, testimony, prayer_intent]
+        content:
+          type: string
+          minLength: 10
+          maxLength: 3000
+        authorAlias:
+          type: string
+          maxLength: 60
+        contactEmail:
+          type: string
+          format: email
+        honeypot:
+          type: string
+          description: Ukryte pole dla botów spamowych (musi być puste)
