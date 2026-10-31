@@ -498,26 +498,34 @@ function formatBroadcasterTweet(item) {
   const header = '🔴 CCN NEWS | polskieradio.cc/news';
   let subHeader = '';
   let callToAction = '👉 Sprawdź w ekosystemie:\n';
-  let hashtags = `${item.tag || '#CCNNews'} #ChristianCulture #Prawda`;
+  const tagList = [];
+  function addTags(...tags) {
+    for (const t of tags) {
+      if (t && !tagList.includes(t)) tagList.push(t);
+    }
+  }
 
   if (item.type === 'book') {
     subHeader = '📚 KSIĄŻKA & WYDAWNICTWO CC';
-    callToAction = '👉 Czytaj bezpłatne fragmenty w ekosystemie:\n';
-    hashtags = `${item.tag || '#KsiazkiCC'} #CezaryRogowski #ChristianCulture #Wydawnictwo`;
+    callToAction = '👉 Czytaj w ekosystemie:\n';
+    addTags(item.tag || '#KsiazkiCC', '#CezaryRogowski', '#ChristianCulture');
   } else if (item.type === 'verse') {
     subHeader = '📖 WERSET DNIA | Słowo Boże (UBG)';
-    callToAction = '👉 Odkryj w interlinearnej MojaBiblia:\n';
-    hashtags = `${item.tag || '#WersetDnia'} #SlowoBoze #MojaBiblia #UBG #Prawda`;
+    callToAction = '👉 Odkryj w MojaBiblia:\n';
+    addTags(item.tag || '#WersetDnia', '#SlowoBoze', '#UBG', '#Prawda');
   } else if (item.type === 'music') {
     subHeader = '🎵 MUZYKA & KANAŁY LIVE';
-    callToAction = '👉 Słuchaj w jakości HD / Oglądaj na żywo:\n';
-    hashtags = `${item.tag || '#CCNMuzyka'} #PolskieRadioCC #WorshipLive #ChristianCulture`;
+    callToAction = '👉 Słuchaj na żywo:\n';
+    addTags(item.tag || '#CCNMuzyka', '#PolskieRadioCC', '#WorshipLive');
   } else if (item.type === 'profile') {
     subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
-    callToAction = '👉 Dołącz do wolnej od algorytmów przestrzeni:\n';
-    hashtags = `${item.tag || '#Lumina'} #LudzieMisji #ChristianCulture #CezaryRogowski`;
+    callToAction = '👉 Dołącz do społeczności LUMINA:\n';
+    addTags(item.tag || '#Lumina', '#LudzieMisji', '#ChristianCulture');
+  } else {
+    addTags(item.tag || '#CCNNews', '#ChristianCulture', '#Prawda');
   }
 
+  const hashtags = tagList.join(' ');
   const url = item.url;
   let bodyText = '';
 
@@ -528,6 +536,7 @@ function formatBroadcasterTweet(item) {
       .replace(/^CCN News\s*[-–—:]\s*/i, '')
       .replace(/^Kanał Transmisyjny:\s*/i, '')
       .replace(/^Książka:\s*/i, '')
+      .replace(/^Wizytówka:\s*/i, '')
       .replace(/\s*•\s*Polskie Radio CC.*$/i, '')
       .replace(/\s*–\s*CCN Historia.*$/i, '')
       .replace(/\s*\(\/[a-z0-9_/-]+\)\s*$/i, '')
@@ -541,8 +550,8 @@ function formatBroadcasterTweet(item) {
   const calcLen = () => tweet.length - url.length + 23;
 
   if (calcLen() > 270) {
-    while (calcLen() > 270 && bodyText.length > 25) {
-      bodyText = bodyText.slice(0, -1).trim();
+    while (calcLen() > 270 && bodyText.includes(' ')) {
+      bodyText = bodyText.replace(/\s+\S+$/, '').trim();
       tweet = `${header}${subLine}${bodyText}…\n\n${callToAction}${url}\n\n${hashtags}`;
     }
   }
