@@ -550,10 +550,23 @@ function formatBroadcasterTweet(item) {
       addTags(item.tag || '#EkosystemCC', '#ChristianCulture', '#Prawda');
     }
   } else if (item.type === 'news') {
-    if ((item.title || '').toLowerCase().includes('sprawozdanie') || (item.title || '').toLowerCase().includes('raport')) {
+    const tLower = (item.title || '').toLowerCase();
+    if (tLower.includes('sprawozdanie') || tLower.includes('raport')) {
       subHeader = '🌍 RAPORT MISYJNY CC';
       callToAction = '👉 Czytaj pełny raport:\n';
       addTags('#CCNNews', '#MisjaCC', '#ChristianCulture');
+    } else if (tLower.includes('bioetyka') || tLower.includes('genom') || tLower.includes('crispr')) {
+      subHeader = '🧬 NAUKA & BIOETYKA';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#CCNNews', '#Bioetyka', '#Prawda');
+    } else if (tLower.includes('blackout') || tLower.includes('survival') || tLower.includes('72 godziny')) {
+      subHeader = '🛡️ SURVIVAL & BEZPIECZEŃSTWO CC';
+      callToAction = '👉 Czytaj poradnik w serwisie:\n';
+      addTags('#CCNNews', '#SurvivalCC', '#Prawda');
+    } else if (tLower.includes('reformacj') || tLower.includes('luter')) {
+      subHeader = '📜 HISTORIA & REFORMACJA';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#CCNNews', '#DzienReformacji', '#Prawda');
     } else {
       subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
       callToAction = '👉 Czytaj w serwisie:\n';
