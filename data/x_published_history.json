@@ -2,6 +2,13 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "vod",
+      "title": "Kino Chrześcijańskie VOD — Filmy Fabularne, Dokumenty i Wykłady Biblijne",
+      "url": "https://polskieradio.cc/vod",
+      "publishedAt": "2026-10-31T16:34:19.969Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "podcasty",
       "title": "Podcasty Christian Culture • Głos, który buduje serce i wiarę (/podcasty)",
       "url": "https://polskieradio.cc/podcasty",
