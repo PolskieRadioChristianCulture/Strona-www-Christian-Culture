@@ -1,6 +1,82 @@
 {
   "entries": [
     {
+      "timestamp": "2026-10-31T17:14:30.066Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 310
+    },
+    {
+      "timestamp": "2026-10-31T17:14:29.648Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 310
+    },
+    {
+      "timestamp": "2026-10-31T17:14:03.450Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 310
+    },
+    {
+      "timestamp": "2026-10-31T17:14:02.910Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 310
+    },
+    {
+      "timestamp": "2026-10-31T17:14:02.326Z",
+      "level": "INFO",
+      "event": "SITEMAP_PING_SENT",
+      "engine": "Bing",
+      "httpStatus": 410
+    },
+    {
+      "timestamp": "2026-10-31T17:14:02.231Z",
+      "level": "INFO",
+      "event": "SITEMAP_PING_SENT",
+      "engine": "Google",
+      "httpStatus": 404
+    },
+    {
+      "timestamp": "2026-10-31T17:13:47.419Z",
+      "level": "ERROR",
+      "event": "INDEXNOW_SUBMIT_HTTP_ERROR",
+      "endpoint": "Bing Direct",
+      "httpStatus": 403,
+      "urlCount": 310
+    },
+    {
+      "timestamp": "2026-10-31T17:13:47.205Z",
+      "level": "ERROR",
+      "event": "INDEXNOW_SUBMIT_HTTP_ERROR",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 403,
+      "urlCount": 310
+    },
+    {
+      "timestamp": "2026-10-31T17:13:46.795Z",
+      "level": "INFO",
+      "event": "SITEMAP_PING_SENT",
+      "engine": "Bing",
+      "httpStatus": 410
+    },
+    {
+      "timestamp": "2026-10-31T17:13:46.664Z",
+      "level": "INFO",
+      "event": "SITEMAP_PING_SENT",
+      "engine": "Google",
+      "httpStatus": 404
+    },
+    {
       "timestamp": "2026-10-31T17:10:36.412Z",
       "level": "ERROR",
       "event": "INDEXNOW_SUBMIT_HTTP_ERROR",

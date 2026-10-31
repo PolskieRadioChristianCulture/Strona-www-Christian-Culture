@@ -183,34 +183,23 @@ async function submitToIndexNow(urlList, key, dryRun = false) {
   return results;
 }
 
-// Procedura Pingowania Sitemapy do Google i Bing
-async function pingSearchEngines(sitemapUrl, dryRun = false) {
-  console.log('\n🔔 [Search Engine Sitemaps Ping]');
-  console.log(`   Adres sitemapy: ${sitemapUrl}`);
+// Weryfikacja map witryn i kanałów RSS dla Google & Bing
+async function verifySitemapsDiscovery(sitemapUrl, dryRun = false) {
+  console.log('\n🗺️ [Discovery Sitemaps & RSS Verification]');
+  console.log(`   Główny indeks map witryn: ${sitemapUrl}`);
 
-  if (dryRun) {
-    console.log('   [DRY RUN] Pomijam rzeczywiste pingowanie wyszukiwarek.');
-    return;
-  }
-
-  const targets = [
-    { name: 'Google', url: `${GOOGLE_PING_ENDPOINT}${encodeURIComponent(sitemapUrl)}` },
-    { name: 'Bing',   url: `${BING_PING_ENDPOINT}${encodeURIComponent(sitemapUrl)}` }
+  const sitemapsToCheck = [
+    'https://polskieradio.cc/sitemap.xml',
+    'https://polskieradio.cc/sitemaps/news-google.xml',
+    'https://polskieradio.cc/feed.xml'
   ];
 
-  for (const t of targets) {
+  for (const s of sitemapsToCheck) {
     try {
-      console.log(`   Pinguję ${t.name}...`);
-      const res = await fetch(t.url, { headers: { 'User-Agent': 'EkoCC-Sitemap-Ping/1.0' } });
-      console.log(`   ✅ ${t.name} odpowiedź: HTTP ${res.status}`);
-      appendLog({
-        level: 'INFO',
-        event: 'SITEMAP_PING_SENT',
-        engine: t.name,
-        httpStatus: res.status
-      });
-    } catch (err) {
-      console.warn(`   ⚠️ ${t.name} ping błąd:`, err.message);
+      const res = await fetch(s, { method: 'HEAD', headers: { 'User-Agent': 'EkoCC-Discovery-Check/1.0' } });
+      console.log(`   ✅ ${path.basename(s)}: HTTP ${res.status} ${res.statusText}`);
+    } catch (e) {
+      console.warn(`   ⚠️ ${path.basename(s)} błąd sprawdzania:`, e.message);
     }
   }
 }
@@ -261,9 +250,9 @@ async function main() {
     console.log(`🔑 Utworzono plik weryfikacyjny IndexNow: ${path.basename(keyFile)}`);
   }
 
-  // 2. Ping Sitemapy do Google i Bing
+  // 2. Weryfikacja map witryn i kanałów RSS dla Google & Bing
   const sitemapUrl = `${PRIMARY_ORIGIN}/sitemap.xml`;
-  await pingSearchEngines(sitemapUrl, dryRun);
+  await verifySitemapsDiscovery(sitemapUrl, dryRun);
 
   if (pingOnly) {
     console.log('\n✅ Pingowanie sitemap zakończone (flaga --ping-only).');
