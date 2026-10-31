@@ -346,7 +346,7 @@ function getAllEcosystemCandidates() {
       title: 'Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara',
       lead: 'Poznaj autorski profil Wioletty Rogowskiej na portalu LUMINA. Poradniki dotyczące chrześcijańskiego domu, wychowania dzieci w wierze, cyfrowego detoksu i służby bliźnim.',
       url: 'https://polskieradio.cc/lumina.wiolettarogowska',
-      image: 'images/brand/cezary-wioletta-radiocc.jpg',
+      image: 'images/wioletta/wioletta-og.jpg',
       category: 'Wizytówka',
       type: 'profile',
       tag: '#WiolettaRogowska'
