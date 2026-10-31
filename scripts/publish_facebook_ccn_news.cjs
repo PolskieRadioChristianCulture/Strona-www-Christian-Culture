@@ -432,13 +432,23 @@ function getNextUnbroadcastedItem() {
   return { item: candidates[0], totalLeft: 0, resetLoop: true };
 }
 
-// Formatowanie posta Facebooka — BEZWZGLĘDNY BRAK LINKU W TREŚCI GŁÓWNEJ (ZASADA ALGORYTMU FB)
+// Formatowanie posta Facebooka — BEZPOŚREDNI KLIKALNY LINK W OPISIE (DYREKTYWA DOWÓDCY)
 function formatFacebookPost(item) {
   let header = '🔴 CCN NEWS | polskieradio.cc/news';
-  if (item.type === 'book') header = '🔴 CCN KSIĄŻKI | Cezary Rogowski';
-  else if (item.type === 'verse') header = '📖 WERSET DNIA | Słowo Boże (UBG)';
-  else if (item.type === 'music') header = '🎵 CCN MUZYKA & YOUTUBE | Polskie Radio CC';
-  else if (item.type === 'profile') header = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
+  let ctaText = '👉 Pełny materiał oraz bezpłatny dostęp w ekosystemie:';
+  if (item.type === 'book') {
+    header = '🔴 CCN KSIĄŻKI | Cezary Rogowski';
+    ctaText = '👉 Czytaj bezpłatne fragmenty w ekosystemie:';
+  } else if (item.type === 'verse') {
+    header = '📖 WERSET DNIA | Słowo Boże (UBG)';
+    ctaText = '👉 Odkryj w interlinearnej MojaBiblia:';
+  } else if (item.type === 'music') {
+    header = '🎵 CCN MUZYKA & YOUTUBE | Polskie Radio CC';
+    ctaText = '👉 Słuchaj w jakości HD / Oglądaj na VOD:';
+  } else if (item.type === 'profile') {
+    header = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
+    ctaText = '👉 Poznaj profil i dołącz do społeczności:';
+  }
 
   const lines = [
     `${header}\n`,
@@ -449,8 +459,9 @@ function formatFacebookPost(item) {
     lines.push(`${item.lead}\n`);
   }
 
-  // PANCERNA ZASADA FACEBOOK: BRAK LINKU W TREŚCI POSTA — LINK TRAFIA DO PIERWSZEGO KOMENTARZA!
-  lines.push(`👇 Pełny materiał oraz bezpłatny link znajdziesz w pierwszym komentarzu poniżej!\n`);
+  // BEZPOŚREDNI, AKTYWNY LINK W OPISIE POSTA
+  lines.push(`${ctaText}`);
+  lines.push(`${item.url}\n`);
   lines.push(`#ChristianCulture #CCNNews #PolskieRadioCC #Biblia #Wiadomosci ${item.tag || ''}`);
 
   return lines.join('\n');
