@@ -549,6 +549,16 @@ function formatBroadcasterTweet(item) {
       callToAction = '👉 Odkryj w ekosystemie:\n';
       addTags(item.tag || '#EkosystemCC', '#ChristianCulture', '#Prawda');
     }
+  } else if (item.type === 'news') {
+    if ((item.title || '').toLowerCase().includes('sprawozdanie') || (item.title || '').toLowerCase().includes('raport')) {
+      subHeader = '🌍 RAPORT MISYJNY CC';
+      callToAction = '👉 Czytaj pełny raport:\n';
+      addTags('#CCNNews', '#MisjaCC', '#ChristianCulture');
+    } else {
+      subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#CCNNews', '#ChristianCulture', '#Prawda');
+    }
   } else {
     addTags(item.tag || '#CCNNews', '#ChristianCulture', '#Prawda');
   }
