@@ -575,6 +575,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🏠 CHRZEŚCIJAŃSKI DOM & RODZINA';
       callToAction = '👉 Czytaj poradnik w serwisie:\n';
       addTags('#CCNNews', '#RodzinaCC', '#CyfrowyDetoks');
+    } else if (tLower.includes('tętno misji') || tLower.includes('przegląd ekosystemu')) {
+      subHeader = '🔥 TĘTNO MISJI | CC INSIDE';
+      callToAction = '👉 Sprawdź przegląd w serwisie:\n';
+      addTags('#CCNNews', '#TetnoMisji', '#ChristianCulture');
     } else {
       subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
       callToAction = '👉 Czytaj w serwisie:\n';
