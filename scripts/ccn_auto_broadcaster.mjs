@@ -352,13 +352,13 @@ function getAllEcosystemCandidates() {
       tag: '#WiolettaRogowska'
     },
     {
-      title: 'Wizytówka: Mariusz Chmielewski — Duszpasterz Christian Culture & Studio Dobrego Słowa',
-      lead: 'Rozmowy duszpasterskie, modlitwa wstawiennicza i biblijne wsparcie dla poszukujących prawdy. Skontaktuj się z duszpasterzem misji na portalu LUMINA.',
-      url: 'https://polskieradio.cc/lumina.mariusz.html',
-      image: 'images/team/mariusz-duszpasterz.jpg',
-      category: 'Wizytówka',
-      type: 'profile',
-      tag: '#DuszpasterzCC'
+      title: 'Studio Dobrego Słowa: Mariusz & pastor Wincenty Sieja — Cykl „Apokalipsa: Księga Nadziei”',
+      lead: 'Głębokie studium biblijnych proroctw Księgi Objawienia w świetle Ewangelii i Słowa Bożego. Odkryj nadzieję w Chrystusie w cyklu prowadzonym przez Mariusza i pastora Wincentego Sieję ze Studia Dobrego Słowa.',
+      url: 'https://polskieradio.cc/vod',
+      image: 'avatar_mariusz_sds.jpg',
+      category: 'Studio Dobrego Słowa',
+      type: 'music',
+      tag: '#StudioDobregoSlowa'
     },
     {
       title: 'LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej',
