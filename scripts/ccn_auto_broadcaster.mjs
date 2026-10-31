@@ -323,7 +323,7 @@ function getAllEcosystemCandidates() {
       title: 'Kanał Transmisyjny: Biblia Śpiewana Live — Słowo Boże ubrane w natchnioną muzykę',
       lead: 'Całodobowy kanał radiowo-wizualny z natchnionymi Psalmami i pieśniami biblijnymi. Ukojenie, pokój i skupienie na Bożej obecności o każdej porze dnia i nocy.',
       url: 'https://polskieradio.cc/live/biblia-spiewana',
-      image: 'images/news/art-co-dalej-z-ta-niedziela-szabat-bacchiocchi.jpg',
+      image: 'Logo_Biblia_Spiewana.jpg',
       category: 'Muzyka',
       type: 'music',
       tag: '#BibliaSpiewana'
@@ -495,24 +495,25 @@ function getAllEcosystemCandidates() {
 
 // Formatowanie posta zgodnie z dyrektywą Dowódcy
 function formatBroadcasterTweet(item) {
-  let header = '🔴 CCN NEWS | polskieradio.cc/news';
+  const header = '🔴 CCN NEWS | polskieradio.cc/news';
+  let subHeader = '';
   let callToAction = '👉 Sprawdź w ekosystemie:\n';
   let hashtags = `${item.tag || '#CCNNews'} #ChristianCulture #Prawda`;
 
   if (item.type === 'book') {
-    header = '🔴 CCN KSIĄŻKI | Cezary Rogowski';
+    subHeader = '📚 KSIĄŻKA & WYDAWNICTWO CC';
     callToAction = '👉 Czytaj bezpłatne fragmenty w ekosystemie:\n';
     hashtags = `${item.tag || '#KsiazkiCC'} #CezaryRogowski #ChristianCulture #Wydawnictwo`;
   } else if (item.type === 'verse') {
-    header = '📖 WERSET DNIA | Słowo Boże (UBG)';
+    subHeader = '📖 WERSET DNIA | Słowo Boże (UBG)';
     callToAction = '👉 Odkryj w interlinearnej MojaBiblia:\n';
     hashtags = `${item.tag || '#WersetDnia'} #SlowoBoze #MojaBiblia #UBG #Prawda`;
   } else if (item.type === 'music') {
-    header = '🎵 CCN MUZYKA & YOUTUBE | Polskie Radio CC';
-    callToAction = '👉 Słuchaj w jakości HD / Oglądaj na VOD:\n';
+    subHeader = '🎵 MUZYKA & KANAŁY LIVE';
+    callToAction = '👉 Słuchaj w jakości HD / Oglądaj na żywo:\n';
     hashtags = `${item.tag || '#CCNMuzyka'} #PolskieRadioCC #WorshipLive #ChristianCulture`;
   } else if (item.type === 'profile') {
-    header = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
+    subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
     callToAction = '👉 Dołącz do wolnej od algorytmów przestrzeni:\n';
     hashtags = `${item.tag || '#Lumina'} #LudzieMisji #ChristianCulture #CezaryRogowski`;
   }
@@ -525,14 +526,16 @@ function formatBroadcasterTweet(item) {
   } else {
     bodyText = item.title.trim()
       .replace(/^CCN News\s*[-–—:]\s*/i, '')
+      .replace(/^Kanał Transmisyjny:\s*/i, '')
+      .replace(/^Książka:\s*/i, '')
       .replace(/\s*•\s*Polskie Radio CC.*$/i, '')
       .replace(/\s*–\s*CCN Historia.*$/i, '')
       .replace(/\s*\(\/[a-z0-9_/-]+\)\s*$/i, '')
       .trim();
   }
 
-  // Buduj roboczy wpis
-  let tweet = `${header}\n\n${bodyText}\n\n${callToAction}${url}\n\n${hashtags}`;
+  const subLine = subHeader ? `\n${subHeader}\n` : '\n\n';
+  let tweet = `${header}${subLine}${bodyText}\n\n${callToAction}${url}\n\n${hashtags}`;
 
   // Limit 280 znaków (link t.co liczony jako 23 znaki)
   const calcLen = () => tweet.length - url.length + 23;
@@ -540,7 +543,7 @@ function formatBroadcasterTweet(item) {
   if (calcLen() > 270) {
     while (calcLen() > 270 && bodyText.length > 25) {
       bodyText = bodyText.slice(0, -1).trim();
-      tweet = `${header}\n\n${bodyText}…\n\n${callToAction}${url}\n\n${hashtags}`;
+      tweet = `${header}${subLine}${bodyText}…\n\n${callToAction}${url}\n\n${hashtags}`;
     }
   }
 
@@ -790,7 +793,9 @@ async function main() {
   }
 }
 
-main().catch(err => {
-  console.error('BŁĄD KRYTYCZNY:', err.message);
-  process.exit(1);
-});
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  main().catch(err => {
+    console.error('BŁĄD KRYTYCZNY:', err.message);
+    process.exit(1);
+  });
+}
