@@ -137,27 +137,94 @@
       this.currentCard = null;
     }
 
-    injectStyles() {
+        injectStyles() {
       if (document.getElementById('ekocc-info-styles')) return;
       const style = document.createElement('style');
       style.id = 'ekocc-info-styles';
       style.textContent = `
         :root {
-          --ekocc-gold: #C4A35A;
-          --ekocc-gold-hover: #D4B578;
-          --ekocc-gold-light: #E2CC9A;
+          --ekocc-gold: #D4A94A;
+          --ekocc-gold-hover: #E8C97A;
+          --ekocc-gold-light: #F3E5AB;
           --ekocc-gold-dark: #A08040;
-          --ekocc-info-bg: #0f172a;
-          --ekocc-info-card: #1e293b;
-          --ekocc-info-text: #f8fafc;
-          --ekocc-info-muted: #94a3b8;
-          --ekocc-info-border: rgba(196, 163, 90, 0.25);
+          --ekocc-btn-orange: #FF7A00;
+          --ekocc-btn-orange-hover: #FF8C33;
+          --ekocc-btn-orange-active: #E66A00;
         }
 
-        /* Dyskretny pływający przycisk ⓘ */
-        body:has(#luminaThemeSwitchBtn) .ekocc-info-trigger,
-        body.lumina-page .ekocc-info-trigger,
-        html[data-lumina-theme] .ekocc-info-trigger { display: none !important; }
+        /* ── Dedykowane motywy kolorystyczne okna informacji per strona ── */
+        /* 1. Strona Główna (polskieradio.cc) - Głęboki Kosmiczny Obsidian & Imperial Gold */
+        .ekocc-info-panel,
+        .ekocc-info-panel[data-page-theme="home"] {
+          --ekocc-info-bg: #07090e;
+          --ekocc-info-bg-gradient: linear-gradient(180deg, #0a0d17 0%, #05070a 100%);
+          --ekocc-info-header-bg: linear-gradient(180deg, rgba(16, 22, 34, 0.98) 0%, rgba(10, 14, 22, 0.98) 100%);
+          --ekocc-info-card-bg: linear-gradient(145deg, rgba(18, 24, 38, 0.72) 0%, rgba(10, 14, 22, 0.88) 100%);
+          --ekocc-info-card-border: 1px solid rgba(212, 169, 74, 0.22);
+          --ekocc-info-card-hover-border: rgba(212, 169, 74, 0.45);
+          --ekocc-info-border: rgba(212, 169, 74, 0.22);
+          --ekocc-info-text: #f8fafc;
+          --ekocc-info-text-body: #cbd5e1;
+          --ekocc-info-muted: #94a3b8;
+          --ekocc-info-gold: #D4A94A;
+          --ekocc-info-gold-light: #E8C97A;
+          --ekocc-info-footer-bg: rgba(10, 14, 22, 0.98);
+          --ekocc-info-tag-bg: rgba(212, 169, 74, 0.12);
+        }
+
+        /* 2. Akademia Biblijna & Kurs Codzienny - Midnight Navy & Gold */
+        .ekocc-info-panel[data-page-theme="akademia"] {
+          --ekocc-info-bg: #080f24;
+          --ekocc-info-bg-gradient: linear-gradient(180deg, #0c1636 0%, #060b1b 100%);
+          --ekocc-info-header-bg: linear-gradient(180deg, rgba(16, 28, 64, 0.98) 0%, rgba(10, 18, 42, 0.98) 100%);
+          --ekocc-info-card-bg: linear-gradient(145deg, rgba(18, 32, 72, 0.7) 0%, rgba(10, 18, 44, 0.88) 100%);
+          --ekocc-info-card-border: 1px solid rgba(212, 169, 74, 0.25);
+          --ekocc-info-card-hover-border: rgba(212, 169, 74, 0.5);
+          --ekocc-info-border: rgba(212, 169, 74, 0.25);
+          --ekocc-info-footer-bg: rgba(10, 18, 42, 0.98);
+        }
+
+        /* 3. Moja Biblia - Biblical Espresso Obsidian & Ancient Amber Gold */
+        .ekocc-info-panel[data-page-theme="mojabiblia"] {
+          --ekocc-info-bg: #0e0a0a;
+          --ekocc-info-bg-gradient: linear-gradient(180deg, #181212 0%, #0a0707 100%);
+          --ekocc-info-header-bg: linear-gradient(180deg, rgba(28, 18, 18, 0.98) 0%, rgba(18, 12, 12, 0.98) 100%);
+          --ekocc-info-card-bg: linear-gradient(145deg, rgba(34, 22, 22, 0.7) 0%, rgba(18, 12, 12, 0.88) 100%);
+          --ekocc-info-card-border: 1px solid rgba(229, 169, 60, 0.24);
+          --ekocc-info-card-hover-border: rgba(229, 169, 60, 0.5);
+          --ekocc-info-border: rgba(229, 169, 60, 0.24);
+          --ekocc-info-gold: #E5A93C;
+          --ekocc-info-gold-light: #F6CA65;
+          --ekocc-info-footer-bg: rgba(18, 12, 12, 0.98);
+        }
+
+        /* 4. VOD Kino - Cinema True Black & Gold */
+        .ekocc-info-panel[data-page-theme="vod"] {
+          --ekocc-info-bg: #050507;
+          --ekocc-info-bg-gradient: linear-gradient(180deg, #0b0b12 0%, #040406 100%);
+          --ekocc-info-header-bg: linear-gradient(180deg, rgba(20, 16, 26, 0.98) 0%, rgba(10, 8, 14, 0.98) 100%);
+          --ekocc-info-card-bg: linear-gradient(145deg, rgba(22, 18, 28, 0.72) 0%, rgba(12, 10, 18, 0.88) 100%);
+          --ekocc-info-card-border: 1px solid rgba(212, 169, 74, 0.2);
+          --ekocc-info-card-hover-border: rgba(212, 169, 74, 0.45);
+          --ekocc-info-border: rgba(212, 169, 74, 0.2);
+          --ekocc-info-footer-bg: rgba(10, 8, 14, 0.98);
+        }
+
+        /* 5. News & Portale Tematyczne - Editorial Obsidian & Clean Gold */
+        .ekocc-info-panel[data-page-theme="news"] {
+          --ekocc-info-bg: #0a0c10;
+          --ekocc-info-bg-gradient: linear-gradient(180deg, #10141c 0%, #07080c 100%);
+          --ekocc-info-header-bg: linear-gradient(180deg, rgba(18, 24, 34, 0.98) 0%, rgba(10, 14, 20, 0.98) 100%);
+          --ekocc-info-card-bg: linear-gradient(145deg, rgba(20, 26, 38, 0.7) 0%, rgba(12, 16, 24, 0.88) 100%);
+          --ekocc-info-card-border: 1px solid rgba(196, 163, 90, 0.2);
+          --ekocc-info-card-hover-border: rgba(196, 163, 90, 0.45);
+          --ekocc-info-border: rgba(196, 163, 90, 0.2);
+          --ekocc-info-footer-bg: rgba(10, 14, 20, 0.98);
+        }
+
+        /* Dyskretny pływający przycisk ⓘ z luksusową ikoną 3D Gold */
+        body:has(#luminaThemeSwitchBtn:not(.cc-mobile-edge *)) .ekocc-info-trigger,
+        body.lumina-page .ekocc-info-trigger { display: none !important; }
 
         .ekocc-info-trigger {
           position: fixed;
@@ -169,44 +236,52 @@
           min-width: 44px;
           min-height: 44px;
           border-radius: 50%;
-          background: rgba(15, 23, 42, 0.92);
-          border: 1.5px solid var(--ekocc-gold);
-          color: var(--ekocc-gold);
+          background: transparent;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 10px rgba(212, 169, 74, 0.3));
+          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, bottom 0.2s ease;
+          touch-action: manipulation;
+          -webkit-tap-highlight-color: transparent;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-family: system-ui, -apple-system, sans-serif;
-          font-size: 20px;
-          font-weight: 700;
-          cursor: pointer;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-          transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-          touch-action: manipulation;
-          -webkit-tap-highlight-color: transparent;
+        }
+        .ekocc-info-trigger .ekocc-info-icon-img {
+          width: 48px;
+          height: 48px;
+          display: block;
+          object-fit: contain;
+          pointer-events: none;
+          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .ekocc-info-trigger:hover, .ekocc-info-trigger:focus-visible {
-          background: var(--ekocc-gold);
-          color: #0f172a;
-          transform: scale(1.06);
-          outline: 2px solid var(--ekocc-gold-light);
-          outline-offset: 3px;
-          box-shadow: 0 6px 20px rgba(196, 163, 90, 0.4);
+          transform: scale(1.1);
+          filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 16px rgba(212, 169, 74, 0.65));
+          outline: none;
+        }
+        .ekocc-info-trigger:hover .ekocc-info-icon-img {
+          transform: rotate(5deg) scale(1.02);
+        }
+        .ekocc-info-trigger:active {
+          transform: scale(0.96);
         }
 
         /* Nakładka i modal dialog */
         .ekocc-info-backdrop {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.75);
-          backdrop-filter: blur(4px);
-          -webkit-backdrop-filter: blur(4px);
+          background: rgba(4, 6, 10, 0.8);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
           z-index: 10000;
           display: flex;
           align-items: center;
           justify-content: flex-end;
           opacity: 0;
           visibility: hidden;
-          transition: opacity 0.25s ease, visibility 0.25s ease;
+          transition: opacity 0.28s ease, visibility 0.28s ease;
         }
         .ekocc-info-backdrop.is-active {
           opacity: 1;
@@ -215,18 +290,18 @@
 
         .ekocc-info-panel {
           width: 100%;
-          max-width: 520px;
+          max-width: 540px;
           height: 100%;
-          background: var(--ekocc-info-bg);
+          background: var(--ekocc-info-bg-gradient, var(--ekocc-info-bg));
           color: var(--ekocc-info-text);
           display: flex;
           flex-direction: column;
-          box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
+          box-shadow: -12px 0 44px rgba(0, 0, 0, 0.8), inset 1px 0 0 rgba(255, 255, 255, 0.05);
           transform: translateX(100%);
-          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
           border-left: 1px solid var(--ekocc-info-border);
           overflow: hidden;
-          font-family: system-ui, -apple-system, sans-serif;
+          font-family: 'Outfit', 'Montserrat', system-ui, -apple-system, sans-serif;
         }
         .ekocc-info-backdrop.is-active .ekocc-info-panel {
           transform: translateX(0);
@@ -239,31 +314,41 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          background: rgba(30, 41, 59, 0.7);
+          background: var(--ekocc-info-header-bg);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
         }
         .ekocc-info-brand {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 12px;
         }
         .ekocc-info-badge {
-          width: 32px;
-          height: 32px;
-          border-radius: 8px;
-          background: var(--ekocc-gold);
-          color: #0f172a;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: transparent;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-weight: 800;
-          font-size: 16px;
+          flex-shrink: 0;
+          filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+        }
+        .ekocc-info-badge .ekocc-info-badge-img {
+          width: 36px;
+          height: 36px;
+          display: block;
+          object-fit: contain;
         }
         .ekocc-info-title {
-          font-size: 1.1rem;
-          font-weight: 700;
-          color: var(--ekocc-gold-light);
+          font-size: 1.15rem;
+          font-weight: 800;
+          background: linear-gradient(135deg, #FFE082 0%, var(--ekocc-info-gold) 50%, var(--ekocc-info-gold-light) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
           margin: 0;
           line-height: 1.3;
+          letter-spacing: 0.3px;
         }
         .ekocc-info-actions {
           display: flex;
@@ -271,48 +356,53 @@
           gap: 12px;
         }
         .ekocc-info-lang-switch {
-          background: rgba(15, 23, 42, 0.8);
-          border: 1px solid var(--ekocc-gold);
-          border-radius: 6px;
+          background: rgba(8, 11, 18, 0.85);
+          border: 1px solid var(--ekocc-info-border);
+          border-radius: 8px;
           display: flex;
           overflow: hidden;
+          padding: 2px;
+          gap: 2px;
         }
         .ekocc-info-lang-btn {
           background: transparent;
           border: none;
           color: var(--ekocc-info-muted);
-          padding: 6px 10px;
+          padding: 6px 12px;
           font-size: 0.8rem;
           font-weight: 700;
           cursor: pointer;
           min-width: 38px;
           min-height: 36px;
-          transition: background 0.15s, color 0.15s;
+          border-radius: 6px;
+          transition: all 0.2s ease;
         }
         .ekocc-info-lang-btn.active {
-          background: var(--ekocc-gold);
-          color: #0f172a;
+          background: linear-gradient(135deg, var(--ekocc-info-gold), var(--ekocc-info-gold-light));
+          color: #07090e;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
         }
         .ekocc-info-close {
-          background: transparent;
+          background: rgba(255, 255, 255, 0.05);
           border: 1px solid var(--ekocc-info-border);
-          color: var(--ekocc-info-text);
-          border-radius: 8px;
+          color: var(--ekocc-info-gold-light);
+          border-radius: 10px;
           width: 44px;
           height: 44px;
           min-width: 44px;
           min-height: 44px;
-          font-size: 20px;
+          font-size: 18px;
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: background 0.2s;
+          transition: all 0.2s ease;
         }
         .ekocc-info-close:hover, .ekocc-info-close:focus-visible {
-          background: rgba(196, 163, 90, 0.2);
-          color: var(--ekocc-gold-light);
-          outline: 2px solid var(--ekocc-gold);
+          background: rgba(212, 169, 74, 0.2);
+          border-color: var(--ekocc-info-gold);
+          color: #ffffff;
+          transform: scale(1.05);
         }
 
         /* Treść panelu */
@@ -322,29 +412,39 @@
           flex: 1;
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: 18px;
           line-height: 1.6;
           font-size: 0.95rem;
         }
         .ekocc-info-card {
-          background: var(--ekocc-info-card);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 10px;
-          padding: 16px 18px;
+          background: var(--ekocc-info-card-bg, var(--ekocc-info-card));
+          border: var(--ekocc-info-card-border, 1px solid rgba(255, 255, 255, 0.08));
+          border-radius: 14px;
+          padding: 18px 20px;
+          box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+        .ekocc-info-card:hover {
+          border-color: var(--ekocc-info-card-hover-border, var(--ekocc-info-gold));
         }
         .ekocc-info-card h4 {
           margin: 0 0 10px 0;
-          color: var(--ekocc-gold);
-          font-size: 0.95rem;
+          color: var(--ekocc-info-gold-light);
+          font-size: 0.88rem;
+          font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.8px;
           display: flex;
           align-items: center;
           gap: 8px;
         }
         .ekocc-info-card p {
           margin: 0 0 8px 0;
-          color: #cbd5e1;
+          color: var(--ekocc-info-text-body, #cbd5e1);
+          font-size: 0.92rem;
+          line-height: 1.6;
         }
         .ekocc-info-card p:last-child {
           margin-bottom: 0;
@@ -352,7 +452,7 @@
         .ekocc-info-card ol, .ekocc-info-card ul {
           margin: 0;
           padding-left: 20px;
-          color: #cbd5e1;
+          color: var(--ekocc-info-text-body, #cbd5e1);
         }
         .ekocc-info-card li {
           margin-bottom: 6px;
@@ -371,32 +471,34 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 8px 12px;
-          background: rgba(15, 23, 42, 0.5);
-          border-radius: 6px;
+          padding: 10px 14px;
+          background: rgba(8, 11, 18, 0.5);
+          border-radius: 8px;
           font-size: 0.9rem;
+          border: 1px solid rgba(255, 255, 255, 0.04);
         }
         .ekocc-info-status {
           font-size: 0.75rem;
           font-weight: 700;
-          padding: 3px 8px;
-          border-radius: 4px;
+          padding: 4px 10px;
+          border-radius: 6px;
           text-transform: uppercase;
+          letter-spacing: 0.4px;
         }
         .ekocc-info-status.available {
-          background: rgba(34, 197, 94, 0.2);
+          background: rgba(34, 197, 94, 0.18);
           color: #4ade80;
-          border: 1px solid rgba(74, 222, 128, 0.4);
+          border: 1px solid rgba(74, 222, 128, 0.35);
         }
         .ekocc-info-status.testing {
-          background: rgba(234, 179, 8, 0.2);
+          background: rgba(234, 179, 8, 0.18);
           color: #facc15;
-          border: 1px solid rgba(250, 204, 21, 0.4);
+          border: 1px solid rgba(250, 204, 21, 0.35);
         }
         .ekocc-info-status.planned {
-          background: rgba(148, 163, 184, 0.2);
+          background: rgba(148, 163, 184, 0.18);
           color: #94a3b8;
-          border: 1px solid rgba(148, 163, 184, 0.4);
+          border: 1px solid rgba(148, 163, 184, 0.35);
         }
 
         /* Linki powiązane i wsparcie */
@@ -404,45 +506,59 @@
           display: flex;
           flex-wrap: wrap;
           gap: 8px;
-          margin-top: 6px;
+          margin-top: 8px;
         }
         .ekocc-info-link-pill {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          padding: 8px 14px;
-          background: rgba(196, 163, 90, 0.12);
-          border: 1px solid var(--ekocc-gold);
-          color: var(--ekocc-gold-light);
+          padding: 8px 16px;
+          background: var(--ekocc-info-tag-bg, rgba(212, 169, 74, 0.12));
+          border: 1px solid var(--ekocc-info-border);
+          color: var(--ekocc-info-gold-light);
           text-decoration: none;
           border-radius: 20px;
           font-size: 0.85rem;
           font-weight: 600;
           min-height: 44px;
-          transition: background 0.2s, color 0.2s;
+          transition: all 0.2s ease;
         }
         .ekocc-info-link-pill:hover, .ekocc-info-link-pill:focus-visible {
-          background: var(--ekocc-gold);
-          color: #0f172a;
+          background: linear-gradient(135deg, var(--ekocc-info-gold), var(--ekocc-info-gold-light));
+          color: #07090e;
+          border-color: var(--ekocc-info-gold-light);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 14px rgba(212, 169, 74, 0.35);
         }
 
+        /* Przycisk Wsparcia — Oficjalny Standard CC Orange (#FF7A00, Dyrektywa JOMA-D052) */
         .ekocc-info-support-btn {
-          display: block;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
           text-align: center;
-          background: linear-gradient(135deg, var(--ekocc-gold) 0%, var(--ekocc-gold-dark) 100%);
-          color: #0f172a;
+          background: var(--ekocc-btn-orange);
+          color: #ffffff !important;
           font-weight: 700;
           text-decoration: none;
-          padding: 12px 20px;
-          border-radius: 8px;
+          padding: 12px 24px;
+          border-radius: 28px;
           font-size: 0.95rem;
           min-height: 44px;
           line-height: 20px;
-          box-shadow: 0 4px 12px rgba(196, 163, 90, 0.3);
-          transition: opacity 0.2s;
+          box-shadow: 0 4px 16px rgba(255, 122, 0, 0.4);
+          transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
         }
         .ekocc-info-support-btn:hover, .ekocc-info-support-btn:focus-visible {
-          opacity: 0.92;
+          background: var(--ekocc-btn-orange-hover);
+          transform: translateY(-1px);
+          box-shadow: 0 6px 22px rgba(255, 122, 0, 0.55);
+          color: #ffffff !important;
+        }
+        .ekocc-info-support-btn:active {
+          background: var(--ekocc-btn-orange-active);
+          transform: translateY(0);
         }
 
         .ekocc-info-footer {
@@ -450,8 +566,9 @@
           border-top: 1px solid var(--ekocc-info-border);
           font-size: 0.78rem;
           color: var(--ekocc-info-muted);
-          background: rgba(30, 41, 59, 0.7);
+          background: var(--ekocc-info-footer-bg, rgba(10, 14, 22, 0.98));
           text-align: center;
+          line-height: 1.5;
         }
 
         /* Mobile full-screen / bottom-sheet adjustment */
@@ -460,9 +577,9 @@
             max-width: 100%;
             height: 92%;
             margin-top: auto;
-            border-radius: 16px 16px 0 0;
+            border-radius: 20px 20px 0 0;
             border-left: none;
-            border-top: 1px solid var(--ekocc-gold);
+            border-top: 1px solid var(--ekocc-info-border);
             transform: translateY(100%);
           }
           .ekocc-info-backdrop.is-active .ekocc-info-panel {
@@ -475,7 +592,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .ekocc-info-backdrop, .ekocc-info-panel, .ekocc-info-trigger {
+          .ekocc-info-backdrop, .ekocc-info-panel, .ekocc-info-trigger, .ekocc-info-trigger .ekocc-info-icon-img {
             transition: none !important;
           }
         }
@@ -495,7 +612,7 @@
       btn.setAttribute('aria-haspopup', 'dialog');
       btn.setAttribute('aria-expanded', 'false');
       btn.setAttribute('aria-controls', 'ekoccInfoDialog');
-      btn.innerHTML = 'ⓘ';
+      btn.innerHTML = '<img src="/images/icons/ekocc-info-gold-128.png" srcset="/images/icons/ekocc-info-gold-128.png 1x, /images/icons/ekocc-info-gold.png 2x" alt="" class="ekocc-info-icon-img" width="48" height="48" loading="eager" decoding="async">';
       btn.title = UNIVERSAL_TEXT[this.currentLang].labels.openInfo;
 
       document.body.appendChild(btn);
@@ -534,10 +651,10 @@
       backdrop.setAttribute('aria-labelledby', 'ekoccInfoTitle');
 
       backdrop.innerHTML = `
-        <div class="ekocc-info-panel" id="ekoccInfoPanel">
+        <div class="ekocc-info-panel" id="ekoccInfoPanel" data-page-theme="home">
           <header class="ekocc-info-header">
             <div class="ekocc-info-brand">
-              <div class="ekocc-info-badge">ⓘ</div>
+              <div class="ekocc-info-badge"><img src="/images/icons/ekocc-info-gold-128.png" srcset="/images/icons/ekocc-info-gold-128.png 1x, /images/icons/ekocc-info-gold.png 2x" alt="" class="ekocc-info-badge-img" width="36" height="36"></div>
               <h2 class="ekocc-info-title" id="ekoccInfoTitle">Christian Culture</h2>
             </div>
             <div class="ekocc-info-actions">

@@ -396,6 +396,7 @@
       }
     });
     infoBtn.setAttribute('data-ekocc-info-trigger','true');
+    infoBtn.innerHTML = '<img src="/images/icons/ekocc-info-gold-128.png" alt="" width="26" height="26" style="display:block;margin:auto;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));">';
     const fullMenu = button('menu','Pełne menu — wszystkie funkcje',event => {
       event.stopPropagation(); close(); if (canUseFullMenu()) legacy.click();
     });
