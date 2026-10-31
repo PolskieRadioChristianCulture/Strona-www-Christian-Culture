@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "biblia-audio",
+      "title": "Biblia Audio CC — Księga Rodzaju w Kinowej Jakości Dźwięku i Słuchowiskach",
+      "url": "https://polskieradio.cc/biblia-audio",
+      "type": "module",
+      "image": "rodzaju-hero.jpg",
+      "publishedAt": "2026-10-31T19:36:39.688Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina-tablica",
       "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
       "url": "https://polskieradio.cc/lumina-tablica",

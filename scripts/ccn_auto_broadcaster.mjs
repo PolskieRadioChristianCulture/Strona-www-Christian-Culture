@@ -521,6 +521,24 @@ function formatBroadcasterTweet(item) {
     subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
     callToAction = '👉 Dołącz do społeczności LUMINA:\n';
     addTags(item.tag || '#Lumina', '#LudzieMisji', '#ChristianCulture');
+  } else if (item.type === 'module') {
+    if ((item.url || '').includes('biblia-audio')) {
+      subHeader = '🎧 BIBLIA AUDIO & SŁUCHOWISKA CC';
+      callToAction = '👉 Słuchaj bezpłatnie:\n';
+      addTags(item.tag || '#BibliaAudio', '#SlowoBoze', '#ChristianCulture');
+    } else if ((item.url || '').includes('akademia')) {
+      subHeader = '🎓 AKADEMIA BIBLIJNA CC';
+      callToAction = '👉 Studiuj bezpłatnie:\n';
+      addTags(item.tag || '#AkademiaBiblijna', '#KursCodzienny', '#ChristianCulture');
+    } else if ((item.url || '').includes('mojabiblia')) {
+      subHeader = '📖 MOJA BIBLIA INTERLINEARNA';
+      callToAction = '👉 Badaj Pismo Święte:\n';
+      addTags(item.tag || '#MojaBiblia', '#Strong', '#UBG');
+    } else {
+      subHeader = '🌐 EKOSYSTEM CHRISTIAN CULTURE';
+      callToAction = '👉 Odkryj w ekosystemie:\n';
+      addTags(item.tag || '#EkosystemCC', '#ChristianCulture', '#Prawda');
+    }
   } else {
     addTags(item.tag || '#CCNNews', '#ChristianCulture', '#Prawda');
   }
