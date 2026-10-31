@@ -567,6 +567,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📜 HISTORIA & REFORMACJA';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#CCNNews', '#DzienReformacji', '#Prawda');
+    } else if (tLower.includes('newsletter')) {
+      subHeader = '📬 OFICJALNY NEWSLETTER CC';
+      callToAction = '👉 Dołącz bezpłatnie w serwisie:\n';
+      addTags('#CCNNews', '#NewsletterCC', '#ChristianCulture');
     } else {
       subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
       callToAction = '👉 Czytaj w serwisie:\n';
