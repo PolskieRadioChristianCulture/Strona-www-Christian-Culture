@@ -571,6 +571,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📬 OFICJALNY NEWSLETTER CC';
       callToAction = '👉 Dołącz bezpłatnie w serwisie:\n';
       addTags('#CCNNews', '#NewsletterCC', '#ChristianCulture');
+    } else if (tLower.includes('detoks') || tLower.includes('rodzin')) {
+      subHeader = '🏠 CHRZEŚCIJAŃSKI DOM & RODZINA';
+      callToAction = '👉 Czytaj poradnik w serwisie:\n';
+      addTags('#CCNNews', '#RodzinaCC', '#CyfrowyDetoks');
     } else {
       subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
       callToAction = '👉 Czytaj w serwisie:\n';
