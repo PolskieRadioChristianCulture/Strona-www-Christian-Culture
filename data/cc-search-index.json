@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-10-31T13:08:33.812Z",
-  "totalItems": 389,
+  "updatedAt": "2026-10-31T20:31:25.024Z",
+  "totalItems": 390,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -3703,6 +3703,42 @@
         "psychologia",
         "artykuł"
       ],
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-10-31T20:00:00+01:00",
+      "title": "Sprawozdanie misyjne Christian Culture za październik 2026: Słowo Boże, muzyka i prawda na 5 kontynentach",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026",
+      "description": "Z głębi serca pragniemy podzielić się z Wami podsumowaniem minionego miesiąca w Misji Christian Culture. Październik 2026 był czasem intensywnego wzrostu, codziennej pracy ewangelizacyjnej i docierania z czystą biblijną prawdą tam, gdzie ludzie poszukują pokoju, sensu i zbawienia. Dzięki Waszym modlitwom i wsparciu naszych Patronów, Polskie Radio CC oraz Biblia Audio dotarły do słuchaczy w 32 krajach na 5 kontynentach, notując ponad 1 022 godziny nieprzerwanego słuchania Słowa Bożego i budującej muzyki w 2 560 sesjach. Przedstawiamy pełne, transparentne sprawozdanie misyjne oraz serdecznie zapraszamy do objęcia patronatu nad kolejnymi etapami misji.",
+      "contentSnippet": "1. Wierność Słowu i owoce Bożego dzieła (Iz 55:11 UBG) Gdy rozpoczynaliśmy budowę zintegrowanego ekosystemu Christian Culture, przyświecała nam jedna fundamentalna zasada: Słowo Boże ma być głoszone bez kompromisów, w najwyższej jakości technologicznej i w 100% bezpłatnie dla każdego człowieka szukającego prawdy. W świecie zdominowanym przez komerc…",
+      "author": "Cezary Rogowski",
+      "date": "31 października 2026",
+      "tags": [
+        "@CezaryRogowski",
+        "@WiolettaRogowska",
+        "@ChristianCulture",
+        "@PolskieRadioCC",
+        "@Lumina",
+        "@BibliaAudio",
+        "#MisjaCC",
+        "#SprawozdanieMisyjne",
+        "#Ewangelizacja",
+        "#Polska",
+        "#GlobalneRadio",
+        "#WspieramTo",
+        "#Patronat",
+        "#UBG",
+        "Misje i Społeczeństwo",
+        "CCN MISJE & RAPORT MIESIĘCZNY • PAŹDZIERNIK 2026",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "Księga Izajasza 55:11; 2 Kor 9:7–8 Tak będzie z moim słowem, które wyjdzie z moich ust: nie wróci do mnie bezowocne, lecz uczyni to, co mi się podoba, i poszczęści mu się w tym, do czego je posłałem. Każdy tak, jak postanowił w sercu, nie z żalem ani z przymusu; gdyż radosnego dawcę Bóg miłuje.",
       "featured": true
     },
     {
@@ -9623,192 +9659,5 @@
       ],
       "featured": false
     }
-  ],
-  "recommendedToday": [
-    {
-      "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 31",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 31 października 2026.",
-      "url": "/player",
-      "icon": "heart"
-    },
-    {
-      "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 31)",
-      "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-31",
-      "icon": "book"
-    },
-    {
-      "tag": "Dzień Reformacji 2026 • Na Dziś",
-      "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
-      "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
-      "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-      "icon": "newspaper"
-    },
-    {
-      "tag": "Nadajemy 24/7",
-      "title": "Radio Christian Culture & Player",
-      "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
-      "url": "/player",
-      "icon": "radio"
-    }
-  ],
-  "searchRecommendations": {
-    "updatedAt": "2026-10-31T13:08:33.938Z",
-    "heading": "Polecane na dziś",
-    "dateFormattedPL": "31 października 2026",
-    "pools": [
-      [
-        {
-          "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 31",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 31 października 2026.",
-          "url": "/player",
-          "icon": "heart"
-        },
-        {
-          "tag": "Słowo Boże na Dziś",
-          "title": "Mój Werset Dnia z Obietnicą",
-          "desc": "Losuj i rozważaj żywe obietnice Pisma Świętego przygotowane na dziś.",
-          "url": "/werset-dnia",
-          "icon": "sparkle"
-        },
-        {
-          "tag": "Modlitwa & Wstawiennictwo",
-          "title": "Zjednoczeni za Polskę — Czuwanie",
-          "desc": "Wspólna modlitwa narodu o pokój, Boże prowadzenie i przebudzenie.",
-          "url": "/modlitwa",
-          "icon": "shield"
-        },
-        {
-          "tag": "Słuchowisko Biblijne",
-          "title": "Biblia Audio — Nowy Testament UBG",
-          "desc": "Żywe Słowo Boże z profesjonalną muzyką i udźwiękowieniem radiowym.",
-          "url": "/player",
-          "icon": "volume"
-        }
-      ],
-      [
-        {
-          "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 31)",
-          "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-31",
-          "icon": "book"
-        },
-        {
-          "tag": "Interlinearna Biblia",
-          "title": "MojaBiblia: Kody Stronga & Greka",
-          "desc": "Oryginalne znaczenie słów hebrajskich i greckich w Twojej przeglądarce.",
-          "url": "/mojabiblia",
-          "icon": "scroll"
-        },
-        {
-          "tag": "Wyszukiwarka Ekosystemu",
-          "title": "Błyskawiczne Odkrywanie w CC",
-          "desc": "Szukaj wersetów, lekcji, audycji i artykułów natychmiast od 1. litery.",
-          "url": "/wyszukiwarka",
-          "icon": "search"
-        },
-        {
-          "tag": "Kurs Proroctw Biblijnych",
-          "title": "Księga Daniela — 2300 Wieczorów i Poranków",
-          "desc": "Klucz do zrozumienia czasów ostatecznych i nadziei Zbawienia w Chrystusie.",
-          "url": "/akademia",
-          "icon": "compass"
-        }
-      ],
-      [
-        {
-          "tag": "Dzień Reformacji 2026 • Na Dziś",
-          "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
-          "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
-          "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-          "icon": "newspaper"
-        },
-        {
-          "tag": "Rodzina & Zdrowie • Nowość",
-          "title": "Cyfrowy detoks w chrześcijańskim domu",
-          "desc": "Jak odzyskać prawdziwą bliskość przy wspólnym stole (Wioletta Rogowska).",
-          "url": "/news/cyfrowy-detoks-rodziny-jak-odzyskac-bliskosc-i-spokoj",
-          "icon": "newspaper"
-        },
-        {
-          "tag": "Podcast Spotify SDS",
-          "title": "APOKALIPSA — Księga Nadziei",
-          "desc": "Profetyczny cykl wykładów biblijnych Studia Dobrego Słowa.",
-          "url": "/podcasty",
-          "icon": "mic"
-        },
-        {
-          "tag": "Kino Chrześcijańskie VOD",
-          "title": "Filmy Fabularne i Dokumentalne CC",
-          "desc": "Wartościowe kino chrześcijańskie bez reklam, opłat i subskrypcji.",
-          "url": "/vod",
-          "icon": "film"
-        }
-      ],
-      [
-        {
-          "tag": "Nadajemy 24/7",
-          "title": "Radio Christian Culture & Player",
-          "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
-          "url": "/player",
-          "icon": "radio"
-        },
-        {
-          "tag": "Przegląd Ekosystemu • Nowość",
-          "title": "Tętno Misji: Nowe Lekcje i Artykuły",
-          "desc": "Aktualne premiery, audycje i materiały w całym ekosystemie CC.",
-          "url": "/news/przeglad-ekosystemu-nowe-artykuly-i-lekcje-akademii",
-          "icon": "sparkle"
-        },
-        {
-          "tag": "Telewizja CCTV24 Worship",
-          "title": "CCTV24 — Pasmo Bożej Obecności",
-          "desc": "Nocne czuwania, modlitwy i pieśni chwały w krystalicznej jakości HD.",
-          "url": "/cctv24-worship",
-          "icon": "play"
-        },
-        {
-          "tag": "Społeczność Wiary",
-          "title": "Portal Społecznościowy LUMINA",
-          "desc": "Dołącz do chrześcijan z całej Polski — dyskusje, świadectwa, modlitwa.",
-          "url": "/lumina",
-          "icon": "users"
-        }
-      ]
-    ],
-    "recommendedToday": [
-      {
-        "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 31",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 31 października 2026.",
-        "url": "/player",
-        "icon": "heart"
-      },
-      {
-        "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 31)",
-        "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-31",
-        "icon": "book"
-      },
-      {
-        "tag": "Dzień Reformacji 2026 • Na Dziś",
-        "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
-        "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
-        "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-        "icon": "newspaper"
-      },
-      {
-        "tag": "Nadajemy 24/7",
-        "title": "Radio Christian Culture & Player",
-        "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
-        "url": "/player",
-        "icon": "radio"
-      }
-    ]
-  }
+  ]
 }

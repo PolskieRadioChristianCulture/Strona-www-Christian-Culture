@@ -41,6 +41,7 @@ export const AUTHORS: Record<string, Author> = {
 };
 
 export const BREAKING_NEWS: string[] = [
+  "SPRAWOZDANIE MISYJNE PAŹDZIERNIK 2026: Ponad 1000 godzin Słowa Bożego i muzyki chrześcijańskiej w 32 krajach świata — pełny oficjalny raport Cezarego Rogowskiego (https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026)",
   "CCN NAUKA & BIOETYKA: Granice ingerencji w ludzki genom. CRISPR, syntetyczne embriony a biblijna prawda o początku życia — analiza Cezarego Rogowskiego (Ps 139:13–16; Rdz 1:26–27)",
   "OFICJALNY START NEWSLETTERA CC: Dołącz do Newslettera Christian Culture — wybierz interesujące Cię kategorie i bądź na bieżąco ze Słowem, muzyką i akcją #antyHALLOWEEN! (https://polskieradio.cc/newsletter)",
   "NOWY ARTYKUŁ RODZINA & WIARA: Cyfrowy detoks w chrześcijańskim domu — jak odzyskać prawdziwą bliskość przy wspólnym stole? Praktyczny poradnik Wioletty Rogowskiej (https://polskieradio.cc/news/cyfrowy-detoks-rodziny-jak-odzyskac-bliskosc-i-spokoj)",
@@ -78,6 +79,85 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    id: 'art-sprawozdanie-misyjne-pazdziernik-2026',
+    title: 'Sprawozdanie misyjne Christian Culture za październik 2026: Słowo Boże, muzyka i prawda na 5 kontynentach',
+    slug: 'sprawozdanie-misyjne-pazdziernik-2026',
+    excerpt: 'Z głębi serca pragniemy podzielić się z Wami podsumowaniem minionego miesiąca w Misji Christian Culture. Październik 2026 był czasem intensywnego wzrostu, codziennej pracy ewangelizacyjnej i docierania z czystą biblijną prawdą tam, gdzie ludzie poszukują pokoju, sensu i zbawienia. Dzięki Waszym modlitwom i wsparciu naszych Patronów, Polskie Radio CC oraz Biblia Audio dotarły do słuchaczy w 32 krajach na 5 kontynentach, notując ponad 1 022 godziny nieprzerwanego słuchania Słowa Bożego i budującej muzyki w 2 560 sesjach. Przedstawiamy pełne, transparentne sprawozdanie misyjne oraz serdecznie zapraszamy do objęcia patronatu nad kolejnymi etapami misji.',
+    content: [
+      '1. Wierność Słowu i owoce Bożego dzieła (Iz 55:11 UBG)',
+      'Gdy rozpoczynaliśmy budowę zintegrowanego ekosystemu Christian Culture, przyświecała nam jedna fundamentalna zasada: Słowo Boże ma być głoszone bez kompromisów, w najwyższej jakości technologicznej i w 100% bezpłatnie dla każdego człowieka szukającego prawdy. W świecie zdominowanym przez komercyjny szum, algorytmy promujące sensację i wszechobecny chaos informacyjny, pragniemy tworzyć cyfrową oazę pokoju i czystej chrześcijańskiej nadziei.',
+      'Kończący się październik 2026 roku był miesiącem szczególnym. W naszych sercach brzmią słowa proroka Izajasza: „Tak będzie z moim słowem, które wyjdzie z moich ust: nie wróci do mnie bezowocne, lecz uczyni to, co mi się podoba, i poszczęści mu się w tym, do czego je posłałem” (Iz 55:11 UBG). Z radością i głęboką wdzięcznością wobec naszego Pana prezentujemy oficjalne dane telemetryczne i statystyczne za miniony miesiąc.',
+      '2. Liczby, które mówią o ludzkich sercach: Ponad 1 022 godziny słuchania w październiku',
+      'Statystyki serwerów strumieniowych Christian Culture Global za okres 1–30 października 2026 r. (pełne 30 dni z 31-dniowego miesiąca) jednoznacznie pokazują, że radio internetowe i Biblia Audio stają się dla tysięcy ludzi codziennym towarzyszem życia, pracy i modlitwy.',
+      'W minionym miesiącu odnotowaliśmy łącznie 2 560 sesji słuchania, które złożyły się na imponujący wynik 1 022,21 godziny łącznego czasu odsłuchu (Total Listening Hours – TLH). Przesłaliśmy łącznie 57,51 GB danych audio w najwyższej jakości radiowej.',
+      'Szczególne miejsce w sercach naszych odbiorców zajmuje audycja ciągła Radia Christian Culture (główny strumień oraz strumień wysokiej rozdzielczości HQ), która zgromadziła 1 805 sesji i wygenerowała ponad 833 godziny transmisji pieśni uwielbienia, biblijnych kazań i programów ewangelizacyjnych.',
+      'Ogromnym powodem do dumy i wdzięczności jest również Biblia Audio Christian Culture: w dwóch dedykowanych kanałach słuchacze uruchomili 644 sesje, spędzając łącznie 183,8 godziny na bezpośrednim wsłuchiwaniu się w natchniony tekst Pisma Świętego. Dopełnieniem jest kanał Christian Culture Global (111 sesji, 5,1 godz.), skierowany do odbiorców międzynarodowych.',
+      '3. Geografia nadziei: 32 państwa na 5 kontynentach',
+      'Ewangelia nie zna granic państwowych ani barier geograficznych. Choć naszą główną bazą pozostaje Polska (2 033 sesje, czyli 80,71% całego ruchu, 712,8 godzin słuchania i 844 unikalne adresy IP), sygnał Christian Culture rozbrzmiewał w październiku w aż 32 krajach na 5 kontynentach świata!',
+      'Drugim pod względem aktywności krajem okazały się Niemcy, gdzie nasi rodacy i sympatycy wygenerowali 269 sesji i spędzili przy odbiornikach aż 206,7 godziny (10,68% całkowitego czasu antenowego). Szczególnie silną słuchalność zanotowaliśmy w Nadrenii Północnej-Westfalii, Hesji i Bawarii.',
+      'Na kolejnych miejscach uplasowała się Wielka Brytania (67 sesji, 59,2 godziny słuchania) oraz Stany Zjednoczone (55 sesji, 17,1 godziny słuchania). Ale sygnał Radia CC dotarł znacznie dalej: odnotowaliśmy regularne odsłuchy w Indiach (14 sesji), Holandii (10 sesji), Szwecji (7 sesji), Irlandii (6 sesji), Republice Południowej Afryki (6 sesji), a także w Japonii (4 sesje), na Ukrainie, w Austrii, Czechach, Norwegii, na Cyprze, w Portugalii, Kanadzie i Indonezji.',
+      'Pojedyncze, poruszające sesje zarejestrowaliśmy również w takich zakątkach świata jak Dania, Tanzania, Francja, Madagaskar, Belgia, Kolumbia, Grecja, Islandia, Liberia, Meksyk, Słowacja, Szwajcaria i Uganda. Świadomość, że mieszkaniec Madagaskaru, misjonarz w Afryce czy emigrant w USA rozpoczyna dzień od naszych rozważań i uwielbienia Boga, napełnia nas pokorą i przynagla do dalszej służby.',
+      '4. Jak i gdzie nas słuchacie: Domy, praca, trasa i inteligentne głośniki',
+      'Analiza urządzeń, z których korzystają nasi odbiorcy, dostarcza fascynujących informacji o codziennych nawykach słuchaczy. Zdecydowanym liderem mobilności pozostają smartfony z systemem Android, na których zrealizowano 1 636 sesji (62,78% całości, średni czas trwania sesji: 20,73 minuty).',
+      'Na drugim miejscu znalazły się komputery osobiste i laptopy (Desktop) – 691 sesji (26,52%), gdzie średni czas słuchania wyniósł niemal pół godziny (29,12 minuty). Świadczy to o tym, że wielu z Was włącza Polskie Radio CC jako tło duchowe w biurach, gabinetach i warsztatach rzemieślniczych.',
+      'Użytkownicy urządzeń Apple iPhone wygenerowali 169 sesji (6,49%) ze średnim czasem 27,29 minuty.',
+      'Niezwykle budującym zjawiskiem jest obecność Radia CC na inteligentnych głośnikach domowych (Smart Speakers, np. Amazon Echo / Google Nest) — 80 sesji (3,07%). To właśnie w tej kategorii odnotowaliśmy najdłuższy średni czas pojedynczej sesji: aż 30,91 minuty! Oznacza to, że nasze stacje na stałe zagościły w Waszych salonach, kuchniach i pokojach rodzinnych, towarzysząc modlitwie i domowym posiłkom.',
+      'Zanotowaliśmy również odsłuchy na telewizorach Smart TV (10 sesji, średnio 34,97 minuty) oraz innych urządzeniach multimedialnych (20 sesji, średnio 45,52 minuty).',
+      '5. Kluczowe dzieła zrealizowane w październiku 2026',
+      'Miniony miesiąc był czasem wytężonej pracy twórczej i inżynieryjnej w całym ekosystemie Christian Culture:',
+      '• Biblia Audio (Księga Rodzaju): Ukończyliśmy i udostępniliśmy pełną superprodukcję audio wszystkich 50 rozdziałów Księgi Rodzaju w przekładzie Uwspółcześnionej Biblii Gdańskiej (UBG). Całość jest bezpłatnie dostępna na platformie polskieradio.cc/biblia-audio.',
+      '• Akademia Biblijna i Kurs Codzienny: Przez 31 dni października codziennie publikowaliśmy nowe lekcje studium Słowa Bożego w ramach programu „Z Biblią za Pan Brat”, oferując wnikliwe analizy egzegetyczne, kody Stronga i praktyczne zastosowanie Ewangelii w codzienności.',
+      '• Akcja #antyHALLOWEEN: Wobec nasilającej się presji komercyjnego święta mroku i śmierci, opublikowaliśmy cykl 7 fundamentalnych artykułów i manifestów edukacyjnych, wskazując na piękno chrześcijańskiej nadziei, biblijną prawdę o stanie umarłych oraz potrzebę budowania tradycji światłości w rodzinie.',
+      '• Zintegrowana Wyszukiwarka Ekosystemu @w oraz IndexNow: Wdrożyliśmy uniwersalny silnik wyszukiwania obejmujący cały ekosystem oraz natychmiastowe indeksowanie treści w globalnych wyszukiwarkach (Bing, Yahoo, Naver, Seznam), aby biblijne odpowiedzi były natychmiast odnajdywane przez osoby w kryzysie życiowym.',
+      '6. Zostań naszym Patronem: Razem niesiemy czystą Ewangelię („Wspieram to”)',
+      'Wszystko, co tworzymy w ramach Christian Culture — cała infrastruktura radiowa, audycje 24/7, platformy MojaBiblia, Akademia Biblijna, artykuły CCN News oraz kolejne księgi Biblii Audio — jest i zawsze będzie w 100% bezpłatne. Nie emitujemy reklam komercyjnych, nie stosujemy płatnych subskrypcji ani blokad dostępu (paywalli).',
+      'Utrzymanie dedykowanych serwerów strumieniowych, potężnych maszyn bazodanowych, profesjonalnych licencji lektorskich i narzędzi studyjnych DAW wymaga jednak realnych, comiesięcznych nakładów finansowych. Dzieło to istnieje i rozwija się wyłącznie dzięki dobrowolnym ofiarom i stałemu wsparciu ludzi o otwartych sercach — naszych Darczyńców i Patronów.',
+      'Apostoł Paweł pisał do Koryntian: „Każdy tak, jak postanowił w sercu, nie z żalem ani z przymusu; gdyż radosnego dawcę Bóg miłuje. A Bóg ma moc obdarzyć was wszelką łaską, abyście zawsze mając wszystkiego pod dostatkiem, obfitowali we wszelki dobry uczynek” (2 Kor 9:7–8 UBG).',
+      'Jeśli audycje Polskiego Radia CC, codzienne rozważania czy słuchowiska biblijne wnoszą pokój do Twojego domu, prosimy Cię dziś o modlitwę oraz o rozważenie objęcia naszej misji stałym lub jednorazowym patronatem. Nawet niewielka, regularna wpłata pozwala nam zabezpieczyć koszty streamingu dla setek słuchaczy w Polsce i na misjach zagranicznych.',
+      'Możesz wesprzeć nas bezpośrednio poprzez bezpieczną stronę wsparcia https://polskieradio.cc/wspieraj lub na profilu Patronite (patronite.pl/osobowoscplus), klikając w poniższy pomarańczowy przycisk „Wspieram to”. Bądźmy partnerami w Bożej sprawie!',
+      'PODSUMOWANIE REDAKCYJNE CCN',
+      'Październik 2026 roku zamykamy z poczuciem dobrze wypełnionego obowiązku i z sercami pełnymi wdzięczności. Ponad 1 022 godziny Słowa Bożego w 32 krajach świata to żywy dowód na to, że Boża prawda przenika ludzkie serca niezależnie od odległości. Dziękujemy każdemu słuchaczowi, czytelnikowi i darczyńcy. Niech Imię Pańskie będzie uwielbione we wszystkim, co wspólnie czynimy.',
+      'WEZWANIE DO DZIAŁANIA I MODLITWA',
+      'Trzy konkretne kroki dla Ciebie na dziś: 1. Pomódl się o ochronę i rozwój Misji Christian Culture, o naszych współpracowników oraz o każdego słuchacza poszukującego prawdy. 2. Udostępnij ten artykuł lub link do radia (polskieradio.cc) swoim bliskim, aby i w ich domach rozbrzmiało Słowo pokoju. 3. Kliknij przycisk „Wspieram to” poniżej i dołącz do grona Patronów, którzy pomagają nam bezpłatnie docierać z Ewangelią do kolejnych tysięcy serc na całym świecie.'
+    ],
+    category: 'Misje i Społeczeństwo',
+    categoryLabel: 'CCN MISJE & RAPORT MIESIĘCZNY • PAŹDZIERNIK 2026',
+    publishedAt: '2026-10-31T20:00:00+01:00',
+    dateFormatted: '31 października 2026',
+    author: AUTHORS.cezary,
+    imageUrl: '/images/news/art-sprawozdanie-misyjne-pazdziernik-2026.jpg',
+    imageCaption: 'Cezary i Wioletta Rogowscy — Założyciele Misji Christian Culture, PolskieRadio.cc oraz portalu społecznościowego Lumina.',
+    readTimeMinutes: 7,
+    isHero: true,
+    isPopular: true,
+    popularRank: 1,
+    tags: [
+      '@CezaryRogowski',
+      '@WiolettaRogowska',
+      '@ChristianCulture',
+      '@PolskieRadioCC',
+      '@Lumina',
+      '@BibliaAudio',
+      '#MisjaCC',
+      '#SprawozdanieMisyjne',
+      '#Ewangelizacja',
+      '#Polska',
+      '#GlobalneRadio',
+      '#WspieramTo',
+      '#Patronat',
+      '#UBG'
+    ],
+    scriptureReference: {
+      verse: 'Księga Izajasza 55:11; 2 Kor 9:7–8',
+      text: 'Tak będzie z moim słowem, które wyjdzie z moich ust: nie wróci do mnie bezowocne, lecz uczyni to, co mi się podoba, i poszczęści mu się w tym, do czego je posłałem. Każdy tak, jak postanowił w sercu, nie z żalem ani z przymusu; gdyż radosnego dawcę Bóg miłuje.',
+      strongCode: 'H1697'
+    },
+    sourceCitation: {
+      sourceName: 'Oficjalne statystyki serwerów transmisyjnych Christian Culture Global (1–30 października 2026)',
+      sourceUrl: 'https://polskieradio.cc/o-nas'
+    }
+  },
   {
     id: 'art-kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc',
     title: 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę bez ulegania panice według wytycznych RCB i biblijnej roztropności',

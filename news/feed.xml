@@ -8,8 +8,18 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sat, 31 Oct 2026 13:08:32 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 31 Oct 2026 20:31:23 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Sprawozdanie misyjne Christian Culture za październik 2026: Słowo Boże, muzyka i prawda na 5 kontynentach</title>
+      <link>https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026</guid>
+      <pubDate>Sat, 31 Oct 2026 19:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN MISJE &amp; RAPORT MIESIĘCZNY • PAŹDZIERNIK 2026</category>
+      <description>Z głębi serca pragniemy podzielić się z Wami podsumowaniem minionego miesiąca w Misji Christian Culture. Październik 2026 był czasem intensywnego wzrostu, codziennej pracy ewangelizacyjnej i docierania z czystą biblijną prawdą tam, gdzie ludzie poszukują pokoju, sensu i zbawienia. Dzięki Waszym modlitwom i wsparciu naszych Patronów, Polskie Radio CC oraz Biblia Audio dotarły do słuchaczy w 32 krajach na 5 kontynentach, notując ponad 1 022 godziny nieprzerwanego słuchania Słowa Bożego i budującej muzyki w 2 560 sesjach. Przedstawiamy pełne, transparentne sprawozdanie misyjne oraz serdecznie zapraszamy do objęcia patronatu nad kolejnymi etapami misji.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-sprawozdanie-misyjne-pazdziernik-2026.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę bez ulegania panice według wytycznych RCB i biblijnej roztropności</title>
       <link>https://polskieradio.cc/news/kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc</link>
@@ -299,16 +309,6 @@
       <category>Z BIBLIĄ ZA PAN BRAT · LEKSYKON BIBLIJNY</category>
       <description>Dwudziesty drugi rozdział Księgi Rodzaju opisuje najtrudniejszą próbę wiary w życiu Abrahama – ofiarowanie Izaaka na górze Moria – oraz fundamentalną zapowiedź zastępczej ofiary mesjańskiej Baranka Bożego.</description>
       <enclosure url="https://polskieradio.cc/images/academy/daily/kc_day_16_baranek_moria.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?</title>
-      <link>https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13</link>
-      <guid isPermaLink="true">https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13</guid>
-      <pubDate>Thu, 15 Oct 2026 10:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>CCN FINANSE · TECHNOLOGIA, WOLNOŚĆ RELIGIJNA I PROROCTWA</category>
-      <description>Dyskusja o cyfrowych walutach banków centralnych (CBDC) coraz częściej wykracza poza ekonomię. Chrześcijanie pytają, czy programowalny pieniądz i całkowita kontrola transakcji mogą w przyszłości posłużyć do wywierania presji na sumienie — zwłaszcza w sporze o dzień święty i wolność religijną.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>
