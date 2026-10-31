@@ -54,7 +54,10 @@
     "test:zaczepki": "node --test scripts/whatsapp_zaczepki/zaczepki.test.mjs",
     "x:broadcaster": "node scripts/ccn_auto_broadcaster.mjs --loop",
     "x:broadcaster:once": "node scripts/ccn_auto_broadcaster.mjs --once",
-    "x:broadcaster:status": "node scripts/ccn_auto_broadcaster.mjs --status"
+    "x:broadcaster:status": "node scripts/ccn_auto_broadcaster.mjs --status",
+    "seo:indexnow": "node scripts/cc-instant-indexing.mjs",
+    "seo:indexnow:dry": "node scripts/cc-instant-indexing.mjs --dry-run",
+    "seo:ping": "node scripts/cc-instant-indexing.mjs --ping-only"
   },
   "dependencies": {
     "@pdf-lib/fontkit": "^1.1.1",

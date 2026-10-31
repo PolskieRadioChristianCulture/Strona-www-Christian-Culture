@@ -1,6 +1,36 @@
 {
   "entries": [
     {
+      "timestamp": "2026-10-31T17:10:36.412Z",
+      "level": "ERROR",
+      "event": "INDEXNOW_SUBMIT_HTTP_ERROR",
+      "endpoint": "Bing Direct",
+      "httpStatus": 403,
+      "urlCount": 310
+    },
+    {
+      "timestamp": "2026-10-31T17:10:35.926Z",
+      "level": "ERROR",
+      "event": "INDEXNOW_SUBMIT_HTTP_ERROR",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 403,
+      "urlCount": 310
+    },
+    {
+      "timestamp": "2026-10-31T17:10:35.182Z",
+      "level": "INFO",
+      "event": "SITEMAP_PING_SENT",
+      "engine": "Bing",
+      "httpStatus": 410
+    },
+    {
+      "timestamp": "2026-10-31T17:10:35.064Z",
+      "level": "INFO",
+      "event": "SITEMAP_PING_SENT",
+      "engine": "Google",
+      "httpStatus": 404
+    },
+    {
       "timestamp": "2026-10-31T13:08:33.270Z",
       "level": "INFO",
       "event": "INDEXNOW_ENQUEUED",

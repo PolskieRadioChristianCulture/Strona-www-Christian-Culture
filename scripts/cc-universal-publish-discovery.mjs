@@ -76,6 +76,7 @@ async function run() {
     // ── KROK 2: DISCOVERY SIGNALS — Sitemapy XML, RSS & IndexNow ──
     console.log('\n[2/7] 🗺️ Generowanie map witryn XML (sitemap.xml, /sitemaps/*) i RSS...');
     execSync('node scripts/build-cc-discovery-signals.mjs', { cwd: ROOT, stdio: 'inherit' });
+    execSync('node scripts/cc-instant-indexing.mjs', { cwd: ROOT, stdio: 'inherit' });
     results.discoverySignals = true;
     console.log('✅ Mapy witryn i sygnały discovery wygenerowane.');
 

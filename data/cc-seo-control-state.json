@@ -90,7 +90,7 @@
     }
   ],
   "indexNow": {
-    "keyConfigured": false,
+    "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
     "totalQueued": 36,
     "pendingCount": 36,
@@ -382,7 +382,11 @@
         },
         "status": "PENDING"
       }
-    ]
+    ],
+    "keyMasked": "cc777b...c28e",
+    "totalIndexedUrls": 310,
+    "lastSubmittedCount": 310,
+    "lastSubmittedAt": "2026-10-31T17:10:36.415Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -598,5 +602,6 @@
       "errors": [],
       "warnings": []
     }
-  ]
+  ],
+  "lastInstantIndexingAt": "2026-10-31T17:10:36.415Z"
 }
