@@ -125,25 +125,28 @@ button {
     width: 100%;
     max-width: 1760px;
     margin: 0 auto;
-    padding: 0 clamp(1.2rem, 2.5vw, 3rem);
+    padding: 0 clamp(1rem, 2vw, 2.5rem);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1.5rem;
+    gap: clamp(0.75rem, 1.2vw, 1.5rem);
+    box-sizing: border-box;
 }
 
 .header-left {
     display: flex;
     align-items: center;
-    gap: clamp(1.5rem, 2vw, 2.4rem);
-    flex-shrink: 0;
+    gap: clamp(0.8rem, 1.4vw, 1.8rem);
+    min-width: 0;
+    flex-shrink: 1;
 }
 
 .header-right {
     display: flex;
     align-items: center;
-    gap: clamp(1.2rem, 1.8vw, 2.2rem);
+    gap: clamp(0.5rem, 0.9vw, 1.2rem);
     flex-shrink: 0;
+    margin-left: auto;
 }
 
 .header-right > * {
@@ -159,8 +162,8 @@ button {
     background: rgba(255, 255, 255, 0.025);
     border: 1.5px solid rgba(212, 169, 74, 0.25);
     border-radius: 30px;
-    padding: 6px 20px;
-    margin-left: clamp(0.5rem, 1.2vw, 1.5rem);
+    padding: 6px 14px;
+    margin-left: clamp(0.4rem, 0.8vw, 1rem);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     font-family: 'Outfit', 'Montserrat', sans-serif;
@@ -171,20 +174,29 @@ button {
 }
 
 .live-title-link, .next-title {
-    max-width: 320px;
+    max-width: clamp(100px, 10vw, 200px);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 /* Responsive safety: on screens <= 1420px, cleanly hide the 3rd item so elements never collide */
-@media (max-width: 1420px) {
+/* Responsive safety: progressive collapse of schedule items to prevent header overflow */
+@media (max-width: 1680px) {
     .header-live-schedule .header-third-item {
         display: none !important;
     }
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 1380px) {
+    .header-live-schedule .header-schedule-sep:last-of-type,
+    .header-live-schedule .next-label,
+    .header-live-schedule .next-title {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1080px) {
     .header-live-schedule {
         display: none !important;
     }

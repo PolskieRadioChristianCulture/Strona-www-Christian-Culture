@@ -161,9 +161,9 @@
 
         .ekocc-info-trigger {
           position: fixed;
-          bottom: 96px;
+          bottom: 118px;
           right: 20px;
-          z-index: 899;
+          z-index: 1001;
           width: 48px;
           height: 48px;
           min-width: 44px;
@@ -469,7 +469,7 @@
             transform: translateY(0);
           }
           .ekocc-info-trigger {
-            bottom: 84px;
+            bottom: 110px;
             right: 16px;
           }
         }
@@ -499,6 +499,27 @@
       btn.title = UNIVERSAL_TEXT[this.currentLang].labels.openInfo;
 
       document.body.appendChild(btn);
+      this.adjustTriggerPosition(btn);
+      window.addEventListener('resize', () => this.adjustTriggerPosition());
+      window.addEventListener('orientationchange', () => this.adjustTriggerPosition());
+    }
+
+    adjustTriggerPosition(btn) {
+      if (!btn) btn = document.getElementById('ekoccInfoTriggerBtn');
+      if (!btn) return;
+      const candidates = ['#radioPlayerBar', '.radio-player-bar', '#globalAudioBar', '.player-bottom-bar', '.player-sticky-controls'];
+      let bottomOffset = window.innerWidth <= 640 ? 24 : 32;
+      for (const sel of candidates) {
+        const el = document.querySelector(sel);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.height > 0 && rect.top < window.innerHeight && rect.bottom >= window.innerHeight - 10) {
+            const barHeight = Math.round(window.innerHeight - rect.top);
+            bottomOffset = Math.max(bottomOffset, barHeight + 16);
+          }
+        }
+      }
+      btn.style.bottom = bottomOffset + 'px';
     }
 
     createModalDialog() {

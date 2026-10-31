@@ -453,7 +453,35 @@
                 margin: 0 !important;
             }
         }
-        @media (min-width: 769px) {
+        @media (min-width: 769px) and (max-width: 1140px) {
+            .cc-auth-google-btn {
+                padding: 6px 10px 6px 8px;
+                gap: 6px;
+            }
+            .cc-auth-google-btn span.cc-auth-btn-text-full,
+            .cc-auth-google-btn .cc-auth-lumina-tag {
+                display: none !important;
+            }
+            .cc-auth-google-btn span.cc-auth-btn-text-short {
+                display: inline !important;
+            }
+        }
+        @media (min-width: 1141px) and (max-width: 1320px) {
+            .cc-auth-google-btn {
+                padding: 6px 12px 6px 10px;
+                gap: 6px;
+            }
+            .cc-auth-google-btn .cc-auth-lumina-tag {
+                display: none !important;
+            }
+            .cc-auth-google-btn span.cc-auth-btn-text-full {
+                display: inline;
+            }
+            .cc-auth-google-btn span.cc-auth-btn-text-short {
+                display: none;
+            }
+        }
+        @media (min-width: 1321px) {
             .cc-auth-google-btn span.cc-auth-btn-text-full {
                 display: inline;
             }
