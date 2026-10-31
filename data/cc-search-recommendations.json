@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-10-31T13:08:33.938Z",
+  "updatedAt": "2026-10-31T23:09:39.958Z",
   "heading": "Polecane na dziś",
-  "dateFormattedPL": "31 października 2026",
+  "dateFormattedPL": "1 listopada 2026",
   "pools": [
     [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 31",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 31 października 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 1",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 1 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
@@ -36,9 +36,9 @@
     [
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 31)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 1)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-31",
+        "url": "/akademia/kurscodzienny/dzien-1",
         "icon": "book"
       },
       {
@@ -127,16 +127,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 31",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 31 października 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 1",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 1 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 31)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 1)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-31",
+      "url": "/akademia/kurscodzienny/dzien-1",
       "icon": "book"
     },
     {

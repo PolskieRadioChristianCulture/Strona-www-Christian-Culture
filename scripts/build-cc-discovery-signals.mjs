@@ -346,20 +346,30 @@ export function buildAllDiscoverySignals() {
 
   // 3. /sitemaps/akademia.xml
   const akademiaEntries = [
-    { loc: `${PRIMARY_ORIGIN}/akademia`, lastmod: '2026-10-17', changefreq: 'daily', priority: '0.95' },
-    { loc: `${PRIMARY_ORIGIN}/akademia/kurscodzienny`, lastmod: '2026-10-17', changefreq: 'daily', priority: '0.95' },
+    { loc: `${PRIMARY_ORIGIN}/akademia`, lastmod: '2026-11-01', changefreq: 'daily', priority: '0.95' },
+    { loc: `${PRIMARY_ORIGIN}/akademia/kurscodzienny`, lastmod: '2026-11-01', changefreq: 'daily', priority: '0.95' },
   ];
-  for (let d = 1; d <= 17; d++) {
-    const pad = String(d).padStart(2, '0');
-    const dayDate = `2026-10-${pad}`;
-    akademiaEntries.push({
-      loc: `${PRIMARY_ORIGIN}/akademia/dzien-${d}`,
-      lastmod: dayDate,
-      changefreq: 'monthly',
-      priority: '0.85',
+  const akademiaDailyDir = path.join(ROOT, 'akademia/kurscodzienny');
+  if (fs.existsSync(akademiaDailyDir)) {
+    const dayFiles = fs.readdirSync(akademiaDailyDir).filter(f => /^dzien-\d+\.html$/.test(f));
+    dayFiles.sort((a, b) => {
+      const numA = parseInt(a.match(/\d+/)[0], 10);
+      const numB = parseInt(b.match(/\d+/)[0], 10);
+      return numA - numB;
     });
+    for (const f of dayFiles) {
+      const dNum = parseInt(f.match(/\d+/)[0], 10);
+      const dPad = String(dNum).padStart(2, '0');
+      const dayDate = dNum <= 31 ? `2026-10-${String(dNum).padStart(2, '0')}` : `2026-11-${String(dNum - 31).padStart(2, '0')}`;
+      akademiaEntries.push({
+        loc: `${PRIMARY_ORIGIN}/akademia/kurscodzienny/dzien-${dPad}`,
+        lastmod: dayDate,
+        changefreq: 'monthly',
+        priority: '0.85',
+      });
+    }
   }
-  for (let l = 1; l <= 26; l++) {
+  for (let l = 1; l <= 29; l++) {
     const pad = String(l).padStart(2, '0');
     if (fs.existsSync(path.join(ROOT, 'akademia/apokalipsa', `lekcja-${pad}.html`))) {
       akademiaEntries.push({

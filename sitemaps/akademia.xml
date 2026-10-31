@@ -2,115 +2,205 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://polskieradio.cc/akademia</loc>
-    <lastmod>2026-10-17</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://polskieradio.cc/akademia/kurscodzienny</loc>
-    <lastmod>2026-10-17</lastmod>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-1</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-01</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-2</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-02</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-3</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-03</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-4</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-04</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-5</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-05</loc>
     <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-6</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-06</loc>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-7</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-07</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-8</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-08</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-9</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-09</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-10</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-10</loc>
     <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-11</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-11</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-12</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-12</loc>
     <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-13</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-13</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-14</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-14</loc>
     <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-15</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-15</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-16</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-16</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/akademia/dzien-17</loc>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-17</loc>
     <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-18</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-19</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-20</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-21</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-22</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-23</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-24</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-25</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-26</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-27</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-28</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-29</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-30</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-31</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-32</loc>
+    <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -266,6 +356,24 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/akademia/apokalipsa/lekcja-26</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/apokalipsa/lekcja-27</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/apokalipsa/lekcja-28</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/akademia/apokalipsa/lekcja-29</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>

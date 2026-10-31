@@ -13,17 +13,91 @@ const data = JSON.parse(rawData);
 // 1. Lekcje Kursu Codziennego "Z Biblią za Pan Brat"
 const dailyLessons = [
   {
-    title: "Z Biblią za Pan Brat — Dzień 26 (Lekcja 26 na dziś): Od więzienia do pałacu (Rdz 40:1–41:57)",
+    title: "Z Biblią za Pan Brat — Dzień 32 (Lekcja 32 na dziś): W nieskrępowanym rozroście: Nowy król, uciskanie i Boże ocalenie (Wj 1:1–22)",
     category: "Biblia i formacja",
-    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-26",
-    description: "Kurs Codzienny Pisma Świętego — Dzień 26 (Lekcja 26 na dziś, 26 października 2026). Józef zapomniany w więzieniu, sny podczaszego, piekarza i faraona, siedem lat obfitości i głodu oraz wywyższenie Józefa — Rdz 40:1–41:57.",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-32",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 32 (Lekcja 32 na dziś, 1 listopada 2026). Księga Wyjścia: nowy faraon, niewola Izraela, heroiczna wiara położnych Szifry i Pui oraz Boże ocalenie życia — Wj 1:1–22.",
     tags: [
-      "lekcja 26", "lekcja 26 na dziś", "lekcja na dziś", "dzień 26", "dzien 26",
-      "rozważanie 26", "rozważanie na dziś", "słowo na dziś", "od więzienia do pałacu", "józef",
-      "faraon", "sny faraona", "rdz 40", "rdz 41", "z biblią za pan brat", "kurs codzienny",
-      "akademia biblijna", "26 października 2026", "dzisiaj", "dziś"
+      "lekcja 32", "lekcja 32 na dziś", "lekcja na dziś", "dzień 32", "dzien 32",
+      "rozważanie 32", "rozważanie na dziś", "słowo na dziś", "w nieskrępowanym rozroście",
+      "nowy król", "faraon", "szifra i pua", "położne", "bojaźń boża", "niewola egipska",
+      "wj 1", "z biblią za pan brat", "kurs codzienny", "akademia biblijna",
+      "1 listopada 2026", "dzisiaj", "dziś"
     ],
     featured: true
+  },
+  {
+    title: "Z Biblią za Pan Brat — Dzień 31 (Lekcja 31): Bóg obrócił to w dobro — Ewangelia Opatrzności (Rdz 50:1–26)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-31",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 31 (Lekcja 31, 31 października 2026). Finał Księgi Rodzaju: pochówek Jakuba w Kanaanie, lęk braci przed zemstą, wyznanie Bożej Opatrzności i kości Józefa — Rdz 50:1–26.",
+    tags: [
+      "lekcja 31", "dzień 31", "dzien 31", "rozważanie 31", "słowo na dziś",
+      "bóg obrócił to w dobro", "opatrzność", "józef", "rdz 50", "z biblią za pan brat",
+      "kurs codzienny", "akademia biblijna", "31 października 2026"
+    ],
+    featured: false
+  },
+  {
+    title: "Z Biblią za Pan Brat — Dzień 30 (Lekcja 30): Błogosławieństwo, obietnica i Lew z Judy (Rdz 48:1–49:33)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-30",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 30 (Lekcja 30, 30 października 2026). Jakub adoptuje i błogosławi Efraima i Manassesa, prorocze błogosławieństwo dwunastu synów, berło Judy i przyjście Szilo — Rdz 48:1–49:33.",
+    tags: [
+      "lekcja 30", "dzień 30", "dzien 30", "rozważanie 30", "słowo na dziś",
+      "lew z judy", "szilo", "jakub", "rdz 48", "rdz 49", "z biblią za pan brat",
+      "kurs codzienny", "akademia biblijna", "30 października 2026"
+    ],
+    featured: false
+  },
+  {
+    title: "Z Biblią za Pan Brat — Dzień 29 (Lekcja 29): Bóg prowadzi swój lud do Egiptu (Rdz 46:1–47:31)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-29",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 29 (Lekcja 29, 29 października 2026). Jakub w Beer-Szebie, podróż do Egiptu, spotkanie z Józefem i osiedlenie w ziemi Goszen — Rdz 46:1–47:31.",
+    tags: [
+      "lekcja 29", "dzień 29", "dzien 29", "rozważanie 29", "słowo na dziś",
+      "ziemia goszen", "jakub", "józef", "rdz 46", "rdz 47", "z biblią za pan brat",
+      "kurs codzienny", "akademia biblijna", "29 października 2026"
+    ],
+    featured: false
+  },
+  {
+    title: "Z Biblią za Pan Brat — Dzień 28 (Lekcja 28): Ja jestem Józef — Przebaczenie i pojednanie (Rdz 44:1–45:28)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-28",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 28 (Lekcja 28, 28 października 2026). Srebrny puchar w worku Beniamina, wstawiennictwo Judy, odsłonięcie tożsamości Józefa i łaska przebaczenia — Rdz 44:1–45:28.",
+    tags: [
+      "lekcja 28", "dzień 28", "dzien 28", "rozważanie 28", "słowo na dziś",
+      "ja jestem józef", "przebaczenie", "juda", "rdz 44", "rdz 45", "z biblią za pan brat",
+      "kurs codzienny", "akademia biblijna", "28 października 2026"
+    ],
+    featured: false
+  },
+  {
+    title: "Z Biblią za Pan Brat — Dzień 27 (Lekcja 27): Bracia w Egipcie — Przebudzenie sumienia (Rdz 42:1–43:34)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-27",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 27 (Lekcja 27, 27 października 2026). Głód w Kanaanie, pierwsza podróż braci po zboże do Egiptu, próba Józefa i ból sumienia — Rdz 42:1–43:34.",
+    tags: [
+      "lekcja 27", "dzień 27", "dzien 27", "rozważanie 27", "słowo na dziś",
+      "bracia w egipcie", "przebudzenie sumienia", "józef", "rdz 42", "rdz 43", "z biblią za pan brat",
+      "kurs codzienny", "akademia biblijna", "27 października 2026"
+    ],
+    featured: false
+  },
+  {
+    title: "Z Biblią za Pan Brat — Dzień 26 (Lekcja 26): Od więzienia do pałacu (Rdz 40:1–41:57)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-26",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 26 (26 października 2026). Józef zapomniany w więzieniu, sny podczaszego, piekarza i faraona, siedem lat obfitości i głodu oraz wywyższenie Józefa — Rdz 40:1–41:57.",
+    tags: [
+      "lekcja 26", "dzień 26", "dzien 26",
+      "rozważanie 26", "słowo na dziś", "od więzienia do pałacu", "józef",
+      "faraon", "sny faraona", "rdz 40", "rdz 41", "z biblią za pan brat", "kurs codzienny",
+      "akademia biblijna", "26 października 2026"
+    ],
+    featured: false
   },
   {
     title: "Z Biblią za Pan Brat — Dzień 22 (Lekcja 22 na dziś): Jakub walczy z Bogiem — Przemiana człowieka (Rdz 31:1–32:32)",

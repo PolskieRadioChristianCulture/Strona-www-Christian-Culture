@@ -23,7 +23,7 @@ for (const f of dayFiles) {
   }
 }
 
-const currentDay = maxDay || 31;
+const currentDay = maxDay || 32;
 const prevDay = currentDay - 1;
 const currentDayPad = String(currentDay).padStart(2, '0');
 const prevDayPad = String(prevDay).padStart(2, '0');
@@ -39,11 +39,13 @@ const monthNamesTitle = {
   12: 'Grudnia'
 };
 
-const monthCaps = monthNamesCaps[10];
-const monthTitle = monthNamesTitle[10];
+const monthNum = currentDay <= 31 ? 10 : 11;
+const dayOfMonth = currentDay <= 31 ? currentDay : currentDay - 31;
+const monthCaps = monthNamesCaps[monthNum];
+const monthTitle = monthNamesTitle[monthNum];
 const year = '2026';
 
-console.log(`🔄 Rozpoczynam synchronizację Akademii i Kursu Codziennego (Dzień ${currentDay} • ${currentDay} ${monthTitle} ${year})...`);
+console.log(`🔄 Rozpoczynam synchronizację Akademii i Kursu Codziennego (Dzień ${currentDay} • ${dayOfMonth} ${monthTitle} ${year})...`);
 
 // 2. Zaktualizuj akademia.html
 let akademiaHtml = fs.readFileSync(akademiaPath, 'utf8');
@@ -53,7 +55,7 @@ const heroActionsRegex = /<!-- Hero Actions -->\s*<div class="flex flex-wrap ite
 const updatedHeroActions = `<!-- Hero Actions -->
         <div class="flex flex-wrap items-center justify-center gap-4">
           <a href="/akademia/kurscodzienny/dzien-${currentDayPad}" class="cin-btn-primary min-h-[48px]">
-            <span>CZYTAJ DZIEŃ ${currentDay} (${currentDay} ${monthCaps})</span>
+            <span>CZYTAJ DZIEŃ ${currentDay} (${dayOfMonth} ${monthCaps})</span>
             <span>→</span>
           </a>
           <a href="/akademia/kurscodzienny/dzien-${prevDayPad}" class="cin-btn-secondary min-h-[48px]">
@@ -67,12 +69,12 @@ akademiaHtml = akademiaHtml.replace(heroActionsRegex, updatedHeroActions);
 
 // B. Zaktualizuj licznik dostępnych dni w akademia.html
 akademiaHtml = akademiaHtml.replace(
-  /Dni 1–\d+ Dostępne \(Październik 2026\)/g,
-  `Dni 1–${currentDay} z 31 Dostępne (${currentDay} ${monthTitle} ${year})`
+  /Dni 1–\d+ Dostępne \([^)]+\)/g,
+  `Dni 1–${currentDay} Dostępne (${dayOfMonth} ${monthTitle} ${year})`
 );
 akademiaHtml = akademiaHtml.replace(
-  /Dni 1–\d+ z 31 Dostępne[^\n<]*/g,
-  `Dni 1–${currentDay} z 31 Dostępne (${currentDay} ${monthTitle} ${year})`
+  /Dni 1–\d+ z \d+ Dostępne[^\n<]*/g,
+  `Dni 1–${currentDay} Dostępne (${dayOfMonth} ${monthTitle} ${year})`
 );
 
 // C. Zapewnij prawidłowe statusy kart w akademia.html
@@ -82,6 +84,7 @@ const TODAY = '<span class="px-2 py-0.5 rounded-full bg-amber-500/25 text-amber-
 const AVAIL = '<span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/40">DOSTĘPNA TERAZ</span>';
 
 akademiaHtml = akademiaHtml.replace(/<a href="\/akademia\/kurscodzienny\/dzien-(\d+)" class="([^"]+)">([\s\S]*?)<\/a>/g, (m, day, cls, inner) => {
+  if (cls.includes('cin-btn')) return m; // Nie modyfikuj przycisków akcji Hero
   const d = parseInt(day, 10);
   if (d === currentDay) {
     let newInner = inner.replace(AVAIL, TODAY);
@@ -103,8 +106,8 @@ fs.mkdirSync(path.join(ROOT, 'kursy'), { recursive: true });
 fs.writeFileSync(kursyIndex, akademiaHtml, 'utf8');
 console.log('✅ Zsynchronizowano akademia/index.html, kursy.html oraz kursy/index.html');
 
-// 3. Pobierz wszystkie karty z akademia.html i zaktualizuj akademia/kurscodzienny.html
-const cardsMatch = akademiaHtml.match(/<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">([\s\S]*?)<\/div>\s*<\/section>\s*<!-- ── WEZWANIE DO DZIAŁANIA/);
+// 3. Pobierz karty z sekcji katalog-kurscodzienny w akademia.html i zaktualizuj akademia/kurscodzienny.html
+const cardsMatch = akademiaHtml.match(/id="katalog-kurscodzienny"[\s\S]*?<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">([\s\S]*?)<\/div>\s*<\/section>/);
 
 if (cardsMatch && cardsMatch[1]) {
   const allCardsHtml = cardsMatch[1].trim();
@@ -116,7 +119,7 @@ if (cardsMatch && cardsMatch[1]) {
   const updatedHeroCta = `<!-- CTA Buttons -->
       <div class="flex flex-wrap items-center justify-center gap-4">
         <a href="/akademia/kurscodzienny/dzien-${currentDayPad}" class="cin-btn-primary min-h-[48px]">
-          <span>CZYTAJ DZIEŃ ${currentDay} (${currentDay} ${monthCaps})</span>
+          <span>CZYTAJ DZIEŃ ${currentDay} (${dayOfMonth} ${monthCaps})</span>
           <span>→</span>
         </a>
         <a href="/akademia/kurscodzienny/dzien-${prevDayPad}" class="cin-btn-secondary min-h-[48px]">
@@ -133,8 +136,12 @@ if (cardsMatch && cardsMatch[1]) {
 
   // Zaktualizuj licznik w kurscodzienny.html
   kurscodziennyHtml = kurscodziennyHtml.replace(
-    /Dni 1–\d+ z 31 Dostępne[^\n<]*/g,
-    `Dni 1–${currentDay} z 31 Dostępne (${currentDay} ${monthTitle} ${year})`
+    /Dni 1–\d+ Dostępne \([^)]+\)/g,
+    `Dni 1–${currentDay} Dostępne (${dayOfMonth} ${monthTitle} ${year})`
+  );
+  kurscodziennyHtml = kurscodziennyHtml.replace(
+    /Dni 1–\d+ z \d+ Dostępne[^\n<]*/g,
+    `Dni 1–${currentDay} Dostępne (${dayOfMonth} ${monthTitle} ${year})`
   );
 
   // Zaktualizuj siatkę kart w kurscodzienny.html
@@ -167,22 +174,18 @@ const lessonTargets = [
   'akademia/kurscodzienny/dzien-31.html',
   'akademia/kurscodzienny/dzien-31/index.html',
   'kursy/kurscodzienny/dzien-31.html',
-  'kursy/kurscodzienny/dzien-31/index.html'
+  'kursy/kurscodzienny/dzien-31/index.html',
+  'akademia/kurscodzienny/dzien-32.html',
+  'akademia/kurscodzienny/dzien-32/index.html',
+  'kursy/kurscodzienny/dzien-32.html',
+  'kursy/kurscodzienny/dzien-32/index.html'
 ];
 
 for (const target of lessonTargets) {
   const fp = path.join(ROOT, target);
   if (fs.existsSync(fp)) {
     let content = fs.readFileSync(fp, 'utf8');
-    const is30 = target.includes('dzien-30');
-    const is31 = target.includes('dzien-31');
-    if (is30) {
-      content = content.replace(/\s*<a href="\/akademia\/kurscodzienny\/dzien-30" class="px-2\.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-amber-400 hover:text-amber-300 min-h-\[32px\] flex items-center font-bold">Dzień 30 →<\/a>/g, '');
-      content = content.replace(/\s*<a href="\/akademia\/kurscodzienny\/dzien-26" class="px-2\.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-amber-400 hover:text-amber-300 min-h-\[32px\] flex items-center font-bold">Dzień 26 →<\/a>/g, '');
-    } else if (is31) {
-      content = content.replace(/\s*<a href="\/akademia\/kurscodzienny\/dzien-30" class="px-2\.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-amber-400 hover:text-amber-300 min-h-\[32px\] flex items-center font-bold">Dzień 30 →<\/a>/g, '');
-      content = content.replace(/\s*<a href="\/akademia\/kurscodzienny\/dzien-26" class="px-2\.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-amber-400 hover:text-amber-300 min-h-\[32px\] flex items-center font-bold">Dzień 26 →<\/a>/g, '');
-    }
+    content = content.replace(/\s*<a href="\/akademia\/kurscodzienny\/dzien-26" class="px-2\.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-amber-400 hover:text-amber-300 min-h-\[32px\] flex items-center font-bold">Dzień 26 →<\/a>/g, '');
     fs.writeFileSync(fp, content, 'utf8');
   }
 }
