@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina-tablica",
+      "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
+      "url": "https://polskieradio.cc/lumina-tablica",
+      "type": "profile",
+      "image": "card-lumina.jpg",
+      "publishedAt": "2026-10-31T19:04:15.911Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina.wiolettarogowska",
       "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
       "url": "https://polskieradio.cc/lumina.wiolettarogowska",

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 /**
  * CCN NEWS — AUTOMATYCZNY NADAJNIK NOWOŚCI EKOSYSTEMU NA PLATFORMĘ X
  *
@@ -364,7 +364,7 @@ function getAllEcosystemCandidates() {
       title: 'LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej',
       lead: 'Dołącz do chrześcijańskiego portalu społecznościowego LUMINA. Dziel się wersetami, modlitwami, świadectwami i twórz wartościowe relacje w czystym środowisku.',
       url: 'https://polskieradio.cc/lumina-tablica',
-      image: 'images/brand/cezary-wioletta-radiocc.jpg',
+      image: 'images/kultura/card-lumina.jpg',
       category: 'Społeczność',
       type: 'profile',
       tag: '#Lumina'
@@ -808,3 +808,4 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
     process.exit(1);
   });
 }
+
