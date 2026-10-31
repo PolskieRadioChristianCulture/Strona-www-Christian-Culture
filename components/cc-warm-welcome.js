@@ -5,6 +5,22 @@
  */
 
 const STORAGE_KEY = 'cc_warm_welcome_v1';
+
+function getDefaultAction() {
+  if (typeof window !== 'undefined' && window.location) {
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('player')) {
+      return { label: 'Odkryj Biblię Audio', url: '/biblia-audio' };
+    }
+    if (path.includes('biblia-audio')) {
+      return { label: 'Słuchaj Radia LIVE', url: '/player' };
+    }
+  }
+  return { label: 'Słuchaj Radia LIVE', url: '/player' };
+}
+
+const defaultAction = getDefaultAction();
+
 const DEFAULT_CONFIG = {
   enabled: true,
   delayMs: 10000,           // 10s opóźnienia
@@ -13,10 +29,19 @@ const DEFAULT_CONFIG = {
   badgeText: 'Christian Culture',
   title: 'Pokój temu domowi! ✨',
   message: 'Cieszymy się, że tu jesteś. Zanurz się w Słowie Bożym, słuchowisku Biblia Audio i kojącej muzyce radiowej 24/7.',
-  actionLabel: 'Słuchaj Radia LIVE',
-  actionUrl: '/player',
+  actionLabel: defaultAction.label,
+  actionUrl: defaultAction.url,
   optOutLabel: 'Nie pokazuj więcej'
 };
+
+function ensureStyles() {
+  if (typeof document === 'undefined') return;
+  if (document.querySelector('link[href*="cc-warm-welcome.css"]')) return;
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = '/css/cc-warm-welcome.css';
+  document.head.appendChild(link);
+}
 
 function getSafeStorage() {
   try {
@@ -91,6 +116,8 @@ export class WarmWelcomeManager {
 
   render() {
     if (this.isRendered || typeof document === 'undefined') return;
+
+    ensureStyles();
 
     const host = document.createElement('aside');
     host.className = 'cc-warm-welcome-host';
@@ -231,6 +258,23 @@ const CCWarmWelcome = {
 
 if (typeof globalThis !== 'undefined') {
   globalThis.CCWarmWelcome = CCWarmWelcome;
+}
+
+// Automatyczny start w przeglądarce
+let defaultInstance = null;
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  const start = () => {
+    ensureStyles();
+    if (!defaultInstance) {
+      defaultInstance = new WarmWelcomeManager();
+      defaultInstance.init();
+    }
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
 }
 
 export { shouldShow };
