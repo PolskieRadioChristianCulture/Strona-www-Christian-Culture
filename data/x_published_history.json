@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mapa",
+      "title": "Żywa Interaktywna Mapa Ekosystemu Christian Culture",
+      "url": "https://polskieradio.cc/mapa",
+      "type": "module",
+      "image": "planeta-poster.jpg",
+      "publishedAt": "2026-10-31T20:16:05.585Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "biblia-audio",
       "title": "Biblia Audio CC — Księga Rodzaju w Kinowej Jakości Dźwięku i Słuchowiskach",
       "url": "https://polskieradio.cc/biblia-audio",

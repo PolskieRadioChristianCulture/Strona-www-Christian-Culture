@@ -163,6 +163,12 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'images', 'news', 'art-rdz15-abram-gwiazdy.jpg');
     if (fs.existsSync(p)) return p;
   }
+  if (urlLower.includes('mapa')) {
+    const p1 = path.join(rootDir, 'assets', 'mapa', 'planeta-poster.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'images', 'mapa-bg-earth.jpg');
+    if (fs.existsSync(p2)) return p2;
+  }
   if (urlLower.includes('lumina') || urlLower.includes('cezary') || urlLower.includes('wioletta')) {
     const p = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
     if (fs.existsSync(p)) return p;
@@ -414,10 +420,10 @@ function getAllEcosystemCandidates() {
       title: 'Żywa Interaktywna Mapa Ekosystemu Christian Culture',
       lead: 'Zobacz na żywo strukturę ponad 20 portali, platform edukacyjnych, odtwarzaczy i aplikacji tworzących zintegrowany ekosystem Christian Culture.',
       url: 'https://polskieradio.cc/mapa',
-      image: 'images/brand/cezary-wioletta-radiocc.jpg',
+      image: 'assets/mapa/planeta-poster.jpg',
       category: 'Ekosystem',
       type: 'module',
-      tag: '#ChristianCulture'
+      tag: '#MapaCC'
     }
   ];
   for (const m of coreModules) addCandidate(m);
@@ -534,6 +540,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📖 MOJA BIBLIA INTERLINEARNA';
       callToAction = '👉 Badaj Pismo Święte:\n';
       addTags(item.tag || '#MojaBiblia', '#Strong', '#UBG');
+    } else if ((item.url || '').includes('mapa')) {
+      subHeader = '🗺️ ŻYWA MAPA EKOSYSTEMU CC';
+      callToAction = '👉 Zobacz architekturę na żywo:\n';
+      addTags(item.tag || '#MapaCC', '#EkosystemCC', '#ChristianCulture');
     } else {
       subHeader = '🌐 EKOSYSTEM CHRISTIAN CULTURE';
       callToAction = '👉 Odkryj w ekosystemie:\n';
