@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
 import { handleTopTenApi, warsawClock, addDays } from '../services/topten/topten-service.js';
-import { weekBounds, sortStandings, planRoster, ensureWeek, finalizeWeek, RETURN_WAIT_WEEKS } from '../services/topten/topten-weeks.js';
+import { weekBounds, sortStandings, planRoster, ensureWeek, finalizeWeek, RETURN_WAIT_WEEKS, applyRetention } from '../services/topten/topten-weeks.js';
 
 const MIGRATIONS = fs.readdirSync(new URL('../migrations/topten/', import.meta.url)).filter(f => f.endsWith('.sql')).sort()
   .map(f => fs.readFileSync(new URL(`../migrations/topten/${f}`, import.meta.url), 'utf8'));
@@ -385,4 +385,45 @@ test('liczniki inkrementalne = dziennik zdarzeń (losowe głosy, wstrzymania, un
   await h.call('POST', `/api/topten/admin/totals/${wk}/rebuild`, { token: 'admin' });
   assert.deepEqual(h.db.raw.prepare(`SELECT points FROM topten_week_totals WHERE cycle_id = '${wk}' ORDER BY track_id`).all().map(r => r.points),
     truth.filter(r => r.cycle_id === wk).map(r => r.points));
+});
+test('RODO: retencja — skrót sieci po 90 dniach, pseudonimizacja po 24 mies., dane nominacji, audyt; wyniki bez zmian', async () => {
+  const db = d1();
+  const now = Date.parse('2029-01-10T12:00:00Z');
+  const day = 86400000;
+  const ev = db.raw.prepare(`INSERT INTO topten_events (user_id, track_id, cycle_id, local_date, action, slot, points, created_at, idempotency_key, ip_hash)
+    VALUES (?, 'CC-TT-2026-0001', ?, ?, 'like', 0, 777, ?, ?, 'iphash')`);
+  ev.run('stary', '2026-10-26', '2026-10-27', now - 800 * day, 'k1');
+  ev.run('stary', '2026-11-02', '2026-11-03', now - 790 * day, 'k2');
+  ev.run('sredni', '2028-06-05', '2028-06-06', now - 200 * day, 'k3');
+  ev.run('nowy', '2029-01-08', '2029-01-09', now - 1 * day, 'k4');
+  const before = db.raw.prepare('SELECT cycle_id, track_id, points, likes FROM topten_week_totals ORDER BY cycle_id').all();
+  const nom = db.raw.prepare(`INSERT INTO topten_nominations (id, seq, artist, title, genre, language, bible_ref, drive_url, submitter_name, submitter_email,
+    submitter_uid, rights_declared, license_granted, rules_accepted, license_version, status, reviewed_at, ip_hash, submitted_at)
+    VALUES (?, ?, 'A', 'T', 'pop', 'pl', 'J 3:16', 'https://drive.google.com/x', 'Jan', 'jan@example.pl', 'uid', 1, 1, 1, 'v', ?, ?, 'iphash', ?)`);
+  const iso = (d) => new Date(now - d * day).toISOString();
+  nom.run('CC-TT-2026-0101', 101, 'rejected', iso(740), iso(745));   // odrzucona > 24 mies. → czyścimy
+  nom.run('CC-TT-2026-0102', 102, 'rejected', iso(100), iso(120));   // odrzucona niedawno → tylko skrót sieci
+  db.raw.prepare("UPDATE topten_nominations SET submitted_at = ?, reviewed_at = ? WHERE id = 'CC-TT-2026-0001'").run(iso(900), iso(900)); // opublikowana i nadal w topTEN → zostaje
+  const seedEmail = db.raw.prepare("SELECT submitter_email FROM topten_nominations WHERE id = 'CC-TT-2026-0001'").get().submitter_email;
+  const s = await applyRetention(db, now);
+  assert.equal(s.eventsIpCleared, 3);
+  assert.equal(db.raw.prepare("SELECT ip_hash FROM topten_events WHERE idempotency_key = 'k4'").get().ip_hash, 'iphash');
+  assert.equal(s.accountsPseudonymized, 1);
+  assert.equal(s.eventsPseudonymized, 2);
+  const anon = db.raw.prepare("SELECT DISTINCT user_id FROM topten_events WHERE idempotency_key IN ('k1','k2')").all();
+  assert.equal(anon.length, 1);
+  assert.match(anon[0].user_id, /^anon-[0-9a-f]{24}$/);
+  assert.equal(db.raw.prepare("SELECT user_id FROM topten_events WHERE idempotency_key = 'k3'").get().user_id, 'sredni');
+  const n = Object.fromEntries(db.raw.prepare('SELECT id, submitter_email, submitter_name, drive_url, ip_hash FROM topten_nominations').all().map(r => [r.id, r]));
+  assert.deepEqual({ ...n['CC-TT-2026-0101'] }, { id: 'CC-TT-2026-0101', submitter_email: '', submitter_name: '[usunięto]', drive_url: '', ip_hash: null });
+  assert.equal(n['CC-TT-2026-0102'].submitter_email, 'jan@example.pl');
+  assert.equal(n['CC-TT-2026-0102'].ip_hash, null);
+  assert.ok(seedEmail && n['CC-TT-2026-0001'].submitter_email === seedEmail);
+  assert.deepEqual(db.raw.prepare('SELECT cycle_id, track_id, points, likes FROM topten_week_totals ORDER BY cycle_id').all(), before, 'punkty bez zmian');
+  const audit = db.raw.prepare("SELECT details FROM topten_audit_log WHERE action = 'retention.applied'").all();
+  assert.equal(audit.length, 1);
+  // Drugie uruchomienie: nic do zrobienia, brak nowego wpisu w audycie.
+  const s2 = await applyRetention(db, now);
+  assert.ok(Object.values(s2).every(v => v === 0));
+  assert.equal(db.raw.prepare("SELECT COUNT(*) AS c FROM topten_audit_log WHERE action = 'retention.applied'").get().c, 1);
 });

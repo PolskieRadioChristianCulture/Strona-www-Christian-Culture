@@ -285,7 +285,51 @@ export async function ensureWeek(db, nowMs) {
   stmts.push(db.prepare('INSERT INTO topten_audit_log (actor, action, object_id, details, ts) VALUES (?, ?, ?, ?, ?)')
     .bind('system', 'week.opened', weekId, JSON.stringify({ keep: plan.keep.length, entrants: plan.entrants.map(e => e.track_id), displaced: plan.displaced, bootstrap: plan.bootstrap }), nowIso));
   await db.batch(stmts);
+  // RODO: czyszczenie raz na tydzień, przy otwarciu tygodnia. Błąd nie może zablokować notowania.
+  try { await applyRetention(db, nowMs); } catch (e) { console.warn('topten retention failed', e?.message || e); }
   return db.prepare('SELECT * FROM topten_weeks WHERE id = ?').bind(weekId).first();
+}
+
+// ─── RODO: okresy przechowywania (Polityka prywatności, sekcja topTEN) ──────
+export const RETENTION_IP_DAYS = 90;
+export const RETENTION_ACCOUNT_DAYS = 730;   // 24 miesiące
+const RETENTION_USERS_PER_RUN = 200;
+
+function randomHex(bytes) {
+  const a = new Uint8Array(bytes);
+  crypto.getRandomValues(a);
+  return [...a].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+export async function applyRetention(db, nowMs) {
+  const ipCutoffMs = nowMs - RETENTION_IP_DAYS * 86400000;
+  const accCutoffMs = nowMs - RETENTION_ACCOUNT_DAYS * 86400000;
+  const ipCutoffIso = new Date(ipCutoffMs).toISOString();
+  const accCutoffIso = new Date(accCutoffMs).toISOString();
+  const stmts = [
+    db.prepare('UPDATE topten_events SET ip_hash = NULL WHERE ip_hash IS NOT NULL AND created_at < ?').bind(ipCutoffMs),
+    db.prepare('UPDATE topten_nominations SET ip_hash = NULL WHERE ip_hash IS NOT NULL AND submitted_at < ?').bind(ipCutoffIso),
+    // Dane zgłaszającego: 24 mies. od decyzji; dla opublikowanych — od zakończenia publikacji.
+    db.prepare(`UPDATE topten_nominations SET submitter_name = '[usunięto]', submitter_email = '', submitter_uid = NULL, drive_url = '', ip_hash = NULL
+      WHERE submitter_email != ''
+        AND NOT EXISTS (SELECT 1 FROM topten_tracks t WHERE t.id = topten_nominations.id AND t.status = 'published')
+        AND COALESCE((SELECT t.updated_at FROM topten_tracks t WHERE t.id = topten_nominations.id), reviewed_at, submitted_at) < ?`).bind(accCutoffIso),
+  ];
+  // Pseudonimizacja kont przy głosach: losowy identyfikator na każde uruchomienie (nie da się go odwrócić).
+  const users = (await db.prepare(`SELECT DISTINCT user_id FROM topten_events WHERE created_at < ? AND user_id NOT LIKE 'anon-%' LIMIT ?`)
+    .bind(accCutoffMs, RETENTION_USERS_PER_RUN).all()).results || [];
+  for (const u of users) {
+    stmts.push(db.prepare('UPDATE topten_events SET user_id = ? WHERE user_id = ? AND created_at < ?').bind(`anon-${randomHex(12)}`, u.user_id, accCutoffMs));
+  }
+  const res = await db.batch(stmts);
+  const n = (i) => res[i]?.meta?.changes ?? 0;
+  const summary = { eventsIpCleared: n(0), nominationsIpCleared: n(1), nominationsScrubbed: n(2),
+    accountsPseudonymized: users.length, eventsPseudonymized: res.slice(3).reduce((s, r) => s + (r?.meta?.changes ?? 0), 0) };
+  if (Object.values(summary).some(v => v > 0)) {
+    await db.prepare('INSERT INTO topten_audit_log (actor, action, object_id, details, ts) VALUES (?, ?, ?, ?, ?)')
+      .bind('system', 'retention.applied', null, JSON.stringify(summary), new Date(nowMs).toISOString()).run();
+  }
+  return summary;
 }
 
 // ─── Widoki publiczne ────────────────────────────────────────────────────────

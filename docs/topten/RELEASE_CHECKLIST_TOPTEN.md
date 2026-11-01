@@ -34,7 +34,7 @@ Data: 2026-11-01 · @007 · Bramka: spec §23 „Warunki wejścia na produkcję�
 - [x] Karta topTEN (components/cc-topten-card.js) wpinana centralnie przez scripts/cc-page-standard.mjs na: /music, /music/przeboje, /music/premiery, /player, /BiblijneUwielbienie, /skins. Strony transmisji (*-live: Biblia Śpiewana, Śpiewajmy Panu), OBS, embedy i LUMI KIDS — celowo pominięte (tylko do odczytu).
 - [x] Grafiki wyróżnień tygodnia (wstęga na grafice 1080×1350 + tekst) — przycisk 📤 przy wyróżnieniach w „Ostatnie notowanie”
 - [x] OpenAPI 3.1: docs/topten/openapi.yaml
-- [ ] RODO: retencja — propozycja w docs/topten/RODO_RETENCJA_PROPOZYCJA.md (czeka na decyzję L0; wdrożenie czyszczenia ~1 h po decyzji)
+- [x] RODO: retencja (decyzja delegowana przez L0 @007, 01.11.2026) — Polityka prywatności §9 „topTEN”; `applyRetention` w `topten-weeks.js` przy otwarciu tygodnia: skrót sieci po 90 dniach, pseudonimizacja kont przy głosach po 24 mies. (losowe `anon-…`, maks. 200 kont/tydzień), dane nominacji po 24 mies. od decyzji / końca publikacji; wpis `retention.applied` w audycie; test w topten-weeks.test.mjs
 - [ ] Limit sieciowy (rate limit per konto + sieć) na głosowanie — dziś: limity dzienne per konto + ręczne wstrzymywanie
 - [x] Alerty: skok ≥120 głosów/h na utwór oraz ≥8 kont z jednej sieci/dzień → audyt + e-mail do redakcji (radiochristianculture@gmail.com), przerwa 6 h, bez automatycznych blokad; lista w panelu (migracja 0003: indeksy)
 
