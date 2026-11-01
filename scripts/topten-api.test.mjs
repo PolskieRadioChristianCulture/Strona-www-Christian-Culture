@@ -64,11 +64,21 @@ const nomination = (over = {}) => ({
 
 const TRACK = 'CC-TT-2026-0001';
 
-test('zegar Europe/Warsaw: doba i poniedziałek cyklu, także przy zmianie czasu', () => {
+test('zegar Europe/Warsaw: doba kalendarzowa, tydzień zamykany w niedzielę o 20:00, także przy zmianie czasu', () => {
   assert.deepEqual(warsawClock(T0), { localDate: '2026-11-04', weekday: 2, hour: 12, cycleId: '2026-11-02' });
-  // Niedziela 23:30 czasu polskiego to jeszcze stary cykl; 00:30 w poniedziałek — nowy.
-  assert.equal(warsawClock(Date.parse('2026-11-08T22:30:00Z')).cycleId, '2026-11-02');
-  assert.equal(warsawClock(Date.parse('2026-11-08T23:30:00Z')).cycleId, '2026-11-09');
+  // Niedziela 19:59:59 czasu polskiego to jeszcze stary tydzień; 20:00:00 — nowy (decyzja L0 01.11.2026).
+  assert.equal(warsawClock(Date.parse('2026-11-08T18:59:59.999Z')).cycleId, '2026-11-02');
+  assert.equal(warsawClock(Date.parse('2026-11-08T19:00:00.000Z')).cycleId, '2026-11-09');
+  assert.equal(warsawClock(Date.parse('2026-11-08T22:30:00Z')).cycleId, '2026-11-09');
+  // Doba dla limitów zostaje kalendarzowa: niedziela 21:00 to wciąż niedziela.
+  assert.equal(warsawClock(Date.parse('2026-11-08T20:00:00Z')).localDate, '2026-11-08');
+  // Latem (CEST): niedziela 20:00 = 18:00 UTC.
+  assert.equal(warsawClock(Date.parse('2026-07-05T17:59:59Z')).cycleId, '2026-06-29');
+  assert.equal(warsawClock(Date.parse('2026-07-05T18:00:00Z')).cycleId, '2026-07-06');
+  // Tydzień ze zmianą czasu (niedziela 25.10.2026 o 3:00): godziny nad ranem nie przesuwają granicy.
+  assert.equal(warsawClock(Date.parse('2026-10-25T01:30:00Z')).cycleId, '2026-10-19');
+  assert.equal(warsawClock(Date.parse('2026-10-25T18:59:59Z')).cycleId, '2026-10-19');
+  assert.equal(warsawClock(Date.parse('2026-10-25T19:00:00Z')).cycleId, '2026-10-26');
   assert.equal(warsawClock(Date.parse('2026-03-29T22:30:00Z')).localDate, '2026-03-30'); // po przejściu na CEST
 });
 
@@ -310,7 +320,7 @@ test('strona udostępniania: bez kadru HD używa miniatury standardowej', async 
 
 test('SEO: ranking w HTML (lista + JSON-LD MusicPlaylist), opis z liderami, odporność na złośliwy tytuł', () => {
   const data = {
-    cycle: { id: '2026-11-02', end: '2026-11-08 23:59:59' }, updatedAt: '2026-11-04T11:00:00.000Z',
+    cycle: { id: '2026-11-02', start: '2026-11-01 20:00', end: '2026-11-08 20:00' }, updatedAt: '2026-11-04T11:00:00.000Z',
     items: [
       { id: 'CC-TT-2026-0001', title: 'Pieśń </script><img src=x onerror=alert(1)>', artist: 'A & B', score: 1554, rank: 1, likes: 2, youtubeId: 'hVzNQqF_myg', cover: 'https://i.ytimg.com/vi/hVzNQqF_myg/hqdefault.jpg' },
       { id: 'CC-TT-2026-0002', title: 'Druga', artist: 'C', score: 77, rank: 2, likes: 0 },
@@ -326,7 +336,7 @@ test('SEO: ranking w HTML (lista + JSON-LD MusicPlaylist), opis z liderami, odpo
   assert.equal(ld.track.itemListElement[0].item.byArtist.name, 'A & B');
   assert.equal(ld.track.itemListElement[0].item.url, 'https://polskieradio.cc/topTEN/utwor/CC-TT-2026-0001');
   assert.equal(ld.track.itemListElement[0].item.sameAs, 'https://www.youtube.com/watch?v=hVzNQqF_myg');
-  assert.match(out, /<meta name="description" content="Aktualne notowanie topTEN \(2 listopada 2026 – 8 listopada 2026\): 1\. „Pieśń &lt;\/script&gt;/);
+  assert.match(out, /<meta name="description" content="Aktualne notowanie topTEN \(1 listopada 2026, 20:00 – 8 listopada 2026, 20:00\): 1\. „Pieśń &lt;\/script&gt;/);
   assert.match(out, /<div id="sections">\n<section class="chart-section" id="notowania-ssr"/);
   assert.match(out, /<li value="2"><a href="\/topTEN\/utwor\/CC-TT-2026-0002"><strong>Druga<\/strong><\/a> — C · 77 pkt<\/li>/);
 });

@@ -28,6 +28,7 @@ const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, ch => ({ '&': '&am
 const fmtPoints = (n) => Number(n || 0).toLocaleString('pl-PL');
 const fmtTime = (iso) => new Date(iso).toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 const fmtDate = (d) => new Date(`${d}T12:00:00Z`).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+const weekEndDate = (weekId) => { const d = new Date(`${weekId}T12:00:00Z`); d.setUTCDate(d.getUTCDate() + 6); return d.toISOString().slice(0, 10); };
 const newKey = () => (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
 
 function showToast(message) {
@@ -144,7 +145,7 @@ function naturalSections(nat, waiting) {
     ${last ? `
       <section class="chart-section natural-box" id="ostatnie-notowanie" aria-labelledby="ostatnieTitle">
         <div class="section-header">
-          <h2 id="ostatnieTitle">Ostatnie notowanie — ${fmtDate(last.weekId)}</h2>
+          <h2 id="ostatnieTitle">Ostatnie notowanie — zamknięte ${fmtDate(weekEndDate(last.weekId))}, 20:00</h2>
           <button class="view-all" type="button" data-cycle-view="${escapeHtml(last.weekId)}">PEŁNE WYNIKI →</button>
         </div>
         ${last.awards.length ? `<p class="natural-awards">${last.awards.map(a => {
@@ -206,8 +207,8 @@ function renderCharts(filter = '') {
       : ' Przy remisie decydują unikalni głosujący LubięTO, liczba LubięTO i kolejność uzyskania wyniku.')
     : '';
   const note = live
-    ? `Notowanie ${fmtDate(cycle.id)} – ${fmtDate(cycle.end.slice(0, 10))} (zamknięcie w niedzielę o 23:59). Aktualizacja: ${fmtTime(updatedAt)}.${naturalNote}${state.charts.stale ? ' <strong>Brak połączenia — dane mogą być nieaktualne.</strong>' : ''}`
-    : `${cycle.official ? 'Oficjalny wynik' : 'Wynik'} tygodnia ${fmtDate(cycle.id)} – ${fmtDate(cycle.end.slice(0, 10))}${cycle.version > 1 ? ` (wersja ${cycle.version}, skorygowany)` : ''}.${awardsLine} <button type="button" class="view-all" data-back-live="true">Wróć do notowania na żywo →</button>`;
+    ? `Notowanie ${fmtDate(cycle.start.slice(0, 10))}, 20:00 – ${fmtDate(cycle.end.slice(0, 10))}, 20:00 (zamknięcie w niedzielę o 20:00). Aktualizacja: ${fmtTime(updatedAt)}.${naturalNote}${state.charts.stale ? ' <strong>Brak połączenia — dane mogą być nieaktualne.</strong>' : ''}`
+    : `${cycle.official ? 'Oficjalny wynik' : 'Wynik'} tygodnia ${fmtDate(cycle.start.slice(0, 10))} – ${fmtDate(cycle.end.slice(0, 10))}${cycle.version > 1 ? ` (wersja ${cycle.version}, skorygowany)` : ''}.${awardsLine} <button type="button" class="view-all" data-back-live="true">Wróć do notowania na żywo →</button>`;
 
   sections.innerHTML = `
     <section class="chart-section" id="notowania">
@@ -769,10 +770,10 @@ async function showArchive() {
     const { items } = await api('/api/topten/cycles');
     const closed = items.filter(c => c.status === 'closed');
     $('#modalBody').innerHTML = `
-      <p>Każdy tydzień zamyka się w niedzielę o 23:59 czasu polskiego. Wynik zamkniętego tygodnia nie zmienia się.</p>
+      <p>Każdy tydzień zamyka się w niedzielę o 20:00 czasu polskiego. Wynik zamkniętego tygodnia nie zmienia się.</p>
       ${closed.length ? `<ul style="list-style: none; padding: 0;">${closed.map(c => `
         <li style="padding: 8px 0; border-bottom: 1px solid #eee;">
-          <button type="button" class="view-all" data-cycle="${escapeHtml(c.id)}">Tydzień ${fmtDate(c.id)} – ${fmtDate(c.end.slice(0, 10))} →</button>
+          <button type="button" class="view-all" data-cycle="${escapeHtml(c.id)}">Tydzień ${fmtDate(c.start.slice(0, 10))} – ${fmtDate(c.end.slice(0, 10))} →</button>
         </li>`).join('')}</ul>` : '<p><strong>Pierwsze notowanie wciąż trwa</strong> — archiwum pojawi się po jego zamknięciu.</p>'}`;
   } catch (e) {
     $('#modalBody').innerHTML = `<p>${escapeHtml(e.message)}</p>`;
@@ -857,7 +858,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <li><strong>🤝 wspieramTO:</strong> bezpośrednie wsparcie artysty — bez wpływu na punkty.</li>
           </ul>
           <p>Jeden słuchacz może dać utworowi najwyżej 1316 pkt dziennie (777 + 7 × 77). Przy remisie wyżej jest utwór z większą liczbą głosujących, potem z większą liczbą LubięTO, potem ten, który wcześniej osiągnął wynik.</p>
-          <p>Tydzień notowania trwa od poniedziałku 00:00 do niedzieli 23:59 czasu polskiego. Głosy podejrzane o nadużycie mogą zostać wstrzymane przez redakcję.</p>
+          <p>Tydzień notowania trwa od niedzieli 20:00 do następnej niedzieli 20:00 czasu polskiego. Głosy podejrzane o nadużycie mogą zostać wstrzymane przez redakcję.</p>
         </div>`);
     }
   });
@@ -910,7 +911,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showModal('Zasady głosowania topTEN', `
       <div style="line-height: 1.6;">
         <h3>Regulamin głosowania:</h3>
-        <p>1. Głosować mogą zalogowani słuchacze (konto Google z potwierdzonym adresem e-mail).</p>
+        <p>1. Głosować mogą zalogowani słuchacze (konto Google z potwierdzonym adresem e-mail). Tydzień notowania trwa od niedzieli 20:00 do następnej niedzieli 20:00.</p>
         <p>2. Każdy słuchacz ma 1 głos <strong>LubięTO (+777 pkt)</strong> na dobę na dany utwór.</p>
         <p>3. Dodatkowo przysługuje maksymalnie 7 akcji <strong>PodbijTO (+77 pkt)</strong> na dobę na utwór, z minimalnym odstępem 60 minut.</p>
         <p>4. Głosowanie jest w 100% bezpłatne. Limity sprawdza serwer; głosy podejrzane o nadużycie (boty, masowe konta) mogą zostać wstrzymane przez redakcję.</p>

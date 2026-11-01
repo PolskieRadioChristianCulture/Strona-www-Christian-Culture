@@ -6,12 +6,12 @@
  *
  * Zasady (§2–§3): punkty liczy wyłącznie serwer; LubięTO 1x/dobę Europe/Warsaw (+777),
  * PodbijTO max 7x/dobę z odstępem ≥60 min (+77); limity wymuszone unikalnością w bazie,
- * klucze idempotencji, cykl tygodniowy pon 00:00 – nd 23:59:59 Europe/Warsaw.
+ * klucze idempotencji, cykl tygodniowy niedziela 20:00 – niedziela 20:00 Europe/Warsaw (decyzja L0 01.11.2026).
  */
 import { dispatchGmailEmail } from '../cc-newsletter/gmail-smtp-client.js';
 import {
   getFlags, ensureWeek, standingsFor, officialSnapshot, finalizeWeek, planRoster, debutQueue, songArchive, songHistory,
-  allTimePoints, lastOfficial, rebuildTotals, FLAG_NAMES, RULES_VERSION, TOP_SIZE, ROSTER_MAX,
+  allTimePoints, lastOfficial, rebuildTotals, weekBounds, FLAG_NAMES, RULES_VERSION, TOP_SIZE, ROSTER_MAX,
 } from './topten-weeks.js';
 
 export const LIKE_POINTS = 777;
@@ -52,10 +52,21 @@ const warsawFmt = new Intl.DateTimeFormat('en-CA', {
 });
 const WEEKDAYS = { Mon: 0, Tue: 1, Wed: 2, Thu: 3, Fri: 4, Sat: 5, Sun: 6 };
 
-export function warsawClock(ms) {
+// Tydzień notowania (decyzja L0 01.11.2026): od niedzieli 20:00 do następnej niedzieli 20:00 Europe/Warsaw.
+// Identyfikator tygodnia = data poniedziałku, który po nim następuje. Doba dla limitów LubięTO/PodbijTO
+// pozostaje kalendarzowa (od północy). Zmiana czasu wypada w niedzielę nad ranem, więc nie dotyka granicy 20:00.
+export const CYCLE_CLOSE_HOUR = 20;
+const CYCLE_SHIFT_MS = (24 - CYCLE_CLOSE_HOUR) * 3600 * 1000;
+
+function warsawParts(ms) {
   const p = Object.fromEntries(warsawFmt.formatToParts(new Date(ms)).map(x => [x.type, x.value]));
-  const localDate = `${p.year}-${p.month}-${p.day}`;
-  return { localDate, weekday: WEEKDAYS[p.weekday], hour: Number(p.hour) % 24, cycleId: addDays(localDate, -WEEKDAYS[p.weekday]) };
+  return { localDate: `${p.year}-${p.month}-${p.day}`, weekday: WEEKDAYS[p.weekday], hour: Number(p.hour) % 24 };
+}
+
+export function warsawClock(ms) {
+  const { localDate, weekday, hour } = warsawParts(ms);
+  const shifted = warsawParts(ms + CYCLE_SHIFT_MS); // niedziela 20:00 + 4 h = poniedziałek 00:00 → nowy tydzień
+  return { localDate, weekday, hour, cycleId: addDays(shifted.localDate, -shifted.weekday) };
 }
 
 export function addDays(isoDate, days) {
@@ -65,7 +76,8 @@ export function addDays(isoDate, days) {
 }
 
 function cycleInfo(cycleId, liveCycleId) {
-  return { id: cycleId, start: `${cycleId} 00:00`, end: `${addDays(cycleId, 6)} 23:59:59`, timezone: 'Europe/Warsaw', status: cycleId === liveCycleId ? 'live' : 'closed' };
+  const hh = `${String(CYCLE_CLOSE_HOUR).padStart(2, '0')}:00`;
+  return { id: cycleId, start: `${addDays(cycleId, -1)} ${hh}`, end: `${addDays(cycleId, 6)} ${hh}`, timezone: 'Europe/Warsaw', status: cycleId === liveCycleId ? 'live' : 'closed' };
 }
 
 // ─── Pomocnicze ──────────────────────────────────────────────────────────────
@@ -728,7 +740,7 @@ export async function handleTopTenSitemap(env, { now = () => Date.now() } = {}) 
     try {
       const data = await liveCharts(db, now());
       const last = Math.max(0, ...data.items.map(i => i.lastAt || 0));
-      lastmod = new Date(last || Date.parse(`${data.cycle.id}T00:00:00+01:00`)).toISOString();
+      lastmod = new Date(last || Date.parse(weekBounds(data.cycle.id).start_utc)).toISOString();
     } catch { /* zostaje data bazowa */ }
   }
   const urls = [
@@ -747,7 +759,7 @@ const plDate = (d) => new Date(`${d}T12:00:00Z`).toLocaleDateString('pl-PL', { d
 export function renderTopTenSeo(html, data) {
   const items = data.items || [];
   const top = items.slice(0, 10);
-  const week = `${plDate(data.cycle.id)} – ${plDate(data.cycle.end.slice(0, 10))}`;
+  const week = `${plDate(data.cycle.start.slice(0, 10))}, 20:00 – ${plDate(data.cycle.end.slice(0, 10))}, 20:00`;
   const updated = new Date(data.updatedAt).toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw', dateStyle: 'long', timeStyle: 'short' });
   const leaders = top.slice(0, 3).map(t => `${t.rank}. „${t.title}” — ${t.artist}`).join('; ');
   const description = top.length

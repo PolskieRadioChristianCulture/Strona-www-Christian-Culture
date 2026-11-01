@@ -2,12 +2,12 @@
  * topTEN — naturalna rywalizacja: tygodnie, aktywna pula 30, debiuty, archiwum, snapshoty, wyróżnienia.
  * Spec: TOPTEN_REGULAMIN_NATURALNA_RYWALIZACJA_WDROZENIE_ANTIGRAVITY_CLAUDE.md (§3–§8, §14–§17) • @007 • 2026-11-01
  *
- * Bez crona (ZERO COST): tydzień zamyka się i otwiera „leniwie” przy pierwszym zapytaniu po poniedziałku 00:00
+ * Bez crona (ZERO COST): tydzień zamyka się i otwiera „leniwie” przy pierwszym zapytaniu po niedzieli 20:00
  * Europe/Warsaw. Zamknięcie jest idempotentne (blokada = wiersz tygodnia w stanie 'preparing'), a zapis puli
  * i snapshotu idzie jedną transakcją D1 (batch). Wszystko działa tylko przy włączonej fladze
  * topten_natural_ranking_v1 — przy wyłączonej strona liczy ranking jak dotąd.
  */
-import { warsawClock, addDays } from './topten-service.js';
+import { warsawClock, addDays, CYCLE_CLOSE_HOUR } from './topten-service.js';
 
 export const RULES_VERSION = 'natural-v1';
 export const ROSTER_MAX = 30;
@@ -31,19 +31,22 @@ export async function getFlags(db) {
 }
 
 // ─── Granice tygodnia w UTC (zmiana czasu letni/zimowy) ──────────────────────
-export function warsawMidnightUtc(localDate) {
+/** Moment UTC dla lokalnej godziny Europe/Warsaw (pełna godzina) danego dnia. */
+export function warsawLocalUtc(localDate, hour) {
+  const hh = String(hour).padStart(2, '0');
   for (const off of ['+01:00', '+02:00']) {
-    const t = Date.parse(`${localDate}T00:00:00${off}`);
+    const t = Date.parse(`${localDate}T${hh}:00:00${off}`);
     const c = warsawClock(t);
-    if (c.localDate === localDate && c.hour === 0) return t;
+    if (c.localDate === localDate && c.hour === hour) return t;
   }
-  throw new Error(`Nie można wyznaczyć północy Europe/Warsaw dla ${localDate}`);
+  throw new Error(`Nie można wyznaczyć ${hh}:00 Europe/Warsaw dla ${localDate}`);
 }
 
+/** Tydzień `weekId` (poniedziałek): od niedzieli poprzedzającej o 20:00 do następnej niedzieli 20:00 (wyłącznie). */
 export function weekBounds(weekId) {
   return {
-    start_utc: new Date(warsawMidnightUtc(weekId)).toISOString(),
-    end_utc: new Date(warsawMidnightUtc(addDays(weekId, 7))).toISOString(), // wyłącznie
+    start_utc: new Date(warsawLocalUtc(addDays(weekId, -1), CYCLE_CLOSE_HOUR)).toISOString(),
+    end_utc: new Date(warsawLocalUtc(addDays(weekId, 6), CYCLE_CLOSE_HOUR)).toISOString(),
   };
 }
 
@@ -139,7 +142,7 @@ async function computeAwards(db, weekId, standings) {
 export async function finalizeWeek(db, weekId, { nowMs = Date.now(), actor = 'system', correction = false, reason = null } = {}) {
   const week = await db.prepare('SELECT * FROM topten_weeks WHERE id = ?').bind(weekId).first();
   if (!week) return { ok: false, error: 'week_not_found' };
-  if (warsawMidnightUtc(addDays(weekId, 7)) > nowMs) return { ok: false, error: 'week_not_ended' };
+  if (Date.parse(weekBounds(weekId).end_utc) > nowMs) return { ok: false, error: 'week_not_ended' };
   const already = week.status === 'finalized' || week.status === 'corrected';
   if (already && !correction) return { ok: true, idempotent: true, version: week.snapshot_version };
 

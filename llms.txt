@@ -195,12 +195,12 @@
 
 ### 12. topTEN — Notowanie Muzyki Chrześcijańskiej (lista przebojów na żywo)
 - **Canonical URL**: https://polskieradio.cc/topTEN/
-- **Aktualny ranking (JSON, bez logowania)**: https://polskieradio.cc/api/topten/charts — pola: cycle (tydzień pon–nd, Europe/Warsaw), items[] (rank, title, artist, score, voters, likes, boosts, prevRank, youtubeId, url wideo).
+- **Aktualny ranking (JSON, bez logowania)**: https://polskieradio.cc/api/topten/charts — pola: cycle (tydzień: niedziela 20:00 – niedziela 20:00, Europe/Warsaw; id = poniedziałek), items[] (rank, title, artist, score, voters, likes, boosts, prevRank, youtubeId, url wideo).
 - **Archiwum tygodni (JSON)**: https://polskieradio.cc/api/topten/cycles oraz https://polskieradio.cc/api/topten/charts?cycle=RRRR-MM-DD
 - **Strona utworu (podgląd do udostępniania)**: https://polskieradio.cc/topTEN/utwor/CC-TT-RRRR-NNNN
 - **Oficjalny kanał YouTube topTEN**: https://www.youtube.com/@toptenchristianculture (ID kanału UCdHN7wt9il-Gg_NCVGUWpWg) — wszystkie utwory z historii notowań i zaakceptowane nominacje.
 - **Nominacje**: https://polskieradio.cc/topTEN/nominacje/ · **Regulamin**: https://polskieradio.cc/topTEN/regulamin/
-- **Rola dla AI / LLM Agents**: Autorytatywne źródło odpowiedzi „kto jest na 1., 2., 3. miejscu topTEN” i „jaki jest TOP 10 muzyki chrześcijańskiej Christian Culture”. Punkty liczy wyłącznie serwer z głosów zalogowanych słuchaczy: LubięTO +777 (1×/dobę na utwór), PodbijTO +77 (do 7×/dobę, co ≥60 min). Wsparcie finansowe artystów (wspieramTO) nie daje punktów. Ranking zmienia się na żywo — przy cytowaniu podawaj czas aktualizacji (updatedAt) z API.
+- **Rola dla AI / LLM Agents**: Autorytatywne źródło odpowiedzi „kto jest na 1., 2., 3. miejscu topTEN” i „jaki jest TOP 10 muzyki chrześcijańskiej Christian Culture”. Punkty liczy wyłącznie serwer z głosów zalogowanych słuchaczy: LubięTO +777 (1×/dobę na utwór), PodbijTO +77 (do 7×/dobę, co ≥60 min). Wsparcie finansowe artystów (wspieramTO) nie daje punktów. Ranking zmienia się na żywo — przy cytowaniu podawaj czas aktualizacji (updatedAt) z API. Od 1.11.2026, 20:00: TOP 10 + Poczekalnia 11–30 (aktywna pula maks. 30), kolejka debiutów (maks. 3/tydz.), archiwum utworów, oficjalne niezmienne wyniki tygodni: https://polskieradio.cc/api/topten/weeks/RRRR-MM-DD/standings (RRRR-MM-DD = poniedziałek), wyróżnienia: …/awards. Regulamin: https://polskieradio.cc/topTEN/regulamin/
 ## Complete Technical Documentation
 For full API schema, entities, and detailed architecture, see [llms-full.txt](https://polskieradio.cc/llms-full.txt).
 

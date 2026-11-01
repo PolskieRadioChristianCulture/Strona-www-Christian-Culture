@@ -72,3 +72,9 @@ Flaga OFF → widok jak dotąd. Flaga ON → TOP 10 („● NA ŻYWO · wynik ws
 3. **Włączenie flagi w środku tygodnia** tworzy pulę od razu (bootstrap), a kolejka wypełnia wolne miejsca w tym samym tygodniu. Zalecenie: włączać w poniedziałek tuż po 00:00 (RELEASE_CHECKLIST).
 4. **Największy awans** porównuje z oficjalnym snapshotem bezpośrednio poprzedniego tygodnia.
 5. **Rekord tygodnia** jest przyznawany tylko wtedy, gdy istnieją wcześniejsze snapshoty (pierwszy tydzień nie „bije rekordu”).
+
+## Decyzje L0 z 01.11.2026 (Etap B — wykonany tego samego dnia)
+- Tydzień notowania: **niedziela 20:00 → niedziela 20:00** Europe/Warsaw (zamiast pon 00:00). Implementacja: `CYCLE_CLOSE_HOUR = 20` w `topten-service.js` (`warsawClock` liczy tydzień z czasu przesuniętego o +4 h; doba dla limitów głosów pozostaje kalendarzowa); `weekBounds` = niedziela 20:00 → niedziela 20:00. Zmiana czasu (niedziela nad ranem) nie dotyka granicy — testy dla 60 kolejnych tygodni.
+- Reklamacje: **polskiercctv@gmail.com** (regulamin §11).
+- RODO: odesłanie do istniejącej Polityki prywatności (/polityka-prywatnosci); okres retencji zdarzeń głosowania — do uzupełnienia w polityce.
+- Zgoda L0 na Etap B: publikacja regulaminu V1 i włączenie wszystkich flag 01.11.2026 przed 20:00; przepis przejściowy — notowanie od 26.10 zamyka się 1.11 o 20:00 jako pierwsze oficjalne.

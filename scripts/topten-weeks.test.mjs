@@ -73,17 +73,28 @@ function harness() {
 
 const id = (i) => `CC-TT-2026-${String(i).padStart(4, '0')}`; // CC-TT-2026-0001 jest w migracji 0001
 
-test('granice tygodnia: pon 00:00 – pon 00:00 (wyłącznie) Europe/Warsaw, także przy zmianie czasu', () => {
-  assert.deepEqual(weekBounds(W1), { start_utc: '2026-11-01T23:00:00.000Z', end_utc: '2026-11-08T23:00:00.000Z' });
-  // Tydzień ze zmianą czasu (25.10.2026): start w CEST, koniec w CET → 7 dni + 1 h.
-  const dst = weekBounds('2026-10-19');
-  assert.deepEqual(dst, { start_utc: '2026-10-18T22:00:00.000Z', end_utc: '2026-10-25T23:00:00.000Z' });
-  assert.equal(Date.parse(dst.end_utc) - Date.parse(dst.start_utc), WEEK_MS + 3600_000);
-  // Wiosna 2027 (28.03): 7 dni − 1 h.
+test('granice tygodnia: niedziela 20:00 – niedziela 20:00 (wyłącznie) Europe/Warsaw, także przy zmianie czasu', () => {
+  assert.deepEqual(weekBounds(W1), { start_utc: '2026-11-01T19:00:00.000Z', end_utc: '2026-11-08T19:00:00.000Z' });
+  // Tydzień ze zmianą czasu (25.10.2026 o 3:00): start w CEST (18:00 UTC), koniec w CET (19:00 UTC) → 7 dni + 1 h.
+  const dst = weekBounds('2026-10-26');
+  assert.deepEqual(dst, { start_utc: '2026-10-25T19:00:00.000Z', end_utc: '2026-11-01T19:00:00.000Z' });
+  const dstPrev = weekBounds('2026-10-19');
+  assert.deepEqual(dstPrev, { start_utc: '2026-10-18T18:00:00.000Z', end_utc: '2026-10-25T19:00:00.000Z' });
+  assert.equal(Date.parse(dstPrev.end_utc) - Date.parse(dstPrev.start_utc), WEEK_MS + 3600_000);
+  // Wiosna 2027 (28.03 o 2:00): tydzień 21.03 20:00 CET → 28.03 20:00 CEST = 7 dni − 1 h.
   const spring = weekBounds('2027-03-22');
   assert.equal(Date.parse(spring.end_utc) - Date.parse(spring.start_utc), WEEK_MS - 3600_000);
-  assert.equal(warsawClock(Date.parse('2026-11-08T22:59:59.999Z')).cycleId, W1, 'niedziela 23:59:59 to jeszcze ten tydzień');
-  assert.equal(warsawClock(Date.parse('2026-11-08T23:00:00.000Z')).cycleId, '2026-11-09', 'poniedziałek 00:00:00 to nowy tydzień');
+  assert.equal(warsawClock(Date.parse('2026-11-08T18:59:59.999Z')).cycleId, W1, 'niedziela 19:59:59 to jeszcze ten tydzień');
+  assert.equal(warsawClock(Date.parse('2026-11-08T19:00:00.000Z')).cycleId, '2026-11-09', 'niedziela 20:00:00 to nowy tydzień');
+  // Granica tygodnia pokrywa się z warsawClock dla każdego tygodnia roku (bez dziur i nakładek).
+  let w = '2026-01-05';
+  for (let i = 0; i < 60; i++) {
+    const b = weekBounds(w);
+    assert.equal(warsawClock(Date.parse(b.start_utc)).cycleId, w);
+    assert.equal(warsawClock(Date.parse(b.end_utc) - 1).cycleId, w);
+    assert.equal(weekBounds(addDays(w, 7)).start_utc, b.end_utc);
+    w = addDays(w, 7);
+  }
 });
 
 test('remisy (§6): punkty → unikalni LubięTO → liczba LubięTO → wcześniejszy wynik → id', () => {

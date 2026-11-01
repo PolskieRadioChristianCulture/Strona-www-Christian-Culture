@@ -1,6 +1,6 @@
 # REGULAMIN_TOPTEN_V1 — projekt do publikacji (wersja zasad `natural-v1`)
 
-**Status:** PROJEKT — treść L0 z 01.11.2026 (Część A dokumentu wdrożeniowego), przeniesiona bez zmian merytorycznych.
+**Status:** OPUBLIKOWANY 01.11.2026 (zgoda L0) w wersji dostosowanej: tydzień niedziela 20:00 → niedziela 20:00, reklamacje polskiercctv@gmail.com — źródło publiczne: topTEN/regulamin/index.html. Poniżej pierwotny projekt: treść L0 z 01.11.2026 (Część A dokumentu wdrożeniowego), przeniesiona bez zmian merytorycznych.
 **Nie publikować** na https://polskieradio.cc/topTEN/regulamin/ przed: (1) kontrolą redakcyjno-prawną, (2) decyzją L0 o dacie startu, (3) włączeniem flag `topten_natural_ranking_v1` (+ `topten_waiting_room_v1`, `topten_archive_v1`).
 Obecny regulamin produkcyjny pozostaje obowiązujący do tego czasu.
 
