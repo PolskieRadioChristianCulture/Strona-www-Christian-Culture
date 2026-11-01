@@ -11,32 +11,28 @@
  * 5. Dynamiczny ranking live z przeliczaniem pozycji.
  */
 
-const STORAGE_KEY_STATE = 'cc_topten_state_v2';
-const STORAGE_KEY_ACTIONS = 'cc_topten_actions_v2';
+// v3: usunięto fikcyjne pozycje demo (spec. §1) — nowy klucz zeruje stary stan zapisany w przeglądarkach
+const STORAGE_KEY_STATE = 'cc_topten_state_v3';
+const STORAGE_KEY_ACTIONS = 'cc_topten_actions_v3';
 
-const pictureIds = [
-  'photo-1500530855697-b586d89ba3ee', 'photo-1470252649378-9c29740c9fa8',
-  'photo-1516280440614-37939bbacd81', 'photo-1441974231531-c6227db76b6e',
-  'photo-1438232992991-995b7058bbb3', 'photo-1500534623283-312aade485b7',
-  'photo-1519608487953-e999c86e7455', 'photo-1470770841072-f978cf4d019e',
-  'photo-1490750967868-88aa4486c946', 'photo-1519681393784-d120267933ba',
-  'photo-1497366754035-f200968a6e72', 'photo-1473448912268-2022ce9509d8',
-  'photo-1481627834876-b7833e8f5570', 'photo-1451187580459-43490279c0fa',
-  'photo-1502082553048-f009c37129b9'
-];
-const photo = (n) => `https://images.unsplash.com/${pictureIds[n % pictureIds.length]}?auto=format&fit=crop&w=720&q=82`;
-
+// Wyłącznie prawdziwe nominacje. Punkty startują od zera.
 const DEFAULT_TRACKS = [
-  { id: 'tt-01', title: 'Większy niż lęk', artist: 'Mateusz Nowak', score: 2331, prevRank: 1, uniqueLikers: 142, boosts: 21, cover: photo(0), genre: 'worship', bibleRef: 'Ps 27:1 — Pan jest moim światłem i zbawieniem, kogo mam się lękać?', support: { method: 'Zrzutka.pl', desc: 'Nagranie nowego albumu uwielbieniowego', url: 'https://zrzutka.pl' } },
-  { id: 'tt-02', title: 'Twoja łaska', artist: 'Anna Lech', score: 2185, prevRank: 3, uniqueLikers: 129, boosts: 18, cover: photo(1), genre: 'worship', bibleRef: '2 Kor 12:9 — Wystarczy ci moja łaska, moc bowiem w słabości się doskonali.', support: { method: 'Revolut', desc: 'Wsparcie autorskich nagrań studyjnych', url: 'https://revolut.me' } },
-  { id: 'tt-03', title: 'Jezus żyje', artist: 'Zespół Źródło', score: 1943, prevRank: 2, uniqueLikers: 118, boosts: 15, cover: photo(2), genre: 'gospel', bibleRef: 'Łk 24:6 — Nie ma go tu, ale zmartwychwstał!', support: { method: 'BLIK', desc: 'Wsparcie ewangelizacyjnej trasy koncertowej', url: 'https://polskieradio.cc/topTEN/#wspieramto' } },
-  { id: 'tt-04', title: 'Prowadź mnie', artist: 'Nowe Serce', score: 1720, prevRank: 4, uniqueLikers: 104, boosts: 12, cover: photo(3), genre: 'pop', bibleRef: 'Prz 3:5-6 — Zaufaj Panu z całego serca, a On wyprostuje twoje ścieżki.', support: { method: 'Patronite', desc: 'Comiesięczne wsparcie twórczości', url: 'https://patronite.pl' } },
-  { id: 'tt-05', title: 'Dom u Ciebie', artist: 'Emilia Król', score: 1590, prevRank: 6, uniqueLikers: 95, boosts: 11, cover: photo(4), genre: 'worship', bibleRef: 'Ps 84:4 — Błogosławieni, którzy mieszkają w Twoim domu, będą Cię chwalić.', support: { method: 'PayPal', desc: 'Wsparcie produkcji teledysków', url: 'https://paypal.me' } },
-  { id: 'tt-06', title: 'Światło w ciemności', artist: 'Jakub Mularczyk', score: 1412, prevRank: 5, uniqueLikers: 88, boosts: 9, cover: photo(5), genre: 'debiuty', bibleRef: 'J 8:12 — Ja jestem światłością świata; kto idzie za mną, nie będzie błądził w ciemności.', support: { method: 'Zrzutka.pl', desc: 'Debiutancka płyta EP', url: 'https://zrzutka.pl' } },
-  { id: 'tt-07', title: 'Zwycięstwo w Tobie', artist: 'Grupa Pokolenie', score: 1280, prevRank: 8, uniqueLikers: 79, boosts: 8, cover: photo(6), genre: 'rock', bibleRef: '1 Kor 15:57 — Lecz Bogu niech będą dzięki, który nam daje zwycięstwo przez Pana naszego Jezusa Chrystusa.', support: { method: 'BLIK', desc: 'Sprzęt nagłośnieniowy dla młodzieży', url: 'https://polskieradio.cc/topTEN/#wspieramto' } },
-  { id: 'tt-08', title: 'W Twojej obecności', artist: 'Lena Sadowska', score: 1150, prevRank: 7, uniqueLikers: 71, boosts: 6, cover: photo(7), genre: 'pop', bibleRef: 'Ps 16:11 — Ukażesz mi ścieżkę życia, pełnię radości w Twojej obecności.', support: { method: 'Revolut', desc: 'Aranżacje smyczkowe', url: 'https://revolut.me' } },
-  { id: 'tt-09', title: 'Dzięki Ci, Panie', artist: 'Tomasz Wójcik', score: 994, prevRank: 10, uniqueLikers: 63, boosts: 5, cover: photo(8), genre: 'gospel', bibleRef: 'Ps 107:1 — Dziękujcie Panu, bo jest dobry, bo na wieki Jego łaskawość.', support: { method: 'Zrzutka.pl', desc: 'Chrześcijański projekt akustyczny', url: 'https://zrzutka.pl' } },
-  { id: 'tt-10', title: 'Na zawsze wierny', artist: 'Natalia Bielska', score: 875, prevRank: 9, uniqueLikers: 55, boosts: 4, cover: photo(9), genre: 'debiuty', bibleRef: 'Lm 3:22-23 — Nie wyczerpała się litość Pana, odnawiają się każdego poranka; wielka jest wierność Twoja.', support: { method: 'Patronite', desc: 'Tworzenie pieśni uwielbienia', url: 'https://patronite.pl' } }
+  {
+    id: 'cc-tt-2026-0001',
+    title: 'Cokolwiek na świecie (Rzymian 8:38-39)',
+    artist: 'Cezary Rogowski · CC Men',
+    score: 0, prevRank: null, uniqueLikers: 0, boosts: 0,
+    cover: 'https://i.ytimg.com/vi/hVzNQqF_myg/hqdefault.jpg',
+    youtubeId: 'hVzNQqF_myg',
+    profileUrl: 'https://polskieradio.cc/CezaryRogowski',
+    genre: 'worship',
+    bibleRef: 'Rz 8:38-39 — Męska odpowiedź na trwogę',
+    nomination: 'Nominacja własna artysty',
+    support: [
+      { method: 'BLIK na telefon', value: '537 137 043', copy: '537137043' },
+      { method: 'Revolut', value: 'revolut.me/christianculture', url: 'https://revolut.me/christianculture' }
+    ]
+  }
 ];
 
 function loadTracks() {
@@ -134,9 +130,10 @@ function renderCharts(filter = '') {
   let html = `
     <section class="chart-section" id="notowania">
       <div class="section-header">
-        <h2>TopTen Global <span style="font-size: 14px; font-weight: 700; color: #2ecc71; vertical-align: middle; margin-left: 8px;">● NA ŻYWO</span></h2>
+        <h2>TopTen Global <span style="font-size: 14px; font-weight: 700; color: #FF7A00; vertical-align: middle; margin-left: 8px;">● NOMINACJE</span></h2>
         <button class="view-all" data-chart="notowania" aria-label="Szczegóły notowania">ZASADY PUNKTACJI <span>→</span></button>
       </div>
+      <p class="vote-info-note" style="margin: 0 0 14px;">Pierwsze notowanie startuje — punkty liczone od zera. Na tym etapie Twoje głosy zapisują się w tej przeglądarce; wspólny ranking ruszy po uruchomieniu kont słuchaczy. <a href="/topTEN/nominacje" style="color: #FF7A00; font-weight: 700;">Zgłoś utwór →</a></p>
       <div class="cards featured">
         ${topFive.map((item, i) => {
           const isLarge = i === 0 && !q;
@@ -284,8 +281,15 @@ function openTrackModal(trackId) {
         <h3 style="margin: 0; font-size: 20px;">${escapeHtml(track.title)}</h3>
         <p style="margin: 2px 0 6px; font-weight: 600; color: #666;">${escapeHtml(track.artist)}</p>
         <div>${getTrendBadge(track.rank, track.prevRank)} <span style="font-size: 12px; color: #888; margin-left: 8px;">Unikalnych sympatyków: ${track.uniqueLikers}</span></div>
+        ${track.nomination ? `<div style="font-size: 12px; color: #888; margin-top: 4px;">${escapeHtml(track.nomination)}${track.profileUrl ? ` · <a href="${escapeHtml(track.profileUrl)}" style="color: #FF7A00; font-weight: 700;">Wizytówka artysty →</a>` : ''}</div>` : ''}
       </div>
     </div>
+
+    ${track.youtubeId ? `
+      <div style="position: relative; aspect-ratio: 16 / 9; margin-bottom: 16px; border-radius: 10px; overflow: hidden; background: #000;">
+        <iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(track.youtubeId)}" title="${escapeHtml(track.title)}" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;" allow="encrypted-media; picture-in-picture; fullscreen" loading="lazy"></iframe>
+      </div>
+    ` : ''}
 
     ${track.bibleRef ? `
       <div style="background: #fff8f0; border-left: 4px solid #FF7A00; padding: 10px 14px; border-radius: 4px; font-size: 13px; line-height: 1.5; margin-bottom: 16px;">
@@ -313,9 +317,9 @@ function openTrackModal(trackId) {
       <hr style="border: 0; border-top: 1px solid #eee; margin: 4px 0;">
 
       <div class="vote-action-row">
-        ${track.support ? `
+        ${track.support?.length ? `
           <button class="btn-action btn-support-artist" id="btnTrackSupport">
-            🤝 Wspieram artystę (${escapeHtml(track.support.method)})
+            🤝 Wspieram artystę
           </button>
         ` : ''}
 
@@ -331,13 +335,39 @@ function openTrackModal(trackId) {
   // Podpięcie akcji
   $('#btnVoteLubieTO')?.addEventListener('click', () => handleLubieTO(track.id));
   $('#btnVotePodbijTO')?.addEventListener('click', () => handlePodbijTO(track.id));
-  $('#btnTrackSupport')?.addEventListener('click', () => {
-    if (track.support?.url) {
-      window.open(track.support.url, '_blank', 'noopener,noreferrer');
-      showToast(`Przekierowanie do bezpośredniego wsparcia: ${track.support.method}`);
-    }
-  });
+  $('#btnTrackSupport')?.addEventListener('click', () => showSupportModal(track.id));
   $('#btnTrackFollow')?.addEventListener('click', () => handleFollowTrack(track.id));
+}
+
+function showSupportModal(trackId) {
+  const track = tracks.find(t => t.id === trackId);
+  if (!track?.support?.length) return;
+
+  showModal(`wspieramTO — ${track.artist}`, `
+    <div style="line-height: 1.6;">
+      <p style="font-size: 13px; color: #666;">Wsparcie trafia bezpośrednio do artysty, poza topTEN. Christian Culture nie pośredniczy w płatności, nie pobiera prowizji, a wsparcie nie daje punktów w notowaniu.</p>
+      <ul style="list-style: none; padding: 0; margin: 12px 0;">
+        ${track.support.map((s, i) => `
+          <li style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 0; border-bottom: 1px solid #eee;">
+            <span><strong>${escapeHtml(s.method)}:</strong> ${escapeHtml(s.value)}</span>
+            ${s.url
+              ? `<a class="btn-action btn-support-artist" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer ugc nofollow">Otwórz ↗</a>`
+              : `<button class="btn-action btn-support-artist" type="button" data-copy-support="${i}">Kopiuj numer</button>`}
+          </li>
+        `).join('')}
+      </ul>
+      <p style="font-size: 12px; color: #888;">Nigdy nie podawaj nikomu jednorazowego kodu BLIK. Przelew na telefon wykonujesz samodzielnie w aplikacji swojego banku.</p>
+    </div>
+  `);
+
+  $('#modalBody').querySelectorAll('[data-copy-support]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const s = track.support[Number(btn.dataset.copySupport)];
+      navigator.clipboard?.writeText(s.copy || s.value)
+        .then(() => showToast(`Skopiowano: ${s.value}`))
+        .catch(() => showToast(`Numer: ${s.value}`));
+    });
+  });
 }
 
 function handleLubieTO(trackId) {
