@@ -1242,6 +1242,11 @@
       "topic": "Cykliczna publikacja nowości CCN News na platformie X pod oficjalnym szyldem z dedykowaną grafiką 16:9 (Gdy lęk o jutro odbiera ci pokój - Cezary Rogowski)",
       "date": "2026-11-01",
       "agent": "A"
+    },
+    {
+      "topic": "Cykliczna publikacja nowości CCN News na platformie X pod oficjalnym szyldem z dedykowaną grafiką 16:9 (Deklaracja redakcyjna ws. kultury Halloween)",
+      "date": "2026-11-01",
+      "agent": "A"
     }
   ],
   "root": {
@@ -5181,5 +5186,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-01T04:22:53.021Z"
+  "lastUpdated": "2026-11-01T04:37:16.302Z"
 }

@@ -123,14 +123,23 @@ function appendLog(entry) {
 
 // Inteligentny resolver dedykowanych grafik tematycznych na dysku
 function resolveItemImage(item, rootDir) {
+  const resolveCandidate = (rawPath) => {
+    if (!rawPath) return null;
+    const cleanPath = rawPath.replace(/^\/+/, '');
+    const p1 = path.join(rootDir, cleanPath);
+    if (fs.existsSync(p1)) return p1;
+    if (path.isAbsolute(rawPath) && fs.existsSync(rawPath)) return rawPath;
+    return null;
+  };
+
   // 1. Bezpośrednia ścieżka do grafiki w obiekcie
   if (item.image) {
-    const directPath = path.isAbsolute(item.image) ? item.image : path.join(rootDir, item.image.replace(/^\//, ''));
-    if (fs.existsSync(directPath)) return directPath;
+    const p = resolveCandidate(item.image);
+    if (p) return p;
   }
   if (item.imageUrl) {
-    const imgPath = path.isAbsolute(item.imageUrl) ? item.imageUrl : path.join(rootDir, item.imageUrl.replace(/^\//, ''));
-    if (fs.existsSync(imgPath)) return imgPath;
+    const p = resolveCandidate(item.imageUrl);
+    if (p) return p;
   }
 
   // 2. Dopasowanie ze sluga artykułu lub modułu
@@ -140,7 +149,9 @@ function resolveItemImage(item, rootDir) {
       path.join(rootDir, 'images', 'news', `art-${slug}.jpg`),
       path.join(rootDir, 'images', 'news', `${slug}.jpg`),
       path.join(rootDir, 'images', 'news', `art-${slug}.png`),
-      path.join(rootDir, 'images', 'news', `${slug}.png`)
+      path.join(rootDir, 'images', 'news', `${slug}.png`),
+      path.join(rootDir, 'images', `${slug}.jpg`),
+      path.join(rootDir, 'images', `${slug}.png`)
     ];
     for (const cand of candidateFiles) {
       if (fs.existsSync(cand)) return cand;
@@ -149,31 +160,31 @@ function resolveItemImage(item, rootDir) {
 
   // 3. Dopasowanie po kategorii / kontekście
   const titleLower = (item.title || '').toLowerCase();
-  const urlLower = (item.url || '').toLowerCase();
+  const pathLower = item.url ? (() => { try { return new URL(item.url).pathname.toLowerCase(); } catch (e) { return item.url.toLowerCase(); } })() : '';
 
-  if (urlLower.includes('biblia-audio') || titleLower.includes('rodzaju')) {
+  if (pathLower.includes('biblia-audio') || titleLower.includes('rodzaju')) {
     const p = path.join(rootDir, 'biblia-audio', 'assets', 'rodzaju-hero.jpg');
     if (fs.existsSync(p)) return p;
   }
-  if (urlLower.includes('akademia') || urlLower.includes('kurs')) {
+  if (pathLower.includes('akademia') || pathLower.includes('kurs')) {
     const p = path.join(rootDir, 'images', 'news', 'art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg');
     if (fs.existsSync(p)) return p;
   }
-  if (urlLower.includes('mojabiblia')) {
+  if (pathLower.includes('mojabiblia')) {
     const p = path.join(rootDir, 'images', 'news', 'art-rdz15-abram-gwiazdy.jpg');
     if (fs.existsSync(p)) return p;
   }
-  if (urlLower.includes('mapa')) {
+  if (pathLower.includes('mapa')) {
     const p1 = path.join(rootDir, 'assets', 'mapa', 'planeta-poster.jpg');
     if (fs.existsSync(p1)) return p1;
     const p2 = path.join(rootDir, 'images', 'mapa-bg-earth.jpg');
     if (fs.existsSync(p2)) return p2;
   }
-  if (urlLower.includes('lumina') || urlLower.includes('cezary') || urlLower.includes('wioletta')) {
+  if (pathLower.includes('lumina') || pathLower.includes('cezary') || pathLower.includes('wioletta')) {
     const p = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
     if (fs.existsSync(p)) return p;
   }
-  if (urlLower.includes('player') || urlLower.includes('radio') || urlLower.includes('muzyka')) {
+  if (pathLower.includes('player') || pathLower.includes('/radio') || pathLower.includes('muzyka') || titleLower.includes('gerald welch')) {
     const p = path.join(rootDir, 'images', 'news', 'art-gerald-welch-the-call.jpg');
     if (fs.existsSync(p)) return p;
   }
@@ -579,6 +590,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🔥 TĘTNO MISJI | CC INSIDE';
       callToAction = '👉 Sprawdź przegląd w serwisie:\n';
       addTags('#CCNNews', '#TetnoMisji', '#ChristianCulture');
+    } else if (tLower.includes('halloween')) {
+      subHeader = '✝️ DEKLARACJA REDAKCYJNA CC';
+      callToAction = '👉 Czytaj analizę biblijną:\n';
+      addTags('#CCNNews', '#ChristianCulture', '#Swiatlosc', '#Prawda');
     } else if (tLower.includes('pokój') || tLower.includes('pokoj') || tLower.includes('lęk') || tLower.includes('lek')) {
       subHeader = '🕊️ POKÓJ SERCA & NADZIEJA';
       callToAction = '👉 Czytaj artykuł w serwisie:\n';
@@ -608,6 +623,15 @@ function formatBroadcasterTweet(item) {
       .replace(/\s*–\s*CCN Historia.*$/i, '')
       .replace(/\s*\(\/[a-z0-9_/-]+\)\s*$/i, '')
       .trim();
+
+    if (bodyText === bodyText.toUpperCase() && bodyText.length > 30) {
+      bodyText = bodyText.charAt(0).toUpperCase() + bodyText.slice(1).toLowerCase();
+      bodyText = bodyText
+        .replace(/christian culture/gi, 'Christian Culture')
+        .replace(/halloween/gi, 'Halloween')
+        .replace(/„nie”/gi, '„NIE”')
+        .replace(/\?\s+([a-ząćęłńóśźż])/g, (m, c) => '? ' + c.toUpperCase());
+    }
   }
 
   const subLine = subHeader ? `\n${subHeader}\n` : '\n\n';
