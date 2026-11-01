@@ -579,6 +579,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🔥 TĘTNO MISJI | CC INSIDE';
       callToAction = '👉 Sprawdź przegląd w serwisie:\n';
       addTags('#CCNNews', '#TetnoMisji', '#ChristianCulture');
+    } else if (tLower.includes('pokój') || tLower.includes('pokoj') || tLower.includes('lęk') || tLower.includes('lek')) {
+      subHeader = '🕊️ POKÓJ SERCA & NADZIEJA';
+      callToAction = '👉 Czytaj artykuł w serwisie:\n';
+      addTags('#CCNNews', '#PokojBozy', '#SlowoBoze', '#Prawda');
     } else {
       subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
       callToAction = '👉 Czytaj w serwisie:\n';
