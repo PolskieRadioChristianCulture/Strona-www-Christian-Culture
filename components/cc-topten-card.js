@@ -69,17 +69,44 @@
       '</div>';
   }
 
+  // Widoczna stopka strony — bez stopek ukrytych paneli, okien i elementów wysuwanych.
+  function pageFooter() {
+    var all = document.querySelectorAll('footer');
+    for (var i = all.length - 1; i >= 0; i--) {
+      var f = all[i];
+      if (f.closest('dialog,[role="dialog"],[aria-hidden="true"],[hidden],[aria-modal="true"]')) continue;
+      var cs = getComputedStyle(f);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || f.getClientRects().length === 0) continue;
+      var hiddenAncestor = false;
+      for (var p = f.parentElement; p && p !== document.body; p = p.parentElement) {
+        var ps = getComputedStyle(p);
+        if (ps.visibility === 'hidden' || ps.display === 'none' || ps.position === 'fixed') { hiddenAncestor = true; break; }
+      }
+      if (!hiddenAncestor) return f;
+    }
+    return null;
+  }
+
+  // Strona-aplikacja (pełny ekran bez przewijania, np. odtwarzacz): karta mogłaby zasłonić odtwarzacz — nie wstawiamy.
+  function isAppLikePage() {
+    var b = getComputedStyle(document.body), h = getComputedStyle(document.documentElement);
+    return b.overflow === 'hidden' || b.overflowY === 'hidden' || h.overflow === 'hidden' || h.overflowY === 'hidden';
+  }
+
   function mount() {
     if (document.querySelector('.cc-topten-card')) return;
+    var slot = document.querySelector('[data-cc-topten-card]');
+    if (!slot && isAppLikePage()) return;
+    var footer = slot ? null : pageFooter();
     var style = document.createElement('style');
     style.textContent = CSS;
     document.head.appendChild(style);
-    var el = document.querySelector('[data-cc-topten-card]') || document.createElement('section');
+    var el = slot || document.createElement('section');
     el.classList.add('cc-topten-card');
     el.setAttribute('aria-label', 'topTEN — Chrześcijańska Lista Przebojów');
     if (!el.isConnected) {
-      var footer = document.querySelector('body > footer, footer.footer, footer');
-      if (footer && footer.parentNode) footer.parentNode.insertBefore(el, footer);
+      // Przed widoczną stopką strony; bez niej — na końcu przewijanej treści (pod elementami przypiętymi do ekranu).
+      if (footer) footer.parentNode.insertBefore(el, footer);
       else document.body.appendChild(el);
     }
     render(el, null);

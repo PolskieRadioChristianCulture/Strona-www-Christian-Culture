@@ -8,10 +8,11 @@ export const MOBILE_EDGE_CSS = '/css/cc-mobile-edge.css?v=20261030_edge10';
 export const MOBILE_EDGE_SCRIPT = '/js/cc-mobile-edge.js?v=20261030_edge10';
 // #TOPTEN na muzycznych stronach EkoCC (spec. naturalnej rywalizacji §25): jeden komponent, zmiana w jednym miejscu.
 // Transmisje na żywo, OBS, embedy i LUMI KIDS są wykluczone wyżej w applyPageStandard.
-export const TOPTEN_CARD_SCRIPT = '/components/cc-topten-card.js?v=20261101_a007';
+// /player celowo pominięty: aplikacja na pełny ekran — karta zasłoniłaby odtwarzacz (komponent i tak to wykrywa).
+export const TOPTEN_CARD_SCRIPT = '/components/cc-topten-card.js?v=20261101_a007b';
 export const TOPTEN_CARD_PAGES = new Set([
   'music.html', 'music/index.html', 'music/przeboje/index.html', 'music/premiery/index.html',
-  'player.html', 'biblijne-uwielbienie.html', 'skins.html',
+  'biblijne-uwielbienie.html', 'skins.html',
 ]);
 
 export function applyPageStandard(file, html) {

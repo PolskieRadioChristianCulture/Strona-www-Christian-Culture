@@ -452,12 +452,13 @@ test('alerty: skok głosów i wiele kont z jednej sieci → wpis w audycie raz n
 
 test('karta topTEN: wpinana centralnie tylko na stronach muzycznych, nigdy na transmisjach na żywo; bez dublowania', () => {
   const page = '<!doctype html><html><head><title>x</title></head><body><div id="root"></div></body></html>';
-  for (const f of ['music.html', 'music/przeboje/index.html', 'player.html', 'biblijne-uwielbienie.html', 'skins.html']) {
+  for (const f of ['music.html', 'music/przeboje/index.html', 'biblijne-uwielbienie.html', 'skins.html']) {
     const out = applyPageStandard(f, page);
     assert.ok(out.includes(TOPTEN_CARD_SCRIPT), f);
     assert.equal(applyPageStandard(f, out).split('cc-topten-card.js').length - 1, 1, `${f}: bez dublowania`);
   }
-  for (const f of ['biblia-spiewana-live.html', 'spiewajmy-panu-live.html', 'cctv24-worship.html', 'index.html', 'topTEN/index.html', 'lumi-kids/app/index.html']) {
+  // player.html: aplikacja na pełny ekran — karta zasłoniłaby odtwarzacz (incydent 01.11.2026, poprawione).
+  for (const f of ['player.html', 'biblia-spiewana-live.html', 'spiewajmy-panu-live.html', 'cctv24-worship.html', 'index.html', 'topTEN/index.html', 'lumi-kids/app/index.html']) {
     assert.ok(!applyPageStandard(f, page).includes('cc-topten-card.js'), f);
   }
 });
