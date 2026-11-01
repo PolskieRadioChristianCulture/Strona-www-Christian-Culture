@@ -310,6 +310,15 @@ function getAllEcosystemCandidates() {
   // 3. MUZYKA, PORTALE MUZYCZNE & YOUTUBE
   const musicItems = [
     {
+      title: 'Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)',
+      lead: 'Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39). Premiera utworu z tekstem w odtwarzaczu CC Men.',
+      url: 'https://polskieradio.cc/CezaryRogowski',
+      image: 'images/cezaryrogowski/cezary-hero.jpg',
+      category: 'Muzyka & Wizytówka',
+      type: 'music',
+      tag: '#CCMen'
+    },
+    {
       title: 'Nowość Muzyczna: Gerald Welch — THE CALL. Głębokie uwielbienie w Polskim Radiu CC',
       lead: 'Premiera utworu Geralda Welcha „The Call”. Posłuchaj przejmującego chrześcijańskiego uwielbienia i poznaj historię utworu w recenzji muzycznej CCN News.',
       url: 'https://polskieradio.cc/news/gerald-welch-the-call',
@@ -391,6 +400,15 @@ function getAllEcosystemCandidates() {
 
   // 5. NAJWAŻNIEJSZE DEDYKOWANE MODUŁY EKOSYSTEMU CC
   const coreModules = [
+    {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie',
+      lead: 'Start Księgi Wyjścia (1 listopada 2026)! Heroiczna wiara położnych Szifry i Pui, które bardziej bały się Boga niż faraona, oraz Boże ocalenie życia.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-32',
+      image: 'images/news/art-z-biblia-za-pan-brat-dzien-32-nowy-krol-ucisk-ocalenie.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
     {
       title: 'Biblia Audio CC — Księga Rodzaju w Kinowej Jakości Dźwięku i Słuchowiskach',
       lead: 'Trwa produkcja pierwszego kinowego słuchowiska Pisma Świętego od Księgi Rodzaju. Posłuchaj pierwszych rozdziałów lub wesprzyj nagranie!',
@@ -531,9 +549,15 @@ function formatBroadcasterTweet(item) {
     callToAction = '👉 MojaBiblia:\n';
     addTags(item.tag || '#WersetDnia', '#SlowoBoze', '#UBG');
   } else if (item.type === 'music') {
-    subHeader = '🎵 MUZYKA & KANAŁY LIVE';
-    callToAction = '👉 Słuchaj na żywo:\n';
-    addTags(item.tag || '#CCNMuzyka', '#PolskieRadioCC', '#WorshipLive');
+    if ((item.url || '').includes('CezaryRogowski')) {
+      subHeader = '🎵 PREMIERA AUTORSKA | CC MEN';
+      callToAction = '👉 Słuchaj z tekstem:\n';
+      addTags(item.tag || '#CCMen', '#CezaryRogowski', '#MuzykaChrzescijanska');
+    } else {
+      subHeader = '🎵 MUZYKA & KANAŁY LIVE';
+      callToAction = '👉 Słuchaj na żywo:\n';
+      addTags(item.tag || '#CCNMuzyka', '#PolskieRadioCC', '#WorshipLive');
+    }
   } else if (item.type === 'profile') {
     subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
     callToAction = '👉 Dołącz do społeczności LUMINA:\n';
@@ -613,9 +637,12 @@ function formatBroadcasterTweet(item) {
 
   if (item.type === 'verse' && item.lead) {
     bodyText = item.lead;
+  } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
+    bodyText = item.lead;
   } else {
     bodyText = item.title.trim()
       .replace(/^CCN News\s*[-–—:]\s*/i, '')
+      .replace(/^Nowość Muzyczna:\s*/i, '')
       .replace(/^Kanał Transmisyjny:\s*/i, '')
       .replace(/^Książka:\s*/i, '')
       .replace(/^Wizytówka:\s*/i, '')
