@@ -366,3 +366,10 @@ html body #backToTopBtn[data-cc-back-to-top]:hover {
   display: block;
   transition: transform 0.25s ease;
 }
+
+/* Duża karta: tytuł i wykonawca w podpisie wewnątrz okładki (nie wychodzą na pasek punktów) — @007 01.11.2026 */
+.chart-card.large .cover-caption{position:absolute;left:16px;right:68px;bottom:14px;z-index:1;display:flex;flex-direction:column;gap:4px;color:#fff;text-shadow:0 2px 8px #000}
+.chart-card.large .cover-caption .card-title,.chart-card.large .cover-caption .artist-name{position:static;margin:0;color:#fff}
+.chart-card.large .cover-caption .card-title{font-size:20px;line-height:1.15;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.chart-card.large .cover-caption .artist-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chart-card.large .cover:after{inset:30% 0 0}

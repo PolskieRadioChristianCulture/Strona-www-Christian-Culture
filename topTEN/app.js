@@ -98,9 +98,13 @@ function card(item, large) {
         ${item.cover ? `<img src="${escapeHtml(item.cover)}" alt="Okładka: ${escapeHtml(item.title)}" loading="lazy">` : ''}
         <span class="rank">${item.rank}</span>
         ${large ? '<button class="play" type="button" aria-label="Odsłuchaj i zagłosuj">▶</button>' : ''}
+        ${large ? `<div class="cover-caption">
+          <h3 class="card-title">${escapeHtml(item.title)}</h3>
+          <div class="artist-name">${escapeHtml(item.artist)}</div>
+        </div>` : ''}
       </div>
-      <h3 class="card-title">${escapeHtml(item.title)}</h3>
-      <div class="artist-name">${escapeHtml(item.artist)}</div>
+      ${large ? '' : `<h3 class="card-title">${escapeHtml(item.title)}</h3>
+      <div class="artist-name">${escapeHtml(item.artist)}</div>`}
       <div class="card-meta-live">
         <span class="points-pill">${fmtPoints(item.score)} pkt</span>
         ${getTrendBadge(item.rank, item.prevRank)}
