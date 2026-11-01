@@ -357,7 +357,7 @@ function getAllEcosystemCandidates() {
       url: 'https://polskieradio.cc/vod',
       image: 'images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg',
       category: 'Kino VOD',
-      type: 'music',
+      type: 'vod',
       tag: '#StudioDobregoSlowa'
     },
     {
@@ -398,7 +398,7 @@ function getAllEcosystemCandidates() {
       url: 'https://polskieradio.cc/vod',
       image: 'avatar_mariusz_sds.jpg',
       category: 'Studio Dobrego Słowa',
-      type: 'music',
+      type: 'vod',
       tag: '#StudioDobregoSlowa'
     },
     {
@@ -569,6 +569,10 @@ function formatBroadcasterTweet(item) {
       callToAction = '👉 MojaBiblia (UBG):\n';
     }
     addTags(item.tag || '#WersetDnia', '#SlowoBoze', '#UBG');
+  } else if (item.type === 'vod' || (item.url || '').includes('/vod') || item.category === 'Kino VOD' || item.category === 'Studio Dobrego Słowa') {
+    subHeader = '🎬 KINO CHRZEŚCIJAŃSKIE VOD | SDS';
+    callToAction = '👉 Oglądaj bezpłatnie w jakości 4K:\n';
+    addTags(item.tag || '#StudioDobregoSlowa', '#KinoVOD', '#Apokalipsa', '#ChristianCulture');
   } else if (item.type === 'music') {
     if ((item.url || '').includes('CezaryRogowski')) {
       subHeader = '🎵 PREMIERA AUTORSKA | CC MEN';
@@ -664,6 +668,10 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Start Księgi Wyjścia! Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie — heroiczna wiara położnych Szifry i Pui.';
   } else if ((item.url || '').endsWith('/akademia')) {
     bodyText = 'Akademia Biblijna & Kurs Codzienny: Systematyczne studium Pisma Świętego i bezpłatne kursy dla każdego.';
+  } else if (item.type === 'vod' && item.title.includes('Proroctwa')) {
+    bodyText = 'Proroctwa Daniela i Księgi Objawienia w serii wykładów biblijnych 4K UHD ze SDS.';
+  } else if (item.type === 'vod' && item.title.includes('Księga Nadziei')) {
+    bodyText = 'Cykl „Apokalipsa: Księga Nadziei” — Mariusz i pastor Wincenty Sieja (SDS).';
   } else {
     bodyText = item.title.trim()
       .replace(/^CCN News\s*[-–—:]\s*/i, '')
@@ -848,6 +856,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   const distMusic = getDistanceSinceType('music');
   const distProfile = getDistanceSinceType('profile');
   const distModule = getDistanceSinceType('module');
+  const distVod = getDistanceSinceType('vod');
 
   // Sprawdź, czy któryś z filarów ekosystemu czeka na publikację
   // Dyrektywa Dowódcy: Werset dnia co ~1.5 - 2h (co 3-4 posty), książki, muzyka, profile regularnie
@@ -856,6 +865,8 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
     preferredType = 'verse';
   } else if (distBook >= 6) {
     preferredType = 'book';
+  } else if (distVod >= 6) {
+    preferredType = 'vod';
   } else if (distMusic >= 6) {
     preferredType = 'music';
   } else if (distProfile >= 8) {
