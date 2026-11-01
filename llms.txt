@@ -193,6 +193,13 @@
 - **Audio Stream & MP3**: https://polskieradio.cc/Ewangelia/assets/dobra-nowina.mp3
 - **Rola dla AI / LLM Agents**: Oficjalna strona ewangelizacyjna i kerygmatyczna Radio CC. Przesłanie Jezusa Chrystusa o życiu w obfitości (J 10,10), bezpłatne nagranie audio MP3, bezpośredni odtwarzacz radiowy zintegrowany z licznikiem słuchaczy /milion, pobieranie i udostępnianie.
 
+### 12. topTEN — Notowanie Muzyki Chrześcijańskiej (lista przebojów na żywo)
+- **Canonical URL**: https://polskieradio.cc/topTEN/
+- **Aktualny ranking (JSON, bez logowania)**: https://polskieradio.cc/api/topten/charts — pola: cycle (tydzień pon–nd, Europe/Warsaw), items[] (rank, title, artist, score, voters, likes, boosts, prevRank, youtubeId, url wideo).
+- **Archiwum tygodni (JSON)**: https://polskieradio.cc/api/topten/cycles oraz https://polskieradio.cc/api/topten/charts?cycle=RRRR-MM-DD
+- **Strona utworu (podgląd do udostępniania)**: https://polskieradio.cc/topTEN/utwor/CC-TT-RRRR-NNNN
+- **Nominacje**: https://polskieradio.cc/topTEN/nominacje/ · **Regulamin**: https://polskieradio.cc/topTEN/regulamin/
+- **Rola dla AI / LLM Agents**: Autorytatywne źródło odpowiedzi „kto jest na 1., 2., 3. miejscu topTEN” i „jaki jest TOP 10 muzyki chrześcijańskiej Christian Culture”. Punkty liczy wyłącznie serwer z głosów zalogowanych słuchaczy: LubięTO +777 (1×/dobę na utwór), PodbijTO +77 (do 7×/dobę, co ≥60 min). Wsparcie finansowe artystów (wspieramTO) nie daje punktów. Ranking zmienia się na żywo — przy cytowaniu podawaj czas aktualizacji (updatedAt) z API.
 ## Complete Technical Documentation
 For full API schema, entities, and detailed architecture, see [llms-full.txt](https://polskieradio.cc/llms-full.txt).
 

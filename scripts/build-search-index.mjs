@@ -449,6 +449,30 @@ const CORE_PROJECTS = [
     featured: true
   },
   {
+    title: "topTEN — Notowanie Muzyki Chrześcijańskiej na żywo (lista przebojów)",
+    category: "Muzyka i radio",
+    url: "https://polskieradio.cc/topTEN/",
+    description: "Oficjalna lista przebojów Polskiego Radia Christian Culture. Ranking na żywo liczony z głosów słuchaczy: LubięTO (+777 pkt raz dziennie) i PodbijTO (+77 pkt do 7 razy dziennie). Tygodniowe notowania, archiwum, teledyski, udostępnianie utworów i bezpośrednie wsparcie artystów wspieramTO.",
+    tags: ["topten", "top ten", "top 10", "lista przebojów", "lista przebojow", "notowanie", "notowania", "ranking muzyki",
+      "muzyka chrześcijańska", "muzyka chrzescijanska", "głosowanie", "glosowanie", "lubięto", "lubieto", "podbijto",
+      "wspieramto", "przeboje", "worship", "gospel", "teledyski", "christian music chart"],
+    featured: true
+  },
+  {
+    title: "topTEN — Zgłoś utwór do notowań (nominacja)",
+    category: "Muzyka i radio",
+    url: "https://polskieradio.cc/topTEN/nominacje/",
+    description: "Formularz nominacji utworu do listy przebojów topTEN. Zgłoś swojego ulubionego artystę chrześcijańskiego lub własny utwór z teledyskiem — redakcja weryfikuje przesłanie biblijne i prawa.",
+    tags: ["nominacja", "zgłoś utwór", "zglos utwor", "zgłoszenie", "topten nominacje", "artysta chrześcijański", "dodaj piosenkę"]
+  },
+  {
+    title: "topTEN — Regulamin notowań i programu wspieramTO",
+    category: "Muzyka i radio",
+    url: "https://polskieradio.cc/topTEN/regulamin/",
+    description: "Zasady głosowania LubięTO i PodbijTO, punktacja 777/77, tygodniowy cykl notowań, nominacje i bezpośrednie wsparcie artystów.",
+    tags: ["regulamin topten", "zasady głosowania", "punktacja", "777", "77", "wspieramto regulamin"]
+  },
+  {
     title: "Karaoke Biblijne & Śpiewnik Słowa Bożego — Biblijne Uwielbienie (Tryb Pełnoekranowy Worship Mode)",
     category: "Muzyka i radio",
     url: "https://polskieradio.cc/karaoke",

@@ -1,6 +1,6 @@
 import ccnArticleRoutes from './data/ccn-article-routes.js';
 import { handleBUApi } from './lib/bu-voting-worker.js';
-import { handleTopTenApi } from './services/topten/topten-service.js';
+import { handleTopTenApi, handleTopTenSharePage, handleTopTenPage, handleTopTenSitemap } from './services/topten/topten-service.js';
 import { handleSearchRagApi } from './data/cc-search-rag-service.js';
 import { handleAiDlaJezusaApi } from './services/ai-dla-jezusa/api-v1.js';
 import { handleNewsletterApiRequest } from './services/cc-newsletter/newsletter-service.js';
@@ -1593,6 +1593,15 @@ export default {
     }
     if (url.pathname.startsWith('/api/bu/v1/')) {
       return handleBUApi(request, env);
+    }
+    if (/^\/topten\/utwor\//i.test(url.pathname)) {
+      return handleTopTenSharePage(request, env);
+    }
+    if (url.pathname === '/sitemaps/topten.xml') {
+      return handleTopTenSitemap(env);
+    }
+    if (request.method === 'GET' && (url.pathname === '/topTEN/' || url.pathname === '/topTEN/index.html')) {
+      return handleTopTenPage(request, env);
     }
     if (url.pathname.startsWith('/api/topten/')) {
       return handleTopTenApi(request, env, ctx, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });

@@ -26,6 +26,7 @@ window.ccTopTenAuth = {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     await signInWithPopup(auth, provider);
+    try { window.ccTrack?.('login', { method: 'google', place: 'topten' }); } catch { /* analityka opcjonalna */ }
   },
   signOut: () => signOut(auth),
   getToken: (force = false) => (current ? current.getIdToken(force) : Promise.resolve(null)),

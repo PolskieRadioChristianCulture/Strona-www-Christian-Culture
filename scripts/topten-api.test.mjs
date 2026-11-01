@@ -276,3 +276,101 @@ test('POST bez application/json jest odrzucany (ochrona CSRF formularzy)', async
   const res = await handleTopTenApi(req, { topten_db: h.db }, null, { verifyToken });
   assert.equal(res.status, 415);
 });
+
+// ─── Udostępnianie, SEO, mapa strony, IndexNow ───────────────────────────────
+import { handleTopTenSharePage, renderTopTenSeo, handleTopTenPage, handleTopTenSitemap, INDEXNOW_KEY } from '../services/topten/topten-service.js';
+
+test('strona udostępniania: podgląd OG z kadrem HD, przekierowanie do utworu, 404 dla nieznanych/zdjętych', async () => {
+  const h = harness();
+  const calls = [];
+  const fetchImpl = async (url, init) => { calls.push([url, init?.method]); return new Response(null, { status: url.includes('maxres') ? 200 : 404 }); };
+  const res = await handleTopTenSharePage(new Request(`https://polskieradio.cc/topTEN/utwor/${TRACK}`), { topten_db: h.db }, { fetchImpl, now: () => T0 });
+  const html = await res.text();
+  assert.equal(res.status, 200);
+  assert.match(html, /<meta property="og:image" content="https:\/\/i\.ytimg\.com\/vi\/hVzNQqF_myg\/maxresdefault\.jpg">/);
+  assert.match(html, /<meta property="og:image:width" content="1280">/);
+  assert.match(html, /og:title" content="„Cokolwiek na świecie \(Rzymian 8:38-39\)” — Cezary Rogowski · CC Men \| topTEN Christian Culture"/);
+  assert.match(html, /<meta http-equiv="refresh" content="0; url=\/topTEN\/#CC-TT-2026-0001">/);
+  assert.match(html, /Miejsce 1 w notowaniu/);
+  assert.deepEqual(calls[0], ['https://i.ytimg.com/vi/hVzNQqF_myg/maxresdefault.jpg', 'HEAD']);
+  const lower = await handleTopTenSharePage(new Request(`https://polskieradio.cc/topten/utwor/${TRACK.toLowerCase()}`), { topten_db: h.db }, { fetchImpl, now: () => T0 });
+  assert.equal(lower.status, 200);
+  assert.equal((await handleTopTenSharePage(new Request('https://polskieradio.cc/topTEN/utwor/CC-TT-2026-9999'), { topten_db: h.db }, { fetchImpl })).status, 404);
+  h.db.raw.exec(`UPDATE topten_tracks SET status = 'takedown' WHERE id = '${TRACK}'`);
+  assert.equal((await handleTopTenSharePage(new Request(`https://polskieradio.cc/topTEN/utwor/${TRACK}`), { topten_db: h.db }, { fetchImpl })).status, 404);
+});
+
+test('strona udostępniania: bez kadru HD używa miniatury standardowej', async () => {
+  const h = harness();
+  const res = await handleTopTenSharePage(new Request(`https://polskieradio.cc/topTEN/utwor/${TRACK}`), { topten_db: h.db }, { fetchImpl: async () => new Response(null, { status: 404 }), now: () => T0 });
+  assert.match(await res.text(), /og:image" content="https:\/\/i\.ytimg\.com\/vi\/hVzNQqF_myg\/hqdefault\.jpg"/);
+});
+
+test('SEO: ranking w HTML (lista + JSON-LD MusicPlaylist), opis z liderami, odporność na złośliwy tytuł', () => {
+  const data = {
+    cycle: { id: '2026-11-02', end: '2026-11-08 23:59:59' }, updatedAt: '2026-11-04T11:00:00.000Z',
+    items: [
+      { id: 'CC-TT-2026-0001', title: 'Pieśń </script><img src=x onerror=alert(1)>', artist: 'A & B', score: 1554, rank: 1, likes: 2, youtubeId: 'hVzNQqF_myg', cover: 'https://i.ytimg.com/vi/hVzNQqF_myg/hqdefault.jpg' },
+      { id: 'CC-TT-2026-0002', title: 'Druga', artist: 'C', score: 77, rank: 2, likes: 0 },
+    ],
+  };
+  const page = '<html><head><meta name="description" content="stary"><meta property="og:description" content="stary"></head><body><div id="sections"></div></body></html>';
+  const out = renderTopTenSeo(page, data);
+  assert.ok(!out.includes('</script><img'), 'tytuł nie może zamknąć skryptu JSON-LD');
+  assert.ok(!out.includes('<img src=x'), 'tytuł nie może wstrzyknąć HTML');
+  const ld = JSON.parse(out.match(/<script type="application\/ld\+json" id="topten-ld">(.*?)<\/script>/s)[1]);
+  assert.equal(ld['@type'], 'MusicPlaylist');
+  assert.equal(ld.track.itemListElement[0].position, 1);
+  assert.equal(ld.track.itemListElement[0].item.byArtist.name, 'A & B');
+  assert.equal(ld.track.itemListElement[0].item.url, 'https://polskieradio.cc/topTEN/utwor/CC-TT-2026-0001');
+  assert.equal(ld.track.itemListElement[0].item.sameAs, 'https://www.youtube.com/watch?v=hVzNQqF_myg');
+  assert.match(out, /<meta name="description" content="Aktualne notowanie topTEN \(2 listopada 2026 – 8 listopada 2026\): 1\. „Pieśń &lt;\/script&gt;/);
+  assert.match(out, /<div id="sections">\n<section class="chart-section" id="notowania-ssr"/);
+  assert.match(out, /<li value="2"><a href="\/topTEN\/utwor\/CC-TT-2026-0002"><strong>Druga<\/strong><\/a> — C · 77 pkt<\/li>/);
+});
+
+test('strona /topTEN/ z workera: wstawia aktualny ranking; bez bazy zwraca stronę statyczną', async () => {
+  const h = harness();
+  await h.call('POST', `/api/topten/tracks/${TRACK}/like`, { token: 'u1' });
+  const html = '<html><head><meta name="description" content="x"></head><body><div id="sections"></div></body></html>';
+  const ASSETS = { fetch: async () => new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8' } }) };
+  const res = await handleTopTenPage(new Request('https://polskieradio.cc/topTEN/'), { topten_db: h.db, ASSETS }, { now: () => T0 });
+  const out = await res.text();
+  assert.match(out, /Cokolwiek na świecie \(Rzymian 8:38-39\)<\/strong><\/a> — Cezary Rogowski · CC Men · 777 pkt/);
+  assert.match(out, /"@type":"MusicPlaylist"/);
+  const plain = await handleTopTenPage(new Request('https://polskieradio.cc/topTEN/'), { ASSETS }, { now: () => T0 });
+  assert.equal(await plain.text(), html);
+});
+
+test('pamięć podręczna rankingu: odczyty przez 10 s z pamięci, głos odświeża natychmiast', async () => {
+  const h = harness();
+  assert.equal((await h.call('GET', '/api/topten/charts')).body.items[0].score, 0);
+  h.db.raw.exec(`INSERT INTO topten_events (user_id, track_id, cycle_id, local_date, action, slot, points, created_at, idempotency_key)
+    VALUES ('x', '${TRACK}', '2026-11-02', '2026-11-04', 'boost', 1, 77, ${T0}, 'direct-1')`);
+  assert.equal((await h.call('GET', '/api/topten/charts')).body.items[0].score, 0, 'w oknie 10 s z pamięci');
+  const vote = await h.call('POST', `/api/topten/tracks/${TRACK}/like`, { token: 'u1' });
+  assert.equal(vote.body.charts.items[0].score, 777 + 77, 'odpowiedź na głos ma świeży ranking');
+  assert.equal((await h.call('GET', '/api/topten/charts')).body.items[0].score, 854);
+  h.setNow(T0 + 11_000);
+  assert.equal((await h.call('GET', '/api/topten/charts')).body.items[0].score, 854);
+});
+
+test('mapa strony topten.xml: lastmod = czas ostatniego głosu', async () => {
+  const h = harness();
+  await h.call('POST', `/api/topten/tracks/${TRACK}/like`, { token: 'u1' });
+  const xml = await (await handleTopTenSitemap({ topten_db: h.db }, { now: () => T0 + 1000 })).text();
+  assert.match(xml, new RegExp(`<loc>https://polskieradio.cc/topTEN/</loc>\\s*<lastmod>${new Date(T0).toISOString()}</lastmod>`));
+  assert.match(xml, /<loc>https:\/\/polskieradio.cc\/topTEN\/nominacje\/<\/loc>/);
+});
+
+test('IndexNow: publikacja utworu powiadamia wyszukiwarki; plik klucza jest w repozytorium', async () => {
+  const h = harness();
+  const { body: { id } } = await h.call('POST', '/api/topten/nominations', { body: nomination() });
+  await h.call('POST', `/api/topten/admin/nominations/${id}`, { token: 'admin', body: { status: 'published' } });
+  const ping = h.pushes.find(p => p.url === 'https://api.indexnow.org/indexnow');
+  assert.ok(ping, 'wysłano IndexNow');
+  const body = JSON.parse(ping.init.body);
+  assert.equal(body.key, INDEXNOW_KEY);
+  assert.deepEqual(body.urlList, ['https://polskieradio.cc/topTEN/', `https://polskieradio.cc/topTEN/utwor/${id}`]);
+  assert.equal(fs.readFileSync(new URL(`../${INDEXNOW_KEY}.txt`, import.meta.url), 'utf8').trim(), INDEXNOW_KEY);
+});

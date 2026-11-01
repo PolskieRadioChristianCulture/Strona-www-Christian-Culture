@@ -403,3 +403,13 @@ html body #backToTopBtn[data-cc-back-to-top]:hover {
 @media (max-width: 360px) {
   .header a.login-btn { padding: 0 10px !important; font-size: 12px; }
 }
+/* ── Udostępnianie utworów i notowania — @007 01.11.2026 ── */
+.section-actions { display: inline-flex; flex-wrap: wrap; gap: 4px 14px; justify-content: flex-end; align-items: center; }
+.section-actions .view-all { min-height: 44px; }
+.btn-share { width: 100%; justify-content: center; min-height: 48px; margin: 6px 0 2px; background: #FF7A00; color: #111; border: 0; font-weight: 800; }
+.btn-share:hover { background: #FF8C33; }
+.btn-share:active { background: #E66A00; }
+.share-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; margin: 12px 0 6px; }
+.share-grid .share-link { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; text-decoration: none; text-align: center; }
+.share-grid .share-link[aria-disabled="true"] { opacity: .55; }
+@media (max-width: 400px) { .share-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

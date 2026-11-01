@@ -13,6 +13,9 @@
  *  share          udostępnienie strony
  *  search         zapytanie w wyszukiwarce CC (search_term; pauza 1,5 s, Enter lub wybór wyniku)
  *  select_content klik w wynik wyszukiwarki (content_type=search_result, item_id=ścieżka)
+ *  topten_vote    przyjęty głos w topTEN (vote_type=like|boost, item_id=CC-TT-…, rank) — woła topTEN/app.js
+ *  topten_follow  obserwowanie utworu topTEN (item_id)                      — woła topTEN/app.js
+ *  topten_nomination wysłane zgłoszenie utworu (genre)                       — woła topTEN/nominacje
  *
  * Ruch własny (traffic_type=internal) ustawia sam fragment GA — patrz scripts/apply-ga-internal-traffic.mjs.
  */

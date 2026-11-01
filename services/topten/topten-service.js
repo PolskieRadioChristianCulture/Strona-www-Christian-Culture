@@ -166,6 +166,35 @@ async function charts(db, url, nowMs) {
   return { cycle: cycleInfo(cycleId, liveCycleId), items, updatedAt: new Date(nowMs).toISOString() };
 }
 
+// Ranking bieżącego tygodnia: wspólna pamięć podręczna (Cache API, 10 s) — chroni darmowy limit odczytów D1
+// przy odpytywaniu co 30 s, podglądach linków i SEO. Po każdym głosie / decyzji redakcji liczony od nowa.
+const LIVE_CACHE_SECONDS = 10;
+const localMemo = new WeakMap(); // gdy brak Cache API (testy, dev)
+const liveCacheKey = (cycleId) => new Request(`https://polskieradio.cc/__topten-cache/charts/${cycleId}`);
+
+export async function liveCharts(db, nowMs, { fresh = false } = {}) {
+  const { cycleId } = warsawClock(nowMs);
+  const cache = globalThis.caches?.default;
+  if (!fresh) {
+    if (cache) {
+      const hit = await cache.match(liveCacheKey(cycleId)).catch(() => null);
+      if (hit) return hit.json();
+    } else {
+      const m = localMemo.get(db);
+      if (m && m.cycleId === cycleId && nowMs - m.at < LIVE_CACHE_SECONDS * 1000) return m.data;
+    }
+  }
+  const data = await charts(db, new URL('https://polskieradio.cc/api/topten/charts'), nowMs);
+  if (cache) {
+    await cache.put(liveCacheKey(cycleId), new Response(JSON.stringify(data), {
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': `public, max-age=${LIVE_CACHE_SECONDS}` },
+    })).catch(() => {});
+  } else {
+    localMemo.set(db, { cycleId, at: nowMs, data });
+  }
+  return data;
+}
+
 async function cycles(db, nowMs) {
   const { cycleId: liveCycleId } = warsawClock(nowMs);
   const rows = (await db.prepare('SELECT cycle_id, COUNT(*) AS events FROM topten_events GROUP BY cycle_id ORDER BY cycle_id DESC LIMIT 104').all()).results || [];
@@ -473,6 +502,191 @@ export async function evaluateFollowAlerts(db, env, nowMs, fetchImpl = fetch) {
   }
 }
 
+// ─── Strona udostępniania utworu (podgląd w WhatsApp/Messenger/Facebook/SMS) ───
+const escHtml = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+export function shareText(track) {
+  const place = track.rank ? `jest na ${track.rank}. miejscu notowania` : 'jest w notowaniu';
+  return `🎵 „${track.title}” — ${track.artist} ${place} topTEN Polskiego Radia Christian Culture! `
+    + '🧡 Zagłosuj LubięTO (raz dziennie) i podbij utwór 🚀 — każdy głos się liczy.';
+}
+
+async function shareImage(youtubeIdValue, fetchImpl) {
+  if (!youtubeIdValue) return { url: 'https://polskieradio.cc/topTEN/assets/topten-logo.png', w: null, h: null };
+  const max = `https://i.ytimg.com/vi/${youtubeIdValue}/maxresdefault.jpg`;
+  try {
+    const r = await fetchImpl(max, { method: 'HEAD' });
+    if (r.ok) return { url: max, w: 1280, h: 720 };
+  } catch { /* brak wersji HD — miniatura standardowa */ }
+  return { url: `https://i.ytimg.com/vi/${youtubeIdValue}/hqdefault.jpg`, w: 480, h: 360 };
+}
+
+export async function handleTopTenSharePage(request, env, { fetchImpl = fetch, now = () => Date.now() } = {}) {
+  const url = new URL(request.url);
+  const id = (url.pathname.match(/^\/topten\/utwor\/(CC-TT-\d{4}-\d{4})\/?$/i) || [])[1]?.toUpperCase();
+  const db = env.topten_db || env.TOPTEN_DB;
+  const html = (body, status) => new Response(body, {
+    status,
+    headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=300', 'X-Content-Type-Options': 'nosniff' },
+  });
+  const t = id && db ? await db.prepare("SELECT * FROM topten_tracks WHERE id = ? AND status = 'published'").bind(id).first() : null;
+  if (!t) {
+    return html('<!doctype html><html lang="pl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Utwór niedostępny | topTEN</title><main style="font-family:system-ui;padding:24px"><h1>Utwór niedostępny</h1><p>Tego utworu nie ma w bieżącym notowaniu.</p><a href="/topTEN/">Zobacz notowanie topTEN →</a></main></html>', 404);
+  }
+  const rank = (await liveCharts(db, now())).items.find(r => r.id === t.id)?.rank ?? null;
+  const track = { ...publicTrack(t), rank };
+  const img = await shareImage(t.youtube_id, fetchImpl);
+  const shareUrl = `https://polskieradio.cc/topTEN/utwor/${t.id}`;
+  const target = `/topTEN/#${t.id}`;
+  const title = `„${t.title}” — ${t.artist} | topTEN Christian Culture`;
+  const desc = `${rank ? `Miejsce ${rank} w notowaniu. ` : ''}Posłuchaj, zagłosuj LubięTO i podbij utwór. Masz ulubionego artystę? Zgłoś go do topTEN!`;
+  return html(`<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>${escHtml(title)}</title>
+<meta name="description" content="${escHtml(desc)}">
+<link rel="canonical" href="${shareUrl}">
+<meta property="og:type" content="music.song">
+<meta property="og:site_name" content="Polskie Radio Christian Culture — topTEN">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:title" content="${escHtml(title)}">
+<meta property="og:description" content="${escHtml(desc)}">
+<meta property="og:url" content="${shareUrl}">
+<meta property="og:image" content="${img.url}">
+<meta property="og:image:secure_url" content="${img.url}">
+${img.w ? `<meta property="og:image:width" content="${img.w}">\n<meta property="og:image:height" content="${img.h}">` : ''}
+<meta property="og:image:alt" content="${escHtml(`Kadr z teledysku: ${t.title} — ${t.artist}`)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${escHtml(title)}">
+<meta name="twitter:description" content="${escHtml(desc)}">
+<meta name="twitter:image" content="${img.url}">
+<meta http-equiv="refresh" content="0; url=${target}">
+<link rel="icon" type="image/png" href="/topTEN/assets/topten-logo.png">
+</head>
+<body style="font-family:system-ui,sans-serif;padding:24px;max-width:640px;margin:auto">
+<p><img src="${img.url}" alt="" style="width:100%;border-radius:12px"></p>
+<h1 style="font-size:22px">${escHtml(t.title)} — ${escHtml(t.artist)}</h1>
+<p>${escHtml(shareText(track))}</p>
+<p><a href="${target}" style="color:#E66A00;font-weight:700">Przejdź do notowania topTEN →</a></p>
+<script>location.replace(${JSON.stringify(target)});</script>
+</body>
+</html>`, 200);
+}
+
+// ─── Szybkie indeksowanie: IndexNow (Bing, Yandex, Seznam…; z indeksu Binga korzysta wyszukiwarka ChatGPT/Copilot) ───
+// Klucz jest publiczny z założenia (plik /<klucz>.txt w katalogu głównym). Google nie obsługuje IndexNow — dla Google
+// służy dynamiczna mapa /sitemaps/topten.xml z prawdziwym lastmod.
+export const INDEXNOW_KEY = '05b02b2420811e677a54341bc23369ca';
+const INDEXNOW_THROTTLE_SECONDS = 3600;
+
+export async function pingIndexNow(urls, { fetchImpl = fetch, throttleKey = null } = {}) {
+  const cache = globalThis.caches?.default;
+  const flag = throttleKey && cache ? new Request(`https://polskieradio.cc/__topten-cache/indexnow/${throttleKey}`) : null;
+  if (flag && await cache.match(flag).catch(() => null)) return 'throttled';
+  const res = await fetchImpl('https://api.indexnow.org/indexnow', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    body: JSON.stringify({ host: 'polskieradio.cc', key: INDEXNOW_KEY, keyLocation: `https://polskieradio.cc/${INDEXNOW_KEY}.txt`, urlList: urls }),
+  });
+  if (flag) await cache.put(flag, new Response('1', { headers: { 'Cache-Control': `public, max-age=${INDEXNOW_THROTTLE_SECONDS}` } })).catch(() => {});
+  return res.status;
+}
+
+export async function handleTopTenSitemap(env, { now = () => Date.now() } = {}) {
+  const db = env.topten_db || env.TOPTEN_DB;
+  let lastmod = '2026-11-01';
+  if (db) {
+    try {
+      const data = await liveCharts(db, now());
+      const last = Math.max(0, ...data.items.map(i => i.lastAt || 0));
+      lastmod = new Date(last || Date.parse(`${data.cycle.id}T00:00:00+01:00`)).toISOString();
+    } catch { /* zostaje data bazowa */ }
+  }
+  const urls = [
+    ['https://polskieradio.cc/topTEN/', lastmod, 'hourly', '0.95'],
+    ['https://polskieradio.cc/topTEN/nominacje/', '2026-11-01', 'weekly', '0.8'],
+    ['https://polskieradio.cc/topTEN/regulamin/', '2026-11-01', 'monthly', '0.5'],
+  ];
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([loc, mod, freq, prio]) =>
+    `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${mod}</lastmod>\n    <changefreq>${freq}</changefreq>\n    <priority>${prio}</priority>\n  </url>`).join('\n')}\n</urlset>\n`;
+  return new Response(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=300' } });
+}
+
+// ─── SEO / AI: aktualny ranking wstawiony do HTML /topTEN/ (dla robotów bez JavaScriptu) ───
+const plDate = (d) => new Date(`${d}T12:00:00Z`).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+export function renderTopTenSeo(html, data) {
+  const items = data.items || [];
+  const top = items.slice(0, 10);
+  const week = `${plDate(data.cycle.id)} – ${plDate(data.cycle.end.slice(0, 10))}`;
+  const updated = new Date(data.updatedAt).toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw', dateStyle: 'long', timeStyle: 'short' });
+  const leaders = top.slice(0, 3).map(t => `${t.rank}. „${t.title}” — ${t.artist}`).join('; ');
+  const description = top.length
+    ? `Aktualne notowanie topTEN (${week}): ${leaders}. Głosuj LubięTO i PodbijTO, zgłaszaj ulubionych artystów chrześcijańskich.`
+    : `Notowanie topTEN Polskiego Radia Christian Culture (${week}). Głosuj LubięTO i PodbijTO, zgłaszaj ulubionych artystów chrześcijańskich.`;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'MusicPlaylist',
+    name: `topTEN — notowanie muzyki chrześcijańskiej (${week})`,
+    description,
+    url: 'https://polskieradio.cc/topTEN/',
+    inLanguage: 'pl',
+    dateModified: data.updatedAt,
+    numTracks: items.length,
+    publisher: { '@type': 'Organization', name: 'Polskie Radio Christian Culture', url: 'https://polskieradio.cc/', logo: 'https://polskieradio.cc/topTEN/assets/topten-logo.png' },
+    track: {
+      '@type': 'ItemList',
+      numberOfItems: items.length,
+      itemListOrder: 'https://schema.org/ItemListOrderDescending',
+      itemListElement: top.map(t => ({
+        '@type': 'ListItem',
+        position: t.rank,
+        item: {
+          '@type': 'MusicRecording',
+          name: t.title,
+          byArtist: { '@type': 'MusicGroup', name: t.artist },
+          url: `https://polskieradio.cc/topTEN/utwor/${t.id}`,
+          ...(t.cover ? { image: t.cover } : {}),
+          ...(t.youtubeId ? { sameAs: `https://www.youtube.com/watch?v=${t.youtubeId}` } : {}),
+          interactionStatistic: { '@type': 'InteractionCounter', interactionType: 'https://schema.org/LikeAction', userInteractionCount: t.likes || 0 },
+        },
+      })),
+    },
+  };
+  const ld = `<script type="application/ld+json" id="topten-ld">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>`;
+  const list = `<section class="chart-section" id="notowania-ssr" aria-label="Aktualne notowanie topTEN">
+<div class="section-header"><h2>TopTen Global — ${escHtml(week)}</h2></div>
+${top.length ? `<ol class="ssr-chart">${top.map(t => `<li value="${t.rank}"><a href="/topTEN/utwor/${escHtml(t.id)}"><strong>${escHtml(t.title)}</strong></a> — ${escHtml(t.artist)} · ${Number(t.score || 0).toLocaleString('pl-PL')} pkt</li>`).join('')}</ol>`
+    : '<p>W tym tygodniu nie ma jeszcze utworów w notowaniu.</p>'}
+<p class="vote-info-note">Stan na ${escHtml(updated)}. <a href="/topTEN/nominacje/">Zgłoś utwór →</a></p>
+</section>`;
+
+  return html
+    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${escHtml(description)}">`)
+    .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${escHtml(description)}">`)
+    .replace('</head>', `${ld}\n</head>`)
+    .replace('<div id="sections">', `<div id="sections">\n${list}`);
+}
+
+export async function handleTopTenPage(request, env, { now = () => Date.now() } = {}) {
+  const res = await env.ASSETS.fetch(request);
+  const db = env.topten_db || env.TOPTEN_DB;
+  if (!db || res.status !== 200 || !String(res.headers.get('Content-Type') || '').includes('text/html')) return res;
+  try {
+    const data = await liveCharts(db, now());
+    const out = new Response(renderTopTenSeo(await res.text(), data), res);
+    out.headers.delete('Content-Length');
+    out.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
+    return out;
+  } catch {
+    return env.ASSETS.fetch(request); // bez danych — zwykła strona statyczna
+  }
+}
+
 // ─── Router ──────────────────────────────────────────────────────────────────
 export async function handleTopTenApi(request, env, ctx, { verifyToken, fetchImpl = fetch, now = () => Date.now() } = {}) {
   const url = new URL(request.url);
@@ -487,7 +701,11 @@ export async function handleTopTenApi(request, env, ctx, { verifyToken, fetchImp
   const later = (p) => { const job = p.catch(() => {}); if (ctx?.waitUntil) ctx.waitUntil(job); return job; };
 
   try {
-    if (method === 'GET' && path === '/api/topten/charts') return json({ ok: true, ...(await charts(db, url, nowMs)) });
+    if (method === 'GET' && path === '/api/topten/charts') {
+      const requested = url.searchParams.get('cycle');
+      const live = !requested || requested === warsawClock(nowMs).cycleId;
+      return json({ ok: true, ...(live ? await liveCharts(db, nowMs) : await charts(db, url, nowMs)) });
+    }
     if (method === 'GET' && path === '/api/topten/cycles') return json({ ok: true, ...(await cycles(db, nowMs)) });
     if (method === 'GET' && path === '/api/topten/me') {
       const user = await requireUser(request, verifyToken);
@@ -518,7 +736,9 @@ export async function handleTopTenApi(request, env, ctx, { verifyToken, fetchImp
           later(evaluateFollowAlerts(db, env, nowMs, fetchImpl));
         }
         const state = await myState(db, user.uid, nowMs);
-        return json({ ok: true, ...result, me: state.tracks[trackId] || null }, result.replay ? 200 : 201);
+        const fresh = result.replay ? undefined : await liveCharts(db, nowMs, { fresh: true });
+        if (fresh) later(pingIndexNow(['https://polskieradio.cc/topTEN/'], { fetchImpl, throttleKey: 'chart' }));
+        return json({ ok: true, ...result, me: state.tracks[trackId] || null, ...(fresh ? { charts: fresh } : {}) }, result.replay ? 200 : 201);
       }
     }
 
@@ -553,10 +773,21 @@ export async function handleTopTenApi(request, env, ctx, { verifyToken, fetchImp
       const admin = await requireAdmin(request, verifyToken);
       if (method === 'GET' && path === '/api/topten/admin/nominations') return json({ ok: true, ...(await adminNominations(db, url)) });
       const nomMatch = path.match(/^\/api\/topten\/admin\/nominations\/(CC-TT-\d{4}-\d{4})$/);
-      if (method === 'POST' && nomMatch) return json(await adminUpdateNomination(db, request, admin, nomMatch[1]));
+      if (method === 'POST' && nomMatch) {
+        const out = await adminUpdateNomination(db, request, admin, nomMatch[1]);
+        await liveCharts(db, nowMs, { fresh: true });
+        if (['published', 'takedown', 'withdrawn', 'rejected'].includes(out.status)) {
+          later(pingIndexNow(['https://polskieradio.cc/topTEN/', `https://polskieradio.cc/topTEN/utwor/${out.id}`], { fetchImpl }));
+        }
+        return json(out);
+      }
       if (method === 'GET' && path === '/api/topten/admin/events') return json({ ok: true, ...(await adminEvents(db, url)) });
       const evMatch = path.match(/^\/api\/topten\/admin\/events\/(\d+)$/);
-      if (method === 'POST' && evMatch) return json(await adminReviewEvent(db, request, admin, Number(evMatch[1])));
+      if (method === 'POST' && evMatch) {
+        const out = await adminReviewEvent(db, request, admin, Number(evMatch[1]));
+        await liveCharts(db, nowMs, { fresh: true });
+        return json(out);
+      }
       if (method === 'POST' && path === '/api/topten/admin/mail-retry') {
         const failed = (await db.prepare("SELECT id FROM topten_nominations WHERE mail_status != 'sent' AND mail_attempts < 5 ORDER BY seq LIMIT 10").all()).results || [];
         for (const f of failed) await sendNominationMails(db, env, f.id);

@@ -117,6 +117,7 @@ function renderCharts(filter = '') {
   if (!sections) return;
 
   if (!state.charts) {
+    if (!state.loadError && sections.querySelector('#notowania-ssr')) return; // lista z serwera zostaje do czasu danych
     sections.innerHTML = state.loadError
       ? '<p class="empty-state">Notowanie jest chwilowo niedostępne. Spróbuj odświeżyć stronę za chwilę.</p>'
       : '<p class="empty-state">Wczytywanie notowania…</p>';
@@ -142,7 +143,10 @@ function renderCharts(filter = '') {
     <section class="chart-section" id="notowania">
       <div class="section-header">
         <h2>TopTen Global ${label}</h2>
-        <button class="view-all" data-chart="notowania" aria-label="Szczegóły notowania">ZASADY PUNKTACJI <span>→</span></button>
+        <span class="section-actions">
+          <button class="view-all" type="button" data-share-chart="true" aria-label="Udostępnij notowanie topTEN">UDOSTĘPNIJ <span>📤</span></button>
+          <button class="view-all" data-chart="notowania" aria-label="Szczegóły notowania">ZASADY PUNKTACJI <span>→</span></button>
+        </span>
       </div>
       <p class="vote-info-note" style="margin: 0 0 14px;">${note} <a href="/topTEN/nominacje" style="color: #FF7A00; font-weight: 700;">Zgłoś utwór →</a></p>
       ${filtered.length ? `<div class="cards featured">${topFive.map((item, i) => card(item, i === 0 && !q)).join('')}</div>`
@@ -275,6 +279,7 @@ function openTrackModal(trackId, { keepFocus = false } = {}) {
         <strong>Zasady:</strong> LubięTO jest dostępne 1x na dobę (+777 pkt). PodbijTO możesz wykonać do 7 razy na dobę w odstępach min. 60 minut (+77 pkt za podbicie). Limity liczy serwer według czasu polskiego.
       </p>
       <hr style="border: 0; border-top: 1px solid #eee; margin: 4px 0;">
+      <button class="btn-action btn-share" id="btnTrackShare" type="button">📤 Udostępnij — poproś znajomych o głos</button>
       <div class="vote-action-row">
         ${track.support?.length ? '<button class="btn-action btn-support-artist" id="btnTrackSupport" type="button">🤝 Wspieram artystę</button>' : ''}
         ${state.charts?.cycle.status === 'live' ? `<button class="btn-action btn-follow ${following ? 'active' : ''}" id="btnTrackFollow" type="button" ${state.busy ? 'disabled' : ''}>
@@ -288,6 +293,7 @@ function openTrackModal(trackId, { keepFocus = false } = {}) {
   $('#btnVoteLubieTO')?.addEventListener('click', () => handleVote(track.id, 'like'));
   $('#btnVotePodbijTO')?.addEventListener('click', () => handleVote(track.id, 'boost'));
   $('#btnTrackSupport')?.addEventListener('click', () => showSupportModal(track.id));
+  $('#btnTrackShare')?.addEventListener('click', () => showShareSheet(track.id));
   $('#btnTrackFollow')?.addEventListener('click', () => handleFollowTrack(track.id));
 }
 
@@ -304,7 +310,7 @@ function showSupportModal(trackId) {
           <li style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 0; border-bottom: 1px solid #eee;">
             <span><strong>${escapeHtml(s.method)}:</strong> ${escapeHtml(s.value)}</span>
             ${s.url
-              ? `<a class="btn-action btn-support-artist" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer ugc nofollow">Otwórz ↗</a>`
+              ? `<a class="btn-action btn-support-artist" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer ugc nofollow" data-donate="${escapeHtml(s.method)}">Otwórz ↗</a>`
               : `<button class="btn-action btn-support-artist" type="button" data-copy-support="${i}">Kopiuj numer</button>`}
           </li>
         `).join('')}
@@ -319,6 +325,252 @@ function showSupportModal(trackId) {
       navigator.clipboard?.writeText(s.copy || s.value)
         .then(() => showToast(`Skopiowano: ${s.value}`))
         .catch(() => showToast(`Numer: ${s.value}`));
+      ccEvent('donate_click', { method: 'blik_copy', place: 'topten', item_id: track.id });
+    });
+  });
+  // Revolut/Patronite itp. — cc-analytics rozpoznaje tylko część domen, więc oznaczamy te, których nie zna.
+  $('#modalBody').querySelectorAll('[data-donate]').forEach(a => {
+    a.addEventListener('click', () => {
+      if (!/zrzutka\.pl|patronite\.pl|paypal\./i.test(a.href)) ccEvent('donate_click', { method: a.dataset.donate.toLowerCase(), place: 'topten', item_id: track.id });
+    });
+  });
+}
+
+// ─── Udostępnianie ───────────────────────────────────────────────────────────
+const SITE = 'https://polskieradio.cc';
+const NOMINATE_URL = `${SITE}/topTEN/nominacje`;
+const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const track404 = () => showToast('Nie udało się przygotować udostępnienia.');
+
+function shareContent(track) {
+  if (!track) {
+    const url = `${SITE}/topTEN/`;
+    return {
+      url, title: 'topTEN — notowanie muzyki chrześcijańskiej',
+      text: '🎶 Notowanie topTEN Polskiego Radia Christian Culture trwa! 🧡 Głosuj codziennie LubięTO, podbijaj ulubione utwory 🚀 i zgłaszaj swoich ulubionych artystów.',
+    };
+  }
+  const place = track.rank ? `jest na ${track.rank}. miejscu notowania` : 'jest w notowaniu';
+  return {
+    url: `${SITE}/topTEN/utwor/${track.id}`,
+    title: `„${track.title}” — ${track.artist} | topTEN`,
+    text: `🎵 „${track.title}” — ${track.artist} ${place} topTEN Polskiego Radia Christian Culture! 🧡 Zagłosuj LubięTO (raz dziennie) i podbij utwór 🚀 — każdy głos się liczy.`,
+  };
+}
+
+function fullMessage(c) {
+  return `${c.text}\n\n👉 ${c.url}\n\n✍️ Masz ulubionego artystę chrześcijańskiego? Zgłoś go do notowań: ${NOMINATE_URL}`;
+}
+
+// GA4 (standard CC): window.ccTrack z /js/cc-analytics.js. Linki wa.me / facebook / t.me / x oraz navigator.share
+// liczy sam tracker — tutaj tylko metody, których nie rozpoznaje (e-mail, SMS, Messenger, kopia, grafika).
+const ccEvent = (name, params) => { try { window.ccTrack?.(name, params); } catch { /* analityka opcjonalna */ } };
+function trackShare(method, track) {
+  ccEvent('share', { method, content_type: track ? 'topten_track' : 'topten_chart', item_id: track?.id || 'topten' });
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => (img.naturalWidth > 120 ? resolve(img) : reject(new Error('placeholder')));
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+function wrapLines(ctx, text, maxWidth, maxLines) {
+  const words = String(text).split(/\s+/);
+  const lines = [];
+  let line = '';
+  for (const w of words) {
+    const test = line ? `${line} ${w}` : w;
+    if (ctx.measureText(test).width <= maxWidth || !line) line = test;
+    else { lines.push(line); line = w; }
+  }
+  if (line) lines.push(line);
+  if (lines.length > maxLines) {
+    lines.length = maxLines;
+    let last = lines[maxLines - 1];
+    while (ctx.measureText(`${last}…`).width > maxWidth && last.length) last = last.slice(0, -1);
+    lines[maxLines - 1] = `${last.trim()}…`;
+  }
+  return lines;
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+/** Grafika 1080×1350 z kadrem teledysku — dołączana do udostępnień. */
+async function buildShareCard(track) {
+  const W = 1080, H = 1350, PAD = 64;
+  const canvas = document.createElement('canvas');
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  const font = (weight, size) => `${weight} ${size}px system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif`;
+  ctx.fillStyle = '#0b0b0b';
+  ctx.fillRect(0, 0, W, H);
+
+  // Nagłówek: Polskie Radio Christian Culture | topTEN
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = font(600, 30);
+  ctx.fillText('Polskie Radio', PAD, 92);
+  ctx.font = font(800, 30);
+  ctx.fillText('Christian Culture', PAD, 128);
+  ctx.font = font(900, 74);
+  const topW = ctx.measureText('top').width;
+  const tenW = ctx.measureText('TEN').width;
+  const brandX = W - PAD - topW - tenW;
+  ctx.fillText('top', brandX, 128);
+  ctx.fillStyle = '#FF7A00';
+  ctx.fillText('TEN', brandX + topW, 128);
+
+  // Kadr z teledysku
+  const imgY = 176, imgH = Math.round(W * 9 / 16);
+  let img = null;
+  if (track.youtubeId) {
+    img = await loadImage(`https://i.ytimg.com/vi/${track.youtubeId}/maxresdefault.jpg`)
+      .catch(() => loadImage(`https://i.ytimg.com/vi/${track.youtubeId}/hqdefault.jpg`)).catch(() => null);
+  } else if (track.cover) {
+    img = await loadImage(track.cover).catch(() => null);
+  }
+  if (img) {
+    const scale = Math.max(W / img.naturalWidth, imgH / img.naturalHeight);
+    const sw = W / scale, sh = imgH / scale;
+    ctx.drawImage(img, (img.naturalWidth - sw) / 2, (img.naturalHeight - sh) / 2, sw, sh, 0, imgY, W, imgH);
+  } else {
+    const g = ctx.createLinearGradient(0, imgY, W, imgY + imgH);
+    g.addColorStop(0, '#E66A00'); g.addColorStop(1, '#1a1a1a');
+    ctx.fillStyle = g; ctx.fillRect(0, imgY, W, imgH);
+  }
+  // przycisk ▶
+  ctx.fillStyle = 'rgba(0,0,0,.55)';
+  ctx.beginPath(); ctx.arc(W / 2, imgY + imgH / 2, 70, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = 6; ctx.stroke();
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.moveTo(W / 2 - 22, imgY + imgH / 2 - 36); ctx.lineTo(W / 2 + 40, imgY + imgH / 2); ctx.lineTo(W / 2 - 22, imgY + imgH / 2 + 36); ctx.closePath(); ctx.fill();
+  // miejsce
+  if (track.rank) {
+    ctx.fillStyle = '#FF7A00';
+    ctx.fillRect(PAD, imgY + 32, 132, 132);
+    ctx.fillStyle = '#111';
+    ctx.font = font(900, track.rank > 9 ? 78 : 96);
+    ctx.textAlign = 'center';
+    ctx.fillText(String(track.rank), PAD + 66, imgY + 32 + 100);
+    ctx.textAlign = 'left';
+  }
+
+  // Tytuł, wykonawca, punkty
+  let y = imgY + imgH + 92;
+  ctx.fillStyle = '#ffffff';
+  ctx.font = font(800, 62);
+  const titleLines = wrapLines(ctx, track.title, W - PAD * 2, 2);
+  for (const l of titleLines) { ctx.fillText(l, PAD, y); y += 74; }
+  ctx.fillStyle = '#d0d0d0';
+  ctx.font = font(600, 40);
+  ctx.fillText(wrapLines(ctx, track.artist, W - PAD * 2, 1)[0], PAD, y + 4);
+  y += 70;
+  const stat = `${fmtPoints(track.score)} pkt${track.rank ? ` • miejsce ${track.rank}` : ''}`;
+  ctx.font = font(700, 32);
+  const statW = ctx.measureText(stat).width + 44;
+  ctx.fillStyle = '#222'; roundRect(ctx, PAD, y - 40, statW, 58, 12); ctx.fill();
+  ctx.fillStyle = '#FF8C33'; ctx.fillText(stat, PAD + 22, y);
+
+  // Wezwanie do działania
+  const boxY = H - 252;
+  ctx.fillStyle = '#FF7A00'; roundRect(ctx, PAD, boxY, W - PAD * 2, 120, 22); ctx.fill();
+  ctx.fillStyle = '#111';
+  ctx.font = font(900, 40);
+  ctx.textAlign = 'center';
+  ctx.fillText('Zagłosuj LubięTO 🧡 i podbij 🚀', W / 2, boxY + 54);
+  ctx.font = font(700, 32);
+  ctx.fillText('polskieradio.cc/topTEN', W / 2, boxY + 98);
+  ctx.fillStyle = '#bdbdbd';
+  ctx.font = font(500, 28);
+  ctx.fillText('Masz ulubionego artystę? Zgłoś go: polskieradio.cc/topTEN/nominacje', W / 2, H - 70);
+  ctx.textAlign = 'left';
+
+  return new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+}
+
+async function showShareSheet(trackId) {
+  const track = trackId ? findTrack(trackId) : null;
+  const c = shareContent(track);
+  const msg = fullMessage(c);
+  const enc = encodeURIComponent;
+  // [nazwa, adres, liczone przez cc-analytics?]
+  const links = [
+    ['WhatsApp', `https://wa.me/?text=${enc(msg)}`, true],
+    ['Facebook', `https://www.facebook.com/sharer/sharer.php?u=${enc(c.url)}`, true],
+    ...(isMobile() ? [['Messenger', `fb-messenger://share/?link=${enc(c.url)}`, false]] : []),
+    ['Telegram', `https://t.me/share/url?url=${enc(c.url)}&text=${enc(`${c.text}\n\n✍️ Zgłoś ulubionego artystę: ${NOMINATE_URL}`)}`, true],
+    ['X', `https://twitter.com/intent/tweet?text=${enc(c.text)}&url=${enc(c.url)}`, true],
+    ['E-mail', `mailto:?subject=${enc(c.title)}&body=${enc(msg)}`, false],
+    ['SMS', `sms:?&body=${enc(msg)}`, false],
+  ];
+  state.openTrackId = null;
+  showModal(track ? 'Udostępnij utwór' : 'Udostępnij notowanie topTEN', `
+    <div style="line-height: 1.5;">
+      ${track ? `<div id="shareCardBox" style="margin-bottom: 12px; text-align: center;"><p class="vote-info-note">Przygotowuję grafikę utworu…</p></div>` : ''}
+      <p style="font-size: 13px; color: #444; background: #fdfaf6; border: 1px solid #fae2cc; border-radius: 8px; padding: 10px 12px; white-space: pre-line; word-break: break-word;">${escapeHtml(msg)}</p>
+      <div class="vote-action-row">
+        ${navigator.share ? `<button class="btn-action btn-lubieto" type="button" id="btnNativeShare">📤 ${track ? 'Udostępnij z grafiką' : 'Udostępnij'}</button>` : ''}
+        <button class="btn-action" type="button" id="btnCopyShare">🔗 Kopiuj wiadomość</button>
+      </div>
+      <div class="share-grid">
+        ${links.map(([name, href, auto]) => auto
+          ? `<a class="btn-action share-link" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(name)}</a>`
+          : `<button class="btn-action share-link" type="button" data-href="${escapeHtml(href)}" data-method="${escapeHtml(name.toLowerCase())}">${escapeHtml(name)}</button>`).join('')}
+        ${track ? '<a class="btn-action share-link" id="btnDownloadCard" href="#" data-method="image_download" aria-disabled="true">⬇ Pobierz grafikę</a>' : ''}
+      </div>
+      <p class="vote-info-note">Udostępniony link pokazuje kadr z teledysku, tytuł i zachętę do głosowania. Grafikę możesz też dodać do relacji lub posta.</p>
+    </div>
+  `);
+
+  let cardFile = null;
+  if (track) {
+    buildShareCard(track).then((blob) => {
+      const box = $('#shareCardBox');
+      if (!blob || !box) return;
+      cardFile = new File([blob], `topTEN-${track.id}.png`, { type: 'image/png' });
+      const src = URL.createObjectURL(blob);
+      box.innerHTML = `<img src="${src}" alt="Grafika do udostępnienia: ${escapeHtml(track.title)} — ${escapeHtml(track.artist)}" style="width: 100%; max-width: 280px; border-radius: 10px; box-shadow: 0 4px 18px rgba(0,0,0,.18);">`;
+      const dl = $('#btnDownloadCard');
+      if (dl) { dl.href = src; dl.download = cardFile.name; dl.removeAttribute('aria-disabled'); dl.target = '_self'; }
+    }).catch(() => { const box = $('#shareCardBox'); if (box) box.innerHTML = ''; });
+  }
+
+  $('#btnNativeShare')?.addEventListener('click', async () => {
+    const data = { title: c.title, text: `${c.text}\n\n✍️ Zgłoś ulubionego artystę: ${NOMINATE_URL}`, url: c.url };
+    try {
+      if (cardFile && navigator.canShare?.({ files: [cardFile] })) {
+        await navigator.share({ ...data, text: `${data.text}\n\n👉 ${c.url}`, files: [cardFile] });
+      } else {
+        await navigator.share(data);
+      }
+    } catch (e) {
+      if (e?.name !== 'AbortError') showToast('Udostępnianie nie powiodło się — użyj przycisków poniżej.');
+    }
+  });
+  $('#btnCopyShare')?.addEventListener('click', () => {
+    navigator.clipboard?.writeText(msg)
+      .then(() => { showToast('Skopiowano wiadomość z linkiem — wklej ją w dowolnej aplikacji.'); trackShare('copy', track); })
+      .catch(track404);
+  });
+  $('#modalBody').querySelectorAll('.share-link').forEach(a => {
+    a.addEventListener('click', (e) => {
+      if (a.getAttribute('aria-disabled') === 'true') { e.preventDefault(); showToast('Grafika jeszcze się przygotowuje…'); return; }
+      if (!a.dataset.method) return; // liczy cc-analytics
+      trackShare(a.dataset.method, track);
+      if (a.dataset.href) window.location.href = a.dataset.href;
     });
   });
 }
@@ -342,9 +594,11 @@ async function handleVote(trackId, action) {
   try {
     const res = await api(`/api/topten/tracks/${encodeURIComponent(trackId)}/${action}`, { method: 'POST', auth: true, idempotent: true });
     if (state.me && res.me) state.me.tracks[trackId] = res.me;
+    if (res.charts && !state.viewCycle) state.charts = res.charts;
+    if (!res.replay) ccEvent('topten_vote', { vote_type: action, item_id: trackId, rank: findTrack(trackId)?.rank ?? 0 });
     const title = findTrack(trackId)?.title || '';
     showToast(action === 'like'
-      ? `🎉 Dziękujemy! +777 pkt LubięTO dla „${title}”.`
+      ? `🎉 Dziękujemy! +777 pkt LubięTO dla „${title}”. Udostępnij utwór i poproś znajomych o głos 📤`
       : `🚀 Podbito „${title}” o +77 pkt (${res.me?.boostsToday ?? '?'}/7 dziś).`);
   } catch (e) {
     showToast(e.message);
@@ -385,6 +639,7 @@ async function handleFollowTrack(trackId) {
   state.busy = true;
   try {
     await api(`/api/topten/tracks/${encodeURIComponent(trackId)}/follow`, { method: following ? 'DELETE' : 'POST', auth: true });
+    if (!following) ccEvent('topten_follow', { item_id: trackId });
     const title = findTrack(trackId)?.title || '';
     if (following) {
       showToast(`Wyłączono obserwowanie „${title}”.`);
@@ -476,6 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sections = $('#sections');
   sections?.addEventListener('click', (e) => {
     if (e.target.closest('[data-back-live]')) { state.viewCycle = null; loadCharts(); return; }
+    if (e.target.closest('[data-share-chart]')) { showShareSheet(null); return; }
     const card = e.target.closest('[data-track-id]');
     if (card) { openTrackModal(card.dataset.trackId); return; }
     if (e.target.closest('[data-chart]')) {

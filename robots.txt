@@ -5,6 +5,7 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /topTEN/panel/
 Disallow: /mission-control/
 Disallow: /config/
 Disallow: /scripts/
@@ -96,6 +97,7 @@ Sitemap: https://polskieradio.cc/sitemaps/news-google.xml
 Sitemap: https://polskieradio.cc/sitemaps/akademia.xml
 Sitemap: https://polskieradio.cc/sitemaps/biblia.xml
 Sitemap: https://polskieradio.cc/sitemaps/muzyka.xml
+Sitemap: https://polskieradio.cc/sitemaps/topten.xml
 Sitemap: https://polskieradio.cc/sitemaps/video.xml
 Sitemap: https://polskieradio.cc/sitemaps/pages.xml
 Sitemap: https://polskieradio.cc/sitemaps/en.xml

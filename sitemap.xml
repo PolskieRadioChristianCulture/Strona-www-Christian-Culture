@@ -37,4 +37,7 @@
     <lastmod>2026-10-29</lastmod>
   </sitemap>
   <sitemap><loc>https://polskieradio.cc/sitemaps/cc-pomoc.xml</loc></sitemap>
+  <sitemap>
+    <loc>https://polskieradio.cc/sitemaps/topten.xml</loc>
+  </sitemap>
 </sitemapindex>
