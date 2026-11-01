@@ -449,3 +449,5 @@ html body #backToTopBtn[data-cc-back-to-top]:hover {
 .award-pill { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 12px; border-radius: 999px; background: #111; color: #FF8C33; font-weight: 800; font-size: 13px; }
 .natural-archive-link { margin: 18px 0; }
 @media (prefers-reduced-motion: reduce) { .chart-card img, .yt-thumb img { transition: none !important; } }
+.award-share { min-width: 44px; min-height: 44px; border-radius: 50%; border: 2px solid #FF7A00; background: #fff; cursor: pointer; font-size: 18px; margin-left: -4px; }
+.award-share:hover { background: #FF7A00; }

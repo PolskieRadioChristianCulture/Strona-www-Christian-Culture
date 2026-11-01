@@ -31,12 +31,12 @@ Data: 2026-11-01 · @007 · Bramka: spec §23 „Warunki wejścia na produkcję�
 - [ ] Monitoring pierwszego zamknięcia tygodnia: `topten_weeks.status = finalized`, snapshot, wyróżnienia; audyt `week.opened/finalized`
 
 ## Etap C — po starcie (P1/P2, poza tym wdrożeniem)
-- [ ] Karty/bannery topTEN na muzycznych stronach EkoCC (spec §25 — najpierw audyt mapy EkoCC: radio, Biblia Śpiewana, Śpiewajmy Panu, BiblijneUwielbienie, /music)
-- [ ] Grafiki wyróżnień tygodnia do udostępniania (rozszerzenie istniejącej grafiki 1080×1350)
-- [ ] OpenAPI YAML dla publicznych endpointów
-- [ ] RODO: retencja zdarzeń i procedura usunięcia konta (decyzja L0/prawna)
+- [x] Karta topTEN (components/cc-topten-card.js) wpinana centralnie przez scripts/cc-page-standard.mjs na: /music, /music/przeboje, /music/premiery, /player, /BiblijneUwielbienie, /skins. Strony transmisji (*-live: Biblia Śpiewana, Śpiewajmy Panu), OBS, embedy i LUMI KIDS — celowo pominięte (tylko do odczytu).
+- [x] Grafiki wyróżnień tygodnia (wstęga na grafice 1080×1350 + tekst) — przycisk 📤 przy wyróżnieniach w „Ostatnie notowanie”
+- [x] OpenAPI 3.1: docs/topten/openapi.yaml
+- [ ] RODO: retencja — propozycja w docs/topten/RODO_RETENCJA_PROPOZYCJA.md (czeka na decyzję L0; wdrożenie czyszczenia ~1 h po decyzji)
 - [ ] Limit sieciowy (rate limit per konto + sieć) na głosowanie — dziś: limity dzienne per konto + ręczne wstrzymywanie
-- [ ] Alert nietypowej liczby głosów (np. > N/h na utwór) do Skrzynki @005
+- [x] Alerty: skok ≥120 głosów/h na utwór oraz ≥8 kont z jednej sieci/dzień → audyt + e-mail do redakcji (radiochristianculture@gmail.com), przerwa 6 h, bez automatycznych blokad; lista w panelu (migracja 0003: indeksy)
 
 ## Decyzje L0 z 01.11.2026 (Etap B — wykonany tego samego dnia)
 - Tydzień notowania: **niedziela 20:00 → niedziela 20:00** Europe/Warsaw (zamiast pon 00:00). Implementacja: `CYCLE_CLOSE_HOUR = 20` w `topten-service.js` (`warsawClock` liczy tydzień z czasu przesuniętego o +4 h; doba dla limitów głosów pozostaje kalendarzowa); `weekBounds` = niedziela 20:00 → niedziela 20:00. Zmiana czasu (niedziela nad ranem) nie dotyka granicy — testy dla 60 kolejnych tygodni.

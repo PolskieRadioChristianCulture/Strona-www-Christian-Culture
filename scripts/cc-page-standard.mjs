@@ -6,6 +6,13 @@ export const FAVORITES_SCRIPT = '/js/cc-favorites.js?v=20261015_topbar1';
 export const NEWSLETTER_SCRIPT = '/js/cc-newsletter.js?v=20261030_nl1';
 export const MOBILE_EDGE_CSS = '/css/cc-mobile-edge.css?v=20261030_edge10';
 export const MOBILE_EDGE_SCRIPT = '/js/cc-mobile-edge.js?v=20261030_edge10';
+// #TOPTEN na muzycznych stronach EkoCC (spec. naturalnej rywalizacji §25): jeden komponent, zmiana w jednym miejscu.
+// Transmisje na żywo, OBS, embedy i LUMI KIDS są wykluczone wyżej w applyPageStandard.
+export const TOPTEN_CARD_SCRIPT = '/components/cc-topten-card.js?v=20261101_a007';
+export const TOPTEN_CARD_PAGES = new Set([
+  'music.html', 'music/index.html', 'music/przeboje/index.html', 'music/premiery/index.html',
+  'player.html', 'biblijne-uwielbienie.html', 'skins.html',
+]);
 
 export function applyPageStandard(file, html) {
   const name = file.replaceAll('\\', '/').toLowerCase();
@@ -44,6 +51,9 @@ export function applyPageStandard(file, html) {
   }
   if (!html.includes('cc-mobile-edge.js')) {
     additions += `<script defer src="${MOBILE_EDGE_SCRIPT}"></script>\n`;
+  }
+  if (TOPTEN_CARD_PAGES.has(name) && !html.includes('cc-topten-card.js')) {
+    additions += `<script defer src="${TOPTEN_CARD_SCRIPT}"></script>\n`;
   }
 
   if (additions) {

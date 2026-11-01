@@ -150,7 +150,8 @@ function naturalSections(nat, waiting) {
         </div>
         ${last.awards.length ? `<p class="natural-awards">${last.awards.map(a => {
           const t = last.top10.find(x => x.id === a.id);
-          return `<span class="award-pill" title="${escapeHtml(a.explanation)}">${AWARD_LABELS[a.type] || a.type}${t ? `: ${escapeHtml(t.title)}` : ''}</span>`;
+          return `<span class="award-pill" title="${escapeHtml(a.explanation)}">${AWARD_LABELS[a.type] || a.type}${t ? `: ${escapeHtml(t.title)}` : ''}</span>`
+            + (t ? `<button type="button" class="award-share" data-share-award="${escapeHtml(a.type)}" aria-label="Udostępnij wyróżnienie: ${escapeHtml(AWARD_LABELS[a.type] || a.type)} — ${escapeHtml(t.title)}">📤</button>` : '');
         }).join('')}</p>` : ''}
         <ol class="natural-list">${last.top10.map(t => `<li value="${t.rank}"><strong>${escapeHtml(t.title)}</strong> — ${escapeHtml(t.artist)} · ${fmtPoints(t.points)} pkt</li>`).join('')}</ol>
         ${last.status === 'corrected' ? `<p class="vote-info-note">Wynik skorygowany (wersja ${last.version}).</p>` : ''}
@@ -416,12 +417,19 @@ const NOMINATE_URL = `${SITE}/topTEN/nominacje`;
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const track404 = () => showToast('Nie udało się przygotować udostępnienia.');
 
-function shareContent(track) {
+function shareContent(track, award = null) {
   if (!track) {
     const url = `${SITE}/topTEN/`;
     return {
       url, title: 'topTEN — notowanie muzyki chrześcijańskiej',
       text: '🎶 Notowanie topTEN Polskiego Radia Christian Culture trwa! 🧡 Głosuj codziennie LubięTO, podbijaj ulubione utwory 🚀 i zgłaszaj swoich ulubionych artystów.',
+    };
+  }
+  if (award) {
+    return {
+      url: `${SITE}/topTEN/utwor/${track.id}`,
+      title: `${award.label}: „${track.title}” — ${track.artist} | topTEN`,
+      text: `${award.label} w notowaniu topTEN Polskiego Radia Christian Culture (zamknięte ${fmtDate(award.closedAt)}): „${track.title}” — ${track.artist}, ${track.rank}. miejsce, ${fmtPoints(track.score)} pkt! 🎉 Posłuchaj i wspieraj głosami LubięTO i PodbijTO w nowym tygodniu 🧡`,
     };
   }
   const place = track.rank ? `jest na ${track.rank}. miejscu notowania` : 'jest w notowaniu';
@@ -483,7 +491,7 @@ function roundRect(ctx, x, y, w, h, r) {
 }
 
 /** Grafika 1080×1350 z kadrem teledysku — dołączana do udostępnień. */
-async function buildShareCard(track) {
+async function buildShareCard(track, award = null) {
   const W = 1080, H = 1350, PAD = 64;
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
@@ -541,6 +549,17 @@ async function buildShareCard(track) {
     ctx.fillText(String(track.rank), PAD + 66, imgY + 32 + 100);
     ctx.textAlign = 'left';
   }
+  // wstęga wyróżnienia tygodnia
+  if (award) {
+    const ribbonH = 92;
+    ctx.fillStyle = '#FF7A00';
+    ctx.fillRect(0, imgY + imgH - ribbonH, W, ribbonH);
+    ctx.fillStyle = '#111';
+    ctx.font = font(900, 46);
+    ctx.textAlign = 'center';
+    ctx.fillText(`${award.label.toUpperCase()} · ${fmtDate(award.closedAt)}`, W / 2, imgY + imgH - ribbonH / 2 + 16);
+    ctx.textAlign = 'left';
+  }
 
   // Tytuł, wykonawca, punkty
   let y = imgY + imgH + 92;
@@ -575,9 +594,10 @@ async function buildShareCard(track) {
   return new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
 }
 
-async function showShareSheet(trackId) {
-  const track = trackId ? findTrack(trackId) : null;
-  const c = shareContent(track);
+async function showShareSheet(trackId, award = null) {
+  // Wyróżnienie: oficjalne miejsce i punkty z zamkniętego tygodnia, wygląd (kadr) z bieżącej karty, jeśli utwór nadal gra.
+  const track = award ? { ...(findTrack(trackId) || { id: trackId, support: [] }), ...award.track } : (trackId ? findTrack(trackId) : null);
+  const c = shareContent(track, award);
   const msg = fullMessage(c);
   const enc = encodeURIComponent;
   // [nazwa, adres, liczone przez cc-analytics?]
@@ -591,7 +611,7 @@ async function showShareSheet(trackId) {
     ['SMS', `sms:?&body=${enc(msg)}`, false],
   ];
   state.openTrackId = null;
-  showModal(track ? 'Udostępnij utwór' : 'Udostępnij notowanie topTEN', `
+  showModal(award ? `Udostępnij wyróżnienie — ${award.label}` : track ? 'Udostępnij utwór' : 'Udostępnij notowanie topTEN', `
     <div style="line-height: 1.5;">
       ${track ? `<div id="shareCardBox" style="margin-bottom: 12px; text-align: center;"><p class="vote-info-note">Przygotowuję grafikę utworu…</p></div>` : ''}
       <p style="font-size: 13px; color: #444; background: #fdfaf6; border: 1px solid #fae2cc; border-radius: 8px; padding: 10px 12px; white-space: pre-line; word-break: break-word;">${escapeHtml(msg)}</p>
@@ -611,7 +631,7 @@ async function showShareSheet(trackId) {
 
   let cardFile = null;
   if (track) {
-    buildShareCard(track).then((blob) => {
+    buildShareCard(track, award).then((blob) => {
       const box = $('#shareCardBox');
       if (!blob || !box) return;
       cardFile = new File([blob], `topTEN-${track.id}.png`, { type: 'image/png' });
@@ -844,6 +864,17 @@ document.addEventListener('DOMContentLoaded', () => {
   sections?.addEventListener('click', (e) => {
     if (e.target.closest('[data-back-live]')) { state.viewCycle = null; loadCharts(); return; }
     if (e.target.closest('[data-share-chart]')) { showShareSheet(null); return; }
+    const awardBtn = e.target.closest('[data-share-award]');
+    if (awardBtn) {
+      const last = state.charts?.natural?.lastOfficial;
+      const a = last?.awards.find(x => x.type === awardBtn.dataset.shareAward);
+      const t = a && last.top10.find(x => x.id === a.id);
+      if (t) {
+        showShareSheet(t.id, { type: a.type, label: AWARD_LABELS[a.type] || a.type, closedAt: weekEndDate(last.weekId),
+          track: { id: t.id, title: t.title, artist: t.artist, rank: t.rank, score: t.points } });
+      }
+      return;
+    }
     const cycleView = e.target.closest('[data-cycle-view]');
     if (cycleView) { state.viewCycle = cycleView.dataset.cycleView; loadCharts().then(() => $('#notowania')?.scrollIntoView({ behavior: 'smooth' })); return; }
     const card = e.target.closest('[data-track-id]');

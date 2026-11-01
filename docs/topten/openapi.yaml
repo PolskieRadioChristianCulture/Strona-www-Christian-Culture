@@ -1,0 +1,153 @@
+openapi: 3.1.0
+info:
+  title: topTEN — Chrześcijańska Lista Przebojów (Polskie Radio Christian Culture)
+  version: natural-v1
+  description: |
+    Publiczne i redakcyjne API listy przebojów https://polskieradio.cc/topTEN/.
+    Tydzień notowania: niedziela 20:00 → niedziela 20:00 Europe/Warsaw; identyfikator tygodnia = data poniedziałku (RRRR-MM-DD).
+    Punkty liczy wyłącznie serwer: LubięTO +777 (1×/dobę kalendarzową na utwór), PodbijTO +77 (maks. 7×/dobę, co ≥60 min).
+    Publiczne odpowiedzi nie zawierają danych osobowych, identyfikatorów kont, adresów IP ani linków Google Drive.
+    Mutacje wymagają `Content-Type: application/json`; głosy wymagają tokenu Firebase (lumina-cc) z potwierdzonym e-mailem
+    i nagłówka `Idempotency-Key` (8–80 znaków [A-Za-z0-9_-]). Endpointy /admin/* — wyłącznie konta redakcji.
+servers:
+  - url: https://polskieradio.cc
+tags:
+  - name: Notowanie
+  - name: Głosowanie
+  - name: Nominacje
+  - name: Redakcja
+paths:
+  /api/topten/charts:
+    get:
+      tags: [Notowanie]
+      summary: Ranking bieżącego tygodnia (LIVE, wynik wstępny) albo archiwalny snapshot tygodnia
+      parameters:
+        - { name: cycle, in: query, required: false, schema: { type: string, pattern: '^\d{4}-\d{2}-\d{2}$' }, description: 'Poniedziałek tygodnia; brak = bieżący' }
+      responses:
+        '200':
+          description: Ranking
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Charts' }
+  /api/topten/cycles:
+    get: { tags: [Notowanie], summary: Lista tygodni z głosami (archiwum notowań), responses: { '200': { description: OK } } }
+  /api/topten/weeks/current:
+    get:
+      tags: [Notowanie]
+      summary: Bieżący tydzień (granice UTC, status, możliwość głosowania, czas serwera)
+      responses: { '200': { description: OK }, '404': { description: Nowe zasady wyłączone (feature_disabled) } }
+  /api/topten/weeks/{weekId}/standings:
+    get:
+      tags: [Notowanie]
+      summary: Oficjalne wyniki tygodnia (snapshot) albo wstępne, gdy tydzień trwa
+      parameters:
+        - { name: weekId, in: path, required: true, schema: { type: string } }
+        - { name: scope, in: query, schema: { type: string, enum: [top10, waiting, all], default: all } }
+      responses: { '200': { description: 'items[], official, rankingVersion, checksum, rulesVersion, serverNow' } }
+  /api/topten/weeks/{weekId}/awards:
+    get:
+      tags: [Notowanie]
+      summary: Wyróżnienia tygodnia (hit, biggest_climb, debut, comeback, record)
+      parameters: [ { name: weekId, in: path, required: true, schema: { type: string } } ]
+      responses: { '200': { description: OK } }
+  /api/topten/debuts/queue:
+    get: { tags: [Notowanie], summary: Kolejka debiutów i powrotów (bez głosów do startu), responses: { '200': { description: OK } } }
+  /api/topten/archive:
+    get: { tags: [Notowanie], summary: Archiwum utworów (poza aktywną pulą), responses: { '200': { description: OK } } }
+  /api/topten/songs/{trackId}/history:
+    get:
+      tags: [Notowanie]
+      summary: Historia utworu — tygodnie, miejsca, punkty wszech czasów
+      parameters: [ { name: trackId, in: path, required: true, schema: { type: string, pattern: '^CC-TT-\d{4}-\d{4}$' } } ]
+      responses: { '200': { description: OK } }
+  /api/topten/youtube:
+    get: { tags: [Notowanie], summary: Najnowsze filmy oficjalnego kanału YouTube topTEN (RSS, cache 30 min), responses: { '200': { description: OK } } }
+  /api/topten/tracks/{trackId}/like:
+    post:
+      tags: [Głosowanie]
+      summary: LubięTO (+777, 1×/dobę na utwór)
+      security: [ { firebase: [] } ]
+      parameters:
+        - { name: trackId, in: path, required: true, schema: { type: string } }
+        - { name: Idempotency-Key, in: header, required: true, schema: { type: string } }
+      responses:
+        '201': { description: Przyjęty (odpowiedź zawiera świeży ranking `charts`) }
+        '200': { description: Powtórzenie tego samego klucza — bez nowych punktów (replay) }
+        '401': { description: Wymagane logowanie }
+        '403': { description: Niepotwierdzony e-mail }
+        '409': { description: Utwór poza aktywną pulą (not_in_roster) }
+        '423': { description: Zawieszony ze względów prawnych }
+        '429': { description: Limit dobowy (like_used_today) }
+        '503': { description: Startuje nowy tydzień (week_preparing) }
+  /api/topten/tracks/{trackId}/boost:
+    post:
+      tags: [Głosowanie]
+      summary: PodbijTO (+77, maks. 7×/dobę, co ≥60 min)
+      security: [ { firebase: [] } ]
+      parameters:
+        - { name: trackId, in: path, required: true, schema: { type: string } }
+        - { name: Idempotency-Key, in: header, required: true, schema: { type: string } }
+      responses: { '201': { description: Przyjęty }, '429': { description: 'boost_limit / boost_cooldown' } }
+  /api/topten/tracks/{trackId}/follow:
+    post: { tags: [Głosowanie], summary: Obserwuj utwór, security: [ { firebase: [] } ], responses: { '200': { description: OK } } }
+    delete: { tags: [Głosowanie], summary: Przestań obserwować, security: [ { firebase: [] } ], responses: { '200': { description: OK } } }
+  /api/topten/me:
+    get: { tags: [Głosowanie], summary: Stan głosów zalogowanego słuchacza (dziś), security: [ { firebase: [] } ], responses: { '200': { description: OK } } }
+  /api/topten/nominations:
+    post:
+      tags: [Nominacje]
+      summary: Zgłoszenie utworu (formularz /topTEN/nominacje/)
+      description: Limit 5 zgłoszeń na dobę z jednej sieci; link Drive trafia wyłącznie do redakcji.
+      responses: { '201': { description: 'id CC-TT-RRRR-NNNN, status submitted' }, '422': { description: Błędy pól }, '429': { description: Limit dzienny } }
+  /api/topten/admin/flags:
+    get: { tags: [Redakcja], summary: Flagi funkcji, security: [ { firebase: [] } ], responses: { '200': { description: OK } } }
+    post: { tags: [Redakcja], summary: 'Zmiana flagi (wymaga confirm = nazwa flagi; audyt)', security: [ { firebase: [] } ], responses: { '200': { description: OK } } }
+  /api/topten/admin/weeks/{weekId}/finalize:
+    post: { tags: [Redakcja], summary: 'Zamknięcie tygodnia lub korekta {correction:true, reason} → nowa wersja snapshotu', security: [ { firebase: [] } ], parameters: [ { name: weekId, in: path, required: true, schema: { type: string } } ], responses: { '200': { description: OK }, '409': { description: week_not_ended } } }
+  /api/topten/admin/roster/preview-next:
+    post: { tags: [Redakcja], summary: Podgląd puli na następny tydzień (bez zapisu), security: [ { firebase: [] } ], responses: { '200': { description: OK } } }
+  /api/topten/admin/songs/{trackId}/rights-hold:
+    post: { tags: [Redakcja], summary: 'Wstrzymanie prawne {hold, reason} / zwolnienie', security: [ { firebase: [] } ], parameters: [ { name: trackId, in: path, required: true, schema: { type: string } } ], responses: { '200': { description: OK } } }
+  /api/topten/admin/songs/{trackId}/return:
+    post: { tags: [Redakcja], summary: Powrót z archiwum do kolejki (start po 4 pełnych tygodniach), security: [ { firebase: [] } ], parameters: [ { name: trackId, in: path, required: true, schema: { type: string } } ], responses: { '200': { description: OK } } }
+  /api/topten/admin/totals/{weekId}/rebuild:
+    post: { tags: [Redakcja], summary: Rekoncyliacja liczników z dziennika zdarzeń, security: [ { firebase: [] } ], parameters: [ { name: weekId, in: path, required: true, schema: { type: string } } ], responses: { '200': { description: OK } } }
+  /api/topten/admin/alerts:
+    get: { tags: [Redakcja], summary: Alerty nietypowych głosów (skok w godzinę, wspólna sieć), security: [ { firebase: [] } ], responses: { '200': { description: OK } } }
+components:
+  securitySchemes:
+    firebase: { type: http, scheme: bearer, bearerFormat: 'Firebase ID token (projekt lumina-cc)' }
+  schemas:
+    Track:
+      type: object
+      properties:
+        id: { type: string, example: CC-TT-2026-0001 }
+        title: { type: string }
+        artist: { type: string }
+        rank: { type: integer }
+        bucket: { type: string, enum: [top10, waiting] }
+        score: { type: integer, description: Punkty tygodnia }
+        voters: { type: integer, description: 'Unikalni głosujący LubięTO (tryb natural-v1)' }
+        likes: { type: integer }
+        boosts: { type: integer }
+        prevRank: { type: [integer, 'null'] }
+        entry: { type: string, enum: [legacy, carryover, debut, return] }
+        suspended: { type: boolean }
+        allTimePoints: { type: integer }
+        youtubeId: { type: [string, 'null'] }
+        cover: { type: [string, 'null'] }
+    Charts:
+      type: object
+      properties:
+        cycle: { type: object, properties: { id: { type: string }, start: { type: string }, end: { type: string }, status: { type: string, enum: [live, closed] }, official: { type: boolean }, version: { type: integer } } }
+        items: { type: array, items: { $ref: '#/components/schemas/Track' } }
+        updatedAt: { type: string, format: date-time }
+        natural:
+          type: object
+          description: Obecne, gdy włączone są nowe zasady (natural-v1)
+          properties:
+            status: { type: string }
+            provisional: { type: boolean }
+            noVotesYet: { type: boolean }
+            queue: { type: array, items: { type: object } }
+            lastOfficial: { type: [object, 'null'] }

@@ -372,6 +372,54 @@ async function vote(db, request, user, trackId, action, nowMs) {
   throw new ApiError(429, 'boost_cooldown', `PodbijTO ponownie za ${mins} min.`);
 }
 
+// ─── Alerty nietypowych głosów (§9, §22): sygnał dla redakcji, bez automatycznych blokad ───
+// Wspólne łącze (rodzina, parafia, szkoła) samo w sobie nie jest naruszeniem — decyzję podejmuje człowiek w panelu.
+const ALERT_COOLDOWN_MS = 6 * 3600 * 1000;
+const alertThresholds = (env) => ({
+  spikePerHour: Number(env?.TOPTEN_ALERT_SPIKE_PER_HOUR) || 120,
+  networkUsers: Number(env?.TOPTEN_ALERT_NETWORK_USERS) || 8,
+});
+
+export async function checkVoteAnomalies(db, env, trackId, nowMs, ih) {
+  const th = alertThresholds(env);
+  const { localDate } = warsawClock(nowMs);
+  const found = [];
+  // LIMIT ogranicza odczyt do progu — koszt nie rośnie z popularnością utworu.
+  const spike = await db.prepare(`SELECT COUNT(*) AS n FROM (SELECT 1 FROM topten_events
+      WHERE track_id = ? AND created_at > ? AND review_status = 'ok' LIMIT ?)`).bind(trackId, nowMs - 3600_000, th.spikePerHour).first();
+  if ((spike?.n || 0) >= th.spikePerHour) found.push({ action: 'alert.vote_spike', details: { votesLastHour: `≥${th.spikePerHour}` } });
+  if (ih) {
+    const net = await db.prepare(`SELECT COUNT(DISTINCT user_id) AS n FROM (SELECT user_id FROM topten_events
+        WHERE ip_hash = ? AND track_id = ? AND local_date = ? LIMIT 500)`).bind(ih, trackId, localDate).first();
+    if ((net?.n || 0) >= th.networkUsers) found.push({ action: 'alert.shared_network', details: { accountsSameNetworkToday: net.n, network: ih.slice(0, 8) } });
+  }
+  const sent = [];
+  for (const a of found) {
+    const recent = await db.prepare('SELECT 1 FROM topten_audit_log WHERE action = ? AND object_id = ? AND ts > ? LIMIT 1')
+      .bind(a.action, trackId, new Date(nowMs - ALERT_COOLDOWN_MS).toISOString()).first();
+    if (recent) continue;
+    // Ten sam zegar co w warunku przerwy (czas żądania), nie zegar systemowy.
+    await db.prepare('INSERT INTO topten_audit_log (actor, action, object_id, details, ts) VALUES (?, ?, ?, ?, ?)')
+      .bind('system', a.action, trackId, JSON.stringify(a.details), new Date(nowMs).toISOString()).run();
+    sent.push(a.action);
+    const track = await db.prepare('SELECT title, artist FROM topten_tracks WHERE id = ?').bind(trackId).first();
+    const what = a.action === 'alert.vote_spike'
+      ? `co najmniej ${th.spikePerHour} przyjętych głosów w ciągu ostatniej godziny`
+      : `${a.details.accountsSameNetworkToday} różnych kont z jednej sieci (skrót ${a.details.network}) głosuje dziś na ten utwór`;
+    await dispatchGmailEmail({
+      deliveryType: 'transactional', toEmail: EDITORIAL_EMAIL,
+      subject: `topTEN — ALERT: nietypowe głosy na ${trackId}`,
+      text: [
+        `Utwór: ${trackId} — „${track?.title || '?'}” (${track?.artist || '?'})`, `Sygnał: ${what}.`, '',
+        'To tylko sygnał do sprawdzenia — system niczego nie zablokował. Wspólne łącze samo w sobie nie jest naruszeniem.',
+        'Panel → „Głosy i nadużycia” (filtr po utworze): wstrzymaj lub unieważnij podejrzane głosy; decyzja trafia do audytu.',
+        '', 'https://polskieradio.cc/topTEN/panel/',
+      ].join('\n'),
+    }, env).catch(() => {});
+  }
+  return sent;
+}
+
 // ─── Nominacje ───────────────────────────────────────────────────────────────
 export function validateNomination(body) {
   const errors = {};
@@ -901,6 +949,7 @@ export async function handleTopTenApi(request, env, ctx, { verifyToken, fetchImp
         if (!result.replay) {
           await audit(db, user.uid, `vote.${action}`, trackId, null);
           later(evaluateFollowAlerts(db, env, nowMs, fetchImpl));
+          later(ipHash(request).then(ih => checkVoteAnomalies(db, env, trackId, nowMs, ih)));
         }
         const state = await myState(db, user.uid, nowMs);
         const fresh = result.replay ? undefined : await liveCharts(db, nowMs, { fresh: true });
@@ -954,6 +1003,10 @@ export async function handleTopTenApi(request, env, ctx, { verifyToken, fetchImp
         const out = await adminReviewEvent(db, request, admin, Number(evMatch[1]));
         await liveCharts(db, nowMs, { fresh: true });
         return json(out);
+      }
+      if (method === 'GET' && path === '/api/topten/admin/alerts') {
+        const rows = (await db.prepare("SELECT id, action, object_id, details, ts FROM topten_audit_log WHERE action LIKE 'alert.%' ORDER BY id DESC LIMIT 50").all()).results || [];
+        return json({ ok: true, items: rows.map(r => ({ ...r, details: r.details ? JSON.parse(r.details) : null })) });
       }
       // ─── Naturalna rywalizacja: operacje redakcji (audytowane) ───
       if (method === 'GET' && path === '/api/topten/admin/flags') {

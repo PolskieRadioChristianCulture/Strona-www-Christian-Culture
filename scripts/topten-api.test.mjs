@@ -425,3 +425,39 @@ test('nominacja zapisuje wersję licencji obejmującą kanał YouTube topTEN', a
   assert.equal(LICENSE_VERSION, '2026-11-01-yt');
   assert.equal(h.db.raw.prepare('SELECT license_version FROM topten_nominations WHERE id = ?').get(id).license_version, '2026-11-01-yt');
 });
+// ─── Etap C: alerty nietypowych głosów i karta topTEN na stronach muzycznych ──
+import { applyPageStandard, TOPTEN_CARD_SCRIPT } from './cc-page-standard.mjs';
+
+test('alerty: skok głosów i wiele kont z jednej sieci → wpis w audycie raz na 6 h; głosy NIE są blokowane', async () => {
+  const h = harness();
+  const env = { TOPTEN_ALERT_SPIKE_PER_HOUR: '5', TOPTEN_ALERT_NETWORK_USERS: '3' };
+  for (const u of ['u1', 'u2', 'unverified', 'admin']) USERS[u] ||= USERS.u1;
+  const extra = ['n1', 'n2', 'n3', 'n4', 'n5', 'n6'];
+  for (const u of extra) USERS[u] = { sub: u, email: `${u}@example.pl`, email_verified: true };
+  const statuses = [];
+  for (const u of extra) statuses.push((await h.call('POST', `/api/topten/tracks/${TRACK}/like`, { token: u, ip: '198.51.100.77', env })).status);
+  assert.deepEqual(statuses, [201, 201, 201, 201, 201, 201], 'żaden głos nie został zablokowany');
+  const alerts = h.db.raw.prepare("SELECT action, object_id FROM topten_audit_log WHERE action LIKE 'alert.%' ORDER BY id").all().map(r => r.action);
+  assert.deepEqual(alerts, ['alert.shared_network', 'alert.vote_spike'], 'każdy sygnał raz (przerwa 6 h)');
+  const list = await h.call('GET', '/api/topten/admin/alerts', { token: 'admin' });
+  assert.equal(list.body.items.length, 2);
+  assert.equal(list.body.items.find(a => a.action === 'alert.shared_network').details.accountsSameNetworkToday, 3);
+  assert.ok(!JSON.stringify(list.body).includes('198.51.100.77'), 'brak adresu IP w alertach');
+  assert.equal((await h.call('GET', '/api/topten/admin/alerts', { token: 'u1' })).status, 403);
+  // Po 6 h ten sam sygnał może wrócić.
+  h.setNow(T0 + 6 * 3600_000 + 60_000);
+  for (const u of extra.slice(0, 5)) await h.call('POST', `/api/topten/tracks/${TRACK}/boost`, { token: u, ip: '203.0.113.9', env });
+  assert.equal(h.db.raw.prepare("SELECT COUNT(*) AS n FROM topten_audit_log WHERE action = 'alert.vote_spike'").get().n, 2);
+});
+
+test('karta topTEN: wpinana centralnie tylko na stronach muzycznych, nigdy na transmisjach na żywo; bez dublowania', () => {
+  const page = '<!doctype html><html><head><title>x</title></head><body><div id="root"></div></body></html>';
+  for (const f of ['music.html', 'music/przeboje/index.html', 'player.html', 'biblijne-uwielbienie.html', 'skins.html']) {
+    const out = applyPageStandard(f, page);
+    assert.ok(out.includes(TOPTEN_CARD_SCRIPT), f);
+    assert.equal(applyPageStandard(f, out).split('cc-topten-card.js').length - 1, 1, `${f}: bez dublowania`);
+  }
+  for (const f of ['biblia-spiewana-live.html', 'spiewajmy-panu-live.html', 'cctv24-worship.html', 'index.html', 'topTEN/index.html', 'lumi-kids/app/index.html']) {
+    assert.ok(!applyPageStandard(f, page).includes('cc-topten-card.js'), f);
+  }
+});

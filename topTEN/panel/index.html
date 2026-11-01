@@ -14,8 +14,8 @@
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 <title>Panel redakcji | topTEN Christian Culture</title>
 <link rel="icon" type="image/png" href="/topTEN/assets/topten-logo.png">
-<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007j">
-<script type="module" src="/topTEN/auth.js?v=20261101_a007j"></script>
+<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007k">
+<script type="module" src="/topTEN/auth.js?v=20261101_a007k"></script>
 <style>
 .panel-page { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
 .panel-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 16px 0; }
@@ -83,6 +83,9 @@
       Flagi są domyślnie <strong>wyłączone</strong>. Włączenie zmienia publiczne zasady — tylko za zgodą L0 i po publikacji regulaminu.</p>
       <h3>Flagi</h3>
       <div id="flags"></div>
+      <h3>Alerty nietypowych głosów</h3>
+      <p class="muted">Sygnały do sprawdzenia (bez automatycznych blokad): skok głosów na utwór w godzinę oraz wiele kont z jednej sieci. Decyzję podejmujesz w zakładce „Głosy i nadużycia”.</p>
+      <div id="alerts"></div>
       <h3>Tydzień</h3>
       <div class="panel-bar">
         <label for="finWeek" class="visually-hidden">Tydzień (poniedziałek)</label>
@@ -243,6 +246,13 @@
           ' <button class="outline-btn" type="button" data-flag="' + esc(f.name) + '" data-on="' + (f.enabled ? '0' : '1') + '">' + (f.enabled ? 'Wyłącz' : 'Włącz') + '</button></div>';
       }).join('');
     } catch (e) { $('#flags').textContent = e.message; }
+    try {
+      var alerts = (await api('/api/topten/admin/alerts')).items;
+      $('#alerts').innerHTML = alerts.length ? '<ul>' + alerts.map(function (a) {
+        return '<li><strong>' + esc(a.action === 'alert.vote_spike' ? 'Skok głosów' : 'Wspólna sieć') + '</strong> · ' + esc(a.object_id) + ' · ' +
+          esc(new Date(a.ts).toLocaleString('pl-PL')) + ' · <small>' + esc(JSON.stringify(a.details || {})) + '</small></li>';
+      }).join('') + '</ul>' : '<p class="muted">Brak alertów.</p>';
+    } catch (e) { $('#alerts').textContent = e.message; }
   }
   $('#flags').addEventListener('click', async function (e) {
     var b = e.target.closest('[data-flag]');
