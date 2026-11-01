@@ -374,3 +374,42 @@ test('IndexNow: publikacja utworu powiadamia wyszukiwarki; plik klucza jest w re
   assert.deepEqual(body.urlList, ['https://polskieradio.cc/topTEN/', `https://polskieradio.cc/topTEN/utwor/${id}`]);
   assert.equal(fs.readFileSync(new URL(`../${INDEXNOW_KEY}.txt`, import.meta.url), 'utf8').trim(), INDEXNOW_KEY);
 });
+// ─── Kanał YouTube topTEN ────────────────────────────────────────────────────
+import { parseYoutubeFeed, YT_CHANNEL_ID, LICENSE_VERSION } from '../services/topten/topten-service.js';
+
+const FEED = `<?xml version="1.0"?><feed xmlns:yt="http://www.youtube.com/xml/schemas/2015"><title>topTEN | Christian Culture</title>
+<entry><yt:videoId>hVzNQqF_myg</yt:videoId><title>Cokolwiek na świecie &amp; &lt;b&gt;test&lt;/b&gt;</title><published>2026-11-02T10:00:00+00:00</published></entry>
+<entry><yt:videoId>zła</yt:videoId><title>Bez poprawnego ID</title></entry>
+<entry><yt:videoId>abcdefghijk</yt:videoId><title><![CDATA[Drugi „film”]]></title><published>2026-11-01T10:00:00+00:00</published></entry></feed>`;
+
+test('kanał YouTube: parser RSS bierze tylko poprawne filmy i dekoduje znaki', () => {
+  const items = parseYoutubeFeed(FEED);
+  assert.deepEqual(items.map(i => i.videoId), ['hVzNQqF_myg', 'abcdefghijk']);
+  assert.equal(items[0].title, 'Cokolwiek na świecie & <b>test</b>');
+  assert.equal(items[1].title, 'Drugi „film”');
+  assert.deepEqual(parseYoutubeFeed('<feed></feed>'), []);
+});
+
+test('kanał YouTube: /api/topten/youtube — filmy z kanału, pusty kanał i awaria YouTube bez błędu', async () => {
+  const call = async (fetchImpl) => {
+    const req = new Request('https://polskieradio.cc/api/topten/youtube');
+    const res = await handleTopTenApi(req, { topten_db: d1() }, null, { verifyToken, fetchImpl });
+    return { status: res.status, body: await res.json() };
+  };
+  let asked = '';
+  const ok = await call(async (url) => { asked = url; return new Response(FEED); });
+  assert.equal(asked, `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`);
+  assert.equal(ok.status, 200);
+  assert.equal(ok.body.items.length, 2);
+  assert.equal(ok.body.channelUrl, 'https://www.youtube.com/@toptenchristianculture');
+  assert.deepEqual((await call(async () => new Response('<feed></feed>'))).body.items, []);
+  assert.deepEqual((await call(async () => new Response('', { status: 500 }))).body.items, []);
+  assert.deepEqual((await call(async () => { throw new Error('offline'); })).body.items, []);
+});
+
+test('nominacja zapisuje wersję licencji obejmującą kanał YouTube topTEN', async () => {
+  const h = harness();
+  const { body: { id } } = await h.call('POST', '/api/topten/nominations', { body: nomination() });
+  assert.equal(LICENSE_VERSION, '2026-11-01-yt');
+  assert.equal(h.db.raw.prepare('SELECT license_version FROM topten_nominations WHERE id = ?').get(id).license_version, '2026-11-01-yt');
+});

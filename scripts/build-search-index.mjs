@@ -452,10 +452,10 @@ const CORE_PROJECTS = [
     title: "topTEN — Notowanie Muzyki Chrześcijańskiej na żywo (lista przebojów)",
     category: "Muzyka i radio",
     url: "https://polskieradio.cc/topTEN/",
-    description: "Oficjalna lista przebojów Polskiego Radia Christian Culture. Ranking na żywo liczony z głosów słuchaczy: LubięTO (+777 pkt raz dziennie) i PodbijTO (+77 pkt do 7 razy dziennie). Tygodniowe notowania, archiwum, teledyski, udostępnianie utworów i bezpośrednie wsparcie artystów wspieramTO.",
+    description: "Oficjalna lista przebojów Polskiego Radia Christian Culture. Ranking na żywo liczony z głosów słuchaczy: LubięTO (+777 pkt raz dziennie) i PodbijTO (+77 pkt do 7 razy dziennie). Tygodniowe notowania, archiwum, teledyski, udostępnianie utworów i bezpośrednie wsparcie artystów wspieramTO. Wszystkie utwory z historii notowań oglądasz na oficjalnym kanale YouTube topTEN | Christian Culture.",
     tags: ["topten", "top ten", "top 10", "lista przebojów", "lista przebojow", "notowanie", "notowania", "ranking muzyki",
       "muzyka chrześcijańska", "muzyka chrzescijanska", "głosowanie", "glosowanie", "lubięto", "lubieto", "podbijto",
-      "wspieramto", "przeboje", "worship", "gospel", "teledyski", "christian music chart"],
+      "wspieramto", "przeboje", "worship", "gospel", "teledyski", "christian music chart", "youtube topten", "kanał youtube", "kanal youtube", "toptenchristianculture"],
     featured: true
   },
   {

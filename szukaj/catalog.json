@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-01T10:45:42.024Z",
+  "updatedAt": "2026-11-01T11:43:16.596Z",
   "totalItems": 400,
   "contextGuides": {
     "nadzieja": {
@@ -3223,7 +3223,7 @@
       "title": "topTEN — Notowanie Muzyki Chrześcijańskiej na żywo (lista przebojów)",
       "category": "Muzyka i radio",
       "url": "https://polskieradio.cc/topTEN/",
-      "description": "Oficjalna lista przebojów Polskiego Radia Christian Culture. Ranking na żywo liczony z głosów słuchaczy: LubięTO (+777 pkt raz dziennie) i PodbijTO (+77 pkt do 7 razy dziennie). Tygodniowe notowania, archiwum, teledyski, udostępnianie utworów i bezpośrednie wsparcie artystów wspieramTO.",
+      "description": "Oficjalna lista przebojów Polskiego Radia Christian Culture. Ranking na żywo liczony z głosów słuchaczy: LubięTO (+777 pkt raz dziennie) i PodbijTO (+77 pkt do 7 razy dziennie). Tygodniowe notowania, archiwum, teledyski, udostępnianie utworów i bezpośrednie wsparcie artystów wspieramTO. Wszystkie utwory z historii notowań oglądasz na oficjalnym kanale YouTube topTEN | Christian Culture.",
       "tags": [
         "topten",
         "top ten",
@@ -3245,7 +3245,11 @@
         "worship",
         "gospel",
         "teledyski",
-        "christian music chart"
+        "christian music chart",
+        "youtube topten",
+        "kanał youtube",
+        "kanal youtube",
+        "toptenchristianculture"
       ],
       "featured": true
     },

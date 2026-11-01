@@ -706,9 +706,47 @@ async function showArchive() {
   }
 }
 
+// ─── Kanał YouTube topTEN ────────────────────────────────────────────────────
+let ytVideos = [];
+
+async function loadYoutube() {
+  const box = $('#ytVideos');
+  if (!box) return;
+  try {
+    ytVideos = (await api('/api/topten/youtube')).items || [];
+  } catch {
+    ytVideos = [];
+  }
+  box.innerHTML = ytVideos.length
+    ? ytVideos.slice(0, 8).map((v, i) => `
+        <button type="button" class="yt-video" data-yt="${i}" aria-label="Odtwórz: ${escapeHtml(v.title)}">
+          <span class="yt-thumb"><img src="https://i.ytimg.com/vi/${encodeURIComponent(v.videoId)}/mqdefault.jpg" alt="" loading="lazy"><span class="yt-play" aria-hidden="true">▶</span></span>
+          <span class="yt-title">${escapeHtml(v.title)}</span>
+        </button>`).join('')
+    : '<p class="vote-info-note yt-empty">Pierwsze teledyski pojawią się tu wkrótce — subskrybuj kanał, aby niczego nie przegapić. 🔔</p>';
+}
+
+function openYoutubeVideo(index) {
+  const v = ytVideos[index];
+  if (!v) return;
+  showModal(v.title, `
+    <div style="position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000;">
+      <iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.videoId)}?autoplay=1" title="${escapeHtml(v.title)}" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;" allow="autoplay; encrypted-media; picture-in-picture; fullscreen"></iframe>
+    </div>
+    <div class="vote-action-row" style="margin-top: 12px;">
+      <a class="btn-action" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.videoId)}" target="_blank" rel="noopener noreferrer">Oglądaj na YouTube ↗</a>
+      <a class="btn-action btn-lubieto" href="https://www.youtube.com/@toptenchristianculture?sub_confirmation=1" target="_blank" rel="noopener noreferrer">🔔 Subskrybuj kanał</a>
+    </div>`);
+}
+
 // ─── Start ───────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   renderCharts();
+  loadYoutube();
+  $('#ytVideos')?.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-yt]');
+    if (b) openYoutubeVideo(Number(b.dataset.yt));
+  });
   loadCharts().then(() => {
     const hashId = decodeURIComponent(location.hash.slice(1));
     if (hashId.startsWith('CC-TT-')) openTrackModal(hashId);

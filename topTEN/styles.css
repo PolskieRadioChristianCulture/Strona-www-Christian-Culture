@@ -413,3 +413,26 @@ html body #backToTopBtn[data-cc-back-to-top]:hover {
 .share-grid .share-link { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; text-decoration: none; text-align: center; }
 .share-grid .share-link[aria-disabled="true"] { opacity: .55; }
 @media (max-width: 400px) { .share-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* ── Oficjalny kanał YouTube topTEN — @007 01.11.2026 ── */
+.yt-channel { background: #0b0b0b; color: #fff; border-radius: 16px; padding: clamp(18px, 3vw, 28px); margin: 28px 0; }
+.yt-channel-head { display: flex; gap: 18px; align-items: center; }
+.yt-channel-head img { width: 88px; height: 88px; border-radius: 50%; flex-shrink: 0; object-fit: cover; background: #fff; }
+.yt-channel .eyebrow { color: #FF7A00; margin: 0 0 4px; }
+.yt-channel h2 { margin: 0 0 6px; color: #fff; }
+.yt-channel p { margin: 0; color: #d6d6d6; line-height: 1.5; }
+.yt-channel-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 6px; }
+.yt-channel .outline-btn { color: #fff; border-color: #fff; }
+.yt-videos { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-top: 14px; }
+.yt-video { background: none; border: 0; padding: 0; color: #fff; text-align: left; cursor: pointer; font: inherit; min-height: 44px; }
+.yt-thumb { position: relative; display: block; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #222; }
+.yt-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s; }
+.yt-video:hover .yt-thumb img, .yt-video:focus-visible .yt-thumb img { transform: scale(1.05); }
+.yt-play { position: absolute; inset: 0; margin: auto; width: 48px; height: 48px; border-radius: 50%; background: rgba(0,0,0,.6); border: 2px solid #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.yt-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 8px; font-weight: 700; font-size: 14px; line-height: 1.3; }
+.yt-channel .yt-empty { color: #bdbdbd; }
+@media (max-width: 520px) {
+  .yt-channel-head { align-items: flex-start; }
+  .yt-channel-head img { width: 64px; height: 64px; }
+  .yt-videos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .yt-channel-actions > * { flex: 1 1 100%; }
+}

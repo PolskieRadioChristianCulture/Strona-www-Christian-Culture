@@ -14,7 +14,8 @@ export const LIKE_POINTS = 777;
 export const BOOST_POINTS = 77;
 export const BOOSTS_PER_DAY = 7;
 export const BOOST_INTERVAL_MS = 60 * 60 * 1000;
-export const LICENSE_VERSION = '2026-11-01';
+// 2026-11-01-yt: licencja obejmuje też oficjalny kanał YouTube „topTEN | Christian Culture” (decyzja L0 01.11.2026).
+export const LICENSE_VERSION = '2026-11-01-yt';
 const NOMINATIONS_PER_IP_PER_DAY = 5;
 const NOTIFICATIONS_PER_USER_PER_DAY = 3;
 const NOTIFY_RANK_STEP = 3;
@@ -576,6 +577,42 @@ ${img.w ? `<meta property="og:image:width" content="${img.w}">\n<meta property="
 </html>`, 200);
 }
 
+// ─── Oficjalny kanał YouTube topTEN (decyzja L0 01.11.2026): wszystkie utwory z historii notowań i nominacje ───
+export const YT_CHANNEL_ID = 'UCdHN7wt9il-Gg_NCVGUWpWg';
+export const YT_CHANNEL_URL = 'https://www.youtube.com/@toptenchristianculture';
+const YT_CACHE_SECONDS = 1800;
+const xmlText = (s) => String(s ?? '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+  .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&amp;/g, '&');
+
+export function parseYoutubeFeed(xml) {
+  return [...String(xml).matchAll(/<entry>([\s\S]*?)<\/entry>/g)].map(([, e]) => ({
+    videoId: (e.match(/<yt:videoId>([\w-]{11})<\/yt:videoId>/) || [])[1],
+    title: xmlText((e.match(/<title>([\s\S]*?)<\/title>/) || [])[1]).trim(),
+    published: (e.match(/<published>([^<]+)<\/published>/) || [])[1] || null,
+  })).filter(v => v.videoId && v.title).slice(0, 12);
+}
+
+async function youtubeVideos(fetchImpl) {
+  const cache = globalThis.caches?.default;
+  const key = new Request(`https://polskieradio.cc/__topten-cache/youtube/${YT_CHANNEL_ID}`);
+  if (cache) {
+    const hit = await cache.match(key).catch(() => null);
+    if (hit) return hit.json();
+  }
+  let items = [];
+  try {
+    const res = await fetchImpl(`https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`);
+    if (res.ok) items = parseYoutubeFeed(await res.text());
+  } catch { items = []; }
+  const data = { channelId: YT_CHANNEL_ID, channelUrl: YT_CHANNEL_URL, items };
+  if (cache) {
+    await cache.put(key, new Response(JSON.stringify(data), {
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': `public, max-age=${YT_CACHE_SECONDS}` },
+    })).catch(() => {});
+  }
+  return data;
+}
+
 // ─── Szybkie indeksowanie: IndexNow (Bing, Yandex, Seznam…; z indeksu Binga korzysta wyszukiwarka ChatGPT/Copilot) ───
 // Klucz jest publiczny z założenia (plik /<klucz>.txt w katalogu głównym). Google nie obsługuje IndexNow — dla Google
 // służy dynamiczna mapa /sitemaps/topten.xml z prawdziwym lastmod.
@@ -637,7 +674,7 @@ export function renderTopTenSeo(html, data) {
     inLanguage: 'pl',
     dateModified: data.updatedAt,
     numTracks: items.length,
-    publisher: { '@type': 'Organization', name: 'Polskie Radio Christian Culture', url: 'https://polskieradio.cc/', logo: 'https://polskieradio.cc/topTEN/assets/topten-logo.png' },
+    publisher: { '@type': 'Organization', name: 'Polskie Radio Christian Culture', url: 'https://polskieradio.cc/', logo: 'https://polskieradio.cc/topTEN/assets/topten-logo.png', sameAs: [YT_CHANNEL_URL] },
     track: {
       '@type': 'ItemList',
       numberOfItems: items.length,
@@ -707,6 +744,7 @@ export async function handleTopTenApi(request, env, ctx, { verifyToken, fetchImp
       return json({ ok: true, ...(live ? await liveCharts(db, nowMs) : await charts(db, url, nowMs)) });
     }
     if (method === 'GET' && path === '/api/topten/cycles') return json({ ok: true, ...(await cycles(db, nowMs)) });
+    if (method === 'GET' && path === '/api/topten/youtube') return json({ ok: true, ...(await youtubeVideos(fetchImpl)) });
     if (method === 'GET' && path === '/api/topten/me') {
       const user = await requireUser(request, verifyToken);
       return json({ ok: true, ...(await myState(db, user.uid, nowMs)) });
