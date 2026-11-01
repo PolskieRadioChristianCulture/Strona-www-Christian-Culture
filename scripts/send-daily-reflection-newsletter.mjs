@@ -126,9 +126,11 @@ https://polskieradio.cc/player
 
 export async function runDailyReflectionNewsletter(options = {}) {
   const isDryRun = options.dryRun || process.argv.includes('--dry-run');
+  const isDelivery = (!isDryRun && (process.env.NEWSLETTER_DELIVERY_ENABLED === 'true' || process.env.CC_ENABLE_NEWSLETTER_DELIVERY === 'true' || process.env.ENABLE_DELIVERY === 'true')) ? 'true' : 'false';
   const service = options.service || getNewsletterService({
     NEWSLETTER_ADMIN_SECRET: process.env.NEWSLETTER_ADMIN_SECRET || 'local-dev-secret',
-    CC_ENABLE_NEWSLETTER_DELIVERY: (!isDryRun && (process.env.CC_ENABLE_NEWSLETTER_DELIVERY === 'true' || process.env.ENABLE_DELIVERY === 'true')) ? 'true' : 'false',
+    NEWSLETTER_DELIVERY_ENABLED: isDelivery,
+    CC_ENABLE_NEWSLETTER_DELIVERY: isDelivery,
   });
 
   await service.repo.ensureInitialized();
