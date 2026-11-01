@@ -17,6 +17,11 @@ database_id = "2696531d-d420-4a0c-a882-2ad11b5d9da7"
 binding = "bu_votes_db"
 database_name = "bu-votes-db"
 database_id = "c31208a3-4580-4a97-a7d2-4782b009b754"
+[[d1_databases]]
+binding = "topten_db"
+database_name = "topten-db"
+database_id = "0d572992-dbe0-443f-9146-aa60b35dd058"
+migrations_dir = "migrations/topten"
 
 [vars]
 FIREBASE_PROJECT_ID = "lumina-cc"
@@ -39,4 +44,8 @@ database_id = "2696531d-d420-4a0c-a882-2ad11b5d9da7"
 binding = "bu_votes_db"
 database_name = "bu-votes-db"
 database_id = "c31208a3-4580-4a97-a7d2-4782b009b754"
-
+[[env.production.d1_databases]]
+binding = "topten_db"
+database_name = "topten-db"
+database_id = "0d572992-dbe0-443f-9146-aa60b35dd058"
+migrations_dir = "migrations/topten"

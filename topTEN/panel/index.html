@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080808">
+<title>Panel redakcji | topTEN Christian Culture</title>
+<link rel="icon" type="image/png" href="/topTEN/assets/topten-logo.png">
+<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007b">
+<script type="module" src="/topTEN/auth.js?v=20261101_a007b"></script>
+<style>
+.panel-page { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+.panel-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 16px 0; }
+.panel-bar select, .nom-card select, .nom-card input, .nom-card textarea { border: 1.5px solid #ccc; border-radius: 6px; padding: 10px 12px; font: inherit; min-height: 44px; }
+.nom-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 18px; margin: 14px 0; }
+.nom-card h3 { margin: 0 0 4px; font-size: 18px; }
+.nom-meta { font-size: 13px; color: #555; line-height: 1.6; word-break: break-word; }
+.nom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+@media (max-width: 680px) { .nom-grid { grid-template-columns: 1fr; } }
+.nom-grid label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 700; color: #333; }
+.nom-grid .full { grid-column: 1 / -1; }
+.status-pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; background: #fff2e5; color: #b35400; }
+.ev-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ev-table th, .ev-table td { border-bottom: 1px solid #eee; padding: 8px 6px; text-align: left; }
+.ev-table button { min-height: 44px; }
+.panel-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.panel-tabs button[aria-selected="true"] { background: var(--orange); color: #fff; border-color: var(--orange); }
+</style>
+</head>
+<body>
+<header class="header">
+<a class="radio-brand" href="https://polskieradio.cc/" aria-label="Polskie Radio Christian Culture — strona główna">Polskie Radio<br><strong>Christian Culture</strong></a>
+<span class="brand-separator" aria-hidden="true"></span>
+<a class="top-brand" href="/topTEN/" aria-label="topTEN — strona główna">top<span>TEN</span></a>
+<div class="header-actions nav-actions">
+  <button class="text-btn login-btn" id="loginButton" type="button">Zaloguj</button>
+</div>
+</header>
+
+<main class="panel-page" id="main">
+  <p class="eyebrow">REDAKCJA topTEN</p>
+  <h1>Panel moderacji nominacji i głosów</h1>
+  <p class="muted" id="who">Zaloguj się kontem redakcji (Google).</p>
+
+  <div id="app" hidden>
+    <div class="panel-bar panel-tabs" role="tablist">
+      <button class="outline-btn" type="button" role="tab" data-tab="nom" aria-selected="true">Nominacje</button>
+      <button class="outline-btn" type="button" role="tab" data-tab="ev" aria-selected="false">Głosy i nadużycia</button>
+    </div>
+
+    <section id="tab-nom">
+      <div class="panel-bar">
+        <label for="statusFilter" class="visually-hidden">Status</label>
+        <select id="statusFilter">
+          <option value="">Wszystkie statusy</option>
+          <option value="submitted" selected>Złożone (do weryfikacji)</option>
+          <option value="awaiting_media">Czeka na materiał</option>
+          <option value="theological_review">Weryfikacja treści</option>
+          <option value="rights_review">Weryfikacja praw</option>
+          <option value="approved">Zatwierdzone</option>
+          <option value="published">Opublikowane</option>
+          <option value="rejected">Odrzucone</option>
+          <option value="withdrawn">Wycofane</option>
+          <option value="takedown">Zdjęte</option>
+        </select>
+        <button class="outline-btn" type="button" id="reload">Odśwież</button>
+        <button class="outline-btn" type="button" id="mailRetry">Ponów nieudane maile</button>
+      </div>
+      <div id="nominations"></div>
+    </section>
+
+    <section id="tab-ev" hidden>
+      <div class="panel-bar">
+        <label for="trackFilter" class="visually-hidden">Utwór</label>
+        <input id="trackFilter" placeholder="CC-TT-2026-0001 (puste = wszystkie)">
+        <button class="outline-btn" type="button" id="reloadEv">Pokaż głosy</button>
+      </div>
+      <p class="muted">Ostatnie 300 zdarzeń. „Wstrzymaj” usuwa punkty z rankingu do decyzji; „Unieważnij” — trwale. Każda zmiana trafia do logu audytu.</p>
+      <div id="events"></div>
+    </section>
+  </div>
+</main>
+
+<div class="topten-toast" id="toptenToast" role="status" style="display:none"></div>
+
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var STATUS = { submitted: 'Złożone', awaiting_media: 'Czeka na materiał', theological_review: 'Weryfikacja treści', rights_review: 'Weryfikacja praw',
+    approved: 'Zatwierdzone', published: 'Opublikowane', rejected: 'Odrzucone', withdrawn: 'Wycofane', takedown: 'Zdjęte' };
+  var items = [];
+
+  function toast(m) { var t = $('#toptenToast'); t.textContent = m; t.style.display = 'block'; clearTimeout(t._h); t._h = setTimeout(function () { t.style.display = 'none'; }, 4000); }
+
+  async function api(path, opts) {
+    opts = opts || {};
+    var token = await window.ccTopTenAuth.getToken();
+    var headers = { Authorization: 'Bearer ' + token };
+    if (opts.body) headers['Content-Type'] = 'application/json';
+    var res = await fetch(path, { method: opts.method || 'GET', headers: headers, body: opts.body ? JSON.stringify(opts.body) : undefined, cache: 'no-store' });
+    var data = await res.json().catch(function () { return {}; });
+    if (!res.ok) throw new Error(data.message || ('Błąd ' + res.status));
+    return data;
+  }
+
+  function supportLines(n) { return n.support_url ? ('Wsparcie | ' + new URL(n.support_url).host + ' | ' + n.support_url) : ''; }
+
+  function render() {
+    var box = $('#nominations');
+    if (!items.length) { box.innerHTML = '<p class="empty-state">Brak zgłoszeń w tym statusie.</p>'; return; }
+    box.innerHTML = items.map(function (n) {
+      return '<article class="nom-card" data-id="' + esc(n.id) + '">' +
+        '<span class="status-pill">' + esc(STATUS[n.status] || n.status) + '</span> <small>' + esc(n.id) + ' • ' + esc(n.submitted_at.slice(0, 16).replace('T', ' ')) + ' UTC • mail: ' + esc(n.mail_status) + '</small>' +
+        '<h3>' + esc(n.artist) + ' — ' + esc(n.title) + '</h3>' +
+        '<div class="nom-meta">Gatunek: ' + esc(n.genre) + ' • Język/kraj: ' + esc(n.language) + '<br>' +
+        'Przesłanie: ' + esc(n.bible_ref) + '<br>' +
+        'Drive: ' + (n.drive_url && n.drive_url !== '-' ? '<a href="' + esc(n.drive_url) + '" target="_blank" rel="noopener noreferrer">otwórz plik ↗</a>' : '—') +
+        ' • YouTube: ' + (n.youtube_url ? '<a href="' + esc(n.youtube_url) + '" target="_blank" rel="noopener noreferrer">' + esc(n.youtube_url) + '</a>' : '—') + '<br>' +
+        'Zgłaszający: ' + esc(n.submitter_name) + ' &lt;' + esc(n.submitter_email) + '&gt; • licencja ' + esc(n.license_version) +
+        (n.decision_note ? '<br>Notatka: ' + esc(n.decision_note) + ' (' + esc(n.reviewer || '') + ')' : '') + '</div>' +
+        '<div class="nom-grid">' +
+          '<label>Nowy status<select data-f="status">' + Object.keys(STATUS).map(function (k) { return '<option value="' + k + '"' + (k === n.status ? ' selected' : '') + '>' + STATUS[k] + '</option>'; }).join('') + '</select></label>' +
+          '<label>Notatka wewnętrzna (niepubliczna)<input data-f="note" placeholder="Uzasadnienie decyzji"></label>' +
+          '<label>Tytuł na liście<input data-f="title" value="' + esc(n.title) + '"></label>' +
+          '<label>Wykonawca na liście<input data-f="artist" value="' + esc(n.artist) + '"></label>' +
+          '<label>Link YouTube (okładka i odtwarzacz)<input data-f="youtubeUrl" value="' + esc(n.youtube_url || '') + '"></label>' +
+          '<label>Wizytówka artysty (https, opcjonalnie)<input data-f="profileUrl" placeholder="https://polskieradio.cc/..."></label>' +
+          '<label class="full">Przesłanie na karcie (krótko)<input data-f="bibleRef" value="' + esc(String(n.bible_ref).slice(0, 200)) + '"></label>' +
+          '<label class="full">Metody wsparcia — jedna na linię: Metoda | tekst | https-link (lub numer BLIK bez linku)<textarea data-f="support" rows="3">' + esc(supportLines(n)) + '</textarea></label>' +
+        '</div>' +
+        '<div class="panel-bar"><button class="primary-btn" type="button" data-save="true">Zapisz decyzję</button>' +
+        '<small class="muted">„Opublikowane” dodaje utwór do notowania na żywo; „Zdjęte/Odrzucone” usuwa go z listy.</small></div>' +
+      '</article>';
+    }).join('');
+  }
+
+  function parseSupport(textValue) {
+    return textValue.split(/\n/).map(function (line) { return line.split('|').map(function (x) { return x.trim(); }); })
+      .filter(function (p) { return p[0] && p[1]; })
+      .map(function (p) {
+        var o = { method: p[0], value: p[1] };
+        if (p[2] && /^https:\/\//.test(p[2])) o.url = p[2]; else o.copy = (p[2] || p[1]).replace(/[^\d]/g, '');
+        return o;
+      });
+  }
+
+  async function loadNominations() {
+    try {
+      var s = $('#statusFilter').value;
+      items = (await api('/api/topten/admin/nominations' + (s ? '?status=' + encodeURIComponent(s) : ''))).items;
+      render();
+    } catch (e) { $('#nominations').innerHTML = '<p class="empty-state">' + esc(e.message) + '</p>'; }
+  }
+
+  async function loadEvents() {
+    try {
+      var t = $('#trackFilter').value.trim();
+      var rows = (await api('/api/topten/admin/events' + (t ? '?track=' + encodeURIComponent(t) : ''))).items;
+      $('#events').innerHTML = rows.length ? '<div style="overflow-x:auto"><table class="ev-table"><thead><tr><th>#</th><th>Czas</th><th>Utwór</th><th>Akcja</th><th>Konto (skrót)</th><th>IP (skrót)</th><th>Status</th><th></th></tr></thead><tbody>' +
+        rows.map(function (r) {
+          return '<tr><td>' + r.id + '</td><td>' + esc(new Date(r.created_at).toLocaleString('pl-PL')) + '</td><td>' + esc(r.track_id) + '</td><td>' + esc(r.action) + ' +' + r.points + '</td>' +
+            '<td>' + esc(String(r.user_id).slice(0, 8)) + '…</td><td>' + esc(String(r.ip_hash || '').slice(0, 8)) + '</td><td>' + esc(r.review_status) + '</td>' +
+            '<td><button class="outline-btn" type="button" data-ev="' + r.id + '" data-st="' + (r.review_status === 'ok' ? 'held' : 'ok') + '">' + (r.review_status === 'ok' ? 'Wstrzymaj' : 'Przywróć') + '</button> ' +
+            (r.review_status !== 'void' ? '<button class="outline-btn" type="button" data-ev="' + r.id + '" data-st="void">Unieważnij</button>' : '') + '</td></tr>';
+        }).join('') + '</tbody></table></div>' : '<p class="empty-state">Brak głosów.</p>';
+    } catch (e) { $('#events').innerHTML = '<p class="empty-state">' + esc(e.message) + '</p>'; }
+  }
+
+  $('#nominations').addEventListener('click', async function (e) {
+    if (!e.target.closest('[data-save]')) return;
+    var card = e.target.closest('.nom-card');
+    var f = function (k) { return card.querySelector('[data-f="' + k + '"]').value.trim(); };
+    var body = { status: f('status'), note: f('note') };
+    if (body.status === 'published') {
+      body.track = { title: f('title'), artist: f('artist'), youtubeUrl: f('youtubeUrl'), profileUrl: f('profileUrl'), bibleRef: f('bibleRef'), support: parseSupport(card.querySelector('[data-f="support"]').value) };
+    }
+    if (['rejected', 'takedown', 'withdrawn'].indexOf(body.status) >= 0 && !confirm('Na pewno: ' + STATUS[body.status] + ' — ' + card.dataset.id + '?')) return;
+    if (body.status === 'published' && !confirm('Opublikować ' + card.dataset.id + ' w notowaniu na żywo?')) return;
+    try { await api('/api/topten/admin/nominations/' + encodeURIComponent(card.dataset.id), { method: 'POST', body: body }); toast('Zapisano: ' + STATUS[body.status]); loadNominations(); }
+    catch (err) { toast(err.message); }
+  });
+
+  $('#events').addEventListener('click', async function (e) {
+    var b = e.target.closest('[data-ev]');
+    if (!b) return;
+    if (b.dataset.st === 'void' && !confirm('Unieważnić głos #' + b.dataset.ev + '? Tej decyzji nie da się cofnąć z panelu.')) return;
+    try { await api('/api/topten/admin/events/' + b.dataset.ev, { method: 'POST', body: { reviewStatus: b.dataset.st } }); toast('Zapisano.'); loadEvents(); }
+    catch (err) { toast(err.message); }
+  });
+
+  document.querySelectorAll('[data-tab]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('[data-tab]').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
+      $('#tab-nom').hidden = b.dataset.tab !== 'nom';
+      $('#tab-ev').hidden = b.dataset.tab !== 'ev';
+      if (b.dataset.tab === 'ev') loadEvents();
+    });
+  });
+  $('#statusFilter').addEventListener('change', loadNominations);
+  $('#reload').addEventListener('click', loadNominations);
+  $('#reloadEv').addEventListener('click', loadEvents);
+  $('#mailRetry').addEventListener('click', async function () {
+    try { var r = await api('/api/topten/admin/mail-retry', { method: 'POST', body: {} }); toast('Ponowiono wysyłkę: ' + r.retried); loadNominations(); }
+    catch (err) { toast(err.message); }
+  });
+  $('#loginButton').addEventListener('click', function () {
+    if (window.ccTopTenAuth.user) window.ccTopTenAuth.signOut(); else window.ccTopTenAuth.signIn().catch(function () { toast('Logowanie przerwane.'); });
+  });
+
+  window.addEventListener('topten-auth', async function (e) {
+    var u = e.detail;
+    $('#loginButton').textContent = u ? 'Wyloguj' : 'Zaloguj';
+    $('#app').hidden = true;
+    if (!u) { $('#who').textContent = 'Zaloguj się kontem redakcji (Google).'; return; }
+    $('#who').textContent = 'Sprawdzanie uprawnień: ' + u.email + '…';
+    try {
+      items = (await api('/api/topten/admin/nominations?status=submitted')).items;
+      $('#who').textContent = 'Zalogowano jako redakcja: ' + u.email;
+      $('#app').hidden = false;
+      render();
+    } catch (err) {
+      $('#who').textContent = 'Konto ' + u.email + ' nie ma uprawnień redakcji topTEN.';
+    }
+  });
+})();
+</script>
+</body>
+</html>

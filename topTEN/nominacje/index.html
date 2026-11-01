@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://polskieradio.cc/topTEN/assets/topten-logo.png">
 <meta property="og:url" content="https://polskieradio.cc/topTEN/nominacje">
 <link rel="icon" type="image/png" href="/topTEN/assets/topten-logo.png">
-<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007">
+<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007b">
 <style>
 .nomination-page { max-width: 860px; margin: 0 auto; padding: 30px 20px 60px; }
 .form-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: clamp(20px, 4vw, 40px); box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-top: 24px; }
@@ -77,20 +77,22 @@
 
   <div id="successMessage" class="alert-box alert-success" role="alert">
     <h3>Dziękujemy! Twoje zgłoszenie zostało zarejestrowane.</h3>
-    <p>Identyfikator zgłoszenia: <strong id="applicationId">CC-TT-2026-0001</strong></p>
-    <p>Powiadomienie zostało przesłane do redakcji (<strong>radiochristianculture@gmail.com</strong>). O postępach weryfikacji powiadomimy Cię drogą mailową.</p>
+    <p>Identyfikator zgłoszenia: <strong id="applicationId"></strong></p>
+    <p>Zgłoszenie trafiło do redakcji (<strong>radiochristianculture@gmail.com</strong>). Potwierdzenie wyślemy na podany adres e-mail. Przesłanie zgłoszenia nie oznacza publikacji — o decyzji poinformujemy drogą mailową.</p>
     <a href="/topTEN/" class="primary-btn" style="margin-top: 12px;">← Powrót do listy przebojów</a>
   </div>
 
   <form id="nominationForm" class="form-card" novalidate>
+    <div id="formError" class="alert-box" role="alert" hidden style="background:#fff1f0;border-left:4px solid #d93025;color:#7a1712;"></div>
+    <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"><label for="website">Nie wypełniaj</label><input type="text" id="website" tabindex="-1" autocomplete="off"></div>
     <div class="form-grid">
       <div class="form-group">
         <label for="artistName">Nazwa wykonawcy / zespołu <span class="req">*</span></label>
-        <input type="text" id="artistName" required placeholder="np. Nowe Serce, Mateusz Nowak">
+        <input type="text" id="artistName" required placeholder="Nazwa wykonawcy lub zespołu">
       </div>
       <div class="form-group">
         <label for="trackTitle">Tytuł utworu <span class="req">*</span></label>
-        <input type="text" id="trackTitle" required placeholder="np. Większy niż lęk">
+        <input type="text" id="trackTitle" required placeholder="Pełny tytuł utworu">
       </div>
 
       <div class="form-group">
@@ -186,50 +188,71 @@
 </footer>
 
 <script>
-document.getElementById('nominationForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const form = e.target;
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
+(function () {
+  var form = document.getElementById('nominationForm');
+  var submitBtn = document.getElementById('submitBtn');
+  var formError = document.getElementById('formError');
+  var val = function (id) { return document.getElementById(id).value.trim(); };
+  var checked = function (id) { return document.getElementById(id).checked; };
+
+  function clearErrors() {
+    formError.hidden = true;
+    form.querySelectorAll('[aria-invalid]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
+    form.querySelectorAll('.field-error').forEach(function (el) { el.remove(); });
   }
-  const submitBtn = document.getElementById('submitBtn');
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Rejestracja zgłoszenia...';
+  function fieldError(id, message) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.setAttribute('aria-invalid', 'true');
+    var msg = document.createElement('small');
+    msg.className = 'field-error';
+    msg.style.color = '#d93025';
+    msg.style.fontWeight = '700';
+    msg.textContent = message;
+    (el.closest('.form-group') || el.closest('.checkbox-card') || el.parentNode).appendChild(msg);
+  }
 
-  const randomNum = Math.floor(1000 + Math.random() * 9000);
-  const appId = 'CC-TT-2026-' + randomNum;
-
-  const payload = {
-    appId: appId,
-    artistName: document.getElementById('artistName').value.trim(),
-    trackTitle: document.getElementById('trackTitle').value.trim(),
-    genre: document.getElementById('genre').value,
-    language: document.getElementById('language').value.trim(),
-    bibleRef: document.getElementById('bibleRef').value.trim(),
-    driveUrl: document.getElementById('driveUrl').value.trim(),
-    youtubeUrl: document.getElementById('youtubeUrl').value.trim(),
-    submitterName: document.getElementById('submitterName').value.trim(),
-    submitterEmail: document.getElementById('submitterEmail').value.trim(),
-    supportLink: document.getElementById('supportLink').value.trim(),
-    submittedAt: new Date().toISOString()
-  };
-
-  // Zapisz lokalnie w rejestrze zgłoszeń roboczych
-  try {
-    const list = JSON.parse(localStorage.getItem('cc_topten_nominations') || '[]');
-    list.unshift(payload);
-    localStorage.setItem('cc_topten_nominations', JSON.stringify(list));
-  } catch(err) {}
-
-  setTimeout(function() {
-    form.style.display = 'none';
-    const successMsg = document.getElementById('successMessage');
-    document.getElementById('applicationId').textContent = appId;
-    successMsg.style.display = 'block';
-    successMsg.scrollIntoView({ behavior: 'smooth' });
-  }, 600);
-});
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    clearErrors();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wysyłanie zgłoszenia...';
+    var payload = {
+      artistName: val('artistName'), trackTitle: val('trackTitle'), genre: val('genre'), language: val('language'),
+      bibleRef: val('bibleRef'), driveUrl: val('driveUrl'), youtubeUrl: val('youtubeUrl'),
+      submitterName: val('submitterName'), submitterEmail: val('submitterEmail'), supportLink: val('supportLink'),
+      declareRights: checked('declareRights'), declareLicense: checked('declareLicense'), declareTheology: checked('declareTheology'),
+      website: val('website')
+    };
+    try {
+      var res = await fetch('/api/topten/nominations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      var data = await res.json().catch(function () { return {}; });
+      if (!res.ok) {
+        if (data.fields) {
+          Object.keys(data.fields).forEach(function (k) { fieldError(k, data.fields[k]); });
+          formError.textContent = 'Popraw zaznaczone pola i wyślij ponownie.';
+        } else {
+          formError.textContent = data.message || 'Nie udało się wysłać zgłoszenia. Spróbuj ponownie za chwilę.';
+        }
+        formError.hidden = false;
+        formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      form.style.display = 'none';
+      document.getElementById('applicationId').textContent = data.id;
+      var successMsg = document.getElementById('successMessage');
+      successMsg.style.display = 'block';
+      successMsg.scrollIntoView({ behavior: 'smooth' });
+    } catch (err) {
+      formError.textContent = 'Brak połączenia z serwerem. Twoje dane są nadal w formularzu — spróbuj ponownie.';
+      formError.hidden = false;
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Wyślij oficjalne zgłoszenie →';
+    }
+  });
+})();
 </script>
 <script src="/components/cc-omni-search.js?v=20261015_w" defer></script>
 </body>
