@@ -331,7 +331,7 @@ function getAllEcosystemCandidates() {
       title: 'Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7',
       lead: 'Nowoczesny odtwarzacz: krystaliczny dźwięk HD, teksty pieśni, nocny kanał Ambient Sleep oraz codzienne rozważania wprost w Twojej przeglądarce.',
       url: 'https://polskieradio.cc/player',
-      image: 'images/brand/cezary-wioletta-radiocc.jpg',
+      image: 'images/player/art-worship.jpg',
       category: 'Radio & Muzyka',
       type: 'music',
       tag: '#PolskieRadioCC'
@@ -562,7 +562,7 @@ function formatBroadcasterTweet(item) {
     } else {
       subHeader = '🎵 MUZYKA & KANAŁY LIVE';
       callToAction = '👉 Słuchaj na żywo:\n';
-      addTags(item.tag || '#CCNMuzyka', '#PolskieRadioCC', '#WorshipLive');
+      addTags(item.tag || '#CCNMuzyka', '#PolskieRadioCC', '#WorshipLive', '#ChristianCulture');
     }
   } else if (item.type === 'profile') {
     subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
