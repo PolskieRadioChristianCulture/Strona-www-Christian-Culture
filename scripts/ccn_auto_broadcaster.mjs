@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 /**
  * CCN NEWS — AUTOMATYCZNY NADAJNIK NOWOŚCI EKOSYSTEMU NA PLATFORMĘ X
  *
@@ -205,6 +205,19 @@ function getAllEcosystemCandidates() {
 
   function addCandidate(item) {
     if (!item.url || seenUrls.has(item.url)) return;
+
+    // Blokada rocznicowa (Dyrektywa Dowódcy 01.11.2026):
+    // Artykuły o Dniu Reformacji i Marcinie Lutrze publikowane wyłącznie w rocznicę (31 października).
+    const textToCheck = ((item.title || '') + ' ' + (item.url || '') + ' ' + (item.tag || '')).toLowerCase();
+    const isReformation = textToCheck.includes('reformacj') || textToCheck.includes('luter') || textToCheck.includes('lutr') || textToCheck.includes('95-tez');
+    if (isReformation) {
+      const today = new Date();
+      const isAnniversaryDay = today.getMonth() === 9 && today.getDate() === 31; // 31 października (miesiące 0-11: 9 = październik)
+      if (!isAnniversaryDay) {
+        return; // Pomiń poza rocznicą 31 października
+      }
+    }
+
     seenUrls.add(item.url);
     candidates.push(item);
   }
@@ -606,7 +619,7 @@ function formatBroadcasterTweet(item) {
       subHeader = '🛡️ SURVIVAL & BEZPIECZEŃSTWO CC';
       callToAction = '👉 Czytaj poradnik w serwisie:\n';
       addTags('#CCNNews', '#SurvivalCC', '#Prawda');
-    } else if (tLower.includes('reformacj') || tLower.includes('luter')) {
+    } else if (tLower.includes('reformacj') || tLower.includes('lutr') || (item.url || '').includes('/historia/')) {
       subHeader = '📜 HISTORIA & REFORMACJA';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#CCNNews', '#DzienReformacji', '#Prawda');
@@ -875,7 +888,10 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
       (lastTitleLower.includes('blackout') && candTitleLower.includes('blackout')) ||
       (lastTitleLower.includes('bioetyka') && candTitleLower.includes('bioetyka'));
 
-    if (!isRecent && !isTopicDuplicate) {
+    // Ochrona przed dwoma postami tego samego typu pod rząd (np. 2x profile, 2x music)
+    const isTypeDuplicate = lastItem.type && cand.type === lastItem.type;
+
+    if (!isRecent && !isTopicDuplicate && !isTypeDuplicate) {
       break;
     }
     nextIndex = (nextIndex + 1) % candidates.length;
