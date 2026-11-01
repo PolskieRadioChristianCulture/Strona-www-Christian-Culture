@@ -9280,6 +9280,7 @@ ${isStandalonePage ? '' : `
     home: '<path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/>',
     radio: '<rect x="3" y="8" width="18" height="12" rx="2"/><circle cx="15.5" cy="14" r="2.5"/><path d="M7 12h4M7 16h4M7 8l9-5"/>',
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',
     star: '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9Z"/>',
     channels: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     film: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',
@@ -9350,7 +9351,7 @@ ${isStandalonePage ? '' : `
   const APPS_MENU = [
     { title: 'Słuchaj i oglądaj', items: [
       ['Radio', '/player', 'radio'], ['TV 24', '/cctv24', 'tv'], ['Kanały', '/kanaly', 'channels'],
-      ['Podcasty', '/podcasty', 'mic'], ['Kino VOD', '/vod', 'film'], ['Muzyka', '/music', 'music'],
+      ['Podcasty', '/podcasty', 'mic'], ['Kino VOD', '/vod', 'film'], ['Muzyka', '/music', 'music'], ['topTEN', '/topTEN/', 'trophy'],
       ['Uwielbienie', '/BiblijneUwielbienie', 'worship'], ['Karaoke', '/karaoke-studio', 'karaoke'], ['CC Network', '/network', 'globe']
     ] },
     { title: 'Słowo i modlitwa', items: [
