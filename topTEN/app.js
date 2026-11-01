@@ -407,7 +407,8 @@ async function handleFollowTrack(trackId) {
 function updateLoginButton() {
   const btn = $('#loginButton');
   if (!btn) return;
-  btn.textContent = state.user ? 'Moje konto' : 'Zaloguj';
+  btn.textContent = state.user ? 'Konto' : 'Zaloguj';
+  btn.setAttribute('aria-label', state.user ? 'Moje konto topTEN' : 'Zaloguj się kontem Google');
 }
 
 function showAccountModal() {
