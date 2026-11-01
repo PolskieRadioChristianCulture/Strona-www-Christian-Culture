@@ -212,7 +212,7 @@ function getAllEcosystemCandidates() {
     {
       title: 'Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo',
       lead: '„Nie mierz problemu swoimi siłami, lecz mierz go potęgą Boga, który powołał cię do zwycięstwa.” Bestseller o pokonywaniu życiowych olbrzymów w oparciu o wierność Słowu Bożemu.',
-      url: 'https://polskieradio.cc/ksiazki/pokonac-goliata',
+      url: 'https://polskieradio.cc/pokonac-goliata',
       image: 'images/news/art-pokonac-goliata.jpg',
       category: 'Książki',
       type: 'book',
@@ -221,7 +221,7 @@ function getAllEcosystemCandidates() {
     {
       title: 'Książka: Kod Źródłowy Duszy — Cezary Rogowski. Biblijna tożsamość i sens istnienia',
       lead: '„Twoja tożsamość nie została zapisana przez opinię świata ani algorytmy, lecz przez Stwórcę, który utkał cię w łonie matki.” Głęboka teologiczna podróż do źródeł ludzkiego ducha.',
-      url: 'https://polskieradio.cc/ksiazki/kod-zrodlowy',
+      url: 'https://polskieradio.cc/news/kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-wrocic-do-ustawien-fabrycznych-boga',
       image: 'images/news/art-kod-zrodlowy.jpg',
       category: 'Książki',
       type: 'book',
@@ -230,7 +230,7 @@ function getAllEcosystemCandidates() {
     {
       title: 'Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo',
       lead: '„Prawda Boża nie potrzebuje retuszu współczesnej poprawności. Tylko bezkompromisowa Ewangelia ma moc uwalniać z sideł zakłamania.”',
-      url: 'https://polskieradio.cc/ksiazki/prawda-bez-filtra',
+      url: 'https://polskieradio.cc/biblioteka',
       image: 'images/news/art-prawda-bez-filtra.jpg',
       category: 'Książki',
       type: 'book',
@@ -239,7 +239,7 @@ function getAllEcosystemCandidates() {
     {
       title: 'Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa',
       lead: '„Największym sukcesem wroga jest przekonanie człowieka, że walka duchowa to tylko mit. Słowo Boże obnaża każdą strategię ciemności i daje oręż zwycięstwa w Chrystusie.”',
-      url: 'https://polskieradio.cc/ksiazki/u-boku-diabla',
+      url: 'https://polskieradio.cc/biblioteka',
       image: 'images/news/art-u-boku-diabla.jpg',
       category: 'Książki',
       type: 'book',
@@ -248,7 +248,7 @@ function getAllEcosystemCandidates() {
     {
       title: 'Książka: Bóg jest MIŁOŚCIĄ? — Cezary i Wioletta Rogowscy. Odpowiedź na trudne pytania',
       lead: '„Jak pogodzić cierpienie z miłością Stwórcy? Biblijne świadectwo i refleksja nad prawdziwym charakterem Boga, który oddał wszystko za człowieka.”',
-      url: 'https://polskieradio.cc/ksiazki/bog-jest-miloscia',
+      url: 'https://polskieradio.cc/biblioteka',
       image: 'images/news/art-bog-jest-miloscia.jpg',
       category: 'Książki',
       type: 'book',

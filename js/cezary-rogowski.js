@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tracks.forEach((track, index) => {
           if (!track || typeof track.title !== 'string' || typeof track.file !== 'string') return;
           // Security path verification
-          if (!/^(\/|assets\/audio\/|audio\/)[\w.\-]+\.(mp3|m4a|ogg|wav)$/.test(track.file)) return;
+          if (!/^(\/|assets\/audio\/|audio\/)[\w.\-\/]+\.(mp3|m4a|ogg|wav)$/.test(track.file)) return;
 
           const trackItem = document.createElement('div');
           trackItem.className = 'track-item';
@@ -194,4 +194,231 @@ document.addEventListener('DOMContentLoaded', () => {
       if (crIsPlaying) setPlayingState(false);
     });
   }
+
+  // 7. Song Showcase Player (Polish & English Premier Tracks)
+  const formatSongTime = (secs) => {
+    if (isNaN(secs) || secs < 0) return '0:00';
+    const m = Math.floor(secs / 60);
+    const s = Math.floor(secs % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  };
+
+  const PLAY_ICON_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>';
+  const PAUSE_ICON_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
+
+  const VOL_ON_SVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>';
+  const VOL_MUTE_SVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>';
+
+  const songPlayers = [
+    {
+      id: 'Pl',
+      audio: document.getElementById('audioPl'),
+      playBtn: document.getElementById('playBtnPl'),
+      progressWrap: document.getElementById('progressWrapPl'),
+      progressFill: document.getElementById('progressFillPl'),
+      curTime: document.getElementById('curTimePl'),
+      durTime: document.getElementById('durTimePl'),
+      muteBtn: document.getElementById('muteBtnPl'),
+      title: 'Cokolwiek na świecie'
+    },
+    {
+      id: 'En',
+      audio: document.getElementById('audioEn'),
+      playBtn: document.getElementById('playBtnEn'),
+      progressWrap: document.getElementById('progressWrapEn'),
+      progressFill: document.getElementById('progressFillEn'),
+      curTime: document.getElementById('curTimeEn'),
+      durTime: document.getElementById('durTimeEn'),
+      muteBtn: document.getElementById('muteBtnEn'),
+      title: "WHAT CAN SEPARATE ME FROM GOD'S LOVE?"
+    }
+  ];
+
+  const pauseAllSongs = (exceptAudio) => {
+    songPlayers.forEach((sp) => {
+      if (sp.audio && sp.audio !== exceptAudio && !sp.audio.paused) {
+        sp.audio.pause();
+      }
+    });
+  };
+
+  // If radio plays, pause songs
+  if (crRadioAudio) {
+    crRadioAudio.addEventListener('play', () => {
+      pauseAllSongs(null);
+    });
+  }
+
+  songPlayers.forEach((sp) => {
+    if (!sp.audio || !sp.playBtn) return;
+
+    const updatePlayBtnState = (isPlaying) => {
+      sp.playBtn.innerHTML = isPlaying ? PAUSE_ICON_SVG : PLAY_ICON_SVG;
+      sp.playBtn.setAttribute('aria-pressed', String(isPlaying));
+      sp.playBtn.setAttribute('aria-label', (isPlaying ? 'Wstrzymaj utwór: ' : 'Odtwórz utwór: ') + sp.title);
+    };
+
+    sp.playBtn.addEventListener('click', () => {
+      if (sp.audio.paused) {
+        // Pause other song
+        pauseAllSongs(sp.audio);
+        // Pause radio if playing
+        if (crRadioAudio && !crRadioAudio.paused) {
+          crRadioAudio.pause();
+        }
+        sp.audio.play().then(() => {
+          updatePlayBtnState(true);
+        }).catch(() => {
+          updatePlayBtnState(false);
+        });
+      } else {
+        sp.audio.pause();
+        updatePlayBtnState(false);
+      }
+    });
+
+    sp.audio.addEventListener('play', () => updatePlayBtnState(true));
+    sp.audio.addEventListener('pause', () => updatePlayBtnState(false));
+    sp.audio.addEventListener('ended', () => {
+      updatePlayBtnState(false);
+      if (sp.progressFill) sp.progressFill.style.width = '0%';
+      if (sp.curTime) sp.curTime.textContent = '0:00';
+    });
+
+    const setDuration = () => {
+      if (sp.durTime && !isNaN(sp.audio.duration) && sp.audio.duration > 0) {
+        sp.durTime.textContent = formatSongTime(sp.audio.duration);
+      }
+    };
+    sp.audio.addEventListener('loadedmetadata', setDuration);
+    sp.audio.addEventListener('durationchange', setDuration);
+    if (sp.audio.readyState >= 1) setDuration();
+
+    sp.audio.addEventListener('timeupdate', () => {
+      if (sp.curTime) {
+        sp.curTime.textContent = formatSongTime(sp.audio.currentTime);
+      }
+      if (sp.progressFill && sp.audio.duration) {
+        const pct = (sp.audio.currentTime / sp.audio.duration) * 100;
+        sp.progressFill.style.width = pct + '%';
+        if (sp.progressWrap) {
+          sp.progressWrap.setAttribute('aria-valuenow', Math.round(pct).toString());
+        }
+      }
+    });
+
+    if (sp.progressWrap) {
+      const seekFromEvent = (e) => {
+        if (!sp.audio.duration) return;
+        const rect = sp.progressWrap.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const pct = Math.max(0, Math.min(1, clickX / rect.width));
+        sp.audio.currentTime = pct * sp.audio.duration;
+      };
+
+      sp.progressWrap.addEventListener('click', seekFromEvent);
+
+      sp.progressWrap.addEventListener('keydown', (e) => {
+        if (!sp.audio.duration) return;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          sp.audio.currentTime = Math.min(sp.audio.duration, sp.audio.currentTime + 5);
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          sp.audio.currentTime = Math.max(0, sp.audio.currentTime - 5);
+        }
+      });
+    }
+
+    if (sp.muteBtn) {
+      sp.muteBtn.innerHTML = VOL_ON_SVG;
+      sp.muteBtn.addEventListener('click', () => {
+        sp.audio.muted = !sp.audio.muted;
+        sp.muteBtn.innerHTML = sp.audio.muted ? VOL_MUTE_SVG : VOL_ON_SVG;
+        sp.muteBtn.setAttribute('aria-label', sp.audio.muted ? 'Włącz dźwięk' : 'Wycisz dźwięk');
+      });
+    }
+  });
+
+  // Tab switching (PL / EN)
+  const tabBtns = document.querySelectorAll('.song-tab-btn');
+  const songPanels = document.querySelectorAll('.song-panel');
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      if (!targetId) return;
+
+      tabBtns.forEach((b) => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      songPanels.forEach((p) => {
+        p.classList.remove('is-active');
+      });
+
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+
+      const targetPanel = document.getElementById(targetId);
+      if (targetPanel) {
+        targetPanel.classList.add('is-active');
+      }
+    });
+  });
+
+  // Copy lyrics buttons
+  const setupCopyBtn = (btnId, textContainerId) => {
+    const btn = document.getElementById(btnId);
+    const container = document.getElementById(textContainerId);
+    if (!btn || !container) return;
+
+    const labelSpan = btn.querySelector('span') || btn;
+    const defaultText = labelSpan.textContent;
+
+    const fallbackCopyText = (text) => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } catch (_) {}
+      document.body.removeChild(ta);
+    };
+
+    btn.addEventListener('click', () => {
+      const stanzas = container.querySelectorAll('.lyrics-stanza');
+      const textToCopy = Array.from(stanzas)
+        .map((s) => s.innerText.trim())
+        .filter(Boolean)
+        .join('\n\n');
+
+      if (!textToCopy) return;
+
+      const finishCopy = () => {
+        btn.classList.add('is-copied');
+        labelSpan.textContent = 'Skopiowano!';
+        setTimeout(() => {
+          btn.classList.remove('is-copied');
+          labelSpan.textContent = defaultText;
+        }, 2000);
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textToCopy).then(finishCopy).catch(() => {
+          fallbackCopyText(textToCopy);
+          finishCopy();
+        });
+      } else {
+        fallbackCopyText(textToCopy);
+        finishCopy();
+      }
+    });
+  };
+
+  setupCopyBtn('copyLyricsPl', 'lyricsTextPl');
+  setupCopyBtn('copyLyricsEn', 'lyricsTextEn');
 });
