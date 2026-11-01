@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "player",
+      "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
+      "url": "https://polskieradio.cc/player",
+      "type": "music",
+      "image": "art-worship.jpg",
+      "publishedAt": "2026-11-01T08:05:04.371Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dzien-31",
       "title": "Werset Dnia: „Wy myśleliście o złu przeciwko mnie, ale Bóg obrócił to w dobro” (Rdz 50:20, UBG)",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-31",
