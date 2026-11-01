@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "updatedAt": "2026-11-01T05:07:30.212Z",
-  "totalItems": 397,
+  "totalItems": 398,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1061,6 +1061,28 @@
     }
   },
   "items": [
+    {
+      "title": "topTEN — Notowania Muzyki Chrześcijańskiej Christian Culture",
+      "category": "Audycje i muzyka",
+      "url": "https://polskieradio.cc/topTEN",
+      "description": "Oficjalna lista przebojów i notowania muzyki chrześcijańskiej Polskiego Radia Christian Culture. TopTen Global, Hity Radia, Artyści, Nowości, Gospel, Worship i cotygodniowy ranking utworów.",
+      "tags": [
+        "topten",
+        "top ten",
+        "top10",
+        "notowania",
+        "lista przebojów",
+        "ranking",
+        "muzyka",
+        "piosenki",
+        "hity radia",
+        "artyści",
+        "gospel",
+        "worship",
+        "głosowanie"
+      ],
+      "featured": true
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",

@@ -67,6 +67,22 @@
       ],
       "rewrites": [
         {
+          "source": "/topTEN",
+          "destination": "/topTEN/index.html"
+        },
+        {
+          "source": "/topten",
+          "destination": "/topTEN/index.html"
+        },
+        {
+          "source": "/topTEN/regulamin",
+          "destination": "/topTEN/regulamin.html"
+        },
+        {
+          "source": "/topten/regulamin",
+          "destination": "/topTEN/regulamin.html"
+        },
+        {
           "source": "/szukaj/**",
           "destination": "/szukaj.html"
         },
@@ -736,6 +752,22 @@
         }
       ],
       "rewrites": [
+        {
+          "source": "/topTEN",
+          "destination": "/topTEN/index.html"
+        },
+        {
+          "source": "/topten",
+          "destination": "/topTEN/index.html"
+        },
+        {
+          "source": "/topTEN/regulamin",
+          "destination": "/topTEN/regulamin.html"
+        },
+        {
+          "source": "/topten/regulamin",
+          "destination": "/topTEN/regulamin.html"
+        },
         {
           "source": "/szukaj/**",
           "destination": "/szukaj.html"

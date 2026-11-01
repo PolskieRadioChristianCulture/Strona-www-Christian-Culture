@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080808">
+<meta name="description" content="topTEN Christian Culture — globalne notowania muzyki chrześcijańskiej, artyści, piosenki radiowe i debiuty.">
+<title>topTEN | Notowania Muzyki Chrześcijańskiej | Polskie Radio Christian Culture</title>
+<link rel="canonical" href="https://polskieradio.cc/topTEN">
+<meta property="og:type" content="website">
+<meta property="og:title" content="topTEN — Notowania Muzyki Chrześcijańskiej — Polskie Radio Christian Culture">
+<meta property="og:description" content="Oficjalna lista przebojów i notowania muzyki chrześcijańskiej Polskiego Radia Christian Culture — TopTen Global, Hity Radia, Artyści i Debiuty.">
+<meta property="og:image" content="https://polskieradio.cc/topTEN/assets/topten-logo.png">
+<meta property="og:url" content="https://polskieradio.cc/topTEN">
+<link rel="icon" type="image/png" href="/topTEN/assets/topten-logo.png">
+<link rel="stylesheet" href="./styles.css"><script src="./app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Przejdź do treści</a>
+<header class="header">
+<button class="icon-btn mobile-menu" id="menuToggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+<a class="radio-brand" href="https://polskieradio.cc/" aria-label="Polskie Radio Christian Culture — strona główna">Polskie Radio<br><strong>Christian Culture</strong></a>
+<span class="brand-separator" aria-hidden="true"></span><a class="top-brand" href="./index.html" aria-label="topTEN — strona główna">top<span>TEN</span></a>
+<nav class="main-nav" aria-label="Nawigacja główna"><a class="active" href="#notowania">Notowania</a><a href="#muzyka">Muzyka</a><a href="#video">Wideo</a><a href="#artysci">Artyści</a><a href="#glosowanie">Głosowanie</a><a href="./regulamin.html">Regulamin</a></nav>
+<button class="text-btn" id="loginButton">Zaloguj</button><button class="icon-btn" id="searchToggle" aria-label="Otwórz wyszukiwarkę">⌕</button>
+</header>
+<nav class="topic-nav" aria-label="Kategorie"><a class="selected" href="#notowania">TOPTEN GLOBAL</a><a href="#radio">HITY RADIA</a><a href="#nowosci">NOWOŚCI</a><a href="#artysci">ARTYŚCI</a><a href="#gospel">GOSPEL</a><a href="#worship">WORSHIP</a><a href="#polska">POLSKA</a><a href="#swiat">ŚWIAT</a></nav>
+<div class="searchbar" id="searchBar" hidden><label for="siteSearch">Wyszukaj utwór lub artystę</label><input id="siteSearch" type="search" placeholder="Wpisz nazwę utworu lub artysty…"><button class="small-btn" id="clearSearch">Wyczyść</button></div>
+<div class="page-layout">
+<aside class="sidebar" id="sidebar" aria-label="Menu notowań">
+<label class="visually-hidden" for="chartSelect">Wyszukaj notowania</label><select id="chartSelect"><option value="">Wyszukaj notowania</option><option value="notowania">TopTen Global</option><option value="radio">Hity radia</option><option value="nowosci">Nowości</option><option value="artysci">Artyści</option></select>
+<label class="visually-hidden" for="artistSelect">Wyszukaj artystów</label><select id="artistSelect"><option value="">Wyszukaj artystów</option></select>
+<nav class="side-links" aria-label="Katalog list"><a href="#notowania">Globalna Lista</a><details><summary>Najlepsze Listy</summary><a href="#notowania">TOP 10</a><a href="#radio">Piosenki Radiowe</a></details><details><summary>Polska</summary><a href="#polska">Polskie notowania</a></details><details><summary>Świat</summary><a href="#swiat">Notowania światowe</a></details><details><summary>Gospel</summary><a href="#gospel">Gospel</a></details><details><summary>Worship</summary><a href="#worship">Worship</a></details><details><summary>Pop Chrześcijański</summary><a href="#muzyka">Pop chrześcijański</a></details><details><summary>Rock i Alternatywa</summary><a href="#muzyka">Rock i alternatywa</a></details><details><summary>Hip-Hop</summary><a href="#muzyka">Hip-Hop</a></details><details><summary>Debiuty</summary><a href="#debiuty">Wschodzący artyści</a></details><details><summary>Archiwum</summary><a href="#archiwum">Archiwum notowań</a></details></nav>
+<div class="sidebar-bottom"><span>CC • topTEN</span><p>Muzyka, która prowadzi bliżej Boga.</p></div>
+</aside>
+<main id="main" class="content"><div class="demo-alert" role="status"><strong>PREZENTACJA PROJEKTU</strong> · Nazwy, pozycje i okładki są danymi demonstracyjnymi. Głosowanie i logowanie nie są aktywne.</div>
+<div id="sections"></div>
+<section class="action-panel" id="glosowanie"><div><p class="eyebrow">TWOJA LISTA PRZEBOJÓW</p><h2>Twój głos ma znaczenie.</h2><p>Poznaj utwory i zagłosuj w oficjalnym notowaniu po uruchomieniu bezpiecznego systemu weryfikacji głosów.</p></div><button class="primary-btn" id="voteInfo">Zasady głosowania →</button></section>
+<section class="bottom-grid"><article id="nominacje"><h2>Zgłoś nominację</h2><p>Artyści i słuchacze mogą rekomendować utwory do weryfikacji przez redakcję.</p><button class="outline-btn" id="nominationButton">Zobacz formularz →</button></article><article id="archiwum"><h2>Archiwum notowań</h2><p>Po uruchomieniu tutaj pojawią się historyczne wyniki oraz rekordy listy.</p><button class="outline-btn" id="archiveButton">Jak działa archiwum →</button></article><article id="radio"><h2>Polskie Radio Christian Culture</h2><p>Słuchaj naszego radia podczas odkrywania muzyki.</p><a class="primary-btn" href="https://stream.zeno.fm/vz96pvl3pnktv" target="_blank" rel="noopener noreferrer">Otwórz radio ↗</a></article></section>
+</main></div>
+<footer class="footer"><div class="footer-brand"><span class="wave">▂▅▇▅▂</span><span>Polskie Radio<br><b>Christian Culture</b></span><span class="foot-divide">│</span><span class="top-brand">top<span>TEN</span></span></div><p>Muzyka, która prowadzi bliżej Boga.</p><form id="newsletterForm"><div><strong>Bądź na bieżąco z Christian Culture</strong><small>Otrzymuj nowości, listy i specjalne materiały.</small></div><label class="visually-hidden" for="newsletterEmail">Twój e-mail</label><input type="email" id="newsletterEmail" placeholder="Twój e-mail" required><button class="primary-btn" type="submit">Zapisz się</button></form><div class="legal-links"><a href="./regulamin.html">Regulamin</a><a href="https://polskieradio.cc/newsletter">Newsletter</a></div></footer>
+<div class="modal" id="modal" hidden><div class="modal-backdrop" data-close="true"></div><div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1"><button id="modalClose" aria-label="Zamknij okno" class="icon-btn modal-close">✕</button><h2 id="modalTitle"></h2><div id="modalBody"></div></div></div>
+<script src="/components/cc-omni-search.js?v=20261015_w" defer></script>
+</body></html>
