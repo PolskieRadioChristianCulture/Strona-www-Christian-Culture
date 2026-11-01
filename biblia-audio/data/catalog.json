@@ -122,10 +122,16 @@
     "book": "genesis",
     "chapter": 10,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_10_1-32_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 10,1–32 (UBG) — Tablica Narodów, potomkowie Noego: Jafet, Cham, Nimrod i Sem",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_10_1-32_Biblia_Audio_CC.mp3",
+        "verses": "1–32"
+      }
+    ]
   },
   {
     "id": "genesis-11",
