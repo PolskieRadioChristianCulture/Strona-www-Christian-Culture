@@ -83,6 +83,14 @@
           "destination": "/topTEN/regulamin.html"
         },
         {
+          "source": "/topTEN/nominacje",
+          "destination": "/topTEN/nominacje/index.html"
+        },
+        {
+          "source": "/topten/nominacje",
+          "destination": "/topTEN/nominacje/index.html"
+        },
+        {
           "source": "/szukaj/**",
           "destination": "/szukaj.html"
         },
@@ -767,6 +775,14 @@
         {
           "source": "/topten/regulamin",
           "destination": "/topTEN/regulamin.html"
+        },
+        {
+          "source": "/topTEN/nominacje",
+          "destination": "/topTEN/nominacje/index.html"
+        },
+        {
+          "source": "/topten/nominacje",
+          "destination": "/topTEN/nominacje/index.html"
         },
         {
           "source": "/szukaj/**",

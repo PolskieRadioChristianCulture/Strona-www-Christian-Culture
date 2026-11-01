@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080808">
-<meta name="description" content="topTEN Christian Culture — oficjalne notowania muzyki chrześcijańskiej, artyści, piosenki radiowe i debiuty.">
+<meta name="description" content="topTEN Christian Culture — oficjalne notowania muzyki chrześcijańskiej, artyści, piosenki radiowe, debiuty i program wspieramTO.">
 <title>topTEN | Notowania Muzyki Chrześcijańskiej | Polskie Radio Christian Culture</title>
 <link rel="canonical" href="https://polskieradio.cc/topTEN">
 <meta property="og:type" content="website">
 <meta property="og:title" content="topTEN — Notowania Muzyki Chrześcijańskiej — Polskie Radio Christian Culture">
-<meta property="og:description" content="Oficjalna lista przebojów i notowania muzyki chrześcijańskiej Polskiego Radia Christian Culture — TopTen Global, Hity Radia, Artyści i Debiuty.">
+<meta property="og:description" content="Oficjalna lista przebojów i notowania muzyki chrześcijańskiej Polskiego Radia Christian Culture — TopTen Global, Hity Radia, Artyści, Debiuty i wspieramTO.">
 <meta property="og:image" content="https://polskieradio.cc/topTEN/assets/topten-logo.png">
 <meta property="og:url" content="https://polskieradio.cc/topTEN">
 <link rel="icon" type="image/png" href="/topTEN/assets/topten-logo.png">
@@ -25,9 +25,8 @@
 <a class="top-brand" href="/topTEN/" aria-label="topTEN — strona główna">top<span>TEN</span></a>
 <nav class="main-nav" aria-label="Nawigacja główna">
   <a class="active" href="#notowania">Notowania</a>
-  <a href="#muzyka">Muzyka</a>
-  <a href="#video">Wideo</a>
-  <a href="#artysci">Artyści</a>
+  <a href="#wspieramto">wspieramTO</a>
+  <a href="/topTEN/nominacje">Nominacje</a>
   <a href="#glosowanie">Głosowanie</a>
   <a href="/topTEN/regulamin.html">Regulamin</a>
 </nav>
@@ -36,13 +35,10 @@
 </header>
 <nav class="topic-nav" aria-label="Kategorie">
   <a class="selected" href="#notowania">TOPTEN GLOBAL</a>
-  <a href="#radio">HITY RADIA</a>
-  <a href="#nowosci">NOWOŚCI</a>
-  <a href="#artysci">ARTYŚCI</a>
-  <a href="#gospel">GOSPEL</a>
-  <a href="#worship">WORSHIP</a>
-  <a href="#polska">POLSKA</a>
-  <a href="#swiat">ŚWIAT</a>
+  <a href="#wspieramto">wspieramTO</a>
+  <a href="/topTEN/nominacje">ZGŁOŚ UTWÓR</a>
+  <a href="#glosowanie">JAK GŁOSOWAĆ</a>
+  <a href="/topTEN/regulamin.html">REGULAMIN</a>
 </nav>
 <div class="searchbar" id="searchBar" hidden>
   <label for="siteSearch">Wyszukaj utwór lub artystę</label>
@@ -55,24 +51,29 @@
 <select id="chartSelect">
   <option value="">Wyszukaj notowania</option>
   <option value="notowania">TopTen Global</option>
-  <option value="radio">Hity radia</option>
-  <option value="nowosci">Nowości</option>
-  <option value="artysci">Artyści</option>
+  <option value="wspieramto">Program wspieramTO</option>
+  <option value="glosowanie">Zasady głosowania</option>
 </select>
-<label class="visually-hidden" for="artistSelect">Wyszukaj artystów</label>
-<select id="artistSelect"><option value="">Wyszukaj artystów</option></select>
 <nav class="side-links" aria-label="Katalog list">
-  <a href="#notowania">Globalna Lista</a>
-  <details><summary>Najlepsze Listy</summary><a href="#notowania">TOP 10</a><a href="#radio">Piosenki Radiowe</a></details>
-  <details><summary>Polska</summary><a href="#polska">Polskie notowania</a></details>
-  <details><summary>Świat</summary><a href="#swiat">Notowania światowe</a></details>
-  <details><summary>Gospel</summary><a href="#gospel">Gospel</a></details>
-  <details><summary>Worship</summary><a href="#worship">Worship</a></details>
-  <details><summary>Pop Chrześcijański</summary><a href="#muzyka">Pop chrześcijański</a></details>
-  <details><summary>Rock i Alternatywa</summary><a href="#muzyka">Rock i alternatywa</a></details>
-  <details><summary>Hip-Hop</summary><a href="#muzyka">Hip-Hop</a></details>
-  <details><summary>Debiuty</summary><a href="#debiuty">Wschodzacy artyści</a></details>
-  <details><summary>Archiwum</summary><a href="#archiwum">Archiwum notowań</a></details>
+  <a href="#notowania">Globalna Lista Live</a>
+  <details open><summary>Szybkie menu</summary>
+    <a href="#notowania">TOP 10 Notowania</a>
+    <a href="#wspieramto">wspieramTO Artyści</a>
+    <a href="/topTEN/nominacje">Formularz Nominacji</a>
+    <a href="/topTEN/regulamin.html">Regulamin Notowań</a>
+  </details>
+  <details><summary>Gatunki muzyczne</summary>
+    <a href="#notowania">Worship & Uwielbienie</a>
+    <a href="#notowania">Gospel</a>
+    <a href="#notowania">Pop Chrześcijański</a>
+    <a href="#notowania">Rock & Alternatywa</a>
+    <a href="#notowania">Debiuty Muzyczne</a>
+  </details>
+  <details><summary>O projekcie</summary>
+    <a href="#wspieramto">O programie wspieramTO</a>
+    <a href="#glosowanie">System punktowy 777 / 77</a>
+    <a href="/topTEN/regulamin.html">Dekalog i Fundament Wiary</a>
+  </details>
 </nav>
 <div class="sidebar-bottom">
   <span>CC • topTEN</span>
@@ -80,31 +81,31 @@
 </div>
 </aside>
 <main id="main" class="content">
-<div class="demo-alert" role="status"><strong>PREZENTACJA PROJEKTU</strong> — Nazwy, pozycje i okładki są danymi demonstracyjnymi. Głosowanie i logowanie nie są aktywne.</div>
+<div class="demo-alert" role="status"><strong>topTEN ETAP II</strong> — Oddawaj codzienne głosy <strong>LubięTO (+777 pkt)</strong> i korzystaj z <strong>PodbijTO (+77 pkt)</strong>! Poznaj także program bezpośredniego wsparcia twórców <strong>wspieramTO</strong>.</div>
 <div id="sections"></div>
 <section class="action-panel" id="glosowanie">
   <div>
     <p class="eyebrow">TWOJA LISTA PRZEBOJÓW</p>
-    <h2>Twój głos ma znaczenie.</h2>
-    <p>Poznaj utwory i zagłosuj w oficjalnym notowaniu po uruchomieniu bezpiecznego systemu weryfikacji głosów.</p>
+    <h2>Twój głos ma realne znaczenie.</h2>
+    <p>Głosuj codziennie za pomocą <strong>LubięTO (+777 pkt)</strong> oraz promuj swoje ulubione utwory przez <strong>PodbijTO (+77 pkt)</strong>. Bezpieczny, zbalansowany system zapewnia równe szanse dla wszystkich twórców.</p>
   </div>
   <button class="primary-btn" id="voteInfo">Zasady głosowania →</button>
 </section>
 <section class="bottom-grid">
   <article id="nominacje">
-    <h2>Zgłoś nominację</h2>
-    <p>Artyści i słuchacze mogą rekomendować utwory do weryfikacji przez redakcję.</p>
-    <button class="outline-btn" id="nominationButton">Zobacz formularz →</button>
+    <h2>Zgłoś nominację utworu</h2>
+    <p>Artyści, producenci i słuchacze mogą zgłaszać utwory do weryfikacji przez redakcję i emisji na antenie oraz kanałach TV.</p>
+    <button class="outline-btn" id="nominationButton">Formularz zgłoszeniowy →</button>
   </article>
   <article id="archiwum">
     <h2>Archiwum notowań</h2>
-    <p>Po uruchomieniu tutaj pojawią się historyczne wyniki oraz rekordy listy.</p>
+    <p>Oficjalne podsumowania cotygodniowych wydań i rekordy popularności utworów chrześcijańskich.</p>
     <button class="outline-btn" id="archiveButton">Jak działa archiwum →</button>
   </article>
   <article id="radio">
     <h2>Polskie Radio Christian Culture</h2>
-    <p>Słuchaj naszego radia podczas odkrywania muzyki.</p>
-    <a class="primary-btn" href="https://stream.zeno.fm/vz96pvl3pnktv" target="_blank" rel="noopener noreferrer">Otwórz radio ↗</a>
+    <p>Słuchaj naszej stacji 24/7 podczas odkrywania najlepszej muzyki z wartościami.</p>
+    <a class="primary-btn" href="https://stream.zeno.fm/vz96pvl3pnktv" target="_blank" rel="noopener noreferrer">Włącz radio na żywo ↗</a>
   </article>
 </section>
 </main>
@@ -127,6 +128,7 @@
   <button class="primary-btn" type="submit">Zapisz się</button>
 </form>
 <div class="legal-links">
+  <a href="/topTEN/nominacje">Zgłoś utwór</a>
   <a href="/topTEN/regulamin.html">Regulamin</a>
   <a href="https://polskieradio.cc/newsletter">Newsletter</a>
 </div>

@@ -9,3 +9,203 @@
 .primary-btn:active { background: var(--orange-active, #E66A00) !important; transform: scale(0.98); }
 .outline-btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 .view-all { min-height: 44px; display: inline-flex; align-items: center; }
+
+/* === ETAP II: wspieramTO & INTERACTIVE VOTING (LubięTO / PodbijTO) === */
+.wspieramto-module {
+  margin: 32px 0 38px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0d0d0d;
+  border: 1px solid #2b2b2b;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+.wspieramto-banner-card {
+  position: relative;
+  width: 100%;
+  display: block;
+  line-height: 0;
+  overflow: hidden;
+  background: #111;
+}
+.wspieramto-img {
+  width: 100%;
+  height: auto;
+  max-height: 380px;
+  object-fit: cover;
+  display: block;
+}
+.wspieramto-details-bar {
+  padding: 16px 24px;
+  background: #141414;
+  color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  line-height: 1.5;
+  border-top: 1px solid #222;
+}
+.wspieramto-badge {
+  background: rgba(255,122,0,0.15);
+  color: var(--orange);
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.wspieramto-details-bar p {
+  margin: 0;
+  flex: 1;
+  min-width: 250px;
+  color: #bbb;
+}
+.wspieramto-action-btn {
+  background: var(--orange);
+  color: #000;
+  font-weight: 800;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.2s, transform 0.15s;
+}
+.wspieramto-action-btn:hover { background: var(--orange-hover); }
+
+/* Live stats and ranking changes on cards */
+.card-meta-live {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 11px;
+}
+.points-pill {
+  background: #f4f4f4;
+  color: #222;
+  font-weight: 750;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+.trend-pill {
+  font-weight: 800;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.trend-up { color: #008744; background: #e6f6ee; }
+.trend-down { color: #d62d20; background: #fde8e7; }
+.trend-same { color: #666; background: #eee; }
+
+/* Modal voting & engagement box */
+.vote-panel-card {
+  margin-top: 18px;
+  padding: 18px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vote-action-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.btn-action {
+  flex: 1;
+  min-width: 140px;
+  min-height: 44px;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 0;
+  transition: all 0.2s;
+  padding: 10px 14px;
+  text-align: center;
+}
+.btn-lubieto {
+  background: var(--orange);
+  color: #000;
+}
+.btn-lubieto:hover:not(:disabled) {
+  background: var(--orange-hover);
+}
+.btn-lubieto:disabled {
+  background: #e0e0e0;
+  color: #777;
+  cursor: not-allowed;
+}
+.btn-podbijto {
+  background: #111;
+  color: #fff;
+}
+.btn-podbijto:hover:not(:disabled) {
+  background: #333;
+}
+.btn-podbijto:disabled {
+  background: #ddd;
+  color: #888;
+  cursor: not-allowed;
+}
+.btn-support-artist {
+  background: #fff;
+  color: #111;
+  border: 2px solid #111;
+}
+.btn-support-artist:hover {
+  background: #f2f2f2;
+}
+.btn-follow {
+  background: #fff;
+  color: #444;
+  border: 1.5px solid #ccc;
+}
+.btn-follow.active {
+  background: #fff4ea;
+  border-color: var(--orange);
+  color: #b84b00;
+}
+.vote-info-note {
+  font-size: 11px;
+  color: #666;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Toast alert */
+.topten-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #111;
+  color: #fff;
+  border-left: 4px solid var(--orange);
+  padding: 14px 20px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  font-size: 13px;
+  z-index: 1000;
+  display: none;
+  animation: slideToastIn 0.3s ease;
+}
+@keyframes slideToastIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+

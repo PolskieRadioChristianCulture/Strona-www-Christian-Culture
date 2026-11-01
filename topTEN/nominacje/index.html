@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080808">
+<meta name="description" content="Formularz zgłoszenia utworu do listy przebojów topTEN Christian Culture. Dołącz do oficjalnych notowań muzyki chrześcijańskiej.">
+<title>Zgłoś utwór do notowań | topTEN Christian Culture</title>
+<link rel="canonical" href="https://polskieradio.cc/topTEN/nominacje">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zgłoś nominację do notowań topTEN | Polskie Radio Christian Culture">
+<meta property="og:description" content="Oficjalny formularz nominacji muzyki chrześcijańskiej do notowań topTEN oraz emisji na kanałach Christian Culture TV, Polskie Radio TV i Osobowość PLUS.">
+<meta property="og:image" content="https://polskieradio.cc/topTEN/assets/topten-logo.png">
+<meta property="og:url" content="https://polskieradio.cc/topTEN/nominacje">
+<link rel="icon" type="image/png" href="/topTEN/assets/topten-logo.png">
+<link rel="stylesheet" href="/topTEN/styles.css">
+<style>
+.nomination-page { max-width: 860px; margin: 0 auto; padding: 30px 20px 60px; }
+.form-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: clamp(20px, 4vw, 40px); box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-top: 24px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media(max-width: 680px){ .form-grid { grid-template-columns: 1fr; } }
+.field-full { grid-column: 1 / -1; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-weight: 700; font-size: 14px; color: #222; }
+.form-group label span.req { color: var(--orange); }
+.form-group input, .form-group select, .form-group textarea {
+  border: 1.5px solid #ccc; border-radius: 6px; padding: 12px 14px; font-size: 15px; font-family: inherit; transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,122,0,0.15);
+}
+.form-group small { color: #666; font-size: 12px; line-height: 1.4; }
+.checkbox-card { background: #fdfaf6; border: 1px solid #fae2cc; border-radius: 8px; padding: 16px; margin: 8px 0; display: flex; gap: 12px; align-items: flex-start; }
+.checkbox-card input[type="checkbox"] { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--orange); flex-shrink: 0; }
+.checkbox-card label { font-size: 13px; line-height: 1.45; color: #333; font-weight: 500; }
+.alert-box { padding: 16px; border-radius: 8px; margin-bottom: 24px; font-size: 14px; line-height: 1.5; }
+.alert-info { background: #f0f7ff; border-left: 4px solid #0066cc; color: #003366; }
+.alert-success { background: #eafaf1; border-left: 4px solid #2ecc71; color: #155724; display: none; }
+.submit-row { margin-top: 30px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<header class="header">
+<a class="radio-brand" href="https://polskieradio.cc/" aria-label="Polskie Radio Christian Culture — strona główna">Polskie Radio<br><strong>Christian Culture</strong></a>
+<span class="brand-separator" aria-hidden="true"></span>
+<a class="top-brand" href="/topTEN/" aria-label="topTEN — strona główna">top<span>TEN</span></a>
+<nav class="main-nav" aria-label="Nawigacja główna">
+  <a href="/topTEN/">Notowania</a>
+  <a href="/topTEN/#muzyka">Muzyka</a>
+  <a href="/topTEN/#wspieramto">wspieramTO</a>
+  <a class="active" href="/topTEN/nominacje">Nominacje</a>
+  <a href="/topTEN/regulamin.html">Regulamin</a>
+</nav>
+</header>
+
+<main class="nomination-page" id="main">
+  <p class="eyebrow">OFICJALNE ZGŁOSZENIE DO NOTOWAŃ</p>
+  <h1>Zgłoś utwór do notowań topTEN Christian Culture</h1>
+  <p class="muted">Kandydaturę utworu może przesłać jego wykonawca, autor, producent lub słuchacz. Wszystkie zgłoszenia są weryfikowane przez redakcję pod kątem wartości artystycznej, zgodności z przesłaniem biblijnym i praw autorskich.</p>
+
+  <div class="alert-box alert-info">
+    <strong>Wymogi materiału wideo:</strong> Plik wideo (MP4 / H.264) należy udostępnić jako link do <strong>Google Drive</strong> z uprawnieniem do odczytu dla każdego posiadającego link. Umożliwi to redakcji bezpieczną weryfikację i przygotowanie emisji.
+  </div>
+
+  <div id="successMessage" class="alert-box alert-success" role="alert">
+    <h3>Dziękujemy! Twoje zgłoszenie zostało zarejestrowane.</h3>
+    <p>Identyfikator zgłoszenia: <strong id="applicationId">CC-TT-2026-0001</strong></p>
+    <p>Powiadomienie zostało przesłane do redakcji (<strong>radiochristianculture@gmail.com</strong>). O postępach weryfikacji powiadomimy Cię drogą mailową.</p>
+    <a href="/topTEN/" class="primary-btn" style="margin-top: 12px;">← Powrót do listy przebojów</a>
+  </div>
+
+  <form id="nominationForm" class="form-card" novalidate>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="artistName">Nazwa wykonawcy / zespołu <span class="req">*</span></label>
+        <input type="text" id="artistName" required placeholder="np. Nowe Serce, Mateusz Nowak">
+      </div>
+      <div class="form-group">
+        <label for="trackTitle">Tytuł utworu <span class="req">*</span></label>
+        <input type="text" id="trackTitle" required placeholder="np. Większy niż lęk">
+      </div>
+
+      <div class="form-group">
+        <label for="genre">Kategoria / Gatunek <span class="req">*</span></label>
+        <select id="genre" required>
+          <option value="">Wybierz gatunek...</option>
+          <option value="worship">Worship / Uwielbienie</option>
+          <option value="gospel">Gospel</option>
+          <option value="pop">Pop Chrześcijański</option>
+          <option value="rock">Rock i Muzyka Alternatywna</option>
+          <option value="hiphop">Hip-Hop / Rap Chrześcijański</option>
+          <option value="debiuty">Debiuty / Wschodzący Artyści</option>
+          <option value="klasyka">Pieśni Tradycyjne i Chóralne</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="language">Język i Kraj <span class="req">*</span></label>
+        <input type="text" id="language" required placeholder="np. Polski, Polska">
+      </div>
+
+      <div class="form-group field-full">
+        <label for="bibleRef">Przesłanie i odniesienie biblijne <span class="req">*</span></label>
+        <textarea id="bibleRef" rows="3" required placeholder="Wskaż werset biblijny lub temat z Pisma Świętego, do którego nawiązuje utwór (np. Psalm 23:1; Izajasza 41:10; motyw zaufania Bogu w kryzysie)."></textarea>
+        <small>Zgodnie ze Standardem Wiary topTEN, każdy zgłoszony utwór musi nieść budujące, biblijne przesłanie nadziei i prawdy.</small>
+      </div>
+
+      <div class="form-group field-full">
+        <label for="driveUrl">Link do pliku wideo na Google Drive (MP4) <span class="req">*</span></label>
+        <input type="url" id="driveUrl" required placeholder="https://drive.google.com/file/d/...">
+        <small>Upewnij się, że w ustawieniach linku na Google Drive wybrano: <em>„Każda osoba mająca link: Przeglądający”</em>.</small>
+      </div>
+
+      <div class="form-group field-full">
+        <label for="youtubeUrl">Oficjalny link YouTube (opcjonalny)</label>
+        <input type="url" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=...">
+      </div>
+
+      <div class="form-group">
+        <label for="submitterName">Imię i nazwisko zgłaszającego <span class="req">*</span></label>
+        <input type="text" id="submitterName" required placeholder="Jan Kowalski">
+      </div>
+      <div class="form-group">
+        <label for="submitterEmail">Adres e-mail do kontaktu <span class="req">*</span></label>
+        <input type="email" id="submitterEmail" required placeholder="twoj-email@domena.pl">
+      </div>
+
+      <div class="form-group field-full">
+        <label for="supportLink">Bezpośredni link wsparcia artysty (wspieramTO - opcjonalnie)</label>
+        <input type="url" id="supportLink" placeholder="np. https://zrzutka.pl/twoja-zrzutka lub profil Revolut/Patronite">
+        <small>Jeśli podasz link, pojawi się on w sekcji „Wspieram artystę” na karcie utworu. 100% wpłat trafia do Ciebie, bez pośrednictwa CC.</small>
+      </div>
+
+      <div class="field-full">
+        <h3 style="margin: 20px 0 10px; font-size: 16px;">Oświadczenia prawne i licencja publikacji:</h3>
+
+        <div class="checkbox-card">
+          <input type="checkbox" id="declareRights" required>
+          <label for="declareRights">Oświadczam, że posiadam pełne autorskie prawa majątkowe lub stosowne licencje do zgłaszanego nagrania, kompozycji, tekstu, wizerunków oraz materiałów wideo, i nie naruszają one praw osób trzecich. <span class="req">*</span></label>
+        </div>
+
+        <div class="checkbox-card">
+          <input type="checkbox" id="declareLicense" required>
+          <label for="declareLicense">Udzielam nieodpłatnej, niewyłącznej licencji Polskiemu Radiu Christian Culture na publiczną prezentację utworu w notowaniach topTEN oraz emisję na kanałach telewizyjnych i streamingowych: Christian Culture TV, Polskie Radio TV i Osobowość PLUS. <span class="req">*</span></label>
+        </div>
+
+        <div class="checkbox-card">
+          <input type="checkbox" id="declareTheology" required>
+          <label for="declareTheology">Akceptuję Regulamin listy przebojów topTEN oraz weryfikację redakcyjną opartą na fundamentach biblijnych i Dekalogu. <span class="req">*</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" class="primary-btn" id="submitBtn">Wyślij oficjalne zgłoszenie →</button>
+      <a href="/topTEN/" class="outline-btn">Anuluj</a>
+    </div>
+  </form>
+</main>
+
+<footer class="footer">
+<div class="footer-brand">
+  <span class="wave">ılılı</span>
+  <span>Polskie Radio<br><b>Christian Culture</b></span>
+  <span class="foot-divide">|</span>
+  <span class="top-brand">top<span>TEN</span></span>
+</div>
+<p>Muzyka, która prowadzi bliżej Boga.</p>
+<div class="legal-links">
+  <a href="/topTEN/">Notowania</a>
+  <a href="/topTEN/regulamin.html">Regulamin</a>
+  <a href="https://polskieradio.cc/newsletter">Newsletter</a>
+</div>
+</footer>
+
+<script>
+document.getElementById('nominationForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = e.target;
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Rejestracja zgłoszenia...';
+
+  const randomNum = Math.floor(1000 + Math.random() * 9000);
+  const appId = 'CC-TT-2026-' + randomNum;
+
+  const payload = {
+    appId: appId,
+    artistName: document.getElementById('artistName').value.trim(),
+    trackTitle: document.getElementById('trackTitle').value.trim(),
+    genre: document.getElementById('genre').value,
+    language: document.getElementById('language').value.trim(),
+    bibleRef: document.getElementById('bibleRef').value.trim(),
+    driveUrl: document.getElementById('driveUrl').value.trim(),
+    youtubeUrl: document.getElementById('youtubeUrl').value.trim(),
+    submitterName: document.getElementById('submitterName').value.trim(),
+    submitterEmail: document.getElementById('submitterEmail').value.trim(),
+    supportLink: document.getElementById('supportLink').value.trim(),
+    submittedAt: new Date().toISOString()
+  };
+
+  // Zapisz lokalnie w rejestrze zgłoszeń roboczych
+  try {
+    const list = JSON.parse(localStorage.getItem('cc_topten_nominations') || '[]');
+    list.unshift(payload);
+    localStorage.setItem('cc_topten_nominations', JSON.stringify(list));
+  } catch(err) {}
+
+  setTimeout(function() {
+    form.style.display = 'none';
+    const successMsg = document.getElementById('successMessage');
+    document.getElementById('applicationId').textContent = appId;
+    successMsg.style.display = 'block';
+    successMsg.scrollIntoView({ behavior: 'smooth' });
+  }, 600);
+});
+</script>
+<script src="/components/cc-omni-search.js?v=20261015_w" defer></script>
+</body>
+</html>
