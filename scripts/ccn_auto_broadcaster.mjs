@@ -260,8 +260,17 @@ function getAllEcosystemCandidates() {
   // 2. WERSET DNIA (Z DEDYKOWANYMI GRAFIKAMI BIBLIJNYMI)
   const verses = [
     {
+      title: 'Werset Dnia: „Ty jesteś Bogiem, który mnie widzi” (Rdz 16:13, UBG)',
+      lead: '„I nazwała imię PANA: Ty jesteś Bogiem, który widzi mnie; bo mówiła: Czyż nie widziałam tutaj Tego, który mnie widzi?” (Rdz 16:13, UBG)',
+      url: 'https://polskieradio.cc/mojabiblia',
+      image: 'images/news/art-rdz16-17-hagar-el-roi.jpg',
+      category: 'Werset Dnia',
+      type: 'verse',
+      tag: '#WersetDnia'
+    },
+    {
       title: 'Werset Dnia: „Spójrz ku niebu i policz gwiazdy...” (Rdz 15:5, UBG)',
-      lead: '„I wyprowadził go na dwór, i powiedział: Spójrz ku niebu i policz gwiazdy, jeśli możesz je policzyć. I powiedział do niego: Takie będzie twoje potomstwo.” Bóg zawsze dotrzymuje przymierza!',
+      lead: '„Spójrz ku niebu i policz gwiazdy, jeśli możesz je policzyć. I powiedział do niego: Takie będzie twoje potomstwo.” (Rdz 15:5, UBG)',
       url: 'https://polskieradio.cc/mojabiblia',
       image: 'images/news/art-rdz15-abram-gwiazdy.jpg',
       category: 'Werset Dnia',
@@ -270,7 +279,7 @@ function getAllEcosystemCandidates() {
     },
     {
       title: 'Werset Dnia: „Czyż Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)',
-      lead: '„Niech to będzie dalekie od ciebie, abyś miał tak postąpić, by uśmiercić sprawiedliwego z bezbożnym... Czyż Sędzia całej ziemi nie postąpi sprawiedliwie?” Wstawiennictwo i łaska Boża.',
+      lead: '„Czyż Sędzia całej ziemi nie postąpi sprawiedliwie? Niech będzie dalekie od ciebie, by uśmiercić sprawiedliwego.” (Rdz 18:25, UBG)',
       url: 'https://polskieradio.cc/mojabiblia',
       image: 'images/news/art-rdz18-mamre-wstawiennictwo.jpg',
       category: 'Werset Dnia',
@@ -278,17 +287,8 @@ function getAllEcosystemCandidates() {
       tag: '#WersetDnia'
     },
     {
-      title: 'Werset Dnia: „Ty jesteś Bogiem, który mnie widzi” (Rdz 16:13, UBG)',
-      lead: '„I nazwała imię PANA, który mówił do niej: Ty jesteś Bogiem, który widzi mnie; bo mówiła: Czyż nie widziałam tutaj Tego, który mnie widzi?” Bóg nigdy nie zapomina o samotnych na pustyni.',
-      url: 'https://polskieradio.cc/mojabiblia',
-      image: 'images/news/art-rdz16-17-hagar-el-roi.jpg',
-      category: 'Werset Dnia',
-      type: 'verse',
-      tag: '#WersetDnia'
-    },
-    {
       title: 'Werset Dnia: „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8, UBG)',
-      lead: '„Pamiętaj o dniu szabatu, aby go święcić. Sześć dni będziesz pracował i wykonywał wszelką swoją pracę; ale siódmy dzień jest szabatem PANA, twego Boga.” Wieczna pamiątka stworzenia i odpocznienia.',
+      lead: '„Pamiętaj o dniu szabatu, aby go święcić. Sześć dni będziesz pracował, ale siódmy dzień jest szabatem PANA.” (Wj 20:8-10, UBG)',
       url: 'https://polskieradio.cc/prawo/dekalog-bozy',
       image: 'images/news/art-dekalog-dziesiec-przykazan-wujek.jpg',
       category: 'Werset Dnia',
@@ -297,7 +297,7 @@ function getAllEcosystemCandidates() {
     },
     {
       title: 'Werset Dnia: „Wy myśleliście o złu przeciwko mnie, ale Bóg obrócił to w dobro” (Rdz 50:20, UBG)',
-      lead: '„Wy wprawdzie myśleliście o złu przeciwko mnie, ale Bóg obrócił to w dobro, aby sprawić to, co jest dzisiaj – ocalić życie wielu ludzi.” Niezmienna suwerenność i wierność Boża.',
+      lead: '„Wy wprawdzie myśleliście o złu przeciwko mnie, ale Bóg obrócił to w dobro, aby ocalić życie wielu ludzi.” (Rdz 50:20, UBG)',
       url: 'https://polskieradio.cc/akademia',
       image: 'images/news/art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg',
       category: 'Werset Dnia',
@@ -527,9 +527,9 @@ function formatBroadcasterTweet(item) {
     callToAction = '👉 Czytaj w ekosystemie:\n';
     addTags(item.tag || '#KsiazkiCC', '#CezaryRogowski', '#ChristianCulture');
   } else if (item.type === 'verse') {
-    subHeader = '📖 WERSET DNIA | Słowo Boże (UBG)';
-    callToAction = '👉 Odkryj w MojaBiblia:\n';
-    addTags(item.tag || '#WersetDnia', '#SlowoBoze', '#UBG', '#Prawda');
+    subHeader = '📖 WERSET DNIA (UBG)';
+    callToAction = '👉 MojaBiblia:\n';
+    addTags(item.tag || '#WersetDnia', '#SlowoBoze', '#UBG');
   } else if (item.type === 'music') {
     subHeader = '🎵 MUZYKA & KANAŁY LIVE';
     callToAction = '👉 Słuchaj na żywo:\n';
@@ -765,8 +765,89 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
   }
 }
 
+// Inteligentny wybór kandydata z zachowaniem zrównoważonej rotacji kategorii
+function chooseNextCandidate(candidates, history, state, requestedType = null, requestedIndex = null) {
+  if (requestedIndex !== null && candidates[requestedIndex]) {
+    return { chosen: candidates[requestedIndex], nextIndex: requestedIndex };
+  }
+
+  const recentUrls = new Set(history.slice(0, 25).map(h => (typeof h === 'string' ? h : h.url)));
+  const lastItem = history[0] || {};
+  const lastTitleLower = (lastItem.title || '').toLowerCase();
+
+  // Jeśli zażądano konkretnego typu
+  if (requestedType) {
+    const typeCandidates = candidates.filter(c => (c.type || 'news') === requestedType);
+    if (typeCandidates.length > 0) {
+      let cand = typeCandidates.find(c => !recentUrls.has(c.url)) || typeCandidates[0];
+      const idx = candidates.indexOf(cand);
+      return { chosen: cand, nextIndex: idx };
+    }
+  }
+
+  // Oblicz dystans od ostatniej publikacji każdego typu w historii
+  const getDistanceSinceType = (t) => {
+    const idx = history.findIndex(h => (h.type || 'news') === t);
+    return idx === -1 ? 999 : idx;
+  };
+
+  const distVerse = getDistanceSinceType('verse');
+  const distBook = getDistanceSinceType('book');
+  const distMusic = getDistanceSinceType('music');
+  const distProfile = getDistanceSinceType('profile');
+  const distModule = getDistanceSinceType('module');
+
+  // Sprawdź, czy któryś z filarów ekosystemu czeka na publikację
+  // Dyrektywa Dowódcy: Werset dnia co ~1.5 - 2h (co 3-4 posty), książki, muzyka, profile regularnie
+  let preferredType = null;
+  if (distVerse >= 4) {
+    preferredType = 'verse';
+  } else if (distBook >= 6) {
+    preferredType = 'book';
+  } else if (distMusic >= 6) {
+    preferredType = 'music';
+  } else if (distProfile >= 8) {
+    preferredType = 'profile';
+  } else if (distModule >= 8) {
+    preferredType = 'module';
+  }
+
+  if (preferredType) {
+    const matching = candidates.filter(c => (c.type || 'news') === preferredType);
+    const available = matching.filter(c => !recentUrls.has(c.url));
+    if (available.length > 0) {
+      const chosen = available[0];
+      const nextIndex = candidates.indexOf(chosen);
+      return { chosen, nextIndex };
+    }
+  }
+
+  // Domyślna rotacja sekwencyjna z ochroną przed powtórzeniem tego samego tematu pod rząd
+  let nextIndex = (state.lastIndex + 1) % candidates.length;
+  let attempts = 0;
+  while (attempts < candidates.length) {
+    const cand = candidates[nextIndex];
+    const candTitleLower = (cand.title || '').toLowerCase();
+    const isRecent = recentUrls.has(cand.url);
+
+    // Ochrona przed dwoma postami o tym samym temacie pod rząd (np. 2x halloween, 2x blackout)
+    const isTopicDuplicate =
+      (lastTitleLower.includes('halloween') && candTitleLower.includes('halloween')) ||
+      (lastTitleLower.includes('blackout') && candTitleLower.includes('blackout')) ||
+      (lastTitleLower.includes('bioetyka') && candTitleLower.includes('bioetyka'));
+
+    if (!isRecent && !isTopicDuplicate) {
+      break;
+    }
+    nextIndex = (nextIndex + 1) % candidates.length;
+    attempts++;
+  }
+
+  return { chosen: candidates[nextIndex], nextIndex };
+}
+
 // Pojedynczy cykl publikacji
-async function broadcastNext(dryRun = false) {
+async function broadcastNext(dryRun = false, requestedType = null, requestedIndex = null) {
   const candidates = getAllEcosystemCandidates();
   if (candidates.length === 0) {
     throw new Error('Brak kandydatów do publikacji z ekosystemu.');
@@ -775,15 +856,7 @@ async function broadcastNext(dryRun = false) {
   const history = loadHistory();
   const state = loadState();
 
-  // Filtruj pozycje, które nie były publikowane w ostatnich 25 wpisach (rotacja)
-  const recentUrls = new Set(history.slice(0, 25).map(h => (typeof h === 'string' ? h : h.url)));
-  let nextIndex = (state.lastIndex + 1) % candidates.length;
-  let attempts = 0;
-  while (recentUrls.has(candidates[nextIndex].url) && attempts < candidates.length) {
-    nextIndex = (nextIndex + 1) % candidates.length;
-    attempts++;
-  }
-  const chosen = candidates[nextIndex];
+  const { chosen, nextIndex } = chooseNextCandidate(candidates, history, state, requestedType, requestedIndex);
 
   const tweetText = formatBroadcasterTweet(chosen);
   const imagePath = resolveItemImage(chosen, ROOT);
@@ -873,6 +946,12 @@ async function main() {
   const loop = args.includes('--loop');
   const status = args.includes('--status');
 
+  const typeIdx = args.indexOf('--type');
+  const requestedType = typeIdx !== -1 && args[typeIdx + 1] ? args[typeIdx + 1].toLowerCase() : null;
+
+  const indexIdx = args.indexOf('--index');
+  const requestedIndex = indexIdx !== -1 && args[indexIdx + 1] ? parseInt(args[indexIdx + 1], 10) : null;
+
   if (status) {
     const s = loadState();
     const h = loadHistory();
@@ -887,7 +966,7 @@ async function main() {
     await runDaemonLoop();
   } else {
     // Domyślnie lub z flagą --once
-    await broadcastNext(dryRun);
+    await broadcastNext(dryRun, requestedType, requestedIndex);
     if (!dryRun) {
       console.log('✅ Pojedynczy cykl publikacji zakończony pomyślnie.');
     }
