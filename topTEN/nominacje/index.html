@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://polskieradio.cc/topTEN/assets/topten-logo.png">
 <meta property="og:url" content="https://polskieradio.cc/topTEN/nominacje">
 <link rel="icon" type="image/png" href="/topTEN/assets/topten-logo.png">
-<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007g">
+<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007h">
 <style>
 .nomination-page { max-width: 860px; margin: 0 auto; padding: 30px 20px 60px; }
 .form-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: clamp(20px, 4vw, 40px); box-shadow: 0 4px 20px rgba(0,0,0,0.04); margin-top: 24px; }
@@ -43,6 +43,17 @@
 .alert-box { padding: 16px; border-radius: 8px; margin-bottom: 24px; font-size: 14px; line-height: 1.5; }
 .alert-info { background: #f0f7ff; border-left: 4px solid #0066cc; color: #003366; }
 .alert-success { background: #eafaf1; border-left: 4px solid #2ecc71; color: #155724; display: none; }
+.label-row { display: flex; align-items: center; gap: 8px; }
+.info-btn { width: 44px; height: 44px; min-width: 44px; border-radius: 50%; border: 2px solid var(--orange); background: #fff; color: var(--orange); font: 800 18px Georgia, serif; font-style: italic; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.info-btn:hover, .info-btn[aria-expanded="true"] { background: var(--orange); color: #fff; }
+.drive-help { margin-top: 10px; background: #fdfaf6; border: 1px solid #fae2cc; border-radius: 10px; padding: 0 14px; }
+.drive-help summary { cursor: pointer; font-weight: 800; min-height: 44px; display: flex; align-items: center; gap: 8px; line-height: 1.35; padding: 8px 0; }
+.drive-help ol { margin: 4px 0 10px; padding-left: 22px; line-height: 1.7; font-size: 14px; }
+.drive-help p { font-size: 14px; line-height: 1.55; margin: 8px 0; }
+.drive-help a { color: var(--orange); font-weight: 700; }
+.drive-help-note { background: #fff; border-left: 4px solid var(--orange); padding: 8px 12px; border-radius: 4px; }
+.drive-help-brand { font-weight: 700; }
+.drive-icon { flex-shrink: 0; }
 .submit-row { margin-top: 30px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 </style>
 </head>
@@ -79,7 +90,7 @@
   <p class="muted">Kandydaturę utworu może przesłać jego wykonawca, autor, producent lub słuchacz. Wszystkie zgłoszenia są weryfikowane przez redakcję pod kątem wartości artystycznej, zgodności z przesłaniem biblijnym i praw autorskich.</p>
 
   <div class="alert-box alert-info">
-    <strong>Wymogi materiału wideo:</strong> Plik wideo (MP4 / H.264) należy udostępnić jako link do <strong>Google Drive</strong> z uprawnieniem do odczytu dla każdego posiadającego link. Umożliwi to redakcji bezpieczną weryfikację i przygotowanie emisji. Zaakceptowane zgłoszenia publikujemy na oficjalnym kanale YouTube <a href="https://www.youtube.com/@toptenchristianculture" target="_blank" rel="noopener noreferrer">topTEN | Christian Culture</a>.
+    <strong>Wymogi materiału wideo:</strong> Plik wideo (MP4 / H.264) należy udostępnić jako link do <strong>Google Drive</strong> z uprawnieniem do odczytu dla każdego posiadającego link. Umożliwi to redakcji bezpieczną weryfikację i przygotowanie emisji. <a href="#jak-dodac-teledysk" class="drive-help-link">ⓘ Zobacz instrukcję krok po kroku</a>. Zaakceptowane zgłoszenia publikujemy na oficjalnym kanale YouTube <a href="https://www.youtube.com/@toptenchristianculture" target="_blank" rel="noopener noreferrer">topTEN | Christian Culture</a>.
   </div>
 
   <div id="successMessage" class="alert-box alert-success" role="alert">
@@ -127,9 +138,23 @@
       </div>
 
       <div class="form-group field-full">
-        <label for="driveUrl">Link do pliku wideo na Google Drive (MP4) <span class="req">*</span></label>
+        <div class="label-row"><label for="driveUrl">Link do pliku wideo na Google Drive (MP4) <span class="req">*</span></label><button type="button" class="info-btn" id="driveHelpBtn" aria-controls="jak-dodac-teledysk" aria-expanded="false" aria-label="Jak dodać teledysk na Dysk Google i udostępnić link? Pokaż instrukcję" title="Jak dodać teledysk na Dysk Google?">i</button></div>
         <input type="url" id="driveUrl" required placeholder="https://drive.google.com/file/d/...">
         <small>Upewnij się, że w ustawieniach linku na Google Drive wybrano: <em>„Każda osoba mająca link: Przeglądający”</em>.</small>
+        <details class="drive-help" id="jak-dodac-teledysk">
+          <summary><svg class="drive-icon" viewBox="0 0 87.3 78" width="18" height="16" aria-hidden="true"><path d="M6.6 66.85 10.45 73.5c.8 1.4 1.95 2.5 3.3 3.3L27.5 53H0c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/><path d="M43.65 25 29.9 1.2c-1.35.8-2.5 1.9-3.3 3.3L1.2 48.5A9.06 9.06 0 0 0 0 53h27.5z" fill="#00ac47"/><path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5H59.8l5.85 11.5z" fill="#ea4335"/><path d="M43.65 25 57.4 1.2C56.05.4 54.5 0 52.9 0H34.4c-1.6 0-3.15.45-4.5 1.2z" fill="#00832d"/><path d="M59.8 53H27.5L13.75 76.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="#2684fc"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3L43.65 25 59.8 53h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="#ffba00"/></svg> <span>🎬 Jak dodać teledysk na Dysk Google i udostępnić go na liście #TOPTEN?</span></summary>
+          <ol>
+            <li>Otwórz <a href="https://drive.google.com/" target="_blank" rel="noopener noreferrer">Dysk Google</a>.</li>
+            <li>Kliknij <strong>+ Nowy → Prześlij plik</strong> i wybierz swój teledysk (najlepiej <strong>MP4</strong>).</li>
+            <li>Po przesłaniu kliknij <strong>trzy kropki</strong> przy pliku i wybierz <strong>Udostępnij → Zarządzaj dostępem</strong>.</li>
+            <li>W sekcji <strong>Dostęp ogólny</strong> zmień „Ograniczony” na <strong>Każda osoba mająca link</strong>.</li>
+            <li>Ustaw uprawnienia <strong>Przeglądający</strong>.</li>
+            <li>Kliknij <strong>Kopiuj link</strong> i wklej go w polu powyżej.</li>
+          </ol>
+          <p>✅ <strong>Gotowe!</strong> Twój teledysk będzie dostępny do obejrzenia dla osób posiadających link, bez konieczności logowania — redakcja może go od razu sprawdzić.</p>
+          <p class="drive-help-note"><strong>Ważne:</strong> link z Dysku Google służy redakcji do weryfikacji materiału i praw. Po akceptacji teledysk publikujemy na oficjalnym kanale YouTube <a href="https://www.youtube.com/@toptenchristianculture" target="_blank" rel="noopener noreferrer">topTEN | Christian Culture</a> i stamtąd odtwarzamy go na liście przebojów. Prywatny link z Dysku nie jest pokazywany publicznie.</p>
+          <p class="drive-help-brand">🎵 #TOPTEN | Chrześcijańska Lista Przebojów · <a href="https://polskieradio.cc/topTEN/">polskieradio.cc/topTEN</a></p>
+        </details>
       </div>
 
       <div class="form-group field-full">
@@ -196,6 +221,15 @@
 </footer>
 
 <script>
+(function () {
+  var help = document.getElementById('jak-dodac-teledysk');
+  var helpBtn = document.getElementById('driveHelpBtn');
+  function openHelp(scroll) { help.open = true; if (scroll) help.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  help.addEventListener('toggle', function () { helpBtn.setAttribute('aria-expanded', String(help.open)); });
+  helpBtn.addEventListener('click', function () { if (help.open) { help.open = false; } else { openHelp(true); } });
+  document.querySelectorAll('.drive-help-link').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); openHelp(true); }); });
+  if (location.hash === '#jak-dodac-teledysk') openHelp(true);
+})();
 (function () {
   var form = document.getElementById('nominationForm');
   var submitBtn = document.getElementById('submitBtn');

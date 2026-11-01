@@ -437,3 +437,7 @@ html body #backToTopBtn[data-cc-back-to-top]:hover {
   .yt-videos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .yt-channel-actions > * { flex: 1 1 100%; }
 }
+/* ── Odnośnik do instrukcji Dysku Google (karta nominacji) — @007 01.11.2026 ── */
+.drive-help-teaser { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 8px; color: #E66A00; font-weight: 700; text-decoration: none; }
+.drive-help-teaser:hover { text-decoration: underline; }
+.info-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #FF7A00; color: #FF7A00; font: italic 800 13px Georgia, serif; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
