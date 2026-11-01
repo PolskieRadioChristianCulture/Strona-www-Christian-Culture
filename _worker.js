@@ -2304,18 +2304,6 @@ export default {
         },
       });
     }
-    if (lowerPath === '/topten') {
-      const topUrl = new URL(request.url);
-      topUrl.pathname = '/topTEN/index.html';
-      return env.ASSETS.fetch(new Request(topUrl.toString(), request));
-    }
-
-    if (lowerPath === '/topten/regulamin') {
-      const regUrl = new URL(request.url);
-      regUrl.pathname = '/topTEN/regulamin/index.html';
-      return env.ASSETS.fetch(new Request(regUrl.toString(), request));
-    }
-
     if (lowerPath === '/yis') {
       const yisUrl = new URL(request.url);
       yisUrl.pathname = '/YIS.html';

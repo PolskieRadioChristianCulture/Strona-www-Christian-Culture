@@ -1,17 +1,15 @@
 
 # === TOPTEN - NOTOWANIA MUZYKI CHRZESCIJANSKIEJ (/topTEN, /topten) ===
-/topTEN /topTEN/index.html 200
-/topTEN/ /topTEN/index.html 200
-/topten /topTEN/index.html 200
-/topten/ /topTEN/index.html 200
-/TopTEN /topTEN/index.html 200
-/TopTEN/ /topTEN/index.html 200
-/topTEN/regulamin /topTEN/regulamin/index.html 200
-/topTEN/regulamin/ /topTEN/regulamin/index.html 200
-/topten/regulamin /topTEN/regulamin/index.html 200
-/topten/regulamin/ /topTEN/regulamin/index.html 200
-/TopTEN/regulamin /topTEN/regulamin/index.html 200
-/TopTEN/regulamin/ /topTEN/regulamin/index.html 200
+/topTEN /topTEN/ 301
+/topten /topTEN/ 301
+/topten/ /topTEN/ 301
+/TopTEN /topTEN/ 301
+/TopTEN/ /topTEN/ 301
+/topTEN/regulamin /topTEN/regulamin/ 301
+/topten/regulamin /topTEN/regulamin/ 301
+/topten/regulamin/ /topTEN/regulamin/ 301
+/TopTEN/regulamin /topTEN/regulamin/ 301
+/TopTEN/regulamin/ /topTEN/regulamin/ 301
 
 # === CC RELATIONSHIP ENGINE PREVIEW (/ccre-preview) ===
 /ccre-preview /ccre-preview/index.html 200
