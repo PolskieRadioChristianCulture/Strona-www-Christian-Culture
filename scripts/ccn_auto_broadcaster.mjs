@@ -167,6 +167,8 @@ function resolveItemImage(item, rootDir) {
     if (fs.existsSync(p)) return p;
   }
   if (pathLower.includes('akademia') || pathLower.includes('kurs')) {
+    const p1 = path.join(rootDir, 'images', 'academy', 'z_biblia_za_pan_brat_hero.jpg');
+    if (fs.existsSync(p1)) return p1;
     const p = path.join(rootDir, 'images', 'news', 'art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg');
     if (fs.existsSync(p)) return p;
   }
@@ -422,7 +424,7 @@ function getAllEcosystemCandidates() {
       title: 'Akademia Biblijna & Kurs Codzienny — Systematyczne Studium Słowa Bożego',
       lead: 'Codzienna dawka wiedzy biblijnej, komentarze werset po wersecie oraz bezpłatne kursy formacyjne dla każdego.',
       url: 'https://polskieradio.cc/akademia',
-      image: 'images/news/art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg',
+      image: 'images/academy/z_biblia_za_pan_brat_hero.jpg',
       category: 'Akademia',
       type: 'module',
       tag: '#AkademiaBiblijna'
@@ -647,6 +649,8 @@ function formatBroadcasterTweet(item) {
     bodyText = item.lead;
   } else if ((item.url || '').includes('dzien-32')) {
     bodyText = 'Start Księgi Wyjścia! Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie — heroiczna wiara położnych Szifry i Pui.';
+  } else if ((item.url || '').endsWith('/akademia')) {
+    bodyText = 'Akademia Biblijna & Kurs Codzienny: Systematyczne studium Pisma Świętego i bezpłatne kursy dla każdego.';
   } else {
     bodyText = item.title.trim()
       .replace(/^CCN News\s*[-–—:]\s*/i, '')
