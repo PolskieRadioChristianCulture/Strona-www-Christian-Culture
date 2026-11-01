@@ -9,6 +9,10 @@
  * klucze idempotencji, cykl tygodniowy pon 00:00 – nd 23:59:59 Europe/Warsaw.
  */
 import { dispatchGmailEmail } from '../cc-newsletter/gmail-smtp-client.js';
+import {
+  getFlags, ensureWeek, standingsFor, officialSnapshot, finalizeWeek, planRoster, debutQueue, songArchive, songHistory,
+  allTimePoints, lastOfficial, rebuildTotals, FLAG_NAMES, RULES_VERSION, TOP_SIZE, ROSTER_MAX,
+} from './topten-weeks.js';
 
 export const LIKE_POINTS = 777;
 export const BOOST_POINTS = 77;
@@ -136,13 +140,12 @@ async function requireAdmin(request, verifyToken) {
 // ─── Ranking ─────────────────────────────────────────────────────────────────
 export async function computeRanking(db, cycleId, { live }) {
   const tracks = (await db.prepare(live
-    ? "SELECT * FROM topten_tracks WHERE status = 'published'"
+    ? "SELECT * FROM topten_tracks WHERE status = 'published' AND pool_status = 'active'"
     : "SELECT t.* FROM topten_tracks t WHERE t.status != 'takedown' AND EXISTS (SELECT 1 FROM topten_events e WHERE e.track_id = t.id AND e.cycle_id = ?)")
     .bind(...(live ? [] : [cycleId])).all()).results || [];
-  const agg = (await db.prepare(`SELECT track_id, SUM(points) AS score, COUNT(DISTINCT user_id) AS voters,
-      SUM(CASE WHEN action = 'like' THEN 1 ELSE 0 END) AS likes, SUM(CASE WHEN action = 'boost' THEN 1 ELSE 0 END) AS boosts,
-      MAX(created_at) AS last_at
-    FROM topten_events WHERE cycle_id = ? AND review_status = 'ok' GROUP BY track_id`).bind(cycleId).all()).results || [];
+  // Liczniki inkrementalne (migracja 0002) — bez skanowania wszystkich głosów tygodnia.
+  const agg = (await db.prepare(`SELECT track_id, points AS score, voters, likes, boosts, last_at
+    FROM topten_week_totals WHERE cycle_id = ?`).bind(cycleId).all()).results || [];
   const byId = new Map(agg.map(r => [r.track_id, r]));
   const items = tracks.map(t => {
     const a = byId.get(t.id) || {};
@@ -155,11 +158,79 @@ export async function computeRanking(db, cycleId, { live }) {
   return items;
 }
 
+// ─── Naturalna rywalizacja (flaga topten_natural_ranking_v1) ─────────────────
+async function naturalLiveCharts(db, nowMs, flags) {
+  const week = await ensureWeek(db, nowMs);
+  const weekId = week.id;
+  const cycle = cycleInfo(weekId, weekId);
+  if (week.status === 'preparing') {
+    return { cycle, items: [], updatedAt: new Date(nowMs).toISOString(), natural: { rulesVersion: RULES_VERSION, status: 'preparing' } };
+  }
+  const standings = await standingsFor(db, weekId);
+  const trackRows = standings.length
+    ? (await db.prepare(`SELECT * FROM topten_tracks WHERE id IN (${standings.map(() => '?').join(',')})`).bind(...standings.map(s => s.track_id)).all()).results || []
+    : [];
+  const byId = new Map(trackRows.map(t => [t.id, t]));
+  const prevSnap = await officialSnapshot(db, addDays(weekId, -7));
+  const prevRanks = new Map((prevSnap?.rows || []).map(r => [r.track_id, r.rank]));
+  const allTime = await allTimePoints(db);
+  const items = standings.filter(s => flags.waitingRoom || s.rank <= TOP_SIZE).map(s => {
+    const t = byId.get(s.track_id);
+    const suspended = t?.pool_status === 'suspended';
+    const base = publicTrack(t);
+    return {
+      ...base, ...(suspended ? { youtubeId: null, cover: null, support: [] } : {}),
+      score: s.points, voters: s.unique_like_voters, likes: s.likes, boosts: s.boosts, lastAt: s.reached_at,
+      rank: s.rank, bucket: s.bucket, prevRank: prevRanks.get(s.track_id) ?? null, entry: s.entry_type,
+      suspended, allTimePoints: (allTime.get(s.track_id) || 0) + s.points,
+    };
+  });
+  return {
+    cycle, items, updatedAt: new Date(nowMs).toISOString(),
+    natural: {
+      rulesVersion: RULES_VERSION, status: week.status, provisional: true, noVotesYet: standings.every(s => s.points === 0),
+      waitingRoom: flags.waitingRoom, archive: flags.archive, rosterMax: ROSTER_MAX, topSize: TOP_SIZE,
+      queue: await debutQueue(db, weekId), lastOfficial: await lastOfficial(db, weekId),
+    },
+  };
+}
+
+async function snapshotCharts(db, weekId, liveCycleId) {
+  const snap = await officialSnapshot(db, weekId);
+  if (!snap) return null;
+  const trackRows = snap.rows.length
+    ? (await db.prepare(`SELECT * FROM topten_tracks WHERE id IN (${snap.rows.map(() => '?').join(',')})`).bind(...snap.rows.map(r => r.track_id)).all()).results || []
+    : [];
+  const byId = new Map(trackRows.map(t => [t.id, t]));
+  const prevSnap = await officialSnapshot(db, addDays(weekId, -7));
+  const prevRanks = new Map((prevSnap?.rows || []).map(r => [r.track_id, r.rank]));
+  return {
+    cycle: { ...cycleInfo(weekId, liveCycleId), official: true, version: snap.week.snapshot_version, checksum: snap.week.checksum },
+    items: snap.rows.map(r => {
+      const t = byId.get(r.track_id);
+      const visible = t && t.status === 'published' && t.pool_status !== 'suspended';
+      return {
+        ...(visible ? publicTrack(t) : { id: r.track_id, support: [] }), title: r.title, artist: r.artist,
+        score: r.points, voters: r.unique_like_voters, likes: r.likes, boosts: r.boosts, rank: r.rank, bucket: r.bucket,
+        prevRank: prevRanks.get(r.track_id) ?? null,
+      };
+    }),
+    awards: snap.awards.map(a => ({ type: a.award_type, id: a.track_id, explanation: a.explanation })),
+    updatedAt: snap.week.finalized_at,
+  };
+}
+
 async function charts(db, url, nowMs) {
   const { cycleId: liveCycleId } = warsawClock(nowMs);
   const requested = url.searchParams.get('cycle');
   const cycleId = requested && /^\d{4}-\d{2}-\d{2}$/.test(requested) ? requested : liveCycleId;
   if (cycleId > liveCycleId) throw new ApiError(404, 'cycle_not_found', 'To notowanie jeszcze się nie rozpoczęło.');
+  const flags = await getFlags(db);
+  if (flags.natural) {
+    if (cycleId === liveCycleId) return naturalLiveCharts(db, nowMs, flags);
+    const official = await snapshotCharts(db, cycleId, liveCycleId);
+    if (official) return official;
+  }
   const items = await computeRanking(db, cycleId, { live: cycleId === liveCycleId });
   const prev = await computeRanking(db, addDays(cycleId, -7), { live: false });
   const prevRanks = new Map(prev.map(p => [p.id, p.rank]));
@@ -198,7 +269,7 @@ export async function liveCharts(db, nowMs, { fresh = false } = {}) {
 
 async function cycles(db, nowMs) {
   const { cycleId: liveCycleId } = warsawClock(nowMs);
-  const rows = (await db.prepare('SELECT cycle_id, COUNT(*) AS events FROM topten_events GROUP BY cycle_id ORDER BY cycle_id DESC LIMIT 104').all()).results || [];
+  const rows = (await db.prepare('SELECT cycle_id, SUM(likes + boosts) AS events FROM topten_week_totals GROUP BY cycle_id ORDER BY cycle_id DESC LIMIT 104').all()).results || [];
   const list = rows.map(r => ({ ...cycleInfo(r.cycle_id, liveCycleId), events: r.events }));
   if (!list.some(c => c.id === liveCycleId)) list.unshift({ ...cycleInfo(liveCycleId, liveCycleId), events: 0 });
   return { items: list };
@@ -240,20 +311,36 @@ async function vote(db, request, user, trackId, action, nowMs) {
   const published = await db.prepare("SELECT id FROM topten_tracks WHERE id = ? AND status = 'published'").bind(trackId).first();
   if (!published) throw new ApiError(404, 'track_not_found', 'Utwór nie jest w bieżącym notowaniu.');
 
+  // Naturalna rywalizacja: głosy tylko na utwory aktywnej puli tygodnia (nie kolejka, archiwum ani zawieszone).
+  const natural = (await getFlags(db)).natural;
+  if (natural) {
+    const week = await ensureWeek(db, nowMs);
+    if (week.status === 'preparing') throw new ApiError(503, 'week_preparing', 'Startuje nowe notowanie — spróbuj za chwilę.');
+    const t = await db.prepare(`SELECT t.pool_status, r.track_id AS in_roster FROM topten_tracks t
+        LEFT JOIN topten_week_roster r ON r.track_id = t.id AND r.week_id = ? WHERE t.id = ?`).bind(cycleId, trackId).first();
+    if (t?.pool_status === 'suspended') throw new ApiError(423, 'suspended', 'Zawieszone ze względów prawnych — głosowanie niedostępne.');
+    if (!t?.in_roster) throw new ApiError(409, 'not_in_roster', t?.pool_status === 'queued' ? 'Ten utwór czeka na start w najbliższym notowaniu.' : 'Ten utwór nie bierze udziału w bieżącym notowaniu.');
+  }
+
   const replay = await db.prepare('SELECT id FROM topten_events WHERE idempotency_key = ?').bind(key).first();
   if (replay) return { accepted: true, replay: true };
 
+  // Warunek puli w tej samej instrukcji co zapis — głos z granicy tygodnia nie trafi do utworu spoza puli.
+  const rosterGuard = natural
+    ? ` AND EXISTS (SELECT 1 FROM topten_week_roster r JOIN topten_tracks t ON t.id = r.track_id
+          WHERE r.week_id = ?3 AND r.track_id = ?2 AND t.pool_status = 'active')`
+    : '';
   // Jedna instrukcja INSERT…SELECT: warunki i zapis są atomowe; UNIQUE(user,track,dzień,akcja,slot) blokuje wyścigi.
   const sql = action === 'like'
     ? `INSERT INTO topten_events (user_id, track_id, cycle_id, local_date, action, slot, points, created_at, idempotency_key, ip_hash)
        SELECT ?1, ?2, ?3, ?4, 'like', 0, ${LIKE_POINTS}, ?5, ?6, ?7
-       WHERE NOT EXISTS (SELECT 1 FROM topten_events WHERE user_id = ?1 AND track_id = ?2 AND local_date = ?4 AND action = 'like')`
+       WHERE NOT EXISTS (SELECT 1 FROM topten_events WHERE user_id = ?1 AND track_id = ?2 AND local_date = ?4 AND action = 'like')${rosterGuard}`
     : `INSERT INTO topten_events (user_id, track_id, cycle_id, local_date, action, slot, points, created_at, idempotency_key, ip_hash)
        SELECT ?1, ?2, ?3, ?4, 'boost',
          (SELECT COUNT(*) FROM topten_events WHERE user_id = ?1 AND track_id = ?2 AND local_date = ?4 AND action = 'boost') + 1,
          ${BOOST_POINTS}, ?5, ?6, ?7
        WHERE (SELECT COUNT(*) FROM topten_events WHERE user_id = ?1 AND track_id = ?2 AND local_date = ?4 AND action = 'boost') < ${BOOSTS_PER_DAY}
-         AND NOT EXISTS (SELECT 1 FROM topten_events WHERE user_id = ?1 AND track_id = ?2 AND action = 'boost' AND created_at > ?5 - ${BOOST_INTERVAL_MS})`;
+         AND NOT EXISTS (SELECT 1 FROM topten_events WHERE user_id = ?1 AND track_id = ?2 AND action = 'boost' AND created_at > ?5 - ${BOOST_INTERVAL_MS})${rosterGuard}`;
   let changes = 0;
   try {
     const res = await db.prepare(sql).bind(user.uid, trackId, cycleId, localDate, nowMs, key, ih).run();
@@ -401,14 +488,16 @@ async function adminUpdateNomination(db, request, admin, id) {
       ...(s.copy ? { copy: text(s.copy, 40).replace(/[^\d]/g, '') } : {}),
     })).filter(s => s.method && s.value && s.url !== null) : (nom.support_url ? [{ method: 'Wsparcie', value: new URL(nom.support_url).host, url: nom.support_url }] : []);
     const profile = httpsUrl(text(p.profileUrl, 300), null) || null;
-    await db.prepare(`INSERT INTO topten_tracks (id, title, artist, genre, language, bible_ref, youtube_id, cover_url, profile_url, support_json, status, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'published', ?, ?)
+    // Naturalna rywalizacja: nowy utwór czeka w kolejce debiutów na najbliższy poniedziałek (§5.4, §5.6).
+    const natural = (await getFlags(db)).natural;
+    await db.prepare(`INSERT INTO topten_tracks (id, title, artist, genre, language, bible_ref, youtube_id, cover_url, profile_url, support_json, status, created_at, updated_at, pool_status, queued_at, queue_entry)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'published', ?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE SET title = excluded.title, artist = excluded.artist, genre = excluded.genre, bible_ref = excluded.bible_ref,
           youtube_id = excluded.youtube_id, cover_url = excluded.cover_url, profile_url = excluded.profile_url, support_json = excluded.support_json,
           status = 'published', updated_at = excluded.updated_at`)
       .bind(id, text(p.title, 160) || nom.title, text(p.artist, 120) || nom.artist, GENRES.has(p.genre) ? p.genre : nom.genre, nom.language,
         text(p.bibleRef, 200) || text(nom.bible_ref, 200), yt || null, yt ? `https://i.ytimg.com/vi/${yt}/hqdefault.jpg` : null, profile,
-        JSON.stringify(support), now, now).run();
+        JSON.stringify(support), now, now, natural ? 'queued' : 'active', natural ? now : null, natural ? 'debut' : null).run();
   } else if (['withdrawn', 'takedown', 'rejected'].includes(status)) {
     await db.prepare("UPDATE topten_tracks SET status = ?, updated_at = ? WHERE id = ?").bind(status === 'withdrawn' ? 'hidden' : 'takedown', now, id).run();
   }
@@ -745,6 +834,34 @@ export async function handleTopTenApi(request, env, ctx, { verifyToken, fetchImp
     }
     if (method === 'GET' && path === '/api/topten/cycles') return json({ ok: true, ...(await cycles(db, nowMs)) });
     if (method === 'GET' && path === '/api/topten/youtube') return json({ ok: true, ...(await youtubeVideos(fetchImpl)) });
+
+    // ─── Naturalna rywalizacja: publiczne widoki (bez danych osobowych i bez linków Drive) ───
+    if (method === 'GET' && path.startsWith('/api/topten/weeks/') || ['/api/topten/debuts/queue', '/api/topten/archive'].includes(path) || path.startsWith('/api/topten/songs/')) {
+      const flags = await getFlags(db);
+      if (!flags.natural) return json({ ok: false, error: 'feature_disabled', message: 'Nowe zasady notowania nie są jeszcze włączone.' }, 404);
+      const serverNow = new Date(nowMs).toISOString();
+      if (method === 'GET' && path === '/api/topten/weeks/current') {
+        const w = await ensureWeek(db, nowMs);
+        return json({ ok: true, week: { id: w.id, weekStart: w.start_utc, weekEnd: w.end_utc, status: w.status, isProvisional: true, rulesVersion: w.rules_version }, votingEligibility: w.status === 'open', serverNow });
+      }
+      const wk = path.match(/^\/api\/topten\/weeks\/(\d{4}-\d{2}-\d{2})\/(standings|awards)$/);
+      if (method === 'GET' && wk) {
+        const snap = await officialSnapshot(db, wk[1]);
+        if (wk[2] === 'awards') return json({ ok: true, weekId: wk[1], official: !!snap, items: snap ? snap.awards.map(a => ({ type: a.award_type, id: a.track_id, explanation: a.explanation })) : [] });
+        const scope = url.searchParams.get('scope') || 'all';
+        const rows = snap ? snap.rows : await standingsFor(db, wk[1]);
+        const pick = rows.filter(r => scope === 'top10' ? r.rank <= TOP_SIZE : scope === 'waiting' ? r.rank > TOP_SIZE : true)
+          .map(r => ({ id: r.track_id, rank: r.rank, bucket: r.rank <= TOP_SIZE ? 'top10' : 'waiting', title: r.title, artist: r.artist, points: r.points, likes: r.likes, uniqueLikeVoters: r.unique_like_voters }));
+        return json({ ok: true, weekId: wk[1], official: !!snap, rankingVersion: snap?.week.snapshot_version || 0, checksum: snap?.week.checksum || null, rulesVersion: RULES_VERSION, items: pick, serverNow });
+      }
+      if (method === 'GET' && path === '/api/topten/debuts/queue') return json({ ok: true, items: await debutQueue(db, warsawClock(nowMs).cycleId) });
+      if (method === 'GET' && path === '/api/topten/archive') {
+        if (!flags.archive) return json({ ok: false, error: 'feature_disabled' }, 404);
+        return json({ ok: true, items: await songArchive(db) });
+      }
+      const hist = path.match(/^\/api\/topten\/songs\/(CC-TT-\d{4}-\d{4})\/history$/);
+      if (method === 'GET' && hist) return json({ ok: true, id: hist[1], ...(await songHistory(db, hist[1])) });
+    }
     if (method === 'GET' && path === '/api/topten/me') {
       const user = await requireUser(request, verifyToken);
       return json({ ok: true, ...(await myState(db, user.uid, nowMs)) });
@@ -825,6 +942,64 @@ export async function handleTopTenApi(request, env, ctx, { verifyToken, fetchImp
         const out = await adminReviewEvent(db, request, admin, Number(evMatch[1]));
         await liveCharts(db, nowMs, { fresh: true });
         return json(out);
+      }
+      // ─── Naturalna rywalizacja: operacje redakcji (audytowane) ───
+      if (method === 'GET' && path === '/api/topten/admin/flags') {
+        const rows = (await db.prepare('SELECT name, enabled, updated_by, updated_at FROM topten_flags').all()).results || [];
+        return json({ ok: true, items: rows });
+      }
+      if (method === 'POST' && path === '/api/topten/admin/flags') {
+        const body = await request.json().catch(() => ({}));
+        if (!FLAG_NAMES.includes(body.name) || typeof body.enabled !== 'boolean') throw new ApiError(400, 'bad_flag', 'Nieznana flaga lub wartość.');
+        if (body.confirm !== body.name) throw new ApiError(400, 'confirm_required', 'Potwierdź zmianę, podając nazwę flagi w polu confirm.');
+        await db.prepare('UPDATE topten_flags SET enabled = ?, updated_by = ?, updated_at = ? WHERE name = ?')
+          .bind(body.enabled ? 1 : 0, admin.email, new Date(nowMs).toISOString(), body.name).run();
+        await audit(db, admin.email, `flag.${body.enabled ? 'on' : 'off'}`, body.name, null);
+        await liveCharts(db, nowMs, { fresh: true });
+        return json({ ok: true, name: body.name, enabled: body.enabled });
+      }
+      const fin = path.match(/^\/api\/topten\/admin\/weeks\/(\d{4}-\d{2}-\d{2})\/finalize$/);
+      if (method === 'POST' && fin) {
+        const body = await request.json().catch(() => ({}));
+        const correction = body.correction === true;
+        if (correction && longText(body.reason, 500).length < 10) throw new ApiError(400, 'reason_required', 'Korekta wymaga uzasadnienia (min. 10 znaków).');
+        const out = await finalizeWeek(db, fin[1], { nowMs, actor: admin.email, correction, reason: longText(body.reason, 500) || null });
+        if (!out.ok) throw new ApiError(409, out.error, out.error === 'week_not_ended' ? 'Tydzień jeszcze trwa.' : 'Brak takiego tygodnia.');
+        await liveCharts(db, nowMs, { fresh: true });
+        return json(out);
+      }
+      const rebuild = path.match(/^\/api\/topten\/admin\/totals\/(\d{4}-\d{2}-\d{2})\/rebuild$/);
+      if (method === 'POST' && rebuild) {
+        await rebuildTotals(db, rebuild[1]);
+        await audit(db, admin.email, 'totals.rebuilt', rebuild[1], null);
+        await liveCharts(db, nowMs, { fresh: true });
+        return json({ ok: true, weekId: rebuild[1] });
+      }
+      if (method === 'POST' && path === '/api/topten/admin/roster/preview-next') {
+        const cur = await db.prepare("SELECT id FROM topten_weeks WHERE status != 'preparing' ORDER BY id DESC LIMIT 1").first();
+        const nextId = addDays(warsawClock(nowMs).cycleId, 7);
+        return json({ ok: true, dryRun: true, plan: await planRoster(db, cur?.id || null, nextId) });
+      }
+      const hold = path.match(/^\/api\/topten\/admin\/songs\/(CC-TT-\d{4}-\d{4})\/rights-hold$/);
+      if (method === 'POST' && hold) {
+        const body = await request.json().catch(() => ({}));
+        const reason = longText(body.reason, 500);
+        if (body.hold === true && reason.length < 10) throw new ApiError(400, 'reason_required', 'Podaj powód wstrzymania (min. 10 znaków, niepubliczny).');
+        const r = await db.prepare(`UPDATE topten_tracks SET pool_status = ?, updated_at = ? WHERE id = ? AND pool_status ${body.hold === true ? "!= 'suspended'" : "= 'suspended'"}`)
+          .bind(body.hold === true ? 'suspended' : 'active', new Date(nowMs).toISOString(), hold[1]).run();
+        if (!r?.meta?.changes) throw new ApiError(409, 'no_change', 'Utwór nie istnieje albo już ma ten stan.');
+        await audit(db, admin.email, body.hold === true ? 'song.rights_hold' : 'song.rights_release', hold[1], { reason: reason || null });
+        await liveCharts(db, nowMs, { fresh: true });
+        return json({ ok: true, id: hold[1], suspended: body.hold === true });
+      }
+      const ret = path.match(/^\/api\/topten\/admin\/songs\/(CC-TT-\d{4}-\d{4})\/return$/);
+      if (method === 'POST' && ret) {
+        const r = await db.prepare(`UPDATE topten_tracks SET pool_status = 'queued', queue_entry = 'return', queued_at = ?, updated_at = ?
+            WHERE id = ? AND status = 'published' AND pool_status = 'archived'`).bind(new Date(nowMs).toISOString(), new Date(nowMs).toISOString(), ret[1]).run();
+        if (!r?.meta?.changes) throw new ApiError(409, 'not_archived', 'Powrót możliwy tylko dla opublikowanego utworu z archiwum.');
+        const a = await db.prepare('SELECT eligible_from_week FROM topten_song_archive WHERE track_id = ?').bind(ret[1]).first();
+        await audit(db, admin.email, 'song.return_queued', ret[1], { eligibleFromWeek: a?.eligible_from_week || null });
+        return json({ ok: true, id: ret[1], queued: true, eligibleFromWeek: a?.eligible_from_week || null });
       }
       if (method === 'POST' && path === '/api/topten/admin/mail-retry') {
         const failed = (await db.prepare("SELECT id FROM topten_nominations WHERE mail_status != 'sent' AND mail_attempts < 5 ORDER BY seq LIMIT 10").all()).results || [];

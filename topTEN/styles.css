@@ -441,3 +441,11 @@ html body #backToTopBtn[data-cc-back-to-top]:hover {
 .drive-help-teaser { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 8px; color: #E66A00; font-weight: 700; text-decoration: none; }
 .drive-help-teaser:hover { text-decoration: underline; }
 .info-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #FF7A00; color: #FF7A00; font: italic 800 13px Georgia, serif; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+/* ── Naturalna rywalizacja: Poczekalnia, debiuty, ostatnie notowanie, wyróżnienia — @007 01.11.2026 ── */
+.natural-box { background: #fdfaf6; border: 1px solid #fae2cc; border-radius: 14px; padding: 16px clamp(14px, 3vw, 22px); }
+.natural-list { margin: 8px 0 0; padding-left: 26px; line-height: 1.75; }
+.natural-list li { padding: 2px 0; }
+.natural-awards { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 10px; }
+.award-pill { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 12px; border-radius: 999px; background: #111; color: #FF8C33; font-weight: 800; font-size: 13px; }
+.natural-archive-link { margin: 18px 0; }
+@media (prefers-reduced-motion: reduce) { .chart-card img, .yt-thumb img { transition: none !important; } }

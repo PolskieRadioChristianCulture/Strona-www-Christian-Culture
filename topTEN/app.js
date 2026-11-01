@@ -91,12 +91,24 @@ function getTrendBadge(currentRank, prevRank) {
   return `<span class="trend-pill trend-down" title="Spadek o ${diff} m. względem poprzedniego tygodnia">▼ -${diff}</span>`;
 }
 
+// Naturalna rywalizacja: przed pierwszym głosem nie pokazujemy „zwycięzcy” (spec. §15) — tylko kolejność informacyjną.
+const noVotesYet = () => !!state.charts?.natural?.noVotesYet;
+const AWARD_LABELS = { hit: '🏆 Hit tygodnia', biggest_climb: '📈 Największy awans', debut: '⭐ Debiut tygodnia', comeback: '🔁 Wielki powrót', record: '🔥 Rekord tygodnia' };
+
+function entryBadge(item) {
+  if (item.suspended) return '<span class="trend-pill trend-down" title="Zawieszone ze względów prawnych — głosowanie niedostępne">ZAWIESZONE</span>';
+  if (item.entry === 'debut') return '<span class="trend-pill trend-up" title="Pierwszy tydzień w notowaniu">DEBIUT</span>';
+  if (item.entry === 'return') return '<span class="trend-pill trend-up" title="Powrót z archiwum">WIELKI POWRÓT</span>';
+  return '';
+}
+
 function card(item, large) {
+  const shownRank = noVotesYet() ? '–' : item.rank;
   return `
-    <article class="chart-card ${large ? 'large' : ''}" data-track-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="${escapeHtml(item.title)}, ${escapeHtml(item.artist)}, miejsce ${item.rank}">
+    <article class="chart-card ${large ? 'large' : ''}" data-track-id="${escapeHtml(item.id)}" tabindex="0" role="button" aria-label="${escapeHtml(item.title)}, ${escapeHtml(item.artist)}${noVotesYet() ? ', notowanie bez głosów' : `, miejsce ${item.rank}`}">
       <div class="cover">
         ${item.cover ? `<img src="${escapeHtml(item.cover)}" alt="Okładka: ${escapeHtml(item.title)}" loading="lazy">` : ''}
-        <span class="rank">${item.rank}</span>
+        <span class="rank">${shownRank}</span>
         ${large ? '<button class="play" type="button" aria-label="Odsłuchaj i zagłosuj">▶</button>' : ''}
         ${large ? `<div class="cover-caption">
           <h3 class="card-title">${escapeHtml(item.title)}</h3>
@@ -107,9 +119,58 @@ function card(item, large) {
       <div class="artist-name">${escapeHtml(item.artist)}</div>`}
       <div class="card-meta-live">
         <span class="points-pill">${fmtPoints(item.score)} pkt</span>
-        ${getTrendBadge(item.rank, item.prevRank)}
+        ${entryBadge(item) || getTrendBadge(item.rank, item.prevRank)}
       </div>
     </article>`;
+}
+
+/** Sekcje nowych zasad: Poczekalnia, debiuty w kolejce, ostatnie oficjalne notowanie, archiwum. */
+function naturalSections(nat, waiting) {
+  const queue = nat.queue || [];
+  const last = nat.lastOfficial;
+  return `
+    ${nat.waitingRoom && waiting.length ? `
+      <section class="chart-section" id="poczekalnia" aria-labelledby="poczekalniaTitle">
+        <div class="section-header"><h2 id="poczekalniaTitle">Poczekalnia — miejsca 11–${10 + waiting.length}</h2></div>
+        <p class="vote-info-note" style="margin: 0 0 12px;">Te utwory zdobywają punkty na tych samych zasadach co TOP 10 i mogą awansować jeszcze w tym tygodniu. <strong>Pomóż wejść do TOPTEN!</strong></p>
+        <div class="cards">${waiting.map(item => card(item, false)).join('')}</div>
+      </section>` : ''}
+    ${queue.length ? `
+      <section class="chart-section natural-box" id="debiuty" aria-labelledby="debiutyTitle">
+        <div class="section-header"><h2 id="debiutyTitle">Wkrótce w notowaniach</h2></div>
+        <p class="vote-info-note">Zatwierdzone nominacje startują w najbliższy poniedziałek (najwyżej 3 na tydzień, według kolejności zatwierdzenia). Do startu nie zbierają punktów.</p>
+        <ol class="natural-list">${queue.map(q => `<li><strong>${escapeHtml(q.title)}</strong> — ${escapeHtml(q.artist)} <span class="trend-pill trend-same">${q.entry === 'return' ? 'WIELKI POWRÓT' : 'DEBIUT'}</span>${q.waitingForEligibility && q.eligibleFromWeek ? ` <small>(od tygodnia ${fmtDate(q.eligibleFromWeek)})</small>` : ''}</li>`).join('')}</ol>
+      </section>` : ''}
+    ${last ? `
+      <section class="chart-section natural-box" id="ostatnie-notowanie" aria-labelledby="ostatnieTitle">
+        <div class="section-header">
+          <h2 id="ostatnieTitle">Ostatnie notowanie — ${fmtDate(last.weekId)}</h2>
+          <button class="view-all" type="button" data-cycle-view="${escapeHtml(last.weekId)}">PEŁNE WYNIKI →</button>
+        </div>
+        ${last.awards.length ? `<p class="natural-awards">${last.awards.map(a => {
+          const t = last.top10.find(x => x.id === a.id);
+          return `<span class="award-pill" title="${escapeHtml(a.explanation)}">${AWARD_LABELS[a.type] || a.type}${t ? `: ${escapeHtml(t.title)}` : ''}</span>`;
+        }).join('')}</p>` : ''}
+        <ol class="natural-list">${last.top10.map(t => `<li value="${t.rank}"><strong>${escapeHtml(t.title)}</strong> — ${escapeHtml(t.artist)} · ${fmtPoints(t.points)} pkt</li>`).join('')}</ol>
+        ${last.status === 'corrected' ? `<p class="vote-info-note">Wynik skorygowany (wersja ${last.version}).</p>` : ''}
+      </section>` : ''}
+    ${nat.archive ? `<p class="natural-archive-link"><button class="outline-btn" type="button" id="songArchiveButton">Archiwum utworów →</button></p>` : ''}
+  `;
+}
+
+async function showSongArchive() {
+  showModal('Archiwum utworów topTEN', '<p>Wczytywanie…</p>');
+  try {
+    const { items } = await api('/api/topten/archive');
+    $('#modalBody').innerHTML = items.length
+      ? `<p class="vote-info-note">Utwory poza aktywną pulą zachowują całą historię. Po 4 pełnych zamkniętych tygodniach można je zgłosić ponownie (powrót z archiwum).</p>
+         <ul style="list-style: none; padding: 0;">${items.map(s => `<li style="padding: 8px 0; border-bottom: 1px solid #eee;">
+           <strong>${escapeHtml(s.title)}</strong> — ${escapeHtml(s.artist)}<br>
+           <small>${escapeHtml(s.state)}${s.bestRank ? ` · najwyżej: ${s.bestRank}. miejsce` : ''}${s.weeksCharted ? ` · tygodni w notowaniu: ${s.weeksCharted}` : ''}${s.eligibleFromWeek ? ` · ponowne zgłoszenie od ${fmtDate(s.eligibleFromWeek)}` : ''}</small></li>`).join('')}</ul>`
+      : '<p>Archiwum utworów jest jeszcze puste.</p>';
+  } catch (e) {
+    $('#modalBody').innerHTML = `<p>${escapeHtml(e.message)}</p>`;
+  }
 }
 
 function renderCharts(filter = '') {
@@ -126,18 +187,27 @@ function renderCharts(filter = '') {
 
   const q = filter.toLocaleLowerCase('pl').trim();
   const { cycle, items, updatedAt } = state.charts;
+  const nat = state.charts.natural || null;
   const live = cycle.status === 'live';
   const filtered = items.filter(x => !q || `${x.title} ${x.artist}`.toLocaleLowerCase('pl').includes(q));
   const topFive = filtered.slice(0, 5);
   const nextFive = filtered.slice(5, 10);
-  const more = filtered.slice(10);
+  const more = nat ? [] : filtered.slice(10);
+  const waiting = nat ? filtered.slice(10) : [];
 
   const label = live
-    ? `<span style="${LIVE_LABEL_STYLE} color: #2ecc71;">● NA ŻYWO</span>`
-    : `<span style="${LIVE_LABEL_STYLE} color: #FF7A00;">ARCHIWUM</span>`;
+    ? `<span style="${LIVE_LABEL_STYLE} color: #2ecc71;">● NA ŻYWO${nat ? ' · wynik wstępny' : ''}</span>`
+    : `<span style="${LIVE_LABEL_STYLE} color: #FF7A00;">${cycle.official ? 'OFICJALNE NOTOWANIE' : 'ARCHIWUM'}</span>`;
+  const awardsLine = !live && state.charts.awards?.length
+    ? ` ${state.charts.awards.map(a => `<span class="award-pill" title="${escapeHtml(a.explanation)}">${AWARD_LABELS[a.type] || a.type}</span>`).join(' ')}` : '';
+  const naturalNote = nat
+    ? (nat.status === 'preparing' ? ' <strong>Startuje nowe notowanie — lista za chwilę.</strong>'
+      : nat.noVotesYet ? ' <strong>Nowe notowanie: każdy zaczyna od zera!</strong> Do pierwszego głosu kolejność jest tylko informacyjna.'
+      : ' Przy remisie decydują unikalni głosujący LubięTO, liczba LubięTO i kolejność uzyskania wyniku.')
+    : '';
   const note = live
-    ? `Notowanie ${fmtDate(cycle.id)} – ${fmtDate(cycle.end.slice(0, 10))} (zamknięcie w niedzielę o 23:59). Aktualizacja: ${fmtTime(updatedAt)}.${state.charts.stale ? ' <strong>Brak połączenia — dane mogą być nieaktualne.</strong>' : ''}`
-    : `Oficjalny wynik tygodnia ${fmtDate(cycle.id)} – ${fmtDate(cycle.end.slice(0, 10))}. <button type="button" class="view-all" data-back-live="true">Wróć do notowania na żywo →</button>`;
+    ? `Notowanie ${fmtDate(cycle.id)} – ${fmtDate(cycle.end.slice(0, 10))} (zamknięcie w niedzielę o 23:59). Aktualizacja: ${fmtTime(updatedAt)}.${naturalNote}${state.charts.stale ? ' <strong>Brak połączenia — dane mogą być nieaktualne.</strong>' : ''}`
+    : `${cycle.official ? 'Oficjalny wynik' : 'Wynik'} tygodnia ${fmtDate(cycle.id)} – ${fmtDate(cycle.end.slice(0, 10))}${cycle.version > 1 ? ` (wersja ${cycle.version}, skorygowany)` : ''}.${awardsLine} <button type="button" class="view-all" data-back-live="true">Wróć do notowania na żywo →</button>`;
 
   sections.innerHTML = `
     <section class="chart-section" id="notowania">
@@ -149,7 +219,7 @@ function renderCharts(filter = '') {
         </span>
       </div>
       <p class="vote-info-note" style="margin: 0 0 14px;">${note} <a href="/topTEN/nominacje" style="color: #FF7A00; font-weight: 700;">Zgłoś utwór →</a></p>
-      ${filtered.length ? `<div class="cards featured">${topFive.map((item, i) => card(item, i === 0 && !q)).join('')}</div>`
+      ${filtered.length ? `<div class="cards featured">${topFive.map((item, i) => card(item, i === 0 && !q && !noVotesYet())).join('')}</div>`
         : `<p class="empty-state">${q ? 'Brak utworów pasujących do wyszukiwania.' : 'W tym tygodniu nie ma jeszcze utworów w notowaniu.'}</p>`}
     </section>
 
@@ -175,7 +245,9 @@ function renderCharts(filter = '') {
         <div class="section-header"><h2>Pozostałe nominacje</h2></div>
         <div class="cards">${more.map(item => card(item, false)).join('')}</div>
       </section>` : ''}
+    ${nat && live ? naturalSections(nat, waiting) : ''}
   `;
+  $('#songArchiveButton')?.addEventListener('click', showSongArchive);
 
   $('#btnWspieramTOModal')?.addEventListener('click', (e) => { e.preventDefault(); showWspieramTOInfo(); });
   const banner = $('#bannerWspieramTO');
@@ -228,6 +300,7 @@ const findTrack = (id) => state.charts?.items.find(t => t.id === id);
 function voteButtons(track) {
   const live = state.charts?.cycle.status === 'live';
   if (!live) return '<p class="vote-info-note">To notowanie jest zamknięte — głosowanie trwa w bieżącym tygodniu.</p>';
+  if (track.suspended) return '<p class="vote-info-note"><strong>Zawieszone ze względów prawnych — głosowanie niedostępne.</strong></p>';
   if (!state.user) {
     return `<button class="btn-action btn-lubieto" type="button" data-login="true">🔑 Zaloguj się kontem Google, aby głosować</button>`;
   }
@@ -770,6 +843,8 @@ document.addEventListener('DOMContentLoaded', () => {
   sections?.addEventListener('click', (e) => {
     if (e.target.closest('[data-back-live]')) { state.viewCycle = null; loadCharts(); return; }
     if (e.target.closest('[data-share-chart]')) { showShareSheet(null); return; }
+    const cycleView = e.target.closest('[data-cycle-view]');
+    if (cycleView) { state.viewCycle = cycleView.dataset.cycleView; loadCharts().then(() => $('#notowania')?.scrollIntoView({ behavior: 'smooth' })); return; }
     const card = e.target.closest('[data-track-id]');
     if (card) { openTrackModal(card.dataset.trackId); return; }
     if (e.target.closest('[data-chart]')) {

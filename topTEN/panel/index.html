@@ -14,8 +14,8 @@
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 <title>Panel redakcji | topTEN Christian Culture</title>
 <link rel="icon" type="image/png" href="/topTEN/assets/topten-logo.png">
-<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007h">
-<script type="module" src="/topTEN/auth.js?v=20261101_a007h"></script>
+<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007i">
+<script type="module" src="/topTEN/auth.js?v=20261101_a007i"></script>
 <style>
 .panel-page { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
 .panel-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 16px 0; }
@@ -54,6 +54,7 @@
     <div class="panel-bar panel-tabs" role="tablist">
       <button class="outline-btn" type="button" role="tab" data-tab="nom" aria-selected="true">Nominacje</button>
       <button class="outline-btn" type="button" role="tab" data-tab="ev" aria-selected="false">Głosy i nadużycia</button>
+      <button class="outline-btn" type="button" role="tab" data-tab="nat" aria-selected="false">Notowanie (nowe zasady)</button>
     </div>
 
     <section id="tab-nom">
@@ -77,6 +78,31 @@
       <div id="nominations"></div>
     </section>
 
+    <section id="tab-nat" hidden>
+      <p class="muted">Naturalna rywalizacja: TOP 10 + Poczekalnia 11–30, kolejka debiutów (maks. 3/tydzień), archiwum z 4-tygodniową karencją.
+      Flagi są domyślnie <strong>wyłączone</strong>. Włączenie zmienia publiczne zasady — tylko za zgodą L0 i po publikacji regulaminu.</p>
+      <h3>Flagi</h3>
+      <div id="flags"></div>
+      <h3>Tydzień</h3>
+      <div class="panel-bar">
+        <label for="finWeek" class="visually-hidden">Tydzień (poniedziałek)</label>
+        <input id="finWeek" placeholder="RRRR-MM-DD (poniedziałek)">
+        <button class="outline-btn" type="button" id="finBtn">Zamknij tydzień</button>
+        <input id="corReason" placeholder="Uzasadnienie korekty (min. 10 znaków)">
+        <button class="outline-btn" type="button" id="corBtn">Korekta (nowa wersja)</button>
+      </div>
+      <div class="panel-bar"><button class="outline-btn" type="button" id="previewBtn">Podgląd puli na następny tydzień</button></div>
+      <pre id="natOut" style="white-space: pre-wrap; background: #f6f6f6; padding: 12px; border-radius: 8px; font-size: 12px; max-height: 360px; overflow: auto;"></pre>
+      <h3>Utwór</h3>
+      <div class="panel-bar">
+        <label for="songId" class="visually-hidden">Identyfikator utworu</label>
+        <input id="songId" placeholder="CC-TT-2026-0001">
+        <input id="holdReason" placeholder="Powód wstrzymania (niepubliczny, min. 10 znaków)">
+        <button class="outline-btn" type="button" id="holdBtn">Wstrzymaj (prawa)</button>
+        <button class="outline-btn" type="button" id="releaseBtn">Zwolnij</button>
+        <button class="outline-btn" type="button" id="returnBtn">Powrót z archiwum</button>
+      </div>
+    </section>
     <section id="tab-ev" hidden>
       <div class="panel-bar">
         <label for="trackFilter" class="visually-hidden">Utwór</label>
@@ -202,9 +228,51 @@
       document.querySelectorAll('[data-tab]').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
       $('#tab-nom').hidden = b.dataset.tab !== 'nom';
       $('#tab-ev').hidden = b.dataset.tab !== 'ev';
+      $('#tab-nat').hidden = b.dataset.tab !== 'nat';
+      if (b.dataset.tab === 'nat') loadFlags();
       if (b.dataset.tab === 'ev') loadEvents();
     });
   });
+  function show(out) { $('#natOut').textContent = JSON.stringify(out, null, 2); }
+  async function loadFlags() {
+    try {
+      var rows = (await api('/api/topten/admin/flags')).items;
+      $('#flags').innerHTML = rows.map(function (f) {
+        return '<div class="panel-bar"><code>' + esc(f.name) + '</code> <strong>' + (f.enabled ? 'WŁĄCZONA' : 'wyłączona') + '</strong>' +
+          (f.updated_by ? ' <small>(' + esc(f.updated_by) + ', ' + esc(f.updated_at || '') + ')</small>' : '') +
+          ' <button class="outline-btn" type="button" data-flag="' + esc(f.name) + '" data-on="' + (f.enabled ? '0' : '1') + '">' + (f.enabled ? 'Wyłącz' : 'Włącz') + '</button></div>';
+      }).join('');
+    } catch (e) { $('#flags').textContent = e.message; }
+  }
+  $('#flags').addEventListener('click', async function (e) {
+    var b = e.target.closest('[data-flag]');
+    if (!b) return;
+    var name = b.dataset.flag, on = b.dataset.on === '1';
+    var typed = prompt((on ? 'WŁĄCZENIE' : 'WYŁĄCZENIE') + ' zmienia publiczne zasady notowania. Aby potwierdzić, wpisz nazwę flagi: ' + name);
+    if (typed !== name) { toast('Nie potwierdzono — bez zmian.'); return; }
+    try { await api('/api/topten/admin/flags', { method: 'POST', body: { name: name, enabled: on, confirm: typed } }); toast('Zapisano flagę.'); loadFlags(); }
+    catch (err) { toast(err.message); }
+  });
+  $('#finBtn').addEventListener('click', async function () {
+    try { show(await api('/api/topten/admin/weeks/' + encodeURIComponent($('#finWeek').value.trim()) + '/finalize', { method: 'POST', body: {} })); } catch (e) { toast(e.message); }
+  });
+  $('#corBtn').addEventListener('click', async function () {
+    if (!confirm('Korekta tworzy nową wersję oficjalnego wyniku (stara zostaje w archiwum). Kontynuować?')) return;
+    try { show(await api('/api/topten/admin/weeks/' + encodeURIComponent($('#finWeek').value.trim()) + '/finalize', { method: 'POST', body: { correction: true, reason: $('#corReason').value.trim() } })); } catch (e) { toast(e.message); }
+  });
+  $('#previewBtn').addEventListener('click', async function () { try { show(await api('/api/topten/admin/roster/preview-next', { method: 'POST', body: {} })); } catch (e) { toast(e.message); } });
+  function songAction(path, body, question) {
+    return async function () {
+      var id = $('#songId').value.trim();
+      if (!/^CC-TT-[0-9]{4}-[0-9]{4}$/.test(id)) { toast('Podaj identyfikator CC-TT-RRRR-NNNN.'); return; }
+      if (question && !confirm(question + ' ' + id + '?')) return;
+      try { show(await api('/api/topten/admin/songs/' + id + path, { method: 'POST', body: body() })); toast('Zapisano.'); } catch (e) { toast(e.message); }
+    };
+  }
+  $('#holdBtn').addEventListener('click', songAction('/rights-hold', function () { return { hold: true, reason: $('#holdReason').value.trim() }; }, 'Wstrzymać głosowanie i odtwarzanie utworu'));
+  $('#releaseBtn').addEventListener('click', songAction('/rights-hold', function () { return { hold: false }; }, 'Zwolnić wstrzymanie utworu'));
+  $('#returnBtn').addEventListener('click', songAction('/return', function () { return {}; }, 'Dodać do kolejki powrót z archiwum'));
+
   $('#statusFilter').addEventListener('change', loadNominations);
   $('#reload').addEventListener('click', loadNominations);
   $('#reloadEv').addEventListener('click', loadEvents);

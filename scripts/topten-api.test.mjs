@@ -6,7 +6,9 @@ import fs from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
 import { handleTopTenApi, warsawClock, youtubeId, vapidPublicKey } from '../services/topten/topten-service.js';
 
-const SCHEMA = fs.readFileSync(new URL('../migrations/topten/0001_topten.sql', import.meta.url), 'utf8');
+// Wszystkie migracje po kolei — jak na produkcji (wrangler d1 migrations apply).
+const SCHEMA = fs.readdirSync(new URL('../migrations/topten/', import.meta.url)).filter(f => f.endsWith('.sql')).sort()
+  .map(f => fs.readFileSync(new URL(`../migrations/topten/${f}`, import.meta.url), 'utf8')).join('\n');
 
 function d1() {
   const raw = new DatabaseSync(':memory:');
