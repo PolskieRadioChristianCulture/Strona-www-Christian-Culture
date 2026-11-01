@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-11-01T12:47:57.426Z",
+  "results": [
+    {
+      "prefix": "Ksiega_Rodzaju_4_1-26",
+      "channel": "Christian Culture TV",
+      "fmt": "shorts",
+      "status": "OK",
+      "url": "(link w Studio)"
+    },
+    {
+      "prefix": "Ksiega_Rodzaju_7_1-24",
+      "channel": "Christian Culture TV",
+      "fmt": "4k",
+      "status": "JUŻ OPUDLIKOWANY"
+    },
+    {
+      "prefix": "Ksiega_Rodzaju_7_1-24",
+      "channel": "Christian Culture TV",
+      "fmt": "shorts",
+      "status": "OK",
+      "url": "(link w Studio)"
+    },
+    {
+      "prefix": "Ksiega_Rodzaju_5_1-32",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "fmt": "4k",
+      "status": "OK",
+      "url": "https://youtu.be/hKWaC_AXCaQ"
+    },
+    {
+      "prefix": "Ksiega_Rodzaju_5_1-32",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "fmt": "shorts",
+      "status": "OK",
+      "url": "(link w Studio)"
+    },
+    {
+      "prefix": "Ksiega_Rodzaju_8_1-22",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "fmt": "4k",
+      "status": "OK",
+      "url": "https://youtu.be/BeydeQrVKtA"
+    },
+    {
+      "prefix": "Ksiega_Rodzaju_8_1-22",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "fmt": "shorts",
+      "status": "OK",
+      "url": "(link w Studio)"
+    },
+    {
+      "prefix": "Ksiega_Rodzaju_6_1-22",
+      "channel": "Osobowość +",
+      "fmt": "4k",
+      "status": "BŁĄD",
+      "error": "locator.waitFor: Timeout 25000ms exceeded."
+    },
+    {
+      "prefix": "Ksiega_Rodzaju_6_1-22",
+      "channel": "Osobowość +",
+      "fmt": "shorts",
+      "status": "OK",
+      "url": "(link w Studio)"
+    },
+    {
+      "prefix": "Ksiega_Rodzaju_10_1-32",
+      "channel": "Osobowość +",
+      "fmt": "4k",
+      "status": "BŁĄD",
+      "error": "locator.waitFor: Timeout 25000ms exceeded."
+    },
+    {
+      "prefix": "Ksiega_Rodzaju_10_1-32",
+      "channel": "Osobowość +",
+      "fmt": "shorts",
+      "status": "BŁĄD",
+      "error": "locator.waitFor: Timeout 25000ms exceeded."
+    }
+  ]
+}

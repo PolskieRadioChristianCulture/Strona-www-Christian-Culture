@@ -14,6 +14,12 @@ export async function switchChannel(targetChannelName) {
     await page.waitForTimeout(2000);
 
     const item = page.locator('ytd-account-item-renderer', { hasText: targetChannelName }).first();
+    for (let scroll = 0; scroll < 8; scroll++) {
+      if (await item.count() > 0) break;
+      await page.evaluate(() => window.scrollBy(0, 800));
+      await page.waitForTimeout(600);
+    }
+
     const count = await item.count();
     if (count === 0) {
       throw new Error(`Nie znaleziono kanału: ${targetChannelName}`);

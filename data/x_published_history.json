@@ -2,6 +2,51 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "95-tez-marcina-lutra-wittenberga-1517",
+      "title": "95 tez Marcina Lutra (Wittenberga, 1517) — Kompletny Tekst z Komentarzem",
+      "url": "https://polskieradio.cc/historia/95-tez-marcina-lutra-wittenberga-1517",
+      "type": "news",
+      "image": "95-tez-marcina-lutra-wittenberga-1517.jpg",
+      "publishedAt": "2026-11-01T16:39:04.324Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "lumina.cezaryrgowski",
+      "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
+      "url": "https://polskieradio.cc/lumina.cezaryrgowski",
+      "type": "profile",
+      "image": "cezary-wioletta-radiocc.jpg",
+      "publishedAt": "2026-11-01T12:40:51.032Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "gerald-welch-the-call",
+      "title": "Nowość Muzyczna: Gerald Welch — THE CALL. Głębokie uwielbienie w Polskim Radiu CC",
+      "url": "https://polskieradio.cc/news/gerald-welch-the-call",
+      "type": "music",
+      "image": "art-gerald-welch-the-call.jpg",
+      "publishedAt": "2026-11-01T10:34:46.403Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "dekalog-bozy",
+      "title": "Werset Dnia: „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8, UBG)",
+      "url": "https://polskieradio.cc/prawo/dekalog-bozy",
+      "type": "verse",
+      "image": "art-dekalog-dziesiec-przykazan-wujek.jpg",
+      "publishedAt": "2026-11-01T09:34:33.180Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "biblioteka",
+      "title": "Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo",
+      "url": "https://polskieradio.cc/biblioteka",
+      "type": "book",
+      "image": "art-prawda-bez-filtra.jpg",
+      "publishedAt": "2026-11-01T09:08:32.335Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-wrocic-do-ustawien-fabrycznych-boga",
       "title": "Książka: Kod Źródłowy Duszy — Cezary Rogowski. Biblijna tożsamość i sens istnienia",
       "url": "https://polskieradio.cc/news/kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-wrocic-do-ustawien-fabrycznych-boga",
