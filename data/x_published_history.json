@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "biblia-audio",
+      "title": "Biblia Audio CC — Księga Rodzaju w Kinowej Jakości Dźwięku i Słuchowiskach",
+      "url": "https://polskieradio.cc/biblia-audio",
+      "type": "module",
+      "image": "rodzaju-hero.jpg",
+      "publishedAt": "2026-11-01T18:34:02.526Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "lumina.wiolettarogowska",
+      "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
+      "url": "https://polskieradio.cc/lumina.wiolettarogowska",
+      "type": "profile",
+      "image": "wioletta-og.jpg",
+      "publishedAt": "2026-11-01T18:06:05.934Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "biblia-spiewana",
       "title": "Kanał Transmisyjny: Biblia Śpiewana Live — Słowo Boże ubrane w natchnioną muzykę",
       "url": "https://polskieradio.cc/live/biblia-spiewana",
