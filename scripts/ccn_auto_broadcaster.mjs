@@ -297,8 +297,8 @@ function getAllEcosystemCandidates() {
     },
     {
       title: 'Werset Dnia: „Wy myśleliście o złu przeciwko mnie, ale Bóg obrócił to w dobro” (Rdz 50:20, UBG)',
-      lead: '„Wy wprawdzie myśleliście o złu przeciwko mnie, ale Bóg obrócił to w dobro, aby ocalić życie wielu ludzi.” (Rdz 50:20, UBG)',
-      url: 'https://polskieradio.cc/akademia',
+      lead: '„Wy wprawdzie myśleliście o złu przeciwko mnie, ale Bóg obrócił to w dobro, by zachować przy życiu liczny lud.” (Rdz 50:20, UBG)',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-31',
       image: 'images/news/art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg',
       category: 'Werset Dnia',
       type: 'verse',
@@ -546,7 +546,13 @@ function formatBroadcasterTweet(item) {
     addTags(item.tag || '#KsiazkiCC', '#CezaryRogowski', '#ChristianCulture');
   } else if (item.type === 'verse') {
     subHeader = '📖 WERSET DNIA (UBG)';
-    callToAction = '👉 MojaBiblia:\n';
+    if ((item.url || '').includes('akademia')) {
+      callToAction = '👉 Akademia Biblijna:\n';
+    } else if ((item.url || '').includes('prawo')) {
+      callToAction = '👉 Czytaj w serwisie:\n';
+    } else {
+      callToAction = '👉 MojaBiblia (UBG):\n';
+    }
     addTags(item.tag || '#WersetDnia', '#SlowoBoze', '#UBG');
   } else if (item.type === 'music') {
     if ((item.url || '').includes('CezaryRogowski')) {
