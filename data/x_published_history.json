@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina-tablica",
+      "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
+      "url": "https://polskieradio.cc/lumina-tablica",
+      "type": "profile",
+      "image": "card-lumina.jpg",
+      "publishedAt": "2026-11-01T20:06:22.084Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "sprawozdanie-misyjne-pazdziernik-2026",
+      "title": "Sprawozdanie misyjne Christian Culture za październik 2026: Słowo Boże, muzyka i prawda na 5 kontynentach",
+      "url": "https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026",
+      "type": "news",
+      "image": "art-sprawozdanie-misyjne-pazdziernik-2026.jpg",
+      "publishedAt": "2026-11-01T19:04:48.103Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "biblia-audio",
       "title": "Biblia Audio CC — Księga Rodzaju w Kinowej Jakości Dźwięku i Słuchowiskach",
       "url": "https://polskieradio.cc/biblia-audio",
