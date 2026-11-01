@@ -1,7 +1,7 @@
 # topTEN — propozycja zapisu o przechowywaniu danych (RODO) — DO DECYZJI L0
 
 Data: 2026-11-01 · @007 · Status: **projekt, nieopublikowany** (zmiana Polityki prywatności = decyzja L0/prawna).
-Regulamin §9.3 odsyła do Polityki prywatności (/polityka-prywatnosci). Poniżej faktyczny stan danych i proponowany tekst.
+Regulamin §9.3 odsyła do Polityki prywatności (/privacy#topten). Poniżej faktyczny stan danych i proponowany tekst.
 
 ## Jakie dane topTEN przechowuje (stan faktyczny)
 | Dane | Gdzie | Po co | Proponowany okres |
