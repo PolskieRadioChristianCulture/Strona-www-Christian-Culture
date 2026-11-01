@@ -2307,29 +2307,13 @@ export default {
     if (lowerPath === '/topten') {
       const topUrl = new URL(request.url);
       topUrl.pathname = '/topTEN/index.html';
-      const assetResp = await env.ASSETS.fetch(new Request(topUrl.toString(), { method: 'GET', headers: { 'Accept': 'text/html' } }));
-      const body = await assetResp.arrayBuffer();
-      return new Response(body, {
-        status: 200,
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'public, max-age=0, must-revalidate'
-        }
-      });
+      return env.ASSETS.fetch(new Request(topUrl.toString(), request));
     }
 
     if (lowerPath === '/topten/regulamin') {
       const regUrl = new URL(request.url);
-      regUrl.pathname = '/topTEN/regulamin.html';
-      const assetResp = await env.ASSETS.fetch(new Request(regUrl.toString(), { method: 'GET', headers: { 'Accept': 'text/html' } }));
-      const body = await assetResp.arrayBuffer();
-      return new Response(body, {
-        status: 200,
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'public, max-age=0, must-revalidate'
-        }
-      });
+      regUrl.pathname = '/topTEN/regulamin/index.html';
+      return env.ASSETS.fetch(new Request(regUrl.toString(), request));
     }
 
     if (lowerPath === '/yis') {

@@ -6,12 +6,12 @@
 /topten/ /topTEN/index.html 200
 /TopTEN /topTEN/index.html 200
 /TopTEN/ /topTEN/index.html 200
-/topTEN/regulamin /topTEN/regulamin.html 200
-/topTEN/regulamin/ /topTEN/regulamin.html 200
-/topten/regulamin /topTEN/regulamin.html 200
-/topten/regulamin/ /topTEN/regulamin.html 200
-/TopTEN/regulamin /topTEN/regulamin.html 200
-/TopTEN/regulamin/ /topTEN/regulamin.html 200
+/topTEN/regulamin /topTEN/regulamin/index.html 200
+/topTEN/regulamin/ /topTEN/regulamin/index.html 200
+/topten/regulamin /topTEN/regulamin/index.html 200
+/topten/regulamin/ /topTEN/regulamin/index.html 200
+/TopTEN/regulamin /topTEN/regulamin/index.html 200
+/TopTEN/regulamin/ /topTEN/regulamin/index.html 200
 
 # === CC RELATIONSHIP ENGINE PREVIEW (/ccre-preview) ===
 /ccre-preview /ccre-preview/index.html 200
