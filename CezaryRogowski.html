@@ -37,7 +37,7 @@
   <meta name="twitter:image" content="https://polskieradio.cc/images/cezaryrogowski/cezary-hero.jpg">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="/css/cezary-rogowski.css?v=20261101_music1">
+  <link rel="stylesheet" href="/css/cezary-rogowski.css?v=20261101_music2">
   <style id="songShowcaseCriticalStyles">
     .song-showcase {
       margin-top: clamp(30px, 4vw, 50px);
@@ -343,12 +343,92 @@
       .song-grid { grid-template-columns: 1fr; }
       .song-lyrics-card { max-height: 480px; }
     }
+    .song-container-single {
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .lyrics-toggle-wrap {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+    }
+    .btn-toggle-lyrics {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 10px 24px;
+      border-radius: 9999px;
+      background: rgba(196, 163, 90, 0.1);
+      border: 1px solid rgba(196, 163, 90, 0.35);
+      color: #E2CC9A;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-toggle-lyrics:hover {
+      background: rgba(196, 163, 90, 0.22);
+      border-color: #c4a35a;
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+    .toggle-chevron {
+      transition: transform 0.25s ease;
+    }
+    .btn-toggle-lyrics[aria-expanded="true"] .toggle-chevron {
+      transform: rotate(180deg);
+    }
+    .song-lyrics-expandable {
+      margin-top: 24px;
+      border-top: 1px solid rgba(196, 163, 90, 0.25);
+      padding-top: 24px;
+      animation: lyricsSlideDown 0.3s ease forwards;
+    }
+    @keyframes lyricsSlideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .lyrics-expandable-inner {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(196, 163, 90, 0.2);
+      border-radius: 10px;
+      padding: clamp(18px, 2.5vw, 28px);
+    }
+    .lyrics-bottom-close {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(196, 163, 90, 0.2);
+    }
+    .btn-close-lyrics-subtle {
+      min-height: 44px;
+      padding: 8px 20px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      color: #9c9a92;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-close-lyrics-subtle:hover {
+      border-color: #c4a35a;
+      color: #E2CC9A;
+      background: rgba(196, 163, 90, 0.08);
+    }
   </style>
 
   <!-- Scripts -->
   <script defer src="/js/cc-radio-milion.js?v=20261011_2"></script>
   <script defer src="/components/cc-omni-search.js"></script>
-  <script defer src="/js/cezary-rogowski.js?v=20261101_music1"></script>
+  <script defer src="/js/cezary-rogowski.js?v=20261101_music2"></script>
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
@@ -616,7 +696,7 @@
 
           <!-- PANEL 1: WERSJA POLSKA -->
           <div class="song-panel is-active" id="panelPl" role="tabpanel" aria-labelledby="tabBtnPl" style="display: block;">
-            <div class="song-grid">
+            <div class="song-container-single">
               <!-- KARTA ODTWARZACZA -->
               <div class="song-player-card">
                 <div class="player-card-header">
@@ -677,96 +757,119 @@
                 <div class="song-meta-note">
                   <p>Rockowy utwór z przesłaniem nadziei. Mocny wokal, gitary elektryczne, dynamiczna sekcja rytmiczna i niezłomna prawda o Bożej miłości, która przezwycięża wszelki strach i niepewność.</p>
                 </div>
-              </div>
 
-              <!-- KARTA TEKSTU DO ŚPIEWANIA (BEZ ZNACZNIKÓW W NAWIASACH) -->
-              <div class="song-lyrics-card">
-                <div class="lyrics-header">
-                  <h4 class="lyrics-heading">Tekst do śpiewania</h4>
-                  <button class="btn-copy-lyrics" id="copyLyricsPl" type="button" aria-label="Kopiuj tekst utworu do schowka">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                <!-- PRZYCISK ROZWIJANIA TEKSTU -->
+                <div class="lyrics-toggle-wrap">
+                  <button
+                    class="btn-toggle-lyrics"
+                    id="toggleLyricsPl"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="lyricsCardPl"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="toggle-chevron">
+                      <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
-                    <span>Kopiuj tekst</span>
+                    <span class="toggle-lyrics-label">Rozwiń tekst pieśni do śpiewania ↓</span>
                   </button>
                 </div>
-                <div class="lyrics-body" id="lyricsTextPl">
-                  <div class="lyrics-stanza">
-                    I wtedy kiedy przyjdzie trwoga<br>
-                    A na ziemi niepewny grunt<br>
-                    Niech cię nie dziwi widok Boga<br>
-                    I tego<br>
-                    Że jest z tobą tu
-                  </div>
-                  <div class="lyrics-stanza">
-                    I wtedy kiedy przyjdzie wojna<br>
-                    A wokół trwa przeraźliwy huk<br>
-                    On to zapowiedział tak będzie<br>
-                    Więc wiedz<br>
-                    Że jest z tobą tu
-                  </div>
-                  <div class="lyrics-stanza">
-                    Cóż może odłączyć mnie<br>
-                    Od miłości Bożej<br>
-                    Powiedzcie mi<br>
-                    Cóż może odłączyć mnie<br>
-                    Od miłości Bożej<br>
-                    Powiedzcie mi<br>
-                    Ani życie ani śmierć<br>
-                    Ani wysokość<br>
-                    Ani głębokość<br>
-                    Żadna siła<br>
-                    Która działa<br>
-                    Cokolwiek<br>
-                    Cokolwiek na świecie<br>
-                    Ani życie ani śmierć<br>
-                    Ani wysokość<br>
-                    Ani głębokość<br>
-                    Żadna siła<br>
-                    Która działa<br>
-                    Cokolwiek<br>
-                    Cokolwiek na świecie<br>
-                    Cokolwiek na świecie<br>
-                    Cokolwiek na świecie
-                  </div>
-                  <div class="lyrics-stanza">
-                    I wtedy kiedy jest za dobrze<br>
-                    Gdy masz z kim iść przez rów<br>
-                    Niech cię nie dziwi gdy przyjdzie koniec<br>
-                    Bo ten świat<br>
-                    Nie jest twój
-                  </div>
-                  <div class="lyrics-stanza">
-                    I wtedy kiedy jest za dobrze<br>
-                    Gdy masz z kim iść przez rów<br>
-                    Niech cię nie dziwi gdy przyjdzie koniec<br>
-                    Bo ten świat<br>
-                    Nie jest twój
-                  </div>
-                  <div class="lyrics-stanza">
-                    Cóż może odłączyć mnie<br>
-                    Od miłości Bożej<br>
-                    Powiedzcie mi<br>
-                    Cóż może odłączyć mnie<br>
-                    Od miłości Bożej<br>
-                    Powiedzcie mi<br>
-                    Ani życie ani śmierć<br>
-                    Ani wysokość<br>
-                    Ani głębokość<br>
-                    Żadna siła<br>
-                    Która działa<br>
-                    Cokolwiek<br>
-                    Cokolwiek na świecie<br>
-                    Ani życie ani śmierć<br>
-                    Ani wysokość<br>
-                    Ani głębokość<br>
-                    Żadna siła<br>
-                    Która działa<br>
-                    Cokolwiek<br>
-                    Cokolwiek na świecie<br>
-                    Cokolwiek na świecie<br>
-                    Cokolwiek na świecie
+
+                <!-- ROZWIJANA KARTA TEKSTU (DOMYŚLNIE ZWINIĘTA NA ŻYCZENIE) -->
+                <div class="song-lyrics-expandable" id="lyricsCardPl" style="display: none;">
+                  <div class="lyrics-expandable-inner">
+                    <div class="lyrics-header">
+                      <h4 class="lyrics-heading">Tekst do śpiewania</h4>
+                      <button class="btn-copy-lyrics" id="copyLyricsPl" type="button" aria-label="Kopiuj tekst utworu do schowka">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span>Kopiuj tekst</span>
+                      </button>
+                    </div>
+                    <div class="lyrics-body" id="lyricsTextPl">
+                      <div class="lyrics-stanza">
+                        I wtedy kiedy przyjdzie trwoga<br>
+                        A na ziemi niepewny grunt<br>
+                        Niech cię nie dziwi widok Boga<br>
+                        I tego<br>
+                        Że jest z tobą tu
+                      </div>
+                      <div class="lyrics-stanza">
+                        I wtedy kiedy przyjdzie wojna<br>
+                        A wokół trwa przeraźliwy huk<br>
+                        On to zapowiedział tak będzie<br>
+                        Więc wiedz<br>
+                        Że jest z tobą tu
+                      </div>
+                      <div class="lyrics-stanza">
+                        Cóż może odłączyć mnie<br>
+                        Od miłości Bożej<br>
+                        Powiedzcie mi<br>
+                        Cóż może odłączyć mnie<br>
+                        Od miłości Bożej<br>
+                        Powiedzcie mi<br>
+                        Ani życie ani śmierć<br>
+                        Ani wysokość<br>
+                        Ani głębokość<br>
+                        Żadna siła<br>
+                        Która działa<br>
+                        Cokolwiek<br>
+                        Cokolwiek na świecie<br>
+                        Ani życie ani śmierć<br>
+                        Ani wysokość<br>
+                        Ani głębokość<br>
+                        Żadna siła<br>
+                        Która działa<br>
+                        Cokolwiek<br>
+                        Cokolwiek na świecie<br>
+                        Cokolwiek na świecie<br>
+                        Cokolwiek na świecie
+                      </div>
+                      <div class="lyrics-stanza">
+                        I wtedy kiedy jest za dobrze<br>
+                        Gdy masz z kim iść przez rów<br>
+                        Niech cię nie dziwi gdy przyjdzie koniec<br>
+                        Bo ten świat<br>
+                        Nie jest twój
+                      </div>
+                      <div class="lyrics-stanza">
+                        I wtedy kiedy jest za dobrze<br>
+                        Gdy masz z kim iść przez rów<br>
+                        Niech cię nie dziwi gdy przyjdzie koniec<br>
+                        Bo ten świat<br>
+                        Nie jest twój
+                      </div>
+                      <div class="lyrics-stanza">
+                        Cóż może odłączyć mnie<br>
+                        Od miłości Bożej<br>
+                        Powiedzcie mi<br>
+                        Cóż może odłączyć mnie<br>
+                        Od miłości Bożej<br>
+                        Powiedzcie mi<br>
+                        Ani życie ani śmierć<br>
+                        Ani wysokość<br>
+                        Ani głębokość<br>
+                        Żadna siła<br>
+                        Która działa<br>
+                        Cokolwiek<br>
+                        Cokolwiek na świecie<br>
+                        Ani życie ani śmierć<br>
+                        Ani wysokość<br>
+                        Ani głębokość<br>
+                        Żadna siła<br>
+                        Która działa<br>
+                        Cokolwiek<br>
+                        Cokolwiek na świecie<br>
+                        Cokolwiek na świecie<br>
+                        Cokolwiek na świecie
+                      </div>
+                    </div>
+                    <div class="lyrics-bottom-close">
+                      <button class="btn-close-lyrics-subtle" type="button" data-close-target="toggleLyricsPl">
+                        ↑ Zwiń tekst pieśni
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -775,7 +878,7 @@
 
           <!-- PANEL 2: WERSJA ANGIELSKA -->
           <div class="song-panel" id="panelEn" role="tabpanel" aria-labelledby="tabBtnEn" style="display: none;">
-            <div class="song-grid">
+            <div class="song-container-single">
               <!-- KARTA ODTWARZACZA -->
               <div class="song-player-card">
                 <div class="player-card-header">
@@ -836,101 +939,124 @@
                 <div class="song-meta-note">
                   <p>English rock adaptation inspired by Romans 8:38-39. Vibrant duet vocals, overdrive electric guitars, pounding drums and the profound biblical truth that no power on earth can separate us from God's love.</p>
                 </div>
-              </div>
 
-              <!-- KARTA TEKSTU DO ŚPIEWANIA (BEZ ZNACZNIKÓW W NAWIASACH) -->
-              <div class="song-lyrics-card">
-                <div class="lyrics-header">
-                  <h4 class="lyrics-heading">Sing-along Lyrics</h4>
-                  <button class="btn-copy-lyrics" id="copyLyricsEn" type="button" aria-label="Copy English lyrics to clipboard">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                <!-- PRZYCISK ROZWIJANIA TEKSTU -->
+                <div class="lyrics-toggle-wrap">
+                  <button
+                    class="btn-toggle-lyrics"
+                    id="toggleLyricsEn"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="lyricsCardEn"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="toggle-chevron">
+                      <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
-                    <span>Kopiuj tekst</span>
+                    <span class="toggle-lyrics-label">Rozwiń tekst pieśni (English) ↓</span>
                   </button>
                 </div>
-                <div class="lyrics-body" id="lyricsTextEn">
-                  <div class="lyrics-stanza">
-                    And when the time of fear is coming<br>
-                    And the ground beneath your feet gives way<br>
-                    Don't be surprised that God is with you<br>
-                    Just know<br>
-                    He's right here with you
-                  </div>
-                  <div class="lyrics-stanza">
-                    And when the time of war is coming<br>
-                    And the sound of thunder fills the air<br>
-                    He said these things would surely happen<br>
-                    So know<br>
-                    He's right here with you
-                  </div>
-                  <div class="lyrics-stanza">
-                    What can separate me<br>
-                    From the love of God<br>
-                    Tell me now<br>
-                    What can separate me<br>
-                    From the love of God<br>
-                    Tell me now<br>
-                    Neither life<br>
-                    Nor death<br>
-                    Neither height<br>
-                    Nor depth<br>
-                    Not a single power<br>
-                    In all creation<br>
-                    Nothing at all<br>
-                    Nothing in this world<br>
-                    Neither life<br>
-                    Nor death<br>
-                    Neither height<br>
-                    Nor depth<br>
-                    Not a single power<br>
-                    In all creation<br>
-                    Nothing at all<br>
-                    Nothing in this world<br>
-                    Nothing in this world<br>
-                    Nothing in this world
-                  </div>
-                  <div class="lyrics-stanza">
-                    And when your life is going so well<br>
-                    When there's someone by your side<br>
-                    Don't be surprised when it all comes to an end<br>
-                    For this world<br>
-                    Is not your home
-                  </div>
-                  <div class="lyrics-stanza">
-                    And when your life is going so well<br>
-                    When there's someone by your side<br>
-                    Don't be surprised<br>
-                    When it all comes to an end<br>
-                    For this world<br>
-                    Is not your home
-                  </div>
-                  <div class="lyrics-stanza">
-                    What can separate me<br>
-                    From the love of God<br>
-                    Tell me now<br>
-                    What can separate me<br>
-                    From the love of God<br>
-                    Tell me now<br>
-                    Neither life<br>
-                    Nor death<br>
-                    Neither height<br>
-                    Nor depth<br>
-                    Not a single power<br>
-                    In all creation<br>
-                    Nothing at all<br>
-                    Nothing in this world<br>
-                    Neither life<br>
-                    Nor death<br>
-                    Neither height<br>
-                    Nor depth<br>
-                    Not a single power<br>
-                    In all creation<br>
-                    Nothing at all<br>
-                    Nothing in this world<br>
-                    Nothing in this world<br>
-                    Nothing in this world
+
+                <!-- ROZWIJANA KARTA TEKSTU (DOMYŚLNIE ZWINIĘTA NA ŻYCZENIE) -->
+                <div class="song-lyrics-expandable" id="lyricsCardEn" style="display: none;">
+                  <div class="lyrics-expandable-inner">
+                    <div class="lyrics-header">
+                      <h4 class="lyrics-heading">Sing-along Lyrics</h4>
+                      <button class="btn-copy-lyrics" id="copyLyricsEn" type="button" aria-label="Copy English lyrics to clipboard">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span>Kopiuj tekst</span>
+                      </button>
+                    </div>
+                    <div class="lyrics-body" id="lyricsTextEn">
+                      <div class="lyrics-stanza">
+                        And when the time of fear is coming<br>
+                        And the ground beneath your feet gives way<br>
+                        Don't be surprised that God is with you<br>
+                        Just know<br>
+                        He's right here with you
+                      </div>
+                      <div class="lyrics-stanza">
+                        And when the time of war is coming<br>
+                        And the sound of thunder fills the air<br>
+                        He said these things would surely happen<br>
+                        So know<br>
+                        He's right here with you
+                      </div>
+                      <div class="lyrics-stanza">
+                        What can separate me<br>
+                        From the love of God<br>
+                        Tell me now<br>
+                        What can separate me<br>
+                        From the love of God<br>
+                        Tell me now<br>
+                        Neither life<br>
+                        Nor death<br>
+                        Neither height<br>
+                        Nor depth<br>
+                        Not a single power<br>
+                        In all creation<br>
+                        Nothing at all<br>
+                        Nothing in this world<br>
+                        Neither life<br>
+                        Nor death<br>
+                        Neither height<br>
+                        Nor depth<br>
+                        Not a single power<br>
+                        In all creation<br>
+                        Nothing at all<br>
+                        Nothing in this world<br>
+                        Nothing in this world<br>
+                        Nothing in this world
+                      </div>
+                      <div class="lyrics-stanza">
+                        And when your life is going so well<br>
+                        When there's someone by your side<br>
+                        Don't be surprised when it all comes to an end<br>
+                        For this world<br>
+                        Is not your home
+                      </div>
+                      <div class="lyrics-stanza">
+                        And when your life is going so well<br>
+                        When there's someone by your side<br>
+                        Don't be surprised<br>
+                        When it all comes to an end<br>
+                        For this world<br>
+                        Is not your home
+                      </div>
+                      <div class="lyrics-stanza">
+                        What can separate me<br>
+                        From the love of God<br>
+                        Tell me now<br>
+                        What can separate me<br>
+                        From the love of God<br>
+                        Tell me now<br>
+                        Neither life<br>
+                        Nor death<br>
+                        Neither height<br>
+                        Nor depth<br>
+                        Not a single power<br>
+                        In all creation<br>
+                        Nothing at all<br>
+                        Nothing in this world<br>
+                        Neither life<br>
+                        Nor death<br>
+                        Neither height<br>
+                        Nor depth<br>
+                        Not a single power<br>
+                        In all creation<br>
+                        Nothing at all<br>
+                        Nothing in this world<br>
+                        Nothing in this world<br>
+                        Nothing in this world
+                      </div>
+                    </div>
+                    <div class="lyrics-bottom-close">
+                      <button class="btn-close-lyrics-subtle" type="button" data-close-target="toggleLyricsEn">
+                        ↑ Zwiń tekst pieśni
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

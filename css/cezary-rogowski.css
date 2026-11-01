@@ -2654,3 +2654,104 @@ img {
     max-height: 480px;
   }
 }
+
+/* ==========================================================================
+   COLLAPSIBLE LYRICS ON DEMAND (Standard: Rozwijane na życzenie)
+   ========================================================================== */
+.song-container-single {
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.lyrics-toggle-wrap {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-toggle-lyrics {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 24px;
+  border-radius: var(--radius-pill);
+  background: rgba(196, 163, 90, 0.1);
+  border: 1px solid rgba(196, 163, 90, 0.35);
+  color: #E2CC9A;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all var(--motion-fast) ease;
+}
+
+.btn-toggle-lyrics:hover {
+  background: rgba(196, 163, 90, 0.22);
+  border-color: var(--gold);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.toggle-chevron {
+  transition: transform var(--motion-normal) ease;
+}
+
+.btn-toggle-lyrics[aria-expanded="true"] .toggle-chevron {
+  transform: rotate(180deg);
+}
+
+.song-lyrics-expandable {
+  margin-top: 24px;
+  border-top: 1px solid rgba(196, 163, 90, 0.25);
+  padding-top: 24px;
+  animation: lyricsSlideDown var(--motion-normal) ease forwards;
+}
+
+@keyframes lyricsSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lyrics-expandable-inner {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(196, 163, 90, 0.2);
+  border-radius: var(--radius-sm);
+  padding: clamp(18px, 2.5vw, 28px);
+}
+
+.lyrics-bottom-close {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(196, 163, 90, 0.2);
+}
+
+.btn-close-lyrics-subtle {
+  min-height: 44px;
+  padding: 8px 20px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--motion-fast) ease;
+}
+
+.btn-close-lyrics-subtle:hover {
+  border-color: var(--gold);
+  color: #E2CC9A;
+  background: rgba(196, 163, 90, 0.08);
+}

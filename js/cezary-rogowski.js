@@ -423,4 +423,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupCopyBtn('copyLyricsPl', 'lyricsTextPl');
   setupCopyBtn('copyLyricsEn', 'lyricsTextEn');
+
+  // 8. Collapsible Lyrics Toggles (Rozwijane na życzenie)
+  const setupLyricsToggle = (btnId, cardId, defaultLabel, activeLabel) => {
+    const btn = document.getElementById(btnId);
+    const card = document.getElementById(cardId);
+    if (!btn || !card) return;
+
+    const labelSpan = btn.querySelector('.toggle-lyrics-label') || btn;
+
+    const toggle = (forceOpen) => {
+      const isCurrentlyOpen = btn.getAttribute('aria-expanded') === 'true';
+      const nextOpen = forceOpen !== undefined ? forceOpen : !isCurrentlyOpen;
+
+      btn.setAttribute('aria-expanded', String(nextOpen));
+      card.style.display = nextOpen ? 'block' : 'none';
+      labelSpan.textContent = nextOpen ? activeLabel : defaultLabel;
+    };
+
+    btn.addEventListener('click', () => toggle());
+
+    const closeBtns = card.querySelectorAll('[data-close-target]');
+    closeBtns.forEach((cb) => {
+      cb.addEventListener('click', () => {
+        toggle(false);
+        btn.focus();
+        btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+  };
+
+  setupLyricsToggle(
+    'toggleLyricsPl',
+    'lyricsCardPl',
+    'Rozwiń tekst pieśni do śpiewania ↓',
+    'Zwiń tekst pieśni ↑'
+  );
+
+  setupLyricsToggle(
+    'toggleLyricsEn',
+    'lyricsCardEn',
+    'Rozwiń tekst pieśni (English) ↓',
+    'Zwiń tekst pieśni ↑'
+  );
 });
