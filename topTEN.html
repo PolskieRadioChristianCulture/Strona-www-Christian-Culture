@@ -30,8 +30,20 @@
   <a href="#glosowanie">Głosowanie</a>
   <a href="/topTEN/regulamin.html">Regulamin</a>
 </nav>
-<button class="text-btn" id="loginButton">Zaloguj</button>
-<button class="icon-btn" id="searchToggle" aria-label="Otwórz wyszukiwarkę">🔍</button>
+<div class="header-actions nav-actions">
+  <button type="button" class="cc-topbar-fav-btn cc-fav-btn" id="ccTopBarFavBtn" data-cc-favorite-toggle="true" aria-label="Dodaj tę stronę do Ulubionych" title="Dodaj tę stronę do Ulubionych">
+    <svg class="cc-fav-star-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </svg>
+  </button>
+  <button class="icon-btn search-toggle" id="searchToggle" aria-label="Otwórz wyszukiwarkę" title="Wyszukiwarka">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  </button>
+  <button class="text-btn login-btn" id="loginButton">Zaloguj</button>
+</div>
 </header>
 <nav class="topic-nav" aria-label="Kategorie">
   <a class="selected" href="#notowania">TOPTEN GLOBAL</a>
@@ -82,7 +94,18 @@
 </aside>
 <main id="main" class="content">
 <div class="demo-alert" role="status"><strong>topTEN ETAP II</strong> — Oddawaj codzienne głosy <strong>LubięTO (+777 pkt)</strong> i korzystaj z <strong>PodbijTO (+77 pkt)</strong>! Poznaj także program bezpośredniego wsparcia twórców <strong>wspieramTO</strong>.</div>
-<div id="sections"></div>
+<div id="sections">
+<section class="wspieramto-module" id="wspieramto">
+  <a href="#wspieramto" class="wspieramto-banner-card" id="bannerWspieramTO" role="button" aria-label="Poznaj wspieramTO — bezpośrednie wsparcie artystów topTEN">
+    <img src="/topTEN/assets/wspieramto-banner.png" alt="wspieramTO wspiera artystów topTEN — Dobra muzyka. Prawdziwe wsparcie. Kliknij, aby poznać program wsparcia." class="wspieramto-img" loading="lazy">
+  </a>
+  <div class="wspieramto-details-bar">
+    <span class="wspieramto-badge">wspieramTO × Christian Culture</span>
+    <p>100% kwoty trafia bezpośrednio do artystów. Polskie Radio Christian Culture nie pobiera prowizji, a wsparcie finansowe nie wpływa na punkty w notowaniach.</p>
+    <button class="wspieramto-action-btn" id="btnWspieramTOModal" type="button">Poznaj wspieramTO →</button>
+  </div>
+</section>
+</div>
 <section class="action-panel" id="glosowanie">
   <div>
     <p class="eyebrow">TWOJA LISTA PRZEBOJÓW</p>

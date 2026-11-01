@@ -161,9 +161,9 @@ function renderCharts(filter = '') {
 
     <!-- Moduł partnerski wspieramTO -->
     <section class="wspieramto-module" id="wspieramto">
-      <div class="wspieramto-banner-card">
-        <img src="/topTEN/assets/wspieramto-banner.png" alt="wspieramTO wspiera artystów topTEN — Dobra muzyka. Prawdziwe wsparcie." class="wspieramto-img" loading="lazy">
-      </div>
+      <a href="#wspieramto" class="wspieramto-banner-card" id="bannerWspieramTO" role="button" aria-label="Poznaj wspieramTO — bezpośrednie wsparcie artystów topTEN">
+        <img src="/topTEN/assets/wspieramto-banner.png" alt="wspieramTO wspiera artystów topTEN — Dobra muzyka. Prawdziwe wsparcie. Kliknij, aby poznać szczegóły" class="wspieramto-img" loading="lazy">
+      </a>
       <div class="wspieramto-details-bar">
         <span class="wspieramto-badge">wspieramTO × Christian Culture</span>
         <p>100% kwoty trafia bezpośrednio do artystów. Polskie Radio Christian Culture nie pobiera prowizji, a wsparcie finansowe nie wpływa na punkty w notowaniach.</p>
@@ -200,7 +200,23 @@ function renderCharts(filter = '') {
 
   const btnWspieram = $('#btnWspieramTOModal');
   if (btnWspieram) {
-    btnWspieram.addEventListener('click', showWspieramTOInfo);
+    btnWspieram.addEventListener('click', (e) => {
+      e.preventDefault();
+      showWspieramTOInfo();
+    });
+  }
+  const bannerWspieram = $('#bannerWspieramTO');
+  if (bannerWspieram) {
+    bannerWspieram.addEventListener('click', (e) => {
+      e.preventDefault();
+      showWspieramTOInfo();
+    });
+    bannerWspieram.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        showWspieramTOInfo();
+      }
+    });
   }
 }
 

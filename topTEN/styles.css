@@ -209,3 +209,160 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
+
+
+/* === HEADER AESTHETICS: Gwiazdka i Lupka (SMCC & Zero-QA Standard) === */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+}
+.header .cc-topbar-fav-btn,
+.header .search-toggle,
+.header .icon-btn#searchToggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+  color: #334155 !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-sizing: border-box !important;
+  font-size: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  flex-shrink: 0 !important;
+}
+.header .cc-topbar-fav-btn:hover,
+.header .search-toggle:hover,
+.header .icon-btn#searchToggle:hover {
+  background: rgba(255, 122, 0, 0.08) !important;
+  border-color: var(--orange) !important;
+  color: var(--orange) !important;
+  transform: translateY(-1px) !important;
+}
+.header .cc-topbar-fav-btn.is-active {
+  background: rgba(255, 122, 0, 0.15) !important;
+  border-color: var(--orange) !important;
+  color: var(--orange) !important;
+}
+.header .cc-topbar-fav-btn svg,
+.header .search-toggle svg,
+.header .icon-btn#searchToggle svg {
+  width: 20px !important;
+  height: 20px !important;
+  display: block !important;
+  stroke: currentColor !important;
+}
+.header .cc-topbar-fav-btn.is-active svg {
+  fill: var(--orange) !important;
+  stroke: var(--orange) !important;
+}
+.header .login-btn,
+.header #loginButton {
+  min-height: 44px !important;
+  padding: 0 16px !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #111 !important;
+  background: #111 !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+}
+.header .login-btn:hover,
+.header #loginButton:hover {
+  background: var(--orange) !important;
+  border-color: var(--orange) !important;
+  color: #000 !important;
+}
+
+/* === STOPKA I OCHRONA PRZED KOLIZJĄ Z PRZYCISKIEM POWROTU NA GÓRĘ === */
+.footer {
+  position: relative !important;
+  padding: 22px 3.4% 28px !important;
+}
+.legal-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+  font-size: 13px !important;
+  color: #ddd !important;
+  margin-right: 68px !important; /* Kluczowa rezerwa miejsca: zapobiega nakładaniu się przycisku powrotu na link 'Newsletter' */
+  flex-wrap: wrap !important;
+}
+.legal-links a {
+  transition: color 0.2s ease !important;
+}
+.legal-links a:hover {
+  color: var(--orange) !important;
+}
+@media (max-width: 850px) {
+  .footer {
+    padding-bottom: 84px !important; /* Zapewnia brak kolizji na smartfonach */
+  }
+  .legal-links {
+    margin-right: 0 !important;
+  }
+  .header-actions {
+    margin-left: auto !important;
+    gap: 6px !important;
+  }
+}
+
+/* Stylizacja przycisku powrotu na górę dla spójności z topTEN */
+html body #backToTopBtn[data-cc-back-to-top] {
+  border: 1.5px solid var(--orange) !important;
+  color: var(--orange) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18) !important;
+}
+html body #backToTopBtn[data-cc-back-to-top]:hover {
+  background: var(--orange) !important;
+  color: #000 !important;
+}
+
+/* === AKTYWNY BANER wspieramTO (Interaktywny, klikalny, responsywny) === */
+.wspieramto-banner-card {
+  position: relative;
+  width: 100%;
+  display: block;
+  line-height: 0;
+  overflow: hidden;
+  background: #111;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 14px 14px 0 0;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+.wspieramto-banner-card:hover {
+  filter: brightness(1.04);
+}
+.wspieramto-banner-card:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: -3px;
+}
+.wspieramto-banner-card:hover .wspieramto-img {
+  transform: scale(1.012);
+}
+.wspieramto-img {
+  width: 100%;
+  height: auto;
+  max-height: 380px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
