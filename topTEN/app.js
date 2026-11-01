@@ -372,6 +372,45 @@ function openTrackModal(trackId, { keepFocus = false } = {}) {
   $('#btnTrackFollow')?.addEventListener('click', () => handleFollowTrack(track.id));
 }
 
+// Kod QR wsparcia: serwer przechowuje tylko zweryfikowaną treść; obraz rysujemy na nowo (bez plików od artystów).
+function supportQrBlock(qr, i) {
+  const info = qr.kind === 'transfer'
+    ? `Odbiorca: <strong>${escapeHtml(qr.recipient)}</strong><br>Konto: ${escapeHtml(qr.account)}${qr.title ? `<br>Tytuł: ${escapeHtml(qr.title)}` : ''}${qr.amount ? `<br>Kwota: ${escapeHtml(qr.amount)}` : ''}`
+    : `Serwis: <strong>${escapeHtml(qr.host)}</strong>`;
+  return `<div style="flex-basis: 100%; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+      <div data-support-qr="${i}" style="background: #fff; padding: 8px; border-radius: 8px; line-height: 0;" role="img" aria-label="Kod QR — wsparcie artysty"></div>
+      <div style="font-size: 13px; min-width: 0; overflow-wrap: anywhere;">
+        ${info}
+        <div style="margin-top: 8px;">${qr.kind === 'transfer'
+          ? `<button class="btn-action btn-support-artist" type="button" data-copy-account="${i}">Kopiuj numer konta</button>`
+          : `<a class="btn-action btn-support-artist" href="${escapeHtml(qr.payload)}" target="_blank" rel="noopener noreferrer ugc nofollow" data-donate="qr">Otwórz ↗</a>`}</div>
+        <small style="color: #888;">Zeskanuj w aplikacji banku i sprawdź nazwę odbiorcy przed zatwierdzeniem.</small>
+      </div>
+    </div>`;
+}
+
+let qrLibPromise = null;
+function loadQrLib() {
+  if (window.QRCode) return Promise.resolve();
+  qrLibPromise ||= new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = '/js/vendor-qrcode.min.js';
+    s.onload = resolve;
+    s.onerror = () => { qrLibPromise = null; reject(new Error('qr lib')); };
+    document.head.appendChild(s);
+  });
+  return qrLibPromise;
+}
+
+function renderSupportQrs(track) {
+  const boxes = $('#modalBody').querySelectorAll('[data-support-qr]');
+  if (!boxes.length) return;
+  loadQrLib().then(() => boxes.forEach(box => {
+    const qr = track.support[Number(box.dataset.supportQr)]?.qr;
+    if (qr?.payload) new window.QRCode(box, { text: qr.payload, width: 160, height: 160, correctLevel: window.QRCode.CorrectLevel.M });
+  })).catch(() => boxes.forEach(box => { box.hidden = true; }));
+}
+
 function showSupportModal(trackId) {
   const track = findTrack(trackId);
   if (!track?.support?.length) return;
@@ -384,7 +423,7 @@ function showSupportModal(trackId) {
         ${track.support.map((s, i) => `
           <li style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 0; border-bottom: 1px solid #eee;">
             <span><strong>${escapeHtml(s.method)}:</strong> ${escapeHtml(s.value)}</span>
-            ${s.url
+            ${s.qr ? supportQrBlock(s.qr, i) : s.url
               ? `<a class="btn-action btn-support-artist" href="${escapeHtml(s.url)}" target="_blank" rel="noopener noreferrer ugc nofollow" data-donate="${escapeHtml(s.method)}">Otwórz ↗</a>`
               : `<button class="btn-action btn-support-artist" type="button" data-copy-support="${i}">Kopiuj numer</button>`}
           </li>
@@ -394,6 +433,14 @@ function showSupportModal(trackId) {
     </div>
   `);
 
+  renderSupportQrs(track);
+  $('#modalBody').querySelectorAll('[data-copy-account]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const acc = track.support[Number(btn.dataset.copyAccount)].qr.account.replace(/\s/g, '');
+      navigator.clipboard?.writeText(acc).then(() => showToast('Skopiowano numer konta')).catch(() => showToast(`Konto: ${acc}`));
+      ccEvent('donate_click', { method: 'transfer_qr', place: 'topten', item_id: track.id });
+    });
+  });
   $('#modalBody').querySelectorAll('[data-copy-support]').forEach(btn => {
     btn.addEventListener('click', () => {
       const s = track.support[Number(btn.dataset.copySupport)];

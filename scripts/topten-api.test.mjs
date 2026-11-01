@@ -462,3 +462,32 @@ test('karta topTEN: wpinana centralnie tylko na stronach muzycznych, nigdy na tr
     assert.ok(!applyPageStandard(f, page).includes('cc-topten-card.js'), f);
   }
 });
+import { parseSupportQr, validNrb } from '../services/topten/topten-service.js';
+test('kody QR wsparcia (§7): tylko przelew ZBP z poprawnym kontem albo dozwolony link; BLIK jednorazowy i obce linki odrzucone', async () => {
+  const NRB = '77109010140000071219812877';
+  assert.equal(validNrb(NRB), true);
+  assert.equal(validNrb(NRB.slice(0, 25) + '8'), false, 'zła suma kontrolna');
+  const zbp = `|PL|${NRB}|002500|Jan Artysta|Wsparcie topTEN|||`;
+  const t = parseSupportQr(zbp);
+  assert.equal(t.kind, 'transfer');
+  assert.equal(t.recipient, 'Jan Artysta');
+  assert.equal(t.account, '77 1090 1014 0000 0712 1981 2877');
+  assert.equal(t.amount, '25,00 zł');
+  assert.equal(parseSupportQr('https://revolut.me/christianculture').kind, 'link');
+  for (const bad of ['123456', '123 456', 'https://evil.example/pay', 'http://revolut.me/x', `|PL|${NRB.slice(0, 25)}8|000000|Jan|x|||`,
+    `|DE|${NRB}|000000|Jan|x|||`, `|PL|${NRB}|000000||x|||`, `|PL|${NRB}|000000|<script>|x|||`, 'javascript:alert(1)', '']) {
+    assert.equal(parseSupportQr(bad), null, bad);
+  }
+  const h = harness();
+  const { body: { id } } = await h.call('POST', '/api/topten/nominations', { body: nomination() });
+  const rej = await h.call('POST', `/api/topten/admin/nominations/${id}`, { token: 'admin', body: { status: 'published',
+    track: { support: [{ method: 'BLIK', value: 'kod', qr: '123456' }] } } });
+  assert.equal(rej.status, 400);
+  assert.equal(rej.body.error || rej.body.code, 'invalid_support_qr');
+  const ok = await h.call('POST', `/api/topten/admin/nominations/${id}`, { token: 'admin', body: { status: 'published',
+    track: { support: [{ method: 'Przelew (QR)', value: 'Jan Artysta', qr: zbp }] } } });
+  assert.equal(ok.status, 200);
+  const s = (await h.call('GET', '/api/topten/charts')).body.items.find(i => i.id === id).support[0];
+  assert.equal(s.qr.payload, zbp);
+  assert.equal(s.qr.recipient, 'Jan Artysta');
+});

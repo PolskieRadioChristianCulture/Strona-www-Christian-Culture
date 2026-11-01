@@ -95,6 +95,41 @@ function httpsUrl(value, hosts) {
   return u.toString();
 }
 
+// ─── Kody QR wsparcia (spec. §7): przechowujemy tylko odczytaną treść, nie obraz ──
+// Rachunek NRB (26 cyfr) — suma kontrolna jak IBAN PL (mod 97 = 1).
+export function validNrb(digits) {
+  if (!/^\d{26}$/.test(digits)) return false;
+  const s = `${digits.slice(2)}2521${digits.slice(0, 2)}`; // P=25, L=21
+  let r = 0;
+  for (const ch of s) r = (r * 10 + Number(ch)) % 97;
+  return r === 1;
+}
+
+// Dozwolone: link https do serwisu wsparcia albo kod „przelew” w standardzie ZBP
+// (NIP|PL|NRB|kwota w groszach|odbiorca|tytuł|||). Jednorazowy kod BLIK i wszystko inne — odrzucone.
+export function parseSupportQr(raw) {
+  const v = typeof raw === 'string' ? raw.trim() : '';
+  if (!v || v.length > 300) return null;
+  if (/^\d{6}$/.test(v.replace(/\s/g, ''))) return null; // jednorazowy kod BLIK — nigdy
+  if (/^https:\/\//i.test(v)) {
+    const url = httpsUrl(v, SUPPORT_HOSTS);
+    return url ? { kind: 'link', payload: url, host: new URL(url).hostname.replace(/^www\./, '') } : null;
+  }
+  const f = v.split('|');
+  if (f.length < 6 || f.length > 9) return null;
+  const [nip, country, nrb, amount, name, title] = f;
+  if (nip && !/^\d{10}$/.test(nip)) return null;
+  if (country !== 'PL' || !validNrb(nrb)) return null;
+  if (amount && !/^\d{6}$/.test(amount)) return null;
+  const recipient = name.trim();
+  if (!recipient || recipient.length > 20 || title.length > 32 || /[<>]/.test(recipient + title)) return null;
+  return {
+    kind: 'transfer', payload: v, recipient, title: title.trim(),
+    account: nrb.replace(/^(\d{2})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})(\d{4})$/, '$1 $2 $3 $4 $5 $6 $7'),
+    amount: amount && Number(amount) > 0 ? (Number(amount) / 100).toFixed(2).replace('.', ',') + ' zł' : null,
+  };
+}
+
 export function youtubeId(value) {
   if (!value) return '';
   let u;
@@ -542,11 +577,15 @@ async function adminUpdateNomination(db, request, admin, id) {
   if (status === 'published') {
     const p = body.track || {};
     const yt = youtubeId(text(p.youtubeUrl, 300) || nom.youtube_url || '');
+    if (Array.isArray(p.support) && p.support.some(s => s?.qr && !parseSupportQr(s.qr))) {
+      throw new ApiError(400, 'invalid_support_qr', 'Kod QR odrzucony: dozwolony jest przelew na rachunek (standard ZBP, poprawny numer konta) albo link do zrzutka.pl, revolut.me, paypal.me, patronite.pl. Jednorazowe kody BLIK są niedozwolone.');
+    }
     const support = Array.isArray(p.support) ? p.support.slice(0, 5).map(s => ({
       method: text(s.method, 40), value: text(s.value, 120),
       ...(s.url ? { url: httpsUrl(text(s.url, 300), SUPPORT_HOSTS) } : {}),
       ...(s.copy ? { copy: text(s.copy, 40).replace(/[^\d]/g, '') } : {}),
-    })).filter(s => s.method && s.value && s.url !== null) : (nom.support_url ? [{ method: 'Wsparcie', value: new URL(nom.support_url).host, url: nom.support_url }] : []);
+      ...(s.qr ? { qr: parseSupportQr(s.qr) } : {}),
+    })).filter(s => s.method && s.value && s.url !== null && s.qr !== null) :(nom.support_url ? [{ method: 'Wsparcie', value: new URL(nom.support_url).host, url: nom.support_url }] : []);
     const profile = httpsUrl(text(p.profileUrl, 300), null) || null;
     // Naturalna rywalizacja: nowy utwór czeka w kolejce debiutów na najbliższy poniedziałek (§5.4, §5.6).
     const natural = (await getFlags(db)).natural;

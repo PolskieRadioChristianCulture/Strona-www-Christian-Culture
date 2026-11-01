@@ -14,8 +14,8 @@
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 <title>Panel redakcji | topTEN Christian Culture</title>
 <link rel="icon" type="image/png" href="/topTEN/assets/topten-logo.png">
-<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007k">
-<script type="module" src="/topTEN/auth.js?v=20261101_a007k"></script>
+<link rel="stylesheet" href="/topTEN/styles.css?v=20261101_a007l">
+<script type="module" src="/topTEN/auth.js?v=20261101_a007l"></script>
 <style>
 .panel-page { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
 .panel-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 16px 0; }
@@ -164,7 +164,10 @@
           '<label>Link YouTube (okładka i odtwarzacz)<input data-f="youtubeUrl" value="' + esc(n.youtube_url || '') + '"></label>' +
           '<label>Wizytówka artysty (https, opcjonalnie)<input data-f="profileUrl" placeholder="https://polskieradio.cc/..."></label>' +
           '<label class="full">Przesłanie na karcie (krótko)<input data-f="bibleRef" value="' + esc(String(n.bible_ref).slice(0, 200)) + '"></label>' +
-          '<label class="full">Metody wsparcia — jedna na linię: Metoda | tekst | https-link (lub numer BLIK bez linku)<textarea data-f="support" rows="3">' + esc(supportLines(n)) + '</textarea></label>' +
+          '<label class="full">Metody wsparcia — jedna na linię: Metoda | tekst | https-link (lub numer BLIK bez linku; kod QR: qr:treść)<textarea data-f="support" rows="3">' + esc(supportLines(n)) + '</textarea></label>' +
+          '<div class="full"><label class="outline-btn" style="display:inline-flex;align-items:center;gap:6px;cursor:pointer">📷 Dodaj kod QR wsparcia (obraz od artysty)<input type="file" accept="image/*" data-qr-file hidden></label> ' +
+          '<button class="outline-btn" type="button" data-qr-paste>⌨️ Wpisz treść kodu QR</button>' +
+          '<br><small class="muted">Obraz jest odczytywany w Twojej przeglądarce i nie jest nigdzie wysyłany — zapisujemy tylko treść kodu. Dozwolone: przelew na rachunek (standard ZBP) albo link zrzutka.pl / revolut.me / paypal.me / patronite.pl. Jednorazowe kody BLIK — nigdy.</small></div>' +
         '</div>' +
         '<div class="panel-bar"><button class="primary-btn" type="button" data-save="true">Zapisz decyzję</button>' +
         '<small class="muted">„Opublikowane” dodaje utwór do notowania na żywo; „Zdjęte/Odrzucone” usuwa go z listy.</small></div>' +
@@ -177,10 +180,48 @@
       .filter(function (p) { return p[0] && p[1]; })
       .map(function (p) {
         var o = { method: p[0], value: p[1] };
-        if (p[2] && /^https:\/\//.test(p[2])) o.url = p[2]; else o.copy = (p[2] || p[1]).replace(/[^\d]/g, '');
+        // Treść kodu QR w standardzie ZBP sama zawiera „|”, więc bierzemy całą resztę linii.
+        if (p[2] && p[2].indexOf('qr:') === 0) o.qr = p.slice(2).join('|').slice(3).trim();
+        else if (p[2] && /^https:\/\//.test(p[2])) o.url = p[2]; else o.copy = (p[2] || p[1]).replace(/[^\d]/g, '');
         return o;
       });
   }
+
+  // Wstępna kontrola w przeglądarce (ostateczna — na serwerze, parseSupportQr).
+  function describeQr(payload) {
+    var v = String(payload || '').trim();
+    if (/^\d{6}$/.test(v.replace(/\s/g, ''))) return { error: 'To jednorazowy kod BLIK — takich kodów nie publikujemy.' };
+    if (/^https:\/\//i.test(v)) {
+      var host = '';
+      try { host = new URL(v).hostname.replace(/^www\./, ''); } catch (e) { return { error: 'Nieprawidłowy link.' }; }
+      if (!/(^|\.)(zrzutka\.pl|revolut\.me|paypal\.me|paypal\.com|patronite\.pl)$/.test(host)) return { error: 'Link spoza dozwolonych serwisów wsparcia: ' + host };
+      return { method: 'Wsparcie (QR)', value: host };
+    }
+    var f = v.split('|');
+    if (f.length >= 6 && f[1] === 'PL' && /^\d{26}$/.test(f[2]) && f[4].trim()) return { method: 'Przelew (QR)', value: f[4].trim() };
+    return { error: 'Nieznany format kodu QR. Dozwolone: przelew w standardzie ZBP albo link do serwisu wsparcia.' };
+  }
+  function addQrLine(card, payload) {
+    var d = describeQr(payload);
+    if (d.error) { toast(d.error); return; }
+    var ta = card.querySelector('[data-f="support"]');
+    ta.value = (ta.value.trim() ? ta.value.trim() + '\n' : '') + d.method + ' | ' + d.value + ' | qr:' + String(payload).trim();
+    toast('Dodano kod QR: ' + d.value + ' — sprawdź odbiorcę przed zapisem.');
+  }
+  $('#nominations').addEventListener('change', async function (e) {
+    var input = e.target.closest('[data-qr-file]');
+    if (!input || !input.files || !input.files[0]) return;
+    var card = input.closest('.nom-card');
+    try {
+      if (!('BarcodeDetector' in window)) throw new Error('unsupported');
+      var codes = await new window.BarcodeDetector({ formats: ['qr_code'] }).detect(await createImageBitmap(input.files[0]));
+      if (!codes.length) { toast('Nie znaleziono kodu QR na obrazie.'); return; }
+      addQrLine(card, codes[0].rawValue);
+    } catch (err) {
+      var manual = prompt('Ta przeglądarka nie odczytuje kodów QR z obrazu. Zeskanuj kod aparatem telefonu i wklej tutaj jego treść:');
+      if (manual) addQrLine(card, manual);
+    } finally { input.value = ''; }
+  });
 
   async function loadNominations() {
     try {
@@ -205,6 +246,11 @@
   }
 
   $('#nominations').addEventListener('click', async function (e) {
+    if (e.target.closest('[data-qr-paste]')) {
+      var manual = prompt('Wklej treść kodu QR (przelew ZBP albo link do serwisu wsparcia):');
+      if (manual) addQrLine(e.target.closest('.nom-card'), manual);
+      return;
+    }
     if (!e.target.closest('[data-save]')) return;
     var card = e.target.closest('.nom-card');
     var f = function (k) { return card.querySelector('[data-f="' + k + '"]').value.trim(); };
