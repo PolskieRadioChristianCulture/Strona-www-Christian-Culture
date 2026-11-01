@@ -2400,8 +2400,10 @@
         </div>
     </section>
 
-    <!-- Akcja społeczna: klikalna grafika bez dodatkowego panelu tekstowego. -->
-    <div id="homepageLightCampaign" style="padding: 16px 20px;">
+    <!-- Akcja sezonowa: zarządzana automatycznie przez js/cc-seasonal-campaigns.js.
+         Domyślnie ukryta — skrypt pokazuje ją 17 dni przed 31 paź (14 paź – 31 paź).
+         W kolejnych latach aktywacja nastąpi automatycznie bez edycji HTML. -->
+    <div id="homepageLightCampaign" style="display:none; padding: 16px 20px;" aria-hidden="true">
         <a href="/Halloween#plyne-pod-prad" aria-label="Płynę pod prąd — promuję światłość. Przejdź do akcji AntyHALLOWEEN" style="display: block; width: 100%; max-width: 560px; margin: 0 auto; border-radius: 16px;">
             <img src="/Halloween/assets/antyhalloween-akcja-20261024.png" alt="#AntyHALLOWEEN — My świętujemy inaczej!" width="2000" height="2000" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto;">
         </a>
@@ -4542,5 +4544,7 @@
 <!-- EkoCC INFO ⓘ Standard Strategiczny -->
 <script defer src="/components/ekocc-info.js?v=20261020_1"></script>
   <script type="module" src="/components/cc-warm-welcome.js?v=20261031_1"></script>
+    <!-- Menedżer akcji sezonowych: automatyczne show/hide wg kalendarza -->
+    <script src="/js/cc-seasonal-campaigns.js?v=20261101_1" defer></script>
 </body>
 </html>
