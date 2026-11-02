@@ -72,12 +72,12 @@ async function main() {
   reconcile(history, inv);
   fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2), 'utf8');
 
-  const rowsBy = Object.fromEntries(inv.map(c => [c.channel, c.videos || []]));
+  const rowsBy = Object.fromEntries(inv.filter(c => !c.error).map(c => [c.channel, c.videos || []])); // brak spisu kanału = zablokowany, nigdy „wgraj”
   const plan = [];
   for (const ep of eps) for (const ch of targetChannels(history, ep)) for (const tab of ['videos', 'shorts']) {
     const f = ep.files[tab];
     if (!f) continue;
-    if (!rowsBy[ch]) { plan.push({ ep: ep.prefix, channel: ch, tab, action: 'blocked', reason: 'brak spisu kanału' }); continue; }
+    if (!rowsBy[ch]) { plan.push({ ep: ep.prefix, key: ep.key, channel: ch, tab, action: 'blocked', reason: 'brak spisu kanału', toDelete: [] }); continue; }
     const s = stateOf(rowsBy[ch], ep, tab);
     plan.push({ ep: ep.prefix, key: ep.key, channel: ch, tab, action: s.action, keepId: s.keep?.id || null, toDelete: s.extras, file: f });
   }
@@ -89,16 +89,21 @@ async function main() {
   if (EXECUTE) {
     // kolejno: rozdziały rosnąco (premiery w kolejności), jeden Playwright naraz
     for (const p of plan.filter(p => p.action === 'complete-draft' || p.action === 'upload')) {
-      try {
-        const r = await uploadEpisodeToChannel({ videoPath: p.file.video, metaPath: p.file.meta, channelName: p.channel, draftVideoId: p.action === 'complete-draft' ? p.keepId : null });
-        results.push({ ...p, file: undefined, result: r.skipped ? 'pominięte (historia)' : 'zaplanowane', videoUrl: r.videoUrl });
-      } catch (e) {
-        results.push({ ...p, file: undefined, result: 'BŁĄD', error: e.message });
-        console.error(`❌ ${p.channel} | ${p.key} | ${p.tab}: ${e.message}`);
+      // Dokończenie wersji roboczej jest bezpieczne do powtórzenia (nic nie wgrywa) — Studio bywa niestabilne, więc do 5 prób.
+      const tries = p.action === 'complete-draft' ? 5 : 1;
+      for (let a = 1; a <= tries; a++) {
+        try {
+          const r = await uploadEpisodeToChannel({ videoPath: p.file.video, metaPath: p.file.meta, channelName: p.channel, draftVideoId: p.action === 'complete-draft' ? p.keepId : null });
+          results.push({ ...p, file: undefined, result: r.skipped ? 'pominięte (historia)' : 'zaplanowane', videoUrl: r.videoUrl, attempts: a });
+          break;
+        } catch (e) {
+          console.error(`❌ [próba ${a}/${tries}] ${p.channel} | ${p.key} | ${p.tab}: ${e.message.split('\n')[0]}`);
+          if (a === tries) results.push({ ...p, file: undefined, result: 'BŁĄD', error: e.message, attempts: a });
+        }
       }
     }
   }
-  const toDelete = plan.flatMap(p => p.toDelete.map(v => ({ channel: p.channel, tab: p.tab, ...v, studioUrl: v.id ? `https://studio.youtube.com/video/${v.id}/edit` : null })));
+  const toDelete = plan.flatMap(p => (p.toDelete || []).map(v => ({ channel: p.channel, tab: p.tab, ...v, studioUrl: v.id ? `https://studio.youtube.com/video/${v.id}/edit` : null })));
   fs.writeFileSync(REPORT_FILE, JSON.stringify({ generatedAt: new Date().toISOString(), executed: EXECUTE, plan: plan.map(p => ({ ...p, file: undefined })), results, toDelete }, null, 2), 'utf8');
   console.log(`Do usunięcia ręcznie (duble/przerwane): ${toDelete.length}. Raport: ${REPORT_FILE}`);
 }

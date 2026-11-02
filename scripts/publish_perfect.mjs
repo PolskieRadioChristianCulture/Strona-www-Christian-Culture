@@ -119,11 +119,24 @@ async function openDraftDialog(page, channelId, videoId) {
     await page.locator('ytcp-video-row').first().waitFor({ timeout: 30000 }).catch(() => {});
     await page.waitForTimeout(2500);
     for (let p = 0; p < 20; p++) {
-      const row = page.locator('ytcp-video-row', { has: page.locator(`a[href*="${videoId}"], img[src*="/vi/${videoId}/"]`) }).first();
+      // Tak samo jak spis (yt_studio_inventory): id także z outerHTML — wiersze 4K w przetwarzaniu nie mają linku ani <img>.
+      // Lista Studio dociąga dane kilka sekund — czekaj do 30 s, zanim uznasz, że wiersza nie ma na tej stronie.
+      for (let t = 0; t < 20; t++) {
+        const hit = await page.evaluate((id) => {
+          let found = false;
+          for (const r of document.querySelectorAll('ytcp-video-row')) if (r.outerHTML.includes(id)) { r.setAttribute('data-cc-target', id); found = true; }
+          return found;
+        }, videoId);
+        if (hit) break;
+        await page.waitForTimeout(1500);
+      }
+      const row = page.locator(`ytcp-video-row[data-cc-target="${videoId}"]`).first();
       if (await row.count()) {
         if (/anuluj przesyłanie|cancel upload/i.test(await row.innerText())) throw new Error(`Wersja robocza ${videoId} to przerwane wgranie — trzeba wgrać plik ponownie.`);
         await row.hover();
-        await row.locator('ytcp-button:has-text("Edytuj wersję roboczą"), button:has-text("Edytuj wersję roboczą"), ytcp-button:has-text("Edit draft")').first().click();
+        const editBtn = row.locator('ytcp-button:has-text("Edytuj wersję roboczą"), button:has-text("Edytuj wersję roboczą"), ytcp-button:has-text("Edit draft")').first();
+        if (!(await editBtn.isVisible().catch(() => false))) throw new Error(`Film ${videoId} nie ma jeszcze przycisku „Edytuj wersję roboczą” (YouTube go przetwarza) — ponów później.`);
+        await editBtn.click();
         await page.locator('ytcp-uploads-dialog #title-textarea').first().waitFor({ timeout: 30000 });
         await page.waitForTimeout(2000);
         return;
@@ -519,12 +532,22 @@ export async function uploadEpisodeToChannel({
 
     // Sukces tylko, gdy YouTube pokaże okno „opublikowano” (lub „nadal przetwarzany — zostanie opublikowany”)
     console.log('Oczekiwanie na potwierdzenie publikacji przez YouTube...');
-    const confirmed = await page
-      .getByText(/Film został (zaplanowany|opublikowany)|Film zostanie opublikowany|Video (published|scheduled)|Video will be published/)
-      .first()
-      .waitFor({ state: 'visible', timeout: 90000 })
-      .then(() => true)
-      .catch(() => false);
+    // Okno „Nadal sprawdzamy Twoje treści” (sprawdzanie praw autorskich w toku) trzeba zamknąć „OK” — dopiero wtedy YouTube pokazuje potwierdzenie.
+    const confirmText = page.getByText(/Film został (zaplanowany|opublikowany)|Film zostanie opublikowany|Video (published|scheduled)|Video will be published/).first();
+    const stillChecking = page.locator('tp-yt-paper-dialog:visible, ytcp-dialog:visible').filter({ hasText: /Nadal sprawdzamy|still checking/i }).first();
+    let confirmed = false;
+    let clickedOk = false;
+    for (const end = Date.now() + 90000; Date.now() < end && !confirmed;) {
+      if (await confirmText.isVisible().catch(() => false)) { confirmed = true; break; }
+      if (await stillChecking.isVisible().catch(() => false)) {
+        console.log('  -> YouTube: „Nadal sprawdzamy Twoje treści” — zamykam OK.');
+        await stillChecking.locator('ytcp-button, button').filter({ hasText: /^\s*OK\s*$/ }).first().click().then(() => { clickedOk = true; }).catch(() => {});
+      }
+      await page.waitForTimeout(1500);
+      if (!confirmed && clickedOk && !(await page.locator('ytcp-uploads-dialog #title-textarea').first().isVisible().catch(() => false))) {
+        confirmed = true; // dialog zamknięty po OK = zaplanowano; stan i tak weryfikuje yt_reconcile_history
+      }
+    }
     if (!confirmed) {
       await page.screenshot({ path: 'youtube_publish_not_confirmed.png', fullPage: true }).catch(() => {});
       throw new Error('YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png');
