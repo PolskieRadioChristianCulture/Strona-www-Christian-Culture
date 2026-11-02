@@ -1,0 +1,170 @@
+{
+  "$opis": "Kurs serii Rozwiąż problem. Lekcje i fiszki: kurs.docx + fiszki.csv w tym folderze. Generator: node scripts/rozwiaz-problem/build.mjs build rzuc-palenie",
+  "slug": "rzuc-palenie",
+  "number": "01",
+  "name": "Rzuć palenie",
+  "url": "https://polskieradio.cc/Rozwi%C4%85%C5%BCProblem",
+  "path": "/Rozwi%C4%85%C5%BCProblem",
+  "outFile": "rozwiaz-problem/index.html",
+  "assets": "/rozwiaz-problem/assets/",
+  "published": "2026-11-02",
+  "modified": "2026-11-02",
+  "risk": "zielony",
+  "menuIcon": "nosmoke",
+
+  "head": {
+    "title": "Rozwiąż problem — Rzuć palenie. Kurs chrześcijański 14 dni | Christian Culture",
+    "description": "Rozwiąż problem — seria praktycznych kursów chrześcijańskich. Pierwszy kurs: Rzuć palenie. 14 krótkich lekcji, jedno zadanie dziennie, Biblia czytana w kontekście i realne źródła pomocy.",
+    "ogTitle": "Rozwiąż problem — Rzuć palenie w 14 dni",
+    "ogDescription": "14 lekcji. Jedna decyzja. Droga ku wolności. Chrześcijański kurs z realnym wsparciem — bez obietnic cudów i bez zawstydzania.",
+    "ogImage": "og-rozwiaz-problem.jpg",
+    "ogImageAlt": "Rozwiąż problem — Rzuć palenie, kurs 14 dni. Christian Culture",
+    "twitterDescription": "Bezpłatny chrześcijański kurs: 14 lekcji, plan na głód nikotynowy, fiszki i podsumowanie audio."
+  },
+
+  "tagline": "14 lekcji. Jedna decyzja. Droga ku wolności.",
+  "welcome": "Może próbowałeś już kilka razy. Może obawiasz się głodu nikotynowego, stresu albo komentarzy innych. W tym kursie nie będziemy obiecywać cudów ani zawstydzać cię za dotychczasowe decyzje. Nie musisz zasłużyć na Bożą miłość przez idealny wynik. Możesz zrobić kolejny dobry krok już dziś.",
+  "rules": [
+    ["Wszystko otwarte od razu", "Zalecane tempo to jedna lekcja dziennie. Możesz wracać i powtarzać — nic się nie blokuje."],
+    ["Każda lekcja ma 5 części", "Cel i myśl przewodnia, nauka praktyczna, zadanie, Biblia z kontekstem i krótka modlitwa."],
+    ["To nie jest porada lekarska", "Kurs jest dla dorosłych. Leki dobiera lekarz lub farmaceuta. Korzystanie z leczenia nie jest brakiem wiary."]
+  ],
+
+  "help": {
+    "title": "Telefoniczna Poradnia Pomocy Palącym (NIO)",
+    "textHtml": "Według NIO: pon.–pt. 9:00–21:00, sob. 9:00–15:00. Aktualne dane sprawdzaj na <a href=\"https://nio.gov.pl/poradnia-pomocy-palacym-38\" target=\"_blank\" rel=\"noopener\">nio.gov.pl</a>. Przy nagłym zagrożeniu zdrowia dzwoń 112.",
+    "numbers": [
+      { "tel": "+48222118015", "label": "z komórki", "display": "22 211 80 15" },
+      { "tel": "801108108", "label": "ze stacjonarnego", "display": "801 108 108" },
+      { "tel": "112", "label": "nagłe zagrożenie", "display": "112", "sos": true }
+    ]
+  },
+
+  "start": {
+    "lead": "Pięć minut uczciwości przed pierwszą lekcją. To nie egzamin, tylko mapa wyjścia.",
+    "careTitle": "Najpierw porozmawiaj z lekarzem, jeśli…",
+    "careText": "jesteś w ciąży lub karmisz piersią, masz mniej niż 18 lat, chorujesz poważnie albo przyjmujesz leki na stałe. WHO wskazuje, że największą skuteczność daje połączenie poradnictwa i skutecznego leczenia — omów to ze specjalistą.",
+    "fields": [
+      { "label": "Palę około … papierosów dziennie", "key": "cigs", "type": "number", "min": 0, "max": 200 },
+      { "label": "Najczęściej palę w sytuacjach", "key": "situations", "type": "text", "placeholder": "np. po kawie, w samochodzie, po kłótni" },
+      { "label": "Moje trzy najważniejsze powody rzucenia", "key": "reasons", "type": "textarea", "rows": 3 },
+      { "label": "Wybieram datę zerwania", "key": "quitDate", "type": "date" },
+      { "label": "Osoba, która może mnie wesprzeć", "key": "supporter", "type": "text" }
+    ],
+    "choice": {
+      "legend": "Chcę omówić leczenie z lekarzem / poradnią",
+      "key": "doctor",
+      "name": "doc",
+      "options": [["tak", "Tak"], ["nie", "Nie"], ["nie-wiem", "Jeszcze nie wiem"]]
+    }
+  },
+
+  "crisis": {
+    "nav": "Fala głodu",
+    "cta": "Mam głód teraz",
+    "eyebrow": "Gdy przychodzi głód nikotynowy",
+    "title": "To fala. Możesz ją przeczekać.",
+    "lead": "Głód przychodzi falami: gwałtownie narasta, a potem słabnie. Najtrudniejsze są pierwsze minuty. Odłóż decyzję i przepłyń je bezpiecznie.",
+    "steps": ["Zatrzymaj się", "Odłóż działanie", "Oddychaj spokojnie", "Napij się wody", "Zmień miejsce", "Zadzwoń do kogoś"],
+    "timerTitle": "Plan pięciu minut",
+    "timerText": "Włącz odliczanie i oddychaj razem z kołem: wdech 4 s, wydech 6 s.",
+    "timerCues": ["Zatrzymaj się. To fala — możesz ją przeczekać.", "Napij się wody.", "Zmień miejsce, choćby na chwilę.", "Pomyśl o swoim najważniejszym powodzie.", "Napisz lub zadzwoń do kogoś bliskiego."],
+    "timerDone": "Udało się przeczekać falę. Zapisz w dzienniku, co pomogło.",
+    "planTitle": "Plan kryzysowy do zapisania w telefonie",
+    "planItems": [
+      "Zauważam głód i mówię: „To fala, mogę ją przeczekać”.",
+      "Odkładam zapalenie i zmieniam miejsce.",
+      "Oddycham spokojnie, piję wodę lub robię krótki spacer.",
+      "Kontaktuję się z osobą wspierającą.",
+      "Jeśli zdarzy się potknięcie: wracam do planu bez czekania na nowy tydzień.",
+      "Jeśli trudności narastają: kontaktuję się z poradnią albo lekarzem."
+    ],
+    "copyLines": [
+      "MÓJ PLAN KRYZYSOWY",
+      "1. Zauważam głód i mówię: „To fala, mogę ją przeczekać”.",
+      "2. Odkładam zapalenie i zmieniam miejsce.",
+      "3. Oddycham spokojnie, piję wodę lub robię krótki spacer.",
+      "4. Kontaktuję się z: {osoba}.",
+      "5. Jeśli zdarzy się potknięcie: wracam do planu bez czekania na nowy tydzień.",
+      "6. Jeśli trudności narastają: poradnia NIO 22 211 80 15 / 801 108 108 albo lekarz."
+    ]
+  },
+
+  "video": {
+    "file": "fala-glodu-nikotynowego.mp4",
+    "poster": "fala-glodu-poster.jpg",
+    "title": "Jak przetrwać falę głodu nikotynowego",
+    "description": "Krótki film o tym, że głód nikotynowy przychodzi falami i jak bezpiecznie przeczekać najtrudniejsze minuty.",
+    "duration": "PT1M4S",
+    "cardTitle": "Jak przetrwać falę głodu",
+    "cardText": "Minuta wideo w pionie — do obejrzenia w trudnej chwili albo wysłania komuś bliskiemu."
+  },
+  "audio": {
+    "file": "wiara-i-nauka-w-rzucaniu-palenia.m4a",
+    "title": "Wiara i nauka w rzucaniu palenia",
+    "minutes": 14,
+    "duration": "PT13M58S",
+    "text": "Posłuchaj w drodze, na spacerze albo zamiast papierosa po kawie. Rozmowa o tym, jak łączyć wiarę z tym, co wiemy o uzależnieniu.",
+    "cardText": "„Wiara i nauka w rzucaniu palenia” — 14 minut do posłuchania (M4A, ok. 9 MB)."
+  },
+  "pdf": {
+    "file": "14-dniowy-plan-wyjscia-z-nalogu.pdf",
+    "title": "14-dniowy plan wyjścia z nałogu",
+    "text": "Prezentacja całego kursu w jednym pliku PDF (ok. 15 MB)."
+  },
+
+  "plan": {
+    "cardText": "Do wypełnienia po Dniu 13. Zapisuje się w przeglądarce, możesz ją wydrukować.",
+    "lead": "Dwa tygodnie mogą rozpocząć zmianę, ale uzależnienie wymaga uważności także później. Nie sprawdzaj „czy już mogę zapalić jednego”.",
+    "fields": [
+      { "label": "Moja najtrudniejsza sytuacja i odpowiedź na nią", "key": "p1", "type": "textarea", "rows": 2 },
+      { "label": "Druga sytuacja ryzyka i odpowiedź", "key": "p2", "type": "textarea", "rows": 2 },
+      { "label": "Osoba wspierająca", "key": "p3", "type": "text" },
+      { "label": "Co zrobię po pojedynczym papierosie", "key": "p4", "type": "text" },
+      { "label": "Termin sprawdzenia postępów — 30 dni", "key": "p30", "type": "date" },
+      { "label": "Termin sprawdzenia postępów — 90 dni", "key": "p90", "type": "date" }
+    ]
+  },
+
+  "seriesCardText": "14 lekcji, plan kryzysowy, wideo o fali głodu, fiszki i karta 30/90 dni.",
+  "helpLink": {
+    "href": "/rzucanie-palenia",
+    "title": "Gdzie szukać pomocy",
+    "text": "Sprawdzone źródła pomocy i przygotowanie do rozmowy ze specjalistą."
+  },
+
+  "faqTitle": "Pytania o kurs i rzucanie palenia",
+  "faq": [
+    ["Czy kurs „Rzuć palenie” jest bezpłatny?", "Tak. Kurs jest bezpłatny i nie wymaga zakładania konta. Postęp, dziennik i notatki zapisują się tylko w przeglądarce uczestnika."],
+    ["Jak korzystać z kursu?", "Zalecane tempo to jedna lekcja dziennie, choć wszystkie lekcje są dostępne od razu. Każda lekcja zawiera cel, naukę praktyczną, ćwiczenie, fragment biblijny z objaśnieniem kontekstu i krótką modlitwę."],
+    ["Gdzie zadzwonić po pomoc w rzuceniu palenia?", "Telefoniczna Poradnia Pomocy Palącym Narodowego Instytutu Onkologii: 22 211 80 15 z telefonów komórkowych lub 801 108 108 ze stacjonarnych. Przy nagłym zagrożeniu zdrowia dzwoń 112."],
+    ["Co według WHO najbardziej pomaga rzucić palenie?", "Połączenie poradnictwa behawioralnego oraz skutecznego leczenia farmakologicznego (np. NTZ). Wybór leczenia omawiaj z lekarzem lub farmaceutą."],
+    ["Czy modlitwa zastępuje leczenie uzależnienia od nikotyny?", "Nie. Modlitwa stanowi wsparcie duchowe, lecz nie zastępuje medycznie udowodnionych metod leczenia uzależnienia. Korzystanie z leczenia nie jest brakiem wiary."],
+    ["Kto powinien skonsultować rzucanie palenia z lekarzem?", "Kobiety w ciąży, kobiety karmiące piersią, osoby poniżej 18 roku życia, osoby przewlekle/poważnie chore oraz osoby przyjmujące leki na stałe."],
+    ["Co robić, gdy przychodzi głód nikotynowy?", "Głód przychodzi falami i zwykle z czasem słabnie. Schemat z kursu: Zatrzymaj się → Odłóż działanie → Oddychaj spokojnie → Napij się wody → Zmień miejsce → Skontaktuj się z kimś wspierającym. Na stronie jest też 5-minutowy licznik z ćwiczeniem oddechu."],
+    ["Co zrobić po zapaleniu jednego papierosa?", "Zatrzymać się, ustalić przyczynę impulsywną, wyrzucić resztę papierosów i wrócić do abstynencji bez czekania na nowy tydzień. Powrót do regularnego palenia to sygnał, by poszukać silniejszego wsparcia, a nie dowód beznadziejności."],
+    ["Dlaczego nie warto sprawdzać, czy można zapalić „tylko jednego”?", "Próba sprawdzenia „czy już mogę zapalić jednego” niemal zawsze reaktywuje pełny mechanizm uzależnienia."]
+  ],
+
+  "sourcesHtml": [
+    "WHO, <a href=\"https://www.who.int/publications/i/item/9789240096431\" target=\"_blank\" rel=\"noopener\">Clinical treatment guideline for tobacco cessation in adults</a> (2024).",
+    "WHO, <a href=\"https://www.ncbi.nlm.nih.gov/books/NBK604665/\" target=\"_blank\" rel=\"noopener\">zalecenia dotyczące poradnictwa i łączenia leczenia</a>.",
+    "Narodowy Instytut Onkologii, <a href=\"https://nio.gov.pl/poradnia-pomocy-palacym-38\" target=\"_blank\" rel=\"noopener\">Poradnia Pomocy Palącym</a>.",
+    "Biblia: w każdej lekcji podajemy odnośniki; interpretacje osadzone są w szerszym kontekście wskazanych fragmentów. Biblia nie jest podręcznikiem leczenia nikotynizmu, a modlitwa nie zastępuje metod opartych na dowodach."
+  ],
+
+  "seo": {
+    "pageDescription": "Bezpłatny chrześcijański kurs rzucania palenia: 14 lekcji, plan kryzysowy na głód nikotynowy, fiszki, podsumowanie audio i numery Poradni Pomocy Palącym NIO.",
+    "courseDescription": "Chrześcijański kurs internetowy wspierający rzucanie palenia: 14 krótkich lekcji z zadaniem praktycznym, refleksją biblijną czytaną w kontekście i modlitwą. Nie zastępuje porady medycznej ani leczenia uzależnienia.",
+    "educationalLevel": "Dla dorosłych",
+    "workload": "PT15M",
+    "teaches": ["Rozpoznawanie wyzwalaczy palenia", "Przygotowanie dnia rzucenia palenia", "Radzenie sobie z głodem nikotynowym", "Odpowiedź na stres bez papierosa", "Postępowanie po potknięciu", "Plan utrzymania zmiany na 30 i 90 dni"],
+    "about": ["Rzucanie palenia", "Uzależnienie od nikotyny", "Wiara chrześcijańska"]
+  },
+
+  "search": {
+    "title": "Rozwiąż problem — Rzuć palenie. Chrześcijański kurs 14 dni",
+    "description": "Bezpłatny chrześcijański kurs rzucania palenia: 14 krótkich lekcji z zadaniem, Biblią w kontekście i modlitwą, plan kryzysowy na głód nikotynowy, timer 5 minut, 52 fiszki, podsumowanie audio i numery Poradni Pomocy Palącym NIO.",
+    "tags": ["rozwiąż problem", "rozwiaz problem", "rzuć palenie", "rzuc palenie", "rzucanie palenia", "jak rzucić palenie", "papierosy", "nikotyna", "głód nikotynowy", "nałóg", "nalog", "uzależnienie", "kurs", "14 dni", "poradnia pomocy palącym"]
+  }
+}

@@ -4,6 +4,9 @@ import path from 'node:path';
 import esbuild from 'esbuild';
 import ccnArticleRoutes from '../data/ccn-article-routes.js';
 import portalsData from './portals_data.cjs';
+import { loadCourses, searchItem } from './rozwiaz-problem/build.mjs';
+
+const ROZWIAZ_PROBLEM_ITEMS = loadCourses().map(searchItem);
 
 const ROOT = process.cwd();
 
@@ -248,14 +251,8 @@ const CORE_PROJECTS = [
   tags: ["wizytówki", "wizytowki", "wizytówka", "wizytowka", "katalog wizytówek", "kącik ewangelizacyjny", "profile", "służby", "ogłoszenia"],
   featured: true
 },
-{
-  title: "Rozwiąż problem — Rzuć palenie. Chrześcijański kurs 14 dni",
-  category: "Biblia i formacja",
-  url: "https://polskieradio.cc/Rozwi%C4%85%C5%BCProblem",
-  description: "Bezpłatny chrześcijański kurs rzucania palenia: 14 krótkich lekcji z zadaniem, Biblią w kontekście i modlitwą, plan kryzysowy na głód nikotynowy, timer 5 minut, 52 fiszki, podsumowanie audio i numery Poradni Pomocy Palącym NIO.",
-  tags: ["rozwiąż problem", "rozwiaz problem", "rzuć palenie", "rzuc palenie", "rzucanie palenia", "jak rzucić palenie", "papierosy", "nikotyna", "głód nikotynowy", "nałóg", "nalog", "uzależnienie", "kurs", "14 dni", "poradnia pomocy palącym"],
-  featured: true
-},
+// Kursy serii Rozwiąż problem — z scripts/content/rozwiaz-problem/*/kurs.json
+...ROZWIAZ_PROBLEM_ITEMS,
 {
   title: "Pobierz — Biblioteka Plików Christian Culture",
   category: "Narzędzia i misja",

@@ -19,6 +19,7 @@ import {
   validateRenderedHtmlSeo,
 } from './cc-seo-engine.mjs';
 import { createIndexNowQueueManager, validateIndexNowKey } from './cc-indexnow.mjs';
+import { loadCourses, sitemapPath } from './rozwiaz-problem/build.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -447,7 +448,8 @@ export function buildAllDiscoverySignals() {
     { path: '/biznes', lastmod: '2026-10-15', priority: '0.85', changefreq: 'daily' },
     { path: '/lumina.cezaryrgowski.html', lastmod: '2026-10-15', priority: '0.85', changefreq: 'weekly' },
     { path: '/lumina.wiolettarogowska.html', lastmod: '2026-10-15', priority: '0.85', changefreq: 'weekly' },
-    { path: '/Rozwi%C4%85%C5%BCProblem', lastmod: '2026-11-02', priority: '0.90', changefreq: 'weekly' },
+    // Kursy serii Rozwiąż problem — z scripts/content/rozwiaz-problem/*/kurs.json
+    ...loadCourses().map(sitemapPath),
   ];
   const pagesEntries = corePaths.map(p => ({
     loc: `${PRIMARY_ORIGIN}${p.path}`,
