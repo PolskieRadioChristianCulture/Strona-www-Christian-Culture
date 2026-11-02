@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mapa",
+      "title": "Żywa Interaktywna Mapa Ekosystemu Christian Culture",
+      "url": "https://polskieradio.cc/mapa",
+      "type": "module",
+      "image": "planeta-poster.jpg",
+      "publishedAt": "2026-11-02T05:37:09.755Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "topTEN",
       "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
       "url": "https://polskieradio.cc/topTEN",

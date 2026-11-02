@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-02T05:48:33.192Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 330
+    },
+    {
+      "timestamp": "2026-11-02T05:48:32.781Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 330
+    },
+    {
+      "timestamp": "2026-11-02T05:48:20.263Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026",
+        "https://polskieradio.cc/news/kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc",
+        "https://polskieradio.cc/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski"
+      ]
+    },
+    {
       "timestamp": "2026-11-01T05:07:29.853Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",
