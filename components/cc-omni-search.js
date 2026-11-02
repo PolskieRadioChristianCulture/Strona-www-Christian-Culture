@@ -9345,7 +9345,12 @@ ${isStandalonePage ? '' : `
     sparkle: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
     info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
     mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
-    lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>'
+    lock: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+    // Kursy (L0 02.11.2026)
+    courses: '<path d="M12 21V7"/><path d="m16 12 2 2 4-4"/><path d="M22 6V4a1 1 0 0 0-1-1h-5a4 4 0 0 0-4 4 4 4 0 0 0-4-4H3a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h6a3 3 0 0 1 3 3 3 3 0 0 1 3-3h6a1 1 0 0 0 1-1v-1.3"/>',
+    puzzle: '<path d="M19.4 7.9c0 .3.1.6.3.9l1.6 1.5a2.4 2.4 0 0 1 0 3.4l-1.6 1.6a1 1 0 0 1-.8.3c-.5-.1-.8-.5-1-.9a2.5 2.5 0 1 0-3.2 3.2c.4.2.9.5.9 1a1 1 0 0 1-.3.8l-1.6 1.6a2.4 2.4 0 0 1-3.4 0l-1.6-1.6a1 1 0 0 0-.8-.3c-.5.1-.9.5-1 1a2.5 2.5 0 1 1-3.3-3.3c.5-.2.9-.5 1-1a1 1 0 0 0-.3-.9l-1.6-1.5a2.4 2.4 0 0 1 0-3.4l1.5-1.5c.3-.3.6-.4 1-.3.5.1.8.5 1 1a2.5 2.5 0 1 0 3.3-3.3c-.5-.2-.9-.5-1-1 0-.4.1-.7.3-1l1.5-1.5a2.4 2.4 0 0 1 3.4 0l1.6 1.6c.2.2.5.3.9.3.5-.1.8-.5 1-1a2.5 2.5 0 1 1 3.2 3.2c-.4.2-.9.5-.9 1Z"/>',
+    nosmoke: '<path d="M12 12H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h13"/><path d="M18 8c0-2.5-2-2.5-2-5"/><path d="m2 2 20 20"/><path d="M21 12a1 1 0 0 1 1 1v2a1 1 0 0 1-.5.9"/><path d="M22 8c0-2.5-2-2.5-2-5"/><path d="M7 12v4"/>',
+    mountain: '<path d="m8 3 4 8 5-5 5 15H2Z"/>'
   };
   Object.assign(HOME_ICONS, APP_ICONS);
   const APPS_MENU = [
@@ -9359,6 +9364,11 @@ ${isStandalonePage ? '' : `
       ['Werset dnia', '/werset-dnia', 'quote'], ['Ewangelia', '/Ewangelia', 'cross'], ['Modlitwa 24/7', '/BCM24', 'pray'],
       ['Za Polskę', '/zapolske-live', 'flag'], ['Apokalipsa', '/apokalipsa-live', 'scroll'], ['Kalendarz', '/kalendarz', 'calendar'],
       ['Biblia PDF', '/biblia-do-pobrania', 'download']
+    ] },
+    { title: 'Kursy', items: [
+      ['Wszystkie kursy', '/kursy', 'courses'], ['Rozwiąż problem', '/Rozwi%C4%85%C5%BCProblem', 'puzzle'],
+      ['Rzuć palenie', '/Rozwi%C4%85%C5%BCProblem#kurs', 'nosmoke'], ['Pokonać Goliata', '/kursy/pokonac-goliata', 'mountain'],
+      ['Apokalipsa — kurs', '/kursy/apokalipsa/lekcja-1', 'scroll']
     ] },
     { title: 'Wiedza CCN', items: [
       ['Portal CCN', '/news', 'news'], ['Nauka', '/nauka', 'flask'], ['Historia', '/historia', 'columns'],
