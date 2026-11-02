@@ -328,6 +328,9 @@
         <div class="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-1 flex items-center gap-1.5">
           <i class="fa-solid fa-bookmark"></i>
           <span>Werset Pamięciowy Dnia:</span>
+          <button type="button" onclick="navigator.clipboard.writeText('Ale PAN był z Józefem i okazał mu miłosierdzie, i zjednał mu życzliwość w oczach przełożonego więzienia. (Rdz 39:21)'); alert('Skopiowano werset!');" class="ml-auto text-zinc-400 hover:text-amber-300 text-xs normal-case font-sans min-h-[44px] px-2">
+            <i class="fa-regular fa-copy mr-1"></i>Kopiuj
+          </button>
         </div>
         <blockquote class="font-serif italic text-base sm:text-lg text-white">
           „Ale PAN był z Józefem i okazał mu miłosierdzie, i zjednał mu życzliwość w oczach przełożonego więzienia.”
@@ -346,6 +349,33 @@
 
     <!-- LESSON BODY CONTENT -->
     <section class="space-y-6">
+
+      <!-- ZANIM OTWORZYSZ BIBLIĘ (wzór Dnia 1) -->
+      <article class="kc-card">
+        <div class="flex items-center gap-3 text-amber-400 text-xs font-bold uppercase tracking-widest mb-3">
+          <i class="fa-solid fa-compass"></i>
+          <span>Zanim otworzysz Biblię</span>
+        </div>
+        <h2 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
+          Podróż przez 66 Ksiąg Pisma Świętego
+        </h2>
+        <div class="space-y-4 text-sm sm:text-base leading-relaxed text-zinc-300">
+          <p>
+            Kurs „Z Biblią za Pan Brat” prowadzi przez wszystkie <strong>66 ksiąg Biblii</strong> — miesiąc po miesiącu, księga po księdze, każdego dnia jeden fragment Pisma.
+          </p>
+          <p>
+            Dziś jest <strong class="text-white">Dzień 25</strong>: Księga Rodzaju, <strong class="text-brand-gold">Rdz 38:1–39:23</strong>.
+          </p>
+          <p>
+            Zanim przeczytasz rozważanie, otwórz Biblię i przeczytaj cały fragment. Komentarz ma prowadzić do Słowa, a nie je zastępować.
+          </p>
+          <a href="/mojabiblia?book=GEN&chapter=38" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
+            <i class="fa-solid fa-book-bible"></i>
+            <span>Czytaj Rdz 38:1–39:23</span>
+          </a>
+        </div>
+      </article>
+
 
       <!-- INTRO -->
       <article class="kc-card space-y-4 kc-article-content">
@@ -437,6 +467,90 @@
       <div id="quizFeedback" class="text-center text-xs font-bold text-amber-300"></div>
     </section>
 
+
+    <!-- ── ZADANIE NA DZIŚ & DZIENNIK (wzór Dnia 1) ── -->
+    <section class="kc-card border-brand-gold/40">
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-clipboard-check"></i>
+        <span>Zadanie na dziś</span>
+      </div>
+      <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-3">
+        Zastosowanie i Twój Zapis
+      </h3>
+      <div class="p-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-sm mb-4">
+        📖 <strong>Krok 1:</strong> Przeczytaj cały fragment <a href="/mojabiblia?book=GEN&chapter=38" class="text-amber-300 underline font-semibold">Księgi Rodzaju 38:1–39:23</a>.
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-amber-300 mb-1" for="kc-input-learned">
+            1. „Po przeczytaniu Rdz 38–39 dowiedziałem się o Bogu, że…”
+          </label>
+          <input type="text" id="kc-input-learned" oninput="saveDailyField('learned', this.value)" placeholder="Wpisz swoje spostrzeżenie..." class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 text-sm min-h-[44px]" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-amber-300 mb-1" for="kc-input-decision">
+            2. „Dlatego dzisiaj chcę…”
+          </label>
+          <input type="text" id="kc-input-decision" oninput="saveDailyField('decision', this.value)" placeholder="Wpisz swoją praktyczną decyzję..." class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 text-sm min-h-[44px]" />
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 mb-6">
+        <div class="text-xs font-bold uppercase text-zinc-400 mb-3 tracking-wider">Potwierdź realizację:</div>
+        <div class="space-y-2.5">
+          <label class="flex items-center gap-3 cursor-pointer text-sm min-h-[44px]">
+            <input type="checkbox" id="chk-read" onchange="updateChecklist()" class="accent-amber-500 w-4 h-4 rounded" />
+            <span class="font-bold text-white">✓ PRZECZYTAŁEM</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer text-sm min-h-[44px]">
+            <input type="checkbox" id="chk-understood" onchange="updateChecklist()" class="accent-amber-500 w-4 h-4 rounded" />
+            <span class="font-bold text-white">✓ ZROZUMIAŁEM</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer text-sm min-h-[44px]">
+            <input type="checkbox" id="chk-apply" onchange="updateChecklist()" class="accent-amber-500 w-4 h-4 rounded" />
+            <span class="font-bold text-white">✓ ZASTOSUJĘ</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <button type="button" id="btn-complete-day" onclick="completeDay25()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:from-amber-400 hover:to-amber-500 transition min-h-[44px]">
+          <i class="fa-solid fa-check"></i>
+          <span id="btn-complete-text">Oznacz Dzień 25 jako ukończony</span>
+        </button>
+        <span id="save-status-msg" class="text-xs text-emerald-400 font-semibold hidden">
+          ✓ Zapisano w Twoim profilu
+        </span>
+      </div>
+    </section>
+
+    <!-- ── POROZMAWIAJ Z DUCHOWNYM (wzór Dnia 1) ── -->
+    <section class="p-6 rounded-2xl bg-gradient-to-br from-[#121722] to-[#0E121A] border border-amber-500/30 text-zinc-300 shadow-xl" id="kontakt-duchowny">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4 text-center sm:text-left">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/40 flex items-center justify-center text-2xl text-amber-300 shrink-0 shadow-lg">
+            <i class="fa-solid fa-hands-praying"></i>
+          </div>
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-widest text-amber-400 block mb-1">Duchowe wsparcie • Rozmowa</span>
+            <h3 class="font-serif text-lg sm:text-xl font-bold text-white mb-1">Możesz na ten temat porozmawiać z duchownym</h3>
+            <p class="text-xs sm:text-sm text-zinc-300">Duchowny: <strong class="text-white font-semibold">Mariusz</strong> • <span class="text-amber-200 font-mono font-semibold">+48 608 337 477</span></p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 w-full sm:w-auto justify-center shrink-0">
+          <a href="tel:+48608337477" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 font-bold text-xs uppercase tracking-wider shadow-lg hover:from-amber-400 hover:to-amber-500 transition min-h-[44px]">
+            <i class="fa-solid fa-phone"></i>
+            <span>Zadzwoń</span>
+          </a>
+          <a href="sms:+48608337477" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 hover:text-white hover:border-amber-400 font-bold text-xs uppercase tracking-wider transition min-h-[44px]">
+            <i class="fa-solid fa-comment-sms"></i>
+            <span>Wyślij SMS</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- SECTION SHARE & ACTIONS -->
     <section id="ccDailyShare" class="kc-card space-y-4 text-center">
       <h3 class="font-display text-base sm:text-lg font-bold text-white">
@@ -469,16 +583,29 @@
       </div>
     </section>
 
-    <!-- COMPLETION BUTTON -->
-    <div class="text-center py-6">
-      <button id="btnCompleteLesson" type="button" class="px-8 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm uppercase tracking-wider transition shadow-xl hover:shadow-emerald-500/20 flex items-center gap-2 mx-auto min-h-[48px]">
-        <i class="fa-solid fa-check-circle"></i>
-        <span>Oznacz lekcję jako ukończoną</span>
-      </button>
-      <div id="completeMsg" class="hidden text-xs text-emerald-400 font-bold mt-2">
-        ✓ Gratulacje! Lekcja Dnia 25 została pomyślnie zapisana w Twoim profilu formacyjnym.
+    <!-- ── ZAPOWIEDŹ: JUTRO (wzór Dnia 1) ── -->
+    <section class="p-6 rounded-2xl bg-[#0E121A] border border-brand-line text-zinc-300" id="jutro">
+      <div class="text-[11px] font-bold uppercase tracking-widest text-amber-400 mb-1">
+        JUTRO — 26 PAŹDZIERNIKA
       </div>
-    </div>
+      <h3 class="font-serif text-lg sm:text-xl font-bold text-white mb-2">
+        DZIEŃ 26 — OD WIĘZIENIA DO PAŁACU (Rdz 40:1–41:57)
+      </h3>
+      <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-4">
+        Księga Rodzaju — Miesiąc 1, Dzień 26 (26 Października 2026). Józef zapomniany w więzieniu, sny faraona i plan na lata obfitości i głodu — Rdz 40:1–41:57. Kurs codzienny Pisma Świętego.
+      </p>
+      <div class="flex items-center gap-3 flex-wrap">
+        <a href="/akademia/kurscodzienny/dzien-26" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
+          <span>Przejdź do Dnia 26</span>
+          <span>→</span>
+        </a>
+        <a href="/akademia/kurscodzienny" class="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-300 hover:text-white text-xs font-bold transition min-h-[44px] flex items-center">
+          ← Wróć do spisu kursu
+        </a>
+      </div>
+    </section>
+
+
 
   </main>
 
@@ -609,9 +736,9 @@
     };
 
     // Completion button
-    document.getElementById('btnCompleteLesson').onclick = () => {
+    (document.getElementById('btnCompleteLesson') || {}).onclick = () => {
       localStorage.setItem('kc_day25_completed', 'true');
-      document.getElementById('completeMsg').classList.remove('hidden');
+      document.getElementById('completeMsg')?.classList.remove('hidden');
     };
 
     // Restore state
@@ -623,7 +750,7 @@
       renderQuiz();
 
       if (localStorage.getItem('kc_day25_completed') === 'true') {
-        document.getElementById('completeMsg').classList.remove('hidden');
+        document.getElementById('completeMsg')?.classList.remove('hidden');
       }
 
       const fontPref = localStorage.getItem('kc_font_pref');
@@ -638,6 +765,37 @@
       backBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
+
+  <!-- SCRIPT: ZASTOSOWANIE I TWÓJ ZAPIS (wzór Dnia 1) -->
+  <script>
+    (function () {
+      const DAY_KEY = 'kc_day25';
+      const get = (k) => { try { return localStorage.getItem(`${DAY_KEY}_${k}`); } catch (e) { return null; } };
+      const set = (k, v) => { try { localStorage.setItem(`${DAY_KEY}_${k}`, v); } catch (e) {} };
+      function renderCompleted(done) {
+        const t = document.getElementById('btn-complete-text');
+        const m = document.getElementById('save-status-msg');
+        if (t) t.textContent = done ? '✓ Dzień 25 ukończony' : 'Oznacz Dzień 25 jako ukończony';
+        if (m) m.classList.toggle('hidden', !done);
+      }
+      window.saveDailyField = function (field, value) { set(field, value); };
+      window.updateChecklist = function () {
+        ['read', 'understood', 'apply'].forEach((k) => { const el = document.getElementById('chk-' + k); if (el) set('chk_' + k, el.checked); });
+      };
+      window.completeDay25 = function () {
+        const done = get('completed') !== 'true';
+        set('completed', done);
+        renderCompleted(done);
+      };
+      document.addEventListener('DOMContentLoaded', () => {
+        const l = document.getElementById('kc-input-learned'); if (l) l.value = get('learned') || '';
+        const dc = document.getElementById('kc-input-decision'); if (dc) dc.value = get('decision') || '';
+        ['read', 'understood', 'apply'].forEach((k) => { const el = document.getElementById('chk-' + k); if (el) el.checked = get('chk_' + k) === 'true'; });
+        renderCompleted(get('completed') === 'true');
+      });
+    })();
+  </script>
+
 
   <!-- Floating Back to Top Button -->
   <button class="back-to-top" id="backToTopBtn" type="button" aria-label="Przewiń do góry" title="Przewiń do góry">
