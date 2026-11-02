@@ -169,11 +169,12 @@ async function glowna() {
     if (git('status', '--porcelain', '--untracked-files=no')) throw new Error('po commicie zostały niezatwierdzone zmiany');
   }
 
-  if (!PRODUKCJA) {
+  if (!PRODUKCJA && wynik.status === 'opublikowano') {
     zapiszLog(`próba generalna: bez push i wdrożenia — kopia wraca na ${BAZA}`);
     git('checkout', '--quiet', '--detach', BAZA);
-    return { ok: true, opis: `próba: ${wynik.status}` };
+    return { ok: true, opis: 'próba: opublikowano lokalnie' };
   }
+  // Dzień już opublikowany: także w próbie sprawdzamy produkcję (sam odczyt HTTP i przeglądarka).
 
   if (wynik.status === 'opublikowano') {
     // 4. Push na origin (odrzuci, jeśli ktoś w międzyczasie zmienił main — wtedy alarm, bez nadpisywania).
