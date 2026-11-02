@@ -72,6 +72,13 @@ img { max-width: 100%; }
 .cta { display: inline-block; margin-top: 10px; padding: 13px 21px; border: 1px solid #b28c5d; border-radius: 5px; color: #e6c38b; text-decoration: none; font-weight: 600; }
 .cta:hover { background: #b28c5d; color: #111; }
 
+/* WspieramTO — kolor akcji CC (pomarańcz, standard L0 26.10.2026) */
+.support { border-top: 1px solid #2a2420; border-bottom: 1px solid #2a2420; }
+.support-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; margin-top: 6px; padding: 14px 30px; border-radius: 100px; background: #FF7A00; color: #111; font-weight: 800; font-size: 1.05rem; letter-spacing: .02em; text-decoration: none; box-shadow: 0 8px 28px rgba(255,122,0,.25); }
+.support-btn:hover { background: #FF8C33; }
+.support-btn:active { background: #E66A00; }
+.support-note { margin: 18px 0 0; max-width: 640px; color: var(--muted); font-size: .92rem; line-height: 1.6; }
+
 .footer { padding: 55px 28px; text-align: center; border-top: 1px solid #262426; color: #b7b0a6; line-height: 2; }
 .footer small { display: inline-block; max-width: 720px; line-height: 1.6; }
 
