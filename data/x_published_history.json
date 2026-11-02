@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "topTEN",
+      "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+      "url": "https://polskieradio.cc/topTEN",
+      "type": "music",
+      "image": "wspieramto-banner.png",
+      "publishedAt": "2026-11-01T20:39:06.936Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina-tablica",
       "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
       "url": "https://polskieradio.cc/lumina-tablica",

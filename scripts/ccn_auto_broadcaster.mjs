@@ -182,6 +182,12 @@ function resolveItemImage(item, rootDir) {
     const p2 = path.join(rootDir, 'images', 'mapa-bg-earth.jpg');
     if (fs.existsSync(p2)) return p2;
   }
+  if (pathLower.includes('topten')) {
+    const p1 = path.join(rootDir, 'topTEN', 'assets', 'wspieramto-banner.png');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'images', 'brand', 'topten-logo.png');
+    if (fs.existsSync(p2)) return p2;
+  }
   if (pathLower.includes('lumina') || pathLower.includes('cezary') || pathLower.includes('wioletta')) {
     const p = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
     if (fs.existsSync(p)) return p;
@@ -324,6 +330,15 @@ function getAllEcosystemCandidates() {
 
   // 3. MUZYKA, PORTALE MUZYCZNE & YOUTUBE
   const musicItems = [
+    {
+      title: 'topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej',
+      lead: 'Oficjalne notowania muzyki chrześcijańskiej Polskiego Radia CC. Cotygodniowe zestawienie, głosowanie na utwory i wsparcie artystów w programie wspieramTO.',
+      url: 'https://polskieradio.cc/topTEN',
+      image: 'topTEN/assets/wspieramto-banner.png',
+      category: 'Notowania & Muzyka',
+      type: 'music',
+      tag: '#topTEN'
+    },
     {
       title: 'Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)',
       lead: 'Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39). Premiera utworu z tekstem w odtwarzaczu CC Men.',
@@ -574,7 +589,11 @@ function formatBroadcasterTweet(item) {
     callToAction = '👉 Oglądaj bezpłatnie w jakości 4K:\n';
     addTags(item.tag || '#StudioDobregoSlowa', '#KinoVOD', '#Apokalipsa', '#ChristianCulture');
   } else if (item.type === 'music') {
-    if ((item.url || '').includes('CezaryRogowski')) {
+    if ((item.url || '').includes('topTEN') || item.tag === '#topTEN') {
+      subHeader = '🏆 TOPTEN | NOTOWANIA CC';
+      callToAction = '👉 Głosuj i słuchaj:\n';
+      addTags('#topTEN', '#PolskieRadioCC', '#MuzykaChrzescijanska');
+    } else if ((item.url || '').includes('CezaryRogowski')) {
       subHeader = '🎵 PREMIERA AUTORSKA | CC MEN';
       callToAction = '👉 Słuchaj z tekstem:\n';
       addTags(item.tag || '#CCMen', '#CezaryRogowski', '#MuzykaChrzescijanska');
@@ -662,6 +681,8 @@ function formatBroadcasterTweet(item) {
 
   if (item.type === 'verse' && item.lead) {
     bodyText = item.lead;
+  } else if ((item.url || '').includes('topTEN')) {
+    bodyText = 'Oficjalna lista przebojów muzyki chrześcijańskiej. Głosuj na utwory i wspieraj artystów!';
   } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
     bodyText = item.lead;
   } else if ((item.url || '').includes('dzien-32')) {
