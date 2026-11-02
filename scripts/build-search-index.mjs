@@ -249,6 +249,14 @@ const CORE_PROJECTS = [
   featured: true
 },
 {
+  title: "Rozwiąż problem — Rzuć palenie. Chrześcijański kurs 14 dni",
+  category: "Biblia i formacja",
+  url: "https://polskieradio.cc/Rozwi%C4%85%C5%BCProblem",
+  description: "Bezpłatny chrześcijański kurs rzucania palenia: 14 krótkich lekcji z zadaniem, Biblią w kontekście i modlitwą, plan kryzysowy na głód nikotynowy, timer 5 minut, 52 fiszki, podsumowanie audio i numery Poradni Pomocy Palącym NIO.",
+  tags: ["rozwiąż problem", "rozwiaz problem", "rzuć palenie", "rzuc palenie", "rzucanie palenia", "jak rzucić palenie", "papierosy", "nikotyna", "głód nikotynowy", "nałóg", "nalog", "uzależnienie", "kurs", "14 dni", "poradnia pomocy palącym"],
+  featured: true
+},
+{
   title: "Pobierz — Biblioteka Plików Christian Culture",
   category: "Narzędzia i misja",
   url: "https://polskieradio.cc/pobierz",
