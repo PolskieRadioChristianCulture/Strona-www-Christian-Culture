@@ -6,7 +6,7 @@ import { loadCourses, renderCourse, parseCards, parseLessons, searchItem } from 
 test('Rozwiąż problem: każda strona kursu jest zgodna z pakietem (Word, fiszki, kurs.json)', () => {
   for (const c of loadCourses()) {
     const r = renderCourse(c.slug);
-    assert.equal(fs.readFileSync(r.outFile, 'utf8'), r.html, `${c.outFile} nieaktualna — node scripts/rozwiaz-problem/build.mjs build ${c.slug}`);
+    assert.equal(fs.readFileSync(r.outFile, 'utf8').replace(/\r\n/g, '\n'), r.html, `${c.outFile} nieaktualna — node scripts/rozwiaz-problem/build.mjs build ${c.slug}`);
     assert.ok(r.days.length >= 7 && r.days.length <= 21, `${c.slug}: seria zakłada 7–21 lekcji`);
     assert.ok(!/\{\{\w+\}\}/.test(r.html), `${c.slug}: niewypełnione pole szablonu`);
   }

@@ -5,6 +5,8 @@ const BLOCKED_DIRECTORIES = new Set([
   '.agents', '.firebase', '.gemini', '.github', '.vscode', '.wrangler', '_wydanie',
   'cloudflare', 'cloudflare-worker', 'docs', 'firebase_functions', 'functions', 'migrations', 'node_modules',
   'lib', 'scratch', 'scripts', 'src', 'test', 'tests', 'windows_tools',
+  // Zatwierdzone lekcje czekające na swoją datę — nigdy nie mogą trafić na stronę przed czasem.
+  'kolejka-publikacji',
 ]);
 const BLOCKED_FILES = new Set([
   '.env', '.env.example', '.firebaserc', '.gitignore', '.cc-frozen-approvals.json', 'wydanie-kanaly.log', 'agents.md', 'claude.md',

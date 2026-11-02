@@ -269,7 +269,8 @@ export function renderCourse(slug) {
     timerCuesJson: '[' + cr.timerCues.map(jsStr).join(',') + ']', copyPlanJs: copyPlan, timerDoneJson: jsStr(cr.timerDone),
   };
 
-  let html = fs.readFileSync(TEMPLATE, 'utf8')
+  // Szablon w świeżej kopii repo ma CRLF (core.autocrlf) — generujemy zawsze LF, żeby wynik nie zależał od kopii.
+  let html = fs.readFileSync(TEMPLATE, 'utf8').replace(/\r\n/g, '\n')
     .replace('/*JSONLD*/', () => js({ '@context': 'https://schema.org', '@graph': graph }))
     .replace('<!--FAQ-->', () => faqHtml)
     .replace('<!--GRID-->', () => grid)
@@ -392,7 +393,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       let bad = 0;
       for (const c of loadCourses()) {
         const r = renderCourse(c.slug);
-        const cur = fs.existsSync(r.outFile) ? fs.readFileSync(r.outFile, 'utf8') : '';
+        const cur = fs.existsSync(r.outFile) ? fs.readFileSync(r.outFile, 'utf8').replace(/\r\n/g, '\n') : '';
         if (cur !== r.html) { bad++; console.log(`NIEAKTUALNA: ${path.relative(ROOT, r.outFile)} — uruchom build ${c.slug}`); }
         else console.log(`OK ${c.slug}`);
       }

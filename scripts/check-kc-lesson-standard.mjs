@@ -3,6 +3,7 @@
 // Decyzja L0 26.10.2026. Procedura: JOMA_SHARED_MEMORY/Z_BIBLIA_ZA_PAN_BRAT_STANDARD_LEKCJI.md
 // Użycie: node scripts/check-kc-lesson-standard.mjs [numer dnia ...]   (bez argumentów: wszystkie dni)
 import fs from 'node:fs';
+import { pathToFileURL } from 'node:url';
 
 const DIR = 'akademia/kurscodzienny';
 const pad = (n) => String(n).padStart(2, '0');
@@ -32,6 +33,8 @@ export const CHECKS = [
   ['dogory', 'Przycisk „Do góry”', (s) => s.includes('id="backToTopBtn"')],
 ];
 
+// Uruchamiane tylko wprost z wiersza poleceń; import (np. publikuj-dzien.mjs) bierze same CHECKS.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
 const days = process.argv.slice(2).map(Number).filter(Boolean);
 const all = days.length ? days : fs.readdirSync(DIR).map((f) => /^dzien-(\d+)\.html$/.exec(f)?.[1]).filter(Boolean).map(Number).sort((a, b) => a - b);
 let fails = 0;
@@ -43,3 +46,4 @@ for (const d of all) {
 }
 console.log(`\nZgodnych ze wzorem Dnia 1: ${all.length - fails}/${all.length}`);
 process.exitCode = fails ? 1 : 0;
+}
