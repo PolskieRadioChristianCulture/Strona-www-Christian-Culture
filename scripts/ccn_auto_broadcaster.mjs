@@ -431,6 +431,15 @@ function getAllEcosystemCandidates() {
   // 5. NAJWAŻNIEJSZE DEDYKOWANE MODUŁY EKOSYSTEMU CC
   const coreModules = [
     {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 33 (Wj 2:1–25): Z wód Nilu do pustyni Madian',
+      lead: 'Dzień 33 (2 listopada 2026): Ocalenie Mojżesza w sitowiu Nilu, próba wiary na pustyni Madian i Boża pamięć o przymierzu.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-33',
+      image: 'images/news/art-z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
       title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie',
       lead: 'Start Księgi Wyjścia (1 listopada 2026)! Heroiczna wiara położnych Szifry i Pui, które bardziej bały się Boga niż faraona, oraz Boże ocalenie życia.',
       url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-32',
@@ -630,7 +639,11 @@ function formatBroadcasterTweet(item) {
     }
   } else if (item.type === 'news') {
     const tLower = (item.title || '').toLowerCase();
-    if (tLower.includes('sprawozdanie') || tLower.includes('raport')) {
+    if (tLower.includes('z biblią za pan brat') || tLower.includes('kurs codzienny') || (item.url || '').includes('/akademia/')) {
+      subHeader = '🎓 AKADEMIA BIBLIJNA | KURS CODZIENNY';
+      callToAction = '👉 Studiuj w serwisie:\n';
+      addTags('#KursCodzienny', '#AkademiaBiblijna', '#CCNNews');
+    } else if (tLower.includes('sprawozdanie') || tLower.includes('raport')) {
       subHeader = '🌍 RAPORT MISYJNY CC';
       callToAction = '👉 Czytaj pełny raport:\n';
       addTags('#CCNNews', '#MisjaCC', '#ChristianCulture');
@@ -685,6 +698,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Oficjalna lista przebojów muzyki chrześcijańskiej. Głosuj na utwory i wspieraj artystów!';
   } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
     bodyText = item.lead;
+  } else if ((item.url || '').includes('dzien-33')) {
+    bodyText = 'Dzień 33 (Wj 2:1–25): Z wód Nilu do pustyni Madian — ocalenie Mojżesza i Boża pamięć o przymierzu.';
   } else if ((item.url || '').includes('dzien-32')) {
     bodyText = 'Start Księgi Wyjścia! Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie — heroiczna wiara położnych Szifry i Pui.';
   } else if ((item.url || '').endsWith('/akademia')) {
