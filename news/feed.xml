@@ -8,8 +8,18 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Mon, 02 Nov 2026 05:48:20 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 02 Nov 2026 06:09:33 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Z Biblią za Pan Brat: Dzień 33 — Z wód Nilu do pustyni Madian: ocalenie Mojżesza, próba i Boża pamięć w Wj 2</title>
+      <link>https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian</guid>
+      <pubDate>Mon, 02 Nov 2026 05:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>AKADEMIA BIBLIJNA • KURS CODZIENNY DZIEŃ 33</category>
+      <description>Księga Wyjścia 2: Koszyk z sitowia, litość córki faraona, porażka ludzkiej przemocy, 40 lat formacji w Madianie i Boża pamięć o przymierzu (Wj 2:1–25 UBG).</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Sprawozdanie misyjne Christian Culture za październik 2026: Słowo Boże, muzyka i prawda na 5 kontynentach</title>
       <link>https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026</link>
@@ -299,16 +309,6 @@
       <category>Z BIBLIĄ ZA PAN BRAT · LEKSYKON BIBLIJNY</category>
       <description>Rozdziały dwudziesty trzeci i dwudziesty czwarty Księgi Rodzaju ukazują przejście historii przymierza w nowe pokolenie, łącząc realistyczny opis żałoby po śmierci Sary z teologią Bożej opatrzności działającej poprzez ludzką roztropność, modlitwę i wolny wybór.</description>
       <enclosure url="https://polskieradio.cc/images/academy/daily/kc_day_17_machpela_rebeka.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>BÓG SAM ZAPEWNI BARANKA — ABRAHAM NA GÓRZE MORIA I TYPOLOGIA OFIARY CHRYSTUSA</title>
-      <link>https://polskieradio.cc/news/bog-sam-zapewni-baranka-abraham-na-gorze-moria-typologia-ofiary-chrystusa-rdz-22</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/bog-sam-zapewni-baranka-abraham-na-gorze-moria-typologia-ofiary-chrystusa-rdz-22</guid>
-      <pubDate>Fri, 16 Oct 2026 00:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>Z BIBLIĄ ZA PAN BRAT · LEKSYKON BIBLIJNY</category>
-      <description>Dwudziesty drugi rozdział Księgi Rodzaju opisuje najtrudniejszą próbę wiary w życiu Abrahama – ofiarowanie Izaaka na górze Moria – oraz fundamentalną zapowiedź zastępczej ofiary mesjańskiej Baranka Bożego.</description>
-      <enclosure url="https://polskieradio.cc/images/academy/daily/kc_day_16_baranek_moria.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>

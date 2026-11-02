@@ -1,13 +1,13 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-02T05:48:20.266Z",
+  "generatedAt": "2026-11-02T06:09:34.068Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 82,
-    "validUrls": 82,
+    "totalValidatedUrls": 83,
+    "validUrls": 83,
     "invalidUrls": 0,
-    "newsArticlesCount": 76,
-    "googleNews48hCount": 30,
+    "newsArticlesCount": 77,
+    "googleNews48hCount": 31,
     "akademiaUrlsCount": 64,
     "bibliaUrlsCount": 4,
     "muzykaUrlsCount": 9,
@@ -31,25 +31,25 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 23413,
+      "sizeBytes": 23422,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 30933,
+      "sizeBytes": 30905,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 37820,
+      "sizeBytes": 38361,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 24810,
+      "sizeBytes": 25665,
       "status": "OK"
     },
     {
@@ -90,10 +90,10 @@
     }
   ],
   "indexNow": {
-    "keyConfigured": true,
+    "keyConfigured": false,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 37,
-    "pendingCount": 37,
+    "totalQueued": 38,
+    "pendingCount": 38,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-02T05:48:20.261Z",
+        "queuedAt": "2026-11-02T06:09:34.063Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-02T05:48:20.261Z",
+        "queuedAt": "2026-11-02T06:09:34.063Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-02T05:48:20.261Z",
+        "queuedAt": "2026-11-02T06:09:34.063Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-02T05:48:20.261Z",
+        "queuedAt": "2026-11-02T06:09:34.063Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-02T05:48:20.261Z",
+        "queuedAt": "2026-11-02T06:09:34.063Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -382,11 +382,7 @@
         },
         "status": "PENDING"
       }
-    ],
-    "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 330,
-    "lastSubmittedCount": 330,
-    "lastSubmittedAt": "2026-11-02T05:48:33.194Z"
+    ]
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +398,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian.html",
+      "canonicalUrl": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/sprawozdanie-misyjne-pazdziernik-2026.html",
       "canonicalUrl": "https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026",
@@ -593,15 +597,6 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/cbdc-prawo-niedzielne-apokalipsa-13.html",
-      "canonicalUrl": "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
-  ],
-  "lastInstantIndexingAt": "2026-11-02T05:48:33.194Z"
+  ]
 }

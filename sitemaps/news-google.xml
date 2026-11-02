@@ -3,6 +3,21 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-02T05:00:00.000Z</news:publication_date>
+      <news:title>Z Biblią za Pan Brat: Dzień 33 — Z wód Nilu do pustyni Madian: ocalenie Mojżesza, próba i Boża pamięć w Wj 2</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian.jpg</image:loc>
+      <image:title>Z Biblią za Pan Brat: Dzień 33 — Z wód Nilu do pustyni Madian: ocalenie Mojżesza, próba i Boża pamięć w Wj 2</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026</loc>
     <news:news>
       <news:publication>

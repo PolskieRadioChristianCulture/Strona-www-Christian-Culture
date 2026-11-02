@@ -253,7 +253,8 @@
       <div class="mb-4">
         <a href="#ccDailyShare" id="kcJumpShareBtn" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider transition min-h-[44px]">
           <i class="fa-solid fa-share-nodes text-[12px]"></i>
-          <span>Podziel się tą lekcją ↓</span>
+          <span>Podziel się tą lekcją</span>
+          <i class="fa-solid fa-arrow-down text-[12px]"></i>
         </a>
       </div>
 
@@ -898,7 +899,22 @@
       const btnReset = document.getElementById('btnResetQuiz');
       if (btnCheck) btnCheck.addEventListener('click', checkQuiz);
       if (btnReset) btnReset.addEventListener('click', resetQuiz);
+
+      const backBtn = document.getElementById('backToTopBtn');
+      if (backBtn) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) backBtn.classList.add('visible');
+          else backBtn.classList.remove('visible');
+        });
+        backBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   </script>
+
+  <!-- Floating Back to Top Button -->
+  <button class="back-to-top" id="backToTopBtn" type="button" aria-label="Przewiń do góry" title="Przewiń do góry">
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+  </button>
+  <script src="/js/cc-daily-course-share.js?v=20261025_v4" defer></script>
 </body>
 </html>

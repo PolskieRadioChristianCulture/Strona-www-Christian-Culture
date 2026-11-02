@@ -41,6 +41,7 @@ export const AUTHORS: Record<string, Author> = {
 };
 
 export const BREAKING_NEWS: string[] = [
+  "Z Biblią za Pan Brat: Dzień 33 — Z wód Nilu do pustyni Madian: Ocalenie Mojżesza, czas próby i Boża pamięć o przymierzu (Wj 2:1–25)",
   "SPRAWOZDANIE MISYJNE PAŹDZIERNIK 2026: Ponad 1000 godzin Słowa Bożego i muzyki chrześcijańskiej w 32 krajach świata — pełny oficjalny raport Cezarego Rogowskiego (https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026)",
   "CCN NAUKA & BIOETYKA: Granice ingerencji w ludzki genom. CRISPR, syntetyczne embriony a biblijna prawda o początku życia — analiza Cezarego Rogowskiego (Ps 139:13–16; Rdz 1:26–27)",
   "OFICJALNY START NEWSLETTERA CC: Dołącz do Newslettera Christian Culture — wybierz interesujące Cię kategorie i bądź na bieżąco ze Słowem, muzyką i akcją #antyHALLOWEEN! (https://polskieradio.cc/newsletter)",
@@ -79,6 +80,57 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    id: 'art-z-biblia-za-pan-brat-dzien-33',
+    title: 'Z Biblią za Pan Brat: Dzień 33 — Z wód Nilu do pustyni Madian: ocalenie Mojżesza, próba i Boża pamięć w Wj 2',
+    slug: 'z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian',
+    excerpt: 'Księga Wyjścia 2: Koszyk z sitowia, litość córki faraona, porażka ludzkiej przemocy, 40 lat formacji w Madianie i Boża pamięć o przymierzu (Wj 2:1–25 UBG).',
+    content: [
+      'W ramach ogólnopolskiego programu studium biblijnego „Z Biblią za Pan Brat”, publikujemy egzegetyczne studium drugiego rozdziału Księgi Wyjścia (Wj 2:1–25 UBG). Rozdział ten odsłania narodziny i formację przyszłego wyzwoliciela Izraela w cieniu zbrodniczego dekretu faraona.',
+      '1. Arka w wodach śmierci: Matka, koszyk i litość córki faraona (Wj 2:1–10 UBG)',
+      'Rozdział otwiera wzmianka o małżeństwie z rodu Lewiego. Narodziny pięknego chłopca w obliczu edyktu o eksterminacji prowadzą matkę do heroicznego aktu wiary (Hbr 11:23). Po trzech miesiącach ukrywania przygotowuje ona koszyk z sitowia – użyte tu hebrajskie słowo „tebah” (H8392) pojawia się w Biblii tylko w dwóch miejscach: w opisie Arki Noego (Rdz 6:14) oraz właśnie tutaj. Nil, który miał być grobem, staje się kołyską ocalenia pod suwerenną Bożą Opatrznością. Córka faraona lituje się nad płaczem dziecka, przyjmuje je za syna i nadaje mu imię Mojżesz (Mosze – „wyciągnięty z wody”), a prawdziwa matka zostaje wynajęta na jego mamkę.',
+      '2. Zapalczywość ciała a Boży czas: Porażka w Egipcie (Wj 2:11–15 UBG)',
+      'Dorosły Mojżesz próbuje wymierzyć sprawiedliwość i wyzwolić braci własną siłą – zabija Egipcjanina i ukrywa go w piasku (Wj 2:11–12). Nazajutrz jednak spotyka się z odrzuceniem ze strony kłócących się Hebrajczyków: „Kto cię ustanowił przełożonym i sędzią nad nami?” (Wj 2:14; por. Dz 7:25–29, 35). Boże dzieło nie może być realizowane metodami ludzkiej przemocy ani w niecierpliwości ciała. Zagrożony gniewem faraona Mojżesz musi uciekać z Egiptu.',
+      '3. 40 lat w szkole pustyni Madian (Wj 2:16–22 UBG)',
+      'Przy studni w Madianie Mojżesz staje w obronie siedmiu córek kapłana Reuela. Zamieszkuje u niego, poślubia Seforę i przez 40 lat prowadzi pokorny żywot pasterza. Bóg kruszy pychę dawnego księcia Egiptu, przekształcając go w „najpokorniejszego ze wszystkich ludzi na ziemi” (Lb 12:3). Narodziny syna Gerszoma („Jestem przybyszem w obcej ziemi”) pieczętują ten czas milczenia i cichego oczyszczenia.',
+      '4. Bóg słyszy, pamięta, widzi i poznaje (Wj 2:23–25 UBG)',
+      'Gdy umiera król Egiptu, a ucisk narasta, synowie Izraela jęczą pod jarzmem niewoli. Finał rozdziału objawia głębię Bożej wierności: „I Bóg usłyszał ich narzekanie, i wspomniał Bóg na swoje przymierze z Abrahamem, Izaakiem i Jakubem. I wejrzał Bóg na synów Izraela, i poznał ich Bóg” (Wj 2:24–25 UBG). Bóg nigdy nie zapomina o swoich obietnicach.',
+      '5. Chrystus w centrum: Cierpiący Sługa i wieczne wyzwolenie',
+      'Odrzucenie Mojżesza przez braci zapowiada przyjście Jezusa Chrystusa, który przyszedł do swoich, a swoi Go nie przyjęli (J 1:11). Jezus nie przyniósł wyzwolenia mieczem, lecz przez krzyż stał się cichym Barankiem, uwalniającym ludzkość z duchowej niewoli grzechu i śmierci.'
+    ],
+    category: 'Biblia i Teologia',
+    categoryLabel: 'AKADEMIA BIBLIJNA • KURS CODZIENNY DZIEŃ 33',
+    author: AUTHORS.cezary,
+    publishedAt: '2026-11-02T06:00:00+01:00',
+    dateFormatted: '2 listopada 2026',
+    imageUrl: '/images/news/art-z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian.jpg',
+    imageCaption: 'Z wód Nilu do pustyni Madian — ocalenie Mojżesza i Boża pamięć o przymierzu (Wj 2:1–25). Z Biblią za Pan Brat Dzień 33.',
+    readTimeMinutes: 7,
+    isHero: false,
+    isPopular: true,
+    popularRank: 1,
+    tags: [
+      '@CezaryRogowski',
+      '@ChristianCulture',
+      '#ZBibliaZaPanBrat',
+      '#KsięgaWyjścia',
+      '#Wj2',
+      '#Mojżesz',
+      '#Madian',
+      '#Przymierze',
+      '#UBG'
+    ],
+    scriptureReference: {
+      verse: 'Księga Wyjścia 2:24–25 (UBG)',
+      text: 'I Bóg usłyszał ich narzekanie, i wspomniał Bóg na swoje przymierze z Abrahamem, Izaakiem i Jakubem. I wejrzał Bóg na synów Izraela, i poznał ich Bóg.',
+      strongCode: 'H2142'
+    },
+    sourceCitation: {
+      sourceName: 'Akademia Biblijna Christian Culture — Kurs Codzienny Dzień 33 (Wj 2:1–25 UBG)',
+      sourceUrl: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-33'
+    }
+  },
+
   {
     id: 'art-sprawozdanie-misyjne-pazdziernik-2026',
     title: 'Sprawozdanie misyjne Christian Culture za październik 2026: Słowo Boże, muzyka i prawda na 5 kontynentach',
