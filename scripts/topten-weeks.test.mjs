@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
 import { handleTopTenApi, warsawClock, addDays } from '../services/topten/topten-service.js';
-import { weekBounds, sortStandings, planRoster, ensureWeek, finalizeWeek, RETURN_WAIT_WEEKS, applyRetention } from '../services/topten/topten-weeks.js';
+import { weekBounds, sortStandings, planRoster, ensureWeek, finalizeWeek, RETURN_WAIT_WEEKS, applyRetention, debutQueue } from '../services/topten/topten-weeks.js';
 
 const MIGRATIONS = fs.readdirSync(new URL('../migrations/topten/', import.meta.url)).filter(f => f.endsWith('.sql')).sort()
   .map(f => fs.readFileSync(new URL(`../migrations/topten/${f}`, import.meta.url), 'utf8'));
@@ -426,4 +426,15 @@ test('RODO: retencja — skrót sieci po 90 dniach, pseudonimizacja po 24 mies.,
   const s2 = await applyRetention(db, now);
   assert.ok(Object.values(s2).every(v => v === 0));
   assert.equal(db.raw.prepare("SELECT COUNT(*) AS c FROM topten_audit_log WHERE action = 'retention.applied'").get().c, 1);
+});
+
+test('kolejka debiutów pokazuje identyfikator YouTube (posłuchaj przed startem), w kolejności zatwierdzenia', async () => {
+  const db = d1();
+  const ins = db.raw.prepare(`INSERT INTO topten_tracks (id, title, artist, genre, status, created_at, updated_at, pool_status, queued_at, queue_entry, youtube_id)
+    VALUES (?, ?, 'A', 'pop', 'published', 'x', 'x', 'queued', ?, 'debut', ?)`);
+  ins.run('CC-TT-2026-0102', 'Drugi', '2026-11-02T06:00:01Z', 'bbbbbbbbbbb');
+  ins.run('CC-TT-2026-0101', 'Pierwszy', '2026-11-02T06:00:00Z', 'aaaaaaaaaaa');
+  ins.run('CC-TT-2026-0103', 'Bez wideo', '2026-11-02T06:00:02Z', null);
+  const q = await debutQueue(db, '2026-11-02');
+  assert.deepEqual(q.map(x => [x.id, x.youtubeId, x.position]), [['CC-TT-2026-0101', 'aaaaaaaaaaa', 1], ['CC-TT-2026-0102', 'bbbbbbbbbbb', 2], ['CC-TT-2026-0103', null, 3]]);
 });

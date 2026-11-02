@@ -451,3 +451,6 @@ html body #backToTopBtn[data-cc-back-to-top]:hover {
 @media (prefers-reduced-motion: reduce) { .chart-card img, .yt-thumb img { transition: none !important; } }
 .award-share { min-width: 44px; min-height: 44px; border-radius: 50%; border: 2px solid #FF7A00; background: #fff; cursor: pointer; font-size: 18px; margin-left: -4px; }
 .award-share:hover { background: #FF7A00; }
+/* Kolejka debiutów: tytuł prowadzi do teledysku na YouTube */
+.natural-list a[data-queue-yt] { color: #E66A00; text-decoration: underline; text-underline-offset: 3px; }
+.natural-list a[data-queue-yt]:hover, .natural-list a[data-queue-yt]:focus-visible { color: #FF7A00; }

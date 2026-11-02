@@ -334,10 +334,10 @@ export async function applyRetention(db, nowMs) {
 
 // ─── Widoki publiczne ────────────────────────────────────────────────────────
 export async function debutQueue(db, weekId) {
-  const rows = (await db.prepare(`SELECT t.id, t.title, t.artist, t.queue_entry, t.queued_at, a.eligible_from_week
+  const rows = (await db.prepare(`SELECT t.id, t.title, t.artist, t.youtube_id, t.queue_entry, t.queued_at, a.eligible_from_week
       FROM topten_tracks t LEFT JOIN topten_song_archive a ON a.track_id = t.id
       WHERE t.status = 'published' AND t.pool_status = 'queued' ORDER BY t.queued_at, t.id`).all()).results || [];
-  return rows.map((r, i) => ({ id: r.id, title: r.title, artist: r.artist, entry: r.queue_entry || 'debut', position: i + 1,
+  return rows.map((r, i) => ({ id: r.id, title: r.title, artist: r.artist, youtubeId: r.youtube_id || null, entry: r.queue_entry || 'debut', position: i + 1,
     eligibleFromWeek: r.queue_entry === 'return' ? (r.eligible_from_week || null) : null,
     waitingForEligibility: r.queue_entry === 'return' && !!r.eligible_from_week && r.eligible_from_week > addDays(weekId, 7) }));
 }

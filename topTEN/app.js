@@ -139,8 +139,10 @@ function naturalSections(nat, waiting) {
     ${queue.length ? `
       <section class="chart-section natural-box" id="debiuty" aria-labelledby="debiutyTitle">
         <div class="section-header"><h2 id="debiutyTitle">Wkrótce w notowaniach</h2></div>
-        <p class="vote-info-note">Zatwierdzone nominacje startują w najbliższy poniedziałek (najwyżej 3 na tydzień, według kolejności zatwierdzenia). Do startu nie zbierają punktów.</p>
-        <ol class="natural-list">${queue.map(q => `<li><strong>${escapeHtml(q.title)}</strong> — ${escapeHtml(q.artist)} <span class="trend-pill trend-same">${q.entry === 'return' ? 'WIELKI POWRÓT' : 'DEBIUT'}</span>${q.waitingForEligibility && q.eligibleFromWeek ? ` <small>(od tygodnia ${fmtDate(q.eligibleFromWeek)})</small>` : ''}</li>`).join('')}</ol>
+        <p class="vote-info-note">Zatwierdzone nominacje wchodzą do notowania przy zamknięciu tygodnia, w niedzielę o 20:00 (najwyżej 3 na tydzień, według kolejności zatwierdzenia). Do startu nie zbierają punktów — ale już teraz możesz ich posłuchać na YouTube ▶</p>
+        <ol class="natural-list">${queue.map(q => `<li><strong>${q.youtubeId
+          ? `<a href="https://www.youtube.com/watch?v=${encodeURIComponent(q.youtubeId)}" target="_blank" rel="noopener" data-queue-yt="${escapeHtml(q.id)}" aria-label="Posłuchaj na YouTube: ${escapeHtml(q.title)}">▶ ${escapeHtml(q.title)}</a>`
+          : escapeHtml(q.title)}</strong> —${escapeHtml(q.artist)} <span class="trend-pill trend-same">${q.entry === 'return' ? 'WIELKI POWRÓT' : 'DEBIUT'}</span>${q.waitingForEligibility && q.eligibleFromWeek ? ` <small>(od tygodnia ${fmtDate(q.eligibleFromWeek)})</small>` : ''}</li>`).join('')}</ol>
       </section>` : ''}
     ${last ? `
       <section class="chart-section natural-box" id="ostatnie-notowanie" aria-labelledby="ostatnieTitle">
