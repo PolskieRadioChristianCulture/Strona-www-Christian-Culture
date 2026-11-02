@@ -37,13 +37,11 @@ function paczka(root, lekcjaOst, obrazOst, { meta = {}, obraz, lekcja } = {}) {
   const dir = path.join(root, KOLEJKA, DATA);
   fs.mkdirSync(path.join(dir, 'obrazy'), { recursive: true });
   const nowyObraz = `kc_day_${N}_test_autopublikacji.jpg`;
-  const html = lekcja ?? lekcjaOst
-    .split(path.posix.basename(obrazOst)).join(nowyObraz)
-    .split(`dzien-${pad(OSTATNI)}`).join(`dzien-${pad(N)}`)
-    .split(`dzien-${pad(OSTATNI - 1)}`).join(`dzien-${pad(OSTATNI)}`)
-    .split(`Dzień ${OSTATNI}`).join(`Dzień ${N}`)
-    .split(`kc_day${OSTATNI}`).join(`kc_day${N}`)
-    .split(`kc_day_${OSTATNI}`).join(`kc_day_${N}`)
+  // Wszystkie postaci numeru dnia: „Dzień X”, dzien-XX, kc_dayX, kc_day_X i „Dzień X” zakodowany w linkach udostępniania.
+  const zmienDzien = (s, z, na) => s
+    .replace(new RegExp(`dzien-${pad(z)}(?!\\d)`, 'g'), `dzien-${pad(na)}`)
+    .replace(new RegExp(`(Dzień |kc_day_?|Dzie%C5%84%20)${z}(?!\\d)`, 'g'), `$1${na}`);
+  const html = lekcja ?? zmienDzien(zmienDzien(lekcjaOst.split(path.posix.basename(obrazOst)).join(nowyObraz), OSTATNI, N), OSTATNI - 1, OSTATNI)
     .replace(/<section[^>]*id="jutro"[\s\S]*?<\/section>/, (s) => s.replace(/JUTRO — [^<]+/, 'JUTRO — TEST'));
   fs.writeFileSync(path.join(dir, 'lekcja.html'), html);
   fs.writeFileSync(path.join(dir, 'obrazy', nowyObraz), obraz ?? crypto.randomBytes(2048));
@@ -83,6 +81,12 @@ test('bez zatwierdzenia, z obcą grafiką, z luką albo złym quizem: odmowa', a
   const plikLekcji = path.join(paczka(r.root, r.lekcjaOst, r.obrazOst), 'lekcja.html');
   fs.writeFileSync(plikLekcji, fs.readFileSync(plikLekcji, 'utf8').replace(/const QUIZ_DATA = \[\s*\{/, 'const QUIZ_DATA = [{"q":"x","a":["a"],"c":0}, {'));
   await assert.rejects(publikujDzien({ root: r.root, data: DATA, teraz: PO_POLNOCY }), /quiz ma 21 pytań/);
+
+  // Pozostałość po kopiowaniu (02.11.2026: przygotowany Dzień 34 miał „Oznacz Dzień 33 jako ukończony” i linki do dzien-33).
+  r = kopiaRepo();
+  const plikResztki = path.join(paczka(r.root, r.lekcjaOst, r.obrazOst), 'lekcja.html');
+  fs.writeFileSync(plikResztki, fs.readFileSync(plikResztki, 'utf8').replace(`Oznacz Dzień ${N} jako ukończony`, `Oznacz Dzień ${OSTATNI} jako ukończony`));
+  await assert.rejects(publikujDzien({ root: r.root, data: DATA, teraz: PO_POLNOCY }), /pozostałość po kopiowaniu/);
 
   r = kopiaRepo(); paczka(r.root, r.lekcjaOst, r.obrazOst);
   const pozniej = path.join(r.root, KOLEJKA, dataDnia(N + 1));

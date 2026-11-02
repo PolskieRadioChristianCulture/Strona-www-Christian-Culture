@@ -125,13 +125,29 @@ export function sprawdzSpis(html, n) {
 }
 
 // ── Lekcja poprzednia (N−1) ─────────────────────────────────────────────────
-/** Dodaje „Dzień N →” w górnym pasku za „← Dzień N−2”. */
+/** Odnośnik „← Dzień P” w górnym pasku (pierwszy w pliku); oba spotykane wzory: jednoliniowy i z <span>. */
+const linkWstecz = (p) => new RegExp(`<a href="/akademia/kurscodzienny/${slugDnia(p)}" class="([^"]*)">([\\s\\S]{0,200}?)← Dzień ${p}([\\s\\S]{0,200}?)</a>`);
+
+/** Dodaje „Dzień N →” w górnym pasku za „← Dzień N−2” — w tym samym stylu co odnośnik wstecz. */
 export function linkNastepny(html, n) {
-  if (html.includes(`/kurscodzienny/${slugDnia(n)}" class="px-2.5`)) return { html, zmian: 0 };
-  const re = new RegExp(`(<a href="/akademia/kurscodzienny/${slugDnia(n - 2)}" class="px-2\\.5[^"]*">← Dzień ${n - 2}</a>)`);
-  if (!re.test(html)) throw new Error(`Dzień ${n - 1}: nie znaleziono „← Dzień ${n - 2}” w pasku nawigacji`);
-  const link = `<a href="/akademia/kurscodzienny/${slugDnia(n)}" class="px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-amber-400 hover:text-amber-300 min-h-[32px] flex items-center font-bold">Dzień ${n} →</a>`;
-  return { html: html.replace(re, `$1\n        ${link}`), zmian: 1 };
+  if (html.includes(`>Dzień ${n} →</a>`) || new RegExp(`<span>Dzień ${n} →</span>`).test(html)) return { html, zmian: 0 };
+  const m = linkWstecz(n - 2).exec(html);
+  if (!m) throw new Error(`Dzień ${n - 1}: nie znaleziono „← Dzień ${n - 2}” w pasku nawigacji`);
+  const link = `<a href="/akademia/kurscodzienny/${slugDnia(n)}" class="${m[1]}">${m[2]}Dzień ${n} →${m[3]}</a>`;
+  const wciecie = html.slice(html.lastIndexOf('\n', m.index) + 1, m.index);
+  const poz = m.index + m[0].length;
+  return { html: html.slice(0, poz) + `\n${/^\s*$/.test(wciecie) ? wciecie : '        '}${link}` + html.slice(poz), zmian: 1 };
+}
+
+/**
+ * Pozostałości po kopiowaniu lekcji poprzedniego dnia (krok C5 umiejętności): „Dzień P”, dzien-PP, kc_dayP, „Dzień P” w linkach
+ * udostępniania. Dozwolony jest tylko odnośnik „← Dzień P” w pasku nawigacji. Zwraca numery wierszy.
+ */
+export function pozostalosci(html, n) {
+  const p = n - 1;
+  const bez = html.replace(new RegExp(linkWstecz(p).source, 'g'), (x) => x.replace(/[^\n]/g, ''));
+  const re = new RegExp(`Dzień ${p}(?!\\d)|dzien-${pad2(p)}(?!\\d)|kc_day_?${p}(?!\\d)|Dzie%C5%84%20${p}(?!\\d)`);
+  return bez.split('\n').map((l, i) => (re.test(l) ? i + 1 : 0)).filter(Boolean);
 }
 
 /** Podmienia sekcję „Jutro” w miejscu (albo wstawia ją przed </main>, gdy jej nie ma). `sekcja` = wynik jutro() z align-kc-lessons-day1. */

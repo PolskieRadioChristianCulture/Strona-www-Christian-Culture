@@ -15,7 +15,7 @@ import { CHECKS } from '../check-kc-lesson-standard.mjs'; // 21 elementów wzoru
 import { jutro } from '../align-kc-lessons-day1.mjs';
 import {
   dataPolska, dataDnia, slugDnia, daneLekcji, dodajKarte, zaktualizujHero, zaktualizujLicznik, sprawdzSpis,
-  linkNastepny, podmienJutro, pytaniaQuizu, zaktualizujWyszukiwarke, dodajDoMapy, dopiszRozwazanie,
+  linkNastepny, podmienJutro, pytaniaQuizu, pozostalosci, zaktualizujWyszukiwarke, dodajDoMapy, dopiszRozwazanie,
 } from './lib.mjs';
 
 export const KOLEJKA = 'kolejka-publikacji/kurs-codzienny';
@@ -76,6 +76,11 @@ export async function publikujDzien({ root = process.cwd(), data, zapisz = false
   if (/kc_day_?\d+/.test(lekcja) && [...lekcja.matchAll(/kc_day_?(\d+)_/g)].some((m) => Number(m[1]) !== n)) {
     throw new Error(`lekcja zawiera klucze/grafiki innego dnia (kc_dayX_ ≠ ${n}) — pozostałość po kopiowaniu`);
   }
+  const resztki = pozostalosci(lekcja, n);
+  if (resztki.length && meta.pozostalosciSprawdzone !== true) {
+    throw new Error(`lekcja ma odwołania do Dnia ${n - 1} poza paskiem nawigacji (wiersze ${resztki.slice(0, 12).join(', ')}) — pozostałość po kopiowaniu; jeśli są świadome, ustaw meta.pozostalosciSprawdzone = true`);
+  }
+  if (resztki.length) ostrzezenia.push(`odwołania do Dnia ${n - 1} zatwierdzone ręcznie (wiersze ${resztki.join(', ')})`);
 
   // ── 3. Grafika: nowa, unikalna, istniejąca ──
   const plikiObrazow = fs.existsSync(abs(`${katalog}/obrazy`)) ? fs.readdirSync(abs(`${katalog}/obrazy`)) : [];

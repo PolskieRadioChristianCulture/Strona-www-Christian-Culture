@@ -33,6 +33,7 @@ const BLOKADA = path.join(os.tmpdir(), 'cc-kc-autopublikacja.lock');
 
 const dzien = Math.round((Date.parse(`${DATA}T00:00:00Z`) - Date.parse('2026-10-01T00:00:00Z')) / 86400000) + 1;
 const katalogRaportu = `${JOMA}/SKRZYNKA/raporty/KC-DZIEN-${dzien}`;
+let kopiaAutomatu = false; // true dopiero po sprawdzeniu, że to osobna, czysta kopia bez gałęzi
 const log = [];
 const zapiszLog = (s) => {
   const linia = `${new Date().toISOString()} ${s}`;
@@ -135,6 +136,8 @@ async function glowna() {
   // 1. Czysta kopia robocza na najnowszym origin/main.
   if (git('rev-parse', '--abbrev-ref', 'HEAD') !== 'HEAD') throw new Error('automat działa tylko w osobnej kopii roboczej bez gałęzi (git worktree add --detach) — nie w folderze, w którym pracują agenci');
   if (git('status', '--porcelain', '--untracked-files=no')) throw new Error('kopia robocza ma niezatwierdzone zmiany — automat działa tylko na czystej kopii');
+  kopiaAutomatu = true;
+  git('clean', '-fdq'); // resztki nieudanego przebiegu (pliki ignorowane, np. node_modules, zostają)
   git('fetch', 'origin', '--quiet');
   git('checkout', '--quiet', '--detach', BAZA);
   zapiszLog(`${BAZA} = ${git('rev-parse', '--short', 'HEAD')}`);
@@ -224,8 +227,10 @@ try {
   }
 } catch (e) {
   zapiszLog(`✖ BŁĄD: ${e.message}`);
-  // Osobna kopia automatu: porzucamy niedokończone zmiany, żeby następny przebieg zaczął od czystego origin/main.
-  try { git('checkout', '--quiet', '--force', '--detach', BAZA); } catch {}
+  // Tylko w potwierdzonej kopii automatu: porzucamy niedokończone zmiany i nowe pliki, żeby następny przebieg zaczął od czystej bazy.
+  if (kopiaAutomatu) {
+    try { git('checkout', '--quiet', '--force', '--detach', BAZA); git('clean', '-fdq'); } catch {}
+  }
   skrzynka({
     temat: `ALARM: autopublikacja KC Dzień ${dzien} (${DATA}) nie powiodła się`,
     tresc: `BLOKADA | agent: claude (@007, automat) | zadanie: autopublikacja KC Dzień ${dzien} | wynik: NIE OPUBLIKOWANO (albo niesprawdzone)\n\nPowód: ${e.message}\n\nNastępny krok: agent dyżurny publikuje ręcznie według umiejętności kc-z-biblia-lekcja albo naprawia paczkę. Log: SKRZYNKA/raporty/KC-DZIEN-${dzien}/autopublikacja.log`,
