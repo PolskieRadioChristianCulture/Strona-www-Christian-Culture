@@ -249,31 +249,40 @@ function getAllEcosystemCandidates() {
       tag: '#KodZrodlowyDuszy'
     },
     {
-      title: 'Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo',
-      lead: '„Prawda Boża nie potrzebuje retuszu współczesnej poprawności. Tylko bezkompromisowa Ewangelia ma moc uwalniać z sideł zakłamania.”',
-      url: 'https://polskieradio.cc/biblioteka',
-      image: 'images/news/art-prawda-bez-filtra.jpg',
-      category: 'Książki',
-      type: 'book',
-      tag: '#PrawdaBezFiltra'
-    },
-    {
       title: 'Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa',
       lead: '„Największym sukcesem wroga jest przekonanie człowieka, że walka duchowa to tylko mit. Słowo Boże obnaża każdą strategię ciemności i daje oręż zwycięstwa w Chrystusie.”',
-      url: 'https://polskieradio.cc/biblioteka',
+      url: 'https://polskieradio.cc/u-boku-diabla',
       image: 'images/news/art-u-boku-diabla.jpg',
       category: 'Książki',
       type: 'book',
       tag: '#UbokuDiabla'
     },
     {
+      title: 'Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo',
+      lead: '„Prawda Boża nie potrzebuje retuszu współczesnej poprawności. Tylko bezkompromisowa Ewangelia ma moc uwalniać z sideł zakłamania.”',
+      url: 'https://polskieradio.cc/prawda-bez-filtra',
+      image: 'images/news/art-prawda-bez-filtra.jpg',
+      category: 'Książki',
+      type: 'book',
+      tag: '#PrawdaBezFiltra'
+    },
+    {
       title: 'Książka: Bóg jest MIŁOŚCIĄ? — Cezary i Wioletta Rogowscy. Odpowiedź na trudne pytania',
       lead: '„Jak pogodzić cierpienie z miłością Stwórcy? Biblijne świadectwo i refleksja nad prawdziwym charakterem Boga, który oddał wszystko za człowieka.”',
-      url: 'https://polskieradio.cc/biblioteka',
+      url: 'https://polskieradio.cc/bog-jest-miloscia',
       image: 'images/news/art-bog-jest-miloscia.jpg',
       category: 'Książki',
       type: 'book',
       tag: '#BogJestMiloscia'
+    },
+    {
+      title: 'Półka z Książkami: Cezary Rogowski — Oficjalna Biblioteka Autorska',
+      lead: 'Kompletny zbiór książek, powieści i publikacji formacyjnych Cezarego Rogowskiego. Czytaj online, słuchaj audiobooków i pobieraj bezpłatnie w ekosystemie CC.',
+      url: 'https://polskieradio.cc/ksiazki-autora',
+      image: 'assets/ksiazki-autora-og.jpg',
+      category: 'Książki',
+      type: 'book',
+      tag: '#KsiazkiAutora'
     }
   ];
   for (const b of books) addCandidate(b);
@@ -283,7 +292,7 @@ function getAllEcosystemCandidates() {
     {
       title: 'Werset Dnia: „Ty jesteś Bogiem, który mnie widzi” (Rdz 16:13, UBG)',
       lead: '„I nazwała imię PANA: Ty jesteś Bogiem, który widzi mnie; bo mówiła: Czyż nie widziałam tutaj Tego, który mnie widzi?” (Rdz 16:13, UBG)',
-      url: 'https://polskieradio.cc/mojabiblia',
+      url: 'https://polskieradio.cc/mojabiblia?ref=GEN.16.13',
       image: 'images/news/art-rdz16-17-hagar-el-roi.jpg',
       category: 'Werset Dnia',
       type: 'verse',
@@ -292,7 +301,7 @@ function getAllEcosystemCandidates() {
     {
       title: 'Werset Dnia: „Spójrz ku niebu i policz gwiazdy...” (Rdz 15:5, UBG)',
       lead: '„Spójrz ku niebu i policz gwiazdy, jeśli możesz je policzyć. I powiedział do niego: Takie będzie twoje potomstwo.” (Rdz 15:5, UBG)',
-      url: 'https://polskieradio.cc/mojabiblia',
+      url: 'https://polskieradio.cc/mojabiblia?ref=GEN.15.5',
       image: 'images/news/art-rdz15-abram-gwiazdy.jpg',
       category: 'Werset Dnia',
       type: 'verse',
@@ -301,7 +310,7 @@ function getAllEcosystemCandidates() {
     {
       title: 'Werset Dnia: „Czyż Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)',
       lead: '„Czyż Sędzia całej ziemi nie postąpi sprawiedliwie? Niech będzie dalekie od ciebie, by uśmiercić sprawiedliwego.” (Rdz 18:25, UBG)',
-      url: 'https://polskieradio.cc/mojabiblia',
+      url: 'https://polskieradio.cc/mojabiblia?ref=GEN.18.25',
       image: 'images/news/art-rdz18-mamre-wstawiennictwo.jpg',
       category: 'Werset Dnia',
       type: 'verse',
@@ -867,7 +876,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
     return { chosen: candidates[requestedIndex], nextIndex: requestedIndex };
   }
 
-  const recentUrls = new Set(history.slice(0, 25).map(h => (typeof h === 'string' ? h : h.url)));
+  const recentUrls = new Set(history.slice(0, 15).map(h => (typeof h === 'string' ? h : h.url)));
   const lastItem = history[0] || {};
   const lastTitleLower = (lastItem.title || '').toLowerCase();
 
@@ -894,27 +903,30 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   const distModule = getDistanceSinceType('module');
   const distVod = getDistanceSinceType('vod');
 
-  // Sprawdź, czy któryś z filarów ekosystemu czeka na publikację
+  // Sprawdź priorytety filarów ekosystemu w kolejności najdłuższego braku publikacji
   // Dyrektywa Dowódcy: Werset dnia co ~1.5 - 2h (co 3-4 posty), książki, muzyka, profile regularnie
-  let preferredType = null;
-  if (distVerse >= 4) {
-    preferredType = 'verse';
-  } else if (distBook >= 6) {
-    preferredType = 'book';
-  } else if (distVod >= 6) {
-    preferredType = 'vod';
-  } else if (distMusic >= 6) {
-    preferredType = 'music';
-  } else if (distProfile >= 8) {
-    preferredType = 'profile';
-  } else if (distModule >= 8) {
-    preferredType = 'module';
-  }
+  const priorityTypes = [];
+  if (distBook >= 6) priorityTypes.push({ type: 'book', dist: distBook });
+  if (distVerse >= 4) priorityTypes.push({ type: 'verse', dist: distVerse });
+  if (distVod >= 6) priorityTypes.push({ type: 'vod', dist: distVod });
+  if (distMusic >= 6) priorityTypes.push({ type: 'music', dist: distMusic });
+  if (distProfile >= 8) priorityTypes.push({ type: 'profile', dist: distProfile });
+  if (distModule >= 8) priorityTypes.push({ type: 'module', dist: distModule });
 
-  if (preferredType) {
-    const matching = candidates.filter(c => (c.type || 'news') === preferredType);
+  priorityTypes.sort((a, b) => b.dist - a.dist);
+
+  for (const p of priorityTypes) {
+    const matching = candidates.filter(c => (c.type || 'news') === p.type);
     const available = matching.filter(c => !recentUrls.has(c.url));
     if (available.length > 0) {
+      // Priorytet dla pozycji, które jeszcze nigdy nie były publikowane, a następnie o największym dystansie
+      available.sort((a, b) => {
+        const idxA = history.findIndex(h => (typeof h === 'string' ? h : h.url) === a.url);
+        const idxB = history.findIndex(h => (typeof h === 'string' ? h : h.url) === b.url);
+        const distA = idxA === -1 ? 9999 : idxA;
+        const distB = idxB === -1 ? 9999 : idxB;
+        return distB - distA;
+      });
       const chosen = available[0];
       const nextIndex = candidates.indexOf(chosen);
       return { chosen, nextIndex };
@@ -929,11 +941,13 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
     const candTitleLower = (cand.title || '').toLowerCase();
     const isRecent = recentUrls.has(cand.url);
 
-    // Ochrona przed dwoma postami o tym samym temacie pod rząd (np. 2x halloween, 2x blackout)
+    // Ochrona przed dwoma postami o tym samym temacie pod rząd
     const isTopicDuplicate =
       (lastTitleLower.includes('halloween') && candTitleLower.includes('halloween')) ||
       (lastTitleLower.includes('blackout') && candTitleLower.includes('blackout')) ||
-      (lastTitleLower.includes('bioetyka') && candTitleLower.includes('bioetyka'));
+      (lastTitleLower.includes('bioetyka') && candTitleLower.includes('bioetyka')) ||
+      (lastTitleLower.includes('dzień 33') && candTitleLower.includes('dzień 33')) ||
+      (lastTitleLower.includes('dzien-33') && candTitleLower.includes('dzien-33'));
 
     // Ochrona przed dwoma postami tego samego typu pod rząd (np. 2x profile, 2x music)
     const isTypeDuplicate = lastItem.type && cand.type === lastItem.type;
