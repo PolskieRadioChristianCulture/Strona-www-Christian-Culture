@@ -1821,6 +1821,12 @@ export default {
       targetUrl.pathname = '/wizytowki/';
       return env.ASSETS.fetch(new Request(targetUrl, request));
     }
+    // Seria Rozwiąż problem (L0 02.11.2026): /RozwiążProblem jest adresem kanonicznym, 200 z ukośnikiem i bez
+    if (/^\/(rozwiążproblem|rozwiazproblem|rozwiaz-problem)\/?$/.test(decodedP)) {
+      const targetUrl = new URL(request.url);
+      targetUrl.pathname = '/rozwiaz-problem/';
+      return env.ASSETS.fetch(new Request(targetUrl, request));
+    }
     // Wyszukiwarka ekosystemu pod własnym adresem (decyzja L0 26.10.2026); 200 także bez ukośnika, bo to adres kanoniczny
     if (/^\/wyszukiwarka\/?$/i.test(decodedP)) {
       const targetUrl = new URL(request.url);
