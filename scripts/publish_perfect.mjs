@@ -89,16 +89,17 @@ async function scheduleVisibility(page, { date, time }, premiere) {
 export function uploadStateFromText(text) {
   const t = (text || '').toLowerCase();
   if (/nie udało|niepowodzenie|failed|przesyłanie anulowane|upload cancel/.test(t)) return 'error';
-  if (/zakończon|complete|przetwarzan|processing|100\s*%/.test(t)) return 'done';
+  // „Przetwarzam do 4K…” = plik jest już w całości na YouTube (przetwarzanie dzieje się po stronie serwera)
+  if (/zakończon|complete|przetwarza|przetworzon|processing|processed|sprawdzan|100\s*%/.test(t)) return 'done';
   if (/przesyłanie|przesłano|uploading|uploaded|pozostał|remaining|\d+\s*%/.test(t)) return 'uploading';
   return 'unknown';
 }
 
-export async function waitForUploadComplete(page, { timeoutMs = UPLOAD_TIMEOUT_MS, pollMs = 5000 } = {}) {
+export async function waitForUploadComplete(page, { timeoutMs = UPLOAD_TIMEOUT_MS, pollMs = 5000, selector = PROGRESS_SELECTOR } = {}) {
   const start = Date.now();
   let lastLog = 0;
   while (Date.now() - start < timeoutMs) {
-    const text = await page.locator(PROGRESS_SELECTOR).first().innerText({ timeout: 2000 }).catch(() => '');
+    const text = await page.locator(selector).first().innerText({ timeout: 2000 }).catch(() => '');
     const state = uploadStateFromText(text);
     if (state === 'done') return text.trim();
     if (state === 'error') throw new Error(`YouTube zgłosił błąd przesyłania: ${text.trim()}`);
@@ -144,7 +145,7 @@ export async function uploadEpisodeToChannel({
   draftVideoId = null
 }) {
   console.log('\n========================================================');
-  console.log(`🚀 PUBLIKACJA NA KANALE: ${channelName} (${channelId})`);
+  console.log(`🚀 PUBLIKACJA NA KANALE: ${channelName}`);
   console.log('========================================================\n');
 
   if (!fs.existsSync(videoPath)) throw new Error(`Brak pliku: ${videoPath}`);
@@ -461,6 +462,15 @@ export async function uploadEpisodeToChannel({
           }
         }
       } else {
+        // YouTube rozpoznał ten sam plik i WZNOWIŁ wcześniejsze przerwane wgranie: zamiast dialogu jest strona filmu.
+        const resumedId = !draftVideoId && step >= 2 && (page.url().match(/\/video\/([\w-]{11})\/edit/) || [])[1];
+        if (resumedId) {
+          console.log(`  -> YouTube wznowił wcześniejsze wgranie tego pliku (${resumedId}) — czekam na koniec przesyłania...`);
+          await waitForUploadComplete(page, { selector: 'ytcp-multi-progress-monitor' });
+          const err = new Error(`Wznowione wgranie ${resumedId} — dokańczam jako wersję roboczą.`);
+          err.resumedVideoId = resumedId;
+          throw err;
+        }
         if (step % 10 === 0) console.log(`  -> Brak przycisku Dalej (iteracja ${step}), czekam...`);
         await page.waitForTimeout(3000);
       }
@@ -558,6 +568,12 @@ export async function uploadEpisodeToChannel({
     return { success: true, title, videoUrl, channel: channelName };
 
   } catch (err) {
+    if (err.resumedVideoId) {
+      // plik jest już w całości na YouTube — zamknięcie przeglądarki niczego nie przerwie
+      console.log(`  -> ${err.message}`);
+      await ctx.close();
+      return uploadEpisodeToChannel({ videoPath, metaPath, channelId, channelName, visibility, draftVideoId: err.resumedVideoId });
+    }
     console.error(`❌ BŁĄD PUBLIKACJI:`, err.message);
     try {
       await page.screenshot({ path: 'youtube_publish_final_error.png', fullPage: true });

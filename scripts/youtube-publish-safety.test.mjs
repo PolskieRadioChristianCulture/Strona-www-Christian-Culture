@@ -28,7 +28,7 @@ test('ochrona przed dublami: ten sam plik na tym samym kanale jest blokowany, ma
 
 test('stan przesyłania rozpoznawany z etykiety Studio (PL/EN)', () => {
   for (const [s, e] of [['Przesłano 50%', 'uploading'], ['Przesyłanie: 37%… Pozostało 5 min', 'uploading'], ['Uploading 12%', 'uploading'],
-    ['Przesłano 100%', 'done'], ['Przesyłanie zakończone', 'done'], ['Upload complete … Processing', 'done'],
+    ['Przesłano 100%', 'done'], ['Przetwarzam do 4K ... 4 minuty do końca', 'done'], ['Przesyłanie zakończone', 'done'], ['Upload complete … Processing', 'done'],
     ['Nie udało się przesłać pliku', 'error'], ['', 'unknown']]) assert.equal(uploadStateFromText(s), e, s);
 });
 
