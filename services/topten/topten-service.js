@@ -8,7 +8,17 @@
  * PodbijTO max 7x/dobę z odstępem ≥60 min (+77); limity wymuszone unikalnością w bazie,
  * klucze idempotencji, cykl tygodniowy niedziela 20:00 – niedziela 20:00 Europe/Warsaw (decyzja L0 01.11.2026).
  */
-import { dispatchGmailEmail } from '../cc-newsletter/gmail-smtp-client.js';
+import { dispatchGmailEmail as dispatchGmailRaw } from '../cc-newsletter/gmail-smtp-client.js';
+
+// Klient SMTP zawsze dołącza część HTML, a Gmail pokazuje właśnie ją — bez HTML mail wygląda na pusty.
+// Każdy mail topTEN dostaje więc HTML z tą samą treścią i klikalnymi linkami.
+export function withMailHtml(m) {
+  if (m.html) return m;
+  const esc = String(m.text || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const body = esc.replace(/https:\/\/[^\s<]+/g, u => `<a href="${u}">${u}</a>`).replace(/\n/g, '<br>\n');
+  return { ...m, html: `<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.55;color:#1c1815">${body}</div>` };
+}
+const dispatchGmailEmail = (m, env) => dispatchGmailRaw(withMailHtml(m), env);
 import {
   getFlags, ensureWeek, standingsFor, officialSnapshot, finalizeWeek, planRoster, debutQueue, songArchive, songHistory,
   allTimePoints, lastOfficial, rebuildTotals, weekBounds, FLAG_NAMES, RULES_VERSION, TOP_SIZE, ROSTER_MAX,

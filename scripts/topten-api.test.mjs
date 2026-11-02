@@ -491,3 +491,17 @@ test('kody QR wsparcia (§7): tylko przelew ZBP z poprawnym kontem albo dozwolon
   assert.equal(s.qr.payload, zbp);
   assert.equal(s.qr.recipient, 'Jan Artysta');
 });
+
+import { withMailHtml } from '../services/topten/topten-service.js';
+import { buildMimeMessage } from '../services/cc-newsletter/gmail-smtp-client.js';
+test('maile topTEN mają niepustą część HTML z klikalnymi linkami (Gmail pokazuje HTML — zgłoszenie L0 02.11)', () => {
+  const m = withMailHtml({ toEmail: 'r@example.pl', subject: 'topTEN — nowa nominacja', text: 'Tytuł: Figowiec <test>\nGoogle Drive: https://drive.google.com/file/d/abc/view\nYouTube: https://youtube.com/shorts/mOq1QPSId8A' });
+  assert.match(m.html, /<a href="https:\/\/drive\.google\.com\/file\/d\/abc\/view">/);
+  assert.match(m.html, /<a href="https:\/\/youtube\.com\/shorts\/mOq1QPSId8A">/);
+  assert.match(m.html, /Figowiec &lt;test&gt;<br>/);
+  const { raw } = buildMimeMessage({ fromEmail: 'a@example.pl', ...m });
+  const parts = raw.split(/\r\n--/).filter(p => p.includes('Content-Type: text/html'));
+  const html = Buffer.from(parts[0].split('\r\n\r\n')[1].trim(), 'base64').toString('utf8');
+  assert.ok(html.includes('drive.google.com/file/d/abc'), 'część HTML w MIME nie jest pusta');
+  assert.equal(withMailHtml({ text: 'x', html: '<b>własny</b>' }).html, '<b>własny</b>');
+});
