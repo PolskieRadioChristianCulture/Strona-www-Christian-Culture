@@ -291,7 +291,7 @@ function getAllEcosystemCandidates() {
   const verses = [
     {
       title: 'Werset Dnia: „Ty jesteś Bogiem, który mnie widzi” (Rdz 16:13, UBG)',
-      lead: '„I nazwała imię PANA: Ty jesteś Bogiem, który widzi mnie; bo mówiła: Czyż nie widziałam tutaj Tego, który mnie widzi?” (Rdz 16:13, UBG)',
+      lead: '„I nazwała PANA, który mówił do niej: Ty jesteś Bogiem, który mnie widzi. Powiedziała bowiem: Czyż tu nie spoglądałam na tego, który widzi mnie?” (Rdz 16:13)',
       url: 'https://polskieradio.cc/mojabiblia?ref=GEN.16.13',
       image: 'images/news/art-rdz16-17-hagar-el-roi.jpg',
       category: 'Werset Dnia',
@@ -599,9 +599,9 @@ function formatBroadcasterTweet(item) {
     } else if ((item.url || '').includes('prawo')) {
       callToAction = '👉 Czytaj w serwisie:\n';
     } else {
-      callToAction = '👉 MojaBiblia (UBG):\n';
+      callToAction = '👉 MojaBiblia:\n';
     }
-    addTags(item.tag || '#WersetDnia', '#SlowoBoze', '#UBG');
+    addTags(item.tag || '#WersetDnia', '#SlowoBoze');
   } else if (item.type === 'vod' || (item.url || '').includes('/vod') || item.category === 'Kino VOD' || item.category === 'Studio Dobrego Słowa') {
     subHeader = '🎬 KINO CHRZEŚCIJAŃSKIE VOD | SDS';
     callToAction = '👉 Oglądaj bezpłatnie w jakości 4K:\n';
@@ -745,8 +745,8 @@ function formatBroadcasterTweet(item) {
   // Limit 280 znaków (link t.co liczony jako 23 znaki)
   const calcLen = () => tweet.length - url.length + 23;
 
-  if (calcLen() > 270) {
-    while (calcLen() > 270 && bodyText.includes(' ')) {
+  if (calcLen() > 278) {
+    while (calcLen() > 278 && bodyText.includes(' ')) {
       bodyText = bodyText.replace(/\s+\S+$/, '').trim();
       const cleaned = bodyText.replace(/\s+(według|w|z|do|i|a|o|na|oraz|ze|od|po|dla)\s*$/i, '').trim();
       tweet = `${header}${subLine}${cleaned}…\n\n${callToAction}${url}\n\n${hashtags}`;
