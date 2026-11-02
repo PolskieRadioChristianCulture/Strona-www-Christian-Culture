@@ -23,6 +23,16 @@
 /ccre-preview /ccre-preview/index.html 200
 /ccre-preview/ /ccre-preview/index.html 200
 
+# === ROZWIĄŻ PROBLEM — SERIA KURSÓW (kurs 01: Rzuć palenie) (/RozwiążProblem) — @007 2026-11-02 ===
+/RozwiążProblem /rozwiaz-problem/index.html 200
+/RozwiążProblem/ /rozwiaz-problem/index.html 200
+/Rozwi%C4%85%C5%BCProblem /rozwiaz-problem/index.html 200
+/Rozwi%C4%85%C5%BCProblem/ /rozwiaz-problem/index.html 200
+/RozwiazProblem /RozwiążProblem 301
+/rozwiazproblem /RozwiążProblem 301
+/rozwiaz-problem /RozwiążProblem 301
+/rzuc-palenie /RozwiążProblem#kurs 301
+
 # === BIBLIA AUDIO CHRISTIAN CULTURE (/biblia-audio) ===
 /biblia-audio /biblia-audio/index.html 200
 /biblia-audio/ /biblia-audio/index.html 200
