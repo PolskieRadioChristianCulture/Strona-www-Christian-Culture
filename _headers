@@ -251,3 +251,10 @@
   Cache-Control: public, max-age=0, must-revalidate
 
 
+
+# Ark of Fire — wersja do akceptacji zespołu: bez indeksacji do pisemnej zgody artysty
+/ArkOfFire
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/ArkOfFire/*
+  X-Robots-Tag: noindex, nofollow, noarchive

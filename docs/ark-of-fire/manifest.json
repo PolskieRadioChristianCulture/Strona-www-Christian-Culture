@@ -1,0 +1,21 @@
+{
+  "project": "Ark of Fire",
+  "status": "PRIVATE_PREVIEW_PENDING_ARTIST_APPROVAL",
+  "hero": "assets/ark-of-fire-hero.webp",
+  "languages": [
+    "en",
+    "pl"
+  ],
+  "external_sources": {
+    "logo": "https://ark-of-fire.com/wp-content/uploads/2026/10/Ark-of-Fire-nieuw-logo.png",
+    "cover_hearts_ablaze": "https://ark-of-fire.com/wp-content/uploads/2026/10/Hearts-Ablaze-coverart.png",
+    "cover_faith": "https://ark-of-fire.com/wp-content/uploads/2026/09/Faith-album-cover.png",
+    "cover_it_is_finished": "https://ark-of-fire.com/wp-content/uploads/2026/10/It-Is-Finished-%E2%80%94-Official-Single-Cover.png"
+  },
+  "rights": {
+    "website_biography": "requires_final_approval",
+    "radio": "not_granted",
+    "ondemand_audio": "not_granted",
+    "original_wav": "PRIVATE_DO_NOT_PUBLISH"
+  }
+}

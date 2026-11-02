@@ -119,6 +119,20 @@
 /welch/en /Welch/en/ 301
 /welch/en/ /Welch/en/ 301
 
+# === WIZYTÓWKA ARTYSTY: ARK OF FIRE (/ArkOfFire) — wersja do akceptacji zespołu, noindex ===
+/ArkOfFire /ArkOfFire/index.html 200
+/ArkOfFire/ /ArkOfFire/index.html 200
+/arkoffire /ArkOfFire/ 301
+/arkoffire/ /ArkOfFire/ 301
+/ArkOfFire/pl /ArkOfFire/pl/index.html 200
+/ArkOfFire/pl/ /ArkOfFire/pl/index.html 200
+/ArkOfFire/en /ArkOfFire/en/index.html 200
+/ArkOfFire/en/ /ArkOfFire/en/index.html 200
+/arkoffire/pl /ArkOfFire/pl/ 301
+/arkoffire/pl/ /ArkOfFire/pl/ 301
+/arkoffire/en /ArkOfFire/en/ 301
+/arkoffire/en/ /ArkOfFire/en/ 301
+
 # === YOUR IMAGINATION STUDIO (YIS) ===
 /YIS /YIS/ 200
 /YIS/ /YIS/ 200

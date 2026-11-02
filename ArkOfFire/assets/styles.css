@@ -1,0 +1,103 @@
+/* ARK OF FIRE — wizytówka artysty CCN (wersja do akceptacji zespołu) */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  color-scheme: dark;
+  --ink: #080809;
+  --graphite: #101013;
+  --card: #18181b;
+  --line: #343034;
+  --gold: #c5a16c;
+  --gold-soft: #e4c18d;
+  --text: #f3f0eb;
+  --body: #dbd6d0;
+  --muted: #b6b0a9;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ink); color: var(--text); font-family: Inter, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid #f3c682; outline-offset: 4px; }
+img { max-width: 100%; }
+
+.skip-link { position: absolute; left: 12px; top: -80px; z-index: 50; background: var(--gold); color: #111; padding: 10px 16px; border-radius: 6px; font-weight: 700; text-decoration: none; }
+.skip-link:focus { top: 12px; }
+
+/* HERO — przesłana grafika 1536×864, logo i krzyż w grafice bez zmian */
+.hero { min-height: 100svh; position: relative; display: flex; align-items: flex-end; overflow: hidden; background: #030303; }
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,0) 35%, rgba(0,0,0,.14) 58%, #080809 97%), url('/ArkOfFire/assets/ark-of-fire-hero.webp');
+  background-size: cover; background-position: center 35%;
+}
+.top { position: absolute; top: 0; left: 0; right: 0; z-index: 4; padding: 24px clamp(20px,5vw,64px); display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+.brand { font-size: .85rem; letter-spacing: .19em; font-weight: 700; color: var(--gold-soft); text-transform: uppercase; text-decoration: none; line-height: 1.4; }
+.nav { display: flex; gap: 12px; align-items: center; }
+.pill, .plus { display: inline-flex; align-items: center; justify-content: center; border: 1px solid #826a47; background: rgba(17,18,24,.85); color: #e1bd82; border-radius: 100px; min-width: 54px; height: 54px; padding: 0 14px; font: 700 .95rem Inter, Arial, sans-serif; cursor: pointer; text-decoration: none; }
+.plus { font-size: 31px; font-weight: 400; line-height: 1; }
+.pill:hover, .plus:hover { border-color: var(--gold); color: #f3d3a0; }
+
+/* Logo ARK OF FIRE jest już w środku grafiki — nagłówek h1 zostaje dla czytników i wyszukiwarek, tekst hero schodzi pod logo */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.hero-text { z-index: 2; position: relative; width: 100%; max-width: 760px; margin: 0 auto; padding: 0 clamp(20px,5vw,70px) clamp(96px,13vh,150px); text-align: center; }
+.eyebrow { letter-spacing: .31em; text-transform: uppercase; color: #d6ae79; font-size: .78rem; font-weight: 700; margin: 0 0 14px; }
+.lead { font-family: 'Barlow Condensed', Impact, sans-serif; text-transform: uppercase; letter-spacing: .06em; font-size: clamp(1.25rem,2.2vw,1.9rem); color: #ece5da; line-height: 1.3; margin: 0 auto; max-width: 640px; text-shadow: 0 2px 18px rgba(0,0,0,.8); }
+.discover { z-index: 3; position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); font-size: .85rem; letter-spacing: .3em; text-decoration: none; color: #e0bd83; text-align: center; }
+.discover span { display: block; font-size: 32px; line-height: 1.1; }
+
+/* SEKCJE */
+.container { max-width: 1160px; margin: auto; padding: 110px 28px; }
+.dark { background: var(--graphite); }
+.kicker { display: inline-block; color: #c9a16e; text-transform: uppercase; letter-spacing: .28em; font-size: .78rem; font-weight: 700; }
+.section-title { font-family: 'Barlow Condensed', Impact, sans-serif; text-transform: uppercase; font-size: clamp(2.6rem,6vw,5.3rem); line-height: 1; letter-spacing: .02em; margin: 12px 0 28px; }
+.story { max-width: 770px; font-size: 1.11rem; line-height: 1.9; color: var(--body); }
+.story h3 { font-family: 'Barlow Condensed', Impact, sans-serif; text-transform: uppercase; letter-spacing: .04em; font-size: 1.7rem; color: var(--text); margin: 0 0 14px; }
+.story p { margin: 0 0 24px; }
+.quote { border-left: 3px solid var(--gold); padding: 10px 28px; margin: 0; font-family: Georgia, serif; font-size: clamp(1.3rem,2.7vw,2.2rem); line-height: 1.5; max-width: 900px; }
+.story--spaced { margin-top: 54px; }
+.notice { font-size: .92rem; line-height: 1.7; color: #bdb7ae; border: 1px solid #494039; padding: 17px 20px; border-radius: 8px; max-width: 770px; }
+
+.pillars { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; margin: 44px 0 0; padding: 0; list-style: none; max-width: 980px; }
+.pillars li { border-top: 2px solid var(--gold); padding: 18px 4px 0; color: var(--muted); line-height: 1.6; font-size: .98rem; }
+.pillars strong { display: block; color: var(--text); font-family: 'Barlow Condensed', Impact, sans-serif; text-transform: uppercase; letter-spacing: .05em; font-size: 1.35rem; margin-bottom: 6px; }
+
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 22px; margin-top: 32px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+.card img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: #292522; }
+.card .copy { padding: 22px; }
+.card h3 { margin: 6px 0 10px; font-family: 'Barlow Condensed', Impact, sans-serif; font-size: 1.8rem; letter-spacing: .03em; }
+.card a { display: inline-block; margin-top: 4px; color: #e6c38b; }
+
+.cta { display: inline-block; margin-top: 10px; padding: 13px 21px; border: 1px solid #b28c5d; border-radius: 5px; color: #e6c38b; text-decoration: none; font-weight: 600; }
+.cta:hover { background: #b28c5d; color: #111; }
+
+.footer { padding: 55px 28px; text-align: center; border-top: 1px solid #262426; color: #b7b0a6; line-height: 2; }
+.footer small { display: inline-block; max-width: 720px; line-height: 1.6; }
+
+/* Panel zapasowy (gdy panel krawędziowy EkoCC się nie wczyta) */
+.drawer[hidden] { display: none; }
+.drawer { z-index: 20; position: fixed; inset: 0; background: rgba(0,0,0,.73); display: flex; justify-content: flex-end; }
+.drawer-panel { background: #101014; border-left: 1px solid #806341; width: min(100%,390px); height: 100%; padding: 34px; display: flex; flex-direction: column; gap: 24px; }
+.drawer-panel a { font-weight: 600; text-decoration: none; }
+.drawer-close { align-self: flex-end; border: 0; background: transparent; color: #fff; font-size: 32px; cursor: pointer; }
+
+@media (max-width: 900px) {
+  .cards { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .pillars { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .top { padding: 18px 16px; }
+  .brand { font-size: .63rem; letter-spacing: .12em; max-width: 190px; }
+  .pill, .plus { min-width: 45px; height: 45px; }
+  /* Telefon: grafika 16:9 bez przycinania logo (cały napis ARK OF FIRE widoczny) */
+  .hero::before { background-repeat: no-repeat; background-size: 100% 100%, 172% auto; background-position: center, 50% 36%; }
+  .hero-text { padding: 0 20px 104px; }
+  .lead { font-size: 1.15rem; }
+  .eyebrow { font-size: .64rem; letter-spacing: .22em; }
+  .cards { grid-template-columns: 1fr; }
+  .container { padding: 76px 18px; }
+  .quote { padding: 6px 18px; }
+  .discover { bottom: 22px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

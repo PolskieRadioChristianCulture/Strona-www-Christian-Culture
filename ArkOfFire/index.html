@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ark of Fire | Christian Culture Network</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#080809">
+  <!-- Ark of Fire to zespół z Holandii — domyślnie wersja EN, PL dla przeglądarek po polsku lub wybranego języka -->
+  <script>
+    (() => {
+      try {
+        const pref = localStorage.getItem('ekocc_locale') || localStorage.getItem('preferred_lang');
+        if (pref === 'pl' || pref === 'en') { location.replace('/ArkOfFire/' + pref + '/'); return; }
+        const userLang = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+        location.replace(/^pl\b/i.test(userLang) ? '/ArkOfFire/pl/' : '/ArkOfFire/en/');
+      } catch (e) {
+        location.replace('/ArkOfFire/en/');
+      }
+    })();
+  </script>
+  <style>
+    body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; background: #080809; color: #f3f0eb; font-family: Inter, Arial, sans-serif; text-align: center; padding: 24px 16px; box-sizing: border-box; }
+    h1 { margin: 0; color: #c5a16c; letter-spacing: .08em; text-transform: uppercase; }
+    nav { display: flex; gap: 14px; }
+    a { min-width: 120px; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #826a47; border-radius: 100px; color: #e1bd82; text-decoration: none; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>Ark of Fire</h1>
+  <nav aria-label="Language / Język">
+    <a href="/ArkOfFire/en/" hreflang="en">English</a>
+    <a href="/ArkOfFire/pl/" hreflang="pl" lang="pl">Polski</a>
+  </nav>
+</body>
+</html>
