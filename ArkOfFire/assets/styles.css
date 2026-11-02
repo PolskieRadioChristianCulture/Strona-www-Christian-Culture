@@ -24,11 +24,11 @@ img { max-width: 100%; }
 .skip-link { position: absolute; left: 12px; top: -80px; z-index: 50; background: var(--gold); color: #111; padding: 10px 16px; border-radius: 6px; font-weight: 700; text-decoration: none; }
 .skip-link:focus { top: 12px; }
 
-/* HERO — przesłana grafika 1536×864, logo i krzyż w grafice bez zmian */
+/* HERO — przesłana grafika 1920×1080, logo i krzyż w grafice bez zmian */
 .hero { min-height: 100svh; position: relative; display: flex; align-items: flex-end; overflow: hidden; background: #030303; }
 .hero::before {
   content: ''; position: absolute; inset: 0;
-  background-image: linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,0) 35%, rgba(0,0,0,.14) 58%, #080809 97%), url('/ArkOfFire/assets/ark-of-fire-hero.webp');
+  background-image: linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,0) 35%, rgba(0,0,0,.14) 58%, #080809 97%), url('/ArkOfFire/assets/ark-of-fire-hero.webp?v=20261102_hq');
   background-size: cover; background-position: center 35%;
 }
 .top { position: absolute; top: 0; left: 0; right: 0; z-index: 4; padding: 24px clamp(20px,5vw,64px); display: flex; align-items: center; justify-content: space-between; gap: 15px; }
