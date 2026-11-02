@@ -67,7 +67,7 @@ export async function publishSingleEpisode({ video4kFile, shortsFile, metaFile, 
 }
 
 // Obsługa z CLI
-if (process.argv[1] && process.argv[1].endsWith('batch_publish_episodes.mjs')) {
+if (process.argv[1] && path.basename(process.argv[1]) === 'batch_publish_episodes.mjs') {
   const chapterPrefix = process.argv[2]; // np. "Ksiega_Rodzaju_1_20-31" lub "Ksiega_Rodzaju_2"
   if (!chapterPrefix) {
     console.log('Użycie: node scripts/batch_publish_episodes.mjs <prefix_pliku>');

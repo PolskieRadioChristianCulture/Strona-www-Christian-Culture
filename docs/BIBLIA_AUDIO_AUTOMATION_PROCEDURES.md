@@ -6,6 +6,9 @@
 > **Konfiguracja Sidecara:** `~/.gemini/config/sidecars/cc-biblia-audio-daily-production/sidecar.json`  
 > **Standard:** ZERO-QA dla Dowódcy (JOMA-D005) + ZERO COST (0 PLN, Playwright Persistent Context) + 100% Verbatim UBG-2025
 
+> ⚠️ **Korekta @007 (02.11.2026):** krok YouTube obowiązuje według JOMA_SHARED_MEMORY/BIBLIA_AUDIO_YOUTUBE_WYTYCZNE_A007.md: kanał wskazuje NAZWA (scripts/yt_studio_session.mjs), publikacja planowana (premiera +2 dni 18:00, jeden odcinek dziennie na kanał), sukces tylko po potwierdzeniu w Studio, ochrona przed dublami, kontrola 
+ode scripts/yt_reconcile_history.mjs, naprawa 
+ode scripts/yt_repair_biblia_audio.mjs. Duble usuwa wyłącznie człowiek.
 ---
 
 ## 🚨 0. Protokół Przejęcia Warty (Gdy Agentowi Wyczerpią Się Tokeny)
@@ -46,7 +49,7 @@ flowchart TD
 |---|---|---|---|
 | **Biblia Audio Christian Culture** | `UCCqHRCEuSDhlRcvcQ6qM1Kw` | **Główny dom katalogu:** 100% pełnych filmów 16:9 4K UHD i Shorts 9:16 od Rdz 1 do końca Biblii | ✅ Aktywny (Menedżer) |
 | **Werset Dnia - Chrześcijański Serwis Biblijny** | `UCyOvW5DuDLVq5XWFyijgtbw` | **Drugi dom katalogu:** 100% pełnych filmów 16:9 4K UHD i Shorts 9:16 od Rdz 1 do końca Biblii | ✅ Aktywny (Menedżer) |
-| **Christian Culture TV** | `UCHmPxDM2zzlUAf5ZvlotPLw` | **Główna Playlista Podcastowa** (`PLcU_14pQp0SY`) + rotacja wybranych rozdziałów | ✅ Aktywny (Właściciel) |
+| **Christian Culture TV** | `UCG5Y4dwJi5436Gu6QH3nNUQ` (uwaga: `UCHmPxDM2zzlUAf5ZvlotPLw` to Osobowość +) | **Główna Playlista Podcastowa** (`PLcU_14pQp0SY`) + rotacja wybranych rozdziałów | ✅ Aktywny (Właściciel) |
 | **Osobowość +** | `@osobowośćPLUS` | **Rotacja tematyczna:** rozdziały o tożsamości, człowieku i relacjach | ✅ Aktywny (Właściciel) |
 | **Polskie Radio CHRISTIAN CULTURE** | `@RadioChristianCulture` | **Rotacja tematyczna:** rozdziały poetyckie, psalmy, wielkie narracje | ✅ Aktywny (Menedżer) |
 | **CC Women** | `@CCWomen7` | **Rotacja tematyczna:** rozdziały poświęcone kobietom wiary i rodzinie | ✅ Aktywny (Właściciel) |
@@ -94,8 +97,8 @@ node "C:\Users\czark\Desktop\Biblia Audio Christian Culture\skrypty\publish_to_w
    ```
 2. **Rotacja tematyczna (np. `Christian Culture TV`):**
    ```powershell
-   node scripts/publish_perfect.mjs "<sciezka_4K.mp4>" "<sciezka_metadata.json>" UCHmPxDM2zzlUAf5ZvlotPLw "Christian Culture TV"
-   node scripts/publish_perfect.mjs "<sciezka_Shorts_9x16.mp4>" "<sciezka_Shorts_9x16_meta.json>" UCHmPxDM2zzlUAf5ZvlotPLw "Christian Culture TV"
+   node scripts/publish_perfect.mjs "<sciezka_4K.mp4>" "<sciezka_metadata.json>" UCG5Y4dwJi5436Gu6QH3nNUQ "Christian Culture TV"
+   node scripts/publish_perfect.mjs "<sciezka_Shorts_9x16.mp4>" "<sciezka_Shorts_9x16_meta.json>" UCG5Y4dwJi5436Gu6QH3nNUQ "Christian Culture TV"
    ```
 3. **Playlista główna `PLcU_14pQp0SY`:** Przypisz opublikowany film w YouTube Studio do playlisty `Księga Rodzaju`.
 
