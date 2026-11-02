@@ -21,7 +21,7 @@ export const CHECKS = [
   ['chrystus', 'Wyróżniona część „Jezus w centrum”', (s) => /ZBAWICIEL|JEZUS W CENTRUM|Jezus w centrum|CHRYSTUS W CENTRUM/.test(s)],
   ['biblia', 'Porównaj wersety we własnym Piśmie Świętym', (s) => /Porównaj wersety|Sprawdź w Biblii/i.test(s)],
   ['prawda', 'Prawda na dziś (co zmienia się w patrzeniu)', (s) => /zmienia sposób, w jaki patrzę|Prawda na dziś|PRAWDA NA DZIŚ/i.test(s)],
-  ['pytania', 'Pytania do serca (Pomyśl)', (s) => /pytania do serca|Pomyśl|POMYŚL/i.test(s)],
+  ['pytania', 'Pytania do serca (Pomyśl)', (s) => /pytania (osobiste )?do serca|pytania osobiste|Pomyśl|POMYŚL/i.test(s)],
   ['quiz', 'Quiz z punktacją', (s) => s.includes('id="quiz-section"') || s.includes('id="quizContainer"')],
   ['decyzja', 'Twoja decyzja', (s) => /Pierwsza Decyzja|Twoja decyzja|TWOJA DECYZJA/i.test(s)],
   ['modlitwa', 'Modlitwa', (s) => /Modlitwa|MODLITWA/.test(s)],

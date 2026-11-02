@@ -124,6 +124,77 @@
       --kc-letter-spacing: 0.015em;
     }
 
+    .kc-card p,
+    .kc-card li {
+      font-family: var(--kc-font-body) !important;
+      font-size: var(--kc-font-size) !important;
+      line-height: var(--kc-line-height) !important;
+      letter-spacing: var(--kc-letter-spacing) !important;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .kc-card p:not([class*="text-amber-"]):not([class*="text-brand-"]):not([class*="text-rose-"]):not([class*="text-emerald-"]):not([class*="text-white"]),
+    .kc-card li:not([class*="text-amber-"]):not([class*="text-brand-"]):not([class*="text-rose-"]):not([class*="text-emerald-"]):not([class*="text-white"]) {
+      color: var(--kc-text-color) !important;
+    }
+
+    .kc-card p {
+      margin-bottom: 1.15rem;
+    }
+    .kc-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .kc-card strong, .kc-card b {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .kc-card em, .kc-card i {
+      color: #E2CC9A;
+      font-style: italic;
+    }
+
+    .kc-verse-box, blockquote {
+      background: rgba(196,163,90,0.08);
+      border-left: 4px solid #C4A35A;
+      border-radius: 0 16px 16px 0;
+      padding: 20px 24px;
+      font-family: 'Lora', Georgia, serif !important;
+      font-size: 1.08rem !important;
+      line-height: 1.82 !important;
+      letter-spacing: 0.012em !important;
+      color: #f1e7d0 !important;
+      margin: 1.3rem 0;
+    }
+
+    .kc-reader-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(22, 27, 38, 0.85);
+      color: #e2e8f0;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-height: 44px;
+    }
+    .kc-reader-pill:hover {
+      border-color: rgba(196,163,90,0.6);
+      color: #fef08a;
+      background: rgba(30, 37, 51, 0.95);
+    }
+    .quiz-option { background: #0E121A; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 18px; cursor: pointer; transition: all .2s; font-size: 14px; color: #d4d4d8; }
+    .quiz-option:hover { border-color: rgba(196,163,90,0.4); background: #161B26; }
+    .quiz-option.correct { border-color: #4ade80 !important; background: rgba(34,197,94,0.12) !important; color: #4ade80 !important; }
+    .quiz-option.wrong { border-color: #f87171 !important; background: rgba(248,113,113,0.12) !important; color: #f87171 !important; }
+    .custom-check { width: 22px; height: 22px; border-radius: 6px; border: 2px solid #C4A35A; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; }
+    .custom-check.checked { background: #C4A35A; color: #07090E; }
     .kc-prose-reading {
       font-family: var(--kc-font-body);
       font-size: var(--kc-font-size);
@@ -164,109 +235,106 @@
       font-style: italic;
       color: #fff;
     }
-    .cin-gold-btn {
-      background: linear-gradient(135deg, #FF7A00 0%, #FF8C33 50%, #E66A00 100%);
-      color: #ffffff;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      box-shadow: 0 4px 20px rgba(255,122,0,0.35);
-      transition: all 0.2s ease;
-    }
-    .cin-gold-btn:hover {
-      background: #FF8C33;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 24px rgba(255,122,0,0.5);
-    }
   </style>
+  <script src="/js/cc-global-auth.js?v=20261007_auth_v2" defer></script>
+  <script src="/js/cc-course-theme.js?v=20261008_desktop_icons_v3" defer></script>
 </head>
-<body class="min-h-screen text-slate-100 antialiased selection:bg-brand-gold/30 selection:text-white">
+<body class="bg-brand-dark text-zinc-100 font-sans antialiased min-h-screen flex flex-col">
 
-  <!-- TOP HEADER -->
-  <header class="ak-header py-3 px-4 sm:px-6">
-    <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <a href="/akademia" class="flex items-center gap-2 group">
-          <div class="w-9 h-9 rounded-xl bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold group-hover:scale-105 transition">
-            <i class="fa-solid fa-graduation-cap text-base"></i>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-display text-sm font-bold tracking-wider text-white group-hover:text-brand-gold transition">AKADEMIA BIBLIJNA</span>
-            <span class="ak-header-brand-sub text-[10px] uppercase tracking-widest text-zinc-400">LUMINA CC • KURS CODZIENNY</span>
+  <!-- TOP BAR / ECOSYSTEM NAV -->
+  <header class="ak-header">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3 sm:gap-4">
+        <a href="/akademia/kurscodzienny" class="flex items-center gap-2.5 min-h-[44px]" title="Powrót do Kursu Codziennego">
+          <span class="text-amber-400 text-lg">←</span>
+          <div class="flex items-center gap-2">
+            <span class="font-display text-sm font-bold text-brand-gold tracking-widest">LUMINA</span>
+            <span class="text-xs font-semibold text-zinc-400 hidden md:inline ak-header-brand-sub">BIBLE ACADEMY</span>
           </div>
         </a>
-        <span class="ak-header-slash text-zinc-700 hidden sm:inline">/</span>
-        <a href="/akademia/kurscodzienny" class="ak-header-course-title text-xs text-zinc-400 hover:text-amber-400 transition hidden sm:inline font-serif">
-          Z Biblią za Pan Brat (Miesiąc 2 • Księga Wyjścia)
+        <span class="text-zinc-700 hidden md:inline ak-header-slash">/</span>
+        <a href="/akademia/kurscodzienny" class="text-xs font-semibold text-amber-200/90 hover:text-amber-300 whitespace-nowrap hidden md:inline ak-header-course-title">
+          Z Biblią za Pan Brat
         </a>
       </div>
 
-      <div class="flex items-center gap-2">
-        <button id="reader-font-toggle" class="kc-reader-pill px-3 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/80 text-zinc-300 text-xs hover:border-brand-gold/40 hover:text-amber-300 transition flex items-center gap-1.5" title="Przełącz krój pisma (Serif / Sans)">
-          <i class="fa-solid fa-font text-[11px]"></i>
-          <span id="reader-font-label" class="hidden sm:inline">Serif</span>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button type="button" id="btn-reader-font" onclick="toggleReaderFont()" class="kc-reader-pill" title="Zmień krój pisma: Lora (Książkowa szeryfowa) / Inter (Ekranowa bezszeryfowa)">
+          <i class="fa-solid fa-font text-amber-400 text-xs"></i>
+          <span id="reader-font-label" class="sr-only font-semibold">Krój: Lora</span>
         </button>
-        <button id="btn-theme-toggle" class="p-2 rounded-full border border-zinc-800 bg-zinc-900/80 text-zinc-300 text-xs hover:border-brand-gold/40 hover:text-amber-300 transition" title="Tryb czytania (ciemny)">
-          <i class="fa-solid fa-moon"></i>
+
+        <button type="button" id="btn-theme-toggle" onclick="toggleCourseTheme()" class="kc-reader-pill cin-btn-theme" title="Przełącz motyw (Jasny / Ciemny)" aria-label="Przełącz motyw">
+          <i class="fa-solid fa-sun text-amber-400 text-xs theme-toggle-icon"></i>
         </button>
-        <a href="/wspieraj" class="cin-gold-btn px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 min-h-[38px]">
-          <i class="fa-solid fa-heart text-[10px]"></i>
-          <span>Wspieram</span>
+
+        <div class="hidden md:flex items-center rounded-full border border-zinc-800 bg-zinc-900/80 p-0.5 text-xs text-zinc-400">
+          <button type="button" onclick="adjustFontSize(-1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:text-white hover:bg-zinc-800 transition" title="Mniejszy tekst">A-</button>
+          <button type="button" onclick="adjustFontSize(1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:text-white hover:bg-zinc-800 font-bold transition" title="Większy tekst">A+</button>
+        </div>
+
+        <button type="button" id="btn-audio-tts" onclick="toggleAudioLesson()" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-bold hover:bg-amber-500/20 transition flex items-center justify-center" title="Słuchaj lekcji z lektorem">
+          <i class="fa-solid fa-volume-high text-xs" id="tts-icon"></i>
+          <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
+        </button>
+
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
+          <span>❤️</span>
         </a>
+        <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
   </header>
 
-  <!-- MAIN CONTAINER -->
-  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+  <!-- BREADCRUMBS & TOP NAV -->
+  <nav class="border-b border-brand-line bg-brand-navy/60 text-xs">
+    <div class="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between text-zinc-400">
+      <div class="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap py-1">
+        <a href="/akademia" class="hover:text-amber-400">Akademia</a>
+        <span>›</span>
+        <a href="/akademia/kurscodzienny" class="hover:text-amber-400">Kurs Codzienny</a>
+        <span>›</span>
+        <span class="text-zinc-500">Księga Wyjścia</span>
+        <span>›</span>
+        <span class="text-amber-400 font-semibold">Dzień 33</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="/akademia/kurscodzienny" class="text-zinc-400 hover:text-white px-2 py-1 min-h-[32px] flex items-center">Spis Dni</a>
+        <span class="text-zinc-700">|</span>
+        <a href="/akademia/kurscodzienny/dzien-32" class="px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-amber-300 min-h-[32px] flex items-center">← Dzień 32</a>
+      </div>
+    </div>
+  </nav>
 
-    <!-- BREADCRUMB & METADATA -->
-    <nav class="flex items-center flex-wrap gap-2 text-xs text-zinc-400 mb-6 font-serif">
-      <a href="/akademia" class="hover:text-amber-300 transition">Akademia</a>
-      <span>›</span>
-      <a href="/akademia/kurscodzienny" class="hover:text-amber-300 transition">Kurs Codzienny</a>
-      <span>›</span>
-      <a href="/akademia/kurscodzienny/dzien-32" class="hover:text-amber-300 transition">Dzień 32</a>
-      <span>›</span>
-      <span class="text-brand-gold font-bold">Dzień 33 (Dzisiaj)</span>
-    </nav>
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 max-w-4xl mx-auto w-full px-4 py-8 space-y-8">
 
-    <!-- LESSON HERO CARD -->
-    <div class="kc-card border-brand-border/40 relative overflow-hidden mb-8">
-      <div class="absolute -right-16 -top-16 w-64 h-64 bg-brand-gold/5 rounded-full blur-3xl pointer-events-none"></div>
-
-      <!-- STATUS PILLS -->
-      <div class="flex items-center flex-wrap gap-2.5 mb-4 text-[11px] font-bold tracking-wider uppercase">
-        <span class="px-3 py-1 rounded-full bg-brand-gold/15 text-brand-gold border border-brand-gold/30">
-          MIESIĄC 2 • DZIEŃ 33 Z 66 MIESIĘCY
+    <!-- HERO HEADER -->
+    <header class="space-y-4 text-center sm:text-left border-b border-brand-line pb-6">
+      <div class="flex flex-wrap items-center justify-center sm:justify-between gap-2">
+        <span class="px-3 py-1 rounded-full bg-brand-gold/15 text-brand-gold text-xs font-bold uppercase tracking-widest border border-brand-gold/30">
+          Księga Wyjścia • Miesiąc 2 • Dzień 33 z 2009
         </span>
-        <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1.5">
-          <i class="fa-solid fa-calendar-day text-[10px]"></i>
-          <span>Poniedziałek, 2 Listopada 2026 r.</span>
-        </span>
-        <span class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 flex items-center gap-1.5">
-          <i class="fa-solid fa-scroll text-brand-gold text-[10px]"></i>
-          <span>Księga Wyjścia (Exodus) • Wj 2:1–25</span>
-        </span>
+        <span class="text-xs text-zinc-400 font-mono">2 LISTOPADA 2026 • PONIEDZIAŁEK</span>
       </div>
 
-      <!-- PRZYCISK SKOKU ZE STRZAŁKĄ W DÓŁ (Zasada 7) -->
-      <div class="mb-4">
-        <a href="#ccDailyShare" id="kcJumpShareBtn" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-wider transition min-h-[44px]">
-          <i class="fa-solid fa-share-nodes text-[12px]"></i>
-          <span>Podziel się tą lekcją</span>
-          <i class="fa-solid fa-arrow-down text-[12px]"></i>
+      <div class="pt-2">
+        <a href="#ccDailyShare" id="kcJumpShareBtn" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-gold/10 hover:bg-brand-gold/20 text-brand-gold hover:text-brand-gold-light border border-brand-gold/30 transition text-xs font-bold uppercase tracking-wider min-h-[44px]">
+          <i class="fa-solid fa-share-nodes text-xs"></i>
+          <i class="fa-solid fa-arrow-down text-xs"></i>
+          <span>Podziel się tą lekcją ↓</span>
         </a>
       </div>
 
       <h1 class="font-display text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
         Z WÓD NILU DO PUSTYNI MADIAN: OCALENIE MOJŻESZA, CZAS PRÓBY I BOŻA PAMIĘĆ O PRZYMIERZU
       </h1>
-      <p class="text-base sm:text-lg text-amber-300/90 font-serif italic mt-2">
+      <p class="text-base sm:text-lg text-amber-300/90 font-serif italic">
         Koszyk z sitowia, litość córki faraona, fałszywy start w Egipcie, ucieczka do Madianu i jęk uciemiężonych docierający przed Boży tron (Wj 2:1–25)
       </p>
 
       <!-- HERO IMAGE 16:9 -->
-      <div class="relative rounded-2xl overflow-hidden border border-brand-border/40 shadow-2xl mt-5 aspect-video bg-zinc-900">
+      <div class="relative rounded-2xl overflow-hidden border border-brand-border/40 shadow-2xl mt-4 aspect-video bg-zinc-900">
         <img
           src="/images/academy/daily/kc_day_33_ocalenie_mojzesza_nil_madian.jpg?v=20261102"
           alt="Dzień 33: Z WÓD NILU DO PUSTYNI MADIAN: OCALENIE MOJŻESZA, CZAS PRÓBY I BOŻA PAMIĘĆ O PRZYMIERZU (Wj 2:1–25)"
@@ -276,44 +344,63 @@
         <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
         <div class="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] text-zinc-300 backdrop-blur-sm bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
           <span>Ilustracja biblijna: Matka powierza małego Mojżesza w koszyku falom Nilu</span>
-          <span class="font-mono text-brand-gold text-[10px]">Wj 2 • UBG</span>
+          <span class="font-mono text-brand-gold">Czytanie: Wj 2:1–25</span>
         </div>
       </div>
 
-      <!-- QUICK STATS BAR -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-brand-line text-center">
-        <div class="p-3 rounded-xl bg-black/30 border border-white/5">
-          <div class="text-[10px] uppercase tracking-wider text-zinc-400">Czas lektury</div>
-          <div class="font-display text-base sm:text-lg font-bold text-white mt-0.5">8 min</div>
+      <!-- MEMORY VERSE CARD -->
+      <div class="kc-verse-badge text-left">
+        <div class="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-1 flex items-center gap-1.5">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>Werset Pamięciowy Dnia:</span>
+          <button type="button" onclick="navigator.clipboard.writeText('I Bóg usłyszał ich narzekanie, i wspomniał Bóg na swoje przymierze z Abrahamem, Izaakiem i Jakubem. I wejrzał Bóg na synów Izraela, i poznał ich Bóg. (Wj 2:24–25)'); alert('Skopiowano werset!');" class="ml-auto text-zinc-400 hover:text-amber-300 text-xs normal-case font-sans min-h-[44px] px-2">
+            <i class="fa-regular fa-copy mr-1"></i>Kopiuj
+          </button>
         </div>
-        <div class="p-3 rounded-xl bg-black/30 border border-white/5">
-          <div class="text-[10px] uppercase tracking-wider text-zinc-400">Wersety</div>
-          <div class="font-display text-base sm:text-lg font-bold text-brand-gold mt-0.5">25 wersetów</div>
-        </div>
-        <div class="p-3 rounded-xl bg-black/30 border border-white/5">
-          <div class="text-[10px] uppercase tracking-wider text-zinc-400">Przekład</div>
-          <div class="font-display text-base sm:text-lg font-bold text-white mt-0.5">UBG 2017</div>
-        </div>
-        <div class="p-3 rounded-xl bg-black/30 border border-white/5">
-          <div class="text-[10px] uppercase tracking-wider text-zinc-400">Test wiedzy</div>
-          <div class="font-display text-base sm:text-lg font-bold text-amber-400 mt-0.5">20 pytań</div>
+        <blockquote class="font-serif italic text-base sm:text-lg text-white">
+          „I Bóg usłyszał ich narzekanie, i wspomniał Bóg na swoje przymierze z Abrahamem, Izaakiem i Jakubem. I wejrzał Bóg na synów Izraela, i poznał ich Bóg.”
+        </blockquote>
+        <div class="text-right text-xs text-brand-gold font-bold mt-1 font-mono">
+          — Księga Wyjścia 2:24–25 (UBG)
         </div>
       </div>
-    </div>
 
-    <!-- MEMORY VERSE CARD -->
-    <div class="kc-card border-brand-gold/30 bg-gradient-to-br from-[#0E1420] to-[#0A0D14] relative">
-      <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-gold mb-3">
-        <i class="fa-solid fa-bookmark text-amber-400"></i>
-        <span>Werset Pamięciowy Dnia 33</span>
+      <!-- CORE THESIS -->
+      <div class="p-4 rounded-xl bg-brand-panel/60 border border-brand-border/30 text-xs sm:text-sm text-zinc-300">
+        <strong class="text-brand-gold uppercase tracking-wider block mb-1">Myśl przewodnia lekcji:</strong>
+        Bóg obraca dekret śmierci w drogę ocalenia, kształtuje Mojżesza w szkole pustyni i nigdy nie zapomina o swoim przymierzu — słyszy, pamięta, widzi i zna swój lud.
       </div>
-      <blockquote class="font-serif italic text-lg sm:text-xl text-white leading-relaxed pl-4 border-l-2 border-brand-gold">
-        „I Bóg usłyszał ich narzekanie, i wspomniał Bóg na swoje przymierze z Abrahamem, Izaakiem i Jakubem. I wejrzał Bóg na synów Izraela, i poznał ich Bóg.”
-      </blockquote>
-      <div class="mt-3 text-right text-xs font-display text-brand-gold tracking-wider">
-        — Księga Wyjścia 2:24–25 (UBG)
-      </div>
-    </div>
+    </header>
+
+    <!-- LESSON BODY CONTENT (Dzień 33, treść opublikowana 02.11.2026) -->
+    <section class="space-y-6">
+
+
+      <!-- ZANIM OTWORZYSZ BIBLIĘ (wzór Dnia 1) -->
+      <article class="kc-card">
+        <div class="flex items-center gap-3 text-amber-400 text-xs font-bold uppercase tracking-widest mb-3">
+          <i class="fa-solid fa-compass"></i>
+          <span>Zanim otworzysz Biblię</span>
+        </div>
+        <h2 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
+          Podróż przez 66 Ksiąg Pisma Świętego
+        </h2>
+        <div class="space-y-4 text-sm sm:text-base leading-relaxed text-zinc-300">
+          <p>
+            Kurs „Z Biblią za Pan Brat” prowadzi przez wszystkie <strong>66 ksiąg Biblii</strong> — miesiąc po miesiącu, księga po księdze, każdego dnia jeden fragment Pisma.
+          </p>
+          <p>
+            Dziś jest <strong class="text-white">Dzień 33</strong>: Księga Wyjścia, <strong class="text-brand-gold">Wj 2:1–25</strong>.
+          </p>
+          <p>
+            Zanim przeczytasz rozważanie, otwórz Biblię i przeczytaj cały fragment. Komentarz ma prowadzić do Słowa, a nie je zastępować.
+          </p>
+          <a href="/mojabiblia?book=EXO&chapter=2" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
+            <i class="fa-solid fa-book-bible"></i>
+            <span>Czytaj Wj 2:1–25</span>
+          </a>
+        </div>
+      </article>
 
     <!-- SCRIPTURE SECTION (Wj 2:1–25) -->
     <section class="kc-card">
@@ -436,132 +523,254 @@
       </div>
     </section>
 
-    <!-- TACTICAL TASK & PRAYER -->
-    <section class="kc-card bg-gradient-to-br from-[#0B1017] to-[#070A0F] border-brand-gold/25">
-      <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-gold border-b border-brand-line pb-2 mb-4">
-        <i class="fa-solid fa-shield-halved text-amber-400"></i>
-        <span>Zadanie Taktyczne & Modlitwa Bojowa na Dziś</span>
+    <section class="kc-card">
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-cross"></i>
+        <span>Jezus w centrum</span>
+      </div>
+      <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">Odrzucony wyzwoliciel — zapowiedź Chrystusa</h3>
+      <p class="text-sm sm:text-base text-zinc-300 leading-relaxed">
+        Mojżesz, ocalony z wód i odrzucony przez własnych braci („Kto cię ustanowił przełożonym i sędzią nad nami?” — Wj 2:14), zapowiada Jezusa, który „przyszedł do swoich, a swoi Go nie przyjęli” (J 1:11).
+        Szczepan w Dz 7:25–29, 35 pokazuje, że Bóg posłał jako wybawiciela właśnie tego, którego lud odrzucił. Tak i Chrystus, odrzucony przez ludzi, stał się Zbawicielem.
+      </p>
+    </section>
+
+    <section class="kc-card">
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-book-bible"></i>
+        <span>Sprawdź w Biblii</span>
+      </div>
+      <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">Porównaj wersety w swojej Biblii</h3>
+      <ul class="space-y-2.5 text-sm sm:text-base text-zinc-300 leading-relaxed">
+        <li class="pl-3 border-l-2 border-amber-500/40"><a href="/mojabiblia?book=GEN&chapter=6" class="text-amber-300 underline font-semibold">Rdz 6:14</a> — to samo słowo <em>tebah</em>: arka Noego i koszyk Mojżesza.</li>
+        <li class="pl-3 border-l-2 border-amber-500/40"><a href="/mojabiblia?book=EXO&chapter=1" class="text-amber-300 underline font-semibold">Wj 1:22</a> — dekret faraona, który Bóg obrócił w drogę ocalenia.</li>
+        <li class="pl-3 border-l-2 border-amber-500/40"><a href="/mojabiblia?book=ACT&chapter=7" class="text-amber-300 underline font-semibold">Dz 7:20–29, 35</a> — Szczepan o Mojżeszu odrzuconym przez swoich.</li>
+        <li class="pl-3 border-l-2 border-amber-500/40"><a href="/mojabiblia?book=JHN&chapter=1" class="text-amber-300 underline font-semibold">J 1:11</a> — Chrystus przyszedł do swoich, a swoi Go nie przyjęli.</li>
+        <li class="pl-3 border-l-2 border-amber-500/40"><a href="/mojabiblia?book=NUM&chapter=12" class="text-amber-300 underline font-semibold">Lb 12:3</a> — Mojżesz — najłagodniejszy z ludzi.</li>
+        <li class="pl-3 border-l-2 border-amber-500/40"><a href="/mojabiblia?book=HEB&chapter=11" class="text-amber-300 underline font-semibold">Hbr 11:23–27</a> — wiara rodziców Mojżesza i jego wybór.</li>
+      </ul>
+    </section>
+
+    <section class="kc-card">
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-lightbulb"></i>
+        <span>Prawda na dziś</span>
+      </div>
+      <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">Prawda na dziś</h3>
+      <ul class="space-y-2.5 text-sm sm:text-base text-zinc-300 leading-relaxed">
+        <li class="pl-3 border-l-2 border-amber-500/40">Bóg potrafi obrócić narzędzie śmierci w drogę ocalenia — Nil stał się kołyską Mojżesza.</li>
+        <li class="pl-3 border-l-2 border-amber-500/40">Boże dzieło nie jest budowane ludzką siłą ani przemocą (Wj 2:11–15).</li>
+        <li class="pl-3 border-l-2 border-amber-500/40">Czas pustyni to szkoła, w której Bóg kształtuje pokorę i cichość.</li>
+        <li class="pl-3 border-l-2 border-amber-500/40">Bóg słyszy, pamięta, widzi i zna — nawet wtedy, gdy wydaje się, że milczy (Wj 2:23–25).</li>
+      </ul>
+    </section>
+
+    <section class="kc-card">
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-heart"></i>
+        <span>Pomyśl</span>
+      </div>
+      <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">Pytania do serca</h3>
+      <ol class="space-y-3 text-sm sm:text-base text-zinc-300 leading-relaxed list-decimal pl-5">
+        <li>Gdzie w moim życiu Bóg może zamienić to, co groźne, w drogę ocalenia?</li>
+        <li>Czy próbuję „ratować sytuację” własną siłą i gniewem, zamiast czekać na Boży czas?</li>
+        <li>Jak przeżywam swój „Madian” — czas czekania i ukrytej codzienności?</li>
+        <li>Czy wierzę, że Bóg słyszy moje westchnienie i pamięta o swoich obietnicach?</li>
+      </ol>
+    </section>
+
+    </section>
+
+    <!-- 20-QUESTION QUIZ SECTION -->
+    <section class="kc-card space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-brand-line pb-4">
+        <div>
+          <h2 class="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-circle-question text-brand-gold"></i>
+            <span>Sprawdź swoją wiedzę — 20 Pytań z Wj 2</span>
+          </h2>
+          <p class="text-xs text-zinc-400 mt-1">Odpowiedz na wszystkie pytania, aby sprawdzić znajomość tekstu biblijnego.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="quizScoreBadge" class="px-3 py-1 rounded-full bg-brand-gold/20 text-brand-gold font-mono font-bold text-sm border border-brand-gold/40">
+            0/20
+          </span>
+          <button id="btnResetQuiz" type="button" class="px-3 py-1 text-xs rounded border border-brand-border text-zinc-400 hover:text-white transition">
+            Zresetuj
+          </button>
+        </div>
       </div>
 
-      <div class="space-y-4 text-xs sm:text-sm text-zinc-300 font-serif leading-relaxed">
-        <p>
-          <strong class="text-white">Zadanie Taktyczne:</strong> Złóż dzisiaj u stóp Chrystusa wszelką ludzką niecierpliwość, złość i pokusę wymierzania sprawiedliwości na własną rękę. Twoim zadaniem na ten poniedziałek jest poddanie swoich życiowych trudności i nierozwiązanych spraw pod Bożą Opatrzność. Zamiast działać w gniewie lub lęku, stań w wierze i powiedz: „Panie Jezu, Ty znasz mój ucisk i pamiętasz o swoich obietnicach — powierzam Ci moje życie i wybieram Twoją cichość oraz mądrość!”, krocząc z królewską godnością dziecka Bożego przez wszystkie wyzwania nowego tygodnia.
-        </p>
+      <div id="quizContainer" class="space-y-4"></div>
+      <div id="quizFeedback" class="text-center text-xs font-bold text-amber-300"></div>
+    </section>
 
-        <div class="p-4 rounded-xl bg-black/40 border border-brand-gold/20">
-          <div class="text-[11px] font-bold uppercase tracking-wider text-amber-300 mb-1">Modlitwa:</div>
-          <p class="italic text-zinc-200">
-            „Ojcze w niebie, dziękuję Ci za ten nowy tydzień i za Twoją niezmienną wierność. Dziękuję Ci, że żadne ludzkie plany ani zagrożenia nie mogą zniweczyć Twojego przymierza. Wybacz mi każdą chwilę zniecierpliwienia, gdy próbowałem brać sprawy w swoje słabe ręce. Panie Jezu, ucisz burzę w moim sercu, naucz mnie cichego posłuszeństwa i przypominaj mi, że Ty słyszysz każde westchnienie uciśnionych. Wejrzyj na mój dom i prowadź mnie drogą Twojego pokoju. Amen.”
-          </p>
+
+
+    <section class="kc-card">
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-flag-checkered"></i>
+        <span>Twoja decyzja</span>
+      </div>
+      <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">Twoja decyzja — zadanie na dziś</h3>
+      <p class="text-sm sm:text-base text-zinc-300 leading-relaxed">Złóż dzisiaj u stóp Chrystusa wszelką ludzką niecierpliwość, złość i pokusę wymierzania sprawiedliwości na własną rękę. Twoim zadaniem na ten poniedziałek jest poddanie swoich życiowych trudności i nierozwiązanych spraw pod Bożą Opatrzność. Zamiast działać w gniewie lub lęku, stań w wierze i powiedz: „Panie Jezu, Ty znasz mój ucisk i pamiętasz o swoich obietnicach — powierzam Ci moje życie i wybieram Twoją cichość oraz mądrość!”, krocząc z królewską godnością dziecka Bożego przez wszystkie wyzwania nowego tygodnia.</p>
+    </section>
+
+    <section class="kc-card">
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-hands-praying"></i>
+        <span>Modlitwa</span>
+      </div>
+      <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">Modlitwa</h3>
+      <p class="font-serif italic text-base sm:text-lg text-zinc-200 leading-relaxed">„Ojcze w niebie, dziękuję Ci za ten nowy tydzień i za Twoją niezmienną wierność. Dziękuję Ci, że żadne ludzkie plany ani zagrożenia nie mogą zniweczyć Twojego przymierza. Wybacz mi każdą chwilę zniecierpliwienia, gdy próbowałem brać sprawy w swoje słabe ręce. Panie Jezu, ucisz burzę w moim sercu, naucz mnie cichego posłuszeństwa i przypominaj mi, że Ty słyszysz każde westchnienie uciśnionych. Wejrzyj na mój dom i prowadź mnie drogą Twojego pokoju. Amen.”</p>
+    </section>
+
+    <!-- ── ZADANIE NA DZIŚ & DZIENNIK (wzór Dnia 1) ── -->
+    <section class="kc-card border-brand-gold/40">
+      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-clipboard-check"></i>
+        <span>Zadanie na dziś</span>
+      </div>
+      <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-3">
+        Zastosowanie i Twój Zapis
+      </h3>
+      <div class="p-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-sm mb-4">
+        📖 <strong>Krok 1:</strong> Przeczytaj cały fragment <a href="/mojabiblia?book=EXO&chapter=2" class="text-amber-300 underline font-semibold">Księgi Wyjścia 2:1–25</a>.
+      </div>
+
+      <div class="space-y-4 mb-6">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-amber-300 mb-1" for="kc-input-learned">
+            1. „Po przeczytaniu Wj 2 dowiedziałem się o Bogu, że…”
+          </label>
+          <input type="text" id="kc-input-learned" oninput="saveDailyField('learned', this.value)" placeholder="Wpisz swoje spostrzeżenie..." class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 text-sm min-h-[44px]" />
         </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-amber-300 mb-1" for="kc-input-decision">
+            2. „Dlatego dzisiaj chcę…”
+          </label>
+          <input type="text" id="kc-input-decision" oninput="saveDailyField('decision', this.value)" placeholder="Wpisz swoją praktyczną decyzję..." class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 text-sm min-h-[44px]" />
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 mb-6">
+        <div class="text-xs font-bold uppercase text-zinc-400 mb-3 tracking-wider">Potwierdź realizację:</div>
+        <div class="space-y-2.5">
+          <label class="flex items-center gap-3 cursor-pointer text-sm min-h-[44px]">
+            <input type="checkbox" id="chk-read" onchange="updateChecklist()" class="accent-amber-500 w-4 h-4 rounded" />
+            <span class="font-bold text-white">✓ PRZECZYTAŁEM</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer text-sm min-h-[44px]">
+            <input type="checkbox" id="chk-understood" onchange="updateChecklist()" class="accent-amber-500 w-4 h-4 rounded" />
+            <span class="font-bold text-white">✓ ZROZUMIAŁEM</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer text-sm min-h-[44px]">
+            <input type="checkbox" id="chk-apply" onchange="updateChecklist()" class="accent-amber-500 w-4 h-4 rounded" />
+            <span class="font-bold text-white">✓ ZASTOSUJĘ</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <button type="button" id="btn-complete-day" onclick="completeDay33()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:from-amber-400 hover:to-amber-500 transition min-h-[44px]">
+          <i class="fa-solid fa-check"></i>
+          <span id="btn-complete-text">Oznacz Dzień 33 jako ukończony</span>
+        </button>
+        <span id="save-status-msg" class="text-xs text-emerald-400 font-semibold hidden">
+          ✓ Zapisano w Twoim profilu
+        </span>
       </div>
     </section>
 
-    <!-- INTERACTIVE QUIZ SECTION (20 PYTAŃ) -->
-    <section class="kc-card" id="quizSection">
-      <div class="flex items-center justify-between flex-wrap gap-2 mb-6 pb-4 border-b border-brand-line">
-        <div class="flex items-center gap-2">
-          <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center">
-            <i class="fa-solid fa-circle-question"></i>
-          </span>
+    <!-- ── POROZMAWIAJ Z DUCHOWNYM (wzór Dnia 1) ── -->
+    <section class="p-6 rounded-2xl bg-gradient-to-br from-[#121722] to-[#0E121A] border border-amber-500/30 text-zinc-300 shadow-xl" id="kontakt-duchowny">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4 text-center sm:text-left">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/40 flex items-center justify-center text-2xl text-amber-300 shrink-0 shadow-lg">
+            <i class="fa-solid fa-hands-praying"></i>
+          </div>
           <div>
-            <h2 class="text-xl sm:text-2xl font-bold text-white font-display">TEST WIEDZY BIBLIJNEJ (20 PYTAŃ)</h2>
-            <p class="text-xs text-zinc-400">Sprawdź zrozumienie tekstu Wj 2:1–25 • Wynik zapisywany w Twojej przeglądarce</p>
+            <span class="text-[11px] font-bold uppercase tracking-widest text-amber-400 block mb-1">Duchowe wsparcie • Rozmowa</span>
+            <h3 class="font-serif text-lg sm:text-xl font-bold text-white mb-1">Możesz na ten temat porozmawiać z duchownym</h3>
+            <p class="text-xs sm:text-sm text-zinc-300">Duchowny: <strong class="text-white font-semibold">Mariusz</strong> • <span class="text-amber-200 font-mono font-semibold">+48 608 337 477</span></p>
           </div>
         </div>
-        <div id="quizScoreBadge" class="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-brand-gold font-bold">
-          Do rozwiązania: 20 pytań
+        <div class="flex items-center gap-3 w-full sm:w-auto justify-center shrink-0">
+          <a href="tel:+48608337477" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 font-bold text-xs uppercase tracking-wider shadow-lg hover:from-amber-400 hover:to-amber-500 transition min-h-[44px]">
+            <i class="fa-solid fa-phone"></i>
+            <span>Zadzwoń</span>
+          </a>
+          <a href="sms:+48608337477" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 hover:text-white hover:border-amber-400 font-bold text-xs uppercase tracking-wider transition min-h-[44px]">
+            <i class="fa-solid fa-comment-sms"></i>
+            <span>Wyślij SMS</span>
+          </a>
         </div>
-      </div>
-
-      <div id="quizContainer" class="space-y-6">
-        <!-- Renderowane przez JS -->
-      </div>
-
-      <div class="mt-8 pt-6 border-t border-brand-line flex items-center justify-between flex-wrap gap-3">
-        <button id="btnCheckQuiz" class="cin-gold-btn px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider min-h-[44px]">
-          Zatwierdź Odpowiedzi & Zobacz Wynik
-        </button>
-        <button id="btnResetQuiz" class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 text-xs hover:text-white transition min-h-[44px]">
-          Resetuj Test
-        </button>
-      </div>
-
-      <div id="quizResultBox" class="mt-6 p-4 rounded-xl bg-black/40 border border-brand-gold/30 hidden">
-        <div class="font-display font-bold text-lg text-amber-300 mb-1" id="quizResultTitle">Twój wynik</div>
-        <p class="text-xs text-zinc-300" id="quizResultDesc"></p>
       </div>
     </section>
 
-    <!-- SECTION SHARE & PODZIEL SIĘ (Id: ccDailyShare) -->
-    <section class="kc-card border-brand-gold/30" id="ccDailyShare">
-      <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-gold mb-3">
-        <i class="fa-solid fa-share-nodes text-amber-400"></i>
-        <span>Podziel się Słowem Bożym z Innymi</span>
-      </div>
-      <p class="text-xs sm:text-sm text-zinc-300 font-serif leading-relaxed mb-4">
-        Nie zatrzymuj tego Słowa tylko dla siebie. Wyślij lekcję Dnia 33 swoim bliskim, na grupę domową lub opublikuj w mediach społecznościowych:
+    <!-- SECTION SHARE & ACTIONS -->
+    <section id="ccDailyShare" class="kc-card space-y-4 text-center">
+      <h3 class="font-display text-base sm:text-lg font-bold text-white">
+        Podziel się Słowem Bożym z innymi
+      </h3>
+      <p class="text-xs text-zinc-300 max-w-lg mx-auto">
+        Przekaż tę lekcję rodzinie, przyjaciołom lub grupie biblijnej. Niech Boża mądrość buduje serca!
       </p>
-      <div class="flex items-center flex-wrap gap-2.5">
-        <a href="https://api.whatsapp.com/send?text=%E2%98%80%EF%B8%8F%20Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2033%3A%20Z%20w%C3%B3d%20Nilu%20do%20pustyni%20Madian%20(Wj%202%3A1%E2%80%9325)%0Ahttps%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-33" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/40 text-[#25D366] text-xs font-bold flex items-center gap-2 transition min-h-[44px]">
-          <i class="fa-brands fa-whatsapp text-sm"></i>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <a href="https://api.whatsapp.com/send?text=Dzie%C5%84%2033%20Kursu%20Codziennego%20Pisma%20%C5%9Awi%C4%99tego%3A%20W%20nieskr%C4%99powanym%20rozro%C5%9Bcie%20%E2%80%94%20Nowy%20kr%C3%B3l%2C%20uciemi%C4%99%C5%BCenie%20i%20Bo%C5%BCe%20ocalenie%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-33" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider hover:bg-emerald-500 transition flex items-center gap-2 shadow-lg min-h-[44px]">
+          <i class="fa-brands fa-whatsapp"></i>
           <span>WhatsApp</span>
         </a>
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-33" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-[#1877F2]/20 hover:bg-[#1877F2]/30 border border-[#1877F2]/40 text-[#1877F2] text-xs font-bold flex items-center gap-2 transition min-h-[44px]">
-          <i class="fa-brands fa-facebook text-sm"></i>
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-33" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wider hover:bg-blue-500 transition flex items-center gap-2 shadow-lg min-h-[44px]">
+          <i class="fa-brands fa-facebook"></i>
           <span>Facebook</span>
         </a>
-        <a href="https://twitter.com/intent/tweet?text=%E2%98%80%EF%B8%8F%20Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2033%3A%20Z%20w%C3%B3d%20Nilu%20do%20pustyni%20Madian%20(Wj%202)%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-33" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white text-xs font-bold flex items-center gap-2 transition min-h-[44px]">
-          <i class="fa-brands fa-x-twitter text-sm"></i>
-          <span>X (Twitter)</span>
+
+        <a href="https://x.com/intent/tweet?text=Dzie%C5%84%2033%20Kursu%20Codziennego%20Pisma%20%C5%9Awi%C4%99tego%3A%20W%20nieskr%C4%99powanym%20rozro%C5%9Bcie%20%E2%80%94%20Nowy%20kr%C3%B3l%2C%20uciemi%C4%99%C5%BCenie%20i%20Bo%C5%BCe%20ocalenie&url=https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-33" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-black text-white font-bold text-xs uppercase tracking-wider hover:bg-zinc-800 border border-zinc-700 transition flex items-center gap-2 shadow-lg min-h-[44px]">
+          <i class="fa-brands fa-x-twitter"></i>
+          <span>X / Twitter</span>
         </a>
-        <button id="btnCopyShareLink" class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs font-bold flex items-center gap-2 transition min-h-[44px]">
-          <i class="fa-solid fa-copy text-sm"></i>
+
+        <button id="btnCopyLessonLink" type="button" class="px-5 py-2.5 rounded-xl bg-brand-panel text-zinc-200 border border-brand-border hover:border-brand-gold font-bold text-xs uppercase tracking-wider transition flex items-center gap-2 min-h-[44px]">
+          <i class="fa-solid fa-link"></i>
           <span id="copyLinkText">Kopiuj Link</span>
         </button>
       </div>
     </section>
 
-    <!-- NAVIGATION BAR (PREV / NEXT) -->
-    <nav class="flex items-center justify-between flex-wrap gap-3 pt-6 border-t border-brand-line">
-      <a href="/akademia/kurscodzienny/dzien-32" class="px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-amber-300 text-xs font-bold flex items-center gap-2 transition min-h-[44px]">
-        <span>←</span>
-        <span>Dzień 32 (Wj 1)</span>
-      </a>
-      <a href="/akademia/kurscodzienny" class="px-4 py-2.5 rounded-xl bg-brand-gold/15 hover:bg-brand-gold/25 border border-brand-gold/30 text-brand-gold text-xs font-bold flex items-center gap-2 transition min-h-[44px]">
-        <i class="fa-solid fa-grip"></i>
-        <span>Spis Wszystkich Lekcji</span>
-      </a>
-      <span class="px-4 py-2.5 rounded-xl bg-zinc-900/50 border border-zinc-800/50 text-zinc-500 text-xs font-bold flex items-center gap-2 cursor-not-allowed min-h-[44px]" title="Dzień 34 ukaże się jutro o 06:00">
-        <span>Dzień 34 (Wj 3)</span>
-        <span>→</span>
-      </span>
-    </nav>
+
+    <!-- ── ZAPOWIEDŹ: JUTRO (wzór Dnia 1) ── -->
+    <section class="p-6 rounded-2xl bg-[#0E121A] border border-brand-line text-zinc-300" id="jutro">
+      <div class="text-[11px] font-bold uppercase tracking-widest text-amber-400 mb-1">
+        JUTRO — 3 LISTOPADA
+      </div>
+      <h3 class="font-serif text-lg sm:text-xl font-bold text-white mb-2">
+        DZIEŃ 34 — kolejny fragment Pisma
+      </h3>
+      <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-4">
+        Jutro czytamy dalej. Nowa lekcja pojawi się w spisie kursu — wróć, aby kontynuować podróż przez Biblię.
+      </p>
+      <div class="flex items-center gap-3 flex-wrap">
+        
+        <a href="/akademia/kurscodzienny" class="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-300 hover:text-white text-xs font-bold transition min-h-[44px] flex items-center">
+          ← Wróć do spisu kursu
+        </a>
+      </div>
+    </section>
+
+
+
+
 
   </main>
 
   <!-- FOOTER -->
-  <footer class="mt-16 py-12 border-t border-brand-line/60 bg-[#04060A] text-center text-xs text-zinc-500 font-serif">
-    <div class="max-w-4xl mx-auto px-4 space-y-3">
-      <div class="font-display font-bold text-sm tracking-wider text-brand-gold">
-        CHRISTIAN CULTURE • POLSKIE RADIO CC
-      </div>
-      <p class="leading-relaxed text-zinc-400">
-        „Z Biblią za Pan Brat” — Codzienna 66-miesięczna podróż przez całe Pismo Święte.<br />
-        Wszystkie materiały i kursy Akademii Biblijnej są w 100% bezpłatne.
-      </p>
-      <div class="flex items-center justify-center gap-4 pt-2 text-zinc-400">
-        <a href="/akademia" class="hover:text-amber-300 transition">Akademia</a>
-        <span>•</span>
-        <a href="/mojabiblia" class="hover:text-amber-300 transition">MojaBiblia</a>
-        <span>•</span>
-        <a href="/lumina" class="hover:text-amber-300 transition">LUMINA</a>
-        <span>•</span>
-        <a href="/wspieraj" class="hover:text-amber-300 transition">Wspieraj</a>
-      </div>
-      <div class="pt-4 text-[10px] text-zinc-600">
-        © 2026 Christian Culture. Wszelkie prawa zastrzeżone. Sola Scriptura • Sola Gratia • Sola Fide • Solus Christus • Soli Deo Gloria.
-      </div>
+  <footer class="border-t border-brand-border bg-brand-dark py-6 text-center text-xs text-zinc-500">
+    <div class="max-w-4xl mx-auto px-4 space-y-2">
+      <p>Christian Culture • Projekt „Z Biblią za Pan Brat” • 66 Ksiąg • 66 Miesięcy • 2009 Lekcji</p>
+      <p>Wszystkie materiały i kursy są zawsze bezpłatne.</p>
     </div>
   </footer>
 
@@ -749,156 +958,99 @@
     "c": 2
   }
 ];
-    const QUIZ_STORAGE_KEY = 'cc_quiz_day33_v1';
+
+    let userAnswers = {};
 
     function renderQuiz() {
       const container = document.getElementById('quizContainer');
-      if (!container) return;
       container.innerHTML = '';
 
-      const saved = JSON.parse(localStorage.getItem(QUIZ_STORAGE_KEY) || '{}');
-
-      QUIZ_DATA.forEach((item, qIdx) => {
+      QUIZ_DATA.forEach((item, idx) => {
         const qCard = document.createElement('div');
-        qCard.className = 'p-4 rounded-xl bg-black/30 border border-white/5 space-y-3';
-        qCard.id = 'quiz-q-' + qIdx;
+        qCard.className = 'p-3.5 rounded-xl bg-brand-panel/40 border border-brand-border/20 space-y-2';
 
         const qTitle = document.createElement('div');
-        qTitle.className = 'font-serif text-sm sm:text-base font-semibold text-white flex items-start gap-2';
-        qTitle.innerHTML = '<span class="text-brand-gold font-bold font-display text-xs mt-0.5">' + (qIdx + 1) + '.</span> <span>' + item.q + '</span>';
+        qTitle.className = 'text-xs sm:text-sm font-semibold text-zinc-200';
+        qTitle.textContent = (idx + 1) + '. ' + item.q;
         qCard.appendChild(qTitle);
 
-        const optionsWrap = document.createElement('div');
-        optionsWrap.className = 'space-y-2 pt-1';
+        const optGrid = document.createElement('div');
+        optGrid.className = 'grid grid-cols-1 sm:grid-cols-3 gap-2';
 
-        item.a.forEach((optText, optIdx) => {
-          const optLabel = document.createElement('label');
-          optLabel.className = 'flex items-center gap-3 p-2.5 rounded-lg border border-zinc-800/80 hover:border-brand-gold/40 hover:bg-zinc-900/60 transition cursor-pointer text-xs sm:text-sm text-zinc-300';
+        item.a.forEach((opt, optIdx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'kc-quiz-btn px-3 py-2 rounded-lg text-xs text-left border border-brand-border/30 bg-brand-navy/60 hover:bg-brand-panel hover:border-brand-gold text-zinc-300 transition';
+          btn.textContent = opt;
 
-          const radio = document.createElement('input');
-          radio.type = 'radio';
-          radio.name = 'q_' + qIdx;
-          radio.value = optIdx;
-          radio.className = 'text-brand-gold focus:ring-brand-gold';
-          if (saved[qIdx] === optIdx) {
-            radio.checked = true;
+          if (userAnswers[idx] !== undefined) {
+            btn.disabled = true;
+            if (optIdx === item.c) {
+              btn.classList.add('correct');
+            } else if (userAnswers[idx] === optIdx) {
+              btn.classList.add('wrong');
+            }
           }
-          radio.addEventListener('change', () => {
-            const cur = JSON.parse(localStorage.getItem(QUIZ_STORAGE_KEY) || '{}');
-            cur[qIdx] = optIdx;
-            localStorage.setItem(QUIZ_STORAGE_KEY, JSON.stringify(cur));
-          });
 
-          optLabel.appendChild(radio);
-          const span = document.createElement('span');
-          span.innerText = optText;
-          optLabel.appendChild(span);
-          optionsWrap.appendChild(optLabel);
+          btn.onclick = () => {
+            userAnswers[idx] = optIdx;
+            localStorage.setItem('kc_day33_quiz', JSON.stringify(userAnswers));
+            renderQuiz();
+            updateScore();
+          };
+
+          optGrid.appendChild(btn);
         });
 
-        qCard.appendChild(optionsWrap);
+        qCard.appendChild(optGrid);
         container.appendChild(qCard);
       });
+      updateScore();
     }
 
-    function checkQuiz() {
-      const saved = JSON.parse(localStorage.getItem(QUIZ_STORAGE_KEY) || '{}');
+    function updateScore() {
       let score = 0;
-
-      QUIZ_DATA.forEach((item, qIdx) => {
-        const card = document.getElementById('quiz-q-' + qIdx);
-        if (!card) return;
-        const labels = card.querySelectorAll('label');
-
-        labels.forEach((lbl, optIdx) => {
-          lbl.classList.remove('bg-emerald-950/40', 'border-emerald-500/60', 'text-emerald-200', 'bg-rose-950/40', 'border-rose-500/60', 'text-rose-200');
-          if (optIdx === item.c) {
-            lbl.classList.add('bg-emerald-950/40', 'border-emerald-500/60', 'text-emerald-200');
-          } else if (saved[qIdx] === optIdx && optIdx !== item.c) {
-            lbl.classList.add('bg-rose-950/40', 'border-rose-500/60', 'text-rose-200');
-          }
-        });
-
-        if (saved[qIdx] === item.c) {
-          score++;
-        }
+      Object.keys(userAnswers).forEach(qIdx => {
+        if (userAnswers[qIdx] === QUIZ_DATA[qIdx].c) score++;
       });
-
-      const resBox = document.getElementById('quizResultBox');
-      const resTitle = document.getElementById('quizResultTitle');
-      const resDesc = document.getElementById('quizResultDesc');
-      const badge = document.getElementById('quizScoreBadge');
-
-      if (resBox && resTitle && resDesc) {
-        resBox.classList.remove('hidden');
-        resTitle.innerText = 'Twój wynik: ' + score + ' / ' + QUIZ_DATA.length + ' (' + Math.round((score / QUIZ_DATA.length) * 100) + '%)';
-        if (score >= 18) {
-          resDesc.innerText = 'Wybitny rezultat! Doskonale znasz tekst i kontekst 2. rozdziału Księgi Wyjścia!';
-        } else if (score >= 14) {
-          resDesc.innerText = 'Bardzo dobra znajomość rozdziału! Warto przejrzeć kilka pytań z kolorem czerwonym.';
-        } else {
-          resDesc.innerText = 'Dobra próba! Przeczytaj ponownie tekst Wj 2:1–25 i spróbuj poprawić wynik.';
-        }
-      }
-
-      if (badge) {
-        badge.innerText = 'Wynik: ' + score + '/' + QUIZ_DATA.length;
-        badge.className = 'px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-xs text-amber-300 font-bold';
+      document.getElementById('quizScoreBadge').textContent = score + '/20';
+      const feedback = document.getElementById('quizFeedback');
+      if (Object.keys(userAnswers).length === 20) {
+        feedback.textContent = score >= 16 ? 'Świetny wynik! Gratulacje!' : 'Ukończono! Możesz zresetować quiz i spróbować ponownie.';
       }
     }
 
-    function resetQuiz() {
-      localStorage.removeItem(QUIZ_STORAGE_KEY);
+    document.getElementById('btnResetQuiz').onclick = () => {
+      userAnswers = {};
+      localStorage.removeItem('kc_day33_quiz');
       renderQuiz();
-      const resBox = document.getElementById('quizResultBox');
-      if (resBox) resBox.classList.add('hidden');
-      const badge = document.getElementById('quizScoreBadge');
-      if (badge) {
-        badge.innerText = 'Do rozwiązania: 20 pytań';
-        badge.className = 'px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-brand-gold font-bold';
-      }
-    }
+    };
 
-    // Font toggle
-    const fontBtn = document.getElementById('reader-font-toggle');
-    const fontLbl = document.getElementById('reader-font-label');
-    if (fontBtn) {
-      fontBtn.addEventListener('click', () => {
-        const isSans = document.documentElement.getAttribute('data-kc-font') === 'sans';
-        if (isSans) {
-          document.documentElement.removeAttribute('data-kc-font');
-          if (fontLbl) fontLbl.innerText = 'Serif';
-          localStorage.setItem('kc_font_pref', 'serif');
-        } else {
-          document.documentElement.setAttribute('data-kc-font', 'sans');
-          if (fontLbl) fontLbl.innerText = 'Sans';
-          localStorage.setItem('kc_font_pref', 'sans');
-        }
+    document.getElementById('btnCopyLessonLink').onclick = () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        document.getElementById('copyLinkText').textContent = 'Skopiowano!';
+        setTimeout(() => document.getElementById('copyLinkText').textContent = 'Kopiuj Link', 2500);
       });
-      if (localStorage.getItem('kc_font_pref') === 'sans') {
-        document.documentElement.setAttribute('data-kc-font', 'sans');
-        if (fontLbl) fontLbl.innerText = 'Sans';
-      }
-    }
+    };
 
-    // Copy share link
-    const copyBtn = document.getElementById('btnCopyShareLink');
-    const copyTxt = document.getElementById('copyLinkText');
-    if (copyBtn) {
-      copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText('https://polskieradio.cc/akademia/kurscodzienny/dzien-33').then(() => {
-          if (copyTxt) copyTxt.innerText = 'Skopiowano!';
-          setTimeout(() => { if (copyTxt) copyTxt.innerText = 'Kopiuj Link'; }, 2500);
-        });
-      });
-    }
+    (document.getElementById('btnCompleteLesson') || {}).onclick = () => {
+      localStorage.setItem('kc_day33_completed', 'true');
+      document.getElementById('completeMsg')?.classList.remove('hidden');
+    };
 
-    document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const saved = localStorage.getItem('kc_day33_quiz');
+        if (saved) userAnswers = JSON.parse(saved);
+      } catch (e) {}
       renderQuiz();
-      const btnCheck = document.getElementById('btnCheckQuiz');
-      const btnReset = document.getElementById('btnResetQuiz');
-      if (btnCheck) btnCheck.addEventListener('click', checkQuiz);
-      if (btnReset) btnReset.addEventListener('click', resetQuiz);
+
+      if (localStorage.getItem('kc_day33_completed') === 'true') {
+        document.getElementById('completeMsg')?.classList.remove('hidden');
+      }
+
+      const fontPref = localStorage.getItem('kc_font_pref');
+      if (fontPref) document.documentElement.setAttribute('data-kc-font', fontPref);
 
       const backBtn = document.getElementById('backToTopBtn');
       if (backBtn) {
@@ -911,10 +1063,162 @@
     });
   </script>
 
+  <!-- SCRIPT: ZASTOSOWANIE I TWÓJ ZAPIS (wzór Dnia 1) -->
+  <script>
+    (function () {
+      const DAY_KEY = 'kc_day33';
+      const get = (k) => { try { return localStorage.getItem(`${DAY_KEY}_${k}`); } catch (e) { return null; } };
+      const set = (k, v) => { try { localStorage.setItem(`${DAY_KEY}_${k}`, v); } catch (e) {} };
+      function renderCompleted(done) {
+        const t = document.getElementById('btn-complete-text');
+        const m = document.getElementById('save-status-msg');
+        if (t) t.textContent = done ? '✓ Dzień 33 ukończony' : 'Oznacz Dzień 33 jako ukończony';
+        if (m) m.classList.toggle('hidden', !done);
+      }
+      window.saveDailyField = function (field, value) { set(field, value); };
+      window.updateChecklist = function () {
+        ['read', 'understood', 'apply'].forEach((k) => { const el = document.getElementById('chk-' + k); if (el) set('chk_' + k, el.checked); });
+      };
+      window.completeDay33 = function () {
+        const done = get('completed') !== 'true';
+        set('completed', done);
+        renderCompleted(done);
+      };
+      document.addEventListener('DOMContentLoaded', () => {
+        const l = document.getElementById('kc-input-learned'); if (l) l.value = get('learned') || '';
+        const dc = document.getElementById('kc-input-decision'); if (dc) dc.value = get('decision') || '';
+        ['read', 'understood', 'apply'].forEach((k) => { const el = document.getElementById('chk-' + k); if (el) el.checked = get('chk_' + k) === 'true'; });
+        renderCompleted(get('completed') === 'true');
+      });
+    })();
+  </script>
+
+
   <!-- Floating Back to Top Button -->
   <button class="back-to-top" id="backToTopBtn" type="button" aria-label="Przewiń do góry" title="Przewiń do góry">
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
   </button>
   <script src="/js/cc-daily-course-share.js?v=20261025_v4" defer></script>
+  <script>
+    let ttsUtterance = null;
+    let isTtsPlaying = false;
+
+    function toggleAudioLesson() {
+      if (!('speechSynthesis' in window)) {
+        alert('Twoja przeglądarka nie wspiera odtwarzania mowy (Web Speech API).');
+        return;
+      }
+
+      if (isTtsPlaying) {
+        window.speechSynthesis.cancel();
+        isTtsPlaying = false;
+        updateTtsUi(false);
+        return;
+      }
+
+      const title = document.querySelector('h1')?.textContent?.trim() || '';
+      const thought = document.querySelector('.p-5 p, .p-6 p, .kc-card p')?.textContent?.trim() || '';
+      const body = document.querySelector('main')?.innerText || '';
+      const fullSpeech = title + '. ' + thought + '. ' + body.slice(0, 4500);
+
+      window.speechSynthesis.cancel();
+      ttsUtterance = new SpeechSynthesisUtterance(fullSpeech);
+      ttsUtterance.lang = 'pl-PL';
+      ttsUtterance.rate = 0.96;
+
+      ttsUtterance.onend = () => {
+        isTtsPlaying = false;
+        updateTtsUi(false);
+      };
+
+      ttsUtterance.onerror = () => {
+        isTtsPlaying = false;
+        updateTtsUi(false);
+      };
+
+      window.speechSynthesis.speak(ttsUtterance);
+      isTtsPlaying = true;
+      updateTtsUi(true);
+    }
+
+    function updateTtsUi(playing) {
+      const icon = document.getElementById('tts-icon');
+      const text = document.getElementById('tts-btn-text');
+      const btn = document.getElementById('btn-audio-tts');
+      if (playing) {
+        if (icon) icon.className = 'fa-solid fa-pause text-xs text-amber-300';
+        if (text) text.textContent = 'Pauza Audio';
+        if (btn) btn.classList.add('ring-2', 'ring-amber-400');
+      } else {
+        if (icon) icon.className = 'fa-solid fa-volume-high text-xs text-amber-300';
+        if (text) text.textContent = 'Słuchaj Audio';
+        if (btn) btn.classList.remove('ring-2', 'ring-amber-400');
+      }
+    }
+
+    let currentReaderZoom = 0;
+
+    function initReaderSettings() {
+      const savedFont = localStorage.getItem('kc_reader_font') || 'serif';
+      const savedZoom = parseInt(localStorage.getItem('kc_reader_zoom') || '0', 10);
+      applyReaderFont(savedFont, false);
+      applyReaderZoom(savedZoom);
+    }
+
+    function toggleReaderFont() {
+      const current = document.documentElement.getAttribute('data-kc-font') === 'sans' ? 'sans' : 'serif';
+      const next = current === 'serif' ? 'sans' : 'serif';
+      localStorage.setItem('kc_reader_font', next);
+      applyReaderFont(next, true);
+    }
+
+    function applyReaderFont(font, updateZoom = true) {
+      if (font === 'sans') {
+        document.documentElement.setAttribute('data-kc-font', 'sans');
+      } else {
+        document.documentElement.removeAttribute('data-kc-font');
+      }
+
+      const desktopLabel = document.getElementById('reader-font-label');
+      if (desktopLabel) {
+        desktopLabel.textContent = font === 'sans' ? 'Krój: Inter' : 'Krój: Lora';
+      }
+
+      const mobileLabels = document.querySelectorAll('.kc-font-mobile-label');
+      mobileLabels.forEach(el => {
+        el.textContent = font === 'sans' ? 'Inter' : 'Lora';
+      });
+
+      const btn = document.getElementById('btn-reader-font');
+      if (btn) {
+        btn.title = font === 'sans' 
+          ? 'Aktywna: Inter (Ekranowa bezszeryfowa). Kliknij, aby zmienić na Lora (Książkowa szeryfowa)' 
+          : 'Aktywna: Lora (Książkowa szeryfowa). Kliknij, aby zmienić na Inter (Ekranowa bezszeryfowa)';
+      }
+
+      if (updateZoom) {
+        applyReaderZoom(currentReaderZoom);
+      }
+    }
+
+    function adjustFontSize(delta) {
+      currentReaderZoom = Math.max(-2, Math.min(3, currentReaderZoom + delta));
+      localStorage.setItem('kc_reader_zoom', currentReaderZoom);
+      applyReaderZoom(currentReaderZoom);
+    }
+
+    function applyReaderZoom(zoom) {
+      currentReaderZoom = zoom;
+      const isSans = document.documentElement.getAttribute('data-kc-font') === 'sans';
+      const baseRem = isSans ? (1.00 + (zoom * 0.07)) : (1.05 + (zoom * 0.07));
+      document.documentElement.style.setProperty('--kc-font-size', baseRem.toFixed(3) + 'rem');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initReaderSettings);
+    } else {
+      initReaderSettings();
+    }
+  </script>
 </body>
 </html>

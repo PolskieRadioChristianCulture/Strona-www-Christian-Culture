@@ -5,6 +5,7 @@
 // Skrypt jest idempotentny: pomija elementy, które już są na stronie.
 // Użycie: node scripts/align-kc-lessons-day1.mjs 24 26 27 ...   (zapisuje 4 ścieżki każdego dnia)
 import fs from 'node:fs';
+import { pathToFileURL } from 'node:url';
 
 const DIR = 'akademia/kurscodzienny';
 const COPIES = (p) => [`akademia/kurscodzienny/${p}`, `kursy/kurscodzienny/${p}`];
@@ -16,10 +17,10 @@ const FULL_TO_ABBR = { 'Księga Rodzaju': 'Rdz', 'Księga Wyjścia': 'Wj' };
 // Dzień 1 = 1 października 2026
 const dateOf = (d) => new Date(Date.UTC(2026, 9, d));
 const dateLabel = (d) => { const t = dateOf(d); return `${t.getUTCDate()} ${MONTHS[t.getUTCMonth()]}`; };
-const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
-const jsq = (s) => s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+export const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+export const jsq = (s) => s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
-function lessonInfo(html, d) {
+export function lessonInfo(html, d) {
   const t = /<title>Dzień \d+: ([^<|]+?)\s*\(([^)]+)\)\s*\|/.exec(html);
   if (!t) throw new Error(`Dzień ${d}: nie rozpoznano tytułu`);
   const ref = t[2].trim(); // np. „Rdz 50:1–26”, „Wj 1:1–22”
@@ -32,12 +33,12 @@ function lessonInfo(html, d) {
   return { title: t[1].trim(), ref, abbr, code: BOOKS[abbr][0], bookFull: BOOKS[abbr][1], bookGen: BOOKS[abbr][2], firstCh, chLabel, desc };
 }
 
-const wstep = (d, i) => `
+export const wstep = (d, i, label = 'Zanim otworzysz Biblię') => `
       <!-- ZANIM OTWORZYSZ BIBLIĘ (wzór Dnia 1) -->
       <article class="kc-card">
         <div class="flex items-center gap-3 text-amber-400 text-xs font-bold uppercase tracking-widest mb-3">
           <i class="fa-solid fa-compass"></i>
-          <span>Zanim otworzysz Biblię</span>
+          <span>${label}</span>
         </div>
         <h2 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
           Podróż przez 66 Ksiąg Pisma Świętego
@@ -60,7 +61,7 @@ const wstep = (d, i) => `
       </article>
 `;
 
-const zapis = (d, i) => `
+export const zapis = (d, i) => `
     <!-- ── ZADANIE NA DZIŚ & DZIENNIK (wzór Dnia 1) ── -->
     <section class="kc-card border-brand-gold/40">
       <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
@@ -119,7 +120,7 @@ const zapis = (d, i) => `
     </section>
 `;
 
-const duchowny = () => `
+export const duchowny = () => `
     <!-- ── POROZMAWIAJ Z DUCHOWNYM (wzór Dnia 1) ── -->
     <section class="p-6 rounded-2xl bg-gradient-to-br from-[#121722] to-[#0E121A] border border-amber-500/30 text-zinc-300 shadow-xl" id="kontakt-duchowny">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -147,7 +148,7 @@ const duchowny = () => `
     </section>
 `;
 
-function jutro(d) {
+export function jutro(d) {
   const n = d + 1;
   const nextFile = `${DIR}/dzien-${pad(n)}.html`;
   let h3, text, link;
@@ -187,7 +188,7 @@ function jutro(d) {
 `;
 }
 
-const zapisScript = (d) => `
+export const zapisScript = (d) => `
   <!-- SCRIPT: ZASTOSOWANIE I TWÓJ ZAPIS (wzór Dnia 1) -->
   <script>
     (function () {
@@ -264,6 +265,7 @@ function transform(html, d) {
   return s;
 }
 
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
 const days = process.argv.slice(2).map(Number).filter(Boolean);
 for (const d of days) {
   const base = fs.readFileSync(`${DIR}/dzien-${pad(d)}.html`, 'utf8');
@@ -274,4 +276,5 @@ for (const d of days) {
   }
   for (const p of COPIES(`dzien-${pad(d)}.html`).concat(COPIES(`dzien-${pad(d)}/index.html`))) fs.writeFileSync(p, out);
   console.log(`Dzień ${pad(d)}: zapisano 4 ścieżki`);
+}
 }

@@ -386,6 +386,33 @@
   <!-- ── GŁÓWNA TREŚĆ STUDIUM ── -->
   <main class="max-w-4xl mx-auto px-4 py-8 flex-1" id="lesson-text-body">
 
+      <!-- ZANIM OTWORZYSZ BIBLIĘ (wzór Dnia 1) -->
+      <article class="kc-card">
+        <div class="flex items-center gap-3 text-amber-400 text-xs font-bold uppercase tracking-widest mb-3">
+          <i class="fa-solid fa-compass"></i>
+          <span>Z Biblią za Pan Brat</span>
+        </div>
+        <h2 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
+          Podróż przez 66 Ksiąg Pisma Świętego
+        </h2>
+        <div class="space-y-4 text-sm sm:text-base leading-relaxed text-zinc-300">
+          <p>
+            Kurs „Z Biblią za Pan Brat” prowadzi przez wszystkie <strong>66 ksiąg Biblii</strong> — miesiąc po miesiącu, księga po księdze, każdego dnia jeden fragment Pisma.
+          </p>
+          <p>
+            Dziś jest <strong class="text-white">Dzień 12</strong>: Księga Rodzaju, <strong class="text-brand-gold">Rdz 16:1–17:27</strong>.
+          </p>
+          <p>
+            Zanim przeczytasz rozważanie, otwórz Biblię i przeczytaj cały fragment. Komentarz ma prowadzić do Słowa, a nie je zastępować.
+          </p>
+          <a href="/mojabiblia?book=GEN&chapter=16" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
+            <i class="fa-solid fa-book-bible"></i>
+            <span>Czytaj Rdz 16:1–17:27</span>
+          </a>
+        </div>
+      </article>
+
+
     <!-- ── ZANIM OTWORZYSZ BIBLIĘ ── -->
     <section class="kc-card">
       <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
@@ -661,78 +688,87 @@
       </blockquote>
     </section>
 
-    <!-- ── ZADANIE DNIA & DZIENNIK ── -->
-    <section class="kc-card">
+    <!-- ── ZADANIE NA DZIŚ & DZIENNIK (wzór Dnia 1) ── -->
+    <section class="kc-card border-brand-gold/40">
       <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
-        <i class="fa-solid fa-pen-to-square"></i>
-        <span>Zadanie taktyczne & Dziennik</span>
+        <i class="fa-solid fa-clipboard-check"></i>
+        <span>Zadanie na dziś</span>
       </div>
-      <h2 class="text-xl sm:text-2xl font-bold text-white mb-2">Zadanie na 12 października</h2>
-      <p class="text-xs text-zinc-400 mb-6">Wpisz swoje osobiste refleksje — zapisują się bezpiecznie na Twoim urządzeniu.</p>
-
-      <!-- Checklist -->
-      <div class="space-y-3 mb-6 p-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
-        <label class="flex items-center gap-3 text-sm text-zinc-300 cursor-pointer min-h-[44px]">
-          <input type="checkbox" id="check-1" onchange="updateChecklist()" class="w-5 h-5 rounded border-zinc-700 text-amber-500 focus:ring-amber-400 bg-zinc-800" />
-          <span>📖 Przeczytałem Rdz 16:1–17:27</span>
-        </label>
-        <label class="flex items-center gap-3 text-sm text-zinc-300 cursor-pointer min-h-[44px]">
-          <input type="checkbox" id="check-2" onchange="updateChecklist()" class="w-5 h-5 rounded border-zinc-700 text-amber-500 focus:ring-amber-400 bg-zinc-800" />
-          <span>✏️ Zaznaczyłem wersety: Rdz 16:13, Rdz 17:1, Rdz 17:19</span>
-        </label>
-        <label class="flex items-center gap-3 text-sm text-zinc-300 cursor-pointer min-h-[44px]">
-          <input type="checkbox" id="check-3" onchange="updateChecklist()" class="w-5 h-5 rounded border-zinc-700 text-amber-500 focus:ring-amber-400 bg-zinc-800" />
-          <span>🙏 Pomodliłem się o cierpliwość i oddanie moich spraw Bogu Wszechmogącemu</span>
-        </label>
+      <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-3">
+        Zastosowanie i Twój Zapis
+      </h3>
+      <div class="p-3.5 rounded-xl bg-zinc-900 border border-zinc-800 text-sm mb-4">
+        📖 <strong>Krok 1:</strong> Przeczytaj cały fragment <a href="/mojabiblia?book=GEN&chapter=16" class="text-amber-300 underline font-semibold">Księgi Rodzaju 16:1–17:27</a>.
       </div>
 
-      <!-- Journal Inputs -->
-      <div class="space-y-4">
+      <div class="space-y-4 mb-6">
         <div>
-          <label class="block text-xs font-semibold text-amber-300 mb-1.5">
-            1. W jakich obszarach mojego życia kusi mnie, by pójść na ludzki skrót zamiast czekać na Boży czas?
+          <label class="block text-xs font-bold uppercase tracking-wider text-amber-300 mb-1" for="kc-input-learned">
+            1. „Po przeczytaniu Rdz 16–17 dowiedziałem się o Bogu, że…”
           </label>
-          <textarea id="journal-1" oninput="saveJournal()" rows="2" class="w-full p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-200 text-sm focus:border-amber-500 focus:outline-none" placeholder="Twoja odpowiedź..."></textarea>
+          <input type="text" id="kc-input-learned" oninput="saveDailyField('learned', this.value)" placeholder="Wpisz swoje spostrzeżenie..." class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 text-sm min-h-[44px]" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-amber-300 mb-1.5">
-            2. Co oznacza dla mnie świadomość, że Bóg jest El-Roi — Bogiem, który mnie widzi w każdej samotności?
+          <label class="block text-xs font-bold uppercase tracking-wider text-amber-300 mb-1" for="kc-input-decision">
+            2. „Dlatego dzisiaj chcę…”
           </label>
-          <textarea id="journal-2" oninput="saveJournal()" rows="2" class="w-full p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-200 text-sm focus:border-amber-500 focus:outline-none" placeholder="Twoja odpowiedź..."></textarea>
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-amber-300 mb-1.5">
-            3. Jak mogę dzisiaj zaufać Bogu Wszechmogącemu (El Szaddaj) w trudnej lub nierozwiązanej sprawie?
-          </label>
-          <textarea id="journal-3" oninput="saveJournal()" rows="2" class="w-full p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-200 text-sm focus:border-amber-500 focus:outline-none" placeholder="Twoja odpowiedź..."></textarea>
+          <input type="text" id="kc-input-decision" oninput="saveDailyField('decision', this.value)" placeholder="Wpisz swoją praktyczną decyzję..." class="w-full px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-amber-400 text-sm min-h-[44px]" />
         </div>
       </div>
 
-      <div class="mt-6 pt-4 border-t border-zinc-800 flex items-center justify-between flex-wrap gap-3">
-        <button id="btn-complete" onclick="markComplete()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-black font-bold text-sm hover:from-emerald-400 hover:to-teal-500 transition shadow-lg shadow-emerald-500/20 min-h-[44px]">
-          Oznacz lekcję jako ukończoną ✓
+      <div class="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 mb-6">
+        <div class="text-xs font-bold uppercase text-zinc-400 mb-3 tracking-wider">Potwierdź realizację:</div>
+        <div class="space-y-2.5">
+          <label class="flex items-center gap-3 cursor-pointer text-sm min-h-[44px]">
+            <input type="checkbox" id="chk-read" onchange="updateChecklist()" class="accent-amber-500 w-4 h-4 rounded" />
+            <span class="font-bold text-white">✓ PRZECZYTAŁEM</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer text-sm min-h-[44px]">
+            <input type="checkbox" id="chk-understood" onchange="updateChecklist()" class="accent-amber-500 w-4 h-4 rounded" />
+            <span class="font-bold text-white">✓ ZROZUMIAŁEM</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer text-sm min-h-[44px]">
+            <input type="checkbox" id="chk-apply" onchange="updateChecklist()" class="accent-amber-500 w-4 h-4 rounded" />
+            <span class="font-bold text-white">✓ ZASTOSUJĘ</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <button type="button" id="btn-complete-day" onclick="completeDay12()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:from-amber-400 hover:to-amber-500 transition min-h-[44px]">
+          <i class="fa-solid fa-check"></i>
+          <span id="btn-complete-text">Oznacz Dzień 12 jako ukończony</span>
         </button>
-        <span id="complete-msg" class="hidden text-xs text-emerald-400 font-bold">Lekcja zapisana jako ukończona!</span>
+        <span id="save-status-msg" class="text-xs text-emerald-400 font-semibold hidden">
+          ✓ Zapisano w Twoim profilu
+        </span>
       </div>
     </section>
+    <div hidden aria-hidden="true"><span id="check-1"></span><span id="check-2"></span><span id="check-3"></span><span id="journal-1"></span><span id="journal-2"></span><span id="journal-3"></span><span id="btn-complete"></span><span id="complete-msg"></span></div>
 
-    <!-- ── KONTAKT Z DUCHOWNYM ── -->
-    <section class="kc-card bg-zinc-950/60 border-zinc-800">
-      <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
-        <i class="fa-solid fa-headset"></i>
-        <span>Opieka duszpasterska</span>
-      </div>
-      <h3 class="text-lg font-bold text-white mb-2">Masz pytania dotyczące trudnych wyborów, oczekiwania lub wiary?</h3>
-      <p class="text-xs text-zinc-400 mb-4 leading-relaxed">
-        Nasi duszpasterze i koordynatorzy studium biblijnego są dostępni, by pomóc Ci zrozumieć Słowo Boże i przejść tę drogę w pokoju.
-      </p>
-      <div class="flex flex-wrap items-center gap-3">
-        <a href="tel:+48608337477" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 hover:text-white hover:border-amber-500 text-xs font-semibold transition min-h-[44px]">
-          <i class="fa-solid fa-phone text-amber-400"></i> Zadzwoń: +48 608 337 477 (Mariusz)
-        </a>
-        <a href="sms:+48608337477" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 hover:text-white hover:border-amber-500 text-xs font-semibold transition min-h-[44px]">
-          <i class="fa-solid fa-comment-sms text-amber-400"></i> Napisz SMS
-        </a>
+    <!-- ── POROZMAWIAJ Z DUCHOWNYM (wzór Dnia 1) ── -->
+    <section class="p-6 rounded-2xl bg-gradient-to-br from-[#121722] to-[#0E121A] border border-amber-500/30 text-zinc-300 shadow-xl" id="kontakt-duchowny">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4 text-center sm:text-left">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-500/40 flex items-center justify-center text-2xl text-amber-300 shrink-0 shadow-lg">
+            <i class="fa-solid fa-hands-praying"></i>
+          </div>
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-widest text-amber-400 block mb-1">Duchowe wsparcie • Rozmowa</span>
+            <h3 class="font-serif text-lg sm:text-xl font-bold text-white mb-1">Możesz na ten temat porozmawiać z duchownym</h3>
+            <p class="text-xs sm:text-sm text-zinc-300">Duchowny: <strong class="text-white font-semibold">Mariusz</strong> • <span class="text-amber-200 font-mono font-semibold">+48 608 337 477</span></p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 w-full sm:w-auto justify-center shrink-0">
+          <a href="tel:+48608337477" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 font-bold text-xs uppercase tracking-wider shadow-lg hover:from-amber-400 hover:to-amber-500 transition min-h-[44px]">
+            <i class="fa-solid fa-phone"></i>
+            <span>Zadzwoń</span>
+          </a>
+          <a href="sms:+48608337477" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-zinc-900 border border-zinc-700 text-zinc-200 hover:text-white hover:border-amber-400 font-bold text-xs uppercase tracking-wider transition min-h-[44px]">
+            <i class="fa-solid fa-comment-sms"></i>
+            <span>Wyślij SMS</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -963,133 +999,59 @@
       }
     });
   </script>
+
+  <script>
+    (function () {
+      try {
+        const n = 'kc_day12_';
+        const old = Object.keys(localStorage).filter((k) => new RegExp('^kc_(dzien|day)_?0?12_').test(k) && !k.startsWith(n));
+        const pick = (re) => old.find((k) => re.test(k));
+        const move = (re, key) => { const k = pick(re); if (k && localStorage.getItem(n + key) === null) localStorage.setItem(n + key, localStorage.getItem(k)); };
+        move(/journal-?1$/, 'learned');
+        move(/journal-?2$/, 'decision');
+        move(/_complete(d)?$/, 'completed');
+        const cl = pick(/checklist$/);
+        if (cl && localStorage.getItem(n + 'chk_read') === null) {
+          const c = JSON.parse(localStorage.getItem(cl) || '{}');
+          localStorage.setItem(n + 'chk_read', !!c.c1); localStorage.setItem(n + 'chk_understood', !!c.c2); localStorage.setItem(n + 'chk_apply', !!c.c3);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <!-- SCRIPT: ZASTOSOWANIE I TWÓJ ZAPIS (wzór Dnia 1) -->
+  <script>
+    (function () {
+      const DAY_KEY = 'kc_day12';
+      const get = (k) => { try { return localStorage.getItem(`${DAY_KEY}_${k}`); } catch (e) { return null; } };
+      const set = (k, v) => { try { localStorage.setItem(`${DAY_KEY}_${k}`, v); } catch (e) {} };
+      function renderCompleted(done) {
+        const t = document.getElementById('btn-complete-text');
+        const m = document.getElementById('save-status-msg');
+        if (t) t.textContent = done ? '✓ Dzień 12 ukończony' : 'Oznacz Dzień 12 jako ukończony';
+        if (m) m.classList.toggle('hidden', !done);
+      }
+      window.saveDailyField = function (field, value) { set(field, value); };
+      window.updateChecklist = function () {
+        ['read', 'understood', 'apply'].forEach((k) => { const el = document.getElementById('chk-' + k); if (el) set('chk_' + k, el.checked); });
+      };
+      window.completeDay12 = function () {
+        const done = get('completed') !== 'true';
+        set('completed', done);
+        renderCompleted(done);
+      };
+      document.addEventListener('DOMContentLoaded', () => {
+        const l = document.getElementById('kc-input-learned'); if (l) l.value = get('learned') || '';
+        const dc = document.getElementById('kc-input-decision'); if (dc) dc.value = get('decision') || '';
+        ['read', 'understood', 'apply'].forEach((k) => { const el = document.getElementById('chk-' + k); if (el) el.checked = get('chk_' + k) === 'true'; });
+        renderCompleted(get('completed') === 'true');
+      });
+    })();
+  </script>
+
   <!-- Floating Back to Top Button -->
   <button class="back-to-top" id="backToTopBtn" type="button" aria-label="Przewiń do góry" title="Przewiń do góry">
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
   </button>
-  <script src="/js/cc-daily-course-share.js?v=20261025_v4" defer>
-    // ── Lektor Audio TTS ──
-    let ttsUtterance = null;
-    let isTtsPlaying = false;
-
-    function toggleAudioLesson() {
-      if (!('speechSynthesis' in window)) {
-        alert('Twoja przeglądarka nie wspiera odtwarzania mowy (Web Speech API).');
-        return;
-      }
-
-      if (isTtsPlaying) {
-        window.speechSynthesis.cancel();
-        isTtsPlaying = false;
-        updateTtsUi(false);
-        return;
-      }
-
-      const title = document.querySelector('h1')?.textContent?.trim() || '';
-      const thought = document.querySelector('.p-5 p, .p-6 p, .kc-card p')?.textContent?.trim() || '';
-      const body = document.getElementById('lesson-text-body')?.innerText || document.querySelector('main')?.innerText || '';
-      const fullSpeech = title + '. ' + thought + '. ' + body.slice(0, 4500);
-
-      window.speechSynthesis.cancel();
-      ttsUtterance = new SpeechSynthesisUtterance(fullSpeech);
-      ttsUtterance.lang = 'pl-PL';
-      ttsUtterance.rate = 0.96;
-
-      ttsUtterance.onend = () => {
-        isTtsPlaying = false;
-        updateTtsUi(false);
-      };
-
-      ttsUtterance.onerror = () => {
-        isTtsPlaying = false;
-        updateTtsUi(false);
-      };
-
-      window.speechSynthesis.speak(ttsUtterance);
-      isTtsPlaying = true;
-      updateTtsUi(true);
-    }
-
-    function updateTtsUi(playing) {
-      const icon = document.getElementById('tts-icon');
-      const text = document.getElementById('tts-btn-text');
-      const btn = document.getElementById('btn-audio-tts');
-      if (playing) {
-        if (icon) icon.className = 'fa-solid fa-pause text-xs text-amber-300';
-        if (text) text.textContent = 'Pauza Audio';
-        if (btn) btn.classList.add('ring-2', 'ring-amber-400');
-      } else {
-        if (icon) icon.className = 'fa-solid fa-volume-high text-xs text-amber-300';
-        if (text) text.textContent = 'Słuchaj Audio';
-        if (btn) btn.classList.remove('ring-2', 'ring-amber-400');
-      }
-    }
-
-    // ── Master Reader Typography Controller ──
-    let currentReaderZoom = 0;
-
-    function initReaderSettings() {
-      const savedFont = localStorage.getItem('kc_reader_font') || 'serif';
-      const savedZoom = parseInt(localStorage.getItem('kc_reader_zoom') || '0', 10);
-      applyReaderFont(savedFont, false);
-      applyReaderZoom(savedZoom);
-    }
-
-    function toggleReaderFont() {
-      const current = document.documentElement.getAttribute('data-kc-font') === 'sans' ? 'sans' : 'serif';
-      const next = current === 'serif' ? 'sans' : 'serif';
-      localStorage.setItem('kc_reader_font', next);
-      applyReaderFont(next, true);
-    }
-
-    function applyReaderFont(font, updateZoom = true) {
-      if (font === 'sans') {
-        document.documentElement.setAttribute('data-kc-font', 'sans');
-      } else {
-        document.documentElement.removeAttribute('data-kc-font');
-      }
-
-      const desktopLabel = document.getElementById('reader-font-label');
-      if (desktopLabel) {
-        desktopLabel.textContent = font === 'sans' ? 'Krój: Inter' : 'Krój: Lora';
-      }
-
-      const mobileLabels = document.querySelectorAll('.kc-font-mobile-label');
-      mobileLabels.forEach(el => {
-        el.textContent = font === 'sans' ? 'Inter' : 'Lora';
-      });
-
-      const btn = document.getElementById('btn-reader-font');
-      if (btn) {
-        btn.title = font === 'sans' 
-          ? 'Aktywna: Inter (Ekranowa bezszeryfowa). Kliknij, aby zmienić na Lora (Książkowa szeryfowa)' 
-          : 'Aktywna: Lora (Książkowa szeryfowa). Kliknij, aby zmienić na Inter (Ekranowa bezszeryfowa)';
-      }
-
-      if (updateZoom) {
-        applyReaderZoom(currentReaderZoom);
-      }
-    }
-
-    function adjustFontSize(delta) {
-      currentReaderZoom = Math.max(-2, Math.min(3, currentReaderZoom + delta));
-      localStorage.setItem('kc_reader_zoom', currentReaderZoom);
-      applyReaderZoom(currentReaderZoom);
-    }
-
-    function applyReaderZoom(zoom) {
-      currentReaderZoom = zoom;
-      const isSans = document.documentElement.getAttribute('data-kc-font') === 'sans';
-      const baseRem = isSans ? (1.00 + (zoom * 0.07)) : (1.05 + (zoom * 0.07));
-      document.documentElement.style.setProperty('--kc-font-size', baseRem.toFixed(3) + 'rem');
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initReaderSettings);
-    } else {
-      initReaderSettings();
-    }
-
-  </script>
+  <script src="/js/cc-daily-course-share.js?v=20261025_v4" defer></script>
 </body>
 </html>
