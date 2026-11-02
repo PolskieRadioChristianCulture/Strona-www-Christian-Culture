@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-01T11:43:16.596Z",
-  "totalItems": 400,
+  "updatedAt": "2026-11-02T05:42:07.941Z",
+  "totalItems": 401,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1062,6 +1062,39 @@
   },
   "items": [
     {
+      "title": "Z Biblią za Pan Brat — Dzień 33 (Lekcja 33 na dziś): Z wód Nilu do pustyni Madian: Ocalenie Mojżesza, czas próby i Boża pamięć o przymierzu (Wj 2:1–25)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-33",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 33 (Lekcja 33 na dziś, 2 listopada 2026). Księga Wyjścia: koszyk z sitowia, córka faraona, ucieczka do Madianu i Boża wierność przymierzu — Wj 2:1–25.",
+      "tags": [
+        "lekcja 33",
+        "lekcja 33 na dziś",
+        "lekcja na dziś",
+        "dzień 33",
+        "dzien 33",
+        "rozważanie 33",
+        "rozważanie na dziś",
+        "słowo na dziś",
+        "z wód nilu do pustyni madian",
+        "mojżesz",
+        "nil",
+        "arka",
+        "koszyk z sitowia",
+        "madian",
+        "reuel",
+        "sefora",
+        "przymierze",
+        "wj 2",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "2 listopada 2026",
+        "dzisiaj",
+        "dziś"
+      ],
+      "featured": true
+    },
+    {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
       "url": "https://cclite.pl",
@@ -1955,19 +1988,15 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 32 (Lekcja 32 na dziś): W nieskrępowanym rozroście: Nowy król, uciskanie i Boże ocalenie (Wj 1:1–22)",
+      "title": "Z Biblią za Pan Brat — Dzień 32 (Lekcja 32): W nieskrępowanym rozroście: Nowy król, uciskanie i Boże ocalenie (Wj 1:1–22)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-32",
       "description": "Kurs Codzienny Pisma Świętego — Dzień 32 (Lekcja 32 na dziś, 1 listopada 2026). Księga Wyjścia: nowy faraon, niewola Izraela, heroiczna wiara położnych Szifry i Pui oraz Boże ocalenie życia — Wj 1:1–22.",
       "tags": [
         "lekcja 32",
-        "lekcja 32 na dziś",
-        "lekcja na dziś",
         "dzień 32",
         "dzien 32",
         "rozważanie 32",
-        "rozważanie na dziś",
-        "słowo na dziś",
         "w nieskrępowanym rozroście",
         "nowy król",
         "faraon",
@@ -1979,11 +2008,9 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "1 listopada 2026",
-        "dzisiaj",
-        "dziś"
+        "1 listopada 2026"
       ],
-      "featured": true
+      "featured": false
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 31 (Lekcja 31): Bóg obrócił to w dobro — Ewangelia Opatrzności (Rdz 50:1–26)",
