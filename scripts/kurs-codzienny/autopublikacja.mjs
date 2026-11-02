@@ -89,7 +89,9 @@ async function sprawdzPrzegladarka(url) {
       const bledy = [];
       strona.on('pageerror', (e) => bledy.push(e.message));
       strona.on('console', (m) => { if (m.type() === 'error') bledy.push(m.text()); });
-      await strona.goto(`${url}?kc_auto=${Date.now()}`, { waitUntil: 'networkidle', timeout: 60_000 });
+      // Strona ma stałe połączenia (radio, analityka), więc „networkidle” nie nadchodzi — czekamy na load i 3 s na skrypty.
+      await strona.goto(`${url}?kc_auto=${Date.now()}`, { waitUntil: 'load', timeout: 60_000 });
+      await strona.waitForTimeout(3000);
       const stan = await strona.evaluate(() => ({
         lektor: typeof toggleAudioLesson, kroj: typeof toggleReaderFont, rozmiar: typeof adjustFontSize,
         // eslint-disable-next-line no-undef
