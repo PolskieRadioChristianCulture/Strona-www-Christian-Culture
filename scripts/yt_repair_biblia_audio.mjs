@@ -10,11 +10,12 @@ import path from 'node:path';
 import { inventory } from './yt_studio_inventory.mjs';
 import { reconcile } from './yt_reconcile_history.mjs';
 import { uploadEpisodeToChannel } from './publish_perfect.mjs';
+import { BIBLIA_AUDIO_CHANNELS } from './yt_studio_session.mjs';
 
 const GENESIS_DIR = 'C:\\Users\\czark\\Desktop\\Biblia Audio CC — Gotowe do Emisji\\01_Stary_Testament\\01_Ksiega_Rodzaju';
 const HISTORY_FILE = path.resolve('C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\data\\youtube_published_history.json');
 const REPORT_FILE = path.resolve('C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\data\\youtube_repair_report.json');
-const PRIMARY = ['Biblia Audio Christian Culture', 'Werset Dnia - Chrześcijański Serwis Biblijny'];
+const PRIMARY = BIBLIA_AUDIO_CHANNELS; // komplet na wszystkich 7 kanałach (L0 02.11.2026)
 const EXECUTE = process.argv.includes('--wykonaj');
 
 export function episodes(dir = GENESIS_DIR) {
@@ -69,6 +70,8 @@ async function main() {
   const channels = [...new Set(eps.flatMap(ep => targetChannels(history, ep)))];
   console.log(`Spis Studio: ${channels.join(', ')}`);
   const inv = await inventory(channels);
+  // Studio pada przy dużych kanałach („Page crashed”) — jeden ponowny spis w nowej przeglądarce.
+  for (let i = 0; i < inv.length; i++) if (inv[i].error) { console.log(`Ponowny spis: ${inv[i].channel}`); inv[i] = (await inventory([inv[i].channel]))[0]; }
   reconcile(history, inv);
   fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2), 'utf8');
 

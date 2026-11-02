@@ -45,7 +45,9 @@ export function scheduleTarget({ channelName = null, isShorts = false, now = new
   let ymd = addDays(warsawDay(now), days);
   if (channelName) {
     const taken = (history || readHistory()).published
-      .filter(p => p.channel === channelName && Boolean(p.scheduledDate) && /shorts/i.test(p.videoFile) === isShorts)
+      // Kolejka liczona osobno dla każdej pory (slotu): zaległości 18:00 nie opóźniają bieżącego odcinka 20:00.
+      .filter(p => p.channel === channelName && Boolean(p.scheduledDate) && /shorts/i.test(p.videoFile) === isShorts
+        && ((p.scheduledFor || '').match(/\d\d:\d\d/) || ['18:00'])[0] === time)
       .map(p => p.scheduledDate).sort();
     const last = taken[taken.length - 1];
     if (last && last >= ymd) ymd = addDays(last, 1);
@@ -155,7 +157,8 @@ export async function uploadEpisodeToChannel({
   channelId = 'UCCqHRCEuSDhlRcvcQ6qM1Kw',
   channelName = 'Biblia Audio Christian Culture',
   visibility = 'public',
-  draftVideoId = null
+  draftVideoId = null,
+  scheduleTime = undefined // np. '20:00' bieżący odcinek, domyślnie CC_YT_SCHEDULE_TIME || '18:00'
 }) {
   console.log('\n========================================================');
   console.log(`🚀 PUBLIKACJA NA KANALE: ${channelName}`);
@@ -182,7 +185,7 @@ export async function uploadEpisodeToChannel({
   console.log(`• Tytuł: ${title}`);
   console.log(`• Plik: ${path.basename(videoPath)}`);
   const isShorts = /shorts/i.test(path.basename(videoPath));
-  const schedule = visibility === 'public' ? scheduleTarget({ channelName, isShorts }) : null;
+  const schedule = visibility === 'public' ? scheduleTarget({ channelName, isShorts }, undefined, scheduleTime) : null;
   console.log(`• Widoczność: ${visibility}${schedule ? ` — zaplanowana na ${schedule.date} ${schedule.time}${isShorts ? '' : ' (premiera)'}` : ''}`);
 
   const { ctx, page } = await launchStudio();
@@ -595,7 +598,7 @@ export async function uploadEpisodeToChannel({
       // plik jest już w całości na YouTube — zamknięcie przeglądarki niczego nie przerwie
       console.log(`  -> ${err.message}`);
       await ctx.close();
-      return uploadEpisodeToChannel({ videoPath, metaPath, channelId, channelName, visibility, draftVideoId: err.resumedVideoId });
+      return uploadEpisodeToChannel({ videoPath, metaPath, channelId, channelName, visibility, draftVideoId: err.resumedVideoId, scheduleTime });
     }
     console.error(`❌ BŁĄD PUBLIKACJI:`, err.message);
     try {

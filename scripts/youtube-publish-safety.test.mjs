@@ -55,6 +55,18 @@ test('termin premiery: +2 dni 18:00, kolejny wolny dzień na kanale, format pola
   assert.equal(scheduleTarget({ channelName: 'X', now, history: busy }, 2, '18:00').ymd, '2026-11-07', '4K po ostatniej premierze 4K');
   assert.equal(scheduleTarget({ channelName: 'X', isShorts: true, now, history: busy }, 2, '18:00').ymd, '2026-11-10', 'Shorts liczone osobno');
   assert.equal(scheduleTarget({ now, history: empty }, 0), null, 'CC_YT_SCHEDULE_DAYS=0 → publikacja od razu');
+  // bieżący odcinek (20:00) nie czeka za kolejką zaległości (18:00)
+  const backlog = { published: [{ channel: 'X', videoFile: 'b_4K.mp4', scheduledDate: '2026-11-20', scheduledFor: '20 lis 2026 18:00 Europe/Warsaw' }] };
+  assert.equal(scheduleTarget({ channelName: 'X', now, history: backlog }, 2, '20:00').ymd, '2026-11-04');
+  assert.equal(scheduleTarget({ channelName: 'X', now, history: backlog }, 2, '18:00').ymd, '2026-11-21');
+});
+
+test('Biblia Audio: komplet na wszystkich 7 kanałach, każdy z ID', async () => {
+  const { BIBLIA_AUDIO_CHANNELS } = await import('./yt_studio_session.mjs');
+  const { targetChannels } = await import('./yt_repair_biblia_audio.mjs');
+  assert.equal(BIBLIA_AUDIO_CHANNELS.length, 7);
+  for (const n of BIBLIA_AUDIO_CHANNELS) assert.match(CHANNELS[n].id, /^UC[\w-]{22}$/, n);
+  assert.deepEqual(targetChannels({ published: [] }, { prefix: 'X' }).sort(), [...BIBLIA_AUDIO_CHANNELS].sort());
 });
 
 test('uzgodnienie historii: przerwane, robocze, zaplanowane, brak, film na innym kanale', () => {

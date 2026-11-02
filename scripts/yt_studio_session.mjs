@@ -10,13 +10,16 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 export const CHANNELS = {
   'Biblia Audio Christian Culture': { id: 'UCCqHRCEuSDhlRcvcQ6qM1Kw', handle: '@bibliaaudiocc', via: '@osobowośćPLUS' },
   'Werset Dnia - Chrześcijański Serwis Biblijny': { id: 'UCyOvW5DuDLVq5XWFyijgtbw', handle: '@wersetdnia_ChSB', via: '@osobowośćPLUS' },
-  'Polskie Radio CHRISTIAN CULTURE': { handle: '@RadioChristianCulture', via: '@osobowośćPLUS' },
+  'Polskie Radio CHRISTIAN CULTURE': { id: 'UCNnCdsJ-K6FXulZzXZHWkjQ', handle: '@RadioChristianCulture', via: '@osobowośćPLUS' },
   // UWAGA: UCHmPxDM2zzlUAf5ZvlotPLw to „Osobowość +”, NIE „Christian Culture TV” (błąd w SOP do 02.11.2026).
-  'Christian Culture TV': { handle: '@ChristianCultureTV', via: '@ChristianCultureTV' },
+  'Christian Culture TV': { id: 'UCG5Y4dwJi5436Gu6QH3nNUQ', handle: '@ChristianCultureTV', via: '@ChristianCultureTV' },
   'Osobowość +': { id: 'UCHmPxDM2zzlUAf5ZvlotPLw', handle: '@osobowośćPLUS', via: '@osobowośćPLUS' },
-  'CC Women': { handle: '@CCWomen7', via: '@CCWomen7' },
-  'CC Men': { handle: '@CCMen7', via: '@CCMen7' }
+  'CC Women': { id: 'UC-LPFt-vmJCeap746DOWMgw', handle: '@CCWomen7', via: '@CCWomen7' },
+  'CC Men': { id: 'UCUpuq9JS7jitIcm9iBn0jnA', handle: '@CCMen7', via: '@CCMen7' }
 };
+
+// Biblia Audio: KOMPLET (4K + Shorts) na wszystkich 7 kanałach — decyzja L0 02.11.2026.
+export const BIBLIA_AUDIO_CHANNELS = Object.keys(CHANNELS);
 
 export async function launchStudio({ headless = true } = {}) {
   const ctx = await chromium.launchPersistentContext(PROFILE_DIR, {
