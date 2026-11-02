@@ -13,6 +13,24 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://polskieradio.cc/wyszukiwarka</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/player</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/modlitwa</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/o-nas</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>

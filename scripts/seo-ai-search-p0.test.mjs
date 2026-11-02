@@ -44,9 +44,12 @@ test('sitemap.xml: acts as a valid canonical sitemapindex', () => {
 
   const locMatches = [...xml.matchAll(/<loc>https:\/\/polskieradio\.cc\/([^<]+)<\/loc>/g)].map(m => m[1]);
   assert.ok(locMatches.length >= 7, 'has at least 7 sub-sitemaps');
+  // Mapa może być plikiem albo generowana na żywo przez _worker.js (np. /sitemaps/topten.xml z lastmod ostatniego głosu).
+  const workerCode = fs.readFileSync(path.join(ROOT, '_worker.js'), 'utf8');
   for (const subSitemap of locMatches) {
     const localFile = path.join(ROOT, subSitemap);
-    assert.ok(fs.existsSync(localFile), `referenced sub-sitemap exists: ${subSitemap}`);
+    const servedByWorker = workerCode.includes(`url.pathname === '/${subSitemap}'`);
+    assert.ok(fs.existsSync(localFile) || servedByWorker, `referenced sub-sitemap exists: ${subSitemap}`);
   }
 });
 

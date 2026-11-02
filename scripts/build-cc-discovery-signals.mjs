@@ -413,6 +413,9 @@ export function buildAllDiscoverySignals() {
   const corePaths = [
     { path: '/', lastmod: '2026-10-17', priority: '1.0', changefreq: 'daily' },
     { path: '/szukaj', lastmod: '2026-10-15', priority: '0.95', changefreq: 'daily' },
+    { path: '/wyszukiwarka', lastmod: '2026-11-02', priority: '0.95', changefreq: 'daily' },
+    { path: '/player', lastmod: '2026-11-02', priority: '0.90', changefreq: 'daily' },
+    { path: '/modlitwa', lastmod: '2026-11-02', priority: '0.85', changefreq: 'weekly' },
     { path: '/o-nas', lastmod: '2026-10-15', priority: '0.90', changefreq: 'monthly' },
     { path: '/polityka-redakcyjna', lastmod: '2026-10-17', priority: '0.85', changefreq: 'monthly' },
     { path: '/news', lastmod: '2026-10-17', priority: '0.95', changefreq: 'hourly' },
