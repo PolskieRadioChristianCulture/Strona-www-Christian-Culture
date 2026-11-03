@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {normalizeMissionTask,canViewMissionTask,mayRequestDelegation,shouldEscalateMissingAck,buildDispatchEvent} from '../js/holos-mission-planner-contract.mjs';
+const task={task_id:'T-1',owner_uid:'owner1',title:'Misja',status:'ASSIGNED',assignee_agent_id:'@007',approval_ref:'L0-1',shared_scope:'MISSION_TASK_ONLY',delegate_uid:'deputy1',allow_delegate_dispatch:true};
+test('rejects invalid state',()=>assert.throws(()=>normalizeMissionTask({...task,status:'INVALID'})));
+test('owner L0 can view',()=>assert.equal(canViewMissionTask({authenticated:true,l0Verified:true,uid:'owner1'},task),true));
+test('delegate cannot see full private planner',()=>assert.equal(canViewMissionTask({authenticated:true,delegateVerified:true,uid:'deputy1',permissions:['mission.tasks.read']},{...task,shared_scope:'OWNER_PRIVATE'}),false));
+test('verified delegate can view only shared task',()=>assert.equal(canViewMissionTask({authenticated:true,delegateVerified:true,uid:'deputy1',permissions:['mission.tasks.read']},task),true));
+test('delegate cannot dispatch without scope',()=>assert.equal(mayRequestDelegation({authenticated:true,delegateVerified:true,uid:'deputy1',permissions:['mission.tasks.read']},task,'@007'),false));
+test('missing ACK requires escalation',()=>assert.equal(shouldEscalateMissingAck({...task,ack_deadline_utc:'2026-10-20T05:00:00Z'},new Date('2026-10-20T06:00:00Z')),true));
+test('dispatch blocked without approved task',()=>assert.throws(()=>buildDispatchEvent({...task,approval_ref:null},'evt1')));
+test('approved event contains no private description',()=>assert.equal('description' in buildDispatchEvent(task,'evt1'),false));
