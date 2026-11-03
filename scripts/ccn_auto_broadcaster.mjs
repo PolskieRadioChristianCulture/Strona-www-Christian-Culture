@@ -748,6 +748,8 @@ function formatBroadcasterTweet(item) {
     bodyText = item.lead;
   } else if ((item.url || '').toLowerCase().includes('rozwiaz')) {
     bodyText = 'Rzuć palenie w 14 dni — bezpłatny kurs, plan na głód nikotynowy, audio i biblijna nadzieja.';
+  } else if ((item.url || '').includes('blackout') || (item.title || '').toLowerCase().includes('blackout')) {
+    bodyText = 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę według biblijnej roztropności.';
   } else if ((item.url || '').includes('dzien-34')) {
     bodyText = 'Dzień 34 (Wj 3:1–22): Płonący krzak, Święte Imię Boga i Boże zstąpienie na ratunek ludu.';
   } else if ((item.url || '').includes('dzien-33')) {
@@ -1004,7 +1006,9 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
       (lastTitleLower.includes('dzien-33') && candTitleLower.includes('dzien-33')) ||
       (lastTitleLower.includes('dzień 34') && candTitleLower.includes('dzień 34')) ||
       (lastTitleLower.includes('dzien-34') && candTitleLower.includes('dzien-34')) ||
-      (lastTitleLower.includes('płonący krzak') && candTitleLower.includes('płonący krzak'));
+      (lastTitleLower.includes('płonący krzak') && candTitleLower.includes('płonący krzak')) ||
+      ((lastTitleLower.includes('z biblią za pan brat') || lastTitleLower.includes('kurs codzienny') || lastTitleLower.includes('akademia biblijna')) &&
+       (candTitleLower.includes('z biblią za pan brat') || candTitleLower.includes('kurs codzienny') || candTitleLower.includes('akademia biblijna')));
 
     // Ochrona przed dwoma postami tego samego typu pod rząd (np. 2x profile, 2x music)
     const isTypeDuplicate = lastItem.type && cand.type === lastItem.type;
