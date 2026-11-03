@@ -2,6 +2,22 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mojabiblia",
+      "title": "Interlinearna MojaBiblia — Kody Stronga, Greka, Hebrajski i Przekład UBG",
+      "url": "https://polskieradio.cc/mojabiblia",
+      "type": "module",
+      "image": "art-rdz15-abram-gwiazdy.jpg",
+      "publishedAt": "2026-11-03T16:04:58.685Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia",
+      "title": "PREMIERA WIDEO: Werset Dnia UBG — Codzienna dawka Słowa Bożego w pionowym formacie wideo. Dziś Dzień 1: Ewangelia Jana 3:16",
+      "url": "https://polskieradio.cc/werset-dnia",
+      "publishedAt": "2026-11-03T15:55:51.914Z",
+      "method": "playwright_free"
+    },
+    {
       "slug": "lumina.cezaryrgowski",
       "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
       "url": "https://polskieradio.cc/lumina.cezaryrgowski",
