@@ -17,3 +17,6 @@ scratch/
 *.log
 *.zip
 **/*.zip
+
+.x_browser_profile/
+.x_browser_profile/**

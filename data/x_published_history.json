@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "dekalog-bozy",
+      "title": "Werset Dnia: „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8, UBG)",
+      "url": "https://polskieradio.cc/prawo/dekalog-bozy",
+      "type": "verse",
+      "image": "art-dekalog-dziesiec-przykazan-wujek.jpg",
+      "publishedAt": "2026-11-03T11:04:00.497Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "pokonac-goliata",
+      "title": "Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo",
+      "url": "https://polskieradio.cc/pokonac-goliata",
+      "type": "book",
+      "image": "art-pokonac-goliata.jpg",
+      "publishedAt": "2026-11-03T10:33:03.906Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga",
       "title": "Z Biblią za Pan Brat: Dzień 34 — Płonący krzak i Święte Imię Boga: teofania na Horebie i Boże zstąpienie w Wj 3",
       "url": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga",
