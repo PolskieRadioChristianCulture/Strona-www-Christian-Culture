@@ -41,6 +41,7 @@ export const AUTHORS: Record<string, Author> = {
 };
 
 export const BREAKING_NEWS: string[] = [
+  "Z Biblią za Pan Brat: Dzień 34 — Płonący krzak: Święte Imię Boga i Boże zstąpienie na ratunek (Wj 3:1–22)",
   "Z Biblią za Pan Brat: Dzień 33 — Z wód Nilu do pustyni Madian: Ocalenie Mojżesza, czas próby i Boża pamięć o przymierzu (Wj 2:1–25)",
   "SPRAWOZDANIE MISYJNE PAŹDZIERNIK 2026: Ponad 1000 godzin Słowa Bożego i muzyki chrześcijańskiej w 32 krajach świata — pełny oficjalny raport Cezarego Rogowskiego (https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026)",
   "CCN NAUKA & BIOETYKA: Granice ingerencji w ludzki genom. CRISPR, syntetyczne embriony a biblijna prawda o początku życia — analiza Cezarego Rogowskiego (Ps 139:13–16; Rdz 1:26–27)",
@@ -80,6 +81,56 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    id: 'art-z-biblia-za-pan-brat-dzien-34',
+    title: 'Z Biblią za Pan Brat: Dzień 34 — Płonący krzak i Święte Imię Boga: teofania na Horebie i Boże zstąpienie w Wj 3',
+    slug: 'z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga',
+    excerpt: 'Księga Wyjścia 3: Pustynia Madian, cierń w ogniu, zdjęcie sandałów, objawienie Imienia JESTEM, KTÓRY JESTEM i Boże zstąpienie na ratunek ludu (Wj 3:1–22 UBG).',
+    content: [
+      'W ramach ogólnopolskiego programu studium biblijnego „Z Biblią za Pan Brat”, publikujemy egzegetyczne studium trzeciego rozdziału Księgi Wyjścia (Wj 3:1–22 UBG). Rozdział ten stanowi jeden z absolutnych fundamentów biblijnej teologii objawienia: odsłania bezpośrednie powołanie Mojżesza, odsłonięcie boskiego Imienia JHWH oraz proklamację historyczno-zbawczego zstąpienia Boga na ratunek uciskanemu ludowi przymierza.',
+      '1. Geotopografia teofanii: Pustynia, Horeb i cierń w ogniu (Wj 3:1–3 UBG)',
+      'Narracja przenosi czytelnika na odległe pastwiska pustyni Madian. Osiemdziesięcioletni Mojżesz, pasterz trzody swego teścia Jetra (Reuela), dociera do „góry Bożej Horeb” (utożsamianej z Synajem). Na tym surowym pustkowiu ukazuje mu się Pan w płomieniu ognia ze środka krzaka (Wj 3:2). Ciernisty krzew płonie czystym płomieniem, lecz nie ulega spaleniu. Boża obecność ogarnia to, co kruche i naznaczone słabością, nie niszcząc go, lecz uświęcając.',
+      '2. Nakaz zdjęcia sandałów i ziemia święta (Wj 3:4–6 UBG)',
+      'Gdy zaciekawiony Mojżesz zbliża się, by zbadać niezwykłe zjawisko, słyszy głos Boga: „Mojżeszu, Mojżeszu!... Nie zbliżaj się tu; zdejmij obuwie z twoich nóg, bo miejsce, na którym stoisz, to ziemia święta” (Wj 3:4–5). Zdjęcie sandałów to gest bezwarunkowego poddania, czci i uznania absolutnej świętości Boga. Bóg natychmiast identyfikuje się w kategoriach przymierza: „Ja jestem Bogiem twojego ojca, Bogiem Abrahama, Bogiem Izaaka i Bogiem Jakuba” (Wj 3:6).',
+      '3. Teologia Bożego zstąpienia (Wj 3:7–10 UBG)',
+      'Bóg nie jest odległym obserwatorem ludzkiej niedoli. Jego słowa odsłaniają głębię empatii i suwerenności: „Widziałem ucisk mego ludu... Słyszałem ich krzyk... Znam bowiem ich cierpienia... I zstąpiłem, aby go wyrwać z ręki Egipcjan” (Wj 3:7–8). Bóg osobiście zstępuje, aby ratować swój lud, a jako narzędzie wyzwolenia powołuje Mojżesza.',
+      '4. Objawienie Imienia: JESTEM, KTÓRY JESTEM (Wj 3:11–15 UBG)',
+      'Na pytanie Mojżesza o Imię, Bóg odpowiada słowami wiecznego samookreślenia: „JESTEM, KTÓRY JESTEM” (Wj 3:14). Formuła ta wskazuje na Boga niestworzonego, samowystarczalnego i niezmiennego w przymierzu. Imię JHWH to gwarancja aktywnej obecności Boga po wszystkie pokolenia.',
+      '5. Chrystologiczne wypełnienie: JA JESTEM wcielone w Jezusie Chrystusie',
+      'W Nowym Testamencie teofania w płonącym krzaku i objawienie Imienia JHWH znajdują pełne wypełnienie w Jezusie Chrystusie. W Ewangelii Jana to Jezus mówi: „Zanim Abraham był, JA JESTEM” (J 8:58). Boże zstąpienie dokonało się ostatecznie we Wcieleniu, gdy Syn Boży przyszedł na ziemię, by przez krzyż i zmartwychwstanie wyzwolić ludzkość z niewoli grzechu i śmierci.'
+    ],
+    category: 'Biblia i Teologia',
+    categoryLabel: 'AKADEMIA BIBLIJNA • KURS CODZIENNY DZIEŃ 34',
+    author: AUTHORS.cezary,
+    publishedAt: '2026-11-03T06:00:00+01:00',
+    dateFormatted: '3 listopada 2026',
+    imageUrl: '/images/news/art-z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga.jpg',
+    imageCaption: 'Płonący krzak i Święte Imię Boga — teofania na Horebie i Boże zstąpienie (Wj 3:1–22). Z Biblią za Pan Brat Dzień 34.',
+    readTimeMinutes: 7,
+    isHero: false,
+    isPopular: true,
+    popularRank: 1,
+    tags: [
+      '@CezaryRogowski',
+      '@ChristianCulture',
+      '#ZBibliaZaPanBrat',
+      '#KsięgaWyjścia',
+      '#Wj3',
+      '#PlonacyKrzak',
+      '#JestemKtoryJestem',
+      '#JHWH',
+      '#UBG'
+    ],
+    scriptureReference: {
+      verse: 'Księga Wyjścia 3:14 (UBG)',
+      text: 'I Bóg odpowiedział Mojżeszowi: JESTEM, KTÓRY JESTEM. I dodał: Tak powiesz synom Izraela: JESTEM posłał mnie do was.',
+      strongCode: 'H1961'
+    },
+    sourceCitation: {
+      sourceName: 'Akademia Biblijna Christian Culture — Kurs Codzienny Dzień 34 (Wj 3:1–22 UBG)',
+      sourceUrl: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-34'
+    }
+  },
   {
     id: 'art-z-biblia-za-pan-brat-dzien-33',
     title: 'Z Biblią za Pan Brat: Dzień 33 — Z wód Nilu do pustyni Madian: ocalenie Mojżesza, próba i Boża pamięć w Wj 2',

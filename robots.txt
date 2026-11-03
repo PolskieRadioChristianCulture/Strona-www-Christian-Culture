@@ -24,8 +24,6 @@ Disallow: /*?query=*
 # OAI-SearchBot i boty wyszukujące traktowane odrębnie od botów treningowych (Sekcja 6)
 User-agent: OAI-SearchBot
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 Disallow: /mission-control/
 Disallow: /lumina-login
@@ -34,28 +32,20 @@ Disallow: /mess
 
 User-agent: ChatGPT-User
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 Disallow: /mission-control/
 
 User-agent: PerplexityBot
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 Disallow: /mission-control/
 
 User-agent: Applebot
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 
 User-agent: Googlebot
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 
 User-agent: Googlebot-News
@@ -64,15 +54,11 @@ Allow: /sitemaps/news-google.xml
 
 User-agent: Bingbot
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 
 # ── 2. AI Model Training Crawlers (Controlled Public Access, Zero Private Data) ──
 User-agent: GPTBot
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 Disallow: /mission-control/
 Disallow: /lumina-login
@@ -81,8 +67,6 @@ Disallow: /mess
 
 User-agent: ClaudeBot
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 Disallow: /mission-control/
 Disallow: /lumina-login
@@ -91,26 +75,18 @@ Disallow: /mess
 
 User-agent: anthropic-ai
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 
 User-agent: Google-Extended
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 
 User-agent: Applebot-Extended
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 
 User-agent: CCBot
 Allow: /
-Disallow: /*?q=*
-Disallow: /*?query=*
 Disallow: /admin/
 
 # ── 3. XML Sitemaps & Thematic Discovery Maps (Sekcja 5) ──
