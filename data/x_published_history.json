@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina-tablica",
+      "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
+      "url": "https://polskieradio.cc/lumina-tablica",
+      "type": "profile",
+      "image": "card-lumina.jpg",
+      "publishedAt": "2026-11-03T11:34:59.000Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "gerald-welch-the-call",
       "title": "Nowość Muzyczna: Gerald Welch — THE CALL. Głębokie uwielbienie w Polskim Radiu CC",
       "url": "https://polskieradio.cc/news/gerald-welch-the-call",
