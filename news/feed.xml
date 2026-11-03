@@ -8,8 +8,18 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Tue, 03 Nov 2026 06:28:26 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 13:11:13 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Gdy kamienie wołają w Jerozolimie: Jak bulla króla Ezechiasza, tunel Siloe i stela z Tel Dan weryfikują historię biblijną</title>
+      <link>https://polskieradio.cc/news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan</guid>
+      <pubDate>Tue, 03 Nov 2026 13:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN HISTORIA • ARCHEOLOGIA BIBLIJNA</category>
+      <description>Współczesna archeologia Bliskiego Wschodu weryfikuje minimalistyczne teorie kwestionujące historyczność monarchii judzkiej. Odkrycia w Jerozolimie i Galilei – w tym bulla Ezechiasza, stela z Tel Dan i akwedukt Siloe – dostarczają bezspornych dowodów na autentyczność relacji Ksiąg Królewskich.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Z Biblią za Pan Brat: Dzień 34 — Płonący krzak i Święte Imię Boga: teofania na Horebie i Boże zstąpienie w Wj 3</title>
       <link>https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga</link>
@@ -299,16 +309,6 @@
       <category>CCN EDUKACJA / RODZINA — BEZPIECZEŃSTWO DZIECI</category>
       <description>Śmierć 37-letniej woźnej po ataku w Leszczydole-Nowinach poruszyła Polskę. Obok pytań o bezpieczeństwo i odpowiedzialność warto postawić biblijne pytanie: jak chronić życie, uczyć panowania nad gniewem i nie pozostawiać rodzin samych?</description>
       <enclosure url="https://polskieradio.cc/images/news/art-tragedia-szkola-wyszkow-przemoc-biblia.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Wojna, ciemność i nadzieja. Ukraina przed zimą — czego Jezus uczy o pokoju?</title>
-      <link>https://polskieradio.cc/news/wojna-ukraina-jezus-pokoj-znaki-czasow</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/wojna-ukraina-jezus-pokoj-znaki-czasow</guid>
-      <pubDate>Sat, 17 Oct 2026 08:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>CCN NEWS — ŚWIAT / POKÓJ I POMOC HUMANITARNA</category>
-      <description>Październikowe ataki na ukraińską infrastrukturę energetyczną i rozmowy europejskich przywódców przypominają, że w centrum politycznych sporów są ludzie. Jak chrześcijanin powinien czytać „wieści wojenne” i odpowiadać na cierpienie?</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-wojna-ukraina-jezus-pokoj-znaki-czasow.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>

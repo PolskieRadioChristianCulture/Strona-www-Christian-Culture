@@ -1,13 +1,13 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-03T06:28:26.332Z",
+  "generatedAt": "2026-11-03T13:11:13.729Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 84,
-    "validUrls": 84,
+    "totalValidatedUrls": 85,
+    "validUrls": 85,
     "invalidUrls": 0,
-    "newsArticlesCount": 78,
-    "googleNews48hCount": 32,
+    "newsArticlesCount": 79,
+    "googleNews48hCount": 33,
     "akademiaUrlsCount": 65,
     "bibliaUrlsCount": 4,
     "muzykaUrlsCount": 9,
@@ -31,25 +31,25 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 23596,
+      "sizeBytes": 23747,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 30767,
+      "sizeBytes": 30926,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 38910,
+      "sizeBytes": 39464,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 26532,
+      "sizeBytes": 27409,
       "status": "OK"
     },
     {
@@ -90,10 +90,10 @@
     }
   ],
   "indexNow": {
-    "keyConfigured": false,
+    "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 39,
-    "pendingCount": 39,
+    "totalQueued": 40,
+    "pendingCount": 40,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-03T06:28:26.326Z",
+        "queuedAt": "2026-11-03T13:11:13.723Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-03T06:28:26.326Z",
+        "queuedAt": "2026-11-03T13:11:13.723Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-03T06:28:26.326Z",
+        "queuedAt": "2026-11-03T13:11:13.723Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-03T06:28:26.326Z",
+        "queuedAt": "2026-11-03T13:11:13.723Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-03T06:28:26.326Z",
+        "queuedAt": "2026-11-03T13:11:13.723Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -382,7 +382,11 @@
         },
         "status": "PENDING"
       }
-    ]
+    ],
+    "keyMasked": "cc777b...c28e",
+    "totalIndexedUrls": 337,
+    "lastSubmittedCount": 337,
+    "lastSubmittedAt": "2026-11-03T13:11:16.323Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -398,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan.html",
+      "canonicalUrl": "https://polskieradio.cc/news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga.html",
       "canonicalUrl": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga",
@@ -589,14 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/nie-czekaj-az-zycie-sie-zmieni-zacznij-od-siebie-z-bogiem-mozesz-wiecej.html",
-      "canonicalUrl": "https://polskieradio.cc/news/nie-czekaj-az-zycie-sie-zmieni-zacznij-od-siebie-z-bogiem-mozesz-wiecej",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
-  ]
+  ],
+  "lastInstantIndexingAt": "2026-11-03T13:11:16.323Z"
 }
