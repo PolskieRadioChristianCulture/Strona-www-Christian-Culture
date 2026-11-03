@@ -2,6 +2,42 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mojabiblia?ref=GEN.15.5",
+      "title": "Werset Dnia: „Spójrz ku niebu i policz gwiazdy...” (Rdz 15:5, UBG)",
+      "url": "https://polskieradio.cc/mojabiblia?ref=GEN.15.5",
+      "type": "verse",
+      "image": "art-rdz15-abram-gwiazdy.jpg",
+      "publishedAt": "2026-11-03T07:36:53.664Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "lumina.cezaryrgowski",
+      "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
+      "url": "https://polskieradio.cc/lumina.cezaryrgowski",
+      "type": "profile",
+      "image": "cezary-wioletta-radiocc.jpg",
+      "publishedAt": "2026-11-03T07:04:35.992Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "rozwiaz-problem",
+      "title": "Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański",
+      "url": "https://polskieradio.cc/rozwiaz-problem",
+      "type": "course",
+      "image": "og-rozwiaz-problem.jpg",
+      "publishedAt": "2026-11-03T06:10:27.682Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "dzien-34",
+      "title": "Akademia Biblijna: Z Biblią za Pan Brat — Dzień 34 (Wj 3:1–22): Płonący krzak i Święte Imię Boga",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-34",
+      "type": "module",
+      "image": "art-z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga.jpg",
+      "publishedAt": "2026-11-03T05:08:58.996Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "CezaryRogowski",
       "title": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
       "url": "https://polskieradio.cc/CezaryRogowski",
