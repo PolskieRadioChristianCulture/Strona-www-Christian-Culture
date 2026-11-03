@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "sprawozdanie-misyjne-pazdziernik-2026",
+      "title": "Sprawozdanie misyjne Christian Culture za październik 2026: Słowo Boże, muzyka i prawda na 5 kontynentach",
+      "url": "https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026",
+      "type": "news",
+      "image": "art-sprawozdanie-misyjne-pazdziernik-2026.jpg",
+      "publishedAt": "2026-11-03T12:07:31.340Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "dzien-33",
+      "title": "Akademia Biblijna: Z Biblią za Pan Brat — Dzień 33 (Wj 2:1–25): Z wód Nilu do pustyni Madian",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-33",
+      "type": "module",
+      "image": "art-z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian.jpg",
+      "publishedAt": "2026-11-03T12:07:02.932Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina-tablica",
       "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
       "url": "https://polskieradio.cc/lumina-tablica",
