@@ -17,6 +17,7 @@ import {
   dataPolska, dataDnia, slugDnia, daneLekcji, dodajKarte, zaktualizujHero, zaktualizujLicznik, sprawdzSpis,
   linkNastepny, podmienJutro, pytaniaQuizu, pozostalosci, zaktualizujWyszukiwarke, dodajDoMapy, dopiszRozwazanie,
 } from './lib.mjs';
+import { sprawdzLekcje } from './straznik-lekcji.mjs';
 
 export const KOLEJKA = 'kolejka-publikacji/kurs-codzienny';
 export const SPIS = [
@@ -80,6 +81,8 @@ export async function publikujDzien({ root = process.cwd(), data, zapisz = false
   if (resztki.length && meta.pozostalosciSprawdzone !== true) {
     throw new Error(`lekcja ma odwołania do Dnia ${n - 1} poza paskiem nawigacji (wiersze ${resztki.slice(0, 12).join(', ')}) — pozostałość po kopiowaniu; jeśli są świadome, ustaw meta.pozostalosciSprawdzone = true`);
   }
+  const niespojne = sprawdzLekcje(lekcja, n); // bez wyjątku w meta — strażnik @007 po incydencie Dnia 34
+  if (niespojne.length) throw new Error(`STRAŻNIK LEKCJI: Dzień ${n} niespójny — ${niespojne.join('; ')}`);
   if (resztki.length) ostrzezenia.push(`odwołania do Dnia ${n - 1} zatwierdzone ręcznie (wiersze ${resztki.join(', ')})`);
 
   // ── 3. Grafika: nowa, unikalna, istniejąca ──

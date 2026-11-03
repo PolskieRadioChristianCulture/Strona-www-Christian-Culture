@@ -7,6 +7,7 @@ import { applyPageStandard } from './cc-page-standard.mjs';
 import { renderLumiPage } from './lumi-page.mjs';
 import { scanReleaseForSecrets } from './cc-release-secret-scan.mjs';
 import { isPublicFile } from './cc-release-files.mjs';
+import { sprawdzPliki, plikiLekcji } from './kurs-codzienny/straznik-lekcji.mjs';
 
 const ROOT = process.cwd();
 const OUTPUT = path.join(ROOT, '.pages-release');
@@ -22,6 +23,12 @@ const trackedChanges = execFileSync('git', ['status', '--porcelain', '--untracke
 }).trim();
 if (trackedChanges) {
   throw new Error('Wydanie przerwane: pliki kontrolowane przez Git nie są czyste. Najpierw zatwierdź albo wycofaj zmiany.');
+}
+
+// Strażnik lekcji KC (@007, 2026-11-03): żadne wydanie z lekcją zawierającą resztki innego dnia.
+const niespojneLekcje = sprawdzPliki(ROOT, plikiLekcji(ROOT));
+if (niespojneLekcje.length) {
+  throw new Error(`Wydanie przerwane — STRAŻNIK LEKCJI KC:\n${niespojneLekcje.map(({ plik, bledy }) => `${plik}: ${bledy.join('; ')}`).join('\n')}`);
 }
 
 const resolvedOutput = path.resolve(OUTPUT);

@@ -145,6 +145,23 @@ if (fs.existsSync(groupsEnginePath)) {
     }
 }
 
+// ── 6b. STRAŻNIK LEKCJI KURSU CODZIENNEGO (@007, 2026-11-03) ──
+// Commit z lekcją dnia N, w której zostały elementy innego dnia (nagłówek, Strong, zadanie, udostępnianie), jest blokowany.
+try {
+    const staged = execSync('git diff --cached --name-only', { cwd: rootDir, encoding: 'utf8' });
+    const dni = [...new Set(staged.split(/\r?\n/).map(f => (f.match(/^(?:akademia|kursy)\/kurscodzienny\/dzien-(\d+)(?:\.html|\/index\.html)$/) || [])[1]).filter(Boolean).map(Number))];
+    if (dni.length) {
+        try {
+            execSync(`node scripts/kurs-codzienny/straznik-lekcji.mjs ${dni.join(' ')}`, { cwd: rootDir, encoding: 'utf8', stdio: 'pipe' });
+            logSuccess(`Strażnik lekcji KC: dni ${dni.join(', ')} spójne.`);
+        } catch (e) {
+            logError('akademia/kurscodzienny', `Lekcja niespójna z dniem — popraw przed commitem:\n${(e.stderr || '') + (e.stdout || '')}`);
+        }
+    }
+} catch (e) {
+    // brak gita — pomijamy
+}
+
 // ── 7. SUMMARY & EXIT CODE ──
 console.log('------------------------------------------------------');
 if (errorCount === 0) {

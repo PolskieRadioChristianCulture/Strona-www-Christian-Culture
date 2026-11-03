@@ -46,7 +46,8 @@ test('real release builder excludes private fixtures and keeps public and frozen
     fs.writeFileSync(destination, content);
   };
   for (const file of ['build-pages-release.mjs', 'cc-release-files.mjs', 'cc-release-secret-scan.mjs',
-    'daily-course-manifest.mjs', 'cc-page-standard.mjs', 'cc-channel-numbering.mjs', 'lumi-page.mjs', 'lumi-dashboard.mjs']) {
+    'daily-course-manifest.mjs', 'cc-page-standard.mjs', 'cc-channel-numbering.mjs', 'lumi-page.mjs', 'lumi-dashboard.mjs',
+    'kurs-codzienny/straznik-lekcji.mjs', 'kurs-codzienny/lib.mjs']) {
     put('scripts/' + file, fs.readFileSync(new URL(file, import.meta.url)));
   }
   put('data/cc-channels.json', fs.readFileSync(new URL('../data/cc-channels.json', import.meta.url)));
