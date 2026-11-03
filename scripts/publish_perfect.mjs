@@ -536,7 +536,7 @@ export async function uploadEpisodeToChannel({
     // Sukces tylko, gdy YouTube pokaże okno „opublikowano” (lub „nadal przetwarzany — zostanie opublikowany”)
     console.log('Oczekiwanie na potwierdzenie publikacji przez YouTube...');
     // Okno „Nadal sprawdzamy Twoje treści” (sprawdzanie praw autorskich w toku) trzeba zamknąć „OK” — dopiero wtedy YouTube pokazuje potwierdzenie.
-    const confirmText = page.getByText(/Film został (zaplanowany|opublikowany)|Film zostanie opublikowany|Video (published|scheduled)|Video will be published/).first();
+    const confirmText = page.getByText(/Film został (zaplanowany|opublikowany)|Film zostanie opublikowany|zostanie ustawiony jako publiczny|Video (published|scheduled)|Video will be published/i).first();
     const stillChecking = page.locator('tp-yt-paper-dialog:visible, ytcp-dialog:visible').filter({ hasText: /Nadal sprawdzamy|still checking/i }).first();
     let confirmed = false;
     let clickedOk = false;
