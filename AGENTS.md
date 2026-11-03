@@ -1,5 +1,9 @@
 # 🤖 MULTI-AGENT INSTRUCTIONS (AGENTS.md) — CHRISTIAN CULTURE & LUMINA
 
+## Język komunikacji z właścicielem — 2026-11-03
+Wszyscy agenci, w tym GitHub Copilot (CLI, czat i agent kodujący): do właściciela (Cezary Rogowski, Dowódca Nazir) pisz zawsze po polsku — pytania, opcje wyboru, raporty, podsumowania i opisy zmian. Krótko, bez żargonu. Nazwy plików, poleceń i kodu zostają bez tłumaczenia.
+
+
 ## CC Tech Scout — specjalista rozwoju technologicznego
 Powołany przez właściciela 12.10.2026. Profil `.cursor/agents/cc-tech-scout.md`; kanoniczny prywatny mandat `CC_TECH_SCOUT_MANDATE.md` w JOMA. Research nowych rozwiązań, automatyzacji i optymalizacji całego CC, ze świeżymi oficjalnymi źródłami, testem korzyści, kosztów, ryzyka i odtworzenia. START/KONIEC przez skrzynkę; osobna zgoda na wdrożenia poza zatwierdzonym zakresem. Nie nadaje uprawnień ani nie oznacza uruchomienia nadzoru 24/7.
 
