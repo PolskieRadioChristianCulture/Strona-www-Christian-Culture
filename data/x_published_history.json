@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "biblia-audio",
+      "title": "Biblia Audio CC: Księga Rodzaju 12 (GEN-012) — Powołanie Abrama i Boża obietnica narodu",
+      "url": "https://polskieradio.cc/biblia-audio",
+      "type": "module",
+      "image": "rodzaju-hero.jpg",
+      "publishedAt": "2026-11-03T10:06:22.488Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "mojabiblia?ref=GEN.18.25",
       "title": "Werset Dnia: „Czyż Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)",
       "url": "https://polskieradio.cc/mojabiblia?ref=GEN.18.25",
