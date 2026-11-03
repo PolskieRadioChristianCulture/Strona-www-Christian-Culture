@@ -1,7 +1,7 @@
 import path from 'node:path';
 
 const BLOCKED_DIRECTORIES = new Set([
-  '.git', '.codex', '.cursor', '.claude', 'repozytoria-cc', 'joma_shared_memory',
+  '.git', '.codex', '.codex-remote-attachments', '.codex-attachments', '.cursor', '.claude', 'repozytoria-cc', 'joma_shared_memory',
   '.agents', '.firebase', '.gemini', '.github', '.vscode', '.wrangler', '_wydanie',
   'cloudflare', 'cloudflare-worker', 'docs', 'firebase_functions', 'functions', 'migrations', 'node_modules',
   'lib', 'scratch', 'scripts', 'src', 'test', 'tests', 'windows_tools',

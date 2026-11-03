@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-30",
-  "draftsCount": 4,
+  "date": "2026-11-03",
+  "draftsCount": 6,
   "items": [
     {
       "id": "draft-1793344501532-rodzina-ekrany-zdrowie",
@@ -28,6 +28,22 @@
     },
     {
       "id": "draft-1793347361951-cc-inside-aktualnosci",
+      "title": "Tętno Misji: Nowe rozważanie, premiera artykułu o pokoju serca i lekcje Akademii Biblijnej",
+      "category": "cc_inside_autopromocja",
+      "author": "Redakcja Christian Culture (CC INSIDE)",
+      "status": "draft_pending_review",
+      "ttsReady": true
+    },
+    {
+      "id": "draft-1793687308862-rodzina-ekrany-zdrowie",
+      "title": "Cyfrowy detoks w chrześcijańskim domu: Jak odzyskać prawdziwą bliskość przy wspólnym stole",
+      "category": "rodzina_i_zdrowie",
+      "author": "Wioletta Rogowska (redakcja z asystą AI EkoCC)",
+      "status": "draft_pending_review",
+      "ttsReady": true
+    },
+    {
+      "id": "draft-1793687308870-cc-inside-aktualnosci",
       "title": "Tętno Misji: Nowe rozważanie, premiera artykułu o pokoju serca i lekcje Akademii Biblijnej",
       "category": "cc_inside_autopromocja",
       "author": "Redakcja Christian Culture (CC INSIDE)",

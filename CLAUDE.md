@@ -1,5 +1,9 @@
 # 🤖 CLAUDE INSTRUCTIONS — POLSKIERADIO.CC / CHRISTIAN CULTURE (@ICC)
 
+## Komunikacja z Dowódcą — 2026-11-03 (obowiązkowe)
+Piszesz do Dowódcy jedną linią (max 3): `[✅/⚠️/🛑/❓/ℹ️] co + skutek → czego potrzebuję`. Decyzje tylko jako wybór z haseł: ✅ TAK, ❌ NIE, ⏸ PÓŹNIEJ, 💡 LEPSZE, 🔗 INTEGRUJ, 🧪 TEST, 👥 DRUGA OPINIA, 🔧 NAPRAW, ♻️ AUTOMATYZUJ, 📦 DOKOŃCZ, 🚀 PRZYSPIESZ, 🎯 PRIORYTET, 📋 RAPORT, ❓ WYJAŚNIJ, 🛑 STOP. Szczegóły do JOMA. Pełny standard: `JOMA_SHARED_MEMORY/rejestr-agentow/STANDARD_777_KOMUNIKACJA_Z_DOWODCA_V1.md`.
+
+
 ## Obowiązkowy obieg pracy w Skrzynce Misji — 2026-10-12
 Na polecenie właściciela każdy agent stosuje prywatny `JOMA_SHARED_MEMORY/SKRZYNKA/PROTOKOL.md` (sekcja START / KONIEC). Przed pracą odczytaj TABLICA.md i własną skrzynkę. Zgłoś START: agent, ID/wątek zadania, zakres/pliki, rzeczywisty czas rozpoczęcia (ISO 8601 ze strefą), status w_toku i następny krok. Sprawdź aktywnego właściciela; nie dubluj jego pracy. Przy blokadzie lub przekazaniu zapisz czas, powód i punkt kontynuacji. Po pracy zgłoś KONIEC: ten sam wątek, rzeczywisty czas zakończenia, wynik, dowód i pozostałe kroki; zrobione tylko po sprawdzeniu. Rozróżniaj lokalnie/repo/serwer/baza/telefon. Nowe wiadomości i potwierdzenia są oddzielnymi plikami; nie edytuj istniejących wiadomości ani generowanej TABLICA.md. Skrzynka nie nadaje dodatkowych uprawnień i nie zastępuje zgody właściciela. Bez sekretów i danych użytkowników. Powiadom pozostałych agentów w skrzynce, nie przez właściciela; potwierdzenie odbioru jest wymagane, nie zakładaj, że reguła już została przeczytana.
 
@@ -36,6 +40,7 @@ Gdy Dowódca wpisze w czacie hasło z `@`:
 - **`@news` / `@CCN`** — Portale CCN News (`/news`, `/nauka`, `/historia` itd.). Zakaz fikcyjnych ekspertów.
 - **`@live`** — Transmisja na żywo (`stream-scene.html`). `cctv24-worship.html` zmieniamy wyłącznie za zgodą Dowódcy (2026-10-08: zgoda na standard nadawczy — prawdziwe dane; kopia: `cctv24-worship.backup-20261008.html`). Nie cofać poprawek Strażnika z 07–08.10 (pogoda, Mission Control, intencje, pasek wiadomości).
 - **`@vod`** — Kino VOD (`vod.html`).
+- **`@OA`** — Orkiestracja Agentowa (program Orkiestry CC @777). Przeczytaj `JOMA_SHARED_MEMORY/rejestr-agentow/STANDARD_777_OA_ORKIESTRACJA_AGENTOWA_V1.md` i specyfikację w `JOMA_SHARED_MEMORY/strategia/`. Pracuj tylko w otwartej fazie (obecnie G0 — audyt tylko do odczytu), meldunki w Skrzynce z tagiem `[OA]`, bez wdrożeń i kosztów bez zgody Dowódcy.
 
 ---
 

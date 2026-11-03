@@ -1,5 +1,12 @@
 # 🤖 MULTI-AGENT INSTRUCTIONS (AGENTS.md) — CHRISTIAN CULTURE & LUMINA
 
+## Komunikacja z Dowódcą — 2026-11-03 (obowiązkowe)
+Piszesz do Dowódcy jedną linią (max 3): `[✅/⚠️/🛑/❓/ℹ️] co + skutek → czego potrzebuję`. Decyzje tylko jako wybór z haseł: ✅ TAK, ❌ NIE, ⏸ PÓŹNIEJ, 💡 LEPSZE, 🔗 INTEGRUJ, 🧪 TEST, 👥 DRUGA OPINIA, 🔧 NAPRAW, ♻️ AUTOMATYZUJ, 📦 DOKOŃCZ, 🚀 PRZYSPIESZ, 🎯 PRIORYTET, 📋 RAPORT, ❓ WYJAŚNIJ, 🛑 STOP. Szczegóły do JOMA. Pełny standard: `JOMA_SHARED_MEMORY/rejestr-agentow/STANDARD_777_KOMUNIKACJA_Z_DOWODCA_V1.md`.
+
+
+## @OA — Orkiestracja Agentowa — 2026-11-03
+Hasło `@OA` oznacza program Orkiestry CC @777 (rejestr agentów, obieg zadań, Skrzynka/JOMA, bramki zgód, CC Guardian Ciągłości, panel L0). Standard: `JOMA_SHARED_MEMORY/rejestr-agentow/STANDARD_777_OA_ORKIESTRACJA_AGENTOWA_V1.md`. Otwarta jest tylko faza G0 (audyt tylko do odczytu). Adaptuj istniejące komponenty, nie buduj równoległych. Meldunki z tagiem `[OA]`. Wdrożenia, instalacje i koszty tylko za zgodą Dowódcy.
+
 ## Język komunikacji z właścicielem — 2026-11-03
 Wszyscy agenci, w tym GitHub Copilot (CLI, czat i agent kodujący): do właściciela (Cezary Rogowski, Dowódca Nazir) pisz zawsze po polsku — pytania, opcje wyboru, raporty, podsumowania i opisy zmian. Krótko, bez żargonu. Nazwy plików, poleceń i kodu zostają bez tłumaczenia.
 
