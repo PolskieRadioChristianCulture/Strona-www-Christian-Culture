@@ -2,6 +2,33 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "player",
+      "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
+      "url": "https://polskieradio.cc/player",
+      "type": "music",
+      "image": "art-worship.jpg",
+      "publishedAt": "2026-11-03T09:05:37.082Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "prawda-bez-filtra",
+      "title": "Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo",
+      "url": "https://polskieradio.cc/prawda-bez-filtra",
+      "type": "book",
+      "image": "art-prawda-bez-filtra.jpg",
+      "publishedAt": "2026-11-03T08:34:43.256Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+      "publishedAt": "2026-11-03T08:05:04.629Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "mojabiblia?ref=GEN.15.5",
       "title": "Werset Dnia: „Spójrz ku niebu i policz gwiazdy...” (Rdz 15:5, UBG)",
       "url": "https://polskieradio.cc/mojabiblia?ref=GEN.15.5",

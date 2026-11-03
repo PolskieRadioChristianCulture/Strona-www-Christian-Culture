@@ -182,6 +182,10 @@ function resolveItemImage(item, rootDir) {
     const p2 = path.join(rootDir, 'images', 'mapa-bg-earth.jpg');
     if (fs.existsSync(p2)) return p2;
   }
+  if (pathLower.includes('rozwiaz')) {
+    const p = path.join(rootDir, 'rozwiaz-problem', 'assets', 'og-rozwiaz-problem.jpg');
+    if (fs.existsSync(p)) return p;
+  }
   if (pathLower.includes('topten')) {
     const p1 = path.join(rootDir, 'topTEN', 'assets', 'wspieramto-banner.png');
     if (fs.existsSync(p1)) return p1;
@@ -440,6 +444,24 @@ function getAllEcosystemCandidates() {
   // 5. NAJWAŻNIEJSZE DEDYKOWANE MODUŁY EKOSYSTEMU CC
   const coreModules = [
     {
+      title: 'Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański',
+      lead: 'Nowy moduł w ekosystemie: 14 lekcji, plan na głód nikotynowy, podsumowanie audio i wolność w Chrystusie.',
+      url: 'https://polskieradio.cc/rozwiaz-problem',
+      image: 'rozwiaz-problem/assets/og-rozwiaz-problem.jpg',
+      category: 'Kurs & Wolność',
+      type: 'course',
+      tag: '#RozwiazProblem'
+    },
+    {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 34 (Wj 3:1–22): Płonący krzak i Święte Imię Boga',
+      lead: 'Dzień 34 (3 listopada 2026): Teofania na Horebie, powołanie Mojżesza, objawienie Imienia JHWH i Boże zstąpienie na ratunek.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-34',
+      image: 'images/news/art-z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
       title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 33 (Wj 2:1–25): Z wód Nilu do pustyni Madian',
       lead: 'Dzień 33 (2 listopada 2026): Ocalenie Mojżesza w sitowiu Nilu, próba wiary na pustyni Madian i Boża pamięć o przymierzu.',
       url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-33',
@@ -456,6 +478,15 @@ function getAllEcosystemCandidates() {
       category: 'Akademia Biblijna',
       type: 'module',
       tag: '#KursCodzienny'
+    },
+    {
+      title: 'Biblia Audio CC: Księga Rodzaju 12 (GEN-012) — Powołanie Abrama i Boża obietnica narodu',
+      lead: 'Nowy rozdział w słuchowisku (3 listopada 2026): Księga Rodzaju 12,1–20 (UBG). Powołanie Abrama, wyjście z Haranu i obietnica wielkiego narodu.',
+      url: 'https://polskieradio.cc/biblia-audio',
+      image: 'biblia-audio/assets/rodzaju-hero.jpg',
+      category: 'Biblia Audio',
+      type: 'module',
+      tag: '#BibliaAudio'
     },
     {
       title: 'Biblia Audio CC — Księga Rodzaju w Kinowej Jakości Dźwięku i Słuchowiskach',
@@ -620,6 +651,10 @@ function formatBroadcasterTweet(item) {
       callToAction = '👉 Słuchaj na żywo:\n';
       addTags(item.tag || '#CCNMuzyka', '#PolskieRadioCC', '#WorshipLive', '#ChristianCulture');
     }
+  } else if (item.type === 'course' || (item.url || '').toLowerCase().includes('rozwiaz')) {
+    subHeader = '🕊️ ROZWIĄŻ PROBLEM | NOWY KURS';
+    callToAction = '👉 Rozpocznij kurs:\n';
+    addTags(item.tag || '#RozwiazProblem', '#RzucPalenie', '#Wolnosc');
   } else if (item.type === 'profile') {
     subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
     callToAction = '👉 Dołącz do społeczności LUMINA:\n';
@@ -707,12 +742,18 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Oficjalna lista przebojów muzyki chrześcijańskiej. Głosuj na utwory i wspieraj artystów!';
   } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
     bodyText = item.lead;
+  } else if ((item.url || '').toLowerCase().includes('rozwiaz')) {
+    bodyText = 'Rzuć palenie w 14 dni — bezpłatny kurs, plan na głód nikotynowy, audio i biblijna nadzieja.';
+  } else if ((item.url || '').includes('dzien-34')) {
+    bodyText = 'Dzień 34 (Wj 3:1–22): Płonący krzak, Święte Imię Boga i Boże zstąpienie na ratunek ludu.';
   } else if ((item.url || '').includes('dzien-33')) {
     bodyText = 'Dzień 33 (Wj 2:1–25): Z wód Nilu do pustyni Madian — ocalenie Mojżesza i Boża pamięć o przymierzu.';
   } else if ((item.url || '').includes('dzien-32')) {
     bodyText = 'Start Księgi Wyjścia! Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie — heroiczna wiara położnych Szifry i Pui.';
   } else if ((item.url || '').endsWith('/akademia')) {
     bodyText = 'Akademia Biblijna & Kurs Codzienny: Systematyczne studium Pisma Świętego i bezpłatne kursy dla każdego.';
+  } else if ((item.title || '').includes('GEN-012') || (item.title || '').includes('Rodzaju 12')) {
+    bodyText = 'Nowy rozdział w słuchowisku! Księga Rodzaju 12 (UBG): Powołanie Abrama, wyjście z Haranu i obietnica wielkiego narodu.';
   } else if (item.type === 'vod' && item.title.includes('Proroctwa')) {
     bodyText = 'Proroctwa Daniela i Księgi Objawienia w serii wykładów biblijnych 4K UHD ze SDS.';
   } else if (item.type === 'vod' && item.title.includes('Księga Nadziei')) {
@@ -812,13 +853,28 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
 
   try {
     const page = await context.newPage();
-    console.log('🌐 [CCN Broadcaster] Otwieram x.com/compose/post w tle...');
-    await page.goto('https://x.com/compose/post', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    console.log('🌐 [CCN Broadcaster] Otwieram x.com/home w tle...');
+    await page.goto('https://x.com/home', { waitUntil: 'domcontentloaded', timeout: 30000 });
     await page.waitForTimeout(3000);
 
-    const textareaSelector = '[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]';
-    await page.waitForSelector(textareaSelector, { timeout: 15000 });
-    await page.click(textareaSelector);
+    let textarea = page.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]').first();
+    const isReady = await textarea.isVisible({ timeout: 5000 }).catch(() => false);
+    if (!isReady) {
+      const sideNavBtn = page.locator('[data-testid="SideNav_NewTweet_Button"], a[href="/compose/post"]').first();
+      if (await sideNavBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+        console.log('🔘 [CCN Broadcaster] Otwieram okno tworzenia posta (SideNav button)...');
+        await sideNavBtn.click();
+        await page.waitForTimeout(2000);
+      } else {
+        console.log('🌐 [CCN Broadcaster] Przechodzę bezpośrednio do x.com/compose/post...');
+        await page.goto('https://x.com/compose/post', { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await page.waitForTimeout(3000);
+      }
+      textarea = page.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]').first();
+    }
+
+    await textarea.waitFor({ state: 'visible', timeout: 25000 });
+    await textarea.click();
     await page.waitForTimeout(500);
 
     // 1. Wpisanie sformatowanego tekstu
@@ -829,33 +885,25 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
     // 2. Wgrywanie dedykowanej grafiki tematycznej
     if (imagePath && fs.existsSync(imagePath)) {
       console.log(`🖼️ [CCN Broadcaster] Załączam dedykowaną grafikę: ${path.basename(imagePath)}...`);
-      const fileInput = await page.$('input[data-testid="fileInput"]');
-      if (fileInput) {
-        await page.setInputFiles('input[data-testid="fileInput"]', imagePath);
-        console.log('⏳ [CCN Broadcaster] Oczekuję na załadowanie podglądu załącznika...');
-        try {
-          await page.waitForSelector('div[data-testid="attachments"], div[aria-label*="Usuń"], div[aria-label*="Remove"]', { timeout: 10000 });
-          console.log('✅ [CCN Broadcaster] Dedykowana grafika została pomyślnie załączona!');
-        } catch (e) {
-          await page.waitForTimeout(4000);
-        }
-      } else {
-        console.warn('⚠️ [CCN Broadcaster] Nie znaleziono input[data-testid="fileInput"].');
+      const fileInput = page.locator('input[data-testid="fileInput"]').first();
+      await fileInput.setInputFiles(imagePath);
+      console.log('⏳ [CCN Broadcaster] Oczekuję na załadowanie podglądu załącznika...');
+      try {
+        await page.waitForSelector('div[data-testid="attachments"], div[aria-label*="Usuń"], div[aria-label*="Remove"]', { timeout: 15000 });
+        console.log('✅ [CCN Broadcaster] Dedykowana grafika została pomyślnie załączona!');
+      } catch (e) {
+        await page.waitForTimeout(4000);
       }
     }
 
-    // 3. Zamknij ewentualny modal powiadomień
-    const overlayDismiss = await page.$('[data-testid="app-bar-close"], [aria-label="Zamknij"], [aria-label="Close"]');
-    if (overlayDismiss) await overlayDismiss.click().catch(() => {});
-
+    // 3. Wysłanie posta (przycisk TweetButton / tweetButtonInline z force: true lub Control+Enter)
     console.log('🔘 [CCN Broadcaster] Wysyłam post...');
-    await page.focus(textareaSelector);
-    await page.keyboard.press('Control+Enter');
-    await page.waitForTimeout(2000);
-
-    const postBtn = await page.$('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]');
-    if (postBtn && await postBtn.isVisible().catch(() => false)) {
-      await postBtn.click({ force: true }).catch(() => {});
+    const postBtn = page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').first();
+    if (await postBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+      await postBtn.click({ force: true });
+    } else {
+      await textarea.focus();
+      await page.keyboard.press('Control+Enter');
     }
 
     await page.waitForTimeout(5000);
@@ -902,10 +950,12 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   const distProfile = getDistanceSinceType('profile');
   const distModule = getDistanceSinceType('module');
   const distVod = getDistanceSinceType('vod');
+  const distCourse = getDistanceSinceType('course');
 
   // Sprawdź priorytety filarów ekosystemu w kolejności najdłuższego braku publikacji
   // Dyrektywa Dowódcy: Werset dnia co ~1.5 - 2h (co 3-4 posty), książki, muzyka, profile regularnie
   const priorityTypes = [];
+  if (distCourse >= 6) priorityTypes.push({ type: 'course', dist: distCourse });
   if (distBook >= 6) priorityTypes.push({ type: 'book', dist: distBook });
   if (distVerse >= 4) priorityTypes.push({ type: 'verse', dist: distVerse });
   if (distVod >= 6) priorityTypes.push({ type: 'vod', dist: distVod });
@@ -947,7 +997,10 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
       (lastTitleLower.includes('blackout') && candTitleLower.includes('blackout')) ||
       (lastTitleLower.includes('bioetyka') && candTitleLower.includes('bioetyka')) ||
       (lastTitleLower.includes('dzień 33') && candTitleLower.includes('dzień 33')) ||
-      (lastTitleLower.includes('dzien-33') && candTitleLower.includes('dzien-33'));
+      (lastTitleLower.includes('dzien-33') && candTitleLower.includes('dzien-33')) ||
+      (lastTitleLower.includes('dzień 34') && candTitleLower.includes('dzień 34')) ||
+      (lastTitleLower.includes('dzien-34') && candTitleLower.includes('dzien-34')) ||
+      (lastTitleLower.includes('płonący krzak') && candTitleLower.includes('płonący krzak'));
 
     // Ochrona przed dwoma postami tego samego typu pod rząd (np. 2x profile, 2x music)
     const isTypeDuplicate = lastItem.type && cand.type === lastItem.type;
