@@ -699,6 +699,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🛡️ SURVIVAL & BEZPIECZEŃSTWO CC';
       callToAction = '👉 Czytaj poradnik w serwisie:\n';
       addTags('#CCNNews', '#SurvivalCC', '#Prawda');
+    } else if (tLower.includes('archeolog') || tLower.includes('kamienie') || tLower.includes('jerozolim') || tLower.includes('ezechiasz') || tLower.includes('tel dan')) {
+      subHeader = '🏛️ ARCHEOLOGIA & HISTORIA BIBLIJNA';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#ArcheologiaBiblijna', '#CCNNews', '#Prawda');
     } else if (tLower.includes('reformacj') || tLower.includes('lutr') || (item.url || '').includes('/historia/')) {
       subHeader = '📜 HISTORIA & REFORMACJA';
       callToAction = '👉 Czytaj w serwisie:\n';
