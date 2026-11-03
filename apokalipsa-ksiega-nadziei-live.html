@@ -457,7 +457,7 @@
     <div id="app-container">
         <!-- YouTube Video Player Container -->
         <div class="video-container">
-            <div id="yt-player"></div>
+            <iframe id="yt-player" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
 
         <!-- Audio Startup Overlay (Click to play/unmute) -->
@@ -527,6 +527,16 @@
         let initialJumpDone = false;
 
         // Registered recordings; lesson 28 supplied by owner on 2026-10-17.
+        const isPreloadMuted = window.location.search.includes('muted=1');
+        const dayOfYear = getDayOfYear();
+        const initialIndex = (dayOfYear - 1) % LESSONS_25.length;
+        const initialVideo = LESSONS_25[initialIndex];
+        const playerIframe = document.getElementById('yt-player');
+        if (playerIframe && initialVideo) {
+            const muteParam = isPreloadMuted ? '&mute=1' : '';
+            playerIframe.src = 'https://www.youtube.com/embed/' + initialVideo.id + '?autoplay=1&enablejsapi=1&controls=0&rel=0&modestbranding=1&cc_load_policy=0&iv_load_policy=3' + muteParam;
+        }
+
         const LESSONS_25 = [
             {
                 "ep": 1,
@@ -766,26 +776,13 @@
         function onYouTubeIframeAPIReady() {
             const dayOfYear = getDayOfYear();
             const startIndex = (dayOfYear - 1) % LESSONS_25.length;
-
             updateEpisodeUI(startIndex);
 
-            const pageOrigin = (window.location.origin && window.location.origin.startsWith('http')) ? window.location.origin : 'https://polskieradio.cc';
             player = new YT.Player('yt-player', {
-                height: '100%',
-                width: '100%',
-                host: 'https://www.youtube.com',
                 playerVars: {
-                    autoplay: 1,
-                    controls: 0,
-                    rel: 0,
-                    modestbranding: 1,
-                    enablejsapi: 1,
-                    mute: 1,
                     cc_load_policy: 0,
-                    iv_load_policy: 3,
-                    origin: pageOrigin
+                    iv_load_policy: 3
                 },
-                videoId: LESSONS_25[startIndex].id,
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
@@ -794,23 +791,11 @@
         }
 
         function onPlayerReady(event) {
-            const dayOfYear = getDayOfYear();
-            const startIndex = (dayOfYear - 1) % LESSONS_25.length;
-
             disableCaptions();
-
-            // Load playlist starting from today's rotation slot — 24/7 loop
             try {
-                event.target.loadPlaylist({
-                    playlist: LESSONS_25.map(lesson => lesson.id),
-                    index: startIndex,
-                    startSeconds: 0
-                });
                 event.target.playVideo();
-            } catch(e) {
-                console.log("loadPlaylist error:", e);
-            }
-
+            } catch(e) {}
+            
             // Multi-pass auto-unmute for MCR master-live.html & OBS Studio
             const isPreloadMuted = window.location.search.includes('muted=1');
             const isInIframe = (window.self !== window.top);
