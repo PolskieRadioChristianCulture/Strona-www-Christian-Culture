@@ -778,10 +778,22 @@
             const startIndex = (dayOfYear - 1) % LESSONS_25.length;
             updateEpisodeUI(startIndex);
 
+            const pageOrigin = (window.location.origin && window.location.origin.startsWith('http')) ? window.location.origin : 'https://polskieradio.cc';
             player = new YT.Player('yt-player', {
+                height: '100%',
+                width: '100%',
+                host: 'https://www.youtube.com',
+                videoId: LESSONS_25[startIndex].id,
                 playerVars: {
+                    autoplay: 1,
+                    controls: 0,
+                    rel: 0,
+                    modestbranding: 1,
+                    enablejsapi: 1,
+                    mute: 1,
                     cc_load_policy: 0,
-                    iv_load_policy: 3
+                    iv_load_policy: 3,
+                    origin: pageOrigin
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -791,22 +803,33 @@
         }
 
         function onPlayerReady(event) {
+            const dayOfYear = getDayOfYear();
+            const startIndex = (dayOfYear - 1) % LESSONS_25.length;
+
             disableCaptions();
             try {
+                if (typeof event.target.loadPlaylist === 'function') {
+                    event.target.loadPlaylist({
+                        playlist: LESSONS_25.map(lesson => lesson.id),
+                        index: startIndex,
+                        startSeconds: 0
+                    });
+                }
                 event.target.playVideo();
-            } catch(e) {}
-            
-            // Multi-pass auto-unmute for MCR master-live.html & OBS Studio
+            } catch(e) {
+                console.log("loadPlaylist error:", e);
+            }
+
+            const overlay = (typeof document !== "undefined" && typeof document.getElementById === "function") ? document.getElementById("startOverlay") : null;
+            if (overlay) overlay.style.display = "none";
+
             const isPreloadMuted = window.location.search.includes('muted=1');
             const isInIframe = (window.self !== window.top);
             if (isPreloadMuted) {
                 try { event.target.mute(); } catch(e) {}
             }
             if (!isPreloadMuted && (isInIframe || new URLSearchParams(window.location.search).get('autoplay') === '1')) {
-                const overlay = document.getElementById("startOverlay");
-                if (overlay) overlay.style.display = "none";
-
-                [500, 1200, 2000, 3000, 5000].forEach(ms => {
+                [200, 500, 1200, 2000, 3000, 5000].forEach(ms => {
                     setTimeout(() => {
                         enableAudio();
                         disableCaptions();
@@ -814,7 +837,6 @@
                 });
             }
 
-            // Start 30-second auto-fade timer for clean video view
             resetAutoFadeTimer();
         }
 
