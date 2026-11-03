@@ -22,10 +22,23 @@ export const CHANNELS = {
 export const BIBLIA_AUDIO_CHANNELS = Object.keys(CHANNELS);
 
 export async function launchStudio({ headless = true } = {}) {
-  const ctx = await chromium.launchPersistentContext(PROFILE_DIR, {
-    headless, channel: 'chrome', viewport: { width: 1600, height: 1000 }, userAgent: UA,
-    args: ['--disable-blink-features=AutomationControlled', '--no-sandbox']
-  });
+  let ctx = null;
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      ctx = await chromium.launchPersistentContext(PROFILE_DIR, {
+        headless, channel: 'chrome', viewport: { width: 1600, height: 1000 }, userAgent: UA,
+        args: ['--disable-blink-features=AutomationControlled', '--no-sandbox']
+      });
+      break;
+    } catch (err) {
+      if (err.message && err.message.includes('ProcessSingleton') && attempt < 4) {
+        console.log(`  [Retry ${attempt}/3] Oczekiwanie 4s na zwolnienie profilu Chromium...`);
+        await new Promise(r => setTimeout(r, 4000));
+      } else {
+        throw err;
+      }
+    }
+  }
   const page = ctx.pages()[0] || await ctx.newPage();
   return { ctx, page };
 }
@@ -36,13 +49,25 @@ async function passBrowserGate(page) {
 }
 
 async function switchIdentity(page, handle) {
-  await page.goto('https://www.youtube.com/channel_switcher', { waitUntil: 'domcontentloaded', timeout: 45000 });
-  await page.locator('ytd-account-item-renderer').first().waitFor({ timeout: 20000 });
-  await page.waitForTimeout(1500);
-  const item = page.locator('ytd-account-item-renderer', { hasText: handle }).first();
-  if (!(await item.count())) throw new Error(`Brak tożsamości ${handle} w przełączniku kanałów`);
-  await item.click();
-  await page.waitForTimeout(5000);
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      await page.goto('https://www.youtube.com/channel_switcher', { waitUntil: 'domcontentloaded', timeout: 45000 });
+      await page.locator('ytd-account-item-renderer').first().waitFor({ timeout: 40000 });
+      await page.waitForTimeout(1500);
+      const item = page.locator('ytd-account-item-renderer', { hasText: handle }).first();
+      if (!(await item.count())) throw new Error(`Brak tożsamości ${handle} w przełączniku kanałów`);
+      await item.click();
+      await page.waitForTimeout(5000);
+      return;
+    } catch (err) {
+      if (attempt === 1) {
+        console.log(`  [switchIdentity retry] Ponawiam przełączanie tożsamości do ${handle}...`);
+        await page.waitForTimeout(3000);
+      } else {
+        throw err;
+      }
+    }
+  }
 }
 
 async function resolveChannelId(page, handle) {
