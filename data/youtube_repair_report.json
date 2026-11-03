@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-02T15:40:40.136Z",
-  "executed": false,
+  "generatedAt": "2026-11-03T04:31:29.460Z",
+  "executed": true,
   "plan": [
     {
       "ep": "Ksiega_Rodzaju_1_1-19",
@@ -18,6 +18,51 @@
       "tab": "videos",
       "action": "ok",
       "keepId": "v95ahR10Uoo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_1-19",
+      "key": "Księga Rodzaju 1:1-19",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "eGKalxFCoiw",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_1-19",
+      "key": "Księga Rodzaju 1:1-19",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "DZn0yBnl168",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_1-19",
+      "key": "Księga Rodzaju 1:1-19",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "wbdUslXdv2E",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_1-19",
+      "key": "Księga Rodzaju 1:1-19",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "IGl34vcMVLo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_1-19",
+      "key": "Księga Rodzaju 1:1-19",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "fXdTPtyFpfg",
       "toDelete": []
     },
     {
@@ -57,6 +102,96 @@
       "toDelete": []
     },
     {
+      "ep": "Ksiega_Rodzaju_1_20-31_2_1-3",
+      "key": "Księga Rodzaju 1:20-31; 2:1-3",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "WtP0B3cRqbI",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_20-31_2_1-3",
+      "key": "Księga Rodzaju 1:20-31; 2:1-3",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "zfKuVTqAks4",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_20-31_2_1-3",
+      "key": "Księga Rodzaju 1:20-31; 2:1-3",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "KQCnlGWguTU",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_20-31_2_1-3",
+      "key": "Księga Rodzaju 1:20-31; 2:1-3",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "h8PPLbtpcQM",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_20-31_2_1-3",
+      "key": "Księga Rodzaju 1:20-31; 2:1-3",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "cnNJWgsFe6s",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_20-31_2_1-3",
+      "key": "Księga Rodzaju 1:20-31; 2:1-3",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "aD6Geq6rRss",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_20-31_2_1-3",
+      "key": "Księga Rodzaju 1:20-31; 2:1-3",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "qr_Jpd74WaA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_20-31_2_1-3",
+      "key": "Księga Rodzaju 1:20-31; 2:1-3",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "8N5SqSDs_rk",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_20-31_2_1-3",
+      "key": "Księga Rodzaju 1:20-31; 2:1-3",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "9v8PIKhczdE",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_1_20-31_2_1-3",
+      "key": "Księga Rodzaju 1:20-31; 2:1-3",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "_dNyxQyyle0",
+      "toDelete": []
+    },
+    {
       "ep": "Ksiega_Rodzaju_2_4-25",
       "key": "Księga Rodzaju 2:4-25",
       "channel": "Biblia Audio Christian Culture",
@@ -93,6 +228,96 @@
       "toDelete": []
     },
     {
+      "ep": "Ksiega_Rodzaju_2_4-25",
+      "key": "Księga Rodzaju 2:4-25",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "eWoVi192GT0",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_2_4-25",
+      "key": "Księga Rodzaju 2:4-25",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "QkERWe4m9YA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_2_4-25",
+      "key": "Księga Rodzaju 2:4-25",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "_M43DfYsrCY",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_2_4-25",
+      "key": "Księga Rodzaju 2:4-25",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "0OnCYzf_BaI",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_2_4-25",
+      "key": "Księga Rodzaju 2:4-25",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "Ehbul3RpQ-M",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_2_4-25",
+      "key": "Księga Rodzaju 2:4-25",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "w9sNGRzphlA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_2_4-25",
+      "key": "Księga Rodzaju 2:4-25",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "3nImDJyg2Mw",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_2_4-25",
+      "key": "Księga Rodzaju 2:4-25",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "Ofnrg_WjK3k",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_2_4-25",
+      "key": "Księga Rodzaju 2:4-25",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "Q6c_w6WPNgE",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_2_4-25",
+      "key": "Księga Rodzaju 2:4-25",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "mb952AN1zrw",
+      "toDelete": []
+    },
+    {
       "ep": "Ksiega_Rodzaju_3_1-24",
       "key": "Księga Rodzaju 3:1-24",
       "channel": "Biblia Audio Christian Culture",
@@ -126,6 +351,96 @@
       "tab": "shorts",
       "action": "ok",
       "keepId": "Dnx6tj7UeDw",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_3_1-24",
+      "key": "Księga Rodzaju 3:1-24",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "Fde3NEmng4k",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_3_1-24",
+      "key": "Księga Rodzaju 3:1-24",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "eaBQ3fro6Z4",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_3_1-24",
+      "key": "Księga Rodzaju 3:1-24",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "2-_UeEMcMBE",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_3_1-24",
+      "key": "Księga Rodzaju 3:1-24",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "oNfS7PEY2n8",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_3_1-24",
+      "key": "Księga Rodzaju 3:1-24",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "DPI-RxyK3tw",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_3_1-24",
+      "key": "Księga Rodzaju 3:1-24",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "phtHsrcuUTQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_3_1-24",
+      "key": "Księga Rodzaju 3:1-24",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "BwMo43OFNos",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_3_1-24",
+      "key": "Księga Rodzaju 3:1-24",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "iIpttdEctOE",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_3_1-24",
+      "key": "Księga Rodzaju 3:1-24",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "UQPtSFGwAMA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_3_1-24",
+      "key": "Księga Rodzaju 3:1-24",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "CA2KUNJBy0A",
       "toDelete": []
     },
     {
@@ -167,19 +482,19 @@
     {
       "ep": "Ksiega_Rodzaju_4_1-26",
       "key": "Księga Rodzaju 4:1-26",
-      "channel": "CC Men",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "videos",
       "action": "ok",
-      "keepId": "6fvYlKH6ZLc",
+      "keepId": "YDwRKR2OeNc",
       "toDelete": []
     },
     {
       "ep": "Ksiega_Rodzaju_4_1-26",
       "key": "Księga Rodzaju 4:1-26",
-      "channel": "CC Men",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "shorts",
       "action": "ok",
-      "keepId": "eWxUfFEEnmU",
+      "keepId": "z0FcmIW3ybY",
       "toDelete": []
     },
     {
@@ -246,6 +561,60 @@
           "status": "draft"
         }
       ]
+    },
+    {
+      "ep": "Ksiega_Rodzaju_4_1-26",
+      "key": "Księga Rodzaju 4:1-26",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "8Ta5tq5oGEQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_4_1-26",
+      "key": "Księga Rodzaju 4:1-26",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "uzn4WzWb0Mk",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_4_1-26",
+      "key": "Księga Rodzaju 4:1-26",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "-TQtEEHy2-g",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_4_1-26",
+      "key": "Księga Rodzaju 4:1-26",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "At_FFaAa2SA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_4_1-26",
+      "key": "Księga Rodzaju 4:1-26",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "6fvYlKH6ZLc",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_4_1-26",
+      "key": "Księga Rodzaju 4:1-26",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "eWxUfFEEnmU",
+      "toDelete": []
     },
     {
       "ep": "Ksiega_Rodzaju_5_1-32",
@@ -329,6 +698,78 @@
       ]
     },
     {
+      "ep": "Ksiega_Rodzaju_5_1-32",
+      "key": "Księga Rodzaju 5:1-32",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "ma1FtPDQc74",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_5_1-32",
+      "key": "Księga Rodzaju 5:1-32",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "c7OiN-C4M1I",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_5_1-32",
+      "key": "Księga Rodzaju 5:1-32",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "APZ45ChrM4c",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_5_1-32",
+      "key": "Księga Rodzaju 5:1-32",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "bKK3AR2KEwI",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_5_1-32",
+      "key": "Księga Rodzaju 5:1-32",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "HZrk9zyNRJU",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_5_1-32",
+      "key": "Księga Rodzaju 5:1-32",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "V7-aADuYPAg",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_5_1-32",
+      "key": "Księga Rodzaju 5:1-32",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "IiFk9zgwyeY",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_5_1-32",
+      "key": "Księga Rodzaju 5:1-32",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "vwy3M3AoAQo",
+      "toDelete": []
+    },
+    {
       "ep": "Ksiega_Rodzaju_6_1-22",
       "key": "Księga Rodzaju 6:1-22",
       "channel": "Biblia Audio Christian Culture",
@@ -367,6 +808,95 @@
     {
       "ep": "Ksiega_Rodzaju_6_1-22",
       "key": "Księga Rodzaju 6:1-22",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "bhkKDB0UyYk",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_6_1-22",
+      "key": "Księga Rodzaju 6:1-22",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "complete-draft",
+      "keepId": "ceBHBIHEcqA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_6_1-22",
+      "key": "Księga Rodzaju 6:1-22",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "FxVzTcwNZYA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_6_1-22",
+      "key": "Księga Rodzaju 6:1-22",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "rH10fbw_OX8",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_6_1-22",
+      "key": "Księga Rodzaju 6:1-22",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "TzVbhlEl838",
+      "toDelete": [
+        {
+          "id": "B94AbWu3Q-0",
+          "title": "Księga Rodzaju 6:1-22 (UBG) • Zepsucie Ludzkości i Nakaz Budowy Arki | Biblia Audio CC [4K UHD]",
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "ep": "Ksiega_Rodzaju_6_1-22",
+      "key": "Księga Rodzaju 6:1-22",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "1VeuZYxJTwo",
+      "toDelete": [
+        {
+          "id": "95eyIWjYIoA",
+          "title": "Księga Rodzaju 6:1-22 (UBG) • Zepsucie Ludzkości i Nakaz Budowy Arki | Biblia Audio CC #Shorts",
+          "status": "draft"
+        },
+        {
+          "id": "T4KwDGAJdCU",
+          "title": "Księga Rodzaju 6:1-22 (UBG) • Zepsucie Ludzkości i Nakaz Budowy Arki | Biblia Audio CC #Shorts",
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "ep": "Ksiega_Rodzaju_6_1-22",
+      "key": "Księga Rodzaju 6:1-22",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "neqOSMf4mfM",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_6_1-22",
+      "key": "Księga Rodzaju 6:1-22",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "NzJvT4jWGaA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_6_1-22",
+      "key": "Księga Rodzaju 6:1-22",
       "channel": "CC Men",
       "tab": "videos",
       "action": "ok",
@@ -380,24 +910,6 @@
       "tab": "shorts",
       "action": "ok",
       "keepId": "mDSB5VzG0xo",
-      "toDelete": []
-    },
-    {
-      "ep": "Ksiega_Rodzaju_6_1-22",
-      "key": "Księga Rodzaju 6:1-22",
-      "channel": "Osobowość +",
-      "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
-      "toDelete": []
-    },
-    {
-      "ep": "Ksiega_Rodzaju_6_1-22",
-      "key": "Księga Rodzaju 6:1-22",
-      "channel": "Osobowość +",
-      "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -434,6 +946,24 @@
       "tab": "shorts",
       "action": "ok",
       "keepId": "MMs3yjyNzN0",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_7_1-24",
+      "key": "Księga Rodzaju 7:1-24",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "KoQxYcxsB88",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_7_1-24",
+      "key": "Księga Rodzaju 7:1-24",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "wt7KyraFm6Y",
       "toDelete": []
     },
     {
@@ -502,6 +1032,60 @@
       ]
     },
     {
+      "ep": "Ksiega_Rodzaju_7_1-24",
+      "key": "Księga Rodzaju 7:1-24",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "Rpde3mbIu-o",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_7_1-24",
+      "key": "Księga Rodzaju 7:1-24",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "Wzuk1RY4_ow",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_7_1-24",
+      "key": "Księga Rodzaju 7:1-24",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "1Y0FW_gRE7g",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_7_1-24",
+      "key": "Księga Rodzaju 7:1-24",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "kTK_vaCWCwo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_7_1-24",
+      "key": "Księga Rodzaju 7:1-24",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "DacKcYpdG1w",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_7_1-24",
+      "key": "Księga Rodzaju 7:1-24",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "gCFaYblxIPM",
+      "toDelete": []
+    },
+    {
       "ep": "Ksiega_Rodzaju_8_1-22",
       "key": "Księga Rodzaju 8:1-22",
       "channel": "Biblia Audio Christian Culture",
@@ -535,24 +1119,6 @@
       "tab": "shorts",
       "action": "ok",
       "keepId": "dXuWThIuEmM",
-      "toDelete": []
-    },
-    {
-      "ep": "Ksiega_Rodzaju_8_1-22",
-      "key": "Księga Rodzaju 8:1-22",
-      "channel": "CC Women",
-      "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
-      "toDelete": []
-    },
-    {
-      "ep": "Ksiega_Rodzaju_8_1-22",
-      "key": "Księga Rodzaju 8:1-22",
-      "channel": "CC Women",
-      "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -601,6 +1167,78 @@
       ]
     },
     {
+      "ep": "Ksiega_Rodzaju_8_1-22",
+      "key": "Księga Rodzaju 8:1-22",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "5LOqaBVgy4g",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_8_1-22",
+      "key": "Księga Rodzaju 8:1-22",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "ZFWaVEvyTqo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_8_1-22",
+      "key": "Księga Rodzaju 8:1-22",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "HMrrPR11zK4",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_8_1-22",
+      "key": "Księga Rodzaju 8:1-22",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "uGZ7dREWBYU",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_8_1-22",
+      "key": "Księga Rodzaju 8:1-22",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "FTmRmxkQYe0",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_8_1-22",
+      "key": "Księga Rodzaju 8:1-22",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "pI6elOd3mgY",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_8_1-22",
+      "key": "Księga Rodzaju 8:1-22",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "b9U_WESTHdQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_8_1-22",
+      "key": "Księga Rodzaju 8:1-22",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "OJ72XqPtvpg",
+      "toDelete": []
+    },
+    {
       "ep": "Ksiega_Rodzaju_9_1-29",
       "key": "Księga Rodzaju 9:1-29",
       "channel": "Biblia Audio Christian Culture",
@@ -639,10 +1277,64 @@
     {
       "ep": "Ksiega_Rodzaju_9_1-29",
       "key": "Księga Rodzaju 9:1-29",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "-XPCEnIrWdk",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_9_1-29",
+      "key": "Księga Rodzaju 9:1-29",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "d9tMvCDfP9w",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_9_1-29",
+      "key": "Księga Rodzaju 9:1-29",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "i53LKAbPfNQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_9_1-29",
+      "key": "Księga Rodzaju 9:1-29",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "fGlootwfrPY",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_9_1-29",
+      "key": "Księga Rodzaju 9:1-29",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "CpQftl7n0Ys",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_9_1-29",
+      "key": "Księga Rodzaju 9:1-29",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "EmVq0-Xrkv8",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_9_1-29",
+      "key": "Księga Rodzaju 9:1-29",
       "channel": "CC Women",
       "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "RqiQKd-FLz8",
       "toDelete": []
     },
     {
@@ -650,8 +1342,26 @@
       "key": "Księga Rodzaju 9:1-29",
       "channel": "CC Women",
       "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "ccK5W_eubRA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_9_1-29",
+      "key": "Księga Rodzaju 9:1-29",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "k6rWLMnouBU",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_9_1-29",
+      "key": "Księga Rodzaju 9:1-29",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "x2MsHofaDFw",
       "toDelete": []
     },
     {
@@ -705,19 +1415,97 @@
     {
       "ep": "Ksiega_Rodzaju_10_1-32",
       "key": "Księga Rodzaju 10:1-32",
-      "channel": "Osobowość +",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "8L-9Puasq4I",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "hNNzURoL_Yw",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "xCwhJ2-DCEY",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "SyDFAiGYyrc",
       "toDelete": []
     },
     {
       "ep": "Ksiega_Rodzaju_10_1-32",
       "key": "Księga Rodzaju 10:1-32",
       "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "qOpKjFTpN5Q",
+      "toDelete": [
+        {
+          "id": "gFRYB8-gwyM",
+          "title": "Księga Rodzaju 10:1-32 (UBG) • Tablica Narodów • Potomkowie Synów Noego | Biblia Audio CC [4K UHD]",
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Osobowość +",
       "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "EZ-xjc-0HX0",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "C7YgJ2OF56s",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "P2EsYMnfEsE",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "2dD-SAuNsxs",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "6fKNCaq2bh0",
       "toDelete": []
     },
     {
@@ -759,6 +1547,24 @@
     {
       "ep": "Ksiega_Rodzaju_11_1-32",
       "key": "Księga Rodzaju 11:1-32",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "nyaeeQuE8Q4",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_11_1-32",
+      "key": "Księga Rodzaju 11:1-32",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "0L6Ur3z0Aac",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_11_1-32",
+      "key": "Księga Rodzaju 11:1-32",
       "channel": "Christian Culture TV",
       "tab": "videos",
       "action": "ok",
@@ -773,9 +1579,76 @@
       "action": "ok",
       "keepId": "fitt7ZPpB5Y",
       "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_11_1-32",
+      "key": "Księga Rodzaju 11:1-32",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "iQTAHl3kr3A",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_11_1-32",
+      "key": "Księga Rodzaju 11:1-32",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "FkxLX-U21lI",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_11_1-32",
+      "key": "Księga Rodzaju 11:1-32",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "21DO2_bynh4",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_11_1-32",
+      "key": "Księga Rodzaju 11:1-32",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "UUn_-zVrKkA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_11_1-32",
+      "key": "Księga Rodzaju 11:1-32",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "XfMDcgAEcZY",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_11_1-32",
+      "key": "Księga Rodzaju 11:1-32",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "2UB6My2FUto",
+      "toDelete": []
     }
   ],
-  "results": [],
+  "results": [
+    {
+      "ep": "Ksiega_Rodzaju_6_1-22",
+      "key": "Księga Rodzaju 6:1-22",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "complete-draft",
+      "keepId": "ceBHBIHEcqA",
+      "toDelete": [],
+      "result": "zaplanowane",
+      "videoUrl": "https://youtube.com/shorts/ceBHBIHEcqA",
+      "attempts": 1
+    }
+  ],
   "toDelete": [
     {
       "channel": "Christian Culture TV",
@@ -888,6 +1761,30 @@
       "title": "Księga Rodzaju 5:1-32 (UBG) • Rodowód Wiary • Henoch Chodzący z Bogiem | Biblia Audio CC #Shorts",
       "status": "draft",
       "studioUrl": "https://studio.youtube.com/video/eaUb9qmB0ts/edit"
+    },
+    {
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "id": "B94AbWu3Q-0",
+      "title": "Księga Rodzaju 6:1-22 (UBG) • Zepsucie Ludzkości i Nakaz Budowy Arki | Biblia Audio CC [4K UHD]",
+      "status": "draft",
+      "studioUrl": "https://studio.youtube.com/video/B94AbWu3Q-0/edit"
+    },
+    {
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "id": "95eyIWjYIoA",
+      "title": "Księga Rodzaju 6:1-22 (UBG) • Zepsucie Ludzkości i Nakaz Budowy Arki | Biblia Audio CC #Shorts",
+      "status": "draft",
+      "studioUrl": "https://studio.youtube.com/video/95eyIWjYIoA/edit"
+    },
+    {
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "id": "T4KwDGAJdCU",
+      "title": "Księga Rodzaju 6:1-22 (UBG) • Zepsucie Ludzkości i Nakaz Budowy Arki | Biblia Audio CC #Shorts",
+      "status": "draft",
+      "studioUrl": "https://studio.youtube.com/video/T4KwDGAJdCU/edit"
     },
     {
       "channel": "Christian Culture TV",
@@ -1020,50 +1917,10 @@
     {
       "channel": "Osobowość +",
       "tab": "videos",
-      "id": "iQTAHl3kr3A",
-      "status": "draft",
-      "title": "Księga Rodzaju 11:1-32 (UBG) • Wieża Babel • Pomieszanie Języków i Rodowód Abrama | Biblia",
-      "studioUrl": "https://studio.youtube.com/video/iQTAHl3kr3A/edit"
-    },
-    {
-      "channel": "Osobowość +",
-      "tab": "videos",
       "id": "gFRYB8-gwyM",
+      "title": "Księga Rodzaju 10:1-32 (UBG) • Tablica Narodów • Potomkowie Synów Noego | Biblia Audio CC [4K UHD]",
       "status": "draft",
-      "title": "Księga Rodzaju 10:1-32 (UBG) • Tablica Narodów • Potomkowie Synów Noego | Biblia Audio CC ",
       "studioUrl": "https://studio.youtube.com/video/gFRYB8-gwyM/edit"
-    },
-    {
-      "channel": "Osobowość +",
-      "tab": "videos",
-      "id": "B94AbWu3Q-0",
-      "status": "draft",
-      "title": "Księga Rodzaju 6:1-22 (UBG) • Zepsucie Ludzkości i Nakaz Budowy Arki | Biblia Audio CC [4K",
-      "studioUrl": "https://studio.youtube.com/video/B94AbWu3Q-0/edit"
-    },
-    {
-      "channel": "Osobowość +",
-      "tab": "shorts",
-      "id": "FkxLX-U21lI",
-      "status": "draft",
-      "title": "Księga Rodzaju 11:1-32 (UBG) • Wieża Babel • Pomieszanie Języków i Rodowód Abrama | Biblia",
-      "studioUrl": "https://studio.youtube.com/video/FkxLX-U21lI/edit"
-    },
-    {
-      "channel": "Osobowość +",
-      "tab": "shorts",
-      "id": "95eyIWjYIoA",
-      "status": "draft",
-      "title": "Księga Rodzaju 6:1-22 (UBG) • Zepsucie Ludzkości i Nakaz Budowy Arki | Biblia Audio CC #Sh",
-      "studioUrl": "https://studio.youtube.com/video/95eyIWjYIoA/edit"
-    },
-    {
-      "channel": "Osobowość +",
-      "tab": "shorts",
-      "id": "T4KwDGAJdCU",
-      "status": "draft",
-      "title": "Księga Rodzaju 6:1-22 (UBG) • Zepsucie Ludzkości i Nakaz Budowy Arki | Biblia Audio CC #Sh",
-      "studioUrl": "https://studio.youtube.com/video/T4KwDGAJdCU/edit"
     }
   ]
 }
