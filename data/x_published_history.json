@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "player",
+      "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
+      "url": "https://polskieradio.cc/player",
+      "type": "music",
+      "image": "art-worship.jpg",
+      "publishedAt": "2026-11-04T09:05:09.026Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "u-boku-diabla",
       "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
       "url": "https://polskieradio.cc/u-boku-diabla",
