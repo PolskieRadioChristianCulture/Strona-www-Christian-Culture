@@ -87,6 +87,7 @@ function updateSearchIndexes() {
     path.join(ROOT, 'data', 'cc-search-index.json')
   ];
 
+  const updatedAt = new Date().toISOString();
   for (const catPath of catalogPaths) {
     if (!fs.existsSync(catPath)) continue;
     let data = JSON.parse(fs.readFileSync(catPath, 'utf8'));
@@ -117,7 +118,7 @@ function updateSearchIndexes() {
     }
 
     data.totalItems = data.items.length;
-    data.updatedAt = new Date().toISOString();
+    data.updatedAt = updatedAt;
 
     fs.writeFileSync(catPath, JSON.stringify(data, null, 2), 'utf8');
     console.log(`✅ Zaktualizowano ${path.basename(catPath)} (${data.totalItems} pozycji, dodano 63 wpisy CC Pomoc)`);
@@ -258,17 +259,8 @@ function buildHelpPageHtml() {
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config','G-Y4EFTVBPE3',(function(){
-    try {
-      var s = location.search, k = 'cc_team';
-      if(/[?&]cc_team=1/.test(s)) localStorage.setItem(k,'1');
-      if(/[?&]cc_team=0/.test(s)) localStorage.removeItem(k);
-      if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio) return {traffic_type:'internal'};
-    } catch(e){}
-    return {};
-  })());
-</script>
-<script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
