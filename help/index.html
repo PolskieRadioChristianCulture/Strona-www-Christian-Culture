@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script>
+<script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="index,follow">
+<title>CC Pomoc — Katalog wsparcia tematycznego | Christian Culture</title>
+<meta name="description" content="Katalog bezpłatnych stron wsparcia tematycznego Christian Culture. Zdrowie, uzależnienia, rodzina, zdrowie psychiczne, finanse i prawo. Specjaliści chętni do pomocy.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CC Pomoc — Katalog wsparcia tematycznego">
+<meta property="og:description" content="Ponad 60 tematycznych stron wsparcia. Znajdź pomoc w swojej sprawie — bezpłatnie, bez oceniania.">
+<meta property="og:url" content="https://polskieradio.cc/help">
+<meta property="og:image" content="https://polskieradio.cc/icon.png">
+<link rel="canonical" href="https://polskieradio.cc/help">
+<link rel="icon" href="/dlugi/assets/cc-logo.webp" type="image/webp">
+<link rel="stylesheet" href="/dlugi/styles.css?v=20261027b">
+<link rel="stylesheet" href="/cc-pomoc/catalog.css?v=20261027">
+<style>
+  /* ── CC HELP CATALOG — dedykowane style ── */
+  :root {
+    --help-gold: #C4A35A;
+    --help-gold-hover: #D4B578;
+    --help-bg: #0a0a0a;
+    --help-card-bg: #131313;
+    --help-card-border: rgba(196,163,90,.18);
+    --help-card-hover-border: rgba(196,163,90,.55);
+    --help-radius: 14px;
+    --help-gap: 1rem;
+  }
+  @media(prefers-color-scheme:light) {
+    :root { --help-bg:#f4f4f0; --help-card-bg:#fff; --help-card-border:rgba(0,0,0,.09); }
+  }
+
+  .help-hero {
+    background: linear-gradient(135deg,#0d1a2a 0%,#0a2a1a 100%);
+    padding: 3.5rem 1.25rem 2.5rem;
+    text-align: center;
+  }
+  .help-hero-badge {
+    display: inline-block;
+    font-size:.75rem; letter-spacing:.12em; text-transform:uppercase;
+    color: var(--help-gold); font-weight:700; margin-bottom:.75rem;
+  }
+  .help-hero h1 {
+    font-size: clamp(1.75rem,5vw,2.75rem);
+    color: #fff; font-weight:800; margin:0 0 .75rem; line-height:1.15;
+  }
+  .help-hero p {
+    color: rgba(255,255,255,.75); max-width: 540px; margin: 0 auto 1.5rem; font-size:1.05rem;
+  }
+  .help-hero-stats {
+    display:flex; gap:2rem; justify-content:center; flex-wrap:wrap;
+  }
+  .help-hero-stat { text-align:center; }
+  .help-hero-stat strong { display:block; font-size:2rem; color:var(--help-gold); font-weight:800; }
+  .help-hero-stat span { font-size:.8rem; color:rgba(255,255,255,.6); text-transform:uppercase; letter-spacing:.08em; }
+
+  .help-search-bar {
+    max-width: 540px; margin: 1.75rem auto 0;
+    position: relative;
+  }
+  .help-search-bar input {
+    width:100%; padding:.85rem 1.25rem .85rem 3rem;
+    border-radius: 999px; border: 1.5px solid var(--help-gold);
+    background: rgba(255,255,255,.07); color:#fff; font-size:1rem;
+    outline:none; box-sizing:border-box;
+  }
+  .help-search-bar input::placeholder { color:rgba(255,255,255,.45); }
+  .help-search-bar svg { position:absolute; left:1rem; top:50%; transform:translateY(-50%); opacity:.6; }
+
+  .help-main { max-width:1120px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+
+  .help-category { margin-bottom: 2.5rem; }
+  .help-cat-title {
+    font-size:1.05rem; font-weight:700; color:var(--help-gold);
+    margin:0 0 1rem; padding-bottom:.5rem;
+    border-bottom: 1px solid var(--help-card-border);
+  }
+  .help-cards-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    gap: var(--help-gap);
+  }
+  .help-card {
+    display:flex; flex-direction:column; gap:.35rem;
+    background: var(--help-card-bg);
+    border: 1.5px solid var(--help-card-border);
+    border-radius: var(--help-radius);
+    padding: 1.1rem 1rem;
+    text-decoration: none;
+    transition: border-color .2s, transform .15s, box-shadow .2s;
+    min-height: 100px;
+  }
+  .help-card:hover, .help-card:focus-visible {
+    border-color: var(--help-card-hover-border);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(196,163,90,.12);
+    outline: none;
+  }
+  .help-card:focus-visible { outline: 2px solid var(--help-gold); }
+  .help-card-emoji { font-size:1.6rem; line-height:1; }
+  .help-card-title { font-size:.9rem; font-weight:700; color: #e8e0cc; }
+  @media(prefers-color-scheme:light) { .help-card-title { color:#1a1a1a; } }
+  .help-card-desc { font-size:.78rem; color:rgba(255,255,255,.5); line-height:1.4; }
+  @media(prefers-color-scheme:light) { .help-card-desc { color:rgba(0,0,0,.55); } }
+
+  .help-volunteer-cta {
+    background: linear-gradient(135deg,rgba(196,163,90,.12),rgba(196,163,90,.04));
+    border: 1.5px solid var(--help-card-border);
+    border-radius: var(--help-radius);
+    padding: 2rem 1.5rem; text-align:center; margin-top:3rem;
+  }
+  .help-volunteer-cta h2 { font-size:1.3rem; color:#e8e0cc; margin:0 0 .5rem; }
+  .help-volunteer-cta p { color:rgba(255,255,255,.65); margin:0 0 1.25rem; }
+  .help-volunteer-btn {
+    display:inline-block; padding:.8rem 2rem; border-radius:999px;
+    background: var(--help-gold); color:#0a0a0a; font-weight:700; font-size:.9rem;
+    text-decoration:none; transition: background .2s;
+    min-height:44px; min-width:44px;
+  }
+  .help-volunteer-btn:hover { background: var(--help-gold-hover); }
+
+  .help-back-link {
+    display:inline-flex; align-items:center; gap:.4rem;
+    color:var(--help-gold); font-size:.85rem; text-decoration:none;
+    padding:.75rem 0; margin-bottom:1rem;
+    min-height:44px;
+  }
+  .help-back-link:hover { text-decoration:underline; }
+
+  @media(max-width:480px) {
+    .help-cards-grid { grid-template-columns:repeat(2,1fr); }
+    .help-hero-stats { gap:1.25rem; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Przejdź do treści</a>
+
+<header class="header">
+  <div class="header-inner wrap">
+    <a class="brand" href="https://polskieradio.cc/" aria-label="Christian Culture">
+      <img src="/dlugi/assets/cc-logo.webp" width="66" height="68" alt="Christian Culture">
+      <span>CHRISTIAN CULTURE<small>WIARA · WSPARCIE · NADZIEJA</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Nawigacja">
+      <a href="https://polskieradio.cc/player">Radio</a>
+      <a href="https://polskieradio.cc/lumina">LUMINA</a>
+      <a href="https://polskieradio.cc/akademia">Akademia</a>
+      <a href="#wolontariat">Zostań specjalistą</a>
+    </nav>
+    <div class="header-actions">
+      <a class="support" href="https://polskieradio.cc/wspieraj">Wspieram to</a>
+      <button class="menu-toggle" id="open-menu" type="button" aria-expanded="false" aria-controls="cc-mobile-edge-dialog" aria-label="Otwórz panel">+</button>
+    </div>
+  </div>
+</header>
+
+<div class="help-hero">
+  <span class="help-hero-badge">CHRISTIAN CULTURE · CC POMOC</span>
+  <h1>Katalog wsparcia tematycznego</h1>
+  <p>Bezpłatne strony z praktycznym wsparciem. Bez oceniania. Bez obietnic szybkich rozwiązań. Z szacunkiem do Twojej sytuacji.</p>
+  <div class="help-hero-stats">
+    <div class="help-hero-stat"><strong>62</strong><span>tematów</span></div>
+    <div class="help-hero-stat"><strong>5</strong><span>kategorii</span></div>
+    <div class="help-hero-stat"><strong>0 zł</strong><span>zawsze bezpłatne</span></div>
+  </div>
+  <div class="help-search-bar" role="search">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="search" id="helpSearch" placeholder="Szukaj tematu…" aria-label="Szukaj tematu wsparcia" autocomplete="off">
+  </div>
+</div>
+
+<main id="main" class="help-main">
+  <a class="help-back-link" href="https://polskieradio.cc/">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    Polskie Radio Christian Culture
+  </a>
+
+
+    <section class="help-category" aria-labelledby="cat-zdrowie">
+      <h2 id="cat-zdrowie" class="help-cat-title">🏥 Zdrowie i styl życia</h2>
+      <div class="help-cards-grid">
+        
+      <a class="help-card" href="/aktywnosc-fizyczna" aria-label="Aktywność fizyczna">
+        <span class="help-card-emoji" aria-hidden="true">🏃</span>
+        <strong class="help-card-title">Aktywność fizyczna</strong>
+        <span class="help-card-desc">Ruch, rehabilitacja i zdrowy tryb życia</span>
+      </a>
+      <a class="help-card" href="/cukrzyca" aria-label="Cukrzyca">
+        <span class="help-card-emoji" aria-hidden="true">💉</span>
+        <strong class="help-card-title">Cukrzyca</strong>
+        <span class="help-card-desc">Życie z cukrzycą – wsparcie i informacje</span>
+      </a>
+      <a class="help-card" href="/depresja" aria-label="Depresja">
+        <span class="help-card-emoji" aria-hidden="true">🌧️</span>
+        <strong class="help-card-title">Depresja</strong>
+        <span class="help-card-desc">Szukanie pomocy w depresji</span>
+      </a>
+      <a class="help-card" href="/dietetyk" aria-label="Dietetyk">
+        <span class="help-card-emoji" aria-hidden="true">🥗</span>
+        <strong class="help-card-title">Dietetyk</strong>
+        <span class="help-card-desc">Żywienie i zdrowa dieta</span>
+      </a>
+      <a class="help-card" href="/lek" aria-label="Lęk i niepokój">
+        <span class="help-card-emoji" aria-hidden="true">🫁</span>
+        <strong class="help-card-title">Lęk i niepokój</strong>
+        <span class="help-card-desc">Zaburzenia lękowe – pomoc i wsparcie</span>
+      </a>
+      <a class="help-card" href="/nadcisnienie" aria-label="Nadciśnienie">
+        <span class="help-card-emoji" aria-hidden="true">❤️</span>
+        <strong class="help-card-title">Nadciśnienie</strong>
+        <span class="help-card-desc">Nadciśnienie – informacje i wsparcie</span>
+      </a>
+      <a class="help-card" href="/rehabilitacja" aria-label="Rehabilitacja">
+        <span class="help-card-emoji" aria-hidden="true">🦽</span>
+        <strong class="help-card-title">Rehabilitacja</strong>
+        <span class="help-card-desc">Rehabilitacja i powrót do zdrowia</span>
+      </a>
+      <a class="help-card" href="/sanatoria" aria-label="Sanatoria">
+        <span class="help-card-emoji" aria-hidden="true">🏥</span>
+        <strong class="help-card-title">Sanatoria</strong>
+        <span class="help-card-desc">Leczenie uzdrowiskowe i sanatoryjne</span>
+      </a>
+      <a class="help-card" href="/wypalenie" aria-label="Wypalenie zawodowe">
+        <span class="help-card-emoji" aria-hidden="true">🔥</span>
+        <strong class="help-card-title">Wypalenie zawodowe</strong>
+        <span class="help-card-desc">Wypalenie – jak odzyskać siły</span>
+      </a>
+      <a class="help-card" href="/zdrowe-serce" aria-label="Zdrowe serce">
+        <span class="help-card-emoji" aria-hidden="true">💓</span>
+        <strong class="help-card-title">Zdrowe serce</strong>
+        <span class="help-card-desc">Choroby serca – profilaktyka i wsparcie</span>
+      </a>
+      <a class="help-card" href="/zdrowy-sen" aria-label="Zdrowy sen">
+        <span class="help-card-emoji" aria-hidden="true">🌙</span>
+        <strong class="help-card-title">Zdrowy sen</strong>
+        <span class="help-card-desc">Bezsenność i zaburzenia snu</span>
+      </a>
+      <a class="help-card" href="/zdrowy-styl-zycia" aria-label="Zdrowy styl życia">
+        <span class="help-card-emoji" aria-hidden="true">🌿</span>
+        <strong class="help-card-title">Zdrowy styl życia</strong>
+        <span class="help-card-desc">Kompleksowe wsparcie zdrowia</span>
+      </a>
+      <a class="help-card" href="/wsparcie-zdrowia" aria-label="Wsparcie zdrowia">
+        <span class="help-card-emoji" aria-hidden="true">🩺</span>
+        <strong class="help-card-title">Wsparcie zdrowia</strong>
+        <span class="help-card-desc">Ogólne wsparcie zdrowotne</span>
+      </a>
+      </div>
+    </section>
+    <section class="help-category" aria-labelledby="cat-uzależnienia">
+      <h2 id="cat-uzależnienia" class="help-cat-title">💊 Uzależnienia</h2>
+      <div class="help-cards-grid">
+        
+      <a class="help-card" href="/alkoholizm" aria-label="Alkoholizm">
+        <span class="help-card-emoji" aria-hidden="true">🍷</span>
+        <strong class="help-card-title">Alkoholizm</strong>
+        <span class="help-card-desc">Leczenie i wsparcie w problemach z alkoholem</span>
+      </a>
+      <a class="help-card" href="/hazard" aria-label="Hazard">
+        <span class="help-card-emoji" aria-hidden="true">🎰</span>
+        <strong class="help-card-title">Hazard</strong>
+        <span class="help-card-desc">Uzależnienie od hazardu – pomoc</span>
+      </a>
+      <a class="help-card" href="/narkomania" aria-label="Narkomania">
+        <span class="help-card-emoji" aria-hidden="true">💊</span>
+        <strong class="help-card-title">Narkomania</strong>
+        <span class="help-card-desc">Uzależnienie od narkotyków – wsparcie</span>
+      </a>
+      <a class="help-card" href="/rzucanie-palenia" aria-label="Rzucanie palenia">
+        <span class="help-card-emoji" aria-hidden="true">🚭</span>
+        <strong class="help-card-title">Rzucanie palenia</strong>
+        <span class="help-card-desc">Jak rzucić palenie – praktyczne kroki</span>
+      </a>
+      <a class="help-card" href="/terapia-uzaleznien" aria-label="Terapia uzależnień">
+        <span class="help-card-emoji" aria-hidden="true">🛋️</span>
+        <strong class="help-card-title">Terapia uzależnień</strong>
+        <span class="help-card-desc">Gdzie szukać terapii uzależnień</span>
+      </a>
+      <a class="help-card" href="/uzaleznienia" aria-label="Uzależnienia">
+        <span class="help-card-emoji" aria-hidden="true">🔗</span>
+        <strong class="help-card-title">Uzależnienia</strong>
+        <span class="help-card-desc">Kompleksowe wsparcie w uzależnieniach</span>
+      </a>
+      <a class="help-card" href="/uzaleznienie-od-pornografii" aria-label="Uzal. od pornografii">
+        <span class="help-card-emoji" aria-hidden="true">🛡️</span>
+        <strong class="help-card-title">Uzal. od pornografii</strong>
+        <span class="help-card-desc">Pomoc w uzależnieniu od pornografii</span>
+      </a>
+      <a class="help-card" href="/uzaleznienie-od-telefonu" aria-label="Uzal. od telefonu">
+        <span class="help-card-emoji" aria-hidden="true">📵</span>
+        <strong class="help-card-title">Uzal. od telefonu</strong>
+        <span class="help-card-desc">Uzależnienie od smartfona – jak odzyskać kontrolę</span>
+      </a>
+      <a class="help-card" href="/wspoluzaleznienie" aria-label="Współuzależnienie">
+        <span class="help-card-emoji" aria-hidden="true">🤝</span>
+        <strong class="help-card-title">Współuzależnienie</strong>
+        <span class="help-card-desc">Pomoc dla bliskich osób uzależnionych</span>
+      </a>
+      </div>
+    </section>
+    <section class="help-category" aria-labelledby="cat-rodzina">
+      <h2 id="cat-rodzina" class="help-cat-title">👨‍👩‍👧 Rodzina i relacje</h2>
+      <div class="help-cards-grid">
+        
+      <a class="help-card" href="/dziecko-a-rozwod" aria-label="Dziecko a rozwód">
+        <span class="help-card-emoji" aria-hidden="true">👨‍👩‍👧</span>
+        <strong class="help-card-title">Dziecko a rozwód</strong>
+        <span class="help-card-desc">Jak chronić dziecko podczas rozwodu</span>
+      </a>
+      <a class="help-card" href="/komunikacja-w-malzenstwie" aria-label="Komunikacja w małż.">
+        <span class="help-card-emoji" aria-hidden="true">💬</span>
+        <strong class="help-card-title">Komunikacja w małż.</strong>
+        <span class="help-card-desc">Jak rozmawiać w małżeństwie</span>
+      </a>
+      <a class="help-card" href="/konflikty-rodzinne" aria-label="Konflikty rodzinne">
+        <span class="help-card-emoji" aria-hidden="true">⚖️</span>
+        <strong class="help-card-title">Konflikty rodzinne</strong>
+        <span class="help-card-desc">Mediacja i rozwiązywanie konfliktów</span>
+      </a>
+      <a class="help-card" href="/kryzys-malzenski" aria-label="Kryzys małżeński">
+        <span class="help-card-emoji" aria-hidden="true">💍</span>
+        <strong class="help-card-title">Kryzys małżeński</strong>
+        <span class="help-card-desc">Pomoc w kryzysie małżeńskim</span>
+      </a>
+      <a class="help-card" href="/narzeczenstwo" aria-label="Narzeczeństwo">
+        <span class="help-card-emoji" aria-hidden="true">💑</span>
+        <strong class="help-card-title">Narzeczeństwo</strong>
+        <span class="help-card-desc">Przygotowanie do małżeństwa</span>
+      </a>
+      <a class="help-card" href="/nastolatki" aria-label="Nastolatki">
+        <span class="help-card-emoji" aria-hidden="true">🧑‍🎓</span>
+        <strong class="help-card-title">Nastolatki</strong>
+        <span class="help-card-desc">Wyzwania w relacji z nastolatkami</span>
+      </a>
+      <a class="help-card" href="/problemy-w-szkole" aria-label="Problemy w szkole">
+        <span class="help-card-emoji" aria-hidden="true">🏫</span>
+        <strong class="help-card-title">Problemy w szkole</strong>
+        <span class="help-card-desc">Trudności szkolne – jak pomóc dziecku</span>
+      </a>
+      <a class="help-card" href="/przemoc-domowa" aria-label="Przemoc domowa">
+        <span class="help-card-emoji" aria-hidden="true">🆘</span>
+        <strong class="help-card-title">Przemoc domowa</strong>
+        <span class="help-card-desc">Pomoc w sytuacji przemocy domowej</span>
+      </a>
+      <a class="help-card" href="/rodzicielstwo" aria-label="Rodzicielstwo">
+        <span class="help-card-emoji" aria-hidden="true">👪</span>
+        <strong class="help-card-title">Rodzicielstwo</strong>
+        <span class="help-card-desc">Wyzwania i wsparcie w byciu rodzicem</span>
+      </a>
+      <a class="help-card" href="/rozwod" aria-label="Rozwód">
+        <span class="help-card-emoji" aria-hidden="true">📋</span>
+        <strong class="help-card-title">Rozwód</strong>
+        <span class="help-card-desc">Jak przejść przez rozwód – wsparcie</span>
+      </a>
+      <a class="help-card" href="/samotny-rodzic" aria-label="Samotny rodzic">
+        <span class="help-card-emoji" aria-hidden="true">👩‍👦</span>
+        <strong class="help-card-title">Samotny rodzic</strong>
+        <span class="help-card-desc">Wsparcie dla samotnych rodziców</span>
+      </a>
+      <a class="help-card" href="/trudne-zachowania" aria-label="Trudne zachowania">
+        <span class="help-card-emoji" aria-hidden="true">🧩</span>
+        <strong class="help-card-title">Trudne zachowania</strong>
+        <span class="help-card-desc">Jak radzić sobie z trudnymi zachowaniami</span>
+      </a>
+      <a class="help-card" href="/wiara-dzieci" aria-label="Wiara dzieci">
+        <span class="help-card-emoji" aria-hidden="true">✝️</span>
+        <strong class="help-card-title">Wiara dzieci</strong>
+        <span class="help-card-desc">Jak wychowywać dzieci w wierze</span>
+      </a>
+      <a class="help-card" href="/wsparcie-malzenstwa" aria-label="Wsparcie małżeństwa">
+        <span class="help-card-emoji" aria-hidden="true">💞</span>
+        <strong class="help-card-title">Wsparcie małżeństwa</strong>
+        <span class="help-card-desc">Wzmacnianie więzi małżeńskiej</span>
+      </a>
+      <a class="help-card" href="/wsparcie-rodzicow" aria-label="Wsparcie rodziców">
+        <span class="help-card-emoji" aria-hidden="true">🫂</span>
+        <strong class="help-card-title">Wsparcie rodziców</strong>
+        <span class="help-card-desc">Pomoc dla rodziców w trudnych sytuacjach</span>
+      </a>
+      <a class="help-card" href="/wsparcie-rodziny" aria-label="Wsparcie rodziny">
+        <span class="help-card-emoji" aria-hidden="true">🏡</span>
+        <strong class="help-card-title">Wsparcie rodziny</strong>
+        <span class="help-card-desc">Kompleksowe wsparcie dla rodziny</span>
+      </a>
+      <a class="help-card" href="/zdrada" aria-label="Zdrada">
+        <span class="help-card-emoji" aria-hidden="true">💔</span>
+        <strong class="help-card-title">Zdrada</strong>
+        <span class="help-card-desc">Jak radzić sobie ze zdradą</span>
+      </a>
+      </div>
+    </section>
+    <section class="help-category" aria-labelledby="cat-psyche">
+      <h2 id="cat-psyche" class="help-cat-title">🧠 Zdrowie psychiczne</h2>
+      <div class="help-cards-grid">
+        
+      <a class="help-card" href="/cyberprzemoc" aria-label="Cyberprzemoc">
+        <span class="help-card-emoji" aria-hidden="true">💻</span>
+        <strong class="help-card-title">Cyberprzemoc</strong>
+        <span class="help-card-desc">Przemoc w internecie – jak reagować</span>
+      </a>
+      <a class="help-card" href="/holistyczny-coaching" aria-label="Coaching holistyczny">
+        <span class="help-card-emoji" aria-hidden="true">🌟</span>
+        <strong class="help-card-title">Coaching holistyczny</strong>
+        <span class="help-card-desc">Rozwój osobisty i coaching</span>
+      </a>
+      <a class="help-card" href="/kryzys" aria-label="Kryzys">
+        <span class="help-card-emoji" aria-hidden="true">🆘</span>
+        <strong class="help-card-title">Kryzys</strong>
+        <span class="help-card-desc">Pomoc w kryzysie emocjonalnym</span>
+      </a>
+      <a class="help-card" href="/poczucie-wartosci" aria-label="Poczucie wartości">
+        <span class="help-card-emoji" aria-hidden="true">🌱</span>
+        <strong class="help-card-title">Poczucie wartości</strong>
+        <span class="help-card-desc">Budowanie pewności siebie</span>
+      </a>
+      <a class="help-card" href="/psycholog" aria-label="Psycholog">
+        <span class="help-card-emoji" aria-hidden="true">🧠</span>
+        <strong class="help-card-title">Psycholog</strong>
+        <span class="help-card-desc">Gdzie znaleźć psychologa</span>
+      </a>
+      <a class="help-card" href="/psycholog-dzieciecy" aria-label="Psycholog dziecięcy">
+        <span class="help-card-emoji" aria-hidden="true">🧒</span>
+        <strong class="help-card-title">Psycholog dziecięcy</strong>
+        <span class="help-card-desc">Pomoc psychologiczna dla dzieci</span>
+      </a>
+      <a class="help-card" href="/samotnosc" aria-label="Samotność">
+        <span class="help-card-emoji" aria-hidden="true">🕯️</span>
+        <strong class="help-card-title">Samotność</strong>
+        <span class="help-card-desc">Radzenie sobie z samotnością</span>
+      </a>
+      <a class="help-card" href="/senior" aria-label="Senior">
+        <span class="help-card-emoji" aria-hidden="true">👴</span>
+        <strong class="help-card-title">Senior</strong>
+        <span class="help-card-desc">Wsparcie dla seniorów</span>
+      </a>
+      <a class="help-card" href="/stres" aria-label="Stres">
+        <span class="help-card-emoji" aria-hidden="true">😮‍💨</span>
+        <strong class="help-card-title">Stres</strong>
+        <span class="help-card-desc">Stres i przeciążenie – jak sobie radzić</span>
+      </a>
+      <a class="help-card" href="/trauma" aria-label="Trauma">
+        <span class="help-card-emoji" aria-hidden="true">🌊</span>
+        <strong class="help-card-title">Trauma</strong>
+        <span class="help-card-desc">Pomoc po traumatycznych przeżyciach</span>
+      </a>
+      <a class="help-card" href="/zaloba" aria-label="Żałoba">
+        <span class="help-card-emoji" aria-hidden="true">🕊️</span>
+        <strong class="help-card-title">Żałoba</strong>
+        <span class="help-card-desc">Przeżywanie straty i żałoby</span>
+      </a>
+      </div>
+    </section>
+    <section class="help-category" aria-labelledby="cat-finanse">
+      <h2 id="cat-finanse" class="help-cat-title">⚖️ Finanse i prawo</h2>
+      <div class="help-cards-grid">
+        
+      <a class="help-card" href="/budzet-domowy" aria-label="Budżet domowy">
+        <span class="help-card-emoji" aria-hidden="true">📊</span>
+        <strong class="help-card-title">Budżet domowy</strong>
+        <span class="help-card-desc">Jak zaplanować i kontrolować budżet</span>
+      </a>
+      <a class="help-card" href="/dlugi" aria-label="Długi">
+        <span class="help-card-emoji" aria-hidden="true">📉</span>
+        <strong class="help-card-title">Długi</strong>
+        <span class="help-card-desc">Wyjście z długów – praktyczne kroki</span>
+      </a>
+      <a class="help-card" href="/komornik" aria-label="Komornik">
+        <span class="help-card-emoji" aria-hidden="true">📜</span>
+        <strong class="help-card-title">Komornik</strong>
+        <span class="help-card-desc">Egzekucja komornicza – prawa i ochrona</span>
+      </a>
+      <a class="help-card" href="/kredyty" aria-label="Kredyty">
+        <span class="help-card-emoji" aria-hidden="true">🏦</span>
+        <strong class="help-card-title">Kredyty</strong>
+        <span class="help-card-desc">Problemy z kredytami – pomoc</span>
+      </a>
+      <a class="help-card" href="/oddluzanie" aria-label="Oddłużanie">
+        <span class="help-card-emoji" aria-hidden="true">🔓</span>
+        <strong class="help-card-title">Oddłużanie</strong>
+        <span class="help-card-desc">Jak wyjść z pętli zadłużenia</span>
+      </a>
+      <a class="help-card" href="/pomoc-prawna" aria-label="Pomoc prawna">
+        <span class="help-card-emoji" aria-hidden="true">⚖️</span>
+        <strong class="help-card-title">Pomoc prawna</strong>
+        <span class="help-card-desc">Bezpłatna pomoc prawna w Polsce</span>
+      </a>
+      <a class="help-card" href="/prawa-konsumenta" aria-label="Prawa konsumenta">
+        <span class="help-card-emoji" aria-hidden="true">🛒</span>
+        <strong class="help-card-title">Prawa konsumenta</strong>
+        <span class="help-card-desc">Ochrona praw konsumenta</span>
+      </a>
+      <a class="help-card" href="/prawnik" aria-label="Prawnik">
+        <span class="help-card-emoji" aria-hidden="true">👨‍⚖️</span>
+        <strong class="help-card-title">Prawnik</strong>
+        <span class="help-card-desc">Jak znaleźć prawnika</span>
+      </a>
+      <a class="help-card" href="/upadlosc-konsumencka" aria-label="Upadłość konsumencka">
+        <span class="help-card-emoji" aria-hidden="true">📋</span>
+        <strong class="help-card-title">Upadłość konsumencka</strong>
+        <span class="help-card-desc">Oddłużenie przez upadłość</span>
+      </a>
+      <a class="help-card" href="/windykacja" aria-label="Windykacja">
+        <span class="help-card-emoji" aria-hidden="true">📩</span>
+        <strong class="help-card-title">Windykacja</strong>
+        <span class="help-card-desc">Windykacja wierzytelności – informacje</span>
+      </a>
+      <a class="help-card" href="/pastor" aria-label="Pastor / duchowy">
+        <span class="help-card-emoji" aria-hidden="true">✝️</span>
+        <strong class="help-card-title">Pastor / duchowy</strong>
+        <span class="help-card-desc">Wsparcie duchowe i pastoralne</span>
+      </a>
+      <a class="help-card" href="/specjalisci" aria-label="Specjaliści CC">
+        <span class="help-card-emoji" aria-hidden="true">📋</span>
+        <strong class="help-card-title">Specjaliści CC</strong>
+        <span class="help-card-desc">Katalog specjalistów CC Pomoc</span>
+      </a>
+      </div>
+    </section>
+
+  <div class="help-volunteer-cta" id="wolontariat">
+    <h2>🙋 Jesteś specjalistą? Chcesz pomóc bezpłatnie?</h2>
+    <p>Szukamy wolontariuszy — psychologów, prawników, doradców finansowych, lekarzy i coachów, którzy chcą dzielić się wiedzą w duchu chrześcijańskich wartości.</p>
+    <a class="help-volunteer-btn" href="https://polskieradio.cc/wspolpraca">Zgłoś się jako specjalista →</a>
+  </div>
+</main>
+
+<script src="/js/cc-mobile-edge.js?v=20261030_edge10" defer></script>
+<script>
+  // Filtrowanie kart po wyszukiwaniu
+  const searchInput = document.getElementById('helpSearch');
+  const cards = document.querySelectorAll('.help-card');
+  const sections = document.querySelectorAll('.help-category');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) {
+      cards.forEach(c => c.hidden = false);
+      sections.forEach(s => s.hidden = false);
+      return;
+    }
+    cards.forEach(c => {
+      const text = c.textContent.toLowerCase();
+      c.hidden = !text.includes(q);
+    });
+    sections.forEach(s => {
+      const visible = [...s.querySelectorAll('.help-card')].some(c => !c.hidden);
+      s.hidden = !visible;
+    });
+  });
+</script>
+</body>
+</html>

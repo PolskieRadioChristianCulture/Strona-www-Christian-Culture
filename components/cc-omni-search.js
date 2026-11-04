@@ -340,6 +340,9 @@
     'sklep': ['koszyk', 'zamówienie', 'współpraca', 'książki', 'literatura'],
     'ksiazki': ['książki', 'sklep', 'biblioteka', 'literatura'],
     'książki': ['ksiazki', 'sklep', 'biblioteka', 'literatura'],
+        'help': ['pomoc', 'cc pomoc', 'wsparcie', 'specjalista', 'wolontariat', 'zdrowie', 'depresja', 'uzaleznienie', 'rodzina', 'finanse', 'prawo'],
+    'pomoc': ['help', 'cc pomoc', 'wsparcie tematyczne', 'specjalista', 'centrum pomocy'],
+    'ccpomoc': ['cc pomoc', 'help', 'wsparcie', 'specjalista'],
     'journal': ['the journal', 'pamiętnik', 'pamietnik', 'dziennik', '90 dni', 'młodzież', 'nastolatki'],
     'pamietnik': ['pamiętnik', 'the journal', 'journal', 'dziennik', '90 dni', 'młodzież'],
     'pamiętnik': ['pamietnik', 'the journal', 'journal', 'dziennik', '90 dni', 'młodzież'],
@@ -9386,7 +9389,7 @@ ${isStandalonePage ? '' : `
       ['Shorts', '/shorts', 'video'], ['Moje Centrum', '/moje-centrum', 'user'], ['CC Lite', 'https://cclite.pl', 'phone']
     ] },
     { title: 'Współpraca, usługi i wsparcie', items: [
-      ['Wspieraj', '/wspieraj', 'heart'], ['Współpraca', '/wspolpraca', 'hands'], ['Nadawaj z nami', '/nadawaj', 'broadcast'],
+      ['Wspieraj', '/wspieraj', 'heart'], ['CC Pomoc', '/help', 'help'], ['Współpraca', '/wspolpraca', 'hands'], ['Nadawaj z nami', '/nadawaj', 'broadcast'],
       ['Wizytówki', '/wizytowki', 'idcard'], ['Coaching', '/holistyczny-coaching', 'target'], ['Kreator YIS', '/YIS', 'palette'],
       ['Milion', '/milion', 'counter'], ['HOLOS', '/holos', 'sparkle'], ['Mapa', '/mapa', 'map'],
       ['O nas', '/o-nas', 'info'], ['Kontakt', '/#contact-section', 'mail'], ['Prywatność', '/privacy', 'lock']
