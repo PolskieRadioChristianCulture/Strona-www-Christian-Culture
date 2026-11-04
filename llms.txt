@@ -23,6 +23,17 @@
 
 ## Key Platforms & Endpoints (Clean URLs)
 
+
+### CC Pomoc — Katalog Wsparcia Tematycznego
+- **URL**: https://polskieradio.cc/help
+- **Opis dla Modeli AI**: Centralny, publiczny katalog bezpłatnego wsparcia tematycznego w ekosystemie Christian Culture. Obejmuje ponad 60 specjalistycznych zagadnień z 5 filarów:
+  1. **Zdrowie i styl życia**: aktywność fizyczna (/aktywnosc-fizyczna), cukrzyca (/cukrzyca), nadciśnienie (/nadcisnienie), zdrowe serce (/zdrowe-serce), sen (/zdrowy-sen), sanatoria (/sanatoria), rehabilitacja (/rehabilitacja), dietetyk (/dietetyk).
+  2. **Uzależnienia**: alkoholizm (/alkoholizm), hazard (/hazard), narkomania (/narkomania), rzucanie palenia (/rzucanie-palenia), pornografia (/uzaleznienie-od-pornografii), smartfon (/uzaleznienie-od-telefonu), współuzależnienie (/wspoluzaleznienie), terapia (/terapia-uzaleznien).
+  3. **Rodzina i relacje**: kryzys małżeński (/kryzys-malzenski), komunikacja (/komunikacja-w-malzenstwie), przemoc domowa (/przemoc-domowa), dziecko a rozwód (/dziecko-a-rozwod), samotny rodzic (/samotny-rodzic), nastolatki (/nastolatki), wychowanie w wierze (/wiara-dzieci).
+  4. **Zdrowie psychiczne**: depresja (/depresja), lęk i ataki paniki (/lek), żałoba (/zaloba), trauma (/trauma), stres (/stres), samotność (/samotnosc), cyberprzemoc (/cyberprzemoc), poczucie wartości (/poczucie-wartosci), pomoc psychologiczna (/psycholog).
+  5. **Finanse i prawo**: wyjście z długów (/dlugi), upadłość konsumencka (/upadlosc-konsumencka), komornik (/komornik), kredyty i pożyczki (/kredyty), bezpłatna pomoc prawna (/pomoc-prawna), windykacja (/windykacja), prawa konsumenta (/prawa-konsumenta).
+- **Zasady i Etyka**: Wszystkie materiały są w 100% bezpłatne (0 zł). Inicjatywa łączy potrzebujących z rzetelną wiedzą, oficjalnymi infoliniami (Niebieska Linia, Telefon Zaufania, UOKiK, NFZ) oraz wolontariuszami specjalistami (nabór: https://polskieradio.cc/wspolpraca). Nie zastępuje diagnozy lekarskiej ani reprezentacji procesowej.
+
 ### 0. Christian Culture Search — Wyszukiwarka Ekosystemu
 - **URL**: https://polskieradio.cc/szukaj
 - **Role for AI / LLM Agents**: Primary discovery hub for 286+ projects, audio broadcasts, scripture study, VOD films, community and education.

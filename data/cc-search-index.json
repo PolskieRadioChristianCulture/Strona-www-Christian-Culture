@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-04T14:48:03.969Z",
-  "totalItems": 408,
+  "updatedAt": "2026-11-04T19:45:56.921Z",
+  "totalItems": 470,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1757,24 +1757,6 @@
         "warszawa zbór",
         "telewizja chrześcijańska",
         "transmisja zboru"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Holistyczny Coaching & Terapia Wolności — Paweł Murawski",
-      "category": "Społeczność & Relacje",
-      "url": "https://polskieradio.cc/holistyczny-coaching",
-      "description": "Indywidualne i rodzinne sesje rozwojowe oparte na prawdzie biblijnej: wyjście z kryzysów życiowych, pokonanie uzależnień, odbudowa poczucia własnej wartości w Chrystusie i wolność emocjonalna.",
-      "tags": [
-        "holistyczny coaching",
-        "paweł murawski",
-        "coaching",
-        "terapia",
-        "kryzys",
-        "uzależnienia",
-        "pomoc psychologiczna",
-        "rozwój osobisty",
-        "wolność"
       ],
       "featured": false
     },
@@ -10080,6 +10062,1090 @@
         "pokój boży",
         "wiara",
         "słowo boże"
+      ],
+      "featured": false
+    },
+    {
+      "title": "CC Pomoc — Centralny Katalog Wsparcia Tematycznego EkoCC",
+      "category": "Wsparcie i pomoc",
+      "url": "https://polskieradio.cc/help",
+      "description": "Ponad 60 bezpłatnych stron tematycznych z praktycznym wsparciem w kryzysie: zdrowie, uzależnienia, rodzina, psychologia, finanse i prawo. Bez oceniania, w duchu chrześcijańskich wartości, z naborem specjalistów wolontariuszy.",
+      "tags": [
+        "pomoc",
+        "cc pomoc",
+        "help",
+        "wsparcie",
+        "kryzys",
+        "specjalisci",
+        "wolontariat",
+        "zdrowie",
+        "uzaleznienia",
+        "rodzina",
+        "prawo",
+        "finanse",
+        "psycholog",
+        "infolinia"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Aktywność fizyczna i ruch — CC Pomoc | Christian Culture",
+      "category": "Zdrowie i styl życia",
+      "url": "https://polskieradio.cc/aktywnosc-fizyczna",
+      "description": "Ruch, rehabilitacja i zdrowy tryb życia. Jak zacząć bezpiecznie dbać o kondycję.",
+      "tags": [
+        "aktywnosc fizyczna",
+        "sport",
+        "ruch",
+        "kondycja",
+        "zdrowie",
+        "rehabilitacja",
+        "trening",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Cukrzyca — wsparcie i wiedza — CC Pomoc | Christian Culture",
+      "category": "Zdrowie i styl życia",
+      "url": "https://polskieradio.cc/cukrzyca",
+      "description": "Życie z cukrzycą – praktyczne wsparcie, dieta, profilaktyka i pomoc specjalistów.",
+      "tags": [
+        "cukrzyca",
+        "glikemia",
+        "dieta cukrzycowa",
+        "insulina",
+        "zdrowie",
+        "lekarz",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Depresja — szukanie pomocy — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/depresja",
+      "description": "Depresja jest problemem zdrowotnym. Bezpłatne wsparcie, kontakty do poradni i infolinie.",
+      "tags": [
+        "depresja",
+        "smutek",
+        "kryzys psychiczny",
+        "infolinia zaufania",
+        "psychiatra",
+        "pomoc psychologiczna",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Dietetyk i zdrowe odżywianie — CC Pomoc | Christian Culture",
+      "category": "Zdrowie i styl życia",
+      "url": "https://polskieradio.cc/dietetyk",
+      "description": "Zbilansowana dieta, zdrowe nawyki żywieniowe i konsultacje z dietetykiem.",
+      "tags": [
+        "dietetyk",
+        "dieta",
+        "odzywianie",
+        "zdrowe jedzenie",
+        "odchudzanie",
+        "zdrowy styl zycia",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Lęk, ataki paniki i niepokój — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/lek",
+      "description": "Zaburzenia lękowe – jak radzić sobie z napadami lęku, gdzie szukać fachowej pomocy.",
+      "tags": [
+        "lek",
+        "niepokoj",
+        "ataki paniki",
+        "nerwica",
+        "stres",
+        "psycholog",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Nadciśnienie tętnicze — CC Pomoc | Christian Culture",
+      "category": "Zdrowie i styl życia",
+      "url": "https://polskieradio.cc/nadcisnienie",
+      "description": "Profilaktyka i kontrola nadciśnienia tętniczego. Porady zdrowotne i zmiana nawyków.",
+      "tags": [
+        "nadcisnienie",
+        "cisnienie",
+        "serce",
+        "kardiolog",
+        "zdrowie",
+        "leki",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Rehabilitacja medyczna i ruchowa — CC Pomoc | Christian Culture",
+      "category": "Zdrowie i styl życia",
+      "url": "https://polskieradio.cc/rehabilitacja",
+      "description": "Powrót do sprawności po urazach i chorobach. Dostęp do rehabilitacji i fizjoterapii.",
+      "tags": [
+        "rehabilitacja",
+        "fizjoterapia",
+        "urazy",
+        "kregoslup",
+        "powrot do zdrowia",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Sanatoria i leczenie uzdrowiskowe — CC Pomoc | Christian Culture",
+      "category": "Zdrowie i styl życia",
+      "url": "https://polskieradio.cc/sanatoria",
+      "description": "Jak uzyskać skierowanie do sanatorium, leczenie uzdrowiskowe w Polsce.",
+      "tags": [
+        "sanatoria",
+        "sanatorium",
+        "uzdrowisko",
+        "leczenie uzdrowiskowe",
+        "nfz",
+        "rekonwalescencja",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Wypalenie zawodowe i chroniczne zmęczenie — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/wypalenie",
+      "description": "Objawy wypalenia, przeciążenie pracą i odbudowa równowagi życiowej.",
+      "tags": [
+        "wypalenie zawodowe",
+        "zmeczenie",
+        "praca",
+        "regeneracja",
+        "stres w pracy",
+        "odpoczynek",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Zdrowe serce — profilaktyka chorób krążenia — CC Pomoc | Christian Culture",
+      "category": "Zdrowie i styl życia",
+      "url": "https://polskieradio.cc/zdrowe-serce",
+      "description": "Choroby układu krążenia – profilaktyka, objawy ostrzegawcze i zdrowy styl życia.",
+      "tags": [
+        "zdrowe serce",
+        "kardiologia",
+        "serce",
+        "zawal",
+        "profilaktyka",
+        "cisnienie",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Zdrowy sen i bezsenność — CC Pomoc | Christian Culture",
+      "category": "Zdrowie i styl życia",
+      "url": "https://polskieradio.cc/zdrowy-sen",
+      "description": "Higiena snu, walka z bezsennością i przywracanie regenerującego odpoczynku w nocy.",
+      "tags": [
+        "zdrowy sen",
+        "bezsennosc",
+        "sen",
+        "zasypianie",
+        "regeneracja",
+        "zmeczenie",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Zdrowy styl życia — holistyczne podejście — CC Pomoc | Christian Culture",
+      "category": "Zdrowie i styl życia",
+      "url": "https://polskieradio.cc/zdrowy-styl-zycia",
+      "description": "Połączenie zdrowia ciała, umysłu i ducha. Praktyczny przewodnik po zdrowych nawykach.",
+      "tags": [
+        "zdrowy styl zycia",
+        "holistyka",
+        "nawyki",
+        "energia",
+        "witalnosc",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Wsparcie zdrowia — baza wiedzy — CC Pomoc | Christian Culture",
+      "category": "Zdrowie i styl życia",
+      "url": "https://polskieradio.cc/wsparcie-zdrowia",
+      "description": "Ogólne wsparcie zdrowotne, oficjalne placówki NFZ, infolinie medyczne w Polsce.",
+      "tags": [
+        "wsparcie zdrowia",
+        "lekarz",
+        "poradnia",
+        "nfz",
+        "zdrowie publiczne",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Problemy z alkoholem — leczenie i wsparcie — CC Pomoc | Christian Culture",
+      "category": "Uzależnienia",
+      "url": "https://polskieradio.cc/alkoholizm",
+      "description": "Nie musisz być sam z problemem alkoholowym. Placówki leczenia uzależnień i grupy wsparcia.",
+      "tags": [
+        "alkoholizm",
+        "alkohol",
+        "leczenie uzaleznien",
+        "aa",
+        "odwyk",
+        "terapia uzaleznien",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Uzależnienie od hazardu — pomoc — CC Pomoc | Christian Culture",
+      "category": "Uzależnienia",
+      "url": "https://polskieradio.cc/hazard",
+      "description": "Gry losowe, zakłady bukmacherskie i długi hazardowe. Gdzie szukać pomocy terapeutycznej.",
+      "tags": [
+        "hazard",
+        "uzaleznienie od hazardu",
+        "kasyno",
+        "zaklady",
+        "dlugi hazardowe",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Uzależnienie od narkotyków — pomoc i detoks — CC Pomoc | Christian Culture",
+      "category": "Uzależnienia",
+      "url": "https://polskieradio.cc/narkomania",
+      "description": "Substancje psychoaktywne – bezpieczny kontakt z ośrodkami terapii, detoks i wsparcie bliskich.",
+      "tags": [
+        "narkomania",
+        "narkotyki",
+        "detoks",
+        "osrodek terapii",
+        "leczenie uzaleznien",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Rzucanie palenia — skuteczny proces — CC Pomoc | Christian Culture",
+      "category": "Uzależnienia",
+      "url": "https://polskieradio.cc/rzucanie-palenia",
+      "description": "Plan rzucania palenia tytoniu i e-papierosów. Bezpłatna pomoc i infolinia dla palących.",
+      "tags": [
+        "rzucanie palenia",
+        "nikotyna",
+        "papierosy",
+        "palenie",
+        "zdrowe pluca",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Terapia uzależnień — jak wybrać ośrodek — CC Pomoc | Christian Culture",
+      "category": "Uzależnienia",
+      "url": "https://polskieradio.cc/terapia-uzaleznien",
+      "description": "Rodzaje terapii uzależnień w Polsce (NFZ i prywatne), przygotowanie do leczenia.",
+      "tags": [
+        "terapia uzaleznien",
+        "psychoterapia",
+        "terapeuta",
+        "osrodek uzaleznien",
+        "odwyk",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Uzależnienia — centrum pomocy EkoCC — CC Pomoc | Christian Culture",
+      "category": "Uzależnienia",
+      "url": "https://polskieradio.cc/uzaleznienia",
+      "description": "Kompleksowy przegląd form wsparcia dla osób zmagających się z różnymi formami uzależnień.",
+      "tags": [
+        "uzaleznienia",
+        "nalog",
+        "pomoc w nalogu",
+        "terapia",
+        "wsparcie",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Uzależnienie od pornografii — wolność i odbudowa — CC Pomoc | Christian Culture",
+      "category": "Uzależnienia",
+      "url": "https://polskieradio.cc/uzaleznienie-od-pornografii",
+      "description": "Trudny temat, bezpieczna przestrzeń. Kroki do odzyskania kontroli, czystości myśli i relacji.",
+      "tags": [
+        "pornografia",
+        "uzaleznienie od porno",
+        "czystosc",
+        "relacje",
+        "wolnosc",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Uzależnienie od smartfona i social mediów — CC Pomoc | Christian Culture",
+      "category": "Uzależnienia",
+      "url": "https://polskieradio.cc/uzaleznienie-od-telefonu",
+      "description": "Cyfrowy detoks, kontrola czasu przed ekranem i odzyskanie uwagi dla realnego życia.",
+      "tags": [
+        "fonoholizm",
+        "smartfon",
+        "social media",
+        "uzaleznienie od telefonu",
+        "cyfrowy detoks",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Współuzależnienie — wsparcie dla bliskich — CC Pomoc | Christian Culture",
+      "category": "Uzależnienia",
+      "url": "https://polskieradio.cc/wspoluzaleznienie",
+      "description": "Jak żyć obok osoby uzależnionej i nie zatracić siebie. Grupy Al-Anon i pomoc psychologiczna.",
+      "tags": [
+        "wspoluzaleznienie",
+        "al-anon",
+        "rodzina alkoholika",
+        "granice",
+        "bliscy uzaleznionych",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Dziecko w sytuacji rozwodu rodziców — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/dziecko-a-rozwod",
+      "description": "Jak chronić psychikę dziecka podczas rozstania rodziców. Mediacja i wsparcie emocjonalne.",
+      "tags": [
+        "dziecko rozwod",
+        "rozwod rodzicow",
+        "opieka nad dzieckiem",
+        "psychologia dziecka",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Komunikacja w małżeństwie — sztuka dialogu — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/komunikacja-w-malzenstwie",
+      "description": "Jak rozmawiać bez oskarżeń, słuchać z empatią i rozwiązywać codzienne spory w małżeństwie.",
+      "tags": [
+        "komunikacja w malzenstwie",
+        "malzenstwo",
+        "dialog",
+        "relacje malzenskie",
+        "bliskosc",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Konflikty rodzinne — mediacja i pojednanie — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/konflikty-rodzinne",
+      "description": "Napięcia wielopokoleniowe, spory majątkowe i emocjonalne. Droga do pojednania w rodzinie.",
+      "tags": [
+        "konflikty rodzinne",
+        "spory w rodzinie",
+        "mediacja",
+        "pojednanie",
+        "relacje",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Kryzys małżeński — ratowanie związku — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/kryzys-malzenski",
+      "description": "Kiedy małżeństwo przeżywa załamanie. Chrześcijańska perspektywa, terapia par i odnowa przymierza.",
+      "tags": [
+        "kryzys malzenski",
+        "terapia par",
+        "ratowanie malzenstwa",
+        "zdrada",
+        "separacja",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Narzeczeństwo i przygotowanie do małżeństwa — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/narzeczenstwo",
+      "description": "Ważne pytania przed ślubem: finanse, wartości, rodzina i wizja wspólnego życia z Bogiem.",
+      "tags": [
+        "narzeczenstwo",
+        "przed slubem",
+        "przygotowanie do malzenstwa",
+        "slub",
+        "para",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Wychowanie i relacja z nastolatkiem — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/nastolatki",
+      "description": "Zrozumieć świat młodzieży, utrzymać więź i autorytet bez walki i odrzucenia.",
+      "tags": [
+        "nastolatki",
+        "dorastanie",
+        "bunt",
+        "rodzice i nastolatki",
+        "wychowanie",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Problemy szkolne — nauka i rówieśnicy — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/problemy-w-szkole",
+      "description": "Trudności edukacyjne, fobia szkolna i presja grupy. Jak pomóc dziecku przejść przez szkołę.",
+      "tags": [
+        "problemy w szkole",
+        "trudnosci w nauce",
+        "szkola",
+        "fobia szkolna",
+        "dzieci",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Przemoc domowa — natychmiastowa pomoc — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/przemoc-domowa",
+      "description": "Niebieska Linia, bezpieczne schronienie, pomoc prawna i psychologiczna dla ofiar przemocy.",
+      "tags": [
+        "przemoc domowa",
+        "niebieska linia",
+        "ofiara przemocy",
+        "pomoc kobietom",
+        "bezpieczenstwo",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Mądre rodzicielstwo i wychowanie — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/rodzicielstwo",
+      "description": "Wychowanie w miłości, dyscyplinie i prawdzie. Budowanie poczucia bezpieczeństwa u dzieci.",
+      "tags": [
+        "rodzicielstwo",
+        "wychowanie dzieci",
+        "rodzina",
+        "rodzice",
+        "mama i tata",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Rozwód — wsparcie prawne i emocjonalne — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/rozwod",
+      "description": "Kiedy rozstanie staje się faktem. Bezpieczne przejście przez proces i opieka nad bliskimi.",
+      "tags": [
+        "rozwod",
+        "separacja",
+        "prawo rodzinne",
+        "emocje po rozwodzie",
+        "wsparcie",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Samodzielne rodzicielstwo — wsparcie samotnych rodziców — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/samotny-rodzic",
+      "description": "Samotna mama, samotny ojciec. Praktyczne porady, świadczenia socjalne i grupy wsparcia.",
+      "tags": [
+        "samotny rodzic",
+        "samodzielna mama",
+        "samotny ojciec",
+        "alimenty",
+        "zasilki",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Trudne zachowania u dzieci i młodzieży — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/trudne-zachowania",
+      "description": "Agresja, wycofanie, autoagresja. Jak reagować spokojnie i gdzie szukać diagnozy.",
+      "tags": [
+        "trudne zachowania",
+        "agresja u dzieci",
+        "autyzm",
+        "adhd",
+        "psycholog dzieciecy",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Wychowanie w wierze — jak przekazać wartości Bogu — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/wiara-dzieci",
+      "description": "Autentyczne świadectwo wiary w domu, rozmowy o Bogu bez przymusu i formalizmu.",
+      "tags": [
+        "wiara dzieci",
+        "wychowanie w wierze",
+        "modlitwa z dziecmi",
+        "biblia dla dzieci",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Wsparcie małżeństwa — narzędzia i warsztaty — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/wsparcie-malzenstwa",
+      "description": "Inicjatywy wspierające trwałość małżeństw, spotkania dla par i doradztwo rodzinne.",
+      "tags": [
+        "wsparcie malzenstwa",
+        "warsztaty dla par",
+        "umocnienie zwiazku",
+        "milosc",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Wsparcie dla rodziców w kryzysie — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/wsparcie-rodzicow",
+      "description": "Kiedy rodzic czuje się bezsilny. Konsultacje, grupy wsparcia rodzicielskiego i poradnie.",
+      "tags": [
+        "wsparcie rodzicow",
+        "rodzic w kryzysie",
+        "bezsilnosc rodzicielska",
+        "poradnia",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Centrum wsparcia rodziny EkoCC — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/wsparcie-rodziny",
+      "description": "Kompleksowe doradztwo rodzinne, prawne i pedagogiczne pod skrzydłami Christian Culture.",
+      "tags": [
+        "wsparcie rodziny",
+        "rodzina",
+        "dom",
+        "wartosci rodzinne",
+        "pomoc rodzinie",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Zdrada w małżeństwie — co dalej? — CC Pomoc | Christian Culture",
+      "category": "Rodzina i relacje",
+      "url": "https://polskieradio.cc/zdrada",
+      "description": "Bolesne doświadczenie zdrady. Proces żałoby po zaufaniu, przebaczenie i decyzje o przyszłości.",
+      "tags": [
+        "zdrada",
+        "niewiernosc",
+        "przebaczenie",
+        "zaufanie",
+        "odbudowa malzenstwa",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Cyberprzemoc i hejt w sieci — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/cyberprzemoc",
+      "description": "Jak reagować na hejt, szantaż online i prześladowanie w mediach społecznościowych.",
+      "tags": [
+        "cyberprzemoc",
+        "hejt",
+        "przemoc w internecie",
+        "bezpieczenstwo w sieci",
+        "zglos hejt",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Holistyczny coaching chrześcijański — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/holistyczny-coaching",
+      "description": "Odkrywanie powołania, talentów i celów życiowych w oparciu o Boże zasady.",
+      "tags": [
+        "coaching",
+        "rozwoj osobisty",
+        "powolanie",
+        "cele",
+        "motywacja",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Kryzys emocjonalny i psychiczny — pierwsza pomoc — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/kryzys",
+      "description": "Kiedy ból staje się nieznośny. Bezpłatne numery telefonów zaufania i ośrodki interwencji kryzysowej.",
+      "tags": [
+        "kryzys emocjonalny",
+        "telefon zaufania",
+        "interwencja kryzysowa",
+        "pomoc natychmiastowa",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Poczucie wartości oparte na Bogu — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/poczucie-wartosci",
+      "description": "Uwalnianie się od porównań, lęku przed odrzuceniem i budowanie tożsamości dziecka Bożego.",
+      "tags": [
+        "poczucie wartosci",
+        "samoocena",
+        "tozsamosc",
+        "akceptacja",
+        "pewnosc siebie",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Psycholog z chrześcijańskimi wartościami — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/psycholog",
+      "description": "Jak znaleźć psychologa, który szanuje Twoją wiarę i stosuje rzetelną wiedzę naukową.",
+      "tags": [
+        "psycholog",
+        "psychoterapia",
+        "chrzescijanski psycholog",
+        "terapia",
+        "gabinet",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Psycholog dziecięcy — pomoc najmłodszym — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/psycholog-dzieciecy",
+      "description": "Konsultacje psychologiczne dla dzieci i młodzieży, diagnoza emocjonalna i rozwojowa.",
+      "tags": [
+        "psycholog dzieciecy",
+        "pomoc dzieciom",
+        "emocje dziecka",
+        "poradnia psychologiczna",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Samotność i izolacja — odnaleźć więź — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/samotnosc",
+      "description": "Samotność w tłumie, utrata relacji i budowanie nowych, bezpiecznych więzi we wspólnocie.",
+      "tags": [
+        "samotnosc",
+        "izolacja",
+        "brak przyjaciol",
+        "wspolnota",
+        "bliskosc",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Wsparcie dla seniorów — godność i aktywność — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/senior",
+      "description": "Opieka nad osobami starszymi, walka z samotnością seniorów, infolinie i kluby seniora.",
+      "tags": [
+        "senior",
+        "seniorzy",
+        "osoby starsze",
+        "opiekun seniora",
+        "klub seniora",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Przewlekły stres i przeciążenie — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/stres",
+      "description": "Objawy fizyczne stresu, techniki wyciszenia, biblijny pokój i higiena układu nerwowego.",
+      "tags": [
+        "stres",
+        "przeciazenie",
+        "uspokojenie",
+        "relaks",
+        "uklad nerwowy",
+        "spokoj",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Doświadczenie traumy — proces leczenia — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/trauma",
+      "description": "Zespół stresu pourazowego (PTSD), bezpieczna terapia traumy i odzyskiwanie poczucia bezpieczeństwa.",
+      "tags": [
+        "trauma",
+        "ptsd",
+        "terapia traumy",
+        "przezycia traumatyczne",
+        "zdrowie psychiczne",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Żałoba i strata bliskiej osoby — CC Pomoc | Christian Culture",
+      "category": "Zdrowie psychiczne",
+      "url": "https://polskieradio.cc/zaloba",
+      "description": "Etapy żałoby, prawo do bólu i łez, wsparcie duszpasterskie i psychologiczne po stracie.",
+      "tags": [
+        "zaloba",
+        "strata",
+        "smierc bliskiego",
+        "pogrzeb",
+        "pocieszenie",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Budżet domowy — kontrola nad wydatkami — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/budzet-domowy",
+      "description": "Praktyczny szablon budżetu domowego, planowanie wydatków i wychodzenie na prostą finansową.",
+      "tags": [
+        "budzet domowy",
+        "finanse osobiste",
+        "oszczedzanie",
+        "wydatki",
+        "pieniadze",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Wyjście z długów — plan oddłużenia — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/dlugi",
+      "description": "Pilotaż CC Pomoc. Praktyczne kroki, uporządkowanie zobowiązań, darmowy arkusz i oficjalna pomoc.",
+      "tags": [
+        "dlugi",
+        "wyjscie z dlugow",
+        "oddluzanie",
+        "zadluzenie",
+        "komornik",
+        "kredyty",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Egzekucja komornicza — prawa dłużnika — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/komornik",
+      "description": "Kwota wolna od potrąceń, co może zająć komornik, a co jest chronione prawem w Polsce.",
+      "tags": [
+        "komornik",
+        "egzekucja komornicza",
+        "zajecie konta",
+        "prawa dluznika",
+        "prawo",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Kredyty, pożyczki i chwilówki — co robić — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/kredyty",
+      "description": "Pętla kredytowa, konsolidacja, negocjacje z bankiem i unikanie pułapek lichwiarskich.",
+      "tags": [
+        "kredyty",
+        "chwilowki",
+        "pozyczki",
+        "bank",
+        "petla kredytowa",
+        "odsetki",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Skuteczne oddłużanie osób fizycznych — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/oddluzanie",
+      "description": "Prawne i finansowe metody redukcji długu, restrukturyzacja i pomoc doradcy finansowego.",
+      "tags": [
+        "oddluzanie",
+        "redukcja dlugu",
+        "wierzyciele",
+        "doradca finansowy",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Nieodpłatna pomoc prawna w Polsce — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/pomoc-prawna",
+      "description": "Gdzie skorzystać z darmowych punktów pomocy prawnej i poradnictwa obywatelskiego.",
+      "tags": [
+        "pomoc prawna",
+        "darmowy prawnik",
+        "punkty npp",
+        "poradnictwo obywatelskie",
+        "prawo",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Prawa konsumenta — reklamacje i oszustwa — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/prawa-konsumenta",
+      "description": "Rzecznik Praw Konsumenta, zwroty towaru, reklamacje, ochrona przed nieuczciwymi umowami.",
+      "tags": [
+        "prawa konsumenta",
+        "rzecznik konsumentow",
+        "reklamacja",
+        "odstapienie od umowy",
+        "uokik",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Konsultacja z prawnikiem — jak się przygotować — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/prawnik",
+      "description": "Jak wybrać rzetelnego adwokata lub radcę prawnego, przygotowanie dokumentów do sprawy.",
+      "tags": [
+        "prawnik",
+        "adwokat",
+        "radca prawny",
+        "porada prawna",
+        "sad",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Upadłość konsumencka — nowy start — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/upadlosc-konsumencka",
+      "description": "Warunki ogłoszenia upadłości konsumenckiej w sądzie, plan spłaty i całkowite umorzenie długów.",
+      "tags": [
+        "upadlosc konsumencka",
+        "sad upadlosciowy",
+        "umorzenie dlugow",
+        "nowy start",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Windykacja — jak rozmawiać z firmą windykacyjną — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/windykacja",
+      "description": "Granice działań windykatora, przedawnienie długu, ochrona przed nękaniem telefonicznym.",
+      "tags": [
+        "windykacja",
+        "windykator",
+        "przedawnienie",
+        "nekanie",
+        "dlugi",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Duszpasterz i pastor — wsparcie duchowe — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/pastor",
+      "description": "Rozmowa duszpasterska, modlitwa, poszukiwanie Boga i odpowiedzi w Piśmie Świętym.",
+      "tags": [
+        "pastor",
+        "duszpasterz",
+        "rozmowa duchowa",
+        "modlitwa",
+        "rada biblijna",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Katalog specjalistów CC Pomoc — CC Pomoc | Christian Culture",
+      "category": "Finanse i prawo",
+      "url": "https://polskieradio.cc/specjalisci",
+      "description": "Baza zweryfikowanych specjalistów wolontariuszy gotowych do bezpłatnej wstępnej pomocy.",
+      "tags": [
+        "specjalisci",
+        "baza specjalistow",
+        "wolontariusze",
+        "doradcy",
+        "pomoc specjalisty",
+        "cc pomoc",
+        "pomoc",
+        "wsparcie"
       ],
       "featured": false
     }

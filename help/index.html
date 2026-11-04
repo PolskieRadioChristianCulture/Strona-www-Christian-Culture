@@ -1,31 +1,586 @@
 <!doctype html>
 <html lang="pl">
 <head>
+<!-- Google tag (gtag.js) GA4 Standard EkoCC -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+  gtag('config','G-Y4EFTVBPE3',(function(){
+    try {
+      var s = location.search, k = 'cc_team';
+      if(/[?&]cc_team=1/.test(s)) localStorage.setItem(k,'1');
+      if(/[?&]cc_team=0/.test(s)) localStorage.removeItem(k);
+      if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio) return {traffic_type:'internal'};
+    } catch(e){}
+    return {};
+  })());
 </script>
 <script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<meta name="robots" content="index,follow">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<meta name="bingbot" content="index, follow">
+
 <title>CC Pomoc — Katalog wsparcia tematycznego | Christian Culture</title>
-<meta name="description" content="Katalog bezpłatnych stron wsparcia tematycznego Christian Culture. Zdrowie, uzależnienia, rodzina, zdrowie psychiczne, finanse i prawo. Specjaliści chętni do pomocy.">
+<meta name="description" content="Oficjalny katalog bezpłatnego wsparcia tematycznego Christian Culture. Ponad 60 tematów: zdrowie, uzależnienia, rodzina, depresja, finanse i prawo. Rzetelne informacje i wolontariusze.">
+<meta name="author" content="Christian Culture">
+
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Christian Culture">
 <meta property="og:title" content="CC Pomoc — Katalog wsparcia tematycznego">
-<meta property="og:description" content="Ponad 60 tematycznych stron wsparcia. Znajdź pomoc w swojej sprawie — bezpłatnie, bez oceniania.">
+<meta property="og:description" content="Ponad 60 tematycznych stron wsparcia. Znajdź pomoc w swojej sprawie — bezpłatnie, bez oceniania, w duchu chrześcijańskich wartości.">
 <meta property="og:url" content="https://polskieradio.cc/help">
 <meta property="og:image" content="https://polskieradio.cc/icon.png">
+<meta property="og:locale" content="pl_PL">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@ChristianCultPL">
+<meta name="twitter:title" content="CC Pomoc — Katalog wsparcia tematycznego">
+<meta name="twitter:description" content="Bezpłatne wsparcie w kryzysie: zdrowie, finanse, rodzina, psychologia. Ponad 60 sprawdzonych tematów.">
+<meta name="twitter:image" content="https://polskieradio.cc/icon.png">
+
 <link rel="canonical" href="https://polskieradio.cc/help">
 <link rel="icon" href="/dlugi/assets/cc-logo.webp" type="image/webp">
 <link rel="stylesheet" href="/dlugi/styles.css?v=20261027b">
 <link rel="stylesheet" href="/cc-pomoc/catalog.css?v=20261027">
+
+<!-- Structured Data (JSON-LD) for Google, AI Answer Engines & LLMs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://polskieradio.cc/#organization",
+      "name": "Christian Culture",
+      "url": "https://polskieradio.cc",
+      "logo": "https://polskieradio.cc/dlugi/assets/cc-logo.webp",
+      "sameAs": [
+        "https://www.youtube.com/@ChristianCultureTV"
+      ]
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://polskieradio.cc/help#webpage",
+      "url": "https://polskieradio.cc/help",
+      "name": "CC Pomoc — Katalog Wsparcia Tematycznego | Christian Culture",
+      "description": "Bezpłatny katalog ponad 60 stron tematycznego wsparcia w duchu chrześcijańskich wartości: zdrowie, uzależnienia, relacje rodzinne, psychologia, finanse i prawo.",
+      "inLanguage": "pl-PL",
+      "isPartOf": {
+        "@id": "https://polskieradio.cc/#website"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Pomoc społeczna, wsparcie psychologiczne, prawne i duchowe"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "name": "Katalog tematów pomocy CC Pomoc",
+      "numberOfItems": 62,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Aktywność fizyczna i ruch",
+          "description": "Ruch, rehabilitacja i zdrowy tryb życia. Jak zacząć bezpiecznie dbać o kondycję.",
+          "url": "https://polskieradio.cc/aktywnosc-fizyczna"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Cukrzyca — wsparcie i wiedza",
+          "description": "Życie z cukrzycą – praktyczne wsparcie, dieta, profilaktyka i pomoc specjalistów.",
+          "url": "https://polskieradio.cc/cukrzyca"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Depresja — szukanie pomocy",
+          "description": "Depresja jest problemem zdrowotnym. Bezpłatne wsparcie, kontakty do poradni i infolinie.",
+          "url": "https://polskieradio.cc/depresja"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Dietetyk i zdrowe odżywianie",
+          "description": "Zbilansowana dieta, zdrowe nawyki żywieniowe i konsultacje z dietetykiem.",
+          "url": "https://polskieradio.cc/dietetyk"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Lęk, ataki paniki i niepokój",
+          "description": "Zaburzenia lękowe – jak radzić sobie z napadami lęku, gdzie szukać fachowej pomocy.",
+          "url": "https://polskieradio.cc/lek"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Nadciśnienie tętnicze",
+          "description": "Profilaktyka i kontrola nadciśnienia tętniczego. Porady zdrowotne i zmiana nawyków.",
+          "url": "https://polskieradio.cc/nadcisnienie"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Rehabilitacja medyczna i ruchowa",
+          "description": "Powrót do sprawności po urazach i chorobach. Dostęp do rehabilitacji i fizjoterapii.",
+          "url": "https://polskieradio.cc/rehabilitacja"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "name": "Sanatoria i leczenie uzdrowiskowe",
+          "description": "Jak uzyskać skierowanie do sanatorium, leczenie uzdrowiskowe w Polsce.",
+          "url": "https://polskieradio.cc/sanatoria"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "name": "Wypalenie zawodowe i chroniczne zmęczenie",
+          "description": "Objawy wypalenia, przeciążenie pracą i odbudowa równowagi życiowej.",
+          "url": "https://polskieradio.cc/wypalenie"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "name": "Zdrowe serce — profilaktyka chorób krążenia",
+          "description": "Choroby układu krążenia – profilaktyka, objawy ostrzegawcze i zdrowy styl życia.",
+          "url": "https://polskieradio.cc/zdrowe-serce"
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "name": "Zdrowy sen i bezsenność",
+          "description": "Higiena snu, walka z bezsennością i przywracanie regenerującego odpoczynku w nocy.",
+          "url": "https://polskieradio.cc/zdrowy-sen"
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "name": "Zdrowy styl życia — holistyczne podejście",
+          "description": "Połączenie zdrowia ciała, umysłu i ducha. Praktyczny przewodnik po zdrowych nawykach.",
+          "url": "https://polskieradio.cc/zdrowy-styl-zycia"
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "name": "Wsparcie zdrowia — baza wiedzy",
+          "description": "Ogólne wsparcie zdrowotne, oficjalne placówki NFZ, infolinie medyczne w Polsce.",
+          "url": "https://polskieradio.cc/wsparcie-zdrowia"
+        },
+        {
+          "@type": "ListItem",
+          "position": 14,
+          "name": "Problemy z alkoholem — leczenie i wsparcie",
+          "description": "Nie musisz być sam z problemem alkoholowym. Placówki leczenia uzależnień i grupy wsparcia.",
+          "url": "https://polskieradio.cc/alkoholizm"
+        },
+        {
+          "@type": "ListItem",
+          "position": 15,
+          "name": "Uzależnienie od hazardu — pomoc",
+          "description": "Gry losowe, zakłady bukmacherskie i długi hazardowe. Gdzie szukać pomocy terapeutycznej.",
+          "url": "https://polskieradio.cc/hazard"
+        },
+        {
+          "@type": "ListItem",
+          "position": 16,
+          "name": "Uzależnienie od narkotyków — pomoc i detoks",
+          "description": "Substancje psychoaktywne – bezpieczny kontakt z ośrodkami terapii, detoks i wsparcie bliskich.",
+          "url": "https://polskieradio.cc/narkomania"
+        },
+        {
+          "@type": "ListItem",
+          "position": 17,
+          "name": "Rzucanie palenia — skuteczny proces",
+          "description": "Plan rzucania palenia tytoniu i e-papierosów. Bezpłatna pomoc i infolinia dla palących.",
+          "url": "https://polskieradio.cc/rzucanie-palenia"
+        },
+        {
+          "@type": "ListItem",
+          "position": 18,
+          "name": "Terapia uzależnień — jak wybrać ośrodek",
+          "description": "Rodzaje terapii uzależnień w Polsce (NFZ i prywatne), przygotowanie do leczenia.",
+          "url": "https://polskieradio.cc/terapia-uzaleznien"
+        },
+        {
+          "@type": "ListItem",
+          "position": 19,
+          "name": "Uzależnienia — centrum pomocy EkoCC",
+          "description": "Kompleksowy przegląd form wsparcia dla osób zmagających się z różnymi formami uzależnień.",
+          "url": "https://polskieradio.cc/uzaleznienia"
+        },
+        {
+          "@type": "ListItem",
+          "position": 20,
+          "name": "Uzależnienie od pornografii — wolność i odbudowa",
+          "description": "Trudny temat, bezpieczna przestrzeń. Kroki do odzyskania kontroli, czystości myśli i relacji.",
+          "url": "https://polskieradio.cc/uzaleznienie-od-pornografii"
+        },
+        {
+          "@type": "ListItem",
+          "position": 21,
+          "name": "Uzależnienie od smartfona i social mediów",
+          "description": "Cyfrowy detoks, kontrola czasu przed ekranem i odzyskanie uwagi dla realnego życia.",
+          "url": "https://polskieradio.cc/uzaleznienie-od-telefonu"
+        },
+        {
+          "@type": "ListItem",
+          "position": 22,
+          "name": "Współuzależnienie — wsparcie dla bliskich",
+          "description": "Jak żyć obok osoby uzależnionej i nie zatracić siebie. Grupy Al-Anon i pomoc psychologiczna.",
+          "url": "https://polskieradio.cc/wspoluzaleznienie"
+        },
+        {
+          "@type": "ListItem",
+          "position": 23,
+          "name": "Dziecko w sytuacji rozwodu rodziców",
+          "description": "Jak chronić psychikę dziecka podczas rozstania rodziców. Mediacja i wsparcie emocjonalne.",
+          "url": "https://polskieradio.cc/dziecko-a-rozwod"
+        },
+        {
+          "@type": "ListItem",
+          "position": 24,
+          "name": "Komunikacja w małżeństwie — sztuka dialogu",
+          "description": "Jak rozmawiać bez oskarżeń, słuchać z empatią i rozwiązywać codzienne spory w małżeństwie.",
+          "url": "https://polskieradio.cc/komunikacja-w-malzenstwie"
+        },
+        {
+          "@type": "ListItem",
+          "position": 25,
+          "name": "Konflikty rodzinne — mediacja i pojednanie",
+          "description": "Napięcia wielopokoleniowe, spory majątkowe i emocjonalne. Droga do pojednania w rodzinie.",
+          "url": "https://polskieradio.cc/konflikty-rodzinne"
+        },
+        {
+          "@type": "ListItem",
+          "position": 26,
+          "name": "Kryzys małżeński — ratowanie związku",
+          "description": "Kiedy małżeństwo przeżywa załamanie. Chrześcijańska perspektywa, terapia par i odnowa przymierza.",
+          "url": "https://polskieradio.cc/kryzys-malzenski"
+        },
+        {
+          "@type": "ListItem",
+          "position": 27,
+          "name": "Narzeczeństwo i przygotowanie do małżeństwa",
+          "description": "Ważne pytania przed ślubem: finanse, wartości, rodzina i wizja wspólnego życia z Bogiem.",
+          "url": "https://polskieradio.cc/narzeczenstwo"
+        },
+        {
+          "@type": "ListItem",
+          "position": 28,
+          "name": "Wychowanie i relacja z nastolatkiem",
+          "description": "Zrozumieć świat młodzieży, utrzymać więź i autorytet bez walki i odrzucenia.",
+          "url": "https://polskieradio.cc/nastolatki"
+        },
+        {
+          "@type": "ListItem",
+          "position": 29,
+          "name": "Problemy szkolne — nauka i rówieśnicy",
+          "description": "Trudności edukacyjne, fobia szkolna i presja grupy. Jak pomóc dziecku przejść przez szkołę.",
+          "url": "https://polskieradio.cc/problemy-w-szkole"
+        },
+        {
+          "@type": "ListItem",
+          "position": 30,
+          "name": "Przemoc domowa — natychmiastowa pomoc",
+          "description": "Niebieska Linia, bezpieczne schronienie, pomoc prawna i psychologiczna dla ofiar przemocy.",
+          "url": "https://polskieradio.cc/przemoc-domowa"
+        },
+        {
+          "@type": "ListItem",
+          "position": 31,
+          "name": "Mądre rodzicielstwo i wychowanie",
+          "description": "Wychowanie w miłości, dyscyplinie i prawdzie. Budowanie poczucia bezpieczeństwa u dzieci.",
+          "url": "https://polskieradio.cc/rodzicielstwo"
+        },
+        {
+          "@type": "ListItem",
+          "position": 32,
+          "name": "Rozwód — wsparcie prawne i emocjonalne",
+          "description": "Kiedy rozstanie staje się faktem. Bezpieczne przejście przez proces i opieka nad bliskimi.",
+          "url": "https://polskieradio.cc/rozwod"
+        },
+        {
+          "@type": "ListItem",
+          "position": 33,
+          "name": "Samodzielne rodzicielstwo — wsparcie samotnych rodziców",
+          "description": "Samotna mama, samotny ojciec. Praktyczne porady, świadczenia socjalne i grupy wsparcia.",
+          "url": "https://polskieradio.cc/samotny-rodzic"
+        },
+        {
+          "@type": "ListItem",
+          "position": 34,
+          "name": "Trudne zachowania u dzieci i młodzieży",
+          "description": "Agresja, wycofanie, autoagresja. Jak reagować spokojnie i gdzie szukać diagnozy.",
+          "url": "https://polskieradio.cc/trudne-zachowania"
+        },
+        {
+          "@type": "ListItem",
+          "position": 35,
+          "name": "Wychowanie w wierze — jak przekazać wartości Bogu",
+          "description": "Autentyczne świadectwo wiary w domu, rozmowy o Bogu bez przymusu i formalizmu.",
+          "url": "https://polskieradio.cc/wiara-dzieci"
+        },
+        {
+          "@type": "ListItem",
+          "position": 36,
+          "name": "Wsparcie małżeństwa — narzędzia i warsztaty",
+          "description": "Inicjatywy wspierające trwałość małżeństw, spotkania dla par i doradztwo rodzinne.",
+          "url": "https://polskieradio.cc/wsparcie-malzenstwa"
+        },
+        {
+          "@type": "ListItem",
+          "position": 37,
+          "name": "Wsparcie dla rodziców w kryzysie",
+          "description": "Kiedy rodzic czuje się bezsilny. Konsultacje, grupy wsparcia rodzicielskiego i poradnie.",
+          "url": "https://polskieradio.cc/wsparcie-rodzicow"
+        },
+        {
+          "@type": "ListItem",
+          "position": 38,
+          "name": "Centrum wsparcia rodziny EkoCC",
+          "description": "Kompleksowe doradztwo rodzinne, prawne i pedagogiczne pod skrzydłami Christian Culture.",
+          "url": "https://polskieradio.cc/wsparcie-rodziny"
+        },
+        {
+          "@type": "ListItem",
+          "position": 39,
+          "name": "Zdrada w małżeństwie — co dalej?",
+          "description": "Bolesne doświadczenie zdrady. Proces żałoby po zaufaniu, przebaczenie i decyzje o przyszłości.",
+          "url": "https://polskieradio.cc/zdrada"
+        },
+        {
+          "@type": "ListItem",
+          "position": 40,
+          "name": "Cyberprzemoc i hejt w sieci",
+          "description": "Jak reagować na hejt, szantaż online i prześladowanie w mediach społecznościowych.",
+          "url": "https://polskieradio.cc/cyberprzemoc"
+        },
+        {
+          "@type": "ListItem",
+          "position": 41,
+          "name": "Holistyczny coaching chrześcijański",
+          "description": "Odkrywanie powołania, talentów i celów życiowych w oparciu o Boże zasady.",
+          "url": "https://polskieradio.cc/holistyczny-coaching"
+        },
+        {
+          "@type": "ListItem",
+          "position": 42,
+          "name": "Kryzys emocjonalny i psychiczny — pierwsza pomoc",
+          "description": "Kiedy ból staje się nieznośny. Bezpłatne numery telefonów zaufania i ośrodki interwencji kryzysowej.",
+          "url": "https://polskieradio.cc/kryzys"
+        },
+        {
+          "@type": "ListItem",
+          "position": 43,
+          "name": "Poczucie wartości oparte na Bogu",
+          "description": "Uwalnianie się od porównań, lęku przed odrzuceniem i budowanie tożsamości dziecka Bożego.",
+          "url": "https://polskieradio.cc/poczucie-wartosci"
+        },
+        {
+          "@type": "ListItem",
+          "position": 44,
+          "name": "Psycholog z chrześcijańskimi wartościami",
+          "description": "Jak znaleźć psychologa, który szanuje Twoją wiarę i stosuje rzetelną wiedzę naukową.",
+          "url": "https://polskieradio.cc/psycholog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 45,
+          "name": "Psycholog dziecięcy — pomoc najmłodszym",
+          "description": "Konsultacje psychologiczne dla dzieci i młodzieży, diagnoza emocjonalna i rozwojowa.",
+          "url": "https://polskieradio.cc/psycholog-dzieciecy"
+        },
+        {
+          "@type": "ListItem",
+          "position": 46,
+          "name": "Samotność i izolacja — odnaleźć więź",
+          "description": "Samotność w tłumie, utrata relacji i budowanie nowych, bezpiecznych więzi we wspólnocie.",
+          "url": "https://polskieradio.cc/samotnosc"
+        },
+        {
+          "@type": "ListItem",
+          "position": 47,
+          "name": "Wsparcie dla seniorów — godność i aktywność",
+          "description": "Opieka nad osobami starszymi, walka z samotnością seniorów, infolinie i kluby seniora.",
+          "url": "https://polskieradio.cc/senior"
+        },
+        {
+          "@type": "ListItem",
+          "position": 48,
+          "name": "Przewlekły stres i przeciążenie",
+          "description": "Objawy fizyczne stresu, techniki wyciszenia, biblijny pokój i higiena układu nerwowego.",
+          "url": "https://polskieradio.cc/stres"
+        },
+        {
+          "@type": "ListItem",
+          "position": 49,
+          "name": "Doświadczenie traumy — proces leczenia",
+          "description": "Zespół stresu pourazowego (PTSD), bezpieczna terapia traumy i odzyskiwanie poczucia bezpieczeństwa.",
+          "url": "https://polskieradio.cc/trauma"
+        },
+        {
+          "@type": "ListItem",
+          "position": 50,
+          "name": "Żałoba i strata bliskiej osoby",
+          "description": "Etapy żałoby, prawo do bólu i łez, wsparcie duszpasterskie i psychologiczne po stracie.",
+          "url": "https://polskieradio.cc/zaloba"
+        },
+        {
+          "@type": "ListItem",
+          "position": 51,
+          "name": "Budżet domowy — kontrola nad wydatkami",
+          "description": "Praktyczny szablon budżetu domowego, planowanie wydatków i wychodzenie na prostą finansową.",
+          "url": "https://polskieradio.cc/budzet-domowy"
+        },
+        {
+          "@type": "ListItem",
+          "position": 52,
+          "name": "Wyjście z długów — plan oddłużenia",
+          "description": "Pilotaż CC Pomoc. Praktyczne kroki, uporządkowanie zobowiązań, darmowy arkusz i oficjalna pomoc.",
+          "url": "https://polskieradio.cc/dlugi"
+        },
+        {
+          "@type": "ListItem",
+          "position": 53,
+          "name": "Egzekucja komornicza — prawa dłużnika",
+          "description": "Kwota wolna od potrąceń, co może zająć komornik, a co jest chronione prawem w Polsce.",
+          "url": "https://polskieradio.cc/komornik"
+        },
+        {
+          "@type": "ListItem",
+          "position": 54,
+          "name": "Kredyty, pożyczki i chwilówki — co robić",
+          "description": "Pętla kredytowa, konsolidacja, negocjacje z bankiem i unikanie pułapek lichwiarskich.",
+          "url": "https://polskieradio.cc/kredyty"
+        },
+        {
+          "@type": "ListItem",
+          "position": 55,
+          "name": "Skuteczne oddłużanie osób fizycznych",
+          "description": "Prawne i finansowe metody redukcji długu, restrukturyzacja i pomoc doradcy finansowego.",
+          "url": "https://polskieradio.cc/oddluzanie"
+        },
+        {
+          "@type": "ListItem",
+          "position": 56,
+          "name": "Nieodpłatna pomoc prawna w Polsce",
+          "description": "Gdzie skorzystać z darmowych punktów pomocy prawnej i poradnictwa obywatelskiego.",
+          "url": "https://polskieradio.cc/pomoc-prawna"
+        },
+        {
+          "@type": "ListItem",
+          "position": 57,
+          "name": "Prawa konsumenta — reklamacje i oszustwa",
+          "description": "Rzecznik Praw Konsumenta, zwroty towaru, reklamacje, ochrona przed nieuczciwymi umowami.",
+          "url": "https://polskieradio.cc/prawa-konsumenta"
+        },
+        {
+          "@type": "ListItem",
+          "position": 58,
+          "name": "Konsultacja z prawnikiem — jak się przygotować",
+          "description": "Jak wybrać rzetelnego adwokata lub radcę prawnego, przygotowanie dokumentów do sprawy.",
+          "url": "https://polskieradio.cc/prawnik"
+        },
+        {
+          "@type": "ListItem",
+          "position": 59,
+          "name": "Upadłość konsumencka — nowy start",
+          "description": "Warunki ogłoszenia upadłości konsumenckiej w sądzie, plan spłaty i całkowite umorzenie długów.",
+          "url": "https://polskieradio.cc/upadlosc-konsumencka"
+        },
+        {
+          "@type": "ListItem",
+          "position": 60,
+          "name": "Windykacja — jak rozmawiać z firmą windykacyjną",
+          "description": "Granice działań windykatora, przedawnienie długu, ochrona przed nękaniem telefonicznym.",
+          "url": "https://polskieradio.cc/windykacja"
+        },
+        {
+          "@type": "ListItem",
+          "position": 61,
+          "name": "Duszpasterz i pastor — wsparcie duchowe",
+          "description": "Rozmowa duszpasterska, modlitwa, poszukiwanie Boga i odpowiedzi w Piśmie Świętym.",
+          "url": "https://polskieradio.cc/pastor"
+        },
+        {
+          "@type": "ListItem",
+          "position": 62,
+          "name": "Katalog specjalistów CC Pomoc",
+          "description": "Baza zweryfikowanych specjalistów wolontariuszy gotowych do bezpłatnej wstępnej pomocy.",
+          "url": "https://polskieradio.cc/specjalisci"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Christian Culture",
+          "item": "https://polskieradio.cc"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "CC Pomoc",
+          "item": "https://polskieradio.cc/help"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Czym jest inicjatywa CC Pomoc?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CC Pomoc to bezpłatna inicjatywa ekosystemu Christian Culture oferująca ponad 60 merytorycznych podstron wsparcia w trudnych sytuacjach życiowych (długi, depresja, uzależnienia, kryzys małżeński, samotność, kwestie prawne i zdrowotne)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Czy pomoc oferowana w serwisie jest płatna?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nie, wszystkie materiały, przewodniki, arkusze i kontakty do zweryfikowanych placówek są w 100% bezpłatne. Christian Culture nie pobiera żadnych opłat od osób szukających wsparcia."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Jak specjaliści mogą dołączyć do wolontariatu CC Pomoc?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Specjaliści (psycholodzy, prawnicy, doradcy finansowi, lekarze, duszpasterze) mogą zgłosić chęć bezpłatnego wsparcia potrzebujących poprzez formularz współpracy na stronie polskieradio.cc/wspolpraca."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Czy serwisy CC Pomoc zastępują profesjonalną opiekę medyczną lub prawną?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Materiały mają charakter edukacyjno-informacyjny i wspierający. Zawsze zalecamy bezpośredni kontakt z wykwalifikowanymi lekarzami, certyfikowanymi psychoterapeutami oraz radcami prawnymi i podajemy oficjalne telefony zaufania."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
 <style>
-  /* ── CC HELP CATALOG — dedykowane style ── */
   :root {
     --help-gold: #C4A35A;
     --help-gold-hover: #D4B578;
@@ -55,7 +610,7 @@
     color: #fff; font-weight:800; margin:0 0 .75rem; line-height:1.15;
   }
   .help-hero p {
-    color: rgba(255,255,255,.75); max-width: 540px; margin: 0 auto 1.5rem; font-size:1.05rem;
+    color: rgba(255,255,255,.75); max-width: 560px; margin: 0 auto 1.5rem; font-size:1.05rem;
   }
   .help-hero-stats {
     display:flex; gap:2rem; justify-content:center; flex-wrap:wrap;
@@ -81,13 +636,13 @@
 
   .help-category { margin-bottom: 2.5rem; }
   .help-cat-title {
-    font-size:1.05rem; font-weight:700; color:var(--help-gold);
+    font-size:1.1rem; font-weight:700; color:var(--help-gold);
     margin:0 0 1rem; padding-bottom:.5rem;
     border-bottom: 1px solid var(--help-card-border);
   }
   .help-cards-grid {
     display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
     gap: var(--help-gap);
   }
   .help-card {
@@ -95,10 +650,10 @@
     background: var(--help-card-bg);
     border: 1.5px solid var(--help-card-border);
     border-radius: var(--help-radius);
-    padding: 1.1rem 1rem;
+    padding: 1.15rem 1.1rem;
     text-decoration: none;
     transition: border-color .2s, transform .15s, box-shadow .2s;
-    min-height: 100px;
+    min-height: 110px;
   }
   .help-card:hover, .help-card:focus-visible {
     border-color: var(--help-card-hover-border);
@@ -108,26 +663,26 @@
   }
   .help-card:focus-visible { outline: 2px solid var(--help-gold); }
   .help-card-emoji { font-size:1.6rem; line-height:1; }
-  .help-card-title { font-size:.9rem; font-weight:700; color: #e8e0cc; }
+  .help-card-title { font-size:.92rem; font-weight:700; color: #e8e0cc; }
   @media(prefers-color-scheme:light) { .help-card-title { color:#1a1a1a; } }
-  .help-card-desc { font-size:.78rem; color:rgba(255,255,255,.5); line-height:1.4; }
+  .help-card-desc { font-size:.78rem; color:rgba(255,255,255,.55); line-height:1.4; }
   @media(prefers-color-scheme:light) { .help-card-desc { color:rgba(0,0,0,.55); } }
 
   .help-volunteer-cta {
     background: linear-gradient(135deg,rgba(196,163,90,.12),rgba(196,163,90,.04));
     border: 1.5px solid var(--help-card-border);
     border-radius: var(--help-radius);
-    padding: 2rem 1.5rem; text-align:center; margin-top:3rem;
+    padding: 2.25rem 1.5rem; text-align:center; margin-top:3.5rem;
   }
-  .help-volunteer-cta h2 { font-size:1.3rem; color:#e8e0cc; margin:0 0 .5rem; }
-  .help-volunteer-cta p { color:rgba(255,255,255,.65); margin:0 0 1.25rem; }
+  .help-volunteer-cta h2 { font-size:1.35rem; color:#e8e0cc; margin:0 0 .5rem; }
+  .help-volunteer-cta p { color:rgba(255,255,255,.65); max-width:620px; margin:0 auto 1.25rem; font-size:.95rem; }
   .help-volunteer-btn {
-    display:inline-block; padding:.8rem 2rem; border-radius:999px;
-    background: var(--help-gold); color:#0a0a0a; font-weight:700; font-size:.9rem;
-    text-decoration:none; transition: background .2s;
+    display:inline-block; padding:.85rem 2.25rem; border-radius:999px;
+    background: var(--help-gold); color:#0a0a0a; font-weight:700; font-size:.92rem;
+    text-decoration:none; transition: background .2s, transform .1s;
     min-height:44px; min-width:44px;
   }
-  .help-volunteer-btn:hover { background: var(--help-gold-hover); }
+  .help-volunteer-btn:hover { background: var(--help-gold-hover); transform:scale(1.02); }
 
   .help-back-link {
     display:inline-flex; align-items:center; gap:.4rem;
@@ -138,7 +693,7 @@
   .help-back-link:hover { text-decoration:underline; }
 
   @media(max-width:480px) {
-    .help-cards-grid { grid-template-columns:repeat(2,1fr); }
+    .help-cards-grid { grid-template-columns:1fr; }
     .help-hero-stats { gap:1.25rem; }
   }
 </style>
@@ -168,15 +723,15 @@
 <div class="help-hero">
   <span class="help-hero-badge">CHRISTIAN CULTURE · CC POMOC</span>
   <h1>Katalog wsparcia tematycznego</h1>
-  <p>Bezpłatne strony z praktycznym wsparciem. Bez oceniania. Bez obietnic szybkich rozwiązań. Z szacunkiem do Twojej sytuacji.</p>
+  <p>Bezpłatne strony z rzetelną wiedzą i praktycznym wsparciem. Bez oceniania. Bez obietnic szybkich dróg na skróty. Z szacunkiem do Twojej sytuacji.</p>
   <div class="help-hero-stats">
     <div class="help-hero-stat"><strong>62</strong><span>tematów</span></div>
     <div class="help-hero-stat"><strong>5</strong><span>kategorii</span></div>
-    <div class="help-hero-stat"><strong>0 zł</strong><span>zawsze bezpłatne</span></div>
+    <div class="help-hero-stat"><strong>0 zł</strong><span>zawsze bezpłatnie</span></div>
   </div>
   <div class="help-search-bar" role="search">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="search" id="helpSearch" placeholder="Szukaj tematu…" aria-label="Szukaj tematu wsparcia" autocomplete="off">
+    <input type="search" id="helpSearch" placeholder="Szukaj tematu (np. długi, depresja, małżeństwo)…" aria-label="Szukaj tematu wsparcia" autocomplete="off">
   </div>
 </div>
 
@@ -187,360 +742,361 @@
   </a>
 
 
-    <section class="help-category" aria-labelledby="cat-zdrowie">
-      <h2 id="cat-zdrowie" class="help-cat-title">🏥 Zdrowie i styl życia</h2>
+    <section class="help-category" aria-labelledby="cat-Zdrowie%20i%20styl%20%C5%BCycia">
+      <h2 id="cat-Zdrowie%20i%20styl%20%C5%BCycia" class="help-cat-title">🏥 Zdrowie i styl życia</h2>
       <div class="help-cards-grid">
         
-      <a class="help-card" href="/aktywnosc-fizyczna" aria-label="Aktywność fizyczna">
+      <a class="help-card" href="/aktywnosc-fizyczna" data-slug="aktywnosc-fizyczna" data-title="Aktywność fizyczna i ruch" aria-label="Aktywność fizyczna i ruch">
         <span class="help-card-emoji" aria-hidden="true">🏃</span>
-        <strong class="help-card-title">Aktywność fizyczna</strong>
-        <span class="help-card-desc">Ruch, rehabilitacja i zdrowy tryb życia</span>
+        <strong class="help-card-title">Aktywność fizyczna i ruch</strong>
+        <span class="help-card-desc">Ruch, rehabilitacja i zdrowy tryb życia. Jak zacząć bezpiecznie dbać o kondycję.</span>
       </a>
-      <a class="help-card" href="/cukrzyca" aria-label="Cukrzyca">
+      <a class="help-card" href="/cukrzyca" data-slug="cukrzyca" data-title="Cukrzyca — wsparcie i wiedza" aria-label="Cukrzyca — wsparcie i wiedza">
         <span class="help-card-emoji" aria-hidden="true">💉</span>
-        <strong class="help-card-title">Cukrzyca</strong>
-        <span class="help-card-desc">Życie z cukrzycą – wsparcie i informacje</span>
+        <strong class="help-card-title">Cukrzyca — wsparcie i wiedza</strong>
+        <span class="help-card-desc">Życie z cukrzycą – praktyczne wsparcie, dieta, profilaktyka i pomoc specjalistów.</span>
       </a>
-      <a class="help-card" href="/depresja" aria-label="Depresja">
-        <span class="help-card-emoji" aria-hidden="true">🌧️</span>
-        <strong class="help-card-title">Depresja</strong>
-        <span class="help-card-desc">Szukanie pomocy w depresji</span>
-      </a>
-      <a class="help-card" href="/dietetyk" aria-label="Dietetyk">
+      <a class="help-card" href="/dietetyk" data-slug="dietetyk" data-title="Dietetyk i zdrowe odżywianie" aria-label="Dietetyk i zdrowe odżywianie">
         <span class="help-card-emoji" aria-hidden="true">🥗</span>
-        <strong class="help-card-title">Dietetyk</strong>
-        <span class="help-card-desc">Żywienie i zdrowa dieta</span>
+        <strong class="help-card-title">Dietetyk i zdrowe odżywianie</strong>
+        <span class="help-card-desc">Zbilansowana dieta, zdrowe nawyki żywieniowe i konsultacje z dietetykiem.</span>
       </a>
-      <a class="help-card" href="/lek" aria-label="Lęk i niepokój">
-        <span class="help-card-emoji" aria-hidden="true">🫁</span>
-        <strong class="help-card-title">Lęk i niepokój</strong>
-        <span class="help-card-desc">Zaburzenia lękowe – pomoc i wsparcie</span>
-      </a>
-      <a class="help-card" href="/nadcisnienie" aria-label="Nadciśnienie">
+      <a class="help-card" href="/nadcisnienie" data-slug="nadcisnienie" data-title="Nadciśnienie tętnicze" aria-label="Nadciśnienie tętnicze">
         <span class="help-card-emoji" aria-hidden="true">❤️</span>
-        <strong class="help-card-title">Nadciśnienie</strong>
-        <span class="help-card-desc">Nadciśnienie – informacje i wsparcie</span>
+        <strong class="help-card-title">Nadciśnienie tętnicze</strong>
+        <span class="help-card-desc">Profilaktyka i kontrola nadciśnienia tętniczego. Porady zdrowotne i zmiana nawyków.</span>
       </a>
-      <a class="help-card" href="/rehabilitacja" aria-label="Rehabilitacja">
+      <a class="help-card" href="/rehabilitacja" data-slug="rehabilitacja" data-title="Rehabilitacja medyczna i ruchowa" aria-label="Rehabilitacja medyczna i ruchowa">
         <span class="help-card-emoji" aria-hidden="true">🦽</span>
-        <strong class="help-card-title">Rehabilitacja</strong>
-        <span class="help-card-desc">Rehabilitacja i powrót do zdrowia</span>
+        <strong class="help-card-title">Rehabilitacja medyczna i ruchowa</strong>
+        <span class="help-card-desc">Powrót do sprawności po urazach i chorobach. Dostęp do rehabilitacji i fizjoterapii.</span>
       </a>
-      <a class="help-card" href="/sanatoria" aria-label="Sanatoria">
+      <a class="help-card" href="/sanatoria" data-slug="sanatoria" data-title="Sanatoria i leczenie uzdrowiskowe" aria-label="Sanatoria i leczenie uzdrowiskowe">
         <span class="help-card-emoji" aria-hidden="true">🏥</span>
-        <strong class="help-card-title">Sanatoria</strong>
-        <span class="help-card-desc">Leczenie uzdrowiskowe i sanatoryjne</span>
+        <strong class="help-card-title">Sanatoria i leczenie uzdrowiskowe</strong>
+        <span class="help-card-desc">Jak uzyskać skierowanie do sanatorium, leczenie uzdrowiskowe w Polsce.</span>
       </a>
-      <a class="help-card" href="/wypalenie" aria-label="Wypalenie zawodowe">
-        <span class="help-card-emoji" aria-hidden="true">🔥</span>
-        <strong class="help-card-title">Wypalenie zawodowe</strong>
-        <span class="help-card-desc">Wypalenie – jak odzyskać siły</span>
-      </a>
-      <a class="help-card" href="/zdrowe-serce" aria-label="Zdrowe serce">
+      <a class="help-card" href="/zdrowe-serce" data-slug="zdrowe-serce" data-title="Zdrowe serce — profilaktyka chorób krążenia" aria-label="Zdrowe serce — profilaktyka chorób krążenia">
         <span class="help-card-emoji" aria-hidden="true">💓</span>
-        <strong class="help-card-title">Zdrowe serce</strong>
-        <span class="help-card-desc">Choroby serca – profilaktyka i wsparcie</span>
+        <strong class="help-card-title">Zdrowe serce — profilaktyka chorób krążenia</strong>
+        <span class="help-card-desc">Choroby układu krążenia – profilaktyka, objawy ostrzegawcze i zdrowy styl życia.</span>
       </a>
-      <a class="help-card" href="/zdrowy-sen" aria-label="Zdrowy sen">
+      <a class="help-card" href="/zdrowy-sen" data-slug="zdrowy-sen" data-title="Zdrowy sen i bezsenność" aria-label="Zdrowy sen i bezsenność">
         <span class="help-card-emoji" aria-hidden="true">🌙</span>
-        <strong class="help-card-title">Zdrowy sen</strong>
-        <span class="help-card-desc">Bezsenność i zaburzenia snu</span>
+        <strong class="help-card-title">Zdrowy sen i bezsenność</strong>
+        <span class="help-card-desc">Higiena snu, walka z bezsennością i przywracanie regenerującego odpoczynku w nocy.</span>
       </a>
-      <a class="help-card" href="/zdrowy-styl-zycia" aria-label="Zdrowy styl życia">
+      <a class="help-card" href="/zdrowy-styl-zycia" data-slug="zdrowy-styl-zycia" data-title="Zdrowy styl życia — holistyczne podejście" aria-label="Zdrowy styl życia — holistyczne podejście">
         <span class="help-card-emoji" aria-hidden="true">🌿</span>
-        <strong class="help-card-title">Zdrowy styl życia</strong>
-        <span class="help-card-desc">Kompleksowe wsparcie zdrowia</span>
+        <strong class="help-card-title">Zdrowy styl życia — holistyczne podejście</strong>
+        <span class="help-card-desc">Połączenie zdrowia ciała, umysłu i ducha. Praktyczny przewodnik po zdrowych nawykach.</span>
       </a>
-      <a class="help-card" href="/wsparcie-zdrowia" aria-label="Wsparcie zdrowia">
+      <a class="help-card" href="/wsparcie-zdrowia" data-slug="wsparcie-zdrowia" data-title="Wsparcie zdrowia — baza wiedzy" aria-label="Wsparcie zdrowia — baza wiedzy">
         <span class="help-card-emoji" aria-hidden="true">🩺</span>
-        <strong class="help-card-title">Wsparcie zdrowia</strong>
-        <span class="help-card-desc">Ogólne wsparcie zdrowotne</span>
+        <strong class="help-card-title">Wsparcie zdrowia — baza wiedzy</strong>
+        <span class="help-card-desc">Ogólne wsparcie zdrowotne, oficjalne placówki NFZ, infolinie medyczne w Polsce.</span>
       </a>
       </div>
     </section>
-    <section class="help-category" aria-labelledby="cat-uzależnienia">
-      <h2 id="cat-uzależnienia" class="help-cat-title">💊 Uzależnienia</h2>
+    <section class="help-category" aria-labelledby="cat-Uzale%C5%BCnienia">
+      <h2 id="cat-Uzale%C5%BCnienia" class="help-cat-title">💊 Uzależnienia</h2>
       <div class="help-cards-grid">
         
-      <a class="help-card" href="/alkoholizm" aria-label="Alkoholizm">
+      <a class="help-card" href="/alkoholizm" data-slug="alkoholizm" data-title="Problemy z alkoholem — leczenie i wsparcie" aria-label="Problemy z alkoholem — leczenie i wsparcie">
         <span class="help-card-emoji" aria-hidden="true">🍷</span>
-        <strong class="help-card-title">Alkoholizm</strong>
-        <span class="help-card-desc">Leczenie i wsparcie w problemach z alkoholem</span>
+        <strong class="help-card-title">Problemy z alkoholem — leczenie i wsparcie</strong>
+        <span class="help-card-desc">Nie musisz być sam z problemem alkoholowym. Placówki leczenia uzależnień i grupy wsparcia.</span>
       </a>
-      <a class="help-card" href="/hazard" aria-label="Hazard">
+      <a class="help-card" href="/hazard" data-slug="hazard" data-title="Uzależnienie od hazardu — pomoc" aria-label="Uzależnienie od hazardu — pomoc">
         <span class="help-card-emoji" aria-hidden="true">🎰</span>
-        <strong class="help-card-title">Hazard</strong>
-        <span class="help-card-desc">Uzależnienie od hazardu – pomoc</span>
+        <strong class="help-card-title">Uzależnienie od hazardu — pomoc</strong>
+        <span class="help-card-desc">Gry losowe, zakłady bukmacherskie i długi hazardowe. Gdzie szukać pomocy terapeutycznej.</span>
       </a>
-      <a class="help-card" href="/narkomania" aria-label="Narkomania">
+      <a class="help-card" href="/narkomania" data-slug="narkomania" data-title="Uzależnienie od narkotyków — pomoc i detoks" aria-label="Uzależnienie od narkotyków — pomoc i detoks">
         <span class="help-card-emoji" aria-hidden="true">💊</span>
-        <strong class="help-card-title">Narkomania</strong>
-        <span class="help-card-desc">Uzależnienie od narkotyków – wsparcie</span>
+        <strong class="help-card-title">Uzależnienie od narkotyków — pomoc i detoks</strong>
+        <span class="help-card-desc">Substancje psychoaktywne – bezpieczny kontakt z ośrodkami terapii, detoks i wsparcie bliskich.</span>
       </a>
-      <a class="help-card" href="/rzucanie-palenia" aria-label="Rzucanie palenia">
+      <a class="help-card" href="/rzucanie-palenia" data-slug="rzucanie-palenia" data-title="Rzucanie palenia — skuteczny proces" aria-label="Rzucanie palenia — skuteczny proces">
         <span class="help-card-emoji" aria-hidden="true">🚭</span>
-        <strong class="help-card-title">Rzucanie palenia</strong>
-        <span class="help-card-desc">Jak rzucić palenie – praktyczne kroki</span>
+        <strong class="help-card-title">Rzucanie palenia — skuteczny proces</strong>
+        <span class="help-card-desc">Plan rzucania palenia tytoniu i e-papierosów. Bezpłatna pomoc i infolinia dla palących.</span>
       </a>
-      <a class="help-card" href="/terapia-uzaleznien" aria-label="Terapia uzależnień">
+      <a class="help-card" href="/terapia-uzaleznien" data-slug="terapia-uzaleznien" data-title="Terapia uzależnień — jak wybrać ośrodek" aria-label="Terapia uzależnień — jak wybrać ośrodek">
         <span class="help-card-emoji" aria-hidden="true">🛋️</span>
-        <strong class="help-card-title">Terapia uzależnień</strong>
-        <span class="help-card-desc">Gdzie szukać terapii uzależnień</span>
+        <strong class="help-card-title">Terapia uzależnień — jak wybrać ośrodek</strong>
+        <span class="help-card-desc">Rodzaje terapii uzależnień w Polsce (NFZ i prywatne), przygotowanie do leczenia.</span>
       </a>
-      <a class="help-card" href="/uzaleznienia" aria-label="Uzależnienia">
+      <a class="help-card" href="/uzaleznienia" data-slug="uzaleznienia" data-title="Uzależnienia — centrum pomocy EkoCC" aria-label="Uzależnienia — centrum pomocy EkoCC">
         <span class="help-card-emoji" aria-hidden="true">🔗</span>
-        <strong class="help-card-title">Uzależnienia</strong>
-        <span class="help-card-desc">Kompleksowe wsparcie w uzależnieniach</span>
+        <strong class="help-card-title">Uzależnienia — centrum pomocy EkoCC</strong>
+        <span class="help-card-desc">Kompleksowy przegląd form wsparcia dla osób zmagających się z różnymi formami uzależnień.</span>
       </a>
-      <a class="help-card" href="/uzaleznienie-od-pornografii" aria-label="Uzal. od pornografii">
+      <a class="help-card" href="/uzaleznienie-od-pornografii" data-slug="uzaleznienie-od-pornografii" data-title="Uzależnienie od pornografii — wolność i odbudowa" aria-label="Uzależnienie od pornografii — wolność i odbudowa">
         <span class="help-card-emoji" aria-hidden="true">🛡️</span>
-        <strong class="help-card-title">Uzal. od pornografii</strong>
-        <span class="help-card-desc">Pomoc w uzależnieniu od pornografii</span>
+        <strong class="help-card-title">Uzależnienie od pornografii — wolność i odbudowa</strong>
+        <span class="help-card-desc">Trudny temat, bezpieczna przestrzeń. Kroki do odzyskania kontroli, czystości myśli i relacji.</span>
       </a>
-      <a class="help-card" href="/uzaleznienie-od-telefonu" aria-label="Uzal. od telefonu">
+      <a class="help-card" href="/uzaleznienie-od-telefonu" data-slug="uzaleznienie-od-telefonu" data-title="Uzależnienie od smartfona i social mediów" aria-label="Uzależnienie od smartfona i social mediów">
         <span class="help-card-emoji" aria-hidden="true">📵</span>
-        <strong class="help-card-title">Uzal. od telefonu</strong>
-        <span class="help-card-desc">Uzależnienie od smartfona – jak odzyskać kontrolę</span>
+        <strong class="help-card-title">Uzależnienie od smartfona i social mediów</strong>
+        <span class="help-card-desc">Cyfrowy detoks, kontrola czasu przed ekranem i odzyskanie uwagi dla realnego życia.</span>
       </a>
-      <a class="help-card" href="/wspoluzaleznienie" aria-label="Współuzależnienie">
+      <a class="help-card" href="/wspoluzaleznienie" data-slug="wspoluzaleznienie" data-title="Współuzależnienie — wsparcie dla bliskich" aria-label="Współuzależnienie — wsparcie dla bliskich">
         <span class="help-card-emoji" aria-hidden="true">🤝</span>
-        <strong class="help-card-title">Współuzależnienie</strong>
-        <span class="help-card-desc">Pomoc dla bliskich osób uzależnionych</span>
+        <strong class="help-card-title">Współuzależnienie — wsparcie dla bliskich</strong>
+        <span class="help-card-desc">Jak żyć obok osoby uzależnionej i nie zatracić siebie. Grupy Al-Anon i pomoc psychologiczna.</span>
       </a>
       </div>
     </section>
-    <section class="help-category" aria-labelledby="cat-rodzina">
-      <h2 id="cat-rodzina" class="help-cat-title">👨‍👩‍👧 Rodzina i relacje</h2>
+    <section class="help-category" aria-labelledby="cat-Rodzina%20i%20relacje">
+      <h2 id="cat-Rodzina%20i%20relacje" class="help-cat-title">👨‍👩‍👧 Rodzina i relacje</h2>
       <div class="help-cards-grid">
         
-      <a class="help-card" href="/dziecko-a-rozwod" aria-label="Dziecko a rozwód">
+      <a class="help-card" href="/dziecko-a-rozwod" data-slug="dziecko-a-rozwod" data-title="Dziecko w sytuacji rozwodu rodziców" aria-label="Dziecko w sytuacji rozwodu rodziców">
         <span class="help-card-emoji" aria-hidden="true">👨‍👩‍👧</span>
-        <strong class="help-card-title">Dziecko a rozwód</strong>
-        <span class="help-card-desc">Jak chronić dziecko podczas rozwodu</span>
+        <strong class="help-card-title">Dziecko w sytuacji rozwodu rodziców</strong>
+        <span class="help-card-desc">Jak chronić psychikę dziecka podczas rozstania rodziców. Mediacja i wsparcie emocjonalne.</span>
       </a>
-      <a class="help-card" href="/komunikacja-w-malzenstwie" aria-label="Komunikacja w małż.">
+      <a class="help-card" href="/komunikacja-w-malzenstwie" data-slug="komunikacja-w-malzenstwie" data-title="Komunikacja w małżeństwie — sztuka dialogu" aria-label="Komunikacja w małżeństwie — sztuka dialogu">
         <span class="help-card-emoji" aria-hidden="true">💬</span>
-        <strong class="help-card-title">Komunikacja w małż.</strong>
-        <span class="help-card-desc">Jak rozmawiać w małżeństwie</span>
+        <strong class="help-card-title">Komunikacja w małżeństwie — sztuka dialogu</strong>
+        <span class="help-card-desc">Jak rozmawiać bez oskarżeń, słuchać z empatią i rozwiązywać codzienne spory w małżeństwie.</span>
       </a>
-      <a class="help-card" href="/konflikty-rodzinne" aria-label="Konflikty rodzinne">
+      <a class="help-card" href="/konflikty-rodzinne" data-slug="konflikty-rodzinne" data-title="Konflikty rodzinne — mediacja i pojednanie" aria-label="Konflikty rodzinne — mediacja i pojednanie">
         <span class="help-card-emoji" aria-hidden="true">⚖️</span>
-        <strong class="help-card-title">Konflikty rodzinne</strong>
-        <span class="help-card-desc">Mediacja i rozwiązywanie konfliktów</span>
+        <strong class="help-card-title">Konflikty rodzinne — mediacja i pojednanie</strong>
+        <span class="help-card-desc">Napięcia wielopokoleniowe, spory majątkowe i emocjonalne. Droga do pojednania w rodzinie.</span>
       </a>
-      <a class="help-card" href="/kryzys-malzenski" aria-label="Kryzys małżeński">
+      <a class="help-card" href="/kryzys-malzenski" data-slug="kryzys-malzenski" data-title="Kryzys małżeński — ratowanie związku" aria-label="Kryzys małżeński — ratowanie związku">
         <span class="help-card-emoji" aria-hidden="true">💍</span>
-        <strong class="help-card-title">Kryzys małżeński</strong>
-        <span class="help-card-desc">Pomoc w kryzysie małżeńskim</span>
+        <strong class="help-card-title">Kryzys małżeński — ratowanie związku</strong>
+        <span class="help-card-desc">Kiedy małżeństwo przeżywa załamanie. Chrześcijańska perspektywa, terapia par i odnowa przymierza.</span>
       </a>
-      <a class="help-card" href="/narzeczenstwo" aria-label="Narzeczeństwo">
+      <a class="help-card" href="/narzeczenstwo" data-slug="narzeczenstwo" data-title="Narzeczeństwo i przygotowanie do małżeństwa" aria-label="Narzeczeństwo i przygotowanie do małżeństwa">
         <span class="help-card-emoji" aria-hidden="true">💑</span>
-        <strong class="help-card-title">Narzeczeństwo</strong>
-        <span class="help-card-desc">Przygotowanie do małżeństwa</span>
+        <strong class="help-card-title">Narzeczeństwo i przygotowanie do małżeństwa</strong>
+        <span class="help-card-desc">Ważne pytania przed ślubem: finanse, wartości, rodzina i wizja wspólnego życia z Bogiem.</span>
       </a>
-      <a class="help-card" href="/nastolatki" aria-label="Nastolatki">
+      <a class="help-card" href="/nastolatki" data-slug="nastolatki" data-title="Wychowanie i relacja z nastolatkiem" aria-label="Wychowanie i relacja z nastolatkiem">
         <span class="help-card-emoji" aria-hidden="true">🧑‍🎓</span>
-        <strong class="help-card-title">Nastolatki</strong>
-        <span class="help-card-desc">Wyzwania w relacji z nastolatkami</span>
+        <strong class="help-card-title">Wychowanie i relacja z nastolatkiem</strong>
+        <span class="help-card-desc">Zrozumieć świat młodzieży, utrzymać więź i autorytet bez walki i odrzucenia.</span>
       </a>
-      <a class="help-card" href="/problemy-w-szkole" aria-label="Problemy w szkole">
+      <a class="help-card" href="/problemy-w-szkole" data-slug="problemy-w-szkole" data-title="Problemy szkolne — nauka i rówieśnicy" aria-label="Problemy szkolne — nauka i rówieśnicy">
         <span class="help-card-emoji" aria-hidden="true">🏫</span>
-        <strong class="help-card-title">Problemy w szkole</strong>
-        <span class="help-card-desc">Trudności szkolne – jak pomóc dziecku</span>
+        <strong class="help-card-title">Problemy szkolne — nauka i rówieśnicy</strong>
+        <span class="help-card-desc">Trudności edukacyjne, fobia szkolna i presja grupy. Jak pomóc dziecku przejść przez szkołę.</span>
       </a>
-      <a class="help-card" href="/przemoc-domowa" aria-label="Przemoc domowa">
+      <a class="help-card" href="/przemoc-domowa" data-slug="przemoc-domowa" data-title="Przemoc domowa — natychmiastowa pomoc" aria-label="Przemoc domowa — natychmiastowa pomoc">
         <span class="help-card-emoji" aria-hidden="true">🆘</span>
-        <strong class="help-card-title">Przemoc domowa</strong>
-        <span class="help-card-desc">Pomoc w sytuacji przemocy domowej</span>
+        <strong class="help-card-title">Przemoc domowa — natychmiastowa pomoc</strong>
+        <span class="help-card-desc">Niebieska Linia, bezpieczne schronienie, pomoc prawna i psychologiczna dla ofiar przemocy.</span>
       </a>
-      <a class="help-card" href="/rodzicielstwo" aria-label="Rodzicielstwo">
+      <a class="help-card" href="/rodzicielstwo" data-slug="rodzicielstwo" data-title="Mądre rodzicielstwo i wychowanie" aria-label="Mądre rodzicielstwo i wychowanie">
         <span class="help-card-emoji" aria-hidden="true">👪</span>
-        <strong class="help-card-title">Rodzicielstwo</strong>
-        <span class="help-card-desc">Wyzwania i wsparcie w byciu rodzicem</span>
+        <strong class="help-card-title">Mądre rodzicielstwo i wychowanie</strong>
+        <span class="help-card-desc">Wychowanie w miłości, dyscyplinie i prawdzie. Budowanie poczucia bezpieczeństwa u dzieci.</span>
       </a>
-      <a class="help-card" href="/rozwod" aria-label="Rozwód">
+      <a class="help-card" href="/rozwod" data-slug="rozwod" data-title="Rozwód — wsparcie prawne i emocjonalne" aria-label="Rozwód — wsparcie prawne i emocjonalne">
         <span class="help-card-emoji" aria-hidden="true">📋</span>
-        <strong class="help-card-title">Rozwód</strong>
-        <span class="help-card-desc">Jak przejść przez rozwód – wsparcie</span>
+        <strong class="help-card-title">Rozwód — wsparcie prawne i emocjonalne</strong>
+        <span class="help-card-desc">Kiedy rozstanie staje się faktem. Bezpieczne przejście przez proces i opieka nad bliskimi.</span>
       </a>
-      <a class="help-card" href="/samotny-rodzic" aria-label="Samotny rodzic">
+      <a class="help-card" href="/samotny-rodzic" data-slug="samotny-rodzic" data-title="Samodzielne rodzicielstwo — wsparcie samotnych rodziców" aria-label="Samodzielne rodzicielstwo — wsparcie samotnych rodziców">
         <span class="help-card-emoji" aria-hidden="true">👩‍👦</span>
-        <strong class="help-card-title">Samotny rodzic</strong>
-        <span class="help-card-desc">Wsparcie dla samotnych rodziców</span>
+        <strong class="help-card-title">Samodzielne rodzicielstwo — wsparcie samotnych rodziców</strong>
+        <span class="help-card-desc">Samotna mama, samotny ojciec. Praktyczne porady, świadczenia socjalne i grupy wsparcia.</span>
       </a>
-      <a class="help-card" href="/trudne-zachowania" aria-label="Trudne zachowania">
+      <a class="help-card" href="/trudne-zachowania" data-slug="trudne-zachowania" data-title="Trudne zachowania u dzieci i młodzieży" aria-label="Trudne zachowania u dzieci i młodzieży">
         <span class="help-card-emoji" aria-hidden="true">🧩</span>
-        <strong class="help-card-title">Trudne zachowania</strong>
-        <span class="help-card-desc">Jak radzić sobie z trudnymi zachowaniami</span>
+        <strong class="help-card-title">Trudne zachowania u dzieci i młodzieży</strong>
+        <span class="help-card-desc">Agresja, wycofanie, autoagresja. Jak reagować spokojnie i gdzie szukać diagnozy.</span>
       </a>
-      <a class="help-card" href="/wiara-dzieci" aria-label="Wiara dzieci">
+      <a class="help-card" href="/wiara-dzieci" data-slug="wiara-dzieci" data-title="Wychowanie w wierze — jak przekazać wartości Bogu" aria-label="Wychowanie w wierze — jak przekazać wartości Bogu">
         <span class="help-card-emoji" aria-hidden="true">✝️</span>
-        <strong class="help-card-title">Wiara dzieci</strong>
-        <span class="help-card-desc">Jak wychowywać dzieci w wierze</span>
+        <strong class="help-card-title">Wychowanie w wierze — jak przekazać wartości Bogu</strong>
+        <span class="help-card-desc">Autentyczne świadectwo wiary w domu, rozmowy o Bogu bez przymusu i formalizmu.</span>
       </a>
-      <a class="help-card" href="/wsparcie-malzenstwa" aria-label="Wsparcie małżeństwa">
+      <a class="help-card" href="/wsparcie-malzenstwa" data-slug="wsparcie-malzenstwa" data-title="Wsparcie małżeństwa — narzędzia i warsztaty" aria-label="Wsparcie małżeństwa — narzędzia i warsztaty">
         <span class="help-card-emoji" aria-hidden="true">💞</span>
-        <strong class="help-card-title">Wsparcie małżeństwa</strong>
-        <span class="help-card-desc">Wzmacnianie więzi małżeńskiej</span>
+        <strong class="help-card-title">Wsparcie małżeństwa — narzędzia i warsztaty</strong>
+        <span class="help-card-desc">Inicjatywy wspierające trwałość małżeństw, spotkania dla par i doradztwo rodzinne.</span>
       </a>
-      <a class="help-card" href="/wsparcie-rodzicow" aria-label="Wsparcie rodziców">
+      <a class="help-card" href="/wsparcie-rodzicow" data-slug="wsparcie-rodzicow" data-title="Wsparcie dla rodziców w kryzysie" aria-label="Wsparcie dla rodziców w kryzysie">
         <span class="help-card-emoji" aria-hidden="true">🫂</span>
-        <strong class="help-card-title">Wsparcie rodziców</strong>
-        <span class="help-card-desc">Pomoc dla rodziców w trudnych sytuacjach</span>
+        <strong class="help-card-title">Wsparcie dla rodziców w kryzysie</strong>
+        <span class="help-card-desc">Kiedy rodzic czuje się bezsilny. Konsultacje, grupy wsparcia rodzicielskiego i poradnie.</span>
       </a>
-      <a class="help-card" href="/wsparcie-rodziny" aria-label="Wsparcie rodziny">
+      <a class="help-card" href="/wsparcie-rodziny" data-slug="wsparcie-rodziny" data-title="Centrum wsparcia rodziny EkoCC" aria-label="Centrum wsparcia rodziny EkoCC">
         <span class="help-card-emoji" aria-hidden="true">🏡</span>
-        <strong class="help-card-title">Wsparcie rodziny</strong>
-        <span class="help-card-desc">Kompleksowe wsparcie dla rodziny</span>
+        <strong class="help-card-title">Centrum wsparcia rodziny EkoCC</strong>
+        <span class="help-card-desc">Kompleksowe doradztwo rodzinne, prawne i pedagogiczne pod skrzydłami Christian Culture.</span>
       </a>
-      <a class="help-card" href="/zdrada" aria-label="Zdrada">
+      <a class="help-card" href="/zdrada" data-slug="zdrada" data-title="Zdrada w małżeństwie — co dalej?" aria-label="Zdrada w małżeństwie — co dalej?">
         <span class="help-card-emoji" aria-hidden="true">💔</span>
-        <strong class="help-card-title">Zdrada</strong>
-        <span class="help-card-desc">Jak radzić sobie ze zdradą</span>
+        <strong class="help-card-title">Zdrada w małżeństwie — co dalej?</strong>
+        <span class="help-card-desc">Bolesne doświadczenie zdrady. Proces żałoby po zaufaniu, przebaczenie i decyzje o przyszłości.</span>
       </a>
       </div>
     </section>
-    <section class="help-category" aria-labelledby="cat-psyche">
-      <h2 id="cat-psyche" class="help-cat-title">🧠 Zdrowie psychiczne</h2>
+    <section class="help-category" aria-labelledby="cat-Zdrowie%20psychiczne">
+      <h2 id="cat-Zdrowie%20psychiczne" class="help-cat-title">🧠 Zdrowie psychiczne</h2>
       <div class="help-cards-grid">
         
-      <a class="help-card" href="/cyberprzemoc" aria-label="Cyberprzemoc">
+      <a class="help-card" href="/depresja" data-slug="depresja" data-title="Depresja — szukanie pomocy" aria-label="Depresja — szukanie pomocy">
+        <span class="help-card-emoji" aria-hidden="true">🌧️</span>
+        <strong class="help-card-title">Depresja — szukanie pomocy</strong>
+        <span class="help-card-desc">Depresja jest problemem zdrowotnym. Bezpłatne wsparcie, kontakty do poradni i infolinie.</span>
+      </a>
+      <a class="help-card" href="/lek" data-slug="lek" data-title="Lęk, ataki paniki i niepokój" aria-label="Lęk, ataki paniki i niepokój">
+        <span class="help-card-emoji" aria-hidden="true">🫁</span>
+        <strong class="help-card-title">Lęk, ataki paniki i niepokój</strong>
+        <span class="help-card-desc">Zaburzenia lękowe – jak radzić sobie z napadami lęku, gdzie szukać fachowej pomocy.</span>
+      </a>
+      <a class="help-card" href="/wypalenie" data-slug="wypalenie" data-title="Wypalenie zawodowe i chroniczne zmęczenie" aria-label="Wypalenie zawodowe i chroniczne zmęczenie">
+        <span class="help-card-emoji" aria-hidden="true">🔥</span>
+        <strong class="help-card-title">Wypalenie zawodowe i chroniczne zmęczenie</strong>
+        <span class="help-card-desc">Objawy wypalenia, przeciążenie pracą i odbudowa równowagi życiowej.</span>
+      </a>
+      <a class="help-card" href="/cyberprzemoc" data-slug="cyberprzemoc" data-title="Cyberprzemoc i hejt w sieci" aria-label="Cyberprzemoc i hejt w sieci">
         <span class="help-card-emoji" aria-hidden="true">💻</span>
-        <strong class="help-card-title">Cyberprzemoc</strong>
-        <span class="help-card-desc">Przemoc w internecie – jak reagować</span>
+        <strong class="help-card-title">Cyberprzemoc i hejt w sieci</strong>
+        <span class="help-card-desc">Jak reagować na hejt, szantaż online i prześladowanie w mediach społecznościowych.</span>
       </a>
-      <a class="help-card" href="/holistyczny-coaching" aria-label="Coaching holistyczny">
+      <a class="help-card" href="/holistyczny-coaching" data-slug="holistyczny-coaching" data-title="Holistyczny coaching chrześcijański" aria-label="Holistyczny coaching chrześcijański">
         <span class="help-card-emoji" aria-hidden="true">🌟</span>
-        <strong class="help-card-title">Coaching holistyczny</strong>
-        <span class="help-card-desc">Rozwój osobisty i coaching</span>
+        <strong class="help-card-title">Holistyczny coaching chrześcijański</strong>
+        <span class="help-card-desc">Odkrywanie powołania, talentów i celów życiowych w oparciu o Boże zasady.</span>
       </a>
-      <a class="help-card" href="/kryzys" aria-label="Kryzys">
+      <a class="help-card" href="/kryzys" data-slug="kryzys" data-title="Kryzys emocjonalny i psychiczny — pierwsza pomoc" aria-label="Kryzys emocjonalny i psychiczny — pierwsza pomoc">
         <span class="help-card-emoji" aria-hidden="true">🆘</span>
-        <strong class="help-card-title">Kryzys</strong>
-        <span class="help-card-desc">Pomoc w kryzysie emocjonalnym</span>
+        <strong class="help-card-title">Kryzys emocjonalny i psychiczny — pierwsza pomoc</strong>
+        <span class="help-card-desc">Kiedy ból staje się nieznośny. Bezpłatne numery telefonów zaufania i ośrodki interwencji kryzysowej.</span>
       </a>
-      <a class="help-card" href="/poczucie-wartosci" aria-label="Poczucie wartości">
+      <a class="help-card" href="/poczucie-wartosci" data-slug="poczucie-wartosci" data-title="Poczucie wartości oparte na Bogu" aria-label="Poczucie wartości oparte na Bogu">
         <span class="help-card-emoji" aria-hidden="true">🌱</span>
-        <strong class="help-card-title">Poczucie wartości</strong>
-        <span class="help-card-desc">Budowanie pewności siebie</span>
+        <strong class="help-card-title">Poczucie wartości oparte na Bogu</strong>
+        <span class="help-card-desc">Uwalnianie się od porównań, lęku przed odrzuceniem i budowanie tożsamości dziecka Bożego.</span>
       </a>
-      <a class="help-card" href="/psycholog" aria-label="Psycholog">
+      <a class="help-card" href="/psycholog" data-slug="psycholog" data-title="Psycholog z chrześcijańskimi wartościami" aria-label="Psycholog z chrześcijańskimi wartościami">
         <span class="help-card-emoji" aria-hidden="true">🧠</span>
-        <strong class="help-card-title">Psycholog</strong>
-        <span class="help-card-desc">Gdzie znaleźć psychologa</span>
+        <strong class="help-card-title">Psycholog z chrześcijańskimi wartościami</strong>
+        <span class="help-card-desc">Jak znaleźć psychologa, który szanuje Twoją wiarę i stosuje rzetelną wiedzę naukową.</span>
       </a>
-      <a class="help-card" href="/psycholog-dzieciecy" aria-label="Psycholog dziecięcy">
+      <a class="help-card" href="/psycholog-dzieciecy" data-slug="psycholog-dzieciecy" data-title="Psycholog dziecięcy — pomoc najmłodszym" aria-label="Psycholog dziecięcy — pomoc najmłodszym">
         <span class="help-card-emoji" aria-hidden="true">🧒</span>
-        <strong class="help-card-title">Psycholog dziecięcy</strong>
-        <span class="help-card-desc">Pomoc psychologiczna dla dzieci</span>
+        <strong class="help-card-title">Psycholog dziecięcy — pomoc najmłodszym</strong>
+        <span class="help-card-desc">Konsultacje psychologiczne dla dzieci i młodzieży, diagnoza emocjonalna i rozwojowa.</span>
       </a>
-      <a class="help-card" href="/samotnosc" aria-label="Samotność">
+      <a class="help-card" href="/samotnosc" data-slug="samotnosc" data-title="Samotność i izolacja — odnaleźć więź" aria-label="Samotność i izolacja — odnaleźć więź">
         <span class="help-card-emoji" aria-hidden="true">🕯️</span>
-        <strong class="help-card-title">Samotność</strong>
-        <span class="help-card-desc">Radzenie sobie z samotnością</span>
+        <strong class="help-card-title">Samotność i izolacja — odnaleźć więź</strong>
+        <span class="help-card-desc">Samotność w tłumie, utrata relacji i budowanie nowych, bezpiecznych więzi we wspólnocie.</span>
       </a>
-      <a class="help-card" href="/senior" aria-label="Senior">
+      <a class="help-card" href="/senior" data-slug="senior" data-title="Wsparcie dla seniorów — godność i aktywność" aria-label="Wsparcie dla seniorów — godność i aktywność">
         <span class="help-card-emoji" aria-hidden="true">👴</span>
-        <strong class="help-card-title">Senior</strong>
-        <span class="help-card-desc">Wsparcie dla seniorów</span>
+        <strong class="help-card-title">Wsparcie dla seniorów — godność i aktywność</strong>
+        <span class="help-card-desc">Opieka nad osobami starszymi, walka z samotnością seniorów, infolinie i kluby seniora.</span>
       </a>
-      <a class="help-card" href="/stres" aria-label="Stres">
+      <a class="help-card" href="/stres" data-slug="stres" data-title="Przewlekły stres i przeciążenie" aria-label="Przewlekły stres i przeciążenie">
         <span class="help-card-emoji" aria-hidden="true">😮‍💨</span>
-        <strong class="help-card-title">Stres</strong>
-        <span class="help-card-desc">Stres i przeciążenie – jak sobie radzić</span>
+        <strong class="help-card-title">Przewlekły stres i przeciążenie</strong>
+        <span class="help-card-desc">Objawy fizyczne stresu, techniki wyciszenia, biblijny pokój i higiena układu nerwowego.</span>
       </a>
-      <a class="help-card" href="/trauma" aria-label="Trauma">
+      <a class="help-card" href="/trauma" data-slug="trauma" data-title="Doświadczenie traumy — proces leczenia" aria-label="Doświadczenie traumy — proces leczenia">
         <span class="help-card-emoji" aria-hidden="true">🌊</span>
-        <strong class="help-card-title">Trauma</strong>
-        <span class="help-card-desc">Pomoc po traumatycznych przeżyciach</span>
+        <strong class="help-card-title">Doświadczenie traumy — proces leczenia</strong>
+        <span class="help-card-desc">Zespół stresu pourazowego (PTSD), bezpieczna terapia traumy i odzyskiwanie poczucia bezpieczeństwa.</span>
       </a>
-      <a class="help-card" href="/zaloba" aria-label="Żałoba">
+      <a class="help-card" href="/zaloba" data-slug="zaloba" data-title="Żałoba i strata bliskiej osoby" aria-label="Żałoba i strata bliskiej osoby">
         <span class="help-card-emoji" aria-hidden="true">🕊️</span>
-        <strong class="help-card-title">Żałoba</strong>
-        <span class="help-card-desc">Przeżywanie straty i żałoby</span>
+        <strong class="help-card-title">Żałoba i strata bliskiej osoby</strong>
+        <span class="help-card-desc">Etapy żałoby, prawo do bólu i łez, wsparcie duszpasterskie i psychologiczne po stracie.</span>
       </a>
       </div>
     </section>
-    <section class="help-category" aria-labelledby="cat-finanse">
-      <h2 id="cat-finanse" class="help-cat-title">⚖️ Finanse i prawo</h2>
+    <section class="help-category" aria-labelledby="cat-Finanse%20i%20prawo">
+      <h2 id="cat-Finanse%20i%20prawo" class="help-cat-title">⚖️ Finanse i prawo</h2>
       <div class="help-cards-grid">
         
-      <a class="help-card" href="/budzet-domowy" aria-label="Budżet domowy">
+      <a class="help-card" href="/budzet-domowy" data-slug="budzet-domowy" data-title="Budżet domowy — kontrola nad wydatkami" aria-label="Budżet domowy — kontrola nad wydatkami">
         <span class="help-card-emoji" aria-hidden="true">📊</span>
-        <strong class="help-card-title">Budżet domowy</strong>
-        <span class="help-card-desc">Jak zaplanować i kontrolować budżet</span>
+        <strong class="help-card-title">Budżet domowy — kontrola nad wydatkami</strong>
+        <span class="help-card-desc">Praktyczny szablon budżetu domowego, planowanie wydatków i wychodzenie na prostą finansową.</span>
       </a>
-      <a class="help-card" href="/dlugi" aria-label="Długi">
+      <a class="help-card" href="/dlugi" data-slug="dlugi" data-title="Wyjście z długów — plan oddłużenia" aria-label="Wyjście z długów — plan oddłużenia">
         <span class="help-card-emoji" aria-hidden="true">📉</span>
-        <strong class="help-card-title">Długi</strong>
-        <span class="help-card-desc">Wyjście z długów – praktyczne kroki</span>
+        <strong class="help-card-title">Wyjście z długów — plan oddłużenia</strong>
+        <span class="help-card-desc">Pilotaż CC Pomoc. Praktyczne kroki, uporządkowanie zobowiązań, darmowy arkusz i oficjalna pomoc.</span>
       </a>
-      <a class="help-card" href="/komornik" aria-label="Komornik">
+      <a class="help-card" href="/komornik" data-slug="komornik" data-title="Egzekucja komornicza — prawa dłużnika" aria-label="Egzekucja komornicza — prawa dłużnika">
         <span class="help-card-emoji" aria-hidden="true">📜</span>
-        <strong class="help-card-title">Komornik</strong>
-        <span class="help-card-desc">Egzekucja komornicza – prawa i ochrona</span>
+        <strong class="help-card-title">Egzekucja komornicza — prawa dłużnika</strong>
+        <span class="help-card-desc">Kwota wolna od potrąceń, co może zająć komornik, a co jest chronione prawem w Polsce.</span>
       </a>
-      <a class="help-card" href="/kredyty" aria-label="Kredyty">
+      <a class="help-card" href="/kredyty" data-slug="kredyty" data-title="Kredyty, pożyczki i chwilówki — co robić" aria-label="Kredyty, pożyczki i chwilówki — co robić">
         <span class="help-card-emoji" aria-hidden="true">🏦</span>
-        <strong class="help-card-title">Kredyty</strong>
-        <span class="help-card-desc">Problemy z kredytami – pomoc</span>
+        <strong class="help-card-title">Kredyty, pożyczki i chwilówki — co robić</strong>
+        <span class="help-card-desc">Pętla kredytowa, konsolidacja, negocjacje z bankiem i unikanie pułapek lichwiarskich.</span>
       </a>
-      <a class="help-card" href="/oddluzanie" aria-label="Oddłużanie">
+      <a class="help-card" href="/oddluzanie" data-slug="oddluzanie" data-title="Skuteczne oddłużanie osób fizycznych" aria-label="Skuteczne oddłużanie osób fizycznych">
         <span class="help-card-emoji" aria-hidden="true">🔓</span>
-        <strong class="help-card-title">Oddłużanie</strong>
-        <span class="help-card-desc">Jak wyjść z pętli zadłużenia</span>
+        <strong class="help-card-title">Skuteczne oddłużanie osób fizycznych</strong>
+        <span class="help-card-desc">Prawne i finansowe metody redukcji długu, restrukturyzacja i pomoc doradcy finansowego.</span>
       </a>
-      <a class="help-card" href="/pomoc-prawna" aria-label="Pomoc prawna">
+      <a class="help-card" href="/pomoc-prawna" data-slug="pomoc-prawna" data-title="Nieodpłatna pomoc prawna w Polsce" aria-label="Nieodpłatna pomoc prawna w Polsce">
         <span class="help-card-emoji" aria-hidden="true">⚖️</span>
-        <strong class="help-card-title">Pomoc prawna</strong>
-        <span class="help-card-desc">Bezpłatna pomoc prawna w Polsce</span>
+        <strong class="help-card-title">Nieodpłatna pomoc prawna w Polsce</strong>
+        <span class="help-card-desc">Gdzie skorzystać z darmowych punktów pomocy prawnej i poradnictwa obywatelskiego.</span>
       </a>
-      <a class="help-card" href="/prawa-konsumenta" aria-label="Prawa konsumenta">
+      <a class="help-card" href="/prawa-konsumenta" data-slug="prawa-konsumenta" data-title="Prawa konsumenta — reklamacje i oszustwa" aria-label="Prawa konsumenta — reklamacje i oszustwa">
         <span class="help-card-emoji" aria-hidden="true">🛒</span>
-        <strong class="help-card-title">Prawa konsumenta</strong>
-        <span class="help-card-desc">Ochrona praw konsumenta</span>
+        <strong class="help-card-title">Prawa konsumenta — reklamacje i oszustwa</strong>
+        <span class="help-card-desc">Rzecznik Praw Konsumenta, zwroty towaru, reklamacje, ochrona przed nieuczciwymi umowami.</span>
       </a>
-      <a class="help-card" href="/prawnik" aria-label="Prawnik">
+      <a class="help-card" href="/prawnik" data-slug="prawnik" data-title="Konsultacja z prawnikiem — jak się przygotować" aria-label="Konsultacja z prawnikiem — jak się przygotować">
         <span class="help-card-emoji" aria-hidden="true">👨‍⚖️</span>
-        <strong class="help-card-title">Prawnik</strong>
-        <span class="help-card-desc">Jak znaleźć prawnika</span>
+        <strong class="help-card-title">Konsultacja z prawnikiem — jak się przygotować</strong>
+        <span class="help-card-desc">Jak wybrać rzetelnego adwokata lub radcę prawnego, przygotowanie dokumentów do sprawy.</span>
       </a>
-      <a class="help-card" href="/upadlosc-konsumencka" aria-label="Upadłość konsumencka">
+      <a class="help-card" href="/upadlosc-konsumencka" data-slug="upadlosc-konsumencka" data-title="Upadłość konsumencka — nowy start" aria-label="Upadłość konsumencka — nowy start">
         <span class="help-card-emoji" aria-hidden="true">📋</span>
-        <strong class="help-card-title">Upadłość konsumencka</strong>
-        <span class="help-card-desc">Oddłużenie przez upadłość</span>
+        <strong class="help-card-title">Upadłość konsumencka — nowy start</strong>
+        <span class="help-card-desc">Warunki ogłoszenia upadłości konsumenckiej w sądzie, plan spłaty i całkowite umorzenie długów.</span>
       </a>
-      <a class="help-card" href="/windykacja" aria-label="Windykacja">
+      <a class="help-card" href="/windykacja" data-slug="windykacja" data-title="Windykacja — jak rozmawiać z firmą windykacyjną" aria-label="Windykacja — jak rozmawiać z firmą windykacyjną">
         <span class="help-card-emoji" aria-hidden="true">📩</span>
-        <strong class="help-card-title">Windykacja</strong>
-        <span class="help-card-desc">Windykacja wierzytelności – informacje</span>
+        <strong class="help-card-title">Windykacja — jak rozmawiać z firmą windykacyjną</strong>
+        <span class="help-card-desc">Granice działań windykatora, przedawnienie długu, ochrona przed nękaniem telefonicznym.</span>
       </a>
-      <a class="help-card" href="/pastor" aria-label="Pastor / duchowy">
+      <a class="help-card" href="/pastor" data-slug="pastor" data-title="Duszpasterz i pastor — wsparcie duchowe" aria-label="Duszpasterz i pastor — wsparcie duchowe">
         <span class="help-card-emoji" aria-hidden="true">✝️</span>
-        <strong class="help-card-title">Pastor / duchowy</strong>
-        <span class="help-card-desc">Wsparcie duchowe i pastoralne</span>
+        <strong class="help-card-title">Duszpasterz i pastor — wsparcie duchowe</strong>
+        <span class="help-card-desc">Rozmowa duszpasterska, modlitwa, poszukiwanie Boga i odpowiedzi w Piśmie Świętym.</span>
       </a>
-      <a class="help-card" href="/specjalisci" aria-label="Specjaliści CC">
+      <a class="help-card" href="/specjalisci" data-slug="specjalisci" data-title="Katalog specjalistów CC Pomoc" aria-label="Katalog specjalistów CC Pomoc">
         <span class="help-card-emoji" aria-hidden="true">📋</span>
-        <strong class="help-card-title">Specjaliści CC</strong>
-        <span class="help-card-desc">Katalog specjalistów CC Pomoc</span>
+        <strong class="help-card-title">Katalog specjalistów CC Pomoc</strong>
+        <span class="help-card-desc">Baza zweryfikowanych specjalistów wolontariuszy gotowych do bezpłatnej wstępnej pomocy.</span>
       </a>
       </div>
     </section>
 
-  <div class="help-volunteer-cta" id="wolontariat">
-    <h2>🙋 Jesteś specjalistą? Chcesz pomóc bezpłatnie?</h2>
-    <p>Szukamy wolontariuszy — psychologów, prawników, doradców finansowych, lekarzy i coachów, którzy chcą dzielić się wiedzą w duchu chrześcijańskich wartości.</p>
-    <a class="help-volunteer-btn" href="https://polskieradio.cc/wspolpraca">Zgłoś się jako specjalista →</a>
-  </div>
+  <section class="help-volunteer-cta" id="wolontariat" aria-labelledby="vol-heading">
+    <h2 id="vol-heading">🙋 Jesteś specjalistą? Chcesz pomóc bezpłatnie?</h2>
+    <p>Dołącz do grona wolontariuszy ekosystemu Christian Culture. Poszukujemy psychologów, prawników, doradców finansowych, dietetyków i duszpasterzy, którzy pragną dzielić się wiedzą i wspierać innych bez pobierania opłat.</p>
+    <a class="help-volunteer-btn" id="volBtn" href="https://polskieradio.cc/wspolpraca">Zgłoś się jako specjalista →</a>
+  </section>
 </main>
 
 <script src="/js/cc-mobile-edge.js?v=20261030_edge10" defer></script>
 <script>
-  // Filtrowanie kart po wyszukiwaniu
+  // 1. Filtrowanie kart na żywo + telemetria GA4 search
   const searchInput = document.getElementById('helpSearch');
   const cards = document.querySelectorAll('.help-card');
   const sections = document.querySelectorAll('.help-category');
+  let searchDebounceTimer = null;
 
   searchInput.addEventListener('input', () => {
     const q = searchInput.value.trim().toLowerCase();
@@ -557,7 +1113,49 @@
       const visible = [...s.querySelectorAll('.help-card')].some(c => !c.hidden);
       s.hidden = !visible;
     });
+
+    // GA4 Search Event (zabezpieczenie 500ms debounce)
+    clearTimeout(searchDebounceTimer);
+    if (q.length >= 3) {
+      searchDebounceTimer = setTimeout(() => {
+        if (typeof gtag === 'function') {
+          gtag('event', 'search', {
+            search_term: q,
+            page_location: window.location.href,
+            page_title: document.title
+          });
+        }
+      }, 500);
+    }
   });
+
+  // 2. GA4 Telemetria kliknięć w karty pomocy
+  document.querySelectorAll('.help-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const slug = card.getAttribute('data-slug');
+      const title = card.getAttribute('data-title');
+      if (typeof gtag === 'function') {
+        gtag('event', 'select_content', {
+          content_type: 'help_topic',
+          item_id: slug,
+          item_name: title
+        });
+      }
+    });
+  });
+
+  // 3. GA4 Telemetria kliknięcia CTA wolontariatu
+  const volBtn = document.getElementById('volBtn');
+  if (volBtn) {
+    volBtn.addEventListener('click', () => {
+      if (typeof gtag === 'function') {
+        gtag('event', 'select_content', {
+          content_type: 'volunteer_cta',
+          item_name: 'Zgłoś się jako specjalista'
+        });
+      }
+    });
+  }
 </script>
 </body>
 </html>
