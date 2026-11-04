@@ -91,7 +91,7 @@ function updateSearchIndexes() {
     if (!fs.existsSync(catPath)) continue;
     let data = JSON.parse(fs.readFileSync(catPath, 'utf8'));
 
-    // Usuń stare wpisy pomocy (aby uniknąć duplikatów przy ponownym uruchomieniu)
+    // Usuń stare wpisy pomocy
     data.items = data.items.filter(it => !it.url.includes('/help') && !HELP_PAGES.some(hp => it.url === `https://polskieradio.cc/${hp.slug}`));
 
     // Dodaj wpis strony głównej /help
@@ -319,7 +319,11 @@ ${JSON.stringify(schemaOrgJSON, null, 2)}
     --help-gap: 1rem;
   }
   @media(prefers-color-scheme:light) {
-    :root { --help-bg:#f4f4f0; --help-card-bg:#fff; --help-card-border:rgba(0,0,0,.09); }
+    :root {
+      --help-bg:#f4f4f0;
+      --help-card-bg:#ffffff;
+      --help-card-border:rgba(0,0,0,.12);
+    }
   }
 
   .help-hero {
@@ -337,14 +341,14 @@ ${JSON.stringify(schemaOrgJSON, null, 2)}
     color: #fff; font-weight:800; margin:0 0 .75rem; line-height:1.15;
   }
   .help-hero p {
-    color: rgba(255,255,255,.75); max-width: 560px; margin: 0 auto 1.5rem; font-size:1.05rem;
+    color: rgba(255,255,255,.85); max-width: 560px; margin: 0 auto 1.5rem; font-size:1.05rem;
   }
   .help-hero-stats {
     display:flex; gap:2rem; justify-content:center; flex-wrap:wrap;
   }
   .help-hero-stat { text-align:center; }
   .help-hero-stat strong { display:block; font-size:2rem; color:var(--help-gold); font-weight:800; }
-  .help-hero-stat span { font-size:.8rem; color:rgba(255,255,255,.6); text-transform:uppercase; letter-spacing:.08em; }
+  .help-hero-stat span { font-size:.8rem; color:rgba(255,255,255,.75); text-transform:uppercase; letter-spacing:.08em; }
 
   .help-search-bar {
     max-width: 540px; margin: 1.75rem auto 0;
@@ -353,11 +357,11 @@ ${JSON.stringify(schemaOrgJSON, null, 2)}
   .help-search-bar input {
     width:100%; padding:.85rem 1.25rem .85rem 3rem;
     border-radius: 999px; border: 1.5px solid var(--help-gold);
-    background: rgba(255,255,255,.07); color:#fff; font-size:1rem;
+    background: rgba(255,255,255,.1); color:#fff; font-size:1rem;
     outline:none; box-sizing:border-box;
   }
-  .help-search-bar input::placeholder { color:rgba(255,255,255,.45); }
-  .help-search-bar svg { position:absolute; left:1rem; top:50%; transform:translateY(-50%); opacity:.6; }
+  .help-search-bar input::placeholder { color:rgba(255,255,255,.6); }
+  .help-search-bar svg { position:absolute; left:1rem; top:50%; transform:translateY(-50%); opacity:.7; }
 
   .help-main { max-width:1120px; margin:0 auto; padding:2rem 1.25rem 4rem; }
 
@@ -367,6 +371,10 @@ ${JSON.stringify(schemaOrgJSON, null, 2)}
     margin:0 0 1rem; padding-bottom:.5rem;
     border-bottom: 1px solid var(--help-card-border);
   }
+  @media(prefers-color-scheme:light) {
+    .help-cat-title { color:#9B7C30; border-bottom-color:rgba(155,124,48,.25); }
+  }
+
   .help-cards-grid {
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
@@ -381,42 +389,81 @@ ${JSON.stringify(schemaOrgJSON, null, 2)}
     text-decoration: none;
     transition: border-color .2s, transform .15s, box-shadow .2s;
     min-height: 110px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
   }
   .help-card:hover, .help-card:focus-visible {
     border-color: var(--help-card-hover-border);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(196,163,90,.12);
+    box-shadow: 0 6px 20px rgba(196,163,90,.18);
     outline: none;
   }
   .help-card:focus-visible { outline: 2px solid var(--help-gold); }
   .help-card-emoji { font-size:1.6rem; line-height:1; }
-  .help-card-title { font-size:.92rem; font-weight:700; color: #e8e0cc; }
-  @media(prefers-color-scheme:light) { .help-card-title { color:#1a1a1a; } }
-  .help-card-desc { font-size:.78rem; color:rgba(255,255,255,.55); line-height:1.4; }
-  @media(prefers-color-scheme:light) { .help-card-desc { color:rgba(0,0,0,.55); } }
+  .help-card-title { font-size:.92rem; font-weight:700; color: #1a1a1a; }
+  @media(prefers-color-scheme:dark) { .help-card-title { color:#f0e8d5; } }
+  .help-card-desc { font-size:.78rem; color:#4a5568; line-height:1.4; }
+  @media(prefers-color-scheme:dark) { .help-card-desc { color:rgba(255,255,255,.65); } }
 
+  /* ── SEKCJA WOLONTARIATU / SPECJALISTÓW — MAKSYMALNA CZYTELNOŚĆ I BRAK EMOTIKONY ── */
   .help-volunteer-cta {
-    background: linear-gradient(135deg,rgba(196,163,90,.12),rgba(196,163,90,.04));
-    border: 1.5px solid var(--help-card-border);
+    background: #111317 !important;
+    border: 2px solid #C4A35A !important;
     border-radius: var(--help-radius);
-    padding: 2.25rem 1.5rem; text-align:center; margin-top:3.5rem;
+    padding: 2.75rem 1.75rem;
+    text-align: center;
+    margin-top: 3.5rem;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.22);
   }
-  .help-volunteer-cta h2 { font-size:1.35rem; color:#e8e0cc; margin:0 0 .5rem; }
-  .help-volunteer-cta p { color:rgba(255,255,255,.65); max-width:620px; margin:0 auto 1.25rem; font-size:.95rem; }
+  .help-volunteer-cta h2 {
+    font-size: clamp(1.35rem, 2.5vw, 1.65rem) !important;
+    font-weight: 800 !important;
+    color: #FFFFFF !important;
+    margin: 0 0 0.85rem !important;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  .help-volunteer-cta p {
+    color: #E2E8F0 !important;
+    max-width: 680px;
+    margin: 0 auto 1.6rem !important;
+    font-size: 1.05rem !important;
+    line-height: 1.65 !important;
+  }
   .help-volunteer-btn {
-    display:inline-block; padding:.85rem 2.25rem; border-radius:999px;
-    background: var(--help-gold); color:#0a0a0a; font-weight:700; font-size:.92rem;
-    text-decoration:none; transition: background .2s, transform .1s;
-    min-height:44px; min-width:44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 2.5rem;
+    border-radius: 999px;
+    background: #C4A35A !important;
+    color: #000000 !important;
+    font-weight: 800 !important;
+    font-size: 0.95rem !important;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    min-height: 48px;
+    min-width: 44px;
+    box-shadow: 0 4px 14px rgba(196, 163, 90, 0.35);
   }
-  .help-volunteer-btn:hover { background: var(--help-gold-hover); transform:scale(1.02); }
+  .help-volunteer-btn:hover {
+    background: #D4B578 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(196, 163, 90, 0.5);
+  }
 
   .help-back-link {
-    display:inline-flex; align-items:center; gap:.4rem;
-    color:var(--help-gold); font-size:.85rem; text-decoration:none;
-    padding:.75rem 0; margin-bottom:1rem;
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    color:var(--help-gold);
+    font-size:.85rem;
+    font-weight:600;
+    text-decoration:none;
+    padding:.75rem 0;
+    margin-bottom:1rem;
     min-height:44px;
   }
+  @media(prefers-color-scheme:light) { .help-back-link { color:#9B7C30; } }
   .help-back-link:hover { text-decoration:underline; }
 
   @media(max-width:480px) {
@@ -471,7 +518,7 @@ ${JSON.stringify(schemaOrgJSON, null, 2)}
 ${sectionsHTML}
 
   <section class="help-volunteer-cta" id="wolontariat" aria-labelledby="vol-heading">
-    <h2 id="vol-heading">🙋 Jesteś specjalistą? Chcesz pomóc bezpłatnie?</h2>
+    <h2 id="vol-heading">Jesteś specjalistą? Chcesz pomóc bezpłatnie?</h2>
     <p>Dołącz do grona wolontariuszy ekosystemu Christian Culture. Poszukujemy psychologów, prawników, doradców finansowych, dietetyków i duszpasterzy, którzy pragną dzielić się wiedzą i wspierać innych bez pobierania opłat.</p>
     <a class="help-volunteer-btn" id="volBtn" href="https://polskieradio.cc/wspolpraca">Zgłoś się jako specjalista →</a>
   </section>
@@ -555,7 +602,7 @@ function updateHelpPages() {
   const helpDir = path.join(ROOT, 'help');
   if (!fs.existsSync(helpDir)) fs.mkdirSync(helpDir, { recursive: true });
   fs.writeFileSync(path.join(helpDir, 'index.html'), html, 'utf8');
-  console.log("✅ Wygenerowano help.html i help/index.html z JSON-LD, GA4 i Open Graph");
+  console.log("✅ Wygenerowano help.html i help/index.html z ultra-czytelną sekcją wolontariatu");
 }
 
 // ── 5. AKTUALIZACJA SITEMAPS/PAGES.XML ─────────────────────────────────────────
@@ -564,7 +611,6 @@ function updateSitemap() {
   if (!fs.existsSync(sitemapPath)) return;
   let xml = fs.readFileSync(sitemapPath, 'utf8');
 
-  // Sprawdź czy /help już istnieje
   if (!xml.includes('<loc>https://polskieradio.cc/help</loc>')) {
     let entries = `
   <url>
@@ -592,7 +638,7 @@ function updateSitemap() {
   }
 }
 
-// ── 6. AKTUALIZACJA LLMS.TXT (OPT Z POD AI / LLM / BOTY) ──────────────────────
+// ── 6. AKTUALIZACJA LLMS.TXT ──────────────────────────────────────────────────
 function updateLlmsTxt() {
   const llmsPath = path.join(ROOT, 'llms.txt');
   if (!fs.existsSync(llmsPath)) return;
@@ -611,7 +657,6 @@ function updateLlmsTxt() {
   5. **Finanse i prawo**: wyjście z długów (/dlugi), upadłość konsumencka (/upadlosc-konsumencka), komornik (/komornik), kredyty i pożyczki (/kredyty), bezpłatna pomoc prawna (/pomoc-prawna), windykacja (/windykacja), prawa konsumenta (/prawa-konsumenta).
 - **Zasady i Etyka**: Wszystkie materiały są w 100% bezpłatne (0 zł). Inicjatywa łączy potrzebujących z rzetelną wiedzą, oficjalnymi infoliniami (Niebieska Linia, Telefon Zaufania, UOKiK, NFZ) oraz wolontariuszami specjalistami (nabór: https://polskieradio.cc/wspolpraca). Nie zastępuje diagnozy lekarskiej ani reprezentacji procesowej.
 `;
-    // Wstaw przed "## Key Platforms & Endpoints" lub na końcu sekcji
     if (content.includes("### 0. Christian Culture Search")) {
       content = content.replace("### 0. Christian Culture Search", helpSection + "\n### 0. Christian Culture Search");
     } else {
@@ -658,10 +703,10 @@ function syncDistFiles() {
 }
 
 // ── URUCHOMIENIE ─────────────────────────────────────────────────────────────
-console.log("🚀 Rozpoczynam pełne indeksowanie i optymalizację CC Pomoc /help...");
+console.log("🚀 Rozpoczynam aktualizację czytelności sekcji wolontariatu na /help...");
 updateHelpPages();
 updateSearchIndexes();
 updateSitemap();
 updateLlmsTxt();
 syncDistFiles();
-console.log("🎉 Wszystkie operacje zakończone sukcesem!");
+console.log("🎉 Aktualizacja zakończona!");

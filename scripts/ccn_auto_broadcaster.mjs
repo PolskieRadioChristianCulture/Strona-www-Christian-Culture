@@ -186,6 +186,12 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'rozwiaz-problem', 'assets', 'og-rozwiaz-problem.jpg');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('the-journal') || pathLower.includes('journal')) {
+    const p1 = path.join(rootDir, 'the-journal', 'assets', 'the-journal.png');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'the-journal', 'assets', 'pamietnik.png');
+    if (fs.existsSync(p2)) return p2;
+  }
   if (pathLower.includes('topten')) {
     const p1 = path.join(rootDir, 'topTEN', 'assets', 'wspieramto-banner.png');
     if (fs.existsSync(p1)) return p1;
@@ -444,6 +450,15 @@ function getAllEcosystemCandidates() {
   // 5. NAJWAŻNIEJSZE DEDYKOWANE MODUŁY EKOSYSTEMU CC
   const coreModules = [
     {
+      title: 'THE JOURNAL — 90-Dniowy Przewodnik Rozwoju Osobistego i Wiary',
+      lead: 'Zatrzymaj się na 5 minut dziennie. 90 dni, 9 etapów formacji, karta codzienna, bezpłatny pamiętnik PDF i pytania wieczorne.',
+      url: 'https://polskieradio.cc/the-journal',
+      image: 'the-journal/assets/the-journal.png',
+      category: 'THE JOURNAL',
+      type: 'module',
+      tag: '#TheJournal'
+    },
+    {
       title: 'Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański',
       lead: 'Nowy moduł w ekosystemie: 14 lekcji, plan na głód nikotynowy, podsumowanie audio i wolność w Chrystusie.',
       url: 'https://polskieradio.cc/rozwiaz-problem',
@@ -664,6 +679,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🎧 BIBLIA AUDIO & SŁUCHOWISKA CC';
       callToAction = '👉 Słuchaj bezpłatnie:\n';
       addTags(item.tag || '#BibliaAudio', '#SlowoBoze', '#ChristianCulture');
+    } else if ((item.url || '').includes('the-journal') || (item.title || '').includes('THE JOURNAL')) {
+      subHeader = '📔 THE JOURNAL | 90 DNI FORMACJI';
+      callToAction = '👉 Odkryj i zacznij dziś:\n';
+      addTags(item.tag || '#TheJournal', '#FormacjaDuchowa', '#ChristianCulture');
     } else if ((item.url || '').includes('akademia')) {
       subHeader = '🎓 AKADEMIA BIBLIJNA CC';
       callToAction = '👉 Studiuj bezpłatnie:\n';
@@ -723,6 +742,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '✝️ DEKLARACJA REDAKCYJNA CC';
       callToAction = '👉 Czytaj analizę biblijną:\n';
       addTags('#CCNNews', '#ChristianCulture', '#Swiatlosc', '#Prawda');
+    } else if (tLower.includes('życzliwość') || tLower.includes('zyczliwosc') || (item.url || '').includes('zyczliwosc') || tLower.includes('pomaganiu')) {
+      subHeader = '💡 eM • MOTYWACJA & ETYKA | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#CCNNews', '#eM', '#CezaryRogowski', '#Prawda');
     } else if (tLower.includes('pokój') || tLower.includes('pokoj') || tLower.includes('lęk') || tLower.includes('lek')) {
       subHeader = '🕊️ POKÓJ SERCA & NADZIEJA';
       callToAction = '👉 Czytaj artykuł w serwisie:\n';
@@ -744,6 +767,8 @@ function formatBroadcasterTweet(item) {
     bodyText = item.lead;
   } else if ((item.url || '').includes('topTEN')) {
     bodyText = 'Oficjalna lista przebojów muzyki chrześcijańskiej. Głosuj na utwory i wspieraj artystów!';
+  } else if ((item.url || '').includes('the-journal') || (item.title || '').includes('THE JOURNAL')) {
+    bodyText = 'THE JOURNAL — 90-dniowy przewodnik formacji, wiary i nawyków. Karta dzienna, pytania wieczorne i bezpłatne PDF!';
   } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
     bodyText = item.lead;
   } else if ((item.url || '').toLowerCase().includes('rozwiaz')) {
