@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "u-boku-diabla",
+      "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
+      "url": "https://polskieradio.cc/u-boku-diabla",
+      "type": "book",
+      "image": "art-u-boku-diabla.jpg",
+      "publishedAt": "2026-11-04T08:32:05.070Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan",
       "title": "Gdy kamienie wołają w Jerozolimie: Jak bulla króla Ezechiasza, tunel Siloe i stela z Tel Dan weryfikują historię biblijną",
       "url": "https://polskieradio.cc/news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan",
