@@ -1157,3 +1157,6 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   });
 }
 
+// Wspólna rotacja dla Facebooka (Wektor1_VideoFactory/publish_facebook_ccn_news.js) — L0 04.11.2026: taka sama rotacja jak na X.
+export { getAllEcosystemCandidates, chooseNextCandidate, resolveItemImage };
+
