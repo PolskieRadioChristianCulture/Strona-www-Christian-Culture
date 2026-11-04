@@ -10,6 +10,12 @@
 
   const TOPICS = [
     {
+      slug: 'the-journal',
+      pl: ['THE JOURNAL — nowości projektu', 'Premiera książki, rozwój aplikacji i nowe materiały THE JOURNAL.'],
+      en: ['THE JOURNAL — project updates', 'Book launch, app development and new THE JOURNAL materials.'],
+      de: ['THE JOURNAL — Projektneuigkeiten', 'Buchpremiere, App-Entwicklung und neue THE JOURNAL Materialien.'],
+    },
+    {
       slug: 'codzienne-rozwazania',
       pl: ['Codzienne Rozważania Biblijne', 'Codzienna poranna porcja Słowa Bożego („Dobrze, że jesteś” / autorzy LUMINA) o 06:00 rano.'],
       en: ['Daily Biblical Reflections', 'Daily morning scripture inspiration and reflections delivered at 6:00 AM.'],
@@ -145,6 +151,7 @@
 
   function detectSourcePortal() {
     const p = (location.pathname || '/').toLowerCase();
+    if (p === '/the-journal' || p.startsWith('/the-journal/')) return 'the-journal';
     if (p === '/' || p === '/index.html') return 'polskieradio-home';
     if (p.includes('wyszukiwarka') || p.includes('szukaj')) return 'wyszukiwarka';
     if (p.includes('tablica')) return 'lumina-tablica';
@@ -175,6 +182,8 @@
   function ensureStyles() {
     if (document.getElementById('cc-newsletter-styles')) return;
     const style = document.createElement('style');
+    const nonce = document.querySelector('meta[name="cc-csp-nonce"]')?.content;
+    if (nonce) style.nonce = nonce;
     style.id = 'cc-newsletter-styles';
     style.textContent = `
       dialog.cc-nl-dialog {
@@ -272,6 +281,7 @@
         line-height: 1.5;
         color: var(--cc-nl-muted);
       }
+      .cc-nl-manage-intro { margin: 0 0 14px; }
       .cc-nl-close {
         min-width: 44px;
         min-height: 44px;
@@ -537,7 +547,7 @@
         </form>
 
         <form data-cc-nl-form="manage" hidden novalidate>
-          <p class="cc-nl-subtitle" style="margin:0 0 14px;">${dict.manageIntro}</p>
+          <p class="cc-nl-subtitle cc-nl-manage-intro">${dict.manageIntro}</p>
           <div class="cc-nl-field">
             <label class="cc-nl-label" for="ccNlManageEmail">${dict.emailLabel}</label>
             <input id="ccNlManageEmail" class="cc-nl-input" type="email" name="email" required autocomplete="email" placeholder="${dict.emailPlaceholder}">
@@ -702,7 +712,7 @@
     ensureStyles();
     const loc = options.locale || getLocale();
     const sourcePortal = options.sourcePortal || detectSourcePortal();
-    const initialTopics = options.topics || [];
+    const initialTopics = options.topics || (sourcePortal === 'the-journal' ? ['the-journal'] : []);
 
     if (!dialogEl) {
       dialogEl = document.createElement('dialog');

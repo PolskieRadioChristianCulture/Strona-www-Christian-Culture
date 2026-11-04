@@ -55,6 +55,47 @@ function createTestService(overrides = {}) {
   };
 }
 
+test('THE JOURNAL: dedicated topic survives double opt-in without implicit enrollment in other lists',async()=>{
+  const {service,repo,extractTokenFromLastEmail}=createTestService();
+  const response=await service.subscribe({email:'journal.test@example.com',topics:['the-journal'],consentAccepted:true,sourcePortal:'the-journal',sourcePath:'/the-journal'},{ip:'198.51.100.19',userAgent:'TestAgent'});
+  assert.equal(response.status,200);
+  const pending=await repo.findSubscriberByEmail('journal.test@example.com');
+  assert.equal(pending.status,'pending_confirmation');
+  assert.deepEqual(await repo.getSubscriberTopics(pending.id),['the-journal']);
+  const confirmed=await service.confirmSubscription(extractTokenFromLastEmail(),{ip:'198.51.100.19',userAgent:'TestAgent'});
+  assert.equal(confirmed.body.status,'active');
+  assert.deepEqual(await repo.getSubscriberTopics(pending.id),['the-journal']);
+});
+
+test('THE JOURNAL: shared newsletter uses the response nonce, checks only its topic, and leaves consent unchecked',()=>{
+  const win=new Window({url:'https://polskieradio.cc/the-journal'});
+  const meta=win.document.createElement('meta');meta.name='cc-csp-nonce';meta.content='journal-test-nonce';win.document.head.append(meta);
+  win.eval(fs.readFileSync(path.join(ROOT,'js/cc-newsletter.js'),'utf8'));
+  const dialog=win.CCNewsletter.open();
+  assert.equal(win.document.querySelector('#cc-newsletter-styles').nonce,'journal-test-nonce');
+  assert.deepEqual([...dialog.querySelectorAll('input[name="cc_nl_topic"]:checked')].map(input=>input.value),['the-journal']);
+  assert.equal(dialog.querySelector('#ccNlConsentCheckbox').checked,false);
+});
+
+test('THE JOURNAL: shared edge opens on desktop, reuses one trigger, and nonce-protects edge and back-to-top styles',()=>{
+  const win=new Window({url:'https://polskieradio.cc/the-journal',width:1280,height:900,settings:{disableJavaScriptFileLoading:true,disableCSSFileLoading:true}});
+  const meta=win.document.createElement('meta');meta.name='cc-csp-nonce';meta.content='journal-ui-nonce';win.document.head.append(meta);
+  const marker=win.document.createElement('script');marker.dataset.ccEdgeProfile='journal';win.document.head.append(marker);
+  const trigger=win.document.createElement('button');trigger.textContent='+';win.document.body.append(trigger);
+  win.eval(fs.readFileSync(path.join(ROOT,'js/cc-mobile-edge.js'),'utf8'));
+  const edge=win.CCMobileEdge.mount({legacy:trigger,placement:trigger,trigger,profile:'journal',allowDesktop:true,canUseFullMenu:()=>false});
+  assert.equal(win.matchMedia('(max-width: 767px)').matches,false);
+  trigger.click();assert.equal(edge.dialog.open,true);
+  assert.equal(win.document.querySelectorAll('#cc-mobile-edge-dialog').length,1);
+  assert.equal(win.document.getElementById('cc-mobile-edge-2col-style').nonce,'journal-ui-nonce');
+  edge.close();assert.equal(edge.dialog.open,false);
+  win.eval(fs.readFileSync(path.join(ROOT,'js/cc-back-to-top.js'),'utf8'));
+  win.document.dispatchEvent(new win.Event('DOMContentLoaded'));
+  assert(win.document.querySelector('#backToTopBtn'));
+  assert([...win.document.head.querySelectorAll('style')].some(s=>s.nonce==='journal-ui-nonce'&&s.textContent.includes('#backToTopBtn')));
+  win.happyDOM.abort();
+});
+
 test('T01: Checkbox zgody w formularzu jest domyślnie odznaczony (unchecked by default)', () => {
   const win = new Window({ url: 'https://polskieradio.cc/newsletter' });
   const container = win.document.createElement('div');

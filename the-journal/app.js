@@ -13,9 +13,16 @@ function showDay(number) {
   if (!item) return;
   daySelect.value = String(number);
   document.querySelector('#day-number').textContent = `Dzień ${number} / 90`;
-  document.querySelector('#day-topic').textContent = item.topic;
-  document.querySelector('#day-reflection').textContent = item.reflection;
-  document.querySelector('#day-source').textContent = `Autorska refleksja. Inspiracja: ${item.source}. Nie jest dosłownym cytatem.`;
+  document.querySelector('#day-topic').textContent = item.title;
+  document.querySelector('#day-reflection').textContent = item.intro;
+  document.querySelector('#day-stage').textContent = item.stage;
+  document.querySelector('#day-question').textContent = item.question;
+  document.querySelector('#day-action').textContent = item.action;
+  document.querySelector('#day-source').textContent = `${item.reference}. ${item.source_notice}`;
+  document.querySelector('#day-faith').textContent = item.optional_faith;
+  document.querySelector('#day-evening').replaceChildren(...item.evening_questions.map(question => {
+    const li = document.createElement('li'); li.textContent = question; return li;
+  }));
   previous.disabled = number === 1;
   next.disabled = number === 90;
 }
@@ -24,13 +31,21 @@ previous.addEventListener('click', () => showDay(Number(daySelect.value) - 1));
 next.addEventListener('click', () => showDay(Number(daySelect.value) + 1));
 showDay(1);
 
-const menu = document.querySelector('#menu');
 const toggle = document.querySelector('.menu-toggle');
-toggle.addEventListener('click', () => { menu.showModal(); toggle.setAttribute('aria-expanded', 'true'); });
-document.querySelector('#close-menu').addEventListener('click', () => menu.close());
-menu.addEventListener('close', () => { toggle.setAttribute('aria-expanded', 'false'); toggle.focus(); });
-menu.addEventListener('click', event => { if (event.target === menu && event.clientX > menu.getBoundingClientRect().right) menu.close(); });
-menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => menu.close()));
+function mountSharedNavigation() {
+  const edge=window.CCMobileEdge?.mount({legacy:toggle,placement:toggle,trigger:toggle,hideLegacy:false,profile:'journal',allowDesktop:true,canUseFullMenu:()=>false});
+  const info=edge?.dialog.querySelector('[data-edge-key="info"]');
+  if(info){info.setAttribute('aria-label','O pamiętniku THE JOURNAL');info.title='O pamiętniku THE JOURNAL';info.addEventListener('click',()=>document.querySelector('#pamietnik').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));}
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',mountSharedNavigation,{once:true});
+else mountSharedNavigation();
+document.querySelector('#journal-newsletter-open').addEventListener('click',event=>{
+  if (!window.CCNewsletter) return;
+  event.preventDefault();
+  const dialog=window.CCNewsletter.open({sourcePortal:'the-journal',topics:['the-journal']});
+  dialog.querySelector('.cc-nl-title').textContent='Nowości THE JOURNAL';
+  dialog.querySelector('.cc-nl-subtitle').textContent='Informacje o premierze książki, rozwoju aplikacji i nowych materiałach. Wybierasz, co chcesz otrzymywać.';
+});
 
 if (matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
   const observer = new IntersectionObserver(entries => {

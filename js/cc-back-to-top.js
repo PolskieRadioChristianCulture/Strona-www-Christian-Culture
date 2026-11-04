@@ -31,6 +31,8 @@
     button.setAttribute('data-cc-back-to-top', '');
     button.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="m6 12 6-6 6 6M12 6v14"/></svg>';
     var style = document.createElement('style');
+    var nonceMeta = document.querySelector && document.querySelector('meta[name="cc-csp-nonce"]');
+    if (nonceMeta && nonceMeta.content) style.nonce = nonceMeta.content;
     // Jeden przycisk „do góry” na stronie: starszy moduł LUMINA (#luminaScrollTop) ustępuje standardowi CC.
     style.textContent = '#luminaScrollTop{display:none!important}.lumina-scroll-top,.lumina-scroll-top-btn{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important}#backToTopBtn[data-cc-back-to-top]{position:fixed!important;right:max(16px,env(safe-area-inset-right))!important;left:auto!important;top:auto!important;width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;margin:0!important;padding:0!important;border:1px solid #b08a3c!important;border-radius:50%!important;background:#fff!important;color:#63470e!important;box-shadow:0 3px 14px #0003!important;z-index:900!important;align-items:center!important;justify-content:center!important;opacity:1!important;visibility:visible!important;transform:none!important;cursor:pointer;touch-action:manipulation}#backToTopBtn[data-cc-back-to-top]:focus-visible{outline:3px solid #2563eb!important;outline-offset:3px}[data-lumina-theme="dark"] #backToTopBtn[data-cc-back-to-top],html.dark #backToTopBtn[data-cc-back-to-top]{background:#171923!important;color:#ffe2a1!important}';
     document.head.appendChild(style);
@@ -101,6 +103,8 @@
     var root = document.documentElement;
     var toggle = null;
     var css = document.createElement('style');
+    var nonceMeta = document.querySelector('meta[name="cc-csp-nonce"]');
+    if (nonceMeta && nonceMeta.content) css.nonce = nonceMeta.content;
     css.textContent = 'html.cc-fab-dock-on:not(.cc-fab-dock-open) :is(#luminaThemeSwitchBtn,#luminaMiniPlayerContainer.minimized){display:none!important}' +
       'html.cc-fab-dock-open #luminaThemeSwitchBtn{bottom:calc(var(--cc-dock-b) + 60px)!important;right:var(--cc-dock-r)!important}' +
       'html.cc-fab-dock-open #luminaMiniPlayerContainer.minimized{bottom:calc(var(--cc-dock-b) + 120px)!important;right:var(--cc-dock-r)!important}' +
@@ -176,6 +180,8 @@
   // One stable LUMINA lane, independent of authentication and late module loading.
   function mountLuminaActions() {
     var css = document.createElement('style');
+    var nonceMeta = document.querySelector && document.querySelector('meta[name="cc-csp-nonce"]');
+    if (nonceMeta && nonceMeta.content) css.nonce = nonceMeta.content;
     css.textContent = `
       body:has(#luminaThemeSwitchBtn){--cc-lumina-action-base:calc(76px + env(safe-area-inset-bottom, 0px));--cc-lumina-action-right:max(16px,env(safe-area-inset-right))}
       html body:has(#luminaThemeSwitchBtn) #backToTopBtn[data-cc-back-to-top]{bottom:var(--cc-lumina-action-base)!important;z-index:99997!important}

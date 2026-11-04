@@ -5,6 +5,18 @@
 
 export const NEWSLETTER_TOPICS_V1 = [
   {
+    id: 'topic_the_journal',
+    slug: 'the-journal',
+    namePl: 'THE JOURNAL — nowości projektu',
+    nameEn: 'THE JOURNAL — project updates',
+    nameDe: 'THE JOURNAL — Projektneuigkeiten',
+    descriptionPl: 'Premiera książki, rozwój aplikacji i nowe materiały THE JOURNAL.',
+    descriptionEn: 'Book launch, app development and new THE JOURNAL materials.',
+    descriptionDe: 'Buchpremiere, App-Entwicklung und neue THE JOURNAL Materialien.',
+    isActive: true,
+    sortOrder: 60,
+  },
+  {
     id: 'topic_codzienne_rozwazania',
     slug: 'codzienne-rozwazania',
     namePl: 'Codzienne Rozważania Biblijne',

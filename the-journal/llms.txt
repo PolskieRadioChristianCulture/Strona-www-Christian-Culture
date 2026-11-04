@@ -5,7 +5,7 @@
 - Strona kanoniczna: https://polskieradio.cc/the-journal
 - Wydawca: Christian Culture — https://polskieradio.cc/
 - Język: polski; angielski tytuł THE JOURNAL i nazwa marki CHRISTIAN CULTURE.
-- Stan na 2026-11-04: strona prezentacyjna, makieta okładki, podgląd 90 roboczych tematów. Pełna książka i konsultacja psychologiczna w przygotowaniu; nie przedstawiać jako gotowej książki, sklepu ani finalnej aplikacji.
+- Stan na 2026-11-04: pełne 90 unikalnych dni do przeglądania oraz PDF (95 stron) i karta dzienna PDF do pobrania. Wydanie książkowe i aplikacja w przygotowaniu. Okładka jest makietą. Nie deklarowano zakończenia konsultacji psychologicznej ani preflightu drukarni.
 - Podgląd: https://polskieradio.cc/the-journal#zajrzyj
 - Pytania i wsparcie: https://polskieradio.cc/the-journal#pytania
 - Inspiracje biblijne są autorskimi refleksjami, nie dosłownymi cytatami.
@@ -13,3 +13,8 @@
 - Strona nie przyjmuje ani nie przechowuje osobistych odpowiedzi. Statystyki odwiedzin Google są opcjonalne po zgodzie i nie obejmują wyboru dnia ani treści pamiętnika.
 - /90dni, /moj-dzien i /twoja-historia to przekierowania do tej samej strony, nie osobne produkty.
 - /nastolatki pozostaje zarezerwowane na przyszły portal; nie jest opublikowanym elementem THE JOURNAL.
+- Nowości projektu: dobrowolny newsletter w kategorii the-journal, istniejąca usługa Christian Culture, potwierdzenie Double Opt-In, samodzielny zapis16+ albo opiekun na własny adres. Nie łączy poczty z osobistymi odpowiedziami lub nastrojem. WspieramTO prowadzi do istniejącego /wspieraj.
+
+- Pamiętnik PDF: https://polskieradio.cc/the-journal/downloads/THE_JOURNAL_90_DNI.pdf
+- Karta dzienna PDF: https://polskieradio.cc/the-journal/downloads/KARTA_DZIENNA.pdf
+- Treści 90 dni JSON: https://polskieradio.cc/the-journal/data/days-90.json

@@ -147,10 +147,12 @@
     ['heart','Wspieram To','/wspieraj'],
   ];
 
-  function mount({legacy, placement = legacy, trigger: customTrigger, secondary = [], hideLegacy = true, profile = 'home', items = commonItems, canUseFullMenu = () => true}) {
+  function mount({legacy, placement = legacy, trigger: customTrigger, secondary = [], hideLegacy = true, profile = 'home', items = commonItems, canUseFullMenu = () => true, allowDesktop = false}) {
     if (!(legacy instanceof HTMLElement) || !(placement instanceof HTMLElement) || legacy.dataset.ccEdgeMounted || document.getElementById('cc-mobile-edge-dialog') || typeof HTMLDialogElement === 'undefined' || !HTMLDialogElement.prototype.showModal) return null;
     if (document.head && !document.getElementById('cc-mobile-edge-2col-style')) {
       const s = document.createElement('style');
+      const nonce = document.querySelector('meta[name="cc-csp-nonce"]')?.content;
+      if (nonce) s.nonce = nonce;
       s.id = 'cc-mobile-edge-2col-style';
       s.textContent = `
         dialog.cc-mobile-edge, .cc-mobile-edge, .cc-mobile-edge[data-profile="search"] {
@@ -396,7 +398,9 @@
       }
     });
     infoBtn.setAttribute('data-ekocc-info-trigger','true');
-    infoBtn.innerHTML = '<img src="/images/icons/ekocc-info-gold-128.png" alt="" width="26" height="26" style="display:block;margin:auto;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.5));">';
+    infoBtn.innerHTML = '<img class="cc-edge-info-img" src="/images/icons/ekocc-info-gold-128.png" alt="" width="26" height="26">';
+    const infoImage = infoBtn.querySelector('img');
+    Object.assign(infoImage.style,{display:'block',margin:'auto',objectFit:'contain',filter:'drop-shadow(0 1px 4px rgba(0,0,0,0.5))'});
     const fullMenu = button('menu','Pełne menu — wszystkie funkcje',event => {
       event.stopPropagation(); close(); if (canUseFullMenu()) legacy.click();
     });
@@ -471,7 +475,7 @@
     window.addEventListener('ekocc:locale-changed', applyTranslations);
     applyTranslations();
     trigger.addEventListener('click',() => {
-      if ((!mobile.matches && profile !== 'search') || dialog.open || document.querySelector('dialog[open]:not(#ccwMcpDialog)')) return;
+      if ((!mobile.matches && profile !== 'search' && !allowDesktop) || dialog.open || document.querySelector('dialog[open]:not(#ccwMcpDialog)')) return;
       previousFocus = document.activeElement;
       fullMenu.hidden = !canUseFullMenu();
       syncLuminaControls();
@@ -517,7 +521,7 @@
       }
     }, { passive: true });
 
-    mobile.addEventListener('change',() => { if (!mobile.matches && profile !== 'search') close(); });
+    mobile.addEventListener('change',() => { if (!mobile.matches && profile !== 'search' && !allowDesktop) close(); });
     document.body.append(dialog);
     if (!customTrigger) {
       if (placement.classList?.contains('nav-left') || placement.classList?.contains('header-left') || placement.classList?.contains('brand-wrap')) {
