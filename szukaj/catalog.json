@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-04T14:13:05.067Z",
-  "totalItems": 407,
+  "updatedAt": "2026-11-04T14:38:19.525Z",
+  "totalItems": 408,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1061,6 +1061,30 @@
     }
   },
   "items": [
+    {
+      "title": "THE JOURNAL — pamiętnik dla młodzieży na 90 dni",
+      "category": "Edukacja i rozwój",
+      "url": "https://polskieradio.cc/the-journal",
+      "description": "Projekt pamiętnika Christian Culture dla młodzieży 13–17 lat: 90 roboczych tematów o emocjach, potrzebach, relacjach i małych krokach. Strona prezentacyjna z podglądem; książka w przygotowaniu, bez diagnoz i obietnic terapeutycznych.",
+      "tags": [
+        "the journal",
+        "journal",
+        "dziennik",
+        "dziennik młodzieżowy",
+        "pamiętnik",
+        "pamietnik",
+        "nastolatki",
+        "młodzież",
+        "90 dni",
+        "90dni",
+        "moj dzien",
+        "twoja historia",
+        "emocje",
+        "spokój",
+        "samopoznanie"
+      ],
+      "featured": true
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",

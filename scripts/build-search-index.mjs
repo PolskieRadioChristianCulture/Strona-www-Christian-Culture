@@ -236,6 +236,14 @@ const CONTEXT_GUIDES = {
 // --- 2. GŁÓWNE PLATFORMY I MODUŁY EKOSYSTEMU ---
 const CORE_PROJECTS = [
 {
+  title: "THE JOURNAL — pamiętnik dla młodzieży na 90 dni",
+  category: "Edukacja i rozwój",
+  url: "https://polskieradio.cc/the-journal",
+  description: "Projekt pamiętnika Christian Culture dla młodzieży 13–17 lat: 90 roboczych tematów o emocjach, potrzebach, relacjach i małych krokach. Strona prezentacyjna z podglądem; książka w przygotowaniu, bez diagnoz i obietnic terapeutycznych.",
+  tags: ["the journal", "journal", "dziennik", "dziennik młodzieżowy", "pamiętnik", "pamietnik", "nastolatki", "młodzież", "90 dni", "90dni", "moj dzien", "twoja historia", "emocje", "spokój", "samopoznanie"],
+  featured: true
+},
+{
   title: "Usługi EkoCC — Chrześcijańskie Usługi, Pomoc i Specjaliści z Wartościami",
   category: "Narzędzia i misja",
   url: "https://polskieradio.cc/uslugi",

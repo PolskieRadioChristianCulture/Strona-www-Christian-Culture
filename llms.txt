@@ -2,6 +2,7 @@
 > Christian Culture to chrześcijański ekosystem mediów, edukacji, społeczności i nowoczesnych narzędzi. Słuchaj radia, studiuj Biblię, oglądaj wartościowe filmy, poznawaj ludzi, rozwijaj swoje talenty i odkrywaj inspirujące treści — w jednym miejscu, bezpłatnie.
 
 ## Core Ecosystem Overview
+- **THE JOURNAL — pamiętnik dla młodzieży 13–17 lat**: https://polskieradio.cc/the-journal — projekt Christian Culture na 90 dni refleksji o emocjach, potrzebach i relacjach. Strona prezentacyjna, 90 roboczych tematów, książka w przygotowaniu. Nie jest terapią ani narzędziem diagnostycznym. Podgląd nie przyjmuje osobistych odpowiedzi. Zwięzły opis: https://polskieradio.cc/the-journal/llms.txt . Aliasy /90dni, /moj-dzien i /twoja-historia prowadzą do adresu kanonicznego; /nastolatki jest zarezerwowane na przyszły szerszy portal.
 - **Usługi EkoCC — Katalog Usług i Pomocy**: https://polskieradio.cc/uslugi (oraz https://polskieradio.cc/usługi) — chrześcijańskie usługi, całodobowa pomoc duchowa, duszpasterstwo i fachowcy z wartościami.
 - **Moje Centrum CC — Osobisty Pulpit**: https://polskieradio.cc/centrum (oraz https://polskieradio.cc/moje-centrum) — zintegrowany pulpit użytkownika ekosystemu Christian Culture.
 - **Randki & Relacje Chrześcijańskie — LUMINA**: https://polskieradio.cc/randka (oraz https://polskieradio.cc/lumina) — chrześcijański portal relacji, randek i wartości.

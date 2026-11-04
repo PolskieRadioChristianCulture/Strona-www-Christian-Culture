@@ -17,6 +17,8 @@ export const TOPTEN_CARD_PAGES = new Set([
 
 export function applyPageStandard(file, html) {
   const name = file.replaceAll('\\', '/').toLowerCase();
+  // THE JOURNAL is a self-contained youth landing. Keep the approved page free of shared chat, newsletter and tracking modules.
+  if (name === 'the-journal/index.html') return html;
   if (!name.endsWith('.html') || /(?:live|stream|obs|embed|admin|mission.control|pilot|cctv24|bcm24|lumi-kids\/app)/.test(name)) return html;
   if (!/<body\b/i.test(html) || !/<\/body\s*>/i.test(html)) return html;
   if (/http-equiv\s*=\s*["']refresh["']/i.test(html)) return html;

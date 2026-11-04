@@ -412,6 +412,7 @@ export function buildAllDiscoverySignals() {
 
   // 7. /sitemaps/pages.xml
   const corePaths = [
+    { path: '/the-journal', lastmod: '2026-11-04', priority: '0.80', changefreq: 'monthly' },
     { path: '/', lastmod: '2026-10-17', priority: '1.0', changefreq: 'daily' },
     { path: '/szukaj', lastmod: '2026-10-15', priority: '0.95', changefreq: 'daily' },
     { path: '/wyszukiwarka', lastmod: '2026-11-02', priority: '0.95', changefreq: 'daily' },

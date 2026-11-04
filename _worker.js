@@ -1578,6 +1578,30 @@ export default {
       canonicalTarget.hostname = 'polskieradio.cc';
       return Response.redirect(canonicalTarget.toString(), 301);
     }
+    // Owner-approved THE JOURNAL landing and campaign aliases. /nastolatki remains reserved.
+    // Advanced-mode Functions must handle redirects themselves rather than relying on _redirects.
+    const journalPath = url.pathname.toLowerCase().replace(/\/$/, '');
+    if (['/90dni', '/moj-dzien', '/twoja-historia', '/the-journal', '/the-journal/index.html'].includes(journalPath)) {
+      if (url.pathname !== '/the-journal') {
+        const canonical = new URL(request.url);
+        canonical.pathname = '/the-journal';
+        return Response.redirect(canonical.toString(), 301);
+      }
+      if (!['GET', 'HEAD'].includes(request.method)) {
+        return new Response('Method Not Allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
+      }
+      const assetUrl = new URL(request.url);
+      assetUrl.pathname = '/the-journal/';
+      const asset = await env.ASSETS.fetch(new Request(assetUrl, { method: request.method, headers: { Accept: 'text/html' } }));
+      const response = new Response(asset.body, asset);
+      response.headers.set('Content-Type', 'text/html; charset=utf-8');
+      response.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
+      response.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; img-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'");
+      response.headers.set('X-Frame-Options', 'DENY');
+      response.headers.set('X-Content-Type-Options', 'nosniff');
+      response.headers.set('Referrer-Policy', 'no-referrer');
+      return response;
+    }
     // Owner-authorized withdrawal of this public profile (2026-10-14).
     const removedProfilePaths = new Set(['/lumina.zbyszekgieron', '/lumina.zbyszekgieron.html', '/lumina/zbyszekgieron', '/lumina/zbyszek-gieron', '/lumina/gieron', '/zbyszekgieron', '/zbyszek-gieron', '/gieron']);
     const profileSlug = (url.searchParams.get('u') || '').toLowerCase().replace(/^u_/, '');
