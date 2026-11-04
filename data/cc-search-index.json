@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-04T19:45:56.912Z",
-  "totalItems": 470,
+  "updatedAt": "2026-11-04T21:49:19.423Z",
+  "totalItems": 532,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1061,6 +1061,32 @@
     }
   },
   "items": [
+    {
+      "title": "Po prostu bądź blisko — Siedem dni ze Słowem",
+      "category": "Duchowość i modlitwa",
+      "url": "https://polskieradio.cc/badz-blisko",
+      "description": "Siedem krótkich spotkań ze Słowem, które pomagają odnaleźć spokój i zrobić dobry krok. Prosty plan biblijny Christian Culture.",
+      "tags": [
+        "badz blisko",
+        "bądź blisko",
+        "badzblisko",
+        "7 dni ze slowem",
+        "7 dni ze słowem",
+        "siedem dni ze slowem",
+        "plan biblijny",
+        "miejsce na oddech",
+        "oddech",
+        "wyciszenie",
+        "chwila ciszy",
+        "modlitwa",
+        "slowo boze",
+        "słowo boże",
+        "zatrzymaj sie",
+        "zatrzymaj się",
+        "twoj maly krok"
+      ],
+      "featured": true
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
@@ -10089,694 +10115,6 @@
       "featured": true
     },
     {
-      "title": "Aktywność fizyczna i ruch — CC Pomoc | Christian Culture",
-      "category": "Zdrowie i styl życia",
-      "url": "https://polskieradio.cc/aktywnosc-fizyczna",
-      "description": "Ruch, rehabilitacja i zdrowy tryb życia. Jak zacząć bezpiecznie dbać o kondycję.",
-      "tags": [
-        "aktywnosc fizyczna",
-        "sport",
-        "ruch",
-        "kondycja",
-        "zdrowie",
-        "rehabilitacja",
-        "trening",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Cukrzyca — wsparcie i wiedza — CC Pomoc | Christian Culture",
-      "category": "Zdrowie i styl życia",
-      "url": "https://polskieradio.cc/cukrzyca",
-      "description": "Życie z cukrzycą – praktyczne wsparcie, dieta, profilaktyka i pomoc specjalistów.",
-      "tags": [
-        "cukrzyca",
-        "glikemia",
-        "dieta cukrzycowa",
-        "insulina",
-        "zdrowie",
-        "lekarz",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Depresja — szukanie pomocy — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/depresja",
-      "description": "Depresja jest problemem zdrowotnym. Bezpłatne wsparcie, kontakty do poradni i infolinie.",
-      "tags": [
-        "depresja",
-        "smutek",
-        "kryzys psychiczny",
-        "infolinia zaufania",
-        "psychiatra",
-        "pomoc psychologiczna",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": true
-    },
-    {
-      "title": "Dietetyk i zdrowe odżywianie — CC Pomoc | Christian Culture",
-      "category": "Zdrowie i styl życia",
-      "url": "https://polskieradio.cc/dietetyk",
-      "description": "Zbilansowana dieta, zdrowe nawyki żywieniowe i konsultacje z dietetykiem.",
-      "tags": [
-        "dietetyk",
-        "dieta",
-        "odzywianie",
-        "zdrowe jedzenie",
-        "odchudzanie",
-        "zdrowy styl zycia",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Lęk, ataki paniki i niepokój — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/lek",
-      "description": "Zaburzenia lękowe – jak radzić sobie z napadami lęku, gdzie szukać fachowej pomocy.",
-      "tags": [
-        "lek",
-        "niepokoj",
-        "ataki paniki",
-        "nerwica",
-        "stres",
-        "psycholog",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Nadciśnienie tętnicze — CC Pomoc | Christian Culture",
-      "category": "Zdrowie i styl życia",
-      "url": "https://polskieradio.cc/nadcisnienie",
-      "description": "Profilaktyka i kontrola nadciśnienia tętniczego. Porady zdrowotne i zmiana nawyków.",
-      "tags": [
-        "nadcisnienie",
-        "cisnienie",
-        "serce",
-        "kardiolog",
-        "zdrowie",
-        "leki",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Rehabilitacja medyczna i ruchowa — CC Pomoc | Christian Culture",
-      "category": "Zdrowie i styl życia",
-      "url": "https://polskieradio.cc/rehabilitacja",
-      "description": "Powrót do sprawności po urazach i chorobach. Dostęp do rehabilitacji i fizjoterapii.",
-      "tags": [
-        "rehabilitacja",
-        "fizjoterapia",
-        "urazy",
-        "kregoslup",
-        "powrot do zdrowia",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Sanatoria i leczenie uzdrowiskowe — CC Pomoc | Christian Culture",
-      "category": "Zdrowie i styl życia",
-      "url": "https://polskieradio.cc/sanatoria",
-      "description": "Jak uzyskać skierowanie do sanatorium, leczenie uzdrowiskowe w Polsce.",
-      "tags": [
-        "sanatoria",
-        "sanatorium",
-        "uzdrowisko",
-        "leczenie uzdrowiskowe",
-        "nfz",
-        "rekonwalescencja",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Wypalenie zawodowe i chroniczne zmęczenie — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/wypalenie",
-      "description": "Objawy wypalenia, przeciążenie pracą i odbudowa równowagi życiowej.",
-      "tags": [
-        "wypalenie zawodowe",
-        "zmeczenie",
-        "praca",
-        "regeneracja",
-        "stres w pracy",
-        "odpoczynek",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Zdrowe serce — profilaktyka chorób krążenia — CC Pomoc | Christian Culture",
-      "category": "Zdrowie i styl życia",
-      "url": "https://polskieradio.cc/zdrowe-serce",
-      "description": "Choroby układu krążenia – profilaktyka, objawy ostrzegawcze i zdrowy styl życia.",
-      "tags": [
-        "zdrowe serce",
-        "kardiologia",
-        "serce",
-        "zawal",
-        "profilaktyka",
-        "cisnienie",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Zdrowy sen i bezsenność — CC Pomoc | Christian Culture",
-      "category": "Zdrowie i styl życia",
-      "url": "https://polskieradio.cc/zdrowy-sen",
-      "description": "Higiena snu, walka z bezsennością i przywracanie regenerującego odpoczynku w nocy.",
-      "tags": [
-        "zdrowy sen",
-        "bezsennosc",
-        "sen",
-        "zasypianie",
-        "regeneracja",
-        "zmeczenie",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Zdrowy styl życia — holistyczne podejście — CC Pomoc | Christian Culture",
-      "category": "Zdrowie i styl życia",
-      "url": "https://polskieradio.cc/zdrowy-styl-zycia",
-      "description": "Połączenie zdrowia ciała, umysłu i ducha. Praktyczny przewodnik po zdrowych nawykach.",
-      "tags": [
-        "zdrowy styl zycia",
-        "holistyka",
-        "nawyki",
-        "energia",
-        "witalnosc",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Wsparcie zdrowia — baza wiedzy — CC Pomoc | Christian Culture",
-      "category": "Zdrowie i styl życia",
-      "url": "https://polskieradio.cc/wsparcie-zdrowia",
-      "description": "Ogólne wsparcie zdrowotne, oficjalne placówki NFZ, infolinie medyczne w Polsce.",
-      "tags": [
-        "wsparcie zdrowia",
-        "lekarz",
-        "poradnia",
-        "nfz",
-        "zdrowie publiczne",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Problemy z alkoholem — leczenie i wsparcie — CC Pomoc | Christian Culture",
-      "category": "Uzależnienia",
-      "url": "https://polskieradio.cc/alkoholizm",
-      "description": "Nie musisz być sam z problemem alkoholowym. Placówki leczenia uzależnień i grupy wsparcia.",
-      "tags": [
-        "alkoholizm",
-        "alkohol",
-        "leczenie uzaleznien",
-        "aa",
-        "odwyk",
-        "terapia uzaleznien",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Uzależnienie od hazardu — pomoc — CC Pomoc | Christian Culture",
-      "category": "Uzależnienia",
-      "url": "https://polskieradio.cc/hazard",
-      "description": "Gry losowe, zakłady bukmacherskie i długi hazardowe. Gdzie szukać pomocy terapeutycznej.",
-      "tags": [
-        "hazard",
-        "uzaleznienie od hazardu",
-        "kasyno",
-        "zaklady",
-        "dlugi hazardowe",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Uzależnienie od narkotyków — pomoc i detoks — CC Pomoc | Christian Culture",
-      "category": "Uzależnienia",
-      "url": "https://polskieradio.cc/narkomania",
-      "description": "Substancje psychoaktywne – bezpieczny kontakt z ośrodkami terapii, detoks i wsparcie bliskich.",
-      "tags": [
-        "narkomania",
-        "narkotyki",
-        "detoks",
-        "osrodek terapii",
-        "leczenie uzaleznien",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Rzucanie palenia — skuteczny proces — CC Pomoc | Christian Culture",
-      "category": "Uzależnienia",
-      "url": "https://polskieradio.cc/rzucanie-palenia",
-      "description": "Plan rzucania palenia tytoniu i e-papierosów. Bezpłatna pomoc i infolinia dla palących.",
-      "tags": [
-        "rzucanie palenia",
-        "nikotyna",
-        "papierosy",
-        "palenie",
-        "zdrowe pluca",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Terapia uzależnień — jak wybrać ośrodek — CC Pomoc | Christian Culture",
-      "category": "Uzależnienia",
-      "url": "https://polskieradio.cc/terapia-uzaleznien",
-      "description": "Rodzaje terapii uzależnień w Polsce (NFZ i prywatne), przygotowanie do leczenia.",
-      "tags": [
-        "terapia uzaleznien",
-        "psychoterapia",
-        "terapeuta",
-        "osrodek uzaleznien",
-        "odwyk",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Uzależnienia — centrum pomocy EkoCC — CC Pomoc | Christian Culture",
-      "category": "Uzależnienia",
-      "url": "https://polskieradio.cc/uzaleznienia",
-      "description": "Kompleksowy przegląd form wsparcia dla osób zmagających się z różnymi formami uzależnień.",
-      "tags": [
-        "uzaleznienia",
-        "nalog",
-        "pomoc w nalogu",
-        "terapia",
-        "wsparcie",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Uzależnienie od pornografii — wolność i odbudowa — CC Pomoc | Christian Culture",
-      "category": "Uzależnienia",
-      "url": "https://polskieradio.cc/uzaleznienie-od-pornografii",
-      "description": "Trudny temat, bezpieczna przestrzeń. Kroki do odzyskania kontroli, czystości myśli i relacji.",
-      "tags": [
-        "pornografia",
-        "uzaleznienie od porno",
-        "czystosc",
-        "relacje",
-        "wolnosc",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Uzależnienie od smartfona i social mediów — CC Pomoc | Christian Culture",
-      "category": "Uzależnienia",
-      "url": "https://polskieradio.cc/uzaleznienie-od-telefonu",
-      "description": "Cyfrowy detoks, kontrola czasu przed ekranem i odzyskanie uwagi dla realnego życia.",
-      "tags": [
-        "fonoholizm",
-        "smartfon",
-        "social media",
-        "uzaleznienie od telefonu",
-        "cyfrowy detoks",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Współuzależnienie — wsparcie dla bliskich — CC Pomoc | Christian Culture",
-      "category": "Uzależnienia",
-      "url": "https://polskieradio.cc/wspoluzaleznienie",
-      "description": "Jak żyć obok osoby uzależnionej i nie zatracić siebie. Grupy Al-Anon i pomoc psychologiczna.",
-      "tags": [
-        "wspoluzaleznienie",
-        "al-anon",
-        "rodzina alkoholika",
-        "granice",
-        "bliscy uzaleznionych",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Dziecko w sytuacji rozwodu rodziców — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/dziecko-a-rozwod",
-      "description": "Jak chronić psychikę dziecka podczas rozstania rodziców. Mediacja i wsparcie emocjonalne.",
-      "tags": [
-        "dziecko rozwod",
-        "rozwod rodzicow",
-        "opieka nad dzieckiem",
-        "psychologia dziecka",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Komunikacja w małżeństwie — sztuka dialogu — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/komunikacja-w-malzenstwie",
-      "description": "Jak rozmawiać bez oskarżeń, słuchać z empatią i rozwiązywać codzienne spory w małżeństwie.",
-      "tags": [
-        "komunikacja w malzenstwie",
-        "malzenstwo",
-        "dialog",
-        "relacje malzenskie",
-        "bliskosc",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Konflikty rodzinne — mediacja i pojednanie — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/konflikty-rodzinne",
-      "description": "Napięcia wielopokoleniowe, spory majątkowe i emocjonalne. Droga do pojednania w rodzinie.",
-      "tags": [
-        "konflikty rodzinne",
-        "spory w rodzinie",
-        "mediacja",
-        "pojednanie",
-        "relacje",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Kryzys małżeński — ratowanie związku — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/kryzys-malzenski",
-      "description": "Kiedy małżeństwo przeżywa załamanie. Chrześcijańska perspektywa, terapia par i odnowa przymierza.",
-      "tags": [
-        "kryzys malzenski",
-        "terapia par",
-        "ratowanie malzenstwa",
-        "zdrada",
-        "separacja",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Narzeczeństwo i przygotowanie do małżeństwa — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/narzeczenstwo",
-      "description": "Ważne pytania przed ślubem: finanse, wartości, rodzina i wizja wspólnego życia z Bogiem.",
-      "tags": [
-        "narzeczenstwo",
-        "przed slubem",
-        "przygotowanie do malzenstwa",
-        "slub",
-        "para",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Wychowanie i relacja z nastolatkiem — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/nastolatki",
-      "description": "Zrozumieć świat młodzieży, utrzymać więź i autorytet bez walki i odrzucenia.",
-      "tags": [
-        "nastolatki",
-        "dorastanie",
-        "bunt",
-        "rodzice i nastolatki",
-        "wychowanie",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Problemy szkolne — nauka i rówieśnicy — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/problemy-w-szkole",
-      "description": "Trudności edukacyjne, fobia szkolna i presja grupy. Jak pomóc dziecku przejść przez szkołę.",
-      "tags": [
-        "problemy w szkole",
-        "trudnosci w nauce",
-        "szkola",
-        "fobia szkolna",
-        "dzieci",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Przemoc domowa — natychmiastowa pomoc — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/przemoc-domowa",
-      "description": "Niebieska Linia, bezpieczne schronienie, pomoc prawna i psychologiczna dla ofiar przemocy.",
-      "tags": [
-        "przemoc domowa",
-        "niebieska linia",
-        "ofiara przemocy",
-        "pomoc kobietom",
-        "bezpieczenstwo",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Mądre rodzicielstwo i wychowanie — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/rodzicielstwo",
-      "description": "Wychowanie w miłości, dyscyplinie i prawdzie. Budowanie poczucia bezpieczeństwa u dzieci.",
-      "tags": [
-        "rodzicielstwo",
-        "wychowanie dzieci",
-        "rodzina",
-        "rodzice",
-        "mama i tata",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Rozwód — wsparcie prawne i emocjonalne — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/rozwod",
-      "description": "Kiedy rozstanie staje się faktem. Bezpieczne przejście przez proces i opieka nad bliskimi.",
-      "tags": [
-        "rozwod",
-        "separacja",
-        "prawo rodzinne",
-        "emocje po rozwodzie",
-        "wsparcie",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Samodzielne rodzicielstwo — wsparcie samotnych rodziców — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/samotny-rodzic",
-      "description": "Samotna mama, samotny ojciec. Praktyczne porady, świadczenia socjalne i grupy wsparcia.",
-      "tags": [
-        "samotny rodzic",
-        "samodzielna mama",
-        "samotny ojciec",
-        "alimenty",
-        "zasilki",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Trudne zachowania u dzieci i młodzieży — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/trudne-zachowania",
-      "description": "Agresja, wycofanie, autoagresja. Jak reagować spokojnie i gdzie szukać diagnozy.",
-      "tags": [
-        "trudne zachowania",
-        "agresja u dzieci",
-        "autyzm",
-        "adhd",
-        "psycholog dzieciecy",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Wychowanie w wierze — jak przekazać wartości Bogu — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/wiara-dzieci",
-      "description": "Autentyczne świadectwo wiary w domu, rozmowy o Bogu bez przymusu i formalizmu.",
-      "tags": [
-        "wiara dzieci",
-        "wychowanie w wierze",
-        "modlitwa z dziecmi",
-        "biblia dla dzieci",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Wsparcie małżeństwa — narzędzia i warsztaty — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/wsparcie-malzenstwa",
-      "description": "Inicjatywy wspierające trwałość małżeństw, spotkania dla par i doradztwo rodzinne.",
-      "tags": [
-        "wsparcie malzenstwa",
-        "warsztaty dla par",
-        "umocnienie zwiazku",
-        "milosc",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Wsparcie dla rodziców w kryzysie — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/wsparcie-rodzicow",
-      "description": "Kiedy rodzic czuje się bezsilny. Konsultacje, grupy wsparcia rodzicielskiego i poradnie.",
-      "tags": [
-        "wsparcie rodzicow",
-        "rodzic w kryzysie",
-        "bezsilnosc rodzicielska",
-        "poradnia",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Centrum wsparcia rodziny EkoCC — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/wsparcie-rodziny",
-      "description": "Kompleksowe doradztwo rodzinne, prawne i pedagogiczne pod skrzydłami Christian Culture.",
-      "tags": [
-        "wsparcie rodziny",
-        "rodzina",
-        "dom",
-        "wartosci rodzinne",
-        "pomoc rodzinie",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Zdrada w małżeństwie — co dalej? — CC Pomoc | Christian Culture",
-      "category": "Rodzina i relacje",
-      "url": "https://polskieradio.cc/zdrada",
-      "description": "Bolesne doświadczenie zdrady. Proces żałoby po zaufaniu, przebaczenie i decyzje o przyszłości.",
-      "tags": [
-        "zdrada",
-        "niewiernosc",
-        "przebaczenie",
-        "zaufanie",
-        "odbudowa malzenstwa",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Cyberprzemoc i hejt w sieci — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/cyberprzemoc",
-      "description": "Jak reagować na hejt, szantaż online i prześladowanie w mediach społecznościowych.",
-      "tags": [
-        "cyberprzemoc",
-        "hejt",
-        "przemoc w internecie",
-        "bezpieczenstwo w sieci",
-        "zglos hejt",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
       "title": "Holistyczny coaching chrześcijański — CC Pomoc | Christian Culture",
       "category": "Zdrowie psychiczne",
       "url": "https://polskieradio.cc/holistyczny-coaching",
@@ -10787,175 +10125,6 @@
         "powolanie",
         "cele",
         "motywacja",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Kryzys emocjonalny i psychiczny — pierwsza pomoc — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/kryzys",
-      "description": "Kiedy ból staje się nieznośny. Bezpłatne numery telefonów zaufania i ośrodki interwencji kryzysowej.",
-      "tags": [
-        "kryzys emocjonalny",
-        "telefon zaufania",
-        "interwencja kryzysowa",
-        "pomoc natychmiastowa",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": true
-    },
-    {
-      "title": "Poczucie wartości oparte na Bogu — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/poczucie-wartosci",
-      "description": "Uwalnianie się od porównań, lęku przed odrzuceniem i budowanie tożsamości dziecka Bożego.",
-      "tags": [
-        "poczucie wartosci",
-        "samoocena",
-        "tozsamosc",
-        "akceptacja",
-        "pewnosc siebie",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Psycholog z chrześcijańskimi wartościami — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/psycholog",
-      "description": "Jak znaleźć psychologa, który szanuje Twoją wiarę i stosuje rzetelną wiedzę naukową.",
-      "tags": [
-        "psycholog",
-        "psychoterapia",
-        "chrzescijanski psycholog",
-        "terapia",
-        "gabinet",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Psycholog dziecięcy — pomoc najmłodszym — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/psycholog-dzieciecy",
-      "description": "Konsultacje psychologiczne dla dzieci i młodzieży, diagnoza emocjonalna i rozwojowa.",
-      "tags": [
-        "psycholog dzieciecy",
-        "pomoc dzieciom",
-        "emocje dziecka",
-        "poradnia psychologiczna",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Samotność i izolacja — odnaleźć więź — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/samotnosc",
-      "description": "Samotność w tłumie, utrata relacji i budowanie nowych, bezpiecznych więzi we wspólnocie.",
-      "tags": [
-        "samotnosc",
-        "izolacja",
-        "brak przyjaciol",
-        "wspolnota",
-        "bliskosc",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Wsparcie dla seniorów — godność i aktywność — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/senior",
-      "description": "Opieka nad osobami starszymi, walka z samotnością seniorów, infolinie i kluby seniora.",
-      "tags": [
-        "senior",
-        "seniorzy",
-        "osoby starsze",
-        "opiekun seniora",
-        "klub seniora",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Przewlekły stres i przeciążenie — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/stres",
-      "description": "Objawy fizyczne stresu, techniki wyciszenia, biblijny pokój i higiena układu nerwowego.",
-      "tags": [
-        "stres",
-        "przeciazenie",
-        "uspokojenie",
-        "relaks",
-        "uklad nerwowy",
-        "spokoj",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Doświadczenie traumy — proces leczenia — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/trauma",
-      "description": "Zespół stresu pourazowego (PTSD), bezpieczna terapia traumy i odzyskiwanie poczucia bezpieczeństwa.",
-      "tags": [
-        "trauma",
-        "ptsd",
-        "terapia traumy",
-        "przezycia traumatyczne",
-        "zdrowie psychiczne",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Żałoba i strata bliskiej osoby — CC Pomoc | Christian Culture",
-      "category": "Zdrowie psychiczne",
-      "url": "https://polskieradio.cc/zaloba",
-      "description": "Etapy żałoby, prawo do bólu i łez, wsparcie duszpasterskie i psychologiczne po stracie.",
-      "tags": [
-        "zaloba",
-        "strata",
-        "smierc bliskiego",
-        "pogrzeb",
-        "pocieszenie",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Budżet domowy — kontrola nad wydatkami — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
-      "url": "https://polskieradio.cc/budzet-domowy",
-      "description": "Praktyczny szablon budżetu domowego, planowanie wydatków i wychodzenie na prostą finansową.",
-      "tags": [
-        "budzet domowy",
-        "finanse osobiste",
-        "oszczedzanie",
-        "wydatki",
-        "pieniadze",
         "cc pomoc",
         "pomoc",
         "wsparcie"
@@ -10981,173 +10150,1939 @@
       "featured": true
     },
     {
-      "title": "Egzekucja komornicza — prawa dłużnika — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
-      "url": "https://polskieradio.cc/komornik",
-      "description": "Kwota wolna od potrąceń, co może zająć komornik, a co jest chronione prawem w Polsce.",
-      "tags": [
-        "komornik",
-        "egzekucja komornicza",
-        "zajecie konta",
-        "prawa dluznika",
-        "prawo",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Kredyty, pożyczki i chwilówki — co robić — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
-      "url": "https://polskieradio.cc/kredyty",
-      "description": "Pętla kredytowa, konsolidacja, negocjacje z bankiem i unikanie pułapek lichwiarskich.",
-      "tags": [
-        "kredyty",
-        "chwilowki",
-        "pozyczki",
-        "bank",
-        "petla kredytowa",
-        "odsetki",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Skuteczne oddłużanie osób fizycznych — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
-      "url": "https://polskieradio.cc/oddluzanie",
-      "description": "Prawne i finansowe metody redukcji długu, restrukturyzacja i pomoc doradcy finansowego.",
-      "tags": [
-        "oddluzanie",
-        "redukcja dlugu",
-        "wierzyciele",
-        "doradca finansowy",
-        "cc pomoc",
-        "pomoc",
-        "wsparcie"
-      ],
-      "featured": false
-    },
-    {
-      "title": "Nieodpłatna pomoc prawna w Polsce — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
+      "title": "Bezpłatna pomoc prawna — CC Pomoc",
+      "category": "Pomoc i wsparcie",
       "url": "https://polskieradio.cc/pomoc-prawna",
-      "description": "Gdzie skorzystać z darmowych punktów pomocy prawnej i poradnictwa obywatelskiego.",
+      "description": "Jak znaleźć punkt porad, przygotować dokumenty i ustalić, czy potrzebujesz prawnika, doradcy obywatelskiego czy innego wsparcia.",
       "tags": [
-        "pomoc prawna",
-        "darmowy prawnik",
-        "punkty npp",
-        "poradnictwo obywatelskie",
-        "prawo",
-        "cc pomoc",
-        "pomoc",
+        "Bezpłatna pomoc prawna",
+        "pomoc-prawna",
+        "CC Pomoc",
+        "CC Help",
         "wsparcie"
       ],
-      "featured": false
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
     },
     {
-      "title": "Prawa konsumenta — reklamacje i oszustwa — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
+      "title": "Free legal assistance — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/free-legal-aid",
+      "description": "Find an advice point, prepare your documents and clarify whether you need a lawyer, citizen adviser or another kind of support in Poland.",
+      "tags": [
+        "Free legal assistance",
+        "pomoc-prawna",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Prawa konsumenta — CC Pomoc",
+      "category": "Pomoc i wsparcie",
       "url": "https://polskieradio.cc/prawa-konsumenta",
-      "description": "Rzecznik Praw Konsumenta, zwroty towaru, reklamacje, ochrona przed nieuczciwymi umowami.",
+      "description": "Reklamacja, odstąpienie od umowy i pomoc rzecznika to różne ścieżki. Zacznij od rodzaju zakupu i faktów.",
       "tags": [
-        "prawa konsumenta",
-        "rzecznik konsumentow",
-        "reklamacja",
-        "odstapienie od umowy",
-        "uokik",
-        "cc pomoc",
-        "pomoc",
+        "Prawa konsumenta",
+        "prawa-konsumenta",
+        "CC Pomoc",
+        "CC Help",
         "wsparcie"
       ],
-      "featured": false
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
     },
     {
-      "title": "Konsultacja z prawnikiem — jak się przygotować — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
-      "url": "https://polskieradio.cc/prawnik",
-      "description": "Jak wybrać rzetelnego adwokata lub radcę prawnego, przygotowanie dokumentów do sprawy.",
+      "title": "Consumer rights — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/consumer-rights",
+      "description": "A complaint, withdrawal from a contract and consumer assistance are different routes. Start with the kind of purchase and the facts in Poland.",
       "tags": [
-        "prawnik",
-        "adwokat",
-        "radca prawny",
-        "porada prawna",
-        "sad",
-        "cc pomoc",
-        "pomoc",
+        "Consumer rights",
+        "prawa-konsumenta",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Budżet domowy — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/budzet-domowy",
+      "description": "Prosty plan wpływów i wydatków pomaga zauważyć potrzeby domu. Bez narzuconych proporcji, oceniania i obietnic szybkiego wzbogacenia.",
+      "tags": [
+        "Budżet domowy",
+        "budzet-domowy",
+        "CC Pomoc",
+        "CC Help",
         "wsparcie"
       ],
-      "featured": false
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
     },
     {
-      "title": "Upadłość konsumencka — nowy start — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
+      "title": "Household budgeting — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/household-budget",
+      "description": "A simple income and spending plan can clarify your household’s needs. No imposed ratios, judgement or promises of quick wealth.",
+      "tags": [
+        "Household budgeting",
+        "budzet-domowy",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Kryzys emocjonalny — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/kryzys",
+      "description": "Kiedy trudności Cię przerastają, nie musisz samodzielnie rozwiązywać wszystkiego. Zobacz, jak dotrzeć do realnej pomocy.",
+      "tags": [
+        "Kryzys emocjonalny",
+        "kryzys",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Emotional crisis — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/emotional-crisis",
+      "description": "When difficulties feel overwhelming, you do not have to solve everything alone. Find a route to real support.",
+      "tags": [
+        "Emotional crisis",
+        "kryzys",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Samotność — wsparcie i kontakt — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/samotnosc",
+      "description": "Poczucie osamotnienia zasługuje na uważność. Znajdź bezpieczną formę kontaktu, która pasuje do Twoich możliwości.",
+      "tags": [
+        "Samotność — wsparcie i kontakt",
+        "samotnosc",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Loneliness and connection — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/loneliness-support",
+      "description": "Feeling alone deserves care and attention. Find a safe form of connection that fits your circumstances.",
+      "tags": [
+        "Loneliness and connection",
+        "samotnosc",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Żałoba — wsparcie po stracie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/zaloba",
+      "description": "Po stracie bliskiej osoby możesz potrzebować obecności, pomocy w codzienności albo rozmowy ze specjalistą. Nie musisz wybierać jednej drogi.",
+      "tags": [
+        "Żałoba — wsparcie po stracie",
+        "zaloba",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Grief and bereavement support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/grief-support",
+      "description": "After someone close to you dies, you may need company, help with everyday matters or a professional conversation. These forms of support can coexist.",
+      "tags": [
+        "Grief and bereavement support",
+        "zaloba",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Psycholog dziecięcy — wsparcie rodziny — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/psycholog-dzieciecy",
+      "description": "Przygotuj rozmowę ze specjalistą, odróżnij wsparcie szkolne od opieki zdrowotnej i chroń prywatność dziecka.",
+      "tags": [
+        "Psycholog dziecięcy — wsparcie rodziny",
+        "psycholog-dzieciecy",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Child psychology — family support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/child-psychology",
+      "description": "Prepare for a professional conversation, distinguish school support from health care and protect the child’s privacy.",
+      "tags": [
+        "Child psychology — family support",
+        "psycholog-dzieciecy",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Nastolatki — rozmowa i wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/nastolatki",
+      "description": "Dla młodych osób i dorosłych, którzy chcą rozmawiać z szacunkiem, stawiać bezpieczne granice i wiedzieć, gdzie poprosić o pomoc.",
+      "tags": [
+        "Nastolatki — rozmowa i wsparcie",
+        "nastolatki",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Teenagers — conversation and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/teen-support",
+      "description": "For young people and adults who want respectful conversations, safe boundaries and clear routes to help.",
+      "tags": [
+        "Teenagers — conversation and support",
+        "nastolatki",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Problemy w szkole — gdzie szukać pomocy — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/problemy-w-szkole",
+      "description": "Trudności w nauce, relacjach lub codziennym chodzeniu do szkoły warto opisać konkretnie i omówić z właściwą osobą.",
+      "tags": [
+        "Problemy w szkole — gdzie szukać pomocy",
+        "problemy-w-szkole",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "School difficulties — finding support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/school-support",
+      "description": "Learning, relationships and attending school can become difficult. Describe what happens and discuss it with the appropriate person.",
+      "tags": [
+        "School difficulties — finding support",
+        "problemy-w-szkole",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Cyberprzemoc — ochrona i pomoc — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/cyberprzemoc",
+      "description": "Pomóż dziecku przerwać kontakt z nękaniem, bezpiecznie zachować informacje o zdarzeniu i zgłosić problem właściwym osobom.",
+      "tags": [
+        "Cyberprzemoc — ochrona i pomoc",
+        "cyberprzemoc",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Cyberbullying — safety and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/cyberbullying-support",
+      "description": "Help a child reduce contact with harassment, retain relevant information safely and report the issue to appropriate people.",
+      "tags": [
+        "Cyberbullying — safety and support",
+        "cyberprzemoc",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Trudne zachowania dzieci — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/trudne-zachowania",
+      "description": "Przygotuj spokojny opis trudnych sytuacji i plan rozmowy, który szanuje dziecko oraz bezpieczeństwo domowników.",
+      "tags": [
+        "Trudne zachowania dzieci",
+        "trudne-zachowania",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Challenging behaviour in children — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/child-behaviour-support",
+      "description": "Prepare a calm account of difficult situations and a conversation plan that respects the child and everyone’s safety.",
+      "tags": [
+        "Challenging behaviour in children",
+        "trudne-zachowania",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Rodzicielstwo — wspólny plan codzienności — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/rodzicielstwo",
+      "description": "Praktyczny początek dla rodziców i opiekunów: jedna sprawa, jasny podział zadań i uważność na potrzeby dziecka.",
+      "tags": [
+        "Rodzicielstwo — wspólny plan codzienności",
+        "rodzicielstwo",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Parenting — a shared everyday plan — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/parenting-guide",
+      "description": "A practical starting point for parents and carers: one concern, clear tasks and attention to a child’s needs.",
+      "tags": [
+        "Parenting — a shared everyday plan",
+        "rodzicielstwo",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Lęk i niepokój — gdzie szukać wsparcia — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/lek",
+      "description": "Przygotuj rozmowę o lęku i jego wpływie na codzienność. Ta strona nie rozpoznaje zaburzeń ani nie zastępuje oceny medycznej.",
+      "tags": [
+        "Lęk i niepokój — gdzie szukać wsparcia",
+        "lek",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Anxiety — finding support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/anxiety-support",
+      "description": "Prepare to talk about anxiety and its effect on everyday life. This page does not diagnose a disorder or replace medical assessment.",
+      "tags": [
+        "Anxiety — finding support",
+        "lek",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Stres — przeciążenie i wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/stres",
+      "description": "Uporządkuj obowiązki i przygotuj rozmowę o przeciążeniu, bez obietnic szybkiego odzyskania równowagi.",
+      "tags": [
+        "Stres — przeciążenie i wsparcie",
+        "stres",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Stress — overload and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/stress-support",
+      "description": "Organise your responsibilities and prepare to discuss overload, without promises of a quick return to balance.",
+      "tags": [
+        "Stress — overload and support",
+        "stres",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Wypalenie zawodowe i przeciążenie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/wypalenie",
+      "description": "Przyjrzyj się obciążeniom związanym z pracą i przygotuj rozmowę o wsparciu. Sam opis wyczerpania nie wystarcza do ustalenia jego przyczyny.",
+      "tags": [
+        "Wypalenie zawodowe i przeciążenie",
+        "wypalenie",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Occupational burnout and overload — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/burnout-support",
+      "description": "Review work-related pressures and prepare to discuss support. A description of exhaustion alone cannot establish its cause.",
+      "tags": [
+        "Occupational burnout and overload",
+        "wypalenie",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Poczucie własnej wartości — wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/poczucie-wartosci",
+      "description": "Przygotuj rozmowę o surowej samoocenie, granicach i potrzebnym wsparciu. Nie punktujemy atrakcyjności, duchowości ani wartości człowieka.",
+      "tags": [
+        "Poczucie własnej wartości — wsparcie",
+        "poczucie-wartosci",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Self-worth — support and dignity — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/self-worth-support",
+      "description": "Prepare to talk about harsh self-judgement, boundaries and support. We do not rate a person’s attractiveness, spirituality or worth.",
+      "tags": [
+        "Self-worth — support and dignity",
+        "poczucie-wartosci",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Trauma i trudne doświadczenia — wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/trauma",
+      "description": "Informacje pomagające znaleźć właściwe wsparcie po trudnym doświadczeniu. Nie musisz tutaj opisywać zdarzenia ani udowadniać, jak bardzo było trudne.",
+      "tags": [
+        "Trauma i trudne doświadczenia — wsparcie",
+        "trauma",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Trauma and difficult experiences — support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/trauma-support",
+      "description": "Information to help find appropriate support after a difficult experience. You do not have to describe the event here or prove how distressing it was.",
+      "tags": [
+        "Trauma and difficult experiences — support",
+        "trauma",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Telefon i internet — równowaga i wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/uzaleznienie-od-telefonu",
+      "description": "Pomoc w przygotowaniu rodzinnej rozmowy o ekranach. Sam czas przed telefonem nie stanowi tu podstawy do rozpoznania uzależnienia.",
+      "tags": [
+        "Telefon i internet — równowaga i wsparcie",
+        "uzaleznienie-od-telefonu",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Phones and internet — balance and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/digital-balance",
+      "description": "Prepare a family conversation about screens. Screen time alone is not used here to diagnose an addiction.",
+      "tags": [
+        "Phones and internet — balance and support",
+        "uzaleznienie-od-telefonu",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Dziecko podczas rozstania rodziców — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/dziecko-a-rozwod",
+      "description": "Przygotuj rozmowę o codzienności i wsparciu dziecka. Strona nie rozstrzyga o opiece, kontaktach ani winie któregokolwiek z rodziców.",
+      "tags": [
+        "Dziecko podczas rozstania rodziców",
+        "dziecko-a-rozwod",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Children during parental separation — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/children-and-separation",
+      "description": "Prepare to discuss a child’s everyday life and support. This page does not decide custody, contact arrangements or either parent’s fault.",
+      "tags": [
+        "Children during parental separation",
+        "dziecko-a-rozwod",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Wiara dzieci — rozmowa i przykład — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/wiara-dzieci",
+      "description": "Chrześcijańskie wychowanie oparte na Biblii, uważnej rozmowie i godności dziecka. Bez oceniania jego wiary punktami lub porównaniami.",
+      "tags": [
+        "Wiara dzieci — rozmowa i przykład",
+        "wiara-dzieci",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Children and faith — conversation and example — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/children-and-faith",
+      "description": "Christian upbringing with the Bible, attentive conversation and a child’s dignity. No scoring or comparing a child’s faith.",
+      "tags": [
+        "Children and faith — conversation and example",
+        "wiara-dzieci",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Kryzys małżeński — rozmowa i wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/kryzys-malzenski",
+      "description": "Przygotuj pierwszy kontakt po pomoc w kryzysie relacji. Nie obiecujemy pojednania ani nie podejmujemy decyzji za małżonków.",
+      "tags": [
+        "Kryzys małżeński — rozmowa i wsparcie",
+        "kryzys-malzenski",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Marriage in crisis — conversation and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/marriage-in-crisis",
+      "description": "Prepare a first request for support during a relationship crisis. We do not promise reconciliation or decide for either spouse.",
+      "tags": [
+        "Marriage in crisis — conversation and support",
+        "kryzys-malzenski",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Rozwód i rozstanie — prawa i wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/rozwod",
+      "description": "Przygotuj pytania o sprawy prawne, codzienność i potrzeby dzieci. Ta strona nie zaleca rozwodu ani nie ocenia konkretnego małżeństwa.",
+      "tags": [
+        "Rozwód i rozstanie — prawa i wsparcie",
+        "rozwod",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Divorce and separation — rights and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/divorce-and-separation",
+      "description": "Prepare questions about legal matters, daily life and children’s needs. This page neither recommends divorce nor judges a particular marriage.",
+      "tags": [
+        "Divorce and separation — rights and support",
+        "rozwod",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Zdrada — wsparcie po naruszeniu zaufania — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/zdrada",
+      "description": "Przygotuj rozmowę o skutkach zdrady i potrzebnym wsparciu. Nie obiecujemy odzyskania zaufania ani nie wyznaczamy terminu przebaczenia.",
+      "tags": [
+        "Zdrada — wsparcie po naruszeniu zaufania",
+        "zdrada",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Infidelity — support after broken trust — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/infidelity-and-trust",
+      "description": "Prepare to discuss the effects of infidelity and the support you need. We promise neither restored trust nor a deadline for forgiveness.",
+      "tags": [
+        "Infidelity — support after broken trust",
+        "zdrada",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Komunikacja w małżeństwie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/komunikacja-w-malzenstwie",
+      "description": "Praktyczny punkt wyjścia do rozmowy, gdy obie osoby mogą uczestniczyć bez strachu. Nie jest to terapia ani metoda postępowania przy przemocy.",
+      "tags": [
+        "Komunikacja w małżeństwie",
+        "komunikacja-w-malzenstwie",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Communication in marriage — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/communication-in-marriage",
+      "description": "A starting point for conversation when both people can participate without fear. This is neither therapy nor an approach to managing abuse.",
+      "tags": [
+        "Communication in marriage",
+        "komunikacja-w-malzenstwie",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Konflikty rodzinne — granice i wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/konflikty-rodzinne",
+      "description": "Uporządkuj temat konfliktu i możliwe drogi rozmowy. Nie każdy spór wymaga tej samej metody, a bezpieczeństwo nie jest przedmiotem targowania.",
+      "tags": [
+        "Konflikty rodzinne — granice i wsparcie",
+        "konflikty-rodzinne",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Family conflict — boundaries and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/family-conflict-support",
+      "description": "Clarify the dispute and possible routes to conversation. Not every conflict needs the same approach, and safety is not a bargaining chip.",
+      "tags": [
+        "Family conflict — boundaries and support",
+        "konflikty-rodzinne",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Przemoc domowa — bezpieczeństwo i pomoc — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/przemoc-domowa",
+      "description": "Oficjalne drogi do pomocy dla osób doznających przemocy i jej świadków. Ta strona nie prowadzi interwencji i nie zastępuje służb ratunkowych.",
+      "tags": [
+        "Przemoc domowa — bezpieczeństwo i pomoc",
+        "przemoc-domowa",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Domestic violence — safety and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/domestic-violence-support",
+      "description": "Official routes to support for people experiencing domestic violence and witnesses. This page provides no intervention and does not replace emergency services.",
+      "tags": [
+        "Domestic violence — safety and support",
+        "przemoc-domowa",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Samotne rodzicielstwo — codzienne wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/samotny-rodzic",
+      "description": "Uporządkuj potrzeby rodziny i przygotuj pytania o pomoc. Samotne rodzicielstwo nie oznacza automatycznie prawa do konkretnego świadczenia.",
+      "tags": [
+        "Samotne rodzicielstwo — codzienne wsparcie",
+        "samotny-rodzic",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Single parenting — everyday support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/single-parent-support",
+      "description": "Clarify your family’s needs and prepare questions about support. Single parenting does not automatically establish eligibility for a particular benefit.",
+      "tags": [
+        "Single parenting — everyday support",
+        "samotny-rodzic",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Narzeczeństwo — przygotowanie do małżeństwa — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/narzeczenstwo",
+      "description": "Przygotuj rozmowę o wartościach, codzienności i odpowiedzialności. Nie tworzymy ocen dopasowania ani prognoz powodzenia związku.",
+      "tags": [
+        "Narzeczeństwo — przygotowanie do małżeństwa",
+        "narzeczenstwo",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Preparing for marriage — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/preparing-for-marriage",
+      "description": "Prepare to discuss values, everyday life and responsibility. We provide no compatibility scores or predictions of relationship success.",
+      "tags": [
+        "Preparing for marriage",
+        "narzeczenstwo",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Komornik i egzekucja — przygotowanie do porady — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/komornik",
+      "description": "Uporządkuj korespondencję i pytania do prawnika. Nie oceniamy zasadności zajęcia ani nie zatrzymujemy postępowania na tej stronie.",
+      "tags": [
+        "Komornik i egzekucja — przygotowanie do porady",
+        "komornik",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Bailiffs and enforcement — preparing for advice — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/bailiff-and-enforcement",
+      "description": "Organise correspondence and questions for a lawyer in Poland. This page does not assess a seizure or stop enforcement proceedings.",
+      "tags": [
+        "Bailiffs and enforcement — preparing for advice",
+        "komornik",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Oddłużanie — uporządkowanie zobowiązań — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/oddluzanie",
+      "description": "Przygotuj się do rozmowy o zadłużeniu bez obietnic szybkiego umorzenia. Nie sprzedajemy usług oddłużania ani nowych pożyczek.",
+      "tags": [
+        "Oddłużanie — uporządkowanie zobowiązań",
+        "oddluzanie",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Debt support — organising commitments — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/debt-recovery-planning",
+      "description": "Prepare to discuss debt without promises of a quick write-off. We sell neither debt relief services nor new loans.",
+      "tags": [
+        "Debt support — organising commitments",
+        "oddluzanie",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Upadłość konsumencka — pytania przed decyzją — CC Pomoc",
+      "category": "Pomoc i wsparcie",
       "url": "https://polskieradio.cc/upadlosc-konsumencka",
-      "description": "Warunki ogłoszenia upadłości konsumenckiej w sądzie, plan spłaty i całkowite umorzenie długów.",
+      "description": "Przygotowanie do indywidualnej porady o postępowaniu sądowym w Polsce. Nie kwalifikujemy do upadłości i nie obiecujemy umorzenia wszystkich zobowiązań.",
       "tags": [
-        "upadlosc konsumencka",
-        "sad upadlosciowy",
-        "umorzenie dlugow",
-        "nowy start",
-        "cc pomoc",
-        "pomoc",
+        "Upadłość konsumencka — pytania przed decyzją",
+        "upadlosc-konsumencka",
+        "CC Pomoc",
+        "CC Help",
         "wsparcie"
       ],
-      "featured": false
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
     },
     {
-      "title": "Windykacja — jak rozmawiać z firmą windykacyjną — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
+      "title": "Personal insolvency — questions before deciding — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/personal-insolvency",
+      "description": "Prepare for individual advice about court proceedings in Poland. We assess neither eligibility nor the prospect of every obligation being written off.",
+      "tags": [
+        "Personal insolvency — questions before deciding",
+        "upadlosc-konsumencka",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Windykacja — sprawdzanie informacji i praw — CC Pomoc",
+      "category": "Pomoc i wsparcie",
       "url": "https://polskieradio.cc/windykacja",
-      "description": "Granice działań windykatora, przedawnienie długu, ochrona przed nękaniem telefonicznym.",
+      "description": "Przygotuj się do wyjaśnienia żądania zapłaty. Nie uznajemy ani nie kwestionujemy Twojego długu na podstawie samego wezwania.",
       "tags": [
+        "Windykacja — sprawdzanie informacji i praw",
         "windykacja",
-        "windykator",
-        "przedawnienie",
-        "nekanie",
-        "dlugi",
-        "cc pomoc",
-        "pomoc",
+        "CC Pomoc",
+        "CC Help",
         "wsparcie"
       ],
-      "featured": false
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
     },
     {
-      "title": "Duszpasterz i pastor — wsparcie duchowe — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
+      "title": "Debt collection — checking information and rights — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/debt-collection-rights",
+      "description": "Prepare to clarify a payment demand in Poland. We neither acknowledge nor dispute your debt on the basis of a demand letter alone.",
+      "tags": [
+        "Debt collection — checking information and rights",
+        "windykacja",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Kredyty i pożyczki — pytania i wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/kredyty",
+      "description": "Porządkuj dokumenty, koszty i pytania do właściwej instytucji. Nie porównujemy ofert ani nie rekomendujemy zaciągania kredytu.",
+      "tags": [
+        "Kredyty i pożyczki — pytania i wsparcie",
+        "kredyty",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Loans and credit — questions and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/loans-and-commitments",
+      "description": "Organise documents, costs and questions for the appropriate institution in Poland. We neither compare loan offers nor recommend borrowing.",
+      "tags": [
+        "Loans and credit — questions and support",
+        "kredyty",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Problemy z alkoholem — leczenie i wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/alkoholizm",
+      "description": "Nie musisz sam rozstrzygać, jak nazwać problem. Przygotuj kontakt z placówką leczenia i zadbaj o bezpieczeństwo.",
+      "tags": [
+        "Problemy z alkoholem — leczenie i wsparcie",
+        "alkoholizm",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Alcohol difficulties — treatment and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/alcohol-support",
+      "description": "You do not need to diagnose yourself before asking for support. Prepare contact with a treatment service in Poland and prioritise safety.",
+      "tags": [
+        "Alcohol difficulties — treatment and support",
+        "alkoholizm",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Problemy z narkotykami — kontakt z pomocą — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/narkomania",
+      "description": "Informacje dla osoby używającej substancji i jej bliskich. Strona nie identyfikuje substancji ani nie ocenia bezpiecznej dawki.",
+      "tags": [
+        "Problemy z narkotykami — kontakt z pomocą",
+        "narkomania",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Drug-related difficulties — finding help — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/drug-use-support",
+      "description": "Information for people using substances and their families. This page neither identifies substances nor assesses a safe dose.",
+      "tags": [
+        "Drug-related difficulties — finding help",
+        "narkomania",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Hazard — pomoc przy utracie kontroli — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/hazard",
+      "description": "Przygotuj rozmowę o graniu, finansach i konsekwencjach dla bliskich. Nie podajemy strategii gry ani sposobów odzyskania pieniędzy przez zakłady.",
+      "tags": [
+        "Hazard — pomoc przy utracie kontroli",
+        "hazard",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Gambling — support when control is slipping — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/gambling-support",
+      "description": "Prepare to discuss gambling, finances and effects on people close to you. We offer no betting strategy or promise of winning money back.",
+      "tags": [
+        "Gambling — support when control is slipping",
+        "hazard",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Pornografia — trudności z kontrolą i wsparcie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/uzaleznienie-od-pornografii",
+      "description": "Jeśli korzystanie z pornografii powoduje cierpienie lub trudności w codzienności, możesz porozmawiać ze specjalistą. Ta strona nie stawia diagnozy.",
+      "tags": [
+        "Pornografia — trudności z kontrolą i wsparcie",
+        "uzaleznienie-od-pornografii",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Pornography — control difficulties and support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/pornography-support",
+      "description": "If pornography use causes distress or difficulties in daily life, you can talk with a qualified professional. This page makes no diagnosis.",
+      "tags": [
+        "Pornography — control difficulties and support",
+        "uzaleznienie-od-pornografii",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Rzucanie palenia — przygotowanie do pomocy — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/rzucanie-palenia",
+      "description": "Przygotuj rozmowę o rzuceniu palenia i dostępnych formach pomocy. Nie dobieramy leków ani nie obiecujemy skuteczności konkretnej metody.",
+      "tags": [
+        "Rzucanie palenia — przygotowanie do pomocy",
+        "rzucanie-palenia",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Stopping smoking — preparing for support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/stop-smoking",
+      "description": "Prepare to discuss stopping smoking and available assistance. We neither select medicines nor guarantee the effectiveness of a method.",
+      "tags": [
+        "Stopping smoking — preparing for support",
+        "rzucanie-palenia",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Uzależnienie bliskiej osoby — wsparcie dla Ciebie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/wspoluzaleznienie",
+      "description": "Twoje zdrowie, bezpieczeństwo i granice także mają znaczenie. Nie rozpoznajemy współuzależnienia na podstawie roli w rodzinie.",
+      "tags": [
+        "Uzależnienie bliskiej osoby — wsparcie dla Ciebie",
+        "wspoluzaleznienie",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "A loved one’s addiction — support for you — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/support-for-families-of-addicted-people",
+      "description": "Your health, safety and boundaries matter too. A family role alone does not establish a diagnosis of codependency.",
+      "tags": [
+        "A loved one’s addiction — support for you",
+        "wspoluzaleznienie",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Terapia uzależnień — przygotowanie do kontaktu — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/terapia-uzaleznien",
+      "description": "Różne trudności mogą wymagać różnych form wsparcia. Pomagamy przygotować pytania, nie dobieramy terapii ani nie gwarantujemy miejsca w placówce.",
+      "tags": [
+        "Terapia uzależnień — przygotowanie do kontaktu",
+        "terapia-uzaleznien",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Addiction treatment — preparing for contact — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/addiction-treatment",
+      "description": "Different difficulties may need different kinds of care. We help prepare questions, not choose treatment or guarantee a place in a service.",
+      "tags": [
+        "Addiction treatment — preparing for contact",
+        "terapia-uzaleznien",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Zdrowie — konsultacja i profilaktyka — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/wsparcie-zdrowia",
+      "description": "Przygotuj rozmowę z personelem medycznym i sprawdź oficjalne informacje o profilaktyce. Strona nie ocenia objawów ani wyników badań.",
+      "tags": [
+        "Zdrowie — konsultacja i profilaktyka",
+        "wsparcie-zdrowia",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Health — consultations and prevention — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/health-support",
+      "description": "Prepare to speak with a healthcare professional and find official prevention information in Poland. This page assesses neither symptoms nor test results.",
+      "tags": [
+        "Health — consultations and prevention",
+        "wsparcie-zdrowia",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Dietetyk — edukacja i przygotowanie do rozmowy — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/dietetyk",
+      "description": "Przygotuj pytania o jedzenie, codzienne możliwości i stan zdrowia. Nie układamy diety leczniczej ani nie oceniamy wyglądu użytkowników.",
+      "tags": [
+        "Dietetyk — edukacja i przygotowanie do rozmowy",
+        "dietetyk",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Dietitian — education and preparing for advice — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/dietitian-support",
+      "description": "Prepare questions about food, daily circumstances and health. We prescribe no therapeutic diet and do not assess users’ appearance.",
+      "tags": [
+        "Dietitian — education and preparing for advice",
+        "dietetyk",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Zdrowy styl życia — realne codzienne kroki — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/zdrowy-styl-zycia",
+      "description": "Ruch, odpoczynek, odżywianie i kontakt z pomocą można omawiać razem. Nie tworzymy rankingu zdrowia ani planu dobrego dla każdego.",
+      "tags": [
+        "Zdrowy styl życia — realne codzienne kroki",
+        "zdrowy-styl-zycia",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Healthy living — realistic everyday steps — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/healthy-living",
+      "description": "Movement, rest, nutrition and access to care can be discussed together. We offer neither a health ranking nor a plan that suits everyone.",
+      "tags": [
+        "Healthy living — realistic everyday steps",
+        "zdrowy-styl-zycia",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Cukrzyca — edukacja i pytania do zespołu leczenia — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/cukrzyca",
+      "description": "Przygotowanie do rozmowy o cukrzycy i profilaktyce. Nie rozpoznajemy choroby z pojedynczego wyniku i nie dobieramy insuliny ani innych leków.",
+      "tags": [
+        "Cukrzyca — edukacja i pytania do zespołu leczenia",
+        "cukrzyca",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Diabetes — education and questions for your care team — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/diabetes-support",
+      "description": "Prepare to discuss diabetes and prevention. We neither diagnose from a single result nor select insulin or other medicines.",
+      "tags": [
+        "Diabetes — education and questions for your care team",
+        "cukrzyca",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Nadciśnienie — przygotowanie do kontroli — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/nadcisnienie",
+      "description": "Dowiedz się, o co zapytać przy kontroli ciśnienia. Ta strona nie ustala rozpoznania, norm właściwych dla Ciebie ani leczenia.",
+      "tags": [
+        "Nadciśnienie — przygotowanie do kontroli",
+        "nadcisnienie",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Blood pressure — preparing for follow-up — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/blood-pressure-support",
+      "description": "Find questions to ask about blood pressure monitoring. This page determines neither diagnosis, personal targets nor treatment.",
+      "tags": [
+        "Blood pressure — preparing for follow-up",
+        "nadcisnienie",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Serce i krążenie — profilaktyka i kontakt z pomocą — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/zdrowe-serce",
+      "description": "Informacje o przygotowaniu do kontroli i oficjalnych ścieżkach pomocy. Nie określamy ryzyka zawału ani nie wykluczamy zagrożenia na podstawie opisu.",
+      "tags": [
+        "Serce i krążenie — profilaktyka i kontakt z pomocą",
+        "zdrowe-serce",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Heart and circulation — prevention and care — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/heart-health",
+      "description": "Prepare for follow-up and find official care routes in Poland. We neither calculate heart attack risk nor rule out danger from a description.",
+      "tags": [
+        "Heart and circulation — prevention and care",
+        "zdrowe-serce",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Sen i odpoczynek — rozmowa o trudnościach — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/zdrowy-sen",
+      "description": "Przygotuj rozmowę o śnie i jego wpływie na dzień. Nie rozpoznajemy bezsenności, nie interpretujemy zegarka i nie dobieramy środków nasennych.",
+      "tags": [
+        "Sen i odpoczynek — rozmowa o trudnościach",
+        "zdrowy-sen",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Sleep and rest — discussing difficulties — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/sleep-support",
+      "description": "Prepare to discuss sleep and its effects on your day. We diagnose no insomnia, interpret no wearable scores and select no sleeping aids.",
+      "tags": [
+        "Sleep and rest — discussing difficulties",
+        "zdrowy-sen",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Rehabilitacja — przygotowanie do opieki — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/rehabilitacja",
+      "description": "Przygotuj pytania o rehabilitację i dostęp do świadczeń. Nie układamy ćwiczeń po urazie ani nie gwarantujemy powrotu do wcześniejszej sprawności.",
+      "tags": [
+        "Rehabilitacja — przygotowanie do opieki",
+        "rehabilitacja",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Rehabilitation — preparing for care — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/rehabilitation-support",
+      "description": "Prepare questions about rehabilitation and access to services in Poland. We prescribe no post-injury exercises and guarantee no return to previous function.",
+      "tags": [
+        "Rehabilitation — preparing for care",
+        "rehabilitacja",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Aktywność fizyczna — ruch dostosowany do możliwości — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/aktywnosc-fizyczna",
+      "description": "Przygotuj pytania o bezpieczną aktywność. Nie dobieramy intensywności treningu ani nie oceniamy zdrowia na podstawie liczby kroków.",
+      "tags": [
+        "Aktywność fizyczna — ruch dostosowany do możliwości",
+        "aktywnosc-fizyczna",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Physical activity — movement within your circumstances — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/physical-activity",
+      "description": "Prepare questions about appropriate activity. We prescribe no training intensity and do not assess health from a step count.",
+      "tags": [
+        "Physical activity — movement within your circumstances",
+        "aktywnosc-fizyczna",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Sanatoria — leczenie i warunki wyjazdu — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/sanatoria",
+      "description": "Przygotuj pytania o leczenie uzdrowiskowe w Polsce. Wyjazd wypoczynkowy, pobyt prywatny i leczenie finansowane przez NFZ mają różne zasady.",
+      "tags": [
+        "Sanatoria — leczenie i warunki wyjazdu",
+        "sanatoria",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Spa treatment — care and stay arrangements — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/spa-treatment",
+      "description": "Prepare questions about spa treatment in Poland. A holiday, private stay and NFZ-funded treatment follow different arrangements.",
+      "tags": [
+        "Spa treatment — care and stay arrangements",
+        "sanatoria",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Pastor — rozmowa o wierze — CC Pomoc",
+      "category": "Pomoc i wsparcie",
       "url": "https://polskieradio.cc/pastor",
-      "description": "Rozmowa duszpasterska, modlitwa, poszukiwanie Boga i odpowiedzi w Piśmie Świętym.",
+      "description": "Wiara, codzienne wybory i trudne pytania. Przygotuj się do rozmowy duszpasterskiej i poznaj granice takiego wsparcia.",
       "tags": [
+        "Pastor — rozmowa o wierze",
         "pastor",
-        "duszpasterz",
-        "rozmowa duchowa",
-        "modlitwa",
-        "rada biblijna",
-        "cc pomoc",
-        "pomoc",
+        "CC Pomoc",
+        "CC Help",
         "wsparcie"
       ],
-      "featured": false
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
     },
     {
-      "title": "Katalog specjalistów CC Pomoc — CC Pomoc | Christian Culture",
-      "category": "Finanse i prawo",
-      "url": "https://polskieradio.cc/specjalisci",
-      "description": "Baza zweryfikowanych specjalistów wolontariuszy gotowych do bezpłatnej wstępnej pomocy.",
+      "title": "Pastoral conversations — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/pastoral-support",
+      "description": "Faith, everyday choices and difficult questions: prepare for a pastoral conversation and understand the limits of this support.",
       "tags": [
+        "Pastoral conversations",
+        "pastor",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Specjaliści Christian Culture — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/specjalisci",
+      "description": "Znajdź kierunek wsparcia albo zgłoś gotowość współpracy. Budujemy sieć pomocy opartą na kompetencjach, jasnych zasadach i trosce o człowieka.",
+      "tags": [
+        "Specjaliści Christian Culture",
         "specjalisci",
-        "baza specjalistow",
-        "wolontariusze",
-        "doradcy",
-        "pomoc specjalisty",
-        "cc pomoc",
-        "pomoc",
+        "CC Pomoc",
+        "CC Help",
         "wsparcie"
       ],
-      "featured": false
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Christian Culture support directory — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/support-specialists",
+      "description": "Find a route to support or express interest in cooperating. We are building a network shaped by competence, clear boundaries and care for people.",
+      "tags": [
+        "Christian Culture support directory",
+        "specjalisci",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Pomoc prawna — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/prawnik",
+      "description": "Dokumenty, terminy i pytania do prawnika — uporządkuj to, co potrzebne przed rozmową.",
+      "tags": [
+        "Pomoc prawna",
+        "prawnik",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Legal help — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/legal-help",
+      "description": "Documents, deadlines and questions for a lawyer: prepare for a useful conversation.",
+      "tags": [
+        "Legal help",
+        "prawnik",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Uzależnienia — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/uzaleznienia",
+      "description": "Znajdź fachową pomoc dla siebie lub bliskiej osoby. Pierwsza rozmowa może być początkiem zmiany.",
+      "tags": [
+        "Uzależnienia",
+        "uzaleznienia",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Addiction support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/addiction-support",
+      "description": "Find qualified support for yourself or someone close to you. A first conversation can open a way forward.",
+      "tags": [
+        "Addiction support",
+        "uzaleznienia",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Wsparcie psychologiczne — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/psycholog",
+      "description": "Dowiedz się, jak przygotować pierwszą konsultację i gdzie szukać wsparcia w Polsce.",
+      "tags": [
+        "Wsparcie psychologiczne",
+        "psycholog",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Psychological support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/psychological-support",
+      "description": "Prepare for a first consultation and find official routes to mental health care in Poland.",
+      "tags": [
+        "Psychological support",
+        "psycholog",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Małżeństwo — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/wsparcie-malzenstwa",
+      "description": "Przygotuj spokojną rozmowę i poznaj możliwości wsparcia — z szacunkiem dla godności i bezpieczeństwa każdej osoby.",
+      "tags": [
+        "Małżeństwo",
+        "wsparcie-malzenstwa",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Marriage support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/marriage-support",
+      "description": "Prepare for a conversation and explore support while respecting each person’s dignity and safety.",
+      "tags": [
+        "Marriage support",
+        "wsparcie-malzenstwa",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Wychowanie — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/wsparcie-rodzicow",
+      "description": "Wsparcie dla rodziców i opiekunów szukających spokojniejszego kontaktu z dzieckiem.",
+      "tags": [
+        "Wychowanie",
+        "wsparcie-rodzicow",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Parenting support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/parenting-support",
+      "description": "Support for parents and carers seeking a calmer connection with a child.",
+      "tags": [
+        "Parenting support",
+        "wsparcie-rodzicow",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Rodzina — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/wsparcie-rodziny",
+      "description": "Uporządkuj potrzeby rodziny i znajdź właściwe miejsce pomocy, bez przerzucania całego ciężaru na jedną osobę.",
+      "tags": [
+        "Rodzina",
+        "wsparcie-rodziny",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Family support — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/family-support",
+      "description": "Clarify your family’s needs and find the right help without placing every responsibility on one person.",
+      "tags": [
+        "Family support",
+        "wsparcie-rodziny",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Wsparcie seniorów — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/senior",
+      "description": "Praktyczne kroki dla osób starszych oraz ich bliskich: kontakt, codzienne sprawy i bezpieczne szukanie pomocy.",
+      "tags": [
+        "Wsparcie seniorów",
+        "senior",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Support for older people — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/senior-support",
+      "description": "Practical steps for older people and those close to them: connection, everyday matters and safe routes to assistance.",
+      "tags": [
+        "Support for older people",
+        "senior",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Depresja — szukanie pomocy — CC Pomoc",
+      "category": "Pomoc i wsparcie",
+      "url": "https://polskieradio.cc/depresja",
+      "description": "Depresja jest problemem zdrowotnym. Zasługujesz na uważne wysłuchanie i dostęp do fachowej pomocy.",
+      "tags": [
+        "Depresja — szukanie pomocy",
+        "depresja",
+        "CC Pomoc",
+        "CC Help",
+        "wsparcie"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "Depression — finding help — CC Help",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/depression-support",
+      "description": "Depression is a health concern. You deserve to be heard with care and to have access to qualified help.",
+      "tags": [
+        "Depression — finding help",
+        "depresja",
+        "CC Pomoc",
+        "CC Help",
+        "support"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "title": "Step out of debt. Find peace again. — Christian Culture",
+      "category": "Help and support",
+      "url": "https://polskieradio.cc/en/debt-help",
+      "description": "Practical first steps to organise household finances, a private budget worksheet and official help resources in Poland.",
+      "tags": [
+        "CC Pomoc",
+        "CC Help",
+        "dlugi",
+        "debt help"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
     }
   ],
   "recommendedToday": [

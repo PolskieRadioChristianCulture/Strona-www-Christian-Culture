@@ -4,6 +4,11 @@
   "name": "Mapa Ekosystemu Christian Culture",
   "updatesLog": [
     {
+      "date": "2026-11-04",
+      "agent": "A",
+      "topic": "Bądź Blisko (/badz-blisko, /BądźBlisko) — nowa podstrona: 7-dniowy plan biblijny ze Słowem Bożym, wyciszenie i mały krok"
+    },
+    {
       "topic": "CCN News X Broadcaster: Cykliczna publikacja artykułu Cezarego Rogowskiego „Czy życzliwość bez granic może nas wyczerpać? Biblia o mądrym pomaganiu” na platformie X pod szyldem CCN NEWS z dedykowaną grafiką 16:9 (#95)",
       "date": "2026-11-04",
       "agent": "A"
@@ -3136,6 +3141,45 @@
       ]
     },
     {
+      "id": "the-journal",
+      "branchId": "biblia-edukacja",
+      "name": "THE JOURNAL — pamiętnik dla młodzieży na 90 dni",
+      "shortDesc": "90 dni drogi do większego spokoju, sensu i radości dla młodzieży 13–17 lat.",
+      "fullDesc": "Projekt pamiętnika Christian Culture dla młodzieży 13–17 lat: 90 roboczych tematów o emocjach, potrzebach, relacjach i małych krokach wraz z materiałami PDF i kartą dzienną.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/the-journal",
+      "status": "active",
+      "lang": "pl",
+      "icon": "📓",
+      "category": "Biblia & Edukacja",
+      "verifiedDate": "2026-11-04",
+      "keywords": [
+        "the journal",
+        "pamiętnik",
+        "90 dni",
+        "młodzież",
+        "nastolatki",
+        "emocje",
+        "spokój"
+      ],
+      "connections": [
+        "akademia",
+        "pokonac-goliata",
+        "holos-system",
+        "lumina-main"
+      ]
+    },
+    {
+      "id": "help",
+      "label": "CC Pomoc",
+      "url": "/help",
+      "description": "Katalog wsparcia tematycznego CC – ponad 60 stron dla specjalistów i potrzebujących",
+      "category": "wsparcie",
+      "status": "active",
+      "addedBy": "A",
+      "addedDate": "2026-11-04"
+    },
+    {
       "id": "cc-help-free-legal-aid",
       "branchId": "misja-wspolpraca",
       "name": "CC Pomoc — Bezpłatna pomoc prawna",
@@ -4456,43 +4500,31 @@
       ]
     },
     {
-      "id": "the-journal",
-      "branchId": "biblia-edukacja",
-      "name": "THE JOURNAL — pamiętnik dla młodzieży na 90 dni",
-      "shortDesc": "90 dni drogi do większego spokoju, sensu i radości dla młodzieży 13–17 lat.",
-      "fullDesc": "Projekt pamiętnika Christian Culture dla młodzieży 13–17 lat: 90 roboczych tematów o emocjach, potrzebach, relacjach i małych krokach wraz z materiałami PDF i kartą dzienną.",
-      "type": "portal",
-      "url": "https://polskieradio.cc/the-journal",
+      "id": "badz-blisko",
+      "branchId": "cc-spiritual",
+      "name": "Po prostu bądź blisko — Siedem dni ze Słowem",
+      "shortDesc": "7-dniowy plan biblijny: wyciszenie, chwila ze Słowem i mały krok.",
+      "fullDesc": "Siedem krótkich spotkań ze Słowem, które pomagają odnaleźć spokój i zrobić dobry krok. Prosty plan biblijny Christian Culture w rytmie Twojego dnia.",
+      "type": "service",
+      "url": "https://polskieradio.cc/badz-blisko",
       "status": "active",
       "lang": "pl",
-      "icon": "📓",
-      "category": "Biblia & Edukacja",
-      "verifiedDate": "2026-11-04",
+      "icon": "✨",
+      "category": "Duchowość i Modlitwa",
       "keywords": [
-        "the journal",
-        "pamiętnik",
-        "90 dni",
-        "młodzież",
-        "nastolatki",
-        "emocje",
-        "spokój"
+        "badz blisko",
+        "bądź blisko",
+        "7 dni",
+        "plan biblijny",
+        "oddech",
+        "wyciszenie",
+        "modlitwa",
+        "Słowo Boże"
       ],
       "connections": [
-        "akademia",
-        "pokonac-goliata",
-        "holos-system",
-        "lumina-main"
+        "mojabiblia",
+        "akademia-glowna"
       ]
-    },
-    {
-      "id": "help",
-      "label": "CC Pomoc",
-      "url": "/help",
-      "description": "Katalog wsparcia tematycznego CC – ponad 60 stron dla specjalistów i potrzebujących",
-      "category": "wsparcie",
-      "status": "active",
-      "addedBy": "A",
-      "addedDate": "2026-11-04"
     }
   ],
   "lastUpdated": "2026-11-03"
