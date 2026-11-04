@@ -1,4 +1,4 @@
-import { DAYS } from './data/days.js';
+import { DAYS } from './data/days.js?v=20261104_materials1';
 const daySelect = document.querySelector('#day');
 const previous = document.querySelector('#previous');
 const next = document.querySelector('#next');

@@ -41,6 +41,8 @@ test('shared release standard preserves the reviewed landing byte for byte',()=>
   assert.match(html,/\/js\/cc-mobile-edge\.js/);
   assert.match(html,/\/js\/cc-back-to-top\.js/);
   for(const match of html.matchAll(/(?:src|href)="(\/the-journal\/[^"#]+)"/g))assert(fs.existsSync(new URL('..'+match[1],import.meta.url)),match[1]);
+  assert.match(html,/app\.js\?v=20261104_materials1/);
+  assert.match(fs.readFileSync(new URL('../the-journal/app.js',import.meta.url),'utf8'),/days\.js\?v=20261104_materials1/);
 });
 test('youth portal address remains unclaimed by the new campaign rules',()=>{
   const redirects=fs.readFileSync(new URL('../_redirects',import.meta.url),'utf8');
