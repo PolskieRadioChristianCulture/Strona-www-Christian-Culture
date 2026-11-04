@@ -12,6 +12,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://polskieradio.cc/eM</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-kim-jestem-gdy-nikt-nie-patrzy-uczciwosc-sumienie.jpg</image:loc>
+      <image:title>Kim jestem, gdy nikt nie patrzy? Uczciwość i sumienie według Biblii</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -219,16 +229,6 @@
     <image:image>
       <image:loc>https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-26-od-wiezienia-do-palacu.jpg</image:loc>
       <image:title>Z Biblią za Pan Brat: Dzień 26 — Od więzienia do pałacu: Teologia oczekiwania, roztropności gospodarczej i opatrzności (Rdz 40–41)</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://polskieradio.cc/eM</loc>
-    <lastmod>2026-10-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://polskieradio.cc/images/news/art-kim-jestem-gdy-nikt-nie-patrzy-uczciwosc-sumienie.jpg</image:loc>
-      <image:title>Kim jestem, gdy nikt nie patrzy? Uczciwość i sumienie według Biblii</image:title>
     </image:image>
   </url>
   <url>

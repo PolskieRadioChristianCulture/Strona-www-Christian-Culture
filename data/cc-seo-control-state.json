@@ -1,18 +1,18 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-04T14:13:02.851Z",
+  "generatedAt": "2026-11-04T14:47:48.396Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 85,
-    "validUrls": 85,
+    "totalValidatedUrls": 86,
+    "validUrls": 86,
     "invalidUrls": 0,
-    "newsArticlesCount": 79,
-    "googleNews48hCount": 33,
+    "newsArticlesCount": 80,
+    "googleNews48hCount": 34,
     "akademiaUrlsCount": 66,
     "bibliaUrlsCount": 4,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 2,
-    "pagesUrlsCount": 37,
+    "pagesUrlsCount": 38,
     "enUrlsCount": 1
   },
   "discoveryFiles": [
@@ -31,13 +31,13 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 23747,
+      "sizeBytes": 23721,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 30926,
+      "sizeBytes": 30989,
       "status": "OK"
     },
     {
@@ -49,7 +49,7 @@
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 27409,
+      "sizeBytes": 28107,
       "status": "OK"
     },
     {
@@ -79,7 +79,7 @@
     {
       "path": "/sitemaps/pages.xml",
       "exists": true,
-      "sizeBytes": 6233,
+      "sizeBytes": 6402,
       "status": "OK"
     },
     {
@@ -90,7 +90,7 @@
     }
   ],
   "indexNow": {
-    "keyConfigured": true,
+    "keyConfigured": false,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
     "totalQueued": 40,
     "pendingCount": 40,
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-04T14:13:02.846Z",
+        "queuedAt": "2026-11-04T14:47:48.390Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-04T14:13:02.846Z",
+        "queuedAt": "2026-11-04T14:47:48.390Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-04T14:13:02.846Z",
+        "queuedAt": "2026-11-04T14:47:48.390Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-04T14:13:02.846Z",
+        "queuedAt": "2026-11-04T14:47:48.390Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-04T14:13:02.846Z",
+        "queuedAt": "2026-11-04T14:47:48.390Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -382,11 +382,7 @@
         },
         "status": "PENDING"
       }
-    ],
-    "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 338,
-    "lastSubmittedCount": 338,
-    "lastSubmittedAt": "2026-11-04T14:13:04.860Z"
+    ]
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +398,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/czy-zyczliwosc-bez-granic-moze-nas-wyczerpac-biblia-o-madrym-pomaganiu.html",
+      "canonicalUrl": "https://polskieradio.cc/eM",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan.html",
       "canonicalUrl": "https://polskieradio.cc/news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan",
@@ -593,15 +597,6 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/survival-christian-culture-przygotowanie-na-trudne-czasy.html",
-      "canonicalUrl": "https://polskieradio.cc/news/survival-christian-culture-przygotowanie-na-trudne-czasy",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
-  ],
-  "lastInstantIndexingAt": "2026-11-04T14:13:04.860Z"
+  ]
 }

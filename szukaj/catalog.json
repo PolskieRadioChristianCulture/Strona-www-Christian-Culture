@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-04T14:38:19.525Z",
+  "updatedAt": "2026-11-04T14:48:03.969Z",
   "totalItems": 408,
   "contextGuides": {
     "nadzieja": {
@@ -1061,30 +1061,6 @@
     }
   },
   "items": [
-    {
-      "title": "THE JOURNAL — pamiętnik dla młodzieży na 90 dni",
-      "category": "Edukacja i rozwój",
-      "url": "https://polskieradio.cc/the-journal",
-      "description": "Projekt pamiętnika Christian Culture dla młodzieży 13–17 lat: 90 roboczych tematów o emocjach, potrzebach, relacjach i małych krokach. Strona prezentacyjna z podglądem; książka w przygotowaniu, bez diagnoz i obietnic terapeutycznych.",
-      "tags": [
-        "the journal",
-        "journal",
-        "dziennik",
-        "dziennik młodzieżowy",
-        "pamiętnik",
-        "pamietnik",
-        "nastolatki",
-        "młodzież",
-        "90 dni",
-        "90dni",
-        "moj dzien",
-        "twoja historia",
-        "emocje",
-        "spokój",
-        "samopoznanie"
-      ],
-      "featured": true
-    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
@@ -2865,6 +2841,30 @@
       "featured": false
     },
     {
+      "title": "THE JOURNAL — pamiętnik dla młodzieży na 90 dni",
+      "category": "Edukacja i rozwój",
+      "url": "https://polskieradio.cc/the-journal",
+      "description": "Projekt pamiętnika Christian Culture dla młodzieży 13–17 lat: 90 roboczych tematów o emocjach, potrzebach, relacjach i małych krokach. Strona prezentacyjna z podglądem; książka w przygotowaniu, bez diagnoz i obietnic terapeutycznych.",
+      "tags": [
+        "the journal",
+        "journal",
+        "dziennik",
+        "dziennik młodzieżowy",
+        "pamiętnik",
+        "pamietnik",
+        "nastolatki",
+        "młodzież",
+        "90 dni",
+        "90dni",
+        "moj dzien",
+        "twoja historia",
+        "emocje",
+        "spokój",
+        "samopoznanie"
+      ],
+      "featured": true
+    },
+    {
       "title": "Usługi EkoCC — Chrześcijańskie Usługi, Pomoc i Specjaliści z Wartościami",
       "category": "Narzędzia i misja",
       "url": "https://polskieradio.cc/uslugi",
@@ -3959,6 +3959,40 @@
     {
       "type": "article",
       "access": "public",
+      "publishedAt": "2026-10-24T12:00:00Z",
+      "title": "Kim jestem, gdy nikt nie patrzy? Uczciwość i sumienie według Biblii",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/eM",
+      "description": "Kim jesteś, gdy nikt nie patrzy? Mocny chrześcijański rachunek sumienia o uczciwości, charakterze, prawdzie i łasce autorstwa Cezarego Rogowskiego w ramach eM — Motywacja Christian Culture.",
+      "contentSnippet": "Są pytania, przed którymi można uciekać latami. Można zagłuszyć je pracą, sukcesem, religijną aktywnością, opinią innych. Ale przychodzi chwila, gdy zostajemy sami — i wtedy jedno pytanie nie daje spokoju: kim jestem, gdy nikt nie patrzy? Nie pytam dziś, co ludzie o mnie mówią. Pytam, kim jestem, gdy nie ma oklasków, kontroli ani świadków. Czy mówi…",
+      "author": "Cezary Rogowski",
+      "date": "24 października 2026",
+      "tags": [
+        "eM",
+        "motywacja",
+        "mcc",
+        "cezary rogowski",
+        "uczciwość",
+        "sumienie",
+        "etyka chrześcijańska",
+        "biblia",
+        "charakter",
+        "prawda",
+        "łaska",
+        "rozliczenie",
+        "wiara",
+        "Motywacja / Etyka chrześcijańska",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "1 Sm 16,7 Pan bowiem nie patrzy na to, na co patrzy człowiek, bo człowiek patrzy na to, co jest przed oczyma, ale Pan patrzy na serce.",
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
       "publishedAt": "2026-11-03T14:00:00+01:00",
       "title": "Gdy kamienie wołają w Jerozolimie: Jak bulla króla Ezechiasza, tunel Siloe i stela z Tel Dan weryfikują historię biblijną",
       "category": "Artykuły & Wiedza CCN",
@@ -4650,40 +4684,6 @@
         "ccn"
       ],
       "scripture": "Rdz 40:1–41:57; Dn 2:27–28; J 6:35; J 16:33 (UBG) ",
-      "featured": true
-    },
-    {
-      "type": "article",
-      "access": "public",
-      "publishedAt": "2026-10-24T12:00:00Z",
-      "title": "Kim jestem, gdy nikt nie patrzy? Uczciwość i sumienie według Biblii",
-      "category": "Artykuły & Wiedza CCN",
-      "url": "https://polskieradio.cc/eM",
-      "description": "Kim jesteś, gdy nikt nie patrzy? Mocny chrześcijański rachunek sumienia o uczciwości, charakterze, prawdzie i łasce autorstwa Cezarego Rogowskiego w ramach eM — Motywacja Christian Culture.",
-      "contentSnippet": "Są pytania, przed którymi można uciekać latami. Można zagłuszyć je pracą, sukcesem, religijną aktywnością, opinią innych. Ale przychodzi chwila, gdy zostajemy sami — i wtedy jedno pytanie nie daje spokoju: kim jestem, gdy nikt nie patrzy? Nie pytam dziś, co ludzie o mnie mówią. Pytam, kim jestem, gdy nie ma oklasków, kontroli ani świadków. Czy mówi…",
-      "author": "Cezary Rogowski",
-      "date": "24 października 2026",
-      "tags": [
-        "eM",
-        "motywacja",
-        "mcc",
-        "cezary rogowski",
-        "uczciwość",
-        "sumienie",
-        "etyka chrześcijańska",
-        "biblia",
-        "charakter",
-        "prawda",
-        "łaska",
-        "rozliczenie",
-        "wiara",
-        "Motywacja / Etyka chrześcijańska",
-        "Cezary Rogowski",
-        "artykuł",
-        "wiedza",
-        "ccn"
-      ],
-      "scripture": "1 Sm 16,7 Pan bowiem nie patrzy na to, na co patrzy człowiek, bo człowiek patrzy na to, co jest przed oczyma, ale Pan patrzy na serce.",
       "featured": true
     },
     {
@@ -10115,7 +10115,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-04T14:13:05.146Z",
+    "updatedAt": "2026-11-04T14:48:04.040Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "4 listopada 2026",
     "pools": [

@@ -311,7 +311,7 @@ Status w wyszukiwarce ekosystemu:
     new Paragraph({
       children: [
         new TextRun({
-          text: '👉 [WSPผู้IERAM TO]: https://polskieradio.cc/wspieraj  |  Patronite: https://patronite.pl/osobowoscplus',
+          text: '👉 [WSPIERAM TO]: https://polskieradio.cc/wspieraj  |  Patronite: https://patronite.pl/osobowoscplus',
           bold: true,
           color: 'FF7A00',
           size: 22

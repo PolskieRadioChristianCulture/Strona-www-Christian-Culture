@@ -41,6 +41,7 @@ export const AUTHORS: Record<string, Author> = {
 };
 
 export const BREAKING_NEWS: string[] = [
+  "NOWY ARTYKUŁ eM (@MCC): Czy życzliwość bez granic może nas wyczerpać? Biblia o mądrym pomaganiu — analiza Cezarego Rogowskiego (https://polskieradio.cc/news/czy-zyczliwosc-bez-granic-moze-nas-wyczerpac-biblia-o-madrym-pomaganiu)",
   "CCN HISTORIA & ARCHEOLOGIA: Gdy kamienie wołają w Jerozolimie — bulla króla Ezechiasza, tunel Siloe i stela z Tel Dan weryfikują historię biblijną (https://polskieradio.cc/news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan)",
   "Z Biblią za Pan Brat: Dzień 34 — Płonący krzak: Święte Imię Boga i Boże zstąpienie na ratunek (Wj 3:1–22)",
   "Z Biblią za Pan Brat: Dzień 33 — Z wód Nilu do pustyni Madian: Ocalenie Mojżesza, czas próby i Boża pamięć o przymierzu (Wj 2:1–25)",
@@ -82,6 +83,76 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    id: 'art-czy-zyczliwosc-bez-granic-moze-nas-wyczerpac-biblia-o-madrym-pomaganiu',
+    title: 'Czy życzliwość bez granic może nas wyczerpać? Biblia o mądrym pomaganiu',
+    slug: 'czy-zyczliwosc-bez-granic-moze-nas-wyczerpac-biblia-o-madrym-pomaganiu',
+    excerpt: 'Wielu wrażliwych ludzi myli chrześcijańską miłość z całkowitą bezradnością wobec cudzych roszczeń i wiecznym poczuciem winy. Gdy pomaganie zamienia się w przymus i wewnętrzne wyczerpanie, przestaje być radosną służbą, a staje się drogą do wypalenia. Pismo Święte ukazuje mądrość, w której troska o bliźniego idzie w parze z odpowiedzialnym szafarstwem własnych sił i serca.',
+    content: [
+      'Wielu wrażliwych ludzi myli chrześcijańską miłość z całkowitą bezradnością wobec cudzych roszczeń i wiecznym poczuciem winy. Gdy pomaganie zamienia się w przymus i wewnętrzne wyczerpanie, przestaje być radosną służbą, a staje się drogą do wypalenia. Pismo Święte ukazuje mądrość, w której troska o bliźniego idzie w parze z odpowiedzialnym szafarstwem własnych sił i serca.',
+      '1. Pułapka pomagania ponad siły — kiedy dobroć staje się ciężarem',
+      'Wielu wierzących nosi w sobie cichy, paraliżujący lęk: „Jeśli odmówię, okażę brak miłości”. W efekcie biorą na swoje barki problemy dorosłych dzieci, znajomych czy kolejne obowiązki we wspólnocie, aż ich zdrowie i relacje rodzinne zaczynają na tym cierpieć.',
+      'Tymczasem ani w nauczaniu Chrystusa, ani w pismach apostolskich nie znajdziemy wezwania do ulegania manipulacji czy brania odpowiedzialności za cudze wybory. Życzliwość potrzebuje rozeznania — bez niego łatwo pomylić miłość z ustępowaniem pod presją.',
+      '2. Jezus i Jego misja — wzorzec modlitwy i rozeznania',
+      'Ewangelia Marka opisuje jeden dzień w Kafarnaum. „Kiedy nastał wieczór i zaszło słońce, przynosili do niego wszystkich chorych oraz opętanych. A całe miasto zgromadziło się przed drzwiami” (Mk 1:32–33 UBG). Jezus „uzdrowił wielu” (w. 34). Następnego dnia „wstawszy wczesnym rankiem, przed świtem, wyszedł i udał się na odludne miejsce, i tam się modlił” (w. 35).',
+      'Gdy uczniowie Go odnaleźli i powiedzieli: „Wszyscy cię szukają”, odpowiedział: „Chodźmy do przyległych miasteczek, abym i tam głosił, bo po to przyszedłem” (Mk 1:37–38 UBG). Jezus nie zlekceważył cierpiących, ale nie pozwolił, by oczekiwania tłumu wyznaczyły kierunek Jego misji. Modlitwa w odosobnieniu poprzedzała decyzję. To wzór dla nas: rozeznanie rodzi się w obecności Ojca, a nie pod presją cudzych oczekiwań.',
+      '3. Brzemię i własne brzemię — rozróżnienie w Liście do Galacjan',
+      'Kontekst: Paweł pisze do zborów w Galacji, zagrożonych powrotem do legalizmu. W rozdziale 6 pokazuje, jak wygląda życie według Ducha we wspólnocie. Najpierw wzywa: „Jedni drugich brzemiona noście, a tak wypełniajcie prawo Chrystusa” (Ga 6:2 UBG). Kilka wersetów dalej dodaje: „Każdy bowiem poniesie swoje własne brzemię” (Ga 6:5 UBG).',
+      'W polskim przekładzie oba wersety mówią o „brzemieniu”, ale grecki oryginał używa dwóch różnych słów. W wersecie 2 pada słowo baros (Strong G922) — ciężar przytłaczający, którego człowiek nie udźwignie sam. W wersecie 5 — phortion (Strong G5413), czyli ładunek, który każdy niesie jako swoją codzienną odpowiedzialność. To samo słowo pojawia się w słowach Jezusa: „moje brzemię lekkie” (Mt 11:30 UBG).',
+      'Wniosek: chrześcijanin jest wezwany, by pomóc bratu, gdy przygniata go ciężar ponad siły. Nie oznacza to jednak przejmowania za kogoś jego codziennych obowiązków i decyzji. Werset 4 dopowiada: „Każdy zaś niech bada swoje własne czyny” (Ga 6:4 UBG).',
+      '4. Cztery biblijne filary mądrej życzliwości',
+      'Po pierwsze: straż nad własnym sercem. „Strzeż twego serca z całą pilnością, bo z niego tryska życie” (Prz 4:23 UBG). Kto stale żyje ponad siły, łatwo traci cierpliwość wobec tych, którym chciał służyć.',
+      'Po drugie: prawda w miłości. „Ale wasza mowa niech będzie: Tak – tak, nie – nie” (Mt 5:37 UBG). Spokojna i życzliwa odmowa jest uczciwsza niż „tak” wypowiedziane ze strachu, za którym idzie żal.',
+      'Po trzecie: rozeznanie owoców. Mądra pomoc wspiera samodzielność człowieka i prowadzi go do Boga; pomoc bez rozeznania może utrwalać zależność i zwalniać z odpowiedzialności.',
+      'Po czwarte: wolność od ludzkiej aprobaty. „Gdybym nadal ludziom chciał się przypodobać, nie byłbym sługą Chrystusa” (Ga 1:10 UBG). Służba podejmowana dla czyjegoś uznania szybko rodzi zniechęcenie.',
+      '5. Praktyczny krok na dziś: jak odmówić z łaską i spokojem',
+      'Gdy ktoś po raz kolejny oczekuje od Ciebie czasu, energii lub pieniędzy ponad Twoje możliwości, zastosuj prostą zasadę: szacunek dla osoby, stanowczość wobec prośby. Zanim odpowiesz, zatrzymaj się na krótką modlitwę i zapytaj: czy to jest ciężar ponad siły tej osoby, czy jej własna, codzienna odpowiedzialność?',
+      'Możesz powiedzieć serdecznie: „Bardzo cię cenię i zależy mi na tobie, ale w tej sprawie nie mogę ci pomóc. Modlę się, by Bóg dał ci mądrość w rozwiązaniu tej sytuacji”. Zdrowe relacje zwykle przetrwają taką granicę, a jasność często pomaga obu stronom.',
+      'PODSUMOWANIE REDAKCYJNE CCN',
+      'Życzliwość podoba się Bogu, gdy płynie z serca wolnego i wypełnionego Jego pokojem. Nie musisz zbawiać świata — Chrystus już dokonał tego dzieła na krzyżu. Twoim zadaniem jest być wiernym szafarzem życia, sił i darów, które On ci powierzył.',
+      'WEZWANIE DO DZIAŁANIA I MODLITWA',
+      'Zatrzymaj się na chwilę w modlitwie: Panie Boże, dziękuję Ci za serce wrażliwe na potrzeby drugiego człowieka. Proszę o mądrość i rozeznanie, abym umiał nosić brzemiona moich braci, gdy przygniata ich ciężar ponad siły, i abym nie uciekał od własnej odpowiedzialności. Ucz mnie mówić prawdę w miłości i strzec mojego serca, aby moja służba płynęła z pokoju i wolności w Chrystusie. W imieniu Jezusa, Amen.'
+    ],
+    category: 'wiara',
+    categoryLabel: 'eM • Motywacja / Etyka chrześcijańska',
+    author: AUTHORS.cezary,
+    publishedAt: '2026-11-04T10:00:00+01:00',
+    dateFormatted: '4 listopada 2026',
+    imageUrl: '/images/news/art-czy-zyczliwosc-bez-granic-moze-nas-wyczerpac.jpg',
+    imageCaption: 'Mądre pomaganie i równowaga serca według Pisma Świętego — Christian Culture eM.',
+    readTimeMinutes: 6,
+    isHero: true,
+    isPopular: true,
+    popularRank: 1,
+    tags: [
+      'eM',
+      'motywacja',
+      'mcc',
+      'cezary rogowski',
+      'mądre pomaganie',
+      'granice w relacjach',
+      'życzliwość',
+      'Galacjan 6',
+      'biblia',
+      'EkoCC365'
+    ],
+    primaryPortalUrl: 'https://polskieradio.cc/eM',
+    primaryPortalLabel: 'eM • Motywacja Christian Culture',
+    scriptureReference: {
+      verse: 'List do Galacjan 6:2, 5 (UBG)',
+      text: 'Jedni drugich brzemiona noście, a tak wypełniajcie prawo Chrystusa... Każdy bowiem poniesie swoje własne brzemię.',
+      strongCode: 'G922'
+    },
+    sourceCitation: {
+      sourceName: 'Biblia UBG (Uwspółcześniona Biblia Gdańska) & Strong\'s Greek Lexicon (G922 baros, G5413 phortion)',
+      sourceUrl: 'https://polskieradio.cc/mojabiblia'
+    },
+    resourceLinks: [
+      { label: 'Portal eM Motywacja CC', url: 'https://polskieradio.cc/eM' },
+      { label: 'Interlinearna MojaBiblia CC (Galacjan 6)', url: '/mojabiblia' },
+      { label: 'Wsparcie Misji Christian Culture', url: '/wspieraj' }
+    ]
+  },
   {
     id: 'art-gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan',
     title: 'Gdy kamienie wołają w Jerozolimie: Jak bulla króla Ezechiasza, tunel Siloe i stela z Tel Dan weryfikują historię biblijną',
