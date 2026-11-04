@@ -1594,9 +1594,11 @@ export default {
       assetUrl.pathname = '/the-journal/';
       const asset = await env.ASSETS.fetch(new Request(assetUrl, { method: request.method, headers: { Accept: 'text/html' } }));
       const response = new Response(asset.body, asset);
+      // Cloudflare JavaScript Detections reads this response nonce for its injected protection script.
+      const journalNonce = crypto.randomUUID().replaceAll('-', '');
       response.headers.set('Content-Type', 'text/html; charset=utf-8');
       response.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
-      response.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; img-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'");
+      response.headers.set('Content-Security-Policy', `default-src 'self'; script-src 'self' 'nonce-${journalNonce}' https://www.googletagmanager.com; style-src 'self'; img-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`);
       response.headers.set('X-Frame-Options', 'DENY');
       response.headers.set('X-Content-Type-Options', 'nosniff');
       response.headers.set('Referrer-Policy', 'no-referrer');

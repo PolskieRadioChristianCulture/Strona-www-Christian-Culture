@@ -18,6 +18,8 @@ test('canonical landing uses directory assets and applies an isolated content po
   assert.equal(response.status,200);
   assert.equal(fetched,'/the-journal/');
   assert.match(response.headers.get('Content-Security-Policy'),/form-action 'none'/);
+  assert.match(response.headers.get('Content-Security-Policy'),/'nonce-[a-f0-9]{32}'/);
+  assert(!response.headers.get('Content-Security-Policy').includes('unsafe-inline'));
   assert.match(response.headers.get('Content-Security-Policy'),/https:\/\/\*\.google-analytics.com/);
   assert.match(await response.text(),/rel="canonical" href="https:\/\/polskieradio.cc\/the-journal"/);
 });
