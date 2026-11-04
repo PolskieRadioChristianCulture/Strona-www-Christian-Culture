@@ -106,4 +106,3 @@ Po zatwierdzeniu treści uzgodnić format, objętość, papier i oprawę z wydaw
 Po osobnym rozpoczęciu zadania określić mapę działów i redakcję; THE JOURNAL jako jeden z modułów z linkiem do istniejącego kanonicznego adresu. Adaptować wspólną nawigację, wyszukiwarkę i standardy CC. Nie budować równoległych kont, newslettera lub bazy. Każdy dział powinien mieć właściciela treści, aktualne źródła, kryterium odbioru i osobną zgodę publikacyjną.
 
 Zamykaj etapy dopiero dowodem: kod lokalny, repozytoria, deployment, domena, przeglądarka, telefon i dostawa poczty to osobne stany. Długie szczegóły do JOMA, do Czarka maksymalnie3 krótkie linie po polsku.
-
