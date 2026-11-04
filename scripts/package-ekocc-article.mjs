@@ -95,7 +95,8 @@ ${sections.map(s => `## ${s.heading}\n\n${s.paragraphs.join('\n\n')}`).join('\n\
 
 ## PODSUMOWANIE REDAKCYJNE CCN
 ${conclusion || ''}
-
+${articleData.cta ? `\n---\n\n## WEZWANIE DO DZIAŁANIA I MODLITWA\n${articleData.cta}\n` : ''}
+${articleData.tags && articleData.tags.length > 0 ? `\n**Tagi i słowa kluczowe:** ${articleData.tags.join(' ')}\n` : ''}
 ---
 
 ### ŹRÓDŁA I DOKUMENTACJA:

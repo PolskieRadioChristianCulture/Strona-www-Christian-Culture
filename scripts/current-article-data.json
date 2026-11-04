@@ -1,116 +1,82 @@
 {
-  "portal": "news",
-  "type": "ANALIZA",
-  "id": "art-kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc",
-  "slug": "kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc",
-  "title": "Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę bez ulegania panice według wytycznych RCB i biblijnej roztropności",
+  "portal": "em",
+  "type": "MOTYWACJA eM",
+  "title": "Czy życzliwość bez granic może nas wyczerpać? Biblia o mądrym pomaganiu",
+  "slug": "czy-zyczliwosc-bez-granic-moze-nas-wyczerpac-biblia-o-madrym-pomaganiu",
   "author": "Cezary Rogowski",
-  "date": "2026-10-31",
-  "imagePath": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\images\\news\\art-kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc.jpg",
-  "imageCaption": "Domowy pakiet przetrwania na 72 godziny: woda, żywność długoterminowa, alternatywne źródła energii i łączności w świetle wytycznych obrony cywilnej i biblijnej przezorności.",
-  "lead": "W obliczu narastających napięć geopolitycznych, cyberataków na europejskie sieci przesyłowe oraz powtarzających się awarii infrastruktury komunalnej, temat gotowości na przerwę w dostawach prądu i wody przestaje być domeną entuzjastów survivalu, a staje się podstawową powinnością każdego odpowiedzialnego gospodarza. Rządowe Centrum Bezpieczeństwa (RCB) oraz europejskie agencje ochrony ludności rekomendują przygotowanie każdego gospodarstwa domowego na minimum 72 godziny całkowitej samowystarczalności. W biblijnej perspektywie roztropność nie jest przejawem braku wiary, lecz owocem mądrości, która pozwala zachować spokój w godzinie próby i stać się oparciem dla potrzebujących sąsiadów.",
+  "date": "2026-11-04",
+  "lead": "Wielu wrażliwych ludzi myli chrześcijańską miłość z całkowitą bezradnością wobec cudzych roszczeń i wiecznym poczuciem winy. Gdy pomaganie zamienia się w przymus i wewnętrzne wyczerpanie, przestaje być owocem Ducha, a staje się drogą do wypalenia. Pismo Święte ukazuje mądrość, w której troska o bliźniego nigdy nie niszczy Bożej odpowiedzialności za własne siły i serce.",
   "sections": [
     {
-      "heading": "1. Anatomia współczesnego blackoutu: Dlaczego 72 godziny to krytyczny próg bezpieczeństwa?",
+      "heading": "1. Pułapka pomagania ponad siły — kiedy dobroć staje się ciężarem",
       "paragraphs": [
-        "Współczesna cywilizacja opiera się na skrajnie zoptymalizowanych, lecz jednocześnie niezwykle kruchych łańcuchach dostaw typu just-in-time. Brak zasilania elektrycznego trwający dłużej niż kilka godzin nie oznacza jedynie zgaśnięcia żarówek w pokojach. W ciągu pierwszych 12–24 godzin dochodzi do wyczerpania baterii w stacjach bazowych telefonii komórkowej, zatrzymania pomp w miejskich wodociągach, paraliżu terminali płatniczych oraz wyłączenia systemów chłodniczych w supermarketach.",
-        "Raporty Europejskiej Sieci Operatorów Elektroenergetycznych (ENTSO-E) oraz Agencji UE ds. Cyberbezpieczeństwa (ENISA) wskazują, że współczesne sieci przesyłowe są narażone na sprzężone ryzyka: od ekstremalnych zjawisk pogodowych, przez awarie transformatorów najwyższych napięć, po skoordynowane ataki hybrydowe na oprogramowanie SCADA. W przypadku rozległej awarii systemowej (blackoutu) procedury ponownego podnoszenia krajowego systemu elektroenergetycznego (tzw. black start) wymagają od 24 do 72 godzin skoordynowanych działań inżynieryjnych.",
-        "Dlatego służby ratownicze i obrona cywilna na całym świecie przyjmują standard 72 godzin jako minimalny czas, w którym państwo koncentruje siły na zabezpieczeniu obiektów krytycznych (szpitali, ujęć wody, łączności państwowej). Przez pierwsze trzy doby każda rodzina musi być przygotowana do funkcjonowania w oparciu o własne rezerwy domowe."
+        "Wielu wierzących nosi w sobie cichy, paraliżujący lęk: 'Jeśli odmówię, okażę brak miłości'. W efekcie biorą na swoje barki problemy dorosłych dzieci, roszczeniowych znajomych czy kolejne obowiązki we wspólnocie, doprowadzając swoje zdrowie i relacje rodzinne na skraj załamania.",
+        "Tymczasem ani w nauczaniu Chrystusa, ani w pismach apostolskich nie znajdziemy wezwania do ulegania manipulacji czy brania odpowiedzialności za cudze wybory. Życzliwość bez rozeznania nie jest cnotą, lecz brakiem dojrzałości emocjonalnej i duchowej."
       ]
     },
     {
-      "heading": "2. Oficjalne wytyczne RCB i FEMA: Woda, żywność, energia i łączność w praktyce",
+      "heading": "2. Jezus miał granice — wzorzec odpoczynku i asertywności Mistrza",
       "paragraphs": [
-        "Zgodnie z oficjalnym „Poradnikiem na czas kryzysu i wojny” opublikowanym przez Rządowe Centrum Bezpieczeństwa (RCB) oraz wytycznymi amerykańskiej agencji FEMA (Ready.gov), podstawą domowego pakietu bezpieczeństwa jest woda pitna. Absolutne minimum fizjologiczne i sanitarne wynosi 3 litry wody na osobę na dobę, co dla czteroosobowej rodziny oznacza konieczność posiadania w stałym zapasie co najmniej 36 litrów wody butelkowanej lub w atestowanych kanistrach spożywczych.",
-        "Drugim filarem jest kaloryczna żywność o przedłużonym terminie przydatności, która nie wymaga gotowania ani przechowywania w lodówce. Zaleca się konserwy mięsne i rybne, suszone owoce, orzechy, kasze, suchary wojskowe oraz gotowe dania liofilizowane lub sterylizowane, a także prostą kuchenkę turystyczną (gazową na kartusze) z zachowaniem wszelkich zasad wentylacji.",
-        "Trzecim i czwartym elementem są alternatywne źródła energii i informacji: latarki czołowe, zapas baterii, powerbanki naładowane do pełna oraz analogowe radio na baterie lub z dynamem (korbką). Gdy sieć komórkowa i internet milkną, jedynym źródłem oficjalnych komunikatów rządowych i ostrzeżeń ratunkowych stają się fale radiowe UKF/FM oraz fale długie Polskiego Radia."
+        "Gdy przyglądamy się ziemskiej służbie Jezusa opisywanej w Ewangeliach, uderza Jego suwerenność wobec cudzych oczekiwań. Po całonocnym uzdrawianiu w Kafarnaum cały tłum szukał Go o świcie (Mk 1:35–38). Jezus jednak wstał rano, odszedł na miejsce pustynne na modlitwę, a gdy uczniowie powiedzieli: 'Wszyscy cię szukają', odpowiedział: 'Pójdźmy gdzie indziej, do pobliskich miasteczek, abym i tam głosił'.",
+        "Chrystus nie uleczył każdego chorego w Galilei w jeden dzień. Znał swoją misję i wiedział, kiedy powiedzieć 'nie' doraźnym potrzebom tłumu, aby wypełnić nadrzędny plan Ojca. Odpoczynek, modlitwa w odosobnieniu i regeneracja były integralną częścią Jego służby."
       ]
     },
     {
-      "heading": "3. Biblijna teologia przezorności: Józef w Egipcie i mądrość Księgi Przysłów (Prz 22:3 UBG)",
+      "heading": "3. Brzemię a ciężar — kluczowe rozróżnienie w Liście do Galacjan",
       "paragraphs": [
-        "Wielu wierzących popełnia poważny błąd teologiczny, myląc chrześcijańskie zaufanie Bogu z lekkomyślnością i biernością. Pismo Święte na kartach Starego i Nowego Testamentu wielokrotnie pochwala cnotę roztropności, planowania i odpowiedzialnego gospodarowania zasobami. Klasycznym tekstem normatywnym jest Księga Przysłów 22:3: „Roztropny widzi zło i ukrywa się, a prości idą dalej i ponoszą karę” (UBG).",
-        "Słowo „roztropny” (hebr. arum, Strong H6175) oznacza człowieka mądrego, przewidującego i przenikliwego, który potrafi właściwie zinterpretować sygnały ostrzegawcze i podjąć odpowiednie działania ochronne. Człowiek naiwny (hebr. peti) ignoruje fakty, usprawiedliwiając własne lenistwo fałszywą duchowością, i w rezultacie ponosi bolesne konsekwencje.",
-        "Najwspanialszym historycznym przykładem biblijnej przezorności w skali państwowej był patriarcha Józef w Egipcie. Otrzymawszy od Boga objawienie o nadchodzącym kryzysie, nie poprzestał na modlitwie, lecz wdrożył czternastoletni plan strategiczny: „Niech zbierają wszelką żywność w tych dobrych latach, które nadchodzą, i niech gromadzą zboże... Żywność ta będzie zapasem dla kraju na siedem lat głodu” (Rdz 41:35–36 UBG). Boża suwerenność nie wyklucza ludzkiego planowania — Bóg posługuje się mądrymi szafarzami, aby ratować życie tysięcy ludzi."
+        "Apostoł Paweł w Liście do Galacjan (Ga 6:2–5) dokonuje precyzyjnego rozróżnienia, które w polskim języku bywa zatarte, a w greckim oryginale jest krystalicznie jasne. W wersecie 2 Paweł pisze: 'Jedni drugich brzemiona noście' (gr. baros — nagły, przytłaczający głaz, nieszczęście, żałoba, katastrofa, której człowiek nie udźwignie sam).",
+        "Zaledwie trzy wersety dalej (Ga 6:5) dodaje jednak: 'Każdy bowiem poniesie swój własny ciężar' (gr. phortion — żołnierski plecak, codzienna odpowiedzialność za własne życie, rachunki, emocje i decyzje). Chrześcijanin jest wezwany, by pomóc bratu, gdy przygniecie go głaz (baros), ale nie wolno mu nosić za nikogo jego plecaka (phortion), bo wtedy wspiera bierność i egoizm."
       ]
     },
     {
-      "heading": "4. Troska o domowników a grzech zaniechania: Egzegeza 1 Listu do Tymoteusza 5:8",
+      "heading": "4. Cztery biblijne filary mądrej życzliwości",
       "paragraphs": [
-        "Odpowiedzialność za zabezpieczenie rodziny ma w Nowym Testamencie wymiar twardego nakazu moralnego. W 1 Liście do Tymoteusza apostoł Paweł formułuje jedno z najostrzejszych ostrzeżeń w całym kanonie biblijnym: „A jeśli ktoś o swoich, zwłaszcza o domowników, nie dba, wyparł się wiary i gorszy jest od niewierzącego” (1 Tm 5:8 UBG).",
-        "Użyty w tekście greckim czasownik pronoéo (Strong G4306) dosłownie oznacza: „myśleć z wyprzedzeniem”, „przewidywać potrzeby”, „zatroszczyć się zawczasu”. Wiara, która nie przekłada się na praktyczną dbałość o chleb, wodę, leki i ciepło dla własnych dzieci i schorowanych rodziców, jest w oczach apostoła hipokryzją i duchowym bankructwem.",
-        "Ojciec i matka nie mogą zasłaniać się frazesami w chwili, gdy z powodu braku podstawowych zapasów ich dzieci marzną i głodują podczas zimowego blackoutu. Przygotowanie apteczki, zapasu stale przyjmowanych leków na 30 dni, ciepłych koców i bezpiecznego źródła światła jest bezpośrednią realizacją Bożego powołania do opieki nad domem."
+        "Po pierwsze: Straż nad własnym sercem. 'Czujniej niż wszystkiego innego strzeż swego serca, bo z niego tryskają źródła życia' (Prz 4:23 UBG). Nie da się nalać wody z pustego dzbana — człowiek wyczerpany i zgorzkniały zaczyna ranić tych, których chciał kochać.",
+        "Po drugie: Prawda w miłości. Odmowa wypowiedziana spokojnie i z szacunkiem jest wyrazem prawdomówności: 'Niech wasze słowo będzie: Tak – tak, Nie – nie' (Mt 5:37). Powiedzenie 'tak' ze strachu, a potem przeżywanie żalu, jest fałszem.",
+        "Po trzecie: Rozeznanie owoców. Prawdziwa pomoc usamodzielnia człowieka i prowadzi go do Boga; fałszywa pomoc uzależnia go od człowieka i zwalnia z odpowiedzialności.",
+        "Po czwarte: Wolność od ludzkiej aprobaty. 'Gdybym jeszcze ludziom chciał się przypodobać, nie byłbym sługą Chrystusa' (Ga 1:10). Służba wypływająca z chęci zdobycia czyjegoś uznania szybko rodzi zniechęcenie."
       ]
     },
     {
-      "heading": "5. Odpowiedzialność zamiast egoizmu: Chrześcijański survival to służba i pomoc sąsiedzka",
+      "heading": "5. Praktyczny krok na dziś: jak odmówić z łaską i spokojem",
       "paragraphs": [
-        "Istnieje fundamentalna różnica między świeckim nurtem tzw. „preppersów” a chrześcijańską szkołą przetrwania (SURVIVAL Christian Culture). Świecki surwiwalizm zbyt często wyrasta z paranoi, agresywnej izolacji, gromadzenia broni i budowy warownych bunkrów z założeniem, że każdy bliźni za drzwiami jest śmiertelnym wrogiem, którego należy odpędzić siłą.",
-        "Chrześcijański etos przetrwania jest biegunowo odmienny: przygotowujemy się po to, aby nie być ciężarem dla innych, lecz by w chwili kryzysu mieć czym podzielić się z bezbronną wdową, samotną matką czy starszym sąsiadem z klatki obok. Pan Jezus nauczał: „Większa jest radość w dawaniu niż w braniu” (Dz 20:35 UBG). Gdy Twoja rodzina ma zabezpieczone podstawowe potrzeby, Twoje serce nie jest sparaliżowane walką o przetrwanie, lecz otwarte na służbę i ewangeliczne świadectwo miłości.",
-        "W historii największych kataklizmów i wojen to właśnie zorganizowane, zintegrowane wspólnoty wierzących okazywały się najskuteczniejszymi centrami ratunku, dzielenia się chlebem i wnoszenia pokoju w serca zdesperowanych ludzi. Chrześcijanin nie buduje schronu po to, by patrzeć na ginący świat, lecz stawia dom na Skale, aby dawać schronienie wędrowcom w czasie nawałnicy."
-      ]
-    },
-    {
-      "heading": "6. Wolność od ducha lęku: Duchowa kotwica pokoju w Chrystusie (2 Tm 1:7; Ps 46:1–2 UBG)",
-      "paragraphs": [
-        "Najważniejszym ekwipunkiem chrześcijanina w godzinie jakiegokolwiek kryzysu nie jest filtr do wody ani radiotelefon, lecz stan jego serca. Apostoł Paweł przypominał swojemu młodemu uczniowi: „Nie dał nam bowiem Bóg ducha lęku, ale mocy i miłości, i zdrowego umysłu” (2 Tm 1:7 UBG). Użyte tu słowo sophronismos (Strong G4995) oznacza zrównoważenie, trzeźwość myślenia, panowanie nad sobą i dyscyplinę umysłu ugruntowaną w Bożej prawdzie.",
-        "Lęk jest złym doradcą, który paraliżuje proces decyzyjny i prowadzi do paniki. Przebudzony ze snu chrześcijanin wie, do Kogo należy jego życie: „Bóg jest naszą ucieczką i siłą, najpewniejszą pomocą w utrapieniu. Dlatego nie będziemy się bać, choćby się ziemia poruszyła i góry zapadły w środek morza” (Ps 46:1–2 UBG). Żadna awaria sieci energetycznej, żaden krach walutowy ani kryzys geopolityczny nie jest w stanie odłączyć nas od miłości Chrystusa (Rz 8:38–39).",
-        "Zrób dzisiaj to, co do ciebie należy: uporządkuj dom, skompletuj 72-godzinny zapas, porozmawiaj z bliskimi o planie awaryjnym. Następnie zegnij kolana przed Stwórcą, oddaj Mu stery swojego życia i śpij spokojnie, bo Ten, który strzeże Twojego domu, nie drzemie ani nie śpi (Ps 121:4)."
+        "Gdy ktoś po raz kolejny oczekuje od Ciebie poświęcenia czasu, energii lub pieniędzy, które przekraczają Twoje siły i naruszają pokój Twojego domu, zastosuj prostą biblijną zasadę: szacunek dla osoby, stanowczość wobec prośby.",
+        "Możesz powiedzieć serdecznie: 'Bardzo cię cenię i zależy mi na tobie, ale w tej sprawie nie mogę ci pomóc. Modlę się, by Bóg dał ci mądrość w rozwiązaniu tej sytuacji'. Prawdziwe relacje przetrwają taką granicę; relacje oparte na wykorzystywaniu rozpadną się — i będzie to błogosławieństwo."
       ]
     }
   ],
-  "conclusion": "Blackout i awaria infrastruktury krytycznej to realne wyzwania współczesnego świata, które nie powinny budzić w nas paniki, lecz chrześcijańską roztropność. Wytyczne RCB dotyczące pakietu 72-godzinnego idealnie współgrają z biblijnym etosem mądrego szafarza. Łącząc praktyczne przygotowanie materialne z duchowym pokojem w Chrystusie, stajemy się ludźmi nadziei, gotowymi służyć wsparciem i miłością w najtrudniejszych chwilach próby.",
-  "cta": "Trzy konkretne kroki dla Ciebie na dziś:\n1. Skompletuj domowy zapas wody pitnej (minimum 3 litry na osobę na dobę na 3 dni) oraz proste źródła światła (latarki czołowe, zapas baterii) i radio analogowe.\n2. Przygotuj plan awaryjny dla rodziny — wyznaczcie stały punkt zbiórki i alternatywny sposób komunikacji na wypadek wyłączenia sieci komórkowej.\n3. Oddaj swoje lęki Bogu w modlitwie — podziękuj za Jego wierność i proś o mądrość oraz odwagę, aby w chwili próby być oparciem dla swoich bliskich i sąsiadów.",
+  "conclusion": "Życzliwość podoba się Bogu tylko wtedy, gdy płynie z serca wolnego, wypełnionego pokojem i miłością Ducha Świętego. Nie jesteś Zbawicielem świata — On już przyszedł i dokonał dzieła na krzyżu. Twoim zadaniem jest być wiernym szafarzem życia, sił i talentów, które ci powierzył.",
+  "cta": "Zatrzymaj się na chwilę w modlitwie: Panie Boże, dziękuję Ci za dar serca wrażliwego na potrzeby drugiego człowieka. Proszę Cię o mądrość i rozeznanie, abym potrafił ofiarnie nosić brzemiona moich braci w chwilach katastrofy, nie biorąc jednak na siebie cudzych zaniedbań i nie uciekając przed własną odpowiedzialnością. Ucz mnie mówić prawdę w miłości i strzec mojego serca, aby moja służba wypływała z pokoju i wolności w Chrystusie. W imieniu Jezusa, Amen.",
   "tags": [
-    "@CezaryRogowski",
-    "@CCNNews",
-    "@SurvivalCC",
-    "@ChristianCulture",
-    "#Survival",
-    "#Blackout",
-    "#Bezpieczeństwo",
-    "#RCB",
-    "#ObronaCywilna",
-    "#KsięgaPrzysłów",
-    "#Przezorność",
-    "#1Tm58",
-    "#UBG",
-    "#Rodzina",
-    "#Wiara"
+    "@EkoCC",
+    "@eM",
+    "#ZybertynMilosci",
+    "#MadrePomaganie",
+    "#GraniceWRelacjach",
+    "#AsertywnoscChrzescijanska",
+    "#EkoCC365",
+    "#Galacjan6"
   ],
   "sources": [
-    {
-      "name": "Rządowe Centrum Bezpieczeństwa (RCB) — „Poradnik na czas kryzysu i wojny: Bądź gotowy na 72 godziny”",
-      "url": "https://www.gov.pl/web/rcb/poradnik-na-czas-kryzysu-i-wojny"
-    },
-    {
-      "name": "Agencja UE ds. Cyberbezpieczeństwa (ENISA) & ENTSO-E — „Critical Grid Security & Winter Outlook 2026”",
-      "url": "https://www.enisa.europa.eu/publications"
-    },
-    {
-      "name": "Federal Emergency Management Agency (FEMA) — „Ready.gov Emergency Supply Kit Standards”",
-      "url": "https://www.ready.gov/kit"
-    }
+    { "name": "Biblia UBG (Uwspółcześniona Biblia Gdańska) — Ga 6:1-5; Mk 1:35-38; Prz 4:23; Mt 11:28-30" },
+    { "name": "Strong's Greek Lexicon — analiza pojęć baros (G922) oraz phortion (G5413)" },
+    { "name": "EkoCC Podręcznik Redakcyjny (Wersja 1.0, 30 października 2026) — Formacja chrześcijańska i etyka służby" }
   ],
-  "scripture": "Księga Przysłów 22:3; Rdz 41:33–36; 1 Tm 5:8; 2 Tm 1:7; Ps 46:1–3; Mt 6:31–34 (Uwspółcześniona Biblia Gdańska - UBG)",
+  "scripture": "„Jedni drugich brzemiona noście, a tak wypełniajcie prawo Chrystusa... Każdy bowiem poniesie swój własny ciężar.” (List do Galacjan 6:2, 5, UBG)",
+  "imagePath": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\images\\news\\art-czy-zyczliwosc-bez-granic-moze-nas-wyczerpac.jpg",
+  "imageCaption": "Mądre pomaganie i równowaga serca według Pisma Świętego — Christian Culture eM",
   "seo": {
-    "title": "Blackout i 72h w domu: Jak zabezpieczyć rodzinę wg RCB i Biblii",
-    "description": "Blackout i kryzys sieci: poradnik 72h samowystarczalności. Wytyczne RCB, FEMA i biblijna roztropność (Prz 22:3; 1 Tm 5:8). Analiza Cezarego Rogowskiego.",
+    "title": "Czy życzliwość bez granic może wyczerpać? Biblia o mądrym pomaganiu | EkoCC",
+    "description": "Czy chrześcijanin musi zgadzać się na wszystko? Zobacz, jak Jezus stawiał granice i co List do Galacjan mówi o brzemionach i odpowiedzialności za własne życie.",
     "keywords": [
-      "blackout",
-      "survival",
-      "72 godziny",
-      "RCB",
-      "FEMA",
-      "zapasy domowe",
-      "bezpieczeństwo rodziny",
-      "Cezary Rogowski",
-      "CCN News",
-      "Księga Przysłów",
-      "przezorność",
-      "UBG",
-      "chrześcijański survival",
-      "odporność na kryzys"
+      "życzliwość",
+      "mądre pomaganie",
+      "granice w relacjach",
+      "wypalenie",
+      "Biblia o odpoczynku",
+      "Galacjan 6",
+      "asertywność chrześcijańska",
+      "EkoCC"
     ]
   }
 }
