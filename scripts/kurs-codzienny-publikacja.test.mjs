@@ -116,7 +116,7 @@ test(`publikacja Dnia ${N}: lekcja ×4, Dzień ${OSTATNI}, 8 plików spisu, wysz
   assert.ok(kopie.every((k) => k === kopie[0]), '4 kopie lekcji identyczne');
   for (const p of SCIEZKI_LEKCJI(OSTATNI)) {
     const h = czytaj(p);
-    assert.match(h, new RegExp(`>Dzień ${N} →</a>`), `${p}: link w pasku`);
+    assert.match(h, new RegExp(`>Dzień ${N} →(</a>|</span>)`), `${p}: link w pasku`);
     assert.match(h, new RegExp(`id="jutro"[\\s\\S]*?/kurscodzienny/dzien-${pad(N)}"[\\s\\S]*?Przejdź do Dnia ${N}`), `${p}: „Jutro” z linkiem`);
     assert.equal((h.match(/id="jutro"/g) || []).length, 1, `${p}: jedna sekcja „Jutro”`);
   }

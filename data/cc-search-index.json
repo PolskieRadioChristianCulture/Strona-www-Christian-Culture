@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-03T13:11:16.637Z",
-  "totalItems": 406,
+  "updatedAt": "2026-11-04T06:21:46.169Z",
+  "totalItems": 407,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -7920,6 +7920,26 @@
       "featured": false
     },
     {
+      "title": "Rozważanie: POPATRZ PRZEZ BOŻE OKULARY",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/dzj",
+      "description": "4 LISTOPADA 2026: Kontynuujemy dzisiaj myśl z wczoraj i patrzymy na najlepsze Boże rozwiązania. Popatrz, co Pan polecił zrobić ludowi w trudnej sytuacji.\nMieli przez sześć dni obchodzić miasto ze Sk… Modlitwa: …",
+      "contentSnippet": "Kontynuujemy dzisiaj myśl z wczoraj i patrzymy na najlepsze Boże rozwiązania. Popatrz, co Pan polecił zrobić ludowi w trudnej sytuacji.\nMieli przez sześć dni obchodzić miasto ze Skrzynią Przymierza i trębaczami grającymi przed Panem. W ostatni zaś dzień musieli je obejść aż siedem razy i za siódmym wznieść okrzyk zwycięstwa. Przez sześć dni nic się nie działo. Może w umysłach ludzi pojawiły się ja",
+      "tags": [
+        "dobrze że jesteś",
+        "cuda każdego dnia",
+        "rozważanie",
+        "modlitwa",
+        "poranna inspiracja",
+        "4 LISTOPADA 2026",
+        "nadzieja",
+        "pokój boży",
+        "wiara",
+        "słowo boże"
+      ],
+      "featured": false
+    },
+    {
       "title": "Rozważanie: CHCESZ, BY MURY RUNĘŁY?",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/dzj",
@@ -10043,16 +10063,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 3",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 3 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 4",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 4 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 3)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 4)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-3",
+      "url": "/akademia/kurscodzienny/dzien-4",
       "icon": "book"
     },
     {
@@ -10071,15 +10091,15 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-03T13:11:16.757Z",
+    "updatedAt": "2026-11-04T06:21:46.258Z",
     "heading": "Polecane na dziś",
-    "dateFormattedPL": "3 listopada 2026",
+    "dateFormattedPL": "4 listopada 2026",
     "pools": [
       [
         {
           "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 3",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 3 listopada 2026.",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 4",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 4 listopada 2026.",
           "url": "/player",
           "icon": "heart"
         },
@@ -10108,9 +10128,9 @@
       [
         {
           "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 3)",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 4)",
           "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-3",
+          "url": "/akademia/kurscodzienny/dzien-4",
           "icon": "book"
         },
         {
@@ -10199,16 +10219,16 @@
     "recommendedToday": [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 3",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 3 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 4",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 4 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 3)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 4)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-3",
+        "url": "/akademia/kurscodzienny/dzien-4",
         "icon": "book"
       },
       {

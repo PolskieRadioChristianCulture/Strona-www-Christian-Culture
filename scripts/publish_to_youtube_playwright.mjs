@@ -199,17 +199,31 @@ async function uploadToYouTube({ videoPath, metaPath, visibility = 'public', hea
 
   // Wczytaj metadane (z pliku .json lub .txt)
   let meta = {};
+  let rawText = '';
   if (metaPath && fs.existsSync(metaPath)) {
     try {
       meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
     } catch {
-      console.warn('[WARN] Nie udało się sparsować pliku JSON z metadanymi, używam wartości domyślnych.');
+      rawText = fs.readFileSync(metaPath, 'utf8').trim();
     }
   }
 
-  const title = (meta.title || path.basename(videoPath, path.extname(videoPath))).slice(0, 100);
-  const description = (meta.description || meta.full_description || title).slice(0, 5000);
-  const tags = Array.isArray(meta.tags) ? meta.tags.join(', ') : (meta.tags || '');
+  let title = meta.title;
+  let description = meta.description || meta.full_description || rawText;
+
+  if (!title) {
+    const baseName = path.basename(videoPath, path.extname(videoPath));
+    const m = baseName.match(/Short_Day_(\d+)_(.+)/);
+    if (m) {
+      const refClean = m[2].replace(/_/g, ' ');
+      title = `${refClean} — Werset Dnia | Christian Culture #Shorts`;
+    } else {
+      title = baseName;
+    }
+  }
+  title = title.slice(0, 100);
+  description = (description || title).slice(0, 5000);
+  const tags = Array.isArray(meta.tags) ? meta.tags.join(', ') : (meta.tags || 'Shorts, Biblia, Werset Dnia, UBG, Christian Culture, Wiara, Jezus');
 
   console.log('Parametry publikacji:');
   console.log('• Wideo:', path.basename(videoPath));
@@ -260,22 +274,17 @@ async function uploadToYouTube({ videoPath, metaPath, visibility = 'public', hea
     await fileInput.setInputFiles(path.resolve(videoPath));
     console.log('  -> Plik przekazany do formularza YouTube.');
 
-    // Czekaj na załadowanie formularza szczegółów filmu
-    await page.waitForSelector('#dialog, ytcp-uploads-dialog', { timeout: 30000 });
-    await page.waitForTimeout(3000);
+    // 4. Ustaw Tytuł i Opis (oczekiwanie bezpośrednio na pole tytułu)
+    console.log('[4/7] Oczekiwanie na formularz szczegółów i uzupełnianie tytułu/opisu...');
+    const titleBox = page.locator('#title-textarea #textbox, div#textbox[contenteditable="true"]').first();
+    await titleBox.waitFor({ state: 'visible', timeout: 45000 });
+    await page.waitForTimeout(2000);
 
-    // 4. Ustaw Tytuł i Opis
-    console.log('[4/7] Uzupełnianie tytułu i opisu...');
-    const titleBox = await page.waitForSelector(
-      '#title-textarea #textbox, ytcp-social-suggestions-textbox#title-textarea div[contenteditable="true"]',
-      { timeout: 15000 }
-    );
     await titleBox.click();
-    // Zaznacz wszystko i wyczyść domyślny tytuł
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Backspace');
     await titleBox.fill(title);
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1000);
 
     const descBox = await page.waitForSelector(
       '#description-textarea #textbox, ytcp-social-suggestions-textbox#description-textarea div[contenteditable="true"]',

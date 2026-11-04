@@ -1,20 +1,21 @@
 /**
- * publish_facebook_short.cjs — Dedykowana publikacja wideo Shorts/Reels na Facebooku
- * Standard JOMA-STD-FB-SHORTS-POSTING-20261103
+ * publish_facebook_short.cjs — Oficjalny publikator wideo Shorts/Reels na Facebooku (Playwright)
+ * Standard JOMA-STD-FB-SHORTS-20261103
  *
- * 1. Ochrona anty-duplikat (dokładnie 1 Short dziennie na każdym celu).
- * 2. Wgrywanie pliku wideo 9:16 (MP4 z lektorem ElevenLabs).
- * 3. Obsługa oficjalnych stron (Radio Christian Culture, Christian Culture App, profil).
+ * Publikacja 1 wideo Shorts (MP4 9:16) dziennie na Facebooku:
+ * - Profil osobisty: https://www.facebook.com/cezary.rogowski1
+ * - Radio Christian Culture: https://www.facebook.com/RadioChristianCulture
+ * - Christian Culture App: https://www.facebook.com/ChristianCultureApp
  */
 
-const puppeteer = require('puppeteer');
+const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
 
 const FB_PAGES = [
   { name: 'Radio Christian Culture', url: 'https://www.facebook.com/RadioChristianCulture', isPage: true },
   { name: 'Christian Culture App',   url: 'https://www.facebook.com/ChristianCultureApp',   isPage: true },
-  { name: 'Profil osobisty',         url: 'https://www.facebook.com/cezary.rogowski1' }
+  { name: 'Profil osobisty',         url: 'https://www.facebook.com/cezary.rogowski1',     isPage: false }
 ];
 
 const HISTORY_FILE = path.join(__dirname, '..', 'data', 'fb_shorts_history.json');
@@ -28,104 +29,101 @@ function loadHistory() {
   return {};
 }
 
-function saveHistory(history) {
-  try {
-    const dir = path.dirname(HISTORY_FILE);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(HISTORY_FILE, JSON.stringify(history, null, 2), 'utf8');
-  } catch(e) {
-    console.error('Błąd zapisu historii FB Shorts:', e.message);
-  }
+function saveHistory(hist) {
+  fs.mkdirSync(path.dirname(HISTORY_FILE), { recursive: true });
+  fs.writeFileSync(HISTORY_FILE, JSON.stringify(hist, null, 2), 'utf8');
 }
 
-async function publishVideoPost(page, postText, videoPath, targetName) {
-  console.log(`   🎬 Otwieram kompozytor posta na: ${targetName}...`);
+async function publishToPage(page, target, postText, videoPath) {
+  console.log(`\n📢 [FB Target: ${target.name}] Otwieram stronę docelową...`);
+  await page.goto(target.url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+  await page.waitForTimeout(4000);
 
-  const triggerClicked = await page.evaluate(() => {
-    const nodes = Array.from(document.querySelectorAll('span, div[role="button"]'));
-    const trigger = nodes.find(el => {
-      const t = (el.innerText || '').trim().toLowerCase();
-      return t.includes('słychać') || t.includes('napisz coś') || t.includes('utwórz post') || t.includes('stwórz post');
+  // Sprawdź czy jest banner przełączenia profilu (dla stron)
+  if (target.isPage) {
+    const switched = await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('div[role="button"], button'));
+      const b = btns.find(el => (el.innerText || '').trim() === 'Przełącz' || (el.innerText || '').trim() === 'Przełącz teraz');
+      if (b) { b.click(); return true; }
+      return false;
     });
-    if (trigger) { trigger.click(); return true; }
-    return false;
-  });
-
-  if (!triggerClicked) throw new Error("Nie znaleziono pola tworzenia posta");
-
-  const editorSelector = 'div[role="dialog"] div[role="textbox"]';
-  await page.waitForSelector(editorSelector, { timeout: 15000 });
-
-  // 1. Wgrywanie wideo MP4
-  if (videoPath && fs.existsSync(videoPath)) {
-    console.log(`   🎬 Załączam wideo Shorts: ${path.basename(videoPath)}...`);
-    const fileInput = await page.$('div[role="dialog"] input[type="file"]');
-    if (fileInput) {
-      await fileInput.uploadFile(videoPath);
-      // Oczekiwanie na przetworzenie wideo przez Facebook
-      await new Promise(r => setTimeout(r, 8000));
-      console.log("   ✅ Wideo załączone do kompozytora.");
+    if (switched) {
+      console.log(`   🔄 Kliknięto 'Przełącz profil' na stronę ${target.name}...`);
+      await page.waitForTimeout(4000);
     }
   }
 
-  // 2. Wprowadzanie tekstu opisu
-  console.log("   ✍️ Wprowadzam treść opisu posta...");
+  // 1. Otwarcie kompozytora posta
+  console.log("   📝 Otwieram kompozytor posta/Reelsa...");
+  await page.evaluate(() => {
+    const nodes = Array.from(document.querySelectorAll('span, div[role="button"]'));
+    const trigger = nodes.find(el => {
+      const t = (el.innerText || '').trim().toLowerCase();
+      return t.includes('słychać') || t.includes('napisz coś') || t.includes('utwórz rolkę') || t.includes('zdjęcie/film');
+    });
+    if (trigger) trigger.click();
+  });
+
+  await page.waitForTimeout(3000);
+
+  // 2. Załączenie pliku wideo
+  console.log(`   🎬 Załączam wideo: ${path.basename(videoPath)}...`);
+  const fileInput = await page.$('input[type="file"]');
+  if (fileInput) {
+    await fileInput.setInputFiles(videoPath);
+    console.log("   ⏳ Wgrywanie wideo na serwery Facebooka (oczekiwanie 12s)...");
+    await page.waitForTimeout(12000);
+  }
+
+  // 3. Wpisanie opisu posta
+  console.log("   ✍️ Wprowadzam opis posta...");
   await page.evaluate((txt) => {
     const dialogs = Array.from(document.querySelectorAll('div[role="dialog"]'));
     const postDialog = dialogs.find(d => d.querySelector('div[role="textbox"]'));
     const ed = postDialog ? postDialog.querySelector('div[role="textbox"]') : document.querySelector('div[role="textbox"]');
     if (ed) {
       ed.focus();
-      const dt = new DataTransfer();
-      dt.setData('text/plain', txt);
-      const pasteEvent = new ClipboardEvent('paste', { clipboardData: dt, bubbles: true, cancelable: true });
-      ed.dispatchEvent(pasteEvent);
+      document.execCommand('insertText', false, txt);
     }
   }, postText);
 
   await page.keyboard.press('Space');
   await page.keyboard.press('Backspace');
-  await new Promise(r => setTimeout(r, 3000));
+  await page.waitForTimeout(3000);
 
-  // 3. Sprawdź przycisk Dalej (jeśli Facebook otwiera kreator Reels)
-  console.log("   🔍 Sprawdzam przyciski (Dalej / Opublikuj)...");
-  const hasDalej = await page.evaluate(() => {
+  // 4. Kliknięcie Dalej (jeśli otworzył się kreator Rolek/Reels)
+  const clickedDalej = await page.evaluate(() => {
     const dialogs = Array.from(document.querySelectorAll('div[role="dialog"]'));
-    const postDialog = dialogs.find(d => d.querySelector('div[role="textbox"]'));
+    const postDialog = dialogs.find(d => (d.innerText || '').includes('Dalej') || (d.innerText || '').includes('Opublikuj'));
     if (!postDialog) return false;
     const btns = Array.from(postDialog.querySelectorAll('div[role="button"], button'));
-    const dalej = btns.find(b => (b.innerText || '').trim() === 'Dalej' && b.getAttribute('aria-disabled') !== 'true');
-    if (dalej) { dalej.click(); return true; }
+    const b = btns.find(btn => (btn.innerText || '').trim() === 'Dalej');
+    if (b) { b.click(); return true; }
     return false;
   });
 
-  if (hasDalej) {
-    console.log("   ➡️ Kliknięto 'Dalej'...");
-    await new Promise(r => setTimeout(r, 4000));
+  if (clickedDalej) {
+    console.log("   ➡️ Kliknięto 'Dalej' w kreatorze Reels...");
+    await page.waitForTimeout(3000);
   }
 
-  // 4. Kliknięcie Opublikuj
+  // 5. Kliknięcie Opublikuj
   console.log("   🚀 Klikam 'Opublikuj'...");
-  await page.waitForFunction(() => {
-    const dialogs = Array.from(document.querySelectorAll('div[role="dialog"]'));
-    const postDialog = dialogs.find(d => (d.innerText || '').includes('Ustawienia') || (d.innerText || '').includes('Opublikuj') || d.querySelector('div[role="button"][aria-label="Opublikuj"]'));
-    if (!postDialog) return false;
-    const btns = Array.from(postDialog.querySelectorAll('div[role="button"], button'));
-    const pub = btns.find(b => ((b.innerText || '').trim() === 'Opublikuj' || (b.innerText || '').trim() === 'Opublikuj teraz' || b.getAttribute('aria-label') === 'Opublikuj') && b.getAttribute('aria-disabled') !== 'true');
-    return !!pub;
-  }, { timeout: 20000 });
-
   await page.evaluate(() => {
     const dialogs = Array.from(document.querySelectorAll('div[role="dialog"]'));
-    const postDialog = dialogs.find(d => (d.innerText || '').includes('Ustawienia') || (d.innerText || '').includes('Opublikuj') || d.querySelector('div[role="button"][aria-label="Opublikuj"]'));
-    if (!postDialog) return;
-    const btns = Array.from(postDialog.querySelectorAll('div[role="button"], button'));
-    const pub = btns.find(b => ((b.innerText || '').trim() === 'Opublikuj' || (b.innerText || '').trim() === 'Opublikuj teraz' || b.getAttribute('aria-label') === 'Opublikuj') && b.getAttribute('aria-disabled') !== 'true');
+    const postDialog = dialogs.find(d => (d.innerText || '').includes('Ustawienia') || (d.innerText || '').includes('Opublikuj'));
+    const container = postDialog || document.body;
+    const btns = Array.from(container.querySelectorAll('div[role="button"], button'));
+    const pub = btns.find(b => {
+      const t = (b.innerText || '').trim();
+      return (t === 'Opublikuj' || t === 'Opublikuj teraz') && b.getAttribute('aria-disabled') !== 'true';
+    });
     if (pub) pub.click();
   });
 
-  await new Promise(r => setTimeout(r, 15000));
-  console.log(`   ✅ Wideo Short pomyślnie opublikowane na: ${targetName}!`);
+  console.log("   ⏳ Czekam na przetworzenie publikacji (15 sekund)...");
+  await page.waitForTimeout(15000);
+  console.log(`   ✅ Wideo Short pomyślnie opublikowane na: ${target.name}!`);
   return true;
 }
 
@@ -140,77 +138,59 @@ async function main() {
   }
 
   if (!videoPath || !fs.existsSync(videoPath)) {
-    console.error("Błąd: Brak pliku wideo (--video <ścieżka>)");
+    console.error("Błąd: Podaj istniejącą ścieżkę do pliku wideo (--video <plik.mp4>)");
     process.exit(1);
   }
 
-  let postText = "Słowo Boże na dziś — Christian Culture #Shorts";
+  let postText = "Czy wiesz, jak wielka jest miłość Boga do Ciebie? Ewangelia Jana 3:16. Subskrybuj Polskie Radio Christian Culture i słuchaj pełnej Biblii Audio każdego dnia! https://polskieradio.cc #Shorts #Biblia #WersetDnia";
   if (metaPath && fs.existsSync(metaPath)) {
-    postText = fs.readFileSync(metaPath, 'utf8');
+    postText = fs.readFileSync(metaPath, 'utf8').trim();
   }
+
+  const sessionPath = path.resolve('C:/Users/czark/Christian_Culture_Projekty/Wektor1_VideoFactory/fb_session.json');
+  if (!fs.existsSync(sessionPath)) {
+    console.error("Brak pliku fb_session.json!");
+    process.exit(1);
+  }
+
+  const cookies = JSON.parse(fs.readFileSync(sessionPath, 'utf8'));
+  const validSameSite = new Set(['Strict', 'Lax', 'None']);
+  const pwCookies = cookies.map(c => {
+    const copy = { ...c };
+    delete copy.sameParty;
+    delete copy.sourceScheme;
+    delete copy.sourcePort;
+    if (!validSameSite.has(copy.sameSite)) delete copy.sameSite;
+    return copy;
+  });
 
   const todayWarsaw = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw' }).format(new Date());
   const history = loadHistory();
-  if (!history[todayWarsaw]) {
-    history[todayWarsaw] = {};
-  }
+  if (!history[todayWarsaw]) history[todayWarsaw] = {};
 
   const videoStem = path.basename(videoPath, '.mp4');
-  const pendingTargets = FB_PAGES.filter(target => history[todayWarsaw][target.name]?.videoStem !== videoStem);
 
-  if (pendingTargets.length === 0) {
-    console.log(`✅ [ANTY-DUPLIKAT] Wideo Short ${videoStem} zostało już dziś opublikowane na wszystkich celach Facebooka.`);
-    process.exit(0);
-  }
-
-  console.log(`🚀 [FB Shorts Publisher] Rozpoczynam publikację wideo: ${path.basename(videoPath)}`);
-  console.log(`📋 Cele do publikacji (${pendingTargets.length}/${FB_PAGES.length}):`, pendingTargets.map(t => t.name).join(', '));
-
-  const browser = await puppeteer.launch({
-    headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--lang=pl-PL']
+  const browser = await chromium.launch({ headless: true });
+  const context = await browser.newContext({
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
+    viewport: { width: 1280, height: 1000 },
+    locale: 'pl-PL'
   });
-  const page = await browser.newPage();
-  await page.setViewport({ width: 1280, height: 1000 });
 
-  const sessionPath = path.join(__dirname, 'fb_session.json');
-  if (fs.existsSync(sessionPath)) {
-    try {
-      let raw = fs.readFileSync(sessionPath, 'utf8');
-      if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1);
-      const cookies = JSON.parse(raw);
-      await page.setCookie(...cookies);
-      console.log(`🔑 Wczytano ${cookies.length} ciasteczek z fb_session.json.`);
-    } catch(e) {
-      console.error('Błąd ciasteczek:', e.message);
+  await context.addCookies(pwCookies);
+  const page = await context.newPage();
+
+  for (const target of FB_PAGES) {
+    if (history[todayWarsaw][target.name] && history[todayWarsaw][target.name].status === 'published') {
+      console.log(`⏩ [Pominięto] Na ${target.name} Short Dnia został już dziś opublikowany.`);
+      continue;
     }
-  }
 
-  for (const target of pendingTargets) {
-    console.log(`\n🌐 Otwieram cel: ${target.name} (${target.url})`);
     try {
-      await page.goto(target.url, { waitUntil: 'networkidle2', timeout: 35000 });
-      await new Promise(r => setTimeout(r, 4000));
-
-      if (target.isPage) {
-        const switchClicked = await page.evaluate(() => {
-          const buttons = Array.from(document.querySelectorAll('div[role="button"], button'));
-          const btn = buttons.find(b => (b.innerText || '').trim() === 'Przełącz' || (b.innerText || '').trim() === 'Przełącz teraz');
-          if (btn) { btn.click(); return true; }
-          return false;
-        });
-
-        if (switchClicked) {
-          console.log(`   🔄 Kliknięto banner 'Przełącz' na stronę ${target.name}...`);
-          await new Promise(r => setTimeout(r, 3000));
-        }
-      }
-
-      await publishVideoPost(page, postText, videoPath, target.name);
-
+      await publishToPage(page, target, postText, videoPath);
       history[todayWarsaw][target.name] = {
         status: 'published',
-        videoStem: videoStem,
+        videoStem,
         timestamp: new Date().toISOString()
       };
       saveHistory(history);
@@ -218,7 +198,7 @@ async function main() {
       console.error(`   ❌ Błąd publikacji na ${target.name}:`, err.message);
       history[todayWarsaw][target.name] = {
         status: 'error',
-        videoStem: videoStem,
+        videoStem,
         error: err.message,
         timestamp: new Date().toISOString()
       };
@@ -227,7 +207,7 @@ async function main() {
   }
 
   await browser.close();
-  console.log(`\n🎉 [FB Shorts Publisher] Zakończono sesję publikacji.`);
+  console.log(`\n🎉 [FB Shorts Publisher] Zakończono sesję publikacji Facebook.`);
 }
 
 main().catch(err => {

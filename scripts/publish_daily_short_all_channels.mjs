@@ -21,6 +21,7 @@ const ROOT = path.resolve(__dirname, '..');
 const SHORTS_DIR = path.resolve('C:/Users/czark/Desktop/Biblia Audio CC — Gotowe do Emisji/Shorts');
 const YT_PUBLISHER = path.join(__dirname, 'publish_to_youtube_playwright.mjs');
 const FB_PUBLISHER = path.join(__dirname, 'publish_facebook_short.cjs');
+const X_PUBLISHER = path.join(__dirname, 'publish_to_x_playwright.mjs');
 
 function getLatestShort() {
   if (!fs.existsSync(SHORTS_DIR)) {
@@ -88,6 +89,22 @@ async function main() {
       console.log(`✅ [YouTube] Publikacja Shorts zakończona sukcesem.`);
     } catch (err) {
       console.error(`❌ [YouTube] Błąd publikacji YouTube Shorts:`, err.message);
+    }
+  }
+
+  // 3. Publikacja na Platformie X (CCN News)
+  if (fs.existsSync(X_PUBLISHER)) {
+    console.log(`\n--- [3/3] Publikacja zapowiedzi na Platformie X ---`);
+    try {
+      const baseName = path.basename(targetMp4, '.mp4');
+      const m = baseName.match(/Short_Day_(\d+)_(.+)/);
+      const titleClean = m ? m[2].replace(/_/g, ' ') : baseName;
+      const xTitle = `Werset Dnia UBG: ${titleClean} — Premiera wideo Shorts`;
+      const xArgs = [X_PUBLISHER, `--url=https://polskieradio.cc/werset-dnia`, `--title=${xTitle}`];
+      execFileSync('node', xArgs, { stdio: 'inherit' });
+      console.log(`✅ [X] Publikacja na platformie X zakończona sukcesem.`);
+    } catch (err) {
+      console.error(`❌ [X] Błąd publikacji na platformie X:`, err.message);
     }
   }
 
