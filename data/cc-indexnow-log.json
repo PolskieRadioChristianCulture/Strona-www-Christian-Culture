@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-04T14:10:39.494Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 338
+    },
+    {
+      "timestamp": "2026-11-04T14:10:39.061Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 338
+    },
+    {
+      "timestamp": "2026-11-04T14:10:37.426Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan",
+        "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga",
+        "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian"
+      ]
+    },
+    {
       "timestamp": "2026-11-04T06:28:26.805Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",
