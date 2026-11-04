@@ -170,10 +170,16 @@
     "book": "genesis",
     "chapter": 13,
     "description": "Rozstanie Abrama z Lotem i obietnica ziemi Kanaan",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_13_1-18_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 13,1–18 (UBG) — Rozstanie Abrama z Lotem i obietnica ziemi Kanaan",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_13_1-18_Biblia_Audio_CC.mp3",
+        "verses": "1–18"
+      }
+    ]
   },
   {
     "id": "genesis-14",
