@@ -18,9 +18,9 @@
 (function (global) {
   'use strict';
 
-  const SPEAKER_RE = /^\s*(?:\*\*)?\s*(Głos\s+Prowadzących|Glos\s+Prowadzacych|Noemi\s+i\s+Sara|Sara\s+i\s+Noemi|Noemi|Sara)\s*(?:\*\*)?\s*(\([^)]*\))?\s*(?:\*\*)?\s*:\s*(?:\*\*)?\s*(.*)$/i;
+  const SPEAKER_RE = /^\s*(?:\*\*)?\s*(Głos\s+Prowadzących|Glos\s+Prowadzacych|(?:Noemi\s+i\s+Sara|Sara\s+i\s+Noemi)(?:\s+razem)?|Noemi|Sara)\s*(?:\*\*)?\s*(\([^)]*\))?\s*(?:\*\*)?\s*:\s*(?:\*\*)?\s*(.*)$/i;
   const SECTION_RE = /^\s*(?:\*\*)?\s*\[([^\]]+)\]\s*(?:\*\*)?\s*(.*)$/;
-  const PRODUCTION_SECTIONS = /^(OPRAWA|PRODUKCJA|REALIZACJA|REŻYSER|REZYSER|MUZYKA|GRAFIKA)/i;
+  const PRODUCTION_SECTIONS = /^(OPRAWA|PRODUKCJA|REALIZACJA|REŻYSER|REZYSER|MUZYKA|GRAFIKA|SCENA|STUDIO|ELEGANCKIE|PROWADZĄCE|PROWADZACE|WSKAZÓWKI|WSKAZOWKI)/i;
   const META_LINE = /^\s*(🔴|WERSJA\s+CZWARTA|Styl\s*:|###|---+\s*$)/i;
 
   function stripMd(s) {
@@ -170,8 +170,10 @@
       .cctv-live-badge::before{content:'';width:10px;height:10px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 0 0 rgba(255,59,59,.7);animation:cctvPulse 1.6s infinite}
       .cctv-live-badge.is-replay::before{background:#d4af37;animation:none}
       @keyframes cctvPulse{0%{box-shadow:0 0 0 0 rgba(255,59,59,.6)}70%{box-shadow:0 0 0 10px rgba(255,59,59,0)}100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}}
-      .chat-container.cctv-split-chat{display:flex;flex-direction:column;gap:8px;overflow:hidden!important}
+      .canvas-slide:has(.cctv-split-chat){justify-content:flex-start!important}
+      .chat-container.cctv-split-chat{display:flex;flex-direction:column;flex:1 1 0!important;height:auto!important;min-height:0!important;gap:8px;overflow:hidden!important}
       .cctv-host-stream{flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:6px}
+      .cctv-host-stream>*{flex-shrink:0}
       .cctv-viewer-stream{flex:0 0 auto;max-height:55%;overflow-y:auto;display:flex;flex-direction:column;gap:5px;padding-top:6px;padding-right:6px;border-top:1.5px solid rgba(212,175,55,.45)}
       .cctv-viewer-stream:empty{display:none;border-top:none;padding-top:0}
       .cctv-viewer-dock{position:fixed;left:215px;bottom:189px;width:640px;height:179px;max-height:179px;z-index:60;gap:6px;padding:10px 12px;border:1.5px solid rgba(212,175,55,.55);border-radius:18px;background:rgba(10,12,20,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 12px 30px rgba(0,0,0,.45);overflow:hidden}
@@ -405,19 +407,48 @@
     // Karta rozważania = tylko Noemi i Sara (Dowódca 19.10). Czat widzów LUMI MESS ze wszystkich pokoi LIVE TV
     // pokazuje osobny moduł js/cc-live-viewer-chat.js — na każdym kanale nadawczym, we własnym oknie.
 
-    const scrollEnd = (smooth) => {
-      try { hostBox.scrollTo({ top: hostBox.scrollHeight, behavior: smooth && !reduce ? 'smooth' : 'auto' }); }
-      catch (_) { hostBox.scrollTop = hostBox.scrollHeight; }
+    const scrollToPos = (pos, smooth) => {
+      const target = Math.max(0, pos);
+      try { hostBox.scrollTo({ top: target, behavior: smooth && !reduce ? 'smooth' : 'auto' }); }
+      catch (_) { hostBox.scrollTop = target; }
+      if (!smooth || reduce) hostBox.scrollTop = target;
     };
+    const scrollEnd = (smooth) => scrollToPos(hostBox.scrollHeight, smooth);
 
     const wait = (ms) => new Promise((r) => { timer = setTimeout(r, Math.max(0, ms)); });
     const mode = (m) => { try { if (typeof opts.onMode === 'function') opts.onMode(m); } catch (_) {} };
     const sectionEl = (s) => el('div', 'cctv-section', iconFor(s) + '  ' + s.replace(/\s*:\s*/, ' · '));
 
     let gen = 0;
+    async function scrollBubbleDuringRead(firstEl, untilElapsed, start, g) {
+      const dead = () => stopped || g !== gen;
+      const ch = hostBox.clientHeight || 0;
+      const sh = hostBox.scrollHeight || 0;
+      const maxScroll = Math.max(0, sh - ch);
+      const topPos = firstEl && typeof firstEl.offsetTop === 'number' ? Math.max(0, firstEl.offsetTop - 8) : maxScroll;
+      if (!ch || sh - topPos <= ch + 16 || reduce) {
+        scrollEnd(true);
+        await wait(Math.min(500, Math.max(0, untilElapsed - (Date.now() - start))));
+        if (!dead()) hostBox.scrollTop = Math.max(0, hostBox.scrollHeight - hostBox.clientHeight);
+        return;
+      }
+      scrollToPos(topPos, true);
+      await wait(Math.min(1400, Math.max(0, untilElapsed - (Date.now() - start))));
+      if (dead()) return;
+      const rem = Math.max(0, untilElapsed - (Date.now() - start) - 600);
+      const steps = Math.max(1, Math.floor(rem / 80));
+      for (let s = 1; s <= steps && !dead(); s++) {
+        await wait(rem / steps);
+        if (dead()) return;
+        const curMax = Math.max(0, hostBox.scrollHeight - hostBox.clientHeight);
+        hostBox.scrollTop = Math.round(topPos + (curMax - topPos) * (s / steps));
+      }
+    }
+
     async function runFrom(start, g) {
       const dead = () => stopped || g !== gen;
       hostBox.textContent = '';
+      let caughtUp = false;
       for (let i = 0; i < tl.length && !dead(); i++) {
         const e = tl[i];
         const elapsed = () => Date.now() - start;
@@ -425,11 +456,15 @@
           // Już padło (widz dołączył później) — pokaż od razu, bez animacji.
           if (e.sectionAt !== null) hostBox.appendChild(sectionEl(e.m.section));
           hostBox.appendChild(bubble(e.m, opts.adapt));
+          caughtUp = true;
           continue;
         }
+        if (caughtUp) { scrollEnd(false); caughtUp = false; }
+        let secNode = null;
         if (e.sectionAt !== null) {
           await wait(e.sectionAt - elapsed()); if (dead()) return;
-          hostBox.appendChild(sectionEl(e.m.section)); scrollEnd(true);
+          secNode = sectionEl(e.m.section);
+          hostBox.appendChild(secNode); scrollEnd(true);
         }
         await wait(e.typingAt - elapsed()); if (dead()) return;
         let t = null;
@@ -437,8 +472,11 @@
         await wait(e.showAt - elapsed());
         if (t) t.remove();
         if (dead()) return;
-        hostBox.appendChild(bubble(e.m, opts.adapt)); scrollEnd(true);
+        const bNode = bubble(e.m, opts.adapt);
+        hostBox.appendChild(bNode);
         try { if (typeof opts.onMessage === 'function') opts.onMessage(e.m, i); } catch (_) {}
+        const nextAt = (i + 1 < tl.length) ? (tl[i + 1].sectionAt !== null ? tl[i + 1].sectionAt : tl[i + 1].typingAt) : total;
+        await scrollBubbleDuringRead(secNode || bNode, nextAt, start, g);
       }
       scrollEnd(false);
       if (!dead()) await wait(total - (Date.now() - start));
@@ -458,9 +496,10 @@
           continue;
         }
         mode('replay');
-        // Powtórka nie może zasłonić sesji na żywo: gdy wybije 09:00, przerywamy ją i przechodzimy na żywo.
-        const nextLive = liveStart > now ? liveStart : liveStart + 86400000;
-        const untilLive = nextLive - now;
+        // Powtórka nie może zasłonić sesji na żywo: gdy wybije kolejna sesja, przerywamy ją i przechodzimy na żywo.
+        const nextToday = todaySessionStarts(now).find((s) => s > now);
+        const nextLive = liveStart > now ? liveStart : (nextToday !== undefined ? nextToday : liveStart + 86400000);
+        const untilLive = Math.max(1000, nextLive - now);
         const interrupted = await Promise.race([
           runFrom(Date.now(), g).then(() => false),
           new Promise((r) => setTimeout(() => r(true), untilLive))

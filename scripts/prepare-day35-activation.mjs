@@ -99,24 +99,34 @@ if (!rozwazaniaData.some(item => item.day === 35)) {
   const v1 = getSection('WERSJA 1: ROZWAŻANIE PORANNE (TTS / Aplikacja „Dobrze, że jesteś”)', '====================================================================\nWERSJA 2');
   const v2 = getSection('WERSJA 2: WERSJA WWW / PORTAL (LUMINA / Tablica / cclite.pl z linkami i cyframi)', '====================================================================\nWERSJA 3');
   const v3 = getSection('WERSJA 3: WERSJA WIECZORNA (SMS)', '====================================================================\nWERSJA 4');
+  const v4 = getSection('WERSJA 4: SCENARIUSZ WIDEO (Christian Culture TV / Studio Dobrego Słowa)', '====================================================================\nWERSJA 5');
 
   const cleanV1 = v1.replace(/^=+\s*/, '').trim();
   const cleanV2 = v2.replace(/^=+\s*/, '').trim();
   const cleanV3 = v3.replace(/^=+\s*/, '').trim();
+  const cleanV4 = v4.replace(/^=+\s*/, '').trim();
 
   const day35Entry = {
+    id: 'ref_day35_2026-11-04',
     day: 35,
     date: '2026-11-04',
+    dayOfWeek: 'Środa',
     dateFormatted: 'Środa, 4 listopada 2026 r.',
     title: '☀️ Z Biblią za Pan Brat — Dzień 35: Znaki wiary, powołanie i powrót do Egiptu — Boża moc w ludzkiej słabości',
+    teaser: 'Dzień 35 — Znaki wiary, powołanie i powrót do Egiptu: Trzy znaki pod Horebem, Aaron rzecznikiem i Boża moc w ludzkiej słabości (Wj 4:1–31)',
     book: 'KSIĘGA WYJŚCIA',
     reading: 'Wj 4:1–31',
     memoryVerse: '„I PAN powiedział do niego: Kto dał człowiekowi usta? Albo kto czyni go niemym albo głuchym, widzącym albo ślepym? Czyż nie Ja, PAN? Idź więc teraz, a Ja będę z twoimi ustami i nauczę cię, co masz mówić.” (Wj 4:11–12, UBG)',
     theme: 'Czwarty rozdział Księgi Wyjścia ukazuje zmaganie człowieka z powołaniem oraz suwerenność Boga, który odpowiada na ludzkie lęki znakami łaski, posyła pomocnika i wzywa do bezkompromisowej wierności przymierzu. Bóg nie szuka ludzkiej elokwencji, lecz posłusznego serca.',
     contentApp: cleanV1,
+    fullText: cleanV1,
     contentWeb: cleanV2,
     contentSms: cleanV3,
-    imageUrl: '/images/academy/daily/kc_day_35_powolanie_znaki_aaron.jpg'
+    tvScript: cleanV4,
+    imageUrl: '/images/academy/daily/kc_day_35_powolanie_znaki_aaron.jpg',
+    authorName: 'Cezary Rogowski',
+    authorUid: 'admin',
+    authorSlug: 'cezaryrgowski'
   };
 
   rozwazaniaData.unshift(day35Entry);

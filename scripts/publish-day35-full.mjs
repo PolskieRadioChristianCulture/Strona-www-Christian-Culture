@@ -29,10 +29,12 @@ const pakietContent = fs.readFileSync(path.join(ROOT, 'scripts/content/pakiet-da
 const wersja1Match = pakietContent.match(/====================================================================\r?\nWERSJA 1: ROZWAŻANIE PORANNE[\s\S]*?====================================================================\r?\n([\s\S]*?)\r?\n====================================================================\r?\nWERSJA 2/);
 const wersja2Match = pakietContent.match(/====================================================================\r?\nWERSJA 2: WERSJA WWW \/ PORTAL[\s\S]*?====================================================================\r?\n([\s\S]*?)\r?\n====================================================================\r?\nWERSJA 3/);
 const wersja3Match = pakietContent.match(/====================================================================\r?\nWERSJA 3: WERSJA WIECZORNA[\s\S]*?====================================================================\r?\n([\s\S]*?)\r?\n====================================================================\r?\nWERSJA 4/);
+const wersja4Match = pakietContent.match(/====================================================================\r?\nWERSJA 4:[^\r\n]*\r?\n====================================================================\r?\n([\s\S]*?)\r?\n====================================================================\r?\nWERSJA 5/);
 
 const contentApp = wersja1Match ? wersja1Match[1].trim() : '';
 const contentWeb = wersja2Match ? wersja2Match[1].trim() : '';
 const contentSms = wersja3Match ? wersja3Match[1].trim() : '';
+const tvScript = wersja4Match ? wersja4Match[1].trim() : '';
 
 console.log('✔ Wyodrębniono wersje:');
 console.log('   contentApp długość:', contentApp.length);
@@ -64,18 +66,26 @@ if (fs.existsSync(jsonBazaPath)) {
 }
 
 const day35Item = {
+  id: `ref_day${DAY_NUM}_${DATE_STR}`,
   day: DAY_NUM,
   date: DATE_STR,
+  dayOfWeek: 'Środa',
   dateFormatted: DATE_FORMATTED,
   title: TITLE,
+  teaser: `Dzień ${DAY_NUM} — Znaki wiary, powołanie i powrót do Egiptu: ${SUBTITLE} (${READING})`,
   book: BOOK,
   reading: READING,
   memoryVerse: MEMORY_VERSE,
   theme: THEME,
   contentApp: contentApp,
+  fullText: contentApp,
   contentWeb: contentWeb,
   contentSms: contentSms,
-  imageUrl: LOCAL_IMAGE_URL
+  tvScript: tvScript,
+  imageUrl: LOCAL_IMAGE_URL,
+  authorName: 'Cezary Rogowski',
+  authorUid: 'admin',
+  authorSlug: 'cezaryrgowski'
 };
 
 // Upewnij się, że Day 35 jest na początku w ROOT
