@@ -67,6 +67,7 @@ test('SEO and AI discovery identify the real prelaunch project, not a purchasabl
   }
   assert.match(fs.readFileSync(new URL('../sitemaps/pages.xml',import.meta.url),'utf8'),/<loc>https:\/\/polskieradio.cc\/the-journal<\/loc>/);
   assert.match(fs.readFileSync(new URL('../llms.txt',import.meta.url),'utf8'),/THE JOURNAL/);
+  assert.match(fs.readFileSync(new URL('../components/cc-omni-search.js',import.meta.url),'utf8'),/\['THE JOURNAL', '\/the-journal', 'journal'\]/);
 });
 
 test('published materials retain the supplied originals and all 90 complete days',()=>{

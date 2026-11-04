@@ -340,6 +340,9 @@
     'sklep': ['koszyk', 'zamówienie', 'współpraca', 'książki', 'literatura'],
     'ksiazki': ['książki', 'sklep', 'biblioteka', 'literatura'],
     'książki': ['ksiazki', 'sklep', 'biblioteka', 'literatura'],
+    'journal': ['the journal', 'pamiętnik', 'pamietnik', 'dziennik', '90 dni', 'młodzież', 'nastolatki'],
+    'pamietnik': ['pamiętnik', 'the journal', 'journal', 'dziennik', '90 dni', 'młodzież'],
+    'pamiętnik': ['pamietnik', 'the journal', 'journal', 'dziennik', '90 dni', 'młodzież'],
 
     // Finanse, Gospodarka & Wolność (CCN Finanse / Specyfikacja § 6)
     'cbdc': ['cyfrowy pieniądz', 'cyfrowy pieniadz', 'waluta banku centralnego', 'pieniądz programowalny', 'nadzór finansowy', 'gotówka', 'prawo niedzielne', 'apokalipsa 13'],
@@ -9350,7 +9353,8 @@ ${isStandalonePage ? '' : `
     courses: '<path d="M12 21V7"/><path d="m16 12 2 2 4-4"/><path d="M22 6V4a1 1 0 0 0-1-1h-5a4 4 0 0 0-4 4 4 4 0 0 0-4-4H3a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h6a3 3 0 0 1 3 3 3 3 0 0 1 3-3h6a1 1 0 0 0 1-1v-1.3"/>',
     puzzle: '<path d="M19.4 7.9c0 .3.1.6.3.9l1.6 1.5a2.4 2.4 0 0 1 0 3.4l-1.6 1.6a1 1 0 0 1-.8.3c-.5-.1-.8-.5-1-.9a2.5 2.5 0 1 0-3.2 3.2c.4.2.9.5.9 1a1 1 0 0 1-.3.8l-1.6 1.6a2.4 2.4 0 0 1-3.4 0l-1.6-1.6a1 1 0 0 0-.8-.3c-.5.1-.9.5-1 1a2.5 2.5 0 1 1-3.3-3.3c.5-.2.9-.5 1-1a1 1 0 0 0-.3-.9l-1.6-1.5a2.4 2.4 0 0 1 0-3.4l1.5-1.5c.3-.3.6-.4 1-.3.5.1.8.5 1 1a2.5 2.5 0 1 0 3.3-3.3c-.5-.2-.9-.5-1-1 0-.4.1-.7.3-1l1.5-1.5a2.4 2.4 0 0 1 3.4 0l1.6 1.6c.2.2.5.3.9.3.5-.1.8-.5 1-1a2.5 2.5 0 1 1 3.2 3.2c-.4.2-.9.5-.9 1Z"/>',
     nosmoke: '<path d="M12 12H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h13"/><path d="M18 8c0-2.5-2-2.5-2-5"/><path d="m2 2 20 20"/><path d="M21 12a1 1 0 0 1 1 1v2a1 1 0 0 1-.5.9"/><path d="M22 8c0-2.5-2-2.5-2-5"/><path d="M7 12v4"/>',
-    mountain: '<path d="m8 3 4 8 5-5 5 15H2Z"/>'
+    mountain: '<path d="m8 3 4 8 5-5 5 15H2Z"/>',
+    journal: '<rect x="5" y="3" width="15" height="18" rx="2"/><path d="M3 7h4M3 12h4M3 17h4M10 8h6M10 12h6M10 16h4"/>'
   };
   Object.assign(HOME_ICONS, APP_ICONS);
   const APPS_MENU = [
@@ -9368,7 +9372,7 @@ ${isStandalonePage ? '' : `
     { title: 'Kursy', items: [
       ['Wszystkie kursy', '/kursy', 'courses'], ['Rozwiąż problem', '/Rozwi%C4%85%C5%BCProblem', 'puzzle'],
       ['Rzuć palenie', '/Rozwi%C4%85%C5%BCProblem#kurs', 'nosmoke'], ['Pokonać Goliata', '/kursy/pokonac-goliata', 'mountain'],
-      ['Apokalipsa — kurs', '/kursy/apokalipsa/lekcja-1', 'scroll']
+      ['Apokalipsa — kurs', '/kursy/apokalipsa/lekcja-1', 'scroll'], ['THE JOURNAL', '/the-journal', 'journal']
     ] },
     { title: 'Wiedza CCN', items: [
       ['Portal CCN', '/news', 'news'], ['Nauka', '/nauka', 'flask'], ['Historia', '/historia', 'columns'],
