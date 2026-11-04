@@ -13,8 +13,17 @@ const SECRET_PATTERNS = [
 // Errors report only the relative path, never file content or the matched value.
 export function scanReleaseForSecrets(root, { fileSystem = fs } = {}) {
   function checked(operation, file) {
-    try { return operation(); }
-    catch { throw new Error(`Wydanie przerwane: nie można sprawdzić ${path.relative(root, file) || '.'}.`); }
+    for (let attempt = 0; attempt < 5; attempt++) {
+      try {
+        return operation();
+      } catch (err) {
+        if (attempt < 4) {
+          const end = Date.now() + 50;
+          while (Date.now() < end) {}
+        }
+      }
+    }
+    throw new Error(`Wydanie przerwane: nie można sprawdzić ${path.relative(root, file) || '.'}.`);
   }
   function scan(directory) {
     const entries = checked(() => fileSystem.readdirSync(directory, { withFileTypes: true }), directory);
