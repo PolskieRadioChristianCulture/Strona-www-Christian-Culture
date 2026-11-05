@@ -254,7 +254,7 @@
       if (themeAction) {
         themeAction.hidden = !themeReady;
         const light = document.documentElement.getAttribute('data-lumina-theme') === 'light' || document.body.classList.contains('theme-lumina-light');
-        themeAction.title = light ? 'Przełącz na motyw ciemny' : 'Przełącz na motyw jasny';
+        themeAction.title = light ? t('themeLight') : t('themeDark');
         themeAction.setAttribute('aria-label', themeAction.title);
         themeAction.setAttribute('aria-pressed', String(!light));
         themeAction.replaceChildren(icon(light ? 'sun' : 'theme'));
