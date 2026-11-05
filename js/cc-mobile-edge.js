@@ -119,12 +119,14 @@
   };
 
   function getLocale() {
+    if (window.CCPageI18n?.locale) return window.CCPageI18n.locale;
     return (window.EkoCCI18n && typeof window.EkoCCI18n.getLocale === 'function')
       ? window.EkoCCI18n.getLocale()
       : ((document.documentElement && document.documentElement.lang) || 'pl').slice(0, 2).toLowerCase();
   }
 
   function t(key, fallback) {
+    if (window.CCPageI18n?.labels?.[key]) return window.CCPageI18n.labels[key];
     const loc = getLocale();
     return labels[loc]?.[key] || labels.pl[key] || fallback || key;
   }
@@ -181,7 +183,7 @@
     dialog.id = 'cc-mobile-edge-dialog';
     dialog.className = 'cc-mobile-edge';
     dialog.dataset.profile = profile;
-    dialog.setAttribute('aria-label', profile === 'lumina' ? (getLocale() === 'en' ? 'LUMINA and Christian Culture Navigation' : (getLocale() === 'de' ? 'LUMINA und Christian Culture Navigation' : 'Nawigacja LUMINA i Christian Culture')) : t('navAria', 'Nawigacja Christian Culture'));
+    dialog.setAttribute('aria-label', window.CCPageI18n?.labels.navAria || (profile === 'lumina' ? (getLocale() === 'en' ? 'LUMINA and Christian Culture Navigation' : (getLocale() === 'de' ? 'LUMINA und Christian Culture Navigation' : 'Nawigacja LUMINA i Christian Culture')) : t('navAria', 'Nawigacja Christian Culture')));
     const trigger = (customTrigger instanceof HTMLElement) ? customTrigger : document.createElement('button');
     if (trigger !== customTrigger) {
       trigger.type = 'button';
@@ -224,7 +226,7 @@
       if (!radioAction) return;
       const isPlaying = typeof window.LuminaMiniPlayer?.isPlaying === 'function' ? window.LuminaMiniPlayer.isPlaying() : false;
       radioAction.classList.toggle('is-playing', !!isPlaying);
-      radioAction.title = isPlaying ? 'Zatrzymaj Radio CC' : 'Włącz Radio CC na żywo';
+      radioAction.title = isPlaying ? t('radioStop') : t('radioPlay');
       radioAction.setAttribute('aria-label', radioAction.title);
       radioAction.setAttribute('aria-pressed', String(!!isPlaying));
     }
@@ -401,8 +403,8 @@
       const shareBtn = button('share','Udostępnij stronę',async () => {
         const url = document.querySelector('link[rel="canonical"]')?.href || location.href;
         try { if (navigator.share) await navigator.share({title:document.title,url});
-          else { await navigator.clipboard.writeText(url); shareBtn.setAttribute('aria-label','Link skopiowany'); }
-        } catch (error) { if (error.name !== 'AbortError') shareBtn.setAttribute('aria-label','Nie udało się skopiować linku'); }
+          else { await navigator.clipboard.writeText(url); shareBtn.setAttribute('aria-label',t('copied')); }
+        } catch (error) { if (error.name !== 'AbortError') shareBtn.setAttribute('aria-label',t('copyError')); }
       });
       shareBtn.textContent = '↗';
     }
@@ -427,7 +429,7 @@
 
     const currentLoc = (typeof window.EkoCCI18n?.getLocale === 'function') ? window.EkoCCI18n.getLocale() : getLocale();
 
-    const langConfigs = [
+    const langConfigs = window.CCPageI18n ? window.CCPageI18n.languages.map(code => ({code,label:new Intl.DisplayNames([code],{type:'language'}).of(code)})) : [
       { code: 'pl', label: 'Polski' },
       { code: 'en', label: 'English' },
       { code: 'de', label: 'Deutsch' }
@@ -445,6 +447,7 @@
 
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
+        if (window.CCPageI18n) { location.href = '/badz-blisko/' + (code === 'pl' ? '' : code + '/'); return; }
         if (window.EkoCCI18n && typeof window.EkoCCI18n.setLocale === 'function') {
           window.EkoCCI18n.setLocale(code, 'global');
         }
@@ -456,7 +459,7 @@
 
     function applyTranslations() {
       trigger.setAttribute('aria-label', t('open', 'Otwórz panel nawigacji'));
-      dialog.setAttribute('aria-label', profile === 'lumina' ? (getLocale() === 'en' ? 'LUMINA and Christian Culture Navigation' : (getLocale() === 'de' ? 'LUMINA und Christian Culture Navigation' : 'Nawigacja LUMINA i Christian Culture')) : t('navAria', 'Nawigacja Christian Culture'));
+      dialog.setAttribute('aria-label', window.CCPageI18n?.labels.navAria || (profile === 'lumina' ? (getLocale() === 'en' ? 'LUMINA and Christian Culture Navigation' : (getLocale() === 'de' ? 'LUMINA und Christian Culture Navigation' : 'Nawigacja LUMINA i Christian Culture')) : t('navAria', 'Nawigacja Christian Culture')));
       nav.setAttribute('aria-label', t('shortcutsAria', 'Skróty ekosystemu'));
       const cur = (typeof window.EkoCCI18n?.getLocale === 'function') ? window.EkoCCI18n.getLocale() : getLocale();
       if (typeof langGroup !== 'undefined' && langGroup) {

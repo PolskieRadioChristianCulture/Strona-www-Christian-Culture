@@ -685,6 +685,16 @@
       const footer = document.getElementById('ekoccInfoFooter');
       if (!body) return;
 
+      if (window.CCPageI18n?.info) {
+        const p = window.CCPageI18n, l = p.labels;
+        titleElem.textContent = l.info;
+        body.replaceChildren();
+        ['about','how','access','rights'].forEach((key,i)=>{const section=document.createElement('section');section.className='ekocc-info-card';const h=document.createElement('h4');h.textContent=l[key];const text=document.createElement('p');text.textContent=p.info[i];section.append(h,text);body.append(section);});
+        footer.textContent='Christian Culture · polskieradio.cc';
+        const close=document.getElementById('ekoccInfoCloseBtn');if(close){close.setAttribute('aria-label',l.close);close.title=l.close;}
+        const languageSwitch = document.querySelector('.ekocc-info-lang-switch'); if(languageSwitch){languageSwitch.hidden=true;languageSwitch.style.display='none';}
+        return;
+      }
       const lang = this.currentLang;
       const u = UNIVERSAL_TEXT[lang];
       const card = this.currentCard ? this.currentCard[lang] : null;
