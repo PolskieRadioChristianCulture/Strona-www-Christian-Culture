@@ -749,6 +749,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🧬 NAUKA & BIOETYKA';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#CCNNews', '#Bioetyka', '#Prawda');
+    } else if (tLower.includes('inwestor') || tLower.includes('finanse') || tLower.includes('złoto') || tLower.includes('szafarz') || (item.url || '').includes('/finanse/')) {
+      subHeader = '💰 CCN FINANSE | BIBLIJNE SZAFARSTWO';
+      callToAction = '👉 Czytaj bezpłatny poradnik w serwisie:\n';
+      addTags('#CCNFinanse', '#FinansePoBozemu', '#CezaryRogowski', '#CCNNews');
     } else if (tLower.includes('blackout') || tLower.includes('survival') || tLower.includes('72 godziny')) {
       subHeader = '🛡️ SURVIVAL & BEZPIECZEŃSTWO CC';
       callToAction = '👉 Czytaj poradnik w serwisie:\n';
