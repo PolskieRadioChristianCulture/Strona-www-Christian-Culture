@@ -147,7 +147,7 @@
     ['heart','Wspieram To','/wspieraj'],
   ];
 
-  function mount({legacy, placement = legacy, trigger: customTrigger, secondary = [], hideLegacy = true, profile = 'home', items = commonItems, canUseFullMenu = () => true, allowDesktop = false}) {
+  function mount({legacy, placement = legacy, trigger: customTrigger, secondary = [], hideLegacy = true, profile = 'home', items = commonItems, canUseFullMenu = () => true, allowDesktop = document.body?.dataset.ccEdgeDesktop === 'true'}) {
     if (!(legacy instanceof HTMLElement) || !(placement instanceof HTMLElement) || legacy.dataset.ccEdgeMounted || document.getElementById('cc-mobile-edge-dialog') || typeof HTMLDialogElement === 'undefined' || !HTMLDialogElement.prototype.showModal) return null;
     if (document.head && !document.getElementById('cc-mobile-edge-2col-style')) {
       const s = document.createElement('style');
