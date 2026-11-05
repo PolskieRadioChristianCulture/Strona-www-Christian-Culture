@@ -397,6 +397,15 @@
         if (trigger) trigger.click();
       }
     });
+    if (document.body?.dataset.ccEdgeDesktop === 'true') {
+      const shareBtn = button('share','Udostępnij stronę',async () => {
+        const url = document.querySelector('link[rel="canonical"]')?.href || location.href;
+        try { if (navigator.share) await navigator.share({title:document.title,url});
+          else { await navigator.clipboard.writeText(url); shareBtn.setAttribute('aria-label','Link skopiowany'); }
+        } catch (error) { if (error.name !== 'AbortError') shareBtn.setAttribute('aria-label','Nie udało się skopiować linku'); }
+      });
+      shareBtn.textContent = '↗';
+    }
     infoBtn.setAttribute('data-ekocc-info-trigger','true');
     infoBtn.innerHTML = '<img class="cc-edge-info-img" src="/images/icons/ekocc-info-gold-128.png" alt="" width="26" height="26">';
     const infoImage = infoBtn.querySelector('img');
