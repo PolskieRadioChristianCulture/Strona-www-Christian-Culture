@@ -1,5 +1,21 @@
 [
   {
+    "timestamp": "2026-11-05T18:03:59.893Z",
+    "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+    "url": "https://polskieradio.cc/vod",
+    "type": "vod",
+    "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-05T12:40:04.593Z",
+    "title": "Młody inwestor chrześcijański: złoto, nawyki i dochód bez długu",
+    "url": "https://polskieradio.cc/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki",
+    "type": "news",
+    "image": "mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki.png",
+    "status": "PUBLISHED"
+  },
+  {
     "timestamp": "2026-11-05T10:18:34.675Z",
     "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
     "url": "https://polskieradio.cc/lumina.wiolettarogowska",
