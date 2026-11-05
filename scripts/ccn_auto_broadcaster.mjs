@@ -182,6 +182,10 @@ function resolveItemImage(item, rootDir) {
     const p2 = path.join(rootDir, 'images', 'mapa-bg-earth.jpg');
     if (fs.existsSync(p2)) return p2;
   }
+  if (pathLower.includes('badz-blisko')) {
+    const p = path.join(rootDir, 'badz-blisko', 'swiatlo.png');
+    if (fs.existsSync(p)) return p;
+  }
   if (pathLower.includes('rozwiaz')) {
     const p = path.join(rootDir, 'rozwiaz-problem', 'assets', 'og-rozwiaz-problem.jpg');
     if (fs.existsSync(p)) return p;
@@ -468,6 +472,33 @@ function getAllEcosystemCandidates() {
       tag: '#RozwiazProblem'
     },
     {
+      title: 'Bądź Blisko: 7 Dni ze Słowem — Spotkania ze Słowem dające pokój',
+      lead: 'Siedem krótkich spotkań ze Słowem, które pomagają odnaleźć spokój i zrobić dobry krok. Prosty, bezpłatny plan biblijny Christian Culture.',
+      url: 'https://polskieradio.cc/badz-blisko',
+      image: 'badz-blisko/swiatlo.png',
+      category: 'Słowo Boże',
+      type: 'module',
+      tag: '#BadzBlisko'
+    },
+    {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 36 (Wj 5:1–23): Pierwsza konfrontacja z faraonem',
+      lead: 'Dzień 36 (5 listopada 2026): Pierwsza konfrontacja Mojżesza i Aarona z faraonem, próba wiary pod uciskiem i Boża wierność obietnicy.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-36',
+      image: 'images/academy/daily/kc_day_36_mojzesz_faraon_cegly.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 35 (Wj 4:1–31): Znaki z laską na Horebie i powołanie Aarona',
+      lead: 'Dzień 35 (4 listopada 2026): Znaki potwierdzające posłannictwo Mojżesza, powołanie Aarona jako rzecznika i posłuszeństwo Bożemu wezwaniu.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-35',
+      image: 'images/academy/daily/kc_day_35_powolanie_znaki_aaron.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
       title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 34 (Wj 3:1–22): Płonący krzak i Święte Imię Boga',
       lead: 'Dzień 34 (3 listopada 2026): Teofania na Horebie, powołanie Mojżesza, objawienie Imienia JHWH i Boże zstąpienie na ratunek.',
       url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-34',
@@ -679,6 +710,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🎧 BIBLIA AUDIO & SŁUCHOWISKA CC';
       callToAction = '👉 Słuchaj bezpłatnie:\n';
       addTags(item.tag || '#BibliaAudio', '#SlowoBoze', '#ChristianCulture');
+    } else if ((item.url || '').includes('badz-blisko')) {
+      subHeader = '🌱 BĄDŹ BLISKO | 7 DNI ZE SŁOWEM';
+      callToAction = '👉 Rozpocznij 7-dniową drogę:\n';
+      addTags(item.tag || '#BadzBlisko', '#SlowoBoze', '#ChristianCulture');
     } else if ((item.url || '').includes('the-journal') || (item.title || '').includes('THE JOURNAL')) {
       subHeader = '📔 THE JOURNAL | 90 DNI FORMACJI';
       callToAction = '👉 Odkryj i zacznij dziś:\n';
@@ -775,6 +810,12 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Rzuć palenie w 14 dni — bezpłatny kurs, plan na głód nikotynowy, audio i biblijna nadzieja.';
   } else if ((item.url || '').includes('blackout') || (item.title || '').toLowerCase().includes('blackout')) {
     bodyText = 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę według biblijnej roztropności.';
+  } else if ((item.url || '').includes('badz-blisko')) {
+    bodyText = '7 krótkich spotkań ze Słowem, które pomagają odnaleźć spokój i zrobić dobry krok. Bezpłatny 7-dniowy przewodnik!';
+  } else if ((item.url || '').includes('dzien-36')) {
+    bodyText = 'Dzień 36 (Wj 5:1–23): Pierwsza konfrontacja Mojżesza i Aarona z faraonem, próba wiary pod uciskiem i Boża wierność.';
+  } else if ((item.url || '').includes('dzien-35')) {
+    bodyText = 'Dzień 35 (Wj 4:1–31): Znaki z laską na Horebie, powołanie Aarona jako rzecznika i posłuszeństwo Bożemu wezwaniu.';
   } else if ((item.url || '').includes('dzien-34')) {
     bodyText = 'Dzień 34 (Wj 3:1–22): Płonący krzak, Święte Imię Boga i Boże zstąpienie na ratunek ludu.';
   } else if ((item.url || '').includes('dzien-33')) {
