@@ -1,14 +1,14 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-04T14:47:48.396Z",
+  "generatedAt": "2026-11-05T11:58:07.528Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 86,
-    "validUrls": 86,
+    "totalValidatedUrls": 87,
+    "validUrls": 87,
     "invalidUrls": 0,
-    "newsArticlesCount": 80,
-    "googleNews48hCount": 34,
-    "akademiaUrlsCount": 66,
+    "newsArticlesCount": 81,
+    "googleNews48hCount": 35,
+    "akademiaUrlsCount": 67,
     "bibliaUrlsCount": 4,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 2,
@@ -31,31 +31,31 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 23721,
+      "sizeBytes": 23760,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 30989,
+      "sizeBytes": 31042,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 39464,
+      "sizeBytes": 39948,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 28107,
+      "sizeBytes": 28856,
       "status": "OK"
     },
     {
       "path": "/sitemaps/akademia.xml",
       "exists": true,
-      "sizeBytes": 12490,
+      "sizeBytes": 12679,
       "status": "OK"
     },
     {
@@ -90,10 +90,10 @@
     }
   ],
   "indexNow": {
-    "keyConfigured": false,
+    "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 40,
-    "pendingCount": 40,
+    "totalQueued": 41,
+    "pendingCount": 41,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-04T14:47:48.390Z",
+        "queuedAt": "2026-11-05T11:58:07.523Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-04T14:47:48.390Z",
+        "queuedAt": "2026-11-05T11:58:07.523Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-04T14:47:48.390Z",
+        "queuedAt": "2026-11-05T11:58:07.523Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-04T14:47:48.390Z",
+        "queuedAt": "2026-11-05T11:58:07.523Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-04T14:47:48.390Z",
+        "queuedAt": "2026-11-05T11:58:07.523Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -382,7 +382,11 @@
         },
         "status": "PENDING"
       }
-    ]
+    ],
+    "keyMasked": "cc777b...c28e",
+    "totalIndexedUrls": 341,
+    "lastSubmittedCount": 341,
+    "lastSubmittedAt": "2026-11-05T11:58:23.665Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -398,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki.html",
+      "canonicalUrl": "https://polskieradio.cc/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/czy-zyczliwosc-bez-granic-moze-nas-wyczerpac-biblia-o-madrym-pomaganiu.html",
       "canonicalUrl": "https://polskieradio.cc/eM",
@@ -589,14 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/prosicie-a-bedzie-wam-dane-ale-co-gdy-nie-otrzymujesz.html",
-      "canonicalUrl": "https://polskieradio.cc/news/prosicie-a-bedzie-wam-dane-ale-co-gdy-nie-otrzymujesz",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
-  ]
+  ],
+  "lastInstantIndexingAt": "2026-11-05T11:58:23.665Z"
 }

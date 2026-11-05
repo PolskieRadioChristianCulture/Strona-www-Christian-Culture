@@ -3,6 +3,21 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://polskieradio.cc/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-05T10:00:00.000Z</news:publication_date>
+      <news:title>Młody inwestor chrześcijański: złoto, nawyki i dochód bez długu</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki.png</image:loc>
+      <image:title>Młody inwestor chrześcijański: złoto, nawyki i dochód bez długu</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/eM</loc>
     <news:news>
       <news:publication>

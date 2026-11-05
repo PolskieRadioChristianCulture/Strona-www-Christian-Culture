@@ -8,8 +8,18 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Wed, 04 Nov 2026 14:47:48 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 05 Nov 2026 11:58:07 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Młody inwestor chrześcijański: złoto, nawyki i dochód bez długu</title>
+      <link>https://polskieradio.cc/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki</guid>
+      <pubDate>Thu, 05 Nov 2026 10:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN FINANSE • BIZNES, ZŁOTO I ROZTROPNOŚĆ</category>
+      <description>Czy można bezpiecznie przejść przez utratę pracy, chorobę, inflację, zmianę prawa czy emeryturę, której wysokości dziś nie znamy? Nikt nie ma gwarancji. Można jednak świadomie zmniejszać ryzyko: żyć poniżej możliwości, unikać zbędnych zobowiązań, odkładać rezerwę, rozwijać kompetencje i budować zróżnicowany majątek bez popadania w niewolę długu.</description>
+      <enclosure url="https://polskieradio.cc/images/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki.png" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Czy życzliwość bez granic może nas wyczerpać? Biblia o mądrym pomaganiu</title>
       <link>https://polskieradio.cc/eM</link>
@@ -299,16 +309,6 @@
       <category>Z BIBLIĄ ZA PAN BRAT · LEKSYKON BIBLIJNY</category>
       <description>Dwudziesty siódmy rozdział Księgi Rodzaju stanowi dramatyczne studium przypadku na temat destrukcyjnych skutków faworyzowania w rodzinie, instrumentalizacji religii oraz suwerenności Bożego zamysłu ponad ludzkim grzechem.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-19-jakub-izaak.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>JAKUB, EZAW I STUDNIE IZAAKA — ANATOMIA WARTOŚCI, POKUSY CHWILI I PRZYMIERZA POKOJU</title>
-      <link>https://polskieradio.cc/news/jakub-ezaw-i-studnie-izaaka-anatomia-wartosci-pokusy-chwili-i-przymierza-pokoju-rdz-25-26</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/jakub-ezaw-i-studnie-izaaka-anatomia-wartosci-pokusy-chwili-i-przymierza-pokoju-rdz-25-26</guid>
-      <pubDate>Sun, 18 Oct 2026 00:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>Z BIBLIĄ ZA PAN BRAT · LEKSYKON BIBLIJNY</category>
-      <description>Rozdziały dwudziesty piąty i dwudziesty szósty Księgi Rodzaju dokumentują zmianę pokoleniową po śmierci Abrahama, narodziny bliźniąt oraz klasyczne dylematy etyczne związane z lekceważeniem duchowego dziedzictwa i pokojowym rozwiązywaniem sporów.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-18-jakub-ezaw.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>

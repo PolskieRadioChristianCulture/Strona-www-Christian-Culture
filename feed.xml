@@ -8,7 +8,7 @@
     <atom:link href="https://polskieradio.cc/feed.xml" rel="self" type="application/rss+xml" />
     <description>Główny kanał publikacji ekosystemu Christian Culture: CCN News, Akademia Biblijna, Biblijne Uwielbienie, Radio i Kino VOD.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Wed, 04 Nov 2026 14:47:48 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 05 Nov 2026 11:58:07 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
     <item>
       <title>Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?</title>
@@ -19,6 +19,16 @@
       <category>CCN Finanse</category>
       <description>Dyskusja o cyfrowych walutach banków centralnych (CBDC) coraz częściej wykracza poza ekonomię. Analiza CBDC, prawa niedzielnego oraz Apokalipsy 13 (z wydaniem audio 17:51).</description>
       <enclosure url="https://polskieradio.cc/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Młody inwestor chrześcijański: złoto, nawyki i dochód bez długu</title>
+      <link>https://polskieradio.cc/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki</guid>
+      <pubDate>Thu, 05 Nov 2026 10:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN FINANSE • BIZNES, ZŁOTO I ROZTROPNOŚĆ</category>
+      <description>Czy można bezpiecznie przejść przez utratę pracy, chorobę, inflację, zmianę prawa czy emeryturę, której wysokości dziś nie znamy? Nikt nie ma gwarancji. Można jednak świadomie zmniejszać ryzyko: żyć poniżej możliwości, unikać zbędnych zobowiązań, odkładać rezerwę, rozwijać kompetencje i budować zróżnicowany majątek bez popadania w niewolę długu.</description>
+      <enclosure url="https://polskieradio.cc/images/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki.png" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Czy życzliwość bez granic może nas wyczerpać? Biblia o mądrym pomaganiu</title>
@@ -209,16 +219,6 @@
       <category>Wiara &amp; Rozwój</category>
       <description>Księga Rodzaju 46–47: Migracja rodziny Jakuba do Egiptu, obietnica Bożej obecności poza Kanaanem, spotkanie w Goszen, błogosławieństwo faraona oraz realizm zarządzania kryzysem głodu przez Józefa.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-29-bog-prowadzi-swoj-lud-do-egiptu.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Z Biblią za Pan Brat: Dzień 28 — „Ja jestem Józef”: Ofiarne poręczenie Judy, teologia opatrzności i pojednanie w Księdze Rodzaju 44–45</title>
-      <link>https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-28-ja-jestem-jozef-przebaczenie-zamiast-zemsty</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-28-ja-jestem-jozef-przebaczenie-zamiast-zemsty</guid>
-      <pubDate>Wed, 28 Oct 2026 06:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>Wiara &amp; Rozwój</category>
-      <description>Księga Rodzaju 44–45: Próba srebrnego kielicha w worku Beniamina, przełomowa mowa obrończa i dobrowolne zastępstwo Judy, odkrycie tożsamości Józefa oraz chrystocentryczna perspektywa zastępczego okupu i służby pojednania.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-28-ja-jestem-jozef-przebaczenie-zamiast-zemsty.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Z Biblią za Pan Brat — Dzień 17: Wiara patrząca w przyszłość (Rdz 23–24)</title>
