@@ -266,7 +266,7 @@ export const TopNewsTicker: React.FC<TopNewsTickerProps> = ({ appLanguage, insta
 
     const standardContent = appLanguage === 'pl' 
       ? [
-          { type: 'text', content: "Odwiedź polskieradio.cc lub cclite.pl | Kontakt: radiochristianculture@gmail.com | Infolinia Nadzieja: " },
+          { type: 'text', content: "Odwiedź polskieradio.cc lub cclite.pl | Kontakt: redakcjaccn@gmail.com | Infolinia Nadzieja: " },
           { type: 'button', id: 'hotline', label: HOTLINE_NADZIEJA_NUMBER, action: () => window.location.href = `tel:${HOTLINE_NADZIEJA_NUMBER.replace(/\s/g, '')}`, bgColor: 'bg-blue-700', textColor: 'text-white', borderColor: 'border-blue-500/30', shadowColor: 'shadow-blue-500/20', separatorAfter: true },
         ]
       : [

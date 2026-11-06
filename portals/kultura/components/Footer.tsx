@@ -144,11 +144,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy }) => {
                 Masz pytania dotyczące twórczości, audycji lub chcesz współtworzyć kulturę?
               </p>
               <a
-                href="mailto:polskiercctv@gmail.com"
+                href="mailto:redakcjaccn@gmail.com"
                 className="inline-flex items-center gap-2 text-sm text-[#f9282b] hover:text-white transition font-medium mb-4"
               >
                 <Mail className="w-4 h-4" />
-                polskiercctv@gmail.com
+                redakcjaccn@gmail.com
               </a>
 
               <div className="pt-2 border-t border-zinc-800 space-y-1.5 text-xs text-gray-400">

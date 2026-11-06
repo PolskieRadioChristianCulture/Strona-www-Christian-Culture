@@ -11,7 +11,7 @@ class NewsErrorBoundary extends Component<{ children: ReactNode }, { failed: boo
     if (this.state.failed) return <main style={{maxWidth: 540, margin: '3rem auto', padding: 24, fontFamily: 'system-ui'}}>
       <h1>CCN News</h1><p>Nie udało się wyświetlić wiadomości.</p>
       <button onClick={() => window.location.reload()}>Spróbuj ponownie</button>
-      <p><a href="mailto:polskiercctv@gmail.com">Zgłoś problem redakcji</a></p>
+      <p><a href="mailto:redakcjaccn@gmail.com">Zgłoś problem redakcji</a></p>
     </main>;
     return this.props.children;
   }
