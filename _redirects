@@ -230,6 +230,7 @@
 # === KANAŁY I SERWISY CC (CLEAN URLS) ===
 /kino /vod 200
 /biblia-spiewana /biblia-spiewana-live 200
+/live/biblia-spiewana /biblia-spiewana-live 200
 /zapolske /zapolske-live.html 200
 /apokalipsa /apokalipsa-live.html 200
 /studium /studium-live.html 200
@@ -412,6 +413,7 @@
 /codzienne-uwielbienie /spiewajmy-panu-live 200
 /uwielbienie-live /spiewajmy-panu-live 200
 /biblia-spiewana /biblia-spiewana-live 200
+/live/biblia-spiewana /biblia-spiewana-live 200
 /zapolske /zapolske-live 200
 /czuwanie /nocne-czuwanie-live 200
 /ambient-live /ambient-sleep-live 200
