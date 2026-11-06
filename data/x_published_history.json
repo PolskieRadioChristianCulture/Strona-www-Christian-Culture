@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "bog-jest-miloscia",
+      "title": "Książka: Bóg jest MIŁOŚCIĄ? — Cezary i Wioletta Rogowscy. Odpowiedź na trudne pytania",
+      "url": "https://polskieradio.cc/bog-jest-miloscia",
+      "type": "book",
+      "image": "art-bog-jest-miloscia.jpg",
+      "publishedAt": "2026-11-06T12:05:19.874Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "mojabiblia?ref=GEN.15.5",
       "title": "Werset Dnia: „Spójrz ku niebu i policz gwiazdy...” (Rdz 15:5, UBG)",
       "url": "https://polskieradio.cc/mojabiblia?ref=GEN.15.5",
