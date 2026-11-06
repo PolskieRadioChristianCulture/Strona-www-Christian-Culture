@@ -490,55 +490,10 @@ function getAllEcosystemCandidates() {
       tag: '#KursCodzienny'
     },
     {
-      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 36 (Wj 5:1–23): Pierwsza konfrontacja z faraonem',
-      lead: 'Dzień 36 (5 listopada 2026): Pierwsza konfrontacja Mojżesza i Aarona z faraonem, próba wiary pod uciskiem i Boża wierność obietnicy.',
-      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-36',
-      image: 'images/academy/daily/kc_day_36_mojzesz_faraon_cegly.jpg',
-      category: 'Akademia Biblijna',
-      type: 'module',
-      tag: '#KursCodzienny'
-    },
-    {
-      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 35 (Wj 4:1–31): Znaki z laską na Horebie i powołanie Aarona',
-      lead: 'Dzień 35 (4 listopada 2026): Znaki potwierdzające posłannictwo Mojżesza, powołanie Aarona jako rzecznika i posłuszeństwo Bożemu wezwaniu.',
-      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-35',
-      image: 'images/academy/daily/kc_day_35_powolanie_znaki_aaron.jpg',
-      category: 'Akademia Biblijna',
-      type: 'module',
-      tag: '#KursCodzienny'
-    },
-    {
-      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 34 (Wj 3:1–22): Płonący krzak i Święte Imię Boga',
-      lead: 'Dzień 34 (3 listopada 2026): Teofania na Horebie, powołanie Mojżesza, objawienie Imienia JHWH i Boże zstąpienie na ratunek.',
-      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-34',
-      image: 'images/news/art-z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga.jpg',
-      category: 'Akademia Biblijna',
-      type: 'module',
-      tag: '#KursCodzienny'
-    },
-    {
-      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 33 (Wj 2:1–25): Z wód Nilu do pustyni Madian',
-      lead: 'Dzień 33 (2 listopada 2026): Ocalenie Mojżesza w sitowiu Nilu, próba wiary na pustyni Madian i Boża pamięć o przymierzu.',
-      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-33',
-      image: 'images/news/art-z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian.jpg',
-      category: 'Akademia Biblijna',
-      type: 'module',
-      tag: '#KursCodzienny'
-    },
-    {
-      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie',
-      lead: 'Start Księgi Wyjścia (1 listopada 2026)! Heroiczna wiara położnych Szifry i Pui, które bardziej bały się Boga niż faraona, oraz Boże ocalenie życia.',
-      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-32',
-      image: 'images/news/art-z-biblia-za-pan-brat-dzien-32-nowy-krol-ucisk-ocalenie.jpg',
-      category: 'Akademia Biblijna',
-      type: 'module',
-      tag: '#KursCodzienny'
-    },
-    {
-      title: 'Biblia Audio CC: Księga Rodzaju 12 (GEN-012) — Powołanie Abrama i Boża obietnica narodu',
-      lead: 'Nowy rozdział w słuchowisku (3 listopada 2026): Księga Rodzaju 12,1–20 (UBG). Powołanie Abrama, wyjście z Haranu i obietnica wielkiego narodu.',
+      title: 'Biblia Audio CC: Księga Rodzaju 15 (GEN-015) — Przymierze z Abramem i Boża obietnica',
+      lead: 'Nowy rozdział w słuchowisku (6 listopada 2026)! Księga Rodzaju 15,1–21 (UBG): Przymierze Boga z Abramem, gwiazdy na niebie, usprawiedliwienie z wiary i obietnica dziedzictwa.',
       url: 'https://polskieradio.cc/biblia-audio',
-      image: 'biblia-audio/assets/rodzaju-hero.jpg',
+      image: 'images/news/art-rdz15-abram-gwiazdy.jpg',
       category: 'Biblia Audio',
       type: 'module',
       tag: '#BibliaAudio'
@@ -843,6 +798,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Start Księgi Wyjścia! Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie — heroiczna wiara położnych Szifry i Pui.';
   } else if ((item.url || '').endsWith('/akademia')) {
     bodyText = 'Akademia Biblijna & Kurs Codzienny: Systematyczne studium Pisma Świętego i bezpłatne kursy dla każdego.';
+  } else if ((item.title || '').includes('GEN-015') || (item.title || '').includes('Rodzaju 15')) {
+    bodyText = 'Nowy rozdział w słuchowisku! Księga Rodzaju 15 (UBG): Przymierze z Abramem, gwiazdy na niebie i wiara (Rdz 15,6).';
   } else if ((item.title || '').includes('GEN-012') || (item.title || '').includes('Rodzaju 12')) {
     bodyText = 'Nowy rozdział w słuchowisku! Księga Rodzaju 12 (UBG): Powołanie Abrama, wyjście z Haranu i obietnica wielkiego narodu.';
   } else if (item.type === 'vod' && item.title.includes('Proroctwa')) {

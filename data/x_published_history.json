@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "biblia-audio",
+      "title": "Biblia Audio CC: Księga Rodzaju 15 (GEN-015) — Przymierze z Abramem i Boża obietnica",
+      "url": "https://polskieradio.cc/biblia-audio",
+      "type": "module",
+      "image": "art-rdz15-abram-gwiazdy.jpg",
+      "publishedAt": "2026-11-06T15:39:49.486Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "czy-patriotyzm-zobowiazuje-do-szacunku-wobec-przeciwnika",
       "title": "Czy patriotyzm zobowiązuje do szacunku wobec przeciwnika?",
       "url": "https://polskieradio.cc/news/czy-patriotyzm-zobowiazuje-do-szacunku-wobec-przeciwnika",
