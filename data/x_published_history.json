@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "rozwiaz-problem",
+      "title": "Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański",
+      "url": "https://polskieradio.cc/rozwiaz-problem",
+      "type": "course",
+      "image": "og-rozwiaz-problem.jpg",
+      "publishedAt": "2026-11-06T13:24:14.485Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "mojabiblia?ref=GEN.18.25",
       "title": "Werset Dnia: „Czy Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)",
       "url": "https://polskieradio.cc/mojabiblia?ref=GEN.18.25",
