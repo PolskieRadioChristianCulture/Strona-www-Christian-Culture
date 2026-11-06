@@ -3,24 +3,24 @@ import fs from 'node:fs';
 const statusPath = 'C:/Users/czark/Desktop/Misja CC/JOMA_SHARED_MEMORY/JOMA_STATUS.md';
 const handoffsPath = 'C:/Users/czark/Desktop/Misja CC/JOMA_SHARED_MEMORY/JOMA_HANDOFFS.md';
 
-const newStatus = `## 2026-11-06 16:40 (Warszawa) — @A001 (Antigravity): Cykliczna emisja nowości ekosystemu na platformie X — Nowość Biblia Audio CC: Księga Rodzaju 15 (GEN-015) (CCN BROADCASTER #117) | X PROD LIVE 🚀
+const newStatus = `## 2026-11-06 22:31 (Warszawa) — @A001 (Antigravity): Cykliczna emisja nowości ekosystemu na platformie X — Wizytówka Wioletta Rogowska (CCN BROADCASTER #122) | X PROD LIVE 🚀
 - **ZLECENIE L0 (Dowódca Nazir):** Cykliczna publikacja kolejnej nowości z ekosystemu Christian Culture na platformie X pod oficjalnym szyldem: 🔴 CCN NEWS | polskieradio.cc/news.
 - **ZREALIZOWANY ZAKRES:**
-  1. **Wybrana nowość z ekosystemu:** „Biblia Audio CC: Księga Rodzaju 15 (GEN-015) — Przymierze z Abramem i Boża obietnica” (URL: https://polskieradio.cc/biblia-audio) — kategoria \`Biblia Audio\` (module), świeżo wyprodukowany i zmasterowany rozdział słuchowiska (UBG-2025, -16 LUFS), rotacja zrównoważona po pozycjach \`news\` (Patriotyzm #116), \`profile\` (Wizytówka CR #115), \`music\` (Cezary Rogowski #114), \`course\` (Rozwiąż problem #113), \`verse\` (Rdz 18:25 #112).
-  2. **Dedykowana oprawa graficzna:** images/news/art-rdz15-abram-gwiazdy.jpg — podwójna aprobata: \`IMAGE_CONTENT_MATCH = PASS\` (@A520 — pełna zgodność tematyczna z Abramem spoglądającym w rozgwieżdżone niebo na obietnicę Boga z Rdz 15), \`PUBLISHER_VISUAL_APPROVAL = PASS\` (@A001 — weryfikacja załączenia podglądu grafiki na platformie X).
+  1. **Wybrana nowość z ekosystemu:** „Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara” (URL: https://polskieradio.cc/lumina.wiolettarogowska) — kategoria \`profile\` (Wizytówka & Społeczność LUMINA), rotacja zrównoważona po pozycjach: player (#121), werset dnia (#120), książka autorska (#119), kino VOD (#118), słuchowisko Biblia Audio GEN-015 (#117), publicystyka (#116), wizytówka założyciela (#115).
+  2. **Dedykowana oprawa graficzna:** images/wioletta/wioletta-og.jpg — podwójna aprobata: \`IMAGE_CONTENT_MATCH = PASS\` (@A520 — pełna zgodność tożsamościowa i estetyczna z autorskim profilem Wioletty Rogowskiej w portalu LUMINA), \`PUBLISHER_VISUAL_APPROVAL = PASS\` (@A001 — weryfikacja prawidłowego załączenia podglądu grafiki w oknie publikacji Playwright na X).
   3. **Wdrożona treść posta na X:**
      🔴 CCN NEWS | polskieradio.cc/news
-     🎧 BIBLIA AUDIO & SŁUCHOWISKA CC
-     Nowy rozdział w słuchowisku! Księga Rodzaju 15 (UBG): Przymierze z Abramem, gwiazdy na niebie i wiara (Rdz 15,6).
+     👤 SPOŁECZNOŚĆ CC | Portal LUMINA
+     Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara
 
-     👉 Słuchaj bezpłatnie:
-     https://polskieradio.cc/biblia-audio
+     👉 Dołącz do społeczności LUMINA:
+     https://polskieradio.cc/lumina.wiolettarogowska
 
-     #BibliaAudio #SlowoBoze #ChristianCulture
+     #WiolettaRogowska #LudzieMisji #ChristianCulture
   4. **Silnik Playwright:** 100% Free Tier (Zero Cost: 0 zł), bezpieczna sesja Chromium (.x_browser_profile), status SUCCESS / 200.
-  5. **Rejestr Żywej Mapy Ekosystemu (@m = @mapaCC):** Zaktualizowano data/ecosystem-map.json (symbol A).
-  6. **Rejestr stanu i telemetrii:** Zaktualizowano data/ccn_broadcaster_state.json (lastIndex: 24, totalBroadcasts: 117), data/ccn_broadcaster_log.json, data/x_published_history.json.
-  7. **Podwójny Git Push:** origin main oraz lumina-repo main.
+  5. **Rejestr Żywej Mapy Ekosystemu (@m = @mapaCC):** Zaktualizowano data/ecosystem-map.json (symbol A) oraz zsynchronizowano z mirrorami.
+  6. **Rejestr stanu i telemetrii:** Zaktualizowano data/ccn_broadcaster_state.json (totalBroadcasts: 122), data/ccn_broadcaster_log.json, data/x_published_history.json.
+  7. **Status:** ✅ Sukces.
 
 `;
 
@@ -34,15 +34,18 @@ const handoffEntry = `
 
 ---
 
-## [2026-11-06 16:40] @A001 — Cykliczna publikacja nowości ekosystemu na platformie X (#117: Biblia Audio GEN-015) (done)
+## [2026-11-06 22:31] @A001 — Cykliczna publikacja nowości ekosystemu na platformie X (#122: Wizytówka Wioletta Rogowska) (done)
 - **Kanał:** Platforma X (@csbwersetdnia) pod oficjalnym szyldem: \`🔴 CCN NEWS | polskieradio.cc/news\`.
-- **Opublikowana pozycja:** Nowość Biblia Audio CC: Księga Rodzaju 15 (GEN-015) — Przymierze Boga z Abramem, gwiazdy na niebie i usprawiedliwienie z wiary (Rdz 15,6 UBG).
-- **Link kanoniczny:** https://polskieradio.cc/biblia-audio
-- **Dedykowana grafika 16:9:** images/news/art-rdz15-abram-gwiazdy.jpg (załączona pomyślnie, IMAGE_CONTENT_MATCH = PASS @A520, PUBLISHER_VISUAL_APPROVAL = PASS @A001).
-- **Format:** Zgodny ze standardem dyrektywy Dowódcy (nagłówek CCN NEWS, subheader \`🎧 BIBLIA AUDIO & SŁUCHOWISKA CC\`, CTA do słuchowiska, hashtagi: #BibliaAudio #SlowoBoze #ChristianCulture).
+- **Opublikowana pozycja:** Wizytówka & Społeczność LUMINA: „Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara”.
+- **Link kanoniczny:** https://polskieradio.cc/lumina.wiolettarogowska
+- **Dedykowana grafika 16:9:** images/wioletta/wioletta-og.jpg (załączona pomyślnie, IMAGE_CONTENT_MATCH = PASS @A520, PUBLISHER_VISUAL_APPROVAL = PASS @A001).
+- **Format:** Zgodny ze standardem dyrektywy Dowódcy (nagłówek CCN NEWS, subheader \`👤 SPOŁECZNOŚĆ CC | Portal LUMINA\`, opis, CTA do portalu LUMINA, hashtagi: #WiolettaRogowska #LudzieMisji #ChristianCulture, limit 280 znaków).
 - **Silnik & Koszt:** Playwright (scripts/ccn_auto_broadcaster.mjs), ZERO COST (0,00 PLN).
-- **Zrównoważona rotacja filarów:** Zachowana — nowość słuchowiska wyemitowana w cyklu po publicystyce (#116), wizytówce (#115), muzyce (#114), kursie (#113), wersecie (#112), książce (#111).
-- **Status:** ✅ Sukces (zaktualizowano data/x_published_history.json, data/ccn_broadcaster_state.json [totalBroadcasts: 117], data/ccn_broadcaster_log.json, data/ecosystem-map.json).
+- **Zrównoważona rotacja filarów:** Zachowana — profil współzałożycielki wyemitowany w naturalnej rotacji po odtwarzaczu radiowym (#121), wersecie dnia (#120), bibliotece autorskiej (#119), kinie VOD (#118), słuchowisku Biblia Audio GEN-015 (#117) i publicystyce patriotycznej (#116).
+- **Weryfikacja biblijna & doktrynalna:** Zgodna z Protokołem Weryfikacji Biblijnej EkoCC @777 oraz 28 Zasadami Wiary.
+- **Żywa Mapa Ekosystemu (@m = @mapaCC):** Zaktualizowano data/ecosystem-map.json (symbol A) oraz zsynchronizowano z mirrorami.
+- **Stan rejestru:** Łącznie publikacji: 122, zaktualizowano data/x_published_history.json, data/ccn_broadcaster_state.json oraz data/ccn_broadcaster_log.json.
+- **Status:** ✅ Sukces.
 `;
 
 if (fs.existsSync(handoffsPath)) {

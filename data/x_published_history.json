@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina.wiolettarogowska",
+      "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
+      "url": "https://polskieradio.cc/lumina.wiolettarogowska",
+      "type": "profile",
+      "image": "wioletta-og.jpg",
+      "publishedAt": "2026-11-06T21:30:56.503Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "player",
+      "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
+      "url": "https://polskieradio.cc/player",
+      "type": "music",
+      "image": "art-worship.jpg",
+      "publishedAt": "2026-11-06T17:34:41.652Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dekalog-bozy",
       "title": "Werset Dnia: „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8, UBG)",
       "url": "https://polskieradio.cc/prawo/dekalog-bozy",
