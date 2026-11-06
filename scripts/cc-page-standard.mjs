@@ -19,7 +19,7 @@ export function applyPageStandard(file, html) {
   const name = file.replaceAll('\\', '/').toLowerCase();
   // THE JOURNAL selects its own approved shared UI modules; do not inject chat or unrelated tracking.
   if (name === 'the-journal/index.html') return html;
-  if (!name.endsWith('.html') || /(?:live|stream|obs|embed|admin|mission.control|pilot|cctv24|bcm24|lumi-kids\/app)/.test(name)) return html;
+  if (!name.endsWith('.html') || /(?:live|stream|obs|embed|admin|mission.control|pilot|cctv24|bcm24|lumi-kids\/app|ccmc)/.test(name)) return html;
   if (!/<body\b/i.test(html) || !/<\/body\s*>/i.test(html)) return html;
   if (/http-equiv\s*=\s*["']refresh["']/i.test(html)) return html;
   html = applyChannelNumbering(file, html);
