@@ -24,6 +24,16 @@ export const PILOT_PROJECTS = [
 ];
 
 export const DEFAULT_OWNER_EMAIL = 'nazirczarkes@gmail.com';
+export const ALLOWED_ADMIN_EMAILS = [
+  'nazirczarkes@gmail.com',
+  'studiodees7@gmail.com',
+  'czarekrogowski3@gmail.com',
+  'osobowoscplus@gmail.com',
+  'yourimaginationstudio@gmail.com',
+  'polskiercctv@gmail.com',
+  'radiochristianculture@gmail.com',
+  'polskieradiocc@gmail.com',
+];
 export const DEFAULT_TIMEZONE = 'Europe/Warsaw';
 
 export async function sha256Hex(input) {
@@ -949,7 +959,7 @@ export class MissionCalendarService {
         const email = String(verified.email || '').toLowerCase();
         const isOwner =
           (this.ownerSub ? verified.sub === this.ownerSub : false) ||
-          (email && email === this.ownerEmail && verified.email_verified !== false);
+          (email && (email === this.ownerEmail || ALLOWED_ADMIN_EMAILS.includes(email)) && verified.email_verified !== false);
         if (isOwner) {
           const u = await this.repo.upsertUser({ google_sub: verified.sub, email: email || this.ownerEmail, role: 'owner' }, this.nowIso());
           return { user: u, authMethod: 'bearer' };
@@ -1634,7 +1644,7 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
       const email = String(verified.email || '').toLowerCase();
       const isAllowedOwner =
         (service.ownerSub ? verified.sub === service.ownerSub : false) ||
-        (email === service.ownerEmail && verified.email_verified !== false);
+        ((email === service.ownerEmail || ALLOWED_ADMIN_EMAILS.includes(email)) && verified.email_verified !== false);
 
       let user = await repo.getUserBySub(verified.sub);
       if (!user && isAllowedOwner) {

@@ -108,24 +108,60 @@ function escapeHtml(str) {
 
 async function tryLuminaBridgeSession() {
   try {
+    let authUser = null;
     if (window.firebase?.auth) {
-      const currentUser = window.firebase.auth().currentUser;
-      if (currentUser) {
-        const idToken = await currentUser.getIdToken();
-        state.bearerToken = idToken;
-        const sessionRes = await apiRequest('/auth/session', {
-          method: 'POST',
-          body: JSON.stringify({ idToken }),
-        });
-        state.user = sessionRes.user;
-        state.csrfToken = sessionRes.csrfToken || '';
-        return true;
+      authUser = window.firebase.auth().currentUser;
+    }
+    if (!authUser && window.firebaseAuth?.currentUser) {
+      authUser = window.firebaseAuth.currentUser;
+    }
+    if (!authUser) {
+      try {
+        const luminaDb = await import('/lumina-db.js?v=20261013_notifsafe1');
+        if (luminaDb && typeof luminaDb.ensureDbReady === 'function') {
+          const { auth } = await luminaDb.ensureDbReady();
+          authUser = auth?.currentUser || (typeof luminaDb.getCurrentUser === 'function' ? luminaDb.getCurrentUser() : null);
+        }
+      } catch (modErr) {
+        console.warn('LuminaDB import in ccMC:', modErr);
       }
+    }
+
+    if (authUser && typeof authUser.getIdToken === 'function') {
+      const idToken = await authUser.getIdToken();
+      state.bearerToken = idToken;
+      const sessionRes = await apiRequest('/auth/session', {
+        method: 'POST',
+        body: JSON.stringify({ idToken }),
+      });
+      state.user = sessionRes.user;
+      state.csrfToken = sessionRes.csrfToken || '';
+      return true;
     }
   } catch (e) {
     state.error = e.message;
   }
   return false;
+}
+
+async function triggerGoogleLoginPopup() {
+  try {
+    const luminaDb = await import('/lumina-db.js?v=20261013_notifsafe1');
+    if (luminaDb && typeof luminaDb.loginWithGoogle === 'function') {
+      const res = await luminaDb.loginWithGoogle();
+      if (res && res.user) {
+        const ok = await tryLuminaBridgeSession();
+        if (ok) {
+          await refreshData();
+          render();
+          return;
+        }
+      }
+    }
+  } catch (err) {
+    state.error = err.message || 'Błąd logowania Google LUMINA';
+    render();
+  }
 }
 
 async function loadInitialSession() {
@@ -142,22 +178,22 @@ async function loadInitialSession() {
     if (e.status === 403) state.error = e.message;
   }
 
-  // Nasłuchuj na sesję LUMINA (js/cc-global-auth.js)
-  window.addEventListener('cc-auth-changed', async (ev) => {
-    if (ev.detail?.user && !state.user) {
+  // Nasłuchuj na sesję LUMINA (CustomEvents)
+  const handleAuthChange = async () => {
+    if (!state.user) {
       const ok = await tryLuminaBridgeSession();
       if (ok) {
         await refreshData();
         render();
       }
     }
-  });
-  setTimeout(async () => {
-    if (!state.user && (await tryLuminaBridgeSession())) {
-      await refreshData();
-      render();
-    }
-  }, 900);
+  };
+
+  window.addEventListener('cc-auth-changed', handleAuthChange);
+  window.addEventListener('lumina-auth-state', handleAuthChange);
+
+  setTimeout(handleAuthChange, 500);
+  setTimeout(handleAuthChange, 1500);
   render();
 }
 
@@ -568,17 +604,16 @@ export function render() {
     const btnLogin = document.getElementById('btnLuminaSignIn');
     if (btnLogin) {
       btnLogin.onclick = async () => {
+        btnLogin.disabled = true;
+        btnLogin.textContent = 'Trwa logowanie…';
         if (await tryLuminaBridgeSession()) {
           await refreshData();
           render();
           return;
         }
-        const googleBtn = document.querySelector('.cc-auth-google-btn, [data-cc-auth-login]');
-        if (googleBtn) googleBtn.click();
-        else {
-          state.error = 'Użyj przycisku logowania Google LUMINA lub zaloguj się na konto Administratora.';
-          render();
-        }
+        await triggerGoogleLoginPopup();
+        btnLogin.disabled = false;
+        btnLogin.textContent = 'Zaloguj przez Google (SSO LUMINA)';
       };
     }
     return;
