@@ -163,6 +163,18 @@ async function adultGetJwks(fetchImpl) {
   return adultJwksCache.keys;
 }
 
+let googleOauthJwksCache = { keys: null, until: 0 };
+async function getGoogleOauthJwks(fetchImpl) {
+  const now = Date.now();
+  if (googleOauthJwksCache.keys && googleOauthJwksCache.until > now) return googleOauthJwksCache.keys;
+  const resp = await fetchImpl('https://www.googleapis.com/oauth2/v3/certs');
+  if (!resp.ok) return [];
+  const data = await resp.json();
+  const m = /max-age=(\d+)/.exec(resp.headers.get('cache-control') || '');
+  googleOauthJwksCache = { keys: data.keys || [], until: now + (m ? Math.min(+m[1], 21600) : 3600) * 1000 };
+  return googleOauthJwksCache.keys;
+}
+
 async function verifyFirebaseIdToken(token, fetchImpl = fetch, nowSec = Math.floor(Date.now() / 1000)) {
   const parts = String(token || '').split('.');
   if (parts.length !== 3) return null;
@@ -172,12 +184,26 @@ async function verifyFirebaseIdToken(token, fetchImpl = fetch, nowSec = Math.flo
     payload = JSON.parse(new TextDecoder().decode(adultB64urlToBytes(parts[1])));
   } catch { return null; }
   if (header.alg !== 'RS256' || !header.kid) return null;
+  if (!payload.sub || typeof payload.sub !== 'string') return null;
+  if (!(payload.exp > nowSec) || !(payload.iat <= nowSec + 300)) return null;
+
+  const isGoogleOauth = payload.iss === 'https://accounts.google.com' || payload.iss === 'accounts.google.com';
+  if (isGoogleOauth) {
+    const gKeys = await getGoogleOauthJwks(fetchImpl);
+    const jwk = gKeys.find((k) => k.kid === header.kid);
+    if (!jwk) return null;
+    const key = await crypto.subtle.importKey('jwk', { kty: jwk.kty, n: jwk.n, e: jwk.e, alg: 'RS256', ext: true },
+      { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']);
+    const ok = await crypto.subtle.verify('RSASSA-PKCS1-v1_5', key, adultB64urlToBytes(parts[2]),
+      new TextEncoder().encode(parts[0] + '.' + parts[1]));
+    return ok ? payload : null;
+  }
+
   const validProjects = new Set(['lumina-cc', 'cc-mission-control', 'cuda-398c0']);
   if (!validProjects.has(payload.aud)) return null;
   const issProject = String(payload.iss || '').replace('https://securetoken.google.com/', '');
   if (!validProjects.has(issProject)) return null;
-  if (!payload.sub || typeof payload.sub !== 'string') return null;
-  if (!(payload.exp > nowSec) || !(payload.iat <= nowSec + 300)) return null;
+
   const keys = await adultGetJwks(fetchImpl);
   const jwk = keys.find((k) => k.kid === header.kid);
   if (!jwk) return null;

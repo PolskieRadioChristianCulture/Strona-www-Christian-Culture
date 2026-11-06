@@ -106,86 +106,64 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-async function tryLuminaBridgeSession() {
+async function exchangeTokenAndEnter(authUser) {
   try {
-    let authUser = null;
-    const luminaDb = await import('/lumina-db.js?v=20261013_notifsafe1').catch(() => null);
-    if (luminaDb) {
-      if (typeof luminaDb.ensureDbReady === 'function') {
-        await luminaDb.ensureDbReady().catch(() => null);
-      }
-      if (typeof luminaDb.waitForAuthReady === 'function') {
-        authUser = await luminaDb.waitForAuthReady(3500).catch(() => null);
-      }
-      if (!authUser && typeof luminaDb.getCurrentUser === 'function') {
-        authUser = luminaDb.getCurrentUser();
-      }
-      if (!authUser && typeof luminaDb.getFirebaseAuthUser === 'function') {
-        authUser = luminaDb.getFirebaseAuthUser();
-      }
-    }
-    if (!authUser && window.firebase?.auth) {
-      authUser = window.firebase.auth().currentUser;
-    }
-    if (!authUser && window.firebaseAuth?.currentUser) {
-      authUser = window.firebaseAuth.currentUser;
-    }
-
-    if (authUser && typeof authUser.getIdToken === 'function') {
-      const idToken = await authUser.getIdToken();
-      state.bearerToken = idToken;
-      const sessionRes = await apiRequest('/auth/session', {
-        method: 'POST',
-        body: JSON.stringify({ idToken }),
-      });
+    const idToken = await authUser.getIdToken();
+    state.bearerToken = idToken;
+    const sessionRes = await apiRequest('/auth/session', {
+      method: 'POST',
+      body: JSON.stringify({ idToken }),
+    });
+    if (sessionRes && sessionRes.user) {
       state.user = sessionRes.user;
       state.csrfToken = sessionRes.csrfToken || '';
       state.error = '';
+      await refreshData();
+      render();
       return true;
     }
-  } catch (e) {
-    console.warn('Lumina session bridge note:', e);
-    if (e.status === 403) {
-      state.error = 'Brak uprawnień Administratora dla konta Google: ' + (e.message || '');
+  } catch (err) {
+    console.warn('Session exchange error:', err);
+    if (err.status === 403) {
+      state.error = 'Brak uprawnień Administratora dla konta: ' + (authUser.email || '');
+      render();
     }
   }
   return false;
 }
 
-async function triggerGoogleLoginPopup() {
+async function tryLuminaBridgeSession() {
   try {
-    state.error = '';
-    const luminaDb = await import('/lumina-db.js?v=20261013_notifsafe1').catch(() => null);
-    const loginFn = luminaDb?.loginWithGoogle || window.loginWithGoogle || window.ccLoginWithGoogle;
-    if (typeof loginFn === 'function') {
-      const res = await loginFn();
-      if (res && res.user && typeof res.user.getIdToken === 'function') {
-        const idToken = await res.user.getIdToken();
-        state.bearerToken = idToken;
-        const sessionRes = await apiRequest('/auth/session', {
-          method: 'POST',
-          body: JSON.stringify({ idToken }),
-        });
-        state.user = sessionRes.user;
-        state.csrfToken = sessionRes.csrfToken || '';
-        state.error = '';
-        await refreshData();
-        render();
-        return;
+    let authUser = null;
+    const luminaDb = await import('/lumina-db.js?v=20261107_l1').catch(() => null);
+    if (luminaDb) {
+      await luminaDb.ensureDbReady().catch(() => null);
+      authUser = await luminaDb.waitForAuthReady(3500).catch(() => null);
+      if (!authUser && typeof luminaDb.getCurrentUser === 'function') {
+        const u = luminaDb.getCurrentUser();
+        if (u && typeof u.getIdToken === 'function') authUser = u;
       }
-      const ok = await tryLuminaBridgeSession();
-      if (ok) {
-        await refreshData();
-        render();
-        return;
+      if (!authUser && typeof luminaDb.getFirebaseAuthUser === 'function') {
+        const u = luminaDb.getFirebaseAuthUser();
+        if (u && typeof u.getIdToken === 'function') authUser = u;
       }
     }
-  } catch (err) {
-    if (err.code !== 'auth/popup-closed-by-user' && err.code !== 'auth/cancelled-popup-request') {
-      state.error = err.message || 'Błąd logowania Google LUMINA';
-      render();
+    if (!authUser && window.firebase?.auth) {
+      const u = window.firebase.auth().currentUser;
+      if (u && typeof u.getIdToken === 'function') authUser = u;
     }
+    if (!authUser && window.firebaseAuth?.currentUser) {
+      const u = window.firebaseAuth.currentUser;
+      if (u && typeof u.getIdToken === 'function') authUser = u;
+    }
+
+    if (authUser && typeof authUser.getIdToken === 'function') {
+      return await exchangeTokenAndEnter(authUser);
+    }
+  } catch (e) {
+    console.warn('Bridge check notice:', e);
   }
+  return false;
 }
 
 async function loadInitialSession() {
@@ -202,30 +180,28 @@ async function loadInitialSession() {
     if (e.status === 403) state.error = e.message;
   }
 
-  // Attempt auto-bridge from active LUMINA / Firebase session immediately
-  const bridgeOk = await tryLuminaBridgeSession();
-  if (bridgeOk) {
-    await refreshData();
-    render();
-    return;
-  }
-
-  // Listen to auth state changes and re-attempt
-  const handleAuthChange = async () => {
-    if (!state.user) {
-      const ok = await tryLuminaBridgeSession();
-      if (ok) {
-        await refreshData();
-        render();
+  // Automatyczne rozpoznanie i mostkowanie aktywnej sesji Google LUMINA
+  try {
+    const luminaDb = await import('/lumina-db.js?v=20261107_l1').catch(() => null);
+    if (luminaDb) {
+      await luminaDb.ensureDbReady().catch(() => null);
+      if (typeof luminaDb.onAuthChange === 'function') {
+        luminaDb.onAuthChange(async (user) => {
+          if (user && typeof user.getIdToken === 'function' && !state.user) {
+            await exchangeTokenAndEnter(user);
+          }
+        });
+      }
+      const authUser = await luminaDb.waitForAuthReady(3000).catch(() => null);
+      if (authUser && typeof authUser.getIdToken === 'function' && !state.user) {
+        const entered = await exchangeTokenAndEnter(authUser);
+        if (entered) return;
       }
     }
-  };
+  } catch (bridgeErr) {
+    console.warn('Bridge init note:', bridgeErr);
+  }
 
-  window.addEventListener('cc-auth-changed', handleAuthChange);
-  window.addEventListener('lumina-auth-state', handleAuthChange);
-
-  setTimeout(handleAuthChange, 600);
-  setTimeout(handleAuthChange, 1800);
   render();
 }
 
@@ -610,6 +586,42 @@ function renderModalHtml() {
   `;
 }
 
+function attachLoginHandler() {
+  const btnLogin = document.getElementById('btnGoogleSignIn');
+  if (!btnLogin || btnLogin._hasLoginHandler) return;
+  btnLogin._hasLoginHandler = true;
+  btnLogin.onclick = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    btnLogin.disabled = true;
+    const oldHtml = btnLogin.innerHTML;
+    btnLogin.innerHTML = `<span>Trwa logowanie…</span>`;
+    try {
+      const luminaDb = await import('/lumina-db.js?v=20261107_l2');
+      const res = await luminaDb.loginWithGoogle();
+      if (res && res.user && typeof res.user.getIdToken === 'function') {
+        const entered = await exchangeTokenAndEnter(res.user);
+        if (entered) return;
+      }
+      const authUser = luminaDb.getCurrentUser?.() || luminaDb.getFirebaseAuthUser?.();
+      if (authUser && typeof authUser.getIdToken === 'function') {
+        const entered = await exchangeTokenAndEnter(authUser);
+        if (entered) return;
+      }
+    } catch (err) {
+      if (err.code !== 'auth/popup-closed-by-user' && err.code !== 'auth/cancelled-popup-request') {
+        state.error = 'Błąd logowania Google: ' + (err.message || '');
+        render();
+      }
+    } finally {
+      btnLogin.disabled = false;
+      if (!state.user) {
+        btnLogin.innerHTML = oldHtml;
+      }
+    }
+  };
+}
+
 export function render() {
   const root = document.getElementById('ccMcApp');
   if (!root) return;
@@ -617,37 +629,22 @@ export function render() {
   if (!state.user) {
     root.innerHTML = `
       <main class="mc-login-screen">
-        <section class="mc-login-card" aria-labelledby="mcLoginHeading">
-          <div class="mc-badge-gold">CHRISTIAN CULTURE · ORKIESTRA @777 · @OA</div>
-          <h1 id="mcLoginHeading" style="margin:0;font-size:28px;">Kalendarz Misji (ccMC)</h1>
-          <p style="margin:0;color:var(--mc-muted);font-size:14px;">
-            Prywatne centrum planowania misji, zadań agentów @777, cykliczności RRULE i weryfikacji wykonania.
-            Dostęp wyłącznie dla uwierzytelnionego Administratora.
-          </p>
-          ${state.error ? `<div role="alert" style="padding:12px;border-radius:10px;background:#451a1a;border:1px solid #ef4444;color:#fecaca;font-size:13px;">${escapeHtml(state.error)}</div>` : ''}
-          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
-            <button type="button" id="btnLuminaSignIn" class="mc-btn-cta">Zaloguj przez Google (SSO LUMINA)</button>
-            <a href="/" class="mc-btn" style="text-decoration:none;">← Wróć do portalu</a>
-          </div>
-          <div id="cc-auth-nav-container" data-cc-auth-mount></div>
-        </section>
+        <div class="mc-login-card">
+          <h1 class="mc-login-title">Christian Culture Mission Calendar</h1>
+          ${state.error ? `<div role="alert" style="padding:10px 14px;border-radius:10px;background:#451a1a;border:1px solid #ef4444;color:#fecaca;font-size:13px;width:100%;box-sizing:border-box;">${escapeHtml(state.error)}</div>` : ''}
+          <button type="button" id="btnGoogleSignIn" class="mc-btn-login-google" aria-label="Zaloguj przez Google">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex-shrink:0;">
+              <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/>
+              <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/>
+              <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"/>
+              <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/>
+            </svg>
+            <span>Zaloguj przez Google</span>
+          </button>
+        </div>
       </main>
     `;
-    const btnLogin = document.getElementById('btnLuminaSignIn');
-    if (btnLogin) {
-      btnLogin.onclick = async () => {
-        btnLogin.disabled = true;
-        btnLogin.textContent = 'Trwa logowanie…';
-        if (await tryLuminaBridgeSession()) {
-          await refreshData();
-          render();
-          return;
-        }
-        await triggerGoogleLoginPopup();
-        btnLogin.disabled = false;
-        btnLogin.textContent = 'Zaloguj przez Google (SSO LUMINA)';
-      };
-    }
+    attachLoginHandler();
     return;
   }
 
@@ -1171,5 +1168,6 @@ function bindEvents() {
 }
 
 if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
+  attachLoginHandler();
   loadInitialSession();
 }

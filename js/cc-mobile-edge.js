@@ -654,7 +654,8 @@
         mount({
           legacy: legacyModal || burger,
           placement: burger,
-          hideLegacy: isWelch ? true : false,
+          trigger: burger.classList.contains('cc-mobile-edge-trigger') ? burger : undefined,
+          hideLegacy: isWelch ? true : (burger.classList.contains('cc-mobile-edge-trigger') ? false : false),
           profile: isWioletta ? 'wioletta' : 'ecosystem',
           items,
           canUseFullMenu: () => !!legacyModal
