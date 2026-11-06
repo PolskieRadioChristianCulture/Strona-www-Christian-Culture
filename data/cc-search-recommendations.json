@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-05T11:58:24.036Z",
+  "updatedAt": "2026-11-06T13:59:53.271Z",
   "heading": "Polecane na dziś",
-  "dateFormattedPL": "5 listopada 2026",
+  "dateFormattedPL": "6 listopada 2026",
   "pools": [
     [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 5",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 5 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 6",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 6 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
@@ -36,9 +36,9 @@
     [
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 5)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 6)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-5",
+        "url": "/akademia/kurscodzienny/dzien-6",
         "icon": "book"
       },
       {
@@ -127,16 +127,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 5",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 5 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 6",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 6 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 5)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 6)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-5",
+      "url": "/akademia/kurscodzienny/dzien-6",
       "icon": "book"
     },
     {

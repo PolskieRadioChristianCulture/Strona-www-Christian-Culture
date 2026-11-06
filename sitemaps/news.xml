@@ -12,6 +12,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://polskieradio.cc/news</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-czy-patriotyzm-zobowiazuje-do-szacunku-wobec-przeciwnika.jpg</image:loc>
+      <image:title>Czy patriotyzm zobowiązuje do szacunku wobec przeciwnika?</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>weekly</changefreq>

@@ -1,14 +1,14 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-05T11:58:07.528Z",
+  "generatedAt": "2026-11-06T13:51:57.821Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 87,
-    "validUrls": 87,
+    "totalValidatedUrls": 88,
+    "validUrls": 88,
     "invalidUrls": 0,
-    "newsArticlesCount": 81,
-    "googleNews48hCount": 35,
-    "akademiaUrlsCount": 67,
+    "newsArticlesCount": 82,
+    "googleNews48hCount": 36,
+    "akademiaUrlsCount": 68,
     "bibliaUrlsCount": 4,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 2,
@@ -31,31 +31,31 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 23760,
+      "sizeBytes": 23972,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 31042,
+      "sizeBytes": 31230,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 39948,
+      "sizeBytes": 40368,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 28856,
+      "sizeBytes": 29530,
       "status": "OK"
     },
     {
       "path": "/sitemaps/akademia.xml",
       "exists": true,
-      "sizeBytes": 12679,
+      "sizeBytes": 12868,
       "status": "OK"
     },
     {
@@ -92,8 +92,8 @@
   "indexNow": {
     "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 41,
-    "pendingCount": 41,
+    "totalQueued": 42,
+    "pendingCount": 42,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-05T11:58:07.523Z",
+        "queuedAt": "2026-11-06T13:51:57.816Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-05T11:58:07.523Z",
+        "queuedAt": "2026-11-06T13:51:57.816Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-05T11:58:07.523Z",
+        "queuedAt": "2026-11-06T13:51:57.816Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-05T11:58:07.523Z",
+        "queuedAt": "2026-11-06T13:51:57.816Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-05T11:58:07.523Z",
+        "queuedAt": "2026-11-06T13:51:57.816Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 341,
-    "lastSubmittedCount": 341,
-    "lastSubmittedAt": "2026-11-05T11:58:23.665Z"
+    "totalIndexedUrls": 342,
+    "lastSubmittedCount": 342,
+    "lastSubmittedAt": "2026-11-06T13:53:10.512Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/czy-patriotyzm-zobowiazuje-do-szacunku-wobec-przeciwnika.html",
+      "canonicalUrl": "https://polskieradio.cc/news",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki.html",
       "canonicalUrl": "https://polskieradio.cc/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki",
@@ -593,15 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/z-biblia-za-pan-brat-dzien-22-jakub-walczy-z-bogiem-jabbok.html",
-      "canonicalUrl": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-22-jakub-walczy-z-bogiem-jabbok",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-05T11:58:23.665Z"
+  "lastInstantIndexingAt": "2026-11-06T13:53:10.512Z"
 }

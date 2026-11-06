@@ -8,7 +8,7 @@
     <atom:link href="https://polskieradio.cc/feed.xml" rel="self" type="application/rss+xml" />
     <description>Główny kanał publikacji ekosystemu Christian Culture: CCN News, Akademia Biblijna, Biblijne Uwielbienie, Radio i Kino VOD.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Thu, 05 Nov 2026 11:58:07 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2026 13:51:57 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
     <item>
       <title>Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?</title>
@@ -19,6 +19,16 @@
       <category>CCN Finanse</category>
       <description>Dyskusja o cyfrowych walutach banków centralnych (CBDC) coraz częściej wykracza poza ekonomię. Analiza CBDC, prawa niedzielnego oraz Apokalipsy 13 (z wydaniem audio 17:51).</description>
       <enclosure url="https://polskieradio.cc/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Czy patriotyzm zobowiązuje do szacunku wobec przeciwnika?</title>
+      <link>https://polskieradio.cc/news</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news</guid>
+      <pubDate>Fri, 06 Nov 2026 14:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN NEWS • SPOŁECZEŃSTWO, HISTORIA I DIALOG</category>
+      <description>W obliczu zbliżającego się Narodowego Święta Niepodległości w polskiej debacie publicznej z nową siłą powraca pytanie o granice sporu i fundamenty wspólnoty obywatelskiej. Coraz częściej miłość do ojczyzny bywa utożsamiana z bezwzględnością wobec oponentów, a inaczej myślący rodak staje się wrogiem pozbawionym prawa do szacunku. Pismo Święte, polskie dziedzictwo ustrojowe oraz twarde dane socjologiczne dowodzą jednak, że prawdziwy patriotyzm nie karmi się pogardą — jego miarą jest zdolność do wierności prawdzie przy jednoczesnym poszanowaniu godności każdego człowieka.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-czy-patriotyzm-zobowiazuje-do-szacunku-wobec-przeciwnika.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Młody inwestor chrześcijański: złoto, nawyki i dochód bez długu</title>
@@ -209,16 +219,6 @@
       <category>eM / Motywacja Christian Culture</category>
       <description>Czym jest prawdziwy osobisty sukces chrześcijanina? Poznaj biblijną miarę charakteru, wierności, miłości i życia w perspektywie wieczności autorstwa Cezarego Rogowskiego w ramach eM — Motywacja Christian Culture.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-osobisty-sukces-chrzescijanina-w-perspektywie-wiecznosci.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Z Biblią za Pan Brat: Dzień 29 — Zejście Izraela do Egiptu: Teofania w Beer-Szebie, etyka administracji kryzysowej i nadzieja Kanaanu w Rdz 46–47</title>
-      <link>https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-29-bog-prowadzi-swoj-lud-do-egiptu</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-29-bog-prowadzi-swoj-lud-do-egiptu</guid>
-      <pubDate>Thu, 29 Oct 2026 06:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>Wiara &amp; Rozwój</category>
-      <description>Księga Rodzaju 46–47: Migracja rodziny Jakuba do Egiptu, obietnica Bożej obecności poza Kanaanem, spotkanie w Goszen, błogosławieństwo faraona oraz realizm zarządzania kryzysem głodu przez Józefa.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-29-bog-prowadzi-swoj-lud-do-egiptu.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Z Biblią za Pan Brat — Dzień 17: Wiara patrząca w przyszłość (Rdz 23–24)</title>
