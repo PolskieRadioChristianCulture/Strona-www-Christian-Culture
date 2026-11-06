@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "the-journal",
+      "title": "THE JOURNAL — 90-Dniowy Przewodnik Rozwoju Osobistego i Wiary",
+      "url": "https://polskieradio.cc/the-journal",
+      "type": "module",
+      "image": "the-journal.png",
+      "publishedAt": "2026-11-06T21:34:22.460Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina.wiolettarogowska",
       "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
       "url": "https://polskieradio.cc/lumina.wiolettarogowska",
