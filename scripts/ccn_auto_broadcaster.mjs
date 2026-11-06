@@ -322,8 +322,8 @@ function getAllEcosystemCandidates() {
       tag: '#WersetDnia'
     },
     {
-      title: 'Werset Dnia: „Czyż Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)',
-      lead: '„Czyż Sędzia całej ziemi nie postąpi sprawiedliwie? Niech będzie dalekie od ciebie, by uśmiercić sprawiedliwego.” (Rdz 18:25, UBG)',
+      title: 'Werset Dnia: „Czy Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)',
+      lead: '„Niech to będzie dalekie od ciebie, by zabić sprawiedliwego z niegodziwym (...) Czy Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)',
       url: 'https://polskieradio.cc/mojabiblia?ref=GEN.18.25',
       image: 'images/news/art-rdz18-mamre-wstawiennictwo.jpg',
       category: 'Werset Dnia',
