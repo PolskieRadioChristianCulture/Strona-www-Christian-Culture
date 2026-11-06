@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-06",
+      "topic": "ccMC: Wdrożenie Kalendarza Misji v1.1 (UI /ccMC, BFF API /api/mission-calendar/*, RRULE Europe/Warsaw, RBAC LUMINA SSO, orkiestracja agentów @777/@OA, audyt i outbox)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-06",
       "topic": "Cykliczna publikacja CCN News na platformie X: Młody inwestor chrześcijański — złoto, nawyki i dochód bez długu z dedykowaną grafiką tematyczną (#124)",
       "agent": "A"
     },

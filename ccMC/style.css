@@ -1,0 +1,465 @@
+/* ============================================================================
+ * CHRISTIAN CULTURE MISSION CALENDAR v1.1 — EkoCC v2 PREMIUM Stylesheet
+ * Adres: https://polskieradio.cc/ccMC
+ * Standard: WCAG 2.2 AA, Champagne Gold (#C4A35A), Orange CTA (#FF7A00), 44x44px
+ * ============================================================================ */
+
+:root {
+  --mc-bg: #0b131e;
+  --mc-surface: #111d2e;
+  --mc-surface-elevated: #17263c;
+  --mc-border: rgba(196, 163, 90, 0.24);
+  --mc-text: #f8fafc;
+  --mc-muted: #94a3b8;
+  --mc-gold: #C4A35A;
+  --mc-gold-hover: #D4B578;
+  --mc-gold-light: #E2CC9A;
+  --mc-btn-orange: #FF7A00;
+  --mc-btn-orange-hover: #FF8C33;
+  --mc-btn-orange-active: #E66A00;
+  --status-todo: #2563EB;
+  --status-in-progress: #D97706;
+  --status-done: #15803D;
+  --status-not-done: #B91C1C;
+  --touch-min: 44px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--mc-bg);
+  color: var(--mc-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button, [role="button"], a.mc-btn {
+  min-height: var(--touch-min);
+  min-width: var(--touch-min);
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--mc-border);
+  background: var(--mc-surface-elevated);
+  color: var(--mc-text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+}
+
+button:hover {
+  border-color: var(--mc-gold-hover);
+  background: #1f324d;
+}
+
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid var(--mc-gold-light);
+  outline-offset: 2px;
+}
+
+.mc-btn-cta {
+  background: var(--mc-btn-orange);
+  border-color: var(--mc-btn-orange);
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.mc-btn-cta:hover {
+  background: var(--mc-btn-orange-hover);
+  border-color: var(--mc-btn-orange-hover);
+}
+
+.mc-btn-cta:active {
+  background: var(--mc-btn-orange-active);
+}
+
+.mc-btn-gold {
+  background: rgba(196, 163, 90, 0.18);
+  border-color: var(--mc-gold);
+  color: var(--mc-gold-light);
+}
+
+/* Login Screen */
+.mc-login-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: radial-gradient(circle at top, #172a45 0%, #0b131e 70%);
+}
+
+.mc-login-card {
+  width: min(480px, 100%);
+  background: var(--mc-surface);
+  border: 1px solid var(--mc-border);
+  border-radius: 20px;
+  padding: 36px 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+  display: grid;
+  gap: 16px;
+}
+
+.mc-badge-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mc-gold);
+}
+
+/* Main Shell */
+.mc-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+}
+
+.mc-sidebar {
+  background: #080f18;
+  border-right: 1px solid var(--mc-border);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.mc-sidebar h2 {
+  margin: 4px 0 0;
+  font-size: 20px;
+  color: var(--mc-gold-light);
+}
+
+.mc-filter-group {
+  display: grid;
+  gap: 6px;
+}
+
+.mc-filter-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--mc-muted);
+  font-weight: 700;
+}
+
+.mc-nav-btn {
+  justify-content: flex-start;
+  width: 100%;
+  background: transparent;
+  border-color: transparent;
+  font-size: 13px;
+}
+
+.mc-nav-btn.is-active {
+  background: rgba(196, 163, 90, 0.16);
+  border-color: var(--mc-gold);
+  color: var(--mc-gold-light);
+}
+
+.mc-main {
+  min-width: 0;
+  padding: 20px 24px 90px;
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.mc-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--mc-border);
+}
+
+.mc-topbar-left, .mc-topbar-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Natural Language Bar (@077 Noemi -> @OA) */
+.mc-nl-bar {
+  background: var(--mc-surface);
+  border: 1px solid var(--mc-border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.mc-nl-bar input {
+  flex: 1;
+  min-width: 240px;
+  min-height: var(--touch-min);
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #0b131e;
+  color: var(--mc-text);
+}
+
+/* Stats & Status Legend */
+.mc-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.mc-stat-card {
+  background: var(--mc-surface);
+  border: 1px solid var(--mc-border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: grid;
+  gap: 4px;
+}
+
+.mc-stat-card strong {
+  font-size: 26px;
+  color: var(--mc-gold-light);
+}
+
+.mc-stat-card span {
+  font-size: 12px;
+  color: var(--mc-muted);
+}
+
+.mc-status-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.mc-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mc-status-todo { background: var(--status-todo); }
+.mc-status-in_progress { background: var(--status-in-progress); }
+.mc-status-done { background: var(--status-done); }
+.mc-status-not_done { background: var(--status-not-done); }
+
+/* Views: Week / Day / Month / Agenda / Kanban */
+.mc-board {
+  background: var(--mc-surface);
+  border: 1px solid var(--mc-border);
+  border-radius: 16px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.mc-week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.mc-day-col {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mc-day-col.is-today {
+  border-color: var(--mc-gold);
+}
+
+.mc-day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.mc-event-tile {
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #ffffff;
+  border-left: 6px solid var(--mc-gold);
+  display: grid;
+  gap: 6px;
+  cursor: grab;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+}
+
+.mc-event-tile:active {
+  cursor: grabbing;
+}
+
+.mc-event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.mc-prio-badge {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.mc-overdue-badge {
+  background: #fef08a;
+  color: #713f12;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+}
+
+/* Kanban 4 Columns */
+.mc-kanban-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+/* Undo Toast */
+.mc-undo-banner {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #17263c;
+  border: 2px solid var(--mc-gold);
+  border-radius: 14px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 90;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Modal */
+.mc-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 18, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+}
+
+.mc-modal {
+  background: var(--mc-surface);
+  border: 1px solid var(--mc-border);
+  border-radius: 18px;
+  padding: 24px;
+  width: min(640px, 100%);
+  max-height: 92vh;
+  overflow-y: auto;
+  display: grid;
+  gap: 14px;
+}
+
+.mc-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mc-modal label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mc-modal input, .mc-modal select, .mc-modal textarea {
+  min-height: var(--touch-min);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #0b131e;
+  color: var(--mc-text);
+}
+
+/* Mobile Bottom Nav */
+.mc-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #080f18;
+  border-top: 1px solid var(--mc-border);
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+  z-index: 80;
+  justify-content: space-around;
+}
+
+@media (max-width: 900px) {
+  .mc-shell {
+    grid-template-columns: 1fr;
+  }
+  .mc-sidebar {
+    display: none;
+  }
+  .mc-sidebar.is-open-mobile {
+    display: flex;
+    position: fixed;
+    inset: 0 20% 0 0;
+    z-index: 95;
+    overflow-y: auto;
+  }
+  .mc-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .mc-form-row {
+    grid-template-columns: 1fr;
+  }
+  .mc-bottom-nav {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

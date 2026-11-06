@@ -4,6 +4,7 @@ import { handleTopTenApi, handleTopTenSharePage, handleTopTenPage, handleTopTenS
 import { handleSearchRagApi } from './data/cc-search-rag-service.js';
 import { handleAiDlaJezusaApi } from './services/ai-dla-jezusa/api-v1.js';
 import { handleNewsletterApiRequest } from './services/cc-newsletter/newsletter-service.js';
+import { handleMissionCalendarApi } from './services/cc-mission-calendar/mission-calendar-service.js';
 
 const BLOCKED_PREFIXES = [
   '/.git/', '/.codex/', '/.cursor/', '/.claude/', '/repozytoria-cc/', '/joma_shared_memory/',
@@ -1640,6 +1641,9 @@ export default {
     if (url.pathname.startsWith('/api/newsletter')) {
       return handleNewsletterApiRequest(request, env, (tok) => verifyFirebaseIdToken(tok));
     }
+    if (url.pathname.startsWith('/api/mission-calendar') || url.pathname.startsWith('/api/calendar')) {
+      return handleMissionCalendarApi(request, env, ctx, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
+    }
     if (url.pathname === '/api/answer' || url.pathname.startsWith('/api/search-rag')) {
       return handleSearchRagApi(request, env);
     }
@@ -2332,6 +2336,42 @@ export default {
 
     // CC Clean Routing & Case-Insensitive Aliases (P0 / P1)
     const lowerPath = url.pathname.toLowerCase().replace(/\/$/, '');
+    if (lowerPath === '/ccmc' || lowerPath === '/ccmc/index.html') {
+      const mcUrl = new URL(request.url);
+      mcUrl.pathname = '/ccMC/';
+      let mcResp = await env.ASSETS.fetch(new Request(mcUrl.toString(), { method: 'GET', headers: { Accept: 'text/html' } }));
+      if (mcResp.status !== 200) {
+        mcUrl.pathname = '/ccMC/index.html';
+        mcResp = await env.ASSETS.fetch(new Request(mcUrl.toString(), { method: 'GET', headers: { Accept: 'text/html' } }));
+      }
+      return new Response(mcResp.body, {
+        status: mcResp.status === 404 ? 404 : 200,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'private, no-store, no-cache, must-revalidate',
+          'X-Robots-Tag': 'noindex, nofollow, noarchive',
+          'X-Content-Type-Options': 'nosniff',
+          'Referrer-Policy': 'no-referrer',
+        },
+      });
+    }
+    if (lowerPath.startsWith('/ccmc/')) {
+      const subPath = url.pathname.slice('/ccmc/'.length);
+      const assetUrl = new URL(request.url);
+      assetUrl.pathname = '/ccMC/' + subPath;
+      const subResp = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+      const headers = new Headers(subResp.headers);
+      headers.set('Cache-Control', 'private, no-store, no-cache, must-revalidate');
+      headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+      headers.set('X-Content-Type-Options', 'nosniff');
+      if (subPath === 'sw-ccmc.js') {
+        headers.set('Service-Worker-Allowed', '/ccMC/');
+      }
+      return new Response(subResp.body, {
+        status: subResp.status,
+        headers,
+      });
+    }
     if (
       lowerPath === '/newsletter' ||
       lowerPath === '/newsletter/confirm' ||
