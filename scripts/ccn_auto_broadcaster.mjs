@@ -798,6 +798,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🕊️ POKÓJ SERCA & NADZIEJA';
       callToAction = '👉 Czytaj artykuł w serwisie:\n';
       addTags('#CCNNews', '#PokojBozy', '#SlowoBoze', '#Prawda');
+    } else if (tLower.includes('patriotyzm') || tLower.includes('niepodległość') || tLower.includes('niepodleglosc')) {
+      subHeader = '🇵🇱 OJCZYZNA & SPOŁECZEŃSTWO | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#CCNNews', '#Patriotyzm', '#CezaryRogowski', '#Prawda');
     } else {
       subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
       callToAction = '👉 Czytaj w serwisie:\n';
