@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "badz-blisko",
+      "title": "Bądź Blisko: 7 Dni ze Słowem — Spotkania ze Słowem dające pokój",
+      "url": "https://polskieradio.cc/badz-blisko",
+      "type": "module",
+      "image": "swiatlo.png",
+      "publishedAt": "2026-11-06T08:04:06.927Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "vod",
       "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
       "url": "https://polskieradio.cc/vod",
