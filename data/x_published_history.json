@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "dekalog-bozy",
+      "title": "Werset Dnia: „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8, UBG)",
+      "url": "https://polskieradio.cc/prawo/dekalog-bozy",
+      "type": "verse",
+      "image": "art-dekalog-dziesiec-przykazan-wujek.jpg",
+      "publishedAt": "2026-11-06T17:03:39.692Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "ksiazki-autora",
       "title": "Półka z Książkami: Cezary Rogowski — Oficjalna Biblioteka Autorska",
       "url": "https://polskieradio.cc/ksiazki-autora",
