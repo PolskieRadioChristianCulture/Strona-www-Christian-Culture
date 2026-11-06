@@ -172,8 +172,10 @@ async function verifyFirebaseIdToken(token, fetchImpl = fetch, nowSec = Math.flo
     payload = JSON.parse(new TextDecoder().decode(adultB64urlToBytes(parts[1])));
   } catch { return null; }
   if (header.alg !== 'RS256' || !header.kid) return null;
-  if (payload.aud !== ADULT_FIREBASE_PROJECT) return null;
-  if (payload.iss !== `https://securetoken.google.com/${ADULT_FIREBASE_PROJECT}`) return null;
+  const validProjects = new Set(['lumina-cc', 'cc-mission-control', 'cuda-398c0']);
+  if (!validProjects.has(payload.aud)) return null;
+  const issProject = String(payload.iss || '').replace('https://securetoken.google.com/', '');
+  if (!validProjects.has(issProject)) return null;
   if (!payload.sub || typeof payload.sub !== 'string') return null;
   if (!(payload.exp > nowSec) || !(payload.iat <= nowSec + 300)) return null;
   const keys = await adultGetJwks(fetchImpl);

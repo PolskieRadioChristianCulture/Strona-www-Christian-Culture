@@ -109,22 +109,26 @@ function escapeHtml(str) {
 async function tryLuminaBridgeSession() {
   try {
     let authUser = null;
-    if (window.firebase?.auth) {
+    const luminaDb = await import('/lumina-db.js?v=20261013_notifsafe1').catch(() => null);
+    if (luminaDb) {
+      if (typeof luminaDb.ensureDbReady === 'function') {
+        await luminaDb.ensureDbReady().catch(() => null);
+      }
+      if (typeof luminaDb.waitForAuthReady === 'function') {
+        authUser = await luminaDb.waitForAuthReady(3500).catch(() => null);
+      }
+      if (!authUser && typeof luminaDb.getCurrentUser === 'function') {
+        authUser = luminaDb.getCurrentUser();
+      }
+      if (!authUser && typeof luminaDb.getFirebaseAuthUser === 'function') {
+        authUser = luminaDb.getFirebaseAuthUser();
+      }
+    }
+    if (!authUser && window.firebase?.auth) {
       authUser = window.firebase.auth().currentUser;
     }
     if (!authUser && window.firebaseAuth?.currentUser) {
       authUser = window.firebaseAuth.currentUser;
-    }
-    if (!authUser) {
-      try {
-        const luminaDb = await import('/lumina-db.js?v=20261013_notifsafe1');
-        if (luminaDb && typeof luminaDb.ensureDbReady === 'function') {
-          const { auth } = await luminaDb.ensureDbReady();
-          authUser = auth?.currentUser || (typeof luminaDb.getCurrentUser === 'function' ? luminaDb.getCurrentUser() : null);
-        }
-      } catch (modErr) {
-        console.warn('LuminaDB import in ccMC:', modErr);
-      }
     }
 
     if (authUser && typeof authUser.getIdToken === 'function') {
@@ -136,31 +140,51 @@ async function tryLuminaBridgeSession() {
       });
       state.user = sessionRes.user;
       state.csrfToken = sessionRes.csrfToken || '';
+      state.error = '';
       return true;
     }
   } catch (e) {
-    state.error = e.message;
+    console.warn('Lumina session bridge note:', e);
+    if (e.status === 403) {
+      state.error = 'Brak uprawnień Administratora dla konta Google: ' + (e.message || '');
+    }
   }
   return false;
 }
 
 async function triggerGoogleLoginPopup() {
   try {
-    const luminaDb = await import('/lumina-db.js?v=20261013_notifsafe1');
-    if (luminaDb && typeof luminaDb.loginWithGoogle === 'function') {
-      const res = await luminaDb.loginWithGoogle();
-      if (res && res.user) {
-        const ok = await tryLuminaBridgeSession();
-        if (ok) {
-          await refreshData();
-          render();
-          return;
-        }
+    state.error = '';
+    const luminaDb = await import('/lumina-db.js?v=20261013_notifsafe1').catch(() => null);
+    const loginFn = luminaDb?.loginWithGoogle || window.loginWithGoogle || window.ccLoginWithGoogle;
+    if (typeof loginFn === 'function') {
+      const res = await loginFn();
+      if (res && res.user && typeof res.user.getIdToken === 'function') {
+        const idToken = await res.user.getIdToken();
+        state.bearerToken = idToken;
+        const sessionRes = await apiRequest('/auth/session', {
+          method: 'POST',
+          body: JSON.stringify({ idToken }),
+        });
+        state.user = sessionRes.user;
+        state.csrfToken = sessionRes.csrfToken || '';
+        state.error = '';
+        await refreshData();
+        render();
+        return;
+      }
+      const ok = await tryLuminaBridgeSession();
+      if (ok) {
+        await refreshData();
+        render();
+        return;
       }
     }
   } catch (err) {
-    state.error = err.message || 'Błąd logowania Google LUMINA';
-    render();
+    if (err.code !== 'auth/popup-closed-by-user' && err.code !== 'auth/cancelled-popup-request') {
+      state.error = err.message || 'Błąd logowania Google LUMINA';
+      render();
+    }
   }
 }
 
@@ -178,7 +202,15 @@ async function loadInitialSession() {
     if (e.status === 403) state.error = e.message;
   }
 
-  // Nasłuchuj na sesję LUMINA (CustomEvents)
+  // Attempt auto-bridge from active LUMINA / Firebase session immediately
+  const bridgeOk = await tryLuminaBridgeSession();
+  if (bridgeOk) {
+    await refreshData();
+    render();
+    return;
+  }
+
+  // Listen to auth state changes and re-attempt
   const handleAuthChange = async () => {
     if (!state.user) {
       const ok = await tryLuminaBridgeSession();
@@ -192,8 +224,8 @@ async function loadInitialSession() {
   window.addEventListener('cc-auth-changed', handleAuthChange);
   window.addEventListener('lumina-auth-state', handleAuthChange);
 
-  setTimeout(handleAuthChange, 500);
-  setTimeout(handleAuthChange, 1500);
+  setTimeout(handleAuthChange, 600);
+  setTimeout(handleAuthChange, 1800);
   render();
 }
 

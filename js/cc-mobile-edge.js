@@ -542,9 +542,11 @@
         placement.before(trigger);
       }
     }
-    if (placement && placement !== trigger && placement instanceof HTMLElement && !placement._ccEdgeBound) {
+    const isBurgerElement = placement?.matches?.('.btn-burger, #menuToggleBtn, [data-modal="modalMenu"], #hamburgerBtn, .hamburger-menu, [data-menu-open], #mobileMenuBtn, .mobile-menu-btn, .nav-burger, #navMenuBtn, button[aria-label*="menu" i]');
+    if (isBurgerElement && placement !== trigger && placement instanceof HTMLElement && !placement._ccEdgeBound) {
       placement._ccEdgeBound = true;
       placement.addEventListener('click', (e) => {
+        if (e.target.closest('button:not(.btn-burger):not(#hamburgerBtn):not(#menuToggleBtn), a, input, select, textarea, label')) return;
         if (mobile.matches) {
           e.preventDefault();
           e.stopPropagation();
@@ -563,7 +565,7 @@
   function autoInit() {
     // Usuniecie jakiegokolwiek zduplikowanego pierwszego przycisku + w belce wyszukiwarki (L0 29.10.2026)
     document.querySelectorAll('.cc-omni-topnav .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn)').forEach(el => el.remove());
-    if (/^\/mess(?:\.html|\/|$)/i.test(location.pathname) || /^\/ccmc(?:\.html|\/|$)/i.test(location.pathname)) return;
+    if (/^\/mess(?:\.html|\/|$)/i.test(location.pathname)) return;
 
     // Search surfaces: wyszukiwarka / szukaj / omni-search overlay (L0 29.10.2026)
     const isSearch = /^\/(?:wyszukiwarka|szukaj)/i.test(location.pathname) || !!document.getElementById('ccOmniOverlay') || !!document.querySelector('.cc-omni-topnav');

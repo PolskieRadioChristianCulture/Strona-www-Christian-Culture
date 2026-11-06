@@ -5,9 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow, noarchive">
   <title>Kalendarz Misji (ccMC) · Christian Culture @777 · @OA</title>
+  <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261030_edge10">
   <link rel="stylesheet" href="/ccMC/style.css">
 </head>
 <body>
+  <header class="mc-global-edge-bar" style="position:fixed;top:12px;left:12px;z-index:9000;">
+    <button id="open-menu" class="btn-burger cc-mobile-edge-trigger" type="button" aria-expanded="false" aria-controls="cc-mobile-edge-dialog" aria-label="Otwórz panel nawigacji">+</button>
+  </header>
+
   <div id="ccMcApp">
     <main class="mc-login-screen">
       <section class="mc-login-card">
@@ -17,7 +22,9 @@
       </section>
     </main>
   </div>
+
   <script src="/js/cc-global-auth.js?v=20261007_auth_v2" defer></script>
+  <script src="/js/cc-mobile-edge.js?v=20261030_edge10" defer></script>
   <script type="module" src="/ccMC/app.js"></script>
 </body>
 </html>
