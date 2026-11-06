@@ -260,3 +260,25 @@ test('post publishing requires Firestore confirmation and authenticated ownershi
   assert.match(composer, /if \(!publishedPost\?\.cloudDocumentId\)/);
   assert.match(feed, /compressAndReadImage\(file, 900, 900, 0\.82/);
 });
+
+
+test('badz-blisko shows only one day at a time and keeps favorite + auth in right header across all 8 languages', async () => {
+  const dirs = ['', 'en/', 'es/', 'pt/', 'fr/', 'ar/', 'hi/', 'id/'];
+  for (const d of dirs) {
+    const file = `badz-blisko/${d}index.html`;
+    const html = await readFile(file, 'utf8');
+    assert.match(html, /<main class="body" id="plan"><nav class="days">/, `${file} must have <main id="plan"><nav class="days">`);
+    const dayLinks = html.match(/<nav class="days">[\s\S]*?<\/nav>/)?.[0]?.match(/href="#day-[1-7]"/g) || [];
+    assert.equal(dayLinks.length, 7, `${file} must have 7 day navigation links`);
+    assert.match(html, /<section class="reading" id="day-1">/, `${file} must show day-1 by default`);
+    for (let day = 2; day <= 7; day++) {
+      assert.match(
+        html,
+        new RegExp(`<section class="reading" id="day-${day}" hidden>`),
+        `${file} must hide day-${day} by default so all 7 days are never exposed at once`
+      );
+    }
+    assert.match(html, /\/badz-blisko\/dni\.js/, `${file} must load dni.js controller`);
+    assert.match(html, /<div class="header-right">[\s\S]*?id="ccTopBarFavBtn"[\s\S]*?data-cc-auth-mount/, `${file} must keep star and auth in .header-right`);
+  }
+});
