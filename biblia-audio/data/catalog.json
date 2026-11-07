@@ -217,11 +217,17 @@
     "id": "genesis-16",
     "book": "genesis",
     "chapter": 16,
-    "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "description": "Bezdzietność Saraj, Hagar na pustyni, objawienie Anioła PANA przy źródle, El-Roi — Bóg, Który Widzi i narodziny Izmaela.",
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_16_1-16_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 16,1–16 (UBG) — Hagar na pustyni, Bóg Widzący i narodziny Izmaela",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_16_1-16_Biblia_Audio_CC.mp3",
+        "verses": "1-16"
+      }
+    ]
   },
   {
     "id": "genesis-17",
