@@ -1138,9 +1138,28 @@ test('19. Desktop Frameless Semi-Transparent Side Wings, Real 6 Radio Stations R
   const speakingHtml = renderClockModule();
   assert.match(speakingHtml, /id="mcVoiceAssistantOverlay"/, 'Must render #mcVoiceAssistantOverlay');
   assert.match(speakingHtml, /\/ccMC\/assistant-avatar\.jpg/, 'Must display /ccMC/assistant-avatar.jpg during voice alerts');
+  assert.match(speakingHtml, /id="mcVoiceAssistantBubble"/, 'Must render speech bubble #mcVoiceAssistantBubble emerging from behind avatar');
+  assert.match(speakingHtml, /id="mcVoiceTypewriterCursor"/, 'Must render typewriter cursor #mcVoiceTypewriterCursor');
+  assert.match(ccMcStyle, /@keyframes\s+mcBubbleEmergeFromBehindAvatar/, 'CSS must animate speech bubble emerging from behind avatar');
   assert.match(speakingHtml, /is-speaking/, 'Overlay must have is-speaking class while speaking');
-  const { hideVoiceAssistantAvatar } = await import('../ccMC/app.js');
+  const { hideVoiceAssistantAvatar, pickFemalePolishVoice, ensureScreenWakeLock, initVoiceWakeAndAudioUnlock } = await import('../ccMC/app.js');
   hideVoiceAssistantAvatar();
+
+  // Female Polish voice only (never male fallback like Marek)
+  const picked = pickFemalePolishVoice([
+    { name: 'Microsoft Marek Online (Natural) - Polish (Poland)', lang: 'pl-PL' },
+    { name: 'Microsoft Zofia Online (Natural) - Polish (Poland)', lang: 'pl-PL' },
+    { name: 'Google US English', lang: 'en-US' },
+  ]);
+  assert.match(picked.name, /Zofia/, 'Must pick female Polish voice (Zofia), never male Marek');
+  assert.equal(pickFemalePolishVoice([{ name: 'Microsoft Marek', lang: 'pl-PL' }]), null, 'Must never fall back to a male Polish voice');
+
+  // Guaranteed wake: Screen Wake Lock + audio unlock + wake from screensaver
+  assert.equal(typeof ensureScreenWakeLock, 'function');
+  assert.equal(typeof initVoiceWakeAndAudioUnlock, 'function');
+  const ccMcAppSrc = fs.readFileSync(path.join(rootDir, 'ccMC', 'app.js'), 'utf8');
+  assert.match(ccMcAppSrc, /navigator\.wakeLock\.request\('screen'\)/, 'Must request Screen Wake Lock');
+  assert.match(ccMcAppSrc, /showVoiceAssistantAvatar[\s\S]{0,400}wakeClockIdleMode\(/, 'Voice alert must wake the clock screensaver');
 });
 
 

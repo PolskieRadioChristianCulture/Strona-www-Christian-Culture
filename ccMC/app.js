@@ -2035,10 +2035,9 @@ export function initLiveRadioRdsEngine() {
 
 export function playAlertChime() {
   if (typeof window === 'undefined') return false;
-  const AudioCtx = window.AudioContext || window.webkitAudioContext;
-  if (!AudioCtx) return false;
+  const ctx = getUnlockedAudioContext();
+  if (!ctx) return false;
   try {
-    const ctx = new AudioCtx();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = 'sine';
@@ -2059,9 +2058,127 @@ export function playAlertChime() {
 
 export const VOICE_ASSISTANT_AVATAR_URL = '/ccMC/assistant-avatar.jpg';
 
+export async function ensureScreenWakeLock() {
+  if (typeof navigator === 'undefined' || !navigator.wakeLock || typeof navigator.wakeLock.request !== 'function') {
+    return false;
+  }
+  try {
+    if (typeof window !== 'undefined' && window._mcWakeLockSentinel && !window._mcWakeLockSentinel.released) {
+      return true;
+    }
+    const sentinel = await navigator.wakeLock.request('screen');
+    if (typeof window !== 'undefined') {
+      window._mcWakeLockSentinel = sentinel;
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function getUnlockedAudioContext() {
+  if (typeof window === 'undefined') return null;
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return null;
+  try {
+    if (!window._mcSharedAudioCtx || window._mcSharedAudioCtx.state === 'closed') {
+      window._mcSharedAudioCtx = new AudioCtx();
+    }
+    if (window._mcSharedAudioCtx.state === 'suspended' && typeof window._mcSharedAudioCtx.resume === 'function') {
+      window._mcSharedAudioCtx.resume().catch(() => {});
+    }
+    return window._mcSharedAudioCtx;
+  } catch {
+    return null;
+  }
+}
+
+export function initVoiceWakeAndAudioUnlock() {
+  if (typeof window === 'undefined' || window._mcVoiceWakeInitialized) return;
+  window._mcVoiceWakeInitialized = true;
+
+  ensureScreenWakeLock();
+
+  if (typeof document !== 'undefined') {
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        ensureScreenWakeLock();
+      }
+    });
+
+    const unlockOnce = () => {
+      const ctx = getUnlockedAudioContext();
+      if (ctx) {
+        try {
+          const buf = ctx.createBuffer(1, 1, 22050);
+          const src = ctx.createBufferSource();
+          src.buffer = buf;
+          src.connect(ctx.destination);
+          src.start(0);
+        } catch {}
+      }
+      if ('speechSynthesis' in window && typeof window.speechSynthesis.getVoices === 'function') {
+        window.speechSynthesis.getVoices();
+      }
+      ensureScreenWakeLock();
+    };
+
+    window.addEventListener('pointerdown', unlockOnce, { passive: true });
+    window.addEventListener('keydown', unlockOnce, { passive: true });
+  }
+}
+
+export function startVoiceBubbleTypewriter(fullText = '', charIntervalMs = 30) {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return false;
+  if (window._mcVoiceTypewriterInterval) {
+    clearInterval(window._mcVoiceTypewriterInterval);
+    window._mcVoiceTypewriterInterval = null;
+  }
+  if (window._mcVoiceTypewriterDelay) {
+    clearTimeout(window._mcVoiceTypewriterDelay);
+    window._mcVoiceTypewriterDelay = null;
+  }
+
+  const textEl = document.getElementById('mcVoiceAssistantSpokenText');
+  const cursorEl = document.getElementById('mcVoiceTypewriterCursor');
+  if (!textEl) return false;
+
+  const targetStr = String(fullText || '');
+  textEl.setAttribute('data-full-text', targetStr);
+  textEl.textContent = '';
+  if (cursorEl) cursorEl.classList.add('is-typing');
+
+  let idx = 0;
+  window._mcVoiceTypewriterDelay = setTimeout(() => {
+    window._mcVoiceTypewriterInterval = setInterval(() => {
+      const el = document.getElementById('mcVoiceAssistantSpokenText');
+      if (!el) {
+        clearInterval(window._mcVoiceTypewriterInterval);
+        window._mcVoiceTypewriterInterval = null;
+        return;
+      }
+      idx += 1;
+      el.textContent = targetStr.slice(0, idx);
+      if (idx >= targetStr.length) {
+        clearInterval(window._mcVoiceTypewriterInterval);
+        window._mcVoiceTypewriterInterval = null;
+        const cur = document.getElementById('mcVoiceTypewriterCursor');
+        if (cur) cur.classList.remove('is-typing');
+      }
+    }, Math.max(14, Number(charIntervalMs) || 30));
+  }, 150);
+
+  return true;
+}
+
 export function showVoiceAssistantAvatar(text = '', durationMs = 6500) {
   state.voiceAssistantSpeaking = true;
   if (text) state.lastSpokenAlertText = text;
+  const fullMsg = text || state.lastSpokenAlertText || '';
+
+  // Gwarantowane wybudzenie ekranu z 5-sekundowego wygaszacza na czas komunikatu asystentki
+  wakeClockIdleMode({ restartTimer: false });
+  ensureScreenWakeLock();
 
   if (typeof window !== 'undefined' && window._mcVoiceAvatarTimer) {
     clearTimeout(window._mcVoiceAvatarTimer);
@@ -2078,13 +2195,17 @@ export function showVoiceAssistantAvatar(text = '', durationMs = 6500) {
       overlay.setAttribute('aria-live', 'polite');
       document.body.appendChild(overlay);
     }
-    overlay.innerHTML = renderVoiceAssistantOverlayInnerHtml(text || state.lastSpokenAlertText || '');
+    overlay.classList.remove('is-speaking');
+    overlay.innerHTML = renderVoiceAssistantOverlayInnerHtml(fullMsg);
+    // Force reflow so the bubble-from-behind-avatar animation replays cleanly
+    void overlay.offsetWidth;
     overlay.classList.add('is-speaking');
     overlay.setAttribute('aria-hidden', 'false');
+    startVoiceBubbleTypewriter(fullMsg, 28);
   }
 
   if (typeof window !== 'undefined') {
-    const safeMs = Math.max(4000, Math.min(18000, Number(durationMs) || 6500));
+    const safeMs = Math.max(4500, Math.min(18000, Number(durationMs) || 6500));
     window._mcVoiceAvatarTimer = setTimeout(() => {
       hideVoiceAssistantAvatar();
     }, safeMs);
@@ -2094,9 +2215,19 @@ export function showVoiceAssistantAvatar(text = '', durationMs = 6500) {
 
 export function hideVoiceAssistantAvatar() {
   state.voiceAssistantSpeaking = false;
-  if (typeof window !== 'undefined' && window._mcVoiceAvatarTimer) {
-    clearTimeout(window._mcVoiceAvatarTimer);
-    window._mcVoiceAvatarTimer = null;
+  if (typeof window !== 'undefined') {
+    if (window._mcVoiceAvatarTimer) {
+      clearTimeout(window._mcVoiceAvatarTimer);
+      window._mcVoiceAvatarTimer = null;
+    }
+    if (window._mcVoiceTypewriterInterval) {
+      clearInterval(window._mcVoiceTypewriterInterval);
+      window._mcVoiceTypewriterInterval = null;
+    }
+    if (window._mcVoiceTypewriterDelay) {
+      clearTimeout(window._mcVoiceTypewriterDelay);
+      window._mcVoiceTypewriterDelay = null;
+    }
   }
   if (typeof document !== 'undefined') {
     const overlay = document.getElementById('mcVoiceAssistantOverlay');
@@ -2105,25 +2236,32 @@ export function hideVoiceAssistantAvatar() {
       overlay.setAttribute('aria-hidden', 'true');
     }
   }
+  if (state.module === 'clock' && !state.clockDrawerOpen) {
+    scheduleClockIdleTimer();
+  }
   return true;
 }
 
 export function renderVoiceAssistantOverlayInnerHtml(text = '') {
   return `
-    <div class="mc-voice-assistant-card">
+    <div class="mc-voice-assistant-stage">
       <div class="mc-voice-assistant-avatar-wrap">
         <span class="mc-voice-assistant-ring mc-ring-1" aria-hidden="true"></span>
         <span class="mc-voice-assistant-ring mc-ring-2" aria-hidden="true"></span>
         <img src="${VOICE_ASSISTANT_AVATAR_URL}" alt="Asystentka Głosowa Kalendarza" class="mc-voice-assistant-avatar-img" />
       </div>
-      <div class="mc-voice-assistant-content">
+      <div class="mc-voice-assistant-bubble" id="mcVoiceAssistantBubble">
+        <span class="mc-voice-bubble-tail" aria-hidden="true"></span>
         <div class="mc-voice-assistant-kicker">
           <span class="mc-voice-wave-bars" aria-hidden="true">
             <i></i><i></i><i></i><i></i>
           </span>
-          <span>ASYSTENTKA KALENDARZA • KOMUNIKAT GŁOSOWY</span>
+          <span>ASYSTENTKA KALENDARZA</span>
         </div>
-        <strong class="mc-voice-assistant-text" id="mcVoiceAssistantSpokenText">${escapeHtml(text)}</strong>
+        <div class="mc-voice-assistant-text-row">
+          <strong class="mc-voice-assistant-text" id="mcVoiceAssistantSpokenText" data-full-text="${escapeHtml(text)}">${escapeHtml(text)}</strong>
+          <span class="mc-typewriter-cursor is-typing" id="mcVoiceTypewriterCursor" aria-hidden="true">▍</span>
+        </div>
       </div>
     </div>
   `;
@@ -2131,8 +2269,8 @@ export function renderVoiceAssistantOverlayInnerHtml(text = '') {
 
 export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = null) {
   if (typeof window === 'undefined' || !audioBase64) return false;
-  const AudioCtx = window.AudioContext || window.webkitAudioContext;
-  if (!AudioCtx) return false;
+  const ctx = getUnlockedAudioContext();
+  if (!ctx) return false;
   try {
     const raw = window.atob(audioBase64);
     const pcm16 = new Int16Array(Math.floor(raw.length / 2));
@@ -2142,7 +2280,6 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = n
       const val = (hi << 8) | lo;
       pcm16[i] = val >= 0x8000 ? val - 0x10000 : val;
     }
-    const ctx = new AudioCtx();
     const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
     const ch = buf.getChannelData(0);
     for (let i = 0; i < pcm16.length; i++) {
@@ -2164,6 +2301,20 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = n
   }
 }
 
+const FEMALE_PL_VOICE_HINTS = /zofia|paulina|agnieszka|ewa|maja|ola|aleksandra|natalia|female|kobiet|google polski/i;
+const MALE_PL_VOICE_HINTS = /marek|adam|jacek|jan\b|krzysztof|piotr|tomasz|male\b|mężczyzna/i;
+
+export function pickFemalePolishVoice(voices = []) {
+  const plVoices = (voices || []).filter((v) => v && v.lang && v.lang.toLowerCase().startsWith('pl'));
+  const nonMale = plVoices.filter((v) => !MALE_PL_VOICE_HINTS.test(v.name || ''));
+  return (
+    nonMale.find((v) => FEMALE_PL_VOICE_HINTS.test(v.name || '') && /natural|online|neural/i.test(v.name || '')) ||
+    nonMale.find((v) => FEMALE_PL_VOICE_HINTS.test(v.name || '')) ||
+    nonMale[0] ||
+    null
+  );
+}
+
 export function speakBrowserNaturalVoice(text, onEnded = null) {
   if (typeof window === 'undefined' || !('speechSynthesis' in window) || typeof window.SpeechSynthesisUtterance !== 'function') {
     return false;
@@ -2176,11 +2327,13 @@ export function speakBrowserNaturalVoice(text, onEnded = null) {
     utter.pitch = 1.0;
     utter.volume = 1.0;
     const voices = window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
-    const plVoices = voices.filter((v) => v.lang && v.lang.toLowerCase().startsWith('pl'));
-    const naturalPl =
-      plVoices.find((v) => /natural|online|neural|google/i.test(v.name || '')) ||
-      plVoices[0];
-    if (naturalPl) utter.voice = naturalPl;
+    const femalePl = pickFemalePolishVoice(voices);
+    if (femalePl) {
+      utter.voice = femalePl;
+    } else {
+      // Brak żeńskiego głosu PL w systemie — lekko podnosimy wysokość, aby uniknąć męskiej barwy
+      utter.pitch = 1.25;
+    }
     const estMs = Math.max(4500, Math.min(16000, String(text || '').length * 85 + 1500));
     showVoiceAssistantAvatar(text, estMs);
     utter.onend = () => {
@@ -4322,6 +4475,7 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
       }
     }, 250);
   }
+  initVoiceWakeAndAudioUnlock();
   initLiveRadioRdsEngine();
   attachLoginHandler();
   loadInitialSession();
