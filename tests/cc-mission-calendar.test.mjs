@@ -667,5 +667,240 @@ test('13. Live Broadcast Screensaver Box below Clock: real-time polskieradio.cc 
   assert.match(ccMcStyle, /\.mc-live-slide/, 'style.css must style .mc-live-slide');
 });
 
+// ---------------------------------------------------------------------------
+// 14. Google Calendar Bidirectional Integration (OAuth Security, 3 Modes,
+//     Moving Events, Recurrence, Deletion, Re-Sync, Multi-Agent Authority,
+//     TERAZ Bar with Google Calendar & Next Task)
+// ---------------------------------------------------------------------------
+test('14. Google Calendar Bidirectional Integration & TERAZ Bar Next Task', async () => {
+  const {
+    MissionCalendarService,
+    encryptServerTokens,
+    decryptServerTokens,
+    GCAL_DEDICATED_CALENDAR_NAME,
+    GCAL_MINIMAL_SCOPES,
+  } = await import('../services/cc-mission-calendar/mission-calendar-service.js');
+
+  const secret = 'test-server-secret-32-chars-minimum-ok';
+  const env = { SESSION_SECRET: secret };
+  const repo = new MissionCalendarRepository(null);
+  await repo.ensureInitialized();
+  const service = new MissionCalendarService({ repo, env });
+  const ownerActor = { type: 'user', id: 'L0', role: 'owner', email: 'nazirczarkes@gmail.com' };
+
+  // 14a. Server-side OAuth token encryption (AES-GCM 256-bit) & no client leak
+  const sampleTokens = {
+    access_token: 'ya29.secret_access_token_xyz',
+    refresh_token: '1//0g_secret_refresh_token_abc',
+    scope: GCAL_MINIMAL_SCOPES.join(' '),
+  };
+  const encrypted = await encryptServerTokens(secret, sampleTokens);
+  assert.ok(!encrypted.includes('ya29.secret_access_token_xyz'), 'Encrypted payload must not expose raw access_token');
+  const decrypted = await decryptServerTokens(secret, encrypted);
+  assert.equal(decrypted.access_token, sampleTokens.access_token, 'Decrypted token must match original');
+
+  // Connect Google SSO LUMINA
+  const watchToken = 'webhook_secret_token_777';
+  const connectRes = await service.connectGoogleCalendar(ownerActor, {
+    calendarName: GCAL_DEDICATED_CALENDAR_NAME,
+    syncMode: 'bidirectional',
+    scopes: GCAL_MINIMAL_SCOPES,
+    oauthAccessToken: sampleTokens.access_token,
+    oauthRefreshToken: sampleTokens.refresh_token,
+    watchToken,
+  });
+  assert.equal(connectRes.connected, true, 'Google Calendar must be connected');
+  assert.equal(connectRes.calendarName, GCAL_DEDICATED_CALENDAR_NAME, 'Must default to dedicated calendar "Christian Culture — Misja"');
+  assert.equal(connectRes.syncMode, 'bidirectional');
+  assert.equal(JSON.stringify(connectRes).includes('ya29.secret_access_token_xyz'), false, 'Status response must NEVER leak OAuth tokens');
+
+  // 14b. Ensure dedicated calendar & switch between 3 sync modes
+  const calEnsure = await service.ensureDedicatedGoogleCalendar(ownerActor, {
+    calendarName: 'Christian Culture — Misja',
+  });
+  assert.equal(calEnsure.calendarName, 'Christian Culture — Misja');
+
+  for (const mode of ['export_only', 'import_only', 'bidirectional']) {
+    const updated = await service.updateGoogleCalendarSettings(ownerActor, { syncMode: mode });
+    assert.equal(updated.syncMode, mode, `Must support syncMode=${mode}`);
+  }
+
+  // 14c. Create event in ccMC -> auto-exports to Google Calendar with ID mapping
+  const createdTask = await service.createEvent(
+    {
+      title: 'Nagranie Audycji Słowo na Dziś',
+      description: 'Przygotowanie i eksport odcinka radiowego',
+      category: 'radio',
+      priority: 1,
+      starts_at: '2026-11-08T10:00:00+01:00',
+      ends_at: '2026-11-08T11:30:00+01:00',
+      timezone: 'Europe/Warsaw',
+      assigned_to: '@A001',
+    },
+    ownerActor
+  );
+  assert.ok(createdTask.gcal_synced, 'Created ccMC event must be synced to Google Calendar');
+  assert.ok(createdTask.gcal_event_id, 'Created ccMC event must have mapped gcal_event_id');
+  assert.equal(createdTask.duration_minutes, 90, 'Duration must be calculated as 90 minutes');
+  assert.ok(createdTask.vikunja_task_id, 'Vikunja task ID must be mapped');
+
+  // 14d. Multi-agent work: @A001 claims task, sets status in_progress and submits result;
+  const agentA001 = { name: '@A001', allowed_projects: ['*'] };
+  const claimed = await service.claimTask(createdTask.id, agentA001, 60);
+  assert.equal(claimed.status, 'in_progress');
+
+  const withResult = await service.submitAgentResult(createdTask.id, agentA001, {
+    summary: 'Wersja robocza audio wygenerowana (-16 LUFS)',
+    result_links: ['https://polskieradio.cc/audio/test.mp3'],
+  });
+  assert.equal(withResult.review_state, 'awaiting_review');
+
+  // 14e. Acceptance Criterion: Moving the event time in Google Calendar updates ccMC
+  //      WITHOUT duplicates, while preserving agent status, assignee, and work results!
+  const conn = await repo.getGcalConnection('L0');
+  service.upsertRemoteGoogleEvent(conn.calendar_id, createdTask.gcal_event_id, {
+    summary: 'Nagranie Audycji Słowo na Dziś (Przesunięte w Google)',
+    description: 'Przygotowanie i eksport odcinka radiowego',
+    start: { dateTime: '2026-11-08T12:00:00+01:00', timeZone: 'Europe/Warsaw' },
+    end: { dateTime: '2026-11-08T13:30:00+01:00', timeZone: 'Europe/Warsaw' },
+    extendedProperties: {
+      private: {
+        ccmc_event_id: createdTask.id,
+        vikunja_task_id: createdTask.vikunja_task_id,
+      },
+    },
+  });
+
+  const webhookReq = new Request('https://polskieradio.cc/api/mission-calendar/gcal/webhook', {
+    method: 'POST',
+    headers: {
+      'X-Goog-Channel-ID': conn.watch_channel_id,
+      'X-Goog-Resource-State': 'exists',
+      'X-Goog-Channel-Token': watchToken,
+    },
+  });
+  const webhookRes = await service.handleGoogleCalendarWebhook(webhookReq);
+  assert.equal(webhookRes.ok, true, 'Webhook must be processed');
+  assert.equal(webhookRes.synced, true, 'Webhook must trigger incremental sync');
+
+  const allMatchingAfterMove = (await repo.listEvents()).filter(
+    (e) => e.id === createdTask.id || e.gcal_event_id === createdTask.gcal_event_id
+  );
+  assert.equal(allMatchingAfterMove.length, 1, 'Must NOT create duplicate events on Google Calendar time change');
+
+  const updatedCcMcEvent = await repo.getEventById(createdTask.id);
+  assert.equal(
+    new Date(updatedCcMcEvent.starts_at).toISOString(),
+    new Date('2026-11-08T12:00:00+01:00').toISOString(),
+    'Start time in ccMC must update to new Google time'
+  );
+  assert.equal(
+    new Date(updatedCcMcEvent.ends_at).toISOString(),
+    new Date('2026-11-08T13:30:00+01:00').toISOString(),
+    'End time in ccMC must update to new Google time'
+  );
+  // Verify ccMC authority over status, agent assignment, and results:
+  assert.equal(updatedCcMcEvent.status, 'in_progress', 'Agent task status MUST remain authoritative in ccMC');
+  assert.equal(updatedCcMcEvent.assigned_to, '@A001', 'Assigned agent MUST remain authoritative in ccMC');
+  assert.equal(updatedCcMcEvent.review_state, 'awaiting_review', 'Review state MUST remain authoritative in ccMC');
+  assert.equal(
+    updatedCcMcEvent.result_summary,
+    'Wersja robocza audio wygenerowana (-16 LUFS)',
+    'Work results MUST remain authoritative in ccMC'
+  );
+
+  // 14f. Idempotent Re-Sync (running sync again with no remote changes produces 0 updates/duplicates)
+  const resyncResult = await service.syncGoogleCalendar(ownerActor, { mode: 'bidirectional' });
+  assert.equal(resyncResult.ok, true, 'Re-sync must succeed');
+  assert.equal(resyncResult.updated, 0, 'Idempotent re-sync must produce 0 updates');
+  assert.equal(resyncResult.imported, 0, 'Idempotent re-sync must produce 0 imports');
+
+  // 14g. Recurrence (RRULE) & Single Occurrence Override from Google Calendar + Multi-Agent (@077)
+  const recurringSeries = await service.createEvent(
+    {
+      title: 'Poranny Przegląd Grafik EkoCC',
+      description: 'Codzienna kontrola okładek 16:9',
+      category: 'media',
+      priority: 2,
+      starts_at: '2026-11-09T08:00:00+01:00',
+      ends_at: '2026-11-09T08:45:00+01:00',
+      rrule: 'FREQ=DAILY',
+      assigned_to: '@077',
+    },
+    ownerActor
+  );
+  assert.ok(recurringSeries.gcal_event_id, 'Recurring series must map to Google Calendar');
+
+  // Move single occurrence in Google Calendar (2026-11-10 moved from 08:00 to 09:30)
+  service.upsertRemoteGoogleEvent(
+    conn.calendar_id,
+    `${recurringSeries.gcal_event_id}_20261110`,
+    {
+      recurringEventId: recurringSeries.gcal_event_id,
+      originalStartTime: { dateTime: '2026-11-10T08:00:00+01:00' },
+      summary: 'Poranny Przegląd Grafik EkoCC (Przesunięte wystąpienie)',
+      start: { dateTime: '2026-11-10T09:30:00+01:00' },
+      end: { dateTime: '2026-11-10T10:15:00+01:00' },
+    }
+  );
+  await service.syncGoogleCalendar(ownerActor, { mode: 'import_only' });
+  const overrides = await repo.listOverridesForSeries(recurringSeries.id);
+  assert.ok(
+    overrides.some(
+      (o) =>
+        o.occurrence_id === `${recurringSeries.id}_2026-11-10` &&
+        new Date(o.starts_at).toISOString() === new Date('2026-11-10T09:30:00+01:00').toISOString()
+    ),
+    'Single occurrence move from Google Calendar must create override in ccMC'
+  );
+
+  // 14h. Deletion handling from Google Calendar (status: 'cancelled')
+  service.upsertRemoteGoogleEvent(conn.calendar_id, 'gcal_external_to_delete_1', {
+    summary: 'Tymczasowe spotkanie Google',
+    start: { dateTime: '2026-11-11T14:00:00+01:00' },
+    end: { dateTime: '2026-11-11T15:00:00+01:00' },
+  });
+  await service.syncGoogleCalendar(ownerActor, { mode: 'import_only' });
+  const importedMap = await repo.getGcalMappingByGcalEventId('gcal_external_to_delete_1', conn.calendar_id);
+  assert.ok(importedMap, 'External Google event must be imported and mapped');
+
+  service.upsertRemoteGoogleEvent(
+    conn.calendar_id,
+    'gcal_external_to_delete_1',
+    { summary: 'Tymczasowe spotkanie Google' },
+    'cancelled'
+  );
+  await service.syncGoogleCalendar(ownerActor, { mode: 'import_only' });
+  const afterCancel = await repo.getEventById(importedMap.event_id);
+  assert.equal(afterCancel, null, 'Cancelled Google event must be removed from ccMC');
+
+  // 14i. Watch channel renewal & Safe Disconnect
+  const renewed = await service.renewGoogleCalendarWatch(ownerActor);
+  assert.ok(renewed.watchChannel.channelId, 'Watch channel must be renewed');
+
+  const disconnected = await service.disconnectGoogleCalendar(ownerActor);
+  assert.equal(disconnected.connected, false, 'Google Calendar must safely disconnect');
+
+  // 14j. UI Verification: Settings Google Calendar section + TERAZ Bar showing Google Calendar & Next Task
+  const { getCurrentTerazSummary, renderLiveScreensaverBox, renderSettingsHtml } = await import('../ccMC/app.js');
+  const settingsHtml = renderSettingsHtml();
+  assert.match(settingsHtml, /id="mcSettingsGcalCard"/, 'Settings must include #mcSettingsGcalCard');
+  assert.match(settingsHtml, /Christian Culture — Misja/, 'Settings must display dedicated calendar "Christian Culture — Misja"');
+  assert.match(settingsHtml, /Dwukierunkowy/, 'Settings must include bidirectional sync mode option');
+
+  const sampleNow = new Date('2026-11-07T09:25:00+01:00');
+  const terazSummary = getCurrentTerazSummary(sampleNow);
+  assert.ok(terazSummary.nextTask && terazSummary.nextTask.title, 'TERAZ summary must include nextTask.title (Następne zadanie)');
+  assert.ok(terazSummary.nextTask.timeRange, 'TERAZ summary must include nextTask.timeRange');
+  assert.ok(terazSummary.gcalCalendarName, 'TERAZ summary must include gcalCalendarName');
+
+  const liveBoxHtml = renderLiveScreensaverBox(sampleNow);
+  assert.match(liveBoxHtml, /id="mcLiveTerazGcalBadge"/, 'TERAZ bar under clock must include Google Calendar badge (#mcLiveTerazGcalBadge)');
+  assert.match(liveBoxHtml, /Google Calendar/, 'TERAZ bar under clock must display Google Calendar');
+  assert.match(liveBoxHtml, /id="mcLiveTerazNextBox"/, 'TERAZ bar under clock must include Next Task row (#mcLiveTerazNextBox)');
+  assert.match(liveBoxHtml, /NASTĘPNE ZADANIE/, 'TERAZ bar under clock must display "NASTĘPNE ZADANIE"');
+});
+
+
 
 

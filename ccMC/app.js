@@ -75,6 +75,23 @@ const state = {
   statsScope: 'today', // 'today' (default) | 'all'
   realtimeEngine: true, // Inteligentny Silnik Real-Time: AKTYWNY (Autopilot Misji CC)
   pushSubscribed: true, // Powiadomienia domyślnie włączone (cisza nocna 22:00–06:00)
+  gcal: {
+    connected: false,
+    status: 'disconnected',
+    ssoProvider: 'Google SSO LUMINA',
+    calendarId: 'cc_mission_dedicated',
+    calendarName: 'Christian Culture — Misja',
+    syncMode: 'bidirectional',
+    calendars: [
+      { id: 'cc_mission_dedicated', summary: 'Christian Culture — Misja', dedicated: true },
+      { id: 'primary', summary: 'Kalendarz główny Google', primary: true },
+    ],
+    mappingsCount: 0,
+    hasSyncToken: false,
+    watchChannel: null,
+    lastSyncedAt: null,
+    logs: [],
+  },
 };
 
 export function applyTheme(theme) {
@@ -464,15 +481,19 @@ async function refreshData() {
   try {
     const from = new Date(state.anchorDate.getTime() - 35 * 86400_000).toISOString();
     const to = new Date(state.anchorDate.getTime() + 65 * 86400_000).toISOString();
-    const [evRes, agRes, audRes] = await Promise.all([
+    const [evRes, agRes, audRes, gcalRes] = await Promise.all([
       apiRequest(`/events?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&expand=true`),
       apiRequest('/agents').catch(() => ({ agents: [] })),
       apiRequest('/audit').catch(() => ({ audit: [] })),
+      apiRequest('/gcal/status').catch(() => null),
     ]);
     state.rawEvents = evRes.events || [];
     state.events = state.realtimeEngine ? applyRealtimeEngine(state.rawEvents, new Date()) : state.rawEvents;
     state.agents = agRes.agents || [];
     state.audit = audRes.audit || [];
+    if (gcalRes) {
+      state.gcal = { ...state.gcal, ...gcalRes };
+    }
   } catch (e) {
     state.error = e.message;
   }
@@ -612,6 +633,7 @@ function renderEventTileHtml(ev) {
       <div class="mc-event-meta">
         <span title="Status: ${escapeHtml(st.label)}">${st.icon} ${escapeHtml(st.label)}</span>
         <span class="mc-prio-badge">${prio}</span>
+        ${ev.gcal_synced || ev.source === 'gcal' || ev.gcal_event_id ? '<span class="mc-gcal-badge" title="Zsynchronizowano z Google Calendar (Christian Culture — Misja)">📅 GCal</span>' : ''}
         ${ev.overdue ? '<span class="mc-overdue-badge">PO TERMINIE</span>' : ''}
         ${ev.review_state === 'awaiting_review' ? '<span class="mc-overdue-badge">DO AKCEPTACJI</span>' : ''}
         ${ev.rrule ? '<span title="Zadanie cykliczne">↻</span>' : ''}
@@ -627,10 +649,135 @@ function renderEventTileHtml(ev) {
   `;
 }
 
-function renderSettingsHtml() {
+export function renderSettingsHtml() {
   const isLight = state.theme === 'light';
+  const gcal = state.gcal || {};
+  const gcalConnected = Boolean(gcal.connected);
+  const gcalMode = gcal.syncMode || 'bidirectional';
+  const gcalCalendars = Array.isArray(gcal.calendars) && gcal.calendars.length > 0
+    ? gcal.calendars
+    : [
+        { id: 'cc_mission_dedicated', summary: 'Christian Culture — Misja', dedicated: true },
+        { id: 'primary', summary: 'Kalendarz główny Google', primary: true },
+      ];
+  const gcalLogs = Array.isArray(gcal.logs) ? gcal.logs.slice(0, 8) : [];
+
   return `
     <div class="mc-settings-panel">
+      <!-- Sekcja 1: Integracja Google Calendar (Dwukierunkowa synchronizacja ZERO COST) -->
+      <div class="mc-settings-card mc-gcal-settings-card" id="mcSettingsGcalCard">
+        <div class="mc-gcal-header-row">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px;">
+              <h3 style="margin:0;">📅 Google Calendar — Synchronizacja Misji (ZERO COST)</h3>
+              <span class="mc-gcal-status-pill ${gcalConnected ? 'is-connected' : 'is-disconnected'}" id="mcGcalStatusBadge">
+                ${gcalConnected ? '● Połączono z Google Calendar' : '○ Niepołączono'}
+              </span>
+            </div>
+            <p style="margin:0;">Dwukierunkowa synchronizacja <strong>Christian Culture Mission Calendar</strong> z dedykowanym kalendarzem <strong>„Christian Culture — Misja”</strong> przez istniejące <strong>Google SSO LUMINA</strong>.</p>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+            ${
+              gcalConnected
+                ? `
+                  <button type="button" id="btnSyncGcalNow" class="mc-btn-cta" style="background:#FF7A00;color:#fff;">
+                    🔄 Synchronizuj teraz
+                  </button>
+                  <button type="button" id="btnDisconnectGcal" class="mc-quick-btn" style="border-color:#ef4444;color:#fca5a5;">
+                    Odłącz Google
+                  </button>
+                `
+                : `
+                  <button type="button" id="btnConnectGcal" class="mc-btn-cta" style="background:#FF7A00;color:#fff;">
+                    🔗 Połącz Google Calendar (SSO LUMINA)
+                  </button>
+                `
+            }
+          </div>
+        </div>
+
+        <div class="mc-gcal-grid">
+          <!-- Wybór lub utworzenie dedykowanego kalendarza -->
+          <div class="mc-gcal-box">
+            <label for="mcGcalCalendarSelect" class="mc-gcal-box-label">Dedykowany Kalendarz Google</label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px;">
+              <select id="mcGcalCalendarSelect" class="mc-gcal-select" aria-label="Wybierz kalendarz Google do synchronizacji">
+                ${gcalCalendars
+                  .map(
+                    (c) =>
+                      `<option value="${escapeHtml(c.id)}" ${(gcal.calendarId || 'cc_mission_dedicated') === c.id ? 'selected' : ''}>${escapeHtml(c.summary)}${c.dedicated ? ' (Dedykowany)' : ''}</option>`
+                  )
+                  .join('')}
+              </select>
+              <button type="button" id="btnEnsureDedicatedGcal" class="mc-btn-gold" title="Utwórz lub wskaż dedykowany kalendarz Christian Culture — Misja">
+                ✨ Utwórz / Wskaż „Christian Culture — Misja”
+              </button>
+            </div>
+            <small class="mc-gcal-box-hint">
+              Aktywny kalendarz: <strong style="color:var(--mc-gold-light);">${escapeHtml(gcal.calendarName || 'Christian Culture — Misja')}</strong>
+              • Zmapowane zadania (ccMC/Vikunja ↔ GCal): <strong>${Number(gcal.mappingsCount || 0)}</strong>
+            </small>
+          </div>
+
+          <!-- 3 Tryby Synchronizacji -->
+          <div class="mc-gcal-box">
+            <span class="mc-gcal-box-label">Tryb Synchronizacji (3 warianty)</span>
+            <div class="mc-gcal-modes-group" role="group" aria-label="Tryb synchronizacji Google Calendar">
+              <button type="button" class="mc-gcal-mode-btn ${gcalMode === 'bidirectional' ? 'is-active' : ''}" data-gcal-sync-mode="bidirectional">
+                <strong>⇄ Dwukierunkowy</strong>
+                <small>ccMC ⇄ Google Calendar</small>
+              </button>
+              <button type="button" class="mc-gcal-mode-btn ${gcalMode === 'export_only' ? 'is-active' : ''}" data-gcal-sync-mode="export_only">
+                <strong>→ Eksport do Google</strong>
+                <small>ccMC → Google Calendar</small>
+              </button>
+              <button type="button" class="mc-gcal-mode-btn ${gcalMode === 'import_only' ? 'is-active' : ''}" data-gcal-sync-mode="import_only">
+                <strong>← Import z Google</strong>
+                <small>Google Calendar → ccMC</small>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reguły Nadrzędności ccMC, Incremental Sync & Bezpieczeństwo Tokenów -->
+        <div class="mc-gcal-meta-strip">
+          <div class="mc-gcal-meta-item">
+            <span>🔒 <strong>Bezpieczeństwo OAuth:</strong> Tokeny zaszyfrowane AES-GCM po stronie serwera (brak tokenów w przeglądarce)</span>
+          </div>
+          <div class="mc-gcal-meta-item">
+            <span>👑 <strong>Dane nadrzędne ccMC:</strong> Statusy zadań, uprawnienia agentów @777/@OA i wyniki pracy są chronione</span>
+          </div>
+          <div class="mc-gcal-meta-item">
+            <span>📡 <strong>Incremental Sync & Webhook:</strong> ${gcal.hasSyncToken ? `Aktywny syncToken (${escapeHtml(gcal.syncTokenCursor || 'OK')})` : 'Gotowy do synchronizacji przyrostowej'}</span>
+            ${gcalConnected ? `<button type="button" id="btnRenewGcalWatch" class="mc-gcal-inline-btn">Odnów kanał Push</button>` : ''}
+          </div>
+        </div>
+
+        ${
+          gcalLogs.length > 0
+            ? `
+              <div class="mc-gcal-logs-wrap" id="mcGcalLogsList">
+                <small class="mc-gcal-box-label" style="display:block;margin-bottom:6px;">Ostatnie operacje synchronizacji Google Calendar:</small>
+                <div class="mc-gcal-logs-table">
+                  ${gcalLogs
+                    .map(
+                      (l) => `
+                        <div class="mc-gcal-log-row">
+                          <span class="mc-gcal-log-dir">${escapeHtml(l.direction)}</span>
+                          <strong class="mc-gcal-log-action">${escapeHtml(l.action)}</strong>
+                          <span class="mc-gcal-log-meta">${escapeHtml(l.event_id || l.gcal_event_id || l.mode || '')}</span>
+                          <time class="mc-gcal-log-time">${escapeHtml(formatWarsawShort(l.created_at))}</time>
+                        </div>
+                      `
+                    )
+                    .join('')}
+                </div>
+              </div>
+            `
+            : ''
+        }
+      </div>
+
       <div class="mc-settings-card">
         <h3>🎨 Wygląd i Tryb Aplikacji (Motyw)</h3>
         <p>Wybierz preferowany tryb graficzny. Ustawienie jest zapisywane w Twojej przeglądarce i stosowane natychmiastowo.</p>
@@ -728,7 +875,7 @@ function renderSettingsHtml() {
 
       <div class="mc-settings-card">
         <h3>👤 Konto Administratora & Bezpieczeństwo</h3>
-        <p>Zalogowano jako: <strong>${escapeHtml(state.user.email)}</strong></p>
+        <p>Zalogowano jako: <strong>${escapeHtml(state.user?.email || 'nazirczarkes@gmail.com')}</strong></p>
         <p>Uprawnienia: <strong>Administrator / Właściciel Misji (@777 / @OA)</strong></p>
         <p>Połączenie: <strong>Google SSO LUMINA (Firebase Auth Token Exchange)</strong></p>
       </div>
@@ -774,6 +921,7 @@ function renderTodayTileHtml(ev, { isNow, isPast, isNext }) {
         <div class="mc-event-meta" style="margin:0;">
           <span title="Status: ${escapeHtml(st.label)}">${st.icon} ${escapeHtml(st.label)}</span>
           <span class="mc-prio-badge">${prio}</span>
+          ${ev.gcal_synced || ev.source === 'gcal' || ev.gcal_event_id ? '<span class="mc-gcal-badge" title="Zsynchronizowano z Google Calendar (Christian Culture — Misja)">📅 GCal</span>' : ''}
           ${ev.overdue ? '<span class="mc-overdue-badge">PO TERMINIE</span>' : ''}
           ${ev.review_state === 'awaiting_review' ? '<span class="mc-overdue-badge">DO AKCEPTACJI</span>' : ''}
           ${ev.rrule ? '<span title="Zadanie cykliczne">↻</span>' : ''}
@@ -1038,23 +1186,45 @@ export function getCurrentTerazSummary(now = new Date()) {
     return s <= nowTs && nowTs < e;
   });
 
-  const nextUpcomingEvent = todayTasks.find((ev) => Date.parse(ev.starts_at) > nowTs);
+  const upcomingList = todayTasks.filter((ev) => Date.parse(ev.starts_at) > nowTs);
+  const nextUpcomingEvent = upcomingList[0] || null;
+  const secondUpcomingEvent = upcomingList[1] || null;
+
+  const gcalCalendarName = state.gcal?.calendarName || 'Christian Culture — Misja';
 
   if (currentNowEvent) {
     const startHm = (toWarsawInput(currentNowEvent.starts_at) || '').slice(11, 16);
     const endHm = currentNowEvent.ends_at ? (toWarsawInput(currentNowEvent.ends_at) || '').slice(11, 16) : '';
     const timeRange = endHm ? `${startHm}–${endHm}` : startHm;
-    const agent = currentNowEvent.assigned_to || '@OA';
-    const nextSub = nextUpcomingEvent
-      ? `Następnie ${(toWarsawInput(nextUpcomingEvent.starts_at) || '').slice(11, 16)}: ${nextUpcomingEvent.title}`
-      : `Zadania na dziś: ${todayTasks.length} w harmonogramie`;
+    const isGcal = Boolean(currentNowEvent.gcal_synced || currentNowEvent.source === 'gcal' || currentNowEvent.gcal_event_id || state.gcal?.connected);
+    const agent = currentNowEvent.assigned_to || (currentNowEvent.source === 'gcal' ? '📅 Google Calendar' : '@OA');
+
+    let nextTask = null;
+    if (nextUpcomingEvent) {
+      const nStart = (toWarsawInput(nextUpcomingEvent.starts_at) || '').slice(11, 16);
+      const nEnd = nextUpcomingEvent.ends_at ? (toWarsawInput(nextUpcomingEvent.ends_at) || '').slice(11, 16) : '';
+      nextTask = {
+        timeRange: nEnd ? `${nStart}–${nEnd}` : nStart,
+        title: nextUpcomingEvent.title,
+        agent: nextUpcomingEvent.assigned_to || (nextUpcomingEvent.source === 'gcal' ? '📅 GCal' : '@OA'),
+        isGcal: Boolean(nextUpcomingEvent.gcal_synced || nextUpcomingEvent.source === 'gcal' || nextUpcomingEvent.gcal_event_id),
+      };
+    }
+
+    const nextSub = nextTask
+      ? `⏭ NASTĘPNE ZADANIE (${nextTask.timeRange}): ${nextTask.title} • ${nextTask.agent}`
+      : `⏭ NASTĘPNE ZADANIE: Kolejna rutyna w harmonogramie dnia (${todayTasks.length} zadań)`;
+
     return {
       mode: 'active',
-      badge: 'TERAZ • ZADANIE MISJI',
+      badge: isGcal ? 'TERAZ • GOOGLE CALENDAR & MISJA' : 'TERAZ • ZADANIE MISJI',
       timeRange,
       agent,
       title: currentNowEvent.title,
       sub: nextSub,
+      isGcal,
+      gcalCalendarName,
+      nextTask,
     };
   }
 
@@ -1062,14 +1232,34 @@ export function getCurrentTerazSummary(now = new Date()) {
     const startHm = (toWarsawInput(nextUpcomingEvent.starts_at) || '').slice(11, 16);
     const endHm = nextUpcomingEvent.ends_at ? (toWarsawInput(nextUpcomingEvent.ends_at) || '').slice(11, 16) : '';
     const timeRange = endHm ? `${startHm}–${endHm}` : startHm;
-    const agent = nextUpcomingEvent.assigned_to || '@OA';
+    const isGcal = Boolean(nextUpcomingEvent.gcal_synced || nextUpcomingEvent.source === 'gcal' || nextUpcomingEvent.gcal_event_id || state.gcal?.connected);
+    const agent = nextUpcomingEvent.assigned_to || (nextUpcomingEvent.source === 'gcal' ? '📅 Google Calendar' : '@OA');
+
+    let nextTask = null;
+    if (secondUpcomingEvent) {
+      const sStart = (toWarsawInput(secondUpcomingEvent.starts_at) || '').slice(11, 16);
+      nextTask = {
+        timeRange: sStart,
+        title: secondUpcomingEvent.title,
+        agent: secondUpcomingEvent.assigned_to || '@OA',
+        isGcal: Boolean(secondUpcomingEvent.gcal_synced || secondUpcomingEvent.source === 'gcal'),
+      };
+    }
+
+    const nextSub = nextTask
+      ? `⏭ NASTĘPNE ZADANIE (${nextTask.timeRange}): ${nextTask.title} • ${nextTask.agent}`
+      : `Start o ${startHm} • Przypisano: ${agent}`;
+
     return {
       mode: 'upcoming',
       badge: 'TERAZ • NASTĘPNE ZADANIE',
       timeRange,
       agent,
       title: nextUpcomingEvent.title,
-      sub: `Start o ${startHm} • Przypisano: ${agent}`,
+      sub: nextSub,
+      isGcal,
+      gcalCalendarName,
+      nextTask,
     };
   }
 
@@ -1082,6 +1272,7 @@ export function getCurrentTerazSummary(now = new Date()) {
     }).format(now)
   );
   const pad2 = (n) => String(n).padStart(2, '0');
+  const isGcal = Boolean(state.gcal?.connected);
   if (warsawHour >= 6 && warsawHour < 8) {
     return {
       mode: 'routine',
@@ -1089,7 +1280,10 @@ export function getCurrentTerazSummary(now = new Date()) {
       timeRange: '06:00–08:00',
       agent: '@A001',
       title: 'Publikacja Rozważań „Dobrze, że jesteś” (Aplikacje + WWW + SMS)',
-      sub: 'Następnie 08:00: Produkcja i Publikacja Biblia Audio V7 (4K + WWW)',
+      sub: '⏭ NASTĘPNE ZADANIE (08:00): Produkcja i Publikacja Biblia Audio V7 (4K + WWW) • @CCS',
+      isGcal,
+      gcalCalendarName,
+      nextTask: { timeRange: '08:00–09:00', title: 'Produkcja i Publikacja Biblia Audio V7 (4K + WWW)', agent: '@CCS' },
     };
   }
   if (warsawHour === 8) {
@@ -1099,7 +1293,10 @@ export function getCurrentTerazSummary(now = new Date()) {
       timeRange: '08:00–09:00',
       agent: '@CCS',
       title: 'Produkcja i Publikacja Odcinka Biblia Audio V7 (4K UHD + WWW)',
-      sub: 'Następnie 09:00: Kurs Codzienny @Akademia & Audyt Strażnika',
+      sub: '⏭ NASTĘPNE ZADANIE (09:00): Kurs Codzienny @Akademia & Audyt Strażnika • @A001',
+      isGcal,
+      gcalCalendarName,
+      nextTask: { timeRange: '09:00–10:00', title: 'Kurs Codzienny @Akademia & Audyt Strażnika', agent: '@A001' },
     };
   }
   if (warsawHour === 9) {
@@ -1109,19 +1306,27 @@ export function getCurrentTerazSummary(now = new Date()) {
       timeRange: '09:00–10:00',
       agent: '@A001',
       title: 'Publikacja Lekcji Kursu Codziennego @Akademia & Audyt Strażnika Kodu',
-      sub: 'Następnie 10:00: Dystrybucja Rozważań WWW na grupy WhatsApp (FIFO)',
+      sub: '⏭ NASTĘPNE ZADANIE (10:00): Dystrybucja Rozważań WWW na grupy WhatsApp (FIFO) • @Joshua',
+      isGcal,
+      gcalCalendarName,
+      nextTask: { timeRange: '10:00–11:00', title: 'Dystrybucja Rozważań WWW na grupy WhatsApp (FIFO)', agent: '@Joshua' },
     };
   }
   if (warsawHour >= 10 && warsawHour < 18) {
+    const nextTitle = warsawHour < 17
+      ? 'Kolejna tura dystrybucji WhatsApp & monitoring @777'
+      : 'Wieczorna sesja wydawnicza i subskrypcja SMS';
+    const nextTime = `${pad2(warsawHour + 1)}:00`;
     return {
       mode: 'routine',
       badge: 'TERAZ • DYSTRYBUCJA MISJI',
       timeRange: `${pad2(warsawHour)}:00–${pad2(warsawHour + 1)}:00`,
       agent: '@Joshua',
       title: 'Rotacyjna Dystrybucja Rozważań WWW na grupy WhatsApp (2 grupy FIFO)',
-      sub: warsawHour < 17
-        ? `Następnie ${pad2(warsawHour + 1)}:00: Kolejna tura dystrybucji WhatsApp & monitoring @777`
-        : 'Następnie 18:00: Wieczorna sesja wydawnicza i subskrypcja SMS',
+      sub: `⏭ NASTĘPNE ZADANIE (${nextTime}): ${nextTitle} • @777`,
+      isGcal,
+      gcalCalendarName,
+      nextTask: { timeRange: nextTime, title: nextTitle, agent: '@777' },
     };
   }
   if (warsawHour >= 18 && warsawHour < 22) {
@@ -1131,7 +1336,10 @@ export function getCurrentTerazSummary(now = new Date()) {
       timeRange: '18:00–22:00',
       agent: '@777',
       title: 'Wieczorna Subskrypcja SMS, Przegląd Skrzynki Misji & Raport JOMA',
-      sub: 'Od 22:00: Cisza nocna powiadomień Push (22:00–06:00) & Nocne Czuwanie',
+      sub: '⏭ NASTĘPNE ZADANIE (22:00): Cisza nocna powiadomień Push (22:00–06:00) & Nocne Czuwanie • @SMCC',
+      isGcal,
+      gcalCalendarName,
+      nextTask: { timeRange: '22:00–06:00', title: 'Cisza nocna powiadomień Push & Nocne Czuwanie', agent: '@SMCC' },
     };
   }
   return {
@@ -1140,7 +1348,10 @@ export function getCurrentTerazSummary(now = new Date()) {
     timeRange: '22:00–06:00',
     agent: '@SMCC',
     title: 'Nocne Czuwanie Systemowe 24/7 & Ochrona Kanałów Nadawczych LIVE',
-    sub: 'Następnie 06:00: Poranna Publikacja Rozważań „Dobrze, że jesteś”',
+    sub: '⏭ NASTĘPNE ZADANIE (06:00): Poranna Publikacja Rozważań „Dobrze, że jesteś” • @A001',
+    isGcal,
+    gcalCalendarName,
+    nextTask: { timeRange: '06:00–08:00', title: 'Poranna Publikacja Rozważań „Dobrze, że jesteś”', agent: '@A001' },
   };
 }
 
@@ -1153,11 +1364,13 @@ export function renderLiveScreensaverBox(now = new Date()) {
     : `ZADANIE • ${teraz.timeRange}`;
 
   const nextRamowkaStr = ramowka.next
-    ? `Następnie ${ramowka.next.time}: ${ramowka.next.title}`
+    ? `⏭ NASTĘPNIE ${ramowka.next.time}: ${ramowka.next.title}`
     : (ramowka.desc || 'Polskie Radio Christian Culture — Emisja 24/7');
 
+  const gcalBadgeLabel = `📅 Google Calendar • ${teraz.gcalCalendarName || 'Christian Culture — Misja'}`;
+
   return `
-    <section class="mc-clock-live-box" id="mcClockLiveBox" role="region" aria-live="polite" aria-label="Okienko NA ŻYWO: Ramówka polskieradio.cc i skrót zadania TERAZ">
+    <section class="mc-clock-live-box" id="mcClockLiveBox" role="region" aria-live="polite" aria-label="Okienko NA ŻYWO: Ramówka polskieradio.cc, Google Calendar i skrót zadania TERAZ oraz następnego zadania">
       <div class="mc-live-box-header">
         <div class="mc-live-box-brand">
           <span class="mc-broadcast-wave-icon" aria-hidden="true" title="Sygnał nadawczy NA ŻYWO">
@@ -1180,7 +1393,7 @@ export function renderLiveScreensaverBox(now = new Date()) {
           <button type="button" class="mc-live-tab-btn ${activeSlide === 0 ? 'is-active' : ''}" data-live-slide-btn="0" role="tab" aria-selected="${activeSlide === 0 ? 'true' : 'false'}" title="Ramówka ze strony głównej polskieradio.cc">
             <span>📡 Ramówka</span>
           </button>
-          <button type="button" class="mc-live-tab-btn ${activeSlide === 1 ? 'is-active' : ''}" data-live-slide-btn="1" role="tab" aria-selected="${activeSlide === 1 ? 'true' : 'false'}" title="Skrót aktualnego zadania TERAZ">
+          <button type="button" class="mc-live-tab-btn ${activeSlide === 1 ? 'is-active' : ''}" data-live-slide-btn="1" role="tab" aria-selected="${activeSlide === 1 ? 'true' : 'false'}" title="Skrót aktualnego zadania TERAZ i Google Calendar">
             <span>⏱️ Teraz</span>
           </button>
         </div>
@@ -1197,12 +1410,17 @@ export function renderLiveScreensaverBox(now = new Date()) {
           <span class="mc-live-slide-action" aria-hidden="true">⏱️ →</span>
         </div>
 
-        <!-- Slajd 1: Skrót TERAZ z aktualnego zadania kalendarza -->
+        <!-- Slajd 1: Skrót TERAZ z aktualnego zadania kalendarza / Google Calendar + NASTĘPNE ZADANIE -->
         <div class="mc-live-slide ${activeSlide === 1 ? 'is-active' : ''}" id="mcLiveSlideTeraz" data-live-slide="1" role="tabpanel" tabindex="0" title="Kliknij, aby otworzyć pełny moduł TERAZ">
           <div class="mc-live-slide-main">
-            <span class="mc-live-program-kicker is-teraz-kicker" id="mcLiveTerazKicker">ZADANIE TERAZ • ${escapeHtml(teraz.agent)} (${escapeHtml(teraz.timeRange)})</span>
+            <div class="mc-live-teraz-toprow">
+              <span class="mc-live-program-kicker is-teraz-kicker" id="mcLiveTerazKicker">ZADANIE TERAZ • ${escapeHtml(teraz.agent)} (${escapeHtml(teraz.timeRange)})</span>
+              <span class="mc-live-gcal-pill" id="mcLiveTerazGcalBadge" title="Synchronizacja z Google Calendar">${escapeHtml(gcalBadgeLabel)}</span>
+            </div>
             <strong class="mc-live-program-title" id="mcLiveTerazTitle">${escapeHtml(teraz.title)}</strong>
-            <small class="mc-live-program-sub" id="mcLiveTerazSub">${escapeHtml(teraz.sub)}</small>
+            <div class="mc-live-next-task-row" id="mcLiveTerazNextBox">
+              <small class="mc-live-program-sub is-next-task-sub" id="mcLiveTerazSub">${escapeHtml(teraz.sub)}</small>
+            </div>
           </div>
           <span class="mc-live-slide-action" aria-hidden="true">Otwórz →</span>
         </div>
@@ -1247,7 +1465,7 @@ export function updateLiveScreensaverDom(now = new Date()) {
   }
 
   const nextRamowkaStr = ramowka.next
-    ? `Następnie ${ramowka.next.time}: ${ramowka.next.title}`
+    ? `⏭ NASTĘPNIE ${ramowka.next.time}: ${ramowka.next.title}`
     : (ramowka.desc || 'Polskie Radio Christian Culture — Emisja 24/7');
   const ramowkaSubEl = document.getElementById('mcLiveRamowkaSub');
   if (ramowkaSubEl && ramowkaSubEl.textContent !== nextRamowkaStr) {
@@ -1258,6 +1476,12 @@ export function updateLiveScreensaverDom(now = new Date()) {
   const terazKickerEl = document.getElementById('mcLiveTerazKicker');
   if (terazKickerEl && terazKickerEl.textContent !== terazKickerStr) {
     terazKickerEl.textContent = terazKickerStr;
+  }
+
+  const gcalBadgeEl = document.getElementById('mcLiveTerazGcalBadge');
+  const gcalBadgeLabel = `📅 Google Calendar • ${teraz.gcalCalendarName || 'Christian Culture — Misja'}`;
+  if (gcalBadgeEl && gcalBadgeEl.textContent !== gcalBadgeLabel) {
+    gcalBadgeEl.textContent = gcalBadgeLabel;
   }
 
   const terazTitleEl = document.getElementById('mcLiveTerazTitle');
@@ -2857,6 +3081,158 @@ function bindEvents() {
       } finally {
         render();
       }
+    };
+  }
+
+  // Ustawienia: Integracja Google Calendar (SSO LUMINA + OAuth Calendar API)
+  const btnConnectGcal = document.getElementById('btnConnectGcal');
+  if (btnConnectGcal) {
+    btnConnectGcal.onclick = async () => {
+      btnConnectGcal.disabled = true;
+      btnConnectGcal.textContent = 'Autoryzacja Google SSO LUMINA…';
+      try {
+        const res = await apiRequest('/gcal/connect', {
+          method: 'POST',
+          body: JSON.stringify({
+            calendarName: 'Christian Culture — Misja',
+            syncMode: state.gcal?.syncMode || 'bidirectional',
+            scopes: [
+              'https://www.googleapis.com/auth/calendar.events',
+              'https://www.googleapis.com/auth/calendar.calendarlist.readonly',
+            ],
+          }),
+        });
+        state.gcal = { ...state.gcal, ...res };
+        await refreshData();
+        state.notice = `Połączono z Google Calendar („${res.calendarName || 'Christian Culture — Misja'}”) w trybie ${res.syncMode}!`;
+      } catch (err) {
+        state.error = 'Błąd połączenia Google Calendar: ' + err.message;
+      } finally {
+        render();
+      }
+    };
+  }
+
+  const btnDisconnectGcal = document.getElementById('btnDisconnectGcal');
+  if (btnDisconnectGcal) {
+    btnDisconnectGcal.onclick = async () => {
+      try {
+        await apiRequest('/gcal/disconnect', { method: 'POST', body: JSON.stringify({}) });
+        await refreshData();
+        state.notice = 'Bezpiecznie odłączono Google Calendar i usunięto zaszyfrowane tokeny serwerowe.';
+      } catch (err) {
+        state.error = 'Błąd odłączania Google Calendar: ' + err.message;
+      }
+      render();
+    };
+  }
+
+  const btnEnsureDedicatedGcal = document.getElementById('btnEnsureDedicatedGcal');
+  if (btnEnsureDedicatedGcal) {
+    btnEnsureDedicatedGcal.onclick = async () => {
+      try {
+        if (!state.gcal?.connected) {
+          const connected = await apiRequest('/gcal/connect', {
+            method: 'POST',
+            body: JSON.stringify({
+              calendarName: 'Christian Culture — Misja',
+              syncMode: state.gcal?.syncMode || 'bidirectional',
+            }),
+          });
+          state.gcal = { ...state.gcal, ...connected };
+        } else {
+          const res = await apiRequest('/gcal/calendars/ensure', {
+            method: 'POST',
+            body: JSON.stringify({
+              calendarName: 'Christian Culture — Misja',
+              syncMode: state.gcal?.syncMode || 'bidirectional',
+            }),
+          });
+          state.gcal = { ...state.gcal, ...res };
+        }
+        await refreshData();
+        state.notice = 'Wskazano dedykowany kalendarz „Christian Culture — Misja”!';
+      } catch (err) {
+        state.error = 'Błąd wyboru kalendarza: ' + err.message;
+      }
+      render();
+    };
+  }
+
+  const gcalCalSelect = document.getElementById('mcGcalCalendarSelect');
+  if (gcalCalSelect) {
+    gcalCalSelect.onchange = async () => {
+      const selectedId = gcalCalSelect.value;
+      const selectedText = gcalCalSelect.options[gcalCalSelect.selectedIndex]?.text?.replace(/\s*\(Dedykowany\)$/, '') || 'Christian Culture — Misja';
+      state.gcal.calendarId = selectedId;
+      state.gcal.calendarName = selectedText;
+      if (state.gcal.connected) {
+        try {
+          const res = await apiRequest('/gcal/settings', {
+            method: 'PATCH',
+            body: JSON.stringify({ calendarId: selectedId, calendarName: selectedText }),
+          });
+          state.gcal = { ...state.gcal, ...res };
+          state.notice = `Przełączono aktywny kalendarz Google na: ${selectedText}`;
+        } catch (err) {
+          state.error = err.message;
+        }
+      }
+      render();
+    };
+  }
+
+  document.querySelectorAll('[data-gcal-sync-mode]').forEach((btn) => {
+    btn.onclick = async () => {
+      const nextMode = btn.getAttribute('data-gcal-sync-mode');
+      state.gcal.syncMode = nextMode;
+      if (state.gcal.connected) {
+        try {
+          const res = await apiRequest('/gcal/settings', {
+            method: 'PATCH',
+            body: JSON.stringify({ syncMode: nextMode }),
+          });
+          state.gcal = { ...state.gcal, ...res };
+          state.notice = `Zmieniono tryb synchronizacji Google Calendar na: ${nextMode}`;
+        } catch (err) {
+          state.error = err.message;
+        }
+      }
+      render();
+    };
+  });
+
+  const btnSyncGcalNow = document.getElementById('btnSyncGcalNow');
+  if (btnSyncGcalNow) {
+    btnSyncGcalNow.onclick = async () => {
+      btnSyncGcalNow.disabled = true;
+      btnSyncGcalNow.textContent = 'Synchronizuję…';
+      try {
+        const res = await apiRequest('/gcal/sync', {
+          method: 'POST',
+          body: JSON.stringify({ mode: state.gcal?.syncMode || 'bidirectional' }),
+        });
+        await refreshData();
+        state.notice = `Synchronizacja Google Calendar zakończona (eksport: ${res.exported}, import: ${res.imported}, aktualizacje: ${res.updated})!`;
+      } catch (err) {
+        state.error = 'Błąd synchronizacji Google Calendar: ' + err.message;
+      } finally {
+        render();
+      }
+    };
+  }
+
+  const btnRenewGcalWatch = document.getElementById('btnRenewGcalWatch');
+  if (btnRenewGcalWatch) {
+    btnRenewGcalWatch.onclick = async () => {
+      try {
+        await apiRequest('/gcal/watch/renew', { method: 'POST', body: JSON.stringify({}) });
+        await refreshData();
+        state.notice = 'Kanał webhooka Push Google Calendar został odnowiony na kolejne 7 dni.';
+      } catch (err) {
+        state.error = 'Błąd odnawiania kanału Push: ' + err.message;
+      }
+      render();
     };
   }
 

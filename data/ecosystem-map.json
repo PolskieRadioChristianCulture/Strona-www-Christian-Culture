@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-07",
+      "topic": "ccMC: Dwukierunkowa integracja Google Calendar („Christian Culture — Misja”, 3 tryby sync, OAuth AES-GCM, pasek TERAZ z Google Calendar i następnym zadaniem)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-07",
       "topic": "Cykliczna publikacja CCN News na platformie X: Książka „U boku Diabła” — Cezary Rogowski z dedykowaną grafiką tematyczną (#133)",
       "agent": "A"
     },
