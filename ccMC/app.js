@@ -2479,11 +2479,15 @@ export function initVoiceWakeAndAudioUnlock() {
       const ctx = getUnlockedAudioContext();
       if (ctx) {
         try {
-          const buf = ctx.createBuffer(1, 1, 22050);
-          const src = ctx.createBufferSource();
-          src.buffer = buf;
-          src.connect(ctx.destination);
-          src.start(0);
+          if (!window._mcAudioKeepAliveNode) {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            gain.gain.value = 0.00001;
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(0);
+            window._mcAudioKeepAliveNode = osc;
+          }
         } catch {}
       }
       if ('speechSynthesis' in window && typeof window.speechSynthesis.getVoices === 'function') {
@@ -2722,35 +2726,8 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = n
         if (typeof onEnded === 'function') onEnded();
       };
       audioEl.play().catch(() => {
-        if (ctx && typeof ctx.resume === 'function') {
-          ctx
-            .resume()
-            .then(() => {
-              if (ctx.state === 'running') {
-                const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
-                const ch = buf.getChannelData(0);
-                for (let i = 0; i < pcm16.length; i++) ch[i] = pcm16[i] / 32768;
-                const src = ctx.createBufferSource();
-                src.buffer = buf;
-                src.connect(ctx.destination);
-                src.onended = () => {
-                  hideVoiceAssistantAvatar();
-                  if (typeof onEnded === 'function') onEnded();
-                };
-                src.start();
-                return;
-              }
-              window._mcPendingVoiceAudio = { audioBase64, sampleRate, text: state.lastSpokenAlertText };
-              speakBrowserNaturalVoice(state.lastSpokenAlertText, onEnded);
-            })
-            .catch(() => {
-              window._mcPendingVoiceAudio = { audioBase64, sampleRate, text: state.lastSpokenAlertText };
-              speakBrowserNaturalVoice(state.lastSpokenAlertText, onEnded);
-            });
-        } else {
-          window._mcPendingVoiceAudio = { audioBase64, sampleRate, text: state.lastSpokenAlertText };
-          speakBrowserNaturalVoice(state.lastSpokenAlertText, onEnded);
-        }
+        window._mcPendingVoiceAudio = { audioBase64, sampleRate, text: state.lastSpokenAlertText };
+        speakBrowserNaturalVoice(state.lastSpokenAlertText, onEnded);
       });
       return true;
     }
@@ -2780,6 +2757,9 @@ export function speakBrowserNaturalVoice(text, onEnded = null) {
   }
   try {
     window.speechSynthesis.cancel();
+    if (typeof window.speechSynthesis.resume === 'function') {
+      window.speechSynthesis.resume();
+    }
     const utter = new window.SpeechSynthesisUtterance(text);
     utter.lang = 'pl-PL';
     utter.rate = 1.01;
@@ -2913,7 +2893,7 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
             body: JSON.stringify({ text, voice: 'Aoede' }),
           });
 
-    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 8500));
+    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 24000));
 
     Promise.race([inFlightPromise, timeoutPromise])
       .then((res) => {

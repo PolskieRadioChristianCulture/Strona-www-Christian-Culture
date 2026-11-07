@@ -8,6 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
+import { execFileSync } from 'node:child_process';
 
 const TIMEZONE = 'Europe/Warsaw';
 const TARGET_ACCOUNT = 'nazirczarkes@gmail.com';
@@ -267,6 +268,24 @@ async function main() {
   const calsPath = path.join(baseDir, 'gcal-cals.json');
   const primaryPath = path.join(baseDir, 'gcal-primary.json');
   const holidaysPath = path.join(baseDir, 'gcal-holidays.json');
+
+  // Automatyczny odczyt na żywo z CLI gcalendar (--cal primary --start ... --end ... --max 250 --json)
+  try {
+    const startUtc = windowStart.toISOString();
+    const endUtc = windowEnd.toISOString();
+    const calsRaw = execFileSync('gcalendar', ['readonly', 'calendars', '--json'], { encoding: 'utf8', timeout: 12000 });
+    if (calsRaw && calsRaw.trim().startsWith('[')) {
+      fs.writeFileSync(calsPath, calsRaw, 'utf8');
+    }
+    const priRaw = execFileSync(
+      'gcalendar',
+      ['readonly', 'events', '--cal', 'primary', '--start', startUtc, '--end', endUtc, '--max', '250', '--json'],
+      { encoding: 'utf8', timeout: 15000 }
+    );
+    if (priRaw && priRaw.trim().startsWith('[')) {
+      fs.writeFileSync(primaryPath, priRaw, 'utf8');
+    }
+  } catch {}
 
   try {
     if (fs.existsSync(calsPath) && fs.existsSync(primaryPath)) {

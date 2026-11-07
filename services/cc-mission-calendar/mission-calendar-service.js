@@ -3322,7 +3322,7 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
     }
 
     // ────────────────────────────────────────────────────────────────────────
-    // Asystent Głosowy Kalendarza — Google AI Studio Gemini TTS (ZERO COST Free Tier)
+    // Asystent Głosowy Kalendarza — Google AI Studio Gemini TTS (ZERO COST Free Tier + Parallel Chunking + Cache)
     // ────────────────────────────────────────────────────────────────────────
     if (path === '/tts' && request.method === 'POST') {
       const body = await request.json().catch(() => ({}));
@@ -3330,12 +3330,32 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
       if (!rawText) return json({ error: 'Brak tekstu do syntezy' }, 422);
 
       const voiceName = String(body.voice || 'Aoede');
+      const cacheKey = `${voiceName}::${rawText}`;
+      if (!globalThis._ccMcTtsCache) {
+        globalThis._ccMcTtsCache = new Map();
+      }
+      const cachedAudio = globalThis._ccMcTtsCache.get(cacheKey);
+      if (cachedAudio && Date.now() - cachedAudio.ts < 15 * 60_000) {
+        return json({
+          ok: true,
+          mode: 'google_ai_studio_free_tier',
+          cached: true,
+          cost: 0,
+          voice: voiceName,
+          text: rawText,
+          mimeType: 'audio/pcm;rate=24000',
+          audioBase64: cachedAudio.audioBase64,
+        });
+      }
+
       const rawKeys = [
         ...(env?.GEMINI_API_KEYS ? String(env.GEMINI_API_KEYS).split(',') : []),
         env?.GEMINI_API_KEY,
         env?.GOOGLE_AI_STUDIO_API_KEY,
         env?.GOOGLE_API_KEY,
-      ].map((k) => String(k || '').trim()).filter((k) => k.length > 20);
+      ]
+        .map((k) => String(k || '').trim())
+        .filter((k) => k.length > 20 && !k.startsWith('AIzaSyC2'));
       const apiKeys = [...new Set(rawKeys)];
 
       if (!apiKeys.length || typeof fetch !== 'function') {
@@ -3349,52 +3369,104 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
         });
       }
 
-      for (const apiKey of apiKeys) {
-        try {
-          const geminiRes = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${encodeURIComponent(apiKey)}`,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                contents: [
-                  {
-                    parts: [
-                      {
-                        text: `Wypowiedz ciepłym, naturalnym, spokojnym polskim głosem asystenta: ${rawText}`,
+      const synthesizeSingleChunk = async (chunkText, startKeyIdx = 0) => {
+        for (let attempt = 0; attempt < apiKeys.length; attempt++) {
+          const apiKey = apiKeys[(startKeyIdx + attempt) % apiKeys.length];
+          try {
+            const geminiRes = await fetch(
+              `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${encodeURIComponent(apiKey)}`,
+              {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  contents: [
+                    {
+                      parts: [
+                        {
+                          text: `Wypowiedz ciepłym, naturalnym, spokojnym polskim głosem asystenta: ${chunkText}`,
+                        },
+                      ],
+                    },
+                  ],
+                  generationConfig: {
+                    responseModalities: ['AUDIO'],
+                    speechConfig: {
+                      voiceConfig: {
+                        prebuiltVoiceConfig: { voiceName },
                       },
-                    ],
-                  },
-                ],
-                generationConfig: {
-                  responseModalities: ['AUDIO'],
-                  speechConfig: {
-                    voiceConfig: {
-                      prebuiltVoiceConfig: { voiceName },
                     },
                   },
-                },
-              }),
+                }),
+              }
+            );
+            if (geminiRes.ok) {
+              const geminiData = await geminiRes.json();
+              const inlineData = geminiData?.candidates?.[0]?.content?.parts?.[0]?.inlineData || null;
+              if (inlineData?.data) return inlineData.data;
             }
-          );
+          } catch {}
+        }
+        return null;
+      };
 
-          if (geminiRes.ok) {
-            const geminiData = await geminiRes.json();
-            const inlineData =
-              geminiData?.candidates?.[0]?.content?.parts?.[0]?.inlineData || null;
-            if (inlineData?.data) {
-              return json({
-                ok: true,
-                mode: 'google_ai_studio_free_tier',
-                cost: 0,
-                voice: voiceName,
-                text: rawText,
-                mimeType: inlineData.mimeType || 'audio/pcm;rate=24000',
-                audioBase64: inlineData.data,
-              });
-            }
+      const sentences = rawText.match(/[^.!?]+[.!?]+(?:\s+|$)|[^.!?]+$/g) || [rawText];
+      const chunks = [];
+      let currentChunk = '';
+      for (const s of sentences) {
+        if ((currentChunk + ' ' + s).trim().length <= 210 || !currentChunk) {
+          currentChunk = (currentChunk + ' ' + s).trim();
+        } else {
+          chunks.push(currentChunk);
+          currentChunk = s.trim();
+        }
+      }
+      if (currentChunk) chunks.push(currentChunk);
+
+      const chunkBase64List = await Promise.all(
+        chunks.map((ch, idx) => synthesizeSingleChunk(ch, idx))
+      );
+
+      if (chunkBase64List.every(Boolean)) {
+        let finalBase64 = chunkBase64List[0];
+        if (chunkBase64List.length > 1) {
+          const byteArrays = chunkBase64List.map((b64) => {
+            const bin = atob(b64);
+            const len = bin.length - (bin.length % 2);
+            const arr = new Uint8Array(len);
+            for (let i = 0; i < len; i++) arr[i] = bin.charCodeAt(i);
+            return arr;
+          });
+          const totalLen = byteArrays.reduce((acc, a) => acc + a.length, 0);
+          const merged = new Uint8Array(totalLen);
+          let offset = 0;
+          for (const arr of byteArrays) {
+            merged.set(arr, offset);
+            offset += arr.length;
           }
-        } catch {}
+          let binOut = '';
+          const step = 0x8000;
+          for (let i = 0; i < merged.length; i += step) {
+            binOut += String.fromCharCode.apply(null, merged.subarray(i, i + step));
+          }
+          finalBase64 = btoa(binOut);
+        }
+
+        if (globalThis._ccMcTtsCache.size > 12) {
+          const oldestKey = globalThis._ccMcTtsCache.keys().next().value;
+          if (oldestKey) globalThis._ccMcTtsCache.delete(oldestKey);
+        }
+        globalThis._ccMcTtsCache.set(cacheKey, { audioBase64: finalBase64, ts: Date.now() });
+
+        return json({
+          ok: true,
+          mode: 'google_ai_studio_free_tier',
+          chunks: chunks.length,
+          cost: 0,
+          voice: voiceName,
+          text: rawText,
+          mimeType: 'audio/pcm;rate=24000',
+          audioBase64: finalBase64,
+        });
       }
 
       return json({
