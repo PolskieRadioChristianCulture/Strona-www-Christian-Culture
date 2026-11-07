@@ -61,63 +61,82 @@ if (fs.existsSync(mdBazaPath)) {
 async function publishCuda() {
   const cudaApp = admin.initializeApp({
     credential: admin.credential.cert(require(path.join(WEKTOR_ROOT, 'cudaServiceAccountKey.json')))
-  }, 'cuda38');
+  }, 'cuda38_' + Date.now());
 
   const db = cudaApp.firestore();
   const docId = `ref_day${DAY_NUM}_${DATE_STR}`;
 
   await db.collection('reflections').doc(docId).set({
     date: DATE_STR,
-    dayOfWeek: 'Sobota',
+    dayOfWeek: 'SOBOTA',
     title: TITLE,
     teaser: SUBTITLE,
     fullText: contentApp,
+    contentApp: contentApp,
+    contentWeb: contentWeb,
+    contentSms: contentSms,
     imageUrl: `https://polskieradio.cc${IMAGE_URL}`,
     createdAt: admin.firestore.FieldValue.serverTimestamp(),
     dayNumber: DAY_NUM,
     reading: READING,
     book: BOOK
-  });
+  }, { merge: true });
   console.log(`✔ Opublikowano do cuda-398c0/reflections/${docId}`);
   await cudaApp.delete();
 }
 
-// 3. Firebase cc-mission-control + CommandQueue
+// 3. Firebase cc-mission-control + CommandQueue + Cloudflare D1
 async function publishMissionControl() {
+  const nazirGroupId = '120363403565056716@g.us';
+  const bartekTarget = '48509370007@c.us';
+
+  // A. Próba zapisu do Firestore cc-mission-control
   try {
     const mcApp = admin.initializeApp({
       credential: admin.credential.cert(require(path.join(WEKTOR_ROOT, 'serviceAccountKey.json')))
-    }, 'mc38');
+    }, 'mc38_' + Date.now());
 
     const db = mcApp.firestore();
-    const docId = `day${DAY_NUM}_${DATE_STR}`;
+    const docIdRef = `ref_day${DAY_NUM}_${DATE_STR}`;
+    const docIdShort = `day${DAY_NUM}_${DATE_STR}`;
 
-    await db.collection('morning_inspirations').doc(docId).set({
-      date: DATE_STR,
-      title: TITLE,
-      content: contentApp,
-      dayNumber: DAY_NUM,
-      reading: READING,
-      book: BOOK,
-      createdAt: admin.firestore.FieldValue.serverTimestamp()
-    });
-    console.log(`✔ Opublikowano do cc-mission-control/morning_inspirations/${docId}`);
+    for (const docId of [docIdRef, docIdShort]) {
+      await db.collection('morning_inspirations').doc(docId).set({
+        date: DATE_STR,
+        dayNumber: DAY_NUM,
+        title: TITLE,
+        teaser: SUBTITLE,
+        fullText: contentApp,
+        contentApp: contentApp,
+        contentWeb: contentWeb,
+        contentSms: contentSms,
+        imageUrl: `https://polskieradio.cc${IMAGE_URL}`,
+        reading: READING,
+        book: BOOK,
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        timestamp: admin.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
 
-    await db.collection('web_inspirations').doc(docId).set({
-      date: DATE_STR,
-      title: TITLE,
-      content: contentWeb,
-      dayNumber: DAY_NUM,
-      reading: READING,
-      book: BOOK,
-      createdAt: admin.firestore.FieldValue.serverTimestamp()
-    });
-    console.log(`✔ Opublikowano do cc-mission-control/web_inspirations/${docId}`);
+      await db.collection('web_inspirations').doc(docId).set({
+        date: DATE_STR,
+        dayNumber: DAY_NUM,
+        title: TITLE,
+        teaser: SUBTITLE,
+        fullText: contentWeb,
+        contentWeb: contentWeb,
+        content: contentWeb,
+        contentSms: contentSms,
+        imageUrl: `https://polskieradio.cc${IMAGE_URL}`,
+        reading: READING,
+        book: BOOK,
+        published: true,
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        timestamp: admin.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+    }
+    console.log(`✔ Opublikowano do cc-mission-control morning_inspirations & web_inspirations (${docIdRef})`);
 
-    // WhatsApp Queue
-    const nazirGroupId = '120363403565056716@g.us';
-    const bartekTarget = '48509370007@c.us';
-
+    // WhatsApp Firestore Queue
     const nazirCommands = [
       {
         action: 'send_whatsapp_message',
@@ -151,7 +170,7 @@ async function publishMissionControl() {
     for (const cmd of nazirCommands) {
       await db.collection('CommandQueue').add(cmd);
     }
-    console.log('✔ Zakolejkowano 3 priorytetowe wiadomości dla Grupy Nazira w CommandQueue.');
+    console.log('✔ Zakolejkowano 3 priorytetowe wiadomości dla Grupy Nazira w Firestore CommandQueue.');
 
     await db.collection('CommandQueue').add({
       action: 'send_whatsapp_message',
@@ -162,7 +181,7 @@ async function publishMissionControl() {
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       source: 'auto_day38_publisher'
     });
-    console.log('✔ Zakolejkowano wersję SMS dla Bartka.');
+    console.log('✔ Zakolejkowano wersję SMS dla Bartka w Firestore CommandQueue.');
 
     const supportBlock = `🌿 Możesz wspierać misję Christian Culture\nmodlitwą, udostępniając i polecając nasze treści\noraz poprzez cykliczny dar finansowy 🕊️\nKażde wsparcie pomaga nam docierać z Ewangelią dalej\ni tworzyć przestrzeń wzrostu duchowego dla tysięcy osób ✨🙏\n\nWspieraj Bożą misję:\n👉 https://patronite.pl/osobowoscplus\n\n💳 Nr konta:\n48 2910 0006 0000 0000 0527 2629\nz dopiskiem: „Dar misyjny"\n\n💸 Revolut: https://revolut.me/christianculture\n📲 BLIK: 537 137 043\n\n🌿 Dziękujemy za Twoje wsparcie i zaufanie. 🤍`;
 
@@ -182,24 +201,24 @@ async function publishMissionControl() {
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
         source: 'auto_day38_publisher'
       });
-      console.log(`✔ Zakolejkowano wersję WWW dla grupy FIFO (${group.name}).`);
-    }
-
-    // Cloudflare D1 backup
-    try {
-      const mc = require(path.join(WEKTOR_ROOT, 'mc_d1_client'));
-      await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: 📖 *1. ROZWAŻANIE PORANNE (TTS)* — Dzień ${DAY_NUM}\n\n${contentApp}`, nazirGroupId, 9, DAY_NUM);
-      await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: ☀️ *2. ROZWAŻANIE NA CAŁY DZIEŃ (WWW)* — Dzień ${DAY_NUM}\n\n${contentWeb}`, nazirGroupId, 8, DAY_NUM);
-      await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: 🌙 *3. ROZWAŻANIE WIECZORNE (SMS)* — Dzień ${DAY_NUM}\n\n${contentSms}`, nazirGroupId, 7, DAY_NUM);
-      await mc.pushCommand(`wyślij celowane [${bartekTarget}]: ☀️ *Rozważanie SMS — Dzień ${DAY_NUM} (${READING}):*\n\n${contentSms}`, bartekTarget, 6, DAY_NUM);
-      console.log('✔ Zapasowo zakolejkowano do Cloudflare D1.');
-    } catch (e) {
-      console.warn('ℹ mc_d1_client:', e.message);
+      console.log(`✔ Zakolejkowano wersję WWW dla grupy FIFO (${group.name}) w Firestore CommandQueue.`);
     }
 
     await mcApp.delete();
   } catch (err) {
-    console.error('⚠ Błąd Mission Control (quota/połączenie):', err.message);
+    console.warn('ℹ Informacja Firestore Mission Control:', err.message);
+  }
+
+  // B. Cloudflare D1 & Local Queue (Gwarantowane kolejkowanie bez limitów Firestore)
+  try {
+    const mc = require(path.join(WEKTOR_ROOT, 'mc_d1_client'));
+    await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: 📖 *1. ROZWAŻANIE PORANNE (TTS)* — Dzień ${DAY_NUM}\n\n${contentApp}`, nazirGroupId, 9, DAY_NUM);
+    await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: ☀️ *2. ROZWAŻANIE NA CAŁY DZIEŃ (WWW)* — Dzień ${DAY_NUM}\n\n${contentWeb}`, nazirGroupId, 8, DAY_NUM);
+    await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: 🌙 *3. ROZWAŻANIE WIECZORNE (SMS)* — Dzień ${DAY_NUM}\n\n${contentSms}`, nazirGroupId, 7, DAY_NUM);
+    await mc.pushCommand(`wyślij celowane [${bartekTarget}]: ☀️ *Rozważanie SMS — Dzień ${DAY_NUM} (${READING}):*\n\n${contentSms}`, bartekTarget, 6, DAY_NUM);
+    console.log('✔ Gwarantowane zakolejkowanie WhatsApp w Cloudflare D1 / Local Queue ukończone.');
+  } catch (e) {
+    console.warn('ℹ mc_d1_client warning:', e.message);
   }
 }
 
