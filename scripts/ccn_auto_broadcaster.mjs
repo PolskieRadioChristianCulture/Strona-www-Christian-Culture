@@ -333,7 +333,7 @@ function getAllEcosystemCandidates() {
     {
       title: 'Werset Dnia: „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8, UBG)',
       lead: '„Pamiętaj o dniu szabatu, aby go święcić. Sześć dni będziesz pracował, ale siódmy dzień jest szabatem PANA.” (Wj 20:8-10, UBG)',
-      url: 'https://polskieradio.cc/prawo/dekalog-bozy',
+      url: 'https://polskieradio.cc/prawo/dziesiec-przykazan-bozych-biblia-jakub-wujek-bjw-dekalog',
       image: 'images/news/art-dekalog-dziesiec-przykazan-wujek.jpg',
       category: 'Werset Dnia',
       type: 'verse',
