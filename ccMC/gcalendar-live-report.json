@@ -5,9 +5,9 @@
   "account_verified": true,
   "account_email": "nazirczarkes@gmail.com",
   "timezone": "Europe/Warsaw",
-  "fetched_at": "2026-11-07T14:02:20+01:00",
-  "window_start": "2026-11-06T14:02:20+01:00",
-  "window_end": "2026-11-14T14:02:20+01:00",
+  "fetched_at": "2026-11-07T14:11:53+01:00",
+  "window_start": "2026-11-06T14:11:53+01:00",
+  "window_end": "2026-11-14T14:11:53+01:00",
   "calendars_checked": [
     "primary",
     "pl.polish#holiday@group.v.calendar.google.com"
@@ -632,7 +632,7 @@
   ],
   "mission_automation_report": {
     "date": "2026-11-07",
-    "generated_at": "2026-11-07T14:02:20+01:00",
+    "generated_at": "2026-11-07T14:11:53+01:00",
     "rozwazania": {
       "done": true,
       "label": "Rozważania poranne (Dzień 38, Wj 7:1–25) opublikowane w Firebase, na stronach WWW i w newsletterze"
@@ -651,14 +651,14 @@
     },
     "x_twitter": {
       "done": true,
-      "count": 12,
-      "latestTitle": "Werset Dnia: „Czy Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)",
-      "label": "Na platformie X opublikowano dziś 12 postów"
+      "count": 13,
+      "latestTitle": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
+      "label": "Na platformie X opublikowano dziś 13 postów"
     },
     "whatsapp": {
       "done": false,
-      "state": "queued",
-      "label": "Na WhatsApp zakolejkowano 3 wersje dla grupy Nazira, SMS dla Bartka i rotację grup WWW (oczekuje na wysyłkę z telefonu)"
+      "state": "pending",
+      "label": "WhatsApp: oczekuje na potwierdzenie wysyłki"
     },
     "facebook": {
       "done": false,
@@ -666,7 +666,7 @@
       "count": 0,
       "label": "Na Facebooku nie wykonano jeszcze dzisiejszej publikacji"
     },
-    "spoken_summary": "Rozważania poranne (Dzień 38, Wj 7:1–25) opublikowane w Firebase, na stronach WWW i w newsletterze. Plik MP3 Biblii Audio (Księga Rodzaju rozdział 16) jest gotowy, opublikowany na WWW i gotowy do emisji radiowej. Na YouTube wgrano dziś 14 materiałów wideo 4K i Shorts na 7 kanałach. Na platformie X opublikowano dziś 12 postów. Na WhatsApp zakolejkowano 3 wersje dla grupy Nazira, SMS dla Bartka i rotację grup WWW (oczekuje na wysyłkę z telefonu). Na Facebooku nie wykonano jeszcze dzisiejszej publikacji."
+    "spoken_summary": "Rozważania poranne (Dzień 38, Wj 7:1–25) opublikowane w Firebase, na stronach WWW i w newsletterze. Plik MP3 Biblii Audio (Księga Rodzaju rozdział 16) jest gotowy, opublikowany na WWW i gotowy do emisji radiowej. Na YouTube wgrano dziś 14 materiałów wideo 4K i Shorts na 7 kanałach. Na platformie X opublikowano dziś 13 postów. WhatsApp: oczekuje na potwierdzenie wysyłki. Na Facebooku nie wykonano jeszcze dzisiejszej publikacji."
   },
   "warnings": []
 }
