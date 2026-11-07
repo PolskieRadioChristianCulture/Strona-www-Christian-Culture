@@ -445,7 +445,7 @@ test('6. Standard Back-To-Top Button integration (/js/cc-back-to-top.js)', async
   const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
 
   const ccMcHtml = fs.readFileSync(ccMcHtmlPath, 'utf8');
-  assert.match(ccMcHtml, /src="\/js\/cc-back-to-top\.js\?v=20261107_v9"/, 'ccMC must include standard cc-back-to-top.js');
+  assert.match(ccMcHtml, /src="\/js\/cc-back-to-top\.js(\?v=[^"]+)?"/, 'ccMC must include standard cc-back-to-top.js');
 
   const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
   assert.match(ccMcStyle, /#backToTopBtn\[data-cc-back-to-top\]/, 'style.css must style the canonical back-to-top button');
@@ -508,4 +508,28 @@ test('9. Minimalist Biblical Clock & Click-to-TERAZ Tasks Integration', async ()
   assert.match(ccMcStyle, /\.mc-teraz-filter-banner/, 'style.css must style mc-teraz-filter-banner');
   assert.match(ccMcStyle, /\.mc-biblical-badge/, 'style.css must style mc-biblical-badge');
 });
+
+test('10. Fullscreen Modular Model: Start Module = Only Clock, Click-to-Fullscreen TERAZ with Active Hero Task & Bottom Dock Navigation', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const ccMcAppPath = path.join(rootDir, 'ccMC', 'app.js');
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+
+  const ccMcApp = fs.readFileSync(ccMcAppPath, 'utf8');
+  assert.match(ccMcApp, /module:\s*['"]clock['"]/, 'Default module on start must be clock (Moduł pierwszy na start - tylko zegar)');
+  assert.match(ccMcApp, /function renderClockModule/, 'Must provide renderClockModule');
+  assert.match(ccMcApp, /function renderTerazModule/, 'Must provide renderTerazModule');
+  assert.match(ccMcApp, /function renderModuleDock/, 'Must provide renderModuleDock');
+  assert.match(ccMcApp, /btnBackToClock/, 'Must provide return to clock button');
+  assert.match(ccMcApp, /btnClockToTeraz/, 'Must provide banner button to navigate to TERAZ');
+  assert.match(ccMcApp, /data-quick-done/, 'Must provide quick done action on hero card');
+
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+  assert.match(ccMcStyle, /\.mc-fullscreen-module/, 'style.css must style mc-fullscreen-module');
+  assert.match(ccMcStyle, /\.mc-clock-fullscreen/, 'style.css must style mc-clock-fullscreen');
+  assert.match(ccMcStyle, /\.mc-teraz-fullscreen/, 'style.css must style mc-teraz-fullscreen');
+  assert.match(ccMcStyle, /\.mc-teraz-hero-card/, 'style.css must style mc-teraz-hero-card');
+  assert.match(ccMcStyle, /\.mc-module-dock/, 'style.css must style mc-module-dock');
+  assert.match(ccMcStyle, /\.mc-dock-btn\.is-active/, 'style.css must style active dock button');
+});
+
 

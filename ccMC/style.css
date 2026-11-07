@@ -1550,5 +1550,526 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   background: rgba(255, 122, 0, 0.1);
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   PEŁNOEKRANOWY MODEL MODUŁOWY (FULLSCREEN MODULAR CC MISSION CALENDAR)
+   Moduł 1: TYLKO ZEGAR
+   Moduł 2: PEŁNOEKRANOWY TERAZ
+   Moduł 3: KALENDARZ (SIATKA TYGODNIA / AGENDY / KANBAN)
+   Moduł 4: USTAWIENIA
+   ══════════════════════════════════════════════════════════════════════════ */
+.mc-fullscreen-module {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-bottom: 96px;
+  background: var(--mc-bg);
+  color: var(--mc-text-contrast);
+}
+
+/* Moduł 1: Start — Tylko Zegar */
+.mc-clock-fullscreen {
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 20px 96px;
+}
+
+.mc-clock-module-topbar {
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--mc-border);
+  margin-bottom: 24px;
+}
+
+.mc-clock-location-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mc-clock-loc-label {
+  font-size: 13px;
+  color: var(--mc-muted);
+  letter-spacing: 0.04em;
+}
+
+.mc-clock-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mc-quick-btn {
+  background: var(--mc-surface);
+  color: var(--mc-text-contrast);
+  border: 1px solid var(--mc-border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mc-quick-btn:hover {
+  background: var(--mc-surface-elevated);
+  border-color: var(--mc-gold);
+}
+
+.mc-clock-module-center {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.mc-clock-pulse-banner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 28px;
+  background: rgba(255, 122, 0, 0.14);
+  border: 2px solid #FF7A00;
+  border-radius: 999px;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(255, 122, 0, 0.3);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 48px;
+}
+
+.mc-clock-pulse-banner:hover {
+  background: #FF7A00;
+  color: #FFFFFF;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 28px rgba(255, 122, 0, 0.5);
+}
+
+.mc-pulse-arrow {
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.mc-clock-pulse-banner:hover .mc-pulse-arrow {
+  transform: translateX(4px);
+}
+
+/* Moduł 2: Pełnoekranowy TERAZ */
+.mc-teraz-fullscreen {
+  padding: 20px 24px 96px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.mc-teraz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--mc-border);
+  margin-bottom: 24px;
+}
+
+.mc-teraz-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.mc-btn-back-clock {
+  background: var(--mc-surface);
+  color: var(--mc-gold-light);
+  border: 1px solid var(--mc-border);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mc-btn-back-clock:hover {
+  background: rgba(196, 163, 90, 0.15);
+  border-color: var(--mc-gold);
+  color: #FFFFFF;
+}
+
+.mc-teraz-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 122, 0, 0.12);
+  border: 1px solid rgba(255, 122, 0, 0.4);
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.mc-teraz-live-label {
+  color: var(--mc-muted);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.mc-teraz-tz-badge {
+  color: var(--mc-muted);
+  font-size: 11px;
+}
+
+.mc-teraz-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mc-teraz-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Hero card: Trwa w tej chwili lub Następne */
+.mc-teraz-hero-card {
+  padding: 26px 30px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(11, 19, 30, 0.9));
+  border: 2px solid #FF7A00;
+  box-shadow: 0 8px 32px rgba(255, 122, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mc-teraz-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FF7A00;
+}
+
+.mc-teraz-hero-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.25;
+}
+
+.mc-teraz-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.mc-teraz-hero-time {
+  color: #FF7A00;
+  font-weight: 700;
+  font-family: monospace;
+  font-size: 15px;
+}
+
+.mc-teraz-hero-agent {
+  color: var(--mc-gold-light);
+  font-weight: 600;
+}
+
+.mc-teraz-hero-area {
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.mc-teraz-hero-desc {
+  margin: 0;
+  color: var(--mc-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.mc-teraz-hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.mc-btn-done {
+  background: #15803D;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.mc-btn-done:hover {
+  background: #16a34a;
+}
+
+.mc-btn-extend {
+  background: rgba(255, 122, 0, 0.15);
+  color: #FF7A00;
+  border: 1px solid #FF7A00;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.mc-btn-extend:hover {
+  background: #FF7A00;
+  color: #FFFFFF;
+}
+
+.mc-btn-edit {
+  background: var(--mc-surface);
+  color: var(--mc-text-contrast);
+  border: 1px solid var(--mc-border);
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.mc-btn-edit:hover {
+  background: var(--mc-surface-elevated);
+}
+
+.mc-btn-start-now {
+  background: #FF7A00;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: all 0.2s ease;
+}
+
+.mc-btn-start-now:hover {
+  background: #ff8c33;
+}
+
+.mc-teraz-timeline-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mc-teraz-timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mc-teraz-timeline-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--mc-text-contrast);
+}
+
+.mc-teraz-task-count {
+  font-size: 13px;
+  color: var(--mc-muted);
+}
+
+/* Moduł 4: Ustawienia pełnoekranowe */
+.mc-settings-fullscreen {
+  padding: 24px 20px 96px;
+}
+
+.mc-settings-module-header {
+  max-width: 960px;
+  margin: 0 auto 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--mc-border);
+}
+
+/* PŁYWAJĄCY DOCK MODUŁOWY (FLOATING MODULE DOCK) */
+.mc-module-dock {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8500;
+  display: flex;
+  gap: 6px;
+  padding: 6px 10px;
+  background: rgba(11, 19, 30, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(196, 163, 90, 0.35);
+  border-radius: 9999px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.5);
+}
+
+.mc-dock-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: transparent;
+  border: none;
+  color: var(--mc-muted);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 44px;
+  min-width: 44px;
+  user-select: none;
+}
+
+.mc-dock-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.mc-dock-label {
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
+.mc-dock-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mc-dock-btn.is-active {
+  background: #FF7A00 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 14px rgba(255, 122, 0, 0.45);
+}
+
+/* Tryb jasny dla docku i modułów */
+[data-theme="light"] .mc-module-dock {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(196, 163, 90, 0.4);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .mc-dock-btn {
+  color: #475569;
+}
+
+[data-theme="light"] .mc-dock-btn:hover {
+  color: #0f172a;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .mc-dock-btn.is-active {
+  background: #FF7A00 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="light"] .mc-teraz-hero-card {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border-color: #FF7A00;
+  box-shadow: 0 8px 32px rgba(255, 122, 0, 0.15);
+}
+
+[data-theme="light"] .mc-teraz-hero-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .mc-clock-pulse-banner {
+  background: rgba(255, 122, 0, 0.12);
+  color: #0f172a;
+}
+
+[data-theme="light"] .mc-clock-pulse-banner:hover {
+  background: #FF7A00;
+  color: #FFFFFF;
+}
+
+/* Responsywność smartfonowa dla modułów */
+@media (max-width: 640px) {
+  .mc-clock-fullscreen {
+    padding: 16px 12px 90px;
+  }
+  .mc-teraz-fullscreen {
+    padding: 16px 12px 90px;
+  }
+  .mc-teraz-hero-card {
+    padding: 20px 16px;
+  }
+  .mc-teraz-hero-title {
+    font-size: 20px;
+  }
+  .mc-module-dock {
+    bottom: 10px;
+    padding: 4px 6px;
+    gap: 4px;
+    width: calc(100% - 24px);
+    max-width: 380px;
+    justify-content: space-around;
+  }
+  .mc-dock-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+    flex: 1;
+    min-width: 0;
+  }
+  .mc-dock-label {
+    font-size: 10px;
+  }
+}
+
+
 
 

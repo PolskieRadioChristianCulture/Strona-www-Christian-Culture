@@ -47,6 +47,7 @@ const state = {
   events: [],
   agents: [],
   audit: [],
+  module: 'clock', // 'clock' | 'teraz' | 'calendar' | 'settings'
   view: 'today',
   category: 'all',
   statusFilter: 'all',
@@ -902,7 +903,11 @@ function renderTodayHtml(filtered) {
   `;
 }
 
-function renderBiblicalClockFullHtml() {
+export function renderBiblicalClockFullHtml() {
+  return renderClockModule();
+}
+
+export function renderClockModule() {
   const now = new Date();
   const [lat, lng] = (state.clockCity || '52.2297,21.0122').split(',').map(Number);
   const bState = getBiblicalTimeState(now, lat, lng);
@@ -916,11 +921,11 @@ function renderBiblicalClockFullHtml() {
   }).format(now);
 
   return `
-    <div class="mc-full-clock-container" role="region" aria-label="Zegar Biblijny Szabatu">
-      <div class="mc-full-clock-header">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <div class="mc-fullscreen-module mc-clock-fullscreen" role="region" aria-label="Minimalistyczny Zegar Biblijny">
+      <header class="mc-clock-module-topbar">
+        <div class="mc-clock-location-wrap">
           <span class="mc-pulse-dot" style="background:#FF7A00;width:10px;height:10px;"></span>
-          <span style="font-size:12px;color:var(--mc-muted);letter-spacing:0.04em;">Lokalizacja astronomiczna:</span>
+          <span class="mc-clock-loc-label">Lokalizacja astronomiczna:</span>
           <select id="mcCitySelector" class="mc-city-select" aria-label="Wybierz lokalizację">
             <option value="52.2297,21.0122" ${state.clockCity === '52.2297,21.0122' ? 'selected' : ''}>Warszawa (Polska)</option>
             <option value="50.9295,21.3853" ${state.clockCity === '50.9295,21.3853' ? 'selected' : ''}>Ostrowiec Św. (Polska)</option>
@@ -932,54 +937,60 @@ function renderBiblicalClockFullHtml() {
           </select>
         </div>
 
-        <button type="button" class="mc-btn-cta mc-clickable-clock" id="btnClockToTeraz" style="background:#FF7A00;color:#fff;">
-          ⏱️ Pokaż aktualne zadania TERAZ →
-        </button>
-      </div>
+        <div class="mc-clock-topbar-actions">
+          <button type="button" id="btnQuickThemeToggle" class="mc-quick-btn" title="Przełącz motyw jasny/ciemny">
+            ${state.theme === 'light' ? '🌙 Ciemny' : '☀️ Jasny'}
+          </button>
+          <button type="button" id="btnLogout" class="mc-quick-btn">Wyloguj</button>
+        </div>
+      </header>
 
-      <div class="mc-full-clock-center mc-clickable-clock" title="Kliknij w zegar, aby wyświetlić zadania TERAZ">
-        <div class="mc-dial-wrapper" style="width:360px;height:360px;">
+      <main class="mc-clock-module-center">
+        <div class="mc-dial-wrapper mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Kliknij w zegar, aby otworzyć pełnoekranowy moduł TERAZ" aria-label="Tarcza Zegara Biblijnego — kliknij, aby przejść do zadań TERAZ">
           ${renderBiblicalClockDialSvg(now.getSeconds())}
           <div class="mc-dial-center">
-            <div id="digital-time" class="tabular-clock mc-clock-digits" style="font-size:52px;">${warsawTimeNowStr}</div>
+            <div id="digital-time" class="tabular-clock mc-clock-digits">${warsawTimeNowStr}</div>
             <div class="mc-dial-separator">
               <div class="mc-dial-sep-line"></div>
               <div id="center-dot" class="mc-dial-center-dot"></div>
               <div class="mc-dial-sep-line"></div>
             </div>
-            <div id="gregorian-date" class="mc-gregorian-date" style="font-size:16px;">${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</div>
+            <div id="gregorian-date" class="mc-gregorian-date">${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</div>
             <div class="mc-biblical-status-wrap">
               <div id="biblical-badge" class="mc-biblical-badge ${bState.isSabbath ? 'is-sabbath' : ''}">
-                <span class="mc-pulse-dot" style="background:#FF7A00;"></span>
+                <span class="mc-pulse-dot" style="background:${bState.isSabbath ? '#ef4444' : '#FF7A00'};"></span>
                 <span>${bState.biblicalDay.name}</span>
-              </div>
-              <div class="mc-clock-teraz-cta">
-                <span>👉 Kliknij w zegar, aby wyświetlić zadania TERAZ</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="mc-full-clock-cards">
-        <div class="mc-stat-card" style="text-align:center;">
-          <small style="color:var(--mc-muted);text-transform:uppercase;letter-spacing:0.06em;">Zachód Słońca (Dziś)</small>
-          <strong style="color:#FF7A00;font-size:24px;font-family:monospace;margin:6px 0;">${formatWarsawTimeOnly(bState.todaySunset)}</strong>
-          <small style="color:var(--mc-muted);">Jutro: ${formatWarsawTimeOnly(bState.tomorrowSunset)}</small>
-        </div>
+        <button type="button" class="mc-clock-pulse-banner mc-clickable-clock" id="btnClockToTeraz" aria-label="Przejdź do zadań TERAZ">
+          <span class="mc-pulse-dot" style="background:#FF7A00;"></span>
+          <span class="mc-pulse-text">⏱️ KLIKNIJ W ZEGAR ➔ ZADANIA TERAZ</span>
+          <span class="mc-pulse-arrow">→</span>
+        </button>
 
-        <div class="mc-stat-card ${bState.isSabbath ? 'is-sabbath' : ''}" style="text-align:center;border-color:rgba(255,122,0,0.5);">
-          <small style="color:#FF7A00;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;">${bState.countdownLabel}</small>
-          <strong style="color:var(--mc-text-contrast);font-size:24px;font-family:monospace;margin:6px 0;">${formatCountdown(bState.sabbathTargetDate - now)}</strong>
-          <small style="color:var(--mc-muted);">${bState.isSabbath ? 'Trwa Święty Boży Szabat' : 'do piątkowego zachodu słońca'}</small>
-        </div>
+        <div class="mc-full-clock-cards">
+          <div class="mc-stat-card">
+            <small class="mc-stat-sub">Zachód Słońca (Dziś)</small>
+            <strong class="mc-stat-val" style="color:#FF7A00;">${formatWarsawTimeOnly(bState.todaySunset)}</strong>
+            <small class="mc-stat-muted">Jutro: ${formatWarsawTimeOnly(bState.tomorrowSunset)}</small>
+          </div>
 
-        <div class="mc-stat-card" style="text-align:center;">
-          <small style="color:var(--mc-muted);text-transform:uppercase;letter-spacing:0.06em;">Rachuba Biblijna CC</small>
-          <strong style="color:var(--mc-text-contrast);font-size:15px;margin:6px 0;">${bState.isAfterSunset ? 'Trwa nowa doba biblijna (po zachodzie)' : 'Przed zachodem słońca'}</strong>
-          <small style="color:#FF7A00;text-transform:uppercase;letter-spacing:0.05em;font-family:monospace;">Piątek zachód ➔ Sobota zachód</small>
+          <div class="mc-stat-card ${bState.isSabbath ? 'is-sabbath' : ''}">
+            <small class="mc-stat-sub" style="color:#FF7A00;">${bState.countdownLabel}</small>
+            <strong class="mc-stat-val" id="sabbath-countdown">${formatCountdown(bState.sabbathTargetDate - now)}</strong>
+            <small class="mc-stat-muted">${bState.isSabbath ? 'Trwa Święty Boży Szabat' : 'do piątkowego zachodu słońca'}</small>
+          </div>
+
+          <div class="mc-stat-card">
+            <small class="mc-stat-sub">Rachuba Biblijna CC</small>
+            <strong class="mc-stat-val-sm">${bState.isAfterSunset ? 'Trwa nowa doba biblijna (po zachodzie)' : 'Przed zachodem słońca'}</strong>
+            <small class="mc-stat-muted" style="color:#FF7A00;">Piątek zachód ➔ Sobota zachód</small>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   `;
 }
@@ -1291,51 +1302,196 @@ function attachLoginHandler() {
   };
 }
 
-export function render() {
-  const root = document.getElementById('ccMcApp');
-  if (!root) return;
+export function renderTerazModule(filtered) {
+  const now = new Date();
+  const warsawTimeNowStr = formatWarsawTimeWithSeconds(now);
+  const nowTs = now.getTime();
 
-  if (!state.user) {
-    if (state.isConnecting) {
-      root.innerHTML = `
-        <main class="mc-login-screen">
-          <div class="mc-login-card">
-            <h1 class="mc-login-title">Christian Culture Mission Calendar</h1>
-            <div style="display:flex;align-items:center;justify-content:center;gap:12px;color:var(--mc-gold);font-weight:600;font-size:15px;margin:20px 0;">
-              <svg class="mc-spin" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
-                <path d="M12 2a10 10 0 0 1 10 10"></path>
-              </svg>
-              <span>Weryfikacja aktywnej sesji Google LUMINA…</span>
-            </div>
-          </div>
-        </main>
-      `;
-      return;
-    }
+  const todayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now);
 
-    root.innerHTML = `
-      <main class="mc-login-screen">
-        <div class="mc-login-card">
-          <h1 class="mc-login-title">Christian Culture Mission Calendar</h1>
-          ${state.error ? `<div role="alert" style="padding:10px 14px;border-radius:10px;background:#451a1a;border:1px solid #ef4444;color:#fecaca;font-size:13px;width:100%;box-sizing:border-box;">${escapeHtml(state.error)}</div>` : ''}
-          <button type="button" id="btnGoogleSignIn" class="mc-btn-login-google" aria-label="Zaloguj przez Google">
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex-shrink:0;">
-              <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/>
-              <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/>
-              <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"/>
-              <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/>
-            </svg>
-            <span>Zaloguj przez Google</span>
+  const todayDateFormatted = new Intl.DateTimeFormat('pl-PL', {
+    timeZone: 'Europe/Warsaw',
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(now);
+
+  const todayTasks = filtered
+    .filter((ev) => toWarsawInput(ev.starts_at).startsWith(todayIsoPrefix))
+    .sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
+
+  const currentNowEvent = todayTasks.find((ev) => {
+    const s = Date.parse(ev.starts_at);
+    const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
+    return s <= nowTs && nowTs < e;
+  });
+
+  const nextUpcomingEvent = !currentNowEvent
+    ? todayTasks.find((ev) => Date.parse(ev.starts_at) > nowTs)
+    : null;
+
+  let dividerInserted = false;
+
+  return `
+    <div class="mc-fullscreen-module mc-teraz-fullscreen" role="region" aria-label="Moduł Pełnoekranowy TERAZ">
+      <header class="mc-teraz-header">
+        <div class="mc-teraz-header-left">
+          <button type="button" class="mc-btn-back-clock" id="btnBackToClock" aria-label="Wróć do Zegara">
+            ← 🕰️ Wróć do Zegara
           </button>
+          <div class="mc-teraz-live-badge">
+            <span class="mc-pulse-dot" style="background:#FF7A00;"></span>
+            <span class="mc-teraz-live-label">TERAZ NA ŻYWO:</span>
+            <span id="mcTerazLiveClock" class="tabular-clock" style="color:#FF7A00;font-weight:700;font-size:16px;">${warsawTimeNowStr}</span>
+            <span class="mc-teraz-tz-badge">Europe/Warsaw</span>
+          </div>
         </div>
-      </main>
-    `;
-    attachLoginHandler();
-    return;
-  }
 
-  const filtered = getFilteredEvents();
+        <div class="mc-teraz-header-right">
+          <button type="button" id="btnQuickThemeToggle" class="mc-quick-btn" title="Przełącz motyw">
+            ${state.theme === 'light' ? '🌙 Ciemny' : '☀️ Jasny'}
+          </button>
+          <button type="button" id="btnNewTask" class="mc-btn-cta" style="background:#FF7A00;color:#fff;">＋ Nowe zadanie</button>
+        </div>
+      </header>
+
+      <main class="mc-teraz-main-content">
+        <!-- Hero Card: Trwa w tej chwili lub Następne -->
+        <section class="mc-teraz-hero-card">
+          ${
+            currentNowEvent
+              ? `
+                <div class="mc-teraz-hero-badge is-active-now">
+                  <span class="mc-pulse-dot"></span>
+                  <span>▶ TRWA W TEJ CHWILI</span>
+                </div>
+                <h2 class="mc-teraz-hero-title">${escapeHtml(currentNowEvent.title)}</h2>
+                <div class="mc-teraz-hero-meta">
+                  <span class="mc-teraz-hero-time">⏱️ ${formatWarsawTimeOnly(currentNowEvent.starts_at)}${currentNowEvent.ends_at ? ' — ' + formatWarsawTimeOnly(currentNowEvent.ends_at) : ''}</span>
+                  <span class="mc-teraz-hero-agent">👤 ${escapeHtml(currentNowEvent.assigned_to || '@OA')}</span>
+                  <span class="mc-teraz-hero-area" style="background:${(AREA_COLORS[currentNowEvent.category] || '#C4A35A')}22;color:${AREA_COLORS[currentNowEvent.category] || '#C4A35A'};">${escapeHtml((currentNowEvent.category || 'general').toUpperCase())}</span>
+                </div>
+                ${currentNowEvent.description ? `<p class="mc-teraz-hero-desc">${escapeHtml(currentNowEvent.description)}</p>` : ''}
+                <div class="mc-teraz-hero-actions">
+                  <button type="button" class="mc-btn-done" data-quick-done="${escapeHtml(currentNowEvent.occurrence_id || currentNowEvent.id)}">✓ Oznacz jako wykonane</button>
+                  <button type="button" class="mc-btn-extend" data-quick-extend="${escapeHtml(currentNowEvent.occurrence_id || currentNowEvent.id)}">+30 min</button>
+                  <button type="button" class="mc-btn-edit" data-event-key="${escapeHtml(currentNowEvent.occurrence_id || currentNowEvent.id)}">Edytuj</button>
+                </div>
+              `
+              : nextUpcomingEvent
+              ? `
+                <div class="mc-teraz-hero-badge is-upcoming">
+                  <span>⏱️ NASTĘPNE W KOLEJNOŚCI</span>
+                </div>
+                <h2 class="mc-teraz-hero-title">${escapeHtml(nextUpcomingEvent.title)}</h2>
+                <div class="mc-teraz-hero-meta">
+                  <span class="mc-teraz-hero-time">Rozpoczęcie o ${formatWarsawTimeOnly(nextUpcomingEvent.starts_at)}</span>
+                  <span class="mc-teraz-hero-agent">👤 ${escapeHtml(nextUpcomingEvent.assigned_to || '@OA')}</span>
+                  <span class="mc-teraz-hero-area" style="background:${(AREA_COLORS[nextUpcomingEvent.category] || '#C4A35A')}22;color:${AREA_COLORS[nextUpcomingEvent.category] || '#C4A35A'};">${escapeHtml((nextUpcomingEvent.category || 'general').toUpperCase())}</span>
+                </div>
+                ${nextUpcomingEvent.description ? `<p class="mc-teraz-hero-desc">${escapeHtml(nextUpcomingEvent.description)}</p>` : ''}
+                <div class="mc-teraz-hero-actions">
+                  <button type="button" class="mc-btn-start-now" data-quick-start="${escapeHtml(nextUpcomingEvent.occurrence_id || nextUpcomingEvent.id)}">▶ Rozpocznij teraz</button>
+                  <button type="button" class="mc-btn-edit" data-event-key="${escapeHtml(nextUpcomingEvent.occurrence_id || nextUpcomingEvent.id)}">Edytuj</button>
+                </div>
+              `
+              : `
+                <div class="mc-teraz-hero-badge is-empty">
+                  <span>✓ PLAN NA DZIŚ ZREALIZOWANY</span>
+                </div>
+                <h2 class="mc-teraz-hero-title">Brak aktywnych zadań w tej chwili</h2>
+                <p class="mc-teraz-hero-desc">Wszystkie zaplanowane na tę porę zadania zostały zakończone lub brak dalszych wpisów na dzisiaj.</p>
+                <div class="mc-teraz-hero-actions">
+                  <button type="button" id="btnSyncRoutines" class="mc-btn-cta" style="background:#FF7A00;color:#fff;">⚡ Wgraj 12 rutyn Misji CC</button>
+                  <button type="button" id="btnNewTask" class="mc-btn-gold">＋ Dodaj nowe zadanie</button>
+                </div>
+              `
+          }
+        </section>
+
+        <!-- Chronologiczny harmonogram na dziś z linią TERAZ -->
+        <section class="mc-teraz-timeline-section">
+          <div class="mc-teraz-timeline-header">
+            <h3>Harmonogram dnia: ${todayDateFormatted.charAt(0).toUpperCase() + todayDateFormatted.slice(1)}</h3>
+            <span class="mc-teraz-task-count">Liczba zadań: <strong>${todayTasks.length}</strong></span>
+          </div>
+
+          <div class="mc-today-stream">
+            ${
+              todayTasks.length === 0
+                ? `<div class="mc-today-empty-state">
+                    <p>Brak zaplanowanych zadań na dziś.</p>
+                  </div>`
+                : todayTasks
+                    .map((ev) => {
+                      const startTs = Date.parse(ev.starts_at);
+                      const endTs = ev.ends_at ? Date.parse(ev.ends_at) : startTs + 3600_000;
+                      const isNow = startTs <= nowTs && nowTs < endTs;
+                      const isPast = endTs <= nowTs;
+                      const isNext = ev === nextUpcomingEvent;
+
+                      let output = '';
+                      if (!dividerInserted && (isNow || startTs > nowTs)) {
+                        dividerInserted = true;
+                        output += `
+                          <div class="mc-now-divider" id="mcNowTimelineDivider">
+                            <span class="mc-now-dot"></span>
+                            <span class="mc-now-label">⏱️ AKTUALNA GODZINA (TERAZ: ${warsawTimeNowStr.slice(0, 5)})</span>
+                            <span class="mc-now-line"></span>
+                          </div>
+                        `;
+                      }
+
+                      output += renderTodayTileHtml(ev, { isNow, isPast, isNext });
+                      return output;
+                    })
+                    .join('') +
+                  (!dividerInserted
+                    ? `
+                      <div class="mc-now-divider" id="mcNowTimelineDivider">
+                        <span class="mc-now-dot"></span>
+                        <span class="mc-now-label">⏱️ AKTUALNA GODZINA (TERAZ: ${warsawTimeNowStr.slice(0, 5)})</span>
+                        <span class="mc-now-line"></span>
+                      </div>
+                      <div class="mc-today-all-done-note">
+                        <span>✓ Wszystkie wcześniejsze zadania na dziś zakończone.</span>
+                      </div>
+                    `
+                    : '')
+            }
+          </div>
+        </section>
+      </main>
+    </div>
+  `;
+}
+
+export function renderSettingsModule() {
+  return `
+    <div class="mc-fullscreen-module mc-settings-fullscreen" role="region" aria-label="Ustawienia Kalendarza Misji">
+      <header class="mc-settings-module-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <button type="button" class="mc-btn-back-clock" id="btnBackToClock" aria-label="Wróć do Zegara">
+            ← 🕰️ Wróć do Zegara
+          </button>
+          <h2 style="margin:0;font-size:22px;color:var(--mc-text-contrast);">⚙️ Ustawienia Kalendarza Misji</h2>
+        </div>
+        <button type="button" id="btnLogout" class="mc-quick-btn">Wyloguj</button>
+      </header>
+      <main style="padding:20px;max-width:960px;margin:0 auto;width:100%;box-sizing:border-box;">
+        ${renderSettingsHtml()}
+      </main>
+    </div>
+  `;
+}
+
+export function renderCalendarModule(filtered) {
   const counts = {
     all: state.events.length,
     todo: state.events.filter((e) => e.status === 'todo').length,
@@ -1344,7 +1500,7 @@ export function render() {
     not_done: state.events.filter((e) => e.status === 'not_done').length,
   };
 
-  root.innerHTML = `
+  return `
     <div class="mc-shell">
       <aside class="mc-sidebar ${state.mobileSidebarOpen ? 'is-open-mobile' : ''}" aria-label="Filtry kalendarza misji">
         <div>
@@ -1476,6 +1632,97 @@ export function render() {
         <button type="button" data-view="settings">Ustawienia</button>
       </nav>
     </div>
+  `;
+}
+
+export function renderModuleDock() {
+  return `
+    <nav class="mc-module-dock" aria-label="Nawigacja modułowa kalendarza">
+      <button type="button" class="mc-dock-btn ${state.module === 'clock' ? 'is-active' : ''}" data-module="clock" aria-label="Moduł Zegar">
+        <span class="mc-dock-icon">🕰️</span>
+        <span class="mc-dock-label">Zegar</span>
+      </button>
+      <button type="button" class="mc-dock-btn ${state.module === 'teraz' ? 'is-active' : ''}" data-module="teraz" aria-label="Moduł TERAZ">
+        <span class="mc-dock-icon">⏱️</span>
+        <span class="mc-dock-label">TERAZ</span>
+      </button>
+      <button type="button" class="mc-dock-btn ${state.module === 'calendar' ? 'is-active' : ''}" data-module="calendar" aria-label="Moduł Kalendarz">
+        <span class="mc-dock-icon">📅</span>
+        <span class="mc-dock-label">Kalendarz</span>
+      </button>
+      <button type="button" class="mc-dock-btn ${state.module === 'settings' ? 'is-active' : ''}" data-module="settings" aria-label="Moduł Ustawienia">
+        <span class="mc-dock-icon">⚙️</span>
+        <span class="mc-dock-label">Ustawienia</span>
+      </button>
+    </nav>
+  `;
+}
+
+export function render() {
+  const root = document.getElementById('ccMcApp');
+  if (!root) return;
+
+  if (!state.user) {
+    if (state.isConnecting) {
+      root.innerHTML = `
+        <main class="mc-login-screen">
+          <div class="mc-login-card">
+            <h1 class="mc-login-title">Christian Culture Mission Calendar</h1>
+            <div style="display:flex;align-items:center;justify-content:center;gap:12px;color:var(--mc-gold);font-weight:600;font-size:15px;margin:20px 0;">
+              <svg class="mc-spin" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                <path d="M12 2a10 10 0 0 1 10 10"></path>
+              </svg>
+              <span>Weryfikacja aktywnej sesji Google LUMINA…</span>
+            </div>
+          </div>
+        </main>
+      `;
+      return;
+    }
+
+    root.innerHTML = `
+      <main class="mc-login-screen">
+        <div class="mc-login-card">
+          <h1 class="mc-login-title">Christian Culture Mission Calendar</h1>
+          ${state.error ? `<div role="alert" style="padding:10px 14px;border-radius:10px;background:#451a1a;border:1px solid #ef4444;color:#fecaca;font-size:13px;width:100%;box-sizing:border-box;">${escapeHtml(state.error)}</div>` : ''}
+          <button type="button" id="btnGoogleSignIn" class="mc-btn-login-google" aria-label="Zaloguj przez Google">
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="flex-shrink:0;">
+              <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/>
+              <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/>
+              <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"/>
+              <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 16c1.8 3.7 5.6 7 10.1 7z"/>
+            </svg>
+            <span>Zaloguj przez Google</span>
+          </button>
+        </div>
+      </main>
+    `;
+    attachLoginHandler();
+    return;
+  }
+
+  const filtered = getFilteredEvents();
+
+  // MODEL PEŁNOEKRANOWY MODUŁOWY:
+  // Moduł 1 na start: TYLKO ZEGAR (state.module === 'clock')
+  // Po kliknięciu w zegar: Moduł pełnoekranowy TERAZ (state.module === 'teraz')
+  // Moduł Kalendarz: Pełny widok tygodniowy/miesięczny/kanban (state.module === 'calendar')
+  // Moduł Ustawienia: Tryb jasny/ciemny, 12 rutyn misji, powiadomienia push (state.module === 'settings')
+  let mainContentHtml = '';
+  if (state.module === 'clock') {
+    mainContentHtml = renderClockModule();
+  } else if (state.module === 'teraz') {
+    mainContentHtml = renderTerazModule(filtered);
+  } else if (state.module === 'settings') {
+    mainContentHtml = renderSettingsModule();
+  } else {
+    mainContentHtml = renderCalendarModule(filtered);
+  }
+
+  root.innerHTML = `
+    ${mainContentHtml}
+    ${renderModuleDock()}
     ${
       state.undoAction
         ? `<div class="mc-undo-banner" role="status">
@@ -1489,7 +1736,7 @@ export function render() {
 
   bindEvents();
 
-  if (state.view === 'today') {
+  if (state.module === 'teraz') {
     requestAnimationFrame(() => {
       const targetEl = document.getElementById('mcNowTimelineDivider') || document.querySelector('.mc-event-tile.is-current-now');
       if (targetEl) {
@@ -1504,6 +1751,102 @@ function findEventByKey(key) {
 }
 
 function bindEvents() {
+  // Nawigacja doku modułowego
+  document.querySelectorAll('.mc-dock-btn[data-module]').forEach((btn) => {
+    btn.onclick = () => {
+      state.module = btn.getAttribute('data-module');
+      render();
+    };
+  });
+
+  // Powrót do Zegara
+  const btnBackClock = document.getElementById('btnBackToClock');
+  if (btnBackClock) {
+    btnBackClock.onclick = () => {
+      state.module = 'clock';
+      render();
+    };
+  }
+
+  // Interakcja z Zegarem (przejście do modułu pełnoekranowego TERAZ)
+  const clockHero = document.getElementById('mcBiblicalClockHero');
+  if (clockHero) {
+    clockHero.onclick = () => {
+      state.module = 'teraz';
+      render();
+    };
+  }
+  const btnClockToTeraz = document.getElementById('btnClockToTeraz');
+  if (btnClockToTeraz) {
+    btnClockToTeraz.onclick = () => {
+      state.module = 'teraz';
+      render();
+    };
+  }
+
+  // Szybkie akcje na karcie TERAZ
+  document.querySelectorAll('[data-quick-done]').forEach((btn) => {
+    btn.onclick = async (e) => {
+      e.stopPropagation();
+      const key = btn.getAttribute('data-quick-done');
+      const ev = findEventByKey(key);
+      if (!ev) return;
+      try {
+        await apiRequest(`/events/${encodeURIComponent(ev.id)}/status`, {
+          method: 'PATCH',
+          body: JSON.stringify({ status: 'done', version: ev.version }),
+        });
+        state.notice = `✓ Zadanie "${ev.title}" zostało oznaczone jako wykonane!`;
+        await refreshData();
+        render();
+      } catch (err) {
+        state.error = 'Błąd aktualizacji: ' + err.message;
+        render();
+      }
+    };
+  });
+
+  document.querySelectorAll('[data-quick-start]').forEach((btn) => {
+    btn.onclick = async (e) => {
+      e.stopPropagation();
+      const key = btn.getAttribute('data-quick-start');
+      const ev = findEventByKey(key);
+      if (!ev) return;
+      try {
+        await apiRequest(`/events/${encodeURIComponent(ev.id)}/status`, {
+          method: 'PATCH',
+          body: JSON.stringify({ status: 'in_progress', version: ev.version }),
+        });
+        state.notice = `▶ Rozpoczęto zadanie: "${ev.title}"!`;
+        await refreshData();
+        render();
+      } catch (err) {
+        state.error = 'Błąd aktualizacji: ' + err.message;
+        render();
+      }
+    };
+  });
+
+  document.querySelectorAll('[data-quick-extend]').forEach((btn) => {
+    btn.onclick = async (e) => {
+      e.stopPropagation();
+      const key = btn.getAttribute('data-quick-extend');
+      const ev = findEventByKey(key);
+      if (!ev) return;
+      try {
+        const curEnd = ev.ends_at ? new Date(ev.ends_at) : new Date(Date.parse(ev.starts_at) + 3600_000);
+        const newEndIso = new Date(curEnd.getTime() + 30 * 60_000).toISOString();
+        await moveOrResizeEvent(ev, ev.starts_at, newEndIso, 'single');
+        state.notice = `⏱️ Wydłużono zadanie o +30 min.`;
+        await refreshData();
+        render();
+      } catch (err) {
+        state.error = 'Błąd wydłużenia: ' + err.message;
+        render();
+      }
+    };
+  });
+
   document.querySelectorAll('[data-view]').forEach((btn) => {
     btn.onclick = () => {
       state.view = btn.getAttribute('data-view');
@@ -1565,8 +1908,9 @@ function bindEvents() {
   document.querySelectorAll('.mc-clickable-clock').forEach((el) => {
     el.onclick = (e) => {
       e.preventDefault();
+      state.module = 'teraz';
       state.view = 'today';
-      state.terazFilter = true;
+      state.terazFilter = false;
       render();
       requestAnimationFrame(() => {
         const targetEl = document.querySelector('.mc-event-tile.is-current-now') || document.getElementById('mcNowTimelineDivider');
@@ -2020,6 +2364,9 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
 
       const liveClock = document.getElementById('mcTodayLiveClock');
       if (liveClock) liveClock.textContent = timeStr;
+
+      const terazClock = document.getElementById('mcTerazLiveClock');
+      if (terazClock) terazClock.textContent = timeStr;
 
       // Animacja przeskakującej sekundy na tarczy zegara
       const sec = now.getSeconds();
