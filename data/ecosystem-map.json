@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-07",
+      "topic": "ccMC: Usunięcie ramki z okna NA ŻYWO / TERAZ oraz sztywne zakotwiczenie pozycji zegara i okna TERAZ bez skakania w pionie",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-07",
       "topic": "ccMC: Automatyczny wygaszacz po 5 sekundach na stronie zegara (zostaje tylko zegar i pasek TERAZ, powrót wszystkich elementów po kliknięciu)",
       "agent": "A"
     },

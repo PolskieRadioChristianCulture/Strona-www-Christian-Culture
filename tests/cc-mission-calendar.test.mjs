@@ -988,6 +988,32 @@ test('16. 5-Second Auto-Hide Screensaver on Clock Page & Click-to-Restore UI', a
   );
 });
 
+// ---------------------------------------------------------------------------
+// 17. Frameless NA ŻYWO Box & Anchored Non-Jumping Clock/TERAZ Position
+// ---------------------------------------------------------------------------
+test('17. Frameless NA ŻYWO Box & Anchored Non-Jumping Clock/TERAZ Position', () => {
+  const rootDir = process.cwd();
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+
+  assert.match(
+    ccMcStyle,
+    /\.mc-clock-live-box\s*\{[\s\S]*?height:\s*130px;[\s\S]*?border:\s*none\s*!important;/,
+    'mc-clock-live-box must have fixed height: 130px and border: none !important'
+  );
+  assert.match(
+    ccMcStyle,
+    /\.mc-clock-module-center\s*\{[\s\S]*?justify-content:\s*flex-start;/,
+    'mc-clock-module-center must be top-anchored with justify-content: flex-start so it never jumps vertically'
+  );
+  assert.match(
+    ccMcStyle,
+    /\.mc-live-slides-viewport\s*\{[\s\S]*?height:\s*64px;[\s\S]*?overflow:\s*hidden;/,
+    'mc-live-slides-viewport must have fixed height: 64px and overflow: hidden'
+  );
+});
+
+
 
 
 
