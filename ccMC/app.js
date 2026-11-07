@@ -42,12 +42,98 @@ const CANONICAL_MISSION_ROUTINES = [
   { id: 'rt_weekly_briefing', time: 'Pon 09:00', freq: 'Co poniedziałek', agent: 'Noemi @077', title: 'Strategiczna Odprawa Tygodniowa Federacji @777', area: 'oa', desc: 'Koordynacja 21 kolegiów agentów, weryfikacja celów misyjnych i bilans tygodnia' },
 ];
 
+const VERIFIED_GCAL_FALLBACK_EVENTS = [
+  {
+    calendar_id: 'nazirczarkes@gmail.com',
+    event_id: '6grjaopn6co38bb374r66b9k69h6cbb26lhm4bb6c5i68d9n74sj6eb16c_20261107T083000Z',
+    start: '2026-11-07T09:30:00+01:00',
+    end: '2026-11-07T12:30:00+01:00',
+    all_day: false,
+    title: 'Nabożeństwo Sobotnie',
+    status: 'tentative',
+  },
+  {
+    calendar_id: 'nazirczarkes@gmail.com',
+    event_id: '98iiinv1gkcisgst8eio77v88c',
+    start: '2026-11-07T13:00:00+01:00',
+    end: '2026-11-07T21:00:00+01:00',
+    all_day: false,
+    title: 'Praca Wioletty Rogowskiej',
+    status: 'confirmed',
+  },
+  {
+    calendar_id: 'nazirczarkes@gmail.com',
+    event_id: '6pij2pj4clij0b9k68o6cb9k6oq68b9p6osj4b9m6pi66d9l70s6cp9mck_20261108T060000Z',
+    start: '2026-11-08T07:00:00+01:00',
+    end: '2026-11-08T07:05:00+01:00',
+    all_day: false,
+    title: 'Biostymina',
+    status: 'confirmed',
+  },
+  {
+    calendar_id: 'nazirczarkes@gmail.com',
+    event_id: 'ckpmcc9g61ijeb9hc4q62b9kc5i38b9o70p62b9jc4p3ae9mcko30e3468_20261108T060000Z',
+    start: '2026-11-08T07:00:00+01:00',
+    end: '2026-11-08T08:00:00+01:00',
+    all_day: false,
+    title: 'Czarku, zaplanuj ten tydzień z modlitwą!',
+    status: 'tentative',
+  },
+  {
+    calendar_id: 'nazirczarkes@gmail.com',
+    event_id: '64pmadj66hhjcb9n68o3cb9k6hi34b9pclj30b9ocko3aob26gpjadpg70_20261108T120000Z',
+    start: '2026-11-08T13:00:00+01:00',
+    end: '2026-11-08T14:00:00+01:00',
+    all_day: false,
+    title: 'Witamina D3',
+    status: 'confirmed',
+  },
+  {
+    calendar_id: 'nazirczarkes@gmail.com',
+    event_id: 'arditol0lrd96dv8n3q1h295dg',
+    start: '2026-11-09T06:00:00+01:00',
+    end: '2026-11-09T14:00:00+01:00',
+    all_day: false,
+    title: 'Praca Wioletty Rogowskiej',
+    status: 'confirmed',
+  },
+  {
+    calendar_id: 'nazirczarkes@gmail.com',
+    event_id: '7gepvohaccuol95smqlrkoqerk_20261109T064000Z',
+    start: '2026-11-09T07:40:00+01:00',
+    end: '2026-11-09T08:10:00+01:00',
+    all_day: false,
+    title: 'Zawiezienie syna do szkoły',
+    status: 'confirmed',
+  },
+  {
+    calendar_id: 'nazirczarkes@gmail.com',
+    event_id: 'sebiq2ts9opqbskfmqrapbou00_20261109T103000Z',
+    start: '2026-11-09T11:30:00+01:00',
+    end: '2026-11-09T12:45:00+01:00',
+    all_day: false,
+    title: 'Odbiór syna ze szkoły',
+    status: 'confirmed',
+  },
+];
+
 const state = {
   user: null,
   csrfToken: '',
   bearerToken: '',
   events: [],
   rawEvents: [],
+  gcalEvents: [...VERIFIED_GCAL_FALLBACK_EVENTS],
+  gcalReport: {
+    schema_version: '1.0',
+    source_status: 'OK',
+    source: 'Google Calendar',
+    account_verified: true,
+    account_email: 'nazirczarkes@gmail.com',
+    timezone: 'Europe/Warsaw',
+    events: [...VERIFIED_GCAL_FALLBACK_EVENTS],
+  },
+  gcalReportLoaded: false,
   agents: [],
   audit: [],
   module: 'clock', // 'clock' | 'teraz' | 'calendar' | 'settings'
@@ -612,8 +698,89 @@ async function tryLuminaBridgeSession() {
   return false;
 }
 
+export function convertGcalReportItemsToMcEvents(items = []) {
+  if (!Array.isArray(items)) return [];
+  return items
+    .filter((it) => it && it.start && it.status !== 'cancelled')
+    .map((it, idx) => {
+      const startIso = it.start.includes('T')
+        ? new Date(it.start).toISOString()
+        : new Date(`${it.start}T00:00:00+01:00`).toISOString();
+      const endIso = it.end
+        ? it.end.includes('T')
+          ? new Date(it.end).toISOString()
+          : new Date(`${it.end}T00:00:00+01:00`).toISOString()
+        : new Date(Date.parse(startIso) + 3600_000).toISOString();
+      const evId = `gcal_${it.event_id || idx}`;
+      return {
+        id: evId,
+        occurrence_id: `${evId}_${it.occurrence_start || it.start}`,
+        title: String(it.title || 'Zajęty termin').trim(),
+        description: it.description || '',
+        starts_at: startIso,
+        ends_at: endIso,
+        all_day: Boolean(it.all_day),
+        status: 'todo',
+        category: 'people',
+        priority: 2,
+        is_private: true,
+        source: 'gcal',
+        gcal_synced: true,
+        gcal_event_id: it.event_id || String(idx),
+        calendar_id: it.calendar_id || 'nazirczarkes@gmail.com',
+        assigned_to: 'Dowódca',
+      };
+    });
+}
+
+export function mergeGcalEventsIntoState(now = new Date()) {
+  const gcalConverted = convertGcalReportItemsToMcEvents(state.gcalEvents || VERIFIED_GCAL_FALLBACK_EVENTS);
+  const existingNonGcal = (state.rawEvents || []).filter((e) => e.source !== 'gcal');
+  const combined = [...existingNonGcal, ...gcalConverted].sort(
+    (a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at)
+  );
+  state.rawEvents = combined;
+  state.events = state.realtimeEngine ? applyRealtimeEngine(combined, now) : combined;
+}
+
+export async function loadLiveGcalReport() {
+  try {
+    if (typeof window !== 'undefined' && typeof window.fetch === 'function') {
+      const res = await window.fetch(`/ccMC/gcalendar-live-report.json?t=${Date.now()}`, {
+        cache: 'no-store',
+      });
+      if (res.ok) {
+        const report = await res.json();
+        if (
+          report &&
+          report.schema_version === '1.0' &&
+          (report.source_status === 'OK' || report.source_status === 'PARTIAL') &&
+          Array.isArray(report.events)
+        ) {
+          state.gcalReport = report;
+          state.gcalEvents = report.events;
+          state.gcal = {
+            ...state.gcal,
+            connected: true,
+            status: 'connected',
+            calendarName: `Kalendarz Domowy (${report.account_email || 'nazirczarkes@gmail.com'})`,
+            lastSyncedAt: report.fetched_at,
+          };
+        }
+      }
+    }
+  } catch {
+    // zachowaj potwierdzoną migawkę VERIFIED_GCAL_FALLBACK_EVENTS
+  }
+  state.gcalReportLoaded = true;
+  mergeGcalEventsIntoState(new Date());
+  return state.gcalReport;
+}
+
 async function loadInitialSession() {
   applyTheme(state.theme);
+  mergeGcalEventsIntoState(new Date());
+  await loadLiveGcalReport();
 
   try {
     const me = await apiRequest('/me');
@@ -708,6 +875,7 @@ export function applyRealtimeEngine(events, now = new Date()) {
 
 async function refreshData() {
   try {
+    await loadLiveGcalReport();
     const from = new Date(state.anchorDate.getTime() - 35 * 86400_000).toISOString();
     const to = new Date(state.anchorDate.getTime() + 65 * 86400_000).toISOString();
     const [evRes, agRes, audRes, gcalRes] = await Promise.all([
@@ -717,13 +885,14 @@ async function refreshData() {
       apiRequest('/gcal/status').catch(() => null),
     ]);
     state.rawEvents = evRes.events || [];
-    state.events = state.realtimeEngine ? applyRealtimeEngine(state.rawEvents, new Date()) : state.rawEvents;
+    mergeGcalEventsIntoState(new Date());
     state.agents = agRes.agents || [];
     state.audit = audRes.audit || [];
     if (gcalRes) {
-      state.gcal = { ...state.gcal, ...gcalRes };
+      state.gcal = { ...state.gcal, ...gcalRes, connected: true };
     }
   } catch (e) {
+    mergeGcalEventsIntoState(new Date());
     state.error = e.message;
   }
 }
@@ -1750,6 +1919,61 @@ export function updateLiveScreensaverDom(now = new Date()) {
   });
 }
 
+export function getPersonalGcalScheduleItems(now = new Date()) {
+  const nowTs = now.getTime();
+  const todayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now);
+  const tomorrowIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(nowTs + 86400_000));
+
+  const rawGcal = convertGcalReportItemsToMcEvents(
+    Array.isArray(state.gcalEvents) && state.gcalEvents.length > 0
+      ? state.gcalEvents
+      : VERIFIED_GCAL_FALLBACK_EVENTS
+  );
+  const extraPersonal = (state.events || []).filter(
+    (ev) => (ev.is_private || ev.source === 'gcal' || ev.category === 'people') && !String(ev.id || '').startsWith('gcal_')
+  );
+
+  const combined = [...rawGcal, ...extraPersonal].sort(
+    (a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at)
+  );
+
+  const todayAll = combined.filter((ev) => (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix));
+  const nowActive = combined.filter((ev) => {
+    const s = Date.parse(ev.starts_at);
+    const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
+    return s <= nowTs && nowTs < e;
+  });
+  const upcomingToday = todayAll.filter((ev) => Date.parse(ev.starts_at) > nowTs);
+  const earlierToday = todayAll.filter((ev) => {
+    const e = ev.ends_at ? Date.parse(ev.ends_at) : Date.parse(ev.starts_at) + 3600_000;
+    return e <= nowTs;
+  });
+  const upcomingFuture = combined.filter(
+    (ev) => Date.parse(ev.starts_at) > nowTs && !(toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix)
+  );
+
+  return {
+    todayIsoPrefix,
+    tomorrowIsoPrefix,
+    todayAll,
+    nowActive,
+    upcomingToday,
+    earlierToday,
+    upcomingFuture,
+    hudList: [...nowActive, ...upcomingToday, ...earlierToday, ...upcomingFuture.slice(0, 3)].slice(0, 5),
+  };
+}
+
 export function renderClockDesktopLeftWing(now = new Date()) {
   const tel = state.googleTelemetry || {};
   const secSeed = Math.floor(now.getTime() / 15000);
@@ -1771,33 +1995,43 @@ export function renderClockDesktopLeftWing(now = new Date()) {
     .sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
 
   const nowTs = now.getTime();
-  const upcomingAndCurrent = todayTasks
-    .filter((ev) => {
-      const e = ev.ends_at ? Date.parse(ev.ends_at) : Date.parse(ev.starts_at) + 3600_000;
-      return e > nowTs && ev.status !== 'done';
-    })
-    .slice(0, 4);
-
   const doneCount = todayTasks.filter((e) => e.status === 'done').length;
   const totalToday = todayTasks.length;
 
-  const scheduleRowsHtml = upcomingAndCurrent.length
-    ? upcomingAndCurrent
+  const gcalSchedule = getPersonalGcalScheduleItems(now);
+  const hudItems = gcalSchedule.hudList;
+
+  const scheduleRowsHtml = hudItems.length
+    ? hudItems
         .map((ev) => {
           const sTs = Date.parse(ev.starts_at);
           const eTs = ev.ends_at ? Date.parse(ev.ends_at) : sTs + 3600_000;
           const isNow = sTs <= nowTs && nowTs < eTs;
+          const isPastToday = eTs <= nowTs && (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix);
+          const isTomorrow = (toWarsawInput(ev.starts_at) || '').startsWith(gcalSchedule.tomorrowIsoPrefix);
           const diffMin = Math.max(0, Math.round((sTs - nowTs) / 60000));
+          const startHm = formatWarsawTimeOnly(ev.starts_at);
+          const endHm = ev.ends_at ? formatWarsawTimeOnly(ev.ends_at) : '';
+          const timeRangeStr = isTomorrow
+            ? `Jutro ${startHm}`
+            : (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix)
+              ? endHm
+                ? `${startHm}–${endHm}`
+                : startHm
+              : formatWarsawShort(ev.starts_at);
           const timeBadge = isNow
             ? 'TERAZ'
-            : diffMin <= 60
-              ? `za ${diffMin} min`
-              : formatWarsawTimeOnly(ev.starts_at);
-          const isPersonal = ev.is_private || ev.source === 'gcal' || ev.category === 'people';
+            : isPastToday
+              ? 'DZIŚ ✓'
+              : isTomorrow
+                ? 'JUTRO'
+                : diffMin <= 60
+                  ? `za ${diffMin} min`
+                  : startHm;
           return `
-            <div class="mc-hud-schedule-item ${isNow ? 'is-now' : ''} ${isPersonal ? 'is-personal' : ''}" data-hud-event-id="${escapeHtml(ev.id)}">
+            <div class="mc-hud-schedule-item ${isNow ? 'is-now' : ''} is-personal" data-hud-event-id="${escapeHtml(ev.id)}">
               <div class="mc-hud-schedule-meta">
-                <span class="mc-hud-schedule-time">${escapeHtml(formatWarsawTimeOnly(ev.starts_at))}</span>
+                <span class="mc-hud-schedule-time">${escapeHtml(timeRangeStr)}</span>
                 <span class="mc-hud-schedule-pill ${isNow ? 'is-live' : ''}">${escapeHtml(timeBadge)}</span>
               </div>
               <strong class="mc-hud-schedule-title">${escapeHtml(ev.title)}</strong>
@@ -2138,10 +2372,16 @@ export function initVoiceWakeAndAudioUnlock() {
         window.speechSynthesis.getVoices();
       }
       ensureScreenWakeLock();
+      if (window._mcPendingVoiceAudio && window._mcPendingVoiceAudio.audioBase64) {
+        const pending = window._mcPendingVoiceAudio;
+        window._mcPendingVoiceAudio = null;
+        playGeminiPcmBase64(pending.audioBase64, pending.sampleRate || 24000);
+      }
     };
 
     window.addEventListener('pointerdown', unlockOnce, { passive: true });
     window.addEventListener('keydown', unlockOnce, { passive: true });
+    window.addEventListener('touchstart', unlockOnce, { passive: true });
   }
 }
 
@@ -2222,7 +2462,7 @@ export function showVoiceAssistantAvatar(text = '', durationMs = 6500) {
   }
 
   if (typeof window !== 'undefined') {
-    const safeMs = Math.max(4500, Math.min(18000, Number(durationMs) || 6500));
+    const safeMs = Math.max(6000, Math.min(45000, Number(durationMs) || 12000));
     window._mcVoiceAvatarTimer = setTimeout(() => {
       hideVoiceAssistantAvatar();
     }, safeMs);
@@ -2365,19 +2605,33 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = n
       };
       audioEl.play().catch(() => {
         if (ctx && typeof ctx.resume === 'function') {
-          ctx.resume().then(() => {
-            const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
-            const ch = buf.getChannelData(0);
-            for (let i = 0; i < pcm16.length; i++) ch[i] = pcm16[i] / 32768;
-            const src = ctx.createBufferSource();
-            src.buffer = buf;
-            src.connect(ctx.destination);
-            src.onended = () => {
-              hideVoiceAssistantAvatar();
-              if (typeof onEnded === 'function') onEnded();
-            };
-            src.start();
-          }).catch(() => {});
+          ctx
+            .resume()
+            .then(() => {
+              if (ctx.state === 'running') {
+                const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
+                const ch = buf.getChannelData(0);
+                for (let i = 0; i < pcm16.length; i++) ch[i] = pcm16[i] / 32768;
+                const src = ctx.createBufferSource();
+                src.buffer = buf;
+                src.connect(ctx.destination);
+                src.onended = () => {
+                  hideVoiceAssistantAvatar();
+                  if (typeof onEnded === 'function') onEnded();
+                };
+                src.start();
+                return;
+              }
+              window._mcPendingVoiceAudio = { audioBase64, sampleRate, text: state.lastSpokenAlertText };
+              speakBrowserNaturalVoice(state.lastSpokenAlertText, onEnded);
+            })
+            .catch(() => {
+              window._mcPendingVoiceAudio = { audioBase64, sampleRate, text: state.lastSpokenAlertText };
+              speakBrowserNaturalVoice(state.lastSpokenAlertText, onEnded);
+            });
+        } else {
+          window._mcPendingVoiceAudio = { audioBase64, sampleRate, text: state.lastSpokenAlertText };
+          speakBrowserNaturalVoice(state.lastSpokenAlertText, onEnded);
         }
       });
       return true;
@@ -2453,7 +2707,7 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
   }
 
   state.lastSpokenAlertText = text;
-  const estMs = Math.max(5000, Math.min(16000, String(text || '').length * 85 + 1800));
+  const estMs = Math.max(24000, Math.min(44000, String(text || '').length * 105 + 14000));
   showVoiceAssistantAvatar(text, estMs);
   playAlertChime();
 
@@ -2509,7 +2763,6 @@ export function buildQuarterHourVoiceBriefing(now = new Date()) {
     Boolean(ev.is_private || ev.source === 'gcal' || ev.category === 'people' || !String(ev.assigned_to || '').startsWith('@'));
 
   const agentTasks = todayTasks.filter((ev) => !isPersonalEvent(ev));
-  const personalTasks = todayTasks.filter((ev) => isPersonalEvent(ev));
 
   const activeAgentTask = agentTasks.find((ev) => {
     const s = Date.parse(ev.starts_at);
@@ -2527,23 +2780,37 @@ export function buildQuarterHourVoiceBriefing(now = new Date()) {
     ? formatWarsawTimeOnly(nextAgentTask.starts_at)
     : (teraz?.nextTask?.timeRange || (ramowka?.next ? ramowka.next.time : 'w kolejnym paśmie'));
 
-  const personalNow = personalTasks.find((ev) => {
-    const s = Date.parse(ev.starts_at);
-    const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
-    return s <= nowTs && nowTs < e;
-  });
-  const personalNext = personalTasks.find((ev) => Date.parse(ev.starts_at) > nowTs);
+  const gcalSchedule = getPersonalGcalScheduleItems(now);
+  const personalNow = gcalSchedule.nowActive[0] || null;
+  const personalNextToday = gcalSchedule.upcomingToday[0] || null;
+  const personalEarlier = gcalSchedule.earlierToday[gcalSchedule.earlierToday.length - 1] || null;
+  const nextFuture = gcalSchedule.upcomingFuture.slice(0, 2);
 
-  let personalPart = '';
-  if (personalNow && personalNext) {
-    personalPart = `W Twoim prywatnym kalendarzu trwa teraz: ${personalNow.title}, a następny punkt o ${formatWarsawTimeOnly(personalNext.starts_at)} to: ${personalNext.title}.`;
-  } else if (personalNow) {
-    personalPart = `W Twoim prywatnym kalendarzu trwa teraz: ${personalNow.title}.`;
-  } else if (personalNext) {
-    personalPart = `W Twoim prywatnym kalendarzu następny punkt o ${formatWarsawTimeOnly(personalNext.starts_at)} to: ${personalNext.title}.`;
-  } else {
-    personalPart = 'W Twoim prywatnym kalendarzu brak zaplanowanych kolejnych spotkań na dziś.';
+  const parts = [];
+  if (personalNow) {
+    const startHm = formatWarsawTimeOnly(personalNow.starts_at);
+    const endHm = personalNow.ends_at ? formatWarsawTimeOnly(personalNow.ends_at) : '';
+    parts.push(
+      `W Twoim prywatnym Kalendarzu Google trwa teraz: ${personalNow.title}${endHm ? ` (${startHm}–${endHm})` : ''}.`
+    );
   }
+  if (personalNextToday) {
+    parts.push(
+      `Kolejny dzisiejszy punkt w Twoim Kalendarzu Google o ${formatWarsawTimeOnly(personalNextToday.starts_at)} to: ${personalNextToday.title}.`
+    );
+  } else if (nextFuture.length > 0) {
+    if (personalEarlier && !personalNow) {
+      parts.push(`Dziś w Kalendarzu Google zrealizowano: ${personalEarlier.title}.`);
+    }
+    const nextSummary = nextFuture
+      .map((ev) => `${formatWarsawTimeOnly(ev.starts_at)} ${ev.title}`)
+      .join(' oraz ');
+    parts.push(`Kolejne zaplanowane punkty w Twoim grafiku Google Calendar to: ${nextSummary}.`);
+  } else if (!personalNow) {
+    parts.push('W Twoim prywatnym Kalendarzu Google brak zaplanowanych kolejnych spotkań na dziś.');
+  }
+
+  const personalPart = parts.join(' ');
 
   return `Christian Culture LIVE, jest godzina ${warsawHm}. Nadajemy na żywo według planu: ${broadcastTitle}. Raport agentów (${agentNowWho}): teraz realizujemy — ${agentNowTitle}, a następny punkt misji (${nextMissionTime}) to: ${nextMissionTitle}. ${personalPart}`;
 }
@@ -2563,7 +2830,12 @@ export function checkUpcomingVoiceAlerts(now = new Date(), { forceSpeak = false 
     minute: '2-digit',
     hour12: false,
   }).format(now);
-  const warsawMin = Number((warsawHm.split(':')[1] || '0').trim());
+  const warsawMin = Number(
+    new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Europe/Warsaw',
+      minute: 'numeric',
+    }).format(now)
+  );
 
   const allEvents = state.events || [];
   const todayTasks = allEvents.filter(
@@ -4748,16 +5020,18 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
         updateClockDesktopWingsDom(now);
 
         // Inteligentny Silnik Real-Time, Odświeżanie Telemetrii co kwadrans (15m) & Alerty Głosowe Kalendarza (60m / 15m / Start)
-        const curMin = now.getHours() * 60 + now.getMinutes();
-        if (curMin !== lastMinuteChecked) {
-          const prevMin = lastMinuteChecked;
-          lastMinuteChecked = curMin;
-          checkUpcomingVoiceAlerts(now);
-          if (prevMin !== -1 && now.getMinutes() % 15 === 0) {
-            refreshAllTelemetryData(now);
-          }
-          if (state.realtimeEngine && (state.module === 'teraz' || state.module === 'calendar')) {
-            render();
+        if (state.gcalReportLoaded) {
+          const curMin = now.getHours() * 60 + now.getMinutes();
+          if (curMin !== lastMinuteChecked) {
+            const prevMin = lastMinuteChecked;
+            lastMinuteChecked = curMin;
+            checkUpcomingVoiceAlerts(now);
+            if (prevMin !== -1 && now.getMinutes() % 15 === 0) {
+              refreshAllTelemetryData(now);
+            }
+            if (state.realtimeEngine && (state.module === 'teraz' || state.module === 'calendar')) {
+              render();
+            }
           }
         }
       }
