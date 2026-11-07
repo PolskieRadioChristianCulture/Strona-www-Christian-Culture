@@ -47,7 +47,7 @@ const state = {
   events: [],
   agents: [],
   audit: [],
-  view: window.innerWidth < 768 ? 'agenda' : 'week',
+  view: 'today',
   category: 'all',
   statusFilter: 'all',
   assigneeFilter: 'all',
@@ -122,6 +122,16 @@ function formatWarsawShort(isoStr) {
     month: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
+  }).format(new Date(isoStr));
+}
+
+function formatWarsawTimeOnly(isoStr) {
+  if (!isoStr) return '';
+  return new Intl.DateTimeFormat('pl-PL', {
+    timeZone: 'Europe/Warsaw',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
   }).format(new Date(isoStr));
 }
 
@@ -486,9 +496,219 @@ function renderSettingsHtml() {
   `;
 }
 
+function renderTodayTileHtml(ev, { isNow, isPast, isNext }) {
+  const st = STATUS_META[ev.status] || STATUS_META.todo;
+  const areaColor = AREA_COLORS[ev.category] || '#C4A35A';
+  const prio = PRIO_LABELS[ev.priority] || 'P1';
+  const keyId = escapeHtml(ev.occurrence_id || ev.id);
+
+  const startHour = formatWarsawTimeOnly(ev.starts_at);
+  const endHour = ev.ends_at ? formatWarsawTimeOnly(ev.ends_at) : '';
+
+  let timePill = '';
+  if (isNow) {
+    timePill = `<span class="mc-now-live-pill"><span class="mc-pulse-dot"></span>▶ TRWA TERAZ</span>`;
+  } else if (isNext) {
+    timePill = `<span class="mc-next-pill">⏱️ NASTĘPNE</span>`;
+  } else if (isPast) {
+    timePill = `<span class="mc-past-pill">Minęło</span>`;
+  }
+
+  const extraClass = isNow ? 'is-current-now' : isPast ? 'is-past-task' : isNext ? 'is-next-upcoming' : '';
+
+  return `
+    <article
+      class="mc-event-tile mc-today-tile ${extraClass}"
+      draggable="true"
+      tabindex="0"
+      data-event-key="${keyId}"
+      data-event-id="${escapeHtml(ev.id)}"
+      style="background:${st.color}; border-left-color:${areaColor};"
+      aria-label="${escapeHtml(`${isNow ? 'TRWA TERAZ: ' : ''}${st.label}: ${ev.title}, ${startHour}`)}"
+    >
+      <div class="mc-today-tile-header">
+        <div class="mc-today-time-range">
+          <span class="mc-today-time-digits">${startHour}${endHour ? ' — ' + endHour : ''}</span>
+          ${timePill}
+        </div>
+        <div class="mc-event-meta" style="margin:0;">
+          <span title="Status: ${escapeHtml(st.label)}">${st.icon} ${escapeHtml(st.label)}</span>
+          <span class="mc-prio-badge">${prio}</span>
+          ${ev.overdue ? '<span class="mc-overdue-badge">PO TERMINIE</span>' : ''}
+          ${ev.review_state === 'awaiting_review' ? '<span class="mc-overdue-badge">DO AKCEPTACJI</span>' : ''}
+          ${ev.rrule ? '<span title="Zadanie cykliczne">↻</span>' : ''}
+        </div>
+      </div>
+
+      <div class="mc-today-tile-body">
+        <strong class="mc-today-tile-title">${escapeHtml(ev.title)}</strong>
+        ${ev.assigned_to ? `<div class="mc-today-assigned">⚡ Przypisany Agent: <strong>${escapeHtml(ev.assigned_to)}</strong></div>` : ''}
+      </div>
+
+      <div class="mc-today-tile-actions">
+        ${
+          ev.status !== 'done'
+            ? `<button type="button" class="mc-tile-action mc-action-done" data-action="quick-done" data-key="${keyId}" style="min-height:36px;font-weight:700;color:#22c55e;">✓ Wykonane</button>`
+            : `<button type="button" class="mc-tile-action" data-action="quick-todo" data-key="${keyId}" style="min-height:36px;color:var(--mc-muted);">↺ Cofnij do zrobienia</button>`
+        }
+        <button type="button" class="mc-tile-action" data-action="edit" data-key="${keyId}" style="min-height:36px;">Edytuj</button>
+        <button type="button" class="mc-tile-action" data-action="shift-plus" data-key="${keyId}" style="min-height:36px;" title="Przesuń o +30 min">+30m</button>
+        <button type="button" class="mc-tile-action" data-action="extend" data-key="${keyId}" style="min-height:36px;" title="Wydłuż o +30 min">↕ +30m</button>
+      </div>
+    </article>
+  `;
+}
+
+function renderTodayHtml(filtered) {
+  const now = new Date();
+  const nowTs = now.getTime();
+
+  const todayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now);
+
+  const warsawTimeNowStr = new Intl.DateTimeFormat('pl-PL', {
+    timeZone: 'Europe/Warsaw',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).format(now);
+
+  const warsawDateTitle = new Intl.DateTimeFormat('pl-PL', {
+    timeZone: 'Europe/Warsaw',
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(now);
+
+  const dayOfWeek = now.getDay();
+  let daySpecialBadge = '';
+  if (dayOfWeek === 6) {
+    daySpecialBadge = '<span class="mc-day-tag mc-tag-sabbath" style="margin-left:8px;font-size:12px;">Święty Boży Szabat · 7. Dzień</span>';
+  } else if (dayOfWeek === 5) {
+    daySpecialBadge = '<span class="mc-day-tag mc-tag-friday" style="margin-left:8px;font-size:12px;">Przygotowanie do Szabatu</span>';
+  } else if (dayOfWeek === 0) {
+    daySpecialBadge = '<span class="mc-day-tag mc-tag-sunday" style="margin-left:8px;font-size:12px;">Niedziela · 1. Dzień Tygodnia</span>';
+  }
+
+  const todayTasks = filtered
+    .filter((e) => e.starts_at && e.starts_at.startsWith(todayIsoPrefix))
+    .sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
+
+  let activeNowEvent = null;
+  let nextUpcomingEvent = null;
+  let dividerInserted = false;
+
+  for (const ev of todayTasks) {
+    const startTs = Date.parse(ev.starts_at);
+    const endTs = ev.ends_at ? Date.parse(ev.ends_at) : startTs + 3600_000;
+    if (startTs <= nowTs && nowTs < endTs && !activeNowEvent) {
+      activeNowEvent = ev;
+    } else if (startTs > nowTs && !nextUpcomingEvent) {
+      nextUpcomingEvent = ev;
+    }
+  }
+
+  const completedTodayCount = todayTasks.filter((e) => e.status === 'done').length;
+
+  return `
+    <div class="mc-today-container" role="region" aria-label="Widok zadań na DZIŚ według aktualnej godziny TERAZ">
+      <div class="mc-today-hero">
+        <div class="mc-today-hero-left">
+          <div class="mc-today-live-badge">
+            <span class="mc-pulse-dot-large"></span>
+            <span>TERAZ NA ŻYWO · Europe/Warsaw</span>
+          </div>
+          <div class="mc-today-live-clock">
+            <span class="mc-clock-digits" id="mcTodayLiveClock">${warsawTimeNowStr}</span>
+          </div>
+          <div class="mc-today-date-str">
+            <strong>${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</strong>
+            ${daySpecialBadge}
+          </div>
+        </div>
+
+        <div class="mc-today-hero-right">
+          <div class="mc-today-stats-chip">
+            <strong>${todayTasks.length}</strong>
+            <span>Zadań na dziś</span>
+          </div>
+          <div class="mc-today-stats-chip">
+            <strong style="color:#22c55e;">${completedTodayCount}</strong>
+            <span>Ukończone</span>
+          </div>
+          <div class="mc-today-stats-chip">
+            <strong style="color:var(--mc-gold);">${todayTasks.length - completedTodayCount}</strong>
+            <span>Pozostałe</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mc-today-timeline">
+        ${
+          todayTasks.length === 0
+            ? `<div class="mc-empty-today-card">
+                <h3>Brak zaplanowanych zadań na dziś</h3>
+                <p>Nie masz jeszcze żadnych zadań wpisanych na dzisiejszy dzień.</p>
+                <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">
+                  <button type="button" class="mc-btn-cta" onclick="document.getElementById('btnNewTask')?.click()">＋ Dodaj pierwsze zadanie</button>
+                  <button type="button" class="mc-btn-gold" onclick="document.getElementById('btnSyncRoutines')?.click()">⚡ Wgraj 12 rutyn Misji CC</button>
+                </div>
+              </div>`
+            : todayTasks
+                .map((ev) => {
+                  const startTs = Date.parse(ev.starts_at);
+                  const endTs = ev.ends_at ? Date.parse(ev.ends_at) : startTs + 3600_000;
+                  const isNow = startTs <= nowTs && nowTs < endTs;
+                  const isPast = endTs <= nowTs;
+                  const isNext = ev === nextUpcomingEvent;
+
+                  let output = '';
+                  if (!dividerInserted && (isNow || startTs > nowTs)) {
+                    dividerInserted = true;
+                    output += `
+                      <div class="mc-now-divider" id="mcNowTimelineDivider">
+                        <span class="mc-now-dot"></span>
+                        <span class="mc-now-label">⏱️ AKTUALNA GODZINA (TERAZ: ${warsawTimeNowStr.slice(0, 5)})</span>
+                        <span class="mc-now-line"></span>
+                      </div>
+                    `;
+                  }
+
+                  output += renderTodayTileHtml(ev, { isNow, isPast, isNext });
+                  return output;
+                })
+                .join('') +
+              (!dividerInserted
+                ? `
+                  <div class="mc-now-divider" id="mcNowTimelineDivider">
+                    <span class="mc-now-dot"></span>
+                    <span class="mc-now-label">⏱️ AKTUALNA GODZINA (TERAZ: ${warsawTimeNowStr.slice(0, 5)})</span>
+                    <span class="mc-now-line"></span>
+                  </div>
+                  <div class="mc-today-all-done-note">
+                    <span>✓ Wszystkie wcześniejsze zadania na dziś zakończone. Kolejne rutyny zaplanowane na jutro.</span>
+                  </div>
+                `
+                : '')
+        }
+      </div>
+    </div>
+  `;
+}
+
 function renderBoardContent(filtered) {
   if (state.view === 'settings') {
     return renderSettingsHtml();
+  }
+
+  if (state.view === 'today') {
+    return renderTodayHtml(filtered);
   }
 
   if (state.view === 'kanban') {
@@ -849,10 +1069,11 @@ export function render() {
         <div class="mc-filter-group">
           <div class="mc-filter-title">Widoki</div>
           ${[
-            ['day', '☀ Dzień (oś 15m)'],
+            ['today', '⏱️ Dziś (TERAZ — wg godziny)'],
             ['week', '▤ Tydzień (7 dni)'],
             ['month', '▦ Miesiąc / 2 tyg.'],
             ['agenda', '☰ Agenda chronologiczna'],
+            ['day', '☀ Oś 15m (cały dzień)'],
             ['kanban', '◫ Kanban (4 statusy)'],
             ['agents', '⚡ Agenci @777 & Audyt'],
             ['settings', '⚙ Ustawienia'],
@@ -975,6 +1196,15 @@ export function render() {
   `;
 
   bindEvents();
+
+  if (state.view === 'today') {
+    requestAnimationFrame(() => {
+      const targetEl = document.getElementById('mcNowTimelineDivider') || document.querySelector('.mc-event-tile.is-current-now');
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }
 }
 
 function findEventByKey(key) {
@@ -1033,6 +1263,7 @@ function bindEvents() {
   if (btnToday) {
     btnToday.onclick = async () => {
       state.anchorDate = new Date();
+      state.view = 'today';
       await refreshData();
       render();
     };
@@ -1132,6 +1363,30 @@ function bindEvents() {
       if (action === 'edit') {
         state.editingEvent = { ...ev };
         render();
+      } else if (action === 'quick-done') {
+        try {
+          await apiRequest(`/events/${encodeURIComponent(ev.series_id || ev.id)}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ status: 'done', version: ev.version }),
+          });
+          await refreshData();
+          render();
+        } catch (err) {
+          state.error = err.message;
+          render();
+        }
+      } else if (action === 'quick-todo') {
+        try {
+          await apiRequest(`/events/${encodeURIComponent(ev.series_id || ev.id)}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ status: 'todo', version: ev.version }),
+          });
+          await refreshData();
+          render();
+        } catch (err) {
+          state.error = err.message;
+          render();
+        }
       } else if (action === 'shift-plus') {
         const newStart = new Date(Date.parse(ev.starts_at) + 1800_000).toISOString();
         const newEnd = ev.ends_at ? new Date(Date.parse(ev.ends_at) + 1800_000).toISOString() : null;
@@ -1419,6 +1674,20 @@ function bindEvents() {
 }
 
 if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
+  if (!window._mcLiveClockInterval) {
+    window._mcLiveClockInterval = setInterval(() => {
+      const clockEl = document.getElementById('mcTodayLiveClock');
+      if (clockEl) {
+        clockEl.textContent = new Intl.DateTimeFormat('pl-PL', {
+          timeZone: 'Europe/Warsaw',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        }).format(new Date());
+      }
+    }, 1000);
+  }
   attachLoginHandler();
   loadInitialSession();
 }

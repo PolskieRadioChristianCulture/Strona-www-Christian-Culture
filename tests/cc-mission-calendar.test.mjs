@@ -445,7 +445,7 @@ test('6. Standard Back-To-Top Button integration (/js/cc-back-to-top.js)', async
   const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
 
   const ccMcHtml = fs.readFileSync(ccMcHtmlPath, 'utf8');
-  assert.match(ccMcHtml, /src="\/js\/cc-back-to-top\.js\?v=20261107_v6"/, 'ccMC must include standard cc-back-to-top.js');
+  assert.match(ccMcHtml, /src="\/js\/cc-back-to-top\.js\?v=20261107_v8"/, 'ccMC must include standard cc-back-to-top.js');
 
   const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
   assert.match(ccMcStyle, /#backToTopBtn\[data-cc-back-to-top\]/, 'style.css must style the canonical back-to-top button');
@@ -469,5 +469,23 @@ test('7. Biblical Week Standard (Kanon Wiary CC: Niedziela = 1. dzień, Sobota =
   assert.match(ccMcStyle, /\.mc-day-col\.mc-day-friday-prep\s*\{[^}]*border:\s*2px solid #FF7A00/, 'Friday must have orange border');
   assert.match(ccMcStyle, /\[data-theme="light"\] \.mc-day-col\.mc-day-sabbath/, 'Must support light theme Saturday');
   assert.match(ccMcStyle, /\[data-theme="light"\] \.mc-day-col\.mc-day-friday-prep/, 'Must support light theme Friday');
+});
+
+test('8. Default Today View with Current Hour (TERAZ) Timeline and Auto-scroll indicator', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const ccMcAppPath = path.join(rootDir, 'ccMC', 'app.js');
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+
+  const ccMcApp = fs.readFileSync(ccMcAppPath, 'utf8');
+  assert.match(ccMcApp, /view:\s*['"]today['"]/, 'Default view in state must be today');
+  assert.match(ccMcApp, /renderTodayHtml/, 'Must define renderTodayHtml');
+  assert.match(ccMcApp, /mcNowTimelineDivider/, 'Must define mcNowTimelineDivider in timeline');
+  assert.match(ccMcApp, /is-current-now/, 'Must assign is-current-now class for active task');
+  assert.match(ccMcApp, /formatWarsawTimeOnly/, 'Must format hours in Warsaw time');
+
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+  assert.match(ccMcStyle, /\.mc-now-divider/, 'style.css must style mc-now-divider');
+  assert.match(ccMcStyle, /\.mc-today-tile\.is-current-now\s*\{[^}]*border:\s*2px solid #FF7A00/, 'Active task must have 2px orange border');
+  assert.match(ccMcStyle, /\.mc-today-live-clock/, 'style.css must style live clock');
 });
 
