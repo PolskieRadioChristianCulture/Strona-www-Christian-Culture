@@ -1452,6 +1452,18 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   text-shadow: 0 0 14px rgba(196, 163, 90, 0.38);
 }
 
+@media (min-width: 769px) {
+  .mc-clock-permanent-header {
+    padding: 8px 26px;
+    margin-bottom: 6px;
+  }
+
+  .mc-clock-permanent-title {
+    font-size: 18px;
+    letter-spacing: 0.26em;
+  }
+}
+
 [data-theme="light"] .mc-clock-permanent-header {
   background: rgba(255, 255, 255, 0.65);
   border-color: rgba(196, 163, 90, 0.45);
@@ -2044,6 +2056,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   height: 130px;
   min-height: 130px;
   max-height: 130px;
+  margin-top: 0.5cm;
   flex-shrink: 0;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.018) 100%);
   backdrop-filter: blur(24px) saturate(165%);

@@ -1013,6 +1013,41 @@ test('17. Frameless NA ŻYWO Box & Anchored Non-Jumping Clock/TERAZ Position', (
   );
 });
 
+// ---------------------------------------------------------------------------
+// 18. Single Pulsing Dot Under Time, Enlarged Desktop "CHRISTIAN CULTURE LIVE"
+//     & 0.5cm Lowered TERAZ Window
+// ---------------------------------------------------------------------------
+test('18. Single Pulsing Dot Under Time, Enlarged Desktop CHRISTIAN CULTURE LIVE & 0.5cm Lowered TERAZ Box', async () => {
+  const rootDir = process.cwd();
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+
+  const { renderClockModule } = await import('../ccMC/app.js');
+  const clockHtml = renderClockModule();
+
+  // Keep only the dot under the time (#center-dot), no dot in CHRISTIAN CULTURE LIVE or SZABAT badge
+  assert.match(clockHtml, /id="center-dot"\s+class="mc-dial-center-dot"/, 'Must keep the pulsing dot under the time (#center-dot)');
+  assert.doesNotMatch(clockHtml, /mc-clock-permanent-dot/, 'Must not render extra pulsing dot in CHRISTIAN CULTURE LIVE header');
+  const badgeMatch = clockHtml.match(/id="biblical-badge"[\s\S]*?<\/div>/);
+  assert.ok(badgeMatch, 'Must render #biblical-badge');
+  assert.doesNotMatch(badgeMatch[0], /mc-pulse-dot/, 'Must not render extra pulsing dot inside SZABAT badge');
+
+  // Enlarged CHRISTIAN CULTURE LIVE on desktop
+  assert.match(
+    ccMcStyle,
+    /@media\s*\(min-width:\s*769px\)\s*\{[\s\S]*?\.mc-clock-permanent-title\s*\{[\s\S]*?font-size:\s*18px;/,
+    'Desktop must enlarge CHRISTIAN CULTURE LIVE title to 18px'
+  );
+
+  // Lowered TERAZ box by 0.5cm
+  assert.match(
+    ccMcStyle,
+    /\.mc-clock-live-box\s*\{[\s\S]*?margin-top:\s*0\.5cm;/,
+    'TERAZ box (.mc-clock-live-box) must be lowered by 0.5cm (margin-top: 0.5cm)'
+  );
+});
+
+
 
 
 

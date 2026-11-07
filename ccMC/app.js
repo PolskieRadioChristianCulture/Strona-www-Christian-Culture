@@ -1234,7 +1234,6 @@ function renderTodayHtml(filtered) {
               <div id="gregorian-date" class="mc-gregorian-date">${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</div>
               <div class="mc-biblical-status-wrap">
                 <div id="biblical-badge" class="mc-biblical-badge ${bState.isSabbath ? 'is-sabbath' : ''}">
-                  <span class="mc-pulse-dot" style="background:#FF7A00;"></span>
                   <span id="biblical-day-name">${bState.isSabbath ? 'SZABAT' : bState.biblicalDay.name}</span>
                 </div>
               </div>
@@ -1740,7 +1739,6 @@ export function renderClockModule() {
 
       <main class="mc-clock-module-center">
         <div class="mc-clock-permanent-header" id="mcClockPermanentHeader" aria-label="Christian Culture Live">
-          <span class="mc-clock-permanent-dot" aria-hidden="true"></span>
           <span class="mc-clock-permanent-title">CHRISTIAN CULTURE LIVE</span>
         </div>
 
@@ -1756,7 +1754,6 @@ export function renderClockModule() {
             <div id="gregorian-date" class="mc-gregorian-date">${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</div>
             <div class="mc-biblical-status-wrap">
               <div id="biblical-badge" class="mc-biblical-badge ${bState.isSabbath ? 'is-sabbath' : ''}">
-                <span class="mc-pulse-dot" style="background:${bState.isSabbath ? '#ef4444' : '#FF7A00'};"></span>
                 <span>${bState.isSabbath ? 'SZABAT' : bState.biblicalDay.name}</span>
               </div>
             </div>

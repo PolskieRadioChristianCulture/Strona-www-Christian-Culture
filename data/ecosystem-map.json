@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-07",
+      "topic": "ccMC: Jedna pulsująca kropka pod godziną, powiększony napis CHRISTIAN CULTURE LIVE w wersji desktop oraz obniżenie okna TERAZ o 0,5 cm",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-07",
       "topic": "ccMC: Usunięcie ramki z okna NA ŻYWO / TERAZ oraz sztywne zakotwiczenie pozycji zegara i okna TERAZ bez skakania w pionie",
       "agent": "A"
     },
