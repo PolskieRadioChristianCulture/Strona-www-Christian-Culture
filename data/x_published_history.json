@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina.cezaryrgowski",
+      "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
+      "url": "https://polskieradio.cc/lumina.cezaryrgowski",
+      "type": "profile",
+      "image": "cezary-wioletta-radiocc.jpg",
+      "publishedAt": "2026-11-07T20:33:49.969Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "topTEN",
       "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
       "url": "https://polskieradio.cc/topTEN",
