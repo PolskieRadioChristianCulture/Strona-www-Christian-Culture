@@ -1120,7 +1120,7 @@ test('19. Desktop Frameless Semi-Transparent Side Wings, Real 6 Radio Stations R
   assert.match(timeHtml, /class="mc-clock-sec-glow"/, 'Seconds in digital clock must use .mc-clock-sec-glow');
   assert.match(ccMcStyle, /\.mc-clock-sec-glow\s*\{[\s\S]*?color:\s*#FF7A00\s*!important;/, '.mc-clock-sec-glow must match rim glow color #FF7A00');
 
-  // Zero-Cost Google AI Studio TTS endpoint
+  // Zero-Cost Google AI Studio TTS endpoint + Assistant Avatar displayed during voice notifications
   const { callApi } = createTestContext();
   const ownerHeaders = { authorization: 'Bearer valid-owner-firebase-token' };
   const ttsRes = await callApi('/api/mission-calendar/tts', {
@@ -1132,6 +1132,15 @@ test('19. Desktop Frameless Semi-Transparent Side Wings, Real 6 Radio Stations R
   assert.equal(ttsRes.data.ok, true);
   assert.equal(ttsRes.data.cost, 0, 'TTS must operate in ZERO COST mode (cost = 0)');
   assert.equal(speakCalendarVoiceAlert('Test komunikatu', { force: true }), true);
+
+  const avatarPath = path.join(rootDir, 'ccMC', 'assistant-avatar.jpg');
+  assert.ok(fs.existsSync(avatarPath), 'Assistant avatar file ccMC/assistant-avatar.jpg must exist');
+  const speakingHtml = renderClockModule();
+  assert.match(speakingHtml, /id="mcVoiceAssistantOverlay"/, 'Must render #mcVoiceAssistantOverlay');
+  assert.match(speakingHtml, /\/ccMC\/assistant-avatar\.jpg/, 'Must display /ccMC/assistant-avatar.jpg during voice alerts');
+  assert.match(speakingHtml, /is-speaking/, 'Overlay must have is-speaking class while speaking');
+  const { hideVoiceAssistantAvatar } = await import('../ccMC/app.js');
+  hideVoiceAssistantAvatar();
 });
 
 

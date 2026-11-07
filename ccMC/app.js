@@ -2057,7 +2057,79 @@ export function playAlertChime() {
   }
 }
 
-export function playGeminiPcmBase64(audioBase64, sampleRate = 24000) {
+export const VOICE_ASSISTANT_AVATAR_URL = '/ccMC/assistant-avatar.jpg';
+
+export function showVoiceAssistantAvatar(text = '', durationMs = 6500) {
+  state.voiceAssistantSpeaking = true;
+  if (text) state.lastSpokenAlertText = text;
+
+  if (typeof window !== 'undefined' && window._mcVoiceAvatarTimer) {
+    clearTimeout(window._mcVoiceAvatarTimer);
+    window._mcVoiceAvatarTimer = null;
+  }
+
+  if (typeof document !== 'undefined') {
+    let overlay = document.getElementById('mcVoiceAssistantOverlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'mcVoiceAssistantOverlay';
+      overlay.className = 'mc-voice-assistant-overlay';
+      overlay.setAttribute('role', 'status');
+      overlay.setAttribute('aria-live', 'polite');
+      document.body.appendChild(overlay);
+    }
+    overlay.innerHTML = renderVoiceAssistantOverlayInnerHtml(text || state.lastSpokenAlertText || '');
+    overlay.classList.add('is-speaking');
+    overlay.setAttribute('aria-hidden', 'false');
+  }
+
+  if (typeof window !== 'undefined') {
+    const safeMs = Math.max(4000, Math.min(18000, Number(durationMs) || 6500));
+    window._mcVoiceAvatarTimer = setTimeout(() => {
+      hideVoiceAssistantAvatar();
+    }, safeMs);
+  }
+  return true;
+}
+
+export function hideVoiceAssistantAvatar() {
+  state.voiceAssistantSpeaking = false;
+  if (typeof window !== 'undefined' && window._mcVoiceAvatarTimer) {
+    clearTimeout(window._mcVoiceAvatarTimer);
+    window._mcVoiceAvatarTimer = null;
+  }
+  if (typeof document !== 'undefined') {
+    const overlay = document.getElementById('mcVoiceAssistantOverlay');
+    if (overlay) {
+      overlay.classList.remove('is-speaking');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+  }
+  return true;
+}
+
+export function renderVoiceAssistantOverlayInnerHtml(text = '') {
+  return `
+    <div class="mc-voice-assistant-card">
+      <div class="mc-voice-assistant-avatar-wrap">
+        <span class="mc-voice-assistant-ring mc-ring-1" aria-hidden="true"></span>
+        <span class="mc-voice-assistant-ring mc-ring-2" aria-hidden="true"></span>
+        <img src="${VOICE_ASSISTANT_AVATAR_URL}" alt="Asystentka Głosowa Kalendarza" class="mc-voice-assistant-avatar-img" />
+      </div>
+      <div class="mc-voice-assistant-content">
+        <div class="mc-voice-assistant-kicker">
+          <span class="mc-voice-wave-bars" aria-hidden="true">
+            <i></i><i></i><i></i><i></i>
+          </span>
+          <span>ASYSTENTKA KALENDARZA • KOMUNIKAT GŁOSOWY</span>
+        </div>
+        <strong class="mc-voice-assistant-text" id="mcVoiceAssistantSpokenText">${escapeHtml(text)}</strong>
+      </div>
+    </div>
+  `;
+}
+
+export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = null) {
   if (typeof window === 'undefined' || !audioBase64) return false;
   const AudioCtx = window.AudioContext || window.webkitAudioContext;
   if (!AudioCtx) return false;
@@ -2079,6 +2151,12 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000) {
     const src = ctx.createBufferSource();
     src.buffer = buf;
     src.connect(ctx.destination);
+    const durMs = Math.ceil((pcm16.length / sampleRate) * 1000) + 600;
+    showVoiceAssistantAvatar(state.lastSpokenAlertText, durMs);
+    src.onended = () => {
+      hideVoiceAssistantAvatar();
+      if (typeof onEnded === 'function') onEnded();
+    };
     src.start();
     return true;
   } catch {
@@ -2086,7 +2164,7 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000) {
   }
 }
 
-export function speakBrowserNaturalVoice(text) {
+export function speakBrowserNaturalVoice(text, onEnded = null) {
   if (typeof window === 'undefined' || !('speechSynthesis' in window) || typeof window.SpeechSynthesisUtterance !== 'function') {
     return false;
   }
@@ -2103,6 +2181,15 @@ export function speakBrowserNaturalVoice(text) {
       plVoices.find((v) => /natural|online|neural|google/i.test(v.name || '')) ||
       plVoices[0];
     if (naturalPl) utter.voice = naturalPl;
+    const estMs = Math.max(4500, Math.min(16000, String(text || '').length * 85 + 1500));
+    showVoiceAssistantAvatar(text, estMs);
+    utter.onend = () => {
+      hideVoiceAssistantAvatar();
+      if (typeof onEnded === 'function') onEnded();
+    };
+    utter.onerror = () => {
+      hideVoiceAssistantAvatar();
+    };
     window.speechSynthesis.speak(utter);
     return true;
   } catch {
@@ -2126,6 +2213,8 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
   }
 
   state.lastSpokenAlertText = text;
+  const estMs = Math.max(5000, Math.min(16000, String(text || '').length * 85 + 1800));
+  showVoiceAssistantAvatar(text, estMs);
   playAlertChime();
 
   // ZERO COST Google AI Studio Free-Tier TTS z automatycznym fallbackiem do lokalnego głosu Natural Neural (0,00 zł)
@@ -2221,7 +2310,10 @@ export function renderClockDesktopRightWing(now = new Date()) {
 
       <section class="mc-hud-wing-block" id="mcHudVoiceAlertBlock">
         <header class="mc-hud-wing-header">
-          <span class="mc-hud-wing-kicker">ALERTY GŁOSOWE KALENDARZA &amp; OBS</span>
+          <span class="mc-hud-wing-kicker mc-hud-voice-kicker-wrap">
+            <img src="${VOICE_ASSISTANT_AVATAR_URL}" alt="" class="mc-hud-voice-mini-avatar" aria-hidden="true" />
+            <span>ALERTY GŁOSOWE KALENDARZA &amp; OBS</span>
+          </span>
           <div class="mc-hud-voice-actions">
             <button type="button" id="btnToggleVoiceAlerts" class="mc-hud-inline-btn ${state.voiceAlertsEnabled ? 'is-active' : ''}" title="Włącz lub wyłącz komunikaty głosowe z kalendarza (60 min, 15 min i start)">
               ${state.voiceAlertsEnabled ? '🔊 Głos: WŁ.' : '🔇 Głos: WYŁ.'}
@@ -2233,7 +2325,7 @@ export function renderClockDesktopRightWing(now = new Date()) {
         </header>
         <div class="mc-hud-voice-status">
           <small class="mc-hud-voice-desc">
-            Komunikaty głosowe TTS (<strong>60 min</strong> i <strong>15 min</strong> przed wydarzeniem, np. powrót żony z pracy, wyjście po syna do szkoły). OBS na komputerze nadawczym skonfigurowany: <strong>odsłuch lokalny wyłączony (Monitor Off)</strong> — emisja idzie w eter, a w pokoju słyszysz wyłącznie alerty z kalendarza.
+            Komunikaty głosowe TTS (<strong>60 min</strong> i <strong>15 min</strong> przed wydarzeniem, np. powrót żony z pracy, wyjście po syna do szkoły). Na czas komunikatu wyświetla się <strong>awatar asystentki</strong>, a w OBS odsłuch lokalny jest wyłączony (emisja idzie w eter).
           </small>
         </div>
       </section>
@@ -2353,6 +2445,11 @@ export function renderClockModule() {
             : ''
         }
       </main>
+
+      <!-- Nakładka Awatara Asystentki na czas odtwarzania powiadomienia głosowego -->
+      <div id="mcVoiceAssistantOverlay" class="mc-voice-assistant-overlay ${state.voiceAssistantSpeaking ? 'is-speaking' : ''}" role="status" aria-live="polite" aria-hidden="${state.voiceAssistantSpeaking ? 'false' : 'true'}">
+        ${renderVoiceAssistantOverlayInnerHtml(state.lastSpokenAlertText || 'Komunikat głosowy asystentki kalendarza')}
+      </div>
 
       <!-- Panel boczny wysuwany z prawej strony (Ustawienia Zegara) -->
       <div id="mcClockDrawerBackdrop" class="mc-drawer-backdrop ${state.clockDrawerOpen ? 'is-open' : ''}" aria-hidden="${state.clockDrawerOpen ? 'false' : 'true'}"></div>
