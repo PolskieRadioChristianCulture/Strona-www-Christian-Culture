@@ -252,6 +252,7 @@ const state = {
     luminaToday: 5,
   },
   liveRdsOverride: {},
+  lastBiblicalDayIndex: -1,
 };
 
 export function applyTheme(theme) {
@@ -505,6 +506,84 @@ export function formatCountdown(diffMs) {
     return `${days}d ${pad2(hours)}:${pad2(minutes)}:${pad2(seconds)}`;
   }
   return `${pad2(hours)}:${pad2(minutes)}:${pad2(seconds)}`;
+}
+
+export function updateBiblicalStatusDom(now = new Date()) {
+  if (typeof document === 'undefined') return null;
+  const [lat, lng] = (state.clockCity || '52.2297,21.0122').split(',').map(Number);
+  const bState = getBiblicalTimeState(now, lat, lng);
+
+  // 1. Nazwa dnia biblijnego w odznace pod tarczą zegara
+  const dayNameEls = document.querySelectorAll('#biblical-day-name, .mc-biblical-day-text');
+  const dayText = bState.isSabbath ? 'SZABAT' : bState.biblicalDay.name;
+  dayNameEls.forEach((el) => {
+    if (el.textContent !== dayText) el.textContent = dayText;
+  });
+
+  // 2. Klasa odznaki biblijnej (is-sabbath)
+  const badgeEls = document.querySelectorAll('#biblical-badge, .mc-biblical-badge');
+  badgeEls.forEach((badge) => {
+    badge.classList.toggle('is-sabbath', bState.isSabbath);
+    // Upewnij się, że tekst wewnątrz odznaki jest zgodny nawet jeśli brak id
+    const span = badge.querySelector('span');
+    if (span && span.textContent !== dayText) {
+      span.textContent = dayText;
+    }
+  });
+
+  // 3. Etykieta i licznik Szabatu w kartach informacyjnych
+  const countdownEl = document.getElementById('sabbath-countdown');
+  if (countdownEl) {
+    const cdText = formatCountdown(bState.sabbathTargetDate - now);
+    if (countdownEl.textContent !== cdText) countdownEl.textContent = cdText;
+  }
+
+  const labelEls = document.querySelectorAll('.mc-sabbath-card .mc-sub-label, .mc-stat-card .mc-stat-sub');
+  labelEls.forEach((lbl) => {
+    if (lbl.textContent.includes('Szabat') || lbl.textContent.includes('Szabatu')) {
+      if (lbl.textContent !== bState.countdownLabel) {
+        lbl.textContent = bState.countdownLabel;
+      }
+    }
+  });
+
+  const sabbathCards = document.querySelectorAll('.mc-sabbath-card, .mc-stat-card');
+  sabbathCards.forEach((c) => {
+    if (c.querySelector('#sabbath-countdown') || c.classList.contains('mc-sabbath-card')) {
+      c.classList.toggle('is-sabbath', bState.isSabbath);
+    }
+  });
+
+  const subStatusEls = document.querySelectorAll('#sabbath-sub-status, .mc-sabbath-card small, .mc-stat-card .mc-stat-muted');
+  subStatusEls.forEach((el) => {
+    if (el.textContent.includes('Szabat') || el.textContent.includes('zachodu')) {
+      const targetSub = bState.isSabbath ? 'Święty Boży Szabat' : 'do piątkowego zachodu słońca';
+      if (el.textContent !== targetSub) el.textContent = targetSub;
+    }
+  });
+
+  // 4. Rachuba biblijna informacja (po zachodzie słońca)
+  const rachubaSm = document.querySelector('.mc-stat-val-sm');
+  if (rachubaSm) {
+    const rachubaText = bState.isAfterSunset ? 'Trwa nowa doba biblijna (po zachodzie)' : 'Przed zachodem słońca';
+    if (rachubaSm.textContent !== rachubaText) rachubaSm.textContent = rachubaText;
+  }
+
+  // 5. Automatyczne pełne odświeżenie widoku w chwili zmiany doby biblijnej (np. dokładnie o zachodzie)
+  if (
+    state.lastBiblicalDayIndex !== undefined &&
+    state.lastBiblicalDayIndex !== -1 &&
+    state.lastBiblicalDayIndex !== bState.biblicalDayIndex
+  ) {
+    state.lastBiblicalDayIndex = bState.biblicalDayIndex;
+    if (state.module === 'today' || state.module === 'clock') {
+      render();
+    }
+  } else if (state.lastBiblicalDayIndex === -1 || state.lastBiblicalDayIndex === undefined) {
+    state.lastBiblicalDayIndex = bState.biblicalDayIndex;
+  }
+
+  return bState;
 }
 
 export function isPreQuarterAlertWindow(now = new Date()) {
@@ -3296,7 +3375,6 @@ function startStreamingBriefingPlayback(text) {
 
   return speakBrowserNaturalVoice(text) || true;
 }
-}
 
 export function buildQuarterHourVoiceBriefing(now = new Date()) {
   const warsawHm = new Intl.DateTimeFormat('pl-PL', {
@@ -3669,7 +3747,7 @@ export function renderClockModule() {
                 <div id="gregorian-date" class="mc-gregorian-date">${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</div>
                 <div class="mc-biblical-status-wrap">
                   <div id="biblical-badge" class="mc-biblical-badge ${bState.isSabbath ? 'is-sabbath' : ''}">
-                    <span>${bState.isSabbath ? 'SZABAT' : bState.biblicalDay.name}</span>
+                    <span id="biblical-day-name">${bState.isSabbath ? 'SZABAT' : bState.biblicalDay.name}</span>
                   </div>
                 </div>
               </div>
@@ -5605,13 +5683,8 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
         updateClockSpatialRimDom(sec, now);
         lastTickSecond = sec;
 
-        // Aktualizacja licznika Szabatu
-        const countdownEl = document.getElementById('sabbath-countdown');
-        if (countdownEl) {
-          const [lat, lng] = (state.clockCity || '52.2297,21.0122').split(',').map(Number);
-          const bState = getBiblicalTimeState(now, lat, lng);
-          countdownEl.textContent = formatCountdown(bState.sabbathTargetDate - now);
-        }
+        // Aktualizacja licznika Szabatu i stanu doby biblijnej w czasie rzeczywistym
+        updateBiblicalStatusDom(now);
 
         // Aktualizacja w czasie rzeczywistym i rotacja okienka "NA ŻYWO" (Ramówka ⇄ Zadanie TERAZ)
         updateLiveScreensaverDom(now);
