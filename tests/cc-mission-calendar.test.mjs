@@ -438,3 +438,18 @@ test('5. Natural Language Command (@077 Noemi), Outbox Reconcile, Web Push Quiet
   assert.equal(workerRes.headers.get('X-Robots-Tag'), 'noindex, nofollow, noarchive');
   assert.match(workerRes.headers.get('Cache-Control') || '', /private,\s*no-store/);
 });
+
+test('6. Standard Back-To-Top Button integration (/js/cc-back-to-top.js)', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const ccMcHtmlPath = path.join(rootDir, 'ccMC', 'index.html');
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+
+  const ccMcHtml = fs.readFileSync(ccMcHtmlPath, 'utf8');
+  assert.match(ccMcHtml, /src="\/js\/cc-back-to-top\.js\?v=20261107_v5"/, 'ccMC must include standard cc-back-to-top.js');
+
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+  assert.match(ccMcStyle, /#backToTopBtn\[data-cc-back-to-top\]/, 'style.css must style the canonical back-to-top button');
+  assert.match(ccMcStyle, /\[data-theme="dark"\] #backToTopBtn\[data-cc-back-to-top\]/, 'style.css must support dark mode back-to-top');
+  assert.match(ccMcStyle, /\[data-theme="light"\] #backToTopBtn\[data-cc-back-to-top\]/, 'style.css must support light mode back-to-top');
+});
+

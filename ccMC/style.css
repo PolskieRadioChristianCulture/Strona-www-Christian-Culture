@@ -700,3 +700,40 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* ============================================================================
+ * Canonical CC Back-to-Top Button Integration
+ * ============================================================================ */
+#backToTopBtn[data-cc-back-to-top] {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease !important;
+  z-index: 85 !important;
+}
+
+[data-theme="dark"] #backToTopBtn[data-cc-back-to-top] {
+  background: #0d131f !important;
+  color: var(--mc-gold-light) !important;
+  border: 1px solid rgba(196, 163, 90, 0.45) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-theme="dark"] #backToTopBtn[data-cc-back-to-top]:hover {
+  background: #172338 !important;
+  border-color: var(--mc-gold) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+}
+
+[data-theme="light"] #backToTopBtn[data-cc-back-to-top] {
+  background: #ffffff !important;
+  color: var(--mc-gold) !important;
+  border: 1px solid rgba(196, 163, 90, 0.5) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-theme="light"] #backToTopBtn[data-cc-back-to-top]:hover {
+  background: #f8fafc !important;
+  border-color: var(--mc-gold-hover) !important;
+  color: #0f172a !important;
+  transform: translateY(-2px) !important;
+}
+
