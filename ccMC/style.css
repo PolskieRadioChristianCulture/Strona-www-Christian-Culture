@@ -1927,7 +1927,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   color: var(--mc-text-contrast);
 }
 
-/* Moduł 1: Start — Tylko Zegar + Tapeta Hero (przyciemniona dla czytelności telemetrii) */
+/* Moduł 1: Start — Tylko Zegar + Tapeta Hero (delikatnie przyciemniona o połowę mniej, aby była dobrze widoczna) */
 .mc-clock-fullscreen {
   min-height: 100dvh;
   min-height: 100vh;
@@ -1941,8 +1941,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   overflow-x: hidden;
   background-color: #020306;
   background-image:
-    radial-gradient(ellipse at 50% 42%, rgba(3, 4, 8, 0.48) 0%, rgba(2, 3, 7, 0.78) 62%, rgba(1, 2, 5, 0.92) 100%),
-    linear-gradient(180deg, rgba(2, 3, 7, 0.68) 0%, rgba(2, 3, 7, 0.56) 45%, rgba(1, 2, 5, 0.88) 100%),
+    linear-gradient(180deg, rgba(2, 3, 7, 0.34) 0%, rgba(2, 3, 7, 0.26) 48%, rgba(1, 2, 5, 0.44) 100%),
     url('/ccMC/hero-bg.jpg');
   background-size: cover;
   background-position: center center;
@@ -3440,6 +3439,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
    Po kliknięciu w dowolne miejsce wszystkie ukryte elementy płynnie wracają.
    ========================================================================== */
 .mc-clock-module-topbar,
+.mc-clock-wing,
 .mc-clock-more-toggle-wrap,
 #mcClockMoreCards,
 .mc-module-dock,
@@ -3449,6 +3449,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 body.mc-clock-screensaver-idle .mc-clock-module-topbar,
+body.mc-clock-screensaver-idle .mc-clock-wing,
+body.mc-clock-screensaver-idle #mcClockWingLeft,
+body.mc-clock-screensaver-idle #mcClockWingRight,
 body.mc-clock-screensaver-idle .mc-clock-more-toggle-wrap,
 body.mc-clock-screensaver-idle #mcClockMoreCards,
 body.mc-clock-screensaver-idle .mc-module-dock,
@@ -3466,6 +3469,9 @@ body.mc-clock-screensaver-idle [id*="lumi-chat"],
 body.mc-clock-screensaver-idle [class*="chat-fab"],
 body.mc-clock-screensaver-idle #backToTopBtn,
 .mc-clock-fullscreen.is-screensaver-idle .mc-clock-module-topbar,
+.mc-clock-fullscreen.is-screensaver-idle .mc-clock-wing,
+.mc-clock-fullscreen.is-screensaver-idle #mcClockWingLeft,
+.mc-clock-fullscreen.is-screensaver-idle #mcClockWingRight,
 .mc-clock-fullscreen.is-screensaver-idle .mc-clock-more-toggle-wrap,
 .mc-clock-fullscreen.is-screensaver-idle #mcClockMoreCards {
   opacity: 0 !important;

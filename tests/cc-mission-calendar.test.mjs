@@ -986,6 +986,11 @@ test('16. 5-Second Auto-Hide Screensaver on Clock Page & Click-to-Restore UI', a
     /body\.mc-clock-screensaver-idle\s+\.mc-module-dock/,
     'CSS must hide bottom dock in mc-clock-screensaver-idle'
   );
+  assert.match(
+    ccMcStyle,
+    /body\.mc-clock-screensaver-idle\s+\.mc-clock-wing/,
+    'CSS must hide desktop side wings (.mc-clock-wing) in mc-clock-screensaver-idle'
+  );
 });
 
 // ---------------------------------------------------------------------------
