@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-07",
+      "topic": "Cykliczna publikacja CCN News na platformie X: LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej z dedykowaną grafiką tematyczną (#131)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-07",
       "topic": "Cykliczna publikacja CCN News na platformie X: topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej z dedykowaną grafiką tematyczną (#130)",
       "agent": "A"
     },
@@ -4407,8 +4412,18 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-07T07:55:00+01:00",
+  "lastUpdated": "2026-11-07",
   "recentUpdates": [
+    {
+      "date": "2026-11-07",
+      "topic": "CCN News X: Cykliczna publikacja #131 — LUMINA Społeczność Chrześcijańska (tablica)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-07",
+      "topic": "ccMC: Integracja Zegara Biblijnego Szabatu i natychmiastowe filtrowanie zadan TERAZ po kliknieciu w zegar",
+      "agent": "A"
+    },
     {
       "date": "2026-11-07",
       "topic": "ccMC: Domyślny widok Dziś wg aktualnej godziny (TERAZ) z osią czasu i zegarem na żywo",
@@ -4472,46 +4487,6 @@
     {
       "date": "2026-11-06",
       "topic": "Cykliczna publikacja CCN News na platformie X: Archeologia biblijna — Bulla króla Ezechiasza i Tel Dan z dedykowaną grafiką tematyczną (#109)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-06",
-      "topic": "Cykliczna publikacja CCN News na platformie X: Kurs Codzienny Dzień 37 (Wj 6:1–30) z dedykowaną grafiką tematyczną (#108)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-06",
-      "topic": "Cykliczna publikacja CCN News na platformie X: Portal Społecznościowy LUMINA z dedykowaną grafiką tematyczną (#107)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-06",
-      "topic": "Cykliczna publikacja CCN News na platformie X: Biblia Śpiewana Live z dedykowaną grafiką",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-06",
-      "topic": "Cykliczna publikacja CCN News na platformie X: Werset Dnia (Rdz 16:13, UBG) z dedykowaną grafiką tematyczną",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-06",
-      "topic": "Cykliczna publikacja CCN News na platformie X: Książka „Pokonać Goliata” z dedykowaną grafiką tematyczną",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-06",
-      "topic": "Bądź Blisko: Pełne treści 7 dni (8 języków), ergonomia nagłówka (logowanie i gwiazdka po prawej)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-06",
-      "topic": "Cykliczna publikacja CCN News na platformie X: Wizytówka Cezarego Rogowskiego z dedykowaną grafiką tematyczną (#115)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-06",
-      "topic": "Cykliczna publikacja CCN News na platformie X: THE JOURNAL — 90-Dniowy Przewodnik Rozwoju Osobistego i Wiary z dedykowaną grafiką tematyczną (#123)",
       "agent": "A"
     }
   ]
