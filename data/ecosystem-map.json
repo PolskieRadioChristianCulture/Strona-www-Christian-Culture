@@ -4407,8 +4407,13 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-07",
+  "lastUpdated": "2026-11-07T07:55:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-07",
+      "topic": "ccMC: Domyślny widok Dziś wg aktualnej godziny (TERAZ) z osią czasu i zegarem na żywo",
+      "agent": "A"
+    },
     {
       "date": "2026-11-07",
       "topic": "ccMC: Biblijny kanon tygodnia (Niedziela 1. dzień, Sobota 7. dzień czerwona, Piątek przygotowanie pomarańczowy)",
