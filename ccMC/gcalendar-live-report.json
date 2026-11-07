@@ -5,9 +5,9 @@
   "account_verified": true,
   "account_email": "nazirczarkes@gmail.com",
   "timezone": "Europe/Warsaw",
-  "fetched_at": "2026-11-07T19:28:57+01:00",
-  "window_start": "2026-11-06T19:28:57+01:00",
-  "window_end": "2026-11-14T19:28:57+01:00",
+  "fetched_at": "2026-11-07T19:52:45+01:00",
+  "window_start": "2026-11-06T19:52:45+01:00",
+  "window_end": "2026-11-14T19:52:45+01:00",
   "calendars_checked": [
     "primary",
     "pl.polish#holiday@group.v.calendar.google.com"
@@ -632,7 +632,7 @@
   ],
   "mission_automation_report": {
     "date": "2026-11-07",
-    "generated_at": "2026-11-07T19:28:57+01:00",
+    "generated_at": "2026-11-07T19:52:45+01:00",
     "rozwazania": {
       "done": false,
       "label": "Rozważania poranne: brak potwierdzenia na dziś"
@@ -654,9 +654,9 @@
     },
     "x_twitter": {
       "done": true,
-      "count": 23,
-      "latestTitle": "WYCHOWANIE W ERZE POPKULTUROWEJ PRESJI: KSZTAŁTOWANIE SUMIENIA I ODWAGI U NASTOLATKÓW W KONFRONTACJI Z MODAMI",
-      "label": "X: 23 postów opublikowanych"
+      "count": 24,
+      "latestTitle": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+      "label": "X: 24 postów opublikowanych"
     },
     "whatsapp": {
       "done": false,
@@ -669,7 +669,7 @@
       "count": 0,
       "label": "Facebook oczekuje na publikację"
     },
-    "spoken_summary": "Rozważania poranne: brak potwierdzenia na dziś, MP3 Biblii Audio (Rdz 16) jest na Pulpicie i na WWW, YouTube: wgrano 14 filmów 4K i Shorts, X: 23 postów opublikowanych, WhatsApp: oczekuje na potwierdzenie wysyłki, Facebook oczekuje na publikację."
+    "spoken_summary": "Rozważania poranne: brak potwierdzenia na dziś, MP3 Biblii Audio (Rdz 16) jest na Pulpicie i na WWW, YouTube: wgrano 14 filmów 4K i Shorts, X: 24 postów opublikowanych, WhatsApp: oczekuje na potwierdzenie wysyłki, Facebook oczekuje na publikację."
   },
   "warnings": []
 }
