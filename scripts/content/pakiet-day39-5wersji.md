@@ -50,7 +50,7 @@ Mojżesz odrzuca oba: służba Bogu wymaga wyjścia na 3 dni drogi i całkowiteg
 5. Chrystus w Centrum — Palec Boży i Nasze Goszen:
 Jezus Chrystus nawiązał do Wj 8:19, mówiąc: „A jeśli Ja palcem Bożym wyganiam demony, to przyszło do was Królestwo Boże” (Łk 11:20). W Chrystusie mamy naszą duchową Ziemię Goszen: wieczne bezpieczeństwo, wolność od potępienia i moc do życia bez kompromisów ze złem.
 
-Kompletna lekcja biblijna z 36 punktami egzegezy, studium porównawczym, 20 pytaniami quizu i autozapisem decyzji:
+Kompletna lekcja biblijna z 40 punktami egzegezy, studium porównawczym, 20 pytaniami quizu i autozapisem decyzji:
 👉 https://polskieradio.cc/akademia/kurscodzienny/dzien-39
 
 Błogosławionej niedzieli w cieniu zwycięskiego Zbawiciela! 🕊️
@@ -66,26 +66,24 @@ WERSJA 4: SCENARIUSZ WIDEO (Christian Culture TV / Studio Dobrego Słowa)
 ====================================================================
 
 [OPRAWA GRAFICZNA & MUZYCZNA]
-Eleganckie studio Christian Culture TV w głębokiej czerni i szlachetnym złocie. Na ekranie głównym grafika 16:9: przerażeni czarownicy egipscy na pałacowym tarasie upuszczający laski i zwoje, wskazujący palcem w górę w geście poddania, podczas gdy za ciemną, nękaną plagami doliną Nilu jaśnieje zielona, oświetlona promieniami niebios ziemia Goszen. Tytuł: DZIEŃ 39 — TO JEST PALEC BOŻY!
+Eleganckie studio Christian Culture TV w głębokiej czerni i szlachetnym złocie. Ciepłe światło portretowe. Na ekranie głównym grafika 16:9: nilowe rozlewiska, żaby, załamani czarownicy upuszczający laski i kraina Goszen opromieniona Bożym światłem pokoju. Tytuł: DZIEŃ 39 — TO JEST PALEC BOŻY.
 
-[INTRO: ESKALACJA BITWY O DUSZĘ NARODU]
-Noemi: Dzień dobry! Witamy państwa w trzydziestym dziewiątym dniu programu „Z Biblią za Pan Brat” na antenie Christian Culture TV. Dziś otwieramy ósmy rozdział Księgi Wyjścia — rozdział, w którym pękają ostatnie złudzenia pogańskiego Egiptu!
-Sara: Witamy serdecznie! Wczoraj widzieliśmy krew w Nilu. Dziś oglądamy trzy kolejne plagi: żaby, wszy i chmary jadowitych much. Ale w tym rozdziale dzieją się dwie rzeczy fundamentalne, które zmieniają bieg całej historii: po pierwsze, kapitulacja egipskich czarowników, a po drugie — cudowne rozróżnienie ziemi Goszen!
+[INTRO: KAPITULACJA OKULTYZMU EGIPSKIEGO]
+Noemi: Dzień dobry! Witamy państwa w trzydziestym dziewiątym dniu programu „Z Biblią za Pan Brat” na antenie Christian Culture TV. Wkraczamy w ósmy rozdział Księgi Wyjścia — rozdział, w którym załamują się egipscy czarownicy!
+Sara: Witamy bardzo serdecznie! Spójrzmy na ten niezwykły przełom: po sądzie nad Nilem Bóg uderza plagą żab i wszy. I właśnie przy trzeciej pladze magowie faraona, którzy dotąd chełpili się swymi tajemnymi sztukami, ponoszą całkowitą klęskę!
+Noemi: Rzucają swoje zaklęcia, próbują powołać życie z prochu ziemi, ale nie mogą! Wtedy stają przed tronem i z przerażeniem wyznają: „To jest palec Boży!”. Szatan potrafi imitować, ale nie potrafi stworzyć ani jednej żywej komórki!
 
-[ANALIZA PROBLEMOWA: KAPITULACJA MAGII I ROZRÓŻNIENIE GOSZEN]
-Noemi: Zobaczmy najpierw plagę żab. Żaba była w Egipcie czczona jako bogini Heket — bóstwo płodności. I nagle ten bożek wdziera się wszędzie: do sypialni, pod kołdry, do pieców z chlebem! Bóg demaskuje fałszywych bogów: to, co ludzie ubóstwiają poza Stwórcą, staje się dla nich źródłem obrzydzenia i udręki!
-Sara: A potem przychodzi trzecia plaga — proch zamieniony we wszy. Czarownicy próbują to powtórzyć swymi zaklęciami, ale ponoszą totalną klęskę! I to właśnie oni — elita okultystyczna imperium — stają przed faraonem i mówią słowa, które przeszły do historii: „To jest palec Boży!”. Pogańscy magowie uznali wyższość Boga JAHWE, podczas gdy faraon nadal tkwił w zatwardziałości!
-Noemi: A przy czwartej pladze Bóg mówi: „Uczynię rozróżnienie dla ziemi Goszen!”. Cały Egipt tonie w rojach much i zniszczeniu, a w Goszen — tam, gdzie mieszka lud przymierza — nie ma ani jednej muchy! To jest obraz Bożej ochrony nad tymi, którzy należą do Niego!
+[ANALIZA PROBLEMOWA: ZIEMIA GOSZEN I ZNAK ROZDZIELENIA]
+Sara: A potem następuje czwarta plaga — zjadliwe roje much i gzów niszczące cały Egipt. I tutaj po raz pierwszy Bóg ogłasza coś niezwykłego: oddzielenie ziemi Goszen!
+Noemi: Dokładnie tak! Bóg używa hebrajskiego słowa pedut — wykupienie, rozgraniczenie przymierza. W całym Egipcie panuje dewastacja i rozpacz, a w krainie Goszen — cisza, pokój i Boża ochrona!
+Sara: Widząc to, faraon próbuje targować się z Mojżeszem. Rzuca dwa kompromisy: „złóżcie ofiarę w tej ziemi” oraz „tylko nie odchodźcie za daleko”. Jakże często wróg próbuje zaoferować wierzącym taką połowiczną, ugodową religijność!
+Noemi: Ale Mojżesz odpowiada zdecydowanie: nie ma mowy! Musimy odejść na trzy dni drogi na pustynię! Prawdziwe uwielbienie Boga wymaga radykalnego zerwania z niewolą grzechu.
 
 [CHRYSTUS W CENTRUM: PALEC BOŻY I NASZE SCHRONIENIE]
-Sara: I pomyślmy, jak to wspaniale wypełnia się w Jezusie Chrystusie! W Ewangelii Łukasza 11:20 Jezus mówi: „A jeśli Ja palcem Bożym wyganiam demony, to przyszło do was Królestwo Boże!”. Palec Boży, który w Egipcie obnażył czarowników, w Chrystusie kruszy wszelkie jarzmo grzechu i szatana!
-Noemi: A Krzyż Chrystusa jest naszą Ziemią Goszen! W Nim jesteśmy bezpieczni przed sądem, w Nim mamy pokój, którego świat dać nie może. Dlatego Mojżesz nie zgodził się na kompromisy faraona: „złóżcie ofiarę w tej ziemi” czy „nie idźcie za daleko”. Z Jezusem idziemy na sto procent, bez kompromisów!
+Sara: W Nowym Testamencie Pan Jezus Chrystus powraca do tego obrazu, mówiąc: „Jeśli Ja palcem Bożym wyganiam demony, to przyszło do was Królestwo Boże!”.
+Noemi: Krzyż Chrystusa jest naszą Ziemią Goszen! W Jego ranach jesteśmy wykupieni, wolni i bezpieczni przed potępieniem tego świata. Nie zgadzajmy się na żadne kompromisy ze starym życiem!
 
-[SŁOWO ROZKAZU & ZADANIE TAKTYCZNE]
-Sara: Nasze hasło na dziś: „Wtedy czarownicy powiedzieli do faraona: To jest palec Boży!” (Wj 8:19).
-Noemi: Otwórzcie dziś ósmy rozdział na polskieradio.cc/akademia. Zbadajcie swoje serce: czy nie odkładacie upamiętania na „jutro” jak faraon? I czy nie idziecie na kompromisy ze światem? Odpocznijcie w Bożej Ziemi Goszen!
-
-[MODLITWA BOJOWA]
+[MODLITWA KOŃCOWA]
 Noemi i Sara razem: „Wszechmogący Boże, dziękujemy Ci za Twoją suwerenną moc, przed którą milkną moce ciemności. Dziękujemy za Jezusa Chrystusa, który palcem Bożym uwolnił nas z niewoli grzechu i uczynił nas mieszkańcami Ziemi Goszen. Zachowaj nas przed kompromisami tego świata i napełnij nas Twoim świętym pokojem. Amen!”
 
 [OUTRO]
