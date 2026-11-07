@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "pokonac-goliata",
+      "title": "Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo",
+      "url": "https://polskieradio.cc/pokonac-goliata",
+      "type": "book",
+      "image": "art-pokonac-goliata.jpg",
+      "publishedAt": "2026-11-07T15:05:09.719Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada",
+      "title": "Telefon milczy od tygodni: jak zauważyć samotnego sąsiada?",
+      "url": "https://polskieradio.cc/news/telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada",
+      "type": "news",
+      "image": "art-telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada.jpg",
+      "publishedAt": "2026-11-07T14:38:59.117Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dziesiec-przykazan-bozych-biblia-jakub-wujek-bjw-dekalog",
       "title": "Werset Dnia: „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8, UBG)",
       "url": "https://polskieradio.cc/prawo/dziesiec-przykazan-bozych-biblia-jakub-wujek-bjw-dekalog",

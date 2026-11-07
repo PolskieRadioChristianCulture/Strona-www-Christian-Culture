@@ -754,6 +754,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '✝️ DEKLARACJA REDAKCYJNA CC';
       callToAction = '👉 Czytaj analizę biblijną:\n';
       addTags('#CCNNews', '#ChristianCulture', '#Swiatlosc', '#Prawda');
+    } else if (tLower.includes('telefon milczy') || tLower.includes('samotn') || tLower.includes('sąsiad') || tLower.includes('sasiad')) {
+      subHeader = '🤝 SPOŁECZEŃSTWO & EMPATIA | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#CCNNews', '#Samotnosc', '#PomocSasiedzka', '#CezaryRogowski', '#Prawda');
     } else if (tLower.includes('życzliwość') || tLower.includes('zyczliwosc') || (item.url || '').includes('zyczliwosc') || tLower.includes('pomaganiu')) {
       subHeader = '💡 eM • MOTYWACJA & ETYKA | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
@@ -1010,10 +1014,12 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   const distModule = getDistanceSinceType('module');
   const distVod = getDistanceSinceType('vod');
   const distCourse = getDistanceSinceType('course');
+  const distNews = getDistanceSinceType('news');
 
   // Sprawdź priorytety filarów ekosystemu w kolejności najdłuższego braku publikacji
   // Dyrektywa Dowódcy: Werset dnia co ~1.5 - 2h (co 3-4 posty), książki, muzyka, profile regularnie
   const priorityTypes = [];
+  if (distNews >= 5) priorityTypes.push({ type: 'news', dist: distNews });
   if (distCourse >= 6) priorityTypes.push({ type: 'course', dist: distCourse });
   if (distBook >= 6) priorityTypes.push({ type: 'book', dist: distBook });
   if (distVerse >= 4) priorityTypes.push({ type: 'verse', dist: distVerse });
