@@ -3059,22 +3059,31 @@ export function speakBrowserNaturalVoice(text, onEnded = null) {
 export function splitBriefingIntoSentences(text = '') {
   const raw = String(text || '').trim();
   if (!raw) return [];
-  const parts = raw.match(/[^.!?]+[.!?]+(?:\s+|$)|[^.!?]+$/g) || [raw];
+  // Podział na zdania po kropce, wykrzykniku lub znaku zapytania ze spacją
+  const rawSentences = raw.split(/(?<=[.!?])\s+/);
   const chunks = [];
-  let cur = '';
-  for (const p of parts) {
-    const s = p.trim();
-    if (!s) continue;
-    // Pierwszy fragment krótki (<= 145 zn.), by głos startował w ~2s; kolejne do 370 zn. (maks. 3 żądania na cały raport)
-    const maxLen = chunks.length === 0 ? 145 : 370;
-    if (!cur || (cur + ' ' + s).length <= maxLen) {
-      cur = cur ? `${cur} ${s}` : s;
-    } else {
-      chunks.push(cur);
-      cur = s;
+  for (const s of rawSentences) {
+    const trimmed = s.trim();
+    if (!trimmed) continue;
+    if (trimmed.length <= 130) {
+      chunks.push(trimmed);
+      continue;
     }
+    // Długie zdanie dzielimy na przecinkach / średnikach / pauzach (z zachowaniem godzin np. 17:00)
+    const clauses = trimmed.split(/(?<=[,;])\s+|(?<=\s[—–]\s)/);
+    let buf = '';
+    for (const cl of clauses) {
+      const c = cl.trim();
+      if (!c) continue;
+      if ((buf + ' ' + c).trim().length <= 130 || !buf) {
+        buf = (buf + ' ' + c).trim();
+      } else {
+        chunks.push(buf);
+        buf = c;
+      }
+    }
+    if (buf) chunks.push(buf);
   }
-  if (cur) chunks.push(cur);
   return chunks;
 }
 
@@ -3223,11 +3232,36 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
     }
   }
 
-  // 2. Strumieniowe odtwarzanie zdanie po zdaniu (pierwsze zdanie startuje w ~2s, kolejne pobierają się równolegle w tle)
+  // 1b. Jeśli buforowanie jest w trakcie (in-flight), poczekaj do 4s na ukończenie zamiast dublować żądania
+  if (
+    typeof window !== 'undefined' &&
+    window._mcPrefetchInFlight &&
+    (window._mcPrefetchInFlight.quarterHm === warsawHm || isQuarterBriefing)
+  ) {
+    const inflight = window._mcPrefetchInFlight;
+    Promise.race([inflight.promise, new Promise((r) => setTimeout(() => r(null), 4000))])
+      .then((prefetched) => {
+        if (prefetched && Array.isArray(prefetched.audioParts) && prefetched.audioParts.length > 0) {
+          playGeminiPcmSequence(prefetched.audioParts, prefetched.sampleRate || 24000, text);
+        } else {
+          startStreamingBriefingPlayback(text);
+        }
+      })
+      .catch(() => {
+        startStreamingBriefingPlayback(text);
+      });
+    return true;
+  }
+
+  // 2. Strumieniowe odtwarzanie zdanie po zdaniu (pierwsze zdanie startuje w ~1s, kolejne pobierają się równolegle w tle)
+  return startStreamingBriefingPlayback(text);
+}
+
+function startStreamingBriefingPlayback(text) {
   if (typeof window !== 'undefined' && typeof fetch === 'function') {
     const sentences = splitBriefingIntoSentences(text);
     const partPromises = sentences.map((s) => fetchSentenceTtsAudio(s));
-    const firstTimeout = new Promise((resolve) => setTimeout(() => resolve(null), 9000));
+    const firstTimeout = new Promise((resolve) => setTimeout(() => resolve(null), 12000));
 
     Promise.race([partPromises[0], firstTimeout])
       .then(async (firstAudio) => {
@@ -3240,10 +3274,10 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
             hideVoiceAssistantAvatar();
             return;
           }
-          Promise.race([partPromises[i], new Promise((r) => setTimeout(() => r(null), 10000))])
-            .then((audioB64) => {
-              if (audioB64) {
-                playGeminiPcmBase64(audioB64, 24000, () => playFromIndex(i + 1));
+          Promise.race([partPromises[i], new Promise((r) => setTimeout(() => r(null), 25000))])
+            .then((audioPart) => {
+              if (audioPart) {
+                playGeminiPcmBase64(audioPart, 24000, () => playFromIndex(i + 1));
               } else {
                 speakBrowserNaturalVoice(sentences.slice(i).join(' '));
               }
@@ -3261,6 +3295,7 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
   }
 
   return speakBrowserNaturalVoice(text) || true;
+}
 }
 
 export function buildQuarterHourVoiceBriefing(now = new Date()) {
