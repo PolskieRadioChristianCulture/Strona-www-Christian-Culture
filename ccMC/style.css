@@ -2301,12 +2301,14 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
 }
 
-/* Nakładka Awatara Asystentki na czas odtwarzania powiadomienia głosowego (dymek wyłaniający się zza zdjęcia + pismo maszynowe) */
+/* Nakładka Awatara Asystentki na czas odtwarzania powiadomienia głosowego (prawy górny róg, lekko poniżej napisu CHRISTIAN CULTURE LIVE, dymek wyłaniający się zza zdjęcia + pismo maszynowe) */
 .mc-voice-assistant-overlay {
   position: fixed;
-  left: 50%;
-  bottom: 108px;
-  transform: translate(-50%, 14px);
+  top: clamp(96px, 12.5vh, 138px);
+  right: clamp(18px, 2.6vw, 42px);
+  left: auto;
+  bottom: auto;
+  transform: translateY(-10px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -2317,14 +2319,14 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .mc-voice-assistant-overlay.is-speaking {
   opacity: 1 !important;
   visibility: visible !important;
-  transform: translate(-50%, 0);
+  transform: translateY(0);
 }
 
 .mc-voice-assistant-stage {
   display: inline-flex;
   align-items: center;
   position: relative;
-  max-width: min(740px, 94vw);
+  max-width: min(520px, 94vw);
 }
 
 .mc-voice-assistant-avatar-wrap {
@@ -2389,8 +2391,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   display: flex;
   flex-direction: column;
   gap: 5px;
+  width: clamp(270px, 24vw, 370px);
   min-width: 240px;
-  max-width: min(620px, calc(94vw - 72px));
+  max-width: min(370px, calc(94vw - 84px));
   transform-origin: left center;
   transform: translateX(-62px) scaleX(0.32);
   opacity: 0;
