@@ -4,13 +4,19 @@
  * Standard: WCAG 2.2 AA, Champagne Gold (#C4A35A), Orange CTA (#FF7A00), 44x44px
  * ============================================================================ */
 
-:root {
-  --mc-bg: #0b131e;
-  --mc-surface: #111d2e;
-  --mc-surface-elevated: #17263c;
-  --mc-border: rgba(196, 163, 90, 0.24);
+:root,
+[data-theme="dark"] {
+  --mc-bg: #000000;
+  --mc-surface: #0a0e17;
+  --mc-surface-elevated: #111827;
+  --mc-surface-card: #0d131f;
+  --mc-border: rgba(196, 163, 90, 0.28);
+  --mc-border-subtle: rgba(255, 255, 255, 0.08);
   --mc-text: #f8fafc;
+  --mc-text-contrast: #ffffff;
   --mc-muted: #94a3b8;
+  --mc-input-bg: #050810;
+  --mc-input-border: rgba(196, 163, 90, 0.35);
   --mc-gold: #C4A35A;
   --mc-gold-hover: #D4B578;
   --mc-gold-light: #E2CC9A;
@@ -21,6 +27,31 @@
   --status-in-progress: #D97706;
   --status-done: #15803D;
   --status-not-done: #B91C1C;
+  --touch-min: 44px;
+}
+
+[data-theme="light"] {
+  --mc-bg: #ffffff;
+  --mc-surface: #f8fafc;
+  --mc-surface-elevated: #ffffff;
+  --mc-surface-card: #ffffff;
+  --mc-border: rgba(196, 163, 90, 0.40);
+  --mc-border-subtle: rgba(15, 23, 42, 0.12);
+  --mc-text: #0f172a;
+  --mc-text-contrast: #000000;
+  --mc-muted: #475569;
+  --mc-input-bg: #ffffff;
+  --mc-input-border: rgba(196, 163, 90, 0.45);
+  --mc-gold: #9E7D32;
+  --mc-gold-hover: #B8923C;
+  --mc-gold-light: #C4A35A;
+  --mc-btn-orange: #FF7A00;
+  --mc-btn-orange-hover: #FF8C33;
+  --mc-btn-orange-active: #E66A00;
+  --status-todo: #1d4ed8;
+  --status-in-progress: #b45309;
+  --status-done: #15803d;
+  --status-not-done: #b91c1c;
   --touch-min: 44px;
 }
 
@@ -62,7 +93,8 @@ button, [role="button"], a.mc-btn {
 
 button:hover {
   border-color: var(--mc-gold-hover);
-  background: #1f324d;
+  background: var(--mc-surface-elevated);
+  filter: brightness(1.08);
 }
 
 button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -184,7 +216,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 .mc-sidebar {
-  background: #080f18;
+  background: var(--mc-surface);
   border-right: 1px solid var(--mc-border);
   padding: 20px 16px;
   display: flex;
@@ -338,8 +370,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 .mc-day-col {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--mc-surface-card);
+  border: 1px solid var(--mc-border-subtle);
   border-radius: 12px;
   padding: 10px;
   min-height: 320px;
@@ -478,7 +510,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   bottom: 0;
   left: 0;
   right: 0;
-  background: #080f18;
+  background: var(--mc-surface);
   border-top: 1px solid var(--mc-border);
   padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
   z-index: 80;
@@ -515,4 +547,156 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
     transition: none !important;
     animation: none !important;
   }
+}
+
+/* ============================================================================
+ * Settings Panel & Theme Switcher & CC Mission Routines (/automation)
+ * ============================================================================ */
+.mc-settings-panel {
+  display: grid;
+  gap: 24px;
+  max-width: 960px;
+}
+
+.mc-settings-card {
+  background: var(--mc-surface-card);
+  border: 1px solid var(--mc-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.mc-settings-card h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--mc-gold-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+[data-theme="light"] .mc-settings-card h3 {
+  color: var(--mc-gold);
+}
+
+.mc-settings-card p {
+  margin: 0;
+  color: var(--mc-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.mc-theme-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.mc-theme-card {
+  border: 2px solid var(--mc-border);
+  border-radius: 14px;
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--mc-surface-elevated);
+  text-align: left;
+}
+
+.mc-theme-card:hover {
+  border-color: var(--mc-gold);
+  transform: translateY(-2px);
+}
+
+.mc-theme-card.is-active {
+  border-color: var(--mc-gold);
+  outline: 2px solid var(--mc-gold);
+  background: rgba(196, 163, 90, 0.12);
+}
+
+.mc-theme-preview-box {
+  height: 54px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.mc-theme-preview-dark {
+  background: #000000;
+  color: #f8fafc;
+  border-color: rgba(196, 163, 90, 0.4);
+}
+
+.mc-theme-preview-light {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: rgba(196, 163, 90, 0.5);
+}
+
+.mc-routines-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.mc-routine-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--mc-surface-elevated);
+  border: 1px solid var(--mc-border-subtle);
+}
+
+.mc-routine-info {
+  display: grid;
+  gap: 4px;
+}
+
+.mc-routine-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--mc-text-contrast);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mc-routine-time {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(196, 163, 90, 0.22);
+  color: var(--mc-gold-light);
+}
+
+[data-theme="light"] .mc-routine-time {
+  background: rgba(158, 125, 50, 0.18);
+  color: var(--mc-gold);
+}
+
+.mc-routine-desc {
+  font-size: 12px;
+  color: var(--mc-muted);
+}
+
+.mc-spin {
+  animation: mcSpin 1s linear infinite;
+}
+
+@keyframes mcSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

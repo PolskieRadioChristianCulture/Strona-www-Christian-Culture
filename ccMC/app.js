@@ -25,6 +25,21 @@ const AREA_COLORS = {
 
 const PRIO_LABELS = { 1: 'P0', 2: 'P1', 3: 'P2', 4: 'P3' };
 
+const CANONICAL_MISSION_ROUTINES = [
+  { id: 'rt_dzj_morning', time: '06:00', freq: 'Codziennie', agent: 'Joshua', title: 'Rozważania DZJ & Strony WWW', area: 'mission', desc: 'Publikacja porannego rozważania "Dobrze, że jesteś" (Firebase/WWW) + SMS do Bartka' },
+  { id: 'rt_kc_daily', time: '06:30', freq: 'Codziennie', agent: 'Antigravity', title: 'Akademia Biblijna Kurs Codzienny', area: 'mission', desc: 'Publikacja lekcji Kursu Codziennego, aktualizacja 2 przycisków Hero CTA i Clean URLs' },
+  { id: 'rt_nazir_whatsapp', time: '07:00', freq: 'Codziennie', agent: 'Joshua', title: 'Grupa Nazira WhatsApp (3 wiadomości)', area: 'social', desc: 'Priorytetowa wysyłka 3 wersji rozważania: Poranna TTS, WWW na cały dzień, Wieczorna SMS' },
+  { id: 'rt_wa_am_roundrobin', time: '10:00', freq: 'Codziennie', agent: 'Joshua', title: 'WhatsApp Dystrybucja poranna (FIFO)', area: 'social', desc: 'Wysyłka treści WWW rozważania co godzinę do 2 grup rotacji z zabezpieczeniem daty' },
+  { id: 'rt_biblia_audio_mastering', time: '12:00', freq: 'Codziennie', agent: 'CCStudio', title: 'Biblia Audio DAW Mastering (-16 LUFS)', area: 'radio', desc: 'Automatyczny mastering i publikacja odcinków Biblii Audio na polskieradio.cc/biblia-audio' },
+  { id: 'rt_sds_video_factory', time: '14:00', freq: 'Codziennie', agent: 'Visual Director', title: 'Fabryka Wideo 4K & Shorts YouTube SDS', area: 'media', desc: 'Reżyseria wizualna, miniatury 16:9, formaty 9:16 i montaż wykładów Apokalipsy' },
+  { id: 'rt_wa_pm_roundrobin', time: '16:00', freq: 'Codziennie', agent: 'Joshua', title: 'WhatsApp Dystrybucja popołudniowa (FIFO)', area: 'social', desc: 'Popołudniowa runda dystrybucji rozważań WWW na grupy społeczności chrześcijańskiej' },
+  { id: 'rt_sms_evening', time: '19:00', freq: 'Codziennie', agent: 'Joshua / Bartek', title: 'Wieczorna subskrypcja SMS', area: 'social', desc: 'Wieczorna wysyłka osobistej subskrypcji SMS z błogosławieństwem na zakończenie dnia' },
+  { id: 'rt_smcc_guard_audit', time: '21:00', freq: 'Codziennie', agent: 'Strażnik SMCC', title: 'Audyt Jakości Kodu Zero-QA & Raport JOMA', area: 'guardian', desc: 'Pancerny audyt 10 reguł, testy regresji, touch targets 44px i aktualizacja pamięci JOMA' },
+  { id: 'rt_sabbath_eve', time: 'Pt 17:30', freq: 'Co piątek', agent: 'Antigravity', title: 'Rozpoczęcie Sabatu & Audycja „Bądź Blisko”', area: 'radio', desc: 'Uroczyste powitanie Sabatu, playlista chwały i transmisja audycji modlitewnej' },
+  { id: 'rt_sabbath_live', time: 'Sob 10:00', freq: 'Co sobota', agent: 'Joshua', title: 'Nabożeństwo Sabatowe LIVE OBS Studio', area: 'tech', desc: 'Emisja sygnału LIVE stream-scene.html dla retransmisji radiowej i kanałów wideo' },
+  { id: 'rt_weekly_briefing', time: 'Pon 09:00', freq: 'Co poniedziałek', agent: 'Noemi @077', title: 'Strategiczna Odprawa Tygodniowa Federacji @777', area: 'oa', desc: 'Koordynacja 21 kolegiów agentów, weryfikacja celów misyjnych i bilans tygodnia' },
+];
+
 const state = {
   user: null,
   csrfToken: '',
@@ -45,7 +60,19 @@ const state = {
   error: '',
   notice: '',
   mobileSidebarOpen: false,
+  theme: localStorage.getItem('cc_mc_theme') || 'dark',
+  isConnecting: false,
 };
+
+export function applyTheme(theme) {
+  state.theme = theme === 'light' ? 'light' : 'dark';
+  try {
+    localStorage.setItem('cc_mc_theme', state.theme);
+  } catch {}
+  document.documentElement.setAttribute('data-theme', state.theme);
+  document.body.setAttribute('data-theme', state.theme);
+}
+applyTheme(state.theme);
 
 async function apiRequest(path, options = {}) {
   const headers = {
@@ -167,6 +194,8 @@ async function tryLuminaBridgeSession() {
 }
 
 async function loadInitialSession() {
+  applyTheme(state.theme);
+
   try {
     const me = await apiRequest('/me');
     if (me.authenticated && me.user) {
@@ -180,9 +209,16 @@ async function loadInitialSession() {
     if (e.status === 403) state.error = e.message;
   }
 
+  // Jeśli użytkownik był zalogowany w portalu LUMINA, pokaż elegancki stan weryfikacji
+  const hasLuminaStorage = !!localStorage.getItem('lumina_current_user') || localStorage.getItem('lumina_user_session') === 'active';
+  if (hasLuminaStorage && !state.user) {
+    state.isConnecting = true;
+    render();
+  }
+
   // Automatyczne rozpoznanie i mostkowanie aktywnej sesji Google LUMINA
   try {
-    const luminaDb = await import('/lumina-db.js?v=20261107_l1').catch(() => null);
+    const luminaDb = await import('/lumina-db.js?v=20261107_v3').catch(() => null);
     if (luminaDb) {
       await luminaDb.ensureDbReady().catch(() => null);
       if (typeof luminaDb.onAuthChange === 'function') {
@@ -192,7 +228,7 @@ async function loadInitialSession() {
           }
         });
       }
-      const authUser = await luminaDb.waitForAuthReady(3000).catch(() => null);
+      const authUser = await luminaDb.waitForAuthReady(3500).catch(() => null);
       if (authUser && typeof authUser.getIdToken === 'function' && !state.user) {
         const entered = await exchangeTokenAndEnter(authUser);
         if (entered) return;
@@ -202,6 +238,7 @@ async function loadInitialSession() {
     console.warn('Bridge init note:', bridgeErr);
   }
 
+  state.isConnecting = false;
   render();
 }
 
@@ -363,7 +400,97 @@ function renderEventTileHtml(ev) {
   `;
 }
 
+function renderSettingsHtml() {
+  const isLight = state.theme === 'light';
+  return `
+    <div class="mc-settings-panel">
+      <div class="mc-settings-card">
+        <h3>🎨 Wygląd i Tryb Aplikacji (Motyw)</h3>
+        <p>Wybierz preferowany tryb graficzny. Ustawienie jest zapisywane w Twojej przeglądarce i stosowane natychmiastowo.</p>
+        
+        <div class="mc-theme-selector-grid">
+          <div class="mc-theme-card ${isLight ? 'is-active' : ''}" id="btnThemeLight" role="button" tabindex="0" aria-label="Wybierz tryb jasny (tło białe)">
+            <div class="mc-theme-preview-box mc-theme-preview-light">
+              <span>☀️ Tło Białe (#FFFFFF)</span>
+            </div>
+            <div>
+              <strong style="color:var(--mc-text-contrast);display:block;margin-bottom:4px;">Tryb Jasny (Biały)</strong>
+              <small style="color:var(--mc-muted);">Czysto białe tło (#FFFFFF), ciemna typografia, pełny kontrast WCAG 2.2 AA.</small>
+            </div>
+            ${isLight ? '<span style="color:#15803D;font-weight:700;font-size:12px;">✓ Aktywny motyw</span>' : '<button type="button" class="mc-btn-gold" style="width:100%;margin-top:6px;">Ustaw tryb jasny</button>'}
+          </div>
+
+          <div class="mc-theme-card ${!isLight ? 'is-active' : ''}" id="btnThemeDark" role="button" tabindex="0" aria-label="Wybierz tryb ciemny (tło czarne)">
+            <div class="mc-theme-preview-box mc-theme-preview-dark">
+              <span>🌙 Tło Czarne (#000000)</span>
+            </div>
+            <div>
+              <strong style="color:var(--mc-text-contrast);display:block;margin-bottom:4px;">Tryb Ciemny (Czarny)</strong>
+              <small style="color:var(--mc-muted);">Czysto czarne tło (#000000), aksamitny minimalizm, Champagne Gold (#C4A35A).</small>
+            </div>
+            ${!isLight ? '<span style="color:#C4A35A;font-weight:700;font-size:12px;">✓ Aktywny motyw</span>' : '<button type="button" class="mc-btn-gold" style="width:100%;margin-top:6px;">Ustaw tryb ciemny</button>'}
+          </div>
+        </div>
+      </div>
+
+      <div class="mc-settings-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+          <div>
+            <h3>⚡ Zaplanowane Rutyny Misji (/automation)</h3>
+            <p>Zarejestrowane w chmurze Cloudflare D1 kanoniczne procesy misyjne Christian Culture @777 / @OA.</p>
+          </div>
+          <button type="button" id="btnSyncRoutines" class="mc-btn-cta">
+            ⚡ Zsynchronizuj Rutyny w Kalendarzu
+          </button>
+        </div>
+
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(16,185,129,0.18);border:1px solid #10b981;color:#10b981;font-weight:700;font-size:13px;width:fit-content;">
+          <span>●</span> 12 aktywnych rutyn produkcyjnych (/automation)
+        </div>
+
+        <div class="mc-routines-grid">
+          ${CANONICAL_MISSION_ROUTINES.map((r) => `
+            <div class="mc-routine-row">
+              <div class="mc-routine-info">
+                <div class="mc-routine-title">
+                  <span class="mc-routine-time">${escapeHtml(r.time)}</span>
+                  <span>${escapeHtml(r.title)}</span>
+                </div>
+                <div class="mc-routine-desc">${escapeHtml(r.desc)}</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="font-size:12px;color:var(--mc-muted);">Agent: <strong>${escapeHtml(r.agent)}</strong></span>
+                <span style="font-size:11px;padding:2px 8px;border-radius:6px;background:${AREA_COLORS[r.area] || '#60a5fa'}22;color:${AREA_COLORS[r.area] || '#60a5fa'};font-weight:700;">${escapeHtml(r.area.toUpperCase())}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="mc-settings-card">
+        <h3>🔔 Powiadomienia Web Push & Godziny Ciszy</h3>
+        <p>Kalendarz Misji respektuje godziny ciszy CC LIFE (23:00 – 07:00), aby chronić nocny spoczynek.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <button type="button" id="btnTestPush" class="mc-btn-gold">Przetestuj Powiadomienie Push</button>
+          <span style="font-size:13px;color:var(--mc-muted);">Status ciszy nocnej: <strong>23:00 – 07:00</strong></span>
+        </div>
+      </div>
+
+      <div class="mc-settings-card">
+        <h3>👤 Konto Administratora & Bezpieczeństwo</h3>
+        <p>Zalogowano jako: <strong>${escapeHtml(state.user.email)}</strong></p>
+        <p>Uprawnienia: <strong>Administrator / Właściciel Misji (@777 / @OA)</strong></p>
+        <p>Połączenie: <strong>Google SSO LUMINA (Firebase Auth Token Exchange)</strong></p>
+      </div>
+    </div>
+  `;
+}
+
 function renderBoardContent(filtered) {
+  if (state.view === 'settings') {
+    return renderSettingsHtml();
+  }
+
   if (state.view === 'kanban') {
     return `
       <div class="mc-kanban-grid" role="region" aria-label="Tablica Kanban 4 statusów">
@@ -595,10 +722,13 @@ function attachLoginHandler() {
     e.stopPropagation();
     btnLogin.disabled = true;
     const oldHtml = btnLogin.innerHTML;
-    btnLogin.innerHTML = `<span>Trwa logowanie…</span>`;
+    btnLogin.innerHTML = `<span style="display:inline-flex;align-items:center;gap:8px;"><svg class="mc-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10"></path></svg>Trwa logowanie…</span>`;
     try {
-      const luminaDb = await import('/lumina-db.js?v=20261107_l2');
+      const luminaDb = await import('/lumina-db.js?v=20261107_v3');
       const res = await luminaDb.loginWithGoogle();
+      if (res && res.isRedirecting) {
+        return;
+      }
       if (res && res.user && typeof res.user.getIdToken === 'function') {
         const entered = await exchangeTokenAndEnter(res.user);
         if (entered) return;
@@ -627,6 +757,24 @@ export function render() {
   if (!root) return;
 
   if (!state.user) {
+    if (state.isConnecting) {
+      root.innerHTML = `
+        <main class="mc-login-screen">
+          <div class="mc-login-card">
+            <h1 class="mc-login-title">Christian Culture Mission Calendar</h1>
+            <div style="display:flex;align-items:center;justify-content:center;gap:12px;color:var(--mc-gold);font-weight:600;font-size:15px;margin:20px 0;">
+              <svg class="mc-spin" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                <path d="M12 2a10 10 0 0 1 10 10"></path>
+              </svg>
+              <span>Weryfikacja aktywnej sesji Google LUMINA…</span>
+            </div>
+          </div>
+        </main>
+      `;
+      return;
+    }
+
     root.innerHTML = `
       <main class="mc-login-screen">
         <div class="mc-login-card">
@@ -675,6 +823,7 @@ export function render() {
             ['agenda', '☰ Agenda chronologiczna'],
             ['kanban', '◫ Kanban (4 statusy)'],
             ['agents', '⚡ Agenci @777 & Audyt'],
+            ['settings', '⚙ Ustawienia'],
           ]
             .map(
               ([v, label]) =>
@@ -698,6 +847,9 @@ export function render() {
         </div>
 
         <div style="margin-top:auto;display:grid;gap:8px;">
+          <button type="button" id="btnQuickThemeToggle" class="mc-nav-btn" style="justify-content:center;background:var(--mc-surface-elevated);border:1px solid var(--mc-border);">
+            ${state.theme === 'light' ? '🌙 Tryb ciemny (czarny)' : '☀️ Tryb jasny (biały)'}
+          </button>
           <button type="button" id="btnLogout">Wyloguj</button>
         </div>
       </aside>
@@ -777,6 +929,7 @@ export function render() {
         <button type="button" data-view="week">Kalendarz</button>
         <button type="button" data-view="kanban">Zadania</button>
         <button type="button" data-view="agents">Agenci</button>
+        <button type="button" data-view="settings">Ustawienia</button>
       </nav>
     </div>
     ${
@@ -1165,6 +1318,73 @@ function bindEvents() {
       }
     };
   }
+
+  // Ustawienia: Zmiana motywu (Biały vs Czarny)
+  const btnThemeLight = document.getElementById('btnThemeLight');
+  if (btnThemeLight) {
+    btnThemeLight.onclick = () => {
+      applyTheme('light');
+      render();
+    };
+  }
+
+  const btnThemeDark = document.getElementById('btnThemeDark');
+  if (btnThemeDark) {
+    btnThemeDark.onclick = () => {
+      applyTheme('dark');
+      render();
+    };
+  }
+
+  const btnQuickThemeToggle = document.getElementById('btnQuickThemeToggle');
+  if (btnQuickThemeToggle) {
+    btnQuickThemeToggle.onclick = () => {
+      applyTheme(state.theme === 'light' ? 'dark' : 'light');
+      render();
+    };
+  }
+
+  // Ustawienia: Synchronizacja rutyn misyjnych (/automation)
+  const btnSyncRoutines = document.getElementById('btnSyncRoutines');
+  if (btnSyncRoutines) {
+    btnSyncRoutines.onclick = async () => {
+      btnSyncRoutines.disabled = true;
+      btnSyncRoutines.textContent = 'Trwa synchronizacja…';
+      try {
+        const res = await apiRequest('/routines/seed', { method: 'POST' });
+        await refreshData();
+        state.notice = `Pomyślnie zsynchronizowano ${res.count || 12} zaplanowanych rutyn misyjnych (/automation) w kalendarzu!`;
+      } catch (err) {
+        state.error = 'Błąd synchronizacji rutyn: ' + err.message;
+      } finally {
+        render();
+      }
+    };
+  }
+
+  // Ustawienia: Test powiadomienia Push
+  const btnTestPush = document.getElementById('btnTestPush');
+  if (btnTestPush) {
+    btnTestPush.onclick = async () => {
+      try {
+        const res = await apiRequest('/push/test', { method: 'POST', body: JSON.stringify({}) });
+        if (res.suppressedByQuietHours) {
+          state.notice = res.message || 'Cisza nocna 23:00–07:00 — powiadomienie wstrzymane.';
+        } else {
+          state.notice = 'Wysłano testowe powiadomienie Push.';
+        }
+      } catch (err) {
+        state.error = 'Błąd testu Push: ' + err.message;
+      }
+      render();
+    };
+  }
+
+  const btnClearError = document.getElementById('btnClearError');
+  if (btnClearError) btnClearError.onclick = () => { state.error = ''; render(); };
+
+  const btnClearNotice = document.getElementById('btnClearNotice');
+  if (btnClearNotice) btnClearNotice.onclick = () => { state.notice = ''; render(); };
 }
 
 if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
