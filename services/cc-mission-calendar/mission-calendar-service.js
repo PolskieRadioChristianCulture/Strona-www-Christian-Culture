@@ -3369,7 +3369,12 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
         });
       }
 
-      const synthesizeSingleChunk = async (chunkText, startKeyIdx = 0) => {
+      const synthesizeSingleChunk = async (chunkText, idx = 0) => {
+        let textHash = 0;
+        for (let i = 0; i < chunkText.length; i++) {
+          textHash = (textHash * 31 + chunkText.charCodeAt(i)) >>> 0;
+        }
+        const startKeyIdx = (textHash + idx) % apiKeys.length;
         for (let attempt = 0; attempt < apiKeys.length; attempt++) {
           const apiKey = apiKeys[(startKeyIdx + attempt) % apiKeys.length];
           try {
@@ -3413,7 +3418,7 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
       const chunks = [];
       let currentChunk = '';
       for (const s of sentences) {
-        if ((currentChunk + ' ' + s).trim().length <= 210 || !currentChunk) {
+        if ((currentChunk + ' ' + s).trim().length <= 360 || !currentChunk) {
           currentChunk = (currentChunk + ' ' + s).trim();
         } else {
           chunks.push(currentChunk);
@@ -3451,11 +3456,11 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
           finalBase64 = btoa(binOut);
         }
 
-        if (globalThis._ccMcTtsCache.size > 12) {
+        if (globalThis._ccMcTtsCache.size > 24) {
           const oldestKey = globalThis._ccMcTtsCache.keys().next().value;
           if (oldestKey) globalThis._ccMcTtsCache.delete(oldestKey);
         }
-        globalThis._ccMcTtsCache.set(cacheKey, { audioBase64: finalBase64, ts: Date.now() });
+        globalThis._ccMcTtsCache.set(cacheKey, { audioBase64: finalBase64, mimeType: 'audio/pcm;rate=24000', ts: Date.now() });
 
         return json({
           ok: true,
@@ -3468,6 +3473,56 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
           audioBase64: finalBase64,
         });
       }
+
+      // Szybki serwerowy fallback MP3 (350 ms) na wypadek wyczerpania limitu RPM kluczy Gemini
+      try {
+        const mp3Pieces = [];
+        let cur = '';
+        for (const s of sentences) {
+          if ((cur + ' ' + s).trim().length <= 185 || !cur) {
+            cur = (cur + ' ' + s).trim();
+          } else {
+            mp3Pieces.push(cur);
+            cur = s.trim();
+          }
+        }
+        if (cur) mp3Pieces.push(cur);
+        const mp3Buffers = await Promise.all(
+          mp3Pieces.map(async (piece) => {
+            const r = await fetch(
+              `https://translate.google.com/translate_tts?ie=UTF-8&tl=pl&client=tw-ob&q=${encodeURIComponent(piece)}`,
+              { headers: { 'User-Agent': 'Mozilla/5.0' } }
+            );
+            if (!r.ok) return null;
+            const ab = await r.arrayBuffer();
+            return ab.byteLength > 100 ? new Uint8Array(ab) : null;
+          })
+        );
+        if (mp3Buffers.length > 0 && mp3Buffers.every(Boolean)) {
+          const totalLen = mp3Buffers.reduce((acc, b) => acc + b.length, 0);
+          const merged = new Uint8Array(totalLen);
+          let off = 0;
+          for (const b of mp3Buffers) {
+            merged.set(b, off);
+            off += b.length;
+          }
+          let binOut = '';
+          const step = 0x8000;
+          for (let i = 0; i < merged.length; i += step) {
+            binOut += String.fromCharCode.apply(null, merged.subarray(i, i + step));
+          }
+          const mp3Base64 = btoa(binOut);
+          return json({
+            ok: true,
+            mode: 'google_cloud_mp3_fallback',
+            cost: 0,
+            voice: voiceName,
+            text: rawText,
+            mimeType: 'audio/mpeg',
+            audioBase64: mp3Base64,
+          });
+        }
+      } catch {}
 
       return json({
         ok: true,

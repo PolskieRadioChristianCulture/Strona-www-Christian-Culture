@@ -886,7 +886,6 @@ async function loadInitialSession() {
   applyTheme(state.theme);
   mergeGcalEventsIntoState(new Date());
   await loadLiveGcalReport();
-  prefetchQuarterHourVoiceBriefing(getNextQuarterHourDate(new Date())).catch(() => {});
 
   try {
     const me = await apiRequest('/me');
@@ -895,6 +894,7 @@ async function loadInitialSession() {
       state.csrfToken = me.csrfToken || '';
       await refreshData();
       render();
+      prefetchQuarterHourVoiceBriefing(getNextQuarterHourDate(new Date())).catch(() => {});
       return;
     }
   } catch (e) {
@@ -2727,10 +2727,71 @@ export function pcm16Base64ToWavDataUrl(audioBase64, sampleRate = 24000) {
   }
 }
 
-export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = null) {
-  if (typeof window === 'undefined' || !audioBase64) return false;
+export function playGeminiPcmBase64(audioInput, sampleRate = 24000, onEnded = null, explicitMimeType = '') {
+  if (typeof window === 'undefined' || !audioInput) return false;
+  const audioBase64 = typeof audioInput === 'object' ? audioInput.audioBase64 : audioInput;
+  const mimeType = (typeof audioInput === 'object' ? audioInput.mimeType : explicitMimeType) || '';
+  if (!audioBase64) return false;
+
   try {
     const raw = window.atob(audioBase64);
+    const isMp3 =
+      mimeType.includes('mpeg') ||
+      mimeType.includes('mp3') ||
+      raw.startsWith('ID3') ||
+      (raw.length > 2 && raw.charCodeAt(0) === 0xff && (raw.charCodeAt(1) & 0xe0) === 0xe0);
+
+    if (!state.voiceAssistantSpeaking) {
+      showVoiceAssistantAvatar(state.lastSpokenAlertText, 42000);
+    }
+
+    const ctx = getUnlockedAudioContext();
+
+    if (isMp3) {
+      const bytes = new Uint8Array(raw.length);
+      for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+      if (ctx && ctx.state === 'running' && typeof ctx.decodeAudioData === 'function') {
+        ctx
+          .decodeAudioData(bytes.buffer.slice(0))
+          .then((decodedBuf) => {
+            const src = ctx.createBufferSource();
+            src.buffer = decodedBuf;
+            src.connect(ctx.destination);
+            src.onended = () => {
+              if (typeof onEnded === 'function') onEnded();
+              else hideVoiceAssistantAvatar();
+            };
+            src.start();
+          })
+          .catch(() => {
+            if (typeof window.Audio === 'function') {
+              const audioEl = new window.Audio(`data:audio/mpeg;base64,${audioBase64}`);
+              audioEl.onended = () => {
+                if (typeof onEnded === 'function') onEnded();
+                else hideVoiceAssistantAvatar();
+              };
+              audioEl.play().catch(() => {
+                if (typeof onEnded === 'function') onEnded();
+                else hideVoiceAssistantAvatar();
+              });
+            }
+          });
+        return true;
+      }
+      if (typeof window.Audio === 'function') {
+        const audioEl = new window.Audio(`data:audio/mpeg;base64,${audioBase64}`);
+        audioEl.onended = () => {
+          if (typeof onEnded === 'function') onEnded();
+          else hideVoiceAssistantAvatar();
+        };
+        audioEl.play().catch(() => {
+          window._mcPendingVoiceAudio = { audioBase64, sampleRate, mimeType: 'audio/mpeg', text: state.lastSpokenAlertText };
+        });
+        return true;
+      }
+      return false;
+    }
+
     const pcm16 = new Int16Array(Math.floor(raw.length / 2));
     for (let i = 0; i < pcm16.length; i++) {
       const lo = raw.charCodeAt(i * 2);
@@ -2738,12 +2799,7 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = n
       const val = (hi << 8) | lo;
       pcm16[i] = val >= 0x8000 ? val - 0x10000 : val;
     }
-    const durMs = Math.ceil((pcm16.length / sampleRate) * 1000) + 650;
-    if (!state.voiceAssistantSpeaking) {
-      showVoiceAssistantAvatar(state.lastSpokenAlertText, Math.max(durMs, 35000));
-    }
 
-    const ctx = getUnlockedAudioContext();
     if (ctx && ctx.state === 'running') {
       const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
       const ch = buf.getChannelData(0);
@@ -2848,7 +2904,9 @@ export function splitBriefingIntoSentences(text = '') {
   for (const p of parts) {
     const s = p.trim();
     if (!s) continue;
-    if (!cur || (cur + ' ' + s).length <= 155) {
+    // Pierwszy fragment krótki (<= 145 zn.), by głos startował w ~2s; kolejne do 370 zn. (maks. 3 żądania na cały raport)
+    const maxLen = chunks.length === 0 ? 145 : 370;
+    if (!cur || (cur + ' ' + s).length <= maxLen) {
       cur = cur ? `${cur} ${s}` : s;
     } else {
       chunks.push(cur);
@@ -2863,7 +2921,7 @@ export async function fetchSentenceTtsAudio(sentenceText) {
   if (typeof window === 'undefined' || typeof fetch !== 'function' || !sentenceText) return null;
   if (!window._mcTtsSentenceCache) window._mcTtsSentenceCache = new Map();
   const cached = window._mcTtsSentenceCache.get(sentenceText);
-  if (cached && cached.audioBase64) return cached.audioBase64;
+  if (cached && cached.item) return cached.item;
   if (cached && cached.promise) return cached.promise;
 
   const promise = apiRequest('/tts', {
@@ -2872,8 +2930,9 @@ export async function fetchSentenceTtsAudio(sentenceText) {
   })
     .then((res) => {
       if (res && res.audioBase64) {
-        window._mcTtsSentenceCache.set(sentenceText, { audioBase64: res.audioBase64, ts: Date.now() });
-        return res.audioBase64;
+        const item = { audioBase64: res.audioBase64, mimeType: res.mimeType || 'audio/pcm;rate=24000' };
+        window._mcTtsSentenceCache.set(sentenceText, { item, ts: Date.now() });
+        return item;
       }
       window._mcTtsSentenceCache.delete(sentenceText);
       return null;
@@ -3350,7 +3409,7 @@ export async function refreshAllTelemetryData(now = new Date()) {
 
     updateClockDesktopWingsDom(now);
     updateLiveScreensaverDom(now);
-    if (state.module === 'clock' && typeof document !== 'undefined') {
+    if (state.module === 'clock' && typeof document !== 'undefined' && !state.voiceAssistantSpeaking) {
       const wasHidden = state.clockIdleHidden;
       render();
       if (wasHidden) {
@@ -5360,8 +5419,8 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
         updateLiveScreensaverDom(now);
         updateClockDesktopWingsDom(now);
 
-        // 2 minuty i 1 minutę przed każdym kwadransem (:01:05, :13:05, :14:05, :16:05, :28:05, :29:05, :31:05, :43:05, :44:05, :46:05, :58:05, :59:05) odśwież Kalendarz Google i zbuforuj głos Aoede TTS (0 ms opóźnienia o pełnym kwadransie)
-        if ((now.getMinutes() % 15 === 1 || now.getMinutes() % 15 === 13 || now.getMinutes() % 15 === 14) && sec === 5) {
+        // 1 min 45 s przed każdym kwadransem (:13:15, :28:15, :43:15, :58:15) odśwież Kalendarz Google i zbuforuj głos Aoede TTS (poza 60-sekundowym oknem RPM przed wybiciem kwadransa)
+        if (now.getMinutes() % 15 === 13 && sec === 15) {
           prefetchQuarterHourVoiceBriefing(getNextQuarterHourDate(now)).catch(() => {});
         }
 
