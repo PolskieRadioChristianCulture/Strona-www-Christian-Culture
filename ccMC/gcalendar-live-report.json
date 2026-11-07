@@ -5,9 +5,9 @@
   "account_verified": true,
   "account_email": "nazirczarkes@gmail.com",
   "timezone": "Europe/Warsaw",
-  "fetched_at": "2026-11-07T21:43:55+01:00",
-  "window_start": "2026-11-06T21:43:55+01:00",
-  "window_end": "2026-11-14T21:43:55+01:00",
+  "fetched_at": "2026-11-07T21:58:56+01:00",
+  "window_start": "2026-11-06T21:58:56+01:00",
+  "window_end": "2026-11-14T21:58:56+01:00",
   "calendars_checked": [
     "primary",
     "pl.polish#holiday@group.v.calendar.google.com"
@@ -632,7 +632,7 @@
   ],
   "mission_automation_report": {
     "date": "2026-11-07",
-    "generated_at": "2026-11-07T21:43:55+01:00",
+    "generated_at": "2026-11-07T21:58:56+01:00",
     "rozwazania": {
       "done": false,
       "label": "Rozważania poranne: brak potwierdzenia na dziś"
