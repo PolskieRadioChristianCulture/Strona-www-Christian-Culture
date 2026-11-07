@@ -809,7 +809,6 @@ export function render() {
     <div class="mc-shell">
       <aside class="mc-sidebar ${state.mobileSidebarOpen ? 'is-open-mobile' : ''}" aria-label="Filtry kalendarza misji">
         <div>
-          <div class="mc-badge-gold">CC · @777 · @OA</div>
           <h2>Kalendarz Misji</h2>
           <small style="color:var(--mc-muted)">${escapeHtml(state.user.email)}</small>
         </div>
@@ -893,8 +892,7 @@ export function render() {
             : ''
         }
 
-        <form class="mc-nl-bar" id="mcNlForm" aria-label="Zlecenie w języku naturalnym dla Noemi @077">
-          <strong style="color:var(--mc-gold-light);font-size:13px;">Noemi @077 → @OA:</strong>
+        <form class="mc-nl-bar" id="mcNlForm" aria-label="Szybkie planowanie zadania w języku naturalnym">
           <input
             type="text"
             name="nlCommand"
