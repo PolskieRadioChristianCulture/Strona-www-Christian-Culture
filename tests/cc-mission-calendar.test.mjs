@@ -910,9 +910,9 @@ test('15. Glassmorphism NA ŻYWO Box, CHRISTIAN CULTURE LIVE header & 3D Spatial
   const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
   const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
 
-  // 15a. Transparent glassmorphism background on .mc-clock-live-box
-  assert.match(ccMcStyle, /\.mc-clock-live-box[\s\S]*?backdrop-filter:\s*blur\(24px\)/, '.mc-clock-live-box must use glassmorphism backdrop-filter: blur(24px)');
-  assert.match(ccMcStyle, /\.mc-clock-live-box[\s\S]*?-webkit-backdrop-filter:\s*blur\(24px\)/, '.mc-clock-live-box must include -webkit-backdrop-filter');
+  // 15a. 100% transparent background on .mc-clock-live-box (zero blue tint, zero frame)
+  assert.match(ccMcStyle, /\.mc-clock-live-box[\s\S]*?background:\s*transparent\s*!important/, '.mc-clock-live-box must use 100% transparent background');
+  assert.match(ccMcStyle, /\.mc-clock-live-box[\s\S]*?backdrop-filter:\s*none\s*!important/, '.mc-clock-live-box must have backdrop-filter: none !important');
 
   // 15b. Permanent CHRISTIAN CULTURE LIVE header above the clock
   const { renderClockModule, renderBiblicalClockDialSvg, getTickSpatialProps } = await import('../ccMC/app.js');
@@ -1062,6 +1062,66 @@ test('18. Single Pulsing Dot Under Time, Enlarged Desktop CHRISTIAN CULTURE LIVE
     '.mc-clock-fullscreen must use /ccMC/hero-bg.jpg as hero wallpaper'
   );
 });
+
+// ---------------------------------------------------------------------------
+// 19. Desktop 100% Transparent Side Wings (Google Stats, Personal Google
+//     Calendar Plan, Live RDS All Stations), Glow Seconds & Zero-Cost Voice TTS
+// ---------------------------------------------------------------------------
+test('19. Desktop 100% Transparent Side Wings, Glow Seconds & Zero-Cost Voice TTS', async () => {
+  const rootDir = process.cwd();
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+
+  const {
+    renderClockModule,
+    getRadioRdsStations,
+    formatWarsawTimeHtmlWithGlowSeconds,
+    speakCalendarVoiceAlert,
+  } = await import('../ccMC/app.js');
+
+  const clockHtml = renderClockModule();
+
+  // Left Wing: Google Analytics 4, Search Console, YouTube, LUMINA & Personal Google Calendar Plan
+  assert.match(clockHtml, /id="mcClockWingLeft"/, 'Clock module must render #mcClockWingLeft');
+  assert.match(clockHtml, /Google Analytics 4/, 'Left wing must show Google Analytics 4 live metrics');
+  assert.match(clockHtml, /Google Search Console/, 'Left wing must show Google Search Console metrics');
+  assert.match(clockHtml, /Sieć 7 Kanałów YouTube CC/, 'Left wing must show YouTube 7 channels metrics');
+  assert.match(clockHtml, /Społeczność LUMINA/, 'Left wing must show LUMINA community telemetry');
+  assert.match(clockHtml, /id="mcHudGoogleCalendarPlanBlock"/, 'Left wing must show Google Calendar Plan Dnia block');
+
+  // Right Wing: Live RDS from all 6 stations + Voice Alerts & OBS silent monitor
+  assert.match(clockHtml, /id="mcClockWingRight"/, 'Clock module must render #mcClockWingRight');
+  assert.match(clockHtml, /LIVE RDS — WSZYSTKIE STACJE RADIOWE/, 'Right wing must show Live RDS from all radio stations');
+  const stations = getRadioRdsStations(new Date());
+  assert.equal(stations.length, 6, 'Must provide live RDS for all 6 stations');
+  assert.match(clockHtml, /id="mcHudVoiceAlertBlock"/, 'Right wing must include Voice Alerts & OBS configuration block');
+
+  // 100% transparent windows (no blue background)
+  assert.match(
+    ccMcStyle,
+    /\.mc-clock-wing\s*\{[\s\S]*?background:\s*transparent\s*!important;[\s\S]*?backdrop-filter:\s*none\s*!important;/,
+    'Desktop side wings (.mc-clock-wing) must be 100% transparent'
+  );
+
+  // Glow seconds matching the clock dial rim glow
+  const timeHtml = formatWarsawTimeHtmlWithGlowSeconds(new Date('2026-11-07T10:15:42Z'));
+  assert.match(timeHtml, /class="mc-clock-sec-glow"/, 'Seconds in digital clock must use .mc-clock-sec-glow');
+  assert.match(ccMcStyle, /\.mc-clock-sec-glow\s*\{[\s\S]*?color:\s*#FF7A00\s*!important;/, '.mc-clock-sec-glow must match rim glow color #FF7A00');
+
+  // Zero-Cost Google AI Studio TTS endpoint
+  const { callApi } = createTestContext();
+  const ownerHeaders = { authorization: 'Bearer valid-owner-firebase-token' };
+  const ttsRes = await callApi('/api/mission-calendar/tts', {
+    method: 'POST',
+    headers: ownerHeaders,
+    body: { text: 'Cezary, za piętnaście minut masz w kalendarzu wyjście po syna do szkoły.' },
+  });
+  assert.equal(ttsRes.status, 200);
+  assert.equal(ttsRes.data.ok, true);
+  assert.equal(ttsRes.data.cost, 0, 'TTS must operate in ZERO COST mode (cost = 0)');
+  assert.equal(speakCalendarVoiceAlert('Test komunikatu', { force: true }), true);
+});
+
 
 
 

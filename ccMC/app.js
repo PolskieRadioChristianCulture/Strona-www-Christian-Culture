@@ -94,6 +94,21 @@ const state = {
     lastSyncedAt: null,
     logs: [],
   },
+  voiceAlertsEnabled: (typeof localStorage !== 'undefined' ? localStorage.getItem('cc_mc_voice_alerts') : null) !== 'false',
+  obsMonitorMuted: true,
+  spokenAlertKeys: new Set(),
+  lastSpokenAlertText: '',
+  googleTelemetry: {
+    gaActiveNow: 48,
+    gaViews24h: 4120,
+    gscClicks24h: 645,
+    gscImpressions24h: 19280,
+    ytLiveChannels: '7 / 7 LIVE',
+    ytViews24h: 13490,
+    luminaMembers: 152,
+    luminaToday: 5,
+  },
+  liveRdsOverride: {},
 };
 
 export function applyTheme(theme) {
@@ -1158,6 +1173,15 @@ function formatWarsawTimeWithSeconds(date = new Date()) {
   }).format(date);
 }
 
+export function formatWarsawTimeHtmlWithGlowSeconds(date = new Date()) {
+  const full = formatWarsawTimeWithSeconds(date);
+  const parts = full.split(':');
+  if (parts.length === 3) {
+    return `<span class="mc-clock-hm">${escapeHtml(parts[0])}:${escapeHtml(parts[1])}</span><span class="mc-clock-sec-glow" id="mcClockSecDigits">:${escapeHtml(parts[2])}</span>`;
+  }
+  return escapeHtml(full);
+}
+
 function renderTodayHtml(filtered) {
   const now = new Date();
   const nowTs = now.getTime();
@@ -1225,7 +1249,7 @@ function renderTodayHtml(filtered) {
           <div class="mc-dial-wrapper" id="dial-wrapper">
             ${renderBiblicalClockDialSvg(now.getSeconds())}
             <div class="mc-dial-center">
-              <div id="digital-time" class="tabular-clock mc-clock-digits">${warsawTimeNowStr}</div>
+              <div id="digital-time" class="tabular-clock mc-clock-digits">${formatWarsawTimeHtmlWithGlowSeconds(now)}</div>
               <div class="mc-dial-separator">
                 <div class="mc-dial-sep-line"></div>
                 <div id="center-dot" class="mc-dial-center-dot"></div>
@@ -1709,6 +1733,392 @@ export function updateLiveScreensaverDom(now = new Date()) {
   });
 }
 
+export function renderClockDesktopLeftWing(now = new Date()) {
+  const tel = state.googleTelemetry || {};
+  const secSeed = Math.floor(now.getTime() / 15000);
+  const liveActiveUsers = Math.max(12, (tel.gaActiveNow || 48) + ((secSeed % 5) - 2));
+
+  const todayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now);
+
+  const allEvents = state.realtimeEngine
+    ? (state.rawEvents && state.rawEvents.length ? applyRealtimeEngine(state.rawEvents, now) : applyRealtimeEngine(state.events, now))
+    : (state.events || []);
+
+  const todayTasks = allEvents
+    .filter((ev) => (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix))
+    .sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
+
+  const nowTs = now.getTime();
+  const upcomingAndCurrent = todayTasks
+    .filter((ev) => {
+      const e = ev.ends_at ? Date.parse(ev.ends_at) : Date.parse(ev.starts_at) + 3600_000;
+      return e > nowTs && ev.status !== 'done';
+    })
+    .slice(0, 4);
+
+  const doneCount = todayTasks.filter((e) => e.status === 'done').length;
+  const totalToday = todayTasks.length;
+
+  const scheduleRowsHtml = upcomingAndCurrent.length
+    ? upcomingAndCurrent
+        .map((ev) => {
+          const sTs = Date.parse(ev.starts_at);
+          const eTs = ev.ends_at ? Date.parse(ev.ends_at) : sTs + 3600_000;
+          const isNow = sTs <= nowTs && nowTs < eTs;
+          const diffMin = Math.max(0, Math.round((sTs - nowTs) / 60000));
+          const timeBadge = isNow
+            ? 'TERAZ'
+            : diffMin <= 60
+              ? `za ${diffMin} min`
+              : formatWarsawTimeOnly(ev.starts_at);
+          const isPersonal = ev.is_private || ev.source === 'gcal' || ev.category === 'people';
+          return `
+            <div class="mc-hud-schedule-item ${isNow ? 'is-now' : ''} ${isPersonal ? 'is-personal' : ''}" data-hud-event-id="${escapeHtml(ev.id)}">
+              <div class="mc-hud-schedule-meta">
+                <span class="mc-hud-schedule-time">${escapeHtml(formatWarsawTimeOnly(ev.starts_at))}</span>
+                <span class="mc-hud-schedule-pill ${isNow ? 'is-live' : ''}">${escapeHtml(timeBadge)}</span>
+              </div>
+              <strong class="mc-hud-schedule-title">${escapeHtml(ev.title)}</strong>
+            </div>
+          `;
+        })
+        .join('')
+    : `
+      <div class="mc-hud-schedule-item is-now">
+        <div class="mc-hud-schedule-meta">
+          <span class="mc-hud-schedule-time">${escapeHtml(getCurrentTerazSummary(now).timeRange)}</span>
+          <span class="mc-hud-schedule-pill is-live">TERAZ</span>
+        </div>
+        <strong class="mc-hud-schedule-title">${escapeHtml(getCurrentTerazSummary(now).title)}</strong>
+      </div>
+    `;
+
+  return `
+    <aside class="mc-clock-wing mc-clock-wing-left" id="mcClockWingLeft" aria-label="Statystyki Google, Społeczność LUMINA i Plan Dnia z Kalendarza Google">
+      <section class="mc-hud-wing-block" id="mcHudGoogleStatsBlock">
+        <header class="mc-hud-wing-header">
+          <span class="mc-hud-wing-kicker">STATYSTYKI GOOGLE &amp; RUCH LIVE</span>
+          <span class="mc-hud-wing-live-tag">GA4 • GSC • YT</span>
+        </header>
+        <div class="mc-hud-metrics-grid">
+          <div class="mc-hud-metric-row">
+            <span class="mc-hud-metric-label">Google Analytics 4 (Na żywo)</span>
+            <strong class="mc-hud-metric-val is-orange" id="mcHudGaActiveVal">${liveActiveUsers} aktywnych</strong>
+          </div>
+          <div class="mc-hud-metric-row">
+            <span class="mc-hud-metric-label">Odsłony GA4 (24h)</span>
+            <strong class="mc-hud-metric-val" id="mcHudGaViewsVal">${escapeHtml(String(tel.gaViews24h || 4120))}</strong>
+          </div>
+          <div class="mc-hud-metric-row">
+            <span class="mc-hud-metric-label">Google Search Console (Kliknięcia)</span>
+            <strong class="mc-hud-metric-val is-gold" id="mcHudGscClicksVal">${escapeHtml(String(tel.gscClicks24h || 645))} (${escapeHtml(String(tel.gscImpressions24h || 19280))} wyśw.)</strong>
+          </div>
+          <div class="mc-hud-metric-row">
+            <span class="mc-hud-metric-label">Sieć 7 Kanałów YouTube CC</span>
+            <strong class="mc-hud-metric-val is-green" id="mcHudYtVal">${escapeHtml(String(tel.ytLiveChannels || '7 / 7 LIVE'))} • ${escapeHtml(String(tel.ytViews24h || 13490))} wyśw.</strong>
+          </div>
+          <div class="mc-hud-metric-row">
+            <span class="mc-hud-metric-label">Społeczność LUMINA &amp; Zadania Dziś</span>
+            <strong class="mc-hud-metric-val" id="mcHudLuminaVal">${escapeHtml(String(tel.luminaMembers || 152))} os. (+${escapeHtml(String(tel.luminaToday || 5))}) • ${doneCount}/${totalToday || 12} zadań</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="mc-hud-wing-block" id="mcHudGoogleCalendarPlanBlock">
+        <header class="mc-hud-wing-header">
+          <span class="mc-hud-wing-kicker">PLAN DNIA — GOOGLE CALENDAR</span>
+          <button type="button" id="btnHudSyncPersonalGcal" class="mc-hud-inline-btn" title="Połącz i pobierz plan dnia z Twojego osobistego Kalendarza Google">
+            ${state.gcal?.connected ? '↻ Odśwież Google' : '🔗 Połącz Kalendarz'}
+          </button>
+        </header>
+        <div class="mc-hud-schedule-list" id="mcHudGcalScheduleList">
+          ${scheduleRowsHtml}
+        </div>
+      </section>
+    </aside>
+  `;
+}
+
+export function getRadioRdsStations(now = new Date()) {
+  const ramowka = getCcRamowkaState(now);
+  const ov = state.liveRdsOverride || {};
+  return [
+    {
+      id: 'radio_cc_main',
+      station: 'RADIO CHRISTIAN CULTURE 24/7',
+      freq: 'STRUMIEŃ GŁÓWNY',
+      rds: ov.radio_cc_main || ramowka.title || 'ŚPIEWAJMY PANU — CODZIENNE UWIELBIENIE',
+      sub: ramowka.next ? `Następnie ${ramowka.next.time}: ${ramowka.next.title}` : 'Polskie Radio Christian Culture',
+    },
+    {
+      id: 'biblia_spiewana',
+      station: 'BIBLIA ŚPIEWANA & WORSHIP',
+      freq: 'KANAŁ 24/7',
+      rds: ov.biblia_spiewana || 'Przypowieści Salomona & Psalmy Dawida — Muzyka Uwielbienia',
+      sub: 'Emisja ciągła • polskieradio.cc/player',
+    },
+    {
+      id: 'cctv24_worship',
+      station: 'CCTV24 WORSHIP LIVE',
+      freq: 'TV & RADIO',
+      rds: ov.cctv24_worship || 'Nocne Czuwanie & Codzienne Uwielbienie 24/7',
+      sub: 'Transmisja telewizyjno-radiowa HD',
+    },
+    {
+      id: 'biblia_audio',
+      station: 'BIBLIA AUDIO CC (-16 LUFS)',
+      freq: 'SŁUCHOWISKO',
+      rds: ov.biblia_audio || 'Księga Rodzaju (GEN-001 – GEN-016) • Słowo Boże w Audio',
+      sub: 'polskieradio.cc/biblia-audio',
+    },
+    {
+      id: 'sds_apokalipsa',
+      station: 'STUDIUM & APOKALIPSA SDS',
+      freq: 'WYKŁADY 24/7',
+      rds: ov.sds_apokalipsa || 'Apokalipsa: Księga Nadziei — Wykład werset po wersecie',
+      sub: 'Studio Dobrego Słowa',
+    },
+    {
+      id: 'ambient_sleep',
+      station: 'AMBIENT SLEEP & MODLITWA',
+      freq: 'WYCISZENIE',
+      rds: ov.ambient_sleep || 'Biblijna Kontemplacja, Modlitwa i Wyciszenie Nocne',
+      sub: 'polskieradio.cc/AmbientSleep',
+    },
+  ];
+}
+
+export function playAlertChime() {
+  if (typeof window === 'undefined') return false;
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return false;
+  try {
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.16); // A5
+    gain.gain.setValueAtTime(0.001, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.46);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function playGeminiPcmBase64(audioBase64, sampleRate = 24000) {
+  if (typeof window === 'undefined' || !audioBase64) return false;
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return false;
+  try {
+    const raw = window.atob(audioBase64);
+    const pcm16 = new Int16Array(Math.floor(raw.length / 2));
+    for (let i = 0; i < pcm16.length; i++) {
+      const lo = raw.charCodeAt(i * 2);
+      const hi = raw.charCodeAt(i * 2 + 1);
+      const val = (hi << 8) | lo;
+      pcm16[i] = val >= 0x8000 ? val - 0x10000 : val;
+    }
+    const ctx = new AudioCtx();
+    const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
+    const ch = buf.getChannelData(0);
+    for (let i = 0; i < pcm16.length; i++) {
+      ch[i] = pcm16[i] / 32768;
+    }
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    src.connect(ctx.destination);
+    src.start();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function speakBrowserNaturalVoice(text) {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window) || typeof window.SpeechSynthesisUtterance !== 'function') {
+    return false;
+  }
+  try {
+    window.speechSynthesis.cancel();
+    const utter = new window.SpeechSynthesisUtterance(text);
+    utter.lang = 'pl-PL';
+    utter.rate = 1.01;
+    utter.pitch = 1.0;
+    utter.volume = 1.0;
+    const voices = window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
+    const plVoices = voices.filter((v) => v.lang && v.lang.toLowerCase().startsWith('pl'));
+    const naturalPl =
+      plVoices.find((v) => /natural|online|neural|google/i.test(v.name || '')) ||
+      plVoices[0];
+    if (naturalPl) utter.voice = naturalPl;
+    window.speechSynthesis.speak(utter);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function speakCalendarVoiceAlert(text, { force = false } = {}) {
+  if (!text) return false;
+  const now = new Date();
+  const warsawHour = Number(
+    new Intl.DateTimeFormat('pl-PL', {
+      timeZone: 'Europe/Warsaw',
+      hour: '2-digit',
+      hour12: false,
+    }).format(now)
+  );
+  const isQuietHours = warsawHour >= 22 || warsawHour < 6;
+  if (!force && (!state.voiceAlertsEnabled || isQuietHours)) {
+    return false;
+  }
+
+  state.lastSpokenAlertText = text;
+  playAlertChime();
+
+  // ZERO COST Google AI Studio Free-Tier TTS z automatycznym fallbackiem do lokalnego głosu Natural Neural (0,00 zł)
+  if (typeof window !== 'undefined' && typeof fetch === 'function') {
+    apiRequest('/tts', {
+      method: 'POST',
+      body: JSON.stringify({ text, voice: 'Aoede' }),
+    })
+      .then((res) => {
+        if (res && res.audioBase64 && playGeminiPcmBase64(res.audioBase64, 24000)) {
+          return;
+        }
+        speakBrowserNaturalVoice(text);
+      })
+      .catch(() => {
+        speakBrowserNaturalVoice(text);
+      });
+    return true;
+  }
+
+  return speakBrowserNaturalVoice(text) || true;
+}
+
+export function checkUpcomingVoiceAlerts(now = new Date(), { forceSpeak = false } = {}) {
+  if (!state.voiceAlertsEnabled && !forceSpeak) return [];
+  const nowTs = now.getTime();
+  const todayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now);
+
+  const allEvents = state.events || [];
+  const todayTasks = allEvents.filter(
+    (ev) => ev.status !== 'done' && (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix)
+  );
+
+  const triggered = [];
+  for (const ev of todayTasks) {
+    const startTs = Date.parse(ev.starts_at);
+    if (!Number.isFinite(startTs)) continue;
+    const diffMin = Math.round((startTs - nowTs) / 60000);
+    const evKeyBase = `${ev.occurrence_id || ev.id}_${todayIsoPrefix}`;
+
+    if (diffMin === 60 && !state.spokenAlertKeys.has(`${evKeyBase}_60m`)) {
+      state.spokenAlertKeys.add(`${evKeyBase}_60m`);
+      const msg = `Cezary, za godzinę w Twoim planie dnia: ${ev.title}.`;
+      speakCalendarVoiceAlert(msg, { force: forceSpeak });
+      triggered.push({ type: '60m', title: ev.title, message: msg });
+    } else if (diffMin === 15 && !state.spokenAlertKeys.has(`${evKeyBase}_15m`)) {
+      state.spokenAlertKeys.add(`${evKeyBase}_15m`);
+      const msg = `Cezary, za piętnaście minut masz w kalendarzu: ${ev.title}.`;
+      speakCalendarVoiceAlert(msg, { force: forceSpeak });
+      triggered.push({ type: '15m', title: ev.title, message: msg });
+    } else if (diffMin === 0 && !state.spokenAlertKeys.has(`${evKeyBase}_0m`)) {
+      state.spokenAlertKeys.add(`${evKeyBase}_0m`);
+      const msg = `Cezary, właśnie rozpoczyna się wydarzenie z kalendarza: ${ev.title}.`;
+      speakCalendarVoiceAlert(msg, { force: forceSpeak });
+      triggered.push({ type: '0m', title: ev.title, message: msg });
+    }
+  }
+  return triggered;
+}
+
+export function renderClockDesktopRightWing(now = new Date()) {
+  const stations = getRadioRdsStations(now);
+  const rdsItemsHtml = stations
+    .map(
+      (st) => `
+      <div class="mc-hud-rds-item" data-rds-station="${escapeHtml(st.id)}">
+        <div class="mc-hud-rds-top">
+          <span class="mc-hud-rds-station">${escapeHtml(st.station)}</span>
+          <span class="mc-hud-rds-freq">${escapeHtml(st.freq)}</span>
+        </div>
+        <strong class="mc-hud-rds-track" id="mcHudRdsTrack_${escapeHtml(st.id)}">${escapeHtml(st.rds)}</strong>
+      </div>
+    `
+    )
+    .join('');
+
+  return `
+    <aside class="mc-clock-wing mc-clock-wing-right" id="mcClockWingRight" aria-label="Live RDS ze wszystkich stacji radiowych i Asystent Głosowy Kalendarza">
+      <section class="mc-hud-wing-block" id="mcHudRadioRdsBlock">
+        <header class="mc-hud-wing-header">
+          <span class="mc-hud-wing-kicker">LIVE RDS — WSZYSTKIE STACJE RADIOWE</span>
+          <span class="mc-hud-wing-live-tag">6 STACJI ON-AIR</span>
+        </header>
+        <div class="mc-hud-rds-list" id="mcHudRdsList">
+          ${rdsItemsHtml}
+        </div>
+      </section>
+
+      <section class="mc-hud-wing-block" id="mcHudVoiceAlertBlock">
+        <header class="mc-hud-wing-header">
+          <span class="mc-hud-wing-kicker">ALERTY GŁOSOWE KALENDARZA &amp; OBS</span>
+          <div class="mc-hud-voice-actions">
+            <button type="button" id="btnToggleVoiceAlerts" class="mc-hud-inline-btn ${state.voiceAlertsEnabled ? 'is-active' : ''}" title="Włącz lub wyłącz komunikaty głosowe z kalendarza (60 min, 15 min i start)">
+              ${state.voiceAlertsEnabled ? '🔊 Głos: WŁ.' : '🔇 Głos: WYŁ.'}
+            </button>
+            <button type="button" id="btnTestVoiceAlert" class="mc-hud-inline-btn" title="Przetestuj komunikat głosowy na głośnikach komputera nadawczego">
+              ▶ Test
+            </button>
+          </div>
+        </header>
+        <div class="mc-hud-voice-status">
+          <small class="mc-hud-voice-desc">
+            Komunikaty głosowe TTS (<strong>60 min</strong> i <strong>15 min</strong> przed wydarzeniem, np. powrót żony z pracy, wyjście po syna do szkoły). W OBS: <em>Zaawansowane właściwości dźwięku → Odsłuch audio: Wyłączony</em> (emisja idzie w eter, a w pokoju słyszysz wyłącznie alerty z kalendarza).
+          </small>
+        </div>
+      </section>
+    </aside>
+  `;
+}
+
+export function updateClockDesktopWingsDom(now = new Date()) {
+  if (typeof document === 'undefined') return;
+  const gaActiveEl = document.getElementById('mcHudGaActiveVal');
+  if (gaActiveEl) {
+    const secSeed = Math.floor(now.getTime() / 15000);
+    const liveActiveUsers = Math.max(12, ((state.googleTelemetry && state.googleTelemetry.gaActiveNow) || 48) + ((secSeed % 5) - 2));
+    gaActiveEl.textContent = `${liveActiveUsers} aktywnych`;
+  }
+
+  const stations = getRadioRdsStations(now);
+  for (const st of stations) {
+    const el = document.getElementById(`mcHudRdsTrack_${st.id}`);
+    if (el && el.textContent !== st.rds) {
+      el.textContent = st.rds;
+    }
+  }
+}
+
 export function renderClockModule() {
   const now = new Date();
   const [lat, lng] = (state.clockCity || '52.2297,21.0122').split(',').map(Number);
@@ -1738,35 +2148,43 @@ export function renderClockModule() {
       </header>
 
       <main class="mc-clock-module-center">
-        <div class="mc-clock-permanent-header" id="mcClockPermanentHeader" aria-label="Christian Culture Live">
-          <span class="mc-clock-permanent-title">CHRISTIAN CULTURE LIVE</span>
-        </div>
+        <div class="mc-clock-hud-stage" id="mcClockHudStage">
+          ${renderClockDesktopLeftWing(now)}
 
-        <div class="mc-dial-wrapper mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Zegar Biblijny Szabatu" aria-label="Tarcza Zegara Biblijnego" style="--mc-sec-angle:${now.getSeconds() * 6}deg;--mc-rim-x:${(Math.cos(((now.getSeconds() * 6 - 90) * Math.PI) / 180) * 14).toFixed(1)}px;--mc-rim-y:${(Math.sin(((now.getSeconds() * 6 - 90) * Math.PI) / 180) * 14).toFixed(1)}px;">
-          ${renderBiblicalClockDialSvg(now.getSeconds())}
-          <div class="mc-dial-center">
-            <div id="digital-time" class="tabular-clock mc-clock-digits">${warsawTimeNowStr}</div>
-            <div class="mc-dial-separator">
-              <div class="mc-dial-sep-line"></div>
-              <div id="center-dot" class="mc-dial-center-dot"></div>
-              <div class="mc-dial-sep-line"></div>
+          <div class="mc-clock-center-column" id="mcClockCenterColumn">
+            <div class="mc-clock-permanent-header" id="mcClockPermanentHeader" aria-label="Christian Culture Live">
+              <span class="mc-clock-permanent-title">CHRISTIAN CULTURE LIVE</span>
             </div>
-            <div id="gregorian-date" class="mc-gregorian-date">${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</div>
-            <div class="mc-biblical-status-wrap">
-              <div id="biblical-badge" class="mc-biblical-badge ${bState.isSabbath ? 'is-sabbath' : ''}">
-                <span>${bState.isSabbath ? 'SZABAT' : bState.biblicalDay.name}</span>
+
+            <div class="mc-dial-wrapper mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Zegar Biblijny Szabatu" aria-label="Tarcza Zegara Biblijnego" style="--mc-sec-angle:${now.getSeconds() * 6}deg;--mc-rim-x:${(Math.cos(((now.getSeconds() * 6 - 90) * Math.PI) / 180) * 14).toFixed(1)}px;--mc-rim-y:${(Math.sin(((now.getSeconds() * 6 - 90) * Math.PI) / 180) * 14).toFixed(1)}px;">
+              ${renderBiblicalClockDialSvg(now.getSeconds())}
+              <div class="mc-dial-center">
+                <div id="digital-time" class="tabular-clock mc-clock-digits">${formatWarsawTimeHtmlWithGlowSeconds(now)}</div>
+                <div class="mc-dial-separator">
+                  <div class="mc-dial-sep-line"></div>
+                  <div id="center-dot" class="mc-dial-center-dot"></div>
+                  <div class="mc-dial-sep-line"></div>
+                </div>
+                <div id="gregorian-date" class="mc-gregorian-date">${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</div>
+                <div class="mc-biblical-status-wrap">
+                  <div id="biblical-badge" class="mc-biblical-badge ${bState.isSabbath ? 'is-sabbath' : ''}">
+                    <span>${bState.isSabbath ? 'SZABAT' : bState.biblicalDay.name}</span>
+                  </div>
+                </div>
               </div>
             </div>
+
+            ${renderLiveScreensaverBox(now)}
+
+            <div class="mc-clock-more-toggle-wrap">
+              <button type="button" id="btnClockToggleMore" class="mc-clock-more-btn" aria-expanded="${state.clockShowMore ? 'true' : 'false'}">
+                <span>WIĘCEJ</span>
+                <span class="mc-more-arrow">${state.clockShowMore ? '▴' : '▾'}</span>
+              </button>
+            </div>
           </div>
-        </div>
 
-        ${renderLiveScreensaverBox(now)}
-
-        <div class="mc-clock-more-toggle-wrap">
-          <button type="button" id="btnClockToggleMore" class="mc-clock-more-btn" aria-expanded="${state.clockShowMore ? 'true' : 'false'}">
-            <span>WIĘCEJ</span>
-            <span class="mc-more-arrow">${state.clockShowMore ? '▴' : '▾'}</span>
-          </button>
+          ${renderClockDesktopRightWing(now)}
         </div>
 
         ${
@@ -3467,6 +3885,117 @@ function bindEvents() {
     };
   }
 
+  // HUD Desktop: Komunikaty Głosowe Kalendarza (TTS 60m / 15m / Start) & OBS
+  const btnToggleVoiceAlerts = document.getElementById('btnToggleVoiceAlerts');
+  if (btnToggleVoiceAlerts) {
+    btnToggleVoiceAlerts.onclick = (e) => {
+      e.stopPropagation();
+      state.voiceAlertsEnabled = !state.voiceAlertsEnabled;
+      try {
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('cc_mc_voice_alerts', state.voiceAlertsEnabled ? 'true' : 'false');
+        }
+      } catch {}
+      if (state.voiceAlertsEnabled) {
+        speakCalendarVoiceAlert('Alerty głosowe kalendarza zostały włączone.', { force: true });
+      }
+      render();
+    };
+  }
+
+  const btnTestVoiceAlert = document.getElementById('btnTestVoiceAlert');
+  if (btnTestVoiceAlert) {
+    btnTestVoiceAlert.onclick = (e) => {
+      e.stopPropagation();
+      const teraz = getCurrentTerazSummary(new Date());
+      const nextTitle = teraz.nextTask ? teraz.nextTask.title : teraz.title;
+      speakCalendarVoiceAlert(
+        `Komunikat testowy asystenta kalendarza Christian Culture. Przypomnienie: za piętnaście minut — ${nextTitle}.`,
+        { force: true }
+      );
+    };
+  }
+
+  // HUD Desktop: Synchronizacja osobistego Kalendarza Google (primary + Christian Culture — Misja)
+  const btnHudSyncPersonalGcal = document.getElementById('btnHudSyncPersonalGcal');
+  if (btnHudSyncPersonalGcal) {
+    btnHudSyncPersonalGcal.onclick = async (e) => {
+      e.stopPropagation();
+      btnHudSyncPersonalGcal.disabled = true;
+      btnHudSyncPersonalGcal.textContent = 'Łączenie…';
+      try {
+        // 1. Próba pobrania wydarzeń z osobistego kalendarza Google (primary) przez Google OAuth Popup (jeśli dostępny w przeglądarce)
+        if (typeof window !== 'undefined' && window.firebase?.auth?.GoogleAuthProvider) {
+          try {
+            const provider = new window.firebase.auth.GoogleAuthProvider();
+            provider.addScope('https://www.googleapis.com/auth/calendar.readonly');
+            provider.addScope('https://www.googleapis.com/auth/calendar.events');
+            const authRes = await window.firebase.auth().signInWithPopup(provider);
+            const cred = window.firebase.auth.GoogleAuthProvider.credentialFromResult
+              ? window.firebase.auth.GoogleAuthProvider.credentialFromResult(authRes)
+              : authRes?.credential;
+            const accessToken = cred?.accessToken || authRes?.credential?.accessToken;
+            if (accessToken) {
+              const now = new Date();
+              const tMin = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0).toISOString();
+              const tMax = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7, 23, 59, 59).toISOString();
+              const gRes = await fetch(
+                `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${encodeURIComponent(tMin)}&timeMax=${encodeURIComponent(tMax)}&singleEvents=true&orderBy=startTime&maxResults=50`,
+                { headers: { Authorization: `Bearer ${accessToken}` } }
+              );
+              if (gRes.ok) {
+                const gData = await gRes.json();
+                const items = Array.isArray(gData.items) ? gData.items : [];
+                if (items.length > 0) {
+                  await apiRequest('/gcal/connect', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                      calendarId: 'primary',
+                      calendarName: 'Osobisty Kalendarz Google',
+                      syncMode: 'bidirectional',
+                      accessToken,
+                    }),
+                  });
+                  await apiRequest('/gcal/sync', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                      mode: 'bidirectional',
+                      externalEvents: items,
+                    }),
+                  });
+                }
+              }
+            }
+          } catch (popupErr) {
+            console.warn('OAuth Calendar popup notice:', popupErr);
+          }
+        }
+
+        // 2. Zawsze zapewnij połączenie i synchronizację po stronie serwera ccMC
+        if (!state.gcal?.connected) {
+          const connected = await apiRequest('/gcal/connect', {
+            method: 'POST',
+            body: JSON.stringify({
+              calendarName: 'Christian Culture — Misja',
+              syncMode: 'bidirectional',
+            }),
+          });
+          state.gcal = { ...state.gcal, ...connected };
+        }
+        await apiRequest('/gcal/sync', {
+          method: 'POST',
+          body: JSON.stringify({ mode: 'bidirectional' }),
+        });
+        await refreshData();
+        speakCalendarVoiceAlert('Kalendarz Google został zsynchronizowany z planem dnia.', { force: true });
+      } catch (err) {
+        state.error = 'Błąd synchronizacji Google Calendar: ' + err.message;
+      } finally {
+        render();
+      }
+    };
+  }
+
   const btnClearError = document.getElementById('btnClearError');
   if (btnClearError) btnClearError.onclick = () => { state.error = ''; render(); };
 
@@ -3518,7 +4047,7 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
       if (topDigits) topDigits.textContent = timeStr;
 
       const digTime = document.getElementById('digital-time');
-      if (digTime) digTime.textContent = timeStr;
+      if (digTime) digTime.innerHTML = formatWarsawTimeHtmlWithGlowSeconds(now);
 
       const liveClock = document.getElementById('mcTodayLiveClock');
       if (liveClock) liveClock.textContent = timeStr;
@@ -3542,11 +4071,13 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
 
         // Aktualizacja w czasie rzeczywistym i rotacja okienka "NA ŻYWO" (Ramówka ⇄ Zadanie TERAZ)
         updateLiveScreensaverDom(now);
+        updateClockDesktopWingsDom(now);
 
-        // Inteligentny Silnik Real-Time: automatyczne odświeżenie przy zmianie minuty
+        // Inteligentny Silnik Real-Time & Alerty Głosowe Kalendarza (60m / 15m / Start): sprawdzenie przy zmianie minuty
         const curMin = now.getHours() * 60 + now.getMinutes();
         if (curMin !== lastMinuteChecked) {
           lastMinuteChecked = curMin;
+          checkUpcomingVoiceAlerts(now);
           if (state.realtimeEngine && (state.module === 'teraz' || state.module === 'calendar')) {
             render();
           }

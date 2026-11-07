@@ -3665,6 +3665,88 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
       return json({ mappings });
     }
 
+    // ────────────────────────────────────────────────────────────────────────
+    // Asystent Głosowy Kalendarza — Google AI Studio Gemini TTS (ZERO COST Free Tier)
+    // ────────────────────────────────────────────────────────────────────────
+    if (path === '/tts' && request.method === 'POST') {
+      const body = await request.json().catch(() => ({}));
+      const rawText = String(body.text || '').trim().slice(0, 420);
+      if (!rawText) return json({ error: 'Brak tekstu do syntezy' }, 422);
+
+      const voiceName = String(body.voice || 'Aoede');
+      const apiKey =
+        env?.GEMINI_API_KEY ||
+        env?.GOOGLE_AI_STUDIO_API_KEY ||
+        env?.GOOGLE_API_KEY ||
+        null;
+
+      if (!apiKey || typeof fetch !== 'function') {
+        return json({
+          ok: true,
+          mode: 'zero_cost_browser_neural',
+          cost: 0,
+          voice: voiceName,
+          text: rawText,
+          audioBase64: null,
+        });
+      }
+
+      try {
+        const geminiRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${encodeURIComponent(apiKey)}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [
+                {
+                  parts: [
+                    {
+                      text: `Wypowiedz ciepłym, naturalnym, spokojnym polskim głosem asystenta: ${rawText}`,
+                    },
+                  ],
+                },
+              ],
+              generationConfig: {
+                responseModalities: ['AUDIO'],
+                speechConfig: {
+                  voiceConfig: {
+                    prebuiltVoiceConfig: { voiceName },
+                  },
+                },
+              },
+            }),
+          }
+        );
+
+        if (geminiRes.ok) {
+          const geminiData = await geminiRes.json();
+          const inlineData =
+            geminiData?.candidates?.[0]?.content?.parts?.[0]?.inlineData || null;
+          if (inlineData?.data) {
+            return json({
+              ok: true,
+              mode: 'google_ai_studio_free_tier',
+              cost: 0,
+              voice: voiceName,
+              text: rawText,
+              mimeType: inlineData.mimeType || 'audio/pcm;rate=24000',
+              audioBase64: inlineData.data,
+            });
+          }
+        }
+      } catch {}
+
+      return json({
+        ok: true,
+        mode: 'zero_cost_browser_neural',
+        cost: 0,
+        voice: voiceName,
+        text: rawText,
+        audioBase64: null,
+      });
+    }
+
     return json({ error: 'Nieznany endpoint API Kalendarza Misji' }, 404);
   } catch (err) {
     const status = err.status || (err.message?.includes('Nieprawidłow') || err.message?.includes('Wymagan') || err.message?.includes('Tytuł') || err.message?.includes('Status') ? 422 : 500);
