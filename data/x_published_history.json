@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "topTEN",
+      "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+      "url": "https://polskieradio.cc/topTEN",
+      "type": "music",
+      "image": "wspieramto-banner.png",
+      "publishedAt": "2026-11-07T06:34:00.402Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "rozwiaz-problem",
       "title": "Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański",
       "url": "https://polskieradio.cc/rozwiaz-problem",
