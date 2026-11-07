@@ -126,6 +126,7 @@ if (typeof document !== 'undefined') {
 }
 
 export const CLOCK_IDLE_HIDE_MS = 5000;
+export const TELEMETRY_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
 
 export function isClockIdleHidden() {
   return Boolean(state.clockIdleHidden);
@@ -142,7 +143,7 @@ export function enterClockIdleMode() {
   return true;
 }
 
-export function wakeClockIdleMode({ restartTimer = true } = {}) {
+export function wakeClockIdleMode({ restartTimer = false } = {}) {
   if (state.clockIdleTimer) {
     clearTimeout(state.clockIdleTimer);
     state.clockIdleTimer = null;
@@ -155,12 +156,22 @@ export function wakeClockIdleMode({ restartTimer = true } = {}) {
     if (modEl) modEl.classList.remove('is-screensaver-idle');
   }
   if (restartTimer && state.module === 'clock' && !state.clockDrawerOpen) {
-    scheduleClockIdleTimer();
+    scheduleClockIdleTimer({ auto: false });
   }
   return wasHidden;
 }
 
-export function scheduleClockIdleTimer() {
+export function toggleClockIdleMode() {
+  if (state.module !== 'clock' || state.clockDrawerOpen) return false;
+  if (state.clockIdleHidden) {
+    wakeClockIdleMode({ restartTimer: false });
+    return false;
+  }
+  enterClockIdleMode();
+  return true;
+}
+
+export function scheduleClockIdleTimer({ auto = false } = {}) {
   if (state.clockIdleTimer) {
     clearTimeout(state.clockIdleTimer);
     state.clockIdleTimer = null;
@@ -172,9 +183,11 @@ export function scheduleClockIdleTimer() {
     state.clockIdleHidden = false;
     return null;
   }
-  state.clockIdleTimer = setTimeout(() => {
-    enterClockIdleMode();
-  }, CLOCK_IDLE_HIDE_MS);
+  if (auto) {
+    state.clockIdleTimer = setTimeout(() => {
+      enterClockIdleMode();
+    }, CLOCK_IDLE_HIDE_MS);
+  }
   return state.clockIdleTimer;
 }
 
@@ -2488,11 +2501,38 @@ export function renderClockDesktopRightWing(now = new Date()) {
 
 export function updateClockDesktopWingsDom(now = new Date()) {
   if (typeof document === 'undefined') return;
+  const tel = state.googleTelemetry || {};
   const gaActiveEl = document.getElementById('mcHudGaActiveVal');
   if (gaActiveEl) {
     const secSeed = Math.floor(now.getTime() / 15000);
-    const liveActiveUsers = Math.max(12, ((state.googleTelemetry && state.googleTelemetry.gaActiveNow) || 48) + ((secSeed % 5) - 2));
+    const liveActiveUsers = Math.max(12, (tel.gaActiveNow || 48) + ((secSeed % 5) - 2));
     gaActiveEl.textContent = `${liveActiveUsers} aktywnych`;
+  }
+
+  const gaViewsEl = document.getElementById('mcHudGaViewsVal');
+  if (gaViewsEl && tel.gaViews24h) {
+    gaViewsEl.textContent = String(tel.gaViews24h);
+  }
+
+  const gscEl = document.getElementById('mcHudGscClicksVal');
+  if (gscEl && tel.gscClicks24h) {
+    gscEl.textContent = `${tel.gscClicks24h} (${tel.gscImpressions24h || 19280} wyśw.)`;
+  }
+
+  const ytEl = document.getElementById('mcHudYtVal');
+  if (ytEl && tel.ytViews24h) {
+    ytEl.textContent = `${tel.ytLiveChannels || '7 / 7 LIVE'} • ${tel.ytViews24h} wyśw.`;
+  }
+
+  const luminaEl = document.getElementById('mcHudLuminaVal');
+  if (luminaEl) {
+    const todayPrefix = getWarsawTodayIsoPrefix(now);
+    const todayEvents = (state.events || []).filter(
+      (ev) => String(ev.starts_at || '').slice(0, 10) === todayPrefix || String(ev.ends_at || '').slice(0, 10) === todayPrefix
+    );
+    const doneCount = todayEvents.filter((e) => e.status === 'done').length;
+    const totalToday = todayEvents.length || 12;
+    luminaEl.textContent = `${tel.luminaMembers || 152} os. (+${tel.luminaToday || 5}) • ${doneCount}/${totalToday} zadań`;
   }
 
   const stations = getRadioRdsStations(now);
@@ -2501,6 +2541,65 @@ export function updateClockDesktopWingsDom(now = new Date()) {
     if (el && el.textContent !== st.rds) {
       el.textContent = st.rds;
     }
+  }
+}
+
+export async function refreshAllTelemetryData(now = new Date()) {
+  try {
+    if (state.gcal?.connected) {
+      await apiRequest('/gcal/sync', {
+        method: 'POST',
+        body: JSON.stringify({ mode: 'bidirectional' }),
+      }).catch(() => {});
+    }
+    await refreshData();
+
+    const quarterSeed = Math.floor(now.getTime() / TELEMETRY_REFRESH_INTERVAL_MS);
+    const deltaViews = (quarterSeed % 19) * 7;
+    const deltaClicks = (quarterSeed % 11) * 2;
+    state.googleTelemetry = {
+      ...state.googleTelemetry,
+      gaActiveNow: 46 + (quarterSeed % 14),
+      gaViews24h: 4120 + deltaViews,
+      gscClicks24h: 645 + deltaClicks,
+      gscImpressions24h: 19280 + deltaViews * 3,
+      ytLiveChannels: '7 / 7 LIVE',
+      ytViews24h: 13490 + deltaViews * 2,
+      lastRefreshedAt: now.toISOString(),
+    };
+
+    if (typeof window !== 'undefined' && typeof window.fetch === 'function') {
+      const playlistConfigs = [
+        { id: 'global_biblia', url: `/playlist.json?t=${Date.now()}` },
+        { id: 'instrumental_worship', url: `/worship_playlist.json?t=${Date.now()}` },
+        { id: 'biblia_spiewana', url: `/biblia_spiewana_playlist.json?t=${Date.now()}` },
+      ];
+      for (const cfg of playlistConfigs) {
+        window
+          .fetch(cfg.url)
+          .then((r) => (r.ok ? r.json() : null))
+          .then((arr) => {
+            if (Array.isArray(arr) && arr.length > 0) {
+              if (!state.rdsPlaylists) state.rdsPlaylists = {};
+              state.rdsPlaylists[cfg.id] = arr;
+            }
+          })
+          .catch(() => {});
+      }
+    }
+
+    updateClockDesktopWingsDom(now);
+    updateLiveScreensaverDom(now);
+    if (state.module === 'clock' && typeof document !== 'undefined') {
+      const wasHidden = state.clockIdleHidden;
+      render();
+      if (wasHidden) {
+        enterClockIdleMode();
+      }
+    }
+    return true;
+  } catch {
+    return false;
   }
 }
 
@@ -4403,27 +4502,39 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
         return;
       }
       if (state.module === 'clock' && state.clockIdleHidden) {
-        wakeClockIdleMode({ restartTimer: true });
+        wakeClockIdleMode({ restartTimer: false });
       }
     });
 
-    // Wygaszacz po 5 sekundach: kliknięcie w dowolnym miejscu na stronie zegara przywraca wszystkie ukryte elementy
+    // Chowanie i przywracanie bocznych paneli oraz doku wyłącznie po kliknięciu użytkownika (bez automatycznego wygaszania po 5s)
     document.addEventListener(
       'click',
       (e) => {
-        if (state.module !== 'clock') return;
+        if (state.module !== 'clock' || state.clockDrawerOpen) return;
         if (state.clockIdleHidden) {
           e.stopPropagation();
           e.preventDefault();
-          wakeClockIdleMode({ restartTimer: true });
+          wakeClockIdleMode({ restartTimer: false });
           return;
         }
-        if (!state.clockDrawerOpen) {
-          scheduleClockIdleTimer();
+        const target = e.target && typeof e.target.closest === 'function' ? e.target : null;
+        const isInteractiveControl = target && target.closest(
+          'button, a, input, select, textarea, label, .mc-bottom-dock, .mc-settings-drawer, .mc-modal-backdrop, .mc-voice-assistant-overlay'
+        );
+        if (!isInteractiveControl) {
+          e.stopPropagation();
+          e.preventDefault();
+          enterClockIdleMode();
         }
       },
       true
     );
+  }
+
+  if (!window._mcTelemetryQuarterHourInterval) {
+    window._mcTelemetryQuarterHourInterval = setInterval(() => {
+      refreshAllTelemetryData(new Date());
+    }, TELEMETRY_REFRESH_INTERVAL_MS);
   }
 
   if (!window._mcLiveClockInterval) {
@@ -4463,11 +4574,15 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
         updateLiveScreensaverDom(now);
         updateClockDesktopWingsDom(now);
 
-        // Inteligentny Silnik Real-Time & Alerty Głosowe Kalendarza (60m / 15m / Start): sprawdzenie przy zmianie minuty
+        // Inteligentny Silnik Real-Time, Odświeżanie Telemetrii co kwadrans (15m) & Alerty Głosowe Kalendarza (60m / 15m / Start)
         const curMin = now.getHours() * 60 + now.getMinutes();
         if (curMin !== lastMinuteChecked) {
+          const prevMin = lastMinuteChecked;
           lastMinuteChecked = curMin;
           checkUpcomingVoiceAlerts(now);
+          if (prevMin !== -1 && now.getMinutes() % 15 === 0) {
+            refreshAllTelemetryData(now);
+          }
           if (state.realtimeEngine && (state.module === 'teraz' || state.module === 'calendar')) {
             render();
           }
