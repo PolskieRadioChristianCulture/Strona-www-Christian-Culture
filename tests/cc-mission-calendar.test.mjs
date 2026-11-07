@@ -601,4 +601,28 @@ test('11. Intelligent Real-Time Engine (Autopilot Misji CC): dynamic lifecycle t
   assert.match(ccMcStyle, /\.mc-scope-btn\.is-active/, 'style.css must style active scope button');
 });
 
+test('12. Mobile Interface Drawer: 3-vertical-lines settings menu in top-right, clean header, and centered clock', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const ccMcAppPath = path.join(rootDir, 'ccMC', 'app.js');
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+
+  const ccMcApp = fs.readFileSync(ccMcAppPath, 'utf8');
+  assert.match(ccMcApp, /btnClockMenuToggle/, 'Must render btnClockMenuToggle in clock topbar');
+  assert.match(ccMcApp, /mcClockSettingsDrawer/, 'Must render mcClockSettingsDrawer');
+  assert.match(ccMcApp, /mcClockDrawerBackdrop/, 'Must render mcClockDrawerBackdrop');
+  assert.match(ccMcApp, /aria-controls=["']mcClockSettingsDrawer["']/, 'Menu toggle must have aria-controls mcClockSettingsDrawer');
+  assert.match(ccMcApp, /clockDrawerOpen/, 'State must include clockDrawerOpen');
+  assert.match(ccMcApp, /btnCloseClockDrawer/, 'Drawer must have close button');
+  assert.match(ccMcApp, /mc-menu-vertical-icon/, 'Must render 3-vertical-lines SVG icon');
+
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+  assert.match(ccMcStyle, /\.mc-btn-clock-menu/, 'style.css must style mc-btn-clock-menu');
+  assert.match(ccMcStyle, /\.mc-menu-vertical-icon/, 'style.css must style mc-menu-vertical-icon');
+  assert.match(ccMcStyle, /\.mc-settings-drawer/, 'style.css must style mc-settings-drawer');
+  assert.match(ccMcStyle, /\.mc-drawer-backdrop/, 'style.css must style mc-drawer-backdrop');
+  assert.match(ccMcStyle, /\.mc-clock-topbar-edge-space/, 'style.css must leave space for + button');
+  assert.match(ccMcStyle, /min-width:\s*44px/, 'Buttons must have minimum 44px touch target');
+  assert.match(ccMcStyle, /min-height:\s*44px/, 'Buttons must have minimum 44px touch target');
+});
+
 

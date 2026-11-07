@@ -67,6 +67,7 @@ const state = {
   terazFilter: false,
   clockCity: '52.2297,21.0122',
   clockShowMore: false,
+  clockDrawerOpen: false, // Panel boczny ustawień w prawym górnym rogu
   statsScope: 'today', // 'today' (default) | 'all'
   realtimeEngine: true, // Inteligentny Silnik Real-Time: AKTYWNY (Autopilot Misji CC)
   pushSubscribed: true, // Powiadomienia domyślnie włączone (cisza nocna 22:00–06:00)
@@ -1002,25 +1003,15 @@ export function renderClockModule() {
   return `
     <div class="mc-fullscreen-module mc-clock-fullscreen" role="region" aria-label="Minimalistyczny Zegar Biblijny">
       <header class="mc-clock-module-topbar">
-        <div class="mc-clock-location-wrap">
-          <span class="mc-pulse-dot" style="background:#FF7A00;width:10px;height:10px;"></span>
-          <span class="mc-clock-loc-label">Lokalizacja astronomiczna:</span>
-          <select id="mcCitySelector" class="mc-city-select" aria-label="Wybierz lokalizację">
-            <option value="52.2297,21.0122" ${state.clockCity === '52.2297,21.0122' ? 'selected' : ''}>Warszawa (Polska)</option>
-            <option value="50.9295,21.3853" ${state.clockCity === '50.9295,21.3853' ? 'selected' : ''}>Ostrowiec Św. (Polska)</option>
-            <option value="50.0647,19.9450" ${state.clockCity === '50.0647,19.9450' ? 'selected' : ''}>Kraków</option>
-            <option value="54.3520,18.6466" ${state.clockCity === '54.3520,18.6466' ? 'selected' : ''}>Gdańsk</option>
-            <option value="51.1079,17.0385" ${state.clockCity === '51.1079,17.0385' ? 'selected' : ''}>Wrocław</option>
-            <option value="52.4064,16.9252" ${state.clockCity === '52.4064,16.9252' ? 'selected' : ''}>Poznań</option>
-            <option value="31.7683,35.2137" ${state.clockCity === '31.7683,35.2137' ? 'selected' : ''}>Jerozolima (Izrael)</option>
-          </select>
-        </div>
-
-        <div class="mc-clock-topbar-actions">
-          <button type="button" id="btnQuickThemeToggle" class="mc-quick-btn" title="Przełącz motyw jasny/ciemny">
-            ${state.theme === 'light' ? '🌙 Ciemny' : '☀️ Jasny'}
+        <div class="mc-clock-topbar-edge-space" aria-hidden="true"></div>
+        <div class="mc-clock-topbar-right">
+          <button type="button" id="btnClockMenuToggle" class="mc-btn-clock-menu" aria-expanded="${state.clockDrawerOpen ? 'true' : 'false'}" aria-controls="mcClockSettingsDrawer" aria-label="Menu ustawień zegara" title="Ustawienia i opcje">
+            <svg class="mc-menu-vertical-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="6" y1="5" x2="6" y2="19" />
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="18" y1="5" x2="18" y2="19" />
+            </svg>
           </button>
-          <button type="button" id="btnLogout" class="mc-quick-btn">Wyloguj</button>
         </div>
       </header>
 
@@ -1077,6 +1068,53 @@ export function renderClockModule() {
             : ''
         }
       </main>
+
+      <!-- Panel boczny wysuwany z prawej strony (Ustawienia Zegara) -->
+      <div id="mcClockDrawerBackdrop" class="mc-drawer-backdrop ${state.clockDrawerOpen ? 'is-open' : ''}" aria-hidden="${state.clockDrawerOpen ? 'false' : 'true'}"></div>
+      <aside id="mcClockSettingsDrawer" class="mc-settings-drawer ${state.clockDrawerOpen ? 'is-open' : ''}" role="dialog" aria-modal="true" aria-label="Menu ustawień" aria-hidden="${state.clockDrawerOpen ? 'false' : 'true'}">
+        <div class="mc-drawer-header">
+          <div class="mc-drawer-title-wrap">
+            <h3 class="mc-drawer-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4A35A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Ustawienia</span>
+            </h3>
+          </div>
+          <button type="button" id="btnCloseClockDrawer" class="mc-drawer-close-btn" aria-label="Zamknij menu ustawień" title="Zamknij">✕</button>
+        </div>
+        <div class="mc-drawer-body">
+          <div class="mc-drawer-section">
+            <label class="mc-drawer-label" for="mcCitySelector">
+              <span class="mc-pulse-dot" style="background:#FF7A00;width:8px;height:8px;"></span>
+              Lokalizacja astronomiczna
+            </label>
+            <select id="mcCitySelector" class="mc-city-select mc-drawer-select" aria-label="Wybierz lokalizację">
+              <option value="52.2297,21.0122" ${state.clockCity === '52.2297,21.0122' ? 'selected' : ''}>Warszawa (Polska)</option>
+              <option value="50.9295,21.3853" ${state.clockCity === '50.9295,21.3853' ? 'selected' : ''}>Ostrowiec Św. (Polska)</option>
+              <option value="50.0647,19.9450" ${state.clockCity === '50.0647,19.9450' ? 'selected' : ''}>Kraków</option>
+              <option value="54.3520,18.6466" ${state.clockCity === '54.3520,18.6466' ? 'selected' : ''}>Gdańsk</option>
+              <option value="51.1079,17.0385" ${state.clockCity === '51.1079,17.0385' ? 'selected' : ''}>Wrocław</option>
+              <option value="52.4064,16.9252" ${state.clockCity === '52.4064,16.9252' ? 'selected' : ''}>Poznań</option>
+              <option value="31.7683,35.2137" ${state.clockCity === '31.7683,35.2137' ? 'selected' : ''}>Jerozolima (Izrael)</option>
+            </select>
+          </div>
+
+          <div class="mc-drawer-section">
+            <span class="mc-drawer-label">Tryb motywu</span>
+            <button type="button" id="btnQuickThemeToggle" class="mc-quick-btn mc-drawer-theme-btn" title="Przełącz motyw jasny/ciemny">
+              ${state.theme === 'light' ? '🌙 Przełącz na motyw ciemny' : '☀️ Przełącz na motyw jasny'}
+            </button>
+          </div>
+
+          <div class="mc-drawer-section mc-drawer-logout-wrap">
+            <button type="button" id="btnLogout" class="mc-quick-btn mc-drawer-logout-btn">
+              Wyloguj z Mission Control
+            </button>
+          </div>
+        </div>
+      </aside>
     </div>
   `;
 }
@@ -1913,6 +1951,31 @@ function bindEvents() {
     };
   }
 
+  // Obsługa chowanego menu ustawień zegara w prawym górnym rogu
+  const btnClockMenuToggle = document.getElementById('btnClockMenuToggle');
+  if (btnClockMenuToggle) {
+    btnClockMenuToggle.onclick = () => {
+      state.clockDrawerOpen = !state.clockDrawerOpen;
+      render();
+    };
+  }
+
+  const btnCloseClockDrawer = document.getElementById('btnCloseClockDrawer');
+  if (btnCloseClockDrawer) {
+    btnCloseClockDrawer.onclick = () => {
+      state.clockDrawerOpen = false;
+      render();
+    };
+  }
+
+  const clockDrawerBackdrop = document.getElementById('mcClockDrawerBackdrop');
+  if (clockDrawerBackdrop) {
+    clockDrawerBackdrop.onclick = () => {
+      state.clockDrawerOpen = false;
+      render();
+    };
+  }
+
   // Szybkie akcje na karcie TERAZ
   document.querySelectorAll('[data-quick-done]').forEach((btn) => {
     btn.onclick = async (e) => {
@@ -2498,6 +2561,16 @@ function bindEvents() {
 }
 
 if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
+  if (!window._mcKeyboardEscapeAttached) {
+    window._mcKeyboardEscapeAttached = true;
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && state.clockDrawerOpen) {
+        state.clockDrawerOpen = false;
+        render();
+      }
+    });
+  }
+
   if (!window._mcLiveClockInterval) {
     let lastTickSecond = -1;
     let lastMinuteChecked = -1;
