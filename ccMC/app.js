@@ -441,13 +441,13 @@ export function calculateSunset(date, lat = 52.2297, lng = 21.0122) {
 }
 
 const BIBLICAL_DAYS = {
-  0: { name: 'Dzień Pierwszy (Biblijna Niedziela)', short: 'Dzień I', isSabbath: false },
-  1: { name: 'Dzień Drugi (Biblijny Poniedziałek)', short: 'Dzień II', isSabbath: false },
-  2: { name: 'Dzień Trzeci (Biblijny Wtorek)', short: 'Dzień III', isSabbath: false },
-  3: { name: 'Dzień Czwarty (Biblijna Środa)', short: 'Dzień IV', isSabbath: false },
-  4: { name: 'Dzień Piąty (Biblijny Czwartek)', short: 'Dzień V', isSabbath: false },
-  5: { name: 'Dzień Przygotowania (Szósty)', short: 'Dzień VI • Przygotowanie', isSabbath: false },
-  6: { name: 'SZABAT • Dzień Siódmy Święty', short: 'SZABAT (Dzień VII)', isSabbath: true },
+  0: { name: 'Pierwszy Dzień Tygodnia', short: '1. Dzień Tygodnia', isSabbath: false },
+  1: { name: 'Drugi Dzień Tygodnia', short: '2. Dzień Tygodnia', isSabbath: false },
+  2: { name: 'Trzeci Dzień Tygodnia', short: '3. Dzień Tygodnia', isSabbath: false },
+  3: { name: 'Czwarty Dzień Tygodnia', short: '4. Dzień Tygodnia', isSabbath: false },
+  4: { name: 'Piąty Dzień Tygodnia', short: '5. Dzień Tygodnia', isSabbath: false },
+  5: { name: 'Szósty Dzień Tygodnia (Dzień Przygotowania)', short: '6. Dzień Tygodnia', isSabbath: false },
+  6: { name: 'SZABAT', short: 'SZABAT', isSabbath: true },
 };
 
 export function getBiblicalTimeState(now = new Date(), lat = 52.2297, lng = 21.0122) {
