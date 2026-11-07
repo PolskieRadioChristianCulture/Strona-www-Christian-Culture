@@ -1045,6 +1045,22 @@ test('18. Single Pulsing Dot Under Time, Enlarged Desktop CHRISTIAN CULTURE LIVE
     /\.mc-clock-live-box\s*\{[\s\S]*?margin-top:\s*0\.5cm;/,
     'TERAZ box (.mc-clock-live-box) must be lowered by 0.5cm (margin-top: 0.5cm)'
   );
+
+  // Frameless CHRISTIAN CULTURE LIVE header
+  assert.match(
+    ccMcStyle,
+    /\.mc-clock-permanent-header\s*\{[\s\S]*?background:\s*transparent\s*!important;[\s\S]*?border:\s*none\s*!important;/,
+    'CHRISTIAN CULTURE LIVE header (.mc-clock-permanent-header) must have no frame or border'
+  );
+
+  // Hero wallpaper on clock screen
+  const heroBgPath = path.join(rootDir, 'ccMC', 'hero-bg.jpg');
+  assert.ok(fs.existsSync(heroBgPath), 'Hero wallpaper ccMC/hero-bg.jpg must exist');
+  assert.match(
+    ccMcStyle,
+    /\.mc-clock-fullscreen\s*\{[\s\S]*?background-image:\s*url\(['"]?\/ccMC\/hero-bg\.jpg['"]?\);/,
+    '.mc-clock-fullscreen must use /ccMC/hero-bg.jpg as hero wallpaper'
+  );
 });
 
 

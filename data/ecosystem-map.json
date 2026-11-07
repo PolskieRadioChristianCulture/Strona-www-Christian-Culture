@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-07",
+      "topic": "ccMC: Usunięcie ramki z napisu CHRISTIAN CULTURE LIVE oraz dodanie pełnoekranowej tapety Hero (/ccMC/hero-bg.jpg)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-07",
       "topic": "ccMC: Jedna pulsująca kropka pod godziną, powiększony napis CHRISTIAN CULTURE LIVE w wersji desktop oraz obniżenie okna TERAZ o 0,5 cm",
       "agent": "A"
     },
