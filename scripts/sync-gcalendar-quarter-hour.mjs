@@ -273,14 +273,22 @@ async function main() {
   try {
     const startUtc = windowStart.toISOString();
     const endUtc = windowEnd.toISOString();
-    const calsRaw = execFileSync('gcalendar', ['readonly', 'calendars', '--json'], { encoding: 'utf8', timeout: 12000 });
+    const calsRaw = execFileSync('gcalendar', ['readonly', 'calendars', '--json'], {
+      encoding: 'utf8',
+      timeout: 3000,
+      stdio: ['ignore', 'pipe', 'ignore'],
+    });
     if (calsRaw && calsRaw.trim().startsWith('[')) {
       fs.writeFileSync(calsPath, calsRaw, 'utf8');
     }
     const priRaw = execFileSync(
       'gcalendar',
       ['readonly', 'events', '--cal', 'primary', '--start', startUtc, '--end', endUtc, '--max', '250', '--json'],
-      { encoding: 'utf8', timeout: 15000 }
+      {
+        encoding: 'utf8',
+        timeout: 4000,
+        stdio: ['ignore', 'pipe', 'ignore'],
+      }
     );
     if (priRaw && priRaw.trim().startsWith('[')) {
       fs.writeFileSync(primaryPath, priRaw, 'utf8');
