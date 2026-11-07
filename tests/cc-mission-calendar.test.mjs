@@ -625,4 +625,47 @@ test('12. Mobile Interface Drawer: 3-vertical-lines settings menu in top-right, 
   assert.match(ccMcStyle, /min-height:\s*44px/, 'Buttons must have minimum 44px touch target');
 });
 
+test('13. Live Broadcast Screensaver Box below Clock: real-time polskieradio.cc schedule + rotating TERAZ task summary', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const ccMcAppPath = path.join(rootDir, 'ccMC', 'app.js');
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+  const ccMcIndexPath = path.join(rootDir, 'ccMC', 'index.html');
+
+  const ccMcIndex = fs.readFileSync(ccMcIndexPath, 'utf8');
+  assert.match(ccMcIndex, /\/js\/cc-ramowka\.js/, 'ccMC/index.html must load /js/cc-ramowka.js');
+
+  const ccMcApp = fs.readFileSync(ccMcAppPath, 'utf8');
+  assert.match(ccMcApp, /function getCcRamowkaState/, 'Must export getCcRamowkaState');
+  assert.match(ccMcApp, /function getCurrentTerazSummary/, 'Must export getCurrentTerazSummary');
+  assert.match(ccMcApp, /function renderLiveScreensaverBox/, 'Must export renderLiveScreensaverBox');
+  assert.match(ccMcApp, /function updateLiveScreensaverDom/, 'Must export updateLiveScreensaverDom');
+  assert.match(ccMcApp, /mcClockLiveBox/, 'Must render #mcClockLiveBox');
+  assert.match(ccMcApp, /mcLiveSlideRamowka/, 'Must render #mcLiveSlideRamowka slide');
+  assert.match(ccMcApp, /mcLiveSlideTeraz/, 'Must render #mcLiveSlideTeraz slide');
+  assert.match(ccMcApp, /NA ŻYWO/, 'Must display NA ŻYWO badge');
+
+  const { getCcRamowkaState, getCurrentTerazSummary, renderLiveScreensaverBox } = await import('../ccMC/app.js');
+  const sampleDate = new Date('2026-11-07T09:25:00+01:00');
+  const ramowka = getCcRamowkaState(sampleDate);
+  assert.ok(ramowka.title && ramowka.title.length > 3, 'Ramowka must return active program title');
+  assert.ok(ramowka.timeStart && ramowka.timeEnd, 'Ramowka must return timeStart and timeEnd');
+
+  const teraz = getCurrentTerazSummary(sampleDate);
+  assert.ok(teraz.title && teraz.title.length > 3, 'Teraz summary must return current task title');
+  assert.ok(teraz.timeRange, 'Teraz summary must return timeRange');
+
+  const html = renderLiveScreensaverBox(sampleDate);
+  assert.match(html, /mcClockLiveBox/, 'Rendered HTML must contain mcClockLiveBox');
+  assert.ok(html.includes(ramowka.title), 'Rendered HTML must include live program title from polskieradio.cc');
+  assert.match(html, /id="mcLiveTerazTitle"/, 'Rendered HTML must include mcLiveTerazTitle');
+  assert.ok(html.includes('Publikacja Lekcji Kursu Codziennego'), 'Rendered HTML must include current TERAZ task title');
+
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+  assert.match(ccMcStyle, /\.mc-clock-live-box/, 'style.css must style .mc-clock-live-box');
+  assert.match(ccMcStyle, /\.mc-broadcast-wave-icon/, 'style.css must style .mc-broadcast-wave-icon');
+  assert.match(ccMcStyle, /\.mc-live-onair-pill/, 'style.css must style .mc-live-onair-pill');
+  assert.match(ccMcStyle, /\.mc-live-slide/, 'style.css must style .mc-live-slide');
+});
+
+
 

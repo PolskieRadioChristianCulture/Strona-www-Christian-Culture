@@ -3,6 +3,8 @@
 // Adres: https://polskieradio.cc/ccMC | API: /api/mission-calendar/*
 // ============================================================================
 
+import '../js/cc-ramowka.js';
+
 const STATUS_META = {
   todo: { code: 'todo', color: '#2563EB', icon: '○', label: 'Do wykonania' },
   in_progress: { code: 'in_progress', color: '#D97706', icon: '◐', label: 'W trakcie' },
@@ -62,12 +64,14 @@ const state = {
   error: '',
   notice: '',
   mobileSidebarOpen: false,
-  theme: localStorage.getItem('cc_mc_theme') || 'dark',
+  theme: (typeof localStorage !== 'undefined' ? localStorage.getItem('cc_mc_theme') : null) || 'dark',
   isConnecting: false,
   terazFilter: false,
   clockCity: '52.2297,21.0122',
   clockShowMore: false,
   clockDrawerOpen: false, // Panel boczny ustawień w prawym górnym rogu
+  liveSlideIndex: 0, // 0 = Ramówka polskieradio.cc, 1 = Skrót zadania TERAZ (rotacja wygaszacza ekranu)
+  liveSlideManualUntil: 0,
   statsScope: 'today', // 'today' (default) | 'all'
   realtimeEngine: true, // Inteligentny Silnik Real-Time: AKTYWNY (Autopilot Misji CC)
   pushSubscribed: true, // Powiadomienia domyślnie włączone (cisza nocna 22:00–06:00)
@@ -76,12 +80,16 @@ const state = {
 export function applyTheme(theme) {
   state.theme = theme === 'light' ? 'light' : 'dark';
   try {
-    localStorage.setItem('cc_mc_theme', state.theme);
+    if (typeof localStorage !== 'undefined') localStorage.setItem('cc_mc_theme', state.theme);
   } catch {}
-  document.documentElement.setAttribute('data-theme', state.theme);
-  document.body.setAttribute('data-theme', state.theme);
+  if (typeof document !== 'undefined') {
+    document.documentElement.setAttribute('data-theme', state.theme);
+    document.body.setAttribute('data-theme', state.theme);
+  }
 }
-applyTheme(state.theme);
+if (typeof document !== 'undefined') {
+  applyTheme(state.theme);
+}
 
 async function apiRequest(path, options = {}) {
   const headers = {
@@ -987,6 +995,296 @@ export function renderBiblicalClockFullHtml() {
   return renderClockModule();
 }
 
+export function getCcRamowkaState(now = new Date()) {
+  const g = typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : {});
+  if (g.CC_RAMOWKA && typeof g.CC_RAMOWKA.getScheduleState === 'function') {
+    return g.CC_RAMOWKA.getScheduleState(now);
+  }
+  return {
+    title: 'ŚPIEWAJMY PANU — CODZIENNE UWIELBIENIE CCTV24',
+    desc: 'Całodobowa rotacja uwielbienia i Słowa Bożego',
+    url: 'master',
+    timeStart: '09:00',
+    timeEnd: '10:00',
+    next: { time: '10:00', title: 'APOKALIPSA: KSIĘGA NADZIEI' },
+    third: { time: '10:55', title: 'Zjednoczeni za Polskę (Pasmo Południowe)' },
+  };
+}
+
+export function getCurrentTerazSummary(now = new Date()) {
+  const nowTs = now.getTime();
+  const allEvents = state.realtimeEngine
+    ? (state.rawEvents && state.rawEvents.length ? applyRealtimeEngine(state.rawEvents, now) : applyRealtimeEngine(state.events, now))
+    : state.events;
+
+  const todayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now);
+
+  const todayTasks = (allEvents || [])
+    .filter((ev) => (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix))
+    .sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
+
+  const currentNowEvent = todayTasks.find((ev) => {
+    const s = Date.parse(ev.starts_at);
+    const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
+    return s <= nowTs && nowTs < e && ev.status !== 'done';
+  }) || todayTasks.find((ev) => {
+    const s = Date.parse(ev.starts_at);
+    const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
+    return s <= nowTs && nowTs < e;
+  });
+
+  const nextUpcomingEvent = todayTasks.find((ev) => Date.parse(ev.starts_at) > nowTs);
+
+  if (currentNowEvent) {
+    const startHm = (toWarsawInput(currentNowEvent.starts_at) || '').slice(11, 16);
+    const endHm = currentNowEvent.ends_at ? (toWarsawInput(currentNowEvent.ends_at) || '').slice(11, 16) : '';
+    const timeRange = endHm ? `${startHm}–${endHm}` : startHm;
+    const agent = currentNowEvent.assigned_to || '@OA';
+    const nextSub = nextUpcomingEvent
+      ? `Następnie ${(toWarsawInput(nextUpcomingEvent.starts_at) || '').slice(11, 16)}: ${nextUpcomingEvent.title}`
+      : `Zadania na dziś: ${todayTasks.length} w harmonogramie`;
+    return {
+      mode: 'active',
+      badge: 'TERAZ • ZADANIE MISJI',
+      timeRange,
+      agent,
+      title: currentNowEvent.title,
+      sub: nextSub,
+    };
+  }
+
+  if (nextUpcomingEvent) {
+    const startHm = (toWarsawInput(nextUpcomingEvent.starts_at) || '').slice(11, 16);
+    const endHm = nextUpcomingEvent.ends_at ? (toWarsawInput(nextUpcomingEvent.ends_at) || '').slice(11, 16) : '';
+    const timeRange = endHm ? `${startHm}–${endHm}` : startHm;
+    const agent = nextUpcomingEvent.assigned_to || '@OA';
+    return {
+      mode: 'upcoming',
+      badge: 'TERAZ • NASTĘPNE ZADANIE',
+      timeRange,
+      agent,
+      title: nextUpcomingEvent.title,
+      sub: `Start o ${startHm} • Przypisano: ${agent}`,
+    };
+  }
+
+  // Kanoniczny harmonogram rutyn misyjnych CC wg godziny warszawskiej (dla wygaszacza ekranu w studiu)
+  const warsawHour = Number(
+    new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/Warsaw',
+      hour: '2-digit',
+      hour12: false,
+    }).format(now)
+  );
+  const pad2 = (n) => String(n).padStart(2, '0');
+  if (warsawHour >= 6 && warsawHour < 8) {
+    return {
+      mode: 'routine',
+      badge: 'TERAZ • RUTYNA MISJI',
+      timeRange: '06:00–08:00',
+      agent: '@A001',
+      title: 'Publikacja Rozważań „Dobrze, że jesteś” (Aplikacje + WWW + SMS)',
+      sub: 'Następnie 08:00: Produkcja i Publikacja Biblia Audio V7 (4K + WWW)',
+    };
+  }
+  if (warsawHour === 8) {
+    return {
+      mode: 'routine',
+      badge: 'TERAZ • RUTYNA MISJI',
+      timeRange: '08:00–09:00',
+      agent: '@CCS',
+      title: 'Produkcja i Publikacja Odcinka Biblia Audio V7 (4K UHD + WWW)',
+      sub: 'Następnie 09:00: Kurs Codzienny @Akademia & Audyt Strażnika',
+    };
+  }
+  if (warsawHour === 9) {
+    return {
+      mode: 'routine',
+      badge: 'TERAZ • ZADANIE MISJI',
+      timeRange: '09:00–10:00',
+      agent: '@A001',
+      title: 'Publikacja Lekcji Kursu Codziennego @Akademia & Audyt Strażnika Kodu',
+      sub: 'Następnie 10:00: Dystrybucja Rozważań WWW na grupy WhatsApp (FIFO)',
+    };
+  }
+  if (warsawHour >= 10 && warsawHour < 18) {
+    return {
+      mode: 'routine',
+      badge: 'TERAZ • DYSTRYBUCJA MISJI',
+      timeRange: `${pad2(warsawHour)}:00–${pad2(warsawHour + 1)}:00`,
+      agent: '@Joshua',
+      title: 'Rotacyjna Dystrybucja Rozważań WWW na grupy WhatsApp (2 grupy FIFO)',
+      sub: warsawHour < 17
+        ? `Następnie ${pad2(warsawHour + 1)}:00: Kolejna tura dystrybucji WhatsApp & monitoring @777`
+        : 'Następnie 18:00: Wieczorna sesja wydawnicza i subskrypcja SMS',
+    };
+  }
+  if (warsawHour >= 18 && warsawHour < 22) {
+    return {
+      mode: 'routine',
+      badge: 'TERAZ • PASMO WIECZORNE',
+      timeRange: '18:00–22:00',
+      agent: '@777',
+      title: 'Wieczorna Subskrypcja SMS, Przegląd Skrzynki Misji & Raport JOMA',
+      sub: 'Od 22:00: Cisza nocna powiadomień Push (22:00–06:00) & Nocne Czuwanie',
+    };
+  }
+  return {
+    mode: 'routine',
+    badge: 'TERAZ • CZUWANIE NOCNE',
+    timeRange: '22:00–06:00',
+    agent: '@SMCC',
+    title: 'Nocne Czuwanie Systemowe 24/7 & Ochrona Kanałów Nadawczych LIVE',
+    sub: 'Następnie 06:00: Poranna Publikacja Rozważań „Dobrze, że jesteś”',
+  };
+}
+
+export function renderLiveScreensaverBox(now = new Date()) {
+  const ramowka = getCcRamowkaState(now);
+  const teraz = getCurrentTerazSummary(now);
+  const activeSlide = state.liveSlideIndex === 1 ? 1 : 0;
+  const modeLabel = activeSlide === 0
+    ? `RAMÓWKA • ${ramowka.timeStart || '00:00'}–${ramowka.timeEnd || '24:00'}`
+    : `ZADANIE • ${teraz.timeRange}`;
+
+  const nextRamowkaStr = ramowka.next
+    ? `Następnie ${ramowka.next.time}: ${ramowka.next.title}`
+    : (ramowka.desc || 'Polskie Radio Christian Culture — Emisja 24/7');
+
+  return `
+    <section class="mc-clock-live-box" id="mcClockLiveBox" role="region" aria-live="polite" aria-label="Okienko NA ŻYWO: Ramówka polskieradio.cc i skrót zadania TERAZ">
+      <div class="mc-live-box-header">
+        <div class="mc-live-box-brand">
+          <span class="mc-broadcast-wave-icon" aria-hidden="true" title="Sygnał nadawczy NA ŻYWO">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" />
+              <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" />
+              <circle cx="12" cy="12" r="2.2" fill="currentColor" />
+              <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" />
+              <path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1" />
+            </svg>
+          </span>
+          <span class="mc-live-onair-pill">
+            <span class="mc-live-onair-dot" aria-hidden="true"></span>
+            <span>NA ŻYWO</span>
+          </span>
+          <span class="mc-live-mode-meta" id="mcLiveBoxModeBadge">${escapeHtml(modeLabel)}</span>
+        </div>
+
+        <div class="mc-live-rotator-tabs" role="tablist" aria-label="Przełącz widok w okienku NA ŻYWO">
+          <button type="button" class="mc-live-tab-btn ${activeSlide === 0 ? 'is-active' : ''}" data-live-slide-btn="0" role="tab" aria-selected="${activeSlide === 0 ? 'true' : 'false'}" title="Ramówka ze strony głównej polskieradio.cc">
+            <span>📡 Ramówka</span>
+          </button>
+          <button type="button" class="mc-live-tab-btn ${activeSlide === 1 ? 'is-active' : ''}" data-live-slide-btn="1" role="tab" aria-selected="${activeSlide === 1 ? 'true' : 'false'}" title="Skrót aktualnego zadania TERAZ">
+            <span>⏱️ Teraz</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mc-live-slides-viewport">
+        <!-- Slajd 0: Ramówka i tytuł programu ze strony głównej polskieradio.cc -->
+        <div class="mc-live-slide ${activeSlide === 0 ? 'is-active' : ''}" id="mcLiveSlideRamowka" data-live-slide="0" role="tabpanel" tabindex="0" title="Kliknij, aby przejść do widoku TERAZ">
+          <div class="mc-live-slide-main">
+            <span class="mc-live-program-kicker">ANTENA POLSKIERADIO.CC</span>
+            <strong class="mc-live-program-title" id="mcLiveRamowkaTitle">${escapeHtml(ramowka.title)}</strong>
+            <small class="mc-live-program-sub" id="mcLiveRamowkaSub">${escapeHtml(nextRamowkaStr)}</small>
+          </div>
+          <span class="mc-live-slide-action" aria-hidden="true">⏱️ →</span>
+        </div>
+
+        <!-- Slajd 1: Skrót TERAZ z aktualnego zadania kalendarza -->
+        <div class="mc-live-slide ${activeSlide === 1 ? 'is-active' : ''}" id="mcLiveSlideTeraz" data-live-slide="1" role="tabpanel" tabindex="0" title="Kliknij, aby otworzyć pełny moduł TERAZ">
+          <div class="mc-live-slide-main">
+            <span class="mc-live-program-kicker is-teraz-kicker" id="mcLiveTerazKicker">ZADANIE TERAZ • ${escapeHtml(teraz.agent)} (${escapeHtml(teraz.timeRange)})</span>
+            <strong class="mc-live-program-title" id="mcLiveTerazTitle">${escapeHtml(teraz.title)}</strong>
+            <small class="mc-live-program-sub" id="mcLiveTerazSub">${escapeHtml(teraz.sub)}</small>
+          </div>
+          <span class="mc-live-slide-action" aria-hidden="true">Otwórz →</span>
+        </div>
+      </div>
+
+      <div class="mc-live-progress-bar" aria-hidden="true">
+        <div class="mc-live-progress-fill" id="mcLiveProgressFill"></div>
+      </div>
+    </section>
+  `;
+}
+
+export function updateLiveScreensaverDom(now = new Date()) {
+  if (typeof document === 'undefined') return;
+  const box = document.getElementById('mcClockLiveBox');
+  if (!box) return;
+
+  const ramowka = getCcRamowkaState(now);
+  const teraz = getCurrentTerazSummary(now);
+
+  // Auto-rotacja co 6 sekund (o ile użytkownik nie przełączył ręcznie w ostatnich 12 s)
+  if (Date.now() > (state.liveSlideManualUntil || 0)) {
+    const autoIdx = Math.floor(now.getTime() / 6000) % 2;
+    if (state.liveSlideIndex !== autoIdx) {
+      state.liveSlideIndex = autoIdx;
+    }
+  }
+
+  const activeSlide = state.liveSlideIndex === 1 ? 1 : 0;
+  const modeLabel = activeSlide === 0
+    ? `RAMÓWKA • ${ramowka.timeStart || '00:00'}–${ramowka.timeEnd || '24:00'}`
+    : `ZADANIE • ${teraz.timeRange}`;
+
+  const modeBadgeEl = document.getElementById('mcLiveBoxModeBadge');
+  if (modeBadgeEl && modeBadgeEl.textContent !== modeLabel) {
+    modeBadgeEl.textContent = modeLabel;
+  }
+
+  const ramowkaTitleEl = document.getElementById('mcLiveRamowkaTitle');
+  if (ramowkaTitleEl && ramowkaTitleEl.textContent !== ramowka.title) {
+    ramowkaTitleEl.textContent = ramowka.title;
+  }
+
+  const nextRamowkaStr = ramowka.next
+    ? `Następnie ${ramowka.next.time}: ${ramowka.next.title}`
+    : (ramowka.desc || 'Polskie Radio Christian Culture — Emisja 24/7');
+  const ramowkaSubEl = document.getElementById('mcLiveRamowkaSub');
+  if (ramowkaSubEl && ramowkaSubEl.textContent !== nextRamowkaStr) {
+    ramowkaSubEl.textContent = nextRamowkaStr;
+  }
+
+  const terazKickerStr = `ZADANIE TERAZ • ${teraz.agent} (${teraz.timeRange})`;
+  const terazKickerEl = document.getElementById('mcLiveTerazKicker');
+  if (terazKickerEl && terazKickerEl.textContent !== terazKickerStr) {
+    terazKickerEl.textContent = terazKickerStr;
+  }
+
+  const terazTitleEl = document.getElementById('mcLiveTerazTitle');
+  if (terazTitleEl && terazTitleEl.textContent !== teraz.title) {
+    terazTitleEl.textContent = teraz.title;
+  }
+
+  const terazSubEl = document.getElementById('mcLiveTerazSub');
+  if (terazSubEl && terazSubEl.textContent !== teraz.sub) {
+    terazSubEl.textContent = teraz.sub;
+  }
+
+  const slide0 = document.getElementById('mcLiveSlideRamowka');
+  const slide1 = document.getElementById('mcLiveSlideTeraz');
+  if (slide0 && slide1) {
+    slide0.classList.toggle('is-active', activeSlide === 0);
+    slide1.classList.toggle('is-active', activeSlide === 1);
+  }
+
+  box.querySelectorAll('[data-live-slide-btn]').forEach((btn) => {
+    const idx = Number(btn.getAttribute('data-live-slide-btn'));
+    const isAct = idx === activeSlide;
+    btn.classList.toggle('is-active', isAct);
+    btn.setAttribute('aria-selected', isAct ? 'true' : 'false');
+  });
+}
+
 export function renderClockModule() {
   const now = new Date();
   const [lat, lng] = (state.clockCity || '52.2297,21.0122').split(',').map(Number);
@@ -1034,6 +1332,8 @@ export function renderClockModule() {
             </div>
           </div>
         </div>
+
+        ${renderLiveScreensaverBox(now)}
 
         <div class="mc-clock-more-toggle-wrap">
           <button type="button" id="btnClockToggleMore" class="mc-clock-more-btn" aria-expanded="${state.clockShowMore ? 'true' : 'false'}">
@@ -1976,6 +2276,31 @@ function bindEvents() {
     };
   }
 
+  // Interakcja z rotacyjnym okienkiem "NA ŻYWO" pod zegarem (Ramówka ⇄ Zadanie TERAZ)
+  document.querySelectorAll('[data-live-slide-btn]').forEach((btn) => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      const idx = Number(btn.getAttribute('data-live-slide-btn'));
+      state.liveSlideIndex = idx === 1 ? 1 : 0;
+      state.liveSlideManualUntil = Date.now() + 12_000;
+      updateLiveScreensaverDom(new Date());
+    };
+  });
+
+  document.querySelectorAll('.mc-live-slide').forEach((slideEl) => {
+    slideEl.onclick = () => {
+      state.module = 'teraz';
+      render();
+    };
+    slideEl.onkeydown = (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        state.module = 'teraz';
+        render();
+      }
+    };
+  });
+
   // Szybkie akcje na karcie TERAZ
   document.querySelectorAll('[data-quick-done]').forEach((btn) => {
     btn.onclick = async (e) => {
@@ -2622,6 +2947,9 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
           const bState = getBiblicalTimeState(now, lat, lng);
           countdownEl.textContent = formatCountdown(bState.sabbathTargetDate - now);
         }
+
+        // Aktualizacja w czasie rzeczywistym i rotacja okienka "NA ŻYWO" (Ramówka ⇄ Zadanie TERAZ)
+        updateLiveScreensaverDom(now);
 
         // Inteligentny Silnik Real-Time: automatyczne odświeżenie przy zmianie minuty
         const curMin = now.getHours() * 60 + now.getMinutes();
