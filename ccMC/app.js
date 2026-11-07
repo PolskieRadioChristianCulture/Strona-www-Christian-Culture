@@ -66,6 +66,7 @@ const state = {
   isConnecting: false,
   terazFilter: false,
   clockCity: '52.2297,21.0122',
+  clockShowMore: false,
   statsScope: 'today', // 'today' (default) | 'all'
   realtimeEngine: true, // Inteligentny Silnik Real-Time: AKTYWNY (Autopilot Misji CC)
 };
@@ -833,7 +834,7 @@ function renderTodayHtml(filtered) {
     <div class="mc-today-container" role="region" aria-label="Widok zadań na DZIŚ według aktualnej godziny TERAZ">
       <!-- Minimalistyczny Zegar Biblijny Szabatu (Interaktywny: kliknięcie filtruje zadania TERAZ) -->
       <div class="mc-today-hero">
-        <div class="mc-today-hero-clock-col mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Kliknij w zegar, aby wyświetlić zadania trwające TERAZ">
+        <div class="mc-today-hero-clock-col mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Zegar Biblijny Szabatu" aria-label="Zegar Biblijny Szabatu">
           <div class="mc-dial-wrapper" id="dial-wrapper">
             ${renderBiblicalClockDialSvg(now.getSeconds())}
             <div class="mc-dial-center">
@@ -847,10 +848,7 @@ function renderTodayHtml(filtered) {
               <div class="mc-biblical-status-wrap">
                 <div id="biblical-badge" class="mc-biblical-badge ${bState.isSabbath ? 'is-sabbath' : ''}">
                   <span class="mc-pulse-dot" style="background:#FF7A00;"></span>
-                  <span id="biblical-day-name">${bState.biblicalDay.name}</span>
-                </div>
-                <div class="mc-clock-teraz-cta">
-                  <span>⏱️ Kliknij w zegar, aby wyświetlić zadania TERAZ</span>
+                  <span id="biblical-day-name">${bState.isSabbath ? 'SZABAT' : bState.biblicalDay.name}</span>
                 </div>
               </div>
             </div>
@@ -998,7 +996,7 @@ export function renderClockModule() {
       </header>
 
       <main class="mc-clock-module-center">
-        <div class="mc-dial-wrapper mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Kliknij w zegar, aby otworzyć pełnoekranowy moduł TERAZ" aria-label="Tarcza Zegara Biblijnego — kliknij, aby przejść do zadań TERAZ">
+        <div class="mc-dial-wrapper mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Zegar Biblijny Szabatu" aria-label="Tarcza Zegara Biblijnego">
           ${renderBiblicalClockDialSvg(now.getSeconds())}
           <div class="mc-dial-center">
             <div id="digital-time" class="tabular-clock mc-clock-digits">${warsawTimeNowStr}</div>
@@ -1011,37 +1009,44 @@ export function renderClockModule() {
             <div class="mc-biblical-status-wrap">
               <div id="biblical-badge" class="mc-biblical-badge ${bState.isSabbath ? 'is-sabbath' : ''}">
                 <span class="mc-pulse-dot" style="background:${bState.isSabbath ? '#ef4444' : '#FF7A00'};"></span>
-                <span>${bState.biblicalDay.name}</span>
+                <span>${bState.isSabbath ? 'SZABAT' : bState.biblicalDay.name}</span>
               </div>
             </div>
           </div>
         </div>
 
-        <button type="button" class="mc-clock-pulse-banner mc-clickable-clock" id="btnClockToTeraz" aria-label="Przejdź do zadań TERAZ">
-          <span class="mc-pulse-dot" style="background:#FF7A00;"></span>
-          <span class="mc-pulse-text">⏱️ KLIKNIJ W ZEGAR ➔ ZADANIA TERAZ</span>
-          <span class="mc-pulse-arrow">→</span>
-        </button>
-
-        <div class="mc-full-clock-cards">
-          <div class="mc-stat-card">
-            <small class="mc-stat-sub">Zachód Słońca (Dziś)</small>
-            <strong class="mc-stat-val" style="color:#FF7A00;">${formatWarsawTimeOnly(bState.todaySunset)}</strong>
-            <small class="mc-stat-muted">Jutro: ${formatWarsawTimeOnly(bState.tomorrowSunset)}</small>
-          </div>
-
-          <div class="mc-stat-card ${bState.isSabbath ? 'is-sabbath' : ''}">
-            <small class="mc-stat-sub" style="color:#FF7A00;">${bState.countdownLabel}</small>
-            <strong class="mc-stat-val" id="sabbath-countdown">${formatCountdown(bState.sabbathTargetDate - now)}</strong>
-            <small class="mc-stat-muted">${bState.isSabbath ? 'Trwa Święty Boży Szabat' : 'do piątkowego zachodu słońca'}</small>
-          </div>
-
-          <div class="mc-stat-card">
-            <small class="mc-stat-sub">Rachuba Biblijna CC</small>
-            <strong class="mc-stat-val-sm">${bState.isAfterSunset ? 'Trwa nowa doba biblijna (po zachodzie)' : 'Przed zachodem słońca'}</strong>
-            <small class="mc-stat-muted" style="color:#FF7A00;">Piątek zachód ➔ Sobota zachód</small>
-          </div>
+        <div class="mc-clock-more-toggle-wrap">
+          <button type="button" id="btnClockToggleMore" class="mc-clock-more-btn" aria-expanded="${state.clockShowMore ? 'true' : 'false'}">
+            <span>WIĘCEJ</span>
+            <span class="mc-more-arrow">${state.clockShowMore ? '▴' : '▾'}</span>
+          </button>
         </div>
+
+        ${
+          state.clockShowMore
+            ? `
+          <div class="mc-full-clock-cards animate-fade-in" id="mcClockMoreCards">
+            <div class="mc-stat-card">
+              <small class="mc-stat-sub">Zachód Słońca (Dziś)</small>
+              <strong class="mc-stat-val" style="color:#FF7A00;">${formatWarsawTimeOnly(bState.todaySunset)}</strong>
+              <small class="mc-stat-muted">Jutro: ${formatWarsawTimeOnly(bState.tomorrowSunset)}</small>
+            </div>
+
+            <div class="mc-stat-card ${bState.isSabbath ? 'is-sabbath' : ''}">
+              <small class="mc-stat-sub" style="color:#FF7A00;">${bState.countdownLabel}</small>
+              <strong class="mc-stat-val" id="sabbath-countdown">${formatCountdown(bState.sabbathTargetDate - now)}</strong>
+              <small class="mc-stat-muted">${bState.isSabbath ? 'Trwa Święty Boży Szabat' : 'do piątkowego zachodu słońca'}</small>
+            </div>
+
+            <div class="mc-stat-card">
+              <small class="mc-stat-sub">Rachuba Biblijna CC</small>
+              <strong class="mc-stat-val-sm">${bState.isAfterSunset ? 'Trwa nowa doba biblijna (po zachodzie)' : 'Przed zachodem słońca'}</strong>
+              <small class="mc-stat-muted" style="color:#FF7A00;">Piątek zachód ➔ Sobota zachód</small>
+            </div>
+          </div>
+        `
+            : ''
+        }
       </main>
     </div>
   `;
@@ -1869,10 +1874,12 @@ function bindEvents() {
       render();
     };
   }
-  const btnClockToTeraz = document.getElementById('btnClockToTeraz');
-  if (btnClockToTeraz) {
-    btnClockToTeraz.onclick = () => {
-      state.module = 'teraz';
+
+  // Przełącznik "WIĘCEJ" pod zegarem
+  const btnToggleMore = document.getElementById('btnClockToggleMore');
+  if (btnToggleMore) {
+    btnToggleMore.onclick = () => {
+      state.clockShowMore = !state.clockShowMore;
       render();
     };
   }

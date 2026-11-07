@@ -1428,6 +1428,59 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   font-feature-settings: "tnum";
 }
 
+#digital-time,
+.mc-clock-digits {
+  font-size: 50px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  margin-bottom: 2px;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 480px) {
+  #digital-time,
+  .mc-clock-digits {
+    font-size: 36px;
+  }
+}
+
+.mc-clock-more-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.mc-clock-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--mc-muted);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 18px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+}
+
+.mc-clock-more-btn:hover {
+  color: var(--mc-gold-light);
+  border-color: rgba(196, 163, 90, 0.4);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.mc-clock-more-btn .mc-more-arrow {
+  font-size: 10px;
+  color: #FF7A00;
+}
+
 .mc-dial-separator {
   display: flex;
   align-items: center;
@@ -1667,6 +1720,17 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 [data-theme="light"] .mc-teraz-filter-banner {
   color: #0f172a;
   background: rgba(255, 122, 0, 0.1);
+}
+
+[data-theme="light"] .mc-clock-more-btn {
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #64748b;
+}
+
+[data-theme="light"] .mc-clock-more-btn:hover {
+  color: #0b131e;
+  border-color: #b48c36;
+  background: rgba(0, 0, 0, 0.04);
 }
 
 /* ══════════════════════════════════════════════════════════════════════════

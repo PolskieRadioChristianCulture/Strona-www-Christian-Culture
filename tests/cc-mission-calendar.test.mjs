@@ -520,12 +520,15 @@ test('10. Fullscreen Modular Model: Start Module = Only Clock, Click-to-Fullscre
   assert.match(ccMcApp, /function renderTerazModule/, 'Must provide renderTerazModule');
   assert.match(ccMcApp, /function renderModuleDock/, 'Must provide renderModuleDock');
   assert.match(ccMcApp, /btnBackToClock/, 'Must provide return to clock button');
-  assert.match(ccMcApp, /btnClockToTeraz/, 'Must provide banner button to navigate to TERAZ');
+  assert.match(ccMcApp, /btnClockToggleMore/, 'Must provide delicate WIĘCEJ toggle below clock');
+  assert.match(ccMcApp, /clockShowMore/, 'Must support clockShowMore state');
   assert.match(ccMcApp, /data-quick-done/, 'Must provide quick done action on hero card');
 
   const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
   assert.match(ccMcStyle, /\.mc-fullscreen-module/, 'style.css must style mc-fullscreen-module');
   assert.match(ccMcStyle, /\.mc-clock-fullscreen/, 'style.css must style mc-clock-fullscreen');
+  assert.match(ccMcStyle, /\.mc-clock-more-btn/, 'style.css must style mc-clock-more-btn');
+  assert.match(ccMcStyle, /#digital-time/, 'style.css must style #digital-time as largest digits');
   assert.match(ccMcStyle, /\.mc-teraz-fullscreen/, 'style.css must style mc-teraz-fullscreen');
   assert.match(ccMcStyle, /\.mc-teraz-hero-card/, 'style.css must style mc-teraz-hero-card');
   assert.match(ccMcStyle, /\.mc-module-dock/, 'style.css must style mc-module-dock');
