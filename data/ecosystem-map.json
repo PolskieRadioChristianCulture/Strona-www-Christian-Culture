@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-07",
+      "topic": "ccMC: Biblijny kanon tygodnia (Niedziela 1. dzień, Sobota 7. dzień czerwona, Piątek przygotowanie pomarańczowy)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-07",
       "topic": "ccMC: Integracja kanonicznego przycisku powrotu na górę (/js/cc-back-to-top.js)",
       "agent": "A"
     },
@@ -4399,6 +4404,11 @@
   ],
   "lastUpdated": "2026-11-07",
   "recentUpdates": [
+    {
+      "date": "2026-11-07",
+      "topic": "ccMC: Biblijny kanon tygodnia (Niedziela 1. dzień, Sobota 7. dzień czerwona, Piątek przygotowanie pomarańczowy)",
+      "agent": "A"
+    },
     {
       "date": "2026-11-07",
       "topic": "ccMC: Integracja kanonicznego przycisku powrotu na górę (/js/cc-back-to-top.js)",
