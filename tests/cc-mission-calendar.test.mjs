@@ -901,6 +901,45 @@ test('14. Google Calendar Bidirectional Integration & TERAZ Bar Next Task', asyn
   assert.match(liveBoxHtml, /NASTĘPNE ZADANIE/, 'TERAZ bar under clock must display "NASTĘPNE ZADANIE"');
 });
 
+// ---------------------------------------------------------------------------
+// 15. Glassmorphism NA ŻYWO Box, Permanent "CHRISTIAN CULTURE LIVE" Header
+//     above Clock, and 3D Spatial Rim Illumination Every Second
+// ---------------------------------------------------------------------------
+test('15. Glassmorphism NA ŻYWO Box, CHRISTIAN CULTURE LIVE header & 3D Spatial Rim', async () => {
+  const rootDir = process.cwd();
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+
+  // 15a. Transparent glassmorphism background on .mc-clock-live-box
+  assert.match(ccMcStyle, /\.mc-clock-live-box[\s\S]*?backdrop-filter:\s*blur\(24px\)/, '.mc-clock-live-box must use glassmorphism backdrop-filter: blur(24px)');
+  assert.match(ccMcStyle, /\.mc-clock-live-box[\s\S]*?-webkit-backdrop-filter:\s*blur\(24px\)/, '.mc-clock-live-box must include -webkit-backdrop-filter');
+
+  // 15b. Permanent CHRISTIAN CULTURE LIVE header above the clock
+  const { renderClockModule, renderBiblicalClockDialSvg, getTickSpatialProps } = await import('../ccMC/app.js');
+  const clockHtml = renderClockModule();
+  assert.match(clockHtml, /id="mcClockPermanentHeader"/, 'Clock module must render #mcClockPermanentHeader');
+  assert.match(clockHtml, /CHRISTIAN CULTURE LIVE/, 'Clock module must display permanent "CHRISTIAN CULTURE LIVE" above clock');
+  const headerIdx = clockHtml.indexOf('id="mcClockPermanentHeader"');
+  const dialIdx = clockHtml.indexOf('id="mcBiblicalClockHero"');
+  assert.ok(headerIdx > 0 && headerIdx < dialIdx, '"CHRISTIAN CULTURE LIVE" must appear directly ABOVE the clock dial');
+
+  // 15c. Dynamic per-second 3D spatial rim illumination
+  assert.match(clockHtml, /--mc-sec-angle:/, 'Clock dial must include --mc-sec-angle CSS custom property');
+  assert.match(clockHtml, /--mc-rim-x:/, 'Clock dial must include --mc-rim-x 3D spatial shadow offset');
+  assert.match(clockHtml, /--mc-rim-y:/, 'Clock dial must include --mc-rim-y 3D spatial shadow offset');
+
+  const svg15 = renderBiblicalClockDialSvg(15);
+  assert.match(svg15, /id="mcClockRimSpotlight"/, 'Dial SVG must include 3D rotating rim spotlight (#mcClockRimSpotlight)');
+  assert.match(svg15, /id="mcClockRimArc"/, 'Dial SVG must include 3D illuminated rim arc (#mcClockRimArc)');
+  assert.match(svg15, /id="mcClockRimHeadDot"/, 'Dial SVG must include 3D illuminated rim head dot (#mcClockRimHeadDot)');
+
+  const activeTick = getTickSpatialProps(15, 15);
+  const trailTick = getTickSpatialProps(14, 15);
+  assert.equal(activeTick.stroke, '#FF7A00', 'Active second tick must glow orange #FF7A00');
+  assert.ok(activeTick.extraOuter > trailTick.extraOuter, 'Active second tick must extend further outward for 3D spatial effect');
+});
+
+
 
 
 

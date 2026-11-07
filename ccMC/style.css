@@ -1415,24 +1415,119 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   MINIMALISTYCZNY ZEGAR BIBLIJNY SZABATU & PRZEŁĄCZNIK ZADAŃ TERAZ
+   MINIMALISTYCZNY ZEGAR BIBLIJNY SZABATU & PRZESTRZENNE OBRZEŻE 3D
    ══════════════════════════════════════════════════════════════════════════ */
+.mc-clock-permanent-header {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(196, 163, 90, 0.32);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  margin-bottom: 2px;
+  user-select: none;
+}
+
+.mc-clock-permanent-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FF7A00;
+  box-shadow: 0 0 10px #FF7A00;
+  animation: mcLiveDotBlink 1.2s ease-in-out infinite alternate;
+  flex-shrink: 0;
+}
+
+.mc-clock-permanent-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #E2CC9A;
+  text-shadow: 0 0 14px rgba(196, 163, 90, 0.38);
+}
+
+[data-theme="light"] .mc-clock-permanent-header {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(196, 163, 90, 0.45);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+[data-theme="light"] .mc-clock-permanent-title {
+  color: #9E7D32;
+  text-shadow: none;
+}
+
 .mc-dial-wrapper {
+  --mc-sec-angle: 0deg;
+  --mc-rim-x: 0px;
+  --mc-rim-y: -14px;
   position: relative;
   width: 320px;
   height: 320px;
-  background: #000000;
+  background: radial-gradient(circle at 50% 45%, #0a0f18 0%, #030508 68%, #000000 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow:
+    var(--mc-rim-x) var(--mc-rim-y) 36px -6px rgba(255, 122, 0, 0.46),
+    calc(var(--mc-rim-x) * 0.5) calc(var(--mc-rim-y) * 0.5) 18px -2px rgba(226, 204, 154, 0.28),
+    inset calc(var(--mc-rim-x) * -0.35) calc(var(--mc-rim-y) * -0.35) 26px rgba(255, 122, 0, 0.2),
+    inset 0 2px 6px rgba(255, 255, 255, 0.12),
+    0 22px 54px rgba(0, 0, 0, 0.88);
+  transition: box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s ease;
+}
+
+.mc-dial-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  padding: 2.5px;
+  background: conic-gradient(
+    from var(--mc-sec-angle),
+    rgba(255, 122, 0, 0.98) 0deg,
+    rgba(226, 204, 154, 0.72) 24deg,
+    rgba(196, 163, 90, 0.22) 70deg,
+    rgba(255, 255, 255, 0.06) 160deg,
+    rgba(196, 163, 90, 0.24) 315deg,
+    rgba(255, 122, 0, 0.98) 360deg
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.mc-dial-wrapper.is-sec-pulse {
+  animation: mcSpatialRimBeat 0.88s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes mcSpatialRimBeat {
+  0% {
+    filter: drop-shadow(0 0 12px rgba(255, 122, 0, 0.45));
+  }
+  45% {
+    filter: drop-shadow(0 0 4px rgba(255, 122, 0, 0.18));
+  }
+  100% {
+    filter: drop-shadow(0 0 6px rgba(255, 122, 0, 0.22));
+  }
 }
 
 .mc-dial-wrapper:hover {
-  box-shadow: 0 0 50px -10px rgba(255, 122, 0, 0.35);
+  box-shadow:
+    var(--mc-rim-x) var(--mc-rim-y) 46px -4px rgba(255, 122, 0, 0.62),
+    inset calc(var(--mc-rim-x) * -0.4) calc(var(--mc-rim-y) * -0.4) 30px rgba(255, 122, 0, 0.28),
+    0 24px 60px rgba(0, 0, 0, 0.92);
 }
 
 .mc-dial-svg {
@@ -1441,10 +1536,11 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 5;
 }
 
 .mc-clock-tick {
-  transition: stroke 0.1s ease, stroke-width 0.1s ease, opacity 0.1s ease;
+  transition: stroke 0.18s ease, stroke-width 0.18s ease, opacity 0.18s ease;
 }
 
 .mc-dial-center {
@@ -1941,16 +2037,22 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   box-sizing: border-box;
 }
 
-/* Okienko "NA ŻYWO" pod zegarem: Rotacyjna Ramówka polskieradio.cc ⇄ Skrót Zadania TERAZ (Wygaszacz ekranu) */
+/* Okienko "NA ŻYWO" pod zegarem: Przeźroczyste szkło (Glassmorphism) — Ramówka polskieradio.cc ⇄ Skrót Zadania TERAZ */
 .mc-clock-live-box {
   width: 100%;
   max-width: 540px;
-  background: linear-gradient(145deg, rgba(13, 19, 31, 0.94) 0%, rgba(7, 11, 19, 0.96) 100%);
-  border: 1px solid rgba(196, 163, 90, 0.34);
-  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.065) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(24px) saturate(165%);
+  -webkit-backdrop-filter: blur(24px) saturate(165%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-top-color: rgba(255, 255, 255, 0.26);
+  border-radius: 18px;
   padding: 12px 14px 10px;
   box-sizing: border-box;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 14px 38px rgba(0, 0, 0, 0.42),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22),
+    inset 0 0 22px rgba(196, 163, 90, 0.05);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -2194,9 +2296,12 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 [data-theme="light"] .mc-clock-live-box {
-  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-  border-color: rgba(196, 163, 90, 0.45);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0.28) 100%);
+  backdrop-filter: blur(24px) saturate(165%);
+  -webkit-backdrop-filter: blur(24px) saturate(165%);
+  border-color: rgba(196, 163, 90, 0.38);
+  border-top-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.75);
 }
 
 [data-theme="light"] .mc-live-box-header {

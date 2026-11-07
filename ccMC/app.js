@@ -281,6 +281,60 @@ export function formatCountdown(diffMs) {
   return `${pad2(hours)}:${pad2(minutes)}:${pad2(seconds)}`;
 }
 
+export function getTickSpatialProps(i, currentSecond) {
+  const isFiveMin = i % 5 === 0;
+  const isCardinal = i % 15 === 0;
+  const baseLength = isCardinal ? 24 : isFiveMin ? 17 : 9;
+  const baseWidth = isCardinal ? 3.6 : isFiveMin ? 2.6 : 1.3;
+  const baseOpacity = isCardinal ? 1.0 : isFiveMin ? 0.9 : 0.42;
+
+  const diff = (currentSecond - i + 60) % 60;
+  if (diff === 0) {
+    return {
+      stroke: '#FF7A00',
+      strokeWidth: (baseWidth + 2.6).toFixed(1),
+      opacity: '1',
+      filter: 'drop-shadow(0 0 10px #FF7A00) drop-shadow(0 0 4px #FFFFFF)',
+      extraOuter: 4,
+    };
+  }
+  if (diff === 1) {
+    return {
+      stroke: '#FF9838',
+      strokeWidth: (baseWidth + 1.5).toFixed(1),
+      opacity: '0.95',
+      filter: 'drop-shadow(0 0 7px rgba(255, 122, 0, 0.8))',
+      extraOuter: 2.5,
+    };
+  }
+  if (diff === 2) {
+    return {
+      stroke: '#E2CC9A',
+      strokeWidth: (baseWidth + 0.8).toFixed(1),
+      opacity: '0.85',
+      filter: 'drop-shadow(0 0 5px rgba(196, 163, 90, 0.65))',
+      extraOuter: 1.2,
+    };
+  }
+  if (diff === 3 || diff === 4) {
+    return {
+      stroke: '#C4A35A',
+      strokeWidth: (baseWidth + 0.3).toFixed(1),
+      opacity: '0.72',
+      filter: 'none',
+      extraOuter: 0.5,
+    };
+  }
+  return {
+    stroke: '#FFFFFF',
+    strokeWidth: String(baseWidth),
+    opacity: String(baseOpacity),
+    filter: 'none',
+    extraOuter: 0,
+    baseLength,
+  };
+}
+
 export function renderBiblicalClockDialSvg(currentSecond = 0) {
   const TICK_COUNT = 60;
   const CENTER = 250;
@@ -291,28 +345,120 @@ export function renderBiblicalClockDialSvg(currentSecond = 0) {
     const isFiveMin = i % 5 === 0;
     const isCardinal = i % 15 === 0;
     const length = isCardinal ? 24 : isFiveMin ? 17 : 9;
-    const strokeWidth = isCardinal ? 3.6 : isFiveMin ? 2.6 : 1.3;
+    const sp = getTickSpatialProps(i, currentSecond);
 
     const angle = (i * 6) * (Math.PI / 180);
     const x1 = (CENTER + (RADIUS - length) * Math.cos(angle)).toFixed(1);
     const y1 = (CENTER + (RADIUS - length) * Math.sin(angle)).toFixed(1);
-    const x2 = (CENTER + RADIUS * Math.cos(angle)).toFixed(1);
-    const y2 = (CENTER + RADIUS * Math.sin(angle)).toFixed(1);
+    const x2 = (CENTER + (RADIUS + (sp.extraOuter || 0)) * Math.cos(angle)).toFixed(1);
+    const y2 = (CENTER + (RADIUS + (sp.extraOuter || 0)) * Math.sin(angle)).toFixed(1);
 
-    const isCurrent = i === currentSecond;
-    const stroke = isCurrent ? '#FF7A00' : '#FFFFFF';
-    const opacity = isCurrent ? 1 : isCardinal ? 1.0 : isFiveMin ? 0.9 : 0.42;
-    const currentWidth = isCurrent ? (strokeWidth + 2.4).toFixed(1) : strokeWidth;
-    const filter = isCurrent ? 'style="filter:drop-shadow(0 0 8px #FF7A00);"' : '';
+    const filterAttr = sp.filter && sp.filter !== 'none' ? `style="filter:${sp.filter};"` : '';
 
-    lines += `<line class="mc-clock-tick" id="mcTick_${i}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${stroke}" stroke-width="${currentWidth}" opacity="${opacity}" stroke-linecap="butt" ${filter} />`;
+    lines += `<line class="mc-clock-tick" id="mcTick_${i}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${sp.stroke}" stroke-width="${sp.strokeWidth}" opacity="${sp.opacity}" stroke-linecap="round" ${filterAttr} />`;
   }
+
+  const secDeg = (currentSecond % 60) * 6;
+  const RIM_R = 241;
+  const RIM_CIRC = (2 * Math.PI * RIM_R).toFixed(2);
+  const arcLen = (Number(RIM_CIRC) * 0.16).toFixed(2);
+  const gapLen = (Number(RIM_CIRC) - Number(arcLen)).toFixed(2);
 
   return `
     <svg id="mcClockSvg" class="mc-dial-svg" viewBox="0 0 500 500" aria-hidden="true">
+      <defs>
+        <filter id="mcSpatialRimGlow" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="5.5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <linearGradient id="mcRimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FF7A00" stop-opacity="0.98" />
+          <stop offset="55%" stop-color="#E2CC9A" stop-opacity="0.7" />
+          <stop offset="100%" stop-color="#C4A35A" stop-opacity="0.1" />
+        </linearGradient>
+      </defs>
+      <!-- Przestrzenne obrzeże tarczy (3D Bezel Base + Dynamiczna Głębia Sekundowa) -->
+      <circle class="mc-dial-rim-track" cx="250" cy="250" r="${RIM_R}" fill="none" stroke="rgba(196, 163, 90, 0.22)" stroke-width="2.5" />
+      <circle class="mc-dial-rim-inner-bevel" cx="250" cy="250" r="233" fill="none" stroke="rgba(255, 255, 255, 0.07)" stroke-width="1" />
+      <g id="mcClockRimSpotlight" transform="rotate(${secDeg - 90} 250 250)">
+        <circle
+          id="mcClockRimArc"
+          class="mc-dial-rim-arc"
+          cx="250"
+          cy="250"
+          r="${RIM_R}"
+          fill="none"
+          stroke="url(#mcRimGrad)"
+          stroke-width="4.5"
+          stroke-linecap="round"
+          stroke-dasharray="${arcLen} ${gapLen}"
+          stroke-dashoffset="${(Number(arcLen) * 0.85).toFixed(2)}"
+          filter="url(#mcSpatialRimGlow)"
+        />
+        <circle
+          id="mcClockRimHeadDot"
+          class="mc-dial-rim-head"
+          cx="${250 + RIM_R}"
+          cy="250"
+          r="4.2"
+          fill="#FFFFFF"
+          stroke="#FF7A00"
+          stroke-width="2.5"
+          filter="url(#mcSpatialRimGlow)"
+        />
+      </g>
       <g transform="rotate(-90 250 250)">${lines}</g>
     </svg>
   `;
+}
+
+export function updateClockSpatialRimDom(currentSecond = 0) {
+  if (typeof document === 'undefined') return;
+  const sec = ((currentSecond % 60) + 60) % 60;
+  const secDeg = sec * 6;
+  const angleRad = ((secDeg - 90) * Math.PI) / 180;
+  const rimX = (Math.cos(angleRad) * 14).toFixed(1);
+  const rimY = (Math.sin(angleRad) * 14).toFixed(1);
+
+  const dialEl = document.getElementById('mcBiblicalClockHero');
+  if (dialEl) {
+    dialEl.style.setProperty('--mc-sec-angle', `${secDeg}deg`);
+    dialEl.style.setProperty('--mc-rim-x', `${rimX}px`);
+    dialEl.style.setProperty('--mc-rim-y', `${rimY}px`);
+    dialEl.classList.remove('is-sec-pulse');
+    void dialEl.offsetWidth;
+    dialEl.classList.add('is-sec-pulse');
+  }
+
+  const spotlight = document.getElementById('mcClockRimSpotlight');
+  if (spotlight) {
+    spotlight.setAttribute('transform', `rotate(${secDeg - 90} 250 250)`);
+  }
+
+  const CENTER = 250;
+  const RADIUS = 226;
+  for (let offset = 0; offset <= 6; offset++) {
+    const idx = (sec - offset + 60) % 60;
+    const tickEl = document.getElementById('mcTick_' + idx);
+    if (!tickEl) continue;
+    const isFiveMin = idx % 5 === 0;
+    const isCardinal = idx % 15 === 0;
+    const length = isCardinal ? 24 : isFiveMin ? 17 : 9;
+    const sp = getTickSpatialProps(idx, sec);
+    const angle = (idx * 6) * (Math.PI / 180);
+    const x2 = (CENTER + (RADIUS + (sp.extraOuter || 0)) * Math.cos(angle)).toFixed(1);
+    const y2 = (CENTER + (RADIUS + (sp.extraOuter || 0)) * Math.sin(angle)).toFixed(1);
+
+    tickEl.setAttribute('x2', x2);
+    tickEl.setAttribute('y2', y2);
+    tickEl.setAttribute('stroke', sp.stroke);
+    tickEl.setAttribute('stroke-width', sp.strokeWidth);
+    tickEl.setAttribute('opacity', sp.opacity);
+    tickEl.style.filter = sp.filter;
+  }
 }
 
 function escapeHtml(str) {
@@ -1538,7 +1684,12 @@ export function renderClockModule() {
       </header>
 
       <main class="mc-clock-module-center">
-        <div class="mc-dial-wrapper mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Zegar Biblijny Szabatu" aria-label="Tarcza Zegara Biblijnego">
+        <div class="mc-clock-permanent-header" id="mcClockPermanentHeader" aria-label="Christian Culture Live">
+          <span class="mc-clock-permanent-dot" aria-hidden="true"></span>
+          <span class="mc-clock-permanent-title">CHRISTIAN CULTURE LIVE</span>
+        </div>
+
+        <div class="mc-dial-wrapper mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Zegar Biblijny Szabatu" aria-label="Tarcza Zegara Biblijnego" style="--mc-sec-angle:${now.getSeconds() * 6}deg;--mc-rim-x:${(Math.cos(((now.getSeconds() * 6 - 90) * Math.PI) / 180) * 14).toFixed(1)}px;--mc-rim-y:${(Math.sin(((now.getSeconds() * 6 - 90) * Math.PI) / 180) * 14).toFixed(1)}px;">
           ${renderBiblicalClockDialSvg(now.getSeconds())}
           <div class="mc-dial-center">
             <div id="digital-time" class="tabular-clock mc-clock-digits">${warsawTimeNowStr}</div>
@@ -3291,29 +3442,10 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
       const terazClock = document.getElementById('mcTerazLiveClock');
       if (terazClock) terazClock.textContent = timeStr;
 
-      // Animacja przeskakującej sekundy na tarczy zegara
+      // Animacja przeskakującej sekundy i przestrzennego podświetlenia obrzeża tarczy zegara
       const sec = now.getSeconds();
       if (sec !== lastTickSecond) {
-        if (lastTickSecond >= 0) {
-          const prevTick = document.getElementById('mcTick_' + lastTickSecond);
-          if (prevTick) {
-            const isFiveMin = lastTickSecond % 5 === 0;
-            const isCardinal = lastTickSecond % 15 === 0;
-            const strokeWidth = isCardinal ? 3.6 : isFiveMin ? 2.6 : 1.3;
-            const opacity = isCardinal ? 1.0 : isFiveMin ? 0.9 : 0.42;
-            prevTick.setAttribute('stroke', '#FFFFFF');
-            prevTick.setAttribute('stroke-width', strokeWidth);
-            prevTick.setAttribute('opacity', opacity);
-            prevTick.style.filter = 'none';
-          }
-        }
-        const currTick = document.getElementById('mcTick_' + sec);
-        if (currTick) {
-          currTick.setAttribute('stroke', '#FF7A00');
-          currTick.setAttribute('stroke-width', '5');
-          currTick.setAttribute('opacity', '1');
-          currTick.style.filter = 'drop-shadow(0 0 8px #FF7A00)';
-        }
+        updateClockSpatialRimDom(sec);
         lastTickSecond = sec;
 
         // Aktualizacja licznika Szabatu
