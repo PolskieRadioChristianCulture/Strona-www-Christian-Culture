@@ -1284,13 +1284,20 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   height: 8px;
   border-radius: 50%;
   background: #ffffff;
-  animation: mcPulseDot 1.4s infinite;
+  animation: mcPulseDot 1s ease-in-out infinite;
 }
 
 @keyframes mcPulseDot {
-  0% { transform: scale(0.9); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.4; }
-  100% { transform: scale(0.9); opacity: 1; }
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.48;
+    box-shadow: 0 0 6px rgba(255, 122, 0, 0.38);
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+    box-shadow: 0 0 18px rgba(255, 122, 0, 0.95), 0 0 8px rgba(226, 204, 154, 0.68);
+  }
 }
 
 .mc-next-pill {
@@ -1439,7 +1446,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   border-radius: 50%;
   background: #FF7A00;
   box-shadow: 0 0 10px #FF7A00;
-  animation: mcLiveDotBlink 1.2s ease-in-out infinite alternate;
+  animation: mcPulseDot 1s ease-in-out infinite;
   flex-shrink: 0;
 }
 
@@ -1495,7 +1502,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
     inset calc(var(--mc-rim-x) * -0.35) calc(var(--mc-rim-y) * -0.35) 26px rgba(255, 122, 0, 0.2),
     inset 0 2px 6px rgba(255, 255, 255, 0.12),
     0 22px 54px rgba(0, 0, 0, 0.88);
-  transition: box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s ease;
+  transition: box-shadow 0.96s ease-in-out, transform 0.25s ease;
+  animation: mcSpatialRimBeat 1s ease-in-out infinite;
 }
 
 .mc-dial-wrapper::before {
@@ -1521,18 +1529,15 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 .mc-dial-wrapper.is-sec-pulse {
-  animation: mcSpatialRimBeat 0.88s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: mcSpatialRimBeat 1s ease-in-out infinite;
 }
 
 @keyframes mcSpatialRimBeat {
-  0% {
-    filter: drop-shadow(0 0 12px rgba(255, 122, 0, 0.45));
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(255, 122, 0, 0.20));
   }
-  45% {
-    filter: drop-shadow(0 0 4px rgba(255, 122, 0, 0.18));
-  }
-  100% {
-    filter: drop-shadow(0 0 6px rgba(255, 122, 0, 0.22));
+  50% {
+    filter: drop-shadow(0 0 18px rgba(255, 122, 0, 0.56));
   }
 }
 
@@ -1553,7 +1558,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 .mc-clock-tick {
-  transition: stroke 0.18s ease, stroke-width 0.18s ease, opacity 0.18s ease;
+  transition: stroke 0.5s ease-in-out, stroke-width 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
 .mc-dial-center {
@@ -1569,25 +1574,69 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 
 .tabular-clock {
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
+  font-feature-settings: "tnum" 1;
 }
 
 #digital-time,
 .mc-clock-digits {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
   font-size: 50px;
   font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
   color: #ffffff;
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
   line-height: 1.05;
   margin-bottom: 2px;
+  white-space: nowrap;
   text-shadow: 0 0 24px rgba(255, 255, 255, 0.3);
 }
 
+.mc-clock-hm {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.mc-clock-char {
+  display: inline-block;
+  width: 0.62em;
+  min-width: 0.62em;
+  max-width: 0.62em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.mc-clock-colon {
+  display: inline-block;
+  width: 0.34em;
+  min-width: 0.34em;
+  max-width: 0.34em;
+  text-align: center;
+}
+
 .mc-clock-sec-glow {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
   color: #FF7A00 !important;
   text-shadow:
     0 0 18px rgba(255, 122, 0, 0.85),
     0 0 6px rgba(226, 204, 154, 0.65) !important;
+  animation: mcSecGlowWave 1s ease-in-out infinite;
+}
+
+@keyframes mcSecGlowWave {
+  0%, 100% {
+    opacity: 0.86;
+    filter: drop-shadow(0 0 3px rgba(255, 122, 0, 0.25));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 11px rgba(255, 122, 0, 0.72));
+  }
 }
 
 @media (max-width: 480px) {
@@ -1653,7 +1702,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   background: #FF7A00;
   margin: 0 10px;
   box-shadow: 0 0 12px #FF7A00;
-  animation: mcPulseDot 1.4s infinite;
+  animation: mcPulseDot 1s ease-in-out infinite;
 }
 
 .mc-gregorian-date {

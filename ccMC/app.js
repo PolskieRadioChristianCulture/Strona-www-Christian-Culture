@@ -511,9 +511,9 @@ export function updateClockSpatialRimDom(currentSecond = 0) {
     dialEl.style.setProperty('--mc-sec-angle', `${secDeg}deg`);
     dialEl.style.setProperty('--mc-rim-x', `${rimX}px`);
     dialEl.style.setProperty('--mc-rim-y', `${rimY}px`);
-    dialEl.classList.remove('is-sec-pulse');
-    void dialEl.offsetWidth;
-    dialEl.classList.add('is-sec-pulse');
+    if (!dialEl.classList.contains('is-sec-pulse')) {
+      dialEl.classList.add('is-sec-pulse');
+    }
   }
 
   const spotlight = document.getElementById('mcClockRimSpotlight');
@@ -1190,7 +1190,11 @@ export function formatWarsawTimeHtmlWithGlowSeconds(date = new Date()) {
   const full = formatWarsawTimeWithSeconds(date);
   const parts = full.split(':');
   if (parts.length === 3) {
-    return `<span class="mc-clock-hm">${escapeHtml(parts[0])}:${escapeHtml(parts[1])}</span><span class="mc-clock-sec-glow" id="mcClockSecDigits">:${escapeHtml(parts[2])}</span>`;
+    const fixedDigits = (str) =>
+      Array.from(String(str || ''))
+        .map((ch) => `<span class="mc-clock-char">${escapeHtml(ch)}</span>`)
+        .join('');
+    return `<span class="mc-clock-hm">${fixedDigits(parts[0])}<span class="mc-clock-colon">:</span>${fixedDigits(parts[1])}</span><span class="mc-clock-sec-glow" id="mcClockSecDigits"><span class="mc-clock-colon">:</span>${fixedDigits(parts[2])}</span>`;
   }
   return escapeHtml(full);
 }
@@ -4699,20 +4703,35 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
       const timeStr = formatWarsawTimeWithSeconds(now);
 
       const topDigits = document.getElementById('mcTopbarClockDigits');
-      if (topDigits) topDigits.textContent = timeStr;
-
-      const digTime = document.getElementById('digital-time');
-      if (digTime) digTime.innerHTML = formatWarsawTimeHtmlWithGlowSeconds(now);
+      if (topDigits && topDigits.textContent !== timeStr) topDigits.textContent = timeStr;
 
       const liveClock = document.getElementById('mcTodayLiveClock');
-      if (liveClock) liveClock.textContent = timeStr;
+      if (liveClock && liveClock.textContent !== timeStr) liveClock.textContent = timeStr;
 
       const terazClock = document.getElementById('mcTerazLiveClock');
-      if (terazClock) terazClock.textContent = timeStr;
+      if (terazClock && terazClock.textContent !== timeStr) terazClock.textContent = timeStr;
 
-      // Animacja przeskakującej sekundy i przestrzennego podświetlenia obrzeża tarczy zegara
+      // Animacja przeskakującej sekundy i płynnego falowania poświaty tarczy zegara (0.5s wzrost + 0.5s zanikanie)
       const sec = now.getSeconds();
       if (sec !== lastTickSecond) {
+        const digTime = document.getElementById('digital-time');
+        if (digTime) {
+          const hmEl = digTime.querySelector('.mc-clock-hm');
+          const secEl = document.getElementById('mcClockSecDigits');
+          const parts = timeStr.split(':');
+          if (hmEl && secEl && parts.length === 3) {
+            const fixedDigits = (str) =>
+              Array.from(String(str || ''))
+                .map((ch) => `<span class="mc-clock-char">${escapeHtml(ch)}</span>`)
+                .join('');
+            const hmHtml = `${fixedDigits(parts[0])}<span class="mc-clock-colon">:</span>${fixedDigits(parts[1])}`;
+            const secHtml = `<span class="mc-clock-colon">:</span>${fixedDigits(parts[2])}`;
+            if (hmEl.innerHTML !== hmHtml) hmEl.innerHTML = hmHtml;
+            if (secEl.innerHTML !== secHtml) secEl.innerHTML = secHtml;
+          } else {
+            digTime.innerHTML = formatWarsawTimeHtmlWithGlowSeconds(now);
+          }
+        }
         updateClockSpatialRimDom(sec);
         lastTickSecond = sec;
 
