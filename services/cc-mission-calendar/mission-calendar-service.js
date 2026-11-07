@@ -126,11 +126,11 @@ export function localPartsToUtcIso({ year, month, day, hour = 0, minute = 0, sec
   return fallback.toISOString();
 }
 
-export function isWithinQuietHours(utcDateOrIso, quietStart = '23:00', quietEnd = '07:00', timeZone = DEFAULT_TIMEZONE) {
+export function isWithinQuietHours(utcDateOrIso, quietStart = '22:00', quietEnd = '06:00', timeZone = DEFAULT_TIMEZONE) {
   const parts = getLocalParts(utcDateOrIso, timeZone);
   const currentMins = parts.hour * 60 + parts.minute;
-  const [sh, sm] = String(quietStart || '23:00').split(':').map(Number);
-  const [eh, em] = String(quietEnd || '07:00').split(':').map(Number);
+  const [sh, sm] = String(quietStart || '22:00').split(':').map(Number);
+  const [eh, em] = String(quietEnd || '06:00').split(':').map(Number);
   const startMins = (sh || 0) * 60 + (sm || 0);
   const endMins = (eh || 0) * 60 + (em || 0);
   if (startMins === endMins) return false;
@@ -558,11 +558,11 @@ export class MissionCalendarRepository {
     if (this.initialized) return;
     if (this.db) {
       const statements = [
-        `CREATE TABLE IF NOT EXISTS mc_users (id TEXT PRIMARY KEY, google_sub TEXT UNIQUE NOT NULL, email TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'owner', allowed_projects TEXT NOT NULL DEFAULT '["*"]', quiet_hours_start TEXT NOT NULL DEFAULT '23:00', quiet_hours_end TEXT NOT NULL DEFAULT '07:00', created_at TEXT NOT NULL)`,
+        `CREATE TABLE IF NOT EXISTS mc_users (id TEXT PRIMARY KEY, google_sub TEXT UNIQUE NOT NULL, email TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'owner', allowed_projects TEXT NOT NULL DEFAULT '["*"]', quiet_hours_start TEXT NOT NULL DEFAULT '22:00', quiet_hours_end TEXT NOT NULL DEFAULT '06:00', created_at TEXT NOT NULL)`,
         `CREATE TABLE IF NOT EXISTS mc_events (id TEXT PRIMARY KEY, source TEXT NOT NULL DEFAULT 'local', external_id TEXT, project_id TEXT NOT NULL DEFAULT 'general', title TEXT NOT NULL, description TEXT NOT NULL DEFAULT '', starts_at TEXT NOT NULL, ends_at TEXT, timezone TEXT NOT NULL DEFAULT 'Europe/Warsaw', all_day INTEGER NOT NULL DEFAULT 0, category TEXT NOT NULL DEFAULT 'mission', status TEXT NOT NULL DEFAULT 'todo', not_done_reason TEXT, blocked_reason TEXT, priority INTEGER NOT NULL DEFAULT 2, owner_type TEXT NOT NULL DEFAULT 'human', assigned_to TEXT, requires_approval INTEGER NOT NULL DEFAULT 1, review_state TEXT NOT NULL DEFAULT 'none', result_summary TEXT, result_links TEXT NOT NULL DEFAULT '[]', rrule TEXT, exdates TEXT NOT NULL DEFAULT '[]', series_id TEXT, occurrence_id TEXT, is_private INTEGER NOT NULL DEFAULT 0, allow_overlap INTEGER NOT NULL DEFAULT 1, lease_owner TEXT, lease_until TEXT, version INTEGER NOT NULL DEFAULT 1, created_by TEXT NOT NULL, updated_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, deleted_at TEXT)`,
         `CREATE TABLE IF NOT EXISTS mc_occurrence_overrides (id TEXT PRIMARY KEY, series_id TEXT NOT NULL, occurrence_id TEXT NOT NULL UNIQUE, original_start TEXT NOT NULL, cancelled INTEGER NOT NULL DEFAULT 0, title TEXT, description TEXT, starts_at TEXT, ends_at TEXT, status TEXT, not_done_reason TEXT, assigned_to TEXT, review_state TEXT, result_summary TEXT, updated_by TEXT NOT NULL, updated_at TEXT NOT NULL)`,
         `CREATE TABLE IF NOT EXISTS mc_api_clients (id TEXT PRIMARY KEY, name TEXT UNIQUE NOT NULL, token_hash TEXT UNIQUE NOT NULL, scopes TEXT NOT NULL DEFAULT '["events:read"]', capabilities TEXT NOT NULL DEFAULT '[]', allowed_projects TEXT NOT NULL DEFAULT '["*"]', max_parallel INTEGER NOT NULL DEFAULT 3, enabled INTEGER NOT NULL DEFAULT 1, last_seen TEXT, created_at TEXT NOT NULL)`,
-        `CREATE TABLE IF NOT EXISTS mc_push_subscriptions (id TEXT PRIMARY KEY, user_id TEXT NOT NULL, endpoint_hash TEXT UNIQUE NOT NULL, endpoint TEXT NOT NULL, p256dh TEXT NOT NULL, auth TEXT NOT NULL, device_name TEXT NOT NULL DEFAULT 'Browser', preferences TEXT NOT NULL DEFAULT '{}', quiet_hours_start TEXT NOT NULL DEFAULT '23:00', quiet_hours_end TEXT NOT NULL DEFAULT '07:00', created_at TEXT NOT NULL, last_success TEXT)`,
+        `CREATE TABLE IF NOT EXISTS mc_push_subscriptions (id TEXT PRIMARY KEY, user_id TEXT NOT NULL, endpoint_hash TEXT UNIQUE NOT NULL, endpoint TEXT NOT NULL, p256dh TEXT NOT NULL, auth TEXT NOT NULL, device_name TEXT NOT NULL DEFAULT 'Browser', preferences TEXT NOT NULL DEFAULT '{}', quiet_hours_start TEXT NOT NULL DEFAULT '22:00', quiet_hours_end TEXT NOT NULL DEFAULT '06:00', created_at TEXT NOT NULL, last_success TEXT)`,
         `CREATE TABLE IF NOT EXISTS mc_audit_log (id TEXT PRIMARY KEY, actor_type TEXT NOT NULL, actor_id TEXT NOT NULL, action TEXT NOT NULL, entity TEXT NOT NULL, entity_id TEXT NOT NULL, before_hash TEXT, after_hash TEXT, details TEXT NOT NULL DEFAULT '{}', correlation_id TEXT NOT NULL, created_at TEXT NOT NULL)`,
         `CREATE TABLE IF NOT EXISTS mc_outbox (id TEXT PRIMARY KEY, event_type TEXT NOT NULL, entity_id TEXT NOT NULL, payload TEXT NOT NULL, idempotency_key TEXT UNIQUE NOT NULL, status TEXT NOT NULL DEFAULT 'pending', delivery_count INTEGER NOT NULL DEFAULT 0, next_attempt_at TEXT NOT NULL, last_error TEXT, correlation_id TEXT NOT NULL, created_at TEXT NOT NULL)`,
       ];
@@ -582,8 +582,8 @@ export class MissionCalendarRepository {
       email: email.toLowerCase(),
       role,
       allowed_projects: JSON.stringify(allowed_projects),
-      quiet_hours_start: '23:00',
-      quiet_hours_end: '07:00',
+      quiet_hours_start: '22:00',
+      quiet_hours_end: '06:00',
       created_at: nowIso,
     };
     if (this.db) {
@@ -889,7 +889,7 @@ export class MissionCalendarRepository {
           preferences = excluded.preferences, quiet_hours_start = excluded.quiet_hours_start, quiet_hours_end = excluded.quiet_hours_end
       `).bind(
         sub.id, sub.user_id, sub.endpoint_hash, sub.endpoint, sub.p256dh, sub.auth,
-        sub.device_name, JSON.stringify(sub.preferences || {}), sub.quiet_hours_start || '23:00', sub.quiet_hours_end || '07:00', sub.created_at
+        sub.device_name, JSON.stringify(sub.preferences || {}), sub.quiet_hours_start || '22:00', sub.quiet_hours_end || '06:00', sub.created_at
       ).run();
       return sub;
     }
@@ -2249,8 +2249,8 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
         auth: s.keys.auth,
         device_name: String(s.device_name || 'Przeglądarka').slice(0, 60),
         preferences: s.preferences || { new_task: true, reminder: true, overdue: true, claimed: true, review: true },
-        quiet_hours_start: s.quiet_hours_start || '23:00',
-        quiet_hours_end: s.quiet_hours_end || '07:00',
+        quiet_hours_start: s.quiet_hours_start || '22:00',
+        quiet_hours_end: s.quiet_hours_end || '06:00',
         created_at: service.nowIso(),
       });
       await service.recordAuditAndOutbox({
@@ -2280,10 +2280,10 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
 
     if (path === '/push/test' && request.method === 'POST') {
       const subs = await repo.listPushSubscriptions(actor.id);
-      const quiet = isWithinQuietHours(service.nowFn(), '23:00', '07:00', DEFAULT_TIMEZONE);
+      const quiet = isWithinQuietHours(service.nowFn(), '22:00', '06:00', DEFAULT_TIMEZONE);
       const body = await request.json().catch(() => ({}));
       if (quiet && !body.forceCritical) {
-        return json({ delivered: 0, suppressedByQuietHours: true, message: 'Cisza nocna (23:00–07:00) — powiadomienie wstrzymane' });
+        return json({ delivered: 0, suppressedByQuietHours: true, message: 'Cisza nocna (22:00–06:00) — powiadomienie wstrzymane' });
       }
       // Neutralny komunikat na ekranie blokady (ochrona prywatności)
       const notificationPayload = {

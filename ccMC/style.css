@@ -282,6 +282,41 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   gap: 8px;
 }
 
+.mc-btn-icon-push {
+  min-height: var(--touch-min);
+  min-width: var(--touch-min);
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--mc-surface-elevated);
+  border: 1px solid var(--mc-border);
+  color: var(--mc-gold);
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mc-btn-icon-push:hover {
+  border-color: var(--mc-gold);
+  background: rgba(196, 163, 90, 0.15);
+  transform: translateY(-1px);
+}
+
+[data-theme="light"] .mc-btn-icon-push {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #b48c36;
+}
+
+[data-theme="light"] .mc-btn-icon-push:hover {
+  background: #e2e8f0;
+  border-color: #b48c36;
+}
+
 /* Natural Language Bar (@077 Noemi -> @OA) */
 .mc-nl-bar {
   background: var(--mc-surface);

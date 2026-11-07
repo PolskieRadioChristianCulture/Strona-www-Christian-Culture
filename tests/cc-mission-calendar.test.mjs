@@ -385,9 +385,13 @@ test('5. Natural Language Command (@077 Noemi), Outbox Reconcile, Web Push Quiet
   assert.equal(parsed.rrule, 'FREQ=WEEKLY;BYDAY=FR');
   assert.equal(parsed.priority, 1);
 
-  // Quiet hours in Europe/Warsaw (23:00 - 07:00 local time)
-  // 2026-11-06 22:30 UTC is 23:30 CET (Europe/Warsaw) -> quiet hours TRUE
-  assert.equal(isWithinQuietHours(new Date('2026-11-06T22:30:00.000Z')), true);
+  // Quiet hours in Europe/Warsaw (22:00 - 06:00 local time)
+  // 2026-11-06 21:30 UTC is 22:30 CET (Europe/Warsaw) -> quiet hours TRUE
+  assert.equal(isWithinQuietHours(new Date('2026-11-06T21:30:00.000Z')), true);
+  // 2026-11-06 04:30 UTC is 05:30 CET (Europe/Warsaw) -> quiet hours TRUE
+  assert.equal(isWithinQuietHours(new Date('2026-11-06T04:30:00.000Z')), true);
+  // 2026-11-06 05:30 UTC is 06:30 CET (Europe/Warsaw) -> quiet hours FALSE (after 06:00)
+  assert.equal(isWithinQuietHours(new Date('2026-11-06T05:30:00.000Z')), false);
   // 2026-11-06 11:00 UTC is 12:00 CET (Europe/Warsaw) -> quiet hours FALSE
   assert.equal(isWithinQuietHours(new Date('2026-11-06T11:00:00.000Z')), false);
 

@@ -69,6 +69,7 @@ const state = {
   clockShowMore: false,
   statsScope: 'today', // 'today' (default) | 'all'
   realtimeEngine: true, // Inteligentny Silnik Real-Time: AKTYWNY (Autopilot Misji CC)
+  pushSubscribed: true, // Powiadomienia domyślnie włączone (cisza nocna 22:00–06:00)
 };
 
 export function applyTheme(theme) {
@@ -551,9 +552,14 @@ async function enableWebPush() {
     const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey });
     await apiRequest('/push/subscribe', {
       method: 'POST',
-      body: JSON.stringify(sub.toJSON ? sub.toJSON() : sub),
+      body: JSON.stringify({
+        ...(sub.toJSON ? sub.toJSON() : sub),
+        quiet_hours_start: '22:00',
+        quiet_hours_end: '06:00',
+      }),
     });
-    state.notice = 'Powiadomienia Web Push zostały aktywowane (cisza nocna 23:00–07:00).';
+    state.notice = 'Powiadomienia Web Push zostały aktywowane (cisza nocna 22:00–06:00).';
+    state.pushSubscribed = true;
     render();
   } catch (err) {
     state.error = err.message;
@@ -679,12 +685,35 @@ function renderSettingsHtml() {
         </div>
       </div>
 
-      <div class="mc-settings-card">
-        <h3>🔔 Powiadomienia Web Push & Godziny Ciszy</h3>
-        <p>Kalendarz Misji respektuje godziny ciszy CC LIFE (23:00 – 07:00), aby chronić nocny spoczynek.</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <div class="mc-settings-card" id="mcSettingsPushCard">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+          <div>
+            <h3>🔔 Powiadomienia Web Push & Cisza Nocna</h3>
+            <p>Powiadomienia Kalendarza Misji są <strong>domyślnie włączone</strong> dla Administratora. Chronią misję w czasie rzeczywistym i respektują ciszę nocną.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <button type="button" id="btnSettingsTogglePush" class="mc-btn-cta" style="background:#FF7A00;color:#fff;">
+              ${state.pushSubscribed ? '✓ Powiadomienia Aktywne' : '🔔 Włącz Powiadomienia Push'}
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:12px;">
+          <div style="background:var(--mc-surface-elevated);padding:14px 16px;border-radius:12px;border:1px solid var(--mc-border);">
+            <small style="color:var(--mc-muted);display:block;margin-bottom:4px;font-size:12px;">Cisza Nocna CC LIFE</small>
+            <strong style="color:#FF7A00;font-size:18px;">22:00 – 06:00</strong>
+            <p style="margin:6px 0 0;font-size:12px;color:var(--mc-muted);line-height:1.4;">Wszystkie powiadomienia są automatycznie wstrzymywane w tych godzinach, aby chronić nocny spoczynek.</p>
+          </div>
+
+          <div style="background:var(--mc-surface-elevated);padding:14px 16px;border-radius:12px;border:1px solid var(--mc-border);">
+            <small style="color:var(--mc-muted);display:block;margin-bottom:4px;font-size:12px;">Status Systemowy</small>
+            <strong style="color:#4ade80;font-size:18px;">DOMYŚLNIE WŁĄCZONE</strong>
+            <p style="margin:6px 0 0;font-size:12px;color:var(--mc-muted);line-height:1.4;">Nowe zadania, alerty 15m przed rozpoczęciem, zadania w toku TERAZ, akceptacje agentów @777.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
           <button type="button" id="btnTestPush" class="mc-btn-gold">Przetestuj Powiadomienie Push</button>
-          <span style="font-size:13px;color:var(--mc-muted);">Status ciszy nocnej: <strong>23:00 – 07:00</strong></span>
         </div>
       </div>
 
@@ -1655,7 +1684,7 @@ export function renderCalendarModule(filtered) {
             />
           </div>
           <div class="mc-topbar-right">
-            <button type="button" id="btnEnablePush" class="mc-btn-gold">🔔 Włącz Push</button>
+            <button type="button" id="btnEnablePush" class="mc-btn-icon-push" title="Powiadomienia Push (Ustawienia)" aria-label="Powiadomienia Push">🔔</button>
             <button type="button" id="btnNewTask" class="mc-btn-cta">＋ Nowe zadanie</button>
           </div>
         </header>
@@ -2061,7 +2090,19 @@ function bindEvents() {
   }
 
   const btnPush = document.getElementById('btnEnablePush');
-  if (btnPush) btnPush.onclick = enableWebPush;
+  if (btnPush) {
+    btnPush.onclick = () => {
+      state.module = 'settings';
+      render();
+      requestAnimationFrame(() => {
+        const pushCard = document.getElementById('mcSettingsPushCard');
+        if (pushCard) pushCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    };
+  }
+
+  const btnSettingsTogglePush = document.getElementById('btnSettingsTogglePush');
+  if (btnSettingsTogglePush) btnSettingsTogglePush.onclick = enableWebPush;
 
   const btnNew = document.getElementById('btnNewTask');
   if (btnNew) {
@@ -2438,7 +2479,7 @@ function bindEvents() {
       try {
         const res = await apiRequest('/push/test', { method: 'POST', body: JSON.stringify({}) });
         if (res.suppressedByQuietHours) {
-          state.notice = res.message || 'Cisza nocna 23:00–07:00 — powiadomienie wstrzymane.';
+          state.notice = res.message || 'Cisza nocna 22:00–06:00 — powiadomienie wstrzymane.';
         } else {
           state.notice = 'Wysłano testowe powiadomienie Push.';
         }
