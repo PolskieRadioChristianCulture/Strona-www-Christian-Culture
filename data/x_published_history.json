@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "akademia",
+      "title": "Akademia Biblijna & Kurs Codzienny — Systematyczne Studium Słowa Bożego",
+      "url": "https://polskieradio.cc/akademia",
+      "type": "module",
+      "image": "z_biblia_za_pan_brat_hero.jpg",
+      "publishedAt": "2026-11-07T12:02:59.759Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "lumina.cezaryrgowski",
+      "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
+      "url": "https://polskieradio.cc/lumina.cezaryrgowski",
+      "type": "profile",
+      "image": "cezary-wioletta-radiocc.jpg",
+      "publishedAt": "2026-11-07T11:36:04.972Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "biblia-spiewana",
       "title": "Kanał Transmisyjny: Biblia Śpiewana Live — Słowo Boże ubrane w natchnioną muzykę",
       "url": "https://polskieradio.cc/biblia-spiewana",

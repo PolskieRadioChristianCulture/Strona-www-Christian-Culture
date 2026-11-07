@@ -3312,7 +3312,7 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
     // ────────────────────────────────────────────────────────────────────────
     if (path === '/tts' && request.method === 'POST') {
       const body = await request.json().catch(() => ({}));
-      const rawText = String(body.text || '').trim().slice(0, 420);
+      const rawText = String(body.text || '').trim().slice(0, 900);
       if (!rawText) return json({ error: 'Brak tekstu do syntezy' }, 422);
 
       const voiceName = String(body.voice || 'Aoede');
