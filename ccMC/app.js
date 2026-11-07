@@ -1912,6 +1912,9 @@ export function renderLiveScreensaverBox(now = new Date()) {
         </div>
 
         <div class="mc-live-rotator-tabs" role="tablist" aria-label="Przełącz widok w okienku NA ŻYWO">
+          <button type="button" class="mc-live-tab-btn mc-live-play-btn" id="btnLiveBoxPlayReport" title="Odtwórz teraz pełne sprawozdanie głosowe (dodatkowe ręczne wywołanie niezależnie od automatycznych raportów co kwadrans)" aria-label="Odtwórz teraz pełne sprawozdanie głosowe">
+            <span>▶ Play</span>
+          </button>
           <button type="button" class="mc-live-tab-btn ${activeSlide === 0 ? 'is-active' : ''}" data-live-slide-btn="0" role="tab" aria-selected="${activeSlide === 0 ? 'true' : 'false'}" title="Ramówka ze strony głównej polskieradio.cc">
             <span>📡 Ramówka</span>
           </button>
@@ -2462,6 +2465,39 @@ export function getUnlockedAudioContext() {
   }
 }
 
+export function updateAudioUnlockBannerDom() {
+  if (typeof document === 'undefined' || typeof window === 'undefined') return;
+  const ctx = window._mcSharedAudioCtx;
+  const isRunning = Boolean(ctx && ctx.state === 'running');
+  let banner = document.getElementById('mcAudioUnlockBanner');
+
+  if (isRunning) {
+    if (banner && banner.getAttribute('data-state') !== 'unlocked') {
+      banner.setAttribute('data-state', 'unlocked');
+      banner.style.background = 'rgba(21, 128, 61, 0.95)';
+      banner.style.borderColor = '#22c55e';
+      banner.innerHTML = '<span>✓ Głośniki aktywne 24/7 — automatyczne raporty głosowe co kwadrans są odblokowane</span>';
+      setTimeout(() => {
+        const el = document.getElementById('mcAudioUnlockBanner');
+        if (el) el.remove();
+      }, 3500);
+    }
+    return;
+  }
+
+  if (!banner && document.body) {
+    banner = document.createElement('button');
+    banner.type = 'button';
+    banner.id = 'mcAudioUnlockBanner';
+    banner.setAttribute('data-state', 'locked');
+    banner.style.cssText =
+      'position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:9999;background:#FF7A00;color:#FFFFFF;border:2px solid #FFFFFF;border-radius:999px;padding:10px 22px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(255,122,0,0.55);display:flex;align-items:center;gap:10px;min-height:44px;';
+    banner.innerHTML =
+      '<span>🔊 Kliknij raz tutaj lub w ekran, aby aktywować głośniki po odświeżeniu strony</span>';
+    document.body.appendChild(banner);
+  }
+}
+
 export function initVoiceWakeAndAudioUnlock() {
   if (typeof window === 'undefined' || window._mcVoiceWakeInitialized) return;
   window._mcVoiceWakeInitialized = true;
@@ -2479,6 +2515,9 @@ export function initVoiceWakeAndAudioUnlock() {
       const ctx = getUnlockedAudioContext();
       if (ctx) {
         try {
+          if (typeof ctx.resume === 'function' && ctx.state !== 'running') {
+            ctx.resume().then(() => updateAudioUnlockBannerDom()).catch(() => {});
+          }
           if (!window._mcAudioKeepAliveNode) {
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
@@ -2494,6 +2533,7 @@ export function initVoiceWakeAndAudioUnlock() {
         window.speechSynthesis.getVoices();
       }
       ensureScreenWakeLock();
+      updateAudioUnlockBannerDom();
       if (window._mcPendingVoiceAudio && window._mcPendingVoiceAudio.audioBase64) {
         const pending = window._mcPendingVoiceAudio;
         window._mcPendingVoiceAudio = null;
@@ -2502,8 +2542,10 @@ export function initVoiceWakeAndAudioUnlock() {
     };
 
     window.addEventListener('pointerdown', unlockOnce, { passive: true });
+    window.addEventListener('click', unlockOnce, { passive: true });
     window.addEventListener('keydown', unlockOnce, { passive: true });
     window.addEventListener('touchstart', unlockOnce, { passive: true });
+    setTimeout(() => updateAudioUnlockBannerDom(), 600);
   }
 }
 
@@ -2697,7 +2739,9 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = n
       pcm16[i] = val >= 0x8000 ? val - 0x10000 : val;
     }
     const durMs = Math.ceil((pcm16.length / sampleRate) * 1000) + 650;
-    showVoiceAssistantAvatar(state.lastSpokenAlertText, durMs);
+    if (!state.voiceAssistantSpeaking) {
+      showVoiceAssistantAvatar(state.lastSpokenAlertText, Math.max(durMs, 35000));
+    }
 
     const ctx = getUnlockedAudioContext();
     if (ctx && ctx.state === 'running') {
@@ -2710,8 +2754,11 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = n
       src.buffer = buf;
       src.connect(ctx.destination);
       src.onended = () => {
-        hideVoiceAssistantAvatar();
-        if (typeof onEnded === 'function') onEnded();
+        if (typeof onEnded === 'function') {
+          onEnded();
+        } else {
+          hideVoiceAssistantAvatar();
+        }
       };
       src.start();
       return true;
@@ -2722,8 +2769,11 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = n
       const audioEl = new window.Audio(wavUrl);
       audioEl.volume = 1.0;
       audioEl.onended = () => {
-        hideVoiceAssistantAvatar();
-        if (typeof onEnded === 'function') onEnded();
+        if (typeof onEnded === 'function') {
+          onEnded();
+        } else {
+          hideVoiceAssistantAvatar();
+        }
       };
       audioEl.play().catch(() => {
         window._mcPendingVoiceAudio = { audioBase64, sampleRate, text: state.lastSpokenAlertText };
@@ -2789,6 +2839,54 @@ export function speakBrowserNaturalVoice(text, onEnded = null) {
   }
 }
 
+export function splitBriefingIntoSentences(text = '') {
+  const raw = String(text || '').trim();
+  if (!raw) return [];
+  const parts = raw.match(/[^.!?]+[.!?]+(?:\s+|$)|[^.!?]+$/g) || [raw];
+  const chunks = [];
+  let cur = '';
+  for (const p of parts) {
+    const s = p.trim();
+    if (!s) continue;
+    if (!cur || (cur + ' ' + s).length <= 155) {
+      cur = cur ? `${cur} ${s}` : s;
+    } else {
+      chunks.push(cur);
+      cur = s;
+    }
+  }
+  if (cur) chunks.push(cur);
+  return chunks;
+}
+
+export async function fetchSentenceTtsAudio(sentenceText) {
+  if (typeof window === 'undefined' || typeof fetch !== 'function' || !sentenceText) return null;
+  if (!window._mcTtsSentenceCache) window._mcTtsSentenceCache = new Map();
+  const cached = window._mcTtsSentenceCache.get(sentenceText);
+  if (cached && cached.audioBase64) return cached.audioBase64;
+  if (cached && cached.promise) return cached.promise;
+
+  const promise = apiRequest('/tts', {
+    method: 'POST',
+    body: JSON.stringify({ text: sentenceText, voice: 'Aoede' }),
+  })
+    .then((res) => {
+      if (res && res.audioBase64) {
+        window._mcTtsSentenceCache.set(sentenceText, { audioBase64: res.audioBase64, ts: Date.now() });
+        return res.audioBase64;
+      }
+      window._mcTtsSentenceCache.delete(sentenceText);
+      return null;
+    })
+    .catch(() => {
+      window._mcTtsSentenceCache.delete(sentenceText);
+      return null;
+    });
+
+  window._mcTtsSentenceCache.set(sentenceText, { promise, ts: Date.now() });
+  return promise;
+}
+
 export async function prefetchQuarterHourVoiceBriefing(targetDate = new Date()) {
   if (typeof window === 'undefined' || typeof fetch !== 'function') return null;
   const quarterHm = new Intl.DateTimeFormat('pl-PL', {
@@ -2814,15 +2912,15 @@ export async function prefetchQuarterHourVoiceBriefing(targetDate = new Date()) 
       await loadLiveGcalReport();
       const text = buildQuarterHourVoiceBriefing(targetDate);
       if (!text) return null;
-      const res = await apiRequest('/tts', {
-        method: 'POST',
-        body: JSON.stringify({ text, voice: 'Aoede' }),
-      });
-      if (res && res.audioBase64) {
+      const sentences = splitBriefingIntoSentences(text);
+      const audioParts = await Promise.all(sentences.map((s) => fetchSentenceTtsAudio(s)));
+      if (audioParts.length > 0 && audioParts.every(Boolean)) {
         window._mcPrefetchedQuarterAudio = {
           quarterHm,
           text,
-          audioBase64: res.audioBase64,
+          sentences,
+          audioParts,
+          audioBase64: audioParts[0],
           sampleRate: 24000,
           fetchedAt: Date.now(),
         };
@@ -2838,6 +2936,25 @@ export async function prefetchQuarterHourVoiceBriefing(targetDate = new Date()) 
 
   window._mcPrefetchInFlight = { quarterHm, promise };
   return promise;
+}
+
+export function playGeminiPcmSequence(audioParts = [], sampleRate = 24000, fallbackText = '') {
+  if (!Array.isArray(audioParts) || audioParts.length === 0) return false;
+  let idx = 0;
+  const playNext = () => {
+    if (idx >= audioParts.length) {
+      hideVoiceAssistantAvatar();
+      return;
+    }
+    const part = audioParts[idx++];
+    if (!part) {
+      playNext();
+      return;
+    }
+    playGeminiPcmBase64(part, sampleRate, playNext);
+  };
+  playNext();
+  return true;
 }
 
 export function speakCalendarVoiceAlert(text, { force = false } = {}) {
@@ -2868,39 +2985,54 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
 
   const isQuarterBriefing = String(text).startsWith('Christian Culture LIVE');
 
-  // Natychmiastowe odtworzenie (0 ms opóźnienia), jeśli raport kwadransowy został wcześniej zbuforowany
+  // 1. Natychmiastowe odtworzenie (0 ms opóźnienia), jeśli raport kwadransowy został wcześniej zbuforowany
   if (
     typeof window !== 'undefined' &&
     window._mcPrefetchedQuarterAudio &&
-    window._mcPrefetchedQuarterAudio.audioBase64 &&
     (window._mcPrefetchedQuarterAudio.text === text ||
       (isQuarterBriefing && window._mcPrefetchedQuarterAudio.quarterHm === warsawHm))
   ) {
     const cached = window._mcPrefetchedQuarterAudio;
     window._mcPrefetchedQuarterAudio = null;
-    if (playGeminiPcmBase64(cached.audioBase64, cached.sampleRate || 24000)) {
+    if (Array.isArray(cached.audioParts) && cached.audioParts.length > 0) {
+      if (playGeminiPcmSequence(cached.audioParts, cached.sampleRate || 24000, text)) {
+        return true;
+      }
+    } else if (cached.audioBase64 && playGeminiPcmBase64(cached.audioBase64, cached.sampleRate || 24000)) {
       return true;
     }
   }
 
-  // ZERO COST Google AI Studio Free-Tier TTS z gwarancją czasu odpowiedzi (8.5s) i natychmiastowym fallbackiem do głosu przeglądarki
+  // 2. Strumieniowe odtwarzanie zdanie po zdaniu (pierwsze zdanie startuje w ~2s, kolejne pobierają się równolegle w tle)
   if (typeof window !== 'undefined' && typeof fetch === 'function') {
-    const inFlightPromise =
-      isQuarterBriefing && window._mcPrefetchInFlight
-        ? window._mcPrefetchInFlight.promise
-        : apiRequest('/tts', {
-            method: 'POST',
-            body: JSON.stringify({ text, voice: 'Aoede' }),
-          });
+    const sentences = splitBriefingIntoSentences(text);
+    const partPromises = sentences.map((s) => fetchSentenceTtsAudio(s));
+    const firstTimeout = new Promise((resolve) => setTimeout(() => resolve(null), 9000));
 
-    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 24000));
-
-    Promise.race([inFlightPromise, timeoutPromise])
-      .then((res) => {
-        if (res && res.audioBase64 && playGeminiPcmBase64(res.audioBase64, res.sampleRate || 24000)) {
+    Promise.race([partPromises[0], firstTimeout])
+      .then(async (firstAudio) => {
+        if (!firstAudio) {
+          speakBrowserNaturalVoice(text);
           return;
         }
-        speakBrowserNaturalVoice(text);
+        const playFromIndex = (i) => {
+          if (i >= partPromises.length) {
+            hideVoiceAssistantAvatar();
+            return;
+          }
+          Promise.race([partPromises[i], new Promise((r) => setTimeout(() => r(null), 10000))])
+            .then((audioB64) => {
+              if (audioB64) {
+                playGeminiPcmBase64(audioB64, 24000, () => playFromIndex(i + 1));
+              } else {
+                speakBrowserNaturalVoice(sentences.slice(i).join(' '));
+              }
+            })
+            .catch(() => {
+              speakBrowserNaturalVoice(sentences.slice(i).join(' '));
+            });
+        };
+        playGeminiPcmBase64(firstAudio, 24000, () => playFromIndex(1));
       })
       .catch(() => {
         speakBrowserNaturalVoice(text);
@@ -4248,7 +4380,18 @@ function bindEvents() {
     };
   }
 
-  // Interakcja z rotacyjnym okienkiem "NA ŻYWO" pod zegarem (Ramówka ⇄ Zadanie TERAZ)
+  // Interakcja z rotacyjnym okienkiem "NA ŻYWO" pod zegarem (Play Raport + Ramówka ⇄ Zadanie TERAZ)
+  const btnLiveBoxPlayReport = document.getElementById('btnLiveBoxPlayReport');
+  if (btnLiveBoxPlayReport) {
+    btnLiveBoxPlayReport.onclick = async (e) => {
+      e.stopPropagation();
+      getUnlockedAudioContext();
+      updateAudioUnlockBannerDom();
+      await Promise.race([loadLiveGcalReport(), new Promise((r) => setTimeout(r, 1200))]).catch(() => {});
+      speakCalendarVoiceAlert(buildQuarterHourVoiceBriefing(new Date()), { force: true });
+    };
+  }
+
   document.querySelectorAll('[data-live-slide-btn]').forEach((btn) => {
     btn.onclick = (e) => {
       e.stopPropagation();
@@ -5136,13 +5279,16 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
       'click',
       (e) => {
         if (state.module !== 'clock' || state.clockDrawerOpen) return;
+        const target = e.target && typeof e.target.closest === 'function' ? e.target : null;
+        if (target && target.closest('#btnLiveBoxPlayReport, [data-live-slide-btn], #mcAudioUnlockBanner')) {
+          return;
+        }
         if (state.clockIdleHidden) {
           e.stopPropagation();
           e.preventDefault();
           wakeClockIdleMode({ restartTimer: false });
           return;
         }
-        const target = e.target && typeof e.target.closest === 'function' ? e.target : null;
         const isInteractiveControl = target && target.closest(
           'button, a, input, select, textarea, label, .mc-bottom-dock, .mc-settings-drawer, .mc-modal-backdrop, .mc-voice-assistant-overlay'
         );
@@ -5214,8 +5360,8 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
         updateLiveScreensaverDom(now);
         updateClockDesktopWingsDom(now);
 
-        // 2 minuty i 1 minutę przed każdym kwadransem (:13:05, :14:05, :28:05, :29:05, :43:05, :44:05, :58:05, :59:05) odśwież Kalendarz Google i zbuforuj głos Aoede TTS (0 ms opóźnienia o pełnym kwadransie)
-        if ((now.getMinutes() % 15 === 13 || now.getMinutes() % 15 === 14) && sec === 5) {
+        // 2 minuty i 1 minutę przed każdym kwadransem (:01:05, :13:05, :14:05, :16:05, :28:05, :29:05, :31:05, :43:05, :44:05, :46:05, :58:05, :59:05) odśwież Kalendarz Google i zbuforuj głos Aoede TTS (0 ms opóźnienia o pełnym kwadransie)
+        if ((now.getMinutes() % 15 === 1 || now.getMinutes() % 15 === 13 || now.getMinutes() % 15 === 14) && sec === 5) {
           prefetchQuarterHourVoiceBriefing(getNextQuarterHourDate(now)).catch(() => {});
         }
 
@@ -5228,7 +5374,6 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
             if (now.getMinutes() % 15 === 0) {
               checkUpcomingVoiceAlerts(now);
               loadLiveGcalReport().catch(() => {});
-              prefetchQuarterHourVoiceBriefing(getNextQuarterHourDate(new Date(now.getTime() + 60_000))).catch(() => {});
             } else {
               loadLiveGcalReport()
                 .catch(() => {})
