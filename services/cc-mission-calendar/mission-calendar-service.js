@@ -178,7 +178,7 @@ function daysInMonth(year, month1to12) {
   return new Date(Date.UTC(year, month1to12, 0)).getUTCDate();
 }
 
-export function materializeOccurrences(event, rangeFromIso, rangeToIso, overrides = []) {
+export function materializeOccurrences(event, rangeFromIso, rangeToIso, overrides = [], nowDate = null) {
   const timeZone = event.timezone || DEFAULT_TIMEZONE;
   const startUtc = new Date(event.starts_at);
   const endUtc = event.ends_at ? new Date(event.ends_at) : null;
@@ -313,6 +313,24 @@ export function materializeOccurrences(event, rangeFromIso, rangeToIso, override
     const finalStartMs = Date.parse(finalStartIso);
     const finalEndMs = finalEndIso ? Date.parse(finalEndIso) : finalStartMs + durationMs;
 
+    let computedStatus = ov?.status ?? event.status;
+    let isCurrentNow = false;
+    let autoResolved = false;
+
+    if (!ov?.status && nowDate) {
+      const nowMs = (nowDate instanceof Date ? nowDate : new Date(nowDate)).getTime();
+      if (finalStartMs <= nowMs && nowMs < finalEndMs) {
+        computedStatus = 'in_progress';
+        isCurrentNow = true;
+        autoResolved = true;
+      } else if (nowMs >= finalEndMs) {
+        computedStatus = 'done';
+        autoResolved = true;
+      } else {
+        computedStatus = 'todo';
+      }
+    }
+
     if (finalStartMs <= toMs && finalEndMs >= fromMs) {
       results.push(
         decorateEventComputed({
@@ -324,13 +342,15 @@ export function materializeOccurrences(event, rangeFromIso, rangeToIso, override
           description: ov?.description ?? event.description,
           starts_at: finalStartIso,
           ends_at: finalEndIso,
-          status: ov?.status ?? event.status,
+          status: computedStatus,
           not_done_reason: ov?.not_done_reason ?? event.not_done_reason,
           assigned_to: ov?.assigned_to ?? event.assigned_to,
           review_state: ov?.review_state ?? event.review_state,
           result_summary: ov?.result_summary ?? event.result_summary,
           is_override: Boolean(ov),
-        })
+          is_current_now: isCurrentNow,
+          auto_resolved: autoResolved,
+        }, nowDate || new Date())
       );
     }
   }
@@ -341,7 +361,11 @@ export function materializeOccurrences(event, rangeFromIso, rangeToIso, override
 export function decorateEventComputed(ev, nowDate = new Date()) {
   const statusMeta = MISSION_STATUSES[ev.status] || MISSION_STATUSES.todo;
   const dueIso = ev.ends_at || ev.starts_at;
-  const isOverdue = Boolean(dueIso && Date.parse(dueIso) < nowDate.getTime() && ev.status !== 'done' && ev.status !== 'not_done');
+  const nowMs = (nowDate instanceof Date ? nowDate : new Date(nowDate)).getTime();
+  const startMs = ev.starts_at ? Date.parse(ev.starts_at) : 0;
+  const endMs = ev.ends_at ? Date.parse(ev.ends_at) : (startMs + 1800_000);
+  const isCurrentNow = Boolean(startMs <= nowMs && nowMs < endMs);
+  const isOverdue = Boolean(dueIso && Date.parse(dueIso) < nowMs && ev.status !== 'done' && ev.status !== 'not_done');
   return {
     ...ev,
     all_day: Boolean(ev.all_day),
@@ -349,6 +373,7 @@ export function decorateEventComputed(ev, nowDate = new Date()) {
     is_private: Boolean(ev.is_private),
     allow_overlap: ev.allow_overlap !== undefined ? Boolean(ev.allow_overlap) : true,
     overdue: isOverdue,
+    is_current_now: ev.is_current_now ?? isCurrentNow,
     status_meta: statusMeta,
     exdates: Array.isArray(ev.exdates) ? ev.exdates : safeJsonParse(ev.exdates, []),
     result_links: Array.isArray(ev.result_links) ? ev.result_links : safeJsonParse(ev.result_links, []),
@@ -2010,13 +2035,14 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
       const categoryFilter = url.searchParams.get('category');
       const expand = url.searchParams.get('expand') !== 'false';
 
+      const realtimeParam = url.searchParams.get('realtime') !== 'false';
       const resultEvents = [];
       for (const ev of rawEvents) {
         if (categoryFilter && categoryFilter !== 'all' && ev.category !== categoryFilter) continue;
         if (assigneeFilter && ev.assigned_to !== assigneeFilter) continue;
         if (expand && ev.rrule) {
           const ovs = await repo.listOverridesForSeries(ev.id);
-          const occs = materializeOccurrences(ev, from, to, ovs);
+          const occs = materializeOccurrences(ev, from, to, ovs, realtimeParam ? service.nowFn() : null);
           for (const o of occs) {
             if (!statusFilter || o.status === statusFilter) resultEvents.push(o);
           }
@@ -2155,6 +2181,51 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
     if (path === '/outbox/reconcile' && request.method === 'POST') {
       const stats = await service.processOutboxBatch();
       return json({ ok: true, ...stats });
+    }
+
+    // Inteligentny Silnik Real-Time: Autopilot Misji CC Reconcile
+    if (path === '/autopilot/reconcile' && request.method === 'POST') {
+      const body = await request.json().catch(() => ({}));
+      const scope = body.scope === 'all' ? 'all' : 'today';
+      const now = service.nowFn();
+      const rawEvents = await repo.listEvents({});
+      const warsawNowParts = getLocalParts(now, DEFAULT_TIMEZONE);
+      const todayIsoPrefix = `${warsawNowParts.year}-${String(warsawNowParts.month).padStart(2, '0')}-${String(warsawNowParts.day).padStart(2, '0')}`;
+
+      const allResolved = [];
+      for (const ev of rawEvents) {
+        if (ev.rrule) {
+          const ovs = await repo.listOverridesForSeries(ev.id);
+          const occs = materializeOccurrences(ev, null, null, ovs, now);
+          allResolved.push(...occs);
+        } else {
+          allResolved.push(decorateEventComputed(ev, now));
+        }
+      }
+
+      const scoped = scope === 'today'
+        ? allResolved.filter((e) => (e.starts_at || '').slice(0, 10) === todayIsoPrefix || (e.ends_at || '').slice(0, 10) === todayIsoPrefix)
+        : allResolved;
+
+      const summary = {
+        scope,
+        total: scoped.length,
+        todo: scoped.filter((e) => e.status === 'todo').length,
+        in_progress: scoped.filter((e) => e.status === 'in_progress').length,
+        done: scoped.filter((e) => e.status === 'done').length,
+        not_done: scoped.filter((e) => e.status === 'not_done').length,
+      };
+
+      await service.recordAuditAndOutbox({
+        actor_type: actor.type,
+        actor_id: actor.id,
+        action: 'autopilot_reconcile',
+        entity: 'calendar',
+        entity_id: 'realtime_engine',
+        details: { summary, scope },
+      });
+
+      return json({ ok: true, engine: 'active', timestamp: now.toISOString(), summary });
     }
 
     // Web Push

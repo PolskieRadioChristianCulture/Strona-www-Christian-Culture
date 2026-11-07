@@ -313,8 +313,8 @@ function getAllEcosystemCandidates() {
       tag: '#WersetDnia'
     },
     {
-      title: 'Werset Dnia: „Spójrz ku niebu i policz gwiazdy...” (Rdz 15:5, UBG)',
-      lead: '„Spójrz ku niebu i policz gwiazdy, jeśli możesz je policzyć. I powiedział do niego: Takie będzie twoje potomstwo.” (Rdz 15:5, UBG)',
+      title: 'Werset Dnia: „Spójrz teraz na niebo i policz gwiazdy...” (Rdz 15:5, UBG)',
+      lead: '„Spójrz teraz na niebo i policz gwiazdy, jeśli będziesz mógł je policzyć; i powiedział mu: Takie będzie twoje potomstwo.” (Rdz 15:5, UBG)',
       url: 'https://polskieradio.cc/mojabiblia?ref=GEN.15.5',
       image: 'images/news/art-rdz15-abram-gwiazdy.jpg',
       category: 'Werset Dnia',

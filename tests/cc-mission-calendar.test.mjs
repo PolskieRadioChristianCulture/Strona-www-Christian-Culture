@@ -532,4 +532,66 @@ test('10. Fullscreen Modular Model: Start Module = Only Clock, Click-to-Fullscre
   assert.match(ccMcStyle, /\.mc-dock-btn\.is-active/, 'style.css must style active dock button');
 });
 
+test('11. Intelligent Real-Time Engine (Autopilot Misji CC): dynamic lifecycle transitions, stats scope switcher, and /autopilot/reconcile endpoint', async () => {
+  const customNow = new Date('2026-11-07T08:30:00.000Z');
+  const { callApi } = createTestContext(() => customNow);
+  const ownerHeaders = { authorization: 'Bearer valid-owner-firebase-token' };
+
+  // 1. materializeOccurrences with real-time resolution:
+  const dailySeries = {
+    id: 'evt_realtime_test',
+    title: 'Codzienna sesja nagraniowa @CCS',
+    starts_at: '2026-11-06T08:00:00.000Z',
+    ends_at: '2026-11-06T09:00:00.000Z',
+    timezone: 'Europe/Warsaw',
+    rrule: 'FREQ=DAILY;INTERVAL=1',
+    exdates: [],
+  };
+
+  const occurrences = materializeOccurrences(
+    dailySeries,
+    '2026-11-06T00:00:00.000Z',
+    '2026-11-08T23:59:59.000Z',
+    [],
+    customNow
+  );
+  assert.equal(occurrences.length, 3);
+  // Nov 6 occurrence is elapsed -> done
+  assert.equal(occurrences[0].status, 'done');
+  // Nov 7 occurrence is happening right now (08:30 is between 08:00 and 09:00) -> in_progress
+  assert.equal(occurrences[1].status, 'in_progress');
+  assert.equal(occurrences[1].is_current_now, true);
+  // Nov 8 occurrence is in future -> todo
+  assert.equal(occurrences[2].status, 'todo');
+
+  // 2. Call backend /autopilot/reconcile endpoint
+  const reconcileRes = await callApi('/api/mission-calendar/autopilot/reconcile', {
+    method: 'POST',
+    headers: ownerHeaders,
+    body: { scope: 'today' },
+  });
+  assert.equal(reconcileRes.status, 200);
+  assert.equal(reconcileRes.data.ok, true);
+  assert.equal(reconcileRes.data.engine, 'active');
+  assert.ok(reconcileRes.data.summary);
+  assert.equal(reconcileRes.data.summary.scope, 'today');
+
+  // 3. UI checks in app.js and style.css
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const ccMcAppPath = path.join(rootDir, 'ccMC', 'app.js');
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+
+  const ccMcApp = fs.readFileSync(ccMcAppPath, 'utf8');
+  assert.match(ccMcApp, /applyRealtimeEngine/, 'Must export applyRealtimeEngine');
+  assert.match(ccMcApp, /mc-realtime-engine-pill/, 'Must render mc-realtime-engine-pill in UI');
+  assert.match(ccMcApp, /data-stats-scope/, 'Must provide data-stats-scope switcher buttons');
+  assert.match(ccMcApp, /statsScope:\s*['"]today['"]/, 'Default statsScope must be today');
+
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+  assert.match(ccMcStyle, /\.mc-stats-toolbar/, 'style.css must style mc-stats-toolbar');
+  assert.match(ccMcStyle, /\.mc-realtime-engine-pill/, 'style.css must style mc-realtime-engine-pill');
+  assert.match(ccMcStyle, /\.mc-stats-scope-switcher/, 'style.css must style mc-stats-scope-switcher');
+  assert.match(ccMcStyle, /\.mc-scope-btn\.is-active/, 'style.css must style active scope button');
+});
+
 

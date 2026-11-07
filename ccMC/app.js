@@ -45,6 +45,7 @@ const state = {
   csrfToken: '',
   bearerToken: '',
   events: [],
+  rawEvents: [],
   agents: [],
   audit: [],
   module: 'clock', // 'clock' | 'teraz' | 'calendar' | 'settings'
@@ -65,6 +66,8 @@ const state = {
   isConnecting: false,
   terazFilter: false,
   clockCity: '52.2297,21.0122',
+  statsScope: 'today', // 'today' (default) | 'all'
+  realtimeEngine: true, // Inteligentny Silnik Real-Time: AKTYWNY (Autopilot Misji CC)
 };
 
 export function applyTheme(theme) {
@@ -401,6 +404,51 @@ async function loadInitialSession() {
   render();
 }
 
+export function applyRealtimeEngine(events, now = new Date()) {
+  const nowMs = now.getTime();
+  return events.map((ev) => {
+    if (ev.is_override && ev.status) {
+      return ev;
+    }
+
+    const startMs = Date.parse(ev.starts_at);
+    const endMs = ev.ends_at ? Date.parse(ev.ends_at) : (startMs + 1800_000);
+    const isCurrentNow = Boolean(startMs <= nowMs && nowMs < endMs);
+
+    let status = ev.status;
+    let autoResolved = false;
+
+    if (ev.rrule || ev.occurrence_id || ev.series_id) {
+      if (startMs <= nowMs && nowMs < endMs) {
+        status = 'in_progress';
+        autoResolved = true;
+      } else if (nowMs >= endMs) {
+        status = 'done';
+        autoResolved = true;
+      } else {
+        status = 'todo';
+      }
+    } else {
+      if (status === 'todo' && startMs <= nowMs && nowMs < endMs) {
+        status = 'in_progress';
+        autoResolved = true;
+      }
+    }
+
+    const statusMeta = STATUS_META[status] || STATUS_META.todo;
+    const isOverdue = Boolean(!autoResolved && endMs < nowMs && status !== 'done' && status !== 'not_done');
+
+    return {
+      ...ev,
+      status,
+      status_meta: statusMeta,
+      is_current_now: isCurrentNow,
+      overdue: isOverdue,
+      auto_resolved: autoResolved,
+    };
+  });
+}
+
 async function refreshData() {
   try {
     const from = new Date(state.anchorDate.getTime() - 35 * 86400_000).toISOString();
@@ -410,7 +458,8 @@ async function refreshData() {
       apiRequest('/agents').catch(() => ({ agents: [] })),
       apiRequest('/audit').catch(() => ({ audit: [] })),
     ]);
-    state.events = evRes.events || [];
+    state.rawEvents = evRes.events || [];
+    state.events = state.realtimeEngine ? applyRealtimeEngine(state.rawEvents, new Date()) : state.rawEvents;
     state.agents = agRes.agents || [];
     state.audit = audRes.audit || [];
   } catch (e) {
@@ -512,7 +561,10 @@ async function enableWebPush() {
 }
 
 function getFilteredEvents() {
-  return state.events.filter((ev) => {
+  const currentList = state.realtimeEngine
+    ? (state.rawEvents && state.rawEvents.length ? applyRealtimeEngine(state.rawEvents, new Date()) : applyRealtimeEngine(state.events, new Date()))
+    : state.events;
+  return currentList.filter((ev) => {
     if (state.category !== 'all' && ev.category !== state.category) return false;
     if (state.statusFilter !== 'all' && ev.status !== state.statusFilter) return false;
     if (state.assigneeFilter !== 'all' && (ev.assigned_to || '') !== state.assigneeFilter) return false;
@@ -1492,13 +1544,39 @@ export function renderSettingsModule() {
 }
 
 export function renderCalendarModule(filtered) {
+  const allEventsResolved = state.realtimeEngine
+    ? (state.rawEvents && state.rawEvents.length ? applyRealtimeEngine(state.rawEvents, new Date()) : applyRealtimeEngine(state.events, new Date()))
+    : state.events;
+
+  const todayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date());
+
+  const scopedEvents = state.statsScope === 'today'
+    ? allEventsResolved.filter((e) => {
+        const s = toWarsawInput(e.starts_at) || '';
+        const end = toWarsawInput(e.ends_at) || '';
+        return s.startsWith(todayIsoPrefix) || end.startsWith(todayIsoPrefix);
+      })
+    : allEventsResolved;
+
   const counts = {
-    all: state.events.length,
-    todo: state.events.filter((e) => e.status === 'todo').length,
-    in_progress: state.events.filter((e) => e.status === 'in_progress').length,
-    done: state.events.filter((e) => e.status === 'done').length,
-    not_done: state.events.filter((e) => e.status === 'not_done').length,
+    all: scopedEvents.length,
+    todo: scopedEvents.filter((e) => e.status === 'todo').length,
+    in_progress: scopedEvents.filter((e) => e.status === 'in_progress').length,
+    done: scopedEvents.filter((e) => e.status === 'done').length,
+    not_done: scopedEvents.filter((e) => e.status === 'not_done').length,
+    totalHorizon: allEventsResolved.length,
   };
+
+  const todayCount = allEventsResolved.filter((e) => {
+    const s = toWarsawInput(e.starts_at) || '';
+    const end = toWarsawInput(e.ends_at) || '';
+    return s.startsWith(todayIsoPrefix) || end.startsWith(todayIsoPrefix);
+  }).length;
 
   return `
     <div class="mc-shell">
@@ -1604,11 +1682,26 @@ export function renderCalendarModule(filtered) {
           <button type="submit" class="mc-btn-gold">Zaplanuj zadanie</button>
         </form>
 
+        <div class="mc-stats-toolbar">
+          <div class="mc-realtime-engine-pill" title="Inteligentny Silnik Real-Time automatycznie zarządza zadaniami według aktualnego czasu">
+            <span class="mc-live-pulse-led"></span>
+            <span class="mc-engine-status-text"><strong>⚡ Inteligentny Silnik Real-Time:</strong> AKTYWNY (Autopilot Misji CC)</span>
+          </div>
+          <div class="mc-stats-scope-switcher" role="group" aria-label="Zakres podsumowania zadań">
+            <button type="button" class="mc-scope-btn ${state.statsScope === 'today' ? 'is-active' : ''}" data-stats-scope="today">
+              📅 DZIŚ (${todayCount})
+            </button>
+            <button type="button" class="mc-scope-btn ${state.statsScope === 'all' ? 'is-active' : ''}" data-stats-scope="all">
+              🌐 Cały horyzont (${allEventsResolved.length})
+            </button>
+          </div>
+        </div>
+
         <section class="mc-stats" aria-label="Podsumowanie statusów">
-          <div class="mc-stat-card"><strong>${counts.todo}</strong><span>○ Do wykonania</span></div>
-          <div class="mc-stat-card"><strong>${counts.in_progress}</strong><span>◐ W trakcie</span></div>
-          <div class="mc-stat-card"><strong>${counts.done}</strong><span>✓ Zrealizowane</span></div>
-          <div class="mc-stat-card"><strong>${counts.not_done}</strong><span>! Niezrealizowane</span></div>
+          <div class="mc-stat-card"><strong class="mc-stat-num-todo">${counts.todo}</strong><span>○ Do wykonania</span></div>
+          <div class="mc-stat-card"><strong class="mc-stat-num-in-progress">${counts.in_progress}</strong><span>◐ W trakcie</span></div>
+          <div class="mc-stat-card"><strong class="mc-stat-num-done">${counts.done}</strong><span>✓ Zrealizowane</span></div>
+          <div class="mc-stat-card"><strong class="mc-stat-num-not-done">${counts.not_done}</strong><span>! Niezrealizowane</span></div>
         </section>
 
         <div class="mc-status-legend" role="group" aria-label="Filtruj po statusie">
@@ -1866,6 +1959,13 @@ function bindEvents() {
   document.querySelectorAll('[data-status-filter]').forEach((btn) => {
     btn.onclick = () => {
       state.statusFilter = btn.getAttribute('data-status-filter');
+      render();
+    };
+  });
+
+  document.querySelectorAll('[data-stats-scope]').forEach((btn) => {
+    btn.onclick = () => {
+      state.statsScope = btn.getAttribute('data-stats-scope');
       render();
     };
   });
@@ -2352,6 +2452,7 @@ function bindEvents() {
 if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
   if (!window._mcLiveClockInterval) {
     let lastTickSecond = -1;
+    let lastMinuteChecked = -1;
     window._mcLiveClockInterval = setInterval(() => {
       const now = new Date();
       const timeStr = formatWarsawTimeWithSeconds(now);
@@ -2399,6 +2500,15 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
           const [lat, lng] = (state.clockCity || '52.2297,21.0122').split(',').map(Number);
           const bState = getBiblicalTimeState(now, lat, lng);
           countdownEl.textContent = formatCountdown(bState.sabbathTargetDate - now);
+        }
+
+        // Inteligentny Silnik Real-Time: automatyczne odświeżenie przy zmianie minuty
+        const curMin = now.getHours() * 60 + now.getMinutes();
+        if (curMin !== lastMinuteChecked) {
+          lastMinuteChecked = curMin;
+          if (state.realtimeEngine && (state.module === 'teraz' || state.module === 'calendar')) {
+            render();
+          }
         }
       }
     }, 250);

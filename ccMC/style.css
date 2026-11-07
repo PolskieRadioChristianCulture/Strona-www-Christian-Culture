@@ -305,6 +305,125 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   color: var(--mc-text);
 }
 
+/* Real-Time Engine Toolbar & Scope Switcher */
+.mc-stats-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.mc-realtime-engine-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  color: #4ade80;
+}
+
+.mc-live-pulse-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  animation: mcPulseLed 1.8s infinite;
+}
+
+@keyframes mcPulseLed {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.mc-stats-scope-switcher {
+  display: inline-flex;
+  background: var(--mc-surface-elevated);
+  border: 1px solid var(--mc-border);
+  border-radius: 10px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.mc-scope-btn {
+  min-height: 38px;
+  padding: 4px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--mc-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mc-scope-btn:hover {
+  color: var(--mc-text-contrast);
+}
+
+.mc-scope-btn.is-active {
+  background: var(--mc-gold);
+  color: #0b131e;
+  font-weight: 700;
+}
+
+.mc-stat-num-todo {
+  color: #60a5fa !important;
+}
+
+.mc-stat-num-in-progress {
+  color: #fbbf24 !important;
+}
+
+.mc-stat-num-done {
+  color: #4ade80 !important;
+}
+
+.mc-stat-num-not-done {
+  color: #f87171 !important;
+}
+
+[data-theme="light"] .mc-realtime-engine-pill {
+  background: rgba(22, 163, 74, 0.12);
+  border-color: rgba(22, 163, 74, 0.35);
+  color: #15803d;
+}
+
+[data-theme="light"] .mc-scope-btn.is-active {
+  background: #b48c36;
+  color: #ffffff;
+}
+
+[data-theme="light"] .mc-stat-card strong {
+  color: #1e293b;
+}
+
+[data-theme="light"] .mc-stat-num-todo {
+  color: #2563eb !important;
+}
+
+[data-theme="light"] .mc-stat-num-in-progress {
+  color: #d97706 !important;
+}
+
+[data-theme="light"] .mc-stat-num-done {
+  color: #16a34a !important;
+}
+
+[data-theme="light"] .mc-stat-num-not-done {
+  color: #dc2626 !important;
+}
+
 /* Stats & Status Legend */
 .mc-stats {
   display: grid;
