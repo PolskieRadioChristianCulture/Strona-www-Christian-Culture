@@ -2,6 +2,33 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "gerald-welch-the-call",
+      "title": "Nowość Muzyczna: Gerald Welch — THE CALL. Głębokie uwielbienie w Polskim Radiu CC",
+      "url": "https://polskieradio.cc/news/gerald-welch-the-call",
+      "type": "music",
+      "image": "art-gerald-welch-the-call.jpg",
+      "publishedAt": "2026-11-07T17:44:50.260Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "mapa",
+      "title": "Żywa Interaktywna Mapa Ekosystemu Christian Culture",
+      "url": "https://polskieradio.cc/mapa",
+      "type": "module",
+      "image": "planeta-poster.jpg",
+      "publishedAt": "2026-11-07T17:03:06.080Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "lumina.wiolettarogowska",
+      "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
+      "url": "https://polskieradio.cc/lumina.wiolettarogowska",
+      "type": "profile",
+      "image": "wioletta-og.jpg",
+      "publishedAt": "2026-11-07T16:33:03.777Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "rozwiaz-problem",
       "title": "Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański",
       "url": "https://polskieradio.cc/rozwiaz-problem",

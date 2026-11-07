@@ -1205,11 +1205,15 @@ async function main() {
     await broadcastNext(dryRun, requestedType, requestedIndex);
     if (!dryRun) {
       console.log('✅ Pojedynczy cykl publikacji zakończony pomyślnie.');
+      process.exit(0);
+    } else {
+      process.exit(0);
     }
   }
 }
 
-if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+const isMainModule = process.argv[1] && (fileURLToPath(import.meta.url).toLowerCase() === path.resolve(process.argv[1]).toLowerCase() || process.argv[1].endsWith('ccn_auto_broadcaster.mjs'));
+if (isMainModule) {
   main().catch(err => {
     console.error('BŁĄD KRYTYCZNY:', err.message);
     process.exit(1);
