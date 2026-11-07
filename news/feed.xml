@@ -8,8 +8,18 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sat, 07 Nov 2026 05:23:16 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Nov 2026 13:08:15 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Telefon milczy od tygodni: jak zauważyć samotnego sąsiada?</title>
+      <link>https://polskieradio.cc/news</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news</guid>
+      <pubDate>Sat, 07 Nov 2026 14:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN NEWS • RODZINA, SPOŁECZEŃSTWO I BIOETYKA</category>
+      <description>W epoce wszechobecnej łączności cyfrowej i setek wirtualnych powiadomień najcichszy dramat współczesnego społeczeństwa rozgrywa się tuż za ścianą naszych mieszkań. Tysiące osób starszych, schorowanych i opuszczonych spędza kolejne dni w całkowitej ciszy, czekając na dźwięk dzwonka do drzwi lub choćby jedno życzliwe pytanie: „Czy wszystko w porządku?”. Pismo Święte, raporty socjologiczne oraz twarde dane medyczne ostrzegają: obojętność wobec sąsiada jest nie tylko kryzysem wspólnoty, ale bezpośrednim zagrożeniem życia, na które chrześcijańska odpowiedzialność nakazuje odpowiedzieć natychmiastowym i konkretnym działaniem.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Czy patriotyzm zobowiązuje do szacunku wobec przeciwnika?</title>
       <link>https://polskieradio.cc/news</link>
@@ -299,16 +309,6 @@
       <category>CCN NEWS — MOTYWACJA &amp; ROZWÓJ / INAUGURACJA PROJEKTU eM (@MCC)</category>
       <description>Tu zaczyna się Twoja nowa droga. Inauguracja projektu eM — Motywacja Christian Culture (@MCC). Dlaczego powstaje, jak odnaleźć prawdziwy sens w codziennych zmaganiach i dlaczego nie jesteś sumą swoich porażek.</description>
       <enclosure url="https://polskieradio.cc/images/news/nie-czekaj-az-zycie-sie-zmieni-em-hero.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Paryż pod godziną policyjną. Francja protestuje, a Jezus ostrzega przed oziębnięciem miłości</title>
-      <link>https://polskieradio.cc/news/paryz-godzina-policyjna-protesty-francja-biblia</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/paryz-godzina-policyjna-protesty-francja-biblia</guid>
-      <pubDate>Tue, 20 Oct 2026 16:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>CCN NEWS — ŚWIAT / ANALIZA SPOŁECZNA I KOMENTARZ BIBLIJNY</category>
-      <description>Paryż pod nocną godziną policyjną po masowych protestach i aktach przemocy. Fakty z 20 października 2026 oraz chrześcijańska refleksja nad gniewem, pokojem i przestrogą Jezusa z Mt 24:12.</description>
-      <enclosure url="https://polskieradio.cc/images/news/paryz-godzina-policyjna-protesty-francja-biblia.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>

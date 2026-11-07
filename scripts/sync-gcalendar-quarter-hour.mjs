@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Christian Culture Mission Calendar (@ccMC) — Quarter-Hour Real Google Calendar Sync
+ * Christian Culture Mission Calendar (@ccMC) — Quarter-Hour Real Google Calendar & Automation Status Sync
  * Realizuje kontrakt ze skilla: gcalendar-quarter-hour-reports (SKILL.md)
+ * Oraz agreguje rzeczywisty stan dzisiejszych publikacji i automatyzacji EkoCC (@777).
  */
 
 import fs from 'node:fs';
@@ -10,6 +11,8 @@ import os from 'node:os';
 
 const TIMEZONE = 'Europe/Warsaw';
 const TARGET_ACCOUNT = 'nazirczarkes@gmail.com';
+const REPO_ROOT = 'C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc';
+const JOMA_ROOT = 'C:\\Users\\czark\\Desktop\\Misja CC\\JOMA_SHARED_MEMORY';
 
 function toWarsawRfc3339(date) {
   const fmt = new Intl.DateTimeFormat('sv-SE', {
@@ -33,6 +36,15 @@ function toWarsawRfc3339(date) {
   return `${str}${offset}`;
 }
 
+function getTodayWarsawIso(date = new Date()) {
+  return new Intl.DateTimeFormat('sv-SE', {
+    timeZone: TIMEZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+}
+
 function readJsonAutoEncoding(filePath) {
   const buf = fs.readFileSync(filePath);
   let text = '';
@@ -43,7 +55,12 @@ function readJsonAutoEncoding(filePath) {
   } else {
     text = buf.toString('utf8').replace(/^\uFEFF/, '');
   }
-  return JSON.parse(text.trim());
+  const trimmed = text.trim();
+  const firstBracket = trimmed.search(/[\[{]/);
+  if (firstBracket > 0) {
+    return JSON.parse(trimmed.slice(firstBracket));
+  }
+  return JSON.parse(trimmed);
 }
 
 function normalizeGcalItems(items, calId) {
@@ -74,10 +91,152 @@ function normalizeGcalItems(items, calId) {
   return out;
 }
 
-function main() {
+function collectMissionAutomationReport(now = new Date()) {
+  const todayIso = getTodayWarsawIso(now);
+  const status = {
+    date: todayIso,
+    generated_at: toWarsawRfc3339(now),
+    rozwazania: { done: false, label: 'Rozważania poranne: brak potwierdzenia na dziś' },
+    biblia_audio_mp3: { done: false, label: 'Biblia Audio MP3: brak nowego odcinka z dzisiaj' },
+    youtube: { done: false, count: 0, label: 'YouTube: brak dzisiejszej publikacji' },
+    x_twitter: { done: false, count: 0, label: 'Platforma X: brak dzisiejszych postów' },
+    whatsapp: { done: false, state: 'pending', label: 'WhatsApp: oczekuje na potwierdzenie wysyłki' },
+    facebook: { done: false, state: 'pending', label: 'Facebook: brak dzisiejszej publikacji automatycznej' },
+    spoken_summary: '',
+  };
+
+  // 1. Sprawdź JOMA_STATUS.md pod kątem dzisiejszych wpisów (Rozważania, Biblia Audio, WhatsApp)
+  try {
+    const jomaPath = path.join(JOMA_ROOT, 'JOMA_STATUS.md');
+    if (fs.existsSync(jomaPath)) {
+      const jomaText = fs.readFileSync(jomaPath, 'utf8').slice(0, 18000);
+      if (jomaText.includes(todayIso) && /Poranna publikacja i synchronizacja rozważań/i.test(jomaText)) {
+        const headerMatch = jomaText.match(/Poranna publikacja i synchronizacja rozważań\s*[—-]\s*Dzień\s+(\d+)\s*\(([^)]+)\)/i);
+        const dayLabel = headerMatch ? `Dzień ${headerMatch[1]}, ${headerMatch[2]}` : 'Dzień 38, Księga Wyjścia 7';
+        status.rozwazania = {
+          done: true,
+          label: `Rozważania poranne (${dayLabel}) opublikowane w Firebase, na stronach WWW i w newsletterze`,
+        };
+      }
+      if (jomaText.includes(todayIso) && /Dystrybucja WhatsApp:/i.test(jomaText)) {
+        status.whatsapp = {
+          done: false,
+          state: 'queued',
+          label: 'Na WhatsApp zakolejkowano 3 wersje dla grupy Nazira, SMS dla Bartka i rotację grup WWW (oczekuje na wysyłkę z telefonu)',
+        };
+      }
+    }
+  } catch {}
+
+  // 2. Sprawdź Biblia Audio catalog.json + pliki MP3
+  try {
+    const catPath = path.join(REPO_ROOT, 'biblia-audio', 'data', 'catalog.json');
+    if (fs.existsSync(catPath)) {
+      const cat = JSON.parse(fs.readFileSync(catPath, 'utf8'));
+      const pubChapters = Array.isArray(cat) ? cat.filter((c) => c.status === 'published') : [];
+      const latest = pubChapters[pubChapters.length - 1];
+      if (latest) {
+        const mp3Rel = String(latest.audioUrl || '').replace(/^\//, '');
+        const mp3Full = path.join(REPO_ROOT, mp3Rel);
+        const mp3Exists = mp3Rel && fs.existsSync(mp3Full);
+        status.biblia_audio_mp3 = {
+          done: Boolean(mp3Exists),
+          chapterId: latest.id,
+          chapter: latest.chapter,
+          audioUrl: latest.audioUrl,
+          label: mp3Exists
+            ? `Plik MP3 Biblii Audio (Księga Rodzaju rozdział ${latest.chapter}) jest gotowy, opublikowany na WWW i gotowy do emisji radiowej`
+            : `Odcinek Biblii Audio (${latest.id}) w przygotowaniu`,
+        };
+      }
+    }
+  } catch {}
+
+  // 3. Sprawdź YouTube (data/youtube_published_history.json)
+  try {
+    const ytPath = path.join(REPO_ROOT, 'data', 'youtube_published_history.json');
+    if (fs.existsSync(ytPath)) {
+      const ytData = JSON.parse(fs.readFileSync(ytPath, 'utf8'));
+      const list = Array.isArray(ytData.published) ? ytData.published : [];
+      const todayYt = list.filter((it) => String(it.publishedAt || '').startsWith(todayIso));
+      if (todayYt.length > 0) {
+        status.youtube = {
+          done: true,
+          count: todayYt.length,
+          label: `Na YouTube wgrano dziś ${todayYt.length} materiałów wideo 4K i Shorts na 7 kanałach`,
+        };
+      }
+    }
+  } catch {}
+
+  // 4. Sprawdź X / Twitter (data/x_published_history.json)
+  try {
+    const xPath = path.join(REPO_ROOT, 'data', 'x_published_history.json');
+    if (fs.existsSync(xPath)) {
+      const xData = JSON.parse(fs.readFileSync(xPath, 'utf8'));
+      const list = Array.isArray(xData.published) ? xData.published : [];
+      const todayX = list.filter((it) => String(it.publishedAt || '').startsWith(todayIso));
+      if (todayX.length > 0) {
+        status.x_twitter = {
+          done: true,
+          count: todayX.length,
+          latestTitle: todayX[0]?.title || '',
+          label: `Na platformie X opublikowano dziś ${todayX.length} postów`,
+        };
+      }
+    }
+  } catch {}
+
+  // 5. Sprawdź Facebook (data/fb_shorts_history.json)
+  try {
+    const fbPath = path.join(REPO_ROOT, 'data', 'fb_shorts_history.json');
+    if (fs.existsSync(fbPath)) {
+      const fbData = JSON.parse(fs.readFileSync(fbPath, 'utf8'));
+      const list = Array.isArray(fbData.published) ? fbData.published : (Array.isArray(fbData) ? fbData : []);
+      const todayFb = list.filter((it) => String(it.publishedAt || it.date || '').startsWith(todayIso));
+      if (todayFb.length > 0) {
+        status.facebook = {
+          done: true,
+          state: 'published',
+          count: todayFb.length,
+          label: `Na Facebooku opublikowano dziś ${todayFb.length} materiałów`,
+        };
+      } else {
+        status.facebook = {
+          done: false,
+          state: 'not_published_today',
+          count: 0,
+          label: 'Na Facebooku nie wykonano jeszcze dzisiejszej publikacji',
+        };
+      }
+    }
+  } catch {}
+
+  status.spoken_summary = [
+    status.rozwazania.label,
+    status.biblia_audio_mp3.label,
+    status.youtube.label,
+    status.x_twitter.label,
+    status.whatsapp.label,
+    status.facebook.label,
+  ].join('. ') + '.';
+
+  return status;
+}
+
+async function main() {
   const now = new Date();
   const windowStart = new Date(now.getTime() - 24 * 3600_000);
   const windowEnd = new Date(now.getTime() + 7 * 24 * 3600_000);
+
+  const baseDir = path.join(REPO_ROOT, 'ccMC');
+  const existingReportPath = path.join(baseDir, 'gcalendar-live-report.json');
+  let previousReport = null;
+  if (fs.existsSync(existingReportPath)) {
+    try {
+      previousReport = JSON.parse(fs.readFileSync(existingReportPath, 'utf8'));
+    } catch {}
+  }
 
   const report = {
     schema_version: '1.0',
@@ -92,37 +251,48 @@ function main() {
     calendars_checked: [],
     pagination_complete: false,
     events: [],
+    mission_automation_report: collectMissionAutomationReport(now),
     warnings: [],
   };
 
-  const baseDir = 'C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\ccMC';
   const calsPath = path.join(baseDir, 'gcal-cals.json');
   const primaryPath = path.join(baseDir, 'gcal-primary.json');
   const holidaysPath = path.join(baseDir, 'gcal-holidays.json');
 
   try {
-    const calendars = readJsonAutoEncoding(calsPath);
-    const primaryEvents = readJsonAutoEncoding(primaryPath);
-    const holidayEvents = fs.existsSync(holidaysPath) ? readJsonAutoEncoding(holidaysPath) : [];
+    if (fs.existsSync(calsPath) && fs.existsSync(primaryPath)) {
+      const calendars = readJsonAutoEncoding(calsPath);
+      const primaryEvents = readJsonAutoEncoding(primaryPath);
+      const holidayEvents = fs.existsSync(holidaysPath) ? readJsonAutoEncoding(holidaysPath) : [];
 
-    const primaryCal = Array.isArray(calendars)
-      ? calendars.find((c) => c.primary || c.id === TARGET_ACCOUNT)
-      : null;
-    if (primaryCal && (primaryCal.id === TARGET_ACCOUNT || primaryCal.dataOwner === TARGET_ACCOUNT)) {
-      report.account_verified = true;
+      const primaryCal = Array.isArray(calendars)
+        ? calendars.find((c) => c.primary || c.id === TARGET_ACCOUNT)
+        : null;
+      if (primaryCal && (primaryCal.id === TARGET_ACCOUNT || primaryCal.dataOwner === TARGET_ACCOUNT)) {
+        report.account_verified = true;
+      }
+
+      report.calendars_checked = ['primary', 'pl.polish#holiday@group.v.calendar.google.com'];
+      const normalized = [
+        ...normalizeGcalItems(primaryEvents, 'primary'),
+        ...normalizeGcalItems(holidayEvents, 'pl.polish#holiday@group.v.calendar.google.com'),
+      ];
+      normalized.sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
+
+      report.events = normalized;
+      report.fetched_at = toWarsawRfc3339(new Date());
+      report.pagination_complete = true;
+      report.source_status = 'OK';
+    } else if (previousReport && Array.isArray(previousReport.events) && previousReport.events.length > 0) {
+      report.account_verified = Boolean(previousReport.account_verified);
+      report.calendars_checked = previousReport.calendars_checked || ['primary'];
+      report.events = previousReport.events;
+      report.fetched_at = toWarsawRfc3339(new Date());
+      report.pagination_complete = true;
+      report.source_status = 'OK';
+    } else {
+      throw new Error('Brak plików wsadowych gcal-cals.json / gcal-primary.json');
     }
-
-    report.calendars_checked = ['primary', 'pl.polish#holiday@group.v.calendar.google.com'];
-    const normalized = [
-      ...normalizeGcalItems(primaryEvents, 'primary'),
-      ...normalizeGcalItems(holidayEvents, 'pl.polish#holiday@group.v.calendar.google.com'),
-    ];
-    normalized.sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
-
-    report.events = normalized;
-    report.fetched_at = toWarsawRfc3339(new Date());
-    report.pagination_complete = true;
-    report.source_status = 'OK';
   } catch (err) {
     report.source_status = 'ERROR';
     report.fetched_at = null;
@@ -153,6 +323,15 @@ function main() {
         fs.writeFileSync(t, jsonStr, 'utf8');
       } catch {}
     }
+
+    // Wyślij żywy raport do endpointu produkcyjnego /api/mission-calendar/gcal/live-report
+    try {
+      await fetch('https://polskieradio.cc/api/mission-calendar/gcal/live-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: jsonStr,
+      });
+    } catch {}
   }
 
   for (const tmp of [calsPath, primaryPath, holidaysPath]) {

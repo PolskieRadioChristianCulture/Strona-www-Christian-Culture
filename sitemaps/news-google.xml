@@ -9,6 +9,21 @@
         <news:name>Christian Culture News (CCN)</news:name>
         <news:language>pl</news:language>
       </news:publication>
+      <news:publication_date>2026-11-07T14:00:00.000Z</news:publication_date>
+      <news:title>Telefon milczy od tygodni: jak zauważyć samotnego sąsiada?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada.jpg</image:loc>
+      <image:title>Telefon milczy od tygodni: jak zauważyć samotnego sąsiada?</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/news</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
       <news:publication_date>2026-11-06T14:00:00.000Z</news:publication_date>
       <news:title>Czy patriotyzm zobowiązuje do szacunku wobec przeciwnika?</news:title>
     </news:news>

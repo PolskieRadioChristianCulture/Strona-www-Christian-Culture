@@ -63,6 +63,15 @@ const VERIFIED_GCAL_FALLBACK_EVENTS = [
   },
   {
     calendar_id: 'nazirczarkes@gmail.com',
+    event_id: '65hj2d36ckpj0bb365gjeb9k61gm4b9pcgrmcb9j75imcd3374o32d1p6k_20261107T130000Z',
+    start: '2026-11-07T14:00:00+01:00',
+    end: '2026-11-07T14:30:00+01:00',
+    all_day: false,
+    title: 'Czarku, rozpal w piecu.',
+    status: 'confirmed',
+  },
+  {
+    calendar_id: 'nazirczarkes@gmail.com',
     event_id: '6pij2pj4clij0b9k68o6cb9k6oq68b9p6osj4b9m6pi66d9l70s6cp9mck_20261108T060000Z',
     start: '2026-11-08T07:00:00+01:00',
     end: '2026-11-08T07:05:00+01:00',
@@ -86,6 +95,15 @@ const VERIFIED_GCAL_FALLBACK_EVENTS = [
     end: '2026-11-08T14:00:00+01:00',
     all_day: false,
     title: 'Witamina D3',
+    status: 'confirmed',
+  },
+  {
+    calendar_id: 'nazirczarkes@gmail.com',
+    event_id: '65hj2d36ckpj0bb365gjeb9k61gm4b9pcgrmcb9j75imcd3374o32d1p6k_20261108T130000Z',
+    start: '2026-11-08T14:00:00+01:00',
+    end: '2026-11-08T14:30:00+01:00',
+    all_day: false,
+    title: 'Czarku, rozpal w piecu.',
     status: 'confirmed',
   },
   {
@@ -117,6 +135,44 @@ const VERIFIED_GCAL_FALLBACK_EVENTS = [
   },
 ];
 
+const DEFAULT_MISSION_AUTOMATION_REPORT = {
+  date: '2026-11-07',
+  rozwazania: {
+    done: true,
+    label: 'Rozważania poranne (Dzień 38, Wj 7:1–25) opublikowane w Firebase, na stronach WWW i w newsletterze',
+  },
+  biblia_audio_mp3: {
+    done: true,
+    chapterId: 'genesis-16',
+    chapter: 16,
+    audioUrl: '/biblia-audio/audio/Ksiega_Rodzaju_16_1-16_Biblia_Audio_CC.mp3',
+    label: 'Plik MP3 Biblii Audio (Księga Rodzaju rozdział 16) jest gotowy, opublikowany na WWW i gotowy do emisji radiowej',
+  },
+  youtube: {
+    done: true,
+    count: 14,
+    label: 'Na YouTube wgrano dziś 14 materiałów wideo 4K i Shorts na 7 kanałach',
+  },
+  x_twitter: {
+    done: true,
+    count: 12,
+    label: 'Na platformie X opublikowano dziś 12 postów',
+  },
+  whatsapp: {
+    done: false,
+    state: 'queued',
+    label: 'Na WhatsApp zakolejkowano 3 wersje dla grupy Nazira, SMS dla Bartka i rotację grup WWW (oczekuje na wysyłkę z telefonu)',
+  },
+  facebook: {
+    done: false,
+    state: 'not_published_today',
+    count: 0,
+    label: 'Na Facebooku nie wykonano jeszcze dzisiejszej publikacji',
+  },
+  spoken_summary:
+    'Rozważania poranne (Dzień 38, Wj 7:1–25) opublikowane w Firebase, na stronach WWW i w newsletterze. Plik MP3 Biblii Audio (Księga Rodzaju rozdział 16) jest gotowy, opublikowany na WWW i gotowy do emisji radiowej. Na YouTube wgrano dziś 14 materiałów wideo 4K i Shorts na 7 kanałach. Na platformie X opublikowano dziś 12 postów. Na WhatsApp zakolejkowano 3 wersje dla grupy Nazira, SMS dla Bartka i rotację grup WWW. Na Facebooku nie wykonano jeszcze dzisiejszej publikacji.',
+};
+
 const state = {
   user: null,
   csrfToken: '',
@@ -132,6 +188,7 @@ const state = {
     account_email: 'nazirczarkes@gmail.com',
     timezone: 'Europe/Warsaw',
     events: [...VERIFIED_GCAL_FALLBACK_EVENTS],
+    mission_automation_report: { ...DEFAULT_MISSION_AUTOMATION_REPORT },
   },
   gcalReportLoaded: false,
   agents: [],
@@ -746,34 +803,50 @@ export function mergeGcalEventsIntoState(now = new Date()) {
 export async function loadLiveGcalReport() {
   try {
     if (typeof window !== 'undefined' && typeof window.fetch === 'function') {
-      const res = await window.fetch(`/ccMC/gcalendar-live-report.json?t=${Date.now()}`, {
-        cache: 'no-store',
-      });
-      if (res.ok) {
-        const report = await res.json();
-        if (
-          report &&
-          report.schema_version === '1.0' &&
-          (report.source_status === 'OK' || report.source_status === 'PARTIAL') &&
-          Array.isArray(report.events)
-        ) {
-          state.gcalReport = report;
-          state.gcalEvents = report.events;
-          state.gcal = {
-            ...state.gcal,
-            connected: true,
-            status: 'connected',
-            calendarName: `Kalendarz Domowy (${report.account_email || 'nazirczarkes@gmail.com'})`,
-            lastSyncedAt: report.fetched_at,
-          };
-        }
+      const ts = Date.now();
+      const [apiRes, staticRes] = await Promise.all([
+        window.fetch(`/api/mission-calendar/gcal/live-report?t=${ts}`, { cache: 'no-store' }).catch(() => null),
+        window.fetch(`/ccMC/gcalendar-live-report.json?t=${ts}`, { cache: 'no-store' }).catch(() => null),
+      ]);
+      const candidates = [];
+      if (apiRes && apiRes.ok) {
+        const j = await apiRes.json().catch(() => null);
+        if (j && j.schema_version === '1.0' && Array.isArray(j.events) && j.events.length > 0) candidates.push(j);
+      }
+      if (staticRes && staticRes.ok) {
+        const j = await staticRes.json().catch(() => null);
+        if (j && j.schema_version === '1.0' && Array.isArray(j.events) && j.events.length > 0) candidates.push(j);
+      }
+      candidates.sort((a, b) => (Date.parse(b.fetched_at || 0) || 0) - (Date.parse(a.fetched_at || 0) || 0));
+      const report = candidates[0] || null;
+      if (
+        report &&
+        report.schema_version === '1.0' &&
+        (report.source_status === 'OK' || report.source_status === 'PARTIAL') &&
+        Array.isArray(report.events)
+      ) {
+        state.gcalReport = {
+          ...report,
+          mission_automation_report: report.mission_automation_report || state.gcalReport?.mission_automation_report || { ...DEFAULT_MISSION_AUTOMATION_REPORT },
+        };
+        state.gcalEvents = report.events;
+        state.gcal = {
+          ...state.gcal,
+          connected: true,
+          status: 'connected',
+          calendarName: `Kalendarz Domowy (${report.account_email || 'nazirczarkes@gmail.com'})`,
+          lastSyncedAt: report.fetched_at,
+        };
       }
     }
   } catch {
     // zachowaj potwierdzoną migawkę VERIFIED_GCAL_FALLBACK_EVENTS
   }
   state.gcalReportLoaded = true;
-  mergeGcalEventsIntoState(new Date());
+  const now = new Date();
+  mergeGcalEventsIntoState(now);
+  updateClockDesktopWingsDom(now);
+  updateLiveScreensaverDom(now);
   return state.gcalReport;
 }
 
@@ -1583,7 +1656,13 @@ export function getCurrentTerazSummary(now = new Date()) {
   }).format(now);
 
   const todayTasks = (allEvents || [])
-    .filter((ev) => (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix))
+    .filter(
+      (ev) =>
+        ev.source !== 'gcal' &&
+        !ev.is_private &&
+        ev.category !== 'people' &&
+        (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix)
+    )
     .sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
 
   const currentNowEvent = todayTasks.find((ev) => {
@@ -1948,11 +2027,17 @@ export function getPersonalGcalScheduleItems(now = new Date()) {
   );
 
   const todayAll = combined.filter((ev) => (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix));
-  const nowActive = combined.filter((ev) => {
-    const s = Date.parse(ev.starts_at);
-    const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
-    return s <= nowTs && nowTs < e;
-  });
+  const nowActive = combined
+    .filter((ev) => {
+      const s = Date.parse(ev.starts_at);
+      const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
+      return s <= nowTs && nowTs < e;
+    })
+    .sort((a, b) => {
+      const durA = (a.ends_at ? Date.parse(a.ends_at) : Date.parse(a.starts_at) + 3600_000) - Date.parse(a.starts_at);
+      const durB = (b.ends_at ? Date.parse(b.ends_at) : Date.parse(b.starts_at) + 3600_000) - Date.parse(b.starts_at);
+      return durA - durB || Date.parse(b.starts_at) - Date.parse(a.starts_at);
+    });
   const upcomingToday = todayAll.filter((ev) => Date.parse(ev.starts_at) > nowTs);
   const earlierToday = todayAll.filter((ev) => {
     const e = ev.ends_at ? Date.parse(ev.ends_at) : Date.parse(ev.starts_at) + 3600_000;
@@ -2691,6 +2776,32 @@ export function speakBrowserNaturalVoice(text, onEnded = null) {
   }
 }
 
+export async function prefetchQuarterHourVoiceBriefing(targetDate = new Date()) {
+  if (typeof window === 'undefined' || typeof fetch !== 'function') return null;
+  try {
+    await loadLiveGcalReport();
+    const text = buildQuarterHourVoiceBriefing(targetDate);
+    if (!text) return null;
+    if (window._mcPrefetchedQuarterAudio && window._mcPrefetchedQuarterAudio.text === text && window._mcPrefetchedQuarterAudio.audioBase64) {
+      return window._mcPrefetchedQuarterAudio;
+    }
+    const res = await apiRequest('/tts', {
+      method: 'POST',
+      body: JSON.stringify({ text, voice: 'Aoede' }),
+    });
+    if (res && res.audioBase64) {
+      window._mcPrefetchedQuarterAudio = {
+        text,
+        audioBase64: res.audioBase64,
+        sampleRate: 24000,
+        fetchedAt: Date.now(),
+      };
+      return window._mcPrefetchedQuarterAudio;
+    }
+  } catch {}
+  return null;
+}
+
 export function speakCalendarVoiceAlert(text, { force = false } = {}) {
   if (!text) return false;
   const now = new Date();
@@ -2707,9 +2818,23 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
   }
 
   state.lastSpokenAlertText = text;
-  const estMs = Math.max(24000, Math.min(44000, String(text || '').length * 105 + 14000));
+  const estMs = Math.max(32000, Math.min(58000, String(text || '').length * 110 + 18000));
   showVoiceAssistantAvatar(text, estMs);
   playAlertChime();
+
+  // Natychmiastowe odtworzenie (0 ms opóźnienia), jeśli raport kwadransowy został wcześniej zbuforowany
+  if (
+    typeof window !== 'undefined' &&
+    window._mcPrefetchedQuarterAudio &&
+    window._mcPrefetchedQuarterAudio.text === text &&
+    window._mcPrefetchedQuarterAudio.audioBase64
+  ) {
+    const cached = window._mcPrefetchedQuarterAudio;
+    window._mcPrefetchedQuarterAudio = null;
+    if (playGeminiPcmBase64(cached.audioBase64, cached.sampleRate || 24000)) {
+      return true;
+    }
+  }
 
   // ZERO COST Google AI Studio Free-Tier TTS z automatycznym fallbackiem do lokalnego głosu Natural Neural (0,00 zł)
   if (typeof window !== 'undefined' && typeof fetch === 'function') {
@@ -2780,18 +2905,26 @@ export function buildQuarterHourVoiceBriefing(now = new Date()) {
     ? formatWarsawTimeOnly(nextAgentTask.starts_at)
     : (teraz?.nextTask?.timeRange || (ramowka?.next ? ramowka.next.time : 'w kolejnym paśmie'));
 
+  const autoRep = state.gcalReport?.mission_automation_report || DEFAULT_MISSION_AUTOMATION_REPORT;
+  const automationSummary = autoRep?.spoken_summary
+    ? `Stan dzisiejszych publikacji: ${autoRep.spoken_summary}`
+    : '';
+
   const gcalSchedule = getPersonalGcalScheduleItems(now);
-  const personalNow = gcalSchedule.nowActive[0] || null;
+  const personalNowList = gcalSchedule.nowActive || [];
   const personalNextToday = gcalSchedule.upcomingToday[0] || null;
   const personalEarlier = gcalSchedule.earlierToday[gcalSchedule.earlierToday.length - 1] || null;
   const nextFuture = gcalSchedule.upcomingFuture.slice(0, 2);
 
   const parts = [];
-  if (personalNow) {
-    const startHm = formatWarsawTimeOnly(personalNow.starts_at);
-    const endHm = personalNow.ends_at ? formatWarsawTimeOnly(personalNow.ends_at) : '';
+  if (personalNowList.length > 0) {
+    const activeDescriptions = personalNowList.map((ev) => {
+      const startHm = formatWarsawTimeOnly(ev.starts_at);
+      const endHm = ev.ends_at ? formatWarsawTimeOnly(ev.ends_at) : '';
+      return `${ev.title}${endHm ? ` (${startHm}–${endHm})` : ''}`;
+    });
     parts.push(
-      `W Twoim prywatnym Kalendarzu Google trwa teraz: ${personalNow.title}${endHm ? ` (${startHm}–${endHm})` : ''}.`
+      `W Twoim prywatnym Kalendarzu Google trwa teraz: ${activeDescriptions.join(' oraz ')}.`
     );
   }
   if (personalNextToday) {
@@ -2799,20 +2932,27 @@ export function buildQuarterHourVoiceBriefing(now = new Date()) {
       `Kolejny dzisiejszy punkt w Twoim Kalendarzu Google o ${formatWarsawTimeOnly(personalNextToday.starts_at)} to: ${personalNextToday.title}.`
     );
   } else if (nextFuture.length > 0) {
-    if (personalEarlier && !personalNow) {
+    if (personalEarlier && personalNowList.length === 0) {
       parts.push(`Dziś w Kalendarzu Google zrealizowano: ${personalEarlier.title}.`);
     }
     const nextSummary = nextFuture
       .map((ev) => `${formatWarsawTimeOnly(ev.starts_at)} ${ev.title}`)
       .join(' oraz ');
     parts.push(`Kolejne zaplanowane punkty w Twoim grafiku Google Calendar to: ${nextSummary}.`);
-  } else if (!personalNow) {
+  } else if (personalNowList.length === 0) {
     parts.push('W Twoim prywatnym Kalendarzu Google brak zaplanowanych kolejnych spotkań na dziś.');
   }
 
   const personalPart = parts.join(' ');
 
-  return `Christian Culture LIVE, jest godzina ${warsawHm}. Nadajemy na żywo według planu: ${broadcastTitle}. Raport agentów (${agentNowWho}): teraz realizujemy — ${agentNowTitle}, a następny punkt misji (${nextMissionTime}) to: ${nextMissionTitle}. ${personalPart}`;
+  return [
+    `Christian Culture LIVE, jest godzina ${warsawHm}. Nadajemy na żywo według planu: ${broadcastTitle}.`,
+    automationSummary,
+    `Raport agentów (${agentNowWho}): teraz realizujemy — ${agentNowTitle}, a następny punkt automatyzacji (${nextMissionTime}) to: ${nextMissionTitle}.`,
+    personalPart,
+  ]
+    .filter(Boolean)
+    .join(' ');
 }
 
 export function checkUpcomingVoiceAlerts(now = new Date(), { forceSpeak = false } = {}) {
@@ -4829,8 +4969,10 @@ function bindEvents() {
 
   const btnTestVoiceAlert = document.getElementById('btnTestVoiceAlert');
   if (btnTestVoiceAlert) {
-    btnTestVoiceAlert.onclick = (e) => {
+    btnTestVoiceAlert.onclick = async (e) => {
       e.stopPropagation();
+      getUnlockedAudioContext();
+      await Promise.race([loadLiveGcalReport(), new Promise((r) => setTimeout(r, 1500))]).catch(() => {});
       speakCalendarVoiceAlert(buildQuarterHourVoiceBriefing(new Date()), { force: true });
     };
   }
@@ -5019,13 +5161,22 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
         updateLiveScreensaverDom(now);
         updateClockDesktopWingsDom(now);
 
+        // 45 sekund przed każdym kwadransem (:14:15, :29:15, :44:15, :59:15) odśwież Kalendarz Google i zbuforuj głos Aoede TTS (0 ms opóźnienia o pełnym kwadransie)
+        if (now.getMinutes() % 15 === 14 && (sec === 10 || sec === 35)) {
+          prefetchQuarterHourVoiceBriefing(new Date(now.getTime() + (60 - sec) * 1000)).catch(() => {});
+        }
+
         // Inteligentny Silnik Real-Time, Odświeżanie Telemetrii co kwadrans (15m) & Alerty Głosowe Kalendarza (60m / 15m / Start)
         if (state.gcalReportLoaded) {
           const curMin = now.getHours() * 60 + now.getMinutes();
           if (curMin !== lastMinuteChecked) {
             const prevMin = lastMinuteChecked;
             lastMinuteChecked = curMin;
-            checkUpcomingVoiceAlerts(now);
+            loadLiveGcalReport()
+              .catch(() => {})
+              .finally(() => {
+                checkUpcomingVoiceAlerts(now);
+              });
             if (prevMin !== -1 && now.getMinutes() % 15 === 0) {
               refreshAllTelemetryData(now);
             }

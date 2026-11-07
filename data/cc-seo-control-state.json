@@ -1,13 +1,13 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-07T05:23:16.466Z",
+  "generatedAt": "2026-11-07T13:08:15.975Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 88,
-    "validUrls": 88,
+    "totalValidatedUrls": 89,
+    "validUrls": 89,
     "invalidUrls": 0,
-    "newsArticlesCount": 82,
-    "googleNews48hCount": 36,
+    "newsArticlesCount": 83,
+    "googleNews48hCount": 37,
     "akademiaUrlsCount": 69,
     "bibliaUrlsCount": 4,
     "muzykaUrlsCount": 9,
@@ -31,13 +31,13 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 23972,
+      "sizeBytes": 24282,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 31230,
+      "sizeBytes": 31573,
       "status": "OK"
     },
     {
@@ -49,7 +49,7 @@
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 29530,
+      "sizeBytes": 30210,
       "status": "OK"
     },
     {
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-07T05:23:16.461Z",
+        "queuedAt": "2026-11-07T13:08:15.969Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-07T05:23:16.461Z",
+        "queuedAt": "2026-11-07T13:08:15.969Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-07T05:23:16.461Z",
+        "queuedAt": "2026-11-07T13:08:15.969Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-07T05:23:16.461Z",
+        "queuedAt": "2026-11-07T13:08:15.969Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-07T05:23:16.461Z",
+        "queuedAt": "2026-11-07T13:08:15.969Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -386,7 +386,7 @@
     "keyMasked": "cc777b...c28e",
     "totalIndexedUrls": 343,
     "lastSubmittedCount": 343,
-    "lastSubmittedAt": "2026-11-07T05:23:18.801Z"
+    "lastSubmittedAt": "2026-11-07T13:08:18.394Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada.html",
+      "canonicalUrl": "https://polskieradio.cc/news",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/czy-patriotyzm-zobowiazuje-do-szacunku-wobec-przeciwnika.html",
       "canonicalUrl": "https://polskieradio.cc/news",
@@ -593,15 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/kim-jestem-gdy-nikt-nie-patrzy-uczciwosc-sumienie.html",
-      "canonicalUrl": "https://polskieradio.cc/eM",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-07T05:23:18.801Z"
+  "lastInstantIndexingAt": "2026-11-07T13:08:18.394Z"
 }

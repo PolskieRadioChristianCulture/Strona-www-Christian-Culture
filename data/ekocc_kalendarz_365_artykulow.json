@@ -74,11 +74,17 @@
       "portal_docelowy": "EkoCC — rodzina i relacje (dokładny URL do potwierdzenia)",
       "priorytet": "B",
       "start_przygotowania": "2026-10-30",
-      "status": "Planowany / do opracowania",
+      "status": "Opublikowany (Autoryzacja L0: 2026-11-07)",
       "zrodlo_pomyslu": "Nowa propozycja redakcyjna",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "badania/eksperci; bez diagnoz i liczb bez źródeł",
-      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk."
+      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk.",
+      "url_opublikowany": "https://polskieradio.cc/news/telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada",
+      "data_publikacji_dokonana": "2026-11-07T14:00:00+01:00",
+      "pakiet_zip": "C:\\Users\\czark\\Desktop\\EkoCC_news_telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada_2026-11-07.zip",
+      "pakiet_docx": "C:\\Users\\czark\\Desktop\\EkoCC_news_telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada_2026-11-07.docx",
+      "grafika_16_9": "images/news/art-telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada.jpg",
+      "data_opracowania": "2026-11-07T13:07:21.220Z"
     },
     {
       "lp": 5,

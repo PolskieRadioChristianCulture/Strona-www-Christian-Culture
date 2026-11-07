@@ -3312,7 +3312,7 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
     // ────────────────────────────────────────────────────────────────────────
     if (path === '/tts' && request.method === 'POST') {
       const body = await request.json().catch(() => ({}));
-      const rawText = String(body.text || '').trim().slice(0, 900);
+      const rawText = String(body.text || '').trim().slice(0, 1600);
       if (!rawText) return json({ error: 'Brak tekstu do syntezy' }, 422);
 
       const voiceName = String(body.voice || 'Aoede');
@@ -3391,6 +3391,25 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
         text: rawText,
         audioBase64: null,
       });
+    }
+
+    // ────────────────────────────────────────────────────────────────────────
+    // Żywy Raport Kwadransowy Google Calendar & Automatyzacji Misji (/gcal/live-report)
+    // ────────────────────────────────────────────────────────────────────────
+    if (path === '/gcal/live-report' && request.method === 'GET') {
+      if (globalThis._ccMcLatestLiveGcalReport) {
+        return json(globalThis._ccMcLatestLiveGcalReport);
+      }
+      return json({ schema_version: '1.0', source_status: 'EMPTY', events: [] }, 404);
+    }
+
+    if (path === '/gcal/live-report' && request.method === 'POST') {
+      const body = await request.json().catch(() => null);
+      if (!body || body.schema_version !== '1.0' || !Array.isArray(body.events)) {
+        return json({ error: 'Nieprawidłowy format raportu gcalendar-live-report' }, 422);
+      }
+      globalThis._ccMcLatestLiveGcalReport = body;
+      return json({ ok: true, eventsCount: body.events.length, fetchedAt: body.fetched_at });
     }
 
     // ────────────────────────────────────────────────────────────────────────

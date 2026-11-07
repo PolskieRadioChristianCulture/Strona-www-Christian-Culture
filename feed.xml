@@ -8,7 +8,7 @@
     <atom:link href="https://polskieradio.cc/feed.xml" rel="self" type="application/rss+xml" />
     <description>Główny kanał publikacji ekosystemu Christian Culture: CCN News, Akademia Biblijna, Biblijne Uwielbienie, Radio i Kino VOD.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sat, 07 Nov 2026 05:23:16 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Nov 2026 13:08:15 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
     <item>
       <title>Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?</title>
@@ -19,6 +19,16 @@
       <category>CCN Finanse</category>
       <description>Dyskusja o cyfrowych walutach banków centralnych (CBDC) coraz częściej wykracza poza ekonomię. Analiza CBDC, prawa niedzielnego oraz Apokalipsy 13 (z wydaniem audio 17:51).</description>
       <enclosure url="https://polskieradio.cc/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Telefon milczy od tygodni: jak zauważyć samotnego sąsiada?</title>
+      <link>https://polskieradio.cc/news</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news</guid>
+      <pubDate>Sat, 07 Nov 2026 14:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN NEWS • RODZINA, SPOŁECZEŃSTWO I BIOETYKA</category>
+      <description>W epoce wszechobecnej łączności cyfrowej i setek wirtualnych powiadomień najcichszy dramat współczesnego społeczeństwa rozgrywa się tuż za ścianą naszych mieszkań. Tysiące osób starszych, schorowanych i opuszczonych spędza kolejne dni w całkowitej ciszy, czekając na dźwięk dzwonka do drzwi lub choćby jedno życzliwe pytanie: „Czy wszystko w porządku?”. Pismo Święte, raporty socjologiczne oraz twarde dane medyczne ostrzegają: obojętność wobec sąsiada jest nie tylko kryzysem wspólnoty, ale bezpośrednim zagrożeniem życia, na które chrześcijańska odpowiedzialność nakazuje odpowiedzieć natychmiastowym i konkretnym działaniem.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Czy patriotyzm zobowiązuje do szacunku wobec przeciwnika?</title>
@@ -209,16 +219,6 @@
       <category>eM / Motywacja Christian Culture</category>
       <description>Czy religijny wizerunek zgadza się z Twoim życiem? Mocny biblijny rachunek sumienia o prawdzie, uczciwości, przemocy, łasce i nawróceniu autorstwa Cezarego Rogowskiego w ramach eM — Motywacja Christian Culture.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-jaka-jest-twoja-poboznosc-wiara-czy-maska.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Jak zdefiniować osobisty sukces w chrześcijaństwie? Biblijna miara życia w perspektywie wieczności</title>
-      <link>https://polskieradio.cc/news/osobisty-sukces-chrzescijanina-w-perspektywie-wiecznosci</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/osobisty-sukces-chrzescijanina-w-perspektywie-wiecznosci</guid>
-      <pubDate>Thu, 29 Oct 2026 08:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>eM / Motywacja Christian Culture</category>
-      <description>Czym jest prawdziwy osobisty sukces chrześcijanina? Poznaj biblijną miarę charakteru, wierności, miłości i życia w perspektywie wieczności autorstwa Cezarego Rogowskiego w ramach eM — Motywacja Christian Culture.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-osobisty-sukces-chrzescijanina-w-perspektywie-wiecznosci.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Z Biblią za Pan Brat — Dzień 17: Wiara patrząca w przyszłość (Rdz 23–24)</title>
