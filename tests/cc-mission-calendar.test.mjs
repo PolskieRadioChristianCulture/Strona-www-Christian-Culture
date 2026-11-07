@@ -910,9 +910,9 @@ test('15. Glassmorphism NA ŻYWO Box, CHRISTIAN CULTURE LIVE header & 3D Spatial
   const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
   const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
 
-  // 15a. 100% transparent background on .mc-clock-live-box (zero blue tint, zero frame)
-  assert.match(ccMcStyle, /\.mc-clock-live-box[\s\S]*?background:\s*transparent\s*!important/, '.mc-clock-live-box must use 100% transparent background');
-  assert.match(ccMcStyle, /\.mc-clock-live-box[\s\S]*?backdrop-filter:\s*none\s*!important/, '.mc-clock-live-box must have backdrop-filter: none !important');
+  // 15a. Frameless semi-transparent dark neutral background on .mc-clock-live-box (zero blue tint, zero frame)
+  assert.match(ccMcStyle, /\.mc-clock-live-box[\s\S]*?background:\s*rgba\(4,\s*6,\s*10,\s*0\.62\)\s*!important/, '.mc-clock-live-box must use frameless semi-transparent dark neutral backing');
+  assert.match(ccMcStyle, /\.mc-clock-live-box[\s\S]*?border:\s*none\s*!important/, '.mc-clock-live-box must have border: none !important');
 
   // 15b. Permanent CHRISTIAN CULTURE LIVE header above the clock
   const { renderClockModule, renderBiblicalClockDialSvg, getTickSpatialProps } = await import('../ccMC/app.js');
@@ -1053,21 +1053,21 @@ test('18. Single Pulsing Dot Under Time, Enlarged Desktop CHRISTIAN CULTURE LIVE
     'CHRISTIAN CULTURE LIVE header (.mc-clock-permanent-header) must have no frame or border'
   );
 
-  // Hero wallpaper on clock screen
+  // Hero wallpaper on clock screen (dimmed with radial/linear gradient overlay)
   const heroBgPath = path.join(rootDir, 'ccMC', 'hero-bg.jpg');
   assert.ok(fs.existsSync(heroBgPath), 'Hero wallpaper ccMC/hero-bg.jpg must exist');
   assert.match(
     ccMcStyle,
-    /\.mc-clock-fullscreen\s*\{[\s\S]*?background-image:\s*url\(['"]?\/ccMC\/hero-bg\.jpg['"]?\);/,
+    /\.mc-clock-fullscreen\s*\{[\s\S]*?url\(['"]?\/ccMC\/hero-bg\.jpg['"]?\);/,
     '.mc-clock-fullscreen must use /ccMC/hero-bg.jpg as hero wallpaper'
   );
 });
 
 // ---------------------------------------------------------------------------
-// 19. Desktop 100% Transparent Side Wings (Google Stats, Personal Google
-//     Calendar Plan, Live RDS All Stations), Glow Seconds & Zero-Cost Voice TTS
+// 19. Desktop Frameless Semi-Transparent Side Wings (Google Stats, Personal Google
+//     Calendar Plan, Real 6 Radio Stations RDS), Glow Seconds & Zero-Cost Voice TTS
 // ---------------------------------------------------------------------------
-test('19. Desktop 100% Transparent Side Wings, Glow Seconds & Zero-Cost Voice TTS', async () => {
+test('19. Desktop Frameless Semi-Transparent Side Wings, Real 6 Radio Stations RDS, Glow Seconds & Zero-Cost Voice TTS', async () => {
   const rootDir = process.cwd();
   const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
   const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
@@ -1075,6 +1075,7 @@ test('19. Desktop 100% Transparent Side Wings, Glow Seconds & Zero-Cost Voice TT
   const {
     renderClockModule,
     getRadioRdsStations,
+    cleanZenoRdsTitle,
     formatWarsawTimeHtmlWithGlowSeconds,
     speakCalendarVoiceAlert,
   } = await import('../ccMC/app.js');
@@ -1089,18 +1090,24 @@ test('19. Desktop 100% Transparent Side Wings, Glow Seconds & Zero-Cost Voice TT
   assert.match(clockHtml, /Społeczność LUMINA/, 'Left wing must show LUMINA community telemetry');
   assert.match(clockHtml, /id="mcHudGoogleCalendarPlanBlock"/, 'Left wing must show Google Calendar Plan Dnia block');
 
-  // Right Wing: Live RDS from all 6 stations + Voice Alerts & OBS silent monitor
+  // Right Wing: Real 6 Radio Stations from polskieradio.cc + Voice Alerts & OBS silent monitor
   assert.match(clockHtml, /id="mcClockWingRight"/, 'Clock module must render #mcClockWingRight');
   assert.match(clockHtml, /LIVE RDS — WSZYSTKIE STACJE RADIOWE/, 'Right wing must show Live RDS from all radio stations');
   const stations = getRadioRdsStations(new Date());
-  assert.equal(stations.length, 6, 'Must provide live RDS for all 6 stations');
+  assert.equal(stations.length, 6, 'Must provide live RDS for all 6 real radio stations');
+  assert.deepEqual(
+    stations.map((s) => s.id),
+    ['poland', 'global', 'biblia_audio', 'global_biblia', 'instrumental_worship', 'biblia_spiewana'],
+    'Stations must be the 6 real radio stations of polskieradio.cc'
+  );
+  assert.equal(cleanZenoRdsTitle('Duszo moja śpiewaj Panu_Rafikson.wav'), 'Duszo moja śpiewaj Panu — Rafikson');
   assert.match(clockHtml, /id="mcHudVoiceAlertBlock"/, 'Right wing must include Voice Alerts & OBS configuration block');
 
-  // 100% transparent windows (no blue background)
+  // Frameless semi-transparent dark neutral backing under telemetry blocks (.mc-hud-wing-block)
   assert.match(
     ccMcStyle,
-    /\.mc-clock-wing\s*\{[\s\S]*?background:\s*transparent\s*!important;[\s\S]*?backdrop-filter:\s*none\s*!important;/,
-    'Desktop side wings (.mc-clock-wing) must be 100% transparent'
+    /\.mc-hud-wing-block\s*\{[\s\S]*?background:\s*rgba\(4,\s*6,\s*10,\s*0\.62\)\s*!important;[\s\S]*?border:\s*none\s*!important;/,
+    'Telemetry blocks (.mc-hud-wing-block) must have frameless semi-transparent dark neutral backing'
   );
 
   // Glow seconds matching the clock dial rim glow

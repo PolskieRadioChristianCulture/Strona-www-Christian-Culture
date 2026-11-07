@@ -1844,53 +1844,193 @@ export function renderClockDesktopLeftWing(now = new Date()) {
   `;
 }
 
+export function cleanZenoRdsTitle(rawTitle = '') {
+  return String(rawTitle || '')
+    .replace(/\.(wav|mp3|flac|aac|ogg|m4a)$/i, '')
+    .replace(/_/g, ' — ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
 export function getRadioRdsStations(now = new Date()) {
-  const ramowka = getCcRamowkaState(now);
   const ov = state.liveRdsOverride || {};
+  const epochSec = Math.floor(now.getTime() / 1000);
+
+  const globalBibleFallback = [
+    'Gospel of Matthew — Chapter 1 (English WEB)',
+    'Gospel of Mark — Chapter 1 (English WEB)',
+    'Gospel of Luke — Chapter 1 (English WEB)',
+    'Gospel of John — Chapter 1 (English WEB)',
+    'Book of Revelation — Chapter 22 (English WEB)',
+  ];
+  const worshipFallback = [
+    'Przy Jego Tronie — Christian Culture Music',
+    'Duch Świętości — Christian Culture Music',
+    'Cisza Serca — Christian Culture Music',
+    'W Jego Obecności — Christian Culture Music',
+  ];
+  const bibliaSpiewanaFallback = [
+    'Śpiewane Przypowieści Salomona — Rozdział 1',
+    'Śpiewane Przypowieści Salomona — Rozdział 2',
+    'Śpiewane Przypowieści Salomona — Rozdział 3',
+    'Śpiewane Przypowieści Salomona — Rozdział 4',
+  ];
+
+  let globalBibliaTitle = ov.global_biblia;
+  if (!globalBibliaTitle && Array.isArray(state.rdsPlaylists?.global_biblia) && state.rdsPlaylists.global_biblia.length > 0) {
+    const list = state.rdsPlaylists.global_biblia;
+    const item = list[Math.floor(epochSec / 220) % list.length];
+    if (item && item.bookName) {
+      globalBibliaTitle = `${item.bookName} — Chapter ${item.chapter}`;
+    }
+  }
+  if (!globalBibliaTitle) {
+    globalBibliaTitle = globalBibleFallback[Math.floor(epochSec / 220) % globalBibleFallback.length];
+  }
+
+  let worshipTitle = ov.instrumental_worship;
+  if (!worshipTitle && Array.isArray(state.rdsPlaylists?.instrumental_worship) && state.rdsPlaylists.instrumental_worship.length > 0) {
+    const list = state.rdsPlaylists.instrumental_worship;
+    const item = list[Math.floor(epochSec / 200) % list.length];
+    if (item && item.title) {
+      worshipTitle = `${item.title} — ${item.artist || 'Christian Culture Music'}`;
+    }
+  }
+  if (!worshipTitle) {
+    worshipTitle = worshipFallback[Math.floor(epochSec / 200) % worshipFallback.length];
+  }
+
+  let bibliaSpiewanaTitle = ov.biblia_spiewana;
+  if (!bibliaSpiewanaTitle && Array.isArray(state.rdsPlaylists?.biblia_spiewana) && state.rdsPlaylists.biblia_spiewana.length > 0) {
+    const list = state.rdsPlaylists.biblia_spiewana;
+    const item = list[Math.floor(epochSec / 260) % list.length];
+    if (item && item.title) {
+      bibliaSpiewanaTitle = `${item.title} — ${item.artist || 'Christian Culture Music'}`;
+    }
+  }
+  if (!bibliaSpiewanaTitle) {
+    bibliaSpiewanaTitle = bibliaSpiewanaFallback[Math.floor(epochSec / 260) % bibliaSpiewanaFallback.length];
+  }
+
   return [
     {
-      id: 'radio_cc_main',
-      station: 'RADIO CHRISTIAN CULTURE 24/7',
-      freq: 'STRUMIEŃ GŁÓWNY',
-      rds: ov.radio_cc_main || ramowka.title || 'ŚPIEWAJMY PANU — CODZIENNE UWIELBIENIE',
-      sub: ramowka.next ? `Następnie ${ramowka.next.time}: ${ramowka.next.title}` : 'Polskie Radio Christian Culture',
+      id: 'poland',
+      station: 'RADIO PL',
+      freq: 'ZENO.FM • LIVE RDS',
+      mountId: 'vz96pvl3pnktv',
+      streamUrl: 'https://stream.zeno.fm/vz96pvl3pnktv',
+      rds: ov.poland || 'Duszo moja śpiewaj Panu — Rafikson',
+      sub: 'Główna stacja polska • polskieradio.cc',
     },
     {
-      id: 'biblia_spiewana',
-      station: 'BIBLIA ŚPIEWANA & WORSHIP',
-      freq: 'KANAŁ 24/7',
-      rds: ov.biblia_spiewana || 'Przypowieści Salomona & Psalmy Dawida — Muzyka Uwielbienia',
-      sub: 'Emisja ciągła • polskieradio.cc/player',
-    },
-    {
-      id: 'cctv24_worship',
-      station: 'CCTV24 WORSHIP LIVE',
-      freq: 'TV & RADIO',
-      rds: ov.cctv24_worship || 'Nocne Czuwanie & Codzienne Uwielbienie 24/7',
-      sub: 'Transmisja telewizyjno-radiowa HD',
+      id: 'global',
+      station: 'RADIO GLOBAL',
+      freq: 'ZENO.FM • LIVE RDS',
+      mountId: 'umej2cuqncluv',
+      streamUrl: 'https://stream.zeno.fm/umej2cuqncluv',
+      rds: ov.global || 'Metamorpho — Global Christian Stream',
+      sub: 'Międzynarodowy strumień 24/7',
     },
     {
       id: 'biblia_audio',
-      station: 'BIBLIA AUDIO CC (-16 LUFS)',
-      freq: 'SŁUCHOWISKO',
-      rds: ov.biblia_audio || 'Księga Rodzaju (GEN-001 – GEN-016) • Słowo Boże w Audio',
-      sub: 'polskieradio.cc/biblia-audio',
+      station: 'RADIO BIBLIA (AUDIO)',
+      freq: 'ZENO.FM • LIVE RDS',
+      mountId: 'imo45hqnshyuv',
+      streamUrl: 'https://stream.zeno.fm/imo45hqnshyuv',
+      rds: ov.biblia_audio || 'Ewangelia Jana 4 - Biblia Audio Christian Culture',
+      sub: 'Pismo Święte czytane 24/7',
     },
     {
-      id: 'sds_apokalipsa',
-      station: 'STUDIUM & APOKALIPSA SDS',
-      freq: 'WYKŁADY 24/7',
-      rds: ov.sds_apokalipsa || 'Apokalipsa: Księga Nadziei — Wykład werset po wersecie',
-      sub: 'Studio Dobrego Słowa',
+      id: 'global_biblia',
+      station: 'GLOBAL AUDIO BIBLE',
+      freq: 'ENGLISH WEB 24/7',
+      playlistUrl: '/playlist.json',
+      rds: globalBibliaTitle,
+      sub: 'World English Bible Audio',
     },
     {
-      id: 'ambient_sleep',
-      station: 'AMBIENT SLEEP & MODLITWA',
-      freq: 'WYCISZENIE',
-      rds: ov.ambient_sleep || 'Biblijna Kontemplacja, Modlitwa i Wyciszenie Nocne',
-      sub: 'polskieradio.cc/AmbientSleep',
+      id: 'instrumental_worship',
+      station: 'INSTRUMENTAL WORSHIP',
+      freq: 'WORSHIP 24/7',
+      playlistUrl: '/worship_playlist.json',
+      rds: worshipTitle,
+      sub: 'Muzyka modlitwy i uwielbienia',
+    },
+    {
+      id: 'biblia_spiewana',
+      station: 'BIBLIA ŚPIEWANA',
+      freq: 'PSALMY & PRZYPOWIEŚCI',
+      playlistUrl: '/biblia_spiewana_playlist.json',
+      rds: bibliaSpiewanaTitle,
+      sub: 'Śpiewane Słowo Boże 24/7',
     },
   ];
+}
+
+export function initLiveRadioRdsEngine() {
+  if (typeof window === 'undefined') return;
+  if (window._mcLiveRadioRdsInitialized) return;
+  window._mcLiveRadioRdsInitialized = true;
+
+  if (!state.liveRdsOverride) state.liveRdsOverride = {};
+  if (!state.rdsPlaylists) state.rdsPlaylists = {};
+
+  // 1. Subskrypcja rzeczywistego RDS w czasie rzeczywistym (Zeno.FM SSE) dla 3 stacji strumieniowych
+  const zenoMounts = [
+    { id: 'poland', mount: 'vz96pvl3pnktv' },
+    { id: 'global', mount: 'umej2cuqncluv' },
+    { id: 'biblia_audio', mount: 'imo45hqnshyuv' },
+  ];
+
+  if (typeof window.EventSource === 'function') {
+    window._mcZenoRdsSources = {};
+    for (const item of zenoMounts) {
+      try {
+        const es = new window.EventSource(`https://api.zeno.fm/mounts/metadata/subscribe/${item.mount}`);
+        es.onmessage = (event) => {
+          try {
+            const payload = JSON.parse(event.data);
+            if (payload && payload.streamTitle) {
+              const cleaned = cleanZenoRdsTitle(payload.streamTitle);
+              if (cleaned) {
+                state.liveRdsOverride[item.id] = cleaned;
+                const domEl = document.getElementById(`mcHudRdsTrack_${item.id}`);
+                if (domEl && domEl.textContent !== cleaned) {
+                  domEl.textContent = cleaned;
+                }
+              }
+            }
+          } catch {
+            // ignore malformed frame
+          }
+        };
+        window._mcZenoRdsSources[item.id] = es;
+      } catch {
+        // fallback handled by getRadioRdsStations
+      }
+    }
+  }
+
+  // 2. Pobranie rzeczywistych playlist JSON dla pozostałych 3 stacji radiowych z polskieradio.cc
+  if (typeof window.fetch === 'function') {
+    const playlistConfigs = [
+      { id: 'global_biblia', url: '/playlist.json' },
+      { id: 'instrumental_worship', url: '/worship_playlist.json' },
+      { id: 'biblia_spiewana', url: '/biblia_spiewana_playlist.json' },
+    ];
+    for (const cfg of playlistConfigs) {
+      window
+        .fetch(cfg.url)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((arr) => {
+          if (Array.isArray(arr) && arr.length > 0) {
+            state.rdsPlaylists[cfg.id] = arr;
+            updateClockDesktopWingsDom(new Date());
+          }
+        })
+        .catch(() => {});
+    }
+  }
 }
 
 export function playAlertChime() {
@@ -2093,7 +2233,7 @@ export function renderClockDesktopRightWing(now = new Date()) {
         </header>
         <div class="mc-hud-voice-status">
           <small class="mc-hud-voice-desc">
-            Komunikaty głosowe TTS (<strong>60 min</strong> i <strong>15 min</strong> przed wydarzeniem, np. powrót żony z pracy, wyjście po syna do szkoły). W OBS: <em>Zaawansowane właściwości dźwięku → Odsłuch audio: Wyłączony</em> (emisja idzie w eter, a w pokoju słyszysz wyłącznie alerty z kalendarza).
+            Komunikaty głosowe TTS (<strong>60 min</strong> i <strong>15 min</strong> przed wydarzeniem, np. powrót żony z pracy, wyjście po syna do szkoły). OBS na komputerze nadawczym skonfigurowany: <strong>odsłuch lokalny wyłączony (Monitor Off)</strong> — emisja idzie w eter, a w pokoju słyszysz wyłącznie alerty z kalendarza.
           </small>
         </div>
       </section>
@@ -4085,6 +4225,7 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
       }
     }, 250);
   }
+  initLiveRadioRdsEngine();
   attachLoginHandler();
   loadInitialSession();
 }

@@ -1927,7 +1927,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   color: var(--mc-text-contrast);
 }
 
-/* Moduł 1: Start — Tylko Zegar + Tapeta Hero */
+/* Moduł 1: Start — Tylko Zegar + Tapeta Hero (przyciemniona dla czytelności telemetrii) */
 .mc-clock-fullscreen {
   min-height: 100dvh;
   min-height: 100vh;
@@ -1939,8 +1939,11 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   box-sizing: border-box;
   position: relative;
   overflow-x: hidden;
-  background-color: #000000;
-  background-image: url('/ccMC/hero-bg.jpg');
+  background-color: #020306;
+  background-image:
+    radial-gradient(ellipse at 50% 42%, rgba(3, 4, 8, 0.48) 0%, rgba(2, 3, 7, 0.78) 62%, rgba(1, 2, 5, 0.92) 100%),
+    linear-gradient(180deg, rgba(2, 3, 7, 0.68) 0%, rgba(2, 3, 7, 0.56) 45%, rgba(1, 2, 5, 0.88) 100%),
+    url('/ccMC/hero-bg.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -2108,13 +2111,14 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 .mc-hud-wing-block {
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background: rgba(4, 6, 10, 0.62) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
-  padding: 4px 2px;
+  border-radius: 16px;
+  padding: 12px 15px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -2283,7 +2287,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
 }
 
-/* Okienko "NA ŻYWO" pod zegarem: W 100% TRANSPARENTNE (zero niebieskiego tła, zero ramki), zakotwiczona stała wysokość */
+/* Okienko "NA ŻYWO" pod zegarem: bezramkowe, półprzezroczyste ciemne tło (zero niebieskiego, zero ramki), zakotwiczona stała wysokość */
 .mc-clock-live-box {
   width: 100%;
   max-width: 540px;
@@ -2292,9 +2296,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   max-height: 130px;
   margin-top: 0.5cm;
   flex-shrink: 0;
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background: rgba(4, 6, 10, 0.62) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border: none !important;
   outline: none !important;
   border-radius: 18px;
