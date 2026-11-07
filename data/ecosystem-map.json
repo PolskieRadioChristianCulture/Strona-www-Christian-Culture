@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-07",
+      "topic": "ccMC: Integracja kanonicznego przycisku powrotu na górę (/js/cc-back-to-top.js)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-07",
       "topic": "Cykliczna publikacja CCN News na platformie X: Werset Dnia — „Ty jesteś Bogiem, który mnie widzi” (Rdz 16:13, UBG) z dedykowaną grafiką tematyczną (#127)",
       "agent": "A"
     },
@@ -4392,8 +4397,13 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-06T21:32:59.776Z",
+  "lastUpdated": "2026-11-07",
   "recentUpdates": [
+    {
+      "date": "2026-11-07",
+      "topic": "ccMC: Integracja kanonicznego przycisku powrotu na górę (/js/cc-back-to-top.js)",
+      "agent": "A"
+    },
     {
       "date": "2026-11-07",
       "topic": "ccMC: Panel Ustawienia, tryb jasny (#FFFFFF) i ciemny (#000000) oraz 12 zaplanowanych rutyn misyjnych (/automation)",
