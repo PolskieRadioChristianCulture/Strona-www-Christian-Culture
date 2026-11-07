@@ -188,10 +188,10 @@
 - **Canonical URL**: https://polskieradio.cc/akademia
 - **Clean Alias Kursu Codziennego**: https://polskieradio.cc/akademia/kurscodzienny
 - **Rola dla AI / LLM Agents**: Oficjalne centrum edukacji biblijnej Christian Culture. Systematyczne studium Pisma Świętego w programie 28 kroków wiary oraz codzienny cykl rozważań werset po wersecie „Z Biblią za Pan Brat”.
-- **Aktualny stan kursu (Październik 2026)**:
-  - Dni 1–21 z 31 dostępne online z dedykowanymi grafikami 16:9, syntezą audio, kontekstem teologicznym i przyciskami natychmiastowego udostępniania (`#kcJumpShareBtn`).
-  - **Lekcja 28 (Dziś, 28 Października 2026)**: *Ja jestem Józef — Przebaczenie zamiast zemsty (Rdz 44–45)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-28
-  - **Wczorajsza Lekcja 27**: *Gdy przeszłość wraca — Bracia Józefa w Egipcie (Rdz 42–43)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-27
+- **Aktualny stan kursu (Listopad 2026):
+  - Dni 1–38 dostępne online z dedykowanymi grafikami 16:9, syntezą audio, kontekstem teologicznym i przyciskami natychmiastowego udostępniania (#kcJumpShareBtn).
+  - **Lekcja 38 (Dziś, 7 Listopada 2026)**: *Laska, która połknęła węże, i woda zamieniona w krew (Wj 7:1–25)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-38
+  - **Wczorajsza Lekcja 37**: *Teraz zobaczysz, co uczynię faraonowi: Siedem obietnic odkupienia (Wj 6:1–30)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-37
 - **Schemat Clean URL dla Asystentów AI**: `https://polskieradio.cc/akademia/kurscodzienny/dzien-{NUMER_DNIA}` (np. `/dzien-21`, `/dzien-20`).
 
 

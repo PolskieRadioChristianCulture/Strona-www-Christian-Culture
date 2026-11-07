@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-06T14:03:55.944Z",
-  "totalItems": 413,
+  "updatedAt": "2026-11-06T23:11:44.768Z",
+  "totalItems": 419,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1955,18 +1955,162 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 32 (Lekcja 32 na dziś): W nieskrępowanym rozroście: Nowy król, uciskanie i Boże ocalenie (Wj 1:1–22)",
+      "title": "Z Biblią za Pan Brat — Dzień 38 (Lekcja 38 na dziś): Laska, która połknęła węże, i woda zamieniona w krew (Wj 7:1–25)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-38",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 38 (Lekcja 38 na dziś, 7 listopada 2026). Księga Wyjścia: Mojżesz ustanowiony bogiem dla faraona, pojedynek lasek czarowników i uderzenie w święty Nil — Wj 7:1–25.",
+      "tags": [
+        "lekcja 38",
+        "lekcja 38 na dziś",
+        "lekcja na dziś",
+        "dzień 38",
+        "dzien 38",
+        "rozważanie 38",
+        "rozważanie na dziś",
+        "słowo na dziś",
+        "laska która połknęła węże",
+        "woda zamieniona w krew",
+        "nil",
+        "faraon",
+        "aaron",
+        "plagi",
+        "znaki i cuda",
+        "wj 7",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "7 listopada 2026",
+        "dzisiaj",
+        "dziś"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 37 (Lekcja 37): Teraz zobaczysz, co uczynię faraonowi: Siedem obietnic odkupienia (Wj 6:1–30)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-37",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 37 (Lekcja 37, 6 listopada 2026). Księga Wyjścia: objawienie Imienia JAHWE, wieczne przymierze z ojcami i 7 obietnic odkupienia wyciągniętym ramieniem — Wj 6:1–30.",
+      "tags": [
+        "lekcja 37",
+        "dzień 37",
+        "dzien 37",
+        "rozważanie 37",
+        "słowo na dziś",
+        "siedem obietnic",
+        "odkupienie",
+        "ramię pana",
+        "jahwe",
+        "faraon",
+        "wj 6",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "6 listopada 2026"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 36 (Lekcja 36): Pierwsza konfrontacja z faraonem: Ciężary niewoli i próba wiary (Wj 5:1–23)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-36",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 36 (Lekcja 36, 5 listopada 2026). Księga Wyjścia: pierwsza konfrontacja Mojżesza i Aarona z faraonem, nakaz wyrobu cegieł bez słomy, ból ucisku i wołanie w ciemności próby — Wj 5:1–23.",
+      "tags": [
+        "lekcja 36",
+        "dzień 36",
+        "dzien 36",
+        "rozważanie 36",
+        "słowo na dziś",
+        "pierwsza konfrontacja",
+        "faraon",
+        "cegły bez słomy",
+        "próba wiary",
+        "wj 5",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "5 listopada 2026"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 35 (Lekcja 35): Znaki wiary, powołanie i powrót do Egiptu: Boża moc w ludzkiej słabości (Wj 4:1–31)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-35",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 35 (Lekcja 35, 4 listopada 2026). Księga Wyjścia: wątpliwości Mojżesza, trzy cudowne znaki, Aaron rzecznikiem, przymierze krwi i powrót do uciemiężonego ludu — Wj 4:1–31.",
+      "tags": [
+        "lekcja 35",
+        "dzień 35",
+        "dzien 35",
+        "rozważanie 35",
+        "słowo na dziś",
+        "trzy znaki",
+        "aaron",
+        "laska mojżesza",
+        "powołanie",
+        "wj 4",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "4 listopada 2026"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 34 (Lekcja 34): Płonący Krzak: Święte Imię Boga i Boże zstąpienie na ratunek (Wj 3:1–22)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-34",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 34 (Lekcja 34, 3 listopada 2026). Księga Wyjścia: teofania w płonącym krzewie na Horebie, objawienie Imienia JESTEM, KTÓRY JESTEM — Wj 3:1–22.",
+      "tags": [
+        "lekcja 34",
+        "dzień 34",
+        "dzien 34",
+        "rozważanie 34",
+        "słowo na dziś",
+        "płonący krzak",
+        "jestem który jestem",
+        "jhwh",
+        "horeb",
+        "wj 3",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "3 listopada 2026"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 33 (Lekcja 33): Narodziny Mojżesza, Sitowie Nilu i Czterdzieści Lat w Madianie (Wj 2:1–25)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-33",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 33 (Lekcja 33, 2 listopada 2026). Księga Wyjścia: koszyk z papirusu, córka faraona, ucieczka do Madianu i Boża pamięć o przymierzu — Wj 2:1–25.",
+      "tags": [
+        "lekcja 33",
+        "dzień 33",
+        "dzien 33",
+        "rozważanie 33",
+        "słowo na dziś",
+        "narodziny mojżesza",
+        "sitowie nilu",
+        "madian",
+        "przymierze",
+        "wj 2",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "2 listopada 2026"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 32 (Lekcja 32): W nieskrępowanym rozroście: Nowy król, uciskanie i Boże ocalenie (Wj 1:1–22)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-32",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 32 (Lekcja 32 na dziś, 1 listopada 2026). Księga Wyjścia: nowy faraon, niewola Izraela, heroiczna wiara położnych Szifry i Pui oraz Boże ocalenie życia — Wj 1:1–22.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 32 (Lekcja 32, 1 listopada 2026). Księga Wyjścia: nowy faraon, niewola Izraela, heroiczna wiara położnych Szifry i Pui oraz Boże ocalenie życia — Wj 1:1–22.",
       "tags": [
         "lekcja 32",
-        "lekcja 32 na dziś",
-        "lekcja na dziś",
         "dzień 32",
         "dzien 32",
         "rozważanie 32",
-        "rozważanie na dziś",
         "słowo na dziś",
         "w nieskrępowanym rozroście",
         "nowy król",
@@ -1979,11 +2123,9 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "1 listopada 2026",
-        "dzisiaj",
-        "dziś"
+        "1 listopada 2026"
       ],
-      "featured": true
+      "featured": false
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 31 (Lekcja 31): Bóg obrócił to w dobro — Ewangelia Opatrzności (Rdz 50:1–26)",
@@ -10223,16 +10365,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 6",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 6 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 7",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 7 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 6)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 7)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-6",
+      "url": "/akademia/kurscodzienny/dzien-7",
       "icon": "book"
     },
     {
@@ -10251,15 +10393,15 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-06T14:03:56.025Z",
+    "updatedAt": "2026-11-06T23:11:44.850Z",
     "heading": "Polecane na dziś",
-    "dateFormattedPL": "6 listopada 2026",
+    "dateFormattedPL": "7 listopada 2026",
     "pools": [
       [
         {
           "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 6",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 6 listopada 2026.",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 7",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 7 listopada 2026.",
           "url": "/player",
           "icon": "heart"
         },
@@ -10288,9 +10430,9 @@
       [
         {
           "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 6)",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 7)",
           "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-6",
+          "url": "/akademia/kurscodzienny/dzien-7",
           "icon": "book"
         },
         {
@@ -10379,16 +10521,16 @@
     "recommendedToday": [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 6",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 6 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 7",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 7 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 6)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 7)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-6",
+        "url": "/akademia/kurscodzienny/dzien-7",
         "icon": "book"
       },
       {
