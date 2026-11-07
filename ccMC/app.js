@@ -28,14 +28,14 @@ const AREA_COLORS = {
 const PRIO_LABELS = { 1: 'P0', 2: 'P1', 3: 'P2', 4: 'P3' };
 
 const CANONICAL_MISSION_ROUTINES = [
-  { id: 'rt_dzj_morning', time: '06:00', freq: 'Codziennie', agent: 'Joshua', title: 'Rozważania DZJ & Strony WWW', area: 'mission', desc: 'Publikacja porannego rozważania "Dobrze, że jesteś" (Firebase/WWW) + SMS do Bartka' },
+  { id: 'rt_dzj_morning', time: '06:00', freq: 'Codziennie', agent: 'Joshua', title: 'Rozważania DZJ & Strony WWW', area: 'mission', desc: 'Publikacja porannego rozważania "Dobrze, że jesteś" (Firebase/WWW)' },
   { id: 'rt_kc_daily', time: '06:30', freq: 'Codziennie', agent: 'Antigravity', title: 'Akademia Biblijna Kurs Codzienny', area: 'mission', desc: 'Publikacja lekcji Kursu Codziennego, aktualizacja 2 przycisków Hero CTA i Clean URLs' },
   { id: 'rt_nazir_whatsapp', time: '07:00', freq: 'Codziennie', agent: 'Joshua', title: 'Grupa Nazira WhatsApp (3 wiadomości)', area: 'social', desc: 'Priorytetowa wysyłka 3 wersji rozważania: Poranna TTS, WWW na cały dzień, Wieczorna SMS' },
   { id: 'rt_wa_am_roundrobin', time: '10:00', freq: 'Codziennie', agent: 'Joshua', title: 'WhatsApp Dystrybucja poranna (FIFO)', area: 'social', desc: 'Wysyłka treści WWW rozważania co godzinę do 2 grup rotacji z zabezpieczeniem daty' },
   { id: 'rt_biblia_audio_mastering', time: '12:00', freq: 'Codziennie', agent: 'CCStudio', title: 'Biblia Audio DAW Mastering (-16 LUFS)', area: 'radio', desc: 'Automatyczny mastering i publikacja odcinków Biblii Audio na polskieradio.cc/biblia-audio' },
-  { id: 'rt_sds_video_factory', time: '14:00', freq: 'Codziennie', agent: 'Visual Director', title: 'Fabryka Wideo 4K & Shorts YouTube SDS', area: 'media', desc: 'Reżyseria wizualna, miniatury 16:9, formaty 9:16 i montaż wykładów Apokalipsy' },
+  { id: 'rt_sds_video_factory', time: '14:00', freq: 'Codziennie', agent: 'Christian Culture', title: 'Christian Culture — Filmy Biblijne Biblia Audio 4K & Shorts', area: 'media', desc: 'Autorska produkcja Cezarego Rogowskiego (Christian Culture): filmy biblijne Biblia Audio Christian Culture 4K UHD oraz Shorts' },
   { id: 'rt_wa_pm_roundrobin', time: '16:00', freq: 'Codziennie', agent: 'Joshua', title: 'WhatsApp Dystrybucja popołudniowa (FIFO)', area: 'social', desc: 'Popołudniowa runda dystrybucji rozważań WWW na grupy społeczności chrześcijańskiej' },
-  { id: 'rt_sms_evening', time: '19:00', freq: 'Codziennie', agent: 'Joshua / Bartek', title: 'Wieczorna subskrypcja SMS', area: 'social', desc: 'Wieczorna wysyłka osobistej subskrypcji SMS z błogosławieństwem na zakończenie dnia' },
+  { id: 'rt_sms_evening', time: '19:00', freq: 'Codziennie', agent: 'Joshua', title: 'Wieczorna subskrypcja SMS', area: 'social', desc: 'Wieczorna wysyłka subskrypcji SMS z błogosławieństwem na zakończenie dnia' },
   { id: 'rt_smcc_guard_audit', time: '21:00', freq: 'Codziennie', agent: 'Strażnik SMCC', title: 'Audyt Jakości Kodu Zero-QA & Raport JOMA', area: 'guardian', desc: 'Pancerny audyt 10 reguł, testy regresji, touch targets 44px i aktualizacja pamięci JOMA' },
   { id: 'rt_sabbath_eve', time: 'Pt 17:30', freq: 'Co piątek', agent: 'Antigravity', title: 'Rozpoczęcie Sabatu & Audycja „Bądź Blisko”', area: 'radio', desc: 'Uroczyste powitanie Sabatu, playlista chwały i transmisja audycji modlitewnej' },
   { id: 'rt_sabbath_live', time: 'Sob 10:00', freq: 'Co sobota', agent: 'Joshua', title: 'Nabożeństwo Sabatowe LIVE OBS Studio', area: 'tech', desc: 'Emisja sygnału LIVE stream-scene.html dla retransmisji radiowej i kanałów wideo' },
@@ -139,38 +139,38 @@ const DEFAULT_MISSION_AUTOMATION_REPORT = {
   date: '2026-11-07',
   rozwazania: {
     done: true,
-    label: 'Rozważania poranne (Dzień 38, Wj 7:1–25) opublikowane w Firebase, na stronach WWW i w newsletterze',
+    label: 'Rozważania Dzień 38 opublikowane w Firebase, WWW i newsletterze',
   },
   biblia_audio_mp3: {
     done: true,
     chapterId: 'genesis-16',
     chapter: 16,
     audioUrl: '/biblia-audio/audio/Ksiega_Rodzaju_16_1-16_Biblia_Audio_CC.mp3',
-    label: 'Plik MP3 Biblii Audio (Księga Rodzaju rozdział 16) jest gotowy, opublikowany na WWW i gotowy do emisji radiowej',
+    label: 'MP3 Biblii Audio (Rdz 16) jest na Pulpicie i na WWW',
   },
   youtube: {
     done: true,
     count: 14,
-    label: 'Na YouTube wgrano dziś 14 materiałów wideo 4K i Shorts na 7 kanałach',
+    label: 'YouTube: wgrano 14 filmów 4K i Shorts',
   },
   x_twitter: {
     done: true,
     count: 12,
-    label: 'Na platformie X opublikowano dziś 12 postów',
+    label: 'X: 12 postów opublikowanych',
   },
   whatsapp: {
     done: false,
     state: 'queued',
-    label: 'Na WhatsApp zakolejkowano 3 wersje dla grupy Nazira, SMS dla Bartka i rotację grup WWW (oczekuje na wysyłkę z telefonu)',
+    label: 'WhatsApp w kolejce do wysyłki na grupę Nazira i grupy WWW',
   },
   facebook: {
     done: false,
     state: 'not_published_today',
     count: 0,
-    label: 'Na Facebooku nie wykonano jeszcze dzisiejszej publikacji',
+    label: 'Facebook oczekuje na publikację',
   },
   spoken_summary:
-    'Rozważania poranne (Dzień 38, Wj 7:1–25) opublikowane w Firebase, na stronach WWW i w newsletterze. Plik MP3 Biblii Audio (Księga Rodzaju rozdział 16) jest gotowy, opublikowany na WWW i gotowy do emisji radiowej. Na YouTube wgrano dziś 14 materiałów wideo 4K i Shorts na 7 kanałach. Na platformie X opublikowano dziś 12 postów. Na WhatsApp zakolejkowano 3 wersje dla grupy Nazira, SMS dla Bartka i rotację grup WWW. Na Facebooku nie wykonano jeszcze dzisiejszej publikacji.',
+    'Rozważania Dzień 38 opublikowane w Firebase, WWW i newsletterze, MP3 Biblii Audio (Rdz 16) jest na Pulpicie i na WWW, YouTube: wgrano 14 filmów 4K i Shorts, X: 12 postów opublikowanych, WhatsApp w kolejce do wysyłki na grupę Nazira i grupy WWW, Facebook oczekuje na publikację.',
 };
 
 const state = {
@@ -790,9 +790,41 @@ export function convertGcalReportItemsToMcEvents(items = []) {
     });
 }
 
+export function sanitizeLegacyMissionEvent(ev) {
+  if (!ev || typeof ev !== 'object') return ev;
+  let title = String(ev.title || '');
+  let description = String(ev.description || '');
+  let assigned_to = String(ev.assigned_to || '');
+  if (/Fabryka Wideo|Studio Dobrego Słowa|\bSDS\b/i.test(title) || ev.id === 'rt_sds_video_factory' || ev.series_id === 'rt_sds_video_factory') {
+    title = 'Christian Culture — Filmy Biblijne Biblia Audio 4K & Shorts';
+    description = 'Autorska produkcja Cezarego Rogowskiego (Christian Culture): filmy biblijne Biblia Audio Christian Culture 4K UHD oraz Shorts.';
+    assigned_to = 'Christian Culture';
+  }
+  if (/Bartek|Bartka/i.test(title)) {
+    title = title.replace(/\s*\(Bartek\)/gi, '').replace(/\s*\+\s*SMS\s*do\s*Bartka/gi, '').trim();
+  }
+  if (/Bartek|Bartka/i.test(description)) {
+    description = description
+      .replace(/oraz treść SMS dla Bartka na WhatsApp/gi, '')
+      .replace(/\s*\+\s*SMS\s*do\s*Bartka/gi, '')
+      .replace(/przez Bartka/gi, '')
+      .trim();
+  }
+  return { ...ev, title, description, assigned_to };
+}
+
+export function getNextQuarterHourDate(fromDate = new Date()) {
+  const ms = fromDate.getTime();
+  const quarterMs = 15 * 60 * 1000;
+  const nextMs = Math.ceil((ms + 5000) / quarterMs) * quarterMs;
+  return new Date(nextMs);
+}
+
 export function mergeGcalEventsIntoState(now = new Date()) {
   const gcalConverted = convertGcalReportItemsToMcEvents(state.gcalEvents || VERIFIED_GCAL_FALLBACK_EVENTS);
-  const existingNonGcal = (state.rawEvents || []).filter((e) => e.source !== 'gcal');
+  const existingNonGcal = (state.rawEvents || [])
+    .filter((e) => e.source !== 'gcal')
+    .map(sanitizeLegacyMissionEvent);
   const combined = [...existingNonGcal, ...gcalConverted].sort(
     (a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at)
   );
@@ -854,6 +886,7 @@ async function loadInitialSession() {
   applyTheme(state.theme);
   mergeGcalEventsIntoState(new Date());
   await loadLiveGcalReport();
+  prefetchQuarterHourVoiceBriefing(getNextQuarterHourDate(new Date())).catch(() => {});
 
   try {
     const me = await apiRequest('/me');
@@ -2778,28 +2811,53 @@ export function speakBrowserNaturalVoice(text, onEnded = null) {
 
 export async function prefetchQuarterHourVoiceBriefing(targetDate = new Date()) {
   if (typeof window === 'undefined' || typeof fetch !== 'function') return null;
-  try {
-    await loadLiveGcalReport();
-    const text = buildQuarterHourVoiceBriefing(targetDate);
-    if (!text) return null;
-    if (window._mcPrefetchedQuarterAudio && window._mcPrefetchedQuarterAudio.text === text && window._mcPrefetchedQuarterAudio.audioBase64) {
-      return window._mcPrefetchedQuarterAudio;
+  const quarterHm = new Intl.DateTimeFormat('pl-PL', {
+    timeZone: 'Europe/Warsaw',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(targetDate);
+
+  if (
+    window._mcPrefetchedQuarterAudio &&
+    window._mcPrefetchedQuarterAudio.quarterHm === quarterHm &&
+    window._mcPrefetchedQuarterAudio.audioBase64
+  ) {
+    return window._mcPrefetchedQuarterAudio;
+  }
+  if (window._mcPrefetchInFlight && window._mcPrefetchInFlight.quarterHm === quarterHm) {
+    return window._mcPrefetchInFlight.promise;
+  }
+
+  const promise = (async () => {
+    try {
+      await loadLiveGcalReport();
+      const text = buildQuarterHourVoiceBriefing(targetDate);
+      if (!text) return null;
+      const res = await apiRequest('/tts', {
+        method: 'POST',
+        body: JSON.stringify({ text, voice: 'Aoede' }),
+      });
+      if (res && res.audioBase64) {
+        window._mcPrefetchedQuarterAudio = {
+          quarterHm,
+          text,
+          audioBase64: res.audioBase64,
+          sampleRate: 24000,
+          fetchedAt: Date.now(),
+        };
+        return window._mcPrefetchedQuarterAudio;
+      }
+    } catch {} finally {
+      if (window._mcPrefetchInFlight && window._mcPrefetchInFlight.quarterHm === quarterHm) {
+        window._mcPrefetchInFlight = null;
+      }
     }
-    const res = await apiRequest('/tts', {
-      method: 'POST',
-      body: JSON.stringify({ text, voice: 'Aoede' }),
-    });
-    if (res && res.audioBase64) {
-      window._mcPrefetchedQuarterAudio = {
-        text,
-        audioBase64: res.audioBase64,
-        sampleRate: 24000,
-        fetchedAt: Date.now(),
-      };
-      return window._mcPrefetchedQuarterAudio;
-    }
-  } catch {}
-  return null;
+    return null;
+  })();
+
+  window._mcPrefetchInFlight = { quarterHm, promise };
+  return promise;
 }
 
 export function speakCalendarVoiceAlert(text, { force = false } = {}) {
@@ -2812,6 +2870,12 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
       hour12: false,
     }).format(now)
   );
+  const warsawHm = new Intl.DateTimeFormat('pl-PL', {
+    timeZone: 'Europe/Warsaw',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(now);
   const isQuietHours = warsawHour >= 22 || warsawHour < 6;
   if (!force && (!state.voiceAlertsEnabled || isQuietHours)) {
     return false;
@@ -2822,12 +2886,15 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
   showVoiceAssistantAvatar(text, estMs);
   playAlertChime();
 
+  const isQuarterBriefing = String(text).startsWith('Christian Culture LIVE');
+
   // Natychmiastowe odtworzenie (0 ms opóźnienia), jeśli raport kwadransowy został wcześniej zbuforowany
   if (
     typeof window !== 'undefined' &&
     window._mcPrefetchedQuarterAudio &&
-    window._mcPrefetchedQuarterAudio.text === text &&
-    window._mcPrefetchedQuarterAudio.audioBase64
+    window._mcPrefetchedQuarterAudio.audioBase64 &&
+    (window._mcPrefetchedQuarterAudio.text === text ||
+      (isQuarterBriefing && window._mcPrefetchedQuarterAudio.quarterHm === warsawHm))
   ) {
     const cached = window._mcPrefetchedQuarterAudio;
     window._mcPrefetchedQuarterAudio = null;
@@ -2836,14 +2903,21 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
     }
   }
 
-  // ZERO COST Google AI Studio Free-Tier TTS z automatycznym fallbackiem do lokalnego głosu Natural Neural (0,00 zł)
+  // ZERO COST Google AI Studio Free-Tier TTS z gwarancją czasu odpowiedzi (8.5s) i natychmiastowym fallbackiem do głosu przeglądarki
   if (typeof window !== 'undefined' && typeof fetch === 'function') {
-    apiRequest('/tts', {
-      method: 'POST',
-      body: JSON.stringify({ text, voice: 'Aoede' }),
-    })
+    const inFlightPromise =
+      isQuarterBriefing && window._mcPrefetchInFlight
+        ? window._mcPrefetchInFlight.promise
+        : apiRequest('/tts', {
+            method: 'POST',
+            body: JSON.stringify({ text, voice: 'Aoede' }),
+          });
+
+    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 8500));
+
+    Promise.race([inFlightPromise, timeoutPromise])
       .then((res) => {
-        if (res && res.audioBase64 && playGeminiPcmBase64(res.audioBase64, 24000)) {
+        if (res && res.audioBase64 && playGeminiPcmBase64(res.audioBase64, res.sampleRate || 24000)) {
           return;
         }
         speakBrowserNaturalVoice(text);
@@ -2976,6 +3050,7 @@ export function checkUpcomingVoiceAlerts(now = new Date(), { forceSpeak = false 
       minute: 'numeric',
     }).format(now)
   );
+  const isQuarterMark = warsawMin % 15 === 0;
 
   const allEvents = state.events || [];
   const todayTasks = allEvents.filter(
@@ -2992,29 +3067,27 @@ export function checkUpcomingVoiceAlerts(now = new Date(), { forceSpeak = false 
     if (diffMin === 60 && !state.spokenAlertKeys.has(`${evKeyBase}_60m`)) {
       state.spokenAlertKeys.add(`${evKeyBase}_60m`);
       const msg = `Cezary, za godzinę w Twoim planie dnia: ${ev.title}.`;
-      speakCalendarVoiceAlert(msg, { force: forceSpeak });
+      if (!isQuarterMark) speakCalendarVoiceAlert(msg, { force: forceSpeak });
       triggered.push({ type: '60m', title: ev.title, message: msg });
     } else if (diffMin === 15 && !state.spokenAlertKeys.has(`${evKeyBase}_15m`)) {
       state.spokenAlertKeys.add(`${evKeyBase}_15m`);
       const msg = `Cezary, za piętnaście minut masz w kalendarzu: ${ev.title}.`;
-      speakCalendarVoiceAlert(msg, { force: forceSpeak });
+      if (!isQuarterMark) speakCalendarVoiceAlert(msg, { force: forceSpeak });
       triggered.push({ type: '15m', title: ev.title, message: msg });
     } else if (diffMin === 0 && !state.spokenAlertKeys.has(`${evKeyBase}_0m`)) {
       state.spokenAlertKeys.add(`${evKeyBase}_0m`);
       const msg = `Cezary, właśnie rozpoczyna się wydarzenie z kalendarza: ${ev.title}.`;
-      speakCalendarVoiceAlert(msg, { force: forceSpeak });
+      if (!isQuarterMark) speakCalendarVoiceAlert(msg, { force: forceSpeak });
       triggered.push({ type: '0m', title: ev.title, message: msg });
     }
   }
 
-  // Co kwadrans (:00, :15, :30, :45) — pełne sprawozdanie głosowe Christian Culture LIVE (antena + agenci + prywatny kalendarz + następny punkt)
+  // Co kwadrans (:00, :15, :30, :45) — pełne sprawozdanie głosowe Christian Culture LIVE (zawsze ma absolutny priorytet o pełnym kwadransie)
   const quarterKey = `quarter_briefing_${todayIsoPrefix}_${warsawHm}`;
-  if (warsawMin % 15 === 0 && !state.spokenAlertKeys.has(quarterKey)) {
+  if (isQuarterMark && !state.spokenAlertKeys.has(quarterKey)) {
     state.spokenAlertKeys.add(quarterKey);
     const briefingMsg = buildQuarterHourVoiceBriefing(now);
-    if (triggered.length === 0) {
-      speakCalendarVoiceAlert(briefingMsg, { force: forceSpeak });
-    }
+    speakCalendarVoiceAlert(briefingMsg, { force: forceSpeak });
     triggered.push({ type: 'quarter_briefing', title: `Sprawozdanie ${warsawHm}`, message: briefingMsg });
   }
 
@@ -5161,9 +5234,9 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
         updateLiveScreensaverDom(now);
         updateClockDesktopWingsDom(now);
 
-        // 45 sekund przed każdym kwadransem (:14:15, :29:15, :44:15, :59:15) odśwież Kalendarz Google i zbuforuj głos Aoede TTS (0 ms opóźnienia o pełnym kwadransie)
-        if (now.getMinutes() % 15 === 14 && (sec === 10 || sec === 35)) {
-          prefetchQuarterHourVoiceBriefing(new Date(now.getTime() + (60 - sec) * 1000)).catch(() => {});
+        // 2 minuty i 1 minutę przed każdym kwadransem (:13:05, :14:05, :28:05, :29:05, :43:05, :44:05, :58:05, :59:05) odśwież Kalendarz Google i zbuforuj głos Aoede TTS (0 ms opóźnienia o pełnym kwadransie)
+        if ((now.getMinutes() % 15 === 13 || now.getMinutes() % 15 === 14) && sec === 5) {
+          prefetchQuarterHourVoiceBriefing(getNextQuarterHourDate(now)).catch(() => {});
         }
 
         // Inteligentny Silnik Real-Time, Odświeżanie Telemetrii co kwadrans (15m) & Alerty Głosowe Kalendarza (60m / 15m / Start)
@@ -5172,11 +5245,17 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
           if (curMin !== lastMinuteChecked) {
             const prevMin = lastMinuteChecked;
             lastMinuteChecked = curMin;
-            loadLiveGcalReport()
-              .catch(() => {})
-              .finally(() => {
-                checkUpcomingVoiceAlerts(now);
-              });
+            if (now.getMinutes() % 15 === 0) {
+              checkUpcomingVoiceAlerts(now);
+              loadLiveGcalReport().catch(() => {});
+              prefetchQuarterHourVoiceBriefing(getNextQuarterHourDate(new Date(now.getTime() + 60_000))).catch(() => {});
+            } else {
+              loadLiveGcalReport()
+                .catch(() => {})
+                .finally(() => {
+                  checkUpcomingVoiceAlerts(now);
+                });
+            }
             if (prevMin !== -1 && now.getMinutes() % 15 === 0) {
               refreshAllTelemetryData(now);
             }

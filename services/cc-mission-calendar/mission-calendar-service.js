@@ -396,6 +396,18 @@ export function materializeOccurrences(event, rangeFromIso, rangeToIso, override
 }
 
 export function decorateEventComputed(ev, nowDate = new Date()) {
+  let cleanTitle = String(ev.title || '');
+  let cleanDesc = ev.description ? String(ev.description) : ev.description;
+  if (/SDS|Studio Dobrego Słowa|Fabryka Wideo/i.test(cleanTitle)) {
+    cleanTitle = 'Christian Culture — Filmy Biblijne Biblia Audio 4K & Shorts';
+    cleanDesc = 'Produkcja i publikacja filmów biblijnych Biblia Audio Christian Culture (4K UHD 16:9 oraz Shorts 9:16).';
+  }
+  if (/Bartek|Bartka/i.test(cleanTitle)) {
+    cleanTitle = cleanTitle.replace(/\s*\(Wysyłka Bartka\)/gi, '').replace(/\s*\/\s*Bartek/gi, '').trim();
+  }
+  if (cleanDesc && /Bartek|Bartka/i.test(cleanDesc)) {
+    cleanDesc = cleanDesc.replace(/\s*Wysyłka treści do Bartka na WhatsApp\.?/gi, '').trim();
+  }
   const statusMeta = MISSION_STATUSES[ev.status] || MISSION_STATUSES.todo;
   const dueIso = ev.ends_at || ev.starts_at;
   const nowMs = (nowDate instanceof Date ? nowDate : new Date(nowDate)).getTime();
@@ -406,6 +418,8 @@ export function decorateEventComputed(ev, nowDate = new Date()) {
   const isOverdue = Boolean(dueIso && Date.parse(dueIso) < nowMs && ev.status !== 'done' && ev.status !== 'not_done');
   return {
     ...ev,
+    title: cleanTitle,
+    description: cleanDesc,
     all_day: Boolean(ev.all_day),
     requires_approval: ev.requires_approval !== undefined ? Boolean(ev.requires_approval) : true,
     is_private: Boolean(ev.is_private),
@@ -1909,7 +1923,7 @@ export class MissionCalendarService {
         source: 'automation',
         project_id: 'general',
         title: 'Publikacja Rozważań DZJ & Strony WWW',
-        description: 'Publikacja porannego rozważania „Dobrze, że jesteś” w aplikacji Android, na stronach WWW oraz w bazie Firebase (reflections). Wysyłka treści do Bartka na WhatsApp.',
+        description: 'Publikacja porannego rozważania „Dobrze, że jesteś” w aplikacji Android, na stronach WWW, w bazie Firebase (reflections) oraz w newsletterze EkoCC.',
         starts_at: '2026-11-01T06:00:00+01:00',
         ends_at: '2026-11-01T06:30:00+01:00',
         timezone: 'Europe/Warsaw',
@@ -1998,8 +2012,8 @@ export class MissionCalendarService {
         id: 'rt_sds_video_factory',
         source: 'automation',
         project_id: 'shorts-factory',
-        title: 'Fabryka Wideo & Shorts SDS (Studio Dobrego Słowa)',
-        description: 'Montaż wideo 4K DaVinci Resolve dla serii wykładów Apokalipsa oraz formatów Shorts/Reels 9:16.',
+        title: 'Christian Culture — Filmy Biblijne Biblia Audio 4K & Shorts',
+        description: 'Produkcja i publikacja filmów biblijnych 4K UHD 16:9 oraz pionowych Shorts 9:16 Biblia Audio Christian Culture.',
         starts_at: '2026-11-01T14:00:00+01:00',
         ends_at: '2026-11-01T15:30:00+01:00',
         timezone: 'Europe/Warsaw',
@@ -2008,7 +2022,7 @@ export class MissionCalendarService {
         status: 'todo',
         priority: 2,
         owner_type: 'agent',
-        assigned_to: 'Visual Director',
+        assigned_to: 'Christian Culture',
         requires_approval: true,
         rrule: 'FREQ=DAILY',
       },
@@ -2034,8 +2048,8 @@ export class MissionCalendarService {
         id: 'rt_sms_evening',
         source: 'automation',
         project_id: 'general',
-        title: 'Wieczorna Subskrypcja SMS (Wysyłka Bartka)',
-        description: 'Przygotowanie i wysyłka wieczornej wersji rozważania do abonentów subskrypcji SMS.',
+        title: 'Wieczorna Subskrypcja SMS & Podsumowanie Dnia',
+        description: 'Przygotowanie wieczornej wersji rozważania oraz podsumowanie dnia misyjnego.',
         starts_at: '2026-11-01T19:00:00+01:00',
         ends_at: '2026-11-01T19:30:00+01:00',
         timezone: 'Europe/Warsaw',

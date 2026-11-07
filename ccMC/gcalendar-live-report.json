@@ -5,9 +5,9 @@
   "account_verified": true,
   "account_email": "nazirczarkes@gmail.com",
   "timezone": "Europe/Warsaw",
-  "fetched_at": "2026-11-07T14:11:53+01:00",
-  "window_start": "2026-11-06T14:11:53+01:00",
-  "window_end": "2026-11-14T14:11:53+01:00",
+  "fetched_at": "2026-11-07T14:29:51+01:00",
+  "window_start": "2026-11-06T14:29:51+01:00",
+  "window_end": "2026-11-14T14:29:51+01:00",
   "calendars_checked": [
     "primary",
     "pl.polish#holiday@group.v.calendar.google.com"
@@ -632,28 +632,31 @@
   ],
   "mission_automation_report": {
     "date": "2026-11-07",
-    "generated_at": "2026-11-07T14:11:53+01:00",
+    "generated_at": "2026-11-07T14:29:51+01:00",
     "rozwazania": {
       "done": true,
-      "label": "Rozważania poranne (Dzień 38, Wj 7:1–25) opublikowane w Firebase, na stronach WWW i w newsletterze"
+      "label": "Rozważania Dzień 38 opublikowane w Firebase, WWW i newsletterze"
     },
     "biblia_audio_mp3": {
       "done": true,
+      "webPublished": true,
+      "desktopReady": true,
+      "desktopPath": "C:\\Users\\czark\\Desktop\\Ksiega_Rodzaju_16_1-16_Biblia_Audio_CC.mp3",
       "chapterId": "genesis-16",
       "chapter": 16,
       "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_16_1-16_Biblia_Audio_CC.mp3",
-      "label": "Plik MP3 Biblii Audio (Księga Rodzaju rozdział 16) jest gotowy, opublikowany na WWW i gotowy do emisji radiowej"
+      "label": "MP3 Biblii Audio (Rdz 16) jest na Pulpicie i na WWW"
     },
     "youtube": {
       "done": true,
       "count": 14,
-      "label": "Na YouTube wgrano dziś 14 materiałów wideo 4K i Shorts na 7 kanałach"
+      "label": "YouTube: wgrano 14 filmów 4K i Shorts"
     },
     "x_twitter": {
       "done": true,
       "count": 13,
       "latestTitle": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
-      "label": "Na platformie X opublikowano dziś 13 postów"
+      "label": "X: 13 postów opublikowanych"
     },
     "whatsapp": {
       "done": false,
@@ -664,9 +667,9 @@
       "done": false,
       "state": "not_published_today",
       "count": 0,
-      "label": "Na Facebooku nie wykonano jeszcze dzisiejszej publikacji"
+      "label": "Facebook oczekuje na publikację"
     },
-    "spoken_summary": "Rozważania poranne (Dzień 38, Wj 7:1–25) opublikowane w Firebase, na stronach WWW i w newsletterze. Plik MP3 Biblii Audio (Księga Rodzaju rozdział 16) jest gotowy, opublikowany na WWW i gotowy do emisji radiowej. Na YouTube wgrano dziś 14 materiałów wideo 4K i Shorts na 7 kanałach. Na platformie X opublikowano dziś 13 postów. WhatsApp: oczekuje na potwierdzenie wysyłki. Na Facebooku nie wykonano jeszcze dzisiejszej publikacji."
+    "spoken_summary": "Rozważania Dzień 38 opublikowane w Firebase, WWW i newsletterze, MP3 Biblii Audio (Rdz 16) jest na Pulpicie i na WWW, YouTube: wgrano 14 filmów 4K i Shorts, X: 13 postów opublikowanych, WhatsApp: oczekuje na potwierdzenie wysyłki, Facebook oczekuje na publikację."
   },
   "warnings": []
 }

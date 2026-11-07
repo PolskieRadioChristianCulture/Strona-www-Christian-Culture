@@ -112,23 +112,23 @@ function collectMissionAutomationReport(now = new Date()) {
       const jomaText = fs.readFileSync(jomaPath, 'utf8').slice(0, 18000);
       if (jomaText.includes(todayIso) && /Poranna publikacja i synchronizacja rozważań/i.test(jomaText)) {
         const headerMatch = jomaText.match(/Poranna publikacja i synchronizacja rozważań\s*[—-]\s*Dzień\s+(\d+)\s*\(([^)]+)\)/i);
-        const dayLabel = headerMatch ? `Dzień ${headerMatch[1]}, ${headerMatch[2]}` : 'Dzień 38, Księga Wyjścia 7';
+        const dayLabel = headerMatch ? `Dzień ${headerMatch[1]}` : 'Dzień 38';
         status.rozwazania = {
           done: true,
-          label: `Rozważania poranne (${dayLabel}) opublikowane w Firebase, na stronach WWW i w newsletterze`,
+          label: `Rozważania ${dayLabel} opublikowane w Firebase, WWW i newsletterze`,
         };
       }
       if (jomaText.includes(todayIso) && /Dystrybucja WhatsApp:/i.test(jomaText)) {
         status.whatsapp = {
           done: false,
           state: 'queued',
-          label: 'Na WhatsApp zakolejkowano 3 wersje dla grupy Nazira, SMS dla Bartka i rotację grup WWW (oczekuje na wysyłkę z telefonu)',
+          label: 'WhatsApp w kolejce do wysyłki na grupę Nazira i grupy WWW',
         };
       }
     }
   } catch {}
 
-  // 2. Sprawdź Biblia Audio catalog.json + pliki MP3
+  // 2. Sprawdź Biblia Audio catalog.json + pliki MP3 (WWW oraz fizycznie na Pulpicie C:\Users\czark\Desktop)
   try {
     const catPath = path.join(REPO_ROOT, 'biblia-audio', 'data', 'catalog.json');
     if (fs.existsSync(catPath)) {
@@ -138,15 +138,24 @@ function collectMissionAutomationReport(now = new Date()) {
       if (latest) {
         const mp3Rel = String(latest.audioUrl || '').replace(/^\//, '');
         const mp3Full = path.join(REPO_ROOT, mp3Rel);
-        const mp3Exists = mp3Rel && fs.existsSync(mp3Full);
+        const mp3Exists = Boolean(mp3Rel && fs.existsSync(mp3Full));
+        const mp3FileName = path.basename(mp3Rel);
+        const desktopDirectPath = path.join(os.homedir(), 'Desktop', mp3FileName);
+        const desktopExists = Boolean(mp3FileName && fs.existsSync(desktopDirectPath));
         status.biblia_audio_mp3 = {
-          done: Boolean(mp3Exists),
+          done: Boolean(mp3Exists && desktopExists),
+          webPublished: Boolean(mp3Exists),
+          desktopReady: Boolean(desktopExists),
+          desktopPath: desktopExists ? desktopDirectPath : null,
           chapterId: latest.id,
           chapter: latest.chapter,
           audioUrl: latest.audioUrl,
-          label: mp3Exists
-            ? `Plik MP3 Biblii Audio (Księga Rodzaju rozdział ${latest.chapter}) jest gotowy, opublikowany na WWW i gotowy do emisji radiowej`
-            : `Odcinek Biblii Audio (${latest.id}) w przygotowaniu`,
+          label:
+            mp3Exists && desktopExists
+              ? `MP3 Biblii Audio (Rdz ${latest.chapter}) jest na Pulpicie i na WWW`
+              : mp3Exists
+                ? `MP3 Biblii Audio (Rdz ${latest.chapter}) jest na WWW (brak pliku bezpośrednio na Pulpicie)`
+                : `Biblia Audio (${latest.id}) w przygotowaniu`,
         };
       }
     }
@@ -163,7 +172,7 @@ function collectMissionAutomationReport(now = new Date()) {
         status.youtube = {
           done: true,
           count: todayYt.length,
-          label: `Na YouTube wgrano dziś ${todayYt.length} materiałów wideo 4K i Shorts na 7 kanałach`,
+          label: `YouTube: wgrano ${todayYt.length} filmów 4K i Shorts`,
         };
       }
     }
@@ -181,7 +190,7 @@ function collectMissionAutomationReport(now = new Date()) {
           done: true,
           count: todayX.length,
           latestTitle: todayX[0]?.title || '',
-          label: `Na platformie X opublikowano dziś ${todayX.length} postów`,
+          label: `X: ${todayX.length} postów opublikowanych`,
         };
       }
     }
@@ -199,14 +208,14 @@ function collectMissionAutomationReport(now = new Date()) {
           done: true,
           state: 'published',
           count: todayFb.length,
-          label: `Na Facebooku opublikowano dziś ${todayFb.length} materiałów`,
+          label: `Facebook: ${todayFb.length} publikacji`,
         };
       } else {
         status.facebook = {
           done: false,
           state: 'not_published_today',
           count: 0,
-          label: 'Na Facebooku nie wykonano jeszcze dzisiejszej publikacji',
+          label: 'Facebook oczekuje na publikację',
         };
       }
     }
@@ -219,7 +228,7 @@ function collectMissionAutomationReport(now = new Date()) {
     status.x_twitter.label,
     status.whatsapp.label,
     status.facebook.label,
-  ].join('. ') + '.';
+  ].join(', ') + '.';
 
   return status;
 }
