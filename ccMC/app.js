@@ -2280,10 +2280,47 @@ export function renderVoiceAssistantOverlayInnerHtml(text = '') {
   `;
 }
 
+export function pcm16Base64ToWavDataUrl(audioBase64, sampleRate = 24000) {
+  if (typeof window === 'undefined' || !audioBase64) return null;
+  try {
+    const raw = window.atob(audioBase64);
+    const dataLen = raw.length - (raw.length % 2);
+    const buffer = new ArrayBuffer(44 + dataLen);
+    const view = new DataView(buffer);
+    const writeStr = (offset, str) => {
+      for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+    };
+    writeStr(0, 'RIFF');
+    view.setUint32(4, 36 + dataLen, true);
+    writeStr(8, 'WAVE');
+    writeStr(12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    writeStr(36, 'data');
+    view.setUint32(40, dataLen, true);
+    const bytes = new Uint8Array(buffer, 44);
+    for (let i = 0; i < dataLen; i++) {
+      bytes[i] = raw.charCodeAt(i);
+    }
+    let bin = '';
+    const fullBytes = new Uint8Array(buffer);
+    const chunk = 0x8000;
+    for (let i = 0; i < fullBytes.length; i += chunk) {
+      bin += String.fromCharCode.apply(null, fullBytes.subarray(i, i + chunk));
+    }
+    return `data:audio/wav;base64,${window.btoa(bin)}`;
+  } catch {
+    return null;
+  }
+}
+
 export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = null) {
   if (typeof window === 'undefined' || !audioBase64) return false;
-  const ctx = getUnlockedAudioContext();
-  if (!ctx) return false;
   try {
     const raw = window.atob(audioBase64);
     const pcm16 = new Int16Array(Math.floor(raw.length / 2));
@@ -2293,22 +2330,55 @@ export function playGeminiPcmBase64(audioBase64, sampleRate = 24000, onEnded = n
       const val = (hi << 8) | lo;
       pcm16[i] = val >= 0x8000 ? val - 0x10000 : val;
     }
-    const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
-    const ch = buf.getChannelData(0);
-    for (let i = 0; i < pcm16.length; i++) {
-      ch[i] = pcm16[i] / 32768;
-    }
-    const src = ctx.createBufferSource();
-    src.buffer = buf;
-    src.connect(ctx.destination);
-    const durMs = Math.ceil((pcm16.length / sampleRate) * 1000) + 600;
+    const durMs = Math.ceil((pcm16.length / sampleRate) * 1000) + 650;
     showVoiceAssistantAvatar(state.lastSpokenAlertText, durMs);
-    src.onended = () => {
-      hideVoiceAssistantAvatar();
-      if (typeof onEnded === 'function') onEnded();
-    };
-    src.start();
-    return true;
+
+    const ctx = getUnlockedAudioContext();
+    if (ctx && ctx.state === 'running') {
+      const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
+      const ch = buf.getChannelData(0);
+      for (let i = 0; i < pcm16.length; i++) {
+        ch[i] = pcm16[i] / 32768;
+      }
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+      src.connect(ctx.destination);
+      src.onended = () => {
+        hideVoiceAssistantAvatar();
+        if (typeof onEnded === 'function') onEnded();
+      };
+      src.start();
+      return true;
+    }
+
+    const wavUrl = pcm16Base64ToWavDataUrl(audioBase64, sampleRate);
+    if (wavUrl && typeof window.Audio === 'function') {
+      const audioEl = new window.Audio(wavUrl);
+      audioEl.volume = 1.0;
+      audioEl.onended = () => {
+        hideVoiceAssistantAvatar();
+        if (typeof onEnded === 'function') onEnded();
+      };
+      audioEl.play().catch(() => {
+        if (ctx && typeof ctx.resume === 'function') {
+          ctx.resume().then(() => {
+            const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
+            const ch = buf.getChannelData(0);
+            for (let i = 0; i < pcm16.length; i++) ch[i] = pcm16[i] / 32768;
+            const src = ctx.createBufferSource();
+            src.buffer = buf;
+            src.connect(ctx.destination);
+            src.onended = () => {
+              hideVoiceAssistantAvatar();
+              if (typeof onEnded === 'function') onEnded();
+            };
+            src.start();
+          }).catch(() => {});
+        }
+      });
+      return true;
+    }
+    return false;
   } catch {
     return false;
   }
@@ -2404,6 +2474,76 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
   return speakBrowserNaturalVoice(text) || true;
 }
 
+export function buildQuarterHourVoiceBriefing(now = new Date()) {
+  const warsawHm = new Intl.DateTimeFormat('pl-PL', {
+    timeZone: 'Europe/Warsaw',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(now);
+  const todayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now);
+
+  const ramowka = getCcRamowkaState(now);
+  const teraz = getCurrentTerazSummary(now);
+  const broadcastTitle = ramowka?.title || 'Polskie Radio Christian Culture 24/7';
+
+  const nowTs = now.getTime();
+  const allEvents = state.realtimeEngine
+    ? (state.rawEvents && state.rawEvents.length ? applyRealtimeEngine(state.rawEvents, now) : applyRealtimeEngine(state.events, now))
+    : (state.events || []);
+
+  const todayTasks = allEvents
+    .filter((ev) => ev.status !== 'done' && (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix))
+    .sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
+
+  const isPersonalEvent = (ev) =>
+    Boolean(ev.is_private || ev.source === 'gcal' || ev.category === 'people' || !String(ev.assigned_to || '').startsWith('@'));
+
+  const agentTasks = todayTasks.filter((ev) => !isPersonalEvent(ev));
+  const personalTasks = todayTasks.filter((ev) => isPersonalEvent(ev));
+
+  const activeAgentTask = agentTasks.find((ev) => {
+    const s = Date.parse(ev.starts_at);
+    const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
+    return s <= nowTs && nowTs < e;
+  });
+  const nextAgentTask = agentTasks.find((ev) => Date.parse(ev.starts_at) > nowTs);
+
+  const agentNowTitle = activeAgentTask ? activeAgentTask.title : (teraz?.title || 'Czuwanie operacyjne ekosystemu');
+  const agentNowWho = activeAgentTask?.assigned_to || teraz?.agent || '@777';
+  const nextMissionTitle = nextAgentTask
+    ? nextAgentTask.title
+    : (teraz?.nextTask?.title || (ramowka?.next ? ramowka.next.title : 'Kontynuacja harmonogramu misji'));
+  const nextMissionTime = nextAgentTask
+    ? formatWarsawTimeOnly(nextAgentTask.starts_at)
+    : (teraz?.nextTask?.timeRange || (ramowka?.next ? ramowka.next.time : 'w kolejnym paśmie'));
+
+  const personalNow = personalTasks.find((ev) => {
+    const s = Date.parse(ev.starts_at);
+    const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
+    return s <= nowTs && nowTs < e;
+  });
+  const personalNext = personalTasks.find((ev) => Date.parse(ev.starts_at) > nowTs);
+
+  let personalPart = '';
+  if (personalNow && personalNext) {
+    personalPart = `W Twoim prywatnym kalendarzu trwa teraz: ${personalNow.title}, a następny punkt o ${formatWarsawTimeOnly(personalNext.starts_at)} to: ${personalNext.title}.`;
+  } else if (personalNow) {
+    personalPart = `W Twoim prywatnym kalendarzu trwa teraz: ${personalNow.title}.`;
+  } else if (personalNext) {
+    personalPart = `W Twoim prywatnym kalendarzu następny punkt o ${formatWarsawTimeOnly(personalNext.starts_at)} to: ${personalNext.title}.`;
+  } else {
+    personalPart = 'W Twoim prywatnym kalendarzu brak zaplanowanych kolejnych spotkań na dziś.';
+  }
+
+  return `Christian Culture LIVE, jest godzina ${warsawHm}. Nadajemy na żywo według planu: ${broadcastTitle}. Raport agentów (${agentNowWho}): teraz realizujemy — ${agentNowTitle}, a następny punkt misji (${nextMissionTime}) to: ${nextMissionTitle}. ${personalPart}`;
+}
+
 export function checkUpcomingVoiceAlerts(now = new Date(), { forceSpeak = false } = {}) {
   if (!state.voiceAlertsEnabled && !forceSpeak) return [];
   const nowTs = now.getTime();
@@ -2413,6 +2553,13 @@ export function checkUpcomingVoiceAlerts(now = new Date(), { forceSpeak = false 
     month: '2-digit',
     day: '2-digit',
   }).format(now);
+  const warsawHm = new Intl.DateTimeFormat('pl-PL', {
+    timeZone: 'Europe/Warsaw',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(now);
+  const warsawMin = Number((warsawHm.split(':')[1] || '0').trim());
 
   const allEvents = state.events || [];
   const todayTasks = allEvents.filter(
@@ -2443,6 +2590,18 @@ export function checkUpcomingVoiceAlerts(now = new Date(), { forceSpeak = false 
       triggered.push({ type: '0m', title: ev.title, message: msg });
     }
   }
+
+  // Co kwadrans (:00, :15, :30, :45) — pełne sprawozdanie głosowe Christian Culture LIVE (antena + agenci + prywatny kalendarz + następny punkt)
+  const quarterKey = `quarter_briefing_${todayIsoPrefix}_${warsawHm}`;
+  if (warsawMin % 15 === 0 && !state.spokenAlertKeys.has(quarterKey)) {
+    state.spokenAlertKeys.add(quarterKey);
+    const briefingMsg = buildQuarterHourVoiceBriefing(now);
+    if (triggered.length === 0) {
+      speakCalendarVoiceAlert(briefingMsg, { force: forceSpeak });
+    }
+    triggered.push({ type: 'quarter_briefing', title: `Sprawozdanie ${warsawHm}`, message: briefingMsg });
+  }
+
   return triggered;
 }
 
@@ -2491,7 +2650,7 @@ export function renderClockDesktopRightWing(now = new Date()) {
         </header>
         <div class="mc-hud-voice-status">
           <small class="mc-hud-voice-desc">
-            Komunikaty głosowe TTS (<strong>60 min</strong> i <strong>15 min</strong> przed wydarzeniem, np. powrót żony z pracy, wyjście po syna do szkoły). Na czas komunikatu wyświetla się <strong>awatar asystentki</strong>, a w OBS odsłuch lokalny jest wyłączony (emisja idzie w eter).
+            Automatyczne sprawozdanie głosowe <strong>co kwadrans (:00, :15, :30, :45)</strong> (antena LIVE, praca agentów, prywatny kalendarz i następny punkt) oraz alerty <strong>60 min</strong> i <strong>15 min</strong> przed wydarzeniem. Na czas komunikatu ekran się ściemnia, a na środku wyświetla się <strong>awatar asystentki</strong>.
           </small>
         </div>
       </section>
@@ -4396,12 +4555,7 @@ function bindEvents() {
   if (btnTestVoiceAlert) {
     btnTestVoiceAlert.onclick = (e) => {
       e.stopPropagation();
-      const teraz = getCurrentTerazSummary(new Date());
-      const nextTitle = teraz.nextTask ? teraz.nextTask.title : teraz.title;
-      speakCalendarVoiceAlert(
-        `Komunikat testowy asystenta kalendarza Christian Culture. Przypomnienie: za piętnaście minut — ${nextTitle}.`,
-        { force: true }
-      );
+      speakCalendarVoiceAlert(buildQuarterHourVoiceBriefing(new Date()), { force: true });
     };
   }
 
