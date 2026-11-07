@@ -228,8 +228,17 @@ function getAllEcosystemCandidates() {
 
     // Blokada rocznicowa (Dyrektywa Dowódcy 01.11.2026):
     // Artykuły o Dniu Reformacji i Marcinie Lutrze publikowane wyłącznie w rocznicę (31 października).
-    const textToCheck = ((item.title || '') + ' ' + (item.url || '') + ' ' + (item.tag || '')).toLowerCase();
+    const textToCheck = ((item.title || '') + ' ' + (item.url || '') + ' ' + (item.tag || '') + ' ' + (item.image || '') + ' ' + (item.imageUrl || '') + ' ' + (item.lead || '')).toLowerCase();
     const isReformation = textToCheck.includes('reformacj') || textToCheck.includes('luter') || textToCheck.includes('lutr') || textToCheck.includes('95-tez');
+    const isHalloween = textToCheck.includes('halloween') || textToCheck.includes('31 października') || textToCheck.includes('31 pazdziernika');
+    if (isHalloween) {
+      const today = new Date();
+      const isOctober = today.getMonth() === 9;
+      const isHalloweenPeriod = isOctober && today.getDate() >= 24 && today.getDate() <= 31;
+      if (!isHalloweenPeriod) {
+        return; // Pomiń poza okresem 24–31 października
+      }
+    }
     if (isReformation) {
       const today = new Date();
       const isAnniversaryDay = today.getMonth() === 9 && today.getDate() === 31; // 31 października (miesiące 0-11: 9 = październik)
@@ -742,10 +751,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📬 OFICJALNY NEWSLETTER CC';
       callToAction = '👉 Dołącz bezpłatnie w serwisie:\n';
       addTags('#CCNNews', '#NewsletterCC', '#ChristianCulture');
-    } else if (tLower.includes('detoks') || tLower.includes('rodzin')) {
+    } else if (tLower.includes('detoks') || tLower.includes('rodzin') || tLower.includes('wychowan') || tLower.includes('nastolat')) {
       subHeader = '🏠 CHRZEŚCIJAŃSKI DOM & RODZINA';
       callToAction = '👉 Czytaj poradnik w serwisie:\n';
-      addTags('#CCNNews', '#RodzinaCC', '#CyfrowyDetoks');
+      addTags('#CCNNews', '#RodzinaCC', '#Wychowanie', '#Prawda');
     } else if (tLower.includes('tętno misji') || tLower.includes('przegląd ekosystemu')) {
       subHeader = '🔥 TĘTNO MISJI | CC INSIDE';
       callToAction = '👉 Sprawdź przegląd w serwisie:\n';
