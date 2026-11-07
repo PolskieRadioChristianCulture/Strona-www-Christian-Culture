@@ -70,6 +70,8 @@ const state = {
   clockCity: '52.2297,21.0122',
   clockShowMore: false,
   clockDrawerOpen: false, // Panel boczny ustawień w prawym górnym rogu
+  clockIdleHidden: false, // Wygaszacz po 5 sekundach: ukrywa wszystko poza zegarem i paskiem TERAZ
+  clockIdleTimer: null,
   liveSlideIndex: 0, // 0 = Ramówka polskieradio.cc, 1 = Skrót zadania TERAZ (rotacja wygaszacza ekranu)
   liveSlideManualUntil: 0,
   statsScope: 'today', // 'today' (default) | 'all'
@@ -106,6 +108,59 @@ export function applyTheme(theme) {
 }
 if (typeof document !== 'undefined') {
   applyTheme(state.theme);
+}
+
+export const CLOCK_IDLE_HIDE_MS = 5000;
+
+export function isClockIdleHidden() {
+  return Boolean(state.clockIdleHidden);
+}
+
+export function enterClockIdleMode() {
+  if (state.module !== 'clock' || state.clockDrawerOpen) return false;
+  state.clockIdleHidden = true;
+  if (typeof document !== 'undefined') {
+    document.body.classList.add('mc-clock-screensaver-idle');
+    const modEl = document.querySelector('.mc-clock-fullscreen');
+    if (modEl) modEl.classList.add('is-screensaver-idle');
+  }
+  return true;
+}
+
+export function wakeClockIdleMode({ restartTimer = true } = {}) {
+  if (state.clockIdleTimer) {
+    clearTimeout(state.clockIdleTimer);
+    state.clockIdleTimer = null;
+  }
+  const wasHidden = Boolean(state.clockIdleHidden);
+  state.clockIdleHidden = false;
+  if (typeof document !== 'undefined') {
+    document.body.classList.remove('mc-clock-screensaver-idle');
+    const modEl = document.querySelector('.mc-clock-fullscreen');
+    if (modEl) modEl.classList.remove('is-screensaver-idle');
+  }
+  if (restartTimer && state.module === 'clock' && !state.clockDrawerOpen) {
+    scheduleClockIdleTimer();
+  }
+  return wasHidden;
+}
+
+export function scheduleClockIdleTimer() {
+  if (state.clockIdleTimer) {
+    clearTimeout(state.clockIdleTimer);
+    state.clockIdleTimer = null;
+  }
+  if (state.module !== 'clock' || state.clockDrawerOpen) {
+    if (typeof document !== 'undefined') {
+      document.body.classList.remove('mc-clock-screensaver-idle');
+    }
+    state.clockIdleHidden = false;
+    return null;
+  }
+  state.clockIdleTimer = setTimeout(() => {
+    enterClockIdleMode();
+  }, CLOCK_IDLE_HIDE_MS);
+  return state.clockIdleTimer;
 }
 
 async function apiRequest(path, options = {}) {
@@ -1669,7 +1724,7 @@ export function renderClockModule() {
   }).format(now);
 
   return `
-    <div class="mc-fullscreen-module mc-clock-fullscreen" role="region" aria-label="Minimalistyczny Zegar Biblijny">
+    <div class="mc-fullscreen-module mc-clock-fullscreen ${state.clockIdleHidden ? 'is-screensaver-idle' : ''}" id="mcClockFullscreenModule" role="region" aria-label="Minimalistyczny Zegar Biblijny">
       <header class="mc-clock-module-topbar">
         <div class="mc-clock-topbar-edge-space" aria-hidden="true"></div>
         <div class="mc-clock-topbar-right">
@@ -2576,6 +2631,16 @@ export function render() {
 
   bindEvents();
 
+  if (state.module === 'clock' && !state.clockDrawerOpen) {
+    if (!state.clockIdleHidden) {
+      scheduleClockIdleTimer();
+    } else if (typeof document !== 'undefined') {
+      document.body.classList.add('mc-clock-screensaver-idle');
+    }
+  } else {
+    wakeClockIdleMode({ restartTimer: false });
+  }
+
   if (state.module === 'teraz') {
     requestAnimationFrame(() => {
       const targetEl = document.getElementById('mcNowTimelineDivider') || document.querySelector('.mc-event-tile.is-current-now');
@@ -3419,8 +3484,30 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
       if (e.key === 'Escape' && state.clockDrawerOpen) {
         state.clockDrawerOpen = false;
         render();
+        return;
+      }
+      if (state.module === 'clock' && state.clockIdleHidden) {
+        wakeClockIdleMode({ restartTimer: true });
       }
     });
+
+    // Wygaszacz po 5 sekundach: kliknięcie w dowolnym miejscu na stronie zegara przywraca wszystkie ukryte elementy
+    document.addEventListener(
+      'click',
+      (e) => {
+        if (state.module !== 'clock') return;
+        if (state.clockIdleHidden) {
+          e.stopPropagation();
+          e.preventDefault();
+          wakeClockIdleMode({ restartTimer: true });
+          return;
+        }
+        if (!state.clockDrawerOpen) {
+          scheduleClockIdleTimer();
+        }
+      },
+      true
+    );
   }
 
   if (!window._mcLiveClockInterval) {

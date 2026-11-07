@@ -939,6 +939,56 @@ test('15. Glassmorphism NA ŻYWO Box, CHRISTIAN CULTURE LIVE header & 3D Spatial
   assert.ok(activeTick.extraOuter > trailTick.extraOuter, 'Active second tick must extend further outward for 3D spatial effect');
 });
 
+// ---------------------------------------------------------------------------
+// 16. 5-Second Auto-Hide Screensaver on Clock Page & Click-to-Restore UI
+// ---------------------------------------------------------------------------
+test('16. 5-Second Auto-Hide Screensaver on Clock Page & Click-to-Restore UI', async () => {
+  const rootDir = process.cwd();
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+
+  const {
+    CLOCK_IDLE_HIDE_MS,
+    isClockIdleHidden,
+    enterClockIdleMode,
+    wakeClockIdleMode,
+    renderClockModule,
+  } = await import('../ccMC/app.js');
+
+  assert.equal(CLOCK_IDLE_HIDE_MS, 5000, 'Idle hide timeout must be exactly 5000ms (5 seconds)');
+  assert.equal(isClockIdleHidden(), false, 'Initially clock UI must not be hidden');
+
+  const entered = enterClockIdleMode();
+  assert.equal(entered, true, 'enterClockIdleMode() must activate idle mode on clock module');
+  assert.equal(isClockIdleHidden(), true, 'isClockIdleHidden() must be true after 5s idle trigger');
+
+  const idleHtml = renderClockModule();
+  assert.match(idleHtml, /is-screensaver-idle/, 'Clock module must include is-screensaver-idle class when idle');
+  assert.match(idleHtml, /id="mcBiblicalClockHero"/, 'Clock dial must remain present in idle mode');
+  assert.match(idleHtml, /id="mcClockLiveBox"/, 'TERAZ / NA ŻYWO bar must remain present in idle mode');
+
+  const woke = wakeClockIdleMode({ restartTimer: false });
+  assert.equal(woke, true, 'wakeClockIdleMode() must restore all hidden UI elements');
+  assert.equal(isClockIdleHidden(), false, 'isClockIdleHidden() must be false after waking');
+
+  assert.match(
+    ccMcStyle,
+    /body\.mc-clock-screensaver-idle\s+\.mc-clock-module-topbar/,
+    'CSS must hide topbar in mc-clock-screensaver-idle'
+  );
+  assert.match(
+    ccMcStyle,
+    /body\.mc-clock-screensaver-idle\s+\.mc-clock-more-toggle-wrap/,
+    'CSS must hide WIĘCEJ button in mc-clock-screensaver-idle'
+  );
+  assert.match(
+    ccMcStyle,
+    /body\.mc-clock-screensaver-idle\s+\.mc-module-dock/,
+    'CSS must hide bottom dock in mc-clock-screensaver-idle'
+  );
+});
+
+
 
 
 

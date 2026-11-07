@@ -3170,6 +3170,46 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   }
 }
 
+/* ==========================================================================
+   Wygaszacz po 5 sekundach (Auto-Hide UI na stronie zegara):
+   Zostaje TYLKO zegar (z napisem CHRISTIAN CULTURE LIVE) oraz pasek TERAZ.
+   Po kliknięciu w dowolne miejsce wszystkie ukryte elementy płynnie wracają.
+   ========================================================================== */
+.mc-clock-module-topbar,
+.mc-clock-more-toggle-wrap,
+#mcClockMoreCards,
+.mc-module-dock,
+.mc-edge-bar,
+.cc-mobile-edge-trigger {
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.mc-clock-screensaver-idle .mc-clock-module-topbar,
+body.mc-clock-screensaver-idle .mc-clock-more-toggle-wrap,
+body.mc-clock-screensaver-idle #mcClockMoreCards,
+body.mc-clock-screensaver-idle .mc-module-dock,
+body.mc-clock-screensaver-idle #mcFloatingModuleDock,
+body.mc-clock-screensaver-idle .mc-edge-bar,
+body.mc-clock-screensaver-idle #open-menu,
+body.mc-clock-screensaver-idle .cc-mobile-edge-trigger,
+body.mc-clock-screensaver-idle [data-cc-mobile-edge-trigger],
+body.mc-clock-screensaver-idle #cc-global-chat-btn,
+body.mc-clock-screensaver-idle .cc-global-chat-btn,
+body.mc-clock-screensaver-idle #lumi-direct-dock,
+body.mc-clock-screensaver-idle .lumi-direct-dock,
+body.mc-clock-screensaver-idle [data-cc-chat-button],
+body.mc-clock-screensaver-idle [id*="lumi-chat"],
+body.mc-clock-screensaver-idle [class*="chat-fab"],
+body.mc-clock-screensaver-idle #backToTopBtn,
+.mc-clock-fullscreen.is-screensaver-idle .mc-clock-module-topbar,
+.mc-clock-fullscreen.is-screensaver-idle .mc-clock-more-toggle-wrap,
+.mc-clock-fullscreen.is-screensaver-idle #mcClockMoreCards {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+
 
 
 
