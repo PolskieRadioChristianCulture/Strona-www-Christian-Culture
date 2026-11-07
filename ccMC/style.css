@@ -366,18 +366,21 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .mc-week-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(160px, 1fr));
-  gap: 10px;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 12px;
 }
 
 .mc-day-col {
   background: var(--mc-surface-card);
   border: 1px solid var(--mc-border-subtle);
-  border-radius: 12px;
-  padding: 10px;
-  min-height: 320px;
+  border-radius: 14px;
+  padding: 12px;
+  min-height: 340px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  transition: all 0.2s ease;
 }
 
 .mc-day-col.is-today {
@@ -387,12 +390,172 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .mc-day-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding-bottom: 8px;
+  align-items: flex-start;
+  padding-bottom: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   font-weight: 700;
   font-size: 13px;
+  gap: 6px;
 }
+
+.mc-day-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.mc-day-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: var(--mc-text);
+  line-height: 1.25;
+}
+
+.mc-day-today-tag {
+  background: var(--mc-gold);
+  color: #000000;
+  font-weight: 800;
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+/* ============================================================================
+ * Kanon Tygodnia Christian Culture:
+ * 1. Niedziela = 1. dzień tygodnia
+ * 2. Piątek = Dzień Przygotowania do Szabatu (WYRÓŻNIENIE NA POMARAŃCZOWO)
+ * 3. Sobota = 7. dzień tygodnia, Boży Szabat (WYRÓŻNIENIE NA CZERWONO)
+ * ============================================================================ */
+
+/* Sobota — Święty Boży Szabat (7. Dzień Tygodnia) — OKNO NA CZERWONO */
+.mc-day-col.mc-day-sabbath {
+  border: 2px solid #ef4444 !important;
+  background: linear-gradient(180deg, rgba(239, 68, 68, 0.16) 0%, rgba(220, 38, 38, 0.05) 45%, var(--mc-surface-card) 100%) !important;
+  box-shadow: 0 0 24px rgba(239, 68, 68, 0.22), inset 0 0 16px rgba(239, 68, 68, 0.08) !important;
+  position: relative;
+}
+
+.mc-day-col.mc-day-sabbath .mc-day-header {
+  border-bottom: 1.5px solid rgba(239, 68, 68, 0.4);
+}
+
+.mc-day-col.mc-day-sabbath .mc-day-title {
+  color: #fca5a5 !important;
+  font-weight: 800 !important;
+}
+
+.mc-tag-sabbath {
+  background: #dc2626;
+  color: #ffffff;
+  border: 1px solid #f87171;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.45);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Piątek — Dzień Przygotowania do Szabatu — OKNO NA POMARAŃCZOWO */
+.mc-day-col.mc-day-friday-prep {
+  border: 2px solid #FF7A00 !important;
+  background: linear-gradient(180deg, rgba(255, 122, 0, 0.16) 0%, rgba(255, 122, 0, 0.04) 45%, var(--mc-surface-card) 100%) !important;
+  box-shadow: 0 0 20px rgba(255, 122, 0, 0.20), inset 0 0 12px rgba(255, 122, 0, 0.06) !important;
+  position: relative;
+}
+
+.mc-day-col.mc-day-friday-prep .mc-day-header {
+  border-bottom: 1.5px solid rgba(255, 122, 0, 0.4);
+}
+
+.mc-day-col.mc-day-friday-prep .mc-day-title {
+  color: #fdba74 !important;
+  font-weight: 800 !important;
+}
+
+.mc-tag-friday-prep {
+  background: #FF7A00;
+  color: #ffffff;
+  border: 1px solid #fed7aa;
+  font-weight: 800;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(255, 122, 0, 0.45);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Niedziela — 1. Dzień Tygodnia */
+.mc-day-col.mc-day-sunday .mc-day-title {
+  color: var(--mc-text-contrast);
+}
+
+.mc-tag-sunday {
+  background: rgba(196, 163, 90, 0.24);
+  color: var(--mc-gold-light);
+  border: 1px solid rgba(196, 163, 90, 0.4);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* Warianty Kolorystyczne dla Trybu Jasnego (Białe tło) */
+[data-theme="light"] .mc-day-col {
+  border-color: var(--mc-border-subtle);
+  background: #ffffff;
+}
+
+[data-theme="light"] .mc-day-header {
+  border-bottom-color: rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .mc-day-col.mc-day-sabbath {
+  border: 2px solid #dc2626 !important;
+  background: linear-gradient(180deg, #fee2e2 0%, #fff5f5 40%, #ffffff 100%) !important;
+  box-shadow: 0 4px 18px rgba(220, 38, 38, 0.16) !important;
+}
+
+[data-theme="light"] .mc-day-col.mc-day-sabbath .mc-day-header {
+  border-bottom-color: rgba(220, 38, 38, 0.35);
+}
+
+[data-theme="light"] .mc-day-col.mc-day-sabbath .mc-day-title {
+  color: #991b1b !important;
+}
+
+[data-theme="light"] .mc-day-col.mc-day-friday-prep {
+  border: 2px solid #FF7A00 !important;
+  background: linear-gradient(180deg, #ffedd5 0%, #fff7ed 40%, #ffffff 100%) !important;
+  box-shadow: 0 4px 18px rgba(255, 122, 0, 0.16) !important;
+}
+
+[data-theme="light"] .mc-day-col.mc-day-friday-prep .mc-day-header {
+  border-bottom-color: rgba(255, 122, 0, 0.35);
+}
+
+[data-theme="light"] .mc-day-col.mc-day-friday-prep .mc-day-title {
+  color: #c2410c !important;
+}
+
+[data-theme="light"] .mc-tag-sunday {
+  background: rgba(158, 125, 50, 0.16);
+  color: #785412;
+  border-color: rgba(158, 125, 50, 0.35);
+}
+
 
 .mc-event-tile {
   border-radius: 10px;

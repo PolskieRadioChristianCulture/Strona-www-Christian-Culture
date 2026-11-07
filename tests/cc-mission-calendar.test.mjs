@@ -445,11 +445,29 @@ test('6. Standard Back-To-Top Button integration (/js/cc-back-to-top.js)', async
   const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
 
   const ccMcHtml = fs.readFileSync(ccMcHtmlPath, 'utf8');
-  assert.match(ccMcHtml, /src="\/js\/cc-back-to-top\.js\?v=20261107_v5"/, 'ccMC must include standard cc-back-to-top.js');
+  assert.match(ccMcHtml, /src="\/js\/cc-back-to-top\.js\?v=20261107_v6"/, 'ccMC must include standard cc-back-to-top.js');
 
   const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
   assert.match(ccMcStyle, /#backToTopBtn\[data-cc-back-to-top\]/, 'style.css must style the canonical back-to-top button');
   assert.match(ccMcStyle, /\[data-theme="dark"\] #backToTopBtn\[data-cc-back-to-top\]/, 'style.css must support dark mode back-to-top');
   assert.match(ccMcStyle, /\[data-theme="light"\] #backToTopBtn\[data-cc-back-to-top\]/, 'style.css must support light mode back-to-top');
+});
+
+test('7. Biblical Week Standard (Kanon Wiary CC: Niedziela = 1. dzień, Sobota = 7. dzień czerwona, Piątek = przygotowanie pomarańczowy)', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const ccMcAppPath = path.join(rootDir, 'ccMC', 'app.js');
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+
+  const ccMcApp = fs.readFileSync(ccMcAppPath, 'utf8');
+  assert.match(ccMcApp, /base\.getDay\(\)/, 'Must calculate Sunday as first day of week');
+  assert.match(ccMcApp, /mc-day-sabbath/, 'Must assign mc-day-sabbath class on Saturday');
+  assert.match(ccMcApp, /mc-day-friday-prep/, 'Must assign mc-day-friday-prep class on Friday');
+  assert.match(ccMcApp, /mc-day-sunday/, 'Must assign mc-day-sunday class on Sunday');
+
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+  assert.match(ccMcStyle, /\.mc-day-col\.mc-day-sabbath\s*\{[^}]*border:\s*2px solid #ef4444/, 'Saturday must have red border');
+  assert.match(ccMcStyle, /\.mc-day-col\.mc-day-friday-prep\s*\{[^}]*border:\s*2px solid #FF7A00/, 'Friday must have orange border');
+  assert.match(ccMcStyle, /\[data-theme="light"\] \.mc-day-col\.mc-day-sabbath/, 'Must support light theme Saturday');
+  assert.match(ccMcStyle, /\[data-theme="light"\] \.mc-day-col\.mc-day-friday-prep/, 'Must support light theme Friday');
 });
 

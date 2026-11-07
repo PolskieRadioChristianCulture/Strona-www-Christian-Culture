@@ -559,15 +559,26 @@ function renderBoardContent(filtered) {
     `;
   }
 
-  // Widok tygodniowy / miesięczny (7 kolumn od poniedziałku)
+  // Widok tygodniowy / miesięczny wg Kanonu Wiary CC (28 Zasad Wiary Kościoła Bożego):
+  // 1. Tydzień ZACZYNA SIĘ OD NIEDZIELI (Niedziela = 1. dzień tygodnia).
+  // 2. Piątek jest dniem przygotowania do Szabatu — okno wyróżnione na POMARAŃCZOWO.
+  // 3. Sobota jest 7. dniem tygodnia (Święty Boży Szabat) — okno wyróżnione na CZERWONO.
   const base = new Date(state.anchorDate);
-  const dow = (base.getDay() + 6) % 7;
-  const monday = new Date(base.getTime() - dow * 86400_000);
-  monday.setHours(0, 0, 0, 0);
+  const dow = base.getDay(); // 0 = Niedziela (1. dzień), 1 = Poniedziałek, ..., 5 = Piątek, 6 = Sobota (7. dzień)
+  const sunday = new Date(base.getTime() - dow * 86400_000);
+  sunday.setHours(0, 0, 0, 0);
+
+  const todayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date());
+
   const daysCount = state.view === 'month' ? 14 : 7;
   const cols = [];
   for (let i = 0; i < daysCount; i++) {
-    const d = new Date(monday.getTime() + i * 86400_000);
+    const d = new Date(sunday.getTime() + i * 86400_000);
     const dayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
       timeZone: 'Europe/Warsaw',
       year: 'numeric',
@@ -576,15 +587,37 @@ function renderBoardContent(filtered) {
     }).format(d);
     const dayLabel = new Intl.DateTimeFormat('pl-PL', {
       timeZone: 'Europe/Warsaw',
-      weekday: 'short',
+      weekday: 'long',
       day: '2-digit',
       month: '2-digit',
     }).format(d);
+
+    const dayOfWeek = d.getDay(); // 0 = Niedziela, 5 = Piątek, 6 = Sobota
+    let specialClass = '';
+    let specialBadge = '';
+    if (dayOfWeek === 6) {
+      specialClass = 'mc-day-sabbath';
+      specialBadge = '<span class="mc-day-tag mc-tag-sabbath" title="Sobota — 7. Dzień Tygodnia, Pamiątka Stworzenia i Święty Boży Szabat">Szabat · 7. Dzień</span>';
+    } else if (dayOfWeek === 5) {
+      specialClass = 'mc-day-friday-prep';
+      specialBadge = '<span class="mc-day-tag mc-tag-friday-prep" title="Piątek — Dzień Przygotowania do Szabatu">Dzień Przygotowania</span>';
+    } else if (dayOfWeek === 0) {
+      specialClass = 'mc-day-sunday';
+      specialBadge = '<span class="mc-day-tag mc-tag-sunday" title="Niedziela — 1. Dzień Tygodnia">1. Dzień</span>';
+    }
+
+    const isToday = dayIsoPrefix === todayIsoPrefix;
+    const todayClass = isToday ? 'is-today' : '';
+
     const dayEvents = filtered.filter((ev) => toWarsawInput(ev.starts_at).startsWith(dayIsoPrefix));
     cols.push(`
-      <div class="mc-day-col" data-drop-date="${dayIsoPrefix}">
+      <div class="mc-day-col ${specialClass} ${todayClass}" data-drop-date="${dayIsoPrefix}" data-day-of-week="${dayOfWeek}">
         <div class="mc-day-header">
-          <span>${escapeHtml(dayLabel)}</span>
+          <div class="mc-day-header-info">
+            <span class="mc-day-title">${escapeHtml(dayLabel)}</span>
+            ${specialBadge}
+            ${isToday ? '<span class="mc-day-today-tag">DZIŚ</span>' : ''}
+          </div>
           <button type="button" class="mc-quick-add-day" data-date="${dayIsoPrefix}" style="min-height:32px;min-width:32px;padding:2px 8px;font-size:12px;" aria-label="Dodaj zadanie w dniu ${escapeHtml(dayLabel)}">+</button>
         </div>
         ${dayEvents.map(renderEventTileHtml).join('')}
