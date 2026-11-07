@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mojabiblia?ref=GEN.18.25",
+      "title": "Werset Dnia: „Czy Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)",
+      "url": "https://polskieradio.cc/mojabiblia?ref=GEN.18.25",
+      "type": "verse",
+      "image": "art-rdz18-mamre-wstawiennictwo.jpg",
+      "publishedAt": "2026-11-07T12:32:43.726Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "akademia",
       "title": "Akademia Biblijna & Kurs Codzienny — Systematyczne Studium Słowa Bożego",
       "url": "https://polskieradio.cc/akademia",
