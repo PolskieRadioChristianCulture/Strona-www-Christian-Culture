@@ -3674,13 +3674,15 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
       if (!rawText) return json({ error: 'Brak tekstu do syntezy' }, 422);
 
       const voiceName = String(body.voice || 'Aoede');
-      const apiKey =
-        env?.GEMINI_API_KEY ||
-        env?.GOOGLE_AI_STUDIO_API_KEY ||
-        env?.GOOGLE_API_KEY ||
-        null;
+      const rawKeys = [
+        ...(env?.GEMINI_API_KEYS ? String(env.GEMINI_API_KEYS).split(',') : []),
+        env?.GEMINI_API_KEY,
+        env?.GOOGLE_AI_STUDIO_API_KEY,
+        env?.GOOGLE_API_KEY,
+      ].map((k) => String(k || '').trim()).filter((k) => k.length > 20);
+      const apiKeys = [...new Set(rawKeys)];
 
-      if (!apiKey || typeof fetch !== 'function') {
+      if (!apiKeys.length || typeof fetch !== 'function') {
         return json({
           ok: true,
           mode: 'zero_cost_browser_neural',
@@ -3691,51 +3693,53 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
         });
       }
 
-      try {
-        const geminiRes = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${encodeURIComponent(apiKey)}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contents: [
-                {
-                  parts: [
-                    {
-                      text: `Wypowiedz ciepłym, naturalnym, spokojnym polskim głosem asystenta: ${rawText}`,
+      for (const apiKey of apiKeys) {
+        try {
+          const geminiRes = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${encodeURIComponent(apiKey)}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [
+                  {
+                    parts: [
+                      {
+                        text: `Wypowiedz ciepłym, naturalnym, spokojnym polskim głosem asystenta: ${rawText}`,
+                      },
+                    ],
+                  },
+                ],
+                generationConfig: {
+                  responseModalities: ['AUDIO'],
+                  speechConfig: {
+                    voiceConfig: {
+                      prebuiltVoiceConfig: { voiceName },
                     },
-                  ],
-                },
-              ],
-              generationConfig: {
-                responseModalities: ['AUDIO'],
-                speechConfig: {
-                  voiceConfig: {
-                    prebuiltVoiceConfig: { voiceName },
                   },
                 },
-              },
-            }),
-          }
-        );
+              }),
+            }
+          );
 
-        if (geminiRes.ok) {
-          const geminiData = await geminiRes.json();
-          const inlineData =
-            geminiData?.candidates?.[0]?.content?.parts?.[0]?.inlineData || null;
-          if (inlineData?.data) {
-            return json({
-              ok: true,
-              mode: 'google_ai_studio_free_tier',
-              cost: 0,
-              voice: voiceName,
-              text: rawText,
-              mimeType: inlineData.mimeType || 'audio/pcm;rate=24000',
-              audioBase64: inlineData.data,
-            });
+          if (geminiRes.ok) {
+            const geminiData = await geminiRes.json();
+            const inlineData =
+              geminiData?.candidates?.[0]?.content?.parts?.[0]?.inlineData || null;
+            if (inlineData?.data) {
+              return json({
+                ok: true,
+                mode: 'google_ai_studio_free_tier',
+                cost: 0,
+                voice: voiceName,
+                text: rawText,
+                mimeType: inlineData.mimeType || 'audio/pcm;rate=24000',
+                audioBase64: inlineData.data,
+              });
+            }
           }
-        }
-      } catch {}
+        } catch {}
+      }
 
       return json({
         ok: true,
