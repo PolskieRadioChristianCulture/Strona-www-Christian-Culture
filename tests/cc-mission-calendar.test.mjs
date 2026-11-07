@@ -445,7 +445,7 @@ test('6. Standard Back-To-Top Button integration (/js/cc-back-to-top.js)', async
   const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
 
   const ccMcHtml = fs.readFileSync(ccMcHtmlPath, 'utf8');
-  assert.match(ccMcHtml, /src="\/js\/cc-back-to-top\.js\?v=20261107_v8"/, 'ccMC must include standard cc-back-to-top.js');
+  assert.match(ccMcHtml, /src="\/js\/cc-back-to-top\.js\?v=20261107_v9"/, 'ccMC must include standard cc-back-to-top.js');
 
   const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
   assert.match(ccMcStyle, /#backToTopBtn\[data-cc-back-to-top\]/, 'style.css must style the canonical back-to-top button');
@@ -486,6 +486,26 @@ test('8. Default Today View with Current Hour (TERAZ) Timeline and Auto-scroll i
   const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
   assert.match(ccMcStyle, /\.mc-now-divider/, 'style.css must style mc-now-divider');
   assert.match(ccMcStyle, /\.mc-today-tile\.is-current-now\s*\{[^}]*border:\s*2px solid #FF7A00/, 'Active task must have 2px orange border');
-  assert.match(ccMcStyle, /\.mc-today-live-clock/, 'style.css must style live clock');
+  assert.match(ccMcStyle, /\.mc-today-live-clock|\.mc-clock-digits/, 'style.css must style live clock');
+});
+
+test('9. Minimalist Biblical Clock & Click-to-TERAZ Tasks Integration', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const ccMcAppPath = path.join(rootDir, 'ccMC', 'app.js');
+  const ccMcStylePath = path.join(rootDir, 'ccMC', 'style.css');
+
+  const ccMcApp = fs.readFileSync(ccMcAppPath, 'utf8');
+  assert.match(ccMcApp, /calculateSunset/, 'Must export calculateSunset (NOAA)');
+  assert.match(ccMcApp, /getBiblicalTimeState/, 'Must export getBiblicalTimeState');
+  assert.match(ccMcApp, /renderBiblicalClockDialSvg/, 'Must export renderBiblicalClockDialSvg');
+  assert.match(ccMcApp, /mc-clickable-clock/, 'Must support mc-clickable-clock class');
+  assert.match(ccMcApp, /btnTopbarClock/, 'Must provide btnTopbarClock in topbar');
+  assert.match(ccMcApp, /terazFilter/, 'Must support terazFilter');
+
+  const ccMcStyle = fs.readFileSync(ccMcStylePath, 'utf8');
+  assert.match(ccMcStyle, /\.mc-dial-wrapper/, 'style.css must style mc-dial-wrapper');
+  assert.match(ccMcStyle, /\.mc-topbar-clock-btn/, 'style.css must style mc-topbar-clock-btn');
+  assert.match(ccMcStyle, /\.mc-teraz-filter-banner/, 'style.css must style mc-teraz-filter-banner');
+  assert.match(ccMcStyle, /\.mc-biblical-badge/, 'style.css must style mc-biblical-badge');
 });
 

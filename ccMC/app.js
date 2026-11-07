@@ -62,6 +62,8 @@ const state = {
   mobileSidebarOpen: false,
   theme: localStorage.getItem('cc_mc_theme') || 'dark',
   isConnecting: false,
+  terazFilter: false,
+  clockCity: '52.2297,21.0122',
 };
 
 export function applyTheme(theme) {
@@ -133,6 +135,152 @@ function formatWarsawTimeOnly(isoStr) {
     minute: '2-digit',
     hourCycle: 'h23',
   }).format(new Date(isoStr));
+}
+
+export function calculateSunset(date, lat = 52.2297, lng = 21.0122) {
+  const rad = Math.PI / 180.0;
+  const deg = 180.0 / Math.PI;
+
+  const startOfYear = new Date(date.getFullYear(), 0, 0);
+  const diff = (date - startOfYear) + ((startOfYear.getTimezoneOffset() - date.getTimezoneOffset()) * 60 * 1000);
+  const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  const lngHour = lng / 15.0;
+  const t = dayOfYear + ((18.0 - lngHour) / 24.0);
+
+  const M = (0.9856 * t) - 3.289;
+
+  let L = M + (1.916 * Math.sin(M * rad)) + (0.020 * Math.sin(2 * M * rad)) + 282.634;
+  L = (L + 360) % 360;
+
+  let RA = deg * Math.atan(0.91764 * Math.tan(L * rad));
+  RA = (RA + 360) % 360;
+
+  const Lquadrant = Math.floor(L / 90.0) * 90.0;
+  const RAquadrant = Math.floor(RA / 90.0) * 90.0;
+  RA = (RA + (Lquadrant - RAquadrant)) / 15.0;
+
+  const sinDec = 0.39782 * Math.sin(L * rad);
+  const cosDec = Math.cos(Math.asin(sinDec));
+
+  const zenith = 90.8333;
+  const cosH = (Math.cos(zenith * rad) - (sinDec * Math.sin(lat * rad))) / (cosDec * Math.cos(lat * rad));
+
+  if (cosH < -1) return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
+  if (cosH > 1) return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0);
+
+  const H = (deg * Math.acos(cosH)) / 15.0;
+  const T = H + RA - (0.06571 * t) - 6.622;
+  let UT = (T - lngHour) % 24;
+  if (UT < 0) UT += 24;
+
+  const hours = Math.floor(UT);
+  const minutes = Math.floor((UT - hours) * 60);
+  const seconds = Math.floor((((UT - hours) * 60) - minutes) * 60);
+
+  return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes, seconds));
+}
+
+const BIBLICAL_DAYS = {
+  0: { name: 'Dzień Pierwszy (Biblijna Niedziela)', short: 'Dzień I', isSabbath: false },
+  1: { name: 'Dzień Drugi (Biblijny Poniedziałek)', short: 'Dzień II', isSabbath: false },
+  2: { name: 'Dzień Trzeci (Biblijny Wtorek)', short: 'Dzień III', isSabbath: false },
+  3: { name: 'Dzień Czwarty (Biblijna Środa)', short: 'Dzień IV', isSabbath: false },
+  4: { name: 'Dzień Piąty (Biblijny Czwartek)', short: 'Dzień V', isSabbath: false },
+  5: { name: 'Dzień Przygotowania (Szósty)', short: 'Dzień VI • Przygotowanie', isSabbath: false },
+  6: { name: 'SZABAT • Dzień Siódmy Święty', short: 'SZABAT (Dzień VII)', isSabbath: true },
+};
+
+export function getBiblicalTimeState(now = new Date(), lat = 52.2297, lng = 21.0122) {
+  const todaySunset = calculateSunset(now, lat, lng);
+  const tomorrow = new Date(now.getTime() + 86400_000);
+  const tomorrowSunset = calculateSunset(tomorrow, lat, lng);
+
+  const isAfterSunset = now >= todaySunset;
+  const secularDay = now.getDay();
+
+  const biblicalDayIndex = isAfterSunset ? (secularDay + 1) % 7 : secularDay;
+  const isSabbath = biblicalDayIndex === 6;
+
+  let sabbathTargetDate = null;
+  let countdownLabel = '';
+
+  if (isSabbath) {
+    countdownLabel = 'Koniec Szabatu (zachód słońca) za:';
+    if (secularDay === 5) {
+      sabbathTargetDate = tomorrowSunset;
+    } else {
+      sabbathTargetDate = todaySunset;
+    }
+  } else {
+    countdownLabel = 'Rozpoczęcie Szabatu za:';
+    let daysUntilFriday = (5 - secularDay + 7) % 7;
+    if (daysUntilFriday === 0 && isAfterSunset) {
+      daysUntilFriday = 7;
+    }
+    const nextFriday = new Date(now.getTime() + daysUntilFriday * 86400_000);
+    sabbathTargetDate = calculateSunset(nextFriday, lat, lng);
+  }
+
+  return {
+    todaySunset,
+    tomorrowSunset,
+    isAfterSunset,
+    biblicalDayIndex,
+    biblicalDay: BIBLICAL_DAYS[biblicalDayIndex],
+    isSabbath,
+    sabbathTargetDate,
+    countdownLabel,
+  };
+}
+
+export function formatCountdown(diffMs) {
+  if (diffMs < 0) diffMs = 0;
+  const totalSeconds = Math.floor(diffMs / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const pad2 = (n) => String(n).padStart(2, '0');
+  if (days > 0) {
+    return `${days}d ${pad2(hours)}:${pad2(minutes)}:${pad2(seconds)}`;
+  }
+  return `${pad2(hours)}:${pad2(minutes)}:${pad2(seconds)}`;
+}
+
+export function renderBiblicalClockDialSvg(currentSecond = 0) {
+  const TICK_COUNT = 60;
+  const CENTER = 250;
+  const RADIUS = 226;
+  let lines = '';
+
+  for (let i = 0; i < TICK_COUNT; i++) {
+    const isFiveMin = i % 5 === 0;
+    const isCardinal = i % 15 === 0;
+    const length = isCardinal ? 24 : isFiveMin ? 17 : 9;
+    const strokeWidth = isCardinal ? 3.6 : isFiveMin ? 2.6 : 1.3;
+
+    const angle = (i * 6) * (Math.PI / 180);
+    const x1 = (CENTER + (RADIUS - length) * Math.cos(angle)).toFixed(1);
+    const y1 = (CENTER + (RADIUS - length) * Math.sin(angle)).toFixed(1);
+    const x2 = (CENTER + RADIUS * Math.cos(angle)).toFixed(1);
+    const y2 = (CENTER + RADIUS * Math.sin(angle)).toFixed(1);
+
+    const isCurrent = i === currentSecond;
+    const stroke = isCurrent ? '#FF7A00' : '#FFFFFF';
+    const opacity = isCurrent ? 1 : isCardinal ? 1.0 : isFiveMin ? 0.9 : 0.42;
+    const currentWidth = isCurrent ? (strokeWidth + 2.4).toFixed(1) : strokeWidth;
+    const filter = isCurrent ? 'style="filter:drop-shadow(0 0 8px #FF7A00);"' : '';
+
+    lines += `<line class="mc-clock-tick" id="mcTick_${i}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${stroke}" stroke-width="${currentWidth}" opacity="${opacity}" stroke-linecap="butt" ${filter} />`;
+  }
+
+  return `
+    <svg id="mcClockSvg" class="mc-dial-svg" viewBox="0 0 500 500" aria-hidden="true">
+      <g transform="rotate(-90 250 250)">${lines}</g>
+    </svg>
+  `;
 }
 
 function escapeHtml(str) {
@@ -559,9 +707,22 @@ function renderTodayTileHtml(ev, { isNow, isPast, isNext }) {
   `;
 }
 
+function formatWarsawTimeWithSeconds(date = new Date()) {
+  return new Intl.DateTimeFormat('pl-PL', {
+    timeZone: 'Europe/Warsaw',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).format(date);
+}
+
 function renderTodayHtml(filtered) {
   const now = new Date();
   const nowTs = now.getTime();
+
+  const [lat, lng] = (state.clockCity || '52.2297,21.0122').split(',').map(Number);
+  const bState = getBiblicalTimeState(now, lat, lng);
 
   const todayIsoPrefix = new Intl.DateTimeFormat('sv-SE', {
     timeZone: 'Europe/Warsaw',
@@ -570,13 +731,7 @@ function renderTodayHtml(filtered) {
     day: '2-digit',
   }).format(now);
 
-  const warsawTimeNowStr = new Intl.DateTimeFormat('pl-PL', {
-    timeZone: 'Europe/Warsaw',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-  }).format(now);
+  const warsawTimeNowStr = formatWarsawTimeWithSeconds(now);
 
   const warsawDateTitle = new Intl.DateTimeFormat('pl-PL', {
     timeZone: 'Europe/Warsaw',
@@ -585,16 +740,6 @@ function renderTodayHtml(filtered) {
     month: 'long',
     year: 'numeric',
   }).format(now);
-
-  const dayOfWeek = now.getDay();
-  let daySpecialBadge = '';
-  if (dayOfWeek === 6) {
-    daySpecialBadge = '<span class="mc-day-tag mc-tag-sabbath" style="margin-left:8px;font-size:12px;">Święty Boży Szabat · 7. Dzień</span>';
-  } else if (dayOfWeek === 5) {
-    daySpecialBadge = '<span class="mc-day-tag mc-tag-friday" style="margin-left:8px;font-size:12px;">Przygotowanie do Szabatu</span>';
-  } else if (dayOfWeek === 0) {
-    daySpecialBadge = '<span class="mc-day-tag mc-tag-sunday" style="margin-left:8px;font-size:12px;">Niedziela · 1. Dzień Tygodnia</span>';
-  }
 
   const todayTasks = filtered
     .filter((e) => e.starts_at && e.starts_at.startsWith(todayIsoPrefix))
@@ -614,53 +759,108 @@ function renderTodayHtml(filtered) {
     }
   }
 
+  // Jeśli aktywny jest filtr TERAZ wywołany kliknięciem w zegar
+  let tasksToShow = todayTasks;
+  if (state.terazFilter) {
+    const currentTasks = todayTasks.filter((ev) => {
+      const startTs = Date.parse(ev.starts_at);
+      const endTs = ev.ends_at ? Date.parse(ev.ends_at) : startTs + 3600_000;
+      return startTs <= nowTs && nowTs < endTs;
+    });
+    if (currentTasks.length > 0) {
+      tasksToShow = currentTasks;
+    } else if (nextUpcomingEvent) {
+      tasksToShow = [nextUpcomingEvent];
+    }
+  }
+
   const completedTodayCount = todayTasks.filter((e) => e.status === 'done').length;
 
   return `
     <div class="mc-today-container" role="region" aria-label="Widok zadań na DZIŚ według aktualnej godziny TERAZ">
+      <!-- Minimalistyczny Zegar Biblijny Szabatu (Interaktywny: kliknięcie filtruje zadania TERAZ) -->
       <div class="mc-today-hero">
-        <div class="mc-today-hero-left">
-          <div class="mc-today-live-badge">
-            <span class="mc-pulse-dot-large"></span>
-            <span>TERAZ NA ŻYWO · Europe/Warsaw</span>
-          </div>
-          <div class="mc-today-live-clock">
-            <span class="mc-clock-digits" id="mcTodayLiveClock">${warsawTimeNowStr}</span>
-          </div>
-          <div class="mc-today-date-str">
-            <strong>${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</strong>
-            ${daySpecialBadge}
+        <div class="mc-today-hero-clock-col mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Kliknij w zegar, aby wyświetlić zadania trwające TERAZ">
+          <div class="mc-dial-wrapper" id="dial-wrapper">
+            ${renderBiblicalClockDialSvg(now.getSeconds())}
+            <div class="mc-dial-center">
+              <div id="digital-time" class="tabular-clock mc-clock-digits">${warsawTimeNowStr}</div>
+              <div class="mc-dial-separator">
+                <div class="mc-dial-sep-line"></div>
+                <div id="center-dot" class="mc-dial-center-dot"></div>
+                <div class="mc-dial-sep-line"></div>
+              </div>
+              <div id="gregorian-date" class="mc-gregorian-date">${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</div>
+              <div class="mc-biblical-status-wrap">
+                <div id="biblical-badge" class="mc-biblical-badge ${bState.isSabbath ? 'is-sabbath' : ''}">
+                  <span class="mc-pulse-dot" style="background:#FF7A00;"></span>
+                  <span id="biblical-day-name">${bState.biblicalDay.name}</span>
+                </div>
+                <div class="mc-clock-teraz-cta">
+                  <span>⏱️ Kliknij w zegar, aby wyświetlić zadania TERAZ</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="mc-today-hero-right">
-          <div class="mc-today-stats-chip">
-            <strong>${todayTasks.length}</strong>
-            <span>Zadań na dziś</span>
+          <div class="mc-sunset-card">
+            <span class="mc-sub-label">Zachód Słońca (Dziś)</span>
+            <strong class="mc-sunset-digits" id="sunset-today">${formatWarsawTimeOnly(bState.todaySunset)}</strong>
+            <small id="sunset-tomorrow-info" style="color:var(--mc-muted);">Jutro: ${formatWarsawTimeOnly(bState.tomorrowSunset)}</small>
           </div>
-          <div class="mc-today-stats-chip">
-            <strong style="color:#22c55e;">${completedTodayCount}</strong>
-            <span>Ukończone</span>
+
+          <div class="mc-sabbath-card ${bState.isSabbath ? 'is-sabbath' : ''}">
+            <span class="mc-sub-label">${bState.countdownLabel}</span>
+            <strong class="mc-sabbath-countdown" id="sabbath-countdown">${formatCountdown(bState.sabbathTargetDate - now)}</strong>
+            <small style="color:var(--mc-muted);">${bState.isSabbath ? 'Święty Boży Szabat' : 'do piątkowego zachodu'}</small>
           </div>
-          <div class="mc-today-stats-chip">
-            <strong style="color:var(--mc-gold);">${todayTasks.length - completedTodayCount}</strong>
-            <span>Pozostałe</span>
+
+          <div class="mc-today-stats-group">
+            <div class="mc-today-stats-chip">
+              <strong>${todayTasks.length}</strong>
+              <span>Zadań na dziś</span>
+            </div>
+            <div class="mc-today-stats-chip">
+              <strong style="color:#22c55e;">${completedTodayCount}</strong>
+              <span>Ukończone</span>
+            </div>
+            <div class="mc-today-stats-chip">
+              <strong style="color:var(--mc-gold);">${todayTasks.length - completedTodayCount}</strong>
+              <span>Pozostałe</span>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- Pasek stanu filtra TERAZ (jeśli włączony przez kliknięcie w zegar) -->
+      ${
+        state.terazFilter
+          ? `<div class="mc-teraz-filter-banner" id="mcTerazFilterBanner">
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <span class="mc-pulse-dot" style="background:#FF7A00;width:10px;height:10px;"></span>
+                <strong>Wyświetlasz zadania trwające TERAZ (${warsawTimeNowStr.slice(0, 5)})</strong>
+                <span style="font-size:12px;opacity:0.8;">(aktywowane kliknięciem w zegar)</span>
+              </div>
+              <button type="button" id="btnClearTerazFilter" class="mc-btn-gold" style="padding:6px 14px;font-size:12px;">Pokaż wszystkie zadania na dziś</button>
+            </div>`
+          : ''
+      }
+
       <div class="mc-today-timeline">
         ${
-          todayTasks.length === 0
+          tasksToShow.length === 0
             ? `<div class="mc-empty-today-card">
-                <h3>Brak zaplanowanych zadań na dziś</h3>
-                <p>Nie masz jeszcze żadnych zadań wpisanych na dzisiejszy dzień.</p>
+                <h3>Brak zadań na ten moment</h3>
+                <p>${state.terazFilter ? 'Żadne zaplanowane zadanie nie trwa w tej dokładnej minucie.' : 'Nie masz jeszcze żadnych zadań wpisanych na dzisiejszy dzień.'}</p>
                 <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">
-                  <button type="button" class="mc-btn-cta" onclick="document.getElementById('btnNewTask')?.click()">＋ Dodaj pierwsze zadanie</button>
+                  ${state.terazFilter ? '<button type="button" id="btnClearTerazFilterEmpty" class="mc-btn-gold">Pokaż cały dzień</button>' : ''}
+                  <button type="button" class="mc-btn-cta" onclick="document.getElementById('btnNewTask')?.click()">＋ Dodaj zadanie</button>
                   <button type="button" class="mc-btn-gold" onclick="document.getElementById('btnSyncRoutines')?.click()">⚡ Wgraj 12 rutyn Misji CC</button>
                 </div>
               </div>`
-            : todayTasks
+            : tasksToShow
                 .map((ev) => {
                   const startTs = Date.parse(ev.starts_at);
                   const endTs = ev.ends_at ? Date.parse(ev.ends_at) : startTs + 3600_000;
@@ -702,9 +902,95 @@ function renderTodayHtml(filtered) {
   `;
 }
 
+function renderBiblicalClockFullHtml() {
+  const now = new Date();
+  const [lat, lng] = (state.clockCity || '52.2297,21.0122').split(',').map(Number);
+  const bState = getBiblicalTimeState(now, lat, lng);
+  const warsawTimeNowStr = formatWarsawTimeWithSeconds(now);
+  const warsawDateTitle = new Intl.DateTimeFormat('pl-PL', {
+    timeZone: 'Europe/Warsaw',
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(now);
+
+  return `
+    <div class="mc-full-clock-container" role="region" aria-label="Zegar Biblijny Szabatu">
+      <div class="mc-full-clock-header">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span class="mc-pulse-dot" style="background:#FF7A00;width:10px;height:10px;"></span>
+          <span style="font-size:12px;color:var(--mc-muted);letter-spacing:0.04em;">Lokalizacja astronomiczna:</span>
+          <select id="mcCitySelector" class="mc-city-select" aria-label="Wybierz lokalizację">
+            <option value="52.2297,21.0122" ${state.clockCity === '52.2297,21.0122' ? 'selected' : ''}>Warszawa (Polska)</option>
+            <option value="50.9295,21.3853" ${state.clockCity === '50.9295,21.3853' ? 'selected' : ''}>Ostrowiec Św. (Polska)</option>
+            <option value="50.0647,19.9450" ${state.clockCity === '50.0647,19.9450' ? 'selected' : ''}>Kraków</option>
+            <option value="54.3520,18.6466" ${state.clockCity === '54.3520,18.6466' ? 'selected' : ''}>Gdańsk</option>
+            <option value="51.1079,17.0385" ${state.clockCity === '51.1079,17.0385' ? 'selected' : ''}>Wrocław</option>
+            <option value="52.4064,16.9252" ${state.clockCity === '52.4064,16.9252' ? 'selected' : ''}>Poznań</option>
+            <option value="31.7683,35.2137" ${state.clockCity === '31.7683,35.2137' ? 'selected' : ''}>Jerozolima (Izrael)</option>
+          </select>
+        </div>
+
+        <button type="button" class="mc-btn-cta mc-clickable-clock" id="btnClockToTeraz" style="background:#FF7A00;color:#fff;">
+          ⏱️ Pokaż aktualne zadania TERAZ →
+        </button>
+      </div>
+
+      <div class="mc-full-clock-center mc-clickable-clock" title="Kliknij w zegar, aby wyświetlić zadania TERAZ">
+        <div class="mc-dial-wrapper" style="width:360px;height:360px;">
+          ${renderBiblicalClockDialSvg(now.getSeconds())}
+          <div class="mc-dial-center">
+            <div id="digital-time" class="tabular-clock mc-clock-digits" style="font-size:52px;">${warsawTimeNowStr}</div>
+            <div class="mc-dial-separator">
+              <div class="mc-dial-sep-line"></div>
+              <div id="center-dot" class="mc-dial-center-dot"></div>
+              <div class="mc-dial-sep-line"></div>
+            </div>
+            <div id="gregorian-date" class="mc-gregorian-date" style="font-size:16px;">${warsawDateTitle.charAt(0).toUpperCase() + warsawDateTitle.slice(1)}</div>
+            <div class="mc-biblical-status-wrap">
+              <div id="biblical-badge" class="mc-biblical-badge ${bState.isSabbath ? 'is-sabbath' : ''}">
+                <span class="mc-pulse-dot" style="background:#FF7A00;"></span>
+                <span>${bState.biblicalDay.name}</span>
+              </div>
+              <div class="mc-clock-teraz-cta">
+                <span>👉 Kliknij w zegar, aby wyświetlić zadania TERAZ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mc-full-clock-cards">
+        <div class="mc-stat-card" style="text-align:center;">
+          <small style="color:var(--mc-muted);text-transform:uppercase;letter-spacing:0.06em;">Zachód Słońca (Dziś)</small>
+          <strong style="color:#FF7A00;font-size:24px;font-family:monospace;margin:6px 0;">${formatWarsawTimeOnly(bState.todaySunset)}</strong>
+          <small style="color:var(--mc-muted);">Jutro: ${formatWarsawTimeOnly(bState.tomorrowSunset)}</small>
+        </div>
+
+        <div class="mc-stat-card ${bState.isSabbath ? 'is-sabbath' : ''}" style="text-align:center;border-color:rgba(255,122,0,0.5);">
+          <small style="color:#FF7A00;text-transform:uppercase;letter-spacing:0.06em;font-weight:700;">${bState.countdownLabel}</small>
+          <strong style="color:var(--mc-text-contrast);font-size:24px;font-family:monospace;margin:6px 0;">${formatCountdown(bState.sabbathTargetDate - now)}</strong>
+          <small style="color:var(--mc-muted);">${bState.isSabbath ? 'Trwa Święty Boży Szabat' : 'do piątkowego zachodu słońca'}</small>
+        </div>
+
+        <div class="mc-stat-card" style="text-align:center;">
+          <small style="color:var(--mc-muted);text-transform:uppercase;letter-spacing:0.06em;">Rachuba Biblijna CC</small>
+          <strong style="color:var(--mc-text-contrast);font-size:15px;margin:6px 0;">${bState.isAfterSunset ? 'Trwa nowa doba biblijna (po zachodzie)' : 'Przed zachodem słońca'}</strong>
+          <small style="color:#FF7A00;text-transform:uppercase;letter-spacing:0.05em;font-family:monospace;">Piątek zachód ➔ Sobota zachód</small>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 function renderBoardContent(filtered) {
   if (state.view === 'settings') {
     return renderSettingsHtml();
+  }
+
+  if (state.view === 'clock') {
+    return renderBiblicalClockFullHtml();
   }
 
   if (state.view === 'today') {
@@ -1070,6 +1356,7 @@ export function render() {
           <div class="mc-filter-title">Widoki</div>
           ${[
             ['today', '⏱️ Dziś (TERAZ — wg godziny)'],
+            ['clock', '🕰️ Zegar Biblijny Szabatu'],
             ['week', '▤ Tydzień (7 dni)'],
             ['month', '▦ Miesiąc / 2 tyg.'],
             ['agenda', '☰ Agenda chronologiczna'],
@@ -1114,6 +1401,11 @@ export function render() {
             <button type="button" id="btnPrevPeriod" aria-label="Poprzedni okres">←</button>
             <button type="button" id="btnToday">Dziś</button>
             <button type="button" id="btnNextPeriod" aria-label="Następny okres">→</button>
+            <button type="button" id="btnTopbarClock" class="mc-topbar-clock-btn mc-clickable-clock" title="Kliknij w zegar, aby wyświetlić zadania TERAZ" aria-label="Aktualna godzina, kliknij aby zobaczyć zadania TERAZ">
+              <span class="mc-pulse-dot" style="background:#FF7A00;"></span>
+              <span id="mcTopbarClockDigits">${formatWarsawTimeWithSeconds(new Date())}</span>
+              <span class="mc-teraz-badge-mini">TERAZ</span>
+            </button>
             <input
               type="search"
               id="mcSearchInput"
@@ -1264,7 +1556,47 @@ function bindEvents() {
     btnToday.onclick = async () => {
       state.anchorDate = new Date();
       state.view = 'today';
+      state.terazFilter = false;
       await refreshData();
+      render();
+    };
+  }
+
+  document.querySelectorAll('.mc-clickable-clock').forEach((el) => {
+    el.onclick = (e) => {
+      e.preventDefault();
+      state.view = 'today';
+      state.terazFilter = true;
+      render();
+      requestAnimationFrame(() => {
+        const targetEl = document.querySelector('.mc-event-tile.is-current-now') || document.getElementById('mcNowTimelineDivider');
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    };
+  });
+
+  const btnClearTeraz = document.getElementById('btnClearTerazFilter');
+  if (btnClearTeraz) {
+    btnClearTeraz.onclick = () => {
+      state.terazFilter = false;
+      render();
+    };
+  }
+
+  const btnClearEmpty = document.getElementById('btnClearTerazFilterEmpty');
+  if (btnClearEmpty) {
+    btnClearEmpty.onclick = () => {
+      state.terazFilter = false;
+      render();
+    };
+  }
+
+  const citySelect = document.getElementById('mcCitySelector');
+  if (citySelect) {
+    citySelect.onchange = () => {
+      state.clockCity = citySelect.value;
       render();
     };
   }
@@ -1675,18 +2007,54 @@ function bindEvents() {
 
 if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
   if (!window._mcLiveClockInterval) {
+    let lastTickSecond = -1;
     window._mcLiveClockInterval = setInterval(() => {
-      const clockEl = document.getElementById('mcTodayLiveClock');
-      if (clockEl) {
-        clockEl.textContent = new Intl.DateTimeFormat('pl-PL', {
-          timeZone: 'Europe/Warsaw',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false,
-        }).format(new Date());
+      const now = new Date();
+      const timeStr = formatWarsawTimeWithSeconds(now);
+
+      const topDigits = document.getElementById('mcTopbarClockDigits');
+      if (topDigits) topDigits.textContent = timeStr;
+
+      const digTime = document.getElementById('digital-time');
+      if (digTime) digTime.textContent = timeStr;
+
+      const liveClock = document.getElementById('mcTodayLiveClock');
+      if (liveClock) liveClock.textContent = timeStr;
+
+      // Animacja przeskakującej sekundy na tarczy zegara
+      const sec = now.getSeconds();
+      if (sec !== lastTickSecond) {
+        if (lastTickSecond >= 0) {
+          const prevTick = document.getElementById('mcTick_' + lastTickSecond);
+          if (prevTick) {
+            const isFiveMin = lastTickSecond % 5 === 0;
+            const isCardinal = lastTickSecond % 15 === 0;
+            const strokeWidth = isCardinal ? 3.6 : isFiveMin ? 2.6 : 1.3;
+            const opacity = isCardinal ? 1.0 : isFiveMin ? 0.9 : 0.42;
+            prevTick.setAttribute('stroke', '#FFFFFF');
+            prevTick.setAttribute('stroke-width', strokeWidth);
+            prevTick.setAttribute('opacity', opacity);
+            prevTick.style.filter = 'none';
+          }
+        }
+        const currTick = document.getElementById('mcTick_' + sec);
+        if (currTick) {
+          currTick.setAttribute('stroke', '#FF7A00');
+          currTick.setAttribute('stroke-width', '5');
+          currTick.setAttribute('opacity', '1');
+          currTick.style.filter = 'drop-shadow(0 0 8px #FF7A00)';
+        }
+        lastTickSecond = sec;
+
+        // Aktualizacja licznika Szabatu
+        const countdownEl = document.getElementById('sabbath-countdown');
+        if (countdownEl) {
+          const [lat, lng] = (state.clockCity || '52.2297,21.0122').split(',').map(Number);
+          const bState = getBiblicalTimeState(now, lat, lng);
+          countdownEl.textContent = formatCountdown(bState.sabbathTargetDate - now);
+        }
       }
-    }, 1000);
+    }, 250);
   }
   attachLoginHandler();
   loadInitialSession();
