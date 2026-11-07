@@ -3786,6 +3786,123 @@ body.mc-clock-screensaver-idle #backToTopBtn,
   pointer-events: none !important;
 }
 
+/* ==========================================================================
+   SYGNALIZACJA NADCHODZĄCEGO RAPORTU (15 SEKUND PRZED KAŻDYM KWADRANSEM):
+   1. Niebieski kolor zegara i sekundnika (#38bdf8 / #60a5fa)
+   2. Niebieska poświata i obrzeże tarczy 3D (#00d2ff -> #38bdf8 -> #2563eb)
+   3. Krawędziowe podświetlanie ramy ekranu 16:9 (#mcQuarterEdgeFrame)
+   ========================================================================== */
+.mc-quarter-edge-frame {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none !important;
+  z-index: 9850;
+  opacity: 0;
+  visibility: hidden;
+  border: 3px solid rgba(56, 189, 248, 0.96);
+  box-shadow:
+    inset 0 0 38px rgba(56, 189, 248, 0.85),
+    inset 0 0 95px rgba(37, 99, 235, 0.62),
+    inset 0 0 160px rgba(14, 165, 233, 0.28),
+    0 0 32px rgba(56, 189, 248, 0.9);
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.mc-quarter-edge-frame.is-active,
+body.is-pre-quarter-blue .mc-quarter-edge-frame {
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: mcQuarterBlueFramePulse 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes mcQuarterBlueFramePulse {
+  0% {
+    border-color: rgba(56, 189, 248, 0.78);
+    box-shadow:
+      inset 0 0 28px rgba(56, 189, 248, 0.65),
+      inset 0 0 70px rgba(37, 99, 235, 0.45),
+      inset 0 0 120px rgba(14, 165, 233, 0.2),
+      0 0 20px rgba(56, 189, 248, 0.7);
+  }
+  100% {
+    border-color: #38bdf8;
+    box-shadow:
+      inset 0 0 52px rgba(56, 189, 248, 0.98),
+      inset 0 0 115px rgba(37, 99, 235, 0.78),
+      inset 0 0 190px rgba(14, 165, 233, 0.38),
+      0 0 42px rgba(56, 189, 248, 1);
+  }
+}
+
+.mc-dial-wrapper.is-pre-quarter-blue,
+body.is-pre-quarter-blue #mcBiblicalClockHero {
+  box-shadow:
+    var(--mc-rim-x) var(--mc-rim-y) 44px -4px rgba(56, 189, 248, 0.78),
+    calc(var(--mc-rim-x) * 0.5) calc(var(--mc-rim-y) * 0.5) 24px -2px rgba(37, 99, 235, 0.62),
+    inset calc(var(--mc-rim-x) * -0.35) calc(var(--mc-rim-y) * -0.35) 32px rgba(56, 189, 248, 0.42),
+    inset 0 0 26px rgba(37, 99, 235, 0.35),
+    0 0 48px rgba(56, 189, 248, 0.52),
+    0 22px 54px rgba(0, 0, 0, 0.88) !important;
+  animation: mcSpatialRimBeatBlue 0.9s ease-in-out infinite !important;
+}
+
+.mc-dial-wrapper.is-pre-quarter-blue::before,
+body.is-pre-quarter-blue #mcBiblicalClockHero::before {
+  background: conic-gradient(
+    from var(--mc-sec-angle),
+    rgba(0, 210, 255, 1) 0deg,
+    rgba(56, 189, 248, 0.92) 32deg,
+    rgba(37, 99, 235, 0.48) 95deg,
+    rgba(56, 189, 248, 0.14) 180deg,
+    rgba(37, 99, 235, 0.45) 310deg,
+    rgba(0, 210, 255, 1) 360deg
+  ) !important;
+}
+
+@keyframes mcSpatialRimBeatBlue {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+  }
+  50% {
+    filter: drop-shadow(0 0 26px rgba(56, 189, 248, 0.92)) drop-shadow(0 0 12px rgba(37, 99, 235, 0.75));
+  }
+}
+
+.mc-dial-wrapper.is-pre-quarter-blue #digital-time,
+.mc-dial-wrapper.is-pre-quarter-blue .mc-clock-hm,
+body.is-pre-quarter-blue #digital-time,
+body.is-pre-quarter-blue .mc-clock-hm {
+  color: #e0f2fe !important;
+  text-shadow:
+    0 0 22px rgba(56, 189, 248, 0.95),
+    0 0 44px rgba(37, 99, 235, 0.78) !important;
+}
+
+.mc-dial-wrapper.is-pre-quarter-blue .mc-clock-sec-glow,
+body.is-pre-quarter-blue .mc-clock-sec-glow,
+body.is-pre-quarter-blue #mcClockSecDigits {
+  color: #38bdf8 !important;
+  text-shadow:
+    0 0 22px rgba(56, 189, 248, 1),
+    0 0 10px rgba(147, 197, 253, 0.9) !important;
+}
+
+.mc-dial-wrapper.is-pre-quarter-blue .mc-dial-center-dot,
+body.is-pre-quarter-blue .mc-dial-center-dot {
+  background: #38bdf8 !important;
+  box-shadow: 0 0 16px #38bdf8, 0 0 28px #2563eb !important;
+}
+
+.mc-dial-wrapper.is-pre-quarter-blue .mc-biblical-badge,
+body.is-pre-quarter-blue .mc-biblical-badge {
+  border-color: #38bdf8 !important;
+  color: #e0f2fe !important;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.55) !important;
+}
+
+
 
 
 

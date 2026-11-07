@@ -507,7 +507,19 @@ export function formatCountdown(diffMs) {
   return `${pad2(hours)}:${pad2(minutes)}:${pad2(seconds)}`;
 }
 
-export function getTickSpatialProps(i, currentSecond) {
+export function isPreQuarterAlertWindow(now = new Date()) {
+  if (typeof window !== 'undefined' && window._mcForcePreQuarterBlue) return true;
+  const warsawParts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Europe/Warsaw',
+    minute: 'numeric',
+    second: 'numeric',
+  }).formatToParts(now);
+  const min = Number(warsawParts.find((p) => p.type === 'minute')?.value ?? now.getMinutes());
+  const sec = Number(warsawParts.find((p) => p.type === 'second')?.value ?? now.getSeconds());
+  return min % 15 === 14 && sec >= 45;
+}
+
+export function getTickSpatialProps(i, currentSecond, isBluePreAlert = false) {
   const isFiveMin = i % 5 === 0;
   const isCardinal = i % 15 === 0;
   const baseLength = isCardinal ? 24 : isFiveMin ? 17 : 9;
@@ -515,6 +527,53 @@ export function getTickSpatialProps(i, currentSecond) {
   const baseOpacity = isCardinal ? 1.0 : isFiveMin ? 0.9 : 0.42;
 
   const diff = (currentSecond - i + 60) % 60;
+  if (isBluePreAlert) {
+    if (diff === 0) {
+      return {
+        stroke: '#38bdf8',
+        strokeWidth: (baseWidth + 2.8).toFixed(1),
+        opacity: '1',
+        filter: 'drop-shadow(0 0 12px #38bdf8) drop-shadow(0 0 5px #FFFFFF)',
+        extraOuter: 4.5,
+      };
+    }
+    if (diff === 1) {
+      return {
+        stroke: '#60a5fa',
+        strokeWidth: (baseWidth + 1.6).toFixed(1),
+        opacity: '0.96',
+        filter: 'drop-shadow(0 0 8px rgba(56, 189, 248, 0.9))',
+        extraOuter: 2.8,
+      };
+    }
+    if (diff === 2) {
+      return {
+        stroke: '#93c5fd',
+        strokeWidth: (baseWidth + 0.9).toFixed(1),
+        opacity: '0.88',
+        filter: 'drop-shadow(0 0 6px rgba(37, 99, 235, 0.78))',
+        extraOuter: 1.4,
+      };
+    }
+    if (diff === 3 || diff === 4) {
+      return {
+        stroke: '#3b82f6',
+        strokeWidth: (baseWidth + 0.4).toFixed(1),
+        opacity: '0.78',
+        filter: 'none',
+        extraOuter: 0.6,
+      };
+    }
+    return {
+      stroke: isCardinal ? '#93c5fd' : isFiveMin ? '#60a5fa' : '#bae6fd',
+      strokeWidth: String(baseWidth),
+      opacity: String(Math.min(1, baseOpacity + 0.15)),
+      filter: 'none',
+      extraOuter: 0,
+      baseLength,
+    };
+  }
+
   if (diff === 0) {
     return {
       stroke: '#FF7A00',
@@ -561,7 +620,7 @@ export function getTickSpatialProps(i, currentSecond) {
   };
 }
 
-export function renderBiblicalClockDialSvg(currentSecond = 0) {
+export function renderBiblicalClockDialSvg(currentSecond = 0, isBluePreAlert = false) {
   const TICK_COUNT = 60;
   const CENTER = 250;
   const RADIUS = 226;
@@ -571,7 +630,7 @@ export function renderBiblicalClockDialSvg(currentSecond = 0) {
     const isFiveMin = i % 5 === 0;
     const isCardinal = i % 15 === 0;
     const length = isCardinal ? 24 : isFiveMin ? 17 : 9;
-    const sp = getTickSpatialProps(i, currentSecond);
+    const sp = getTickSpatialProps(i, currentSecond, isBluePreAlert);
 
     const angle = (i * 6) * (Math.PI / 180);
     const x1 = (CENTER + (RADIUS - length) * Math.cos(angle)).toFixed(1);
@@ -605,9 +664,14 @@ export function renderBiblicalClockDialSvg(currentSecond = 0) {
           <stop offset="55%" stop-color="#E2CC9A" stop-opacity="0.7" />
           <stop offset="100%" stop-color="#C4A35A" stop-opacity="0.1" />
         </linearGradient>
+        <linearGradient id="mcRimGradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00d2ff" stop-opacity="1" />
+          <stop offset="55%" stop-color="#38bdf8" stop-opacity="0.88" />
+          <stop offset="100%" stop-color="#2563eb" stop-opacity="0.22" />
+        </linearGradient>
       </defs>
       <!-- Przestrzenne obrzeże tarczy (3D Bezel Base + Dynamiczna Głębia Sekundowa) -->
-      <circle class="mc-dial-rim-track" cx="250" cy="250" r="${RIM_R}" fill="none" stroke="rgba(196, 163, 90, 0.22)" stroke-width="2.5" />
+      <circle id="mcClockRimTrack" class="mc-dial-rim-track" cx="250" cy="250" r="${RIM_R}" fill="none" stroke="${isBluePreAlert ? 'rgba(56, 189, 248, 0.48)' : 'rgba(196, 163, 90, 0.22)'}" stroke-width="2.5" />
       <circle class="mc-dial-rim-inner-bevel" cx="250" cy="250" r="233" fill="none" stroke="rgba(255, 255, 255, 0.07)" stroke-width="1" />
       <g id="mcClockRimSpotlight" transform="rotate(${secDeg - 90} 250 250)">
         <circle
@@ -617,7 +681,7 @@ export function renderBiblicalClockDialSvg(currentSecond = 0) {
           cy="250"
           r="${RIM_R}"
           fill="none"
-          stroke="url(#mcRimGrad)"
+          stroke="${isBluePreAlert ? 'url(#mcRimGradBlue)' : 'url(#mcRimGrad)'}"
           stroke-width="4.5"
           stroke-linecap="round"
           stroke-dasharray="${arcLen} ${gapLen}"
@@ -631,7 +695,7 @@ export function renderBiblicalClockDialSvg(currentSecond = 0) {
           cy="250"
           r="4.2"
           fill="#FFFFFF"
-          stroke="#FF7A00"
+          stroke="${isBluePreAlert ? '#38bdf8' : '#FF7A00'}"
           stroke-width="2.5"
           filter="url(#mcSpatialRimGlow)"
         />
@@ -641,13 +705,14 @@ export function renderBiblicalClockDialSvg(currentSecond = 0) {
   `;
 }
 
-export function updateClockSpatialRimDom(currentSecond = 0) {
+export function updateClockSpatialRimDom(currentSecond = 0, now = new Date()) {
   if (typeof document === 'undefined') return;
   const sec = ((currentSecond % 60) + 60) % 60;
   const secDeg = sec * 6;
   const angleRad = ((secDeg - 90) * Math.PI) / 180;
   const rimX = (Math.cos(angleRad) * 14).toFixed(1);
   const rimY = (Math.sin(angleRad) * 14).toFixed(1);
+  const isBluePreAlert = isPreQuarterAlertWindow(now);
 
   const dialEl = document.getElementById('mcBiblicalClockHero');
   if (dialEl) {
@@ -657,6 +722,40 @@ export function updateClockSpatialRimDom(currentSecond = 0) {
     if (!dialEl.classList.contains('is-sec-pulse')) {
       dialEl.classList.add('is-sec-pulse');
     }
+    dialEl.classList.toggle('is-pre-quarter-blue', isBluePreAlert);
+  }
+
+  const fullscreenEl = document.getElementById('mcClockFullscreenModule');
+  if (fullscreenEl) {
+    fullscreenEl.classList.toggle('is-pre-quarter-blue', isBluePreAlert);
+  }
+  if (document.body) {
+    document.body.classList.toggle('is-pre-quarter-blue', isBluePreAlert);
+  }
+
+  let edgeFrame = document.getElementById('mcQuarterEdgeFrame');
+  if (!edgeFrame && document.body) {
+    edgeFrame = document.createElement('div');
+    edgeFrame.id = 'mcQuarterEdgeFrame';
+    edgeFrame.className = 'mc-quarter-edge-frame';
+    edgeFrame.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(edgeFrame);
+  }
+  if (edgeFrame) {
+    edgeFrame.classList.toggle('is-active', isBluePreAlert);
+  }
+
+  const rimArc = document.getElementById('mcClockRimArc');
+  if (rimArc) {
+    rimArc.setAttribute('stroke', isBluePreAlert ? 'url(#mcRimGradBlue)' : 'url(#mcRimGrad)');
+  }
+  const rimHead = document.getElementById('mcClockRimHeadDot');
+  if (rimHead) {
+    rimHead.setAttribute('stroke', isBluePreAlert ? '#38bdf8' : '#FF7A00');
+  }
+  const rimTrack = document.getElementById('mcClockRimTrack');
+  if (rimTrack) {
+    rimTrack.setAttribute('stroke', isBluePreAlert ? 'rgba(56, 189, 248, 0.48)' : 'rgba(196, 163, 90, 0.22)');
   }
 
   const spotlight = document.getElementById('mcClockRimSpotlight');
@@ -666,14 +765,16 @@ export function updateClockSpatialRimDom(currentSecond = 0) {
 
   const CENTER = 250;
   const RADIUS = 226;
-  for (let offset = 0; offset <= 6; offset++) {
+  const prevBlue = Boolean(window._mcLastClockRimBlueState);
+  const fullSweep = prevBlue !== isBluePreAlert;
+  window._mcLastClockRimBlueState = isBluePreAlert;
+
+  const maxOffset = fullSweep ? 59 : 6;
+  for (let offset = 0; offset <= maxOffset; offset++) {
     const idx = (sec - offset + 60) % 60;
     const tickEl = document.getElementById('mcTick_' + idx);
     if (!tickEl) continue;
-    const isFiveMin = idx % 5 === 0;
-    const isCardinal = idx % 15 === 0;
-    const length = isCardinal ? 24 : isFiveMin ? 17 : 9;
-    const sp = getTickSpatialProps(idx, sec);
+    const sp = getTickSpatialProps(idx, sec, isBluePreAlert);
     const angle = (idx * 6) * (Math.PI / 180);
     const x2 = (CENTER + (RADIUS + (sp.extraOuter || 0)) * Math.cos(angle)).toFixed(1);
     const y2 = (CENTER + (RADIUS + (sp.extraOuter || 0)) * Math.sin(angle)).toFixed(1);
@@ -2498,9 +2599,33 @@ export function updateAudioUnlockBannerDom() {
   }
 }
 
+const SILENT_WAV_DATA_URL =
+  'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+
+export function getPersistentVoiceAudioElement() {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return null;
+  let el = document.getElementById('mcPersistentVoiceAudio');
+  if (!el && document.body) {
+    el = document.createElement('audio');
+    el.id = 'mcPersistentVoiceAudio';
+    el.preload = 'auto';
+    el.style.display = 'none';
+    document.body.appendChild(el);
+  }
+  return el || (typeof window.Audio === 'function' ? new window.Audio() : null);
+}
+
 export function initVoiceWakeAndAudioUnlock() {
   if (typeof window === 'undefined' || window._mcVoiceWakeInitialized) return;
   window._mcVoiceWakeInitialized = true;
+
+  // Domyślnie raporty głosowe co kwadrans są zawsze aktywne
+  state.voiceAlertsEnabled = true;
+  try {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('cc_mc_voice_alerts', 'true');
+    }
+  } catch {}
 
   ensureScreenWakeLock();
 
@@ -2527,7 +2652,36 @@ export function initVoiceWakeAndAudioUnlock() {
             osc.start(0);
             window._mcAudioKeepAliveNode = osc;
           }
+          if (!window._mcAudioKeepAlivePulseInterval) {
+            window._mcAudioKeepAlivePulseInterval = setInterval(() => {
+              const c = getUnlockedAudioContext();
+              if (c && c.state === 'running') {
+                try {
+                  const b = c.createBuffer(1, 240, 24000);
+                  const s = c.createBufferSource();
+                  s.buffer = b;
+                  s.connect(c.destination);
+                  s.start();
+                } catch {}
+              }
+            }, 20000);
+          }
         } catch {}
+      }
+      // Odblokuj również stały element <audio> w DOM dla 100% zgodności z timerem co kwadrans
+      if (!window._mcPersistentAudioUnlocked) {
+        const audioEl = getPersistentVoiceAudioElement();
+        if (audioEl) {
+          window._mcPersistentAudioUnlocked = true;
+          audioEl.volume = 0.01;
+          audioEl.src = SILENT_WAV_DATA_URL;
+          audioEl.play().then(() => {
+            audioEl.pause();
+            audioEl.volume = 1.0;
+          }).catch(() => {
+            window._mcPersistentAudioUnlocked = false;
+          });
+        }
       }
       if ('speechSynthesis' in window && typeof window.speechSynthesis.getVoices === 'function') {
         window.speechSynthesis.getVoices();
@@ -2537,7 +2691,7 @@ export function initVoiceWakeAndAudioUnlock() {
       if (window._mcPendingVoiceAudio && window._mcPendingVoiceAudio.audioBase64) {
         const pending = window._mcPendingVoiceAudio;
         window._mcPendingVoiceAudio = null;
-        playGeminiPcmBase64(pending.audioBase64, pending.sampleRate || 24000);
+        playGeminiPcmBase64(pending, pending.sampleRate || 24000);
       }
     };
 
@@ -2746,50 +2900,60 @@ export function playGeminiPcmBase64(audioInput, sampleRate = 24000, onEnded = nu
     }
 
     const ctx = getUnlockedAudioContext();
+    const playFallbackHtmlAudio = (dataUrl) => {
+      const audioEl = getPersistentVoiceAudioElement();
+      if (!audioEl) {
+        if (typeof onEnded === 'function') onEnded();
+        else hideVoiceAssistantAvatar();
+        return false;
+      }
+      audioEl.volume = 1.0;
+      audioEl.src = dataUrl;
+      audioEl.onended = () => {
+        if (typeof onEnded === 'function') onEnded();
+        else hideVoiceAssistantAvatar();
+      };
+      audioEl.play().catch(() => {
+        window._mcPendingVoiceAudio = { audioBase64, sampleRate, mimeType: isMp3 ? 'audio/mpeg' : 'audio/pcm', text: state.lastSpokenAlertText };
+        speakBrowserNaturalVoice(state.lastSpokenAlertText, onEnded);
+      });
+      return true;
+    };
 
     if (isMp3) {
+      const mp3DataUrl = `data:audio/mpeg;base64,${audioBase64}`;
       const bytes = new Uint8Array(raw.length);
       for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
-      if (ctx && ctx.state === 'running' && typeof ctx.decodeAudioData === 'function') {
-        ctx
-          .decodeAudioData(bytes.buffer.slice(0))
-          .then((decodedBuf) => {
-            const src = ctx.createBufferSource();
-            src.buffer = decodedBuf;
-            src.connect(ctx.destination);
-            src.onended = () => {
-              if (typeof onEnded === 'function') onEnded();
-              else hideVoiceAssistantAvatar();
-            };
-            src.start();
+      if (ctx && typeof ctx.decodeAudioData === 'function') {
+        const resumePromise = ctx.state !== 'running' && typeof ctx.resume === 'function' ? ctx.resume().catch(() => {}) : Promise.resolve();
+        resumePromise
+          .then(() => {
+            if (ctx.state !== 'running') {
+              playFallbackHtmlAudio(mp3DataUrl);
+              return;
+            }
+            return ctx
+              .decodeAudioData(bytes.buffer.slice(0))
+              .then((decodedBuf) => {
+                const src = ctx.createBufferSource();
+                src.buffer = decodedBuf;
+                src.connect(ctx.destination);
+                src.onended = () => {
+                  if (typeof onEnded === 'function') onEnded();
+                  else hideVoiceAssistantAvatar();
+                };
+                src.start();
+              })
+              .catch(() => {
+                playFallbackHtmlAudio(mp3DataUrl);
+              });
           })
           .catch(() => {
-            if (typeof window.Audio === 'function') {
-              const audioEl = new window.Audio(`data:audio/mpeg;base64,${audioBase64}`);
-              audioEl.onended = () => {
-                if (typeof onEnded === 'function') onEnded();
-                else hideVoiceAssistantAvatar();
-              };
-              audioEl.play().catch(() => {
-                if (typeof onEnded === 'function') onEnded();
-                else hideVoiceAssistantAvatar();
-              });
-            }
+            playFallbackHtmlAudio(mp3DataUrl);
           });
         return true;
       }
-      if (typeof window.Audio === 'function') {
-        const audioEl = new window.Audio(`data:audio/mpeg;base64,${audioBase64}`);
-        audioEl.onended = () => {
-          if (typeof onEnded === 'function') onEnded();
-          else hideVoiceAssistantAvatar();
-        };
-        audioEl.play().catch(() => {
-          window._mcPendingVoiceAudio = { audioBase64, sampleRate, mimeType: 'audio/mpeg', text: state.lastSpokenAlertText };
-        });
-        return true;
-      }
-      return false;
+      return playFallbackHtmlAudio(mp3DataUrl);
     }
 
     const pcm16 = new Int16Array(Math.floor(raw.length / 2));
@@ -2800,42 +2964,39 @@ export function playGeminiPcmBase64(audioInput, sampleRate = 24000, onEnded = nu
       pcm16[i] = val >= 0x8000 ? val - 0x10000 : val;
     }
 
-    if (ctx && ctx.state === 'running') {
-      const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
-      const ch = buf.getChannelData(0);
-      for (let i = 0; i < pcm16.length; i++) {
-        ch[i] = pcm16[i] / 32768;
-      }
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-      src.connect(ctx.destination);
-      src.onended = () => {
-        if (typeof onEnded === 'function') {
-          onEnded();
-        } else {
-          hideVoiceAssistantAvatar();
-        }
-      };
-      src.start();
+    if (ctx) {
+      const resumePromise = ctx.state !== 'running' && typeof ctx.resume === 'function' ? ctx.resume().catch(() => {}) : Promise.resolve();
+      resumePromise
+        .then(() => {
+          if (ctx.state === 'running') {
+            const buf = ctx.createBuffer(1, pcm16.length, sampleRate);
+            const ch = buf.getChannelData(0);
+            for (let i = 0; i < pcm16.length; i++) {
+              ch[i] = pcm16[i] / 32768;
+            }
+            const src = ctx.createBufferSource();
+            src.buffer = buf;
+            src.connect(ctx.destination);
+            src.onended = () => {
+              if (typeof onEnded === 'function') onEnded();
+              else hideVoiceAssistantAvatar();
+            };
+            src.start();
+            return;
+          }
+          const wavUrl = pcm16Base64ToWavDataUrl(audioBase64, sampleRate);
+          if (wavUrl) playFallbackHtmlAudio(wavUrl);
+        })
+        .catch(() => {
+          const wavUrl = pcm16Base64ToWavDataUrl(audioBase64, sampleRate);
+          if (wavUrl) playFallbackHtmlAudio(wavUrl);
+        });
       return true;
     }
 
     const wavUrl = pcm16Base64ToWavDataUrl(audioBase64, sampleRate);
-    if (wavUrl && typeof window.Audio === 'function') {
-      const audioEl = new window.Audio(wavUrl);
-      audioEl.volume = 1.0;
-      audioEl.onended = () => {
-        if (typeof onEnded === 'function') {
-          onEnded();
-        } else {
-          hideVoiceAssistantAvatar();
-        }
-      };
-      audioEl.play().catch(() => {
-        window._mcPendingVoiceAudio = { audioBase64, sampleRate, text: state.lastSpokenAlertText };
-        speakBrowserNaturalVoice(state.lastSpokenAlertText, onEnded);
-      });
-      return true;
+    if (wavUrl) {
+      return playFallbackHtmlAudio(wavUrl);
     }
     return false;
   } catch {
@@ -3424,6 +3585,7 @@ export async function refreshAllTelemetryData(now = new Date()) {
 
 export function renderClockModule() {
   const now = new Date();
+  const isBluePreAlert = isPreQuarterAlertWindow(now);
   const [lat, lng] = (state.clockCity || '52.2297,21.0122').split(',').map(Number);
   const bState = getBiblicalTimeState(now, lat, lng);
   const warsawTimeNowStr = formatWarsawTimeWithSeconds(now);
@@ -3436,7 +3598,8 @@ export function renderClockModule() {
   }).format(now);
 
   return `
-    <div class="mc-fullscreen-module mc-clock-fullscreen ${state.clockIdleHidden ? 'is-screensaver-idle' : ''}" id="mcClockFullscreenModule" role="region" aria-label="Minimalistyczny Zegar Biblijny">
+    <div id="mcQuarterEdgeFrame" class="mc-quarter-edge-frame ${isBluePreAlert ? 'is-active' : ''}" aria-hidden="true"></div>
+    <div class="mc-fullscreen-module mc-clock-fullscreen ${state.clockIdleHidden ? 'is-screensaver-idle' : ''} ${isBluePreAlert ? 'is-pre-quarter-blue' : ''}" id="mcClockFullscreenModule" role="region" aria-label="Minimalistyczny Zegar Biblijny">
       <header class="mc-clock-module-topbar">
         <div class="mc-clock-topbar-edge-space" aria-hidden="true"></div>
         <div class="mc-clock-topbar-right">
@@ -3459,8 +3622,8 @@ export function renderClockModule() {
               <span class="mc-clock-permanent-title">CHRISTIAN CULTURE LIVE</span>
             </div>
 
-            <div class="mc-dial-wrapper mc-clickable-clock" id="mcBiblicalClockHero" role="button" tabindex="0" title="Zegar Biblijny Szabatu" aria-label="Tarcza Zegara Biblijnego" style="--mc-sec-angle:${now.getSeconds() * 6}deg;--mc-rim-x:${(Math.cos(((now.getSeconds() * 6 - 90) * Math.PI) / 180) * 14).toFixed(1)}px;--mc-rim-y:${(Math.sin(((now.getSeconds() * 6 - 90) * Math.PI) / 180) * 14).toFixed(1)}px;">
-              ${renderBiblicalClockDialSvg(now.getSeconds())}
+            <div class="mc-dial-wrapper mc-clickable-clock ${isBluePreAlert ? 'is-pre-quarter-blue' : ''}" id="mcBiblicalClockHero" role="button" tabindex="0" title="Zegar Biblijny Szabatu" aria-label="Tarcza Zegara Biblijnego" style="--mc-sec-angle:${now.getSeconds() * 6}deg;--mc-rim-x:${(Math.cos(((now.getSeconds() * 6 - 90) * Math.PI) / 180) * 14).toFixed(1)}px;--mc-rim-y:${(Math.sin(((now.getSeconds() * 6 - 90) * Math.PI) / 180) * 14).toFixed(1)}px;">
+              ${renderBiblicalClockDialSvg(now.getSeconds(), isBluePreAlert)}
               <div class="mc-dial-center">
                 <div id="digital-time" class="tabular-clock mc-clock-digits">${formatWarsawTimeHtmlWithGlowSeconds(now)}</div>
                 <div class="mc-dial-separator">
@@ -5404,7 +5567,7 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
             digTime.innerHTML = formatWarsawTimeHtmlWithGlowSeconds(now);
           }
         }
-        updateClockSpatialRimDom(sec);
+        updateClockSpatialRimDom(sec, now);
         lastTickSecond = sec;
 
         // Aktualizacja licznika Szabatu
@@ -5419,33 +5582,36 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
         updateLiveScreensaverDom(now);
         updateClockDesktopWingsDom(now);
 
-        // 1 min 45 s przed każdym kwadransem (:13:15, :28:15, :43:15, :58:15) odśwież Kalendarz Google i zbuforuj głos Aoede TTS (poza 60-sekundowym oknem RPM przed wybiciem kwadransa)
-        if (now.getMinutes() % 15 === 13 && sec === 15) {
+        // Buforowanie głosu Aoede TTS na 1m45s oraz w chwili startu 15-sekundowej niebieskiej poświaty (:14:45, :29:45, :44:45, :59:45)
+        if ((now.getMinutes() % 15 === 13 && sec === 15) || (now.getMinutes() % 15 === 14 && sec === 45)) {
           prefetchQuarterHourVoiceBriefing(getNextQuarterHourDate(now)).catch(() => {});
         }
 
+        // Gwarantowane wywołanie raportu o pełnym kwadransie (:00, :15, :30, :45) przez pierwsze 15 sekund minuty (idempotentne dzięki spokenAlertKeys)
+        if (now.getMinutes() % 15 === 0 && sec <= 15) {
+          checkUpcomingVoiceAlerts(now);
+        }
+
         // Inteligentny Silnik Real-Time, Odświeżanie Telemetrii co kwadrans (15m) & Alerty Głosowe Kalendarza (60m / 15m / Start)
-        if (state.gcalReportLoaded) {
-          const curMin = now.getHours() * 60 + now.getMinutes();
-          if (curMin !== lastMinuteChecked) {
-            const prevMin = lastMinuteChecked;
-            lastMinuteChecked = curMin;
-            if (now.getMinutes() % 15 === 0) {
-              checkUpcomingVoiceAlerts(now);
-              loadLiveGcalReport().catch(() => {});
-            } else {
-              loadLiveGcalReport()
-                .catch(() => {})
-                .finally(() => {
-                  checkUpcomingVoiceAlerts(now);
-                });
-            }
-            if (prevMin !== -1 && now.getMinutes() % 15 === 0) {
-              refreshAllTelemetryData(now);
-            }
-            if (state.realtimeEngine && (state.module === 'teraz' || state.module === 'calendar')) {
-              render();
-            }
+        const curMin = now.getHours() * 60 + now.getMinutes();
+        if (curMin !== lastMinuteChecked) {
+          const prevMin = lastMinuteChecked;
+          lastMinuteChecked = curMin;
+          if (now.getMinutes() % 15 === 0) {
+            checkUpcomingVoiceAlerts(now);
+            loadLiveGcalReport().catch(() => {});
+          } else {
+            loadLiveGcalReport()
+              .catch(() => {})
+              .finally(() => {
+                checkUpcomingVoiceAlerts(now);
+              });
+          }
+          if (prevMin !== -1 && now.getMinutes() % 15 === 0) {
+            refreshAllTelemetryData(now);
+          }
+          if (state.realtimeEngine && (state.module === 'teraz' || state.module === 'calendar')) {
+            render();
           }
         }
       }
