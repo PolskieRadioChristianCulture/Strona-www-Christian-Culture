@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "prawda-bez-filtra",
+      "title": "Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo",
+      "url": "https://polskieradio.cc/prawda-bez-filtra",
+      "type": "book",
+      "image": "art-prawda-bez-filtra.jpg",
+      "publishedAt": "2026-11-07T13:33:04.456Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "CezaryRogowski",
       "title": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
       "url": "https://polskieradio.cc/CezaryRogowski",
