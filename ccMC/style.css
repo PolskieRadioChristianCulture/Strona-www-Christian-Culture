@@ -57,15 +57,36 @@
 
 * {
   box-sizing: border-box;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
 }
 
-body {
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+html,
+body,
+.mc-body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: var(--mc-bg);
   color: var(--mc-text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.mc-body::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 button, input, select, textarea {
@@ -1988,6 +2009,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   box-sizing: border-box;
   position: relative;
   overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
   background-color: #020306;
   background-image:
     linear-gradient(180deg, rgba(2, 3, 7, 0.34) 0%, rgba(2, 3, 7, 0.26) 48%, rgba(1, 2, 5, 0.44) 100%),
