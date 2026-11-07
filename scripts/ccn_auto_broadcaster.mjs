@@ -847,6 +847,8 @@ function formatBroadcasterTweet(item) {
       bodyText = bodyText
         .replace(/christian culture/gi, 'Christian Culture')
         .replace(/halloween/gi, 'Halloween')
+        .replace(/wycliffe global alliance/gi, 'Wycliffe Global Alliance')
+        .replace(/global scripture access/gi, 'Global Scripture Access')
         .replace(/„nie”/gi, '„NIE”')
         .replace(/\?\s+([a-ząćęłńóśźż])/g, (m, c) => '? ' + c.toUpperCase());
     }
