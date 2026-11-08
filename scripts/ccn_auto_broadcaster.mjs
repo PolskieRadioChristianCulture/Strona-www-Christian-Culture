@@ -796,6 +796,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🖤 KRAKÓW W ŻAŁOBIE | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj chrześcijański komentarz:\n';
       addTags('#Krakow', '#CCNNews', '#CezaryRogowski', '#Modlitwa', '#Prawda');
+    } else if (tLower.includes('kryzys') || tLower.includes('kościele wolno')) {
+      subHeader = '💡 eM • WIARA & AUTENTYCZNOŚĆ | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#KryzysWiary', '#CezaryRogowski', '#CCNNews', '#Prawda');
     } else {
       subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
       callToAction = '👉 Czytaj w serwisie:\n';
