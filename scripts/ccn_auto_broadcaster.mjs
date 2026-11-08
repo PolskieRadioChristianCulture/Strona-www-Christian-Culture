@@ -942,6 +942,11 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
     await page.goto('https://x.com/home', { waitUntil: 'domcontentloaded', timeout: 30000 });
     await page.waitForTimeout(3000);
 
+    const currentUrl = page.url();
+    if (currentUrl.includes('/login') || currentUrl.includes('/i/flow/login')) {
+      throw new Error('[CCN Broadcaster BŁĄD AUTORYZACJI] Sesja X wygasła. Wymagane odświeżenie X_AUTH_TOKEN w .env.local.');
+    }
+
     let textarea = page.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]').first();
     const isReady = await textarea.isVisible({ timeout: 5000 }).catch(() => false);
     if (!isReady) {
@@ -984,15 +989,29 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
     // 3. Wysłanie posta (przycisk TweetButton / tweetButtonInline z force: true lub Control+Enter)
     console.log('🔘 [CCN Broadcaster] Wysyłam post...');
     const postBtn = page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').first();
-    if (await postBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+    const btnVisible = await postBtn.isVisible({ timeout: 5000 }).catch(() => false);
+    if (btnVisible) {
       await postBtn.click({ force: true });
     } else {
       await textarea.focus();
       await page.keyboard.press('Control+Enter');
     }
 
-    await page.waitForTimeout(5000);
-    console.log('🎉 [CCN Broadcaster] Post został opublikowany na platformie X!');
+    // Weryfikacja: toast potwierdzający lub zniknięcie przycisku publikacji
+    const confirmed = await Promise.race([
+      page.waitForSelector('div[data-testid="toast"]', { timeout: 8000 }).then(() => true).catch(() => false),
+      postBtn.waitFor({ state: 'hidden', timeout: 8000 }).then(() => true).catch(() => false)
+    ]);
+
+    if (!confirmed && btnVisible) {
+      const stillActive = await postBtn.isVisible().catch(() => false);
+      if (stillActive) {
+        throw new Error('[CCN Broadcaster BŁĄD PUBLIKACJI] Przycisk publikacji nadal widoczny. Post NIE został wyemitowany.');
+      }
+    }
+
+    await page.waitForTimeout(3000);
+    console.log('🎉 [CCN Broadcaster] Post został zweryfikowany i opublikowany na platformie X!');
 
     await page.close();
     await context.close();
