@@ -15,24 +15,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   
   <!-- SEO & METADATA PREMIUM -->
-  <title>Bramka Subskrypcji SMS | Christian Culture & Akademia Biblijna</title>
+  <title>Bramka Subskrypcji SMS | Akademia Biblijna Christian Culture</title>
   <meta name="description" content="Oficjalna, bezpieczna bramka subskrypcji SMS Akademii Biblijnej Christian Culture. Codzienne lekcje Pisma Świętego i rozważania na Twój telefon w Polsce. 100% bezpłatnie." />
-  <meta name="keywords" content="bramka sms, akademia biblijna, subskrypcja sms, christian culture, słowo na dziś, biblia audio, radio christian culture" />
+  <meta name="keywords" content="bramka sms, akademia biblijna, subskrypcja sms, christian culture, słowo na dziś, biblia audio, radio christian culture, z biblią za pan brat" />
   <meta name="author" content="Cezary i Wioletta Rogowscy" />
   <link rel="canonical" href="https://polskieradio.cc/BramkaSMS" />
 
   <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://polskieradio.cc/BramkaSMS" />
-  <meta property="og:title" content="Bramka Subskrypcji SMS | Christian Culture" />
+  <meta property="og:title" content="Bramka Subskrypcji SMS | Akademia Biblijna Christian Culture" />
   <meta property="og:description" content="Dołącz do bezpłatnej subskrypcji SMS Akademii Biblijnej. Żadnych opłat, pełne bezpieczeństwo, tylko numery krajowe RP." />
-  <meta property="og:image" content="https://polskieradio.cc/images/milion-og.jpg" />
+  <meta property="og:image" content="https://polskieradio.cc/images/academy/akademia_biblijna_logo_gold.jpg" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Bramka Subskrypcji SMS | Christian Culture" />
+  <meta name="twitter:title" content="Bramka Subskrypcji SMS | Akademia Biblijna Christian Culture" />
   <meta name="twitter:description" content="Codzienne lekcje Pisma Świętego SMS-em bez spamu i kosztów. Oficjalna usługa Christian Culture." />
-  <meta name="twitter:image" content="https://polskieradio.cc/images/milion-og.jpg" />
+  <meta name="twitter:image" content="https://polskieradio.cc/images/academy/akademia_biblijna_logo_gold.jpg" />
+
+  <!-- Favicon / Ikona Paska -->
+  <link rel="icon" type="image/webp" href="/images/academy/akademia_biblijna_logo_gold.webp" />
+  <link rel="apple-touch-icon" href="/images/academy/akademia_biblijna_logo_gold.jpg" />
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,10 +56,14 @@
         extend: {
           colors: {
             brand: {
-              gold: '#C4A35A',
-              goldHover: '#D4B578',
-              goldLight: '#E2CC9A',
-              goldDark: '#A08040',
+              gold: '#D4AF37',
+              goldLight: '#F7E7A9',
+              goldHover: '#E5C158',
+              goldDark: '#8C6B1F',
+              navyDeep: '#050B16',
+              navyRich: '#081426',
+              navyCard: '#0C1B33',
+              navyInput: '#060E1A',
               orange: '#FF7A00',
               orangeHover: '#FF8C33',
               orangeActive: '#E66A00'
@@ -72,30 +80,55 @@
   </script>
 
   <style>
+    :root {
+      --cc-gold-primary: #D4AF37;
+      --cc-gold-bright: #F7E7A9;
+      --cc-gold-deep: #8C6B1F;
+      --cc-navy-bg: #050B16;
+      --cc-navy-surface: #081426;
+      --cc-navy-card: #0C1B33;
+    }
     body {
-      background-color: #07090E;
+      background: radial-gradient(circle at 50% 0%, #102544 0%, #081426 40%, #050B16 100%);
+      background-attachment: fixed;
       color: #E2E8F0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
     .gold-gradient-text {
-      background: linear-gradient(135deg, #F5D77F 0%, #C4A35A 50%, #9E7D3B 100%);
+      background: linear-gradient(135deg, #FFF2B2 0%, #F3D063 25%, #D4AF37 60%, #9E7A24 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .gold-border {
-      border: 1px solid rgba(196, 163, 90, 0.28);
+    .gold-ring-emblem {
+      border: 2px solid rgba(212, 175, 55, 0.65);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 15px rgba(212, 175, 55, 0.2);
     }
-    .gold-border:focus-within {
-      border-color: #C4A35A;
-      box-shadow: 0 0 0 2px rgba(196, 163, 90, 0.2);
+    .academy-card {
+      background: radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, rgba(12, 27, 51, 0.98) 50%, #081426 100%);
+      border: 1px solid rgba(212, 175, 55, 0.38);
+      box-shadow: 0 20px 50px -10px rgba(3, 8, 18, 0.9), 0 0 35px rgba(212, 175, 55, 0.12);
+    }
+    .academy-card:hover {
+      border-color: rgba(212, 175, 55, 0.55);
+    }
+    .academy-input {
+      background-color: #060E1A;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      color: #FFFFFF;
+      transition: all 0.2s ease;
+    }
+    .academy-input:focus {
+      border-color: #D4AF37;
+      box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.25);
+      outline: none;
     }
     /* Fixed Radio Player Bar styling */
     .radio-sticky-bar {
-      background: rgba(14, 18, 26, 0.95);
+      background: rgba(8, 20, 38, 0.96);
       backdrop-filter: blur(16px);
-      border-top: 1px solid rgba(196, 163, 90, 0.25);
+      border-top: 1px solid rgba(212, 175, 55, 0.35);
     }
   </style>
 
@@ -104,34 +137,41 @@
 </head>
 <body class="selection:bg-amber-500/30 selection:text-amber-200 pb-28">
 
-  <!-- TOP HEADER (STANDARD CC PREMIUM) -->
-  <header class="border-b border-white/10 bg-[#0A0E17]/90 backdrop-blur-md sticky top-0 z-50">
+  <!-- TOP HEADER (STANDARD CC PREMIUM W BARWACH AKADEMII BIBLIJNEJ) -->
+  <header class="border-b border-[#D4AF37]/25 bg-[#081426]/90 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
       
-      <!-- LEWA STRONA: LOGO + NAZWA -->
+      <!-- LEWA STRONA: LOGO AKADEMII + NAZWA -->
       <div class="flex items-center gap-3">
-        <a href="/akademia" class="flex items-center gap-3 min-h-[44px]" title="Akademia Biblijna Christian Culture">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400/20 to-amber-600/30 border border-amber-500/40 flex items-center justify-center text-brand-gold font-serif font-bold text-base shadow-sm">
-            CC
+        <a href="/akademia" class="flex items-center gap-3 min-h-[44px] group" title="Akademia Biblijna Christian Culture">
+          <div class="relative w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 via-yellow-300 to-amber-600 shadow-lg shadow-amber-500/20 shrink-0 transition transform group-hover:scale-105">
+            <img
+              src="/images/academy/akademia_biblijna_logo_gold.webp"
+              alt="Akademia Biblijna"
+              class="w-full h-full object-cover rounded-full"
+            />
           </div>
           <div class="flex flex-col">
-            <span class="text-xs font-bold uppercase tracking-widest text-brand-gold leading-tight">Akademia Biblijna</span>
+            <span class="text-[11px] font-bold uppercase tracking-widest text-[#D4AF37] leading-tight flex items-center gap-1.5">
+              <span>Akademia Biblijna</span>
+              <i class="fa-solid fa-crown text-[9px] text-amber-400"></i>
+            </span>
             <span class="text-sm font-extrabold text-white tracking-wide">Bramka Subskrypcji SMS</span>
           </div>
         </a>
 
-        <span class="text-zinc-700 hidden lg:inline">/</span>
+        <span class="text-slate-600 hidden lg:inline">/</span>
 
         <!-- WYSZUKIWARKA UNIWERSALNA (@w) PRZYCISK TRIGGER -->
         <button
           type="button"
           data-cc-search-trigger
-          class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-zinc-400 hover:text-white transition min-h-[44px]"
+          class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-[#D4AF37]/20 text-xs text-slate-300 hover:text-white transition min-h-[44px]"
           title="Szukaj w ekosystemie CC (Ctrl+K)"
         >
-          <i class="fa-solid fa-magnifying-glass text-brand-gold text-xs"></i>
+          <i class="fa-solid fa-magnifying-glass text-[#D4AF37] text-xs"></i>
           <span>Szukaj w CC...</span>
-          <kbd class="text-[10px] font-mono bg-black/40 px-1.5 py-0.5 rounded text-zinc-400 border border-white/10">Ctrl+K</kbd>
+          <kbd class="text-[10px] font-mono bg-black/40 px-1.5 py-0.5 rounded text-amber-300/80 border border-[#D4AF37]/30">Ctrl+K</kbd>
         </button>
       </div>
 
@@ -161,10 +201,10 @@
         <!-- CZAT LUMI MESS -->
         <a
           href="/mess"
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white text-xs font-semibold transition min-h-[44px]"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-xs font-semibold transition min-h-[44px]"
           title="Czat Społeczności LUMI Mess"
         >
-          <i class="fa-solid fa-comments text-amber-400"></i>
+          <i class="fa-solid fa-comments text-[#D4AF37]"></i>
           <span class="hidden md:inline">Lumi Mess</span>
         </a>
 
@@ -176,7 +216,7 @@
           type="button"
           id="ccEdgeTriggerBtn"
           data-cc-edge-open
-          class="flex items-center justify-center w-11 h-11 rounded-full bg-brand-gold/15 hover:bg-brand-gold/25 border border-brand-gold/40 text-brand-gold font-bold text-xl transition transform active:scale-95 min-h-[44px] min-w-[44px]"
+          class="flex items-center justify-center w-11 h-11 rounded-full bg-[#D4AF37]/15 hover:bg-[#D4AF37]/25 border border-[#D4AF37]/40 text-[#D4AF37] font-bold text-xl transition transform active:scale-95 min-h-[44px] min-w-[44px]"
           aria-label="Menu Ekosystemu Christian Culture"
           title="Otwórz menu ekosystemu"
         >
@@ -187,55 +227,82 @@
     </div>
   </header>
 
-  <!-- GŁÓWNA TREŚĆ BRAMKI SMS -->
+  <!-- GŁÓWNA TREŚĆ BRAMKI SMS W STYLU AKADEMII BIBLIJNEJ -->
   <main class="flex-1 flex items-center justify-center py-10 px-4">
     <div class="max-w-2xl w-full">
 
-      <!-- BANER NAGŁÓWKOWY -->
+      <!-- HERO: WYEKSPONOWANE MAJESTATYCZNE LOGO AKADEMII BIBLIJNEJ -->
       <div class="text-center mb-8">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-brand-gold text-xs font-semibold mb-4">
-          <i class="fa-solid fa-shield-halved text-amber-400"></i>
-          <span>Bezpieczna Usługa Krajowa • 100% Bezpłatnie • Tylko RP</span>
+        
+        <!-- EMBLAMAT LOGO Z PROMIENIEM ŚWIATŁA -->
+        <div class="flex justify-center mb-6">
+          <div class="relative group">
+            <!-- Rozmyta złoto-szafirowa poświata w tle -->
+            <div class="absolute -inset-4 bg-gradient-to-r from-amber-500/20 via-yellow-400/30 to-amber-600/20 rounded-full blur-2xl opacity-80 group-hover:opacity-100 transition duration-700"></div>
+            
+            <!-- Zewnętrzny podwójny pierścień nawiązujący do logo -->
+            <div class="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full p-[3px] bg-gradient-to-b from-[#FFF0B3] via-[#D4AF37] to-[#7A5B18] shadow-2xl shadow-black/80">
+              <div class="w-full h-full rounded-full p-[3px] bg-[#071326]">
+                <img
+                  src="/images/academy/akademia_biblijna_logo_gold.webp"
+                  alt="Oficjalne Logo Akademia Biblijna"
+                  class="w-full h-full object-cover rounded-full transition duration-500 transform group-hover:scale-[1.02]"
+                />
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/35 text-[#D4AF37] text-xs font-semibold mb-4 shadow-sm">
+          <i class="fa-solid fa-shield-halved text-amber-400"></i>
+          <span>Oficjalna Usługa Krajowa • 100% Bezpłatnie • Tylko RP</span>
+        </div>
+        
         <h1 class="text-3xl sm:text-5xl font-serif font-extrabold tracking-tight text-white mb-3">
           Codzienne Słowo Boże <br /><span class="gold-gradient-text">bezpośrednio przez SMS</span>
         </h1>
-        <p class="text-sm sm:text-base text-zinc-400 max-w-lg mx-auto leading-relaxed">
+        
+        <p class="text-sm sm:text-base text-slate-300 max-w-lg mx-auto leading-relaxed">
           Dołącz do subskrypcji SMS Akademii Biblijnej. Otrzymuj codzienną myśl przewodnią i link do lekcji Kursu Codziennego „Z Biblią za Pan Brat”. Czysty tekst, brak spamu, ochrona przed roamingiem.
         </p>
       </div>
 
-      <!-- KARTA FORMULARZA SUBKRYPCJI -->
-      <div class="bg-[#0E1424] rounded-3xl gold-border p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-        <div class="absolute -top-24 -right-24 w-56 h-56 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <!-- KARTA FORMULARZA SUBKRYPCJI (DOPASOWANA DO BARW LOGO) -->
+      <div class="academy-card rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        <!-- Znak wodny logo w tle karty -->
+        <img
+          src="/images/academy/akademia_biblijna_logo_gold.webp"
+          alt=""
+          class="absolute -top-14 -right-14 w-56 h-56 opacity-[0.05] pointer-events-none rounded-full blur-[0.5px]"
+        />
 
-        <form id="smsSubscriptionForm" class="space-y-6">
+        <form id="smsSubscriptionForm" class="space-y-6 relative z-10">
           
           <!-- IMIĘ / PSEUDONIM -->
           <div>
-            <label for="subName" class="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
-              Imię lub Twój pseudonim <span class="text-zinc-500 font-normal">(opcjonalnie)</span>
+            <label for="subName" class="block text-xs font-bold uppercase tracking-wider text-amber-200/90 mb-2">
+              Imię lub Twój pseudonim <span class="text-slate-400 font-normal">(opcjonalnie)</span>
             </label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-zinc-500 pointer-events-none">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 pointer-events-none">
                 <i class="fa-solid fa-user"></i>
               </span>
               <input
                 type="text"
                 id="subName"
                 placeholder="np. Jan"
-                class="w-full bg-[#070A12] border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400 transition min-h-[44px]"
+                class="w-full academy-input rounded-xl py-3 pl-10 pr-4 text-sm placeholder-slate-500 min-h-[44px]"
               />
             </div>
           </div>
 
           <!-- NUMER TELEFONU -->
           <div>
-            <label for="subPhone" class="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-2">
-              Polski Numer Telefonu Komórkowego <span class="text-amber-400">*</span>
+            <label for="subPhone" class="block text-xs font-bold uppercase tracking-wider text-amber-200/90 mb-2">
+              Polski Numer Telefonu Komórkowego <span class="text-[#D4AF37]">*</span>
             </label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-amber-400/90 font-mono text-sm font-bold pointer-events-none">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-amber-400 font-mono text-sm font-bold pointer-events-none">
                 +48
               </span>
               <input
@@ -244,25 +311,25 @@
                 required
                 maxlength="11"
                 placeholder="np. 500 600 700"
-                class="w-full bg-[#070A12] border border-white/10 rounded-xl py-3 pl-14 pr-4 text-sm font-mono text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400 transition min-h-[44px]"
+                class="w-full academy-input rounded-xl py-3 pl-14 pr-4 text-sm font-mono placeholder-slate-500 min-h-[44px]"
               />
             </div>
-            <p class="text-[11px] text-zinc-500 mt-1.5 flex items-center gap-1.5">
-              <i class="fa-solid fa-circle-info text-zinc-400"></i>
+            <p class="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-info text-[#D4AF37]"></i>
               Wpisz 9 cyfr polskiego numeru komórkowego (np. 500 600 700).
             </p>
           </div>
 
           <!-- ŻELAZNA DEKLARACJA ROAMINGU / POLSKA (ANTI-COST PROTOCOL) -->
-          <div class="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/25">
+          <div class="p-4 rounded-2xl bg-[#081426]/90 border border-[#D4AF37]/35 shadow-inner">
             <label class="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
                 id="subDeclaration"
                 required
-                class="mt-1 w-4 h-4 rounded border-amber-500/40 text-amber-500 focus:ring-amber-400 bg-black/40 cursor-pointer min-w-[16px]"
+                class="mt-1 w-4 h-4 rounded border-[#D4AF37]/60 text-[#D4AF37] focus:ring-[#D4AF37] bg-black/50 cursor-pointer min-w-[16px]"
               />
-              <span class="text-xs text-zinc-300 leading-relaxed">
+              <span class="text-xs text-slate-200 leading-relaxed">
                 <strong class="text-amber-300 font-semibold block mb-0.5">Deklaracja terytorialna (Żelazna Reguła Kosztowa):</strong>
                 Oświadczam, że mój numer komórkowy jest zarejestrowany w polskiej sieci i korzystam z niego <strong>wyłącznie na terytorium Polski</strong> (brak roamingu międzynarodowego). Wyrażam zgodę na otrzymywanie bezpłatnych powiadomień SMS o lekcjach Akademii Biblijnej.
               </span>
@@ -273,7 +340,7 @@
           <button
             type="submit"
             id="subSubmitBtn"
-            class="w-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white font-extrabold py-3.5 px-6 rounded-2xl transition duration-150 flex items-center justify-center gap-2.5 shadow-xl shadow-orange-500/20 min-h-[48px] text-sm uppercase tracking-wider"
+            class="w-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white font-extrabold py-3.5 px-6 rounded-2xl transition duration-150 flex items-center justify-center gap-2.5 shadow-xl shadow-orange-500/25 min-h-[48px] text-sm uppercase tracking-wider border border-amber-300/30"
           >
             <i class="fa-solid fa-paper-plane text-xs"></i>
             <span>Zapisz się na Subskrypcję SMS</span>
@@ -281,49 +348,49 @@
         </form>
 
         <!-- KOMUNIKAT SUKCESU -->
-        <div id="subSuccessBox" class="hidden text-center py-6 space-y-4">
-          <div class="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-3xl">
+        <div id="subSuccessBox" class="hidden text-center py-6 space-y-4 relative z-10">
+          <div class="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-3xl shadow-lg shadow-emerald-500/20">
             <i class="fa-solid fa-check"></i>
           </div>
           <div>
             <h3 class="text-2xl font-serif font-bold text-white mb-2">Dziękujemy! Jesteś zapisany!</h3>
-            <p class="text-xs sm:text-sm text-zinc-300 max-w-md mx-auto leading-relaxed" id="subSuccessMsg">
+            <p class="text-xs sm:text-sm text-slate-200 max-w-md mx-auto leading-relaxed" id="subSuccessMsg">
               Twój polski numer został pomyślnie dodany do listy subskrypcji SMS Akademii Biblijnej.
             </p>
           </div>
-          <div class="p-3.5 bg-white/5 rounded-xl border border-white/10 text-xs text-zinc-400">
+          <div class="p-3.5 bg-[#060E1A] rounded-xl border border-[#D4AF37]/30 text-xs text-slate-300">
             Numer odbiorczy misji: <strong class="text-amber-300 font-mono">+48 783 478 280</strong><br />
             Wypis w dowolnym momencie przez SMS o treści: <strong class="text-white font-mono">STOP</strong>
           </div>
-          <a href="/akademia/kurscodzienny" class="inline-flex items-center gap-2 text-xs font-bold text-brand-gold hover:text-amber-300 transition pt-2 min-h-[44px]">
+          <a href="/akademia/kurscodzienny" class="inline-flex items-center gap-2 text-xs font-bold text-[#D4AF37] hover:text-amber-300 transition pt-2 min-h-[44px]">
             <span>Przejdź do studiowania Kursu Codziennego</span>
             <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
 
         <!-- STOP INFO -->
-        <div class="mt-6 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-[11px] text-zinc-500 gap-2">
-          <span>Rezygnacja jednym słowem: <strong>STOP</strong></span>
+        <div class="mt-6 pt-6 border-t border-[#D4AF37]/15 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2 relative z-10">
+          <span>Rezygnacja jednym słowem: <strong class="text-slate-200">STOP</strong></span>
           <span>Brak opłat, zero reklam obcych podmiotów</span>
         </div>
       </div>
 
-      <!-- KAFELKI KORZYŚCI -->
+      <!-- KAFELKI KORZYŚCI W BARWACH LOGO -->
       <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-        <div class="p-4 rounded-2xl bg-[#0A0E17] border border-white/5">
-          <i class="fa-solid fa-lock text-brand-gold text-lg mb-2"></i>
+        <div class="p-4 rounded-2xl bg-[#081426]/80 border border-[#D4AF37]/20 shadow-md">
+          <i class="fa-solid fa-lock text-[#D4AF37] text-lg mb-2"></i>
           <h4 class="text-xs font-bold text-white mb-1">100% Darmowe</h4>
-          <p class="text-[11px] text-zinc-400">Nie pobieramy żadnych opłat za subskrypcję ani otrzymywane powiadomienia.</p>
+          <p class="text-[11px] text-slate-400">Nie pobieramy żadnych opłat za subskrypcję ani otrzymywane powiadomienia.</p>
         </div>
-        <div class="p-4 rounded-2xl bg-[#0A0E17] border border-white/5">
+        <div class="p-4 rounded-2xl bg-[#081426]/80 border border-[#D4AF37]/20 shadow-md">
           <i class="fa-solid fa-ban text-amber-400 text-lg mb-2"></i>
           <h4 class="text-xs font-bold text-white mb-1">Czysty SMS (Zero MMS)</h4>
-          <p class="text-[11px] text-zinc-400">Krótka, czytelna treść mieszcząca się w 160 znakach bez ryzyka drogich MMS-ów.</p>
+          <p class="text-[11px] text-slate-400">Krótka, czytelna treść mieszcząca się w 160 znakach bez ryzyka drogich MMS-ów.</p>
         </div>
-        <div class="p-4 rounded-2xl bg-[#0A0E17] border border-white/5">
+        <div class="p-4 rounded-2xl bg-[#081426]/80 border border-[#D4AF37]/20 shadow-md">
           <i class="fa-solid fa-location-dot text-emerald-400 text-lg mb-2"></i>
           <h4 class="text-xs font-bold text-white mb-1">Tylko Polska (+48)</h4>
-          <p class="text-[11px] text-zinc-400">Rejestracja wyłącznie numerów krajowych w celu ochrony przed roamingiem.</p>
+          <p class="text-[11px] text-slate-400">Rejestracja wyłącznie numerów krajowych w celu ochrony przed roamingiem.</p>
         </div>
       </div>
 
@@ -339,7 +406,7 @@
         <button
           type="button"
           id="globalRadioPlayBtn"
-          class="w-11 h-11 rounded-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white flex items-center justify-center shadow-lg shadow-orange-500/25 transition transform active:scale-95 min-h-[44px] min-w-[44px]"
+          class="w-11 h-11 rounded-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white flex items-center justify-center shadow-lg shadow-orange-500/25 transition transform active:scale-95 min-h-[44px] min-w-[44px] border border-amber-300/30"
           aria-label="Włącz Radio Christian Culture"
           title="Słuchaj Radia na żywo"
         >
@@ -351,7 +418,7 @@
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
             <span class="text-[10px] text-emerald-400 uppercase font-semibold">Na Żywo</span>
           </div>
-          <span class="text-[11px] text-zinc-400 hidden sm:inline" id="radioNowPlaying">Biblia Audio • 24/7 Transmisja Słowa</span>
+          <span class="text-[11px] text-slate-400 hidden sm:inline" id="radioNowPlaying">Biblia Audio • 24/7 Transmisja Słowa</span>
         </div>
       </div>
 
@@ -372,7 +439,7 @@
         </a>
         <a
           href="/player"
-          class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-300 hover:text-white transition px-2.5 py-1 min-h-[44px]"
+          class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white transition px-2.5 py-1 min-h-[44px]"
         >
           <span>Pełny Player</span>
           <i class="fa-solid fa-up-right-from-square text-[10px]"></i>
@@ -382,11 +449,12 @@
     </div>
   </aside>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-white/5 bg-[#07090E] py-8 px-4 text-center text-xs text-zinc-500">
+  <!-- FOOTER W BARWACH AKADEMII -->
+  <footer class="border-t border-[#D4AF37]/20 bg-[#050B16] py-8 px-4 text-center text-xs text-slate-400">
     <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>
-        <span class="font-serif font-bold text-brand-gold">AKADEMIA BIBLIJNA</span>
+      <div class="flex items-center gap-2">
+        <img src="/images/academy/akademia_biblijna_logo_gold.webp" alt="Akademia Biblijna" class="w-6 h-6 rounded-full inline-block" />
+        <span class="font-serif font-bold text-[#D4AF37]">AKADEMIA BIBLIJNA</span>
         <span> • Christian Culture &copy; 2026</span>
       </div>
       <div class="flex items-center gap-4">

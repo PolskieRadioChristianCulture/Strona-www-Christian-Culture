@@ -12,47 +12,51 @@
 
     const modalHtml = `
       <div id="ccSmsModal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200">
-        <div class="bg-[#0E1424] border border-amber-500/30 rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-left text-slate-200">
-          <button id="ccSmsModalClose" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-lg" aria-label="Zamknij">
+        <div class="bg-[#081426] border border-[#D4AF37]/40 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative text-left text-slate-200 shadow-black/80">
+          <button id="ccSmsModalClose" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-lg" aria-label="Zamknij">
             <i class="fa-solid fa-xmark"></i>
           </button>
 
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 text-[#C4A35A] flex items-center justify-center text-xl">
-              <i class="fa-solid fa-comment-sms"></i>
+          <div class="flex items-center gap-3.5 mb-5">
+            <div class="relative w-12 h-12 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 via-yellow-300 to-amber-600 shadow-lg shadow-amber-500/20 shrink-0">
+              <img
+                src="/images/academy/akademia_biblijna_logo_gold.webp"
+                alt="Akademia Biblijna"
+                class="w-full h-full object-cover rounded-full"
+              />
             </div>
             <div>
-              <h3 class="font-serif font-bold text-white text-base">Subskrypcja SMS Akademii</h3>
-              <p class="text-[11px] text-zinc-400">Codzienna lekcja na Twój telefon w Polsce</p>
+              <h3 class="font-serif font-bold text-white text-base leading-tight">Subskrypcja SMS Akademii</h3>
+              <p class="text-[11px] text-[#D4AF37]">Codzienna lekcja Pisma Świętego na Twój telefon</p>
             </div>
           </div>
 
           <form id="ccSmsModalForm" class="space-y-4">
             <div>
-              <label for="ccSmsWidgetPhone" class="block text-xs font-semibold uppercase tracking-wider text-zinc-300 mb-1.5">
-                Polski Numer Komórkowy <span class="text-amber-400">*</span>
+              <label for="ccSmsWidgetPhone" class="block text-xs font-semibold uppercase tracking-wider text-amber-200/90 mb-1.5">
+                Polski Numer Komórkowy <span class="text-[#D4AF37]">*</span>
               </label>
               <div class="relative">
-                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-amber-400/90 font-mono text-sm font-semibold pointer-events-none">+48</span>
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-amber-400 font-mono text-sm font-semibold pointer-events-none">+48</span>
                 <input
                   type="tel"
                   id="ccSmsWidgetPhone"
                   required
                   placeholder="500 600 700"
-                  class="w-full bg-[#070A12] border border-white/10 rounded-xl py-2.5 pl-12 pr-3 text-sm font-mono text-white placeholder-zinc-600 focus:outline-none focus:border-amber-400 min-h-[44px]"
+                  class="w-full bg-[#060E1A] border border-[#D4AF37]/30 rounded-xl py-2.5 pl-12 pr-3 text-sm font-mono text-white placeholder-slate-500 focus:outline-none focus:border-[#D4AF37] min-h-[44px]"
                 />
               </div>
             </div>
 
-            <div class="p-3 rounded-lg bg-amber-500/5 border border-amber-500/20">
+            <div class="p-3 rounded-xl bg-[#0C1B33]/80 border border-[#D4AF37]/25">
               <label class="flex items-start gap-2.5 cursor-pointer">
                 <input
                   type="checkbox"
                   id="ccSmsWidgetDecl"
                   required
-                  class="mt-1 w-4 h-4 rounded border-amber-500/40 text-amber-500 focus:ring-amber-400 bg-black/40 min-w-[16px]"
+                  class="mt-1 w-4 h-4 rounded border-[#D4AF37]/60 text-[#D4AF37] focus:ring-[#D4AF37] bg-black/40 min-w-[16px]"
                 />
-                <span class="text-[11px] text-zinc-300 leading-snug">
+                <span class="text-[11px] text-slate-300 leading-snug">
                   Oświadczam, że mój numer jest używany <strong>wyłącznie na terytorium Polski</strong> (brak roamingu). Rezygnacja w każdej chwili słowem STOP.
                 </span>
               </label>
@@ -61,7 +65,7 @@
             <button
               type="submit"
               id="ccSmsWidgetSubmitBtn"
-              class="w-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white font-bold py-3 px-4 rounded-xl transition duration-150 flex items-center justify-center gap-2 min-h-[44px] text-xs uppercase tracking-wider shadow-lg shadow-orange-500/20"
+              class="w-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white font-bold py-3 px-4 rounded-xl transition duration-150 flex items-center justify-center gap-2 min-h-[44px] text-xs uppercase tracking-wider shadow-lg shadow-orange-500/20 border border-amber-300/30"
             >
               <i class="fa-solid fa-paper-plane text-xs"></i>
               <span>Zapisz mój numer bezpłatnie</span>
@@ -88,13 +92,13 @@
         <button
           id="ccSmsOpenModalBtn"
           type="button"
-          aria-label="Powiadomienia SMS"
-          class="bg-[#0E1424] hover:bg-[#162038] border border-amber-500/40 text-brand-gold rounded-full px-4 py-2.5 shadow-xl flex items-center gap-2.5 text-xs font-semibold transition transform hover:scale-105 min-h-[44px]"
+          aria-label="Subskrypcja SMS Akademii Biblijnej"
+          class="bg-[#081426]/95 hover:bg-[#0C1B33] border border-[#D4AF37]/50 text-[#D4AF37] rounded-full px-4 py-2 shadow-2xl flex items-center gap-2.5 text-xs font-semibold transition transform hover:scale-105 min-h-[44px] shadow-black/80 backdrop-blur-md"
         >
+          <img src="/images/academy/akademia_biblijna_logo_gold.webp" alt="Logo" class="w-5 h-5 rounded-full object-cover shrink-0 p-[1px] bg-[#D4AF37]/40" />
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <i class="fa-solid fa-comment-sms text-amber-400"></i>
-          <span class="text-white hidden sm:inline">Powiadomienia SMS</span>
-          <span class="text-[10px] text-amber-300/80 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/30">PL</span>
+          <span class="text-white hidden sm:inline">Subskrypcja SMS</span>
+          <span class="text-[10px] text-amber-300 bg-amber-500/10 px-1.5 py-0.5 rounded border border-[#D4AF37]/30">PL</span>
         </button>
       </div>
     `;
