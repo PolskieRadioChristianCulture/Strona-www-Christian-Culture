@@ -28,6 +28,37 @@ test('guest invitation is free, nonblocking, and follows actual auth rather than
   w.eval(script);assert.equal(w.document.querySelectorAll('#ccDailyAccountInvitation').length,1);
   w.close();
 });
+const CHANNEL = 'https://whatsapp.com/channel/0029VbE8sXK6xCSOTjPi7o2P';
+test('kanał WhatsApp: jeden blok tuż pod panelem udostępniania, bezpieczny link',()=>{
+  const w=mount();const box=w.document.getElementById('ccWaChannel');
+  assert.ok(box);
+  assert.equal(box.previousElementSibling.id,'ccDailyShare');
+  assert.equal(box.nextElementSibling.id,'ccDailyAccountInvitation');
+  const a=box.querySelector('a');
+  assert.equal(a.getAttribute('href'),CHANNEL);
+  assert.equal(a.getAttribute('target'),'_blank');
+  assert.equal(a.getAttribute('rel'),'noopener noreferrer');
+  assert.match(box.textContent,/nie widzi Twojego numeru/);
+  w.eval(script);assert.equal(w.document.querySelectorAll('#ccWaChannel').length,1);
+  w.close();
+});
+test('kanał WhatsApp działa też na lekcji z panelem #ccDailyShare wpisanym w HTML (np. dzień 39)',()=>{
+  const w=new Window({url:'https://polskieradio.cc/akademia/kurscodzienny/dzien-39'});
+  w.document.write('<title>Dzień 39</title><main><section id="ccDailyShare">statyczny</section><p id="po">dalej</p></main>');
+  const calls=[];w.gtag=(...args)=>calls.push(args);
+  w.eval(script);
+  const box=w.document.getElementById('ccWaChannel');
+  assert.ok(box,'blok kanału musi się pojawić mimo wczesnego return');
+  assert.equal(box.previousElementSibling.id,'ccDailyShare');
+  box.querySelector('a').dispatchEvent(new w.Event('click'));
+  assert.deepEqual(JSON.parse(JSON.stringify(calls[0])),['event','select_content',{content_type:'whatsapp_channel',item_id:'biblijna-akademia'}]);
+  w.close();
+});
+test('kanał WhatsApp nie pojawia się poza Kursem Codziennym',()=>{
+  const w=mount('/akademia');
+  assert.equal(w.document.getElementById('ccWaChannel'),null);
+  w.close();
+});
 function mount(path = '/akademia/kurscodzienny/dzien-08', navigatorSetup = () => {}, windowSetup = () => {}) {
   const window = new Window({url: 'https://polskieradio.cc' + path});
   window.document.write('<title>Dzień 8 — Wieża Babel</title><main><section><a href="/tablica?share=dzien-07">Stary link</a></section></main>');

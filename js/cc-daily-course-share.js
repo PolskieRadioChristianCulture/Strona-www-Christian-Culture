@@ -214,3 +214,38 @@
     document.head.appendChild(ttsScript);
   }
 })();
+
+/* Kanał WhatsApp „Biblijna Akademia” (L0 2026-11-08). Osobny blok: działa także na lekcjach,
+   które mają panel #ccDailyShare wpisany w HTML (wtedy blok powyżej kończy się wcześniej). */
+(function () {
+  'use strict';
+  var CHANNEL = 'https://whatsapp.com/channel/0029VbE8sXK6xCSOTjPi7o2P';
+  if (!/kurscodzienny/.test(location.pathname)) return;
+  function mount() {
+    if (document.getElementById('ccWaChannel')) return;
+    var css = document.createElement('style');
+    css.textContent = '.cc-wa-channel{margin:24px 0;padding:20px;border:1px solid #FF7A00;border-radius:20px;background:#0e121a;color:#f4f4f5;font:14px/1.5 Inter,system-ui,sans-serif;text-align:center}.cc-wa-channel h2{font-size:20px;margin:0 0 8px;color:#FF8C33}.cc-wa-channel p{margin:8px auto;max-width:36rem;color:#d4d4d8}.cc-wa-channel a{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 22px;box-sizing:border-box;border-radius:9999px;background:#FF7A00;color:#111;font-weight:700;text-decoration:none;max-width:100%}.cc-wa-channel a:hover{background:#FF8C33}.cc-wa-channel a:active{background:#E66A00}.cc-wa-channel a:focus-visible{outline:3px solid #FF8C33;outline-offset:3px}html[data-lumina-theme="light"] .cc-wa-channel{background:#fff!important;color:#27221e!important}html[data-lumina-theme="light"] .cc-wa-channel h2{color:#B35500!important}html[data-lumina-theme="light"] .cc-wa-channel p{color:#44403c!important}';
+    document.head.appendChild(css);
+    var box = document.createElement('section');
+    box.id = 'ccWaChannel';
+    box.className = 'cc-wa-channel';
+    box.setAttribute('aria-label', 'Kanał WhatsApp Biblijna Akademia');
+    box.innerHTML = '<h2>Nie przegap jutrzejszej lekcji</h2>'
+      + '<p>Obserwuj kanał <strong>Biblijna Akademia</strong> na WhatsApp — nowa lekcja Kursu Codziennego przyjdzie do Ciebie sama.</p>'
+      + '<a target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i><span>Obserwuj kanał na WhatsApp</span></a>'
+      + '<p style="font-size:12px">Bez konta i bez zapisów. Administrator kanału nie widzi Twojego numeru.</p>';
+    var a = box.querySelector('a');
+    a.href = CHANNEL;
+    a.addEventListener('click', function () {
+      try { if (typeof window.gtag === 'function') window.gtag('event', 'select_content', { content_type: 'whatsapp_channel', item_id: 'biblijna-akademia' }); } catch (_) {}
+    });
+    var share = document.getElementById('ccDailyShare');
+    if (share) share.insertAdjacentElement('afterend', box);
+    else {
+      var host = document.getElementById('course-view-kurscodzienny') || document.querySelector('main');
+      if (host) host.appendChild(box);
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
+  else mount();
+})();
