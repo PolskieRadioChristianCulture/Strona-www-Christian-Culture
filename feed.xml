@@ -8,7 +8,7 @@
     <atom:link href="https://polskieradio.cc/feed.xml" rel="self" type="application/rss+xml" />
     <description>Główny kanał publikacji ekosystemu Christian Culture: CCN News, Akademia Biblijna, Biblijne Uwielbienie, Radio i Kino VOD.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sun, 08 Nov 2026 07:14:39 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2026 07:23:39 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
     <item>
       <title>Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?</title>
@@ -19,6 +19,16 @@
       <category>CCN Finanse</category>
       <description>Dyskusja o cyfrowych walutach banków centralnych (CBDC) coraz częściej wykracza poza ekonomię. Analiza CBDC, prawa niedzielnego oraz Apokalipsy 13 (z wydaniem audio 17:51).</description>
       <enclosure url="https://polskieradio.cc/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Kraków w żałobie: 6 ofiar strzelaniny. Chrześcijański komentarz</title>
+      <link>https://polskieradio.cc/news</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news</guid>
+      <pubDate>Sun, 08 Nov 2026 07:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN NEWS • KRAJ, SPOŁECZEŃSTWO I BEZPIECZEŃSTWO</category>
+      <description>W sobotę 7 listopada 2026 roku w centrum Krakowa doszło do tragicznej strzelaniny. Zginęło sześć osób, a piętnaście zostało rannych. Miasto ogłosiło żałobę. Jak w obliczu niewyobrażalnego bólu odpowiedzieć na zło chrześcijańską solidarnością, prawdą i modlitwą — analiza Cezarego Rogowskiego.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-krakow-strzelanina-7-listopada-2026-chrzescijanski-komentarz.png" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Telefon milczy od tygodni: jak zauważyć samotnego sąsiada?</title>
@@ -209,16 +219,6 @@
       <category>CCN Music &amp; Culture · Album Feature</category>
       <description>An Album That Refuses to Be Background Music. A lyrical and theological examination of Gerald Welch&apos;s debut album on Christian Culture Network.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-gerald-welch-the-call.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Jaka jest Twoja pobożność? Wiara czy religijna maska</title>
-      <link>https://polskieradio.cc/news/jaka-jest-twoja-poboznosc-wiara-czy-maska</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/jaka-jest-twoja-poboznosc-wiara-czy-maska</guid>
-      <pubDate>Thu, 29 Oct 2026 10:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>eM / Motywacja Christian Culture</category>
-      <description>Czy religijny wizerunek zgadza się z Twoim życiem? Mocny biblijny rachunek sumienia o prawdzie, uczciwości, przemocy, łasce i nawróceniu autorstwa Cezarego Rogowskiego w ramach eM — Motywacja Christian Culture.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-jaka-jest-twoja-poboznosc-wiara-czy-maska.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Z Biblią za Pan Brat — Dzień 17: Wiara patrząca w przyszłość (Rdz 23–24)</title>

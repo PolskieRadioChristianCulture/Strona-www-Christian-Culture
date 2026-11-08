@@ -1,13 +1,13 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-08T07:14:39.371Z",
+  "generatedAt": "2026-11-08T07:23:39.375Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 89,
-    "validUrls": 89,
+    "totalValidatedUrls": 90,
+    "validUrls": 90,
     "invalidUrls": 0,
-    "newsArticlesCount": 83,
-    "googleNews48hCount": 37,
+    "newsArticlesCount": 84,
+    "googleNews48hCount": 38,
     "akademiaUrlsCount": 70,
     "bibliaUrlsCount": 4,
     "muzykaUrlsCount": 9,
@@ -31,13 +31,13 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 24282,
+      "sizeBytes": 24353,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 31573,
+      "sizeBytes": 31526,
       "status": "OK"
     },
     {
@@ -49,7 +49,7 @@
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 30210,
+      "sizeBytes": 30908,
       "status": "OK"
     },
     {
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-08T07:14:39.367Z",
+        "queuedAt": "2026-11-08T07:23:39.370Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-08T07:14:39.367Z",
+        "queuedAt": "2026-11-08T07:23:39.370Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-08T07:14:39.367Z",
+        "queuedAt": "2026-11-08T07:23:39.370Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-08T07:14:39.367Z",
+        "queuedAt": "2026-11-08T07:23:39.370Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-08T07:14:39.367Z",
+        "queuedAt": "2026-11-08T07:23:39.370Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -386,7 +386,7 @@
     "keyMasked": "cc777b...c28e",
     "totalIndexedUrls": 344,
     "lastSubmittedCount": 344,
-    "lastSubmittedAt": "2026-11-08T07:14:41.265Z"
+    "lastSubmittedAt": "2026-11-08T07:23:41.663Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/krakow-strzelanina-7-listopada-2026-chrzescijanski-komentarz.html",
+      "canonicalUrl": "https://polskieradio.cc/news",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/telefon-milczy-od-tygodni-jak-zauwazyc-samotnego-sasiada.html",
       "canonicalUrl": "https://polskieradio.cc/news",
@@ -593,15 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/z-biblia-za-pan-brat-dzien-26-od-wiezienia-do-palacu.html",
-      "canonicalUrl": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-26-od-wiezienia-do-palacu",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-08T07:14:41.265Z"
+  "lastInstantIndexingAt": "2026-11-08T07:23:41.663Z"
 }

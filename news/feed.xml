@@ -8,8 +8,18 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sun, 08 Nov 2026 07:14:39 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2026 07:23:39 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Kraków w żałobie: 6 ofiar strzelaniny. Chrześcijański komentarz</title>
+      <link>https://polskieradio.cc/news</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news</guid>
+      <pubDate>Sun, 08 Nov 2026 07:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN NEWS • KRAJ, SPOŁECZEŃSTWO I BEZPIECZEŃSTWO</category>
+      <description>W sobotę 7 listopada 2026 roku w centrum Krakowa doszło do tragicznej strzelaniny. Zginęło sześć osób, a piętnaście zostało rannych. Miasto ogłosiło żałobę. Jak w obliczu niewyobrażalnego bólu odpowiedzieć na zło chrześcijańską solidarnością, prawdą i modlitwą — analiza Cezarego Rogowskiego.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-krakow-strzelanina-7-listopada-2026-chrzescijanski-komentarz.png" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Telefon milczy od tygodni: jak zauważyć samotnego sąsiada?</title>
       <link>https://polskieradio.cc/news</link>
@@ -299,16 +309,6 @@
       <category>SURVIVAL • PRZYGOTOWANIE I WIARA</category>
       <description>Co zrobisz, gdy nagle zabraknie prądu, telefonu i podstawowych usług? Jak przygotować rodzinę na kryzys, nie żyjąc w strachu? Inauguracja projektu SURVIVAL Christian Culture — wiedza, odpowiedzialność i nadzieja na fundamencie Słowa Bożego.</description>
       <enclosure url="https://polskieradio.cc/images/news/survival-christian-culture-przygotowanie-na-trudne-czasy.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Nie czekaj, aż życie się zmieni. Zacznij od siebie — z Bogiem możesz więcej!</title>
-      <link>https://polskieradio.cc/news/nie-czekaj-az-zycie-sie-zmieni-zacznij-od-siebie-z-bogiem-mozesz-wiecej</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/nie-czekaj-az-zycie-sie-zmieni-zacznij-od-siebie-z-bogiem-mozesz-wiecej</guid>
-      <pubDate>Wed, 21 Oct 2026 10:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>CCN NEWS — MOTYWACJA &amp; ROZWÓJ / INAUGURACJA PROJEKTU eM (@MCC)</category>
-      <description>Tu zaczyna się Twoja nowa droga. Inauguracja projektu eM — Motywacja Christian Culture (@MCC). Dlaczego powstaje, jak odnaleźć prawdziwy sens w codziennych zmaganiach i dlaczego nie jesteś sumą swoich porażek.</description>
-      <enclosure url="https://polskieradio.cc/images/news/nie-czekaj-az-zycie-sie-zmieni-em-hero.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>
