@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-08T07:56:27.281Z",
-  "totalItems": 421,
+  "updatedAt": "2026-11-09T05:00:00.000Z",
+  "totalItems": 422,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1062,6 +1062,30 @@
   },
   "items": [
     {
+      "title": "Z Biblią za Pan Brat — Dzień 40 (Lekcja 40 na dziś): Dzień 40: Pomór bydła, wrzody i ogień z gradem (Wj 9:1–35)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-40",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 40 (Lekcja 40 na dziś, 9 listopada 2026). Księga Wyjścia 9:1–35: Pomór bydła, wrzody i ogień z gradem — Boża moc ponad pychą faraona. Sąd nad pogańskimi bóstwami, ochrona w ziemi Goszen i Chrystus jako nasze schronienie.",
+      "tags": [
+        "lekcja 40",
+        "lekcja 40 na dziś",
+        "lekcja na dziś",
+        "dzień 40",
+        "dzien 40",
+        "rozważanie 40",
+        "rozważanie na dziś",
+        "słowo na dziś",
+        "wj 9",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "9 listopada 2026",
+        "dzisiaj",
+        "dziś"
+      ],
+      "featured": true
+    },
+    {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
       "url": "https://cclite.pl",
@@ -1955,19 +1979,15 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 38 (Lekcja 38 na dziś): Laska, która połknęła węże, i woda zamieniona w krew (Wj 7:1–25)",
+      "title": "Z Biblią za Pan Brat — Dzień 38 (Lekcja 38): Laska, która połknęła węże, i woda zamieniona w krew (Wj 7:1–25)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-38",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 38 (Lekcja 38 na dziś, 7 listopada 2026). Księga Wyjścia: Mojżesz ustanowiony bogiem dla faraona, pojedynek lasek czarowników i uderzenie w święty Nil — Wj 7:1–25.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 38 (Lekcja 38, 7 listopada 2026). Księga Wyjścia: Mojżesz ustanowiony bogiem dla faraona, pojedynek lasek czarowników i uderzenie w święty Nil — Wj 7:1–25.",
       "tags": [
         "lekcja 38",
-        "lekcja 38 na dziś",
-        "lekcja na dziś",
         "dzień 38",
         "dzien 38",
         "rozważanie 38",
-        "rozważanie na dziś",
-        "słowo na dziś",
         "laska która połknęła węże",
         "woda zamieniona w krew",
         "nil",
@@ -1979,11 +1999,9 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "7 listopada 2026",
-        "dzisiaj",
-        "dziś"
+        "7 listopada 2026"
       ],
-      "featured": true
+      "featured": false
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 37 (Lekcja 37): Teraz zobaczysz, co uczynię faraonowi: Siedem obietnic odkupienia (Wj 6:1–30)",
@@ -2266,19 +2284,15 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 22 (Lekcja 22 na dziś): Jakub walczy z Bogiem — Przemiana człowieka (Rdz 31:1–32:32)",
+      "title": "Z Biblią za Pan Brat — Dzień 22 (Lekcja 22): Jakub walczy z Bogiem — Przemiana człowieka (Rdz 31:1–32:32)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-22",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 22 (Lekcja 22 na dziś, 22 października 2026). Przymierze z Labanem w Gileadzie, lęk przed Ezawem, nocne zmaganie nad potokiem Jabbok i nowe imię Izrael — Rdz 31:1–32:32. Prawdziwe zwycięstwo w Chrystusie przez pokorę i moc w słabości.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 22 (Lekcja 22, 22 października 2026). Przymierze z Labanem w Gileadzie, lęk przed Ezawem, nocne zmaganie nad potokiem Jabbok i nowe imię Izrael — Rdz 31:1–32:32. Prawdziwe zwycięstwo w Chrystusie przez pokorę i moc w słabości.",
       "tags": [
         "lekcja 22",
-        "lekcja 22 na dziś",
-        "lekcja na dziś",
         "dzień 22",
         "dzien 22",
         "rozważanie 22",
-        "rozważanie na dziś",
-        "słowo na dziś",
         "jakub walczy z bogiem",
         "jabbok",
         "peniel",
@@ -2288,11 +2302,9 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "22 października 2026",
-        "dzisiaj",
-        "dziś"
+        "22 października 2026"
       ],
-      "featured": true
+      "featured": false
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 21: Bóg działa pośród niedoskonałych rodzin (Rdz 29:1–30:43)",
@@ -10433,7 +10445,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-08T07:56:27.475Z",
+    "updatedAt": "2026-11-08T07:59:07.526Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "8 listopada 2026",
     "pools": [
