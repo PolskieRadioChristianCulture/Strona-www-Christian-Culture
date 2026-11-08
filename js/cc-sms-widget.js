@@ -70,6 +70,18 @@
               <i class="fa-solid fa-paper-plane text-xs"></i>
               <span>Zapisz mój numer bezpłatnie</span>
             </button>
+
+            <div class="pt-2 text-center">
+              <a
+                href="https://whatsapp.com/channel/0029VbE8sXK6xCSOTjPi7o2P"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 text-[11px] text-emerald-400 hover:text-emerald-300 font-semibold transition min-h-[44px]"
+              >
+                <i class="fa-brands fa-whatsapp text-sm"></i>
+                <span>Mieszkasz za granicą? Kanał WhatsApp &rarr;</span>
+              </a>
+            </div>
           </form>
 
           <div id="ccSmsModalSuccess" class="hidden text-center py-4 space-y-3">
