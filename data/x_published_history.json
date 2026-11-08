@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mojabiblia",
+      "title": "Interlinearna MojaBiblia — Kody Stronga, Greka, Hebrajski i Przekład UBG",
+      "url": "https://polskieradio.cc/mojabiblia",
+      "type": "module",
+      "image": "art-rdz15-abram-gwiazdy.jpg",
+      "publishedAt": "2026-11-08T16:03:34.497Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "u-boku-diabla",
       "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
       "url": "https://polskieradio.cc/u-boku-diabla",
