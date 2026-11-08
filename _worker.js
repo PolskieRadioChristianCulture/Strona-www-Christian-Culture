@@ -1534,21 +1534,37 @@ async function handleBramkaSMSRoute(request, env) {
     lowerPath = decodeURIComponent(path).toLowerCase();
   } catch (e) {}
 
-  if (path === '/BramkaSMS' || path === '/BramkaSMS.html' || path === '/BramkaSMS/index.html') {
-    const assetUrl = new URL(request.url);
-    assetUrl.pathname = '/BramkaSMS.html';
-    return env.ASSETS.fetch(new Request(assetUrl.toString(), request));
-  }
-
   if (
     lowerPath === '/bramkasms' ||
     lowerPath === '/bramka-sms' ||
     lowerPath === '/sms' ||
-    lowerPath === '/bramka_sms'
+    lowerPath === '/bramka_sms' ||
+    path === '/BramkaSMS' ||
+    path === '/BramkaSMS.html' ||
+    path === '/BramkaSMS/index.html'
   ) {
-    const redirectUrl = new URL(request.url);
-    redirectUrl.pathname = '/BramkaSMS';
-    return Response.redirect(redirectUrl.toString(), 301);
+    if (path !== '/BramkaSMS') {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/BramkaSMS';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
+
+    const assetUrl = new URL(request.url);
+    assetUrl.pathname = '/BramkaSMS.html';
+    assetUrl.search = '';
+    const assetResp = await env.ASSETS.fetch(new Request(assetUrl.toString(), {
+      method: 'GET',
+      headers: { 'Accept': 'text/html' }
+    }));
+    const body = await assetResp.arrayBuffer();
+    return new Response(body, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'public, max-age=0, must-revalidate',
+        'X-Content-Type-Options': 'nosniff',
+      },
+    });
   }
 
   return null;
