@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "krakow-strzelanina-7-listopada-2026-chrzescijanski-komentarz",
+      "title": "Kraków w żałobie: 6 ofiar strzelaniny. Chrześcijański komentarz",
+      "url": "https://polskieradio.cc/news/krakow-strzelanina-7-listopada-2026-chrzescijanski-komentarz",
+      "type": "news",
+      "image": "art-krakow-strzelanina-7-listopada-2026-chrzescijanski-komentarz.png",
+      "publishedAt": "2026-11-08T08:17:57.942Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "ksiazki-autora",
+      "title": "Półka z Książkami: Cezary Rogowski — Oficjalna Biblioteka Autorska",
+      "url": "https://polskieradio.cc/ksiazki-autora",
+      "type": "book",
+      "image": "ksiazki-autora-og.jpg",
+      "publishedAt": "2026-11-08T08:16:09.724Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "mojabiblia?ref=GEN.15.5",
       "title": "Werset Dnia: „Spójrz teraz na niebo i policz gwiazdy...” (Rdz 15:5, UBG)",
       "url": "https://polskieradio.cc/mojabiblia?ref=GEN.15.5",
