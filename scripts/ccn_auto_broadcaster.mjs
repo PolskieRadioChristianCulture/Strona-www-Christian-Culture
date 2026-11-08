@@ -788,6 +788,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🇵🇱 OJCZYZNA & SPOŁECZEŃSTWO | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#CCNNews', '#Patriotyzm', '#CezaryRogowski', '#Prawda');
+    } else if (tLower.includes('kraków') || tLower.includes('krakow') || tLower.includes('strzelanin')) {
+      subHeader = '🖤 KRAKÓW W ŻAŁOBIE | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj chrześcijański komentarz:\n';
+      addTags('#Krakow', '#CCNNews', '#CezaryRogowski', '#Modlitwa', '#Prawda');
     } else {
       subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
       callToAction = '👉 Czytaj w serwisie:\n';
@@ -809,6 +813,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'THE JOURNAL — 90-dniowy przewodnik formacji, wiary i nawyków. Karta dzienna, pytania wieczorne i bezpłatne PDF!';
   } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
     bodyText = item.lead;
+  } else if ((item.url || '').includes('krakow') || (item.title || '').toLowerCase().includes('kraków')) {
+    bodyText = 'Kraków w żałobie: 6 ofiar strzelaniny. Chrześcijański komentarz Cezarego Rogowskiego wobec zła, bólu i żałoby.';
   } else if ((item.url || '').toLowerCase().includes('rozwiaz')) {
     bodyText = 'Rzuć palenie w 14 dni — bezpłatny kurs, plan na głód nikotynowy, audio i biblijna nadzieja.';
   } else if ((item.url || '').includes('blackout') || (item.title || '').toLowerCase().includes('blackout')) {
@@ -986,27 +992,54 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
       }
     }
 
-    // 3. Wysłanie posta (przycisk TweetButton / tweetButtonInline z force: true lub Control+Enter)
+    // 3. Wysłanie posta (przycisk TweetButton z modalu lub Control+Enter)
     console.log('🔘 [CCN Broadcaster] Wysyłam post...');
-    const postBtn = page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').first();
+    const isDialog = await page.locator('[role="dialog"]').isVisible().catch(() => false);
+    const postBtn = isDialog
+      ? page.locator('[role="dialog"] [data-testid="tweetButton"]')
+      : page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').last();
+
     const btnVisible = await postBtn.isVisible({ timeout: 5000 }).catch(() => false);
     if (btnVisible) {
       await postBtn.click({ force: true });
-    } else {
+    }
+
+    // Jeśli przycisk nadal widoczny po 1.5s, użyj natywnego skrótu Control+Enter
+    await page.waitForTimeout(1500);
+    if (await postBtn.isVisible().catch(() => false)) {
+      console.log('🔄 [CCN Broadcaster] Ponawiam próbę wysłania skrótem Control+Enter...');
       await textarea.focus();
       await page.keyboard.press('Control+Enter');
     }
 
-    // Weryfikacja: toast potwierdzający lub zniknięcie przycisku publikacji
-    const confirmed = await Promise.race([
-      page.waitForSelector('div[data-testid="toast"]', { timeout: 8000 }).then(() => true).catch(() => false),
-      postBtn.waitFor({ state: 'hidden', timeout: 8000 }).then(() => true).catch(() => false)
-    ]);
+    // Weryfikacja: powiadomienie o wysłaniu, toast, zniknięcie przycisku publikacji lub zamknięcie modalu dialogowego
+    const alertText = await page.locator('[role="alert"], div[data-testid="toast"]').innerText().catch(() => '');
+    const isSentAlert = alertText.toLowerCase().includes('sent') || alertText.toLowerCase().includes('wysłano') || alertText.toLowerCase().includes('post was sent');
 
-    if (!confirmed && btnVisible) {
-      const stillActive = await postBtn.isVisible().catch(() => false);
-      if (stillActive) {
-        throw new Error('[CCN Broadcaster BŁĄD PUBLIKACJI] Przycisk publikacji nadal widoczny. Post NIE został wyemitowany.');
+    let confirmed = isSentAlert;
+    if (!confirmed) {
+      confirmed = await Promise.race([
+        page.waitForSelector('[role="alert"]', { timeout: 8000 }).then(async (el) => {
+          const t = await el.innerText().catch(() => '');
+          return t.toLowerCase().includes('sent') || t.toLowerCase().includes('wysłano') || t.toLowerCase().includes('post was sent');
+        }).catch(() => false),
+        postBtn.waitFor({ state: 'hidden', timeout: 8000 }).then(() => true).catch(() => false),
+        isDialog ? page.locator('[role="dialog"]').waitFor({ state: 'hidden', timeout: 8000 }).then(() => true).catch(() => false) : Promise.resolve(false)
+      ]);
+    }
+
+    if (!confirmed) {
+      const latestAlert = await page.locator('[role="alert"]').innerText().catch(() => '');
+      if (latestAlert.toLowerCase().includes('sent') || latestAlert.toLowerCase().includes('wysłano') || latestAlert.toLowerCase().includes('post was sent')) {
+        confirmed = true;
+      } else {
+        const errorText = await page.locator('div[data-testid="error-detail"]').innerText().catch(() => '');
+        const stillActive = await postBtn.isVisible().catch(() => false);
+        const ariaDisabled = await postBtn.getAttribute('aria-disabled').catch(() => 'false');
+        if (stillActive && ariaDisabled !== 'true') {
+          await page.screenshot({ path: path.join(__dirname, '../x_debug_screen.png') }).catch(() => {});
+          throw new Error('[CCN Broadcaster BŁĄD PUBLIKACJI] Przycisk publikacji nadal aktywny. Treść komunikatu: "' + (errorText || latestAlert) + '". Zrzut ekranu zapisano w x_debug_screen.png');
+        }
       }
     }
 
