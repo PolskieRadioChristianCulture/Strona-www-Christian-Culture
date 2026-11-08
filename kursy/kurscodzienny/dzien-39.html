@@ -117,61 +117,65 @@
 <body class="font-sans antialiased text-zinc-100 selection:bg-amber-500/30 selection:text-amber-200">
 
   <!-- TOP HEADER (wzór Dnia 1) -->
+  <!-- TOP BAR / ECOSYSTEM NAV -->
+  <!-- TOP BAR / ECOSYSTEM NAV -->
   <header class="ak-header">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <a href="/akademia" class="flex items-center gap-2 group min-h-[44px]">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-zinc-950 font-bold text-base shadow-md group-hover:scale-105 transition">
-            <i class="fa-solid fa-graduation-cap"></i>
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3 sm:gap-4">
+        <a href="/akademia/kurscodzienny" class="flex items-center gap-2.5 min-h-[44px]" title="Powrót do Kursu Codziennego">
+          <span class="text-amber-400 text-lg">🎓</span>
+          <div class="flex items-center gap-2">
+            <span class="font-display text-sm font-bold text-brand-gold tracking-widest">LUMINA</span>
+            <span class="text-xs font-semibold text-zinc-400 hidden md:inline ak-header-brand-sub">BIBLE ACADEMY</span>
           </div>
-          <div class="leading-tight">
-            <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold block">LUMINA Academy</span>
-            <span class="text-sm font-bold text-white group-hover:text-amber-300 transition">Z Biblią za Pan Brat</span>
-          </div>
+        </a>
+        <span class="text-zinc-700 hidden md:inline ak-header-slash">/</span>
+        <a href="/akademia/kurscodzienny" class="text-xs font-semibold text-amber-200/90 hover:text-amber-300 whitespace-nowrap hidden md:inline ak-header-course-title">
+          Z Biblią za Pan Brat
         </a>
       </div>
 
-      <div class="flex items-center gap-2">
-        <button id="btn-reader-font" onclick="toggleReaderFont()" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 min-h-[44px]" title="Zmień krój czytania">
-          <i class="fa-solid fa-font"></i>
-          <span id="reader-font-label">Krój</span>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button type="button" id="btn-reader-font" onclick="toggleReaderFont()" class="kc-reader-pill" title="Zmień krój pisma: Lora (Książkowa szeryfowa) / Inter (Ekranowa bezszeryfowa)">
+          <i class="fa-solid fa-font text-amber-400 text-xs"></i>
+          <span id="reader-font-label" class="sr-only font-semibold">Krój: Lora</span>
         </button>
 
-        <div class="flex items-center rounded-lg bg-white/5 p-0.5 min-h-[44px]">
-          <button onclick="adjustFontSize(-1)" class="w-8 h-8 flex items-center justify-center text-xs text-zinc-400 hover:text-white transition" title="Mniejsza czcionka">A−</button>
-          <button onclick="adjustFontSize(1)" class="w-8 h-8 flex items-center justify-center text-xs text-zinc-400 hover:text-white transition" title="Większa czcionka">A+</button>
+        <button type="button" id="btn-theme-toggle" onclick="toggleCourseTheme()" class="kc-reader-pill cin-btn-theme" title="Przełącz motyw (Jasny / Ciemny)" aria-label="Przełącz motyw">
+          <i class="fa-solid fa-sun text-amber-400 text-xs theme-toggle-icon"></i>
+        </button>
+
+        <div class="hidden md:flex items-center rounded-full border border-zinc-800 bg-zinc-900/80 p-0.5 text-xs text-zinc-400">
+          <button type="button" onclick="adjustFontSize(-1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:text-white hover:bg-zinc-800 transition" title="Mniejszy tekst">A-</button>
+          <button type="button" onclick="adjustFontSize(1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:text-white hover:bg-zinc-800 font-bold transition" title="Większy tekst">A+</button>
         </div>
 
-        <button id="btn-audio-tts" onclick="toggleAudioLesson()" class="px-3 py-1.5 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-300 hover:bg-amber-500/25 text-xs font-semibold transition flex items-center gap-1.5 min-h-[44px]" title="Posłuchaj lektora">
-          <i class="fa-solid fa-volume-high"></i>
-          <span id="tts-btn-text">Lektor</span>
+        <button type="button" id="btn-audio-tts" onclick="toggleAudioLesson()" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-bold hover:bg-amber-500/20 transition flex items-center justify-center" title="Słuchaj lekcji z lektorem">
+          <i class="fa-solid fa-volume-high text-xs" id="tts-icon"></i>
+          <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <button id="btn-theme-toggle" onclick="toggleCourseTheme()" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 min-h-[44px]" title="Zmień motyw">
-          <i class="fa-solid fa-moon"></i>
-          <span class="theme-toggle-label">Motyw</span>
-        </button>
-
-        <a href="https://patronite.pl/radiocc" target="_blank" rel="noopener noreferrer" id="ccTopSubLink" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-bold text-xs transition shadow flex items-center gap-1.5 min-h-[44px]">
-          <i class="fa-solid fa-heart text-[10px]"></i>
-          <span>Wspieraj</span>
+        <a href="https://patronite.pl/radiocc" target="_blank" rel="noopener noreferrer" id="ccTopSubLink" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
+          <span>❤️</span>
+          <span class="sr-only">Wspieraj</span>
         </a>
-
-        <div id="cc-auth-nav-container" class="flex items-center min-h-[44px]"></div>
+        <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
   </header>
 
   <!-- NAVBAR STRONY -->
+  <!-- BREADCRUMBS & TOP NAV -->
+  <!-- BREADCRUMBS & TOP NAV -->
   <nav class="border-b border-brand-line bg-brand-navy/60 text-xs">
     <div class="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between text-zinc-400">
       <div class="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap py-1">
         <a href="/akademia" class="hover:text-amber-400">Akademia</a>
-        <span>›</span>
+        <span>&gt;</span>
         <a href="/akademia/kurscodzienny" class="hover:text-amber-400">Kurs Codzienny</a>
-        <span>›</span>
+        <span>&gt;</span>
         <span class="text-zinc-500">Księga Wyjścia</span>
-        <span>›</span>
+        <span>&gt;</span>
         <span class="text-amber-400 font-semibold">Dzień 39</span>
       </div>
       <div class="flex items-center gap-2">
@@ -180,10 +184,6 @@
         <a href="/akademia/kurscodzienny/dzien-38" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 min-h-[44px]">
           <i class="fa-solid fa-chevron-left text-[10px]"></i>
           <span>← Dzień 38</span>
-        </a>
-        <a href="/akademia/kurscodzienny/dzien-40" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 min-h-[44px]">
-          <i class="fa-solid fa-chevron-left text-[10px]"></i>
-          <span>Dzień 40 →</span>
         </a>
         <span class="px-3 py-1.5 rounded-lg bg-zinc-900/50 text-xs text-zinc-600 flex items-center gap-1.5 min-h-[44px]">
           <span>Dzień 40 (Jutro) →</span>

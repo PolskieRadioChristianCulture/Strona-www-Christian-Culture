@@ -61,7 +61,7 @@ export function kartaDnia(wzor, n, iso, d) {
     .replace(/<!-- KARTA DZIEŃ \d+ -->/, `<!-- KARTA DZIEŃ ${n} -->`)
     .replace(/<a href="[^"]*" class="group[^"]*">/, `<a href="/akademia/kurscodzienny/${slugDnia(n)}" class="${KLASA_DZIS}">`)
     .replace(/DZIEŃ \d+ • [^<]+<\/span>/, `DZIEŃ ${n} • ${dzien} ${miesiacDop.toUpperCase()} ${rok}</span>`)
-    .replace(ZNACZEK_DOSTEPNA, ZNACZEK_DZIS)
+    .replace(/<span class="px-2 py-0.5 rounded-full [^"]*">(?:DOSTĘPNA TERAZ|ZAPOWIEDŹ NA JUTRO|DZISIEJSZA LEKCJA)<\/span>/, ZNACZEK_DZIS)
     .replace(/<img src="[^"]*" alt="[^"]*"/, `<img src="${esc(d.obraz)}" alt="${esc(d.alt)}"`)
     .replace(/(<h3[^>]*>\s*)[\s\S]*?(\s*<\/h3>)/, `$1${esc(d.tytul)}$2`)
     .replace(/(<p class="text-xs text-zinc-400[^"]*">\s*)[\s\S]*?(\s*<\/p>)/, `$1${esc(d.opisKarty)}$2`)
@@ -77,10 +77,11 @@ export function dodajKarte(html, n, iso, d) {
   const ost = lista[lista.length - 1];
   if (ost.numer !== n - 1) throw new Error(`spis: ostatnia karta to Dzień ${ost.numer}, a publikujemy Dzień ${n} — luka albo zła kolejność`);
   let out = html;
-  // 1. Wszystkie karty „DZISIEJSZA LEKCJA” → „DOSTĘPNA TERAZ”.
+  // 1. Wszystkie karty „DZISIEJSZA LEKCJA” oraz „ZAPOWIEDŹ NA JUTRO” → „DOSTĘPNA TERAZ”.
   for (const k of [...lista].reverse()) {
-    if (!k.blok.includes('DZISIEJSZA LEKCJA')) continue;
-    const nowy = k.blok.replace(`class="${KLASA_DZIS}"`, `class="${KLASA_DOSTEPNA}"`).replace(ZNACZEK_DZIS, ZNACZEK_DOSTEPNA);
+    if (!k.blok.includes('DZISIEJSZA LEKCJA') && !k.blok.includes('ZAPOWIEDŹ NA JUTRO')) continue;
+    let nowy = k.blok.replace(`class="${KLASA_DZIS}"`, `class="${KLASA_DOSTEPNA}"`);
+    nowy = nowy.replace(/<span class="px-2 py-0.5 rounded-full [^"]*">(?:DZISIEJSZA LEKCJA|ZAPOWIEDŹ NA JUTRO)<\/span>/g, ZNACZEK_DOSTEPNA);
     out = out.slice(0, k.start) + nowy + out.slice(k.koniec);
   }
   // 2. Nowa karta za ostatnią (wcięcie jak w karcie poprzedniej).

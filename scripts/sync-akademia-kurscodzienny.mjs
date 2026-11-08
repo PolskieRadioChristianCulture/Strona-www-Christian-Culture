@@ -12,18 +12,18 @@ const kursyIndex = path.join(ROOT, 'kursy/index.html');
 const kursyKurscodziennyHtml = path.join(ROOT, 'kursy/kurscodzienny.html');
 const kursyKurscodziennyIndex = path.join(ROOT, 'kursy/kurscodzienny/index.html');
 
-// 1. Znajdź najnowszy opublikowany dzień
-const dayFiles = fs.readdirSync(akademiaDir).filter(f => /^dzien-\d+\.html$/.test(f));
-let maxDay = 0;
-for (const f of dayFiles) {
-  const match = f.match(/^dzien-(\d+)\.html$/);
-  if (match) {
-    const num = parseInt(match[1], 10);
-    if (num > maxDay) maxDay = num;
-  }
+// 1. Znajdź bieżący dzień cyklu na podstawie aktualnej daty w Warszawie (lub argumentu CLI)
+function getCycleDayForDate(d = new Date()) {
+  const warsawStr = d.toLocaleDateString('en-CA', { timeZone: 'Europe/Warsaw' });
+  const [y, m, day] = warsawStr.split('-').map(Number);
+  if (y === 2026 && m === 10) return day;
+  if (y === 2026 && m === 11) return 31 + day;
+  if (y === 2026 && m === 12) return 61 + day;
+  return 39;
 }
 
-const currentDay = maxDay || 32;
+const cliDay = process.argv[2] ? parseInt(process.argv[2], 10) : null;
+const currentDay = cliDay || getCycleDayForDate();
 const prevDay = currentDay - 1;
 const currentDayPad = String(currentDay).padStart(2, '0');
 const prevDayPad = String(prevDay).padStart(2, '0');
@@ -82,15 +82,19 @@ const HL = 'group block p-5 rounded-2xl bg-[#0E121A] border-2 border-brand-gold 
 const NORMAL = 'group block p-5 rounded-2xl bg-[#0E121A] border border-brand-gold/40 hover:border-amber-500 hover:bg-[#161B26] transition-all transform hover:-translate-y-1 shadow-lg shadow-black/40 flex flex-col';
 const TODAY = '<span class="px-2 py-0.5 rounded-full bg-amber-500/25 text-amber-300 text-[10px] font-extrabold border border-amber-500/50 animate-pulse">DZISIEJSZA LEKCJA</span>';
 const AVAIL = '<span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/40">DOSTĘPNA TERAZ</span>';
+const TOMORROW = '<span class="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 text-[10px] font-bold border border-amber-500/30">ZAPOWIEDŹ NA JUTRO</span>';
 
 akademiaHtml = akademiaHtml.replace(/<a href="\/akademia\/kurscodzienny\/dzien-(\d+)" class="([^"]+)">([\s\S]*?)<\/a>/g, (m, day, cls, inner) => {
   if (cls.includes('cin-btn')) return m; // Nie modyfikuj przycisków akcji Hero
   const d = parseInt(day, 10);
   if (d === currentDay) {
-    let newInner = inner.replace(AVAIL, TODAY);
+    let newInner = inner.replace(AVAIL, TODAY).replace(TOMORROW, TODAY);
     return `<a href="/akademia/kurscodzienny/dzien-${day}" class="${HL}">${newInner}</a>`;
   } else if (d < currentDay) {
-    let newInner = inner.replace(TODAY, AVAIL);
+    let newInner = inner.replace(TODAY, AVAIL).replace(TOMORROW, AVAIL);
+    return `<a href="/akademia/kurscodzienny/dzien-${day}" class="${cls === HL ? NORMAL : cls}">${newInner}</a>`;
+  } else if (d === currentDay + 1) {
+    let newInner = inner.replace(TODAY, TOMORROW).replace(AVAIL, TOMORROW);
     return `<a href="/akademia/kurscodzienny/dzien-${day}" class="${cls === HL ? NORMAL : cls}">${newInner}</a>`;
   }
   return m;
