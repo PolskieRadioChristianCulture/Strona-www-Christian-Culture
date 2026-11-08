@@ -1526,6 +1526,34 @@ async function handleBiblijneUwielbienieRoute(request, env) {
   return null;
 }
 
+async function handleBramkaSMSRoute(request, env) {
+  const url = new URL(request.url);
+  const path = url.pathname.replace(/\/$/, '');
+  let lowerPath = path.toLowerCase();
+  try {
+    lowerPath = decodeURIComponent(path).toLowerCase();
+  } catch (e) {}
+
+  if (path === '/BramkaSMS' || path === '/BramkaSMS.html' || path === '/BramkaSMS/index.html') {
+    const assetUrl = new URL(request.url);
+    assetUrl.pathname = '/BramkaSMS.html';
+    return env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+  }
+
+  if (
+    lowerPath === '/bramkasms' ||
+    lowerPath === '/bramka-sms' ||
+    lowerPath === '/sms' ||
+    lowerPath === '/bramka_sms'
+  ) {
+    const redirectUrl = new URL(request.url);
+    redirectUrl.pathname = '/BramkaSMS';
+    return Response.redirect(redirectUrl.toString(), 301);
+  }
+
+  return null;
+}
+
 async function handlePersonalHubRoute(request, env) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/$/, '');
@@ -1709,6 +1737,8 @@ export default {
     if (survivalRoute) return survivalRoute;
     const worshipRoute = await handleBiblijneUwielbienieRoute(request, env);
     if (worshipRoute) return worshipRoute;
+    const bramkaSMSRoute = await handleBramkaSMSRoute(request, env);
+    if (bramkaSMSRoute) return bramkaSMSRoute;
     const personalHubRoute = await handlePersonalHubRoute(request, env);
     if (personalHubRoute) return personalHubRoute;
     const podcastsRoute = await handlePodcastsRoute(request, env);
