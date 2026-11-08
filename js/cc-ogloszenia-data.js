@@ -83,7 +83,7 @@
             featured: true, isPatron: true, patronBadge: 'Oficjalny Patron Misji CC',
             link: 'https://koncept-studio.pl/', linkLabel: 'koncept-studio.pl' }),
         ad({ id: 'herbatka', type: 'polecam_fachowca', category: 'zywnosc', price: 'Menu na stronie',
-            title: 'Herbatka między słowami – klimatyczna herbaciarnia w Pile',
+            title: 'Herbaciarnia Między Słowami w Pile',
             desc: 'Kameralne miejsce Studia Dobrego Słowa: kilkanaście kompozycji herbat, domowe desery i spokojna przestrzeń do rozmów i lektury. ul. 11 Listopada 6, Piła.',
             location: 'Piła, ul. 11 Listopada 6', contact: 'Studio Dobrego Słowa', email: '',
             image: '/images/ogloszenia-herbatka.webp',

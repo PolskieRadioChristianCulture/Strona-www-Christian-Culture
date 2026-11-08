@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-08T13:06:43.349Z",
-  "totalItems": 421,
+  "updatedAt": "2026-11-08T18:35:48.954Z",
+  "totalItems": 422,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -10400,6 +10400,28 @@
         "słowo boże"
       ],
       "featured": false
+    },
+    {
+      "title": "Herbaciarnia Między Słowami — Klimatyczna Herbaciarnia i Kawiarnia SDS w Pile",
+      "category": "Narzędzia i misja",
+      "url": "https://polskieradio.cc/herbatka/",
+      "description": "Klimatyczna Herbaciarnia Między Słowami w Pile (ul. 11 Listopada 6). Kameralne dopełnienie działalności Studio Dobrego Słowa — kompozycje herbat, autorskie desery, budujące rozmowy i chwila wyciszenia.",
+      "tags": [
+        "herbaciarnia między słowami",
+        "herbaciarnia miedzy slowami",
+        "herbatka między słowami",
+        "herbatka miedzy slowami",
+        "herbaciarnia",
+        "herbatka",
+        "piła",
+        "pila",
+        "kawiarnia",
+        "herbata",
+        "desery",
+        "studio dobrego słowa",
+        "sds"
+      ],
+      "featured": true
     }
   ],
   "recommendedToday": [
