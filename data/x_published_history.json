@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "u-boku-diabla",
+      "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
+      "url": "https://polskieradio.cc/u-boku-diabla",
+      "type": "book",
+      "image": "art-u-boku-diabla.jpg",
+      "publishedAt": "2026-11-08T15:36:20.401Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina.cezaryrgowski",
       "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
       "url": "https://polskieradio.cc/lumina.cezaryrgowski",
