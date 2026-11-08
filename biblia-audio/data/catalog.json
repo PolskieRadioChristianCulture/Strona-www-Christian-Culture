@@ -233,11 +233,17 @@
     "id": "genesis-17",
     "book": "genesis",
     "chapter": 17,
-    "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "description": "Bóg Wszechmogący (El-Szaddaj) zawiera z Abrahamem wieczne przymierze: nowe imiona Abraham i Sara, znak obrzezania i obietnica narodzin Izaaka.",
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_17_1-27_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 17,1–27 (UBG) — Przymierze obrzezania, nowe imiona Abraham i Sara oraz obietnica Izaaka",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_17_1-27_Biblia_Audio_CC.mp3",
+        "verses": "1–27"
+      }
+    ]
   },
   {
     "id": "genesis-18",
