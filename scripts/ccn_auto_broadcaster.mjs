@@ -772,6 +772,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '✝️ DEKLARACJA REDAKCYJNA CC';
       callToAction = '👉 Czytaj analizę biblijną:\n';
       addTags('#CCNNews', '#ChristianCulture', '#Swiatlosc', '#Prawda');
+    } else if (tLower.includes('charytat') || tLower.includes('diakoni') || tLower.includes('senior') || tLower.includes('milosierdzie') || tLower.includes('miłosierdzie')) {
+      subHeader = '🤝 DIAKONIA & POMOC SPOŁECZNA';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#CCNNews', '#Diakonia', '#ChristianCulture');
     } else if (tLower.includes('telefon milczy') || tLower.includes('samotn') || tLower.includes('sąsiad') || tLower.includes('sasiad')) {
       subHeader = '🤝 SPOŁECZEŃSTWO & EMPATIA | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
@@ -854,6 +858,8 @@ function formatBroadcasterTweet(item) {
       .replace(/^Kanał Transmisyjny:\s*/i, '')
       .replace(/^Książka:\s*/i, '')
       .replace(/^Wizytówka:\s*/i, '')
+      .replace(/^Kraj\s*[-–—:]\s*/i, '')
+      .replace(/^Świat\s*[-–—:]\s*/i, '')
       .replace(/\s*•\s*Polskie Radio CC.*$/i, '')
       .replace(/\s*–\s*CCN Historia.*$/i, '')
       .replace(/\s*\(\/[a-z0-9_/-]+\)\s*$/i, '')
@@ -867,6 +873,19 @@ function formatBroadcasterTweet(item) {
         .replace(/wycliffe global alliance/gi, 'Wycliffe Global Alliance')
         .replace(/global scripture access/gi, 'Global Scripture Access')
         .replace(/„nie”/gi, '„NIE”')
+        .replace(/\bpolsce\b/gi, 'Polsce')
+        .replace(/\bpolska\b/gi, 'Polska')
+        .replace(/\bpolski\b/gi, 'Polski')
+        .replace(/\bpolskiego\b/gi, 'Polskiego')
+        .replace(/\bpolskich\b/gi, 'Polskich')
+        .replace(/\bchsch\b/gi, 'ChSCh')
+        .replace(/\bkrakowie\b/gi, 'Krakowie')
+        .replace(/\bkraków\b/gi, 'Kraków')
+        .replace(/\bwarszawie\b/gi, 'Warszawie')
+        .replace(/\bboga\b/gi, 'Boga')
+        .replace(/\bbóg\b/gi, 'Bóg')
+        .replace(/\bjezus\b/gi, 'Jezus')
+        .replace(/\bchrystus\b/gi, 'Chrystus')
         .replace(/\?\s+([a-ząćęłńóśźż])/g, (m, c) => '? ' + c.toUpperCase());
     }
   }
