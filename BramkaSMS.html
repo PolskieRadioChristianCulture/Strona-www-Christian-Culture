@@ -422,10 +422,8 @@
         </div>
       </div>
 
-      <!-- AUDIO ELEMENT DLA RADIA -->
-      <audio id="globalRadioAudio" preload="none">
-        <source src="https://stream.polskieradio.cc/live" type="audio/mpeg" />
-      </audio>
+      <!-- AUDIO ELEMENT DLA RADIA (STREAM LIVE ZENO.FM) -->
+      <audio id="globalRadioAudio" preload="none"></audio>
 
       <!-- PRAWA STRONA: LICZNIK /MILION + PRZEJŚCIE DO PLAYER CC -->
       <div class="flex items-center gap-3">
@@ -476,27 +474,73 @@
   <!-- Informacja EkoCC Standard -->
   <script defer src="/components/ekocc-info.js?v=20261020_1"></script>
 
-  <!-- Prosta obsługa odtwarzania radia na pasku -->
+  <!-- Dynamiczna obsługa strumienia radiowego na żywo (Zeno.fm stream) -->
   <script>
     (function(){
       const playBtn = document.getElementById('globalRadioPlayBtn');
       const audio = document.getElementById('globalRadioAudio');
       const icon = document.getElementById('radioPlayIcon');
+      const nowPlaying = document.getElementById('radioNowPlaying');
       if (!playBtn || !audio || !icon) return;
 
+      const PRIMARY_STREAM = 'https://stream.zeno.fm/vz96pvl3pnktv';
+      const FALLBACK_STREAM = 'https://stream.zeno.fm/imo45hqnshyuv';
+      let isPlaying = false;
+
+      function setPlayingUI() {
+        isPlaying = true;
+        icon.className = 'fa-solid fa-pause text-sm';
+        if (nowPlaying) nowPlaying.textContent = 'Polskie Radio CC • Nadajemy NA ŻYWO 24/7';
+        playBtn.classList.add('ring-2', 'ring-amber-400', 'animate-pulse');
+      }
+
+      function setStoppedUI() {
+        isPlaying = false;
+        icon.className = 'fa-solid fa-play text-sm ml-0.5';
+        if (nowPlaying) nowPlaying.textContent = 'Biblia Audio • 24/7 Transmisja Słowa';
+        playBtn.classList.remove('ring-2', 'ring-amber-400', 'animate-pulse');
+      }
+
+      function setLoadingUI() {
+        icon.className = 'fa-solid fa-circle-notch fa-spin text-sm';
+        if (nowPlaying) nowPlaying.textContent = 'Łączenie ze strumieniem na żywo...';
+      }
+
       playBtn.addEventListener('click', function(){
-        if (audio.paused) {
-          audio.play().then(function(){
-            icon.classList.remove('fa-play');
-            icon.classList.add('fa-pause');
-          }).catch(function(e){
-            console.warn('[Radio] Play error', e);
-          });
+        if (!isPlaying) {
+          setLoadingUI();
+          audio.src = PRIMARY_STREAM + '?t=' + Date.now();
+          audio.load();
+          const playPromise = audio.play();
+          if (playPromise !== undefined) {
+            playPromise.then(function(){
+              setPlayingUI();
+            }).catch(function(err){
+              console.warn('[Radio] Primary stream fallback triggered:', err);
+              audio.src = FALLBACK_STREAM + '?t=' + Date.now();
+              audio.load();
+              audio.play().then(function(){
+                setPlayingUI();
+              }).catch(function(e){
+                console.error('[Radio] Playback error:', e);
+                setStoppedUI();
+              });
+            });
+          }
         } else {
           audio.pause();
-          icon.classList.remove('fa-pause');
-          icon.classList.add('fa-play');
+          audio.removeAttribute('src');
+          audio.load();
+          setStoppedUI();
         }
+      });
+
+      audio.addEventListener('playing', setPlayingUI);
+      audio.addEventListener('pause', setStoppedUI);
+      audio.addEventListener('ended', setStoppedUI);
+      audio.addEventListener('error', function(){
+        console.warn('[Radio] Audio error event');
+        setStoppedUI();
       });
     })();
   </script>
