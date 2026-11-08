@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "vod",
+      "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+      "publishedAt": "2026-11-08T20:32:00.001Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "swiat-monumentalna-fosa-obronna-i-pieczec-z-okresu-pierwszej-swiatyni-w-jerozolimie-odkrycia-iaa",
       "title": "ŚWIAT: MONUMENTALNA FOSA OBRONNA I PIECZĘĆ Z OKRESU PIERWSZEJ ŚWIĄTYNI W JEROZOLIMIE — ODKRYCIA ARCHEOLOGÓW POTWIERDZAJĄ KSIĘGI KRÓLEWSKIE",
       "url": "https://polskieradio.cc/news/swiat-monumentalna-fosa-obronna-i-pieczec-z-okresu-pierwszej-swiatyni-w-jerozolimie-odkrycia-iaa",
