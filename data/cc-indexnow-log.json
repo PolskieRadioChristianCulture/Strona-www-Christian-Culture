@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-08T07:14:41.260Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 344
+    },
+    {
+      "timestamp": "2026-11-08T07:14:40.846Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 344
+    },
+    {
+      "timestamp": "2026-11-08T07:14:39.369Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news",
+        "https://polskieradio.cc/news",
+        "https://polskieradio.cc/news/mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki"
+      ]
+    },
+    {
       "timestamp": "2026-11-07T13:08:18.393Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",

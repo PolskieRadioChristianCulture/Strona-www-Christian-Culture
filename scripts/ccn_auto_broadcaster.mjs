@@ -490,6 +490,15 @@ function getAllEcosystemCandidates() {
       tag: '#BadzBlisko'
     },
     {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 39 (Wj 8:1–32): Plagi żab, wszy i much — Boży palec i rozróżnienie ziemi Goszen',
+      lead: 'Dzień 39 (8 listopada 2026): Trzy kolejne sądy nad bóstwami Egiptu, kapitulacja magów wyznających „To jest palec Boży” oraz nienaruszalna ochrona ziemi Goszen.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-39',
+      image: 'images/academy/daily/kc_day_39_plagi_zaby_muchy_nil.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
       title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 38 (Wj 7:1–25): Laska połykająca węże i woda w krew',
       lead: 'Dzień 38 (7 listopada 2026): Pierwszy znak przed faraonem, laska Aarona połykająca węże i plaga na Nilu — Boża suwerenność nad bożkami Egiptu.',
       url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-38',
@@ -806,6 +815,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę według biblijnej roztropności.';
   } else if ((item.url || '').includes('badz-blisko')) {
     bodyText = '7 krótkich spotkań ze Słowem, które pomagają odnaleźć spokój i zrobić dobry krok. Bezpłatny 7-dniowy przewodnik!';
+  } else if ((item.url || '').includes('dzien-39')) {
+    bodyText = 'Dzień 39 (Wj 8:1–32): Plagi żab, wszy i much — bezsilność czarowników („To jest palec Boży!”) i ochrona ziemi Goszen.';
   } else if ((item.url || '').includes('dzien-38')) {
     bodyText = 'Dzień 38 (Wj 7:1–25): Laska Aarona połykająca węże czarnoksiężników i woda Nilu zamieniona w krew.';
   } else if ((item.url || '').includes('dzien-37')) {

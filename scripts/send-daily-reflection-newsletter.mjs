@@ -44,11 +44,16 @@ export async function prepareDailyReflectionContent({ title, verse, verseRef, te
         if (found) {
           if (!displayTitle) displayTitle = found.title;
           if (!displayText) displayText = found.contentWeb || found.fullText;
-          if (!displayVerse && found.contentWeb) {
-            const vMatch = found.contentWeb.match(/Jezus mówi dziś do Ciebie:\s*([^\n]+)/i);
-            if (vMatch) {
-              displayVerse = vMatch[1].trim();
-              displayVerseRef = '— UBG';
+          if (!displayVerse) {
+            if (found.memoryVerse) {
+              displayVerse = found.memoryVerse;
+              displayVerseRef = found.reading ? `— ${found.reading}` : '— UBG';
+            } else if (found.contentWeb) {
+              const vMatch = found.contentWeb.match(/Jezus mówi dziś do Ciebie:\s*([^\n]+)/i);
+              if (vMatch) {
+                displayVerse = vMatch[1].trim();
+                displayVerseRef = '— UBG';
+              }
             }
           }
         }
@@ -170,7 +175,10 @@ export async function runDailyReflectionNewsletter(options = {}) {
 }
 
 // Uruchomienie z CLI
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (
+  process.argv[1] === fileURLToPath(import.meta.url) ||
+  (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url))
+) {
   runDailyReflectionNewsletter()
     .then((res) => {
       console.log('✅ Zakończono proces wysyłki codziennego rozważania newslettera.');

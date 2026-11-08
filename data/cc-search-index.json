@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-07T13:08:18.676Z",
-  "totalItems": 420,
+  "updatedAt": "2026-11-08T07:14:41.670Z",
+  "totalItems": 421,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -8182,6 +8182,26 @@
       "featured": false
     },
     {
+      "title": "Rozważanie: CHRZEŚCIJAŃSTWO NAJBARDZIEJ PRZEŚLADOWANĄ RELIGIĄ!",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/dzj",
+      "description": "8 LISTOPADA 2026: Czy wiesz, że chrześcijaństwo jest obecnie jedną z najbardziej prześladowanych religii na świecie? Z powodu swojej wiary cierpi ponad 360 milionów chrześcijan w kilkudziesięciu kra… Modlitwa: …",
+      "contentSnippet": "Czy wiesz, że chrześcijaństwo jest obecnie jedną z najbardziej prześladowanych religii na świecie? Z powodu swojej wiary cierpi ponad 360 milionów chrześcijan w kilkudziesięciu krajach, takich jak: Afganistan, Korea Północna, Burkina Faso, Birma, Somalia, Jemen, Sudan, Pakistan, Erytrea czy Iran. Nie słyszymy o tym wiele, bo media i politycy temat wolności religijnej chrześcijan dawno już odpuścil",
+      "tags": [
+        "dobrze że jesteś",
+        "cuda każdego dnia",
+        "rozważanie",
+        "modlitwa",
+        "poranna inspiracja",
+        "8 LISTOPADA 2026",
+        "nadzieja",
+        "pokój boży",
+        "wiara",
+        "słowo boże"
+      ],
+      "featured": false
+    },
+    {
       "title": "Rozważanie: WYŚLIJ DO BOGA CICHĄ MODLITWĘ",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/dzj",
@@ -10385,16 +10405,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 7",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 7 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 8",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 8 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 7)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 8)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-7",
+      "url": "/akademia/kurscodzienny/dzien-8",
       "icon": "book"
     },
     {
@@ -10413,15 +10433,15 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-07T13:08:18.760Z",
+    "updatedAt": "2026-11-08T07:14:41.861Z",
     "heading": "Polecane na dziś",
-    "dateFormattedPL": "7 listopada 2026",
+    "dateFormattedPL": "8 listopada 2026",
     "pools": [
       [
         {
           "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 7",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 7 listopada 2026.",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 8",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 8 listopada 2026.",
           "url": "/player",
           "icon": "heart"
         },
@@ -10450,9 +10470,9 @@
       [
         {
           "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 7)",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 8)",
           "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-7",
+          "url": "/akademia/kurscodzienny/dzien-8",
           "icon": "book"
         },
         {
@@ -10541,16 +10561,16 @@
     "recommendedToday": [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 7",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 7 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 8",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 8 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 7)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 8)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-7",
+        "url": "/akademia/kurscodzienny/dzien-8",
         "icon": "book"
       },
       {
