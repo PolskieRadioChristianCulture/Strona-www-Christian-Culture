@@ -42,98 +42,8 @@ const CANONICAL_MISSION_ROUTINES = [
   { id: 'rt_weekly_briefing', time: 'Pon 09:00', freq: 'Co poniedziałek', agent: 'Noemi @077', title: 'Strategiczna Odprawa Tygodniowa Federacji @777', area: 'oa', desc: 'Koordynacja 21 kolegiów agentów, weryfikacja celów misyjnych i bilans tygodnia' },
 ];
 
-const VERIFIED_GCAL_FALLBACK_EVENTS = [
-  {
-    calendar_id: 'nazirczarkes@gmail.com',
-    event_id: '6grjaopn6co38bb374r66b9k69h6cbb26lhm4bb6c5i68d9n74sj6eb16c_20261107T083000Z',
-    start: '2026-11-07T09:30:00+01:00',
-    end: '2026-11-07T12:30:00+01:00',
-    all_day: false,
-    title: 'Nabożeństwo Sobotnie',
-    status: 'tentative',
-  },
-  {
-    calendar_id: 'nazirczarkes@gmail.com',
-    event_id: '98iiinv1gkcisgst8eio77v88c',
-    start: '2026-11-07T13:00:00+01:00',
-    end: '2026-11-07T21:00:00+01:00',
-    all_day: false,
-    title: 'Praca Wioletty Rogowskiej',
-    status: 'confirmed',
-  },
-  {
-    calendar_id: 'nazirczarkes@gmail.com',
-    event_id: '65hj2d36ckpj0bb365gjeb9k61gm4b9pcgrmcb9j75imcd3374o32d1p6k_20261107T130000Z',
-    start: '2026-11-07T14:00:00+01:00',
-    end: '2026-11-07T14:30:00+01:00',
-    all_day: false,
-    title: 'Czarku, rozpal w piecu.',
-    status: 'confirmed',
-  },
-  {
-    calendar_id: 'nazirczarkes@gmail.com',
-    event_id: '6pij2pj4clij0b9k68o6cb9k6oq68b9p6osj4b9m6pi66d9l70s6cp9mck_20261108T060000Z',
-    start: '2026-11-08T07:00:00+01:00',
-    end: '2026-11-08T07:05:00+01:00',
-    all_day: false,
-    title: 'Biostymina',
-    status: 'confirmed',
-  },
-  {
-    calendar_id: 'nazirczarkes@gmail.com',
-    event_id: 'ckpmcc9g61ijeb9hc4q62b9kc5i38b9o70p62b9jc4p3ae9mcko30e3468_20261108T060000Z',
-    start: '2026-11-08T07:00:00+01:00',
-    end: '2026-11-08T08:00:00+01:00',
-    all_day: false,
-    title: 'Czarku, zaplanuj ten tydzień z modlitwą!',
-    status: 'tentative',
-  },
-  {
-    calendar_id: 'nazirczarkes@gmail.com',
-    event_id: '64pmadj66hhjcb9n68o3cb9k6hi34b9pclj30b9ocko3aob26gpjadpg70_20261108T120000Z',
-    start: '2026-11-08T13:00:00+01:00',
-    end: '2026-11-08T14:00:00+01:00',
-    all_day: false,
-    title: 'Witamina D3',
-    status: 'confirmed',
-  },
-  {
-    calendar_id: 'nazirczarkes@gmail.com',
-    event_id: '65hj2d36ckpj0bb365gjeb9k61gm4b9pcgrmcb9j75imcd3374o32d1p6k_20261108T130000Z',
-    start: '2026-11-08T14:00:00+01:00',
-    end: '2026-11-08T14:30:00+01:00',
-    all_day: false,
-    title: 'Czarku, rozpal w piecu.',
-    status: 'confirmed',
-  },
-  {
-    calendar_id: 'nazirczarkes@gmail.com',
-    event_id: 'arditol0lrd96dv8n3q1h295dg',
-    start: '2026-11-09T06:00:00+01:00',
-    end: '2026-11-09T14:00:00+01:00',
-    all_day: false,
-    title: 'Praca Wioletty Rogowskiej',
-    status: 'confirmed',
-  },
-  {
-    calendar_id: 'nazirczarkes@gmail.com',
-    event_id: '7gepvohaccuol95smqlrkoqerk_20261109T064000Z',
-    start: '2026-11-09T07:40:00+01:00',
-    end: '2026-11-09T08:10:00+01:00',
-    all_day: false,
-    title: 'Zawiezienie syna do szkoły',
-    status: 'confirmed',
-  },
-  {
-    calendar_id: 'nazirczarkes@gmail.com',
-    event_id: 'sebiq2ts9opqbskfmqrapbou00_20261109T103000Z',
-    start: '2026-11-09T11:30:00+01:00',
-    end: '2026-11-09T12:45:00+01:00',
-    all_day: false,
-    title: 'Odbiór syna ze szkoły',
-    status: 'confirmed',
-  },
-];
+// Bez danych prywatnego Kalendarza Google w publicznym kodzie — wpisy przychodzą wyłącznie z API po zalogowaniu (@007, 08.11.2026)
+const VERIFIED_GCAL_FALLBACK_EVENTS = [];
 
 const DEFAULT_MISSION_AUTOMATION_REPORT = {
   date: '2026-11-07',
@@ -185,7 +95,7 @@ const state = {
     source_status: 'OK',
     source: 'Google Calendar',
     account_verified: true,
-    account_email: 'nazirczarkes@gmail.com',
+    account_email: '',
     timezone: 'Europe/Warsaw',
     events: [...VERIFIED_GCAL_FALLBACK_EVENTS],
     mission_automation_report: { ...DEFAULT_MISSION_AUTOMATION_REPORT },
@@ -1016,10 +926,9 @@ export async function loadLiveGcalReport() {
   try {
     if (typeof window !== 'undefined' && typeof window.fetch === 'function') {
       const ts = Date.now();
-      const [apiRes, staticRes] = await Promise.all([
-        window.fetch(`/api/mission-calendar/gcal/live-report?t=${ts}`, { cache: 'no-store' }).catch(() => null),
-        window.fetch(`/ccMC/gcalendar-live-report.json?t=${ts}`, { cache: 'no-store' }).catch(() => null),
-      ]);
+      // Prywatny raport tylko przez API (sesja właściciela); plik statyczny jest publicznie zablokowany
+      const apiRes = await window.fetch(`/api/mission-calendar/gcal/live-report?t=${ts}`, { cache: 'no-store', credentials: 'same-origin' }).catch(() => null);
+      const staticRes = null;
       const candidates = [];
       if (apiRes && apiRes.ok) {
         const j = await apiRes.json().catch(() => null);

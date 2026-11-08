@@ -17,6 +17,8 @@ const BLOCKED_PREFIXES = [
 
 const BLOCKED_FILES = new Set([
   '/data/whatsapp_zaczepki_log.json', '/data/whatsapp_zaczepki_state.json',
+  // Prywatny Kalendarz Google właściciela — tylko przez /api/mission-calendar/gcal/live-report po zalogowaniu
+  '/ccmc/gcalendar-live-report.json', '/ccmc/gcal-calendars.json', '/ccmc/gcal-events.json',
   '/.env', '/.env.example', '/.firebaserc', '/.gitignore', '/agents.md', '/claude.md',
   '/codex.md', '/firebase.json', '/firestore.indexes.json', '/firestore.rules', '/gemini.md',
   '/package-lock.json', '/package.json', '/playwright.config.ts', '/storage.rules',

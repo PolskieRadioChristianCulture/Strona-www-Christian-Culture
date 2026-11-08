@@ -69,6 +69,17 @@ for (const relativePath of tracked) {
   copied++;
 }
 
+// Prywatny raport Kalendarza Google (ccMC): poza publicznym repo (.gitignore), ale potrzebny w wydaniu.
+// Na stronie publicznie zablokowany w _worker.js (BLOCKED_FILES) — czyta go tylko API po zalogowaniu.
+const PRIVATE_RUNTIME_FILES = ['ccMC/gcalendar-live-report.json'];
+for (const relativePath of PRIVATE_RUNTIME_FILES) {
+  const source = path.resolve(ROOT, relativePath);
+  if (!fs.existsSync(source) || !fs.lstatSync(source).isFile()) continue;
+  const destination = path.resolve(resolvedOutput, relativePath);
+  fs.mkdirSync(path.dirname(destination), { recursive: true });
+  fs.copyFileSync(source, destination);
+}
+
 // One chat implementation, two entry experiences. Never copy/maintain a fork.
 fs.writeFileSync(path.join(resolvedOutput, 'mess.html'), renderLumiPage(fs.readFileSync(path.join(resolvedOutput, 'lumina.html'), 'utf8')));
 

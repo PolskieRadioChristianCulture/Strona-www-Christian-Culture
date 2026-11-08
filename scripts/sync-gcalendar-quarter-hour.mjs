@@ -370,10 +370,12 @@ async function main() {
     }
 
     // Wyślij żywy raport do endpointu produkcyjnego /api/mission-calendar/gcal/live-report (z limitem 3s)
-    try {
+    // Zapis chroniony tokenem CC_MC_LIVE_REPORT_TOKEN (ten sam sekret co w Cloudflare); bez tokenu — pomijamy
+    const liveReportToken = String(process.env.CC_MC_LIVE_REPORT_TOKEN || '').trim();
+    if (liveReportToken) try {
       await fetch('https://polskieradio.cc/api/mission-calendar/gcal/live-report', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${liveReportToken}` },
         body: jsonStr,
         signal: AbortSignal.timeout(3000),
       });

@@ -1128,9 +1128,10 @@ test('19. Desktop Frameless Semi-Transparent Side Wings, Real 6 Radio Stations R
     headers: ownerHeaders,
     body: { text: 'Cezary, za piętnaście minut masz w kalendarzu wyjście po syna do szkoły.' },
   });
-  assert.equal(ttsRes.status, 200);
-  assert.equal(ttsRes.data.ok, true);
-  assert.equal(ttsRes.data.cost, 0, 'TTS must operate in ZERO COST mode (cost = 0)');
+  // Brak kluczy Gemini w środowisku testowym → 503 bez głosu zastępczego (Google Tłumacz / systemowy) — decyzja L0 08.11.2026
+  assert.equal(ttsRes.status, 503);
+  assert.equal(ttsRes.data.ok, false);
+  assert.equal(ttsRes.data.audioBase64, null, 'Bez kluczy Google AI Studio nie wolno zwracać audio z innego źródła');
   assert.equal(speakCalendarVoiceAlert('Test komunikatu', { force: true }), true);
 
   const avatarPath = path.join(rootDir, 'ccMC', 'assistant-avatar.jpg');
@@ -1170,3 +1171,47 @@ test('19. Desktop Frameless Semi-Transparent Side Wings, Real 6 Radio Stations R
 
 
 
+
+test('20. Bezpieczeństwo @007 08.11.2026: /tts i prywatny raport kalendarza tylko po zalogowaniu, zapis raportu tylko z tokenem, brak kluczy i danych kalendarza w kodzie', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const { callApi, env } = createTestContext();
+  const owner = { authorization: 'Bearer valid-owner-firebase-token' };
+  const sampleReport = { schema_version: '1.0', source_status: 'OK', fetched_at: '2026-11-08T12:00:00+01:00', events: [{ title: 'Prywatne spotkanie' }] };
+
+  // /tts bez logowania → 401 (nikt obcy nie zużyje limitu kluczy)
+  const ttsAnon = await callApi('/api/mission-calendar/tts', { method: 'POST', body: { text: 'test' } });
+  assert.equal(ttsAnon.status, 401);
+  const ttsStranger = await callApi('/api/mission-calendar/tts', { method: 'POST', headers: { authorization: 'Bearer foreign-user-firebase-token' }, body: { text: 'test' } });
+  assert.equal(ttsStranger.status, 403);
+
+  // Zapis raportu: bez tokenu / zły token / brak sekretu w środowisku → 401
+  delete globalThis._ccMcLatestLiveGcalReport;
+  assert.equal((await callApi('/api/mission-calendar/gcal/live-report', { method: 'POST', body: sampleReport })).status, 401);
+  env.CC_MC_LIVE_REPORT_TOKEN = 'sekret-testowy-raportu-123456';
+  assert.equal((await callApi('/api/mission-calendar/gcal/live-report', { method: 'POST', headers: { authorization: 'Bearer zly-token' }, body: sampleReport })).status, 401);
+  assert.equal(globalThis._ccMcLatestLiveGcalReport, undefined, 'Odrzucony zapis nie może podmienić raportu');
+  const okWrite = await callApi('/api/mission-calendar/gcal/live-report', { method: 'POST', headers: { authorization: 'Bearer sekret-testowy-raportu-123456' }, body: sampleReport });
+  assert.equal(okWrite.status, 200);
+
+  // Odczyt raportu (prywatny kalendarz): bez logowania 401, właściciel 200
+  assert.equal((await callApi('/api/mission-calendar/gcal/live-report')).status, 401);
+  const ownerRead = await callApi('/api/mission-calendar/gcal/live-report', { headers: owner });
+  assert.equal(ownerRead.status, 200);
+  assert.equal(ownerRead.data.events[0].title, 'Prywatne spotkanie');
+  delete globalThis._ccMcLatestLiveGcalReport;
+
+  // Plik raportu i surowe pliki kalendarza publicznie zablokowane
+  for (const p of ['/ccMC/gcalendar-live-report.json', '/ccmc/gcalendar-live-report.json', '/ccMC/gcal-calendars.json', '/ccMC/gcal-events.json']) {
+    const r = await worker.fetch(new Request(`https://polskieradio.cc${p}`), { ASSETS: { fetch: async () => new Response('{"events":[1]}', { status: 200 }) } }, {});
+    assert.equal(r.status, 404, `${p} musi być publicznie zablokowany`);
+  }
+
+  // Kod: brak zaszytych kluczy Google i fallbacku Google Tłumacza; brak wpisów prywatnego kalendarza w publicznym app.js
+  const serviceSrc = fs.readFileSync(path.join(rootDir, 'services', 'cc-mission-calendar', 'mission-calendar-service.js'), 'utf8');
+  assert.doesNotMatch(serviceSrc, /'AIza[0-9A-Za-z_-]{20,}'/, 'Zakaz kluczy Google w kodzie');
+  assert.doesNotMatch(serviceSrc, /translate\.google\.com\/translate_tts/, 'Zakaz głosu zastępczego Google Tłumacza');
+  const appSrc = fs.readFileSync(path.join(rootDir, 'ccMC', 'app.js'), 'utf8');
+  assert.match(appSrc, /const VERIFIED_GCAL_FALLBACK_EVENTS = \[\];/);
+  assert.doesNotMatch(appSrc, /\/ccMC\/gcalendar-live-report\.json/, 'Klient nie może czytać publicznego pliku kalendarza');
+  assert.doesNotMatch(appSrc, /speakBrowserNaturalVoice\(\s*(?!text, onEnded = null\))/, 'Raporty bez systemowego głosu Windows');
+});

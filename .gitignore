@@ -53,3 +53,8 @@ scratch/
 # Private messaging runtime: never track or publish.
 /data/whatsapp_zaczepki_log.json
 /data/whatsapp_zaczepki_state.json
+
+# Prywatny Kalendarz Google właściciela (ccMC) — nigdy w publicznym repo (@007, 08.11.2026)
+ccMC/gcalendar-live-report.json
+ccMC/gcal-calendars.json
+ccMC/gcal-events.json
