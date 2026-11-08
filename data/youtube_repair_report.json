@@ -1,14 +1,146 @@
 {
-  "generatedAt": "2026-11-03T07:57:34.496Z",
+  "generatedAt": "2026-11-08T10:46:21.016Z",
   "executed": false,
   "plan": [
     {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "WMHLd_ymEHY",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "4GLeJVmMveE",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "G_wJOX8yUXk",
+      "toDelete": [
+        {
+          "id": null,
+          "title": "Księga Rodzaju 10:1-32 (UBG) • Tablica Narodów • Potomkowie Synów Noego | Biblia Audio CC #Shorts",
+          "status": "other"
+        }
+      ]
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "i6Samq6Lywo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "8L-9Puasq4I",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "hNNzURoL_Yw",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "xCwhJ2-DCEY",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "SyDFAiGYyrc",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "qOpKjFTpN5Q",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "EZ-xjc-0HX0",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "C7YgJ2OF56s",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "P2EsYMnfEsE",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "2dD-SAuNsxs",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_10_1-32",
+      "key": "Księga Rodzaju 10:1-32",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "6fKNCaq2bh0",
+      "toDelete": []
+    },
+    {
       "ep": "Ksiega_Rodzaju_12_1-20",
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Biblia Audio Christian Culture",
       "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "hCvaoQGZZuc",
       "toDelete": []
     },
     {
@@ -16,8 +148,8 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Biblia Audio Christian Culture",
       "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "sNnBTielqcU",
       "toDelete": []
     },
     {
@@ -25,17 +157,43 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
       "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
-      "toDelete": []
+      "action": "ok",
+      "keepId": "v8UIxK8dN_w",
+      "toDelete": [
+        {
+          "id": "_EDZEWQgMgI",
+          "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+          "status": "public"
+        },
+        {
+          "id": "VhMQEDhgzos",
+          "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+          "status": "public"
+        },
+        {
+          "id": "kGScqCDSJtk",
+          "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+          "status": "public"
+        },
+        {
+          "id": null,
+          "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+          "status": "other"
+        },
+        {
+          "id": null,
+          "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+          "status": "other"
+        }
+      ]
     },
     {
       "ep": "Ksiega_Rodzaju_12_1-20",
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
       "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "m0ctP2LYoL0",
       "toDelete": []
     },
     {
@@ -43,8 +201,8 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "-3lO6jPiP3E",
       "toDelete": []
     },
     {
@@ -52,8 +210,8 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "NxLEPglXGrA",
       "toDelete": []
     },
     {
@@ -61,17 +219,23 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Christian Culture TV",
       "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
-      "toDelete": []
+      "action": "ok",
+      "keepId": "yhaz-PyikY0",
+      "toDelete": [
+        {
+          "id": "FPOy6-xNtok",
+          "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+          "status": "public"
+        }
+      ]
     },
     {
       "ep": "Ksiega_Rodzaju_12_1-20",
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Christian Culture TV",
       "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "k0i7JGQ4nGk",
       "toDelete": []
     },
     {
@@ -79,8 +243,8 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Osobowość +",
       "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "tFPhcE0GBpY",
       "toDelete": []
     },
     {
@@ -88,8 +252,8 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Osobowość +",
       "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "teeCUCdBYWA",
       "toDelete": []
     },
     {
@@ -97,8 +261,8 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "CC Women",
       "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "BJnxrxZ8Yo0",
       "toDelete": []
     },
     {
@@ -106,17 +270,23 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "CC Women",
       "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
-      "toDelete": []
+      "action": "ok",
+      "keepId": "vrRs5phNUPs",
+      "toDelete": [
+        {
+          "id": "y0HVUTg_a_o",
+          "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+          "status": "public"
+        }
+      ]
     },
     {
       "ep": "Ksiega_Rodzaju_12_1-20",
       "key": "Księga Rodzaju 12:1-20",
       "channel": "CC Men",
       "tab": "videos",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "VPoXDzOBNWE",
       "toDelete": []
     },
     {
@@ -124,11 +294,720 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "CC Men",
       "tab": "shorts",
-      "action": "blocked",
-      "reason": "brak spisu kanału",
+      "action": "ok",
+      "keepId": "qH3tNANpR20",
+      "toDelete": [
+        {
+          "id": "z5GGHBD-bYs",
+          "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+          "status": "public"
+        }
+      ]
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "Ok2gWkhjI3Y",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "hZl1ORZ6vLo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "XEiMlP1M8YM",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "7yMhJeTNJeY",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "BU6SIJPf2W4",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "aldCO4xOTxM",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "kSI6Ta4Cztk",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "pf2e06VPfoo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "8sDCKMpH-aQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "GalBKgAP6TM",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "MmnkyYd61cc",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "AO5AwVq6aYQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "3-aTe1sqi3M",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_13_1-18",
+      "key": "Księga Rodzaju 13:1-18",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "NMQAN9r9Wfk",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "hRjiUXsTRW4",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "3F7VFYKDGhg",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "evQaSeRMRNo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "RMayKJLuDHo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "A8hJ7Fevhoc",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "Iv1QEWhRScc",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "kxNs8BIfc5Y",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "4ySPnXHfUOA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "RoadKc8TZnw",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "AG_52QdC-zo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "gvAW2OHkiHI",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "oFr5ZCXmyPE",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "KPrckhT5xpo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_14_1-24",
+      "key": "Księga Rodzaju 14:1-24",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "QZKDZEYpfrk",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "UD1u1Adfz1E",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "MQdCFKg74iE",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "1RbqlUWUg8E",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "lIjyjtO-3IE",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "-NTWmuBGcLk",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "KpYta933DlI",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "rjgwMM9pFds",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "XvbRnV6_GkU",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "cni976dWUsQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "QapAq6KllSw",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "V6FU-1XSs0Q",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "GaUyV-54jkw",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "59w6hiqfddk",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_15_1-21",
+      "key": "Księga Rodzaju 15:1-21",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "GpXxJAIp7Gs",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "o4U1JFCTYm8",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "pQUfLLURz14",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "CIEuLETFq6M",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "TOG2XaO4mEQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "S1REkfIxJzg",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "xHiVrzYagT0",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "52LwsBCxtqM",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "ogumrgm1faQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "zGwh_vN4DBg",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "sl2bopAhatc",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "5R5M4gfZSzU",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "YNBar4YT2GY",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "E9D7e-rDiBo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_16_1-16",
+      "key": "Księga Rodzaju 16:1-16",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "27K6L9_4gk0",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "BkVoimcPjKQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "qu5NOABWD3g",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "ugKOx_73EXU",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "vFdLDol3OEo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "2yje2lNgVMo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "DVajMAkS5uA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "833f_M5NadQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "SMrJj-OsM0I",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "Pneyganlzz0",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "8NWG5bbQS5Q",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "8_liZ-IxvZ4",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "foE6_UZwcJQ",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "z4dgU81-1ZU",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_17_1-27",
+      "key": "Księga Rodzaju 17:1-27",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "euwbfT0ZOzg",
       "toDelete": []
     }
   ],
   "results": [],
-  "toDelete": []
+  "toDelete": [
+    {
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "id": null,
+      "title": "Księga Rodzaju 10:1-32 (UBG) • Tablica Narodów • Potomkowie Synów Noego | Biblia Audio CC #Shorts",
+      "status": "other",
+      "studioUrl": null
+    },
+    {
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "id": "_EDZEWQgMgI",
+      "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+      "status": "public",
+      "studioUrl": "https://studio.youtube.com/video/_EDZEWQgMgI/edit"
+    },
+    {
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "id": "VhMQEDhgzos",
+      "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+      "status": "public",
+      "studioUrl": "https://studio.youtube.com/video/VhMQEDhgzos/edit"
+    },
+    {
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "id": "kGScqCDSJtk",
+      "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+      "status": "public",
+      "studioUrl": "https://studio.youtube.com/video/kGScqCDSJtk/edit"
+    },
+    {
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "id": null,
+      "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+      "status": "other",
+      "studioUrl": null
+    },
+    {
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "id": null,
+      "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+      "status": "other",
+      "studioUrl": null
+    },
+    {
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "id": "FPOy6-xNtok",
+      "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+      "status": "public",
+      "studioUrl": "https://studio.youtube.com/video/FPOy6-xNtok/edit"
+    },
+    {
+      "channel": "CC Women",
+      "tab": "shorts",
+      "id": "y0HVUTg_a_o",
+      "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+      "status": "public",
+      "studioUrl": "https://studio.youtube.com/video/y0HVUTg_a_o/edit"
+    },
+    {
+      "channel": "CC Men",
+      "tab": "shorts",
+      "id": "z5GGHBD-bYs",
+      "title": "Księga Rodzaju 12:1-20 (UBG) • Powołanie Abrama • Przymierze Błogosławieństwa i Próba w Egipcie | Bi",
+      "status": "public",
+      "studioUrl": "https://studio.youtube.com/video/z5GGHBD-bYs/edit"
+    }
+  ]
 }
