@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "policy_name": "EkoCC Żelazny Strażnik Budżetu Tokenów",
+  "daily_ceiling_tokens": 200000,
+  "reset_hour_warsaw": "00:00",
+  "tiers": {
+    "P0_IRON_CORE": {
+      "name": "Pakiet Żelazny — Nietykalny Filar Misji",
+      "reserved_tokens": 50000,
+      "strict_lock": true,
+      "tasks": [
+        { "id": "morning_inspiration", "label": "Poranne Rozważanie (WWW, Aplikacja, SMS)", "budget": 8000 },
+        { "id": "daily_course_lesson", "label": "Lekcja Kursu Codziennego z weryfikacją UBG", "budget": 20000 },
+        { "id": "whatsapp_rotation", "label": "Rotacja WhatsApp (10:00-18:00)", "budget": 10000 },
+        { "id": "social_x_facebook", "label": "Social Media (X, Facebook) — adaptacja postów", "budget": 8000 },
+        { "id": "emergency_buffer", "label": "Żelazna rezerwa awaryjna P0", "budget": 4000 }
+      ]
+    },
+    "P1_PUBLICATIONS": {
+      "name": "Pakiet Publicystyczny (CCN News, analizy)",
+      "max_daily_tokens": 50000,
+      "precondition": "P0_RESERVED_AND_SAFE"
+    },
+    "P2_DEVELOPMENT": {
+      "name": "Pakiet Rozwojowy (Eksperymenty, nowe funkcje, refaktoryzacja)",
+      "max_daily_tokens": 50000,
+      "precondition": "P0_AND_P1_SAFE"
+    }
+  },
+  "runtime_guard": {
+    "block_on_low_budget": true,
+    "p0_min_headroom_tokens": 50000,
+    "last_updated": "2026-11-08T10:20:00+01:00"
+  }
+}
