@@ -145,6 +145,22 @@
     dialog.cc-mobile-edge {
       z-index: 99999 !important;
     }
+
+    /* Blokada duplikatu triggera krawędziowego - tylko złoty #ccEdgeTriggerBtn */
+    .cc-mobile-edge-trigger:not(#ccEdgeTriggerBtn),
+    button.cc-mobile-edge-trigger:not(#ccEdgeTriggerBtn),
+    header .cc-mobile-edge-trigger:not(#ccEdgeTriggerBtn) {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      position: absolute !important;
+      left: -9999px !important;
+    }
   </style>
 
   <!-- Blokada duplikatu pływającego przycisku czatu -->
@@ -198,8 +214,8 @@
         </button>
       </div>
 
-      <!-- PRAWA STRONA AKCJI: NA SMARTFONIE CZYSTOŚĆ - AWATAR + PRZYCISK + -->
-      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+      <!-- PRAWA STRONA AKCJI: PREMIUM RESPONSIVE HEADER -->
+      <div class="flex items-center gap-1 sm:gap-2 shrink-0">
         
         <!-- LICZNIK /MILION (desktop/tablet) -->
         <a
@@ -211,34 +227,37 @@
           <span>/milion</span>
         </a>
 
-        <!-- PRZYCISK WSPIERAMTO / PATRONITE (desktop) -->
+        <!-- PRZYCISK WSPIERAMTO / PATRONITE -->
         <a
           href="/wspieraj"
-          class="hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-rose-500/40 text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 text-xs font-bold transition min-h-[44px]"
+          class="flex items-center justify-center gap-1.5 w-10 h-10 sm:w-auto sm:px-3.5 sm:py-1.5 rounded-full border border-rose-500/40 text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 text-xs font-bold transition min-h-[44px] min-w-[44px]"
           title="Wesprzyj Misję Christian Culture"
+          aria-label="WspieramTO — Wolne Media Boże"
         >
-          <i class="fa-solid fa-heart text-rose-400"></i>
-          <span>WspieramTO</span>
+          <i class="fa-solid fa-heart text-rose-400 text-sm"></i>
+          <span class="hidden md:inline">WspieramTO</span>
         </a>
 
-        <!-- CZAT LUMI MESS (desktop) -->
+        <!-- CZAT LUMI MESS -->
         <a
           href="/mess"
-          class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-xs font-semibold transition min-h-[44px]"
+          id="ccNavLumiMessBtn"
+          class="flex items-center justify-center gap-1.5 w-10 h-10 sm:w-auto sm:px-3 sm:py-1.5 rounded-full border border-[#D4AF37]/35 bg-[#0C1B33]/90 hover:bg-[#D4AF37]/20 text-[#D4AF37] hover:text-white text-xs font-semibold transition min-h-[44px] min-w-[44px]"
           title="Czat Społeczności LUMI Mess"
+          aria-label="Czat Społeczności LUMI Mess"
         >
-          <i class="fa-solid fa-comments text-[#D4AF37]"></i>
-          <span>Lumi Mess</span>
+          <i class="fa-solid fa-comments text-[#D4AF37] text-sm"></i>
+          <span class="hidden md:inline">Lumi Mess</span>
         </a>
 
         <!-- LOGOWANIE GOOGLE LUMINA (cc-global-auth) -->
         <div id="cc-auth-nav-container" class="cc-auth-widget-container flex items-center min-h-[44px]"></div>
 
-        <!-- PRZYCISK KRAWĘDZIOWY + (DRAWER/SHEET NA SMARTFONACH I DESKTOPIE) -->
+        <!-- PRZYCISK KRAWĘDZIOWY + (JEDYNY ZŁOTY PRZYCISK PLUS NA STRONIE) -->
         <button
           type="button"
           id="ccEdgeTriggerBtn"
-          class="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#D4AF37]/20 hover:bg-[#D4AF37]/35 active:bg-[#D4AF37]/45 border border-[#D4AF37]/50 text-[#D4AF37] font-bold text-lg sm:text-xl transition transform active:scale-95 min-h-[44px] min-w-[44px] shadow-md shadow-black/40 cursor-pointer"
+          class="cc-mobile-edge-trigger flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#D4AF37]/20 hover:bg-[#D4AF37]/35 active:bg-[#D4AF37]/45 border border-[#D4AF37]/60 text-[#D4AF37] font-bold text-lg sm:text-xl transition transform active:scale-95 min-h-[44px] min-w-[44px] shadow-md shadow-black/40 cursor-pointer"
           aria-label="Otwórz menu ekosystemu Christian Culture"
           title="Menu ekosystemu"
         >
@@ -533,12 +552,18 @@
   <script defer src="/components/ekocc-info.js?v=20261020_1"></script>
 
   <!-- Pancerne podłączenie panelu krawędziowego EkoCC Mobile Edge (+) -->
-  <script src="/js/cc-mobile-edge.js?v=20261030_edge10"></script>
+  <script src="/js/cc-mobile-edge.js?v=20261030_edge11" data-cc-edge-profile="manual"></script>
   <script>
     (function () {
       function mountEdgePanel() {
         const btn = document.getElementById('ccEdgeTriggerBtn');
         if (!btn) return;
+
+        // Bezwzględne usunięcie ewentualnych zdublowanych przycisków triggera
+        document.querySelectorAll('.cc-mobile-edge-trigger:not(#ccEdgeTriggerBtn), button.cc-mobile-edge-trigger:not(#ccEdgeTriggerBtn)').forEach(function(el){
+          el.remove();
+        });
+
         if (btn.dataset.ccEdgeMounted) return;
 
         if (window.CCMobileEdge && typeof window.CCMobileEdge.mount === 'function') {
@@ -558,8 +583,9 @@
       } else {
         mountEdgePanel();
       }
-      setTimeout(mountEdgePanel, 300);
-      setTimeout(mountEdgePanel, 1000);
+      setTimeout(mountEdgePanel, 150);
+      setTimeout(mountEdgePanel, 500);
+      setTimeout(mountEdgePanel, 1200);
     })();
   </script>
 
