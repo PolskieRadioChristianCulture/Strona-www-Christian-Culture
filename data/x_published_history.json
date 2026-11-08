@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "biblia-spiewana",
+      "title": "Kanał Transmisyjny: Biblia Śpiewana Live — Słowo Boże ubrane w natchnioną muzykę",
+      "url": "https://polskieradio.cc/biblia-spiewana",
+      "type": "music",
+      "image": "Logo_Biblia_Spiewana.jpg",
+      "publishedAt": "2026-11-08T13:03:46.812Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "kraj-jesienna-mobilizacja-chrzescijanskich-organizacji-charytatywnych-w-polsce-wsparcie-dla-seniorow",
       "title": "KRAJ: JESIENNA MOBILIZACJA CHRZEŚCIJAŃSKICH ORGANIZACJI CHARYTATYWNYCH W POLSCE — WSPARCIE DLA SENIORÓW, CHORYCH I POTRZEBUJĄCYCH",
       "url": "https://polskieradio.cc/news/kraj-jesienna-mobilizacja-chrzescijanskich-organizacji-charytatywnych-w-polsce-wsparcie-dla-seniorow",
