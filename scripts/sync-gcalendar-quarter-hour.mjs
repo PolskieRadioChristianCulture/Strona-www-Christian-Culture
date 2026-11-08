@@ -8,7 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 
 const TIMEZONE = 'Europe/Warsaw';
 const TARGET_ACCOUNT = 'nazirczarkes@gmail.com';
@@ -269,31 +269,40 @@ async function main() {
   const primaryPath = path.join(baseDir, 'gcal-primary.json');
   const holidaysPath = path.join(baseDir, 'gcal-holidays.json');
 
-  // Automatyczny odczyt na żywo z CLI gcalendar (--cal primary --start ... --end ... --max 250 --json)
-  try {
-    const startUtc = windowStart.toISOString();
-    const endUtc = windowEnd.toISOString();
-    const calsRaw = execFileSync('gcalendar', ['readonly', 'calendars', '--json'], {
-      encoding: 'utf8',
-      timeout: 3000,
-      stdio: ['ignore', 'pipe', 'ignore'],
-    });
-    if (calsRaw && calsRaw.trim().startsWith('[')) {
-      fs.writeFileSync(calsPath, calsRaw, 'utf8');
-    }
-    const priRaw = execFileSync(
-      'gcalendar',
-      ['readonly', 'events', '--cal', 'primary', '--start', startUtc, '--end', endUtc, '--max', '250', '--json'],
-      {
-        encoding: 'utf8',
-        timeout: 4000,
-        stdio: ['ignore', 'pipe', 'ignore'],
+  // Automatyczny odczyt na żywo z CLI gcalendar (jeśli CLI jest dostępne i włączone)
+  if (process.env.GCAL_FETCH === '1') {
+    try {
+      const hasGcal = spawnSync('where.exe', ['gcalendar'], { encoding: 'utf8', timeout: 1500, windowsHide: true });
+      if (hasGcal.status === 0 && hasGcal.stdout && hasGcal.stdout.trim().length > 0) {
+        const startUtc = windowStart.toISOString();
+        const endUtc = windowEnd.toISOString();
+        const calsRes = spawnSync('gcalendar', ['readonly', 'calendars', '--json'], {
+          encoding: 'utf8',
+          timeout: 2500,
+          shell: true,
+          windowsHide: true,
+          stdio: ['ignore', 'pipe', 'ignore'],
+        });
+        if (calsRes.status === 0 && calsRes.stdout && calsRes.stdout.trim().startsWith('[')) {
+          fs.writeFileSync(calsPath, calsRes.stdout, 'utf8');
+        }
+        const priRes = spawnSync(
+          'gcalendar',
+          ['readonly', 'events', '--cal', 'primary', '--start', startUtc, '--end', endUtc, '--max', '250', '--json'],
+          {
+            encoding: 'utf8',
+            timeout: 3000,
+            shell: true,
+            windowsHide: true,
+            stdio: ['ignore', 'pipe', 'ignore'],
+          }
+        );
+        if (priRes.status === 0 && priRes.stdout && priRes.stdout.trim().startsWith('[')) {
+          fs.writeFileSync(primaryPath, priRes.stdout, 'utf8');
+        }
       }
-    );
-    if (priRaw && priRaw.trim().startsWith('[')) {
-      fs.writeFileSync(primaryPath, priRaw, 'utf8');
-    }
-  } catch {}
+    } catch {}
+  }
 
   try {
     if (fs.existsSync(calsPath) && fs.existsSync(primaryPath)) {
@@ -360,12 +369,13 @@ async function main() {
       } catch {}
     }
 
-    // Wyślij żywy raport do endpointu produkcyjnego /api/mission-calendar/gcal/live-report
+    // Wyślij żywy raport do endpointu produkcyjnego /api/mission-calendar/gcal/live-report (z limitem 3s)
     try {
       await fetch('https://polskieradio.cc/api/mission-calendar/gcal/live-report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: jsonStr,
+        signal: AbortSignal.timeout(3000),
       });
     } catch {}
   }
