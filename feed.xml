@@ -8,7 +8,7 @@
     <atom:link href="https://polskieradio.cc/feed.xml" rel="self" type="application/rss+xml" />
     <description>Główny kanał publikacji ekosystemu Christian Culture: CCN News, Akademia Biblijna, Biblijne Uwielbienie, Radio i Kino VOD.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sun, 08 Nov 2026 07:56:24 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2026 13:06:41 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
     <item>
       <title>Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?</title>
@@ -19,6 +19,16 @@
       <category>CCN Finanse</category>
       <description>Dyskusja o cyfrowych walutach banków centralnych (CBDC) coraz częściej wykracza poza ekonomię. Analiza CBDC, prawa niedzielnego oraz Apokalipsy 13 (z wydaniem audio 17:51).</description>
       <enclosure url="https://polskieradio.cc/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Czy w Kościele wolno mówić o własnym kryzysie?</title>
+      <link>https://polskieradio.cc/news</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news</guid>
+      <pubDate>Sun, 08 Nov 2026 14:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>eM • FORMACJA DUCHOWA I WSPÓLNOTA KOŚCIOŁA</category>
+      <description>Dla wielu chrześcijan niedzielne wejście do świątyni wiąże się z niewidzialnym przymusem przywdziania maski człowieka sukcesu, którego wiara jest niezłomna, a życie rodzinne nienaganne. Gdy jednak w zaciszu domowym uderza bezsilność, chroniczny lęk, kryzys małżeński, wypalenie czy wątpliwości wiary, pojawia się paraliżujące poczucie winy i strach przed odrzuceniem. Pismo Święte nie zna jednak kultu nieskazitelności — od psalmów lamentu, przez udrękę Getsemane, aż po teologię słabości apostoła Pawła, Boże Słowo uczy, że autentyczna wspólnota wiary ma być bezpiecznym szpitalem dla zranionych, a nie sceną religijnych pozorów.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-czy-w-kosciele-wolno-mowic-o-wlasnym-kryzysie.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Kraków w żałobie: 6 ofiar strzelaniny. Chrześcijański komentarz</title>
@@ -208,16 +218,6 @@
       <dc:creator>Cezary Rogowski</dc:creator>
       <category>CCN Muzyka &amp; Kultura · Recenzja Albumu</category>
       <description>Album, który nie chce być muzycznym tłem. Teologiczna i muzyczna analiza dziewięciu utworów debiutanckiego krążka Geralda Welcha w Christian Culture Network.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-gerald-welch-the-call.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Gerald Welch – THE CALL. A Rock-Driven Wake-Up Call to Conscience and Living Faith</title>
-      <link>https://polskieradio.cc/news/gerald-welch-the-call-a-rock-driven-wake-up-call-to-conscience-and-living-faith</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/gerald-welch-the-call-a-rock-driven-wake-up-call-to-conscience-and-living-faith</guid>
-      <pubDate>Thu, 29 Oct 2026 16:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>CCN Music &amp; Culture · Album Feature</category>
-      <description>An Album That Refuses to Be Background Music. A lyrical and theological examination of Gerald Welch&apos;s debut album on Christian Culture Network.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-gerald-welch-the-call.jpg" type="image/jpeg" length="0" />
     </item>
     <item>

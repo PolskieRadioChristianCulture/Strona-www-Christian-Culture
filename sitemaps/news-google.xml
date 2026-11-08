@@ -9,6 +9,21 @@
         <news:name>Christian Culture News (CCN)</news:name>
         <news:language>pl</news:language>
       </news:publication>
+      <news:publication_date>2026-11-08T14:00:00.000Z</news:publication_date>
+      <news:title>Czy w Kościele wolno mówić o własnym kryzysie?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-czy-w-kosciele-wolno-mowic-o-wlasnym-kryzysie.jpg</image:loc>
+      <image:title>Czy w Kościele wolno mówić o własnym kryzysie?</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/news</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
       <news:publication_date>2026-11-08T07:00:00.000Z</news:publication_date>
       <news:title>Kraków w żałobie: 6 ofiar strzelaniny. Chrześcijański komentarz</news:title>
     </news:news>

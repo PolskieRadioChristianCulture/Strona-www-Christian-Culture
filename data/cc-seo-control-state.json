@@ -1,14 +1,14 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-08T07:56:24.184Z",
+  "generatedAt": "2026-11-08T13:06:41.381Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 90,
-    "validUrls": 90,
+    "totalValidatedUrls": 91,
+    "validUrls": 91,
     "invalidUrls": 0,
-    "newsArticlesCount": 84,
-    "googleNews48hCount": 38,
-    "akademiaUrlsCount": 70,
+    "newsArticlesCount": 85,
+    "googleNews48hCount": 39,
+    "akademiaUrlsCount": 71,
     "bibliaUrlsCount": 4,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 2,
@@ -31,13 +31,13 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 24353,
+      "sizeBytes": 24715,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 31526,
+      "sizeBytes": 31766,
       "status": "OK"
     },
     {
@@ -49,13 +49,13 @@
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 30908,
+      "sizeBytes": 31555,
       "status": "OK"
     },
     {
       "path": "/sitemaps/akademia.xml",
       "exists": true,
-      "sizeBytes": 13246,
+      "sizeBytes": 13435,
       "status": "OK"
     },
     {
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-08T07:56:24.179Z",
+        "queuedAt": "2026-11-08T13:06:41.377Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-08T07:56:24.179Z",
+        "queuedAt": "2026-11-08T13:06:41.377Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-08T07:56:24.179Z",
+        "queuedAt": "2026-11-08T13:06:41.377Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-08T07:56:24.179Z",
+        "queuedAt": "2026-11-08T13:06:41.377Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-08T07:56:24.179Z",
+        "queuedAt": "2026-11-08T13:06:41.377Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 344,
-    "lastSubmittedCount": 344,
-    "lastSubmittedAt": "2026-11-08T07:56:26.263Z"
+    "totalIndexedUrls": 345,
+    "lastSubmittedCount": 345,
+    "lastSubmittedAt": "2026-11-08T13:06:43.133Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/czy-w-kosciele-wolno-mowic-o-wlasnym-kryzysie.html",
+      "canonicalUrl": "https://polskieradio.cc/news",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/krakow-strzelanina-7-listopada-2026-chrzescijanski-komentarz.html",
       "canonicalUrl": "https://polskieradio.cc/news",
@@ -593,15 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/z-biblia-za-pan-brat-dzien-27-gdy-przeszlosc-wraca-bracia-jozefa.html",
-      "canonicalUrl": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-27-gdy-przeszlosc-wraca-bracia-jozefa",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-08T07:56:26.263Z"
+  "lastInstantIndexingAt": "2026-11-08T13:06:43.133Z"
 }

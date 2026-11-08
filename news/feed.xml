@@ -8,8 +8,18 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sun, 08 Nov 2026 07:56:24 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 08 Nov 2026 13:06:41 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Czy w Kościele wolno mówić o własnym kryzysie?</title>
+      <link>https://polskieradio.cc/news</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news</guid>
+      <pubDate>Sun, 08 Nov 2026 14:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>eM • FORMACJA DUCHOWA I WSPÓLNOTA KOŚCIOŁA</category>
+      <description>Dla wielu chrześcijan niedzielne wejście do świątyni wiąże się z niewidzialnym przymusem przywdziania maski człowieka sukcesu, którego wiara jest niezłomna, a życie rodzinne nienaganne. Gdy jednak w zaciszu domowym uderza bezsilność, chroniczny lęk, kryzys małżeński, wypalenie czy wątpliwości wiary, pojawia się paraliżujące poczucie winy i strach przed odrzuceniem. Pismo Święte nie zna jednak kultu nieskazitelności — od psalmów lamentu, przez udrękę Getsemane, aż po teologię słabości apostoła Pawła, Boże Słowo uczy, że autentyczna wspólnota wiary ma być bezpiecznym szpitalem dla zranionych, a nie sceną religijnych pozorów.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-czy-w-kosciele-wolno-mowic-o-wlasnym-kryzysie.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Kraków w żałobie: 6 ofiar strzelaniny. Chrześcijański komentarz</title>
       <link>https://polskieradio.cc/news</link>
@@ -299,16 +309,6 @@
       <category>Wiara &amp; Rozwój</category>
       <description>Modlisz się szczerze, wierzysz, czekasz, a odpowiedź nie nadchodzi? Dlaczego prosimy, a nie otrzymujemy? Inspirujące przesłanie Cezarego Rogowskiego w ramach eM — Motywacja Christian Culture o zaufaniu, Bożej mądrości i planach przekraczających naszą wyobraźnię.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-prosicie-a-bedzie-wam-dane.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>SURVIVAL — przetrwać to za mało. Jak przygotować się na trudne czasy, nie tracąc wiary, człowieczeństwa i nadziei?</title>
-      <link>https://polskieradio.cc/news/survival-christian-culture-przygotowanie-na-trudne-czasy</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/survival-christian-culture-przygotowanie-na-trudne-czasy</guid>
-      <pubDate>Wed, 21 Oct 2026 11:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>SURVIVAL • PRZYGOTOWANIE I WIARA</category>
-      <description>Co zrobisz, gdy nagle zabraknie prądu, telefonu i podstawowych usług? Jak przygotować rodzinę na kryzys, nie żyjąc w strachu? Inauguracja projektu SURVIVAL Christian Culture — wiedza, odpowiedzialność i nadzieja na fundamencie Słowa Bożego.</description>
-      <enclosure url="https://polskieradio.cc/images/news/survival-christian-culture-przygotowanie-na-trudne-czasy.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>
