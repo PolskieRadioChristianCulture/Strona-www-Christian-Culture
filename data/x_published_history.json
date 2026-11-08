@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina.wiolettarogowska",
+      "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
+      "url": "https://polskieradio.cc/lumina.wiolettarogowska",
+      "type": "profile",
+      "image": "wioletta-og.jpg",
+      "publishedAt": "2026-11-08T19:31:55.905Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "prawda-bez-filtra",
       "title": "Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo",
       "url": "https://polskieradio.cc/prawda-bez-filtra",
