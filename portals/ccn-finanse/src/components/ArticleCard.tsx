@@ -98,7 +98,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           {article.sourceCitation && (
             <div className="mt-2.5 pt-2 border-t border-gray-100 flex items-center gap-1 text-[11px] text-amber-800 font-medium">
               <FileText className="w-3 h-3 text-amber-600 shrink-0" />
-              <span className="truncate">Źródło: {article.sourceCitation.sourceName.split('/')[0]}</span>
+              <span className="truncate">Źródło: {(article.sourceCitation.sourceName || article.sourceCitation.name || '').split('/')[0]}</span>
             </div>
           )}
         </div>

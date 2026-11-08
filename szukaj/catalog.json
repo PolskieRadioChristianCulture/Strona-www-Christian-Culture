@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-09T05:00:00.000Z",
-  "totalItems": 422,
+  "updatedAt": "2026-11-08T09:47:08.206Z",
+  "totalItems": 423,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1062,30 +1062,6 @@
   },
   "items": [
     {
-      "title": "Z Biblią za Pan Brat — Dzień 40 (Lekcja 40 na dziś): Dzień 40: Pomór bydła, wrzody i ogień z gradem (Wj 9:1–35)",
-      "category": "Biblia i formacja",
-      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-40",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 40 (Lekcja 40 na dziś, 9 listopada 2026). Księga Wyjścia 9:1–35: Pomór bydła, wrzody i ogień z gradem — Boża moc ponad pychą faraona. Sąd nad pogańskimi bóstwami, ochrona w ziemi Goszen i Chrystus jako nasze schronienie.",
-      "tags": [
-        "lekcja 40",
-        "lekcja 40 na dziś",
-        "lekcja na dziś",
-        "dzień 40",
-        "dzien 40",
-        "rozważanie 40",
-        "rozważanie na dziś",
-        "słowo na dziś",
-        "wj 9",
-        "z biblią za pan brat",
-        "kurs codzienny",
-        "akademia biblijna",
-        "9 listopada 2026",
-        "dzisiaj",
-        "dziś"
-      ],
-      "featured": true
-    },
-    {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
       "url": "https://cclite.pl",
@@ -1979,15 +1955,19 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 38 (Lekcja 38): Laska, która połknęła węże, i woda zamieniona w krew (Wj 7:1–25)",
+      "title": "Z Biblią za Pan Brat — Dzień 38 (Lekcja 38 na dziś): Laska, która połknęła węże, i woda zamieniona w krew (Wj 7:1–25)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-38",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 38 (Lekcja 38, 7 listopada 2026). Księga Wyjścia: Mojżesz ustanowiony bogiem dla faraona, pojedynek lasek czarowników i uderzenie w święty Nil — Wj 7:1–25.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 38 (Lekcja 38 na dziś, 7 listopada 2026). Księga Wyjścia: Mojżesz ustanowiony bogiem dla faraona, pojedynek lasek czarowników i uderzenie w święty Nil — Wj 7:1–25.",
       "tags": [
         "lekcja 38",
+        "lekcja 38 na dziś",
+        "lekcja na dziś",
         "dzień 38",
         "dzien 38",
         "rozważanie 38",
+        "rozważanie na dziś",
+        "słowo na dziś",
         "laska która połknęła węże",
         "woda zamieniona w krew",
         "nil",
@@ -1999,9 +1979,11 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "7 listopada 2026"
+        "7 listopada 2026",
+        "dzisiaj",
+        "dziś"
       ],
-      "featured": false
+      "featured": true
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 37 (Lekcja 37): Teraz zobaczysz, co uczynię faraonowi: Siedem obietnic odkupienia (Wj 6:1–30)",
@@ -2284,15 +2266,19 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 22 (Lekcja 22): Jakub walczy z Bogiem — Przemiana człowieka (Rdz 31:1–32:32)",
+      "title": "Z Biblią za Pan Brat — Dzień 22 (Lekcja 22 na dziś): Jakub walczy z Bogiem — Przemiana człowieka (Rdz 31:1–32:32)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-22",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 22 (Lekcja 22, 22 października 2026). Przymierze z Labanem w Gileadzie, lęk przed Ezawem, nocne zmaganie nad potokiem Jabbok i nowe imię Izrael — Rdz 31:1–32:32. Prawdziwe zwycięstwo w Chrystusie przez pokorę i moc w słabości.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 22 (Lekcja 22 na dziś, 22 października 2026). Przymierze z Labanem w Gileadzie, lęk przed Ezawem, nocne zmaganie nad potokiem Jabbok i nowe imię Izrael — Rdz 31:1–32:32. Prawdziwe zwycięstwo w Chrystusie przez pokorę i moc w słabości.",
       "tags": [
         "lekcja 22",
+        "lekcja 22 na dziś",
+        "lekcja na dziś",
         "dzień 22",
         "dzien 22",
         "rozważanie 22",
+        "rozważanie na dziś",
+        "słowo na dziś",
         "jakub walczy z bogiem",
         "jabbok",
         "peniel",
@@ -2302,9 +2288,11 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "22 października 2026"
+        "22 października 2026",
+        "dzisiaj",
+        "dziś"
       ],
-      "featured": false
+      "featured": true
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 21: Bóg działa pośród niedoskonałych rodzin (Rdz 29:1–30:43)",
@@ -10412,193 +10400,50 @@
         "słowo boże"
       ],
       "featured": false
+    },
+    {
+      "id": "apok-lekcja-30",
+      "title": "Lekcja 30: UPADŁ WIELKI BABILON — TAJEMNICA SZKARŁATNEJ KOBIETY",
+      "subtitle": "Apokalipsa 17:1–6 — Sąd nad wielką wszetecznicą i demaskacja duchowego zwiedzenia",
+      "description": "Studium Apokalipsy 17:1–6 z pastorem Wincentym Sieją (Studio Dobrego Słowa). Kobieta na bestii, kielich obrzydliwości i demaskacja duchowego Babilonu.",
+      "category": "studia_biblijne",
+      "categoryLabel": "Akademia Biblijna • Apokalipsa",
+      "url": "https://polskieradio.cc/akademia/apokalipsa/lekcja-30",
+      "tags": [
+        "apokalipsa",
+        "apokalipsa 17",
+        "babilon",
+        "szkarlatna kobieta",
+        "studium biblijne",
+        "wincenty sieja",
+        "studio dobrego slowa",
+        "lekcja 30"
+      ],
+      "icon": "📖",
+      "priority": 85
+    },
+    {
+      "id": "apok-lekcja-31",
+      "title": "Lekcja 31: ÓSMY KRÓL — PRZEPOWIEDNIA DLA NASZYCH CZASÓW",
+      "subtitle": "Apokalipsa 17:7–18 — Tajemnica zwierzęcia, które było, nie ma go i znowu będzie",
+      "description": "Studium Apokalipsy 17:7–18 z pastorem Wincentym Sieją (Studio Dobrego Słowa). Kim jest Ósmy Król, siedem głów, dziesięć rogów i ostateczny triumf Baranka.",
+      "category": "studia_biblijne",
+      "categoryLabel": "Akademia Biblijna • Apokalipsa",
+      "url": "https://polskieradio.cc/akademia/apokalipsa/lekcja-31",
+      "tags": [
+        "apokalipsa",
+        "apokalipsa 17",
+        "osmy krol",
+        "siedem glow",
+        "dziesiec rogow",
+        "zwyciestwo baranka",
+        "studium biblijne",
+        "wincenty sieja",
+        "studio dobrego slowa",
+        "lekcja 31"
+      ],
+      "icon": "📖",
+      "priority": 90
     }
-  ],
-  "recommendedToday": [
-    {
-      "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 8",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 8 listopada 2026.",
-      "url": "/player",
-      "icon": "heart"
-    },
-    {
-      "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 8)",
-      "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-8",
-      "icon": "book"
-    },
-    {
-      "tag": "Dzień Reformacji 2026 • Na Dziś",
-      "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
-      "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
-      "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-      "icon": "newspaper"
-    },
-    {
-      "tag": "Nadajemy 24/7",
-      "title": "Radio Christian Culture & Player",
-      "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
-      "url": "/player",
-      "icon": "radio"
-    }
-  ],
-  "searchRecommendations": {
-    "updatedAt": "2026-11-08T07:59:07.526Z",
-    "heading": "Polecane na dziś",
-    "dateFormattedPL": "8 listopada 2026",
-    "pools": [
-      [
-        {
-          "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 8",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 8 listopada 2026.",
-          "url": "/player",
-          "icon": "heart"
-        },
-        {
-          "tag": "Słowo Boże na Dziś",
-          "title": "Mój Werset Dnia z Obietnicą",
-          "desc": "Losuj i rozważaj żywe obietnice Pisma Świętego przygotowane na dziś.",
-          "url": "/werset-dnia",
-          "icon": "sparkle"
-        },
-        {
-          "tag": "Modlitwa & Wstawiennictwo",
-          "title": "Zjednoczeni za Polskę — Czuwanie",
-          "desc": "Wspólna modlitwa narodu o pokój, Boże prowadzenie i przebudzenie.",
-          "url": "/modlitwa",
-          "icon": "shield"
-        },
-        {
-          "tag": "Słuchowisko Biblijne",
-          "title": "Biblia Audio — Nowy Testament UBG",
-          "desc": "Żywe Słowo Boże z profesjonalną muzyką i udźwiękowieniem radiowym.",
-          "url": "/player",
-          "icon": "volume"
-        }
-      ],
-      [
-        {
-          "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 8)",
-          "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-8",
-          "icon": "book"
-        },
-        {
-          "tag": "Interlinearna Biblia",
-          "title": "MojaBiblia: Kody Stronga & Greka",
-          "desc": "Oryginalne znaczenie słów hebrajskich i greckich w Twojej przeglądarce.",
-          "url": "/mojabiblia",
-          "icon": "scroll"
-        },
-        {
-          "tag": "Wyszukiwarka Ekosystemu",
-          "title": "Błyskawiczne Odkrywanie w CC",
-          "desc": "Szukaj wersetów, lekcji, audycji i artykułów natychmiast od 1. litery.",
-          "url": "/wyszukiwarka",
-          "icon": "search"
-        },
-        {
-          "tag": "Kurs Proroctw Biblijnych",
-          "title": "Księga Daniela — 2300 Wieczorów i Poranków",
-          "desc": "Klucz do zrozumienia czasów ostatecznych i nadziei Zbawienia w Chrystusie.",
-          "url": "/akademia",
-          "icon": "compass"
-        }
-      ],
-      [
-        {
-          "tag": "Dzień Reformacji 2026 • Na Dziś",
-          "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
-          "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
-          "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-          "icon": "newspaper"
-        },
-        {
-          "tag": "Rodzina & Zdrowie • Nowość",
-          "title": "Cyfrowy detoks w chrześcijańskim domu",
-          "desc": "Jak odzyskać prawdziwą bliskość przy wspólnym stole (Wioletta Rogowska).",
-          "url": "/news/cyfrowy-detoks-rodziny-jak-odzyskac-bliskosc-i-spokoj",
-          "icon": "newspaper"
-        },
-        {
-          "tag": "Podcast Spotify SDS",
-          "title": "APOKALIPSA — Księga Nadziei",
-          "desc": "Profetyczny cykl wykładów biblijnych Studia Dobrego Słowa.",
-          "url": "/podcasty",
-          "icon": "mic"
-        },
-        {
-          "tag": "Kino Chrześcijańskie VOD",
-          "title": "Filmy Fabularne i Dokumentalne CC",
-          "desc": "Wartościowe kino chrześcijańskie bez reklam, opłat i subskrypcji.",
-          "url": "/vod",
-          "icon": "film"
-        }
-      ],
-      [
-        {
-          "tag": "Nadajemy 24/7",
-          "title": "Radio Christian Culture & Player",
-          "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
-          "url": "/player",
-          "icon": "radio"
-        },
-        {
-          "tag": "Przegląd Ekosystemu • Nowość",
-          "title": "Tętno Misji: Nowe Lekcje i Artykuły",
-          "desc": "Aktualne premiery, audycje i materiały w całym ekosystemie CC.",
-          "url": "/news/przeglad-ekosystemu-nowe-artykuly-i-lekcje-akademii",
-          "icon": "sparkle"
-        },
-        {
-          "tag": "Telewizja CCTV24 Worship",
-          "title": "CCTV24 — Pasmo Bożej Obecności",
-          "desc": "Nocne czuwania, modlitwy i pieśni chwały w krystalicznej jakości HD.",
-          "url": "/cctv24-worship",
-          "icon": "play"
-        },
-        {
-          "tag": "Społeczność Wiary",
-          "title": "Portal Społecznościowy LUMINA",
-          "desc": "Dołącz do chrześcijan z całej Polski — dyskusje, świadectwa, modlitwa.",
-          "url": "/lumina",
-          "icon": "users"
-        }
-      ]
-    ],
-    "recommendedToday": [
-      {
-        "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 8",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 8 listopada 2026.",
-        "url": "/player",
-        "icon": "heart"
-      },
-      {
-        "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 8)",
-        "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-8",
-        "icon": "book"
-      },
-      {
-        "tag": "Dzień Reformacji 2026 • Na Dziś",
-        "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
-        "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
-        "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-        "icon": "newspaper"
-      },
-      {
-        "tag": "Nadajemy 24/7",
-        "title": "Radio Christian Culture & Player",
-        "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
-        "url": "/player",
-        "icon": "radio"
-      }
-    ]
-  }
+  ]
 }

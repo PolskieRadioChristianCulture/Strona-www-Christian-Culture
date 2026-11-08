@@ -380,9 +380,9 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
                 </div>
               )}
               <div className="flex flex-wrap items-center justify-between text-[11px] text-amber-900/80 pt-2 border-t border-amber-200/60 mt-2">
-                <span>Źródło: <strong>{article.sourceCitation.sourceName}</strong> {article.sourceCitation.quotationDate && `(${article.sourceCitation.quotationDate})`}</span>
+                <span>Źródło: <strong>{article.sourceCitation.sourceName || article.sourceCitation.name}</strong> {article.sourceCitation.quotationDate && `(${article.sourceCitation.quotationDate})`}</span>
                 {article.sourceCitation.sourceUrl && (
-                  <a href={article.sourceCitation.sourceUrl} target="_blank" rel="noopener noreferrer" className="hover:underline text-amber-900 font-semibold flex items-center gap-0.5">
+                  <a href={article.sourceCitation.sourceUrl || article.sourceCitation.url} target="_blank" rel="noopener noreferrer" className="hover:underline text-amber-900 font-semibold flex items-center gap-0.5">
                     Otwórz źródło <ExternalLink className="w-3 h-3" />
                   </a>
                 )}

@@ -147,8 +147,8 @@ export const INITIAL_ARTICLES: Article[] = [
       strongCode: 'G1145'
     },
     sourceCitation: {
-      name: 'Oficjalny serwis miasta Krakowa (krakow.pl), Radio Kraków, Małopolski Urząd Wojewódzki',
-      url: 'https://krakow.pl'
+      sourceName: 'Oficjalny serwis miasta Krakowa (krakow.pl), Radio Kraków, Małopolski Urząd Wojewódzki',
+      sourceUrl: 'https://krakow.pl'
     }
   },
   {
@@ -220,8 +220,8 @@ export const INITIAL_ARTICLES: Article[] = [
       strongCode: 'G4697'
     },
     sourceCitation: {
-      name: 'Główny Urząd Statystyczny (GUS), Raport Instytutu Pokolenia oraz WHO Commission on Social Connection',
-      url: 'https://stat.gov.pl'
+      sourceName: 'Główny Urząd Statystyczny (GUS), Raport Instytutu Pokolenia oraz WHO Commission on Social Connection',
+      sourceUrl: 'https://stat.gov.pl'
     }
   },
   {
@@ -289,8 +289,8 @@ export const INITIAL_ARTICLES: Article[] = [
       strongCode: 'G5091'
     },
     sourceCitation: {
-      name: 'Centrum Badania Opinii Społecznej (CBOS) oraz Akt Konfederacji Warszawskiej (AGAD / UNESCO)',
-      url: 'https://www.cbos.pl'
+      sourceName: 'Centrum Badania Opinii Społecznej (CBOS) oraz Akt Konfederacji Warszawskiej (AGAD / UNESCO)',
+      sourceUrl: 'https://www.cbos.pl'
     }
   },
   {
