@@ -371,7 +371,13 @@ async function main() {
 
     // Wyślij żywy raport do endpointu produkcyjnego /api/mission-calendar/gcal/live-report (z limitem 3s)
     // Zapis chroniony tokenem CC_MC_LIVE_REPORT_TOKEN (ten sam sekret co w Cloudflare); bez tokenu — pomijamy
-    const liveReportToken = String(process.env.CC_MC_LIVE_REPORT_TOKEN || '').trim();
+    // Źródło tokenu: zmienna środowiskowa albo prywatny plik poza repo (%USERPROFILE%\.cc-secrets\cc_mc_live_report_token)
+    let liveReportToken = String(process.env.CC_MC_LIVE_REPORT_TOKEN || '').trim();
+    if (!liveReportToken) {
+      try {
+        liveReportToken = fs.readFileSync(path.join(os.homedir(), '.cc-secrets', 'cc_mc_live_report_token'), 'utf8').trim();
+      } catch {}
+    }
     if (liveReportToken) try {
       await fetch('https://polskieradio.cc/api/mission-calendar/gcal/live-report', {
         method: 'POST',

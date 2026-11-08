@@ -245,6 +245,41 @@ export function scheduleClockIdleTimer({ auto = false } = {}) {
   return state.clockIdleTimer;
 }
 
+// Odnawianie sesji Kalendarza Misji bez klikania (ekran nadawczy działa całą dobę) — @007, 08.11.2026
+let missionSessionRenewal = null;
+export async function renewMissionSession() {
+  if (typeof window === 'undefined' || typeof fetch !== 'function') return false;
+  if (missionSessionRenewal) return missionSessionRenewal;
+  missionSessionRenewal = (async () => {
+    try {
+      const luminaDb = await import('/lumina-db.js?v=20261107_v3').catch(() => null);
+      if (!luminaDb) return false;
+      const authUser =
+        (typeof luminaDb.getFirebaseAuthUser === 'function' && luminaDb.getFirebaseAuthUser()) ||
+        (typeof luminaDb.waitForAuthReady === 'function' ? await luminaDb.waitForAuthReady(3500).catch(() => null) : null);
+      if (!authUser || typeof authUser.getIdToken !== 'function') return false;
+      const idToken = await authUser.getIdToken(true);
+      const res = await fetch('/api/mission-calendar/auth/session', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.user) return false;
+      state.bearerToken = idToken;
+      state.csrfToken = data.csrfToken || state.csrfToken;
+      state.sessionRenewedAt = Date.now();
+      return true;
+    } catch {
+      return false;
+    } finally {
+      setTimeout(() => { missionSessionRenewal = null; }, 0);
+    }
+  })();
+  return missionSessionRenewal;
+}
+
 async function apiRequest(path, options = {}) {
   const headers = {
     'Content-Type': 'application/json',
@@ -253,12 +288,17 @@ async function apiRequest(path, options = {}) {
   if (state.csrfToken) headers['X-CC-CSRF'] = state.csrfToken;
   if (state.bearerToken) headers['Authorization'] = `Bearer ${state.bearerToken}`;
 
+  const { _retried, ...fetchOptions } = options;
   const res = await fetch(`/api/mission-calendar${path}`, {
     credentials: 'same-origin',
-    ...options,
+    ...fetchOptions,
     headers,
   });
   const data = await res.json().catch(() => ({}));
+  // Ekran nadawczy 24/7: sesja (8 h) lub token Firebase (1 h) wygasły → odnów po cichu i ponów raz
+  if (res.status === 401 && !_retried && !path.startsWith('/auth/') && (await renewMissionSession())) {
+    return apiRequest(path, { ...options, _retried: true });
+  }
   if (!res.ok) {
     const err = new Error(data.error || `Błąd HTTP ${res.status}`);
     err.status = res.status;
@@ -5571,6 +5611,13 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
       },
       true
     );
+  }
+
+  // Profilaktyczne odnowienie sesji co 4 h (cookie ważne 8 h) — raporty głosowe nie milkną po nocy
+  if (!window._mcSessionRenewInterval) {
+    window._mcSessionRenewInterval = setInterval(() => {
+      if (state.user) renewMissionSession().catch(() => {});
+    }, 4 * 60 * 60 * 1000);
   }
 
   if (!window._mcTelemetryQuarterHourInterval) {
