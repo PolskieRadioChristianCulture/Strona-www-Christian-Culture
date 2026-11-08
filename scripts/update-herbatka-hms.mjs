@@ -1,0 +1,55 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
+const rootDir = 'C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc';
+
+// 1. Update JS bundle
+const jsPath = path.join(rootDir, 'herbatka/assets/index-CB41MvUn.js');
+let js = fs.readFileSync(jsPath, 'utf8');
+
+if (!js.includes('Z herbatką między słowami.')) {
+  console.log('Notice: "Z herbatką między słowami." might have been replaced or check target');
+} else {
+  js = js.replace('Z herbatką między słowami.”', 'Herbaciarnia Między Słowami.”');
+  console.log('Replaced slogan in bundle');
+}
+
+// Cache-bust logo.png in bundle
+js = js.replaceAll('/herbatka/assets/logo.png', '/herbatka/assets/logo.png?v=20261108_hms5');
+
+fs.writeFileSync(jsPath, js, 'utf8');
+
+const hmsJsPath = path.join(rootDir, 'herbatka/assets/index-HMS2026.js');
+fs.writeFileSync(hmsJsPath, js, 'utf8');
+console.log('Wrote index-CB41MvUn.js and index-HMS2026.js');
+
+// 2. Update herbatka/index.html
+const htmlPath = path.join(rootDir, 'herbatka/index.html');
+const html = `<!doctype html>
+<html lang="pl">
+  <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/herbatka/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Herbaciarnia Między Słowami – Piła</title>
+    <script type="module" crossorigin src="/herbatka/assets/index-HMS2026.js?v=20261108_hms5"></script>
+    <link rel="stylesheet" crossorigin href="/herbatka/assets/index-DK2XVAf7.css?v=20261108_hms5">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+`;
+
+fs.writeFileSync(htmlPath, html, 'utf8');
+console.log('Wrote herbatka/index.html');
