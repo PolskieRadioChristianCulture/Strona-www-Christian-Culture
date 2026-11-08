@@ -32,6 +32,7 @@ const WYSZUKIWARKA = ['szukaj/catalog.json', 'data/cc-search-index.json'];
 const MAPA = 'sitemaps/akademia.xml';
 const ROZWAZANIA = 'rozwazania_baza.json';
 const OBRAZY = 'images/academy/daily';
+export const WERSJA_UDOSTEPNIANIA = '20261108_wa1'; // ?v= dla js/cc-daily-course-share.js (test daily-course-share pilnuje zgodności)
 
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const md5 = (b) => crypto.createHash('md5').update(b).digest('hex');
@@ -67,7 +68,10 @@ export async function publikujDzien({ root = process.cwd(), data, zapisz = false
   if (!meta.zatwierdzil || !meta.zatwierdzono) throw new Error('paczka niezatwierdzona: brak „zatwierdzil” lub „zatwierdzono” w meta.json');
 
   // ── 2. Lekcja z paczki ──
-  const lekcja = czytaj(root, `${katalog}/lekcja.html`).tekst;
+  // @007 2026-11-08: paczki kopiowane ze starszych lekcji niosą stary ?v= skryptu udostępniania,
+  // a Cloudflare trzyma go do 7 dni — ujednolicamy do bieżącej wersji (przycisk kanału WhatsApp).
+  const lekcja = czytaj(root, `${katalog}/lekcja.html`).tekst
+    .replace(/cc-daily-course-share\.js\?v=[\w.-]+/g, `cc-daily-course-share.js?v=${WERSJA_UDOSTEPNIANIA}`);
   const d = daneLekcji(lekcja, n);
   d.tytul = meta.karta?.tytul || d.tytul;
   d.opisKarty = meta.karta?.opis || d.opis;

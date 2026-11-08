@@ -310,7 +310,7 @@ function harmonizeFile(filePath, dayNum, totalDays = 25) {
 
   // 8. Upewnij się, że skrypt cc-daily-course-share.js jest dołączony
   if (!html.includes('cc-daily-course-share.js')) {
-    html = html.replace('</body>', '  <script src="/js/cc-daily-course-share.js?v=20261025_v4" defer></script>\n</body>');
+    html = html.replace('</body>', '  <script src="/js/cc-daily-course-share.js?v=20261108_wa1" defer></script>\n</body>');
   }
 
   // 9. Upewnij się, że #backToTopBtn istnieje
