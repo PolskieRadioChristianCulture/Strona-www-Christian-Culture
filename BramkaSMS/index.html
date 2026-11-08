@@ -7,8 +7,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
-  </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+    gtag('config','G-Y4EFTVBPE3');
+  </script>
   <script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 
   <meta charset="UTF-8" />
@@ -101,10 +101,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .gold-ring-emblem {
-      border: 2px solid rgba(212, 175, 55, 0.65);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3), inset 0 0 15px rgba(212, 175, 55, 0.2);
-    }
     .academy-card {
       background: radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, rgba(12, 27, 51, 0.98) 50%, #081426 100%);
       border: 1px solid rgba(212, 175, 55, 0.38);
@@ -118,6 +114,7 @@
       border: 1px solid rgba(212, 175, 55, 0.25);
       color: #FFFFFF;
       transition: all 0.2s ease;
+      font-size: 16px; /* Zapobiega zoomowaniu na iOS Safari */
     }
     .academy-input:focus {
       border-color: #D4AF37;
@@ -130,39 +127,65 @@
       backdrop-filter: blur(16px);
       border-top: 1px solid rgba(212, 175, 55, 0.35);
     }
+
+    /* Wyłączenie zasłaniającego pływającego czatu na stronie formularza */
+    #ccGlobalChatBtnContainer,
+    #ccGlobalChatBtn,
+    .cc-global-chat-trigger,
+    #lumiDirectDockContainer,
+    .lumi-direct-dock-wrap,
+    #ccChatBubbleContainer,
+    #ccFabDockToggle {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    /* Mobilne dopasowanie panelu krawędziowego dialog */
+    dialog.cc-mobile-edge {
+      z-index: 99999 !important;
+    }
   </style>
+
+  <!-- Blokada duplikatu pływającego przycisku czatu -->
+  <script>
+    window.CCGlobalChatButton = true;
+  </script>
 
   <!-- Universal CC Global Auth (Logowanie Google Lumina) -->
   <script src="/js/cc-global-auth.js?v=20261007_auth_v2" defer></script>
 </head>
-<body class="selection:bg-amber-500/30 selection:text-amber-200 pb-28">
+<body class="selection:bg-amber-500/30 selection:text-amber-200 pb-36 sm:pb-32">
 
   <!-- TOP HEADER (STANDARD CC PREMIUM W BARWACH AKADEMII BIBLIJNEJ) -->
-  <header class="border-b border-[#D4AF37]/25 bg-[#081426]/90 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+  <header class="border-b border-[#D4AF37]/25 bg-[#081426]/95 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-3">
       
       <!-- LEWA STRONA: LOGO AKADEMII + NAZWA -->
-      <div class="flex items-center gap-3">
-        <a href="/akademia" class="flex items-center gap-3 min-h-[44px] group" title="Akademia Biblijna Christian Culture">
-          <div class="relative w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 via-yellow-300 to-amber-600 shadow-lg shadow-amber-500/20 shrink-0 transition transform group-hover:scale-105">
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <a href="/akademia" class="flex items-center gap-2 sm:gap-3 min-h-[44px] group" title="Akademia Biblijna Christian Culture">
+          <div class="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 via-yellow-300 to-amber-600 shadow-md shadow-amber-500/20 shrink-0 transition transform group-hover:scale-105">
             <img
               src="/images/academy/akademia_biblijna_logo_gold.webp"
               alt="Akademia Biblijna"
               class="w-full h-full object-cover rounded-full"
             />
           </div>
-          <div class="flex flex-col">
-            <span class="text-[11px] font-bold uppercase tracking-widest text-[#D4AF37] leading-tight flex items-center gap-1.5">
+          <div class="flex flex-col min-w-0">
+            <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-[#D4AF37] leading-tight flex items-center gap-1 truncate">
               <span>Akademia Biblijna</span>
-              <i class="fa-solid fa-crown text-[9px] text-amber-400"></i>
+              <i class="fa-solid fa-crown text-[8px] sm:text-[9px] text-amber-400 shrink-0"></i>
             </span>
-            <span class="text-sm font-extrabold text-white tracking-wide">Bramka Subskrypcji SMS</span>
+            <span class="text-xs sm:text-sm font-extrabold text-white tracking-wide truncate">
+              <span class="sm:hidden">Subskrypcja SMS</span>
+              <span class="hidden sm:inline">Bramka Subskrypcji SMS</span>
+            </span>
           </div>
         </a>
 
         <span class="text-slate-600 hidden lg:inline">/</span>
 
-        <!-- WYSZUKIWARKA UNIWERSALNA (@w) PRZYCISK TRIGGER -->
+        <!-- WYSZUKIWARKA UNIWERSALNA (@w) PRZYCISK TRIGGER (tylko desktop/tablet) -->
         <button
           type="button"
           data-cc-search-trigger
@@ -175,52 +198,51 @@
         </button>
       </div>
 
-      <!-- PRAWA STRONA AKCJI: MILION, WSPIERAMTO, LUMI MESS, AUTH -->
-      <div class="flex items-center gap-2 sm:gap-3">
+      <!-- PRAWA STRONA AKCJI: NA SMARTFONIE CZYSTOŚĆ - AWATAR + PRZYCISK + -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
-        <!-- LICZNIK /MILION -->
+        <!-- LICZNIK /MILION (desktop/tablet) -->
         <a
           href="/milion"
-          class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold transition min-h-[44px]"
+          class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold transition min-h-[44px]"
           title="Celujemy w Pierwszy Milion Słuchaczy"
         >
           <i class="fa-solid fa-fire text-amber-400 animate-pulse"></i>
           <span>/milion</span>
         </a>
 
-        <!-- PRZYCISK WSPIERAMTO / PATRONITE -->
+        <!-- PRZYCISK WSPIERAMTO / PATRONITE (desktop) -->
         <a
           href="/wspieraj"
-          class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-rose-500/40 text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 text-xs font-bold transition min-h-[44px]"
+          class="hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-rose-500/40 text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 text-xs font-bold transition min-h-[44px]"
           title="Wesprzyj Misję Christian Culture"
         >
           <i class="fa-solid fa-heart text-rose-400"></i>
-          <span class="hidden md:inline">WspieramTO</span>
+          <span>WspieramTO</span>
         </a>
 
-        <!-- CZAT LUMI MESS -->
+        <!-- CZAT LUMI MESS (desktop) -->
         <a
           href="/mess"
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-xs font-semibold transition min-h-[44px]"
+          class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white text-xs font-semibold transition min-h-[44px]"
           title="Czat Społeczności LUMI Mess"
         >
           <i class="fa-solid fa-comments text-[#D4AF37]"></i>
-          <span class="hidden md:inline">Lumi Mess</span>
+          <span>Lumi Mess</span>
         </a>
 
         <!-- LOGOWANIE GOOGLE LUMINA (cc-global-auth) -->
         <div id="cc-auth-nav-container" class="cc-auth-widget-container flex items-center min-h-[44px]"></div>
 
-        <!-- PRZYCISK KRAWĘDZIOWY + (Drawer na smartfonach) -->
+        <!-- PRZYCISK KRAWĘDZIOWY + (DRAWER/SHEET NA SMARTFONACH I DESKTOPIE) -->
         <button
           type="button"
           id="ccEdgeTriggerBtn"
-          data-cc-edge-open
-          class="flex items-center justify-center w-11 h-11 rounded-full bg-[#D4AF37]/15 hover:bg-[#D4AF37]/25 border border-[#D4AF37]/40 text-[#D4AF37] font-bold text-xl transition transform active:scale-95 min-h-[44px] min-w-[44px]"
-          aria-label="Menu Ekosystemu Christian Culture"
-          title="Otwórz menu ekosystemu"
+          class="flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#D4AF37]/20 hover:bg-[#D4AF37]/35 active:bg-[#D4AF37]/45 border border-[#D4AF37]/50 text-[#D4AF37] font-bold text-lg sm:text-xl transition transform active:scale-95 min-h-[44px] min-w-[44px] shadow-md shadow-black/40 cursor-pointer"
+          aria-label="Otwórz menu ekosystemu Christian Culture"
+          title="Menu ekosystemu"
         >
-          <i class="fa-solid fa-plus"></i>
+          <i class="fa-solid fa-plus pointer-events-none"></i>
         </button>
 
       </div>
@@ -228,21 +250,21 @@
   </header>
 
   <!-- GŁÓWNA TREŚĆ BRAMKI SMS W STYLU AKADEMII BIBLIJNEJ -->
-  <main class="flex-1 flex items-center justify-center py-10 px-4">
+  <main class="flex-1 flex items-center justify-center py-6 sm:py-10 px-3 sm:px-4">
     <div class="max-w-2xl w-full">
 
-      <!-- HERO: WYEKSPONOWANE MAJESTATYCZNE LOGO AKADEMII BIBLIJNEJ -->
-      <div class="text-center mb-8">
+      <!-- HERO: WYEKSPONOWANE MAJESTATYCZNE LOGO AKADEMII BIBLIJNEJ (RESPONSYWNE) -->
+      <div class="text-center mb-6 sm:mb-8">
         
-        <!-- EMBLAMAT LOGO Z PROMIENIEM ŚWIATŁA -->
-        <div class="flex justify-center mb-6">
+        <!-- EMBLEMAT LOGO Z PROMIENIEM ŚWIATŁA -->
+        <div class="flex justify-center mb-4 sm:mb-6">
           <div class="relative group">
             <!-- Rozmyta złoto-szafirowa poświata w tle -->
-            <div class="absolute -inset-4 bg-gradient-to-r from-amber-500/20 via-yellow-400/30 to-amber-600/20 rounded-full blur-2xl opacity-80 group-hover:opacity-100 transition duration-700"></div>
+            <div class="absolute -inset-3 sm:-inset-4 bg-gradient-to-r from-amber-500/20 via-yellow-400/30 to-amber-600/20 rounded-full blur-xl sm:blur-2xl opacity-80 group-hover:opacity-100 transition duration-700"></div>
             
             <!-- Zewnętrzny podwójny pierścień nawiązujący do logo -->
-            <div class="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full p-[3px] bg-gradient-to-b from-[#FFF0B3] via-[#D4AF37] to-[#7A5B18] shadow-2xl shadow-black/80">
-              <div class="w-full h-full rounded-full p-[3px] bg-[#071326]">
+            <div class="relative w-24 h-24 sm:w-36 sm:h-36 rounded-full p-[2.5px] sm:p-[3px] bg-gradient-to-b from-[#FFF0B3] via-[#D4AF37] to-[#7A5B18] shadow-2xl shadow-black/80">
+              <div class="w-full h-full rounded-full p-[2px] bg-[#071326]">
                 <img
                   src="/images/academy/akademia_biblijna_logo_gold.webp"
                   alt="Oficjalne Logo Akademia Biblijna"
@@ -253,56 +275,56 @@
           </div>
         </div>
 
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/35 text-[#D4AF37] text-xs font-semibold mb-4 shadow-sm">
-          <i class="fa-solid fa-shield-halved text-amber-400"></i>
+        <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/35 text-[#D4AF37] text-[11px] sm:text-xs font-semibold mb-3 sm:mb-4 shadow-sm">
+          <i class="fa-solid fa-shield-halved text-amber-400 text-xs"></i>
           <span>Oficjalna Usługa Krajowa • 100% Bezpłatnie • Tylko RP</span>
         </div>
         
-        <h1 class="text-3xl sm:text-5xl font-serif font-extrabold tracking-tight text-white mb-3">
+        <h1 class="text-2xl sm:text-4xl md:text-5xl font-serif font-extrabold tracking-tight text-white mb-2.5 sm:mb-3 leading-snug">
           Codzienne Słowo Boże <br /><span class="gold-gradient-text">bezpośrednio przez SMS</span>
         </h1>
         
-        <p class="text-sm sm:text-base text-slate-300 max-w-lg mx-auto leading-relaxed">
+        <p class="text-xs sm:text-base text-slate-300 max-w-lg mx-auto leading-relaxed px-2">
           Dołącz do subskrypcji SMS Akademii Biblijnej. Otrzymuj codzienną myśl przewodnią i link do lekcji Kursu Codziennego „Z Biblią za Pan Brat”. Czysty tekst, brak spamu, ochrona przed roamingiem.
         </p>
       </div>
 
-      <!-- KARTA FORMULARZA SUBKRYPCJI (DOPASOWANA DO BARW LOGO) -->
-      <div class="academy-card rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+      <!-- KARTA FORMULARZA SUBKRYPCJI (DOPASOWANA DO BARW LOGO I EKRANÓW MOBILNYCH) -->
+      <div class="academy-card rounded-2xl sm:rounded-3xl p-4 sm:p-10 shadow-2xl relative overflow-hidden">
         <!-- Znak wodny logo w tle karty -->
         <img
           src="/images/academy/akademia_biblijna_logo_gold.webp"
           alt=""
-          class="absolute -top-14 -right-14 w-56 h-56 opacity-[0.05] pointer-events-none rounded-full blur-[0.5px]"
+          class="absolute -top-14 -right-14 w-44 sm:w-56 h-44 sm:h-56 opacity-[0.04] pointer-events-none rounded-full blur-[0.5px]"
         />
 
-        <form id="smsSubscriptionForm" class="space-y-6 relative z-10">
+        <form id="smsSubscriptionForm" class="space-y-4 sm:space-y-6 relative z-10">
           
           <!-- IMIĘ / PSEUDONIM -->
           <div>
-            <label for="subName" class="block text-xs font-bold uppercase tracking-wider text-amber-200/90 mb-2">
+            <label for="subName" class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-amber-200/90 mb-1.5 sm:mb-2">
               Imię lub Twój pseudonim <span class="text-slate-400 font-normal">(opcjonalnie)</span>
             </label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 pointer-events-none">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 pointer-events-none text-xs sm:text-sm">
                 <i class="fa-solid fa-user"></i>
               </span>
               <input
                 type="text"
                 id="subName"
                 placeholder="np. Jan"
-                class="w-full academy-input rounded-xl py-3 pl-10 pr-4 text-sm placeholder-slate-500 min-h-[44px]"
+                class="w-full academy-input rounded-xl py-2.5 sm:py-3 pl-10 pr-4 text-sm sm:text-base placeholder-slate-500 min-h-[48px]"
               />
             </div>
           </div>
 
           <!-- NUMER TELEFONU -->
           <div>
-            <label for="subPhone" class="block text-xs font-bold uppercase tracking-wider text-amber-200/90 mb-2">
+            <label for="subPhone" class="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-amber-200/90 mb-1.5 sm:mb-2">
               Polski Numer Telefonu Komórkowego <span class="text-[#D4AF37]">*</span>
             </label>
             <div class="relative">
-              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-amber-400 font-mono text-sm font-bold pointer-events-none">
+              <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-amber-400 font-mono text-sm sm:text-base font-bold pointer-events-none">
                 +48
               </span>
               <input
@@ -311,7 +333,7 @@
                 required
                 maxlength="11"
                 placeholder="np. 500 600 700"
-                class="w-full academy-input rounded-xl py-3 pl-14 pr-4 text-sm font-mono placeholder-slate-500 min-h-[44px]"
+                class="w-full academy-input rounded-xl py-2.5 sm:py-3 pl-14 pr-4 text-sm sm:text-base font-mono placeholder-slate-500 min-h-[48px]"
               />
             </div>
             <p class="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1.5">
@@ -321,13 +343,13 @@
           </div>
 
           <!-- ŻELAZNA DEKLARACJA ROAMINGU / POLSKA (ANTI-COST PROTOCOL) -->
-          <div class="p-4 rounded-2xl bg-[#081426]/90 border border-[#D4AF37]/35 shadow-inner">
-            <label class="flex items-start gap-3 cursor-pointer">
+          <div class="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[#081426]/90 border border-[#D4AF37]/35 shadow-inner">
+            <label class="flex items-start gap-2.5 sm:gap-3 cursor-pointer">
               <input
                 type="checkbox"
                 id="subDeclaration"
                 required
-                class="mt-1 w-4 h-4 rounded border-[#D4AF37]/60 text-[#D4AF37] focus:ring-[#D4AF37] bg-black/50 cursor-pointer min-w-[16px]"
+                class="mt-1 w-4 h-4 rounded border-[#D4AF37]/60 text-[#D4AF37] focus:ring-[#D4AF37] bg-black/50 cursor-pointer min-w-[18px] min-h-[18px]"
               />
               <span class="text-xs text-slate-200 leading-relaxed">
                 <strong class="text-amber-300 font-semibold block mb-0.5">Deklaracja terytorialna (Żelazna Reguła Kosztowa):</strong>
@@ -344,7 +366,7 @@
           <button
             type="submit"
             id="subSubmitBtn"
-            class="w-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white font-extrabold py-3.5 px-6 rounded-2xl transition duration-150 flex items-center justify-center gap-2.5 shadow-xl shadow-orange-500/25 min-h-[48px] text-sm uppercase tracking-wider border border-amber-300/30"
+            class="w-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white font-extrabold py-3.5 px-4 sm:px-6 rounded-xl sm:rounded-2xl transition duration-150 flex items-center justify-center gap-2.5 shadow-xl shadow-orange-500/25 min-h-[50px] text-xs sm:text-sm uppercase tracking-wider border border-amber-300/30 cursor-pointer"
           >
             <i class="fa-solid fa-paper-plane text-xs"></i>
             <span>Zapisz się na Subskrypcję SMS</span>
@@ -353,11 +375,11 @@
 
         <!-- KOMUNIKAT SUKCESU -->
         <div id="subSuccessBox" class="hidden text-center py-6 space-y-4 relative z-10">
-          <div class="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-3xl shadow-lg shadow-emerald-500/20">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-2xl sm:text-3xl shadow-lg shadow-emerald-500/20">
             <i class="fa-solid fa-check"></i>
           </div>
           <div>
-            <h3 class="text-2xl font-serif font-bold text-white mb-2">Dziękujemy! Jesteś zapisany!</h3>
+            <h3 class="text-xl sm:text-2xl font-serif font-bold text-white mb-2">Dziękujemy! Jesteś zapisany!</h3>
             <p class="text-xs sm:text-sm text-slate-200 max-w-md mx-auto leading-relaxed" id="subSuccessMsg">
               Twój polski numer został pomyślnie dodany do listy subskrypcji SMS Akademii Biblijnej.
             </p>
@@ -373,18 +395,18 @@
         </div>
 
         <!-- STOP INFO -->
-        <div class="mt-6 pt-6 border-t border-[#D4AF37]/15 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2 relative z-10">
+        <div class="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-[#D4AF37]/15 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2 relative z-10 text-center sm:text-left">
           <span>Rezygnacja jednym słowem: <strong class="text-slate-200">STOP</strong></span>
           <span>Brak opłat, zero reklam obcych podmiotów</span>
         </div>
       </div>
 
       <!-- DEDYKOWANY KANAŁ NADAWCZY WHATSAPP (ALTERNATYWA DLA SMS / DLA CAŁEGO ŚWIATA) -->
-      <div class="mt-6 p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-[#081B18] via-[#081426] to-[#050B16] border border-emerald-500/35 shadow-xl relative overflow-hidden group">
+      <div class="mt-4 sm:mt-6 p-4 sm:p-7 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#081B18] via-[#081426] to-[#050B16] border border-emerald-500/35 shadow-xl relative overflow-hidden group">
         <div class="absolute -top-12 -right-12 w-44 h-44 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-5 relative z-10">
-          <div class="flex items-center gap-4 text-left">
-            <div class="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-3xl shrink-0 shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition transform">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-5 relative z-10 text-center sm:text-left">
+          <div class="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4">
+            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-2xl sm:text-3xl shrink-0 shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition transform">
               <i class="fa-brands fa-whatsapp"></i>
             </div>
             <div>
@@ -392,7 +414,7 @@
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>Oficjalny Kanał WhatsApp • Cały Świat</span>
               </div>
-              <h3 class="text-base sm:text-lg font-serif font-bold text-white leading-tight">
+              <h3 class="text-sm sm:text-lg font-serif font-bold text-white leading-tight">
                 Alternatywa dla SMS: Kanał Nadawczy CC
               </h3>
               <p class="text-xs text-slate-300 mt-1 max-w-md">
@@ -404,7 +426,7 @@
             href="https://whatsapp.com/channel/0029VbE8sXK6xCSOTjPi7o2P"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] active:bg-[#1da850] text-[#050B16] font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/25 transition transform active:scale-95 shrink-0 min-h-[48px]"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] active:bg-[#1da850] text-[#050B16] font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/25 transition transform active:scale-95 shrink-0 min-h-[48px]"
           >
             <i class="fa-brands fa-whatsapp text-lg"></i>
             <span>Dołącz do Kanału</span>
@@ -414,49 +436,49 @@
       </div>
 
       <!-- KAFELKI KORZYŚCI W BARWACH LOGO -->
-      <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-        <div class="p-4 rounded-2xl bg-[#081426]/80 border border-[#D4AF37]/20 shadow-md">
-          <i class="fa-solid fa-lock text-[#D4AF37] text-lg mb-2"></i>
-          <h4 class="text-xs font-bold text-white mb-1">100% Darmowe</h4>
-          <p class="text-[11px] text-slate-400">Nie pobieramy żadnych opłat za subskrypcję ani otrzymywane powiadomienia.</p>
+      <div class="mt-6 sm:mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-center">
+        <div class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#081426]/80 border border-[#D4AF37]/20 shadow-md">
+          <i class="fa-solid fa-lock text-[#D4AF37] text-base sm:text-lg mb-1.5 sm:mb-2"></i>
+          <h4 class="text-xs font-bold text-white mb-0.5 sm:mb-1">100% Darmowe</h4>
+          <p class="text-[11px] text-slate-400 leading-snug">Nie pobieramy żadnych opłat za subskrypcję ani otrzymywane powiadomienia.</p>
         </div>
-        <div class="p-4 rounded-2xl bg-[#081426]/80 border border-[#D4AF37]/20 shadow-md">
-          <i class="fa-solid fa-ban text-amber-400 text-lg mb-2"></i>
-          <h4 class="text-xs font-bold text-white mb-1">Czysty SMS (Zero MMS)</h4>
-          <p class="text-[11px] text-slate-400">Krótka, czytelna treść mieszcząca się w 160 znakach bez ryzyka drogich MMS-ów.</p>
+        <div class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#081426]/80 border border-[#D4AF37]/20 shadow-md">
+          <i class="fa-solid fa-ban text-amber-400 text-base sm:text-lg mb-1.5 sm:mb-2"></i>
+          <h4 class="text-xs font-bold text-white mb-0.5 sm:mb-1">Czysty SMS (Zero MMS)</h4>
+          <p class="text-[11px] text-slate-400 leading-snug">Krótka, czytelna treść mieszcząca się w 160 znakach bez ryzyka drogich MMS-ów.</p>
         </div>
-        <div class="p-4 rounded-2xl bg-[#081426]/80 border border-[#D4AF37]/20 shadow-md">
-          <i class="fa-solid fa-location-dot text-emerald-400 text-lg mb-2"></i>
-          <h4 class="text-xs font-bold text-white mb-1">Tylko Polska (+48)</h4>
-          <p class="text-[11px] text-slate-400">Rejestracja wyłącznie numerów krajowych w celu ochrony przed roamingiem.</p>
+        <div class="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#081426]/80 border border-[#D4AF37]/20 shadow-md">
+          <i class="fa-solid fa-location-dot text-emerald-400 text-base sm:text-lg mb-1.5 sm:mb-2"></i>
+          <h4 class="text-xs font-bold text-white mb-0.5 sm:mb-1">Tylko Polska (+48)</h4>
+          <p class="text-[11px] text-slate-400 leading-snug">Rejestracja wyłącznie numerów krajowych w celu ochrony przed roamingiem.</p>
         </div>
       </div>
 
     </div>
   </main>
 
-  <!-- PRZYKLEJONY PASEK PLAYERA RADIO Z LICZNIKIEM /MILION (STANDARD CC) -->
-  <aside class="radio-sticky-bar fixed bottom-0 left-0 right-0 z-40 py-2.5 px-4 shadow-2xl" id="radioPlayerBar">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+  <!-- PRZYKLEJONY PASEK PLAYERA RADIO Z LICZNIKIEM /MILION (KOMPAKTOWY NA SMARTFONACH) -->
+  <aside class="radio-sticky-bar fixed bottom-0 left-0 right-0 z-40 py-2 sm:py-2.5 px-3 sm:px-4 shadow-2xl" id="radioPlayerBar">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
       
       <!-- STACJA RADIO + PLAY BUTTON -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
         <button
           type="button"
           id="globalRadioPlayBtn"
-          class="w-11 h-11 rounded-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white flex items-center justify-center shadow-lg shadow-orange-500/25 transition transform active:scale-95 min-h-[44px] min-w-[44px] border border-amber-300/30"
+          class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white flex items-center justify-center shadow-lg shadow-orange-500/25 transition transform active:scale-95 min-h-[44px] min-w-[44px] border border-amber-300/30 shrink-0 cursor-pointer"
           aria-label="Włącz Radio Christian Culture"
           title="Słuchaj Radia na żywo"
         >
-          <i class="fa-solid fa-play text-sm ml-0.5" id="radioPlayIcon"></i>
+          <i class="fa-solid fa-play text-xs sm:text-sm ml-0.5" id="radioPlayIcon"></i>
         </button>
-        <div class="flex flex-col">
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-extrabold text-white">POLSKIE RADIO CC</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-            <span class="text-[10px] text-emerald-400 uppercase font-semibold">Na Żywo</span>
+        <div class="flex flex-col min-w-0">
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs font-extrabold text-white truncate">POLSKIE RADIO CC</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping shrink-0"></span>
+            <span class="text-[9px] sm:text-[10px] text-emerald-400 uppercase font-semibold shrink-0">Live</span>
           </div>
-          <span class="text-[11px] text-slate-400 hidden sm:inline" id="radioNowPlaying">Biblia Audio • 24/7 Transmisja Słowa</span>
+          <span class="text-[10px] sm:text-[11px] text-slate-400 truncate" id="radioNowPlaying">Biblia Audio • 24/7 Na Żywo</span>
         </div>
       </div>
 
@@ -464,14 +486,14 @@
       <audio id="globalRadioAudio" preload="none"></audio>
 
       <!-- PRAWA STRONA: LICZNIK /MILION + PRZEJŚCIE DO PLAYER CC -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
         <a
           href="/milion"
-          class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-bold transition min-h-[44px]"
+          class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-[11px] sm:text-xs font-bold transition min-h-[44px]"
           title="Zobacz cel miliona słuchaczy"
         >
-          <i class="fa-solid fa-chart-line text-amber-400"></i>
-          <span>Licznik /milion</span>
+          <i class="fa-solid fa-chart-line text-amber-400 text-xs"></i>
+          <span>/milion</span>
         </a>
         <a
           href="/player"
@@ -486,31 +508,60 @@
   </aside>
 
   <!-- FOOTER W BARWACH AKADEMII -->
-  <footer class="border-t border-[#D4AF37]/20 bg-[#050B16] py-8 px-4 text-center text-xs text-slate-400">
-    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <img src="/images/academy/akademia_biblijna_logo_gold.webp" alt="Akademia Biblijna" class="w-6 h-6 rounded-full inline-block" />
+  <footer class="border-t border-[#D4AF37]/20 bg-[#050B16] py-6 sm:py-8 px-4 text-center text-xs text-slate-400">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+      <div class="flex items-center justify-center gap-2">
+        <img src="/images/academy/akademia_biblijna_logo_gold.webp" alt="Akademia Biblijna" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full inline-block" />
         <span class="font-serif font-bold text-[#D4AF37]">AKADEMIA BIBLIJNA</span>
         <span> • Christian Culture &copy; 2026</span>
       </div>
-      <div class="flex items-center gap-4">
-        <a href="/akademia" class="hover:text-amber-300 transition">Akademia Główna</a>
-        <a href="/akademia/kurscodzienny" class="hover:text-amber-300 transition">Kurs Codzienny</a>
-        <a href="/mojabiblia" class="hover:text-amber-300 transition">MojaBiblia</a>
-        <a href="/milion" class="hover:text-amber-300 transition">/milion</a>
-        <a href="/wspieraj" class="hover:text-amber-300 transition">WspieramTO</a>
+      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-[11px] sm:text-xs">
+        <a href="/akademia" class="hover:text-amber-300 transition py-1">Akademia</a>
+        <a href="/akademia/kurscodzienny" class="hover:text-amber-300 transition py-1">Kurs Codzienny</a>
+        <a href="/mojabiblia" class="hover:text-amber-300 transition py-1">MojaBiblia</a>
+        <a href="/milion" class="hover:text-amber-300 transition py-1">/milion</a>
+        <a href="/wspieraj" class="hover:text-amber-300 transition py-1">WspieramTO</a>
       </div>
     </div>
   </footer>
 
   <!-- SKRYPTY SYSTEMOWE I KOMPONENTY EKOSYSTEMU CC -->
   <script src="/js/cc-sms-gateway-client.js?v=20261108_1"></script>
-  <!-- CC Mobile Edge Drawer (Przycisk krawędziowy +) -->
-  <script defer src="/js/cc-mobile-edge.js?v=20261030_edge10" data-cc-edge-profile="home"></script>
   <!-- Wyszukiwarka Uniwersalna CC (@w) -->
   <script src="/components/cc-omni-search.js?v=20261105_help3" defer></script>
   <!-- Informacja EkoCC Standard -->
   <script defer src="/components/ekocc-info.js?v=20261020_1"></script>
+
+  <!-- Pancerne podłączenie panelu krawędziowego EkoCC Mobile Edge (+) -->
+  <script src="/js/cc-mobile-edge.js?v=20261030_edge10"></script>
+  <script>
+    (function () {
+      function mountEdgePanel() {
+        const btn = document.getElementById('ccEdgeTriggerBtn');
+        if (!btn) return;
+        if (btn.dataset.ccEdgeMounted) return;
+
+        if (window.CCMobileEdge && typeof window.CCMobileEdge.mount === 'function') {
+          window.CCMobileEdge.mount({
+            legacy: btn,
+            placement: btn,
+            trigger: btn,
+            hideLegacy: false,
+            profile: 'ecosystem',
+            allowDesktop: true
+          });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', mountEdgePanel);
+      } else {
+        mountEdgePanel();
+      }
+      setTimeout(mountEdgePanel, 300);
+      setTimeout(mountEdgePanel, 1000);
+    })();
+  </script>
 
   <!-- Dynamiczna obsługa strumienia radiowego na żywo (Zeno.fm stream) -->
   <script>
