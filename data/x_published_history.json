@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "the-journal",
+      "title": "THE JOURNAL — 90-Dniowy Przewodnik Rozwoju Osobistego i Wiary",
+      "url": "https://polskieradio.cc/the-journal",
+      "type": "module",
+      "image": "the-journal.png",
+      "publishedAt": "2026-11-08T10:33:51.295Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina-tablica",
       "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
       "url": "https://polskieradio.cc/lumina-tablica",
