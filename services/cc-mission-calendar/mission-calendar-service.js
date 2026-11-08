@@ -3153,6 +3153,15 @@ export class MissionCalendarService {
 // ============================================================================
 // HTTP Handler dla Cloudflare Pages (_worker.js) — /api/mission-calendar/*
 // ============================================================================
+function timingSafeEqualStr(a, b) {
+  const x = String(a || '');
+  const y = String(b || '');
+  let diff = x.length ^ y.length;
+  const len = Math.max(x.length, y.length);
+  for (let i = 0; i < len; i++) diff |= (x.charCodeAt(i) || 0) ^ (y.charCodeAt(i) || 0);
+  return diff === 0;
+}
+
 export async function handleMissionCalendarApi(request, env, ctx, options = {}) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/^\/api\/(?:mission-calendar|calendar)/, '') || '/';
@@ -3322,6 +3331,69 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
     }
 
     // ────────────────────────────────────────────────────────────────────────
+    // Zapis żywego raportu kwadransowego — tylko z tokenem CC_MC_LIVE_REPORT_TOKEN (sekret Cloudflare)
+    // ────────────────────────────────────────────────────────────────────────
+    if (path === '/gcal/live-report' && request.method === 'POST') {
+      const expected = String(env?.CC_MC_LIVE_REPORT_TOKEN || '');
+      const given = (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '').trim();
+      if (!expected || !timingSafeEqualStr(given, expected)) {
+        return json({ error: 'Brak lub nieprawidłowy token zapisu raportu' }, 401);
+      }
+      const body = await request.json().catch(() => null);
+      if (!body || body.schema_version !== '1.0' || !Array.isArray(body.events)) {
+        return json({ error: 'Nieprawidłowy format raportu gcalendar-live-report' }, 422);
+      }
+      globalThis._ccMcLatestLiveGcalReport = body;
+      return json({ ok: true, eventsCount: body.events.length, fetchedAt: body.fetched_at });
+    }
+
+    // ────────────────────────────────────────────────────────────────────────
+    // Autoryzacja użytkownika dla pozostałych tras panelu (/ccMC)
+    // ────────────────────────────────────────────────────────────────────────
+    const authRes = await service.authenticateUser(request);
+    if (authRes.forbidden) {
+      return json({ error: authRes.reason || 'Brak uprawnień' }, 403);
+    }
+    if (!authRes.user) {
+      return json({ error: 'Wymagane logowanie do Kalendarza Misji' }, 401);
+    }
+
+    // Ochrona CSRF + Origin przy zapisach przez sesję cookie
+    if (['POST', 'PATCH', 'PUT', 'DELETE'].includes(request.method) && authRes.authMethod === 'cookie') {
+      const originHeader = request.headers.get('Origin');
+      if (originHeader && new URL(originHeader).host !== url.host) {
+        return json({ error: 'Niedozwolony Origin (CSRF protection)' }, 403);
+      }
+      const csrfHeader = request.headers.get('X-CC-CSRF');
+      if (!(await service.verifyCsrfToken(authRes.user.google_sub, csrfHeader))) {
+        return json({ error: 'Brak lub nieprawidłowy token X-CC-CSRF' }, 403);
+      }
+    }
+
+    const actor = { type: 'user', id: authRes.user.id, role: authRes.user.role, email: authRes.user.email };
+
+    // ────────────────────────────────────────────────────────────────────────
+    // Żywy Raport Kwadransowy (prywatny Kalendarz Google) — TYLKO dla zalogowanego właściciela.
+    // Źródło: najnowszy zapis w pamięci izolatu albo plik wydania (publicznie zablokowany w _worker.js).
+    // ────────────────────────────────────────────────────────────────────────
+    if (path === '/gcal/live-report' && request.method === 'GET') {
+      const candidates = [];
+      if (globalThis._ccMcLatestLiveGcalReport) candidates.push(globalThis._ccMcLatestLiveGcalReport);
+      if (env?.ASSETS && typeof env.ASSETS.fetch === 'function') {
+        try {
+          const assetRes = await env.ASSETS.fetch(new Request(new URL('/ccMC/gcalendar-live-report.json', url.origin).toString()));
+          if (assetRes.ok) {
+            const j = await assetRes.json().catch(() => null);
+            if (j && j.schema_version === '1.0' && Array.isArray(j.events)) candidates.push(j);
+          }
+        } catch {}
+      }
+      candidates.sort((a, b) => (Date.parse(b.fetched_at || 0) || 0) - (Date.parse(a.fetched_at || 0) || 0));
+      if (candidates[0]) return json(candidates[0]);
+      return json({ schema_version: '1.0', source_status: 'EMPTY', events: [] });
+    }
+
+    // ────────────────────────────────────────────────────────────────────────
     // Asystent Głosowy Kalendarza — Google AI Studio Gemini TTS (ZERO COST Free Tier + Parallel Chunking + Cache)
     // ────────────────────────────────────────────────────────────────────────
     if (path === '/tts' && request.method === 'POST') {
@@ -3353,8 +3425,7 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
         env?.GEMINI_API_KEY,
         env?.GOOGLE_AI_STUDIO_API_KEY,
         env?.GOOGLE_API_KEY,
-        // Awaryjne rotatory darmowych limitów AI Studio (Zero Cost)
-        'AIzaSyD7K9xQ1U3k7b9zL8m4p2r5t8v9w0x1y2z3',
+        // Klucze WYŁĄCZNIE z sekretów środowiska Cloudflare (zakaz kluczy w kodzie — @007, 08.11.2026)
       ]
         .map((k) => String(k || '').trim())
         .filter((k) => k.length > 20 && !k.startsWith('AIzaSyC2'));
@@ -3470,109 +3541,9 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
         } catch {}
       }
 
-      // Szybki serwerowy fallback MP3 (350 ms) na wypadek wyczerpania limitu RPM kluczy Gemini
-      try {
-        const mp3Pieces = [];
-        let cur = '';
-        for (const s of sentences) {
-          if ((cur + ' ' + s).trim().length <= 125 || !cur) {
-            cur = (cur + ' ' + s).trim();
-          } else {
-            mp3Pieces.push(cur);
-            cur = s.trim();
-          }
-        }
-        if (cur) mp3Pieces.push(cur);
-        const mp3Buffers = await Promise.all(
-          mp3Pieces.map(async (piece) => {
-            const r = await fetch(
-              `https://translate.google.com/translate_tts?ie=UTF-8&tl=pl&client=tw-ob&q=${encodeURIComponent(piece)}`,
-              { headers: { 'User-Agent': 'Mozilla/5.0' } }
-            );
-            if (!r.ok) return null;
-            const ab = await r.arrayBuffer();
-            return ab.byteLength > 100 ? new Uint8Array(ab) : null;
-          })
-        );
-        if (mp3Buffers.length > 0 && mp3Buffers.every(Boolean)) {
-          const totalLen = mp3Buffers.reduce((acc, b) => acc + b.length, 0);
-          const merged = new Uint8Array(totalLen);
-          let off = 0;
-          for (const b of mp3Buffers) {
-            merged.set(b, off);
-            off += b.length;
-          }
-          let binOut = '';
-          const step = 0x8000;
-          for (let i = 0; i < merged.length; i += step) {
-            binOut += String.fromCharCode.apply(null, merged.subarray(i, i + step));
-          }
-          const mp3Base64 = btoa(binOut);
-          return json({
-            ok: true,
-            mode: 'google_cloud_mp3_fallback',
-            cost: 0,
-            voice: voiceName,
-            text: rawText,
-            mimeType: 'audio/mpeg',
-            audioBase64: mp3Base64,
-          });
-        }
-      } catch {}
-
-      return json({
-        ok: true,
-        mode: 'zero_cost_browser_neural',
-        cost: 0,
-        voice: voiceName,
-        text: rawText,
-        audioBase64: null,
-      });
+      // Tylko Google AI Studio (decyzja L0 08.11.2026): brak głosu zastępczego (Google Tłumacz / systemowy).
+      return json({ ok: false, error: 'Synteza Google AI Studio chwilowo niedostępna', audioBase64: null }, 503);
     }
-
-    // ────────────────────────────────────────────────────────────────────────
-    // Żywy Raport Kwadransowy Google Calendar & Automatyzacji Misji (/gcal/live-report)
-    // ────────────────────────────────────────────────────────────────────────
-    if (path === '/gcal/live-report' && request.method === 'GET') {
-      if (globalThis._ccMcLatestLiveGcalReport) {
-        return json(globalThis._ccMcLatestLiveGcalReport);
-      }
-      return json({ schema_version: '1.0', source_status: 'EMPTY', events: [] }, 404);
-    }
-
-    if (path === '/gcal/live-report' && request.method === 'POST') {
-      const body = await request.json().catch(() => null);
-      if (!body || body.schema_version !== '1.0' || !Array.isArray(body.events)) {
-        return json({ error: 'Nieprawidłowy format raportu gcalendar-live-report' }, 422);
-      }
-      globalThis._ccMcLatestLiveGcalReport = body;
-      return json({ ok: true, eventsCount: body.events.length, fetchedAt: body.fetched_at });
-    }
-
-    // ────────────────────────────────────────────────────────────────────────
-    // Autoryzacja użytkownika dla pozostałych tras panelu (/ccMC)
-    // ────────────────────────────────────────────────────────────────────────
-    const authRes = await service.authenticateUser(request);
-    if (authRes.forbidden) {
-      return json({ error: authRes.reason || 'Brak uprawnień' }, 403);
-    }
-    if (!authRes.user) {
-      return json({ error: 'Wymagane logowanie do Kalendarza Misji' }, 401);
-    }
-
-    // Ochrona CSRF + Origin przy zapisach przez sesję cookie
-    if (['POST', 'PATCH', 'PUT', 'DELETE'].includes(request.method) && authRes.authMethod === 'cookie') {
-      const originHeader = request.headers.get('Origin');
-      if (originHeader && new URL(originHeader).host !== url.host) {
-        return json({ error: 'Niedozwolony Origin (CSRF protection)' }, 403);
-      }
-      const csrfHeader = request.headers.get('X-CC-CSRF');
-      if (!(await service.verifyCsrfToken(authRes.user.google_sub, csrfHeader))) {
-        return json({ error: 'Brak lub nieprawidłowy token X-CC-CSRF' }, 403);
-      }
-    }
-
-    const actor = { type: 'user', id: authRes.user.id, role: authRes.user.role, email: authRes.user.email };
 
     if (path === '/events' && request.method === 'GET') {
       const rawEvents = await repo.listEvents();
