@@ -5,9 +5,9 @@
   "account_verified": true,
   "account_email": "nazirczarkes@gmail.com",
   "timezone": "Europe/Warsaw",
-  "fetched_at": "2026-11-08T08:30:44+01:00",
-  "window_start": "2026-11-07T08:30:44+01:00",
-  "window_end": "2026-11-15T08:30:44+01:00",
+  "fetched_at": "2026-11-08T11:41:45+01:00",
+  "window_start": "2026-11-07T11:41:45+01:00",
+  "window_end": "2026-11-15T11:41:45+01:00",
   "calendars_checked": [
     "primary",
     "pl.polish#holiday@group.v.calendar.google.com"
@@ -632,7 +632,7 @@
   ],
   "mission_automation_report": {
     "date": "2026-11-08",
-    "generated_at": "2026-11-08T08:30:44+01:00",
+    "generated_at": "2026-11-08T11:41:45+01:00",
     "rozwazania": {
       "done": true,
       "label": "Rozważania Dzień 38 opublikowane w Firebase, WWW i newsletterze"
@@ -642,21 +642,21 @@
       "webPublished": true,
       "desktopReady": false,
       "desktopPath": null,
-      "chapterId": "genesis-16",
-      "chapter": 16,
-      "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_16_1-16_Biblia_Audio_CC.mp3",
-      "label": "MP3 Biblii Audio (Rdz 16) jest na WWW (brak pliku bezpośrednio na Pulpicie)"
+      "chapterId": "genesis-17",
+      "chapter": 17,
+      "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_17_1-27_Biblia_Audio_CC.mp3",
+      "label": "MP3 Biblii Audio (Rdz 17) jest na WWW (brak pliku bezpośrednio na Pulpicie)"
     },
     "youtube": {
-      "done": false,
-      "count": 0,
-      "label": "YouTube: brak dzisiejszej publikacji"
+      "done": true,
+      "count": 14,
+      "label": "YouTube: wgrano 14 filmów 4K i Shorts"
     },
     "x_twitter": {
       "done": true,
-      "count": 1,
-      "latestTitle": "Akademia Biblijna: Z Biblią za Pan Brat — Dzień 39 (Wj 8:1–32): Plagi żab, wszy i much — Boży palec i rozróżnienie ziemi Goszen",
-      "label": "X: 1 postów opublikowanych"
+      "count": 9,
+      "latestTitle": "THE JOURNAL — 90-Dniowy Przewodnik Rozwoju Osobistego i Wiary",
+      "label": "X: 9 postów opublikowanych"
     },
     "whatsapp": {
       "done": false,
@@ -669,7 +669,7 @@
       "count": 0,
       "label": "Facebook oczekuje na publikację"
     },
-    "spoken_summary": "Rozważania Dzień 38 opublikowane w Firebase, WWW i newsletterze, MP3 Biblii Audio (Rdz 16) jest na WWW (brak pliku bezpośrednio na Pulpicie), YouTube: brak dzisiejszej publikacji, X: 1 postów opublikowanych, WhatsApp: oczekuje na potwierdzenie wysyłki, Facebook oczekuje na publikację."
+    "spoken_summary": "Rozważania Dzień 38 opublikowane w Firebase, WWW i newsletterze, MP3 Biblii Audio (Rdz 17) jest na WWW (brak pliku bezpośrednio na Pulpicie), YouTube: wgrano 14 filmów 4K i Shorts, X: 9 postów opublikowanych, WhatsApp: oczekuje na potwierdzenie wysyłki, Facebook oczekuje na publikację."
   },
   "warnings": []
 }
