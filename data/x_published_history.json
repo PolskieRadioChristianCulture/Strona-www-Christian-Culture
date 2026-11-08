@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "CezaryRogowski",
+      "title": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
+      "url": "https://polskieradio.cc/CezaryRogowski",
+      "type": "music",
+      "image": "cezary-hero.jpg",
+      "publishedAt": "2026-11-08T17:34:14.055Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "mojabiblia?ref=GEN.16.13",
       "title": "Werset Dnia: „Ty jesteś Bogiem, który mnie widzi” (Rdz 16:13, UBG)",
       "url": "https://polskieradio.cc/mojabiblia?ref=GEN.16.13",
