@@ -565,7 +565,8 @@
   function autoInit() {
     // Usuniecie jakiegokolwiek zduplikowanego pierwszego przycisku + w belce wyszukiwarki (L0 29.10.2026)
     document.querySelectorAll('.cc-omni-topnav .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn)').forEach(el => el.remove());
-    if (/^\/mess(?:\.html|\/|$)/i.test(location.pathname)) return;
+    if (/^\/(?:mess|herbatka)(?:\.html|\/|$)/i.test(location.pathname)) return;
+    if (document.body?.dataset.ccEdgeDisabled === 'true' || document.documentElement.dataset.ccEdgeDisabled === 'true') return;
 
     // Search surfaces: wyszukiwarka / szukaj / omni-search overlay (L0 29.10.2026)
     const isSearch = /^\/(?:wyszukiwarka|szukaj)/i.test(location.pathname) || !!document.getElementById('ccOmniOverlay') || !!document.querySelector('.cc-omni-topnav');

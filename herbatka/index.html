@@ -15,10 +15,20 @@
     <link rel="icon" type="image/svg+xml" href="/herbatka/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Herbaciarnia Między Słowami – Piła</title>
-    <script type="module" crossorigin src="/herbatka/assets/index-HMS2026.js?v=20261108_hms5"></script>
-    <link rel="stylesheet" crossorigin href="/herbatka/assets/index-DK2XVAf7.css?v=20261108_hms5">
+    <style>
+      /* Wyjątkowo dla Herbaciarni Między Słowami — brak przycisku + w lewym górnym rogu (polecenie L0 08.11.2026) */
+      .cc-mobile-edge-trigger,
+      #cc-mobile-edge-dialog,
+      [data-edge-key="open"] {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+    </style>
+    <script type="module" crossorigin src="/herbatka/assets/index-HMS2026.js?v=20261108_hms6"></script>
+    <link rel="stylesheet" crossorigin href="/herbatka/assets/index-DK2XVAf7.css?v=20261108_hms6">
   </head>
-  <body>
+  <body data-cc-edge-disabled="true">
     <div id="root"></div>
   </body>
 </html>

@@ -35,7 +35,10 @@ export function applyPageStandard(file, html) {
   html = html.replace(/(src=["'])(\/js\/cc-mobile-edge\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261030_edge10$3');
   html = html.replace(/(href=["'])(\/css\/cc-mobile-edge\.css)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261030_edge10$3');
 
-  if (!html.includes('cc-mobile-edge.css') && html.includes('</head>')) {
+  // Herbaciarnia Między Słowami: wyjątkowo bez przycisku + w lewym górnym rogu (polecenie L0 08.11.2026)
+  const isHerbatka = name === 'herbatka/index.html' || name === 'herbatka.html' || name.startsWith('herbatka/');
+
+  if (!isHerbatka && !html.includes('cc-mobile-edge.css') && html.includes('</head>')) {
     html = html.replace(/<\/head\s*>/i, `<link rel="stylesheet" href="${MOBILE_EDGE_CSS}">\n</head>`);
   }
 
@@ -52,7 +55,7 @@ export function applyPageStandard(file, html) {
   if (!html.includes('cc-newsletter.js')) {
     additions += `<script defer src="${NEWSLETTER_SCRIPT}"></script>\n`;
   }
-  if (!html.includes('cc-mobile-edge.js')) {
+  if (!isHerbatka && !html.includes('cc-mobile-edge.js')) {
     additions += `<script defer src="${MOBILE_EDGE_SCRIPT}"></script>\n`;
   }
   if (TOPTEN_CARD_PAGES.has(name) && !html.includes('cc-topten-card.js')) {
