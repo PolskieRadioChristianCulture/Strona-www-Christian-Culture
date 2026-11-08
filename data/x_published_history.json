@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "player",
+      "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
+      "url": "https://polskieradio.cc/player",
+      "type": "music",
+      "image": "art-worship.jpg",
+      "publishedAt": "2026-11-08T08:35:10.127Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "krakow-strzelanina-7-listopada-2026-chrzescijanski-komentarz",
       "title": "Kraków w żałobie: 6 ofiar strzelaniny. Chrześcijański komentarz",
       "url": "https://polskieradio.cc/news/krakow-strzelanina-7-listopada-2026-chrzescijanski-komentarz",
