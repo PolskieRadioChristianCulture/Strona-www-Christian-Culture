@@ -2715,7 +2715,7 @@ export function initVoiceWakeAndAudioUnlock() {
       }
     });
 
-    const unlockOnce = () => {
+    const unlockOnce = (evt) => {
       const ctx = getUnlockedAudioContext();
       if (ctx) {
         try {
@@ -2767,10 +2767,13 @@ export function initVoiceWakeAndAudioUnlock() {
       }
       ensureScreenWakeLock();
       updateAudioUnlockBannerDom();
-      if (window._mcPendingVoiceAudio && window._mcPendingVoiceAudio.audioBase64) {
-        const pending = window._mcPendingVoiceAudio;
-        window._mcPendingVoiceAudio = null;
-        playGeminiPcmBase64(pending, pending.sampleRate || 24000);
+      // Raport zablokowany przez politykę autoodtwarzania → odtwórz CAŁY raport przy pierwszym kliknięciu (max 14 min)
+      const pendingBriefing = window._mcPendingBriefing;
+      window._mcPendingBriefing = null;
+      window._mcPendingVoiceAudio = null;
+      const clickedPlay = Boolean(evt && evt.target && typeof evt.target.closest === 'function' && evt.target.closest('#btnLiveBoxPlayReport'));
+      if (!clickedPlay && pendingBriefing && pendingBriefing.text && Date.now() - pendingBriefing.ts < 14 * 60_000) {
+        speakCalendarVoiceAlert(pendingBriefing.text, { force: true });
       }
     };
 
@@ -2993,8 +2996,10 @@ export function playGeminiPcmBase64(audioInput, sampleRate = 24000, onEnded = nu
         else hideVoiceAssistantAvatar();
       };
       audioEl.play().catch(() => {
-        window._mcPendingVoiceAudio = { audioBase64, sampleRate, mimeType: isMp3 ? 'audio/mpeg' : 'audio/pcm', text: state.lastSpokenAlertText };
-        speakBrowserNaturalVoice(state.lastSpokenAlertText, onEnded);
+        // Dźwięk zablokowany: zapamiętaj CAŁY raport (nie pojedynczy fragment) i przerwij sekwencję,
+        // zamiast powtarzać pełny tekst syntezą przeglądarki po każdym zdaniu.
+        markVoiceBriefingBlocked(state.lastSpokenAlertText);
+        hideVoiceAssistantAvatar();
       });
       return true;
     };
@@ -3265,6 +3270,27 @@ export function playGeminiPcmSequence(audioParts = [], sampleRate = 24000, fallb
   return true;
 }
 
+export function isAutoplayBlocked() {
+  if (typeof window === 'undefined') return false;
+  const ctx = getUnlockedAudioContext();
+  if (ctx && ctx.state === 'running') return false;
+  // Brak aktywacji użytkownika od załadowania strony = Chrome/Edge/Safari nie wypuszczą dźwięku
+  const ua = typeof navigator !== 'undefined' ? navigator.userActivation : null;
+  return Boolean(ua && !ua.hasBeenActive);
+}
+
+export function markVoiceBriefingBlocked(text) {
+  if (typeof window === 'undefined' || !text) return;
+  window._mcPendingBriefing = { text, ts: Date.now() };
+  if (typeof document === 'undefined') return;
+  updateAudioUnlockBannerDom();
+  const banner = document.getElementById('mcAudioUnlockBanner');
+  if (banner && banner.getAttribute('data-state') === 'locked') {
+    const hm = new Intl.DateTimeFormat('pl-PL', { timeZone: 'Europe/Warsaw', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date());
+    banner.innerHTML = `<span>🔊 Raport głosowy ${escapeHtml(hm)} czeka — przeglądarka zablokowała dźwięk. Kliknij raz, aby odsłuchać i włączyć raporty automatyczne</span>`;
+  }
+}
+
 export function speakCalendarVoiceAlert(text, { force = false } = {}) {
   if (!text) return false;
   const now = new Date();
@@ -3287,6 +3313,14 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
   }
 
   state.lastSpokenAlertText = text;
+
+  // Automatyczny raport bez wcześniejszego kliknięcia: przeglądarka zablokuje dźwięk (polityka autoodtwarzania).
+  // Nie marnujemy raportu — zostaje w kolejce i odtworzy się w całości po pierwszym dotknięciu ekranu.
+  if (!force && isAutoplayBlocked()) {
+    markVoiceBriefingBlocked(text);
+    return false;
+  }
+
   const estMs = Math.max(32000, Math.min(58000, String(text || '').length * 110 + 18000));
   showVoiceAssistantAvatar(text, estMs);
   playAlertChime();
@@ -3336,44 +3370,37 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
   return startStreamingBriefingPlayback(text);
 }
 
+// L0 08.11.2026: raporty WYŁĄCZNIE głosem Google AI Studio (Aoede). Zakaz systemowego głosu Windows (speechSynthesis).
+// Gdy fragment nie przyjdzie — jedna ponowna próba (rotacja kluczy po stronie serwera), potem fragment jest pomijany;
+// tekst raportu i tak jest widoczny w dymku asystenta.
+function fetchSentenceTtsAudioWithRetry(sentence, timeoutMs) {
+  const withTimeout = (p) => Promise.race([p, new Promise((r) => setTimeout(() => r(null), timeoutMs))]);
+  return withTimeout(fetchSentenceTtsAudio(sentence))
+    .catch(() => null)
+    .then((audio) => audio || withTimeout(fetchSentenceTtsAudio(sentence)).catch(() => null));
+}
+
 function startStreamingBriefingPlayback(text) {
-  if (typeof window !== 'undefined' && typeof fetch === 'function') {
-    const sentences = splitBriefingIntoSentences(text);
-    const partPromises = sentences.map((s) => fetchSentenceTtsAudio(s));
-    const firstTimeout = new Promise((resolve) => setTimeout(() => resolve(null), 12000));
+  // Kontrakt bez zmian: alert przyjęty (tekst widoczny w dymku) — nawet gdy brak środowiska audio
+  if (typeof window === 'undefined' || typeof fetch !== 'function') return true;
+  const sentences = splitBriefingIntoSentences(text);
+  if (!sentences.length) return true;
+  const partPromises = sentences.map((s, idx) => fetchSentenceTtsAudioWithRetry(s, idx === 0 ? 12000 : 25000));
 
-    Promise.race([partPromises[0], firstTimeout])
-      .then(async (firstAudio) => {
-        if (!firstAudio) {
-          speakBrowserNaturalVoice(text);
-          return;
-        }
-        const playFromIndex = (i) => {
-          if (i >= partPromises.length) {
-            hideVoiceAssistantAvatar();
-            return;
-          }
-          Promise.race([partPromises[i], new Promise((r) => setTimeout(() => r(null), 25000))])
-            .then((audioPart) => {
-              if (audioPart) {
-                playGeminiPcmBase64(audioPart, 24000, () => playFromIndex(i + 1));
-              } else {
-                speakBrowserNaturalVoice(sentences.slice(i).join(' '));
-              }
-            })
-            .catch(() => {
-              speakBrowserNaturalVoice(sentences.slice(i).join(' '));
-            });
-        };
-        playGeminiPcmBase64(firstAudio, 24000, () => playFromIndex(1));
+  const playFromIndex = (i) => {
+    if (i >= partPromises.length) {
+      hideVoiceAssistantAvatar();
+      return;
+    }
+    partPromises[i]
+      .then((audioPart) => {
+        if (audioPart && playGeminiPcmBase64(audioPart, 24000, () => playFromIndex(i + 1))) return;
+        playFromIndex(i + 1);
       })
-      .catch(() => {
-        speakBrowserNaturalVoice(text);
-      });
-    return true;
-  }
-
-  return speakBrowserNaturalVoice(text) || true;
+      .catch(() => playFromIndex(i + 1));
+  };
+  playFromIndex(0);
+  return true;
 }
 
 export function buildQuarterHourVoiceBriefing(now = new Date()) {
