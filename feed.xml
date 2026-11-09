@@ -8,7 +8,7 @@
     <atom:link href="https://polskieradio.cc/feed.xml" rel="self" type="application/rss+xml" />
     <description>Główny kanał publikacji ekosystemu Christian Culture: CCN News, Akademia Biblijna, Biblijne Uwielbienie, Radio i Kino VOD.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Mon, 09 Nov 2026 05:01:22 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2026 13:07:21 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
     <item>
       <title>Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?</title>
@@ -19,6 +19,16 @@
       <category>CCN Finanse</category>
       <description>Dyskusja o cyfrowych walutach banków centralnych (CBDC) coraz częściej wykracza poza ekonomię. Analiza CBDC, prawa niedzielnego oraz Apokalipsy 13 (z wydaniem audio 17:51).</description>
       <enclosure url="https://polskieradio.cc/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Świętość nie wymaga udawania: dlaczego prawda o słabości uwalnia?</title>
+      <link>https://polskieradio.cc/news</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news</guid>
+      <pubDate>Mon, 09 Nov 2026 14:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN NEWS • FORMACJA DUCHOWA, UŚWIĘCENIE I PRAWDZIWA WOLNOŚĆ</category>
+      <description>Dla wielu wierzących dążenie do świętości stało się synonimem wyczerpującego dążenia do bezbłędności i ukrywania wszelkich ludzkich pęknięć pod maską religijnego sukcesu. Pismo Święte demaskuje jednak ten destrukcyjny perfekcjonizm jako współczesną formę faryzeizmu, ukazując, że biblijne uświęcenie nie polega na graniu ról, lecz na radykalnym stanięciu w prawdzie przed Bogiem. Prawdziwa wolność i dojrzałość wiary rodzą się dopiero wtedy, gdy przestajemy udawać samowystarczalnych siłaczy i pozwalamy, by Boża łaska objawiła swą moc w naszej słabości.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-swietosc-nie-wymaga-udawania-dlaczego-prawda-o-slabosci-uwalnia.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Czy w Kościele wolno mówić o własnym kryzysie?</title>
@@ -209,16 +219,6 @@
       <category>Społeczeństwo &amp; Wiara</category>
       <description>Żyjemy w epoce, w której niepewność stała się towarem powszechnym. Nagłówki serwisów informacyjnych, widmo kryzysów finansowych, wojen i technologicznego przyspieszenia sprawiają, że setki tysięcy ludzi budzą się w środku nocy z przyspieszonym tętnem i paraliżującym pytaniem: „Co będzie jutro?”. Jako chrześcijanie nie jesteśmy powołani do unikania rzeczywistości, ale do stanięcia w obliczu burzy z kotwicą, której ten świat nie jest w stanie zerwać. Oto pięć biblijnych filarów prawdziwego pokoju w Chrystusie.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-gdy-lek-o-jutro-odbiera-ci-pokoj-5-zasad-cezary-rogowski.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Gerald Welch – THE CALL. Rockowe wezwanie do przebudzenia sumienia i żywej wiary</title>
-      <link>https://polskieradio.cc/news/gerald-welch-the-call-rockowe-wezwanie-do-przebudzenia-sumienia-i-zywej-wiary</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/gerald-welch-the-call-rockowe-wezwanie-do-przebudzenia-sumienia-i-zywej-wiary</guid>
-      <pubDate>Thu, 29 Oct 2026 16:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>CCN Muzyka &amp; Kultura · Recenzja Albumu</category>
-      <description>Album, który nie chce być muzycznym tłem. Teologiczna i muzyczna analiza dziewięciu utworów debiutanckiego krążka Geralda Welcha w Christian Culture Network.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-gerald-welch-the-call.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Z Biblią za Pan Brat — Dzień 17: Wiara patrząca w przyszłość (Rdz 23–24)</title>
