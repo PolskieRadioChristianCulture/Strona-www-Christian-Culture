@@ -3831,12 +3831,11 @@ body.mc-clock-screensaver-idle #backToTopBtn,
   z-index: 9850;
   opacity: 0;
   visibility: hidden;
-  border: 3px solid rgba(56, 189, 248, 0.96);
+  /* L0 09.11.2026: poświata przed kwadransem zmniejszona — delikatny sygnał zamiast mocnego błysku */
+  border: 1px solid rgba(56, 189, 248, 0.45);
   box-shadow:
-    inset 0 0 38px rgba(56, 189, 248, 0.85),
-    inset 0 0 95px rgba(37, 99, 235, 0.62),
-    inset 0 0 160px rgba(14, 165, 233, 0.28),
-    0 0 32px rgba(56, 189, 248, 0.9);
+    inset 0 0 16px rgba(56, 189, 248, 0.22),
+    inset 0 0 40px rgba(37, 99, 235, 0.12);
   transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
@@ -3844,38 +3843,34 @@ body.mc-clock-screensaver-idle #backToTopBtn,
 body.is-pre-quarter-blue .mc-quarter-edge-frame {
   opacity: 1 !important;
   visibility: visible !important;
-  animation: mcQuarterBlueFramePulse 0.9s ease-in-out infinite alternate;
+  animation: mcQuarterBlueFramePulse 2.4s ease-in-out infinite alternate;
 }
 
 @keyframes mcQuarterBlueFramePulse {
   0% {
-    border-color: rgba(56, 189, 248, 0.78);
+    border-color: rgba(56, 189, 248, 0.3);
     box-shadow:
-      inset 0 0 28px rgba(56, 189, 248, 0.65),
-      inset 0 0 70px rgba(37, 99, 235, 0.45),
-      inset 0 0 120px rgba(14, 165, 233, 0.2),
-      0 0 20px rgba(56, 189, 248, 0.7);
+      inset 0 0 12px rgba(56, 189, 248, 0.16),
+      inset 0 0 32px rgba(37, 99, 235, 0.08);
   }
   100% {
-    border-color: #38bdf8;
+    border-color: rgba(56, 189, 248, 0.55);
     box-shadow:
-      inset 0 0 52px rgba(56, 189, 248, 0.98),
-      inset 0 0 115px rgba(37, 99, 235, 0.78),
-      inset 0 0 190px rgba(14, 165, 233, 0.38),
-      0 0 42px rgba(56, 189, 248, 1);
+      inset 0 0 20px rgba(56, 189, 248, 0.28),
+      inset 0 0 48px rgba(37, 99, 235, 0.14);
   }
 }
 
 .mc-dial-wrapper.is-pre-quarter-blue,
 body.is-pre-quarter-blue #mcBiblicalClockHero {
   box-shadow:
-    var(--mc-rim-x) var(--mc-rim-y) 44px -4px rgba(56, 189, 248, 0.78),
-    calc(var(--mc-rim-x) * 0.5) calc(var(--mc-rim-y) * 0.5) 24px -2px rgba(37, 99, 235, 0.62),
-    inset calc(var(--mc-rim-x) * -0.35) calc(var(--mc-rim-y) * -0.35) 32px rgba(56, 189, 248, 0.42),
-    inset 0 0 26px rgba(37, 99, 235, 0.35),
-    0 0 48px rgba(56, 189, 248, 0.52),
+    var(--mc-rim-x) var(--mc-rim-y) 28px -6px rgba(56, 189, 248, 0.38),
+    calc(var(--mc-rim-x) * 0.5) calc(var(--mc-rim-y) * 0.5) 16px -4px rgba(37, 99, 235, 0.28),
+    inset calc(var(--mc-rim-x) * -0.35) calc(var(--mc-rim-y) * -0.35) 20px rgba(56, 189, 248, 0.2),
+    inset 0 0 16px rgba(37, 99, 235, 0.16),
+    0 0 22px rgba(56, 189, 248, 0.22),
     0 22px 54px rgba(0, 0, 0, 0.88) !important;
-  animation: mcSpatialRimBeatBlue 0.9s ease-in-out infinite !important;
+  animation: mcSpatialRimBeatBlue 2.4s ease-in-out infinite !important;
 }
 
 .mc-dial-wrapper.is-pre-quarter-blue::before,
@@ -3893,10 +3888,10 @@ body.is-pre-quarter-blue #mcBiblicalClockHero::before {
 
 @keyframes mcSpatialRimBeatBlue {
   0%, 100% {
-    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45));
+    filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.25));
   }
   50% {
-    filter: drop-shadow(0 0 26px rgba(56, 189, 248, 0.92)) drop-shadow(0 0 12px rgba(37, 99, 235, 0.75));
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.42));
   }
 }
 
