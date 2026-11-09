@@ -123,7 +123,7 @@ const state = {
   clockCity: '52.2297,21.0122',
   clockShowMore: false,
   clockDrawerOpen: false, // Panel boczny ustawień w prawym górnym rogu
-  clockIdleHidden: false, // Wygaszacz po 5 sekundach: ukrywa wszystko poza zegarem i paskiem TERAZ
+  clockIdleHidden: true, // L0 09.11.2026: panele boczne schowane od startu; otwiera/zamyka je wyłącznie kliknięcie Dowódcy
   clockIdleTimer: null,
   liveSlideIndex: 0, // 0 = Ramówka polskieradio.cc, 1 = Skrót zadania TERAZ (rotacja wygaszacza ekranu)
   liveSlideManualUntil: 0,
@@ -2837,8 +2837,7 @@ export function showVoiceAssistantAvatar(text = '', durationMs = 6500) {
   if (text) state.lastSpokenAlertText = text;
   const fullMsg = text || state.lastSpokenAlertText || '';
 
-  // Gwarantowane wybudzenie ekranu z 5-sekundowego wygaszacza na czas komunikatu asystentki
-  wakeClockIdleMode({ restartTimer: false });
+  // L0 09.11.2026: asystentka NIE odsłania paneli bocznych (dymek jest widoczny także przy schowanych panelach)
   ensureScreenWakeLock();
 
   if (typeof window !== 'undefined' && window._mcVoiceAvatarTimer) {
@@ -5871,9 +5870,7 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
         render();
         return;
       }
-      if (state.module === 'clock' && state.clockIdleHidden) {
-        wakeClockIdleMode({ restartTimer: false });
-      }
+      // L0 09.11.2026: klawisze nie odsłaniają paneli — wyłącznie wyraźne kliknięcie
     });
 
     // Chowanie i przywracanie bocznych paneli oraz doku wyłącznie po kliknięciu użytkownika (bez automatycznego wygaszania po 5s)
