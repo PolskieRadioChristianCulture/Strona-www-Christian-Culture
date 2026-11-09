@@ -1215,3 +1215,24 @@ test('20. Bezpieczeństwo @007 08.11.2026: /tts i prywatny raport kalendarza tyl
   assert.doesNotMatch(appSrc, /\/ccMC\/gcalendar-live-report\.json/, 'Klient nie może czytać publicznego pliku kalendarza');
   assert.doesNotMatch(appSrc, /speakBrowserNaturalVoice\(\s*(?!text, onEnded = null\))/, 'Raporty bez systemowego głosu Windows');
 });
+
+test('21. Pętla zegara ccMC (@007 09.11.2026): brak niezdefiniowanych funkcji i izolacja kroków wyglądu od raportów głosowych', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const appSrc = fs.readFileSync(path.join(rootDir, 'ccMC', 'app.js'), 'utf8');
+
+  // Incydent 07–09.11: getWarsawTodayIsoPrefix wywoływana bez definicji → ReferenceError co sekundę → brak raportów co kwadrans
+  const defined = new Set([...appSrc.matchAll(/(?:function\s+|const\s+|let\s+|var\s+|class\s+)([A-Za-z_$][\w$]*)/g)].map((m) => m[1]));
+  for (const m of appSrc.matchAll(/import\s*\{([^}]+)\}/g)) m[1].split(',').forEach((x) => defined.add(x.split(' as ').pop().trim()));
+  const allowed = new Set(['setTimeout', 'setInterval', 'clearTimeout', 'clearInterval', 'encodeURIComponent', 'decodeURIComponent', 'requestAnimationFrame', 'cancelAnimationFrame', 'structuredClone', 'queueMicrotask', 'translateX', 'onEnded']);
+  const called = new Set([...appSrc.matchAll(/(?<![.\w$])([a-z][A-Za-z0-9_]{6,})\(/g)].map((m) => m[1]));
+  const missing = [...called].filter((n) => !defined.has(n) && !allowed.has(n));
+  assert.deepEqual(missing, [], `ccMC/app.js wywołuje niezdefiniowane funkcje: ${missing.join(', ')}`);
+
+  const { getWarsawTodayIsoPrefix } = await import('../ccMC/app.js');
+  assert.equal(getWarsawTodayIsoPrefix(new Date('2026-11-08T23:30:00Z')), '2026-11-09', 'Data liczona w strefie Europe/Warsaw');
+
+  // Kroki wyglądu w pętli zegara muszą być odizolowane, żeby nie blokowały raportów głosowych
+  for (const step of ['updateClockSpatialRimDom', 'updateBiblicalStatusDom', 'updateLiveScreensaverDom', 'updateClockDesktopWingsDom']) {
+    assert.ok(appSrc.includes(`() => ${step}(`) && new RegExp("runClockDomStep[(]'[a-z]+', [(][)] => " + step + "[(]").test(appSrc), `${step} musi być wywołany przez runClockDomStep`);
+  }
+});
