@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-09",
+      "topic": "Ekosystem & TV LIVE: Hotfix kolizji odtwarzacza wideo polskieradio.cc, powołanie strategicznej automatyzacji audytu DDEIP z priorytetem LUMINA i LUMI MESS",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
       "topic": "JOMA & Infrastruktura CC: Nowe prywatne repozytorium ChristianCulture-JOMA-Private, aktywacja Cloudflare Email Routing oraz higiena Skrzynki Misji (Batch ACK)",
       "agent": "A"
     },
@@ -4347,8 +4352,13 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-09T21:05:34.465Z",
+  "lastUpdated": "2026-11-09T21:34:52.590Z",
   "recentUpdates": [
+    {
+      "date": "2026-11-09",
+      "topic": "Cykliczna publikacja CCN News na platformie X #220: Wizytówka Wioletta Rogowska (LUMINA)",
+      "agent": "A"
+    },
     {
       "date": "2026-11-09",
       "topic": "Higiena bazy SMS-CC: usunięcie 11 nieaktywnych numerów (baza: 133 numery 100% PASS)",
@@ -4442,11 +4452,6 @@
     {
       "date": "2026-11-07",
       "topic": "CCN News X: Cykliczna publikacja #142 — Telefon milczy od tygodni: jak zauważyć samotnego sąsiada?",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #141 — Werset Dnia: Wj 20:8 (Dekalog / Szabat)",
       "agent": "A"
     }
   ],
