@@ -884,6 +884,7 @@
         var IS_OBS = !!window.obsstudio || /[?&](in_mcr|obs)=1(&|$)/.test(location.search);
         // DIAGNOZA TYMCZASOWA (@007 09.11): OBS zapisuje do logu tylko console.error
         try { console.error('[uwielbienie-diag] start obs=' + IS_OBS + ' top=' + (window.top === window) + ' search=' + location.search.slice(0, 90)); } catch (e) {}
+        try { var dg = document.createElement('div'); dg.id = 'ccDiagMark'; dg.textContent = 'diag v3 obs=' + IS_OBS + ' ' + new Date().toTimeString().slice(0, 8); dg.style.cssText = 'position:fixed;left:8px;top:8px;z-index:2147483647;background:#c00;color:#fff;font:700 28px/1.2 sans-serif;padding:6px 10px;'; document.body.appendChild(dg); setTimeout(function () { dg.remove(); }, 120000); } catch (e) {}
         if (!IS_OBS) return; // w zwykłej przeglądarce zachowanie bez zmian
         var NOT_PLAYING_LIMIT_MS = 8000;
         var CHECK_EVERY_MS = 2000;
