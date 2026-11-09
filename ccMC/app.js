@@ -281,6 +281,7 @@ export function setVoiceReportStatus(text, kind = 'info') {
 function describeTtsFailure(code) {
   if (code === 401) return 'brak logowania — zaloguj się ponownie w ccMC';
   if (code === 403) return 'wygasła ochrona sesji (CSRF) — odśwież stronę';
+  if (code === 429) return 'wyczerpany dzienny limit Google AI Studio (odnawia się o 9:00)';
   if (code === 503) return 'Google AI Studio chwilowo niedostępne';
   return 'błąd połączenia z serwerem głosu';
 }
@@ -3143,9 +3144,9 @@ export function speakBrowserNaturalVoice(text, onEnded = null) {
   }
 }
 
-// Raport do syntezy w 2 częściach (krótki początek = szybki start, reszta jednym zapytaniem).
+// Raport do syntezy w 1 zapytaniu (do 1500 znaków) — darmowy limit dzienny Gemini TTS (429 RESOURCE_EXHAUSTED 09.11).
 // Wcześniej ~10 zapytań na raport → darmowe limity Gemini TTS ucinały połowę raportu (09.11.2026, @007).
-export function splitBriefingForTts(text = '', firstMax = 220, restMax = 1500) {
+export function splitBriefingForTts(text = '', firstMax = 1500, restMax = 1500) {
   const sentences = splitBriefingIntoSentences(text);
   if (!sentences.length) return [];
   const chunks = [];
@@ -3412,7 +3413,7 @@ function startStreamingBriefingPlayback(text) {
   const sentences = splitBriefingForTts(text);
   if (!sentences.length) return true;
   // Dłuższa część raportu potrzebuje więcej czasu na syntezę
-  const partPromises = sentences.map((s, idx) => fetchSentenceTtsAudioWithRetry(s, idx === 0 ? 20000 : 60000));
+  const partPromises = sentences.map((s, idx) => fetchSentenceTtsAudioWithRetry(s, 60000));
 
   const hm = new Intl.DateTimeFormat('pl-PL', { timeZone: 'Europe/Warsaw', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date());
   let played = 0;
