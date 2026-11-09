@@ -381,6 +381,33 @@ async function main() {
     report.warnings = ['Nie udało się odczytać Google Calendar; brak danych potwierdzonych', err.message];
   }
 
+  // Kalendarz Misji Christian Culture (wspólny dla Dowódcy i agentów) — @007, 09.11.2026.
+  // Prywatny adres iCal poza repo: %USERPROFILE%\.cc-secrets\gcal_mission_ical_url.txt (albo CC_GCAL_MISSION_ICAL_URL).
+  let missionUrl = String(process.env.CC_GCAL_MISSION_ICAL_URL || '').trim();
+  if (!missionUrl) {
+    try {
+      missionUrl = fs.readFileSync(path.join(os.homedir(), '.cc-secrets', 'gcal_mission_ical_url.txt'), 'utf8').trim();
+    } catch {}
+  }
+  if (/^https:\/\/calendar\.google\.com\/calendar\/ical\//.test(missionUrl)) {
+    const nonMission = (report.events || []).filter((e) => e.calendar_kind !== 'mission');
+    try {
+      const missionIcs = await fetchIcs(missionUrl);
+      const missionItems = expandIcsEvents(missionIcs, windowStart.getTime(), windowEnd.getTime());
+      const missionEvents = normalizeGcalItems(missionItems, 'cc-mission').map((e) => ({ ...e, calendar_kind: 'mission' }));
+      report.events = [...nonMission, ...missionEvents].sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
+      report.mission_calendar_live = true;
+      report.mission_calendar_fetched_at = toWarsawRfc3339(new Date());
+      if (!report.calendars_checked.includes('cc-mission')) report.calendars_checked.push('cc-mission');
+    } catch (err) {
+      const prevMission = (previousReport?.events || []).filter((e) => e.calendar_kind === 'mission');
+      report.events = [...nonMission, ...prevMission].sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
+      report.mission_calendar_live = false;
+      report.mission_calendar_fetched_at = previousReport?.mission_calendar_fetched_at || null;
+      report.warnings.push(`Kalendarz Misji niedostępny: ${err.message}`);
+    }
+  }
+
   const localAppData = process.env.LOCALAPPDATA || path.join(os.homedir(), 'AppData', 'Local');
   const outDir = path.join(localAppData, 'ChristianCulture', 'GCalendarReports');
   fs.mkdirSync(outDir, { recursive: true });

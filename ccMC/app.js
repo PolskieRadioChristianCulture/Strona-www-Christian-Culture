@@ -959,7 +959,8 @@ export function convertGcalReportItemsToMcEvents(items = []) {
         gcal_synced: true,
         gcal_event_id: it.event_id || String(idx),
         calendar_id: it.calendar_id || 'nazirczarkes@gmail.com',
-        assigned_to: 'Dowódca',
+        assigned_to: it.calendar_kind === 'mission' ? 'Misja CC' : 'Dowódca',
+        calendar_kind: it.calendar_kind === 'mission' ? 'mission' : 'personal',
       };
     });
 }
@@ -2226,7 +2227,7 @@ export function getPersonalGcalScheduleItems(now = new Date()) {
     Array.isArray(state.gcalEvents) && state.gcalEvents.length > 0
       ? state.gcalEvents
       : VERIFIED_GCAL_FALLBACK_EVENTS
-  );
+  ).filter((ev) => ev.calendar_kind !== 'mission'); // Kalendarz Misji ma osobną część raportu
   const extraPersonal = (state.events || []).filter(
     (ev) => (ev.is_private || ev.source === 'gcal' || ev.category === 'people') && !String(ev.id || '').startsWith('gcal_')
   );
@@ -3433,6 +3434,49 @@ function startStreamingBriefingPlayback(text) {
   return true;
 }
 
+// Kalendarz Misji Christian Culture (wspólny dla Dowódcy i agentów) — część raportu co kwadrans (@007, 09.11.2026)
+export function getMissionGcalScheduleItems(now = new Date()) {
+  const nowTs = now.getTime();
+  const todayIsoPrefix = getWarsawTodayIsoPrefix(now);
+  const mission = convertGcalReportItemsToMcEvents(Array.isArray(state.gcalEvents) ? state.gcalEvents : [])
+    .filter((ev) => ev.calendar_kind === 'mission')
+    .sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
+  const nowActive = mission.filter((ev) => {
+    const s = Date.parse(ev.starts_at);
+    const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
+    return s <= nowTs && nowTs < e;
+  });
+  const upcomingToday = mission.filter(
+    (ev) => Date.parse(ev.starts_at) > nowTs && (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix)
+  );
+  const upcomingFuture = mission.filter((ev) => Date.parse(ev.starts_at) > nowTs && !(toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix));
+  return { all: mission, nowActive, upcomingToday, upcomingFuture };
+}
+
+export function buildMissionCalendarBriefingPart(now = new Date()) {
+  const rep = state.gcalReport || null;
+  if (!rep || !Array.isArray(rep.calendars_checked) || !rep.calendars_checked.includes('cc-mission')) return '';
+  const sched = getMissionGcalScheduleItems(now);
+  const parts = [];
+  if (sched.nowActive.length) {
+    parts.push(`W Kalendarzu Misji trwa teraz: ${sched.nowActive.map((ev) => ev.title).join(' oraz ')}.`);
+  }
+  if (sched.upcomingToday.length) {
+    const next = sched.upcomingToday[0];
+    parts.push(`Następna akcja misyjna dziś o ${formatWarsawTimeOnly(next.starts_at)}: ${next.title}.`);
+  } else if (sched.upcomingFuture.length) {
+    const next = sched.upcomingFuture[0];
+    const day = new Intl.DateTimeFormat('pl-PL', { timeZone: 'Europe/Warsaw', weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(next.starts_at));
+    parts.push(`Najbliższa akcja w Kalendarzu Misji: ${day} o ${formatWarsawTimeOnly(next.starts_at)} — ${next.title}.`);
+  } else if (!sched.nowActive.length) {
+    parts.push('W Kalendarzu Misji nie ma zaplanowanych akcji na najbliższy tydzień.');
+  }
+  if (rep.mission_calendar_live === false) {
+    parts.push('Uwaga: Kalendarz Misji nie odświeża się teraz na żywo.');
+  }
+  return parts.join(' ');
+}
+
 export function buildQuarterHourVoiceBriefing(now = new Date()) {
   const warsawHm = new Intl.DateTimeFormat('pl-PL', {
     timeZone: 'Europe/Warsaw',
@@ -3532,11 +3576,13 @@ export function buildQuarterHourVoiceBriefing(now = new Date()) {
   }
 
   const personalPart = parts.join(' ');
+  const missionCalendarPart = buildMissionCalendarBriefingPart(now);
 
   return [
     `Christian Culture LIVE, jest godzina ${warsawHm}. Nadajemy na żywo według planu: ${broadcastTitle}.`,
     automationSummary,
     `Raport agentów (${agentNowWho}): teraz realizujemy — ${agentNowTitle}, a następny punkt automatyzacji (${nextMissionTime}) to: ${nextMissionTitle}.`,
+    missionCalendarPart,
     personalPart,
   ]
     .filter(Boolean)

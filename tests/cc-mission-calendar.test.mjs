@@ -1283,3 +1283,15 @@ test('23. Raport głosowy w 1–2 zapytaniach Gemini (@007 09.11.2026): bez ucin
   const serviceSrc = fs.readFileSync(path.join(rootDir, 'services', 'cc-mission-calendar', 'mission-calendar-service.js'), 'utf8');
   assert.match(serviceSrc, /length <= 1500 \|\| !currentChunk/, 'Serwer nie może dzielić tekstu na fragmenty po 140 znaków');
 });
+
+test('24. Kalendarz Misji (@007 09.11.2026): osobna część raportu, odczyt z prywatnego iCal poza repo', () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const appSrc = fs.readFileSync(path.join(rootDir, 'ccMC', 'app.js'), 'utf8');
+  const syncSrc = fs.readFileSync(path.join(rootDir, 'scripts', 'sync-gcalendar-quarter-hour.mjs'), 'utf8');
+  assert.match(appSrc, /export function buildMissionCalendarBriefingPart/);
+  assert.match(appSrc, /missionCalendarPart,\s*\n\s*personalPart,/, 'Część misji w raporcie przed częścią prywatną');
+  assert.match(appSrc, /\.filter\(\(ev\) => ev\.calendar_kind !== 'mission'\)/, 'Wpisy misji nie mogą trafić do części „Twój prywatny kalendarz”');
+  assert.match(syncSrc, /gcal_mission_ical_url\.txt/);
+  assert.doesNotMatch(syncSrc, /group\.calendar\.google\.com\/private-/i, 'Prywatny adres Kalendarza Misji nie może być w kodzie');
+  assert.match(syncSrc, /report\.mission_calendar_live = false;/);
+});
