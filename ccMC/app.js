@@ -3618,6 +3618,31 @@ export function renderClockDesktopRightWing(now = new Date()) {
   `;
 }
 
+// Brakująca od 07.11 funkcja (ReferenceError co sekundę blokował pętlę zegara i automatyczne raporty) — @007, 09.11.2026
+export function getWarsawTodayIsoPrefix(now = new Date()) {
+  return new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Warsaw',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now);
+}
+
+// Błąd w odświeżaniu wyglądu nie może zatrzymać pętli zegara (raporty głosowe, prefetch TTS)
+function runClockDomStep(name, fn) {
+  try {
+    fn();
+  } catch (err) {
+    if (typeof window !== 'undefined') {
+      window._mcClockDomErrors = window._mcClockDomErrors || {};
+      if (!window._mcClockDomErrors[name]) {
+        window._mcClockDomErrors[name] = true;
+        console.warn(`[ccMC] krok zegara "${name}" pominięty:`, err);
+      }
+    }
+  }
+}
+
 export function updateClockDesktopWingsDom(now = new Date()) {
   if (typeof document === 'undefined') return;
   const tel = state.googleTelemetry || {};
@@ -5718,15 +5743,15 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
             digTime.innerHTML = formatWarsawTimeHtmlWithGlowSeconds(now);
           }
         }
-        updateClockSpatialRimDom(sec, now);
+        runClockDomStep('rim', () => updateClockSpatialRimDom(sec, now));
         lastTickSecond = sec;
 
         // Aktualizacja licznika Szabatu i stanu doby biblijnej w czasie rzeczywistym
-        updateBiblicalStatusDom(now);
+        runClockDomStep('biblical', () => updateBiblicalStatusDom(now));
 
         // Aktualizacja w czasie rzeczywistym i rotacja okienka "NA ŻYWO" (Ramówka ⇄ Zadanie TERAZ)
-        updateLiveScreensaverDom(now);
-        updateClockDesktopWingsDom(now);
+        runClockDomStep('live', () => updateLiveScreensaverDom(now));
+        runClockDomStep('wings', () => updateClockDesktopWingsDom(now));
 
         // Buforowanie głosu Aoede TTS na 1m45s oraz w chwili startu 15-sekundowej niebieskiej poświaty (:14:45, :29:45, :44:45, :59:45)
         if ((now.getMinutes() % 15 === 13 && sec === 15) || (now.getMinutes() % 15 === 14 && sec === 45)) {
