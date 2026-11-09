@@ -604,7 +604,7 @@
         const playerIframe = document.getElementById("yt-player");
         if (playerIframe) {
             const muteParam = isPreloadMuted ? '&mute=1' : '';
-            playerIframe.src = `https://www.youtube.com/embed/${selectedVideo.id}?autoplay=1&enablejsapi=1&controls=0&rel=0&modestbranding=1&cc_load_policy=0&iv_load_policy=3${muteParam}`;
+            playerIframe.src = `https://www.youtube.com/embed/${selectedVideo.id}?autoplay=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}&widget_referrer=${encodeURIComponent(location.href)}&controls=0&rel=0&modestbranding=1&cc_load_policy=0&iv_load_policy=3${muteParam}`;
         }
 
         window.addEventListener('message', (e) => {
@@ -876,7 +876,10 @@
 
         function ytIsPlaying() {
             try {
-                return typeof player !== 'undefined' && player && typeof player.getPlayerState === 'function' && player.getPlayerState() === 1;
+                // YouTube „żyje” = gra, pauza albo buforowanie (w OBS API potrafi stale zgłaszać buforowanie mimo odtwarzania).
+                // Dźwięk zastępczy tylko gdy odtwarzacza brak albo nie wystartował / skończył (bez podwójnego dźwięku).
+                var st = (typeof player !== 'undefined' && player && typeof player.getPlayerState === 'function') ? player.getPlayerState() : null;
+                return st === 1 || st === 2 || st === 3;
             } catch (e) {
                 return false;
             }
