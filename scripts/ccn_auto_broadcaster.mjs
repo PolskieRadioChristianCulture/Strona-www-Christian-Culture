@@ -809,7 +809,7 @@ function formatBroadcasterTweet(item) {
       subHeader = '💡 eM • WIARA & AUTENTYCZNOŚĆ | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#KryzysWiary', '#CezaryRogowski', '#CCNNews', '#Prawda');
-    } else if (tLower.includes('czytelnictw') || tLower.includes('towarzystwo biblijne') || tLower.includes('cyfrowe studium')) {
+    } else if (tLower.includes('czytelnictw') || tLower.includes('towarzystwo biblijne') || tLower.includes('cyfrowe studium') || tLower.includes('ekumeniczn') || tLower.includes('rada ekumeniczna') || tLower.includes('dni biblijne')) {
       subHeader = '📖 POLSKA & BIBLIA | RAPORT CCN';
       callToAction = '👉 Czytaj raport w serwisie:\n';
       addTags('#CCNNews', '#Biblia', '#SlowoBoze', '#ChristianCulture');
@@ -901,6 +901,11 @@ function formatBroadcasterTweet(item) {
         .replace(/\bsłowa bożego\b/gi, 'Słowa Bożego')
         .replace(/\btowarzystwo biblijne\b/gi, 'Towarzystwo Biblijne')
         .replace(/\btowarzystwa biblijnego\b/gi, 'Towarzystwa Biblijnego')
+        .replace(/\bpolska rada ekumeniczna\b/gi, 'Polska Rada Ekumeniczna')
+        .replace(/\bpolskiej rady ekumenicznej\b/gi, 'Polskiej Rady Ekumenicznej')
+        .replace(/\bpolską radę ekumeniczną\b/gi, 'Polską Radę Ekumeniczną')
+        .replace(/\bdni biblijne\b/gi, 'Dni Biblijne')
+        .replace(/\bdniach biblijnych\b/gi, 'Dniach Biblijnych')
         .replace(/\bchsch\b/gi, 'ChSCh')
         .replace(/\bkrakowie\b/gi, 'Krakowie')
         .replace(/\bkraków\b/gi, 'Kraków')
