@@ -1452,3 +1452,19 @@ test('31. ccMC: bez zaszytego przykładowego raportu, zapis wyemitowanego raport
   assert.match(syncSrc, /voice\/emitted\?limit=8/);
   assert.match(syncSrc, /readPresenterBrief\(outDir, now\)/);
 });
+
+test('32. Żywy raport w D1 wspólny dla izolatów: odczyt nie zależy od pamięci izolatu, który przyjął zapis (09.11.2026)', async () => {
+  const { callApi, env } = createTestContext();
+  env.CC_MC_LIVE_REPORT_TOKEN = 'sekret-testowy-raportu-123456';
+  const owner = { authorization: 'Bearer valid-owner-firebase-token' };
+  const report = { schema_version: '1.0', source_status: 'OK', fetched_at: '2026-11-09T21:12:03+01:00', events: [], mission_automation_report: { scope: 'quarter', window_end: '2026-11-09T20:12:02Z' } };
+  const w = await callApi('/api/mission-calendar/gcal/live-report', { method: 'POST', headers: { authorization: 'Bearer sekret-testowy-raportu-123456' }, body: report });
+  assert.equal(w.status, 200);
+  globalThis._ccMcLatestLiveGcalReport = { ...report, fetched_at: '2026-11-09T20:57:00+01:00' };
+  const r = await callApi('/api/mission-calendar/gcal/live-report', { headers: owner });
+  assert.equal(r.status, 200);
+  assert.equal(r.data.fetched_at, '2026-11-09T21:12:03+01:00', 'Najnowszy raport z bazy wygrywa ze starszym w pamięci izolatu');
+  delete globalThis._ccMcLatestLiveGcalReport;
+  const r2 = await callApi('/api/mission-calendar/gcal/live-report', { headers: owner });
+  assert.equal(r2.data.fetched_at, '2026-11-09T21:12:03+01:00', 'Izolat bez pamięci czyta raport z bazy');
+});

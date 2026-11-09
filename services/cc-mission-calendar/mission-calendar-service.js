@@ -612,6 +612,7 @@ export class MissionCalendarRepository {
       gcalMappings: new Map(),
       gcalSyncLogs: [],
       voiceReports: [],
+      liveReport: null,
       gcalRemoteCalendars: new Map([
         ['primary', { id: 'primary', summary: 'Kalendarz główny Google', timeZone: DEFAULT_TIMEZONE, primary: true }],
       ]),
@@ -636,6 +637,7 @@ export class MissionCalendarRepository {
         `CREATE TABLE IF NOT EXISTS mc_gcal_mappings (id TEXT PRIMARY KEY, event_id TEXT UNIQUE NOT NULL, vikunja_task_id TEXT NOT NULL, gcal_calendar_id TEXT NOT NULL, gcal_event_id TEXT NOT NULL, gcal_etag TEXT, gcal_ical_uid TEXT, last_synced_version INTEGER NOT NULL DEFAULT 1, sync_hash TEXT, updated_at TEXT NOT NULL)`,
         `CREATE TABLE IF NOT EXISTS mc_gcal_sync_logs (id TEXT PRIMARY KEY, direction TEXT NOT NULL, mode TEXT NOT NULL, action TEXT NOT NULL, event_id TEXT, gcal_event_id TEXT, status TEXT NOT NULL, details TEXT NOT NULL DEFAULT '{}', created_at TEXT NOT NULL)`,
         `CREATE TABLE IF NOT EXISTS mc_voice_reports (id TEXT PRIMARY KEY, quarter TEXT NOT NULL, status TEXT NOT NULL, text TEXT NOT NULL, spoken_at TEXT NOT NULL, created_at TEXT NOT NULL)`,
+        `CREATE TABLE IF NOT EXISTS mc_live_report (id TEXT PRIMARY KEY, fetched_at TEXT, body TEXT NOT NULL, updated_at TEXT NOT NULL)`,
       ];
       for (const sql of statements) {
         await this.db.prepare(sql).run();
@@ -1240,6 +1242,29 @@ export class MissionCalendarRepository {
     this.mem.voiceReports.unshift(record);
     this.mem.voiceReports = this.mem.voiceReports.filter((r) => r.created_at >= cutoff).slice(0, 400);
     return record;
+  }
+
+  // Najnowszy żywy raport kwadransowy — w D1, wspólny dla wszystkich izolatów Cloudflare (09.11.2026:
+  // sama pamięć izolatu dawała ccMC raport sprzed kwadransa, gdy zapis trafił do innego izolatu).
+  async saveLiveReport(report, nowIso = new Date().toISOString()) {
+    await this.ensureInitialized();
+    const body = JSON.stringify(report);
+    if (this.db) {
+      await this.db.prepare('INSERT OR REPLACE INTO mc_live_report (id, fetched_at, body, updated_at) VALUES (?, ?, ?, ?)')
+        .bind('latest', report.fetched_at || null, body, nowIso).run();
+      return true;
+    }
+    this.mem.liveReport = body;
+    return true;
+  }
+
+  async getLiveReport() {
+    await this.ensureInitialized();
+    if (this.db) {
+      const row = await this.db.prepare('SELECT body FROM mc_live_report WHERE id = ?').bind('latest').first();
+      return row ? safeJsonParse(row.body, null) : null;
+    }
+    return this.mem.liveReport ? safeJsonParse(this.mem.liveReport, null) : null;
   }
 
   async listVoiceReports(limit = 8) {
@@ -3379,6 +3404,7 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
         return json({ error: 'Nieprawidłowy format raportu gcalendar-live-report' }, 422);
       }
       globalThis._ccMcLatestLiveGcalReport = body;
+      await repo.saveLiveReport(body, service.nowFn().toISOString());
       return json({ ok: true, eventsCount: body.events.length, fetchedAt: body.fetched_at });
     }
 
@@ -3440,6 +3466,10 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
 
     if (path === '/gcal/live-report' && request.method === 'GET') {
       const candidates = [];
+      try {
+        const stored = await repo.getLiveReport();
+        if (stored && stored.schema_version === '1.0' && Array.isArray(stored.events)) candidates.push(stored);
+      } catch {}
       if (globalThis._ccMcLatestLiveGcalReport) candidates.push(globalThis._ccMcLatestLiveGcalReport);
       if (env?.ASSETS && typeof env.ASSETS.fetch === 'function') {
         try {
