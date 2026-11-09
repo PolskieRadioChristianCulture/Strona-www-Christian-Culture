@@ -1312,3 +1312,22 @@ test('25. Kalendarz Misji bez wycieku (@007 09.11.2026): brak prywatnych adresó
     assert.equal(r.status, 404, `${p} musi być publicznie zablokowany`);
   }
 });
+
+test('26. Lektor czyta godziny i skróty biblijne słowami (L0 09.11.2026)', async () => {
+  const { prepareTextForLector } = await import('../ccMC/app.js');
+  const cases = [
+    ['Christian Culture LIVE, jest godzina 10:45.', 'Christian Culture LIVE, jest godzina dziesiąta czterdzieści pięć.'],
+    ['jest godzina 08:00.', 'jest godzina ósma.'],
+    ['Kolejny punkt o 11:30 to: Odbiór.', 'Kolejny punkt o jedenastej trzydzieści to: Odbiór.'],
+    ['Zawiezienie (07:40–08:10).', 'Zawiezienie (od siódmej czterdzieści do ósmej dziesięć).'],
+    ['Następna akcja dziś o 09:23: Nagranie.', 'Następna akcja dziś o dziewiątej dwadzieścia trzy: Nagranie.'],
+    ['Jest 21:05, a o 22:30 cisza.', 'Jest dwudziesta pierwsza zero pięć, a o dwudziestej drugiej trzydzieści cisza.'],
+    ['Werset Dnia Rdz 18:25.', 'Werset Dnia Księga Rodzaju, rozdział osiemnasty wiersz dwudziesty piąty.'],
+    ['MP3 Biblii Audio (Rdz 17).', 'MP3 Biblii Audio (Księga Rodzaju, rozdział siedemnasty).'],
+    ['1 Kor 13:4-7 oraz Ps 23:1.', 'Pierwszy List do Koryntian, rozdział trzynasty wiersze od czwartego do siódmego oraz Psalm dwudziesty trzeci wiersz pierwszy.'],
+    ['Ps 119:176', 'Psalm sto dziewiętnasty wiersz sto siedemdziesiąty szósty'],
+    ['Publikacja na 7 kanałach za 5 minut.', 'Publikacja na 7 kanałach za 5 minut.'],
+    ['Odczyt 12:00:15 serwera.', 'Odczyt 12:00:15 serwera.'],
+  ];
+  for (const [input, expected] of cases) assert.equal(prepareTextForLector(input), expected, input);
+});

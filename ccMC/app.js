@@ -3146,6 +3146,132 @@ export function speakBrowserNaturalVoice(text, onEnded = null) {
 
 // Raport do syntezy w 1 zapytaniu (do 1500 znaków) — darmowy limit dzienny Gemini TTS (429 RESOURCE_EXHAUSTED 09.11).
 // Wcześniej ~10 zapytań na raport → darmowe limity Gemini TTS ucinały połowę raportu (09.11.2026, @007).
+// Godziny dla lektora słowami, z polską odmianą (L0 09.11.2026): „jest godzina dziesiąta czterdzieści pięć”,
+// „o jedenastej trzydzieści”, „od siódmej czterdzieści do ósmej dziesięć”. Na ekranie zostają cyfry.
+// Wersety (np. „Rdz 18:25”, „J 3:16”) nie są zamieniane.
+const PL_HOURS_NOM = ['dwudziesta czwarta', 'pierwsza', 'druga', 'trzecia', 'czwarta', 'piąta', 'szósta', 'siódma', 'ósma', 'dziewiąta', 'dziesiąta', 'jedenasta', 'dwunasta', 'trzynasta', 'czternasta', 'piętnasta', 'szesnasta', 'siedemnasta', 'osiemnasta', 'dziewiętnasta', 'dwudziesta', 'dwudziesta pierwsza', 'dwudziesta druga', 'dwudziesta trzecia'];
+const PL_UNITS = ['', 'jeden', 'dwa', 'trzy', 'cztery', 'pięć', 'sześć', 'siedem', 'osiem', 'dziewięć'];
+const PL_TEENS = ['dziesięć', 'jedenaście', 'dwanaście', 'trzynaście', 'czternaście', 'piętnaście', 'szesnaście', 'siedemnaście', 'osiemnaście', 'dziewiętnaście'];
+const PL_TENS = ['', '', 'dwadzieścia', 'trzydzieści', 'czterdzieści', 'pięćdziesiąt'];
+const TIME_PREFIX_WORDS = new Set(['o', 'od', 'do', 'godz', 'ok', 'i', 'a', 'to', 'na', 'w', 'we', 'za', 'po', 'lub', 'albo', 'jest', 'oraz', 'też', 'koło', 'już', 'było', 'jak', 'czy', 'tak', 'nie', 'dziś', 'jutro', 'teraz']);
+
+function plHourWord(h, oblique) {
+  const nom = PL_HOURS_NOM[h % 24];
+  if (!oblique) return nom;
+  // dopełniacz/miejscownik żeński: pierwsza→pierwszej, druga→drugiej, trzecia→trzeciej
+  return nom.split(' ').map((w) => (w.endsWith('ga') ? `${w.slice(0, -1)}iej` : w.endsWith('ia') ? `${w.slice(0, -1)}ej` : `${w.slice(0, -1)}ej`)).join(' ');
+}
+
+function plMinuteWords(m) {
+  if (m === 0) return '';
+  if (m < 10) return `zero ${PL_UNITS[m]}`;
+  if (m < 20) return PL_TEENS[m - 10];
+  return [PL_TENS[Math.floor(m / 10)], PL_UNITS[m % 10]].filter(Boolean).join(' ');
+}
+
+function plTimeWords(h, m, oblique) {
+  return [plHourWord(h, oblique), plMinuteWords(m)].filter(Boolean).join(' ');
+}
+
+export function phoneticizePolishTimes(text = '') {
+  return String(text || '').replace(
+    /(^|[^\p{L}\d:])(?:((?:o|od|do))\s+)?(\d{1,2}):(\d{2})(?:\s*[–—-]\s*(\d{1,2}):(\d{2}))?(?!\d|:\d)/gu,
+    (match, lead, prep, h1, m1, h2, m2, offset, whole) => {
+      const H1 = Number(h1), M1 = Number(m1);
+      if (H1 > 24 || M1 > 59 || (h2 !== undefined && (Number(h2) > 24 || Number(m2) > 59))) return match;
+      // Werset biblijny (krótki skrót księgi tuż przed liczbą, np. „Rdz 18:25”) — bez zmian
+      if (!prep) {
+        const before = whole.slice(0, offset + lead.length);
+        const prevWord = (before.match(/(?:^|[^\p{L}])(\p{L}{1,4})\.?\s+$/u) || [])[1];
+        if (prevWord && !TIME_PREFIX_WORDS.has(prevWord.toLowerCase())) return match;
+      }
+      if (h2 !== undefined) {
+        return `${lead}od ${plTimeWords(H1, M1, true)} do ${plTimeWords(Number(h2), Number(m2), true)}`;
+      }
+      if (prep) return `${lead}${prep} ${plTimeWords(H1, M1, true)}`;
+      return `${lead}${plTimeWords(H1, M1, false)}`;
+    }
+  );
+}
+
+// Skróty biblijne dla lektora (L0 09.11.2026): „Rdz 18:25” → „Księga Rodzaju, rozdział osiemnasty wiersz dwudziesty piąty”.
+const PL_ORD_UNITS = ['', 'pierwszy', 'drugi', 'trzeci', 'czwarty', 'piąty', 'szósty', 'siódmy', 'ósmy', 'dziewiąty'];
+const PL_ORD_TEENS = ['dziesiąty', 'jedenasty', 'dwunasty', 'trzynasty', 'czternasty', 'piętnasty', 'szesnasty', 'siedemnasty', 'osiemnasty', 'dziewiętnasty'];
+const PL_ORD_TENS = ['', '', 'dwudziesty', 'trzydziesty', 'czterdziesty', 'pięćdziesiąty', 'sześćdziesiąty', 'siedemdziesiąty', 'osiemdziesiąty', 'dziewięćdziesiąty'];
+
+export function plOrdinalMasc(n) {
+  n = Number(n);
+  if (!Number.isFinite(n) || n <= 0 || n > 199) return String(n);
+  if (n === 100) return 'setny';
+  const prefix = n > 100 ? 'sto ' : '';
+  const r = n % 100;
+  if (r === 0) return 'setny';
+  let words;
+  if (r < 10) words = PL_ORD_UNITS[r];
+  else if (r < 20) words = PL_ORD_TEENS[r - 10];
+  else words = [PL_ORD_TENS[Math.floor(r / 10)], PL_ORD_UNITS[r % 10]].filter(Boolean).join(' ');
+  return prefix + words;
+}
+
+function plOrdinalMascGen(n) {
+  // dopełniacz: pierwszy→pierwszego, drugi→drugiego, setny→setnego
+  return plOrdinalMasc(n)
+    .split(' ')
+    .map((w) => (w === 'sto' ? 'sto' : w.endsWith('y') ? `${w.slice(0, -1)}ego` : w.endsWith('i') ? `${w}ego` : w))
+    .join(' ');
+}
+
+const BIBLE_BOOKS_PL = {
+  // Stary Testament (BT) + popularne skróty UBG
+  Rdz: 'Księga Rodzaju', Wj: 'Księga Wyjścia', Kpł: 'Księga Kapłańska', Lb: 'Księga Liczb', Pwt: 'Księga Powtórzonego Prawa',
+  Joz: 'Księga Jozuego', Sdz: 'Księga Sędziów', Rt: 'Księga Rut', Sm: 'Księga Samuela', Krl: 'Księga Królewska', Krn: 'Księga Kronik',
+  Ezd: 'Księga Ezdrasza', Ne: 'Księga Nehemiasza', Est: 'Księga Estery', Hi: 'Księga Hioba', Hiob: 'Księga Hioba', Ps: 'Psalm',
+  Prz: 'Księga Przysłów', Koh: 'Księga Koheleta', Kzn: 'Księga Kaznodziei', Pnp: 'Pieśń nad Pieśniami', Iz: 'Księga Izajasza', Jr: 'Księga Jeremiasza',
+  Lm: 'Lamentacje', Ez: 'Księga Ezechiela', Dn: 'Księga Daniela', Oz: 'Księga Ozeasza', Jl: 'Księga Joela', Am: 'Księga Amosa',
+  Ab: 'Księga Abdiasza', Jon: 'Księga Jonasza', Mi: 'Księga Micheasza', Na: 'Księga Nahuma', Ha: 'Księga Habakuka', So: 'Księga Sofoniasza',
+  Ag: 'Księga Aggeusza', Za: 'Księga Zachariasza', Ml: 'Księga Malachiasza', Mojż: 'Mojżeszowa',
+  // Nowy Testament
+  Mt: 'Ewangelia Mateusza', Mat: 'Ewangelia Mateusza', Mk: 'Ewangelia Marka', Mar: 'Ewangelia Marka', Łk: 'Ewangelia Łukasza', Łuk: 'Ewangelia Łukasza',
+  J: 'Ewangelia Jana', Jan: 'Ewangelia Jana', Dz: 'Dzieje Apostolskie', Rz: 'List do Rzymian', Rzym: 'List do Rzymian',
+  Kor: 'List do Koryntian', Ga: 'List do Galatów', Gal: 'List do Galatów', Ef: 'List do Efezjan', Efez: 'List do Efezjan',
+  Flp: 'List do Filipian', Kol: 'List do Kolosan', Tes: 'List do Tesaloniczan', Tm: 'List do Tymoteusza', Tym: 'List do Tymoteusza',
+  Tt: 'List do Tytusa', Flm: 'List do Filemona', Hbr: 'List do Hebrajczyków', Hebr: 'List do Hebrajczyków', Jk: 'List Jakuba', Jak: 'List Jakuba',
+  P: 'List Piotra', Jud: 'List Judy', Ap: 'Apokalipsa', Obj: 'Objawienie',
+};
+// Krótkie skróty mylące się ze zwykłymi słowami — tylko w pełnej postaci „rozdział:werset”
+const BIBLE_RISKY_ABBR = new Set(['Na', 'Za', 'Mi', 'So', 'Am', 'Ab', 'Ha', 'Jon', 'J', 'P', 'Ez', 'Ag', 'Jan', 'Mat', 'Mar', 'Jak', 'Lm', 'Oz']);
+const PL_BOOK_NUMERAL_F = ['', 'Pierwsza', 'Druga', 'Trzecia', 'Czwarta', 'Piąta'];
+const PL_BOOK_NUMERAL_M = ['', 'Pierwszy', 'Drugi', 'Trzeci'];
+
+export function phoneticizeBibleRefs(text = '') {
+  const abbrs = Object.keys(BIBLE_BOOKS_PL).sort((a, b) => b.length - a.length).join('|');
+  const re = new RegExp(`(^|[^\\p{L}\\d])(?:([1-5])\\s*)?(${abbrs})\\.?\\s+(\\d{1,3})(?::(\\d{1,3})(?:\\s*[–—-]\\s*(\\d{1,3}))?)?(?![\\d\\p{L}])`, 'gu');
+  return String(text || '').replace(re, (match, lead, num, abbr, ch, v1, v2) => {
+    if (BIBLE_RISKY_ABBR.has(abbr) && !v1) return match;
+    if (abbr === 'Mojż' && !num) return match;
+    let book = BIBLE_BOOKS_PL[abbr];
+    if (num) {
+      const n = Number(num);
+      if (abbr === 'Mojż') book = `${PL_BOOK_NUMERAL_F[n] || num} Księga Mojżeszowa`;
+      else if (/^Księga/.test(book)) book = `${PL_BOOK_NUMERAL_F[n] || num} ${book}`;
+      else if (/^List/.test(book) || /^Ewangelia Jana$/.test(book)) {
+        book = /^Ewangelia Jana$/.test(book) ? 'List Jana' : book;
+        book = `${PL_BOOK_NUMERAL_M[n] || num} ${book}`;
+      } else book = `${num} ${book}`;
+    }
+    const isPsalm = abbr === 'Ps';
+    let spoken = isPsalm ? `Psalm ${plOrdinalMasc(ch)}` : `${book}, rozdział ${plOrdinalMasc(ch)}`;
+    if (v1 && v2) spoken += ` wiersze od ${plOrdinalMascGen(v1)} do ${plOrdinalMascGen(v2)}`;
+    else if (v1) spoken += ` wiersz ${plOrdinalMasc(v1)}`;
+    return `${lead}${spoken}`;
+  });
+}
+
+// Tekst raportu przygotowany dla lektora: najpierw skróty biblijne, potem godziny
+export function prepareTextForLector(text = '') {
+  return phoneticizePolishTimes(phoneticizeBibleRefs(text));
+}
+
 export function splitBriefingForTts(text = '', firstMax = 1500, restMax = 1500) {
   const sentences = splitBriefingIntoSentences(text);
   if (!sentences.length) return [];
@@ -3251,7 +3377,7 @@ export async function prefetchQuarterHourVoiceBriefing(targetDate = new Date()) 
       await loadLiveGcalReport();
       const text = buildQuarterHourVoiceBriefing(targetDate);
       if (!text) return null;
-      const sentences = splitBriefingForTts(text);
+      const sentences = splitBriefingForTts(prepareTextForLector(text));
       const audioParts = await Promise.all(sentences.map((s) => fetchSentenceTtsAudio(s)));
       if (audioParts.length > 0 && audioParts.every(Boolean)) {
         window._mcPrefetchedQuarterAudio = {
@@ -3410,7 +3536,7 @@ function fetchSentenceTtsAudioWithRetry(sentence, timeoutMs) {
 function startStreamingBriefingPlayback(text) {
   // Kontrakt bez zmian: alert przyjęty (tekst widoczny w dymku) — nawet gdy brak środowiska audio
   if (typeof window === 'undefined' || typeof fetch !== 'function') return true;
-  const sentences = splitBriefingForTts(text);
+  const sentences = splitBriefingForTts(prepareTextForLector(text));
   if (!sentences.length) return true;
   // Dłuższa część raportu potrzebuje więcej czasu na syntezę
   const partPromises = sentences.map((s, idx) => fetchSentenceTtsAudioWithRetry(s, 60000));
