@@ -909,6 +909,12 @@ function formatBroadcasterTweet(item) {
         .replace(/\bbóg\b/gi, 'Bóg')
         .replace(/\bjezus\b/gi, 'Jezus')
         .replace(/\bchrystus\b/gi, 'Chrystus')
+        .replace(/\bopen doors\b/gi, 'Open Doors')
+        .replace(/\bpkwp\b/gi, 'PKWP')
+        .replace(/\bnigerii\b/gi, 'Nigerii')
+        .replace(/\bazji\b/gi, 'Azji')
+        .replace(/\bbliskim wschodzie\b/gi, 'Bliskim Wschodzie')
+        .replace(/\bbliski wschód\b/gi, 'Bliski Wschód')
         .replace(/\?\s+([a-ząćęłńóśźż])/g, (m, c) => '? ' + c.toUpperCase());
     }
   }

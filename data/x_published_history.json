@@ -2,6 +2,60 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "swiat-ponad-380-milionow-chrzescijan-doswiadcza-przesladowan-raport-open-doors-apel-o-solidarnosc",
+      "title": "ŚWIAT: PONAD 380 MILIONÓW CHRZEŚCIJAN DOŚWIADCZA PRZEŚLADOWAŃ — RAPORT OPEN DOORS I APEL O SOLIDARNOŚĆ",
+      "url": "https://polskieradio.cc/news/swiat-ponad-380-milionow-chrzescijan-doswiadcza-przesladowan-raport-open-doors-apel-o-solidarnosc",
+      "type": "news",
+      "image": "art-swiat-przesladowania-chrzescijan-2026.jpg",
+      "publishedAt": "2026-11-09T09:03:59.646Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "bog-jest-miloscia",
+      "title": "Książka: Bóg jest MIŁOŚCIĄ? — Cezary i Wioletta Rogowscy. Odpowiedź na trudne pytania",
+      "url": "https://polskieradio.cc/bog-jest-miloscia",
+      "type": "book",
+      "image": "art-bog-jest-miloscia.jpg",
+      "publishedAt": "2026-11-09T08:33:07.613Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "rozwiaz-problem",
+      "title": "Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański",
+      "url": "https://polskieradio.cc/rozwiaz-problem",
+      "type": "course",
+      "image": "og-rozwiaz-problem.jpg",
+      "publishedAt": "2026-11-09T08:04:00.651Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "the-journal",
+      "title": "THE JOURNAL — 90-Dniowy Przewodnik Rozwoju Osobistego i Wiary",
+      "url": "https://polskieradio.cc/the-journal",
+      "type": "module",
+      "image": "the-journal.png",
+      "publishedAt": "2026-11-09T07:34:12.165Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "lumina.cezaryrgowski",
+      "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
+      "url": "https://polskieradio.cc/lumina.cezaryrgowski",
+      "type": "profile",
+      "image": "cezary-wioletta-radiocc.jpg",
+      "publishedAt": "2026-11-09T07:05:52.060Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "topTEN",
+      "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+      "url": "https://polskieradio.cc/topTEN",
+      "type": "music",
+      "image": "wspieramto-banner.png",
+      "publishedAt": "2026-11-09T06:44:58.857Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "mojabiblia?ref=GEN.15.5",
       "title": "Werset Dnia: „Spójrz teraz na niebo i policz gwiazdy...” (Rdz 15:5, UBG)",
       "url": "https://polskieradio.cc/mojabiblia?ref=GEN.15.5",

@@ -5,6 +5,41 @@
   "updatesLog": [
     {
       "date": "2026-11-09",
+      "topic": "Biblia Audio V7: Produkcja i publikacja Księga Rodzaju 18 (GEN-018) — Goście pod dębami Mamre i wstawiennictwo za Sodomą",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "CCN News X: Cykliczna publikacja #195 — Raport Misyjny CC: Ponad 380 milionów chrześcijan doświadcza prześladowań (Open Doors)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "CCN News X: Cykliczna publikacja #194 — Książka & Wydawnictwo CC: Bóg jest MIŁOŚCIĄ? (Cezary i Wioletta Rogowscy)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "CCN News X: Cykliczna publikacja #193 — Kurs & Wolność: Rozwiąż problem — Rzuć palenie w 14 dni",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "CCN News X: Cykliczna publikacja #192 — Moduł & Rozwój: THE JOURNAL — 90-Dniowy Przewodnik Rozwoju Osobistego i Wiary",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "CCN News X: Cykliczna publikacja #191 — Wizytówka Społeczności: Cezary Rogowski (LUMINA)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "CCN News X: Cykliczna publikacja #190 — Notowania Muzyki Chrześcijańskiej: topTEN (Polskie Radio CC)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
       "topic": "CCN News X: Cykliczna publikacja #189 — Werset Dnia: Rdz 15:5 UBG — Gwiazdy na niebie i obietnica przymierza (MojaBiblia)",
       "agent": "A"
     },
@@ -4632,6 +4667,23 @@
     {
       "date": "2026-11-06",
       "topic": "Cykliczna publikacja CCN News na platformie X: Kino VOD & SDS — Proroctwa Księgi Apokalipsy (#118)",
+      "agent": "A"
+    }
+  ],
+  "updates": [
+    {
+      "date": "2026-11-09",
+      "topic": "Cykliczna emisja CCN News X #193: Kurs chrześcijański «Rozwiąż problem: Rzuć palenie w 14 dni»",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "Cykliczna emisja CCN News X #192: THE JOURNAL — 90-Dniowy Przewodnik Rozwoju Osobistego i Wiary",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "Cykliczna emisja CCN News X #190: topTEN — Oficjalna Lista Przebojów Muzyki Chrześcijańskiej",
       "agent": "A"
     }
   ]
