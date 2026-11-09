@@ -1344,3 +1344,14 @@ test('27. Panele boczne tylko na kliknięcie Dowódcy (L0 09.11.2026)', () => {
   const keyHandler = appSrc.slice(kStart, appSrc.indexOf('});', kStart) + 3);
   assert.doesNotMatch(keyHandler, /wakeClockIdleMode\(/, 'Klawisze nie mogą odsłaniać paneli');
 });
+
+test('28. Podgląd nadawania OBS (PiP) w prawym górnym rogu tylko przy schowanych panelach, bez pytania o kamerę (L0 09.11.2026)', () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const appSrc = fs.readFileSync(path.join(rootDir, 'ccMC', 'app.js'), 'utf8');
+  const css = fs.readFileSync(path.join(rootDir, 'ccMC', 'style.css'), 'utf8');
+  assert.match(appSrc, /export async function startObsPip/);
+  assert.match(appSrc, /navigator\.permissions\.query\(\{ name: 'camera' \}\)/, 'Bez zgody na kamerę nie wolno pytać użytkownika');
+  assert.match(appSrc, /initVoiceWakeAndAudioUnlock\(\);\s*\n\s*initObsPip\(\);/);
+  assert.match(css, /\.mc-obs-pip \{[\s\S]*?top: 18px;[\s\S]*?right: 18px;/, 'Podgląd w prawym górnym rogu');
+  assert.match(css, /body\.mc-clock-screensaver-idle \.mc-obs-pip\.is-ready \{\s*display: block;/, 'Podgląd tylko przy schowanych panelach');
+});
