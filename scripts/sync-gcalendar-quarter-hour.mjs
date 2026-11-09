@@ -9,6 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { execFileSync, spawnSync } from 'node:child_process';
+import { expandIcsEvents, fetchIcs, POLISH_HOLIDAYS_ICS_URL } from './gcal-ics.mjs';
 
 const TIMEZONE = 'Europe/Warsaw';
 const TARGET_ACCOUNT = 'nazirczarkes@gmail.com';
@@ -269,6 +270,31 @@ async function main() {
   const primaryPath = path.join(baseDir, 'gcal-primary.json');
   const holidaysPath = path.join(baseDir, 'gcal-holidays.json');
 
+  // Odczyt NA ŻYWO z prywatnego adresu iCal właściciela (@007, 09.11.2026) — zero kosztów, tylko odczyt.
+  // Adres trzymany poza repo: %USERPROFILE%\.cc-secrets\gcal_ical_url.txt (albo zmienna CC_GCAL_ICAL_URL).
+  let calendarLiveSource = null;
+  let icalUrl = String(process.env.CC_GCAL_ICAL_URL || '').trim();
+  if (!icalUrl) {
+    try {
+      icalUrl = fs.readFileSync(path.join(os.homedir(), '.cc-secrets', 'gcal_ical_url.txt'), 'utf8').trim();
+    } catch {}
+  }
+  if (/^https:\/\/calendar\.google\.com\/calendar\/ical\//.test(icalUrl)) {
+    try {
+      const icsText = await fetchIcs(icalUrl);
+      const items = expandIcsEvents(icsText, windowStart.getTime(), windowEnd.getTime());
+      fs.writeFileSync(primaryPath, JSON.stringify(items), 'utf8');
+      fs.writeFileSync(calsPath, JSON.stringify([{ id: TARGET_ACCOUNT, primary: true, dataOwner: TARGET_ACCOUNT }]), 'utf8');
+      try {
+        const holText = await fetchIcs(POLISH_HOLIDAYS_ICS_URL);
+        fs.writeFileSync(holidaysPath, JSON.stringify(expandIcsEvents(holText, windowStart.getTime(), windowEnd.getTime())), 'utf8');
+      } catch {}
+      calendarLiveSource = 'ical';
+    } catch (err) {
+      report.warnings.push(`Prywatny adres iCal niedostępny: ${err.message}`);
+    }
+  }
+
   // Automatyczny odczyt na żywo z CLI gcalendar (jeśli CLI jest dostępne i włączone)
   if (process.env.GCAL_FETCH === '1') {
     try {
@@ -328,13 +354,22 @@ async function main() {
       report.fetched_at = toWarsawRfc3339(new Date());
       report.pagination_complete = true;
       report.source_status = 'OK';
+      report.calendar_live = true;
+      report.calendar_source = calendarLiveSource || 'gcalendar-cli';
+      report.calendar_fetched_at = report.fetched_at;
     } else if (previousReport && Array.isArray(previousReport.events) && previousReport.events.length > 0) {
       report.account_verified = Boolean(previousReport.account_verified);
       report.calendars_checked = previousReport.calendars_checked || ['primary'];
       report.events = previousReport.events;
       report.fetched_at = toWarsawRfc3339(new Date());
       report.pagination_complete = true;
-      report.source_status = 'OK';
+      // Kalendarz NIE odczytany na żywo — zostawiamy poprzednie wpisy, ale uczciwie oznaczamy ich wiek
+      report.source_status = 'PARTIAL';
+      report.calendar_live = false;
+      report.calendar_source = 'cache';
+      // Wiek danych znamy tylko z raportu zapisanego nowym formatem (stare pliki stemplowały czas bez odczytu)
+      report.calendar_fetched_at = typeof previousReport.calendar_live === 'boolean' ? (previousReport.calendar_fetched_at || null) : null;
+      report.warnings.push('Kalendarz Google nie odświeżony na żywo — wpisy z pamięci podręcznej');
     } else {
       throw new Error('Brak plików wsadowych gcal-cals.json / gcal-primary.json');
     }

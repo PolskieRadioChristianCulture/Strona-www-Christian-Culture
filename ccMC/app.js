@@ -2774,7 +2774,16 @@ export function initVoiceWakeAndAudioUnlock() {
     window.addEventListener('click', unlockOnce, { passive: true });
     window.addEventListener('keydown', unlockOnce, { passive: true });
     window.addEventListener('touchstart', unlockOnce, { passive: true });
-    setTimeout(() => updateAudioUnlockBannerDom(), 600);
+    // Kontekst dźwięku od razu po załadowaniu: przy zezwoleniu na autoodtwarzanie (nadajnik) pasek
+    // „Kliknij raz…” sam zmienia się na zielony i znika; bez zezwolenia zostaje (prawdziwa blokada).
+    setTimeout(() => {
+      const ctx = getUnlockedAudioContext();
+      if (ctx && typeof ctx.addEventListener === 'function' && !window._mcAudioStateListener) {
+        window._mcAudioStateListener = true;
+        ctx.addEventListener('statechange', () => updateAudioUnlockBannerDom());
+      }
+      updateAudioUnlockBannerDom();
+    }, 600);
   }
 }
 
@@ -3486,6 +3495,18 @@ export function buildQuarterHourVoiceBriefing(now = new Date()) {
     parts.push(`Kolejne zaplanowane punkty w Twoim grafiku Google Calendar to: ${nextSummary}.`);
   } else if (personalNowList.length === 0) {
     parts.push('W Twoim prywatnym Kalendarzu Google brak zaplanowanych kolejnych spotkań na dziś.');
+  }
+
+  // Uczciwość danych (L0 09.11.2026): raport mówi wprost, gdy Kalendarz Google nie jest odczytywany na żywo
+  const calReport = state.gcalReport || null;
+  if (calReport && calReport.calendar_live === false) {
+    const since = calReport.calendar_fetched_at ? formatWarsawTimeOnly(calReport.calendar_fetched_at) : '';
+    const sinceDay = calReport.calendar_fetched_at
+      ? new Intl.DateTimeFormat('pl-PL', { timeZone: 'Europe/Warsaw', day: 'numeric', month: 'long' }).format(new Date(calReport.calendar_fetched_at))
+      : '';
+    parts.push(
+      `Uwaga: Twój Kalendarz Google nie odświeża się na żywo${since ? ` — ostatni odczyt ${sinceDay} o ${since}` : ''}, więc te punkty mogą być nieaktualne.`
+    );
   }
 
   const personalPart = parts.join(' ');
