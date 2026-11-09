@@ -3431,6 +3431,8 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
         .filter((k) => k.length > 20 && !k.startsWith('AIzaSyC2'));
       const apiKeys = [...new Set(rawKeys)];
 
+      let geminiQuotaExhausted = 0;
+      let geminiOtherFailures = 0;
       const synthesizeSingleChunk = async (chunkText, idx = 0) => {
         if (!apiKeys.length) return null;
         let textHash = 0;
@@ -3467,6 +3469,8 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
                 }),
               }
             );
+            if (geminiRes.status === 429) geminiQuotaExhausted++;
+            else if (!geminiRes.ok) geminiOtherFailures++;
             if (geminiRes.ok) {
               const geminiData = await geminiRes.json();
               const inlineData = geminiData?.candidates?.[0]?.content?.parts?.[0]?.inlineData || null;
@@ -3543,6 +3547,9 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
       }
 
       // Tylko Google AI Studio (decyzja L0 08.11.2026): brak głosu zastępczego (Google Tłumacz / systemowy).
+      if (geminiQuotaExhausted > 0 && geminiOtherFailures === 0) {
+        return json({ ok: false, error: 'Wyczerpany dzienny limit Google AI Studio', audioBase64: null }, 429);
+      }
       return json({ ok: false, error: 'Synteza Google AI Studio chwilowo niedostępna', audioBase64: null }, 503);
     }
 

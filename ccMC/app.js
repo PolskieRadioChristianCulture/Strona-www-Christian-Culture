@@ -281,6 +281,7 @@ export function setVoiceReportStatus(text, kind = 'info') {
 function describeTtsFailure(code) {
   if (code === 401) return 'brak logowania — zaloguj się ponownie w ccMC';
   if (code === 403) return 'wygasła ochrona sesji (CSRF) — odśwież stronę';
+  if (code === 429) return 'wyczerpany dzienny limit Google AI Studio (odnawia się o 9:00)';
   if (code === 503) return 'Google AI Studio chwilowo niedostępne';
   return 'błąd połączenia z serwerem głosu';
 }
@@ -959,7 +960,8 @@ export function convertGcalReportItemsToMcEvents(items = []) {
         gcal_synced: true,
         gcal_event_id: it.event_id || String(idx),
         calendar_id: it.calendar_id || 'nazirczarkes@gmail.com',
-        assigned_to: 'Dowódca',
+        assigned_to: it.calendar_kind === 'mission' ? 'Misja CC' : 'Dowódca',
+        calendar_kind: it.calendar_kind === 'mission' ? 'mission' : 'personal',
       };
     });
 }
@@ -2226,7 +2228,7 @@ export function getPersonalGcalScheduleItems(now = new Date()) {
     Array.isArray(state.gcalEvents) && state.gcalEvents.length > 0
       ? state.gcalEvents
       : VERIFIED_GCAL_FALLBACK_EVENTS
-  );
+  ).filter((ev) => ev.calendar_kind !== 'mission'); // Kalendarz Misji ma osobną część raportu
   const extraPersonal = (state.events || []).filter(
     (ev) => (ev.is_private || ev.source === 'gcal' || ev.category === 'people') && !String(ev.id || '').startsWith('gcal_')
   );
@@ -3142,9 +3144,9 @@ export function speakBrowserNaturalVoice(text, onEnded = null) {
   }
 }
 
-// Raport do syntezy w 2 częściach (krótki początek = szybki start, reszta jednym zapytaniem).
+// Raport do syntezy w 1 zapytaniu (do 1500 znaków) — darmowy limit dzienny Gemini TTS (429 RESOURCE_EXHAUSTED 09.11).
 // Wcześniej ~10 zapytań na raport → darmowe limity Gemini TTS ucinały połowę raportu (09.11.2026, @007).
-export function splitBriefingForTts(text = '', firstMax = 220, restMax = 1500) {
+export function splitBriefingForTts(text = '', firstMax = 1500, restMax = 1500) {
   const sentences = splitBriefingIntoSentences(text);
   if (!sentences.length) return [];
   const chunks = [];
@@ -3411,7 +3413,7 @@ function startStreamingBriefingPlayback(text) {
   const sentences = splitBriefingForTts(text);
   if (!sentences.length) return true;
   // Dłuższa część raportu potrzebuje więcej czasu na syntezę
-  const partPromises = sentences.map((s, idx) => fetchSentenceTtsAudioWithRetry(s, idx === 0 ? 20000 : 60000));
+  const partPromises = sentences.map((s, idx) => fetchSentenceTtsAudioWithRetry(s, 60000));
 
   const hm = new Intl.DateTimeFormat('pl-PL', { timeZone: 'Europe/Warsaw', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date());
   let played = 0;
@@ -3431,6 +3433,49 @@ function startStreamingBriefingPlayback(text) {
   };
   playFromIndex(0);
   return true;
+}
+
+// Kalendarz Misji Christian Culture (wspólny dla Dowódcy i agentów) — część raportu co kwadrans (@007, 09.11.2026)
+export function getMissionGcalScheduleItems(now = new Date()) {
+  const nowTs = now.getTime();
+  const todayIsoPrefix = getWarsawTodayIsoPrefix(now);
+  const mission = convertGcalReportItemsToMcEvents(Array.isArray(state.gcalEvents) ? state.gcalEvents : [])
+    .filter((ev) => ev.calendar_kind === 'mission')
+    .sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at));
+  const nowActive = mission.filter((ev) => {
+    const s = Date.parse(ev.starts_at);
+    const e = ev.ends_at ? Date.parse(ev.ends_at) : s + 3600_000;
+    return s <= nowTs && nowTs < e;
+  });
+  const upcomingToday = mission.filter(
+    (ev) => Date.parse(ev.starts_at) > nowTs && (toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix)
+  );
+  const upcomingFuture = mission.filter((ev) => Date.parse(ev.starts_at) > nowTs && !(toWarsawInput(ev.starts_at) || '').startsWith(todayIsoPrefix));
+  return { all: mission, nowActive, upcomingToday, upcomingFuture };
+}
+
+export function buildMissionCalendarBriefingPart(now = new Date()) {
+  const rep = state.gcalReport || null;
+  if (!rep || !Array.isArray(rep.calendars_checked) || !rep.calendars_checked.includes('cc-mission')) return '';
+  const sched = getMissionGcalScheduleItems(now);
+  const parts = [];
+  if (sched.nowActive.length) {
+    parts.push(`W Kalendarzu Misji trwa teraz: ${sched.nowActive.map((ev) => ev.title).join(' oraz ')}.`);
+  }
+  if (sched.upcomingToday.length) {
+    const next = sched.upcomingToday[0];
+    parts.push(`Następna akcja misyjna dziś o ${formatWarsawTimeOnly(next.starts_at)}: ${next.title}.`);
+  } else if (sched.upcomingFuture.length) {
+    const next = sched.upcomingFuture[0];
+    const day = new Intl.DateTimeFormat('pl-PL', { timeZone: 'Europe/Warsaw', weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(next.starts_at));
+    parts.push(`Najbliższa akcja w Kalendarzu Misji: ${day} o ${formatWarsawTimeOnly(next.starts_at)} — ${next.title}.`);
+  } else if (!sched.nowActive.length) {
+    parts.push('W Kalendarzu Misji nie ma zaplanowanych akcji na najbliższy tydzień.');
+  }
+  if (rep.mission_calendar_live === false) {
+    parts.push('Uwaga: Kalendarz Misji nie odświeża się teraz na żywo.');
+  }
+  return parts.join(' ');
 }
 
 export function buildQuarterHourVoiceBriefing(now = new Date()) {
@@ -3532,11 +3577,13 @@ export function buildQuarterHourVoiceBriefing(now = new Date()) {
   }
 
   const personalPart = parts.join(' ');
+  const missionCalendarPart = buildMissionCalendarBriefingPart(now);
 
   return [
     `Christian Culture LIVE, jest godzina ${warsawHm}. Nadajemy na żywo według planu: ${broadcastTitle}.`,
     automationSummary,
     `Raport agentów (${agentNowWho}): teraz realizujemy — ${agentNowTitle}, a następny punkt automatyzacji (${nextMissionTime}) to: ${nextMissionTitle}.`,
+    missionCalendarPart,
     personalPart,
   ]
     .filter(Boolean)
