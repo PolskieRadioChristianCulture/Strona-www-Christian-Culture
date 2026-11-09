@@ -4312,6 +4312,45 @@
       "studioStatus": "scheduled",
       "studioChannel": "Osobowość +",
       "studioCheckedAt": "2026-11-09T09:04:27.498Z"
+    },
+    {
+      "title": "Księga Rodzaju 18:1-33 (UBG) • Goście pod Dębami Mamre • Wstawiennictwo za Sodomą | Biblia Audio CC ",
+      "videoFile": "Ksiega_Rodzaju_18_1-33_Biblia_Audio_CC_4K.mp4",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+      "videoUrl": "https://youtu.be/vc3gi7N98To",
+      "visibility": "public",
+      "scheduledFor": "11 lis 2026 20:00 Europe/Warsaw",
+      "scheduledDate": "2026-11-11",
+      "premiere": true,
+      "confirmedByYouTube": true,
+      "publishedAt": "2026-11-09T09:52:35.119Z"
+    },
+    {
+      "title": "Księga Rodzaju 18:1-33 (UBG) • Goście pod Dębami Mamre • Wstawiennictwo za Sodomą | Biblia Audio CC ",
+      "videoFile": "Ksiega_Rodzaju_18_1-33_Biblia_Audio_CC_Shorts_9x16.mp4",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+      "videoUrl": "https://youtube.com/shorts/pSkVSBT2tJA",
+      "visibility": "public",
+      "scheduledFor": "11 lis 2026 20:00 Europe/Warsaw",
+      "scheduledDate": "2026-11-11",
+      "premiere": false,
+      "confirmedByYouTube": true,
+      "publishedAt": "2026-11-09T09:53:49.626Z"
+    },
+    {
+      "title": "Księga Rodzaju 18:1-33 (UBG) • Goście pod Dębami Mamre • Wstawiennictwo za Sodomą | Biblia Audio CC ",
+      "videoFile": "Ksiega_Rodzaju_18_1-33_Biblia_Audio_CC_4K.mp4",
+      "channel": "Christian Culture TV",
+      "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+      "videoUrl": "https://youtu.be/IlYbPhhc7uw",
+      "visibility": "public",
+      "scheduledFor": "11 lis 2026 20:00 Europe/Warsaw",
+      "scheduledDate": "2026-11-11",
+      "premiere": true,
+      "confirmedByYouTube": true,
+      "publishedAt": "2026-11-09T10:02:45.680Z"
     }
   ]
 }
