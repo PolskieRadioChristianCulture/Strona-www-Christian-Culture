@@ -28,9 +28,9 @@ const AREA_COLORS = {
 const PRIO_LABELS = { 1: 'P0', 2: 'P1', 3: 'P2', 4: 'P3' };
 
 const CANONICAL_MISSION_ROUTINES = [
-  { id: 'rt_dzj_morning', time: '06:00', freq: 'Codziennie', agent: 'Joshua', title: 'Rozważania DZJ & Strony WWW', area: 'mission', desc: 'Publikacja porannego rozważania "Dobrze, że jesteś" (Firebase/WWW)' },
+  { id: 'rt_dzj_morning', time: '09:00', freq: 'Codziennie', agent: 'Joshua', title: 'Rozważania DZJ, WWW & Facebook', area: 'mission', desc: 'Publikacja porannego rozważania "Dobrze, że jesteś" (Firebase/WWW/Facebook/Grupa Nazira)' },
   { id: 'rt_kc_daily', time: '06:30', freq: 'Codziennie', agent: 'Antigravity', title: 'Akademia Biblijna Kurs Codzienny', area: 'mission', desc: 'Publikacja lekcji Kursu Codziennego, aktualizacja 2 przycisków Hero CTA i Clean URLs' },
-  { id: 'rt_nazir_whatsapp', time: '07:00', freq: 'Codziennie', agent: 'Joshua', title: 'Grupa Nazira WhatsApp (3 wiadomości)', area: 'social', desc: 'Priorytetowa wysyłka 3 wersji rozważania: Poranna TTS, WWW na cały dzień, Wieczorna SMS' },
+  { id: 'rt_nazir_whatsapp', time: '09:05', freq: 'Codziennie', agent: 'Joshua', title: 'Grupa Nazira WhatsApp (3 wiadomości)', area: 'social', desc: 'Priorytetowa wysyłka 3 wersji rozważania: Poranna TTS, WWW na cały dzień, Wieczorna SMS' },
   { id: 'rt_wa_am_roundrobin', time: '10:00', freq: 'Codziennie', agent: 'Joshua', title: 'WhatsApp Dystrybucja poranna (FIFO)', area: 'social', desc: 'Wysyłka treści WWW rozważania co godzinę do 2 grup rotacji z zabezpieczeniem daty' },
   { id: 'rt_biblia_audio_mastering', time: '12:00', freq: 'Codziennie', agent: 'CCStudio', title: 'Biblia Audio DAW Mastering (-16 LUFS)', area: 'radio', desc: 'Automatyczny mastering i publikacja odcinków Biblii Audio na polskieradio.cc/biblia-audio' },
   { id: 'rt_sds_video_factory', time: '14:00', freq: 'Codziennie', agent: 'Christian Culture', title: 'Christian Culture — Filmy Biblijne Biblia Audio 4K & Shorts', area: 'media', desc: 'Autorska produkcja Cezarego Rogowskiego (Christian Culture): filmy biblijne Biblia Audio Christian Culture 4K UHD oraz Shorts' },
@@ -2045,10 +2045,10 @@ export function getCurrentTerazSummary(now = new Date()) {
     timeRange: '22:00–06:00',
     agent: '@SMCC',
     title: 'Nocne Czuwanie Systemowe 24/7 & Ochrona Kanałów Nadawczych LIVE',
-    sub: '⏭ NASTĘPNE ZADANIE (06:00): Poranna Publikacja Rozważań „Dobrze, że jesteś” • @A001',
+    sub: '⏭ NASTĘPNE ZADANIE (09:00): Poranna Publikacja Rozważań „Dobrze, że jesteś” • @A001',
     isGcal,
     gcalCalendarName,
-    nextTask: { timeRange: '06:00–08:00', title: 'Poranna Publikacja Rozważań „Dobrze, że jesteś”', agent: '@A001' },
+    nextTask: { timeRange: '09:00–10:00', title: 'Poranna Publikacja Rozważań „Dobrze, że jesteś”', agent: '@A001' },
   };
 }
 
