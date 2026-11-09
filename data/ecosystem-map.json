@@ -5,6 +5,21 @@
   "updatesLog": [
     {
       "date": "2026-11-09",
+      "topic": "CCN News X: Cykliczna publikacja #219 — Notowania & Muzyka CC: topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "CCN News X: Cykliczna publikacja #218 — Werset Dnia: Rdz 50:20 (UBG) — Bóg obrócił to w dobro (Akademia Biblijna)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "CCN News X: Cykliczna publikacja #217 — Książki & Wydawnictwo CC: U boku Diabła (Cezary Rogowski)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
       "topic": "CCN News X: Cykliczna publikacja #216 — Słuchowiska CC: Biblia Audio — Księga Rodzaju 15 (GEN-015: Przymierze z Abramem)",
       "agent": "A"
     },
@@ -4322,8 +4337,18 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-09",
+  "lastUpdated": "2026-11-09T21:05:34.465Z",
   "recentUpdates": [
+    {
+      "date": "2026-11-09",
+      "topic": "Higiena bazy SMS-CC: usunięcie 11 nieaktywnych numerów (baza: 133 numery 100% PASS)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "Kompleksowy raport stanu misji i infrastruktury SMS-CC (@SMS)",
+      "agent": "A"
+    },
     {
       "date": "2026-11-09",
       "topic": "Publikacja artykułu CCN News: Świętość nie wymaga udawania (Cezary Rogowski, Slot 6 EkoCC 365)",
@@ -4413,89 +4438,19 @@
       "date": "2026-11-07",
       "topic": "CCN News X: Cykliczna publikacja #141 — Werset Dnia: Wj 20:8 (Dekalog / Szabat)",
       "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #140 — Książka: Prawda Bez Filtra — Cezary Rogowski",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #139 — Nowość Muzyczna: Cezary Rogowski (Cokolwiek na świecie)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #138 — Werset Dnia: Rdz 18:25 (MojaBiblia)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #137 — Akademia Biblijna & Kurs Codzienny",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #136 — Wizytówka: Cezary Rogowski (Portal LUMINA)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #134 — Kino VOD & SDS: Proroctwa Księgi Apokalipsy",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "ccMC: Okienko NA ŻYWO pod zegarem — ramówka polskieradio.cc w czasie rzeczywistym i rotacyjny skrót zadania TERAZ (wygaszacz ekranu)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "ccMC: Chowane menu ustawień (3 pionowe kreski) w prawym górnym rogu z szufladą boczną i wycentrowanym zegarem",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #131 — LUMINA Społeczność Chrześcijańska (tablica)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "ccMC: Integracja Zegara Biblijnego Szabatu i natychmiastowe filtrowanie zadan TERAZ po kliknieciu w zegar",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "ccMC: Domyślny widok Dziś wg aktualnej godziny (TERAZ) z osią czasu i zegarem na żywo",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "ccMC: Biblijny kanon tygodnia (Niedziela 1. dzień, Sobota 7. dzień czerwona, Piątek przygotowanie pomarańczowy)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "ccMC: Integracja kanonicznego przycisku powrotu na górę (/js/cc-back-to-top.js)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "ccMC: Panel Ustawienia, tryb jasny (#FFFFFF) i ciemny (#000000) oraz 12 zaplanowanych rutyn misyjnych (/automation)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-06",
-      "topic": "Cykliczna publikacja CCN News na platformie X: Wizytówka Wioletta Rogowska — Współzałożycielka Christian Culture z dedykowaną grafiką (#122)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-06",
-      "topic": "Cykliczna publikacja CCN News na platformie X: Kino VOD & SDS — Proroctwa Księgi Apokalipsy (#118)",
-      "agent": "A"
     }
   ],
   "updates": [
+    {
+      "date": "2026-11-09",
+      "topic": "Cykliczna emisja CCN News X #219: topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "Cykliczna emisja CCN News X #218: Werset Dnia Rdz 50:20 — Bóg obrócił to w dobro",
+      "agent": "A"
+    },
     {
       "date": "2026-11-09",
       "topic": "Cykliczna emisja CCN News X #215: Prawda bez filtra — Wioletta Rogowska (godność i relacje)",
@@ -4534,6 +4489,16 @@
     {
       "date": "2026-11-09",
       "topic": "Cykliczna emisja CCN News X #190: topTEN — Oficjalna Lista Przebojów Muzyki Chrześcijańskiej",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "Kompleksowy raport stanu misji i infrastruktury SMS-CC (@SMS)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
+      "topic": "Higiena bazy SMS-CC: usunięcie 11 nieaktywnych numerów (baza: 133 numery 100% PASS)",
       "agent": "A"
     }
   ]

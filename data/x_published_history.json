@@ -2,6 +2,33 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "topTEN",
+      "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+      "url": "https://polskieradio.cc/topTEN",
+      "type": "music",
+      "image": "wspieramto-banner.png",
+      "publishedAt": "2026-11-09T21:05:34.465Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "dzien-31",
+      "title": "Werset Dnia: „Wy myśleliście o złu przeciwko mnie, ale Bóg obrócił to w dobro” (Rdz 50:20, UBG)",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-31",
+      "type": "verse",
+      "image": "art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg",
+      "publishedAt": "2026-11-09T20:34:01.009Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "u-boku-diabla",
+      "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
+      "url": "https://polskieradio.cc/u-boku-diabla",
+      "type": "book",
+      "image": "art-u-boku-diabla.jpg",
+      "publishedAt": "2026-11-09T20:03:11.223Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "biblia-audio",
       "title": "Biblia Audio CC: Księga Rodzaju 15 (GEN-015) — Przymierze z Abramem i Boża obietnica",
       "url": "https://polskieradio.cc/biblia-audio",
