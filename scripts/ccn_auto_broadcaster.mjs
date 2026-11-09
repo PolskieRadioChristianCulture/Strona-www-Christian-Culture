@@ -490,6 +490,15 @@ function getAllEcosystemCandidates() {
       tag: '#BadzBlisko'
     },
     {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 40 (Wj 9:1–35): Pomór bydła, wrzody i ogień z gradem — Boża moc ponad pychą faraona',
+      lead: 'Dzień 40 (9 listopada 2026): Kolejne sądy nad Egiptem: pomór bydła, wrzody z popiołu pieca i niszczycielski grad z ogniem. Boża moc objawiona nad pychą faraona i bezpieczne schronienie w ziemi Goszen.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-40',
+      image: 'images/academy/daily/kc_day_40_pomor_wrzody_grad.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
       title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 39 (Wj 8:1–32): Plagi żab, wszy i much — Boży palec i rozróżnienie ziemi Goszen',
       lead: 'Dzień 39 (8 listopada 2026): Trzy kolejne sądy nad bóstwami Egiptu, kapitulacja magów wyznających „To jest palec Boży” oraz nienaruszalna ochrona ziemi Goszen.',
       url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-39',
@@ -829,6 +838,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę według biblijnej roztropności.';
   } else if ((item.url || '').includes('badz-blisko')) {
     bodyText = '7 krótkich spotkań ze Słowem, które pomagają odnaleźć spokój i zrobić dobry krok. Bezpłatny 7-dniowy przewodnik!';
+  } else if ((item.url || '').includes('dzien-40')) {
+    bodyText = 'Dzień 40 (Wj 9:1–35): Pomór bydła, wrzody i bezprecedensowy grad z ogniem. Boża moc ponad pychą faraona i ochrona ziemi Goszen.';
   } else if ((item.url || '').includes('dzien-39')) {
     bodyText = 'Dzień 39 (Wj 8:1–32): Plagi żab, wszy i much — bezsilność czarowników („To jest palec Boży!”) i ochrona ziemi Goszen.';
   } else if ((item.url || '').includes('dzien-38')) {
