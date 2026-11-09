@@ -850,6 +850,8 @@
     (function () {
         // Na antenie strona działa w ramce master-live (in_mcr=1) — tam window.obsstudio istnieje tylko w oknie nadrzędnym
         var IS_OBS = !!window.obsstudio || /[?&](in_mcr|obs)=1(&|$)/.test(location.search);
+        // DIAGNOZA TYMCZASOWA (@007 09.11): OBS zapisuje do logu tylko console.error
+        try { console.error('[uwielbienie-diag] start obs=' + IS_OBS + ' top=' + (window.top === window) + ' search=' + location.search.slice(0, 90)); } catch (e) {}
         if (!IS_OBS) return; // w zwykłej przeglądarce zachowanie bez zmian
         var NOT_PLAYING_LIMIT_MS = 8000;
         var CHECK_EVERY_MS = 2000;
@@ -908,7 +910,7 @@
         function startFallback(reason) {
             if (fallbackOn) return;
             fallbackOn = true;
-            console.warn('[uwielbienie] dźwięk zastępczy ON (' + reason + ') ' + new Date().toISOString());
+            console.error('[uwielbienie-diag] dźwięk zastępczy ON (' + reason + ')');
             hideOverlay();
             loadTracks().then(function () {
                 idx = Math.floor(Date.now() / 86400000) % Math.max(1, tracks.length);
