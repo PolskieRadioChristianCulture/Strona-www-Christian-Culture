@@ -841,6 +841,104 @@
             
     <!-- Czat widzów LUMI MESS ze wszystkich pokoi LIVE TV (Claude @A007, 19.10) — położenie w kadrze 1920×1080 -->
     <script src="/js/cc-live-viewer-chat.js?v=20261020_a002" data-left="96" data-bottom="130" data-width="640" data-height="230" data-hide=".episode-badge-box"></script>
+    <!-- @007 (claude) 09.11.2026 — awaria 16:00: YouTube nie startuje w OBS → cisza na antenie.
+         W OBS (window.obsstudio): bez ekranu „Kliknij…”, a gdy YouTube nie gra przez 8 s —
+         dźwięk zastępczy z naszej playlisty Instrumental Worship (/worship_playlist.json).
+         Gdy YouTube ruszy — dźwięk zastępczy się wyłącza (bez podwójnego dźwięku). -->
+    <audio id="ccWorshipFallbackAudio" preload="none"></audio>
+    <script>
+    (function () {
+        // Na antenie strona działa w ramce master-live (in_mcr=1) — tam window.obsstudio istnieje tylko w oknie nadrzędnym
+        var IS_OBS = !!window.obsstudio || /[?&](in_mcr|obs)=1(&|$)/.test(location.search);
+        if (!IS_OBS) return; // w zwykłej przeglądarce zachowanie bez zmian
+        var NOT_PLAYING_LIMIT_MS = 8000;
+        var CHECK_EVERY_MS = 2000;
+        var audio = document.getElementById('ccWorshipFallbackAudio');
+        // Ten sam stan wyciszenia co strona: master-live wstępnie ładuje kanał wyciszony (muted=1) i odcisza komunikatem
+        audio.muted = /[?&]muted=1(&|$)/.test(location.search);
+        window.addEventListener('message', function (e) {
+            var d = e && e.data; var type = '';
+            if (typeof d === 'string') { try { var p = JSON.parse(d); type = p.type || p.event || ''; if (p.func === 'unMute') type = 'UNMUTE_AUDIO'; if (p.func === 'mute') type = 'MUTE_AUDIO'; } catch (err) { type = d; } }
+            else if (d && typeof d === 'object') { type = d.type || ''; }
+            if (type === 'UNMUTE_AUDIO' || type === 'unMute') audio.muted = false;
+            else if (type === 'MUTE_AUDIO' || type === 'mute') audio.muted = true;
+        });
+        var tracks = [];
+        var idx = 0;
+        var fallbackOn = false;
+        var notPlayingSince = Date.now();
+
+        function hideOverlay() {
+            var o = document.getElementById('startOverlay');
+            if (o) o.style.display = 'none';
+        }
+        hideOverlay(); // w OBS nikt nie kliknie
+
+        function ytIsPlaying() {
+            try {
+                return typeof player !== 'undefined' && player && typeof player.getPlayerState === 'function' && player.getPlayerState() === 1;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function loadTracks() {
+            if (tracks.length) return Promise.resolve(tracks);
+            return fetch('/worship_playlist.json', { cache: 'no-store' })
+                .then(function (r) { return r.json(); })
+                .then(function (j) {
+                    tracks = (Array.isArray(j) ? j : []).map(function (t) { return new URL(t.url, location.origin + '/').href; });
+                    return tracks;
+                })
+                .catch(function () { return tracks; });
+        }
+
+        function playNext() {
+            if (!fallbackOn || !tracks.length) return;
+            audio.src = tracks[idx % tracks.length];
+            idx++;
+            var p = audio.play();
+            if (p && typeof p.catch === 'function') {
+                p.catch(function (e) { console.warn('[uwielbienie] dźwięk zastępczy: play() odrzucone', e); });
+            }
+        }
+        audio.addEventListener('ended', playNext);
+        audio.addEventListener('error', function () { setTimeout(playNext, 1500); });
+
+        function startFallback(reason) {
+            if (fallbackOn) return;
+            fallbackOn = true;
+            console.warn('[uwielbienie] dźwięk zastępczy ON (' + reason + ') ' + new Date().toISOString());
+            hideOverlay();
+            loadTracks().then(function () {
+                idx = Math.floor(Date.now() / 86400000) % Math.max(1, tracks.length);
+                playNext();
+            });
+        }
+
+        function stopFallback() {
+            if (!fallbackOn) return;
+            fallbackOn = false;
+            try { audio.pause(); } catch (e) {}
+            console.info('[uwielbienie] YouTube gra — dźwięk zastępczy OFF ' + new Date().toISOString());
+        }
+
+        window.ccWorshipFallbackState = function () {
+            return { obs: IS_OBS, fallbackOn: fallbackOn, muted: audio.muted, ytPlaying: ytIsPlaying(), track: audio.currentSrc || '' };
+        };
+
+        setInterval(function () {
+            if (ytIsPlaying()) {
+                notPlayingSince = Date.now();
+                stopFallback();
+                return;
+            }
+            if (!fallbackOn && Date.now() - notPlayingSince >= NOT_PLAYING_LIMIT_MS) {
+                startFallback('YouTube nie gra od ' + Math.round((Date.now() - notPlayingSince) / 1000) + ' s');
+            }
+        }, CHECK_EVERY_MS);
+    })();
+    </script>
 </body>
 </html>
 
