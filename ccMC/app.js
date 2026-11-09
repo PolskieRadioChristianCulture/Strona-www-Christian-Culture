@@ -2689,6 +2689,100 @@ export function getPersistentVoiceAudioElement() {
   return el || (typeof window.Audio === 'function' ? new window.Audio() : null);
 }
 
+// ────────────────────────────────────────────────────────────────────────
+// Podgląd nadawania OBS (obraz w obrazie) — L0 09.11.2026.
+// Prawy górny róg, widoczny tylko przy schowanych panelach; kliknięcie w ekran = panele zamiast podglądu.
+// Źródło: wirtualna kamera OBS na komputerze nadawczym. Włącza się WYŁĄCZNIE gdy przeglądarka ma już
+// zgodę na kamerę (polityka Chrome na nadajniku) — nigdzie indziej nie pyta o dostęp do kamery.
+// ────────────────────────────────────────────────────────────────────────
+const OBS_PIP_CAMERA_PATTERN = /OBS Virtual Camera|OBS-Camera|OBS Virtual/i;
+const OBS_PIP_RETRY_MS = 60_000;
+
+function ensureObsPipElement() {
+  if (typeof document === 'undefined' || !document.body) return null;
+  let wrap = document.getElementById('mcObsPip');
+  if (!wrap) {
+    wrap = document.createElement('div');
+    wrap.id = 'mcObsPip';
+    wrap.className = 'mc-obs-pip';
+    wrap.setAttribute('aria-label', 'Podgląd nadawania na żywo');
+    wrap.innerHTML =
+      '<video id="mcObsPipVideo" autoplay muted playsinline></video>' +
+      '<div class="mc-obs-pip-label"><span class="mc-obs-pip-dot"></span>PODGLĄD NADAWANIA</div>';
+    document.body.appendChild(wrap);
+  }
+  return wrap;
+}
+
+function scheduleObsPipRetry() {
+  if (typeof window === 'undefined') return;
+  clearTimeout(window._mcObsPipRetry);
+  window._mcObsPipRetry = setTimeout(() => startObsPip().catch(() => {}), OBS_PIP_RETRY_MS);
+}
+
+export async function startObsPip({ allowPrompt = false } = {}) {
+  if (typeof navigator === 'undefined' || !navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
+    return false;
+  }
+  if (!allowPrompt) {
+    // Bez zgody na kamerę nie robimy nic (żadnych okienek z pytaniem na innych komputerach)
+    try {
+      const st = await navigator.permissions.query({ name: 'camera' });
+      if (st.state !== 'granted') return false;
+    } catch {
+      return false;
+    }
+  }
+  const wrap = ensureObsPipElement();
+  if (!wrap) return false;
+  try {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const cam = devices.find((d) => d.kind === 'videoinput' && OBS_PIP_CAMERA_PATTERN.test(d.label || ''));
+    if (!cam) {
+      wrap.classList.remove('is-ready');
+      scheduleObsPipRetry();
+      return false;
+    }
+    const prev = window._mcObsPipStream;
+    if (prev && prev.active && prev.getVideoTracks().some((t) => t.readyState === 'live')) return true;
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { deviceId: { exact: cam.deviceId }, width: { ideal: 640 }, height: { ideal: 360 }, frameRate: { ideal: 15 } },
+      audio: false,
+    });
+    window._mcObsPipStream = stream;
+    const video = document.getElementById('mcObsPipVideo');
+    if (video) {
+      video.srcObject = stream;
+      video.play().catch(() => {});
+    }
+    wrap.classList.add('is-ready');
+    for (const track of stream.getVideoTracks()) {
+      track.addEventListener('ended', () => {
+        wrap.classList.remove('is-ready');
+        scheduleObsPipRetry();
+      });
+    }
+    return true;
+  } catch {
+    wrap.classList.remove('is-ready');
+    scheduleObsPipRetry();
+    return false;
+  }
+}
+
+export function initObsPip() {
+  if (typeof window === 'undefined' || window._mcObsPipInitialized) return;
+  window._mcObsPipInitialized = true;
+  let allowPrompt = false;
+  try {
+    allowPrompt = new URLSearchParams(window.location.search).get('pip') === '1';
+  } catch {}
+  startObsPip({ allowPrompt }).catch(() => {});
+  if (navigator.mediaDevices && typeof navigator.mediaDevices.addEventListener === 'function') {
+    navigator.mediaDevices.addEventListener('devicechange', () => startObsPip().catch(() => {}));
+  }
+}
+
 export function initVoiceWakeAndAudioUnlock() {
   if (typeof window === 'undefined' || window._mcVoiceWakeInitialized) return;
   window._mcVoiceWakeInitialized = true;
@@ -6002,6 +6096,7 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
     }, 250);
   }
   initVoiceWakeAndAudioUnlock();
+  initObsPip();
   initLiveRadioRdsEngine();
   attachLoginHandler();
   loadInitialSession();

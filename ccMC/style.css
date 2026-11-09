@@ -3933,3 +3933,55 @@ body.is-pre-quarter-blue .mc-biblical-badge {
 
 
 
+
+/* ==========================================================================
+   PODGLĄD NADAWANIA OBS (obraz w obrazie) — L0 09.11.2026
+   Prawy górny róg, tylko przy schowanych panelach bocznych (tryb czytelnego ekranu).
+   Kliknięcie w ekran pokazuje panele i chowa podgląd — i odwrotnie.
+   ========================================================================== */
+.mc-obs-pip {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: min(30vw, 420px);
+  aspect-ratio: 16 / 9;
+  z-index: 9800;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(255, 122, 0, 0.55);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.65);
+  pointer-events: none;
+  display: none;
+}
+.mc-obs-pip video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+.mc-obs-pip-label {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font: 700 11px/1.4 system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.62);
+}
+.mc-obs-pip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.9);
+}
+body.mc-clock-screensaver-idle .mc-obs-pip.is-ready {
+  display: block;
+}
