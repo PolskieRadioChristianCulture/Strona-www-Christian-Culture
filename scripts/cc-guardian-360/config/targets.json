@@ -1,0 +1,20 @@
+{
+  "targets": [
+    {"name": "Portal Główny Christian Culture", "url": "https://polskieradio.cc/", "critical": true},
+    {"name": "Portal Społecznościowy LUMINA", "url": "https://polskieradio.cc/lumina", "critical": true},
+    {"name": "Tablica Społeczności LUMINA", "url": "https://polskieradio.cc/lumina-tablica.html", "critical": true},
+    {"name": "Komunikator LUMI MESS", "url": "https://polskieradio.cc/mess", "critical": true},
+    {"name": "Transmisja TV LIVE Master", "url": "https://polskieradio.cc/master", "critical": true},
+    {"name": "Player Audio 24/7", "url": "https://polskieradio.cc/player", "critical": true},
+    {"name": "Akademia Biblijna", "url": "https://polskieradio.cc/akademia", "critical": false},
+    {"name": "Kurs Codzienny Z Biblią za Pan Brat", "url": "https://polskieradio.cc/akademia/kurscodzienny", "critical": false},
+    {"name": "Interlinearna MojaBiblia", "url": "https://polskieradio.cc/mojabiblia", "critical": false},
+    {"name": "Kino Chrześcijańskie VOD", "url": "https://polskieradio.cc/vod", "critical": false},
+    {"name": "Kalendarz Misyjny ccMC", "url": "https://polskieradio.cc/ccMC", "critical": false}
+  ],
+  "viewports": [
+    {"name": "mobile", "width": 390, "height": 844},
+    {"name": "tablet", "width": 768, "height": 1024},
+    {"name": "desktop", "width": 1440, "height": 900}
+  ]
+}

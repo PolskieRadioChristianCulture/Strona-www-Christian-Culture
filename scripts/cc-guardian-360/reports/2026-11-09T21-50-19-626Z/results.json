@@ -1,0 +1,435 @@
+{
+  "runId": "2026-11-09T21-50-19-626Z",
+  "scans": [
+    {
+      "target": "Portal Główny Christian Culture",
+      "url": "https://polskieradio.cc/",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 5199,
+      "screenshot": "screenshots/Portal-G-wny-Christian-Culture-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Portal Główny Christian Culture",
+      "url": "https://polskieradio.cc/",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 1068,
+      "screenshot": "screenshots/Portal-G-wny-Christian-Culture-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Portal Główny Christian Culture",
+      "url": "https://polskieradio.cc/",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 1014,
+      "screenshot": "screenshots/Portal-G-wny-Christian-Culture-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Portal Społecznościowy LUMINA",
+      "url": "https://polskieradio.cc/lumina",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 1449,
+      "screenshot": "screenshots/Portal-Spo-eczno-ciowy-LUMINA-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Portal Społecznościowy LUMINA",
+      "url": "https://polskieradio.cc/lumina",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 1427,
+      "screenshot": "screenshots/Portal-Spo-eczno-ciowy-LUMINA-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Portal Społecznościowy LUMINA",
+      "url": "https://polskieradio.cc/lumina",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 1398,
+      "screenshot": "screenshots/Portal-Spo-eczno-ciowy-LUMINA-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Tablica Społeczności LUMINA",
+      "url": "https://polskieradio.cc/lumina-tablica.html",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 1901,
+      "screenshot": "screenshots/Tablica-Spo-eczno-ci-LUMINA-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Tablica Społeczności LUMINA",
+      "url": "https://polskieradio.cc/lumina-tablica.html",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 1591,
+      "screenshot": "screenshots/Tablica-Spo-eczno-ci-LUMINA-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Tablica Społeczności LUMINA",
+      "url": "https://polskieradio.cc/lumina-tablica.html",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 2238,
+      "screenshot": "screenshots/Tablica-Spo-eczno-ci-LUMINA-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Komunikator LUMI MESS",
+      "url": "https://polskieradio.cc/mess",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 813,
+      "screenshot": "screenshots/Komunikator-LUMI-MESS-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Komunikator LUMI MESS",
+      "url": "https://polskieradio.cc/mess",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 710,
+      "screenshot": "screenshots/Komunikator-LUMI-MESS-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Komunikator LUMI MESS",
+      "url": "https://polskieradio.cc/mess",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 767,
+      "screenshot": "screenshots/Komunikator-LUMI-MESS-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Transmisja TV LIVE Master",
+      "url": "https://polskieradio.cc/master",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 293,
+      "screenshot": "screenshots/Transmisja-TV-LIVE-Master-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 1
+    },
+    {
+      "target": "Transmisja TV LIVE Master",
+      "url": "https://polskieradio.cc/master",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 291,
+      "screenshot": "screenshots/Transmisja-TV-LIVE-Master-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 1
+    },
+    {
+      "target": "Transmisja TV LIVE Master",
+      "url": "https://polskieradio.cc/master",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 282,
+      "screenshot": "screenshots/Transmisja-TV-LIVE-Master-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 1
+    },
+    {
+      "target": "Player Audio 24/7",
+      "url": "https://polskieradio.cc/player",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 681,
+      "screenshot": "screenshots/Player-Audio-24-7-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Player Audio 24/7",
+      "url": "https://polskieradio.cc/player",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 820,
+      "screenshot": "screenshots/Player-Audio-24-7-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Player Audio 24/7",
+      "url": "https://polskieradio.cc/player",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 724,
+      "screenshot": "screenshots/Player-Audio-24-7-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Akademia Biblijna",
+      "url": "https://polskieradio.cc/akademia",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 1058,
+      "screenshot": "screenshots/Akademia-Biblijna-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Akademia Biblijna",
+      "url": "https://polskieradio.cc/akademia",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 944,
+      "screenshot": "screenshots/Akademia-Biblijna-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Akademia Biblijna",
+      "url": "https://polskieradio.cc/akademia",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 1004,
+      "screenshot": "screenshots/Akademia-Biblijna-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Kurs Codzienny Z Biblią za Pan Brat",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 868,
+      "screenshot": "screenshots/Kurs-Codzienny-Z-Bibli-za-Pan-Brat-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Kurs Codzienny Z Biblią za Pan Brat",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 819,
+      "screenshot": "screenshots/Kurs-Codzienny-Z-Bibli-za-Pan-Brat-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Kurs Codzienny Z Biblią za Pan Brat",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 809,
+      "screenshot": "screenshots/Kurs-Codzienny-Z-Bibli-za-Pan-Brat-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Interlinearna MojaBiblia",
+      "url": "https://polskieradio.cc/mojabiblia",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 393,
+      "screenshot": "screenshots/Interlinearna-MojaBiblia-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Interlinearna MojaBiblia",
+      "url": "https://polskieradio.cc/mojabiblia",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 439,
+      "screenshot": "screenshots/Interlinearna-MojaBiblia-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Interlinearna MojaBiblia",
+      "url": "https://polskieradio.cc/mojabiblia",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 523,
+      "screenshot": "screenshots/Interlinearna-MojaBiblia-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Kino Chrześcijańskie VOD",
+      "url": "https://polskieradio.cc/vod",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 495,
+      "screenshot": "screenshots/Kino-Chrze-cija-skie-VOD-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Kino Chrześcijańskie VOD",
+      "url": "https://polskieradio.cc/vod",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 441,
+      "screenshot": "screenshots/Kino-Chrze-cija-skie-VOD-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Kino Chrześcijańskie VOD",
+      "url": "https://polskieradio.cc/vod",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 427,
+      "screenshot": "screenshots/Kino-Chrze-cija-skie-VOD-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Kalendarz Misyjny ccMC",
+      "url": "https://polskieradio.cc/ccMC",
+      "viewport": "mobile",
+      "httpStatus": 200,
+      "domLoadMs": 275,
+      "screenshot": "screenshots/Kalendarz-Misyjny-ccMC-mobile.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Kalendarz Misyjny ccMC",
+      "url": "https://polskieradio.cc/ccMC",
+      "viewport": "tablet",
+      "httpStatus": 200,
+      "domLoadMs": 262,
+      "screenshot": "screenshots/Kalendarz-Misyjny-ccMC-tablet.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    },
+    {
+      "target": "Kalendarz Misyjny ccMC",
+      "url": "https://polskieradio.cc/ccMC",
+      "viewport": "desktop",
+      "httpStatus": 200,
+      "domLoadMs": 278,
+      "screenshot": "screenshots/Kalendarz-Misyjny-ccMC-desktop.png",
+      "accessibilityViolations": 0,
+      "consoleErrors": 0
+    }
+  ],
+  "findings": [
+    {
+      "severity": "P1",
+      "target": "Komunikator LUMI MESS",
+      "viewport": "mobile",
+      "type": "visual-collision",
+      "description": "Odtwarzacz wideo zasłonięty przez element: <lumi-dashboard>"
+    },
+    {
+      "severity": "P1",
+      "target": "Komunikator LUMI MESS",
+      "viewport": "tablet",
+      "type": "visual-collision",
+      "description": "Odtwarzacz wideo zasłonięty przez element: <INPUT>"
+    },
+    {
+      "severity": "P1",
+      "target": "Komunikator LUMI MESS",
+      "viewport": "desktop",
+      "type": "visual-collision",
+      "description": "Odtwarzacz wideo zasłonięty przez element: <SPAN>"
+    },
+    {
+      "severity": "P1",
+      "target": "Interlinearna MojaBiblia",
+      "viewport": "desktop",
+      "type": "scan",
+      "description": "page.screenshot: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - taking page screenshot\u001b[22m\n\u001b[2m    - disabled all CSS animations\u001b[22m\n\u001b[2m  - waiting for fonts to load...\u001b[22m\n\u001b[2m  - fonts loaded\u001b[22m\n"
+    },
+    {
+      "severity": "P2",
+      "target": "Portal Główny Christian Culture",
+      "viewport": "mobile",
+      "type": "touch-target",
+      "description": "Wykryto 15 przycisków o wymiarach dotykowych poniżej 40px"
+    },
+    {
+      "severity": "P2",
+      "target": "Tablica Społeczności LUMINA",
+      "viewport": "mobile",
+      "type": "touch-target",
+      "description": "Wykryto 20 przycisków o wymiarach dotykowych poniżej 40px"
+    },
+    {
+      "severity": "P2",
+      "target": "Transmisja TV LIVE Master",
+      "viewport": "mobile",
+      "type": "touch-target",
+      "description": "Wykryto 6 przycisków o wymiarach dotykowych poniżej 40px"
+    },
+    {
+      "severity": "P2",
+      "target": "Transmisja TV LIVE Master",
+      "viewport": "mobile",
+      "type": "javascript",
+      "description": "this.api.isExternalMethodAvailable is not a function"
+    },
+    {
+      "severity": "P2",
+      "target": "Transmisja TV LIVE Master",
+      "viewport": "tablet",
+      "type": "javascript",
+      "description": "this.api.isExternalMethodAvailable is not a function"
+    },
+    {
+      "severity": "P2",
+      "target": "Transmisja TV LIVE Master",
+      "viewport": "desktop",
+      "type": "javascript",
+      "description": "this.api.isExternalMethodAvailable is not a function"
+    },
+    {
+      "severity": "P2",
+      "target": "Player Audio 24/7",
+      "viewport": "mobile",
+      "type": "touch-target",
+      "description": "Wykryto 11 przycisków o wymiarach dotykowych poniżej 40px"
+    },
+    {
+      "severity": "P2",
+      "target": "Interlinearna MojaBiblia",
+      "viewport": "mobile",
+      "type": "layout",
+      "description": "Poziomy overflow (scroll poziomy) — naruszenie responsywności mobilnej"
+    },
+    {
+      "severity": "P2",
+      "target": "Interlinearna MojaBiblia",
+      "viewport": "mobile",
+      "type": "touch-target",
+      "description": "Wykryto 164 przycisków o wymiarach dotykowych poniżej 40px"
+    },
+    {
+      "severity": "P2",
+      "target": "Kino Chrześcijańskie VOD",
+      "viewport": "mobile",
+      "type": "touch-target",
+      "description": "Wykryto 192 przycisków o wymiarach dotykowych poniżej 40px"
+    }
+  ]
+}
