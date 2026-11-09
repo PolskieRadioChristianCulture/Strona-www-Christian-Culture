@@ -245,6 +245,46 @@ export function scheduleClockIdleTimer({ auto = false } = {}) {
   return state.clockIdleTimer;
 }
 
+export async function refreshMissionCsrf() {
+  if (typeof window === 'undefined' || typeof fetch !== 'function') return false;
+  try {
+    let res = await fetch('/api/mission-calendar/me', { credentials: 'same-origin', cache: 'no-store' });
+    let data = await res.json().catch(() => ({}));
+    if (!data.authenticated && (await renewMissionSession())) {
+      res = await fetch('/api/mission-calendar/me', { credentials: 'same-origin', cache: 'no-store' });
+      data = await res.json().catch(() => ({}));
+    }
+    if (data.authenticated && data.csrfToken) {
+      state.csrfToken = data.csrfToken;
+      return true;
+    }
+  } catch {}
+  return false;
+}
+
+// Widoczny status ostatniego raportu głosowego (diagnoza bez narzędzi deweloperskich) — @007, 09.11.2026
+export function setVoiceReportStatus(text, kind = 'info') {
+  if (typeof document === 'undefined' || !document.body) return;
+  let el = document.getElementById('mcVoiceReportStatus');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'mcVoiceReportStatus';
+    el.setAttribute('role', 'status');
+    el.style.cssText =
+      'position:fixed;left:12px;bottom:12px;z-index:9998;max-width:min(92vw,560px);padding:6px 12px;border-radius:999px;font:600 12px/1.4 system-ui,sans-serif;color:#fff;background:rgba(15,23,42,0.82);border:1px solid rgba(255,255,255,0.18);pointer-events:none;';
+    document.body.appendChild(el);
+  }
+  el.style.borderColor = kind === 'ok' ? '#22c55e' : kind === 'error' ? '#ef4444' : '#FF7A00';
+  el.textContent = text;
+}
+
+function describeTtsFailure(code) {
+  if (code === 401) return 'brak logowania — zaloguj się ponownie w ccMC';
+  if (code === 403) return 'wygasła ochrona sesji (CSRF) — odśwież stronę';
+  if (code === 503) return 'Google AI Studio chwilowo niedostępne';
+  return 'błąd połączenia z serwerem głosu';
+}
+
 // Odnawianie sesji Kalendarza Misji bez klikania (ekran nadawczy działa całą dobę) — @007, 08.11.2026
 let missionSessionRenewal = null;
 export async function renewMissionSession() {
@@ -297,6 +337,10 @@ async function apiRequest(path, options = {}) {
   const data = await res.json().catch(() => ({}));
   // Ekran nadawczy 24/7: sesja (8 h) lub token Firebase (1 h) wygasły → odnów po cichu i ponów raz
   if (res.status === 401 && !_retried && !path.startsWith('/auth/') && (await renewMissionSession())) {
+    return apiRequest(path, { ...options, _retried: true });
+  }
+  // Token CSRF z serwera jest ważny 1–2 h — ekran nadawczy musi go odświeżać sam (inaczej /tts → 403 i cisza)
+  if (res.status === 403 && !_retried && /CSRF/i.test(String(data.error || '')) && (await refreshMissionCsrf())) {
     return apiRequest(path, { ...options, _retried: true });
   }
   if (!res.ok) {
@@ -3140,7 +3184,8 @@ export async function fetchSentenceTtsAudio(sentenceText) {
       window._mcTtsSentenceCache.delete(sentenceText);
       return null;
     })
-    .catch(() => {
+    .catch((err) => {
+      window._mcLastTtsErrorCode = (err && err.status) || 0;
       window._mcTtsSentenceCache.delete(sentenceText);
       return null;
     });
@@ -3231,6 +3276,7 @@ export function isAutoplayBlocked() {
 export function markVoiceBriefingBlocked(text) {
   if (typeof window === 'undefined' || !text) return;
   window._mcPendingBriefing = { text, ts: Date.now() };
+  setVoiceReportStatus('⚠️ Raport czeka — przeglądarka zablokowała dźwięk (kliknij raz w ekran)', 'warn');
   if (typeof document === 'undefined') return;
   updateAudioUnlockBannerDom();
   const banner = document.getElementById('mcAudioUnlockBanner');
@@ -3336,14 +3382,18 @@ function startStreamingBriefingPlayback(text) {
   if (!sentences.length) return true;
   const partPromises = sentences.map((s, idx) => fetchSentenceTtsAudioWithRetry(s, idx === 0 ? 12000 : 25000));
 
+  const hm = new Intl.DateTimeFormat('pl-PL', { timeZone: 'Europe/Warsaw', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date());
+  let played = 0;
   const playFromIndex = (i) => {
     if (i >= partPromises.length) {
       hideVoiceAssistantAvatar();
+      if (played > 0) setVoiceReportStatus(`🔊 Raport ${hm}: odtworzony (${played}/${partPromises.length})`, 'ok');
+      else setVoiceReportStatus(`❌ Raport ${hm}: bez dźwięku — ${describeTtsFailure(window._mcLastTtsErrorCode)}`, 'error');
       return;
     }
     partPromises[i]
       .then((audioPart) => {
-        if (audioPart && playGeminiPcmBase64(audioPart, 24000, () => playFromIndex(i + 1))) return;
+        if (audioPart && playGeminiPcmBase64(audioPart, 24000, () => playFromIndex(i + 1))) { played++; return; }
         playFromIndex(i + 1);
       })
       .catch(() => playFromIndex(i + 1));
@@ -5614,6 +5664,11 @@ if (typeof window !== 'undefined' && document.getElementById('ccMcApp')) {
   }
 
   // Profilaktyczne odnowienie sesji co 4 h (cookie ważne 8 h) — raporty głosowe nie milkną po nocy
+  if (!window._mcCsrfRefreshInterval) {
+    window._mcCsrfRefreshInterval = setInterval(() => {
+      if (state.user) refreshMissionCsrf().catch(() => {});
+    }, 30 * 60 * 1000);
+  }
   if (!window._mcSessionRenewInterval) {
     window._mcSessionRenewInterval = setInterval(() => {
       if (state.user) renewMissionSession().catch(() => {});
