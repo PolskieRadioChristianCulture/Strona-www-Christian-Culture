@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "vod",
+      "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+      "publishedAt": "2026-11-09T10:34:48.928Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "player",
       "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
       "url": "https://polskieradio.cc/player",
