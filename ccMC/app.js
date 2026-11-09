@@ -3142,6 +3142,27 @@ export function speakBrowserNaturalVoice(text, onEnded = null) {
   }
 }
 
+// Raport do syntezy w 2 częściach (krótki początek = szybki start, reszta jednym zapytaniem).
+// Wcześniej ~10 zapytań na raport → darmowe limity Gemini TTS ucinały połowę raportu (09.11.2026, @007).
+export function splitBriefingForTts(text = '', firstMax = 220, restMax = 1500) {
+  const sentences = splitBriefingIntoSentences(text);
+  if (!sentences.length) return [];
+  const chunks = [];
+  let buf = '';
+  let limit = firstMax;
+  for (const s of sentences) {
+    if (!buf || (buf + ' ' + s).length <= limit) {
+      buf = (buf + ' ' + s).trim();
+    } else {
+      chunks.push(buf);
+      buf = s;
+      limit = restMax;
+    }
+  }
+  if (buf) chunks.push(buf);
+  return chunks;
+}
+
 export function splitBriefingIntoSentences(text = '') {
   const raw = String(text || '').trim();
   if (!raw) return [];
@@ -3228,7 +3249,7 @@ export async function prefetchQuarterHourVoiceBriefing(targetDate = new Date()) 
       await loadLiveGcalReport();
       const text = buildQuarterHourVoiceBriefing(targetDate);
       if (!text) return null;
-      const sentences = splitBriefingIntoSentences(text);
+      const sentences = splitBriefingForTts(text);
       const audioParts = await Promise.all(sentences.map((s) => fetchSentenceTtsAudio(s)));
       if (audioParts.length > 0 && audioParts.every(Boolean)) {
         window._mcPrefetchedQuarterAudio = {
@@ -3387,9 +3408,10 @@ function fetchSentenceTtsAudioWithRetry(sentence, timeoutMs) {
 function startStreamingBriefingPlayback(text) {
   // Kontrakt bez zmian: alert przyjęty (tekst widoczny w dymku) — nawet gdy brak środowiska audio
   if (typeof window === 'undefined' || typeof fetch !== 'function') return true;
-  const sentences = splitBriefingIntoSentences(text);
+  const sentences = splitBriefingForTts(text);
   if (!sentences.length) return true;
-  const partPromises = sentences.map((s, idx) => fetchSentenceTtsAudioWithRetry(s, idx === 0 ? 12000 : 25000));
+  // Dłuższa część raportu potrzebuje więcej czasu na syntezę
+  const partPromises = sentences.map((s, idx) => fetchSentenceTtsAudioWithRetry(s, idx === 0 ? 20000 : 60000));
 
   const hm = new Intl.DateTimeFormat('pl-PL', { timeZone: 'Europe/Warsaw', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date());
   let played = 0;

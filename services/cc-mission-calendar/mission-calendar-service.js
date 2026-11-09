@@ -3481,7 +3481,8 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
       const chunks = [];
       let currentChunk = '';
       for (const s of sentences) {
-        if ((currentChunk + ' ' + s).trim().length <= 140 || !currentChunk) {
+        // Do 1500 znaków na jedno zapytanie Gemini (wcześniej 140 → ~10 zapytań na raport i przekroczone darmowe limity)
+        if ((currentChunk + ' ' + s).trim().length <= 1500 || !currentChunk) {
           currentChunk = (currentChunk + ' ' + s).trim();
         } else {
           chunks.push(currentChunk);
