@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "ksiazki-autora",
+      "title": "Półka z Książkami: Cezary Rogowski — Oficjalna Biblioteka Autorska",
+      "url": "https://polskieradio.cc/ksiazki-autora",
+      "type": "book",
+      "image": "ksiazki-autora-og.jpg",
+      "publishedAt": "2026-11-09T12:32:54.585Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "dzien-37",
+      "title": "Akademia Biblijna: Z Biblią za Pan Brat — Dzień 37 (Wj 6:1–30): Siedem obietnic odkupienia",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-37",
+      "type": "module",
+      "image": "kc_day_37_obietnice_odkupienia_ramie_pana.jpg",
+      "publishedAt": "2026-11-09T12:04:20.027Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina.wiolettarogowska",
       "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
       "url": "https://polskieradio.cc/lumina.wiolettarogowska",
