@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-09",
+      "topic": "CC Lite (cclite.pl): Przywrócenie i wdrożenie standardu EkoCC v2 — stabilizacja Gemini fallback, reguły Firestore, pomarańczowy CTA #FF7A00 i autodeploy",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-09",
       "topic": "CCN News X: Cykliczna publikacja #219 — Notowania & Muzyka CC: topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
       "agent": "A"
     },
