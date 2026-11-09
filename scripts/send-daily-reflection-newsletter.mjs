@@ -9,6 +9,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 import { getNewsletterService, generateId } from '../services/cc-newsletter/newsletter-service.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -129,6 +130,106 @@ https://polskieradio.cc/player
   };
 }
 
+/**
+ * Synchronizacja kampanii i doręczeń z produkcyjną bazą Cloudflare D1 (mission-control-db)
+ */
+export async function syncCampaignToRemoteD1(campaign, content, { isDelivery = false } = {}) {
+  const tmpFile = path.resolve(ROOT, `.tmp-nl-campaign-${Date.now()}.sql`);
+  try {
+    const nowIso = new Date().toISOString();
+    const slug = `rozwazanie-${nowIso.slice(0, 10)}-${campaign.id.slice(-6)}`;
+    
+    // 1. Pobierz aktywnych subskrybentów z D1 dla tematu codzienne-rozwazania
+    const sqlSubs = `SELECT s.id, s.email_display, s.locale FROM newsletter_subscribers s JOIN newsletter_preferences p ON s.id = p.subscriber_id JOIN newsletter_topics t ON p.topic_id = t.id WHERE s.status = 'active' AND t.slug = 'codzienne-rozwazania' AND p.enabled = 1;`;
+    const cmdSubs = `npx.cmd wrangler d1 execute mission-control-db --remote --command="${sqlSubs.replace(/"/g, '\\"')}"`;
+    const outSubs = execSync(cmdSubs, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], cwd: ROOT });
+    
+    let subResults = [];
+    try {
+      const jsonStart = outSubs.indexOf('[');
+      if (jsonStart !== -1) {
+        const parsed = JSON.parse(outSubs.slice(jsonStart));
+        subResults = parsed[0]?.results || [];
+      }
+    } catch (_) {}
+
+    // 2. Zbuduj zestaw SQL do pliku tymczasowego
+    const deliveryStatus = isDelivery ? 'delivered' : 'dry_run_queued';
+    const providerName = isDelivery ? 'gmail_smtp' : 'dry_run';
+
+    let sqlBatch = `
+INSERT OR REPLACE INTO newsletter_campaigns (
+  id, slug, subject_pl, subject_en, preheader_pl, preheader_en,
+  topic_filter_json, locale_filter, html_body, text_body,
+  status, scheduled_at, sent_at, created_by, approved_by, created_at, updated_at
+) VALUES (
+  '${campaign.id}',
+  '${slug}',
+  '${(content.subject || '').replace(/'/g, "''")}',
+  '',
+  '${(content.preheader || '').replace(/'/g, "''")}',
+  '',
+  '["codzienne-rozwazania"]',
+  'all',
+  '${(content.htmlBody || '').replace(/'/g, "''")}',
+  '${(content.textBody || '').replace(/'/g, "''")}',
+  'sent',
+  '${nowIso}',
+  '${nowIso}',
+  'automation_daily_reflection',
+  'automation_daily_reflection',
+  '${nowIso}',
+  '${nowIso}'
+);
+`;
+
+    for (const sub of subResults) {
+      const delId = generateId('del');
+      const msgId = `msg_${generateId('m')}`;
+      sqlBatch += `
+INSERT OR REPLACE INTO newsletter_deliveries (
+  id, campaign_id, subscriber_id, delivery_type, provider_name, provider_message_id, status, sent_at, updated_at
+) VALUES (
+  '${delId}',
+  '${campaign.id}',
+  '${sub.id}',
+  'campaign',
+  '${providerName}',
+  '${msgId}',
+  '${deliveryStatus}',
+  '${nowIso}',
+  '${nowIso}'
+);
+UPDATE newsletter_subscribers
+SET last_sent_at = '${nowIso}', updated_at = '${nowIso}'
+WHERE id = '${sub.id}';
+`;
+    }
+
+    fs.writeFileSync(tmpFile, sqlBatch, 'utf8');
+    const cmdBatch = `npx.cmd wrangler d1 execute mission-control-db --remote --file="${path.basename(tmpFile)}"`;
+    execSync(cmdBatch, { stdio: ['ignore', 'pipe', 'pipe'], cwd: ROOT });
+
+    return {
+      remoteD1Synced: true,
+      subscribersCount: subResults.length,
+      syncedDeliveries: subResults.length,
+      subscribers: subResults.map((s) => s.email_display),
+    };
+  } catch (err) {
+    return {
+      remoteD1Synced: false,
+      error: err.message,
+    };
+  } finally {
+    if (fs.existsSync(tmpFile)) {
+      try {
+        fs.unlinkSync(tmpFile);
+      } catch (_) {}
+    }
+  }
+}
+
 export async function runDailyReflectionNewsletter(options = {}) {
   const isDryRun = options.dryRun || process.argv.includes('--dry-run');
   const isDelivery = (!isDryRun && (process.env.NEWSLETTER_DELIVERY_ENABLED === 'true' || process.env.CC_ENABLE_NEWSLETTER_DELIVERY === 'true' || process.env.ENABLE_DELIVERY === 'true')) ? 'true' : 'false';
@@ -168,9 +269,24 @@ export async function runDailyReflectionNewsletter(options = {}) {
   });
 
   console.log(`[Daily Reflection Newsletter] Wynik wysyłki:`, JSON.stringify(sendResult, null, 2));
+
+  // Synchronizacja z produkcyjną bazą Cloudflare D1 (mission-control-db)
+  let remoteReport = null;
+  if (!options.skipRemoteSync && !process.argv.includes('--no-remote')) {
+    console.log('[Daily Reflection Newsletter] Synchronizacja z produkcyjną bazą Cloudflare D1 (mission-control-db)...');
+    remoteReport = await syncCampaignToRemoteD1(campaign, content, { isDelivery: isDelivery === 'true' });
+    if (remoteReport.remoteD1Synced) {
+      console.log(`[Daily Reflection Newsletter] ✅ Zsynchronizowano z D1! Aktywni odbiorcy: ${remoteReport.subscribersCount} (${remoteReport.subscribers.join(', ')})`);
+      console.log(`[Daily Reflection Newsletter] Zapisano wpisy doręczeń: ${remoteReport.syncedDeliveries}`);
+    } else {
+      console.log(`[Daily Reflection Newsletter] ℹ️ Tryb lokalny: ${remoteReport.error}`);
+    }
+  }
+
   return {
     campaign,
     sendResult,
+    remoteReport,
   };
 }
 
