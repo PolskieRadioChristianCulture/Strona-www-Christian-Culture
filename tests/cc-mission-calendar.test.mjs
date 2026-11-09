@@ -1352,7 +1352,7 @@ test('28. Podgląd nadawania OBS (PiP) w prawym górnym rogu tylko przy schowany
   assert.match(appSrc, /export async function startObsPip/);
   assert.match(appSrc, /navigator\.permissions\.query\(\{ name: 'camera' \}\)/, 'Bez zgody na kamerę nie wolno pytać użytkownika');
   assert.match(appSrc, /initVoiceWakeAndAudioUnlock\(\);\s*\n\s*initObsPip\(\);/);
-  assert.match(css, /\.mc-obs-pip \{[\s\S]*?top: 50%;[\s\S]*?right: 18px;[\s\S]*?transform: translateY\(-50%\);/, 'Podgląd przy prawej krawędzi, na środku wysokości (L0 09.11.2026)');
+  assert.match(css, /\.mc-obs-pip \{\s*position: fixed;\s*top: 18px;\s*right: 18px;/, 'Podgląd w prawym górnym rogu (L0 09.11.2026)');
   assert.doesNotMatch(appSrc, /PODGLĄD NADAWANIA/, 'Bez napisu na podglądzie (L0 09.11.2026)');
   assert.match(css, /body\.mc-clock-screensaver-idle \.mc-obs-pip\.is-ready \{\s*display: block;/, 'Podgląd tylko przy schowanych panelach');
 });
