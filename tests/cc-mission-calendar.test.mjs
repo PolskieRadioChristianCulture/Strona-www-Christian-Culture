@@ -1269,3 +1269,17 @@ test('22. Czytnik iCal kalendarza prywatnego (@007 09.11.2026): seria tygodniowa
   const appSrc = fs.readFileSync(path.join(rootDir, 'ccMC', 'app.js'), 'utf8');
   assert.match(appSrc, /calendar_live === false/, 'Raport głosowy musi mówić o nieaktualnym kalendarzu');
 });
+
+test('23. Raport głosowy w 1–2 zapytaniach Gemini (@007 09.11.2026): bez ucinania przez darmowe limity', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const { splitBriefingForTts, splitBriefingIntoSentences } = await import('../ccMC/app.js');
+  const text = 'Christian Culture LIVE, jest godzina 08:15. Nadajemy na żywo według planu: STUDIUM. ' +
+    'Stan dzisiejszych publikacji: Rozważania Dzień 40 opublikowane, MP3 Biblii Audio jest na WWW, X: 4 postów opublikowanych, WhatsApp oczekuje. ' +
+    'Raport agentów (@Joshua): teraz realizujemy dystrybucję, a następny punkt automatyzacji (12:00) to: kolejna tura. ' +
+    'Kolejny dzisiejszy punkt w Twoim Kalendarzu Google o 11:30 to: Odbiór syna ze szkoły.';
+  const parts = splitBriefingForTts(text);
+  assert.ok(parts.length >= 1 && parts.length <= 2, `Oczekiwane 1–2 części, jest ${parts.length}`);
+  assert.equal(parts.join(' '), splitBriefingIntoSentences(text).join(' '), 'Żaden fragment raportu nie może zginąć');
+  const serviceSrc = fs.readFileSync(path.join(rootDir, 'services', 'cc-mission-calendar', 'mission-calendar-service.js'), 'utf8');
+  assert.match(serviceSrc, /length <= 1500 \|\| !currentChunk/, 'Serwer nie może dzielić tekstu na fragmenty po 140 znaków');
+});
