@@ -2691,7 +2691,7 @@ export function getPersistentVoiceAudioElement() {
 
 // ────────────────────────────────────────────────────────────────────────
 // Podgląd nadawania OBS (obraz w obrazie) — L0 09.11.2026.
-// Prawa krawędź, na środku wysokości, bez napisu (L0 09.11.2026); widoczny tylko przy schowanych panelach; kliknięcie w ekran = panele zamiast podglądu.
+// Prawy górny róg, bez napisu (L0 09.11.2026); widoczny tylko przy schowanych panelach; kliknięcie w ekran = panele zamiast podglądu.
 // Źródło: wirtualna kamera OBS na komputerze nadawczym. Włącza się WYŁĄCZNIE gdy przeglądarka ma już
 // zgodę na kamerę (polityka Chrome na nadajniku) — nigdzie indziej nie pyta o dostęp do kamery.
 // ────────────────────────────────────────────────────────────────────────
