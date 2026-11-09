@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "pokonac-goliata",
+      "title": "Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo",
+      "url": "https://polskieradio.cc/pokonac-goliata",
+      "type": "book",
+      "image": "art-pokonac-goliata.jpg",
+      "publishedAt": "2026-11-09T04:08:53.822Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina-tablica",
       "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
       "url": "https://polskieradio.cc/lumina-tablica",

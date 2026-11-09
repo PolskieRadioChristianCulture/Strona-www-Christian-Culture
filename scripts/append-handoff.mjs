@@ -3,22 +3,22 @@ import fs from 'node:fs';
 const statusPath = 'C:/Users/czark/Desktop/Misja CC/JOMA_SHARED_MEMORY/JOMA_STATUS.md';
 const handoffsPath = 'C:/Users/czark/Desktop/Misja CC/JOMA_SHARED_MEMORY/JOMA_HANDOFFS.md';
 
-const newStatus = `## 2026-11-08 20:03 (Warszawa) — @A001 (Antigravity): Cykliczna emisja nowości ekosystemu na platformie X — Książka: Prawda Bez Filtra (CCN BROADCASTER #179) | X PROD LIVE 🔴
+const newStatus = `## 2026-11-09 05:08 (Warszawa) — @A001 (Antigravity): Cykliczna emisja nowości ekosystemu na platformie X — Książka: Pokonać Goliata (CCN BROADCASTER #186) | X PROD LIVE 🔴
 - **ZLECENIE L0 (Dowódca Nazir):** Cykliczna publikacja kolejnej nowości z ekosystemu Christian Culture na platformie X pod oficjalnym szyldem: 🔴 CCN NEWS | polskieradio.cc/news.
 - **ZREALIZOWANY ZAKRES:**
-  1. **Wybrana nowość z ekosystemu:** „Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo” (URL: https://polskieradio.cc/prawda-bez-filtra) — kategoria \`book\` (Książki & Wydawnictwo CC), rotacja zrównoważona pozycjami: #178 Bądź Blisko: 7 Dni ze Słowem (module), #177 Rozwiąż problem: Rzuć palenie (course), #176 Nowość Muzyczna CC Men: Cezary Rogowski (music), #175 Werset Dnia Rdz 16:13 (verse), #174 eM: Kryzys wiary (news), #173 Interlinearna MojaBiblia (module), #172 Książka U boku Diabła (book), #171 Wizytówka Cezary Rogowski (profile), #170 topTEN (music).
-  2. **Dedykowana oprawa graficzna:** \`images/news/art-prawda-bez-filtra.jpg\` — podwójna aprobata: \`IMAGE_CONTENT_MATCH = PASS\` (@A520 — oficjalna okładka książki „Prawda Bez Filtra” Cezarego Rogowskiego, bezkompromisowe chrześcijaństwo oparte na Słowie Bożym), \`PUBLISHER_VISUAL_APPROVAL = PASS\` (@A001 — weryfikacja kadrowania 16:9, załączenie grafiki i bezbłędny upload w oknie publikacji Playwright na X).
+  1. **Wybrana nowość z ekosystemu:** „Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo” (URL: https://polskieradio.cc/pokonac-goliata) — kategoria \`book\` (Książki & Wydawnictwo CC), rotacja zrównoważona pozycjami: #185 Społeczność CC LUMINA (profile), #184 Gerald Welch THE CALL (music), #183 Werset Dnia Rdz 50:20 (verse), #182 Kino VOD & SDS (vod), #181 Fosa obronna w Jerozolimie (news), #180 Wizytówka Wioletta Rogowska (profile).
+  2. **Dedykowana oprawa graficzna:** \`images/news/art-pokonac-goliata.jpg\` — podwójna aprobata: \`IMAGE_CONTENT_MATCH = PASS\` (@A520 — oficjalna okładka i grafika książki „Pokonać Goliata” Cezarego Rogowskiego, pełna zgodność z przesłaniem zwycięstwa w Bogu na fundamencie 1 Sm 17 i Słowa Bożego), \`PUBLISHER_VISUAL_APPROVAL = PASS\` (@A001 — weryfikacja kadrowania 16:9, prawidłowe załączenie załącznika graficznego i bezbłędny upload Playwright na X).
   3. **Wdrożona treść posta na X (@csbwersetdnia):**
      🔴 CCN NEWS | polskieradio.cc/news
      📚 KSIĄŻKA & WYDAWNICTWO CC
-     Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo
+     Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo
 
      👉 Czytaj w ekosystemie:
-     https://polskieradio.cc/prawda-bez-filtra
+     https://polskieradio.cc/pokonac-goliata
 
-     #PrawdaBezFiltra #CezaryRogowski #ChristianCulture
-  4. **Silnik & Automatyzacja:** Playwright (\`scripts/ccn_auto_broadcaster.mjs\`), ZERO COST (0,00 PLN), post opublikowany na profilu @csbwersetdnia o godz. 19:02:56Z (20:02:56 czasu warszawskiego).
-  5. **Rejestr & Synchronizacja:** Zaktualizowano \`data/x_published_history.json\`, \`data/ccn_broadcaster_state.json\` (pozycja #179, totalBroadcasts: 179), \`data/ccn_broadcaster_log.json\`, Żywą Mapę Ekosystemu (\`data/ecosystem-map.json\` — wpis #179, symbol A).
+     #PokonacGoliata #CezaryRogowski #ChristianCulture
+  4. **Silnik & Automatyzacja:** Playwright (\`scripts/ccn_auto_broadcaster.mjs\`), ZERO COST (0,00 PLN), post opublikowany na profilu @csbwersetdnia o godz. 04:08:53Z (05:08:53 czasu warszawskiego).
+  5. **Rejestr & Synchronizacja:** Zaktualizowano \`data/x_published_history.json\`, \`data/ccn_broadcaster_state.json\` (pozycja #186, totalBroadcasts: 186), \`data/ccn_broadcaster_log.json\`, Żywą Mapę Ekosystemu (\`data/ecosystem-map.json\` — wpis #186, symbol A).
 - **Status:** ✅ ZROBIONE (ZERO-QA PASS).
 
 `;
@@ -29,26 +29,26 @@ if (fs.existsSync(statusPath)) {
   console.log('Prepended entry to JOMA_STATUS.md');
 }
 
-const handoffEntry = `## [2026-11-08 20:03] ANTIGRAVITY — CYKLICZNA EMISJA NOWOŚCI EKOSYSTEMU NA PLATFORMIE X: KSIĄŻKA PRAWDA BEZ FILTRA (CCN BROADCASTER #179)
+const handoffEntry = `## [2026-11-09 05:08] ANTIGRAVITY — CYKLICZNA EMISJA NOWOŚCI EKOSYSTEMU NA PLATFORMIE X: KSIĄŻKA POKONAĆ GOLIATA (CCN BROADCASTER #186)
 - **Status:** done (Opublikowano na X @csbwersetdnia / Zero-QA PASS)
 - **Agent:** @A001 (Antigravity) — Strażnik Publikacji & Analityk Ekosystemu Christian Culture (@ICC / @joma / @777)
-- **Pozycja:** Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo (#179)
-- **URL:** https://polskieradio.cc/prawda-bez-filtra
+- **Pozycja:** Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo (#186)
+- **URL:** https://polskieradio.cc/pokonac-goliata
 - **Kategoria:** book (Książki & Wydawnictwo CC)
-- **Grafika:** images/news/art-prawda-bez-filtra.jpg (IMAGE_CONTENT_MATCH = PASS, PUBLISHER_VISUAL_APPROVAL = PASS)
+- **Grafika:** images/news/art-pokonac-goliata.jpg (IMAGE_CONTENT_MATCH = PASS, PUBLISHER_VISUAL_APPROVAL = PASS)
 - **Format:**
   \`\`\`
   🔴 CCN NEWS | polskieradio.cc/news
   📚 KSIĄŻKA & WYDAWNICTWO CC
-  Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo
+  Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo
 
   👉 Czytaj w ekosystemie:
-  https://polskieradio.cc/prawda-bez-filtra
+  https://polskieradio.cc/pokonac-goliata
 
-  #PrawdaBezFiltra #CezaryRogowski #ChristianCulture
+  #PokonacGoliata #CezaryRogowski #ChristianCulture
   \`\`\`
-- **Silnik:** Playwright headless, ZERO COST (0,00 PLN), post opublikowany na profilu @csbwersetdnia o 19:02:56Z (20:02:56 czasu warszawskiego).
-- **Rejestry:** zaktualizowano data/ccn_broadcaster_state.json (totalBroadcasts: 179), data/x_published_history.json, data/ccn_broadcaster_log.json, data/ecosystem-map.json (@m = @mapaCC, symbol A).
+- **Silnik:** Playwright headless, ZERO COST (0,00 PLN), post opublikowany na profilu @csbwersetdnia o 04:08:53Z (05:08:53 czasu warszawskiego).
+- **Rejestry:** zaktualizowano data/ccn_broadcaster_state.json (totalBroadcasts: 186), data/x_published_history.json, data/ccn_broadcaster_log.json, data/ecosystem-map.json (@m = @mapaCC, symbol A).
 
 `;
 
