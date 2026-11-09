@@ -249,11 +249,17 @@
     "id": "genesis-18",
     "book": "genesis",
     "chapter": 18,
-    "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "description": "Goście pod dębami Mamre, obietnica syna dla Sary i modlitwa wstawiennicza Abrahama za Sodomą",
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_18_1-33_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 18,1–33 (UBG) — Goście pod dębami Mamre i wstawiennicza modlitwa Abrahama za Sodomą",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_18_1-33_Biblia_Audio_CC.mp3",
+        "verses": "1–33"
+      }
+    ]
   },
   {
     "id": "genesis-19",
