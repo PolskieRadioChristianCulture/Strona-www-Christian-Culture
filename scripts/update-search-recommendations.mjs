@@ -61,9 +61,13 @@ export async function updateSearchRecommendations() {
   };
 
   // 2. Sprawdź dzisiejszą lekcję Kursu Codziennego
+  let cycleDay = dayOfMonth;
+  if (now.getFullYear() === 2026 && now.getMonth() === 10) cycleDay = 31 + dayOfMonth;
+  else if (now.getFullYear() === 2026 && now.getMonth() === 11) cycleDay = 61 + dayOfMonth;
+  const cycleDayPad = String(cycleDay).padStart(2, "0");
   const latestLesson = {
-    title: `Lekcja Dnia: Z Biblią za Pan Brat (Dzień ${dayOfMonth})`,
-    url: `/akademia/kurscodzienny/dzien-${dayOfMonth}`
+    title: `Lekcja Dnia: Z Biblią za Pan Brat (Dzień ${cycleDay})`,
+    url: `/akademia/kurscodzienny/dzien-${cycleDayPad}`
   };
 
   // 3. Przygotuj 4 tętniące życiem pule propozycji (16 różnorodnych, świeżych modułów)

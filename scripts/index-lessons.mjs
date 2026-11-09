@@ -13,7 +13,32 @@ const data = JSON.parse(rawData);
 // 1. Lekcje Kursu Codziennego "Z Biblią za Pan Brat"
 const dailyLessons = [
   {
-    title: "Z Biblią za Pan Brat — Dzień 38 (Lekcja 38 na dziś): Laska, która połknęła węże, i woda zamieniona w krew (Wj 7:1–25)",
+    title: "Z Biblią za Pan Brat — Dzień 40 (Lekcja 40 na dziś): Pomór bydła, wrzody i ogień z gradem — Boża moc ponad pychą faraona (Wj 9:1–35)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-40",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 40 (Lekcja 40 na dziś, 9 listopada 2026). Księga Wyjścia 9:1–35: Pomór bydła, wrzody z pieca i bezprecedensowy ogień z gradem. Boża moc ponad pychą faraona, ochrona w ziemi Goszen i Chrystus jako nasze jedyne schronienie.",
+    tags: [
+      "lekcja 40", "lekcja 40 na dziś", "lekcja na dziś", "dzień 40", "dzien 40",
+      "rozważanie 40", "rozważanie na dziś", "słowo na dziś", "pomór bydła", "wrzody",
+      "grad z ogniem", "ziemia goszen", "faraon", "wj 9", "z biblią za pan brat",
+      "kurs codzienny", "akademia biblijna", "9 listopada 2026", "dzisiaj", "dziś"
+    ],
+    featured: true
+  },
+  {
+    title: "Z Biblią za Pan Brat — Dzień 39 (Lekcja 39): Żaby, komary i muchy — Wybór terminu cudu i granica ziemi Goszen (Wj 8:1–32)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-39",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 39 (Lekcja 39, 8 listopada 2026). Księga Wyjścia: inwazja żab, bezradność czarowników przy komarach, Boże rozdzielenie i ochrona ziemi Goszen przed plagą much — Wj 8:1–32.",
+    tags: [
+      "lekcja 39", "dzień 39", "dzien 39", "rozważanie 39", "słowo na dziś",
+      "żaby", "komary", "muchy", "palec boży", "ziemia goszen", "faraon",
+      "wj 8", "z biblią za pan brat", "kurs codzienny", "akademia biblijna", "8 listopada 2026"
+    ],
+    featured: false
+  },
+  {
+    title: "Z Biblią za Pan Brat — Dzień 38 (Lekcja 38): Laska, która połknęła węże, i woda zamieniona w krew (Wj 7:1–25)",
     category: "Biblia i formacja",
     url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-38",
     description: "Kurs Codzienny Pisma Świętego — Dzień 38 (Lekcja 38 na dziś, 7 listopada 2026). Księga Wyjścia: Mojżesz ustanowiony bogiem dla faraona, pojedynek lasek czarowników i uderzenie w święty Nil — Wj 7:1–25.",
@@ -24,7 +49,7 @@ const dailyLessons = [
       "wj 7", "z biblią za pan brat", "kurs codzienny", "akademia biblijna",
       "7 listopada 2026", "dzisiaj", "dziś"
     ],
-    featured: true
+    featured: false
   },
   {
     title: "Z Biblią za Pan Brat — Dzień 37 (Lekcja 37): Teraz zobaczysz, co uczynię faraonowi: Siedem obietnic odkupienia (Wj 6:1–30)",

@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-08T18:35:48.954Z",
-  "totalItems": 422,
+  "updatedAt": "2026-11-09T04:11:42.282Z",
+  "totalItems": 423,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1955,7 +1955,61 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 38 (Lekcja 38 na dziś): Laska, która połknęła węże, i woda zamieniona w krew (Wj 7:1–25)",
+      "title": "Z Biblią za Pan Brat — Dzień 40 (Lekcja 40 na dziś): Pomór bydła, wrzody i ogień z gradem — Boża moc ponad pychą faraona (Wj 9:1–35)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-40",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 40 (Lekcja 40 na dziś, 9 listopada 2026). Księga Wyjścia 9:1–35: Pomór bydła, wrzody z pieca i bezprecedensowy ogień z gradem. Boża moc ponad pychą faraona, ochrona w ziemi Goszen i Chrystus jako nasze jedyne schronienie.",
+      "tags": [
+        "lekcja 40",
+        "lekcja 40 na dziś",
+        "lekcja na dziś",
+        "dzień 40",
+        "dzien 40",
+        "rozważanie 40",
+        "rozważanie na dziś",
+        "słowo na dziś",
+        "pomór bydła",
+        "wrzody",
+        "grad z ogniem",
+        "ziemia goszen",
+        "faraon",
+        "wj 9",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "9 listopada 2026",
+        "dzisiaj",
+        "dziś"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 39 (Lekcja 39): Żaby, komary i muchy — Wybór terminu cudu i granica ziemi Goszen (Wj 8:1–32)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-39",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 39 (Lekcja 39, 8 listopada 2026). Księga Wyjścia: inwazja żab, bezradność czarowników przy komarach, Boże rozdzielenie i ochrona ziemi Goszen przed plagą much — Wj 8:1–32.",
+      "tags": [
+        "lekcja 39",
+        "dzień 39",
+        "dzien 39",
+        "rozważanie 39",
+        "słowo na dziś",
+        "żaby",
+        "komary",
+        "muchy",
+        "palec boży",
+        "ziemia goszen",
+        "faraon",
+        "wj 8",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "8 listopada 2026"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 38 (Lekcja 38): Laska, która połknęła węże, i woda zamieniona w krew (Wj 7:1–25)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-38",
       "description": "Kurs Codzienny Pisma Świętego — Dzień 38 (Lekcja 38 na dziś, 7 listopada 2026). Księga Wyjścia: Mojżesz ustanowiony bogiem dla faraona, pojedynek lasek czarowników i uderzenie w święty Nil — Wj 7:1–25.",
@@ -1983,7 +2037,7 @@
         "dzisiaj",
         "dziś"
       ],
-      "featured": true
+      "featured": false
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 37 (Lekcja 37): Teraz zobaczysz, co uczynię faraonowi: Siedem obietnic odkupienia (Wj 6:1–30)",
@@ -10400,43 +10454,21 @@
         "słowo boże"
       ],
       "featured": false
-    },
-    {
-      "title": "Herbaciarnia Między Słowami — Klimatyczna Herbaciarnia i Kawiarnia SDS w Pile",
-      "category": "Narzędzia i misja",
-      "url": "https://polskieradio.cc/herbatka/",
-      "description": "Klimatyczna Herbaciarnia Między Słowami w Pile (ul. 11 Listopada 6). Kameralne dopełnienie działalności Studio Dobrego Słowa — kompozycje herbat, autorskie desery, budujące rozmowy i chwila wyciszenia.",
-      "tags": [
-        "herbaciarnia między słowami",
-        "herbaciarnia miedzy slowami",
-        "herbatka między słowami",
-        "herbatka miedzy slowami",
-        "herbaciarnia",
-        "herbatka",
-        "piła",
-        "pila",
-        "kawiarnia",
-        "herbata",
-        "desery",
-        "studio dobrego słowa",
-        "sds"
-      ],
-      "featured": true
     }
   ],
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 8",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 8 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 9",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 9 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 8)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 40)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-8",
+      "url": "/akademia/kurscodzienny/dzien-40",
       "icon": "book"
     },
     {
@@ -10455,15 +10487,15 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-08T13:06:43.422Z",
+    "updatedAt": "2026-11-09T04:11:42.363Z",
     "heading": "Polecane na dziś",
-    "dateFormattedPL": "8 listopada 2026",
+    "dateFormattedPL": "9 listopada 2026",
     "pools": [
       [
         {
           "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 8",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 8 listopada 2026.",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 9",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 9 listopada 2026.",
           "url": "/player",
           "icon": "heart"
         },
@@ -10492,9 +10524,9 @@
       [
         {
           "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 8)",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 40)",
           "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-8",
+          "url": "/akademia/kurscodzienny/dzien-40",
           "icon": "book"
         },
         {
@@ -10583,16 +10615,16 @@
     "recommendedToday": [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 8",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 8 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 9",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 9 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 8)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 40)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-8",
+        "url": "/akademia/kurscodzienny/dzien-40",
         "icon": "book"
       },
       {
