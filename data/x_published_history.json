@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina-tablica",
+      "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
+      "url": "https://polskieradio.cc/lumina-tablica",
+      "type": "profile",
+      "image": "card-lumina.jpg",
+      "publishedAt": "2026-11-09T14:36:40.424Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "CezaryRogowski",
       "title": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
       "url": "https://polskieradio.cc/CezaryRogowski",
