@@ -956,7 +956,8 @@ test('16. 5-Second Auto-Hide Screensaver on Clock Page & Click-to-Restore UI', a
   } = await import('../ccMC/app.js');
 
   assert.equal(CLOCK_IDLE_HIDE_MS, 5000, 'Idle hide timeout must be exactly 5000ms (5 seconds)');
-  assert.equal(isClockIdleHidden(), false, 'Initially clock UI must not be hidden');
+  // L0 09.11.2026: panele schowane od startu (otwiera je wyłącznie kliknięcie Dowódcy)
+  assert.equal(isClockIdleHidden(), true, 'Panele boczne schowane od startu');
 
   const entered = enterClockIdleMode();
   assert.equal(entered, true, 'enterClockIdleMode() must activate idle mode on clock module');
@@ -1160,7 +1161,7 @@ test('19. Desktop Frameless Semi-Transparent Side Wings, Real 6 Radio Stations R
   assert.equal(typeof initVoiceWakeAndAudioUnlock, 'function');
   const ccMcAppSrc = fs.readFileSync(path.join(rootDir, 'ccMC', 'app.js'), 'utf8');
   assert.match(ccMcAppSrc, /navigator\.wakeLock\.request\('screen'\)/, 'Must request Screen Wake Lock');
-  assert.match(ccMcAppSrc, /showVoiceAssistantAvatar[\s\S]{0,400}wakeClockIdleMode\(/, 'Voice alert must wake the clock screensaver');
+  // L0 09.11.2026: asystentka NIE odsłania paneli bocznych (sprawdza test 27)
 });
 
 
@@ -1330,4 +1331,16 @@ test('26. Lektor czyta godziny i skróty biblijne słowami (L0 09.11.2026)', asy
     ['Odczyt 12:00:15 serwera.', 'Odczyt 12:00:15 serwera.'],
   ];
   for (const [input, expected] of cases) assert.equal(prepareTextForLector(input), expected, input);
+});
+
+test('27. Panele boczne tylko na kliknięcie Dowódcy (L0 09.11.2026)', () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const appSrc = fs.readFileSync(path.join(rootDir, 'ccMC', 'app.js'), 'utf8');
+  assert.match(appSrc, /clockIdleHidden: true,/, 'Panele schowane od startu');
+  const showFn = appSrc.slice(appSrc.indexOf('export function showVoiceAssistantAvatar'), appSrc.indexOf('export function hideVoiceAssistantAvatar'));
+  assert.doesNotMatch(showFn, /wakeClockIdleMode\(/, 'Asystentka nie może odsłaniać paneli');
+  const kStart = appSrc.indexOf("window.addEventListener('keydown'");
+  assert.ok(kStart > 0, 'Obsługa klawiszy istnieje');
+  const keyHandler = appSrc.slice(kStart, appSrc.indexOf('});', kStart) + 3);
+  assert.doesNotMatch(keyHandler, /wakeClockIdleMode\(/, 'Klawisze nie mogą odsłaniać paneli');
 });
