@@ -368,8 +368,22 @@
             bottom: 130px !important;
             left: 96px !important;
         }
+
+        /* In OBS Studio or when embedded in Master Live, hide startOverlay immediately */
+        body.inside-iframe #startOverlay,
+        html.no-ticker #startOverlay,
+        html.embedded-mode #startOverlay {
+            display: none !important;
+        }
     </style>
     <script>
+        const isObsOrMcr = Boolean(window.obsstudio || window.self !== window.top || window.location.search.includes('in_mcr=1') || window.location.search.includes('noticker'));
+        if (isObsOrMcr) {
+            window.addEventListener('DOMContentLoaded', () => {
+                const so = document.getElementById("startOverlay");
+                if (so) so.style.display = "none";
+            });
+        }
         if (window.self !== window.top || window.location.search.includes('in_mcr=1')) {
             document.documentElement.classList.add('inside-iframe');
             document.addEventListener('DOMContentLoaded', () => {
@@ -638,12 +652,40 @@
                 },
                 events: {
                     'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
                 }
             });
         }
 
+        let ytReadyFired = false;
+        setTimeout(() => {
+            if (!ytReadyFired) {
+                console.warn("YouTube Player failed to become ready within 8s. Notifying parent...");
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.postMessage({ type: 'YT_PLAYER_ERROR', code: 'TIMEOUT_8S', time: Date.now() }, '*');
+                    }
+                } catch(e) {}
+            }
+        }, 8000);
+
+        function onPlayerError(event) {
+            console.warn("Studium YouTube encountered error (" + (event ? event.data : 'unknown') + "). Notifying parent...");
+            try {
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({ type: 'YT_PLAYER_ERROR', code: (event && event.data !== undefined) ? event.data : -1, time: Date.now() }, '*');
+                }
+            } catch(e) {}
+        }
+
         function onPlayerReady(event) {
+            ytReadyFired = true;
+            try {
+                if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({ type: 'YT_PLAYER_READY' }, '*');
+                }
+            } catch(e) {}
             if (isPreloadMuted) {
                 try { event.target.mute(); } catch(e) {}
             }
@@ -698,6 +740,14 @@
         window.addEventListener('click', resetAutoFadeTimer);
 
         function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                ytReadyFired = true;
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.postMessage({ type: 'YT_PLAYER_PLAYING' }, '*');
+                    }
+                } catch(e) {}
+            }
             if (event.data === YT.PlayerState.PLAYING || event.data === YT.PlayerState.BUFFERING) {
                 disableCaptions();
             }

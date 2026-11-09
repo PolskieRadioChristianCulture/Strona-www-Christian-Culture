@@ -1118,6 +1118,20 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   const lastItem = history[0] || {};
   const lastTitleLower = (lastItem.title || '').toLowerCase();
 
+  // Ochrona przed powtarzaniem tego samego tematu kluczowego (np. książka i artykuł) w odstępie poniżej 6 postów
+  const recentTopics = history.slice(0, 6).map(h => ((h.title || '') + ' ' + (h.url || '')).toLowerCase());
+  const isTopicTooRecent = (cand) => {
+    const cText = ((cand.title || '') + ' ' + (cand.url || '')).toLowerCase();
+    const keywords = [
+      'kod-zrodlowy', 'kod źródłowy',
+      'pokonac-goliata', 'pokonać goliata',
+      'prawda-bez-filtra', 'prawda bez filtra',
+      'u-boku-diabla', 'u boku diabła',
+      'bog-jest-miloscia', 'bóg jest miłością'
+    ];
+    return keywords.some(kw => cText.includes(kw) && recentTopics.some(rt => rt.includes(kw)));
+  };
+
   // Jeśli zażądano konkretnego typu
   if (requestedType) {
     const typeCandidates = candidates.filter(c => (c.type || 'news') === requestedType);
@@ -1159,7 +1173,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
 
   for (const p of priorityTypes) {
     const matching = candidates.filter(c => (c.type || 'news') === p.type);
-    const available = matching.filter(c => !recentUrls.has(c.url));
+    const available = matching.filter(c => !recentUrls.has(c.url) && !isTopicTooRecent(c));
     if (available.length > 0) {
       // Priorytet dla pozycji, które jeszcze nigdy nie były publikowane, a następnie o największym dystansie
       available.sort((a, b) => {

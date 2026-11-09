@@ -325,8 +325,22 @@
         html.inside-iframe .bottom-ticker-bar {
             display: none !important;
         }
+
+        /* In OBS Studio or when embedded in Master Live, hide startOverlay immediately */
+        body.inside-iframe #startOverlay,
+        html.no-ticker #startOverlay,
+        html.embedded-mode #startOverlay {
+            display: none !important;
+        }
     </style>
     <script>
+        const isObsOrMcr = Boolean(window.obsstudio || window.self !== window.top || window.location.search.includes('in_mcr=1') || window.location.search.includes('noticker'));
+        if (isObsOrMcr) {
+            window.addEventListener('DOMContentLoaded', () => {
+                const so = document.getElementById("startOverlay");
+                if (so) so.style.display = "none";
+            });
+        }
         // Kanały i playlisty są w 100% autorskie i bezpieczne (potwierdzone przez Dowódcę)
         if (window.self !== window.top || window.location.search.includes('in_mcr=1')) {
             document.documentElement.classList.add('inside-iframe');
@@ -683,7 +697,21 @@
             }
         });
 
+        let ytReadyFired = false;
+        setTimeout(() => {
+            if (!ytReadyFired) {
+                console.warn("YouTube Player failed to become ready within 8s. Notifying parent...");
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.postMessage({ type: 'YT_PLAYER_ERROR', code: 'TIMEOUT_8S', time: Date.now() }, '*');
+                    }
+                } catch(e) {}
+            }
+        }, 8000);
+
         function onPlayerReady(event) {
+            try { if (window.parent && window.parent !== window) { window.parent.postMessage({ type: 'YT_PLAYER_READY' }, '*'); } } catch(e) {}
+            ytReadyFired = true;
             if (isPreloadMuted) {
                 try { event.target.mute(); } catch(e) {}
             }
@@ -788,6 +816,11 @@
             if (event.data === YT.PlayerState.PLAYING) {
                 disableCaptions();
                 updateTrackMetadata();
+                try {
+                    if (window.parent && window.parent !== window) {
+                        window.parent.postMessage({ type: 'YT_PLAYER_PLAYING' }, '*');
+                    }
+                } catch(e) {}
             } else if (event.data === YT.PlayerState.BUFFERING) {
                 disableCaptions();
             } else if (event.data === YT.PlayerState.ENDED) {
