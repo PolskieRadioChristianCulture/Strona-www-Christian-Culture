@@ -809,6 +809,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '💡 eM • WIARA & AUTENTYCZNOŚĆ | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#KryzysWiary', '#CezaryRogowski', '#CCNNews', '#Prawda');
+    } else if (tLower.includes('czytelnictw') || tLower.includes('towarzystwo biblijne') || tLower.includes('cyfrowe studium')) {
+      subHeader = '📖 POLSKA & BIBLIA | RAPORT CCN';
+      callToAction = '👉 Czytaj raport w serwisie:\n';
+      addTags('#CCNNews', '#Biblia', '#SlowoBoze', '#ChristianCulture');
     } else {
       subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
       callToAction = '👉 Czytaj w serwisie:\n';
@@ -893,6 +897,10 @@ function formatBroadcasterTweet(item) {
         .replace(/\bpolski\b/gi, 'Polski')
         .replace(/\bpolskiego\b/gi, 'Polskiego')
         .replace(/\bpolskich\b/gi, 'Polskich')
+        .replace(/\bpisma świętego\b/gi, 'Pisma Świętego')
+        .replace(/\bsłowa bożego\b/gi, 'Słowa Bożego')
+        .replace(/\btowarzystwo biblijne\b/gi, 'Towarzystwo Biblijne')
+        .replace(/\btowarzystwa biblijnego\b/gi, 'Towarzystwa Biblijnego')
         .replace(/\bchsch\b/gi, 'ChSCh')
         .replace(/\bkrakowie\b/gi, 'Krakowie')
         .replace(/\bkraków\b/gi, 'Kraków')
