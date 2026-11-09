@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mojabiblia?ref=GEN.15.5",
+      "title": "Werset Dnia: „Spójrz teraz na niebo i policz gwiazdy...” (Rdz 15:5, UBG)",
+      "url": "https://polskieradio.cc/mojabiblia?ref=GEN.15.5",
+      "type": "verse",
+      "image": "art-rdz15-abram-gwiazdy.jpg",
+      "publishedAt": "2026-11-09T06:04:34.736Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "kraj-renesans-czytelnictwa-pisma-swietego-w-polsce-towarzystwo-biblijne-i-cyfrowe-studium",
       "title": "KRAJ: RENESANS CZYTELNICTWA PISMA ŚWIĘTEGO W POLSCE — TOWARZYSTWO BIBLIJNE, PRZEKŁADY I CYFROWE STUDIUM SŁOWA BOŻEGO",
       "url": "https://polskieradio.cc/news/kraj-renesans-czytelnictwa-pisma-swietego-w-polsce-towarzystwo-biblijne-i-cyfrowe-studium",
