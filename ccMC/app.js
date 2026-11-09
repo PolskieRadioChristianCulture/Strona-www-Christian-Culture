@@ -2691,7 +2691,7 @@ export function getPersistentVoiceAudioElement() {
 
 // ────────────────────────────────────────────────────────────────────────
 // Podgląd nadawania OBS (obraz w obrazie) — L0 09.11.2026.
-// Prawy górny róg, widoczny tylko przy schowanych panelach; kliknięcie w ekran = panele zamiast podglądu.
+// Prawa krawędź, na środku wysokości, bez napisu (L0 09.11.2026); widoczny tylko przy schowanych panelach; kliknięcie w ekran = panele zamiast podglądu.
 // Źródło: wirtualna kamera OBS na komputerze nadawczym. Włącza się WYŁĄCZNIE gdy przeglądarka ma już
 // zgodę na kamerę (polityka Chrome na nadajniku) — nigdzie indziej nie pyta o dostęp do kamery.
 // ────────────────────────────────────────────────────────────────────────
@@ -2707,8 +2707,7 @@ function ensureObsPipElement() {
     wrap.className = 'mc-obs-pip';
     wrap.setAttribute('aria-label', 'Podgląd nadawania na żywo');
     wrap.innerHTML =
-      '<video id="mcObsPipVideo" autoplay muted playsinline></video>' +
-      '<div class="mc-obs-pip-label"><span class="mc-obs-pip-dot"></span>PODGLĄD NADAWANIA</div>';
+      '<video id="mcObsPipVideo" autoplay muted playsinline></video>';
     document.body.appendChild(wrap);
   }
   return wrap;

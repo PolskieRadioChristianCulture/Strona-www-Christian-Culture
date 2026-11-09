@@ -3936,13 +3936,14 @@ body.is-pre-quarter-blue .mc-biblical-badge {
 
 /* ==========================================================================
    PODGLĄD NADAWANIA OBS (obraz w obrazie) — L0 09.11.2026
-   Prawy górny róg, tylko przy schowanych panelach bocznych (tryb czytelnego ekranu).
+   Prawa krawędź, środek wysokości, bez napisu — tylko przy schowanych panelach bocznych (tryb czytelnego ekranu).
    Kliknięcie w ekran pokazuje panele i chowa podgląd — i odwrotnie.
    ========================================================================== */
 .mc-obs-pip {
   position: fixed;
-  top: 18px;
+  top: 50%;
   right: 18px;
+  transform: translateY(-50%);
   width: min(30vw, 420px);
   aspect-ratio: 16 / 9;
   z-index: 9800;
