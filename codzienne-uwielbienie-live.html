@@ -706,11 +706,21 @@
     <audio id="ccWorshipFallbackAudio" preload="none"></audio>
     <script>
     (function () {
-        var IS_OBS = !!window.obsstudio || /[?&]obs=1(&|$)/.test(location.search);
+        // Na antenie strona działa w ramce master-live (in_mcr=1) — tam window.obsstudio istnieje tylko w oknie nadrzędnym
+        var IS_OBS = !!window.obsstudio || /[?&](in_mcr|obs)=1(&|$)/.test(location.search);
         if (!IS_OBS) return; // w zwykłej przeglądarce zachowanie bez zmian
         var NOT_PLAYING_LIMIT_MS = 8000;
         var CHECK_EVERY_MS = 2000;
         var audio = document.getElementById('ccWorshipFallbackAudio');
+        // Ten sam stan wyciszenia co strona: master-live wstępnie ładuje kanał wyciszony (muted=1) i odcisza komunikatem
+        audio.muted = /[?&]muted=1(&|$)/.test(location.search);
+        window.addEventListener('message', function (e) {
+            var d = e && e.data; var type = '';
+            if (typeof d === 'string') { try { var p = JSON.parse(d); type = p.type || p.event || ''; if (p.func === 'unMute') type = 'UNMUTE_AUDIO'; if (p.func === 'mute') type = 'MUTE_AUDIO'; } catch (err) { type = d; } }
+            else if (d && typeof d === 'object') { type = d.type || ''; }
+            if (type === 'UNMUTE_AUDIO' || type === 'unMute') audio.muted = false;
+            else if (type === 'MUTE_AUDIO' || type === 'mute') audio.muted = true;
+        });
         var tracks = [];
         var idx = 0;
         var fallbackOn = false;
@@ -772,7 +782,7 @@
         }
 
         window.ccWorshipFallbackState = function () {
-            return { obs: IS_OBS, fallbackOn: fallbackOn, ytPlaying: ytIsPlaying(), track: audio.currentSrc || '' };
+            return { obs: IS_OBS, fallbackOn: fallbackOn, muted: audio.muted, ytPlaying: ytIsPlaying(), track: audio.currentSrc || '' };
         };
 
         setInterval(function () {
