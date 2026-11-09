@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "biblia-audio",
+      "title": "Biblia Audio CC: Księga Rodzaju 15 (GEN-015) — Przymierze z Abramem i Boża obietnica",
+      "url": "https://polskieradio.cc/biblia-audio",
+      "type": "module",
+      "image": "art-rdz15-abram-gwiazdy.jpg",
+      "publishedAt": "2026-11-09T19:33:25.234Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "prawda-bez-filtra-dlaczego-kobiety-uciekaja-w-iluzje-relacji-i-jak-odzyskac-godnosc",
       "title": "PRAWDA BEZ FILTRA — DLACZEGO KOBIETY UCIEKAJĄ W ILUZJĘ RELACJI I JAK ODZYSKAĆ GODNOŚĆ",
       "url": "https://polskieradio.cc/news/prawda-bez-filtra-dlaczego-kobiety-uciekaja-w-iluzje-relacji-i-jak-odzyskac-godnosc",
