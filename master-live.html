@@ -476,6 +476,9 @@
             .ccn-badge { font-size: 0.9rem; padding: 4px 10px; }
         }
 
+        
+        /* Całkowite wyłączenie zegara Polonii na życzenie Dowódcy - nie zasłania ekranu transmisji */
+        [data-cc-polonia-clock], .cc-polonia-clock-wrap { display: none !important; visibility: hidden !important; pointer-events: none !important; }
         @media (max-width: 900px) {
             :root { --ticker-height: 68px; }
             .ccn-ticker-brand img { max-width: 140px; }
@@ -1011,8 +1014,7 @@
     </div>
 
     <!-- ── NEW CCN NEWS MASTER BROADCAST TICKER (OBS LOWER THIRD) ── -->
-    <!-- Zegar Polonii na Świecie -->
-    <div data-cc-polonia-clock style="position:fixed;bottom:94px;right:16px;z-index:9999;background:rgba(10,10,15,0.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:4px 12px;border-radius:24px;border:1px solid rgba(212,175,55,0.3);box-shadow:0 4px 20px rgba(0,0,0,0.6);"></div>
+    <!-- Zegar Polonii usunięty na polecenie Dowódcy (nie zasłania wideo) -->
 
     <div class="ccn-master-ticker">
         <!-- 1. BRAND LOGO (Projekt bez nazwy (32).png) -->

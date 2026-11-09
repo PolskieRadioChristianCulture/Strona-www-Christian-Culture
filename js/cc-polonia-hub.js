@@ -38,54 +38,11 @@
   }
 
   function initPoloniaClocks() {
-    if (window.self !== window.top || (typeof document !== 'undefined' && (document.documentElement.classList.contains('embedded-mode') || (document.body && document.body.classList.contains('embedded-mode'))))) {
-      document.querySelectorAll('[data-cc-polonia-clock]').forEach(function (el) { el.style.display = 'none'; });
-      return;
-    }
-    var containers = document.querySelectorAll('[data-cc-polonia-clock]');
-    if (!containers.length) return;
-
-    function render() {
-      containers.forEach(function (box) {
-        var isEn = getCurrentLang() === 'en';
-        var html = '<div class="cc-polonia-clock-wrap" style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-family:\'Outfit\',sans-serif;font-size:11px;">';
-        html += '<span style="color:#d4af37;font-weight:700;display:inline-flex;align-items:center;gap:4px;padding-right:4px;">';
-        html += '<i class="fa-solid fa-earth-americas" style="font-size:12px;"></i> ' + (isEn ? 'Global Polonia Clock:' : 'Czas Polonii:');
-        html += '</span>';
-
-        DIASPORA_HUBS.forEach(function (hub) {
-          var t = formatTime(hub.tz);
-          html += '<button type="button" class="cc-polonia-city-btn" data-hub-id="' + hub.id + '" style="background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.25);color:#fff;border-radius:20px;padding:3px 8px;font-size:10px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;min-height:28px;transition:all 0.2s;" title="' + hub.name + ' (' + hub.label + ')">';
-          html += '<span>' + hub.flag + '</span>';
-          html += '<span style="color:#e2cc9a;font-weight:600;">' + hub.name + '</span>';
-          html += '<span style="font-family:monospace;font-weight:700;color:#fff;">' + t + '</span>';
-          html += '</button>';
-        });
-
-        html += '</div>';
-        box.innerHTML = html;
-
-        // Podpięcie kliknięć do analityki
-        box.querySelectorAll('.cc-polonia-city-btn').forEach(function (btn) {
-          btn.addEventListener('click', function () {
-            var id = this.getAttribute('data-hub-id');
-            if (window.ccTrackPolonia) {
-              window.ccTrackPolonia('city_clock_click', { hub_id: id });
-            }
-          });
-        });
-      });
-    }
-
-    render();
-    setInterval(function () {
-      containers.forEach(function (box) {
-        DIASPORA_HUBS.forEach(function (hub) {
-          var btn = box.querySelector('[data-hub-id="' + hub.id + '"] span:last-child');
-          if (btn) btn.textContent = formatTime(hub.tz);
-        });
-      });
-    }, 1000);
+    // Dyrektywa Dowódcy: Zegar Polonii został usunięty, aby nie zasłaniał transmisji wideo na polskieradio.cc
+    try {
+      var containers = document.querySelectorAll('[data-cc-polonia-clock], .cc-polonia-clock-wrap');
+      containers.forEach(function (el) { el.remove(); });
+    } catch (_) {}
   }
 
   // 2. LOGIKA JĘZYKA (PL | EN)
