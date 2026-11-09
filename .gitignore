@@ -58,3 +58,6 @@ scratch/
 ccMC/gcalendar-live-report.json
 ccMC/gcal-calendars.json
 ccMC/gcal-events.json
+ccMC/gcal-cals.json
+ccMC/gcal-primary.json
+ccMC/gcal-holidays.json

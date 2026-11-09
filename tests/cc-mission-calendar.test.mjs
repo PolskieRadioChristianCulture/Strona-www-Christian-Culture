@@ -1236,3 +1236,36 @@ test('21. Pętla zegara ccMC (@007 09.11.2026): brak niezdefiniowanych funkcji i
     assert.ok(appSrc.includes(`() => ${step}(`) && new RegExp("runClockDomStep[(]'[a-z]+', [(][)] => " + step + "[(]").test(appSrc), `${step} musi być wywołany przez runClockDomStep`);
   }
 });
+
+test('22. Czytnik iCal kalendarza prywatnego (@007 09.11.2026): seria tygodniowa, wyjątek, przesunięcie, strefa i brak sekretów w kodzie', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const { expandIcsEvents } = await import('../scripts/gcal-ics.mjs');
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'BEGIN:VEVENT', 'UID:szkola', 'SUMMARY:Zawiezienie syna do szkoły',
+    'DTSTART;TZID=Europe/Warsaw:20250901T074000', 'DTEND;TZID=Europe/Warsaw:20250901T081000',
+    'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR', 'EXDATE;TZID=Europe/Warsaw:20261111T074000', 'END:VEVENT',
+    'BEGIN:VEVENT', 'UID:szkola', 'RECURRENCE-ID;TZID=Europe/Warsaw:20261112T074000', 'SUMMARY:Zawiezienie syna (później)',
+    'DTSTART;TZID=Europe/Warsaw:20261112T083000', 'DTEND;TZID=Europe/Warsaw:20261112T090000', 'END:VEVENT',
+    'BEGIN:VEVENT', 'UID:odwolane', 'SUMMARY:Odwołane', 'STATUS:CANCELLED', 'DTSTART:20261110T100000Z', 'DTEND:20261110T110000Z', 'END:VEVENT',
+    'BEGIN:VEVENT', 'UID:utc', 'SUMMARY:Spotkanie\, test', 'DTSTART:20261109T120000Z', 'DTEND:20261109T130000Z', 'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n');
+  const from = Date.parse('2026-11-09T07:00:00+01:00');
+  const items = expandIcsEvents(ics, from, from + 4 * 86400_000);
+  const got = items.map((e) => `${e.start.dateTime} ${e.summary}`);
+  assert.deepEqual(got, [
+    '2026-11-09T07:40:00+01:00 Zawiezienie syna do szkoły',
+    '2026-11-09T13:00:00+01:00 Spotkanie, test',
+    '2026-11-10T07:40:00+01:00 Zawiezienie syna do szkoły',
+    '2026-11-12T08:30:00+01:00 Zawiezienie syna (później)',
+  ]);
+
+  // Brak prywatnego adresu iCal w repo; dane z pamięci podręcznej nie są oznaczane jako świeże
+  const syncSrc = fs.readFileSync(path.join(rootDir, 'scripts', 'sync-gcalendar-quarter-hour.mjs'), 'utf8');
+  assert.doesNotMatch(syncSrc, /calendar\.google\.com\/calendar\/ical\/[^/\s'"`]+%40gmail/i, 'Prywatny adres iCal nie może być w kodzie');
+  assert.match(syncSrc, /report\.calendar_live = false;/);
+  assert.match(syncSrc, /report\.source_status = 'PARTIAL';/);
+  const appSrc = fs.readFileSync(path.join(rootDir, 'ccMC', 'app.js'), 'utf8');
+  assert.match(appSrc, /calendar_live === false/, 'Raport głosowy musi mówić o nieaktualnym kalendarzu');
+});
