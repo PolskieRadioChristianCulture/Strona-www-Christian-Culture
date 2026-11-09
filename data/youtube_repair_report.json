@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-08T10:46:21.016Z",
+  "generatedAt": "2026-11-09T09:04:27.507Z",
   "executed": false,
   "plan": [
     {
@@ -49,8 +49,8 @@
       "key": "Księga Rodzaju 10:1-32",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "videos",
-      "action": "ok",
-      "keepId": "8L-9Puasq4I",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -58,8 +58,8 @@
       "key": "Księga Rodzaju 10:1-32",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "shorts",
-      "action": "ok",
-      "keepId": "hNNzURoL_Yw",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -201,8 +201,8 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "videos",
-      "action": "ok",
-      "keepId": "-3lO6jPiP3E",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -210,8 +210,8 @@
       "key": "Księga Rodzaju 12:1-20",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "shorts",
-      "action": "ok",
-      "keepId": "NxLEPglXGrA",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -345,8 +345,8 @@
       "key": "Księga Rodzaju 13:1-18",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "videos",
-      "action": "ok",
-      "keepId": "BU6SIJPf2W4",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -354,8 +354,8 @@
       "key": "Księga Rodzaju 13:1-18",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "shorts",
-      "action": "ok",
-      "keepId": "aldCO4xOTxM",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -471,8 +471,8 @@
       "key": "Księga Rodzaju 14:1-24",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "videos",
-      "action": "ok",
-      "keepId": "A8hJ7Fevhoc",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -480,8 +480,8 @@
       "key": "Księga Rodzaju 14:1-24",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "shorts",
-      "action": "ok",
-      "keepId": "Iv1QEWhRScc",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -597,8 +597,8 @@
       "key": "Księga Rodzaju 15:1-21",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "videos",
-      "action": "ok",
-      "keepId": "-NTWmuBGcLk",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -606,8 +606,8 @@
       "key": "Księga Rodzaju 15:1-21",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "shorts",
-      "action": "ok",
-      "keepId": "KpYta933DlI",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -723,8 +723,8 @@
       "key": "Księga Rodzaju 16:1-16",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "videos",
-      "action": "ok",
-      "keepId": "S1REkfIxJzg",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -732,8 +732,8 @@
       "key": "Księga Rodzaju 16:1-16",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "shorts",
-      "action": "ok",
-      "keepId": "xHiVrzYagT0",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -831,8 +831,8 @@
       "key": "Księga Rodzaju 17:1-27",
       "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
       "tab": "videos",
-      "action": "ok",
-      "keepId": "ugKOx_73EXU",
+      "action": "upload",
+      "keepId": null,
       "toDelete": []
     },
     {
@@ -849,8 +849,8 @@
       "key": "Księga Rodzaju 17:1-27",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "videos",
-      "action": "ok",
-      "keepId": "2yje2lNgVMo",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -858,8 +858,8 @@
       "key": "Księga Rodzaju 17:1-27",
       "channel": "Polskie Radio CHRISTIAN CULTURE",
       "tab": "shorts",
-      "action": "ok",
-      "keepId": "DVajMAkS5uA",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
       "toDelete": []
     },
     {
@@ -885,8 +885,8 @@
       "key": "Księga Rodzaju 17:1-27",
       "channel": "Osobowość +",
       "tab": "videos",
-      "action": "ok",
-      "keepId": "Pneyganlzz0",
+      "action": "upload",
+      "keepId": null,
       "toDelete": []
     },
     {
@@ -894,8 +894,8 @@
       "key": "Księga Rodzaju 17:1-27",
       "channel": "Osobowość +",
       "tab": "shorts",
-      "action": "ok",
-      "keepId": "8NWG5bbQS5Q",
+      "action": "upload",
+      "keepId": null,
       "toDelete": []
     },
     {
@@ -932,6 +932,132 @@
       "tab": "shorts",
       "action": "ok",
       "keepId": "euwbfT0ZOzg",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "k7u8wP3VWvI",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "Biblia Audio Christian Culture",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "GZludGikqHc",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "C177aSaIm-k",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "Werset Dnia - Chrześcijański Serwis Biblijny",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "H9CbcewYSy8",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "videos",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "tab": "shorts",
+      "action": "blocked",
+      "reason": "brak spisu kanału",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "Christian Culture TV",
+      "tab": "videos",
+      "action": "upload",
+      "keepId": null,
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "Christian Culture TV",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "HFWjckVRb5Q",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "Osobowość +",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "ujKtEyTE5t8",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "Osobowość +",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "WIbZG0644to",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "CC Women",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "o8XBTGCuuyA",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "CC Women",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "K06LXIVdbvs",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "CC Men",
+      "tab": "videos",
+      "action": "ok",
+      "keepId": "yoiMUDacRJo",
+      "toDelete": []
+    },
+    {
+      "ep": "Ksiega_Rodzaju_18_1-33",
+      "key": "Księga Rodzaju 18:1-33",
+      "channel": "CC Men",
+      "tab": "shorts",
+      "action": "ok",
+      "keepId": "XqpBC0cT5zk",
       "toDelete": []
     }
   ],

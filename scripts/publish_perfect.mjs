@@ -58,10 +58,10 @@ export function scheduleTarget({ channelName = null, isShorts = false, now = new
 async function scheduleVisibility(page, { date, time }, premiere) {
   const expand = page.locator('ytcp-uploads-dialog #second-container-expand-button').first();
   await expand.waitFor({ state: 'visible', timeout: 15000 });
-  await expand.click();
+  await expand.click({ force: true });
   await page.waitForTimeout(1500);
 
-  await page.locator('ytcp-uploads-dialog #datepicker-trigger').first().click();
+  await page.locator('ytcp-uploads-dialog #datepicker-trigger').first().click({ force: true });
   await page.waitForTimeout(1000);
   const dateInput = page.locator('ytcp-date-picker tp-yt-paper-input input, ytcp-date-picker input').first();
   await dateInput.waitFor({ state: 'visible', timeout: 10000 });
@@ -266,7 +266,7 @@ export async function uploadEpisodeToChannel({
     const titleBox = page.locator('#title-textarea #textbox, ytcp-social-suggestions-textbox#title-textarea div[contenteditable="true"]').first();
     await titleBox.waitFor({ state: 'visible', timeout: 45000 });
     await page.waitForTimeout(1000);
-    await titleBox.click();
+    await titleBox.click({ force: true });
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Backspace');
     await titleBox.fill(title);
@@ -531,7 +531,7 @@ export async function uploadEpisodeToChannel({
     // Kliknij Publikuj / Zapisz
     const doneBtn = page.locator('#done-button, button#done-button, ytcp-button#done-button, button:has-text("Opublikuj"), button:has-text("Publish")').first();
     await doneBtn.waitFor({ state: 'visible', timeout: 15000 });
-    await doneBtn.click();
+    await doneBtn.click({ force: true });
 
     // Sukces tylko, gdy YouTube pokaże okno „opublikowano” (lub „nadal przetwarzany — zostanie opublikowany”)
     console.log('Oczekiwanie na potwierdzenie publikacji przez YouTube...');
