@@ -1356,3 +1356,99 @@ test('28. Podgląd nadawania OBS (PiP) w prawym górnym rogu tylko przy schowany
   assert.doesNotMatch(appSrc, /PODGLĄD NADAWANIA/, 'Bez napisu na podglądzie (L0 09.11.2026)');
   assert.match(css, /body\.mc-clock-screensaver-idle \.mc-obs-pip\.is-ready \{\s*display: block;/, 'Podgląd tylko przy schowanych panelach');
 });
+
+test('29. Wymiana prezenterka ↔ agent (V1.2): ccMC zapisuje wyemitowany raport, agent czyta go tylko z tokenem', async () => {
+  const { callApi, env } = createTestContext();
+  const owner = { authorization: 'Bearer valid-owner-firebase-token' };
+  env.CC_MC_LIVE_REPORT_TOKEN = 'sekret-testowy-raportu-123456';
+  const text = 'Christian Culture LIVE, jest godzina 20:15. Od 19:57 do 20:12 w misji: test.';
+
+  assert.equal((await callApi('/api/mission-calendar/voice/emitted', { method: 'POST', body: { text } })).status, 401, 'Zapis bez logowania zabroniony');
+  assert.equal((await callApi('/api/mission-calendar/voice/emitted', { method: 'POST', headers: { authorization: 'Bearer foreign-user-firebase-token' }, body: { text } })).status, 403);
+  assert.equal((await callApi('/api/mission-calendar/voice/emitted', { method: 'POST', headers: owner, body: { text: '' } })).status, 422);
+  const saved = await callApi('/api/mission-calendar/voice/emitted', { method: 'POST', headers: owner, body: { text, status: 'played', quarter: '20:15' } });
+  assert.equal(saved.status, 200);
+
+  assert.equal((await callApi('/api/mission-calendar/voice/emitted')).status, 401, 'Odczyt bez tokenu zabroniony (prywatny kalendarz w tekście)');
+  assert.equal((await callApi('/api/mission-calendar/voice/emitted', { headers: { authorization: 'Bearer zly-token' } })).status, 401);
+  const agentRead = await callApi('/api/mission-calendar/voice/emitted?limit=3', { headers: { authorization: 'Bearer sekret-testowy-raportu-123456' } });
+  assert.equal(agentRead.status, 200);
+  assert.equal(agentRead.data.reports[0].text, text);
+  assert.equal(agentRead.data.reports[0].status, 'played');
+  assert.equal(agentRead.data.reports[0].quarter, '20:15');
+});
+
+test('30. Raport misyjny kwadransu: tylko zdarzenia z okna, rozważania z całego JOMA_STATUS, Skrzynka, bez powtórek (L0 09.11.2026)', async () => {
+  const os = await import('node:os');
+  const { collectQuarterMissionActivity, extractTodayJomaSections, readPresenterBrief } = await import('../scripts/ccmc-voice-exchange.mjs');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'ccmc-kwadrans-'));
+  const repoRoot = path.join(tmp, 'repo');
+  fs.mkdirSync(path.join(repoRoot, 'data'), { recursive: true });
+  // 20:00–20:15 czasu Warszawy = 19:00–19:15 UTC (czas zimowy)
+  fs.writeFileSync(path.join(repoRoot, 'data', 'youtube_published_history.json'), JSON.stringify({ published: [
+    { title: 'Księga Rodzaju 18 • Biblia Audio CC', channel: 'Kanał A', publishedAt: '2026-11-09T19:05:00Z' },
+    { title: 'Księga Rodzaju 18 • Biblia Audio CC', channel: 'Kanał B', publishedAt: '2026-11-09T19:06:00Z' },
+    { title: 'Stary film', channel: 'Kanał A', publishedAt: '2026-11-09T09:00:00Z' },
+  ] }));
+  fs.writeFileSync(path.join(repoRoot, 'data', 'x_published_history.json'), JSON.stringify({ published: [
+    { title: 'Werset Dnia [ZERO-QA PASS] 🟢', publishedAt: '2026-11-09T19:10:00Z' },
+    { title: 'Post sprzed godziny', publishedAt: '2026-11-09T18:00:00Z' },
+  ] }));
+  fs.writeFileSync(path.join(repoRoot, 'data', 'fb_shorts_history.json'), JSON.stringify({ '2026-11-03': { Strona: { status: 'published', videoStem: 'S1', timestamp: '2026-11-03T15:51:30Z' } } }));
+  const filler = '## 2026-11-08 10:00 (Warszawa) — @A001 (Antigravity): Wczorajszy wpis\n' + 'x'.repeat(60000) + '\n';
+  const jomaPath = path.join(tmp, 'JOMA_STATUS.md');
+  fs.writeFileSync(jomaPath, `## 2026-11-09 20:07 (Warszawa) — @A001 (Antigravity): Poranna publikacja i synchronizacja rozważań — Dzień 40 (Wj 9:1–35) [Zero-QA PASS]\nTreść\n${filler}`);
+  const skrzynkaDir = path.join(tmp, 'SKRZYNKA');
+  fs.mkdirSync(path.join(skrzynkaDir, 'wiadomosci', '2026-11'), { recursive: true });
+  fs.writeFileSync(path.join(skrzynkaDir, 'wiadomosci', '2026-11', 'MSG-20261109T190800Z-codex-a1b2c3.md'), '---\nod: codex\ntemat: KONIEC: Naprawa kalendarza\nwymaga_dowodcy: tak\nutworzono: 2026-11-09T19:08:00Z\n---\n');
+  fs.writeFileSync(path.join(skrzynkaDir, 'wiadomosci', '2026-11', 'MSG-20261109T170000Z-codex-zzzzzz.md'), '---\nod: codex\ntemat: KONIEC: Stare zadanie\n---\n');
+
+  // Wpis z 60 tys. znaków dalej nadal jest widoczny (dawniej limit 18 000 znaków)
+  assert.match(extractTodayJomaSections(`${filler}## 2026-11-09 06:05 (Warszawa) — @A001: Poranna publikacja i synchronizacja rozważań — Dzień 40 (Wj 9)\n`, '2026-11-09'), /Dzień 40/);
+
+  const now = new Date('2026-11-09T19:12:00Z');
+  const rep = collectQuarterMissionActivity({ repoRoot, jomaStatusPath: jomaPath, skrzynkaDir, now, windowStartMs: Date.parse('2026-11-09T18:57:00Z') });
+  assert.equal(rep.scope, 'quarter');
+  assert.match(rep.spoken_summary, /^Od 19:57 do 20:12 w misji:/);
+  assert.match(rep.spoken_summary, /rozważania — dzień 40, Wj 9:1–35/);
+  assert.match(rep.spoken_summary, /na 2 kanałach/);
+  assert.match(rep.spoken_summary, /„Werset Dnia”/, 'Tytuł bez znaczników QA i emoji');
+  assert.doesNotMatch(rep.spoken_summary, /Stary film|Post sprzed godziny|Stare zadanie/, 'Tylko zdarzenia z bieżącego kwadransu');
+  assert.match(rep.spoken_summary, /codex — Naprawa kalendarza/);
+  assert.match(rep.spoken_summary, /Czeka na Twoją decyzję: Naprawa kalendarza/);
+  assert.equal(rep.day_totals.youtube.count, 3);
+  assert.doesNotMatch(rep.spoken_summary, /Bilans dnia/, 'Bilans dnia tylko 3 razy dziennie');
+
+  // Pusty kwadrans — krótko, bez powtarzania dnia
+  const quiet = collectQuarterMissionActivity({ repoRoot, jomaStatusPath: jomaPath, skrzynkaDir, now: new Date('2026-11-09T20:12:00Z') });
+  assert.equal(quiet.spoken_summary, 'Od 20:57 do 21:12 w misji bez nowych publikacji i bez zakończonych zadań agentów.');
+
+  // Bilans dnia o 9:12, 13:12, 18:12 — z kanałami, które milczą
+  const balance = collectQuarterMissionActivity({ repoRoot, jomaStatusPath: jomaPath, skrzynkaDir, now: new Date('2026-11-09T17:12:00Z') });
+  assert.match(balance.spoken_summary, /Bilans dnia: YouTube 1, platforma X 0, Facebook 0/);
+  assert.match(balance.spoken_summary, /Facebook — ostatnio 3 listopada/);
+
+  // Komunikat agenta → prezenterka: ważny i przeterminowany
+  const dir = path.join(tmp, 'out');
+  fs.mkdirSync(dir);
+  fs.writeFileSync(path.join(dir, 'komunikat-dla-prezenterki.json'), JSON.stringify({ text: 'Facebook wstrzymany do jutra.', valid_until: '2026-11-09T19:40:00Z' }));
+  assert.equal(readPresenterBrief(dir, now).text, 'Facebook wstrzymany do jutra.');
+  assert.equal(readPresenterBrief(dir, new Date('2026-11-09T19:41:00Z')), null);
+  fs.rmSync(tmp, { recursive: true, force: true });
+});
+
+test('31. ccMC: bez zaszytego przykładowego raportu, zapis wyemitowanego raportu, ostrzeżenie o nieświeżym raporcie misji', () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const appSrc = fs.readFileSync(path.join(rootDir, 'ccMC', 'app.js'), 'utf8');
+  assert.doesNotMatch(appSrc, /Rozważania Dzień 38|wgrano 14 filmów|12 postów opublikowanych/, 'Żadnych udawanych danych w raporcie');
+  assert.doesNotMatch(appSrc, /Stan dzisiejszych publikacji:/, 'Raport mówi o kwadransie, nie o całym dniu');
+  assert.match(appSrc, /export function buildMissionQuarterBriefingPart/);
+  assert.match(appSrc, /Brak świeżego raportu z misji/);
+  assert.match(appSrc, /Komunikat od agenta automatyzacji:/);
+  for (const status of ['blocked', 'played']) assert.match(appSrc, new RegExp(`recordEmittedVoiceReport\\(text, '${status}'\\)`));
+  assert.match(appSrc, /recordEmittedVoiceReport\(text, played === 0 \? 'no_audio'/);
+  const syncSrc = fs.readFileSync(path.join(rootDir, 'scripts', 'sync-gcalendar-quarter-hour.mjs'), 'utf8');
+  assert.doesNotMatch(syncSrc, /slice\(0, 18000\)/, 'JOMA_STATUS czytany w całości');
+  assert.match(syncSrc, /voice\/emitted\?limit=8/);
+  assert.match(syncSrc, /readPresenterBrief\(outDir, now\)/);
+});

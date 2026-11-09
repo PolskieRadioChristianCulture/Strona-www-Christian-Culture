@@ -611,6 +611,7 @@ export class MissionCalendarRepository {
       gcalConnections: new Map(),
       gcalMappings: new Map(),
       gcalSyncLogs: [],
+      voiceReports: [],
       gcalRemoteCalendars: new Map([
         ['primary', { id: 'primary', summary: 'Kalendarz główny Google', timeZone: DEFAULT_TIMEZONE, primary: true }],
       ]),
@@ -634,6 +635,7 @@ export class MissionCalendarRepository {
         `CREATE TABLE IF NOT EXISTS mc_gcal_connections (user_id TEXT PRIMARY KEY, email TEXT NOT NULL, encrypted_tokens TEXT NOT NULL, scopes TEXT NOT NULL DEFAULT '[]', calendar_id TEXT NOT NULL, calendar_name TEXT NOT NULL, sync_mode TEXT NOT NULL DEFAULT 'bidirectional', sync_token TEXT, watch_channel_id TEXT, watch_resource_id TEXT, watch_token_hash TEXT, watch_expiration TEXT, status TEXT NOT NULL DEFAULT 'connected', connected_at TEXT NOT NULL, last_synced_at TEXT)`,
         `CREATE TABLE IF NOT EXISTS mc_gcal_mappings (id TEXT PRIMARY KEY, event_id TEXT UNIQUE NOT NULL, vikunja_task_id TEXT NOT NULL, gcal_calendar_id TEXT NOT NULL, gcal_event_id TEXT NOT NULL, gcal_etag TEXT, gcal_ical_uid TEXT, last_synced_version INTEGER NOT NULL DEFAULT 1, sync_hash TEXT, updated_at TEXT NOT NULL)`,
         `CREATE TABLE IF NOT EXISTS mc_gcal_sync_logs (id TEXT PRIMARY KEY, direction TEXT NOT NULL, mode TEXT NOT NULL, action TEXT NOT NULL, event_id TEXT, gcal_event_id TEXT, status TEXT NOT NULL, details TEXT NOT NULL DEFAULT '{}', created_at TEXT NOT NULL)`,
+        `CREATE TABLE IF NOT EXISTS mc_voice_reports (id TEXT PRIMARY KEY, quarter TEXT NOT NULL, status TEXT NOT NULL, text TEXT NOT NULL, spoken_at TEXT NOT NULL, created_at TEXT NOT NULL)`,
       ];
       for (const sql of statements) {
         await this.db.prepare(sql).run();
@@ -1215,6 +1217,39 @@ export class MissionCalendarRepository {
       return (res.results || []).map((r) => ({ ...r, details: safeJsonParse(r.details, {}) }));
     }
     return this.mem.gcalSyncLogs.slice(0, limit);
+  }
+
+  // Wyemitowane raporty głosowe ccMC (prezenterka → agent automatyzacji, V1.2). Przechowywane 48 h.
+  async appendVoiceReport(entry, nowIso = new Date().toISOString()) {
+    await this.ensureInitialized();
+    const record = {
+      id: generateId('vrep'),
+      quarter: String(entry.quarter || '').slice(0, 5),
+      status: String(entry.status || 'played').slice(0, 20),
+      text: String(entry.text || '').slice(0, 4000),
+      spoken_at: entry.spoken_at || nowIso,
+      created_at: nowIso,
+    };
+    const cutoff = new Date(Date.parse(nowIso) - 48 * 3600_000).toISOString();
+    if (this.db) {
+      await this.db.prepare('INSERT INTO mc_voice_reports (id, quarter, status, text, spoken_at, created_at) VALUES (?, ?, ?, ?, ?, ?)')
+        .bind(record.id, record.quarter, record.status, record.text, record.spoken_at, record.created_at).run();
+      await this.db.prepare('DELETE FROM mc_voice_reports WHERE created_at < ?').bind(cutoff).run();
+      return record;
+    }
+    this.mem.voiceReports.unshift(record);
+    this.mem.voiceReports = this.mem.voiceReports.filter((r) => r.created_at >= cutoff).slice(0, 400);
+    return record;
+  }
+
+  async listVoiceReports(limit = 8) {
+    await this.ensureInitialized();
+    const n = Math.max(1, Math.min(50, Number(limit) || 8));
+    if (this.db) {
+      const res = await this.db.prepare('SELECT * FROM mc_voice_reports ORDER BY created_at DESC LIMIT ?').bind(n).all();
+      return res.results || [];
+    }
+    return this.mem.voiceReports.slice(0, n);
   }
 }
 
@@ -3347,6 +3382,17 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
       return json({ ok: true, eventsCount: body.events.length, fetchedAt: body.fetched_at });
     }
 
+    // Odczyt wyemitowanych raportów głosowych przez agenta automatyzacji — tylko z tokenem CC_MC_LIVE_REPORT_TOKEN
+    if (path === '/voice/emitted' && request.method === 'GET' && /^Bearer\s+/i.test(request.headers.get('Authorization') || '')) {
+      const expected = String(env?.CC_MC_LIVE_REPORT_TOKEN || '');
+      const given = (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '').trim();
+      if (expected && timingSafeEqualStr(given, expected)) {
+        const reports = await repo.listVoiceReports(url.searchParams.get('limit') || 8);
+        return json({ ok: true, reports });
+      }
+      // inny Bearer (np. token Firebase właściciela) — przechodzi do zwykłej autoryzacji poniżej
+    }
+
     // ────────────────────────────────────────────────────────────────────────
     // Autoryzacja użytkownika dla pozostałych tras panelu (/ccMC)
     // ────────────────────────────────────────────────────────────────────────
@@ -3376,6 +3422,22 @@ export async function handleMissionCalendarApi(request, env, ctx, options = {}) 
     // Żywy Raport Kwadransowy (prywatny Kalendarz Google) — TYLKO dla zalogowanego właściciela.
     // Źródło: najnowszy zapis w pamięci izolatu albo plik wydania (publicznie zablokowany w _worker.js).
     // ────────────────────────────────────────────────────────────────────────
+    // Prezenterka ccMC zapisuje każdy raport kwadransowy (odtworzony / zablokowany / bez dźwięku) — agent go czyta
+    if (path === '/voice/emitted' && request.method === 'POST') {
+      const body = await request.json().catch(() => ({}));
+      const text = String(body.text || '').trim();
+      if (!text) return json({ error: 'Brak tekstu raportu' }, 422);
+      const status = ['played', 'blocked', 'no_audio', 'partial'].includes(body.status) ? body.status : 'played';
+      const quarter = /^\d{2}:\d{2}$/.test(String(body.quarter || '')) ? body.quarter : '';
+      const spokenAt = Number.isFinite(Date.parse(body.spoken_at || '')) ? new Date(body.spoken_at).toISOString() : undefined;
+      const record = await repo.appendVoiceReport({ text, status, quarter, spoken_at: spokenAt }, service.nowFn().toISOString());
+      return json({ ok: true, id: record.id });
+    }
+    if (path === '/voice/emitted' && request.method === 'GET') {
+      const reports = await repo.listVoiceReports(url.searchParams.get('limit') || 8);
+      return json({ ok: true, reports });
+    }
+
     if (path === '/gcal/live-report' && request.method === 'GET') {
       const candidates = [];
       if (globalThis._ccMcLatestLiveGcalReport) candidates.push(globalThis._ccMcLatestLiveGcalReport);

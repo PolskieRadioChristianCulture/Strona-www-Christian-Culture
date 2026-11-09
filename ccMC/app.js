@@ -45,43 +45,8 @@ const CANONICAL_MISSION_ROUTINES = [
 // Bez danych prywatnego Kalendarza Google w publicznym kodzie — wpisy przychodzą wyłącznie z API po zalogowaniu (@007, 08.11.2026)
 const VERIFIED_GCAL_FALLBACK_EVENTS = [];
 
-const DEFAULT_MISSION_AUTOMATION_REPORT = {
-  date: '2026-11-07',
-  rozwazania: {
-    done: true,
-    label: 'Rozważania Dzień 38 opublikowane w Firebase, WWW i newsletterze',
-  },
-  biblia_audio_mp3: {
-    done: true,
-    chapterId: 'genesis-16',
-    chapter: 16,
-    audioUrl: '/biblia-audio/audio/Ksiega_Rodzaju_16_1-16_Biblia_Audio_CC.mp3',
-    label: 'MP3 Biblii Audio (Rdz 16) jest na Pulpicie i na WWW',
-  },
-  youtube: {
-    done: true,
-    count: 14,
-    label: 'YouTube: wgrano 14 filmów 4K i Shorts',
-  },
-  x_twitter: {
-    done: true,
-    count: 12,
-    label: 'X: 12 postów opublikowanych',
-  },
-  whatsapp: {
-    done: false,
-    state: 'queued',
-    label: 'WhatsApp w kolejce do wysyłki na grupę Nazira i grupy WWW',
-  },
-  facebook: {
-    done: false,
-    state: 'not_published_today',
-    count: 0,
-    label: 'Facebook oczekuje na publikację',
-  },
-  spoken_summary:
-    'Rozważania Dzień 38 opublikowane w Firebase, WWW i newsletterze, MP3 Biblii Audio (Rdz 16) jest na Pulpicie i na WWW, YouTube: wgrano 14 filmów 4K i Shorts, X: 12 postów opublikowanych, WhatsApp w kolejce do wysyłki na grupę Nazira i grupy WWW, Facebook oczekuje na publikację.',
-};
+// Bez zaszytych przykładowych danych (L0 09.11.2026: raport ma mówić prawdę) — stan misji przychodzi wyłącznie z żywego raportu
+const DEFAULT_MISSION_AUTOMATION_REPORT = { schema_version: '2.0', scope: 'quarter', spoken_summary: '' };
 
 const state = {
   user: null,
@@ -3526,6 +3491,7 @@ export function isAutoplayBlocked() {
 export function markVoiceBriefingBlocked(text) {
   if (typeof window === 'undefined' || !text) return;
   window._mcPendingBriefing = { text, ts: Date.now() };
+  recordEmittedVoiceReport(text, 'blocked');
   setVoiceReportStatus('⚠️ Raport czeka — przeglądarka zablokowała dźwięk (kliknij raz w ekran)', 'warn');
   if (typeof document === 'undefined') return;
   updateAudioUnlockBannerDom();
@@ -3583,9 +3549,11 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
     window._mcPrefetchedQuarterAudio = null;
     if (Array.isArray(cached.audioParts) && cached.audioParts.length > 0) {
       if (playGeminiPcmSequence(cached.audioParts, cached.sampleRate || 24000, text)) {
+        recordEmittedVoiceReport(text, 'played');
         return true;
       }
     } else if (cached.audioBase64 && playGeminiPcmBase64(cached.audioBase64, cached.sampleRate || 24000)) {
+      recordEmittedVoiceReport(text, 'played');
       return true;
     }
   }
@@ -3601,6 +3569,7 @@ export function speakCalendarVoiceAlert(text, { force = false } = {}) {
       .then((prefetched) => {
         if (prefetched && Array.isArray(prefetched.audioParts) && prefetched.audioParts.length > 0) {
           playGeminiPcmSequence(prefetched.audioParts, prefetched.sampleRate || 24000, text);
+          recordEmittedVoiceReport(text, 'played');
         } else {
           startStreamingBriefingPlayback(text);
         }
@@ -3638,6 +3607,7 @@ function startStreamingBriefingPlayback(text) {
   const playFromIndex = (i) => {
     if (i >= partPromises.length) {
       hideVoiceAssistantAvatar();
+      recordEmittedVoiceReport(text, played === 0 ? 'no_audio' : played < partPromises.length ? 'partial' : 'played');
       if (played > 0) setVoiceReportStatus(`🔊 Raport ${hm}: odtworzony (${played}/${partPromises.length})`, 'ok');
       else setVoiceReportStatus(`❌ Raport ${hm}: bez dźwięku — ${describeTtsFailure(window._mcLastTtsErrorCode)}`, 'error');
       return;
@@ -3696,6 +3666,42 @@ export function buildMissionCalendarBriefingPart(now = new Date()) {
   return parts.join(' ');
 }
 
+// Raport misyjny KWADRANSU (L0 09.11.2026): tylko to, co wydarzyło się od poprzedniego raportu, bez powtarzania całego dnia.
+// Gdy raport z misji jest starszy niż 35 min — mówimy to wprost, zamiast czytać nieaktualne dane.
+// Komunikat agenta automatyzacji (presenter_brief) jest czytany, dopóki nie minie jego valid_until.
+export function buildMissionQuarterBriefingPart(now = new Date()) {
+  const rep = state.gcalReport || null;
+  const autoRep = rep?.mission_automation_report || DEFAULT_MISSION_AUTOMATION_REPORT;
+  const parts = [];
+  const generatedMs = Date.parse(autoRep?.window_end || autoRep?.generated_at || '');
+  const fresh = Number.isFinite(generatedMs) && now.getTime() - generatedMs <= 35 * 60_000 && generatedMs <= now.getTime() + 5 * 60_000;
+  if (autoRep?.scope === 'quarter' && autoRep.spoken_summary && fresh) {
+    parts.push(String(autoRep.spoken_summary));
+  } else if (rep && rep.source_status && rep.source_status !== 'EMPTY') {
+    parts.push('Brak świeżego raportu z misji — agent automatyzacji nie przysłał danych z ostatniego kwadransu.');
+  }
+  const brief = rep?.presenter_brief;
+  const briefUntil = Date.parse(brief?.valid_until || '');
+  if (brief && brief.text && Number.isFinite(briefUntil) && briefUntil > now.getTime()) {
+    parts.push(`Komunikat od agenta automatyzacji: ${String(brief.text).slice(0, 600)}`);
+  }
+  return parts.join(' ');
+}
+
+// Prezenterka → agent (V1.2): tekst każdego raportu kwadransowego trafia na serwer (48 h), agent czyta go przed następnym
+export function recordEmittedVoiceReport(text, status = 'played') {
+  if (typeof window === 'undefined' || typeof fetch !== 'function' || !text) return;
+  if (!String(text).startsWith('Christian Culture LIVE')) return;
+  const key = `${status}::${text}`;
+  if (window._mcLastEmittedKey === key) return;
+  window._mcLastEmittedKey = key;
+  const quarter = new Intl.DateTimeFormat('pl-PL', { timeZone: 'Europe/Warsaw', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date());
+  apiRequest('/voice/emitted', {
+    method: 'POST',
+    body: JSON.stringify({ text, status, quarter, spoken_at: new Date().toISOString() }),
+  }).catch(() => {});
+}
+
 export function buildQuarterHourVoiceBriefing(now = new Date()) {
   const warsawHm = new Intl.DateTimeFormat('pl-PL', {
     timeZone: 'Europe/Warsaw',
@@ -3744,10 +3750,7 @@ export function buildQuarterHourVoiceBriefing(now = new Date()) {
     ? formatWarsawTimeOnly(nextAgentTask.starts_at)
     : (teraz?.nextTask?.timeRange || (ramowka?.next ? ramowka.next.time : 'w kolejnym paśmie'));
 
-  const autoRep = state.gcalReport?.mission_automation_report || DEFAULT_MISSION_AUTOMATION_REPORT;
-  const automationSummary = autoRep?.spoken_summary
-    ? `Stan dzisiejszych publikacji: ${autoRep.spoken_summary}`
-    : '';
+  const automationSummary = buildMissionQuarterBriefingPart(now);
 
   const gcalSchedule = getPersonalGcalScheduleItems(now);
   const personalNowList = gcalSchedule.nowActive || [];

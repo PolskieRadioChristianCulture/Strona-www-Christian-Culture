@@ -10,6 +10,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { expandIcsEvents, fetchIcs, POLISH_HOLIDAYS_ICS_URL } from './gcal-ics.mjs';
+import { collectQuarterMissionActivity, readPresenterBrief, writeLastEmittedVoiceReport } from './ccmc-voice-exchange.mjs';
 
 const TIMEZONE = 'Europe/Warsaw';
 const TARGET_ACCOUNT = 'nazirczarkes@gmail.com';
@@ -93,148 +94,6 @@ function normalizeGcalItems(items, calId) {
   return out;
 }
 
-function collectMissionAutomationReport(now = new Date()) {
-  const todayIso = getTodayWarsawIso(now);
-  const status = {
-    date: todayIso,
-    generated_at: toWarsawRfc3339(now),
-    rozwazania: { done: false, label: 'Rozważania poranne: brak potwierdzenia na dziś' },
-    biblia_audio_mp3: { done: false, label: 'Biblia Audio MP3: brak nowego odcinka z dzisiaj' },
-    youtube: { done: false, count: 0, label: 'YouTube: brak dzisiejszej publikacji' },
-    x_twitter: { done: false, count: 0, label: 'Platforma X: brak dzisiejszych postów' },
-    whatsapp: { done: false, state: 'pending', label: 'WhatsApp: oczekuje na potwierdzenie wysyłki' },
-    facebook: { done: false, state: 'pending', label: 'Facebook: brak dzisiejszej publikacji automatycznej' },
-    spoken_summary: '',
-  };
-
-  // 1. Sprawdź JOMA_STATUS.md pod kątem dzisiejszych wpisów (Rozważania, Biblia Audio, WhatsApp)
-  try {
-    const jomaPath = path.join(JOMA_ROOT, 'JOMA_STATUS.md');
-    if (fs.existsSync(jomaPath)) {
-      const jomaText = fs.readFileSync(jomaPath, 'utf8').slice(0, 18000);
-      if (jomaText.includes(todayIso) && /Poranna publikacja i synchronizacja rozważań/i.test(jomaText)) {
-        const headerMatch = jomaText.match(/Poranna publikacja i synchronizacja rozważań\s*[—-]\s*Dzień\s+(\d+)\s*\(([^)]+)\)/i);
-        const dayLabel = headerMatch ? `Dzień ${headerMatch[1]}` : 'Dzień 38';
-        status.rozwazania = {
-          done: true,
-          label: `Rozważania ${dayLabel} opublikowane w Firebase, WWW i newsletterze`,
-        };
-      }
-      if (jomaText.includes(todayIso) && /Dystrybucja WhatsApp:/i.test(jomaText)) {
-        status.whatsapp = {
-          done: false,
-          state: 'queued',
-          label: 'WhatsApp w kolejce do wysyłki na grupę Nazira i grupy WWW',
-        };
-      }
-    }
-  } catch {}
-
-  // 2. Sprawdź Biblia Audio catalog.json + pliki MP3 (WWW oraz fizycznie na Pulpicie C:\Users\czark\Desktop)
-  try {
-    const catPath = path.join(REPO_ROOT, 'biblia-audio', 'data', 'catalog.json');
-    if (fs.existsSync(catPath)) {
-      const cat = JSON.parse(fs.readFileSync(catPath, 'utf8'));
-      const pubChapters = Array.isArray(cat) ? cat.filter((c) => c.status === 'published') : [];
-      const latest = pubChapters[pubChapters.length - 1];
-      if (latest) {
-        const mp3Rel = String(latest.audioUrl || '').replace(/^\//, '');
-        const mp3Full = path.join(REPO_ROOT, mp3Rel);
-        const mp3Exists = Boolean(mp3Rel && fs.existsSync(mp3Full));
-        const mp3FileName = path.basename(mp3Rel);
-        const desktopDirectPath = path.join(os.homedir(), 'Desktop', mp3FileName);
-        const desktopExists = Boolean(mp3FileName && fs.existsSync(desktopDirectPath));
-        status.biblia_audio_mp3 = {
-          done: Boolean(mp3Exists && desktopExists),
-          webPublished: Boolean(mp3Exists),
-          desktopReady: Boolean(desktopExists),
-          desktopPath: desktopExists ? desktopDirectPath : null,
-          chapterId: latest.id,
-          chapter: latest.chapter,
-          audioUrl: latest.audioUrl,
-          label:
-            mp3Exists && desktopExists
-              ? `MP3 Biblii Audio (Rdz ${latest.chapter}) jest na Pulpicie i na WWW`
-              : mp3Exists
-                ? `MP3 Biblii Audio (Rdz ${latest.chapter}) jest na WWW (brak pliku bezpośrednio na Pulpicie)`
-                : `Biblia Audio (${latest.id}) w przygotowaniu`,
-        };
-      }
-    }
-  } catch {}
-
-  // 3. Sprawdź YouTube (data/youtube_published_history.json)
-  try {
-    const ytPath = path.join(REPO_ROOT, 'data', 'youtube_published_history.json');
-    if (fs.existsSync(ytPath)) {
-      const ytData = JSON.parse(fs.readFileSync(ytPath, 'utf8'));
-      const list = Array.isArray(ytData.published) ? ytData.published : [];
-      const todayYt = list.filter((it) => String(it.publishedAt || '').startsWith(todayIso));
-      if (todayYt.length > 0) {
-        status.youtube = {
-          done: true,
-          count: todayYt.length,
-          label: `YouTube: wgrano ${todayYt.length} filmów 4K i Shorts`,
-        };
-      }
-    }
-  } catch {}
-
-  // 4. Sprawdź X / Twitter (data/x_published_history.json)
-  try {
-    const xPath = path.join(REPO_ROOT, 'data', 'x_published_history.json');
-    if (fs.existsSync(xPath)) {
-      const xData = JSON.parse(fs.readFileSync(xPath, 'utf8'));
-      const list = Array.isArray(xData.published) ? xData.published : [];
-      const todayX = list.filter((it) => String(it.publishedAt || '').startsWith(todayIso));
-      if (todayX.length > 0) {
-        status.x_twitter = {
-          done: true,
-          count: todayX.length,
-          latestTitle: todayX[0]?.title || '',
-          label: `X: ${todayX.length} postów opublikowanych`,
-        };
-      }
-    }
-  } catch {}
-
-  // 5. Sprawdź Facebook (data/fb_shorts_history.json)
-  try {
-    const fbPath = path.join(REPO_ROOT, 'data', 'fb_shorts_history.json');
-    if (fs.existsSync(fbPath)) {
-      const fbData = JSON.parse(fs.readFileSync(fbPath, 'utf8'));
-      const list = Array.isArray(fbData.published) ? fbData.published : (Array.isArray(fbData) ? fbData : []);
-      const todayFb = list.filter((it) => String(it.publishedAt || it.date || '').startsWith(todayIso));
-      if (todayFb.length > 0) {
-        status.facebook = {
-          done: true,
-          state: 'published',
-          count: todayFb.length,
-          label: `Facebook: ${todayFb.length} publikacji`,
-        };
-      } else {
-        status.facebook = {
-          done: false,
-          state: 'not_published_today',
-          count: 0,
-          label: 'Facebook oczekuje na publikację',
-        };
-      }
-    }
-  } catch {}
-
-  status.spoken_summary = [
-    status.rozwazania.label,
-    status.biblia_audio_mp3.label,
-    status.youtube.label,
-    status.x_twitter.label,
-    status.whatsapp.label,
-    status.facebook.label,
-  ].join(', ') + '.';
-
-  return status;
-}
-
 async function main() {
   const now = new Date();
   const windowStart = new Date(now.getTime() - 24 * 3600_000);
@@ -262,7 +121,13 @@ async function main() {
     calendars_checked: [],
     pagination_complete: false,
     events: [],
-    mission_automation_report: collectMissionAutomationReport(now),
+    mission_automation_report: collectQuarterMissionActivity({
+      repoRoot: REPO_ROOT,
+      jomaStatusPath: path.join(JOMA_ROOT, 'JOMA_STATUS.md'),
+      skrzynkaDir: path.join(JOMA_ROOT, 'SKRZYNKA'),
+      now,
+      windowStartMs: Date.parse(previousReport?.mission_automation_report?.window_end || ''),
+    }),
     warnings: [],
   };
 
@@ -440,9 +305,35 @@ async function main() {
   const outDir = path.join(localAppData, 'ChristianCulture', 'GCalendarReports');
   fs.mkdirSync(outDir, { recursive: true });
 
+  // Agent → prezenterka (V1.2): komunikat agenta automatyzacji z pliku lokalnego, ważny do valid_until (max 6 h)
+  const presenterBrief = readPresenterBrief(outDir, now);
+  if (presenterBrief) report.presenter_brief = presenterBrief;
+
   const jsonStr = JSON.stringify(report, null, 2);
   const stamp = new Date().toISOString().replace(/[-:T]/g, '').slice(0, 15);
   fs.writeFileSync(path.join(outDir, `gcalendar_${stamp}.json`), jsonStr, 'utf8');
+
+  // Źródło tokenu: zmienna środowiskowa albo prywatny plik poza repo (%USERPROFILE%\.cc-secrets\cc_mc_live_report_token)
+  let liveReportToken = String(process.env.CC_MC_LIVE_REPORT_TOKEN || '').trim();
+  if (!liveReportToken) {
+    try {
+      liveReportToken = fs.readFileSync(path.join(os.homedir(), '.cc-secrets', 'cc_mc_live_report_token'), 'utf8').trim();
+    } catch {}
+  }
+
+  // Prezenterka → agent (V1.2): ostatnie wyemitowane raporty z serwera → plik LOKALNY ostatni-raport-glosowy.json
+  if (liveReportToken) {
+    try {
+      const res = await fetch('https://polskieradio.cc/api/mission-calendar/voice/emitted?limit=8', {
+        headers: { Authorization: `Bearer ${liveReportToken}` },
+        signal: AbortSignal.timeout(4000),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        writeLastEmittedVoiceReport(outDir, Array.isArray(data.reports) ? data.reports : [], now);
+      }
+    } catch {}
+  }
 
   if (report.source_status === 'OK' || report.source_status === 'PARTIAL') {
     fs.writeFileSync(path.join(outDir, 'latest.json'), jsonStr, 'utf8');
@@ -461,13 +352,6 @@ async function main() {
 
     // Wyślij żywy raport do endpointu produkcyjnego /api/mission-calendar/gcal/live-report (z limitem 3s)
     // Zapis chroniony tokenem CC_MC_LIVE_REPORT_TOKEN (ten sam sekret co w Cloudflare); bez tokenu — pomijamy
-    // Źródło tokenu: zmienna środowiskowa albo prywatny plik poza repo (%USERPROFILE%\.cc-secrets\cc_mc_live_report_token)
-    let liveReportToken = String(process.env.CC_MC_LIVE_REPORT_TOKEN || '').trim();
-    if (!liveReportToken) {
-      try {
-        liveReportToken = fs.readFileSync(path.join(os.homedir(), '.cc-secrets', 'cc_mc_live_report_token'), 'utf8').trim();
-      } catch {}
-    }
     if (liveReportToken) try {
       await fetch('https://polskieradio.cc/api/mission-calendar/gcal/live-report', {
         method: 'POST',
