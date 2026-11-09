@@ -38,6 +38,10 @@
   }
 
   function initPoloniaClocks() {
+    if (window.self !== window.top || (typeof document !== 'undefined' && (document.documentElement.classList.contains('embedded-mode') || (document.body && document.body.classList.contains('embedded-mode'))))) {
+      document.querySelectorAll('[data-cc-polonia-clock]').forEach(function (el) { el.style.display = 'none'; });
+      return;
+    }
     var containers = document.querySelectorAll('[data-cc-polonia-clock]');
     if (!containers.length) return;
 

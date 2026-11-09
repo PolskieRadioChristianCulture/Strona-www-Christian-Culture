@@ -482,6 +482,7 @@
             .ccn-live-badge { padding: 0 12px; font-size: 0.8rem; }
             .ccn-ticker-content { font-size: 0.95rem; }
             .ccn-clock-box { padding: 0 14px; }
+            [data-cc-polonia-clock] { display: none !important; }
             .ccn-clock-time { font-size: 1.1rem; }
             .ccn-clock-date { font-size: 0.58rem; }
         }
@@ -494,7 +495,11 @@
         body.embedded-mode .dekalog-top-ticker,
         body.no-ticker .dekalog-top-ticker,
         html.no-ticker .dekalog-top-ticker,
-        html.embedded-mode .dekalog-top-ticker {
+        html.embedded-mode .dekalog-top-ticker,
+        body.embedded-mode [data-cc-polonia-clock],
+        body.no-ticker [data-cc-polonia-clock],
+        html.no-ticker [data-cc-polonia-clock],
+        html.embedded-mode [data-cc-polonia-clock] {
             display: none !important;
         }
 
