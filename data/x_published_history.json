@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "badz-blisko",
+      "title": "Bądź Blisko: 7 Dni ze Słowem — Spotkania ze Słowem dające pokój",
+      "url": "https://polskieradio.cc/badz-blisko",
+      "type": "module",
+      "image": "swiatlo.png",
+      "publishedAt": "2026-11-09T15:05:14.084Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina-tablica",
       "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
       "url": "https://polskieradio.cc/lumina-tablica",
