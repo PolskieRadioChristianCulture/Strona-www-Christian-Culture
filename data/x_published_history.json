@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "player",
+      "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
+      "url": "https://polskieradio.cc/player",
+      "type": "music",
+      "image": "art-worship.jpg",
+      "publishedAt": "2026-11-09T10:06:59.894Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "mojabiblia?ref=GEN.18.25",
       "title": "Werset Dnia: „Czy Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)",
       "url": "https://polskieradio.cc/mojabiblia?ref=GEN.18.25",
