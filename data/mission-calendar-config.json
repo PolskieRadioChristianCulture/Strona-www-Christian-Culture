@@ -4,6 +4,6 @@
   "calendar_id": "f7f5e88a298efc9cfe82b630455221f0b5d53968d7a391b46494f230a6c1ea7b@group.calendar.google.com",
   "timezone": "Europe/Warsaw",
   "ical_secret_file": "%USERPROFILE%\\.cc-secrets\\gcal_mission_ical_url.txt",
-  "sync_url": "https://calendar.google.com/calendar/ical/f7f5e88a298efc9cfe82b630455221f0b5d53968d7a391b46494f230a6c1ea7b%40group.calendar.google.com/private-137bcf93f9eb4d929ce0590e90103f8d/basic.ics",
-  "updated_at": "2026-11-09T08:14:00+01:00"
+  "updated_at": "2026-11-09T08:14:00+01:00",
+  "note": "Prywatny adres iCal tylko w pliku ical_secret_file (poza repo). Nigdy nie wpisywać go do repo."
 }

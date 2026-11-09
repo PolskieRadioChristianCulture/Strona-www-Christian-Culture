@@ -1295,3 +1295,20 @@ test('24. Kalendarz Misji (@007 09.11.2026): osobna część raportu, odczyt z p
   assert.doesNotMatch(syncSrc, /group\.calendar\.google\.com\/private-/i, 'Prywatny adres Kalendarza Misji nie może być w kodzie');
   assert.match(syncSrc, /report\.mission_calendar_live = false;/);
 });
+
+test('25. Kalendarz Misji bez wycieku (@007 09.11.2026): brak prywatnych adresów iCal w repo, pliki kalendarza zablokowane publicznie', async () => {
+  const rootDir = path.resolve(import.meta.dirname, '..');
+  const { execFileSync } = await import('node:child_process');
+  const tracked = execFileSync('git', ['ls-files', '-z'], { cwd: rootDir, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }).split('\0').filter((f) => /\.(json|js|mjs|ics|html|md|txt)$/i.test(f) && !f.startsWith('node_modules/'));
+  const leaks = [];
+  for (const f of tracked) {
+    let txt = '';
+    try { txt = fs.readFileSync(path.join(rootDir, f), 'utf8'); } catch { continue; }
+    if (/calendar\.google\.com\/calendar\/ical\/[^\s"'`]+\/private-[0-9a-f]{16,}/i.test(txt)) leaks.push(f);
+  }
+  assert.deepEqual(leaks, [], `Prywatny adres iCal w repo: ${leaks.join(', ')}`);
+  for (const p of ['/data/mission-calendar-config.json', '/ccMC/gcal-mission.json', '/ccMC/data/mission-calendar.ics']) {
+    const r = await worker.fetch(new Request(`https://polskieradio.cc${p}`), { ASSETS: { fetch: async () => new Response('{}', { status: 200 }) } }, {});
+    assert.equal(r.status, 404, `${p} musi być publicznie zablokowany`);
+  }
+});

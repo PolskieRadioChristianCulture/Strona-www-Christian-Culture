@@ -417,7 +417,8 @@ async function main() {
     } catch {}
   }
   if (/^https:\/\/calendar\.google\.com\/calendar\/ical\//.test(missionUrl)) {
-    const nonMission = (report.events || []).filter((e) => e.calendar_kind !== 'mission');
+    // Bez dubli: wpisy misji z wcześniejszego bloku (MISSION_CAL_ID) zastępujemy oznaczonymi calendar_kind=mission
+    const nonMission = (report.events || []).filter((e) => e.calendar_kind !== 'mission' && e.calendar_id !== MISSION_CAL_ID);
     try {
       const missionIcs = await fetchIcs(missionUrl);
       const missionItems = expandIcsEvents(missionIcs, windowStart.getTime(), windowEnd.getTime());
@@ -477,7 +478,7 @@ async function main() {
     } catch {}
   }
 
-  for (const tmp of [calsPath, primaryPath, holidaysPath]) {
+  for (const tmp of [calsPath, primaryPath, holidaysPath, missionPath]) {
     try {
       if (fs.existsSync(tmp)) fs.unlinkSync(tmp);
     } catch {}
