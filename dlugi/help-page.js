@@ -23,12 +23,12 @@
   }
   function mailUrl(text, lang) {
     const subject = lang === 'pl' ? 'Wolontariat — Christian Culture' : 'Volunteering — Christian Culture';
-    return `mailto:polskiercctv@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    return `mailto:wolontariat@polskieradio.cc?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
   }
   // Gmail w przeglądarce: działa także bez domyślnego programu pocztowego (mailto: wtedy nic nie robi)
   function gmailUrl(text, lang) {
     const subject = lang === 'pl' ? 'Wolontariat — Christian Culture' : 'Volunteering — Christian Culture';
-    return `https://mail.google.com/mail/?view=cm&fs=1&to=polskiercctv@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    return `https://mail.google.com/mail/?view=cm&fs=1&to=wolontariat@polskieradio.cc&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = { toCents, difference, draftText, mailUrl, gmailUrl };
   if (typeof document === 'undefined') return;
@@ -164,7 +164,7 @@
   copyButton.addEventListener('click',() => {
     if(!draft) return;
     const done = () => { copyButton.textContent = lang==='pl' ? 'Skopiowano ✓' : 'Copied ✓'; };
-    if (navigator.clipboard) navigator.clipboard.writeText('Do: polskiercctv@gmail.com' + String.fromCharCode(10, 10) + draft).then(done).catch(() => {});
+    if (navigator.clipboard) navigator.clipboard.writeText('Do: wolontariat@polskieradio.cc' + String.fromCharCode(10, 10) + draft).then(done).catch(() => {});
   });
   window.addEventListener('pagehide',() => { if(draftFile) URL.revokeObjectURL(draftFile); });
   // Fail closed if this script is missing or fails before all submit handlers exist.
