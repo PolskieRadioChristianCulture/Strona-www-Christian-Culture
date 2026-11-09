@@ -41,6 +41,7 @@
     "editorial:ccn": "node scripts/ccn-editorial-panel.mjs C:/CC-Private/CCN-Editorial",
     "test:presence-pilot": "node --test scripts/presence-pilot-runtime.test.mjs",
     "update:search": "node scripts/update-search-recommendations.mjs",
+    "calendar:update": "node scripts/update-mission-calendar.mjs",
     "cycle:radar": "node scripts/live_content_v3/trend-radar-15m.mjs",
     "cycle:hourly": "node scripts/live_content_v3/topics-desk-hourly.mjs && node scripts/live_content_v3/cc-inside-hourly.mjs",
     "cycle:daily": "node scripts/live_content_v3/daily-edition.mjs",

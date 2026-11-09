@@ -268,11 +268,32 @@ async function main() {
 
   const calsPath = path.join(baseDir, 'gcal-cals.json');
   const primaryPath = path.join(baseDir, 'gcal-primary.json');
+  const missionPath = path.join(baseDir, 'gcal-mission.json');
   const holidaysPath = path.join(baseDir, 'gcal-holidays.json');
 
-  // Odczyt NA ŻYWO z prywatnego adresu iCal właściciela (@007, 09.11.2026) — zero kosztów, tylko odczyt.
-  // Adres trzymany poza repo: %USERPROFILE%\.cc-secrets\gcal_ical_url.txt (albo zmienna CC_GCAL_ICAL_URL).
+  // Odczyt NA ŻYWO z prywatnych adresów iCal (@007 / @A001, 09.11.2026) — zero kosztów, tylko odczyt.
+  // 1) Kalendarz misyjny CC: %USERPROFILE%\.cc-secrets\gcal_mission_ical_url.txt
+  // 2) Kalendarz domowy: %USERPROFILE%\.cc-secrets\gcal_ical_url.txt
   let calendarLiveSource = null;
+  const MISSION_CAL_ID = 'f7f5e88a298efc9cfe82b630455221f0b5d53968d7a391b46494f230a6c1ea7b@group.calendar.google.com';
+
+  let missionIcalUrl = String(process.env.CC_GCAL_MISSION_ICAL_URL || '').trim();
+  if (!missionIcalUrl) {
+    try {
+      missionIcalUrl = fs.readFileSync(path.join(os.homedir(), '.cc-secrets', 'gcal_mission_ical_url.txt'), 'utf8').trim();
+    } catch {}
+  }
+  if (/^https:\/\/calendar\.google\.com\/calendar\/ical\//.test(missionIcalUrl)) {
+    try {
+      const missionIcs = await fetchIcs(missionIcalUrl);
+      const missionItems = expandIcsEvents(missionIcs, windowStart.getTime(), windowEnd.getTime());
+      fs.writeFileSync(missionPath, JSON.stringify(missionItems), 'utf8');
+      calendarLiveSource = 'ical';
+    } catch (err) {
+      report.warnings.push(`Kalendarz misyjny niedostępny: ${err.message}`);
+    }
+  }
+
   let icalUrl = String(process.env.CC_GCAL_ICAL_URL || '').trim();
   if (!icalUrl) {
     try {
@@ -284,7 +305,11 @@ async function main() {
       const icsText = await fetchIcs(icalUrl);
       const items = expandIcsEvents(icsText, windowStart.getTime(), windowEnd.getTime());
       fs.writeFileSync(primaryPath, JSON.stringify(items), 'utf8');
-      fs.writeFileSync(calsPath, JSON.stringify([{ id: TARGET_ACCOUNT, primary: true, dataOwner: TARGET_ACCOUNT }]), 'utf8');
+      fs.writeFileSync(calsPath, JSON.stringify([
+        { id: MISSION_CAL_ID, name: 'Kalendarz Christian Culture', isMission: true },
+        { id: TARGET_ACCOUNT, primary: true, dataOwner: TARGET_ACCOUNT },
+        { id: 'pl.polish#holiday@group.v.calendar.google.com', name: 'Święta w Polsce' }
+      ]), 'utf8');
       try {
         const holText = await fetchIcs(POLISH_HOLIDAYS_ICS_URL);
         fs.writeFileSync(holidaysPath, JSON.stringify(expandIcsEvents(holText, windowStart.getTime(), windowEnd.getTime())), 'utf8');
@@ -343,8 +368,10 @@ async function main() {
         report.account_verified = true;
       }
 
-      report.calendars_checked = ['primary', 'pl.polish#holiday@group.v.calendar.google.com'];
+      const missionEvents = fs.existsSync(missionPath) ? readJsonAutoEncoding(missionPath) : [];
+      report.calendars_checked = ['primary', MISSION_CAL_ID, 'pl.polish#holiday@group.v.calendar.google.com'];
       const normalized = [
+        ...normalizeGcalItems(missionEvents, MISSION_CAL_ID),
         ...normalizeGcalItems(primaryEvents, 'primary'),
         ...normalizeGcalItems(holidayEvents, 'pl.polish#holiday@group.v.calendar.google.com'),
       ];
