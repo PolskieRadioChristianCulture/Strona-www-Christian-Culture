@@ -47,7 +47,7 @@
   const ROTATING_ASSISTANTS = [
     {
       id: 'asystentka-1',
-      name: 'Noemi · Asystentka CC',
+      name: 'Rut · Asystentka CC',
       role: 'Wirtualna gospodarz LUMI MESS',
       avatar: '/images/chat/assistants/asystentka-1.webp',
       avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
@@ -65,7 +65,7 @@
     },
     {
       id: 'asystentka-3',
-      name: 'Rut · Doradca CC',
+      name: 'Noemi · Doradca CC',
       role: 'Wirtualna asystentka LUMINA',
       avatar: '/images/chat/assistants/asystentka-3.webp',
       avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
