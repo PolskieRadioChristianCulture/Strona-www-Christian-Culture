@@ -282,10 +282,16 @@
     "book": "genesis",
     "chapter": 20,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_20_1-18_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 20",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_20_1-18_Biblia_Audio_CC.mp3",
+        "verses": "1–18"
+      }
+    ]
   },
   {
     "id": "genesis-21",
