@@ -1,6 +1,7 @@
 {
   "targets": [
     {"name": "Portal Główny Christian Culture", "url": "https://polskieradio.cc/", "critical": true},
+    {"name": "Portal cclite.pl (Aplikacja Lekka)", "url": "https://cclite.pl/", "critical": true},
     {"name": "Portal Społecznościowy LUMINA", "url": "https://polskieradio.cc/lumina", "critical": true},
     {"name": "Tablica Społeczności LUMINA", "url": "https://polskieradio.cc/lumina-tablica.html", "critical": true},
     {"name": "Komunikator LUMI MESS", "url": "https://polskieradio.cc/mess", "critical": true},

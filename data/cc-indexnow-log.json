@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-10T05:04:16.963Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 346
+    },
+    {
+      "timestamp": "2026-11-10T05:04:16.430Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 346
+    },
+    {
+      "timestamp": "2026-11-10T05:04:15.331Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news",
+        "https://polskieradio.cc/news",
+        "https://polskieradio.cc/news"
+      ]
+    },
+    {
       "timestamp": "2026-11-10T04:51:35.779Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",

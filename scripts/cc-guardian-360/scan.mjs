@@ -98,22 +98,30 @@ for (const target of config.targets) {
         }
       }
 
-      // 4. Detekcja kolizji wizualnych na odtwarzaczach wideo
+      // 4. Detekcja kolizji wizualnych na odtwarzaczach wideo (Zero-QA: zapobieganie zasłonięciu TV LIVE)
       const videoCovered = await page.evaluate(() => {
         const video = document.querySelector('iframe[src*="live"], iframe[src*="master"], video, .video-container');
         if (!video) return null;
         const rect = video.getBoundingClientRect();
         if (rect.width <= 0 || rect.height <= 0) return null;
         
-        // Sprawdź czy jakikolwiek element o wysokim z-index przysłania centrum odtwarzacza
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        if (cx >= 0 && cx <= window.innerWidth && cy >= 0 && cy <= window.innerHeight) {
-          const topEl = document.elementFromPoint(cx, cy);
-          if (topEl && !video.contains(topEl) && topEl !== video) {
-            // Ignoruj standardowe przyciski play/overlay wewnątrz playera oraz celowe kontrolki intro w LUMI MESS
-            if (!topEl.closest('.video-container, .hero-section, #promoPlayBtn, #liveStreamBox, #lumiIntroOverlay, .lumi-intro-video-wrap, .lumi-intro-controls, #directMessagesModal, .lumi-standalone')) {
-              return topEl.className || topEl.tagName;
+        // Sprawdź 5 strategicznych punktów odtwarzacza (góra, środek, dół, lewo, prawo)
+        const points = [
+          { x: rect.left + rect.width * 0.5, y: rect.top + rect.height * 0.25 }, // góra/ćwiartka (tam gdzie był zegar)
+          { x: rect.left + rect.width * 0.5, y: rect.top + rect.height * 0.5 },  // środek
+          { x: rect.left + rect.width * 0.5, y: rect.top + rect.height * 0.75 }, // dół
+          { x: rect.left + rect.width * 0.25, y: rect.top + rect.height * 0.5 }, // lewa strona
+          { x: rect.left + rect.width * 0.75, y: rect.top + rect.height * 0.5 }  // prawa strona
+        ];
+
+        for (const pt of points) {
+          if (pt.x >= 0 && pt.x <= window.innerWidth && pt.y >= 0 && pt.y <= window.innerHeight) {
+            const topEl = document.elementFromPoint(pt.x, pt.y);
+            if (topEl && !video.contains(topEl) && topEl !== video) {
+              // Ignoruj standardowe przyciski play/overlay wewnątrz playera oraz celowe kontrolki intro w LUMI MESS
+              if (!topEl.closest('.video-container, .hero-section, #promoPlayBtn, #liveStreamBox, #lumiIntroOverlay, .lumi-intro-video-wrap, .lumi-intro-controls, #directMessagesModal, .lumi-standalone')) {
+                return (topEl.className ? `${topEl.tagName.toLowerCase()}.${topEl.className}` : topEl.tagName.toLowerCase());
+              }
             }
           }
         }
