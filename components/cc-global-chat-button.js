@@ -1454,6 +1454,20 @@
             Wybierz dogodną formę kontaktu: rozmowę na czacie, katalog społeczności, tablicę LUMINA, wsparcie duszpasterskie lub grupę WhatsApp.
           </div>
 
+          <!-- Karta 0: Asystent Christian Culture -->
+          <div class="cc-chat-action-card" id="ccChatActionAssistant" role="button" tabindex="0">
+            <div class="cc-chat-action-card-left">
+              <div class="cc-chat-action-icon" style="background: rgba(196, 163, 90, 0.22); color: #E2CC9A;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+              </div>
+              <div class="cc-chat-action-info">
+                <span class="cc-chat-action-title">Asystent Christian Culture 🧭</span>
+                <span class="cc-chat-action-desc">Wirtualny gospodarz · Pomoc i inspiracja przez całą dobę</span>
+              </div>
+            </div>
+            <span class="cc-chat-action-arrow"><svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
+
           <!-- Karta 1: Czat Ogólny Społeczności LUMINA -->
           <div class="cc-chat-action-card" id="ccChatActionLumina" role="button" tabindex="0">
             <div class="cc-chat-action-card-left">
@@ -1563,6 +1577,7 @@
     const viewMembers = document.getElementById('ccChatViewMembers');
     const viewChannels = document.getElementById('ccChatViewChannels');
     const openMembersBtn = document.getElementById('ccChatOpenMembersBtn');
+    const actionAssistantCard = document.getElementById('ccChatActionAssistant');
     const actionLuminaCard = document.getElementById('ccChatActionLumina');
     const actionMembersCard = document.getElementById('ccChatActionMembers');
     const membersSearchInput = document.getElementById('ccChatMembersSearchInput');
@@ -1615,6 +1630,19 @@
 
     if (openMembersBtn) {
       openMembersBtn.addEventListener('click', function () { switchTab('members'); });
+    }
+
+    if (actionAssistantCard) {
+      actionAssistantCard.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.CCGlobalChat.open('assistant', 'cc-assistant');
+      });
+      actionAssistantCard.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          window.CCGlobalChat.open('assistant', 'cc-assistant');
+        }
+      });
     }
 
     if (actionLuminaCard) {
@@ -2489,6 +2517,19 @@
   // Eksport globalnego API
   window.CCGlobalChat = {
     open: function (targetTab, targetPartnerId) {
+      if (targetTab === 'assistant' || targetPartnerId === 'cc-assistant') {
+        if (window.CCAssistant?.open) {
+          window.CCAssistant.open({ source: 'global_chat' });
+          return;
+        }
+        if (!isCanonicalMessenger) {
+          integrationReady.then(() => {
+            if (window.CCUnifiedChat) window.CCUnifiedChat.open({ tab: 'assistant', partner: 'cc-assistant' });
+            else window.location.href = '/mess?assistant=cc';
+          });
+          return;
+        }
+      }
       if (!isCanonicalMessenger) {
         integrationReady.then(() => {
           if (window.CCUnifiedChat) window.CCUnifiedChat.open({ tab: targetTab === 'members' ? 'private' : 'public', partner: targetPartnerId });

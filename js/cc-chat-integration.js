@@ -83,6 +83,20 @@
   let host, frame, previousOverflow, opener, request = { tab: 'public' };
   function openCurrent(next = request, tries = 0) {
     request = next;
+    const isAssistantReq =
+      next.tab === 'assistant' ||
+      next.partner === 'cc-assistant' ||
+      next.assistant === 'cc' ||
+      next.assistant === true;
+    if (isAssistantReq && window.CCAssistant?.isEnabled?.()) {
+      const drawer = document.getElementById('ccGlobalChatOverlay');
+      if (drawer) {
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+      }
+      window.CCAssistant.open({ source: next.source || 'unified_chat', topic: next.topic });
+      return;
+    }
     const user = window.LuminaDB?.getCurrentUser?.();
     // Sesja Firebase w osadzonym /mess odtwarza się chwilę — rozmowa z konkretną osobą czeka na nią (do ~10 s).
     if (next.partner && (!user || user.isAnonymous) && tries < 50) {

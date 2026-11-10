@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   'use strict';
   if (window.LumiDashboard) return;
   const root = document.getElementById('lumiLanding');
@@ -142,6 +142,45 @@
     button.addEventListener('click', openFamilyRoom);
     return button;
   }
+  function openAssistantRoom() {
+    if (window.CCAssistant?.open) {
+      window.CCAssistant.open({ source: 'lumi_dashboard' });
+    } else if (window.CCUnifiedChat?.openCurrent) {
+      window.CCUnifiedChat.openCurrent({ tab: 'assistant', partner: 'cc-assistant', source: 'lumi_dashboard' });
+    } else if (typeof window.openDirectMessagesModal === 'function') {
+      window.openDirectMessagesModal('assistant');
+    } else {
+      $('lumiOpen')?.click();
+      setTimeout(() => {
+        if (window.CCAssistant?.open) window.CCAssistant.open({ source: 'lumi_dashboard' });
+        else window.switchMessengerMainTab?.('assistant');
+      }, 200);
+    }
+  }
+  function assistantCard() {
+    const button = document.createElement('button'); button.type = 'button';
+    button.className = 'lumi-conversation-card lumi-assistant-card';
+    button.setAttribute('data-assistant-card', 'true');
+    const img = document.createElement('img');
+    img.src = '/images/chat/cc-chat-button-128.webp';
+    img.alt = 'Asystent Christian Culture';
+    img.loading = 'lazy'; img.width = 72; img.height = 72;
+    img.style.borderColor = '#C4A35A';
+    const body = document.createElement('span'); body.className = 'lumi-card-body';
+    const title = document.createElement('span'); title.className = 'lumi-card-title';
+    title.textContent = '🧭 Asystent Christian Culture';
+    const badge = document.createElement('span'); badge.className = 'lumi-card-role'; badge.textContent = 'Wirtualny gospodarz';
+    title.append(badge);
+    const description = document.createElement('span'); description.className = 'lumi-card-description';
+    description.textContent = 'Wirtualny gospodarz · Pomoc i inspiracja przez całą dobę';
+    const preview = document.createElement('span'); preview.className = 'lumi-card-preview';
+    preview.textContent = 'Zadaj pytanie, znajdź materiały lub zgłoś pomysł';
+    body.append(title, description, preview);
+    const arrow = document.createElement('span'); arrow.className = 'lumi-card-arrow'; arrow.textContent = '›'; arrow.setAttribute('aria-hidden', 'true');
+    button.prepend(img, body); button.append(arrow);
+    button.addEventListener('click', openAssistantRoom);
+    return button;
+  }
   function login() { location.href = '/lumina-login?next=%2Fmess'; }
   function safeImage(value) {
     try { const url = new URL(value || '/images/chat/cc-chat-button-128.webp', location.href); return url.protocol === 'https:' || url.origin === location.origin ? url.href : '/images/chat/cc-chat-button-128.webp'; }
@@ -216,6 +255,7 @@
   function renderChannels() {
     const list = $('lumiConversationCards'); list.replaceChildren();
     const channels = [
+      ['🧭 Asystent Christian Culture', 'Wirtualny gospodarz · Pomoc i inspiracja przez całą dobę', openAssistantRoom],
       ['📿 Biblijny Czas Modlitwy 24/7 (LIVE)', 'Kanał modlitewny i intencje na żywo z Jolą Wójcik', openBcm24Room],
       ['Czat ogólny LUMINA', 'Rozmowy całej społeczności', () => $('lumiOpen').click()],
       ['Formacja biblijna', 'Akademia Christian Culture', () => { location.href = '/akademia'; }],
@@ -263,6 +303,12 @@
     if (query) list = list.filter(entry => `${entry.name} ${entry.desc || ''} ${entry.room?.lastMessageText || ''}`.toLocaleLowerCase('pl-PL').includes(query));
     if (filter === 'recent') list.sort((a, b) => timestamp(b.room?.lastMessageTimestamp) - timestamp(a.room?.lastMessageTimestamp));
     const cards = list.map(card);
+    if (window.CCAssistant?.isEnabled?.()) {
+      const assistantMatches = !query || 'asystent christian culture wirtualny gospodarz pomoc inspiracja pytanie biblia radio'.includes(query);
+      if (assistantMatches && (category === 'all' || category === 'community') && (filter === 'all' || filter === 'mine')) {
+        cards.unshift(assistantCard());
+      }
+    }
     if (isRogowscy()) {
       const familyMatches = !query || 'rodzina pokój rodzinny lumi family dom'.includes(query);
       if (familyMatches && (filter === 'all' || filter === 'mine')) {
@@ -350,6 +396,7 @@
     $('lumiFilterBcm24')?.addEventListener('click', openBcm24Room);
     $('lumiOpenCommander')?.addEventListener('click', openCommanderRoom);
     $('lumiOpenFamily')?.addEventListener('click', openFamilyRoom);
+    $('lumiOpenAssistant')?.addEventListener('click', openAssistantRoom);
     window.addEventListener('lumina-auth-state', bindSession);
     for (const event of ['lumina:carousel-people', 'lumina:notification', 'lumina:profileDeleted', 'cc-global-chat-ready']) window.addEventListener(event, render);
     window.addEventListener('cc-chat-integration-ready', () => { bindRadio(); bindSession(); });
