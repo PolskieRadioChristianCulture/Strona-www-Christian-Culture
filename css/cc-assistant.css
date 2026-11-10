@@ -70,7 +70,8 @@ body.user-is-guest #directMessagesModal.open[data-cc-assistant] {
   box-shadow: 0 0 0 1px rgba(255, 122, 0, 0.35);
 }
 
-.cc-asst-avatar {
+.cc-asst-avatar,
+.cc-asst-avatar-wrap {
   width: 44px;
   height: 44px;
   min-width: 44px;
@@ -89,15 +90,43 @@ body.user-is-guest #directMessagesModal.open[data-cc-assistant] {
   flex-shrink: 0;
 }
 
+.cc-asst-avatar img,
+.cc-asst-avatar-wrap img,
+.cc-asst-header-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 2px solid var(--cc-asst-gold);
+  box-shadow: 0 4px 12px rgba(196, 163, 90, 0.28);
+}
+
 .cc-asst-avatar-dot {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 11px;
-  height: 11px;
+  right: -1px;
+  bottom: -1px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: #22c55e;
   border: 2px solid #0d121d;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+  z-index: 3;
+}
+
+.cc-asst-msg-meta-avatar {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+  border: 1.5px solid var(--cc-asst-gold);
+  flex-shrink: 0;
+  margin-right: 2px;
 }
 
 .cc-asst-pinned-meta {

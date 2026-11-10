@@ -49,6 +49,104 @@
     });
   }
 
+  const ROTATING_ASSISTANTS = Object.freeze({
+    'asystentka-1': Object.freeze({
+      id: 'asystentka-1',
+      name: 'Rut · Asystentka CC',
+      shortName: 'Rut',
+      badge: 'Asystentka CC',
+      subtitle: 'Wirtualny gospodarz LUMI MESS · Asystentka CC',
+      avatar: '/images/chat/assistants/asystentka-1.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
+      greeting: 'W czym mogę Ci dziś pomóc? Kliknij, aby porozmawiać!',
+      welcomeText:
+        'Cześć! ❤️ Dobrze, że jesteś. Nazywam się Rut — jestem Asystentem Christian Culture i gospodynią LUMI MESS. Przez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem. W czym mogę Ci dziś pomóc?'
+    }),
+    'asystentka-2': Object.freeze({
+      id: 'asystentka-2',
+      name: 'Sara · Doradca CC',
+      shortName: 'Sara',
+      badge: 'Doradca CC',
+      subtitle: 'Wirtualny gospodarz LUMI MESS · Doradca CC',
+      avatar: '/images/chat/assistants/asystentka-2.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
+      greeting: 'Zadaj pytanie lub zgłoś pomysł. Jestem tu dla Ciebie!',
+      welcomeText:
+        'Witaj serdecznie! 🌟 Nazywam się Sara — jestem Asystentem Christian Culture i Twoim doradcą. Z radością pomogę Ci odkryć nasze audycje radiowe, interlinearną Biblię, Akademię czy społeczność LUMINA. W czym mogę Ci dziś pomóc?'
+    }),
+    'asystentka-3': Object.freeze({
+      id: 'asystentka-3',
+      name: 'Noemi · Doradca CC',
+      shortName: 'Noemi',
+      badge: 'Doradca CC',
+      subtitle: 'Wirtualny gospodarz LUMI MESS · Doradca CC',
+      avatar: '/images/chat/assistants/asystentka-3.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
+      greeting: 'Masz pytanie o radio, Biblię lub audycje? Napisz śmiało!',
+      welcomeText:
+        'Pokój Boży! ✨ Nazywam się Noemi — jestem Asystentem Christian Culture i Twoim doradcą. Chętnie wskażę Ci najpiękniejszą muzykę uwielbienia, transmisje LIVE, słuchowiska Biblia Audio i rozważania na dziś. W czym mogę Ci dziś pomóc?'
+    })
+  });
+
+  let _currentAssistantId = null;
+
+  function resolveAssistantKey(rawId) {
+    if (!rawId) return null;
+    const str = String(rawId).trim().toLowerCase();
+    if (str === 'asystentka-1' || str === 'rut') return 'asystentka-1';
+    if (str === 'asystentka-2' || str === 'sara') return 'asystentka-2';
+    if (str === 'asystentka-3' || str === 'noemi') return 'asystentka-3';
+    return null;
+  }
+
+  function getActiveAssistant(idOverride) {
+    const keyFromOverride = resolveAssistantKey(idOverride);
+    if (keyFromOverride && ROTATING_ASSISTANTS[keyFromOverride]) {
+      return ROTATING_ASSISTANTS[keyFromOverride];
+    }
+    if (_currentAssistantId && ROTATING_ASSISTANTS[_currentAssistantId]) {
+      return ROTATING_ASSISTANTS[_currentAssistantId];
+    }
+    try {
+      if (root && root.location && root.location.search) {
+        const p = new URLSearchParams(root.location.search);
+        const fromParam = resolveAssistantKey(p.get('asst') || p.get('assistantId') || p.get('openChat'));
+        if (fromParam && ROTATING_ASSISTANTS[fromParam]) {
+          _currentAssistantId = fromParam;
+          return ROTATING_ASSISTANTS[fromParam];
+        }
+      }
+    } catch (_) {}
+    try {
+      if (root && root.sessionStorage) {
+        const fromSession = resolveAssistantKey(root.sessionStorage.getItem('cc_active_assistant_id'));
+        if (fromSession && ROTATING_ASSISTANTS[fromSession]) {
+          _currentAssistantId = fromSession;
+          return ROTATING_ASSISTANTS[fromSession];
+        }
+      }
+    } catch (_) {}
+    const keys = ['asystentka-1', 'asystentka-2', 'asystentka-3'];
+    const now = new Date();
+    const dayIndex = Math.floor(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) / 86400000);
+    const defaultKey = keys[dayIndex % keys.length];
+    return ROTATING_ASSISTANTS[defaultKey];
+  }
+
+  function setActiveAssistant(id) {
+    const key = resolveAssistantKey(id);
+    if (key && ROTATING_ASSISTANTS[key]) {
+      _currentAssistantId = key;
+      try {
+        if (root && root.sessionStorage) {
+          root.sessionStorage.setItem('cc_active_assistant_id', key);
+        }
+      } catch (_) {}
+      return ROTATING_ASSISTANTS[key];
+    }
+    return getActiveAssistant();
+  }
+
   const AssistantIdentity = Object.freeze({
     id: 'cc-assistant',
     slug: 'cc-assistant',
@@ -1556,18 +1654,25 @@
     ensureInitialized(uidOverride) {
       const uid = uidOverride || this.getCurrentUserId();
       const current = this.getMessages(uid);
+      const asst = getActiveAssistant();
       const hasWelcome = current.some((m) => m && m.isWelcome === true);
       if (hasWelcome) {
+        if (current[0] && current[0].isWelcome && current[0].senderId !== asst.id) {
+          current[0].senderId = asst.id;
+          current[0].senderName = asst.name;
+          current[0].text = asst.welcomeText;
+          return this._saveMessages(current, uid);
+        }
         return current;
       }
       const welcomeResponse = IntentRouter.route('');
       const welcomeMsg = {
         id: 'cc-asst-welcome',
-        senderId: AssistantIdentity.id,
-        senderName: AssistantIdentity.name,
+        senderId: asst.id,
+        senderName: asst.name,
         role: 'assistant',
         isWelcome: true,
-        text: AssistantIdentity.welcomeText,
+        text: asst.welcomeText,
         timestamp: Date.now(),
         assistantPayload: welcomeResponse,
       };
@@ -1587,6 +1692,7 @@
 
       const uid = this.getCurrentUserId();
       const thread = this.ensureInitialized(uid);
+      const asst = getActiveAssistant();
 
       const userMsg = {
         id: `user-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
@@ -1600,8 +1706,8 @@
       const routed = IntentRouter.route(cleanText);
       const botMsg = {
         id: `asst-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
-        senderId: AssistantIdentity.id,
-        senderName: AssistantIdentity.name,
+        senderId: asst.id,
+        senderName: asst.name,
         role: 'assistant',
         text: routed.replyText,
         timestamp: Date.now() + 1,
@@ -1621,11 +1727,12 @@
     appendTopicCard(topicId) {
       const uid = this.getCurrentUserId();
       const thread = this.ensureInitialized(uid);
+      const asst = getActiveAssistant();
       const routed = IntentRouter.resolveTopicById(topicId);
       const botMsg = {
         id: `asst-topic-${Date.now()}`,
-        senderId: AssistantIdentity.id,
-        senderName: AssistantIdentity.name,
+        senderId: asst.id,
+        senderName: asst.name,
         role: 'assistant',
         text: routed.replyText,
         timestamp: Date.now(),
@@ -1705,26 +1812,31 @@
       const dmList = doc.getElementById('dmConversationsList');
       if (!dmList) return;
       let pinned = doc.getElementById('ccAsstPinnedDmItem');
+      const asst = getActiveAssistant();
       if (!pinned) {
         pinned = doc.createElement('button');
         pinned.type = 'button';
         pinned.id = 'ccAsstPinnedDmItem';
         pinned.className = 'cc-asst-pinned-dm-item';
-        pinned.setAttribute('data-assistant-id', AssistantIdentity.id);
-        pinned.setAttribute('aria-label', `${AssistantIdentity.name} — ${AssistantIdentity.subtitle}`);
+        pinned.setAttribute('data-assistant-id', asst.id);
+        pinned.setAttribute('aria-label', `${asst.name} — ${asst.subtitle}`);
         pinned.innerHTML = `
-          <div class="cc-asst-avatar" aria-hidden="true">
-            <span>${SafetyPolicy.escapeHtml(AssistantIdentity.avatarInitials)}</span>
+          <div class="cc-asst-avatar-wrap" aria-hidden="true">
+            <img src="${SafetyPolicy.escapeHtml(asst.avatar)}" alt="${SafetyPolicy.escapeHtml(asst.name)}" class="cc-asst-header-avatar" id="ccAsstPinnedAvatar" width="44" height="44" loading="eager" />
             <span class="cc-asst-avatar-dot"></span>
           </div>
           <div class="cc-asst-pinned-meta">
             <div class="cc-asst-pinned-title-row">
-              <span class="cc-asst-pinned-name">${SafetyPolicy.escapeHtml(AssistantIdentity.name)}</span>
-              <span class="cc-asst-badge">${SafetyPolicy.escapeHtml(AssistantIdentity.badge)}</span>
+              <span class="cc-asst-pinned-name" id="ccAsstPinnedName">${SafetyPolicy.escapeHtml(asst.name)}</span>
+              <span class="cc-asst-badge" id="ccAsstPinnedBadge">${SafetyPolicy.escapeHtml(asst.badge)}</span>
             </div>
-            <div class="cc-asst-pinned-sub">${SafetyPolicy.escapeHtml(AssistantIdentity.subtitle)}</div>
+            <div class="cc-asst-pinned-sub" id="ccAsstPinnedSub">${SafetyPolicy.escapeHtml(asst.subtitle)} · Asystent Christian Culture</div>
           </div>
         `;
+        const img = pinned.querySelector('#ccAsstPinnedAvatar');
+        if (img) {
+          img.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
+        }
         pinned.addEventListener('click', () => {
           this.open({ source: 'dm_list' });
         });
@@ -1739,10 +1851,11 @@
       const privateView = doc.getElementById('messengerPrivateView');
       const hostParent = (pubView && pubView.parentElement) || (privateView && privateView.parentElement) || modal.querySelector('.dm-container') || modal;
 
+      const asst = getActiveAssistant();
       const view = doc.createElement('section');
       view.id = 'messengerAssistantView';
       view.setAttribute('role', 'region');
-      view.setAttribute('aria-label', AssistantIdentity.name);
+      view.setAttribute('aria-label', asst.name);
 
       const flags = getFeatureFlags();
       const chipsHtml = AssistantIdentity.starterChips
@@ -1757,16 +1870,16 @@
       view.innerHTML = `
         <header class="cc-asst-header">
           <div class="cc-asst-header-info">
-            <div class="cc-asst-avatar" aria-hidden="true">
-              <span>${SafetyPolicy.escapeHtml(AssistantIdentity.avatarInitials)}</span>
+            <div class="cc-asst-avatar-wrap" aria-hidden="true">
+              <img src="${SafetyPolicy.escapeHtml(asst.avatar)}" alt="${SafetyPolicy.escapeHtml(asst.name)}" class="cc-asst-header-avatar" id="ccAsstHeaderAvatar" width="44" height="44" loading="eager" />
               <span class="cc-asst-avatar-dot"></span>
             </div>
             <div class="cc-asst-header-titles">
               <div class="cc-asst-header-title-row">
-                <h3 class="cc-asst-header-name">${SafetyPolicy.escapeHtml(AssistantIdentity.name)}</h3>
-                <span class="cc-asst-badge">${SafetyPolicy.escapeHtml(AssistantIdentity.badge)}</span>
+                <h3 class="cc-asst-header-name" id="ccAsstHeaderName">${SafetyPolicy.escapeHtml(asst.name)}</h3>
+                <span class="cc-asst-badge" id="ccAsstHeaderBadge">${SafetyPolicy.escapeHtml(asst.badge)}</span>
               </div>
-              <p class="cc-asst-header-sub">${SafetyPolicy.escapeHtml(AssistantIdentity.subtitle)}</p>
+              <p class="cc-asst-header-sub" id="ccAsstHeaderSub">${SafetyPolicy.escapeHtml(asst.subtitle)} · Asystent Christian Culture</p>
             </div>
           </div>
           <div class="cc-asst-header-tools">
@@ -1895,9 +2008,13 @@
         if (
           slugNorm === 'cc-assistant' ||
           slugNorm === 'asystent christian culture' ||
-          slugNorm === 'assistant'
+          slugNorm === 'assistant' ||
+          slugNorm.startsWith('asystentka-') ||
+          slugNorm === 'rut' ||
+          slugNorm === 'sara' ||
+          slugNorm === 'noemi'
         ) {
-          this.open({ source: 'open_chat_with' });
+          this.open({ source: 'open_chat_with', assistantId: slugNorm });
           return;
         }
         this.closeAssistantView();
@@ -1925,18 +2042,33 @@
       const list = root.document.getElementById('ccAsstMessagesList');
       if (!list) return;
 
+      const asst = getActiveAssistant();
       const messages = conversationAdapter.ensureInitialized();
       list.innerHTML = '';
 
       for (const msg of messages) {
-        const isBot = msg.role === 'assistant' || msg.senderId === AssistantIdentity.id;
+        const isBot = msg.role === 'assistant' || msg.senderId === AssistantIdentity.id || (msg.senderId && String(msg.senderId).startsWith('asystentka-'));
         const item = root.document.createElement('div');
         item.className = `cc-asst-msg ${isBot ? 'cc-asst-msg-bot' : 'cc-asst-msg-user'}`;
         item.setAttribute('data-msg-id', msg.id || '');
 
         const meta = root.document.createElement('div');
         meta.className = 'cc-asst-msg-meta';
-        meta.textContent = isBot ? AssistantIdentity.name : msg.senderName || 'Ty';
+        if (isBot) {
+          const img = root.document.createElement('img');
+          img.className = 'cc-asst-msg-meta-avatar';
+          img.src = asst.avatar;
+          img.alt = asst.name;
+          img.width = 22;
+          img.height = 22;
+          img.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
+          meta.appendChild(img);
+          const nameSpan = root.document.createElement('span');
+          nameSpan.textContent = asst.name;
+          meta.appendChild(nameSpan);
+        } else {
+          meta.textContent = msg.senderName || 'Ty';
+        }
         item.appendChild(meta);
 
         const bubble = root.document.createElement('div');
@@ -2198,11 +2330,47 @@
       this._activeSheet = null;
     },
 
+    getActiveAssistant: (idOverride) => getActiveAssistant(idOverride),
+    setActiveAssistant: (id) => setActiveAssistant(id),
+
     open(options = {}) {
       if (!this.isEnabled()) return false;
+      if (options.assistantId) {
+        setActiveAssistant(options.assistantId);
+      }
       this.mount();
       if (!root || !root.document) return false;
       const doc = root.document;
+
+      const asst = getActiveAssistant();
+
+      // Refresh dynamic header elements
+      const headerAvatar = doc.getElementById('ccAsstHeaderAvatar');
+      if (headerAvatar) {
+        headerAvatar.src = asst.avatar;
+        headerAvatar.alt = asst.name;
+        headerAvatar.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
+      }
+      const headerName = doc.getElementById('ccAsstHeaderName');
+      if (headerName) headerName.textContent = asst.name;
+      const headerBadge = doc.getElementById('ccAsstHeaderBadge');
+      if (headerBadge) headerBadge.textContent = asst.badge;
+      const headerSub = doc.getElementById('ccAsstHeaderSub');
+      if (headerSub) headerSub.textContent = `${asst.subtitle} · Asystent Christian Culture`;
+
+      // Refresh pinned DM item
+      const pinnedAvatar = doc.getElementById('ccAsstPinnedAvatar');
+      if (pinnedAvatar) {
+        pinnedAvatar.src = asst.avatar;
+        pinnedAvatar.alt = asst.name;
+        pinnedAvatar.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
+      }
+      const pinnedName = doc.getElementById('ccAsstPinnedName');
+      if (pinnedName) pinnedName.textContent = asst.name;
+      const pinnedBadge = doc.getElementById('ccAsstPinnedBadge');
+      if (pinnedBadge) pinnedBadge.textContent = asst.badge;
+      const pinnedSub = doc.getElementById('ccAsstPinnedSub');
+      if (pinnedSub) pinnedSub.textContent = `${asst.subtitle} · Asystent Christian Culture`;
 
       const modal = doc.getElementById('directMessagesModal');
       if (modal) {
@@ -2229,11 +2397,30 @@
         assistantView.style.display = 'flex';
       }
 
+      // Hide active 1-to-1 DM room if it was left open
+      const dmChatRoomView = doc.getElementById('dmChatRoomView');
+      if (dmChatRoomView) dmChatRoomView.style.display = 'none';
+      const dmActiveConversationBox = doc.getElementById('dmActiveConversationBox');
+      if (dmActiveConversationBox) dmActiveConversationBox.style.display = 'none';
+
+      // Reset tab highlights
+      const btnPriv = doc.getElementById('tabBtnPrivateChat');
+      if (btnPriv) {
+        btnPriv.classList.remove('active');
+        btnPriv.style.background = 'transparent';
+        btnPriv.style.color = '#94a3b8';
+        btnPriv.style.boxShadow = 'none';
+      }
+      const btnPub = doc.getElementById('tabBtnPublicChat');
+      if (btnPub) {
+        btnPub.classList.remove('active');
+        btnPub.style.background = 'transparent';
+        btnPub.style.color = '#94a3b8';
+        btnPub.style.boxShadow = 'none';
+      }
       doc.getElementById('tabBtnPublic')?.classList.remove('active');
-      doc.getElementById('tabBtnPublicChat')?.classList.remove('active');
       doc.getElementById('tabBtnGroupsChat')?.classList.remove('active');
       doc.getElementById('tabBtnPrivate')?.classList.remove('active');
-      doc.getElementById('tabBtnPrivateChat')?.classList.remove('active');
       doc.getElementById('tabBtnAssistant')?.classList.add('active');
       doc.getElementById('ccAsstPinnedDmItem')?.classList.add('active');
 
@@ -2277,17 +2464,22 @@
         const asst = (params.get('assistant') || '').toLowerCase();
         const openChat = (params.get('openChat') || '').toLowerCase();
         const tab = (params.get('tab') || '').toLowerCase();
+        const asstId = params.get('asst') || params.get('assistantId') || '';
 
         if (
           asst === 'cc' ||
           asst === '1' ||
           asst === 'true' ||
           openChat === 'cc-assistant' ||
+          openChat.startsWith('asystentka-') ||
+          openChat === 'rut' ||
+          openChat === 'sara' ||
+          openChat === 'noemi' ||
           tab === 'assistant'
         ) {
           const source = SafetyPolicy.validateSourceParam(params.get('source') || 'url');
           const topic = SafetyPolicy.validateTopicParam(params.get('topic') || '');
-          this.open({ source, topic });
+          this.open({ source, topic, assistantId: asstId || openChat });
           return true;
         }
       } catch (_) {}
@@ -2301,6 +2493,9 @@
   const CCAssistantAPI = {
     version: '1.0.0-mvp',
     Identity: AssistantIdentity,
+    RotatingAssistants: ROTATING_ASSISTANTS,
+    getActiveAssistant,
+    setActiveAssistant,
     VerifiedContacts: VERIFIED_CONTACTS,
     getFeatureFlags,
     isEnabled: () => UIController.isEnabled(),
@@ -2315,15 +2510,19 @@
     open: (opts) => UIController.open(opts),
     close: () => UIController.closeAssistantView(),
     ask: (query, senderInfo) => conversationAdapter.appendUserMessage(query, senderInfo),
-    buildDashboardMember: () => ({
-      id: AssistantIdentity.id,
-      slug: AssistantIdentity.slug,
-      name: AssistantIdentity.name,
-      role: AssistantIdentity.subtitle,
-      badge: AssistantIdentity.badge,
-      online: true,
-      isAssistant: true,
-    }),
+    buildDashboardMember: () => {
+      const asst = getActiveAssistant();
+      return {
+        id: asst.id,
+        slug: asst.id,
+        name: asst.name,
+        role: asst.subtitle,
+        badge: asst.badge,
+        avatar: asst.avatar,
+        online: true,
+        isAssistant: true,
+      };
+    },
   };
 
   if (root) {

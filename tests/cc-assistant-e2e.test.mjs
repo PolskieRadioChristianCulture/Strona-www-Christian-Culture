@@ -220,6 +220,39 @@ test('Playwright E2E-01..E2E-05 & Responsive Viewports (360px, 390px, 768px, 128
     );
     assert.equal(isAsstStillActive, false);
 
+    // E2E-06: Global chat teaser click -> opens unified chat with dedicated active assistant, avatar and interactive reply
+    const page2 = await context.newPage();
+    await page2.goto(`${baseUrl}/`, { waitUntil: 'domcontentloaded' });
+    await page2.waitForSelector('#ccChatTeaserBubble', { state: 'visible', timeout: 5000 });
+    const teaserAvatar = await page2.getAttribute('#ccChatTeaserAvatar', 'src');
+    assert.match(teaserAvatar, /\/images\/chat\/assistants\/asystentka-\d\.(?:webp|jpg)/);
+
+    // Click teaser bubble
+    await page2.evaluate(() => document.getElementById('ccChatTeaserBubble').click());
+
+    // Host should open and iframe should load
+    await page2.waitForSelector('#ccUnifiedChatHost:not([hidden])', { state: 'visible', timeout: 5000 });
+    const iframeHandle = await page2.waitForSelector('#ccUnifiedChatFrame', { state: 'attached', timeout: 5000 });
+    const iframe = await iframeHandle.contentFrame();
+
+    // Verify inside the iframe that Assistant view is displayed, NOT direct private message view
+    await iframe.waitForSelector('#messengerAssistantView.cc-asst-active', { state: 'visible', timeout: 7000 });
+    const asstHeaderAvatar = await iframe.getAttribute('#ccAsstHeaderAvatar', 'src');
+    assert.match(asstHeaderAvatar, /\/images\/chat\/assistants\/asystentka-\d\.(?:webp|jpg)/);
+    const asstHeaderName = await iframe.textContent('#ccAsstHeaderName');
+    assert.match(asstHeaderName, /(Rut|Sara|Noemi)/);
+
+    // Type "hej" and verify assistant answers!
+    await iframe.fill('#ccAsstInput', 'hej');
+    await iframe.click('#ccAsstSendBtn');
+    await iframe.waitForSelector('#ccAsstMessagesList .cc-asst-msg-bot:last-child', { state: 'visible', timeout: 5000 });
+    const botReply = await iframe.textContent('#ccAsstMessagesList .cc-asst-msg-bot:last-child');
+    assert.match(botReply, /(Christian Culture|radio|Biblia|W czym mogę Ci)/i);
+    const botAvatar = await iframe.getAttribute('#ccAsstMessagesList .cc-asst-msg-bot:last-child .cc-asst-msg-meta-avatar', 'src');
+    assert.match(botAvatar, /\/images\/chat\/assistants\/asystentka-\d\.(?:webp|jpg)/);
+
+    await page2.close();
+
     await context.close();
   } finally {
     await browser.close();

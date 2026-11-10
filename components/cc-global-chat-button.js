@@ -36,7 +36,7 @@
     integrationReady = new Promise(resolve => {
       const integration = document.createElement('script');
       integration.id = 'ccChatIntegrationScript';
-      integration.src = '/js/cc-chat-integration.js?v=20261018_pushroom';
+      integration.src = '/js/cc-chat-integration.js?v=20261110_asst3';
       integration.onload = resolve;
       integration.onerror = resolve;
       document.head.appendChild(integration);
@@ -1802,7 +1802,11 @@
         e.preventDefault();
         e.stopPropagation();
         teaserBubble.style.display = 'none';
-        window.CCGlobalChat.open('assistant', 'cc-assistant');
+        const asst = getActiveAssistant();
+        try {
+          sessionStorage.setItem('cc_active_assistant_id', asst.id);
+        } catch (_) {}
+        window.CCGlobalChat.open('assistant', asst.id);
       }
 
       teaserBubble.addEventListener('click', handleTeaserClick);
@@ -2781,15 +2785,43 @@
   // Eksport globalnego API
   window.CCGlobalChat = {
     open: function (targetTab, targetPartnerId) {
-      if (targetTab === 'assistant' || targetPartnerId === 'cc-assistant') {
+      if (
+        targetTab === 'assistant' ||
+        targetPartnerId === 'cc-assistant' ||
+        (targetPartnerId && String(targetPartnerId).startsWith('asystentka-'))
+      ) {
+        const activeAsst = getActiveAssistant();
+        const asstId =
+          targetPartnerId && String(targetPartnerId).startsWith('asystentka-')
+            ? targetPartnerId
+            : activeAsst.id;
+        try {
+          sessionStorage.setItem('cc_active_assistant_id', asstId);
+        } catch (_) {}
         if (window.CCAssistant?.open) {
-          window.CCAssistant.open({ source: 'global_chat' });
+          window.CCAssistant.setActiveAssistant?.(asstId);
+          window.CCAssistant.open({
+            source: 'global_chat',
+            assistantId: asstId,
+            name: activeAsst.name,
+            avatar: activeAsst.avatar
+          });
           return;
         }
         if (!isCanonicalMessenger) {
           integrationReady.then(() => {
-            if (window.CCUnifiedChat) window.CCUnifiedChat.open({ tab: 'assistant', partner: 'cc-assistant' });
-            else window.location.href = '/mess?assistant=cc';
+            if (window.CCUnifiedChat) {
+              window.CCUnifiedChat.open({
+                tab: 'assistant',
+                partner: 'cc-assistant',
+                assistant: 'cc',
+                assistantId: asstId,
+                name: activeAsst.name,
+                avatar: activeAsst.avatar
+              });
+            } else {
+              window.location.href = '/mess?assistant=cc&asst=' + encodeURIComponent(asstId);
+            }
           });
           return;
         }

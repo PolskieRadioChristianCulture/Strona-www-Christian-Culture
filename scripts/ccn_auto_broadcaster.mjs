@@ -802,6 +802,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '💡 eM • MOTYWACJA & ETYKA | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#CCNNews', '#eM', '#CezaryRogowski', '#Prawda');
+    } else if (tLower.includes('pokonać goliata') || tLower.includes('pokonac goliata') || (item.url || '').includes('pokonac-goliata')) {
+      subHeader = '🛡️ POKONAĆ GOLIATA | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj artykuł w serwisie:\n';
+      addTags('#PokonacGoliata', '#CezaryRogowski', '#CCNNews', '#Prawda');
     } else if (tLower.includes('pokój') || tLower.includes('pokoj') || tLower.includes('lęk') || tLower.includes('lek')) {
       subHeader = '🕊️ POKÓJ SERCA & NADZIEJA';
       callToAction = '👉 Czytaj artykuł w serwisie:\n';
@@ -845,6 +849,8 @@ function formatBroadcasterTweet(item) {
     bodyText = item.lead;
   } else if ((item.url || '').includes('krakow') || (item.title || '').toLowerCase().includes('kraków')) {
     bodyText = 'Kraków w żałobie: 6 ofiar strzelaniny. Chrześcijański komentarz Cezarego Rogowskiego wobec zła, bólu i żałoby.';
+  } else if ((item.url || '').includes('pokonac-goliata') || (item.title || '').toLowerCase().includes('pokonać goliata')) {
+    bodyText = 'Pokonać Goliata — 8 kroków zwycięzcy z doliny lęku do pełnej wolności według Słowa Bożego.';
   } else if ((item.url || '').toLowerCase().includes('rozwiaz')) {
     bodyText = 'Rzuć palenie w 14 dni — bezpłatny kurs, plan na głód nikotynowy, audio i biblijna nadzieja.';
   } else if ((item.url || '').includes('blackout') || (item.title || '').toLowerCase().includes('blackout')) {
@@ -931,6 +937,13 @@ function formatBroadcasterTweet(item) {
         .replace(/\bazji\b/gi, 'Azji')
         .replace(/\bbliskim wschodzie\b/gi, 'Bliskim Wschodzie')
         .replace(/\bbliski wschód\b/gi, 'Bliski Wschód')
+        .replace(/\bgoliata\b/gi, 'Goliata')
+        .replace(/\bgoliath\b/gi, 'Goliath')
+        .replace(/\bdawida\b/gi, 'Dawida')
+        .replace(/\bdawid\b/gi, 'Dawid')
+        .replace(/\bcezarego rogowskiego\b/gi, 'Cezarego Rogowskiego')
+        .replace(/\bcezary rogowsk[a-z]*\b/gi, 'Cezary Rogowski')
+        .replace(/\bwiolett[a-z]* rogowsk[a-z]*\b/gi, 'Wioletta Rogowska')
         .replace(/\?\s+([a-ząćęłńóśźż])/g, (m, c) => '? ' + c.toUpperCase());
     }
   }

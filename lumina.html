@@ -13681,6 +13681,25 @@ window.addEventListener('lumina-auth-state', () => {
         };
 
         function openChatWith(name, avatar, slug, targetMessageId, targetUid) {
+            const _slugNorm = String(slug || name || '').trim().toLowerCase();
+            if (
+                _slugNorm === 'cc-assistant' ||
+                _slugNorm === 'assistant' ||
+                _slugNorm.startsWith('asystentka-') ||
+                _slugNorm === 'rut' ||
+                _slugNorm === 'sara' ||
+                _slugNorm === 'noemi'
+            ) {
+                const _tryOpenAsst = (n = 0) => {
+                    if (window.CCAssistant?.open) {
+                        window.CCAssistant.open({ source: 'open_chat_with', assistantId: _slugNorm });
+                    } else if (n < 30) {
+                        setTimeout(() => _tryOpenAsst(n + 1), 100);
+                    }
+                };
+                _tryOpenAsst();
+                return;
+            }
             window._keepActiveChat = true;
             try {
             if (targetMessageId) window._targetChatMessageId = targetMessageId;
@@ -15079,6 +15098,25 @@ window.addEventListener('lumina-auth-state', () => {
 
         function openChatByTargetUser(targetUser, messageId, hint) {
             if (!targetUser) return;
+            const _normTarget = String(targetUser).trim().toLowerCase();
+            if (
+                _normTarget === 'cc-assistant' ||
+                _normTarget === 'assistant' ||
+                _normTarget.startsWith('asystentka-') ||
+                _normTarget === 'rut' ||
+                _normTarget === 'sara' ||
+                _normTarget === 'noemi'
+            ) {
+                const _tryOpenAsst = (n = 0) => {
+                    if (window.CCAssistant?.open) {
+                        window.CCAssistant.open({ source: 'url_param', assistantId: _normTarget });
+                    } else if (n < 30) {
+                        setTimeout(() => _tryOpenAsst(n + 1), 100);
+                    }
+                };
+                _tryOpenAsst();
+                return;
+            }
             const normUser = String(targetUser).trim();
             if (messageId) window._targetChatMessageId = messageId;
             hint = hint || {};
@@ -15437,9 +15475,11 @@ window.addEventListener('lumina-auth-state', () => {
 <script type="module" src="/js/lumi-live-rooms.js?v=20261023_rooms_v8"></script>
 <link rel="stylesheet" href="/css/lumi-room-navigation.css?v=20261019_family1">
 <script type="module" src="/components/lumi-room-navigation-boot.js?v=20261019_family2"></script>
+<!-- Integracja LUMI Messenger & Asystent CC -->
+<script defer id="ccChatIntegrationScript" src="/js/cc-chat-integration.js?v=20261110_asst3"></script>
 <!-- Asystent Christian Culture — Wirtualny gospodarz LUMI MESS (CC-LUMIMESS-ASSISTANT-001) -->
-<link rel="stylesheet" href="/css/cc-assistant.css?v=20261110_asst1">
-<script defer src="/js/cc-assistant.js?v=20261110_asst1"></script>
+<link rel="stylesheet" href="/css/cc-assistant.css?v=20261110_asst2">
+<script defer src="/js/cc-assistant.js?v=20261110_asst2"></script>
 <!-- EkoCC INFO ⓘ Standard Strategiczny (Prototyp Pilotazowy) -->
 <script defer src="/components/ekocc-info.js?v=20261029_info2"></script>
 </body>

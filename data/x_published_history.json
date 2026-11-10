@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "pokonac-goliata-8-krokow-zwyciezcy-z-doliny-leku-do-pelnej-wolnosci",
+      "title": "POKONAĆ GOLIATA — 8 KROKÓW ZWYCIĘZCY Z DOLINY LĘKU DO PEŁNEJ WOLNOŚCI",
+      "url": "https://polskieradio.cc/news/pokonac-goliata-8-krokow-zwyciezcy-z-doliny-leku-do-pelnej-wolnosci",
+      "type": "news",
+      "image": "art-pokonac-goliata.jpg",
+      "publishedAt": "2026-11-10T10:06:56.534Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "player",
       "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
       "url": "https://polskieradio.cc/player",

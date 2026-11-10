@@ -87,14 +87,34 @@
       next.tab === 'assistant' ||
       next.partner === 'cc-assistant' ||
       next.assistant === 'cc' ||
-      next.assistant === true;
-    if (isAssistantReq && window.CCAssistant?.isEnabled?.()) {
-      const drawer = document.getElementById('ccGlobalChatOverlay');
-      if (drawer) {
-        drawer.classList.remove('is-open');
-        drawer.setAttribute('aria-hidden', 'true');
+      next.assistant === true ||
+      (next.assistantId && String(next.assistantId).startsWith('asystentka-')) ||
+      next.partner === 'rut' ||
+      next.partner === 'sara' ||
+      next.partner === 'noemi';
+    if (isAssistantReq) {
+      if (window.CCAssistant?.isEnabled?.()) {
+        const drawer = document.getElementById('ccGlobalChatOverlay');
+        if (drawer) {
+          drawer.classList.remove('is-open');
+          drawer.setAttribute('aria-hidden', 'true');
+        }
+        if (next.assistantId && window.CCAssistant.setActiveAssistant) {
+          window.CCAssistant.setActiveAssistant(next.assistantId);
+        }
+        window.CCAssistant.open({
+          source: next.source || 'unified_chat',
+          topic: next.topic,
+          assistantId: next.assistantId,
+          avatar: next.avatar,
+          name: next.name
+        });
+        return;
       }
-      window.CCAssistant.open({ source: next.source || 'unified_chat', topic: next.topic });
+      if (tries < 50) {
+        setTimeout(() => { if (request === next) openCurrent(next, tries + 1); }, 150);
+        return;
+      }
       return;
     }
     const user = window.LuminaDB?.getCurrentUser?.();
@@ -118,11 +138,45 @@
   }
   function deliver() {
     try {
-      if (frame?.contentWindow?.location.origin === location.origin && frame.contentWindow.CCUnifiedChat) frame.contentWindow.CCUnifiedChat.openCurrent(request);
+      if (frame?.contentWindow?.location.origin === location.origin) {
+        if (frame.contentWindow.CCUnifiedChat) {
+          frame.contentWindow.CCUnifiedChat.openCurrent(request);
+        } else if (frame.contentWindow.CCAssistant?.open) {
+          const isAsst =
+            request.tab === 'assistant' ||
+            request.partner === 'cc-assistant' ||
+            request.assistant === 'cc' ||
+            request.assistant === true ||
+            (request.assistantId && String(request.assistantId).startsWith('asystentka-')) ||
+            request.partner === 'rut' ||
+            request.partner === 'sara' ||
+            request.partner === 'noemi';
+          if (isAsst) {
+            if (request.assistantId && frame.contentWindow.CCAssistant.setActiveAssistant) {
+              frame.contentWindow.CCAssistant.setActiveAssistant(request.assistantId);
+            }
+            frame.contentWindow.CCAssistant.open({
+              source: 'unified_chat',
+              assistantId: request.assistantId,
+              avatar: request.avatar,
+              name: request.name
+            });
+          }
+        }
+      }
     } catch (_) {}
   }
   function open(next = {}) {
     request = { tab: 'public', ...next };
+    const isAssistantReq =
+      request.tab === 'assistant' ||
+      request.partner === 'cc-assistant' ||
+      request.assistant === 'cc' ||
+      request.assistant === true ||
+      (request.assistantId && String(request.assistantId).startsWith('asystentka-')) ||
+      request.partner === 'rut' ||
+      request.partner === 'sara' ||
+      request.partner === 'noemi';
     if (canonical) return openCurrent(request);
     if (!host) {
       host = document.createElement('section');
@@ -134,11 +188,16 @@
       frame = document.createElement('iframe');
       frame.id = 'ccUnifiedChatFrame';
       frame.title = 'Rozmowy LUMINA — LUMI Messenger';
-      frame.src = '/mess?embed=1';
+      const asstParam = isAssistantReq
+        ? `&assistant=cc&asst=${encodeURIComponent(request.assistantId || (request.partner && request.partner.startsWith('asystentka-') ? request.partner : ''))}`
+        : '';
+      frame.src = `/mess?embed=1${asstParam}`;
       // Same-origin Firebase session; no mic, camera or other permission grant.
       frame.addEventListener('load', deliver);
       host.appendChild(frame);
       document.body.appendChild(host);
+    } else if (isAssistantReq) {
+      deliver();
     }
     if (host.hidden) {
       previousOverflow = document.body.style.overflow;
