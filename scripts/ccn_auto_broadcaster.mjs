@@ -851,6 +851,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę według biblijnej roztropności.';
   } else if ((item.url || '').includes('badz-blisko')) {
     bodyText = '7 krótkich spotkań ze Słowem, które pomagają odnaleźć spokój i zrobić dobry krok. Bezpłatny 7-dniowy przewodnik!';
+  } else if ((item.url || '').includes('dzien-41')) {
+    bodyText = 'Dzień 41 (Wj 10:1–29): Plagi szarańczy i ciemności egipskiej — Boża suwerenność, sąd nad fałszywym światłem i wolność bez kompromisów.';
   } else if ((item.url || '').includes('dzien-40')) {
     bodyText = 'Dzień 40 (Wj 9:1–35): Pomór bydła, wrzody i bezprecedensowy grad z ogniem. Boża moc ponad pychą faraona i ochrona ziemi Goszen.';
   } else if ((item.url || '').includes('dzien-39')) {
