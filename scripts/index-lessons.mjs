@@ -13,6 +13,19 @@ const data = JSON.parse(rawData);
 // 1. Lekcje Kursu Codziennego "Z Biblią za Pan Brat"
 const dailyLessons = [
   {
+    title: "Z Biblią za Pan Brat — Dzień 42 (Lekcja 42 na dziś): Święto Paschy, Krew Baranka i Wykupienie Pierworodnych (Wj 11:1–12:36)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-42",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 42 (Lekcja 42 na dziś, 11 listopada 2026). Księga Wyjścia 11:1–12:36: Ustanowienie Paschy, krew baranka bez skazy na odrzwiach w Goszen, sąd o północy nad bogami Egiptu, śmierć pierworodnych i triumfalne wyjście z domu niewoli.",
+    tags: [
+      "lekcja 42", "lekcja 42 na dziś", "lekcja na dziś", "dzień 42", "dzien 42",
+      "rozważanie 42", "rozważanie na dziś", "słowo na dziś", "pascha", "baranek paschalny",
+      "krew baranka", "śmierć pierworodnych", "wyjście z egiptu", "goszen", "wj 11", "wj 12",
+      "z biblią za pan brat", "kurs codzienny", "akademia biblijna", "11 listopada 2026", "dzisiaj", "dziś"
+    ],
+    featured: true
+  },
+  {
     title: "Z Biblią za Pan Brat — Dzień 41 (Lekcja 41 na dziś): Plagi szarańczy i ciemności egipskiej — Sąd nad fałszywym światłem i wolność bez kompromisów (Wj 10:1–29)",
     category: "Biblia i formacja",
     url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-41",
@@ -23,7 +36,7 @@ const dailyLessons = [
       "plagi egipskie", "faraon", "bóstwo ra", "ziemia goszen", "wj 10", "z biblią za pan brat",
       "kurs codzienny", "akademia biblijna", "10 listopada 2026", "dzisiaj", "dziś"
     ],
-    featured: true
+    featured: false
   },
   {
     title: "Z Biblią za Pan Brat — Dzień 40 (Lekcja 40): Pomór bydła, wrzody i ogień z gradem — Boża moc ponad pychą faraona (Wj 9:1–35)",

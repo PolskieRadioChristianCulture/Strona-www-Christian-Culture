@@ -490,6 +490,15 @@ function getAllEcosystemCandidates() {
       tag: '#BadzBlisko'
     },
     {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 42 (Wj 11:1–12:36): Święto Paschy, Krew Baranka i Wykupienie Pierworodnych — Noc sądu i triumfalne wyjście z Egiptu',
+      lead: 'Dzień 42 (11 listopada 2026): Ustanowienie Paschy, krew baranka bez skazy na odrzwiach w Goszen, sąd o północy nad bogami Egiptu i wykupienie pierworodnych.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-42',
+      image: 'images/academy/daily/kc_day_42_swieto_paschy_krew_baranka.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
       title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 41 (Wj 10:1–29): Plagi szarańczy i ciemności egipskiej — Sąd nad fałszywym światłem i wolność bez kompromisów',
       lead: 'Dzień 41 (10 listopada 2026): Kolejne sądy nad Egiptem: niszczycielska plaga szarańczy oraz namacalna ciemność egipska trwająca trzy dni. Sąd nad bożkiem słońca Ra i nienaruszalne Boże światło w domach Izraela.',
       url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-41',
@@ -865,6 +874,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę według biblijnej roztropności.';
   } else if ((item.url || '').includes('badz-blisko')) {
     bodyText = '7 krótkich spotkań ze Słowem, które pomagają odnaleźć spokój i zrobić dobry krok. Bezpłatny 7-dniowy przewodnik!';
+  } else if ((item.url || '').includes('dzien-42')) {
+    bodyText = 'Dzień 42 (Wj 11:1–12:36): Święto Paschy, krew Baranka na odrzwiach w Goszen, sąd nad bóstwami Egiptu i odkupienie ludu Bożego.';
   } else if ((item.url || '').includes('dzien-41')) {
     bodyText = 'Dzień 41 (Wj 10:1–29): Plagi szarańczy i ciemności egipskiej — Boża suwerenność, sąd nad fałszywym światłem i wolność bez kompromisów.';
   } else if ((item.url || '').includes('dzien-40')) {

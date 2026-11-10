@@ -1,0 +1,11 @@
+{
+  "id": "radio-cc-women",
+  "label": "RADIO CC WOMEN",
+  "shortName": "CCW",
+  "tagline": "Miejsce Kobiet Takich Jak Ty",
+  "icon": "/assets/ccw-icon.png",
+  "accent": "#E83F94",
+  "type": "audio-live",
+  "streamUrl": "REPLACE_WITH_HTTPS_STREAM_URL",
+  "autoplay": false
+}

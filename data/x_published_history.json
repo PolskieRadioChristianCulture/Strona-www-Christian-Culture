@@ -2,6 +2,42 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "dzien-42",
+      "title": "Akademia Biblijna: Z Biblią za Pan Brat — Dzień 42 (Wj 11:1–12:36): Święto Paschy, Krew Baranka i Wykupienie Pierworodnych — Noc sądu i triumfalne wyjście z Egiptu",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-42",
+      "type": "module",
+      "image": "kc_day_42_swieto_paschy_krew_baranka.jpg",
+      "publishedAt": "2026-11-10T23:04:32.784Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "topTEN",
+      "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+      "url": "https://polskieradio.cc/topTEN",
+      "type": "music",
+      "image": "wspieramto-banner.png",
+      "publishedAt": "2026-11-10T22:36:04.645Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "mojabiblia?ref=GEN.15.5",
+      "title": "Werset Dnia: „Spójrz teraz na niebo i policz gwiazdy...” (Rdz 15:5, UBG)",
+      "url": "https://polskieradio.cc/mojabiblia?ref=GEN.15.5",
+      "type": "verse",
+      "image": "art-rdz15-abram-gwiazdy.jpg",
+      "publishedAt": "2026-11-10T22:04:59.244Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "bog-jest-miloscia",
+      "title": "Książka: Bóg jest MIŁOŚCIĄ? — Cezary i Wioletta Rogowscy. Odpowiedź na trudne pytania",
+      "url": "https://polskieradio.cc/bog-jest-miloscia",
+      "type": "book",
+      "image": "art-bog-jest-miloscia.jpg",
+      "publishedAt": "2026-11-10T21:33:55.025Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "gdy-probujemy-pomoc-bogu-oszustwem-anatomia-podstepu-jakuba-i-teologia-prawdy-rdz-27",
       "title": "GDY PRÓBUJEMY POMÓC BOGU OSZUSTWEM — ANATOMIA PODSTĘPU JAKUBA I TEOLOGIA PRAWDY W KSIĘDZE RODZAJU 27",
       "url": "https://polskieradio.cc/news/gdy-probujemy-pomoc-bogu-oszustwem-anatomia-podstepu-jakuba-i-teologia-prawdy-rdz-27",

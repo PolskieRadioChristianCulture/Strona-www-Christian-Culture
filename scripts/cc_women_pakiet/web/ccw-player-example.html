@@ -1,0 +1,17 @@
+<!doctype html><html lang="pl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Demo Radio CC Women</title>
+<body><h1>Radio CC Women</h1><img src="../assets/ccw-icon.png" width="160" height="160" alt="CCW"><p>Miejsce Kobiet Takich Jak Ty</p>
+<button id="toggle">Odtwarzaj</button> <span id="status" role="status">Zatrzymano</span>
+<script>
+// TYLKO DEMO. W docelowym serwisie użyj JEDNEGO wspólnego playera istniejących stacji.
+const streamUrl = 'REPLACE_WITH_HTTPS_STREAM_URL';
+const audio = new Audio(); audio.preload = 'none'; audio.src = streamUrl;
+const button = document.getElementById('toggle'), status = document.getElementById('status');
+button.addEventListener('click', async () => {
+  if (!audio.paused) { audio.pause(); button.textContent='Odtwarzaj'; status.textContent='Pauza'; return; }
+  if (!streamUrl.startsWith('https://')) { status.textContent='Brak skonfigurowanego strumienia'; return; }
+  try { await audio.play(); button.textContent='Pauza'; status.textContent='Odtwarzanie'; }
+  catch(e) { status.textContent='Nie udało się uruchomić audio: '+e.message; }
+});
+audio.addEventListener('waiting',()=>status.textContent='Buforowanie…');
+audio.addEventListener('error',()=>status.textContent='Błąd źródła audio');
+</script></body></html>

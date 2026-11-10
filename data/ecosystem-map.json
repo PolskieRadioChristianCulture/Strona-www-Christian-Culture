@@ -4,6 +4,26 @@
   "name": "Mapa Ekosystemu Christian Culture",
   "updatesLog": [
     {
+      "date": "2026-11-11",
+      "topic": "Akademia Biblijna CC: Nocna publikacja i aktywacja lekcji Dnia 42 (Święto Paschy, Krew Baranka i Wykupienie Pierworodnych — Wj 11:1–12:36), aktualizacja 2 przycisków Hero, kafelków miesiąca i centralny pipeline discovery",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-11",
+      "topic": "CCN News X: Cykliczna publikacja #253 — Akademia Biblijna: Z Biblią za Pan Brat — Dzień 42 (Święto Paschy, Krew Baranka i Wykupienie Pierworodnych) z dedykowaną grafiką 16:9",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-10",
+      "topic": "CCN News X: Cykliczna publikacja #250 — Książka & Wydawnictwo CC: Bóg jest MIŁOŚCIĄ? — Cezary i Wioletta Rogowscy z dedykowaną grafiką 16:9",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-10",
+      "topic": "Akademia Biblijna CC: Dzień 42 (Wj 11:1–12:36 — Święto Paschy) przygotowany według wzorca Dnia 1 wraz z pakietem 5 wersji rozważań i plikiem Word",
+      "agent": "A"
+    },
+    {
       "date": "2026-11-10",
       "topic": "CCN News X: Cykliczna publikacja #249 — Raport & Publicystyka CCN: Gdy próbujemy pomóc Bogu oszustwem — Rdz 27 z dedykowaną grafiką 16:9",
       "agent": "A"
@@ -4557,7 +4577,7 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-10",
+  "lastUpdated": "2026-11-10T23:05:00+01:00",
   "recentUpdates": [
     {
       "date": "2026-11-10",
@@ -4819,6 +4839,11 @@
     {
       "date": "2026-11-10",
       "topic": "Strategiczny Audyt CC Guardian 360: weryfikacja 36 widoków ekosystemu, priorytet LUMINA i LUMI MESS (Zero-QA PASS)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-10",
+      "topic": "Cykliczna emisja CCN News X #251: Werset Dnia — Rdz 15:5 UBG (MojaBiblia CC)",
       "agent": "A"
     }
   ]

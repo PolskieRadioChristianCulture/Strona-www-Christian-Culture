@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-10T05:04:17.308Z",
+  "updatedAt": "2026-11-10T23:10:08.663Z",
   "heading": "Polecane na dziś",
-  "dateFormattedPL": "10 listopada 2026",
+  "dateFormattedPL": "11 listopada 2026",
   "pools": [
     [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 10",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 10 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 11",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 11 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
@@ -36,9 +36,9 @@
     [
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 41)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 42)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-41",
+        "url": "/akademia/kurscodzienny/dzien-42",
         "icon": "book"
       },
       {
@@ -127,16 +127,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 10",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 10 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 11",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 11 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 41)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 42)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-41",
+      "url": "/akademia/kurscodzienny/dzien-42",
       "icon": "book"
     },
     {

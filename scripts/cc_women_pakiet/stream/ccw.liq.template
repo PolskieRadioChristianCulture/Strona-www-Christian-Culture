@@ -1,0 +1,13 @@
+# Liquidsoap 2.3.x — szablon. Wygeneruj przez scripts/render_config.py.
+# Rozwiązanie bazowe: shuffle per cykl, ale BEZ gwarancji unikania styku rund.
+radio = playlist(mode="randomize", loop=true, reload_mode="watch", "__PLAYLIST_PATH__")
+output.icecast(
+  %mp3(bitrate=128),
+  host="__HOST__",
+  port=__PORT__,
+  password="__PASSWORD__",
+  mount="__MOUNT__",
+  name="Radio CC Women",
+  description="Miejsce Kobiet Takich Jak Ty",
+  radio
+)
