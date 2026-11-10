@@ -87,6 +87,10 @@
 /firebase-messaging-sw.js
   Cache-Control: no-cache, no-store, must-revalidate
 
+# CC GO: plik Service Workera nie może wisieć w CDN 7 dni (reguła /*.js), inaczej poprawki nie docierają.
+/go/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+
 /data/daily-course-push.json
   Cache-Control: no-cache, no-store, must-revalidate
 

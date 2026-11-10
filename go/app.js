@@ -125,7 +125,7 @@ async function init() {
   }
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
     // init() czeka na katalog, więc zdarzenie load zwykle już minęło — wtedy rejestrujemy od razu.
-    const registerWorker = ()=>navigator.serviceWorker.register('/go/sw.js', {scope:'/go/'}).catch(console.warn);
+    const registerWorker = ()=>navigator.serviceWorker.register('/go/sw.js?v=2.1.3', {scope:'/go/'}).catch(console.warn);
     if (document.readyState === 'complete') registerWorker();
     else window.addEventListener('load', registerWorker, {once:true});
   }
