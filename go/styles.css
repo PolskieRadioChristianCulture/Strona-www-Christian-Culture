@@ -203,7 +203,9 @@ h2{font-weight:800;font-size:clamp(1.65rem,6vw,2.6rem);letter-spacing:-.03em;lin
 @media (min-width:1040px){.catalog-grid{grid-template-columns:repeat(3,1fr)}}
 .list-card{display:grid;grid-template-columns:72px 1fr;grid-template-rows:auto auto;column-gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s}
 .list-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-.list-card .card-thumb{grid-row:1/3;width:72px;height:72px;border-radius:16px;display:grid;place-items:center;color:#fff}
+.list-card .card-thumb{grid-row:1/3;width:72px;height:72px;border-radius:16px;display:grid;place-items:center;color:#fff;position:relative;overflow:hidden}
+.list-card .card-thumb.has-photo{padding:0}
+.list-card .thumb-photo{width:100%;height:100%;object-fit:cover;border-radius:inherit}
 .list-card .card-thumb .ic{width:28px;height:28px;filter:drop-shadow(0 1px 4px rgba(0,0,0,.35))}
 .list-card .card-category{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan-deep)}
 @media (prefers-color-scheme:light){.list-card .card-category{color:#00818d}}
@@ -258,6 +260,12 @@ h2{font-weight:800;font-size:clamp(1.65rem,6vw,2.6rem);letter-spacing:-.03em;lin
 .cover{position:relative;aspect-ratio:2/3;border-radius:18px;overflow:hidden;color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:14px 12px;box-shadow:0 8px 18px rgba(4,60,72,.16);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 .cover::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,.6) 100%);pointer-events:none}
 .cover>*{position:relative}
+.cover-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .35s ease}
+.cover.has-photo::before{z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.22) 0%,rgba(0,0,0,.08) 32%,rgba(0,0,0,.88) 100%)}
+.cover.has-photo>*{z-index:2}
+.cover.has-photo .cover-icon{width:34px;height:34px;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:999px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25)}
+.cover.has-photo .cover-icon .ic{width:18px;height:18px}
+.cover:hover .cover-photo{transform:scale(1.05)}
 .cover:hover{transform:translateY(-4px) scale(1.01)}
 .cover:focus-within{outline:3px solid var(--yellow);outline-offset:2px}
 .cover .card-open{position:absolute;inset:0;z-index:1;min-height:0}

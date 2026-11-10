@@ -26,7 +26,8 @@
    ],
    "icon": "radio",
    "color": "blue",
-   "badge": "NA ŻYWO"
+   "badge": "NA ŻYWO",
+   "image": "/images/homepage/tile-radio.jpg"
   },
   {
    "id": "biblia-audio",
@@ -43,7 +44,8 @@
    "icon": "headphones",
    "color": "amber",
    "badge": "24/7",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/player/channel-biblia.jpg"
   },
   {
    "id": "ewangelia",
@@ -59,7 +61,8 @@
    ],
    "icon": "spark",
    "color": "sunrise",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/player/art-chan-slowo.jpg"
   },
   {
    "id": "biblia-spiewana",
@@ -74,7 +77,8 @@
     "muzyka"
    ],
    "icon": "music",
-   "color": "violet"
+   "color": "violet",
+   "image": "/images/player/popular-muzyka-uwielbienie.jpg"
   },
   {
    "id": "uwielbienie",
@@ -88,7 +92,8 @@
     "worship"
    ],
    "icon": "wave",
-   "color": "violet"
+   "color": "violet",
+   "image": "/images/player/art-worship.jpg"
   },
   {
    "id": "music",
@@ -102,7 +107,8 @@
     "albumy"
    ],
    "icon": "music",
-   "color": "pink"
+   "color": "pink",
+   "image": "/images/player/channel-muzyka.jpg"
   },
   {
    "id": "podcasty",
@@ -116,7 +122,8 @@
     "audio"
    ],
    "icon": "headphones",
-   "color": "teal"
+   "color": "teal",
+   "image": "/images/player/channel-wyklady.jpg"
   },
   {
    "id": "topten",
@@ -133,7 +140,8 @@
    "icon": "zap",
    "color": "sunset",
    "badge": "NOWE",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/brand/topten-logo.png"
   },
   {
    "id": "ambientsleep",
@@ -148,7 +156,8 @@
     "szum"
    ],
    "icon": "sun",
-   "color": "navy"
+   "color": "navy",
+   "image": "/images/player/verse-pure-bg.jpg"
   },
   {
    "id": "tv",
@@ -163,7 +172,8 @@
    ],
    "icon": "tv",
    "color": "violet",
-   "badge": "NA ŻYWO"
+   "badge": "NA ŻYWO",
+   "image": "/images/homepage/tile-nadawanie.jpg"
   },
   {
    "id": "vod",
@@ -179,7 +189,8 @@
    ],
    "icon": "film",
    "color": "navy",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/homepage/tile-vod.jpg"
   },
   {
    "id": "cctv24",
@@ -193,7 +204,8 @@
     "video"
    ],
    "icon": "tv",
-   "color": "blue"
+   "color": "blue",
+   "image": "/images/player/popular-muzyka-uwielbienie.jpg"
   },
   {
    "id": "swiadectwa",
@@ -208,7 +220,8 @@
    ],
    "icon": "heart",
    "color": "pink",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/swiadectwa/hero-swiadectwa.jpg"
   },
   {
    "id": "rolki",
@@ -222,7 +235,8 @@
     "shorts"
    ],
    "icon": "film",
-   "color": "sunset"
+   "color": "sunset",
+   "image": "/images/homepage/card-apps-panoramic.png"
   },
   {
    "id": "mojabiblia",
@@ -238,7 +252,8 @@
    ],
    "icon": "book",
    "color": "teal",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/kultura/card-biblia.jpg"
   },
   {
    "id": "werset",
@@ -252,7 +267,8 @@
     "dzień"
    ],
    "icon": "calendar",
-   "color": "mint"
+   "color": "mint",
+   "image": "/images/player/sidebar-verse-bg.jpg"
   },
   {
    "id": "dzj",
@@ -267,7 +283,8 @@
    ],
    "icon": "sun",
    "color": "amber",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/homepage/tile-dzj.jpg"
   },
   {
    "id": "modlitwa",
@@ -281,7 +298,8 @@
     "intencje"
    ],
    "icon": "heart",
-   "color": "sunrise"
+   "color": "sunrise",
+   "image": "/images/swiadectwa/s02-moja-modlitwa-pojednania-z-bogiem.jpg"
   },
   {
    "id": "studium",
@@ -295,7 +313,8 @@
     "biblia"
    ],
    "icon": "book",
-   "color": "navy"
+   "color": "navy",
+   "image": "/images/player/channel-slowo.jpg"
   },
   {
    "id": "akademia",
@@ -310,7 +329,8 @@
     "edukacja"
    ],
    "icon": "graduation",
-   "color": "navy"
+   "color": "navy",
+   "image": "/images/kultura/card-akademia.jpg"
   },
   {
    "id": "kurscodzienny",
@@ -326,7 +346,8 @@
    "icon": "calendar",
    "color": "mint",
    "badge": "CODZIENNIE",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/academy/akademia_biblijna_logo_gold.jpg"
   },
   {
    "id": "apokalipsa",
@@ -340,7 +361,8 @@
     "objawienie"
    ],
    "icon": "book",
-   "color": "violet"
+   "color": "violet",
+   "image": "/images/courses/apokalipsa/banner-promo.jpg"
   },
   {
    "id": "rozwiaz",
@@ -354,7 +376,8 @@
     "palenie"
    ],
    "icon": "zap",
-   "color": "teal"
+   "color": "teal",
+   "image": "/images/news/art-bioetyka-edycja-genomu-syntetyczne-embriony-biblia.jpg"
   },
   {
    "id": "the-journal",
@@ -368,7 +391,8 @@
     "pamiętnik"
    ],
    "icon": "sprout",
-   "color": "pink"
+   "color": "pink",
+   "image": "/images/homepage/bg-apps-clean.png"
   },
   {
    "id": "news",
@@ -383,7 +407,8 @@
    ],
    "icon": "newspaper",
    "color": "blue",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/homepage/tile-aktualnosci.jpg"
   },
   {
    "id": "nauka",
@@ -397,7 +422,8 @@
     "kosmos"
    ],
    "icon": "sun",
-   "color": "navy"
+   "color": "navy",
+   "image": "/images/news/nauka-moralnosc-obiektywna.jpg"
   },
   {
    "id": "historia",
@@ -411,7 +437,8 @@
     "archeologia"
    ],
    "icon": "book",
-   "color": "sunrise"
+   "color": "sunrise",
+   "image": "/images/news/95-tez-marcina-lutra-wittenberga-1517.jpg"
   },
   {
    "id": "apologetyka",
@@ -424,7 +451,8 @@
     "apologetyka"
    ],
    "icon": "spark",
-   "color": "teal"
+   "color": "teal",
+   "image": "/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg"
   },
   {
    "id": "psychologia",
@@ -437,7 +465,8 @@
     "psychologia"
    ],
    "icon": "heart",
-   "color": "pink"
+   "color": "pink",
+   "image": "/images/news/art-psychologia-halloween-neurobiologia-strachu.jpg"
   },
   {
    "id": "finanse",
@@ -450,7 +479,8 @@
     "finanse"
    ],
    "icon": "download",
-   "color": "mint"
+   "color": "mint",
+   "image": "/images/kultura/card-biznes.jpg"
   },
   {
    "id": "kultura",
@@ -464,7 +494,8 @@
     "sztuka"
    ],
    "icon": "palette",
-   "color": "violet"
+   "color": "violet",
+   "image": "/images/kultura/kultura-hero-bg.jpg"
   },
   {
    "id": "biblioteka",
@@ -478,7 +509,8 @@
     "ebook"
    ],
    "icon": "book",
-   "color": "amber"
+   "color": "amber",
+   "image": "/images/player/popular-biblia-jana.jpg"
   },
   {
    "id": "ksiazki",
@@ -493,7 +525,8 @@
    ],
    "icon": "book",
    "color": "sunset",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/cezaryrogowski/okladka-pokonac-goliata.png"
   },
   {
    "id": "lumina",
@@ -509,7 +542,8 @@
    ],
    "icon": "users",
    "color": "pink",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/homepage/tile-lumina.jpg"
   },
   {
    "id": "tablica",
@@ -522,7 +556,8 @@
     "tablica"
    ],
    "icon": "newspaper",
-   "color": "sunset"
+   "color": "sunset",
+   "image": "/images/homepage/tile-spolecznosc.jpg"
   },
   {
    "id": "mess",
@@ -536,7 +571,8 @@
     "messenger"
    ],
    "icon": "users",
-   "color": "blue"
+   "color": "blue",
+   "image": "/images/chat/lumi-mess-bg.webp"
   },
   {
    "id": "cc-women",
@@ -550,7 +586,8 @@
     "youtube"
    ],
    "icon": "sprout",
-   "color": "pink"
+   "color": "pink",
+   "image": "/images/swiadectwa/s09-dar-bozy-historia-renatki-po-wypadku.jpg"
   },
   {
    "id": "misje",
@@ -563,7 +600,8 @@
     "misje"
    ],
    "icon": "spark",
-   "color": "amber"
+   "color": "amber",
+   "image": "/images/og-swiadectwa.jpg"
   },
   {
    "id": "wizytowki",
@@ -576,7 +614,8 @@
     "wizytówki"
    ],
    "icon": "users",
-   "color": "teal"
+   "color": "teal",
+   "image": "/images/brand/cezary-wioletta-radiocc.jpg"
   },
   {
    "id": "help",
@@ -591,7 +630,8 @@
    ],
    "icon": "heart",
    "color": "mint",
-   "spotlight": true
+   "spotlight": true,
+   "image": "/images/ogloszenia-infolinia-nadzieja.jpg"
   },
   {
    "id": "wyszukiwarka",
@@ -604,7 +644,8 @@
     "szukaj"
    ],
    "icon": "search",
-   "color": "blue"
+   "color": "blue",
+   "image": "/images/homepage/art-gpt.jpg"
   },
   {
    "id": "holos",
@@ -617,7 +658,8 @@
     "planer"
    ],
    "icon": "calendar",
-   "color": "navy"
+   "color": "navy",
+   "image": "/images/holos/holos_emblem.jpg"
   },
   {
    "id": "kalendarz2027",
@@ -631,7 +673,8 @@
     "druk"
    ],
    "icon": "calendar",
-   "color": "sunrise"
+   "color": "sunrise",
+   "image": "/images/holos/holos_deepwork.jpg"
   },
   {
    "id": "pobierz",
@@ -644,7 +687,8 @@
     "pobierz"
    ],
    "icon": "download",
-   "color": "teal"
+   "color": "teal",
+   "image": "/images/brand/wspieramto-banner.png"
   },
   {
    "id": "wspieraj",
@@ -658,7 +702,8 @@
     "darowizna"
    ],
    "icon": "heart",
-   "color": "amber"
+   "color": "amber",
+   "image": "/images/homepage/tile-wsparcie.jpg"
   },
   {
    "id": "portal-mlodych",
@@ -672,7 +717,8 @@
    ],
    "icon": "zap",
    "color": "amber",
-   "requiresReview": true
+   "requiresReview": true,
+   "image": "/images/homepage/card-apps-panoramic.png"
   }
  ]
 }
