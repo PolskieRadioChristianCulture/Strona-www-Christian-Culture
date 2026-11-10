@@ -43,6 +43,51 @@
     });
   }
 
+  // ── ROTACJA 3 ASYSTENTEK LUMI MESS Z DEDYKOWANYMI AWATARAMI I ZACZEPKĄ ──
+  const ROTATING_ASSISTANTS = [
+    {
+      id: 'asystentka-1',
+      name: 'Noemi · Asystentka CC',
+      role: 'Wirtualna gospodarz LUMI MESS',
+      avatar: '/images/chat/assistants/asystentka-1.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
+      badge: '🧭 Pomoc i inspiracja',
+      greeting: 'W czym mogę Ci dziś pomóc? Kliknij, aby porozmawiać!'
+    },
+    {
+      id: 'asystentka-2',
+      name: 'Lidia · Przewodnik CC',
+      role: 'Wirtualna asystentka ekosystemu',
+      avatar: '/images/chat/assistants/asystentka-2.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
+      badge: '✨ Odkryj ekosystem',
+      greeting: 'Szukasz rozważań, radia czy kursu? Porozmawiaj ze mną!'
+    },
+    {
+      id: 'asystentka-3',
+      name: 'Sara · Doradca CC',
+      role: 'Wirtualna asystentka LUMINA',
+      avatar: '/images/chat/assistants/asystentka-3.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
+      badge: '🕊️ Wsparcie 24/7',
+      greeting: 'Zadaj pytanie lub zgłoś pomysł. Jestem tu dla Ciebie!'
+    }
+  ];
+
+  function getActiveAssistant() {
+    try {
+      const storedIdx = parseInt(sessionStorage.getItem('cc_asst_rot_idx') || '', 10);
+      if (!Number.isNaN(storedIdx) && ROTATING_ASSISTANTS[storedIdx]) {
+        return ROTATING_ASSISTANTS[storedIdx];
+      }
+      const nextIdx = Math.floor(Math.random() * ROTATING_ASSISTANTS.length);
+      sessionStorage.setItem('cc_asst_rot_idx', String(nextIdx));
+      return ROTATING_ASSISTANTS[nextIdx];
+    } catch (_) {
+      return ROTATING_ASSISTANTS[0];
+    }
+  }
+
   // 2. Katalog członków społeczności CC & LUMINA
   const COMMUNITY_MEMBERS = [
     {
@@ -321,6 +366,143 @@
         visibility: hidden !important;
         transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s !important;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 12px rgba(168, 85, 247, 0.25) !important;
+      }
+
+      
+      /* ── DYMEK ZACZEPKA ASYSTENTKI (ROTACJA 3 AWATARÓW) ── */
+      .cc-chat-teaser-bubble {
+        position: absolute !important;
+        right: calc(100% + 14px) !important;
+        bottom: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 27, 75, 0.96) 100%) !important;
+        border: 1px solid rgba(212, 175, 55, 0.55) !important;
+        box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55), 0 0 16px rgba(168, 85, 247, 0.28) !important;
+        border-radius: 20px 20px 4px 20px !important;
+        padding: 8px 14px 8px 10px !important;
+        min-width: 240px !important;
+        max-width: 320px !important;
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        z-index: 10001 !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        animation: ccTeaserFloat 3.6s ease-in-out infinite alternate !important;
+        transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s !important;
+      }
+      .cc-chat-teaser-bubble:hover {
+        border-color: rgba(245, 158, 11, 0.85) !important;
+        transform: translateY(-3px) scale(1.02) !important;
+        box-shadow: 0 14px 38px rgba(0, 0, 0, 0.65), 0 0 22px rgba(245, 158, 11, 0.4) !important;
+      }
+      .cc-chat-teaser-avatar-wrap {
+        position: relative !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        border-radius: 50% !important;
+        overflow: hidden !important;
+        border: 2px solid #C4A35A !important;
+        box-shadow: 0 0 10px rgba(196, 163, 90, 0.45) !important;
+      }
+      .cc-chat-teaser-avatar {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
+      }
+      .cc-chat-teaser-online {
+        position: absolute !important;
+        right: 1px !important;
+        bottom: 1px !important;
+        width: 10px !important;
+        height: 10px !important;
+        background: #10B981 !important;
+        border: 2px solid #0F172A !important;
+        border-radius: 50% !important;
+      }
+      .cc-chat-teaser-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+        flex: 1 !important;
+        text-align: left !important;
+        line-height: 1.25 !important;
+      }
+      .cc-chat-teaser-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 6px !important;
+      }
+      .cc-chat-teaser-name {
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        color: #F8FAFC !important;
+        letter-spacing: 0.01em !important;
+      }
+      .cc-chat-teaser-badge {
+        font-size: 0.65rem !important;
+        font-weight: 600 !important;
+        color: #C4A35A !important;
+        background: rgba(196, 163, 90, 0.15) !important;
+        border: 1px solid rgba(196, 163, 90, 0.3) !important;
+        padding: 1px 5px !important;
+        border-radius: 6px !important;
+      }
+      .cc-chat-teaser-msg {
+        font-size: 0.76rem !important;
+        color: #CBD5E1 !important;
+        font-weight: 500 !important;
+      }
+      .cc-chat-teaser-cta {
+        font-size: 0.70rem !important;
+        color: #38BDF8 !important;
+        font-weight: 600 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 3px !important;
+        margin-top: 1px !important;
+      }
+      .cc-chat-teaser-close {
+        position: absolute !important;
+        top: -6px !important;
+        right: -6px !important;
+        width: 22px !important;
+        height: 22px !important;
+        background: rgba(15, 23, 42, 0.95) !important;
+        border: 1px solid rgba(255, 255, 255, 0.25) !important;
+        border-radius: 50% !important;
+        color: #94A3B8 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        font-size: 11px !important;
+        line-height: 1 !important;
+        transition: all 0.2s ease !important;
+        padding: 0 !important;
+      }
+      .cc-chat-teaser-close:hover {
+        color: #FFFFFF !important;
+        border-color: #EF4444 !important;
+        background: #DC2626 !important;
+      }
+      @keyframes ccTeaserFloat {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-4px); }
+      }
+      @media (max-width: 768px) {
+        .cc-chat-teaser-bubble {
+          right: 0 !important;
+          bottom: calc(100% + 12px) !important;
+          min-width: 220px !important;
+          max-width: calc(100vw - 32px) !important;
+          border-radius: 16px 16px 4px 16px !important;
+        }
       }
 
       .cc-chat-fab-wrap:hover .cc-chat-fab-tooltip {
@@ -1357,6 +1539,23 @@
       fabWrap.setAttribute('aria-label', 'LUMI Messenger');
 
       fabWrap.innerHTML = `
+
+        <!-- Dymek Zaczepka: Rotacja 3 asystentek -->
+        <div class="cc-chat-teaser-bubble" id="ccChatTeaserBubble" role="button" tabindex="0" aria-label="Porozmawiaj z Asystentem CC">
+          <button type="button" class="cc-chat-teaser-close" id="ccChatTeaserClose" aria-label="Zamknij dymek" title="Zamknij">✕</button>
+          <div class="cc-chat-teaser-avatar-wrap">
+            <img src="" alt="Asystentka CC" class="cc-chat-teaser-avatar" id="ccChatTeaserAvatar" width="44" height="44" loading="eager">
+            <span class="cc-chat-teaser-online" aria-hidden="true"></span>
+          </div>
+          <div class="cc-chat-teaser-content">
+            <div class="cc-chat-teaser-header">
+              <span class="cc-chat-teaser-name" id="ccChatTeaserName">Asystentka CC</span>
+              <span class="cc-chat-teaser-badge" id="ccChatTeaserBadge">🧭 Online</span>
+            </div>
+            <span class="cc-chat-teaser-msg" id="ccChatTeaserMsg">W czym mogę Ci dziś pomóc?</span>
+            <span class="cc-chat-teaser-cta">Kliknij i porozmawiaj →</span>
+          </div>
+        </div>
         <div class="cc-chat-fab-tooltip" id="ccChatFabTooltip">LUMI Messenger · LumiMess</div>
         <button type="button" class="cc-chat-fab-btn" id="ccChatFabBtn" aria-label="Otwórz LUMI Messenger" title="LUMI Messenger · LumiMess">
           <picture>
@@ -1566,6 +1765,74 @@
     }
 
     // Podpięcie elementów i zdarzeń
+    
+    // Inicjalizacja aktywnej asystentki i dymka zaczepki
+    const activeAssistant = getActiveAssistant();
+    const teaserBubble = document.getElementById('ccChatTeaserBubble');
+    const teaserAvatar = document.getElementById('ccChatTeaserAvatar');
+    const teaserName = document.getElementById('ccChatTeaserName');
+    const teaserBadge = document.getElementById('ccChatTeaserBadge');
+    const teaserMsg = document.getElementById('ccChatTeaserMsg');
+    const teaserClose = document.getElementById('ccChatTeaserClose');
+
+    if (teaserBubble && activeAssistant) {
+      if (teaserAvatar) {
+        teaserAvatar.src = activeAssistant.avatar;
+        teaserAvatar.onerror = function () {
+          if (this.src !== activeAssistant.avatarFallback) {
+            this.src = activeAssistant.avatarFallback;
+          }
+        };
+      }
+      if (teaserName) teaserName.textContent = activeAssistant.name;
+      if (teaserBadge) teaserBadge.textContent = activeAssistant.badge;
+      if (teaserMsg) teaserMsg.textContent = activeAssistant.greeting;
+
+      // Sprawdzenie czy użytkownik ręcznie zamknął dymek w tej sesji
+      let isTeaserDismissed = false;
+      try {
+        isTeaserDismissed = sessionStorage.getItem('cc_teaser_dismissed') === '1';
+      } catch (_) {}
+
+      if (isTeaserDismissed) {
+        teaserBubble.style.display = 'none';
+      }
+
+      // Kliknięcie w dymek -> natychmiastowe otwarcie rozmowy z Asystentem
+      function handleTeaserClick(e) {
+        if (e.target && (e.target.id === 'ccChatTeaserClose' || e.target.closest('#ccChatTeaserClose'))) {
+          return; // obsługa przycisku zamknięcia osobno
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        teaserBubble.style.display = 'none';
+        window.CCGlobalChat.open('assistant', 'cc-assistant');
+      }
+
+      teaserBubble.addEventListener('click', handleTeaserClick);
+      teaserBubble.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          handleTeaserClick(e);
+        }
+      });
+
+      // Zamknięcie dymka
+      if (teaserClose) {
+        teaserClose.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          teaserBubble.style.opacity = '0';
+          teaserBubble.style.transform = 'translateY(8px)';
+          setTimeout(() => {
+            teaserBubble.style.display = 'none';
+          }, 280);
+          try {
+            sessionStorage.setItem('cc_teaser_dismissed', '1');
+          } catch (_) {}
+        });
+      }
+    }
+
     const btn = document.getElementById('ccChatFabBtn');
     const closeBtn = document.getElementById('ccChatCloseBtn');
     const chatForm = document.getElementById('ccChatForm');
