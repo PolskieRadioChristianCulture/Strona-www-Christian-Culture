@@ -425,7 +425,7 @@ function getAllEcosystemCandidates() {
       title: 'Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC',
       lead: 'Poznaj profil założyciela misji Christian Culture, architekta ekosystemu mediów biblijnych, publicysty i autora książek. Dołącz do dyskusji na portalu LUMINA.',
       url: 'https://polskieradio.cc/lumina.cezaryrgowski',
-      image: 'images/brand/cezary-wioletta-radiocc.jpg',
+      image: 'images/mcc/em-cezary-rogowski-16-9.jpg',
       category: 'Wizytówka',
       type: 'profile',
       tag: '#CezaryRogowski'
