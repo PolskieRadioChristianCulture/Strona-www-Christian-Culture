@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-10T05:39:19.779Z",
-  "totalItems": 562,
+  "updatedAt": "2026-11-10T06:25:50.233Z",
+  "totalItems": 563,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1061,6 +1061,24 @@
     }
   },
   "items": [
+    {
+      "title": "Asystent Christian Culture — Wirtualny gospodarz LUMI MESS",
+      "category": "Społeczność & Relacje",
+      "url": "https://polskieradio.cc/mess?assistant=cc",
+      "description": "Wirtualny gospodarz ekosystemu Christian Culture w komunikatorze LUMI MESS. Pomoc i inspiracja przez całą dobę: radio 24/7, Pismo Święte, kursy biblijne, zgłaszanie pomysłów i kontakt z zespołem.",
+      "tags": [
+        "asystent christian culture",
+        "asystent cc",
+        "wirtualny gospodarz",
+        "pomoc",
+        "inspiracja",
+        "pytania",
+        "lumi mess",
+        "czat",
+        "przewodnik"
+      ],
+      "featured": true
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",

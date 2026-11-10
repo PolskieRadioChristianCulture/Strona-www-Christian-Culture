@@ -1,0 +1,166 @@
+{
+  "version": 1,
+  "intents": [
+    {
+      "id": "greeting",
+      "patterns": ["cześć", "czesc", "hej", "witaj", "dzień dobry", "dzien dobry", "szczęść boże", "szczesc boze", "pokój pański", "pokoj panski", "start", "pomoc", "dobry wieczór"],
+      "responseType": "welcome",
+      "answer": "Witaj! ❤️ Dobrze, że jesteś. Jestem Asystentem Christian Culture — wirtualnym gospodarzem tego miejsca. Pomogę Ci znaleźć radio, Biblię, kursy, materiały ewangelizacyjne lub kontakt z zespołem. Co Cię dziś interesuje?",
+      "targetIds": ["radio-main", "akademia", "cc-go"]
+    },
+    {
+      "id": "identity_question",
+      "patterns": ["kim jesteś", "kim jestes", "czy jesteś człowiekiem", "czy jestes czlowiekiem", "czy to człowiek", "czy to czlowiek", "czy jesteś botem", "czy jestes botem", "czy to bot", "czy jesteś ai", "czy jestes ai", "sztuczna inteligencja", "kto odpowiada", "z kim rozmawiam", "prawdziwy człowiek"],
+      "responseType": "identity_disclosure",
+      "answer": "Jestem automatycznym asystentem Christian Culture. Korzystam z przygotowanej bazy wiedzy i pomagam znaleźć właściwe materiały lub kontakt z zespołem.",
+      "targetIds": ["wspolpraca", "o-nas"]
+    },
+    {
+      "id": "find_radio",
+      "patterns": ["radio", "radyjo", "muzyka", "słuchać", "sluchac", "gdzie posłuchać", "gdzie posluchac", "stacja", "na żywo", "na zywo", "audycja", "odtwarzacz", "player", "włącz radio", "wlacz radio"],
+      "responseType": "knowledge_match",
+      "answer": "Możesz słuchać Radia Christian Culture przez całą dobę bez reklam! Nadajemy 6 stacji tematycznych (w tym Radio PL, Biblia Audio, Instrumental Worship i Biblia Śpiewana). Kliknij poniżej, aby przejść do głównego radia lub pełnego odtwarzacza.",
+      "targetIds": ["radio-main", "player"]
+    },
+    {
+      "id": "find_bible",
+      "patterns": ["biblia", "biblja", "pismo święte", "pismo swiete", "werset", "czytanie biblii", "słowo boże", "slowo boze", "stary testament", "nowy testament", "psalm"],
+      "responseType": "knowledge_match",
+      "answer": "W Christian Culture możesz poznawać Pismo Święte na kilka sposobów: w Akademii Biblijnej, w interlinearnej MojaBiblia (przekłady UBG, BW, BT, BG z kodami Stronga) oraz słuchając Biblii Audio.",
+      "targetIds": ["akademia", "mojabiblia", "biblia-audio"]
+    },
+    {
+      "id": "find_biblia_audio",
+      "patterns": ["biblia audio", "słuchowisko", "sluchowisko", "biblia do słuchania", "nagrania biblii", "posłuchać biblii", "posluchac biblii"],
+      "responseType": "knowledge_match",
+      "answer": "Biblia Audio Christian Culture to studyjne nagrania i słuchowiska Pisma Świętego dostępne bezpłatnie online. Możesz słuchać kolejnych ksiąg i rozdziałów w odtwarzaczu WWW.",
+      "targetIds": ["biblia-audio", "radio-main"]
+    },
+    {
+      "id": "find_mojabiblia",
+      "patterns": ["mojabiblia", "moja biblia", "interlinearna", "kody stronga", "strong", "ubg", "biblia gdańska", "greka", "hebrajski", "porównanie przekładów"],
+      "responseType": "knowledge_match",
+      "answer": "MojaBiblia to nasza interlinearna Biblia online z przekładami UBG, BW, BT i BG, słownikiem grecko-hebrajskim oraz kodami Stronga do pogłębionego studium Słowa Bożego.",
+      "targetIds": ["mojabiblia", "akademia"]
+    },
+    {
+      "id": "find_ewangelia",
+      "patterns": ["ewangelia", "ewangela", "jezus", "zbawienie", "dobra nowina", "jak zacząć wiarę", "jak zaczac wiare", "bóg", "bog", "sens życia", "sens zycia", "nawrócenie", "nawrocenie", "kim jest jezus"],
+      "responseType": "knowledge_match",
+      "answer": "Dobra Nowina (Ewangelia) to przesłanie o miłości Boga, przebaczeniu grzechów i nowym życiu w Jezusie Chrystusie. Przygotowaliśmy przejrzystą stronę, która krok po kroku wyjaśnia istotę Ewangelii i pomaga postawić pierwsze kroki w wierze.",
+      "targetIds": ["ewangelia", "akademia"]
+    },
+    {
+      "id": "find_akademia",
+      "patterns": ["akademia", "akademja", "kurs", "kursy", "lekcja", "lekcje", "studium", "nauka biblii", "z biblią za pan brat", "kurs codzienny", "apokalipsa"],
+      "responseType": "knowledge_match",
+      "answer": "W Akademii Biblijnej znajdziesz bezpłatne kursy i codzienne lekcje (w tym cykl „Z Biblią za Pan Brat” oraz studium Księgi Apokalipsy), które pomagają systematycznie poznawać Pismo Święte.",
+      "targetIds": ["akademia", "kurscodzienny"]
+    },
+    {
+      "id": "find_milion",
+      "patterns": ["milion", "pierwszy milion", "licznik", "celujemy w milion", "zasięg", "zasieg", "widget", "kod radia na stronę"],
+      "responseType": "knowledge_match",
+      "answer": "Akcja „Celujemy w Pierwszy Milion” łączy słuchaczy, którzy chcą, aby Dobre Słowo dotarło do miliona osób. Na stronie akcji możesz sprawdzić licznik, włączyć radio i pobrać darmowy widget odtwarzacza.",
+      "targetIds": ["milion", "radio-main"]
+    },
+    {
+      "id": "find_cc_go",
+      "patterns": ["cc go", "materiały ewangelizacyjne", "materialy ewangelizacyjne", "ulotki", "qr", "wizytówka", "wizytowka", "wizytówki", "wizytowki", "odkryj christian culture", "wszystkie serwisy", "katalog cc"],
+      "responseType": "knowledge_match",
+      "answer": "CC GO to centralny katalog wszystkich publicznych serwisów, narzędzi i materiałów Christian Culture — od radia i Biblii po wizytówki ewangelizacyjne i materiały do pobrania.",
+      "targetIds": ["cc-go", "wizytowki"]
+    },
+    {
+      "id": "find_uwielbienie",
+      "patterns": ["uwielbienie", "biblia śpiewana", "biblia spiewana", "karaoke", "śpiewnik", "spiewnik", "pieśni", "piesni", "worship"],
+      "responseType": "knowledge_match",
+      "answer": "W serwisie Biblijne Uwielbienie znajdziesz pieśni z tekstem Pisma Świętego, śpiewnik oraz tryb karaoke do wspólnego śpiewania.",
+      "targetIds": ["biblijne-uwielbienie", "radio-main"]
+    },
+    {
+      "id": "find_lumina",
+      "patterns": ["lumina", "społeczność", "spolecznosc", "tablica", "profil", "relacje", "wspólnota", "wspolnota", "poznaj chrześcijan"],
+      "responseType": "knowledge_match",
+      "answer": "Portal Społecznościowy LUMINA to chrześcijańska przestrzeń budowania wartościowych relacji, dzielenia się świadectwami na tablicy i wspólnej rozmowy.",
+      "targetIds": ["lumina", "lumi-mess"]
+    },
+    {
+      "id": "find_modlitwa",
+      "patterns": ["modlitwa", "modlić się", "modlic sie", "intencja", "prośba o modlitwę", "prosba o modlitwe", "zjednoczeni za polskę", "czuwanie", "bcm24"],
+      "responseType": "knowledge_match",
+      "answer": "Możesz dołączyć do wspólnej modlitwy i zgłosić swoją intencję na stronie Modlitwa & Zjednoczeni za Polskę albo wejść do całodobowego pokoju Biblijny Czas Modlitwy 24/7.",
+      "targetIds": ["modlitwa", "lumi-mess"]
+    },
+    {
+      "id": "find_vod",
+      "patterns": ["vod", "kino", "film", "filmy", "wideo", "oglądać", "ogladac", "wykłady wideo"],
+      "responseType": "knowledge_match",
+      "answer": "W Kinie Chrześcijańskim VOD czekają na Ciebie wartościowe filmy, dokumenty, świadectwa i wykłady biblijne.",
+      "targetIds": ["vod", "swiadectwa"]
+    },
+    {
+      "id": "find_news",
+      "patterns": ["news", "artykuł", "artykul", "artykuły", "artykuly", "wiadomości", "wiadomosci", "nauka", "historia", "apologetyka", "publicystyka"],
+      "responseType": "knowledge_match",
+      "answer": "Na portalu CCN News oraz w działach tematycznych (Nauka, Historia, Biologia, Prawo, Psychologia, Apologetyka) publikujemy artykuły i analizy w świetle biblijnych wartości.",
+      "targetIds": ["news", "wyszukiwarka"]
+    },
+    {
+      "id": "find_rozwiaz_problem",
+      "patterns": ["rozwiąż problem", "rozwiaz problem", "nałóg", "nalog", "uzależnienie", "uzaleznienie", "rzucić palenie", "rzucic palenie", "pomoc w nałogu"],
+      "responseType": "knowledge_match",
+      "answer": "Seria „Rozwiąż Problem” zawiera praktyczne, bezpłatne kursy i materiały pomocowe (m.in. 14-dniowy plan wyjścia z nałogu), łączące duchowe wsparcie z rzetelną wiedzą.",
+      "targetIds": ["rozwiaz-problem", "modlitwa"]
+    },
+    {
+      "id": "find_wspieraj",
+      "patterns": ["wspieraj", "darowizna", "patronite", "mecenat", "jak wesprzeć", "jak wesprzec", "wsparcie finansowe", "ofiara"],
+      "responseType": "knowledge_match",
+      "answer": "Wszystkie materiały Christian Culture udostępniamy bezpłatnie. Jeśli chcesz dobrowolnie wesprzeć rozwój radia i narzędzi biblijnych, możesz to zrobić na oficjalnej stronie wsparcia.",
+      "targetIds": ["wspieraj", "milion"]
+    },
+    {
+      "id": "find_ksiazki",
+      "patterns": ["książka", "ksiazka", "książki", "ksiazki", "pokonać goliata", "pokonac goliata", "biblioteka", "ebook", "audiobook"],
+      "responseType": "knowledge_match",
+      "answer": "W Bibliotece Christian Culture znajdziesz publikacje książkowe, e-booki i audiobooki, w tym książkę „Pokonać Goliata” oraz świadectwa wiary.",
+      "targetIds": ["biblioteka", "swiadectwa"]
+    },
+    {
+      "id": "find_wyszukiwarka",
+      "patterns": ["wyszukiwarka", "wyszukwarka", "szukaj", "znajdź na stronie", "katalog treści", "gdzie znaleźć"],
+      "responseType": "knowledge_match",
+      "answer": "Uniwersalna Wyszukiwarka Christian Culture pozwala błyskawicznie znaleźć dowolną audycję, lekcję, werset, artykuł lub film w całym ekosystemie.",
+      "targetIds": ["wyszukiwarka", "cc-go"]
+    },
+    {
+      "id": "share_request",
+      "patterns": ["udostępnij", "udostepnij", "poleć", "polec", "wyślij znajomemu", "wyslij znajomemu", "podziel się", "podziel sie", "zaproś", "zapros", "jak udostępnić"],
+      "responseType": "share_flow",
+      "answer": "Chętnie pomogę Ci przygotować zaproszenie! Kliknij „Udostępnij znajomym”, aby wybrać sposób wysyłki (WhatsApp, SMS, e-mail lub skopiowanie gotowego linku). Zawsze sam decydujesz, komu i kiedy wysyłasz wiadomość.",
+      "targetIds": ["radio-main", "ewangelia", "milion"]
+    },
+    {
+      "id": "contact_request",
+      "patterns": ["kontakt", "napisz do zespołu", "napisz do zespolu", "email", "e-mail", "telefon", "pomoc człowieka", "rozmowa z człowiekiem", "redakcja", "duszpasterz", "współpraca", "wspolpraca"],
+      "responseType": "contact_flow",
+      "answer": "Możesz skontaktować się bezpośrednio z naszym zespołem redakcyjnym lub wsparciem duszpasterskim. Kliknij „Napisz do nas”, aby wybrać e-mail, telefon lub WhatsApp, albo przejdź na stronę współpracy.",
+      "targetIds": ["wspolpraca", "o-nas"]
+    },
+    {
+      "id": "idea_submission",
+      "patterns": ["mam pomysł", "mam pomysl", "brakuje mi", "zgłoś pomysł", "zglos pomysl", "sugestia", "ulepszenie", "nowa funkcja", "chcę zaproponować", "chce zaproponowac"],
+      "responseType": "idea_flow",
+      "answer": "Każdy dobry pomysł pomaga nam rozwijać Christian Culture! Kliknij „Zgłoś pomysł”, aby krótko opisać, czego szukasz lub co warto dodać.",
+      "targetIds": []
+    },
+    {
+      "id": "unknown",
+      "patterns": [],
+      "responseType": "no_dead_end",
+      "answer": "Nie znalazłem potwierdzonej odpowiedzi w mojej bazie wiedzy Christian Culture. Mogę jednak zaproponować Ci wyszukiwarkę całego ekosystemu, bezpośredni kontakt z naszym zespołem lub zgłoszenie pomysłu, czego Ci brakuje.",
+      "targetIds": ["wyszukiwarka", "wspolpraca"]
+    }
+  ]
+}
