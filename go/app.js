@@ -10,7 +10,7 @@ const validPublicUrl = (item) => {
   if (item.url) { try { const url = new URL(item.url); return url.protocol === 'https:' ? url.href : null; } catch { return null; } }
   return null;
 };
-const iconIds = Object.freeze({spark:'cross',radio:'radio',tv:'tv',headphones:'headphones',graduation:'cap',users:'users',newspaper:'news',book:'book',film:'film',music:'music',sun:'sun',heart:'heart',palette:'palette',search:'search',download:'download',zap:'zap',smile:'smile',calendar:'calendar',wave:'wave',sprout:'sprout',globe:'globe'});
+const iconIds = Object.freeze({spark:'cross',radio:'radio',tv:'tv',headphones:'headphones',graduation:'cap',users:'users',newspaper:'news',book:'book',film:'film',music:'music',sun:'sun',heart:'heart',palette:'palette',search:'search',download:'download',zap:'zap',smile:'smile',calendar:'calendar',wave:'wave',sprout:'sprout',globe:'globe',chat:'chat',message:'chat'});
 const icon = (name) => `<svg class="ic" aria-hidden="true"><use href="#i-${iconIds[name] || name || 'cross'}"/></svg>`;
 const TONES = new Set(['amber','blue','violet','teal','mint','pink','navy','sunset','sunrise']);
 const tone = (item) => TONES.has(item.color) ? item.color : 'blue';
@@ -125,7 +125,7 @@ async function init() {
   }
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
     // init() czeka na katalog, więc zdarzenie load zwykle już minęło — wtedy rejestrujemy od razu.
-    const registerWorker = ()=>navigator.serviceWorker.register('/go/sw.js?v=2.2.2', {scope:'/go/'}).catch(console.warn);
+    const registerWorker = ()=>navigator.serviceWorker.register('/go/sw.js?v=2.2.3', {scope:'/go/'}).catch(console.warn);
     if (document.readyState === 'complete') registerWorker();
     else window.addEventListener('load', registerWorker, {once:true});
   }

@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-10",
+      "topic": "CC GO: LUMI MESS na /go — karta w katalogu, wyróżnienie w karuzeli, przycisk w nagłówku i dolnej nawigacji",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-10",
       "topic": "CC Edge+: Korekta globalna — usuniecie kolizji z dolna nawigacja (Start), symetryczne wyrownanie wysokosci z przyciskiem do gory, montowanie panelu na Agenda oraz likwidacja zamrozenia strony",
       "agent": "A"
     },

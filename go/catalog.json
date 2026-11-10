@@ -561,18 +561,29 @@
   },
   {
    "id": "mess",
-   "title": "LUMI Messenger",
-   "subtitle": "Komunikator społeczności",
-   "description": "Komunikator społeczności",
+   "title": "LUMI MESS",
+   "subtitle": "Komunikator i Asystent CC",
+   "description": "Bezpieczny komunikator społeczności Christian Culture i inteligentny Asystent — rozmowy, pokoje na żywo i wsparcie.",
    "path": "/mess",
    "category": "Społeczność",
    "tags": [
+    "lumi mess",
+    "mess",
     "czat",
-    "messenger"
+    "chat",
+    "messenger",
+    "asystent",
+    "asystent cc",
+    "komunikator",
+    "rozmowy",
+    "społeczność",
+    "pomoc"
    ],
-   "icon": "users",
+   "icon": "chat",
    "color": "blue",
-   "image": "/images/chat/lumi-mess-bg.webp"
+   "image": "/images/chat/lumi-mess-bg.webp",
+   "spotlight": true,
+   "badge": "ASYSTENT CC"
   },
   {
    "id": "cc-women",

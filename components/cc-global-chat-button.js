@@ -2451,6 +2451,7 @@
         '.player-bottom-bar',
         '.lumina-mobile-nav',
         '.bottom-nav-container',
+        '.mobile-nav',
         '#mapaBottomVerseBar',
         '.player-sticky-controls'
       ];
@@ -2474,9 +2475,9 @@
 
       if (playerCenterFromBottom !== null) {
         const alignedBottom = Math.round(playerCenterFromBottom - (fabH / 2));
-        fabWrap.style.bottom = `${alignedBottom}px`;
+        fabWrap.style.setProperty('bottom', `${alignedBottom}px`, 'important');
       } else {
-        fabWrap.style.bottom = `${bottomOffset}px`;
+        fabWrap.style.setProperty('bottom', `${bottomOffset}px`, 'important');
       }
 
       // 4. Bezpieczne pozycjonowanie przycisku "do góry" (#backToTopBtn) — ZAWSZE w całości nad dolnym paskiem!
