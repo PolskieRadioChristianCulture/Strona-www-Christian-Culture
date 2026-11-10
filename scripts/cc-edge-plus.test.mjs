@@ -138,7 +138,8 @@ function createMockEnvironment({
     documentElement: {
       lang: locale,
       scrollTop: scrollY,
-      dataset: {}
+      dataset: {},
+      style: { overflow: '' }
     },
     body,
     head,
@@ -277,6 +278,23 @@ test('CCEdgePlus: clicking button opens existing Christian Culture dialog withou
   dialog.close();
   assert.equal(dialog.open, false);
   assert.equal(btn.getAttribute('aria-expanded'), 'false');
+  assert.equal(env.doc.body.style.overflow, '', 'Body overflow must be restored to prevent page freeze');
+});
+
+test('CCEdgePlus: closing panel restores body and html overflow to unfreeze mobile scroll', () => {
+  const env = createMockEnvironment({ scrollY: 500, hasExistingDialog: true });
+  const btn = env.elements.get('ccEdgePlusBtn');
+  const dialog = env.elements.get('cc-mobile-edge-dialog');
+
+  // Open panel
+  btn.click();
+  assert.equal(dialog.open, true);
+  assert.equal(env.doc.body.style.overflow, 'hidden');
+
+  // Close panel via dialog.close()
+  dialog.close();
+  assert.equal(dialog.open, false);
+  assert.equal(env.doc.body.style.overflow, '', 'Overflow must be cleared on close to unfreeze page');
 });
 
 test('CCEdgePlus: suppressed when modal dialog is open or during fullscreen', () => {

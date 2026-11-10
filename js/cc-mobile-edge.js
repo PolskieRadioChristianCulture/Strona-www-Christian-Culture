@@ -201,13 +201,22 @@
     dialog.append(nav);
     let restoreOverflow = '', previousFocus = null, active = false, touch = null;
     function cleanup() {
-      if (!active) return;
       active = false;
-      document.body.style.overflow = restoreOverflow;
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       trigger.setAttribute('aria-expanded','false');
-      if (previousFocus?.isConnected && previousFocus.getClientRects().length) previousFocus.focus({preventScroll:true});
+      const edgeBtn = document.getElementById('ccEdgePlusBtn');
+      if (edgeBtn) edgeBtn.setAttribute('aria-expanded', 'false');
+      if (previousFocus?.isConnected && previousFocus.getClientRects().length) {
+        try { previousFocus.focus({preventScroll:true}); } catch(_) {}
+      }
     }
-    function close() { if (dialog.open) dialog.close(); cleanup(); }
+    function close() {
+      if (dialog.open) {
+        try { dialog.close(); } catch(_) {}
+      }
+      cleanup();
+    }
     function button(name, label, onClick) {
       const b = document.createElement('button');
       const text = t(name, label);
@@ -486,20 +495,29 @@
     document.addEventListener('ekocc:locale-changed', applyTranslations);
     window.addEventListener('ekocc:locale-changed', applyTranslations);
     applyTranslations();
-    trigger.addEventListener('click',() => {
-      if ((!mobile.matches && profile !== 'search' && !allowDesktop) || dialog.open || document.querySelector('dialog[open]:not(#ccwMcpDialog)')) return;
+    function openEdge() {
+      if (dialog.open || document.querySelector('dialog[open]:not(#ccwMcpDialog):not(#cc-mobile-edge-dialog)')) return;
       previousFocus = document.activeElement;
       fullMenu.hidden = !canUseFullMenu();
       syncLuminaControls();
       void syncFavorite();
-      restoreOverflow = document.body.style.overflow;
+      restoreOverflow = '';
       dialog.showModal();
       active = true;
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       trigger.setAttribute('aria-expanded','true');
+      const edgeBtn = document.getElementById('ccEdgePlusBtn');
+      if (edgeBtn) edgeBtn.setAttribute('aria-expanded', 'true');
+    }
+    trigger.addEventListener('click',() => {
+      if (!mobile.matches && profile !== 'search' && !allowDesktop) return;
+      openEdge();
     });
+    dialog._ccOpen = openEdge;
+    dialog._ccClose = close;
     dialog.addEventListener('cancel',e => { e.preventDefault(); close(); });
-    dialog.addEventListener('close',() => { if (!dialog.open) cleanup(); });
+    dialog.addEventListener('close',() => { cleanup(); });
     dialog.addEventListener('click',e => {
       const r = dialog.getBoundingClientRect();
       if (e.target === dialog && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) close();

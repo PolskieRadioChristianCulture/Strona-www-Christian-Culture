@@ -280,9 +280,34 @@ test('CCEdgePlus Browser Test Suite — Full Matrix (360, 390, 768, 1280, 1920, 
         assert.ok(bottomEdgePlus <= navBox.y, `Bottom "+" button (${bottomEdgePlus}px) must be ABOVE .mobile-nav top (${navBox.y}px)`);
         assert.ok(bottomEdgeTop <= navBox.y, `Back-to-top button (${bottomEdgeTop}px) must be ABOVE .mobile-nav top (${navBox.y}px)`);
 
-        // Weryfikacja klikalności elementu "Start"
-        const startTab = nav.locator('a[href="/go/"]');
-        await startTab.click();
+        // Weryfikacja braku zawieszenia strony po otwarciu i zamknięciu panelu krawędziowego
+        await btnPlus.click();
+        await page.waitForTimeout(300);
+        const dialog = page.locator('#cc-mobile-edge-dialog');
+        assert.ok(await dialog.evaluate(el => el.open), 'Edge dialog must open upon clicking plus');
+        assert.equal(await page.evaluate(() => document.body.style.overflow), 'hidden', 'Body overflow hidden during open dialog');
+
+        // Zamknięcie przez przycisk X
+        const closeBtn = page.locator('#cc-mobile-edge-dialog button[data-edge-key="close"]');
+        await closeBtn.click();
+        await page.waitForTimeout(300);
+        assert.equal(await dialog.evaluate(el => el.open), false, 'Edge dialog must be closed');
+        
+        // Krytyczny test przeciwko zamrożeniu ekranu: przywrócenie overflow i możliwość przewijania
+        const bodyOverflowAfterClose = await page.evaluate(() => document.body.style.overflow);
+        assert.equal(bodyOverflowAfterClose, '', 'Body overflow must be cleared after closing dialog (no freeze)');
+        const canScrollAfterClose = await page.evaluate(() => {
+          const before = window.scrollY;
+          window.scrollBy(0, 50);
+          const after = window.scrollY;
+          return after > before;
+        });
+        assert.ok(canScrollAfterClose, 'Page must be freely scrollable after closing edge panel');
+
+        // Weryfikacja klikalności elementu paska nawigacji po zamknięciu panelu
+        const shelfTab = nav.locator('a[href="#myShelf"]');
+        await shelfTab.click();
+        await page.waitForTimeout(100);
 
         await page.screenshot({ path: path.join(SCREENSHOTS_DIR, `09_cc_go_${vp.width}_scrolled_symmetrical_above_nav.png`) });
         await context.close();

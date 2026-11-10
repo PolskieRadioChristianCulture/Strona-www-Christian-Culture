@@ -322,13 +322,18 @@
     // 1. Sprawdź czy dialog istnieje
     if (dialog && typeof dialog.showModal === 'function') {
       if (!dialog.open) {
-        // Spróbuj użyć istniejącego triggera, aby zachować pełną logikę CCMobileEdge
-        const existingTrigger = document.querySelector('.cc-mobile-edge-trigger, #topNavMenuBtn, #ccOmniEdgeBtn, #menuToggleBtn');
-        if (existingTrigger && existingTrigger !== buttonEl && typeof existingTrigger.click === 'function') {
-          existingTrigger.click();
+        if (typeof dialog._ccOpen === 'function') {
+          dialog._ccOpen();
         } else {
-          dialog.showModal();
-          document.body.style.overflow = 'hidden';
+          // Spróbuj użyć istniejącego triggera, aby zachować pełną logikę CCMobileEdge
+          const existingTrigger = document.querySelector('.cc-mobile-edge-trigger, #topNavMenuBtn, #ccOmniEdgeBtn, #menuToggleBtn');
+          if (existingTrigger && existingTrigger !== buttonEl && typeof existingTrigger.click === 'function') {
+            existingTrigger.click();
+          } else {
+            dialog.showModal();
+            if (document.body && document.body.style) document.body.style.overflow = 'hidden';
+            if (document.documentElement && document.documentElement.style) document.documentElement.style.overflow = 'hidden';
+          }
         }
       }
     } else {
@@ -350,11 +355,13 @@
     if (dialog && dialog.open && typeof dialog.close === 'function') {
       dialog.close();
     }
+    if (document.body && document.body.style) document.body.style.overflow = '';
+    if (document.documentElement && document.documentElement.style) document.documentElement.style.overflow = '';
     if (buttonEl) {
       buttonEl.setAttribute('aria-expanded', 'false');
     }
     if (previousFocusEl && previousFocusEl.isConnected && typeof previousFocusEl.focus === 'function') {
-      previousFocusEl.focus({ preventScroll: true });
+      try { previousFocusEl.focus({ preventScroll: true }); } catch (_) {}
     }
   }
 
@@ -508,12 +515,20 @@
         const dialog = document.getElementById(config.dialogId);
         if (dialog) {
           dialog.addEventListener('close', () => {
+            if (document.body && document.body.style) document.body.style.overflow = '';
+            if (document.documentElement && document.documentElement.style) document.documentElement.style.overflow = '';
+            if (buttonEl) buttonEl.setAttribute('aria-expanded', 'false');
             scheduleUpdate();
             if (previousFocusEl && previousFocusEl.isConnected && typeof previousFocusEl.focus === 'function') {
-              previousFocusEl.focus({ preventScroll: true });
+              try { previousFocusEl.focus({ preventScroll: true }); } catch (_) {}
             }
           });
-          dialog.addEventListener('cancel', () => scheduleUpdate());
+          dialog.addEventListener('cancel', () => {
+            if (document.body && document.body.style) document.body.style.overflow = '';
+            if (document.documentElement && document.documentElement.style) document.documentElement.style.overflow = '';
+            if (buttonEl) buttonEl.setAttribute('aria-expanded', 'false');
+            scheduleUpdate();
+          });
           return true;
         }
         return false;
