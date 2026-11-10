@@ -4,6 +4,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { chromium } from 'playwright';
+import { applyPageStandard } from './cc-page-standard.mjs';
 
 const ROOT = 'C:/Users/czark/Christian_Culture_Projekty/polskieradio.cc';
 const SCREENSHOTS_DIR = path.join(ROOT, 'tests/screenshots/cc-edge-plus');
@@ -50,7 +51,14 @@ function createStaticServer() {
       const ext = path.extname(filePath).toLowerCase();
       const contentType = mimeTypes[ext] || 'application/octet-stream';
       res.writeHead(200, { 'Content-Type': contentType });
-      res.end(fs.readFileSync(filePath));
+      if (ext === '.html') {
+        const relPath = path.relative(ROOT, filePath);
+        const originalHtml = fs.readFileSync(filePath, 'utf8');
+        const standardizedHtml = applyPageStandard(relPath, originalHtml);
+        res.end(standardizedHtml);
+      } else {
+        res.end(fs.readFileSync(filePath));
+      }
     } catch (err) {
       res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end(String(err));
@@ -237,11 +245,6 @@ test('CCEdgePlus Browser Test Suite — Full Matrix (360, 390, 768, 1280, 1920, 
         const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
         const page = await context.newPage();
         await page.goto(`${baseUrl}/go/`, { waitUntil: 'networkidle' });
-
-        // Skrypty standardowe
-        await page.addScriptTag({ url: `${baseUrl}/js/cc-back-to-top.js` });
-        await page.addScriptTag({ url: `${baseUrl}/js/cc-mobile-edge.js` });
-        await page.addScriptTag({ url: `${baseUrl}/js/cc-edge-plus.js` });
         await page.waitForTimeout(300);
 
         // BŁĄD CC-EDGE-001: Weryfikacja BRAKU górnego przycisku "+"

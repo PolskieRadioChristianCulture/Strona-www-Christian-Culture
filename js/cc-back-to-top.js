@@ -77,7 +77,7 @@
           [right - 24, right - 2].forEach(function (x) {
             [height - bottom - 2, height - bottom - 24, height - bottom - 46].forEach(function (y) {
               document.elementsFromPoint(x, y).forEach(function (element) {
-                if (element === button || button.contains(element)) return;
+                if (element === button || button.contains(element) || element.id === 'ccGlobalChatFab' || element.closest('#ccGlobalChatFab') || element.classList?.contains('lumina-floating-chat-btn')) return;
                 var position = window.getComputedStyle(element).position;
                 if (position !== 'fixed' && position !== 'sticky') return;
                 var rect = element.getBoundingClientRect();
