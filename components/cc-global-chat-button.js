@@ -51,7 +51,6 @@
       role: 'Wirtualna gospodarz LUMI MESS',
       avatar: '/images/chat/assistants/asystentka-1.webp',
       avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
-      badge: '🧭 Pomoc i inspiracja',
       greeting: 'W czym mogę Ci dziś pomóc? Kliknij, aby porozmawiać!'
     },
     {
@@ -60,7 +59,6 @@
       role: 'Wirtualna asystentka ekosystemu',
       avatar: '/images/chat/assistants/asystentka-2.webp',
       avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
-      badge: '✨ Odkryj ekosystem',
       greeting: 'Szukasz rozważań, radia czy kursu? Porozmawiaj ze mną!'
     },
     {
@@ -69,7 +67,6 @@
       role: 'Wirtualna asystentka LUMINA',
       avatar: '/images/chat/assistants/asystentka-3.webp',
       avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
-      badge: '🕊️ Wsparcie 24/7',
       greeting: 'Zadaj pytanie lub zgłoś pomysł. Jestem tu dla Ciebie!'
     }
   ];
@@ -1550,7 +1547,6 @@
           <div class="cc-chat-teaser-content">
             <div class="cc-chat-teaser-header">
               <span class="cc-chat-teaser-name" id="ccChatTeaserName">Asystentka CC</span>
-              <span class="cc-chat-teaser-badge" id="ccChatTeaserBadge">🧭 Online</span>
             </div>
             <span class="cc-chat-teaser-msg" id="ccChatTeaserMsg">W czym mogę Ci dziś pomóc?</span>
             <span class="cc-chat-teaser-cta">Kliknij i porozmawiaj →</span>
@@ -1771,7 +1767,6 @@
     const teaserBubble = document.getElementById('ccChatTeaserBubble');
     const teaserAvatar = document.getElementById('ccChatTeaserAvatar');
     const teaserName = document.getElementById('ccChatTeaserName');
-    const teaserBadge = document.getElementById('ccChatTeaserBadge');
     const teaserMsg = document.getElementById('ccChatTeaserMsg');
     const teaserClose = document.getElementById('ccChatTeaserClose');
 
@@ -1785,7 +1780,6 @@
         };
       }
       if (teaserName) teaserName.textContent = activeAssistant.name;
-      if (teaserBadge) teaserBadge.textContent = activeAssistant.badge;
       if (teaserMsg) teaserMsg.textContent = activeAssistant.greeting;
 
       // Sprawdzenie czy użytkownik ręcznie zamknął dymek w tej sesji
