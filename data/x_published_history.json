@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "akademia",
+      "title": "Akademia Biblijna & Kurs Codzienny — Systematyczne Studium Słowa Bożego",
+      "url": "https://polskieradio.cc/akademia",
+      "type": "module",
+      "image": "z_biblia_za_pan_brat_hero.jpg",
+      "publishedAt": "2026-11-10T18:35:13.600Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "pokonac-goliata",
+      "title": "Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo",
+      "url": "https://polskieradio.cc/pokonac-goliata",
+      "type": "book",
+      "image": "art-pokonac-goliata.jpg",
+      "publishedAt": "2026-11-10T18:03:47.943Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "u-boku-diabla-cyfrowe-korporacje-07-sekundy-uwagi-i-cena-jaka-placimy-za-sukces",
       "title": "U BOKU DIABŁA — CYFROWE KORPORACJE, 0,7 SEKUNDY UWAGI I CENA, JAKĄ PŁACIMY ZA SUKCES",
       "url": "https://polskieradio.cc/news/u-boku-diabla-cyfrowe-korporacje-07-sekundy-uwagi-i-cena-jaka-placimy-za-sukces",
