@@ -743,7 +743,7 @@ function playNextGlobalBibleTrack() {
         playPromise.then(() => {
             isPlaying = true;
             updatePlayerUI(true);
-            playerStatusText.textContent = "Odtwarza";
+            playerStatusText.textContent = "";
         }).catch(err => {
             console.error('Global Bible next track error:', err);
             isPlaying = false;
@@ -766,7 +766,7 @@ function playNextBibliaSpiewanaTrack() {
         playPromise.then(() => {
             isPlaying = true;
             updatePlayerUI(true);
-            playerStatusText.textContent = "Odtwarza";
+            playerStatusText.textContent = "";
         }).catch(err => {
             console.error('Biblia Śpiewana next track error:', err);
             isPlaying = false;
@@ -797,7 +797,7 @@ function playNextWorshipTrack() {
         playPromise.then(() => {
             isPlaying = true;
             updatePlayerUI(true);
-            playerStatusText.textContent = "Odtwarza";
+            playerStatusText.textContent = "";
         }).catch(err => {
             console.error('Worship next track error:', err);
             isPlaying = false;
@@ -1063,7 +1063,7 @@ function initYtBridge() {
                     if (event.data === window.YT.PlayerState.PLAYING) {
                         isPlaying = true;
                         updatePlayerUI(true);
-                        playerStatusText.textContent = "Odtwarza (YouTube)";
+                        playerStatusText.textContent = "";
                         try {
                             const data = ytPlayerBridge.getVideoData();
                             if (data && data.title) {
@@ -1074,7 +1074,7 @@ function initYtBridge() {
                         if (activeStation && activeStation.youtubePlaylistId) {
                             isPlaying = false;
                             updatePlayerUI(false);
-                            playerStatusText.textContent = "Zatrzymany";
+                            playerStatusText.textContent = "";
                         }
                     }
                 },
@@ -1082,7 +1082,7 @@ function initYtBridge() {
                     if (activeStation && activeStation.youtubePlaylistId) {
                         isPlaying = false;
                         updatePlayerUI(false);
-                        playerStatusText.textContent = "Błąd odtwarzania YouTube";
+                        playerStatusText.textContent = "Błąd strumienia";
                     }
                 }
             }
@@ -1206,11 +1206,11 @@ function playRadio() {
         currentAudioUrl = "";
         if (!ytBridgeReady || !ytPlayerBridge) {
             ytPendingPlay = true;
-            playerStatusText.textContent = "Ładowanie YouTube…";
+            playerStatusText.textContent = "Łączenie...";
             initYtBridge();
             return;
         }
-        playerStatusText.textContent = "Ładowanie playlisty…";
+        playerStatusText.textContent = "Łączenie...";
         try {
             ytPlayerBridge.loadPlaylist({
                 list: activeStation.youtubePlaylistId,
@@ -1251,7 +1251,7 @@ function playRadio() {
     
     if (playPromise !== undefined) {
         playPromise.then(() => {
-            playerStatusText.textContent = "Odtwarza";
+            playerStatusText.textContent = "";
             updatePlayerUI(true);
         }).catch(error => {
             console.error("Audio playback error:", error);
@@ -1282,7 +1282,7 @@ function stopFade() {
 function pauseRadio() {
     isPlaying = false;
     updatePlayerUI(false);
-    playerStatusText.textContent = "Zatrzymany";
+    playerStatusText.textContent = "";
     stopFade();
     if (ytPlayerBridge && typeof ytPlayerBridge.pauseVideo === 'function') {
         try { ytPlayerBridge.pauseVideo(); } catch(e) {}
@@ -1347,7 +1347,7 @@ audio.addEventListener("waiting", () => {
 audio.addEventListener("playing", () => {
     isPlaying = true;
     updatePlayerUI(true);
-    playerStatusText.textContent = "Odtwarza";
+    playerStatusText.textContent = "";
 });
 
 audio.addEventListener("pause", () => {

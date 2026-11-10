@@ -1210,6 +1210,10 @@ button {
     flex-shrink: 0;        /* nie kurczy się kosztem sąsiadów */
 }
 
+.player-status:empty {
+    display: none !important;
+}
+
 /* Circular Play Button */
 .play-btn {
     width: 50px;

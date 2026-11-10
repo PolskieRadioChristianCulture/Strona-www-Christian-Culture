@@ -1577,7 +1577,7 @@
                     'onError': () => {
                         if (activeEngine !== 'youtube') return;
                         setPlaybackState(false);
-                        playbackStatus('YouTube nie udostępnił tej playlisty. Wybierz inną.');
+                        playbackStatus('Strumień chwilowo niedostępny. Wybierz inną stację.');
                     }
                 }
             });
@@ -1594,14 +1594,14 @@
             if (event.data === YT.PlayerState.PLAYING) {
                 youtubePlaylistReady = true;
                 setPlaybackState(true);
-                playbackStatus('Odtwarzanie YouTube');
+                playbackStatus('Odtwarzanie radia');
                 syncTrackInfoFromYT();
                 renderQueue();
             } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
                 setPlaybackState(false);
                 playbackStatus('Odtwarzanie zatrzymane');
             } else if (event.data === YT.PlayerState.BUFFERING) {
-                playbackStatus('Buforowanie YouTube…');
+                playbackStatus('Buforowanie…');
             }
         }
 
@@ -1770,7 +1770,7 @@
                 }
             } else if (activeEngine === 'youtube' && ytReady && ytPlayer) {
                 ytPlayer.playVideo();
-                playbackStatus('Ładowanie YouTube…');
+                playbackStatus('Ładowanie radia…');
             }
         }
 
@@ -1947,7 +1947,7 @@
         function shuffleQueue() {
             if (activeEngine !== 'youtube' || !currentQueue.length || !ytReady) return;
             ytPlayer.setShuffle(true);
-            playbackStatus('Włączono losową kolejność playlisty YouTube');
+            playbackStatus('Włączono losową kolejność');
         }
 
         // ── WYSZUKIWANIE & FILTROWANIE ──
