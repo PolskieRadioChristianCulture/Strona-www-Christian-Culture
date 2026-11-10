@@ -37,13 +37,17 @@ function openLink(item, url, label) {
 function cover(item) {
   const url = linkFor(item);
   if (!url) return '';
-  return `<article class="cover tone-${tone(item)}" data-id="${escapeHtml(item.id)}">${favButton(item)}<div class="cover-icon">${icon(item.icon)}</div><div class="cover-txt">${item.badge ? `<span class="cover-badge">${escapeHtml(item.badge)}</span>` : ''}<h3>${escapeHtml(item.title)}</h3><i class="card-bar" aria-hidden="true"></i><p>${escapeHtml(item.subtitle || item.description)}</p></div>${openLink(item, url, '<span class="sr-only">Otwórz</span>')}</article>`;
+  const photo = item.image ? `<img class="cover-photo" src="${escapeHtml(item.image)}" alt="" loading="lazy" decoding="async">` : '';
+  return `<article class="cover tone-${tone(item)} ${item.image ? 'has-photo' : ''}" data-id="${escapeHtml(item.id)}">${photo}${favButton(item)}<div class="cover-icon">${icon(item.icon)}</div><div class="cover-txt">${item.badge ? `<span class="cover-badge">${escapeHtml(item.badge)}</span>` : ''}<h3>${escapeHtml(item.title)}</h3><i class="card-bar" aria-hidden="true"></i><p>${escapeHtml(item.subtitle || item.description)}</p></div>${openLink(item, url, '<span class="sr-only">Otwórz</span>')}</article>`;
 }
 /* Wiersz w katalogu */
 function card(item) {
   const url = linkFor(item);
   if (!url) return '';
-  return `<article class="service-card list-card" data-id="${escapeHtml(item.id)}"><div class="card-thumb tone-${tone(item)}">${icon(item.icon)}</div><div class="card-content"><span class="card-category">${escapeHtml(item.category)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.subtitle || item.description)}</p></div><div class="card-foot">${openLink(item, url, `Odkryj ${icon('ext')}`)}${favButton(item)}</div></article>`;
+  const thumb = item.image
+    ? `<img class="thumb-photo" src="${escapeHtml(item.image)}" alt="" loading="lazy" decoding="async">`
+    : icon(item.icon);
+  return `<article class="service-card list-card" data-id="${escapeHtml(item.id)}"><div class="card-thumb tone-${tone(item)} ${item.image ? 'has-photo' : ''}">${thumb}</div><div class="card-content"><span class="card-category">${escapeHtml(item.category)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.subtitle || item.description)}</p></div><div class="card-foot">${openLink(item, url, `Odkryj ${icon('ext')}`)}${favButton(item)}</div></article>`;
 }
 function shelf(id, title, items, opts = {}) {
   return `<section class="shelf" id="${id}" aria-labelledby="${id}-h"><div class="shelf-head"><h2 id="${id}-h">${escapeHtml(title)}</h2>${opts.more ? `<button type="button" class="shelf-more" data-show-category="${escapeHtml(opts.more)}">Zobacz wszystkie ${icon('arrow')}</button>` : ''}</div><div class="shelf-row" role="list">${items.map(item => `<div role="listitem">${cover(item)}</div>`).join('')}</div></section>`;
@@ -71,7 +75,11 @@ function renderHero() {
   if (!pool.length) { $('#heroRow').parentElement.hidden = true; return; }
   const start = ((dayIndex() % pool.length) + pool.length) % pool.length;
   const slides = [...pool.slice(start), ...pool.slice(0, start)].slice(0, 6);
-  $('#heroRow').innerHTML = slides.map((item, i) => `<a class="hero-slide tone-${tone(item)}" href="${escapeHtml(linkFor(item))}" data-track="${escapeHtml(item.id)}"><span class="hero-txt"><small>${i === 0 ? 'PROPOZYCJA NA DZIŚ' : escapeHtml(item.category.toUpperCase())}</small><b>${escapeHtml(item.title)}</b><span>${escapeHtml(item.subtitle)}</span><em>Odkryj ${icon('arrow')}</em></span><span class="hero-art">${icon(item.icon)}</span></a>`).join('');
+  $('#heroRow').innerHTML = slides.map((item, i) => {
+    const hasPhoto = Boolean(item.image);
+    const bgImg = hasPhoto ? `<img class="hero-bg-photo" src="${escapeHtml(item.image)}" alt="" loading="lazy" decoding="async">` : '';
+    return `<a class="hero-slide tone-${tone(item)} ${hasPhoto ? 'has-photo' : ''}" href="${escapeHtml(linkFor(item))}" data-track="${escapeHtml(item.id)}">${bgImg}<span class="hero-txt"><small>${i === 0 ? 'PROPOZYCJA NA DZIŚ' : escapeHtml(item.category.toUpperCase())}</small><b>${escapeHtml(item.title)}</b><span>${escapeHtml(item.subtitle)}</span><em>Odkryj ${icon('arrow')}</em></span><span class="hero-art">${icon(item.icon)}</span></a>`;
+  }).join('');
 }
 function renderFilters() {
   const categories = ['Wszystkie', ...state.shelves.filter(c => state.items.some(i => i.category === c))];

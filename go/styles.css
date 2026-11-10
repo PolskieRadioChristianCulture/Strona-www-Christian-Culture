@@ -319,7 +319,10 @@ h2{font-weight:800;font-size:clamp(1.65rem,6vw,2.6rem);letter-spacing:-.03em;lin
 @media (min-width:1040px){.hero-row{grid-auto-columns:calc(33.333% - 8px)}}
 .hero-slide{scroll-snap-align:start;position:relative;overflow:hidden;min-height:190px;border-radius:22px;color:#fff;text-decoration:none;display:flex;align-items:flex-end;justify-content:space-between;padding:18px;box-shadow:0 8px 18px rgba(4,60,72,.16)}
 .hero-slide::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,20,30,.7),rgba(5,20,30,.15))}
-.hero-slide>*{position:relative}
+.hero-bg-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .4s ease}
+.hero-slide.has-photo::before{z-index:1;background:linear-gradient(90deg,rgba(5,20,30,.92) 0%,rgba(5,20,30,.65) 55%,rgba(5,20,30,.3) 100%)}
+.hero-slide>*{position:relative;z-index:2}
+.hero-slide:hover .hero-bg-photo{transform:scale(1.04)}
 .hero-txt{display:flex;flex-direction:column;gap:3px;max-width:75%}
 .hero-txt small{font-size:.64rem;font-weight:800;letter-spacing:.16em;color:var(--yellow)}
 .hero-txt b{font-size:1.45rem;font-weight:800;line-height:1.1;letter-spacing:-.02em}
