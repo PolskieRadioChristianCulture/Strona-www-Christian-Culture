@@ -806,6 +806,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🛡️ POKONAĆ GOLIATA | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj artykuł w serwisie:\n';
       addTags('#PokonacGoliata', '#CezaryRogowski', '#CCNNews', '#Prawda');
+    } else if (tLower.includes('u boku diabła') || tLower.includes('u boku diabla') || (item.url || '').includes('u-boku-diabla')) {
+      subHeader = '🛡️ U BOKU DIABŁA | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj artykuł w serwisie:\n';
+      addTags('#UbokuDiabla', '#CezaryRogowski', '#CCNNews', '#Prawda');
     } else if (tLower.includes('pokój') || tLower.includes('pokoj') || tLower.includes('lęk') || tLower.includes('lek')) {
       subHeader = '🕊️ POKÓJ SERCA & NADZIEJA';
       callToAction = '👉 Czytaj artykuł w serwisie:\n';
