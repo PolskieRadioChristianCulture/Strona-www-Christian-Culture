@@ -224,4 +224,16 @@ Na początku każdej sesji przeczytaj `JOMA_SHARED_MEMORY/SKRZYNKA/TABLICA.md` i
 - **Procedura uruchomienia:** Komenda `@Skaner` lub CLI: `npm.cmd run scan:guardian-360`. Raport archiwizowany w `JOMA_SHARED_MEMORY/CC_GUARDIAN_360_NAJNOWSZY_RAPORT.md`.
 - **Rutyna nocna:** 22:00 CET daily w sidecarze `cc-ecosystem-health-scanner`. Standard 100% ZERO COST.
 
+## 18. Protokół Wyjątkowy AG-01: Autonomia Wykonawcza Antigravity (Dyrektywa Dowódcy 10.11.2026 / JOMA-D059)
+> ⚡ **Dokument Normatywny:** `Misja CC/JOMA_SHARED_MEMORY/konstytucja/CC_PROTOKOL_WYJATKOWY_AG01.md` (`JOMA-PROT-AG01-20261110`).
+- **Zasada nadrzędna:** `ZERO BLOCKING WITHOUT JUSTIFICATION — ZERO QUALITY COMPROMISE`. Czasowa niedostępność tokenów Codex i Claude Code nie stanowi powodu do paraliżu prac misyjnych.
+- **Pełny cykl realizacji:** Antigravity otrzymuje uprawnienie do samodzielnego przeprowadzenia pełnego cyklu (analiza → implementacja → testy → poprawki → niezależna kontrola techniczna → dokumentacja → zamknięcie).
+- **Klasy Ryzyka:**
+  - **R1 (Niskie):** Autonomiczna implementacja, testy i publikacja.
+  - **R2 (Umiarkowane):** Wymagany pełny zestaw testów, kontrola regresji i plan wycofania.
+  - **R3 (Wysokie) & R4 (Krytyczne):** Implementacja i testy autonomiczne; publikacja i wdrożenie WYMAGA autoryzacji L0 (Cezary Rogowski).
+- **Zastępcza weryfikacja obiektywna:** Playwright, testy CI (`test:guardian`, `test:cc-regression`, `test:mobile-premium`), analiza statyczna. Samodzielna ocena agenta nie zastępuje testów.
+- **Zasada dowożenia rezultatów:** Antigravity ma dowozić rezultaty, nie tylko wykonywać czynności. Każde zadanie kończy się raportem do Skrzynki Misji z twardymi dowodami.
+
+
 
