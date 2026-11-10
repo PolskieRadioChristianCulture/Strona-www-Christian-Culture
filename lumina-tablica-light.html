@@ -1201,7 +1201,7 @@
                 gap: 5px;
                 flex: 1;
                 justify-content: center;
-                min-height: 42px;
+                min-height: 44px;
             }
             .board-switcher-divider {
                 font-size: 0.8rem;
@@ -1610,7 +1610,17 @@
             font-family: inherit;
             transition: opacity 0.2s;
             white-space: nowrap;
-            min-height: 28px;
+            min-height: 32px;
+            position: relative;
+        }
+        .profile-carousel-btn::after {
+            content: "";
+            position: absolute;
+            top: -6px;
+            bottom: -6px;
+            left: -8px;
+            right: -8px;
+            min-height: 44px;
         }
         .profile-carousel-btn:hover { opacity: 0.85; }
         @media (max-width: 480px) {
@@ -5295,12 +5305,12 @@ html[data-lumina-theme="light"] .lumina-share-btn span[style*="color:#fde047"], 
 html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 /* Przycisk wsparcia na górnej belce — także na telefonie (sama ikona) */
 @media (max-width: 900px) {
-  body .lumina-nav .btn-nav-support { display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 40px !important; height: 40px !important; min-width: 40px !important; padding: 0 !important; border-radius: 50% !important; flex: 0 0 40px !important; margin: 0 !important; }
+  body .lumina-nav .btn-nav-support { display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: 44px !important; min-width: 44px !important; padding: 0 !important; border-radius: 50% !important; flex: 0 0 44px !important; margin: 0 !important; }
   body .lumina-nav .btn-nav-support .btn-nav-cta-text { display: none !important; }
   body .lumina-nav .btn-nav-support i { margin: 0 !important; font-size: 1.05rem !important; }
 }
 @media (max-width: 400px) {
-  body .lumina-nav :is(.nav-circle-btn, .notif-bell-btn, .nav-menu-btn) { width: 40px !important; height: 40px !important; min-width: 40px !important; flex-basis: 40px !important; }
+  body .lumina-nav :is(.nav-circle-btn, .notif-bell-btn, .nav-menu-btn) { width: 44px !important; height: 44px !important; min-width: 44px !important; flex-basis: 44px !important; }
 }
 </style>
 <link rel="stylesheet" href="/css/lumina-post-actions.css?v=20261021_3">
@@ -5794,7 +5804,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 
                     <!-- YT-1: Osobowość + Rolka Wiary -->
                     <a href="rolki#short_osobowoscplus_bFmXoR4p7_g" class="fb-story-card" title="Rolka: Osobowość + • Formacja & Wiara">
-                        <img src="https://i.ytimg.com/vi/bFmXoR4p7_g/hqdefault.jpg" alt="Osobowość +" class="fb-story-bg" loading="lazy" onerror="this.src='logo_osobowosc_plus.jpg'">
+                        <img src="logo_osobowosc_plus.jpg" alt="Osobowość +" class="fb-story-bg" loading="lazy" onerror="this.src='logo_osobowosc_plus.jpg'">
                         <div class="fb-story-gradient"></div>
                         <div class="fb-story-video-badge"><i class="fa-brands fa-youtube"></i> SHORTS</div>
                         <div class="fb-story-avatar-badge" style="border-color:#a855f7;">

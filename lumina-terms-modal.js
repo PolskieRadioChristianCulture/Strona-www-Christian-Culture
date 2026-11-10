@@ -136,21 +136,31 @@
             }
 
             .lumina-legal-close-btn {
-                background: linear-gradient(135deg, #f59e0b, #d97706);
+                background: #FF7A00;
                 border: none;
-                color: #000;
+                color: #FFFFFF;
                 font-weight: 800;
-                padding: 10px 24px;
+                padding: 11px 24px;
                 border-radius: 50px;
                 cursor: pointer;
                 font-size: 0.88rem;
                 font-family: inherit;
-                transition: transform 0.2s, box-shadow 0.2s;
+                min-height: 44px;
+                min-width: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
             }
 
             .lumina-legal-close-btn:hover {
+                background: #FF8C33;
                 transform: translateY(-1px);
-                box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+                box-shadow: 0 4px 15px rgba(255, 122, 0, 0.4);
+            }
+            .lumina-legal-close-btn:active {
+                background: #E66A00;
+                transform: translateY(0);
             }
         `;
         document.head.appendChild(style);
