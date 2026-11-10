@@ -10,17 +10,20 @@
 
   gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+    <script src="/js/cc-polonia-hub.js?v=20261109_2" defer></script>
+    <script src="/js/cc-ramowka.js?v=20261027_v1"></script>
     <!-- ==========================================
          1. PODSTAWOWE METADANE I SEO
          ========================================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PolskieRadio.cc - Globalne Polskie Radio Internetowe & Christian Culture (6 Stacji 24/7)</title>
-    <meta name="description" content="Witaj w przestrzeni nowej kultury chrześcijańskiej. Doświadczaj wiary na co dzień dzięki sześciu stacjom radiowym z muzyką i Słowem Bożym bezpośrednio w przeglądarce oraz pobierz nasze dedykowane aplikacje mobilne wspierające Twój rozwój duchowy.">
-    <meta name="keywords" content="polskie radio, radio online, polska muzyka, radio internetowe, polonia, kultura chrześcijańska, biblia audio, instrumental worship, biblia śpiewana, modlitwa online, dobrze że jesteś, lumina, vod chrześcijańskie">
-    <meta name="author" content="Christian Culture / PolskieRadio.cc">
-    <meta name="ai-agent" content="enabled, allow-citations, format=markdown, llms-doc=https://polskieradio.cc/llms.txt">
+    <title>Christian Culture — Radio, Biblia, filmy, społeczność i kursy</title>
+    <meta name="description" content="Christian Culture — wszystko, czego potrzebujesz, w jednym miejscu. Radio na żywo, Biblia, filmy, kursy, społeczność i wartościowe treści. Odkrywaj za darmo!">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://polskieradio.cc/">
+    <meta name="author" content="Christian Culture">
+    <meta name="theme-color" content="#F9FAFC">
+    <meta name="ai-agent" content="enabled, allow-citations, format=markdown, llms-doc=https://polskieradio.cc/llms.txt">
 
     <!-- RSS Auto-Discovery (Apple Podcasts, Spotify, Feed Readers) -->
     <link rel="alternate" type="application/rss+xml" title="Polskie Radio Christian Culture • Podcast RSS" href="https://polskieradio.cc/podcast.xml">
@@ -66,11 +69,13 @@
         {
           "@type": "WebSite",
           "@id": "https://polskieradio.cc/#website",
-          "url": "https://polskieradio.cc",
-          "name": "PolskieRadio.cc — Globalne Polskie Radio Internetowe & Christian Culture",
-          "description": "Nowoczesna platforma medialna Christian Culture: 6 stacji radiowych 24/7, Biblia Audio non-stop, filmy VOD, transmisje na żywo oraz chrześcijański portal relacji LUMINA.",
-          "inLanguage": ["pl", "en", "de", "uk", "es"],
-          "publisher": { "@id": "https://polskieradio.cc/#organization" }
+          "name": "Christian Culture",
+          "url": "https://polskieradio.cc/",
+          "inLanguage": "pl-PL",
+          "publisher": {
+            "@id": "https://polskieradio.cc/#organization"
+          },
+          "description": "Wszystko, czego potrzebujesz, w jednym miejscu. Radio, Biblia, filmy, kursy i społeczność."
         },
         {
           "@type": "RadioStation",
@@ -123,16 +128,29 @@
               "name": "Biblia Śpiewana (Wersety w Muzyce)",
               "broadcastServiceTier": "Free",
               "genre": "Biblical Songs, Scripture in Music, Uwielbienie"
+            },
+            {
+              "@type": "BroadcastChannel",
+              "broadcastChannelId": "radio_cc_women",
+              "name": "Radio CC Women (Miejsce Kobiet Takich Jak Ty)",
+              "broadcastServiceTier": "Free",
+              "genre": "Christian Women, Worship, Inspiracja, Rozmowy, Świadectwa"
             }
           ]
         },
         {
           "@type": "Organization",
           "@id": "https://polskieradio.cc/#organization",
-          "name": "Christian Culture Platform",
-          "alternateName": "Misja Christian Culture",
-          "url": "https://polskieradio.cc",
+          "name": "Christian Culture",
+          "alternateName": [
+            "Polskie Radio Christian Culture",
+            "Radio Christian Culture"
+          ],
+          "url": "https://polskieradio.cc/",
+          "description": "Christian Culture to chrześcijański ekosystem mediów, edukacji, społeczności i narzędzi cyfrowych.",
+          "slogan": "Wszystko, czego potrzebujesz, w jednym miejscu.",
           "logo": "https://polskieradio.cc/icon.png",
+          "image": "https://polskieradio.cc/images/milion-og.jpg",
           "founder": {
             "@type": "Person",
             "name": "Cezary Rogowski",
@@ -140,10 +158,10 @@
             "url": "https://polskieradio.cc/lumina.cezaryrgowski"
           },
           "sameAs": [
-            "https://lumina-cc-b90b0.web.app",
-            "https://polskieradio.cc/lumina",
-            "https://polskieradio.cc/vod",
-            "https://christian-culture.web.app/"
+            "https://youtube.com/@ChristianCultureTV",
+            "https://youtube.com/@RadioChristianCulture",
+            "https://youtube.com/@osobowoscplus",
+            "https://linktr.ee/christianculture"
           ],
           "subOrganization": {
             "@type": "NewsMediaOrganization",
@@ -238,6 +256,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6762200025251358"
          crossorigin="anonymous"></script>
 
+    <style>.cc-home-skip{position:fixed;top:8px;left:12px;z-index:2147483647;transform:translateY(-160%);padding:12px 18px;min-height:44px;background:#fff;color:#171319;border-radius:8px;font:600 16px system-ui}.cc-home-skip:focus{transform:translateY(0);outline:3px solid #c4a35a;outline-offset:3px}</style>
     <!-- Google Fonts: Cinzel (Headers) and Montserrat (UI & Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -250,29 +269,27 @@
          2. OPEN GRAPH (Facebook, WhatsApp, LinkedIn, Discord)
          ========================================== -->
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="PolskieRadio.cc - Christian Culture">
-    <meta property="og:title" content="PolskieRadio.cc - 6 Stacji Radiowych na Żywo & Christian Culture">
-    <meta property="og:description" content="Witaj w przestrzeni nowej kultury chrześcijańskiej. Doświadczaj wiary na co dzień dzięki sześciu stacjom radiowym z muzyką i Słowem Bożym bezpośrednio w przeglądarce oraz pobierz nasze dedykowane aplikacje mobilne wspierające Twój rozwój duchowy.">
+    <meta property="og:locale" content="pl_PL">
+    <meta property="og:site_name" content="Christian Culture">
+    <meta property="og:title" content="Christian Culture — Wszystko, czego potrzebujesz, w jednym miejscu">
+    <meta property="og:description" content="Radio, Biblia, filmy, kursy, społeczność i wartościowe treści chrześcijańskie. Poznaj Christian Culture.">
     <meta property="og:url" content="https://polskieradio.cc/">
-    <meta property="og:image" content="https://polskieradio.cc/icon.png">
+    <meta property="og:image" content="https://polskieradio.cc/images/milion-og.jpg">
+    <meta property="og:image:alt" content="Christian Culture — Wszystko, czego potrzebujesz, w jednym miejscu">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="pl_PL">
-    <meta property="og:locale:alternate" content="en_US">
 
     <!-- ==========================================
          3. TWITTER CARDS (X)
          ========================================== -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@ChristianCulture">
-    <meta name="twitter:title" content="PolskieRadio.cc - 6 Stacji Radiowych Online 24/7">
-    <meta name="twitter:description" content="Witaj w przestrzeni nowej kultury chrześcijańskiej. Doświadczaj wiary na co dzień dzięki sześciu stacjom radiowym z muzyką i Słowem Bożym bezpośrednio w przeglądarce.">
-    <meta name="twitter:image" content="https://polskieradio.cc/icon.png">
+    <meta name="twitter:title" content="Christian Culture — Wszystko w jednym miejscu">
+    <meta name="twitter:description" content="Radio, Biblia, filmy, kursy, społeczność i inspiracje. Odkryj Christian Culture.">
+    <meta name="twitter:image" content="https://polskieradio.cc/images/milion-og.jpg">
 
     <!-- ==========================================
          4. PWA, APLIKACJE I UX MOBILNY
          ========================================== -->
-    <meta name="theme-color" content="#0d0f19">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -289,8 +306,17 @@
 
     <!-- Custom Style Sheet -->
     <link rel="stylesheet" href="css/christian-culture-design-system.css">
-    <link rel="stylesheet" href="style.css?v=45">
+    <link rel="stylesheet" href="style.css?v=49">
     <style>
+        /* WCAG 2.2 AA: prefers-reduced-motion (CC v2 Premium) */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
         /* Mobile Full-Screen Side Drawer Navigation (<= 768px) */
         @media (max-width: 768px) {
             .side-drawer {
@@ -436,7 +462,26 @@
             transform: scale(1.08);
             background: linear-gradient(135deg, #ffe45e, #f5c518);
         }
+        /* Wyrównanie ikony czatu do ikony telefonu w dolnym pasku odtwarzacza na komputerze */
+        @media (min-width: 769px) {
+            #ccGlobalChatFab.cc-chat-fab-wrap {
+                bottom: max(25px, env(safe-area-inset-bottom)) !important;
+            }
+            #radioPlayerBar .player-right {
+                padding-right: 76px !important;
+            }
+        }
         @media (max-width: 768px) {
+            #mainHeader .brand-logo { display: none !important; }
+            #radioPlayerBar .player-right { min-width: 0 !important; width: 100% !important; box-sizing: border-box; padding-right: 88px !important; justify-content: flex-start !important; gap: 8px !important; }
+            #radioPlayerBar .player-status { font-size: 0.55rem !important; padding: 2px 4px !important; }
+            #radioPlayerBar .volume-slider { min-width: 0; width: auto !important; flex: 1 1 auto; }
+            #mainHeader #helplineFloat { min-width: 44px; min-height: 44px; }
+            #mainHeader #helplineFloat .hf-btn {
+                width: 44px !important; height: 44px !important;
+                animation: none; font-size: 1.1rem !important;
+            }
+            #mainHeader #helplineFloat:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 50%; }
             #helplineFloat .hf-btn {
                 width: 38px !important;
                 height: 38px !important;
@@ -506,8 +551,12 @@
       ]
     }
     </script>
+    <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261030_edge10">
+    <link rel="stylesheet" href="/css/cc-edge-cue.css?v=20261021_1">
+    <script defer src="/js/cc-mobile-edge.js?v=20261030_edge10" data-cc-edge-profile="home"></script>
 </head>
 <body>
+<a class="cc-home-skip" href="#main-content">Przejdź do głównej treści</a>
 
     <!-- ===== FIXED SIDE PROMO PANELS (desktop only) ===== -->
     <style>
@@ -631,10 +680,13 @@
         .side-promo-inner:hover .side-cta {
             filter: brightness(1.1);
         }
-        /* CCN Drawer Accordion */
-        details.drawer-ccn-hub summary::-webkit-details-marker { display: none; }
-        details.drawer-ccn-hub summary::marker { display: none; }
-        details.drawer-ccn-hub[open] .ccn-arrow { transform: rotate(180deg); }
+        /* CCN & Books Drawer Accordion */
+        details.drawer-ccn-hub summary::-webkit-details-marker,
+        details.drawer-books-hub summary::-webkit-details-marker { display: none; }
+        details.drawer-ccn-hub summary::marker,
+        details.drawer-books-hub summary::marker { display: none; }
+        details.drawer-ccn-hub[open] .ccn-arrow,
+        details.drawer-books-hub[open] .books-arrow { transform: rotate(180deg); }
         .ccn-sublink { transition: all 0.2s ease; text-decoration: none; }
         .ccn-sublink:hover {
             background: rgba(212, 169, 74, 0.2) !important;
@@ -776,11 +828,15 @@
                 <!-- Google Translate Dropdown -->
                 <div id="google_translate_element" style="position: absolute; left: -9999px; top: -9999px; visibility: hidden;"></div>
                 
+                <!-- Polonia & Global Language Switcher (PL | EN) -->
+                <div data-cc-lang-switcher class="cc-header-lang-switcher" style="display: flex; align-items: center;"></div>
+                
                 <div class="quick-actions-menu" id="quickActionsMenu" style="position: relative; display: flex; align-items: center; gap: 8px;">
                     <!-- Main Toggle Button -->
                     <button class="sms-button toggle-trigger" id="actionsToggleBtn" aria-label="MENU CC" title="MENU CC" style="z-index: 110; margin-right: 0;">
                         <div class="avatar-ring" style="display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); border: 1.5px solid var(--border-gold-low); transition: all 0.3s ease;">
                             <i class="fa-solid fa-plus" id="actionsToggleIcon" style="color: var(--gold-primary); font-size: 1.15rem; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;"></i>
+                            <span class="cc-home-menu-label" aria-hidden="true">MENU</span>
                         </div>
                     </button>
                     
@@ -885,11 +941,19 @@
                         </div>
                         <i class="fa-solid fa-chevron-right pill-arrow"></i>
                     </a>
+                    <a href="/mapa" class="strip-pill-card pill-media" data-title="Mapa Ekosystemu" data-keywords="mapa ekosystem nawigacja projekty graf galaktyka drzewo stacje lumina ccn relacje">
+                        <div class="pill-icon" style="color: var(--gold-primary);"><i class="fa-solid fa-circle-nodes"></i></div>
+                        <div class="pill-info">
+                            <span class="pill-name">Mapa CC</span>
+                            <span class="pill-desc">Mapa Ekosystemu</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right pill-arrow"></i>
+                    </a>
                 </div>
             </section>
 
                         <!-- 5 Columns Container (Desktop 5 columns / Mobile Accordion) -->
-            <main class="menu-cc-grid" id="menuCcGrid">
+            <nav class="menu-cc-grid" id="menuCcGrid" aria-label="Kategorie ekosystemu">
                 <!-- COL 1: STACJE & MEDIA LIVE (Cyan/Blue) -->
                 <div class="cc-col cc-col-media" data-col="media">
                     <div class="cc-col-banner">
@@ -981,14 +1045,14 @@
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
-                        <a href="#books-section" class="cc-card" data-keywords="kod zrodlowy pokonac goliata ksiazki cezary rogowski ebook audiobook czytaj literatura powiesc wolnosc">
+                        <a href="https://polskieradio.cc/ksiazki-autora" class="cc-card" data-keywords="książki cezary rogowski pokonać goliata kod źródłowy u boku diabła prawda bez filtra bóg jest miłością e-booki audiobooki autor półka 5 książek">
                             <div class="cc-card-icon" style="color: #fbbf24;"><i class="fa-solid fa-book-bookmark"></i></div>
                             <div class="cc-card-body">
                                 <div class="cc-card-head">
-                                    <span class="cc-card-title">Książki Autorskie</span>
-                                    <span class="cc-card-badge" style="background: rgba(250, 204, 21, 0.15); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.35);">E-BOOK & AUDIO</span>
+                                    <span class="cc-card-title">Książki Autora</span>
+                                    <span class="cc-card-badge" style="background: rgba(250, 204, 21, 0.15); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.35);">5 KSIĄŻEK</span>
                                 </div>
-                                <span class="cc-card-sub">Kod Źródłowy • Pokonać Goliata</span>
+                                <span class="cc-card-sub">Półka Autorska • Wszystkie 5 tytułów</span>
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
@@ -1130,17 +1194,51 @@
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
-                        <a href="https://polskieradio.cc/ksiazki-autora" class="cc-card" data-keywords="książki cezary rogowski cezarego rogowskiego pokonać goliata kod źródłowy bóg jest miłością u boku diabła prawda bez filtra e-booki audiobooki autor półka">
+                        <a href="https://polskieradio.cc/ksiazki-autora" class="cc-card" data-keywords="książki cezary rogowski cezarego rogowskiego pokonać goliata kod źródłowy bóg jest miłością u boku diabła prawda bez filtra e-booki audiobooki autor półka 5 książek">
                             <div class="cc-card-icon" style="color: #f59e0b;"><i class="fa-solid fa-book-open-reader"></i></div>
                             <div class="cc-card-body">
                                 <div class="cc-card-head">
                                     <span class="cc-card-title">Książki Autora</span>
-                                    <span class="cc-card-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);">E-BOOKI</span>
+                                    <span class="cc-card-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);">5 KSIĄŻEK</span>
                                 </div>
-                                <span class="cc-card-sub">Cezary Rogowski • Półka z książkami</span>
+                                <span class="cc-card-sub">Półka z książkami • Wszystkie 5 tytułów</span>
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
+                        <details class="drawer-books-hub" style="margin: 4px 0; border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; background: rgba(20, 20, 25, 0.7); overflow: hidden; transition: all 0.25s ease;" open>
+                            <summary style="list-style: none; display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; cursor: pointer; user-select: none; color: #fff; font-weight: 800; background: rgba(245, 158, 11, 0.08);">
+                                <span style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fa-solid fa-book-bookmark" style="color: #fbbf24; font-size: 1.05rem; width: 20px; text-align: center;"></i>
+                                    <span style="font-size: 0.82rem;">Katalog 5 Książek Autora</span>
+                                </span>
+                                <span style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="font-size: 0.58rem; background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1px solid rgba(245, 158, 11, 0.45); padding: 2px 6px; border-radius: 5px; font-weight: 900;">5 TYTUŁÓW</span>
+                                    <i class="fa-solid fa-chevron-down books-arrow" style="font-size: 0.7rem; color: #fbbf24; transition: transform 0.2s;"></i>
+                                </span>
+                            </summary>
+                            <div style="padding: 8px 10px 12px 10px; display: flex; flex-direction: column; gap: 5px; border-top: 1px solid rgba(245, 158, 11, 0.2); background: rgba(10, 10, 15, 0.85);">
+                                <a href="https://polskieradio.cc/pokonac-goliata" class="drawer-link ccn-sublink" style="padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; background: rgba(245, 158, 11, 0.08); color: #fef3c7; display: flex; justify-content: space-between; align-items: center;">
+                                    <span><i class="fa-solid fa-shield-halved" style="color: #fbbf24; margin-right: 6px;"></i> 1. Pokonać Goliata</span>
+                                    <span style="font-size: 0.55rem; color: #fbbf24;">8 Kroków • Zwycięstwo</span>
+                                </a>
+                                <a href="https://polskieradio.cc/kod" class="drawer-link ccn-sublink" style="padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; background: rgba(168, 85, 247, 0.08); color: #f3e8ff; display: flex; justify-content: space-between; align-items: center;">
+                                    <span><i class="fa-solid fa-code" style="color: #c084fc; margin-right: 6px;"></i> 2. Kod Źródłowy</span>
+                                    <span style="font-size: 0.55rem; color: #c084fc;">Powieść & Świadectwo</span>
+                                </a>
+                                <a href="https://polskieradio.cc/u-boku-diabla" class="drawer-link ccn-sublink" style="padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; background: rgba(239, 68, 68, 0.08); color: #fee2e2; display: flex; justify-content: space-between; align-items: center;">
+                                    <span><i class="fa-solid fa-fire" style="color: #f87171; margin-right: 6px;"></i> 3. U boku Diabła</span>
+                                    <span style="font-size: 0.55rem; color: #f87171;">Powieść • 40 rozdz.</span>
+                                </a>
+                                <a href="https://polskieradio.cc/prawda-bez-filtra" class="drawer-link ccn-sublink" style="padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; background: rgba(236, 72, 153, 0.08); color: #fce7f3; display: flex; justify-content: space-between; align-items: center;">
+                                    <span><i class="fa-solid fa-lock" style="color: #f472b6; margin-right: 6px;"></i> 4. Prawda Bez Filtra</span>
+                                    <span style="font-size: 0.55rem; color: #f472b6;">Dla dorosłych 18+</span>
+                                </a>
+                                <a href="https://polskieradio.cc/bog-jest-miloscia" class="drawer-link ccn-sublink" style="padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; background: rgba(56, 189, 248, 0.08); color: #e0f2fe; display: flex; justify-content: space-between; align-items: center;">
+                                    <span><i class="fa-solid fa-heart" style="color: #38bdf8; margin-right: 6px;"></i> 5. Bóg jest MIŁOŚCIĄ?</span>
+                                    <span style="font-size: 0.55rem; color: #38bdf8;">Dialogowa • 38 rozdz.</span>
+                                </a>
+                            </div>
+                        </details>
                         <a href="werset-dnia" class="cc-card" data-keywords="werset dnia karty słowa generator cytaty biblia">
                             <div class="cc-card-icon"><i class="fa-solid fa-scroll"></i></div>
                             <div class="cc-card-body">
@@ -1288,11 +1386,11 @@
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
-                        <a href="lumina#herbatka" class="cc-card" data-keywords="herbatka międzysłowami poczytaj posłuchaj kawa rozmowy">
+                        <a href="lumina#herbatka" class="cc-card" data-keywords="herbaciarnia między słowami herbatka międzysłowami poczytaj posłuchaj kawa rozmowy">
                             <div class="cc-card-icon"><i class="fa-solid fa-mug-hot"></i></div>
                             <div class="cc-card-body">
                                 <div class="cc-card-head">
-                                    <span class="cc-card-title">Herbatka międzysłowami</span>
+                                    <span class="cc-card-title">Herbaciarnia Między Słowami</span>
                                 </div>
                                 <span class="cc-card-sub">Poczytaj i posłuchaj</span>
                             </div>
@@ -1412,6 +1510,17 @@
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
+                        <a href="/mapa" class="cc-card" data-keywords="mapa christian culture ekosystem relacje galaktyka drzewo stacje lumina ccn projekty nawigacja">
+                            <div class="cc-card-icon" style="color: var(--gold-primary);"><i class="fa-solid fa-circle-nodes"></i></div>
+                            <div class="cc-card-body">
+                                <div class="cc-card-head">
+                                    <span class="cc-card-title">Mapa Ekosystemu</span>
+                                    <span class="cc-card-badge" style="background: rgba(196, 163, 90, 0.15); color: var(--gold-primary); border: 1px solid rgba(196, 163, 90, 0.35);">NOWOŚĆ</span>
+                                </div>
+                                <span class="cc-card-sub">Interaktywna Mapa Projektów CC</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
+                        </a>
                         <a href="cc-light" class="cc-card" data-keywords="aplikacje cc hub android apk cc lite web app pwa telefon smartfon">
                             <div class="cc-card-icon"><i class="fa-solid fa-mobile-screen"></i></div>
                             <div class="cc-card-body">
@@ -1431,6 +1540,17 @@
                                     <span class="cc-card-badge">PRODUKCJA</span>
                                 </div>
                                 <span class="cc-card-sub">Audio • Biblia • Reżyseria</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
+                        </a>
+                        <a href="https://polskieradio.cc/widget" class="cc-card" data-keywords="widget radiowy odtwarzacz iframe kod osadzenia radio na stronę słowo boże instaluj widget christian culture">
+                            <div class="cc-card-icon" style="color: var(--gold-primary);"><i class="fa-solid fa-code"></i></div>
+                            <div class="cc-card-body">
+                                <div class="cc-card-head">
+                                    <span class="cc-card-title">Widget Radiowy</span>
+                                    <span class="cc-card-badge" style="background: rgba(212, 169, 74, 0.15); color: var(--gold-primary); border: 1px solid rgba(212, 169, 74, 0.35);">OSADŹ</span>
+                                </div>
+                                <span class="cc-card-sub">Zainstaluj Radio i Słowo Boże</span>
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
@@ -1527,14 +1647,14 @@
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </div>
-                        <a href="#support-modal" id="shortcutSupportRow" class="cc-card" data-keywords="wesprzyj misję zostań partnerem patronite blik revolut zrzutka paypal darowizna wspieram">
+                        <a href="https://polskieradio.cc/wspieraj" id="shortcutSupportRow" class="cc-card" data-keywords="wesprzyj misję zostań partnerem patronite blik revolut zrzutka paypal darowizna wspieram wsparcie">
                             <div class="cc-card-icon" style="color: #ef4444;"><i class="fa-solid fa-heart"></i></div>
                             <div class="cc-card-body">
                                 <div class="cc-card-head">
                                     <span class="cc-card-title">Wesprzyj Misję</span>
                                     <span class="cc-card-badge">PARTNER</span>
                                 </div>
-                                <span class="cc-card-sub">Patronite • BLIK • Revolut • PayPal</span>
+                                <span class="cc-card-sub">Patronite • BLIK • Darowizna • Wolontariat</span>
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
@@ -1562,7 +1682,7 @@
                         </a>
                     </div>
                 </div>
-            </main>
+            </nav>
 
             <!-- No search results state -->
             <div id="menuCcNoResults" class="menu-cc-no-results" style="display: none;">
@@ -1698,14 +1818,48 @@
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
-                        <a href="https://polskieradio.cc/ksiazki-autora" class="cc-card" data-keywords="książki cezary rogowski cezarego rogowskiego pokonać goliata kod źródłowy bóg jest miłością u boku diabła prawda bez filtra e-booki audiobooki autor półka">
+                        <a href="https://polskieradio.cc/ksiazki-autora" class="cc-card" data-keywords="książki cezary rogowski cezarego rogowskiego pokonać goliata kod źródłowy bóg jest miłością u boku diabła prawda bez filtra e-booki audiobooki autor półka 5 książek">
                             <div class="cc-card-icon" style="color: #f59e0b;"><i class="fa-solid fa-book-open-reader"></i></div>
                             <div class="cc-card-body">
-                                <div class="cc-card-head"><span class="cc-card-title">Książki Autora</span><span class="cc-card-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);">E-BOOKI</span></div>
-                                <span class="cc-card-sub">Cezary Rogowski • Półka z książkami</span>
+                                <div class="cc-card-head"><span class="cc-card-title">Książki Autora</span><span class="cc-card-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);">5 KSIĄŻEK</span></div>
+                                <span class="cc-card-sub">Półka z książkami • Wszystkie 5 tytułów</span>
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
+                        <details class="drawer-books-hub" style="margin: 4px 0; border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; background: rgba(20, 20, 25, 0.7); overflow: hidden; transition: all 0.25s ease;" open>
+                            <summary style="list-style: none; display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; cursor: pointer; user-select: none; color: #fff; font-weight: 800; background: rgba(245, 158, 11, 0.08);">
+                                <span style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fa-solid fa-book-bookmark" style="color: #fbbf24; font-size: 1.05rem; width: 20px; text-align: center;"></i>
+                                    <span style="font-size: 0.82rem;">Katalog 5 Książek Autora</span>
+                                </span>
+                                <span style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="font-size: 0.58rem; background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1px solid rgba(245, 158, 11, 0.45); padding: 2px 6px; border-radius: 5px; font-weight: 900;">5 TYTUŁÓW</span>
+                                    <i class="fa-solid fa-chevron-down books-arrow" style="font-size: 0.7rem; color: #fbbf24; transition: transform 0.2s;"></i>
+                                </span>
+                            </summary>
+                            <div style="padding: 8px 10px 12px 10px; display: flex; flex-direction: column; gap: 5px; border-top: 1px solid rgba(245, 158, 11, 0.2); background: rgba(10, 10, 15, 0.85);">
+                                <a href="https://polskieradio.cc/pokonac-goliata" class="drawer-link ccn-sublink" style="padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; background: rgba(245, 158, 11, 0.08); color: #fef3c7; display: flex; justify-content: space-between; align-items: center;">
+                                    <span><i class="fa-solid fa-shield-halved" style="color: #fbbf24; margin-right: 6px;"></i> 1. Pokonać Goliata</span>
+                                    <span style="font-size: 0.55rem; color: #fbbf24;">8 Kroków • Zwycięstwo</span>
+                                </a>
+                                <a href="https://polskieradio.cc/kod" class="drawer-link ccn-sublink" style="padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; background: rgba(168, 85, 247, 0.08); color: #f3e8ff; display: flex; justify-content: space-between; align-items: center;">
+                                    <span><i class="fa-solid fa-code" style="color: #c084fc; margin-right: 6px;"></i> 2. Kod Źródłowy</span>
+                                    <span style="font-size: 0.55rem; color: #c084fc;">Powieść & Świadectwo</span>
+                                </a>
+                                <a href="https://polskieradio.cc/u-boku-diabla" class="drawer-link ccn-sublink" style="padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; background: rgba(239, 68, 68, 0.08); color: #fee2e2; display: flex; justify-content: space-between; align-items: center;">
+                                    <span><i class="fa-solid fa-fire" style="color: #f87171; margin-right: 6px;"></i> 3. U boku Diabła</span>
+                                    <span style="font-size: 0.55rem; color: #f87171;">Powieść • 40 rozdz.</span>
+                                </a>
+                                <a href="https://polskieradio.cc/prawda-bez-filtra" class="drawer-link ccn-sublink" style="padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; background: rgba(236, 72, 153, 0.08); color: #fce7f3; display: flex; justify-content: space-between; align-items: center;">
+                                    <span><i class="fa-solid fa-lock" style="color: #f472b6; margin-right: 6px;"></i> 4. Prawda Bez Filtra</span>
+                                    <span style="font-size: 0.55rem; color: #f472b6;">Dla dorosłych 18+</span>
+                                </a>
+                                <a href="https://polskieradio.cc/bog-jest-miloscia" class="drawer-link ccn-sublink" style="padding: 6px 8px; font-size: 0.78rem; border-radius: 6px; background: rgba(56, 189, 248, 0.08); color: #e0f2fe; display: flex; justify-content: space-between; align-items: center;">
+                                    <span><i class="fa-solid fa-heart" style="color: #38bdf8; margin-right: 6px;"></i> 5. Bóg jest MIŁOŚCIĄ?</span>
+                                    <span style="font-size: 0.55rem; color: #38bdf8;">Dialogowa • 38 rozdz.</span>
+                                </a>
+                            </div>
+                        </details>
                         <a href="cctv24-pl.html" class="cc-card">
                             <div class="cc-card-icon"><i class="fa-solid fa-heart"></i></div>
                             <div class="cc-card-body">
@@ -1829,7 +1983,7 @@
                         <a href="herbatka/index.html" class="cc-card">
                             <div class="cc-card-icon" style="color: var(--gold-primary);"><i class="fa-solid fa-mug-hot"></i></div>
                             <div class="cc-card-body">
-                                <div class="cc-card-head"><span class="cc-card-title">Herbatka między słowami</span><span class="cc-card-badge">KLUB</span></div>
+                                <div class="cc-card-head"><span class="cc-card-title">Herbaciarnia Między Słowami</span><span class="cc-card-badge">KLUB</span></div>
                                 <span class="cc-card-sub">Społeczność & rozmowy</span>
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
@@ -1882,6 +2036,14 @@
                             <div class="cc-card-body">
                                 <div class="cc-card-head"><span class="cc-card-title">CC Studio DAW</span><span class="cc-card-badge">PRO</span></div>
                                 <span class="cc-card-sub">Studio nagrań & mikser</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
+                        </a>
+                        <a href="https://polskieradio.cc/widget" class="cc-card">
+                            <div class="cc-card-icon" style="color: var(--gold-primary);"><i class="fa-solid fa-code"></i></div>
+                            <div class="cc-card-body">
+                                <div class="cc-card-head"><span class="cc-card-title">Widget Radiowy</span><span class="cc-card-badge" style="background: rgba(212, 169, 74, 0.15); color: var(--gold-primary); border: 1px solid rgba(212, 169, 74, 0.35);">OSADŹ</span></div>
+                                <span class="cc-card-sub">Zainstaluj na swojej stronie</span>
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
@@ -1958,11 +2120,11 @@
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
-                        <a href="#support-modal" class="cc-card">
+                        <a href="https://polskieradio.cc/wspieraj" class="cc-card">
                             <div class="cc-card-icon" style="color: #ef4444;"><i class="fa-solid fa-heart"></i></div>
                             <div class="cc-card-body">
                                 <div class="cc-card-head"><span class="cc-card-title">Wesprzyj Misję</span><span class="cc-card-badge">PARTNER</span></div>
-                                <span class="cc-card-sub">Patronite • BLIK • PayPal</span>
+                                <span class="cc-card-sub">Patronite • BLIK • Wolontariat</span>
                             </div>
                             <i class="fa-solid fa-chevron-right cc-card-arrow"></i>
                         </a>
@@ -1978,6 +2140,7 @@
                 </div>
 
 
+                <a href="/mapa" class="drawer-link"><i class="fa-solid fa-circle-nodes" style="color: var(--gold-primary);"></i> Mapa Christian Culture</a>
                 <a href="#apps-section" class="drawer-link scroll-to"><i class="fa-solid fa-mobile-screen-button"></i> Nasze Aplikacje</a>
                 <a href="#social-channels" class="drawer-link scroll-to"><i class="fa-solid fa-share-nodes"></i> Sieć YouTube & Spotify</a>
                 <a href="https://linktr.ee/christianculture" target="_blank" class="drawer-link"><i class="fa-solid fa-address-card"></i> Wizytówka Linktree</a>
@@ -2005,7 +2168,8 @@
     <div class="drawer-overlay" id="drawerOverlay"></div>
 
     <!-- SECTION B: GŁÓWNY HERO BANNER -->
-    <section class="hero-section">
+    <main id="main-content" tabindex="-1">
+    <section class="hero-section" id="hero">
         <!-- Golden Mandala SVG Background -->
         <div class="mandala-bg-container">
             <svg class="mandala-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -2052,13 +2216,14 @@
         <div class="hero-container">
             <!-- Left Column: Character Image (masked) -->
             <div class="hero-image-col">
-                <img loading="lazy" decoding="async" src="./CC CR+J.png" alt="Christian Culture - Portret" class="hero-character-img">
+                <img loading="eager" fetchpriority="high" decoding="async" src="/images/home/cc-portrait-lossless-20261024.webp" width="940" height="788" alt="Christian Culture - Portret" class="hero-character-img">
             </div>
             
             <!-- Right Column: Branding Typography -->
             <div class="hero-text-col">
-                <h1 class="hero-title">CHRISTIAN CULTURE</h1>
-                <p class="hero-subtitle">EKOSYSTEM OSOBISTEGO UŚWIĘCENIA</p>
+                <h1 class="hero-title">Christian Culture</h1>
+                <p class="hero-subtitle" data-cc-i18n-pl="Wszystko, czego potrzebujesz, w jednym miejscu." data-cc-i18n-en="Everything you need, in one faith-based ecosystem.">Wszystko, czego potrzebujesz, w jednym miejscu.</p>
+                <p class="hero-intro-text" data-cc-i18n-pl="Christian Culture to chrześcijański ekosystem mediów, edukacji, społeczności i nowoczesnych narzędzi. Słuchaj radia, studiuj Biblię, oglądaj wartościowe filmy, poznawaj ludzi, rozwijaj swoje talenty i odkrywaj inspirujące treści — w jednym miejscu, bezpłatnie." data-cc-i18n-en="Christian Culture is a faith-centered ecosystem of media, education, community, and scripture tools. Listen to radio, study the Bible, watch Christian cinema, connect with believers, and discover inspiring content — free worldwide." style="font-size: 0.95rem; line-height: 1.6; color: rgba(255,255,255,0.78); max-width: 560px; margin: 12px 0 16px 0;">Christian Culture to chrześcijański ekosystem mediów, edukacji, społeczności i nowoczesnych narzędzi. Słuchaj radia, studiuj Biblię, oglądaj wartościowe filmy, poznawaj ludzi, rozwijaj swoje talenty i odkrywaj inspirujące treści — w jednym miejscu, bezpłatnie.</p>
                 <div class="gold-divider"></div>
                 
                 <!-- YOUTUBE LIVE STREAM EMBED -->
@@ -2245,6 +2410,15 @@
         </div>
     </section>
 
+    <!-- Akcja sezonowa: zarządzana automatycznie przez js/cc-seasonal-campaigns.js.
+         Domyślnie ukryta — skrypt pokazuje ją 17 dni przed 31 paź (14 paź – 31 paź).
+         W kolejnych latach aktywacja nastąpi automatycznie bez edycji HTML. -->
+    <div id="homepageLightCampaign" style="display:none; padding: 16px 20px;" aria-hidden="true">
+        <a href="/Halloween#plyne-pod-prad" aria-label="Płynę pod prąd — promuję światłość. Przejdź do akcji AntyHALLOWEEN" style="display: block; width: 100%; max-width: 560px; margin: 0 auto; border-radius: 16px;">
+            <img src="/Halloween/assets/antyhalloween-akcja-20261024.png" alt="#AntyHALLOWEEN — My świętujemy inaczej!" width="2000" height="2000" loading="lazy" decoding="async" style="display: block; width: 100%; height: auto;">
+        </a>
+    </div>
+
     <!-- SECTION C: CODZIENNE ROZWAŻANIE (DOBRZE, ŻE JESTEŚ) -->
     <section class="daily-reflection-section collapsible-section" id="dailyReflectionSection">
         <button type="button" class="collapsible-trigger-bar" aria-expanded="false" aria-controls="content-dailyReflectionSection">
@@ -2350,7 +2524,7 @@
             <!-- Herbaciarnia Banner -->
             <div style="margin: 15px auto 30px auto; max-width: 728px; text-align: center;">
                 <a href="herbatka/index.html" style="display: block; transition: transform 0.2s, opacity 0.2s; border-radius: 12px; overflow: hidden;" onmouseover="this.style.transform='scale(1.01)'; this.style.opacity='0.95';" onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
-                    <img loading="lazy" decoding="async" src="baner_herbatki.png" alt="Herbatka między słowami" style="width: 100%; height: auto; display: block; border-radius: 12px; border: 1.5px solid rgba(38, 166, 154, 0.5); box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+                    <img loading="lazy" decoding="async" src="baner_herbatki.png" alt="Herbaciarnia Między Słowami" style="width: 100%; height: auto; display: block; border-radius: 12px; border: 1.5px solid rgba(38, 166, 154, 0.5); box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
                 </a>
             </div>
 
@@ -2687,7 +2861,7 @@
                 <div class="collapsible-trigger-text">
                     <span class="collapsible-trigger-tag">Literatura & Formacja</span>
                     <span class="collapsible-trigger-title">Książki Założyciela – Cezary Rogowski</span>
-                    <span class="collapsible-trigger-subtitle">„Kod Źródłowy” oraz „Pokonać Goliata” • 100% Bezpłatne E-booki & Audiobooki</span>
+                    <span class="collapsible-trigger-subtitle">5 Autorskich Książek • 100% Bezpłatne E-booki & Audiobooki</span>
                 </div>
             </div>
             <div class="collapsible-trigger-action">
@@ -2705,7 +2879,7 @@
                     <h2 class="section-title">AUTORSKIE KSIĄŻKI & E-BOOKI</h2>
                     <div class="gold-divider centered"></div>
                     <p class="section-subtitle">
-                        Służba słowem i ewangelizacja bez barier komercyjnych. Obie książki Założyciela Christian Culture, Cezarego Rogowskiego, są dostępne bezpłatnie – z czytnikiem online, lektorem audio oraz plikami PDF i EPUB.
+                        Służba słowem i ewangelizacja bez barier komercyjnych. Wszystkie pięć książek Założyciela Christian Culture, Cezarego Rogowskiego, jest dostępnych bezpłatnie – z czytnikiem online, lektorem audio oraz plikami PDF i EPUB.
                     </p>
                 </div>
 
@@ -2780,6 +2954,101 @@
                                 </a>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Book Card 3: U boku Diabła -->
+                    <div class="app-card" style="border: 1px solid rgba(239, 68, 68, 0.35); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                        <div class="app-card-glow" style="background: radial-gradient(circle at top right, rgba(239, 68, 68, 0.25), transparent 70%);"></div>
+                        <div class="app-card-content">
+                            <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 16px;">
+                                <a href="https://polskieradio.cc/u-boku-diabla" style="width: 80px; aspect-ratio: 1/1.45; border-radius: 8px; overflow: hidden; flex-shrink: 0; box-shadow: 0 6px 18px rgba(0,0,0,0.6); border: 1px solid rgba(239, 68, 68, 0.4);">
+                                    <img src="assets/u-boku-diabla-okladka-440.webp" alt="U boku Diabła" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                                </a>
+                                <div>
+                                    <span style="font-size: 0.72rem; color: #fca5a5; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); padding: 2px 8px; border-radius: 6px; display: inline-block; margin-bottom: 6px;">Powieść • 40 Rozdziałów</span>
+                                    <h3 style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0; line-height: 1.25;">U boku Diabła</h3>
+                                    <span style="font-size: 0.8rem; color: #94a3b8;">Cezary Rogowski • Wydanie 2026</span>
+                                </div>
+                            </div>
+                            <p class="app-desc" style="font-size: 0.9rem; line-height: 1.55; color: #cbd5e1; margin-bottom: 20px;">
+                                Mocna i bezkompromisowa opowieść o duchowej walce, kulisach manipulacji i prawdzie, która wyzwala z najciemniejszych sideł. Dostępna online do czytania i słuchania.
+                            </p>
+                            <div class="app-download-links" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <a href="https://polskieradio.cc/u-boku-diabla" class="download-badge play-store-badge" style="flex: 1; min-width: 140px; border-color: rgba(239, 68, 68, 0.6); background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(185, 28, 28, 0.3)); color: #fff; text-decoration: none;">
+                                    <i class="fa-solid fa-book-open" style="color: #fca5a5;"></i>
+                                    <span class="badge-text">
+                                        <span class="badge-sub">Czytaj Powieść</span>
+                                        <span class="badge-main" style="color: #fca5a5;">Otwórz Książkę ➔</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Book Card 4: Prawda Bez Filtra -->
+                    <div class="app-card" style="border: 1px solid rgba(236, 72, 153, 0.35); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                        <div class="app-card-glow" style="background: radial-gradient(circle at top right, rgba(236, 72, 153, 0.25), transparent 70%);"></div>
+                        <div class="app-card-content">
+                            <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 16px;">
+                                <a href="https://polskieradio.cc/prawda-bez-filtra" style="width: 80px; aspect-ratio: 1/1.45; border-radius: 8px; overflow: hidden; flex-shrink: 0; box-shadow: 0 6px 18px rgba(0,0,0,0.6); border: 1px solid rgba(236, 72, 153, 0.4);">
+                                    <img src="assets/prawda-bez-filtra-okladka-440.webp" alt="Prawda Bez Filtra" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                                </a>
+                                <div>
+                                    <span style="font-size: 0.72rem; color: #f472b6; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(236, 72, 153, 0.15); border: 1px solid rgba(236, 72, 153, 0.3); padding: 2px 8px; border-radius: 6px; display: inline-block; margin-bottom: 6px;">18+ • Dla Dorosłych</span>
+                                    <h3 style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0; line-height: 1.25;">Prawda Bez Filtra</h3>
+                                    <span style="font-size: 0.8rem; color: #94a3b8;">Cezary Rogowski • Po zalogowaniu</span>
+                                </div>
+                            </div>
+                            <p class="app-desc" style="font-size: 0.9rem; line-height: 1.55; color: #cbd5e1; margin-bottom: 20px;">
+                                Autentyczna, odważna opowieść o relacjach, prawdzie i odkupieniu. Powieść przeznaczona wyłącznie dla dorosłych czytelników – otwiera się bezpłatnie po zalogowaniu.
+                            </p>
+                            <div class="app-download-links" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <a href="https://polskieradio.cc/prawda-bez-filtra" class="download-badge play-store-badge" style="flex: 1; min-width: 140px; border-color: rgba(236, 72, 153, 0.6); background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(190, 24, 93, 0.3)); color: #fff; text-decoration: none;">
+                                    <i class="fa-solid fa-lock" style="color: #fbcfe8;"></i>
+                                    <span class="badge-text">
+                                        <span class="badge-sub">Strefa 18+</span>
+                                        <span class="badge-main" style="color: #fbcfe8;">Czytaj po zalogowaniu ➔</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Book Card 5: Bóg jest MIŁOŚCIĄ? -->
+                    <div class="app-card" style="border: 1px solid rgba(56, 189, 248, 0.35); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                        <div class="app-card-glow" style="background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.25), transparent 70%);"></div>
+                        <div class="app-card-content">
+                            <div style="display: flex; gap: 16px; align-items: center; margin-bottom: 16px;">
+                                <a href="https://polskieradio.cc/bog-jest-miloscia" style="width: 80px; aspect-ratio: 1/1.45; border-radius: 8px; overflow: hidden; flex-shrink: 0; box-shadow: 0 6px 18px rgba(0,0,0,0.6); border: 1px solid rgba(56, 189, 248, 0.4);">
+                                    <img src="assets/bog-jest-miloscia-okladka-440.webp" alt="Bóg jest MIŁOŚCIĄ?" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                                </a>
+                                <div>
+                                    <span style="font-size: 0.72rem; color: #7dd3fc; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 2px 8px; border-radius: 6px; display: inline-block; margin-bottom: 6px;">Powieść Dialogowa</span>
+                                    <h3 style="font-size: 1.25rem; font-weight: 800; color: #fff; margin: 0; line-height: 1.25;">Bóg jest MIŁOŚCIĄ?</h3>
+                                    <span style="font-size: 0.8rem; color: #94a3b8;">Cezary Rogowski • 38 rozdziałów</span>
+                                </div>
+                            </div>
+                            <p class="app-desc" style="font-size: 0.9rem; line-height: 1.55; color: #cbd5e1; margin-bottom: 20px;">
+                                Głęboki dialog o cierpieniu, sensie życia i Bożej obecności w najtrudniejszych chwilach. Odpowiedzi na pytania, których ludzie często boją się zadać na głos.
+                            </p>
+                            <div class="app-download-links" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <a href="https://polskieradio.cc/bog-jest-miloscia" class="download-badge play-store-badge" style="flex: 1; min-width: 140px; border-color: rgba(56, 189, 248, 0.6); background: linear-gradient(135deg, rgba(56, 189, 248, 0.3), rgba(14, 165, 233, 0.3)); color: #fff; text-decoration: none;">
+                                    <i class="fa-solid fa-heart" style="color: #bae6fd;"></i>
+                                    <span class="badge-text">
+                                        <span class="badge-sub">Czytaj Powieść</span>
+                                        <span class="badge-main" style="color: #bae6fd;">Otwórz Książkę ➔</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shelf Link Banner: Wszystkie 5 Książek -->
+                    <div style="grid-column: 1 / -1; margin-top: 10px; text-align: center;">
+                        <a href="https://polskieradio.cc/ksiazki-autora" class="download-badge" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 28px; border-radius: 12px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.25)); border: 1px solid rgba(245, 158, 11, 0.5); color: #fde047; font-weight: 800; font-size: 1rem; text-decoration: none; box-shadow: 0 8px 25px rgba(0,0,0,0.5);">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                            <span>Przejdź do Pełnej Półki Autorskiej — Wszystkie 5 Książek ➔</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -2891,9 +3160,12 @@
                     </div>
                     <h3 class="social-card-title">Spotify Podcasts</h3>
                     <p class="social-card-text">
-                        Znajdziesz tu codzienne rozważania, audiobooki biblijne, podcasty oraz playlisty z muzyką ambient, która pomoże Ci w modlitwie i skupieniu.
+                        Słuchaj naszych oficjalnych serii podcastowych: <strong>Osobowość Plus</strong> oraz <strong>APOKALIPSA - Księga Nadziei</strong> (29 odcinków), a także albumów muzycznych i rozważań.
                     </p>
-                    <a href="https://open.spotify.com" target="_blank" class="btn btn-spotify"><i class="fa-brands fa-spotify"></i> Słuchaj na Spotify</a>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px;">
+                        <a href="https://polskieradio.cc/podcasty" class="btn btn-spotify" style="background:var(--cc-btn-orange,#FF7A00);color:#fff;border-color:var(--cc-btn-orange,#FF7A00);"><i class="fa-solid fa-podcast"></i> Centrum Podcastów</a>
+                        <a href="https://open.spotify.com/show/6rSWpk7dO4TSQM0KXlcMXg" target="_blank" rel="noopener noreferrer" class="btn btn-spotify"><i class="fa-brands fa-spotify"></i> Apokalipsa na Spotify</a>
+                    </div>
                 </div>
 
                 <!-- Linktree Card -->
@@ -2981,9 +3253,12 @@
                 </p>
             </div>
             
-            <div style="text-align: center; margin-top: 30px;">
+            <div style="text-align: center; margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;">
                 <a href="nadawaj" style="display: inline-flex; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(135deg, var(--gold-primary) 0%, #aa7c11 100%); color: #000; text-decoration: none; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1.5px; padding: 18px 40px; border-radius: 50px; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(212, 169, 74, 0.2);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 40px rgba(212, 169, 74, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(212, 169, 74, 0.2)';">
-                    <i class="fa-solid fa-layer-group"></i> Zobacz wszystkie formaty
+                    <i class="fa-solid fa-layer-group"></i> Sceny OBS Studio
+                </a>
+                <a href="widget" style="display: inline-flex; align-items: center; justify-content: center; gap: 12px; background: rgba(255, 255, 255, 0.05); border: 2px solid var(--gold-primary); color: #fff; text-decoration: none; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1.5px; padding: 18px 40px; border-radius: 50px; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);" onmouseover="this.style.transform='translateY(-3px)'; this.style.background='rgba(212, 169, 74, 0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.05)';">
+                    <i class="fa-solid fa-code" style="color: var(--gold-primary);"></i> Widget na Stronę WWW
                 </a>
             </div>
         </div>
@@ -3348,6 +3623,7 @@
     <!-- ==========================================
          SITE FOOTER (GLOBALNY, ZAWSZE WIDOCZNY, BEZPIECZNY ODSTĘP NAD PASKIEM PLAYERA)
          ========================================== -->
+    </main>
     <footer class="site-footer" id="siteFooter">
         <p class="footer-copyright">&copy; 2026 Polskie Radio Christian Culture. Wszelkie prawa zastrzeżone.</p>
         <div class="footer-links">
@@ -3431,6 +3707,9 @@
                             <button class="dropdown-item" data-station-id="biblia_spiewana">
                                 <span class="dot biblia-spiewana-accent" style="background: #D4A94A; box-shadow: 0 0 8px #D4A94A;"></span> Biblia Śpiewana
                             </button>
+                            <button class="dropdown-item" data-station-id="radio_cc_women">
+                                <span class="dot ccw-accent" style="background: #E83F94; box-shadow: 0 0 8px #E83F94;"></span> Radio CC Women
+                            </button>
                         </div>
                     </div>
                     <!-- Scrolling / Real-time Track Title -->
@@ -3449,7 +3728,7 @@
             <!-- Right Side: Controls (Status, Play/Pause, Volume, Helpline) -->
             <div class="player-right">
                 <!-- Status/Buffering Indicator -->
-                <div class="player-status" id="playerStatusText">Wyciszony</div>
+                <div class="player-status" id="playerStatusText"></div>
                 
                 <!-- Play/Pause Button with circular border and glow -->
                 <button class="play-btn" id="playBtn" aria-label="Odtwarzaj">
@@ -3495,6 +3774,42 @@
                     <p class="sms-instruction-text">na numer:</p>
                     <div class="sms-number-badge">783 478 280</div>
                 </div>
+
+    <!-- INFOLINIA NADZIEJA CALL MODAL (DESKTOP & UNIVERSAL) -->
+    <div class="modal-overlay" id="helplineModal" aria-hidden="true" style="z-index: 10005;">
+        <div class="modal-content" style="max-width: 440px; text-align: center; border: 1.5px solid rgba(245, 197, 24, 0.45); box-shadow: 0 24px 60px rgba(0,0,0,0.9), 0 0 35px rgba(245, 197, 24, 0.25);">
+            <button class="modal-close" id="helplineModalCloseBtn" aria-label="Zamknij"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header" style="margin-bottom: 1.25rem;">
+                <div style="width: 64px; height: 64px; margin: 0 auto 14px; border-radius: 50%; background: linear-gradient(135deg, #f5c518, #e6a817); display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: #000; box-shadow: 0 8px 24px rgba(245, 197, 24, 0.45);">
+                    <i class="fa-solid fa-phone-volume"></i>
+                </div>
+                <h2 style="font-size: 1.4rem; color: #FFFFFF; font-weight: 800; margin-bottom: 4px; font-family: 'Cinzel', serif;">Infolinia „Nadzieja”</h2>
+                <p style="color: #D4A94A; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">Christian Culture</p>
+            </div>
+            <div class="modal-sms-content" style="padding: 0;">
+                <p style="color: #CBD5E1; font-size: 0.92rem; line-height: 1.5; margin-bottom: 1.25rem;">
+                    Potrzebujesz modlitwy, rozmowy lub wsparcia duchowego? Jesteśmy tu dla Ciebie.
+                </p>
+                <div style="background: rgba(10, 12, 22, 0.95); border: 1.5px solid rgba(245, 197, 24, 0.5); border-radius: 14px; padding: 14px 18px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                    <div style="text-align: left;">
+                        <span style="display: block; font-size: 0.68rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em;">Numer telefonu:</span>
+                        <a href="tel:+48730958583" id="helplineModalPhoneLink" style="font-size: 1.35rem; font-weight: 900; color: #FFFFFF; text-decoration: none; letter-spacing: 0.5px; font-family: 'Montserrat', sans-serif;">+48 730 958 583</a>
+                    </div>
+                    <button type="button" id="helplineCopyBtn" style="padding: 8px 14px; background: rgba(245, 197, 24, 0.15); border: 1px solid rgba(245, 197, 24, 0.5); color: #F5C518; border-radius: 10px; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: all 0.2s;" aria-label="Skopiuj numer telefonu">
+                        <i class="fa-regular fa-copy"></i> Kopiuj
+                    </button>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="tel:+48730958583" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; text-decoration: none; background: #FF7A00; color: #FFFFFF; min-height: 44px; transition: background 0.2s; box-shadow: 0 4px 14px rgba(255, 122, 0, 0.35);">
+                        <i class="fa-solid fa-phone"></i> Zadzwoń teraz
+                    </a>
+                    <a href="https://wa.me/48730958583?text=Dzie%C5%84%20dobry,%20kontaktuj%C4%99%20si%C4%99%20z%20Infolinii%20Nadzieja" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; text-decoration: none; background: #25D366; color: #FFFFFF; min-height: 44px; transition: background 0.2s; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.25);">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> Połącz przez WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
                 
                 <div class="sms-info-box">
                     <p class="sms-disclaimer">
@@ -3939,6 +4254,23 @@
             // --- Real-time Header Schedule Updater ---
             function updateHeaderSchedule() {
                 const now = new Date();
+                if (window.CC_RAMOWKA && typeof window.CC_RAMOWKA.getScheduleState === 'function') {
+                    const state = window.CC_RAMOWKA.getScheduleState(now);
+                    const titleLink = document.getElementById("headerCurrentLiveTitle");
+                    if (titleLink) {
+                        titleLink.textContent = state.title;
+                        titleLink.href = state.url || "master";
+                    }
+                    const nextTime = document.getElementById("headerNextLiveTime");
+                    if (nextTime) nextTime.textContent = state.next.time;
+                    const nextTitle = document.getElementById("headerNextLiveTitle");
+                    if (nextTitle) nextTitle.textContent = state.next.title;
+                    const thirdTime = document.getElementById("headerThirdLiveTime");
+                    if (thirdTime) thirdTime.textContent = state.third.time;
+                    const thirdTitle = document.getElementById("headerThirdLiveTitle");
+                    if (thirdTitle) thirdTitle.textContent = state.third.title;
+                    return;
+                }
                 const hour = now.getHours();
                 const min = now.getMinutes();
                 const timeInMinutes = hour * 60 + min;
@@ -4113,7 +4445,7 @@
         });
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script type="module" src="app.js?v=32"></script>
+    <script type="module" src="app.js?v=20261110_ccwomen5"></script>
     <script type="module" src="dobrzezejestes.js?v=20260831_v8"></script>
     <script>
         // Automatic reliable smooth-scroller for news report hashes
@@ -4254,6 +4586,14 @@
     <script src="js/cc-global-auth.js?v=20261007_auth_v2" defer></script>
     <script src="js/lumina-share.js" defer></script>
   <script src="/components/cc-support-footer.js" defer></script>
+  <script src="/js/cc-mobile-helpline.js?v=20261013_mobile1" defer></script>
     <script src="js/lumina-rss-suite.js" defer></script>
+    <script src="/components/cc-omni-search.js?v=20261105_help3" defer></script>
+    <script src="/js/cc-favorites.js" defer></script>
+<!-- EkoCC INFO ⓘ Standard Strategiczny -->
+<script defer src="/components/ekocc-info.js?v=20261020_1"></script>
+  <script type="module" src="/components/cc-warm-welcome.js?v=20261031_1"></script>
+    <!-- Menedżer akcji sezonowych: automatyczne show/hide wg kalendarza -->
+    <script src="/js/cc-seasonal-campaigns.js?v=20261101_1" defer></script>
 </body>
 </html>
