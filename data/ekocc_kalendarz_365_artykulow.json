@@ -145,11 +145,18 @@
       "portal_docelowy": "CCN News / aktualności",
       "priorytet": "A",
       "start_przygotowania": "2026-10-27",
-      "status": "Planowany / do opracowania",
+      "status": "Opracowany / Czeka na autoryzację L0",
       "zrodlo_pomyslu": "Poprzedni kalendarz",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "źródła pierwotne + 2 niezależne potwierdzenia; stanowiska stron",
-      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk."
+      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk.",
+      "bramka_bezpieczenstwa": "T4 (DO AUTORYZACJI CZŁOWIEKA - L0)",
+      "autor": "Cezary Rogowski",
+      "slug": "czy-patriotyzm-moze-stac-sie-bozkiem-biblia-o-milosci-do-ojczyzny",
+      "pakiet_zip": "C:\\\\Users\\\\czark\\\\Desktop\\\\EkoCC_news_czy-patriotyzm-moze-stac-sie-bozkiem-biblia-o-milosci-do-ojczyzny_2026-11-10.zip",
+      "pakiet_docx": "C:\\\\Users\\\\czark\\\\Desktop\\\\EkoCC_news_czy-patriotyzm-moze-stac-sie-bozkiem-biblia-o-milosci-do-ojczyzny_2026-11-10.docx",
+      "grafika_16_9": "images/news/art-czy-patriotyzm-moze-stac-sie-bozkiem-biblia-o-milosci-do-ojczyzny.jpg",
+      "data_opracowania": "2026-11-10T10:06:00+01:00"
     },
     {
       "lp": 8,

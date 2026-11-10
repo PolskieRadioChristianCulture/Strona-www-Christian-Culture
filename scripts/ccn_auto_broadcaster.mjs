@@ -1017,7 +1017,11 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
       throw new Error('[CCN Broadcaster BŁĄD AUTORYZACJI] Sesja X wygasła. Wymagane odświeżenie X_AUTH_TOKEN w .env.local.');
     }
 
-    let textarea = page.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]').first();
+    let isDialog = await page.locator('[role="dialog"]').isVisible({ timeout: 1000 }).catch(() => false);
+    let textarea = isDialog
+      ? page.locator('[role="dialog"] div[data-testid="tweetTextarea_0"], [role="dialog"] div[role="textbox"][contenteditable="true"]').first()
+      : page.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]').first();
+
     const isReady = await textarea.isVisible({ timeout: 5000 }).catch(() => false);
     if (!isReady) {
       const sideNavBtn = page.locator('[data-testid="SideNav_NewTweet_Button"], a[href="/compose/post"]').first();
@@ -1030,11 +1034,16 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
         await page.goto('https://x.com/compose/post', { waitUntil: 'domcontentloaded', timeout: 30000 });
         await page.waitForTimeout(3000);
       }
-      textarea = page.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]').first();
+      isDialog = await page.locator('[role="dialog"]').isVisible({ timeout: 2000 }).catch(() => false);
+      textarea = isDialog
+        ? page.locator('[role="dialog"] div[data-testid="tweetTextarea_0"], [role="dialog"] div[role="textbox"][contenteditable="true"]').first()
+        : page.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]').last();
     }
 
     await textarea.waitFor({ state: 'visible', timeout: 25000 });
-    await textarea.click();
+    await textarea.click({ force: true }).catch(async () => {
+      await textarea.focus();
+    });
     await page.waitForTimeout(500);
 
     // 1. Wpisanie sformatowanego tekstu
@@ -1045,7 +1054,10 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
     // 2. Wgrywanie dedykowanej grafiki tematycznej
     if (imagePath && fs.existsSync(imagePath)) {
       console.log(`🖼️ [CCN Broadcaster] Załączam dedykowaną grafikę: ${path.basename(imagePath)}...`);
-      const fileInput = page.locator('input[data-testid="fileInput"]').first();
+      isDialog = await page.locator('[role="dialog"]').isVisible({ timeout: 1000 }).catch(() => false);
+      const fileInput = isDialog
+        ? page.locator('[role="dialog"] input[data-testid="fileInput"]').first()
+        : page.locator('input[data-testid="fileInput"]').last();
       await fileInput.setInputFiles(imagePath);
       console.log('⏳ [CCN Broadcaster] Oczekuję na załadowanie podglądu załącznika...');
       try {
@@ -1058,7 +1070,7 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
 
     // 3. Wysłanie posta (przycisk TweetButton z modalu lub Control+Enter)
     console.log('🔘 [CCN Broadcaster] Wysyłam post...');
-    const isDialog = await page.locator('[role="dialog"]').isVisible().catch(() => false);
+    isDialog = await page.locator('[role="dialog"]').isVisible().catch(() => false);
     const postBtn = isDialog
       ? page.locator('[role="dialog"] [data-testid="tweetButton"]')
       : page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').last();
