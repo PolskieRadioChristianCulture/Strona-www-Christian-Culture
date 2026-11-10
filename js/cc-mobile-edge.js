@@ -536,11 +536,10 @@
     mobile.addEventListener('change',() => { if (!mobile.matches && profile !== 'search' && !allowDesktop) close(); });
     document.body.append(dialog);
     if (!customTrigger) {
-      if (placement.classList?.contains('nav-left') || placement.classList?.contains('header-left') || placement.classList?.contains('brand-wrap')) {
-        placement.prepend(trigger);
-      } else {
-        placement.before(trigger);
-      }
+      trigger.style.display = 'none';
+      trigger.hidden = true;
+      trigger.setAttribute('aria-hidden', 'true');
+      trigger.setAttribute('tabindex', '-1');
     }
     const isBurgerElement = placement?.matches?.('.btn-burger, #menuToggleBtn, [data-modal="modalMenu"], #hamburgerBtn, .hamburger-menu, [data-menu-open], #mobileMenuBtn, .mobile-menu-btn, .nav-burger, #navMenuBtn, button[aria-label*="menu" i]');
     if (isBurgerElement && placement !== trigger && placement instanceof HTMLElement && !placement._ccEdgeBound) {
@@ -563,8 +562,8 @@
   window.CCMobileEdge = Object.freeze({mount});
 
   function autoInit() {
-    // Usuniecie jakiegokolwiek zduplikowanego pierwszego przycisku + w belce wyszukiwarki (L0 29.10.2026)
-    document.querySelectorAll('.cc-omni-topnav .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn)').forEach(el => el.remove());
+    // Usunięcie jakiegokolwiek górnego przycisku + w lewym górnym rogu (Dyrektywa CC-EDGE-001)
+    document.querySelectorAll('.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn)').forEach(el => el.remove());
     if (/^\/(?:mess|herbatka)(?:\.html|\/|$)/i.test(location.pathname)) return;
     if (document.body?.dataset.ccEdgeDisabled === 'true' || document.documentElement.dataset.ccEdgeDisabled === 'true') return;
 

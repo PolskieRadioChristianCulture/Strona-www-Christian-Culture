@@ -26,6 +26,7 @@ function createStaticServer() {
       const url = new URL(req.url, 'http://127.0.0.1');
       let pathname = decodeURIComponent(url.pathname);
       if (pathname === '/') pathname = '/index.html';
+      else if (pathname === '/go' || pathname === '/go/') pathname = '/go/index.html';
       else if (pathname === '/lumina' || pathname === '/lumina/') pathname = '/lumina.html';
       else if (pathname === '/akademia' || pathname === '/akademia/') pathname = '/akademia.html';
 
@@ -219,6 +220,74 @@ test('CCEdgePlus Browser Test Suite — Full Matrix (360, 390, 768, 1280, 1920, 
       await page.screenshot({ path: path.join(SCREENSHOTS_DIR, '07_desktop_1920_light_theme.png') });
       await context.close();
     });
+
+    // 6. CC GO Mobile Verification (BŁĘDY CC-EDGE-001, CC-EDGE-002, CC-EDGE-003) across viewports (320, 360, 390, 430)
+    for (const vp of [
+      { name: 'Mobile 320px (iPhone SE narrow)', width: 320, height: 568 },
+      { name: 'Mobile 390px (iPhone standard)', width: 390, height: 844 },
+      { name: 'Mobile 430px (iPhone Pro Max)', width: 430, height: 932 }
+    ]) {
+      await t.test(`CC GO on ${vp.name}: no upper +, symmetrical bottom dock, zero collision with bottom nav`, async () => {
+        const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
+        const page = await context.newPage();
+        await page.goto(`${baseUrl}/go/`, { waitUntil: 'networkidle' });
+
+        // Skrypty standardowe
+        await page.addScriptTag({ url: `${baseUrl}/js/cc-back-to-top.js` });
+        await page.addScriptTag({ url: `${baseUrl}/js/cc-mobile-edge.js` });
+        await page.addScriptTag({ url: `${baseUrl}/js/cc-edge-plus.js` });
+        await page.waitForTimeout(300);
+
+        // BŁĄD CC-EDGE-001: Weryfikacja BRAKU górnego przycisku "+"
+        const topTriggerCount = await page.evaluate(() => {
+          const triggers = document.querySelectorAll('.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn)');
+          return Array.from(triggers).filter(el => {
+            const cs = window.getComputedStyle(el);
+            return cs.display !== 'none' && cs.visibility !== 'hidden' && parseFloat(cs.opacity) > 0;
+          }).length;
+        });
+        assert.equal(topTriggerCount, 0, 'No visible upper "+" trigger should exist anywhere on CC GO');
+
+        // Weryfikacja stanu na szczycie (scrollY = 0)
+        const btnPlus = page.locator('#ccEdgePlusBtn');
+        const isVisibleTop = await btnPlus.evaluate(el => el.classList.contains('is-visible'));
+        assert.equal(isVisibleTop, false, 'Bottom "+" button must be hidden at top of page');
+
+        // Przewiń w dół o 500px
+        await page.evaluate(() => window.scrollTo(0, 500));
+        await page.waitForTimeout(400);
+
+        const isVisibleScrolled = await btnPlus.evaluate(el => el.classList.contains('is-visible'));
+        assert.equal(isVisibleScrolled, true, 'Bottom "+" button must be visible when scrolled');
+
+        const btnTop = page.locator('#backToTopBtn');
+        assert.ok(await btnTop.isVisible(), '#backToTopBtn must be visible when scrolled');
+
+        // BŁĄD CC-EDGE-003: Identyczna wysokość środka obu przycisków
+        const boxPlus = await btnPlus.boundingBox();
+        const boxTop = await btnTop.boundingBox();
+        assert.ok(boxPlus && boxTop, 'Both buttons must have bounding boxes');
+
+        const bottomEdgePlus = boxPlus.y + boxPlus.height;
+        const bottomEdgeTop = boxTop.y + boxTop.height;
+        const heightDifference = Math.abs(bottomEdgePlus - bottomEdgeTop);
+        assert.ok(heightDifference <= 1.5, `Buttons must be at identical vertical height (diff was ${heightDifference}px, plus=${bottomEdgePlus}, top=${bottomEdgeTop})`);
+
+        // BŁĄD CC-EDGE-002: Brak nachodzenia na dolną nawigację (Start)
+        const nav = page.locator('.mobile-nav');
+        const navBox = await nav.boundingBox();
+        assert.ok(navBox, '.mobile-nav must be present');
+        assert.ok(bottomEdgePlus <= navBox.y, `Bottom "+" button (${bottomEdgePlus}px) must be ABOVE .mobile-nav top (${navBox.y}px)`);
+        assert.ok(bottomEdgeTop <= navBox.y, `Back-to-top button (${bottomEdgeTop}px) must be ABOVE .mobile-nav top (${navBox.y}px)`);
+
+        // Weryfikacja klikalności elementu "Start"
+        const startTab = nav.locator('a[href="/go/"]');
+        await startTab.click();
+
+        await page.screenshot({ path: path.join(SCREENSHOTS_DIR, `09_cc_go_${vp.width}_scrolled_symmetrical_above_nav.png`) });
+        await context.close();
+      });
+    }
 
   } finally {
     await browser.close();

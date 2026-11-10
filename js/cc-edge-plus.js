@@ -90,7 +90,7 @@
     return false;
   }
 
-  // Wstrzyknięcie dedykowanego arkusza stylów CC-EDGE-PLUS-001
+  // Wstrzyknięcie dedykowanego arkusza stylów CC-EDGE-PLUS-001 & CC-EDGE-001..003
   function injectStyles() {
     if (document.getElementById('cc-edge-plus-styles')) return;
     styleEl = document.createElement('style');
@@ -99,22 +99,40 @@
     if (nonceMeta && nonceMeta.content) styleEl.nonce = nonceMeta.content;
 
     styleEl.textContent = `
+      :root {
+        --cc-floating-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+        --cc-floating-size: 48px;
+      }
+      @media (min-width: 768px) {
+        :root {
+          --cc-floating-bottom: 24px;
+        }
+      }
+      body:has(.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]) {
+        --cc-floating-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+      }
+      @media (min-width: 900px) {
+        body:has(.mobile-nav) {
+          --cc-floating-bottom: 24px;
+        }
+      }
+
       #ccEdgePlusBtn {
         position: fixed !important;
         z-index: 990 !important;
         left: max(${config.mobileLeft}px, env(safe-area-inset-left, ${config.mobileLeft}px)) !important;
-        bottom: max(${config.mobileBottom}px, env(safe-area-inset-bottom, ${config.mobileBottom}px)) !important;
+        bottom: var(--cc-floating-bottom, max(${config.mobileBottom}px, env(safe-area-inset-bottom, ${config.mobileBottom}px))) !important;
         right: auto !important;
         top: auto !important;
-        width: 48px !important;
-        height: 48px !important;
+        width: var(--cc-floating-size, 48px) !important;
+        height: var(--cc-floating-size, 48px) !important;
         min-width: 44px !important;
         min-height: 44px !important;
         border-radius: 50% !important;
         border: 1px solid #b08a3c !important;
-        background: #171923 !important;
-        color: #ffe2a1 !important;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), 0 0 10px rgba(196, 163, 90, 0.2) !important;
+        background: #ffffff !important;
+        color: #63470e !important;
+        box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15) !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -130,6 +148,7 @@
         transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1),
                     transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
                     visibility 200ms cubic-bezier(0.16, 1, 0.3, 1),
+                    bottom 200ms cubic-bezier(0.16, 1, 0.3, 1),
                     border-color 150ms ease,
                     background-color 150ms ease,
                     box-shadow 150ms ease !important;
@@ -138,7 +157,6 @@
       @media (min-width: 768px) {
         #ccEdgePlusBtn {
           left: ${config.desktopLeft}px !important;
-          bottom: ${config.desktopBottom}px !important;
         }
       }
 
@@ -150,10 +168,10 @@
       }
 
       #ccEdgePlusBtn:hover {
-        border-color: #d4b578 !important;
-        color: #ffffff !important;
-        background: #1f2333 !important;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 14px rgba(196, 163, 90, 0.35) !important;
+        border-color: #8c6a28 !important;
+        color: #3b2a08 !important;
+        background: #fdfaf3 !important;
+        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.2) !important;
         transform: translateY(0) scale(1.06) !important;
       }
 
@@ -162,31 +180,33 @@
       }
 
       #ccEdgePlusBtn:focus-visible {
-        outline: 3px solid #C4A35A !important;
+        outline: 3px solid #2563eb !important;
         outline-offset: 3px !important;
       }
 
-      /* Motyw jasny */
-      html[data-theme="light"] #ccEdgePlusBtn,
-      html[data-lumina-theme="light"] #ccEdgePlusBtn,
-      body[data-theme="light"] #ccEdgePlusBtn,
-      body.light-mode #ccEdgePlusBtn,
-      body.theme-lumina-light #ccEdgePlusBtn {
-        background: #fffdf7 !important;
-        color: #63470e !important;
+      /* Motyw ciemny — dopasowanie do ciemnych stron */
+      html[data-theme="dark"] #ccEdgePlusBtn,
+      html[data-lumina-theme="dark"] #ccEdgePlusBtn,
+      html.dark #ccEdgePlusBtn,
+      body.dark #ccEdgePlusBtn,
+      body[data-theme="dark"] #ccEdgePlusBtn,
+      body.theme-lumina-dark #ccEdgePlusBtn {
+        background: #171923 !important;
+        color: #ffe2a1 !important;
         border: 1px solid #b08a3c !important;
-        box-shadow: 0 3px 14px rgba(0, 0, 0, 0.15), 0 0 8px rgba(176, 138, 60, 0.15) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), 0 0 10px rgba(196, 163, 90, 0.2) !important;
       }
 
-      html[data-theme="light"] #ccEdgePlusBtn:hover,
-      html[data-lumina-theme="light"] #ccEdgePlusBtn:hover,
-      body[data-theme="light"] #ccEdgePlusBtn:hover,
-      body.light-mode #ccEdgePlusBtn:hover,
-      body.theme-lumina-light #ccEdgePlusBtn:hover {
-        background: #ffffff !important;
-        color: #3b2a08 !important;
-        border-color: #8c6a28 !important;
-        box-shadow: 0 5px 18px rgba(0, 0, 0, 0.2) !important;
+      html[data-theme="dark"] #ccEdgePlusBtn:hover,
+      html[data-lumina-theme="dark"] #ccEdgePlusBtn:hover,
+      html.dark #ccEdgePlusBtn:hover,
+      body.dark #ccEdgePlusBtn:hover,
+      body[data-theme="dark"] #ccEdgePlusBtn:hover,
+      body.theme-lumina-dark #ccEdgePlusBtn:hover {
+        background: #1f2333 !important;
+        color: #ffffff !important;
+        border-color: #d4b578 !important;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 14px rgba(196, 163, 90, 0.35) !important;
       }
 
       /* Poszanowanie preferencji zredukowanego ruchu */
@@ -208,7 +228,7 @@
         position: fixed;
         z-index: 991;
         left: calc(${config.desktopLeft}px + 56px);
-        bottom: ${config.desktopBottom + 10}px;
+        bottom: calc(var(--cc-floating-bottom, ${config.desktopBottom}px) + 10px);
         background: rgba(15, 18, 26, 0.94);
         color: #f5eedf;
         font-family: system-ui, -apple-system, sans-serif;
@@ -355,6 +375,76 @@
     openPanel();
   }
 
+  // Wspólny mechanizm pozycjonowania dolnych przycisków (Dyrektywa CC-EDGE-002..003)
+  function updateFloatingBottom() {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    const height = window.innerHeight;
+    let bottom = window.innerWidth >= 768 ? 24 : 16;
+
+    // 1. Sprawdzenie stałego paska nawigacji na dole (np. CC GO .mobile-nav)
+    const navEl = document.querySelector('.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]');
+    if (navEl) {
+      const cs = window.getComputedStyle(navEl);
+      if (cs.display !== 'none' && cs.visibility !== 'hidden') {
+        const rect = navEl.getBoundingClientRect();
+        if (rect.height > 0 && rect.top < height) {
+          bottom = Math.max(bottom, Math.round(height - rect.top + 12));
+        }
+      }
+    }
+
+    // 2. Obsługa LUMINA Action Base
+    const luminaTheme = document.querySelector('#luminaThemeSwitchBtn');
+    if (luminaTheme) {
+      const luminaBase = window.getComputedStyle(document.body).getPropertyValue('--cc-lumina-action-base');
+      if (luminaBase && luminaBase.trim()) {
+        const baseTrimmed = luminaBase.trim();
+        if (document.documentElement && document.documentElement.style && typeof document.documentElement.style.setProperty === 'function') {
+          document.documentElement.style.setProperty('--cc-floating-bottom', baseTrimmed);
+        }
+        if (document.body && document.body.style && typeof document.body.style.setProperty === 'function') {
+          document.body.style.setProperty('--cc-floating-bottom', baseTrimmed);
+        }
+        if (buttonEl) {
+          buttonEl.style.setProperty('bottom', baseTrimmed, 'important');
+        }
+        return baseTrimmed;
+      }
+    }
+
+    // 3. Dynamiczne próbkowanie przeszkód po lewej i prawej stronie
+    if (document.elementsFromPoint) {
+      const w = window.innerWidth;
+      const testPoints = [[24, height - 20], [Math.round(w / 2), height - 20], [w - 24, height - 20]];
+      testPoints.forEach(([x, y]) => {
+        if (x < 0 || y < 0) return;
+        document.elementsFromPoint(x, y).forEach(el => {
+          if (el.id === 'ccEdgePlusBtn' || el.id === 'backToTopBtn' || el.classList?.contains('cc-edge-plus-tooltip')) return;
+          const pos = window.getComputedStyle(el).position;
+          if (pos === 'fixed' || pos === 'sticky') {
+            const r = el.getBoundingClientRect();
+            if (r.width > 0 && r.height > 0 && r.top > height * 0.35 && r.bottom >= height - 30) {
+              bottom = Math.max(bottom, Math.round(height - r.top + 12));
+            }
+          }
+        });
+      });
+    }
+
+    if (bottom + 48 > height * 0.65) bottom = 16;
+    const finalVal = `max(${bottom}px, env(safe-area-inset-bottom))`;
+    if (document.documentElement && document.documentElement.style && typeof document.documentElement.style.setProperty === 'function') {
+      document.documentElement.style.setProperty('--cc-floating-bottom', finalVal);
+    }
+    if (document.body && document.body.style && typeof document.body.style.setProperty === 'function') {
+      document.body.style.setProperty('--cc-floating-bottom', finalVal);
+    }
+    if (buttonEl) {
+      buttonEl.style.setProperty('bottom', finalVal, 'important');
+    }
+    return finalVal;
+  }
+
   // Obliczenie widoczności i pozycji przycisku
   function update() {
     isPendingFrame = false;
@@ -364,6 +454,8 @@
       buttonEl.classList.remove('is-visible');
       return;
     }
+
+    updateFloatingBottom();
 
     const scrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
     const dialog = document.getElementById(config.dialogId);

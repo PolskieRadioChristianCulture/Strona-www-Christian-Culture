@@ -272,20 +272,71 @@ body:has(.cc-omni-topnav) .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn) {
   html body:has(#ccGlobalChatFab) .lumina-floating-chat-btn {
     display:none!important;
   }
+}
 
-  /* Czyste i równe rozmieszczenie pozostałych przycisków pływających na prawej krawędzi bez kolizji */
-  html body #backToTopBtn[data-cc-back-to-top] {
-    bottom:calc(76px + env(safe-area-inset-bottom, 0px))!important;
-    right:max(16px, env(safe-area-inset-right))!important;
+/* ── CC EDGE+ & Back-To-Top: wspólne zmienne i identyczna wysokość (Dyrektywa CC-EDGE-001..003) ── */
+:root {
+  --cc-floating-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+  --cc-floating-size: 48px;
+}
+@media (min-width: 768px) {
+  :root {
+    --cc-floating-bottom: 24px;
   }
+}
+
+/* Strony z dolnym paskiem nawigacji (np. CC GO, LUMINA mobile nav) — odstęp powyżej paska */
+body:has(.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]) {
+  --cc-floating-bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+}
+@media (min-width: 900px) {
+  body:has(.mobile-nav) {
+    --cc-floating-bottom: 24px;
+  }
+}
+
+/* Oba przyciski dolne („+” po lewej, „↑” po prawej) na JEDNEJ, IDENTYCZNEJ wysokości */
+html body #backToTopBtn[data-cc-back-to-top] {
+  bottom: var(--cc-floating-bottom) !important;
+  right: max(16px, env(safe-area-inset-right, 16px)) !important;
+  left: auto !important;
+  top: auto !important;
+  width: var(--cc-floating-size) !important;
+  height: var(--cc-floating-size) !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+@media (min-width: 768px) {
+  html body #backToTopBtn[data-cc-back-to-top] {
+    right: 24px !important;
+  }
+}
+
+html body #ccEdgePlusBtn {
+  bottom: var(--cc-floating-bottom) !important;
+  left: max(16px, env(safe-area-inset-left, 16px)) !important;
+  right: auto !important;
+  top: auto !important;
+  width: var(--cc-floating-size) !important;
+  height: var(--cc-floating-size) !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+@media (min-width: 768px) {
+  html body #ccEdgePlusBtn {
+    left: 24px !important;
+  }
+}
+
+@media (max-width: 767px) {
   html body :is(#ccGlobalChatFab, .lumina-floating-chat-btn) {
-    bottom:calc(var(--cc-lumina-action-base, calc(76px + env(safe-area-inset-bottom, 0px))) + 60px)!important;
-    right:max(16px, env(safe-area-inset-right))!important;
+    bottom: calc(var(--cc-lumina-action-base, calc(76px + env(safe-area-inset-bottom, 0px))) + 60px) !important;
+    right: max(16px, env(safe-area-inset-right)) !important;
   }
   html body:has(#luminaThemeSwitchBtn) #luminaMiniPlayerContainer.minimized,
   html body #luminaMiniPlayerContainer.minimized {
-    bottom:calc(var(--cc-lumina-action-base, 76px) + 120px)!important;
-    right:max(16px, env(safe-area-inset-right))!important;
+    bottom: calc(var(--cc-lumina-action-base, 76px) + 120px) !important;
+    right: max(16px, env(safe-area-inset-right)) !important;
   }
   
   .cc-edge-legacy { display:none!important; }
@@ -299,39 +350,14 @@ body:has(.cc-omni-topnav) .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn) {
   button.ekocc-info-trigger {
     display:none!important;
   }
-  .cc-mobile-edge-trigger {
-    display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
-    width:44px; height:44px; min-width:44px; min-height:44px; padding:10px;
-    box-sizing:border-box; border:1px solid #d4af3766; border-radius:50%;
-    background:#101010; color:#e2cc9a; cursor:pointer; touch-action:manipulation;
-  }
-  body:has(#ccOmniOverlay.cc-open) .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn):not(.cc-omni-toplink),
-  .ccw-fallback .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn):not(.cc-omni-toplink) {
-    position: fixed;
-    top: max(12px, env(safe-area-inset-top));
-    left: max(12px, env(safe-area-inset-left));
-    z-index: 1000001;
-  }
-  .netflix-navbar .cc-mobile-edge-trigger {
-    position: relative;
-    z-index: 10000;
-    margin-right: 8px;
-    flex-shrink: 0;
-  }
-  .cc-mobile-edge-trigger[data-profile="lumina"] {
-    background:#0b1120;
-    color:#C4A35A;
-    border-color:rgba(196,163,90,0.65);
-    box-shadow:0 0 12px rgba(196,163,90,0.3);
-  }
-  html[data-lumina-theme="light"] .cc-mobile-edge-trigger[data-profile="lumina"],
-  html[data-theme="light"] .cc-mobile-edge-trigger[data-profile="lumina"],
-  body.theme-lumina-light .cc-mobile-edge-trigger[data-profile="lumina"] {
-    background:#fffaff;
-    color:#A08040;
-    border-color:rgba(196,163,90,0.75);
-    box-shadow:0 2px 8px rgba(196,163,90,0.2);
-  }
+}
+
+/* KATEGORYCZNY ZAKAZ górnego przycisku „+” w lewym górnym rogu na WSZYSTKICH ekranach (Dyrektywa CC-EDGE-001) */
+.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn) {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 /* Wybór języka w panelu krawędziowym (Dyrektywa L0 29.10.2026) */

@@ -34,7 +34,7 @@
     var nonceMeta = document.querySelector && document.querySelector('meta[name="cc-csp-nonce"]');
     if (nonceMeta && nonceMeta.content) style.nonce = nonceMeta.content;
     // Jeden przycisk „do góry” na stronie: starszy moduł LUMINA (#luminaScrollTop) ustępuje standardowi CC.
-    style.textContent = '#luminaScrollTop{display:none!important}.lumina-scroll-top,.lumina-scroll-top-btn{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important}#backToTopBtn[data-cc-back-to-top]{position:fixed!important;right:max(16px,env(safe-area-inset-right))!important;left:auto!important;top:auto!important;width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;margin:0!important;padding:0!important;border:1px solid #b08a3c!important;border-radius:50%!important;background:#fff!important;color:#63470e!important;box-shadow:0 3px 14px #0003!important;z-index:900!important;align-items:center!important;justify-content:center!important;opacity:1!important;visibility:visible!important;transform:none!important;cursor:pointer;touch-action:manipulation}#backToTopBtn[data-cc-back-to-top]:focus-visible{outline:3px solid #2563eb!important;outline-offset:3px}[data-lumina-theme="dark"] #backToTopBtn[data-cc-back-to-top],html.dark #backToTopBtn[data-cc-back-to-top]{background:#171923!important;color:#ffe2a1!important}';
+    style.textContent = '#luminaScrollTop{display:none!important}.lumina-scroll-top,.lumina-scroll-top-btn{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important}#backToTopBtn[data-cc-back-to-top]{position:fixed!important;right:max(16px,env(safe-area-inset-right))!important;bottom:var(--cc-floating-bottom,max(16px,env(safe-area-inset-bottom)))!important;left:auto!important;top:auto!important;width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;margin:0!important;padding:0!important;border:1px solid #b08a3c!important;border-radius:50%!important;background:#fff!important;color:#63470e!important;box-shadow:0 3px 14px #0003!important;z-index:900!important;align-items:center!important;justify-content:center!important;opacity:1!important;visibility:visible!important;transform:none!important;cursor:pointer;touch-action:manipulation}#backToTopBtn[data-cc-back-to-top]:focus-visible{outline:3px solid #2563eb!important;outline-offset:3px}[data-lumina-theme="dark"] #backToTopBtn[data-cc-back-to-top],html.dark #backToTopBtn[data-cc-back-to-top]{background:#171923!important;color:#ffe2a1!important}';
     document.head.appendChild(style);
     // Capture prevents old book/course handlers from issuing a second scroll.
     button.addEventListener('click', function (event) {
@@ -47,7 +47,7 @@
       pending = false;
       var height = window.innerHeight;
       var right = window.innerWidth - 16;
-      var bottom = 16;
+      var bottom = window.innerWidth >= 768 ? 24 : 16;
       var visible = (window.scrollY || document.documentElement.scrollTop || 0) > 300;
       var modalOpen = Array.from(document.querySelectorAll('dialog[open], [aria-modal="true"]:not([hidden])')).some(function (modal) {
         var rect = modal.getBoundingClientRect();
@@ -55,6 +55,19 @@
         return rect.width > 0 && rect.height > 0 && css.visibility !== 'hidden' && css.display !== 'none';
       });
       if (document.fullscreenElement || modalOpen) visible = false;
+
+      // Sprawdzenie stałego paska nawigacji na dole (np. CC GO .mobile-nav)
+      var navEl = document.querySelector && document.querySelector('.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]');
+      if (navEl) {
+        var ncs = window.getComputedStyle(navEl);
+        if (ncs.display !== 'none' && ncs.visibility !== 'hidden') {
+          var nrect = navEl.getBoundingClientRect();
+          if (nrect.height > 0 && nrect.top < height) {
+            bottom = Math.max(bottom, Math.round(height - nrect.top + 12));
+          }
+        }
+      }
+
       // Sample only the right-hand action lane, avoiding expensive whole-DOM scans.
       // Fixed players, navigation and floating controls reserve space above them.
       var luminaActions = document.querySelector && document.querySelector('#luminaThemeSwitchBtn');
@@ -69,7 +82,7 @@
                 if (position !== 'fixed' && position !== 'sticky') return;
                 var rect = element.getBoundingClientRect();
                 if (rect.width && rect.height && rect.top > height * 0.35 && rect.bottom > height - bottom - 48) {
-                  bottom = Math.max(bottom, height - rect.top + 12);
+                  bottom = Math.max(bottom, Math.round(height - rect.top + 12));
                 }
               });
             });
@@ -78,7 +91,14 @@
         }
       }
       if (bottom + 48 > height * 0.65) visible = false;
-      button.style.setProperty('bottom', luminaActions ? 'var(--cc-lumina-action-base)' : 'max(' + bottom + 'px, env(safe-area-inset-bottom))', 'important');
+      var finalBottom = luminaActions ? 'var(--cc-lumina-action-base)' : 'max(' + bottom + 'px, env(safe-area-inset-bottom))';
+      if (document.documentElement && document.documentElement.style && typeof document.documentElement.style.setProperty === 'function') {
+        document.documentElement.style.setProperty('--cc-floating-bottom', finalBottom);
+      }
+      if (document.body && document.body.style && typeof document.body.style.setProperty === 'function') {
+        document.body.style.setProperty('--cc-floating-bottom', finalBottom);
+      }
+      button.style.setProperty('bottom', finalBottom, 'important');
       button.style.setProperty('display', visible ? 'flex' : 'none', 'important');
     }
     function schedule() {

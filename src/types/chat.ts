@@ -10,6 +10,36 @@ export interface ChatReaction {
   users: string[];
 }
 
+export type AssistantActionType =
+  | 'open_url'
+  | 'share'
+  | 'copy'
+  | 'open_contact'
+  | 'submit_idea'
+  | 'show_topic';
+
+export interface AssistantAction {
+  type: AssistantActionType;
+  label: string;
+  url?: string;
+  topicId?: string;
+  payload?: string;
+  primary?: boolean;
+}
+
+export interface AssistantPayload {
+  version: 1;
+  actions: AssistantAction[];
+  sourceIds?: string[];
+  intent?: string;
+  confidence?: 'high' | 'medium' | 'low' | 'none';
+  sharePrompt?: {
+    enabled: boolean;
+    text?: string;
+    targetUrl?: string;
+  };
+}
+
 export interface ChatMessage {
   id: string;
   chatId?: string;
@@ -23,6 +53,7 @@ export interface ChatMessage {
   status?: 'sent' | 'delivered' | 'read';
   reactions?: Record<string, string[]>;
   seenBy?: Array<{ id: string; name: string; time: number }>;
+  assistantPayload?: AssistantPayload;
 }
 
 export interface DirectChatRoom {
