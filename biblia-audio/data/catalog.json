@@ -266,10 +266,16 @@
     "book": "genesis",
     "chapter": 19,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_19_1-38_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 19 — Sąd nad Sodomą i Gomorą, ocalenie Lota",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_19_1-38_Biblia_Audio_CC.mp3",
+        "verses": "1–38"
+      }
+    ]
   },
   {
     "id": "genesis-20",
