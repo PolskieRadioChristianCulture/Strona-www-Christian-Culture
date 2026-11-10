@@ -124,7 +124,10 @@ async function init() {
     $('#catalogCount').textContent = 'Niedostępny';
   }
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
-    window.addEventListener('load', ()=>navigator.serviceWorker.register('/go/sw.js', {scope:'/go/'}).catch(console.warn), {once:true});
+    // init() czeka na katalog, więc zdarzenie load zwykle już minęło — wtedy rejestrujemy od razu.
+    const registerWorker = ()=>navigator.serviceWorker.register('/go/sw.js', {scope:'/go/'}).catch(console.warn);
+    if (document.readyState === 'complete') registerWorker();
+    else window.addEventListener('load', registerWorker, {once:true});
   }
 }
 init();
