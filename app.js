@@ -99,6 +99,21 @@ let STATIONS = {
             "Śpiewane Przypowieści Salomona - Rozdział 2",
             "Śpiewane Przypowieści Salomona - Rozdział 3"
         ]
+    },
+    radio_cc_women: {
+        id: "radio_cc_women",
+        name: "RADIO CC WOMEN",
+        shortName: "CCW",
+        tagline: "Miejsce Kobiet Takich Jak Ty",
+        streamUrl: "",
+        accentColors: ["#E83F94", "#FF75B5"],
+        logo: "./assets/ccw-icon.png",
+        tracks: [
+            "Radio CC Women — Miejsce Kobiet Takich Jak Ty",
+            "Inspiracja, muzyka i słowo dla kobiet",
+            "Pasmo modlitewne i refleksyjne",
+            "Świadectwa wiary i rozmowy"
+        ]
     }
 };
 
@@ -1084,6 +1099,17 @@ function playRadio() {
         targetUrl = activeStation.streamUrl;
     }
     
+    if (!targetUrl) {
+        audio.pause();
+        audio.removeAttribute('src');
+        currentAudioUrl = "";
+        playerTrackTitle.textContent = `${activeStation.name} — ${activeStation.tagline || 'Wkrótce emisja 24/7'}`;
+        playerStatusText.textContent = "Oczekuje na emisję";
+        isPlaying = false;
+        updatePlayerUI(false);
+        return;
+    }
+
     if (targetUrl) {
         if (currentAudioUrl !== targetUrl || !audio.src) {
             audio.src = targetUrl;

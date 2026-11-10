@@ -19,9 +19,9 @@ function fixture(path = '/mess') {
 }
 const settle = async () => { for (let i = 0; i < 8; i++) await Promise.resolve(); };
 
-test('one catalogue supplies all six home stations, with real playlist URLs', async () => {
+test('one catalogue supplies all seven home stations, with real playlist URLs', async () => {
   const { win, run } = fixture(); run(files[0]);
-  assert.deepEqual(Array.from(win.CCRadioStations, s => s.id), ['poland', 'global', 'biblia_audio', 'global_biblia', 'instrumental_worship', 'biblia_spiewana']);
+  assert.deepEqual(Array.from(win.CCRadioStations, s => s.id), ['poland', 'global', 'biblia_audio', 'global_biblia', 'instrumental_worship', 'biblia_spiewana', 'radio_cc_women']);
   for (const station of win.CCRadioStations) if (station.playlistUrl) {
     const playlist = JSON.parse(await readFile(station.playlistUrl.slice(1), 'utf8'));
     assert.ok(playlist.length); assert.ok(playlist.every(track => typeof track.url === 'string'));
@@ -69,7 +69,7 @@ test('radio controls mount for both guest and native chat, and changing stations
   win.document.dispatchEvent(new win.Event('DOMContentLoaded')); await settle();
   assert.equal(win.document.querySelectorAll('.cc-chat-radio').length, 2);
   const select = win.document.querySelector('.cc-chat-radio select');
-  assert.equal(select.options.length, 6);
+  assert.equal(select.options.length, 7);
   select.value = 'biblia_spiewana'; select.dispatchEvent(new win.Event('change')); await settle();
   assert.equal(win.CCChatRadio.state().stationId, 'biblia_spiewana');
   assert.equal(select.value, 'biblia_spiewana');
@@ -102,7 +102,7 @@ test('mini radio player mounts on the upper chat header bar between brand and ac
   const radio = header.querySelector('.cc-chat-radio');
   assert.ok(radio, 'Radio must be mounted inside chat header bar');
   assert.equal(radio.nextElementSibling.className, 'chat-header-actions', 'Radio must sit right before chat header actions');
-  assert.equal(radio.querySelector('select').options.length, 6);
+  assert.equal(radio.querySelector('select').options.length, 7);
   assert.equal(radio.querySelector('button').textContent, 'Słuchaj');
   const settingsLink = win.document.querySelector('#chatSettingsModal a[href="/mess"]');
   assert.ok(settingsLink, 'chatSettingsModal must contain Otwórz osobno link to /mess');

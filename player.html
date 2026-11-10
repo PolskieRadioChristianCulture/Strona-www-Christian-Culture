@@ -410,6 +410,20 @@
                                 <p class="text-[10px] text-gray-400 truncate">Walter Veith · What's Up Prof?</p>
                             </div>
                         </div>
+
+                        <!-- Radio CC Women -->
+                        <div onclick="playStation('ccwomen')" id="side-item-ccwomen" class="channel-side-item group flex items-center gap-3 p-2 rounded-xl cursor-pointer transition hover:bg-white/5 border border-transparent hover:border-white/10">
+                            <div class="w-9 h-9 rounded-lg overflow-hidden border border-[#E83F94]/40 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition shadow-sm bg-[#2A072A]">
+                                <img src="/assets/ccw-icon.png" alt="Radio CC Women" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-gray-200 group-hover:text-pink-300 truncate">Radio CC Women</span>
+                                    <span class="text-[9px] font-bold text-[#FF75B5]">• LIVE</span>
+                                </div>
+                                <p class="text-[10px] text-gray-400 truncate">Miejsce Kobiet Takich Jak Ty</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -671,6 +685,30 @@
                             <div class="mt-2.5 flex items-center justify-between">
                                 <span class="text-[9px] font-medium text-teal-300/80">Audycje CC</span>
                                 <div class="w-8 h-8 rounded-full gold-button-gradient flex items-center justify-center text-gray-950 text-xs shadow-lg group-hover:scale-110 transition">
+                                    <i class="fa-solid fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Radio CC Women -->
+                    <div onclick="playStation('ccwomen')" class="channel-card group glass-panel rounded-2xl overflow-hidden cursor-pointer glass-card-hover border border-pink-500/20 hover:border-pink-500/50 relative flex flex-col justify-between p-3.5 aspect-[4/5] bg-gradient-to-b from-[#2A072A] to-[#120315]" data-category="Wszystkie CC Women Kobiety Live Muzyka">
+                        <div class="absolute inset-x-0 bottom-0 h-1/2 overflow-hidden pointer-events-none opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-500">
+                            <img loading="lazy" decoding="async" src="/images/player/art-chan-ccwomen.jpg" alt="Radio CC Women" class="w-full h-full object-cover object-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#120315] via-[#120315]/40 to-transparent"></div>
+                        </div>
+                        <div class="relative z-10 flex items-center justify-between">
+                            <div class="w-7 h-7 rounded-lg overflow-hidden border border-[#E83F94]/40 flex items-center justify-center bg-[#2A072A] shadow-sm">
+                                <img src="/assets/ccw-icon.png" alt="CCW" class="w-full h-full object-cover">
+                            </div>
+                            <span class="px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 text-[9px] font-bold">CC Women</span>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="font-bold text-sm text-white group-hover:text-pink-300 transition">Radio CC Women</h3>
+                            <p class="text-[10px] text-gray-300 mt-0.5 line-clamp-1">Miejsce Kobiet Takich Jak Ty</p>
+                            <div class="mt-2.5 flex items-center justify-between">
+                                <span class="text-[9px] font-medium text-pink-300/90">Inspiracja & Słowo</span>
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-[#E83F94] to-[#FF75B5] flex items-center justify-center text-white text-xs shadow-lg group-hover:scale-110 transition">
                                     <i class="fa-solid fa-play"></i>
                                 </div>
                             </div>
@@ -1053,6 +1091,21 @@
                 desc: 'Szkoła biblijna, komentarze do aktualnych wydarzeń i świadectwa wiary.',
                 ticker: 'Szkoła Biblijna Christian Culture TV',
                 timeText: 'STRUMIEŃ AUDIO'
+            },
+            ccwomen: {
+                id: 'ccwomen',
+                title: 'Radio CC Women',
+                subtitle: 'Miejsce Kobiet Takich Jak Ty',
+                type: 'live',
+                streamUrl: '',
+                badge: 'CC Women',
+                heroBadge: 'RADIO CC WOMEN',
+                cover: '/assets/ccw-icon.png',
+                heroImg: '/images/player/art-chan-ccwomen.jpg',
+                headline: 'Miejsce Kobiet Takich Jak Ty: <span class="gold-gradient-text">Radio CC Women</span>.',
+                desc: 'Muzyka, inspiracje, rozmowy i duchowe wsparcie dla kobiet każdego dnia.',
+                ticker: 'Radio CC Women — Miejsce Kobiet Takich Jak Ty',
+                timeText: 'RADIO LIVE'
             },
             clashofminds: {
                 id: 'clashofminds',
@@ -1594,6 +1647,13 @@
             if (st.type === 'live') {
                 switchEngine('native');
                 spectrum?.prepare();
+                if (!st.streamUrl) {
+                    nativeAudio.pause();
+                    nativeAudio.removeAttribute('src');
+                    setPlaybackState(false);
+                    playbackStatus('Oczekuje na inaugurację emisji 24/7');
+                    return;
+                }
                 nativeAudio.src = st.streamUrl + '?t=' + Date.now();
                 nativeAudio.play().catch(err => {
                     if (activeEngine !== 'native' || currentItem !== st || err.name === 'AbortError') return;
