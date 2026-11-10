@@ -1,0 +1,678 @@
+{
+ "schemaVersion": 2,
+ "updated": "2026-11-10",
+ "visibility": "PUBLIC_ONLY",
+ "shelves": [
+  "Słuchaj",
+  "Oglądaj",
+  "Biblia i wiara",
+  "Ucz się",
+  "Czytaj",
+  "Społeczność",
+  "Pomoc i narzędzia"
+ ],
+ "items": [
+  {
+   "id": "player",
+   "title": "Radio Christian Culture",
+   "subtitle": "Dobry przekaz przez całą dobę",
+   "description": "Dobry przekaz przez całą dobę",
+   "path": "/player",
+   "category": "Słuchaj",
+   "tags": [
+    "radio",
+    "na żywo",
+    "audio"
+   ],
+   "icon": "radio",
+   "color": "blue",
+   "badge": "NA ŻYWO"
+  },
+  {
+   "id": "biblia-audio",
+   "title": "Biblia Audio",
+   "subtitle": "Słuchaj Pisma Świętego 24/7",
+   "description": "Słuchaj Pisma Świętego 24/7",
+   "path": "/player",
+   "category": "Słuchaj",
+   "tags": [
+    "biblia",
+    "audio",
+    "lektor"
+   ],
+   "icon": "headphones",
+   "color": "amber",
+   "badge": "24/7",
+   "spotlight": true
+  },
+  {
+   "id": "ewangelia",
+   "title": "Ewangelia",
+   "subtitle": "Dobra Nowina dla każdego",
+   "description": "Dobra Nowina dla każdego",
+   "path": "/Ewangelia",
+   "category": "Słuchaj",
+   "tags": [
+    "dobra nowina",
+    "Jezus",
+    "mp3"
+   ],
+   "icon": "spark",
+   "color": "sunrise",
+   "spotlight": true
+  },
+  {
+   "id": "biblia-spiewana",
+   "title": "Biblia Śpiewana",
+   "subtitle": "Wersety w muzyce",
+   "description": "Wersety w muzyce",
+   "path": "/biblia-spiewana",
+   "category": "Słuchaj",
+   "tags": [
+    "biblia",
+    "śpiew",
+    "muzyka"
+   ],
+   "icon": "music",
+   "color": "violet"
+  },
+  {
+   "id": "uwielbienie",
+   "title": "Biblijne Uwielbienie",
+   "subtitle": "Muzyka uwielbienia",
+   "description": "Muzyka uwielbienia",
+   "path": "/BiblijneUwielbienie",
+   "category": "Słuchaj",
+   "tags": [
+    "uwielbienie",
+    "worship"
+   ],
+   "icon": "wave",
+   "color": "violet"
+  },
+  {
+   "id": "music",
+   "title": "Muzyka CC",
+   "subtitle": "Dyskografia Christian Culture",
+   "description": "Dyskografia Christian Culture",
+   "path": "/music",
+   "category": "Słuchaj",
+   "tags": [
+    "muzyka",
+    "albumy"
+   ],
+   "icon": "music",
+   "color": "pink"
+  },
+  {
+   "id": "podcasty",
+   "title": "Podcasty CC",
+   "subtitle": "Rozmowy i nagrania studyjne",
+   "description": "Rozmowy i nagrania studyjne",
+   "path": "/podcasty",
+   "category": "Słuchaj",
+   "tags": [
+    "podcast",
+    "audio"
+   ],
+   "icon": "headphones",
+   "color": "teal"
+  },
+  {
+   "id": "topten",
+   "title": "topTEN",
+   "subtitle": "Lista przebojów muzyki chrześcijańskiej",
+   "description": "Lista przebojów muzyki chrześcijańskiej",
+   "path": "/topTEN/",
+   "category": "Słuchaj",
+   "tags": [
+    "ranking",
+    "muzyka",
+    "notowanie"
+   ],
+   "icon": "zap",
+   "color": "sunset",
+   "badge": "NOWE",
+   "spotlight": true
+  },
+  {
+   "id": "ambientsleep",
+   "title": "Ambient Sleep",
+   "subtitle": "Dźwięki do snu i relaksu",
+   "description": "Dźwięki do snu i relaksu",
+   "path": "/ambientsleep",
+   "category": "Słuchaj",
+   "tags": [
+    "sen",
+    "relaks",
+    "szum"
+   ],
+   "icon": "sun",
+   "color": "navy"
+  },
+  {
+   "id": "tv",
+   "title": "Telewizja CC LIVE",
+   "subtitle": "Oglądaj transmisje",
+   "description": "Oglądaj transmisje",
+   "path": "/tv",
+   "category": "Oglądaj",
+   "tags": [
+    "telewizja",
+    "live"
+   ],
+   "icon": "tv",
+   "color": "violet",
+   "badge": "NA ŻYWO"
+  },
+  {
+   "id": "vod",
+   "title": "Kino VOD",
+   "subtitle": "Filmy z lektorem, bez opłat",
+   "description": "Filmy z lektorem, bez opłat",
+   "path": "/vod",
+   "category": "Oglądaj",
+   "tags": [
+    "filmy",
+    "kino",
+    "vod"
+   ],
+   "icon": "film",
+   "color": "navy",
+   "spotlight": true
+  },
+  {
+   "id": "cctv24",
+   "title": "CCTV24 Worship",
+   "subtitle": "Uwielbienie w HD 24/7",
+   "description": "Uwielbienie w HD 24/7",
+   "path": "/cctv24-worship",
+   "category": "Oglądaj",
+   "tags": [
+    "worship",
+    "video"
+   ],
+   "icon": "tv",
+   "color": "blue"
+  },
+  {
+   "id": "swiadectwa",
+   "title": "Świadectwa",
+   "subtitle": "Prawdziwe historie wiary",
+   "description": "Prawdziwe historie wiary",
+   "path": "/swiadectwa",
+   "category": "Oglądaj",
+   "tags": [
+    "świadectwa",
+    "historie"
+   ],
+   "icon": "heart",
+   "color": "pink",
+   "spotlight": true
+  },
+  {
+   "id": "rolki",
+   "title": "Rolki CC",
+   "subtitle": "Krótkie formy wideo",
+   "description": "Krótkie formy wideo",
+   "path": "/rolki",
+   "category": "Oglądaj",
+   "tags": [
+    "rolki",
+    "shorts"
+   ],
+   "icon": "film",
+   "color": "sunset"
+  },
+  {
+   "id": "mojabiblia",
+   "title": "MojaBiblia",
+   "subtitle": "Interlinia i 4 przekłady",
+   "description": "Interlinia i 4 przekłady",
+   "path": "/mojabiblia",
+   "category": "Biblia i wiara",
+   "tags": [
+    "biblia",
+    "interlinia",
+    "strong"
+   ],
+   "icon": "book",
+   "color": "teal",
+   "spotlight": true
+  },
+  {
+   "id": "werset",
+   "title": "Werset Dnia",
+   "subtitle": "Codzienna inspiracja z Biblii",
+   "description": "Codzienna inspiracja z Biblii",
+   "path": "/werset-dnia",
+   "category": "Biblia i wiara",
+   "tags": [
+    "werset",
+    "dzień"
+   ],
+   "icon": "calendar",
+   "color": "mint"
+  },
+  {
+   "id": "dzj",
+   "title": "Dobrze, że jesteś",
+   "subtitle": "Rozważania na każdy dzień",
+   "description": "Rozważania na każdy dzień",
+   "path": "/dzj",
+   "category": "Biblia i wiara",
+   "tags": [
+    "rozważania",
+    "codziennie"
+   ],
+   "icon": "sun",
+   "color": "amber",
+   "spotlight": true
+  },
+  {
+   "id": "modlitwa",
+   "title": "Modlitwa",
+   "subtitle": "Ściana modlitwy i intencje",
+   "description": "Ściana modlitwy i intencje",
+   "path": "/modlitwa",
+   "category": "Biblia i wiara",
+   "tags": [
+    "modlitwa",
+    "intencje"
+   ],
+   "icon": "heart",
+   "color": "sunrise"
+  },
+  {
+   "id": "studium",
+   "title": "Studium",
+   "subtitle": "Studium Pisma Świętego",
+   "description": "Studium Pisma Świętego",
+   "path": "/studium",
+   "category": "Biblia i wiara",
+   "tags": [
+    "studium",
+    "biblia"
+   ],
+   "icon": "book",
+   "color": "navy"
+  },
+  {
+   "id": "akademia",
+   "title": "Akademia Biblijna",
+   "subtitle": "Poznawaj Biblię krok po kroku",
+   "description": "Poznawaj Biblię krok po kroku",
+   "path": "/akademia",
+   "category": "Ucz się",
+   "tags": [
+    "kurs",
+    "biblia",
+    "edukacja"
+   ],
+   "icon": "graduation",
+   "color": "navy"
+  },
+  {
+   "id": "kurscodzienny",
+   "title": "Kurs Codzienny",
+   "subtitle": "Z Biblią za Pan Brat",
+   "description": "Z Biblią za Pan Brat",
+   "path": "/akademia/kurscodzienny",
+   "category": "Ucz się",
+   "tags": [
+    "kurs",
+    "codziennie"
+   ],
+   "icon": "calendar",
+   "color": "mint",
+   "badge": "CODZIENNIE",
+   "spotlight": true
+  },
+  {
+   "id": "apokalipsa",
+   "title": "Kurs Apokalipsy",
+   "subtitle": "Księga Objawienia w 27 lekcjach",
+   "description": "Księga Objawienia w 27 lekcjach",
+   "path": "/kursy/apokalipsa/",
+   "category": "Ucz się",
+   "tags": [
+    "apokalipsa",
+    "objawienie"
+   ],
+   "icon": "book",
+   "color": "violet"
+  },
+  {
+   "id": "rozwiaz",
+   "title": "Rozwiąż problem",
+   "subtitle": "Rzuć palenie w 14 dni",
+   "description": "Rzuć palenie w 14 dni",
+   "path": "/rozwiaz-problem",
+   "category": "Ucz się",
+   "tags": [
+    "kurs",
+    "palenie"
+   ],
+   "icon": "zap",
+   "color": "teal"
+  },
+  {
+   "id": "the-journal",
+   "title": "THE JOURNAL",
+   "subtitle": "90 dni refleksji dla młodzieży",
+   "description": "90 dni refleksji dla młodzieży",
+   "path": "/the-journal",
+   "category": "Ucz się",
+   "tags": [
+    "młodzież",
+    "pamiętnik"
+   ],
+   "icon": "sprout",
+   "color": "pink"
+  },
+  {
+   "id": "news",
+   "title": "CCN News",
+   "subtitle": "Aktualności i publicystyka",
+   "description": "Aktualności i publicystyka",
+   "path": "/news",
+   "category": "Czytaj",
+   "tags": [
+    "news",
+    "wiadomości"
+   ],
+   "icon": "newspaper",
+   "color": "blue",
+   "spotlight": true
+  },
+  {
+   "id": "nauka",
+   "title": "CCN Nauka",
+   "subtitle": "Wiara i nauka",
+   "description": "Wiara i nauka",
+   "path": "/nauka",
+   "category": "Czytaj",
+   "tags": [
+    "nauka",
+    "kosmos"
+   ],
+   "icon": "sun",
+   "color": "navy"
+  },
+  {
+   "id": "historia",
+   "title": "CCN Historia",
+   "subtitle": "Archeologia biblijna",
+   "description": "Archeologia biblijna",
+   "path": "/historia",
+   "category": "Czytaj",
+   "tags": [
+    "historia",
+    "archeologia"
+   ],
+   "icon": "book",
+   "color": "sunrise"
+  },
+  {
+   "id": "apologetyka",
+   "title": "CCN Apologetyka",
+   "subtitle": "Racjonalna obrona wiary",
+   "description": "Racjonalna obrona wiary",
+   "path": "/apologetyka",
+   "category": "Czytaj",
+   "tags": [
+    "apologetyka"
+   ],
+   "icon": "spark",
+   "color": "teal"
+  },
+  {
+   "id": "psychologia",
+   "title": "CCN Psychologia",
+   "subtitle": "Emocje i zdrowie psychiczne",
+   "description": "Emocje i zdrowie psychiczne",
+   "path": "/psychologia",
+   "category": "Czytaj",
+   "tags": [
+    "psychologia"
+   ],
+   "icon": "heart",
+   "color": "pink"
+  },
+  {
+   "id": "finanse",
+   "title": "CCN Finanse",
+   "subtitle": "Budżet, długi, hojność",
+   "description": "Budżet, długi, hojność",
+   "path": "/finanse",
+   "category": "Czytaj",
+   "tags": [
+    "finanse"
+   ],
+   "icon": "download",
+   "color": "mint"
+  },
+  {
+   "id": "kultura",
+   "title": "CCN Kultura",
+   "subtitle": "Kultura z wartościami",
+   "description": "Kultura z wartościami",
+   "path": "/kultura",
+   "category": "Czytaj",
+   "tags": [
+    "kultura",
+    "sztuka"
+   ],
+   "icon": "palette",
+   "color": "violet"
+  },
+  {
+   "id": "biblioteka",
+   "title": "CCN Biblioteka",
+   "subtitle": "Książki i e-booki",
+   "description": "Książki i e-booki",
+   "path": "/biblioteka",
+   "category": "Czytaj",
+   "tags": [
+    "książki",
+    "ebook"
+   ],
+   "icon": "book",
+   "color": "amber"
+  },
+  {
+   "id": "ksiazki",
+   "title": "Książki Autora",
+   "subtitle": "Pokonać Goliata, Kod Źródłowy i inne",
+   "description": "Pokonać Goliata, Kod Źródłowy i inne",
+   "path": "/ksiazki-autora",
+   "category": "Czytaj",
+   "tags": [
+    "książki",
+    "powieści"
+   ],
+   "icon": "book",
+   "color": "sunset",
+   "spotlight": true
+  },
+  {
+   "id": "lumina",
+   "title": "LUMINA",
+   "subtitle": "Relacje oparte na wartościach",
+   "description": "Relacje oparte na wartościach",
+   "path": "/lumina",
+   "category": "Społeczność",
+   "tags": [
+    "lumina",
+    "relacje",
+    "społeczność"
+   ],
+   "icon": "users",
+   "color": "pink",
+   "spotlight": true
+  },
+  {
+   "id": "tablica",
+   "title": "Tablica LUMINA",
+   "subtitle": "Świadectwa, prośby, rozmowy",
+   "description": "Świadectwa, prośby, rozmowy",
+   "path": "/lumina-tablica",
+   "category": "Społeczność",
+   "tags": [
+    "tablica"
+   ],
+   "icon": "newspaper",
+   "color": "sunset"
+  },
+  {
+   "id": "mess",
+   "title": "LUMI Messenger",
+   "subtitle": "Komunikator społeczności",
+   "description": "Komunikator społeczności",
+   "path": "/mess",
+   "category": "Społeczność",
+   "tags": [
+    "czat",
+    "messenger"
+   ],
+   "icon": "users",
+   "color": "blue"
+  },
+  {
+   "id": "cc-women",
+   "title": "CC Women",
+   "subtitle": "Przestrzeń dla kobiet",
+   "description": "Przestrzeń dla kobiet",
+   "url": "https://www.youtube.com/@ccwomen7",
+   "category": "Społeczność",
+   "tags": [
+    "kobiety",
+    "youtube"
+   ],
+   "icon": "sprout",
+   "color": "pink"
+  },
+  {
+   "id": "misje",
+   "title": "CCN Misje",
+   "subtitle": "Świadectwa i relacje z misji",
+   "description": "Świadectwa i relacje z misji",
+   "path": "/misje",
+   "category": "Społeczność",
+   "tags": [
+    "misje"
+   ],
+   "icon": "spark",
+   "color": "amber"
+  },
+  {
+   "id": "wizytowki",
+   "title": "Wizytówki EkoCC",
+   "subtitle": "Kąciki, służby i projekty",
+   "description": "Kąciki, służby i projekty",
+   "path": "/wizytowki",
+   "category": "Społeczność",
+   "tags": [
+    "wizytówki"
+   ],
+   "icon": "users",
+   "color": "teal"
+  },
+  {
+   "id": "help",
+   "title": "CC Pomoc",
+   "subtitle": "Bezpłatne wsparcie w 60+ tematach",
+   "description": "Bezpłatne wsparcie w 60+ tematach",
+   "path": "/help",
+   "category": "Pomoc i narzędzia",
+   "tags": [
+    "pomoc",
+    "wsparcie"
+   ],
+   "icon": "heart",
+   "color": "mint",
+   "spotlight": true
+  },
+  {
+   "id": "wyszukiwarka",
+   "title": "Wyszukiwarka CC",
+   "subtitle": "Znajdź to, czego szukasz",
+   "description": "Znajdź to, czego szukasz",
+   "path": "/wyszukiwarka",
+   "category": "Pomoc i narzędzia",
+   "tags": [
+    "szukaj"
+   ],
+   "icon": "search",
+   "color": "blue"
+  },
+  {
+   "id": "holos",
+   "title": "HOLOS",
+   "subtitle": "Planer i kalendarz",
+   "description": "Planer i kalendarz",
+   "path": "/holos",
+   "category": "Pomoc i narzędzia",
+   "tags": [
+    "planer"
+   ],
+   "icon": "calendar",
+   "color": "navy"
+  },
+  {
+   "id": "kalendarz2027",
+   "title": "Kalendarz 2027",
+   "subtitle": "Darmowy kreator do druku",
+   "description": "Darmowy kreator do druku",
+   "path": "/kalendarz2027",
+   "category": "Pomoc i narzędzia",
+   "tags": [
+    "kalendarz",
+    "druk"
+   ],
+   "icon": "calendar",
+   "color": "sunrise"
+  },
+  {
+   "id": "pobierz",
+   "title": "Pobierz materiały",
+   "subtitle": "Logotypy, grafiki, audio",
+   "description": "Logotypy, grafiki, audio",
+   "path": "/pobierz",
+   "category": "Pomoc i narzędzia",
+   "tags": [
+    "pobierz"
+   ],
+   "icon": "download",
+   "color": "teal"
+  },
+  {
+   "id": "wspieraj",
+   "title": "Wspieraj",
+   "subtitle": "Wolne media Boże",
+   "description": "Wolne media Boże",
+   "path": "/wspieraj",
+   "category": "Pomoc i narzędzia",
+   "tags": [
+    "wsparcie",
+    "darowizna"
+   ],
+   "icon": "heart",
+   "color": "amber"
+  },
+  {
+   "id": "portal-mlodych",
+   "title": "Portal Młodych",
+   "subtitle": "Wiara i rozwój młodego pokolenia",
+   "description": "Wiara i rozwój młodego pokolenia",
+   "path": "/nastolatki",
+   "category": "Społeczność",
+   "tags": [
+    "młodzież"
+   ],
+   "icon": "zap",
+   "color": "amber",
+   "requiresReview": true
+  }
+ ]
+}
