@@ -1,25 +1,19 @@
 /**
  * ══════════════════════════════════════════════════════════════════════════
- * CHRISTIAN CULTURE & LUMINA — CCGlobalChatButton
+ * CHRISTIAN CULTURE & LUMINA — LUMI MESSENGER PREMIUM UI 2.0
  * Plik: /components/cc-global-chat-button.js
  * 
- * Standard wdrożenia CC CHAT:
- * - Wygląd: Neonowy przycisk czatu w szkle (fioletowo-różowy gradient, złota
- *   obwódka, biały symbol rozmowy, delikatna poświata i szkło).
- * - Rozmiar: 60 × 60 px na komputerze, 56 × 56 px na telefonie.
- * - Położenie: prawy dolny róg (right: max(18px, env(safe-area-inset-right)),
- *   bottom: max(18px, env(safe-area-inset-bottom))), dynamicznie współgra
- *   z paskami odtwarzaczy i przyciskiem cc-back-to-top.
- * - Architektura zintegrowana:
- *   1. [ 💬 Rozmowa ] — aktywny wątek rozmowy z wybranym członkiem lub czat ogólny,
- *      ze wstęgą awatarów szybkiego wyboru rozmówcy u góry.
- *   2. [ 👥 Społeczność ] — pełny katalog członków społeczności LUMINA (Wioletta,
- *      Mariusz, Radio CC, Andrzej, Jola, inni członkowie) z bezpośrednim rozpoczęciem rozmowy.
- *   3. [ 🧭 Kanały ] — 4 karty form komunikacji (Duszpasterz telefon, Grupa WhatsApp,
- *      Sztab CC, Portal LUMINA).
- * - Integracja: jedno logowanie LUMINA / CC ID.
- * - Wymogi: ergonomia dotyku min. 44px, brak zależności od zewnętrznych fontów
- *   (100% inline SVG), Zero-QA.
+ * Standard wdrożenia LUMI MESSENGER PREMIUM UI 2.0:
+ * - Design System: Paleta kolorystyczna #0D1020, #15192B, #1D2235, #8547D8, #D8AD57
+ * - Typografia: Inter / system-ui, czytelna hierarchia, min. 44x44px touch targets
+ * - Architektura 6 stref:
+ *   1. Nagłówek LUMI Messenger ✨ (Na żywo w Chrystusie, logo, notyfikacje, ustawienia, zamknij)
+ *   2. Kompaktowy odtwarzacz Radio Christian Culture PL (visualizer, ▶ Słuchaj w złocie CC)
+ *   3. 5 Zakładek nawigacji: 💬 Czat | 👥 Zespół CC | 👥 Społeczność | 🌐 Zasoby | ••• Więcej
+ *   4. Panel Asystentek Christian Culture (Lea, Rut, Noemi, wirtualne gospodynie, pigułki szybkich akcji)
+ *   5. Obszar konwersacji i rekomendacji (Rut · Asystentka CC, powitanie, 3 karty akcji, feed)
+ *   6. Stałe pole wpisywania wiadomości ([+] [Zadaj pytanie...] [🎙] [✈ Wyślij w złocie])
+ * - Zasada: ZERO COST, deterministic offline/online intelligence, brak regresji.
  * ══════════════════════════════════════════════════════════════════════════
  */
 
@@ -29,14 +23,14 @@
   // 1. Zabezpieczenie przed wielokrotną inicjalizacją
   if (window.CCGlobalChatButton) return;
   window.CCGlobalChatButton = true;
-  // A single /mess document supplies the chat on every ecosystem page.
+
   const isCanonicalMessenger = /^\/mess(?:\/|\.html)?$/.test(window.location.pathname);
   let integrationReady = Promise.resolve();
   if (!window.CCUnifiedChat && !document.getElementById('ccChatIntegrationScript')) {
     integrationReady = new Promise(resolve => {
       const integration = document.createElement('script');
       integration.id = 'ccChatIntegrationScript';
-      integration.src = '/js/cc-chat-integration.js?v=20261110_asst3';
+      integration.src = '/js/cc-chat-integration.js?v=20261110_asst4';
       integration.onload = resolve;
       integration.onerror = resolve;
       document.head.appendChild(integration);
@@ -48,41 +42,69 @@
     {
       id: 'asystentka-1',
       name: 'Rut · Asystentka CC',
-      role: 'Wirtualna gospodarz LUMI MESS',
+      shortName: 'Rut',
+      role: 'Wspieram Cię i pomagam',
+      badge: 'Gospodyni LUMI MESS',
       avatar: '/images/chat/assistants/asystentka-1.webp',
       avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
-      greeting: 'W czym mogę Ci dziś pomóc? Kliknij, aby porozmawiać!'
+      greeting: 'Cześć! ❤️ W czym mogę Ci dzisiaj pomóc w ekosystemie Christian Culture?',
+      welcomeText: 'Cześć! ❤️ Dobrze, że jesteś.\n\nNazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.\n\nPrzez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem.\n\nW czym mogę Ci dziś pomóc?'
     },
     {
       id: 'asystentka-2',
-      name: 'Sara · Przewodnik CC',
-      role: 'Wirtualna asystentka ekosystemu',
+      name: 'Lea · Przewodnik CC',
+      shortName: 'Lea',
+      role: 'Organizer i planista',
+      badge: 'Przewodnik Ekosystemu',
       avatar: '/images/chat/assistants/asystentka-2.webp',
       avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
-      greeting: 'Szukasz rozważań, radia czy kursu? Porozmawiaj ze mną!'
+      greeting: 'Szukasz rozważań, audycji czy kursu? Pomogę Ci to szybko znaleźć!',
+      welcomeText: 'Witaj serdecznie! 🌟 Nazywam się Lea — jestem Asystentką Christian Culture, organizerem i planistą.\n\nZ przyjemnością wskażę Ci plan dnia, audycje radiowe, Akademię Biblijną czy najnowsze filmy VOD.\n\nO co chciałbyś zapytać?'
     },
     {
       id: 'asystentka-3',
       name: 'Noemi · Doradca CC',
-      role: 'Wirtualna asystentka LUMINA',
+      shortName: 'Noemi',
+      role: 'Twoje zasoby i rozwiązania',
+      badge: 'Doradca LUMINA',
       avatar: '/images/chat/assistants/asystentka-3.webp',
       avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
-      greeting: 'Zadaj pytanie lub zgłoś pomysł. Jestem tu dla Ciebie!'
+      greeting: 'Masz pytanie o radio, Biblię lub pomoc? Jestem tu dla Ciebie!',
+      welcomeText: 'Pokój Boży! ✨ Nazywam się Noemi — jestem Asystentką Christian Culture i doradcą społeczności LUMINA.\n\nPomogę Ci w korzystaniu z interlinearnej Biblii, słuchowisk Biblia Audio i bezpośrednim kontakcie ze Sztabem CC.\n\nW czym mogę Ci służyć?'
     }
   ];
 
   function getActiveAssistant() {
     try {
+      const storedId = sessionStorage.getItem('cc_active_assistant_id');
+      if (storedId) {
+        const found = ROTATING_ASSISTANTS.find(a => a.id === storedId);
+        if (found) return found;
+      }
       const storedIdx = parseInt(sessionStorage.getItem('cc_asst_rot_idx') || '', 10);
       if (!Number.isNaN(storedIdx) && ROTATING_ASSISTANTS[storedIdx]) {
         return ROTATING_ASSISTANTS[storedIdx];
       }
-      const nextIdx = Math.floor(Math.random() * ROTATING_ASSISTANTS.length);
-      sessionStorage.setItem('cc_asst_rot_idx', String(nextIdx));
-      return ROTATING_ASSISTANTS[nextIdx];
+      const defaultAsst = ROTATING_ASSISTANTS[0]; // Domyślnie Rut
+      sessionStorage.setItem('cc_asst_rot_idx', '0');
+      sessionStorage.setItem('cc_active_assistant_id', defaultAsst.id);
+      return defaultAsst;
     } catch (_) {
       return ROTATING_ASSISTANTS[0];
     }
+  }
+
+  function setActiveAssistantById(id) {
+    const found = ROTATING_ASSISTANTS.find(a => a.id === id || a.shortName.toLowerCase() === String(id).toLowerCase());
+    if (found) {
+      try {
+        sessionStorage.setItem('cc_active_assistant_id', found.id);
+        const idx = ROTATING_ASSISTANTS.indexOf(found);
+        sessionStorage.setItem('cc_asst_rot_idx', String(idx));
+      } catch (_) {}
+      return found;
+    }
+    return getActiveAssistant();
   }
 
   // 2. Katalog członków społeczności CC & LUMINA
@@ -239,1257 +261,47 @@
     }
   ];
 
-  let currentChatPartner = COMMUNITY_MEMBERS[0]; // Domyślnie Czat Ogólny
-  let currentPartnerRealtimeMessages = null; // Shared by the mounted listener and renderer.
 
-  // 3. Wstrzyknięcie uniwersalnych stylów CSS (niezależnych od motywu podstrony)
-  function injectStyles() {
-    if (document.getElementById('ccGlobalChatStyles')) return;
-    const style = document.createElement('style');
-    style.id = 'ccGlobalChatStyles';
-    style.textContent = `
-      /* ── PRZYCISK CZATU CC GLOBAL (NEON W SZKLE) ── */
-      .cc-chat-fab-wrap {
-        position: fixed !important;
-        right: max(18px, env(safe-area-inset-right)) !important;
-        bottom: max(25px, env(safe-area-inset-bottom)) !important;
-        z-index: 10000 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        pointer-events: auto !important;
-        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-        -webkit-tap-highlight-color: transparent !important;
-        transition: bottom 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-      }
-
-      /* LUMINA keeps the shared chat entry for guests and signed-in members. */
-      html[data-lumina-theme] .cc-chat-fab-wrap,
-      body.theme-lumina-light .cc-chat-fab-wrap,
-      body.lumina-page .cc-chat-fab-wrap,
-      body:has(#luminaThemeSwitchBtn) .cc-chat-fab-wrap,
-      body:has(#luminaScrollTop) .cc-chat-fab-wrap {
-        display: flex !important;
-      }
-
-      /* Guests have no native messaging button: preserve their entry/login invitation. */
-      html body.user-is-guest #ccGlobalChatFab {
-        display: flex !important;
-      }
-      .cc-chat-fab-btn {
-        width: 50px !important;
-        height: 50px !important;
-        min-width: 50px !important;
-        min-height: 50px !important;
-        max-width: 50px !important;
-        max-height: 50px !important;
-        border-radius: 50% !important;
-        border: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        background: transparent !important;
-        cursor: pointer !important;
-        outline: none !important;
-        position: relative !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        touch-action: manipulation !important;
-        transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease !important;
-        filter: drop-shadow(0 8px 22px rgba(168, 85, 247, 0.45)) drop-shadow(0 3px 10px rgba(0, 0, 0, 0.6)) !important;
-      }
-
-      .cc-chat-fab-btn:hover {
-        transform: scale(1.08) translateY(-2px) !important;
-        filter: drop-shadow(0 12px 28px rgba(217, 70, 239, 0.65)) drop-shadow(0 4px 14px rgba(234, 179, 8, 0.5)) !important;
-      }
-
-      .cc-chat-fab-btn:active {
-        transform: scale(0.96) translateY(0) !important;
-      }
-
-      .cc-chat-fab-btn:focus-visible {
-        outline: 3px solid #EAB308 !important;
-        outline-offset: 4px !important;
-      }
-
-      .cc-chat-fab-img {
-        width: 100% !important;
-        height: 100% !important;
-        border-radius: 50% !important;
-        object-fit: contain !important;
-        display: block !important;
-        pointer-events: none !important;
-        user-select: none !important;
-      }
-
-      /* Wskaźnik nowej wiadomości / aktywności */
-      .cc-chat-fab-badge {
-        position: absolute !important;
-        top: 2px !important;
-        right: 2px !important;
-        width: 14px !important;
-        height: 14px !important;
-        border-radius: 50% !important;
-        background: #22C55E !important;
-        border: 2px solid #0B0F19 !important;
-        box-shadow: 0 0 10px #22C55E !important;
-        pointer-events: none !important;
-        animation: ccChatPulse 2s infinite ease-in-out !important;
-      }
-
-      @keyframes ccChatPulse {
-        0% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.22); opacity: 0.85; }
-        100% { transform: scale(1); opacity: 1; }
-      }
-
-      /* Etykieta tooltipowa dla desktopu - ukryta (usunięcie kolizji z treścią strony) */
-      .cc-chat-fab-tooltip {
-        display: none !important;
-        position: absolute !important;
-        right: calc(100% + 12px) !important;
-        top: 50% !important;
-        transform: translateY(-50%) translateX(6px) !important;
-        pointer-events: none !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-      }
-
-      
-      /* ── DYMEK ZACZEPKA ASYSTENTKI (ROTACJA 3 AWATARÓW) ── */
-      .cc-chat-teaser-bubble {
-        position: absolute !important;
-        right: 0 !important;
-        bottom: calc(100% + 14px) !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 10px !important;
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 27, 75, 0.96) 100%) !important;
-        border: 1px solid rgba(212, 175, 55, 0.55) !important;
-        box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55), 0 0 16px rgba(168, 85, 247, 0.28) !important;
-        border-radius: 20px 20px 4px 20px !important;
-        padding: 8px 14px 8px 10px !important;
-        min-width: 240px !important;
-        max-width: 320px !important;
-        cursor: pointer !important;
-        pointer-events: auto !important;
-        z-index: 10001 !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        animation: ccTeaserFloat 3.6s ease-in-out infinite alternate !important;
-        transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s !important;
-      }
-      .cc-chat-teaser-bubble:hover {
-        border-color: rgba(245, 158, 11, 0.85) !important;
-        transform: translateY(-3px) scale(1.02) !important;
-        box-shadow: 0 14px 38px rgba(0, 0, 0, 0.65), 0 0 22px rgba(245, 158, 11, 0.4) !important;
-      }
-      .cc-chat-teaser-avatar-wrap {
-        position: relative !important;
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
-      }
-      .cc-chat-teaser-avatar {
-        width: 100% !important;
-        height: 100% !important;
-        border-radius: 50% !important;
-        overflow: hidden !important;
-        border: 2px solid #C4A35A !important;
-        box-shadow: 0 0 10px rgba(196, 163, 90, 0.45) !important;
-        object-fit: cover !important;
-        display: block !important;
-      }
-      .cc-chat-teaser-online {
-        position: absolute !important;
-        right: -1px !important;
-        bottom: -1px !important;
-        width: 12px !important;
-        height: 12px !important;
-        background: #10B981 !important;
-        border: 2px solid #0F172A !important;
-        border-radius: 50% !important;
-        box-shadow: 0 0 6px rgba(16, 185, 129, 0.7) !important;
-        z-index: 2 !important;
-      }
-      .cc-chat-teaser-content {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 2px !important;
-        flex: 1 !important;
-        text-align: left !important;
-        line-height: 1.25 !important;
-      }
-      .cc-chat-teaser-header {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        gap: 6px !important;
-      }
-      .cc-chat-teaser-name {
-        font-size: 0.82rem !important;
-        font-weight: 700 !important;
-        color: #F8FAFC !important;
-        letter-spacing: 0.01em !important;
-      }
-      .cc-chat-teaser-badge {
-        font-size: 0.65rem !important;
-        font-weight: 600 !important;
-        color: #C4A35A !important;
-        background: rgba(196, 163, 90, 0.15) !important;
-        border: 1px solid rgba(196, 163, 90, 0.3) !important;
-        padding: 1px 5px !important;
-        border-radius: 6px !important;
-      }
-      .cc-chat-teaser-msg {
-        font-size: 0.76rem !important;
-        color: #CBD5E1 !important;
-        font-weight: 500 !important;
-      }
-      .cc-chat-teaser-cta {
-        font-size: 0.70rem !important;
-        color: #38BDF8 !important;
-        font-weight: 600 !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        gap: 3px !important;
-        margin-top: 1px !important;
-      }
-      .cc-chat-teaser-close {
-        position: absolute !important;
-        top: -6px !important;
-        right: -6px !important;
-        width: 22px !important;
-        height: 22px !important;
-        background: rgba(15, 23, 42, 0.95) !important;
-        border: 1px solid rgba(255, 255, 255, 0.25) !important;
-        border-radius: 50% !important;
-        color: #94A3B8 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        cursor: pointer !important;
-        font-size: 11px !important;
-        line-height: 1 !important;
-        transition: all 0.2s ease !important;
-        padding: 0 !important;
-      }
-      .cc-chat-teaser-close:hover {
-        color: #FFFFFF !important;
-        border-color: #EF4444 !important;
-        background: #DC2626 !important;
-      }
-      @keyframes ccTeaserFloat {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-4px); }
-      }
-      @media (max-width: 768px) {
-        .cc-chat-teaser-bubble {
-          right: 0 !important;
-          bottom: calc(100% + 12px) !important;
-          min-width: 220px !important;
-          max-width: calc(100vw - 32px) !important;
-          border-radius: 16px 16px 4px 16px !important;
-        }
-      }
-
-      .cc-chat-fab-wrap:hover .cc-chat-fab-tooltip {
-        display: none !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-      }
-
-      /* ── OKNO CZATU CC GLOBAL (LIVE + SPOŁECZNOŚĆ + KANAŁY) ── */
-      .cc-chat-drawer-overlay {
-        position: fixed !important;
-        inset: 0 !important;
-        background: rgba(4, 6, 12, 0.68) !important;
-        backdrop-filter: blur(10px) !important;
-        -webkit-backdrop-filter: blur(10px) !important;
-        z-index: 10001 !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        transition: opacity 0.25s ease, visibility 0.25s !important;
-        display: flex !important;
-        align-items: flex-end !important;
-        justify-content: flex-end !important;
-      }
-
-      .cc-chat-drawer-overlay.is-open {
-        opacity: 1 !important;
-        visibility: visible !important;
-      }
-
-      .cc-chat-drawer {
-        position: fixed !important;
-        right: max(18px, env(safe-area-inset-right)) !important;
-        bottom: max(18px, env(safe-area-inset-bottom)) !important;
-        width: 480px !important;
-        max-width: calc(100vw - 32px) !important;
-        height: 740px !important;
-        max-height: calc(100vh - 36px) !important;
-        background: linear-gradient(165deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 27, 75, 0.98) 55%, rgba(10, 15, 30, 0.99) 100%) !important;
-        border: 1.5px solid rgba(212, 175, 55, 0.45) !important;
-        border-radius: 24px !important;
-        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.85), 0 0 35px rgba(168, 85, 247, 0.35), inset 0 1px 1px rgba(255, 235, 170, 0.25) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        overflow: hidden !important;
-        transform: translateY(20px) scale(0.96) !important;
-        opacity: 0 !important;
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
-        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-        color: #F8FAFC !important;
-      }
-
-      .cc-chat-drawer-overlay.is-open .cc-chat-drawer {
-        transform: translateY(0) scale(1) !important;
-        opacity: 1 !important;
-      }
-
-      /* Nagłówek okna czatu */
-      .cc-chat-header {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        padding: 12px 16px !important;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.22) !important;
-        gap: 8px !important;
-      }
-
-      .cc-chat-header-brand {
-        display: flex !important;
-        align-items: center !important;
-        gap: 10px !important;
-        min-width: 0 !important;
-      }
-
-      .cc-chat-header-icon {
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-        border-radius: 50% !important;
-        object-fit: cover !important;
-        filter: drop-shadow(0 2px 8px rgba(168, 85, 247, 0.45)) !important;
-        border: 1px solid #C4A35A !important;
-      }
-
-      .cc-chat-header-titles {
-        display: flex !important;
-        flex-direction: column !important;
-        min-width: 0 !important;
-      }
-
-      .cc-chat-header-title {
-        font-size: 0.95rem !important;
-        font-weight: 800 !important;
-        letter-spacing: 0.02em !important;
-        color: #FFFFFF !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-      }
-
-      .cc-chat-header-sub {
-        font-size: 0.72rem !important;
-        font-weight: 600 !important;
-        color: #C4A35A !important;
-        letter-spacing: 0.04em !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 5px !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-      }
-
-      .cc-chat-live-dot {
-        width: 7px !important;
-        height: 7px !important;
-        border-radius: 50% !important;
-        background: #22C55E !important;
-        box-shadow: 0 0 6px #22C55E !important;
-        display: inline-block !important;
-        flex-shrink: 0 !important;
-      }
-
-      .cc-chat-header-actions {
-        display: flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-      }
-
-      .cc-chat-icon-btn {
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-        min-height: 36px !important;
-        border-radius: 50% !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        background: rgba(255, 255, 255, 0.06) !important;
-        color: #E2E8F0 !important;
-        cursor: pointer !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-decoration: none !important;
-        transition: background 0.2s ease, transform 0.2s ease, color 0.2s !important;
-      }
-
-      .cc-chat-icon-btn:hover {
-        background: rgba(168, 85, 247, 0.3) !important;
-        border-color: rgba(212, 175, 55, 0.5) !important;
-        color: #FFFFFF !important;
-        transform: scale(1.05) !important;
-      }
-
-      .cc-chat-close-btn:hover {
-        background: rgba(239, 68, 68, 0.25) !important;
-        border-color: rgba(239, 68, 68, 0.5) !important;
-        color: #EF4444 !important;
-      }
-
-      .cc-chat-icon-btn svg {
-        width: 16px !important;
-        height: 16px !important;
-        display: block !important;
-        stroke: currentColor !important;
-        fill: none !important;
-      }
-
-      /* ── GŁÓWNE ZAKŁADKI (ROZMOWA / SPOŁECZNOŚĆ / KANAŁY) ── */
-      .cc-chat-tabs-bar {
-        display: flex !important;
-        padding: 6px 10px !important;
-        gap: 4px !important;
-        background: rgba(0, 0, 0, 0.42) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-      }
-
-      .cc-chat-tab-btn {
-        flex: 1 1 33.33% !important;
-        min-height: 36px !important;
-        height: 36px !important;
-        padding: 4px 8px !important;
-        border-radius: 12px !important;
-        font-size: 0.74rem !important;
-        font-weight: 700 !important;
-        cursor: pointer !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 5px !important;
-        border: 1px solid transparent !important;
-        background: transparent !important;
-        color: #94A3B8 !important;
-        transition: all 0.2s ease !important;
-        font-family: inherit !important;
-        white-space: nowrap !important;
-      }
-
-      .cc-chat-tab-btn:hover:not(.is-active) {
-        background: rgba(255, 255, 255, 0.06) !important;
-        color: #F8FAFC !important;
-      }
-
-      .cc-chat-tab-btn.is-active {
-        background: linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(217, 70, 239, 0.22) 100%) !important;
-        border: 1px solid rgba(212, 175, 55, 0.5) !important;
-        color: #FFFFFF !important;
-        box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3) !important;
-      }
-
-      .cc-chat-tab-btn svg {
-        width: 14px !important;
-        height: 14px !important;
-        display: block !important;
-        flex-shrink: 0 !important;
-      }
-
-      /* ── WIDOK 1: CZAT & ROZMOWA ── */
-      .cc-chat-view-live {
-        display: flex !important;
-        flex-direction: column !important;
-        flex: 1 1 auto !important;
-        min-height: 0 !important;
-        overflow: hidden !important;
-      }
-
-      /* Wstęga awatarów szybkiego wyboru rozmówcy (pełna widoczność bez obcinania) */
-      .cc-chat-partners-bar {
-        padding: 10px 14px !important;
-        background: rgba(8, 12, 22, 0.75) !important;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.18) !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 12px !important;
-        overflow-x: auto !important;
-        overflow-y: hidden !important;
-        scrollbar-width: thin !important;
-        scrollbar-color: rgba(196, 163, 90, 0.3) transparent !important;
-        flex-shrink: 0 !important;
-        min-height: 86px !important;
-        box-sizing: border-box !important;
-      }
-
-      .cc-chat-partners-bar::-webkit-scrollbar {
-        height: 4px !important;
-      }
-      .cc-chat-partners-bar::-webkit-scrollbar-thumb {
-        background: rgba(196, 163, 90, 0.35) !important;
-        border-radius: 4px !important;
-      }
-
-      .cc-chat-partner-chip {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 4px !important;
-        background: transparent !important;
-        border: none !important;
-        cursor: pointer !important;
-        padding: 2px !important;
-        min-width: 58px !important;
-        flex-shrink: 0 !important;
-        transition: transform 0.2s ease !important;
-        touch-action: manipulation !important;
-      }
-
-      .cc-chat-partner-chip:hover {
-        transform: translateY(-2px) !important;
-      }
-
-      .cc-chat-partner-avatar-wrap {
-        position: relative !important;
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
-        border-radius: 50% !important;
-        padding: 2px !important;
-        border: 2px solid rgba(255, 255, 255, 0.22) !important;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45) !important;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        box-sizing: border-box !important;
-      }
-
-      .cc-chat-partner-chip:hover .cc-chat-partner-avatar-wrap {
-        border-color: #FACC15 !important;
-        box-shadow: 0 0 12px rgba(250, 204, 21, 0.5) !important;
-      }
-
-      .cc-chat-partner-chip.is-active .cc-chat-partner-avatar-wrap {
-        border-color: #C4A35A !important;
-        box-shadow: 0 0 14px rgba(196, 163, 90, 0.8), 0 0 6px #A855F7 !important;
-      }
-
-      .cc-chat-partner-chip-img {
-        width: 100% !important;
-        height: 100% !important;
-        border-radius: 50% !important;
-        object-fit: cover !important;
-        display: block !important;
-      }
-
-      .cc-chat-partner-chip-name {
-        font-size: 0.70rem !important;
-        font-weight: 700 !important;
-        color: #CBD5E1 !important;
-        white-space: nowrap !important;
-        max-width: 62px !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        text-align: center !important;
-        line-height: 1.2 !important;
-      }
-
-      .cc-chat-partner-chip.is-active .cc-chat-partner-chip-name {
-        color: #FACC15 !important;
-        font-weight: 800 !important;
-      }
-
-      /* Belka tożsamości aktywnej konwersacji */
-      .cc-chat-active-info-bar {
-        padding: 8px 14px !important;
-        background: rgba(0, 0, 0, 0.5) !important;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.18) !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        gap: 8px !important;
-        flex-shrink: 0 !important;
-        box-sizing: border-box !important;
-      }
-
-      .cc-chat-active-info-left {
-        display: flex !important;
-        align-items: center !important;
-        gap: 8px !important;
-        min-width: 0 !important;
-        flex-wrap: wrap !important;
-      }
-
-      .cc-chat-active-badge {
-        font-size: 0.64rem !important;
-        padding: 2px 6px !important;
-        border-radius: 8px !important;
-        background: rgba(168, 85, 247, 0.25) !important;
-        color: #D8B4FE !important;
-        border: 1px solid rgba(168, 85, 247, 0.3) !important;
-        white-space: nowrap !important;
-      }
-
-      .cc-chat-active-name {
-        font-size: 0.80rem !important;
-        font-weight: 700 !important;
-        color: #FFFFFF !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-      }
-
-      .cc-chat-active-profile-btn {
-        background: rgba(250, 204, 21, 0.12) !important;
-        border: 1px solid rgba(212, 175, 55, 0.55) !important;
-        color: #FACC15 !important;
-        padding: 3px 8px !important;
-        border-radius: 10px !important;
-        font-size: 0.68rem !important;
-        font-weight: 700 !important;
-        text-decoration: none !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        gap: 4px !important;
-        transition: all 0.2s ease !important;
-        white-space: nowrap !important;
-        flex-shrink: 0 !important;
-      }
-
-      .cc-chat-active-profile-btn:hover {
-        background: rgba(250, 204, 21, 0.25) !important;
-        border-color: #FACC15 !important;
-        transform: scale(1.03) !important;
-        color: #FFFFFF !important;
-      }
-
-      .cc-chat-members-switch-btn {
-        background: rgba(255, 255, 255, 0.06) !important;
-        border: 1px solid rgba(212, 175, 55, 0.4) !important;
-        color: #FACC15 !important;
-        padding: 4px 10px !important;
-        border-radius: 10px !important;
-        font-size: 0.70rem !important;
-        font-weight: 700 !important;
-        cursor: pointer !important;
-        white-space: nowrap !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 4px !important;
-        transition: all 0.2s ease !important;
-        flex-shrink: 0 !important;
-      }
-
-      .cc-chat-members-switch-btn:hover {
-        background: rgba(196, 163, 90, 0.25) !important;
-      }
-
-      /* Strumień wiadomości czatu */
-      .cc-chat-feed {
-        flex: 1 1 auto !important;
-        overflow-y: auto !important;
-        padding: 12px 16px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
-        scrollbar-width: thin !important;
-        scrollbar-color: rgba(196, 163, 90, 0.3) transparent !important;
-      }
-
-      .cc-chat-feed::-webkit-scrollbar {
-        width: 5px !important;
-      }
-      .cc-chat-feed::-webkit-scrollbar-thumb {
-        background: rgba(196, 163, 90, 0.35) !important;
-        border-radius: 4px !important;
-      }
-
-      /* Wiadomość powitalna systemu */
-      .cc-chat-system-bubble {
-        background: linear-gradient(135deg, rgba(88, 28, 135, 0.35) 0%, rgba(30, 27, 75, 0.45) 100%) !important;
-        border: 1px solid rgba(168, 85, 247, 0.3) !important;
-        border-radius: 16px !important;
-        padding: 10px 12px !important;
-        font-size: 0.78rem !important;
-        line-height: 1.45 !important;
-        color: #E2E8F0 !important;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
-      }
-
-      .cc-chat-system-bubble strong {
-        color: #FACC15 !important;
-      }
-
-      /* Pojedyncza wiadomość czatu */
-      .cc-chat-msg-row {
-        display: flex !important;
-        align-items: flex-start !important;
-        gap: 8px !important;
-        max-width: 90% !important;
-      }
-
-      .cc-chat-msg-row.is-me {
-        align-self: flex-end !important;
-        flex-direction: row-reverse !important;
-      }
-
-      .cc-chat-msg-avatar {
-        width: 30px !important;
-        height: 30px !important;
-        min-width: 30px !important;
-        border-radius: 50% !important;
-        object-fit: cover !important;
-        border: 1.5px solid rgba(212, 175, 55, 0.4) !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4) !important;
-      }
-
-      .cc-chat-msg-content {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 2px !important;
-        min-width: 0 !important;
-      }
-
-      .cc-chat-msg-meta {
-        display: flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-        font-size: 0.68rem !important;
-        color: #94A3B8 !important;
-        padding: 0 2px !important;
-      }
-
-      .cc-chat-msg-row.is-me .cc-chat-msg-meta {
-        justify-content: flex-end !important;
-      }
-
-      .cc-chat-msg-sender {
-        font-weight: 700 !important;
-        color: #F8FAFC !important;
-        transition: color 0.2s ease !important;
-      }
-      .cc-chat-msg-sender:hover {
-        color: #FACC15 !important;
-      }
-
-      .cc-chat-msg-badge {
-        font-size: 0.62rem !important;
-        padding: 1px 5px !important;
-        border-radius: 6px !important;
-        background: rgba(168, 85, 247, 0.25) !important;
-        color: #D8B4FE !important;
-        border: 1px solid rgba(168, 85, 247, 0.3) !important;
-      }
-
-      .cc-chat-msg-bubble {
-        padding: 8px 12px !important;
-        border-radius: 14px !important;
-        font-size: 0.82rem !important;
-        line-height: 1.4 !important;
-        word-break: break-word !important;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35) !important;
-      }
-
-      .cc-chat-msg-row:not(.is-me) .cc-chat-msg-bubble {
-        background: rgba(30, 41, 59, 0.85) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        color: #F8FAFC !important;
-        border-top-left-radius: 4px !important;
-      }
-
-      .cc-chat-msg-row.is-me .cc-chat-msg-bubble {
-        background: linear-gradient(135deg, #7E22CE 0%, #9333EA 100%) !important;
-        border: 1px solid rgba(212, 175, 55, 0.5) !important;
-        color: #FFFFFF !important;
-        border-top-right-radius: 4px !important;
-      }
-
-      /* Dolny pasek wprowadzania wiadomości */
-      .cc-chat-composer {
-        padding: 10px 14px !important;
-        background: rgba(0, 0, 0, 0.5) !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 6px !important;
-      }
-
-      .cc-chat-form {
-        display: flex !important;
-        align-items: center !important;
-        gap: 8px !important;
-        width: 100% !important;
-      }
-
-      .cc-chat-input {
-        flex: 1 1 auto !important;
-        height: 44px !important;
-        min-height: 44px !important;
-        background: rgba(15, 23, 42, 0.8) !important;
-        border: 1px solid rgba(212, 175, 55, 0.35) !important;
-        border-radius: 22px !important;
-        padding: 0 16px !important;
-        font-size: 0.86rem !important;
-        color: #FFFFFF !important;
-        outline: none !important;
-        font-family: inherit !important;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-      }
-
-      .cc-chat-input::placeholder {
-        color: #94A3B8 !important;
-      }
-
-      .cc-chat-input:focus {
-        border-color: #C4A35A !important;
-        box-shadow: 0 0 14px rgba(196, 163, 90, 0.3) !important;
-      }
-
-      .cc-chat-send-btn {
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
-        border-radius: 50% !important;
-        border: 1px solid #C4A35A !important;
-        background: linear-gradient(135deg, #A855F7 0%, #EC4899 100%) !important;
-        color: #FFFFFF !important;
-        cursor: pointer !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        outline: none !important;
-        transition: transform 0.2s ease, filter 0.2s ease !important;
-        box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4) !important;
-      }
-
-      .cc-chat-send-btn:hover {
-        transform: scale(1.06) !important;
-        filter: brightness(1.15) !important;
-      }
-
-      .cc-chat-send-btn:active {
-        transform: scale(0.96) !important;
-      }
-
-      .cc-chat-send-btn svg {
-        width: 18px !important;
-        height: 18px !important;
-        fill: #FFFFFF !important;
-        display: block !important;
-        transform: translateX(1px) !important;
-      }
-
-      .cc-chat-hint {
-        font-size: 0.65rem !important;
-        color: #94A3B8 !important;
-        text-align: center !important;
-        letter-spacing: 0.02em !important;
-      }
-
-      /* ── WIDOK 2: KATALOG UŻYTKOWNIKÓW SPOŁECZNOŚCI ── */
-      .cc-chat-view-members {
-        display: none !important;
-        flex-direction: column !important;
-        flex: 1 1 auto !important;
-        min-height: 0 !important;
-        overflow: hidden !important;
-      }
-
-      .cc-chat-members-search-wrap {
-        padding: 10px 14px !important;
-        background: rgba(0, 0, 0, 0.35) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-      }
-
-      .cc-chat-members-search-input {
-        width: 100% !important;
-        height: 38px !important;
-        background: rgba(15, 23, 42, 0.8) !important;
-        border: 1px solid rgba(212, 175, 55, 0.3) !important;
-        border-radius: 12px !important;
-        padding: 0 12px !important;
-        font-size: 0.80rem !important;
-        color: #FFFFFF !important;
-        outline: none !important;
-        font-family: inherit !important;
-      }
-
-      .cc-chat-members-list {
-        flex: 1 1 auto !important;
-        overflow-y: auto !important;
-        padding: 10px 14px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 8px !important;
-        scrollbar-width: thin !important;
-        scrollbar-color: rgba(196, 163, 90, 0.3) transparent !important;
-      }
-
-      .cc-chat-members-list::-webkit-scrollbar {
-        width: 5px !important;
-      }
-      .cc-chat-members-list::-webkit-scrollbar-thumb {
-        background: rgba(196, 163, 90, 0.35) !important;
-        border-radius: 4px !important;
-      }
-
-      .cc-chat-member-card {
-        background: rgba(255, 255, 255, 0.04) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 14px !important;
-        padding: 10px 12px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        gap: 10px !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-      }
-
-      .cc-chat-member-card:hover {
-        background: rgba(168, 85, 247, 0.15) !important;
-        border-color: rgba(212, 175, 55, 0.5) !important;
-        transform: translateY(-1px) !important;
-      }
-
-      .cc-chat-member-card-left {
-        display: flex !important;
-        align-items: center !important;
-        gap: 10px !important;
-        min-width: 0 !important;
-      }
-
-      .cc-chat-member-avatar {
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        border-radius: 50% !important;
-        object-fit: cover !important;
-        border: 1.5px solid #C4A35A !important;
-      }
-
-      .cc-chat-member-info {
-        display: flex !important;
-        flex-direction: column !important;
-        min-width: 0 !important;
-      }
-
-      .cc-chat-member-name-row {
-        display: flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-      }
-
-      .cc-chat-member-name {
-        font-size: 0.84rem !important;
-        font-weight: 700 !important;
-        color: #FFFFFF !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-      }
-
-      .cc-chat-member-desc {
-        font-size: 0.70rem !important;
-        color: #94A3B8 !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-      }
-
-      .cc-chat-member-actions {
-        display: flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-        flex-shrink: 0 !important;
-      }
-
-      .cc-chat-member-profile-btn {
-        background: rgba(255, 255, 255, 0.08) !important;
-        border: 1px solid rgba(212, 175, 55, 0.45) !important;
-        color: #FACC15 !important;
-        padding: 6px 10px !important;
-        border-radius: 12px !important;
-        font-size: 0.70rem !important;
-        font-weight: 700 !important;
-        text-decoration: none !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        gap: 4px !important;
-        transition: all 0.2s ease !important;
-        white-space: nowrap !important;
-      }
-
-      .cc-chat-member-profile-btn:hover {
-        background: rgba(250, 204, 21, 0.22) !important;
-        border-color: #FACC15 !important;
-        transform: translateY(-1px) !important;
-        color: #FFFFFF !important;
-      }
-
-      .cc-chat-member-chat-btn {
-        background: linear-gradient(135deg, rgba(168, 85, 247, 0.3) 0%, rgba(217, 70, 239, 0.2) 100%) !important;
-        border: 1px solid #C4A35A !important;
-        color: #F8FAFC !important;
-        padding: 6px 12px !important;
-        border-radius: 12px !important;
-        font-size: 0.72rem !important;
-        font-weight: 700 !important;
-        white-space: nowrap !important;
-        display: flex !important;
-        align-items: center !important;
-        gap: 4px !important;
-        flex-shrink: 0 !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-      }
-
-      .cc-chat-member-chat-btn:hover {
-        background: linear-gradient(135deg, rgba(168, 85, 247, 0.5) 0%, rgba(217, 70, 239, 0.4) 100%) !important;
-        border-color: #FACC15 !important;
-        transform: translateY(-1px) !important;
-      }
-
-      /* ── WIDOK 3: KANAŁY KOMUNIKACJI (4 KARTY) ── */
-      .cc-chat-view-channels {
-        display: none !important;
-        flex-direction: column !important;
-        flex: 1 1 auto !important;
-        min-height: 0 !important;
-        overflow-y: auto !important;
-        padding: 14px 16px !important;
-        gap: 10px !important;
-        scrollbar-width: thin !important;
-        scrollbar-color: rgba(196, 163, 90, 0.3) transparent !important;
-      }
-
-      .cc-chat-view-channels::-webkit-scrollbar {
-        width: 5px !important;
-      }
-      .cc-chat-view-channels::-webkit-scrollbar-thumb {
-        background: rgba(196, 163, 90, 0.35) !important;
-        border-radius: 4px !important;
-      }
-
-      .cc-chat-action-card {
-        background: rgba(255, 255, 255, 0.04) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 14px !important;
-        padding: 12px 14px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        gap: 10px !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-        text-decoration: none !important;
-        color: #F8FAFC !important;
-        min-height: 44px !important;
-      }
-
-      .cc-chat-action-card:hover {
-        background: rgba(168, 85, 247, 0.15) !important;
-        border-color: rgba(212, 175, 55, 0.5) !important;
-        transform: translateY(-1px) !important;
-      }
-
-      .cc-chat-action-card-left {
-        display: flex !important;
-        align-items: center !important;
-        gap: 12px !important;
-      }
-
-      .cc-chat-action-icon {
-        width: 38px !important;
-        height: 38px !important;
-        min-width: 38px !important;
-        border-radius: 10px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-      }
-
-      .cc-chat-action-icon svg {
-        width: 18px !important;
-        height: 18px !important;
-        display: block !important;
-        fill: currentColor !important;
-      }
-
-      .cc-chat-action-info {
-        display: flex !important;
-        flex-direction: column !important;
-      }
-
-      .cc-chat-action-title {
-        font-size: 0.86rem !important;
-        font-weight: 700 !important;
-        color: #FFFFFF !important;
-      }
-
-      .cc-chat-action-desc {
-        font-size: 0.72rem !important;
-        color: #94A3B8 !important;
-      }
-
-      .cc-chat-action-arrow {
-        color: #C4A35A !important;
-        display: flex !important;
-        align-items: center !important;
-      }
-
-      .cc-chat-action-arrow svg {
-        width: 14px !important;
-        height: 14px !important;
-        display: block !important;
-        stroke: currentColor !important;
-        fill: none !important;
-      }
-
-      /* Stopka w widoku kanałów */
-      .cc-chat-channels-footer {
-        margin-top: auto !important;
-        padding-top: 10px !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        font-size: 0.72rem !important;
-        color: #94A3B8 !important;
-      }
-
-      .cc-chat-channels-footer a {
-        color: #C4A35A !important;
-        text-decoration: none !important;
-        font-weight: 700 !important;
-      }
-
-      .cc-chat-channels-footer a:hover {
-        text-decoration: underline !important;
-      }
-
-      /* ── RESPONSIVE DLA TELEFONÓW (<= 768px) ── */
-      @media (max-width: 768px) {
-        .cc-chat-fab-wrap {
-          right: max(14px, env(safe-area-inset-right)) !important;
-          bottom: max(14px, env(safe-area-inset-bottom)) !important;
-        }
-
-        .cc-chat-fab-btn {
-          width: 56px !important;
-          height: 56px !important;
-          min-width: 56px !important;
-          min-height: 56px !important;
-          max-width: 56px !important;
-          max-height: 56px !important;
-        }
-
-        .cc-chat-fab-tooltip {
-          display: none !important;
-        }
-
-        .cc-chat-drawer {
-          right: 0 !important;
-          left: 0 !important;
-          bottom: 0 !important;
-          width: 100vw !important;
-          max-width: 100vw !important;
-          top: 0 !important;
-          bottom: auto !important;
-          height: var(--lumi-viewport-height, 100dvh) !important;
-          max-height: var(--lumi-viewport-height, 100dvh) !important;
-          border-radius: 0 !important;
-          border-left: none !important;
-          border-right: none !important;
-          border-bottom: none !important;
-          transform: translateY(100%) !important;
-        }
-
-        .cc-chat-drawer-overlay.is-open .cc-chat-drawer {
-          transform: translateY(0) !important;
-        }
-
-        .cc-chat-input {
-          font-size: 16px !important; /* zapobiega auto-zoomowi na iOS */
-        }
-        .cc-chat-header { padding: max(12px, env(safe-area-inset-top)) 12px 12px !important; }
-        .cc-chat-composer { padding-bottom: max(10px, env(safe-area-inset-bottom)) !important; }
-        .cc-chat-icon-btn, .cc-chat-send-btn { min-width:44px!important; min-height:44px!important; }
-      }
-      .cc-chat-drawer-overlay { z-index:20000000!important; }
-      .cc-chat-drawer { background:#101425!important; box-shadow:0 16px 48px #0005!important; }
-      .cc-chat-header { background:#101425!important; border-bottom:1px solid rgba(255,255,255,0.08)!important; gap:8px!important; }
-      .cc-chat-header-brand { flex:0 1 auto!important; min-width:0!important; }
-      .cc-chat-header .cc-chat-radio, .chat-header-bar .cc-chat-radio { margin:0 6px 0 auto!important; }
-      .cc-chat-header-title { font-size:0.95rem!important; font-weight:800!important; color:#fff!important; white-space:nowrap!important; }
-      .cc-chat-header-actions { flex-shrink:0!important; gap:6px!important; }
-      .cc-chat-header-icon { filter:none!important; border-radius:10px!important; border:1px solid rgba(196,163,90,0.4)!important; }
-      .cc-chat-live-dot { display:inline-block!important; width:6px!important; height:6px!important; background:#10b981!important; border-radius:50%!important; }
-      .cc-chat-msg-bubble { box-shadow:none!important; border-radius:18px!important; line-height:1.5!important; }
-      .cc-chat-msg-row.is-me .cc-chat-msg-bubble { background:#7551d8!important; }
-      .cc-chat-msg-row:not(.is-me) .cc-chat-msg-bubble { background:#263244!important; }
-      .cc-chat-composer { background:#101827!important; border-top:1px solid #ffffff18!important; }
-    `;
-    document.head.appendChild(style);
-    const syncLumiViewport = () => {
-      const height = window.visualViewport?.height || window.innerHeight;
-      if (Number.isFinite(height) && height > 0) document.documentElement.style.setProperty('--lumi-viewport-height', height + 'px');
-    };
-    syncLumiViewport();
-    window.addEventListener('resize', syncLumiViewport, { passive: true });
-    window.visualViewport?.addEventListener('resize', syncLumiViewport, { passive: true });
+  // Stan lokalny i użytkownika
+  let currentChatPartner = COMMUNITY_MEMBERS[0];
+  let currentPartnerRealtimeMessages = null;
+  let assistantConversationHistory = [];
+  let isShowcaseCollapsed = false;
+
+  function scrollToBottom() {
+    const feed = document.getElementById('ccChatFeed');
+    if (feed) feed.scrollTop = feed.scrollHeight;
   }
 
-  // 4. Sprawdzenie aktywnej sesji użytkownika LUMINA / CC ID
   function getUserState() {
     try {
       if (window.LuminaDB && typeof window.LuminaDB.getCurrentUser === 'function') {
         const u = window.LuminaDB.getCurrentUser();
         if (u && !u.isAnonymous) {
-          const prof = (typeof window.LuminaDB.getCurrentProfile === 'function' && window.LuminaDB.getCurrentProfile()) || {};
           return {
             isLoggedIn: true,
-            name: prof.name || u.displayName || 'Członek LUMINA',
-            avatar: prof.avatar || u.photoURL || '/images/team/cezary-rogowski.webp',
+            name: u.displayName || u.name || 'Użytkownik LUMINA',
+            avatar: u.photoURL || u.avatar || '/images/chat/cc-chat-button-120.webp',
             uid: u.uid,
-            slug: prof.slug || u.uid,
-            badge: prof.badge || '🕊️ Członek CC'
+            slug: u.slug || u.uid,
+            badge: u.badge || '🕊️ Członek LUMINA'
           };
         }
       }
+    } catch (e) {}
 
-      if (localStorage.getItem('lumina_user_session') === 'active') {
-        const uStr = localStorage.getItem('lumina_current_user');
-        if (uStr) {
-          const u = JSON.parse(uStr);
-          let prof = null;
-          try {
-            prof = JSON.parse(localStorage.getItem('lumina_current_user_profile') || localStorage.getItem('lumina_my_profile') || 'null');
-          } catch (e) {}
+    try {
+      const rawUser = localStorage.getItem('lumina_current_user');
+      if (rawUser) {
+        const parsed = JSON.parse(rawUser);
+        if (parsed && parsed.uid) {
           return {
             isLoggedIn: true,
-            name: prof?.name || u?.displayName || 'Członek LUMINA',
-            avatar: prof?.avatar || u?.photoURL || '/images/team/cezary-rogowski.webp',
-            uid: u?.uid,
-            slug: prof?.slug || u?.uid,
-            badge: prof?.badge || '🕊️ Członek CC'
+            name: parsed.name || parsed.displayName || 'Użytkownik LUMINA',
+            avatar: parsed.avatar || parsed.photoURL || '/images/chat/cc-chat-button-120.webp',
+            uid: parsed.uid,
+            slug: parsed.slug || parsed.uid,
+            badge: parsed.badge || '🕊️ Członek LUMINA'
           };
         }
       }
@@ -1515,11 +327,1446 @@
       .replace(/'/g, '&#039;');
   }
 
+  // 3. Wstrzykiwanie stylów LUMI MESSENGER PREMIUM UI 2.0
+  function injectStyles() {
+    if (document.getElementById('ccLumiPremiumChatStyles')) return;
+    const style = document.createElement('style');
+    style.id = 'ccLumiPremiumChatStyles';
+    style.textContent = `
+      /* ══════════════════════════════════════════════════════════════════
+         LUMI MESSENGER PREMIUM UI 2.0 — DESIGN SYSTEM SPECIFICATION
+         ══════════════════════════════════════════════════════════════════ */
+      :root {
+        --lumi-bg-main: #0D1020;
+        --lumi-bg-panel: #15192B;
+        --lumi-card-surface: #1D2235;
+        --lumi-accent: #8547D8;
+        --lumi-accent-light: #B475F5;
+        --lumi-gold: #D8AD57;
+        --lumi-gold-light: #F2D17C;
+        --lumi-text-main: #F7F8FC;
+        --lumi-text-muted: #A5AEC4;
+        --lumi-status-online: #20C997;
+        --lumi-border: #343A50;
+        --lumi-danger: #EF6474;
+      }
+
+      /* ── FAB BUTTON & TEASER (NEON W SZKLE) ── */
+      .cc-chat-fab-wrap {
+        position: fixed !important;
+        right: max(18px, env(safe-area-inset-right)) !important;
+        bottom: max(25px, env(safe-area-inset-bottom)) !important;
+        z-index: 10000 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        pointer-events: auto !important;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        -webkit-tap-highlight-color: transparent !important;
+        transition: bottom 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      }
+
+      html[data-lumina-theme] .cc-chat-fab-wrap,
+      body.theme-lumina-light .cc-chat-fab-wrap,
+      body.lumina-page .cc-chat-fab-wrap,
+      body:has(#luminaThemeSwitchBtn) .cc-chat-fab-wrap,
+      body:has(#luminaScrollTop) .cc-chat-fab-wrap,
+      html body.user-is-guest #ccGlobalChatFab {
+        display: flex !important;
+      }
+
+      .cc-chat-fab-btn {
+        width: 50px !important;
+        height: 50px !important;
+        min-width: 50px !important;
+        min-height: 50px !important;
+        max-width: 50px !important;
+        max-height: 50px !important;
+        border-radius: 50% !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+        cursor: pointer !important;
+        outline: none !important;
+        position: relative !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        touch-action: manipulation !important;
+        transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.22s ease !important;
+        filter: drop-shadow(0 8px 22px rgba(133, 71, 216, 0.45)) drop-shadow(0 3px 10px rgba(0, 0, 0, 0.6)) !important;
+      }
+
+      .cc-chat-fab-btn:hover {
+        transform: scale(1.08) translateY(-2px) !important;
+        filter: drop-shadow(0 12px 28px rgba(180, 117, 245, 0.65)) drop-shadow(0 4px 14px rgba(216, 173, 87, 0.45)) !important;
+      }
+
+      .cc-chat-fab-btn:focus-visible {
+        outline: 3px solid var(--lumi-gold) !important;
+        outline-offset: 4px !important;
+      }
+
+      .cc-chat-fab-img {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 50% !important;
+        object-fit: contain !important;
+        display: block !important;
+        pointer-events: none !important;
+        user-select: none !important;
+      }
+
+      .cc-chat-fab-badge {
+        position: absolute !important;
+        top: 2px !important;
+        right: 2px !important;
+        width: 13px !important;
+        height: 13px !important;
+        border-radius: 50% !important;
+        background: var(--lumi-status-online) !important;
+        border: 2px solid var(--lumi-bg-main) !important;
+        box-shadow: 0 0 8px var(--lumi-status-online) !important;
+        pointer-events: none !important;
+      }
+
+      .cc-chat-fab-tooltip {
+        display: none !important;
+      }
+
+      /* ── DYMEK ZACZEPKA: ROTACJA ASYSTENTEK ── */
+      .cc-chat-teaser-bubble {
+        position: absolute !important;
+        bottom: calc(100% + 14px) !important;
+        right: 0 !important;
+        width: 290px !important;
+        max-width: calc(100vw - 36px) !important;
+        background: linear-gradient(145deg, rgba(21, 25, 43, 0.98), rgba(13, 16, 32, 0.98)) !important;
+        border: 1px solid var(--lumi-border) !important;
+        border-radius: 20px !important;
+        padding: 12px 14px !important;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(133, 71, 216, 0.25) !important;
+        backdrop-filter: blur(14px) !important;
+        -webkit-backdrop-filter: blur(14px) !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        cursor: pointer !important;
+        color: var(--lumi-text-main) !important;
+        font-family: inherit !important;
+        z-index: 10001 !important;
+        transition: opacity 0.25s ease, transform 0.25s ease !important;
+      }
+
+      .cc-chat-teaser-bubble:hover {
+        border-color: var(--lumi-gold) !important;
+        transform: translateY(-2px) !important;
+      }
+
+      .cc-chat-teaser-avatar-wrap {
+        position: relative !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-chat-teaser-avatar {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        border: 2px solid var(--lumi-gold) !important;
+      }
+
+      .cc-chat-teaser-online {
+        position: absolute !important;
+        right: -1px !important;
+        bottom: -1px !important;
+        width: 11px !important;
+        height: 11px !important;
+        background: var(--lumi-status-online) !important;
+        border: 2px solid var(--lumi-bg-panel) !important;
+        border-radius: 50% !important;
+      }
+
+      .cc-chat-teaser-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+        flex: 1 !important;
+        line-height: 1.3 !important;
+      }
+
+      .cc-chat-teaser-name {
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        color: var(--lumi-text-main) !important;
+      }
+
+      .cc-chat-teaser-msg {
+        font-size: 0.76rem !important;
+        color: var(--lumi-text-muted) !important;
+      }
+
+      .cc-chat-teaser-cta {
+        font-size: 0.72rem !important;
+        color: var(--lumi-gold-light) !important;
+        font-weight: 600 !important;
+        margin-top: 2px !important;
+      }
+
+      .cc-chat-teaser-close {
+        position: absolute !important;
+        top: 6px !important;
+        right: 8px !important;
+        background: none !important;
+        border: none !important;
+        color: var(--lumi-text-muted) !important;
+        font-size: 13px !important;
+        cursor: pointer !important;
+        padding: 4px !important;
+        line-height: 1 !important;
+      }
+
+      /* ── OKNO GŁÓWNE CZATU LUMI MESSENGER 2.0 ── */
+      .cc-chat-drawer-overlay {
+        position: fixed !important;
+        inset: 0 !important;
+        background: rgba(4, 6, 14, 0.72) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        z-index: 10001 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: opacity 0.25s ease, visibility 0.25s !important;
+        display: flex !important;
+        align-items: flex-end !important;
+        justify-content: flex-end !important;
+      }
+
+      .cc-chat-drawer-overlay.is-open {
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+
+      .cc-chat-drawer {
+        position: fixed !important;
+        right: max(20px, env(safe-area-inset-right)) !important;
+        bottom: max(20px, env(safe-area-inset-bottom)) !important;
+        width: 460px !important;
+        max-width: calc(100vw - 32px) !important;
+        height: 750px !important;
+        max-height: calc(100vh - 40px) !important;
+        background: var(--lumi-bg-main) !important;
+        border: 1px solid var(--lumi-border) !important;
+        border-radius: 24px !important;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.9), 0 0 35px rgba(133, 71, 216, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+        transform: translateY(20px) scale(0.97) !important;
+        opacity: 0 !important;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        color: var(--lumi-text-main) !important;
+      }
+
+      .cc-chat-drawer-overlay.is-open .cc-chat-drawer {
+        transform: translateY(0) scale(1) !important;
+        opacity: 1 !important;
+      }
+
+      /* ── 1. NAGŁÓWEK LUMI MESSENGER ── */
+      #ccGlobalChatOverlay .cc-chat-radio,
+      .cc-chat-drawer .cc-chat-radio,
+      .cc-chat-header .cc-chat-radio {
+        display: none !important;
+      }
+      .cc-chat-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 12px 18px !important;
+        background: var(--lumi-bg-panel) !important;
+        border-bottom: 1px solid var(--lumi-border) !important;
+        min-height: 66px !important;
+        box-sizing: border-box !important;
+        gap: 10px !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-chat-header-brand {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        text-decoration: none !important;
+        min-width: 0 !important;
+      }
+
+      .cc-chat-header-logo-wrap {
+        position: relative !important;
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        border-radius: 12px !important;
+        background: linear-gradient(135deg, var(--lumi-accent), #6B21A8) !important;
+        padding: 2px !important;
+        box-shadow: 0 0 14px rgba(133, 71, 216, 0.45) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      .cc-chat-header-icon {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 10px !important;
+        object-fit: cover !important;
+      }
+
+      .cc-chat-header-titles {
+        display: flex !important;
+        flex-direction: column !important;
+        min-width: 0 !important;
+      }
+
+      .cc-chat-header-title {
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.01em !important;
+        color: var(--lumi-text-main) !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+      }
+
+      .cc-header-sparkle {
+        color: var(--lumi-gold-light) !important;
+        font-size: 1rem !important;
+      }
+
+      .cc-chat-header-sub {
+        font-size: 0.78rem !important;
+        font-weight: 500 !important;
+        color: var(--lumi-text-muted) !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+      }
+
+      .cc-chat-live-dot {
+        width: 7px !important;
+        height: 7px !important;
+        border-radius: 50% !important;
+        background: var(--lumi-status-online) !important;
+        box-shadow: 0 0 6px var(--lumi-status-online) !important;
+        display: inline-block !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-chat-header-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+      }
+
+      .cc-chat-icon-btn {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        border-radius: 50% !important;
+        border: 1px solid var(--lumi-border) !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        color: var(--lumi-text-muted) !important;
+        cursor: pointer !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.05rem !important;
+        transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease !important;
+        text-decoration: none !important;
+      }
+
+      .cc-chat-icon-btn:hover {
+        background: rgba(133, 71, 216, 0.2) !important;
+        border-color: var(--lumi-accent) !important;
+        color: var(--lumi-text-main) !important;
+      }
+
+      .cc-chat-icon-btn.is-close:hover {
+        background: rgba(239, 100, 116, 0.2) !important;
+        border-color: var(--lumi-danger) !important;
+        color: var(--lumi-danger) !important;
+      }
+
+      /* ── 2. KOMPAKTOWY ODTWARZACZ RADIO CC ── */
+      .cc-chat-mini-player {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 10px !important;
+        padding: 6px 14px !important;
+        margin: 10px 14px 6px 14px !important;
+        background: var(--lumi-bg-panel) !important;
+        border: 1px solid var(--lumi-border) !important;
+        border-radius: 16px !important;
+        min-height: 54px !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-chat-radio-left {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        min-width: 0 !important;
+      }
+
+      .cc-chat-radio-glyph {
+        color: var(--lumi-accent-light) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      .cc-chat-radio-title {
+        font-size: 0.86rem !important;
+        font-weight: 650 !important;
+        color: var(--lumi-text-main) !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      .cc-chat-radio-center {
+        display: flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+      }
+
+      .cc-chat-radio-eq {
+        display: inline-flex !important;
+        align-items: flex-end !important;
+        gap: 2.5px !important;
+        height: 14px !important;
+      }
+
+      .cc-chat-radio-eq span {
+        width: 3px !important;
+        height: 4px !important;
+        background: var(--lumi-gold) !important;
+        border-radius: 1.5px !important;
+        transition: height 0.2s ease !important;
+      }
+
+      .cc-chat-mini-player.is-playing .cc-chat-radio-eq span {
+        animation: ccEqBounce 1s infinite alternate ease-in-out !important;
+      }
+
+      .cc-chat-mini-player.is-playing .cc-chat-radio-eq span:nth-child(1) { animation-delay: 0s; height: 12px !important; }
+      .cc-chat-mini-player.is-playing .cc-chat-radio-eq span:nth-child(2) { animation-delay: 0.2s; height: 14px !important; }
+      .cc-chat-mini-player.is-playing .cc-chat-radio-eq span:nth-child(3) { animation-delay: 0.4s; height: 8px !important; }
+      .cc-chat-mini-player.is-playing .cc-chat-radio-eq span:nth-child(4) { animation-delay: 0.6s; height: 13px !important; }
+
+      @keyframes ccEqBounce {
+        0% { height: 4px; }
+        100% { height: 14px; }
+      }
+
+      .cc-chat-radio-play-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        min-height: 44px !important;
+        padding: 0 16px !important;
+        background: linear-gradient(135deg, var(--lumi-gold) 0%, var(--lumi-gold-light) 100%) !important;
+        color: #0D1020 !important;
+        font-family: inherit !important;
+        font-size: 0.84rem !important;
+        font-weight: 750 !important;
+        border: none !important;
+        border-radius: 999px !important;
+        cursor: pointer !important;
+        box-shadow: 0 4px 14px rgba(216, 173, 87, 0.35) !important;
+        transition: transform 0.18s ease, filter 0.18s ease !important;
+        white-space: nowrap !important;
+      }
+
+      .cc-chat-radio-play-btn:hover {
+        transform: scale(1.03) !important;
+        filter: brightness(1.08) !important;
+      }
+
+      /* ── 3. NAWIGACJA (5 ZAKŁADEK) ── */
+      .cc-chat-nav-tabs {
+        display: flex !important;
+        gap: 4px !important;
+        padding: 4px 12px 8px 12px !important;
+        background: var(--lumi-bg-main) !important;
+        overflow-x: auto !important;
+        scrollbar-width: none !important;
+        border-bottom: 1px solid rgba(52, 58, 80, 0.6) !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-chat-nav-tabs::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .cc-chat-nav-tab {
+        flex: 1 1 auto !important;
+        min-width: 68px !important;
+        min-height: 44px !important;
+        padding: 6px 8px !important;
+        border-radius: 12px !important;
+        border: 1px solid transparent !important;
+        background: transparent !important;
+        color: var(--lumi-text-muted) !important;
+        font-family: inherit !important;
+        font-size: 0.74rem !important;
+        font-weight: 550 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        cursor: pointer !important;
+        transition: all 0.18s ease !important;
+        white-space: nowrap !important;
+      }
+
+      .cc-chat-nav-tab:hover {
+        background: var(--lumi-card-surface) !important;
+        color: var(--lumi-text-main) !important;
+      }
+
+      .cc-chat-nav-tab.is-active {
+        background: linear-gradient(135deg, var(--lumi-accent) 0%, #6B21A8 100%) !important;
+        border-color: var(--lumi-accent-light) !important;
+        color: #FFFFFF !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 16px rgba(133, 71, 216, 0.45) !important;
+      }
+
+      .cc-nav-icon {
+        font-size: 0.95rem !important;
+        line-height: 1 !important;
+      }
+
+      /* ── 4. OBSZAR GŁÓWNY ZAKŁADEK ── */
+      .cc-chat-tab-panel {
+        display: none;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        background: var(--lumi-bg-main);
+      }
+
+      .cc-chat-tab-panel.is-active {
+        display: flex !important;
+      }
+
+      /* ── BANER ASYSTENTEK CC (SHOWCASE) ── */
+      .cc-chat-asst-showcase {
+        position: relative !important;
+        margin: 12px 14px 6px 14px !important;
+        padding: 16px !important;
+        border-radius: 18px !important;
+        background: linear-gradient(135deg, #1f1b3c 0%, var(--lumi-card-surface) 60%, var(--lumi-bg-main) 100%) !important;
+        border: 1px solid var(--lumi-border) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        transition: all 0.25s ease !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-chat-asst-showcase.is-collapsed {
+        display: none !important;
+      }
+
+      .cc-showcase-body {
+        display: flex !important;
+        justify-content: space-between !important;
+        gap: 12px !important;
+        align-items: center !important;
+      }
+
+      .cc-showcase-left {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        min-width: 0 !important;
+        flex: 1.1 !important;
+      }
+
+      .cc-showcase-logo-row {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+      }
+
+      .cc-showcase-logo-badge {
+        flex-shrink: 0 !important;
+      }
+
+      .cc-showcase-headline-wrap {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 3px !important;
+      }
+
+      .cc-showcase-title {
+        font-size: 1.15rem !important;
+        font-weight: 750 !important;
+        line-height: 1.18 !important;
+        color: var(--lumi-text-main) !important;
+        margin: 0 !important;
+      }
+
+      .cc-showcase-badge {
+        font-size: 0.68rem !important;
+        font-weight: 650 !important;
+        color: var(--lumi-gold-light) !important;
+        background: rgba(216, 173, 87, 0.15) !important;
+        border: 1px solid rgba(216, 173, 87, 0.35) !important;
+        padding: 2px 8px !important;
+        border-radius: 999px !important;
+        display: inline-block !important;
+        width: fit-content !important;
+      }
+
+      .cc-showcase-sub {
+        font-size: 0.74rem !important;
+        line-height: 1.35 !important;
+        color: var(--lumi-text-muted) !important;
+        margin: 0 !important;
+      }
+
+      .cc-showcase-trio {
+        display: flex !important;
+        align-items: flex-end !important;
+        justify-content: flex-end !important;
+        gap: 6px !important;
+        flex: 1.4 !important;
+      }
+
+      .cc-trio-card {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 4px !important;
+        padding: 6px 4px !important;
+        background: transparent !important;
+        border: 1px solid transparent !important;
+        border-radius: 12px !important;
+        cursor: pointer !important;
+        color: var(--lumi-text-main) !important;
+        font-family: inherit !important;
+        transition: transform 0.18s ease, border-color 0.18s ease !important;
+        min-width: 60px !important;
+        text-align: center !important;
+      }
+
+      .cc-trio-card:hover {
+        transform: translateY(-2px) !important;
+      }
+
+      .cc-trio-card.is-active {
+        border-color: rgba(216, 173, 87, 0.4) !important;
+        background: rgba(216, 173, 87, 0.08) !important;
+      }
+
+      .cc-trio-avatar-wrap {
+        position: relative !important;
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 50% !important;
+        padding: 2px !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid var(--lumi-border) !important;
+      }
+
+      .cc-trio-avatar-wrap.is-rut {
+        width: 54px !important;
+        height: 54px !important;
+        background: linear-gradient(135deg, var(--lumi-gold), #8B6D2E) !important;
+        border-color: var(--lumi-gold-light) !important;
+        box-shadow: 0 0 12px rgba(216, 173, 87, 0.4) !important;
+      }
+
+      .cc-trio-avatar {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        display: block !important;
+      }
+
+      .cc-trio-headset {
+        position: absolute !important;
+        top: -4px !important;
+        right: -4px !important;
+        background: #0D1020 !important;
+        border-radius: 50% !important;
+        padding: 2px !important;
+        border: 1px solid var(--lumi-gold) !important;
+      }
+
+      .cc-trio-tag {
+        font-size: 0.72rem !important;
+        font-weight: 700 !important;
+        padding: 1px 7px !important;
+        border-radius: 999px !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        color: var(--lumi-text-main) !important;
+      }
+
+      .cc-trio-tag.is-gold {
+        background: linear-gradient(135deg, var(--lumi-gold), #A08040) !important;
+        color: #0D1020 !important;
+        font-weight: 800 !important;
+      }
+
+      .cc-trio-role {
+        font-size: 0.63rem !important;
+        line-height: 1.2 !important;
+        color: var(--lumi-text-muted) !important;
+      }
+
+      /* Szybkie pigułki nawigacji pod banerem */
+      .cc-showcase-pills {
+        display: flex !important;
+        gap: 6px !important;
+        width: 100% !important;
+        margin-top: 4px !important;
+      }
+
+      .cc-showcase-pill {
+        flex: 1 !important;
+        min-height: 44px !important;
+        padding: 4px 8px !important;
+        border-radius: 999px !important;
+        border: 1px solid var(--lumi-border) !important;
+        background: rgba(29, 34, 53, 0.8) !important;
+        color: var(--lumi-text-main) !important;
+        font-family: inherit !important;
+        font-size: 0.74rem !important;
+        font-weight: 600 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 5px !important;
+        cursor: pointer !important;
+        transition: all 0.18s ease !important;
+        text-decoration: none !important;
+      }
+
+      .cc-showcase-pill:hover {
+        background: var(--lumi-card-surface) !important;
+        border-color: var(--lumi-accent-light) !important;
+      }
+
+      .cc-showcase-pill.is-primary {
+        border-color: var(--lumi-accent) !important;
+        background: rgba(133, 71, 216, 0.16) !important;
+        color: #F7F8FC !important;
+      }
+
+      /* ── OBSZAR AKTYWNEJ ASYSTENTKI (MINI-BAR) ── */
+      .cc-chat-active-asst-bar {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 6px 14px !important;
+        margin: 2px 14px 4px 14px !important;
+        background: rgba(29, 34, 53, 0.5) !important;
+        border: 1px solid rgba(52, 58, 80, 0.5) !important;
+        border-radius: 12px !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-active-asst-left {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+      }
+
+      .cc-active-asst-avatar-wrap {
+        position: relative !important;
+        width: 30px !important;
+        height: 30px !important;
+      }
+
+      .cc-active-asst-avatar {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        border: 1.5px solid var(--lumi-gold) !important;
+      }
+
+      .cc-active-asst-dot {
+        position: absolute !important;
+        right: -1px !important;
+        bottom: -1px !important;
+        width: 8px !important;
+        height: 8px !important;
+        border-radius: 50% !important;
+        background: var(--lumi-status-online) !important;
+        border: 1.5px solid var(--lumi-bg-panel) !important;
+      }
+
+      .cc-active-asst-name {
+        font-size: 0.84rem !important;
+        font-weight: 700 !important;
+        color: var(--lumi-text-main) !important;
+      }
+
+      .cc-active-asst-role {
+        font-size: 0.74rem !important;
+        color: var(--lumi-text-muted) !important;
+      }
+
+      .cc-asst-toggle-showcase-btn {
+        background: none !important;
+        border: none !important;
+        color: var(--lumi-text-muted) !important;
+        font-size: 0.85rem !important;
+        cursor: pointer !important;
+        min-height: 44px !important;
+        min-width: 44px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      /* ── 5. FEED WIADOMOŚCI ── */
+      .cc-chat-feed {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        overflow-y: auto !important;
+        padding: 10px 14px 14px 14px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+      }
+
+      /* Dymek powitalny */
+      .cc-asst-welcome-bubble {
+        background: var(--lumi-card-surface) !important;
+        border: 1px solid var(--lumi-border) !important;
+        border-radius: 20px 20px 20px 4px !important;
+        padding: 14px 16px !important;
+        font-size: 0.88rem !important;
+        line-height: 1.5 !important;
+        color: var(--lumi-text-main) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+        animation: ccFadeIn 0.22s ease !important;
+      }
+
+      .cc-asst-welcome-bubble p {
+        margin: 0 0 8px 0 !important;
+      }
+
+      .cc-asst-welcome-bubble p:last-child {
+        margin-bottom: 0 !important;
+      }
+
+      /* 3 Karty Szybkich Akcji */
+      .cc-chat-quick-cards-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        margin: 4px 0 10px 0 !important;
+      }
+
+      .cc-quick-card {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 10px 14px !important;
+        min-height: 70px !important;
+        border-radius: 16px !important;
+        background: var(--lumi-card-surface) !important;
+        border: 1px solid var(--lumi-border) !important;
+        color: var(--lumi-text-main) !important;
+        text-decoration: none !important;
+        cursor: pointer !important;
+        transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease !important;
+        box-sizing: border-box !important;
+      }
+
+      .cc-quick-card:hover {
+        transform: translateY(-2px) !important;
+        border-color: var(--lumi-gold) !important;
+        background: #23293f !important;
+      }
+
+      .cc-qc-icon-wrap {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        border-radius: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+      }
+
+      .cc-quick-card.cc-qc-gold .cc-qc-icon-wrap {
+        background: rgba(216, 173, 87, 0.18) !important;
+        color: var(--lumi-gold-light) !important;
+      }
+
+      .cc-quick-card.cc-qc-blue .cc-qc-icon-wrap {
+        background: rgba(56, 189, 248, 0.18) !important;
+        color: #38BDF8 !important;
+      }
+
+      .cc-quick-card.cc-qc-purple .cc-qc-icon-wrap {
+        background: rgba(133, 71, 216, 0.22) !important;
+        color: var(--lumi-accent-light) !important;
+      }
+
+      .cc-qc-meta {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+        min-width: 0 !important;
+      }
+
+      .cc-qc-title {
+        font-size: 0.92rem !important;
+        font-weight: 700 !important;
+        color: var(--lumi-text-main) !important;
+      }
+
+      .cc-qc-desc {
+        font-size: 0.74rem !important;
+        color: var(--lumi-text-muted) !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      .cc-qc-arrow {
+        font-size: 1.4rem !important;
+        color: var(--lumi-text-muted) !important;
+        padding-right: 4px !important;
+      }
+
+      /* Wiersze wiadomości */
+      .cc-chat-msg-row {
+        display: flex !important;
+        gap: 10px !important;
+        margin-bottom: 6px !important;
+        animation: ccFadeIn 0.2s ease !important;
+      }
+
+      .cc-chat-msg-row.is-me {
+        flex-direction: row-reverse !important;
+      }
+
+      .cc-chat-msg-avatar {
+        width: 34px !important;
+        height: 34px !important;
+        min-width: 34px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        border: 1px solid var(--lumi-border) !important;
+      }
+
+      .cc-chat-msg-content {
+        display: flex !important;
+        flex-direction: column !important;
+        max-width: 82% !important;
+      }
+
+      .cc-chat-msg-row.is-me .cc-chat-msg-content {
+        align-items: flex-end !important;
+      }
+
+      .cc-chat-msg-meta {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        font-size: 0.72rem !important;
+        color: var(--lumi-text-muted) !important;
+        margin-bottom: 3px !important;
+      }
+
+      .cc-chat-msg-sender {
+        font-weight: 700 !important;
+        color: var(--lumi-text-main) !important;
+      }
+
+      .cc-chat-msg-bubble {
+        padding: 10px 14px !important;
+        border-radius: 18px 18px 18px 4px !important;
+        background: var(--lumi-card-surface) !important;
+        border: 1px solid var(--lumi-border) !important;
+        color: var(--lumi-text-main) !important;
+        font-size: 0.88rem !important;
+        line-height: 1.48 !important;
+        word-break: break-word !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+      }
+
+      .cc-chat-msg-row.is-me .cc-chat-msg-bubble {
+        border-radius: 18px 18px 4px 18px !important;
+        background: linear-gradient(135deg, var(--lumi-accent) 0%, #6B21A8 100%) !important;
+        border-color: rgba(180, 117, 245, 0.4) !important;
+        color: #FFFFFF !important;
+      }
+
+      /* Przycisk przewijania do najnowszych */
+      .cc-chat-scroll-bottom-btn {
+        position: sticky !important;
+        bottom: 8px !important;
+        align-self: center !important;
+        background: var(--lumi-bg-panel) !important;
+        border: 1px solid var(--lumi-gold) !important;
+        color: var(--lumi-gold-light) !important;
+        font-size: 0.76rem !important;
+        font-weight: 700 !important;
+        padding: 6px 14px !important;
+        border-radius: 999px !important;
+        cursor: pointer !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6) !important;
+        display: none;
+        z-index: 10 !important;
+      }
+
+      /* ── 6. STAŁE POLE WPISYWANIA WIADOMOŚCI ── */
+      .cc-chat-composer-premium {
+        position: relative !important;
+        padding: 10px 14px !important;
+        background: var(--lumi-bg-panel) !important;
+        border-top: 1px solid var(--lumi-border) !important;
+        flex-shrink: 0 !important;
+        box-sizing: border-box !important;
+      }
+
+      .cc-composer-popover {
+        position: absolute !important;
+        bottom: calc(100% + 8px) !important;
+        left: 14px !important;
+        right: 14px !important;
+        background: var(--lumi-card-surface) !important;
+        border: 1px solid var(--lumi-border) !important;
+        border-radius: 18px !important;
+        padding: 10px !important;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.8) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        z-index: 20 !important;
+      }
+
+      .cc-composer-popover[hidden] {
+        display: none !important;
+      }
+
+      .cc-popover-item {
+        min-height: 44px !important;
+        padding: 8px 12px !important;
+        border-radius: 12px !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        color: var(--lumi-text-main) !important;
+        font-family: inherit !important;
+        font-size: 0.82rem !important;
+        text-align: left !important;
+        cursor: pointer !important;
+        transition: all 0.15s ease !important;
+      }
+
+      .cc-popover-item:hover {
+        background: rgba(133, 71, 216, 0.25) !important;
+        border-color: var(--lumi-accent) !important;
+      }
+
+      .cc-chat-composer-form {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        width: 100% !important;
+      }
+
+      .cc-composer-plus-btn {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        border-radius: 50% !important;
+        border: 1px solid var(--lumi-border) !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+        color: var(--lumi-text-main) !important;
+        font-size: 1.4rem !important;
+        line-height: 1 !important;
+        cursor: pointer !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: all 0.18s ease !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-composer-plus-btn:hover {
+        background: var(--lumi-card-surface) !important;
+        border-color: var(--lumi-accent) !important;
+      }
+
+      .cc-composer-input-wrap {
+        flex: 1 !important;
+        position: relative !important;
+        min-width: 0 !important;
+      }
+
+      .cc-composer-textarea {
+        width: 100% !important;
+        min-height: 44px !important;
+        max-height: 120px !important;
+        background: var(--lumi-bg-main) !important;
+        border: 1px solid var(--lumi-border) !important;
+        border-radius: 999px !important;
+        padding: 12px 18px !important;
+        color: var(--lumi-text-main) !important;
+        font-family: inherit !important;
+        font-size: 0.88rem !important;
+        outline: none !important;
+        resize: none !important;
+        box-sizing: border-box !important;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
+      }
+
+      .cc-composer-textarea:focus {
+        border-color: var(--lumi-gold) !important;
+        box-shadow: 0 0 0 2px rgba(216, 173, 87, 0.25) !important;
+      }
+
+      .cc-composer-mic-btn {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        border-radius: 50% !important;
+        border: 1px solid var(--lumi-border) !important;
+        background: rgba(255, 255, 255, 0.06) !important;
+        color: var(--lumi-text-muted) !important;
+        cursor: pointer !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: all 0.18s ease !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-composer-mic-btn:hover {
+        color: var(--lumi-text-main) !important;
+        border-color: var(--lumi-accent) !important;
+      }
+
+      .cc-composer-mic-btn.is-listening {
+        background: rgba(239, 68, 68, 0.25) !important;
+        border-color: #EF4444 !important;
+        color: #EF4444 !important;
+        animation: ccPulse 1s infinite alternate !important;
+      }
+
+      .cc-composer-send-btn {
+        min-height: 44px !important;
+        padding: 0 18px !important;
+        border-radius: 999px !important;
+        background: linear-gradient(135deg, var(--lumi-gold) 0%, var(--lumi-gold-light) 100%) !important;
+        color: #0D1020 !important;
+        font-family: inherit !important;
+        font-size: 0.86rem !important;
+        font-weight: 800 !important;
+        border: none !important;
+        cursor: pointer !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        box-shadow: 0 4px 14px rgba(216, 173, 87, 0.35) !important;
+        transition: transform 0.18s ease, filter 0.18s ease !important;
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+      }
+
+      .cc-composer-send-btn:hover {
+        transform: scale(1.03) !important;
+        filter: brightness(1.08) !important;
+      }
+
+      /* ── ZAKŁADKI POZOSTAŁE: ZESPÓŁ, SPOŁECZNOŚĆ, ZASOBY, WIĘCEJ ── */
+      .cc-tab-content-wrap {
+        padding: 14px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+      }
+
+      .cc-section-headline {
+        font-size: 0.96rem !important;
+        font-weight: 750 !important;
+        color: var(--lumi-text-main) !important;
+        margin: 4px 0 !important;
+      }
+
+      .cc-card-item {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 12px 14px !important;
+        min-height: 60px !important;
+        background: var(--lumi-card-surface) !important;
+        border: 1px solid var(--lumi-border) !important;
+        border-radius: 16px !important;
+        color: var(--lumi-text-main) !important;
+        text-decoration: none !important;
+        cursor: pointer !important;
+        transition: transform 0.18s ease, border-color 0.18s ease !important;
+      }
+
+      .cc-card-item:hover {
+        border-color: var(--lumi-gold) !important;
+        transform: translateY(-2px) !important;
+      }
+
+      .cc-card-icon {
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.25rem !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-card-info {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+        min-width: 0 !important;
+      }
+
+      .cc-card-title {
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+      }
+
+      .cc-card-sub {
+        font-size: 0.74rem !important;
+        color: var(--lumi-text-muted) !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      /* Wyszukiwarka członków */
+      .cc-chat-search-wrap {
+        margin-bottom: 6px !important;
+      }
+
+      .cc-chat-search-input {
+        width: 100% !important;
+        min-height: 44px !important;
+        background: var(--lumi-card-surface) !important;
+        border: 1px solid var(--lumi-border) !important;
+        border-radius: 14px !important;
+        padding: 10px 14px !important;
+        color: var(--lumi-text-main) !important;
+        font-family: inherit !important;
+        font-size: 0.84rem !important;
+        outline: none !important;
+        box-sizing: border-box !important;
+      }
+
+      .cc-chat-search-input:focus {
+        border-color: var(--lumi-accent) !important;
+      }
+
+      /* ── RESPONSYWNOŚĆ MOBILE (320-768px) ── */
+      @media (max-width: 768px) {
+    .cc-chat-drawer {
+      height: var(--lumi-viewport-height, 100dvh) !important;
+      max-height: var(--lumi-viewport-height, 100dvh) !important;
+    }
+        .cc-chat-drawer {
+          right: 0 !important;
+          bottom: 0 !important;
+          width: 100vw !important;
+          max-width: 100vw !important;
+          height: 100dvh !important;
+          max-height: 100dvh !important;
+          border-radius: 0 !important;
+          border: none !important;
+        }
+
+        .cc-chat-header {
+          padding: max(10px, env(safe-area-inset-top)) 14px 10px 14px !important;
+        }
+
+        .cc-chat-teaser-bubble {
+          right: 0 !important;
+          width: calc(100vw - 32px) !important;
+        }
+
+        .cc-chat-composer-premium {
+          padding-bottom: max(12px, env(safe-area-inset-bottom)) !important;
+        }
+
+        .cc-showcase-body {
+          flex-direction: column !important;
+          align-items: flex-start !important;
+        }
+
+        .cc-showcase-trio {
+          width: 100% !important;
+          justify-content: space-around !important;
+          margin-top: 8px !important;
+        }
+      }
+
+      @keyframes ccFadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes ccPulse {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.08); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, ::before, ::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // 4. Deterministyczny silnik odpowiedzi Asystentek (ZERO COST, instant)
+  function getAssistantAnswer(query, assistant) {
+    const q = (query || '').toLowerCase().trim();
+    const asstName = assistant?.shortName || 'Rut';
+
+    // 1. Radio / Muzyka
+    if (/radio|słucha|muzyk|audycj|stacj|gra/.test(q)) {
+      return {
+        reply: `Możesz słuchać Radia Christian Culture 24/7 na żywo prosto w LUMI Messengerze lub w pełnym odtwarzaczu audio!`,
+        actions: [
+          { label: '🎧 Włącz Radio w pasku', type: 'radio_play' },
+          { label: '📻 Otwórz Odtwarzacz Spotify-Style', url: '/player' }
+        ]
+      };
+    }
+
+    // 2. Biblia / Wersety / Pismo Święte
+    if (/bibli|werset|pism|słow|rozwaz|strong/.test(q)) {
+      return {
+        reply: `W ekosystemie Christian Culture Słowo Boże jest w samym centrum. Mamy dla Ciebie interlinearną MojąBiblię z kodami Stronga oraz słuchowiska Biblia Audio!`,
+        actions: [
+          { label: '📖 Otwórz MojąBiblię', url: '/mojabiblia' },
+          { label: '🎧 Słuchaj Biblii Audio', url: '/biblia-audio' }
+        ]
+      };
+    }
+
+    // 3. Akademia / Kurs Codzienny / Lekcja
+    if (/kurs|akademi|lekcj|studiu|nauk/.test(q)) {
+      return {
+        reply: `Akademia Biblijna Christian Culture to bezpłatne wykłady, studia biblijne oraz codzienny kurs „Z Biblią za Pan Brat”. Codziennie nowa lekcja ku duchowemu wzrostowi!`,
+        actions: [
+          { label: '🎓 Akademia Biblijna', url: '/akademia' },
+          { label: '📖 Kurs Codzienny', url: '/akademia/kurscodzienny' }
+        ]
+      };
+    }
+
+    // 4. Dobra Nowina / Ewangelia / Zbawienie
+    if (/ewangeli|dobra nowin|jezus|zbawien|wiara|bóg|bog/.test(q)) {
+      return {
+        reply: `Dobra Nowina to radosne przesłanie o Bożej bezwarunkowej miłości, przebaczeniu i zbawieniu w Jezusie Chrystusie. Każdy może rozpocząć nowe życie z Bogiem już dziś!`,
+        actions: [
+          { label: '📖 Poznaj Dobrą Nowinę', url: '/Ewangelia' },
+          { label: '🕊️ Świadectwa Wiary', url: '/swiadectwa' }
+        ]
+      };
+    }
+
+    // 5. Modlitwa / Duszpasterz
+    if (/modlitw|intencj|pastor|duszpaster|mariusz|pomódl|pomodl/.test(q)) {
+      return {
+        reply: `Nigdy nie jesteś sam. Możesz złożyć intencję modlitewną na Tablicy Społeczności LUMINA lub porozmawiać bezpośrednio z Duszpasterzem Mariuszem (+48 608 337 477).`,
+        actions: [
+          { label: '🕊️ Tablica Modlitwy LUMINA', url: '/lumina-tablica.html' },
+          { label: '📞 Zadzwoń: Duszpasterz Mariusz', url: 'tel:+48608337477' }
+        ]
+      };
+    }
+
+    // 6. Filmy / VOD / Kino
+    if (/vod|film|kino|wideo|oglad/.test(q)) {
+      return {
+        reply: `W Chrześcijańskim Kinie VOD na https://polskieradio.cc/vod znajdziesz pełnometrażowe filmy z polskim lektorem, m.in. „Przełęcz ocalonych”, „Chata” i „Jezus” – w 100% bezpłatnie!`,
+        actions: [
+          { label: '🎬 Otwórz Kino VOD', url: '/vod' }
+        ]
+      };
+    }
+
+    // 7. Kontakt / Infolinia / Pomoc / Zespół
+    if (/kontakt|pomoc|infolini|telefon|sztab|napisz|mail/.test(q)) {
+      return {
+        reply: `Nasz Sztab CC oraz Infolinia Nadzieja (+48 730 958 583) służą pomocą i wsparciem. Możesz też napisać bezpośrednio na polskiercctv@gmail.com.`,
+        actions: [
+          { label: '📞 Zadzwoń: +48 730 958 583', url: 'tel:+48730958583' },
+          { label: '💬 Dołącz do WhatsApp CC', url: 'https://chat.whatsapp.com/DBTRDxQWamZDWaOkjupSt0' },
+          { label: '🤝 Współpraca i Wolontariat', url: '/o-nas' }
+        ]
+      };
+    }
+
+    // 8. Kim jesteś
+    if (/kim jesteś|kim jestes|człowiek|czlowiek|bot|ai/.test(q)) {
+      return {
+        reply: `Jestem ${asstName} – wirtualną asystentką Christian Culture i gospodynią LUMI Messenger. Pomagam Ci sprawnie odkrywać radio 24/7, Biblię, kursy, audycje oraz łączyć się ze społecznością i sztabem CC!`,
+        actions: [
+          { label: '🧭 Odkryj Christian Culture', url: '/go' },
+          { label: '🗺️ Żywa Mapa Ekosystemu', url: '/mapa' }
+        ]
+      };
+    }
+
+    // Domyślna pomocna odpowiedź
+    return {
+      reply: `Dziękuję za wiadomość! Pomogę Ci odnaleźć właściwe materiały w Christian Culture. Sprawdź wyszukiwarkę całego ekosystemu lub skontaktuj się z naszym zespołem.`,
+      actions: [
+        { label: '🔍 Wyszukiwarka Ekosystemu', url: '/wyszukiwarka' },
+        { label: '👥 Zespół i Kontakt', type: 'switch_tab_team' }
+      ]
+    };
+  }
+
   // 5. Montowanie struktury HTML przycisku i okna czatu
   function mountComponent() {
     if (document.getElementById('ccGlobalChatOverlay')) return;
 
-    // Przycisk FAB (Neonowy w szkle z pliku Neonowy przycisk czatu w szkle.png) — uniwersalny w całym ekosystemie
+    // Przycisk FAB
     let fabWrap = document.getElementById('ccGlobalChatFab');
     if (!fabWrap) {
       fabWrap = document.createElement('div');
@@ -1529,7 +1776,6 @@
       fabWrap.setAttribute('aria-label', 'LUMI Messenger');
 
       fabWrap.innerHTML = `
-
         <!-- Dymek Zaczepka: Rotacja 3 asystentek -->
         <div class="cc-chat-teaser-bubble" id="ccChatTeaserBubble" role="button" tabindex="0" aria-label="Porozmawiaj z Asystentem CC">
           <button type="button" class="cc-chat-teaser-close" id="ccChatTeaserClose" aria-label="Zamknij dymek" title="Zamknij">✕</button>
@@ -1557,7 +1803,7 @@
       document.body.appendChild(fabWrap);
     }
 
-    // Okno czatu (Zintegrowane: Czat + Społeczność + Kanały)
+    // Okno czatu LUMI MESSENGER PREMIUM UI 2.0
     const overlay = document.createElement('div');
     overlay.id = 'ccGlobalChatOverlay';
     overlay.className = 'cc-chat-drawer-overlay';
@@ -1565,217 +1811,499 @@
 
     overlay.innerHTML = `
       <div class="cc-chat-drawer" role="dialog" aria-modal="true" aria-labelledby="ccChatHeaderTitle">
-        <!-- Nagłówek okna -->
-        <div class="cc-chat-header">
-          <a href="/lumina-tablica.html" target="_blank" rel="noopener noreferrer" class="cc-chat-header-brand" id="ccChatHeaderProfileLink" title="Otwórz stronę / profil w portalu LUMINA" style="text-decoration:none;">
-            <img src="/images/chat/cc-chat-button-120.webp" id="ccChatHeaderPartnerAvatar" alt="CC Chat" class="cc-chat-header-icon" width="38" height="38" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+        
+        <!-- 1. NAGŁÓWEK LUMI MESSENGER -->
+        <header class="cc-chat-header">
+          <a href="/mess" class="cc-chat-header-brand" id="ccChatHeaderBrand" title="LUMI Messenger">
+            <div class="cc-chat-header-logo-wrap" aria-hidden="true">
+              <img src="/images/chat/cc-chat-button-120.webp" id="ccChatHeaderPartnerAvatar" alt="LUMI Messenger" class="cc-chat-header-icon" width="38" height="38" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+            </div>
             <div class="cc-chat-header-titles">
               <div class="cc-chat-header-title" id="ccChatHeaderTitle">
                 <span>LUMI Messenger</span>
+                <span class="cc-header-sparkle">✨</span>
               </div>
               <div class="cc-chat-header-sub">
-                <span class="cc-chat-live-dot"></span>
-                <span id="ccChatHeaderSubText">Czat Ogólny Społeczności</span>
+                <span class="cc-chat-live-dot" aria-hidden="true"></span>
+                <span id="ccChatHeaderSubText">Na żywo w Chrystusie</span>
               </div>
             </div>
           </a>
           <div class="cc-chat-header-actions">
-            <a href="/lumina.html?openPublicChat=1" target="_blank" rel="noopener noreferrer" class="cc-chat-icon-btn" title="Otwórz pełny portal LUMINA" aria-label="Otwórz pełny portal LUMINA">
-              <svg viewBox="0 0 24 24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            </a>
-            <button type="button" class="cc-chat-icon-btn cc-chat-close-btn" id="ccChatCloseBtn" aria-label="Zamknij czat" title="Zamknij">
-              <svg viewBox="0 0 24 24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <button type="button" class="cc-chat-icon-btn" id="ccChatNotifBtn" title="Powiadomienia" aria-label="Powiadomienia">
+              🔔
+            </button>
+            <button type="button" class="cc-chat-icon-btn" id="ccChatSettingsBtn" title="Ustawienia czatu" aria-label="Ustawienia czatu">
+              ⚙️
+            </button>
+            <button type="button" class="cc-chat-icon-btn is-close cc-chat-close-btn" id="ccChatCloseBtn" aria-label="Zamknij czat" title="Zamknij">
+              ✕
             </button>
           </div>
-        </div>
+        </header>
 
-        <!-- Trzy główne zakładki wyboru -->
-        <div class="cc-chat-tabs-bar" role="tablist" aria-label="Nawigacja czatu">
-          <button type="button" class="cc-chat-tab-btn is-active" id="ccChatTabLiveBtn" role="tab" aria-selected="true" aria-controls="ccChatViewLive">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-            <span>Rozmowa</span>
+        <!-- 2. KOMPAKTOWY ODTWARZACZ RADIO CHRISTIAN CULTURE -->
+        <section class="cc-chat-mini-player" id="ccChatMiniPlayer" aria-label="Odtwarzacz Radio Christian Culture">
+          <div class="cc-chat-radio-left">
+            <span class="cc-chat-radio-glyph" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.93 4.93a10 10 0 0 0 0 14.14M2 2a14.14 14.14 0 0 0 0 20M19.07 4.93a10 10 0 0 1 0 14.14M22 2a14.14 14.14 0 0 1 0 20M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+              </svg>
+            </span>
+            <span class="cc-chat-radio-title" id="ccChatRadioTitle">Radio Christian Culture PL</span>
+          </div>
+          <div class="cc-chat-radio-center">
+            <div class="cc-chat-radio-eq" id="ccChatRadioEq" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <button type="button" class="cc-chat-radio-play-btn" id="ccChatRadioPlayBtn" aria-label="Włącz lub zatrzymaj radio">
+            <span id="ccChatRadioPlayIcon">▶</span>
+            <span id="ccChatRadioPlayText">Słuchaj</span>
           </button>
-          <button type="button" class="cc-chat-tab-btn" id="ccChatTabMembersBtn" role="tab" aria-selected="false" aria-controls="ccChatViewMembers">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </section>
+
+        <!-- 3. NAWIGACJA: 5 ZAKŁADEK -->
+        <nav class="cc-chat-nav-tabs" role="tablist" aria-label="Nawigacja czatu">
+          <button type="button" class="cc-chat-nav-tab is-active" id="ccChatTabLiveBtn" role="tab" aria-selected="true" aria-controls="ccChatViewLive">
+            <span class="cc-nav-icon">💬</span>
+            <span>Czat</span>
+          </button>
+          <button type="button" class="cc-chat-nav-tab" id="ccChatTabTeamBtn" role="tab" aria-selected="false" aria-controls="ccChatViewTeam">
+            <span class="cc-nav-icon">👥</span>
+            <span>Zespół CC</span>
+          </button>
+          <button type="button" class="cc-chat-nav-tab" id="ccChatTabMembersBtn" role="tab" aria-selected="false" aria-controls="ccChatViewMembers">
+            <span class="cc-nav-icon">👥</span>
             <span>Społeczność</span>
           </button>
-          <button type="button" class="cc-chat-tab-btn" id="ccChatTabChannelsBtn" role="tab" aria-selected="false" aria-controls="ccChatViewChannels">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
-            <span>Kanały</span>
+          <button type="button" class="cc-chat-nav-tab" id="ccChatTabChannelsBtn" role="tab" aria-selected="false" aria-controls="ccChatViewChannels">
+            <span class="cc-nav-icon">🌐</span>
+            <span>Zasoby</span>
           </button>
-        </div>
+          <button type="button" class="cc-chat-nav-tab" id="ccChatTabMoreBtn" role="tab" aria-selected="false" aria-controls="ccChatViewMore">
+            <span class="cc-nav-icon">•••</span>
+            <span>Więcej</span>
+          </button>
+        </nav>
 
-        <!-- ════ WIDOK 1: CZAT & ROZMOWA ════ -->
-        <div class="cc-chat-view-live" id="ccChatViewLive" role="tabpanel" aria-labelledby="ccChatTabLiveBtn">
-          <!-- Wstęga szybkiego wyboru rozmówcy -->
-          <div class="cc-chat-partners-bar" id="ccChatPartnersBar"></div>
+        <!-- ════ WIDOK 1: CZAT & ASYSTENTKI CC ════ -->
+        <div class="cc-chat-tab-panel is-active" id="ccChatViewLive" role="tabpanel" aria-labelledby="ccChatTabLiveBtn">
+          
+          <!-- BANER ASYSTENTEK CC (SHOWCASE) -->
+          <section class="cc-chat-asst-showcase" id="ccChatAsstShowcase" aria-label="Asystentki Christian Culture">
+            <div class="cc-showcase-body">
+              <div class="cc-showcase-left">
+                <div class="cc-showcase-logo-row">
+                  <div class="cc-showcase-logo-badge" aria-hidden="true">
+                    <svg viewBox="0 0 44 44" width="40" height="40">
+                      <circle cx="22" cy="22" r="20" fill="none" stroke="#D8AD57" stroke-width="2.4"/>
+                      <text x="22" y="27" font-size="16" font-weight="900" fill="#F2D17C" text-anchor="middle" font-family="'Inter', sans-serif">CC</text>
+                    </svg>
+                  </div>
+                  <div class="cc-showcase-headline-wrap">
+                    <h2 class="cc-showcase-title">Asystentki<br>Christian<br>Culture</h2>
+                    <span class="cc-showcase-badge">Wirtualne gospodynie</span>
+                  </div>
+                </div>
+                <p class="cc-showcase-sub">
+                  Pomoc • Inspiracja<br>
+                  Wsparcie • Przewodnik<br>
+                  przez cały ekosystem CC
+                </p>
+              </div>
 
-          <!-- Strumień wiadomości na żywo -->
-          <div class="cc-chat-feed" id="ccChatFeed">
-            <div id="ccChatMessagesList" style="display: flex; flex-direction: column; gap: 10px;"></div>
+              <div class="cc-showcase-trio" role="radiogroup" aria-label="Wybierz Asystentkę">
+                <!-- Lea -->
+                <button type="button" class="cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea - Organizer i planista">
+                  <div class="cc-trio-avatar-wrap">
+                    <img src="/images/chat/assistants/asystentka-2.webp" alt="Lea" class="cc-trio-avatar" onerror="this.src='/images/chat/assistants/asystentka-2.jpg'">
+                  </div>
+                  <div class="cc-trio-tag">Lea</div>
+                  <div class="cc-trio-role">Organizer<br>i planista</div>
+                </button>
+
+                <!-- Rut (Center) -->
+                <button type="button" class="cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut - Wspieram Cię i pomagam">
+                  <div class="cc-trio-avatar-wrap is-rut">
+                    <img src="/images/chat/assistants/asystentka-1.webp" alt="Rut" class="cc-trio-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.jpg'">
+                    <span class="cc-trio-headset" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#F2D17C" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                    </span>
+                  </div>
+                  <div class="cc-trio-tag is-gold">Rut</div>
+                  <div class="cc-trio-role">Wspieram Cię<br>i pomagam</div>
+                </button>
+
+                <!-- Noemi -->
+                <button type="button" class="cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi - Twoje zasoby i rozwiązania">
+                  <div class="cc-trio-avatar-wrap">
+                    <img src="/images/chat/assistants/asystentka-3.webp" alt="Noemi" class="cc-trio-avatar" onerror="this.src='/images/chat/assistants/asystentka-3.jpg'">
+                  </div>
+                  <div class="cc-trio-tag">Noemi</div>
+                  <div class="cc-trio-role">Twoje zasoby<br>i rozwiązania</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Pigułki pod banerem -->
+            <div class="cc-showcase-pills">
+              <button type="button" class="cc-showcase-pill is-primary" id="ccPillRadio">
+                <span>🎧 Posłuchaj radia</span>
+              </button>
+              <button type="button" class="cc-showcase-pill" id="ccPillBible">
+                <span>📖 Poznaj Biblię</span>
+              </button>
+              <button type="button" class="cc-showcase-pill" id="ccPillDiscover">
+                <span>🧭 Odkryj CC</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- MINI-BAR AKTYWNEJ ASYSTENTKI -->
+          <div class="cc-chat-active-asst-bar" id="ccChatActiveAsstBar">
+            <div class="cc-active-asst-left">
+              <div class="cc-active-asst-avatar-wrap" aria-hidden="true">
+                <img src="/images/chat/assistants/asystentka-1.webp" alt="Rut" id="ccChatActiveAsstAvatar" class="cc-active-asst-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.jpg'">
+                <span class="cc-active-asst-dot"></span>
+              </div>
+              <div class="cc-active-asst-meta">
+                <span class="cc-active-asst-name" id="ccChatActiveAsstName">Rut</span>
+                <span class="cc-active-asst-role" id="ccChatActiveAsstRole">· Asystentka CC</span>
+              </div>
+            </div>
+            <button type="button" class="cc-asst-toggle-showcase-btn" id="ccAsstToggleShowcaseBtn" aria-label="Zwiń / rozwiń prezentację asystentek" title="Zwiń / rozwiń asystentki">
+              <span id="ccAsstToggleIcon">▾</span>
+            </button>
           </div>
 
-          <!-- Formularz wysyłania wiadomości -->
-          <div class="cc-chat-composer">
-            <form class="cc-chat-form" id="ccChatForm">
-              <input type="text" id="ccChatInput" class="cc-chat-input" placeholder="Napisz wiadomość na czacie..." maxlength="500" autocomplete="off" aria-label="Treść wiadomości">
-              <button type="submit" id="ccChatSendBtn" class="cc-chat-send-btn" title="Wyślij wiadomość" aria-label="Wyślij wiadomość">
-                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          <!-- FEED WIADOMOŚCI I REKOMENDACJI -->
+          <div class="cc-chat-partners-bar" id="ccChatPartnersBar" style="display:flex;gap:8px;padding:8px 16px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--lumi-border);"></div>
+          <div class="cc-chat-feed" id="ccChatFeed">
+            
+            <!-- Powitanie -->
+            <div class="cc-asst-welcome-bubble" id="ccChatWelcomeBubble">
+              <p><strong>Cześć! ❤️ Dobrze, że jesteś.</strong></p>
+              <p id="ccChatWelcomeBody">Nazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.</p>
+              <p>Przez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem.</p>
+              <p><strong>W czym mogę Ci dziś pomóc?</strong></p>
+            </div>
+
+            <!-- 3 Karty Szybkich Akcji -->
+            <div class="cc-chat-quick-cards-grid" id="ccChatQuickCardsGrid">
+              <a href="/player" class="cc-quick-card cc-qc-gold" id="ccQcRadio">
+                <div class="cc-qc-icon-wrap" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
+                  </svg>
+                </div>
+                <div class="cc-qc-meta">
+                  <span class="cc-qc-title">🎧 Posłuchaj radia</span>
+                  <span class="cc-qc-desc">Radio 24/7 · Audycje · Muzyka · Na żywo</span>
+                </div>
+                <span class="cc-qc-arrow" aria-hidden="true">›</span>
+              </a>
+
+              <a href="/Ewangelia" class="cc-quick-card cc-qc-blue" id="ccQcBible">
+                <div class="cc-qc-icon-wrap" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                  </svg>
+                </div>
+                <div class="cc-qc-meta">
+                  <span class="cc-qc-title">📖 Poznaj Dobrą Nowinę</span>
+                  <span class="cc-qc-desc">Biblia · Wersety · Kontemplacja · Kursy</span>
+                </div>
+                <span class="cc-qc-arrow" aria-hidden="true">›</span>
+              </a>
+
+              <a href="/akademia" class="cc-quick-card cc-qc-purple" id="ccQcAcademy">
+                <div class="cc-qc-icon-wrap" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                  </svg>
+                </div>
+                <div class="cc-qc-meta">
+                  <span class="cc-qc-title">🎓 Akademia Biblijna</span>
+                  <span class="cc-qc-desc">Kursy · Wykłady · Rozwój duchowy</span>
+                </div>
+                <span class="cc-qc-arrow" aria-hidden="true">›</span>
+              </a>
+            </div>
+
+            <!-- Strumień wiadomości -->
+            <div id="ccChatMessagesList" style="display: flex; flex-direction: column; gap: 10px;"></div>
+
+            <!-- Przycisk powrotu do najnowszych wiadomości -->
+            <button type="button" class="cc-chat-scroll-bottom-btn" id="ccChatScrollBottomBtn" aria-label="Przejdź do najnowszych wiadomości">
+              Przejdź do najnowszych ↓
+            </button>
+          </div>
+
+          <!-- 6. STAŁE POLE WPISYWANIA WIADOMOŚCI -->
+          <div class="cc-chat-composer-premium" id="ccChatComposer">
+            <div class="cc-composer-popover" id="ccComposerPopover" hidden>
+              <button type="button" class="cc-popover-item" data-query="Jak posłuchać radia?">🎧 Radio 24/7</button>
+              <button type="button" class="cc-popover-item" data-query="Gdzie znajdę Biblię i rozważania?">📖 Biblia i rozważania</button>
+              <button type="button" class="cc-popover-item" data-query="Jakie kursy oferuje Akademia Biblijna?">🎓 Akademia Biblijna</button>
+              <button type="button" class="cc-popover-item" data-query="Jak mogę skontaktować się ze Sztabem CC?">📞 Kontakt i pomoc</button>
+              <button type="button" class="cc-popover-item" data-query="Czym jest misja Christian Culture?">🕊️ O misji CC</button>
+            </div>
+
+            <form class="cc-chat-composer-form" id="ccChatForm">
+              <button type="button" class="cc-composer-plus-btn" id="ccChatPlusBtn" aria-label="Więcej opcji i szybkie pytania" title="Szybkie pytania">+</button>
+              <div class="cc-composer-input-wrap">
+                <textarea
+                  id="ccChatInput"
+                  class="cc-composer-textarea"
+                  rows="1"
+                  placeholder="Zadaj pytanie (np. radio, Biblia, kursy, pomoc)"
+                  maxlength="500"
+                  autocomplete="off"
+                  aria-label="Zadaj pytanie asystentce"
+                ></textarea>
+              </div>
+              <button type="button" class="cc-composer-mic-btn" id="ccChatMicBtn" aria-label="Mów do mikrofonu (rozpoznawanie mowy)" title="Naciśnij, aby mówić">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                  <line x1="12" y1="19" x2="12" y2="23"/>
+                  <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+              </button>
+              <button type="submit" class="cc-composer-send-btn" id="ccChatSendBtn" aria-label="Wyślij wiadomość" title="Wyślij wiadomość">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+                <span>Wyślij</span>
               </button>
             </form>
-            <div class="cc-chat-hint">Jedna tożsamość LUMINA • Prawda, miłość i wzajemny szacunek 🕊️</div>
           </div>
         </div>
 
-        <!-- ════ WIDOK 2: KATALOG UŻYTKOWNIKÓW SPOŁECZNOŚCI ════ -->
-        <div class="cc-chat-view-members" id="ccChatViewMembers" role="tabpanel" aria-labelledby="ccChatTabMembersBtn">
-          <div class="cc-chat-members-search-wrap">
-            <input type="text" id="ccChatMembersSearchInput" class="cc-chat-members-search-input" placeholder="🔍 Szukaj członka społeczności (np. Wioletta, Mariusz, Andrzej)..." aria-label="Szukaj członka społeczności">
-          </div>
-          <div class="cc-chat-members-list" id="ccChatMembersList"></div>
-        </div>
+        <!-- ════ WIDOK 2: ZESPÓŁ CC (KONTAKT I WSPARCIE) ════ -->
+        <div class="cc-chat-tab-panel" id="ccChatViewTeam" role="tabpanel" aria-labelledby="ccChatTabTeamBtn">
+          <div class="cc-tab-content-wrap">
+            <h3 class="cc-section-headline">Zespół i Wsparcie Christian Culture</h3>
+            <p style="font-size:0.8rem;color:var(--lumi-text-muted);margin:0 0 8px 0;line-height:1.4;">
+              Skorzystaj z oficjalnych kanałów kontaktu ze Sztabem, redakcją i opieką duszpasterską.
+            </p>
 
-        <!-- ════ WIDOK 3: KANAŁY KOMUNIKACJI (KARTY NAWIGACJI) ════ -->
-        <div class="cc-chat-view-channels" id="ccChatViewChannels" role="tabpanel" aria-labelledby="ccChatTabChannelsBtn">
-          <div class="cc-chat-system-bubble">
-            ✨ <strong>Pokój Wam!</strong> Witaj w centralnym węźle komunikacji ekosystemu Christian Culture.
-            Wybierz dogodną formę kontaktu: rozmowę na czacie, katalog społeczności, tablicę LUMINA, wsparcie duszpasterskie lub grupę WhatsApp.
-          </div>
+            <a href="tel:+48608337477" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(216,173,87,0.18);color:var(--lumi-gold-light);">🕊️</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Duchowny Mariusz</span>
+                <span class="cc-card-sub">Wsparcie duszpasterskie i modlitwa • +48 608 337 477</span>
+              </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
 
-          <!-- Karta 0: Asystent Christian Culture -->
-          <div class="cc-chat-action-card" id="ccChatActionAssistant" role="button" tabindex="0">
-            <div class="cc-chat-action-card-left">
-              <div class="cc-chat-action-icon" style="background: rgba(196, 163, 90, 0.22); color: #E2CC9A;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            <a href="tel:+48730958583" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(56,189,248,0.18);color:#38BDF8;">📞</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Infolinia Nadzieja</span>
+                <span class="cc-card-sub">Pomoc, rozmowa i wsparcie • +48 730 958 583</span>
               </div>
-              <div class="cc-chat-action-info">
-                <span class="cc-chat-action-title">Asystent Christian Culture 🧭</span>
-                <span class="cc-chat-action-desc">Wirtualny gospodarz · Pomoc i inspiracja przez całą dobę</span>
-              </div>
-            </div>
-            <span class="cc-chat-action-arrow"><svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-          </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
 
-          <!-- Karta 1: Czat Ogólny Społeczności LUMINA -->
-          <div class="cc-chat-action-card" id="ccChatActionLumina" role="button" tabindex="0">
-            <div class="cc-chat-action-card-left">
-              <div class="cc-chat-action-icon" style="background: rgba(168, 85, 247, 0.2); color: #C084FC;">
-                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+            <a href="https://chat.whatsapp.com/DBTRDxQWamZDWaOkjupSt0" target="_blank" rel="noopener noreferrer" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(34,197,94,0.18);color:#4ADE80;">💬</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Grupa WhatsApp Christian Culture</span>
+                <span class="cc-card-sub">Codzienne rozważania, społeczność i braterstwo</span>
               </div>
-              <div class="cc-chat-action-info">
-                <span class="cc-chat-action-title">Czat Ogólny Społeczności</span>
-                <span class="cc-chat-action-desc">Strumień wiadomości na żywo całej społeczności</span>
-              </div>
-            </div>
-            <span class="cc-chat-action-arrow"><svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-          </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
 
-          <!-- Karta 2: Wszyscy Członkowie Społeczności -->
-          <div class="cc-chat-action-card" id="ccChatActionMembers" role="button" tabindex="0">
-            <div class="cc-chat-action-card-left">
-              <div class="cc-chat-action-icon" style="background: rgba(212, 175, 55, 0.2); color: #FACC15;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <a href="mailto:polskiercctv@gmail.com" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(133,71,216,0.2);color:var(--lumi-accent-light);">✉️</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Sztab Główny & Redakcja</span>
+                <span class="cc-card-sub">E-mail: polskiercctv@gmail.com</span>
               </div>
-              <div class="cc-chat-action-info">
-                <span class="cc-chat-action-title">Wszyscy Członkowie Społeczności</span>
-                <span class="cc-chat-action-desc">Przeglądaj profile i rozmawiaj prywatnie</span>
-              </div>
-            </div>
-            <span class="cc-chat-action-arrow"><svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-          </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
 
-          <!-- Karta 3: Tablica Społeczności LUMINA -->
-          <a href="/lumina-tablica.html" target="_blank" rel="noopener noreferrer" class="cc-chat-action-card">
-            <div class="cc-chat-action-card-left">
-              <div class="cc-chat-action-icon" style="background: rgba(244, 63, 94, 0.2); color: #FB7185;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1"></path><path d="M18 2h4v4"></path><path d="M14 11l7-7"></path></svg>
+            <a href="/o-nas" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(255,255,255,0.06);color:var(--lumi-text-main);">🤝</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Współpraca i Wolontariat</span>
+                <span class="cc-card-sub">Dołącz do misji budowania Christian Culture</span>
               </div>
-              <div class="cc-chat-action-info">
-                <span class="cc-chat-action-title">Tablica Społeczności LUMINA 🕊️</span>
-                <span class="cc-chat-action-desc">Publiczne wpisy, intencje modlitewne i świadectwa</span>
-              </div>
-            </div>
-            <span class="cc-chat-action-arrow"><svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></span>
-          </a>
-
-          <!-- Karta 4: Rozmowa Duszpasterska / Duchowny Mariusz -->
-          <a href="tel:+48608337477" class="cc-chat-action-card">
-            <div class="cc-chat-action-card-left">
-              <div class="cc-chat-action-icon" style="background: rgba(234, 179, 8, 0.2); color: #FACC15;">
-                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-              </div>
-              <div class="cc-chat-action-info">
-                <span class="cc-chat-action-title">Duchowny Mariusz</span>
-                <span class="cc-chat-action-desc">Wsparcie duszpasterskie i modlitwa (+48 608 337 477)</span>
-              </div>
-            </div>
-            <span class="cc-chat-action-arrow"><svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-          </a>
-
-          <!-- Karta 5: WhatsApp Społeczności Christian Culture -->
-          <a href="https://chat.whatsapp.com/DBTRDxQWamZDWaOkjupSt0" target="_blank" rel="noopener noreferrer" class="cc-chat-action-card">
-            <div class="cc-chat-action-card-left">
-              <div class="cc-chat-action-icon" style="background: rgba(34, 197, 94, 0.2); color: #4ADE80;">
-                <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.2 1.25-1.74 1.32-.49.07-1.12.1-3.26-.79-2.73-1.14-4.49-3.92-4.63-4.1-.14-.19-1.1-1.46-1.1-2.79 0-1.32.69-1.97.94-2.24.25-.26.54-.33.72-.33.18 0 .36 0 .52.01.17.01.4.07.61.57.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.19-.15.31-.3.48-.15.17-.31.38-.45.51-.15.15-.3.31-.13.61.17.3 1.07 1.77 2.3 2.87 1.58 1.41 2.91 1.85 3.32 2.05.41.2.65.17.89-.1.24-.28 1.03-1.2 1.31-1.61.27-.41.55-.35.92-.21.38.14 2.38 1.12 2.79 1.32.41.2.68.31.78.48.1.18.1 1.02-.14 1.7z"/></svg>
-              </div>
-              <div class="cc-chat-action-info">
-                <span class="cc-chat-action-title">Grupa WhatsApp CC</span>
-                <span class="cc-chat-action-desc">Codzienne rozważania i braterstwo</span>
-              </div>
-            </div>
-            <span class="cc-chat-action-arrow"><svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></span>
-          </a>
-
-          <!-- Karta 6: Skontaktuj się ze Sztabem CC (Email / Infolinia) -->
-          <a href="/o-nas.html" class="cc-chat-action-card">
-            <div class="cc-chat-action-card-left">
-              <div class="cc-chat-action-icon" style="background: rgba(56, 189, 248, 0.2); color: #38BDF8;">
-                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-              </div>
-              <div class="cc-chat-action-info">
-                <span class="cc-chat-action-title">O Inicjatywie i Kontakt</span>
-                <span class="cc-chat-action-desc">Zarząd & Redakcja Misji CC</span>
-              </div>
-            </div>
-            <span class="cc-chat-action-arrow"><svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-          </a>
-
-          <!-- Stopka w widoku kanałów -->
-          <div class="cc-chat-channels-footer">
-            <span>Jeden czat • Jedna tożsamość LUMINA</span>
-            <a href="/lumina-tablica.html">Tablica 🕊️</a>
+              <span class="cc-qc-arrow">›</span>
+            </a>
           </div>
         </div>
+
+        <!-- ════ WIDOK 3: SPOŁECZNOŚĆ (KATALOG UŻYTKOWNIKÓW & CZAT 1:1) ════ -->
+        <div class="cc-chat-tab-panel" id="ccChatViewMembers" role="tabpanel" aria-labelledby="ccChatTabMembersBtn">
+          <div class="cc-tab-content-wrap">
+            <div class="cc-chat-search-wrap">
+              <input type="text" id="ccChatMembersSearchInput" class="cc-chat-search-input" placeholder="🔍 Szukaj członka społeczności (np. Cezary, Wioletta, Mariusz)..." aria-label="Szukaj członka społeczności">
+            </div>
+            <div id="ccChatMembersList" style="display:flex;flex-direction:column;gap:8px;"></div>
+          </div>
+        </div>
+
+        <!-- ════ WIDOK 4: ZASOBY EKOSYSTEMU ════ -->
+        <div class="cc-chat-tab-panel" id="ccChatViewChannels" role="tabpanel" aria-labelledby="ccChatTabChannelsBtn">
+          <div class="cc-tab-content-wrap">
+            <h3 class="cc-section-headline">Zasoby i Moduły Ekosystemu</h3>
+            <p style="font-size:0.8rem;color:var(--lumi-text-muted);margin:0 0 8px 0;line-height:1.4;">
+              Odkryj wszystkie platformy tworzone ku Bożej chwale w jednym miejscu:
+            </p>
+
+            <a href="/player" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(216,173,87,0.18);color:var(--lumi-gold-light);">📻</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Odtwarzacz Audio Spotify-Style</span>
+                <span class="cc-card-sub">Strumienie 24/7, audycje i muzyka uwielbienia</span>
+              </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
+
+            <a href="/mojabiblia" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(56,189,248,0.18);color:#38BDF8;">📖</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Interlinearna MojaBiblia</span>
+                <span class="cc-card-sub">Kody Stronga, morfologia i 4 polskie przekłady</span>
+              </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
+
+            <a href="/biblia-audio" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(133,71,216,0.22);color:var(--lumi-accent-light);">🎧</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Biblia Audio Superprodukcja</span>
+                <span class="cc-card-sub">Profesjonalne słuchowiska biblijne w jakości HD</span>
+              </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
+
+            <a href="/akademia" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(234,179,8,0.18);color:#FACC15;">🎓</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Akademia Biblijna & Kurs Codzienny</span>
+                <span class="cc-card-sub">Codzienna lekcja „Z Biblią za Pan Brat”</span>
+              </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
+
+            <a href="/vod" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(244,63,94,0.18);color:#FB7185;">🎬</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Chrześcijańskie Kino VOD</span>
+                <span class="cc-card-sub">Filmy fabularne i dokumentalne z polskim lektorem</span>
+              </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
+
+            <a href="/mapa" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(34,197,94,0.18);color:#4ADE80;">🗺️</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Żywa Mapa Ekosystemu</span>
+                <span class="cc-card-sub">Publiczny interaktywny rejestr cyfrowy CC</span>
+              </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ════ WIDOK 5: WIĘCEJ (USTAWIENIA I PREFERENCJE) ════ -->
+        <div class="cc-chat-tab-panel" id="ccChatViewMore" role="tabpanel" aria-labelledby="ccChatTabMoreBtn">
+          <div class="cc-tab-content-wrap">
+            <h3 class="cc-section-headline">Ustawienia i Personalizacja</h3>
+            
+            <div style="background:var(--lumi-card-surface);border:1px solid var(--lumi-border);border-radius:16px;padding:14px;">
+              <span style="font-size:0.86rem;font-weight:700;display:block;margin-bottom:8px;">Wybierz Asystentkę LUMI:</span>
+              <div style="display:flex;gap:8px;">
+                <button type="button" class="cc-showcase-pill" onclick="window.selectAssistantAndRefresh('asystentka-1')">Rut</button>
+                <button type="button" class="cc-showcase-pill" onclick="window.selectAssistantAndRefresh('asystentka-2')">Lea</button>
+                <button type="button" class="cc-showcase-pill" onclick="window.selectAssistantAndRefresh('asystentka-3')">Noemi</button>
+              </div>
+            </div>
+
+            <a href="/privacy" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(255,255,255,0.06);color:var(--lumi-text-main);">🔒</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Prywatność i Ochrona Danych (RODO)</span>
+                <span class="cc-card-sub">Pełne bezpieczeństwo i brak śledzenia reklamowego</span>
+              </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
+
+            <a href="/lumina-safety" class="cc-card-item">
+              <div class="cc-card-icon" style="background:rgba(255,255,255,0.06);color:var(--lumi-text-main);">🛡️</div>
+              <div class="cc-card-info">
+                <span class="cc-card-title">Zasady Społeczności LUMINA</span>
+                <span class="cc-card-sub">Szacunek, prawda i wzajemna chrześcijańska miłość</span>
+              </div>
+              <span class="cc-qc-arrow">›</span>
+            </a>
+
+            <div style="text-align:center;padding:16px 0;font-size:0.75rem;color:var(--lumi-text-muted);">
+              <strong>LUMI Messenger 2.0 Premium</strong> • Christian Culture<br>
+              Wersja 2026.11.10 • Zgodna z Constytution CC & ZERO-QA
+            </div>
+          </div>
+        </div>
+
       </div>
     `;
     document.body.appendChild(overlay);
-    if (window.CCUnifiedChat?.mountRadio) {
-      window.CCUnifiedChat.mountRadio(overlay.querySelector('.cc-chat-drawer'));
-    }
 
-    // Podpięcie elementów i zdarzeń
-    
     // Inicjalizacja aktywnej asystentki i dymka zaczepki
-    const activeAssistant = getActiveAssistant();
+    let activeAssistant = getActiveAssistant();
     const teaserBubble = document.getElementById('ccChatTeaserBubble');
     const teaserAvatar = document.getElementById('ccChatTeaserAvatar');
     const teaserName = document.getElementById('ccChatTeaserName');
     const teaserMsg = document.getElementById('ccChatTeaserMsg');
     const teaserClose = document.getElementById('ccChatTeaserClose');
 
-    if (teaserBubble && activeAssistant) {
+    function refreshAssistantUI(asst) {
+      activeAssistant = asst;
       if (teaserAvatar) {
-        teaserAvatar.src = activeAssistant.avatar;
-        teaserAvatar.onerror = function () {
-          if (this.src !== activeAssistant.avatarFallback) {
-            this.src = activeAssistant.avatarFallback;
-          }
-        };
+        teaserAvatar.src = asst.avatar;
+        teaserAvatar.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
       }
-      if (teaserName) teaserName.textContent = activeAssistant.name;
-      if (teaserMsg) teaserMsg.textContent = activeAssistant.greeting;
+      if (teaserName) teaserName.textContent = asst.name;
+      if (teaserMsg) teaserMsg.textContent = asst.greeting;
 
-      // Sprawdzenie czy użytkownik ręcznie zamknął dymek w tej sesji
+      const activeAvatar = document.getElementById('ccChatActiveAsstAvatar');
+      const activeName = document.getElementById('ccChatActiveAsstName');
+      const activeRole = document.getElementById('ccChatActiveAsstRole');
+      const welcomeBody = document.getElementById('ccChatWelcomeBody');
+
+      if (activeAvatar) {
+        activeAvatar.src = asst.avatar;
+        activeAvatar.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
+      }
+      if (activeName) activeName.textContent = asst.shortName || asst.name.split(' ')[0];
+      if (activeRole) activeRole.textContent = `· ${asst.role}`;
+      if (welcomeBody) welcomeBody.textContent = `Nazywam się ${asst.shortName || asst.name} – jestem Twoją wirtualną gospodynią w LUMI MESS.`;
+
+      // Trio radio sync
+      document.querySelectorAll('.cc-trio-card').forEach(btn => {
+        const isThis = btn.getAttribute('data-asst-id') === asst.id;
+        btn.classList.toggle('is-active', isThis);
+        btn.setAttribute('aria-checked', isThis ? 'true' : 'false');
+      });
+    }
+
+    window.selectAssistantAndRefresh = function(asstId) {
+      const asst = setActiveAssistantById(asstId);
+      refreshAssistantUI(asst);
+    };
+
+    if (teaserBubble && activeAssistant) {
+      refreshAssistantUI(activeAssistant);
+
       let isTeaserDismissed = false;
       try {
         isTeaserDismissed = sessionStorage.getItem('cc_teaser_dismissed') === '1';
@@ -1785,403 +2313,395 @@
         teaserBubble.style.display = 'none';
       }
 
-      // Kliknięcie w dymek -> natychmiastowe otwarcie rozmowy z Asystentem
       function handleTeaserClick(e) {
-        if (e.target && (e.target.id === 'ccChatTeaserClose' || e.target.closest('#ccChatTeaserClose'))) {
-          return; // obsługa przycisku zamknięcia osobno
-        }
+        if (e.target && (e.target.id === 'ccChatTeaserClose' || e.target.closest('#ccChatTeaserClose'))) return;
         e.preventDefault();
         e.stopPropagation();
         teaserBubble.style.display = 'none';
         const asst = getActiveAssistant();
-        try {
-          sessionStorage.setItem('cc_active_assistant_id', asst.id);
-        } catch (_) {}
-        window.CCGlobalChat.open('assistant', asst.id);
+        try { sessionStorage.setItem('cc_active_assistant_id', asst.id); } catch (_) {}
+        window.CCGlobalChat.open('assistant', 'cc-assistant');
       }
 
       teaserBubble.addEventListener('click', handleTeaserClick);
       teaserBubble.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          handleTeaserClick(e);
-        }
+        if (e.key === 'Enter' || e.key === ' ') handleTeaserClick(e);
       });
 
-      // Zamknięcie dymka
       if (teaserClose) {
         teaserClose.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
           teaserBubble.style.opacity = '0';
           teaserBubble.style.transform = 'translateY(8px)';
-          setTimeout(() => {
-            teaserBubble.style.display = 'none';
-          }, 280);
-          try {
-            sessionStorage.setItem('cc_teaser_dismissed', '1');
-          } catch (_) {}
+          setTimeout(() => { teaserBubble.style.display = 'none'; }, 280);
+          try { sessionStorage.setItem('cc_teaser_dismissed', '1'); } catch (_) {}
         });
       }
     }
 
+    // Podpięcie przełączania trio asystentek
+    document.querySelectorAll('.cc-trio-card').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const aid = btn.getAttribute('data-asst-id');
+        window.selectAssistantAndRefresh(aid);
+      });
+    });
+
+    // Pigułki pod banerem
+    document.getElementById('ccPillRadio')?.addEventListener('click', function() {
+      toggleMiniPlayer();
+    });
+    document.getElementById('ccPillBible')?.addEventListener('click', function() {
+      sendAssistantMessage('Gdzie znajdę Biblię i rozważania?');
+    });
+    document.getElementById('ccPillDiscover')?.addEventListener('click', function() {
+      sendAssistantMessage('Czym jest Christian Culture?');
+    });
+
+    // Zwijanie / rozwijanie baneru asystentek
+    const toggleShowcaseBtn = document.getElementById('ccAsstToggleShowcaseBtn');
+    const showcaseEl = document.getElementById('ccChatAsstShowcase');
+    const toggleIcon = document.getElementById('ccAsstToggleIcon');
+    if (toggleShowcaseBtn && showcaseEl) {
+      toggleShowcaseBtn.addEventListener('click', function() {
+        isShowcaseCollapsed = !isShowcaseCollapsed;
+        showcaseEl.classList.toggle('is-collapsed', isShowcaseCollapsed);
+        if (toggleIcon) toggleIcon.textContent = isShowcaseCollapsed ? '▸' : '▾';
+      });
+    }
+
+    // Elementy i nawigacja zakładek
     const btn = document.getElementById('ccChatFabBtn');
     const closeBtn = document.getElementById('ccChatCloseBtn');
     const chatForm = document.getElementById('ccChatForm');
     const chatInput = document.getElementById('ccChatInput');
+    const plusBtn = document.getElementById('ccChatPlusBtn');
+    const composerPopover = document.getElementById('ccComposerPopover');
+    const micBtn = document.getElementById('ccChatMicBtn');
+    const scrollBottomBtn = document.getElementById('ccChatScrollBottomBtn');
+
     const tabLiveBtn = document.getElementById('ccChatTabLiveBtn');
+    const tabTeamBtn = document.getElementById('ccChatTabTeamBtn');
     const tabMembersBtn = document.getElementById('ccChatTabMembersBtn');
     const tabChannelsBtn = document.getElementById('ccChatTabChannelsBtn');
+    const tabMoreBtn = document.getElementById('ccChatTabMoreBtn');
+
     const viewLive = document.getElementById('ccChatViewLive');
+    const viewTeam = document.getElementById('ccChatViewTeam');
     const viewMembers = document.getElementById('ccChatViewMembers');
     const viewChannels = document.getElementById('ccChatViewChannels');
-    const openMembersBtn = document.getElementById('ccChatOpenMembersBtn');
-    const actionAssistantCard = document.getElementById('ccChatActionAssistant');
-    const actionLuminaCard = document.getElementById('ccChatActionLumina');
-    const actionMembersCard = document.getElementById('ccChatActionMembers');
-    const membersSearchInput = document.getElementById('ccChatMembersSearchInput');
+    const viewMore = document.getElementById('ccChatViewMore');
 
-    function scrollToBottom() {
-      const feed = document.getElementById('ccChatFeed');
-      if (feed) {
-        feed.scrollTop = feed.scrollHeight;
-      }
-    }
+    const allTabs = [
+      { btn: tabLiveBtn, view: viewLive, id: 'live' },
+      { btn: tabTeamBtn, view: viewTeam, id: 'team' },
+      { btn: tabMembersBtn, view: viewMembers, id: 'members' },
+      { btn: tabChannelsBtn, view: viewChannels, id: 'channels' },
+      { btn: tabMoreBtn, view: viewMore, id: 'more' }
+    ];
 
-    function switchTab(target) {
-      tabLiveBtn.classList.remove('is-active');
-      tabMembersBtn.classList.remove('is-active');
-      tabChannelsBtn.classList.remove('is-active');
-      tabLiveBtn.setAttribute('aria-selected', 'false');
-      tabMembersBtn.setAttribute('aria-selected', 'false');
-      tabChannelsBtn.setAttribute('aria-selected', 'false');
+    function switchTab(targetId) {
+      allTabs.forEach(t => {
+        if (!t.btn || !t.view) return;
+        const isTarget = t.id === targetId || (targetId === 'chat' && t.id === 'live');
+        t.btn.classList.toggle('is-active', isTarget);
+        t.btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+        t.view.classList.toggle('is-active', isTarget);
+      });
 
-      viewLive.style.setProperty('display', 'none', 'important');
-      viewMembers.style.setProperty('display', 'none', 'important');
-      viewChannels.style.setProperty('display', 'none', 'important');
-
-      if (target === 'members') {
-        tabMembersBtn.classList.add('is-active');
-        tabMembersBtn.setAttribute('aria-selected', 'true');
-        viewMembers.style.setProperty('display', 'flex', 'important');
+      if (targetId === 'members') {
         renderMembersList('');
-        if (membersSearchInput && window.innerWidth > 768) membersSearchInput.focus();
-      } else if (target === 'channels') {
-        tabChannelsBtn.classList.add('is-active');
-        tabChannelsBtn.setAttribute('aria-selected', 'true');
-        viewChannels.style.setProperty('display', 'flex', 'important');
-      } else {
-        tabLiveBtn.classList.add('is-active');
-        tabLiveBtn.setAttribute('aria-selected', 'true');
-        viewLive.style.setProperty('display', 'flex', 'important');
-        updateActivePartnerUI();
-        renderChatMessages();
+        const sInput = document.getElementById('ccChatMembersSearchInput');
+        if (sInput && window.innerWidth > 768) sInput.focus();
+      } else if (targetId === 'live' || targetId === 'chat') {
         scrollToBottom();
-        if (chatInput && window.innerWidth > 768) {
-          chatInput.focus();
-        }
+        if (chatInput && window.innerWidth > 768) chatInput.focus();
       }
     }
 
-    tabLiveBtn.addEventListener('click', function () { switchTab('live'); });
-    tabMembersBtn.addEventListener('click', function () { switchTab('members'); });
-    tabChannelsBtn.addEventListener('click', function () { switchTab('channels'); });
+    tabLiveBtn?.addEventListener('click', () => switchTab('live'));
+    tabTeamBtn?.addEventListener('click', () => switchTab('team'));
+    tabMembersBtn?.addEventListener('click', () => switchTab('members'));
+    tabChannelsBtn?.addEventListener('click', () => switchTab('channels'));
+    tabMoreBtn?.addEventListener('click', () => switchTab('more'));
 
-    if (openMembersBtn) {
-      openMembersBtn.addEventListener('click', function () { switchTab('members'); });
-    }
-
-    if (actionAssistantCard) {
-      actionAssistantCard.addEventListener('click', function (e) {
-        e.preventDefault();
-        window.CCGlobalChat.open('assistant', 'cc-assistant');
+    // [+] Popover
+    if (plusBtn && composerPopover) {
+      plusBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        composerPopover.hidden = !composerPopover.hidden;
       });
-      actionAssistantCard.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          window.CCGlobalChat.open('assistant', 'cc-assistant');
+
+      document.addEventListener('click', (e) => {
+        if (!composerPopover.contains(e.target) && e.target !== plusBtn) {
+          composerPopover.hidden = true;
         }
       });
-    }
 
-    if (actionLuminaCard) {
-      actionLuminaCard.addEventListener('click', function (e) {
-        e.preventDefault();
-        setChatPartner(COMMUNITY_MEMBERS[0]);
-        switchTab('live');
-      });
-      actionLuminaCard.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          setChatPartner(COMMUNITY_MEMBERS[0]);
-          switchTab('live');
-        }
-      });
-    }
-
-    if (actionMembersCard) {
-      actionMembersCard.addEventListener('click', function (e) {
-        e.preventDefault();
-        switchTab('members');
-      });
-      actionMembersCard.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          switchTab('members');
-        }
-      });
-    }
-
-    if (membersSearchInput) {
-      membersSearchInput.addEventListener('input', function () {
-        renderMembersList(membersSearchInput.value.trim().toLowerCase());
-      });
-    }
-
-    // Stan aktywnej subskrypcji Firestore realtime
-    let activeRealtimeUnsubscribe = null;
-
-    function showChatNotice(htmlMessage) {
-      let noticeEl = document.getElementById('ccChatNoticeBox');
-      if (!noticeEl) {
-        noticeEl = document.createElement('div');
-        noticeEl.id = 'ccChatNoticeBox';
-        noticeEl.style.cssText = 'position:absolute;top:56px;left:12px;right:12px;background:rgba(20,24,33,0.96);border:1px solid rgba(196,163,90,0.5);color:#F8FAFC;padding:10px 14px;border-radius:12px;font-size:0.8rem;line-height:1.4;box-shadow:0 8px 24px rgba(0,0,0,0.6);z-index:99;display:flex;align-items:center;justify-content:space-between;gap:10px;animation:ccFadeIn 0.25s ease;';
-        const bodyEl = document.getElementById('ccChatBody');
-        if (bodyEl) bodyEl.appendChild(noticeEl);
-      }
-      noticeEl.innerHTML = `<span>${htmlMessage}</span><button type="button" style="background:none;border:none;color:#94A3B8;cursor:pointer;font-size:1.1rem;padding:0 4px;" aria-label="Zamknij powiadomienie">✕</button>`;
-      noticeEl.style.display = 'flex';
-      const closeNoticeBtn = noticeEl.querySelector('button');
-      if (closeNoticeBtn) {
-        closeNoticeBtn.onclick = () => { noticeEl.style.display = 'none'; };
-      }
-      setTimeout(() => {
-        if (noticeEl) noticeEl.style.display = 'none';
-      }, 7000);
-    }
-
-    // Zmiana aktywnego rozmówcy
-    function setChatPartner(partner) {
-      if (typeof activeRealtimeUnsubscribe === 'function') {
-        try { activeRealtimeUnsubscribe(); } catch(e) {}
-        activeRealtimeUnsubscribe = null;
-      }
-      currentPartnerRealtimeMessages = null;
-      currentChatPartner = partner || COMMUNITY_MEMBERS[0];
-
-      updateActivePartnerUI();
-
-      // Ustawienie kontekstowego placeholdera
-      if (chatInput) {
-        const u = getUserState();
-        if (currentChatPartner.isPublic) {
-          chatInput.placeholder = 'Napisz na czacie ogólnym LUMINA...';
-        } else if (u.isLoggedIn) {
-          chatInput.placeholder = `Napisz prywatną wiadomość do: ${currentChatPartner.name}...`;
-        } else {
-          chatInput.placeholder = `Zaloguj się do LUMINA, aby pisać do: ${currentChatPartner.name}...`;
-        }
-      }
-
-      // Podłączenie subskrypcji w czasie rzeczywistym z Firestore
-      const user = getUserState();
-      if (currentChatPartner.isPublic) {
-        if (window.LuminaDB && typeof window.LuminaDB.subscribeToPublicChat === 'function') {
-          try {
-            activeRealtimeUnsubscribe = window.LuminaDB.subscribeToPublicChat(function (msgs) {
-              if (currentChatPartner.isPublic && Array.isArray(msgs)) {
-                currentPartnerRealtimeMessages = msgs;
-                renderChatMessages();
-                scrollToBottom();
-              }
-            });
-          } catch(err) {
-            console.warn('Lumina Public Chat sync:', err);
-          }
-        }
-      } else {
-        if (user.isLoggedIn && user.uid && window.LuminaDB && typeof window.LuminaDB.subscribeToDirectMessages === 'function') {
-          const partnerId = currentChatPartner.slug || currentChatPartner.id;
-          const myId = user.slug || user.uid;
-          const chatId = (typeof window.LuminaDB.getChatId === 'function')
-            ? window.LuminaDB.getChatId(myId, partnerId)
-            : [myId, partnerId].sort().join('_');
-
-          try {
-            activeRealtimeUnsubscribe = window.LuminaDB.subscribeToDirectMessages(chatId, function (msgs) {
-              if (!currentChatPartner.isPublic && Array.isArray(msgs)) {
-                currentPartnerRealtimeMessages = msgs;
-                renderChatMessages();
-                scrollToBottom();
-              }
-            });
-          } catch(err) {
-            console.warn('Lumina Direct Chat sync:', err);
-          }
-        }
-      }
-
-      renderChatMessages();
-      switchTab('live');
-    }
-
-    function updateActivePartnerUI() {
-      const headerAvatar = document.getElementById('ccChatHeaderPartnerAvatar');
-      const headerSub = document.getElementById('ccChatHeaderSubText');
-      const activeName = document.getElementById('ccChatActiveName');
-      const activeBadge = document.getElementById('ccChatActiveBadge');
-      const activeProfileBtn = document.getElementById('ccChatActiveProfileBtn');
-      const headerProfileLink = document.getElementById('ccChatHeaderProfileLink');
-
-      if (headerAvatar) headerAvatar.src = currentChatPartner.avatar || '/images/chat/cc-chat-button-120.webp';
-      if (headerSub) {
-        headerSub.textContent = currentChatPartner.isPublic ? 'Czat Ogólny Społeczności' : `Rozmowa z: ${currentChatPartner.name}`;
-      }
-      if (activeName) activeName.textContent = currentChatPartner.name;
-      if (activeBadge) activeBadge.textContent = currentChatPartner.badge;
-      if (activeProfileBtn) {
-        activeProfileBtn.href = currentChatPartner.profileUrl || '/lumina-tablica.html';
-        activeProfileBtn.title = currentChatPartner.isPublic ? 'Otwórz Tablicę Społeczności LUMINA' : `Otwórz profil: ${currentChatPartner.name}`;
-        activeProfileBtn.innerHTML = currentChatPartner.isPublic ? '<span>Tablica</span> 🕊️' : '<span>Profil</span> 👤';
-      }
-      if (headerProfileLink) {
-        headerProfileLink.href = currentChatPartner.profileUrl || '/lumina-tablica.html';
-        headerProfileLink.title = currentChatPartner.isPublic ? 'Otwórz Tablicę LUMINA' : `Otwórz profil: ${currentChatPartner.name}`;
-      }
-
-      renderPartnersBar();
-    }
-
-    // Renderowanie poziomego paska awatarów (pełny katalog ze swobodnym przewijaniem)
-    function renderPartnersBar() {
-      const bar = document.getElementById('ccChatPartnersBar');
-      if (!bar) return;
-
-      let html = '';
-      COMMUNITY_MEMBERS.forEach(m => {
-        const isActive = currentChatPartner.id === m.id;
-        const shortName = m.isPublic ? 'Ogólny' : m.name.split(' ')[0];
-        html += `
-          <button type="button" class="cc-chat-partner-chip ${isActive ? 'is-active' : ''}" data-partner-id="${m.id}" title="${escapeHtml(m.name)} • ${escapeHtml(m.badge)} (kliknij, by rozmawiać)">
-            <div class="cc-chat-partner-avatar-wrap">
-              <img src="${escapeHtml(m.avatar)}" alt="${escapeHtml(m.name)}" class="cc-chat-partner-chip-img" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
-            </div>
-            <span class="cc-chat-partner-chip-name">${escapeHtml(shortName)}</span>
-          </button>
-        `;
-      });
-
-      bar.innerHTML = html;
-
-      // Obsługa kliknięć w czipy
-      bar.querySelectorAll('.cc-chat-partner-chip[data-partner-id]').forEach(btnEl => {
-        btnEl.addEventListener('click', function () {
-          const pid = btnEl.getAttribute('data-partner-id');
-          const p = COMMUNITY_MEMBERS.find(x => x.id === pid);
-          if (p) setChatPartner(p);
+      composerPopover.querySelectorAll('.cc-popover-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const q = item.getAttribute('data-query');
+          composerPopover.hidden = true;
+          if (q) sendAssistantMessage(q);
         });
       });
     }
 
-    // Renderowanie katalogu użytkowników (zakładka Społeczność — swobodny dostęp do profili i rozmów)
-    function renderMembersList(query) {
-      const list = document.getElementById('ccChatMembersList');
+    // Mikrofon (Web Speech Recognition)
+    if (micBtn && chatInput) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'pl-PL';
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        let isListening = false;
+        recognition.onstart = () => {
+          isListening = true;
+          micBtn.classList.add('is-listening');
+          chatInput.placeholder = 'Słucham Cię... Mów teraz... 🎙️';
+        };
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          chatInput.value = (chatInput.value ? chatInput.value + ' ' : '') + transcript;
+        };
+        recognition.onerror = () => {
+          micBtn.classList.remove('is-listening');
+          chatInput.placeholder = 'Zadaj pytanie (np. radio, Biblia, kursy, pomoc)';
+          isListening = false;
+        };
+        recognition.onend = () => {
+          micBtn.classList.remove('is-listening');
+          chatInput.placeholder = 'Zadaj pytanie (np. radio, Biblia, kursy, pomoc)';
+          isListening = false;
+        };
+
+        micBtn.addEventListener('click', () => {
+          if (!isListening) {
+            try { recognition.start(); } catch (_) {}
+          } else {
+            try { recognition.stop(); } catch (_) {}
+          }
+        });
+      } else {
+        micBtn.style.opacity = '0.4';
+        micBtn.title = 'Rozpoznawanie mowy nie jest wspierane w tej przeglądarce';
+      }
+    }
+
+    // Obsługa miniaturowego odtwarzacza radiowego
+    const radioPlayerEl = document.getElementById('ccChatMiniPlayer');
+    const radioPlayBtn = document.getElementById('ccChatRadioPlayBtn');
+    const radioPlayIcon = document.getElementById('ccChatRadioPlayIcon');
+    const radioPlayText = document.getElementById('ccChatRadioPlayText');
+    let isRadioPlaying = false;
+
+    function setRadioVisualState(playing) {
+      isRadioPlaying = playing;
+      if (radioPlayerEl) radioPlayerEl.classList.toggle('is-playing', playing);
+      if (radioPlayIcon) radioPlayIcon.textContent = playing ? '⏸' : '▶';
+      if (radioPlayText) radioPlayText.textContent = playing ? 'Pauza' : 'Słuchaj';
+    }
+
+    function toggleMiniPlayer() {
+      // Sprawdź czy .cc-chat-radio button istnieje
+      const fallbackRadioBtn = document.querySelector('.cc-chat-radio button');
+      if (fallbackRadioBtn && !fallbackRadioBtn.disabled) {
+        fallbackRadioBtn.click();
+        return;
+      }
+
+      // 1. Sprawdź CCChatRadio
+      if (window.CCChatRadio) {
+        const state = window.CCChatRadio.state();
+        if (state.playing) {
+          window.CCChatRadio.pause();
+          setRadioVisualState(false);
+        } else {
+          window.CCChatRadio.play(true);
+          setRadioVisualState(true);
+        }
+        return;
+      }
+      // 2. Sprawdź CCHomeRadio / playBtn na stronie
+      const mainPlayBtn = document.getElementById('playBtn') || document.querySelector('.play-btn');
+      if (mainPlayBtn) {
+        mainPlayBtn.click();
+        const nowPlaying = mainPlayBtn.classList.contains('playing') || !isRadioPlaying;
+        setRadioVisualState(nowPlaying);
+        return;
+      }
+      setRadioVisualState(!isRadioPlaying);
+    }
+
+    radioPlayBtn?.addEventListener('click', toggleMiniPlayer);
+
+    if (window.CCChatRadio?.subscribe) {
+      window.CCChatRadio.subscribe(state => {
+        setRadioVisualState(!!state.playing);
+      });
+    }
+
+    // Przewijanie i przycisk powrotu do najnowszych
+    const feed = document.getElementById('ccChatFeed');
+    function scrollToBottom() {
+      if (feed) feed.scrollTop = feed.scrollHeight;
+    }
+
+    if (feed && scrollBottomBtn) {
+      feed.addEventListener('scroll', () => {
+        const distFromBottom = feed.scrollHeight - feed.scrollTop - feed.clientHeight;
+        scrollBottomBtn.style.display = distFromBottom > 160 ? 'block' : 'none';
+      });
+      scrollBottomBtn.addEventListener('click', () => {
+        scrollToBottom();
+        scrollBottomBtn.style.display = 'none';
+      });
+    }
+
+    // Asystent: wysyłanie wiadomości
+    function sendAssistantMessage(text) {
+      if (!text || !text.trim()) return;
+      const cleanText = text.trim();
+      const asst = getActiveAssistant();
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      // Dodaj wiadomość użytkownika do feedu
+      const list = document.getElementById('ccChatMessagesList');
       if (!list) return;
 
-      const filtered = COMMUNITY_MEMBERS.filter(m => {
-        if (!query) return true;
-        return m.name.toLowerCase().includes(query) || m.badge.toLowerCase().includes(query) || (m.desc && m.desc.toLowerCase().includes(query));
-      });
+      const userRow = document.createElement('div');
+      userRow.className = 'cc-chat-msg-row is-me';
+      userRow.innerHTML = `
+        <div class="cc-chat-msg-content">
+          <div class="cc-chat-msg-meta">
+            <span class="cc-chat-msg-sender">Ty</span>
+            <span>${timeStr}</span>
+          </div>
+          <div class="cc-chat-msg-bubble">${escapeHtml(cleanText)}</div>
+        </div>
+      `;
+      list.appendChild(userRow);
+      scrollToBottom();
 
-      let html = '';
-      filtered.forEach(m => {
-        const profileUrl = m.profileUrl || '/lumina-tablica.html';
-        const isPublicRoom = !!m.isPublic;
-        html += `
-          <div class="cc-chat-member-card" data-member-id="${m.id}">
-            <div class="cc-chat-member-card-left">
-              <a href="${escapeHtml(profileUrl)}" target="_blank" rel="noopener noreferrer" title="Otwórz profil: ${escapeHtml(m.name)}" style="display:inline-flex;text-decoration:none;" onclick="event.stopPropagation();">
-                <img src="${escapeHtml(m.avatar)}" alt="${escapeHtml(m.name)}" class="cc-chat-member-avatar" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
-              </a>
-              <div class="cc-chat-member-info">
-                <div class="cc-chat-member-name-row">
-                  <a href="${escapeHtml(profileUrl)}" target="_blank" rel="noopener noreferrer" class="cc-chat-member-name" title="Otwórz profil: ${escapeHtml(m.name)}" onclick="event.stopPropagation();" style="text-decoration:none;">${escapeHtml(m.name)}</a>
-                  <span class="cc-chat-active-badge">${escapeHtml(m.badge)}</span>
-                </div>
-                <div class="cc-chat-member-desc">${escapeHtml(m.desc)}</div>
-              </div>
+      // Automatyczne zwijanie baneru po wysłaniu wiadomości, by zrobić miejsce
+      if (showcaseEl && !isShowcaseCollapsed) {
+        isShowcaseCollapsed = true;
+        showcaseEl.classList.add('is-collapsed');
+        if (toggleIcon) toggleIcon.textContent = '▸';
+      }
+
+      // Wskaźnik pisania asystenta (180 ms)
+      setTimeout(() => {
+        const answer = getAssistantAnswer(cleanText, asst);
+        const botRow = document.createElement('div');
+        botRow.className = 'cc-chat-msg-row';
+
+        let actionsHtml = '';
+        if (answer.actions && answer.actions.length) {
+          actionsHtml = `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">` +
+            answer.actions.map(act => {
+              if (act.type === 'radio_play') {
+                return `<button type="button" class="cc-showcase-pill is-primary" onclick="document.getElementById('ccChatRadioPlayBtn')?.click()">${escapeHtml(act.label)}</button>`;
+              }
+              if (act.type === 'switch_tab_team') {
+                return `<button type="button" class="cc-showcase-pill" onclick="document.getElementById('ccChatTabTeamBtn')?.click()">${escapeHtml(act.label)}</button>`;
+              }
+              return `<a href="${escapeHtml(act.url)}" class="cc-showcase-pill is-primary" style="text-decoration:none;">${escapeHtml(act.label)} →</a>`;
+            }).join('') +
+          `</div>`;
+        }
+
+        botRow.innerHTML = `
+          <img src="${asst.avatar}" alt="${asst.name}" class="cc-chat-msg-avatar" onerror="this.src='${asst.avatarFallback}'">
+          <div class="cc-chat-msg-content">
+            <div class="cc-chat-msg-meta">
+              <span class="cc-chat-msg-sender">${asst.name}</span>
+              <span>${timeStr}</span>
             </div>
-            <div class="cc-chat-member-actions">
-              <a href="${escapeHtml(profileUrl)}" target="_blank" rel="noopener noreferrer" class="cc-chat-member-profile-btn" title="Otwórz profil: ${escapeHtml(m.name)}" onclick="event.stopPropagation();">
-                <span>${isPublicRoom ? 'Tablica' : 'Profil'}</span> ${isPublicRoom ? '🕊️' : '👤'}
-              </a>
-              <button type="button" class="cc-chat-member-chat-btn" data-start-chat="${m.id}" aria-label="Rozpocznij rozmowę z ${escapeHtml(m.name)}">
-                <span>Rozmawiaj</span> 💬
-              </button>
+            <div class="cc-chat-msg-bubble">
+              <div>${escapeHtml(answer.reply)}</div>
+              ${actionsHtml}
             </div>
           </div>
         `;
+        list.appendChild(botRow);
+        scrollToBottom();
+      }, 180);
+    }
+
+    // Obsługa wysyłania z pola textarea
+    chatForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const text = (chatInput.value || '').trim();
+      if (!text) return;
+      chatInput.value = '';
+      sendAssistantMessage(text);
+    });
+
+    chatInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        chatForm.dispatchEvent(new Event('submit'));
+      }
+    });
+
+    // Wyszukiwanie członków społeczności
+    const membersSearch = document.getElementById('ccChatMembersSearchInput');
+    function renderMembersList(query) {
+      const list = document.getElementById('ccChatMembersList');
+      if (!list) return;
+      const filtered = COMMUNITY_MEMBERS.filter(m => {
+        if (!query) return true;
+        const q = query.toLowerCase();
+        return m.name.toLowerCase().includes(q) || (m.badge && m.badge.toLowerCase().includes(q)) || (m.desc && m.desc.toLowerCase().includes(q));
       });
 
-      list.innerHTML = html || `<div style="text-align:center;padding:24px;color:#94A3B8;font-size:0.82rem;">Nie znaleziono użytkownika dla zapytania "${escapeHtml(query)}"</div>`;
+      list.innerHTML = filtered.map(m => `
+        <div class="cc-card-item" data-partner-id="${m.id}">
+          <img src="${escapeHtml(m.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(m.name)}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid var(--lumi-border);">
+          <div class="cc-card-info">
+            <span class="cc-card-title">${escapeHtml(m.name)}</span>
+            <span class="cc-card-sub">${escapeHtml(m.desc || m.badge)}</span>
+          </div>
+          <span class="cc-qc-arrow">💬</span>
+        </div>
+      `).join('');
 
-      list.querySelectorAll('.cc-chat-member-card, [data-start-chat]').forEach(el => {
-        el.addEventListener('click', function (e) {
-          // Jeśli kliknięto w link profilu, nie przechwytuj
-          if (e.target.closest('a')) return;
-          const mid = el.getAttribute('data-member-id') || el.getAttribute('data-start-chat');
-          const member = COMMUNITY_MEMBERS.find(x => x.id === mid);
-          if (member) setChatPartner(member);
+      list.querySelectorAll('[data-member-id]').forEach(item => {
+        item.addEventListener('click', () => {
+          const mid = item.getAttribute('data-member-id');
+          const found = COMMUNITY_MEMBERS.find(x => x.id === mid);
+          if (found) {
+            setChatPartner(found);
+            switchTab('live');
+          }
         });
       });
     }
 
+    if (membersSearch) {
+      membersSearch.addEventListener('input', () => {
+        renderMembersList(membersSearch.value.trim());
+      });
+    }
+
+    // Otwieranie / zamykanie czatu
     function openChat() {
-      if (!isCanonicalMessenger) {
-        integrationReady.then(() => {
-          if (window.CCUnifiedChat) window.CCUnifiedChat.open();
-          else window.location.href = '/mess';
-        });
-        return;
-      }
-      // Jeśli jesteśmy na podstronie z natywnym modalem LUMINA i użytkownik nie jest w trybie gościa ukrywającego go:
-      const nativeModal = document.getElementById('directMessagesModal');
-      const isGuestBlocked = document.body && document.body.classList.contains('user-is-guest');
-
-      if (nativeModal && !isGuestBlocked) {
-        if (typeof window.openDirectMessagesModal === 'function') {
-          window.openDirectMessagesModal('public');
-          return;
-        }
-        if (typeof window.openLuminaChatModal === 'function') {
-          window.openLuminaChatModal();
-          return;
-        }
-        nativeModal.style.display = 'flex';
-        nativeModal.classList.add('open');
-        if (typeof window.switchMessengerMainTab === 'function') {
-          window.switchMessengerMainTab('public');
-        }
-        return;
-      }
-
-      // Otwarcie zintegrowanego okna rozmowy live (domyślnie czat ogólny)
-      if (typeof COMMUNITY_MEMBERS !== 'undefined' && COMMUNITY_MEMBERS.length > 0 && typeof setChatPartner === 'function') {
-        setChatPartner(COMMUNITY_MEMBERS[0]);
-      }
-      updateActivePartnerUI();
-      renderChatMessages();
-      switchTab('live');
       overlay.classList.add('is-open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
-
+      switchTab('live');
+      renderChatMessages();
+      document.body.style.overflow = 'hidden';
+      switchTab('live');
       setTimeout(() => {
         scrollToBottom();
-        if (chatInput && window.innerWidth > 768) {
-          chatInput.focus();
-        }
-      }, 120);
+        if (chatInput && window.innerWidth > 768) chatInput.focus();
+      }, 100);
     }
 
     function closeChat() {
@@ -2191,153 +2711,106 @@
     }
 
     if (btn) {
-      btn.addEventListener('click', function (e) {
+      btn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         openChat();
       });
     }
 
-    const luminaDockBtn = document.getElementById('luminaFloatingChatBtn');
-    if (luminaDockBtn && !luminaDockBtn._ccGlobalChatBound) {
-      luminaDockBtn._ccGlobalChatBound = true;
-      luminaDockBtn.addEventListener('click', function (e) {
-        const nativeModal = document.getElementById('directMessagesModal');
-        const isGuestBlocked = document.body && document.body.classList.contains('user-is-guest');
-        if (!nativeModal || isGuestBlocked) {
-          e.preventDefault();
-          e.stopPropagation();
-          openChat();
-        }
-      });
-    }
-
-    closeBtn.addEventListener('click', function (e) {
+    closeBtn?.addEventListener('click', (e) => {
       e.preventDefault();
       closeChat();
     });
 
-    overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) {
-        closeChat();
-      }
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeChat();
     });
 
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
-        closeChat();
-      }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeChat();
     });
 
-    // Obsługa wysyłania wiadomości (Real Firestore Transport • Zero Symulacji)
-    chatForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const text = (chatInput.value || '').trim();
-      if (!text) return;
+    // Synchronizacja pozycji FAB z odtwarzaczem
+    function setupPositionSync(fabWrap) {
+    function adjust() {
+      const isMobile = window.innerWidth <= 768;
+      let bottomOffset = isMobile ? 14 : 18;
+      let playerCenterFromBottom = null;
+      let detectedBarTopFromBottom = 0;
 
-      const user = getUserState();
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-      // WERYFIKACJA LOGOWANIA — brak symulacji dla gości w czacie 1:1
-      if (!currentChatPartner.isPublic && (!user.isLoggedIn || !user.uid)) {
-        showChatNotice(`Wiadomości prywatne do ${escapeHtml(currentChatPartner.name)} wymagają zalogowanego konta w portalu LUMINA. <a href="/lumina.html?action=login" target="_blank" style="color:#C4A35A;font-weight:bold;text-decoration:underline;">Zaloguj się tutaj 🕊️</a>`);
-        return;
-      }
-
-      // WERYFIKACJA LOGOWANIA DLA CZATU PUBLICZNEGO
-      if (currentChatPartner.isPublic && (!user.isLoggedIn || !user.uid)) {
-        showChatNotice(`Wysyłanie na czacie ogólnym wymaga zalogowanego profilu w portalu LUMINA. <a href="/lumina.html?action=login" target="_blank" style="color:#C4A35A;font-weight:bold;text-decoration:underline;">Zaloguj się tutaj 🕊️</a>`);
-        return;
-      }
-
-      // 1. CZAT OGÓLNY SPOŁECZNOŚCI
-      if (currentChatPartner.isPublic) {
-        if (window.LuminaDB && typeof window.LuminaDB.sendPublicChatMessage === 'function') {
-          chatInput.value = '';
-          window.LuminaDB.sendPublicChatMessage({
-            text: text,
-            senderName: user.name,
-            senderAvatar: user.avatar,
-            senderBadge: user.badge
-          }).then(function () {
-            if (!activeRealtimeUnsubscribe) {
-              renderChatMessages();
-              scrollToBottom();
-            }
-          }).catch(function (err) {
-            console.warn('Błąd wysyłki wiadomości do Firestore:', err);
-            showChatNotice('Nie udało się wysłać wiadomości na czat ogólny. Sprawdź połączenie.');
-          });
+      // 1. Sprawdzenie przycisku play w dolnym odtwarzaczu (#playBtn lub .play-btn)
+      const playBtn = document.getElementById('playBtn') || document.querySelector('.play-btn');
+      if (playBtn) {
+        const pRect = playBtn.getBoundingClientRect();
+        if (pRect.height > 0 && pRect.top < window.innerHeight && pRect.bottom > window.innerHeight - 200) {
+          const playCenterY = pRect.top + (pRect.height / 2);
+          playerCenterFromBottom = window.innerHeight - playCenterY;
         }
-        return;
       }
 
-      // 2. CZAT BEZPOŚREDNI 1:1 (LUMINA DIRECT CLOUD)
-      const partnerId = currentChatPartner.slug || currentChatPartner.id;
-      const myId = user.slug || user.uid;
-      const chatId = (window.LuminaDB && typeof window.LuminaDB.getChatId === 'function')
-        ? window.LuminaDB.getChatId(myId, partnerId)
-        : [myId, partnerId].sort().join('_');
+      // 2. Wykrywanie dolnych belek (pasek radia, audio bar, dolna nawigacja)
+      const candidates = [
+        '#radioPlayerBar',
+        '.radio-player-bar',
+        '#globalAudioBar',
+        '.radio-bar',
+        '.player-bottom-bar',
+        '.lumina-mobile-nav',
+        '.bottom-nav-container',
+        '.mobile-nav',
+        '#mapaBottomVerseBar',
+        '.player-sticky-controls'
+      ];
 
-      const messageObj = {
-        text: text,
-        receiverId: partnerId,
-        senderName: user.name,
-        senderAvatar: user.avatar,
-        senderBadge: user.badge,
-        senderAuthUid: user.uid,
-        senderId: myId,
-        dateStr: timeStr,
-        createdAt: Date.now()
-      };
-
-      chatInput.value = '';
-
-      if (window.LuminaDB && typeof window.LuminaDB.sendDirectMessageToCloud === 'function') {
-        window.LuminaDB.sendDirectMessageToCloud(chatId, messageObj).then(function () {
-          if (!activeRealtimeUnsubscribe) {
-            renderChatMessages();
-            scrollToBottom();
+      for (const sel of candidates) {
+        const el = document.querySelector(sel);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.height > 0 && rect.top < window.innerHeight && rect.bottom >= window.innerHeight - 10) {
+            const barHeight = Math.round(window.innerHeight - rect.top);
+            detectedBarTopFromBottom = Math.max(detectedBarTopFromBottom, barHeight);
+            bottomOffset = Math.max(bottomOffset, barHeight + (isMobile ? 10 : 14));
           }
-        }).catch(function (err) {
-          console.warn('Błąd wysyłki wiadomości 1:1:', err);
-          showChatNotice('Nie udało się doręczyć wiadomości prywatnej. Sprawdź połączenie.');
-        });
-      } else {
-        showChatNotice('Baza danych LUMINA jest w tej chwili niedostępna.');
+        }
       }
-    });
 
-    // Uruchom synchronizację pozycji w pionie (unikanie kolizji z playerem)
-    setupPositionSync(fabWrap);
-  }
+      // 3. Pozycjonowanie ikony czatu:
+      // Jeśli wykryto przycisk play — wyrównaj idealnie oś poziomą (dokładnie ta sama wysokość co playBtn)
+      const fabBtn = fabWrap.querySelector('.cc-chat-fab-btn') || fabWrap;
+      const fabH = fabBtn.offsetHeight || (isMobile ? 50 : 50);
 
-  // 6. Pobieranie wiadomości dla aktywnego rozmówcy
-  function getChatMessagesForPartner(partner) {
-    if (currentPartnerRealtimeMessages && Array.isArray(currentPartnerRealtimeMessages)) {
-      return currentPartnerRealtimeMessages;
+      if (playerCenterFromBottom !== null) {
+        const alignedBottom = Math.round(playerCenterFromBottom - (fabH / 2));
+        fabWrap.style.setProperty('bottom', `${alignedBottom}px`, 'important');
+      } else {
+        fabWrap.style.setProperty('bottom', `${bottomOffset}px`, 'important');
+      }
+
+      // 4. Bezpieczne pozycjonowanie przycisku "do góry" (#backToTopBtn) — ZAWSZE w całości nad dolnym paskiem!
+      const btt = document.getElementById('backToTopBtn');
+      if (btt) {
+        let bttBottom = 0;
+        if (detectedBarTopFromBottom > 0) {
+          // Dolny pasek radia/audio jest obecny — umieść przycisk bezpiecznie 16px nad górną krawędzią paska
+          bttBottom = detectedBarTopFromBottom + 16;
+        } else {
+          // Brak paska — umieść przycisk nad ikoną czatu
+          bttBottom = bottomOffset + (isMobile ? 64 : 70);
+        }
+        btt.style.setProperty('bottom', `${bttBottom}px`, 'important');
+      }
     }
 
-    const user = getUserState();
-    if (partner.isPublic) {
-      try {
-        const cached = localStorage.getItem('lumina_public_chat_cache');
-        if (cached) return JSON.parse(cached);
-      } catch (e) {}
-      return [];
-    } else {
-      if (!user.isLoggedIn || !user.uid) return [];
-      try {
-        const partnerId = partner.slug || partner.id;
-        const myId = user.slug || user.uid;
-        const chatId = (window.LuminaDB && typeof window.LuminaDB.getChatId === 'function')
-          ? window.LuminaDB.getChatId(myId, partnerId)
-          : [myId, partnerId].sort().join('_');
-        const cached = localStorage.getItem('lumina_chat_' + chatId);
-        if (cached) return JSON.parse(cached);
-      } catch (e) {}
-      return [];
+    window.addEventListener('resize', adjust, { passive: true });
+    window.addEventListener('scroll', adjust, { passive: true });
+    setTimeout(adjust, 100);
+    setTimeout(adjust, 300);
+    setTimeout(adjust, 1000);
+  }
+    if (typeof renderPartnersBar === 'function') renderPartnersBar();
+    if (typeof setChatPartner === 'function' && typeof COMMUNITY_MEMBERS !== 'undefined' && COMMUNITY_MEMBERS.length > 0) {
+      setChatPartner(COMMUNITY_MEMBERS[0]);
     }
   }
 
@@ -2582,6 +3055,34 @@
     };
   }
 
+  
+  function renderPartnersBar() {
+    const bar = document.getElementById('ccChatPartnersBar');
+    if (!bar) return;
+    bar.innerHTML = COMMUNITY_MEMBERS.map(m => `
+      <button type="button" class="cc-chat-partner-chip ${m.id === currentChatPartner.id ? 'is-active' : ''}" data-partner-id="${m.id}" title="${escapeHtml(m.name)}" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--lumi-panel);border:1px solid ${m.id === currentChatPartner.id ? 'var(--lumi-accent)' : 'var(--lumi-border)'};color:var(--lumi-text);font-size:0.75rem;cursor:pointer;white-space:nowrap;min-height:36px;">
+        <img src="${escapeHtml(m.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(m.name)}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+        <span>${escapeHtml(m.name.split(' ')[0])}</span>
+      </button>
+    `).join('');
+
+    bar.querySelectorAll('[data-partner-id]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-partner-id');
+        const p = COMMUNITY_MEMBERS.find(x => x.id === id);
+        if (p) {
+          setChatPartner(p);
+          bar.querySelectorAll('.cc-chat-partner-chip').forEach(c => {
+            c.classList.remove('is-active');
+            c.style.borderColor = 'var(--lumi-border)';
+          });
+          btn.classList.add('is-active');
+          btn.style.borderColor = 'var(--lumi-accent)';
+        }
+      });
+    });
+  }
+
   function renderChatMessages() {
     const list = document.getElementById('ccChatMessagesList');
     if (!list) return;
@@ -2592,36 +3093,28 @@
     if (!msgs || msgs.length === 0) {
       if (currentChatPartner.isPublic) {
         list.innerHTML = `
-          <div class="cc-chat-empty-state" style="text-align:center;padding:36px 16px;color:#94A3B8;">
-            <div style="font-size:2.2rem;margin-bottom:8px;">🕊️</div>
-            <div style="font-weight:700;color:#F8FAFC;font-size:0.95rem;margin-bottom:6px;">Czat Ogólny Społeczności LUMINA</div>
-            <p style="font-size:0.82rem;line-height:1.45;max-width:320px;margin:0 auto;color:#94A3B8;">
-              Wspólnota wiary, modlitwy i dialogu. Podziel się świadectwem, zadaj pytanie lub dołącz do rozmowy!
-            </p>
-            ${!user.isLoggedIn ? `
-              <div style="margin-top:16px;">
-                <a href="/lumina.html?action=login" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:8px 18px;border-radius:999px;background:linear-gradient(135deg,#C4A35A,#9A7B38);color:#0A0E17;font-weight:700;font-size:0.8rem;text-decoration:none;box-shadow:0 4px 12px rgba(196,163,90,0.3);">
-                  Zaloguj się do LUMINA 🕊️
-                </a>
-              </div>
-            ` : ''}
+          <div class="cc-asst-welcome-bubble" id="ccChatWelcomeBubble" style="background:var(--lumi-card);border:1px solid var(--lumi-border);border-radius:18px;padding:16px 20px;color:var(--lumi-text);font-size:0.92rem;line-height:1.55;">
+            <p style="margin:0 0 8px 0;font-weight:700;color:var(--lumi-text);">Cześć! ❤️ Dobrze, że jesteś.</p>
+            <p id="ccChatWelcomeBody" style="margin:0 0 8px 0;color:var(--lumi-text);">Nazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.</p>
+            <p style="margin:0 0 8px 0;color:var(--lumi-text-sub);">Przez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, Czat Ogólny i społeczność LUMINA lub kontakt z zespołem.</p>
+            <p style="margin:0;font-weight:700;color:var(--lumi-gold);">W czym mogę Ci dziś pomóc?</p>
           </div>
         `;
       } else {
         list.innerHTML = `
-          <div class="cc-chat-empty-state" style="text-align:center;padding:32px 16px;color:#94A3B8;">
-            <img src="${escapeHtml(currentChatPartner.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(currentChatPartner.name)}" style="width:64px;height:64px;border-radius:50%;margin:0 auto 10px;display:block;border:2px solid rgba(196,163,90,0.5);object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,0.4);" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
-            <div style="font-weight:700;color:#F8FAFC;font-size:0.98rem;margin-bottom:4px;">${escapeHtml(currentChatPartner.name)}</div>
-            <div style="display:inline-block;font-size:0.75rem;color:#C4A35A;background:rgba(196,163,90,0.12);border:1px solid rgba(196,163,90,0.3);padding:2px 10px;border-radius:999px;margin-bottom:10px;">${escapeHtml(currentChatPartner.badge)}</div>
-            <p style="font-size:0.82rem;line-height:1.45;max-width:300px;margin:0 auto;color:#94A3B8;">
+          <div class="cc-chat-empty-state" style="text-align:center;padding:24px 16px;color:#A5AEC4;">
+            <img src="${escapeHtml(currentChatPartner.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(currentChatPartner.name)}" style="width:56px;height:56px;border-radius:50%;margin:0 auto 10px;display:block;border:2px solid #D8AD57;object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,0.4);" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+            <div style="font-weight:700;color:#F7F8FC;font-size:0.95rem;margin-bottom:4px;">${escapeHtml(currentChatPartner.name)}</div>
+            <div style="display:inline-block;font-size:0.75rem;color:#D8AD57;background:rgba(216,173,87,0.12);border:1px solid rgba(216,173,87,0.3);padding:2px 10px;border-radius:999px;margin-bottom:10px;">${escapeHtml(currentChatPartner.badge)}</div>
+            <p style="font-size:0.85rem;line-height:1.5;max-width:300px;margin:0 auto;color:#A5AEC4;">
               ${user.isLoggedIn
                 ? 'Rozpocznij bezpośrednią rozmowę. Wiadomości trafiają prosto do skrzynki profilu.'
                 : 'Bezpośrednie wiadomości 1:1 wymagają zalogowanego profilu w portalu LUMINA.'}
             </p>
             ${!user.isLoggedIn ? `
               <div style="margin-top:14px;">
-                <a href="/lumina.html?action=login" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:8px 18px;border-radius:999px;background:linear-gradient(135deg,#C4A35A,#9A7B38);color:#0A0E17;font-weight:700;font-size:0.8rem;text-decoration:none;box-shadow:0 4px 12px rgba(196,163,90,0.3);">
-                  Zaloguj się, aby rozmawiać 🕊️
+                <a href="/lumina.html?action=login" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:8px 18px;border-radius:999px;background:linear-gradient(135deg,#D8AD57,#B58A38);color:#0D1020;font-weight:700;font-size:0.8rem;text-decoration:none;box-shadow:0 4px 12px rgba(216,173,87,0.3);">
+                  Zaloguj się do LUMINA 🕊️
                 </a>
               </div>
             ` : ''}
@@ -2633,7 +3126,6 @@
 
     let html = '';
     msgs.forEach(m => {
-      // Rozróżnienie wiadomości własnych od rozmówcy
       const isMe = m.isMe || (user.uid && (m.senderAuthUid === user.uid || m.senderUid === user.uid)) || (user.slug && m.senderId === user.slug);
       const name = escapeHtml(m.senderName || (isMe ? user.name : currentChatPartner.name));
       const avatar = escapeHtml(m.senderAvatar || (isMe ? user.avatar : currentChatPartner.avatar) || '/images/chat/cc-chat-button-120.webp');
@@ -2650,8 +3142,6 @@
       }
 
       const text = escapeHtml(m.text || '');
-
-      // Odnalezienie profilu nadawcy
       const partnerObj = COMMUNITY_MEMBERS.find(c => c.id === m.senderId || c.slug === m.senderId);
       const profileLink = partnerObj ? partnerObj.profileUrl : (isMe ? '/lumina-tablica.html' : currentChatPartner.profileUrl || '/lumina-tablica.html');
 
@@ -2665,102 +3155,107 @@
               <a href="${escapeHtml(profileLink)}" target="_blank" rel="noopener noreferrer" class="cc-chat-msg-sender" title="Otwórz profil: ${name}" style="text-decoration:none;">${name}</a>
               <span class="cc-chat-msg-badge">${badge}</span>
               ${time ? `<span style="opacity: 0.7;">${time}</span>` : ''}
+              <button type="button" class="cc-chat-share-btn" onclick="window.shareChatMessage(this)" data-share-sender="${name}" data-share-text="${text}" style="background:transparent; border:none; box-shadow:none; color:rgba(255,255,255,0.7); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; margin-left:auto;" title="Udostępnij tę wiadomość" aria-label="Udostępnij wiadomość">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+              </button>
             </div>
             <div class="cc-chat-msg-bubble">
               ${renderChatMedia(text, m.id)}
-              <div style="display:flex; justify-content:flex-end; align-items:center; margin-top:4px;">
-                <button type="button" class="cc-chat-share-btn" onclick="window.shareChatMessage(this)" data-share-sender="${name}" data-share-text="${text}" style="background:transparent; border:none; box-shadow:none; color:rgba(255,255,255,0.7); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center;" title="Udostępnij tę wiadomość" aria-label="Udostępnij wiadomość">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-                </button>
-              </div>
             </div>
           </div>
         </div>
       `;
     });
-
     list.innerHTML = html;
   }
 
-  // 7. Dynamiczne pozycjonowanie FAB (wyrównanie z przyciskiem play i ochrona przed nakładaniem na paski)
-  function setupPositionSync(fabWrap) {
-    function adjust() {
-      const isMobile = window.innerWidth <= 768;
-      let bottomOffset = isMobile ? 14 : 18;
-      let playerCenterFromBottom = null;
-      let detectedBarTopFromBottom = 0;
+  
+  let activeRealtimeUnsubscribe = null;
 
-      // 1. Sprawdzenie przycisku play w dolnym odtwarzaczu (#playBtn lub .play-btn)
-      const playBtn = document.getElementById('playBtn') || document.querySelector('.play-btn');
-      if (playBtn) {
-        const pRect = playBtn.getBoundingClientRect();
-        if (pRect.height > 0 && pRect.top < window.innerHeight && pRect.bottom > window.innerHeight - 200) {
-          const playCenterY = pRect.top + (pRect.height / 2);
-          playerCenterFromBottom = window.innerHeight - playCenterY;
+  function getChatMessagesForPartner(partner) {
+    if (currentPartnerRealtimeMessages && Array.isArray(currentPartnerRealtimeMessages)) {
+      return currentPartnerRealtimeMessages;
+    }
+
+    const user = getUserState();
+    if (partner.isPublic) {
+      try {
+        const cached = localStorage.getItem('lumina_public_chat_cache');
+        if (cached) return JSON.parse(cached);
+      } catch (e) {}
+      return [];
+    } else {
+      if (!user.isLoggedIn || !user.uid) return [];
+      try {
+        const partnerId = partner.slug || partner.id;
+        const myId = user.slug || user.uid;
+        const chatId = (window.LuminaDB && typeof window.LuminaDB.getChatId === 'function')
+          ? window.LuminaDB.getChatId(myId, partnerId)
+          : [myId, partnerId].sort().join('_');
+        const cached = localStorage.getItem('lumina_chat_' + chatId);
+        if (cached) return JSON.parse(cached);
+      } catch (e) {}
+      return [];
+    }
+  }
+
+    function setChatPartner(partner) {
+    if (typeof activeRealtimeUnsubscribe === 'function') {
+      try { activeRealtimeUnsubscribe(); } catch(e) {}
+      activeRealtimeUnsubscribe = null;
+    }
+    currentPartnerRealtimeMessages = null;
+    currentChatPartner = partner || COMMUNITY_MEMBERS[0];
+
+    const subText = document.getElementById('ccChatHeaderSubText');
+    if (subText) {
+      subText.textContent = currentChatPartner.isPublic ? 'Na żywo w Chrystusie' : `Rozmowa: ${currentChatPartner.name}`;
+    }
+    const title = document.getElementById('ccChatActiveAsstName');
+    if (title && !currentChatPartner.isPublic) {
+      title.textContent = currentChatPartner.name;
+    }
+
+    const user = getUserState();
+    if (currentChatPartner.isPublic) {
+      if (window.LuminaDB && typeof window.LuminaDB.subscribeToPublicChat === 'function') {
+        try {
+          activeRealtimeUnsubscribe = window.LuminaDB.subscribeToPublicChat(function (msgs) {
+            if (currentChatPartner.isPublic && Array.isArray(msgs)) {
+              currentPartnerRealtimeMessages = msgs;
+              renderChatMessages();
+              scrollToBottom();
+            }
+          });
+        } catch(err) {
+          console.warn('Lumina Public Chat sync:', err);
         }
       }
+    } else {
+      if (user.isLoggedIn && user.uid && window.LuminaDB && typeof window.LuminaDB.subscribeToDirectMessages === 'function') {
+        const partnerId = currentChatPartner.slug || currentChatPartner.id;
+        const myId = user.slug || user.uid;
+        const chatId = (typeof window.LuminaDB.getChatId === 'function')
+          ? window.LuminaDB.getChatId(myId, partnerId)
+          : [myId, partnerId].sort().join('_');
 
-      // 2. Wykrywanie dolnych belek (pasek radia, audio bar, dolna nawigacja)
-      const candidates = [
-        '#radioPlayerBar',
-        '.radio-player-bar',
-        '#globalAudioBar',
-        '.radio-bar',
-        '.player-bottom-bar',
-        '.lumina-mobile-nav',
-        '.bottom-nav-container',
-        '.mobile-nav',
-        '#mapaBottomVerseBar',
-        '.player-sticky-controls'
-      ];
-
-      for (const sel of candidates) {
-        const el = document.querySelector(sel);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.height > 0 && rect.top < window.innerHeight && rect.bottom >= window.innerHeight - 10) {
-            const barHeight = Math.round(window.innerHeight - rect.top);
-            detectedBarTopFromBottom = Math.max(detectedBarTopFromBottom, barHeight);
-            bottomOffset = Math.max(bottomOffset, barHeight + (isMobile ? 10 : 14));
-          }
+        try {
+          activeRealtimeUnsubscribe = window.LuminaDB.subscribeToDirectMessages(chatId, function (msgs) {
+            if (!currentChatPartner.isPublic && Array.isArray(msgs)) {
+              currentPartnerRealtimeMessages = msgs;
+              renderChatMessages();
+              scrollToBottom();
+            }
+          });
+        } catch(err) {
+          console.warn('Lumina Direct Chat sync:', err);
         }
-      }
-
-      // 3. Pozycjonowanie ikony czatu:
-      // Jeśli wykryto przycisk play — wyrównaj idealnie oś poziomą (dokładnie ta sama wysokość co playBtn)
-      const fabBtn = fabWrap.querySelector('.cc-chat-fab-btn') || fabWrap;
-      const fabH = fabBtn.offsetHeight || (isMobile ? 50 : 50);
-
-      if (playerCenterFromBottom !== null) {
-        const alignedBottom = Math.round(playerCenterFromBottom - (fabH / 2));
-        fabWrap.style.setProperty('bottom', `${alignedBottom}px`, 'important');
-      } else {
-        fabWrap.style.setProperty('bottom', `${bottomOffset}px`, 'important');
-      }
-
-      // 4. Bezpieczne pozycjonowanie przycisku "do góry" (#backToTopBtn) — ZAWSZE w całości nad dolnym paskiem!
-      const btt = document.getElementById('backToTopBtn');
-      if (btt) {
-        let bttBottom = 0;
-        if (detectedBarTopFromBottom > 0) {
-          // Dolny pasek radia/audio jest obecny — umieść przycisk bezpiecznie 16px nad górną krawędzią paska
-          bttBottom = detectedBarTopFromBottom + 16;
-        } else {
-          // Brak paska — umieść przycisk nad ikoną czatu
-          bttBottom = bottomOffset + (isMobile ? 64 : 70);
-        }
-        btt.style.setProperty('bottom', `${bttBottom}px`, 'important');
       }
     }
 
-    window.addEventListener('resize', adjust, { passive: true });
-    window.addEventListener('scroll', adjust, { passive: true });
-    setTimeout(adjust, 100);
-    setTimeout(adjust, 300);
-    setTimeout(adjust, 1000);
+    renderChatMessages();
   }
 
-  // 8. Automatyczna inicjalizacja po załadowaniu DOM
   function init() {
     injectStyles();
     mountComponent();
@@ -2824,23 +3319,35 @@
         });
         return;
       }
-      const btn = document.getElementById('ccChatFabBtn') || document.getElementById('luminaFloatingChatBtn');
-      if (btn) btn.click();
-      else if (typeof openChat === 'function') openChat();
-      if (targetPartnerId) {
+      const overlay = document.getElementById('ccGlobalChatOverlay');
+      if (overlay) {
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      if (targetTab === 'assistant' || targetPartnerId === 'cc-assistant' || (targetPartnerId && String(targetPartnerId).startsWith('asystentka-'))) {
+        const asstId = targetPartnerId && String(targetPartnerId).startsWith('asystentka-') ? targetPartnerId : 'asystentka-1';
+        if (window.selectAssistantAndRefresh) window.selectAssistantAndRefresh(asstId);
+        const liveBtn = document.getElementById('ccChatTabLiveBtn');
+        if (liveBtn) liveBtn.click();
+      } else if (targetPartnerId) {
         const p = COMMUNITY_MEMBERS.find(x => x.id === targetPartnerId || x.slug === targetPartnerId);
         if (p) {
-          const partnerBtn = document.querySelector(`[data-partner-id="${p.id}"]`);
-          if (partnerBtn) partnerBtn.click();
+          setChatPartner(p);
+          const pBtn = document.querySelector(`[data-partner-id="${p.id}"]`);
+          if (pBtn) pBtn.click();
         }
       } else if (targetTab) {
         const tabMap = {
           live: 'ccChatTabLiveBtn',
+          chat: 'ccChatTabLiveBtn',
+          team: 'ccChatTabTeamBtn',
           members: 'ccChatTabMembersBtn',
-          channels: 'ccChatTabChannelsBtn'
+          channels: 'ccChatTabChannelsBtn',
+          more: 'ccChatTabMoreBtn'
         };
-        const tabBtn = document.getElementById(tabMap[targetTab]);
-        if (tabBtn) tabBtn.click();
+        const btnId = tabMap[targetTab];
+        if (btnId) document.getElementById(btnId)?.click();
       }
     },
     close: function () {
