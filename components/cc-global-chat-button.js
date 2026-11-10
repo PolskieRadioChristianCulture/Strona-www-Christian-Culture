@@ -344,25 +344,16 @@
         100% { transform: scale(1); opacity: 1; }
       }
 
-      /* Etykieta tooltipowa dla desktopu */
+      /* Etykieta tooltipowa dla desktopu - ukryta (usunięcie kolizji z treścią strony) */
       .cc-chat-fab-tooltip {
+        display: none !important;
         position: absolute !important;
         right: calc(100% + 12px) !important;
         top: 50% !important;
         transform: translateY(-50%) translateX(6px) !important;
-        background: linear-gradient(135deg, rgba(17, 24, 39, 0.96) 0%, rgba(30, 27, 75, 0.96) 100%) !important;
-        border: 1px solid rgba(212, 175, 55, 0.4) !important;
-        color: #F8FAFC !important;
-        padding: 6px 12px !important;
-        border-radius: 20px !important;
-        font-size: 0.78rem !important;
-        font-weight: 700 !important;
-        white-space: nowrap !important;
         pointer-events: none !important;
         opacity: 0 !important;
         visibility: hidden !important;
-        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s !important;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 12px rgba(168, 85, 247, 0.25) !important;
       }
 
       
@@ -505,9 +496,9 @@
       }
 
       .cc-chat-fab-wrap:hover .cc-chat-fab-tooltip {
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: translateY(-50%) translateX(0) !important;
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
       }
 
       /* ── OKNO CZATU CC GLOBAL (LIVE + SPOŁECZNOŚĆ + KANAŁY) ── */
@@ -1554,8 +1545,8 @@
             <span class="cc-chat-teaser-cta">Kliknij i porozmawiaj →</span>
           </div>
         </div>
-        <div class="cc-chat-fab-tooltip" id="ccChatFabTooltip">LUMI Messenger · LumiMess</div>
-        <button type="button" class="cc-chat-fab-btn" id="ccChatFabBtn" aria-label="Otwórz LUMI Messenger" title="LUMI Messenger · LumiMess">
+        <div class="cc-chat-fab-tooltip" id="ccChatFabTooltip" style="display:none!important;" aria-hidden="true">LUMI Messenger · LumiMess</div>
+        <button type="button" class="cc-chat-fab-btn" id="ccChatFabBtn" aria-label="Otwórz LUMI Messenger">
           <picture>
             <source srcset="/images/chat/cc-chat-button.webp" type="image/webp">
             <img src="/images/chat/cc-chat-button.png" alt="LUMI Messenger" class="cc-chat-fab-img" width="50" height="50" loading="eager" decoding="sync">

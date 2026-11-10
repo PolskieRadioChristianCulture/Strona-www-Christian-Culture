@@ -8,6 +8,11 @@ import { db } from "./firebase-config.js";
 import './js/cc-radio-catalog.js';
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
+// Global YouTube audio bridge for playlist stations (CC Women)
+var ytPlayerBridge = null;
+var ytBridgeReady = false;
+var ytPendingPlay = false;
+
 // 1. STATIONS DATA CONFIGURATION
 // Fallback stations if Firebase fetch fails
 let STATIONS = {
@@ -1020,9 +1025,7 @@ function setAudioSource(url) {
 
 
 // ── YOUTUBE AUDIO ENGINE DLA STACJI PLAYLISTOWYCH (np. Radio CC Women) ──
-let ytPlayerBridge = null;
-let ytBridgeReady = false;
-let ytPendingPlay = false;
+
 
 function initYtBridge() {
     if (ytPlayerBridge || typeof document === 'undefined') return;
