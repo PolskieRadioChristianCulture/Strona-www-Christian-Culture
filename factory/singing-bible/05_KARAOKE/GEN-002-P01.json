@@ -1,0 +1,814 @@
+{
+  "chapterId": "GEN-002",
+  "songId": "GEN-002-P01",
+  "title": "Księga Rodzaju 2 (Część 1)",
+  "verseRange": "Wersety 1–7",
+  "status": "SYNC_READY",
+  "syncMethod": "cc-lyric-meter-precision",
+  "coverage": 100,
+  "totalLines": 16,
+  "duration": 20.03,
+  "generatedAt": "2026-11-10T07:27:39.417Z",
+  "lines": [
+    {
+      "id": "GEN-002-P01-L001",
+      "verse": 1,
+      "start": 4,
+      "end": 6.5,
+      "text": "Tak ukończone zostały niebiosa i ziemia oraz wszystkie ich zastępy.",
+      "words": [
+        {
+          "text": "Tak",
+          "start": 4,
+          "end": 4.25
+        },
+        {
+          "text": "ukończone",
+          "start": 4.25,
+          "end": 4.5
+        },
+        {
+          "text": "zostały",
+          "start": 4.5,
+          "end": 4.75
+        },
+        {
+          "text": "niebiosa",
+          "start": 4.75,
+          "end": 5
+        },
+        {
+          "text": "i",
+          "start": 5,
+          "end": 5.25
+        },
+        {
+          "text": "ziemia",
+          "start": 5.25,
+          "end": 5.5
+        },
+        {
+          "text": "oraz",
+          "start": 5.5,
+          "end": 5.75
+        },
+        {
+          "text": "wszystkie",
+          "start": 5.75,
+          "end": 6
+        },
+        {
+          "text": "ich",
+          "start": 6,
+          "end": 6.25
+        },
+        {
+          "text": "zastępy.",
+          "start": 6.25,
+          "end": 6.5
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L002",
+      "verse": 2,
+      "start": 6.8,
+      "end": 9.3,
+      "text": "W siódmym dniu Bóg ukończył swe dzieło, które uczynił;",
+      "words": [
+        {
+          "text": "W",
+          "start": 6.8,
+          "end": 7.08
+        },
+        {
+          "text": "siódmym",
+          "start": 7.08,
+          "end": 7.36
+        },
+        {
+          "text": "dniu",
+          "start": 7.36,
+          "end": 7.63
+        },
+        {
+          "text": "Bóg",
+          "start": 7.63,
+          "end": 7.91
+        },
+        {
+          "text": "ukończył",
+          "start": 7.91,
+          "end": 8.19
+        },
+        {
+          "text": "swe",
+          "start": 8.19,
+          "end": 8.47
+        },
+        {
+          "text": "dzieło,",
+          "start": 8.47,
+          "end": 8.74
+        },
+        {
+          "text": "które",
+          "start": 8.74,
+          "end": 9.02
+        },
+        {
+          "text": "uczynił;",
+          "start": 9.02,
+          "end": 9.3
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L003",
+      "verse": 2,
+      "start": 9.6,
+      "end": 12.1,
+      "text": "i odpoczął siódmego dnia od wszelkiego swego dzieła, które stworzył.",
+      "words": [
+        {
+          "text": "i",
+          "start": 9.6,
+          "end": 9.85
+        },
+        {
+          "text": "odpoczął",
+          "start": 9.85,
+          "end": 10.1
+        },
+        {
+          "text": "siódmego",
+          "start": 10.1,
+          "end": 10.35
+        },
+        {
+          "text": "dnia",
+          "start": 10.35,
+          "end": 10.6
+        },
+        {
+          "text": "od",
+          "start": 10.6,
+          "end": 10.85
+        },
+        {
+          "text": "wszelkiego",
+          "start": 10.85,
+          "end": 11.1
+        },
+        {
+          "text": "swego",
+          "start": 11.1,
+          "end": 11.35
+        },
+        {
+          "text": "dzieła,",
+          "start": 11.35,
+          "end": 11.6
+        },
+        {
+          "text": "które",
+          "start": 11.6,
+          "end": 11.85
+        },
+        {
+          "text": "stworzył.",
+          "start": 11.85,
+          "end": 12.1
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L004",
+      "verse": 3,
+      "start": 12.4,
+      "end": 14.9,
+      "text": "I Bóg błogosławił siódmy dzień, i poświęcił go,",
+      "words": [
+        {
+          "text": "I",
+          "start": 12.4,
+          "end": 12.71
+        },
+        {
+          "text": "Bóg",
+          "start": 12.71,
+          "end": 13.03
+        },
+        {
+          "text": "błogosławił",
+          "start": 13.03,
+          "end": 13.34
+        },
+        {
+          "text": "siódmy",
+          "start": 13.34,
+          "end": 13.65
+        },
+        {
+          "text": "dzień,",
+          "start": 13.65,
+          "end": 13.96
+        },
+        {
+          "text": "i",
+          "start": 13.96,
+          "end": 14.28
+        },
+        {
+          "text": "poświęcił",
+          "start": 14.28,
+          "end": 14.59
+        },
+        {
+          "text": "go,",
+          "start": 14.59,
+          "end": 14.9
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L005",
+      "verse": 3,
+      "start": 15.2,
+      "end": 17.7,
+      "text": "bo w nim odpoczął od wszelkiego swego dzieła,",
+      "words": [
+        {
+          "text": "bo",
+          "start": 15.2,
+          "end": 15.51
+        },
+        {
+          "text": "w",
+          "start": 15.51,
+          "end": 15.83
+        },
+        {
+          "text": "nim",
+          "start": 15.83,
+          "end": 16.14
+        },
+        {
+          "text": "odpoczął",
+          "start": 16.14,
+          "end": 16.45
+        },
+        {
+          "text": "od",
+          "start": 16.45,
+          "end": 16.76
+        },
+        {
+          "text": "wszelkiego",
+          "start": 16.76,
+          "end": 17.08
+        },
+        {
+          "text": "swego",
+          "start": 17.08,
+          "end": 17.39
+        },
+        {
+          "text": "dzieła,",
+          "start": 17.39,
+          "end": 17.7
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L006",
+      "verse": 3,
+      "start": 18,
+      "end": 20.5,
+      "text": "które Bóg stworzył i uczynił.",
+      "words": [
+        {
+          "text": "które",
+          "start": 18,
+          "end": 18.5
+        },
+        {
+          "text": "Bóg",
+          "start": 18.5,
+          "end": 19
+        },
+        {
+          "text": "stworzył",
+          "start": 19,
+          "end": 19.5
+        },
+        {
+          "text": "i",
+          "start": 19.5,
+          "end": 20
+        },
+        {
+          "text": "uczynił.",
+          "start": 20,
+          "end": 20.5
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L007",
+      "verse": 4,
+      "start": 20.8,
+      "end": 23.3,
+      "text": "Takie są dzieje stworzenia niebios i ziemi w dniu,",
+      "words": [
+        {
+          "text": "Takie",
+          "start": 20.8,
+          "end": 21.08
+        },
+        {
+          "text": "są",
+          "start": 21.08,
+          "end": 21.36
+        },
+        {
+          "text": "dzieje",
+          "start": 21.36,
+          "end": 21.63
+        },
+        {
+          "text": "stworzenia",
+          "start": 21.63,
+          "end": 21.91
+        },
+        {
+          "text": "niebios",
+          "start": 21.91,
+          "end": 22.19
+        },
+        {
+          "text": "i",
+          "start": 22.19,
+          "end": 22.47
+        },
+        {
+          "text": "ziemi",
+          "start": 22.47,
+          "end": 22.74
+        },
+        {
+          "text": "w",
+          "start": 22.74,
+          "end": 23.02
+        },
+        {
+          "text": "dniu,",
+          "start": 23.02,
+          "end": 23.3
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L008",
+      "verse": 4,
+      "start": 23.6,
+      "end": 26.1,
+      "text": "w którym PAN Bóg uczynił ziemię i niebiosa;",
+      "words": [
+        {
+          "text": "w",
+          "start": 23.6,
+          "end": 23.91
+        },
+        {
+          "text": "którym",
+          "start": 23.91,
+          "end": 24.23
+        },
+        {
+          "text": "PAN",
+          "start": 24.23,
+          "end": 24.54
+        },
+        {
+          "text": "Bóg",
+          "start": 24.54,
+          "end": 24.85
+        },
+        {
+          "text": "uczynił",
+          "start": 24.85,
+          "end": 25.16
+        },
+        {
+          "text": "ziemię",
+          "start": 25.16,
+          "end": 25.48
+        },
+        {
+          "text": "i",
+          "start": 25.48,
+          "end": 25.79
+        },
+        {
+          "text": "niebiosa;",
+          "start": 25.79,
+          "end": 26.1
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L009",
+      "verse": 5,
+      "start": 26.4,
+      "end": 28.9,
+      "text": "Wszelkie krzewy polne, zanim były na ziemi, i wszelkie rośliny polne,",
+      "words": [
+        {
+          "text": "Wszelkie",
+          "start": 26.4,
+          "end": 26.63
+        },
+        {
+          "text": "krzewy",
+          "start": 26.63,
+          "end": 26.85
+        },
+        {
+          "text": "polne,",
+          "start": 26.85,
+          "end": 27.08
+        },
+        {
+          "text": "zanim",
+          "start": 27.08,
+          "end": 27.31
+        },
+        {
+          "text": "były",
+          "start": 27.31,
+          "end": 27.54
+        },
+        {
+          "text": "na",
+          "start": 27.54,
+          "end": 27.76
+        },
+        {
+          "text": "ziemi,",
+          "start": 27.76,
+          "end": 27.99
+        },
+        {
+          "text": "i",
+          "start": 27.99,
+          "end": 28.22
+        },
+        {
+          "text": "wszelkie",
+          "start": 28.22,
+          "end": 28.45
+        },
+        {
+          "text": "rośliny",
+          "start": 28.45,
+          "end": 28.67
+        },
+        {
+          "text": "polne,",
+          "start": 28.67,
+          "end": 28.9
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L010",
+      "verse": 5,
+      "start": 29.2,
+      "end": 31.7,
+      "text": "nim wzeszły.",
+      "words": [
+        {
+          "text": "nim",
+          "start": 29.2,
+          "end": 30.45
+        },
+        {
+          "text": "wzeszły.",
+          "start": 30.45,
+          "end": 31.7
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L011",
+      "verse": 5,
+      "start": 32,
+      "end": 34.5,
+      "text": "Bo PAN Bóg jeszcze nie spuścił deszczu na ziemię i nie było człowieka,",
+      "words": [
+        {
+          "text": "Bo",
+          "start": 32,
+          "end": 32.19
+        },
+        {
+          "text": "PAN",
+          "start": 32.19,
+          "end": 32.38
+        },
+        {
+          "text": "Bóg",
+          "start": 32.38,
+          "end": 32.58
+        },
+        {
+          "text": "jeszcze",
+          "start": 32.58,
+          "end": 32.77
+        },
+        {
+          "text": "nie",
+          "start": 32.77,
+          "end": 32.96
+        },
+        {
+          "text": "spuścił",
+          "start": 32.96,
+          "end": 33.15
+        },
+        {
+          "text": "deszczu",
+          "start": 33.15,
+          "end": 33.35
+        },
+        {
+          "text": "na",
+          "start": 33.35,
+          "end": 33.54
+        },
+        {
+          "text": "ziemię",
+          "start": 33.54,
+          "end": 33.73
+        },
+        {
+          "text": "i",
+          "start": 33.73,
+          "end": 33.92
+        },
+        {
+          "text": "nie",
+          "start": 33.92,
+          "end": 34.12
+        },
+        {
+          "text": "było",
+          "start": 34.12,
+          "end": 34.31
+        },
+        {
+          "text": "człowieka,",
+          "start": 34.31,
+          "end": 34.5
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L012",
+      "verse": 5,
+      "start": 34.8,
+      "end": 37.3,
+      "text": "który by uprawiał ziemię.",
+      "words": [
+        {
+          "text": "który",
+          "start": 34.8,
+          "end": 35.42
+        },
+        {
+          "text": "by",
+          "start": 35.42,
+          "end": 36.05
+        },
+        {
+          "text": "uprawiał",
+          "start": 36.05,
+          "end": 36.67
+        },
+        {
+          "text": "ziemię.",
+          "start": 36.67,
+          "end": 37.3
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L013",
+      "verse": 6,
+      "start": 37.6,
+      "end": 40.1,
+      "text": "Ale z ziemi wychodziła para, która nawilżała całą powierzchnię ziemi.",
+      "words": [
+        {
+          "text": "Ale",
+          "start": 37.6,
+          "end": 37.85
+        },
+        {
+          "text": "z",
+          "start": 37.85,
+          "end": 38.1
+        },
+        {
+          "text": "ziemi",
+          "start": 38.1,
+          "end": 38.35
+        },
+        {
+          "text": "wychodziła",
+          "start": 38.35,
+          "end": 38.6
+        },
+        {
+          "text": "para,",
+          "start": 38.6,
+          "end": 38.85
+        },
+        {
+          "text": "która",
+          "start": 38.85,
+          "end": 39.1
+        },
+        {
+          "text": "nawilżała",
+          "start": 39.1,
+          "end": 39.35
+        },
+        {
+          "text": "całą",
+          "start": 39.35,
+          "end": 39.6
+        },
+        {
+          "text": "powierzchnię",
+          "start": 39.6,
+          "end": 39.85
+        },
+        {
+          "text": "ziemi.",
+          "start": 39.85,
+          "end": 40.1
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L014",
+      "verse": 7,
+      "start": 40.4,
+      "end": 42.9,
+      "text": "Wtedy PAN Bóg ukształtował człowieka z prochu ziemi",
+      "words": [
+        {
+          "text": "Wtedy",
+          "start": 40.4,
+          "end": 40.71
+        },
+        {
+          "text": "PAN",
+          "start": 40.71,
+          "end": 41.03
+        },
+        {
+          "text": "Bóg",
+          "start": 41.03,
+          "end": 41.34
+        },
+        {
+          "text": "ukształtował",
+          "start": 41.34,
+          "end": 41.65
+        },
+        {
+          "text": "człowieka",
+          "start": 41.65,
+          "end": 41.96
+        },
+        {
+          "text": "z",
+          "start": 41.96,
+          "end": 42.28
+        },
+        {
+          "text": "prochu",
+          "start": 42.28,
+          "end": 42.59
+        },
+        {
+          "text": "ziemi",
+          "start": 42.59,
+          "end": 42.9
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L015",
+      "verse": 7,
+      "start": 43.2,
+      "end": 45.7,
+      "text": "i tchnął w jego nozdrza tchnienie życia.",
+      "words": [
+        {
+          "text": "i",
+          "start": 43.2,
+          "end": 43.56
+        },
+        {
+          "text": "tchnął",
+          "start": 43.56,
+          "end": 43.91
+        },
+        {
+          "text": "w",
+          "start": 43.91,
+          "end": 44.27
+        },
+        {
+          "text": "jego",
+          "start": 44.27,
+          "end": 44.63
+        },
+        {
+          "text": "nozdrza",
+          "start": 44.63,
+          "end": 44.99
+        },
+        {
+          "text": "tchnienie",
+          "start": 44.99,
+          "end": 45.34
+        },
+        {
+          "text": "życia.",
+          "start": 45.34,
+          "end": 45.7
+        }
+      ],
+      "isInstrumental": false
+    },
+    {
+      "id": "GEN-002-P01-L016",
+      "verse": 7,
+      "start": 46,
+      "end": 48.5,
+      "text": "I człowiek stał się żywą duszą.",
+      "words": [
+        {
+          "text": "I",
+          "start": 46,
+          "end": 46.42
+        },
+        {
+          "text": "człowiek",
+          "start": 46.42,
+          "end": 46.83
+        },
+        {
+          "text": "stał",
+          "start": 46.83,
+          "end": 47.25
+        },
+        {
+          "text": "się",
+          "start": 47.25,
+          "end": 47.67
+        },
+        {
+          "text": "żywą",
+          "start": 47.67,
+          "end": 48.08
+        },
+        {
+          "text": "duszą.",
+          "start": 48.08,
+          "end": 48.5
+        }
+      ],
+      "isInstrumental": false
+    }
+  ]
+}

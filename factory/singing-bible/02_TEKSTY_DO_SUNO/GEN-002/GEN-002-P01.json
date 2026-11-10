@@ -1,0 +1,100 @@
+{
+  "songId": "GEN-002-P01",
+  "chapterId": "GEN-002",
+  "book": "Księga Rodzaju",
+  "bookCode": "GEN",
+  "chapter": 2,
+  "partNumber": 1,
+  "startVerse": 1,
+  "endVerse": 7,
+  "verseRange": "Wersety 1–7",
+  "lineCount": 16,
+  "lines": [
+    {
+      "verseNumber": 1,
+      "versePart": 1,
+      "text": "Tak ukończone zostały niebiosa i ziemia oraz wszystkie ich zastępy."
+    },
+    {
+      "verseNumber": 2,
+      "versePart": 1,
+      "text": "W siódmym dniu Bóg ukończył swe dzieło, które uczynił;"
+    },
+    {
+      "verseNumber": 2,
+      "versePart": 2,
+      "text": "i odpoczął siódmego dnia od wszelkiego swego dzieła, które stworzył."
+    },
+    {
+      "verseNumber": 3,
+      "versePart": 1,
+      "text": "I Bóg błogosławił siódmy dzień, i poświęcił go,"
+    },
+    {
+      "verseNumber": 3,
+      "versePart": 2,
+      "text": "bo w nim odpoczął od wszelkiego swego dzieła,"
+    },
+    {
+      "verseNumber": 3,
+      "versePart": 3,
+      "text": "które Bóg stworzył i uczynił."
+    },
+    {
+      "verseNumber": 4,
+      "versePart": 1,
+      "text": "Takie są dzieje stworzenia niebios i ziemi w dniu,"
+    },
+    {
+      "verseNumber": 4,
+      "versePart": 2,
+      "text": "w którym PAN Bóg uczynił ziemię i niebiosa;"
+    },
+    {
+      "verseNumber": 5,
+      "versePart": 1,
+      "text": "Wszelkie krzewy polne, zanim były na ziemi, i wszelkie rośliny polne,"
+    },
+    {
+      "verseNumber": 5,
+      "versePart": 2,
+      "text": "nim wzeszły."
+    },
+    {
+      "verseNumber": 5,
+      "versePart": 3,
+      "text": "Bo PAN Bóg jeszcze nie spuścił deszczu na ziemię i nie było człowieka,"
+    },
+    {
+      "verseNumber": 5,
+      "versePart": 4,
+      "text": "który by uprawiał ziemię."
+    },
+    {
+      "verseNumber": 6,
+      "versePart": 1,
+      "text": "Ale z ziemi wychodziła para, która nawilżała całą powierzchnię ziemi."
+    },
+    {
+      "verseNumber": 7,
+      "versePart": 1,
+      "text": "Wtedy PAN Bóg ukształtował człowieka z prochu ziemi"
+    },
+    {
+      "verseNumber": 7,
+      "versePart": 2,
+      "text": "i tchnął w jego nozdrza tchnienie życia."
+    },
+    {
+      "verseNumber": 7,
+      "versePart": 3,
+      "text": "I człowiek stał się żywą duszą."
+    }
+  ],
+  "sunoPrompt": "[Styl: Akustyczne uwielbienie biblijne, ciepły wokal, organiczne instrumenty, podniosły i czysty ton]\n\n[Zwrotka 1]\nTak ukończone zostały niebiosa i ziemia oraz wszystkie ich zastępy.\nW siódmym dniu Bóg ukończył swe dzieło, które uczynił;\ni odpoczął siódmego dnia od wszelkiego swego dzieła, które stworzył.\nI Bóg błogosławił siódmy dzień, i poświęcił go,\n\n[Zwrotka 2]\nbo w nim odpoczął od wszelkiego swego dzieła,\nktóre Bóg stworzył i uczynił.\nTakie są dzieje stworzenia niebios i ziemi w dniu,\nw którym PAN Bóg uczynił ziemię i niebiosa;\n\n[Zwrotka 3]\nWszelkie krzewy polne, zanim były na ziemi, i wszelkie rośliny polne,\nnim wzeszły.\nBo PAN Bóg jeszcze nie spuścił deszczu na ziemię i nie było człowieka,\nktóry by uprawiał ziemię.\n\n[Zwrotka 4]\nAle z ziemi wychodziła para, która nawilżała całą powierzchnię ziemi.\nWtedy PAN Bóg ukształtował człowieka z prochu ziemi\ni tchnął w jego nozdrza tchnienie życia.\nI człowiek stał się żywą duszą.\n\n[Zakończenie]\n",
+  "plainLyrics": "Tak ukończone zostały niebiosa i ziemia oraz wszystkie ich zastępy.\nW siódmym dniu Bóg ukończył swe dzieło, które uczynił;\ni odpoczął siódmego dnia od wszelkiego swego dzieła, które stworzył.\nI Bóg błogosławił siódmy dzień, i poświęcił go,\nbo w nim odpoczął od wszelkiego swego dzieła,\nktóre Bóg stworzył i uczynił.\nTakie są dzieje stworzenia niebios i ziemi w dniu,\nw którym PAN Bóg uczynił ziemię i niebiosa;\nWszelkie krzewy polne, zanim były na ziemi, i wszelkie rośliny polne,\nnim wzeszły.\nBo PAN Bóg jeszcze nie spuścił deszczu na ziemię i nie było człowieka,\nktóry by uprawiał ziemię.\nAle z ziemi wychodziła para, która nawilżała całą powierzchnię ziemi.\nWtedy PAN Bóg ukształtował człowieka z prochu ziemi\ni tchnął w jego nozdrza tchnienie życia.\nI człowiek stał się żywą duszą.",
+  "sha256": "881797afa033b1fd3ffda40122ae9578ecbac3a6af38ee1e5db46aa6bd1044ab",
+  "license": "UBG CC BY-ND 4.0 / Logos Media",
+  "status": "TEXT_READY",
+  "createdAt": "2026-11-10T07:19:51.754Z"
+}

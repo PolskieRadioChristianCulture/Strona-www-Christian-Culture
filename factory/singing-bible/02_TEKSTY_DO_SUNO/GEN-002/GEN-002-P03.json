@@ -1,0 +1,100 @@
+{
+  "songId": "GEN-002-P03",
+  "chapterId": "GEN-002",
+  "book": "Księga Rodzaju",
+  "bookCode": "GEN",
+  "chapter": 2,
+  "partNumber": 3,
+  "startVerse": 15,
+  "endVerse": 22,
+  "verseRange": "Wersety 15–22",
+  "lineCount": 16,
+  "lines": [
+    {
+      "verseNumber": 15,
+      "versePart": 2,
+      "text": "aby go uprawiał i strzegł."
+    },
+    {
+      "verseNumber": 16,
+      "versePart": 1,
+      "text": "I rozkazał PAN Bóg człowiekowi:"
+    },
+    {
+      "verseNumber": 16,
+      "versePart": 2,
+      "text": "Możesz jeść do woli z każdego drzewa ogrodu;"
+    },
+    {
+      "verseNumber": 17,
+      "versePart": 1,
+      "text": "Ale z drzewa poznania dobra i zła jeść nie będziesz,"
+    },
+    {
+      "verseNumber": 17,
+      "versePart": 2,
+      "text": "bo tego dnia, kiedy zjesz z niego, na pewno umrzesz."
+    },
+    {
+      "verseNumber": 18,
+      "versePart": 1,
+      "text": "PAN Bóg powiedział też: Niedobrze, by człowiek był sam;"
+    },
+    {
+      "verseNumber": 18,
+      "versePart": 2,
+      "text": "uczynię mu odpowiednią dla niego pomoc."
+    },
+    {
+      "verseNumber": 19,
+      "versePart": 1,
+      "text": "I ukształtował PAN Bóg z ziemi wszelkie zwierzęta polne i wszelkie ptactwo niebieskie,"
+    },
+    {
+      "verseNumber": 19,
+      "versePart": 2,
+      "text": "i przyprowadził je do Adama, aby zobaczyć, jak je nazwie;"
+    },
+    {
+      "verseNumber": 19,
+      "versePart": 3,
+      "text": "a jak Adam nazwał każdą istotę żywą, taka była jej nazwa."
+    },
+    {
+      "verseNumber": 20,
+      "versePart": 1,
+      "text": "I Adam nadał nazwy wszelkiemu bydłu i ptactwu niebieskiemu,"
+    },
+    {
+      "verseNumber": 20,
+      "versePart": 2,
+      "text": "i wszelkim zwierzętom polnym."
+    },
+    {
+      "verseNumber": 20,
+      "versePart": 3,
+      "text": "Dla Adama jednak nie znalazła się pomoc odpowiednia dla niego."
+    },
+    {
+      "verseNumber": 21,
+      "versePart": 1,
+      "text": "Wtedy PAN Bóg zesłał głęboki sen na Adama; a gdy zasnął,"
+    },
+    {
+      "verseNumber": 21,
+      "versePart": 2,
+      "text": "wyjął jedno z jego żeber i zapełnił ciałem miejsce po nim."
+    },
+    {
+      "verseNumber": 22,
+      "versePart": 1,
+      "text": "I z tego żebra, które PAN Bóg wyjął z Adama,"
+    }
+  ],
+  "sunoPrompt": "[Styl: Akustyczne uwielbienie biblijne, ciepły wokal, organiczne instrumenty, podniosły i czysty ton]\n\n[Zwrotka 1]\naby go uprawiał i strzegł.\nI rozkazał PAN Bóg człowiekowi:\nMożesz jeść do woli z każdego drzewa ogrodu;\nAle z drzewa poznania dobra i zła jeść nie będziesz,\n\n[Zwrotka 2]\nbo tego dnia, kiedy zjesz z niego, na pewno umrzesz.\nPAN Bóg powiedział też: Niedobrze, by człowiek był sam;\nuczynię mu odpowiednią dla niego pomoc.\nI ukształtował PAN Bóg z ziemi wszelkie zwierzęta polne i wszelkie ptactwo niebieskie,\n\n[Zwrotka 3]\ni przyprowadził je do Adama, aby zobaczyć, jak je nazwie;\na jak Adam nazwał każdą istotę żywą, taka była jej nazwa.\nI Adam nadał nazwy wszelkiemu bydłu i ptactwu niebieskiemu,\ni wszelkim zwierzętom polnym.\n\n[Zwrotka 4]\nDla Adama jednak nie znalazła się pomoc odpowiednia dla niego.\nWtedy PAN Bóg zesłał głęboki sen na Adama; a gdy zasnął,\nwyjął jedno z jego żeber i zapełnił ciałem miejsce po nim.\nI z tego żebra, które PAN Bóg wyjął z Adama,\n\n[Zakończenie]\n",
+  "plainLyrics": "aby go uprawiał i strzegł.\nI rozkazał PAN Bóg człowiekowi:\nMożesz jeść do woli z każdego drzewa ogrodu;\nAle z drzewa poznania dobra i zła jeść nie będziesz,\nbo tego dnia, kiedy zjesz z niego, na pewno umrzesz.\nPAN Bóg powiedział też: Niedobrze, by człowiek był sam;\nuczynię mu odpowiednią dla niego pomoc.\nI ukształtował PAN Bóg z ziemi wszelkie zwierzęta polne i wszelkie ptactwo niebieskie,\ni przyprowadził je do Adama, aby zobaczyć, jak je nazwie;\na jak Adam nazwał każdą istotę żywą, taka była jej nazwa.\nI Adam nadał nazwy wszelkiemu bydłu i ptactwu niebieskiemu,\ni wszelkim zwierzętom polnym.\nDla Adama jednak nie znalazła się pomoc odpowiednia dla niego.\nWtedy PAN Bóg zesłał głęboki sen na Adama; a gdy zasnął,\nwyjął jedno z jego żeber i zapełnił ciałem miejsce po nim.\nI z tego żebra, które PAN Bóg wyjął z Adama,",
+  "sha256": "97fd8bad3f049d283ca54e071524c7f3189ceec6eef3420c4568fa7360c68b0d",
+  "license": "UBG CC BY-ND 4.0 / Logos Media",
+  "status": "TEXT_READY",
+  "createdAt": "2026-11-10T07:19:51.755Z"
+}

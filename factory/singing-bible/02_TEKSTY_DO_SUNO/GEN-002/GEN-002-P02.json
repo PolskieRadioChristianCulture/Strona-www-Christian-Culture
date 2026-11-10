@@ -1,0 +1,100 @@
+{
+  "songId": "GEN-002-P02",
+  "chapterId": "GEN-002",
+  "book": "Księga Rodzaju",
+  "bookCode": "GEN",
+  "chapter": 2,
+  "partNumber": 2,
+  "startVerse": 8,
+  "endVerse": 15,
+  "verseRange": "Wersety 8–15",
+  "lineCount": 16,
+  "lines": [
+    {
+      "verseNumber": 8,
+      "versePart": 1,
+      "text": "PAN Bóg zasadził też ogród w Edenie, na wschodzie,"
+    },
+    {
+      "verseNumber": 8,
+      "versePart": 2,
+      "text": "i umieścił tam człowieka, którego ukształtował."
+    },
+    {
+      "verseNumber": 9,
+      "versePart": 1,
+      "text": "I wywiódł PAN Bóg z ziemi wszelkie drzewa"
+    },
+    {
+      "verseNumber": 9,
+      "versePart": 2,
+      "text": "miłe dla oka i których owoce były dobre"
+    },
+    {
+      "verseNumber": 9,
+      "versePart": 3,
+      "text": "do jedzenia oraz drzewo życia pośrodku ogrodu i"
+    },
+    {
+      "verseNumber": 9,
+      "versePart": 4,
+      "text": "drzewo poznania dobra i zła."
+    },
+    {
+      "verseNumber": 10,
+      "versePart": 1,
+      "text": "A z Edenu wypływała rzeka, aby nawadniać ogród;"
+    },
+    {
+      "verseNumber": 10,
+      "versePart": 2,
+      "text": "i stamtąd dzieliła się na cztery główne rzeki."
+    },
+    {
+      "verseNumber": 11,
+      "versePart": 1,
+      "text": "Nazwa pierwszej – Piszon; to ta, która okrąża całą ziemię Chawila,"
+    },
+    {
+      "verseNumber": 11,
+      "versePart": 2,
+      "text": "gdzie znajduje się złoto."
+    },
+    {
+      "verseNumber": 12,
+      "versePart": 1,
+      "text": "A złoto tej ziemi jest wyborne."
+    },
+    {
+      "verseNumber": 12,
+      "versePart": 2,
+      "text": "Tam też jest bdellium i kamień onyksowy."
+    },
+    {
+      "verseNumber": 13,
+      "versePart": 1,
+      "text": "Nazwa drugiej rzeki – Gichon; ta okrąża całą ziemię Kusz."
+    },
+    {
+      "verseNumber": 14,
+      "versePart": 1,
+      "text": "Nazwa zaś trzeciej rzeki – Chiddekel; płynie ona na wschód ku Asyrii."
+    },
+    {
+      "verseNumber": 14,
+      "versePart": 2,
+      "text": "A czwarta rzeka to Eufrat."
+    },
+    {
+      "verseNumber": 15,
+      "versePart": 1,
+      "text": "PAN Bóg wziął więc człowieka i umieścił go w ogrodzie Eden,"
+    }
+  ],
+  "sunoPrompt": "[Styl: Akustyczne uwielbienie biblijne, ciepły wokal, organiczne instrumenty, podniosły i czysty ton]\n\n[Zwrotka 1]\nPAN Bóg zasadził też ogród w Edenie, na wschodzie,\ni umieścił tam człowieka, którego ukształtował.\nI wywiódł PAN Bóg z ziemi wszelkie drzewa\nmiłe dla oka i których owoce były dobre\n\n[Zwrotka 2]\ndo jedzenia oraz drzewo życia pośrodku ogrodu i\ndrzewo poznania dobra i zła.\nA z Edenu wypływała rzeka, aby nawadniać ogród;\ni stamtąd dzieliła się na cztery główne rzeki.\n\n[Zwrotka 3]\nNazwa pierwszej – Piszon; to ta, która okrąża całą ziemię Chawila,\ngdzie znajduje się złoto.\nA złoto tej ziemi jest wyborne.\nTam też jest bdellium i kamień onyksowy.\n\n[Zwrotka 4]\nNazwa drugiej rzeki – Gichon; ta okrąża całą ziemię Kusz.\nNazwa zaś trzeciej rzeki – Chiddekel; płynie ona na wschód ku Asyrii.\nA czwarta rzeka to Eufrat.\nPAN Bóg wziął więc człowieka i umieścił go w ogrodzie Eden,\n\n[Zakończenie]\n",
+  "plainLyrics": "PAN Bóg zasadził też ogród w Edenie, na wschodzie,\ni umieścił tam człowieka, którego ukształtował.\nI wywiódł PAN Bóg z ziemi wszelkie drzewa\nmiłe dla oka i których owoce były dobre\ndo jedzenia oraz drzewo życia pośrodku ogrodu i\ndrzewo poznania dobra i zła.\nA z Edenu wypływała rzeka, aby nawadniać ogród;\ni stamtąd dzieliła się na cztery główne rzeki.\nNazwa pierwszej – Piszon; to ta, która okrąża całą ziemię Chawila,\ngdzie znajduje się złoto.\nA złoto tej ziemi jest wyborne.\nTam też jest bdellium i kamień onyksowy.\nNazwa drugiej rzeki – Gichon; ta okrąża całą ziemię Kusz.\nNazwa zaś trzeciej rzeki – Chiddekel; płynie ona na wschód ku Asyrii.\nA czwarta rzeka to Eufrat.\nPAN Bóg wziął więc człowieka i umieścił go w ogrodzie Eden,",
+  "sha256": "e36ca204dc9127c8f81389d579dbacff11628e6789f53c22d9ab7e306d6519eb",
+  "license": "UBG CC BY-ND 4.0 / Logos Media",
+  "status": "TEXT_READY",
+  "createdAt": "2026-11-10T07:19:51.755Z"
+}

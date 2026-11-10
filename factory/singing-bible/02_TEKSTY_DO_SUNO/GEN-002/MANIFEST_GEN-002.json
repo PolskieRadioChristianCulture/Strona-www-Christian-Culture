@@ -1,0 +1,365 @@
+{
+  "chapterId": "GEN-002",
+  "book": "Księga Rodzaju",
+  "chapter": 2,
+  "totalVerses": 25,
+  "totalLines": 55,
+  "totalParts": 4,
+  "songs": [
+    {
+      "songId": "GEN-002-P01",
+      "chapterId": "GEN-002",
+      "book": "Księga Rodzaju",
+      "bookCode": "GEN",
+      "chapter": 2,
+      "partNumber": 1,
+      "startVerse": 1,
+      "endVerse": 7,
+      "verseRange": "Wersety 1–7",
+      "lineCount": 16,
+      "lines": [
+        {
+          "verseNumber": 1,
+          "versePart": 1,
+          "text": "Tak ukończone zostały niebiosa i ziemia oraz wszystkie ich zastępy."
+        },
+        {
+          "verseNumber": 2,
+          "versePart": 1,
+          "text": "W siódmym dniu Bóg ukończył swe dzieło, które uczynił;"
+        },
+        {
+          "verseNumber": 2,
+          "versePart": 2,
+          "text": "i odpoczął siódmego dnia od wszelkiego swego dzieła, które stworzył."
+        },
+        {
+          "verseNumber": 3,
+          "versePart": 1,
+          "text": "I Bóg błogosławił siódmy dzień, i poświęcił go,"
+        },
+        {
+          "verseNumber": 3,
+          "versePart": 2,
+          "text": "bo w nim odpoczął od wszelkiego swego dzieła,"
+        },
+        {
+          "verseNumber": 3,
+          "versePart": 3,
+          "text": "które Bóg stworzył i uczynił."
+        },
+        {
+          "verseNumber": 4,
+          "versePart": 1,
+          "text": "Takie są dzieje stworzenia niebios i ziemi w dniu,"
+        },
+        {
+          "verseNumber": 4,
+          "versePart": 2,
+          "text": "w którym PAN Bóg uczynił ziemię i niebiosa;"
+        },
+        {
+          "verseNumber": 5,
+          "versePart": 1,
+          "text": "Wszelkie krzewy polne, zanim były na ziemi, i wszelkie rośliny polne,"
+        },
+        {
+          "verseNumber": 5,
+          "versePart": 2,
+          "text": "nim wzeszły."
+        },
+        {
+          "verseNumber": 5,
+          "versePart": 3,
+          "text": "Bo PAN Bóg jeszcze nie spuścił deszczu na ziemię i nie było człowieka,"
+        },
+        {
+          "verseNumber": 5,
+          "versePart": 4,
+          "text": "który by uprawiał ziemię."
+        },
+        {
+          "verseNumber": 6,
+          "versePart": 1,
+          "text": "Ale z ziemi wychodziła para, która nawilżała całą powierzchnię ziemi."
+        },
+        {
+          "verseNumber": 7,
+          "versePart": 1,
+          "text": "Wtedy PAN Bóg ukształtował człowieka z prochu ziemi"
+        },
+        {
+          "verseNumber": 7,
+          "versePart": 2,
+          "text": "i tchnął w jego nozdrza tchnienie życia."
+        },
+        {
+          "verseNumber": 7,
+          "versePart": 3,
+          "text": "I człowiek stał się żywą duszą."
+        }
+      ],
+      "sunoPrompt": "[Styl: Akustyczne uwielbienie biblijne, ciepły wokal, organiczne instrumenty, podniosły i czysty ton]\n\n[Zwrotka 1]\nTak ukończone zostały niebiosa i ziemia oraz wszystkie ich zastępy.\nW siódmym dniu Bóg ukończył swe dzieło, które uczynił;\ni odpoczął siódmego dnia od wszelkiego swego dzieła, które stworzył.\nI Bóg błogosławił siódmy dzień, i poświęcił go,\n\n[Zwrotka 2]\nbo w nim odpoczął od wszelkiego swego dzieła,\nktóre Bóg stworzył i uczynił.\nTakie są dzieje stworzenia niebios i ziemi w dniu,\nw którym PAN Bóg uczynił ziemię i niebiosa;\n\n[Zwrotka 3]\nWszelkie krzewy polne, zanim były na ziemi, i wszelkie rośliny polne,\nnim wzeszły.\nBo PAN Bóg jeszcze nie spuścił deszczu na ziemię i nie było człowieka,\nktóry by uprawiał ziemię.\n\n[Zwrotka 4]\nAle z ziemi wychodziła para, która nawilżała całą powierzchnię ziemi.\nWtedy PAN Bóg ukształtował człowieka z prochu ziemi\ni tchnął w jego nozdrza tchnienie życia.\nI człowiek stał się żywą duszą.\n\n[Zakończenie]\n",
+      "plainLyrics": "Tak ukończone zostały niebiosa i ziemia oraz wszystkie ich zastępy.\nW siódmym dniu Bóg ukończył swe dzieło, które uczynił;\ni odpoczął siódmego dnia od wszelkiego swego dzieła, które stworzył.\nI Bóg błogosławił siódmy dzień, i poświęcił go,\nbo w nim odpoczął od wszelkiego swego dzieła,\nktóre Bóg stworzył i uczynił.\nTakie są dzieje stworzenia niebios i ziemi w dniu,\nw którym PAN Bóg uczynił ziemię i niebiosa;\nWszelkie krzewy polne, zanim były na ziemi, i wszelkie rośliny polne,\nnim wzeszły.\nBo PAN Bóg jeszcze nie spuścił deszczu na ziemię i nie było człowieka,\nktóry by uprawiał ziemię.\nAle z ziemi wychodziła para, która nawilżała całą powierzchnię ziemi.\nWtedy PAN Bóg ukształtował człowieka z prochu ziemi\ni tchnął w jego nozdrza tchnienie życia.\nI człowiek stał się żywą duszą.",
+      "sha256": "881797afa033b1fd3ffda40122ae9578ecbac3a6af38ee1e5db46aa6bd1044ab",
+      "license": "UBG CC BY-ND 4.0 / Logos Media",
+      "status": "TEXT_READY",
+      "createdAt": "2026-11-10T07:19:51.754Z"
+    },
+    {
+      "songId": "GEN-002-P02",
+      "chapterId": "GEN-002",
+      "book": "Księga Rodzaju",
+      "bookCode": "GEN",
+      "chapter": 2,
+      "partNumber": 2,
+      "startVerse": 8,
+      "endVerse": 15,
+      "verseRange": "Wersety 8–15",
+      "lineCount": 16,
+      "lines": [
+        {
+          "verseNumber": 8,
+          "versePart": 1,
+          "text": "PAN Bóg zasadził też ogród w Edenie, na wschodzie,"
+        },
+        {
+          "verseNumber": 8,
+          "versePart": 2,
+          "text": "i umieścił tam człowieka, którego ukształtował."
+        },
+        {
+          "verseNumber": 9,
+          "versePart": 1,
+          "text": "I wywiódł PAN Bóg z ziemi wszelkie drzewa"
+        },
+        {
+          "verseNumber": 9,
+          "versePart": 2,
+          "text": "miłe dla oka i których owoce były dobre"
+        },
+        {
+          "verseNumber": 9,
+          "versePart": 3,
+          "text": "do jedzenia oraz drzewo życia pośrodku ogrodu i"
+        },
+        {
+          "verseNumber": 9,
+          "versePart": 4,
+          "text": "drzewo poznania dobra i zła."
+        },
+        {
+          "verseNumber": 10,
+          "versePart": 1,
+          "text": "A z Edenu wypływała rzeka, aby nawadniać ogród;"
+        },
+        {
+          "verseNumber": 10,
+          "versePart": 2,
+          "text": "i stamtąd dzieliła się na cztery główne rzeki."
+        },
+        {
+          "verseNumber": 11,
+          "versePart": 1,
+          "text": "Nazwa pierwszej – Piszon; to ta, która okrąża całą ziemię Chawila,"
+        },
+        {
+          "verseNumber": 11,
+          "versePart": 2,
+          "text": "gdzie znajduje się złoto."
+        },
+        {
+          "verseNumber": 12,
+          "versePart": 1,
+          "text": "A złoto tej ziemi jest wyborne."
+        },
+        {
+          "verseNumber": 12,
+          "versePart": 2,
+          "text": "Tam też jest bdellium i kamień onyksowy."
+        },
+        {
+          "verseNumber": 13,
+          "versePart": 1,
+          "text": "Nazwa drugiej rzeki – Gichon; ta okrąża całą ziemię Kusz."
+        },
+        {
+          "verseNumber": 14,
+          "versePart": 1,
+          "text": "Nazwa zaś trzeciej rzeki – Chiddekel; płynie ona na wschód ku Asyrii."
+        },
+        {
+          "verseNumber": 14,
+          "versePart": 2,
+          "text": "A czwarta rzeka to Eufrat."
+        },
+        {
+          "verseNumber": 15,
+          "versePart": 1,
+          "text": "PAN Bóg wziął więc człowieka i umieścił go w ogrodzie Eden,"
+        }
+      ],
+      "sunoPrompt": "[Styl: Akustyczne uwielbienie biblijne, ciepły wokal, organiczne instrumenty, podniosły i czysty ton]\n\n[Zwrotka 1]\nPAN Bóg zasadził też ogród w Edenie, na wschodzie,\ni umieścił tam człowieka, którego ukształtował.\nI wywiódł PAN Bóg z ziemi wszelkie drzewa\nmiłe dla oka i których owoce były dobre\n\n[Zwrotka 2]\ndo jedzenia oraz drzewo życia pośrodku ogrodu i\ndrzewo poznania dobra i zła.\nA z Edenu wypływała rzeka, aby nawadniać ogród;\ni stamtąd dzieliła się na cztery główne rzeki.\n\n[Zwrotka 3]\nNazwa pierwszej – Piszon; to ta, która okrąża całą ziemię Chawila,\ngdzie znajduje się złoto.\nA złoto tej ziemi jest wyborne.\nTam też jest bdellium i kamień onyksowy.\n\n[Zwrotka 4]\nNazwa drugiej rzeki – Gichon; ta okrąża całą ziemię Kusz.\nNazwa zaś trzeciej rzeki – Chiddekel; płynie ona na wschód ku Asyrii.\nA czwarta rzeka to Eufrat.\nPAN Bóg wziął więc człowieka i umieścił go w ogrodzie Eden,\n\n[Zakończenie]\n",
+      "plainLyrics": "PAN Bóg zasadził też ogród w Edenie, na wschodzie,\ni umieścił tam człowieka, którego ukształtował.\nI wywiódł PAN Bóg z ziemi wszelkie drzewa\nmiłe dla oka i których owoce były dobre\ndo jedzenia oraz drzewo życia pośrodku ogrodu i\ndrzewo poznania dobra i zła.\nA z Edenu wypływała rzeka, aby nawadniać ogród;\ni stamtąd dzieliła się na cztery główne rzeki.\nNazwa pierwszej – Piszon; to ta, która okrąża całą ziemię Chawila,\ngdzie znajduje się złoto.\nA złoto tej ziemi jest wyborne.\nTam też jest bdellium i kamień onyksowy.\nNazwa drugiej rzeki – Gichon; ta okrąża całą ziemię Kusz.\nNazwa zaś trzeciej rzeki – Chiddekel; płynie ona na wschód ku Asyrii.\nA czwarta rzeka to Eufrat.\nPAN Bóg wziął więc człowieka i umieścił go w ogrodzie Eden,",
+      "sha256": "e36ca204dc9127c8f81389d579dbacff11628e6789f53c22d9ab7e306d6519eb",
+      "license": "UBG CC BY-ND 4.0 / Logos Media",
+      "status": "TEXT_READY",
+      "createdAt": "2026-11-10T07:19:51.755Z"
+    },
+    {
+      "songId": "GEN-002-P03",
+      "chapterId": "GEN-002",
+      "book": "Księga Rodzaju",
+      "bookCode": "GEN",
+      "chapter": 2,
+      "partNumber": 3,
+      "startVerse": 15,
+      "endVerse": 22,
+      "verseRange": "Wersety 15–22",
+      "lineCount": 16,
+      "lines": [
+        {
+          "verseNumber": 15,
+          "versePart": 2,
+          "text": "aby go uprawiał i strzegł."
+        },
+        {
+          "verseNumber": 16,
+          "versePart": 1,
+          "text": "I rozkazał PAN Bóg człowiekowi:"
+        },
+        {
+          "verseNumber": 16,
+          "versePart": 2,
+          "text": "Możesz jeść do woli z każdego drzewa ogrodu;"
+        },
+        {
+          "verseNumber": 17,
+          "versePart": 1,
+          "text": "Ale z drzewa poznania dobra i zła jeść nie będziesz,"
+        },
+        {
+          "verseNumber": 17,
+          "versePart": 2,
+          "text": "bo tego dnia, kiedy zjesz z niego, na pewno umrzesz."
+        },
+        {
+          "verseNumber": 18,
+          "versePart": 1,
+          "text": "PAN Bóg powiedział też: Niedobrze, by człowiek był sam;"
+        },
+        {
+          "verseNumber": 18,
+          "versePart": 2,
+          "text": "uczynię mu odpowiednią dla niego pomoc."
+        },
+        {
+          "verseNumber": 19,
+          "versePart": 1,
+          "text": "I ukształtował PAN Bóg z ziemi wszelkie zwierzęta polne i wszelkie ptactwo niebieskie,"
+        },
+        {
+          "verseNumber": 19,
+          "versePart": 2,
+          "text": "i przyprowadził je do Adama, aby zobaczyć, jak je nazwie;"
+        },
+        {
+          "verseNumber": 19,
+          "versePart": 3,
+          "text": "a jak Adam nazwał każdą istotę żywą, taka była jej nazwa."
+        },
+        {
+          "verseNumber": 20,
+          "versePart": 1,
+          "text": "I Adam nadał nazwy wszelkiemu bydłu i ptactwu niebieskiemu,"
+        },
+        {
+          "verseNumber": 20,
+          "versePart": 2,
+          "text": "i wszelkim zwierzętom polnym."
+        },
+        {
+          "verseNumber": 20,
+          "versePart": 3,
+          "text": "Dla Adama jednak nie znalazła się pomoc odpowiednia dla niego."
+        },
+        {
+          "verseNumber": 21,
+          "versePart": 1,
+          "text": "Wtedy PAN Bóg zesłał głęboki sen na Adama; a gdy zasnął,"
+        },
+        {
+          "verseNumber": 21,
+          "versePart": 2,
+          "text": "wyjął jedno z jego żeber i zapełnił ciałem miejsce po nim."
+        },
+        {
+          "verseNumber": 22,
+          "versePart": 1,
+          "text": "I z tego żebra, które PAN Bóg wyjął z Adama,"
+        }
+      ],
+      "sunoPrompt": "[Styl: Akustyczne uwielbienie biblijne, ciepły wokal, organiczne instrumenty, podniosły i czysty ton]\n\n[Zwrotka 1]\naby go uprawiał i strzegł.\nI rozkazał PAN Bóg człowiekowi:\nMożesz jeść do woli z każdego drzewa ogrodu;\nAle z drzewa poznania dobra i zła jeść nie będziesz,\n\n[Zwrotka 2]\nbo tego dnia, kiedy zjesz z niego, na pewno umrzesz.\nPAN Bóg powiedział też: Niedobrze, by człowiek był sam;\nuczynię mu odpowiednią dla niego pomoc.\nI ukształtował PAN Bóg z ziemi wszelkie zwierzęta polne i wszelkie ptactwo niebieskie,\n\n[Zwrotka 3]\ni przyprowadził je do Adama, aby zobaczyć, jak je nazwie;\na jak Adam nazwał każdą istotę żywą, taka była jej nazwa.\nI Adam nadał nazwy wszelkiemu bydłu i ptactwu niebieskiemu,\ni wszelkim zwierzętom polnym.\n\n[Zwrotka 4]\nDla Adama jednak nie znalazła się pomoc odpowiednia dla niego.\nWtedy PAN Bóg zesłał głęboki sen na Adama; a gdy zasnął,\nwyjął jedno z jego żeber i zapełnił ciałem miejsce po nim.\nI z tego żebra, które PAN Bóg wyjął z Adama,\n\n[Zakończenie]\n",
+      "plainLyrics": "aby go uprawiał i strzegł.\nI rozkazał PAN Bóg człowiekowi:\nMożesz jeść do woli z każdego drzewa ogrodu;\nAle z drzewa poznania dobra i zła jeść nie będziesz,\nbo tego dnia, kiedy zjesz z niego, na pewno umrzesz.\nPAN Bóg powiedział też: Niedobrze, by człowiek był sam;\nuczynię mu odpowiednią dla niego pomoc.\nI ukształtował PAN Bóg z ziemi wszelkie zwierzęta polne i wszelkie ptactwo niebieskie,\ni przyprowadził je do Adama, aby zobaczyć, jak je nazwie;\na jak Adam nazwał każdą istotę żywą, taka była jej nazwa.\nI Adam nadał nazwy wszelkiemu bydłu i ptactwu niebieskiemu,\ni wszelkim zwierzętom polnym.\nDla Adama jednak nie znalazła się pomoc odpowiednia dla niego.\nWtedy PAN Bóg zesłał głęboki sen na Adama; a gdy zasnął,\nwyjął jedno z jego żeber i zapełnił ciałem miejsce po nim.\nI z tego żebra, które PAN Bóg wyjął z Adama,",
+      "sha256": "97fd8bad3f049d283ca54e071524c7f3189ceec6eef3420c4568fa7360c68b0d",
+      "license": "UBG CC BY-ND 4.0 / Logos Media",
+      "status": "TEXT_READY",
+      "createdAt": "2026-11-10T07:19:51.755Z"
+    },
+    {
+      "songId": "GEN-002-P04",
+      "chapterId": "GEN-002",
+      "book": "Księga Rodzaju",
+      "bookCode": "GEN",
+      "chapter": 2,
+      "partNumber": 4,
+      "startVerse": 22,
+      "endVerse": 25,
+      "verseRange": "Wersety 22–25",
+      "lineCount": 7,
+      "lines": [
+        {
+          "verseNumber": 22,
+          "versePart": 2,
+          "text": "utworzył kobietę i przyprowadził ją do Adama."
+        },
+        {
+          "verseNumber": 23,
+          "versePart": 1,
+          "text": "I Adam powiedział:"
+        },
+        {
+          "verseNumber": 23,
+          "versePart": 2,
+          "text": "To teraz jest kość z moich kości i ciało z mojego ciała;"
+        },
+        {
+          "verseNumber": 23,
+          "versePart": 3,
+          "text": "dlatego będzie nazwana kobietą, bo z mężczyzny została wzięta."
+        },
+        {
+          "verseNumber": 24,
+          "versePart": 1,
+          "text": "Dlatego opuści mężczyzna swojego ojca i swoją matkę i połączy się ze swoją żoną,"
+        },
+        {
+          "verseNumber": 24,
+          "versePart": 2,
+          "text": "i będą jednym ciałem."
+        },
+        {
+          "verseNumber": 25,
+          "versePart": 1,
+          "text": "I oboje, Adam i jego żona, byli nadzy, a nie wstydzili się."
+        }
+      ],
+      "sunoPrompt": "[Styl: Akustyczne uwielbienie biblijne, ciepły wokal, organiczne instrumenty, podniosły i czysty ton]\n\n[Zwrotka 1]\nutworzył kobietę i przyprowadził ją do Adama.\nI Adam powiedział:\nTo teraz jest kość z moich kości i ciało z mojego ciała;\ndlatego będzie nazwana kobietą, bo z mężczyzny została wzięta.\n\n[Zwrotka 2]\nDlatego opuści mężczyzna swojego ojca i swoją matkę i połączy się ze swoją żoną,\ni będą jednym ciałem.\nI oboje, Adam i jego żona, byli nadzy, a nie wstydzili się.\n\n[Zakończenie]\n",
+      "plainLyrics": "utworzył kobietę i przyprowadził ją do Adama.\nI Adam powiedział:\nTo teraz jest kość z moich kości i ciało z mojego ciała;\ndlatego będzie nazwana kobietą, bo z mężczyzny została wzięta.\nDlatego opuści mężczyzna swojego ojca i swoją matkę i połączy się ze swoją żoną,\ni będą jednym ciałem.\nI oboje, Adam i jego żona, byli nadzy, a nie wstydzili się.",
+      "sha256": "8cbea89254dc1738067a546cd75f34be09e5b1aa399d1b625ed1fe0af2ea57d5",
+      "license": "UBG CC BY-ND 4.0 / Logos Media",
+      "status": "TEXT_READY",
+      "createdAt": "2026-11-10T07:19:51.756Z"
+    }
+  ]
+}

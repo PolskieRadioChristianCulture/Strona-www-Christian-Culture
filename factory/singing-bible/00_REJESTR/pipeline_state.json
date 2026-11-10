@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "lastRun": "2026-11-10T07:27:43.050Z",
+  "processedFiles": {
+    "2e118960182c90abb8165de2f71a9c92f02199336c13dfe548ce59e2ee72bb04": {
+      "songId": "GEN-002-P01",
+      "filename": "GEN-002-P01.mp3",
+      "processedAt": "2026-11-10T07:27:43.050Z",
+      "sha256": "2e118960182c90abb8165de2f71a9c92f02199336c13dfe548ce59e2ee72bb04",
+      "duration": 20.03,
+      "status": "COMPLETED",
+      "artifacts": {
+        "karaokeJson": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\factory\\singing-bible\\05_KARAOKE\\GEN-002-P01.json",
+        "video16x9": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\factory\\singing-bible\\06_VIDEO_FULL\\GEN-002-P01_16x9.mp4",
+        "shorts9x16": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\factory\\singing-bible\\07_SHORTS\\GEN-002-P01_shorts_9x16.mp4",
+        "publicationPackage": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\factory\\singing-bible\\08_PUBLIKACJA\\GEN-002-P01\\package.json"
+      }
+    }
+  },
+  "activeQueue": [],
+  "failedJobs": [
+    {
+      "file": "GEN-002-P01.mp3",
+      "failedAt": "2026-11-10T07:27:14.136Z",
+      "error": "Command failed: ffmpeg -y -loop 1 -framerate 2 -i \"C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\images\\biblijne-uwielbienie\\uwielbienie-w-blasku-krzyza-live.png\" -i \"C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\factory\\singing-bible\\04_ZATWIERDZONE_AUDIO\\GEN-002-P01.mp3\" -c:v libx264 -tune stillimage -c:a aac -b:a 320k -pix_fmt yuv420p -shortest -movflags +faststart \"C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\factory\\singing-bible\\06_VIDEO_FULL\\GEN-002-P01_16x9.mp4\""
+    }
+  ]
+}

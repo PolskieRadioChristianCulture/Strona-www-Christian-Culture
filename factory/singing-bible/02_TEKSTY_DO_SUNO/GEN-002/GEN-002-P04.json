@@ -1,0 +1,55 @@
+{
+  "songId": "GEN-002-P04",
+  "chapterId": "GEN-002",
+  "book": "Księga Rodzaju",
+  "bookCode": "GEN",
+  "chapter": 2,
+  "partNumber": 4,
+  "startVerse": 22,
+  "endVerse": 25,
+  "verseRange": "Wersety 22–25",
+  "lineCount": 7,
+  "lines": [
+    {
+      "verseNumber": 22,
+      "versePart": 2,
+      "text": "utworzył kobietę i przyprowadził ją do Adama."
+    },
+    {
+      "verseNumber": 23,
+      "versePart": 1,
+      "text": "I Adam powiedział:"
+    },
+    {
+      "verseNumber": 23,
+      "versePart": 2,
+      "text": "To teraz jest kość z moich kości i ciało z mojego ciała;"
+    },
+    {
+      "verseNumber": 23,
+      "versePart": 3,
+      "text": "dlatego będzie nazwana kobietą, bo z mężczyzny została wzięta."
+    },
+    {
+      "verseNumber": 24,
+      "versePart": 1,
+      "text": "Dlatego opuści mężczyzna swojego ojca i swoją matkę i połączy się ze swoją żoną,"
+    },
+    {
+      "verseNumber": 24,
+      "versePart": 2,
+      "text": "i będą jednym ciałem."
+    },
+    {
+      "verseNumber": 25,
+      "versePart": 1,
+      "text": "I oboje, Adam i jego żona, byli nadzy, a nie wstydzili się."
+    }
+  ],
+  "sunoPrompt": "[Styl: Akustyczne uwielbienie biblijne, ciepły wokal, organiczne instrumenty, podniosły i czysty ton]\n\n[Zwrotka 1]\nutworzył kobietę i przyprowadził ją do Adama.\nI Adam powiedział:\nTo teraz jest kość z moich kości i ciało z mojego ciała;\ndlatego będzie nazwana kobietą, bo z mężczyzny została wzięta.\n\n[Zwrotka 2]\nDlatego opuści mężczyzna swojego ojca i swoją matkę i połączy się ze swoją żoną,\ni będą jednym ciałem.\nI oboje, Adam i jego żona, byli nadzy, a nie wstydzili się.\n\n[Zakończenie]\n",
+  "plainLyrics": "utworzył kobietę i przyprowadził ją do Adama.\nI Adam powiedział:\nTo teraz jest kość z moich kości i ciało z mojego ciała;\ndlatego będzie nazwana kobietą, bo z mężczyzny została wzięta.\nDlatego opuści mężczyzna swojego ojca i swoją matkę i połączy się ze swoją żoną,\ni będą jednym ciałem.\nI oboje, Adam i jego żona, byli nadzy, a nie wstydzili się.",
+  "sha256": "8cbea89254dc1738067a546cd75f34be09e5b1aa399d1b625ed1fe0af2ea57d5",
+  "license": "UBG CC BY-ND 4.0 / Logos Media",
+  "status": "TEXT_READY",
+  "createdAt": "2026-11-10T07:19:51.756Z"
+}
