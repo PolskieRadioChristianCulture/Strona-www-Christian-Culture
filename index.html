@@ -467,6 +467,9 @@
             #ccGlobalChatFab.cc-chat-fab-wrap {
                 bottom: max(25px, env(safe-area-inset-bottom)) !important;
             }
+            #radioPlayerBar .player-right {
+                padding-right: 76px !important;
+            }
         }
         @media (max-width: 768px) {
             #mainHeader .brand-logo { display: none !important; }
@@ -3771,6 +3774,42 @@
                     <p class="sms-instruction-text">na numer:</p>
                     <div class="sms-number-badge">783 478 280</div>
                 </div>
+
+    <!-- INFOLINIA NADZIEJA CALL MODAL (DESKTOP & UNIVERSAL) -->
+    <div class="modal-overlay" id="helplineModal" aria-hidden="true" style="z-index: 10005;">
+        <div class="modal-content" style="max-width: 440px; text-align: center; border: 1.5px solid rgba(245, 197, 24, 0.45); box-shadow: 0 24px 60px rgba(0,0,0,0.9), 0 0 35px rgba(245, 197, 24, 0.25);">
+            <button class="modal-close" id="helplineModalCloseBtn" aria-label="Zamknij"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header" style="margin-bottom: 1.25rem;">
+                <div style="width: 64px; height: 64px; margin: 0 auto 14px; border-radius: 50%; background: linear-gradient(135deg, #f5c518, #e6a817); display: flex; align-items: center; justify-content: center; font-size: 1.7rem; color: #000; box-shadow: 0 8px 24px rgba(245, 197, 24, 0.45);">
+                    <i class="fa-solid fa-phone-volume"></i>
+                </div>
+                <h2 style="font-size: 1.4rem; color: #FFFFFF; font-weight: 800; margin-bottom: 4px; font-family: 'Cinzel', serif;">Infolinia „Nadzieja”</h2>
+                <p style="color: #D4A94A; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">Christian Culture</p>
+            </div>
+            <div class="modal-sms-content" style="padding: 0;">
+                <p style="color: #CBD5E1; font-size: 0.92rem; line-height: 1.5; margin-bottom: 1.25rem;">
+                    Potrzebujesz modlitwy, rozmowy lub wsparcia duchowego? Jesteśmy tu dla Ciebie.
+                </p>
+                <div style="background: rgba(10, 12, 22, 0.95); border: 1.5px solid rgba(245, 197, 24, 0.5); border-radius: 14px; padding: 14px 18px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+                    <div style="text-align: left;">
+                        <span style="display: block; font-size: 0.68rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em;">Numer telefonu:</span>
+                        <a href="tel:+48730958583" id="helplineModalPhoneLink" style="font-size: 1.35rem; font-weight: 900; color: #FFFFFF; text-decoration: none; letter-spacing: 0.5px; font-family: 'Montserrat', sans-serif;">+48 730 958 583</a>
+                    </div>
+                    <button type="button" id="helplineCopyBtn" style="padding: 8px 14px; background: rgba(245, 197, 24, 0.15); border: 1px solid rgba(245, 197, 24, 0.5); color: #F5C518; border-radius: 10px; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: all 0.2s;" aria-label="Skopiuj numer telefonu">
+                        <i class="fa-regular fa-copy"></i> Kopiuj
+                    </button>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="tel:+48730958583" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; text-decoration: none; background: #FF7A00; color: #FFFFFF; min-height: 44px; transition: background 0.2s; box-shadow: 0 4px 14px rgba(255, 122, 0, 0.35);">
+                        <i class="fa-solid fa-phone"></i> Zadzwoń teraz
+                    </a>
+                    <a href="https://wa.me/48730958583?text=Dzie%C5%84%20dobry,%20kontaktuj%C4%99%20si%C4%99%20z%20Infolinii%20Nadzieja" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; text-decoration: none; background: #25D366; color: #FFFFFF; min-height: 44px; transition: background 0.2s; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.25);">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> Połącz przez WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
                 
                 <div class="sms-info-box">
                     <p class="sms-disclaimer">

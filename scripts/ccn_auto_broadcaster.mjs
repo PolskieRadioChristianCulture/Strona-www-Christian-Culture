@@ -125,7 +125,7 @@ function appendLog(entry) {
 function resolveItemImage(item, rootDir) {
   const resolveCandidate = (rawPath) => {
     if (!rawPath) return null;
-    const cleanPath = rawPath.replace(/^\/+/, '');
+    const cleanPath = rawPath.replace(/^https?:\/\/[^\/]+\//i, '').replace(/^\/+/, '');
     const p1 = path.join(rootDir, cleanPath);
     if (fs.existsSync(p1)) return p1;
     if (path.isAbsolute(rawPath) && fs.existsSync(rawPath)) return rawPath;
@@ -936,7 +936,24 @@ function formatBroadcasterTweet(item) {
         .replace(/\bkraków\b/gi, 'Kraków')
         .replace(/\bwarszawie\b/gi, 'Warszawie')
         .replace(/\bboga\b/gi, 'Boga')
+        .replace(/\bbogu\b/gi, 'Bogu')
         .replace(/\bbóg\b/gi, 'Bóg')
+        .replace(/\bbożego\b/gi, 'Bożego')
+        .replace(/\bbożej\b/gi, 'Bożej')
+        .replace(/\bboży\b/gi, 'Boży')
+        .replace(/\bbożym\b/gi, 'Bożym')
+        .replace(/\bjakuba\b/gi, 'Jakuba')
+        .replace(/\bjakub\b/gi, 'Jakub')
+        .replace(/\bizaaka\b/gi, 'Izaaka')
+        .replace(/\bizaak\b/gi, 'Izaak')
+        .replace(/\bezawa\b/gi, 'Ezawa')
+        .replace(/\bezaw\b/gi, 'Ezaw')
+        .replace(/\brebeki\b/gi, 'Rebeki')
+        .replace(/\brebeka\b/gi, 'Rebeka')
+        .replace(/\bksiędze rodzaju\b/gi, 'Księdze Rodzaju')
+        .replace(/\bksięga rodzaju\b/gi, 'Księga Rodzaju')
+        .replace(/\bksiędze wyjścia\b/gi, 'Księdze Wyjścia')
+        .replace(/\bksięga wyjścia\b/gi, 'Księga Wyjścia')
         .replace(/\bjezus\b/gi, 'Jezus')
         .replace(/\bchrystus\b/gi, 'Chrystus')
         .replace(/\bopen doors\b/gi, 'Open Doors')

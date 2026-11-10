@@ -360,8 +360,8 @@
       /* ── DYMEK ZACZEPKA ASYSTENTKI (ROTACJA 3 AWATARÓW) ── */
       .cc-chat-teaser-bubble {
         position: absolute !important;
-        right: calc(100% + 14px) !important;
-        bottom: 0 !important;
+        right: 0 !important;
+        bottom: calc(100% + 14px) !important;
         display: flex !important;
         align-items: center !important;
         gap: 10px !important;

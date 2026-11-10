@@ -912,6 +912,70 @@ if (smsModal) {
     });
 }
 
+// Helpline "Nadzieja" Modal Toggle (Desktop & Universal)
+const helplineModal = document.getElementById("helplineModal");
+const helplineCloseBtn = document.getElementById("helplineModalCloseBtn");
+const helplineCopyBtn = document.getElementById("helplineCopyBtn");
+
+const openHelplineModal = () => {
+    if (helplineModal) helplineModal.classList.add("active");
+};
+
+const closeHelplineModal = () => {
+    if (helplineModal) helplineModal.classList.remove("active");
+};
+
+if (helplineCloseBtn) {
+    helplineCloseBtn.addEventListener("click", closeHelplineModal);
+}
+if (helplineModal) {
+    helplineModal.addEventListener("click", (e) => {
+        if (e.target === helplineModal) closeHelplineModal();
+    });
+}
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && helplineModal && helplineModal.classList.contains("active")) {
+        closeHelplineModal();
+    }
+});
+
+if (helplineCopyBtn) {
+    helplineCopyBtn.addEventListener("click", async () => {
+        const phone = "+48 730 958 583";
+        try {
+            await navigator.clipboard.writeText(phone);
+        } catch (_) {
+            const input = document.createElement("input");
+            input.value = phone;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand("copy");
+            document.body.removeChild(input);
+        }
+        const originalHTML = helplineCopyBtn.innerHTML;
+        helplineCopyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Skopiowano!';
+        helplineCopyBtn.style.color = '#10B981';
+        helplineCopyBtn.style.borderColor = '#10B981';
+        setTimeout(() => {
+            helplineCopyBtn.innerHTML = originalHTML;
+            helplineCopyBtn.style.color = '';
+            helplineCopyBtn.style.borderColor = '';
+        }, 2500);
+    });
+}
+
+// Bind helpline buttons: on desktop (>768px), open helpline modal!
+const helplineLinks = document.querySelectorAll("#helplineFloat, #shortcutHelpline, #drawerHelpline");
+helplineLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+        if (window.innerWidth > 768) {
+            e.preventDefault();
+            openHelplineModal();
+        }
+    });
+});
+
+
 // 5. RADIO PLAYER CONTROLS & EVENT LISTENERS
 
 // Station Dropdown Select Toggle
