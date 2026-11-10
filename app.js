@@ -106,6 +106,7 @@ let STATIONS = {
         shortName: "CCW",
         tagline: "Miejsce Kobiet Takich Jak Ty",
         streamUrl: "",
+        youtubePlaylistId: "PLPkpY3wBciWM",
         accentColors: ["#E83F94", "#FF75B5"],
         logo: "./assets/ccw-icon.png",
         tracks: [
@@ -958,6 +959,9 @@ volumeSlider.addEventListener("input", (e) => {
     const val = e.target.value / 100;
     audio.volume = val;
     previousVolume = val;
+    if (ytPlayerBridge && typeof ytPlayerBridge.setVolume === 'function') {
+        try { ytPlayerBridge.setVolume(Math.round(val * 100)); } catch(e) {}
+    }
     
     if (val === 0) {
         isMuted = true;
@@ -987,6 +991,9 @@ volumeBtn.addEventListener("click", () => {
 // 6. AUDIO LOGIC & STATE HANDLING
 
 function selectStation(stationId, noPlay = false) {
+    if (ytPlayerBridge && typeof ytPlayerBridge.stopVideo === 'function') {
+        try { ytPlayerBridge.stopVideo(); } catch(e) {}
+    }
     const station = STATIONS[stationId];
     if (!station) return;
     
@@ -1009,6 +1016,97 @@ function setAudioSource(url) {
     audio.src = url;
     currentAudioUrl = url;
     audio.load();
+}
+
+
+// ── YOUTUBE AUDIO ENGINE DLA STACJI PLAYLISTOWYCH (np. Radio CC Women) ──
+let ytPlayerBridge = null;
+let ytBridgeReady = false;
+let ytPendingPlay = false;
+
+function initYtBridge() {
+    if (ytPlayerBridge || typeof document === 'undefined') return;
+    
+    let host = document.getElementById('yt-audio-worker');
+    if (!host) {
+        host = document.createElement('div');
+        host.id = 'yt-audio-worker';
+        host.style.cssText = 'position:fixed;bottom:-9999px;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1;';
+        document.body.appendChild(host);
+    }
+
+    function createPlayer() {
+        if (!window.YT || !window.YT.Player) return;
+        ytPlayerBridge = new window.YT.Player('yt-audio-worker', {
+            height: '1',
+            width: '1',
+            playerVars: {
+                autoplay: 0,
+                controls: 0,
+                disablekb: 1,
+                fs: 0,
+                playsinline: 1,
+                rel: 0
+            },
+            events: {
+                onReady: () => {
+                    ytBridgeReady = true;
+                    if (ytPendingPlay && activeStation && activeStation.youtubePlaylistId) {
+                        ytPendingPlay = false;
+                        playRadio();
+                    }
+                },
+                onStateChange: (event) => {
+                    if (event.data === window.YT.PlayerState.PLAYING) {
+                        isPlaying = true;
+                        updatePlayerUI(true);
+                        playerStatusText.textContent = "Odtwarza (YouTube)";
+                        try {
+                            const data = ytPlayerBridge.getVideoData();
+                            if (data && data.title) {
+                                playerTrackTitle.textContent = `${activeStation.name} — ${data.title}`;
+                            }
+                        } catch(e) {}
+                    } else if (event.data === window.YT.PlayerState.PAUSED || event.data === window.YT.PlayerState.ENDED) {
+                        if (activeStation && activeStation.youtubePlaylistId) {
+                            isPlaying = false;
+                            updatePlayerUI(false);
+                            playerStatusText.textContent = "Zatrzymany";
+                        }
+                    }
+                },
+                onError: () => {
+                    if (activeStation && activeStation.youtubePlaylistId) {
+                        isPlaying = false;
+                        updatePlayerUI(false);
+                        playerStatusText.textContent = "Błąd odtwarzania YouTube";
+                    }
+                }
+            }
+        });
+    }
+
+    if (window.YT && window.YT.Player) {
+        createPlayer();
+    } else {
+        const prevInit = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = () => {
+            if (typeof prevInit === 'function') prevInit();
+            createPlayer();
+        };
+        if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            document.head.appendChild(tag);
+        }
+    }
+}
+if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initYtBridge);
+    } else {
+        initYtBridge();
+    }
 }
 
 function playRadio() {
@@ -1099,6 +1197,32 @@ function playRadio() {
         targetUrl = activeStation.streamUrl;
     }
     
+    if (activeStation && activeStation.youtubePlaylistId) {
+        audio.pause();
+        audio.removeAttribute('src');
+        currentAudioUrl = "";
+        if (!ytBridgeReady || !ytPlayerBridge) {
+            ytPendingPlay = true;
+            playerStatusText.textContent = "Ładowanie YouTube…";
+            initYtBridge();
+            return;
+        }
+        playerStatusText.textContent = "Ładowanie playlisty…";
+        try {
+            ytPlayerBridge.loadPlaylist({
+                list: activeStation.youtubePlaylistId,
+                listType: 'playlist',
+                index: 0,
+                startSeconds: 0
+            });
+        } catch(e) {
+            console.error("YT loadPlaylist error:", e);
+        }
+        isPlaying = true;
+        updatePlayerUI(true);
+        return;
+    }
+
     if (!targetUrl) {
         audio.pause();
         audio.removeAttribute('src');
@@ -1157,6 +1281,9 @@ function pauseRadio() {
     updatePlayerUI(false);
     playerStatusText.textContent = "Zatrzymany";
     stopFade();
+    if (ytPlayerBridge && typeof ytPlayerBridge.pauseVideo === 'function') {
+        try { ytPlayerBridge.pauseVideo(); } catch(e) {}
+    }
     audio.pause();
     audio.volume = previousVolume;
     
