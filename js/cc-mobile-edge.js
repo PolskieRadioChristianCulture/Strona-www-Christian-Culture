@@ -150,7 +150,17 @@
   ];
 
   function mount({legacy, placement = legacy, trigger: customTrigger, secondary = [], hideLegacy = true, profile = 'home', items = commonItems, canUseFullMenu = () => true, allowDesktop = document.body?.dataset.ccEdgeDesktop === 'true'}) {
-    if (!(legacy instanceof HTMLElement) || !(placement instanceof HTMLElement) || legacy.dataset.ccEdgeMounted || document.getElementById('cc-mobile-edge-dialog') || typeof HTMLDialogElement === 'undefined' || !HTMLDialogElement.prototype.showModal) return null;
+    if (!legacy || !(legacy instanceof Element)) {
+      legacy = document.body;
+      placement = document.body;
+    } else if (!(legacy instanceof HTMLElement)) {
+      legacy = legacy.parentElement || document.body;
+      placement = (placement instanceof HTMLElement) ? placement : legacy;
+    }
+    if (!(placement instanceof HTMLElement)) {
+      placement = document.body;
+    }
+    if (legacy.dataset?.ccEdgeMounted || document.getElementById('cc-mobile-edge-dialog') || typeof HTMLDialogElement === 'undefined' || !HTMLDialogElement.prototype.showModal) return null;
     if (document.head && !document.getElementById('cc-mobile-edge-2col-style')) {
       const s = document.createElement('style');
       const nonce = document.querySelector('meta[name="cc-csp-nonce"]')?.content;
@@ -202,8 +212,18 @@
     let restoreOverflow = '', previousFocus = null, active = false, touch = null;
     function cleanup() {
       active = false;
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
+      if (document.body && document.body.style) {
+        if (typeof document.body.style.removeProperty === 'function') {
+          document.body.style.removeProperty('overflow');
+        }
+        document.body.style.overflow = '';
+      }
+      if (document.documentElement && document.documentElement.style) {
+        if (typeof document.documentElement.style.removeProperty === 'function') {
+          document.documentElement.style.removeProperty('overflow');
+        }
+        document.documentElement.style.overflow = '';
+      }
       trigger.setAttribute('aria-expanded','false');
       const edgeBtn = document.getElementById('ccEdgePlusBtn');
       if (edgeBtn) edgeBtn.setAttribute('aria-expanded', 'false');
@@ -586,7 +606,7 @@
     if (document.body?.dataset.ccEdgeDisabled === 'true' || document.documentElement.dataset.ccEdgeDisabled === 'true') return;
 
     // Search surfaces: wyszukiwarka / szukaj / omni-search overlay (L0 29.10.2026)
-    const isSearch = /^\/(?:wyszukiwarka|szukaj)/i.test(location.pathname) || !!document.getElementById('ccOmniOverlay') || !!document.querySelector('.cc-omni-topnav');
+    const isSearch = /^\/(?:wyszukiwarka|szukaj)(?:\.html|\/|$)/i.test(location.pathname) || (!!document.querySelector('.cc-omni-topnav') && !!document.getElementById('ccOmniEdgeBtn'));
     if (isSearch) {
       document.querySelectorAll('.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn)').forEach(el => el.remove());
       const attachSearchEdge = () => {
@@ -684,17 +704,18 @@
         return;
       }
 
-      const header = document.querySelector('.main-header, header, .topbar, .reader-nav, .nav:not(.cc-omni-topnav), nav:not(.cc-omni-topnav), .cin-header, .ccw-fallback, main, body');
-      if (header) {
-        const placement = header.querySelector('.nav-left, .header-left, .brand-wrap') || header.firstElementChild || header;
-        mount({
-          legacy: placement,
-          placement: placement,
-          hideLegacy: false,
-          profile: isWioletta ? 'wioletta' : 'ecosystem',
-          items
-        });
+      const header = document.querySelector('.main-header, header, .topbar, .reader-nav, .nav:not(.cc-omni-topnav), nav:not(.cc-omni-topnav), .cin-header, .ccw-fallback, main');
+      let placement = (header && (header.querySelector('.nav-left, .header-left, .brand-wrap') || (header.firstElementChild instanceof HTMLElement ? header.firstElementChild : header))) || document.body;
+      if (!(placement instanceof HTMLElement)) {
+        placement = document.body;
       }
+      mount({
+        legacy: placement,
+        placement: placement,
+        hideLegacy: false,
+        profile: isWioletta ? 'wioletta' : 'ecosystem',
+        items
+      });
     }
   }
 

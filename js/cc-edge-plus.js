@@ -108,12 +108,15 @@
           --cc-floating-bottom: 24px;
         }
       }
-      body:has(.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]) {
-        --cc-floating-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+      body:has(.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]),
+      body.has-cc-bottom-nav,
+      html.has-cc-bottom-nav {
+        --cc-floating-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
       }
       @media (min-width: 900px) {
-        body:has(.mobile-nav) {
-          --cc-floating-bottom: 24px;
+        body:has(.mobile-nav),
+        body.has-cc-bottom-nav:not(:has(.lumina-nav-bottom)) {
+          --cc-floating-bottom: 24px !important;
         }
       }
 
@@ -314,12 +317,38 @@
     }
   }
 
+  function restoreScroll() {
+    if (document.body && document.body.style) {
+      if (typeof document.body.style.removeProperty === 'function') {
+        document.body.style.removeProperty('overflow');
+      }
+      document.body.style.overflow = '';
+    }
+    if (document.documentElement && document.documentElement.style) {
+      if (typeof document.documentElement.style.removeProperty === 'function') {
+        document.documentElement.style.removeProperty('overflow');
+      }
+      document.documentElement.style.overflow = '';
+    }
+  }
+
   // Otwarcie istniejącego panelu krawędziowego Christian Culture
   function openPanel() {
-    const dialog = document.getElementById(config.dialogId);
+    let dialog = document.getElementById(config.dialogId);
     previousFocusEl = document.activeElement;
 
-    // 1. Sprawdź czy dialog istnieje
+    // 1. Jeśli dialog jeszcze nie istnieje w DOM, zamontuj go natychmiast na document.body
+    if (!dialog && window.CCMobileEdge && typeof window.CCMobileEdge.mount === 'function') {
+      window.CCMobileEdge.mount({
+        legacy: document.body,
+        placement: document.body,
+        hideLegacy: false,
+        profile: 'ecosystem'
+      });
+      dialog = document.getElementById(config.dialogId);
+    }
+
+    // 2. Otwórz modal
     if (dialog && typeof dialog.showModal === 'function') {
       if (!dialog.open) {
         if (typeof dialog._ccOpen === 'function') {
@@ -337,7 +366,7 @@
         }
       }
     } else {
-      // 2. Jeśli dialog jeszcze się nie zainicjował, kliknij w menu / burger
+      // 3. Rezerwowe kliknięcie w burger
       const burger = document.querySelector('.cc-mobile-edge-trigger, #topNavMenuBtn, #ccOmniEdgeBtn, .btn-burger, #menuToggleBtn, #hamburgerBtn');
       if (burger && typeof burger.click === 'function') {
         burger.click();
@@ -355,8 +384,7 @@
     if (dialog && dialog.open && typeof dialog.close === 'function') {
       dialog.close();
     }
-    if (document.body && document.body.style) document.body.style.overflow = '';
-    if (document.documentElement && document.documentElement.style) document.documentElement.style.overflow = '';
+    restoreScroll();
     if (buttonEl) {
       buttonEl.setAttribute('aria-expanded', 'false');
     }
@@ -388,9 +416,11 @@
     const height = window.innerHeight;
     let bottom = window.innerWidth >= 768 ? 24 : 16;
 
-    // 1. Sprawdzenie stałego paska nawigacji na dole (np. CC GO .mobile-nav)
+    // 1. Sprawdzenie stałego paska nawigacji na dole (np. CC GO .mobile-nav, LUMINA .lumina-nav-bottom)
     const navEl = document.querySelector('.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]');
     if (navEl) {
+      if (document.body) document.body.classList.add('has-cc-bottom-nav');
+      if (document.documentElement) document.documentElement.classList.add('has-cc-bottom-nav');
       const cs = window.getComputedStyle(navEl);
       if (cs.display !== 'none' && cs.visibility !== 'hidden') {
         const rect = navEl.getBoundingClientRect();
@@ -406,48 +436,36 @@
       const luminaBase = window.getComputedStyle(document.body).getPropertyValue('--cc-lumina-action-base');
       if (luminaBase && luminaBase.trim()) {
         const baseTrimmed = luminaBase.trim();
-        if (document.documentElement && document.documentElement.style && typeof document.documentElement.style.setProperty === 'function') {
+        if (document.documentElement?.style?.setProperty) {
           document.documentElement.style.setProperty('--cc-floating-bottom', baseTrimmed);
         }
-        if (document.body && document.body.style && typeof document.body.style.setProperty === 'function') {
+        if (document.body?.style?.setProperty) {
           document.body.style.setProperty('--cc-floating-bottom', baseTrimmed);
         }
         if (buttonEl) {
           buttonEl.style.setProperty('bottom', baseTrimmed, 'important');
         }
+        const btt = document.getElementById('backToTopBtn');
+        if (btt) {
+          btt.style.setProperty('bottom', baseTrimmed, 'important');
+        }
         return baseTrimmed;
       }
     }
 
-    // 3. Dynamiczne próbkowanie przeszkód po lewej i prawej stronie
-    if (document.elementsFromPoint) {
-      const w = window.innerWidth;
-      const testPoints = [[24, height - 20], [Math.round(w / 2), height - 20], [w - 24, height - 20]];
-      testPoints.forEach(([x, y]) => {
-        if (x < 0 || y < 0) return;
-        document.elementsFromPoint(x, y).forEach(el => {
-          if (el.id === 'ccEdgePlusBtn' || el.id === 'backToTopBtn' || el.classList?.contains('cc-edge-plus-tooltip')) return;
-          const pos = window.getComputedStyle(el).position;
-          if (pos === 'fixed' || pos === 'sticky') {
-            const r = el.getBoundingClientRect();
-            if (r.width > 0 && r.height > 0 && r.top > height * 0.35 && r.bottom >= height - 30) {
-              bottom = Math.max(bottom, Math.round(height - r.top + 12));
-            }
-          }
-        });
-      });
-    }
-
-    if (bottom + 48 > height * 0.65) bottom = 16;
     const finalVal = `max(${bottom}px, env(safe-area-inset-bottom))`;
-    if (document.documentElement && document.documentElement.style && typeof document.documentElement.style.setProperty === 'function') {
+    if (document.documentElement?.style?.setProperty) {
       document.documentElement.style.setProperty('--cc-floating-bottom', finalVal);
     }
-    if (document.body && document.body.style && typeof document.body.style.setProperty === 'function') {
+    if (document.body?.style?.setProperty) {
       document.body.style.setProperty('--cc-floating-bottom', finalVal);
     }
     if (buttonEl) {
       buttonEl.style.setProperty('bottom', finalVal, 'important');
+    }
+    const btt = document.getElementById('backToTopBtn');
+    if (btt) {
+      btt.style.setProperty('bottom', finalVal, 'important');
     }
     return finalVal;
   }
@@ -515,8 +533,7 @@
         const dialog = document.getElementById(config.dialogId);
         if (dialog) {
           dialog.addEventListener('close', () => {
-            if (document.body && document.body.style) document.body.style.overflow = '';
-            if (document.documentElement && document.documentElement.style) document.documentElement.style.overflow = '';
+            restoreScroll();
             if (buttonEl) buttonEl.setAttribute('aria-expanded', 'false');
             scheduleUpdate();
             if (previousFocusEl && previousFocusEl.isConnected && typeof previousFocusEl.focus === 'function') {
@@ -524,8 +541,7 @@
             }
           });
           dialog.addEventListener('cancel', () => {
-            if (document.body && document.body.style) document.body.style.overflow = '';
-            if (document.documentElement && document.documentElement.style) document.documentElement.style.overflow = '';
+            restoreScroll();
             if (buttonEl) buttonEl.setAttribute('aria-expanded', 'false');
             scheduleUpdate();
           });

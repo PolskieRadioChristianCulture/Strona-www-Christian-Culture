@@ -6,4 +6,16 @@ METHOD:PUBLISH
 X-WR-CALNAME:Kalendarz Christian Culture
 X-WR-TIMEZONE:Europe/Warsaw
 X-WR-CALDESC:Kalendarz Misyjny
+BEGIN:VEVENT
+UID:cc-yt-post-factory-20261110@polskieradio.cc
+DTSTAMP:20261110T073000Z
+DTSTART;TZID=Europe/Warsaw:20261110T090000
+DTEND;TZID=Europe/Warsaw:20261110T093000
+RRULE:FREQ=DAILY
+SUMMARY:🎬 CC YouTube Post Factory — Kampania Społeczności YT
+DESCRIPTION:Centralny system przygotowywania kampanii społeczności YouTube dla 7 uprawnionych kanałów Christian Culture. Generator: scripts/cc-yt-post-factory/CC_YT_Post_Factory/scripts/build.mjs
+LOCATION:YouTube Studio (7 kanałów CC)
+STATUS:CONFIRMED
+CATEGORIES:Automatyzacja,Media,YouTube
+END:VEVENT
 END:VCALENDAR

@@ -5,6 +5,16 @@
   "updatesLog": [
     {
       "date": "2026-11-10",
+      "topic": "CC Edge+: Korekta globalna — usuniecie kolizji z dolna nawigacja (Start), symetryczne wyrownanie wysokosci z przyciskiem do gory, montowanie panelu na Agenda oraz likwidacja zamrozenia strony",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-10",
+      "topic": "CC GO: Harmonizacja stylu przycisku gwiazdki (Ulubione) w pasku szybkiej nawigacji — wymiary 52x52px, squircle 18px i spójność wizualna",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-10",
       "topic": "LUMI MESS: Wdrożenie Asystenta Christian Culture (CC-LUMIMESS-ASSISTANT-001) — wirtualny gospodarz, baza wiedzy i obsługa zgłoszeń",
       "agent": "A"
     },

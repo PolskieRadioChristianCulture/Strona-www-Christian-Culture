@@ -31,6 +31,12 @@ function createStaticServer() {
       else if (pathname === '/akademia' || pathname === '/akademia/') pathname = '/akademia.html';
 
       let filePath = path.join(ROOT, pathname);
+      if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+        const indexHtml = path.join(filePath, 'index.html');
+        if (fs.existsSync(indexHtml)) {
+          filePath = indexHtml;
+        }
+      }
       if (!fs.existsSync(filePath) && fs.existsSync(filePath + '.html')) {
         filePath += '.html';
       }
@@ -313,6 +319,46 @@ test('CCEdgePlus Browser Test Suite — Full Matrix (360, 390, 768, 1280, 1920, 
         await context.close();
       });
     }
+
+    // 7. Agenda verification: clicking + button must open edge panel and close cleanly without freezing
+    await t.test('Agenda page: edge plus button successfully mounts dialog, opens panel and restores scroll', async () => {
+      const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+      const page = await context.newPage();
+      await page.goto(`${baseUrl}/agenda/`, { waitUntil: 'domcontentloaded' });
+
+      // Skrypty standardowe
+      await page.addScriptTag({ url: `${baseUrl}/js/cc-back-to-top.js` });
+      await page.addScriptTag({ url: `${baseUrl}/js/cc-mobile-edge.js` });
+      await page.addScriptTag({ url: `${baseUrl}/js/cc-edge-plus.js` });
+      await page.waitForTimeout(300);
+
+      const btnPlus = page.locator('#ccEdgePlusBtn');
+      await btnPlus.waitFor({ state: 'attached' });
+
+      // Przewiń stronę w dół
+      await page.evaluate(() => window.scrollTo(0, 400));
+      await page.waitForTimeout(300);
+
+      assert.ok(await btnPlus.evaluate(el => el.classList.contains('is-visible')), 'Plus button must be visible after scrolling agenda');
+
+      // Kliknij w przycisk +
+      await btnPlus.click();
+      await page.waitForTimeout(300);
+
+      const dialog = page.locator('#cc-mobile-edge-dialog');
+      assert.ok(await dialog.evaluate(el => el.open), 'Dialog #cc-mobile-edge-dialog must be open after clicking plus on agenda');
+      assert.equal(await page.evaluate(() => document.body.style.overflow), 'hidden', 'Body overflow hidden while edge panel open');
+
+      // Zamknięcie przez Escape
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(300);
+
+      assert.equal(await dialog.evaluate(el => el.open), false, 'Dialog must be closed after Escape');
+      assert.equal(await page.evaluate(() => document.body.style.overflow), '', 'Body overflow restored after closing (no freeze)');
+
+      await page.screenshot({ path: path.join(SCREENSHOTS_DIR, '10_agenda_edge_panel_verified.png') });
+      await context.close();
+    });
 
   } finally {
     await browser.close();

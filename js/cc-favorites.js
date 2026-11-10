@@ -605,6 +605,91 @@
         color: #b45309;
         box-shadow: 0 0 14px rgba(217, 119, 6, 0.25);
       }
+
+      /* Integracja z paskiem szybkiej nawigacji CC GO (.quick) */
+      .quick .cc-topbar-fav-btn {
+        width: 76px;
+        min-width: 76px;
+        height: auto;
+        min-height: auto;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        font: inherit;
+        font-size: 0.74rem;
+        font-weight: 700;
+        color: var(--ink, #fff);
+        line-height: inherit;
+      }
+      .quick .cc-topbar-fav-btn span {
+        font-size: 0.74rem;
+        font-weight: 700;
+        color: var(--ink, #fff);
+        line-height: 1.2;
+      }
+      .quick .cc-topbar-fav-btn .ic,
+      .quick .cc-topbar-fav-btn svg.ic {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        min-height: 52px;
+        padding: 14px;
+        border-radius: 18px;
+        background: var(--surface, #083a46);
+        border: 1px solid var(--line, rgba(24, 228, 242, 0.18));
+        color: var(--ink, #fff);
+        box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.12));
+        stroke-width: 1.9;
+        box-sizing: border-box;
+        transition: background 0.2s, border-color 0.2s, color 0.2s, fill 0.2s;
+      }
+      .quick .cc-topbar-fav-btn:hover,
+      [data-theme="light"] .quick .cc-topbar-fav-btn:hover,
+      [data-lumina-theme="light"] .quick .cc-topbar-fav-btn:hover {
+        background: transparent;
+        border-color: transparent;
+        transform: none;
+        color: var(--ink, #fff);
+      }
+      .quick .cc-topbar-fav-btn:hover .ic,
+      .quick .cc-topbar-fav-btn:hover svg.ic {
+        background: var(--yellow, #ffd23f);
+        border-color: var(--yellow, #ffd23f);
+        color: #0b1a24;
+        transform: none;
+      }
+      .quick .cc-topbar-fav-btn.is-active,
+      [data-theme="light"] .quick .cc-topbar-fav-btn.is-active,
+      [data-lumina-theme="light"] .quick .cc-topbar-fav-btn.is-active {
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none;
+      }
+      .quick .cc-topbar-fav-btn.is-active .ic,
+      .quick .cc-topbar-fav-btn.is-active svg.ic {
+        background: var(--surface, #083a46);
+        border-color: var(--yellow, #ffd23f);
+        color: var(--yellow, #ffd23f);
+        fill: currentColor;
+        box-shadow: none;
+        animation: none;
+      }
+      .quick .cc-topbar-fav-btn.is-active:hover .ic,
+      .quick .cc-topbar-fav-btn.is-active:hover svg.ic {
+        background: var(--yellow, #ffd23f);
+        border-color: var(--yellow, #ffd23f);
+        color: #0b1a24;
+        fill: #0b1a24;
+      }
     `;
     document.head.appendChild(style);
   }
@@ -685,6 +770,14 @@
             container.appendChild(favBtn);
           }
         } else {
+          if (container.classList.contains('quick') || selector === 'nav') {
+            favBtn.innerHTML = `
+              <svg class="ic cc-fav-star-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <span>Ulubione</span>
+            `;
+          }
           container.appendChild(favBtn);
         }
         mounted = true;
