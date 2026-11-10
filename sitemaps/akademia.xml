@@ -253,6 +253,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://polskieradio.cc/akademia/kurscodzienny/dzien-41</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/akademia/apokalipsa/lekcja-01</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>

@@ -1018,38 +1018,93 @@ function loadApokalipsaLessons() {
 
 // --- 6. WCZYTANIE LEKCJI KURSU CODZIENNEGO ---
 function loadDailyCourseLessons() {
+  const lessons = [];
+  const seenDays = new Set();
+
   try {
     const filePath = path.join(ROOT, 'data/kurscodzienny/m01_rodzaju.json');
-    if (!fs.existsSync(filePath)) return [];
-    const raw = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    const lessons = [];
-
-    for (const l of (raw.lessons || [])) {
-      const num = l.lessonGlobalNumber || l.lessonMonthNumber;
-      const memVerse = l.memoryVerse ? `${l.memoryVerse.reference}: „${l.memoryVerse.text}”` : '';
-      lessons.push({
-        title: `Z Biblią za Pan Brat — Dzień ${num}: ${l.title}`,
-        category: "Biblia i formacja",
-        url: `https://polskieradio.cc/kursy/kurscodzienny/dzien-${String(num).padStart(2, '0')}.html`,
-        description: `${l.subtitle || ''}. ${l.mainIdea || ''} ${memVerse}`.trim(),
-        tags: [
-          "kurs codzienny",
-          "z biblią za pan brat",
-          "księga rodzaju",
-          l.scriptureRange,
-          l.visualMotif,
-          "lekcja biblijna",
-          "rozważanie",
-          "stworzenie"
-        ].filter(Boolean),
-        featured: num <= 3
-      });
+    if (fs.existsSync(filePath)) {
+      const raw = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      for (const l of (raw.lessons || [])) {
+        const num = l.lessonGlobalNumber || l.lessonMonthNumber;
+        seenDays.add(num);
+        const memVerse = l.memoryVerse ? `${l.memoryVerse.reference}: „${l.memoryVerse.text}”` : '';
+        lessons.push({
+          title: `Z Biblią za Pan Brat — Dzień ${num}: ${l.title}`,
+          category: "Biblia i formacja",
+          url: `https://polskieradio.cc/akademia/kurscodzienny/dzien-${String(num).padStart(2, '0')}`,
+          description: `${l.subtitle || ''}. ${l.mainIdea || ''} ${memVerse}`.trim(),
+          tags: [
+            "kurs codzienny",
+            "z biblią za pan brat",
+            "księga rodzaju",
+            `dzień ${num}`,
+            `dzien ${num}`,
+            `lekcja ${num}`,
+            l.scriptureRange,
+            l.visualMotif,
+            "lekcja biblijna",
+            "rozważanie",
+            "stworzenie"
+          ].filter(Boolean),
+          featured: num === 41
+        });
+      }
     }
-    return lessons;
   } catch (err) {
-    console.warn('Nie udało się wczytać kursu codziennego:', err.message);
-    return [];
+    console.warn('Nie udało się wczytać m01_rodzaju.json:', err.message);
   }
+
+  // Wczytaj lekcje z plików HTML w akademia/kurscodzienny (np. Miesiąc 2: Księga Wyjścia)
+  try {
+    const akDir = path.join(ROOT, 'akademia/kurscodzienny');
+    if (fs.existsSync(akDir)) {
+      const files = fs.readdirSync(akDir).filter(f => /^dzien-\d+\.html$/.test(f));
+      for (const file of files) {
+        const m = file.match(/^dzien-(\d+)\.html$/);
+        if (!m) continue;
+        const num = parseInt(m[1], 10);
+        if (seenDays.has(num)) continue;
+        seenDays.add(num);
+
+        const html = fs.readFileSync(path.join(akDir, file), 'utf8');
+        const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+        const descMatch = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i);
+        const rawTitle = titleMatch ? titleMatch[1].replace(/\s*\|\s*Z Biblią.*$/i, '').replace(/\s*\|\s*LUMINA.*$/i, '').trim() : `Dzień ${num}`;
+        const title = `Z Biblią za Pan Brat — ${rawTitle}`;
+        const description = descMatch ? descMatch[1].trim() : `Kurs Codzienny Pisma Świętego — Dzień ${num}.`;
+
+        lessons.push({
+          title,
+          category: "Biblia i formacja",
+          url: `https://polskieradio.cc/akademia/kurscodzienny/dzien-${String(num).padStart(2, '0')}`,
+          description,
+          tags: [
+            "kurs codzienny",
+            "z biblią za pan brat",
+            `dzień ${num}`,
+            `dzien ${num}`,
+            `lekcja ${num}`,
+            "księga wyjścia",
+            "lekcja biblijna",
+            "rozważanie"
+          ],
+          featured: num === 41
+        });
+      }
+    }
+  } catch (err) {
+    console.warn('Nie udało się wczytać lekcji z HTML:', err.message);
+  }
+
+  // Posortuj rosnąco wg numeru dnia
+  lessons.sort((a, b) => {
+    const numA = parseInt(a.url.match(/dzien-(\d+)/)?.[1] || '0', 10);
+    const numB = parseInt(b.url.match(/dzien-(\d+)/)?.[1] || '0', 10);
+    return numA - numB;
+  });
+
+  return lessons;
 }
 
 // --- 7. WCZYTANIE HASEŁ LEKSYKONU BIBLIJNEGO ---

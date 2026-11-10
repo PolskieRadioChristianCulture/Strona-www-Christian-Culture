@@ -13,17 +13,30 @@ const data = JSON.parse(rawData);
 // 1. Lekcje Kursu Codziennego "Z Biblią za Pan Brat"
 const dailyLessons = [
   {
-    title: "Z Biblią za Pan Brat — Dzień 40 (Lekcja 40 na dziś): Pomór bydła, wrzody i ogień z gradem — Boża moc ponad pychą faraona (Wj 9:1–35)",
+    title: "Z Biblią za Pan Brat — Dzień 41 (Lekcja 41 na dziś): Plagi szarańczy i ciemności egipskiej — Sąd nad fałszywym światłem i wolność bez kompromisów (Wj 10:1–29)",
     category: "Biblia i formacja",
-    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-40",
-    description: "Kurs Codzienny Pisma Świętego — Dzień 40 (Lekcja 40 na dziś, 9 listopada 2026). Księga Wyjścia 9:1–35: Pomór bydła, wrzody z pieca i bezprecedensowy ogień z gradem. Boża moc ponad pychą faraona, ochrona w ziemi Goszen i Chrystus jako nasze jedyne schronienie.",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-41",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 41 (Lekcja 41 na dziś, 10 listopada 2026). Księga Wyjścia 10:1–29: Plagi szarańczy i namacalnej ciemności egipskiej. Sąd nad fałszywym światłem i bóstwem Ra, Boża suwerenność i bezkompromisowa wolność przymierza w Chrystusie.",
     tags: [
-      "lekcja 40", "lekcja 40 na dziś", "lekcja na dziś", "dzień 40", "dzien 40",
-      "rozważanie 40", "rozważanie na dziś", "słowo na dziś", "pomór bydła", "wrzody",
-      "grad z ogniem", "ziemia goszen", "faraon", "wj 9", "z biblią za pan brat",
-      "kurs codzienny", "akademia biblijna", "9 listopada 2026", "dzisiaj", "dziś"
+      "lekcja 41", "lekcja 41 na dziś", "lekcja na dziś", "dzień 41", "dzien 41",
+      "rozważanie 41", "rozważanie na dziś", "słowo na dziś", "szarańcza", "ciemność egipska",
+      "plagi egipskie", "faraon", "bóstwo ra", "ziemia goszen", "wj 10", "z biblią za pan brat",
+      "kurs codzienny", "akademia biblijna", "10 listopada 2026", "dzisiaj", "dziś"
     ],
     featured: true
+  },
+  {
+    title: "Z Biblią za Pan Brat — Dzień 40 (Lekcja 40): Pomór bydła, wrzody i ogień z gradem — Boża moc ponad pychą faraona (Wj 9:1–35)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/akademia/kurscodzienny/dzien-40",
+    description: "Kurs Codzienny Pisma Świętego — Dzień 40 (Lekcja 40, 9 listopada 2026). Księga Wyjścia 9:1–35: Pomór bydła, wrzody z pieca i bezprecedensowy ogień z gradem. Boża moc ponad pychą faraona, ochrona w ziemi Goszen i Chrystus jako nasze jedyne schronienie.",
+    tags: [
+      "lekcja 40", "dzień 40", "dzien 40",
+      "rozważanie 40", "słowo na dziś", "pomór bydła", "wrzody",
+      "grad z ogniem", "ziemia goszen", "faraon", "wj 9", "z biblią za pan brat",
+      "kurs codzienny", "akademia biblijna", "9 listopada 2026", "archiwalne"
+    ],
+    featured: false
   },
   {
     title: "Z Biblią za Pan Brat — Dzień 39 (Lekcja 39): Żaby, komary i muchy — Wybór terminu cudu i granica ziemi Goszen (Wj 8:1–32)",
