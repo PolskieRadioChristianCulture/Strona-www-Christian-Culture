@@ -4397,8 +4397,13 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-09",
+  "lastUpdated": "2026-11-10",
   "recentUpdates": [
+    {
+      "date": "2026-11-10",
+      "topic": "Publikacja Dnia 41: Akademia Biblijna & Rozważania DZJ (Wj 10:1-29)",
+      "agent": "A"
+    },
     {
       "date": "2026-11-09",
       "topic": "cclite.pl: Faza 4 EkoCC — ujednolicenie GA4 (G-Y4EFTVBPE3), kafelki Akademii i Mapy CC, pomarańczowy CTA #FF7A00 i ergonomia 44px",
@@ -4569,6 +4574,11 @@
     {
       "date": "2026-11-09",
       "topic": "Higiena bazy SMS-CC: usunięcie 11 nieaktywnych numerów (baza: 133 numery 100% PASS)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-10",
+      "topic": "Publikacja Dnia 41: Akademia Biblijna & Rozważania DZJ (Wj 10:1-29)",
       "agent": "A"
     }
   ]
