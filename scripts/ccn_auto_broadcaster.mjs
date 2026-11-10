@@ -1136,11 +1136,11 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
       }
     }
 
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(3000).catch(() => {});
     console.log('🎉 [CCN Broadcaster] Post został zweryfikowany i opublikowany na platformie X!');
 
-    await page.close();
-    await context.close();
+    await page.close().catch(() => {});
+    await context.close().catch(() => {});
     return { success: true };
   } catch (err) {
     await context.close().catch(() => {});
