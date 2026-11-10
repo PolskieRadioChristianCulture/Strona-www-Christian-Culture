@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CC YouTube Post Factory · 2026-11-10-dobre-slowo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #07090E;
+            --bg-card: rgba(18, 24, 38, 0.85);
+            --bg-surface: #0E1624;
+            --gold-primary: #C4A35A;
+            --gold-light: #E2CC9A;
+            --gold-border: rgba(196, 163, 90, 0.35);
+            --orange-cta: #FF7A00;
+            --orange-hover: #FF8C33;
+            --orange-active: #E66A00;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --radius-card: 16px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            padding: 30px 20px 80px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .factory-header {
+            background: linear-gradient(135deg, rgba(20, 30, 48, 0.95), rgba(12, 18, 28, 0.95));
+            border: 1px solid var(--gold-border);
+            border-radius: var(--radius-card);
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            backdrop-filter: blur(12px);
+        }
+        .brand-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .factory-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+        .factory-desc {
+            color: var(--text-muted);
+            font-size: 15px;
+            max-width: 800px;
+            margin-bottom: 16px;
+        }
+        .header-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .meta-pill {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 13px;
+            color: var(--gold-light);
+        }
+        .btn-export-csv {
+            background: var(--orange-cta);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-left: auto;
+            transition: all 0.2s ease;
+        }
+        .btn-export-csv:hover { background: var(--orange-hover); transform: translateY(-1px); }
+        .btn-export-csv:active { background: var(--orange-active); }
+
+        /* Channel Cards */
+        .channel-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius-card);
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .channel-card:hover {
+            border-color: var(--gold-border);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+        }
+        .channel-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+        .channel-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .channel-lang-pill {
+            background: var(--gold-primary);
+            color: #07090E;
+            font-weight: 800;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+        .channel-name {
+            font-size: 19px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+        .channel-handle {
+            color: var(--gold-light);
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(196, 163, 90, 0.1);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+        .badge-manager {
+            font-size: 11px;
+            color: #38BDF8;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+        .channel-actions-top {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .char-counter {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        button, a.btn-studio, a.btn-community {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            padding: 9px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 40px;
+        }
+        .btn-copy {
+            background: #1E293B;
+            color: #F8FAFC;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .btn-copy:hover { background: #334155; border-color: var(--gold-primary); }
+        .btn-copy.copied { background: #059669; color: white; border-color: #10B981; }
+        .btn-studio {
+            background: var(--orange-cta);
+            color: white;
+            border: none;
+        }
+        .btn-studio:hover { background: var(--orange-hover); color: white; }
+        .btn-community {
+            background: rgba(255,255,255,0.06);
+            color: var(--gold-light);
+            border: 1px solid rgba(196, 163, 90, 0.3);
+        }
+        .btn-community:hover { background: rgba(196, 163, 90, 0.15); }
+
+        /* Post Body & Image Preview */
+        .post-preview-box {
+            display: grid;
+            grid-template-columns: 1fr 180px;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+        @media (max-width: 768px) {
+            .post-preview-box { grid-template-columns: 1fr; }
+        }
+        .post-textarea {
+            width: 100%;
+            height: 180px;
+            background: var(--bg-surface);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #E2E8F0;
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 14px;
+            resize: vertical;
+        }
+        .post-image-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+        .thumb-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--gold-border);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .thumb-img:hover { transform: scale(1.02); }
+        .btn-download-img {
+            font-size: 12px;
+            color: var(--gold-light);
+            text-decoration: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+            display: inline-block;
+        }
+
+        /* Status & URL Bar */
+        .channel-status-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .status-select-wrap, .post-url-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 260px;
+        }
+        .status-select-wrap label, .post-url-wrap label {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .status-dropdown {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            color: #FFFFFF;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            flex: 1;
+        }
+        .post-url-input {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            color: #FFFFFF;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            flex: 1;
+        }
+
+        /* Toast notification */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #059669;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            display: none;
+            z-index: 10000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="factory-header">
+            <span class="brand-badge">CHRISTIAN CULTURE · AUTOMATYZACJA YOUTUBE</span>
+            <h1 class="factory-title">CC YouTube Post Factory · Panel Kampanii</h1>
+            <p class="factory-desc">
+                Pakiet gotowy. <b>Publikacja wymaga autoryzowanego zatwierdzenia w YouTube Studio.</b>
+                Dla każdego kanału skopiuj dedykowaną treść, dołącz pobraną grafikę 1:1, wybierz termin lub publikuj od razu, a link do posta wklej do tabeli.
+            </p>
+            <div class="header-meta-row">
+                <span class="meta-pill">ID: <strong>2026-11-10-dobre-slowo</strong></span>
+                <span class="meta-pill">Aktywne kanały: <strong>7</strong></span>
+                <span class="meta-pill">Grafika: <strong>grafika.png (1080×1080)</strong></span>
+                <button type="button" class="btn-export-csv" onclick="exportUpdatedCSV()">💾 Eksportuj status_publikacji.csv</button>
+            </div>
+        </header>
+
+        <main id="channelsContainer">
+            
+        <div class="channel-card" data-channel-id="christian-culture-tv">
+            <div class="channel-header">
+                <div class="channel-title-group">
+                    <span class="channel-lang-pill">PL</span>
+                    <h2 class="channel-name">Christian Culture TV</h2>
+                    <span class="channel-handle">@ChristianCultureTV</span>
+                    
+                </div>
+                <div class="channel-actions-top">
+                    <span class="char-counter" id="cc_christian-culture-tv">272 znaków</span>
+                    <button type="button" class="btn-copy" onclick="copyPostText('christian-culture-tv')">📋 Kopiuj treść posta</button>
+                    <a href="https://studio.youtube.com/channel/UCG5Y4dwJi5436Gu6QH3nNUQ" target="_blank" rel="noopener" class="btn-studio">🚀 Otwórz YouTube Studio</a>
+                    <a href="https://www.youtube.com/channel/UCG5Y4dwJi5436Gu6QH3nNUQ/community" target="_blank" rel="noopener" class="btn-community">🌐 Karta Społeczność</a>
+                </div>
+            </div>
+
+            <div class="post-preview-box">
+                <div class="post-text-wrap">
+                    <textarea class="post-textarea" id="text_christian-culture-tv" readonly>Jedno dobre słowo może stać się początkiem pięknej zmiany. ❤️ Odkryj dzisiejszą inspirację i podziel się nią z kimś bliskim.
+
+Odkrywaj inspirujące filmy i transmisje Christian Culture.
+
+👉 Odkryj i udostępnij: https://polskieradio.cc/Ewangelia
+
+#ChristianCulture #Ewangelia</textarea>
+                </div>
+                <div class="post-image-preview">
+                    <img src="grafika.png" alt="Podgląd grafiki" class="thumb-img" onclick="openImageModal('grafika.png')" title="Kliknij, aby powiększyć">
+                    <a href="grafika.png" download="grafika.png" class="btn-download-img">⬇ Pobierz 1:1</a>
+                </div>
+            </div>
+
+            <div class="channel-status-bar">
+                <div class="status-select-wrap">
+                    <label for="status_christian-culture-tv">Status kanału:</label>
+                    <select id="status_christian-culture-tv" class="status-dropdown" onchange="updateChannelStatus('christian-culture-tv')">
+                        <option value="DO ZATWIERDZENIA" selected>⏳ DO ZATWIERDZENIA</option>
+                        <option value="SKOPIOWANO">📋 SKOPIOWANO DO SCHOWKA</option>
+                        <option value="ZAPLANOWANO">⏰ ZAPLANOWANO W STUDIO</option>
+                        <option value="OPUBLIKOWANO">✅ OPUBLIKOWANO NA ŻYWO</option>
+                        <option value="BŁĄD">⚠️ BŁĄD / POMINIĘTO</option>
+                    </select>
+                </div>
+                <div class="post-url-wrap">
+                    <label for="url_christian-culture-tv">Link do opublikowanego posta:</label>
+                    <input type="url" id="url_christian-culture-tv" class="post-url-input" placeholder="https://youtube.com/post/..." oninput="updateChannelStatus('christian-culture-tv')">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="channel-card" data-channel-id="radio-christian-culture">
+            <div class="channel-header">
+                <div class="channel-title-group">
+                    <span class="channel-lang-pill">PL</span>
+                    <h2 class="channel-name">Polskie Radio CHRISTIAN CULTURE</h2>
+                    <span class="channel-handle">@RadioChristianCulture</span>
+                    <span class="badge badge-manager" title="Dostępne z konta @osobowośćPLUS">Zarządzane przez: @osobowośćPLUS</span>
+                </div>
+                <div class="channel-actions-top">
+                    <span class="char-counter" id="cc_radio-christian-culture">282 znaków</span>
+                    <button type="button" class="btn-copy" onclick="copyPostText('radio-christian-culture')">📋 Kopiuj treść posta</button>
+                    <a href="https://studio.youtube.com/channel/UCNnCdsJ-K6FXulZzXZHWkjQ" target="_blank" rel="noopener" class="btn-studio">🚀 Otwórz YouTube Studio</a>
+                    <a href="https://www.youtube.com/channel/UCNnCdsJ-K6FXulZzXZHWkjQ/community" target="_blank" rel="noopener" class="btn-community">🌐 Karta Społeczność</a>
+                </div>
+            </div>
+
+            <div class="post-preview-box">
+                <div class="post-text-wrap">
+                    <textarea class="post-textarea" id="text_radio-christian-culture" readonly>Jedno dobre słowo może stać się początkiem pięknej zmiany. ❤️ Odkryj dzisiejszą inspirację i podziel się nią z kimś bliskim.
+
+Dobry przekaz ze Słowem Bożym i muzyką dla Ciebie i Twoich bliskich.
+
+👉 Odkryj i udostępnij: https://polskieradio.cc/Ewangelia
+
+#ChristianCulture #Ewangelia</textarea>
+                </div>
+                <div class="post-image-preview">
+                    <img src="grafika.png" alt="Podgląd grafiki" class="thumb-img" onclick="openImageModal('grafika.png')" title="Kliknij, aby powiększyć">
+                    <a href="grafika.png" download="grafika.png" class="btn-download-img">⬇ Pobierz 1:1</a>
+                </div>
+            </div>
+
+            <div class="channel-status-bar">
+                <div class="status-select-wrap">
+                    <label for="status_radio-christian-culture">Status kanału:</label>
+                    <select id="status_radio-christian-culture" class="status-dropdown" onchange="updateChannelStatus('radio-christian-culture')">
+                        <option value="DO ZATWIERDZENIA" selected>⏳ DO ZATWIERDZENIA</option>
+                        <option value="SKOPIOWANO">📋 SKOPIOWANO DO SCHOWKA</option>
+                        <option value="ZAPLANOWANO">⏰ ZAPLANOWANO W STUDIO</option>
+                        <option value="OPUBLIKOWANO">✅ OPUBLIKOWANO NA ŻYWO</option>
+                        <option value="BŁĄD">⚠️ BŁĄD / POMINIĘTO</option>
+                    </select>
+                </div>
+                <div class="post-url-wrap">
+                    <label for="url_radio-christian-culture">Link do opublikowanego posta:</label>
+                    <input type="url" id="url_radio-christian-culture" class="post-url-input" placeholder="https://youtube.com/post/..." oninput="updateChannelStatus('radio-christian-culture')">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="channel-card" data-channel-id="osobowosc-plus">
+            <div class="channel-header">
+                <div class="channel-title-group">
+                    <span class="channel-lang-pill">PL</span>
+                    <h2 class="channel-name">Osobowość +</h2>
+                    <span class="channel-handle">@osobowośćPLUS</span>
+                    
+                </div>
+                <div class="channel-actions-top">
+                    <span class="char-counter" id="cc_osobowosc-plus">275 znaków</span>
+                    <button type="button" class="btn-copy" onclick="copyPostText('osobowosc-plus')">📋 Kopiuj treść posta</button>
+                    <a href="https://studio.youtube.com/channel/UCHmPxDM2zzlUAf5ZvlotPLw" target="_blank" rel="noopener" class="btn-studio">🚀 Otwórz YouTube Studio</a>
+                    <a href="https://www.youtube.com/channel/UCHmPxDM2zzlUAf5ZvlotPLw/community" target="_blank" rel="noopener" class="btn-community">🌐 Karta Społeczność</a>
+                </div>
+            </div>
+
+            <div class="post-preview-box">
+                <div class="post-text-wrap">
+                    <textarea class="post-textarea" id="text_osobowosc-plus" readonly>Jedno dobre słowo może stać się początkiem pięknej zmiany. ❤️ Odkryj dzisiejszą inspirację i podziel się nią z kimś bliskim.
+
+Inspiruj innych do dojrzałego rozwoju duchowego i osobistego.
+
+👉 Odkryj i udostępnij: https://polskieradio.cc/Ewangelia
+
+#ChristianCulture #Ewangelia</textarea>
+                </div>
+                <div class="post-image-preview">
+                    <img src="grafika.png" alt="Podgląd grafiki" class="thumb-img" onclick="openImageModal('grafika.png')" title="Kliknij, aby powiększyć">
+                    <a href="grafika.png" download="grafika.png" class="btn-download-img">⬇ Pobierz 1:1</a>
+                </div>
+            </div>
+
+            <div class="channel-status-bar">
+                <div class="status-select-wrap">
+                    <label for="status_osobowosc-plus">Status kanału:</label>
+                    <select id="status_osobowosc-plus" class="status-dropdown" onchange="updateChannelStatus('osobowosc-plus')">
+                        <option value="DO ZATWIERDZENIA" selected>⏳ DO ZATWIERDZENIA</option>
+                        <option value="SKOPIOWANO">📋 SKOPIOWANO DO SCHOWKA</option>
+                        <option value="ZAPLANOWANO">⏰ ZAPLANOWANO W STUDIO</option>
+                        <option value="OPUBLIKOWANO">✅ OPUBLIKOWANO NA ŻYWO</option>
+                        <option value="BŁĄD">⚠️ BŁĄD / POMINIĘTO</option>
+                    </select>
+                </div>
+                <div class="post-url-wrap">
+                    <label for="url_osobowosc-plus">Link do opublikowanego posta:</label>
+                    <input type="url" id="url_osobowosc-plus" class="post-url-input" placeholder="https://youtube.com/post/..." oninput="updateChannelStatus('osobowosc-plus')">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="channel-card" data-channel-id="cc-women">
+            <div class="channel-header">
+                <div class="channel-title-group">
+                    <span class="channel-lang-pill">PL</span>
+                    <h2 class="channel-name">CC Women</h2>
+                    <span class="channel-handle">@CCWomen7</span>
+                    
+                </div>
+                <div class="channel-actions-top">
+                    <span class="char-counter" id="cc_cc-women">279 znaków</span>
+                    <button type="button" class="btn-copy" onclick="copyPostText('cc-women')">📋 Kopiuj treść posta</button>
+                    <a href="https://studio.youtube.com/channel/UC-LPFt-vmJCeap746DOWMgw" target="_blank" rel="noopener" class="btn-studio">🚀 Otwórz YouTube Studio</a>
+                    <a href="https://www.youtube.com/channel/UC-LPFt-vmJCeap746DOWMgw/community" target="_blank" rel="noopener" class="btn-community">🌐 Karta Społeczność</a>
+                </div>
+            </div>
+
+            <div class="post-preview-box">
+                <div class="post-text-wrap">
+                    <textarea class="post-textarea" id="text_cc-women" readonly>Jedno dobre słowo może stać się początkiem pięknej zmiany. ❤️ Odkryj dzisiejszą inspirację i podziel się nią z kimś bliskim.
+
+Podziel się czymś, co dodaje siły, otuchy i wiary w codzienności.
+
+👉 Odkryj i udostępnij: https://polskieradio.cc/Ewangelia
+
+#ChristianCulture #Ewangelia</textarea>
+                </div>
+                <div class="post-image-preview">
+                    <img src="grafika.png" alt="Podgląd grafiki" class="thumb-img" onclick="openImageModal('grafika.png')" title="Kliknij, aby powiększyć">
+                    <a href="grafika.png" download="grafika.png" class="btn-download-img">⬇ Pobierz 1:1</a>
+                </div>
+            </div>
+
+            <div class="channel-status-bar">
+                <div class="status-select-wrap">
+                    <label for="status_cc-women">Status kanału:</label>
+                    <select id="status_cc-women" class="status-dropdown" onchange="updateChannelStatus('cc-women')">
+                        <option value="DO ZATWIERDZENIA" selected>⏳ DO ZATWIERDZENIA</option>
+                        <option value="SKOPIOWANO">📋 SKOPIOWANO DO SCHOWKA</option>
+                        <option value="ZAPLANOWANO">⏰ ZAPLANOWANO W STUDIO</option>
+                        <option value="OPUBLIKOWANO">✅ OPUBLIKOWANO NA ŻYWO</option>
+                        <option value="BŁĄD">⚠️ BŁĄD / POMINIĘTO</option>
+                    </select>
+                </div>
+                <div class="post-url-wrap">
+                    <label for="url_cc-women">Link do opublikowanego posta:</label>
+                    <input type="url" id="url_cc-women" class="post-url-input" placeholder="https://youtube.com/post/..." oninput="updateChannelStatus('cc-women')">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="channel-card" data-channel-id="cc-men">
+            <div class="channel-header">
+                <div class="channel-title-group">
+                    <span class="channel-lang-pill">PL</span>
+                    <h2 class="channel-name">CC Men</h2>
+                    <span class="channel-handle">@CCMen7</span>
+                    
+                </div>
+                <div class="channel-actions-top">
+                    <span class="char-counter" id="cc_cc-men">279 znaków</span>
+                    <button type="button" class="btn-copy" onclick="copyPostText('cc-men')">📋 Kopiuj treść posta</button>
+                    <a href="https://studio.youtube.com/channel/UCUpuq9JS7jitIcm9iBn0jnA" target="_blank" rel="noopener" class="btn-studio">🚀 Otwórz YouTube Studio</a>
+                    <a href="https://www.youtube.com/channel/UCUpuq9JS7jitIcm9iBn0jnA/community" target="_blank" rel="noopener" class="btn-community">🌐 Karta Społeczność</a>
+                </div>
+            </div>
+
+            <div class="post-preview-box">
+                <div class="post-text-wrap">
+                    <textarea class="post-textarea" id="text_cc-men" readonly>Jedno dobre słowo może stać się początkiem pięknej zmiany. ❤️ Odkryj dzisiejszą inspirację i podziel się nią z kimś bliskim.
+
+Męstwo, odpowiedzialność i dzielenie się wartościowymi treściami.
+
+👉 Odkryj i udostępnij: https://polskieradio.cc/Ewangelia
+
+#ChristianCulture #Ewangelia</textarea>
+                </div>
+                <div class="post-image-preview">
+                    <img src="grafika.png" alt="Podgląd grafiki" class="thumb-img" onclick="openImageModal('grafika.png')" title="Kliknij, aby powiększyć">
+                    <a href="grafika.png" download="grafika.png" class="btn-download-img">⬇ Pobierz 1:1</a>
+                </div>
+            </div>
+
+            <div class="channel-status-bar">
+                <div class="status-select-wrap">
+                    <label for="status_cc-men">Status kanału:</label>
+                    <select id="status_cc-men" class="status-dropdown" onchange="updateChannelStatus('cc-men')">
+                        <option value="DO ZATWIERDZENIA" selected>⏳ DO ZATWIERDZENIA</option>
+                        <option value="SKOPIOWANO">📋 SKOPIOWANO DO SCHOWKA</option>
+                        <option value="ZAPLANOWANO">⏰ ZAPLANOWANO W STUDIO</option>
+                        <option value="OPUBLIKOWANO">✅ OPUBLIKOWANO NA ŻYWO</option>
+                        <option value="BŁĄD">⚠️ BŁĄD / POMINIĘTO</option>
+                    </select>
+                </div>
+                <div class="post-url-wrap">
+                    <label for="url_cc-men">Link do opublikowanego posta:</label>
+                    <input type="url" id="url_cc-men" class="post-url-input" placeholder="https://youtube.com/post/..." oninput="updateChannelStatus('cc-men')">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="channel-card" data-channel-id="biblia-audio-cc">
+            <div class="channel-header">
+                <div class="channel-title-group">
+                    <span class="channel-lang-pill">PL</span>
+                    <h2 class="channel-name">Biblia Audio Christian Culture</h2>
+                    <span class="channel-handle">@bibliaaudiocc</span>
+                    <span class="badge badge-manager" title="Dostępne z konta @osobowośćPLUS">Zarządzane przez: @osobowośćPLUS</span>
+                </div>
+                <div class="channel-actions-top">
+                    <span class="char-counter" id="cc_biblia-audio-cc">277 znaków</span>
+                    <button type="button" class="btn-copy" onclick="copyPostText('biblia-audio-cc')">📋 Kopiuj treść posta</button>
+                    <a href="https://studio.youtube.com/channel/UCCqHRCEuSDhlRcvcQ6qM1Kw" target="_blank" rel="noopener" class="btn-studio">🚀 Otwórz YouTube Studio</a>
+                    <a href="https://www.youtube.com/channel/UCCqHRCEuSDhlRcvcQ6qM1Kw/community" target="_blank" rel="noopener" class="btn-community">🌐 Karta Społeczność</a>
+                </div>
+            </div>
+
+            <div class="post-preview-box">
+                <div class="post-text-wrap">
+                    <textarea class="post-textarea" id="text_biblia-audio-cc" readonly>Jedno dobre słowo może stać się początkiem pięknej zmiany. ❤️ Odkryj dzisiejszą inspirację i podziel się nią z kimś bliskim.
+
+Zanurz się w żywym Słowie Bożym czytanym rozdział po rozdziale.
+
+👉 Odkryj i udostępnij: https://polskieradio.cc/Ewangelia
+
+#ChristianCulture #Ewangelia</textarea>
+                </div>
+                <div class="post-image-preview">
+                    <img src="grafika.png" alt="Podgląd grafiki" class="thumb-img" onclick="openImageModal('grafika.png')" title="Kliknij, aby powiększyć">
+                    <a href="grafika.png" download="grafika.png" class="btn-download-img">⬇ Pobierz 1:1</a>
+                </div>
+            </div>
+
+            <div class="channel-status-bar">
+                <div class="status-select-wrap">
+                    <label for="status_biblia-audio-cc">Status kanału:</label>
+                    <select id="status_biblia-audio-cc" class="status-dropdown" onchange="updateChannelStatus('biblia-audio-cc')">
+                        <option value="DO ZATWIERDZENIA" selected>⏳ DO ZATWIERDZENIA</option>
+                        <option value="SKOPIOWANO">📋 SKOPIOWANO DO SCHOWKA</option>
+                        <option value="ZAPLANOWANO">⏰ ZAPLANOWANO W STUDIO</option>
+                        <option value="OPUBLIKOWANO">✅ OPUBLIKOWANO NA ŻYWO</option>
+                        <option value="BŁĄD">⚠️ BŁĄD / POMINIĘTO</option>
+                    </select>
+                </div>
+                <div class="post-url-wrap">
+                    <label for="url_biblia-audio-cc">Link do opublikowanego posta:</label>
+                    <input type="url" id="url_biblia-audio-cc" class="post-url-input" placeholder="https://youtube.com/post/..." oninput="updateChannelStatus('biblia-audio-cc')">
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="channel-card" data-channel-id="werset-dnia-chsb">
+            <div class="channel-header">
+                <div class="channel-title-group">
+                    <span class="channel-lang-pill">PL</span>
+                    <h2 class="channel-name">Werset Dnia - Chrześcijański Serwis Biblijny</h2>
+                    <span class="channel-handle">@wersetdnia_ChSB</span>
+                    <span class="badge badge-manager" title="Dostępne z konta @osobowośćPLUS">Zarządzane przez: @osobowośćPLUS</span>
+                </div>
+                <div class="channel-actions-top">
+                    <span class="char-counter" id="cc_werset-dnia-chsb">268 znaków</span>
+                    <button type="button" class="btn-copy" onclick="copyPostText('werset-dnia-chsb')">📋 Kopiuj treść posta</button>
+                    <a href="https://studio.youtube.com/channel/UCyOvW5DuDLVq5XWFyijgtbw" target="_blank" rel="noopener" class="btn-studio">🚀 Otwórz YouTube Studio</a>
+                    <a href="https://www.youtube.com/channel/UCyOvW5DuDLVq5XWFyijgtbw/community" target="_blank" rel="noopener" class="btn-community">🌐 Karta Społeczność</a>
+                </div>
+            </div>
+
+            <div class="post-preview-box">
+                <div class="post-text-wrap">
+                    <textarea class="post-textarea" id="text_werset-dnia-chsb" readonly>Jedno dobre słowo może stać się początkiem pięknej zmiany. ❤️ Odkryj dzisiejszą inspirację i podziel się nią z kimś bliskim.
+
+Codzienna porcja Bożego Słowa prosto do Twojego serca.
+
+👉 Odkryj i udostępnij: https://polskieradio.cc/Ewangelia
+
+#ChristianCulture #Ewangelia</textarea>
+                </div>
+                <div class="post-image-preview">
+                    <img src="grafika.png" alt="Podgląd grafiki" class="thumb-img" onclick="openImageModal('grafika.png')" title="Kliknij, aby powiększyć">
+                    <a href="grafika.png" download="grafika.png" class="btn-download-img">⬇ Pobierz 1:1</a>
+                </div>
+            </div>
+
+            <div class="channel-status-bar">
+                <div class="status-select-wrap">
+                    <label for="status_werset-dnia-chsb">Status kanału:</label>
+                    <select id="status_werset-dnia-chsb" class="status-dropdown" onchange="updateChannelStatus('werset-dnia-chsb')">
+                        <option value="DO ZATWIERDZENIA" selected>⏳ DO ZATWIERDZENIA</option>
+                        <option value="SKOPIOWANO">📋 SKOPIOWANO DO SCHOWKA</option>
+                        <option value="ZAPLANOWANO">⏰ ZAPLANOWANO W STUDIO</option>
+                        <option value="OPUBLIKOWANO">✅ OPUBLIKOWANO NA ŻYWO</option>
+                        <option value="BŁĄD">⚠️ BŁĄD / POMINIĘTO</option>
+                    </select>
+                </div>
+                <div class="post-url-wrap">
+                    <label for="url_werset-dnia-chsb">Link do opublikowanego posta:</label>
+                    <input type="url" id="url_werset-dnia-chsb" class="post-url-input" placeholder="https://youtube.com/post/..." oninput="updateChannelStatus('werset-dnia-chsb')">
+                </div>
+            </div>
+        </div>
+        
+        </main>
+    </div>
+
+    <div id="toast">✅ Skopiowano do schowka!</div>
+
+    <script>
+        const STORAGE_KEY = 'cc_yt_factory_' + '2026-11-10-dobre-slowo';
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.style.display = 'block';
+            setTimeout(() => { t.style.display = 'none'; }, 2500);
+        }
+
+        async function copyPostText(ident) {
+            const ta = document.getElementById('text_' + ident);
+            if (!ta) return;
+            try {
+                await navigator.clipboard.writeText(ta.value);
+                const btn = document.querySelector(`[data-channel-id="${ident}"] .btn-copy`);
+                if (btn) {
+                    btn.classList.add('copied');
+                    btn.textContent = '✅ Skopiowano!';
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        btn.textContent = '📋 Kopiuj treść posta';
+                    }, 2000);
+                }
+                showToast('✅ Skopiowano treść posta dla: ' + ident);
+                const sel = document.getElementById('status_' + ident);
+                if (sel && sel.value === 'DO ZATWIERDZENIA') {
+                    sel.value = 'SKOPIOWANO';
+                    updateChannelStatus(ident);
+                }
+            } catch (err) {
+                ta.select();
+                document.execCommand('copy');
+                showToast('✅ Zaznaczono i skopiowano!');
+            }
+        }
+
+        function updateChannelStatus(ident) {
+            const sel = document.getElementById('status_' + ident);
+            const inp = document.getElementById('url_' + ident);
+            if (!sel || !inp) return;
+            const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            state[ident] = {
+                status: sel.value,
+                url: inp.value.trim(),
+                updatedAt: new Date().toISOString()
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function loadSavedState() {
+            const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            for (const [ident, val] of Object.entries(state)) {
+                const sel = document.getElementById('status_' + ident);
+                const inp = document.getElementById('url_' + ident);
+                if (sel && val.status) sel.value = val.status;
+                if (inp && val.url) inp.value = val.url;
+            }
+        }
+
+        function exportUpdatedCSV() {
+            const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            const cards = document.querySelectorAll('.channel-card');
+            const lines = ['kanal,uchwyt,channel_id,konto_zarzadzajace,status,plik,grafika,znaki,url_posta,data,uwagi'];
+            cards.forEach(card => {
+                const ident = card.getAttribute('data-channel-id');
+                const name = card.querySelector('.channel-name')?.textContent || ident;
+                const handle = card.querySelector('.channel-handle')?.textContent || '';
+                const sel = document.getElementById('status_' + ident);
+                const inp = document.getElementById('url_' + ident);
+                const status = sel ? sel.value : 'DO ZATWIERDZENIA';
+                const url = inp ? inp.value.trim() : '';
+                const saved = state[ident] || {};
+                const date = saved.updatedAt || new Date().toISOString().slice(0, 10);
+                lines.push(`"${name}","${handle}","","","${status}","${ident}.txt","grafika.png","","${url}","${date}",""`);
+            });
+            const blob = new Blob([lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'status_publikacji_zaktualizowany.csv';
+            link.click();
+            showToast('💾 Wyeksportowano zaktualizowany CSV!');
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSavedState);
+    </script>
+</body>
+</html>

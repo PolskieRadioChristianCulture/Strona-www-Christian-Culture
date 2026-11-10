@@ -1,0 +1,132 @@
+[
+  {
+    "id": "christian-culture-tv",
+    "name": "Christian Culture TV",
+    "handle": "@ChristianCultureTV",
+    "channel_id": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+    "via": "@ChristianCultureTV",
+    "language": "pl",
+    "angle": "Odkrywaj inspirujące filmy i transmisje Christian Culture.",
+    "enabled": true
+  },
+  {
+    "id": "radio-christian-culture",
+    "name": "Polskie Radio CHRISTIAN CULTURE",
+    "handle": "@RadioChristianCulture",
+    "channel_id": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+    "via": "@osobowośćPLUS",
+    "language": "pl",
+    "angle": "Dobry przekaz ze Słowem Bożym i muzyką dla Ciebie i Twoich bliskich.",
+    "enabled": true
+  },
+  {
+    "id": "osobowosc-plus",
+    "name": "Osobowość +",
+    "handle": "@osobowośćPLUS",
+    "channel_id": "UCHmPxDM2zzlUAf5ZvlotPLw",
+    "via": "@osobowośćPLUS",
+    "language": "pl",
+    "angle": "Inspiruj innych do dojrzałego rozwoju duchowego i osobistego.",
+    "enabled": true
+  },
+  {
+    "id": "cc-women",
+    "name": "CC Women",
+    "handle": "@CCWomen7",
+    "channel_id": "UC-LPFt-vmJCeap746DOWMgw",
+    "via": "@CCWomen7",
+    "language": "pl",
+    "angle": "Podziel się czymś, co dodaje siły, otuchy i wiary w codzienności.",
+    "enabled": true
+  },
+  {
+    "id": "cc-men",
+    "name": "CC Men",
+    "handle": "@CCMen7",
+    "channel_id": "UCUpuq9JS7jitIcm9iBn0jnA",
+    "via": "@CCMen7",
+    "language": "pl",
+    "angle": "Męstwo, odpowiedzialność i dzielenie się wartościowymi treściami.",
+    "enabled": true
+  },
+  {
+    "id": "biblia-audio-cc",
+    "name": "Biblia Audio Christian Culture",
+    "handle": "@bibliaaudiocc",
+    "channel_id": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+    "via": "@osobowośćPLUS",
+    "language": "pl",
+    "angle": "Zanurz się w żywym Słowie Bożym czytanym rozdział po rozdziale.",
+    "enabled": true
+  },
+  {
+    "id": "werset-dnia-chsb",
+    "name": "Werset Dnia - Chrześcijański Serwis Biblijny",
+    "handle": "@wersetdnia_ChSB",
+    "channel_id": "UCyOvW5DuDLVq5XWFyijgtbw",
+    "via": "@osobowośćPLUS",
+    "language": "pl",
+    "angle": "Codzienna porcja Bożego Słowa prosto do Twojego serca.",
+    "enabled": true
+  },
+  {
+    "id": "personality-plus-en",
+    "name": "Personality Plus (EN)",
+    "handle": "@personalitypluscc",
+    "channel_id": "",
+    "via": "@osobowośćPLUS",
+    "language": "en",
+    "angle": "Pass on a meaningful and inspiring message today.",
+    "enabled": false
+  },
+  {
+    "id": "cc-worship-international",
+    "name": "CC Worship International",
+    "handle": "",
+    "channel_id": "",
+    "via": "",
+    "language": "en",
+    "angle": "Discover uplifting Christian worship content worldwide.",
+    "enabled": false
+  },
+  {
+    "id": "cc-film",
+    "name": "CC Film",
+    "handle": "",
+    "channel_id": "",
+    "via": "",
+    "language": "pl",
+    "angle": "Odkrywaj i polecaj wartościowe chrześcijańskie filmy.",
+    "enabled": false
+  },
+  {
+    "id": "cc-now",
+    "name": "CC NOW",
+    "handle": "@ccnews7",
+    "channel_id": "",
+    "via": "",
+    "language": "pl",
+    "angle": "Podziel się tym, co dziś najważniejsze w ekosystemie.",
+    "enabled": false
+  },
+  {
+    "id": "cc-rodzina",
+    "name": "CC Rodzina",
+    "handle": "",
+    "channel_id": "",
+    "via": "",
+    "language": "pl",
+    "angle": "Podziel się inspiracją i buduj silne więzi w rodzinie.",
+    "enabled": false
+  },
+  {
+    "id": "cc-story-testimony",
+    "name": "CC Story / Testimony",
+    "handle": "",
+    "channel_id": "",
+    "via": "",
+    "language": "pl",
+    "angle": "Prawdziwe świadectwa wiary i dobre historie warte przekazania.",
+    "enabled": false
+  }
+]

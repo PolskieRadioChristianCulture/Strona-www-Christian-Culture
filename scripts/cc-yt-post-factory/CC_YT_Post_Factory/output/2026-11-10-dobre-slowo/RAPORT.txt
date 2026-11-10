@@ -1,0 +1,6 @@
+KAMPANIA: 2026-11-10-dobre-slowo
+DATA GENERACJI: 1794292737.1130278
+LICZBA KANAŁÓW AKTYWNYCH: 7
+GRAFIKA: grafika.png (58160 bajtów)
+PANEL PUBLIKACJI: C:\Users\czark\Christian_Culture_Projekty\polskieradio.cc\scripts\cc-yt-post-factory\CC_YT_Post_Factory\output\2026-11-10-dobre-slowo\PANEL_PUBLIKACJI.html
+STATUS: GOTOWE DO RĘCZNEGO ZATWIERDZENIA W YOUTUBE STUDIO (ZERO-QA PASS)

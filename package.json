@@ -8,6 +8,8 @@
     "test:agent-chat": "node --test tests/lumi-agent-client.test.mjs tests/lumi-agent-ui.test.mjs tests/lumi-planner-omega.test.mjs",
     "test:karaoke-p0": "node --test tests/bu-karaoke-playback.test.mjs tests/bu-live-clock.test.mjs tests/bu-karaoke-vocal.test.mjs tests/bu-karaoke-top100.test.mjs tests/bu-karaoke-sync2.test.mjs tests/bu-karaoke-precision.test.mjs",
     "test:source-integrity": "node --test scripts/cc-source-check.test.mjs",
+    "yt:factory": "node scripts/cc-yt-post-factory/CC_YT_Post_Factory/scripts/build.mjs",
+    "test:yt-factory": "node --test tests/cc-yt-post-factory.test.mjs",
     "dev": "node server.js",
     "dev:lumina": "vite",
     "build:lumina": "vite build",
