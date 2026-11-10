@@ -822,6 +822,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '💡 eM • WIARA & AUTENTYCZNOŚĆ | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#KryzysWiary', '#CezaryRogowski', '#CCNNews', '#Prawda');
+    } else if (tLower.includes('świętość') || tLower.includes('swietosc') || tLower.includes('słabości') || tLower.includes('slabosci')) {
+      subHeader = '✝️ FORMACJA & WIARA | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj artykuł w serwisie:\n';
+      addTags('#Swietosc', '#CezaryRogowski', '#CCNNews', '#Prawda');
     } else if (tLower.includes('czytelnictw') || tLower.includes('towarzystwo biblijne') || tLower.includes('cyfrowe studium') || tLower.includes('ekumeniczn') || tLower.includes('rada ekumeniczna') || tLower.includes('dni biblijne')) {
       subHeader = '📖 POLSKA & BIBLIA | RAPORT CCN';
       callToAction = '👉 Czytaj raport w serwisie:\n';
