@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-10",
+      "topic": "CC Edge+: Globalna harmonizacja mobilnego panelu krawędziowego (CC-EDGE-001..003), likwidacja górnego + i symetria doku",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-10",
       "topic": "CC Pomoc: Wdrożenie routingu poczty i integracja backendu formularza wolontariatu /dlugi",
       "agent": "A"
     },
