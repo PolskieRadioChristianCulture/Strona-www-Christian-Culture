@@ -490,6 +490,15 @@ function getAllEcosystemCandidates() {
       tag: '#BadzBlisko'
     },
     {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 41 (Wj 10:1–29): Plagi szarańczy i ciemności egipskiej — Sąd nad fałszywym światłem i wolność bez kompromisów',
+      lead: 'Dzień 41 (10 listopada 2026): Kolejne sądy nad Egiptem: niszczycielska plaga szarańczy oraz namacalna ciemność egipska trwająca trzy dni. Sąd nad bożkiem słońca Ra i nienaruszalne Boże światło w domach Izraela.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-41',
+      image: 'images/academy/daily/kc_day_41_szarancza_ciemnosc.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
       title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 40 (Wj 9:1–35): Pomór bydła, wrzody i ogień z gradem — Boża moc ponad pychą faraona',
       lead: 'Dzień 40 (9 listopada 2026): Kolejne sądy nad Egiptem: pomór bydła, wrzody z popiołu pieca i niszczycielski grad z ogniem. Boża moc objawiona nad pychą faraona i bezpieczne schronienie w ziemi Goszen.',
       url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-40',
