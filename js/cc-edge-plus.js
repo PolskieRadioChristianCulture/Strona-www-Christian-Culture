@@ -109,15 +109,33 @@
         }
       }
       body:has(.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]),
+      html:has(.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]),
       body.has-cc-bottom-nav,
-      html.has-cc-bottom-nav {
-        --cc-floating-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+      html.has-cc-bottom-nav,
+      body.has-mobile-nav {
+        --cc-floating-bottom: calc(82px + env(safe-area-inset-bottom, 0px)) !important;
       }
       @media (min-width: 900px) {
         body:has(.mobile-nav),
         body.has-cc-bottom-nav:not(:has(.lumina-nav-bottom)) {
           --cc-floating-bottom: 24px !important;
         }
+      }
+
+      /* Kategoryczny zakaz górnego przycisku „+” w lewym górnym rogu na WSZYSTKICH ekranach (Dyrektywa CC-EDGE-001) */
+      .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+      button.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+      .gw-edge-btn,
+      .plus.gw-edge-btn,
+      header .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+      .appbar .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+      .main-header .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+      button.plus:not(.math),
+      [data-edge-key="open"]:not(#ccEdgePlusBtn):not(#ccOmniEdgeBtn) {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
       }
 
       #ccEdgePlusBtn {
@@ -129,8 +147,10 @@
         top: auto !important;
         width: var(--cc-floating-size, 48px) !important;
         height: var(--cc-floating-size, 48px) !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
+        min-width: 48px !important;
+        min-height: 48px !important;
+        max-width: 48px !important;
+        max-height: 48px !important;
         border-radius: 50% !important;
         border: 1px solid #b08a3c !important;
         background: #ffffff !important;
@@ -267,6 +287,10 @@
 
   // Pobranie lub utworzenie elementu przycisku
   function createButton() {
+    // Usunięcie jakiegokolwiek zduplikowanego lub górnego przycisku "+"
+    if (typeof document !== 'undefined') {
+      document.querySelectorAll('.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn), button.gw-edge-btn, .plus.gw-edge-btn').forEach(el => el.remove());
+    }
     let btn = document.getElementById(config.buttonId);
     if (!btn) {
       btn = document.createElement('button');

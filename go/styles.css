@@ -333,3 +333,63 @@ h2{font-weight:800;font-size:clamp(1.65rem,6vw,2.6rem);letter-spacing:-.03em;lin
 .hero-art .ic{width:64px;height:64px;stroke-width:1.4;opacity:.9;filter:drop-shadow(0 4px 12px rgba(0,0,0,.4))}
 #myShelf .mine-empty{margin-top:22px}
 .shelf{scroll-margin-top:12px}
+
+/* ── CC EDGE+ & Back-To-Top w CC GO (Dyrektywa CC-EDGE-001..003) ── */
+:root {
+  --cc-floating-bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  --cc-floating-size: 48px;
+}
+@media (min-width: 900px) {
+  :root {
+    --cc-floating-bottom: 24px;
+  }
+}
+
+/* Kategoryczny zakaz górnego przycisku „+” w lewym górnym rogu */
+.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+button.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+.gw-edge-btn,
+.plus.gw-edge-btn,
+header .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+.appbar .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+button.plus:not(.math),
+[data-edge-key="open"]:not(#ccEdgePlusBtn):not(#ccOmniEdgeBtn) {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Pancerne pozycjonowanie dolnych przycisków na równej wysokości ponad mobile-nav */
+html body #backToTopBtn[data-cc-back-to-top],
+html body #ccEdgePlusBtn {
+  bottom: var(--cc-floating-bottom) !important;
+  width: var(--cc-floating-size, 48px) !important;
+  height: var(--cc-floating-size, 48px) !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  max-width: 48px !important;
+  max-height: 48px !important;
+  border-radius: 50% !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+html body #ccEdgePlusBtn {
+  left: max(16px, env(safe-area-inset-left, 16px)) !important;
+  right: auto !important;
+  top: auto !important;
+}
+html body #backToTopBtn[data-cc-back-to-top] {
+  right: max(16px, env(safe-area-inset-right, 16px)) !important;
+  left: auto !important;
+  top: auto !important;
+}
+@media (min-width: 768px) {
+  html body #ccEdgePlusBtn {
+    left: 24px !important;
+  }
+  html body #backToTopBtn[data-cc-back-to-top] {
+    right: 24px !important;
+  }
+}
+

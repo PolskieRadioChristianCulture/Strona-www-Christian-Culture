@@ -286,12 +286,17 @@ body:has(.cc-omni-topnav) .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn) {
 }
 
 /* Strony z dolnym paskiem nawigacji (np. CC GO, LUMINA mobile nav) — odstęp powyżej paska */
-body:has(.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]) {
-  --cc-floating-bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+body:has(.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]),
+html:has(.mobile-nav, .lumina-nav-bottom, [data-floating-bottom-bar]),
+body.has-cc-bottom-nav,
+html.has-cc-bottom-nav,
+body.has-mobile-nav {
+  --cc-floating-bottom: calc(82px + env(safe-area-inset-bottom, 0px)) !important;
 }
 @media (min-width: 900px) {
-  body:has(.mobile-nav) {
-    --cc-floating-bottom: 24px;
+  body:has(.mobile-nav),
+  body.has-cc-bottom-nav:not(:has(.lumina-nav-bottom)) {
+    --cc-floating-bottom: 24px !important;
   }
 }
 
@@ -353,7 +358,15 @@ html body #ccEdgePlusBtn {
 }
 
 /* KATEGORYCZNY ZAKAZ górnego przycisku „+” w lewym górnym rogu na WSZYSTKICH ekranach (Dyrektywa CC-EDGE-001) */
-.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn) {
+.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+button.cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+.gw-edge-btn,
+.plus.gw-edge-btn,
+header .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+.appbar .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+.main-header .cc-mobile-edge-trigger:not(#ccOmniEdgeBtn),
+button.plus:not(.math),
+[data-edge-key="open"]:not(#ccEdgePlusBtn):not(#ccOmniEdgeBtn) {
   display: none !important;
   opacity: 0 !important;
   visibility: hidden !important;

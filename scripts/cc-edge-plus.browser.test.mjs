@@ -235,11 +235,14 @@ test('CCEdgePlus Browser Test Suite — Full Matrix (360, 390, 768, 1280, 1920, 
       await context.close();
     });
 
-    // 6. CC GO Mobile Verification (BŁĘDY CC-EDGE-001, CC-EDGE-002, CC-EDGE-003) across viewports (320, 360, 390, 430)
+    // 6. CC GO Mobile Verification (BŁĘDY CC-EDGE-001, CC-EDGE-002, CC-EDGE-003) across viewports (320, 360, 390, 430, 768, 1280)
     for (const vp of [
       { name: 'Mobile 320px (iPhone SE narrow)', width: 320, height: 568 },
+      { name: 'Mobile 360px (Android standard)', width: 360, height: 800 },
       { name: 'Mobile 390px (iPhone standard)', width: 390, height: 844 },
-      { name: 'Mobile 430px (iPhone Pro Max)', width: 430, height: 932 }
+      { name: 'Mobile 430px (iPhone Pro Max)', width: 430, height: 932 },
+      { name: 'Tablet 768px (iPad portrait)', width: 768, height: 1024 },
+      { name: 'Desktop 1280px (Standard Desktop)', width: 1280, height: 800 }
     ]) {
       await t.test(`CC GO on ${vp.name}: no upper +, symmetrical bottom dock, zero collision with bottom nav`, async () => {
         const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
@@ -282,12 +285,14 @@ test('CCEdgePlus Browser Test Suite — Full Matrix (360, 390, 768, 1280, 1920, 
         const heightDifference = Math.abs(bottomEdgePlus - bottomEdgeTop);
         assert.ok(heightDifference <= 1.5, `Buttons must be at identical vertical height (diff was ${heightDifference}px, plus=${bottomEdgePlus}, top=${bottomEdgeTop})`);
 
-        // BŁĄD CC-EDGE-002: Brak nachodzenia na dolną nawigację (Start)
+        // BŁĄD CC-EDGE-002: Brak nachodzenia na dolną nawigację (Start) - na ekranach mobilnych z dolnym paskiem
         const nav = page.locator('.mobile-nav');
-        const navBox = await nav.boundingBox();
-        assert.ok(navBox, '.mobile-nav must be present');
-        assert.ok(bottomEdgePlus <= navBox.y, `Bottom "+" button (${bottomEdgePlus}px) must be ABOVE .mobile-nav top (${navBox.y}px)`);
-        assert.ok(bottomEdgeTop <= navBox.y, `Back-to-top button (${bottomEdgeTop}px) must be ABOVE .mobile-nav top (${navBox.y}px)`);
+        if (await nav.isVisible()) {
+          const navBox = await nav.boundingBox();
+          assert.ok(navBox, '.mobile-nav must be present');
+          assert.ok(bottomEdgePlus <= navBox.y, `Bottom "+" button (${bottomEdgePlus}px) must be ABOVE .mobile-nav top (${navBox.y}px)`);
+          assert.ok(bottomEdgeTop <= navBox.y, `Back-to-top button (${bottomEdgeTop}px) must be ABOVE .mobile-nav top (${navBox.y}px)`);
+        }
 
         // Weryfikacja braku zawieszenia strony po otwarciu i zamknięciu panelu krawędziowego
         await btnPlus.click();
@@ -313,10 +318,13 @@ test('CCEdgePlus Browser Test Suite — Full Matrix (360, 390, 768, 1280, 1920, 
         });
         assert.ok(canScrollAfterClose, 'Page must be freely scrollable after closing edge panel');
 
-        // Weryfikacja klikalności elementu paska nawigacji po zamknięciu panelu
-        const shelfTab = nav.locator('a[href="#myShelf"]');
-        await shelfTab.click();
-        await page.waitForTimeout(100);
+        // Weryfikacja klikalności elementu paska nawigacji po zamknięciu panelu (na ekranach z .mobile-nav)
+        if (await nav.isVisible()) {
+          const shelfTab = nav.locator('a[href="#myShelf"]');
+          await shelfTab.click();
+          await page.waitForTimeout(100);
+          assert.ok(await shelfTab.isVisible(), 'Shelf tab must remain interactive and visible');
+        }
 
         await page.screenshot({ path: path.join(SCREENSHOTS_DIR, `09_cc_go_${vp.width}_scrolled_symmetrical_above_nav.png`) });
         await context.close();

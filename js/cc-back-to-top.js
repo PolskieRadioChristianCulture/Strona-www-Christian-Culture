@@ -99,6 +99,10 @@
         document.body.style.setProperty('--cc-floating-bottom', finalBottom);
       }
       button.style.setProperty('bottom', finalBottom, 'important');
+      var edgePlus = document.getElementById('ccEdgePlusBtn');
+      if (edgePlus) {
+        edgePlus.style.setProperty('bottom', finalBottom, 'important');
+      }
       button.style.setProperty('display', visible ? 'flex' : 'none', 'important');
     }
     function schedule() {
