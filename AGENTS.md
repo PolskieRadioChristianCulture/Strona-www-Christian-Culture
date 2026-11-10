@@ -18,7 +18,7 @@ Wszyscy agenci: domyślnie 2–5 krótkich zdań/punktów. Podawaj konkretnie: Z
 Obowiązuje `CC_NO_REGRESSION_POLICY.md` w głównym `@ICC` i `JOMA_SHARED_MEMORY`. Dotyczy całego ekosystemu i każdego agenta. Nie wolno publikować cofnięcia zaakceptowanej funkcji, wyglądu lub integracji. Powracająca usterka wymaga testu; FAIL blokuje publikację. Dla `/news` kanonicznym źródłem jest `portals/ccn-news` w aktualnym zdalnym `main` LUMINA, a kontrolą `npm.cmd run test:cc-regression`. Nie przebudowywać `/news` ze starszego scratch/generatora. Potwierdzaj actual artifact, cache, mobilną obsługę i produkcję; zapisuj dowody i ograniczenia, bez deklarowania pełnego pokrycia innych projektów.
 
 ## 2. Pancerne Dyrektywy dla Modeli AI (Claude, Gemini, GPT) w Workspace @ICC
-- **Zero pytań o podstawy:** Widząc komendy `@777` (`@777 = @joma @ICC`), `@ICC`, `@Joma`, `@Nazir`, `@SMCC`, `@Lumina`, `@Player`, `@m` / `@mapaCC` itp., model ma ZAKAZ pytania użytkownika o ich znaczenie. Model czyta odpowiednie pliki ze `skills` lub `JOMA_SHARED_MEMORY` przed napisaniem pierwszej linii kodu lub odpowiedzi.
+- **Zero pytań o podstawy:** Widząc komendy `@777` (`@777 = @joma @ICC`), `@ICC`, `@Joma`, `@Nazir`, `@SMCC`, `@Skaner`, `@Lumina`, `@Player`, `@m` / `@mapaCC` itp., model ma ZAKAZ pytania użytkownika o ich znaczenie. Model czyta odpowiednie pliki ze `skills` lub `JOMA_SHARED_MEMORY` przed napisaniem pierwszej linii kodu lub odpowiedzi.
 - **Weryfikacja Zero-QA dla Dowódcy:** Każde zadanie musi przejść lokalne testy (`npm.cmd run test:cc-regression`, `npm.cmd run test:guardian`, `npm.cmd run test:mobile-premium`). Dowódca Nazir nie testuje kodu za agenta.
 - **Katalog źródeł:** Repozytorium robocze WWW to `C:\Users\czark\Christian_Culture_Projekty\polskieradio.cc`. Synchronizacja do `C:\Users\czark\Desktop\@ICC\LUMINA`.
 - **Wspólna pamięć JOMA:** `C:\Users\czark\Desktop\Misja CC\JOMA_SHARED_MEMORY`. Po zakończeniu pracy wpisz raport do `JOMA_HANDOFFS.md`.
@@ -211,4 +211,17 @@ Na początku każdej sesji przeczytaj `JOMA_SHARED_MEMORY/SKRZYNKA/TABLICA.md` i
   12. `22:30` — Codzienna Introspekcja JOMA DDEIP (Rada JOMA)
 - **Godziny Ciszy (Quiet Hours):** Od 23:00 do 07:00 czasu polskiego (Europe/Warsaw) obowiązuje cisza nocna — zakaz wybudzania Dowódcy głośnymi powiadomieniami Push.
 - **Integracja @OA + @ccMC:** Każdy artefakt w folderze chmurowym `@OA` musi posiadać powiązany rekord w `@ccMC`.
+
+## 17. Autonomiczny Audytor i Strażnik Ekosystemu CC Guardian 360 — @Skaner (Dyrektywa Dowódcy 10.11.2026 / JOMA-D058)
+> 🛡️ **Dokument Normatywny:** `Misja CC/JOMA_SHARED_MEMORY/CC_SKANER_GUARDIAN_360_STANDARD.md` (`JOMA-STD-GUARDIAN360-20261110`).
+- **Zasada nadrzędna:** `@Skaner` (Agent 008, `CC-A11-01` / `CC-A12-32`) to oficjalny strategiczny strażnik i audytor jakości całego ekosystemu Christian Culture.
+- **Priorytet 1 — LUMINA i LUMI MESS:** Priorytetowy, ciągły nadzór nad stabilnością, renderowaniem i interakcjami portalu społecznościowego LUMINA (`/lumina`) oraz komunikatora rodzinnego LUMI MESS (`/mess`).
+- **Nadzór Multi-Viewport (390px, 768px, 1440px):** Regularna inspekcja 11 celów misyjnych na smartfonach, tabletach i desktopach pod kątem:
+  1. **Kolizji wizualnych i nakładania warstw:** Bezwzględny zakaz zasłaniania odtwarzaczy TV LIVE, wideo, lekcji czy formularzy przez pływające widgety, zegary czy bąbelki czatu (casus zlikwidowanego Zegara Polonii).
+  2. **Responsywności:** Zero przelewów horyzontalnych (`scrollWidth === clientWidth`).
+  3. **Ergonomii dotykowej:** Wszystkie elementy klikalne min. 44×44 px (`WCAG 2.2 AA`).
+  4. **Spójności tożsamości:** Kanoniczny pomarańcz CTA `#FF7A00` (`JOMA-D052`) oraz Champagne Gold `#C4A35A`.
+- **Procedura uruchomienia:** Komenda `@Skaner` lub CLI: `npm.cmd run scan:guardian-360`. Raport archiwizowany w `JOMA_SHARED_MEMORY/CC_GUARDIAN_360_NAJNOWSZY_RAPORT.md`.
+- **Rutyna nocna:** 22:00 CET daily w sidecarze `cc-ecosystem-health-scanner`. Standard 100% ZERO COST.
+
 
