@@ -56,7 +56,7 @@
     },
     {
       id: 'asystentka-2',
-      name: 'Rut · Przewodnik CC',
+      name: 'Sara · Przewodnik CC',
       role: 'Wirtualna asystentka ekosystemu',
       avatar: '/images/chat/assistants/asystentka-2.webp',
       avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
@@ -65,7 +65,7 @@
     },
     {
       id: 'asystentka-3',
-      name: 'Sara · Doradca CC',
+      name: 'Rut · Doradca CC',
       role: 'Wirtualna asystentka LUMINA',
       avatar: '/images/chat/assistants/asystentka-3.webp',
       avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
