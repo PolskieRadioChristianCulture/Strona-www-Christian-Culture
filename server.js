@@ -17,6 +17,31 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+// Endpoint dla formularza zgłoszeń wolontariatu CC Pomoc (/dlugi)
+app.all("/api/wolontariat", async (req, res) => {
+  try {
+    const { handleVolunteerApiRequest } = await import("./services/cc-volunteer/volunteer-service.js");
+    const fullUrl = `http://${req.headers.host || "localhost"}${req.url}`;
+    const headers = new Headers();
+    for (const [k, v] of Object.entries(req.headers)) {
+      if (typeof v === "string") headers.set(k, v);
+      else if (Array.isArray(v)) headers.set(k, v.join(", "));
+    }
+    const webReq = new Request(fullUrl, {
+      method: req.method,
+      headers,
+      body: ["POST", "PUT", "PATCH"].includes(req.method) ? JSON.stringify(req.body) : undefined
+    });
+    const webRes = await handleVolunteerApiRequest(webReq, process.env);
+    res.status(webRes.status);
+    webRes.headers.forEach((val, key) => res.setHeader(key, val));
+    const data = await webRes.text();
+    res.send(data);
+  } catch (err) {
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 // App version and update check endpoint
 app.get("/api/version", (req, res) => {
   try {

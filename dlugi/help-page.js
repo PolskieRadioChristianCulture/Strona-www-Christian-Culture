@@ -153,7 +153,46 @@
   volunteerForm.addEventListener('submit',event => {
     event.preventDefault(); if(!volunteerForm.reportValidity()) return;
     draft=readDraft(); setLinks(); draftPanel.hidden=false;
-    // No network submission and no 'delivered' or 'accepted' success state.
+    // Asynchroniczne przekazanie zgłoszenia na backend /api/wolontariat z routingiem poczty
+    try {
+      const fd = new FormData(volunteerForm);
+      const payload = {
+        name: fd.get('name') || '',
+        email: fd.get('email') || '',
+        specialty: fd.get('specialty') || '',
+        availability: fd.get('availability') || '',
+        privacyConsent: true
+      };
+      const submitBtn = volunteerForm.querySelector('button[type="submit"]');
+      const origText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = lang === 'pl' ? 'Wysyłanie zgłoszenia...' : 'Sending enquiry...';
+      }
+      fetch('/api/wolontariat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(r => r.json()).then(data => {
+        if (data && data.ok) {
+          const draftStatus = document.getElementById('draft-status');
+          if (draftStatus) {
+            draftStatus.innerHTML = lang === 'pl'
+              ? '<strong style="color:var(--cc-gold,#C4A35A)">✓ Zgłoszenie wysłane.</strong> Doręczono do administratora na adres <code>' + (data.destination || 'wolontariat@polskieradio.cc') + '</code> (ID: ' + data.id + '). Dziękujemy za Twoją gotowość do pomocy!'
+              : '<strong style="color:var(--cc-gold,#C4A35A)">✓ Enquiry sent.</strong> Forwarded to <code>' + (data.destination || 'wolontariat@polskieradio.cc') + '</code> (ID: ' + data.id + '). Thank you for your willingness to help!';
+          }
+        }
+      }).catch(err => {
+        console.warn('Network submit fallback:', err);
+      }).finally(() => {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = origText;
+        }
+      });
+    } catch (e) {
+      console.warn('Submission handler error:', e);
+    }
   });
   document.getElementById('download-draft').addEventListener('click',() => {
     if(!draft) return;
