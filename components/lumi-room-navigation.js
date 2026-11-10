@@ -39,7 +39,7 @@ export function mountRoomNavigation(document, { onFamily } = {}) {
     });
     if (onFamily) {
         const family = document.createElement('button'); family.type = 'button';
-        family.id = 'tabBtnFamilyRooms'; family.textContent = '👨‍👩‍👧‍👦 Rogowscy (Rodzina)';
+        family.id = 'tabBtnFamilyRooms'; family.textContent = '👨‍👩‍👧‍👦 Pokój rodzinny';
         family.onclick = () => { closeMenu(false); onFamily(); };
         items.append(family);
     }
