@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "rozwiaz-problem",
+      "title": "Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański",
+      "url": "https://polskieradio.cc/rozwiaz-problem",
+      "type": "course",
+      "image": "og-rozwiaz-problem.jpg",
+      "publishedAt": "2026-11-10T05:06:39.655Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "CezaryRogowski",
       "title": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
       "url": "https://polskieradio.cc/CezaryRogowski",

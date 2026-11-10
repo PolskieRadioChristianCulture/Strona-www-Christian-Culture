@@ -15,7 +15,7 @@ test('CCEdgePlus: public routes receive root-relative deferred script via cc-pag
   }
 });
 
-test('CCEdgePlus: broadcast, operational, live and herbatka screens are excluded', () => {
+test('CCEdgePlus: broadcast, operational, and live screens are completely untouched', () => {
   for (const file of [
     'cctv24-worship.html',
     'cctv24-worship-live.html',
@@ -25,11 +25,17 @@ test('CCEdgePlus: broadcast, operational, live and herbatka screens are excluded
     'zapolske-live.html',
     'admin.html',
     'pilot.html',
-    'ccmc.html',
-    'herbatka.html',
-    'herbatka/index.html'
+    'ccmc.html'
   ]) {
     assert.equal(applyPageStandard(file, html), html, `Operational/live file ${file} must remain untouched`);
+  }
+});
+
+test('CCEdgePlus: herbatka excludes edge-plus and mobile-edge scripts', () => {
+  for (const file of ['herbatka.html', 'herbatka/index.html']) {
+    const res = applyPageStandard(file, html);
+    assert.equal(res.includes('cc-edge-plus.js'), false, `${file} must not include cc-edge-plus.js`);
+    assert.equal(res.includes('cc-mobile-edge.js'), false, `${file} must not include cc-mobile-edge.js`);
   }
 });
 

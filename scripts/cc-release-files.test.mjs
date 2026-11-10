@@ -55,7 +55,7 @@ test('real release builder excludes private fixtures and keeps public and frozen
   const html = '<html><head><title>Fixture</title><link rel="manifest" href="manifest-lumina.json"></head><body class="user-is-guest"><div id="directMessagesModal"></div></body></html>';
   for (const file of ['index.html', 'semantic-index.html', 'lumina.html', 'lumina-tablica.html']) put(file, html);
   for (const file of ['data/ccn-article-routes.js', '_headers', '_redirects', '_worker.js', 'lib/bu-voting-worker.js',
-    'firebase-messaging-sw.js', 'manifest-lumina.json', 'robots.txt', 'js/cc-back-to-top.js', 'components/cc-omni-search.js', 'js/cc-favorites.js']) put(file, 'fixture');
+    'firebase-messaging-sw.js', 'manifest-lumina.json', 'robots.txt', 'js/cc-back-to-top.js', 'js/cc-edge-plus.js', 'components/cc-omni-search.js', 'js/cc-favorites.js']) put(file, 'fixture');
   const frozen = ['cctv24-worship.html', 'cctv24-worship-live.html', 'stream-scene.html', 'cctv24.html', 'snadaniowa-live.html', 'zapolske-live.html'];
   for (const file of frozen) put(file, html);
   for (const file of privatePaths) put(file, 'PRIVATE_FIXTURE_MARKER');

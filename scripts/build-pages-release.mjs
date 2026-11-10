@@ -14,7 +14,7 @@ const OUTPUT = path.join(ROOT, '.pages-release');
 const REQUIRED_FILES = [
   'data/ccn-article-routes.js', '_headers', '_redirects', '_worker.js', 'lib/bu-voting-worker.js', 'firebase-messaging-sw.js', 'index.html',
   'semantic-index.html', 'lumina.html', 'lumina-tablica.html', 'manifest-lumina.json', 'robots.txt',
-  'js/cc-back-to-top.js', 'components/cc-omni-search.js', 'js/cc-favorites.js',
+  'js/cc-back-to-top.js', 'js/cc-edge-plus.js', 'components/cc-omni-search.js', 'js/cc-favorites.js',
 ];
 const trackedChanges = execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], {
   cwd: ROOT,
