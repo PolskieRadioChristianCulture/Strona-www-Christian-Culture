@@ -13,13 +13,15 @@ const SECRET_PATTERNS = [
 // Errors report only the relative path, never file content or the matched value.
 export function scanReleaseForSecrets(root, { fileSystem = fs } = {}) {
   function checked(operation, file) {
-    for (let attempt = 0; attempt < 10; attempt++) {
+    for (let attempt = 0; attempt < 15; attempt++) {
       try {
         return operation();
       } catch (err) {
-        if (attempt < 9) {
-          const end = Date.now() + 100;
+        if (attempt < 14) {
+          const end = Date.now() + 150;
           while (Date.now() < end) {}
+        } else {
+          console.error(`Błąd skanowania pliku ${file}:`, err.message);
         }
       }
     }
