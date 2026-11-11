@@ -1,5 +1,20 @@
 export const ARTICLES = [
   {
+    slug: 'ark-of-fire-artist-showcase-it-is-finished',
+    title: 'Ark of Fire: Artist Showcase & It Is Finished',
+    category: 'Artist Spotlight',
+    image: 'ark-of-fire-hero.webp',
+    excerpt: 'Christian rock and metal from the Netherlands, faith testimony, AI-assisted music, and the single It Is Finished.',
+    body: [
+      'Christian Culture Global presents the official artist showcase for Ark of Fire, an independent Christian rock and metal project from the Netherlands.',
+      'Founded in personal faith in Jesus Christ, the project moves between heavy metal, rock, blues and contemplative passages, dedicated to spiritual warfare and the message of redemption.',
+      'Under cooperation agreement v1.0, the single "It Is Finished" is featured on linear internet radio Christian Culture Global.',
+      'Explore the official bilingual showcase at polskieradio.cc/ArkOfFire/en/ and polskieradio.cc/ArkOfFire/pl/.'
+    ],
+    source: 'https://polskieradio.cc/ArkOfFire/en/',
+    published: '2026-11-11'
+  },
+  {
     slug: 'gerald-welch-the-call-rock-driven-wake-up-call',
     title: 'Gerald Welch: THE CALL — A Rock-Driven Wake-Up Call',
     category: 'Artist Spotlight',

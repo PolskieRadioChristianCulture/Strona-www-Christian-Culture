@@ -165,6 +165,24 @@ export const ARTISTS = [
     descPl: 'Poruszające utwory uwielbienia wzywające do modlitwy, pokuty i duchowego przebudzenia.',
     albums: ['Written In Heaven'],
     singles: ['Now Is The Time']
+  },
+  {
+    id: 'ark-of-fire',
+    name: 'Ark of Fire',
+    role: 'Christian Rock & Metal Project',
+    rolePl: 'Projekt Chrześcijańskiego Rocka i Metalu',
+    urlEn: '/ArkOfFire/en/',
+    urlPl: '/ArkOfFire/pl/',
+    image: 'ark-of-fire-hero.webp',
+    aspectRatio: '16/9',
+    featuredTrack: 'It Is Finished',
+    premiereDate: '2026-10-19',
+    tag: 'ARTIST SHOWCASE',
+    tagPl: 'WIZYTÓWKA ARTYSTY',
+    desc: 'Christian rock and metal from the Netherlands. Music for spiritual warfare, centered on the Gospel, grace and the sacrifice of Jesus Christ.',
+    descPl: 'Chrześcijański rock i metal z Holandii. Muzyka duchowej walki, skoncentrowana na Ewangelii, Bożej łasce i ofierze Jezusa Chrystusa.',
+    albums: ['HEARTS ABLAZE', 'FAITH'],
+    singles: ['IT IS FINISHED']
   }
 ];
 

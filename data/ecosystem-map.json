@@ -5,6 +5,26 @@
   "updatesLog": [
     {
       "date": "2026-11-11",
+      "topic": "Oficjalna wizytówka Ark of Fire (PL/EN) oraz integracja z Christian Culture Global",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-11",
+      "topic": "CCN News X: Cykliczna publikacja #256 — Portal LUMINA: Wolna od Algorytmów Społeczność Chrześcijańska z dedykowaną grafiką 16:9",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-11",
+      "topic": "CCN News X: Cykliczna publikacja #255 — Książka: Kod Źródłowy Duszy (Cezary Rogowski) z dedykowaną grafiką 16:9",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-11",
+      "topic": "CCN News X: Cykliczna publikacja #254 — Świętość nie wymaga udawania: dlaczego prawda o słabości uwalnia? (Cezary Rogowski) z dedykowaną grafiką 16:9",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-11",
       "topic": "Akademia Biblijna CC: Nocna publikacja i aktywacja lekcji Dnia 42 (Święto Paschy, Krew Baranka i Wykupienie Pierworodnych — Wj 11:1–12:36), aktualizacja 2 przycisków Hero, kafelków miesiąca i centralny pipeline discovery",
       "agent": "A"
     },
@@ -4577,8 +4597,13 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-10T23:05:00+01:00",
+  "lastUpdated": "2026-11-11",
   "recentUpdates": [
+    {
+      "date": "2026-11-11",
+      "topic": "Oficjalna wizytówka Ark of Fire (PL/EN) oraz integracja z Christian Culture Global",
+      "agent": "A"
+    },
     {
       "date": "2026-11-10",
       "topic": "CC Singing Bible Factory 1.0 — Autonomiczna Linia Produkcyjna Biblii Śpiewanej",
@@ -4701,6 +4726,11 @@
     }
   ],
   "updates": [
+    {
+      "date": "2026-11-11",
+      "topic": "Oficjalna wizytówka Ark of Fire (PL/EN) oraz integracja z Christian Culture Global",
+      "agent": "A"
+    },
     {
       "date": "2026-11-10",
       "agent": "A",
