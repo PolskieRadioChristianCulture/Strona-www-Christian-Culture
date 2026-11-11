@@ -6008,6 +6008,20 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                         <span>Wyślij</span> <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </form>
+                <dialog id="publicMessageActionDialog" aria-labelledby="publicMessageActionTitle" style="width:min(420px, calc(100% - 28px)); max-height:80dvh; padding:20px; box-sizing:border-box; border:1px solid #8b5cf6; border-radius:16px; background:#111827; color:#f8fafc;">
+                    <form id="publicMessageActionForm">
+                        <h3 id="publicMessageActionTitle"></h3>
+                        <label id="publicMessageActionField">Treść wiadomości
+                            <textarea id="publicMessageActionText" rows="3" maxlength="2000" style="display:block; width:100%; box-sizing:border-box; margin-top:6px; padding:8px; font:inherit; font-size:16px;"></textarea>
+                        </label>
+                        <p id="publicMessageActionWarning" hidden>Usunięta wiadomość zniknie z czatu ogólnego.</p>
+                        <p id="publicMessageActionStatus" role="status"></p>
+                        <div style="display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px;">
+                            <button type="button" id="publicMessageActionCancel" style="min-height:44px; min-width:44px; padding:0 12px;">Anuluj</button>
+                            <button type="submit" id="publicMessageActionSubmit" style="min-height:44px; min-width:44px; padding:0 12px;"></button>
+                        </div>
+                    </form>
+                </dialog>
             </div>
 
             
@@ -12156,6 +12170,103 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             }
         };
 
+        const renderPublicChatMessagesCore = renderPublicChatMessages;
+        function renderPublicChatMessagesWithActions(messages) {
+            renderPublicChatMessagesCore(messages);
+            const user = window.LuminaDB?.getCurrentUser?.();
+            const byId = new Map((Array.isArray(messages) ? messages : []).map(message => [message.id, message]));
+            for (const row of document.querySelectorAll('#publicChatMessagesBox .lumina-msg-row[data-message-id]')) {
+                const message = byId.get(row.dataset.messageId);
+                const share = row.querySelector('.cc-chat-share-btn');
+                if (!share) continue;
+                const previousButton = row.querySelector('[data-public-message-actions]');
+                const canManage = canManagePublicChatMessage(message, user);
+                if (!canManage) previousButton?.remove();
+                if (canManage && !previousButton) {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.dataset.publicMessageActions = '';
+                    button.setAttribute('aria-label', 'Akcje własnej wiadomości');
+                    button.setAttribute('aria-haspopup', 'menu');
+                    button.style.cssText = 'min-width:44px; min-height:44px; border:none; background:transparent; color:inherit; cursor:pointer; font-size:1.2rem;';
+                    button.textContent = '⋯';
+                    button.onclick = () => window.handleChatActionsButton(button);
+                    share.before(button);
+                }
+                const time = share.parentElement.previousElementSibling;
+                const marker = time?.querySelector('[data-public-message-edited]');
+                if (!message?.editedAt) marker?.remove();
+                if (message?.editedAt && time && !marker) {
+                    const edited = document.createElement('span');
+                    edited.dataset.publicMessageEdited = '';
+                    edited.textContent = ' · Edytowano';
+                    time.appendChild(edited);
+                }
+            }
+        }
+        window.renderPublicChatMessages = renderPublicChatMessagesWithActions;
+
+        function canManagePublicChatMessage(message, user = window.LuminaDB?.getCurrentUser?.()) {
+            return Boolean(user?.uid && !user.isAnonymous && message?.senderAuthUid === user.uid &&
+                !message.virtual && typeof message.text === 'string' &&
+                typeof message.id === 'string' && !message.id.startsWith('local_') &&
+                typeof window.LuminaDB?.changeOwnPublicChatMessage === 'function');
+        }
+
+        window.handleChatActionsButton = function(button) {
+            const bounds = button.getBoundingClientRect();
+            window.openChatMessageMenu(button.closest('.lumina-msg-row'), bounds.left, bounds.bottom);
+        };
+
+        function showPublicMessageAction(message, deleting) {
+            if (!canManagePublicChatMessage(message)) return;
+            const dialog = document.getElementById('publicMessageActionDialog');
+            const form = document.getElementById('publicMessageActionForm');
+            const input = document.getElementById('publicMessageActionText');
+            const status = document.getElementById('publicMessageActionStatus');
+            const cancel = document.getElementById('publicMessageActionCancel');
+            const submit = document.getElementById('publicMessageActionSubmit');
+            document.getElementById('publicMessageActionTitle').textContent = deleting ? 'Usuń wiadomość' : 'Edytuj wiadomość';
+            document.getElementById('publicMessageActionField').hidden = deleting;
+            document.getElementById('publicMessageActionWarning').hidden = !deleting;
+            input.value = deleting ? '' : message.text;
+            status.textContent = '';
+            submit.textContent = deleting ? 'Usuń' : 'Zapisz';
+            submit.disabled = false;
+            cancel.disabled = false;
+            cancel.onclick = () => dialog.close();
+            dialog.oncancel = event => { if (submit.disabled) event.preventDefault(); };
+            form.onsubmit = async event => {
+                event.preventDefault();
+                if (submit.disabled) return;
+                const text = input.value.trim();
+                if (!deleting && !text) {
+                    status.textContent = 'Wpisz treść wiadomości.';
+                    return;
+                }
+                if (!deleting && text === message.text) {
+                    dialog.close();
+                    return;
+                }
+                submit.disabled = true;
+                cancel.disabled = true;
+                status.textContent = deleting ? 'Usuwanie…' : 'Zapisywanie…';
+                try {
+                    await window.LuminaDB.changeOwnPublicChatMessage(message.id, message.text, deleting ? null : text);
+                    dialog.close();
+                } catch (error) {
+                    status.textContent = error.message === 'public-chat-message-changed'
+                        ? 'Treść zmieniła się w międzyczasie. Zamknij okno i otwórz wiadomość ponownie.'
+                        : 'Nie udało się zapisać zmiany. Sprawdź połączenie i spróbuj ponownie.';
+                } finally {
+                    submit.disabled = false;
+                    cancel.disabled = false;
+                }
+            };
+            dialog.showModal();
+            (deleting ? cancel : input).focus();
+        }
+
         window.handleChatContextMenu = function(ev, rowEl) {
             if (ev) {
                 ev.preventDefault();
@@ -12244,6 +12355,23 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 }
             };
             menu.appendChild(copyItem);
+
+            const publicMessage = rowEl.closest('#publicChatMessagesBox') &&
+                window._cachedPublicChatMessages?.find(message => message.id === msgId);
+            if (canManagePublicChatMessage(publicMessage)) {
+                for (const [label, deleting] of [['Edytuj wiadomość', false], ['Usuń wiadomość', true]]) {
+                    const action = document.createElement('button');
+                    action.type = 'button';
+                    action.className = 'lumina-msg-action-item';
+                    action.style.minHeight = '44px';
+                    action.textContent = label;
+                    action.onclick = () => {
+                        closeMenu();
+                        showPublicMessageAction(publicMessage, deleting);
+                    };
+                    menu.appendChild(action);
+                }
+            }
 
             document.body.appendChild(menu);
 

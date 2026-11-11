@@ -40,6 +40,7 @@ import {
     serverTimestamp,
     increment,
     writeBatch,
+    runTransaction,
     getCountFromServer
 } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { getAnalytics, isSupported as isAnalyticsSupported } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js';
@@ -4077,6 +4078,30 @@ export async function sendPublicChatMessage(messageObj) {
     }
 }
 
+export async function changeOwnPublicChatMessage(messageId, originalText, newText) {
+    const user = auth?.currentUser;
+    if (!db || !user?.uid || user.isAnonymous || typeof messageId !== 'string' || !/^[A-Za-z0-9_-]{1,128}$/.test(messageId)) {
+        throw new Error('public-chat-not-authorized');
+    }
+    const deleting = newText === null;
+    const text = typeof newText === 'string' ? newText.trim() : '';
+    if (!deleting && (!text || text.length > 2000)) {
+        throw new Error('public-chat-invalid-text');
+    }
+    const ref = doc(db, 'lumina_public_chat_messages', messageId);
+    await runTransaction(db, async transaction => {
+        const snapshot = await transaction.get(ref);
+        if (!snapshot.exists() || auth.currentUser?.uid !== user.uid || snapshot.data().senderAuthUid !== user.uid) {
+            throw new Error('public-chat-not-authorized');
+        }
+        if (snapshot.data().text !== originalText) {
+            throw new Error('public-chat-message-changed');
+        }
+        if (deleting) transaction.delete(ref);
+        else transaction.update(ref, { text, editedAt: serverTimestamp() });
+    });
+}
+
 // ── Oznaczanie wiadomości czatu ogólnego jako Wyświetlone (Seen / Read) ──
 export async function markPublicMessagesSeen(messages, currentUser) {
     if (!db || !messages || !messages.length) return;
@@ -7408,6 +7433,7 @@ window.LuminaDB = Object.assign(window.LuminaDB || {}, {
     toggleDirectMessageReaction,
     subscribeToPublicChat,
     sendPublicChatMessage,
+    changeOwnPublicChatMessage,
     markPublicMessagesSeen,
     togglePublicChatMessageReaction,
     subscribeToUserChats,
