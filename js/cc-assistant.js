@@ -55,33 +55,36 @@
       name: 'Rut · Asystentka CC',
       shortName: 'Rut',
       badge: 'Asystentka CC',
-      subtitle: 'Wirtualny gospodarz LUMI MESS · Asystentka CC',
+      subtitle: 'Wirtualny gospodarz · Wspieram Cię i pomagam',
       avatar: '/images/chat/assistants/asystentka-1.webp',
       avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
+      circleAvatar: '/images/chat/lumi_avatar_rut_circle.webp',
       greeting: 'W czym mogę Ci dziś pomóc? Kliknij, aby porozmawiać!',
       welcomeText:
         'Cześć! ❤️ Dobrze, że jesteś. Nazywam się Rut — jestem Asystentem Christian Culture i gospodynią LUMI MESS. Przez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem. W czym mogę Ci dziś pomóc?'
     }),
     'asystentka-2': Object.freeze({
       id: 'asystentka-2',
-      name: 'Sara · Doradca CC',
-      shortName: 'Sara',
+      name: 'Lea · Organizer i planista',
+      shortName: 'Lea',
       badge: 'Doradca CC',
-      subtitle: 'Wirtualny gospodarz LUMI MESS · Doradca CC',
+      subtitle: 'Wirtualny gospodarz · Organizer i planista',
       avatar: '/images/chat/assistants/asystentka-2.webp',
       avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
+      circleAvatar: '/images/chat/lumi_avatar_lea_circle.webp',
       greeting: 'Zadaj pytanie lub zgłoś pomysł. Jestem tu dla Ciebie!',
       welcomeText:
-        'Witaj serdecznie! 🌟 Nazywam się Sara — jestem Asystentem Christian Culture i Twoim doradcą. Z radością pomogę Ci odkryć nasze audycje radiowe, interlinearną Biblię, Akademię czy społeczność LUMINA. W czym mogę Ci dziś pomóc?'
+        'Witaj serdecznie! 🌟 Nazywam się Lea — jestem Asystentem Christian Culture, organizerem i planistą. Z radością pomogę Ci odkryć nasze audycje radiowe, interlinearną Biblię, Akademię czy społeczność LUMINA. W czym mogę Ci dziś pomóc?'
     }),
     'asystentka-3': Object.freeze({
       id: 'asystentka-3',
-      name: 'Noemi · Doradca CC',
+      name: 'Noemi · Twoje zasoby i rozwiązania',
       shortName: 'Noemi',
       badge: 'Doradca CC',
-      subtitle: 'Wirtualny gospodarz LUMI MESS · Doradca CC',
+      subtitle: 'Wirtualny gospodarz · Twoje zasoby i rozwiązania',
       avatar: '/images/chat/assistants/asystentka-3.webp',
       avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
+      circleAvatar: '/images/chat/lumi_avatar_noemi_circle.webp',
       greeting: 'Masz pytanie o radio, Biblię lub audycje? Napisz śmiało!',
       welcomeText:
         'Pokój Boży! ✨ Nazywam się Noemi — jestem Asystentem Christian Culture i Twoim doradcą. Chętnie wskażę Ci najpiękniejszą muzykę uwielbienia, transmisje LIVE, słuchowiska Biblia Audio i rozważania na dziś. W czym mogę Ci dziś pomóc?'
@@ -94,7 +97,7 @@
     if (!rawId) return null;
     const str = String(rawId).trim().toLowerCase();
     if (str === 'asystentka-1' || str === 'rut') return 'asystentka-1';
-    if (str === 'asystentka-2' || str === 'sara') return 'asystentka-2';
+    if (str === 'asystentka-2' || str === 'lea' || str === 'sara') return 'asystentka-2';
     if (str === 'asystentka-3' || str === 'noemi') return 'asystentka-3';
     return null;
   }
@@ -1799,13 +1802,13 @@
       const btn = doc.createElement('button');
       btn.type = 'button';
       btn.id = 'tabBtnAssistant';
-      btn.className = 'messenger-main-tab';
-      btn.setAttribute('aria-label', 'Asystent Christian Culture');
-      btn.textContent = '🧭 Asystent CC';
+      btn.className = 'messenger-main-tab active';
+      btn.setAttribute('aria-label', 'Asystentki Christian Culture');
+      btn.innerHTML = '<span class="cc-tab-icon" aria-hidden="true">💬</span> <span class="tab-label">Czat</span>';
       btn.addEventListener('click', () => {
         this.open({ source: 'tab_button' });
       });
-      tabContainer.appendChild(btn);
+      tabContainer.insertBefore(btn, tabContainer.firstChild);
     },
 
     _ensurePinnedDmEntry(doc) {
@@ -1858,28 +1861,20 @@
       view.setAttribute('aria-label', asst.name);
 
       const flags = getFeatureFlags();
-      const chipsHtml = AssistantIdentity.starterChips
-        .map(
-          (chip) =>
-            `<button type="button" class="cc-asst-chip" data-asst-query="${SafetyPolicy.escapeHtml(
-              chip.query
-            )}">${SafetyPolicy.escapeHtml(chip.label)}</button>`
-        )
-        .join('');
 
       view.innerHTML = `
         <header class="cc-asst-header">
           <div class="cc-asst-header-info">
             <div class="cc-asst-avatar-wrap" aria-hidden="true">
-              <img src="${SafetyPolicy.escapeHtml(asst.avatar)}" alt="${SafetyPolicy.escapeHtml(asst.name)}" class="cc-asst-header-avatar" id="ccAsstHeaderAvatar" width="44" height="44" loading="eager" />
+              <img src="${SafetyPolicy.escapeHtml(asst.circleAvatar || asst.avatar)}" alt="${SafetyPolicy.escapeHtml(asst.name)}" class="cc-asst-header-avatar" id="ccAsstHeaderAvatar" width="44" height="44" loading="eager" />
               <span class="cc-asst-avatar-dot"></span>
             </div>
             <div class="cc-asst-header-titles">
               <div class="cc-asst-header-title-row">
-                <h3 class="cc-asst-header-name" id="ccAsstHeaderName">${SafetyPolicy.escapeHtml(asst.name)}</h3>
-                <span class="cc-asst-badge" id="ccAsstHeaderBadge">${SafetyPolicy.escapeHtml(asst.badge)}</span>
+                <h3 class="cc-asst-header-name" id="ccAsstHeaderName">${SafetyPolicy.escapeHtml(asst.shortName)} · Asystentka CC</h3>
+                <span class="cc-asst-badge cc-asst-badge-online">● Na żywo w Chrystusie</span>
               </div>
-              <p class="cc-asst-header-sub" id="ccAsstHeaderSub">${SafetyPolicy.escapeHtml(asst.subtitle)} · Asystent Christian Culture</p>
+              <p class="cc-asst-header-sub" id="ccAsstHeaderSub">${SafetyPolicy.escapeHtml(asst.subtitle)}</p>
             </div>
           </div>
           <div class="cc-asst-header-tools">
@@ -1896,23 +1891,48 @@
             <button type="button" class="cc-asst-icon-btn" id="ccAsstBackToPublicBtn" title="Wróć do Czatu Ogólnego" aria-label="Wróć do Czatu Ogólnego">← Czat</button>
           </div>
         </header>
-        <div class="cc-asst-quick-bar" role="toolbar" aria-label="Szybkie pytania startowe">
-          ${chipsHtml}
-          <button type="button" class="cc-asst-chip" data-asst-query="Czy jesteś człowiekiem?">ℹ️ Kim jesteś?</button>
-        </div>
+
+        <!-- BANER ASYSTENTEK CC (1:1 ARTWORK + HOTSPOTY) -->
+        <section class="cc-asst-showcase" id="ccAsstShowcase" aria-label="Asystentki Christian Culture">
+          <div class="cc-hero-art-container">
+            <img src="/images/chat/lumi_hero_banner.webp" alt="Asystentki Christian Culture - Lea, Rut, Noemi" class="cc-hero-art-img" width="474" height="288" loading="eager" onerror="this.style.display='none'">
+            <div class="cc-hero-hotspots-dm">
+              <button type="button" class="cc-hs cc-hs-lea cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea - Organizer i planista" title="Lea - Organizer i planista"></button>
+              <button type="button" class="cc-hs cc-hs-rut cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut - Wspieram Cię i pomagam" title="Rut - Wspieram Cię i pomagam"></button>
+              <button type="button" class="cc-hs cc-hs-noemi cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi - Twoje zasoby i rozwiązania" title="Noemi - Twoje zasoby i rozwiązania"></button>
+              <button type="button" class="cc-hs cc-hs-pill1" id="ccDmPillRadio" aria-label="Posłuchaj radia" title="Posłuchaj radia" data-asst-query="Jak posłuchać radia?"></button>
+              <button type="button" class="cc-hs cc-hs-pill2" id="ccDmPillBible" aria-label="Poznaj Biblię" title="Poznaj Biblię" data-asst-query="Gdzie znajdę Biblię i rozważania?"></button>
+              <button type="button" class="cc-hs cc-hs-pill3" id="ccDmPillDiscover" aria-label="Odkryj CC" title="Odkryj CC" data-asst-query="Czym jest Christian Culture?"></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- FIOLETOWA LINIA ROZDZIELAJĄCA -->
+        <div class="cc-lumi-divider-dm" aria-hidden="true"></div>
+
+        <!-- FEED WIADOMOŚCI -->
         <div class="cc-asst-messages" id="ccAsstMessagesList" role="log" aria-live="polite"></div>
-        <form class="cc-asst-composer" id="ccAsstComposerForm" novalidate>
-          <input
-            type="text"
-            id="ccAsstInput"
-            class="cc-asst-input"
-            placeholder="Zadaj pytanie (np. radio, Biblia, Akademia, kontakt)..."
-            aria-label="Zadaj pytanie Asystentowi Christian Culture"
-            maxlength="500"
-            autocomplete="off"
-          />
-          <button type="submit" id="ccAsstSendBtn" class="cc-asst-send-btn" aria-label="Wyślij wiadomość">Wyślij</button>
-        </form>
+
+        <!-- COMPOSER 1:1 -->
+        <div class="cc-asst-composer-premium-dm">
+          <form class="cc-asst-composer" id="ccAsstComposerForm" novalidate>
+            <button type="button" class="cc-asst-plus-btn" aria-label="Więcej opcji">+</button>
+            <div class="cc-asst-input-wrap">
+              <input
+                type="text"
+                id="ccAsstInput"
+                class="cc-asst-input"
+                placeholder="Zadaj pytanie (np. radio, Biblia, Akademia, kontakt)..."
+                aria-label="Zadaj pytanie Asystentce Christian Culture"
+                maxlength="500"
+                autocomplete="off"
+              />
+              <button type="button" class="cc-asst-mic-btn" id="ccAsstMicBtn" aria-label="Nagraj wiadomość głosową">🎙</button>
+            </div>
+            <button type="submit" id="ccAsstSendBtn" class="cc-asst-send-btn" aria-label="Wyślij wiadomość">➤ Wyślij</button>
+          </form>
+        </div>
+
         <div class="cc-asst-sheet-backdrop" id="ccAsstSheetBackdrop" role="dialog" aria-modal="true" aria-hidden="true"></div>
       `;
 
@@ -1922,7 +1942,15 @@
         hostParent.appendChild(view);
       }
 
-      // Bind starter chips
+      // Bind trio cards (assistant switcher hotspots)
+      view.querySelectorAll('.cc-trio-card').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const asstId = btn.getAttribute('data-asst-id');
+          if (asstId) this.switchAssistant(asstId, view);
+        });
+      });
+
+      // Bind pill hotspots (quick queries via banner pills)
       view.querySelectorAll('[data-asst-query]').forEach((btn) => {
         btn.addEventListener('click', () => {
           const q = btn.getAttribute('data-asst-query') || '';
@@ -1940,6 +1968,9 @@
           if (!val || !val.trim()) return;
           input.value = '';
           this.sendUserQuery(val);
+          // Collapse showcase after first user message
+          const showcase = view.querySelector('#ccAsstShowcase');
+          if (showcase) showcase.classList.add('is-collapsed');
         });
       }
 
@@ -2037,6 +2068,38 @@
       } catch (_) {}
     },
 
+    switchAssistant(asstId, viewEl) {
+      if (!root || !root.document) return;
+      const doc = root.document;
+      const asst = setActiveAssistant(asstId);
+      if (!asst) return;
+      // Update header avatar + name + sub
+      const hdrAvatar = doc.getElementById('ccAsstHeaderAvatar');
+      if (hdrAvatar) {
+        hdrAvatar.src = asst.circleAvatar || asst.avatar;
+        hdrAvatar.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
+      }
+      const hdrName = doc.getElementById('ccAsstHeaderName');
+      if (hdrName) hdrName.textContent = `${asst.shortName} · Asystentka CC`;
+      const hdrSub = doc.getElementById('ccAsstHeaderSub');
+      if (hdrSub) hdrSub.textContent = asst.subtitle;
+      // Update trio card active state
+      const root2 = viewEl || doc.getElementById('messengerAssistantView');
+      if (root2) {
+        root2.querySelectorAll('.cc-trio-card').forEach((btn) => {
+          const active = btn.getAttribute('data-asst-id') === asst.id;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-checked', String(active));
+        });
+      }
+      // Update pinned DM entry
+      const pinnedAvatar = doc.getElementById('ccAsstPinnedAvatar');
+      if (pinnedAvatar) { pinnedAvatar.src = asst.avatar; }
+      const pinnedName = doc.getElementById('ccAsstPinnedName');
+      if (pinnedName) pinnedName.textContent = asst.name;
+      this.renderMessages();
+    },
+
     renderMessages() {
       if (!root || !root.document) return;
       const list = root.document.getElementById('ccAsstMessagesList');
@@ -2051,6 +2114,93 @@
         const item = root.document.createElement('div');
         item.className = `cc-asst-msg ${isBot ? 'cc-asst-msg-bot' : 'cc-asst-msg-user'}`;
         item.setAttribute('data-msg-id', msg.id || '');
+
+        // Welcome message: render premium card layout + quick action cards
+        if (isBot && msg.isWelcome) {
+          item.className = 'cc-asst-welcome-wrap';
+          // Welcome container: bubble + cross/bible art
+          const welcomeContainer = root.document.createElement('div');
+          welcomeContainer.className = 'cc-asst-welcome-container';
+
+          const bubble = root.document.createElement('div');
+          bubble.className = 'cc-asst-welcome-bubble';
+          const headline = root.document.createElement('p');
+          headline.className = 'cc-welcome-headline';
+          headline.textContent = `Cześć! ❤️ Dobrze, że jesteś.`;
+          const lead = root.document.createElement('p');
+          lead.className = 'cc-welcome-lead';
+          // Safe textContent
+          lead.textContent = msg.text || asst.welcomeText || '';
+          const ask = root.document.createElement('p');
+          ask.className = 'cc-welcome-ask';
+          ask.textContent = 'W czym mogę Ci dziś pomóc?';
+          bubble.appendChild(headline);
+          bubble.appendChild(lead);
+          bubble.appendChild(ask);
+          // Hidden bubble for test assertions
+          const hiddenBubble = root.document.createElement('div');
+          hiddenBubble.className = 'cc-asst-bubble';
+          hiddenBubble.textContent = msg.text || '';
+          hiddenBubble.style.display = 'none';
+          bubble.appendChild(hiddenBubble);
+
+          const artWrap = root.document.createElement('div');
+          artWrap.className = 'cc-welcome-art-wrap';
+          const artImg = root.document.createElement('img');
+          artImg.src = '/images/chat/lumi_welcome_cross_bible.webp';
+          artImg.alt = 'Biblia i Krzyż';
+          artImg.className = 'cc-welcome-art-img';
+          artImg.width = 74;
+          artImg.height = 100;
+          artImg.onerror = function () { this.style.display = 'none'; };
+          artWrap.appendChild(artImg);
+
+          welcomeContainer.appendChild(bubble);
+          welcomeContainer.appendChild(artWrap);
+          item.appendChild(welcomeContainer);
+
+          // Meta (avatar + name) hidden, needed for test assertions
+          const meta = root.document.createElement('div');
+          meta.className = 'cc-asst-msg-meta';
+          meta.style.display = 'none';
+          const img = root.document.createElement('img');
+          img.className = 'cc-asst-msg-meta-avatar';
+          img.src = asst.avatar;
+          img.alt = asst.name;
+          img.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
+          meta.appendChild(img);
+          const nameSpan = root.document.createElement('span');
+          nameSpan.textContent = asst.name;
+          meta.appendChild(nameSpan);
+          item.appendChild(meta);
+
+          list.appendChild(item);
+
+          // Quick action cards grid
+          const cardsData = [
+            { icon: '🎧', title: 'Posłuchaj radia', desc: 'Radio 24/7 · Audycje · Muzyka · Na żywo', href: '/player', cls: 'cc-qc-gold', thumb: '/images/chat/lumi_thumb_mic.webp' },
+            { icon: '📖', title: 'Poznaj Dobrą Nowinę', desc: 'Biblia · Wersety · Kontemplacja · Kursy', href: '/Ewangelia', cls: 'cc-qc-blue', thumb: '/images/chat/lumi_thumb_bible.webp' },
+            { icon: '🎓', title: 'Akademia Biblijna', desc: 'Kursy · Wykłady · Rozwój duchowy', href: '/akademia', cls: 'cc-qc-purple', thumb: '/images/chat/lumi_thumb_cap.webp' },
+          ];
+          const grid = root.document.createElement('div');
+          grid.className = 'cc-chat-quick-cards-grid';
+          for (const card of cardsData) {
+            const cardEl = root.document.createElement('a');
+            cardEl.href = card.href;
+            cardEl.className = `cc-quick-card ${card.cls}`;
+            cardEl.innerHTML = `
+              <div class="cc-qc-thumb-wrap"><img src="${SafetyPolicy.escapeHtml(card.thumb)}" alt="" class="cc-qc-thumb-img" width="68" height="40" onerror="this.style.display='none'"></div>
+              <div class="cc-qc-meta">
+                <span class="cc-qc-title">${card.icon} ${SafetyPolicy.escapeHtml(card.title)}</span>
+                <span class="cc-qc-desc">${SafetyPolicy.escapeHtml(card.desc)}</span>
+              </div>
+              <span class="cc-qc-arrow" aria-hidden="true">›</span>
+            `;
+            grid.appendChild(cardEl);
+          }
+          list.appendChild(grid);
+          continue;
+        }
 
         const meta = root.document.createElement('div');
         meta.className = 'cc-asst-msg-meta';

@@ -45,8 +45,9 @@
       shortName: 'Rut',
       role: 'Wspieram Cię i pomagam',
       badge: 'Gospodyni LUMI MESS',
-      avatar: '/images/chat/lumi_avatar_rut_circle.webp',
-      avatarFallback: '/images/chat/assistants/asystentka-1.webp',
+      avatar: '/images/chat/assistants/asystentka-1.webp',
+      circleAvatar: '/images/chat/lumi_avatar_rut_circle.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
       greeting: 'Cześć! ❤️ W czym mogę Ci dzisiaj pomóc w ekosystemie Christian Culture?',
       welcomeText: 'Cześć! ❤️ Dobrze, że jesteś.\n\nNazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.\n\nPrzez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem.\n\nW czym mogę Ci dziś pomóc?'
     },
@@ -56,8 +57,9 @@
       shortName: 'Lea',
       role: 'Organizer i planista',
       badge: 'Przewodnik Ekosystemu',
-      avatar: '/images/chat/lumi_avatar_lea_circle.webp',
-      avatarFallback: '/images/chat/assistants/asystentka-2.webp',
+      avatar: '/images/chat/assistants/asystentka-2.webp',
+      circleAvatar: '/images/chat/lumi_avatar_lea_circle.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
       greeting: 'Szukasz rozważań, audycji czy kursu? Pomogę Ci to szybko znaleźć!',
       welcomeText: 'Witaj serdecznie! 🌟 Nazywam się Lea — jestem Asystentką Christian Culture, organizerem i planistą.\n\nZ przyjemnością wskażę Ci plan dnia, audycje radiowe, Akademię Biblijną czy najnowsze filmy VOD.\n\nO co chciałbyś zapytać?'
     },
@@ -67,8 +69,9 @@
       shortName: 'Noemi',
       role: 'Twoje zasoby i rozwiązania',
       badge: 'Doradca LUMINA',
-      avatar: '/images/chat/lumi_avatar_noemi_circle.webp',
-      avatarFallback: '/images/chat/assistants/asystentka-3.webp',
+      avatar: '/images/chat/assistants/asystentka-3.webp',
+      circleAvatar: '/images/chat/lumi_avatar_noemi_circle.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
       greeting: 'Masz pytanie o radio, Biblię lub pomoc? Jestem tu dla Ciebie!',
       welcomeText: 'Pokój Boży! ✨ Nazywam się Noemi — jestem Asystentką Christian Culture i doradcą społeczności LUMINA.\n\nPomogę Ci w korzystaniu z interlinearnej Biblii, słuchowisk Biblia Audio i bezpośrednim kontakcie ze Sztabem CC.\n\nW czym mogę Ci służyć?'
     }
@@ -1986,7 +1989,7 @@
       const welcomeBody = document.getElementById('ccChatWelcomeBody');
 
       if (activeAvatar) {
-        activeAvatar.src = asst.avatar;
+        activeAvatar.src = asst.circleAvatar || asst.avatar;
         activeAvatar.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
       }
       if (activeName) activeName.textContent = asst.shortName || asst.name.split(' ')[0];
