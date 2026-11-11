@@ -2993,20 +2993,10 @@
         overlay.classList.add('is-open');
         overlay.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
-        const asstId = targetPartnerId && String(targetPartnerId).startsWith('asystentka-')
-          ? targetPartnerId
-          : 'asystentka-1';
-        try { sessionStorage.setItem('cc_active_assistant_id', asstId); } catch (_) {}
-        if (window.selectAssistantAndRefresh) window.selectAssistantAndRefresh(asstId);
-        const liveBtn = document.getElementById('ccChatTabLiveBtn');
-        if (liveBtn) liveBtn.click();
-        return;
-      }
-        overlay.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
       }
       if (targetTab === 'assistant' || targetPartnerId === 'cc-assistant' || (targetPartnerId && String(targetPartnerId).startsWith('asystentka-'))) {
         const asstId = targetPartnerId && String(targetPartnerId).startsWith('asystentka-') ? targetPartnerId : 'asystentka-1';
+        try { sessionStorage.setItem('cc_active_assistant_id', asstId); } catch (_) {}
         if (window.selectAssistantAndRefresh) window.selectAssistantAndRefresh(asstId);
         const liveBtn = document.getElementById('ccChatTabLiveBtn');
         if (liveBtn) liveBtn.click();
