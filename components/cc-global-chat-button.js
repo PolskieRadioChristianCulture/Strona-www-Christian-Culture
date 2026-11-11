@@ -45,8 +45,8 @@
       shortName: 'Rut',
       role: 'Wspieram Cię i pomagam',
       badge: 'Gospodyni LUMI MESS',
-      avatar: '/images/chat/assistants/asystentka-1.webp',
-      avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
+      avatar: '/images/chat/lumi_avatar_rut_circle.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-1.webp',
       greeting: 'Cześć! ❤️ W czym mogę Ci dzisiaj pomóc w ekosystemie Christian Culture?',
       welcomeText: 'Cześć! ❤️ Dobrze, że jesteś.\n\nNazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.\n\nPrzez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem.\n\nW czym mogę Ci dziś pomóc?'
     },
@@ -56,8 +56,8 @@
       shortName: 'Lea',
       role: 'Organizer i planista',
       badge: 'Przewodnik Ekosystemu',
-      avatar: '/images/chat/assistants/asystentka-2.webp',
-      avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
+      avatar: '/images/chat/lumi_avatar_lea_circle.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-2.webp',
       greeting: 'Szukasz rozważań, audycji czy kursu? Pomogę Ci to szybko znaleźć!',
       welcomeText: 'Witaj serdecznie! 🌟 Nazywam się Lea — jestem Asystentką Christian Culture, organizerem i planistą.\n\nZ przyjemnością wskażę Ci plan dnia, audycje radiowe, Akademię Biblijną czy najnowsze filmy VOD.\n\nO co chciałbyś zapytać?'
     },
@@ -67,8 +67,8 @@
       shortName: 'Noemi',
       role: 'Twoje zasoby i rozwiązania',
       badge: 'Doradca LUMINA',
-      avatar: '/images/chat/assistants/asystentka-3.webp',
-      avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
+      avatar: '/images/chat/lumi_avatar_noemi_circle.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-3.webp',
       greeting: 'Masz pytanie o radio, Biblię lub pomoc? Jestem tu dla Ciebie!',
       welcomeText: 'Pokój Boży! ✨ Nazywam się Noemi — jestem Asystentką Christian Culture i doradcą społeczności LUMINA.\n\nPomogę Ci w korzystaniu z interlinearnej Biblii, słuchowisk Biblia Audio i bezpośrednim kontakcie ze Sztabem CC.\n\nW czym mogę Ci służyć?'
     }
@@ -270,7 +270,14 @@
 
   function scrollToBottom() {
     const feed = document.getElementById('ccChatFeed');
-    if (feed) feed.scrollTop = feed.scrollHeight;
+    if (!feed) return;
+    const msgList = document.getElementById('ccChatMessagesList');
+    const msgRows = msgList ? msgList.querySelectorAll('.cc-chat-msg-row') : [];
+    if (msgRows.length === 0) {
+      feed.scrollTop = 0;
+      return;
+    }
+    feed.scrollTop = feed.scrollHeight;
   }
 
   function getUserState() {
@@ -530,7 +537,7 @@
         line-height: 1 !important;
       }
 
-      /* ── OKNO GŁÓWNE CZATU LUMI MESSENGER 2.0 ── */
+      /* ── OKNO GŁÓWNE CZATU LUMI MESSENGER 2.0 (PREMIUM 1:1 FIDELITY) ── */
       .cc-chat-drawer-overlay {
         position: fixed !important;
         inset: 0 !important;
@@ -555,12 +562,12 @@
         position: fixed !important;
         right: max(20px, env(safe-area-inset-right)) !important;
         bottom: max(20px, env(safe-area-inset-bottom)) !important;
-        width: 460px !important;
+        width: 480px !important;
         max-width: calc(100vw - 32px) !important;
-        height: 750px !important;
+        height: 860px !important;
         max-height: calc(100vh - 40px) !important;
-        background: var(--lumi-bg-main) !important;
-        border: 1px solid var(--lumi-border) !important;
+        background: #0D1020 !important;
+        border: 1px solid #343A50 !important;
         border-radius: 24px !important;
         box-shadow: 0 28px 80px rgba(0, 0, 0, 0.9), 0 0 35px rgba(133, 71, 216, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;
         display: flex !important;
@@ -570,7 +577,7 @@
         opacity: 0 !important;
         transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-        color: var(--lumi-text-main) !important;
+        color: #F7F8FC !important;
       }
 
       .cc-chat-drawer-overlay.is-open .cc-chat-drawer {
@@ -588,10 +595,10 @@
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        padding: 12px 18px !important;
-        background: var(--lumi-bg-panel) !important;
-        border-bottom: 1px solid var(--lumi-border) !important;
-        min-height: 66px !important;
+        padding: 10px 14px 8px 14px !important;
+        background: #0D1020 !important;
+        border-bottom: none !important;
+        min-height: 58px !important;
         box-sizing: border-box !important;
         gap: 10px !important;
         flex-shrink: 0 !important;
@@ -600,7 +607,7 @@
       .cc-chat-header-brand {
         display: flex !important;
         align-items: center !important;
-        gap: 12px !important;
+        gap: 10px !important;
         text-decoration: none !important;
         min-width: 0 !important;
       }
@@ -610,10 +617,10 @@
         width: 40px !important;
         height: 40px !important;
         min-width: 40px !important;
-        border-radius: 12px !important;
-        background: linear-gradient(135deg, var(--lumi-accent), #6B21A8) !important;
-        padding: 2px !important;
-        box-shadow: 0 0 14px rgba(133, 71, 216, 0.45) !important;
+        border-radius: 50% !important;
+        background: transparent !important;
+        padding: 0 !important;
+        box-shadow: 0 0 14px rgba(242, 209, 124, 0.4) !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -622,7 +629,7 @@
       .cc-chat-header-icon {
         width: 100% !important;
         height: 100% !important;
-        border-radius: 10px !important;
+        border-radius: 50% !important;
         object-fit: cover !important;
       }
 
@@ -636,32 +643,34 @@
         font-size: 1.15rem !important;
         font-weight: 700 !important;
         letter-spacing: -0.01em !important;
-        color: var(--lumi-text-main) !important;
+        color: #F7F8FC !important;
         display: flex !important;
         align-items: center !important;
-        gap: 6px !important;
+        gap: 5px !important;
+        line-height: 1.2 !important;
       }
 
       .cc-header-sparkle {
-        color: var(--lumi-gold-light) !important;
-        font-size: 1rem !important;
+        color: #F2D17C !important;
+        font-size: 0.95rem !important;
       }
 
       .cc-chat-header-sub {
-        font-size: 0.78rem !important;
+        font-size: 0.74rem !important;
         font-weight: 500 !important;
-        color: var(--lumi-text-muted) !important;
+        color: #A5AEC4 !important;
         display: flex !important;
         align-items: center !important;
         gap: 6px !important;
+        margin-top: 2px !important;
       }
 
       .cc-chat-live-dot {
         width: 7px !important;
         height: 7px !important;
         border-radius: 50% !important;
-        background: var(--lumi-status-online) !important;
-        box-shadow: 0 0 6px var(--lumi-status-online) !important;
+        background: #20C997 !important;
+        box-shadow: 0 0 6px #20C997 !important;
         display: inline-block !important;
         flex-shrink: 0 !important;
       }
@@ -673,33 +682,33 @@
       }
 
       .cc-chat-icon-btn {
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
         border-radius: 50% !important;
-        border: 1px solid var(--lumi-border) !important;
-        background: rgba(255, 255, 255, 0.04) !important;
-        color: var(--lumi-text-muted) !important;
+        border: 1px solid #343A50 !important;
+        background: #1D2235 !important;
+        color: #A5AEC4 !important;
         cursor: pointer !important;
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
-        font-size: 1.05rem !important;
+        font-size: 0.95rem !important;
         transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease !important;
         text-decoration: none !important;
       }
 
       .cc-chat-icon-btn:hover {
-        background: rgba(133, 71, 216, 0.2) !important;
-        border-color: var(--lumi-accent) !important;
-        color: var(--lumi-text-main) !important;
+        background: rgba(133, 71, 216, 0.25) !important;
+        border-color: #8547D8 !important;
+        color: #FFFFFF !important;
       }
 
       .cc-chat-icon-btn.is-close:hover {
-        background: rgba(239, 100, 116, 0.2) !important;
-        border-color: var(--lumi-danger) !important;
-        color: var(--lumi-danger) !important;
+        background: rgba(239, 100, 116, 0.25) !important;
+        border-color: #EF6474 !important;
+        color: #EF6474 !important;
       }
 
       /* ── 2. KOMPAKTOWY ODTWARZACZ RADIO CC ── */
@@ -707,34 +716,34 @@
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        gap: 10px !important;
-        padding: 6px 14px !important;
-        margin: 10px 14px 6px 14px !important;
-        background: var(--lumi-bg-panel) !important;
-        border: 1px solid var(--lumi-border) !important;
-        border-radius: 16px !important;
-        min-height: 54px !important;
+        gap: 8px !important;
+        padding: 4px 12px !important;
+        margin: 2px 14px 4px 14px !important;
+        background: #15192B !important;
+        border: 1px solid #343A50 !important;
+        border-radius: 999px !important;
+        min-height: 40px !important;
         flex-shrink: 0 !important;
       }
 
       .cc-chat-radio-left {
         display: flex !important;
         align-items: center !important;
-        gap: 10px !important;
+        gap: 8px !important;
         min-width: 0 !important;
       }
 
       .cc-chat-radio-glyph {
-        color: var(--lumi-accent-light) !important;
+        color: #B475F5 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
       }
 
       .cc-chat-radio-title {
-        font-size: 0.86rem !important;
+        font-size: 0.82rem !important;
         font-weight: 650 !important;
-        color: var(--lumi-text-main) !important;
+        color: #FFFFFF !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
@@ -755,11 +764,15 @@
 
       .cc-chat-radio-eq span {
         width: 3px !important;
-        height: 4px !important;
-        background: var(--lumi-gold) !important;
+        background: #D8AD57 !important;
         border-radius: 1.5px !important;
         transition: height 0.2s ease !important;
       }
+
+      .cc-chat-radio-eq span:nth-child(1) { height: 9px !important; }
+      .cc-chat-radio-eq span:nth-child(2) { height: 14px !important; }
+      .cc-chat-radio-eq span:nth-child(3) { height: 6px !important; }
+      .cc-chat-radio-eq span:nth-child(4) { height: 11px !important; }
 
       .cc-chat-mini-player.is-playing .cc-chat-radio-eq span {
         animation: ccEqBounce 1s infinite alternate ease-in-out !important;
@@ -780,17 +793,17 @@
         align-items: center !important;
         justify-content: center !important;
         gap: 6px !important;
-        min-height: 44px !important;
-        padding: 0 16px !important;
-        background: linear-gradient(135deg, var(--lumi-gold) 0%, var(--lumi-gold-light) 100%) !important;
+        min-height: 32px !important;
+        padding: 0 14px !important;
+        background: linear-gradient(135deg, #F2D17C 0%, #D8AD57 100%) !important;
         color: #0D1020 !important;
         font-family: inherit !important;
-        font-size: 0.84rem !important;
+        font-size: 0.78rem !important;
         font-weight: 750 !important;
         border: none !important;
         border-radius: 999px !important;
         cursor: pointer !important;
-        box-shadow: 0 4px 14px rgba(216, 173, 87, 0.35) !important;
+        box-shadow: 0 2px 10px rgba(216, 173, 87, 0.3) !important;
         transition: transform 0.18s ease, filter 0.18s ease !important;
         white-space: nowrap !important;
       }
@@ -800,34 +813,29 @@
         filter: brightness(1.08) !important;
       }
 
-      /* ── 3. NAWIGACJA (5 ZAKŁADEK) ── */
+      /* ── 3. NAWIGACJA (5 ZAKŁADEK 1:1) ── */
       .cc-chat-nav-tabs {
         display: flex !important;
-        gap: 4px !important;
-        padding: 4px 12px 8px 12px !important;
-        background: var(--lumi-bg-main) !important;
-        overflow-x: auto !important;
-        scrollbar-width: none !important;
-        border-bottom: 1px solid rgba(52, 58, 80, 0.6) !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 2px 14px 4px 14px !important;
+        background: #0D1020 !important;
+        border-bottom: none !important;
         flex-shrink: 0 !important;
       }
 
-      .cc-chat-nav-tabs::-webkit-scrollbar {
-        display: none !important;
-      }
-
       .cc-chat-nav-tab {
-        flex: 1 1 auto !important;
-        min-width: 68px !important;
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
         min-height: 44px !important;
-        padding: 6px 8px !important;
-        border-radius: 12px !important;
+        padding: 3px 2px !important;
+        border-radius: 14px !important;
         border: 1px solid transparent !important;
         background: transparent !important;
-        color: var(--lumi-text-muted) !important;
+        color: #A5AEC4 !important;
         font-family: inherit !important;
-        font-size: 0.74rem !important;
-        font-weight: 550 !important;
+        font-size: 0.72rem !important;
+        font-weight: 500 !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -839,20 +847,19 @@
       }
 
       .cc-chat-nav-tab:hover {
-        background: var(--lumi-card-surface) !important;
-        color: var(--lumi-text-main) !important;
+        color: #F7F8FC !important;
       }
 
       .cc-chat-nav-tab.is-active {
-        background: linear-gradient(135deg, var(--lumi-accent) 0%, #6B21A8 100%) !important;
-        border-color: var(--lumi-accent-light) !important;
+        background: #3F226D !important;
+        border: 1px solid rgba(133, 71, 216, 0.6) !important;
         color: #FFFFFF !important;
         font-weight: 700 !important;
-        box-shadow: 0 4px 16px rgba(133, 71, 216, 0.45) !important;
+        box-shadow: 0 0 12px rgba(133, 71, 216, 0.45) !important;
       }
 
       .cc-nav-icon {
-        font-size: 0.95rem !important;
+        font-size: 1.05rem !important;
         line-height: 1 !important;
       }
 
@@ -863,25 +870,24 @@
         flex: 1;
         min-height: 0;
         overflow-y: auto;
-        background: var(--lumi-bg-main);
+        background: #0D1020;
       }
 
       .cc-chat-tab-panel.is-active {
         display: flex !important;
       }
 
-      /* ── BANER ASYSTENTEK CC (SHOWCASE) ── */
+      /* ── BANER ASYSTENTEK CC (SHOWCASE 1:1 ARTWORK & HOTSPOTS) ── */
       .cc-chat-asst-showcase {
         position: relative !important;
-        margin: 12px 14px 6px 14px !important;
-        padding: 16px !important;
-        border-radius: 18px !important;
-        background: linear-gradient(135deg, #1f1b3c 0%, var(--lumi-card-surface) 60%, var(--lumi-bg-main) 100%) !important;
-        border: 1px solid var(--lumi-border) !important;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
+        margin: 0 14px 4px 14px !important;
+        padding: 0 !important;
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        border: 1px solid #343A50 !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+        background: #15192B !important;
+        line-height: 0 !important;
         transition: all 0.25s ease !important;
         flex-shrink: 0 !important;
       }
@@ -890,192 +896,94 @@
         display: none !important;
       }
 
-      .cc-showcase-body {
-        display: flex !important;
-        justify-content: space-between !important;
-        gap: 12px !important;
-        align-items: center !important;
-      }
-
-      .cc-showcase-left {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 6px !important;
-        min-width: 0 !important;
-        flex: 1.1 !important;
-      }
-
-      .cc-showcase-logo-row {
-        display: flex !important;
-        align-items: center !important;
-        gap: 8px !important;
-      }
-
-      .cc-showcase-logo-badge {
-        flex-shrink: 0 !important;
-      }
-
-      .cc-showcase-headline-wrap {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 3px !important;
-      }
-
-      .cc-showcase-title {
-        font-size: 1.15rem !important;
-        font-weight: 750 !important;
-        line-height: 1.18 !important;
-        color: var(--lumi-text-main) !important;
-        margin: 0 !important;
-      }
-
-      .cc-showcase-badge {
-        font-size: 0.68rem !important;
-        font-weight: 650 !important;
-        color: var(--lumi-gold-light) !important;
-        background: rgba(216, 173, 87, 0.15) !important;
-        border: 1px solid rgba(216, 173, 87, 0.35) !important;
-        padding: 2px 8px !important;
-        border-radius: 999px !important;
-        display: inline-block !important;
-        width: fit-content !important;
-      }
-
-      .cc-showcase-sub {
-        font-size: 0.74rem !important;
-        line-height: 1.35 !important;
-        color: var(--lumi-text-muted) !important;
-        margin: 0 !important;
-      }
-
-      .cc-showcase-trio {
-        display: flex !important;
-        align-items: flex-end !important;
-        justify-content: flex-end !important;
-        gap: 6px !important;
-        flex: 1.4 !important;
-      }
-
-      .cc-trio-card {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 4px !important;
-        padding: 6px 4px !important;
-        background: transparent !important;
-        border: 1px solid transparent !important;
-        border-radius: 12px !important;
-        cursor: pointer !important;
-        color: var(--lumi-text-main) !important;
-        font-family: inherit !important;
-        transition: transform 0.18s ease, border-color 0.18s ease !important;
-        min-width: 60px !important;
-        text-align: center !important;
-      }
-
-      .cc-trio-card:hover {
-        transform: translateY(-2px) !important;
-      }
-
-      .cc-trio-card.is-active {
-        border-color: rgba(216, 173, 87, 0.4) !important;
-        background: rgba(216, 173, 87, 0.08) !important;
-      }
-
-      .cc-trio-avatar-wrap {
+      .cc-hero-art-container {
         position: relative !important;
-        width: 48px !important;
-        height: 48px !important;
-        border-radius: 50% !important;
-        padding: 2px !important;
-        background: rgba(255, 255, 255, 0.1) !important;
-        border: 1px solid var(--lumi-border) !important;
-      }
-
-      .cc-trio-avatar-wrap.is-rut {
-        width: 54px !important;
-        height: 54px !important;
-        background: linear-gradient(135deg, var(--lumi-gold), #8B6D2E) !important;
-        border-color: var(--lumi-gold-light) !important;
-        box-shadow: 0 0 12px rgba(216, 173, 87, 0.4) !important;
-      }
-
-      .cc-trio-avatar {
         width: 100% !important;
-        height: 100% !important;
-        border-radius: 50% !important;
-        object-fit: cover !important;
+        line-height: 0 !important;
+      }
+
+      .cc-hero-art-img {
+        width: 100% !important;
+        height: auto !important;
         display: block !important;
+        border-radius: 20px !important;
       }
 
-      .cc-trio-headset {
+      .cc-hero-hotspots {
         position: absolute !important;
-        top: -4px !important;
-        right: -4px !important;
-        background: #0D1020 !important;
-        border-radius: 50% !important;
-        padding: 2px !important;
-        border: 1px solid var(--lumi-gold) !important;
+        inset: 0 !important;
       }
 
-      .cc-trio-tag {
-        font-size: 0.72rem !important;
-        font-weight: 700 !important;
-        padding: 1px 7px !important;
-        border-radius: 999px !important;
-        background: rgba(255, 255, 255, 0.1) !important;
-        color: var(--lumi-text-main) !important;
-      }
-
-      .cc-trio-tag.is-gold {
-        background: linear-gradient(135deg, var(--lumi-gold), #A08040) !important;
-        color: #0D1020 !important;
-        font-weight: 800 !important;
-      }
-
-      .cc-trio-role {
-        font-size: 0.63rem !important;
-        line-height: 1.2 !important;
-        color: var(--lumi-text-muted) !important;
-      }
-
-      /* Szybkie pigułki nawigacji pod banerem */
-      .cc-showcase-pills {
-        display: flex !important;
-        gap: 6px !important;
-        width: 100% !important;
-        margin-top: 4px !important;
-      }
-
-      .cc-showcase-pill {
-        flex: 1 !important;
-        min-height: 44px !important;
-        padding: 4px 8px !important;
-        border-radius: 999px !important;
-        border: 1px solid var(--lumi-border) !important;
-        background: rgba(29, 34, 53, 0.8) !important;
-        color: var(--lumi-text-main) !important;
-        font-family: inherit !important;
-        font-size: 0.74rem !important;
-        font-weight: 600 !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 5px !important;
+      .cc-hotspot {
+        position: absolute !important;
+        background: transparent !important;
+        border: none !important;
         cursor: pointer !important;
-        transition: all 0.18s ease !important;
-        text-decoration: none !important;
+        outline: none !important;
+        transition: background 0.15s ease, box-shadow 0.15s ease !important;
+        -webkit-tap-highlight-color: transparent !important;
       }
 
-      .cc-showcase-pill:hover {
-        background: var(--lumi-card-surface) !important;
-        border-color: var(--lumi-accent-light) !important;
+      .cc-hotspot:hover, .cc-hotspot:focus-visible {
+        background: rgba(242, 209, 124, 0.14) !important;
+        box-shadow: inset 0 0 0 1.5px rgba(242, 209, 124, 0.5) !important;
       }
 
-      .cc-showcase-pill.is-primary {
-        border-color: var(--lumi-accent) !important;
-        background: rgba(133, 71, 216, 0.16) !important;
-        color: #F7F8FC !important;
+      .cc-hotspot-lea {
+        top: 15% !important;
+        left: 35% !important;
+        width: 23% !important;
+        height: 62% !important;
+        border-radius: 14px !important;
+      }
+
+      .cc-hotspot-rut {
+        top: 13% !important;
+        left: 58% !important;
+        width: 26% !important;
+        height: 65% !important;
+        border-radius: 14px !important;
+      }
+
+      .cc-hotspot-noemi {
+        top: 16% !important;
+        left: 84% !important;
+        width: 16% !important;
+        height: 60% !important;
+        border-radius: 14px !important;
+      }
+
+      .cc-hotspot-pill1 {
+        bottom: 3.5% !important;
+        left: 2% !important;
+        width: 32.5% !important;
+        height: 16% !important;
+        border-radius: 999px !important;
+      }
+
+      .cc-hotspot-pill2 {
+        bottom: 3.5% !important;
+        left: 36% !important;
+        width: 31% !important;
+        height: 16% !important;
+        border-radius: 999px !important;
+      }
+
+      .cc-hotspot-pill3 {
+        bottom: 3.5% !important;
+        left: 68.5% !important;
+        width: 29.5% !important;
+        height: 16% !important;
+        border-radius: 999px !important;
+      }
+
+      /* ŚWIETLISTA LINIA ROZDZIELAJĄCA */
+      .cc-lumi-divider {
+        margin: 0 14px 4px 14px !important;
+        height: 1.5px !important;
+        background: linear-gradient(90deg, transparent, #8547D8 25%, #B475F5 50%, #8547D8 75%, transparent) !important;
+        box-shadow: 0 0 8px rgba(180, 117, 245, 0.45) !important;
+        flex-shrink: 0 !important;
       }
 
       /* ── OBSZAR AKTYWNEJ ASYSTENTKI (MINI-BAR) ── */
@@ -1083,11 +991,11 @@
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        padding: 6px 14px !important;
-        margin: 2px 14px 4px 14px !important;
-        background: rgba(29, 34, 53, 0.5) !important;
-        border: 1px solid rgba(52, 58, 80, 0.5) !important;
-        border-radius: 12px !important;
+        padding: 0 0 2px 0 !important;
+        margin: 0 14px 4px 14px !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
         flex-shrink: 0 !important;
       }
 
@@ -1099,8 +1007,10 @@
 
       .cc-active-asst-avatar-wrap {
         position: relative !important;
-        width: 30px !important;
-        height: 30px !important;
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 50% !important;
+        flex-shrink: 0 !important;
       }
 
       .cc-active-asst-avatar {
@@ -1108,7 +1018,8 @@
         height: 100% !important;
         border-radius: 50% !important;
         object-fit: cover !important;
-        border: 1.5px solid var(--lumi-gold) !important;
+        border: 1.5px solid #8547D8 !important;
+        display: block !important;
       }
 
       .cc-active-asst-dot {
@@ -1118,32 +1029,29 @@
         width: 8px !important;
         height: 8px !important;
         border-radius: 50% !important;
-        background: var(--lumi-status-online) !important;
-        border: 1.5px solid var(--lumi-bg-panel) !important;
+        background: #20C997 !important;
+        border: 1.5px solid #0D1020 !important;
+      }
+
+      .cc-active-asst-meta {
+        display: flex !important;
+        align-items: baseline !important;
+        gap: 6px !important;
       }
 
       .cc-active-asst-name {
-        font-size: 0.84rem !important;
+        font-size: 0.92rem !important;
         font-weight: 700 !important;
-        color: var(--lumi-text-main) !important;
+        color: #FFFFFF !important;
       }
 
       .cc-active-asst-role {
-        font-size: 0.74rem !important;
-        color: var(--lumi-text-muted) !important;
+        font-size: 0.8rem !important;
+        color: #A5AEC4 !important;
       }
 
       .cc-asst-toggle-showcase-btn {
-        background: none !important;
-        border: none !important;
-        color: var(--lumi-text-muted) !important;
-        font-size: 0.85rem !important;
-        cursor: pointer !important;
-        min-height: 44px !important;
-        min-width: 44px !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        display: none !important;
       }
 
       /* ── 5. FEED WIADOMOŚCI ── */
@@ -1151,452 +1059,304 @@
         flex: 1 1 auto !important;
         min-height: 0 !important;
         overflow-y: auto !important;
-        padding: 10px 14px 14px 14px !important;
+        padding: 0 14px 4px 14px !important;
         display: flex !important;
         flex-direction: column !important;
-        gap: 12px !important;
+        gap: 5px !important;
       }
 
-      /* Dymek powitalny */
+      /* Kontener powitania 1:1 */
+      .cc-asst-welcome-container {
+        display: flex !important;
+        align-items: stretch !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+        margin: 0 0 3px 0 !important;
+        position: relative !important;
+      }
+
       .cc-asst-welcome-bubble {
-        background: var(--lumi-card-surface) !important;
-        border: 1px solid var(--lumi-border) !important;
-        border-radius: 20px 20px 20px 4px !important;
-        padding: 14px 16px !important;
+        flex: 1 1 70% !important;
+        background: rgba(29, 34, 53, 0.8) !important;
+        backdrop-filter: blur(8px) !important;
+        border-radius: 18px !important;
+        border: 1px solid rgba(133, 71, 216, 0.45) !important;
+        box-shadow: 0 4px 20px rgba(133, 71, 216, 0.12) !important;
+        padding: 8px 12px !important;
+        font-size: 0.77rem !important;
+        line-height: 1.35 !important;
+        color: #D8DEE9 !important;
+        min-width: 0 !important;
+      }
+
+      .cc-welcome-headline {
         font-size: 0.88rem !important;
-        line-height: 1.5 !important;
-        color: var(--lumi-text-main) !important;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
-        animation: ccFadeIn 0.22s ease !important;
+        font-weight: 700 !important;
+        color: #FFFFFF !important;
+        margin-bottom: 2px !important;
       }
 
-      .cc-asst-welcome-bubble p {
-        margin: 0 0 8px 0 !important;
+      .cc-welcome-lead {
+        margin: 0 0 3px 0 !important;
+        color: #D8DEE9 !important;
+        font-size: 0.75rem !important;
+        line-height: 1.3 !important;
       }
 
-      .cc-asst-welcome-bubble p:last-child {
-        margin-bottom: 0 !important;
+      .cc-welcome-help {
+        margin: 0 0 4px 0 !important;
+        color: #D8DEE9 !important;
+        font-size: 0.75rem !important;
+        line-height: 1.3 !important;
       }
 
-      /* 3 Karty Szybkich Akcji */
+      .cc-welcome-ask {
+        margin: 0 !important;
+        color: #FFFFFF !important;
+        font-size: 0.80rem !important;
+        font-weight: 600 !important;
+      }
+
+      .cc-welcome-art-wrap {
+        width: 74px !important;
+        flex: 0 0 74px !important;
+        align-self: stretch !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+        position: relative !important;
+      }
+
+      .cc-welcome-art-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
+        border-radius: 16px !important;
+      }
+
+      /* 3 Karty Szybkich Akcji 1:1 */
       .cc-chat-quick-cards-grid {
         display: flex !important;
         flex-direction: column !important;
-        gap: 8px !important;
-        margin: 4px 0 10px 0 !important;
+        gap: 5px !important;
+        margin: 0 0 3px 0 !important;
       }
 
       .cc-quick-card {
         display: flex !important;
         align-items: center !important;
-        gap: 12px !important;
-        padding: 10px 14px !important;
-        min-height: 70px !important;
-        border-radius: 16px !important;
-        background: var(--lumi-card-surface) !important;
-        border: 1px solid var(--lumi-border) !important;
-        color: var(--lumi-text-main) !important;
+        background: #1D2235 !important;
+        border-radius: 14px !important;
+        padding: 4px 12px 4px 5px !important;
+        min-height: 48px !important;
+        color: #F7F8FC !important;
         text-decoration: none !important;
         cursor: pointer !important;
-        transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease !important;
+        transition: transform 0.18s ease, box-shadow 0.18s ease !important;
         box-sizing: border-box !important;
       }
 
       .cc-quick-card:hover {
         transform: translateY(-2px) !important;
-        border-color: var(--lumi-gold) !important;
-        background: #23293f !important;
       }
 
-      .cc-qc-icon-wrap {
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
-        border-radius: 12px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: rgba(255, 255, 255, 0.05) !important;
+      .cc-quick-card.cc-qc-gold {
+        border: 1px solid rgba(255, 140, 51, 0.4) !important;
+        box-shadow: 0 4px 16px rgba(255, 122, 0, 0.08), inset 0 1px 0 rgba(255, 200, 100, 0.25) !important;
       }
 
-      .cc-quick-card.cc-qc-gold .cc-qc-icon-wrap {
-        background: rgba(216, 173, 87, 0.18) !important;
-        color: var(--lumi-gold-light) !important;
+      .cc-quick-card.cc-qc-blue {
+        border: 1px solid rgba(99, 102, 241, 0.4) !important;
+        box-shadow: 0 4px 16px rgba(99, 102, 241, 0.08), inset 0 1px 0 rgba(160, 170, 255, 0.25) !important;
       }
 
-      .cc-quick-card.cc-qc-blue .cc-qc-icon-wrap {
-        background: rgba(56, 189, 248, 0.18) !important;
-        color: #38BDF8 !important;
+      .cc-quick-card.cc-qc-purple {
+        border: 1px solid rgba(168, 85, 247, 0.4) !important;
+        box-shadow: 0 4px 16px rgba(168, 85, 247, 0.08), inset 0 1px 0 rgba(220, 150, 255, 0.25) !important;
       }
 
-      .cc-quick-card.cc-qc-purple .cc-qc-icon-wrap {
-        background: rgba(133, 71, 216, 0.22) !important;
-        color: var(--lumi-accent-light) !important;
+      .cc-qc-thumb-wrap {
+        width: 68px !important;
+        height: 40px !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
+        flex-shrink: 0 !important;
+        margin-right: 10px !important;
+        background: #0D1020 !important;
+      }
+
+      .cc-qc-thumb-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        display: block !important;
       }
 
       .cc-qc-meta {
         flex: 1 !important;
         display: flex !important;
         flex-direction: column !important;
-        gap: 2px !important;
+        gap: 1px !important;
         min-width: 0 !important;
       }
 
       .cc-qc-title {
-        font-size: 0.92rem !important;
+        font-size: 0.84rem !important;
         font-weight: 700 !important;
-        color: var(--lumi-text-main) !important;
+        color: #FFFFFF !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
       }
 
       .cc-qc-desc {
-        font-size: 0.74rem !important;
-        color: var(--lumi-text-muted) !important;
+        font-size: 0.70rem !important;
+        color: #A5AEC4 !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
       }
 
       .cc-qc-arrow {
-        font-size: 1.4rem !important;
-        color: var(--lumi-text-muted) !important;
-        padding-right: 4px !important;
+        color: #A5AEC4 !important;
+        font-size: 1.15rem !important;
+        margin-left: 6px !important;
+        font-weight: 600 !important;
+        line-height: 1 !important;
       }
 
-      /* Wiersze wiadomości */
-      .cc-chat-msg-row {
-        display: flex !important;
-        gap: 10px !important;
-        margin-bottom: 6px !important;
-        animation: ccFadeIn 0.2s ease !important;
-      }
-
-      .cc-chat-msg-row.is-me {
-        flex-direction: row-reverse !important;
-      }
-
-      .cc-chat-msg-avatar {
-        width: 34px !important;
-        height: 34px !important;
-        min-width: 34px !important;
-        border-radius: 50% !important;
-        object-fit: cover !important;
-        border: 1px solid var(--lumi-border) !important;
-      }
-
-      .cc-chat-msg-content {
-        display: flex !important;
-        flex-direction: column !important;
-        max-width: 82% !important;
-      }
-
-      .cc-chat-msg-row.is-me .cc-chat-msg-content {
-        align-items: flex-end !important;
-      }
-
-      .cc-chat-msg-meta {
-        display: flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-        font-size: 0.72rem !important;
-        color: var(--lumi-text-muted) !important;
-        margin-bottom: 3px !important;
-      }
-
-      .cc-chat-msg-sender {
-        font-weight: 700 !important;
-        color: var(--lumi-text-main) !important;
-      }
-
-      .cc-chat-msg-bubble {
-        padding: 10px 14px !important;
-        border-radius: 18px 18px 18px 4px !important;
-        background: var(--lumi-card-surface) !important;
-        border: 1px solid var(--lumi-border) !important;
-        color: var(--lumi-text-main) !important;
-        font-size: 0.88rem !important;
-        line-height: 1.48 !important;
-        word-break: break-word !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
-      }
-
-      .cc-chat-msg-row.is-me .cc-chat-msg-bubble {
-        border-radius: 18px 18px 4px 18px !important;
-        background: linear-gradient(135deg, var(--lumi-accent) 0%, #6B21A8 100%) !important;
-        border-color: rgba(180, 117, 245, 0.4) !important;
-        color: #FFFFFF !important;
-      }
-
-      /* Przycisk przewijania do najnowszych */
       .cc-chat-scroll-bottom-btn {
-        position: sticky !important;
-        bottom: 8px !important;
-        align-self: center !important;
-        background: var(--lumi-bg-panel) !important;
-        border: 1px solid var(--lumi-gold) !important;
-        color: var(--lumi-gold-light) !important;
-        font-size: 0.76rem !important;
-        font-weight: 700 !important;
-        padding: 6px 14px !important;
-        border-radius: 999px !important;
-        cursor: pointer !important;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6) !important;
-        display: none;
-        z-index: 10 !important;
-      }
-
-      /* ── 6. STAŁE POLE WPISYWANIA WIADOMOŚCI ── */
-      .cc-chat-composer-premium {
-        position: relative !important;
-        padding: 10px 14px !important;
-        background: var(--lumi-bg-panel) !important;
-        border-top: 1px solid var(--lumi-border) !important;
-        flex-shrink: 0 !important;
-        box-sizing: border-box !important;
-      }
-
-      .cc-composer-popover {
-        position: absolute !important;
-        bottom: calc(100% + 8px) !important;
-        left: 14px !important;
-        right: 14px !important;
-        background: var(--lumi-card-surface) !important;
-        border: 1px solid var(--lumi-border) !important;
-        border-radius: 18px !important;
-        padding: 10px !important;
-        box-shadow: 0 16px 40px rgba(0,0,0,0.8) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 6px !important;
-        z-index: 20 !important;
-      }
-
-      .cc-composer-popover[hidden] {
         display: none !important;
-      }
-
-      .cc-popover-item {
-        min-height: 44px !important;
-        padding: 8px 12px !important;
-        border-radius: 12px !important;
-        background: rgba(255, 255, 255, 0.04) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        color: var(--lumi-text-main) !important;
-        font-family: inherit !important;
-        font-size: 0.82rem !important;
-        text-align: left !important;
-        cursor: pointer !important;
-        transition: all 0.15s ease !important;
-      }
-
-      .cc-popover-item:hover {
+        align-self: center;
         background: rgba(133, 71, 216, 0.25) !important;
-        border-color: var(--lumi-accent) !important;
+        border: 1px solid rgba(133, 71, 216, 0.5) !important;
+        color: #F7F8FC !important;
+        border-radius: 999px !important;
+        padding: 4px 14px !important;
+        font-size: 0.74rem !important;
+        font-family: inherit !important;
+        cursor: pointer !important;
+        margin: 4px auto !important;
+        z-index: 5 !important;
+      }
+
+      /* ── 6. STAŁE POLE WPISYWANIA WIADOMOŚCI (COMPOSER 1:1) ── */
+      .cc-chat-composer-premium {
+        position: sticky !important;
+        bottom: 0 !important;
+        background: #0D1020 !important;
+        border-top: 1px solid #1D2235 !important;
+        padding: 6px 14px calc(6px + env(safe-area-inset-bottom, 0px)) 14px !important;
+        flex-shrink: 0 !important;
+        z-index: 10 !important;
       }
 
       .cc-chat-composer-form {
         display: flex !important;
         align-items: center !important;
         gap: 8px !important;
-        width: 100% !important;
       }
 
       .cc-composer-plus-btn {
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
         border-radius: 50% !important;
-        border: 1px solid var(--lumi-border) !important;
-        background: rgba(255, 255, 255, 0.06) !important;
-        color: var(--lumi-text-main) !important;
-        font-size: 1.4rem !important;
-        line-height: 1 !important;
-        cursor: pointer !important;
-        display: inline-flex !important;
+        background: #1D2235 !important;
+        border: 1.5px solid #343A50 !important;
+        color: #FFFFFF !important;
+        font-size: 1.3rem !important;
+        font-weight: 400 !important;
+        display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        transition: all 0.18s ease !important;
+        cursor: pointer !important;
         flex-shrink: 0 !important;
+        transition: background 0.18s ease, transform 0.18s ease !important;
+        line-height: 1 !important;
       }
 
       .cc-composer-plus-btn:hover {
-        background: var(--lumi-card-surface) !important;
-        border-color: var(--lumi-accent) !important;
+        background: #252C44 !important;
+        transform: scale(1.05) !important;
       }
 
       .cc-composer-input-wrap {
         flex: 1 !important;
-        position: relative !important;
-        min-width: 0 !important;
+        background: #0D1020 !important;
+        border: 1px solid rgba(216, 173, 87, 0.45) !important;
+        border-radius: 999px !important;
+        display: flex !important;
+        align-items: center !important;
+        padding: 0 8px 0 14px !important;
+        min-height: 40px !important;
+        box-sizing: border-box !important;
+        transition: border-color 0.18s ease !important;
+      }
+
+      .cc-composer-input-wrap:focus-within {
+        border-color: #F2D17C !important;
+        box-shadow: 0 0 10px rgba(242, 209, 124, 0.25) !important;
       }
 
       .cc-composer-textarea {
-        width: 100% !important;
-        min-height: 44px !important;
-        max-height: 120px !important;
-        background: var(--lumi-bg-main) !important;
-        border: 1px solid var(--lumi-border) !important;
-        border-radius: 999px !important;
-        padding: 12px 18px !important;
-        color: var(--lumi-text-main) !important;
-        font-family: inherit !important;
-        font-size: 0.88rem !important;
+        background: transparent !important;
+        border: none !important;
         outline: none !important;
+        color: #FFFFFF !important;
+        font-family: inherit !important;
+        font-size: 0.78rem !important;
+        flex: 1 !important;
         resize: none !important;
-        box-sizing: border-box !important;
-        transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
+        line-height: 1.35 !important;
+        padding: 6px 0 !important;
       }
 
-      .cc-composer-textarea:focus {
-        border-color: var(--lumi-gold) !important;
-        box-shadow: 0 0 0 2px rgba(216, 173, 87, 0.25) !important;
+      .cc-composer-textarea::placeholder {
+        color: #7E88A2 !important;
       }
 
       .cc-composer-mic-btn {
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
-        border-radius: 50% !important;
-        border: 1px solid var(--lumi-border) !important;
-        background: rgba(255, 255, 255, 0.06) !important;
-        color: var(--lumi-text-muted) !important;
+        background: transparent !important;
+        border: none !important;
+        color: #A5AEC4 !important;
         cursor: pointer !important;
-        display: inline-flex !important;
+        padding: 4px !important;
+        display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        transition: all 0.18s ease !important;
+        font-size: 1.1rem !important;
         flex-shrink: 0 !important;
+        transition: color 0.18s ease !important;
       }
 
       .cc-composer-mic-btn:hover {
-        color: var(--lumi-text-main) !important;
-        border-color: var(--lumi-accent) !important;
-      }
-
-      .cc-composer-mic-btn.is-listening {
-        background: rgba(239, 68, 68, 0.25) !important;
-        border-color: #EF4444 !important;
-        color: #EF4444 !important;
-        animation: ccPulse 1s infinite alternate !important;
+        color: #FFFFFF !important;
       }
 
       .cc-composer-send-btn {
-        min-height: 44px !important;
-        padding: 0 18px !important;
-        border-radius: 999px !important;
-        background: linear-gradient(135deg, var(--lumi-gold) 0%, var(--lumi-gold-light) 100%) !important;
+        background: #FFC436 !important;
         color: #0D1020 !important;
-        font-family: inherit !important;
-        font-size: 0.86rem !important;
         font-weight: 800 !important;
+        font-size: 0.82rem !important;
         border: none !important;
-        cursor: pointer !important;
+        border-radius: 999px !important;
+        padding: 0 16px !important;
+        min-height: 40px !important;
         display: inline-flex !important;
         align-items: center !important;
-        justify-content: center !important;
         gap: 6px !important;
-        box-shadow: 0 4px 14px rgba(216, 173, 87, 0.35) !important;
-        transition: transform 0.18s ease, filter 0.18s ease !important;
+        cursor: pointer !important;
         flex-shrink: 0 !important;
-        white-space: nowrap !important;
+        box-shadow: 0 2px 10px rgba(255, 196, 54, 0.35) !important;
+        transition: transform 0.18s ease, filter 0.18s ease !important;
       }
 
       .cc-composer-send-btn:hover {
-        transform: scale(1.03) !important;
-        filter: brightness(1.08) !important;
+        transform: scale(1.02) !important;
+        filter: brightness(1.06) !important;
       }
-
-      /* ── ZAKŁADKI POZOSTAŁE: ZESPÓŁ, SPOŁECZNOŚĆ, ZASOBY, WIĘCEJ ── */
-      .cc-tab-content-wrap {
-        padding: 14px !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
-      }
-
-      .cc-section-headline {
-        font-size: 0.96rem !important;
-        font-weight: 750 !important;
-        color: var(--lumi-text-main) !important;
-        margin: 4px 0 !important;
-      }
-
-      .cc-card-item {
-        display: flex !important;
-        align-items: center !important;
-        gap: 12px !important;
-        padding: 12px 14px !important;
-        min-height: 60px !important;
-        background: var(--lumi-card-surface) !important;
-        border: 1px solid var(--lumi-border) !important;
-        border-radius: 16px !important;
-        color: var(--lumi-text-main) !important;
-        text-decoration: none !important;
-        cursor: pointer !important;
-        transition: transform 0.18s ease, border-color 0.18s ease !important;
-      }
-
-      .cc-card-item:hover {
-        border-color: var(--lumi-gold) !important;
-        transform: translateY(-2px) !important;
-      }
-
-      .cc-card-icon {
-        width: 44px !important;
-        height: 44px !important;
-        border-radius: 12px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        font-size: 1.25rem !important;
-        flex-shrink: 0 !important;
-      }
-
-      .cc-card-info {
-        flex: 1 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 2px !important;
-        min-width: 0 !important;
-      }
-
-      .cc-card-title {
-        font-size: 0.88rem !important;
-        font-weight: 700 !important;
-      }
-
-      .cc-card-sub {
-        font-size: 0.74rem !important;
-        color: var(--lumi-text-muted) !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-      }
-
-      /* Wyszukiwarka członków */
-      .cc-chat-search-wrap {
-        margin-bottom: 6px !important;
-      }
-
-      .cc-chat-search-input {
-        width: 100% !important;
-        min-height: 44px !important;
-        background: var(--lumi-card-surface) !important;
-        border: 1px solid var(--lumi-border) !important;
-        border-radius: 14px !important;
-        padding: 10px 14px !important;
-        color: var(--lumi-text-main) !important;
-        font-family: inherit !important;
-        font-size: 0.84rem !important;
-        outline: none !important;
-        box-sizing: border-box !important;
-      }
-
-      .cc-chat-search-input:focus {
-        border-color: var(--lumi-accent) !important;
-      }
-
       /* ── RESPONSYWNOŚĆ MOBILE (320-768px) ── */
       @media (max-width: 768px) {
     .cc-chat-drawer {
@@ -1816,7 +1576,7 @@
         <header class="cc-chat-header">
           <a href="/mess" class="cc-chat-header-brand" id="ccChatHeaderBrand" title="LUMI Messenger">
             <div class="cc-chat-header-logo-wrap" aria-hidden="true">
-              <img src="/images/chat/cc-chat-button-120.webp" id="ccChatHeaderPartnerAvatar" alt="LUMI Messenger" class="cc-chat-header-icon" width="38" height="38" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+              <img src="/images/chat/lumi_header_logo.webp" id="ccChatHeaderPartnerAvatar" alt="LUMI Messenger" class="cc-chat-header-icon" width="38" height="38" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
             </div>
             <div class="cc-chat-header-titles">
               <div class="cc-chat-header-title" id="ccChatHeaderTitle">
@@ -1846,7 +1606,7 @@
         <section class="cc-chat-mini-player" id="ccChatMiniPlayer" aria-label="Odtwarzacz Radio Christian Culture">
           <div class="cc-chat-radio-left">
             <span class="cc-chat-radio-glyph" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4.93 4.93a10 10 0 0 0 0 14.14M2 2a14.14 14.14 0 0 0 0 20M19.07 4.93a10 10 0 0 1 0 14.14M22 2a14.14 14.14 0 0 1 0 20M12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
               </svg>
             </span>
@@ -1863,7 +1623,7 @@
           </button>
         </section>
 
-        <!-- 3. NAWIGACJA: 5 ZAKŁADEK -->
+        <!-- 3. NAWIGACJA: 5 ZAKŁADEK 1:1 -->
         <nav class="cc-chat-nav-tabs" role="tablist" aria-label="Nawigacja czatu">
           <button type="button" class="cc-chat-nav-tab is-active" id="ccChatTabLiveBtn" role="tab" aria-selected="true" aria-controls="ccChatViewLive">
             <span class="cc-nav-icon">💬</span>
@@ -1890,81 +1650,33 @@
         <!-- ════ WIDOK 1: CZAT & ASYSTENTKI CC ════ -->
         <div class="cc-chat-tab-panel is-active" id="ccChatViewLive" role="tabpanel" aria-labelledby="ccChatTabLiveBtn">
           
-          <!-- BANER ASYSTENTEK CC (SHOWCASE) -->
+          <!-- BANER ASYSTENTEK CC (SHOWCASE 1:1 ARTWORK & HOTSPOTS) -->
           <section class="cc-chat-asst-showcase" id="ccChatAsstShowcase" aria-label="Asystentki Christian Culture">
-            <div class="cc-showcase-body">
-              <div class="cc-showcase-left">
-                <div class="cc-showcase-logo-row">
-                  <div class="cc-showcase-logo-badge" aria-hidden="true">
-                    <svg viewBox="0 0 44 44" width="40" height="40">
-                      <circle cx="22" cy="22" r="20" fill="none" stroke="#D8AD57" stroke-width="2.4"/>
-                      <text x="22" y="27" font-size="16" font-weight="900" fill="#F2D17C" text-anchor="middle" font-family="'Inter', sans-serif">CC</text>
-                    </svg>
-                  </div>
-                  <div class="cc-showcase-headline-wrap">
-                    <h2 class="cc-showcase-title">Asystentki<br>Christian<br>Culture</h2>
-                    <span class="cc-showcase-badge">Wirtualne gospodynie</span>
-                  </div>
-                </div>
-                <p class="cc-showcase-sub">
-                  Pomoc • Inspiracja<br>
-                  Wsparcie • Przewodnik<br>
-                  przez cały ekosystem CC
-                </p>
-              </div>
-
-              <div class="cc-showcase-trio" role="radiogroup" aria-label="Wybierz Asystentkę">
+            <div class="cc-hero-art-container">
+              <img src="/images/chat/lumi_hero_banner.webp" alt="Asystentki Christian Culture - Lea, Rut, Noemi" class="cc-hero-art-img" width="474" height="288" loading="eager">
+              <div class="cc-hero-hotspots">
                 <!-- Lea -->
-                <button type="button" class="cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea - Organizer i planista">
-                  <div class="cc-trio-avatar-wrap">
-                    <img src="/images/chat/assistants/asystentka-2.webp" alt="Lea" class="cc-trio-avatar" onerror="this.src='/images/chat/assistants/asystentka-2.jpg'">
-                  </div>
-                  <div class="cc-trio-tag">Lea</div>
-                  <div class="cc-trio-role">Organizer<br>i planista</div>
-                </button>
-
+                <button type="button" class="cc-hotspot cc-hotspot-lea cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea - Organizer i planista" title="Lea - Organizer i planista"></button>
                 <!-- Rut (Center) -->
-                <button type="button" class="cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut - Wspieram Cię i pomagam">
-                  <div class="cc-trio-avatar-wrap is-rut">
-                    <img src="/images/chat/assistants/asystentka-1.webp" alt="Rut" class="cc-trio-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.jpg'">
-                    <span class="cc-trio-headset" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#F2D17C" stroke-width="2.5"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-                    </span>
-                  </div>
-                  <div class="cc-trio-tag is-gold">Rut</div>
-                  <div class="cc-trio-role">Wspieram Cię<br>i pomagam</div>
-                </button>
-
+                <button type="button" class="cc-hotspot cc-hotspot-rut cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut - Wspieram Cię i pomagam" title="Rut - Wspieram Cię i pomagam"></button>
                 <!-- Noemi -->
-                <button type="button" class="cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi - Twoje zasoby i rozwiązania">
-                  <div class="cc-trio-avatar-wrap">
-                    <img src="/images/chat/assistants/asystentka-3.webp" alt="Noemi" class="cc-trio-avatar" onerror="this.src='/images/chat/assistants/asystentka-3.jpg'">
-                  </div>
-                  <div class="cc-trio-tag">Noemi</div>
-                  <div class="cc-trio-role">Twoje zasoby<br>i rozwiązania</div>
-                </button>
+                <button type="button" class="cc-hotspot cc-hotspot-noemi cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi - Twoje zasoby i rozwiązania" title="Noemi - Twoje zasoby i rozwiązania"></button>
+                <!-- Pigułki pod banerem -->
+                <button type="button" class="cc-hotspot cc-hotspot-pill1 cc-showcase-pill" id="ccPillRadio" aria-label="Posłuchaj radia" title="Posłuchaj radia"></button>
+                <button type="button" class="cc-hotspot cc-hotspot-pill2 cc-showcase-pill" id="ccPillBible" aria-label="Poznaj Biblię" title="Poznaj Biblię"></button>
+                <button type="button" class="cc-hotspot cc-hotspot-pill3 cc-showcase-pill" id="ccPillDiscover" aria-label="Odkryj CC" title="Odkryj CC"></button>
               </div>
-            </div>
-
-            <!-- Pigułki pod banerem -->
-            <div class="cc-showcase-pills">
-              <button type="button" class="cc-showcase-pill is-primary" id="ccPillRadio">
-                <span>🎧 Posłuchaj radia</span>
-              </button>
-              <button type="button" class="cc-showcase-pill" id="ccPillBible">
-                <span>📖 Poznaj Biblię</span>
-              </button>
-              <button type="button" class="cc-showcase-pill" id="ccPillDiscover">
-                <span>🧭 Odkryj CC</span>
-              </button>
             </div>
           </section>
+
+          <!-- ŚWIETLISTA LINIA ROZDZIELAJĄCA -->
+          <div class="cc-lumi-divider" aria-hidden="true"></div>
 
           <!-- MINI-BAR AKTYWNEJ ASYSTENTKI -->
           <div class="cc-chat-active-asst-bar" id="ccChatActiveAsstBar">
             <div class="cc-active-asst-left">
               <div class="cc-active-asst-avatar-wrap" aria-hidden="true">
-                <img src="/images/chat/assistants/asystentka-1.webp" alt="Rut" id="ccChatActiveAsstAvatar" class="cc-active-asst-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.jpg'">
+                <img src="/images/chat/lumi_avatar_rut_circle.webp" alt="Rut" id="ccChatActiveAsstAvatar" class="cc-active-asst-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.webp'">
                 <span class="cc-active-asst-dot"></span>
               </div>
               <div class="cc-active-asst-meta">
@@ -1972,33 +1684,33 @@
                 <span class="cc-active-asst-role" id="ccChatActiveAsstRole">· Asystentka CC</span>
               </div>
             </div>
-            <button type="button" class="cc-asst-toggle-showcase-btn" id="ccAsstToggleShowcaseBtn" aria-label="Zwiń / rozwiń prezentację asystentek" title="Zwiń / rozwiń asystentki">
+            <button type="button" class="cc-asst-toggle-showcase-btn" id="ccAsstToggleShowcaseBtn" style="display:none;" aria-label="Zwiń / rozwiń prezentację asystentek" title="Zwiń / rozwiń asystentki">
               <span id="ccAsstToggleIcon">▾</span>
             </button>
           </div>
 
           <!-- FEED WIADOMOŚCI I REKOMENDACJI -->
-          <div class="cc-chat-partners-bar" id="ccChatPartnersBar" style="display:flex;gap:8px;padding:8px 16px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--lumi-border);"></div>
+          <div class="cc-chat-partners-bar" id="ccChatPartnersBar" style="display:none !important;"></div>
           <div class="cc-chat-feed" id="ccChatFeed">
             
-            <!-- Powitanie -->
-            <div class="cc-asst-welcome-bubble" id="ccChatWelcomeBubble">
-              <p><strong>Cześć! ❤️ Dobrze, że jesteś.</strong></p>
-              <p id="ccChatWelcomeBody">Nazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.</p>
-              <p>Przez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem.</p>
-              <p><strong>W czym mogę Ci dziś pomóc?</strong></p>
+            <!-- Powitanie 1:1 -->
+            <div class="cc-asst-welcome-container">
+              <div class="cc-asst-welcome-bubble" id="ccChatWelcomeBubble">
+                <div class="cc-welcome-headline">Cześć! ❤️ Dobrze, że jesteś.</div>
+                <div class="cc-welcome-lead" id="ccChatWelcomeBody">Nazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.</div>
+                <div class="cc-welcome-help">Przez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem.</div>
+                <div class="cc-welcome-ask">W czym mogę Ci dziś pomóc?</div>
+              </div>
+              <div class="cc-welcome-art-wrap" aria-hidden="true">
+                <img src="/images/chat/lumi_welcome_cross_bible.webp" alt="Krzyż i Biblia" class="cc-welcome-art-img" width="88" height="168">
+              </div>
             </div>
 
-            <!-- 3 Karty Szybkich Akcji -->
+            <!-- 3 Karty Szybkich Akcji 1:1 -->
             <div class="cc-chat-quick-cards-grid" id="ccChatQuickCardsGrid">
-              <a href="/player" class="cc-quick-card cc-qc-gold" id="ccQcRadio">
-                <div class="cc-qc-icon-wrap" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                    <line x1="12" y1="19" x2="12" y2="23"/>
-                    <line x1="8" y1="23" x2="16" y2="23"/>
-                  </svg>
+              <a href="/player" class="cc-quick-card cc-qc-gold" id="ccQcRadio" aria-label="Posłuchaj radia">
+                <div class="cc-qc-thumb-wrap" aria-hidden="true">
+                  <img src="/images/chat/lumi_thumb_mic.webp" alt="Radio 24/7" class="cc-qc-thumb-img" width="76" height="48">
                 </div>
                 <div class="cc-qc-meta">
                   <span class="cc-qc-title">🎧 Posłuchaj radia</span>
@@ -2007,12 +1719,9 @@
                 <span class="cc-qc-arrow" aria-hidden="true">›</span>
               </a>
 
-              <a href="/Ewangelia" class="cc-quick-card cc-qc-blue" id="ccQcBible">
-                <div class="cc-qc-icon-wrap" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                  </svg>
+              <a href="/Ewangelia" class="cc-quick-card cc-qc-blue" id="ccQcBible" aria-label="Poznaj Dobrą Nowinę">
+                <div class="cc-qc-thumb-wrap" aria-hidden="true">
+                  <img src="/images/chat/lumi_thumb_bible.webp" alt="Biblia" class="cc-qc-thumb-img" width="76" height="48">
                 </div>
                 <div class="cc-qc-meta">
                   <span class="cc-qc-title">📖 Poznaj Dobrą Nowinę</span>
@@ -2021,12 +1730,9 @@
                 <span class="cc-qc-arrow" aria-hidden="true">›</span>
               </a>
 
-              <a href="/akademia" class="cc-quick-card cc-qc-purple" id="ccQcAcademy">
-                <div class="cc-qc-icon-wrap" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                  </svg>
+              <a href="/akademia" class="cc-quick-card cc-qc-purple" id="ccQcAcademy" aria-label="Akademia Biblijna">
+                <div class="cc-qc-thumb-wrap" aria-hidden="true">
+                  <img src="/images/chat/lumi_thumb_cap.webp" alt="Akademia Biblijna" class="cc-qc-thumb-img" width="76" height="48">
                 </div>
                 <div class="cc-qc-meta">
                   <span class="cc-qc-title">🎓 Akademia Biblijna</span>
@@ -2040,7 +1746,7 @@
             <div id="ccChatMessagesList" style="display: flex; flex-direction: column; gap: 10px;"></div>
 
             <!-- Przycisk powrotu do najnowszych wiadomości -->
-            <button type="button" class="cc-chat-scroll-bottom-btn" id="ccChatScrollBottomBtn" aria-label="Przejdź do najnowszych wiadomości">
+            <button type="button" class="cc-chat-scroll-bottom-btn" id="ccChatScrollBottomBtn" aria-label="Przejdź do najnowszych wiadomości" style="display: none;">
               Przejdź do najnowszych ↓
             </button>
           </div>
@@ -2085,7 +1791,6 @@
             </form>
           </div>
         </div>
-
         <!-- ════ WIDOK 2: ZESPÓŁ CC (KONTAKT I WSPARCIE) ════ -->
         <div class="cc-chat-tab-panel" id="ccChatViewTeam" role="tabpanel" aria-labelledby="ccChatTabTeamBtn">
           <div class="cc-tab-content-wrap">
@@ -2285,8 +1990,8 @@
         activeAvatar.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
       }
       if (activeName) activeName.textContent = asst.shortName || asst.name.split(' ')[0];
-      if (activeRole) activeRole.textContent = `· ${asst.role}`;
-      if (welcomeBody) welcomeBody.textContent = `Nazywam się ${asst.shortName || asst.name} – jestem Twoją wirtualną gospodynią w LUMI MESS.`;
+      if (activeRole) activeRole.textContent = '· Asystentka CC';
+      if (welcomeBody) welcomeBody.textContent = `Nazywam się ${asst.shortName || asst.name} – jestem Asystentką Christian Culture i gospodynią LUMI MESS.`;
 
       // Trio radio sync
       document.querySelectorAll('.cc-trio-card').forEach(btn => {
@@ -2547,11 +2252,24 @@
     // Przewijanie i przycisk powrotu do najnowszych
     const feed = document.getElementById('ccChatFeed');
     function scrollToBottom() {
-      if (feed) feed.scrollTop = feed.scrollHeight;
+      if (!feed) return;
+      const msgList = document.getElementById('ccChatMessagesList');
+      const msgRows = msgList ? msgList.querySelectorAll('.cc-chat-msg-row') : [];
+      if (msgRows.length === 0) {
+        feed.scrollTop = 0;
+        return;
+      }
+      feed.scrollTop = feed.scrollHeight;
     }
 
     if (feed && scrollBottomBtn) {
       feed.addEventListener('scroll', () => {
+        const msgList = document.getElementById('ccChatMessagesList');
+        const msgRows = msgList ? msgList.querySelectorAll('.cc-chat-msg-row') : [];
+        if (msgRows.length < 2) {
+          scrollBottomBtn.style.display = 'none';
+          return;
+        }
         const distFromBottom = feed.scrollHeight - feed.scrollTop - feed.clientHeight;
         scrollBottomBtn.style.display = distFromBottom > 160 ? 'block' : 'none';
       });
@@ -3092,14 +2810,8 @@
 
     if (!msgs || msgs.length === 0) {
       if (currentChatPartner.isPublic) {
-        list.innerHTML = `
-          <div class="cc-asst-welcome-bubble" id="ccChatWelcomeBubble" style="background:var(--lumi-card);border:1px solid var(--lumi-border);border-radius:18px;padding:16px 20px;color:var(--lumi-text);font-size:0.92rem;line-height:1.55;">
-            <p style="margin:0 0 8px 0;font-weight:700;color:var(--lumi-text);">Cześć! ❤️ Dobrze, że jesteś.</p>
-            <p id="ccChatWelcomeBody" style="margin:0 0 8px 0;color:var(--lumi-text);">Nazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.</p>
-            <p style="margin:0 0 8px 0;color:var(--lumi-text-sub);">Przez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, Czat Ogólny i społeczność LUMINA lub kontakt z zespołem.</p>
-            <p style="margin:0;font-weight:700;color:var(--lumi-gold);">W czym mogę Ci dziś pomóc?</p>
-          </div>
-        `;
+        list.innerHTML = '<div class="cc-chat-empty-state" style="display:none;" aria-hidden="true">Czat Ogólny Społeczności LUMINA</div>';
+        return;
       } else {
         list.innerHTML = `
           <div class="cc-chat-empty-state" style="text-align:center;padding:24px 16px;color:#A5AEC4;">
