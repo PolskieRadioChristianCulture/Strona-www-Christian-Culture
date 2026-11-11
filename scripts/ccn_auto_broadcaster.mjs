@@ -723,6 +723,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🎵 PREMIERA AUTORSKA | CC MEN';
       callToAction = '👉 Słuchaj z tekstem:\n';
       addTags(item.tag || '#CCMen', '#CezaryRogowski', '#MuzykaChrzescijanska');
+    } else if ((item.url || '').includes('ArkOfFire') || (item.title || '').includes('Ark of Fire')) {
+      subHeader = '🎸 ARK OF FIRE | ROCK & METAL';
+      callToAction = '👉 Odkryj wizytówkę i muzykę:\n';
+      addTags('#ArkOfFire', '#ChristianRock', '#PolskieRadioCC');
     } else {
       subHeader = '🎵 MUZYKA & KANAŁY LIVE';
       callToAction = '👉 Słuchaj na żywo:\n';
@@ -878,7 +882,7 @@ function formatBroadcasterTweet(item) {
   } else if ((item.url || '').includes('topTEN')) {
     bodyText = 'Oficjalna lista przebojów muzyki chrześcijańskiej. Głosuj na utwory i wspieraj artystów!';
   } else if ((item.url || '').includes('ArkOfFire') || (item.title || '').includes('Ark of Fire')) {
-    bodyText = 'Ark of Fire — chrześcijański rock i metal z Holandii. Świadectwo odkupienia, utwór „It Is Finished” i oficjalna wizytówka artysty!';
+    bodyText = 'Ark of Fire — chrześcijański rock z Holandii. Świadectwo odkupienia i utwór „It Is Finished” w Polskim Radiu CC.';
   } else if ((item.url || '').includes('the-journal') || (item.title || '').includes('THE JOURNAL')) {
     bodyText = 'THE JOURNAL — 90-dniowy przewodnik formacji, wiary i nawyków. Karta dzienna, pytania wieczorne i bezpłatne PDF!';
   } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
