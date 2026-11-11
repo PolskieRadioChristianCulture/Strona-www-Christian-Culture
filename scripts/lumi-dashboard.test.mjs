@@ -151,7 +151,8 @@ test('header exposes the six existing stations and controls the same player trut
   select.value = 'biblia_spiewana'; select.dispatchEvent(new f.win.Event('change')); await settle();
   f.win.document.getElementById('lumiRadioPlay').click();
   assert.deepEqual(f.plays, ['biblia_spiewana']);
-  assert.equal(f.win.document.getElementById('lumiRadioPlay').getAttribute('aria-label'), 'Wstrzymaj radio');
+  assert.equal(f.win.document.querySelector('#lumiRadioPlay .lumi-play-orb').textContent, '■');
+  assert.equal(f.win.document.getElementById('lumiRadioPlay').getAttribute('aria-label'), 'Zatrzymaj radio');
   f.win.document.getElementById('lumiRadioPlay').click();
   assert.equal(f.win.document.getElementById('lumiRadioPlay').getAttribute('aria-label'), 'Włącz radio');
 });

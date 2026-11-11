@@ -124,6 +124,7 @@ test('six-station playback uses synchronized playlist position and truthful stat
   let fail = false;
   win.HTMLMediaElement.prototype.play = function () {
     if (fail) return Promise.reject(new Error('unavailable'));
+    Object.defineProperty(this, 'paused', { value: false, configurable: true });
     this.dispatchEvent(new win.Event('playing')); return Promise.resolve();
   };
   run(files[0]); run(files[1]);

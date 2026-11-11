@@ -219,7 +219,15 @@
     '/biblioteka',
     '/swiadectwa',
     '/o-nas',
+    '/audioteka', '/podcasty', '/tv', '/pobierz', '/uslugi', '/wizytowki',
+    '/dzj', '/kursy', '/kursy/apokalipsa/', '/kursy/kurscodzienny/', '/studium',
+    '/music', '/rolki', '/pokonac-goliata', '/the-journal', '/cc-light',
+    '/newsletter', '/nauka', '/historia', '/biologia', '/prawo', '/psychologia',
   ]);
+  const PUBLIC_ARTICLE_PATH = /^\/(?:news|nauka|historia|biologia|prawo|psychologia)\/[a-z0-9]+(?:-[a-z0-9]+)+\/?$/;
+  const PUBLIC_LESSON_PATH = /^\/akademia\/kurscodzienny\/dzien-\d{1,3}\/?$/;
+  const indexEntries = new Map();
+  let indexRequest;
 
   const RAW_KNOWLEDGE_CATALOG = Object.freeze([
     {
@@ -582,7 +590,7 @@
           return false;
         }
       }
-      return ALLOWED_PUBLIC_URLS.has(cleanPath);
+      return ALLOWED_PUBLIC_URLS.has(cleanPath) || indexEntries.has(cleanPath);
     },
 
     validateSourceParam(raw) {
@@ -664,7 +672,7 @@
 
   const PL_STOPWORDS = new Set([
     'jak', 'czy', 'dla', 'nie', 'lub', 'pod', 'nad', 'bez', 'przy', 'jest',
-    'gdzie', 'kiedy', 'kto', 'co', 'to', 'na', 'po', 'od', 'do', 'ze', 'za',
+    'gdzie', 'znajde', 'znalezc', 'otworzyc', 'pokaz', 'kiedy', 'kto', 'co', 'to', 'na', 'po', 'od', 'do', 'ze', 'za',
     'we', 'sie', 'mi', 'ci', 'was', 'nas', 'macie', 'mozna', 'moge', 'chce',
     'mam', 'wasz', 'wasze', 'waszego', 'ten', 'ta', 'te', 'tym', 'tej', 'oraz',
     'albo', 'bardzo', 'tylko', 'jeszcze', 'juz', 'tam', 'tutaj', 'dzis', 'jaki',
@@ -713,6 +721,52 @@
         }
       }
       return matrix[b.length][a.length];
+    },
+
+    loadPublicIndex() {
+      if (!root?.document || typeof root.fetch !== 'function') return Promise.resolve();
+      indexRequest ||= root.fetch('/data/cc-search-index.json', { credentials: 'omit' })
+        .then(response => {
+          if (!response.ok) throw new Error('Public index unavailable');
+          return response.json();
+        })
+        .then(index => this.registerPublicIndex(index))
+        .catch(() => { indexRequest = null; });
+      return indexRequest;
+    },
+
+    registerPublicIndex(index) {
+      if (!Array.isArray(index?.items)) return;
+      for (const item of index.items) {
+        if (typeof item?.url !== 'string' || !/^(?:https:\/\/polskieradio\.cc)?\/(?!\/)/i.test(item.url)) continue;
+        const path = item.url.replace(/^https:\/\/polskieradio\.cc/i, '');
+        if (path === '/' || !(ALLOWED_PUBLIC_URLS.has(path) || PUBLIC_ARTICLE_PATH.test(path) || PUBLIC_LESSON_PATH.test(path))) continue;
+        const title = SafetyPolicy.sanitizeText(item.title, 160);
+        const summary = SafetyPolicy.sanitizeText(item.description, 420);
+        if (!title || !summary || indexEntries.has(path)) continue;
+        const tags = Array.isArray(item.tags) ? item.tags.filter(tag => typeof tag === 'string').slice(0, 20) : [];
+        const keywords = this.normalizePl([title, ...tags].join(' '));
+        indexEntries.set(path, { title, summary, path, keywords, titleKey: this.normalizePl(title) });
+      }
+    },
+
+    findPublicResource(normalized) {
+      const tokens = [...new Set(normalized.split(' ').filter(token => token.length >= 3 && !PL_STOPWORDS.has(token)))];
+      const query = tokens.join(' ');
+      if (!query) return null;
+      let best = null;
+      let bestScore = 0;
+      for (const entry of indexEntries.values()) {
+        const words = entry.keywords.split(' ');
+        const matchedWord = token => words.includes(token) || (token.length >= 6 && words.some(word => word.length >= 6 && word.slice(0, -1) === token.slice(0, -1)));
+        const matches = tokens.filter(matchedWord);
+        const titleMatch = (' ' + entry.titleKey + ' ').includes(' ' + query + ' ');
+        if (!titleMatch && (matches.length < Math.min(2, tokens.length) || matches.length * 2 < tokens.length || (tokens.length === 1 && tokens[0].length < 6))) continue;
+        const exactTitle = entry.titleKey === query;
+        const score = matches.length * 3 + (titleMatch ? 14 : 0) + (exactTitle ? 10 : 0);
+        if (score > bestScore) { best = entry; bestScore = score; }
+      }
+      return best;
     },
 
     getAllApproved() {
@@ -991,6 +1045,17 @@
         });
       }
 
+      const publicChat = /\b(?:czat\w* ogoln\w*|ogoln\w* czat\w*|czat\w* spolecznosci\w*|pokoj\w* ogoln\w*|publiczn\w* czat\w*|czat\w* publiczn\w*)\b/.test(norm);
+      if (publicChat) {
+        return buildResponse({
+          intent: 'public_chat',
+          confidence: 0.99,
+          replyText: 'Otwórz LUMI MESS i wybierz „Czat ogólny” w sekcji „Rozmowy i społeczność”. Tam rozmawiasz z osobami z LUMINA. Aby napisać wiadomość, zaloguj się do swojego konta.',
+          knowledgeIds: ['lumi-mess', 'lumina'],
+          actions: [{ type: 'open_url', label: 'Otwórz czat ogólny', url: '/mess?room=public', primary: true }],
+        });
+      }
+
       // 3. Idea / Missing feature submission (F06, T19)
       if (
         norm.includes('mam pomysl') ||
@@ -1069,6 +1134,16 @@
             { type: 'open_url', label: 'Strona współpracy', url: '/wspolpraca', primary: false },
             { type: 'submit_idea', label: 'Zgłoś pomysł', primary: false },
           ],
+        });
+      }
+
+      const indexedResource = KnowledgeService.findPublicResource(norm);
+      if (indexedResource) {
+        return buildResponse({
+          intent: 'ecosystem_resource',
+          confidence: 0.9,
+          replyText: `${indexedResource.title}\n${indexedResource.summary}`,
+          actions: [{ type: 'open_url', label: 'Otwórz materiał', url: indexedResource.path, primary: true }],
         });
       }
 
@@ -1786,6 +1861,7 @@
       this._ensurePinnedDmEntry(doc);
       this._ensureAssistantView(doc, modal);
       this._hookMessengerNavigation();
+      KnowledgeService.loadPublicIndex();
       this._bindAuthListener();
       this._mounted = true;
       return true;
@@ -2238,6 +2314,13 @@
                 action.primary ? 'cc-asst-action-primary' : 'cc-asst-action-secondary'
               }`;
               link.textContent = action.label;
+              if (action.url === '/mess?room=public') {
+                link.addEventListener('click', event => {
+                  if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || !root.CCUnifiedChat?.canonical) return;
+                  event.preventDefault();
+                  this.handleAction(action, true);
+                });
+              }
               actionsWrap.appendChild(link);
             } else {
               const btn = root.document.createElement('button');
@@ -2273,7 +2356,11 @@
       if (!action || typeof action !== 'object') return;
       if (action.type === 'open_url') {
         if (SafetyPolicy.isAllowedPublicUrl(action.url) && root && root.location) {
-          root.location.href = action.url;
+          if (action.url === '/mess?room=public' && /^\/mess\/?$/.test(root.location.pathname) && root.CCUnifiedChat?.openCurrent) {
+            root.CCUnifiedChat.openCurrent({ tab: 'public' });
+          } else {
+            root.location.href = action.url;
+          }
         }
       } else if (action.type === 'share') {
         const res = await ShareEngine.triggerShare({
@@ -2524,6 +2611,7 @@
 
       const modal = doc.getElementById('directMessagesModal');
       if (modal) {
+        modal.removeAttribute('inert');
         modal.setAttribute('data-cc-assistant', '1');
         modal.classList.add('open');
         modal.style.display = 'flex';
@@ -2582,7 +2670,7 @@
       this.renderMessages();
 
       const input = doc.getElementById('ccAsstInput');
-      if (input && typeof input.focus === 'function') {
+      if (input && typeof input.focus === 'function' && !root.matchMedia?.('(max-width: 768px), (pointer: coarse)')?.matches) {
         try {
           input.focus({ preventScroll: true });
         } catch (_) {}

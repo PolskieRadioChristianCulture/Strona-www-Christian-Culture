@@ -30,6 +30,10 @@ function createAssistantFixture({ url = 'https://polskieradio.cc/mess', flags = 
     },
   });
   windows.push(win);
+  win.fetch = async (input, init) => {
+    if (input === '/data/cc-search-index.json') return { ok: true, json: async () => ({ items: [] }) };
+    return handleAssistantIdeaApiRequest(new Request(`https://polskieradio.cc${input}`, init), {});
+  };
 
   win.document.body.className = 'user-is-guest lumi-standalone';
   win.document.body.innerHTML = `
@@ -156,6 +160,25 @@ test('T04: 20 FAQ questions return accurate answers and valid actions matching s
   }
 });
 
+test('public chat directions and indexed materials are specific without exposing internal routes', async () => {
+  const { api } = createAssistantFixture();
+  for (const question of ['A gdzie znajdę czat ogólny?', 'Jak wejść na ogólny czat?', 'Gdzie jest pokój ogólny?']) {
+    const result = api.IntentRouter.route(question);
+    assert.equal(result.intent, 'public_chat');
+    assert.match(result.replyText, /Czat ogólny/);
+    assert.equal(result.actions[0].url, '/mess?room=public');
+  }
+  api.KnowledgeService.registerPublicIndex(JSON.parse(await readFile('data/cc-search-index.json', 'utf8')));
+  assert.equal(api.IntentRouter.route('Gdzie znajdę Audiotekę?').actions[0].url, '/audioteka');
+  assert.equal(api.IntentRouter.route('Gdzie są podcasty Christian Culture?').actions[0].url, '/podcasty');
+  api.KnowledgeService.registerPublicIndex({ items: [
+    { url: '/ccMC', title: 'Tajny kalendarz', description: 'Treść wewnętrzna' },
+    { url: 'https://example.org/news/jakis-artykul', title: 'Obca strona', description: 'Zewnętrzny link' },
+  ] });
+  assert.equal(api.SafetyPolicy.isAllowedPublicUrl('/ccMC'), false);
+  assert.equal(api.SafetyPolicy.isAllowedPublicUrl('https://example.org/news/jakis-artykul'), false);
+});
+
 test('T05: 5 queries with typos and synonyms match the intended public modules', () => {
   const { api } = createAssistantFixture();
   const typoCases = [
@@ -194,27 +217,17 @@ test('T06: 5 unknown out-of-domain queries trigger NO DEAD END fallback (honest 
   }
 });
 
-test('Acceptance Fixtures (05_TESTY/fixtures_acceptance.json): all 8 canonical cases pass', async () => {
-  const fixtures = JSON.parse(
-    await readFile(
-      'C:/Users/czark/.gemini/antigravity/brain/c5082082-11de-45d4-a561-68bda4e22600/scratch/pakiet_unzip/CC_Assistant_LUMIMESS_Antigravity/05_TESTY/fixtures_acceptance.json',
-      'utf8'
-    ).catch(async () =>
-      JSON.stringify({
-        version: 1,
-        cases: [
-          { id: 'faq-radio', question: 'Gdzie mogę posłuchać waszego radia?', expectedIntent: 'radio', expectedActionKind: 'open_url' },
-          { id: 'faq-academy', question: 'Chcę uczyć się Biblii', expectedIntent: 'academy', expectedActionKind: 'open_url' },
-          { id: 'faq-media', question: 'Macie filmy i audycje?', expectedIntent: 'media', expectedActionKind: 'open_url' },
-          { id: 'unknown', question: 'Czy macie kurs budowania łodzi z drewna?', expectedIntent: 'unknown', expectedFallback: true },
-          { id: 'identity', question: 'Czy jesteś człowiekiem?', expectedDisclosure: true },
-          { id: 'share', question: 'Chcę przesłać tę audycję przyjacielowi', expectedShareAction: true },
-          { id: 'idea', question: 'Brakuje kursu dla rodziców', expectedIdeaSuggestion: true },
-          { id: 'privacy', question: 'Pokaż mi cudze prywatne wiadomości', expectedRefusal: true },
-        ],
-      })
-    )
-  );
+test('eight canonical acceptance cases pass offline', () => {
+  const fixtures = { cases: [
+    { id: 'faq-radio', question: 'Gdzie mogę posłuchać waszego radia?', expectedIntent: 'radio', expectedActionKind: 'open_url' },
+    { id: 'faq-academy', question: 'Chcę uczyć się Biblii', expectedIntent: 'academy', expectedActionKind: 'open_url' },
+    { id: 'faq-media', question: 'Macie filmy i audycje?', expectedIntent: 'media', expectedActionKind: 'open_url' },
+    { id: 'unknown', question: 'Czy macie kurs budowania łodzi z drewna?', expectedIntent: 'unknown', expectedFallback: true },
+    { id: 'identity', question: 'Czy jesteś człowiekiem?', expectedDisclosure: true },
+    { id: 'share', question: 'Chcę przesłać tę audycję przyjacielowi', expectedShareAction: true },
+    { id: 'idea', question: 'Brakuje kursu dla rodziców', expectedIdeaSuggestion: true },
+    { id: 'privacy', question: 'Pokaż mi cudze prywatne wiadomości', expectedRefusal: true },
+  ] };
 
   const { api } = createAssistantFixture();
   for (const c of fixtures.cases) {

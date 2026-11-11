@@ -37,16 +37,21 @@
             if (installed()) { install.hidden = true; status.textContent = 'LUMI uruchomione jako aplikacja.'; }
         }
         function openChat() {
-            const user = window.LuminaDB?.getCurrentUser?.();
-            if (user && !user.isAnonymous && typeof window.openDirectMessagesModal === 'function') {
+            if (typeof window.openDirectMessagesModal === 'function') {
+                window.CCGlobalChat?.close?.();
                 window.openDirectMessagesModal('public');
-            } else if (window.CCGlobalChat && document.getElementById('ccChatFabBtn')) {
-                window.CCGlobalChat.open('live');
-            } else {
-                status.textContent = 'Komunikator jeszcze się ładuje. Spróbuj ponownie za chwilę.';
+                document.getElementById('tabBtnPublicChat')?.focus({ preventScroll: true });
+                return;
             }
+            status.textContent = 'Komunikator jeszcze się ładuje. Spróbuj ponownie za chwilę.';
         }
         open.addEventListener('click', openChat);
+        document.addEventListener('click', event => {
+            if (!event.target.closest?.('#ccChatFabBtn')) return;
+            event.preventDefault();
+            event.stopPropagation();
+            openChat();
+        }, true);
         const settings = document.getElementById('lumiSettings');
         if (settings) {
             settings.addEventListener('click', () => {
@@ -84,6 +89,18 @@
         updateAccount();
         window.addEventListener('lumina-auth-state', updateAccount);
         setupIntro();
+        const viewport = window.visualViewport;
+        const syncViewport = () => {
+            if (!viewport || Math.abs(viewport.scale - 1) > 0.02) return;
+            document.documentElement.style.setProperty('--lumi-viewport-height', `${viewport.height}px`);
+            document.documentElement.classList.toggle('lumi-compact-viewport', viewport.height < 500);
+            document.documentElement.style.setProperty('--lumi-viewport-top', `${viewport.offsetTop}px`);
+        };
+        viewport?.addEventListener('resize', syncViewport, { passive: true });
+        viewport?.addEventListener('scroll', syncViewport, { passive: true });
+        window.addEventListener('resize', () => window.requestAnimationFrame(syncViewport), { passive: true });
+        syncViewport();
+        if (new URLSearchParams(location.search).get('room') === 'public') openChat();
     }
     function setupIntro() {
         const overlay = document.getElementById('lumiIntroOverlay');

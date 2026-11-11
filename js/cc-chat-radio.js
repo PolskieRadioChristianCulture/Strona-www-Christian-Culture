@@ -37,6 +37,43 @@
     spectrumAnalyser.getByteFrequencyData(bytes);
     return true;
   }
+  function bindSpectrum(container) {
+    if (!container || !container.ownerDocument.defaultView?.requestAnimationFrame) return;
+    const view = container.ownerDocument.defaultView;
+    const reducedMotion = view.matchMedia('(prefers-reduced-motion: reduce)');
+    const bytes = new Uint8Array(256);
+    const bands = [[2, 5], [5, 14], [14, 44]];
+    let frame = 0;
+
+    function draw() {
+      frame = 0;
+      if (container.ownerDocument.hidden || !state.playing || reducedMotion.matches) return;
+      if (container.getClientRects().length && readSpectrum(bytes)) {
+        container.classList.add('has-live-spectrum');
+        bands.forEach(([start, end], index) => {
+          const peak = Math.max(...bytes.subarray(start, end));
+          container.children[index]?.style.setProperty('--cc-spectrum', Math.max(0.18, peak / 255));
+        });
+      }
+      if (spectrumWanted) frame = view.requestAnimationFrame(draw);
+    }
+
+    function sync() {
+      if (frame) view.cancelAnimationFrame(frame);
+      frame = 0;
+      container.classList.remove('has-live-spectrum');
+      if (state.playing && spectrumWanted && !reducedMotion.matches && !container.ownerDocument.hidden) {
+        frame = view.requestAnimationFrame(draw);
+      }
+    }
+
+    listeners.add(sync);
+    reducedMotion.addEventListener?.('change', sync);
+    container.ownerDocument.addEventListener('visibilitychange', sync);
+    view.addEventListener('pagehide', () => { if (frame) view.cancelAnimationFrame(frame); frame = 0; });
+    view.addEventListener('pageshow', sync);
+    sync();
+  }
   let audio, selected = stations[0], generation = 0;
   let state = { stationId: selected?.id, playing: false, status: 'Wybierz stację i naciśnij Słuchaj' };
   const notify = () => listeners.forEach(fn => fn({ ...state }));
@@ -65,9 +102,16 @@
         spectrumAnalyser.connect(spectrumContext.destination);
       } catch (_) { spectrumSource = spectrumAnalyser = null; }
     }
-    audio.addEventListener('playing', () => update({ playing: true, status: 'Odtwarza' }));
-    audio.addEventListener('pause', () => update({ playing: false, status: 'Wstrzymano' }));
-    audio.addEventListener('error', () => update({ playing: false, status: 'Nie udało się odtworzyć. Spróbuj ponownie.' }));
+    const player = audio;
+    player.addEventListener('playing', () => {
+      if (audio === player && !player.paused) update({ playing: true, connecting: false, status: 'Odtwarza' });
+    });
+    player.addEventListener('pause', () => {
+      if (audio === player && player.paused && state.playing) update({ playing: false, connecting: false, status: 'Wstrzymano' });
+    });
+    player.addEventListener('error', () => {
+      if (audio === player) update({ playing: false, connecting: false, status: 'Nie udało się odtworzyć. Spróbuj ponownie.' });
+    });
     audio.addEventListener('ended', () => { if (state.playing) play(false); });
     return audio;
   }
@@ -105,7 +149,7 @@
     const ticket = ++generation;
     const player = getAudio();
     const track = playlistTrack(selected);
-    update({ stationId: selected.id, playing: false, status: 'Łączenie…' });
+    update({ stationId: selected.id, playing: false, connecting: true, status: 'Łączenie…' });
     player.src = track.url;
     player.onloadedmetadata = () => {
       if (ticket === generation && track.offset > 0 && Number.isFinite(player.duration)) {
@@ -113,17 +157,17 @@
       }
     };
     return Promise.resolve(player.play()).catch(() => {
-      if (ticket === generation) update({ playing: false, status: userClick ? 'Nie udało się odtworzyć. Naciśnij Słuchaj ponownie.' : 'Naciśnij Słuchaj, aby wznowić.' });
+      if (ticket === generation) update({ playing: false, connecting: false, status: userClick ? 'Nie udało się odtworzyć. Naciśnij Słuchaj ponownie.' : 'Naciśnij Słuchaj, aby wznowić.' });
     });
   }
   function pause() {
     generation++;
     if (home()) home().pause();
     if (audio) audio.pause();
-    update({ playing: false, status: 'Wstrzymano' });
+    update({ playing: false, connecting: false, status: 'Wstrzymano' });
   }
   window.CCChatRadio = {
-    stations, prepare, play, pause, enableSpectrum, readSpectrum,
+    stations, prepare, play, pause, enableSpectrum, readSpectrum, bindSpectrum,
     select(id) { selected = stations.find(s => s.id === id) || selected; update({ stationId: selected.id }); },
     state() { return home() ? home().state() : { ...state }; },
     subscribe(fn) { listeners.add(fn); fn(this.state()); return () => listeners.delete(fn); }

@@ -28,9 +28,9 @@ test('LUMI install fallback, cancellation and existing chat entry execute withou
   win.CCGlobalChat={open:tab=>calls.push(['guest',tab])}; win.openDirectMessagesModal=tab=>calls.push(['native',tab]);
   win.LuminaDB={getCurrentUser:()=>null}; win.matchMedia=()=>({matches:false});
   const nav={serviceWorker:{register:async(...args)=>{calls.push(['worker',...args]);}}};
-  vm.runInContext(source,vm.createContext({window:win,document:win.document,navigator:nav}));
+  vm.runInContext(source,vm.createContext({window:win,document:win.document,navigator:nav,location:win.location,URLSearchParams}));
   win.document.dispatchEvent(new win.Event('DOMContentLoaded'));
-  win.document.getElementById('lumiOpen').click(); assert.deepEqual(calls.at(-1),['guest','live']);
+  win.document.getElementById('lumiOpen').click(); assert.deepEqual(calls.at(-1),['native','public']);
   win.LuminaDB.getCurrentUser=()=>({uid:'SyntheticOwner'});
   win.document.getElementById('lumiOpen').click(); assert.deepEqual(calls.at(-1),['native','public']);
   const install=win.document.getElementById('lumiInstall'); install.click();

@@ -298,9 +298,10 @@ body.lumi-standalone .ldd-root,
 
 body.lumi-standalone #directMessagesModal.open {
   position: fixed !important;
-  inset: 0 !important;
-  width: 100vw !important;
+  inset: var(--lumi-viewport-top, 0px) 0 auto !important;
+  width: 100% !important;
   height: var(--lumi-viewport-height, 100dvh) !important;
+  max-height: var(--lumi-viewport-height, 100dvh) !important;
   padding: 0 !important;
 }
 
@@ -311,6 +312,57 @@ body.lumi-standalone #directMessagesModal.open > .modal-card {
   max-height: none !important;
   margin: 0 !important;
   border-radius: 0 !important;
+}
+
+html.lumi-mess-page body.lumi-standalone #directMessagesModal.open {
+  display: flex !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.lumi-public-login {
+  display: none;
+}
+html.lumi-mess-page body.user-is-guest #tabBtnPrivateChat,
+html.lumi-mess-page body.user-is-guest #publicChatForm,
+html.lumi-mess-page body.user-is-guest #publicChatSmartBar,
+html.lumi-compact-viewport #ccAsstShowcase,
+html.lumi-compact-viewport #publicChatSmartBar {
+  display: none !important;
+}
+html.lumi-mess-page body.user-is-guest .lumi-public-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  flex-shrink: 0;
+  padding: 8px 12px max(8px, env(safe-area-inset-bottom));
+  background: #161a2a;
+  color: #ffbf87;
+  text-align: center;
+}
+html.lumi-mess-page #messengerPublicView,
+html.lumi-mess-page #messengerAssistantView,
+html.lumi-mess-page #publicChatMessagesBox,
+html.lumi-mess-page .cc-asst-messages {
+  min-height: 0;
+}
+html.lumi-mess-page #publicChatMessagesBox,
+html.lumi-mess-page .cc-asst-messages {
+  overscroll-behavior-y: contain;
+}
+html.lumi-mess-page #publicChatInput,
+html.lumi-mess-page #ccAsstInput {
+  font-size: 16px !important;
+}
+html.lumi-mess-page #directMessagesModal .chat-input-bar,
+html.lumi-mess-page #directMessagesModal .cc-asst-composer {
+  flex-shrink: 0;
+}
+html.lumi-mess-page body.lumi-standalone.cc-mess-embedded #directMessagesModal.open {
+  inset: var(--lumi-viewport-top, 0px) 0 auto !important;
+  height: var(--lumi-viewport-height, 100dvh) !important;
+  max-height: var(--lumi-viewport-height, 100dvh) !important;
 }
 
 body:has(#directMessagesModal.open) #ccGlobalChatOverlay,
