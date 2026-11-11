@@ -298,10 +298,16 @@
     "book": "genesis",
     "chapter": 21,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_21_1-34_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 21",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_21_1-34_Biblia_Audio_CC.mp3",
+        "verses": "1–34"
+      }
+    ]
   },
   {
     "id": "genesis-22",
