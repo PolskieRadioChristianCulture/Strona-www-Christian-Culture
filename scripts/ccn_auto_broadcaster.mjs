@@ -190,6 +190,10 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'rozwiaz-problem', 'assets', 'og-rozwiaz-problem.jpg');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('arkoffire') || pathLower.includes('ark-of-fire') || pathLower.includes('ark_of_fire')) {
+    const p = path.join(rootDir, 'ArkOfFire', 'assets', 'ark-of-fire-hero.webp');
+    if (fs.existsSync(p)) return p;
+  }
   if (pathLower.includes('the-journal') || pathLower.includes('journal')) {
     const p1 = path.join(rootDir, 'the-journal', 'assets', 'the-journal.png');
     if (fs.existsSync(p1)) return p1;
@@ -463,6 +467,15 @@ function getAllEcosystemCandidates() {
   // 5. NAJWAŻNIEJSZE DEDYKOWANE MODUŁY EKOSYSTEMU CC
   const coreModules = [
     {
+      title: 'Ark of Fire — Chrześcijański Rock i Metal z Holandii w Polskim Radiu CC',
+      lead: 'Oficjalna wizytówka artysty: potężne brzmienie, świadectwo wiary w Jezusa Chrystusa, przejrzystość AI i utwór It Is Finished.',
+      url: 'https://polskieradio.cc/ArkOfFire/pl/',
+      image: 'ArkOfFire/assets/ark-of-fire-hero.webp',
+      category: 'Wizytówka & Rock',
+      type: 'music',
+      tag: '#ArkOfFire'
+    },
+    {
       title: 'THE JOURNAL — 90-Dniowy Przewodnik Rozwoju Osobistego i Wiary',
       lead: 'Zatrzymaj się na 5 minut dziennie. 90 dni, 9 etapów formacji, karta codzienna, bezpłatny pamiętnik PDF i pytania wieczorne.',
       url: 'https://polskieradio.cc/the-journal',
@@ -732,6 +745,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🌱 BĄDŹ BLISKO | 7 DNI ZE SŁOWEM';
       callToAction = '👉 Rozpocznij 7-dniową drogę:\n';
       addTags(item.tag || '#BadzBlisko', '#SlowoBoze', '#ChristianCulture');
+    } else if ((item.url || '').includes('ArkOfFire') || (item.title || '').includes('Ark of Fire')) {
+      subHeader = '🎸 ARK OF FIRE | ROCK & METAL';
+      callToAction = '👉 Odkryj wizytówkę i muzykę:\n';
+      addTags(item.tag || '#ArkOfFire', '#ChristianRock', '#ChristianCulture');
     } else if ((item.url || '').includes('the-journal') || (item.title || '').includes('THE JOURNAL')) {
       subHeader = '📔 THE JOURNAL | 90 DNI FORMACJI';
       callToAction = '👉 Odkryj i zacznij dziś:\n';
@@ -860,6 +877,8 @@ function formatBroadcasterTweet(item) {
     bodyText = item.lead;
   } else if ((item.url || '').includes('topTEN')) {
     bodyText = 'Oficjalna lista przebojów muzyki chrześcijańskiej. Głosuj na utwory i wspieraj artystów!';
+  } else if ((item.url || '').includes('ArkOfFire') || (item.title || '').includes('Ark of Fire')) {
+    bodyText = 'Ark of Fire — chrześcijański rock i metal z Holandii. Świadectwo odkupienia, utwór „It Is Finished” i oficjalna wizytówka artysty!';
   } else if ((item.url || '').includes('the-journal') || (item.title || '').includes('THE JOURNAL')) {
     bodyText = 'THE JOURNAL — 90-dniowy przewodnik formacji, wiary i nawyków. Karta dzienna, pytania wieczorne i bezpłatne PDF!';
   } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
