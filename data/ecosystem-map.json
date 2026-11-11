@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-11",
+      "topic": "Studio Dobrego Słowa: Premiera serii Apokalipsa (Jonatan Dunkel) na 3 kanałach YouTube oraz wdrożenie codziennego pipeline'u",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-11",
       "topic": "CCN News X: Cykliczna publikacja #264 — Werset Dnia Wj 20:8 UBG z dedykowaną grafiką 16:9",
       "agent": "A"
     },
@@ -4625,10 +4630,23 @@
       "connections": [
         "cc-help-debt"
       ]
+    },
+    {
+      "id": "audioteka",
+      "label": "Audioteka Christian Culture",
+      "category": "audio",
+      "url": "https://polskieradio.cc/audioteka",
+      "description": "Chrześcijańska Audiobiblioteka Wiary 0,00 zł",
+      "status": "active"
     }
   ],
   "lastUpdated": "2026-11-11",
   "recentUpdates": [
+    {
+      "date": "2026-11-11",
+      "topic": "Oficjalna premiera Audioteka Christian Culture (Audiobiblioteka Wiary 0,00 zł)",
+      "agent": "A"
+    },
     {
       "date": "2026-11-11",
       "topic": "Oficjalna wizytówka Ark of Fire (PL/EN) oraz integracja z Christian Culture Global",
@@ -4697,66 +4715,6 @@
     {
       "date": "2026-11-08",
       "topic": "Herbaciarnia Między Słowami: ujednolicenie nazwy w całym ekosystemie CC & SDS",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Cykliczna emisja CCN News X #175: Werset Dnia (Rdz 16:13 UBG / MojaBiblia)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Cykliczna emisja CCN News X #174: Czy w Kościele wolno mówić o własnym kryzysie? (eM / Cezary Rogowski)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Cykliczna emisja CCN News X #173: Interlinearna MojaBiblia (Pismo Święte)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Publikacja EkoCC eM: Czy w Kościele wolno mówić o własnym kryzysie? (Slot 5 EkoCC 365)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Akademia Biblijna: Przygotowanie Dnia 40 (Wj 9:1-35) Z Biblia za Pan Brat",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "agent": "A",
-      "title": "Publikacja CCN News: Kraków w żałobie oraz wznowienie emisji X (@csbwersetdnia)"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Akademia Biblijna: Nocna publikacja i aktywacja Dnia 39 (Wj 8:1–32) „Z Biblią za Pan Brat” — Plagi żab, wszy i much (4 trasy Clean URLs + /akademia Hero + DOCX)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Poranna publikacja rozważań i synchronizacja ekosystemu: Dzień 39 (Wj 8:1–32)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #154 — Wizytówka: Cezary Rogowski (Założyciel Christian Culture & Polskie Radio CC)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #153 — topTEN: Notowania Muzyki Chrześcijańskiej & wspieramTO",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-07",
-      "topic": "CCN News X: Cykliczna publikacja #142 — Telefon milczy od tygodni: jak zauważyć samotnego sąsiada?",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-11",
-      "topic": "LUMI Messenger: Wdrożenie interfejsu Premium UI 2.0 (1:1 z makietą Dowódcy)",
       "agent": "A"
     }
   ],

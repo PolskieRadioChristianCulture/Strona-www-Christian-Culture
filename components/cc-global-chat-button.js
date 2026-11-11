@@ -927,16 +927,40 @@
       .cc-hotspot {
         position: absolute !important;
         background: transparent !important;
+        background-color: transparent !important;
         border: none !important;
-        cursor: pointer !important;
+        box-shadow: none !important;
         outline: none !important;
-        transition: background 0.15s ease, box-shadow 0.15s ease !important;
+        cursor: pointer !important;
         -webkit-tap-highlight-color: transparent !important;
       }
 
-      .cc-hotspot:hover, .cc-hotspot:focus-visible {
-        background: rgba(242, 209, 124, 0.14) !important;
-        box-shadow: inset 0 0 0 1.5px rgba(242, 209, 124, 0.5) !important;
+      .cc-hotspot:hover,
+      .cc-hotspot:focus,
+      .cc-hotspot:focus-visible,
+      .cc-hotspot:active {
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+
+      .cc-trio-card,
+      .cc-trio-card:hover,
+      .cc-trio-card:focus,
+      .cc-trio-card.is-active,
+      .cc-hotspot-pill1,
+      .cc-hotspot-pill2,
+      .cc-hotspot-pill3,
+      .cc-hotspot-pill1:hover,
+      .cc-hotspot-pill2:hover,
+      .cc-hotspot-pill3:hover {
+        background: transparent !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
       }
 
       .cc-hotspot-lea {
@@ -1889,9 +1913,9 @@
                 <!-- Noemi -->
                 <button type="button" class="cc-hotspot cc-hotspot-noemi cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi - Twoje zasoby i rozwiązania" title="Noemi - Twoje zasoby i rozwiązania"></button>
                 <!-- Pigułki pod banerem -->
-                <button type="button" class="cc-hotspot cc-hotspot-pill1 cc-showcase-pill" id="ccPillRadio" aria-label="Posłuchaj radia" title="Posłuchaj radia"></button>
-                <button type="button" class="cc-hotspot cc-hotspot-pill2 cc-showcase-pill" id="ccPillBible" aria-label="Poznaj Biblię" title="Poznaj Biblię"></button>
-                <button type="button" class="cc-hotspot cc-hotspot-pill3 cc-showcase-pill" id="ccPillDiscover" aria-label="Odkryj CC" title="Odkryj CC"></button>
+                <button type="button" class="cc-hotspot cc-hotspot-pill1" id="ccPillRadio" aria-label="Posłuchaj radia" title="Posłuchaj radia"></button>
+                <button type="button" class="cc-hotspot cc-hotspot-pill2" id="ccPillBible" aria-label="Poznaj Biblię" title="Poznaj Biblię"></button>
+                <button type="button" class="cc-hotspot cc-hotspot-pill3" id="ccPillDiscover" aria-label="Odkryj CC" title="Odkryj CC"></button>
               </div>
             </div>
           </section>
@@ -3210,6 +3234,15 @@
   // Eksport globalnego API
   window.CCGlobalChat = {
     open: function (targetTab, targetPartnerId) {
+      if (!isCanonicalMessenger && window.CCUnifiedChat && targetPartnerId && targetPartnerId !== 'cc-assistant' && !String(targetPartnerId).startsWith('asystentka-')) {
+        const overlay = document.getElementById('ccGlobalChatOverlay');
+        if (overlay) {
+          overlay.classList.remove('is-open');
+          overlay.setAttribute('aria-hidden', 'true');
+        }
+        window.CCUnifiedChat.open({ tab: targetTab === 'members' ? 'private' : 'public', partner: targetPartnerId });
+        return;
+      }
       const overlay = document.getElementById('ccGlobalChatOverlay');
       if (overlay) {
         overlay.classList.add('is-open');

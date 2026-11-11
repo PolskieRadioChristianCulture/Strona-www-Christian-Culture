@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-11T05:51:09.230Z",
-  "totalItems": 441,
+  "updatedAt": "2026-11-11T14:55:00.000Z",
+  "totalItems": 442,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1061,6 +1061,33 @@
     }
   },
   "items": [
+    {
+      "title": "Audioteka Christian Culture — Audiobiblioteka Wiary 0,00 zł",
+      "category": "Audio & Słuchowiska",
+      "url": "https://polskieradio.cc/audioteka",
+      "description": "Twoja chrześcijańska audiobiblioteka wiary online — 0,00 zł, bez opłat, zawsze za darmo. Słuchaj Biblii Audio, wykładów i studiów biblijnych, muzyki uwielbienia, podcastów inspirujących i serii tematycznych.",
+      "tags": [
+        "audioteka",
+        "audioteka christian culture",
+        "audiobiblioteka",
+        "audiobiblioteka wiary",
+        "audiobooki",
+        "audiobook",
+        "biblia audio",
+        "wykłady biblijne",
+        "studia biblijne",
+        "muzyka uwielbienia",
+        "worship",
+        "podcasty",
+        "podcast",
+        "słuchaj za darmo",
+        "0 zł",
+        "darmowe audiobooki",
+        "radio cc",
+        "polskieradio.cc/audioteka"
+      ],
+      "featured": true
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
