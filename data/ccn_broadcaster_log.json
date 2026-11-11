@@ -1,5 +1,37 @@
 [
   {
+    "timestamp": "2026-11-11T04:34:18.678Z",
+    "title": "Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański",
+    "url": "https://polskieradio.cc/rozwiaz-problem",
+    "type": "course",
+    "image": "og-rozwiaz-problem.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-11T00:32:57.194Z",
+    "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
+    "url": "https://polskieradio.cc/lumina-tablica",
+    "type": "profile",
+    "image": "card-lumina.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-11T00:05:51.996Z",
+    "title": "Książka: Kod Źródłowy Duszy — Cezary Rogowski. Biblijna tożsamość i sens istnienia",
+    "url": "https://polskieradio.cc/news/kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-wrocic-do-ustawien-fabrycznych-boga",
+    "type": "book",
+    "image": "art-kod-zrodlowy.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-10T23:34:22.030Z",
+    "title": "Świętość nie wymaga udawania: dlaczego prawda o słabości uwalnia?",
+    "url": "https://polskieradio.cc/news/swietosc-nie-wymaga-udawania-dlaczego-prawda-o-slabosci-uwalnia",
+    "type": "news",
+    "image": "art-swietosc-nie-wymaga-udawania-dlaczego-prawda-o-slabosci-uwalnia.jpg",
+    "status": "PUBLISHED"
+  },
+  {
     "timestamp": "2026-11-10T23:04:32.784Z",
     "title": "Akademia Biblijna: Z Biblią za Pan Brat — Dzień 42 (Wj 11:1–12:36): Święto Paschy, Krew Baranka i Wykupienie Pierworodnych — Noc sądu i triumfalne wyjście z Egiptu",
     "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-42",
