@@ -4620,10 +4620,23 @@
       "connections": [
         "cc-help-debt"
       ]
+    },
+    {
+      "id": "audioteka",
+      "label": "Audioteka Christian Culture",
+      "category": "audio",
+      "url": "https://polskieradio.cc/audioteka",
+      "description": "Chrześcijańska Audiobiblioteka Wiary 0,00 zł",
+      "status": "active"
     }
   ],
   "lastUpdated": "2026-11-11",
   "recentUpdates": [
+    {
+      "date": "2026-11-11",
+      "topic": "Audioteka Christian Culture i aktualizacja LUMI MESS",
+      "agent": "G"
+    },
     {
       "date": "2026-11-11",
       "topic": "Oficjalna wizytówka Ark of Fire (PL/EN) oraz integracja z Christian Culture Global",
