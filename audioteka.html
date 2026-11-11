@@ -8,8 +8,8 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
-  </script>
-  <script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+  </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
@@ -918,7 +918,7 @@
           <div class="cc-station-tabs" role="tablist" aria-label="Wybierz stację audio">
             <button type="button" class="cc-station-btn is-active" data-station="biblia_audio" onclick="switchStation('biblia_audio')">Biblia Audio</button>
             <button type="button" class="cc-station-btn" data-station="poland" onclick="switchStation('poland')">Radio CC Polska</button>
-            <button type="button" class="cc-station-btn" data-station="instrumental_worship" onclick="switchStation('instrumental_worship')">Worship Live</button>
+            <button type="button" class="cc-station-btn" data-station="instrumental_worship" onclick="switchStation('instrumental_worship')">Instrumental Worship</button>
             <button type="button" class="cc-station-btn" data-station="biblia_spiewana" onclick="switchStation('biblia_spiewana')">Biblia Śpiewana</button>
           </div>
         </div>
@@ -1056,105 +1056,95 @@
   <script src="/components/cc-omni-search.js?v=20261026_1" defer></script>
   <script src="/components/cc-global-chat-button.js?v=20261111_v2" defer></script>
 
+  <script src="/js/cc-radio-catalog.js"></script>
   <script>
-    // ─── AUDIO ENGINE LOGIC ───
-    const STREAMS = {
-      biblia_audio: {
-        url: 'https://stream.polskieradio.cc/biblia',
-        fallback: 'https://cclite.pl/audio/biblia_live.mp3',
-        station: 'BIBLIA AUDIO CC 24/7',
-        title: 'Pismo Święte — Słuchowisko Ciągłe'
-      },
-      poland: {
-        url: 'https://stream.polskieradio.cc/live',
-        fallback: 'https://cclite.pl/audio/live.mp3',
-        station: 'RADIO CHRISTIAN CULTURE POLSKA',
-        title: 'Audycje, rozważania i muzyka na żywo'
-      },
-      instrumental_worship: {
-        url: 'https://stream.polskieradio.cc/worship',
-        fallback: 'https://cclite.pl/audio/worship.mp3',
-        station: 'WORSHIP LIVE 24/7',
-        title: 'Pieśni uwielbienia i modlitwa'
-      },
-      biblia_spiewana: {
-        url: 'https://stream.polskieradio.cc/spiewana',
-        fallback: 'https://cclite.pl/audio/spiewana.mp3',
-        station: 'BIBLIA ŚPIEWANA',
-        title: 'Wersety biblijne w pieśniach'
-      }
+    const stationTitles = {
+      biblia_audio: 'Pismo Święte — słuchowisko',
+      poland: 'Audycje, rozważania i muzyka na żywo',
+      instrumental_worship: 'Muzyka instrumentalna',
+      biblia_spiewana: 'Śpiewane Przypowieści Salomona'
     };
-
-    let currentStationKey = 'biblia_audio';
-    let isPlaying = false;
     const audioEl = document.getElementById('ccAudiotekaStream');
     const toggleBtn = document.getElementById('ccPlayerToggleBtn');
     const playIcon = document.getElementById('ccPlayIcon');
     const npStation = document.getElementById('ccNpStation');
     const npTitle = document.getElementById('ccNpTitle');
+    const stationButtons = document.querySelectorAll('.cc-station-btn');
+    let currentStationKey = 'biblia_audio';
+    let playbackAttempt = 0;
 
-    function switchStation(key) {
-      if (!STREAMS[key]) return;
-      currentStationKey = key;
-      const s = STREAMS[key];
+    function stationFor(key) {
+      return window.CCRadioStations?.find(station => station.id === key);
+    }
 
-      // Update station tabs UI
-      document.querySelectorAll('.cc-station-btn').forEach(btn => {
-        btn.classList.toggle('is-active', btn.getAttribute('data-station') === key);
-      });
+    function updatePlaybackControl() {
+      playIcon.className = audioEl.paused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
+      toggleBtn.setAttribute('aria-label', audioEl.paused ? 'Odtwórz dźwięk' : 'Wstrzymaj dźwięk');
+    }
 
-      npStation.textContent = s.station;
-      npTitle.textContent = s.title;
+    function showPlaybackError() {
+      npTitle.textContent = 'Nie udało się odtworzyć dźwięku. Spróbuj ponownie lub wybierz inną stację.';
+      updatePlaybackControl();
+    }
 
-      if (isPlaying) {
-        audioEl.src = s.url;
-        audioEl.play().catch(() => {
-          if (s.fallback) { audioEl.src = s.fallback; audioEl.play().catch(console.warn); }
-        });
+    async function playCurrentStation() {
+      const station = stationFor(currentStationKey);
+      if (!station?.streamUrl) {
+        showPlaybackError();
+        return;
+      }
+      const attempt = ++playbackAttempt;
+      npTitle.textContent = stationTitles[currentStationKey];
+      audioEl.src = station.streamUrl;
+      try {
+        await audioEl.play();
+      } catch (error) {
+        if (attempt === playbackAttempt && error.name !== 'AbortError') showPlaybackError();
       }
     }
 
+    function updateStationDetails() {
+      for (const button of stationButtons) {
+        const active = button.dataset.station === currentStationKey;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-pressed', String(active));
+      }
+      npStation.textContent = stationFor(currentStationKey)?.name || 'Biblia Audio';
+      npTitle.textContent = stationTitles[currentStationKey];
+    }
+
+    function switchStation(key) {
+      if (key === currentStationKey || !Object.hasOwn(stationTitles, key) || !stationFor(key)) return;
+      const resume = !audioEl.paused;
+      playbackAttempt++;
+      audioEl.pause();
+      currentStationKey = key;
+      updateStationDetails();
+      if (resume) void playCurrentStation();
+    }
+
     function toggleAudioPlayback() {
-      if (!isPlaying) {
-        const s = STREAMS[currentStationKey];
-        audioEl.src = s.url;
-        audioEl.play().then(() => {
-          isPlaying = true;
-          playIcon.className = 'fa-solid fa-pause';
-          toggleBtn.setAttribute('aria-label', 'Wstrzymaj dźwięk');
-          // Licznik /milion
-          try {
-            if (window.CCRadioMilion && typeof window.CCRadioMilion.recordPlay === 'function') {
-              window.CCRadioMilion.recordPlay(currentStationKey);
-            }
-          } catch (_) {}
-        }).catch(() => {
-          if (s.fallback) {
-            audioEl.src = s.fallback;
-            audioEl.play().then(() => {
-              isPlaying = true;
-              playIcon.className = 'fa-solid fa-pause';
-              toggleBtn.setAttribute('aria-label', 'Wstrzymaj dźwięk');
-            }).catch(console.warn);
-          }
-        });
+      if (audioEl.paused) {
+        void playCurrentStation();
       } else {
+        playbackAttempt++;
         audioEl.pause();
-        isPlaying = false;
-        playIcon.className = 'fa-solid fa-play';
-        toggleBtn.setAttribute('aria-label', 'Odtwórz dźwięk');
       }
     }
 
     function startAudioExperience() {
-      const playerSec = document.getElementById('audiotekaPlayer');
-      if (playerSec) {
-        playerSec.scrollIntoView({ behavior: 'smooth' });
-      }
-      if (!isPlaying) {
-        setTimeout(toggleAudioPlayback, 400);
-      }
+      const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      document.getElementById('audiotekaPlayer').scrollIntoView({behavior});
+      if (audioEl.paused) void playCurrentStation();
     }
+
+    npTitle.setAttribute('role', 'status');
+    for (const event of ['play', 'pause', 'ended']) {
+      audioEl.addEventListener(event, updatePlaybackControl);
+    }
+    audioEl.addEventListener('error', showPlaybackError);
+    updateStationDetails();
+    updatePlaybackControl();
   </script>
 </body>
 </html>
