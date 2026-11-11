@@ -283,3 +283,8 @@
 
 /ArkOfFire/*
   X-Robots-Tag: noindex, nofollow, noarchive
+
+# ccMC Mission Calendar: aplikacja operacyjna Dowódcy — natychmiastowe odświeżanie, bez 7-dniowego cache CDN
+/ccMC/*
+  Cache-Control: no-cache, no-store, must-revalidate
+

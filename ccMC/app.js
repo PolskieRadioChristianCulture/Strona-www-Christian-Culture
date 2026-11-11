@@ -2568,7 +2568,7 @@ export function playAlertChime() {
   }
 }
 
-export const VOICE_ASSISTANT_AVATAR_URL = '/ccMC/assistant-avatar.jpg';
+export const VOICE_ASSISTANT_AVATAR_URL = '/ccMC/assistant-avatar.png?v=20261111_lumi4';
 
 export async function ensureScreenWakeLock() {
   if (typeof navigator === 'undefined' || !navigator.wakeLock || typeof navigator.wakeLock.request !== 'function') {

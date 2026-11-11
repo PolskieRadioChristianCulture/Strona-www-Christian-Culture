@@ -2362,7 +2362,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   height: 24px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 10px rgba(255, 122, 0, 0.55);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.65);
   flex-shrink: 0;
 }
 
@@ -2423,8 +2423,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 
 .mc-voice-assistant-avatar-wrap {
   position: relative;
-  width: 124px;
-  height: 124px;
+  width: 136px;
+  height: 136px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -2433,37 +2433,42 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 }
 
 .mc-voice-assistant-avatar-img {
-  width: 124px;
-  height: 124px;
-  border-radius: 50%;
-  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   position: relative;
-  z-index: 4;
-  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.95), 0 0 32px rgba(255, 122, 0, 0.85), 0 0 12px rgba(226, 204, 154, 0.78);
+  z-index: 3;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.85));
 }
 
 .mc-voice-assistant-ring {
   position: absolute;
-  inset: -6px;
+  left: 31.3%;
+  top: 22.3%;
+  width: 65.1%;
+  height: 65.1%;
   border-radius: 50%;
-  border: 2.5px solid rgba(255, 122, 0, 0.78);
+  border: 2.5px solid rgba(217, 70, 239, 0.88);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.8), inset 0 0 10px rgba(217, 70, 239, 0.45);
   pointer-events: none;
-  z-index: 3;
-  animation: mcAssistantRingPulse 1.8s ease-out infinite;
+  z-index: 1;
+  transform-origin: center center;
+  animation: mcAssistantRingPulse 1.9s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 .mc-voice-assistant-ring.mc-ring-2 {
-  animation-delay: 0.9s;
-  border-color: rgba(226, 204, 154, 0.55);
+  animation-delay: 0.95s;
+  border-color: rgba(168, 85, 247, 0.72);
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.65);
 }
 
 @keyframes mcAssistantRingPulse {
   0% {
-    transform: scale(0.96);
-    opacity: 0.9;
+    transform: scale(1);
+    opacity: 0.95;
   }
   100% {
-    transform: scale(1.34);
+    transform: scale(1.38);
     opacity: 0;
   }
 }

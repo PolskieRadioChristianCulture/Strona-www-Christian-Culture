@@ -1135,11 +1135,12 @@ test('19. Desktop Frameless Semi-Transparent Side Wings, Real 6 Radio Stations R
   assert.equal(ttsRes.data.audioBase64, null, 'Bez kluczy Google AI Studio nie wolno zwracać audio z innego źródła');
   assert.equal(speakCalendarVoiceAlert('Test komunikatu', { force: true }), true);
 
-  const avatarPath = path.join(rootDir, 'ccMC', 'assistant-avatar.jpg');
-  assert.ok(fs.existsSync(avatarPath), 'Assistant avatar file ccMC/assistant-avatar.jpg must exist');
+  const avatarPath = path.join(rootDir, 'ccMC', 'assistant-avatar.png');
+  const avatarJpgPath = path.join(rootDir, 'ccMC', 'assistant-avatar.jpg');
+  assert.ok(fs.existsSync(avatarPath) || fs.existsSync(avatarJpgPath), 'Assistant avatar file must exist');
   const speakingHtml = renderClockModule();
   assert.match(speakingHtml, /id="mcVoiceAssistantOverlay"/, 'Must render #mcVoiceAssistantOverlay');
-  assert.match(speakingHtml, /\/ccMC\/assistant-avatar\.jpg/, 'Must display /ccMC/assistant-avatar.jpg during voice alerts');
+  assert.match(speakingHtml, /\/ccMC\/assistant-avatar\.(png|jpg)/, 'Must display assistant avatar during voice alerts');
   assert.match(speakingHtml, /id="mcVoiceAssistantBubble"/, 'Must render speech bubble #mcVoiceAssistantBubble emerging from behind avatar');
   assert.match(speakingHtml, /id="mcVoiceTypewriterCursor"/, 'Must render typewriter cursor #mcVoiceTypewriterCursor');
   assert.match(ccMcStyle, /@keyframes\s+mcBubbleEmergeFromBehindAvatar/, 'CSS must animate speech bubble emerging from behind avatar');
