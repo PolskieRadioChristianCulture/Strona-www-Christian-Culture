@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "pl",
+      "title": "Ark of Fire — Chrześcijański Rock i Metal z Holandii w Polskim Radiu CC",
+      "url": "https://polskieradio.cc/ArkOfFire/pl/",
+      "type": "music",
+      "image": "ark-of-fire-hero.webp",
+      "publishedAt": "2026-11-11T05:35:15.058Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "mojabiblia?ref=GEN.18.25",
+      "title": "Werset Dnia: „Czy Sędzia całej ziemi nie postąpi sprawiedliwie?” (Rdz 18:25, UBG)",
+      "url": "https://polskieradio.cc/mojabiblia?ref=GEN.18.25",
+      "type": "verse",
+      "image": "art-rdz18-mamre-wstawiennictwo.jpg",
+      "publishedAt": "2026-11-11T05:04:46.067Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "rozwiaz-problem",
       "title": "Rozwiąż problem: Rzuć palenie w 14 dni — Praktyczny kurs chrześcijański",
       "url": "https://polskieradio.cc/rozwiaz-problem",
