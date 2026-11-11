@@ -46,7 +46,7 @@
       role: 'Wspieram Cię i pomagam',
       badge: 'Gospodyni LUMI MESS',
       avatar: '/images/chat/assistants/asystentka-1.webp',
-      circleAvatar: '/images/chat/lumi_avatar_rut_circle.webp',
+      circleAvatar: '/images/chat/assistants/asystentka-1.webp',
       avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
       greeting: 'Cześć! ❤️ W czym mogę Ci dzisiaj pomóc w ekosystemie Christian Culture?',
       welcomeText: 'Cześć! ❤️ Dobrze, że jesteś.\n\nNazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.\n\nPrzez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem.\n\nW czym mogę Ci dziś pomóc?'
@@ -58,7 +58,7 @@
       role: 'Organizer i planista',
       badge: 'Przewodnik Ekosystemu',
       avatar: '/images/chat/assistants/asystentka-2.webp',
-      circleAvatar: '/images/chat/lumi_avatar_lea_circle.webp',
+      circleAvatar: '/images/chat/assistants/asystentka-2.webp',
       avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
       greeting: 'Szukasz rozważań, audycji czy kursu? Pomogę Ci to szybko znaleźć!',
       welcomeText: 'Witaj serdecznie! 🌟 Nazywam się Lea — jestem Asystentką Christian Culture, organizerem i planistą.\n\nZ przyjemnością wskażę Ci plan dnia, audycje radiowe, Akademię Biblijną czy najnowsze filmy VOD.\n\nO co chciałbyś zapytać?'
@@ -70,7 +70,7 @@
       role: 'Twoje zasoby i rozwiązania',
       badge: 'Doradca LUMINA',
       avatar: '/images/chat/assistants/asystentka-3.webp',
-      circleAvatar: '/images/chat/lumi_avatar_noemi_circle.webp',
+      circleAvatar: '/images/chat/assistants/asystentka-3.webp',
       avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
       greeting: 'Masz pytanie o radio, Biblię lub pomoc? Jestem tu dla Ciebie!',
       welcomeText: 'Pokój Boży! ✨ Nazywam się Noemi — jestem Asystentką Christian Culture i doradcą społeczności LUMINA.\n\nPomogę Ci w korzystaniu z interlinearnej Biblii, słuchowisk Biblia Audio i bezpośrednim kontakcie ze Sztabem CC.\n\nW czym mogę Ci służyć?'
@@ -487,7 +487,9 @@
         height: 100% !important;
         border-radius: 50% !important;
         object-fit: cover !important;
+        object-position: center top !important;
         border: 2px solid var(--lumi-gold) !important;
+        background: #15192B !important;
       }
 
       .cc-chat-teaser-online {
@@ -2028,7 +2030,7 @@
         teaserBubble.style.display = 'none';
         const asst = getActiveAssistant();
         try { sessionStorage.setItem('cc_active_assistant_id', asst.id); } catch (_) {}
-        window.CCGlobalChat.open('assistant', 'cc-assistant');
+        openChat();
       }
 
       teaserBubble.addEventListener('click', handleTeaserClick);
@@ -2986,57 +2988,20 @@
   // Eksport globalnego API
   window.CCGlobalChat = {
     open: function (targetTab, targetPartnerId) {
-      if (
-        targetTab === 'assistant' ||
-        targetPartnerId === 'cc-assistant' ||
-        (targetPartnerId && String(targetPartnerId).startsWith('asystentka-'))
-      ) {
-        const activeAsst = getActiveAssistant();
-        const asstId =
-          targetPartnerId && String(targetPartnerId).startsWith('asystentka-')
-            ? targetPartnerId
-            : activeAsst.id;
-        try {
-          sessionStorage.setItem('cc_active_assistant_id', asstId);
-        } catch (_) {}
-        if (window.CCAssistant?.open) {
-          window.CCAssistant.setActiveAssistant?.(asstId);
-          window.CCAssistant.open({
-            source: 'global_chat',
-            assistantId: asstId,
-            name: activeAsst.name,
-            avatar: activeAsst.avatar
-          });
-          return;
-        }
-        if (!isCanonicalMessenger) {
-          integrationReady.then(() => {
-            if (window.CCUnifiedChat) {
-              window.CCUnifiedChat.open({
-                tab: 'assistant',
-                partner: 'cc-assistant',
-                assistant: 'cc',
-                assistantId: asstId,
-                name: activeAsst.name,
-                avatar: activeAsst.avatar
-              });
-            } else {
-              window.location.href = '/mess?assistant=cc&asst=' + encodeURIComponent(asstId);
-            }
-          });
-          return;
-        }
-      }
-      if (!isCanonicalMessenger) {
-        integrationReady.then(() => {
-          if (window.CCUnifiedChat) window.CCUnifiedChat.open({ tab: targetTab === 'members' ? 'private' : 'public', partner: targetPartnerId });
-          else window.location.href = '/mess';
-        });
-        return;
-      }
       const overlay = document.getElementById('ccGlobalChatOverlay');
       if (overlay) {
         overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        const asstId = targetPartnerId && String(targetPartnerId).startsWith('asystentka-')
+          ? targetPartnerId
+          : 'asystentka-1';
+        try { sessionStorage.setItem('cc_active_assistant_id', asstId); } catch (_) {}
+        if (window.selectAssistantAndRefresh) window.selectAssistantAndRefresh(asstId);
+        const liveBtn = document.getElementById('ccChatTabLiveBtn');
+        if (liveBtn) liveBtn.click();
+        return;
+      }
         overlay.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
       }
