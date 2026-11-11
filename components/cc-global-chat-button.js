@@ -2030,7 +2030,7 @@
         teaserBubble.style.display = 'none';
         const asst = getActiveAssistant();
         try { sessionStorage.setItem('cc_active_assistant_id', asst.id); } catch (_) {}
-        openChat();
+        window.CCGlobalChat.open('assistant', 'cc-assistant');
       }
 
       teaserBubble.addEventListener('click', handleTeaserClick);
