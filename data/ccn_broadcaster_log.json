@@ -1,5 +1,29 @@
 [
   {
+    "timestamp": "2026-11-11T07:34:18.282Z",
+    "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+    "url": "https://polskieradio.cc/vod",
+    "type": "vod",
+    "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-11T06:38:41.970Z",
+    "title": "Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo",
+    "url": "https://polskieradio.cc/pokonac-goliata",
+    "type": "book",
+    "image": "art-pokonac-goliata.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-11T05:54:36.985Z",
+    "title": "Polska wolna. Ale czy nasze serca są wolne? 11 listopada: chrześcijański patriotyzm",
+    "url": "https://polskieradio.cc/news/11-listopada-2026-polska-wolna-biblijny-patriotyzm",
+    "type": "news",
+    "image": "art-11-listopada-2026-polska-wolna-biblijny-patriotyzm.jpg",
+    "status": "PUBLISHED"
+  },
+  {
     "timestamp": "2026-11-11T05:35:15.058Z",
     "title": "Ark of Fire — Chrześcijański Rock i Metal z Holandii w Polskim Radiu CC",
     "url": "https://polskieradio.cc/ArkOfFire/pl/",
