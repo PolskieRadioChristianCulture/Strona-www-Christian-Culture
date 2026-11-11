@@ -2700,8 +2700,16 @@ export async function startObsPip({ allowPrompt = false } = {}) {
   const wrap = ensureObsPipElement();
   if (!wrap) return false;
   try {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    const cam = devices.find((d) => d.kind === 'videoinput' && OBS_PIP_CAMERA_PATTERN.test(d.label || ''));
+    let devices = await navigator.mediaDevices.enumerateDevices();
+    let cam = devices.find((d) => d.kind === 'videoinput' && OBS_PIP_CAMERA_PATTERN.test(d.label || ''));
+    if (!cam && devices.some((d) => d.kind === 'videoinput' && !d.label)) {
+      try {
+        const unlockStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        unlockStream.getTracks().forEach((t) => t.stop());
+        devices = await navigator.mediaDevices.enumerateDevices();
+        cam = devices.find((d) => d.kind === 'videoinput' && OBS_PIP_CAMERA_PATTERN.test(d.label || ''));
+      } catch {}
+    }
     if (!cam) {
       wrap.classList.remove('is-ready');
       scheduleObsPipRetry();
