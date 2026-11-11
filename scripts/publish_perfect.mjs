@@ -158,7 +158,8 @@ export async function uploadEpisodeToChannel({
   channelName = 'Biblia Audio Christian Culture',
   visibility = 'public',
   draftVideoId = null,
-  scheduleTime = undefined // np. '20:00' bieżący odcinek, domyślnie CC_YT_SCHEDULE_TIME || '18:00'
+  scheduleTime = undefined, // np. '20:00' bieżący odcinek, domyślnie CC_YT_SCHEDULE_TIME || '18:00'
+  scheduleYmd = undefined // opcjonalnie stała data premiery 'YYYY-MM-DD' (Europe/Warsaw) — pomija kolejkę kanału
 }) {
   console.log('\n========================================================');
   console.log(`🚀 PUBLIKACJA NA KANALE: ${channelName}`);
@@ -185,7 +186,9 @@ export async function uploadEpisodeToChannel({
   console.log(`• Tytuł: ${title}`);
   console.log(`• Plik: ${path.basename(videoPath)}`);
   const isShorts = /shorts/i.test(path.basename(videoPath));
-  const schedule = visibility === 'public' ? scheduleTarget({ channelName, isShorts }, undefined, scheduleTime) : null;
+  const schedule = visibility !== 'public' ? null
+    : scheduleYmd ? { ymd: scheduleYmd, date: studioDate(new Date(`${scheduleYmd}T12:00:00Z`)), time: scheduleTime || '20:00' }
+    : scheduleTarget({ channelName, isShorts }, undefined, scheduleTime);
   console.log(`• Widoczność: ${visibility}${schedule ? ` — zaplanowana na ${schedule.date} ${schedule.time}${isShorts ? '' : ' (premiera)'}` : ''}`);
 
   const { ctx, page } = await launchStudio();
@@ -598,7 +601,7 @@ export async function uploadEpisodeToChannel({
       // plik jest już w całości na YouTube — zamknięcie przeglądarki niczego nie przerwie
       console.log(`  -> ${err.message}`);
       await ctx.close();
-      return uploadEpisodeToChannel({ videoPath, metaPath, channelId, channelName, visibility, draftVideoId: err.resumedVideoId, scheduleTime });
+      return uploadEpisodeToChannel({ videoPath, metaPath, channelId, channelName, visibility, draftVideoId: err.resumedVideoId, scheduleTime, scheduleYmd });
     }
     console.error(`❌ BŁĄD PUBLIKACJI:`, err.message);
     try {
