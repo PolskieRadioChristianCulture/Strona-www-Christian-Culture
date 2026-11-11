@@ -58,7 +58,7 @@
       subtitle: 'Wirtualny gospodarz · Wspieram Cię i pomagam',
       avatar: '/images/chat/assistants/asystentka-1.webp',
       avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
-      circleAvatar: '/images/chat/lumi_avatar_rut_circle.webp',
+      circleAvatar: '/images/chat/assistants/asystentka-1.webp',
       greeting: 'W czym mogę Ci dziś pomóc? Kliknij, aby porozmawiać!',
       welcomeText:
         'Cześć! ❤️ Dobrze, że jesteś. Nazywam się Rut — jestem Asystentem Christian Culture i gospodynią LUMI MESS. Przez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem. W czym mogę Ci dziś pomóc?'
@@ -71,7 +71,7 @@
       subtitle: 'Wirtualny gospodarz · Organizer i planista',
       avatar: '/images/chat/assistants/asystentka-2.webp',
       avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
-      circleAvatar: '/images/chat/lumi_avatar_lea_circle.webp',
+      circleAvatar: '/images/chat/assistants/asystentka-2.webp',
       greeting: 'Zadaj pytanie lub zgłoś pomysł. Jestem tu dla Ciebie!',
       welcomeText:
         'Witaj serdecznie! 🌟 Nazywam się Lea — jestem Asystentem Christian Culture, organizerem i planistą. Z radością pomogę Ci odkryć nasze audycje radiowe, interlinearną Biblię, Akademię czy społeczność LUMINA. W czym mogę Ci dziś pomóc?'
@@ -84,7 +84,7 @@
       subtitle: 'Wirtualny gospodarz · Twoje zasoby i rozwiązania',
       avatar: '/images/chat/assistants/asystentka-3.webp',
       avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
-      circleAvatar: '/images/chat/lumi_avatar_noemi_circle.webp',
+      circleAvatar: '/images/chat/assistants/asystentka-3.webp',
       greeting: 'Masz pytanie o radio, Biblię lub audycje? Napisz śmiało!',
       welcomeText:
         'Pokój Boży! ✨ Nazywam się Noemi — jestem Asystentem Christian Culture i Twoim doradcą. Chętnie wskażę Ci najpiękniejszą muzykę uwielbienia, transmisje LIVE, słuchowiska Biblia Audio i rozważania na dziś. W czym mogę Ci dziś pomóc?'

@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mapa",
+      "title": "Żywa Interaktywna Mapa Ekosystemu Christian Culture",
+      "url": "https://polskieradio.cc/mapa",
+      "type": "module",
+      "image": "planeta-poster.jpg",
+      "publishedAt": "2026-11-11T08:03:35.088Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "vod",
       "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
       "url": "https://polskieradio.cc/vod",

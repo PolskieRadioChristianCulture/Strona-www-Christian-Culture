@@ -158,7 +158,19 @@
 /js/lumi-standalone.js
   Cache-Control: public, max-age=0, must-revalidate
 
-/components/cc-global-chat-button.js
+/components/cc-global-chat-button.js*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/components/cc-support-footer.js*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/js/cc-support-footer.js*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/js/cc-assistant.js*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/css/cc-assistant.css*
   Cache-Control: public, max-age=0, must-revalidate
 
 /js/cc-chat-integration.js
