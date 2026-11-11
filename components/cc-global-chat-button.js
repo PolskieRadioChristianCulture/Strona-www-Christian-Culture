@@ -46,7 +46,7 @@
       role: 'Wspieram Cię i pomagam',
       badge: 'Gospodyni LUMI MESS',
       avatar: '/images/chat/assistants/asystentka-1.webp',
-      circleAvatar: '/images/chat/assistants/asystentka-1.webp',
+      circleAvatar: '/images/chat/lumi_avatar_rut_circle.webp',
       avatarFallback: '/images/chat/assistants/asystentka-1.jpg',
       greeting: 'Cześć! ❤️ W czym mogę Ci dzisiaj pomóc w ekosystemie Christian Culture?',
       welcomeText: 'Cześć! ❤️ Dobrze, że jesteś.\n\nNazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.\n\nPrzez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem.\n\nW czym mogę Ci dziś pomóc?'
@@ -58,7 +58,7 @@
       role: 'Organizer i planista',
       badge: 'Przewodnik Ekosystemu',
       avatar: '/images/chat/assistants/asystentka-2.webp',
-      circleAvatar: '/images/chat/assistants/asystentka-2.webp',
+      circleAvatar: '/images/chat/lumi_avatar_lea_circle.webp',
       avatarFallback: '/images/chat/assistants/asystentka-2.jpg',
       greeting: 'Szukasz rozważań, audycji czy kursu? Pomogę Ci to szybko znaleźć!',
       welcomeText: 'Witaj serdecznie! 🌟 Nazywam się Lea — jestem Asystentką Christian Culture, organizerem i planistą.\n\nZ przyjemnością wskażę Ci plan dnia, audycje radiowe, Akademię Biblijną czy najnowsze filmy VOD.\n\nO co chciałbyś zapytać?'
@@ -70,7 +70,7 @@
       role: 'Twoje zasoby i rozwiązania',
       badge: 'Doradca LUMINA',
       avatar: '/images/chat/assistants/asystentka-3.webp',
-      circleAvatar: '/images/chat/assistants/asystentka-3.webp',
+      circleAvatar: '/images/chat/lumi_avatar_noemi_circle.webp',
       avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
       greeting: 'Masz pytanie o radio, Biblię lub pomoc? Jestem tu dla Ciebie!',
       welcomeText: 'Pokój Boży! ✨ Nazywam się Noemi — jestem Asystentką Christian Culture i doradcą społeczności LUMINA.\n\nPomogę Ci w korzystaniu z interlinearnej Biblii, słuchowisk Biblia Audio i bezpośrednim kontakcie ze Sztabem CC.\n\nW czym mogę Ci służyć?'
@@ -794,23 +794,28 @@
       }
 
       .cc-chat-radio-play-btn {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 6px !important;
-        min-height: 32px !important;
-        padding: 0 14px !important;
-        background: linear-gradient(135deg, #F2D17C 0%, #D8AD57 100%) !important;
-        color: #0D1020 !important;
-        font-family: inherit !important;
-        font-size: 0.78rem !important;
+        background: #FF7A00 !important;
+        color: #FFFFFF !important;
+        font-size: 0.74rem !important;
         font-weight: 750 !important;
         border: none !important;
         border-radius: 999px !important;
+        padding: 3px 12px !important;
         cursor: pointer !important;
-        box-shadow: 0 2px 10px rgba(216, 173, 87, 0.3) !important;
-        transition: transform 0.18s ease, filter 0.18s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 5px !important;
+        transition: all 0.18s ease !important;
         white-space: nowrap !important;
+      }
+
+      .cc-chat-radio-play-btn:hover {
+        background: #FF8C33 !important;
+        transform: scale(1.03) !important;
+      }
+
+      .cc-chat-radio-play-btn:active {
+        background: #E66A00 !important;
       }
 
       .cc-chat-radio-play-btn:hover {
@@ -1341,9 +1346,9 @@
       }
 
       .cc-composer-send-btn {
-        background: #FFC436 !important;
-        color: #0D1020 !important;
-        font-weight: 800 !important;
+        background: #FF7A00 !important;
+        color: #FFFFFF !important;
+        font-weight: 750 !important;
         font-size: 0.82rem !important;
         border: none !important;
         border-radius: 999px !important;
@@ -1354,14 +1359,231 @@
         gap: 6px !important;
         cursor: pointer !important;
         flex-shrink: 0 !important;
-        box-shadow: 0 2px 10px rgba(255, 196, 54, 0.35) !important;
-        transition: transform 0.18s ease, filter 0.18s ease !important;
+        box-shadow: 0 2px 10px rgba(255, 122, 0, 0.35) !important;
+        transition: transform 0.18s ease, filter 0.18s ease, background 0.18s ease !important;
+      }
+
+      .cc-composer-send-btn:hover {
+        background: #FF8C33 !important;
+        transform: scale(1.02) !important;
+        filter: brightness(1.06) !important;
+      }
+
+      .cc-composer-send-btn:active {
+        background: #E66A00 !important;
       }
 
       .cc-composer-send-btn:hover {
         transform: scale(1.02) !important;
         filter: brightness(1.06) !important;
       }
+      
+      /* ── 5.1 WIADOMOŚCI CZATU (BUBBLES & ROWS) ── */
+      .cc-chat-msg-row {
+        display: flex !important;
+        gap: 10px !important;
+        margin-bottom: 12px !important;
+        align-items: flex-start !important;
+        animation: ccFadeIn 0.2s ease !important;
+      }
+
+      .cc-chat-msg-row.is-user {
+        flex-direction: row-reverse !important;
+      }
+
+      .cc-chat-msg-avatar {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        border: 1.5px solid #D8AD57 !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-chat-msg-content {
+        max-width: 82% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+      }
+
+      .cc-chat-msg-row.is-user .cc-chat-msg-content {
+        align-items: flex-end !important;
+      }
+
+      .cc-chat-msg-meta {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        font-size: 0.72rem !important;
+        color: #A5AEC4 !important;
+      }
+
+      .cc-chat-msg-sender {
+        font-weight: 700 !important;
+        color: #F2D17C !important;
+      }
+
+      .cc-chat-msg-row.is-user .cc-chat-msg-sender {
+        color: #B475F5 !important;
+      }
+
+      .cc-chat-msg-bubble {
+        background: #1D2235 !important;
+        border: 1px solid #343A50 !important;
+        border-radius: 16px !important;
+        border-top-left-radius: 4px !important;
+        padding: 10px 14px !important;
+        font-size: 0.84rem !important;
+        line-height: 1.45 !important;
+        color: #F7F8FC !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+        word-break: break-word !important;
+      }
+
+      .cc-chat-msg-row.is-user .cc-chat-msg-bubble {
+        background: linear-gradient(135deg, #8547D8 0%, #6830B5 100%) !important;
+        border: 1px solid rgba(180, 117, 245, 0.4) !important;
+        border-radius: 16px !important;
+        border-top-right-radius: 4px !important;
+        color: #FFFFFF !important;
+      }
+
+      .cc-showcase-pill {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 5px !important;
+        background: rgba(29, 34, 53, 0.9) !important;
+        border: 1px solid rgba(216, 173, 87, 0.4) !important;
+        border-radius: 999px !important;
+        padding: 5px 12px !important;
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        color: #F2D17C !important;
+        cursor: pointer !important;
+        text-decoration: none !important;
+        transition: all 0.18s ease !important;
+      }
+
+      .cc-showcase-pill:hover {
+        background: rgba(216, 173, 87, 0.2) !important;
+        border-color: #F2D17C !important;
+        transform: translateY(-1px) !important;
+      }
+
+      .cc-showcase-pill.is-primary {
+        background: rgba(133, 71, 216, 0.3) !important;
+        border-color: rgba(180, 117, 245, 0.6) !important;
+        color: #FFFFFF !important;
+      }
+
+      .cc-showcase-pill.is-primary:hover {
+        background: rgba(133, 71, 216, 0.5) !important;
+        border-color: #B475F5 !important;
+      }
+
+      /* ── 4.1 PANELE ZAKŁADEK I KARTY ── */
+      .cc-tab-content-wrap {
+        padding: 14px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        background: #0D1020 !important;
+      }
+
+      .cc-section-headline {
+        font-size: 0.98rem !important;
+        font-weight: 700 !important;
+        color: #FFFFFF !important;
+        margin: 0 0 2px 0 !important;
+        letter-spacing: -0.01em !important;
+      }
+
+      .cc-card-item {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        background: #1D2235 !important;
+        border: 1px solid #343A50 !important;
+        border-radius: 14px !important;
+        padding: 10px 14px !important;
+        text-decoration: none !important;
+        color: #F7F8FC !important;
+        cursor: pointer !important;
+        transition: all 0.18s ease !important;
+        min-height: 52px !important;
+        box-sizing: border-box !important;
+      }
+
+      .cc-card-item:hover {
+        background: #252C44 !important;
+        border-color: rgba(216, 173, 87, 0.45) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+      }
+
+      .cc-card-icon {
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.25rem !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-card-info {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+        min-width: 0 !important;
+      }
+
+      .cc-card-title {
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        color: #FFFFFF !important;
+        line-height: 1.25 !important;
+      }
+
+      .cc-card-sub {
+        font-size: 0.73rem !important;
+        color: #A5AEC4 !important;
+        line-height: 1.3 !important;
+      }
+
+      .cc-chat-search-wrap {
+        margin-bottom: 8px !important;
+      }
+
+      .cc-chat-search-input {
+        width: 100% !important;
+        background: #15192B !important;
+        border: 1px solid rgba(216, 173, 87, 0.45) !important;
+        border-radius: 999px !important;
+        padding: 10px 16px !important;
+        font-size: 0.82rem !important;
+        font-family: inherit !important;
+        color: #FFFFFF !important;
+        outline: none !important;
+        box-sizing: border-box !important;
+        transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
+      }
+
+      .cc-chat-search-input:focus {
+        border-color: #F2D17C !important;
+        box-shadow: 0 0 10px rgba(242, 209, 124, 0.25) !important;
+      }
+
+      .cc-chat-search-input::placeholder {
+        color: #7E88A2 !important;
+      }
+
       /* ── RESPONSYWNOŚĆ MOBILE (320-768px) ── */
       @media (max-width: 768px) {
     .cc-chat-drawer {
@@ -2385,7 +2607,7 @@
 
       list.innerHTML = filtered.map(m => `
         <div class="cc-card-item" data-partner-id="${m.id}">
-          <img src="${escapeHtml(m.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(m.name)}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid var(--lumi-border);">
+          <img src="${escapeHtml(m.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(m.name)}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid var(--lumi-border);" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
           <div class="cc-card-info">
             <span class="cc-card-title">${escapeHtml(m.name)}</span>
             <span class="cc-card-sub">${escapeHtml(m.desc || m.badge)}</span>
@@ -2394,9 +2616,9 @@
         </div>
       `).join('');
 
-      list.querySelectorAll('[data-member-id]').forEach(item => {
+      list.querySelectorAll('[data-partner-id]').forEach(item => {
         item.addEventListener('click', () => {
-          const mid = item.getAttribute('data-member-id');
+          const mid = item.getAttribute('data-partner-id');
           const found = COMMUNITY_MEMBERS.find(x => x.id === mid);
           if (found) {
             setChatPartner(found);
