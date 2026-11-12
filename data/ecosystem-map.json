@@ -4630,8 +4630,13 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-11",
+  "lastUpdated": "2026-11-12",
   "recentUpdates": [
+    {
+      "date": "2026-11-12",
+      "topic": "Edycja wiadomości i reakcje w LUMI MESS",
+      "agent": "G"
+    },
     {
       "date": "2026-11-11",
       "topic": "LUMI MESS — czat ogólny, asystentki i radio",
