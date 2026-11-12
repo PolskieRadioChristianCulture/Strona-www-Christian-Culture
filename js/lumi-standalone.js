@@ -46,6 +46,7 @@
             status.textContent = 'Komunikator jeszcze się ładuje. Spróbuj ponownie za chwilę.';
         }
         open.addEventListener('click', openChat);
+        open.disabled = false;
         document.addEventListener('click', event => {
             if (!event.target.closest?.('#ccChatFabBtn')) return;
             event.preventDefault();

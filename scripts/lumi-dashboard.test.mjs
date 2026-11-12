@@ -69,7 +69,9 @@ test('delayed commander opening uses the canonical opener once even when it retu
   const f = fixture(true, true);
   delete f.win.openDirectMessagesModal;
   let opens = 0, switches = 0;
-  f.win.document.getElementById('lumiOpen').addEventListener('click', () => {
+  const publicButton = f.win.document.getElementById('lumiOpen');
+  publicButton.disabled = false;
+  publicButton.addEventListener('click', () => {
     f.win.openDirectMessagesModal = tab => { assert.equal(tab, 'commander'); opens++; };
     f.win.switchMessengerMainTab = () => { switches++; };
   });
@@ -85,7 +87,9 @@ test('delayed commander opening retains the tab switch when the canonical opener
   const f = fixture(true, true);
   delete f.win.openDirectMessagesModal;
   let switches = 0;
-  f.win.document.getElementById('lumiOpen').addEventListener('click', () => {
+  const publicButton = f.win.document.getElementById('lumiOpen');
+  publicButton.disabled = false;
+  publicButton.addEventListener('click', () => {
     f.win.switchMessengerMainTab = tab => { assert.equal(tab, 'commander'); switches++; };
   });
   f.win.document.getElementById('lumiOpenCommander').click();

@@ -12,6 +12,7 @@ test('dedicated LUMI page reuses the complete canonical chat with separate SEO a
   assert.equal(doc.querySelector('link[rel="manifest"]').getAttribute('href'), '/manifest-lumi.json');
   assert.equal(doc.querySelector('link[rel="canonical"]').getAttribute('href'), 'https://polskieradio.cc/mess');
   assert.equal(doc.querySelector('#lumiTitle').textContent, 'LUMI Messenger');
+  assert.equal(doc.querySelector('#lumiOpen').disabled, true);
   for (const id of ['directMessagesModal','activeChatInput','messengerPrivateView','messengerPublicView','lumiInstall','lumiInstallHelp']) assert.ok(doc.getElementById(id), id);
   assert.ok(!doc.querySelector('script[src^="lumina-pwa-installer.js"]'));
   const manifest = JSON.parse(await readFile('manifest-lumi.json','utf8'));
@@ -23,13 +24,14 @@ test('dedicated LUMI page reuses the complete canonical chat with separate SEO a
 });
 test('LUMI install fallback, cancellation and existing chat entry execute without fake success', async () => {
   const source = await readFile('js/lumi-standalone.js','utf8');
-  const win = new Window(); win.document.body.innerHTML='<button id="lumiOpen"></button><button id="lumiInstall"></button><p id="lumiInstallStatus"></p><details id="lumiInstallHelp"></details><button id="ccChatFabBtn"></button>';
+  const win = new Window(); win.document.body.innerHTML='<button id="lumiOpen" disabled></button><button id="lumiInstall"></button><p id="lumiInstallStatus"></p><details id="lumiInstallHelp"></details><button id="ccChatFabBtn"></button>';
   const calls=[];
   win.CCGlobalChat={open:tab=>calls.push(['guest',tab])}; win.openDirectMessagesModal=tab=>calls.push(['native',tab]);
   win.LuminaDB={getCurrentUser:()=>null}; win.matchMedia=()=>({matches:false});
   const nav={serviceWorker:{register:async(...args)=>{calls.push(['worker',...args]);}}};
   vm.runInContext(source,vm.createContext({window:win,document:win.document,navigator:nav,location:win.location,URLSearchParams}));
   win.document.dispatchEvent(new win.Event('DOMContentLoaded'));
+  assert.equal(win.document.getElementById('lumiOpen').disabled, false);
   win.document.getElementById('lumiOpen').click(); assert.deepEqual(calls.at(-1),['native','public']);
   win.LuminaDB.getCurrentUser=()=>({uid:'SyntheticOwner'});
   win.document.getElementById('lumiOpen').click(); assert.deepEqual(calls.at(-1),['native','public']);
