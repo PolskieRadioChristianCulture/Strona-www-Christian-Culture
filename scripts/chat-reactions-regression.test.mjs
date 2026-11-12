@@ -15,6 +15,7 @@ const sources = await Promise.all(pages.map(async file => [file, await readFile(
 
 test('lumi-standalone.css permits reaction picker and enforces top z-index', async () => {
   const css = await readFile('css/lumi-standalone.css', 'utf8');
+  assert.ok(css.includes(':not(.lumina-msg-action-menu)'), 'standalone shell keeps the public message action menu visible');
   assert.match(
     css,
     /:not\(\.lumina-reaction-picker\)/,
