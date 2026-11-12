@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-11T14:55:00.000Z",
-  "totalItems": 442,
+  "updatedAt": "2026-11-12T09:02:59.717Z",
+  "totalItems": 449,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -10825,6 +10825,90 @@
         "słowo boże"
       ],
       "featured": false
+    },
+    {
+      "title": "Radio PL",
+      "category": "Radio & Live",
+      "url": "https://polskieradio.cc/stacje/?station=poland",
+      "description": "Radio PL – stacja Christian Culture Radio.",
+      "tags": [
+        "radio pl",
+        "radio",
+        "stacje",
+        "christian culture"
+      ]
+    },
+    {
+      "title": "Radio Global",
+      "category": "Radio & Live",
+      "url": "https://polskieradio.cc/stacje/?station=global",
+      "description": "Radio Global – stacja Christian Culture Radio.",
+      "tags": [
+        "radio global",
+        "radio",
+        "stacje",
+        "christian culture"
+      ]
+    },
+    {
+      "title": "Radio Biblia",
+      "category": "Radio & Live",
+      "url": "https://polskieradio.cc/stacje/?station=biblia_audio",
+      "description": "Radio Biblia – stacja Christian Culture Radio.",
+      "tags": [
+        "radio biblia",
+        "radio",
+        "stacje",
+        "christian culture"
+      ]
+    },
+    {
+      "title": "Global Biblia",
+      "category": "Radio & Live",
+      "url": "https://polskieradio.cc/stacje/?station=global_biblia",
+      "description": "Global Biblia – stacja Christian Culture Radio.",
+      "tags": [
+        "global biblia",
+        "radio",
+        "stacje",
+        "christian culture"
+      ]
+    },
+    {
+      "title": "Instrumental Worship",
+      "category": "Radio & Live",
+      "url": "https://polskieradio.cc/stacje/?station=instrumental_worship",
+      "description": "Instrumental Worship – stacja Christian Culture Radio.",
+      "tags": [
+        "instrumental worship",
+        "radio",
+        "stacje",
+        "christian culture"
+      ]
+    },
+    {
+      "title": "Biblia Śpiewana",
+      "category": "Radio & Live",
+      "url": "https://polskieradio.cc/stacje/?station=biblia_spiewana",
+      "description": "Biblia Śpiewana – stacja Christian Culture Radio.",
+      "tags": [
+        "biblia śpiewana",
+        "radio",
+        "stacje",
+        "christian culture"
+      ]
+    },
+    {
+      "title": "Radio CC Women",
+      "category": "Radio & Live",
+      "url": "https://polskieradio.cc/stacje/?station=radio_cc_women",
+      "description": "Radio CC Women – stacja Christian Culture Radio.",
+      "tags": [
+        "radio cc women",
+        "radio",
+        "stacje",
+        "christian culture"
+      ]
     }
   ]
 }
