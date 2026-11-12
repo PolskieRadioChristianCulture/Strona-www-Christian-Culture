@@ -30,7 +30,7 @@ try {
 } catch(e) {}
 </script>
 <style>html.cc-mess-embedded #lumiLanding,html.cc-mess-embedded #lumiIntroOverlay{display:none!important}</style>
-<link rel="stylesheet" href="/css/lumi-standalone.css?v=20261111_mess_repair">
+<link rel="stylesheet" href="/css/lumi-standalone.css?v=20261112_reactions">
 <link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261111_mess_repair">
 <link rel="stylesheet" href="/css/cc-assistant.css?v=20261111_mess_repair">
 <script defer src="/js/cc-assistant.js?v=20261111_mess_repair"></script>
