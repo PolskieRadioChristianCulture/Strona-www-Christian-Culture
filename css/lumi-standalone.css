@@ -43,6 +43,22 @@ body.lumi-standalone .lumina-reaction-picker,
   display: grid !important;
   z-index: 2147483647 !important;
 }
+body.lumi-standalone .lumina-reaction-picker {
+  max-width: 304px !important;
+  box-sizing: border-box;
+}
+body.lumi-standalone .lumina-reaction-picker .lumina-reaction-btn {
+  width: 44px !important;
+  height: 44px !important;
+}
+#publicChatMessagesBox .lumi-reaction-unavailable {
+  display: none !important;
+}
+@media (max-width: 319px) {
+  body.lumi-standalone .lumina-reaction-picker {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
 
 body.lumi-standalone .ldd-root,
 .ldd-root {

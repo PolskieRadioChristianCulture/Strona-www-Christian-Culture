@@ -12177,6 +12177,12 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             const byId = new Map((Array.isArray(messages) ? messages : []).map(message => [message.id, message]));
             for (const row of document.querySelectorAll('#publicChatMessagesBox .lumina-msg-row[data-message-id]')) {
                 const message = byId.get(row.dataset.messageId);
+                const react = row.querySelector('.lumina-reaction-add-btn');
+                if (react) {
+                    const unavailable = !message || message.virtual || message.id.startsWith('local_');
+                    react.hidden = Boolean(unavailable);
+                    react.classList.toggle('lumi-reaction-unavailable', Boolean(unavailable));
+                }
                 const share = row.querySelector('.cc-chat-share-btn');
                 if (!share) continue;
                 const previousButton = row.querySelector('[data-public-message-actions]');
@@ -12324,7 +12330,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 const addBtn = rowEl.querySelector('.lumina-reaction-add-btn');
                 if (addBtn) window.toggleReactionPicker(addBtn, 'public', 'public', msgId);
             };
-            menu.appendChild(reactItem);
+            if (rowEl.querySelector('.lumina-reaction-add-btn:not([hidden])')) menu.appendChild(reactItem);
 
             // 3. Udostępnij
             const shareItem = document.createElement('button');
@@ -12438,12 +12444,17 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 } else if (type === 'public') {
                     res = await window.LuminaDB.togglePublicChatMessageReaction(targetMsgId, emoji, userObj);
                 }
-                if (res && res.success === false && res.reason === 'unauthenticated') {
-                    if (typeof showToast === 'function') showToast('Zaloguj się, aby dodać reakcję! 🕊️');
-                    if (typeof window.openAuthModal === 'function') window.openAuthModal();
+                if (!res?.success) {
+                    if (res?.reason === 'unauthenticated') {
+                        if (typeof showToast === 'function') showToast('Zaloguj się, aby dodać reakcję! 🕊️');
+                        if (typeof window.openAuthModal === 'function') window.openAuthModal();
+                    } else if (typeof showToast === 'function') {
+                        showToast(res?.reason === 'not_found' ? 'Ta wiadomość nie jest już dostępna.' : 'Nie udało się zapisać reakcji. Spróbuj ponownie.');
+                    }
                 }
             } catch (err) {
                 console.warn('Błąd podczas zapisywania reakcji:', err);
+                if (typeof showToast === 'function') showToast('Nie udało się zapisać reakcji. Spróbuj ponownie.');
             }
         };
 
@@ -12458,7 +12469,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 if (typeof p._cleanup === 'function') p._cleanup();
                 else p.remove();
             });
-            if (!btnEl) return;
+            if (!btnEl || btnEl.hidden) return;
 
             const targetMsgId = msgId || btnEl.closest('[data-message-id]')?.getAttribute('data-message-id') || btnEl.closest('.lumina-msg-row')?.id?.replace(/^msg_/, '') || '';
             const targetChatId = chatId || (type === 'public' ? 'public' : (window.activeChatSession?.chatId || ''));
@@ -12468,6 +12479,11 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             const cardEl = btnEl.closest('.modal-card') || document.querySelector('#directMessagesModal .modal-card') || document.body;
             const cardRect = cardEl ? cardEl.getBoundingClientRect() : { left: 0, right: window.innerWidth, top: 0, bottom: window.innerHeight };
 
+            const viewport = window.visualViewport;
+            const viewportLeft = viewport?.offsetLeft || 0;
+            const viewportTop = viewport?.offsetTop || 0;
+            const viewportRight = viewportLeft + (viewport?.width || window.innerWidth);
+            const viewportBottom = viewportTop + (viewport?.height || window.innerHeight);
             const picker = document.createElement('div');
             picker.className = 'lumina-reaction-picker';
             picker.setAttribute('role', 'dialog');
@@ -12481,10 +12497,19 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 isCleaningUp = true;
                 if (dismissHandler) {
                     document.removeEventListener('pointerdown', dismissHandler, false);
-                    window.removeEventListener('resize', dismissHandler, false);
                 }
-                if (picker.parentNode) picker.parentNode.removeChild(picker);
+                document.removeEventListener('keydown', closeOnEscape);
+                window.visualViewport?.removeEventListener('resize', cleanup);
+                window.removeEventListener('resize', cleanup);
+                btnEl.setAttribute('aria-expanded', 'false');
+                picker.remove();
             };
+            function closeOnEscape(event) {
+                if (event.key !== 'Escape') return;
+                event.stopPropagation();
+                cleanup();
+                btnEl.focus({ preventScroll: true });
+            }
             picker._cleanup = cleanup;
 
             const emojis = ['❤️', '👍', '🙏', '😂', '😊', '✨', '✝️', '🔥', '🕊️', '📖', '👑', '👏'];
@@ -12511,7 +12536,6 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                     ev.stopPropagation();
                 });
                 sp.addEventListener('click', handleSelect);
-                sp.addEventListener('touchend', handleSelect);
                 picker.appendChild(sp);
             });
 
@@ -12520,20 +12544,18 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             const pickerWidth = picker.offsetWidth || 260;
             const pickerHeight = picker.offsetHeight || 80;
 
-            const minLeft = Math.max(cardRect.left + 8, 8);
-            const maxLeft = Math.max(minLeft, Math.min(cardRect.right - pickerWidth - 8, window.innerWidth - pickerWidth - 8));
+            const availableRight = Math.min(cardRect.right || viewportRight, viewportRight);
+            const maxLeft = Math.max(viewportLeft + 8, availableRight - pickerWidth - 8);
+            const minLeft = Math.min(maxLeft, Math.max(cardRect.left + 8, viewportLeft + 8));
 
             let left = rect.left + (rect.width / 2) - (pickerWidth / 2);
             if (left < minLeft) left = minLeft;
             if (left > maxLeft) left = maxLeft;
 
             let top = rect.top - pickerHeight - 8;
-            if (top < Math.max(cardRect.top + 8, 50)) {
-                top = rect.bottom + 8;
-            }
-            if (top + pickerHeight > window.innerHeight - 8) {
-                top = Math.max(8, window.innerHeight - pickerHeight - 8);
-            }
+            const minTop = Math.max(cardRect.top + 8, viewportTop + 8);
+            if (top < minTop) top = rect.bottom + 8;
+            top = Math.max(viewportTop + 8, Math.min(top, viewportBottom - pickerHeight - 8));
 
             picker.style.left = Math.round(left) + 'px';
             picker.style.top = Math.round(top) + 'px';
@@ -12547,10 +12569,11 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                     cleanup();
                 }
             };
-            setTimeout(() => {
-                document.addEventListener('pointerdown', dismissHandler, false);
-                window.addEventListener('resize', dismissHandler, false);
-            }, 60);
+            btnEl.setAttribute('aria-expanded', 'true');
+            document.addEventListener('pointerdown', dismissHandler);
+            document.addEventListener('keydown', closeOnEscape);
+            window.addEventListener('resize', cleanup);
+            viewport?.addEventListener('resize', cleanup);
         };
 
         // ══════════ EMOJI DRAWER DLA CZATU OGÓLNEGO ══════════
@@ -12733,7 +12756,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
 
             const addBtn = `
                 <button type="button" class="lumina-reaction-add-btn" onclick="window.toggleReactionPicker(this, '${escapeForInlineJs(type)}', '${escapeForInlineJs(chatId)}', '${safeMsgId}')"
-                        title="Dodaj emotikon / reakcję" aria-label="Dodaj reakcję">
+                        title="Dodaj emotikon / reakcję" aria-label="Dodaj reakcję" aria-haspopup="dialog" aria-expanded="false">
                     <i class="fa-regular fa-face-smile"></i> +
                 </button>
             `;

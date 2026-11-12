@@ -133,6 +133,11 @@ test('actual header functions toggle fullscreen/settings and reaction picker dis
   const button=w.document.getElementById('reaction');
   w.toggleReactionPicker(button,'public','public','m1');
   assert.equal(w.document.querySelectorAll('.lumina-reaction-picker button').length,12);
+  assert.equal(button.getAttribute('aria-expanded'),'true');
+  w.dispatchEvent(new w.Event('resize'));
+  assert.equal(w.document.querySelector('.lumina-reaction-picker'),null);
+  assert.equal(button.getAttribute('aria-expanded'),'false');
+  w.toggleReactionPicker(button,'public','public','m1');
   const emoji=w.document.querySelector('.lumina-reaction-picker button');
   emoji.click();emoji.dispatchEvent(new w.Event('touchend'));
   assert.equal(calls.length,1);assert.deepEqual(calls[0],['public','public','m1','❤️']);

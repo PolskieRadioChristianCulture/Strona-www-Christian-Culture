@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
+import vm from 'node:vm';
 
 const pages = [
   'lumina.html',
@@ -30,10 +31,46 @@ test('P1 Hotfix 1: lumina-db.js enforces authentication and writes to backend be
   assert.match(dbSource, /if\s*\(!user\s*\|\|\s*user\.isAnonymous\s*\|\|\s*!user\.uid\)/, 'rejects unauthenticated or anonymous user');
   assert.match(dbSource, /return\s*\{\s*success:\s*false,\s*reason:\s*['"]unauthenticated['"]\s*\}/, 'returns unauthenticated status without faking reactions');
 
-  const updateDocPos = dbSource.indexOf('await updateDoc(docRef, { reactions });');
-  const cacheSetPos = dbSource.indexOf("localStorage.setItem('lumina_public_chat_cache'", updateDocPos);
-  assert.ok(updateDocPos > 0, 'calls updateDoc with reactions');
-  assert.ok(cacheSetPos > updateDocPos, 'updates local cache and memory ONLY after successful Firestore updateDoc');
+  const method = dbSource.slice(dbSource.indexOf('export async function togglePublicChatMessageReaction'), dbSource.indexOf('export function subscribeToUserChats'));
+  assert.ok(method.includes('return await runTransaction(db'));
+  assert.ok(method.includes('transaction.get(ref)'));
+  assert.ok(method.includes('transaction.update(ref, { reactions })'));
+  assert.equal(method.includes('localStorage.setItem'), false, 'the realtime snapshot owns cache updates');
+});
+
+test('public chat toggles only the selected member reaction and reports missing or failed saves', async () => {
+  const source = await readFile('lumina-db.js', 'utf8');
+  const body = source.slice(source.indexOf('export async function togglePublicChatMessageReaction'), source.indexOf('export function subscribeToUserChats')).replace('export ', '');
+  const user = { uid: 'member' };
+  let existing = { '❤️': [{ id: 'other', name: 'Inny użytkownik' }] };
+  let mode = 'ok';
+  const context = vm.createContext({
+    currentUserState: user, auth: { currentUser: user }, db: {},
+    doc: (_db, _collection, id) => id,
+    normalizeChatUserId: value => value,
+    console: { warn() {} },
+    runTransaction: async (_db, operation) => {
+      let written;
+      const result = await operation({
+        get: async () => ({ exists: () => mode !== 'missing', data: () => ({ reactions: existing }) }),
+        update: (_ref, data) => { written = data.reactions; },
+      });
+      if (mode === 'failure') throw new Error('offline');
+      if (written) existing = written;
+      return result;
+    },
+  });
+  vm.runInContext(body, context);
+  const toggle = () => context.togglePublicChatMessageReaction('message1', '❤️', { slug: 'member', name: 'Uczestnik' });
+  assert.equal((await toggle()).success, true);
+  assert.equal(existing['❤️'].map(entry => entry.id).join(','), 'other,member');
+  assert.equal((await toggle()).success, true);
+  assert.equal(existing['❤️'].map(entry => entry.id).join(','), 'other');
+  mode = 'missing';
+  assert.equal((await toggle()).reason, 'not_found');
+  mode = 'failure';
+  assert.equal((await toggle()).success, false);
+  assert.equal(existing['❤️'].map(entry => entry.id).join(','), 'other');
 });
 
 test('P1 Hotfix 2: Share button is borderless, transparent and satisfies 44px ergonomics', async () => {
