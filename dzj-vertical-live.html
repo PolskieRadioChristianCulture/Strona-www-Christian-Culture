@@ -815,12 +815,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const ref = data[idx] || data[0];
             if (!ref) return;
 
-            const dayLabels = ["","Dzień I","Dzień II","Dzień III","Dzień IV","Dzień V","Dzień VI","Dzień VII","Dzień VIII","Dzień IX","Dzień X","Dzień XI","Dzień XII","Dzień XIII","Dzień XIV","Dzień XV","Dzień XVI","Dzień XVII","Dzień XVIII","Dzień XIX","Dzień XX","Dzień XXI","Dzień XXII","Dzień XXIII","Dzień XXIV","Dzień XXV","Dzień XXVI","Dzień XXVII","Dzień XXVIII","Dzień XXIX","Dzień XXX"];
-
+            const dayNum = ref.day || (idx + 1);
             document.getElementById("reflectionDay").textContent =
-                `${dayLabels[idx + 1] || ("Dzień " + (idx + 1))} · ${ref.dayOfWeek || ""}`;
+                `Dzień ${dayNum} · ${ref.dayOfWeek || ""}`;
             document.getElementById("reflectionTitle").textContent = ref.title || "Słowo na Dziś";
-            document.getElementById("reflectionTeaser").textContent = ref.teaser || "";
+            document.getElementById("reflectionTeaser").textContent = ref.teaser || ref.theme || "";
 
             // Midnight auto-advance
             setInterval(() => {

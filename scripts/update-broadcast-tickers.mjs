@@ -91,8 +91,48 @@ export async function updateBroadcastTickers() {
     url: 'https://polskieradio.cc/akademia'
   };
 
+  // Odczytaj dzisiejsze rozważanie z rozwazania_baza.json
+  const bazaPath = path.join(ROOT, 'rozwazania_baza.json');
+  let todayReflection = null;
+  if (fs.existsSync(bazaPath)) {
+    try {
+      const bazaList = JSON.parse(fs.readFileSync(bazaPath, 'utf8'));
+      const todayStr = (() => {
+        const d = new Date();
+        const warsaw = new Date(d.toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }));
+        return warsaw.getFullYear() + '-' + String(warsaw.getMonth() + 1).padStart(2, '0') + '-' + String(warsaw.getDate()).padStart(2, '0');
+      })();
+      todayReflection = bazaList.find(r => r.date === todayStr) || bazaList[0];
+    } catch (e) {
+      console.warn('Ostrzeżenie: Nie udało się odczytać rozwazania_baza.json.');
+    }
+  }
+
   // 4. Zbuduj dynamiczną listę WIADOMOŚCI CCN dla data/ccn-news-ticker.json
-  const tickerItems = [
+  const tickerItems = [];
+
+  // ZAWSZE NA PIERWSZYM MIEJSCU: Rozważanie i lekcja na dzisiaj!
+  if (todayReflection) {
+    tickerItems.push({
+      topic: `SŁOWO NA DZIŚ — DZIEŃ ${todayReflection.day}`,
+      text: `${todayReflection.title.replace(/^☀️\s*/, '')} (${todayReflection.reading}) — „${(todayReflection.memoryVerse || todayReflection.theme || '').replace(/^[„"']|[”"']$/g, '').slice(0, 140)}” • polskieradio.cc`
+    });
+    tickerItems.push({
+      topic: `AKADEMIA BIBLIJNA — DZIEŃ ${todayReflection.day}`,
+      text: `Z Biblią za Pan Brat — Dzień ${todayReflection.day} na dziś: ${todayReflection.reading} — studiuj na polskieradio.cc/akademia/kurscodzienny/dzien-${todayReflection.day}`
+    });
+  } else {
+    tickerItems.push({
+      topic: "AKADEMIA BIBLIJNA",
+      text: `${latestLesson.title} — studiuj na polskieradio.cc/akademia`
+    });
+    tickerItems.push({
+      topic: "SŁOWO NA DZIŚ",
+      text: "Codzienne rozważania „Dobrze, że jesteś” w aplikacji mobilnej i na cclite.pl"
+    });
+  }
+
+  tickerItems.push(
     {
       topic: "DZIEŃ REFORMACJI 2026",
       text: "509 lat od 1517 r. Powrót do Pisma Świętego i Ewangelii łaski (Sola Scriptura, Sola Gratia) — czytaj na polskieradio.cc"
@@ -105,7 +145,7 @@ export async function updateBroadcastTickers() {
       topic: "NAJNOWSZY ARTYKUŁ CCN",
       text: `${latestArticle.title} — czytaj na polskieradio.cc`
     }
-  ];
+  );
 
   if (secondArticle) {
     tickerItems.push({
@@ -118,14 +158,6 @@ export async function updateBroadcastTickers() {
     {
       topic: "WYSZUKIWARKA EKOSYSTEMU",
       text: "Inteligentna wyszukiwarka treści, wersetów Pisma Świętego, lekcji i audycji: polskieradio.cc/wyszukiwarka (skrót: Ctrl+K)"
-    },
-    {
-      topic: "AKADEMIA BIBLIJNA",
-      text: `${latestLesson.title} — studiuj na polskieradio.cc/akademia`
-    },
-    {
-      topic: "SŁOWO NA DZIŚ",
-      text: "Codzienne rozważania „Dobrze, że jesteś” w aplikacji mobilnej i na cclite.pl"
     },
     {
       topic: "WOLNE MEDIA BOŻE",
