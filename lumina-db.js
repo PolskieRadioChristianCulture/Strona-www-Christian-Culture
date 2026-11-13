@@ -40,6 +40,7 @@ import {
     serverTimestamp,
     increment,
     writeBatch,
+    runTransaction,
     getCountFromServer
 } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { getAnalytics, isSupported as isAnalyticsSupported } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js';
@@ -3985,11 +3986,9 @@ export async function markDirectMessagesAsRead(chatId, currentUserId, currentUse
 }
 
 // ── Public Community Live Chatroom 🌐🕊️ ──
-let activePublicChatListener = null;
 let activePublicChatMessages = [];
 
 export function subscribeToPublicChat(onUpdate) {
-    activePublicChatListener = onUpdate;
     // 1. Check local cached messages
     try {
         const cached = localStorage.getItem('lumina_public_chat_cache');
@@ -4075,6 +4074,30 @@ export async function sendPublicChatMessage(messageObj) {
         console.warn('Lumina send public message error:', e.message);
         return null;
     }
+}
+
+export async function changeOwnPublicChatMessage(messageId, originalText, newText) {
+    const user = auth?.currentUser;
+    if (!db || !user?.uid || user.isAnonymous || typeof messageId !== 'string' || !/^[A-Za-z0-9_-]{1,128}$/.test(messageId)) {
+        throw new Error('public-chat-not-authorized');
+    }
+    const deleting = newText === null;
+    const text = typeof newText === 'string' ? newText.trim() : '';
+    if (!deleting && (!text || text.length > 2000)) {
+        throw new Error('public-chat-invalid-text');
+    }
+    const ref = doc(db, 'lumina_public_chat_messages', messageId);
+    await runTransaction(db, async transaction => {
+        const snapshot = await transaction.get(ref);
+        if (!snapshot.exists() || auth.currentUser?.uid !== user.uid || snapshot.data().senderAuthUid !== user.uid) {
+            throw new Error('public-chat-not-authorized');
+        }
+        if (snapshot.data().text !== originalText) {
+            throw new Error('public-chat-message-changed');
+        }
+        if (deleting) transaction.delete(ref);
+        else transaction.update(ref, { text, editedAt: serverTimestamp() });
+    });
 }
 
 // ── Oznaczanie wiadomości czatu ogólnego jako Wyświetlone (Seen / Read) ──
@@ -4196,7 +4219,9 @@ export async function toggleDirectMessageReaction(chatId, messageId, emoji, curr
 
 // ── Reakcje Emotikonami na Wiadomości Czatu Ogólnego 👍❤️😊🙏🔥🕊️✝️😂😮😢👏🌹 ──
 export async function togglePublicChatMessageReaction(messageId, emoji, currentUser) {
-    if (!messageId || !emoji) return { success: false, reason: 'missing_args' };
+    if (typeof messageId !== 'string' || !/^[A-Za-z0-9_-]{1,128}$/.test(messageId) || typeof emoji !== 'string' || !emoji.trim() || emoji.length > 20) {
+        return { success: false, reason: 'missing_args' };
+    }
 
     const user = currentUserState;
     if (!user || user.isAnonymous || !user.uid) {
@@ -4211,60 +4236,24 @@ export async function togglePublicChatMessageReaction(messageId, emoji, currentU
     if (!db) return { success: false, reason: 'no_db' };
     if (String(messageId).startsWith('local_')) return { success: false, reason: 'local_message' };
 
-    // P0 Zero-QA: Aktualizacja w Firestore PRZED modyfikacją pamięci, aby wyeliminować fikcyjne deklaracje/reakcje
     try {
-        const docRef = doc(db, 'lumina_public_chat_messages', messageId);
-        const docSnap = await getDoc(docRef);
-        if (!docSnap.exists()) return { success: false, reason: 'not_found' };
-
-        const currentData = docSnap.data();
-        const reactions = { ...(currentData.reactions || {}) };
-        const list = [...(reactions[emoji] || [])];
-        const existingIdx = list.findIndex(u => (typeof u === 'string' ? u === normId : (u.id === normId || u.slug === normId)));
-        if (existingIdx >= 0) {
-            list.splice(existingIdx, 1);
-        } else {
-            list.push({ id: normId, name: userName });
-        }
-        if (list.length === 0) {
-            delete reactions[emoji];
-        } else {
-            reactions[emoji] = list;
-        }
-
-        await updateDoc(docRef, { reactions });
-
-        // Dopiero po udanym zapisie w Firestore synchronizujemy stan pamięci i cache
-        const matchFn = (m) => String(m.id) === String(messageId);
-        let targetMsg = activePublicChatMessages.find(matchFn);
-        let cached = [];
-        try {
-            cached = JSON.parse(localStorage.getItem('lumina_public_chat_cache') || '[]');
-            if (!targetMsg) targetMsg = cached.find(matchFn);
-        } catch(e) {}
-
-        if (targetMsg) {
-            targetMsg.reactions = reactions;
-        }
-        if (cached && cached.length) {
-            const cMsg = cached.find(matchFn);
-            if (cMsg) cMsg.reactions = reactions;
-            try { localStorage.setItem('lumina_public_chat_cache', JSON.stringify(cached)); } catch(e) {}
-        }
-        if (activePublicChatMessages && activePublicChatMessages.length) {
-            const mMsg = activePublicChatMessages.find(matchFn);
-            if (mMsg) mMsg.reactions = reactions;
-        }
-
-        const updatedList = activePublicChatMessages.length ? activePublicChatMessages : cached;
-        if (typeof activePublicChatListener === 'function') {
-            activePublicChatListener([...updatedList]);
-        }
-
-        return { success: true, reactions };
-    } catch(e) {
-        console.warn('Lumina public reaction error:', e);
-        return { success: false, error: e.message };
+        const ref = doc(db, 'lumina_public_chat_messages', messageId);
+        return await runTransaction(db, async transaction => {
+            const snapshot = await transaction.get(ref);
+            if (!snapshot.exists()) return { success: false, reason: 'not_found' };
+            if (auth?.currentUser?.uid !== user.uid) return { success: false, reason: 'unauthenticated' };
+            const reactions = { ...(snapshot.data().reactions || {}) };
+            const list = Array.isArray(reactions[emoji]) ? reactions[emoji] : [];
+            const isMine = entry => typeof entry === 'string' ? entry === normId : (entry?.id === normId || entry?.slug === normId);
+            const next = list.some(isMine) ? list.filter(entry => !isMine(entry)) : [...list, { id: normId, name: userName }];
+            if (next.length) reactions[emoji] = next;
+            else delete reactions[emoji];
+            transaction.update(ref, { reactions });
+            return { success: true, reactions };
+        });
+    } catch (error) {
+        console.warn('Lumina public reaction error:', error);
+        return { success: false, reason: error?.code || 'save_failed' };
     }
 }
 
@@ -7408,6 +7397,7 @@ window.LuminaDB = Object.assign(window.LuminaDB || {}, {
     toggleDirectMessageReaction,
     subscribeToPublicChat,
     sendPublicChatMessage,
+    changeOwnPublicChatMessage,
     markPublicMessagesSeen,
     togglePublicChatMessageReaction,
     subscribeToUserChats,

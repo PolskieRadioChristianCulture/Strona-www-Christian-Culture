@@ -504,16 +504,33 @@ service cloud.firestore {
     }
 
     match /lumina_public_chat_messages/{messageId} {
+      function validPublicChatText(data) {
+        return data.text is string && data.text.size() > 0 && data.text.size() <= 2000 &&
+          data.text.matches('(?s).*\\S.*');
+      }
+
+      function validAuthorEdit() {
+        let changes = request.resource.data.diff(resource.data).affectedKeys();
+        return notKidsChild() &&
+          resource.data.senderAuthUid == request.auth.uid &&
+          changes.hasOnly(['text', 'editedAt']) && changes.hasAll(['text', 'editedAt']) &&
+          validPublicChatText(request.resource.data) &&
+          request.resource.data.editedAt == request.time;
+      }
+
       allow read: if true;
       allow create: if isMasterAdmin() || (
         isMember() && notKidsChild() &&
         request.resource.data.senderAuthUid == request.auth.uid &&
         request.resource.data.text is string &&
-        request.resource.data.text.size() <= 2000
+        request.resource.data.text.size() <= 2000 &&
+        !request.resource.data.keys().hasAny(['editedAt'])
       );
       allow update: if isMasterAdmin() || (
-        isMember() &&
-        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reactions', 'seenBy'])
+        isMember() && (
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reactions', 'seenBy']) ||
+          validAuthorEdit()
+        )
       );
       allow delete: if isMasterAdmin() || (
         isMember() && resource.data.senderAuthUid == request.auth.uid

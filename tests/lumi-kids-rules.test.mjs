@@ -40,6 +40,29 @@ function dm(from, to, chatId, text, server = false) {
     senderId: from.toLowerCase(), senderName: 'Test', receiverId: to.toLowerCase(), users: [from, to], text, type: 'text',
     status: 'sent', isRead: false, reactions: {}, createdAt: Date.now(), timestamp: server ? new Date() : serverTimestamp() };
 }
+test('public chat author can edit and delete, other accounts cannot change text or ownership', async () => {
+  const path = 'lumina_public_chat_messages/author-edit-test';
+  const own = doc(stranger(), path);
+  await assertSucceeds(setDoc(own, { senderAuthUid: STRANGER, text: 'Pierwsza wersja', timestamp: serverTimestamp() }));
+  await assertFails(updateDoc(doc(mom(), path), { text: 'Cudza zmiana', editedAt: serverTimestamp() }));
+  await assertFails(updateDoc(doc(child(), path), { text: 'Cudza zmiana', editedAt: serverTimestamp() }));
+  await assertFails(updateDoc(own, { text: ' ', editedAt: serverTimestamp() }));
+  await assertFails(updateDoc(own, { text: 'x'.repeat(2001), editedAt: serverTimestamp() }));
+  await assertFails(updateDoc(own, { text: 'Bez daty' }));
+  await assertFails(updateDoc(own, { text: 'Fałszywa data', editedAt: new Date(0) }));
+  await assertFails(updateDoc(own, { text: 'Podmiana', editedAt: serverTimestamp(), senderAuthUid: MOM }));
+  await assertFails(updateDoc(own, { text: 'Podmiana', editedAt: serverTimestamp(), reactions: { added: true } }));
+  await assertSucceeds(updateDoc(doc(mom(), path), { reactions: { added: true } }));
+  await assertSucceeds(updateDoc(own, { text: 'Druga wersja', editedAt: serverTimestamp() }));
+  const edited = (await getDoc(own)).data();
+  assert.equal(edited.text, 'Druga wersja');
+  assert.equal(edited.senderAuthUid, STRANGER);
+  assert.ok(edited.editedAt);
+  await assertFails(deleteDoc(doc(mom(), path)));
+  await assertSucceeds(deleteDoc(own));
+  assert.equal((await getDoc(own)).exists(), false);
+});
+
 const myDms = (f, uid, chatId) => getDocs(query(collection(f, 'lumina_direct_messages'), where('participants', 'array-contains', uid), where('chatId', '==', chatId)));
 
 before(async () => {

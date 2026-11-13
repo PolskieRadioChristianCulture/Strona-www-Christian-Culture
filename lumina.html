@@ -6008,6 +6008,20 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                         <span>Wyślij</span> <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </form>
+                <dialog id="publicMessageActionDialog" aria-labelledby="publicMessageActionTitle" style="width:min(420px, calc(100% - 28px)); max-height:80dvh; padding:20px; box-sizing:border-box; border:1px solid #8b5cf6; border-radius:16px; background:#111827; color:#f8fafc;">
+                    <form id="publicMessageActionForm">
+                        <h3 id="publicMessageActionTitle"></h3>
+                        <label id="publicMessageActionField">Treść wiadomości
+                            <textarea id="publicMessageActionText" rows="3" maxlength="2000" style="display:block; width:100%; box-sizing:border-box; margin-top:6px; padding:8px; font:inherit; font-size:16px;"></textarea>
+                        </label>
+                        <p id="publicMessageActionWarning" hidden>Usunięta wiadomość zniknie z czatu ogólnego.</p>
+                        <p id="publicMessageActionStatus" role="status"></p>
+                        <div style="display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px;">
+                            <button type="button" id="publicMessageActionCancel" style="min-height:44px; min-width:44px; padding:0 12px;">Anuluj</button>
+                            <button type="submit" id="publicMessageActionSubmit" style="min-height:44px; min-width:44px; padding:0 12px;"></button>
+                        </div>
+                    </form>
+                </dialog>
             </div>
 
             
@@ -12156,6 +12170,109 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             }
         };
 
+        const renderPublicChatMessagesCore = renderPublicChatMessages;
+        function renderPublicChatMessagesWithActions(messages) {
+            renderPublicChatMessagesCore(messages);
+            const user = window.LuminaDB?.getCurrentUser?.();
+            const byId = new Map((Array.isArray(messages) ? messages : []).map(message => [message.id, message]));
+            for (const row of document.querySelectorAll('#publicChatMessagesBox .lumina-msg-row[data-message-id]')) {
+                const message = byId.get(row.dataset.messageId);
+                const react = row.querySelector('.lumina-reaction-add-btn');
+                if (react) {
+                    const unavailable = !message || message.virtual || message.id.startsWith('local_');
+                    react.hidden = Boolean(unavailable);
+                    react.classList.toggle('lumi-reaction-unavailable', Boolean(unavailable));
+                }
+                const share = row.querySelector('.cc-chat-share-btn');
+                if (!share) continue;
+                const previousButton = row.querySelector('[data-public-message-actions]');
+                const canManage = canManagePublicChatMessage(message, user);
+                if (!canManage) previousButton?.remove();
+                if (canManage && !previousButton) {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.dataset.publicMessageActions = '';
+                    button.setAttribute('aria-label', 'Akcje własnej wiadomości');
+                    button.setAttribute('aria-haspopup', 'menu');
+                    button.style.cssText = 'min-width:44px; min-height:44px; border:none; background:transparent; color:inherit; cursor:pointer; font-size:1.2rem;';
+                    button.textContent = '⋯';
+                    button.onclick = () => window.handleChatActionsButton(button);
+                    share.before(button);
+                }
+                const time = share.parentElement.previousElementSibling;
+                const marker = time?.querySelector('[data-public-message-edited]');
+                if (!message?.editedAt) marker?.remove();
+                if (message?.editedAt && time && !marker) {
+                    const edited = document.createElement('span');
+                    edited.dataset.publicMessageEdited = '';
+                    edited.textContent = ' · Edytowano';
+                    time.appendChild(edited);
+                }
+            }
+        }
+        window.renderPublicChatMessages = renderPublicChatMessagesWithActions;
+
+        function canManagePublicChatMessage(message, user = window.LuminaDB?.getCurrentUser?.()) {
+            return Boolean(user?.uid && !user.isAnonymous && message?.senderAuthUid === user.uid &&
+                !message.virtual && typeof message.text === 'string' &&
+                typeof message.id === 'string' && !message.id.startsWith('local_') &&
+                typeof window.LuminaDB?.changeOwnPublicChatMessage === 'function');
+        }
+
+        window.handleChatActionsButton = function(button) {
+            const bounds = button.getBoundingClientRect();
+            window.openChatMessageMenu(button.closest('.lumina-msg-row'), bounds.left, bounds.bottom);
+        };
+
+        function showPublicMessageAction(message, deleting) {
+            if (!canManagePublicChatMessage(message)) return;
+            const dialog = document.getElementById('publicMessageActionDialog');
+            const form = document.getElementById('publicMessageActionForm');
+            const input = document.getElementById('publicMessageActionText');
+            const status = document.getElementById('publicMessageActionStatus');
+            const cancel = document.getElementById('publicMessageActionCancel');
+            const submit = document.getElementById('publicMessageActionSubmit');
+            document.getElementById('publicMessageActionTitle').textContent = deleting ? 'Usuń wiadomość' : 'Edytuj wiadomość';
+            document.getElementById('publicMessageActionField').hidden = deleting;
+            document.getElementById('publicMessageActionWarning').hidden = !deleting;
+            input.value = deleting ? '' : message.text;
+            status.textContent = '';
+            submit.textContent = deleting ? 'Usuń' : 'Zapisz';
+            submit.disabled = false;
+            cancel.disabled = false;
+            cancel.onclick = () => dialog.close();
+            dialog.oncancel = event => { if (submit.disabled) event.preventDefault(); };
+            form.onsubmit = async event => {
+                event.preventDefault();
+                if (submit.disabled) return;
+                const text = input.value.trim();
+                if (!deleting && !text) {
+                    status.textContent = 'Wpisz treść wiadomości.';
+                    return;
+                }
+                if (!deleting && text === message.text) {
+                    dialog.close();
+                    return;
+                }
+                submit.disabled = true;
+                cancel.disabled = true;
+                status.textContent = deleting ? 'Usuwanie…' : 'Zapisywanie…';
+                try {
+                    await window.LuminaDB.changeOwnPublicChatMessage(message.id, message.text, deleting ? null : text);
+                    dialog.close();
+                } catch (error) {
+                    status.textContent = error.message === 'public-chat-message-changed'
+                        ? 'Treść zmieniła się w międzyczasie. Zamknij okno i otwórz wiadomość ponownie.'
+                        : 'Nie udało się zapisać zmiany. Sprawdź połączenie i spróbuj ponownie.';
+                } finally {
+                    submit.disabled = false;
+                    cancel.disabled = false;
+                }
+            };
+            dialog.showModal();
+            (deleting ? cancel : input).focus();
+        }
+
         window.handleChatContextMenu = function(ev, rowEl) {
             if (ev) {
                 ev.preventDefault();
@@ -12213,7 +12330,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 const addBtn = rowEl.querySelector('.lumina-reaction-add-btn');
                 if (addBtn) window.toggleReactionPicker(addBtn, 'public', 'public', msgId);
             };
-            menu.appendChild(reactItem);
+            if (rowEl.querySelector('.lumina-reaction-add-btn:not([hidden])')) menu.appendChild(reactItem);
 
             // 3. Udostępnij
             const shareItem = document.createElement('button');
@@ -12244,6 +12361,23 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 }
             };
             menu.appendChild(copyItem);
+
+            const publicMessage = rowEl.closest('#publicChatMessagesBox') &&
+                window._cachedPublicChatMessages?.find(message => message.id === msgId);
+            if (canManagePublicChatMessage(publicMessage)) {
+                for (const [label, deleting] of [['Edytuj wiadomość', false], ['Usuń wiadomość', true]]) {
+                    const action = document.createElement('button');
+                    action.type = 'button';
+                    action.className = 'lumina-msg-action-item';
+                    action.style.minHeight = '44px';
+                    action.textContent = label;
+                    action.onclick = () => {
+                        closeMenu();
+                        showPublicMessageAction(publicMessage, deleting);
+                    };
+                    menu.appendChild(action);
+                }
+            }
 
             document.body.appendChild(menu);
 
@@ -12330,7 +12464,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 if (typeof p._cleanup === 'function') p._cleanup();
                 else p.remove();
             });
-            if (!btnEl) return;
+            if (!btnEl || btnEl.hidden) return;
 
             const targetMsgId = msgId || btnEl.closest('[data-message-id]')?.getAttribute('data-message-id') || btnEl.closest('.lumina-msg-row')?.id?.replace(/^msg_/, '') || '';
             const targetChatId = chatId || (type === 'public' ? 'public' : (window.activeChatSession?.chatId || ''));
@@ -12340,6 +12474,11 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             const cardEl = btnEl.closest('.modal-card') || document.querySelector('#directMessagesModal .modal-card') || document.body;
             const cardRect = cardEl ? cardEl.getBoundingClientRect() : { left: 0, right: window.innerWidth, top: 0, bottom: window.innerHeight };
 
+            const viewport = window.visualViewport;
+            const viewportLeft = viewport?.offsetLeft || 0;
+            const viewportTop = viewport?.offsetTop || 0;
+            const viewportRight = viewportLeft + (viewport?.width || window.innerWidth);
+            const viewportBottom = viewportTop + (viewport?.height || window.innerHeight);
             const picker = document.createElement('div');
             picker.className = 'lumina-reaction-picker';
             picker.setAttribute('role', 'dialog');
@@ -12353,10 +12492,19 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 isCleaningUp = true;
                 if (dismissHandler) {
                     document.removeEventListener('pointerdown', dismissHandler, false);
-                    window.removeEventListener('resize', dismissHandler, false);
                 }
-                if (picker.parentNode) picker.parentNode.removeChild(picker);
+                document.removeEventListener('keydown', closeOnEscape);
+                window.visualViewport?.removeEventListener('resize', cleanup);
+                window.removeEventListener('resize', cleanup);
+                btnEl.setAttribute('aria-expanded', 'false');
+                picker.remove();
             };
+            function closeOnEscape(event) {
+                if (event.key !== 'Escape') return;
+                event.stopPropagation();
+                cleanup();
+                btnEl.focus({ preventScroll: true });
+            }
             picker._cleanup = cleanup;
 
             const emojis = ['❤️', '👍', '🙏', '😂', '😊', '✨', '✝️', '🔥', '🕊️', '📖', '👑', '👏'];
@@ -12383,7 +12531,6 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                     ev.stopPropagation();
                 });
                 sp.addEventListener('click', handleSelect);
-                sp.addEventListener('touchend', handleSelect);
                 picker.appendChild(sp);
             });
 
@@ -12392,20 +12539,18 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             const pickerWidth = picker.offsetWidth || 260;
             const pickerHeight = picker.offsetHeight || 80;
 
-            const minLeft = Math.max(cardRect.left + 8, 8);
-            const maxLeft = Math.max(minLeft, Math.min(cardRect.right - pickerWidth - 8, window.innerWidth - pickerWidth - 8));
+            const availableRight = Math.min(cardRect.right || viewportRight, viewportRight);
+            const maxLeft = Math.max(viewportLeft + 8, availableRight - pickerWidth - 8);
+            const minLeft = Math.min(maxLeft, Math.max(cardRect.left + 8, viewportLeft + 8));
 
             let left = rect.left + (rect.width / 2) - (pickerWidth / 2);
             if (left < minLeft) left = minLeft;
             if (left > maxLeft) left = maxLeft;
 
             let top = rect.top - pickerHeight - 8;
-            if (top < Math.max(cardRect.top + 8, 50)) {
-                top = rect.bottom + 8;
-            }
-            if (top + pickerHeight > window.innerHeight - 8) {
-                top = Math.max(8, window.innerHeight - pickerHeight - 8);
-            }
+            const minTop = Math.max(cardRect.top + 8, viewportTop + 8);
+            if (top < minTop) top = rect.bottom + 8;
+            top = Math.max(viewportTop + 8, Math.min(top, viewportBottom - pickerHeight - 8));
 
             picker.style.left = Math.round(left) + 'px';
             picker.style.top = Math.round(top) + 'px';
@@ -12419,10 +12564,11 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                     cleanup();
                 }
             };
-            setTimeout(() => {
-                document.addEventListener('pointerdown', dismissHandler, false);
-                window.addEventListener('resize', dismissHandler, false);
-            }, 60);
+            btnEl.setAttribute('aria-expanded', 'true');
+            document.addEventListener('pointerdown', dismissHandler);
+            document.addEventListener('keydown', closeOnEscape);
+            window.addEventListener('resize', cleanup);
+            viewport?.addEventListener('resize', cleanup);
         };
 
         // ══════════ EMOJI DRAWER DLA CZATU OGÓLNEGO ══════════

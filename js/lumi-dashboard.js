@@ -361,16 +361,28 @@
         try { await radio.prepare(select.value); if (ticket === preparation) play.disabled = false; }
         catch (_) { if (ticket === preparation) $('lumiRadioStatus').textContent = 'Nie udało się wczytać stacji. Wybierz ją ponownie.'; }
       }
+      radio.bindSpectrum?.($('lumiRadioBars'));
+      function playSelected() {
+        radio.enableSpectrum?.(select.value);
+        radio.play(true);
+      }
       const stop = radio.subscribe(state => {
         select.value = state.stationId; $('lumiRadioName').textContent = radio.stations.find(station => station.id === state.stationId)?.name || 'Radio CC';
-        play.setAttribute('aria-label', state.playing ? 'Wstrzymaj radio' : 'Włącz radio'); play.querySelector('.lumi-play-orb').textContent = state.playing ? 'Ⅱ' : '▶';
-        play.querySelector('small').textContent = state.playing ? 'Odtwarza' : 'Słuchaj'; $('lumiRadioStatus').textContent = state.status;
+        const active = state.playing || state.connecting;
+        play.setAttribute('aria-label', active ? 'Zatrzymaj radio' : 'Włącz radio');
+        play.querySelector('.lumi-play-orb').textContent = active ? '■' : '▶';
+        play.querySelector('small').textContent = active ? 'Stop' : 'Słuchaj';
+        $('lumiRadioStatus').textContent = state.status;
       });
       window.addEventListener('pagehide', stop, { once: true });
-      play.addEventListener('click', () => { if (radio.state().playing) radio.pause(); else { radio.select(select.value); radio.play(true); } });
+      play.addEventListener('click', () => {
+        const state = radio.state();
+        if (state.playing || state.connecting) radio.pause();
+        else { radio.select(select.value); playSelected(); }
+      });
       select.addEventListener('change', () => {
         const id = select.value, wasPlaying = radio.state().playing;
-        radio.pause(); radio.select(id); prepare().then(() => { if (wasPlaying && !play.disabled && select.value === id) radio.play(true); });
+        radio.pause(); radio.select(id); prepare().then(() => { if (wasPlaying && !play.disabled && select.value === id) playSelected(); });
       });
       prepare();
     }).catch(() => { $('lumiRadioStatus').textContent = 'Radio niedostępne. Odśwież stronę.'; });

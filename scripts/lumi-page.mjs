@@ -4,8 +4,8 @@ export function renderLumiPage(html) {
   if (!html.includes('id="directMessagesModal"') || !html.includes('manifest-lumina.json')) {
     throw new Error('LUMI: canonical chat/manifest contract is missing');
   }
-  const title = 'LUMI Messenger â€” chrzeĹ›cijaĹ„ski komunikator | Christian Culture';
-  const description = 'Rozmawiaj, poznawaj spoĹ‚ecznoĹ›Ä‡ i dziel siÄ™ wiarÄ…. LUMI Messenger Ĺ‚Ä…czy rozmowy LUMINA i Christian Culture w jednym miejscu.';
+  const title = 'LUMI Messenger — chrześcijański komunikator | Christian Culture';
+  const description = 'Rozmawiaj, poznawaj społeczność i dziel się wiarą. LUMI Messenger łączy rozmowy LUMINA i Christian Culture w jednym miejscu.';
   html = html.replace(/<html(?:\s+[^>]*)?>/i, '<html lang="pl" data-lumina-theme="dark" class="lumi-mess-page" data-no-onboarding="true">')
     .replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`)
     .replace(/(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*(">)/g, `$1${description}$2`)
@@ -19,6 +19,8 @@ export function renderLumiPage(html) {
     .replace(/<script src="\/js\/lumina-theme-manager\.js[^"]*"><\/script>/g, '')
     .replace(/<button [^>]*id="luminaThemeSwitchBtn"[^>]*>[\s\S]*?<\/button>/g, '')
     .replace(/(<meta name="apple-mobile-web-app-title" content=")[^"]*(">)/, '$1LumiMess$2')
+    .replace(/\/js\/cc-chat-integration\.js\?v=[\w-]+/g, '/js/cc-chat-integration.js?v=20261111_mess_repair')
+    .replace(/(<form id="publicChatForm"[^>]*>[\s\S]*?<\/form>)/, '$1<a class="lumi-public-login" href="/lumina?action=login">Zaloguj się, aby napisać na czacie</a>')
     .replace('</head>', `<script>
 try {
   document.documentElement.setAttribute('data-lumina-theme', 'dark');
@@ -28,12 +30,12 @@ try {
 } catch(e) {}
 </script>
 <style>html.cc-mess-embedded #lumiLanding,html.cc-mess-embedded #lumiIntroOverlay{display:none!important}</style>
-<link rel="stylesheet" href="/css/lumi-standalone.css?v=20261019_dialog1">
-<link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261025_a007">
-<link rel="stylesheet" href="/css/cc-assistant.css?v=20261111_ui2">
-<script defer src="/js/cc-assistant.js?v=20261111_ui2"></script>
-<script defer src="/js/lumi-standalone.js?v=20261015_clean_v1"></script>
-<script defer src="/js/lumi-dashboard.js?v=20261023_bcm24_live1"></script>
+<link rel="stylesheet" href="/css/lumi-standalone.css?v=20261112_message_menu">
+<link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261111_mess_repair">
+<link rel="stylesheet" href="/css/cc-assistant.css?v=20261111_mess_repair">
+<script defer src="/js/cc-assistant.js?v=20261111_mess_repair"></script>
+<script defer src="/js/lumi-standalone.js?v=20261112_chat_ready"></script>
+<script defer src="/js/lumi-dashboard.js?v=20261111_mess_repair"></script>
 <script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@type':'WebApplication',name:'LUMI Messenger',url:'https://polskieradio.cc/mess',applicationCategory:'CommunicationApplication',description,inLanguage:'pl'})}</script>
 </head>`)
     .replace('<body class="user-is-guest">', `<body class="user-is-guest lumi-standalone">
@@ -44,11 +46,11 @@ try {
       <source id="lumiIntroSourceDesktop" src="/images/chat/lumi-intro.mp4" type="video/mp4">
     </video>
     <div class="lumi-intro-controls">
-      <button type="button" id="lumiIntroSound" class="lumi-intro-btn lumi-intro-sound" aria-label="WĹ‚Ä…cz dĹşwiÄ™k">
-        <span id="lumiIntroSoundIcon" aria-hidden="true">đź”‡</span> <span id="lumiIntroSoundText">WĹ‚Ä…cz dĹşwiÄ™k</span>
+      <button type="button" id="lumiIntroSound" class="lumi-intro-btn lumi-intro-sound" aria-label="Włącz dźwięk">
+        <span id="lumiIntroSoundIcon" aria-hidden="true">🔇</span> <span id="lumiIntroSoundText">Włącz dźwięk</span>
       </button>
-      <button type="button" id="lumiIntroSkip" class="lumi-intro-btn lumi-intro-skip" aria-label="PomiĹ„ intro i przejdĹş do komunikatora">
-        PomiĹ„ intro <span aria-hidden="true">âś•</span>
+      <button type="button" id="lumiIntroSkip" class="lumi-intro-btn lumi-intro-skip" aria-label="Pomiń intro i przejdź do komunikatora">
+        Pomiń intro <span aria-hidden="true">×</span>
       </button>
     </div>
     <div class="lumi-intro-progress" aria-hidden="true">

@@ -29,7 +29,7 @@
           return;
         }
       } catch (_) {}
-      await load('/js/cc-chat-radio.js?v=20261014_shared1', 'CCChatRadio');
+      await load('/js/cc-chat-radio.js?v=20261111_mess_repair', 'CCChatRadio');
     });
   window.CCChatRadioReady = radioReady;
   radioReady.catch(() => {});
@@ -43,7 +43,7 @@
     .cc-chat-radio button{order:3;background:linear-gradient(135deg,#C4A35A 0%,#a88438 100%);color:#0b0f19;border:0;border-radius:9px;height:30px;min-height:30px;min-width:44px;padding:0 12px;font-size:11px;font-weight:750;letter-spacing:.02em;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px;box-shadow:0 2px 6px rgba(196,163,90,0.25);transition:all .2s ease;white-space:nowrap;font-family:inherit;box-sizing:border-box}
     .cc-chat-radio button::before{content:'▶';font-size:9px;line-height:1}
     .cc-chat-radio.is-playing button{background:linear-gradient(135deg,#10b981 0%,#059669 100%);color:#fff;box-shadow:0 2px 6px rgba(16,185,129,0.35)}
-    .cc-chat-radio.is-playing button::before{content:'⏸'}
+    .cc-chat-radio.is-playing button::before{content:'■'}
     .cc-chat-radio button:disabled{opacity:.55;cursor:wait}
     .cc-chat-radio button:focus:not(:focus-visible),.cc-chat-radio select:focus:not(:focus-visible){outline:none;box-shadow:none}
     .cc-chat-radio button:focus-visible{outline:2px solid #C4A35A;outline-offset:2px}
@@ -130,7 +130,7 @@
     }
     if (next.partner && user && !user.isAnonymous && typeof window.openChatWith === 'function') {
       window.openChatWith(next.name || next.partner, next.avatar || '/lumina_icon.jpg', next.partner, next.messageId);
-    } else if (user && !user.isAnonymous && typeof window.openDirectMessagesModal === 'function') {
+    } else if ((next.tab === 'public' || (user && !user.isAnonymous)) && typeof window.openDirectMessagesModal === 'function') {
       window.openDirectMessagesModal(next.tab === 'members' ? 'private' : (next.tab || 'public'));
     } else if (window.CCGlobalChat) {
       window.CCGlobalChat.open(next.tab === 'members' ? 'members' : 'live', next.partner);
@@ -273,7 +273,8 @@
       }
       const unsubscribe = chatRadio.subscribe(state => {
         if (select.value !== state.stationId) select.value = state.stationId;
-        button.textContent = state.playing ? 'Wstrzymaj' : 'Słuchaj';
+        button.textContent = canonical ? (state.playing ? 'Stop' : 'Słuchaj') : (state.playing ? 'Wstrzymaj' : 'Słuchaj');
+        button.setAttribute('aria-label', state.playing ? 'Zatrzymaj radio' : 'Włącz radio');
         radio.classList.toggle('is-playing', Boolean(state.playing));
         const stName = chatRadio.stations.find(s => s.id === state.stationId)?.name || '';
         radio.title = `Radio CC · 6 stacji: ${stName}${state.playing ? ' · Odtwarza' : ''}`;
@@ -287,12 +288,18 @@
         const stationId = select.value;
         chatRadio.pause(); chatRadio.select(stationId);
         prepare().then(() => {
-          if (wasPlaying) chatRadio.play(true);
+          if (wasPlaying && stationId === select.value && !button.disabled) playSelected();
         });
       });
+      if (canonical) chatRadio.bindSpectrum?.(radio.querySelector('.cc-chat-radio-bars'));
+      function playSelected() {
+        if (canonical) chatRadio.enableSpectrum?.(select.value);
+        chatRadio.play(true);
+      }
       button.addEventListener('click', () => {
-        if (chatRadio.state().playing) chatRadio.pause();
-        else { chatRadio.select(select.value); chatRadio.play(true); }
+        const state = chatRadio.state();
+        if (state.playing || state.connecting) chatRadio.pause();
+        else { chatRadio.select(select.value); playSelected(); }
       });
       prepare();
     }).catch(() => {

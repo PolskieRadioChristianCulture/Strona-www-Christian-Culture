@@ -1,0 +1,17 @@
+.waves{background-image:linear-gradient(0deg,#090909 0%,#09090966 35%,transparent 95%),url('wave.svg')}
+.headphones{background-image:linear-gradient(90deg,#090909d9 0%,#09090944 55%,transparent 100%),url('headphones.png')}
+.landscape{background-image:linear-gradient(0deg,#090909 0%,#09090977 40%,transparent 100%),url('mountains.png')}
+.hero:before{content:"";position:absolute;top:-28px;left:29%;width:44%;height:230px;border-radius:90% 90% 0 0;border-top:2px solid #ffca91;transform:rotate(-16deg);filter:drop-shadow(0 0 9px #ff9b48);pointer-events:none;opacity:.8}
+.receiver{top:157px;left:31%;right:22%;height:auto;aspect-ratio:718/282;background-size:233% auto;background-position:67% 42.5%;mask-image:linear-gradient(to right,transparent,#000 4%,#000 96%,transparent)}
+.schedule{z-index:2}
+.queue{padding:0;margin:10px 0 16px;list-style:none}.queue li{border-bottom:1px solid #29231f;padding:7px 0;font-size:12px;line-height:1.25;color:#d8d0c9}.queue li:first-child{color:#ffcb91}
+.player-info strong,.player-info small,.now-playing strong,.now-playing small{overflow:hidden;text-overflow:ellipsis}
+.logo,.bars,.wave{display:flex;align-items:center;gap:3px;flex-shrink:0;height:30px}
+.logo{height:40px;min-width:74px;justify-content:center}
+.bars{align-items:end;min-width:36px}
+.wave{height:32px;gap:3px;min-width:125px;justify-content:center}
+.logo i,.bars i,.wave i{display:block;width:3px;height:var(--bar-height);border-radius:1px;background:#ffc588;box-shadow:0 0 9px #ffad58;transform-origin:center;transform:scaleY(.38)}
+.bars i{width:3px;transform-origin:bottom}
+.wave i{width:3px;box-shadow:0 0 5px #cf8e4b}
+#youtube{display:none}.youtube-visible #youtube{display:block;position:fixed;right:24px;bottom:140px;width:240px;height:200px;z-index:8;border:1px solid #6f523d;border-radius:10px;overflow:hidden}
+@media(max-width:1000px){.hero:before{display:none}.receiver{width:100%;left:auto;right:auto;top:auto;height:auto;max-width:718px;aspect-ratio:718/282;background-size:233% auto;background-position:67% 42.5%}}
