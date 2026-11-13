@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "skins",
+      "title": "Radio SKINS 2.0 — Interaktywny Odtwarzacz & 5 Skórek Wizualnych",
+      "url": "https://polskieradio.cc/skins",
+      "type": "music",
+      "image": "skin-earth.png",
+      "publishedAt": "2026-11-13T14:05:21.254Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dzien-31",
       "title": "Werset Dnia: „Wy myśleliście o złu przeciwko mnie, ale Bóg obrócił to w dobro” (Rdz 50:20, UBG)",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-31",
