@@ -1,0 +1,1176 @@
+const fs = require('fs');
+const path = require('path');
+
+const htmlContent = `<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+  </script>
+  <script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#0B0214">
+  <title>Audioteka Christian Culture — Audiobiblioteka Wiary 0,00 zł | Zawsze za Darmo</title>
+  <meta name="description" content="Oficjalna Audioteka Christian Culture. Twoja chrześcijańska audiobiblioteka wiary online — 0,00 zł, bez opłat, zawsze za darmo. Biblia Audio, wykłady biblijne, muzyka uwielbienia i podcasty.">
+  <link rel="canonical" href="https://polskieradio.cc/audioteka">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Audioteka Christian Culture — Audiobiblioteka Wiary 0,00 zł">
+  <meta property="og:description" content="Słuchaj tego, co buduje Twoją wiarę! Teraz w Christian Culture 0,00 zł — bez opłat, zawsze za darmo. Biblia Audio, wykłady, muzyka uwielbienia i podcasty.">
+  <meta property="og:url" content="https://polskieradio.cc/audioteka">
+  <meta property="og:site_name" content="Polskie Radio Christian Culture">
+  <meta property="og:image" content="https://polskieradio.cc/images/audioteka/audioteka-og-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="pl_PL">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Audioteka Christian Culture — Audiobiblioteka Wiary 0,00 zł">
+  <meta name="twitter:description" content="Słuchaj tego, co buduje Twoją wiarę! Twoja chrześcijańska audioteka online zawsze za darmo.">
+  <meta name="twitter:image" content="https://polskieradio.cc/images/audioteka/audioteka-og-1200x630.jpg">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Audiobook",
+    "name": "Audioteka Christian Culture",
+    "description": "Twoja chrześcijańska audiobiblioteka wiary online. 0,00 zł, bez opłat, zawsze za darmo. Słuchaj Biblii Audio, wykładów, muzyki uwielbienia i podcastów.",
+    "url": "https://polskieradio.cc/audioteka",
+    "provider": {
+      "@type": "Organization",
+      "name": "Christian Culture",
+      "url": "https://polskieradio.cc",
+      "logo": "https://polskieradio.cc/images/audioteka/audioteka-hero-1024.jpg"
+    },
+    "isAccessibleForFree": true,
+    "inLanguage": "pl"
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: #08020F;
+      --bg-surface: #120522;
+      --bg-card: rgba(24, 7, 44, 0.75);
+      --bg-card-hover: rgba(40, 12, 72, 0.85);
+      --border-purple: rgba(168, 85, 247, 0.25);
+      --border-magenta: rgba(224, 0, 149, 0.4);
+      --neon-magenta: #E00095;
+      --neon-purple: #9D4EDD;
+      --neon-glow: 0 0 25px rgba(224, 0, 149, 0.45);
+      --gold: #C4A35A;
+      --gold-light: #F2D17C;
+      --orange-cta: #FF7A00;
+      --orange-hover: #FF8C33;
+      --orange-active: #E66A00;
+      --text-main: #FFFFFF;
+      --text-muted: #D1C4E9;
+      --text-sub: #A393BF;
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --radius-pill: 9999px;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --min-touch: 44px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 0%, #2A084E 0%, #0F031E 45%, var(--bg-dark) 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ─── TOP GLOBAL NAVIGATION ─── */
+    .cc-nav-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8, 2, 15, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .cc-nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .cc-nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: var(--min-touch);
+    }
+
+    .cc-nav-logo-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(224, 0, 149, 0.5);
+    }
+
+    .cc-nav-logo-circle i {
+      font-size: 1.15rem;
+      color: #FFF;
+    }
+
+    .cc-nav-title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #FFFFFF, var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cc-nav-sub {
+      font-size: 0.75rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      display: block;
+      margin-top: -3px;
+    }
+
+    .cc-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cc-nav-link {
+      padding: 8px 14px;
+      min-height: var(--min-touch);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+
+    .cc-nav-link:hover {
+      color: #FFF;
+      background: rgba(224, 0, 149, 0.15);
+      border: 1px solid rgba(224, 0, 149, 0.3);
+    }
+
+    .cc-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cc-search-trigger {
+      min-height: var(--min-touch);
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-pill);
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .cc-search-trigger:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--gold);
+      color: #FFF;
+    }
+
+    .cc-kbd-shortcut {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* ─── HERO SHOWCASE SECTION ─── */
+    .cc-hero-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 20px 60px 20px;
+    }
+
+    .cc-hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .cc-hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .cc-badge-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cc-brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(224, 0, 149, 0.15);
+      border: 1px solid var(--neon-magenta);
+      box-shadow: 0 0 16px rgba(224, 0, 149, 0.3);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #FFF;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .cc-audio-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
+      background: rgba(157, 78, 221, 0.2);
+      border: 1px solid rgba(157, 78, 221, 0.5);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #FFF;
+    }
+
+    /* KARTA 0,00 ZŁ - CENTRUM KOMPOZYCJI */
+    .cc-price-card {
+      background: linear-gradient(135deg, #FF0099 0%, #D80080 40%, #7B0099 100%);
+      border-radius: var(--radius-lg);
+      padding: 24px 32px;
+      box-shadow: 0 16px 45px rgba(224, 0, 149, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.35);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 480px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cc-price-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cc-price-label {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #FFF;
+      letter-spacing: -0.01em;
+    }
+
+    .cc-price-value {
+      font-family: var(--font-heading);
+      font-size: 4.2rem;
+      font-weight: 900;
+      line-height: 1;
+      color: #FFF;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.03em;
+    }
+
+    .cc-price-sub {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.95);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cc-hero-title {
+      font-family: var(--font-heading);
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #FFF;
+    }
+
+    .cc-hero-title span {
+      background: linear-gradient(90deg, #FFFFFF, var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* GŁÓWNY PRZYCISK CTA - KLASYCZNY POMARAŃCZOWY (#FF7A00) WG JOMA-D052 */
+    .cc-cta-btn {
+      min-height: 56px;
+      min-width: 220px;
+      padding: 14px 36px;
+      border-radius: var(--radius-pill);
+      background: var(--orange-cta);
+      color: #FFF;
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(255, 122, 0, 0.45);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      align-self: flex-start;
+      text-decoration: none;
+    }
+
+    .cc-cta-btn:hover {
+      background: var(--orange-hover);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 36px rgba(255, 122, 0, 0.6);
+      color: #FFF;
+    }
+
+    .cc-cta-btn:active {
+      background: var(--orange-active);
+      transform: translateY(0) scale(0.98);
+    }
+
+    .cc-cta-btn i {
+      font-size: 1.25rem;
+    }
+
+    /* PILL CATEGORIES */
+    .cc-hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .cc-hero-pill {
+      min-height: var(--min-touch);
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(224, 0, 149, 0.4);
+      border-radius: var(--radius-pill);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #FFF;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .cc-hero-pill:hover {
+      background: rgba(224, 0, 149, 0.2);
+      border-color: var(--neon-magenta);
+      box-shadow: 0 0 16px rgba(224, 0, 149, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .cc-hero-pill i {
+      color: var(--gold-light);
+      font-size: 1rem;
+    }
+
+    /* RIGHT COLUMN - VISUAL MOCKUP */
+    .cc-hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cc-visual-frame {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.85), 0 0 45px rgba(224, 0, 149, 0.35);
+      border: 2px solid rgba(224, 0, 149, 0.4);
+      background: #000;
+    }
+
+    .cc-visual-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .cc-visual-glow {
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle, rgba(224, 0, 149, 0.3) 0%, rgba(123, 44, 191, 0.15) 50%, transparent 75%);
+      z-index: -1;
+      filter: blur(30px);
+    }
+
+    /* ─── LIVE EMBEDDED PLAYER CONTAINER ─── */
+    .cc-player-section {
+      max-width: 1280px;
+      margin: 0 auto 60px auto;
+      padding: 0 20px;
+    }
+
+    .cc-player-card {
+      background: linear-gradient(135deg, rgba(29, 9, 54, 0.95), rgba(16, 4, 30, 0.95));
+      border: 1px solid rgba(224, 0, 149, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(157, 78, 221, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .cc-player-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 16px;
+    }
+
+    .cc-player-status {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cc-pulse-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #00FF66;
+      box-shadow: 0 0 10px #00FF66;
+      animation: ccPulse 1.8s infinite;
+    }
+
+    @keyframes ccPulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 102, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+    }
+
+    .cc-player-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #FFF;
+    }
+
+    .cc-player-controls {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .cc-play-toggle-btn {
+      width: 60px;
+      height: 60px;
+      min-width: 60px;
+      border-radius: 50%;
+      background: var(--orange-cta);
+      color: #FFF;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 24px rgba(255, 122, 0, 0.45);
+      transition: all 0.2s ease;
+    }
+
+    .cc-play-toggle-btn:hover {
+      background: var(--orange-hover);
+      transform: scale(1.06);
+    }
+
+    .cc-now-playing-info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .cc-np-station {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .cc-np-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #FFF;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cc-station-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .cc-station-btn {
+      min-height: 40px;
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .cc-station-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFF;
+    }
+
+    .cc-station-btn.is-active {
+      background: var(--neon-magenta);
+      border-color: var(--neon-magenta);
+      color: #FFF;
+      box-shadow: 0 0 14px rgba(224, 0, 149, 0.5);
+    }
+
+    /* ─── 5 CATEGORIES SHOWCASE ─── */
+    .cc-catalog-section {
+      max-width: 1280px;
+      margin: 0 auto 80px auto;
+      padding: 0 20px;
+    }
+
+    .cc-section-header {
+      margin-bottom: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cc-sec-badge {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .cc-sec-title {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #FFF;
+    }
+
+    .cc-sec-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 720px;
+    }
+
+    .cc-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .cc-feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-purple);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .cc-feature-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--neon-magenta);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(224, 0, 149, 0.25);
+    }
+
+    .cc-card-icon-wrap {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(224, 0, 149, 0.25), rgba(157, 78, 221, 0.25));
+      border: 1px solid rgba(224, 0, 149, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--gold-light);
+    }
+
+    .cc-card-title {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #FFF;
+    }
+
+    .cc-card-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .cc-card-action {
+      min-height: var(--min-touch);
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFF;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .cc-card-action:hover {
+      background: var(--orange-cta);
+      border-color: var(--orange-cta);
+      box-shadow: 0 4px 14px rgba(255, 122, 0, 0.4);
+    }
+
+    /* ─── FOOTER ─── */
+    .cc-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: #05010B;
+      padding: 40px 20px;
+      margin-top: 60px;
+    }
+
+    .cc-footer-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .cc-footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cc-footer-copy {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+
+    .cc-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .cc-footer-links a:hover {
+      color: var(--gold-light);
+    }
+
+    /* ─── RESPONSIVE RULES (SMARTPHONES & TABLETS) ─── */
+    @media (max-width: 900px) {
+      .cc-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .cc-hero-title {
+        font-size: 2.4rem;
+      }
+      .cc-price-value {
+        font-size: 3.4rem;
+      }
+      .cc-nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .cc-hero-title {
+        font-size: 1.95rem;
+      }
+      .cc-price-card {
+        padding: 20px 24px;
+      }
+      .cc-price-value {
+        font-size: 2.8rem;
+      }
+      .cc-cta-btn {
+        width: 100%;
+      }
+      .cc-cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP GLOBAL NAVIGATION -->
+  <header class="cc-nav-header">
+    <div class="cc-nav-container">
+      <a href="https://polskieradio.cc" class="cc-nav-brand" aria-label="Strona główna Christian Culture">
+        <div class="cc-nav-logo-circle" aria-hidden="true">
+          <i class="fa-solid fa-cross"></i>
+        </div>
+        <div>
+          <span class="cc-nav-title">audioteka</span>
+          <span class="cc-nav-sub">Christian Culture</span>
+        </div>
+      </a>
+
+      <nav class="cc-nav-links" aria-label="Nawigacja główna">
+        <a href="/player" class="cc-nav-link"><i class="fa-solid fa-radio"></i> Radio 24/7</a>
+        <a href="/biblia-audio" class="cc-nav-link"><i class="fa-solid fa-book-bible"></i> Biblia Audio</a>
+        <a href="/akademia" class="cc-nav-link"><i class="fa-solid fa-graduation-cap"></i> Akademia</a>
+        <a href="/podcasty" class="cc-nav-link"><i class="fa-solid fa-podcast"></i> Podcasty</a>
+        <a href="/lumina" class="cc-nav-link"><i class="fa-solid fa-users"></i> LUMINA</a>
+      </nav>
+
+      <div class="cc-nav-actions">
+        <button type="button" class="cc-search-trigger" onclick="if(window.CCOmniSearch) window.CCOmniSearch.open();" aria-label="Otwórz wyszukiwarkę (Ctrl + K)">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Szukaj</span>
+          <span class="cc-kbd-shortcut">Ctrl K</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION - WZORZEC 1:1 Z OFICJALNEJ GRAFIKI MARKI -->
+    <section class="cc-hero-section">
+      <div class="cc-hero-grid">
+        <div class="cc-hero-content">
+          <div class="cc-badge-row">
+            <span class="cc-brand-badge"><i class="fa-solid fa-bolt"></i> audioteka Christian Culture</span>
+            <span class="cc-audio-badge">AUDIOBIBLIOTEKA WIARY</span>
+          </div>
+
+          <!-- KARTA 0,00 ZŁ - CENTRUM WIZUALNE -->
+          <div class="cc-price-card">
+            <span class="cc-price-label">Teraz w Christian Culture</span>
+            <span class="cc-price-value">0,00 zł</span>
+            <span class="cc-price-sub"><i class="fa-solid fa-check-circle"></i> bez opłat • zawsze za darmo</span>
+          </div>
+
+          <h1 class="cc-hero-title">
+            Słuchaj tego, co <span>buduje Twoją wiarę!</span>
+          </h1>
+
+          <!-- GŁÓWNY PRZYCISK CTA -->
+          <button type="button" class="cc-cta-btn" id="ccStartListeningBtn" onclick="startAudioExperience();" aria-label="Zacznij słuchać audioteki">
+            <span>ZACZNIJ SŁUCHAĆ</span>
+            <i class="fa-solid fa-play"></i>
+          </button>
+
+          <!-- 5 KATEGORII W PIGUŁKACH (PILLS) -->
+          <div class="cc-hero-pills" role="navigation" aria-label="Szybkie kategorie audio">
+            <a href="#biblia-audio" class="cc-hero-pill">
+              <i class="fa-solid fa-book-bible"></i>
+              <span>Biblia Audio</span>
+            </a>
+            <a href="#wyklady-studia" class="cc-hero-pill">
+              <i class="fa-solid fa-headphones"></i>
+              <span>Wykłady i studia biblijne</span>
+            </a>
+            <a href="#muzyka-uwielbienia" class="cc-hero-pill">
+              <i class="fa-solid fa-music"></i>
+              <span>Muzyka uwielbienia</span>
+            </a>
+            <a href="#podcasty-inspirujace" class="cc-hero-pill">
+              <i class="fa-solid fa-microphone-lines"></i>
+              <span>Podcasty inspirujące</span>
+            </a>
+            <a href="#serie-tematyczne" class="cc-hero-pill">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>Serie tematyczne i więcej</span>
+            </a>
+          </div>
+
+          <p style="font-size:0.95rem; color:var(--text-sub);">
+            Twoja chrześcijańska audioteka online • <strong>polskieradio.cc/audioteka</strong>
+          </p>
+        </div>
+
+        <!-- PRAWA KOLUMNA: WIZUALIZACJA Z GRAFIKI -->
+        <div class="cc-hero-visual">
+          <div class="cc-visual-glow"></div>
+          <div class="cc-visual-frame">
+            <picture>
+              <source srcset="/images/audioteka/audioteka-hero-1024.webp" type="image/webp">
+              <img src="/images/audioteka/audioteka-hero-1024.jpg" alt="Audioteka Christian Culture - Audiobiblioteka Wiary na telefonie ze słuchawkami" class="cc-visual-img" width="1024" height="1024" loading="eager">
+            </picture>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE EMBEDDED PLAYER -->
+    <section class="cc-player-section" id="audiotekaPlayer">
+      <div class="cc-player-card">
+        <div class="cc-player-header">
+          <div class="cc-player-status">
+            <div class="cc-pulse-dot" aria-hidden="true"></div>
+            <div>
+              <span class="cc-player-title">Odtwarzacz Audioteki NA ŻYWO</span>
+              <p style="font-size:0.85rem; color:var(--text-sub);">Dźwięk studyjny EBU R128 (-16 LUFS) • Bez przerw reklamowych</p>
+            </div>
+          </div>
+
+          <div class="cc-station-tabs" role="tablist" aria-label="Wybierz stację audio">
+            <button type="button" class="cc-station-btn is-active" data-station="biblia_audio" onclick="switchStation('biblia_audio')">Biblia Audio</button>
+            <button type="button" class="cc-station-btn" data-station="poland" onclick="switchStation('poland')">Radio CC Polska</button>
+            <button type="button" class="cc-station-btn" data-station="instrumental_worship" onclick="switchStation('instrumental_worship')">Worship Live</button>
+            <button type="button" class="cc-station-btn" data-station="biblia_spiewana" onclick="switchStation('biblia_spiewana')">Biblia Śpiewana</button>
+          </div>
+        </div>
+
+        <div class="cc-player-controls">
+          <button type="button" class="cc-play-toggle-btn" id="ccPlayerToggleBtn" onclick="toggleAudioPlayback();" aria-label="Odtwórz lub wstrzymaj dźwięk">
+            <i class="fa-solid fa-play" id="ccPlayIcon"></i>
+          </button>
+
+          <div class="cc-now-playing-info">
+            <div class="cc-np-station" id="ccNpStation">BIBLIA AUDIO CC 24/7</div>
+            <div class="cc-np-title" id="ccNpTitle">Pismo Święte — Słuchowisko Ciągłe</div>
+          </div>
+
+          <a href="/player" class="cc-hero-pill" style="border-color:rgba(255,255,255,0.2);" aria-label="Otwórz pełny odtwarzacz radiowy">
+            <i class="fa-solid fa-up-right-from-square"></i>
+            <span>Pełny Odtwarzacz</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 FILARÓW AUDIOBIBLIOTEKI WIARY -->
+    <section class="cc-catalog-section" id="katalog">
+      <div class="cc-section-header">
+        <span class="cc-sec-badge">Katalog Zasobów Wiary</span>
+        <h2 class="cc-sec-title">Odkrywaj Bogactwo Słowa i Muzyki</h2>
+        <p class="cc-sec-desc">Ponad 1000 godzin nagrań biblijnych, wykładów, pieśni i inspiracji. Wszystko dostępne bez żadnych subskrypcji i ukrytych opłat.</p>
+      </div>
+
+      <div class="cc-cards-grid">
+        <!-- 1. BIBLIA AUDIO -->
+        <article class="cc-feature-card" id="biblia-audio">
+          <div class="cc-card-icon-wrap">
+            <i class="fa-solid fa-book-bible"></i>
+          </div>
+          <h3 class="cc-card-title">Biblia Audio</h3>
+          <p class="cc-card-desc">
+            Pełne słuchowisko Pisma Świętego. Rozdział po rozdziale z profesjonalną oprawą dźwiękową, muzyką filmową i wiernym przekładem UBG.
+          </p>
+          <a href="/biblia-audio" class="cc-card-action">
+            <span>Słuchaj Biblii Audio</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </article>
+
+        <!-- 2. WYKŁADY I STUDIA BIBLIJNE -->
+        <article class="cc-feature-card" id="wyklady-studia">
+          <div class="cc-card-icon-wrap">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h3 class="cc-card-title">Wykłady i Studia</h3>
+          <p class="cc-card-desc">
+            Akademia Biblijna Christian Culture oraz Kurs Codzienny „Z Biblią za Pan Brat”. Pogłębiaj wiedzę i poznawaj kontekst historyczny Słowa.
+          </p>
+          <a href="/akademia" class="cc-card-action">
+            <span>Przejdź do Akademii</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </article>
+
+        <!-- 3. MUZYKA UWIELBIENIA -->
+        <article class="cc-feature-card" id="muzyka-uwielbienia">
+          <div class="cc-card-icon-wrap">
+            <i class="fa-solid fa-music"></i>
+          </div>
+          <h3 class="cc-card-title">Muzyka Uwielbienia</h3>
+          <p class="cc-card-desc">
+            Worship Live 24/7, Biblia Śpiewana (dosłowne wersety biblijne ubrane w melodie) oraz nocny strumień Ambient Sleep do wyciszenia.
+          </p>
+          <a href="/player" class="cc-card-action">
+            <span>Włącz Muzykę</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </article>
+
+        <!-- 4. PODCASTY INSPIRUJĄCE -->
+        <article class="cc-feature-card" id="podcasty-inspirujace">
+          <div class="cc-card-icon-wrap">
+            <i class="fa-solid fa-podcast"></i>
+          </div>
+          <h3 class="cc-card-title">Podcasty Inspirujące</h3>
+          <p class="cc-card-desc">
+            Codzienne rozważania „Dobrze, że jesteś”, poranne inspiracje, audycje autorskie i świadectwa wiary, które dodają siły każdego dnia.
+          </p>
+          <a href="/podcasty" class="cc-card-action">
+            <span>Słuchaj Podcastów</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </article>
+
+        <!-- 5. SERIE TEMATYCZNE -->
+        <article class="cc-feature-card" id="serie-tematyczne">
+          <div class="cc-card-icon-wrap">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+          <h3 class="cc-card-title">Serie Tematyczne</h3>
+          <p class="cc-card-desc">
+            Monograficzne cykle audio: Studio Dobrego Słowa (Apokalipsa), Osobowość+, relacje małżeńskie, wychowanie dzieci i historia reformacji.
+          </p>
+          <a href="/vod" class="cc-card-action">
+            <span>Odkryj Serie</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="cc-footer">
+    <div class="cc-footer-content">
+      <div class="cc-footer-brand">
+        <strong>audioteka Christian Culture</strong>
+        <p class="cc-footer-copy">© Christian Culture • Wszelkie prawa zastrzeżone. Służba Bogu i ludziom.</p>
+      </div>
+
+      <div class="cc-footer-links">
+        <a href="https://polskieradio.cc">Strona Główna</a>
+        <a href="/biblia-audio">Biblia Audio</a>
+        <a href="/player">Odtwarzacz</a>
+        <a href="/akademia">Akademia Biblijna</a>
+        <a href="/mojabiblia">MojaBiblia</a>
+        <a href="/lumina">Portal LUMINA</a>
+        <a href="/mapa">Mapa Ekosystemu</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GLOBAL AUDIO ELEMENT (STEROWANY PRZEZ STRONĘ) -->
+  <audio id="ccAudiotekaStream" preload="none"></audio>
+
+  <!-- SKRYPTY EKOSYSTEMU -->
+  <script src="/js/cc-mobile-edge.js?v=20261030_1" defer></script>
+  <script src="/components/cc-omni-search.js?v=20261026_1" defer></script>
+  <script src="/components/cc-global-chat-button.js?v=20261111_v2" defer></script>
+
+  <script>
+    // ─── AUDIO ENGINE LOGIC ───
+    const STREAMS = {
+      biblia_audio: {
+        url: 'https://stream.polskieradio.cc/biblia',
+        fallback: 'https://cclite.pl/audio/biblia_live.mp3',
+        station: 'BIBLIA AUDIO CC 24/7',
+        title: 'Pismo Święte — Słuchowisko Ciągłe'
+      },
+      poland: {
+        url: 'https://stream.polskieradio.cc/live',
+        fallback: 'https://cclite.pl/audio/live.mp3',
+        station: 'RADIO CHRISTIAN CULTURE POLSKA',
+        title: 'Audycje, rozważania i muzyka na żywo'
+      },
+      instrumental_worship: {
+        url: 'https://stream.polskieradio.cc/worship',
+        fallback: 'https://cclite.pl/audio/worship.mp3',
+        station: 'WORSHIP LIVE 24/7',
+        title: 'Pieśni uwielbienia i modlitwa'
+      },
+      biblia_spiewana: {
+        url: 'https://stream.polskieradio.cc/spiewana',
+        fallback: 'https://cclite.pl/audio/spiewana.mp3',
+        station: 'BIBLIA ŚPIEWANA',
+        title: 'Wersety biblijne w pieśniach'
+      }
+    };
+
+    let currentStationKey = 'biblia_audio';
+    let isPlaying = false;
+    const audioEl = document.getElementById('ccAudiotekaStream');
+    const toggleBtn = document.getElementById('ccPlayerToggleBtn');
+    const playIcon = document.getElementById('ccPlayIcon');
+    const npStation = document.getElementById('ccNpStation');
+    const npTitle = document.getElementById('ccNpTitle');
+
+    function switchStation(key) {
+      if (!STREAMS[key]) return;
+      currentStationKey = key;
+      const s = STREAMS[key];
+
+      // Update station tabs UI
+      document.querySelectorAll('.cc-station-btn').forEach(btn => {
+        btn.classList.toggle('is-active', btn.getAttribute('data-station') === key);
+      });
+
+      npStation.textContent = s.station;
+      npTitle.textContent = s.title;
+
+      if (isPlaying) {
+        audioEl.src = s.url;
+        audioEl.play().catch(() => {
+          if (s.fallback) { audioEl.src = s.fallback; audioEl.play().catch(console.warn); }
+        });
+      }
+    }
+
+    function toggleAudioPlayback() {
+      if (!isPlaying) {
+        const s = STREAMS[currentStationKey];
+        audioEl.src = s.url;
+        audioEl.play().then(() => {
+          isPlaying = true;
+          playIcon.className = 'fa-solid fa-pause';
+          toggleBtn.setAttribute('aria-label', 'Wstrzymaj dźwięk');
+          // Licznik /milion
+          try {
+            if (window.CCRadioMilion && typeof window.CCRadioMilion.recordPlay === 'function') {
+              window.CCRadioMilion.recordPlay(currentStationKey);
+            }
+          } catch (_) {}
+        }).catch(() => {
+          if (s.fallback) {
+            audioEl.src = s.fallback;
+            audioEl.play().then(() => {
+              isPlaying = true;
+              playIcon.className = 'fa-solid fa-pause';
+              toggleBtn.setAttribute('aria-label', 'Wstrzymaj dźwięk');
+            }).catch(console.warn);
+          }
+        });
+      } else {
+        audioEl.pause();
+        isPlaying = false;
+        playIcon.className = 'fa-solid fa-play';
+        toggleBtn.setAttribute('aria-label', 'Odtwórz dźwięk');
+      }
+    }
+
+    function startAudioExperience() {
+      const playerSec = document.getElementById('audiotekaPlayer');
+      if (playerSec) {
+        playerSec.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (!isPlaying) {
+        setTimeout(toggleAudioPlayback, 400);
+      }
+    }
+  </script>
+</body>
+</html>
+`;
+
+// Save audioteka.html
+fs.writeFileSync('audioteka.html', htmlContent, 'utf8');
+console.log('Saved audioteka.html');
+
+// Create audioteka directory and index.html for Clean URL support
+const audiotekaDir = path.resolve('audioteka');
+if (!fs.existsSync(audiotekaDir)) {
+  fs.mkdirSync(audiotekaDir, { recursive: true });
+}
+fs.writeFileSync(path.join(audiotekaDir, 'index.html'), htmlContent, 'utf8');
+console.log('Saved audioteka/index.html');

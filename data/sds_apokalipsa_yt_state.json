@@ -1,0 +1,74 @@
+{
+  "lastPublishedEpisode": 5,
+  "history": [
+    {
+      "ep": 1,
+      "title": "Nasze czasy w proroctwach",
+      "premiere": "2026-11-11 20:00",
+      "allChannelsOk": true,
+      "manual": true
+    },
+    {
+      "ep": 2,
+      "title": "Kim jest Lucyfer",
+      "premiere": "2026-11-12 20:00",
+      "allChannelsOk": true,
+      "manual": true
+    },
+    {
+      "ep": 3,
+      "title": "Czemu Bóg toleruje zło",
+      "premiere": "2026-11-13 20:00",
+      "allChannelsOk": true,
+      "manual": true
+    },
+    {
+      "ep": 4,
+      "title": "Chrystus - drugi Adam",
+      "premiere": "2026-11-14 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/UQc7-Nhqti8"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/Ap0A2Fe4nMM"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/T5Is2SEeUj4"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-12T19:39:52.322Z"
+    },
+    {
+      "ep": 5,
+      "title": "Wypełnienie proroctw mesjańskich",
+      "premiere": "2026-11-15 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/d4GWdCMtsUg"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/C6m63D4-qZ8"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/Y86s9rruHKg"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-13T09:12:11.815Z"
+    }
+  ]
+}

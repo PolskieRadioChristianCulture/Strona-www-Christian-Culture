@@ -1,14 +1,14 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-11T05:05:18.827Z",
+  "generatedAt": "2026-11-13T13:14:03.551Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 92,
-    "validUrls": 92,
+    "totalValidatedUrls": 94,
+    "validUrls": 94,
     "invalidUrls": 0,
-    "newsArticlesCount": 86,
-    "googleNews48hCount": 40,
-    "akademiaUrlsCount": 73,
+    "newsArticlesCount": 88,
+    "googleNews48hCount": 42,
+    "akademiaUrlsCount": 77,
     "bibliaUrlsCount": 4,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 2,
@@ -31,13 +31,13 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 25046,
+      "sizeBytes": 25038,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 32013,
+      "sizeBytes": 32556,
       "status": "OK"
     },
     {
@@ -49,13 +49,13 @@
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 32262,
+      "sizeBytes": 33679,
       "status": "OK"
     },
     {
       "path": "/sitemaps/akademia.xml",
       "exists": true,
-      "sizeBytes": 13813,
+      "sizeBytes": 14569,
       "status": "OK"
     },
     {
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-11T05:05:18.822Z",
+        "queuedAt": "2026-11-13T13:14:03.547Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-11T05:05:18.822Z",
+        "queuedAt": "2026-11-13T13:14:03.547Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-11T05:05:18.822Z",
+        "queuedAt": "2026-11-13T13:14:03.547Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-11T05:05:18.822Z",
+        "queuedAt": "2026-11-13T13:14:03.547Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-11T05:05:18.822Z",
+        "queuedAt": "2026-11-13T13:14:03.547Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 347,
-    "lastSubmittedCount": 347,
-    "lastSubmittedAt": "2026-11-11T05:05:20.924Z"
+    "totalIndexedUrls": 351,
+    "lastSubmittedCount": 351,
+    "lastSubmittedAt": "2026-11-13T13:14:05.982Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,22 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.html",
+      "canonicalUrl": "https://polskieradio.cc/eM",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "file": "news/11-listopada-2026-polska-wolna-biblijny-patriotyzm.html",
+      "canonicalUrl": "https://polskieradio.cc/news",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/swietosc-nie-wymaga-udawania-dlaczego-prawda-o-slabosci-uwalnia.html",
       "canonicalUrl": "https://polskieradio.cc/news",
@@ -585,23 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/osobisty-sukces-chrzescijanina-w-perspektywie-wiecznosci.html",
-      "canonicalUrl": "https://polskieradio.cc/news/osobisty-sukces-chrzescijanina-w-perspektywie-wiecznosci",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "file": "news/z-biblia-za-pan-brat-dzien-29-bog-prowadzi-swoj-lud-do-egiptu.html",
-      "canonicalUrl": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-29-bog-prowadzi-swoj-lud-do-egiptu",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-11T05:05:20.924Z"
+  "lastInstantIndexingAt": "2026-11-13T13:14:05.982Z"
 }

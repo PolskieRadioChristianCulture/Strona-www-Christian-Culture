@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "u-boku-diabla",
+      "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
+      "url": "https://polskieradio.cc/u-boku-diabla",
+      "type": "book",
+      "image": "art-u-boku-diabla.jpg",
+      "publishedAt": "2026-11-13T13:09:06.637Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "jakub-ezaw-i-studnie-izaaka-anatomia-wartosci-pokusy-chwili-i-przymierza-pokoju-rdz-25-26",
       "title": "JAKUB, EZAW I STUDNIE IZAAKA — ANATOMIA WARTOŚCI, POKUSY CHWILI I PRZYMIERZA POKOJU",
       "url": "https://polskieradio.cc/news/jakub-ezaw-i-studnie-izaaka-anatomia-wartosci-pokusy-chwili-i-przymierza-pokoju-rdz-25-26",

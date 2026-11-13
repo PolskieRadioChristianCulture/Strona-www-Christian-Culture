@@ -41,6 +41,7 @@ export const AUTHORS: Record<string, Author> = {
 };
 
 export const BREAKING_NEWS: string[] = [
+  "NOWY ARTYKUŁ eM (@MCC): Dobroć nie jest słabością. 7 decyzji, które zmieniają relacje — analiza Cezarego Rogowskiego na Światowy Dzień Dobroci (https://polskieradio.cc/news/dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje)",
   "NOWY ARTYKUŁ CCN NEWS: Świętość nie wymaga udawania: dlaczego prawda o słabości uwalnia? Analiza Cezarego Rogowskiego o glinianych naczyniach i Bożej łasce (https://polskieradio.cc/news/swietosc-nie-wymaga-udawania-dlaczego-prawda-o-slabosci-uwalnia)",
   "NOWY ARTYKUŁ eM (@MCC): Czy w Kościele wolno mówić o własnym kryzysie? Egzegeza 2 Kor 12:9 i Jk 5:16 UBG autorstwa Cezarego Rogowskiego (https://polskieradio.cc/news/czy-w-kosciele-wolno-mowic-o-wlasnym-kryzysie)",
   "PILNE CCN NEWS: Kraków w żałobie: 6 ofiar strzelaniny. Jak odpowiedzieć na zło? Chrześcijański komentarz Cezarego Rogowskiego (https://polskieradio.cc/news/krakow-strzelanina-7-listopada-2026-chrzescijanski-komentarz)",
@@ -89,6 +90,131 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+  "id": "art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje",
+  "title": "Dobroć nie jest słabością. 7 decyzji, które zmieniają relacje",
+  "slug": "dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje",
+  "excerpt": "W świecie zdominowanym przez kult bezwzględnej rywalizacji, cynizmu i natychmiastowej riposty, dobroć bywa mylnie utożsamiana z naiwnością, uległością lub brakiem charakteru. Pismo Święte oraz rzetelne badania nad relacjami międzyludzkimi dowodzą jednak czegoś dokładnie odwrotnego: prawdziwa życzliwość nie jest ucieczką przed konfrontacją, lecz najwyższą formą dojrzałości i siły poddanej mądrości. Gdy pojmujemy biblijną dobroć jako świadomy owoc Bożej łaski, zyskujemy odwagę do podejmowania konkretnych decyzji, które uzdrawiają małżeństwa, gaszą konflikty i przywracają zaufanie w codziennym życiu.",
+  "content": [
+    "1. MIT SŁABOŚCI: DLACZEGO CYNICZNY ŚWIAT BOI SIĘ AUTENTYCZNEJ DOBROCI",
+    "Żyjemy w kulturze, w której bezwzględna asertywność bywa nagminnie mylona z agresją, a cięta, upokarzająca riposta jest w mediach społecznościowych nagradzana milionami polubień. W powszechnej świadomości ugruntowało się szkodliwe przekonanie, że człowiek łagodny, uprzejmy i gotowy do wybaczenia jest bezbronny i skazany na wykorzystanie przez otoczenie. W rezultacie wielu ludzi zakłada pancerz pozornej twardości, chłodu i sarkazmu, obawiając się, że okazanie życzliwości zostanie potraktowane jako oznaka naiwności lub słabości charakteru.",
+    "Psychologia społeczna dowodzi jednak, że demonstracyjny cynizm i agresywny dystans są w istocie mechanizmami obronnymi. Osoba, która chronicznie dewaluuje dobroć i z góry zakłada złe intencje u innych, chroni własną nieprzepracowaną kruchość, lęk przed odrzuceniem oraz pamięć o wcześniejszych zranieniach. Pancerz cynika nie jest symbolem siły, lecz emocjonalną klatką, która uniemożliwia budowanie głębokich, opartych na zaufaniu więzi i skazuje na dotkliwą samotność pośród tłumu.",
+    "Kluczowym warunkiem dojrzałego spojrzenia na relacje jest wyraźne rozróżnienie pomiędzy autentyczną dobrocią a lękową uległością (ang. people-pleasing). Zjawisko to szczegółowo opisała w badaniach klinicznych dr Harriet Braiker w monografii „The Disease to Please”. Lękowa uległość wynika z paraliżującego strachu przed konfliktem, brakiem akceptacji i odrzuceniem — człowiek uległy mówi „tak”, gdy w głębi duszy pragnie powiedzieć „nie”, tłumi swoje potrzeby i kumuluje żal, co nieuchronnie prowadzi do wypalenia i zgorzknienia. Prawdziwa, biblijna dobroć wypływa z zupełnie innego źródła: z wewnętrznej suwerenności, wolności wyboru i poczucia bezpieczeństwa w Bogu. Człowiek prawdziwie dobry wybiera życzliwość nie dlatego, że musi, lecz dlatego, że kocha i ma z czego czerpać.",
+    "2. BIBLIJNA ANATOMIA ŻYCZLIWOŚCI: CHESED, CHRESTOTES I PRAOTES JAKO SIŁA POD KONTROLĄ",
+    "Kiedy otwieramy karty Pisma Świętego w językach oryginalnych, odkrywamy, że biblijne pojęcie dobroci nie ma nic wspólnego z biernością czy brakiem wyrazistości. W Starym Testamencie jednym z najważniejszych słów opisujących Boży charakter jest hebrajskie chesed (Strong H2617). Wyraz ten jest tłumaczony jako miłosierdzie, łaska, dobroć lub wierność przymierza. Chesed nie oznacza ulotnej emocji, lecz niewzruszone, ofiarne zaangażowanie na rzecz drugiego człowieka, wynikające z wierności podjętym zobowiązaniom. Co niezwykle istotne, w biblijnej tradycji chesed jest zawsze gestem świadczonym z pozycji siły, wierności i odpowiedzialności, a nie z pozycji bezradności.",
+    "Niezrównaną ilustracją tej prawdy jest historia króla Dawida i Mefiboszeta (2 Sm 9:1–7 UBG). W starożytnym świecie na Bliskim Wschodzie nowy władca po objęciu tronu systematycznie mordował wszystkich potomków poprzedniej dynastii, aby zapobiec roszczeniom i rebelii. Dawid, znajdując się u szczytu militarnej i politycznej potęgi, zapytał: „Czy został jeszcze ktoś z domu Saula, abym mógł mu okazać miłosierdzie [chesed] przez wzgląd na Jonatana?”. Gdy przyprowadzono do niego Mefiboszeta — chromego na obie nogi syna Jonatana, który drżał w lęku o własne życie — król nie tylko go ocalił, lecz przywrócił mu cały rodowy majątek i nakazał, by ten stale zasiadał przy królewskim stole jak jeden z królewskich synów. Czyn Dawida nie był słabością; był demonstracją potężnej, królewskiej wierności przymierzu, która rozbroiła lęk i przemieniła relacje.",
+    "W Nowym Testamencie apostoł Paweł wymienia dobroć i łagodność jako nierozerwalny owoc Ducha Świętego (Gal 5:22 UBG), posługując się greckim terminem chrestotes (Strong G5544) od przymiotnika chrestos (Strong G5543). Słowo to oznaczało w grece coś dobrego w użyciu, pożytecznego, przynoszącego ulgę i dostosowanego do realnej potrzeby. Sam Jezus Chrystus użył tego słowa, mówiąc: „Moje jarzmo bowiem jest przyjemne [chrestos], a moje brzemię lekkie” (Mt 11:30 UBG). Boża dobroć nie jest abstrakcyjnym hasłem — to konkretna ulga i wsparcie przynoszone zmęczonemu człowiekowi.",
+    "Z kolei biblijne pojęcie cichości i łagodności — greckie praotes (Strong G4240; przymiotnik praos, Strong G4239) — kryje w sobie fascynujący kontekst kulturowy. W klasycznej grece (m.in. u Ksenofonta) termin ten stosowano do opisu dzikiego ogiera bojowego, który przeszedł profesjonalny trening i ujeżdżenie. Taki koń nie tracił ani krztyny ze swojej potężnej siły, wigoru czy odwagi na polu bitwy, ale cała jego moc została poddana wędzidłu i woli jeźdźca. Gdy Jezus mówi: „Błogosławieni cisi [praeis], bo oni odziedziczą ziemię” (Mt 5:5 UBG), nie chwali bezwolnego konformizmu. Biblijna łagodność to „potęga pod kontrolą” (ang. power under control) — ogromna siła charakteru, emocji i możliwości, która została dobrowolnie poddana autorytetowi Boga i użyta do budowania, a nie niszczenia.",
+    "3. ROZDZIELENIE FAKTÓW OD TEOLOGII: NAUKA O RELACJACH A PRAWO BOŻEJ ŁASKI",
+    "Rzetelna publicystyka chrześcijańska wymaga precyzyjnego rozdzielenia faktów obserwowalnych empirycznie przez nauki społeczne od teologicznej wykładni prawd wiary. Na płaszczyźnie badań psychologicznych i socjologicznych dysponujemy dziś twardymi, wieloletnimi dowodami na to, że życzliwość jest fundamentalnym fundamentem ludzkiego dobrostanu i stabilności społecznej.",
+    "Przełomowe znaczenie mają trwające ponad cztery dekady badania prowadzone przez The Gottman Institute (prof. John Gottman i dr Julie Gottman z University of Washington). Badacze ci w warunkach laboratoryjnych analizowali tysiące par małżeńskich i precyzyjnie zidentyfikowali różnicę pomiędzy parami trwałymi (tzw. „mistrzami relacji”) a tymi, które zmierzały ku rozpadowi („katastrofami relacyjnymi”). Okazało się, że najsilniejszym predyktorem trwałości związku nie jest brak różnic zdań, lecz codzienna kultura życzliwości (ang. culture of kindness) oraz zdolność do zauważania i pozytywnego odpowiadania na drobne sygnały zainteresowania wysyłane przez partnera (ang. bids for connection). Z kolei pogarda (contempt), ironia i wyższościowy sarkazm okazały się zabójcą więzi numer jeden, prowadzącym nie tylko do rozwodu, lecz także do osłabienia układu immunologicznego u obojga małżonków.",
+    "Równie uderzające wnioski płyną z teorii gier i matematycznych analiz zachowań społecznych. W klasycznej pracy prof. Roberta Axelroda z University of Michigan („The Evolution of Cooperation”) udowodniono, że w powtarzalnych interakcjach ludzkich strategie bezwzględne, oparte na agresji, cynizmie i eksploatacji innych, w dłuższej perspektywie zawsze ponoszą druzgocącą klęskę. Najwyższą stabilność, skuteczność i odporność na kryzysy wykazała strategia określana jako „Wielkoduszny Wet za Wet” (ang. Generous Tit-for-Tat): zaczynaj od życzliwości i gotowości do współpracy, nie bądź pierwszym, który atakuje, posiadaj jasne granice wobec naruszeń, ale bądź natychmiast gotowy do przebaczenia i powrotu do kooperacji, gdy druga strona wykazuje skruchę.",
+    "Wreszcie, najdłuższe w historii nauki badanie nad ludzkim życiem — Harvard Study of Adult Development, prowadzone nieprzerwanie od 1938 roku (obecnie pod kierunkiem prof. Roberta Waldingera) — wykazało bez cienia wątpliwości, że najważniejszym czynnikiem decydującym o zdrowiu fizycznym, sprawności mózgu i długowieczności człowieka nie jest majątek, status społeczny czy cholesterol, lecz jakość i ciepło relacji międzyludzkich opartych na zaufaniu i wzajemnej życzliwości.",
+    "Z punktu widzenia ortodoksyjnej teologii biblijnej, badania naukowe opisują mechanizmy stworzonego przez Boga świata, ale nie są w stanie dostarczyć człowiekowi mocy do ich trwałej realizacji. 28 Zasad Wiary Kościoła Bożego jednoznacznie przypomina, że upadła natura ludzka jest skażona egoizmem i pychą, z której człowiek nie potrafi wyzwolić się o własnych siłach moralnych. Zbawienie i uświęcenie są darmowym darem Bożej łaski przez wiarę w Jezusa Chrystusa (Ef 2:8–10 UBG). To zamieszkujący w sercu wierzącego Duch Święty uzdalnia do prawdziwego przebaczenia i ofiarnej miłości agape: „Bądźcie dla siebie nawzajem życzliwi, miłosierni, przebaczając sobie nawzajem, jak i wam Bóg przebaczył w Chrystusie” (Ef 4:32 UBG). Biblijna dobroć jest odpowiedzią wdzięcznego serca na niewyobrażalną dobroć, jakiej sami doświadczyliśmy u stóp krzyża.",
+    "4. CHRYSTUS JAKO WZÓR INTEGRALNOŚCI: BEZWZGLĘDNA PRAWDA W POŁĄCZENIU Z NIESKOŃCZONĄ ŁAGODNOŚCIĄ",
+    "W osobie Jezusa Chrystusa odnajdujemy doskonałą harmonię, która burzy wszelkie fałszywe dychotomie pomiędzy siłą a dobrocią. Zbawiciel nie był sentymentalnym nauczycielem, który unikał trudnych tematów w imię fałszywego spokoju. Kiedy widział bezczeszczenie świątyni i wyzysk ubogich pielgrzymów przez religijnych handlarzy, sporządził bicz ze sznurów, powypędzał kupców i poprzewracał stoły bankierów (J 2:13–17 UBG). Gdy konfrontował się z zakłamaną elitą faryzeuszy, bez wahania nazwał ich obłudnikami i grobami pobielanymi (Mt 23:27 UBG). Prawdziwa dobroć nigdy nie milczy w obliczu niesprawiedliwości i nie zawiera zgniłych kompromisów z grzechem.",
+    "Jednocześnie to samo serce Chrystusa płonęło nieskończonym miłosierdziem dla ludzi słabych, odrzuconych i pogubionych. Poruszającym świadectwem jest spotkanie z kobietą pochwyconą na cudzołóstwie (J 8:1–11 UBG). Uczeni w Piśmie przyprowadzili ją, żądając kamienowania, aby zastawić na Jezusa pułapkę prawno-teologiczną. Mistrz z Nazaretu jednym spokojnym zdaniem skruszył ich pychę: „Kto z was jest bez grzechu, niech pierwszy rzuci w nią kamieniem”. Gdy zawstydzeni oskarżyciele odeszli, Jezus zwrócił się do kobiety z godnością, mówiąc: „I ja cię nie potępiam. Idź i odtąd już nie grzesz”. Zbawiciel nie potępił osoby, ale też nie zrelatywizował grzechu — dał jej łaskę, przebaczenie i wezwanie do nowego życia.",
+    "Punktem kulminacyjnym Bożej dobroci stała się Golgota. W momencie nieludzkiego cierpienia, gdy wokół krzyża rozlegały się bluźnierstwa i szyderstwa rzymskich żołnierzy oraz kapłanów, Jezus modlił się: „Ojcze, przebacz im, bo nie wiedzą, co czynią” (Łk 23:34 UBG). W tym wołaniu objawiła się potęga, która zatrzęsła fundamentami świata. Dobroć Chrystusa nie była bezradnością ofiary; była dobrowolną, triumfującą ofiarą Baranka Bożego, która pokonała nienawiść, grzech i śmierć.",
+    "5. ROZŻARZONE WĘGLE I ZWYCIĘŻANIE ZŁA DOBREM (RZYM 12:17–21): ANTYCZNY KONTEKST POJEDNANIA",
+    "Jednym z najbardziej radykalnych i fascynujących fragmentów Nowego Testamentu jest nauczanie apostoła Pawła zawarte w 12. rozdziale Listu do Rzymian: „Nikomu złem za zło nie odpłacajcie; starajcie się o to, co uczciwe wobec wszystkich ludzi. Jeśli to możliwe, o ile to od was zależy, ze wszystkimi ludźmi żyjcie w pokoju. Nie mścijcie się sami, umiłowani, lecz ustąpcie gniewowi. Napisane jest bowiem: Do mnie należy zemsta, ja odpłacę — mówi Pan. Jeśli więc twój nieprzyjaciel jest głodny, nakarm go, jeśli pragnie, napój go. Tak bowiem robiąc, węgle rozżarzone nagromadzisz na jego głowę. Nie daj się zwyciężyć złu, ale zło dobrem zwyciężaj” (Rz 12:17–21 UBG).",
+    "Zrozumienie metafory „nagromadzenia rozżarzonych węgli na głowę” — zaczerpniętej przez Pawła wprost ze starotestamentowej Księgi Przypowieści Salomona (Prz 25:21–22 UBG) — wymaga znajomości realiów starożytnego Bliskiego Wschodu i Egiptu. W świecie antycznym noszenie na głowie naczynia z żarzącymi się węglami było udokumentowanym elementem rytuału publicznej pokuty. Człowiek, który żałował za wyrządzoną krzywdę, kładł popiół lub żarzące się węgle na głowę na znak wstydu, skruchy i pragnienia oczyszczenia.",
+    "Ponadto w kulturze wiejskiej starożytności ogień w domowym palenisku był bezcennym dobrem warunkującym przetrwanie: pozwalał przygotować chleb, ogrzać dom i odegnać dzikie zwierzęta. Gdy komuś wygasło palenisko, musiał udać się do sąsiada z glinianym naczyniem niesionym na głowie, prosząc o żar. Jeśli sąsiad napełnił jego naczynie rozżarzonymi węglami, ratował jego rodzinę przed głodem i chłodem. Odpowiedź dobrem na zło nie jest więc subtelną zemstą mającą na celu upokorzenie przeciwnika, lecz aktem ratunkowym, który topi lód niechęci, zawstydza agresora i otwiera przestrzeń do pojednania. Kiedy odpłacasz złem za zło — zło odnosi podwójne zwycięstwo. Kiedy odpowiadasz dobrem — zrywasz diabelski łańcuch odwetu.",
+    "6. 7 KONKRETNYCH DECYZJI, KTÓRE ZMIENIAJĄ RELACJE: PRAKTYCZNY PRZEWODNIK EkoCC",
+    "Jak w realiach XXI wieku wcielić w życie biblijną dobroć w domu, w pracy i we wspólnocie? Redakcja eM i Christian Culture Network proponuje 7 konkretnych, odpowiedzialnych decyzji, które mają moc uzdrowić relacje:",
+    "1. Zrezygnuj z ciętej riposty — wybierz pauzę i opanowanie (Prz 15:1; Jk 1:19 UBG). W obliczu prowokacji, podniesionego głosu czy złośliwości naturalnym odruchem jest natychmiastowy kontratak. Pismo Święte uczy: „Łagodna odpowiedź uśmierza gniew, ale przykre słowo wzbudza wściekłość”. Zrób krok w tył, weź głęboki oddech i nie odpowiadaj w pierwszym odruchu wzburzenia. Świadome milczenie lub spokojne słowo wymaga stokroć większej siły niż wybuch wściekłości.",
+    "2. Stawiaj granice w prawdzie bez agresji — oddziel życzliwość od uległości (Mt 5:37; Ef 4:15 UBG). Dobroć nie polega na pozwalaniu, by inni deptali twoją godność lub niszczyli twoją rodzinę. Jezus uczył: „Niech wasza mowa będzie: Tak — tak, Nie — nie”. Możesz z pełnym spokojem, kulturą i miłością powiedzieć: „Nie zgadzam się na taki ton rozmowy” albo „Nie mogę podjąć się tego zadania”. Jasne granice chronią relacje przed toksycznym żalem.",
+    "3. Zauważaj i doceniaj drobne gesty — buduj kulturę wdzięczności (1 Tes 5:18; Flp 4:8 UBG). Wiele relacji umiera z powodu powolnej erozji, gdy codzienna praca, troska i wierność małżonka lub współpracownika stają się przezroczyste i traktowane jak oczywistość. Zdecyduj, że każdego dnia wypowiesz choć jedno szczere podziękowanie za konkretny trud: za przygotowany posiłek, za bezpieczny powrót do domu, za punktualność. Wdzięczność jest tlenem dla więzi.",
+    "4. Przerwij łańcuch odwetu — zatrzymaj plotkę, złośliwość i urazę (Rz 12:17; 1 P 3:8–9 UBG). Kiedy w twoim otoczeniu ktoś zaczyna obmawiać nieobecnego, nie dolewaj oliwy do ognia. Możesz powiedzieć: „Porozmawiajmy o tym bezpośrednio z nim” albo zmienić temat. Nie przekazuj dalej złośliwych komentarzy ani nie planuj „jak mu się odpłacić”. Bądź w swoim środowisku tamą, na której zatrzymuje się trucizna obmowy.",
+    "5. Praktykuj bezinteresowność bez kalkulacji i oczekiwania natychmiastowego zysku (Łk 6:32–36 UBG). Zrób coś dobrego dla kogoś, kto nie jest w stanie ci się odwdzięczyć ani zrewanżować. Pomóż sąsiadowi w zakupach, ustąp pierwszeństwa w korku, wesprzyj samotną matkę, prześlij anonimowy datek na leczenie chorego dziecka. Wolność od ciągłego pytania „co ja z tego będę miał?” przywraca duszy dziecięcą radość i upodabnia nas do Ojca w niebie.",
+    "6. Mów prawdę w miłości — konfrontuj z troską o drugiego, a nie z chęcią poniżenia (Ef 4:15.29; Prz 27:6 UBG). Prawdziwa życzliwość nie boi się trudnych rozmów. Czasem największym aktem dobroci jest powiedzenie przyjacielowi w cztery oczy: „Martwię się o ciebie, to co robisz ze swoimi finansami lub małżeństwem prowadzi do katastrofy”. Zrób to jednak z drżeniem serca, dyskretnie i w pokorze, pragnąc jego ratunku, a nie własnego moralnego triumfu.",
+    "7. Czerp siłę ze źródła Bożej łaski, a nie z własnej samowystarczalności (Gal 5:22–23; Kol 3:12–14 UBG). Próba bycia dobrym człowiekiem wyłącznie w oparciu o własną siłę woli kończy się prędzej czy później wyczerpaniem, frustracją i cynizmem. Ludzkie zasoby cierpliwości są ograniczone. Życzliwość jest owocem Ducha Świętego — aby przynosić owoc, musimy trwać w krzewie winnym Chrystusa przez codzienną modlitwę, lekturę Pisma Świętego i zaufanie Bożej łasce.",
+    "PODSUMOWANIE REDAKCYJNE",
+    "Dobroć nie jest kapitulacją przed brutalnym światem — jest jedyną siłą, która potrafi ten świat naprawdę przemienić. Cynizm i agresja są tanie, powszechne i nie wymagają żadnego duchowego wysiłku; potrafi w nie popaść każdy człowiek w chwili urazy. Jednak stanąć przed drugim człowiekiem z otwartym sercem, przebaczyć tam, gdzie sprawiedliwość domaga się odwetu, i odpowiedzieć łagodnością na wrogość — to wymaga heroicznej odwagi i głębokiego zakorzenienia w Bogu. W Światowym Dniu Dobroci przypominamy: dobroć nie czyni cię słabym. Dobroć czyni cię wolnym, bezpiecznym i podobnym do Twojego Stwórcy.",
+    "WEZWANIE DO DZIAŁANIA I MODLITWA",
+    "Światowy Dzień Dobroci (13 listopada) to idealny moment, aby przejść od teorii do czynu. Nie czekaj, aż ktoś inny zrobi pierwszy krok. Rozejrzyj się wokół siebie: w Twoim domu, w pracy, na klatce schodowej czy w rodzinie jest ktoś, kto desperacko potrzebuje dziś odrobiny ciepła, dobrego słowa lub przebaczenia. Zadzwoń, napisz wiadomość, przeproś za uniesienie głosu lub podaj pomocną dłoń bez żadnych warunków wstępnych. Zapraszamy do wspólnej modlitwy:\n\n„Panie Boże Wszechmogący, Stwórco nieba i ziemi, dziękujemy Ci za Twoją niezmierzoną łaskę i dobroć, którą codziennie okazujesz nam w Jezusie Chrystusie, choć w niczym na nią nie zasłużyliśmy. Przebacz nam chwile, w których ulegaliśmy pokusie cynizmu, pychy, twardości serca i szukania odwetu. Uwolnij nas od lęku, który każe nam traktować drugiego człowieka jak rywala. Napełnij nasze serca Twoim Duchem Świętym, abyśmy potrafili wybierać dobroć, przebaczenie i cierpliwość w codziennych relacjach. Uczyń nas narzędziami Twojego pokoju w naszych rodzinach, małżeństwach i społeczeństwie. Przez Jezusa Chrystusa, naszego Pana i Zbawiciela. Amen.”"
+  ],
+  "category": "wiara",
+  "categoryLabel": "eM • Motywacja / Etyka chrześcijańska",
+  "author": AUTHORS.cezary,
+  "publishedAt": "2026-11-13T14:00:00+01:00",
+  "dateFormatted": "13 listopada 2026",
+  "imageUrl": "/images/news/art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.jpg",
+  "imageCaption": "Ilustracja redakcyjna eM / Christian Culture: Spokojna, dojrzała rozmowa dwojga dorosłych ludzi przy drewnianym stole w ciepłym świetle poranka, z otwartym Pismem Świętym — biblijny symbol życzliwości, siły pod kontrolą (praotes) i przymierza wiernej miłości (chesed).",
+  "readTimeMinutes": 8,
+  "isHero": true,
+  "isPopular": true,
+  "popularRank": 1,
+  "tags": [
+    "@CezaryRogowski",
+    "@ChristianCulture",
+    "#DobroćNieJestSłabością",
+    "#ŚwiatowyDzieńDobroci",
+    "#Relacje",
+    "#Biblia",
+    "#eM",
+    "#Gottman",
+    "#UBG",
+    "#EkoCC365",
+    "#Chesed",
+    "#Chrestotes",
+    "#Praotes",
+    "#ŁaskaBoża"
+  ],
+  "scriptureReference": {
+    "verse": "Ef 4:32 (UBG)",
+    "text": "Bądźcie dla siebie nawzajem życzliwi, miłosierni, przebaczając sobie nawzajem, jak i wam Bóg przebaczył w Chrystusie.",
+    "strongCode": "G5544"
+  },
+  "sourceCitation": {
+    "sourceName": "The Gottman Institute (University of Washington) & Harvard Study of Adult Development",
+    "sourceUrl": "https://www.gottman.com"
+  },
+  "biblicalCommentary": {
+    "thesis": "Biblijna dobroć (chesed, chrestotes, praotes) nie jest bezradną uległością, lecz potęgą pod kontrolą Boga i owocem Ducha Świętego, który zwycięża zło dobrem.",
+    "verses": [
+      {
+        "ref": "Ef 4:32 (UBG)",
+        "text": "Bądźcie dla siebie nawzajem życzliwi, miłosierni, przebaczając sobie nawzajem, jak i wam Bóg przebaczył w Chrystusie.",
+        "strongRef": "G5544"
+      },
+      {
+        "ref": "Rz 12:21 (UBG)",
+        "text": "Nie daj się zwyciężyć złu, ale zło dobrem zwyciężaj."
+      },
+      {
+        "ref": "Mt 5:5 (UBG)",
+        "text": "Błogosławieni cisi, bo oni odziedziczą ziemię.",
+        "strongRef": "G4240"
+      },
+      {
+        "ref": "2 Sm 9:1-7 (UBG)",
+        "text": "Czy został jeszcze ktoś z domu Saula, abym mógł mu okazać miłosierdzie [chesed] przez wzgląd na Jonatana?",
+        "strongRef": "H2617"
+      }
+    ],
+    "explanation": "Człowiek nie potrafi wykrzesać trwałej miłości agape wyłącznie o własnych siłach moralnych. Dopiero doświadczenie niezasłużonej dobroci Boga w Chrystusie uzdalnia serce do przebaczenia i ofiarnej życzliwości."
+  },
+  "primaryPortalUrl": "https://polskieradio.cc/eM",
+  "primaryPortalLabel": "eM • Motywacja Christian Culture",
+  "resourceLinks": [
+    {
+      "label": "Interlinearna MojaBiblia CC (Kody Stronga i Greka)",
+      "url": "/mojabiblia"
+    },
+    {
+      "label": "Portal eM Motywacja CC",
+      "url": "/eM"
+    },
+    {
+      "label": "Akademia Biblijna Christian Culture",
+      "url": "/akademia"
+    },
+    {
+      "label": "Wsparcie Misji Christian Culture",
+      "url": "/wspieraj"
+    }
+  ]
+},
   {
     id: "art-11-listopada-2026-polska-wolna-biblijny-patriotyzm",
     title: "Polska wolna. Ale czy nasze serca są wolne? 11 listopada: chrześcijański patriotyzm",

@@ -3,6 +3,36 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://polskieradio.cc/eM</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-13T13:00:00.000Z</news:publication_date>
+      <news:title>Dobroć nie jest słabością. 7 decyzji, które zmieniają relacje</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.jpg</image:loc>
+      <image:title>Dobroć nie jest słabością. 7 decyzji, które zmieniają relacje</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/news</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-11T06:00:00.000Z</news:publication_date>
+      <news:title>Polska wolna. Ale czy nasze serca są wolne? 11 listopada: chrześcijański patriotyzm</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-11-listopada-2026-polska-wolna-biblijny-patriotyzm.jpg</image:loc>
+      <image:title>Polska wolna. Ale czy nasze serca są wolne? 11 listopada: chrześcijański patriotyzm</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/news</loc>
     <news:news>
       <news:publication>

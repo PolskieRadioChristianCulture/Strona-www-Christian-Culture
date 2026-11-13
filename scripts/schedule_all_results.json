@@ -1,0 +1,96 @@
+[
+  {
+    "channel": "Osobowość +",
+    "status": "ERROR: page.goto: net::ERR_INSUFFICIENT_RESOURCES at https://studio.youtube.com/video/suYDIRikPjQ/livestreaming\nCall log:\n\u001b[2m  - navigating to \"https://studio.youtube.com/video/suYDIRikPjQ/livestreaming\", waiting until \"networkidle\"\u001b[22m\n"
+  },
+  {
+    "channel": "Werset Dnia",
+    "status": "ERROR: locator.waitFor: Timeout 40000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('ytd-account-item-renderer').first() to be visible\u001b[22m\n"
+  },
+  {
+    "channel": "CC Women",
+    "status": "CREATED",
+    "videoId": "A5biQPq-bsQ",
+    "channelId": "UC-LPFt-vmJCeap746DOWMgw"
+  },
+  {
+    "channel": "Robert Łukasz Pio",
+    "status": "CREATED",
+    "videoId": "ByEuYclTd4M",
+    "channelId": "UC34DD8FTh_y2GhZhg3qBaIQ"
+  },
+  {
+    "channel": "Katarzyna Fedków",
+    "status": "CREATED",
+    "videoId": null,
+    "channelId": "UCnipJdX6mtsxaoEENzEVusA"
+  },
+  {
+    "channel": "Top Seven",
+    "status": "CREATED",
+    "videoId": "PwYoiuZQjRk",
+    "channelId": "UCdo_1-cjf5TEjSfEG_rxmyw"
+  },
+  {
+    "channel": "RCC TV 24",
+    "status": "CREATED",
+    "videoId": "IrYrb8FEtS0",
+    "channelId": "UCgzGpVUtw4T-9GcwygPeyfw"
+  },
+  {
+    "channel": "CC Prayer 24",
+    "status": "CREATED",
+    "videoId": "yj3sCNOMPlQ",
+    "channelId": "UCPDuMcFijIDEjMWf20J_QCQ"
+  },
+  {
+    "channel": "Christian Culture Network",
+    "status": "CREATED",
+    "videoId": "BAfb1NAFTas",
+    "channelId": "UCnY5U9TRJa16yCNoY6RtIfg"
+  },
+  {
+    "channel": "CC Bible Deep",
+    "status": "CREATED",
+    "videoId": "p5akurwvWBw",
+    "channelId": "UCMwu-cSUiTnvjS5fLiUPXtg"
+  },
+  {
+    "channel": "Christian Culture POP",
+    "status": "CREATED",
+    "videoId": "GiaqqNtqrEw",
+    "channelId": "UCeba0BVF0NA9yuTcizK_iSA"
+  },
+  {
+    "channel": "Popraw Koronę",
+    "status": "ERROR: Cannot resolve channel ID for @PoprawKoroną"
+  },
+  {
+    "channel": "Worship LIVE CC",
+    "status": "CREATED",
+    "videoId": "VRgMVF1AuU4",
+    "channelId": "UC62PrabNO4QTYtpCY282eUw"
+  },
+  {
+    "channel": "CC Instrumental",
+    "status": "CREATED",
+    "videoId": "DDTZ3_mPEyQ",
+    "channelId": "UCN8lW1NMAO9dzRDzVQQa3OA"
+  },
+  {
+    "channel": "CC Identity",
+    "status": "ERROR: Cannot resolve channel ID for @CCIdentity"
+  },
+  {
+    "channel": "CC FILM",
+    "status": "CREATED",
+    "videoId": "85wMAW3FIGg",
+    "channelId": "UCWACuxJkDjYKcJ0-gV62UtA"
+  },
+  {
+    "channel": "CC Nature Sounds",
+    "status": "CREATED",
+    "videoId": "nGNhOONPSUY",
+    "channelId": "UCCs6Cmah9yw4KHnJqC_zR4Q"
+  }
+]
