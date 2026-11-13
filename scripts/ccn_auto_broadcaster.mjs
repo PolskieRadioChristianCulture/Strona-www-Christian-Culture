@@ -365,12 +365,24 @@ function getAllEcosystemCandidates() {
   for (const b of books) addCandidate(b);
 
   // 2. WERSET DNIA — 365 UNIKALNYCH WERSETÓW UBG (ZERO POWTÓRZEŃ)
-  // Wczytujemy pełną bazę 365 wersetów z werset_dnia_365_ubg.json
+  // Wczytujemy pełną bazę 365 wersetów z werset_dnia_365_ubg.json z priorytetem bieżącego dnia roku
   if (fs.existsSync(VERSES_365_PATH)) {
     try {
       const versesData = JSON.parse(fs.readFileSync(VERSES_365_PATH, 'utf8'));
       if (Array.isArray(versesData.verses)) {
-        for (const v of versesData.verses) {
+        // Oblicz bieżący dzień roku (1-365)
+        const now = new Date();
+        const startOfYear = new Date(now.getFullYear(), 0, 0);
+        const dayOfYear = Math.max(1, Math.min(365, Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24))));
+
+        // Sortowanie rotacyjne: dzisiejszy dzień roku na czele, a po nim kolejne
+        const sortedVerses = [...versesData.verses].sort((a, b) => {
+          const distA = (a.day - dayOfYear + 365) % 365;
+          const distB = (b.day - dayOfYear + 365) % 365;
+          return distA - distB;
+        });
+
+        for (const v of sortedVerses) {
           const cleanHook = (v.hook || '').replace(/[\.\?!]+$/, '').trim();
           addCandidate({
             title: `Werset Dnia: „${cleanHook}” (${v.reference}, UBG)`,
