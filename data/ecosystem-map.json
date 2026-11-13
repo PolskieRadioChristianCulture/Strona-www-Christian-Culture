@@ -4796,6 +4796,12 @@
   "updates": [
     {
       "date": "2026-11-13",
+      "agent": "A",
+      "title": "OpenBot Diagram Federacji @777 (L0-L5) oraz Unifikacja GA4 Internal Traffic",
+      "description": "Wizualizacja przepływu pracy 777 agentów (L0-L5, 21 Kolegiów x 37 ról) na kanwie OpenBot (Pasmo 0) oraz wdrożenie filtru ruchu wewnętrznego traffic_type=internal i eventów cc-analytics na lumina.html, vod.html i badz-blisko."
+    },
+    {
+      "date": "2026-11-13",
       "topic": "Cykliczna publikacja CCN News na platformie X #265: Wizytówka Społeczności LUMINA — Cezary Rogowski",
       "agent": "A"
     },
