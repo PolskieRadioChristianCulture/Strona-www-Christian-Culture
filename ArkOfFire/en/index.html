@@ -37,7 +37,7 @@
   </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 
   <link rel="preload" as="image" href="/ArkOfFire/assets/ark-of-fire-hero.webp?v=20261102_hq">
-  <link rel="stylesheet" href="/ArkOfFire/assets/styles.css?v=20261102_3">
+  <link rel="stylesheet" href="/ArkOfFire/assets/styles.css?v=20261113_contest1">
   <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261029_edge5">
 </head>
 <body>
@@ -141,6 +141,92 @@
       </div>
     </section>
 
+    <section class="contest-section" id="contest" aria-labelledby="contest-title">
+      <div class="container">
+        <span class="kicker">Christian Culture Global × Ark of Fire</span>
+        <h2 class="section-title" id="contest-title">🔥 Keep the Fire of Faith Alive!</h2>
+        <div class="story">
+          <h3>Win an Official Ark of Fire T-Shirt</h3>
+          <p>Faith is lived out through everyday choices, prayer, trust in God, and perseverance even when life becomes difficult. Together with the Christian music project <strong>Ark of Fire</strong>, we invite you to take part in a special faith testimony contest.</p>
+        </div>
+
+        <div class="contest-grid">
+          <aside class="contest-showcase" aria-label="Prize and participation guide">
+            <img src="/ArkOfFire/assets/ark-of-fire-tshirt.jpg" loading="lazy" decoding="async" width="1024" height="1024" alt="Official black Ark of Fire T-shirt">
+            <div class="contest-showcase-body">
+              <span class="contest-prize-tag">🎁 Prize: one official Ark of Fire T-shirt</span>
+              <h3>How to participate</h3>
+              <ol class="contest-steps">
+                <li>Complete the form on this page.</li>
+                <li>Answer the contest question.</li>
+                <li>Provide a valid email address.</li>
+                <li>Accept the contest rules and privacy notice.</li>
+              </ol>
+              <div class="contest-meta-box">
+                <p style="margin:0 0 8px;">From all eligible entries, <strong>Ark of Fire will select one winner based on the content of the submitted answers</strong> (sincerity, personal testimony, and a Christ-centered message matter most).</p>
+                <p style="margin:0 0 8px;">The winner will receive an official Ark of Fire T-shirt. Ark of Fire will also cover the shipping costs.</p>
+                <p style="margin:0 0 8px;"><strong>Entries close:</strong> November 30, 2026 (23:59 CET)</p>
+                <p style="margin:0;"><strong>Winner announcement:</strong> By December 3, 2026 (email notification to the winner and notice on the contest page).</p>
+              </div>
+            </div>
+          </aside>
+
+          <div class="contest-form-card">
+            <div class="contest-question-box">
+              <span class="contest-question-label">Contest question · Share your testimony</span>
+              <p class="contest-question-text">&ldquo;How do you keep the fire of faith alive in your everyday life?&rdquo;</p>
+              <p class="contest-question-hint">Share your answer with us. You may write about prayer, reading the Bible, Christian fellowship, God&rsquo;s help in difficult moments, spiritual struggles, or anything that helps you remain close to Jesus Christ in everyday life. Your answer does not need to be long. Authenticity and personal testimony matter most.</p>
+            </div>
+
+            <form id="ark-contest-form" novalidate>
+              <div class="contest-honeypot" aria-hidden="true">
+                <label for="contest-website">Website</label>
+                <input id="contest-website" name="website" type="text" tabindex="-1" autocomplete="off">
+              </div>
+
+              <div class="contest-field">
+                <label for="contest-name">Name or nickname</label>
+                <input class="contest-input" id="contest-name" name="name" type="text" required minlength="2" maxlength="80" autocomplete="name" placeholder="e.g. Sarah or Daniel_M">
+              </div>
+
+              <div class="contest-field">
+                <label for="contest-email">Contact email address</label>
+                <input class="contest-input" id="contest-email" name="email" type="email" required maxlength="254" autocomplete="email" placeholder="you@example.com">
+              </div>
+
+              <div class="contest-field">
+                <label for="contest-answer">Your contest answer</label>
+                <textarea class="contest-textarea" id="contest-answer" name="answer" required minlength="40" maxlength="2000" placeholder="Share in your own words what helps you keep the fire of faith alive every day..."></textarea>
+                <div class="contest-char-row" id="contest-char-row">
+                  <span id="contest-char-hint">Minimum 40 characters</span>
+                  <span id="contest-char-count">0 / 2000</span>
+                </div>
+              </div>
+
+              <label class="contest-check-row" for="contest-accept-rules">
+                <input id="contest-accept-rules" name="acceptRules" type="checkbox" required>
+                <span class="contest-check-text">I accept the <button type="button" class="contest-inline-btn" data-open-contest-modal="rules">contest rules</button>.</span>
+              </label>
+
+              <label class="contest-check-row" for="contest-accept-privacy">
+                <input id="contest-accept-privacy" name="acceptPrivacy" type="checkbox" required>
+                <span class="contest-check-text">I have read the <button type="button" class="contest-inline-btn" data-open-contest-modal="privacy">privacy notice</button> regarding the processing of personal data for the purpose of administering this contest.</span>
+              </label>
+
+              <div class="contest-submit-row">
+                <button type="submit" class="contest-submit-btn" id="contest-submit-btn">Enter the contest</button>
+                <button type="button" class="contest-rules-btn" data-open-contest-modal="rules">Read rules &amp; privacy notice</button>
+              </div>
+
+              <div id="contest-status-banner" class="contest-status-banner" role="status" aria-live="polite" hidden></div>
+            </form>
+
+            <p class="contest-post-win-note">After the winner is selected, Christian Culture will contact them by email. Shipping details (full name, shipping address, T-shirt size, and preferred model: M — men&rsquo;s / F — women&rsquo;s) are collected only after winning and shared privately with Ark of Fire only after the winner gives explicit consent.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="dark support" id="wspieramto" aria-labelledby="wspieramto-title">
       <div class="container">
         <span class="kicker">Showcase patronage</span>
@@ -170,7 +256,49 @@
     <small>Independent Christian missionary media initiative · Christian Culture Network</small>
   </footer>
 
-  <script defer src="/ArkOfFire/assets/app.js?v=20261102_1"></script>
+  <div class="contest-modal" id="contest-rules-modal" hidden>
+    <div class="contest-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="contest-modal-title">
+      <div class="contest-modal-head">
+        <h3 id="contest-modal-title">Contest Rules &amp; Privacy Notice</h3>
+        <button type="button" class="contest-modal-close" id="contest-modal-close" aria-label="Close contest rules">×</button>
+      </div>
+      <div class="contest-modal-body">
+        <h4>1. General Information</h4>
+        <ul>
+          <li><strong>Contest Name:</strong> Faith Testimony Contest &ldquo;Keep the Fire of Faith Alive!&rdquo; (Ark of Fire × Christian Culture Global).</li>
+          <li><strong>Technical Organizer:</strong> Christian Culture — independent Christian missionary media initiative (responsible for the entry form, submission handling, and winner outreach).</li>
+          <li><strong>Partner &amp; Prize Sponsor:</strong> Ark of Fire (independent Christian rock &amp; metal project from the Netherlands).</li>
+          <li><strong>Duration:</strong> November 13, 2026 through November 30, 2026 (23:59 CET).</li>
+          <li><strong>No Purchase Necessary:</strong> participation is completely free of charge and does not require any purchase or donation.</li>
+        </ul>
+        <h4>2. Eligibility &amp; Winner Selection</h4>
+        <ol>
+          <li>To participate, complete the form at <code>https://polskieradio.cc/ArkOfFire/en/</code> (or the Polish version), provide your name or nickname, a valid email address, answer the contest question: <em>&ldquo;How do you keep the fire of faith alive in your everyday life?&rdquo;</em> (40–2000 characters), and accept these rules and the privacy notice.</li>
+          <li>Only one entry per person is permitted.</li>
+          <li>The organizer reserves the right to disqualify offensive, spam, unlawful, or completely off-topic submissions.</li>
+          <li><strong>Selection Criteria:</strong> From all eligible entries, <strong>Ark of Fire will select one winner based on the content, sincerity, personal testimony, relevance to everyday Christian life, and Christ-centered encouragement</strong>. No chance-based or automated selection method is used.</li>
+        </ol>
+        <h4>3. Prize &amp; Shipping</h4>
+        <ul>
+          <li><strong>Prize:</strong> one official Ark of Fire T-shirt (men&rsquo;s M or women&rsquo;s F model, winner&rsquo;s chosen size).</li>
+          <li><strong>Shipping Costs:</strong> both the prize and international shipping costs are fully covered by Ark of Fire.</li>
+          <li><strong>Winner Notification:</strong> Christian Culture will contact the selected winner by email by December 3, 2026. The winner has 7 calendar days to respond. If the winner does not respond or declines, Ark of Fire may select another winner from the remaining entries.</li>
+          <li>The winner&rsquo;s full name will not be published without separate explicit consent.</li>
+        </ul>
+        <h4 id="contest-privacy-heading">4. Privacy Notice</h4>
+        <ul>
+          <li>The data controller for administering this contest is Christian Culture (contact: <code>polskiercctv@gmail.com</code>).</li>
+          <li>At the entry stage, we collect only your name or nickname, email address, and contest answer.</li>
+          <li>For judging purposes, Ark of Fire receives only the entry ID, name/nickname, language, and testimony text — email addresses are never shared with Ark of Fire at this stage.</li>
+          <li>Shipping details (full name, shipping address, T-shirt size, and M/F model) are collected solely from the winner after selection and shared privately with Ark of Fire only upon explicit consent: <em>&ldquo;I consent to Christian Culture sharing my full name, shipping address, T-shirt size and selected model with Ark of Fire solely for the purpose of delivering the prize.&rdquo;</em></li>
+          <li>Personal data is retained only for as long as needed to run the contest and deliver the prize, and is deleted afterwards. You may request access, correction, or erasure of your data at any time.</li>
+        </ul>
+        <p><em>Soli Deo Gloria!</em></p>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="/ArkOfFire/assets/app.js?v=20261113_contest1"></script>
   <script defer src="/js/cc-mobile-edge.js?v=20261029_edge5"></script>
 </body>
 </html>

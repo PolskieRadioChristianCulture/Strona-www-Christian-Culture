@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Panel Konkursu Ark of Fire — Christian Culture</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <style>
+    :root { color-scheme: dark; --bg:#080809; --card:#141418; --line:#2d2a27; --gold:#c5a16c; --text:#f3f0eb; --muted:#a69f96; --orange:#FF7A00; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:400 15px/1.6 Inter, system-ui, sans-serif; padding:24px; }
+    .wrap { max-width:1160px; margin:0 auto; }
+    header { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:14px; padding-bottom:18px; border-bottom:1px solid var(--line); margin-bottom:24px; }
+    h1 { margin:0; font-size:1.5rem; color:var(--gold); }
+    .btn { display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:10px 18px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--text); font-weight:600; cursor:pointer; text-decoration:none; }
+    .btn:hover { border-color:var(--gold); }
+    .btn-primary { background:var(--orange); color:#111; border-color:var(--orange); font-weight:800; }
+    .btn-danger { border-color:#7f1d1d; color:#fca5a5; }
+    .stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px; margin-bottom:24px; }
+    .stat { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; }
+    .stat strong { display:block; font-size:1.7rem; color:var(--gold); }
+    .toolbar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; margin-bottom:20px; }
+    select, input { min-height:44px; padding:8px 12px; border-radius:8px; border:1px solid #3f3a36; background:#0b0b0e; color:var(--text); }
+    .entry { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin-bottom:14px; }
+    .entry-head { display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; margin-bottom:10px; font-size:.9rem; color:var(--muted); }
+    .badge { padding:3px 10px; border-radius:100px; font-size:.78rem; font-weight:700; text-transform:uppercase; }
+    .badge-pending { background:#2a251d; color:#f3c682; }
+    .badge-qualified { background:#14532d; color:#bbf7d0; }
+    .badge-rejected { background:#450a0a; color:#fecaca; }
+    .badge-winner { background:#7c2d12; color:#fed7aa; border:1px solid var(--orange); }
+    .entry-answer { white-space:pre-wrap; background:#0b0b0e; border:1px solid #262320; border-radius:8px; padding:12px; margin:10px 0; color:#e5e0d8; }
+    .entry-actions { display:flex; flex-wrap:wrap; gap:8px; }
+    .draft-box { background:#0e1712; border:1px solid #2e8b57; border-radius:10px; padding:16px; margin-top:14px; white-space:pre-wrap; font-family:monospace; font-size:.88rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Ark of Fire × Christian Culture — Panel Konkursu</h1>
+        <small style="color:var(--muted)">Prywatny panel administracyjny · Wybór jakościowy przez Ark of Fire (bez losowania)</small>
+      </div>
+      <div id="auth-area">
+        <button type="button" class="btn btn-primary" id="login-btn">Zaloguj jako Administrator CC</button>
+      </div>
+    </header>
+
+    <main id="admin-main" hidden>
+      <section class="stats" id="stats-bar"></section>
+
+      <section class="toolbar" aria-label="Status i eksport">
+        <label for="status-select">Status konkursu:</label>
+        <select id="status-select">
+          <option value="draft">draft (szkic)</option>
+          <option value="scheduled">scheduled (zaplanowany)</option>
+          <option value="open">open (otwarty)</option>
+          <option value="closed">closed (zamknięty)</option>
+          <option value="judging">judging (ocena Ark of Fire)</option>
+          <option value="winner_selected">winner_selected (wybrano laureata)</option>
+          <option value="completed">completed (zakończony)</option>
+        </select>
+        <button type="button" class="btn" id="save-status-btn">Zapisz status</button>
+        <button type="button" class="btn btn-primary" id="export-json-btn">Eksport JSON dla Jury (bez e-maili)</button>
+        <button type="button" class="btn" id="export-csv-btn">Eksport CSV dla Jury</button>
+        <button type="button" class="btn" id="print-pdf-btn">Drukuj / PDF dla Jury</button>
+        <button type="button" class="btn btn-danger" id="clean-test-btn">Usuń dane testowe</button>
+      </section>
+
+      <div id="winner-draft-container"></div>
+      <section id="entries-list" aria-label="Lista zgłoszeń"></section>
+    </main>
+  </div>
+
+  <script type="module">
+    const loginBtn = document.getElementById('login-btn');
+    const authArea = document.getElementById('auth-area');
+    const mainEl = document.getElementById('admin-main');
+    const statsBar = document.getElementById('stats-bar');
+    const entriesList = document.getElementById('entries-list');
+    const statusSelect = document.getElementById('status-select');
+    const draftContainer = document.getElementById('winner-draft-container');
+
+    let idToken = '';
+
+    async function api(path, opts = {}) {
+      const res = await fetch(path, {
+        ...opts,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${idToken}`,
+          ...(opts.headers || {}),
+        },
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res;
+    }
+
+    async function loadDashboard() {
+      const res = await api('/api/ark-contest/admin/entries');
+      const data = await res.json();
+      statusSelect.value = data.config?.status || 'open';
+
+      statsBar.innerHTML = `
+        <div class="stat"><span>Wszystkie</span><strong>${data.total}</strong></div>
+        <div class="stat"><span>Oczekujące</span><strong>${data.counts.pending}</strong></div>
+        <div class="stat"><span>Zakwalifikowane</span><strong>${data.counts.qualified}</strong></div>
+        <div class="stat"><span>Odrzucone</span><strong>${data.counts.rejected}</strong></div>
+        <div class="stat"><span>Laureat</span><strong>${data.counts.winner}</strong></div>
+      `;
+
+      entriesList.innerHTML = '';
+      if (!data.entries.length) {
+        entriesList.innerHTML = '<p style="color:var(--muted)">Brak zgłoszeń.</p>';
+        return;
+      }
+
+      for (const e of data.entries) {
+        const card = document.createElement('article');
+        card.className = 'entry';
+        card.innerHTML = `
+          <div class="entry-head">
+            <div>
+              <strong>${escapeHtml(e.name)}</strong> (${escapeHtml(e.email)}) ·
+              <span>${e.locale.toUpperCase()}</span> ·
+              <span>ID: <code>${escapeHtml(e.id)}</code></span>
+              ${e.isTest ? ' · <strong style="color:#facc15">[TEST]</strong>' : ''}
+            </div>
+            <div><span class="badge badge-${escapeHtml(e.status)}">${escapeHtml(e.status)}</span></div>
+          </div>
+          <div class="entry-answer">${escapeHtml(e.answer)}</div>
+          <div class="entry-actions">
+            <button type="button" class="btn" data-act="qualify" data-id="${escapeHtml(e.id)}">Zakwalifikuj</button>
+            <button type="button" class="btn" data-act="reject" data-id="${escapeHtml(e.id)}">Odrzuć formalnie</button>
+            <button type="button" class="btn btn-primary" data-act="winner" data-id="${escapeHtml(e.id)}">Oznacz jako Laureata</button>
+            ${e.status === 'winner' ? `<button type="button" class="btn" data-act="notify" data-id="${escapeHtml(e.id)}">Przygotuj e-mail do Laureata</button>` : ''}
+            <button type="button" class="btn btn-danger" data-act="delete" data-id="${escapeHtml(e.id)}">Usuń</button>
+          </div>
+        `;
+        entriesList.appendChild(card);
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    }
+
+    entriesList.addEventListener('click', async (ev) => {
+      const btn = ev.target.closest('button[data-act]');
+      if (!btn) return;
+      const id = btn.getAttribute('data-id');
+      const act = btn.getAttribute('data-act');
+      if (act === 'qualify') {
+        await api(`/api/ark-contest/admin/entries/${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify({ status: 'qualified' }) });
+      } else if (act === 'reject') {
+        await api(`/api/ark-contest/admin/entries/${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify({ status: 'rejected' }) });
+      } else if (act === 'winner') {
+        if (!confirm('Czy na pewno oznaczyć to zgłoszenie jako Laureata wybranego przez Ark of Fire?')) return;
+        await api(`/api/ark-contest/admin/entries/${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify({ status: 'winner' }) });
+      } else if (act === 'delete') {
+        if (!confirm('Usunąć to zgłoszenie?')) return;
+        await api(`/api/ark-contest/admin/entries/${encodeURIComponent(id)}`, { method: 'DELETE' });
+      } else if (act === 'notify') {
+        const res = await api('/api/ark-contest/admin/notify-winner', { method: 'POST', body: JSON.stringify({ entryId: id }) });
+        const d = await res.json();
+        draftContainer.innerHTML = `<div class="draft-box"><strong>Do:</strong> ${escapeHtml(d.emailDraft.to)}\n<strong>Temat:</strong> ${escapeHtml(d.emailDraft.subject)}\n\n${escapeHtml(d.emailDraft.body)}</div>`;
+      }
+      await loadDashboard();
+    });
+
+    document.getElementById('save-status-btn').addEventListener('click', async () => {
+      await api('/api/ark-contest/admin/config', { method: 'PATCH', body: JSON.stringify({ status: statusSelect.value }) });
+      await loadDashboard();
+    });
+
+    document.getElementById('clean-test-btn').addEventListener('click', async () => {
+      if (!confirm('Usunąć wszystkie zgłoszenia testowe?')) return;
+      await api('/api/ark-contest/admin/entries?onlyTest=1', { method: 'DELETE' });
+      await loadDashboard();
+    });
+
+    async function downloadExport(format) {
+      const res = await api(`/api/ark-contest/admin/export?format=${format}`);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ark-of-fire-entries-for-jury.${format}`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('export-json-btn').addEventListener('click', () => downloadExport('json'));
+    document.getElementById('export-csv-btn').addEventListener('click', () => downloadExport('csv'));
+    document.getElementById('print-pdf-btn').addEventListener('click', () => window.print());
+
+    async function initAuth() {
+      const luminaDb = await import('/lumina-db.js?v=20261107_v3');
+      await luminaDb.ensureDbReady();
+      const user = await luminaDb.waitForAuthReady(3000);
+      if (user && typeof user.getIdToken === 'function') {
+        idToken = await user.getIdToken();
+        authArea.innerHTML = `<span style="color:var(--gold)">${escapeHtml(user.email)}</span>`;
+        mainEl.hidden = false;
+        await loadDashboard();
+      }
+      loginBtn?.addEventListener('click', async () => {
+        const logged = await luminaDb.signInWithGoogle?.();
+        if (logged && typeof logged.getIdToken === 'function') {
+          idToken = await logged.getIdToken();
+          authArea.innerHTML = `<span style="color:var(--gold)">${escapeHtml(logged.email)}</span>`;
+          mainEl.hidden = false;
+          await loadDashboard();
+        }
+      });
+    }
+    initAuth().catch(console.error);
+  </script>
+</body>
+</html>

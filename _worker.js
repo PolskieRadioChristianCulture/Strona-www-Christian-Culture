@@ -7,6 +7,7 @@ import { handleNewsletterApiRequest } from './services/cc-newsletter/newsletter-
 import { handleMissionCalendarApi } from './services/cc-mission-calendar/mission-calendar-service.js';
 import { handleVolunteerApiRequest } from './services/cc-volunteer/volunteer-service.js';
 import { handleAssistantIdeaApiRequest } from './services/cc-assistant/idea-service.js';
+import { handleArkContestApiRequest } from './services/cc-ark-contest/contest-service.js';
 
 const BLOCKED_PREFIXES = [
   '/.git/', '/.codex/', '/.cursor/', '/.claude/', '/repozytoria-cc/', '/joma_shared_memory/',
@@ -1722,6 +1723,9 @@ export default {
     }
     if (url.pathname === '/api/assistant/idea') {
       return handleAssistantIdeaApiRequest(request, env, ctx);
+    }
+    if (url.pathname.startsWith('/api/ark-contest')) {
+      return handleArkContestApiRequest(request, env, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
     }
     if (url.pathname.startsWith('/api/mission-calendar') || url.pathname.startsWith('/api/calendar')) {
       return handleMissionCalendarApi(request, env, ctx, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
