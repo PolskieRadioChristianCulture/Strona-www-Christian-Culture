@@ -1033,7 +1033,7 @@ function formatBroadcasterTweet(item) {
   } else if ((item.url || '').includes('dzien-37')) {
     bodyText = 'Dzień 37 (Wj 6:1–30): Objawienie Imienia JAHWE, 7 Bożych obietnic odkupienia i wyciągnięte Boże ramię.';
   } else if ((item.url || '').includes('dzien-36')) {
-    bodyText = 'Dzień 36 (Wj 5:1–23): Pierwsza konfrontacja Mojżesza i Aarona z faraonem, próba wiary pod uciskiem i Boża wierność.';
+    bodyText = 'Dzień 36 (Wj 5:1–23): Pierwsza konfrontacja z faraonem, próba wiary i Boża wierność.';
   } else if ((item.url || '').includes('dzien-35')) {
     bodyText = 'Dzień 35 (Wj 4:1–31): Znaki z laską na Horebie, powołanie Aarona jako rzecznika i posłuszeństwo Bożemu wezwaniu.';
   } else if ((item.url || '').includes('dzien-34')) {
@@ -1139,7 +1139,7 @@ function formatBroadcasterTweet(item) {
   if (calcLen() > 278) {
     while (calcLen() > 278 && bodyText.includes(' ')) {
       bodyText = bodyText.replace(/\s+\S+$/, '').trim();
-      const cleaned = bodyText.replace(/\s+(według|w|z|do|i|a|o|na|oraz|ze|od|po|dla)\s*$/i, '').trim();
+      const cleaned = bodyText.replace(/\s+(według|w|z|do|i|a|o|na|oraz|ze|od|po|dla|pod|nad|u|przez)\s*$/i, '').trim();
       tweet = `${header}${subLine}${cleaned}…\n\n${callToAction}${url}\n\n${hashtags}`;
     }
   }

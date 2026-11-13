@@ -1,5 +1,21 @@
 [
   {
+    "timestamp": "2026-11-13T20:04:23.477Z",
+    "title": "Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo",
+    "url": "https://polskieradio.cc/prawda-bez-filtra",
+    "type": "book",
+    "image": "art-prawda-bez-filtra.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-13T19:05:15.077Z",
+    "title": "Z Biblią za Pan Brat — Dzień 36 (Lekcja 36): Pierwsza konfrontacja z faraonem: Ciężary niewoli i próba wiary (Wj 5:1–23)",
+    "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-36",
+    "type": "course",
+    "image": "kc_day_36_mojzesz_faraon_cegly.jpg",
+    "status": "PUBLISHED"
+  },
+  {
     "timestamp": "2026-11-13T18:36:01.568Z",
     "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
     "url": "https://cclite.pl",
