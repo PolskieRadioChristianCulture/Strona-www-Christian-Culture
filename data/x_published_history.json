@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina.wiolettarogowska",
+      "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
+      "url": "https://polskieradio.cc/lumina.wiolettarogowska",
+      "type": "profile",
+      "image": "wioletta-og.jpg",
+      "publishedAt": "2026-11-13T09:34:02.374Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "topTEN",
       "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
       "url": "https://polskieradio.cc/topTEN",
