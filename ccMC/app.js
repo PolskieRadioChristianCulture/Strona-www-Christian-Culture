@@ -2671,8 +2671,17 @@ function ensureObsPipElement() {
     wrap.id = 'mcObsPip';
     wrap.className = 'mc-obs-pip';
     wrap.setAttribute('aria-label', 'Podgląd nadawania na żywo');
+    wrap.title = 'Podgląd na żywo z OBS (kliknij, aby odświeżyć obraz)';
     wrap.innerHTML =
       '<video id="mcObsPipVideo" autoplay muted playsinline></video>';
+    wrap.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (window._mcObsPipStream) {
+        try { window._mcObsPipStream.getTracks().forEach((t) => t.stop()); } catch {}
+        window._mcObsPipStream = null;
+      }
+      startObsPip({ allowPrompt: true, force: true }).catch(() => {});
+    });
     document.body.appendChild(wrap);
   }
   return wrap;
@@ -2684,7 +2693,7 @@ function scheduleObsPipRetry() {
   window._mcObsPipRetry = setTimeout(() => startObsPip().catch(() => {}), OBS_PIP_RETRY_MS);
 }
 
-export async function startObsPip({ allowPrompt = false } = {}) {
+export async function startObsPip({ allowPrompt = false, force = false } = {}) {
   if (typeof navigator === 'undefined' || !navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== 'function') {
     return false;
   }
@@ -2716,7 +2725,11 @@ export async function startObsPip({ allowPrompt = false } = {}) {
       return false;
     }
     const prev = window._mcObsPipStream;
-    if (prev && prev.active && prev.getVideoTracks().some((t) => t.readyState === 'live')) return true;
+    if (!force && prev && prev.active && prev.getVideoTracks().some((t) => t.readyState === 'live')) return true;
+    if (prev) {
+      try { prev.getTracks().forEach((t) => t.stop()); } catch {}
+      window._mcObsPipStream = null;
+    }
     const stream = await navigator.mediaDevices.getUserMedia({
       video: { deviceId: { exact: cam.deviceId }, width: { ideal: 640 }, height: { ideal: 360 }, frameRate: { ideal: 15 } },
       audio: false,

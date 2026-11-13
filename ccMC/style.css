@@ -3956,7 +3956,8 @@ body.is-pre-quarter-blue .mc-biblical-badge {
   background: #000;
   border: 1px solid rgba(255, 122, 0, 0.55);
   box-shadow: 0 10px 34px rgba(0, 0, 0, 0.65);
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   display: none;
 }
 .mc-obs-pip video {
