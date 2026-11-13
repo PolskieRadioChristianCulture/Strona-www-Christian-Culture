@@ -244,6 +244,14 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'images', 'news', 'art-gerald-welch-the-call.jpg');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('ambientsleep') || pathLower.includes('ambient') || titleLower.includes('ambient')) {
+    const p1 = path.join(rootDir, 'ambient_hero.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'ambient_hero.webp');
+    if (fs.existsSync(p2)) return p2;
+    const p3 = path.join(rootDir, 'ambient_logo.jpg');
+    if (fs.existsSync(p3)) return p3;
+  }
   if (pathLower.includes('holistyczny') || titleLower.includes('murawski')) {
     const p = path.join(rootDir, 'avatar_pawel_murawski.jpg');
     if (fs.existsSync(p)) return p;
