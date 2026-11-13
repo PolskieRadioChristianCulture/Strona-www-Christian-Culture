@@ -21,8 +21,8 @@ export const DEFAULT_CONTEST_CONFIG = {
   enabled: true,
   status: 'open',
   startDate: '2026-11-13T16:00:00+01:00',
-  endDate: '2026-11-30T23:59:59+01:00',
-  winnerAnnounceDate: '2026-12-03',
+  endDate: '2027-01-01T23:59:59+01:00',
+  winnerAnnounceDate: '2027-01-05',
   winnerSelected: false,
   winnerPublished: false,
 };
