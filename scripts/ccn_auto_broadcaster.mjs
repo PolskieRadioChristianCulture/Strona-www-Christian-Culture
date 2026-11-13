@@ -268,6 +268,12 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'images', 'chat', 'lumi-mess-bg.webp');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('podcast') || titleLower.includes('podcast')) {
+    const p1 = path.join(rootDir, 'images', 'podcasts', 'hero-podcasts.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'assets', 'podcasts', 'hero-podcasts.jpg');
+    if (fs.existsSync(p2)) return p2;
+  }
   if (pathLower.includes('dobroc') || titleLower.includes('dobroć') || titleLower.includes('dobroc')) {
     const p = path.join(rootDir, 'images', 'news', 'art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.jpg');
     if (fs.existsSync(p)) return p;
@@ -850,6 +856,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🎸 ARK OF FIRE | ROCK & METAL';
       callToAction = '👉 Odkryj wizytówkę i muzykę:\n';
       addTags('#ArkOfFire', '#ChristianRock', '#PolskieRadioCC');
+    } else if ((item.url || '').includes('podcast') || (item.title || '').toLowerCase().includes('podcast')) {
+      subHeader = '🎙️ OFICJALNE PODCASTY | CHRISTIAN CULTURE';
+      callToAction = '👉 Słuchaj podcastów i audycji:\n';
+      addTags('#PodcastyCC', '#PolskieRadioCC', '#ChristianCulture', '#Wiara');
     } else {
       subHeader = '🎵 MUZYKA & KANAŁY LIVE';
       callToAction = '👉 Słuchaj na żywo:\n';
