@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "CezaryRogowski",
+      "title": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
+      "url": "https://polskieradio.cc/CezaryRogowski",
+      "type": "music",
+      "image": "cezary-hero.jpg",
+      "publishedAt": "2026-11-13T07:33:27.076Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dzien-44",
       "title": "Z Biblią za Pan Brat — Dzień 44: Przejście przez Morze Czerwone (Wj 14:1–31)",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-44",
