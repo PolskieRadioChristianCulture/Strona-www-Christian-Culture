@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "vod",
+      "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+      "publishedAt": "2026-11-13T14:35:11.559Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "skins",
       "title": "Radio SKINS 2.0 — Interaktywny Odtwarzacz & 5 Skórek Wizualnych",
       "url": "https://polskieradio.cc/skins",
