@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { execFileSync, spawnSync } from 'node:child_process';
-import { expandIcsEvents, fetchIcs, POLISH_HOLIDAYS_ICS_URL } from './gcal-ics.mjs';
+import { expandIcsEvents, fetchIcs, fetchOrBuildOpenBotRoutinesIcs, POLISH_HOLIDAYS_ICS_URL } from './gcal-ics.mjs';
 import { collectQuarterMissionActivity, readPresenterBrief, writeLastEmittedVoiceReport } from './ccmc-voice-exchange.mjs';
 
 const TIMEZONE = 'Europe/Warsaw';
@@ -304,6 +304,39 @@ async function main() {
   const localAppData = process.env.LOCALAPPDATA || path.join(os.homedir(), 'AppData', 'Local');
   const outDir = path.join(localAppData, 'ChristianCulture', 'GCalendarReports');
   fs.mkdirSync(outDir, { recursive: true });
+
+  // Integracja rutyn OpenBot (.ics / openbot_routines_ical_url.txt) z Kalendarzem Misji @ccMC (13.11.2026)
+  let openbotIcalUrl = String(process.env.CC_OPENBOT_ROUTINES_ICAL_URL || '').trim();
+  if (!openbotIcalUrl) {
+    try {
+      openbotIcalUrl = fs.readFileSync(path.join(os.homedir(), '.cc-secrets', 'openbot_routines_ical_url.txt'), 'utf8').trim();
+    } catch {}
+  }
+  try {
+    const { icsText: openbotIcs, source: openbotSource } = await fetchOrBuildOpenBotRoutinesIcs({ icalUrl: openbotIcalUrl });
+    fs.writeFileSync(path.join(outDir, 'openbot-routines.ics'), openbotIcs, 'utf8');
+    const openbotItems = expandIcsEvents(openbotIcs, windowStart.getTime(), windowEnd.getTime());
+    const openbotEvents = normalizeGcalItems(openbotItems, 'openbot-routines').map((e) => ({
+      ...e,
+      calendar_kind: 'mission',
+    }));
+    const existingKeys = new Set(
+      (report.events || [])
+        .filter((e) => e.calendar_kind === 'mission')
+        .map((e) => `${String(e.start || '').slice(0, 16)}|${String(e.title || '').toLowerCase().slice(0, 24)}`)
+    );
+    const uniqueOpenbotEvents = openbotEvents.filter((e) => {
+      const k = `${String(e.start || '').slice(0, 16)}|${String(e.title || '').toLowerCase().slice(0, 24)}`;
+      if (existingKeys.has(k)) return false;
+      existingKeys.add(k);
+      return true;
+    });
+    report.events = [...(report.events || []), ...uniqueOpenbotEvents].sort((a, b) => Date.parse(a.start) - Date.parse(b.start));
+    report.openbot_routines_source = openbotSource;
+    if (!report.calendars_checked.includes('openbot-routines')) report.calendars_checked.push('openbot-routines');
+  } catch (err) {
+    report.warnings.push(`Rutyny OpenBot niedostępne: ${err.message}`);
+  }
 
   // Agent → prezenterka (V1.2): komunikat agenta automatyzacji z pliku lokalnego, ważny do valid_until (max 6 h)
   const presenterBrief = readPresenterBrief(outDir, now);

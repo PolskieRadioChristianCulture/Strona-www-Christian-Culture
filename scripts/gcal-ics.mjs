@@ -275,3 +275,127 @@ export async function fetchIcs(url, timeoutMs = 15000) {
 
 export const POLISH_HOLIDAYS_ICS_URL =
   'https://calendar.google.com/calendar/ical/pl.polish%23holiday%40group.v.calendar.google.com/public/basic.ics';
+
+export const CANONICAL_OPENBOT_ROUTINES = [
+  {
+    uid: 'openbot-cc5-morning-publisher@polskieradio.cc',
+    startHm: '060000',
+    endHm: '063000',
+    summary: 'OpenBot CC 5: Publikator Poranny — DZJ, Kurs Codzienny Akademia & SMS',
+    description: '[OPENBOT ROUTINE CC 5] Publikacja o 06:00 rozważania Dobrze, że jesteś (Firestore cuda-398c0), lekcji Kursu Codziennego (Akademia WWW Clean URLs + przyciski Hero), wysyłka 3 wersji na Grupę Nazira oraz SMS dla Bartka. Pula dostępnych tokenów.',
+  },
+  {
+    uid: 'openbot-cc4-auto-runner@polskieradio.cc',
+    startHm: '070000',
+    endHm: '072000',
+    summary: 'OpenBot CC 4: Wykonawca Automatyzacji (Claude / Codex / Antigravity • Co 1h)',
+    description: '[OPENBOT ROUTINE CC 4] Cykliczny wykonawca zadań ze Skrzynki Misji i kolejki Shared/Automations (co 1 godzinę). Zadanie realizuje model z dostępnymi tokenami.',
+  },
+  {
+    uid: 'openbot-cc2-kc-dzj-guardian@polskieradio.cc',
+    startHm: '071000',
+    endHm: '073000',
+    summary: 'OpenBot CC 2: Strażnik Kursu Codziennego i DZJ (Weryfikacja 07:10)',
+    description: '[OPENBOT ROUTINE CC 2] Codzienna weryfikacja porannej publikacji Kursu Codziennego Z Biblią za Pan Brat oraz Dobrze, że jesteś (sprawdzenie przycisków Hero i braku alarmów).',
+  },
+  {
+    uid: 'openbot-cc1-skrzynka-l0@polskieradio.cc',
+    startHm: '080000',
+    endHm: '083000',
+    summary: 'OpenBot CC 1: Skrzynka Misji i Kolejka Dowódcy L0',
+    description: '[OPENBOT ROUTINE CC 1] Przegląd Skrzynki Misji CC (TABLICA.md), weryfikacja spraw wymagających decyzji L0 oraz aktualizacja RAPORT-KOLEJKA-DOWODCY.md.',
+  },
+  {
+    uid: 'openbot-cc7-audio-production@polskieradio.cc',
+    startHm: '080000',
+    endHm: '090000',
+    summary: 'OpenBot CC 7: Produkcja i Publikacja Audio — Biblia Audio DAW (-16 LUFS) & YouTube',
+    description: '[OPENBOT ROUTINE CC 7] Produkcja słuchowisk Biblia Audio CC (@CCS / DAW -16 LUFS), automatyczna publikacja MP3 320 kbps na polskieradio.cc/biblia-audio (JOMA-D055) oraz premiery YouTube o 08:00.',
+  },
+  {
+    uid: 'openbot-cc10-facebook-feed@polskieradio.cc',
+    startHm: '090000',
+    endHm: '093000',
+    summary: 'OpenBot CC 10: Publikacje Facebook Feed (Cykl co 3h • Grafika @A520)',
+    description: '[OPENBOT ROUTINE CC 10] Cykliczna publikacja postów społecznościowych na Facebooku (co 3 godziny: 09:00, 12:00, 15:00, 18:00, 21:00) z podwójną bramką graficzną @A520 (IMAGE_CONTENT_MATCH & PUBLISHER_VISUAL_APPROVAL = PASS) i zasadą puli dostępnych tokenów.',
+  },
+  {
+    uid: 'openbot-cc9-x-broadcaster@polskieradio.cc',
+    startHm: '093000',
+    endHm: '100000',
+    summary: 'OpenBot CC 9: Emisje Platforma X (CCN Broadcaster • Cykl co 30 min • UBG)',
+    description: '[OPENBOT ROUTINE CC 9] Cykliczna emisja na Platformie X co 30 minut: wersety biblijne UBG, myśli dnia, artykuły CCN News i wizytówki LUMINA z kontrolą anty-spam i pulą dostępnych tokenów.',
+  },
+  {
+    uid: 'openbot-cc8-video-production@polskieradio.cc',
+    startHm: '100000',
+    endHm: '110000',
+    summary: 'OpenBot CC 8: Produkcja i Publikacja Wideo — Apokalipsa 4K, Premiery YT 20:00 & Shorts 9:16',
+    description: '[OPENBOT ROUTINE CC 8] Montaż i skalowanie 4K UHD serii Apokalipsa (planowanie premier na 20:00 na 3 kanałach YT), produkcja Wektor1 Shorts 9:16 z napisami karaoke oraz aktualizacja VOD. Pula dostępnych tokenów.',
+  },
+  {
+    uid: 'openbot-cc6-whatsapp-fifo@polskieradio.cc',
+    startHm: '100000',
+    endHm: '180000',
+    summary: 'OpenBot CC 6: Dystrybucja WhatsApp FIFO (Co godzinę 10:00–18:00 • 2 grupy • Wersja WWW)',
+    description: '[OPENBOT ROUTINE CC 6] Cogodzinna rotacja WhatsApp w oknie 10:00–18:00 po 2 grupy FIFO z kolekcji WhatsAppGroups (wyłącznie wersja WWW contentWeb z linkami, reguła Anti-Backlog, pula dostępnych tokenów).',
+  },
+  {
+    uid: 'openbot-cc3-ecosystem-auditor@polskieradio.cc',
+    startHm: '120000',
+    endHm: '123000',
+    summary: 'OpenBot CC 3: Audytor Zdrowia Ekosystemu 24/7 (Cykl co 6h • Strażnik Zero-QA)',
+    description: '[OPENBOT ROUTINE CC 3] Automatyczny audyt dostępności HTTP 200 kluczowych podstron polskieradio.cc oraz kontrola Strażnika Kodu (straznik-kodu-check.js) co 6 godzin.',
+  },
+];
+
+export function buildOpenBotRoutinesIcs(anchorDateCompact = '20261101') {
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Christian Culture//OpenBot Routines EKOCC 777//PL',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:OpenBot — Rutyny Automatyzacji Christian Culture @777',
+    'X-WR-TIMEZONE:Europe/Warsaw',
+  ];
+  for (const r of CANONICAL_OPENBOT_ROUTINES) {
+    lines.push(
+      'BEGIN:VEVENT',
+      `UID:${r.uid}`,
+      'DTSTAMP:20261113T100000Z',
+      `DTSTART;TZID=Europe/Warsaw:${anchorDateCompact}T${r.startHm}`,
+      `DTEND;TZID=Europe/Warsaw:${anchorDateCompact}T${r.endHm}`,
+      'RRULE:FREQ=DAILY',
+      `SUMMARY:${r.summary.replace(/,/g, '\\,')}`,
+      `DESCRIPTION:${r.description.replace(/,/g, '\\,')}`,
+      'STATUS:CONFIRMED',
+      'TRANSP:TRANSPARENT',
+      'END:VEVENT'
+    );
+  }
+  lines.push('END:VCALENDAR');
+  return lines.join('\r\n') + '\r\n';
+}
+
+export async function fetchOrBuildOpenBotRoutinesIcs({ icalUrl = '' } = {}) {
+  const canonicalIcs = buildOpenBotRoutinesIcs();
+  const trimmedUrl = String(icalUrl || '').trim();
+  if (!trimmedUrl || !/^https?:\/\//i.test(trimmedUrl)) {
+    return { icsText: canonicalIcs, source: 'openbot-canonical' };
+  }
+  try {
+    const remoteIcs = await fetchIcs(trimmedUrl, 2000);
+    if (remoteIcs && remoteIcs.includes('BEGIN:VEVENT')) {
+      const extraBlocks = remoteIcs.match(/BEGIN:VEVENT[\s\S]*?END:VEVENT/g) || [];
+      const merged = canonicalIcs.replace(
+        /END:VCALENDAR\s*$/,
+        `${extraBlocks.join('\r\n')}\r\nEND:VCALENDAR\r\n`
+      );
+      return { icsText: merged, source: 'openbot-live+canonical' };
+    }
+  } catch {
+    // Gdy lokalny port OpenBot jest wyłączony lub zmieniony, używamy kanonicznego zestawu 10 rutyn CC 1–CC 10
+  }
+  return { icsText: canonicalIcs, source: 'openbot-canonical' };
+}

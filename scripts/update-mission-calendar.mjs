@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { expandIcsEvents, fetchIcs, POLISH_HOLIDAYS_ICS_URL } from './gcal-ics.mjs';
+import { expandIcsEvents, fetchIcs, fetchOrBuildOpenBotRoutinesIcs, POLISH_HOLIDAYS_ICS_URL } from './gcal-ics.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -135,8 +135,8 @@ export async function updateMissionCalendar() {
     }
   }
 
-  // 4. Pobranie świąt polskich
-  console.log('[3/3] Pobieram święta państwowe i religijne (iCal)...');
+  // 4. Pobranie świąt polskich i rutyn OpenBot
+  console.log('[3/4] Pobieram święta państwowe i religijne (iCal)...');
   try {
     const icsHolidays = await fetchIcs(POLISH_HOLIDAYS_ICS_URL);
     holidayItems = expandIcsEvents(icsHolidays, windowStart.getTime(), windowEnd.getTime());
@@ -146,9 +146,27 @@ export async function updateMissionCalendar() {
     console.warn(`  -> Ostrzeżenie przy świętach: ${err.message}`);
   }
 
+  console.log('[4/4] Synchronizuję rutyny OpenBot CC 1–CC 10 (iCal)...');
+  let openbotItems = [];
+  try {
+    let openbotIcalUrl = process.env.CC_OPENBOT_ROUTINES_ICAL_URL || '';
+    if (!openbotIcalUrl) {
+      try {
+        openbotIcalUrl = fs.readFileSync(path.join(secretsDir, 'openbot_routines_ical_url.txt'), 'utf8').trim();
+      } catch {}
+    }
+    const { icsText: openbotIcs } = await fetchOrBuildOpenBotRoutinesIcs({ icalUrl: openbotIcalUrl });
+    openbotItems = expandIcsEvents(openbotIcs, windowStart.getTime(), windowEnd.getTime());
+    calendarsChecked.push('openbot-routines');
+    console.log(`  -> Sukces: ${openbotItems.length} wystąpień rutyn OpenBot w oknie 14 dni.`);
+  } catch (err) {
+    console.warn(`  -> Ostrzeżenie przy rutynach OpenBot: ${err.message}`);
+  }
+
   // Zapisz listę kalendarzy
   const calsInfo = [
     { id: MISSION_CAL_ID, name: 'Kalendarz Christian Culture', isMission: true },
+    { id: 'openbot-routines', name: 'OpenBot — Rutyny Automatyzacji CC', isMission: true },
     { id: TARGET_ACCOUNT, primary: true, name: 'Kalendarz Domowy', dataOwner: TARGET_ACCOUNT },
     { id: 'pl.polish#holiday@group.v.calendar.google.com', name: 'Święta w Polsce' },
   ];
@@ -156,7 +174,8 @@ export async function updateMissionCalendar() {
 
   // Normalizacja i scalenie
   const allEvents = [
-    ...normalizeEvents(missionItems, MISSION_CAL_ID, 'Misja CC'),
+    ...normalizeEvents(missionItems, MISSION_CAL_ID, 'Misja CC').map((e) => ({ ...e, calendar_kind: 'mission' })),
+    ...normalizeEvents(openbotItems, 'openbot-routines', 'OpenBot CC').map((e) => ({ ...e, calendar_kind: 'mission' })),
     ...normalizeEvents(personalItems, TARGET_ACCOUNT, 'Osobisty'),
     ...normalizeEvents(holidayItems, 'pl.polish#holiday@group.v.calendar.google.com', 'Święta'),
   ];
