@@ -891,6 +891,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Kraków w żałobie: 6 ofiar strzelaniny. Chrześcijański komentarz Cezarego Rogowskiego wobec zła, bólu i żałoby.';
   } else if ((item.url || '').includes('pokonac-goliata') || (item.title || '').toLowerCase().includes('pokonać goliata')) {
     bodyText = 'Pokonać Goliata — 8 kroków zwycięzcy z doliny lęku do pełnej wolności według Słowa Bożego.';
+  } else if ((item.url || '').includes('ksiazki-autora')) {
+    bodyText = 'Oficjalna biblioteka Cezarego Rogowskiego: czytaj online, słuchaj audiobooków i pobieraj książki bezpłatnie.';
   } else if ((item.url || '').toLowerCase().includes('rozwiaz')) {
     bodyText = 'Rzuć palenie w 14 dni — bezpłatny kurs, plan na głód nikotynowy, audio i biblijna nadzieja.';
   } else if ((item.url || '').includes('blackout') || (item.title || '').toLowerCase().includes('blackout')) {

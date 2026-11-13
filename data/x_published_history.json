@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mojabiblia?ref=GEN.16.13",
+      "title": "Werset Dnia: „Ty jesteś Bogiem, który mnie widzi” (Rdz 16:13, UBG)",
+      "url": "https://polskieradio.cc/mojabiblia?ref=GEN.16.13",
+      "type": "verse",
+      "image": "art-rdz16-17-hagar-el-roi.jpg",
+      "publishedAt": "2026-11-13T08:42:31.995Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "ksiazki-autora",
+      "title": "Półka z Książkami: Cezary Rogowski — Oficjalna Biblioteka Autorska",
+      "url": "https://polskieradio.cc/ksiazki-autora",
+      "type": "book",
+      "image": "ksiazki-autora-og.jpg",
+      "publishedAt": "2026-11-13T08:06:45.179Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "CezaryRogowski",
       "title": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
       "url": "https://polskieradio.cc/CezaryRogowski",
