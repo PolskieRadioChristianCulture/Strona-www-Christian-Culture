@@ -1,6 +1,6 @@
 // Public web documents only: never alter broadcast, operational or embed screens.
 import { applyChannelNumbering } from './cc-channel-numbering.mjs';
-export const BACK_TO_TOP_SCRIPT = '/js/cc-back-to-top.js?v=20261110_btt3';
+export const BACK_TO_TOP_SCRIPT = '/js/cc-back-to-top.js?v=20261113_btt4';
 export const OMNI_SEARCH_SCRIPT = '/components/cc-omni-search.js?v=20261030_feat11';
 export const FAVORITES_SCRIPT = '/js/cc-favorites.js?v=20261015_topbar1';
 export const NEWSLETTER_SCRIPT = '/js/cc-newsletter.js?v=20261030_nl1';
@@ -29,7 +29,7 @@ export function applyPageStandard(file, html) {
   html = html.replace(/(src=["'])(\/?lumina-bottom-nav\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261014_mockup4$3');
   html = html.replace(/(src=["'])(\/?app\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261110_ccwomen5$3');
   html = html.replace(/(src=["'])(\/components\/cc-global-chat-button\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261014_shared4$3');
-  html = html.replace(/(src=["'])(\/js\/cc-back-to-top\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261110_btt3$3');
+  html = html.replace(/(src=["'])(\/js\/cc-back-to-top\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261113_btt4$3');
   html = html.replace(/(src=["'])(\/components\/cc-omni-search\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261030_feat11$3');
   html = html.replace(/(src=["'])(\/js\/cc-favorites\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261015_topbar1$3');
   html = html.replace(/(src=["'])(\/js\/cc-newsletter\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261030_nl1$3');
