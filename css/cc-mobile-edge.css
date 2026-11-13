@@ -343,6 +343,11 @@ html body #ccEdgePlusBtn {
     bottom: calc(var(--cc-lumina-action-base, 76px) + 120px) !important;
     right: max(16px, env(safe-area-inset-right)) !important;
   }
+  html body:has(#luminaThemeSwitchBtn):has(#ccGlobalChatFab #ccChatTeaserBubble:not([style*="display: none"])) #luminaMiniPlayerContainer.minimized,
+  html body:has(#ccGlobalChatFab #ccChatTeaserBubble:not([style*="display: none"])) #luminaMiniPlayerContainer.minimized {
+    bottom: calc(var(--cc-lumina-action-base, calc(76px + env(safe-area-inset-bottom, 0px))) + 268px) !important;
+    right: max(16px, env(safe-area-inset-right)) !important;
+  }
   
   .cc-edge-legacy { display:none!important; }
   #ccTopBarFavBtn,
