@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Apokalipsa: Księga Nadziei — Studio Dobrego Słowa (Christian Culture)</title>
+    <link>https://polskieradio.cc</link>
+    <atom:link href="https://polskieradio.cc/feed/apokalipsa.xml" rel="self" type="application/rss+xml" />
+    <language>pl</language>
+    <copyright>© 2026 Christian Culture (Cezary Rogowski)</copyright>
+    <itunes:author>Cezary Rogowski &amp; Studio Dobrego Słowa (Christian Culture)</itunes:author>
+    <description>Apokalipsa: Księga Nadziei — Studio Dobrego Słowa (Christian Culture) — oficjalny kanał podcastowy ekosystemu Christian Culture (polskieradio.cc).</description>
+    <itunes:owner>
+      <itunes:name>Christian Culture</itunes:name>
+      <itunes:email>kontakt@polskieradio.cc</itunes:email>
+    </itunes:owner>
+    <itunes:image href="https://polskieradio.cc/images/brand/cc-podcast-cover-3000.jpg" />
+    <itunes:category text="Religion &amp; Spirituality">
+      <itunes:category text="Christianity" />
+    </itunes:category>
+    <itunes:explicit>false</itunes:explicit>
+    <item>
+      <title>Apokalipsa: Księga Nadziei (Odc. 29) — Upadek Globalnego Systemu (Obj 17–18)</title>
+      <description>Wykład biblijny z serii Apokalipsa: Księga Nadziei (Studio Dobrego Słowa / Christian Culture). Oglądaj i słuchaj na https://polskieradio.cc/vod</description>
+      <link>https://polskieradio.cc/vod</link>
+      <guid isPermaLink="false">cc-sds-apokalipsa-ep29</guid>
+      <pubDate>Thu, 12 Nov 2026 20:00:00 GMT</pubDate>
+      <enclosure url="https://polskieradio.cc/audio/podcasts/apokalipsa-029.mp3" length="24500000" type="audio/mpeg" />
+      <itunes:author>Cezary Rogowski &amp; Studio Dobrego Słowa (Christian Culture)</itunes:author>
+      <itunes:duration>00:42:15</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
+      <title>Apokalipsa: Księga Nadziei (Odc. 28) — Siedem Czasz Gniewu Bożego (Obj 16)</title>
+      <description>Analiza proroctw Księgi Objawienia w świetle całej Biblii (UBG).</description>
+      <link>https://polskieradio.cc/vod</link>
+      <guid isPermaLink="false">cc-sds-apokalipsa-ep28</guid>
+      <pubDate>Wed, 11 Nov 2026 20:00:00 GMT</pubDate>
+      <enclosure url="https://polskieradio.cc/audio/podcasts/apokalipsa-028.mp3" length="24500000" type="audio/mpeg" />
+      <itunes:author>Cezary Rogowski &amp; Studio Dobrego Słowa (Christian Culture)</itunes:author>
+      <itunes:duration>00:39:50</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+  </channel>
+</rss>

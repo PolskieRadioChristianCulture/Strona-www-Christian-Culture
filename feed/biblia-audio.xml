@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Biblia Audio Christian Culture — Słuchowisko Pisma Świętego (UBG)</title>
+    <link>https://polskieradio.cc</link>
+    <atom:link href="https://polskieradio.cc/feed/biblia-audio.xml" rel="self" type="application/rss+xml" />
+    <language>pl</language>
+    <copyright>© 2026 Christian Culture (Cezary Rogowski)</copyright>
+    <itunes:author>Cezary Rogowski — Christian Culture</itunes:author>
+    <description>Biblia Audio Christian Culture — Słuchowisko Pisma Świętego (UBG) — oficjalny kanał podcastowy ekosystemu Christian Culture (polskieradio.cc).</description>
+    <itunes:owner>
+      <itunes:name>Christian Culture</itunes:name>
+      <itunes:email>kontakt@polskieradio.cc</itunes:email>
+    </itunes:owner>
+    <itunes:image href="https://polskieradio.cc/images/brand/cc-podcast-cover-3000.jpg" />
+    <itunes:category text="Religion &amp; Spirituality">
+      <itunes:category text="Christianity" />
+    </itunes:category>
+    <itunes:explicit>false</itunes:explicit>
+    <item>
+      <title>Księga Rodzaju 23 — Biblia Audio Christian Culture (UBG)</title>
+      <description>Superprodukcja audio Pisma Świętego w przekładzie Uwspółcześnionej Biblii Gdańskiej (-16 LUFS).</description>
+      <link>https://polskieradio.cc/biblia-audio</link>
+      <guid isPermaLink="false">cc-biblia-audio-gen-23</guid>
+      <pubDate>Fri, 13 Nov 2026 08:00:00 GMT</pubDate>
+      <enclosure url="https://polskieradio.cc/biblia-audio/audio/GEN-023.mp3" length="24500000" type="audio/mpeg" />
+      <itunes:author>Cezary Rogowski — Christian Culture</itunes:author>
+      <itunes:duration>00:10:45</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-11-13T11:07:01.413Z",
+  "directiveId": "JOMA-DIR-CC-GLOBAL-DIST-20261113",
+  "content": {
+    "contentId": "CC-2026-KC-DAY45",
+    "titlePl": "Dzień 45: Pieśń Mojżesza i Miriam — Bóg naszą mocą i pieśnią (Wj 15:1–21 UBG)",
+    "titleEn": "Day 45: The Song of Moses and Miriam — The Lord is My Strength and Song (Exodus 15:1–21)",
+    "titleDe": "Tag 45: Das Lied von Mose und Mirjam — Der Herr ist meine Stärke und mein Lobgesang (2. Mose 15,1–21)",
+    "canonicalUrl": "https://polskieradio.cc/akademia/kurscodzienny/dzien-45",
+    "rights": {
+      "licenseType": "cc_original",
+      "allowedPlatforms": [
+        "pinterest",
+        "linkedin",
+        "substack",
+        "facebook-groups",
+        "telegram",
+        "youtube",
+        "instagram",
+        "tiktok",
+        "spotify",
+        "apple-podcasts",
+        "amazon-music"
+      ]
+    },
+    "Gates": {
+      "biblicalK1K12": "PASS",
+      "imageContentMatch": "PASS",
+      "publisherVisualApproval": "PASS"
+    }
+  },
+  "validation": {
+    "ok": true,
+    "errors": []
+  },
+  "dispatches": [
+    {
+      "channelId": "pinterest",
+      "format": "pin_2x3_1000x1500",
+      "board": "Z Biblią za Pan Brat — Infografiki Biblijne",
+      "title": "Dzień 45: Pieśń Mojżesza i Miriam — Bóg naszą mocą i pieśnią (Wj 15:1–21 UBG)",
+      "destinationUrl": "https://polskieradio.cc/akademia/kurscodzienny/dzien-45",
+      "languages": [
+        "pl",
+        "en",
+        "de"
+      ],
+      "status": "QUEUED_VERIFIED_ASSET"
+    },
+    {
+      "channelId": "substack",
+      "format": "bilingual_newsletter_pl_en_de",
+      "title": "Dzień 45: Pieśń Mojżesza i Miriam — Bóg naszą mocą i pieśnią (Wj 15:1–21 UBG) | Day 45: The Song of Moses and Miriam — The Lord is My Strength and Song (Exodus 15:1–21)",
+      "destinationUrl": "https://polskieradio.cc/akademia/kurscodzienny/dzien-45",
+      "languages": [
+        "pl",
+        "en",
+        "de"
+      ],
+      "status": "QUEUED_READY"
+    },
+    {
+      "channelId": "linkedin",
+      "format": "editorial_leadership_post",
+      "author": "Cezary Rogowski",
+      "title": "Wdzięczność po przejściu przez próbę — lekcja przywództwa i wiary z Księgi Wyjścia 15",
+      "destinationUrl": "https://polskieradio.cc/akademia/kurscodzienny/dzien-45",
+      "languages": [
+        "pl",
+        "en"
+      ],
+      "status": "QUEUED_READY"
+    },
+    {
+      "channelId": "facebook-groups",
+      "format": "community_share_antispam",
+      "targetClusters": [
+        "Chrześcijanie i Polonia w Niemczech (DE)",
+        "Polacy i Chrześcijanie w Wielkiej Brytanii (UK)"
+      ],
+      "maxGroupsPerSlot": 2,
+      "versionRule": "WYŁĄCZNIE wersja WWW z pełnym linkiem i autentycznym wstępem @cc-human-voice",
+      "destinationUrl": "https://polskieradio.cc/akademia/kurscodzienny/dzien-45",
+      "status": "QUEUED_ROTATION_FIFO"
+    },
+    {
+      "channelId": "telegram",
+      "format": "instant_channel_broadcast",
+      "channel": "@ChristianCultureGlobal",
+      "destinationUrl": "https://polskieradio.cc/akademia/kurscodzienny/dzien-45",
+      "audioPreviewUrl": "https://polskieradio.cc/biblia-audio/audio/GEN-023.mp3",
+      "status": "QUEUED_READY"
+    }
+  ]
+}

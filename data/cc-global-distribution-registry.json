@@ -1,0 +1,237 @@
+{
+  "$schema": "https://polskieradio.cc/schemas/cc-global-distribution-registry-v1.json",
+  "schemaVersion": "1.0.0",
+  "updatedAt": "2026-11-13T12:05:00+01:00",
+  "strategy": "ZERO_COST_GLOBAL_EXPANSION",
+  "directiveId": "JOMA-DIR-CC-GLOBAL-DIST-20261113",
+  "baselineMetricsOct2026": {
+    "radioCountries": 32,
+    "continents": 5,
+    "spotifyAlbums": 15,
+    "apokalipsaPodcastEpisodes": 29,
+    "youtubeChannels": 7,
+    "priorityGeoMarkets": [
+      { "rank": 1, "country": "Niemcy", "code": "DE", "strategy": "Polonia w Niemczech -> odbiorcy niemieckojęzyczni (radio.net + /de/ + napisy DE)" },
+      { "rank": 2, "country": "Wielka Brytania", "code": "GB", "strategy": "Polonia w UK -> odbiorcy anglojęzyczni (TuneIn/Radio Garden + /en/ + Substack EN)" },
+      { "rank": 3, "country": "Stany Zjednoczone", "code": "US", "strategy": "Polonia w USA -> globalni odbiorcy EN/ES (Apple Podcasts, Amazon Music, Pinterest, YouTube EN/ES)" }
+    ],
+    "priorityLanguages": [
+      { "rank": 1, "code": "en", "name": "Angielski", "flag": "🇬🇧", "urlPrefix": "/en/", "hreflang": "en" },
+      { "rank": 2, "code": "de", "name": "Niemiecki", "flag": "🇩🇪", "urlPrefix": "/de/", "hreflang": "de" },
+      { "rank": 3, "code": "es", "name": "Hiszpański", "flag": "🇪🇸", "urlPrefix": "/es/", "hreflang": "es" },
+      { "rank": 4, "code": "pt", "name": "Portugalski", "flag": "🇵🇹", "urlPrefix": "/pt/", "hreflang": "pt" },
+      { "rank": 5, "code": "fr", "name": "Francuski", "flag": "🇫🇷", "urlPrefix": "/fr/", "hreflang": "fr" }
+    ]
+  },
+  "radioStreams": [
+    {
+      "stationId": "cc-radio-main",
+      "name": "Polskie Radio Christian Culture — Kanał Główny",
+      "webUrl": "https://polskieradio.cc/player",
+      "streamUrl": "https://stream.zeno.fm/christian-culture-main",
+      "language": "pl",
+      "genre": "Christian, Talk, Bible, Worship",
+      "rights": "cc_licensed_broadcast"
+    },
+    {
+      "stationId": "cc-biblia-audio",
+      "name": "Radio Biblia Audio CC (24/7 Słowo Boże)",
+      "webUrl": "https://polskieradio.cc/biblia-audio",
+      "streamUrl": "https://stream.zeno.fm/biblia-audio-cc",
+      "language": "pl",
+      "genre": "Christian, Spoken Word, Bible",
+      "rights": "cc_original"
+    },
+    {
+      "stationId": "cc-biblia-spiewana",
+      "name": "Radio Biblia Śpiewana CC",
+      "webUrl": "https://polskieradio.cc/biblia-spiewana-live.html",
+      "streamUrl": "https://stream.zeno.fm/biblia-spiewana-cc",
+      "language": "pl",
+      "genre": "Christian Music, Sung Scripture, Worship",
+      "rights": "cc_original"
+    },
+    {
+      "stationId": "cc-worship-24",
+      "name": "CCTV24 Worship — Śpiewajmy Panu 24/7",
+      "webUrl": "https://polskieradio.cc/cctv24-worship.html",
+      "streamUrl": "https://stream.zeno.fm/cctv24-worship",
+      "language": "pl",
+      "genre": "Christian Worship, Praise",
+      "rights": "cc_original"
+    },
+    {
+      "stationId": "cc-sniadaniowa",
+      "name": "Poranna Audycja Śniadaniowa CC",
+      "webUrl": "https://polskieradio.cc/snadaniowa-live.html",
+      "streamUrl": "https://stream.zeno.fm/sniadaniowa-cc",
+      "language": "pl",
+      "genre": "Christian Morning Show, Devotional",
+      "rights": "cc_original"
+    },
+    {
+      "stationId": "cc-ambient-sleep",
+      "name": "Christian Culture — Ambient & Modlitwa Nocna",
+      "webUrl": "https://polskieradio.cc/player",
+      "streamUrl": "https://stream.zeno.fm/cc-ambient-prayer",
+      "language": "pl",
+      "genre": "Christian Ambient, Instrumental, Prayer",
+      "rights": "cc_original"
+    }
+  ],
+  "radioDirectories": [
+    { "id": "tunein", "name": "TuneIn", "priority": "P1", "tier": 1, "submissionUrl": "https://tunein.com/broadcasters/", "status": "READY_FOR_SUBMISSION", "targetMarket": "Global / USA / UK / Smart Speakers" },
+    { "id": "radio-garden", "name": "Radio Garden", "priority": "P1", "tier": 1, "submissionUrl": "https://radio.garden/", "status": "READY_FOR_SUBMISSION", "targetMarket": "Global Discovery Globe" },
+    { "id": "mytuner", "name": "myTuner Radio", "priority": "P1", "tier": 1, "submissionUrl": "https://mytuner-radio.com/", "status": "READY_FOR_SUBMISSION", "targetMarket": "Mobile Apps / CarPlay / Android Auto / Smart TV" },
+    { "id": "radio-net", "name": "radio.net (radio.de / radio.pl)", "priority": "P1", "tier": 1, "submissionUrl": "https://www.radio.net/", "status": "READY_FOR_SUBMISSION", "targetMarket": "Niemcy (DE) / DACH / Europa" },
+    { "id": "radio-browser", "name": "Radio Browser (Open Directory)", "priority": "P2", "tier": 2, "submissionUrl": "https://www.radio-browser.info/", "status": "AUTO_API_ENABLED", "targetMarket": "Open-Source Players / Home Assistant / VLC" },
+    { "id": "online-radio-box", "name": "Online Radio Box", "priority": "P2", "tier": 2, "submissionUrl": "https://onlineradiobox.com/", "status": "READY_FOR_SUBMISSION", "targetMarket": "Europa / Polonia" },
+    { "id": "streema", "name": "Streema (Simple Radio)", "priority": "P2", "tier": 2, "submissionUrl": "https://streema.com/", "status": "READY_FOR_SUBMISSION", "targetMarket": "USA / Mobile Simple Radio" }
+  ],
+  "podcastFeeds": [
+    {
+      "feedId": "apokalipsa",
+      "title": "Apokalipsa: Księga Nadziei — Studio Dobrego Słowa (Christian Culture)",
+      "rssPath": "/feed/apokalipsa.xml",
+      "rssUrl": "https://polskieradio.cc/feed/apokalipsa.xml",
+      "episodesCount": 29,
+      "author": "Cezary Rogowski & Studio Dobrego Słowa (Christian Culture)",
+      "category": "Religion & Spirituality",
+      "subcategory": "Christianity",
+      "language": "pl",
+      "rights": "cc_original",
+      "platforms": {
+        "spotify": "LIVE",
+        "applePodcasts": "RSS_READY_FOR_CONNECT",
+        "amazonMusic": "RSS_READY_FOR_CONNECT",
+        "pocketCasts": "RSS_READY",
+        "castbox": "RSS_READY",
+        "overcast": "RSS_READY",
+        "goodpods": "RSS_READY",
+        "substack": "RSS_READY"
+      }
+    },
+    {
+      "feedId": "biblia-audio",
+      "title": "Biblia Audio Christian Culture — Słuchowisko Pisma Świętego (UBG)",
+      "rssPath": "/feed/biblia-audio.xml",
+      "rssUrl": "https://polskieradio.cc/feed/biblia-audio.xml",
+      "episodesCount": 23,
+      "author": "Cezary Rogowski — Christian Culture",
+      "category": "Religion & Spirituality",
+      "subcategory": "Christianity",
+      "language": "pl",
+      "rights": "cc_original",
+      "platforms": {
+        "spotify": "LIVE",
+        "applePodcasts": "RSS_READY_FOR_CONNECT",
+        "amazonMusic": "RSS_READY_FOR_CONNECT",
+        "pocketCasts": "RSS_READY",
+        "castbox": "RSS_READY",
+        "overcast": "RSS_READY"
+      }
+    },
+    {
+      "feedId": "dobrze-ze-jestes",
+      "title": "Dobrze, że jesteś — Codzienne Rozważania & Kurs Codzienny CC",
+      "rssPath": "/feed/dobrze-ze-jestes.xml",
+      "rssUrl": "https://polskieradio.cc/feed/dobrze-ze-jestes.xml",
+      "episodesCount": 46,
+      "author": "Cezary i Wioletta Rogowscy — Christian Culture",
+      "category": "Religion & Spirituality",
+      "subcategory": "Christianity",
+      "language": "pl",
+      "rights": "cc_original",
+      "platforms": {
+        "spotify": "LIVE",
+        "applePodcasts": "RSS_READY_FOR_CONNECT",
+        "amazonMusic": "RSS_READY_FOR_CONNECT",
+        "substack": "RSS_READY"
+      }
+    }
+  ],
+  "expansionChannels": [
+    {
+      "channelId": "pinterest",
+      "name": "Pinterest Global (@ChristianCultureOfficial)",
+      "priority": "HIGH",
+      "week": 3,
+      "routineId": "CC 20",
+      "formats": ["pin_2x3_1000x1500", "infographic_kc", "bible_verse_poster"],
+      "boards": [
+        "Wersety Biblijne na Każdy Dzień (UBG)",
+        "Z Biblią za Pan Brat — Infografiki Biblijne",
+        "Biblia Audio & Plakaty Chrześcijańskie",
+        "Daily Bible Verses & Christian Art (EN)",
+        "Bibelverse & Christliche Inspiration (DE)"
+      ],
+      "seoLinkTarget": "https://polskieradio.cc/akademia#kurscodzienny"
+    },
+    {
+      "channelId": "linkedin",
+      "name": "LinkedIn (Christian Culture & Cezary Rogowski)",
+      "priority": "HIGH",
+      "week": 3,
+      "routineId": "CC 20",
+      "formats": ["article_leadership", "media_partnership_post", "tech_innovation_ekocc"],
+      "seoLinkTarget": "https://polskieradio.cc/news"
+    },
+    {
+      "channelId": "substack",
+      "name": "Substack Newsletter & Podcast (PL / EN / DE)",
+      "priority": "HIGH",
+      "week": 3,
+      "routineId": "CC 20",
+      "formats": ["newsletter_pl_en", "podcast_rss_mirror", "bible_study_digest"],
+      "seoLinkTarget": "https://polskieradio.cc/akademia"
+    },
+    {
+      "channelId": "facebook-groups",
+      "name": "Grupy Facebook (Polonia DE/UK/USA & Społeczności Chrześcijańskie)",
+      "priority": "HIGH",
+      "week": 3,
+      "routineId": "CC 20",
+      "formats": ["www_reflection_with_link", "kc_lesson_card", "biblia_audio_premiere"],
+      "antiSpamPolicy": "Max 2 grupy na transzę, unikalny wstęp @cc-human-voice, pełna zgodność z regulaminem grupy, zero duplikatów",
+      "targetClusters": [
+        "Chrześcijanie i Polonia w Niemczech (DE)",
+        "Polacy i Chrześcijanie w Wielkiej Brytanii (UK)",
+        "Polonia Chrześcijańska w USA (Chicago / NY)",
+        "Grupy Studium Biblii i Rozważań Chrześcijańskich (PL)"
+      ]
+    },
+    {
+      "channelId": "telegram",
+      "name": "Kanał Telegram (@ChristianCultureGlobal)",
+      "priority": "MEDIUM_HIGH",
+      "week": 3,
+      "routineId": "CC 18",
+      "formats": ["instant_premiere_alert", "mp3_biblia_audio_preview", "daily_verse_ubg"],
+      "seoLinkTarget": "https://polskieradio.cc/biblia-audio"
+    },
+    {
+      "channelId": "youtube-community-multilang",
+      "name": "YouTube (7 Kanałów: Karta Społeczność + Wielojęzyczne Ścieżki i Napisy EN/DE/ES/PT/FR)",
+      "priority": "HIGH",
+      "week": 4,
+      "routineId": "CC 17",
+      "formats": ["community_poll", "square_1x1_verse", "multilang_title_desc_subs"],
+      "seoLinkTarget": "https://polskieradio.cc"
+    },
+    {
+      "channelId": "instagram-tiktok-threads",
+      "name": "Instagram Reels/Karuzele, TikTok & Threads",
+      "priority": "HIGH",
+      "week": 3,
+      "routineId": "CC 16",
+      "formats": ["vertical_9x16_karaoke", "carousel_1x1_5slides", "threads_reflection"],
+      "seoLinkTarget": "https://polskieradio.cc/lumina"
+    }
+  ],
+  "roadmap30Days": [
+    { "week": 1, "title": "Audyt istniejących profili i zgłoszenie 6 strumieni radia do głównych katalogów (TuneIn, Radio Garden, myTuner, radio.net, Radio Browser)", "status": "IN_PROGRESS_READY_PACK", "routine": "CC 19" },
+    { "week": 2, "title": "Dystrybucja podcastów przez RSS 2.0 do Apple Podcasts, Amazon Music, Pocket Casts, Castbox i Overcast (/feed/*.xml)", "status": "RSS_FEEDS_GENERATED", "routine": "CC 18" },
+    { "week": 3, "title": "Uruchomienie i automatyzacja Pinterest (2:3), LinkedIn, Substack, Telegram oraz Grup Facebook (DE/UK/USA) z jedną kolejką publikacyjną", "status": "QUEUE_ACTIVE", "routine": "CC 20" },
+    { "week": 4, "title": "Pilotaż wersji angielskiej (/en/) i niemieckiej (/de/) z hreflang oraz wielojęzycznych metadanych YT + pomiary GA4 (Niemcy, UK, USA)", "status": "PILOT_READY", "routine": "CC 18" }
+  ]
+}

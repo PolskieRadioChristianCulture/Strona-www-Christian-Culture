@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dobrze, że jesteś — Codzienne Rozważania &amp; Kurs Codzienny CC</title>
+    <link>https://polskieradio.cc</link>
+    <atom:link href="https://polskieradio.cc/feed/dobrze-ze-jestes.xml" rel="self" type="application/rss+xml" />
+    <language>pl</language>
+    <copyright>© 2026 Christian Culture (Cezary Rogowski)</copyright>
+    <itunes:author>Cezary i Wioletta Rogowscy — Christian Culture</itunes:author>
+    <description>Dobrze, że jesteś — Codzienne Rozważania &amp; Kurs Codzienny CC — oficjalny kanał podcastowy ekosystemu Christian Culture (polskieradio.cc).</description>
+    <itunes:owner>
+      <itunes:name>Christian Culture</itunes:name>
+      <itunes:email>kontakt@polskieradio.cc</itunes:email>
+    </itunes:owner>
+    <itunes:image href="https://polskieradio.cc/images/brand/cc-podcast-cover-3000.jpg" />
+    <itunes:category text="Religion &amp; Spirituality">
+      <itunes:category text="Christianity" />
+    </itunes:category>
+    <itunes:explicit>false</itunes:explicit>
+    <item>
+      <title>Dzień 45: Pieśń Mojżesza i Miriam nad Morzem Czerwonym (Wj 15) — Dobrze, że jesteś &amp; Kurs Codzienny</title>
+      <description>Codzienne rozważanie i lekcja biblijna „Z Biblią za Pan Brat”. Czytaj całość na https://polskieradio.cc/akademia/kurscodzienny/dzien-45</description>
+      <link>https://polskieradio.cc/akademia/kurscodzienny/dzien-45</link>
+      <guid isPermaLink="false">cc-dzj-kc-day45-20261113</guid>
+      <pubDate>Fri, 13 Nov 2026 06:00:00 GMT</pubDate>
+      <enclosure url="https://polskieradio.cc/audio/podcasts/dzj-day-45.mp3" length="24500000" type="audio/mpeg" />
+      <itunes:author>Cezary i Wioletta Rogowscy — Christian Culture</itunes:author>
+      <itunes:duration>00:08:20</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+  </channel>
+</rss>
