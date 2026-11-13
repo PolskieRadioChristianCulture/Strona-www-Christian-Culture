@@ -79,8 +79,8 @@ def create_spotify_cover():
     w_sub = bbox_sub[2] - bbox_sub[0]
     draw.text(((w_t - w_sub) // 2, 1060), sub_text, fill=(226, 204, 154), font=font_sub)
     
-    # Speakers: Wincenty Sieja • Cezary Rogowski
-    speakers_text = "Wykładowca: Wincenty Sieja   |   Prowadzący: Cezary Rogowski"
+    # Speakers: Wincenty Sieja • Mariusz Adamczyk
+    speakers_text = "Wykładowca: Wincenty Sieja   |   Prowadzący: Mariusz Adamczyk"
     bbox_spk = draw.textbbox((0, 0), speakers_text, font=font_spk)
     w_spk = bbox_spk[2] - bbox_spk[0]
     draw.text(((w_t - w_spk) // 2, 1150), speakers_text, fill=(210, 220, 235), font=font_spk)

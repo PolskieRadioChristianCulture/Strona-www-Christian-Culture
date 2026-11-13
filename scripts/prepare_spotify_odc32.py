@@ -2,7 +2,7 @@
 """
 CC STUDIO DAW — Spotify Podcast Production
 Episode: Apokalipsa — Księga Nadziei | Odc. 32: Upadek globalnego systemu
-Speakers: Wincenty Sieja & Cezary Rogowski
+Speakers: Wincenty Sieja & Mariusz Adamczyk
 Target: Spotify Podcast Standard (-14.0 LUFS, True Peak <= -1.0 dBFS, MP3 320 kbps, 1400x1400 Cover Art).
 """
 
@@ -106,8 +106,8 @@ def create_spotify_cover():
     w_sub = bbox_sub[2] - bbox_sub[0]
     draw.text(((w_t - w_sub) // 2, 1145), sub_text, fill=(226, 204, 154), font=font_sub)
     
-    # Speakers: Wincenty Sieja • Cezary Rogowski
-    speakers_text = "Wincenty Sieja  •  Cezary Rogowski"
+    # Speakers: Wincenty Sieja • Mariusz Adamczyk
+    speakers_text = "Wincenty Sieja  •  Mariusz Adamczyk"
     bbox_spk = draw.textbbox((0, 0), speakers_text, font=font_brand)
     w_spk = bbox_spk[2] - bbox_spk[0]
     draw.text(((w_t - w_spk) // 2, 1230), speakers_text, fill=(200, 210, 230), font=font_brand)
@@ -165,14 +165,14 @@ def master_audio():
         '-metadata:s:v', 'title=Album cover',
         '-metadata:s:v', 'comment=Cover (front)',
         '-metadata', 'title=Apokalipsa Odc. 32 — Upadek globalnego systemu',
-        '-metadata', 'artist=Wincenty Sieja, Cezary Rogowski',
+        '-metadata', 'artist=Wincenty Sieja, Mariusz Adamczyk',
         '-metadata', 'album_artist=Studio Dobrego Słowa / Christian Culture',
         '-metadata', 'album=Apokalipsa — Księga Nadziei',
         '-metadata', 'track=32',
         '-metadata', 'date=2026',
         '-metadata', 'genre=Podcast',
         '-metadata', 'publisher=Christian Culture / Studio Dobrego Słowa',
-        '-metadata', 'comment=Wykład biblijny: Apokalipsa 17 i 18. Prowadzą Wincenty Sieja i Cezary Rogowski. https://polskieradio.cc',
+        '-metadata', 'comment=Wykład biblijny: Apokalipsa 17 i 18. Wykładowca: Wincenty Sieja, Prowadzący: Mariusz Adamczyk. Studio Dobrego Słowa / Christian Culture. https://polskieradio.cc',
         FINAL_MP3
     ]
     subprocess.run(cmd_mp3, check=True)
