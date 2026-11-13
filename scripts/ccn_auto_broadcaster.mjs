@@ -34,6 +34,7 @@ const BROADCASTER_STATE_PATH = path.join(ROOT, 'data', 'ccn_broadcaster_state.js
 const BROADCASTER_LOG_PATH = path.join(ROOT, 'data', 'ccn_broadcaster_log.json');
 const CATALOG_PATH = path.join(ROOT, 'szukaj', 'catalog.json');
 const ARTICLES_TS_PATH = path.join(ROOT, 'portals', 'ccn-news', 'src', 'data', 'articles.ts');
+const VERSES_365_PATH = path.join(ROOT, 'data', 'werset_dnia_365_ubg.json');
 
 // Załaduj zmienne środowiskowe
 function loadEnv() {
@@ -162,11 +163,28 @@ function resolveItemImage(item, rootDir) {
   const titleLower = (item.title || '').toLowerCase();
   const pathLower = item.url ? (() => { try { return new URL(item.url).pathname.toLowerCase(); } catch (e) { return item.url.toLowerCase(); } })() : '';
 
+  if (item.type === 'verse' || pathLower.includes('werset-dnia') || titleLower.includes('werset')) {
+    const p1 = path.join(rootDir, 'images', 'player', 'sidebar-verse-bg.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'images', 'player', 'verse-pure-bg.jpg');
+    if (fs.existsSync(p2)) return p2;
+    const p3 = path.join(rootDir, 'images', 'news', 'art-rdz15-abram-gwiazdy.jpg');
+    if (fs.existsSync(p3)) return p3;
+  }
   if (pathLower.includes('biblia-audio') || titleLower.includes('rodzaju')) {
     const p = path.join(rootDir, 'biblia-audio', 'assets', 'rodzaju-hero.jpg');
     if (fs.existsSync(p)) return p;
   }
   if (pathLower.includes('akademia') || pathLower.includes('kurs')) {
+    const dayMatch = pathLower.match(/dzien-(\d+)/);
+    if (dayMatch) {
+      const dayNum = dayMatch[1];
+      const dailyDir = path.join(rootDir, 'images', 'academy', 'daily');
+      if (fs.existsSync(dailyDir)) {
+        const found = fs.readdirSync(dailyDir).find(f => f.startsWith(`kc_day_${dayNum}_`) && (f.endsWith('.jpg') || f.endsWith('.png')));
+        if (found) return path.join(dailyDir, found);
+      }
+    }
     const p1 = path.join(rootDir, 'images', 'academy', 'z_biblia_za_pan_brat_hero.jpg');
     if (fs.existsSync(p1)) return p1;
     const p = path.join(rootDir, 'images', 'news', 'art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg');
@@ -180,6 +198,12 @@ function resolveItemImage(item, rootDir) {
     const p1 = path.join(rootDir, 'assets', 'mapa', 'planeta-poster.jpg');
     if (fs.existsSync(p1)) return p1;
     const p2 = path.join(rootDir, 'images', 'mapa-bg-earth.jpg');
+    if (fs.existsSync(p2)) return p2;
+  }
+  if (pathLower.includes('skins') || pathLower.includes('skin')) {
+    const p1 = path.join(rootDir, 'assets', 'skin-earth.png');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'assets', 'skins', 'skin-earth-v2.webp');
     if (fs.existsSync(p2)) return p2;
   }
   if (pathLower.includes('badz-blisko')) {
@@ -314,8 +338,32 @@ function getAllEcosystemCandidates() {
   ];
   for (const b of books) addCandidate(b);
 
-  // 2. WERSET DNIA (Z DEDYKOWANYMI GRAFIKAMI BIBLIJNYMI)
-  const verses = [
+  // 2. WERSET DNIA — 365 UNIKALNYCH WERSETÓW UBG (ZERO POWTÓRZEŃ)
+  // Wczytujemy pełną bazę 365 wersetów z werset_dnia_365_ubg.json
+  if (fs.existsSync(VERSES_365_PATH)) {
+    try {
+      const versesData = JSON.parse(fs.readFileSync(VERSES_365_PATH, 'utf8'));
+      if (Array.isArray(versesData.verses)) {
+        for (const v of versesData.verses) {
+          const cleanHook = (v.hook || '').replace(/[\.\?!]+$/, '').trim();
+          addCandidate({
+            title: `Werset Dnia: „${cleanHook}” (${v.reference}, UBG)`,
+            lead: `„${v.text}” (${v.reference}, UBG)`,
+            url: `https://polskieradio.cc/werset-dnia?day=${v.day}`,
+            image: null, // resolver dobierze estetyczną grafikę biblijną
+            category: 'Werset Dnia',
+            type: 'verse',
+            tag: '#WersetDnia'
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('[WARN] Błąd wczytywania bazy 365 wersetów:', e.message);
+    }
+  }
+
+  // Dodatkowe historyczne wersety z dedykowanymi grafikami
+  const legacyVerses = [
     {
       title: 'Werset Dnia: „Ty jesteś Bogiem, który mnie widzi” (Rdz 16:13, UBG)',
       lead: '„I nazwała PANA, który mówił do niej: Ty jesteś Bogiem, który mnie widzi. Powiedziała bowiem: Czyż tu nie spoglądałam na tego, który widzi mnie?” (Rdz 16:13)',
@@ -362,7 +410,7 @@ function getAllEcosystemCandidates() {
       tag: '#WersetDnia'
     }
   ];
-  for (const v of verses) addCandidate(v);
+  for (const v of legacyVerses) addCandidate(v);
 
   // 3. MUZYKA, PORTALE MUZYCZNE & YOUTUBE
   const musicItems = [
@@ -656,13 +704,42 @@ function getAllEcosystemCandidates() {
       const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, 'utf8'));
       if (Array.isArray(catalog.items)) {
         for (const it of catalog.items) {
-          if (it.url && it.title && !it.url.includes('#') && (it.url.includes('polskieradio.cc') || it.url.startsWith('/'))) {
+          if (it.url && it.title && !it.url.includes('#') && (it.url.includes('polskieradio.cc') || it.url.startsWith('/') || it.url.includes('cclite.pl'))) {
             const fullUrl = it.url.startsWith('http') ? it.url : `https://polskieradio.cc${it.url}`;
             let tag = '#CCNNews';
-            if (fullUrl.includes('/historia/')) tag = '#HistoriaBiblijna';
-            else if (fullUrl.includes('/nauka/')) tag = '#NaukaIBiblia';
-            else if (fullUrl.includes('/akademia/')) tag = '#KursCodzienny';
-            else if (fullUrl.includes('/biblia-audio/')) tag = '#BibliaAudio';
+            let itemType = 'module';
+
+            const cat = it.category || '';
+            const uLower = fullUrl.toLowerCase();
+
+            if (cat.includes('Artykuły') || uLower.includes('/news/')) {
+              itemType = 'news';
+              tag = '#CCNNews';
+            } else if (uLower.includes('/akademia/kurscodzienny/dzien-') || uLower.includes('kurs')) {
+              itemType = 'course';
+              tag = '#KursCodzienny';
+            } else if (cat.includes('Akademia') || uLower.includes('/akademia')) {
+              itemType = 'module';
+              tag = '#AkademiaBiblijna';
+            } else if (cat.includes('Radio') || cat.includes('Muzyka') || uLower.includes('/player') || uLower.includes('/topten')) {
+              itemType = 'music';
+              tag = '#PolskieRadioCC';
+            } else if (cat.includes('VOD') || uLower.includes('/vod')) {
+              itemType = 'vod';
+              tag = '#KinoVOD';
+            } else if (cat.includes('Społeczność') || uLower.includes('lumina')) {
+              itemType = 'profile';
+              tag = '#Lumina';
+            } else if (cat.includes('Wiedza') || uLower.includes('/historia/') || uLower.includes('/nauka/') || uLower.includes('/biologia/') || uLower.includes('/prawo/')) {
+              itemType = 'news';
+              if (uLower.includes('/historia/')) tag = '#HistoriaBiblijna';
+              else if (uLower.includes('/nauka/')) tag = '#NaukaIBiblia';
+              else if (uLower.includes('/prawo/')) tag = '#Dekalog';
+              else tag = '#CCNNews';
+            } else if (uLower.includes('/biblia-audio/')) {
+              itemType = 'module';
+              tag = '#BibliaAudio';
+            }
 
             addCandidate({
               title: it.title,
@@ -670,7 +747,7 @@ function getAllEcosystemCandidates() {
               url: fullUrl,
               image: it.image || it.imageUrl || null,
               category: it.category || 'Ekosystem',
-              type: 'news',
+              type: itemType,
               tag
             });
           }
@@ -733,9 +810,15 @@ function formatBroadcasterTweet(item) {
       addTags(item.tag || '#CCNMuzyka', '#PolskieRadioCC', '#WorshipLive', '#ChristianCulture');
     }
   } else if (item.type === 'course' || (item.url || '').toLowerCase().includes('rozwiaz')) {
-    subHeader = '🕊️ ROZWIĄŻ PROBLEM | NOWY KURS';
-    callToAction = '👉 Rozpocznij kurs:\n';
-    addTags(item.tag || '#RozwiazProblem', '#RzucPalenie', '#Wolnosc');
+    if ((item.url || '').includes('akademia') || (item.url || '').includes('kurscodzienny')) {
+      subHeader = '🎓 AKADEMIA BIBLIJNA | KURS CODZIENNY';
+      callToAction = '👉 Studiuj lekcję w serwisie:\n';
+      addTags(item.tag || '#KursCodzienny', '#ZBibliaZaPanBrat', '#AkademiaBiblijna');
+    } else {
+      subHeader = '🕊️ ROZWIĄŻ PROBLEM | NOWY KURS';
+      callToAction = '👉 Rozpocznij kurs:\n';
+      addTags(item.tag || '#RozwiazProblem', '#RzucPalenie', '#Wolnosc');
+    }
   } else if (item.type === 'profile') {
     subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
     callToAction = '👉 Dołącz do społeczności LUMINA:\n';
