@@ -238,6 +238,26 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'images', 'news', 'art-gerald-welch-the-call.jpg');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('holistyczny') || titleLower.includes('murawski')) {
+    const p = path.join(rootDir, 'avatar_pawel_murawski.jpg');
+    if (fs.existsSync(p)) return p;
+  }
+  if (pathLower.includes('heatfix') || titleLower.includes('heatfix')) {
+    const p = path.join(rootDir, 'images', 'ogloszenia-premier-heatfix.jpg');
+    if (fs.existsSync(p)) return p;
+  }
+  if (pathLower.includes('mariusz')) {
+    const p = path.join(rootDir, 'avatar_mariusz_sds.jpg');
+    if (fs.existsSync(p)) return p;
+  }
+  if (pathLower.includes('/mess') || titleLower.includes('lumimess')) {
+    const p = path.join(rootDir, 'images', 'chat', 'lumi-mess-bg.webp');
+    if (fs.existsSync(p)) return p;
+  }
+  if (pathLower.includes('dobroc') || titleLower.includes('dobroć') || titleLower.includes('dobroc')) {
+    const p = path.join(rootDir, 'images', 'news', 'art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.jpg');
+    if (fs.existsSync(p)) return p;
+  }
 
   // 4. Bezpieczna, estetyczna grafika redakcyjna wysokiej rozdzielczości
   const fallback = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
@@ -665,14 +685,14 @@ function getAllEcosystemCandidates() {
   if (fs.existsSync(ARTICLES_TS_PATH)) {
     try {
       const tsContent = fs.readFileSync(ARTICLES_TS_PATH, 'utf8');
-      const blocks = tsContent.split(/\{\s*id:\s*['"`]/);
+      const blocks = tsContent.split(/\{\s*["']?id["']?\s*:\s*['"`]/);
       for (const block of blocks.slice(1)) {
         const idMatch = block.match(/^([^'"`]+)/);
-        const titleMatch = block.match(/title:\s*['"`](.*?)['"`]/);
-        const slugMatch = block.match(/slug:\s*['"`](.*?)['"`]/);
-        const leadMatch = block.match(/lead:\s*['"`](.*?)['"`]/) || block.match(/excerpt:\s*['"`](.*?)['"`]/);
-        const portalMatch = block.match(/portal:\s*['"`](.*?)['"`]/);
-        const imgMatch = block.match(/imageUrl:\s*['"`](.*?)['"`]/);
+        const titleMatch = block.match(/["']?title["']?\s*:\s*['"`](.*?)['"`]/);
+        const slugMatch = block.match(/["']?slug["']?\s*:\s*['"`](.*?)['"`]/);
+        const leadMatch = block.match(/["']?lead["']?\s*:\s*['"`](.*?)['"`]/) || block.match(/["']?excerpt["']?\s*:\s*['"`](.*?)['"`]/);
+        const portalMatch = block.match(/["']?portal["']?\s*:\s*['"`](.*?)['"`]/);
+        const imgMatch = block.match(/["']?imageUrl["']?\s*:\s*['"`](.*?)['"`]/);
 
         if (titleMatch && (slugMatch || idMatch)) {
           const slug = slugMatch ? slugMatch[1] : idMatch[1];
@@ -907,6 +927,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🤝 DIAKONIA & POMOC SPOŁECZNA';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#CCNNews', '#Diakonia', '#ChristianCulture');
+    } else if (tLower.includes('dobroć') || tLower.includes('dobroc') || (item.url || '').includes('dobroc')) {
+      subHeader = '🤝 ŚWIATOWY DZIEŃ DOBROCI | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#SwiatowyDzienDobroci', '#DobrocNieJestSlaboscia', '#CezaryRogowski', '#CCNNews', '#Prawda');
     } else if (tLower.includes('telefon milczy') || tLower.includes('samotn') || tLower.includes('sąsiad') || tLower.includes('sasiad')) {
       subHeader = '🤝 SPOŁECZEŃSTWO & EMPATIA | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
@@ -968,6 +992,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Ark of Fire — chrześcijański rock z Holandii. Świadectwo odkupienia i utwór „It Is Finished” w Polskim Radiu CC.';
   } else if ((item.url || '').includes('the-journal') || (item.title || '').includes('THE JOURNAL')) {
     bodyText = 'THE JOURNAL — 90-dniowy przewodnik formacji, wiary i nawyków. Karta dzienna, pytania wieczorne i bezpłatne PDF!';
+  } else if ((item.url || '').includes('dobroc') || (item.title || '').toLowerCase().includes('dobroć')) {
+    bodyText = 'Czy dobroć to naiwność? 7 konkretnych decyzji, które zmieniają relacje, gaszą konflikty i przynoszą Boży pokój — analiza Cezarego Rogowskiego na Światowy Dzień Dobroci.';
   } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
     bodyText = item.lead;
   } else if ((item.url || '').includes('krakow') || (item.title || '').toLowerCase().includes('kraków')) {
