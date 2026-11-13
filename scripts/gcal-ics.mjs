@@ -347,6 +347,62 @@ export const CANONICAL_OPENBOT_ROUTINES = [
     summary: 'OpenBot CC 3: Audytor Zdrowia Ekosystemu 24/7 (Cykl co 6h • Strażnik Zero-QA)',
     description: '[OPENBOT ROUTINE CC 3] Automatyczny audyt dostępności HTTP 200 kluczowych podstron polskieradio.cc oraz kontrola Strażnika Kodu (straznik-kodu-check.js) co 6 godzin.',
   },
+  {
+    uid: 'openbot-cc12-biblia-spiewana-lumina@polskieradio.cc',
+    startHm: '070000',
+    endHm: '073000',
+    summary: 'OpenBot CC 12: Biblia Śpiewana, LUMINA & Pasmo Szabatowe (07:00)',
+    description: '[OPENBOT ROUTINE CC 12] Codzienna weryfikacja ciągłości strumieni Biblii Śpiewanej, aktywności portalu LUMINA (standard 1 renderera lumina-profile.html?u=<slug>) oraz w piątki przygotowanie pasma szabatowego.',
+  },
+  {
+    uid: 'openbot-cc13-ccn-news-search-index@polskieradio.cc',
+    startHm: '113000',
+    endHm: '120000',
+    summary: 'OpenBot CC 13: Redakcja CCN News & Auto-Indeksowanie Wyszukiwarki @w (11:30)',
+    description: '[OPENBOT ROUTINE CC 13] Publikacja artykułów na portalach tematycznych (/news, /nauka, /historia, /biologia, /prawo, /seks) wyłącznie pod nazwiskami Cezarego i Wioletty Rogowskich, z bramką @A520 i automatyczną aktualizacją indeksu @w.',
+  },
+  {
+    uid: 'openbot-cc17-youtube-community-posts@polskieradio.cc',
+    startHm: '123000',
+    endHm: '130000',
+    summary: 'OpenBot CC 17: Posty Społeczności YouTube (7 Kanałów YT • Ankietowe & Graficzne • 12:30)',
+    description: '[OPENBOT ROUTINE CC 17] Codzienne posty na karcie Społeczność na 7 kanałach YouTube (ankiety biblijne, grafiki 1:1 @A520 z wersetem UBG i zapowiedzi premier o 08:00/20:00). Pula dostępnych tokenów.',
+  },
+  {
+    uid: 'openbot-cc16-instagram-reels-tiktok@polskieradio.cc',
+    startHm: '130000',
+    endHm: '134500',
+    summary: 'OpenBot CC 16: Instagram Reels, Karuzele 1:1 & TikTok Global (Pionowe 9:16 • 13:00)',
+    description: '[OPENBOT ROUTINE CC 16] Dystrybucja pionowych rolek 9:16 (z napisami karaoke z Wektor1) oraz karuzel edukacyjnych 1:1 (5 slajdów z Kursu Codziennego) na Instagram i TikTok. Bramka @A520 i pula dostępnych tokenów.',
+  },
+  {
+    uid: 'openbot-cc18-global-podcasts-i18n@polskieradio.cc',
+    startHm: '150000',
+    endHm: '154500',
+    summary: 'OpenBot CC 18: Globalna Ekspansja — Spotify, Apple Podcasts, Telegram, Threads & 8 Języków (15:00)',
+    description: '[OPENBOT ROUTINE CC 18] Automatyczna dystrybucja RSS na Spotify/Apple Podcasts, publikacja na Kanale Telegram, Threads, Pinterest i LinkedIn oraz lokalizacja 8-języczna (PL, EN, ES, DE, FR, PT, UK, HE). Pula dostępnych tokenów.',
+  },
+  {
+    uid: 'openbot-cc11-prebuffer-72h-guardian@polskieradio.cc',
+    startHm: '160000',
+    endHm: '163000',
+    summary: 'OpenBot CC 11: Strażnik Bufora Wyprzedzającego 72h (DZJ & Kurs Codzienny • 16:00)',
+    description: '[OPENBOT ROUTINE CC 11] Codzienna kontrola o 16:00, czy rozważania DZJ, lekcje Kursu Codziennego i odcinki Biblii Audio są gotowe na minimum 3 dni naprzód (D+1, D+2, D+3) wraz z weryfikacją K1–K12 i grafiką @A520.',
+  },
+  {
+    uid: 'openbot-cc14-rut-evening-briefing@polskieradio.cc',
+    startHm: '203000',
+    endHm: '210000',
+    summary: 'OpenBot CC 14: Asystentka Rut & Wieczorny Bilans Dnia L0 (@ccMC • 20:30)',
+    description: '[OPENBOT ROUTINE CC 14] Wieczorny bilans dnia (zrealizowane rutyny CC 1–CC 18, postęp celów i plan na jutro) dla Asystentki Rut (WhatsApp CC LIFE) oraz prezenterki Aoede TTS w Kalendarzu Misji @ccMC.',
+  },
+  {
+    uid: 'openbot-cc15-night-memory-storage@polskieradio.cc',
+    startHm: '231500',
+    endHm: '234500',
+    summary: 'OpenBot CC 15: Nocna Higiena Pamięci, Backup i Strażnik Dysku C: (23:15)',
+    description: '[OPENBOT ROUTINE CC 15] Nocne czyszczenie sesji tymczasowych OpenBot (clean-memory), kontrola wolnego miejsca na dysku C: (audit-storage), weryfikacja pętli LIVE_VERIFIED oraz backup pamięci JOMA.',
+  },
 ];
 
 export function buildOpenBotRoutinesIcs(anchorDateCompact = '20261101') {
