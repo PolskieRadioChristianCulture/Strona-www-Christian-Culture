@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>CC GLOBAL MISSION INTELLIGENCE — Panel Testowy L0 (/test/mission-intelligence)</title>
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --card: #131b2e;
+      --card-alt: #19233c;
+      --border: rgba(196, 163, 90, 0.26);
+      --gold: #C4A35A;
+      --orange: #FF7A00;
+      --orange-hover: #FF8C33;
+      --orange-active: #E66A00;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --green: #22c55e;
+      --blue: #38bdf8;
+      --amber: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      padding: 24px 16px 64px;
+    }
+    .container { max-width: 1180px; margin: 0 auto; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700;
+      background: rgba(196, 163, 90, 0.14); color: var(--gold); border: 1px solid var(--border);
+    }
+    h1 { font-size: clamp(24px, 3.5vw, 36px); margin: 0 0 8px; letter-spacing: -0.02em; }
+    h2 { font-size: 20px; margin: 0 0 14px; color: var(--gold); }
+    p.lead { color: var(--muted); max-width: 880px; margin: 0 0 24px; font-size: 15px; }
+    .grid { display: grid; gap: 18px; margin-bottom: 24px; }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .step-box {
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .step-num { font-size: 11px; font-weight: 800; color: var(--orange); text-transform: uppercase; }
+    .step-title { font-weight: 700; font-size: 14px; margin: 4px 0; }
+    .step-desc { font-size: 12px; color: var(--muted); }
+    .slider-row {
+      display: grid;
+      grid-template-columns: 1fr 140px 64px;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    input[type="range"] { width: 100%; accent-color: var(--orange); min-height: 44px; cursor: pointer; }
+    .btn-orange {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 44px; min-width: 44px; padding: 10px 18px;
+      background: var(--orange); color: #ffffff; font-weight: 700; font-size: 14px;
+      border: none; border-radius: 10px; cursor: pointer; text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .btn-orange:hover { background: var(--orange-hover); }
+    .btn-orange:active { background: var(--orange-active); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    th { color: var(--gold); font-weight: 700; }
+    .pill-ok { color: var(--green); font-weight: 700; }
+    .pill-warn { color: var(--amber); font-weight: 700; }
+    .rec-item {
+      background: var(--card-alt);
+      border-left: 4px solid var(--orange);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+    .honest-banner {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge-row">
+      <span class="badge">🌍 CC GLOBAL MISSION INTELLIGENCE</span>
+      <span class="badge">Strategia ZERO COST • 13.11.2026</span>
+      <span class="badge">Środowisko weryfikacyjne: /test/mission-intelligence.html</span>
+      <a href="/ccMC" class="btn-orange">← Powrót do Kalendarza Misji (@ccMC)</a>
+    </div>
+
+    <h1>System Inteligentnego Rozeznawania Potrzeb Odbiorców</h1>
+    <p class="lead">
+      Łączymy globalną ekspansję z analizą potrzeb odbiorców (GA4 + Google Search Console + Google Trends + Looker Studio).
+      System oddziela analizę od decyzji wdrożeniowych L0, nie sumuje różnych metryk i nigdy nie traktuje statystyk jako dowodu stanu duchowego odbiorców.
+    </p>
+
+    <div class="honest-banner">
+      <strong>Status uczciwości danych (Zero Fikcji):</strong> Zgodnie z dyrektywą z 13.11.2026 system bazuje na zweryfikowanym audycie technicznym HTML (<code>G-Y4EFTVBPE3</code>) oraz opublikowanym sprawozdaniu za październik 2026 (32 kraje, 5 kontynentów, 15 albumów Spotify, 29 odcinków Apokalipsy). Bieżące potoki API GA4 i Search Console mają status <code>GOTOWE_DO_PODPIĘCIA_ODCZYTOWEGO</code> — nie prezentujemy hipotetycznych liczb jako żywych statystyk.
+    </div>
+
+    <h2>1. Pięcioetapowy Mechanizm Decyzyjny</h2>
+    <div class="pipeline">
+      <div class="step-box">
+        <div class="step-num">Etap 1</div>
+        <div class="step-title">DANE GOOGLE</div>
+        <div class="step-desc">Odbiorcy, kraje, wyszukiwane pytania (GSC), zachowania (GA4) i trendy.</div>
+      </div>
+      <div class="step-box">
+        <div class="step-num">Etap 2</div>
+        <div class="step-title">ANALIZA MISYJNA</div>
+        <div class="step-desc">Potrzeby duchowe, potencjał wzrostu, luki językowe i priorytety.</div>
+      </div>
+      <div class="step-box">
+        <div class="step-num">Etap 3</div>
+        <div class="step-title">PLAN DZIAŁANIA</div>
+        <div class="step-desc">Konkretne rekomendacje treści, tłumaczeń EN/DE/ES/PT/FR i kanałów.</div>
+      </div>
+      <div class="step-box">
+        <div class="step-num">Etap 4</div>
+        <div class="step-title">AKCEPTACJA I PUBLIKACJA</div>
+        <div class="step-desc">Testy EKOCC na /test/, zatwierdzenie L0 i wysyłka przez CC GLOBAL DISTRIBUTION.</div>
+      </div>
+      <div class="step-box">
+        <div class="step-num">Etap 5</div>
+        <div class="step-title">POMIAR EFEKTÓW</div>
+        <div class="step-desc">Porównanie okresów w nieulotnej historii i korekta strategii.</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>2. Model Punktacji CC GLOBAL (Interaktywne Wagi 100%)</h2>
+        <p style="font-size:13px;color:var(--muted);margin-top:0;">
+          Dostosuj znaczenie poszczególnych wskaźników. System automatycznie przelicza ich udziały do 100%:
+        </p>
+        <div id="slidersWrap">
+          <div class="slider-row">
+            <div><strong>Zainteresowanie</strong><br><small style="color:var(--muted)">Wyszukiwania i wyświetlenia w Google</small></div>
+            <input type="range" id="w_interest" min="0" max="100" value="25" aria-label="Waga Zainteresowanie" />
+            <strong id="lbl_interest">25%</strong>
+          </div>
+          <div class="slider-row">
+            <div><strong>Zaangażowanie</strong><br><small style="color:var(--muted)">Aktywność i wartościowe działania w GA4</small></div>
+            <input type="range" id="w_engagement" min="0" max="100" value="25" aria-label="Waga Zaangażowanie" />
+            <strong id="lbl_engagement">25%</strong>
+          </div>
+          <div class="slider-row">
+            <div><strong>Potencjał wzrostu</strong><br><small style="color:var(--muted)">Trendy i zmiana wyników w czasie</small></div>
+            <input type="range" id="w_growthPotential" min="0" max="100" value="20" aria-label="Waga Potencjał wzrostu" />
+            <strong id="lbl_growthPotential">20%</strong>
+          </div>
+          <div class="slider-row">
+            <div><strong>Luka w dostępności</strong><br><small style="color:var(--muted)">Brak dopasowanych językowo materiałów CC</small></div>
+            <input type="range" id="w_availabilityGap" min="0" max="100" value="15" aria-label="Waga Luka w dostępności" />
+            <strong id="lbl_availabilityGap">15%</strong>
+          </div>
+          <div class="slider-row">
+            <div><strong>Gotowość dystrybucyjna</strong><br><small style="color:var(--muted)">Dostępne treści, tłumaczenia i kanały</small></div>
+            <input type="range" id="w_distReadiness" min="0" max="100" value="15" aria-label="Waga Gotowość dystrybucyjna" />
+            <strong id="lbl_distReadiness">15%</strong>
+          </div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <button type="button" class="btn-orange" id="btnResetWeights">Przywróć proponowane wagi (25/25/20/15/15)</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>3. Dynamiczny Ranking Krajów Misyjnych</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Kraj / Region</th>
+              <th>Języki</th>
+              <th>Grupa Strategiczna</th>
+              <th>Wynik</th>
+            </tr>
+          </thead>
+          <tbody id="countryRankingBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>4. Krok Pierwszy: Audyt Pomiarów GA4 (G-Y4EFTVBPE3)</h2>
+        <p style="font-size:13px;color:var(--muted);margin-top:0;">
+          Automatyczna kontrola obecności tagu GA4 i filtra ruchu wewnętrznego (<code>traffic_type='internal'</code>) na kluczowych stronach CC:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Powierzchnia</th>
+              <th>Tag GA4</th>
+              <th>Filtr Internal</th>
+              <th>SEO / OG</th>
+            </tr>
+          </thead>
+          <tbody id="auditTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>5. Poniedziałkowy Raport Misyjny (Top 5 Rekomendacji L0)</h2>
+        <div id="recommendationsWrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    const DEFAULT_W = { interest: 25, engagement: 25, growthPotential: 20, availabilityGap: 15, distReadiness: 15 };
+    let stateData = null;
+
+    function normalize(raw) {
+      const keys = Object.keys(DEFAULT_W);
+      let sum = keys.reduce((acc, k) => acc + Math.max(0, Number(raw[k]) || 0), 0);
+      if (sum <= 0) return { ...DEFAULT_W };
+      const out = {};
+      let run = 0;
+      keys.forEach((k, idx) => {
+        if (idx === keys.length - 1) out[k] = Math.round(100 - run);
+        else {
+          out[k] = Math.round((Math.max(0, Number(raw[k]) || 0) / sum) * 100);
+          run += out[k];
+        }
+      });
+      return out;
+    }
+
+    function renderCountries(weights) {
+      if (!stateData) return;
+      const w = normalize(weights);
+      Object.keys(DEFAULT_W).forEach((k) => {
+        const lbl = document.getElementById('lbl_' + k);
+        if (lbl) lbl.textContent = w[k] + '%';
+      });
+
+      const rows = stateData.countryRanking.map((c) => {
+        if (c.insufficientData) {
+          return { ...c, computedScore: -1 };
+        }
+        const ind = c.indicators || {};
+        const sc = (
+          (ind.interest * w.interest) +
+          (ind.engagement * w.engagement) +
+          (ind.growthPotential * w.growthPotential) +
+          (ind.availabilityGap * w.availabilityGap) +
+          (ind.distReadiness * w.distReadiness)
+        ) / 100;
+        return { ...c, computedScore: Number(sc.toFixed(1)) };
+      }).sort((a, b) => b.computedScore - a.computedScore);
+
+      const tbody = document.getElementById('countryRankingBody');
+      tbody.innerHTML = rows.map((r) => `
+        <tr>
+          <td><strong>${r.countryName}</strong> (${r.countryCode})</td>
+          <td>${(r.primaryLanguages || []).map((l) => l.toUpperCase()).join(', ') || '—'}</td>
+          <td><span class="${r.insufficientData ? 'pill-warn' : 'pill-ok'}">${r.groupLabel}</span></td>
+          <td><strong>${r.insufficientData ? 'Niewystarczające dane (<30)' : r.computedScore + ' / 100'}</strong></td>
+        </tr>
+      `).join('');
+    }
+
+    async function init() {
+      const res = await fetch('/data/cc-mission-intelligence-state.json').catch(() => null);
+      if (res && res.ok) {
+        stateData = await res.json();
+      }
+      if (!stateData) return;
+
+      const auditBody = document.getElementById('auditTableBody');
+      auditBody.innerHTML = stateData.measurementAudit.surfaces.map((s) => `
+        <tr>
+          <td><strong>${s.label}</strong><br><small style="color:var(--muted)">${s.file}</small></td>
+          <td><span class="${s.hasGa4Tag ? 'pill-ok' : 'pill-warn'}">${s.hasGa4Tag ? '✓ Aktywny' : '⚠ Do dodania'}</span></td>
+          <td><span class="${s.hasInternalTrafficFilter ? 'pill-ok' : 'pill-warn'}">${s.hasInternalTrafficFilter ? '✓ Tak' : '⚠ Brak'}</span></td>
+          <td><span class="${s.hasCanonicalOrOg ? 'pill-ok' : 'pill-warn'}">${s.hasCanonicalOrOg ? '✓ OK' : '—'}</span></td>
+        </tr>
+      `).join('');
+
+      const recWrap = document.getElementById('recommendationsWrap');
+      recWrap.innerHTML = stateData.mondayTop5Recommendations.map((rec) => `
+        <div class="rec-item">
+          <div style="font-size:12px;color:var(--gold);font-weight:700;">#${rec.rank} • ${rec.questionAnswered} (${rec.targetCountry} • ${rec.targetLanguage})</div>
+          <div style="font-size:13px;margin-top:4px;">${rec.recommendation}</div>
+        </div>
+      `).join('');
+
+      renderCountries(DEFAULT_W);
+    }
+
+    Object.keys(DEFAULT_W).forEach((k) => {
+      const el = document.getElementById('w_' + k);
+      if (el) {
+        el.addEventListener('input', () => {
+          const current = {};
+          Object.keys(DEFAULT_W).forEach((key) => {
+            current[key] = Number(document.getElementById('w_' + key).value);
+          });
+          renderCountries(current);
+        });
+      }
+    });
+
+    document.getElementById('btnResetWeights').addEventListener('click', () => {
+      Object.keys(DEFAULT_W).forEach((k) => {
+        document.getElementById('w_' + k).value = DEFAULT_W[k];
+      });
+      renderCountries(DEFAULT_W);
+    });
+
+    init();
+  </script>
+</body>
+</html>

@@ -417,6 +417,20 @@ export const CANONICAL_OPENBOT_ROUTINES = [
     summary: 'OpenBot CC 15: Nocna Higiena Pamięci, Backup i Strażnik Dysku C: (23:15)',
     description: '[OPENBOT ROUTINE CC 15] Nocne czyszczenie sesji tymczasowych OpenBot (clean-memory), kontrola wolnego miejsca na dysku C: (audit-storage), weryfikacja pętli LIVE_VERIFIED oraz backup pamięci JOMA.',
   },
+  {
+    uid: 'openbot-cc21-mission-intelligence-daily@polskieradio.cc',
+    startHm: '053000',
+    endHm: '060000',
+    summary: 'OpenBot CC 21: CC Mission Intelligence — Codzienny Audyt Pomiarów GA4/GSC, Monitoring Anomalii & Historia (05:30)',
+    description: '[OPENBOT ROUTINE CC 21] Codzienny audyt poprawności pomiarów GA4 (G-Y4EFTVBPE3) i Search Console na podstronach i odtwarzaczach CC, monitoring anomalii oraz dopisanie migawki do nieulotnej historii (bez sumowania różnych metryk i bez automatycznej przebudowy portalu).',
+  },
+  {
+    uid: 'openbot-cc22-mission-intelligence-weekly@polskieradio.cc',
+    startHm: '080000',
+    endHm: '084500',
+    summary: 'OpenBot CC 22: CC Mission Intelligence — Raport Misyjny L0, Top 5 Rekomendacji & Ranking Krajów 25/25/20/15/15 (08:00)',
+    description: '[OPENBOT ROUTINE CC 22] System inteligentnego rozeznawania potrzeb odbiorców (GA4 + GSC + Google Trends + Looker Studio): dynamiczny ranking krajów (25/25/20/15/15 z blokadą małej próby INSUFFICIENT_DATA), Top 5 rekomendacji misyjnych pod polskieradio.cc/test/mission-intelligence.html oraz most do CC GLOBAL DISTRIBUTION.',
+  },
 ];
 
 export function buildOpenBotRoutinesIcs(anchorDateCompact = '20261101') {

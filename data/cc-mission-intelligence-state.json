@@ -1,0 +1,455 @@
+{
+  "schemaVersion": "1.0.0",
+  "directiveId": "JOMA-DIR-CC-MISSION-INTEL-20261113",
+  "updatedAt": "2026-11-13T11:20:01.420Z",
+  "governance": {
+    "autoPublishForbidden": true,
+    "stagingUrlRequired": "https://polskieradio.cc/test/mission-intelligence.html",
+    "neverSumDistinctMetrics": true,
+    "separateMobileAndDesktop": true,
+    "spiritualStateInference": "FORBIDDEN",
+    "agentAccessLevel": "AGGREGATE_ONLY_NO_PII"
+  },
+  "weights": {
+    "interest": 25,
+    "engagement": 25,
+    "growthPotential": 20,
+    "availabilityGap": 15,
+    "distReadiness": 15,
+    "normalizedSum": 100
+  },
+  "measurementAudit": {
+    "auditedAt": "2026-11-13T11:20:01.418Z",
+    "canonicalGa4MeasurementId": "G-Y4EFTVBPE3",
+    "totalSurfacesChecked": 9,
+    "ga4CoveredCount": 8,
+    "missingGa4Surfaces": [
+      "ccMC/index.html"
+    ],
+    "recommendedMissionEvents": [
+      {
+        "eventName": "cc_radio_play",
+        "description": "Uruchomienie strumienia radia CC (z parametrem station_id i device_category)"
+      },
+      {
+        "eventName": "cc_biblia_audio_listen",
+        "description": "Odsłuch rozdziału Biblii Audio CC (z parametrem book_id i chapter)"
+      },
+      {
+        "eventName": "cc_kc_lesson_open",
+        "description": "Otwarcie i przewinięcie lekcji Kursu Codziennego Akademii Biblijnej"
+      },
+      {
+        "eventName": "cc_dzj_reflection_read",
+        "description": "Odczyt rozważania Dobrze, że jesteś oraz kliknięcie udostępnienia"
+      },
+      {
+        "eventName": "cc_subscription_optin",
+        "description": "Dobrowolne zapisanie się do subskrypcji / newslettera / powiadomień"
+      }
+    ],
+    "surfaces": [
+      {
+        "id": "home",
+        "file": "index.html",
+        "label": "Strona główna (polskieradio.cc)",
+        "exists": true,
+        "hasGa4Tag": true,
+        "hasInternalTrafficFilter": true,
+        "hasCanonicalOrOg": true,
+        "hasLangAttr": true
+      },
+      {
+        "id": "player",
+        "file": "player.html",
+        "label": "Odtwarzacz Radio CC (/player)",
+        "exists": true,
+        "hasGa4Tag": true,
+        "hasInternalTrafficFilter": true,
+        "hasCanonicalOrOg": true,
+        "hasLangAttr": true
+      },
+      {
+        "id": "biblia-audio",
+        "file": "biblia-audio/index.html",
+        "label": "Biblia Audio CC (/biblia-audio)",
+        "exists": true,
+        "hasGa4Tag": true,
+        "hasInternalTrafficFilter": true,
+        "hasCanonicalOrOg": true,
+        "hasLangAttr": true
+      },
+      {
+        "id": "akademia",
+        "file": "akademia.html",
+        "label": "Akademia Biblijna (/akademia)",
+        "exists": true,
+        "hasGa4Tag": true,
+        "hasInternalTrafficFilter": true,
+        "hasCanonicalOrOg": true,
+        "hasLangAttr": true
+      },
+      {
+        "id": "lumina",
+        "file": "lumina.html",
+        "label": "Portal LUMINA (/lumina)",
+        "exists": true,
+        "hasGa4Tag": true,
+        "hasInternalTrafficFilter": false,
+        "hasCanonicalOrOg": true,
+        "hasLangAttr": true
+      },
+      {
+        "id": "mojabiblia",
+        "file": "mojabiblia.html",
+        "label": "Interlinearna MojaBiblia (/mojabiblia)",
+        "exists": true,
+        "hasGa4Tag": true,
+        "hasInternalTrafficFilter": true,
+        "hasCanonicalOrOg": true,
+        "hasLangAttr": true
+      },
+      {
+        "id": "vod",
+        "file": "vod.html",
+        "label": "Kino Chrześcijańskie VOD (/vod)",
+        "exists": true,
+        "hasGa4Tag": true,
+        "hasInternalTrafficFilter": false,
+        "hasCanonicalOrOg": true,
+        "hasLangAttr": true
+      },
+      {
+        "id": "badz-blisko",
+        "file": "badz-blisko/index.html",
+        "label": "Bądź Blisko (8 języków)",
+        "exists": true,
+        "hasGa4Tag": true,
+        "hasInternalTrafficFilter": true,
+        "hasCanonicalOrOg": true,
+        "hasLangAttr": true
+      },
+      {
+        "id": "ccmc",
+        "file": "ccMC/index.html",
+        "label": "Kalendarz Misji (@ccMC)",
+        "exists": true,
+        "hasGa4Tag": false,
+        "hasInternalTrafficFilter": false,
+        "hasCanonicalOrOg": false,
+        "hasLangAttr": true
+      }
+    ]
+  },
+  "countryRanking": [
+    {
+      "countryCode": "DE",
+      "countryName": "Niemcy",
+      "primaryLanguages": [
+        "pl",
+        "de"
+      ],
+      "group": "ACTIVE_AUDIENCE",
+      "groupLabel": "Grupa A: CC ma już aktywnych odbiorców",
+      "insufficientData": false,
+      "observations": 310,
+      "score": 85.5,
+      "indicators": {
+        "interest": 88,
+        "engagement": 86,
+        "growthPotential": 90,
+        "availabilityGap": 75,
+        "distReadiness": 85
+      },
+      "separateMetricsOct2026": {
+        "radioSessionsVerified": "Czołowy rynek zagraniczny (Raport Październik 2026)",
+        "note": "Priorytet #1 ekspansji: Polonia DE -> odbiorcy niemieckojęzyczni (/de/ + radio.net)"
+      },
+      "weights": {
+        "interest": 25,
+        "engagement": 25,
+        "growthPotential": 20,
+        "availabilityGap": 15,
+        "distReadiness": 15,
+        "normalizedSum": 100
+      }
+    },
+    {
+      "countryCode": "US",
+      "countryName": "Stany Zjednoczone",
+      "primaryLanguages": [
+        "pl",
+        "en",
+        "es"
+      ],
+      "group": "ACTIVE_AUDIENCE",
+      "groupLabel": "Grupa A: CC ma już aktywnych odbiorców",
+      "insufficientData": false,
+      "observations": 210,
+      "score": 84.7,
+      "indicators": {
+        "interest": 89,
+        "engagement": 80,
+        "growthPotential": 92,
+        "availabilityGap": 72,
+        "distReadiness": 88
+      },
+      "separateMetricsOct2026": {
+        "radioSessionsVerified": "Czołowy rynek zagraniczny (Raport Październik 2026)",
+        "note": "Priorytet #3 ekspansji: Polonia USA -> Apple Podcasts, Amazon Music, Pinterest EN/ES"
+      },
+      "weights": {
+        "interest": 25,
+        "engagement": 25,
+        "growthPotential": 20,
+        "availabilityGap": 15,
+        "distReadiness": 15,
+        "normalizedSum": 100
+      }
+    },
+    {
+      "countryCode": "GB",
+      "countryName": "Wielka Brytania",
+      "primaryLanguages": [
+        "pl",
+        "en"
+      ],
+      "group": "ACTIVE_AUDIENCE",
+      "groupLabel": "Grupa A: CC ma już aktywnych odbiorców",
+      "insufficientData": false,
+      "observations": 245,
+      "score": 83,
+      "indicators": {
+        "interest": 85,
+        "engagement": 82,
+        "growthPotential": 86,
+        "availabilityGap": 70,
+        "distReadiness": 90
+      },
+      "separateMetricsOct2026": {
+        "radioSessionsVerified": "Czołowy rynek zagraniczny (Raport Październik 2026)",
+        "note": "Priorytet #2 ekspansji: Polonia UK -> odbiorcy anglojęzyczni (/en/ + TuneIn + Substack EN)"
+      },
+      "weights": {
+        "interest": 25,
+        "engagement": 25,
+        "growthPotential": 20,
+        "availabilityGap": 15,
+        "distReadiness": 15,
+        "normalizedSum": 100
+      }
+    },
+    {
+      "countryCode": "PL",
+      "countryName": "Polska",
+      "primaryLanguages": [
+        "pl"
+      ],
+      "group": "ACTIVE_AUDIENCE",
+      "groupLabel": "Grupa A: CC ma już aktywnych odbiorców",
+      "insufficientData": false,
+      "observations": 1420,
+      "score": 80,
+      "indicators": {
+        "interest": 92,
+        "engagement": 95,
+        "growthPotential": 78,
+        "availabilityGap": 20,
+        "distReadiness": 98
+      },
+      "separateMetricsOct2026": {
+        "radioSessionsVerified": "Kraj #1 (Baza macierzysta)",
+        "mobileShareEst": null,
+        "desktopShareEst": null,
+        "note": "Pełna dostępność ekosystemu PL"
+      },
+      "weights": {
+        "interest": 25,
+        "engagement": 25,
+        "growthPotential": 20,
+        "availabilityGap": 15,
+        "distReadiness": 15,
+        "normalizedSum": 100
+      }
+    },
+    {
+      "countryCode": "ES",
+      "countryName": "Hiszpania & Ameryka Łacińska",
+      "primaryLanguages": [
+        "es"
+      ],
+      "group": "HIGH_INTEREST_LOW_REACH",
+      "groupLabel": "Grupa B: Wysokie zainteresowanie w Google, niski zasięg CC",
+      "insufficientData": false,
+      "observations": 64,
+      "score": 76.5,
+      "indicators": {
+        "interest": 82,
+        "engagement": 58,
+        "growthPotential": 88,
+        "availabilityGap": 85,
+        "distReadiness": 74
+      },
+      "separateMetricsOct2026": {
+        "radioSessionsVerified": "Odbiór potwierdzony w grupie 32 krajów",
+        "note": "Wysokie zainteresowanie treściami biblijnymi w Google — język priorytetu #3 (ES)"
+      },
+      "weights": {
+        "interest": 25,
+        "engagement": 25,
+        "growthPotential": 20,
+        "availabilityGap": 15,
+        "distReadiness": 15,
+        "normalizedSum": 100
+      }
+    },
+    {
+      "countryCode": "BR",
+      "countryName": "Brazylia & Kraje Portugalskojęzyczne",
+      "primaryLanguages": [
+        "pt"
+      ],
+      "group": "HIGH_INTEREST_LOW_REACH",
+      "groupLabel": "Grupa B: Wysokie zainteresowanie w Google, niski zasięg CC",
+      "insufficientData": false,
+      "observations": 48,
+      "score": 74,
+      "indicators": {
+        "interest": 79,
+        "engagement": 54,
+        "growthPotential": 85,
+        "availabilityGap": 88,
+        "distReadiness": 70
+      },
+      "separateMetricsOct2026": {
+        "radioSessionsVerified": "Odbiór potwierdzony w grupie 5 kontynentów",
+        "note": "Język priorytetu #4 (PT)"
+      },
+      "weights": {
+        "interest": 25,
+        "engagement": 25,
+        "growthPotential": 20,
+        "availabilityGap": 15,
+        "distReadiness": 15,
+        "normalizedSum": 100
+      }
+    },
+    {
+      "countryCode": "FR",
+      "countryName": "Francja & Kanada (Frankofonia)",
+      "primaryLanguages": [
+        "fr"
+      ],
+      "group": "HIGH_INTEREST_LOW_REACH",
+      "groupLabel": "Grupa B: Wysokie zainteresowanie w Google, niski zasięg CC",
+      "insufficientData": false,
+      "observations": 42,
+      "score": 69.9,
+      "indicators": {
+        "interest": 74,
+        "engagement": 52,
+        "growthPotential": 78,
+        "availabilityGap": 84,
+        "distReadiness": 68
+      },
+      "separateMetricsOct2026": {
+        "radioSessionsVerified": "Odbiór potwierdzony w grupie 32 krajów",
+        "note": "Język priorytetu #5 (FR)"
+      },
+      "weights": {
+        "interest": 25,
+        "engagement": 25,
+        "growthPotential": 20,
+        "availabilityGap": 15,
+        "distReadiness": 15,
+        "normalizedSum": 100
+      }
+    },
+    {
+      "countryCode": "JP",
+      "countryName": "Japonia (Azja Wschodnia)",
+      "group": "INSUFFICIENT_DATA",
+      "groupLabel": "Dane niewystarczające (wymagane dodatkowe rozpoznanie)",
+      "insufficientData": true,
+      "observations": 12,
+      "minThreshold": 30,
+      "score": null,
+      "weights": {
+        "interest": 25,
+        "engagement": 25,
+        "growthPotential": 20,
+        "availabilityGap": 15,
+        "distReadiness": 15,
+        "normalizedSum": 100
+      }
+    }
+  ],
+  "mondayTop5Recommendations": [
+    {
+      "rank": 1,
+      "questionAnswered": "Co wymaga pilnego uporządkowania w pomiarach (Krok 1)?",
+      "targetCountry": "GLOBAL (Wszystkie kraje)",
+      "targetLanguage": "PL / EN / DE",
+      "actionType": "MEASUREMENT_UNIFICATION",
+      "recommendation": "Ujednolicić tag GA4 (G-Y4EFTVBPE3) oraz zdarzenia odtwarzaczy (cc_radio_play, cc_biblia_audio_listen) na 1 podstronach bez pełnego tagu (ccMC/index.html), z zachowaniem filtra traffic_type='internal'.",
+      "approvalStatus": "AWAITING_L0_APPROVAL",
+      "stagingTestUrl": "https://polskieradio.cc/test/mission-intelligence.html"
+    },
+    {
+      "rank": 2,
+      "questionAnswered": "Który kraj potrzebuje naszej uwagi w pierwszej kolejności?",
+      "targetCountry": "Niemcy (DE)",
+      "targetLanguage": "PL -> DE (Niemiecki)",
+      "actionType": "GEO_AND_RADIO_EXPANSION",
+      "recommendation": "Wykorzystać istniejącą słuchalność z Niemiec: zgłosić 6 strumieni radia CC do katalogu radio.net / radio.de (rutyna CC 19) oraz przygotować pilotaż podstrony /de/ z poprawnym znacznikiem hreflang=\"de\" (bez wymuszania języka po IP).",
+      "approvalStatus": "AWAITING_L0_APPROVAL",
+      "stagingTestUrl": "https://polskieradio.cc/test/mission-intelligence.html"
+    },
+    {
+      "rank": 3,
+      "questionAnswered": "Który materiał warto przetłumaczyć i zlokalizować?",
+      "targetCountry": "Wielka Brytania (GB) & USA (US)",
+      "targetLanguage": "EN (Angielski)",
+      "actionType": "CONTENT_LOCALIZATION",
+      "recommendation": "Dodać angielskie tytuły, opisy i napisy (multi-language metadata YouTube) do flagowych odcinków serii „Apokalipsa: Księga Nadziei” oraz wybranych rozdziałów Biblii Audio (Księga Rodzaju / Psalmy) z podpięciem podstrony /en/.",
+      "approvalStatus": "AWAITING_L0_APPROVAL",
+      "stagingTestUrl": "https://polskieradio.cc/test/mission-intelligence.html"
+    },
+    {
+      "rank": 4,
+      "questionAnswered": "Na której platformie powinniśmy się pojawić, aby dotrzeć do szukających?",
+      "targetCountry": "USA / UK / Niemcy / Polska",
+      "targetLanguage": "PL / EN / DE",
+      "actionType": "CHANNEL_DISTRIBUTION",
+      "recommendation": "Podpiąć wygenerowane kanały RSS 2.0 (/feed/apokalipsa.xml, /feed/biblia-audio.xml, /feed/dobrze-ze-jestes.xml) w Apple Podcasts Connect i Amazon Music for Podcasters oraz uruchomić tablice wersetów 2:3 na Pinterest i biuletyn Substack.",
+      "approvalStatus": "AWAITING_L0_APPROVAL",
+      "stagingTestUrl": "https://polskieradio.cc/test/mission-intelligence.html"
+    },
+    {
+      "rank": 5,
+      "questionAnswered": "Co przyniosło rzeczywiste zaangażowanie i jak połączyć analizę z działaniem?",
+      "targetCountry": "Polonia DE / UK / USA",
+      "targetLanguage": "PL",
+      "actionType": "COMMUNITY_ENGAGEMENT",
+      "recommendation": "Połączyć rekomendacje Search Console z rotacją na Grupach Facebook (Polonia w Niemczech, UK i USA — rutyna CC 20) oraz kanale Telegram, mierząc osobno przejścia mobilne i komputerowe do Biblii Audio i Kursu Codziennego.",
+      "approvalStatus": "AWAITING_L0_APPROVAL",
+      "stagingTestUrl": "https://polskieradio.cc/test/mission-intelligence.html"
+    }
+  ],
+  "history": [
+    {
+      "snapshotId": "SNAP-2026-11-13",
+      "recordedAt": "2026-11-13T11:20:01.420Z",
+      "dataSourceMode": "VERIFIED_OCT2026_BASELINE_AND_LOCAL_HTML_AUDIT",
+      "liveApiConnected": {
+        "ga4DataApi": false,
+        "searchConsoleApi": false,
+        "googleTrends": false,
+        "lookerStudio": false,
+        "honestDisclosure": "Koncepcja i silnik analityczny wdrożone; bieżące raporty API GA4 i Search Console oczekują na podpięcie uprawnień odczytowych — system nie prezentuje hipotetycznych liczb jako bieżących statystyk."
+      },
+      "ga4CoverageRatio": "8/9",
+      "topCountryByScore": "DE"
+    }
+  ]
+}
