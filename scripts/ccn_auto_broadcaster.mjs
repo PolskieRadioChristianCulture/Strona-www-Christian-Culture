@@ -930,7 +930,7 @@ function formatBroadcasterTweet(item) {
     } else if (tLower.includes('dobroć') || tLower.includes('dobroc') || (item.url || '').includes('dobroc')) {
       subHeader = '🤝 ŚWIATOWY DZIEŃ DOBROCI | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
-      addTags('#SwiatowyDzienDobroci', '#DobrocNieJestSlaboscia', '#CezaryRogowski', '#CCNNews', '#Prawda');
+      addTags('#DzienDobroci', '#CezaryRogowski', '#CCNNews', '#Prawda');
     } else if (tLower.includes('telefon milczy') || tLower.includes('samotn') || tLower.includes('sąsiad') || tLower.includes('sasiad')) {
       subHeader = '🤝 SPOŁECZEŃSTWO & EMPATIA | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
@@ -993,7 +993,7 @@ function formatBroadcasterTweet(item) {
   } else if ((item.url || '').includes('the-journal') || (item.title || '').includes('THE JOURNAL')) {
     bodyText = 'THE JOURNAL — 90-dniowy przewodnik formacji, wiary i nawyków. Karta dzienna, pytania wieczorne i bezpłatne PDF!';
   } else if ((item.url || '').includes('dobroc') || (item.title || '').toLowerCase().includes('dobroć')) {
-    bodyText = 'Czy dobroć to naiwność? 7 konkretnych decyzji, które zmieniają relacje, gaszą konflikty i przynoszą Boży pokój — analiza Cezarego Rogowskiego na Światowy Dzień Dobroci.';
+    bodyText = 'Dobroć nie jest słabością: 7 decyzji, które uzdrawiają relacje i przynoszą Boży pokój.';
   } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
     bodyText = item.lead;
   } else if ((item.url || '').includes('krakow') || (item.title || '').toLowerCase().includes('kraków')) {
