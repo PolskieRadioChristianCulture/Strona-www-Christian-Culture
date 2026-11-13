@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "cclite.pl",
+      "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
+      "url": "https://cclite.pl",
+      "type": "module",
+      "image": "cclite.pl.png",
+      "publishedAt": "2026-11-13T18:36:01.568Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "holistyczny-coaching",
       "title": "Holistyczny Coaching & Terapia Wolności — Paweł Murawski",
       "url": "https://polskieradio.cc/holistyczny-coaching",

@@ -200,6 +200,12 @@ function resolveItemImage(item, rootDir) {
     const p2 = path.join(rootDir, 'images', 'mapa-bg-earth.jpg');
     if (fs.existsSync(p2)) return p2;
   }
+  if (pathLower.includes('cclite') || titleLower.includes('cclite')) {
+    const p1 = path.join(rootDir, 'reklamy', 'cclite.pl.png');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'reklamy', 'cclite.pl.webp');
+    if (fs.existsSync(p2)) return p2;
+  }
   if (pathLower.includes('skins') || pathLower.includes('skin')) {
     const p1 = path.join(rootDir, 'assets', 'skin-earth.png');
     if (fs.existsSync(p1)) return p1;
@@ -872,6 +878,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🗺️ ŻYWA MAPA EKOSYSTEMU CC';
       callToAction = '👉 Zobacz architekturę na żywo:\n';
       addTags(item.tag || '#MapaCC', '#EkosystemCC', '#ChristianCulture');
+    } else if ((item.url || '').includes('cclite') || (item.title || '').toLowerCase().includes('cclite')) {
+      subHeader = '📱 APLIKACJA PWA | CCLITE.PL';
+      callToAction = '👉 Otwórz w przeglądarce:\n';
+      addTags('#cclite', '#AplikacjaPWA', '#PolskieRadioCC', '#ChristianCulture');
     } else {
       subHeader = '🌐 EKOSYSTEM CHRISTIAN CULTURE';
       callToAction = '👉 Odkryj w ekosystemie:\n';
@@ -1004,6 +1014,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Oficjalna biblioteka Cezarego Rogowskiego: czytaj online, słuchaj audiobooków i pobieraj książki bezpłatnie.';
   } else if ((item.url || '').toLowerCase().includes('rozwiaz')) {
     bodyText = 'Rzuć palenie w 14 dni — bezpłatny kurs, plan na głód nikotynowy, audio i biblijna nadzieja.';
+  } else if ((item.url || '').includes('cclite') || (item.title || '').toLowerCase().includes('cclite')) {
+    bodyText = 'cclite.pl — lekka aplikacja PWA ekosystemu Christian Culture. Radio 24/7, rozważania i modlitwy!';
   } else if ((item.url || '').includes('blackout') || (item.title || '').toLowerCase().includes('blackout')) {
     bodyText = 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę według biblijnej roztropności.';
   } else if ((item.url || '').includes('badz-blisko')) {
