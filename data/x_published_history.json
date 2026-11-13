@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "biblia-spiewana",
+      "title": "Kanał Transmisyjny: Biblia Śpiewana Live — Słowo Boże ubrane w natchnioną muzykę",
+      "url": "https://polskieradio.cc/biblia-spiewana",
+      "type": "music",
+      "image": "Logo_Biblia_Spiewana.jpg",
+      "publishedAt": "2026-11-13T17:04:42.133Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "vod",
       "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
       "url": "https://polskieradio.cc/vod",
