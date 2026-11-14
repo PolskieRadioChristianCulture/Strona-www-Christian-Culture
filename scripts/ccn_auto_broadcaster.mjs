@@ -341,6 +341,10 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'images', 'news', 'art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.jpg');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('epafraz') || titleLower.includes('epafraz')) {
+    const p = path.join(rootDir, 'tv_epafraz_thumb.png');
+    if (fs.existsSync(p)) return p;
+  }
   if (pathLower.includes('/tv') || pathLower.includes('smart-tv') || titleLower.includes('smart tv') || titleLower.includes('telewizja') || pathLower.includes('/program')) {
     const p1 = path.join(rootDir, 'tv24 CC.png');
     if (fs.existsSync(p1)) return p1;
@@ -974,6 +978,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🎙️ OFICJALNE PODCASTY | CHRISTIAN CULTURE';
       callToAction = '👉 Słuchaj podcastów i audycji:\n';
       addTags('#PodcastyCC', '#PolskieRadioCC', '#ChristianCulture', '#Wiara');
+    } else if ((item.url || '').includes('tv-epafraz') || (item.title || '').includes('TV Epafraz')) {
+      subHeader = '📺 TV EPAFRAZ 24/7 | KANAŁ TELEWIZYJNY';
+      callToAction = '👉 Oglądaj na żywo:\n';
+      addTags('#TVEpafraz', '#TelewizjaCC', '#WorshipLive');
     } else if ((item.url || '').includes('/music') || (item.title || '').includes('CC MUSIC')) {
       subHeader = '🎵 CC MUSIC | CHRZEŚCIJAŃSKIE BRZMIENIA';
       callToAction = '👉 Odkryj muzykę i słuchaj online:\n';
@@ -1205,7 +1213,7 @@ function formatBroadcasterTweet(item) {
   } else if ((item.url || '').includes('amazing-grace') || (item.title || '').toLowerCase().includes('amazing grace')) {
     bodyText = 'Historia hymnu „Cudowna Boża Łaska” (Amazing Grace): Od handlarza niewolników do pieśni Bożego odkupienia.';
   } else if ((item.url || '').includes('tv-epafraz')) {
-    bodyText = 'TV Epafraz — Całodobowy kanał telewizyjny: nabożeństwa, kazania biblijne, wykłady teologiczne i uwielbienie (Live 24/7).';
+    bodyText = 'Całodobowy kanał TV: nabożeństwa, kazania biblijne, wykłady teologiczne i uwielbienie (Live 24/7).';
   } else if ((item.url || '').includes('/tv') || (item.title || '').includes('Smart TV')) {
     bodyText = 'Wirtualny telewizor Christian Culture: 6 stacji TV na żywo, pilot online i pełny ekran na smartfony i Smart TV!';
   } else if ((item.url || '').includes('/program') || (item.title || '').includes('Program TV')) {
