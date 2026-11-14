@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-14",
+      "topic": "Tablica LUMINA (/tablica): Usunięcie błędnego przypięcia i daty 'Dzisiaj' ze starego posta AI/Antychryst oraz deduplikacja i wygaszanie cache",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
       "topic": "Tablica LUMINA (/tablica): Całodniowa rotacyjna publikacja zasobów ekosystemu w 3 głosach (Christian Culture, Cezary Rogowski, Wioletta Rogowska)",
       "agent": "A"
     },
@@ -4849,6 +4854,11 @@
   "recentUpdates": [
     {
       "date": "2026-11-14",
+      "topic": "Newsletter EkoCC: Poranna wysyłka rozważania biblijnego na Dzień 45 (Wj 15 Pieśń Zwycięstwa i Mara) + synchronizacja D1",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
       "topic": "Akademia Biblijna: Nocna publikacja i aktywacja Lekcji Dnia 45 (Wj 15 — Pieśń Zwycięstwa i Gorzkie Wody Mara) + Word .docx na Pulpicie",
       "agent": "A"
     },
@@ -4954,6 +4964,11 @@
     }
   ],
   "updates": [
+    {
+      "date": "2026-11-14",
+      "topic": "Newsletter EkoCC: Poranna wysyłka rozważania biblijnego na Dzień 45 (Wj 15 Pieśń Zwycięstwa i Mara) + synchronizacja D1",
+      "agent": "A"
+    },
     {
       "date": "2026-11-14",
       "topic": "Akademia Biblijna: Nocna publikacja i aktywacja Lekcji Dnia 45 (Wj 15 — Pieśń Zwycięstwa i Gorzkie Wody Mara) + Word .docx na Pulpicie",

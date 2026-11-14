@@ -8400,12 +8400,21 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
             const seenPostIds = new Set();
             const seenSlugs = new Set();
 
-            // 0. Najświeższy opublikowany wpis użytkownika (Lumina Quick Publisher Spotlight - NAJWYŻSZY PRIORYTET)
+            function isFreshRecentPost(rp) {
+                if (!rp || !rp.id) return false;
+                if (rp.id === 'post_art_ai_si_antychryst_cezary_rogowski') return false;
+                const ts = Number(rp.createdAtTimestamp || 0);
+                return Number.isFinite(ts) && ts > (Date.now() - 12 * 3600 * 1000);
+            }
+
+            // 0. Najświeższy opublikowany wpis użytkownika (Lumina Quick Publisher Spotlight - tylko z ostatnich 12h)
             try {
                 const recentRaw = localStorage.getItem('lumina_recent_published_post');
                 if (recentRaw) {
                     const rp = JSON.parse(recentRaw);
-                    if (rp && rp.id && !seenPostIds.has(rp.id)) {
+                    if (!isFreshRecentPost(rp)) {
+                        localStorage.removeItem('lumina_recent_published_post');
+                    } else if (!seenPostIds.has(rp.id)) {
                         const rawU = rp.videoUrl || rp.youtubeUrl || '';
                         const ym = String(rawU).match(/(?:youtube(?:-nocookie)?\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=|shorts\/)|youtu\.be\/)([^"&?\/\s]{11})/i);
                         if (ym && ym[1]) {
@@ -8413,6 +8422,8 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                             rp.videoUrl = 'https://www.youtube-nocookie.com/embed/' + ym[1];
                         }
                         seenPostIds.add(rp.id);
+                        if (rp.sourceSlug) seenSlugs.add(rp.sourceSlug);
+                        if (rp.title) seenSlugs.add('t:' + String(rp.title).trim().toLowerCase());
                         posts.push({
                             ...rp,
                             _isNewlyPublished: true,
@@ -8445,6 +8456,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                     const isVerseCard = (cp.type === 'verse_card') || (cp.category === 'verse_card') || String(cp.id || '').startsWith('post_werset_') || String(cp.title || '').includes('Mój Werset Dnia');
                     const isVeryFresh = sortTs > (Date.now() - 48 * 3600 * 1000);
                     if (cp.sourceSlug) seenSlugs.add(cp.sourceSlug);
+                    if (cp.title) seenSlugs.add('t:' + String(cp.title).trim().toLowerCase());
 
                     posts.push({
                         ...cp,
@@ -8484,7 +8496,11 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 if (corePosts && corePosts.length > 0) {
                     corePosts.forEach(cp => {
                         if (!cp || !cp.id || seenPostIds.has(cp.id)) return;
+                        if (cp.sourceSlug && seenSlugs.has(cp.sourceSlug)) return;
+                        if (cp.title && seenSlugs.has('t:' + String(cp.title).trim().toLowerCase())) return;
                         seenPostIds.add(cp.id);
+                        if (cp.sourceSlug) seenSlugs.add(cp.sourceSlug);
+                        if (cp.title) seenSlugs.add('t:' + String(cp.title).trim().toLowerCase());
                         const sortTs = cp._sortTs || cp.createdAtTimestamp || extractSortTs(cp) || Date.now();
                         posts.push({
                             ...cp,
@@ -8501,8 +8517,13 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                     const parsedList = JSON.parse(rawCloudCache);
                     if (Array.isArray(parsedList)) {
                         parsedList.forEach(cp => {
-                            if (!cp || !cp.id || seenPostIds.has(cp.id)) return;
+                            if (!cp || !cp.id || cp.id === 'post_art_ai_si_antychryst_cezary_rogowski') return;
+                            if (seenPostIds.has(cp.id)) return;
+                            if (cp.sourceSlug && seenSlugs.has(cp.sourceSlug)) return;
+                            if (cp.title && seenSlugs.has('t:' + String(cp.title).trim().toLowerCase())) return;
                             seenPostIds.add(cp.id);
+                            if (cp.sourceSlug) seenSlugs.add(cp.sourceSlug);
+                            if (cp.title) seenSlugs.add('t:' + String(cp.title).trim().toLowerCase());
 
                             const tsRaw = cp.createdAtTimestamp || cp.createdAtDateStr || cp.createdAt || cp.timestamp || cp.time;
                             let sortTs = 0;
@@ -8525,7 +8546,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                                 authorRole: cp.authorRole || 'Społeczność LUMINA ✨',
                                 authorAvatar: cp.authorAvatar || cp.avatar || 'lumina_icon.jpg',
                                 authorSlug: cp.authorSlug || '',
-                                time: cp.time || (formatPostTimestamp(sortTs, 'Przed chwilą') + ' • ✨ Społeczność'),
+                                time: sortTs > 0 ? (formatPostTimestamp(sortTs, 'Przed chwilą') + ' • ☁️ Chmura') : (cp.time || 'Archiwum'),
                                 title: cp.title || '',
                                 text: cp.text || cp.content || '',
                                 image: cp.image || cp.imageUrl || null,
@@ -8535,19 +8556,19 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                                 likes: cp.likes || 1,
                                 amen: cp.amen || 0,
                                 createdAtTimestamp: cp.createdAtTimestamp || sortTs,
-                                _sortTs: sortTs || Date.now()
+                                _sortTs: sortTs || 0
                             });
                         });
                     }
                 }
             } catch(e) {}
 
-            // 0.00. Najświeższy opublikowany wpis użytkownika (Lumina Quick Publisher Spotlight)
+            // 0.00. Najświeższy opublikowany wpis użytkownika (z ważnym limitem 12h)
             try {
                 const recentRaw = localStorage.getItem('lumina_recent_published_post');
                 if (recentRaw) {
                     const rp = JSON.parse(recentRaw);
-                    if (rp && rp.id && !seenPostIds.has(rp.id)) {
+                    if (isFreshRecentPost(rp) && !seenPostIds.has(rp.id)) {
                         seenPostIds.add(rp.id);
                         posts.unshift({
                             ...rp,
@@ -9944,57 +9965,9 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 
             let combined = [];
 
-            // 👑 POZYCJA 0 / NAJWYŻSZA: Artykuł Flagowy Założyciela / Udostępniony Wpis
-            // Gwarancja, że artykuł "AI, SI a biblijny Antychryst" Cezarego Rogowskiego lub wpis z udostępnienia
-            // pojawia się NATYCHMIAST jako PIERWSZY post na samej górze Tablicy LUMINA
-            let topSharedOrFlagship = (window._luminaTopSharedPost) || userPosts.find(p => p.id === 'post_art_ai_si_antychryst_cezary_rogowski' || (p.sourceSlug === 'ai-antychryst') || (p.title && p.title.includes('AI, SI a biblijny Antychryst')));
-            if (!topSharedOrFlagship && typeof window.LUMINA_CORE_POSTS_DATA !== 'undefined' && Array.isArray(window.LUMINA_CORE_POSTS_DATA)) {
-                topSharedOrFlagship = window.LUMINA_CORE_POSTS_DATA.find(p => p.id === 'post_art_ai_si_antychryst_cezary_rogowski');
-            }
-            if (!topSharedOrFlagship) {
-                try {
-                    const raw = localStorage.getItem('lumina_recent_published_post');
-                    if (raw) {
-                        const parsed = JSON.parse(raw);
-                        if (parsed && (parsed.id === 'post_art_ai_si_antychryst_cezary_rogowski' || (parsed.sourceSlug === 'ai-antychryst') || (parsed.title && parsed.title.includes('Antychryst')))) {
-                            topSharedOrFlagship = parsed;
-                        }
-                    }
-                } catch(e) {}
-            }
-            if (!topSharedOrFlagship) {
-                topSharedOrFlagship = {
-                    id: 'post_art_ai_si_antychryst_cezary_rogowski',
-                    type: 'post',
-                    category: 'si',
-                    isArticle: true,
-                    author: 'Cezary Rogowski',
-                    authorSlug: 'cezaryrgowski',
-                    authorAvatar: 'avatar_cezary_official.jpg',
-                    authorRole: 'Założyciel Christian Culture ✨ • Redakcja Teologiczna',
-                    authorBadge: '👑 PUBLIKACJA GŁÓWNA • NOWE TECHNOLOGIE & SI',
-                    badgeHtml: '<span class="badge-type-tag" style="background:linear-gradient(135deg,#bb142e,#7f1d1d);border:1.5px solid #f87171;color:#fff;font-weight:800;box-shadow:0 0 10px rgba(187,20,46,0.4);" title="👑 GŁÓWNA PUBLIKACJA • NOWE TECHNOLOGIE & SI"><i class="fa-solid fa-microchip"></i> <span class="badge-type-tag-text">NOWE TECHNOLOGIE & SI • EKSKLUZYWNY ARTYKUŁ</span></span>',
-                    time: 'Dzisiaj • 👑 Główna Publikacja Założyciela',
-                    title: 'AI, SI a biblijny Antychryst: Dlaczego sztuczna inteligencja nie może być Antychrystem',
-                    text: 'Dlaczego sztuczna inteligencja — w świetle krytyki biblijno-historycznej, proroczej i eschatologicznej — nie może być Antychrystem?\n\nWraz z rozwojem sztucznej inteligencji coraz częściej pojawiają się próby łączenia AI z biblijnym Antychrystem, „obrazem bestii” czy systemem kontroli z Apokalipsy 13. Z perspektywy rzetelnej analizy Pisma Świętego i proroctw Księgi Daniela takie utożsamienie jest jednak metodologicznie błędne.\n\nBiblia nie przedstawia Antychrysta jako technologii, lecz jako historyczny system religijno-polityczny o określonej sukcesji (1260 lat, mały róg, roszczenia do Bożego Prawa i kultu). Sztuczna inteligencja jest narzędziem, a nie biblijnym podmiotem proroczym.\n\nZapraszam do lektury pełnej, 20-rozdziałowej analizy egzegetycznej z tabelami porównawczymi na portalu CCN Nowe Technologie & SI:\n🔗 https://polskieradio.cc/si/ai-antychryst',
-                    desc: 'Dlaczego sztuczna inteligencja — w świetle krytyki biblijno-historycznej, proroczej i eschatologicznej — nie może być Antychrystem. Rzetelna analiza Cezarego Rogowskiego.',
-                    image: '/images/si/ai-vs-antychryst.webp',
-                    imageUrl: '/images/si/ai-vs-antychryst.webp',
-                    actionText: 'Czytaj Cały Artykuł (14 min) ➔',
-                    actionUrl: 'https://polskieradio.cc/si/ai-antychryst',
-                    externalUrl: 'https://polskieradio.cc/si/ai-antychryst',
-                    externalUrlLabel: 'Czytaj Cały Artykuł (14 min) ➔',
-                    sourceUrl: 'https://polskieradio.cc/si/ai-antychryst',
-                    sourceSlug: 'ai-antychryst',
-                    likes: 0,
-                    amen: 0,
-                    createdAtTimestamp: (window.__luminaPageT0 || (window.__luminaPageT0 = Date.now())),
-                    _sortTs: (window.__luminaPageT0 || (window.__luminaPageT0 = Date.now())) + 1000000000,
-                    _isNewlyPublished: true,
-                    _isFreshSpotlight: true,
-                    _isTopSpotlight: true
-                };
-            }
+            // 👑 POZYCJA 0: Wyłącznie aktywnie udostępniony wpis w bieżącej sesji
+            // Historyczne artykuły (np. AI i Antychryst z 4.10.2026) nie są wymuszane na szczycie z etykietą „Dzisiaj”
+            const topSharedOrFlagship = window._luminaTopSharedPost || null;
             if (topSharedOrFlagship) {
                 topSharedOrFlagship._isTopSpotlight = true;
                 topSharedOrFlagship._isNewlyPublished = true;
@@ -17179,7 +17152,6 @@ window.addEventListener('lumina-auth-state', () => {
                     } catch(e) {}
                 }
 
-                const isAiAntychryst = (shareUrl && shareUrl.includes('ai-antychryst'));
                 let combinedBody = '';
                 if (shareText) combinedBody += shareText;
                 if (shareUrl && !combinedBody.includes(shareUrl)) {
@@ -17187,41 +17159,39 @@ window.addEventListener('lumina-auth-state', () => {
                 }
 
                 // 👑 AUTOMATYCZNA NATYCHMIASTOWA PUBLIKACJA NA SAMEJ GÓRZE TABLICY LUMINA
-                const publishedPostId = isAiAntychryst ? 'post_art_ai_si_antychryst_cezary_rogowski' : ('post_shared_' + Date.now());
+                const publishedPostId = 'post_shared_' + Date.now();
                 const persona = (typeof getActiveAuthorPersona === 'function') ? getActiveAuthorPersona() : { name: 'Cezary Rogowski', slug: 'cezaryrgowski', avatar: 'avatar_cezary_official.jpg', role: 'Założyciel Christian Culture ✨' };
 
                 const newSharedPost = {
                     id: publishedPostId,
                     type: 'post',
-                    category: isAiAntychryst ? 'si' : (detectedDayMatch ? 'z_biblia_za_pan_brat' : 'general'),
-                    isArticle: !!isAiAntychryst || !!detectedDayMatch,
-                    author: isAiAntychryst ? 'Cezary Rogowski' : (persona.name || 'Cezary Rogowski'),
-                    authorSlug: isAiAntychryst ? 'cezaryrgowski' : (persona.slug || 'cezaryrgowski'),
-                    authorAvatar: isAiAntychryst ? 'avatar_cezary_official.jpg' : (persona.avatar || 'avatar_cezary_official.jpg'),
-                    authorRole: isAiAntychryst ? 'Założyciel Christian Culture ✨ • Redakcja Teologiczna' : (persona.role || 'Społeczność LUMINA ✨'),
-                    authorBadge: isAiAntychryst ? '👑 PUBLIKACJA GŁÓWNA • NOWE TECHNOLOGIE & SI' : (detectedDayMatch ? '📖 KURS CODZIENNY • Z BIBLIĄ ZA PAN BRAT' : '✨ Udostępniono na Tablicy'),
-                    badgeHtml: isAiAntychryst
-                        ? '<span class="badge-type-tag" style="background:linear-gradient(135deg,#bb142e,#7f1d1d);border:1.5px solid #f87171;color:#fff;font-weight:800;box-shadow:0 0 10px rgba(187,20,46,0.4);" title="👑 GŁÓWNA PUBLIKACJA • NOWE TECHNOLOGIE & SI"><i class="fa-solid fa-microchip"></i> <span class="badge-type-tag-text">NOWE TECHNOLOGIE & SI • EKSKLUZYWNY ARTYKUŁ</span></span>'
-                        : (detectedDayMatch
-                            ? '<span class="badge-type-tag" style="background:linear-gradient(135deg,#d97706,#b45309);border:1px solid #f59e0b;color:#fff;font-weight:800;" title="📖 KURS CODZIENNY"><i class="fa-solid fa-book-bible"></i> <span class="badge-type-tag-text">KURS CODZIENNY • LEKCJA DNIA</span></span>'
-                            : '<span class="badge-type-tag" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-weight:800;" title="✨ Udostępniono na Tablicy"><i class="fa-solid fa-share-nodes"></i> <span class="badge-type-tag-text">UDOSTĘPNIONO</span></span>'),
+                    category: detectedDayMatch ? 'z_biblia_za_pan_brat' : 'general',
+                    isArticle: !!detectedDayMatch,
+                    author: persona.name || 'Cezary Rogowski',
+                    authorSlug: persona.slug || '',
+                    authorAvatar: persona.avatar || 'avatar_cezary_official.jpg',
+                    authorRole: persona.role || 'Społeczność LUMINA ✨',
+                    authorBadge: detectedDayMatch ? '📖 KURS CODZIENNY • Z BIBLIĄ ZA PAN BRAT' : '✨ Udostępniono na Tablicy',
+                    badgeHtml: detectedDayMatch
+                        ? '<span class="badge-type-tag" style="background:linear-gradient(135deg,#d97706,#b45309);border:1px solid #f59e0b;color:#fff;font-weight:800;" title="📖 KURS CODZIENNY"><i class="fa-solid fa-book-bible"></i> <span class="badge-type-tag-text">KURS CODZIENNY • LEKCJA DNIA</span></span>'
+                        : '<span class="badge-type-tag" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-weight:800;" title="✨ Udostępniono na Tablicy"><i class="fa-solid fa-share-nodes"></i> <span class="badge-type-tag-text">UDOSTĘPNIONO</span></span>',
                     time: 'Przed chwilą • 🌟 Udostępniono na Tablicy',
                     createdAt: 'Przed chwilą • 🌟 Udostępniono na Tablicy',
                     title: finalShareTitle || 'Udostępniony wpis',
                     text: combinedBody || finalShareText || '',
                     desc: finalShareText || finalShareTitle,
-                    image: finalShareImg || (isAiAntychryst ? '/images/si/ai-vs-antychryst.webp' : null),
-                    imageUrl: finalShareImg || (isAiAntychryst ? '/images/si/ai-vs-antychryst.webp' : null),
+                    image: finalShareImg || null,
+                    imageUrl: finalShareImg || null,
                     actionUrl: finalShareUrl || '',
                     actionText: detectedDayMatch ? ('Czytaj Dzień ' + detectedDayMatch[1] + ' ➔') : 'Czytaj Cały Artykuł ➔',
                     externalUrl: finalShareUrl || '',
                     externalUrlLabel: detectedDayMatch ? ('Czytaj Dzień ' + detectedDayMatch[1] + ' ➔') : 'Czytaj Cały Artykuł ➔',
                     sourceUrl: finalShareUrl || '',
-                    sourceSlug: isAiAntychryst ? 'ai-antychryst' : '',
-                    likes: isAiAntychryst ? 428 : 24,
-                    amen: isAiAntychryst ? 396 : 18,
+                    sourceSlug: '',
+                    likes: 1,
+                    amen: 1,
                     createdAtTimestamp: Date.now(),
-                    _sortTs: Date.now() + 1000000000,
+                    _sortTs: Date.now(),
                     _isNewlyPublished: true,
                     _isFreshSpotlight: true,
                     _isTopSpotlight: true
