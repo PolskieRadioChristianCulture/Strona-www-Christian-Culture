@@ -38,6 +38,25 @@
   }
 
   let hideActiveTeaserOnOpen = null;
+  let hideFabController = null;
+  let revealFabController = null;
+  let resetFabPosController = null;
+  let getFabStateController = null;
+
+  const CC_FAB_HIDDEN_KEY = 'cc_lumi_fab_hidden';
+  const CC_FAB_HIDDEN_AT_KEY = 'cc_lumi_fab_hidden_at';
+  const CC_FAB_UNREAD_AT_HIDE_KEY = 'cc_lumi_fab_unread_at_hide';
+  const CC_FAB_POS_KEY = 'cc_lumi_fab_pos_v1';
+
+  function safeLsGet(key) {
+    try { return typeof localStorage !== 'undefined' ? localStorage.getItem(key) : null; } catch (_) { return null; }
+  }
+  function safeLsSet(key, val) {
+    try { if (typeof localStorage !== 'undefined') localStorage.setItem(key, String(val)); } catch (_) {}
+  }
+  function safeLsRemove(key) {
+    try { if (typeof localStorage !== 'undefined') localStorage.removeItem(key); } catch (_) {}
+  }
 
   function syncChatOverlayTopLayer(overlayEl, forceOpen, reorderDom) {
     const overlay = overlayEl || document.getElementById('ccGlobalChatOverlay');
@@ -406,6 +425,53 @@
         display: flex !important;
       }
 
+      .cc-chat-fab-wrap.is-custom-positioned {
+        right: auto !important;
+        bottom: auto !important;
+        transition: left 0.22s cubic-bezier(0.16, 1, 0.3, 1), top 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease !important;
+      }
+
+      .cc-chat-fab-wrap.is-fab-dragging {
+        transition: none !important;
+        z-index: 2147483645 !important;
+      }
+
+      .cc-chat-fab-wrap.is-fab-will-hide .cc-chat-fab-btn {
+        transform: scale(0.84) !important;
+        opacity: 0.72 !important;
+        filter: drop-shadow(0 6px 18px rgba(239, 68, 68, 0.65)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6)) !important;
+      }
+
+      .cc-chat-fab-wrap.is-fab-hiding {
+        pointer-events: none !important;
+        opacity: 0 !important;
+        transform: translateY(84px) scale(0.5) !important;
+        transition: transform 0.24s cubic-bezier(0.4, 0, 1, 1), opacity 0.2s ease !important;
+      }
+
+      html body #ccGlobalChatFab.is-fab-hidden,
+      html[data-lumina-theme] body #ccGlobalChatFab.is-fab-hidden,
+      body.theme-lumina-light #ccGlobalChatFab.is-fab-hidden,
+      body.lumina-page #ccGlobalChatFab.is-fab-hidden,
+      body:has(#luminaThemeSwitchBtn) #ccGlobalChatFab.is-fab-hidden,
+      body:has(#luminaScrollTop) #ccGlobalChatFab.is-fab-hidden,
+      html body.user-is-guest #ccGlobalChatFab.is-fab-hidden {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+
+      @keyframes ccFabPopIn {
+        0% { opacity: 0; transform: translateY(36px) scale(0.52); }
+        68% { opacity: 1; transform: translateY(-5px) scale(1.09); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      .cc-chat-fab-wrap.is-fab-popping-in {
+        animation: ccFabPopIn 0.44s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+      }
+
       .cc-chat-fab-btn {
         width: 50px !important;
         height: 50px !important;
@@ -418,15 +484,79 @@
         padding: 0 !important;
         margin: 0 !important;
         background: transparent !important;
-        cursor: pointer !important;
+        cursor: grab !important;
         outline: none !important;
         position: relative !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        touch-action: manipulation !important;
+        touch-action: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
         transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.22s ease !important;
         filter: drop-shadow(0 8px 22px rgba(133, 71, 216, 0.45)) drop-shadow(0 3px 10px rgba(0, 0, 0, 0.6)) !important;
+      }
+
+      .cc-chat-fab-wrap.is-fab-dragging .cc-chat-fab-btn {
+        cursor: grabbing !important;
+        transform: scale(1.08) !important;
+        filter: drop-shadow(0 14px 30px rgba(133, 71, 216, 0.62)) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65)) !important;
+      }
+
+      @keyframes ccFabUnreadRing {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 122, 0, 0.82); }
+        70% { transform: scale(1.2); box-shadow: 0 0 0 11px rgba(255, 122, 0, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 122, 0, 0); }
+      }
+
+      .cc-chat-fab-wrap.has-unread-message .cc-chat-fab-badge {
+        background: #ff7a00 !important;
+        animation: ccFabUnreadRing 1.7s ease-out infinite !important;
+      }
+
+      .cc-chat-fab-wrap.has-unread-message .cc-chat-fab-btn {
+        filter: drop-shadow(0 0 14px rgba(255, 122, 0, 0.72)) drop-shadow(0 8px 22px rgba(133, 71, 216, 0.45)) !important;
+      }
+
+      .cc-fab-hide-dropzone {
+        position: fixed !important;
+        left: 50% !important;
+        bottom: max(14px, env(safe-area-inset-bottom)) !important;
+        transform: translate(-50%, 28px) scale(0.92) !important;
+        z-index: 2147483644 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        padding: 9px 16px !important;
+        border-radius: 999px !important;
+        background: rgba(15, 16, 26, 0.9) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 1px solid rgba(196, 163, 90, 0.45) !important;
+        color: #f8fafc !important;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.01em !important;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45) !important;
+        pointer-events: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        white-space: nowrap !important;
+        transition: opacity 0.18s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.18s ease, border-color 0.18s ease !important;
+      }
+
+      .cc-fab-hide-dropzone.is-visible {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translate(-50%, 0) scale(1) !important;
+      }
+
+      .cc-fab-hide-dropzone.is-armed {
+        background: rgba(185, 28, 28, 0.94) !important;
+        border-color: rgba(254, 202, 202, 0.85) !important;
+        transform: translate(-50%, -2px) scale(1.05) !important;
       }
 
       .cc-chat-fab-btn:hover {
@@ -576,6 +706,19 @@
         cursor: pointer !important;
         padding: 4px !important;
         line-height: 1 !important;
+      }
+
+      #ccGlobalChatFab.cc-teaser-align-left .cc-chat-teaser-bubble,
+      #ccGlobalChatFab.cc-teaser-align-left #ccChatTeaserBubble {
+        right: auto !important;
+        left: 0 !important;
+        transform-origin: bottom left !important;
+      }
+
+      #ccGlobalChatFab.cc-teaser-below .cc-chat-teaser-bubble,
+      #ccGlobalChatFab.cc-teaser-below #ccChatTeaserBubble {
+        bottom: auto !important;
+        top: 62px !important;
       }
 
       /* ── OKNO GŁÓWNE CZATU LUMI MESSENGER 2.0 (PREMIUM 1:1 FIDELITY) ── */
@@ -2942,7 +3085,19 @@
       }, 6000);
     }
 
-    if (teaserBubble && activeAssistant) {
+    const isFabHiddenOnInit = safeLsGet(CC_FAB_HIDDEN_KEY) === '1';
+    const fabWrapEarlyInit = document.getElementById('ccGlobalChatFab');
+    if (fabWrapEarlyInit && isFabHiddenOnInit) {
+      fabWrapEarlyInit.classList.add('is-fab-hidden');
+      fabWrapEarlyInit.setAttribute('aria-hidden', 'true');
+      fabWrapEarlyInit.style.setProperty('display', 'none', 'important');
+    }
+    if (teaserBubble && isFabHiddenOnInit) {
+      teaserBubble.classList.add('is-hidden');
+      teaserBubble.hidden = true;
+      teaserBubble.style.setProperty('display', 'none', 'important');
+    }
+    if (teaserBubble && activeAssistant && !isFabHiddenOnInit) {
       try { sessionStorage.removeItem('cc_teaser_dismissed'); } catch (_) {}
       teaserBubble.classList.remove('is-fading', 'is-hidden');
       teaserBubble.hidden = false;
@@ -3497,6 +3652,8 @@
     // Otwieranie / zamykanie czatu
     function openChat() {
       hideTeaserImmediately();
+      const fabWrapCurrent = (btn && typeof btn.closest === 'function' ? btn.closest('.cc-chat-fab-wrap') : null) || document.getElementById('ccGlobalChatFab');
+      if (fabWrapCurrent) fabWrapCurrent.classList.remove('has-unread-message');
       syncChatOverlayTopLayer(overlay, true, true);
       overlay.classList.add('is-open');
       overlay.setAttribute('aria-hidden', 'false');
@@ -3528,8 +3685,549 @@
       }).observe(overlay, { attributes: true, attributeFilter: ['class'] });
     }
 
+    // Przeciąganie ikony LUMI CZAT po całym ekranie + chowanie gestem w dół + odkrywanie wyłącznie po nadejściu wiadomości
+    let suppressNextClickUntil = 0;
+
+    (function initFabGesturesAndVisibility() {
+      const fabWrap = (btn && typeof btn.closest === 'function' ? btn.closest('.cc-chat-fab-wrap') : null) || document.getElementById('ccGlobalChatFab');
+      if (!fabWrap) return;
+
+      if (typeof window.__ccFabGestureCleanup === 'function') {
+        try { window.__ccFabGestureCleanup(); } catch (_) {}
+      }
+
+      const listenersToCleanup = [];
+      function addCleanListener(target, type, handler, opts) {
+        if (!target || typeof target.addEventListener !== 'function') return;
+        target.addEventListener(type, handler, opts);
+        listenersToCleanup.push(() => {
+          try { target.removeEventListener(type, handler, opts); } catch (_) {}
+        });
+      }
+
+      let hideAnimTimer = 0;
+      let popInTimer = 0;
+      let dropZoneEl = null;
+
+      function isFabHidden() {
+        return safeLsGet(CC_FAB_HIDDEN_KEY) === '1';
+      }
+
+      function getFabDimensions() {
+        const target = btn || fabWrap;
+        const rect = target && typeof target.getBoundingClientRect === 'function' ? target.getBoundingClientRect() : null;
+        const w = Math.max(44, Math.round((rect && rect.width) || (target && target.offsetWidth) || 50));
+        const h = Math.max(44, Math.round((rect && rect.height) || (target && target.offsetHeight) || 50));
+        return { w, h };
+      }
+
+      function getViewportSize() {
+        const docEl = document.documentElement;
+        const vw = Math.max(320, Number(window.innerWidth || (docEl && docEl.clientWidth) || 1280));
+        const vh = Math.max(320, Number(window.innerHeight || (docEl && docEl.clientHeight) || 800));
+        return { vw, vh };
+      }
+
+      function clampFabPosition(left, top, fabW, fabH, allowBottomOverflow) {
+        const { vw, vh } = getViewportSize();
+        const minX = 8;
+        const minY = 8;
+        const maxX = Math.max(minX, vw - fabW - 8);
+        const maxY = allowBottomOverflow
+          ? Math.max(minY, vh - Math.round(fabH * 0.45))
+          : Math.max(minY, vh - fabH - 8);
+        return {
+          left: Math.round(Math.min(Math.max(Number(left) || minX, minX), maxX)),
+          top: Math.round(Math.min(Math.max(Number(top) || minY, minY), maxY))
+        };
+      }
+
+      function readSavedFabPos() {
+        const raw = safeLsGet(CC_FAB_POS_KEY);
+        if (!raw) return null;
+        try {
+          const parsed = JSON.parse(raw);
+          if (parsed && Number.isFinite(Number(parsed.left)) && Number.isFinite(Number(parsed.top))) {
+            return { left: Number(parsed.left), top: Number(parsed.top) };
+          }
+        } catch (_) {}
+        return null;
+      }
+
+      function saveFabPos(left, top) {
+        try {
+          safeLsSet(CC_FAB_POS_KEY, JSON.stringify({
+            left: Math.round(left),
+            top: Math.round(top),
+            updatedAt: Date.now()
+          }));
+        } catch (_) {}
+      }
+
+      function updateTeaserQuadrant(left, top, fabW) {
+        const { vw } = getViewportSize();
+        const centerX = left + (fabW / 2);
+        fabWrap.classList.toggle('cc-teaser-align-left', centerX < (vw / 2));
+        fabWrap.classList.toggle('cc-teaser-below', top < 160);
+      }
+
+      function applyCustomFabPosition(left, top, persist) {
+        const { w: fabW, h: fabH } = getFabDimensions();
+        const clamped = clampFabPosition(left, top, fabW, fabH, false);
+        fabWrap.classList.add('is-custom-positioned');
+        fabWrap.style.setProperty('left', `${clamped.left}px`, 'important');
+        fabWrap.style.setProperty('top', `${clamped.top}px`, 'important');
+        fabWrap.style.setProperty('right', 'auto', 'important');
+        fabWrap.style.setProperty('bottom', 'auto', 'important');
+        updateTeaserQuadrant(clamped.left, clamped.top, fabW);
+        if (persist) saveFabPos(clamped.left, clamped.top);
+        return clamped;
+      }
+
+      function clearCustomPositionStyles() {
+        fabWrap.classList.remove('is-custom-positioned', 'cc-teaser-align-left', 'cc-teaser-below');
+        fabWrap.style.removeProperty('left');
+        fabWrap.style.removeProperty('top');
+        fabWrap.style.removeProperty('right');
+        fabWrap.style.removeProperty('bottom');
+      }
+
+      function resetCustomFabPosition() {
+        safeLsRemove(CC_FAB_POS_KEY);
+        clearCustomPositionStyles();
+        if (typeof window.Event === 'function' && typeof window.dispatchEvent === 'function') {
+          try { window.dispatchEvent(new window.Event('resize')); } catch (_) {}
+        }
+        return getFabStateSnapshot();
+      }
+
+      function showDropZone(armed) {
+        if (!document || !document.body) return;
+        if (!dropZoneEl || !document.body.contains(dropZoneEl)) {
+          dropZoneEl = document.getElementById('ccFabHideDropZone');
+          if (!dropZoneEl) {
+            dropZoneEl = document.createElement('div');
+            dropZoneEl.id = 'ccFabHideDropZone';
+            dropZoneEl.className = 'cc-fab-hide-dropzone';
+            dropZoneEl.setAttribute('aria-hidden', 'true');
+            document.body.appendChild(dropZoneEl);
+          }
+        }
+        dropZoneEl.textContent = armed
+          ? '✓ Puść, aby ukryć ikonę'
+          : '↓ Przesuń w dół, aby ukryć';
+        dropZoneEl.classList.add('is-visible');
+        dropZoneEl.classList.toggle('is-armed', !!armed);
+      }
+
+      function hideDropZone() {
+        if (!dropZoneEl) return;
+        dropZoneEl.classList.remove('is-visible', 'is-armed');
+      }
+
+      function finalizeHiddenDomState() {
+        if (!isFabHidden()) return;
+        fabWrap.classList.remove('is-fab-hiding', 'is-fab-will-hide', 'is-fab-dragging', 'is-fab-popping-in');
+        fabWrap.classList.add('is-fab-hidden');
+        fabWrap.setAttribute('aria-hidden', 'true');
+        fabWrap.style.setProperty('display', 'none', 'important');
+        if (typeof hideTeaserImmediately === 'function') hideTeaserImmediately();
+      }
+
+      function hideFabByGesture(preserveLeft, preserveTop, hadCustomPos, options) {
+        const opts = (options && typeof options === 'object') ? options : {};
+        clearTimeout(hideAnimTimer);
+        clearTimeout(popInTimer);
+        hideDropZone();
+
+        if (hadCustomPos && Number.isFinite(Number(preserveLeft)) && Number.isFinite(Number(preserveTop))) {
+          saveFabPos(Number(preserveLeft), Number(preserveTop));
+        }
+
+        const nowTs = Date.now();
+        safeLsSet(CC_FAB_HIDDEN_KEY, '1');
+        safeLsSet(CC_FAB_HIDDEN_AT_KEY, String(nowTs));
+        const curUnread = Math.max(0, Number(safeLsGet('lumina_messages_unread_count') || 0) || 0);
+        safeLsSet(CC_FAB_UNREAD_AT_HIDE_KEY, String(curUnread));
+
+        if (typeof hideTeaserImmediately === 'function') hideTeaserImmediately();
+
+        const reduceMotion = (
+          typeof window.matchMedia === 'function' &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        );
+
+        if (opts.immediate || reduceMotion) {
+          finalizeHiddenDomState();
+          return getFabStateSnapshot();
+        }
+
+        fabWrap.classList.remove('is-fab-dragging', 'is-fab-will-hide', 'is-fab-popping-in');
+        fabWrap.classList.add('is-fab-hiding');
+        fabWrap.setAttribute('aria-hidden', 'true');
+        hideAnimTimer = setTimeout(() => {
+          finalizeHiddenDomState();
+        }, 210);
+        return getFabStateSnapshot();
+      }
+
+      function revealFabOnIncomingMessage(detail) {
+        const d = (detail && typeof detail === 'object') ? detail : {};
+        if (!d.force && (d.senderId || d.uid || d.authorUid || d.senderSlug)) {
+          try {
+            const me = typeof getUserState === 'function' ? getUserState() : null;
+            if (me && me.isLoggedIn && me.uid) {
+              const fromSameUid = (d.senderId && d.senderId === me.uid) || (d.uid && d.uid === me.uid) || (d.authorUid && d.authorUid === me.uid);
+              const fromSameSlug = me.slug && d.senderSlug && d.senderSlug === me.slug;
+              if (fromSameUid || fromSameSlug) return false;
+            }
+          } catch (_) {}
+        }
+
+        const wasHidden = isFabHidden() || fabWrap.classList.contains('is-fab-hidden') || fabWrap.classList.contains('is-fab-hiding');
+        clearTimeout(hideAnimTimer);
+        clearTimeout(popInTimer);
+
+        safeLsRemove(CC_FAB_HIDDEN_KEY);
+        safeLsRemove(CC_FAB_HIDDEN_AT_KEY);
+        safeLsRemove(CC_FAB_UNREAD_AT_HIDE_KEY);
+
+        fabWrap.classList.remove('is-fab-hiding', 'is-fab-will-hide', 'is-fab-hidden');
+        fabWrap.setAttribute('aria-hidden', 'false');
+        fabWrap.style.removeProperty('display');
+
+        const savedPos = readSavedFabPos();
+        if (savedPos) {
+          applyCustomFabPosition(savedPos.left, savedPos.top, false);
+        } else {
+          clearCustomPositionStyles();
+          if (typeof window.Event === 'function' && typeof window.dispatchEvent === 'function') {
+            try { window.dispatchEvent(new window.Event('resize')); } catch (_) {}
+          }
+        }
+
+        const overlayOpen = overlay && overlay.classList && overlay.classList.contains('is-open');
+        if (!overlayOpen) {
+          fabWrap.classList.add('has-unread-message');
+        }
+
+        if (wasHidden) {
+          fabWrap.classList.remove('is-fab-popping-in');
+          fabWrap.classList.add('is-fab-popping-in');
+          popInTimer = setTimeout(() => {
+            fabWrap.classList.remove('is-fab-popping-in');
+          }, 480);
+        }
+        return true;
+      }
+
+      function getFabStateSnapshot() {
+        const savedPos = readSavedFabPos();
+        const rect = typeof fabWrap.getBoundingClientRect === 'function' ? fabWrap.getBoundingClientRect() : null;
+        return {
+          hidden: isFabHidden() || fabWrap.classList.contains('is-fab-hidden'),
+          hiddenAt: Number(safeLsGet(CC_FAB_HIDDEN_AT_KEY) || 0) || 0,
+          customPosition: savedPos,
+          isCustomPositioned: fabWrap.classList.contains('is-custom-positioned'),
+          hasUnread: fabWrap.classList.contains('has-unread-message'),
+          rect: rect ? {
+            left: Math.round(rect.left || 0),
+            top: Math.round(rect.top || 0),
+            width: Math.round(rect.width || 0),
+            height: Math.round(rect.height || 0)
+          } : null
+        };
+      }
+
+      hideFabController = function (opts) {
+        const savedPos = readSavedFabPos();
+        const hadCustom = fabWrap.classList.contains('is-custom-positioned') || !!savedPos;
+        const rect = typeof fabWrap.getBoundingClientRect === 'function' ? fabWrap.getBoundingClientRect() : null;
+        const preserveLeft = savedPos ? savedPos.left : (rect ? rect.left : 0);
+        const preserveTop = savedPos ? savedPos.top : (rect ? rect.top : 0);
+        return hideFabByGesture(preserveLeft, preserveTop, hadCustom, Object.assign({ immediate: true }, opts || {}));
+      };
+      revealFabController = revealFabOnIncomingMessage;
+      resetFabPosController = resetCustomFabPosition;
+      getFabStateController = getFabStateSnapshot;
+
+      // Inicjalizacja stanu początkowego na podstawie localStorage (bez błysku przy odświeżeniu)
+      if (isFabHidden()) {
+        finalizeHiddenDomState();
+      } else {
+        fabWrap.classList.remove('is-fab-hidden');
+        fabWrap.setAttribute('aria-hidden', 'false');
+        const initialSavedPos = readSavedFabPos();
+        if (initialSavedPos) {
+          applyCustomFabPosition(initialSavedPos.left, initialSavedPos.top, false);
+        }
+      }
+
+      // Obsługa przeciągania po całym ekranie i chowania gestem w dół
+      if (btn && !btn.__ccGesturesBound) {
+        btn.__ccGesturesBound = true;
+
+        let activePointerId = null;
+        let didDrag = false;
+        let startClientX = 0;
+        let startClientY = 0;
+        let preDragLeft = 0;
+        let preDragTop = 0;
+        let preDragHadCustom = false;
+        let grabOffsetX = 25;
+        let grabOffsetY = 25;
+        let currentDragLeft = 0;
+        let currentDragTop = 0;
+        let currentFabW = 50;
+        let currentFabH = 50;
+        let ySamples = [];
+        let moveHandler = null;
+        let upHandler = null;
+
+        btn.addEventListener('dragstart', (ev) => {
+          ev.preventDefault();
+        });
+
+        function cleanupPointerTrackers(pointerId) {
+          if (moveHandler) {
+            try { window.removeEventListener('pointermove', moveHandler); } catch (_) {}
+            moveHandler = null;
+          }
+          if (upHandler) {
+            try { window.removeEventListener('pointerup', upHandler); } catch (_) {}
+            try { window.removeEventListener('pointercancel', upHandler); } catch (_) {}
+            upHandler = null;
+          }
+          if (pointerId !== null && pointerId !== undefined && typeof btn.releasePointerCapture === 'function') {
+            try { btn.releasePointerCapture(pointerId); } catch (_) {}
+          }
+          activePointerId = null;
+        }
+
+        function recordVelocitySample(y) {
+          const now = Date.now();
+          ySamples.push({ y, t: now });
+          const cutoff = now - 130;
+          while (ySamples.length > 2 && ySamples[0].t < cutoff) {
+            ySamples.shift();
+          }
+        }
+
+        function getRecentDownwardVelocity() {
+          if (ySamples.length < 2) return 0;
+          const first = ySamples[0];
+          const last = ySamples[ySamples.length - 1];
+          const dt = Math.max(12, last.t - first.t);
+          return (last.y - first.y) / dt;
+        }
+
+        function evaluateHideTrigger(clientX, clientY, dy, dx, topVal) {
+          const { vh } = getViewportSize();
+          const fabCenterY = topVal + (currentFabH / 2);
+          const startCenterY = preDragTop + (currentFabH / 2);
+          const vy = getRecentDownwardVelocity();
+          const mostlyVertical = dy > Math.abs(dx) * 1.15;
+          const isFlickDown = dy >= 46 && vy >= 0.30 && dy > Math.abs(dx) * 1.2;
+          const isBottomDockSwipeDown = startCenterY >= (vh * 0.72) && dy >= 42 && mostlyVertical;
+          const isInBottomDropZone = didDrag && ((clientY >= vh - 58) || (fabCenterY >= vh - 46)) && dy >= 18;
+          return {
+            willHide: isFlickDown || isBottomDockSwipeDown || isInBottomDropZone,
+            isFlickDown,
+            isBottomDockSwipeDown,
+            isInBottomDropZone
+          };
+        }
+
+        addCleanListener(btn, 'pointerdown', (e) => {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          if (isFabHidden()) return;
+          if (activePointerId !== null && e.pointerId !== activePointerId) return;
+
+          cleanupPointerTrackers(activePointerId);
+
+          const { w: fabW, h: fabH } = getFabDimensions();
+          currentFabW = fabW;
+          currentFabH = fabH;
+          const { vw, vh } = getViewportSize();
+          const rect = typeof fabWrap.getBoundingClientRect === 'function' ? fabWrap.getBoundingClientRect() : null;
+          const savedBefore = readSavedFabPos();
+          const fallbackLeft = vw - fabW - 18;
+          const fallbackTop = vh - fabH - 25;
+          const baseLeft = (rect && rect.width > 0) ? rect.left : (savedBefore ? savedBefore.left : fallbackLeft);
+          const baseTop = (rect && rect.height > 0) ? rect.top : (savedBefore ? savedBefore.top : fallbackTop);
+
+          preDragHadCustom = fabWrap.classList.contains('is-custom-positioned') || !!savedBefore;
+          preDragLeft = savedBefore ? savedBefore.left : baseLeft;
+          preDragTop = savedBefore ? savedBefore.top : baseTop;
+          currentDragLeft = baseLeft;
+          currentDragTop = baseTop;
+
+          activePointerId = e.pointerId !== undefined ? e.pointerId : 'mouse';
+          didDrag = false;
+          startClientX = Number(e.clientX || 0);
+          startClientY = Number(e.clientY || 0);
+          grabOffsetX = Math.min(Math.max(startClientX - baseLeft, 6), fabW - 6);
+          grabOffsetY = Math.min(Math.max(startClientY - baseTop, 6), fabH - 6);
+          ySamples = [{ y: startClientY, t: Date.now() }];
+
+          moveHandler = (ev) => {
+            const evId = ev.pointerId !== undefined ? ev.pointerId : 'mouse';
+            if (evId !== activePointerId) return;
+            const curX = Number(ev.clientX || 0);
+            const curY = Number(ev.clientY || 0);
+            const dx = curX - startClientX;
+            const dy = curY - startClientY;
+            recordVelocitySample(curY);
+
+            if (!didDrag) {
+              if (Math.hypot(dx, dy) < 8) return;
+              didDrag = true;
+              if (typeof hideTeaserImmediately === 'function') hideTeaserImmediately();
+              fabWrap.classList.add('is-fab-dragging');
+              if (e.pointerId !== undefined && typeof btn.setPointerCapture === 'function') {
+                try { btn.setPointerCapture(e.pointerId); } catch (_) {}
+              }
+            }
+
+            if (typeof ev.preventDefault === 'function') ev.preventDefault();
+
+            const rawLeft = curX - grabOffsetX;
+            const rawTop = curY - grabOffsetY;
+            const clampedDrag = clampFabPosition(rawLeft, rawTop, currentFabW, currentFabH, true);
+            currentDragLeft = clampedDrag.left;
+            currentDragTop = clampedDrag.top;
+
+            fabWrap.classList.add('is-custom-positioned');
+            fabWrap.style.setProperty('left', `${currentDragLeft}px`, 'important');
+            fabWrap.style.setProperty('top', `${currentDragTop}px`, 'important');
+            fabWrap.style.setProperty('right', 'auto', 'important');
+            fabWrap.style.setProperty('bottom', 'auto', 'important');
+            updateTeaserQuadrant(currentDragLeft, currentDragTop, currentFabW);
+
+            const hideState = evaluateHideTrigger(curX, curY, dy, dx, currentDragTop);
+            fabWrap.classList.toggle('is-fab-will-hide', hideState.willHide);
+            showDropZone(hideState.willHide);
+          };
+
+          upHandler = (ev) => {
+            const evId = ev.pointerId !== undefined ? ev.pointerId : 'mouse';
+            if (evId !== activePointerId) return;
+
+            const endX = Number(ev.clientX !== undefined ? ev.clientX : startClientX);
+            const endY = Number(ev.clientY !== undefined ? ev.clientY : startClientY);
+            recordVelocitySample(endY);
+            const dx = endX - startClientX;
+            const dy = endY - startClientY;
+            const wasDrag = didDrag;
+            const pid = e.pointerId;
+
+            fabWrap.classList.remove('is-fab-dragging', 'is-fab-will-hide');
+            hideDropZone();
+            cleanupPointerTrackers(pid);
+
+            if (!wasDrag) return;
+            suppressNextClickUntil = Date.now() + 360;
+
+            if (ev.type === 'pointerup') {
+              const hideEval = evaluateHideTrigger(endX, endY, dy, dx, currentDragTop);
+              if (hideEval.willHide) {
+                hideFabByGesture(preDragLeft, preDragTop, preDragHadCustom, { immediate: false });
+                return;
+              }
+            }
+
+            applyCustomFabPosition(currentDragLeft, currentDragTop, true);
+          };
+
+          window.addEventListener('pointermove', moveHandler, { passive: false });
+          window.addEventListener('pointerup', upHandler);
+          window.addEventListener('pointercancel', upHandler);
+        });
+      }
+
+      // Zmiana rozmiaru okna — utrzymuj przeniesioną ikonę w bezpiecznych granicach ekranu
+      addCleanListener(window, 'resize', () => {
+        if (isFabHidden()) return;
+        if (fabWrap.classList.contains('is-custom-positioned') && !fabWrap.classList.contains('is-fab-dragging')) {
+          const saved = readSavedFabPos();
+          if (saved) applyCustomFabPosition(saved.left, saved.top, false);
+        }
+      });
+
+      // Nasłuchuj wyłącznie faktycznie przychodzących wiadomości, aby odkryć ikonę po ukryciu
+      function onIncomingMessageEvent(ev) {
+        revealFabOnIncomingMessage((ev && ev.detail) || {});
+      }
+
+      addCleanListener(window, 'lumina:chat_message_received', onIncomingMessageEvent);
+      addCleanListener(window, 'lumina:new_message', onIncomingMessageEvent);
+      addCleanListener(window, 'lumina-push-message', onIncomingMessageEvent);
+
+      addCleanListener(window, 'storage', (ev) => {
+        if (!ev) return;
+        if (ev.key === CC_FAB_HIDDEN_KEY) {
+          if (ev.newValue === '1') {
+            finalizeHiddenDomState();
+          } else {
+            revealFabOnIncomingMessage({ source: 'storage_sync', force: true });
+          }
+        } else if (ev.key === 'lumina_messages_unread_count') {
+          const nextCount = Math.max(0, Number(ev.newValue) || 0);
+          const prevCount = Math.max(0, Number(ev.oldValue) || 0);
+          if (isFabHidden() && nextCount > prevCount) {
+            revealFabOnIncomingMessage({ source: 'storage_unread', unreadCount: nextCount });
+          }
+        }
+      });
+
+      function wrapUnreadBadgeHook() {
+        if (typeof window.updateLuminaMessagesBadge !== 'function') return false;
+        if (window.updateLuminaMessagesBadge.__ccFabWrapped) return true;
+        const origUpdateBadge = window.updateLuminaMessagesBadge;
+        const wrappedUpdateBadge = function (count) {
+          const res = origUpdateBadge.apply(this, arguments);
+          try {
+            const nextCount = Math.max(0, Number(count) || 0);
+            if (isFabHidden()) {
+              const baseline = Number(safeLsGet(CC_FAB_UNREAD_AT_HIDE_KEY) || 0) || 0;
+              if (nextCount > baseline) {
+                safeLsSet(CC_FAB_UNREAD_AT_HIDE_KEY, String(nextCount));
+                revealFabOnIncomingMessage({ source: 'unread_badge', unreadCount: nextCount });
+              } else if (nextCount < baseline) {
+                safeLsSet(CC_FAB_UNREAD_AT_HIDE_KEY, String(nextCount));
+              }
+            }
+          } catch (_) {}
+          return res;
+        };
+        wrappedUpdateBadge.__ccFabWrapped = true;
+        window.updateLuminaMessagesBadge = wrappedUpdateBadge;
+        return true;
+      }
+
+      if (!wrapUnreadBadgeHook()) {
+        addCleanListener(window, 'DOMContentLoaded', () => { wrapUnreadBadgeHook(); });
+        addCleanListener(window, 'load', () => { wrapUnreadBadgeHook(); });
+      }
+
+      window.__ccFabGestureCleanup = function () {
+        clearTimeout(hideAnimTimer);
+        clearTimeout(popInTimer);
+        hideDropZone();
+        while (listenersToCleanup.length) {
+          const fn = listenersToCleanup.pop();
+          try { fn(); } catch (_) {}
+        }
+      };
+    })();
+
     if (btn) {
       btn.addEventListener('click', (e) => {
+        if (Date.now() < suppressNextClickUntil) {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
         e.preventDefault();
         e.stopPropagation();
         openChat();
@@ -3598,11 +4296,18 @@
       const fabBtn = fabWrap.querySelector('.cc-chat-fab-btn') || fabWrap;
       const fabH = fabBtn.offsetHeight || (isMobile ? 50 : 50);
 
-      if (playerCenterFromBottom !== null) {
-        const alignedBottom = Math.round(playerCenterFromBottom - (fabH / 2));
-        fabWrap.style.setProperty('bottom', `${alignedBottom}px`, 'important');
-      } else {
-        fabWrap.style.setProperty('bottom', `${bottomOffset}px`, 'important');
+      if (
+        safeLsGet(CC_FAB_HIDDEN_KEY) !== '1' &&
+        !fabWrap.classList.contains('is-fab-hidden') &&
+        !fabWrap.classList.contains('is-custom-positioned') &&
+        !fabWrap.classList.contains('is-fab-dragging')
+      ) {
+        if (playerCenterFromBottom !== null) {
+          const alignedBottom = Math.round(playerCenterFromBottom - (fabH / 2));
+          fabWrap.style.setProperty('bottom', `${alignedBottom}px`, 'important');
+        } else {
+          fabWrap.style.setProperty('bottom', `${bottomOffset}px`, 'important');
+        }
       }
 
       // 4. Bezpieczne pozycjonowanie przycisku "do góry" (#backToTopBtn) — ZAWSZE w całości nad dolnym paskiem!
@@ -4052,11 +4757,84 @@
     }
 
     const user = getUserState();
+
+    function extractRealtimeMsgTsMs(msg) {
+      if (!msg) return 0;
+      const ts = msg.timestamp || msg.createdAt || msg.sentAt || msg.ts;
+      if (!ts) return 0;
+      if (typeof ts === 'number' && Number.isFinite(ts)) return ts;
+      if (typeof ts.toMillis === 'function') {
+        try { return ts.toMillis(); } catch (_) { return 0; }
+      }
+      if (typeof ts.seconds === 'number') return ts.seconds * 1000;
+      const parsed = Date.parse(String(ts));
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function createRealtimeRevealTracker(me, sourceTag) {
+      let initialized = false;
+      const seenKeys = new Set();
+      return function checkMsgsForReveal(msgs) {
+        if (!Array.isArray(msgs) || msgs.length === 0) {
+          initialized = true;
+          return;
+        }
+        const hiddenAtMs = Number(safeLsGet(CC_FAB_HIDDEN_AT_KEY) || 0) || 0;
+        const fabHiddenNow = safeLsGet(CC_FAB_HIDDEN_KEY) === '1';
+        let freshIncoming = null;
+
+        for (let i = 0; i < msgs.length; i += 1) {
+          const m = msgs[i];
+          if (!m) continue;
+          const msgTs = extractRealtimeMsgTsMs(m);
+          const key = m.id
+            ? String(m.id)
+            : `${m.senderId || m.uid || m.senderSlug || m.senderName || ''}|${msgTs}|${String(m.text || m.message || '').slice(0, 32)}`;
+          const isNew = !seenKeys.has(key);
+          seenKeys.add(key);
+
+          if (!fabHiddenNow) continue;
+          const fromSelf = !!(
+            me &&
+            me.isLoggedIn &&
+            me.uid &&
+            (
+              (m.senderId && m.senderId === me.uid) ||
+              (m.uid && m.uid === me.uid) ||
+              (m.authorUid && m.authorUid === me.uid) ||
+              (me.slug && m.senderSlug && m.senderSlug === me.slug)
+            )
+          );
+          if (fromSelf) continue;
+
+          if (!initialized) {
+            if (hiddenAtMs > 0 && msgTs > hiddenAtMs + 500) {
+              freshIncoming = m;
+            }
+          } else if (isNew && (msgTs === 0 || msgTs >= hiddenAtMs)) {
+            freshIncoming = m;
+          }
+        }
+        initialized = true;
+        if (freshIncoming && typeof revealFabController === 'function') {
+          revealFabController({
+            source: sourceTag,
+            senderId: freshIncoming.senderId || freshIncoming.uid || '',
+            senderSlug: freshIncoming.senderSlug || '',
+            senderName: freshIncoming.senderName || freshIncoming.authorName || '',
+            text: freshIncoming.text || freshIncoming.message || ''
+          });
+        }
+      };
+    }
+
     if (currentChatPartner.isPublic) {
       if (window.LuminaDB && typeof window.LuminaDB.subscribeToPublicChat === 'function') {
+        const trackPublicReveal = createRealtimeRevealTracker(user, 'realtime_public');
         try {
           activeRealtimeUnsubscribe = window.LuminaDB.subscribeToPublicChat(function (msgs) {
             if (currentChatPartner.isPublic && Array.isArray(msgs)) {
+              trackPublicReveal(msgs);
               currentPartnerRealtimeMessages = msgs;
               renderChatMessages();
               if (chatMode !== 'assistant') scrollToBottom();
@@ -4073,10 +4851,12 @@
         const chatId = (typeof window.LuminaDB.getChatId === 'function')
           ? window.LuminaDB.getChatId(myId, partnerId)
           : [myId, partnerId].sort().join('_');
+        const trackDirectReveal = createRealtimeRevealTracker(user, 'realtime_dm');
 
         try {
           activeRealtimeUnsubscribe = window.LuminaDB.subscribeToDirectMessages(chatId, function (msgs) {
             if (!currentChatPartner.isPublic && Array.isArray(msgs)) {
+              trackDirectReveal(msgs);
               currentPartnerRealtimeMessages = msgs;
               renderChatMessages();
               if (chatMode !== 'assistant') scrollToBottom();
@@ -4162,6 +4942,34 @@
     },
     getMembers: function () {
       return [...COMMUNITY_MEMBERS];
+    },
+    notifyIncomingMessage: function (detail) {
+      if (typeof revealFabController === 'function') {
+        return revealFabController(detail || { source: 'api' });
+      }
+      if (typeof window.CustomEvent === 'function' && typeof window.dispatchEvent === 'function') {
+        window.dispatchEvent(new window.CustomEvent('lumina:chat_message_received', { detail: detail || { source: 'api' } }));
+        return true;
+      }
+      return false;
+    },
+    revealOnMessage: function (detail) {
+      return typeof revealFabController === 'function' ? revealFabController(detail || { source: 'api' }) : false;
+    },
+    hideFab: function (opts) {
+      if (typeof hideFabController === 'function') return hideFabController(opts);
+      safeLsSet(CC_FAB_HIDDEN_KEY, '1');
+      safeLsSet(CC_FAB_HIDDEN_AT_KEY, String(Date.now()));
+      return { hidden: true };
+    },
+    resetFabPosition: function () {
+      if (typeof resetFabPosController === 'function') return resetFabPosController();
+      safeLsRemove(CC_FAB_POS_KEY);
+      return { reset: true };
+    },
+    getFabState: function () {
+      if (typeof getFabStateController === 'function') return getFabStateController();
+      return { hidden: safeLsGet(CC_FAB_HIDDEN_KEY) === '1', customPosition: null };
     }
   };
 

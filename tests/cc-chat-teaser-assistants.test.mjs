@@ -90,4 +90,14 @@ test('cc-global-chat-button & cc-assistant: strict separation of General Chat vs
     assert.match(html, /\.action-sidebar\s*\{[^}]*bottom:\s*calc\(12px\s*\+\s*env\(safe-area-inset-bottom\)\)/);
     assert.match(html, /\.captions-toggle-btn\s*\{[^}]*bottom:\s*calc\(12px\s*\+\s*env\(safe-area-inset-bottom\)\)/);
   }
+
+  // Ikona LUMI CZAT: chowanie gestem w dół, swobodne przesuwanie i odkrywanie wyłącznie po nowej wiadomości
+  const luminaDb = fs.readFileSync('lumina-db.js', 'utf8');
+  assert.match(globalChat, /cc_lumi_fab_hidden/);
+  assert.match(globalChat, /cc_lumi_fab_pos_v1/);
+  assert.match(globalChat, /\.is-fab-hidden/);
+  assert.match(globalChat, /\.is-custom-positioned/);
+  assert.match(globalChat, /notifyIncomingMessage/);
+  assert.match(globalChat, /lumina:chat_message_received/);
+  assert.match(luminaDb, /lumina:chat_message_received/);
 });

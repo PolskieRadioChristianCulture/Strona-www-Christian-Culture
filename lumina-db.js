@@ -4593,6 +4593,13 @@ export async function showSystemDrawerNotification({ title, body, avatar, sender
 
 export function triggerLuminaPushNotification({ title, body, avatar, senderName, senderId, type, image }) {
     const isChatNotification = ['private', 'chat', 'public', 'direct_message', 'direct_message_request'].includes(type);
+    try {
+        if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function' && typeof window.CustomEvent === 'function') {
+            window.dispatchEvent(new window.CustomEvent('lumina:chat_message_received', {
+                detail: { title, body, avatar, senderName, senderId, type, ts: Date.now() }
+            }));
+        }
+    } catch (_) {}
     // Private room snapshots own their counter; preserve the public-chat indicator.
     if (type === 'public') {
     // 1. Immediately bump Unread Badge on Floating Chat Button & Navigation
