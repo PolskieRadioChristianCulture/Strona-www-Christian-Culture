@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" data-no-theme-switch>
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Rolki Wiary • LUMINA Shorts 9:16 | Christian Culture</title>
-    
+
     <meta name="description" content="Chrześcijańskie wideo 9:16 w formacie Shorts / Reels – świadectwa, wersety biblijne, modlitwy i muzyka uwielbienia w portalu LUMINA.">
     <meta property="og:title" content="Rolki Wiary • LUMINA Shorts | Christian Culture">
     <meta property="og:description" content="Krótkie formy wideo budujące wiarę – świadectwa Bożej mocy, modlitwy i wersety biblijne.">
@@ -27,8 +27,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Manrope:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/christian-culture-design-system.css">
-    
+    <link rel="stylesheet" href="/css/christian-culture-design-system.css">
+
     <!-- FontAwesome 6 Pro -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -122,7 +122,9 @@
             justify-content: space-between;
             gap: 6px;
             z-index: 50;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+            background: linear-gradient(180deg, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.75) 70%, transparent 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             pointer-events: auto;
             box-sizing: border-box;
         }
@@ -135,11 +137,47 @@
             flex-shrink: 0;
         }
 
+        .header-more-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
         .header-right-cluster {
             display: flex;
             align-items: center;
             gap: 5px;
             flex-shrink: 0;
+            opacity: 0;
+            max-width: 0;
+            overflow: hidden;
+            pointer-events: none;
+            transform: translateX(18px) scale(0.95);
+            transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.22s ease,
+                        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+        }
+
+        .header-more-group.drawer-open .header-right-cluster {
+            opacity: 1;
+            max-width: 340px;
+            overflow: visible;
+            pointer-events: auto;
+            transform: translateX(0) scale(1);
+        }
+
+        .header-more-toggle-btn {
+            border-color: rgba(250, 204, 21, 0.45);
+        }
+
+        .header-more-group.drawer-open .header-more-toggle-btn {
+            background: rgba(212, 169, 74, 0.28);
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: 0 0 14px rgba(250, 204, 21, 0.4);
         }
 
         .header-btn {
@@ -633,10 +671,10 @@
                 /* Oryginalne 9:16 — czyste, autentyczne dopasowanie bez czarnych pasów i zniekształceń */
         .video-container iframe.youtube-shorts-iframe {
             position: absolute;
-            top: 0;
+            top: -46px;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(100% + 50px);
             min-width: 100%;
             min-height: 100%;
             max-width: none;
@@ -730,9 +768,45 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
             z-index: 40;
             pointer-events: auto;
+        }
+
+        /* Collapsible vertical action items drawer */
+        .action-items-drawer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            pointer-events: none;
+            transform: translateX(50px) scale(0.92);
+            transition: max-height 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.25s ease,
+                        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .shorts-app-shell.vertical-actions-open .action-items-drawer {
+            max-height: 560px;
+            opacity: 1;
+            overflow: visible;
+            pointer-events: auto;
+            transform: translateX(0) scale(1);
+        }
+
+        .vertical-more-toggle-btn {
+            border-color: rgba(250, 204, 21, 0.45);
+            background: rgba(15, 23, 42, 0.85);
+        }
+
+        .shorts-app-shell.vertical-actions-open .vertical-more-toggle-btn {
+            background: rgba(212, 169, 74, 0.28);
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: 0 0 16px rgba(250, 204, 21, 0.45);
         }
 
         .action-btn-wrapper {
@@ -754,7 +828,7 @@
             transform: rotate(180deg);
             transition: transform 0.4s ease;
         }
-        
+
         .action-circle-btn {
             width: 48px;
             height: 48px;
@@ -1130,7 +1204,9 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="css/lumina-mobile-premium.css?v=20260918_1">
+    <link rel="stylesheet" href="/css/lumina-mobile-premium.css?v=20260928_single_v3">
+    <link rel="stylesheet" href="/css/lumina-light-edition.css?v=20261013_fab_col_v1">
+    <script src="/js/lumina-theme-manager.js?v=20261007_guardian2"></script>
 </head>
 <body class="shorts-body">
 
@@ -1138,38 +1214,44 @@
 
     <!-- Main 9:16 Shorts Shell -->
     <div class="shorts-app-shell" id="shortsShell">
-        
+
 
 
         <header class="shorts-header">
             <div class="header-left-cluster">
-                <a href="tablica" class="header-btn" title="Powrót do Tablicy Społeczności" aria-label="Wróć do Tablicy">
+                <a href="/tablica" class="header-btn" title="Powrót do Tablicy Społeczności" aria-label="Wróć do Tablicy">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
-
                 <div class="header-title-box">
-                    <span class="header-title">Rolki Wiary</span>
-                    <span class="header-badge">LIVE</span>
+                    <span class="header-title">Rolki</span>
+                    <span class="header-badge">9:16</span>
                 </div>
             </div>
 
-            <div class="header-right-cluster">
-                <button type="button" class="header-btn" id="randomReelBtn" onclick="jumpToRandomReel()" title="Wylosuj inną rolkę (tryb nieprzewidywalny)" aria-label="Losuj rolkę">
-                    <i class="fa-solid fa-shuffle" id="randomReelIcon" style="color:#facc15;"></i>
-                </button>
+            <!-- Dedykowana grupa pozioma z przyciskiem Więcej -->
+            <div class="header-more-group" id="headerMoreGroup">
+                <div class="header-right-cluster" id="headerHorizontalDrawer" aria-hidden="true">
+                    <button type="button" class="header-btn" id="randomReelBtn" onclick="jumpToRandomReel()" title="Wylosuj inną rolkę (tryb nieprzewidywalny)" aria-label="Losuj rolkę">
+                        <i class="fa-solid fa-shuffle" id="randomReelIcon" style="color:#facc15;"></i>
+                    </button>
 
-                <button type="button" class="header-btn" id="autoAdvanceBtn" onclick="toggleAutoAdvance()" title="Automatyczne przejście do kolejnej rolki: WŁ" aria-label="Autoodtwarzanie">
-                    <i class="fa-solid fa-forward-step" id="autoAdvanceIcon" style="color:#38bdf8;"></i>
-                </button>
+                    <button type="button" class="header-btn" id="autoAdvanceBtn" onclick="toggleAutoAdvance()" title="Automatyczne przejście do kolejnej rolki: WŁ" aria-label="Autoodtwarzanie">
+                        <i class="fa-solid fa-forward-step" id="autoAdvanceIcon" style="color:#38bdf8;"></i>
+                    </button>
 
-                <button type="button" class="header-btn header-add-btn" id="openAddReelBtn" onclick="openPublishModal()" title="Opublikuj Rolkę z YouTube, TikTok, IG, FB, MP4" aria-label="Dodaj Rolkę">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
+                    <button type="button" class="header-btn header-add-btn" id="openAddReelBtn" onclick="openPublishModal()" title="Opublikuj Rolkę z YouTube, TikTok, IG, FB, MP4" aria-label="Dodaj Rolkę">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
 
-                <button type="button" class="header-btn" id="globalMuteBtn" onclick="toggleGlobalMute()" title="Włącz / Wyłącz dźwięk" aria-label="Przełącz dźwięk">
-                    <i class="fa-solid fa-volume-high" id="globalMuteIcon" style="color:#facc15;"></i>
+                    <button type="button" class="header-btn" id="globalMuteBtn" onclick="toggleGlobalMute()" title="Włącz / Wyłącz dźwięk" aria-label="Przełącz dźwięk">
+                        <i class="fa-solid fa-volume-high" id="globalMuteIcon" style="color:#facc15;"></i>
+                    </button>
+                </div>
+
+                <!-- Dedykowany przycisk ikona Więcej dla paska poziomego -->
+                <button type="button" class="header-btn header-more-toggle-btn" id="headerMoreToggleBtn" onclick="toggleHeaderActionsDrawer(event)" title="Więcej narzędzi (rozsuń / schowaj)" aria-label="Więcej narzędzi" aria-expanded="false">
+                    <i class="fa-solid fa-ellipsis" id="headerMoreIcon"></i>
                 </button>
-                <div class="cc-auth-widget-container" data-cc-auth-mount="true"></div>
             </div>
         </header>
 
@@ -1259,107 +1341,13 @@
     </div>
 
     <!-- Data & Interactive Player Engine -->
-    <script type="module" src="lumina-db.js?v=20261013_session1"></script>
+    <script type="module" src="lumina-db.js?v=20261013_notifsafe1"></script>
+    <script src="js/lumina-comments-engine.js?v=20261007_guardian2"></script>
+
     <script src="js/audio-master-director.js"></script>
-    <script src="js/cc-global-auth.js?v=20261011_auth_v3" defer></script>
     <script>
         // Fallback default shorts in case fetch is unavailable
         const FALLBACK_SHORTS = [
-    {
-        "id": "short_osobowoscplus_bFmXoR4p7_g",
-        "title": "Osobowość + • Rolka Wiary: Odkryj Swoje Powołanie 🧠✨",
-        "author": "Osobowość +",
-        "authorSlug": "osobowoscplus",
-        "authorAvatar": "logo_osobowosc_plus.jpg",
-        "authorBadge": "🧠 Osobowość +",
-        "videoType": "youtube",
-        "videoSrc": "bFmXoR4p7_g",
-        "poster": "https://i.ytimg.com/vi/bFmXoR4p7_g/hqdefault.jpg",
-        "verseRef": "Rzymian 12, 2",
-        "verseBook": "ROM",
-        "verseChapter": 12,
-        "verseUrl": "https://polskieradio.cc/mojabiblia?book=ROM&ch=12&mode=reader",
-        "audioTitle": "Osobowość + • Formacja & Wiara",
-        "description": "Przemieniajcie się przez odnawianie umysłu, abyście umieli rozpoznać, co jest wolą Bożą. 🕊️✨",
-        "amenCount": 384,
-        "sharesCount": 112
-    },
-    {
-        "id": "short_ccwomen_WdHm10w4i0o",
-        "title": "CC Women • Rolka Wiary: Piękno i Siła w Chrystusie 🌸👑",
-        "author": "CC Women",
-        "authorSlug": "ccwomen",
-        "authorAvatar": "avatar_ccwomen_official_2026.jpg",
-        "authorBadge": "🌸 CC Women",
-        "videoType": "youtube",
-        "videoSrc": "WdHm10w4i0o",
-        "poster": "https://i.ytimg.com/vi/WdHm10w4i0o/hqdefault.jpg",
-        "verseRef": "Przysłów 31, 25",
-        "verseBook": "PRO",
-        "verseChapter": 31,
-        "verseUrl": "https://polskieradio.cc/mojabiblia?book=PRO&ch=31&mode=reader",
-        "audioTitle": "CC Women • Kobiety Wiary",
-        "description": "Siła i godność są jej strojem, z uśmiechem patrzy w przyszłość. Boża obecność w życiu kobiety. 🌸🙏",
-        "amenCount": 421,
-        "sharesCount": 156
-    },
-    {
-        "id": "short_ccmen_A4S-h_KeGNE",
-        "title": "CC Men • Rolka Wiary: Odwaga i Prawda Mężczyzny 🛡️⚔️",
-        "author": "CC Men",
-        "authorSlug": "ccmen",
-        "authorAvatar": "logo_cc_men.jpg",
-        "authorBadge": "🛡️ CC Men",
-        "videoType": "youtube",
-        "videoSrc": "A4S-h_KeGNE",
-        "poster": "https://i.ytimg.com/vi/A4S-h_KeGNE/hqdefault.jpg",
-        "verseRef": "1 Koryntian 16, 13",
-        "verseBook": "1CO",
-        "verseChapter": 16,
-        "verseUrl": "https://polskieradio.cc/mojabiblia?book=1CO&ch=16&mode=reader",
-        "audioTitle": "CC Men • Mężczyźni Wiary",
-        "description": "Czuwajcie, trwajcie mocno w wierze, bądźcie mężni, bądźcie silni! 🛡️⚡",
-        "amenCount": 395,
-        "sharesCount": 128
-    },
-    {
-        "id": "short_cctv_y9szJ8_2_SU",
-        "title": "Christian Culture TV • Rolka Wiary: Telewizja z Wartościami 📺✨",
-        "author": "Christian Culture TV",
-        "authorSlug": "cctv",
-        "authorAvatar": "logo_cctv.png",
-        "authorBadge": "📺 CC TV",
-        "videoType": "youtube",
-        "videoSrc": "y9szJ8_2_SU",
-        "poster": "https://i.ytimg.com/vi/y9szJ8_2_SU/hqdefault.jpg",
-        "verseRef": "Izajasza 40, 31",
-        "verseBook": "ISA",
-        "verseChapter": 40,
-        "verseUrl": "https://polskieradio.cc/mojabiblia?book=ISA&ch=40&mode=reader",
-        "audioTitle": "Christian Culture TV",
-        "description": "Lecz ci, co zaufali Panu, odzyskują siły, otrzymują skrzydła jak orły. 🦅✨",
-        "amenCount": 452,
-        "sharesCount": 167
-    },
-    {
-        "id": "short_radiocc_PWbTcl6W4ss",
-        "title": "Polskie Radio CC • Rolka Wiary: Uwielbienie i Słowo 24/7 📻🕊️",
-        "author": "Polskie Radio CC",
-        "authorSlug": "radiocc",
-        "authorAvatar": "logo_radio_cc.jpg",
-        "authorBadge": "📻 Radio CC",
-        "videoType": "youtube",
-        "videoSrc": "PWbTcl6W4ss",
-        "poster": "https://i.ytimg.com/vi/PWbTcl6W4ss/hqdefault.jpg",
-        "verseRef": "Psalm 150, 6",
-        "verseBook": "PSA",
-        "verseChapter": 150,
-        "verseUrl": "https://polskieradio.cc/mojabiblia?book=PSA&ch=150&mode=reader",
-        "audioTitle": "Polskie Radio CC",
-        "description": "Wszystko, co oddycha, niech chwali Pana! Alleluja! 🎶🕊️",
-        "amenCount": 489,
-        "sharesCount": 194
-    },
     {
         "id": "live_cctv24_worship",
         "title": "🔴 NA ŻYWO — Radio Christian Culture • CCTV24 Worship",
@@ -2509,28 +2497,7 @@
             showShortsToast('📲 Udostępnij rolkę braciom i siostrom!');
         };
 
-        // ── Tap to Play/Pause ──
-        window.handleSlideTap = function(slideEl) {
-            const video = slideEl.querySelector('video');
-            const indicator = slideEl.querySelector('.play-indicator-overlay');
-            if (!video) return;
-
-            if (video.paused) {
-                video.play();
-                if (indicator) {
-                    indicator.innerHTML = '<i class="fa-solid fa-play"></i>';
-                    indicator.classList.add('show');
-                    setTimeout(() => indicator.classList.remove('show'), 500);
-                }
-            } else {
-                video.pause();
-                if (indicator) {
-                    indicator.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                    indicator.classList.add('show');
-                    setTimeout(() => indicator.classList.remove('show'), 500);
-                }
-            }
-        };
+        // (Duplicate handleSlideTap removed - see AudioDirector integrated version below)
 
         let selectedCategory = '🕊️ Świadectwo';
 
@@ -2992,11 +2959,11 @@
                 const youtubePoster = item.poster || `https://i.ytimg.com/vi/${item.videoSrc}/hqdefault.jpg`;
                 mediaHtml = `
                     <img class="youtube-short-poster" src="${youtubePoster}" alt="" aria-hidden="true" decoding="async">
-                    <iframe src="https://www.youtube.com/embed/${item.videoSrc}?enablejsapi=1&autoplay=0&mute=0&controls=1&playsinline=1&rel=0&modestbranding=1"
+                    <iframe src="https://www.youtube.com/embed/${item.videoSrc}?enablejsapi=1&autoplay=0&mute=0&controls=0&playsinline=1&iv_load_policy=3&rel=0&modestbranding=1"
                             class="youtube-shorts-iframe"
                             loading="${index < 2 ? 'eager' : 'lazy'}"
-                            title="${escapeHtml(item.title)}" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            title="${escapeHtml(item.title)}"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen>
                     </iframe>
                 `;
@@ -3051,10 +3018,10 @@
                 platformBadgeHtml = `<span class="platform-pill gdrive" style="background:#34a853; color:#fff;"><i class="fa-brands fa-google-drive"></i> Dysk Google</span>`;
             } else if (platform === 'live_iframe') {
                 mediaHtml = `
-                    <iframe src="${item.videoSrc}" 
+                    <iframe src="${item.videoSrc}"
                             class="live-channel-iframe"
-                            title="${escapeHtml(item.title)}" 
-                            allow="autoplay; fullscreen; picture-in-picture" 
+                            title="${escapeHtml(item.title)}"
+                            allow="autoplay; fullscreen; picture-in-picture"
                             allowfullscreen
                             onload="triggerLiveChannelAutoplay(this, ${index === activeSlideIndex})"
                             style="border:0; width:100%; height:100%; object-fit:cover;">
@@ -3075,6 +3042,9 @@
 
                 <!-- Right Action Sidebar -->
                 <div class="action-sidebar">
+                    <!-- Collapsible Vertical Action Items -->
+                    <div class="action-items-drawer">
+
                     <!-- Author Avatar -->
                     <div class="avatar-action-wrapper" onclick="window.location.href='/lumina/${item.authorSlug}'" title="Otwórz profil: ${escapeHtml(item.author)}">
                         <img src="${item.authorAvatar}" alt="${escapeHtml(item.author)}" class="avatar-circle-img" onerror="this.src='lumina_icon.jpg'">
@@ -3083,9 +3053,9 @@
 
                     <!-- Amen Button -->
                     <div class="action-btn-wrapper">
-                        <button type="button" 
-                                class="action-circle-btn ${isAmen ? 'amen-active' : ''}" 
-                                onclick="toggleAmen('${item.id}', this, 'amenCount_${item.id}')" 
+                        <button type="button"
+                                class="action-circle-btn ${isAmen ? 'amen-active' : ''}"
+                                onclick="toggleAmen('${item.id}', this, 'amenCount_${item.id}')"
                                 title="Powiedz Amen! (Polubienie)"
                                 aria-label="Amen">
                             <i class="fa-solid fa-hands-praying"></i>
@@ -3095,9 +3065,9 @@
 
                     <!-- WhatsApp Share -->
                     <div class="action-btn-wrapper">
-                        <button type="button" 
-                                class="action-circle-btn whatsapp-btn" 
-                                onclick="shareShort('${item.id}')" 
+                        <button type="button"
+                                class="action-circle-btn whatsapp-btn"
+                                onclick="shareShort('${item.id}')"
                                 title="Udostępnij na WhatsApp"
                                 aria-label="Udostępnij">
                             <i class="fa-brands fa-whatsapp"></i>
@@ -3107,8 +3077,8 @@
 
                     <!-- Read Bible Verse -->
                     <div class="action-btn-wrapper">
-                        <a href="${item.verseUrl}" 
-                           class="action-circle-btn bible-btn" 
+                        <a href="${item.verseUrl}"
+                           class="action-circle-btn bible-btn"
                            title="Przeczytaj werset w MojejBiblii"
                            aria-label="Pismo Święte">
                             <i class="fa-solid fa-book-bible"></i>
@@ -3125,6 +3095,21 @@
                         <button type="button" class="sidebar-arrow-btn" onclick="scrollToSlide(${index} + 1)" title="Następna rolka (↓)" aria-label="Następna">
                             <i class="fa-solid fa-chevron-down"></i>
                         </button>
+                    </div>
+                
+                    </div>
+
+                    <!-- Dedykowany przycisk ikona Więcej dla paska pionowego -->
+                    <div class="action-btn-wrapper vertical-more-wrapper">
+                        <button type="button"
+                                class="action-circle-btn vertical-more-toggle-btn"
+                                onclick="toggleVerticalActionsDrawer(event)"
+                                title="Więcej akcji (wysuń / schowaj)"
+                                aria-label="Więcej akcji"
+                                aria-expanded="false">
+                            <i class="fa-solid fa-ellipsis-vertical vertical-more-icon"></i>
+                        </button>
+                        <span class="action-label vertical-more-label">Więcej</span>
                     </div>
                 </div>
 
@@ -3380,9 +3365,71 @@
             }
         });
 
+        // ── Pasek Poziomy (Header Actions Drawer) ──
+        window.toggleHeaderActionsDrawer = function(e) {
+            if (e) {
+                e.stopPropagation();
+            }
+            const group = document.getElementById('headerMoreGroup');
+            const btn = document.getElementById('headerMoreToggleBtn');
+            const icon = document.getElementById('headerMoreIcon');
+            if (!group) return;
+
+            const isOpen = group.classList.toggle('drawer-open');
+            if (btn) {
+                btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
+            if (icon) {
+                icon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-ellipsis';
+            }
+        };
+
+        // ── Pasek Pionowy (Vertical Actions Drawer) ──
+        window.toggleVerticalActionsDrawer = function(e) {
+            if (e) {
+                e.stopPropagation();
+            }
+            const shell = document.getElementById('shortsShell');
+            if (!shell) return;
+            const isOpen = shell.classList.toggle('vertical-actions-open');
+
+            const moreBtns = document.querySelectorAll('.vertical-more-toggle-btn');
+            const moreLabels = document.querySelectorAll('.vertical-more-label');
+
+            moreBtns.forEach(btn => {
+                btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                const icon = btn.querySelector('.vertical-more-icon');
+                if (icon) {
+                    icon.className = isOpen ? 'fa-solid fa-xmark vertical-more-icon' : 'fa-solid fa-ellipsis-vertical vertical-more-icon';
+                }
+            });
+
+            moreLabels.forEach(lbl => {
+                lbl.textContent = isOpen ? 'Zwiń' : 'Więcej';
+            });
+        };
+
+        // Zamknięcie paska poziomego po kliknięciu poza niego
+        document.addEventListener('click', function(e) {
+            const headerGroup = document.getElementById('headerMoreGroup');
+            if (headerGroup && headerGroup.classList.contains('drawer-open')) {
+                if (!headerGroup.contains(e.target)) {
+                    window.toggleHeaderActionsDrawer();
+                }
+            }
+        });
+
         // ── Kliknięcie / Tap w rolkę ──
         window.handleSlideTap = function(slideEl) {
             if (!slideEl) return;
+
+            // Jeśli pasek poziomy był rozwinięty, zwiń go przy tapnięciu w rolkę
+            const headerGroup = document.getElementById('headerMoreGroup');
+            if (headerGroup && headerGroup.classList.contains('drawer-open')) {
+                window.toggleHeaderActionsDrawer();
+                return;
+            }
+
             const video = slideEl.querySelector('video');
             const iframe = slideEl.querySelector('iframe.live-channel-iframe');
             const ytIframe = slideEl.querySelector('iframe:not(.live-channel-iframe)');
@@ -3431,8 +3478,25 @@
                     }
                 }
             } else if (ytIframe) {
-                if (window.AudioDirector) {
-                    window.AudioDirector.acquireFocus(slideEl.id, 'youtube', ytIframe);
+                if (slideEl._ytPaused) {
+                    ytIframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+                    slideEl._ytPaused = false;
+                    if (window.AudioDirector) {
+                        window.AudioDirector.acquireFocus(slideEl.id, 'youtube', ytIframe);
+                    }
+                    if (indicator) {
+                        indicator.innerHTML = '<i class="fa-solid fa-play"></i>';
+                        indicator.classList.add('show');
+                        setTimeout(() => indicator.classList.remove('show'), 500);
+                    }
+                } else {
+                    ytIframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*');
+                    slideEl._ytPaused = true;
+                    if (indicator) {
+                        indicator.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                        indicator.classList.add('show');
+                        setTimeout(() => indicator.classList.remove('show'), 500);
+                    }
                 }
             }
         };
@@ -3619,5 +3683,8 @@
             bootShortsFeed();
         }
     </script>
+    <!-- Christian Culture & LUMINA Universal Auth Pill -->
+    <script src="js/cc-global-auth.js?v=20261011_auth_v3" defer></script>
+    <!-- Rolki: bez pływającego przełącznika motywu (zasłaniał przyciski akcji) — 2026-10-07 -->
 </body>
 </html>

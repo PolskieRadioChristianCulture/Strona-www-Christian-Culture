@@ -122,7 +122,9 @@
             justify-content: space-between;
             gap: 6px;
             z-index: 50;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+            background: linear-gradient(180deg, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.75) 70%, transparent 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             pointer-events: auto;
             box-sizing: border-box;
         }
@@ -135,11 +137,47 @@
             flex-shrink: 0;
         }
 
+        .header-more-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
         .header-right-cluster {
             display: flex;
             align-items: center;
             gap: 5px;
             flex-shrink: 0;
+            opacity: 0;
+            max-width: 0;
+            overflow: hidden;
+            pointer-events: none;
+            transform: translateX(18px) scale(0.95);
+            transition: max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.22s ease,
+                        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            white-space: nowrap;
+        }
+
+        .header-more-group.drawer-open .header-right-cluster {
+            opacity: 1;
+            max-width: 340px;
+            overflow: visible;
+            pointer-events: auto;
+            transform: translateX(0) scale(1);
+        }
+
+        .header-more-toggle-btn {
+            border-color: rgba(250, 204, 21, 0.45);
+        }
+
+        .header-more-group.drawer-open .header-more-toggle-btn {
+            background: rgba(212, 169, 74, 0.28);
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: 0 0 14px rgba(250, 204, 21, 0.4);
         }
 
         .header-btn {
@@ -633,10 +671,10 @@
                 /* Oryginalne 9:16 — czyste, autentyczne dopasowanie bez czarnych pasów i zniekształceń */
         .video-container iframe.youtube-shorts-iframe {
             position: absolute;
-            top: 0;
+            top: -46px;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(100% + 50px);
             min-width: 100%;
             min-height: 100%;
             max-width: none;
@@ -730,9 +768,45 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
             z-index: 40;
             pointer-events: auto;
+        }
+
+        /* Collapsible vertical action items drawer */
+        .action-items-drawer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            pointer-events: none;
+            transform: translateX(50px) scale(0.92);
+            transition: max-height 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.25s ease,
+                        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .shorts-app-shell.vertical-actions-open .action-items-drawer {
+            max-height: 560px;
+            opacity: 1;
+            overflow: visible;
+            pointer-events: auto;
+            transform: translateX(0) scale(1);
+        }
+
+        .vertical-more-toggle-btn {
+            border-color: rgba(250, 204, 21, 0.45);
+            background: rgba(15, 23, 42, 0.85);
+        }
+
+        .shorts-app-shell.vertical-actions-open .vertical-more-toggle-btn {
+            background: rgba(212, 169, 74, 0.28);
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: 0 0 16px rgba(250, 204, 21, 0.45);
         }
 
         .action-btn-wrapper {
@@ -1145,26 +1219,38 @@
 
         <header class="shorts-header">
             <div class="header-left-cluster">
-                <a href="tablica" class="header-btn" title="Powrót do Tablicy Społeczności" aria-label="Wróć do Tablicy">
+                <a href="/tablica" class="header-btn" title="Powrót do Tablicy Społeczności" aria-label="Wróć do Tablicy">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
+                <div class="header-title-box">
+                    <span class="header-title">Rolki</span>
+                    <span class="header-badge">9:16</span>
+                </div>
             </div>
 
-            <div class="header-right-cluster">
-                <button type="button" class="header-btn" id="randomReelBtn" onclick="jumpToRandomReel()" title="Wylosuj inną rolkę (tryb nieprzewidywalny)" aria-label="Losuj rolkę">
-                    <i class="fa-solid fa-shuffle" id="randomReelIcon" style="color:#facc15;"></i>
-                </button>
+            <!-- Dedykowana grupa pozioma z przyciskiem Więcej -->
+            <div class="header-more-group" id="headerMoreGroup">
+                <div class="header-right-cluster" id="headerHorizontalDrawer" aria-hidden="true">
+                    <button type="button" class="header-btn" id="randomReelBtn" onclick="jumpToRandomReel()" title="Wylosuj inną rolkę (tryb nieprzewidywalny)" aria-label="Losuj rolkę">
+                        <i class="fa-solid fa-shuffle" id="randomReelIcon" style="color:#facc15;"></i>
+                    </button>
 
-                <button type="button" class="header-btn" id="autoAdvanceBtn" onclick="toggleAutoAdvance()" title="Automatyczne przejście do kolejnej rolki: WŁ" aria-label="Autoodtwarzanie">
-                    <i class="fa-solid fa-forward-step" id="autoAdvanceIcon" style="color:#38bdf8;"></i>
-                </button>
+                    <button type="button" class="header-btn" id="autoAdvanceBtn" onclick="toggleAutoAdvance()" title="Automatyczne przejście do kolejnej rolki: WŁ" aria-label="Autoodtwarzanie">
+                        <i class="fa-solid fa-forward-step" id="autoAdvanceIcon" style="color:#38bdf8;"></i>
+                    </button>
 
-                <button type="button" class="header-btn header-add-btn" id="openAddReelBtn" onclick="openPublishModal()" title="Opublikuj Rolkę z YouTube, TikTok, IG, FB, MP4" aria-label="Dodaj Rolkę">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
+                    <button type="button" class="header-btn header-add-btn" id="openAddReelBtn" onclick="openPublishModal()" title="Opublikuj Rolkę z YouTube, TikTok, IG, FB, MP4" aria-label="Dodaj Rolkę">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
 
-                <button type="button" class="header-btn" id="globalMuteBtn" onclick="toggleGlobalMute()" title="Włącz / Wyłącz dźwięk" aria-label="Przełącz dźwięk">
-                    <i class="fa-solid fa-volume-high" id="globalMuteIcon" style="color:#facc15;"></i>
+                    <button type="button" class="header-btn" id="globalMuteBtn" onclick="toggleGlobalMute()" title="Włącz / Wyłącz dźwięk" aria-label="Przełącz dźwięk">
+                        <i class="fa-solid fa-volume-high" id="globalMuteIcon" style="color:#facc15;"></i>
+                    </button>
+                </div>
+
+                <!-- Dedykowany przycisk ikona Więcej dla paska poziomego -->
+                <button type="button" class="header-btn header-more-toggle-btn" id="headerMoreToggleBtn" onclick="toggleHeaderActionsDrawer(event)" title="Więcej narzędzi (rozsuń / schowaj)" aria-label="Więcej narzędzi" aria-expanded="false">
+                    <i class="fa-solid fa-ellipsis" id="headerMoreIcon"></i>
                 </button>
             </div>
         </header>
@@ -1267,7 +1353,7 @@
         "title": "🔴 NA ŻYWO — Radio Christian Culture • CCTV24 Worship",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC LIVE",
         "videoType": "live_iframe",
         "videoSrc": "cctv24-worship-live.html?muted=1&mute=1&in_mcr=1&autoplay=1",
@@ -1286,7 +1372,7 @@
         "title": "🔴 NA ŻYWO — CCTV24 Worship • Telewizja Chrześcijańska",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 CCTV24 LIVE",
         "videoType": "live_iframe",
         "videoSrc": "cctv24.html?muted=1&mute=1&in_mcr=1&autoplay=1",
@@ -1305,7 +1391,7 @@
         "title": "🔴 NA ŻYWO — Śniadaniowa • Poranny Program Chrześcijański",
         "author": "Śniadaniowa CC",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "☀️ Śniadaniowa LIVE",
         "videoType": "live_iframe",
         "videoSrc": "snadaniowa-live-worship.html?muted=1&mute=1&in_mcr=1&autoplay=1",
@@ -1324,7 +1410,7 @@
         "title": "Cześć! Dobrze, że jesteś ❤️ Witamy w Christian Culture",
         "author": "Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "✨ Oficjalne",
         "videoType": "youtube",
         "videoSrc": "R4tEkn8EdVY",
@@ -1400,7 +1486,7 @@
         "title": "Noś swoją wiarę z godnością i odwagą! Kolekcja Alleluja 👑🕊️",
         "author": "Sklep Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "🛒 Sklep Misyjny",
         "videoType": "mp4",
         "videoSrc": "reklama_sklep_alleluja.mp4",
@@ -1419,7 +1505,7 @@
         "title": "Piękno serca i pokój, który przewyższa wszelki umysł 🌸🕊️",
         "author": "Wioletta Rogowska",
         "authorSlug": "wiolettarogowska",
-        "authorAvatar": "avatar_wioletta.jpg",
+        "authorAvatar": "avatar_wioletta_official.jpg",
         "authorBadge": "LUMINA Kobiety 🌸",
         "videoType": "mp4",
         "videoSrc": "wioletta_profile_video.mp4",
@@ -1476,7 +1562,7 @@
         "title": "Chrześcijańskie Kino Fabularne i Poruszające Produkcje 🎬🍿",
         "author": "Kino VOD Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "🎬 Kino VOD",
         "videoType": "mp4",
         "videoSrc": "vod_hity_kina.mp4",
@@ -1761,7 +1847,7 @@
         "title": "Sklep CC - zapraszamy! ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "pTnGB8Bj4LU",
@@ -1780,7 +1866,7 @@
         "title": "LUMINA ❤️ ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "HaLVgQk-dpk",
@@ -1799,7 +1885,7 @@
         "title": "Wszystko Mogę... ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "aeIkxI5p7nQ",
@@ -1818,7 +1904,7 @@
         "title": "Poznaj Nowości ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "y2QJjSxPf3c",
@@ -1837,7 +1923,7 @@
         "title": "Telewizja z pasją ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "zorpB3ib7Qg",
@@ -1856,7 +1942,7 @@
         "title": "📡 RAMÓWKA POLSKIEGO RADIA CHRISTIAN CULTURE TV – KANAŁ OSOBOWOŚĆ PLUS  żdegodnia ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "P1qnTsdS1dQ",
@@ -1875,7 +1961,7 @@
         "title": "CCTV24 ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "-6mLK41vYwA",
@@ -1894,7 +1980,7 @@
         "title": "Mogę Wszystko ❤️ ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "S7UBQsy6rAw",
@@ -1913,7 +1999,7 @@
         "title": "Dobrze, Że Jesteś ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "TQdElC1URvY",
@@ -1932,7 +2018,7 @@
         "title": "Dzień dobry 👋 ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "orWLJgSqpDU",
@@ -1951,7 +2037,7 @@
         "title": "To dla Ciebie Gramy 🎶 ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "2sPTSgX3Cv0",
@@ -1970,7 +2056,7 @@
         "title": "hej Kochani 👋 ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "vVCWsFsi3HA",
@@ -1989,7 +2075,7 @@
         "title": "Hej 👋 ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "L0R4h0BNXXs",
@@ -2008,7 +2094,7 @@
         "title": "ŚPIEWANA BIBLIA 📖🎶❤️ ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "8txUdFkuaac",
@@ -2027,7 +2113,7 @@
         "title": "II Kor 1:20 ✨",
         "author": "CCTV24 Christian Culture",
         "authorSlug": "cctv",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📺 Telewizja CC",
         "videoType": "youtube",
         "videoSrc": "2EOYCJsKlSk",
@@ -2046,7 +2132,7 @@
         "title": "LUMINA ❤️ ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "evRh53J6mic",
@@ -2065,7 +2151,7 @@
         "title": "Mogę Wszystko... ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "5dVufBpCn0I",
@@ -2084,7 +2170,7 @@
         "title": "Nowości Radia Christian Culture ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "vKj-_H2vtzQ",
@@ -2103,7 +2189,7 @@
         "title": "Telewizja z pasją ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "gtfZYlWiC3s",
@@ -2122,7 +2208,7 @@
         "title": "Radio Christian Culture ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "eAzH2zptgEg",
@@ -2141,7 +2227,7 @@
         "title": "Mogę Wszystko ❤️ ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "YOrY4jYdtp0",
@@ -2160,7 +2246,7 @@
         "title": "Witajcie Kochani ❤️ ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "WOIg0uy9iZw",
@@ -2179,7 +2265,7 @@
         "title": "To dla Ciebie Gramy 🎶 ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "pOPkd6GMgdQ",
@@ -2198,7 +2284,7 @@
         "title": "hej Kochani 👋 ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "XiF8fnEvA1k",
@@ -2217,7 +2303,7 @@
         "title": "Słuchaj,  To dla Ciebie gramy ❤️🎶👋 ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "x9xVQO2svZ0",
@@ -2236,7 +2322,7 @@
         "title": "Cześć 👋 ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "IdB-jw0_v6E",
@@ -2255,7 +2341,7 @@
         "title": "Posłuchaj 📖 ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "LNAnj-AQQSE",
@@ -2274,7 +2360,7 @@
         "title": "Słucha nas cały świat ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "IEj259GRhaw",
@@ -2293,7 +2379,7 @@
         "title": "Wiesz o tym? ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "BhFnWl12m4I",
@@ -2312,7 +2398,7 @@
         "title": "Nie Bój Się ✨",
         "author": "Polskie Radio Christian Culture",
         "authorSlug": "radiocc",
-        "authorAvatar": "logo_christian_culture_small.png",
+        "authorAvatar": "logo_radio_cc.png",
         "authorBadge": "📡 Radio CC",
         "videoType": "youtube",
         "videoSrc": "XObRkeRZW-I",
@@ -2411,28 +2497,7 @@
             showShortsToast('📲 Udostępnij rolkę braciom i siostrom!');
         };
 
-        // ── Tap to Play/Pause ──
-        window.handleSlideTap = function(slideEl) {
-            const video = slideEl.querySelector('video');
-            const indicator = slideEl.querySelector('.play-indicator-overlay');
-            if (!video) return;
-
-            if (video.paused) {
-                video.play();
-                if (indicator) {
-                    indicator.innerHTML = '<i class="fa-solid fa-play"></i>';
-                    indicator.classList.add('show');
-                    setTimeout(() => indicator.classList.remove('show'), 500);
-                }
-            } else {
-                video.pause();
-                if (indicator) {
-                    indicator.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                    indicator.classList.add('show');
-                    setTimeout(() => indicator.classList.remove('show'), 500);
-                }
-            }
-        };
+        // (Duplicate handleSlideTap removed - see AudioDirector integrated version below)
 
         let selectedCategory = '🕊️ Świadectwo';
 
@@ -2894,7 +2959,7 @@
                 const youtubePoster = item.poster || `https://i.ytimg.com/vi/${item.videoSrc}/hqdefault.jpg`;
                 mediaHtml = `
                     <img class="youtube-short-poster" src="${youtubePoster}" alt="" aria-hidden="true" decoding="async">
-                    <iframe src="https://www.youtube.com/embed/${item.videoSrc}?enablejsapi=1&autoplay=0&mute=0&controls=1&playsinline=1&rel=0&modestbranding=1"
+                    <iframe src="https://www.youtube.com/embed/${item.videoSrc}?enablejsapi=1&autoplay=0&mute=0&controls=0&playsinline=1&iv_load_policy=3&rel=0&modestbranding=1"
                             class="youtube-shorts-iframe"
                             loading="${index < 2 ? 'eager' : 'lazy'}"
                             title="${escapeHtml(item.title)}"
@@ -2977,6 +3042,9 @@
 
                 <!-- Right Action Sidebar -->
                 <div class="action-sidebar">
+                    <!-- Collapsible Vertical Action Items -->
+                    <div class="action-items-drawer">
+
                     <!-- Author Avatar -->
                     <div class="avatar-action-wrapper" onclick="window.location.href='/lumina/${item.authorSlug}'" title="Otwórz profil: ${escapeHtml(item.author)}">
                         <img src="${item.authorAvatar}" alt="${escapeHtml(item.author)}" class="avatar-circle-img" onerror="this.src='lumina_icon.jpg'">
@@ -3027,6 +3095,21 @@
                         <button type="button" class="sidebar-arrow-btn" onclick="scrollToSlide(${index} + 1)" title="Następna rolka (↓)" aria-label="Następna">
                             <i class="fa-solid fa-chevron-down"></i>
                         </button>
+                    </div>
+                
+                    </div>
+
+                    <!-- Dedykowany przycisk ikona Więcej dla paska pionowego -->
+                    <div class="action-btn-wrapper vertical-more-wrapper">
+                        <button type="button"
+                                class="action-circle-btn vertical-more-toggle-btn"
+                                onclick="toggleVerticalActionsDrawer(event)"
+                                title="Więcej akcji (wysuń / schowaj)"
+                                aria-label="Więcej akcji"
+                                aria-expanded="false">
+                            <i class="fa-solid fa-ellipsis-vertical vertical-more-icon"></i>
+                        </button>
+                        <span class="action-label vertical-more-label">Więcej</span>
                     </div>
                 </div>
 
@@ -3282,9 +3365,71 @@
             }
         });
 
+        // ── Pasek Poziomy (Header Actions Drawer) ──
+        window.toggleHeaderActionsDrawer = function(e) {
+            if (e) {
+                e.stopPropagation();
+            }
+            const group = document.getElementById('headerMoreGroup');
+            const btn = document.getElementById('headerMoreToggleBtn');
+            const icon = document.getElementById('headerMoreIcon');
+            if (!group) return;
+
+            const isOpen = group.classList.toggle('drawer-open');
+            if (btn) {
+                btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
+            if (icon) {
+                icon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-ellipsis';
+            }
+        };
+
+        // ── Pasek Pionowy (Vertical Actions Drawer) ──
+        window.toggleVerticalActionsDrawer = function(e) {
+            if (e) {
+                e.stopPropagation();
+            }
+            const shell = document.getElementById('shortsShell');
+            if (!shell) return;
+            const isOpen = shell.classList.toggle('vertical-actions-open');
+
+            const moreBtns = document.querySelectorAll('.vertical-more-toggle-btn');
+            const moreLabels = document.querySelectorAll('.vertical-more-label');
+
+            moreBtns.forEach(btn => {
+                btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                const icon = btn.querySelector('.vertical-more-icon');
+                if (icon) {
+                    icon.className = isOpen ? 'fa-solid fa-xmark vertical-more-icon' : 'fa-solid fa-ellipsis-vertical vertical-more-icon';
+                }
+            });
+
+            moreLabels.forEach(lbl => {
+                lbl.textContent = isOpen ? 'Zwiń' : 'Więcej';
+            });
+        };
+
+        // Zamknięcie paska poziomego po kliknięciu poza niego
+        document.addEventListener('click', function(e) {
+            const headerGroup = document.getElementById('headerMoreGroup');
+            if (headerGroup && headerGroup.classList.contains('drawer-open')) {
+                if (!headerGroup.contains(e.target)) {
+                    window.toggleHeaderActionsDrawer();
+                }
+            }
+        });
+
         // ── Kliknięcie / Tap w rolkę ──
         window.handleSlideTap = function(slideEl) {
             if (!slideEl) return;
+
+            // Jeśli pasek poziomy był rozwinięty, zwiń go przy tapnięciu w rolkę
+            const headerGroup = document.getElementById('headerMoreGroup');
+            if (headerGroup && headerGroup.classList.contains('drawer-open')) {
+                window.toggleHeaderActionsDrawer();
+                return;
+            }
+
             const video = slideEl.querySelector('video');
             const iframe = slideEl.querySelector('iframe.live-channel-iframe');
             const ytIframe = slideEl.querySelector('iframe:not(.live-channel-iframe)');
@@ -3333,8 +3478,25 @@
                     }
                 }
             } else if (ytIframe) {
-                if (window.AudioDirector) {
-                    window.AudioDirector.acquireFocus(slideEl.id, 'youtube', ytIframe);
+                if (slideEl._ytPaused) {
+                    ytIframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+                    slideEl._ytPaused = false;
+                    if (window.AudioDirector) {
+                        window.AudioDirector.acquireFocus(slideEl.id, 'youtube', ytIframe);
+                    }
+                    if (indicator) {
+                        indicator.innerHTML = '<i class="fa-solid fa-play"></i>';
+                        indicator.classList.add('show');
+                        setTimeout(() => indicator.classList.remove('show'), 500);
+                    }
+                } else {
+                    ytIframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*');
+                    slideEl._ytPaused = true;
+                    if (indicator) {
+                        indicator.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                        indicator.classList.add('show');
+                        setTimeout(() => indicator.classList.remove('show'), 500);
+                    }
                 }
             }
         };
