@@ -66,4 +66,10 @@ test('cc-global-chat-button & cc-assistant: strict separation of General Chat vs
   assert.match(globalChat, /notifBtn\?\.addEventListener\('click'/);
   assert.match(globalChat, /id="ccDrawerSoundToggle"/);
   assert.match(globalChat, /id="ccDrawerAccountActionBtn"/);
+
+  // Dymek zaczepki: znikanie po 6s (klasa .is-hidden + !important) i adaptacja kolorów do strony
+  assert.match(globalChat, /\.cc-chat-teaser-bubble\.is-hidden\s*\{\s*display:\s*none\s*!important/);
+  assert.match(globalChat, /setProperty\('display',\s*'none',\s*'important'\)/);
+  assert.match(globalChat, /detectPageThemePalette/);
+  assert.match(globalChat, /applyTeaserPageTheme\(teaserBubble\)/);
 });

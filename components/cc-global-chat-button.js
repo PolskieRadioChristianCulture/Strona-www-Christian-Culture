@@ -447,32 +447,47 @@
         display: none !important;
       }
 
-      /* ── DYMEK ZACZEPKA: ROTACJA ASYSTENTEK ── */
+      /* ── DYMEK ZACZEPKA: ROTACJA ASYSTENTEK (ADAPTACYJNY DO KOLORÓW STRONY) ── */
       .cc-chat-teaser-bubble {
         position: absolute !important;
         bottom: calc(100% + 14px) !important;
         right: 0 !important;
         width: 290px !important;
         max-width: calc(100vw - 36px) !important;
-        background: linear-gradient(145deg, rgba(21, 25, 43, 0.98), rgba(13, 16, 32, 0.98)) !important;
-        border: 1px solid var(--lumi-border) !important;
+        background: var(--cc-teaser-bg, linear-gradient(145deg, rgba(21, 25, 43, 0.98), rgba(13, 16, 32, 0.98))) !important;
+        border: 1px solid var(--cc-teaser-border, var(--lumi-border)) !important;
         border-radius: 20px !important;
         padding: 12px 14px !important;
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(133, 71, 216, 0.25) !important;
+        box-shadow: var(--cc-teaser-shadow, 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(133, 71, 216, 0.25)) !important;
         backdrop-filter: blur(14px) !important;
         -webkit-backdrop-filter: blur(14px) !important;
         display: flex !important;
         align-items: center !important;
         gap: 12px !important;
         cursor: pointer !important;
-        color: var(--lumi-text-main) !important;
+        color: var(--cc-teaser-text, var(--lumi-text-main)) !important;
         font-family: inherit !important;
         z-index: 10001 !important;
-        transition: opacity 0.25s ease, transform 0.25s ease !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        transition: opacity 0.28s ease, transform 0.28s ease, background 0.25s ease, border-color 0.25s ease !important;
+      }
+
+      .cc-chat-teaser-bubble.is-fading {
+        opacity: 0 !important;
+        transform: translateY(8px) !important;
+        pointer-events: none !important;
+      }
+
+      .cc-chat-teaser-bubble.is-hidden {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
       }
 
       .cc-chat-teaser-bubble:hover {
-        border-color: var(--lumi-gold) !important;
+        border-color: var(--cc-teaser-ring, var(--lumi-gold)) !important;
         transform: translateY(-2px) !important;
       }
 
@@ -490,8 +505,8 @@
         border-radius: 50% !important;
         object-fit: cover !important;
         object-position: center top !important;
-        border: 2px solid var(--lumi-gold) !important;
-        background: #15192B !important;
+        border: 2px solid var(--cc-teaser-ring, var(--lumi-gold)) !important;
+        background: var(--cc-teaser-avatar-bg, #15192B) !important;
       }
 
       .cc-chat-teaser-online {
@@ -501,7 +516,7 @@
         width: 11px !important;
         height: 11px !important;
         background: var(--lumi-status-online) !important;
-        border: 2px solid var(--lumi-bg-panel) !important;
+        border: 2px solid var(--cc-teaser-badge-border, var(--lumi-bg-panel)) !important;
         border-radius: 50% !important;
       }
 
@@ -516,17 +531,17 @@
       .cc-chat-teaser-name {
         font-size: 0.82rem !important;
         font-weight: 700 !important;
-        color: var(--lumi-text-main) !important;
+        color: var(--cc-teaser-text, var(--lumi-text-main)) !important;
       }
 
       .cc-chat-teaser-msg {
         font-size: 0.76rem !important;
-        color: var(--lumi-text-muted) !important;
+        color: var(--cc-teaser-muted, var(--lumi-text-muted)) !important;
       }
 
       .cc-chat-teaser-cta {
         font-size: 0.72rem !important;
-        color: var(--lumi-gold-light) !important;
+        color: var(--cc-teaser-cta, var(--lumi-gold-light)) !important;
         font-weight: 600 !important;
         margin-top: 2px !important;
       }
@@ -537,7 +552,7 @@
         right: 8px !important;
         background: none !important;
         border: none !important;
-        color: var(--lumi-text-muted) !important;
+        color: var(--cc-teaser-muted, var(--lumi-text-muted)) !important;
         font-size: 13px !important;
         cursor: pointer !important;
         padding: 4px !important;
@@ -2642,8 +2657,155 @@
       }
     };
 
+    function parseColorToRgb(input) {
+      if (!input || typeof input !== 'string') return null;
+      const val = input.trim();
+      const rgbMatch = val.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([0-9.]+))?\s*\)$/i);
+      if (rgbMatch) {
+        const a = rgbMatch[4] === undefined ? 1 : parseFloat(rgbMatch[4]);
+        if (a === 0) return null;
+        return { r: Number(rgbMatch[1]), g: Number(rgbMatch[2]), b: Number(rgbMatch[3]) };
+      }
+      const hexMatch = val.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+      if (hexMatch) {
+        let h = hexMatch[1];
+        if (h.length === 3) h = h.split('').map(c => c + c).join('');
+        return {
+          r: parseInt(h.slice(0, 2), 16),
+          g: parseInt(h.slice(2, 4), 16),
+          b: parseInt(h.slice(4, 6), 16)
+        };
+      }
+      return null;
+    }
+
+    function detectPageThemePalette() {
+      const htmlEl = document.documentElement;
+      const bodyEl = document.body;
+      const path = (window.location.pathname || '/').toLowerCase();
+
+      let bgRgb = null;
+      try {
+        if (typeof window.getComputedStyle === 'function') {
+          bgRgb = parseColorToRgb(window.getComputedStyle(bodyEl).backgroundColor) ||
+                  parseColorToRgb(window.getComputedStyle(htmlEl).backgroundColor);
+        }
+      } catch (_) {}
+
+      const metaTheme = document.querySelector('meta[name="theme-color"]')?.getAttribute('content') || '';
+      const metaRgb = parseColorToRgb(metaTheme);
+      if (!bgRgb && metaRgb) bgRgb = metaRgb;
+
+      const attrTheme = (htmlEl?.getAttribute('data-lumina-theme') || '').toLowerCase();
+      const isLightAttr = attrTheme === 'light' || !!bodyEl?.classList?.contains('theme-lumina-light');
+      const isDarkAttr = attrTheme === 'dark' || !!htmlEl?.classList?.contains('dark');
+
+      const luminance = bgRgb ? (0.299 * bgRgb.r + 0.587 * bgRgb.g + 0.114 * bgRgb.b) / 255 : 0.08;
+      const isLight = isLightAttr || (!isDarkAttr && bgRgb && luminance > 0.58);
+
+      // Kolor akcentu dopasowany indywidualnie do konkretnej strony / portalu
+      let accentRgb = null;
+      try {
+        if (typeof window.getComputedStyle === 'function') {
+          const rootStyle = window.getComputedStyle(htmlEl);
+          const bodyStyle = window.getComputedStyle(bodyEl);
+          for (const vName of ['--cc-accent', '--ccn-accent', '--accent-color', '--brand-accent', '--theme-accent']) {
+            const candidate = parseColorToRgb(bodyStyle.getPropertyValue(vName) || rootStyle.getPropertyValue(vName));
+            if (candidate) { accentRgb = candidate; break; }
+          }
+        }
+      } catch (_) {}
+
+      if (!accentRgb && metaRgb) {
+        const sat = Math.max(metaRgb.r, metaRgb.g, metaRgb.b) - Math.min(metaRgb.r, metaRgb.g, metaRgb.b);
+        if (sat > 24) accentRgb = metaRgb;
+      }
+
+      if (!accentRgb) {
+        if (/\/(news|nauka|historia|biologia|prawo|seks|finanse|ccn)/.test(path)) {
+          accentRgb = { r: 187, g: 20, b: 46 }; // CCN / Portale wiedzy (#bb142e)
+        } else if (/\/(akademia|kurscodzienny|dobrze|modlitwa)/.test(path)) {
+          accentRgb = { r: 217, g: 119, b: 6 }; // Akademia / Kurs (#d97706)
+        } else if (/\/(mojabiblia|ewangelia|biblia)/.test(path)) {
+          accentRgb = { r: 56, g: 189, b: 248 }; // MojaBiblia (#38bdf8)
+        } else if (/\/(player|radio|audycj|biblia-audio)/.test(path)) {
+          accentRgb = { r: 255, g: 122, b: 0 }; // Radio / Player (#FF7A00)
+        } else if (/\/(vod|rolki|shorts|kino)/.test(path)) {
+          accentRgb = { r: 192, g: 132, b: 252 }; // Kino VOD / Rolki
+        } else if (/\/(lumina|mess|profile)/.test(path)) {
+          accentRgb = { r: 216, g: 173, b: 87 }; // LUMINA Gold (#D8AD57)
+        } else {
+          accentRgb = isLight ? { r: 160, g: 128, b: 64 } : { r: 216, g: 173, b: 87 };
+        }
+      }
+
+      const ar = accentRgb.r, ag = accentRgb.g, ab = accentRgb.b;
+      if (isLight) {
+        const br = bgRgb ? Math.round((bgRgb.r * 0.3 + 255 * 0.7)) : 255;
+        const bg = bgRgb ? Math.round((bgRgb.g * 0.3 + 255 * 0.7)) : 255;
+        const bb = bgRgb ? Math.round((bgRgb.b * 0.3 + 255 * 0.7)) : 255;
+        const ctaR = Math.max(0, Math.round(ar * 0.78));
+        const ctaG = Math.max(0, Math.round(ag * 0.78));
+        const ctaB = Math.max(0, Math.round(ab * 0.78));
+        return {
+          bg: `linear-gradient(145deg, rgba(${br}, ${bg}, ${bb}, 0.98), rgba(${Math.max(236, br - 8)}, ${Math.max(238, bg - 7)}, ${Math.max(244, bb - 4)}, 0.98))`,
+          border: `rgba(${ar}, ${ag}, ${ab}, 0.42)`,
+          shadow: `0 14px 36px rgba(15, 23, 42, 0.16), 0 0 18px rgba(${ar}, ${ag}, ${ab}, 0.14)`,
+          text: '#0F172A',
+          muted: '#475569',
+          cta: `rgb(${ctaR}, ${ctaG}, ${ctaB})`,
+          ring: `rgb(${ar}, ${ag}, ${ab})`,
+          avatarBg: `rgb(${br}, ${bg}, ${bb})`,
+          badgeBorder: `rgb(${br}, ${bg}, ${bb})`
+        };
+      }
+
+      const dr = bgRgb ? Math.min(48, Math.max(12, Math.round(bgRgb.r * 0.8 + ar * 0.08 + 10))) : 21;
+      const dg = bgRgb ? Math.min(54, Math.max(15, Math.round(bgRgb.g * 0.8 + ag * 0.08 + 12))) : 25;
+      const db = bgRgb ? Math.min(72, Math.max(24, Math.round(bgRgb.b * 0.8 + ab * 0.08 + 18))) : 43;
+      const d2r = Math.max(8, dr - 8);
+      const d2g = Math.max(10, dg - 8);
+      const d2b = Math.max(18, db - 11);
+      const ctaLr = Math.min(255, Math.round(ar * 0.65 + 255 * 0.35));
+      const ctaLg = Math.min(255, Math.round(ag * 0.65 + 255 * 0.35));
+      const ctaLb = Math.min(255, Math.round(ab * 0.65 + 255 * 0.35));
+      return {
+        bg: `linear-gradient(145deg, rgba(${dr}, ${dg}, ${db}, 0.97), rgba(${d2r}, ${d2g}, ${d2b}, 0.98))`,
+        border: `rgba(${ar}, ${ag}, ${ab}, 0.45)`,
+        shadow: `0 16px 40px rgba(0, 0, 0, 0.7), 0 0 22px rgba(${ar}, ${ag}, ${ab}, 0.22)`,
+        text: '#F7F8FC',
+        muted: '#B8C0D4',
+        cta: `rgb(${ctaLr}, ${ctaLg}, ${ctaLb})`,
+        ring: `rgb(${ar}, ${ag}, ${ab})`,
+        avatarBg: `rgb(${dr}, ${dg}, ${db})`,
+        badgeBorder: `rgb(${d2r}, ${d2g}, ${d2b})`
+      };
+    }
+
+    function applyTeaserPageTheme(el) {
+      if (!el) return;
+      const pal = detectPageThemePalette();
+      el.style.setProperty('--cc-teaser-bg', pal.bg);
+      el.style.setProperty('--cc-teaser-border', pal.border);
+      el.style.setProperty('--cc-teaser-shadow', pal.shadow);
+      el.style.setProperty('--cc-teaser-text', pal.text);
+      el.style.setProperty('--cc-teaser-muted', pal.muted);
+      el.style.setProperty('--cc-teaser-cta', pal.cta);
+      el.style.setProperty('--cc-teaser-ring', pal.ring);
+      el.style.setProperty('--cc-teaser-avatar-bg', pal.avatarBg);
+      el.style.setProperty('--cc-teaser-badge-border', pal.badgeBorder);
+    }
+
     if (teaserBubble && activeAssistant) {
       refreshAssistantUI(activeAssistant);
+      applyTeaserPageTheme(teaserBubble);
+
+      if (typeof MutationObserver === 'function') {
+        const themeObserver = new MutationObserver(() => applyTeaserPageTheme(teaserBubble));
+        if (document.documentElement) themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-lumina-theme', 'class', 'style'] });
+        if (document.body) themeObserver.observe(document.body, { attributes: true, attributeFilter: ['class', 'style'] });
+      }
+      window.addEventListener('lumina-theme-change', () => applyTeaserPageTheme(teaserBubble));
 
       let isTeaserDismissed = false;
       let teaserAutoHideTimer = null;
@@ -2651,29 +2813,39 @@
         isTeaserDismissed = sessionStorage.getItem('cc_teaser_dismissed') === '1';
       } catch (_) {}
 
-      function dismissTeaserBubble(persist) {
+      function hideTeaserImmediately() {
+        teaserBubble.classList.add('is-fading', 'is-hidden');
+        teaserBubble.hidden = true;
+        teaserBubble.style.setProperty('display', 'none', 'important');
+      }
+
+      function dismissTeaserBubble(persist, immediate) {
+        isTeaserDismissed = true;
         if (teaserAutoHideTimer) {
           clearTimeout(teaserAutoHideTimer);
           teaserAutoHideTimer = null;
         }
-        teaserBubble.style.opacity = '0';
-        teaserBubble.style.transform = 'translateY(8px)';
-        setTimeout(() => { teaserBubble.style.display = 'none'; }, 280);
         if (persist) {
           try { sessionStorage.setItem('cc_teaser_dismissed', '1'); } catch (_) {}
         }
+        if (immediate) {
+          hideTeaserImmediately();
+          return;
+        }
+        teaserBubble.classList.add('is-fading');
+        setTimeout(hideTeaserImmediately, 280);
       }
 
       function scheduleTeaserAutoHide() {
         if (isTeaserDismissed) return;
         if (teaserAutoHideTimer) clearTimeout(teaserAutoHideTimer);
         teaserAutoHideTimer = setTimeout(() => {
-          dismissTeaserBubble(true);
+          dismissTeaserBubble(true, false);
         }, 6000);
       }
 
       if (isTeaserDismissed) {
-        teaserBubble.style.display = 'none';
+        hideTeaserImmediately();
       } else {
         scheduleTeaserAutoHide();
         teaserBubble.addEventListener('mouseenter', () => {
@@ -2690,13 +2862,11 @@
         if (e.target && (e.target.id === 'ccChatTeaserClose' || e.target.closest('#ccChatTeaserClose'))) return;
         e.preventDefault();
         e.stopPropagation();
-        if (teaserAutoHideTimer) { clearTimeout(teaserAutoHideTimer); teaserAutoHideTimer = null; }
-        teaserBubble.style.display = 'none';
         const asst = getActiveAssistant();
         try {
           sessionStorage.setItem('cc_active_assistant_id', asst.id);
-          sessionStorage.setItem('cc_teaser_dismissed', '1');
         } catch (_) {}
+        dismissTeaserBubble(true, true);
         window.CCGlobalChat.open('assistant', 'cc-assistant');
       }
 
@@ -2709,7 +2879,7 @@
         teaserClose.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
-          dismissTeaserBubble(true);
+          dismissTeaserBubble(true, true);
         });
       }
     }
@@ -3216,6 +3386,12 @@
 
     // Otwieranie / zamykanie czatu
     function openChat() {
+      if (teaserBubble) {
+        teaserBubble.classList.add('is-fading', 'is-hidden');
+        teaserBubble.hidden = true;
+        teaserBubble.style.setProperty('display', 'none', 'important');
+        try { sessionStorage.setItem('cc_teaser_dismissed', '1'); } catch (_) {}
+      }
       overlay.classList.add('is-open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
