@@ -1,5 +1,10 @@
 {
-  "day": 45,
-  "date": "2026-11-14",
-  "status": "published"
+  "data": "2026-11-14",
+  "dzien": 45,
+  "zatwierdzil": "Cezary Rogowski",
+  "zatwierdzono": "2026-11-14T03:08:42.894Z",
+  "karta": {
+    "tytul": "Dzień 45: PIEŚŃ ZWYCIĘSTWA I GORZKIE WODY MARA — PAN TWOIM LEKARZEM",
+    "opis": "KSIĘGA WYJŚCIA Wj 15:1–27: Triumf nad egipskim wojskiem, pieśń Miriam i przemiana gorzkich wód w słodkie (Wj 15:1–27)"
+  }
 }

@@ -19,6 +19,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 import { chromium } from 'playwright';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -133,7 +134,28 @@ function resolveItemImage(item, rootDir) {
     return null;
   };
 
-  // 1. Bezpośrednia ścieżka do grafiki w obiekcie
+  // 1. Obsługa zdalnych URL (pobranie do lokalnego cache data/.image_cache)
+  const remoteUrl = (typeof item.image === 'string' && item.image.startsWith('http'))
+    ? item.image
+    : ((typeof item.imageUrl === 'string' && item.imageUrl.startsWith('http')) ? item.imageUrl : null);
+
+  if (remoteUrl) {
+    const slug = (item.url ? item.url.split('/').filter(Boolean).pop() : 'remote_img').replace(/[^a-zA-Z0-9_-]/g, '_') + '.jpg';
+    const cacheDir = path.join(rootDir, 'data', '.image_cache');
+    if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
+    const cacheFile = path.join(cacheDir, slug);
+    if (fs.existsSync(cacheFile) && fs.statSync(cacheFile).size > 1000) {
+      return cacheFile;
+    }
+    try {
+      execSync(`curl.exe -s -L -o "${cacheFile}" "${remoteUrl}"`, { timeout: 10000 });
+      if (fs.existsSync(cacheFile) && fs.statSync(cacheFile).size > 1000) {
+        return cacheFile;
+      }
+    } catch (e) {}
+  }
+
+  // 2. Bezpośrednia ścieżka do grafiki w obiekcie
   if (item.image) {
     const p = resolveCandidate(item.image);
     if (p) return p;
@@ -277,6 +299,16 @@ function resolveItemImage(item, rootDir) {
   if (pathLower.includes('dobroc') || titleLower.includes('dobroć') || titleLower.includes('dobroc')) {
     const p = path.join(rootDir, 'images', 'news', 'art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.jpg');
     if (fs.existsSync(p)) return p;
+  }
+  if (pathLower.includes('/tv') || pathLower.includes('smart-tv') || titleLower.includes('smart tv') || titleLower.includes('telewizja') || pathLower.includes('/program')) {
+    const p1 = path.join(rootDir, 'tv24 CC.png');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'tv24_master_live.png');
+    if (fs.existsSync(p2)) return p2;
+    const p3 = path.join(rootDir, 'tlo_tv_live2.png');
+    if (fs.existsSync(p3)) return p3;
+    const p4 = path.join(rootDir, 'images', 'kultura', 'card-live.webp');
+    if (fs.existsSync(p4)) return p4;
   }
 
   // 4. Bezpieczna, estetyczna grafika redakcyjna wysokiej rozdzielczości
@@ -603,6 +635,42 @@ function getAllEcosystemCandidates() {
       tag: '#BadzBlisko'
     },
     {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 46 (Wj 16:1–36): Manna z nieba i świętość szabatu — Boże zaopatrzenie na pustyni',
+      lead: 'Dzień 46 (14 listopada 2026): Próba zaufania na pustyni Sin, cud manny z nieba jako chleb powszedni, podwójna porcja w szósty dzień i dar odpocznienia w szabacie.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-46',
+      image: 'images/academy/daily/kc_day_46_manna_z_nieba_chleb_zycia.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 45 (Wj 15:1–27): Pieśń zwycięstwa i gorzkie wody Mara — PAN twoim Lekarzem',
+      lead: 'Dzień 45 (13 listopada 2026): Triumfalna pieśń Mojżesza i Miriam po wyjściu z morza, cud uzdrowienia gorzkich wód Mara i objawienie Boga jako Jahwe Rafa.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-45',
+      image: 'images/academy/daily/kc_day_45_piesn_zwyciestwa_miriam_mara.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 44 (Wj 14:1–31): Przejście przez Morze Czerwone — PAN będzie za was walczył',
+      lead: 'Dzień 44 (13 listopada 2026): Dramatyczna pułapka nad Morzem Czerwonym, pościg rydwanów faraona, słup obłoku chroniący Izraela i cudowne rozstąpienie wód.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-44',
+      image: 'images/academy/daily/kc_day_44_przejscie_przez_morze_czerwone.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
+      title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 43 (Wj 12:37–13:22): Wyjście z Egiptu — Bóg prowadzi swój lud',
+      lead: 'Dzień 43 (12 listopada 2026): Triumfalne wyjście Izraela z Egiptu po 430 latach, poświęcenie pierworodnych i Boże prowadzenie w słupie obłoku i ognia.',
+      url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-43',
+      image: 'images/academy/daily/kc_day_43_slup_obloku_i_ognia.jpg',
+      category: 'Akademia Biblijna',
+      type: 'module',
+      tag: '#KursCodzienny'
+    },
+    {
       title: 'Akademia Biblijna: Z Biblią za Pan Brat — Dzień 42 (Wj 11:1–12:36): Święto Paschy, Krew Baranka i Wykupienie Pierworodnych — Noc sądu i triumfalne wyjście z Egiptu',
       lead: 'Dzień 42 (11 listopada 2026): Ustanowienie Paschy, krew baranka bez skazy na odrzwiach w Goszen, sąd o północy nad bogami Egiptu i wykupienie pierworodnych.',
       url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-42',
@@ -912,6 +980,14 @@ function formatBroadcasterTweet(item) {
       subHeader = '📱 APLIKACJA PWA | CCLITE.PL';
       callToAction = '👉 Otwórz w przeglądarce:\n';
       addTags('#cclite', '#AplikacjaPWA', '#PolskieRadioCC', '#ChristianCulture');
+    } else if ((item.url || '').includes('/tv') || (item.title || '').includes('Smart TV')) {
+      subHeader = '📺 SMART TV CC | TELEWIZJA 24/7';
+      callToAction = '👉 Oglądaj na żywo w przeglądarce:\n';
+      addTags('#SmartTV', '#TelewizjaCC', '#WorshipLive', '#ChristianCulture');
+    } else if ((item.url || '').includes('/program') || (item.title || '').includes('Program TV')) {
+      subHeader = '📅 PROGRAM TV & RAMÓWKA CC';
+      callToAction = '👉 Sprawdź ramówkę w serwisie:\n';
+      addTags('#ProgramTV', '#RamowkaCC', '#TelewizjaCC', '#ChristianCulture');
     } else {
       subHeader = '🌐 EKOSYSTEM CHRISTIAN CULTURE';
       callToAction = '👉 Odkryj w ekosystemie:\n';
@@ -943,6 +1019,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🏛️ ARCHEOLOGIA & HISTORIA BIBLIJNA';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#ArcheologiaBiblijna', '#CCNNews', '#Prawda');
+    } else if (tLower.includes('amazing grace') || tLower.includes('cudowna boża łaska') || (item.url || '').includes('amazing-grace')) {
+      subHeader = '🎵 HISTORIA MUZYKI & ŚWIADECTWO';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#AmazingGrace', '#JohnNewton', '#CCNNews', '#Prawda');
     } else if (tLower.includes('reformacj') || tLower.includes('lutr') || (item.url || '').includes('/historia/')) {
       subHeader = '📜 HISTORIA & REFORMACJA';
       callToAction = '👉 Czytaj w serwisie:\n';
@@ -1050,6 +1130,20 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę według biblijnej roztropności.';
   } else if ((item.url || '').includes('badz-blisko')) {
     bodyText = '7 krótkich spotkań ze Słowem, które pomagają odnaleźć spokój i zrobić dobry krok. Bezpłatny 7-dniowy przewodnik!';
+  } else if ((item.url || '').includes('amazing-grace') || (item.title || '').toLowerCase().includes('amazing grace')) {
+    bodyText = 'Historia hymnu „Cudowna Boża Łaska” (Amazing Grace): Od handlarza niewolników do pieśni Bożego odkupienia.';
+  } else if ((item.url || '').includes('/tv') || (item.title || '').includes('Smart TV')) {
+    bodyText = 'Wirtualny telewizor Christian Culture: 6 stacji TV na żywo, pilot online i pełny ekran na smartfony i Smart TV!';
+  } else if ((item.url || '').includes('/program') || (item.title || '').includes('Program TV')) {
+    bodyText = 'Oficjalny program telewizyjny ekosystemu CC: sprawdź ramówkę na dziś i nadchodzące transmisje na żywo.';
+  } else if ((item.url || '').includes('dzien-46')) {
+    bodyText = 'Dzień 46 (Wj 16:1–36): Manna z nieba, chleb powszedni, Boże zaopatrzenie na pustyni i nienaruszalna świętość szabatu.';
+  } else if ((item.url || '').includes('dzien-45')) {
+    bodyText = 'Dzień 45 (Wj 15:1–27): Pieśń zwycięstwa nad morzem, gorzkie wody Mara i obietnica Boga: „Ja jestem PAN, twój Lekarz”.';
+  } else if ((item.url || '').includes('dzien-44')) {
+    bodyText = 'Dzień 44 (Wj 14:1–31): Przejście przez Morze Czerwone — „PAN będzie walczył za was, a wy milczcie”. Boże ocalenie!';
+  } else if ((item.url || '').includes('dzien-43')) {
+    bodyText = 'Dzień 43 (Wj 12:37–13:22): Wyjście z Egiptu — Boże prowadzenie w słupie obłoku we dnie i w słupie ognia w nocy.';
   } else if ((item.url || '').includes('dzien-42')) {
     bodyText = 'Dzień 42 (Wj 11:1–12:36): Święto Paschy, krew Baranka na odrzwiach w Goszen, sąd nad bóstwami Egiptu i odkupienie ludu Bożego.';
   } else if ((item.url || '').includes('dzien-41')) {

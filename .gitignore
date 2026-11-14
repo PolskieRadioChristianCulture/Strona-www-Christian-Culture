@@ -48,6 +48,7 @@ _audio_backup/
 
 .codex-remote-attachments/
 scratch/
+data/.image_cache/
 .antigravity/
 
 # Private messaging runtime: never track or publish.
