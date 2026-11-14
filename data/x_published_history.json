@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "werset-dnia?day=318",
+      "title": "Werset Dnia: „Wykład Twoich słów oświeca i daje zrozumienie prostaczkom” (Psalm 119:130, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=318",
+      "type": "verse",
+      "image": "sidebar-verse-bg.jpg",
+      "publishedAt": "2026-11-14T07:04:09.758Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "vod",
       "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
       "url": "https://polskieradio.cc/vod",
