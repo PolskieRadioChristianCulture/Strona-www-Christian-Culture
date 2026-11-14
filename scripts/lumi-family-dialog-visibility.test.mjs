@@ -22,7 +22,7 @@ test('/mess preserves native modal visibility instead of leaving an invisible in
 
 test('generated /mess loads the corrected shell without replacing the chat or family engine', () => {
   const html = renderLumiPage(readFileSync('lumina.html', 'utf8'));
-  assert.match(html, /lumi-standalone\.css\?v=20261019_dialog1/);
+  assert.match(html, /lumi-standalone\.css\?v=(?:20261019_dialog1|20261112_message_menu)/);
   assert.match(html, /id="directMessagesModal"/);
   assert.match(html, /lumi-room-navigation/);
 });

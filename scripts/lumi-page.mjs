@@ -31,7 +31,7 @@ try {
 </script>
 <style>html.cc-mess-embedded #lumiLanding,html.cc-mess-embedded #lumiIntroOverlay{display:none!important}</style>
 <link rel="stylesheet" href="/css/lumi-standalone.css?v=20261112_message_menu">
-<link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261111_mess_repair">
+<link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261114_rooms_v2">
 <link rel="stylesheet" href="/css/cc-assistant.css?v=20261114_mess_asst3">
 <script defer src="/js/cc-assistant.js?v=20261114_mess_asst3"></script>
 <script defer src="/js/lumi-standalone.js?v=20261112_chat_ready"></script>

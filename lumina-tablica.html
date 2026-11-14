@@ -7010,6 +7010,38 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 
             <!-- TAB 1: PUBLIC COMMUNITY LIVE CHAT (Default View) -->
             <div id="messengerPublicView" style="display: flex; flex-direction: column; flex: 1; min-height: 0;">
+                <!-- Public Room Header Bar (Messenger Room Style) -->
+                <div class="lumi-room-subheader">
+                    <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+                        <button type="button" class="lumi-room-back-btn" onclick="closeModal('directMessagesModal')" title="Powrót do pulpitu LUMI MESS" aria-label="Powrót do pulpitu LUMI MESS">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <div class="lumi-room-avatar-wrap">
+                            <img loading="lazy" decoding="async" src="lumina_icon.jpg" alt="Czat Ogólny" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(192,132,252,0.55); display: block;">
+                            <span class="lumi-room-online-dot" title="Pokój aktywny na żywo"></span>
+                        </div>
+                        <div style="min-width: 0; flex: 1; overflow: hidden;">
+                            <div style="font-weight: 800; font-size: 0.96rem; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                Czat Ogólny Społeczności
+                            </div>
+                            <div style="font-size: 0.72rem; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                Pokój publiczny · Na żywo
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 4px; flex-shrink: 0;">
+                        <button type="button" class="lumi-room-action-btn" onclick="document.querySelector('#directMessagesModal .cc-chat-radio button')?.click()" title="Włącz / wyłącz dźwięk Radia CC w pokoju" aria-label="Audio w pokoju">
+                            <i class="fa-solid fa-phone"></i>
+                        </button>
+                        <button type="button" class="lumi-room-action-btn" onclick="switchMessengerMainTab('livetv')" title="Pokoje i transmisje wideo LIVE TV" aria-label="Transmisje wideo LIVE TV">
+                            <i class="fa-solid fa-video"></i>
+                        </button>
+                        <button type="button" class="lumi-room-action-btn" onclick="openChatSettingsModal()" title="Informacje i ustawienia pokoju" aria-label="Informacje o pokoju">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Public Chat Scroll Box -->
                 <div id="publicChatMessagesBox" style="flex: 1; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; background: rgba(0,0,0,0.2);">
                     <div style="text-align: center; margin: 6px 0;">
@@ -7037,9 +7069,21 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 
 <!-- Public Chat Input Form -->
                 <div id="publicChatTypingIndicator" class="lumina-typing-indicator"></div>
-                <form id="publicChatForm" class="chat-input-bar" onsubmit="handleSendPublicChatMessage(event)" style="display: flex; gap: 8px; padding: 10px 14px; background: rgba(255,255,255,0.04); border-top: 1px solid rgba(255,255,255,0.1);">
-                    <input type="text" id="publicChatInput" class="lumina-chat-input-premium" placeholder="Napisz do wszystkich na czacie ogólnym..." style="flex: 1; padding: 10px 14px; border-radius: 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-family: inherit; font-size: 0.85rem; transition: border-color 0.2s ease;" required>
-                    <button type="submit" style="padding: 10px 18px; border-radius: 20px; background: linear-gradient(90deg, #ec4899, #8b5cf6); border: none; color: #fff; font-weight: 800; cursor: pointer; font-family: inherit; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                <form id="publicChatForm" class="chat-input-bar" onsubmit="handleSendPublicChatMessage(event)" style="display: flex; gap: 8px; padding: 10px 14px; background: rgba(255,255,255,0.04); border-top: 1px solid rgba(255,255,255,0.1); align-items: center;">
+                    <button type="button" class="lumi-composer-plus-btn" onclick="const sb=document.getElementById('publicChatSmartBar');if(sb){sb.style.display=(sb.style.display==='none'?'flex':'none');}document.getElementById('publicChatInput')?.focus();" title="Szybkie błogosławieństwa i dodatki" aria-label="Więcej opcji wiadomości">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button type="button" class="lumi-composer-tool-btn hide-on-narrow-mobile" onclick="switchMessengerMainTab('livetv')" title="Pokoje wideo LIVE TV" aria-label="Pokoje wideo LIVE TV">
+                        <i class="fa-solid fa-camera"></i>
+                    </button>
+                    <button type="button" class="lumi-composer-tool-btn hide-on-narrow-mobile" onclick="insertPublicChatEmoji('🙏')" title="Wstaw znak modlitwy 🙏" aria-label="Wstaw znak modlitwy">
+                        <i class="fa-solid fa-hands-praying"></i>
+                    </button>
+                    <input type="text" id="publicChatInput" class="lumina-chat-input-premium" placeholder="Wiadomość" style="flex: 1; padding: 10px 14px; border-radius: 20px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-family: inherit; font-size: 0.85rem; transition: border-color 0.2s ease;" required>
+                    <button type="button" id="btnPublicChatEmoji" onclick="window.togglePublicChatEmojiDrawer()" aria-controls="publicChatEmojisBar" aria-expanded="false" style="background: none; border: none; font-size: 1.25rem; color: #a855f7; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; flex-shrink: 0;" title="Wybierz emotikon / odpowiedź emoji">
+                        <i class="fa-regular fa-face-smile"></i>
+                    </button>
+                    <button type="submit" class="lumina-send-btn-premium" style="padding: 10px 18px; border-radius: 20px; background: linear-gradient(135deg, #4E65FF, #7C3AED 55%, #9333EA); border: none; color: #fff; font-weight: 800; cursor: pointer; font-family: inherit; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;">
                         <span>Wyślij</span> <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </form>
@@ -7211,169 +7255,33 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                     <div id="dmActiveConversationBox" style="display: none; flex-direction: column; height: 100%; min-height: 0;">
                         <!-- Chat Room Header (Meta Messenger Style) -->
                         <div class="chat-header-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.08); min-height: 58px; gap: 8px;">
-                            <div class="chat-header-user-info" style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
-                                <button type="button" class="messenger-back-btn" onclick="returnToConversationsList()" style="background: none; border: none; color: #94a3b8; font-size: 1.1rem; cursor: pointer; padding: 4px 6px; flex-shrink: 0;" title="Powrót do listy rozmów"><i class="fa-solid fa-arrow-left"></i></button>
-                                <div class="chat-header-avatar-wrap" style="position: relative; width: 44px; height: 44px; min-width: 44px; min-height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+                            <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+                                <button type="button" class="messenger-back-btn" onclick="returnToConversationsList()" style="background: none; border: none; color: #F59E0B; font-size: 1.15rem; cursor: pointer; padding: 4px 6px; flex-shrink: 0;" title="Powrót do listy rozmów" aria-label="Powrót do listy rozmów"><i class="fa-solid fa-arrow-left"></i></button>
+                                <div class="lumi-room-avatar-wrap" style="position: relative; width: 44px; height: 44px; min-width: 44px; min-height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
                                     <img loading="lazy" decoding="async" id="activeChatAvatar" src="lumina_icon.jpg" alt="Rozmówca" style="width: 44px; height: 44px; min-width: 44px; min-height: 44px; max-width: 44px; max-height: 44px; aspect-ratio: 1 / 1; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid #c084fc; display: block; cursor: pointer; transition: transform 0.2s;" title="Zobacz profil użytkownika" onclick="if(activeChatSession&&activeChatSession.targetId){closeModal('directMessagesModal'); window.location.href='lumina-profile.html?u='+encodeURIComponent(activeChatSession.targetId);}" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-
+                                    <span id="activeChatPresenceDot" class="lumi-room-online-dot" data-lumina-presence-id="" data-lumina-presence-slug=""></span>
                                 </div>
                                 <div style="min-width: 0; flex: 1; overflow: hidden;">
-                                    <div id="activeChatName" style="font-weight: 800; font-size: 0.95rem; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Zobacz profil użytkownika" onclick="if(activeChatSession&&activeChatSession.targetId){closeModal('directMessagesModal'); window.location.href='lumina-profile.html?u='+encodeURIComponent(activeChatSession.targetId);}">
+                                    <div id="activeChatName" style="font-weight: 800; font-size: 0.96rem; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="Zobacz profil użytkownika" onclick="if(activeChatSession&&activeChatSession.targetId){closeModal('directMessagesModal'); window.location.href='lumina-profile.html?u='+encodeURIComponent(activeChatSession.targetId);}">
                                         Rozmowa Prywatna
                                     </div>
-                                    <div style="font-size: 0.70rem; color: #10b981; display: flex; align-items: center; gap: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                        <span class="chat-status-full">Rozmowa prywatna</span><span class="chat-status-compact">Czat prywatny</span>
+                                    <div style="font-size: 0.72rem; color: #94a3b8; display: flex; align-items: center; gap: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        Rozmowa prywatna
                                     </div>
                                 </div>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
-                                <button type="button" class="chat-header-sync-btn" id="btnSyncFaithLounge" onclick="toggleSyncFaithLounge()" title="Wspólne Słuchanie & Oglądanie (Sync-Faith Lounge)">
-                                    <i class="fa-solid fa-tower-broadcast"></i><span class="chat-header-sync-text"> Wspólny Odtwarzacz</span>
+                            <div style="display: flex; align-items: center; gap: 4px; flex-shrink: 0;">
+                                <button type="button" class="lumi-room-action-btn" onclick="document.querySelector('#directMessagesModal .cc-chat-radio button')?.click()" title="Włącz / wyłącz dźwięk Radia CC w rozmowie" aria-label="Audio w rozmowie">
+                                    <i class="fa-solid fa-phone"></i>
                                 </button>
-                                <button type="button" class="chat-header-profile-btn" onclick="if(activeChatSession&&activeChatSession.targetId){closeModal('directMessagesModal'); window.location.href='lumina-profile.html?u='+encodeURIComponent(activeChatSession.targetId);}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #cbd5e1; border-radius: 12px; padding: 6px 12px; font-size: 0.78rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex-shrink: 0; min-height: 36px;" title="Zobacz pełny profil rozmówcy">
-                                    <i class="fa-solid fa-user"></i><span class="chat-header-profile-text"> Profil</span>
+                                <button type="button" class="lumi-room-action-btn" onclick="switchMessengerMainTab('livetv')" title="Pokoje i transmisje wideo LIVE TV" aria-label="Wideo LIVE TV">
+                                    <i class="fa-solid fa-video"></i>
                                 </button>
+                                <button type="button" class="lumi-room-action-btn chat-header-profile-btn" onclick="if(activeChatSession&&activeChatSession.targetId){closeModal('directMessagesModal'); window.location.href='lumina-profile.html?u='+encodeURIComponent(activeChatSession.targetId);}" title="Zobacz pełny profil rozmówcy" aria-label="Zobacz pełny profil rozmówcy">
+                                    <i class="fa-solid fa-circle-info"></i><span class="chat-header-profile-text" style="display:none;"> Profil</span>
+                                </button>
+                                <button type="button" onclick="openChatSettingsModal()" title="Ustawienia czatu i wylogowanie" class="chat-settings-btn" style="align-items:center; justify-content:center; width:36px; height:36px; min-width:36px; max-width:36px; min-height:36px; max-height:36px; border-radius:10px; border:1px solid rgba(250,204,21,0.4); background:rgba(250,204,21,0.12); color:#facc15; font-size:0.95rem; cursor:pointer; transition:all 0.2s; flex:0 0 36px; flex-shrink:0; padding:0; margin:0; box-sizing:border-box;"><i class="fa-solid fa-gear"></i></button>
                                 <button type="button" class="chat-close-btn modal-close-btn" onclick="closeModal('directMessagesModal')" aria-label="Zamknij czat" title="Zamknij czat" style="flex-shrink: 0;"><i class="fa-solid fa-xmark"></i></button>
-                            </div>
-                        </div>
-
-                        <!-- SYNC-FAITH LOUNGE: WSPÓLNE SŁUCHANIE & OGLĄDANIE DLA DWOJGA (JOMA-D015) -->
-                        <div id="syncFaithLoungePanel" class="sync-faith-lounge-panel">
-                            <div class="sync-lounge-top-bar">
-                                <div class="sync-lounge-title-wrap">
-                                    <i class="fa-solid fa-tower-broadcast" style="color: #F5DC9A;"></i>
-                                    <span>Sync-Faith Lounge • Dla Dwojga</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 6px;">
-                                    <button type="button" class="sync-lounge-stop-all-btn" id="btnSyncLoungeStopAll" onclick="stopAllSyncLoungeStreams(true)" title="Wyłącz i zatrzymaj seans">
-                                        <i class="fa-solid fa-power-off"></i> <span class="sync-stop-all-text">Wyłącz seans</span>
-                                    </button>
-                                    <div class="sync-lounge-status-pill" id="syncLoungeStatusPill">
-                                        <span style="width:6px; height:6px; border-radius:50%; background:#22c55e; display:inline-block;" id="syncLoungeStatusDot"></span>
-                                        <span id="syncLoungeStatusText"><span class="sync-status-full">Zsynchronizowano co do sekundy</span><span class="sync-status-compact">Zsynchronizowano</span></span>
-                                    </div>
-                                    <button type="button" class="sync-lounge-close-btn" onclick="toggleSyncFaithLounge()" title="Zwiń Odtwarzacz">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Zakładki Źródeł -->
-                            <div class="sync-lounge-tabs">
-                                <button type="button" class="sync-lounge-tab active" id="syncTabRadio" onclick="switchSyncLoungeSource('radio')">
-                                    <i class="fa-solid fa-radio"></i> Radio CC
-                                </button>
-                                <button type="button" class="sync-lounge-tab" id="syncTabTv" onclick="switchSyncLoungeSource('tv')">
-                                    <i class="fa-solid fa-tv"></i> CCTV24 TV
-                                </button>
-                                <button type="button" class="sync-lounge-tab" id="syncTabCourse" onclick="switchSyncLoungeSource('course')">
-                                    <i class="fa-solid fa-heart-pulse"></i> Kurs Małżeński
-                                </button>
-                            </div>
-
-                            <!-- Odtwarzacz -->
-                            <div class="sync-player-card" id="syncPlayerCard">
-                                <!-- Radio Player View -->
-                                <div id="syncRadioView" class="sync-radio-wrap">
-                                    <img src="tlo_pr_cc.jpg" alt="Radio Christian Culture" class="sync-radio-cover" style="width: 52px; height: 52px; min-width: 52px; min-height: 52px; max-width: 52px; max-height: 52px; border-radius: 10px; object-fit: cover; border: 1.5px solid rgba(212,169,74,0.4); flex-shrink: 0;">
-                                    <div class="sync-radio-info">
-                                        <div class="sync-radio-title">Radio Christian Culture 24/7</div>
-                                        <div class="sync-radio-sub" id="syncRadioSub">Wspólne budowanie w Słowie i uwielbieniu 🕊️</div>
-                                    </div>
-                                    <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
-                                        <button type="button" class="sync-play-btn" id="btnSyncRadioPlay" onclick="toggleSyncRadioPlay()" title="Włącz / Wstrzymaj Radio">
-                                            <i class="fa-solid fa-play" id="iconSyncRadioPlay"></i>
-                                        </button>
-                                        <button type="button" class="sync-radio-stop-btn" id="btnSyncRadioStop" onclick="stopSyncRadio(true)" title="Całkowicie zatrzymaj i wyłącz radio">
-                                            <i class="fa-solid fa-stop"></i>
-                                        </button>
-                                    </div>
-                                    <audio id="syncRadioAudio" preload="none"></audio>
-                                </div>
-
-                                <!-- CCTV24 Live TV View -->
-                                <div id="syncTvView" style="display:none; flex-direction:column; gap:8px;">
-                                    <div class="sync-video-container" id="syncTvContainer">
-                                        <iframe id="syncTvIframe" src="" title="CCTV24 Worship Live" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-                                        <div id="syncTvPlaceholder" class="sync-media-placeholder" style="display:none;" onclick="startSyncTvVideo(true)">
-                                            <img src="tlo_tv_dzj.jpg" alt="CCTV24 Live TV" class="sync-placeholder-img" onerror="this.src='tlo_pr_cc.jpg'">
-                                            <div class="sync-placeholder-overlay">
-                                                <button type="button" class="sync-placeholder-big-play" onclick="event.stopPropagation(); startSyncTvVideo(true);" title="Uruchom CCTV24 TV">
-                                                    <i class="fa-solid fa-play"></i>
-                                                </button>
-                                                <div class="sync-placeholder-badge"><i class="fa-solid fa-tv"></i> CCTV24 Worship TV</div>
-                                                <div class="sync-placeholder-hint">Transmisja wyłączona • Kliknij, aby włączyć na żywo</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- TV Stream Action Bar -->
-                                    <div class="sync-stream-control-bar">
-                                        <div style="display:flex; align-items:center; gap:8px;">
-                                            <button type="button" id="btnSyncTvToggle" class="sync-stream-btn danger" onclick="toggleSyncTvPlay()">
-                                                <i class="fa-solid fa-power-off" id="iconSyncTvPower"></i> <span id="labelSyncTvPower">Wyłącz TV</span>
-                                            </button>
-                                            <button type="button" id="btnSyncTvMute" class="sync-stream-btn secondary" onclick="toggleSyncTvMute()">
-                                                <i class="fa-solid fa-volume-high" id="iconSyncTvVolume"></i> <span id="labelSyncTvVolume">Dźwięk</span>
-                                            </button>
-                                        </div>
-                                        <div class="sync-stream-meta-status">
-                                            <span class="sync-pulse-dot red" id="dotSyncTvLive"></span>
-                                            <span id="textSyncTvLive" style="font-size:0.75rem; color:#cbd5e1; font-weight:700;">Transmisja aktywna</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Nie Bylejaki Kurs Małżeński View -->
-                                <div id="syncCourseView" style="display:none; flex-direction:column; gap:8px;">
-                                    <div class="sync-video-container" id="syncCourseContainer">
-                                        <iframe id="syncCourseIframe" src="" title="Nie Bylejaki Kurs Małżeński" allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope;" allowfullscreen loading="lazy"></iframe>
-                                        <div id="syncCoursePlaceholder" class="sync-media-placeholder" style="display:none;" onclick="startSyncCourseVideo(true)">
-                                            <img id="syncCoursePlaceholderImg" src="nie-bylejaki-kurs-malzenski.png" alt="Kurs Małżeński" class="sync-placeholder-img" onerror="this.src='tlo_profilowe_wioletta.jpg'">
-                                            <div class="sync-placeholder-overlay">
-                                                <button type="button" class="sync-placeholder-big-play" onclick="event.stopPropagation(); startSyncCourseVideo(true);" title="Uruchom Kurs">
-                                                    <i class="fa-solid fa-play"></i>
-                                                </button>
-                                                <div class="sync-placeholder-badge"><i class="fa-solid fa-heart"></i> Kurs Małżeński</div>
-                                                <div class="sync-placeholder-hint" id="syncCoursePlaceholderTitle">Odcinek 1 • Kliknij, aby uruchomić wideo</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Course Action Bar -->
-                                    <div class="sync-stream-control-bar">
-                                        <div style="display:flex; align-items:center; gap:8px;">
-                                            <button type="button" id="btnSyncCourseToggle" class="sync-stream-btn danger" onclick="toggleSyncCoursePlay()">
-                                                <i class="fa-solid fa-power-off" id="iconSyncCoursePower"></i> <span id="labelSyncCoursePower">Wyłącz wideo</span>
-                                            </button>
-                                            <button type="button" id="btnSyncCoursePause" class="sync-stream-btn secondary" onclick="pauseOrResumeSyncCourseVideo()">
-                                                <i class="fa-solid fa-pause" id="iconSyncCoursePause"></i> <span id="labelSyncCoursePause">Wstrzymaj</span>
-                                            </button>
-                                        </div>
-                                        <div class="sync-stream-meta-status">
-                                            <span class="sync-pulse-dot green" id="dotSyncCourseLive"></span>
-                                            <span id="textSyncCourseStatus" style="font-size:0.75rem; color:#cbd5e1; font-weight:700;">Seans aktywny</span>
-                                        </div>
-                                    </div>
-
-                                    <!-- Selektor odcinka -->
-                                    <div style="display:flex; flex-direction:column; gap:4px;">
-                                        <label for="syncCourseSelect" style="font-size:0.70rem; color:#94a3b8; font-weight:700; text-transform:uppercase;">Wybierz odcinek cyklu:</label>
-                                        <select id="syncCourseSelect" class="sync-episode-select" onchange="onSyncCourseEpisodeChanged(this.value)">
-                                            <!-- Dynamicznie generowane opcje 1-18 -->
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pasek Szybkich Reakcji Wiary w Odtwarzaczu -->
-                            <div class="sync-faith-reactions-bar">
-                                <span style="font-size:0.70rem; color:#94a3b8; font-weight:700; flex-shrink:0;">Reakcje:</span>
-                                <button type="button" class="sync-faith-btn" onclick="sendSyncLoungeFaithReaction('🕊️', 'Amen')">🕊️ Amen</button>
-                                <button type="button" class="sync-faith-btn" onclick="sendSyncLoungeFaithReaction('❤️', 'Miłość w Chrystusie')">❤️ Miłość</button>
-                                <button type="button" class="sync-faith-btn" onclick="sendSyncLoungeFaithReaction('🙏', 'Modlę się z Tobą')">🙏 Modlę się</button>
-                                <button type="button" class="sync-faith-btn" onclick="sendSyncLoungeFaithReaction('✨', 'Błogosławieństwo')">✨ Błogosławieństwo</button>
-                                <button type="button" class="sync-faith-btn" onclick="sendSyncLoungeFaithReaction('✝️', 'Chwała Bogu')">✝️ Chwała Bogu</button>
                             </div>
                         </div>
 
@@ -7406,11 +7314,17 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 
                         <!-- Chat Input Form (Meta Messenger / WhatsApp Composer) -->
                         <form id="activeChatForm" class="chat-input-bar" onsubmit="handleSendActiveChatMessage(event)" style="display: flex; gap: 8px; padding: 10px 14px; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.08); align-items: center;">
-                            <button type="button" onclick="toggleChatEmojiDrawer()" style="background: none; border: none; font-size: 1.25rem; color: #facc15; cursor: pointer; padding: 4px; display:flex; align-items:center; justify-content:center;" title="Wybierz reakcję / Emoji">
+                            <button type="button" class="lumi-composer-plus-btn" onclick="const sb=document.getElementById('activeChatSmartBar');if(sb){sb.style.display=(sb.style.display==='none'?'flex':'none');}document.getElementById('activeChatInput')?.focus();" title="Szybkie błogosławieństwa i dodatki" aria-label="Więcej opcji wiadomości">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                            <button type="button" class="lumi-composer-tool-btn hide-on-narrow-mobile" onclick="insertChatEmoji('🙏')" title="Wstaw znak modlitwy 🙏" aria-label="Wstaw znak modlitwy">
+                                <i class="fa-solid fa-hands-praying"></i>
+                            </button>
+                            <input type="text" id="activeChatInput" oninput="handleActiveChatInputChange(this.value)" placeholder="Wiadomość" maxlength="1000" autocomplete="off" style="flex: 1; padding: 10px 16px; border-radius: 22px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-family: inherit; font-size: 0.88rem; transition: border-color 0.2s;" required>
+                            <button type="button" class="lumi-composer-emoji-btn" onclick="window.toggleChatEmojiDrawer()" aria-controls="activeChatEmojisBar" aria-expanded="false" style="background: none; border: none; font-size: 1.25rem; color: #a855f7; cursor: pointer; padding: 4px; display:flex; align-items:center; justify-content:center; min-width: 44px; min-height: 44px;" title="Wybierz reakcję / Emoji">
                                 <i class="fa-regular fa-face-smile"></i>
                             </button>
-                            <input type="text" id="activeChatInput" oninput="handleActiveChatInputChange(this.value)" placeholder="Napisz wiadomość prywatną..." maxlength="1000" autocomplete="off" style="flex: 1; padding: 10px 16px; border-radius: 22px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-family: inherit; font-size: 0.88rem; transition: border-color 0.2s;" required>
-                            <button type="submit" id="btnActiveChatSubmit" class="lumina-send-btn-premium" style="padding: 10px 18px; border-radius: 22px; background: linear-gradient(90deg, #ec4899, #8b5cf6); border: none; color: #fff; font-weight: 800; cursor: pointer; font-family: inherit; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(236,72,153,0.4);">
+                            <button type="submit" id="btnActiveChatSubmit" class="lumina-send-btn-premium" style="padding: 10px 18px; border-radius: 22px; background: linear-gradient(135deg, #4E65FF, #7C3AED 55%, #9333EA); border: none; color: #fff; font-weight: 800; cursor: pointer; font-family: inherit; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(124,58,237,0.4);">
                                 <span id="btnActiveChatSubmitLabel">Wyślij</span> <i class="fa-solid fa-paper-plane" id="btnActiveChatSubmitIcon"></i>
                             </button>
                         </form>
@@ -12843,13 +12757,20 @@ function renderPublicChatMessages(messages) {
                 } catch (_) {}
             }
 
-            list.forEach(msg => {
+            let lastMyIdx = -1;
+            list.forEach((m, i) => {
+                const ns = window.LuminaDB ? window.LuminaDB.normalizeChatUserId(m.senderId) : m.senderId;
+                if (myId !== 'guest' && ns === myId) lastMyIdx = i;
+            });
+            let lastTimeSep = '';
+
+            list.forEach((msg, idx) => {
                 const normSender = window.LuminaDB ? window.LuminaDB.normalizeChatUserId(msg.senderId) : msg.senderId;
                 const isMe = (myId !== 'guest' && normSender === myId);
                 const align = isMe ? 'flex-end' : 'flex-start';
-                const bg = isMe ? 'linear-gradient(135deg, #a855f7, #06b6d4)' : 'rgba(255,255,255,0.07)';
+                const bg = isMe ? 'linear-gradient(135deg, #4E65FF 0%, #7C3AED 52%, #9333EA 100%)' : 'linear-gradient(145deg, #1E234A 0%, #171C3C 100%)';
                 const color = '#fff';
-                const radius = isMe ? '16px 16px 4px 16px' : '16px 16px 16px 4px';
+                const radius = isMe ? '20px 20px 6px 20px' : '20px 20px 20px 6px';
                 const time = formatChatTime(msg);
                 const avatarSrc = window.resolveChatAvatar ? window.resolveChatAvatar(msg.senderId, msg.senderName, msg.senderAvatar, isMe) : (isMe ? 'avatar_cezary_official.jpg' : (msg.senderAvatar || 'lumina_icon.jpg'));
 
@@ -12857,6 +12778,10 @@ function renderPublicChatMessages(messages) {
                 const senderAction = isTvPresenter
                     ? "window.LumiLiveRooms.enterRoom('tv_cctv24')"
                     : `openChatWith('${escapeForInlineJs(msg.senderName)}', '${escapeForInlineJs(avatarSrc)}', '${escapeForInlineJs(msg.senderId)}')`;
+
+                const rawTrim = String(msg.text || '').trim();
+                const isEmojiOnly = rawTrim.length > 0 && rawTrim.length <= 14 && /^(?:[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|\uD83E[\uDD00-\uDFFF]|[\u2600-\u26FF]|\uFE0F|\u200D|\s)+$/.test(rawTrim);
+                const bubbleCls = (isMe ? 'lumina-bubble-mine' : 'lumina-bubble-theirs') + (isEmojiOnly ? ' lumina-bubble-emoji-only' : '');
 
                 const reactionsHtml = typeof buildMessageReactionsHtml === 'function' ? buildMessageReactionsHtml(msg, 'public', 'public', myId) : '';
                 const quoteHtml = (msg.replyToMessageId || msg.replyToText) ? `
@@ -12871,24 +12796,29 @@ function renderPublicChatMessages(messages) {
                     </div>
                 ` : '';
 
+                if (time && time !== lastTimeSep) {
+                    lastTimeSep = time;
+                    html += `<div class="lumina-time-separator">${escapeHtml(time)}</div>`;
+                }
+
                 html += `
                     <div class="lumina-msg-row" id="msg_${escapeHtml(msg.id || '')}" data-message-id="${escapeHtml(msg.id || '')}" data-sender-name="${escapeHtml(msg.senderName || '')}" data-sender-id="${escapeHtml(msg.senderId || '')}" style="display:flex; justify-content:${align}; align-items:flex-end; gap:8px; margin-bottom:8px;">
                         ${!isMe ? `
                             <img loading="lazy" decoding="async" src="${escapeHtml(avatarSrc)}" alt="${escapeHtml(msg.senderName)}" onerror="this.onerror=null; this.src='lumina_icon.jpg'" class="lumina-chat-avatar" style="width:32px; height:32px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(255,255,255,0.25); flex-shrink:0; cursor:pointer;" onclick="${senderAction}">
                         ` : ''}
-                        <div class="${isMe ? 'lumina-bubble-mine' : 'lumina-bubble-theirs'}"
+                        <div class="${bubbleCls}"
                              oncontextmenu="window.handleChatContextMenu(event, this.closest('.lumina-msg-row'))"
                              ontouchstart="window.handleChatTouchStart(event, this.closest('.lumina-msg-row'))"
                              ontouchmove="window.handleChatTouchMove(event)"
                              ontouchend="window.handleChatTouchEnd(event)"
                              ontouchcancel="window.handleChatTouchEnd(event)"
-                             style="max-width:75%; padding:10px 14px; border-radius:${radius}; color:${color}; font-size:0.86rem; line-height:1.45; position:relative; -webkit-touch-callout:none;">
+                             style="max-width:75%; padding:10px 14px; border-radius:${radius}; background:${bg}; color:${color}; font-size:0.86rem; line-height:1.45; position:relative; -webkit-touch-callout:none;">
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px; gap:8px;">
-                                <span style="font-weight:800; font-size:0.75rem; color:${isMe ? '#fdf4ff' : '#f472b6'}; cursor:pointer;" onclick="${senderAction}">${escapeHtml(isMe ? ('Ty' + (msg.senderName ? ' (' + msg.senderName + ')' : '')) : (msg.senderName || 'Użytkownik'))}</span>
+                                <span style="font-weight:800; font-size:0.75rem; color:${isMe ? '#fdf4ff' : '#c4b5fd'}; cursor:pointer;" onclick="${senderAction}">${escapeHtml(isMe ? ('Ty' + (msg.senderName ? ' (' + msg.senderName + ')' : '')) : (msg.senderName || 'Użytkownik'))}</span>
                                 ${(msg.senderBadge ? "<span style=\"font-size:0.65rem; background:rgba(0,0,0,0.25); padding:1px 6px; border-radius:8px; color:#fde047;\">" + escapeHtml(msg.senderBadge) + "</span>" : "")}
                             </div>
                             ${quoteHtml}
-                            <div style="word-break:break-word;">${renderChatMedia(escapeHtml(msg.text), msg.id)}</div>
+                            <div class="lumina-msg-text-body" style="word-break:break-word;">${renderChatMedia(escapeHtml(msg.text), msg.id)}</div>
                             ${reactionsHtml}
                             <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.65rem; color:rgba(255,255,255,0.6); margin-top:4px; gap:8px;">
                                 <span>${escapeHtml(time)}</span>
@@ -12907,6 +12837,9 @@ function renderPublicChatMessages(messages) {
                         ` : ''}
                     </div>
                 `;
+                if (isMe && idx === lastMyIdx) {
+                    html += `<div class="lumina-delivery-status-row"><span>Dostarczono</span></div>`;
+                }
             });
 
             // 🛡️ STRAŻNIK: podmieniamy tylko nowe/zmienione wiadomości (bez migania avatarów)
@@ -15192,18 +15125,31 @@ window.addEventListener('lumina-auth-state', () => {
                 </div>
             `;
 
-            (messages || []).forEach(msg => {
+            const list = Array.isArray(messages) ? messages : [];
+            let lastMyIdx = -1;
+            list.forEach((m, i) => {
+                const ns = window.LuminaDB ? window.LuminaDB.normalizeChatUserId(m.senderId) : m.senderId;
+                if (ns === myId) lastMyIdx = i;
+            });
+            let lastTimeSep = '';
+            const partnerAvatarFallback = activeChatSession?.targetAvatar || 'lumina_icon.jpg';
+
+            list.forEach((msg, idx) => {
                 const normSender = window.LuminaDB ? window.LuminaDB.normalizeChatUserId(msg.senderId) : msg.senderId;
                 const isMe = (normSender === myId);
                 const align = isMe ? 'flex-end' : 'flex-start';
-                const bubbleClass = isMe ? 'fb-msg-bubble-me' : 'fb-msg-bubble-them';
+                const rawTrim = String(msg.text || '').trim();
+                const isEmojiOnly = rawTrim.length > 0 && rawTrim.length <= 14 && /^(?:[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|\uD83E[\uDD00-\uDFFF]|[\u2600-\u26FF]|\uFE0F|\u200D|\s)+$/.test(rawTrim);
+                const bubbleClass = (isMe ? 'fb-msg-bubble-me' : 'fb-msg-bubble-them') + (isEmojiOnly ? ' lumina-bubble-emoji-only' : '');
                 const time = formatChatTime(msg);
+                const partnerAvatarSrc = window.resolveChatAvatar ? window.resolveChatAvatar(msg.senderId || activeChatSession?.targetId, msg.senderName || activeChatSession?.targetName, msg.senderAvatar || partnerAvatarFallback, false) : (msg.senderAvatar || partnerAvatarFallback);
 
                 let checkmarksHtml = '';
+                const isReadMsg = Boolean(msg.isRead || msg.status === 'read');
                 if (isMe) {
-                    const partnerName = activeChatSession?.partnerName || 'Rozmówca';
+                    const partnerName = activeChatSession?.partnerName || activeChatSession?.targetName || 'Rozmówca';
                     const readerName = msg.readByName || partnerName;
-                    if (msg.isRead || msg.status === 'read') {
+                    if (isReadMsg) {
                         const readTime = msg.readAt ? new Date(msg.readAt).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : time;
                         checkmarksHtml = `<i class="fa-solid fa-check-double fb-check-read" title="Odczytano przez: ${escapeHtml(readerName)} o ${escapeHtml(readTime)}"></i>`;
                     } else if (msg.delivered || msg.status === 'delivered') {
@@ -15216,11 +15162,19 @@ window.addEventListener('lumina-auth-state', () => {
 
                 const reactionsHtml = typeof buildMessageReactionsHtml === 'function' ? buildMessageReactionsHtml(msg, 'direct', activeChatSession?.chatId || '', myId) : '';
 
+                if (time && time !== lastTimeSep) {
+                    lastTimeSep = time;
+                    html += `<div class="lumina-time-separator">${escapeHtml(time)}</div>`;
+                }
+
                 html += `
-                    <div style="display:flex; justify-content:${align}; margin-bottom:5px;" id="msg_${escapeHtml(msg.id || '')}" data-message-id="${escapeHtml(msg.id || '')}">
+                    <div class="lumina-dm-msg-row" style="display:flex; justify-content:${align}; align-items:flex-end; gap:8px; margin-bottom:6px;" id="msg_${escapeHtml(msg.id || '')}" data-message-id="${escapeHtml(msg.id || '')}">
+                        ${!isMe ? `
+                            <img loading="lazy" decoding="async" src="${escapeHtml(partnerAvatarSrc)}" alt="${escapeHtml(msg.senderName || 'Rozmówca')}" onerror="this.onerror=null; this.src='lumina_icon.jpg'" class="lumina-chat-avatar" style="width:30px; height:30px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(255,255,255,0.22); flex-shrink:0;">
+                        ` : ''}
                         <div class="${bubbleClass}">
-                            ${!isMe ? `<div style="font-weight:700; font-size:0.70rem; color:#93c5fd; margin-bottom:2px;">${escapeHtml(msg.senderName || 'Rozmówca')}</div>` : ''}
-                            <div style="font-size:0.86rem; line-height:1.42; word-break:break-word;">${renderChatMedia(escapeHtml(msg.text), msg.id)}</div>
+                            ${!isMe ? `<div style="font-weight:700; font-size:0.70rem; color:#c4b5fd; margin-bottom:2px;">${escapeHtml(msg.senderName || 'Rozmówca')}</div>` : ''}
+                            <div class="lumina-msg-text-body" style="font-size:0.86rem; line-height:1.42; word-break:break-word;">${renderChatMedia(escapeHtml(msg.text), msg.id)}</div>
                             ${reactionsHtml}
                             <div class="fb-msg-meta" style="display:flex; align-items:center; justify-content:space-between; gap:6px; margin-top:3px;">
                                 <div style="display:flex; align-items:center; gap:4px;">
@@ -15234,6 +15188,13 @@ window.addEventListener('lumina-auth-state', () => {
                         </div>
                     </div>
                 `;
+                if (isMe && idx === lastMyIdx) {
+                    html += `
+                        <div class="lumina-delivery-status-row">
+                            ${isReadMsg ? `<img loading="lazy" decoding="async" src="${escapeHtml(partnerAvatarSrc)}" alt="" onerror="this.onerror=null; this.src='lumina_icon.jpg'" class="lumina-read-mini-avatar"><span>Odczytano</span>` : `<span>Dostarczono</span>`}
+                        </div>
+                    `;
+                }
             });
 
             const prevScrollTop = box.scrollTop;

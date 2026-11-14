@@ -2220,5 +2220,310 @@ html body.lumi-standalone .cc-chat-radio.is-playing button {
     }
 }
 
+/* ══════════════════════════════════════════════════════════════════════════════
+   LUMINA MESS ROOMS UI v2026-11-14 — WZORZEC POKOJÓW CZATU (PRYWATNYCH I PUBLICZNYCH)
+   Kosmiczne tło zorzy polarnej (Aurora Borealis), granatowo-indygo dymki przychodzące,
+   królewsko-fioletowe dymki wychodzące, bursztynowe ikony nagłówka i fioletowy kompozytor.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* 1. Kosmiczne tło zorzy polarnej (Aurora Borealis + rozgwieżdżona noc) w pokojach rozmów */
+html:not([data-lumina-theme="light"]) #publicChatMessagesBox,
+html:not([data-lumina-theme="light"]) #activeChatMessagesBox,
+html:not([data-lumina-theme="light"]) #commanderChatMessagesBox,
+html:not([data-lumina-theme="light"]) #messengerLiveView .llr-box,
+html:not([data-lumina-theme="light"]) #ccChatMessagesList,
+html:not([data-lumina-theme="light"]) .ldd-messages,
+html.lumi-mess-page #publicChatMessagesBox,
+html.lumi-mess-page #activeChatMessagesBox,
+html.lumi-mess-page #commanderChatMessagesBox,
+html.lumi-mess-page #messengerLiveView .llr-box,
+html.lumi-mess-page #ccChatMessagesList,
+html.lumi-mess-page .ldd-messages {
+    background-color: #060814 !important;
+    background-image:
+        radial-gradient(1.5px 1.5px at 14% 18%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
+        radial-gradient(1px 1px at 78% 12%, rgba(255, 255, 255, 0.48) 50%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 36% 62%, rgba(167, 243, 208, 0.5) 50%, transparent 100%),
+        radial-gradient(1px 1px at 86% 48%, rgba(221, 214, 254, 0.5) 50%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 22% 84%, rgba(255, 255, 255, 0.42) 50%, transparent 100%),
+        radial-gradient(1px 1px at 64% 88%, rgba(196, 181, 253, 0.45) 50%, transparent 100%),
+        radial-gradient(ellipse 88% 42% at 18% 26%, rgba(16, 185, 129, 0.25) 0%, rgba(6, 182, 212, 0.12) 45%, transparent 74%),
+        radial-gradient(ellipse 82% 48% at 84% 40%, rgba(139, 92, 246, 0.30) 0%, rgba(168, 85, 247, 0.14) 48%, transparent 76%),
+        radial-gradient(ellipse 90% 46% at 62% 76%, rgba(16, 185, 129, 0.24) 0%, rgba(59, 130, 246, 0.16) 52%, transparent 78%),
+        linear-gradient(170deg, #050711 0%, #091026 38%, #0c172e 68%, #060814 100%) !important;
+    background-attachment: local !important;
+}
+
+/* 2. Pasek nagłówka pokoju (prywatnego 1:1 oraz publicznego) */
+.lumi-room-subheader,
+html:not([data-lumina-theme="light"]) #dmActiveConversationBox .chat-header-bar,
+html.lumi-mess-page #dmActiveConversationBox .chat-header-bar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 8px 12px !important;
+    background: #060813 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    min-height: 58px !important;
+    gap: 8px !important;
+}
+
+.lumi-room-back-btn,
+#dmActiveConversationBox .messenger-back-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #F59E0B !important;
+    font-size: 1.18rem !important;
+    cursor: pointer !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    transition: background-color 0.18s ease, transform 0.18s ease !important;
+}
+
+.lumi-room-back-btn:hover,
+#dmActiveConversationBox .messenger-back-btn:hover {
+    background: rgba(245, 158, 11, 0.14) !important;
+    transform: translateX(-1px);
+}
+
+.lumi-room-avatar-wrap {
+    position: relative !important;
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.lumi-room-online-dot {
+    position: absolute !important;
+    right: -1px !important;
+    bottom: -1px !important;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    background-color: #22C55E;
+    border: 2px solid #060813 !important;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.55) !important;
+    pointer-events: none !important;
+}
+
+.lumi-room-action-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #F59E0B !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.05rem !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    transition: background-color 0.18s ease, transform 0.18s ease !important;
+}
+
+.lumi-room-action-btn:hover {
+    background: rgba(245, 158, 11, 0.14) !important;
+    transform: scale(1.06);
+}
+
+/* 3. Dymki wiadomości przychodzących (lewa strona — głęboki nocny indygo-granat + okrągły awatar) */
+html:not([data-lumina-theme="light"]) #publicChatMessagesBox .lumina-bubble-theirs,
+html:not([data-lumina-theme="light"]) #directMessagesModal .fb-msg-bubble-them,
+html:not([data-lumina-theme="light"]) #messengerLiveView .llr-msg:not(.me) .llr-b,
+html.lumi-mess-page #publicChatMessagesBox .lumina-bubble-theirs,
+html.lumi-mess-page #directMessagesModal .fb-msg-bubble-them,
+html.lumi-mess-page #messengerLiveView .llr-msg:not(.me) .llr-b {
+    background: linear-gradient(145deg, #1E234A 0%, #171C3C 100%) !important;
+    border: 1px solid rgba(148, 163, 184, 0.16) !important;
+    border-radius: 20px 20px 20px 6px !important;
+    color: #F8FAFC !important;
+    box-shadow: 0 4px 14px rgba(2, 6, 23, 0.42) !important;
+}
+
+/* 4. Dymki wiadomości wychodzących (prawa strona — królewski błękit do elektrycznego fioletu) */
+html:not([data-lumina-theme="light"]) #publicChatMessagesBox .lumina-bubble-mine,
+html:not([data-lumina-theme="light"]) #directMessagesModal .fb-msg-bubble-me,
+html:not([data-lumina-theme="light"]) #messengerLiveView .llr-msg.me .llr-b,
+html.lumi-mess-page #publicChatMessagesBox .lumina-bubble-mine,
+html.lumi-mess-page #directMessagesModal .fb-msg-bubble-me,
+html.lumi-mess-page #messengerLiveView .llr-msg.me .llr-b {
+    background: linear-gradient(135deg, #4E65FF 0%, #7C3AED 52%, #9333EA 100%) !important;
+    border: 1px solid rgba(192, 132, 252, 0.28) !important;
+    border-radius: 20px 20px 6px 20px !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.36) !important;
+}
+
+/* Ukrycie dużego prawego awatara własnego przy wysłanych wiadomościach — wyrównanie do prawej krawędzi jak w Messengerze */
+#publicChatMessagesBox .lumina-msg-row > .lumina-bubble-mine + .lumina-chat-avatar {
+    display: none !important;
+}
+
+/* Samodzielne wiadomości emoji (np. 🙏, ❤️) bez tła dymka */
+.lumina-bubble-emoji-only,
+#publicChatMessagesBox .lumina-bubble-emoji-only,
+#directMessagesModal .lumina-bubble-emoji-only {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 4px 6px !important;
+}
+
+.lumina-bubble-emoji-only .lumina-msg-text-body {
+    font-size: 2.15rem !important;
+    line-height: 1.15 !important;
+}
+
+/* 5. Wyśrodkowane separatory czasu, linia nieprzeczytanych i status "Dostarczono" / miniatura odczytu */
+.lumina-time-separator {
+    text-align: center !important;
+    font-size: 0.73rem !important;
+    font-weight: 600 !important;
+    color: #94A3B8 !important;
+    margin: 8px 0 4px 0 !important;
+    letter-spacing: 0.02em !important;
+    user-select: none !important;
+}
+
+.lumina-unread-divider {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    color: #94A3B8 !important;
+    font-size: 0.73rem !important;
+    font-weight: 600 !important;
+    margin: 10px 4px !important;
+    user-select: none !important;
+}
+
+.lumina-unread-divider::before,
+.lumina-unread-divider::after {
+    content: "" !important;
+    flex: 1 1 auto !important;
+    height: 1px !important;
+    background: rgba(148, 163, 184, 0.32) !important;
+}
+
+.lumina-delivery-status-row {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    color: #94A3B8 !important;
+    margin: -2px 4px 6px 0 !important;
+    padding-right: 2px !important;
+}
+
+.lumina-read-mini-avatar {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    display: inline-block !important;
+}
+
+/* 6. Dolny pasek kompozytora wiadomości (fioletowy przycisk +, ikony akcji, zaokrąglone pole "Wiadomość") */
+html:not([data-lumina-theme="light"]) #directMessagesModal .chat-input-bar,
+html.lumi-mess-page #directMessagesModal .chat-input-bar {
+    background: #060813 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 8px 12px !important;
+    gap: 6px !important;
+    align-items: center !important;
+}
+
+.lumi-composer-plus-btn {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, #9333EA 0%, #7C3AED 100%) !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.95rem !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 2px 10px rgba(147, 51, 234, 0.45) !important;
+    transition: transform 0.18s ease, filter 0.18s ease !important;
+}
+
+.lumi-composer-plus-btn:hover {
+    transform: scale(1.06);
+    filter: brightness(1.12);
+}
+
+.lumi-composer-tool-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #A855F7 !important;
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.08rem !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    transition: background-color 0.18s ease, color 0.18s ease !important;
+}
+
+.lumi-composer-tool-btn:hover {
+    background: rgba(168, 85, 247, 0.15) !important;
+    color: #C084FC !important;
+}
+
+html:not([data-lumina-theme="light"]) #directMessagesModal #publicChatInput,
+html:not([data-lumina-theme="light"]) #directMessagesModal #activeChatInput,
+html.lumi-mess-page #directMessagesModal #publicChatInput,
+html.lumi-mess-page #directMessagesModal #activeChatInput {
+    background: #1A1F38 !important;
+    border: 1px solid rgba(148, 163, 184, 0.2) !important;
+    border-radius: 999px !important;
+    color: #F8FAFC !important;
+    padding: 10px 16px !important;
+    font-size: 0.92rem !important;
+}
+
+html:not([data-lumina-theme="light"]) #directMessagesModal #btnPublicChatEmoji,
+html:not([data-lumina-theme="light"]) #directMessagesModal .lumi-composer-emoji-btn,
+html.lumi-mess-page #directMessagesModal #btnPublicChatEmoji,
+html.lumi-mess-page #directMessagesModal .lumi-composer-emoji-btn {
+    color: #A855F7 !important;
+}
+
+@media (max-width: 480px) {
+    .lumi-composer-tool-btn.hide-on-narrow-mobile {
+        display: none !important;
+    }
+}
+
+
 
 

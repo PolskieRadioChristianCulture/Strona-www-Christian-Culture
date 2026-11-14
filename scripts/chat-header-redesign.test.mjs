@@ -144,3 +144,22 @@ test('actual header functions toggle fullscreen/settings and reaction picker dis
   assert.equal(w.document.querySelector('.lumina-reaction-picker'),null);
   await w.happyDOM.close();
 });
+
+test('LUMINA MESS rooms UI v2026-11-14: Aurora Borealis canvas, room headers, composer tools, time separators and Dostarczono status', async () => {
+  const css = await readFile('css/lumina-chat-premium.css', 'utf8');
+  assert.match(css, /\.lumi-room-subheader/, 'CSS defines .lumi-room-subheader');
+  assert.match(css, /\.lumi-room-action-btn/, 'CSS defines .lumi-room-action-btn');
+  assert.match(css, /\.lumi-composer-plus-btn/, 'CSS defines .lumi-composer-plus-btn');
+  assert.match(css, /\.lumina-time-separator/, 'CSS defines .lumina-time-separator');
+  assert.match(css, /\.lumina-delivery-status-row/, 'CSS defines .lumina-delivery-status-row');
+  assert.match(css, /\.lumina-bubble-emoji-only/, 'CSS defines .lumina-bubble-emoji-only');
+
+  for (const file of HTML_FILES) {
+    const html = await readFile(file, 'utf8');
+    assert.match(html, /class="lumi-room-subheader"/, `${file} includes public room subheader`);
+    assert.match(html, /class="lumi-composer-plus-btn"/, `${file} includes purple + composer button`);
+    assert.match(html, /lumina-time-separator/, `${file} renders centered time separators`);
+    assert.match(html, /lumina-delivery-status-row/, `${file} renders Dostarczono/Odczytano status row`);
+    assert.match(html, /lumina-bubble-emoji-only/, `${file} supports standalone emoji messages`);
+  }
+});
