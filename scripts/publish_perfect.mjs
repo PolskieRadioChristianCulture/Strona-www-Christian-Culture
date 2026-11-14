@@ -95,29 +95,59 @@ async function selectStudioLanguage(page, triggerIndex, lang) {
   // Zamknij poprzednie menu języków zanim otworzysz kolejne
   await page.waitForFunction(() => {
     return ![...document.querySelectorAll('tp-yt-paper-listbox')].some(
-      lb => lb.offsetParent !== null && lb.querySelectorAll('tp-yt-paper-item').length > 20
+      lb => lb.offsetParent !== null && lb.getAttribute('aria-hidden') !== 'true' && lb.querySelectorAll('tp-yt-paper-item').length > 20
     );
   }, { timeout: 3000 }).catch(() => {});
 
-  const dialogTriggers = page.locator('ytcp-uploads-dialog ytcp-form-language-input ytcp-dropdown-trigger');
-  const triggers = (await dialogTriggers.count()) > triggerIndex
-    ? dialogTriggers
-    : page.locator('ytcp-form-language-input ytcp-dropdown-trigger');
-  if ((await triggers.count()) <= triggerIndex) return null;
+  const scopeSelector = (await page.locator('ytcp-uploads-dialog ytcp-form-language-input').count()) > 0
+    ? 'ytcp-uploads-dialog ytcp-form-language-input'
+    : 'ytcp-form-language-input';
+  const containers = page.locator(scopeSelector);
+  const count = await containers.count();
+  if (count === 0) return null;
 
-  const trigger = triggers.nth(triggerIndex);
-  await trigger.scrollIntoViewIfNeeded().catch(() => {});
-  await page.waitForTimeout(300);
+  const labelPattern = triggerIndex === 0
+    ? /język filmu|video language/i
+    : /język tytułu i opisu|title and description language/i;
 
-  for (let attempt = 0; attempt < 2; attempt++) {
-    await trigger.click(attempt === 0 ? {} : { force: true }).catch(() => {});
+  let targetContainer = null;
+  for (let i = 0; i < count; i++) {
+    const txt = await containers.nth(i).innerText().catch(() => '');
+    if (labelPattern.test(txt)) {
+      targetContainer = containers.nth(i);
+      break;
+    }
+  }
+  if (!targetContainer) {
+    if (count <= triggerIndex) return null;
+    targetContainer = containers.nth(triggerIndex);
+  }
+
+  const trigger = targetContainer.locator('ytcp-dropdown-trigger').first();
+  if (!(await trigger.count())) return null;
+
+  const currentVal = (await trigger.innerText().catch(() => '')).replace(/\s+/g, ' ').trim().toLowerCase();
+  const normCands = candidates.map(c => c.replace(/\s+/g, ' ').trim().toLowerCase());
+  const alreadyPicked = normCands.find(c => currentVal === c || currentVal.endsWith(` ${c}`));
+  if (alreadyPicked) return alreadyPicked;
+
+  // Wycentruj pole w oknie przewijania — scrollIntoViewIfNeeded potrafi schować trigger pod stopką dialogu
+  await trigger.evaluate(el => el.scrollIntoView({ block: 'center', behavior: 'instant' })).catch(() => {});
+  await page.waitForTimeout(350);
+
+  for (let attempt = 0; attempt < 3; attempt++) {
+    if (attempt < 2) {
+      await trigger.click(attempt === 0 ? { timeout: 4000 } : { force: true, timeout: 4000 }).catch(() => {});
+    } else {
+      await trigger.evaluate(el => el.click()).catch(() => {});
+    }
     const opened = await page.waitForFunction(() => {
       return [...document.querySelectorAll('tp-yt-paper-listbox')].some(
-        lb => lb.offsetParent !== null && lb.querySelectorAll('tp-yt-paper-item').length > 20
+        lb => lb.offsetParent !== null && lb.getAttribute('aria-hidden') !== 'true' && lb.querySelectorAll('tp-yt-paper-item').length > 20
       );
-    }, { timeout: 2500 }).then(() => true).catch(() => false);
+    }, { timeout: 4500 }).then(() => true).catch(() => false);
     if (opened) break;
-    await page.waitForTimeout(400);
+    await page.waitForTimeout(450);
   }
 
   const picked = await page.evaluate((cands) => {
@@ -139,8 +169,55 @@ async function selectStudioLanguage(page, triggerIndex, lang) {
 
   await page.waitForTimeout(700);
   if (!picked) {
-    await trigger.click({ force: true }).catch(() => {});
+    await trigger.evaluate(el => el.click()).catch(() => {});
     await page.waitForTimeout(400);
+  }
+  return picked;
+}
+
+// Bezpieczna awaryjna korekta języka tytułu/opisu na stronie edycji filmu po zapisaniu w Studio.
+async function ensureTitleDescLanguageOnEdit(page, videoUrl, lang) {
+  const vidMatch = (videoUrl || '').match(/(?:youtu\.be\/|\/shorts\/|\/video\/|v=)([\w-]{11})/);
+  if (!vidMatch) return null;
+  const vid = vidMatch[1];
+
+  await page.waitForTimeout(2000);
+  for (let g = 0; g < 2; g++) {
+    await page.goto(`https://studio.youtube.com/video/${vid}/edit`, { waitUntil: 'domcontentloaded', timeout: 45000 }).catch(() => {});
+    await page.waitForTimeout(2500);
+    if (page.url().includes(`/video/${vid}/edit`)) break;
+  }
+
+  const ready = await page.waitForSelector('ytcp-video-metadata-editor-basics, ytcp-button#toggle-button', { timeout: 25000 })
+    .then(() => true).catch(() => false);
+  if (!ready) return null;
+  await page.waitForTimeout(1800);
+
+  const toggle = page.locator('ytcp-button#toggle-button, #toggle-button').first();
+  if (await toggle.isVisible().catch(() => false)) {
+    const txt = (await toggle.innerText().catch(() => '')).toLowerCase();
+    if (txt.includes('więcej') || txt.includes('more')) {
+      await toggle.scrollIntoViewIfNeeded().catch(() => {});
+      await toggle.click({ force: true }).catch(() => {});
+      await page.waitForTimeout(1500);
+    }
+  }
+
+  const picked = await selectStudioLanguage(page, 1, lang);
+  if (picked) {
+    await page.waitForTimeout(800);
+    const saveBtn = page.locator('ytcp-button#save, #save').first();
+    if (await saveBtn.isVisible().catch(() => false)) {
+      const isDisabled = await saveBtn.getAttribute('aria-disabled');
+      if (isDisabled !== 'true') {
+        await saveBtn.click();
+        await page.waitForFunction(() => {
+          const b = document.querySelector('ytcp-button#save, #save');
+          return b && b.getAttribute('aria-disabled') === 'true';
+        }, { timeout: 15000 }).catch(() => {});
+        await page.waitForTimeout(1200);
+      }
+    }
   }
   return picked;
 }
@@ -418,6 +495,7 @@ export async function uploadEpisodeToChannel({
     await page.waitForTimeout(1000);
 
     // Opcje zaawansowane: Tagi oraz Język filmu / Tytułu i opisu
+    let pickedMetaLang = null;
     if (tags || resolvedVideoLang || resolvedTitleDescLang) {
       try {
         const showMore = page.locator(
@@ -477,7 +555,7 @@ export async function uploadEpisodeToChannel({
           console.log(`  -> Język filmu: ${pickedVideoLang || `nie znaleziono (${resolvedVideoLang})`}`);
         }
         if (resolvedTitleDescLang) {
-          const pickedMetaLang = await selectStudioLanguage(page, 1, resolvedTitleDescLang);
+          pickedMetaLang = await selectStudioLanguage(page, 1, resolvedTitleDescLang);
           console.log(`  -> Język tytułu i opisu: ${pickedMetaLang || `nie znaleziono (${resolvedTitleDescLang})`}`);
         }
       } catch (err) {
@@ -686,6 +764,15 @@ export async function uploadEpisodeToChannel({
           videoUrl = (await finalLink.getAttribute('href')) || (await finalLink.getAttribute('value')) || (await finalLink.innerText()) || '';
         }
       } catch {}
+    }
+
+    if (resolvedTitleDescLang && !pickedMetaLang && videoUrl) {
+      try {
+        const fixedMetaLang = await ensureTitleDescLanguageOnEdit(page, videoUrl, resolvedTitleDescLang);
+        console.log(`  -> Korekta języka tytułu i opisu (/edit): ${fixedMetaLang || `nie ustawiono (${resolvedTitleDescLang})`}`);
+      } catch (err) {
+        console.warn('  -> Korekta języka tytułu i opisu (/edit) pominięta:', err.message);
+      }
     }
 
     console.log('\n========================================================');
