@@ -299,6 +299,14 @@ function resolveItemImage(item, rootDir) {
     const p3 = path.join(rootDir, 'images', 'team', 'mariusz-duszpasterz.jpg');
     if (fs.existsSync(p3)) return p3;
   }
+  if (pathLower.includes('ewa') || titleLower.includes('ewa') || titleLower.includes('cc women')) {
+    const p1 = path.join(rootDir, 'images', 'news', 'art-ewa-cc-women.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'Ewa', 'assets', 'ewa-hero.webp');
+    if (fs.existsSync(p2)) return p2;
+    const p3 = path.join(rootDir, 'Ewa', 'assets', 'cc-women.png');
+    if (fs.existsSync(p3)) return p3;
+  }
   if (pathLower.includes('/mess') || titleLower.includes('lumimess') || titleLower.includes('lumi mess')) {
     const p = path.join(rootDir, 'images', 'chat', 'lumi-mess-bg.webp');
     if (fs.existsSync(p)) return p;
@@ -994,6 +1002,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🎵 CC MUSIC | CHRZEŚCIJAŃSKIE BRZMIENIA';
       callToAction = '👉 Odkryj muzykę i słuchaj online:\n';
       addTags('#CCMusic', '#PolskieRadioCC', '#MuzykaChrzescijanska', '#WorshipLive');
+    } else if ((item.url || '').toLowerCase().includes('ewa') || (item.title || '').toLowerCase().includes('ewa')) {
+      subHeader = '🌸 CC WOMEN | KĄCIK EWANGELIZACYJNY EWY';
+      callToAction = '👉 Przeczytaj świadectwo i posłuchaj nagrań:\n';
+      addTags('#CCWomen', '#Ewangelizacja', '#PolskieRadioCC', '#ChristianCulture');
     } else {
       subHeader = '🎵 MUZYKA & KANAŁY LIVE';
       callToAction = '👉 Słuchaj na żywo:\n';

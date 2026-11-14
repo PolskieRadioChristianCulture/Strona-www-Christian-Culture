@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "Ewa",
+      "title": "Kącik Ewangelizacyjny Ewy — CC WOMEN",
+      "url": "https://polskieradio.cc/Ewa",
+      "type": "music",
+      "image": "art-ewa-cc-women.jpg",
+      "publishedAt": "2026-11-14T17:36:04.188Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus",
       "title": "Co z tym Michałem? Czy archanioł Michał to Jezus Chrystus?",
       "url": "https://polskieradio.cc/news/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus",
