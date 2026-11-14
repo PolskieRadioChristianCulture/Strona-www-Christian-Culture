@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "pokonac-goliata",
+      "title": "Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo",
+      "url": "https://polskieradio.cc/pokonac-goliata",
+      "type": "book",
+      "image": "art-pokonac-goliata.jpg",
+      "publishedAt": "2026-11-14T15:33:52.844Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dzien-30",
       "title": "Z Biblią za Pan Brat — Dzień 30 (Lekcja 30): Błogosławieństwo, obietnica i Lew z Judy (Rdz 48:1–49:33)",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-30",
