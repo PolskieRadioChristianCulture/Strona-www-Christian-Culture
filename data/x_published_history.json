@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina",
+      "title": "LUMINA — Portal Społecznościowy",
+      "url": "https://polskieradio.cc/lumina",
+      "type": "profile",
+      "image": "cezary-wioletta-radiocc.jpg",
+      "publishedAt": "2026-11-14T18:33:31.893Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "moje-centrum",
       "title": "Moje Centrum CC — Twój Osobisty Pulpit (Personal Hub)",
       "url": "https://polskieradio.cc/moje-centrum",
