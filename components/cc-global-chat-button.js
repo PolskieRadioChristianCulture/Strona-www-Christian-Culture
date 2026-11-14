@@ -2261,21 +2261,57 @@
       refreshAssistantUI(activeAssistant);
 
       let isTeaserDismissed = false;
+      let teaserAutoHideTimer = null;
       try {
         isTeaserDismissed = sessionStorage.getItem('cc_teaser_dismissed') === '1';
       } catch (_) {}
 
+      function dismissTeaserBubble(persist) {
+        if (teaserAutoHideTimer) {
+          clearTimeout(teaserAutoHideTimer);
+          teaserAutoHideTimer = null;
+        }
+        teaserBubble.style.opacity = '0';
+        teaserBubble.style.transform = 'translateY(8px)';
+        setTimeout(() => { teaserBubble.style.display = 'none'; }, 280);
+        if (persist) {
+          try { sessionStorage.setItem('cc_teaser_dismissed', '1'); } catch (_) {}
+        }
+      }
+
+      function scheduleTeaserAutoHide() {
+        if (isTeaserDismissed) return;
+        if (teaserAutoHideTimer) clearTimeout(teaserAutoHideTimer);
+        teaserAutoHideTimer = setTimeout(() => {
+          dismissTeaserBubble(true);
+        }, 6000);
+      }
+
       if (isTeaserDismissed) {
         teaserBubble.style.display = 'none';
+      } else {
+        scheduleTeaserAutoHide();
+        teaserBubble.addEventListener('mouseenter', () => {
+          if (teaserAutoHideTimer) { clearTimeout(teaserAutoHideTimer); teaserAutoHideTimer = null; }
+        });
+        teaserBubble.addEventListener('mouseleave', scheduleTeaserAutoHide);
+        teaserBubble.addEventListener('focusin', () => {
+          if (teaserAutoHideTimer) { clearTimeout(teaserAutoHideTimer); teaserAutoHideTimer = null; }
+        });
+        teaserBubble.addEventListener('focusout', scheduleTeaserAutoHide);
       }
 
       function handleTeaserClick(e) {
         if (e.target && (e.target.id === 'ccChatTeaserClose' || e.target.closest('#ccChatTeaserClose'))) return;
         e.preventDefault();
         e.stopPropagation();
+        if (teaserAutoHideTimer) { clearTimeout(teaserAutoHideTimer); teaserAutoHideTimer = null; }
         teaserBubble.style.display = 'none';
         const asst = getActiveAssistant();
-        try { sessionStorage.setItem('cc_active_assistant_id', asst.id); } catch (_) {}
+        try {
+          sessionStorage.setItem('cc_active_assistant_id', asst.id);
+          sessionStorage.setItem('cc_teaser_dismissed', '1');
+        } catch (_) {}
         window.CCGlobalChat.open('assistant', 'cc-assistant');
       }
 
@@ -2288,10 +2324,7 @@
         teaserClose.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
-          teaserBubble.style.opacity = '0';
-          teaserBubble.style.transform = 'translateY(8px)';
-          setTimeout(() => { teaserBubble.style.display = 'none'; }, 280);
-          try { sessionStorage.setItem('cc_teaser_dismissed', '1'); } catch (_) {}
+          dismissTeaserBubble(true);
         });
       }
     }
