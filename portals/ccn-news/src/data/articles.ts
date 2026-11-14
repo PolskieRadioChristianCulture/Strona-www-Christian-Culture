@@ -41,6 +41,8 @@ export const AUTHORS: Record<string, Author> = {
 };
 
 export const BREAKING_NEWS: string[] = [
+  "NOWY ARTYKUŁ BIBLIA & TEOLOGIA: Czy Jezus naprawdę był Bogiem? Dowody z Biblii — egzegeza J 1,1, J 20,28 i 1 J 5,20 Cezarego Rogowskiego (https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody)",
+  "NOWY ARTYKUŁ BIBLIA & TEOLOGIA: Co z tym Michałem? Czy archanioł Michał to Jezus Chrystus? Analiza Dn 10,13, Dn 12,1, Jud 9 i Hbr 1 Cezarego Rogowskiego (https://polskieradio.cc/biblia/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus)",
   "NOWY ARTYKUŁ eM (@MCC): Dobroć nie jest słabością. 7 decyzji, które zmieniają relacje — analiza Cezarego Rogowskiego na Światowy Dzień Dobroci (https://polskieradio.cc/news/dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje)",
   "NOWY ARTYKUŁ CCN NEWS: Świętość nie wymaga udawania: dlaczego prawda o słabości uwalnia? Analiza Cezarego Rogowskiego o glinianych naczyniach i Bożej łasce (https://polskieradio.cc/news/swietosc-nie-wymaga-udawania-dlaczego-prawda-o-slabosci-uwalnia)",
   "NOWY ARTYKUŁ eM (@MCC): Czy w Kościele wolno mówić o własnym kryzysie? Egzegeza 2 Kor 12:9 i Jk 5:16 UBG autorstwa Cezarego Rogowskiego (https://polskieradio.cc/news/czy-w-kosciele-wolno-mowic-o-wlasnym-kryzysie)",
@@ -90,6 +92,323 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    "id": "art-czy-jezus-naprawde-byl-bogiem-biblijne-dowody",
+    "title": "Czy Jezus naprawdę był Bogiem? Pytanie, które obnaża fundament naszej wiary",
+    "slug": "czy-jezus-naprawde-byl-bogiem-biblijne-dowody",
+    "excerpt": "Czy Jezus jest Bogiem? Analiza Jan 1,1, Jan 20,28, 1 Jana 5,20, trudnych wersetów i świadectw Nowego Testamentu. Uczciwa egzegeza bez sloganów.",
+    "content": [
+      "Co naprawdę mówią Jan 1,1; Jan 20,28 i 1 Jana 5,20 — oraz jak odpowiedzieć na najtrudniejsze zarzuty?",
+      "Wprowadzenie: kontrowersja, której nie wolno rozstrzygać sloganem",
+      "Czy Jezus naprawdę był Bogiem? Zanim ktoś odpowie automatycznym „oczywiście” albo równie szybkim „niemożliwe”, niech otworzy Biblię. Stawką nie jest akademicki spór o jedno słowo. Stawką jest tożsamość Tego, któremu ufamy, którego czcimy i w którego imieniu ogłaszamy odpuszczenie grzechów.",
+      "Używam w tytule czasu przeszłego celowo. Jeżeli zmartwychwstały Jezus żyje, właściwsze pytanie brzmi: czy Jezus Chrystus naprawdę JEST Bogiem? Nowy Testament nie przedstawia Go jako postaci, która przestała istnieć wraz ze śmiercią. Wyznaje Zmartwychwstałego Pana (1 Kor 15,3–8; Ap 1,17–18).",
+      "Odpowiedź musi być uczciwa. Nie każdy werset oznacza dokładnie to samo, a niektóre fragmenty są interpretacyjnie dyskutowane. Zarazem nie wolno zamknąć oczu na całe świadectwo Nowego Testamentu tylko dlatego, że nie mieści się w naszych wcześniejszych założeniach. Scripture must govern interpretation: to Pismo ma kierować wiarą, a kontekst określa znaczenie słów.",
+      "1. Jan 1,1–3.14: Słowo było u Boga — i było Bogiem",
+      "Prolog Ewangelii Jana rozpoczyna się przed stworzeniem. Logos, czyli „Słowo”, istnieje „na początku”, pozostaje w relacji „u Boga”, a zarazem zostaje opisane jako Boskie. W Jan 1,3 autor stwierdza, że wszystko, co powstało, powstało przez Słowo; w Jan 1,14 dodaje, że Słowo stało się ciałem i zamieszkało wśród ludzi. Kontekst wskazuje więc na wcielonego Jezusa Chrystusa.",
+      "Grecka konstrukcja Jan 1,1c („kai theos ēn ho logos”) nie wymaga wniosku „Słowo było jakimś bogiem”. Brak rodzajnika przed „theos” nie czyni tego rzeczownika automatycznie nieokreślonym. Szyk zdania podkreśla to, kim Słowo jest, odróżniając je zarazem od Osoby, z którą pozostaje w relacji.",
+      "Tu tkwi pierwsza trudność, której nie należy ukrywać: Jan nie mówi, że Jezus to ta sama Osoba co Ojciec. Mówi o rozróżnieniu osobowym i o boskości Słowa. Dlatego historyczna doktryna Trójcy nie jest tezą, że Ojciec i Syn to jedna i ta sama Osoba nosząca dwa imiona. Jan 1,18 i 17,5 wzmacniają obraz Syna w niepowtarzalnej relacji z Ojcem.",
+      "2. Jan 20,28: „Pan mój i Bóg mój!” — słowa skierowane do Jezusa",
+      "Po zmartwychwstaniu Tomasz spotyka Jezusa i mówi do Niego: „Pan mój i Bóg mój!” (J 20,28). Nie jest to bezadresowy okrzyk zaskoczenia. Ewangelista wyraźnie umieszcza te słowa jako odpowiedź Tomasza skierowaną do Chrystusa. Jezus nie poprawia ucznia, nie odrzuca wyznania i nie nakazuje mu skierować tych słów do kogoś innego. W kolejnym wersecie mówi o wierze Tomasza (J 20,29).",
+      "Warto także zobaczyć cel całej Ewangelii: Jan 20,30–31 mówi o wierze w Jezusa jako Chrystusa, Syna Bożego, i o życiu w Jego imieniu. Tytuł „Syn Boży” nie został tutaj przeciwstawiony słowom Tomasza; oba elementy należą do zakończenia tej samej narracji.",
+      "Kto twierdzi, że Nowy Testament nigdy nie nazywa Jezusa Bogiem, musi uczciwie wyjaśnić ten fragment. To jedno z najmocniejszych bezpośrednich świadectw chrystologicznych Nowego Testamentu.",
+      "3. Pierwszy List Jana 5,20: kim jest „Ten”, który jest prawdziwym Bogiem?",
+      "W 1 J 5,20 autor mówi, że Syn Boży przyszedł i dał nam zrozumienie, abyśmy poznali Prawdziwego; mówi następnie o trwaniu w Prawdziwym, w Jego Synu Jezusie Chrystusie, i kończy zdaniem o „prawdziwym Bogu i życiu wiecznym”.",
+      "Na pierwszy rzut oka zaimek „On” lub „Ten” (greckie „houtos”) wskazuje na najbliższego poprzednika, Jezusa Chrystusa. Jest to ważny argument za odniesieniem ostatniego zdania do Syna. Ponadto autor listu wielokrotnie wiąże życie wieczne z Synem (1 J 1,2; 5,11–12), a Ewangelia Jana nazywa Jezusa życiem (J 11,25; 14,6).",
+      "Należy jednak uczciwie zaznaczyć inny możliwy odczyt. W kontekście 1 J 5,20 „Prawdziwy” może odnosić się do Ojca, szczególnie w świetle J 17,3, gdzie Jezus zwraca się do Ojca jako do jedynego prawdziwego Boga. Zaimek nie jest mechaniczną regułą „zawsze najbliższy rzeczownik”; jego odniesienie określa także tok myśli. Dlatego komentatorzy różnią się w ocenie tego jednego zdania.",
+      "To rozróżnienie nie jest słabością wiary. Jest uczciwością wobec tekstu. Nawet gdyby w 1 J 5,20 końcowe określenie odnosiło się przede wszystkim do Ojca, nie unieważnia to mocnych świadectw z J 1,1 i J 20,28. Boskości Chrystusa nie trzeba budować na ukryciu gramatycznej dyskusji.",
+      "4. List do Hebrajczyków 1,8–12: Syn uczestniczy w Bożej godności",
+      "Pierwszy rozdział Listu do Hebrajczyków zestawia Syna z aniołami i podkreśla Jego wyjątkową godność. Autor odnosi do Syna słowa Psalmu 45 o tronie i Bożym majestacie (Hbr 1,8). W dalszych wersetach przywołuje słowa o Stwórcy, którego dzieła przemijają, lecz On trwa (Hbr 1,10–12; por. Ps 102).",
+      "Istnieje dyskusja o możliwym oddaniu pewnej greckiej konstrukcji w Hbr 1,8, ale obraz całego rozdziału jest mocniejszy niż pojedyncza decyzja translatorska: Syn zostaje umieszczony ponad światem stworzonych posłańców, a tekst przypisuje Mu godność, której nie opisuje w ten sposób wobec aniołów. Trzeba czytać Hbr 1,8 razem z Hbr 1,1–4 i 1,10–12.",
+      "Nie oznacza to, że autor znosi różnicę między Ojcem a Synem. To Ojciec przemawia o Synu. Boska godność Syna i osobowe rozróżnienie występują w tym samym tekście.",
+      "5. Kolosan 1 i 2 oraz Filipian 2: pełnia Bóstwa i prawdziwe człowieczeństwo",
+      "Paweł określa Chrystusa jako Tego, przez którego i dla którego wszystko zostało stworzone (Kol 1,15–17). Sformułowanie „pierworodny wszelkiego stworzenia” (Kol 1,15) nie wymaga wniosku, że Chrystus jest pierwszym stworzonym bytem. W biblijnym języku „pierworodny” może oznaczać również nadrzędność, dziedzictwo i godność (por. Ps 89,28). Bezpośredni kontekst wyjaśnia, że w Nim i przez Niego zostało stworzone wszystko.",
+      "W Kol 2,9 Paweł pisze o pełni Bóstwa mieszkającej w Chrystusie cieleśnie. To zdanie jest szczególnie ważne: wcielenie nie jest opowieścią o utracie boskiej tożsamości, lecz o rzeczywistym przyjęciu ludzkiej natury.",
+      "Flp 2,5–11 wzywa wierzących do pokory na wzór Chrystusa, który uniżył się, przyjął postać sługi i stał się posłuszny aż do śmierci. Greckie określenie „ogołocił samego siebie” (ekenōsen) trzeba czytać wraz z wyjaśnieniem: uczynił to, przyjmując postać sługi. Nie ma tu jednoznacznego stwierdzenia, że przestał być Bogiem. Tekst ukazuje paradoks: Ten, który miał najwyższą godność, uniżył się dla zbawienia człowieka.",
+      "6. A co ze słowami Jezusa: „Ojciec większy jest niż Ja”?",
+      "Najpoważniejsze pytania trzeba stawiać wprost. J 14,28 zawiera wypowiedź Jezusa, że Ojciec jest większy od Niego. Mk 13,32 mówi o dniu i godzinie, których nie zna Syn. Jezus modli się do Ojca, jest przez Niego posłany i mówi o Ojcu jako o swoim Bogu (J 20,17). Z kolei 1 Tm 2,5 nazywa Jezusa Chrystusa człowiekiem i jedynym Pośrednikiem.",
+      "Nie wolno wykreślać tych wersetów. Trzeba jednak zapytać, czy opisują istotową niższość Syna, czy też Jego rzeczywistą ludzką egzystencję, dobrowolne uniżenie i relację posłania w dziele zbawienia. W chrystologii klasycznej i protestanckiej odpowiedź brzmi: wcielony Syn jest prawdziwie człowiekiem, doświadcza ludzkich ograniczeń i pozostaje odrębny od Ojca; nie oznacza to automatycznie zaprzeczenia Jego boskiej natury (Flp 2,5–11; Hbr 2,14–18).",
+      "To wyjaśnienie nie usuwa wszystkich tajemnic związanych z wcieleniem, lecz pozwala nie przeciwstawiać sobie sztucznie fragmentów Pisma. Boskość i człowieczeństwo Jezusa nie są rywalizującymi etykietami. Nowy Testament świadczy o obu.",
+      "7. Czy Jezus jest Ojcem? Nie. Czy jest godny czci? Tak.",
+      "Biblia głosi jednego Boga (Pwt 6,4; 1 Kor 8,4–6), a zarazem odróżnia Ojca od Syna i Ducha Świętego (Mt 3,16–17; 28,19; J 14–16). Tradycyjna nauka o Trójcy jest próbą wiernego zebrania tych świadectw: nie mówi o trzech bogach ani o jednej Osobie występującej kolejno pod trzema nazwami.",
+      "Na uwagę zasługuje też Ap 5,11–14, gdzie Baranek uczestniczy w niebiańskiej chwale i odbiera cześć razem z Zasiadającym na tronie. W J 5,23 Jezus mówi o oddawaniu czci Synowi tak, jak Ojcu. W świecie żydowskiego monoteizmu takie sformułowania są teologicznie doniosłe.",
+      "Nie oznacza to, że każdy autor Nowego Testamentu posługuje się późniejszą terminologią teologiczną. Słowo „Trójca” jest nazwą doktryny, a nie cytatem z jednego wersetu. Pytanie brzmi, czy doktryna trafnie porządkuje całość świadectwa biblijnego. Mocne uzasadnienie chrześcijańskiej odpowiedzi znajduje się w połączeniu tekstów o jedności Boga, boskości Chrystusa i osobowym rozróżnieniu.",
+      "8. Dlaczego ta prawda ma znaczenie dla zbawienia?",
+      "Można przegrać spór o słowa i nadal być przekonanym o własnej pobożności. Ale chrześcijańska wiara nie jest konkursem erudycji. Jeśli Chrystus jest jedynie wspaniałym nauczycielem, pytanie o Jego prawo do odpuszczania grzechów, zbawiania i przyjmowania czci staje się niezwykle trudne. Jeżeli zaś jest wcielonym Synem Bożym, krzyż objawia coś wstrząsającego: Bóg nie obserwuje ludzkiej tragedii z oddali, lecz przychodzi do nas w osobie Syna.",
+      "J 1,14 i Hbr 2,14–18 podkreślają realność Jego przyjścia w ludzkim ciele. Rz 3,21–26 i Ef 2,8–10 pokazują, że usprawiedliwienie jest darem łaski, a nie nagrodą za moralną doskonałość. Dzieło Chrystusa jest centrum Ewangelii; nasze dobre uczynki są owocem nowego życia, nie ceną odkupienia.",
+      "Nie chcę Cię przekonywać, że wystarczy wyrecytować poprawną formułę o Bóstwie Jezusa. Właściwa odpowiedź wiary oznacza również naśladowanie Jego pokory, miłosierdzia i wierności prawdzie (Flp 2,5; J 13,13–15). Wiedza o tym, kim jest Chrystus, powinna odmieniać to, kim staję się ja.",
+      "9. Pięć pytań, których nie należy omijać",
+      "Jeżeli Jezus nie jest Bogiem, dlaczego Tomasz kieruje do Niego wyznanie „Pan mój i Bóg mój” (J 20,28)? Dlaczego Ewangelia Jana przedstawia Słowo jako istniejące przed stworzeniem i jako uczestniczące w stworzeniu wszystkiego (J 1,1–3.14)? Dlaczego autor Listu do Hebrajczyków stosuje wobec Syna teksty mówiące o Boskim tronie i Stwórcy (Hbr 1,8–12)? Dlaczego Paweł mówi o pełni Bóstwa mieszkającej w Chrystusie (Kol 2,9)? I jak wyjaśnić cześć oddawaną Barankowi w Ap 5,11–14, zachowując biblijny monoteizm?",
+      "Równocześnie, jeżeli Jezus jest Bogiem, musimy uczciwie wyjaśniać Jego modlitwę do Ojca, posłuszeństwo, ludzkie ograniczenia i słowa o Ojcu większym od Niego. Uczciwa teologia nie ukrywa fragmentów trudnych dla własnej tezy. Zestawia je i pozwala mówić całemu Pismu.",
+      "Zakończenie: nie tylko „kim był?”, lecz „kim jest dla Ciebie?”",
+      "Po przeanalizowaniu najważniejszych świadectw odpowiedź chrześcijańska jest zdecydowana: Nowy Testament daje mocne podstawy, by wyznawać Jezusa Chrystusa jako prawdziwie Boskiego Syna, który stał się prawdziwie człowiekiem — odrębnego od Ojca, a nie od Niego oddzielonego w dziele zbawienia.",
+      "Nie każdy pojedynczy tekst ma jednakową jednoznaczność. 1 J 5,20 trzeba interpretować z pokorą, podczas gdy J 20,28 i J 1,1–14 stanowią świadectwa szczególnie silne. Niech ta różnica poziomu pewności będzie przykładem szacunku dla Słowa.",
+      "Jeżeli naprawdę wierzę, że Jezus jest Panem i Bogiem, nie mogę traktować Jego nauki jak jednej z wielu opinii. Powinienem sprawdzić swoje życie: czy kocham prawdę, czy uczciwie postępuję, czy powierzam Mu grzech i winę, czy przyjmuję łaskę i czy kocham bliźniego?",
+      "Panie Jezu Chryste, otwieraj moje oczy na prawdę Twojego Słowa. Nie pozwól mi bronić tradycji kosztem Pisma ani używać doktryny do wynoszenia się ponad innych. Ucz mnie ufać Twojej łasce, kochać ludzi i żyć tak, jak przystoi uczniowi. Amen.",
+      "Adnotacja redakcyjna: w 1 J 5,20 zaimek „On/Ten” (gr. houtos) bywa w komentarzach odnoszony do Chrystusa lub Ojca; artykuł przedstawia spór egzegetyczny otwarcie i nie buduje doktryny Bóstwa Syna na jednym odczytaniu gramatycznym, opierając się na szerokim świadectwie Nowego Testamentu (J 1,1–3.14; J 20,28; Kol 2,9; Hbr 1,8–12)."
+    ],
+    "category": "wiara",
+    "categoryLabel": "Biblia i Teologia • Dowody z Biblii",
+    "author": AUTHORS.cezary,
+    "publishedAt": "2026-11-14T08:00:00+01:00",
+    "dateFormatted": "14 listopada 2026",
+    "imageUrl": "/images/news/art-czy-jezus-naprawde-byl-bogiem-biblijne-dowody.jpg",
+    "imageCaption": "Artystyczne przedstawienie Jezusa, krzyża i Pisma Świętego z pytaniem o Jego boskość. Ilustracja edytorska AI, nie fotografia historyczna.",
+    "readTimeMinutes": 9,
+    "isHero": true,
+    "isPopular": true,
+    "popularRank": 1,
+    "tags": [
+      "@CezaryRogowski",
+      "@ChristianCulture",
+      "#BoskośćJezusa",
+      "#BóstwoChrystusa",
+      "#DowodyZBiblii",
+      "#Jan1_1",
+      "#Jan20_28",
+      "#1Jana5_20",
+      "#TrójcaŚwięta",
+      "#SynBoży",
+      "#BibliaITeologia",
+      "#Apologetyka",
+      "#UBG"
+    ],
+    "scriptureReference": {
+      "verse": "J 1:1; J 20:28 (UBG)",
+      "text": "Na początku było Słowo, a Słowo było u Boga i Bogiem było Słowo. Wtedy Tomasz mu odpowiedział: Mój Pan i mój Bóg!",
+      "strongCode": "G2316 / G3056"
+    },
+    "sourceCitation": {
+      "sourceName": "Biblia i Teologia Christian Culture • Pismo Święte Nowego Testamentu (UBG) • Pełne wydanie PDF",
+      "sourceUrl": "https://polskieradio.cc/assets/CCN_Czy_Jezus_naprawde_jest_Bogiem_Cezary_Rogowski.pdf",
+      "quotationDate": "14 listopada 2026"
+    },
+    "biblicalCommentary": {
+      "thesis": "Nowy Testament daje mocne podstawy, by wyznawać Jezusa Chrystusa jako prawdziwie Boskiego Syna, który stał się prawdziwie człowiekiem — odrębnego osobowo od Ojca, a współistotnego Bogu Stwórcy.",
+      "verses": [
+        {
+          "ref": "J 1:1 (UBG)",
+          "text": "Na początku było Słowo, a Słowo było u Boga i Bogiem było Słowo.",
+          "strongRef": "G3056"
+        },
+        {
+          "ref": "J 1:14 (UBG)",
+          "text": "A to Słowo stało się ciałem i mieszkało wśród nas (i widzieliśmy jego chwałę, chwałę jako jednorodzonego od Ojca), pełne łaski i prawdy."
+        },
+        {
+          "ref": "J 20:28 (UBG)",
+          "text": "Wtedy Tomasz mu odpowiedział: Mój Pan i mój Bóg!",
+          "strongRef": "G2316"
+        },
+        {
+          "ref": "Kol 2:9 (UBG)",
+          "text": "Gdyż w nim mieszka cieleśnie cała pełnia Bóstwa.",
+          "strongRef": "G2320"
+        },
+        {
+          "ref": "Hbr 1:8 (UBG)",
+          "text": "Lecz do Syna mówi: Twój tron, o Boże, na wieki wieków, berłem sprawiedliwości jest berło twego królestwa."
+        }
+      ],
+      "explanation": "Uczciwa egzegeza czyta zarówno bezpośrednie wyznania Bóstwa Chrystusa (J 1,1; J 20,28; Kol 2,9; Hbr 1,8–12), jak i trudne wersety o ludzkim uniżeniu Syna (J 14,28; Flp 2,5–11) oraz zniuansowaną składnię 1 J 5,20, pozwalając mówić całemu Pismu."
+    },
+    "lexiconTerms": [
+      {
+        "term": "Theos (Bóg)",
+        "strongCode": "G2316",
+        "definition": "Określenie Boskiej natury i tożsamości; w anarthrycznej pozycji orzecznikowej w J 1,1c wskazuje na istotę Słowa bez zrównania Go z jedną Osobą Ojca.",
+        "category": "teologia"
+      },
+      {
+        "term": "Logos (Słowo)",
+        "strongCode": "G3056",
+        "definition": "Odwieczne Słowo Boże obecne przed stworzeniem, przez które wszystko powstało i które stało się ciałem w osobie Jezusa Chrystusa (J 1,1–3.14).",
+        "category": "teologia"
+      },
+      {
+        "term": "Theotes (Bóstwo / Pełnia Boskości)",
+        "strongCode": "G2320",
+        "definition": "Termin użyty w Kol 2,9 na określenie całej pełni Bożej natury mieszkającej cieleśnie w Chrystusie.",
+        "category": "teologia"
+      }
+    ],
+    "primaryPortalUrl": "https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody",
+    "primaryPortalLabel": "Biblia i Teologia Christian Culture",
+    "resourceLinks": [
+      {
+        "label": "Pobierz pełne opracowanie PDF (Czy Jezus naprawdę był Bogiem?)",
+        "url": "/assets/CCN_Czy_Jezus_naprawde_jest_Bogiem_Cezary_Rogowski.pdf"
+      },
+      {
+        "label": "Interlinearna MojaBiblia CC — J 1:1 (Greka i Kody Stronga)",
+        "url": "/mojabiblia?ref=JHN.1.1"
+      },
+      {
+        "label": "Interlinearna MojaBiblia CC — J 20:28",
+        "url": "/mojabiblia?ref=JHN.20.28"
+      },
+      {
+        "label": "Portal Apologetyka & Teologia CC",
+        "url": "/apologetyka/czy-jezus-naprawde-byl-bogiem-biblijne-dowody"
+      }
+    ]
+  },
+  {
+    "id": "art-co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus",
+    "title": "Co z tym Michałem? Czy archanioł Michał to Jezus Chrystus?",
+    "slug": "co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus",
+    "excerpt": "Boskość Syna, trudne teksty i granice interpretacji. Skąd w części chrześcijańskiej teologii bierze się utożsamienie archanioła Michała z Jezusem Chrystusem, dlaczego inni chrześcijanie je odrzucają i czego Pismo uczy w Dn 10,13; Dn 12,1; Jud 9; 1 Tes 4,16; Ap 12,7 oraz Hbr 1?",
+    "content": [
+      "Czy archanioł Michał to Jezus Chrystus? Boskość Syna, trudne teksty i granice interpretacji",
+      "Pytanie, którego nie wolno uciszać słowem „herezja”",
+      "„Jezus nie może być Michałem, bo jest Bogiem!” — słyszymy w jednej dyskusji. „Michał jest Wodzem nieba, tak jak Jezus!” — odpowiada druga strona. Obie wypowiedzi dotykają ważnej prawdy, ale nie są jeszcze argumentacją. Czy można uczciwie rozważyć, że imię Michał jest tytułem Chrystusa, nie czyniąc z Niego stworzonego anioła? A także: czy wolno twierdzić, że Biblia coś mówi wprost, jeśli tego nie wypowiada?",
+      "Musimy odróżnić dwa pytania. Pierwsze — czy Jezus jest odwiecznym, Boskim Synem, przez którego wszystko zostało stworzone? Odpowiedź Nowego Testamentu jest zdecydowana (J 1,1–3.14; Kol 1,16–17; 2,9; Hbr 1,8–12). Drugie — czy Michał jest Jego imieniem lub określeniem funkcji? Żaden werset nie stwierdza wprost „Michał to Jezus”. Sprawa wymaga interpretacji. Nie mylmy jej z fundamentalną prawdą o Bóstwie Chrystusa.",
+      "1. Kim jest Michał? Najpierw przeczytajmy wszystkie fragmenty",
+      "Hebrajskie imię Michał znaczy „Któż jest jak Bóg?”. Znaczenie imienia samo nie dowodzi boskiej natury jego nosiciela. Niebiański Michał występuje w Dn 10,13.21; 12,1; Jud 9 i Ap 12,7. W Danielu jest księciem związanym z ludem Bożym; Juda określa go archaniołem, a Apokalipsa przedstawia jako dowódcę aniołów w walce ze smokiem.",
+      "Greckie „archangelos”, użyte w Jud 9 i 1 Tes 4,16, oznacza zwierzchniego anioła. W naturalnym odczytaniu opisuje wysokiego rangą niebiańskiego posłańca. Niektóre interpretacje widzą tu jednak funkcję Wodza aniołów, a nie stwierdzenie o stworzonej naturze Chrystusa. Możliwość językowa nie oznacza jednak automatycznie dowodu utożsamienia; decyduje kontekst.",
+      "2. Daniel 12 i zmartwychwstanie: ważna paralela, nie matematyczny dowód",
+      "W Dn 12,1 Michał powstaje w czasie ucisku, gdy lud zostaje wybawiony, a w Dn 12,2 pojawia się obraz zmartwychwstania. W J 5,28–29 Jezus zapowiada, że zmarli usłyszą Jego głos i wyjdą z grobów. J 11,25 nazywa Go zmartwychwstaniem i życiem.",
+      "To podobieństwo zasługuje na uwagę. Michał bierze udział w wydarzeniach związanych z ostatecznym wybawieniem, a Chrystus jest Panem zmartwychwstania. Ale Daniel nie mówi, że Michał osobiście wskrzesza umarłych. Następstwo wydarzeń nie dowodzi tożsamości ich uczestników. Paralela tworzy pytanie do zbadania, nie gotową odpowiedź.",
+      "3. Daniel 10,13: najtrudniejszy tekst dla utożsamienia",
+      "Dn 10,13 nazywa Michała „jednym z pierwszych książąt”. To mocny tekst przeciw odczytaniu go jako odwiecznego Syna: przedstawia Michała jako należącego do grupy wysokich niebiańskich przywódców i przychodzącego z pomocą w konflikcie z księciem Persji.",
+      "Kto twierdzi, że Michał to Chrystus, musi odpowiedzieć na pytanie: dlaczego Ten, przez którego powstało wszystko (Kol 1,16), byłby nazwany „jednym z” grupy książąt? Można proponować, że chodzi o rolę w niebiańskim porządku, nie o naturę, lecz sam tekst tego nie wyjaśnia. Bez dodatkowego uzasadnienia tradycyjny odczyt Michała jako wysokiego rangą stworzonego anioła wydaje się tu bardziej naturalny.",
+      "Uczciwa egzegeza nie ukrywa trudnych fragmentów. Jeżeli Dn 10,13 nie pasuje do naszej tezy, nie wystarczy cytować Dn 12 i ominąć problem.",
+      "4. Juda 9 i Zachariasza 3,2: „Niech cię Pan zgromi”",
+      "Juda 9 przedstawia Michała spierającego się z diabłem o ciało Mojżesza. Michał powstrzymuje się od zuchwałego oskarżenia i odwołuje się do upomnienia przez Pana. Z kolei Za 3,1–2 zawiera podobną formułę w scenie oskarżania arcykapłana Jozuego.",
+      "Zwolennicy identyfikacji dostrzegają w podobieństwie wyrazów związek Michała z Aniołem PANA. Przeciwnicy wskazują na zależność Michała od autorytetu Pana. Samo podobieństwo formuł nie dowodzi tożsamości postaci. Z drugiej strony, Syn również działa w relacji do Ojca (J 5,19), więc odwołanie się do Pana nie stanowi automatycznego zaprzeczenia Bóstwa.",
+      "Kontekst Judy 8–10 dotyczy przede wszystkim pokory w mowie i potępienia zuchwałych nauczycieli. Nie należy robić z pojedynczego wersetu szczegółowej historii zmartwychwstania Mojżesza, bo tekst jej nie podaje.",
+      "5. Pierwszy List do Tesaloniczan 4,16: głos kogo?",
+      "Paweł opisuje powrót Pana przy okrzyku rozkazu, głosie archanioła i trąbie Bożej (1 Tes 4,16). Nie mówi wprost, że głos należy do Jezusa. Może to być głos towarzyszącego Mu archanioła albo obraz głosu dowódczego. Werset nie wymienia również Michała.",
+      "Zestawienie z J 5,28–29 — głosem Syna, który wzywa zmarłych — wzmacnia pewną paralelę, ale nie usuwa wieloznaczności. Tak jak obecność trąby nie oznacza, że Chrystus jest trąbą, obecność głosu archanioła nie dowodzi, że Chrystus jest archaniołem. Celem Pawła jest pocieszenie wierzących nadzieją zmartwychwstania (1 Tes 4,13–18), a nie zdefiniowanie natury Michała.",
+      "6. Apokalipsa 12 i 19: jeden zwycięzca czy dwaj dowódcy?",
+      "W Ap 12,7–11 Michał wraz ze swoimi aniołami walczy ze smokiem. Ap 19,11–16 ukazuje Chrystusa jako zwycięskiego Jeźdźca, za którym podążają niebiańskie zastępy. Obie sceny mówią o walce ze złem, a zwycięstwo wiąże się ostatecznie z Barankiem.",
+      "Wspólna funkcja przywódcy stanowi przesłankę dla interpretacji Michała jako tytułu Chrystusa. Nie jest jednak rozstrzygająca: król i dowódca podległego mu wojska mogą być odrębnymi osobami. Księga nie stawia pomiędzy tymi wizjami znaku równości. W chrystologii ważne jest także to, że aniołowie należą do Chrystusa i Mu służą (Mt 24,31; 25,31).",
+      "7. Hebrajczyków 1: Syn nie jest zwykłym aniołem — i to za mało powiedziane",
+      "Autor Hbr 1 przeciwstawia Syna aniołom. Pyta, do którego z nich Bóg wypowiedział słowa przeznaczone dla Syna (Hbr 1,5.13). Syn otrzymuje cześć aniołów, jest ukazany jako Król, a w Hbr 1,8–12 zostają do Niego zastosowane teksty o boskiej godności i Stwórcy.",
+      "Wielu komentatorów rozumie to jako silny dowód, że Syn nie jest Michałem, skoro Michał to archanioł. Zwolennik identyfikacji może odpowiedzieć, że „Michał” byłby tytułem zwierzchnictwa Chrystusa nad aniołami, a nie określeniem Jego stworzonej natury. Jest to logicznie możliwe, lecz nie wynika bezpośrednio z Hbr 1; potrzebuje pozytywnego uzasadnienia z innych tekstów.",
+      "Nie wolno, broniąc konkretnej identyfikacji, umniejszać Bóstwa Jezusa. Biblia jasno przedstawia Go jako odwiecznego Syna i Stwórcę, a nie stworzoną istotę (J 1,1–3; Kol 1,16–17; Hbr 1,8–12). To stanowisko jest ważniejsze i wyraźniej poświadczone niż odpowiedź na pytanie o Michała.",
+      "8. Brak zakazu nie jest dowodem",
+      "W dyskusjach pada czasem pytanie: „Pokaż werset mówiący, że Michał jest stworzoną istotą i nie może być Jezusem”. Pytanie o podstawy stanowiska przeciwnika jest zasadne, ale nie wystarcza do udowodnienia przeciwnej tezy. Brak wyraźnego zakazu utożsamienia nie dowodzi samego utożsamienia.",
+      "Standard musi być symetryczny. Kto twierdzi „Michał jest Jezusem”, powinien uzasadnić to ze wszystkich stosownych fragmentów, łącznie z Dn 10,13 i Hbr 1. Kto twierdzi „to niemożliwe”, powinien wykazać, dlaczego nie można rozumieć „Michała” jako tytułu funkcji, zamiast z góry zakładać stworzoną naturę każdego posłańca.",
+      "Nie każda interpretacja niebędąca dominującą w historii chrześcijaństwa jest automatycznie herezją. Nie znaczy to, że wszystkie interpretacje są równie mocne. Wspólnie wolno je testować, porównując argumenty, a nie przyklejając etykiety (Dz 17,11; 1 Tes 5,21).",
+      "9. Co możemy powiedzieć z pewnością?",
+      "Po pierwsze: Jezus Chrystus jest odwiecznym Boskim Synem, przez którego wszystko powstało. To wynika z wielu miejsc Pisma (J 1,1–3.14; 20,28; Kol 2,9; Hbr 1,8–12).",
+      "Po drugie: Michał jest niebiańskim przywódcą, obrońcą ludu Bożego i archaniołem (Dn 10,13.21; 12,1; Jud 9; Ap 12,7).",
+      "Po trzecie: między obrazami Michała a działaniem Jezusa istnieją znaczące podobieństwa. Nie stanowią one jednak wyraźnego nazwania obu postaci jednym imieniem.",
+      "Po czwarte: teksty Dn 10,13 oraz Hbr 1 stanowią realne wyzwanie dla utożsamienia. Nie wolno obchodzić ich milczeniem ani przedstawiać identyfikacji jako dogmatu wypowiedzianego literalnie przez Biblię.",
+      "W tradycji chrześcijańskiej przeważa odczyt Michała jako wysokiego rangą anioła. Niektóre nurty protestanckie, w tym adwentystyczny, rozumieją go jako określenie Chrystusa w roli zwierzchnika niebiańskiego zastępu, zdecydowanie odrzucając pogląd, że Jezus został stworzony. Nie należy tych dwóch stanowisk utożsamiać.",
+      "Zakończenie: kto jest w centrum naszej wiary?",
+      "Co z tym Michałem? Utożsamienie go z Chrystusem można rozważać jako interpretację opartą na podobieństwach funkcji i obrazów. Nie jest to jednak bezpośrednio sformułowane twierdzenie biblijne, a jego przeciwnicy mają poważne argumenty tekstowe.",
+      "Najważniejsza prawda nie zależy od rozstrzygnięcia tego sporu: Jezus jest odwiecznym Synem Bożym, Stwórcą wszystkiego, który dla naszego zbawienia stał się człowiekiem. W Nim mamy odkupienie dzięki łasce (Ef 2,8–10). Wobec takiego Chrystusa celem studium Biblii nie może być jedynie wygranie polemiki.",
+      "Panie Jezu, daj mi pokorę wobec Twojego Słowa, uczciwość wobec trudnych tekstów i miłość do ludzi, z którymi się nie zgadzam. Niech w każdej dyskusji ważniejsza będzie prawda niż moja ambicja. Amen.",
+      "Literatura i źródła do dalszego studium",
+      "Biblical Research Institute — Is Michael another name for Jesus?: https://adventistbiblicalresearch.org/articles/is-michael-another-name-for-jesus",
+      "Christ and Michael the Archangel — Questions on Doctrine, archiwum: https://documents.adventistarchives.org/books/qod19570101.pdf",
+      "Komentarze klasyczne do Daniela 10,13: https://www.biblehub.com/commentaries/daniel/10-13.htm",
+      "Krytyczna analiza stanowiska identyfikującego Michała z Chrystusem: https://wit.irr.org/jesus-michael-archangel",
+      "Vine’s Expository Dictionary — Archangel: https://www.studybible.info/vines/Archangel",
+      "Podstawowe teksty: Dn 10,13.21; 12,1–2; Jud 9; Za 3,1–2; 1 Tes 4,13–18; Ap 12,7–11; 19,11–16; Hbr 1,1–14; J 1,1–3.14; 5,28–29; Kol 1,16–17; 2,9.",
+      "Adnotacja: artykuł przedstawia spór interpretacyjny, rozdzielając bezpośrednie świadectwo Pisma od wniosków egzegetycznych. Teksty omawiane z odniesieniem do NKJV, bez długich przedruków przekładu."
+    ],
+    "category": "wiara",
+    "categoryLabel": "Biblia i Teologia • Egzegeza i Apologetyka",
+    "author": AUTHORS.cezary,
+    "publishedAt": "2026-11-13T20:00:00+01:00",
+    "dateFormatted": "13 listopada 2026",
+    "imageUrl": "/images/news/art-co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus.jpg",
+    "imageCaption": "Co z tym Michałem? Archanioł, Wódz nieba czy tytuł Chrystusa? Ilustracja koncepcyjna AI; nie przedstawia dokumentalnej sceny biblijnej.",
+    "readTimeMinutes": 8,
+    "isHero": false,
+    "isPopular": true,
+    "popularRank": 2,
+    "tags": [
+      "@CezaryRogowski",
+      "@ChristianCulture",
+      "#ArchaniołMichał",
+      "#JezusChrystus",
+      "#BoskośćSyna",
+      "#Egzegeza",
+      "#Dn10_13",
+      "#Dn12_1",
+      "#Juda9",
+      "#1Tes4_16",
+      "#Hbr1",
+      "#BibliaITeologia",
+      "#Apologetyka",
+      "#UBG"
+    ],
+    "scriptureReference": {
+      "verse": "Jud 9; Dn 12:1; Hbr 1:8 (UBG)",
+      "text": "Lecz archanioł Michał, rozprawiając z diabłem, spierał się o ciało Mojżesza, nie ośmielił się wypowiedzieć przeciwko niemu bluźnierczego oskarżenia, ale powiedział: Niech cię Pan zgromi.",
+      "strongCode": "G743 / H4317"
+    },
+    "sourceCitation": {
+      "sourceName": "Biblia i Teologia Christian Culture • Biblical Research Institute • Studia Egzegetyczne • Pełne wydanie PDF",
+      "sourceUrl": "https://polskieradio.cc/assets/CCN_Co_z_tym_Michalem_Cezary_Rogowski.pdf",
+      "quotationDate": "13 listopada 2026"
+    },
+    "biblicalCommentary": {
+      "thesis": "Niezależnie od sporu interpretacyjnego wokół tytułu Michała, fundamentalna prawda Biblii pozostaje niezachwiana: Jezus Chrystus jest odwiecznym, niestworzonym Synem Bożym, Stwórcą wszystkiego i Odkupicielem z łaski.",
+      "verses": [
+        {
+          "ref": "Dn 12:1 (UBG)",
+          "text": "W tym czasie powstanie Michał, wielki książę, który wstawia się za synami twego ludu.",
+          "strongRef": "H4317"
+        },
+        {
+          "ref": "Jud 9 (UBG)",
+          "text": "Lecz archanioł Michał, rozprawiając z diabłem, spierał się o ciało Mojżesza, nie ośmielił się wypowiedzieć przeciwko niemu bluźnierczego oskarżenia, ale powiedział: Niech cię Pan zgromi.",
+          "strongRef": "G743"
+        },
+        {
+          "ref": "1 Tes 4:16 (UBG)",
+          "text": "Gdyż sam Pan z okrzykiem, z głosem archanioła i dźwiękiem trąby Bożej zstąpi z nieba, a zmarli w Chrystusie powstaną pierwsi."
+        },
+        {
+          "ref": "Ap 12:7 (UBG)",
+          "text": "I nastąpiła walka w niebie. Michał i jego aniołowie walczyli ze smokiem. I walczył smok i jego aniołowie;"
+        },
+        {
+          "ref": "Hbr 1:8 (UBG)",
+          "text": "Lecz do Syna mówi: Twój tron, o Boże, na wieki wieków, berłem sprawiedliwości jest berło twego królestwa."
+        }
+      ],
+      "explanation": "Pismo nie wypowiada wprost zdania „Michał to Jezus”, lecz zawiera paralele funkcji i napięcia tekstowe (szczególnie Dn 10,13 i Hbr 1), które wymagają pokornej, uczciwej egzegezy bez umniejszania Bóstwa Chrystusa ani etykietowania rozmówców."
+    },
+    "lexiconTerms": [
+      {
+        "term": "Archangelos (Archanioł)",
+        "strongCode": "G743",
+        "definition": "Zwierzchni anioł lub naczelny posłaniec; termin występujący w Nowym Testamencie wyłącznie w Jud 9 oraz 1 Tes 4,16.",
+        "category": "teologia"
+      },
+      {
+        "term": "Michał (Mikhael)",
+        "strongCode": "H4317",
+        "definition": "Imię oznaczające „Któż jest jak Bóg?”; postać występująca w Księdze Daniela 10 i 12, Liście Judy 9 oraz Apokalipsie 12,7.",
+        "category": "teologia"
+      }
+    ],
+    "primaryPortalUrl": "https://polskieradio.cc/biblia/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus",
+    "primaryPortalLabel": "Biblia i Teologia Christian Culture",
+    "resourceLinks": [
+      {
+        "label": "Pobierz pełne opracowanie PDF (Co z tym Michałem?)",
+        "url": "/assets/CCN_Co_z_tym_Michalem_Cezary_Rogowski.pdf"
+      },
+      {
+        "label": "Interlinearna MojaBiblia CC — Dn 12:1 (Kody Stronga)",
+        "url": "/mojabiblia?ref=DAN.12.1"
+      },
+      {
+        "label": "Interlinearna MojaBiblia CC — Hbr 1:8 & Jud 9",
+        "url": "/mojabiblia?ref=HEB.1.8"
+      },
+      {
+        "label": "Portal Apologetyka & Teologia CC",
+        "url": "/apologetyka/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus"
+      }
+    ]
+  },
   {
   "id": "art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje",
   "title": "Dobroć nie jest słabością. 7 decyzji, które zmieniają relacje",

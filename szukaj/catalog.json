@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-14T05:01:22.814Z",
-  "totalItems": 448,
+  "updatedAt": "2026-11-14T07:24:35.793Z",
+  "totalItems": 450,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -4207,6 +4207,77 @@
         "psychologia",
         "artykuł"
       ],
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-14T08:00:00+01:00",
+      "title": "Czy Jezus naprawdę był Bogiem? Pytanie, które obnaża fundament naszej wiary",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody",
+      "description": "Czy Jezus jest Bogiem? Analiza Jan 1,1, Jan 20,28, 1 Jana 5,20, trudnych wersetów i świadectw Nowego Testamentu. Uczciwa egzegeza bez sloganów.",
+      "contentSnippet": "Co naprawdę mówią Jan 1,1; Jan 20,28 i 1 Jana 5,20 — oraz jak odpowiedzieć na najtrudniejsze zarzuty? Wprowadzenie: kontrowersja, której nie wolno rozstrzygać sloganem Czy Jezus naprawdę był Bogiem? Zanim ktoś odpowie automatycznym „oczywiście” albo równie szybkim „niemożliwe”, niech otworzy Biblię. Stawką nie jest akademicki spór o jedno słowo. St…",
+      "author": "Cezary Rogowski",
+      "date": "14 listopada 2026",
+      "tags": [
+        "@CezaryRogowski",
+        "@ChristianCulture",
+        "#BoskośćJezusa",
+        "#BóstwoChrystusa",
+        "#DowodyZBiblii",
+        "#Jan1_1",
+        "#Jan20_28",
+        "#1Jana5_20",
+        "#TrójcaŚwięta",
+        "#SynBoży",
+        "#BibliaITeologia",
+        "#Apologetyka",
+        "#UBG",
+        "wiara",
+        "Biblia i Teologia • Dowody z Biblii",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "J 1:1; J 20:28 (UBG) Na początku było Słowo, a Słowo było u Boga i Bogiem było Słowo. Wtedy Tomasz mu odpowiedział: Mój Pan i mój Bóg!",
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-13T20:00:00+01:00",
+      "title": "Co z tym Michałem? Czy archanioł Michał to Jezus Chrystus?",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/biblia/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus",
+      "description": "Boskość Syna, trudne teksty i granice interpretacji. Skąd w części chrześcijańskiej teologii bierze się utożsamienie archanioła Michała z Jezusem Chrystusem, dlaczego inni chrześcijanie je odrzucają i czego Pismo uczy w Dn 10,13; Dn 12,1; Jud 9; 1 Tes 4,16; Ap 12,7 oraz Hbr 1?",
+      "contentSnippet": "Czy archanioł Michał to Jezus Chrystus? Boskość Syna, trudne teksty i granice interpretacji Pytanie, którego nie wolno uciszać słowem „herezja” „Jezus nie może być Michałem, bo jest Bogiem!” — słyszymy w jednej dyskusji. „Michał jest Wodzem nieba, tak jak Jezus!” — odpowiada druga strona. Obie wypowiedzi dotykają ważnej prawdy, ale nie są jeszcze a…",
+      "author": "Cezary Rogowski",
+      "date": "13 listopada 2026",
+      "tags": [
+        "@CezaryRogowski",
+        "@ChristianCulture",
+        "#ArchaniołMichał",
+        "#JezusChrystus",
+        "#BoskośćSyna",
+        "#Egzegeza",
+        "#Dn10_13",
+        "#Dn12_1",
+        "#Juda9",
+        "#1Tes4_16",
+        "#Hbr1",
+        "#BibliaITeologia",
+        "#Apologetyka",
+        "#UBG",
+        "wiara",
+        "Biblia i Teologia • Egzegeza i Apologetyka",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "Jud 9; Dn 12:1; Hbr 1:8 (UBG) Lecz archanioł Michał, rozprawiając z diabłem, spierał się o ciało Mojżesza, nie ośmielił się wypowiedzieć przeciwko niemu bluźnierczego oskarżenia, ale powiedział: Niech cię Pan zgromi.",
       "featured": true
     },
     {
@@ -10959,7 +11030,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-14T05:01:22.894Z",
+    "updatedAt": "2026-11-14T07:24:35.886Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "14 listopada 2026",
     "pools": [

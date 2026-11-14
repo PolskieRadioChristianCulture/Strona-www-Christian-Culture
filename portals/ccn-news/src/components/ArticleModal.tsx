@@ -454,7 +454,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
                   );
                 }
               }
-              if (/^(\d+\. |PODSUMOWANIE REDAKCYJNE|Podsumowanie$|Źródła i teksty biblijne$|Kluczowe informacje$|Kontekst i analiza$|Refleksja biblijna$|Źródła$)/.test(paragraph)) {
+              if (/^(\d+\. |PODSUMOWANIE REDAKCYJNE|Wprowadzenie:|Pytanie, którego nie wolno|Zakończenie:|Literatura i źródła|Podsumowanie$|Źródła i teksty biblijne$|Kluczowe informacje$|Kontekst i analiza$|Refleksja biblijna$|Źródła$)/.test(paragraph)) {
                 return <h2 key={index} className="font-serif font-bold text-xl pt-4">{paragraph}</h2>;
               }
               const isInterviewSpeaker = article.isInterview === true && paragraph.startsWith('CCN News:');

@@ -1507,7 +1507,10 @@ ${JSON.stringify(jsonLd, null, 2)}
               trimmed.startsWith('Nie zbawia Cię') ||
               trimmed.startsWith('Prawdziwa pokuta') ||
               trimmed.startsWith('Siedem pytań') ||
-              trimmed.startsWith('Zdejmij maskę')
+              trimmed.startsWith('Zdejmij maskę') ||
+              trimmed.startsWith('Wprowadzenie:') ||
+              trimmed.startsWith('Pytanie, którego nie wolno') ||
+              trimmed.startsWith('Literatura i źródła')
             ) {
               return `<h2>${escapeHtml(trimmed)}</h2>`;
             }
@@ -1517,6 +1520,18 @@ ${JSON.stringify(jsonLd, null, 2)}
             return `<p>${escapeHtml(p)}</p>`;
           }).join('\n          ')}
         </div>
+
+        ${Array.isArray(article.resourceLinks) && article.resourceLinks.some(r => String(r.url || '').toLowerCase().endsWith('.pdf')) ? `
+        <!-- Resource & PDF Links -->
+        <nav aria-label="Materiały i źródła do pobrania" style="display:flex; flex-wrap:wrap; gap:10px; margin:1.75rem 0; padding:1rem; background:#fafafa; border:1px solid #e4e4e7; border-radius:12px;">
+          ${article.resourceLinks.map(r => {
+            const isPdf = String(r.url || '').toLowerCase().endsWith('.pdf');
+            return `<a href="${escapeAttribute(r.url)}"${isPdf ? ' download' : ''} style="min-height:44px; display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:10px; font-size:0.88rem; font-weight:700; text-decoration:none; ${isPdf ? 'background:#800d1e; color:#ffffff; border:1px solid #800d1e;' : 'background:#ffffff; color:#18181b; border:1px solid #d4d4d8;'}">
+              <i class="fa-solid ${isPdf ? 'fa-file-pdf' : 'fa-book-open'}" aria-hidden="true"></i>
+              <span>${escapeHtml(r.label)}</span>
+            </a>`;
+          }).join('\n          ')}
+        </nav>` : ''}
 
         <!-- Scripture Card -->
         ${article.scriptureReference ? `
@@ -1819,6 +1834,55 @@ export async function buildCcnStaticPages() {
         generatedPages++;
       }
       updateSitemap(pArticles, portalId);
+    }
+  }
+
+  // Generate dedicated portal pages (/biblia, /apologetyka, /em) for biblical-theological flagship studies
+  const bibliaPortalArticles = articles.filter(
+    a => String(a.primaryPortalUrl || '').startsWith('https://polskieradio.cc/biblia/')
+  );
+  if (bibliaPortalArticles.length > 0) {
+    registerRoutes('biblia', bibliaPortalArticles);
+    const czyJezusIstnialRef = articles.find(a => a.slug === 'czy-jezus-istnial-dowody-historyczne') || {
+      id: 'art-czy-jezus-istnial-dowody-historyczne',
+      slug: 'czy-jezus-istnial-dowody-historyczne',
+      title: 'Czy Jezus naprawdę istniał? Co mówią źródła historyczne poza Biblią?',
+      categoryLabel: 'Biblia i Historia',
+      imageUrl: '/images/news/art-czy-jezus-istnial-dowody-historyczne.jpg',
+      dateFormatted: '15 października 2026'
+    };
+    const targetMirrors = [
+      {
+        baseSlug: 'biblia',
+        portalName: 'Biblia i Teologia Christian Culture',
+        portalUrl: 'https://polskieradio.cc/biblia',
+        relatedPool: [...bibliaPortalArticles, czyJezusIstnialRef]
+      },
+      {
+        baseSlug: 'apologetyka',
+        portalName: 'CCN Apologetyka & Teologia',
+        portalUrl: 'https://polskieradio.cc/apologetyka',
+        relatedPool: bibliaPortalArticles
+      },
+      {
+        baseSlug: 'em',
+        portalName: 'eM • Motywacja Christian Culture',
+        portalUrl: 'https://polskieradio.cc/em',
+        relatedPool: bibliaPortalArticles
+      }
+    ];
+    for (const mirror of targetMirrors) {
+      fs.mkdirSync(path.join(ROOT, mirror.baseSlug), { recursive: true });
+      for (const article of bibliaPortalArticles) {
+        const html = generateArticleHtml(article, mirror.relatedPool, mirror);
+        for (const variant of [article.slug, article.id].filter(Boolean)) {
+          safeWriteFileSync(path.join(ROOT, mirror.baseSlug, `${variant}.html`), html, 'utf8');
+          const cleanDir = path.join(ROOT, mirror.baseSlug, variant);
+          fs.mkdirSync(cleanDir, { recursive: true });
+          safeWriteFileSync(path.join(cleanDir, 'index.html'), html, 'utf8');
+        }
+        generatedPages++;
+      }
     }
   }
 

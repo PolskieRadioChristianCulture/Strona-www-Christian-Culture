@@ -8,8 +8,28 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sat, 14 Nov 2026 05:01:20 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2026 07:24:32 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Czy Jezus naprawdę był Bogiem? Pytanie, które obnaża fundament naszej wiary</title>
+      <link>https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody</link>
+      <guid isPermaLink="true">https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody</guid>
+      <pubDate>Sat, 14 Nov 2026 07:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>Biblia i Teologia • Dowody z Biblii</category>
+      <description>Czy Jezus jest Bogiem? Analiza Jan 1,1, Jan 20,28, 1 Jana 5,20, trudnych wersetów i świadectw Nowego Testamentu. Uczciwa egzegeza bez sloganów.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-czy-jezus-naprawde-byl-bogiem-biblijne-dowody.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Co z tym Michałem? Czy archanioł Michał to Jezus Chrystus?</title>
+      <link>https://polskieradio.cc/biblia/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus</link>
+      <guid isPermaLink="true">https://polskieradio.cc/biblia/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus</guid>
+      <pubDate>Fri, 13 Nov 2026 19:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>Biblia i Teologia • Egzegeza i Apologetyka</category>
+      <description>Boskość Syna, trudne teksty i granice interpretacji. Skąd w części chrześcijańskiej teologii bierze się utożsamienie archanioła Michała z Jezusem Chrystusem, dlaczego inni chrześcijanie je odrzucają i czego Pismo uczy w Dn 10,13; Dn 12,1; Jud 9; 1 Tes 4,16; Ap 12,7 oraz Hbr 1?</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Dobroć nie jest słabością. 7 decyzji, które zmieniają relacje</title>
       <link>https://polskieradio.cc/eM</link>
@@ -289,26 +309,6 @@
       <category>Wiara &amp; Rozwój</category>
       <description>Księga Rodzaju 44–45: Próba srebrnego kielicha w worku Beniamina, przełomowa mowa obrończa i dobrowolne zastępstwo Judy, odkrycie tożsamości Józefa oraz chrystocentryczna perspektywa zastępczego okupu i służby pojednania.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-28-ja-jestem-jozef-przebaczenie-zamiast-zemsty.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Z Biblią za Pan Brat: Dzień 27 — Gdy przeszłość wraca: Przebudzenie sumienia braci Józefa i odpowiedzialność Judy w Księdze Rodzaju 42–43</title>
-      <link>https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-27-gdy-przeszlosc-wraca-bracia-jozefa</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-27-gdy-przeszlosc-wraca-bracia-jozefa</guid>
-      <pubDate>Tue, 27 Oct 2026 06:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>Wiara &amp; Rozwój</category>
-      <description>Księga Rodzaju 42–43: Dwie wyprawy synów Jakuba po zboże do Egiptu, budzące się po dwudziestu latach sumienie braci, osobiste poręczenie Judy za Beniamina oraz Chrystus jako doskonały Poręczyciel nowego przymierza.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-27-gdy-przeszlosc-wraca-bracia-jozefa.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Z Biblią za Pan Brat: Dzień 26 — Od więzienia do pałacu: Teologia oczekiwania, roztropności gospodarczej i opatrzności (Rdz 40–41)</title>
-      <link>https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-26-od-wiezienia-do-palacu</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-26-od-wiezienia-do-palacu</guid>
-      <pubDate>Mon, 26 Oct 2026 06:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>Wiara &amp; Rozwój</category>
-      <description>Księga Rodzaju 40–41: Józef zapomniany w więzieniu, sny podczaszego, piekarza i faraona, plan na siedem lat obfitości i głodu oraz wywyższenie Józefa jako sługi ocalenia wielu.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-26-od-wiezienia-do-palacu.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>

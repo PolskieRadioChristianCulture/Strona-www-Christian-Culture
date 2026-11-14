@@ -387,8 +387,11 @@ export function buildAllDiscoverySignals() {
   const bibliaEntries = [
     { loc: `${PRIMARY_ORIGIN}/mojabiblia`, lastmod: '2026-10-15', changefreq: 'weekly', priority: '0.95' },
     { loc: `${PRIMARY_ORIGIN}/biblia`, lastmod: '2026-10-15', changefreq: 'weekly', priority: '0.90' },
+    { loc: `${PRIMARY_ORIGIN}/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody`, lastmod: '2026-11-14', changefreq: 'monthly', priority: '0.90' },
+    { loc: `${PRIMARY_ORIGIN}/biblia/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus`, lastmod: '2026-11-13', changefreq: 'monthly', priority: '0.90' },
+    { loc: `${PRIMARY_ORIGIN}/biblia/czy-jezus-istnial-dowody-historyczne`, lastmod: '2026-10-15', changefreq: 'monthly', priority: '0.85' },
     { loc: `${PRIMARY_ORIGIN}/biblia-do-pobrania`, lastmod: '2026-10-15', changefreq: 'monthly', priority: '0.85' },
-    { loc: `${PRIMARY_ORIGIN}/apologetyka`, lastmod: '2026-10-15', changefreq: 'weekly', priority: '0.85' },
+    { loc: `${PRIMARY_ORIGIN}/apologetyka`, lastmod: '2026-11-14', changefreq: 'weekly', priority: '0.85' },
   ];
   fs.writeFileSync(path.join(sitemapsDir, 'biblia.xml'), buildStandardUrlsetXml(bibliaEntries), 'utf8');
 

@@ -1,15 +1,15 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-14T05:01:20.643Z",
+  "generatedAt": "2026-11-14T07:24:34.188Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 94,
-    "validUrls": 94,
+    "totalValidatedUrls": 96,
+    "validUrls": 96,
     "invalidUrls": 0,
-    "newsArticlesCount": 88,
-    "googleNews48hCount": 42,
+    "newsArticlesCount": 90,
+    "googleNews48hCount": 44,
     "akademiaUrlsCount": 77,
-    "bibliaUrlsCount": 4,
+    "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 2,
     "pagesUrlsCount": 38,
@@ -31,25 +31,25 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 25038,
+      "sizeBytes": 24981,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 32556,
+      "sizeBytes": 32438,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 40368,
+      "sizeBytes": 41328,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 33679,
+      "sizeBytes": 35171,
       "status": "OK"
     },
     {
@@ -61,7 +61,7 @@
     {
       "path": "/sitemaps/biblia.xml",
       "exists": true,
-      "sizeBytes": 784,
+      "sizeBytes": 1416,
       "status": "OK"
     },
     {
@@ -90,10 +90,10 @@
     }
   ],
   "indexNow": {
-    "keyConfigured": true,
+    "keyConfigured": false,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 42,
-    "pendingCount": 42,
+    "totalQueued": 44,
+    "pendingCount": 44,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-14T05:01:20.639Z",
+        "queuedAt": "2026-11-14T07:24:34.166Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-14T05:01:20.639Z",
+        "queuedAt": "2026-11-14T07:24:34.166Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-14T05:01:20.639Z",
+        "queuedAt": "2026-11-14T07:24:34.166Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-14T05:01:20.639Z",
+        "queuedAt": "2026-11-14T07:24:34.166Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-14T05:01:20.639Z",
+        "queuedAt": "2026-11-14T07:24:34.166Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -382,11 +382,7 @@
         },
         "status": "PENDING"
       }
-    ],
-    "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 351,
-    "lastSubmittedCount": 351,
-    "lastSubmittedAt": "2026-11-14T05:01:22.543Z"
+    ]
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +398,22 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/czy-jezus-naprawde-byl-bogiem-biblijne-dowody.html",
+      "canonicalUrl": "https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "file": "news/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus.html",
+      "canonicalUrl": "https://polskieradio.cc/biblia/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.html",
       "canonicalUrl": "https://polskieradio.cc/eM",
@@ -585,23 +597,6 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/gerald-welch-the-call-a-rock-driven-wake-up-call-to-conscience-and-living-faith.html",
-      "canonicalUrl": "https://polskieradio.cc/news/gerald-welch-the-call-a-rock-driven-wake-up-call-to-conscience-and-living-faith",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "file": "news/jaka-jest-twoja-poboznosc-wiara-czy-maska.html",
-      "canonicalUrl": "https://polskieradio.cc/news/jaka-jest-twoja-poboznosc-wiara-czy-maska",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
-  ],
-  "lastInstantIndexingAt": "2026-11-14T05:01:22.543Z"
+  ]
 }

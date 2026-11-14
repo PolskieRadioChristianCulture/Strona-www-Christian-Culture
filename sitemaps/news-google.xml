@@ -3,6 +3,36 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-14T07:00:00.000Z</news:publication_date>
+      <news:title>Czy Jezus naprawdę był Bogiem? Pytanie, które obnaża fundament naszej wiary</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-czy-jezus-naprawde-byl-bogiem-biblijne-dowody.jpg</image:loc>
+      <image:title>Czy Jezus naprawdę był Bogiem? Pytanie, które obnaża fundament naszej wiary</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/biblia/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-13T19:00:00.000Z</news:publication_date>
+      <news:title>Co z tym Michałem? Czy archanioł Michał to Jezus Chrystus?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus.jpg</image:loc>
+      <image:title>Co z tym Michałem? Czy archanioł Michał to Jezus Chrystus?</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/eM</loc>
     <news:news>
       <news:publication>
