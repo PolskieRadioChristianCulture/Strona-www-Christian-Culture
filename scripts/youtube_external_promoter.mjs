@@ -315,11 +315,28 @@ export function getNextExternalChannel() {
   return { channel, nextIndex, state };
 }
 
-export function saveExternalPromotionState(nextIndex, channelId) {
+export function saveExternalPromotionState(nextIndex, channelId, extra = {}) {
+  let prevHistory = [];
+  if (fs.existsSync(STATE_FILE)) {
+    try {
+      const prev = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8'));
+      if (Array.isArray(prev.history)) prevHistory = prev.history;
+    } catch (_) {}
+  }
   const state = {
     lastIndex: nextIndex,
     lastChannelId: channelId,
     lastTimestamp: new Date().toISOString(),
+    history: [
+      ...prevHistory,
+      {
+        index: nextIndex,
+        channelId,
+        timestamp: new Date().toISOString(),
+        status: 'PROMOTED',
+        ...extra
+      }
+    ].slice(-50)
   };
   fs.mkdirSync(path.dirname(STATE_FILE), { recursive: true });
   fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');

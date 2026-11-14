@@ -1,5 +1,27 @@
 {
-  "lastIndex": 0,
-  "lastChannelId": "cctv",
-  "lastTimestamp": "2026-11-14T11:07:59.907Z"
+  "lastIndex": 1,
+  "lastChannelId": "osobowosc_plus",
+  "lastTimestamp": "2026-11-14T17:02:35.346Z",
+  "history": [
+    {
+      "index": 0,
+      "channelId": "cctv",
+      "channelName": "Christian Culture TV",
+      "handle": "@ChristianCultureTV",
+      "url": "https://www.youtube.com/@ChristianCultureTV",
+      "timestamp": "2026-11-14T10:00:00.000Z",
+      "status": "PROMOTED"
+    },
+    {
+      "index": 1,
+      "channelId": "osobowosc_plus",
+      "channelName": "Osobowość + (Studio Dobrego Słowa)",
+      "handle": "@osobowoscPLUS",
+      "url": "https://www.youtube.com/@osobowoscPLUS",
+      "targetAudience": "Przedsiębiorcy, ambitni liderzy, osoby zmagające się ze stresem i poszukujące siły ducha",
+      "hook": "Jak zachować niezłomny spokój i wygrywać w czasach totalnego chaosu?",
+      "timestamp": "2026-11-14T17:02:35.346Z",
+      "status": "PROMOTED"
+    }
+  ]
 }
