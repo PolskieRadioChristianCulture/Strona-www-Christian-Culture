@@ -13,6 +13,7 @@ vi.mock("@/services/repositories/chatRepository", () => {
           {
             id: "msg_1",
             senderId: "user_other",
+            senderName: "Brat Jan",
             text: "Pokój Wam!",
             timestamp: "12:00",
             isRead: true,
@@ -21,6 +22,7 @@ vi.mock("@/services/repositories/chatRepository", () => {
           {
             id: "msg_2",
             senderId: "user_me",
+            senderName: "Ja",
             text: "Amen!",
             timestamp: "12:01",
             isRead: false,
@@ -29,6 +31,7 @@ vi.mock("@/services/repositories/chatRepository", () => {
           {
             id: "msg_3",
             senderId: "user_me",
+            senderName: "Ja",
             text: "I z duchem twoim",
             timestamp: "12:02",
             isRead: true,

@@ -374,18 +374,164 @@ async function handleSocialPostCrawler(postId, url, userAgent) {
     window.location.replace("${safeDest}");
   </script>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #070d1e; color: #fff; padding: 40px 20px; text-align: center; }
-    .card { max-width: 520px; margin: 0 auto; background: #0f172a; padding: 24px; border-radius: 16px; border: 1.5px solid rgba(250,204,21,0.35); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    img { max-width: 100%; border-radius: 12px; margin: 16px 0; max-height: 400px; object-fit: cover; }
-    a { color: #facc15; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 12px; padding: 10px 20px; background: rgba(250,204,21,0.15); border-radius: 10px; border: 1px solid #facc15; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0a0a0c; color: #f8fafc; padding: 40px 20px; text-align: center; }
+    .card { max-width: 520px; margin: 0 auto; background: #141418; padding: 24px; border-radius: 18px; border: 1.5px solid rgba(196,163,90,0.45); box-shadow: 0 18px 40px rgba(0,0,0,0.65); }
+    img { max-width: 100%; border-radius: 12px; margin: 16px 0; max-height: 400px; object-fit: cover; border: 1px solid rgba(196,163,90,0.25); }
+    a { color: #ffffff; font-weight: 700; text-decoration: none; display: inline-block; margin-top: 12px; padding: 12px 24px; background: #FF7A00; border-radius: 999px; border: 1px solid #FF8C33; }
   </style>
 </head>
 <body>
   <div class="card">
-    <h2 style="font-size:1.2rem;margin-top:0;">${safeTitle}</h2>
+    <h2 style="font-size:1.2rem;margin-top:0;color:#E2CC9A;">${safeTitle}</h2>
     <img src="${safeImage}" alt="${safeTitle}">
     <p style="font-size:0.9rem;line-height:1.5;color:#cbd5e1;">${safeDesc}</p>
-    <div><a href="${safeDest}">Otwórz wpis w portalu LUMINA 🕊️</a></div>
+    <div><a href="${safeDest}">Otwórz wpis w portalu LUMINA</a></div>
+  </div>
+</body>
+</html>`;
+
+  return new Response(html, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'public, max-age=300, s-maxage=600',
+      'X-Robots-Tag': 'all',
+    },
+  });
+}
+
+async function handleSocialProfileCrawler(rawSlug, url) {
+  const slug = String(rawSlug || '').trim();
+  const cleanSlug = slug.replace(/^u_/, '');
+  const searchParams = url.searchParams;
+  let name = (searchParams.get('name') || '').trim();
+  let role = (searchParams.get('role') || '').trim();
+  let bio = (searchParams.get('bio') || searchParams.get('desc') || '').trim();
+  let image = (searchParams.get('img') || searchParams.get('avatar') || '').trim();
+
+  const applyProfileFields = (f) => {
+    if (!f || typeof f !== 'object') return false;
+    const fullName = [f.firstName?.stringValue, f.lastName?.stringValue].filter(Boolean).join(' ').trim();
+    const n = (f.displayName?.stringValue || f.name?.stringValue || fullName || '').trim();
+    if (n) name = n;
+    const r = (f.role?.stringValue || f.title?.stringValue || f.profession?.stringValue || '').trim();
+    if (r) role = r;
+    const b = (f.bio?.stringValue || f.about?.stringValue || f.motto?.stringValue || f.testimony?.stringValue || '').trim();
+    if (b) bio = b.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const img = (f.avatar?.stringValue || f.avatarUrl?.stringValue || f.photoURL?.stringValue || f.banner?.stringValue || '').trim();
+    if (img) image = img;
+    return Boolean(n || r || b || img);
+  };
+
+  if (cleanSlug) {
+    try {
+      const baseDocUrl = 'https://firestore.googleapis.com/v1/projects/lumina-cc/databases/(default)/documents/lumina_profiles/';
+      const candidates = cleanSlug === slug ? [cleanSlug] : [cleanSlug, slug];
+      let matched = false;
+      for (const docId of candidates) {
+        const res = await fetch(`${baseDocUrl}${encodeURIComponent(docId)}`, {
+          headers: { 'User-Agent': 'ChristianCulture-Worker/1.0' },
+          cf: { cacheTtl: 120 },
+        });
+        if (res.ok) {
+          const doc = await res.json();
+          if (applyProfileFields(doc.fields)) {
+            matched = true;
+            break;
+          }
+        }
+      }
+      if (!matched) {
+        const queryRes = await fetch(
+          'https://firestore.googleapis.com/v1/projects/lumina-cc/databases/(default)/documents:runQuery',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'User-Agent': 'ChristianCulture-Worker/1.0',
+            },
+            body: JSON.stringify({
+              structuredQuery: {
+                from: [{ collectionId: 'lumina_profiles' }],
+                where: {
+                  fieldFilter: {
+                    field: { fieldPath: 'slug' },
+                    op: 'EQUAL',
+                    value: { stringValue: cleanSlug },
+                  },
+                },
+                limit: 1,
+              },
+            }),
+          }
+        );
+        if (queryRes.ok) {
+          const rows = await queryRes.json();
+          if (Array.isArray(rows) && rows[0]?.document?.fields) {
+            applyProfileFields(rows[0].document.fields);
+          }
+        }
+      }
+    } catch (e) {
+      // Fallback do domyślnych metadanych profilu
+    }
+  }
+
+  const displayName = name || (cleanSlug ? cleanSlug.replace(/[-_]+/g, ' ') : 'Członek Społeczności LUMINA');
+  const title = role ? `${displayName} — ${role} | LUMINA` : `${displayName} | Profil w Portalu LUMINA`;
+  const descRaw = bio || `Poznaj profil ${displayName} w chrześcijańskiej społeczności LUMINA • Christian Culture.`;
+  const desc = descRaw.length > 260 ? `${descRaw.substring(0, 260)}…` : descRaw;
+
+  if (image && !image.startsWith('http')) {
+    image = `https://polskieradio.cc/${image.replace(/^\//, '')}`;
+  }
+  if (!image) {
+    image = 'https://polskieradio.cc/lumina_og.jpg';
+  }
+
+  const canonicalUrl = `https://polskieradio.cc/lumina-profile?u=${encodeURIComponent(slug || cleanSlug)}`;
+  const escapeHtml = (s) => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const safeTitle = escapeHtml(title);
+  const safeDesc = escapeHtml(desc);
+  const safeImage = escapeHtml(image);
+  const safeCanon = escapeHtml(canonicalUrl);
+
+  const html = `<!DOCTYPE html>
+<html lang="pl" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${safeTitle}</title>
+  <meta name="description" content="${safeDesc}">
+  <link rel="canonical" href="${safeCanon}">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="LUMINA • Christian Culture">
+  <meta property="og:url" content="${safeCanon}">
+  <meta property="og:title" content="${safeTitle}">
+  <meta property="og:description" content="${safeDesc}">
+  <meta property="og:image" content="${safeImage}">
+  <meta property="og:image:secure_url" content="${safeImage}">
+  <meta property="og:image:alt" content="${safeTitle}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@ChristianCultPL">
+  <meta name="twitter:title" content="${safeTitle}">
+  <meta name="twitter:description" content="${safeDesc}">
+  <meta name="twitter:image" content="${safeImage}">
+  <meta http-equiv="refresh" content="0;url=${safeCanon}">
+  <script>window.location.replace("${safeCanon}");</script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0a0a0c; color: #f8fafc; padding: 40px 20px; text-align: center; }
+    .card { max-width: 520px; margin: 0 auto; background: #141418; padding: 24px; border-radius: 18px; border: 1.5px solid rgba(196,163,90,0.45); box-shadow: 0 18px 40px rgba(0,0,0,0.65); }
+    img { max-width: 100%; border-radius: 12px; margin: 16px 0; max-height: 400px; object-fit: cover; border: 1px solid rgba(196,163,90,0.25); }
+    a { color: #ffffff; font-weight: 700; text-decoration: none; display: inline-block; margin-top: 12px; padding: 12px 24px; background: #FF7A00; border-radius: 999px; border: 1px solid #FF8C33; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2 style="font-size:1.2rem;margin-top:0;color:#E2CC9A;">${safeTitle}</h2>
+    <img src="${safeImage}" alt="${safeTitle}">
+    <p style="font-size:0.9rem;line-height:1.5;color:#cbd5e1;">${safeDesc}</p>
+    <div><a href="${safeCanon}">Otwórz profil w portalu LUMINA</a></div>
   </div>
 </body>
 </html>`;
@@ -1856,6 +2002,13 @@ export default {
       if (isCrawler) {
         const postId = url.searchParams.get('post') || url.searchParams.get('id') || '';
         return handleSocialPostCrawler(postId, url, ua);
+      }
+    }
+
+    // Przechwycenie social crawlerów dla kanonicznego profilu /lumina-profile?u=<slug>
+    if ((decodedP === '/lumina-profile' || decodedP === '/lumina-profile.html') && url.searchParams.get('u')) {
+      if (isCrawler) {
+        return handleSocialProfileCrawler(url.searchParams.get('u'), url);
       }
     }
 

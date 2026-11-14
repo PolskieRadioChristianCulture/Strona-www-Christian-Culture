@@ -29,7 +29,7 @@ export class PostRepository {
    */
   subscribeToFeed(callback: (posts: LuminaPost[]) => void, postLimit = 40): Unsubscribe {
     const collRef = collection(db, COLLECTION_NAME);
-    const q = query(collRef, orderBy(createdAt, desc), limit(postLimit));
+    const q = query(collRef, orderBy('createdAt', 'desc'), limit(postLimit));
 
     return onSnapshot(
       q,
