@@ -1,0 +1,50 @@
+{
+  "lastPromotedIndex": 0,
+  "lastPromotedDate": "2026-11-14",
+  "history": [
+    {
+      "date": "2026-11-14",
+      "channelName": "Polskie Radio CC",
+      "handle": "@RadioChristianCulture",
+      "url": "https://www.youtube.com/@RadioChristianCulture/live",
+      "results": {
+        "lumina": {
+          "status": "published",
+          "docId": "aRBMTPBBabKowjoOmcbv"
+        },
+        "x": {
+          "status": "skipped"
+        },
+        "fb": {
+          "status": "skipped"
+        },
+        "wa": {
+          "status": "skipped"
+        }
+      }
+    },
+    {
+      "date": "2026-11-14",
+      "channelName": "Polskie Radio CC",
+      "handle": "@RadioChristianCulture",
+      "url": "https://www.youtube.com/@RadioChristianCulture/live",
+      "results": {
+        "lumina": {
+          "status": "error",
+          "error": "LUMINA HTTP 403: {\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"Missing or insufficient permissions.\",\n    \"status\": \"PERMISSION_DENIED\"\n  }\n}\n"
+        },
+        "x": {
+          "status": "published"
+        },
+        "fb": {
+          "status": "error",
+          "error": "Brak aktywnej sesji edycji na stronie Facebook (widok gościa lub wygasłe fb_session.json)."
+        },
+        "wa": {
+          "status": "queued",
+          "targets": 3
+        }
+      }
+    }
+  ]
+}

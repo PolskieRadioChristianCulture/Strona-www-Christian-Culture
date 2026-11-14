@@ -35,6 +35,7 @@ export const AUTHORS: Record<string, Author> = {
 
 
 export const BREAKING_NEWS: string[] = [
+  "NOWY ARTYKUŁ CCN FINANSE: Jak przygotować domowy budżet na grudzień bez kredytu? Praktyczny przewodnik Cezarego Rogowskiego (https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu)",
   "CCN FINANSE + AUDIO (17:51): Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13 — analiza Cezarego Rogowskiego o CBDC i wolności sumienia",
   "Szafarstwo Boże: Ponad 2350 wersetów w Biblii dotyczy pieniędzy i odpowiedzialności za powierzone dobra",
   "Wolność od Zadłużenia: Zasada „dłużnik jest sługą wierzyciela” (Prz 22:7) i sprawdzona droga do wolności",
@@ -43,6 +44,96 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    "id": "art-jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
+    "title": "Jak przygotować domowy budżet na grudzień bez kredytu?",
+    "slug": "jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
+    "excerpt": "Koniec roku to dla milionów rodzin presja wystawnych świąt i ryzykownych pożyczek. Sprawdź, jak zaplanować grudniowy budżet metodą kopertową, poznać twarde fakty prawne o RRSO i BNPL oraz odnaleźć wolność w biblijnym szafarstwie.",
+    "content": [
+      "Wprowadzenie: dlaczego grudzień nie musi kończyć się długiem?",
+      "Koniec roku to dla milionów polskich rodzin czas narastającej presji: wszechobecne kampanie reklamowe przekonują, że udane święta wymagają kosztownych prezentów i wystawnych stołów, a brak gotówki można bez trudu zrekompensować szybką pożyczką lub odroczoną płatnością.",
+      "Taki scenariusz niemal zawsze kończy się bolesnym kacem finansowym w styczniu, kiedy z całą mocą uderzają terminy spłat, a odsetki zjadają bieżące dochody.",
+      "Pismo Święte i rzetelna wiedza ekonomiczna uczą nas jednak zupełnie innego podejścia: prawdziwy pokój domowego ogniska buduje się na fundamencie roztropnego szafarstwa, skrupulatnego planowania i odwagi, by powiedzieć konsumpcyjnemu dyktatowi stanowcze „nie”.",
+      "1. Grudniowa pułapka konsumpcjonizmu: dlaczego święta zamieniają się w finansowy koszmar",
+      "Współczesna kultura handlowa z roku na rok coraz wcześniej rozpoczyna grudniowy maraton zakupowy. Już na początku listopada witryny sklepowe, platformy e-commerce i stacje telewizyjne zapełniają się jaskrawymi ofertami, tworząc sztuczną atmosferę pośpiechu i emocjonalnego przymusu. W centrum tego przekazu rzadko znajduje się duchowy sens Bożego Narodzenia, wdzięczność czy radość z obecności najbliższych. Zamiast tego konsument jest bombardowany obietnicą, że miłość, akceptację i szczęście rodziny można po prostu kupić na raty.",
+      "Psychologia konsumencka precyzyjnie opisuje mechanizm tzw. „zakupów pod wpływem winy” (ang. guilt-based spending). Wielu rodziców, zapracowanych i zmagających się na co dzień z brakiem czasu dla dzieci, próbuje w grudniu zrekompensować swoją nieobecność drogimi podarunkami, nierzadko przekraczającymi ich miesięczne możliwości zarobkowe. Do tego dochodzi presja porównywania się z kreowanymi w mediach społecznościowych obrazami idealnych świąt. Uleganie tym iluzjom sprawia, że święta zamiast wytchnienia przynoszą paraliżujący lęk przed stanem konta bankowego.",
+      "Warto spojrzeć na grudzień bez emocjonalnych zniekształceń. Grudzień to zaledwie trzydzieści jeden dni w kalendarzu, po których nieuchronnie następuje styczeń — miesiąc tradycyjnie obciążony rachunkami za ogrzewanie, rocznymi składkami ubezpieczeniowymi i powrotem do szarej codzienności. Jeśli wejście w nowy rok zostanie obarczone ratami grudniowych pożyczek, domowy budżet traci jakąkolwiek elastyczność, stając się podatnym na każdy nieprzewidziany wydatek losowy. Prawdziwe bezpieczeństwo rodziny zaczyna się od odrzucenia fałszywego wstydu i podjęcia decyzji o życiu w granicach realnie posiadanych środków.",
+      "2. Twarde fakty i prawo: oblicze chwilówek, kart kredytowych i mechanizmu „Kup teraz, zapłać później” (BNPL)",
+      "Rzetelna edukacja finansowa wymaga odrzucenia marketingowych sloganów i spojrzenia na twarde zapisy umów oraz przepisy prawa. Zgodnie z Ustawą z dnia 12 maja 2011 r. o kredycie konsumenckim, każdy kredytodawca i pośrednik ma obowiązek podawać Rzeczywistą Roczną Stopę Oprocentowania (RRSO). O ile nominalne oprocentowanie pożyczki może wyglądać niewinnie (np. kilka lub kilkanaście procent), o tyle RRSO uwzględnia wszelkie prowizje za udzielenie, opłaty przygotowawcze, koszty ubezpieczeń oraz opłaty administracyjne. W przypadku pozabankowych pożyczek krótkoterminowych RRSO potrafi wynosić od kilkudziesięciu do nawet kilkuset procent w skali roku.",
+      "Szczególną ostrożność należy zachować wobec wszechobecnych ofert „pożyczki za 0 zł”. Choć formalnie pierwsza pożyczka może być pozbawiona prowizji, regulaminy takich produktów zawierają zazwyczaj bezwzględne klauzule: opóźnienie w spłacie choćby o jeden dzień skutkuje natychmiastowym naliczeniem maksymalnych odsetek karnych oraz utratą promocyjnych warunków. Urząd Ochrony Konkurencji i Konsumentów (UOKiK) regularnie ostrzega konsumentów przed tzw. rolowaniem kredytów — sytuacją, w której pożyczkobiorca z braku gotówki na spłatę zaciąga kolejną pożyczkę na pokrycie poprzedniej, wpadając w klasyczną i wyniszczającą pętlę zadłużenia.",
+      "W ostatnich latach ogromną popularność zdobyły usługi odroczonych płatności (ang. Buy Now, Pay Later — BNPL), promowane hasłami „Kup dziś, zapłać za 30 dni”. Z punktu widzenia ekonomii behawioralnej, mechanizm ten opiera się na wyeliminowaniu tzw. „bólu płacenia” (ang. pain of paying), opisanego przez prof. Drazena Preleca z Massachusetts Institute of Technology. Gdy płacimy gotówką lub natychmiastowym przelewem, nasz mózg rejestruje natychmiastowy ubytek zasobów. BNPL oddala ten moment w czasie, sprawiając wrażenie, że zakupy są darmowe. W rzeczywistości jest to zaciągnięcie krótkoterminowego kredytu konsumenckiego. Skumulowane odroczone płatności z listopada i grudnia wracają w styczniu jako jedna potężna fala zobowiązań, nierzadko przewyższająca możliwości spłaty bez sięgnięcia po kolejny dług.",
+      "3. Rozdzielenie emocji od matematyki: metoda kopertowa i sztywny limit grudniowy",
+      "Podstawą skutecznego zarządzania finansami domowymi w listopadzie jest bezwzględne oddzielenie emocji od twardej matematyki. Budżet nie może opierać się na pobożnych życzeniach, lecz na precyzyjnie policzonych dochodach i stałych kosztach. Pierwszym krokiem jest ustalenie tzw. „Kwoty Wolnej na Grudzień”. Jest to suma, która pozostaje w domowej kasie po opłaceniu wszystkich stałych rachunków (czynsz, media, transport, leki, podstawowe wyżywienie) oraz po odłożeniu nienaruszalnej rezerwy na styczeń.",
+      "Dopiero z tej wyliczonej kwoty wolnej możemy wydzielić maksymalny, nieprzekraczalny limit na wydatki ponadstandardowe związane z okresem świątecznym: prezenty, dekoracje, specjalne menu i podróże. Jeżeli wyliczona kwota wynosi na przykład 700 zł, to oznacza, że cały budżet świąteczny musi zamknąć się w 700 zł — ani grosza więcej. Przykładowo dla dochodu 7 500 zł netto i stałych opłat 6 300 zł oraz rezerwy 500 zł, kwota wolna to dokładnie 700 zł. Zasada żelazna brzmi: jeśli koszt wymarzonych upominków wynosi 1 200 zł, a kwota wolna to 700 zł, to nie dobieramy 500 zł pożyczki, lecz natychmiast redukujemy listę zakupów o 500 zł.",
+      "Niezwykle skutecznym narzędziem w walce z impulsywnymi wydatkami jest tradycyjna metoda kopertowa (bądź jej cyfrowy odpowiednik w postaci subkont w bankowości elektronicznej). Kwotę przeznaczoną na grudzień wypłacamy w gotówce i dzielimy na podpisane koperty: „Prezenty”, „Żywność świąteczna”, „Paliwo/Bilety”. W zakupach świątecznych posługujemy się wyłącznie gotówką z danej koperty. Gdy zawartość koperty „Prezenty” się wyczerpie, zakupy są definitywnie zakończone. Karty płatnicze i aplikacje z funkcją płatności odroczonych zostają w domu — zapobiega to działaniu w afekcie i bezmyślnemu klikaniu w koszykach internetowych.",
+      "4. Sztuka trudnych rozmów: jak rozmawiać z rodziną i dziećmi o skromniejszych, ale głębszych świętach",
+      "Jedną z największych barier w racjonalnym planowaniu budżetu jest wstyd i lęk przed reakcją otoczenia. Obawiamy się, że jeśli nie kupimy drogich prezentów rodzicom, teściom, rodzeństwu czy chrześniakom, zostaniemy uznani za skąpców lub ludzi, którym się „nie powiodło”. Tymczasem milczenie w tej kwestii jest najprostszą drogą do wzajemnego wpędzania się w spiralę niepotrzebnych kosztów. W wielu rodzinach wszyscy członkowie po cichu marzą o ograniczeniu świątecznych wydatków, ale nikt nie ma odwagi przerwać milczenia jako pierwszy.",
+      "Listopad to idealny moment na spokojną, serdeczną i asertywną rozmowę. Wystarczy zadzwonić lub spotkać się przy herbacie i zaproponować nowe reguły: „Bardzo zależy nam na spotkaniu i byciu razem, ale w tym roku zdecydowaliśmy się na skromniejsze podejście do prezentów. Chcemy uniknąć przedświątecznego stresu i zadłużania się. Zaproponujmy losowanie jednej osoby w rodzinie, której robimy upominek do określonej kwoty (np. 50 zł), albo obdarujmy wyłącznie najmłodsze dzieci”. Taka propozycja w dziewięciu przypadkach na dziesięć spotyka się z ogromną ulgą ze strony pozostałych członków rodziny.",
+      "Równie ważna jest rozmowa z własnymi dziećmi. Dziecko nie potrzebuje góry plastiku i elektroniki, za którą rodzice płacą chronicznym stresem, kłótniami i nadgodzinami po nocach. Dzieci potrzebują bezpiecznego, spokojnego domu i rodziców, którzy mają dla nich czas i cierpliwość. Warto zaangażować najmłodszych w przygotowania: wspólne pieczenie ciasteczek, tworzenie ręcznie robionych kartek świątecznych czy ozdób choinkowych z szyszek i papieru. To właśnie te chwile budują najtrwalsze, najcieplejsze wspomnienia z dzieciństwa, podczas gdy drogie zabawki kupione na kredyt lądują w kącie po kilkunastu dniach.",
+      "5. Biblijna mądrość gospodarności: roztropność Salomona, przestroga przed niewolą długu i Boży spokój",
+      "Pismo Święte nie traktuje pieniędzy jako tematu tabu. Wręcz przeciwnie — w Biblii znajduje się ponad dwa tysiące wersetów dotyczących zarządzania majątkiem, długu i szafarstwa. Słowo Boże konsekwentnie przedstawia pieniądze nie jako cel sam w sobie, lecz jako narzędzie powierzone człowiekowi pod opiekę przez Stwórcę, z którego przyjdzie nam zdać sprawę.",
+      "W Księdze Przypowieści Salomona czytamy fundamentalną zasadę planowania: „Plany pracowitego przynoszą obfitość, lecz każdego, kto jest porywczy, spotka nędza” (Prz 21:5, UBG). Użyte w języku hebrajskim słowo machszawot (Strong H4284) oznacza głębokie przemyślenie, skrupulatną kalkulację i projektowanie działań z wyprzedzeniem. Salomon przeciwstawia je postawie porywczości (hebr. us — pośpiech, nerwowość, działanie pod wpływem chwilowego impulsu). Grudniowe zadłużanie się jest klasycznym przejawem porywczości konsumpcyjnej. Boża mądrość nakazuje natomiast usiąść w listopadzie, sporządzić plan i trzymać się go z dyscypliną.",
+      "Kolejne ostrzeżenie biblijne ma charakter niezwykle dosadny: „Bogaty panuje nad ubogimi, a ten, kto pożycza, staje się sługą tego, kto pożycza” (Prz 22:7, UBG). Choć w starożytnym Izraelu dług mógł dosłownie prowadzić do niewoli fizycznej, w XXI wieku jego charakter jest niemal identyczny na poziomie psychicznym i duchowym. Człowiek obciążony długami traci wolność wyboru: nie może zmienić pracy na mniej płatną lecz spokojniejszą, nie może swobodnie wspierać Bożego dzieła, a każda niespodziewana trudność wywołuje paraliżujący strach. Apostoł Paweł w Liście do Rzymian wzywa chrześcijan do zachowania czystego konta: „Nikomu nie bądźcie nic winni oprócz wzajemnej miłości” (Rz 13:8, UBG). Dług ogranicza naszą zdolność do pełnienia dobra.",
+      "Sam Zbawiciel, Jezus Chrystus, w Ewangelii według św. Łukasza posłużył się przykładem odpowiedzialnej kalkulacji ekonomicznej: „Któż bowiem z was, chcąc zbudować wieżę, najpierw nie siada i nie oblicza kosztów, czy ma na dokończenie? Aby przypadkiem, gdy położy fundament, a nie może dokończyć, wszyscy, którzy by to widzieli, nie zaczęli z niego szydzić” (Łk 14:28-30, UBG). Obliczanie kosztów i rezygnacja z rzeczy, na które nas nie stać, nie jest brakiem wiary ani skąpstwem. Jest to wyraz chrześcijańskiej dojrzałości, posłuszeństwa i roztropnego zarządzania darami, którymi Bóg nas obdarzył.",
+      "6. 5 kroków do wykonania w ten weekend: od audytu listopadowego do świątecznego spokoju",
+      "Wiedza bez wdrożenia pozostaje jedynie teorią. Aby uchronić domowy budżet przed grudniowym tąpnięciem, warto wykorzystać najbliższy weekend na podjęcie pięciu konkretnych, praktycznych kroków organizacyjnych:",
+      "Krok 1: Weekendowy bilans konta i rachunków. Usiądź w ciszy z wyciągami bankowymi z ostatnich trzech miesięcy. Wypisz czarno na białym stałe opłaty, które musisz uregulować do końca grudnia i w pierwszych dniach stycznia. Ustal twardą kwotę wolną na wydatki świąteczne.",
+      "Krok 2: Zamknięcie listy prezentów z ołówkiem w ręku. Wypisz imiona osób, które faktycznie zamierzasz obdarować. Przypisz do każdego nazwiska sztywny, maksymalny limit kwotowy. Zsumuj całość. Jeśli suma przekracza Twój limit — redukuj kwoty lub liczbę pozycji, zanim wejdziesz do sklepu lub otworzysz stronę internetową.",
+      "Krok 3: Przegląd domowych zapasów i spiżarni. Zanim zaplanujesz zakupy spożywcze, przejrzyj szafki kuchenne i zamrażalnik. Co roku po świętach w polskich domach marnują się tony żywności, za którą wcześniej zapłacono ciężko zarobionymi pieniędzmi. Zaplanuj menu realistycznie, dostosowane do rzeczywistych potrzeb domowników i gości.",
+      "Krok 4: Zablokowanie kart i wyłączenie kuszących newsletterów. Zaloguj się do aplikacji bankowych i obniż limity transakcji internetowych na kartach płatniczych do rozsądnego poziomu. Wypisz się z newsletterów marketingowych, które każdego dnia zalewają Twoją skrzynkę agresywnymi promocjami pod hasłem „Black Friday” czy „Ostatnia szansa”. To, czego nie widzisz, nie kusi.",
+      "Krok 5: Postawienie na relacje zamiast konsumpcji. Zaplanuj grudzień pod kątem wspólnego czasu: spacerów po ośnieżonym lesie, czytania Pisma Świętego przy kominku lub świecy, słuchania dobrej muzyki chrześcijańskiej i nienagradzania się przedmiotami. Najcenniejsze dary, jakimi możemy obdarować drugiego człowieka — uwaga, wysłuchanie i serdeczna obecność — są całkowicie bezpłatne.",
+      "Podsumowanie redakcyjne CCN",
+      "Święta bez kredytu to nie kompromis ani powód do wstydu — to największy prezent, jaki możesz podarować sobie i swojej rodzinie. Wchodząc w Nowy Rok z czystym kontem, spokojnym sumieniem i wolnością od rat pożyczkowych, zyskujesz bezcenny fundament stabilności i radości. Nie pozwól, aby komercyjny zgiełk odebrał Twojemu domowi to, co najważniejsze. Prawdziwe bogactwo mierzy się pokojem serca, wdzięcznością za Bożą łaskę i bliskością z tymi, których kochasz.",
+      "Wezwanie do działania i modlitwa",
+      "Usiądź dziś wieczorem z kartką papieru i powierz swoje finanse Bogu. Pomódl się słowami: „Panie, dziękuję Ci za wszystko, czym mnie obdarzyłeś. Daj mi mądrość roztropnego szafarza, abym potrafił zarządzać powierzonymi środkami bez pychy i bez lęku. Uwolnij moje serce od presji konsumpcjonizmu i napełnij nasz dom Twoim trwałym pokojem. W imieniu Jezusa Chrystusa. Amen”."
+    ],
+    "scriptureReference": {
+      "verse": "Księga Przypowieści Salomona 21:5",
+      "text": "Plany pracowitego przynoszą obfitość, lecz każdego, kto jest porywczy, spotka nędza.",
+      "strongCode": "H4284"
+    },
+    "category": "szafarstwo",
+    "categoryLabel": "FINANSE, BUDŻET DOMOWY, ROZTROPNOŚĆ I WOLNOŚĆ OD DŁUGU",
+    "publishedAt": "2026-11-14T14:00:00+01:00",
+    "dateFormatted": "14 listopada 2026",
+    "imageUrl": "/images/finanse/art-jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu.jpg",
+    "imageCaption": "Ilustracja redakcyjna: Spokojne planowanie domowego budżetu przy filiżance herbaty, kalkulatorze i otwartym Piśmie Świętym — wolność od grudniowego pośpiechu i długów (ilustracja poglądowa wygenerowana na potrzeby publikacji edukacyjnej).",
+    "readTimeMinutes": 11,
+    "isHero": true,
+    "isPopular": true,
+    "popularRank": 1,
+    "tags": [
+      "Budżet Domowy",
+      "Święta Bez Kredytu",
+      "Szafarstwo",
+      "Księga Przysłów",
+      "RRSO",
+      "BNPL",
+      "Metoda Kopertowa",
+      "Wolność Finansowa",
+      "Cezary Rogowski",
+      "CCN Finanse"
+    ],
+    "resourceLinks": [
+      {
+        "label": "Interlinearna MojaBiblia CC — Prz 21:5 (Plany i rozwaga)",
+        "url": "/mojabiblia?ref=PRO.21.5"
+      },
+      {
+        "label": "Interlinearna MojaBiblia CC — Prz 22:7 (Dłużnik sługą wierzyciela)",
+        "url": "/mojabiblia?ref=PRO.22.7"
+      },
+      {
+        "label": "Interlinearna MojaBiblia CC — Łk 14:28 (Obliczanie kosztów)",
+        "url": "/mojabiblia?ref=LUK.14.28"
+      },
+      {
+        "label": "Portal Główny CCN Finanse — Edukacja i Szafarstwo",
+        "url": "/finanse"
+      }
+    ],
+    "author": AUTHORS.cezary
+  },
   {
     "id": "art-mlody-inwestor-chrzescijanski-zloto-nieruchomosci-nawyki",
     "title": "Młody inwestor chrześcijański: złoto, nawyki i dochód bez długu",

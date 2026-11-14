@@ -8,8 +8,18 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sat, 14 Nov 2026 07:24:32 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2026 13:11:29 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Jak przygotować domowy budżet na grudzień bez kredytu?</title>
+      <link>https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu</link>
+      <guid isPermaLink="true">https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu</guid>
+      <pubDate>Sat, 14 Nov 2026 13:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>FINANSE, BUDŻET DOMOWY, ROZTROPNOŚĆ I WOLNOŚĆ OD DŁUGU</category>
+      <description>Koniec roku to dla milionów rodzin presja wystawnych świąt i ryzykownych pożyczek. Sprawdź, jak zaplanować grudniowy budżet metodą kopertową, poznać twarde fakty prawne o RRSO i BNPL oraz odnaleźć wolność w biblijnym szafarstwie.</description>
+      <enclosure url="https://polskieradio.cc/images/finanse/art-jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Czy Jezus naprawdę był Bogiem? Pytanie, które obnaża fundament naszej wiary</title>
       <link>https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody</link>
@@ -299,16 +309,6 @@
       <category>Wiara &amp; Rozwój</category>
       <description>Księga Rodzaju 46–47: Migracja rodziny Jakuba do Egiptu, obietnica Bożej obecności poza Kanaanem, spotkanie w Goszen, błogosławieństwo faraona oraz realizm zarządzania kryzysem głodu przez Józefa.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-29-bog-prowadzi-swoj-lud-do-egiptu.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Z Biblią za Pan Brat: Dzień 28 — „Ja jestem Józef”: Ofiarne poręczenie Judy, teologia opatrzności i pojednanie w Księdze Rodzaju 44–45</title>
-      <link>https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-28-ja-jestem-jozef-przebaczenie-zamiast-zemsty</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-28-ja-jestem-jozef-przebaczenie-zamiast-zemsty</guid>
-      <pubDate>Wed, 28 Oct 2026 06:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>Wiara &amp; Rozwój</category>
-      <description>Księga Rodzaju 44–45: Próba srebrnego kielicha w worku Beniamina, przełomowa mowa obrończa i dobrowolne zastępstwo Judy, odkrycie tożsamości Józefa oraz chrystocentryczna perspektywa zastępczego okupu i służby pojednania.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-28-ja-jestem-jozef-przebaczenie-zamiast-zemsty.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>

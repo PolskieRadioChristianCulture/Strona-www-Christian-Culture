@@ -1,13 +1,13 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-14T07:24:34.188Z",
+  "generatedAt": "2026-11-14T13:11:29.233Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 96,
-    "validUrls": 96,
+    "totalValidatedUrls": 97,
+    "validUrls": 97,
     "invalidUrls": 0,
-    "newsArticlesCount": 90,
-    "googleNews48hCount": 44,
+    "newsArticlesCount": 91,
+    "googleNews48hCount": 45,
     "akademiaUrlsCount": 77,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
@@ -31,25 +31,25 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 24981,
+      "sizeBytes": 24968,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 32438,
+      "sizeBytes": 32346,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 41328,
+      "sizeBytes": 41804,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 35171,
+      "sizeBytes": 35900,
       "status": "OK"
     },
     {
@@ -90,10 +90,10 @@
     }
   ],
   "indexNow": {
-    "keyConfigured": false,
+    "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 44,
-    "pendingCount": 44,
+    "totalQueued": 45,
+    "pendingCount": 45,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-14T07:24:34.166Z",
+        "queuedAt": "2026-11-14T13:11:29.229Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-14T07:24:34.166Z",
+        "queuedAt": "2026-11-14T13:11:29.229Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-14T07:24:34.166Z",
+        "queuedAt": "2026-11-14T13:11:29.229Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-14T07:24:34.166Z",
+        "queuedAt": "2026-11-14T13:11:29.229Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-14T07:24:34.166Z",
+        "queuedAt": "2026-11-14T13:11:29.229Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -382,7 +382,11 @@
         },
         "status": "PENDING"
       }
-    ]
+    ],
+    "keyMasked": "cc777b...c28e",
+    "totalIndexedUrls": 355,
+    "lastSubmittedCount": 355,
+    "lastSubmittedAt": "2026-11-14T13:11:31.264Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -398,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu.html",
+      "canonicalUrl": "https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/czy-jezus-naprawde-byl-bogiem-biblijne-dowody.html",
       "canonicalUrl": "https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody",
@@ -589,14 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/gerald-welch-the-call-rockowe-wezwanie-do-przebudzenia-sumienia-i-zywej-wiary.html",
-      "canonicalUrl": "https://polskieradio.cc/news/gerald-welch-the-call-rockowe-wezwanie-do-przebudzenia-sumienia-i-zywej-wiary",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
-  ]
+  ],
+  "lastInstantIndexingAt": "2026-11-14T13:11:31.264Z"
 }

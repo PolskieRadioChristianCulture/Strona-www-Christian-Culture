@@ -1204,6 +1204,8 @@ function formatBroadcasterTweet(item) {
     bodyText = '7 krótkich spotkań ze Słowem, które pomagają odnaleźć spokój i zrobić dobry krok. Bezpłatny 7-dniowy przewodnik!';
   } else if ((item.url || '').includes('amazing-grace') || (item.title || '').toLowerCase().includes('amazing grace')) {
     bodyText = 'Historia hymnu „Cudowna Boża Łaska” (Amazing Grace): Od handlarza niewolników do pieśni Bożego odkupienia.';
+  } else if ((item.url || '').includes('tv-epafraz')) {
+    bodyText = 'TV Epafraz — Całodobowy kanał telewizyjny: nabożeństwa, kazania biblijne, wykłady teologiczne i uwielbienie (Live 24/7).';
   } else if ((item.url || '').includes('/tv') || (item.title || '').includes('Smart TV')) {
     bodyText = 'Wirtualny telewizor Christian Culture: 6 stacji TV na żywo, pilot online i pełny ekran na smartfony i Smart TV!';
   } else if ((item.url || '').includes('/program') || (item.title || '').includes('Program TV')) {

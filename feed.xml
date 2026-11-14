@@ -8,7 +8,7 @@
     <atom:link href="https://polskieradio.cc/feed.xml" rel="self" type="application/rss+xml" />
     <description>Główny kanał publikacji ekosystemu Christian Culture: CCN News, Akademia Biblijna, Biblijne Uwielbienie, Radio i Kino VOD.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sat, 14 Nov 2026 07:24:32 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2026 13:11:29 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
     <item>
       <title>Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?</title>
@@ -19,6 +19,16 @@
       <category>CCN Finanse</category>
       <description>Dyskusja o cyfrowych walutach banków centralnych (CBDC) coraz częściej wykracza poza ekonomię. Analiza CBDC, prawa niedzielnego oraz Apokalipsy 13 (z wydaniem audio 17:51).</description>
       <enclosure url="https://polskieradio.cc/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Jak przygotować domowy budżet na grudzień bez kredytu?</title>
+      <link>https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu</link>
+      <guid isPermaLink="true">https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu</guid>
+      <pubDate>Sat, 14 Nov 2026 13:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>FINANSE, BUDŻET DOMOWY, ROZTROPNOŚĆ I WOLNOŚĆ OD DŁUGU</category>
+      <description>Koniec roku to dla milionów rodzin presja wystawnych świąt i ryzykownych pożyczek. Sprawdź, jak zaplanować grudniowy budżet metodą kopertową, poznać twarde fakty prawne o RRSO i BNPL oraz odnaleźć wolność w biblijnym szafarstwie.</description>
+      <enclosure url="https://polskieradio.cc/images/finanse/art-jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Czy Jezus naprawdę był Bogiem? Pytanie, które obnaża fundament naszej wiary</title>
@@ -209,16 +219,6 @@
       <category>Nauka &amp; Bioetyka</category>
       <description>Rewolucja w inżynierii genetycznej osiągnęła punkt zwrotny. Narzędzia precyzyjnej edycji DNA, takie jak CRISPR-Cas9, oraz laboratoryjna hodowla syntetycznych modeli embrionów ze komórek macierzystych stawiają ludzkość przed pytaniami, które do niedawna należały do sfery science fiction. Gdzie kończy się uprawnione leczenie wrodzonych chorób, a zaczyna niebezpieczna pycha samostworzenia? W obliczu globalnych raportów WHO i wytycznych bioetycznych, chrześcijanie są wezwani do obrony nienaruszalnej godności człowieka, którego życie od pierwszego zalążka pozostaje pod suwerenną opieką Stwórcy.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-bioetyka-edycja-genomu-syntetyczne-embriony-biblia.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Oficjalny start Newslettera Christian Culture: Bądź na bieżąco ze Słowem, muzyką i misją</title>
-      <link>https://polskieradio.cc/news/oficjalny-start-newslettera-christian-culture-dolacz</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/oficjalny-start-newslettera-christian-culture-dolacz</guid>
-      <pubDate>Fri, 30 Oct 2026 09:50:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>CC Inside &amp; Społeczność</category>
-      <description>Dołącz do oficjalnego Newslettera Christian Culture. Wybierz interesujące Cię tematy — od codziennych rozważań i lekcji biblijnych, przez premiery muzyczne i kino VOD, po kulturę i akcję #antyHALLOWEEN. 100% bezpłatnie, z poszanowaniem prywatności.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-oficjalny-start-newslettera-christian-culture-dolacz.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Z Biblią za Pan Brat — Dzień 17: Wiara patrząca w przyszłość (Rdz 23–24)</title>

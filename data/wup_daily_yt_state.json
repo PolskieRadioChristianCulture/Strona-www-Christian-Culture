@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "series": "What's Up Prof? — Walter Veith & Martin Smith (Clash of Minds)",
+  "scheduleOffsetHours": 48,
+  "dailyCron": "CRON_TZ=Europe/Warsaw 0 15 * * *",
+  "lastRunAt": "2026-11-14T13:03:32.361Z",
+  "episodes": {
+    "1": {
+      "seq": 1,
+      "epCode": "001",
+      "completed": false,
+      "channels": {
+        "Personality Plus": {
+          "status": "ok",
+          "channelId": "UCSwb927uMg2PxIl_Aakht0Q",
+          "videoUrl": "https://youtu.be/_MXwGMw0zUo",
+          "title": "001. American Election Campaign | Prof. Walter Veith & Martin Smith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-14T12:31:41.446Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/CwzkFx0oqgI",
+          "title": "001. Amerykańska kampania wyborcza | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-14T13:03:32.361Z"
+        }
+      },
+      "scheduledYmd": "2026-11-16",
+      "scheduledTime": "13:00"
+    }
+  }
+}

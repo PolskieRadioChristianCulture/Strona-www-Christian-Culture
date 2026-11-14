@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-14T07:24:35.793Z",
-  "totalItems": 450,
+  "updatedAt": "2026-11-14T13:11:31.579Z",
+  "totalItems": 451,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -4207,6 +4207,38 @@
         "psychologia",
         "artykuł"
       ],
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-14T14:00:00+01:00",
+      "title": "Jak przygotować domowy budżet na grudzień bez kredytu?",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
+      "description": "Koniec roku to dla milionów rodzin presja wystawnych świąt i ryzykownych pożyczek. Sprawdź, jak zaplanować grudniowy budżet metodą kopertową, poznać twarde fakty prawne o RRSO i BNPL oraz odnaleźć wolność w biblijnym szafarstwie.",
+      "contentSnippet": "Wprowadzenie: dlaczego grudzień nie musi kończyć się długiem? Koniec roku to dla milionów polskich rodzin czas narastającej presji: wszechobecne kampanie reklamowe przekonują, że udane święta wymagają kosztownych prezentów i wystawnych stołów, a brak gotówki można bez trudu zrekompensować szybką pożyczką lub odroczoną płatnością. Taki scenariusz ni…",
+      "author": "Cezary Rogowski",
+      "date": "14 listopada 2026",
+      "tags": [
+        "Budżet Domowy",
+        "Święta Bez Kredytu",
+        "Szafarstwo",
+        "Księga Przysłów",
+        "RRSO",
+        "BNPL",
+        "Metoda Kopertowa",
+        "Wolność Finansowa",
+        "Cezary Rogowski",
+        "CCN Finanse",
+        "szafarstwo",
+        "FINANSE, BUDŻET DOMOWY, ROZTROPNOŚĆ I WOLNOŚĆ OD DŁUGU",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "Księga Przypowieści Salomona 21:5 Plany pracowitego przynoszą obfitość, lecz każdego, kto jest porywczy, spotka nędza.",
       "featured": true
     },
     {
@@ -11030,7 +11062,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-14T07:24:35.886Z",
+    "updatedAt": "2026-11-14T13:11:31.661Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "14 listopada 2026",
     "pools": [

@@ -220,11 +220,20 @@
       "portal_docelowy": "CCN Finanse",
       "priorytet": "B",
       "start_przygotowania": "2026-11-06",
-      "status": "Planowany / do opracowania",
+      "status": "Opublikowany (Autoryzacja L0: 2026-11-14)",
       "zrodlo_pomyslu": "Nowa propozycja redakcyjna",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "dane i prawo aktualne na dzień pisania; przykładowe wyliczenia oznaczyć",
-      "uwagi_bezpieczenstwa": "Nie podawać cen/stawek bez aktualnego sprawdzenia."
+      "uwagi_bezpieczenstwa": "Nie podawać cen/stawek bez aktualnego sprawdzenia.",
+      "bramka_bezpieczenstwa": "T4 (DO AUTORYZACJI CZŁOWIEKA - L0)",
+      "autor": "Cezary Rogowski",
+      "slug": "jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
+      "pakiet_zip": "C:\\\\Users\\\\czark\\\\Desktop\\\\EkoCC_finanse_jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu_2026-11-14.zip",
+      "pakiet_docx": "C:\\\\Users\\\\czark\\\\Desktop\\\\EkoCC_finanse_jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu_2026-11-14.docx",
+      "grafika_16_9": "images/finanse/art-jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu.jpg",
+      "data_opracowania": "2026-11-14T10:08:00+01:00",
+      "url_opublikowany": "https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
+      "data_publikacji_dokonana": "2026-11-14T14:00:00+01:00"
     },
     {
       "lp": 12,

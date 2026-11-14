@@ -1,6 +1,48 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-14T13:11:31.263Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 355
+    },
+    {
+      "timestamp": "2026-11-14T13:11:30.725Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 355
+    },
+    {
+      "timestamp": "2026-11-14T13:11:29.231Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
+        "https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody",
+        "https://polskieradio.cc/biblia/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus"
+      ]
+    },
+    {
+      "timestamp": "2026-11-14T13:11:15.025Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
+        "https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody",
+        "https://polskieradio.cc/biblia/co-z-tym-michalem-czy-archaniol-michal-to-jezus-chrystus"
+      ]
+    },
+    {
       "timestamp": "2026-11-14T07:24:34.179Z",
       "level": "INFO",
       "event": "INDEXNOW_ENQUEUED",

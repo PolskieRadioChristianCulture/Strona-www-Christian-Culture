@@ -1,5 +1,5 @@
 {
-  "lastPublishedEpisode": 5,
+  "lastPublishedEpisode": 6,
   "history": [
     {
       "ep": 1,
@@ -69,6 +69,30 @@
       ],
       "allChannelsOk": true,
       "at": "2026-11-13T09:12:11.815Z"
+    },
+    {
+      "ep": 6,
+      "title": "Czas nadejścia Mesjasza",
+      "premiere": "2026-11-16 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/f9nIH_uZVQc"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/H7rrPLPhwmg"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/q6RXkLk9Y1Q"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-14T09:57:38.062Z"
     }
   ]
 }

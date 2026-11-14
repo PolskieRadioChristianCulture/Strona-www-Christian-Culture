@@ -3,6 +3,21 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-14T13:00:00.000Z</news:publication_date>
+      <news:title>Jak przygotować domowy budżet na grudzień bez kredytu?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/finanse/art-jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu.jpg</image:loc>
+      <image:title>Jak przygotować domowy budżet na grudzień bez kredytu?</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody</loc>
     <news:news>
       <news:publication>
