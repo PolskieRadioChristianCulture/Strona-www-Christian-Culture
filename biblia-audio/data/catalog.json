@@ -346,10 +346,16 @@
     "book": "genesis",
     "chapter": 24,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_24_1-67_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 24,1–67 (UBG) — Poszukiwanie Żony dla Izaaka i Rebeka przy Studni",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_24_1-67_Biblia_Audio_CC.mp3",
+        "verses": "1–67"
+      }
+    ]
   },
   {
     "id": "genesis-25",
