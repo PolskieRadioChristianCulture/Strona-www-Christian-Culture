@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "Biblia_Warszawska_PL.pdf",
+      "title": "Biblia do Pobrania (PDF) — Pełny Przekład Pisma Świętego (Stary i Nowy Testament)",
+      "url": "https://polskieradio.cc/Biblia_Warszawska_PL.pdf",
+      "type": "module",
+      "image": "ogloszenia-biblia-gdanska.jpg",
+      "publishedAt": "2026-11-14T14:34:35.239Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "holistyczny-coaching",
       "title": "Holistyczny Coaching & Terapia Wolności — Paweł Murawski",
       "url": "https://polskieradio.cc/holistyczny-coaching",

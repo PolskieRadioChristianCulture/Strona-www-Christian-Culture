@@ -241,6 +241,14 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'images', 'news', 'art-rdz15-abram-gwiazdy.jpg');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('biblia') || titleLower.includes('biblia') || titleLower.includes('pismo święte')) {
+    const p1 = path.join(rootDir, 'images', 'ogloszenia-biblia-gdanska.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'images', 'news', 'art-kraj-czytelnictwo-biblii-polska-2026.jpg');
+    if (fs.existsSync(p2)) return p2;
+    const p3 = path.join(rootDir, 'images', 'survival', 'filar-07-biblia.jpg');
+    if (fs.existsSync(p3)) return p3;
+  }
   if (pathLower.includes('mapa')) {
     const p1 = path.join(rootDir, 'assets', 'mapa', 'planeta-poster.jpg');
     if (fs.existsSync(p1)) return p1;
