@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
+import { Window } from 'happy-dom';
 import { sprawdzLekcje, sprawdzPliki, plikiLekcji } from './kurs-codzienny/straznik-lekcji.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -33,4 +34,15 @@ test('Strażnik lekcji blokuje przestarzały completeDayXX oraz niespójny werse
 test('Wszystkie 4 kopie każdej lekcji D01..D46 przechodzą zaostrzonego Strażnika bez błędów', () => {
   const bad = sprawdzPliki(ROOT, plikiLekcji(ROOT));
   assert.deepEqual(bad, []);
+});
+
+test('cc-daily-course-share.js ładuje subskrypcję i style także na lekcjach D39–D46 ze statycznym #ccDailyShare', () => {
+  const shareJs = fs.readFileSync(path.join(ROOT, 'js/cc-daily-course-share.js'), 'utf8');
+  const w = new Window({ url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-45' });
+  w.document.write('<main><section id="ccDailyShare"></section></main>');
+  w.eval(shareJs);
+  assert.ok(w.document.getElementById('ccDailyShareStyle'), 'style muszą się wstrzyknąć także dla statycznego #ccDailyShare');
+  assert.ok(w.document.querySelector('script[src*="cc-daily-course-subscription"]'), 'skrypt subskrypcji dzwonka musi się załadować także na D45');
+  assert.ok(w.document.getElementById('ccWaChannel'), 'kanał WhatsApp powinien się zamontować pod #ccDailyShare');
+  w.close();
 });
