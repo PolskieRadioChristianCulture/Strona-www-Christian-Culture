@@ -190,6 +190,9 @@
 /js/lumina-share*
   Cache-Control: public, max-age=0, must-revalidate
 
+/js/cc-favorites.js*
+  Cache-Control: public, max-age=0, must-revalidate
+
 
 /assets/bu/*
   Cache-Control: no-cache, must-revalidate
