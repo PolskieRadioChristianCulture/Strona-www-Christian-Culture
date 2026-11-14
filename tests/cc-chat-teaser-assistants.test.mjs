@@ -85,7 +85,9 @@ test('cc-global-chat-button & cc-assistant: strict separation of General Chat vs
   assert.match(integrationJs, /cc-lumi-mess-open/);
 
   // Rolki: przycisk Więcej (.action-sidebar) na wysokości przycisku dolnych napisów (bez kolizji z czatem)
-  const rolkiHtml = fs.readFileSync('rolki.html', 'utf8');
-  assert.match(rolkiHtml, /\.action-sidebar\s*\{[^}]*bottom:\s*calc\(12px\s*\+\s*env\(safe-area-inset-bottom\)\)/);
-  assert.match(rolkiHtml, /\.captions-toggle-btn\s*\{[^}]*bottom:\s*calc\(12px\s*\+\s*env\(safe-area-inset-bottom\)\)/);
+  for (const shortsFile of ['rolki.html', 'lumina-shorts.html']) {
+    const html = fs.readFileSync(shortsFile, 'utf8');
+    assert.match(html, /\.action-sidebar\s*\{[^}]*bottom:\s*calc\(12px\s*\+\s*env\(safe-area-inset-bottom\)\)/);
+    assert.match(html, /\.captions-toggle-btn\s*\{[^}]*bottom:\s*calc\(12px\s*\+\s*env\(safe-area-inset-bottom\)\)/);
+  }
 });
