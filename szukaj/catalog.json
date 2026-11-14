@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-13T13:14:06.273Z",
+  "updatedAt": "2026-11-14T03:13:47.489Z",
   "totalItems": 447,
   "contextGuides": {
     "nadzieja": {
@@ -10911,16 +10911,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 13",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 13 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 14",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 14 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 44)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 45)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-44",
+      "url": "/akademia/kurscodzienny/dzien-45",
       "icon": "book"
     },
     {
@@ -10939,15 +10939,15 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-13T13:14:06.341Z",
+    "updatedAt": "2026-11-14T03:13:47.706Z",
     "heading": "Polecane na dziś",
-    "dateFormattedPL": "13 listopada 2026",
+    "dateFormattedPL": "14 listopada 2026",
     "pools": [
       [
         {
           "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 13",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 13 listopada 2026.",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 14",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 14 listopada 2026.",
           "url": "/player",
           "icon": "heart"
         },
@@ -10976,9 +10976,9 @@
       [
         {
           "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 44)",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 45)",
           "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-44",
+          "url": "/akademia/kurscodzienny/dzien-45",
           "icon": "book"
         },
         {
@@ -11067,16 +11067,16 @@
     "recommendedToday": [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 13",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 13 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 14",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 14 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 44)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 45)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-44",
+        "url": "/akademia/kurscodzienny/dzien-45",
         "icon": "book"
       },
       {
