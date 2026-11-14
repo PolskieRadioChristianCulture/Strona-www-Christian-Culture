@@ -750,6 +750,8 @@
             height: 100%;
             pointer-events: none;
             z-index: 22;
+            /* Auto-hide captions transition */
+            transition: opacity 0.45s ease;
             background: linear-gradient(
                 to bottom,
                 rgba(0, 0, 0, 0.5) 0%,
@@ -929,17 +931,79 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
         }
 
-        /* Bottom Info Overlay Area */
+        /* Bottom Info Overlay Area (Auto-hide + On-demand toggle) */
         .slide-info-box {
             position: absolute;
             left: 16px;
             right: 76px;
-            bottom: 24px;
+            bottom: 70px;
             z-index: 40;
             pointer-events: auto;
             display: flex;
             flex-direction: column;
             gap: 8px;
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .shorts-app-shell.captions-hidden .slide-info-box {
+            opacity: 0;
+            transform: translateY(16px);
+            pointer-events: none;
+        }
+
+        .shorts-app-shell.captions-hidden .slide-gradient-overlay {
+            opacity: 0.22;
+        }
+
+        .shorts-app-shell.captions-hidden .vinyl-disc {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Dedicated 1-Button Captions Toggle (Bottom Left) */
+        .captions-toggle-btn {
+            position: absolute;
+            left: 14px;
+            bottom: calc(12px + env(safe-area-inset-bottom));
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(250, 204, 21, 0.55);
+            color: var(--gold);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            cursor: pointer;
+            z-index: 46;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            touch-action: manipulation;
+        }
+
+        .shorts-app-shell.captions-hidden .captions-toggle-btn {
+            background: rgba(15, 23, 42, 0.42);
+            border-color: rgba(255, 255, 255, 0.28);
+            color: rgba(255, 255, 255, 0.88);
+            opacity: 0.76;
+        }
+
+        .captions-toggle-btn:hover,
+        .shorts-app-shell.captions-hidden .captions-toggle-btn:hover {
+            opacity: 1;
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: scale(1.06);
+        }
+
+        .captions-toggle-btn:active {
+            transform: scale(0.92);
         }
 
         .author-tag-row {
@@ -1045,6 +1109,7 @@
             will-change: transform;
             transform: translateZ(0);
             -webkit-backface-visibility: hidden;
+            transition: opacity 0.45s ease;
             backface-visibility: hidden;
         }
 
@@ -1265,6 +1330,16 @@
                 <span>Przygotowujemy Rolki Wiary…</span>
             </div>
         </main>
+        <!-- Dedicated 1-Button Captions Toggle -->
+        <button type="button"
+                class="captions-toggle-btn"
+                id="captionsToggleBtn"
+                onclick="toggleCaptionsOnDemand(event)"
+                title="Ukryj dolne napisy"
+                aria-label="Pokaż lub ukryj dolne napisy"
+                aria-pressed="true">
+            <i class="fa-solid fa-closed-captioning" id="captionsToggleIcon"></i>
+        </button>
 
         <!-- Bottom Progress Bar -->
         <div class="shorts-progress-bar">
@@ -3154,6 +3229,19 @@
                 const mediaType = vid ? 'video' : (platform === 'live_iframe' ? 'live_iframe' : (platform === 'youtube' ? 'youtube' : 'other'));
                 window.AudioDirector.registerSource(slide.id, mediaType, mediaEl, item.videoSrc);
             }
+            const infoBox = slide.querySelector('.slide-info-box');
+            if (infoBox) {
+                infoBox.addEventListener('mouseenter', () => {
+                    if (window._captionsPauseTimer) window._captionsPauseTimer();
+                });
+                infoBox.addEventListener('mouseleave', () => {
+                    if (window._captionsResumeTimer) window._captionsResumeTimer();
+                });
+                infoBox.addEventListener('touchstart', () => {
+                    if (window._captionsPauseTimer) window._captionsPauseTimer();
+                }, { passive: true });
+            }
+
 
             return slide;
         }
@@ -3198,6 +3286,9 @@
             setupIntersectionObserver();
             setupInfiniteScroll();
             updateAutoAdvanceUI();
+            if (typeof window.resetCaptionsAutoHideOnSlideChange === 'function') {
+                window.resetCaptionsAutoHideOnSlideChange();
+            }
 
             // Inicjalny start pierwszego slajdu przez Reżysera Dźwięku
             setTimeout(() => {
@@ -3288,6 +3379,12 @@
                             appendInfiniteShortsLoop();
                         }
                         updateProgress();
+                        if (slide.id !== window._lastCaptionSlideId) {
+                            window._lastCaptionSlideId = slide.id;
+                            if (typeof window.resetCaptionsAutoHideOnSlideChange === 'function') {
+                                window.resetCaptionsAutoHideOnSlideChange();
+                            }
+                        }
 
                         // WIRTUALNY REŻYSER DŹWIĘKU
                         if (window.AudioDirector) {
@@ -3364,6 +3461,85 @@
                 }
             }
         });
+
+        // ── Automatyczne ukrywanie dolnych napisów + wywołanie jednym przyciskiem na życzenie ──
+        let captionsHideTimer = null;
+        let isCaptionsPinned = false;
+        const CAPTIONS_AUTO_HIDE_MS = 4000;
+
+        function updateCaptionsToggleUI(isVisible) {
+            const btn = document.getElementById('captionsToggleBtn');
+            if (!btn) return;
+            btn.setAttribute('aria-pressed', isVisible ? 'true' : 'false');
+            btn.title = isVisible
+                ? 'Ukryj dolne napisy'
+                : 'Pokaż dolne napisy na życzenie';
+        }
+
+        function setCaptionsVisible(isVisible) {
+            const shell = document.getElementById('shortsShell');
+            if (!shell) return;
+            if (isVisible) {
+                shell.classList.remove('captions-hidden');
+            } else {
+                shell.classList.add('captions-hidden');
+            }
+            updateCaptionsToggleUI(isVisible);
+        }
+
+        function scheduleCaptionsAutoHide(delayMs = CAPTIONS_AUTO_HIDE_MS) {
+            if (captionsHideTimer) {
+                clearTimeout(captionsHideTimer);
+                captionsHideTimer = null;
+            }
+            if (isCaptionsPinned) return;
+            captionsHideTimer = setTimeout(() => {
+                if (!isCaptionsPinned) {
+                    setCaptionsVisible(false);
+                }
+            }, delayMs);
+        }
+
+        window._captionsPauseTimer = function() {
+            if (captionsHideTimer) {
+                clearTimeout(captionsHideTimer);
+                captionsHideTimer = null;
+            }
+        };
+
+        window._captionsResumeTimer = function() {
+            if (!isCaptionsPinned) {
+                scheduleCaptionsAutoHide(2500);
+            }
+        };
+
+        window.resetCaptionsAutoHideOnSlideChange = function() {
+            isCaptionsPinned = false;
+            setCaptionsVisible(true);
+            scheduleCaptionsAutoHide(CAPTIONS_AUTO_HIDE_MS);
+        };
+
+        window.toggleCaptionsOnDemand = function(e) {
+            if (e) {
+                e.stopPropagation();
+            }
+            const shell = document.getElementById('shortsShell');
+            if (!shell) return;
+
+            if (captionsHideTimer) {
+                clearTimeout(captionsHideTimer);
+                captionsHideTimer = null;
+            }
+
+            const isCurrentlyHidden = shell.classList.contains('captions-hidden');
+            if (isCurrentlyHidden) {
+                isCaptionsPinned = true;
+                setCaptionsVisible(true);
+            } else {
+                isCaptionsPinned = false;
+                setCaptionsVisible(false);
+            }
+        };
 
         // ── Pasek Poziomy (Header Actions Drawer) ──
         window.toggleHeaderActionsDrawer = function(e) {
