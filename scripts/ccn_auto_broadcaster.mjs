@@ -21,6 +21,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
 import { chromium } from 'playwright';
+import {
+  ensureVerseGraphicSync,
+  getVerseGraphicRelativePath,
+  isForbiddenVerseImage
+} from './generate-verse-graphic.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -125,6 +130,19 @@ function appendLog(entry) {
 
 // Inteligentny resolver dedykowanych grafik tematycznych na dysku
 function resolveItemImage(item, rootDir) {
+  const titleLower = (item.title || '').toLowerCase();
+  const pathLower = item.url ? (() => { try { return new URL(item.url).pathname.toLowerCase(); } catch (e) { return item.url.toLowerCase(); } })() : '';
+
+  // 0. ŻELAZNA DYREKTYWA DOWÓDCY (14.11.2026):
+  // Każdy Werset Dnia (X, Facebook, WhatsApp, Tablica) MUSI mieć własną wygenerowaną tematyczną grafikę!
+  // Bezwzględny zakaz przypadkowych zdjęć (np. piosenkarz na scenie art-gerald-welch-the-call.jpg).
+  if (item.type === 'verse' || pathLower.includes('werset-dnia') || titleLower.startsWith('werset dnia')) {
+    const generatedVerseImg = ensureVerseGraphicSync(item, rootDir);
+    if (generatedVerseImg && fs.existsSync(generatedVerseImg) && !isForbiddenVerseImage(generatedVerseImg)) {
+      return generatedVerseImg;
+    }
+  }
+
   const resolveCandidate = (rawPath) => {
     if (!rawPath) return null;
     const cleanPath = rawPath.replace(/^https?:\/\/[^\/]+\//i, '').replace(/^\/+/, '');
@@ -182,10 +200,9 @@ function resolveItemImage(item, rootDir) {
   }
 
   // 3. Dopasowanie po kategorii / kontekście
-  const titleLower = (item.title || '').toLowerCase();
-  const pathLower = item.url ? (() => { try { return new URL(item.url).pathname.toLowerCase(); } catch (e) { return item.url.toLowerCase(); } })() : '';
-
   if (item.type === 'verse' || pathLower.includes('werset-dnia') || titleLower.includes('werset')) {
+    const generatedVerseImg = ensureVerseGraphicSync(item, rootDir);
+    if (generatedVerseImg && fs.existsSync(generatedVerseImg)) return generatedVerseImg;
     const p1 = path.join(rootDir, 'images', 'player', 'sidebar-verse-bg.jpg');
     if (fs.existsSync(p1)) return p1;
     const p2 = path.join(rootDir, 'images', 'player', 'verse-pure-bg.jpg');
@@ -266,6 +283,18 @@ function resolveItemImage(item, rootDir) {
     const p2 = path.join(rootDir, 'images', 'brand', 'topten-logo.png');
     if (fs.existsSync(p2)) return p2;
   }
+  if (pathLower.includes('mariusz')) {
+    const p1 = path.join(rootDir, 'avatar_mariusz.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'avatar_mariusz_sds.jpg');
+    if (fs.existsSync(p2)) return p2;
+    const p3 = path.join(rootDir, 'images', 'team', 'mariusz-duszpasterz.jpg');
+    if (fs.existsSync(p3)) return p3;
+  }
+  if (pathLower.includes('/mess') || titleLower.includes('lumimess') || titleLower.includes('lumi mess')) {
+    const p = path.join(rootDir, 'images', 'chat', 'lumi-mess-bg.webp');
+    if (fs.existsSync(p)) return p;
+  }
   if (pathLower.includes('lumina') || pathLower.includes('cezary') || pathLower.includes('wioletta')) {
     const p = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
     if (fs.existsSync(p)) return p;
@@ -278,8 +307,12 @@ function resolveItemImage(item, rootDir) {
     const p3 = path.join(rootDir, 'images', 'player', 'art-worship.jpg');
     if (fs.existsSync(p3)) return p3;
   }
-  if (pathLower.includes('player') || pathLower.includes('/radio') || pathLower.includes('muzyka') || titleLower.includes('gerald welch')) {
+  if (pathLower.includes('gerald-welch') || titleLower.includes('gerald welch')) {
     const p = path.join(rootDir, 'images', 'news', 'art-gerald-welch-the-call.jpg');
+    if (fs.existsSync(p)) return p;
+  }
+  if (pathLower.includes('player') || pathLower.includes('/radio') || pathLower.includes('muzyka')) {
+    const p = path.join(rootDir, 'images', 'player', 'art-worship.jpg');
     if (fs.existsSync(p)) return p;
   }
   if (pathLower.includes('ambientsleep') || pathLower.includes('ambient') || titleLower.includes('ambient')) {
@@ -296,14 +329,6 @@ function resolveItemImage(item, rootDir) {
   }
   if (pathLower.includes('heatfix') || titleLower.includes('heatfix')) {
     const p = path.join(rootDir, 'images', 'ogloszenia-premier-heatfix.jpg');
-    if (fs.existsSync(p)) return p;
-  }
-  if (pathLower.includes('mariusz')) {
-    const p = path.join(rootDir, 'avatar_mariusz_sds.jpg');
-    if (fs.existsSync(p)) return p;
-  }
-  if (pathLower.includes('/mess') || titleLower.includes('lumimess')) {
-    const p = path.join(rootDir, 'images', 'chat', 'lumi-mess-bg.webp');
     if (fs.existsSync(p)) return p;
   }
   if (pathLower.includes('podcast') || titleLower.includes('podcast')) {
@@ -447,10 +472,15 @@ function getAllEcosystemCandidates() {
         for (const v of sortedVerses) {
           const cleanHook = (v.hook || '').replace(/[\.\?!]+$/, '').trim();
           addCandidate({
+            day: v.day,
+            reference: v.reference,
+            text: v.text,
+            theme: v.theme || '',
+            hook: v.hook || '',
             title: `Werset Dnia: „${cleanHook}” (${v.reference}, UBG)`,
             lead: `„${v.text}” (${v.reference}, UBG)`,
             url: `https://polskieradio.cc/werset-dnia?day=${v.day}`,
-            image: null, // resolver dobierze estetyczną grafikę biblijną
+            image: getVerseGraphicRelativePath(v, ROOT), // dedykowana wygenerowana grafika tematyczna dla każdego wersetu
             category: 'Werset Dnia',
             type: 'verse',
             tag: '#WersetDnia'
@@ -976,9 +1006,15 @@ function formatBroadcasterTweet(item) {
       addTags('#KursyBiblijne', '#AkademiaBiblijna', '#ChristianCulture');
     }
   } else if (item.type === 'profile') {
-    subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
-    callToAction = '👉 Dołącz do społeczności LUMINA:\n';
-    addTags(item.tag || '#Lumina', '#LudzieMisji', '#ChristianCulture');
+    if ((item.url || '').includes('/mess') || (item.title || '').toLowerCase().includes('lumimess') || (item.title || '').toLowerCase().includes('lumi mess')) {
+      subHeader = '💬 LUMI MESS | CHRZEŚCIJAŃSKI KOMUNIKATOR';
+      callToAction = '👉 Czatuj i poznaj ludzi wiary:\n';
+      addTags('#LumiMess', '#Lumina', '#KomunikatorCC', '#ChristianCulture');
+    } else {
+      subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
+      callToAction = '👉 Dołącz do społeczności LUMINA:\n';
+      addTags(item.tag || '#Lumina', '#LudzieMisji', '#ChristianCulture');
+    }
   } else if (item.type === 'module') {
     if ((item.url || '').includes('biblia-audio')) {
       subHeader = '🎧 BIBLIA AUDIO & SŁUCHOWISKA CC';
@@ -1119,6 +1155,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '✝️ FORMACJA & WIARA | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj artykuł w serwisie:\n';
       addTags('#Swietosc', '#CezaryRogowski', '#CCNNews', '#Prawda');
+    } else if (tLower.includes('czy jezus') || tLower.includes('bóstw') || tLower.includes('boskoś') || tLower.includes('archanioł michał') || tLower.includes('co z tym michałem')) {
+      subHeader = '📖 BIBLIA & TEOLOGIA | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj artykuł w serwisie:\n';
+      addTags('#CezaryRogowski', '#Biblia', '#BostwoChrystusa', '#CCNNews');
     } else if (tLower.includes('czytelnictw') || tLower.includes('towarzystwo biblijne') || tLower.includes('cyfrowe studium') || tLower.includes('ekumeniczn') || tLower.includes('rada ekumeniczna') || tLower.includes('dni biblijne')) {
       subHeader = '📖 POLSKA & BIBLIA | RAPORT CCN';
       callToAction = '👉 Czytaj raport w serwisie:\n';
@@ -1200,6 +1240,10 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Dzień 33 (Wj 2:1–25): Z wód Nilu do pustyni Madian — ocalenie Mojżesza i Boża pamięć o przymierzu.';
   } else if ((item.url || '').includes('dzien-32')) {
     bodyText = 'Start Księgi Wyjścia! Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie — heroiczna wiara położnych Szifry i Pui.';
+  } else if ((item.url || '').endsWith('/lumina') || (item.url || '') === 'https://polskieradio.cc/lumina') {
+    bodyText = 'LUMINA: Wolna od manipulacji i algorytmów przestrzeń społeczności ludzi wiary.';
+  } else if ((item.url || '').endsWith('/mess') || (item.url || '') === 'https://polskieradio.cc/mess') {
+    bodyText = 'LumiMess: Bezpieczny chrześcijański komunikator. Czatuj, rozmawiaj i bądź blisko.';
   } else if ((item.url || '').endsWith('/akademia')) {
     bodyText = 'Akademia Biblijna & Kurs Codzienny: Systematyczne studium Pisma Świętego i bezpłatne kursy dla każdego.';
   } else if ((item.title || '').includes('GEN-015') || (item.title || '').includes('Rodzaju 15')) {
@@ -1507,8 +1551,8 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
     );
   };
 
-  // Ochrona przed powtarzaniem tego samego tematu kluczowego (np. książka i artykuł) w odstępie poniżej 6 postów
-  const recentTopics = history.slice(0, 6).map(h => ((h.title || '') + ' ' + (h.url || '')).toLowerCase());
+  // Ochrona przed powtarzaniem tego samego tematu kluczowego (np. książka i artykuł) w odstępie poniżej 10 postów
+  const recentTopics = history.slice(0, 10).map(h => ((h.title || '') + ' ' + (h.url || '')).toLowerCase());
   const isTopicTooRecent = (cand) => {
     const cText = ((cand.title || '') + ' ' + (cand.url || '')).toLowerCase();
     const keywords = [
@@ -1516,7 +1560,8 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
       'pokonac-goliata', 'pokonać goliata',
       'prawda-bez-filtra', 'prawda bez filtra',
       'u-boku-diabla', 'u boku diabła',
-      'bog-jest-miloscia', 'bóg jest miłością'
+      'bog-jest-miloscia', 'bóg jest miłością',
+      'heatfix', 'mariusz'
     ];
     return keywords.some(kw => cText.includes(kw) && recentTopics.some(rt => rt.includes(kw)));
   };

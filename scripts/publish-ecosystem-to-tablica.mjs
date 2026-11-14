@@ -13,6 +13,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import {
+  ensureVerseGraphicSync,
+  isForbiddenVerseImage
+} from './generate-verse-graphic.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -254,6 +258,21 @@ export function selectTablicaVoice(item = {}, state = {}, requestedSlug = null) 
 }
 
 export function resolveTablicaImageUrl(item = {}, imagePath = null, rootDir = ROOT_CC) {
+  const category = normalizeCategory(item.type || item.category);
+  const urlLower = String(item.url || '').toLowerCase();
+  const titleLower = String(item.title || '').toLowerCase();
+
+  // Żelazna dyrektywa Dowódcy (14.11.2026): każdy Werset Dnia ma własną wygenerowaną grafikę tematyczną
+  if (category === 'verse' || urlLower.includes('werset-dnia') || titleLower.startsWith('werset dnia')) {
+    const generatedPath = ensureVerseGraphicSync(item, rootDir);
+    if (generatedPath && fs.existsSync(generatedPath) && !isForbiddenVerseImage(generatedPath)) {
+      const rel = path.relative(rootDir, generatedPath).replace(/\\/g, '/');
+      if (rel && !rel.startsWith('..')) {
+        return `https://polskieradio.cc/${rel}`;
+      }
+    }
+  }
+
   const candidates = [];
 
   if (imagePath && typeof imagePath === 'string') {

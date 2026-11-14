@@ -12,6 +12,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { HOOKS_BY_CATEGORY, mapGroupToCategory, formatHookMessage } from './hooks_catalog.mjs';
+import { ensureVerseGraphicSync } from '../generate-verse-graphic.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -162,15 +163,30 @@ export async function runWhatsappHooks(options = {}) {
   console.log(`🎯 [CEL] Pokój: "${targetGroup.name}" (${targetGroup.groupId}) | Kategoria: [${category.toUpperCase()}]`);
   console.log(`💬 [ZACZEPKA ID]: ${hook.id}`);
 
+  // 6.5. Wygenerowanie dedykowanej grafiki tematycznej dla wersetu biblijnego z zaczepki
+  let verseMediaPath = null;
+  if (hook.verse) {
+    try {
+      verseMediaPath = ensureVerseGraphicSync({
+        verse: hook.verse,
+        title: hook.question || '',
+        theme: category
+      }, ROOT);
+    } catch (e) {
+      console.warn('[WHATSAPP HOOKS] Ostrzeżenie generowania grafiki wersetu:', e.message);
+    }
+  }
+
   // 7. Enqueue do CommandQueue dla Joshua / whatsapp_agent
   if (dryRun) {
     console.log('\n[DRY RUN] Treść wiadomości, która zostałaby wysłana:');
     console.log(fullMessage);
+    console.log('[DRY RUN] Dedykowana grafika wersetu:', verseMediaPath || 'BRAK');
     console.log('\n[DRY RUN] Zakończono bez modyfikacji bazy.');
-    return { status: 'dry_run', targetGroup, hook };
+    return { status: 'dry_run', targetGroup, hook, mediaPath: verseMediaPath };
   }
 
-  const queueRef = await db.collection('CommandQueue').add({
+  const queuePayload = {
     command: `wyślij celowane [${targetGroup.groupId}]: ${fullMessage}`,
     sender: 'antigravity',
     status: 'pending',
@@ -181,7 +197,12 @@ export async function runWhatsappHooks(options = {}) {
     category: category,
     hookId: hook.id,
     timestamp: admin.firestore.FieldValue.serverTimestamp()
-  });
+  };
+  if (verseMediaPath && fs.existsSync(verseMediaPath)) {
+    queuePayload.mediaPath = verseMediaPath;
+  }
+
+  const queueRef = await db.collection('CommandQueue').add(queuePayload);
 
   console.log(`🚀 [SUCCESS] Rozkaz wysyłki zaczepki zakolejkowany w CommandQueue! (Doc ID: ${queueRef.id})`);
 

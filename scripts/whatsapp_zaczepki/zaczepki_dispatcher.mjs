@@ -14,6 +14,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { generateZaczepka } from './zaczepki_generator.mjs';
+import { ensureVerseGraphicSync } from '../generate-verse-graphic.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -175,9 +176,17 @@ export async function dispatchNextZaczepka(options = { dryRun: false }) {
   const zaczepka = await generateZaczepka(selectedGroup.name, now.getHours());
   console.log(`[ZACZEPKI] Wygenerowano treść (źródło: ${zaczepka.source}):\n---\n${zaczepka.text}\n---`);
 
-  // Selekcja i kontrola częstotliwości grafiki (Anti-Overuse Cezary & Wioletta)
+  // Selekcja i kontrola częstotliwości grafiki (Anti-Overuse Cezary & Wioletta + Dedykowana Grafika Wersetu Dnia)
   let finalMediaPath = zaczepka.mediaPath || null;
-  if (finalMediaPath && finalMediaPath.includes('cezary-wioletta-radiocc.jpg')) {
+  if (zaczepka.category === 'studium_i_slowo' || /werset[- ]dnia/i.test(zaczepka.text || '')) {
+    const startOfYear = new Date(now.getFullYear(), 0, 0);
+    const dayOfYear = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24));
+    const generatedVerseImg = ensureVerseGraphicSync({ day: dayOfYear }, ROOT);
+    if (generatedVerseImg && fs.existsSync(generatedVerseImg)) {
+      finalMediaPath = generatedVerseImg;
+      console.log(`[ZACZEPKI] 📖 Dołączam wygenerowaną tematyczną grafikę Wersetu Dnia (Dzień ${dayOfYear}): ${path.basename(generatedVerseImg)}`);
+    }
+  } else if (finalMediaPath && finalMediaPath.includes('cezary-wioletta-radiocc.jpg')) {
     const minIntervalHours = 72; // Minimum 72h (3 dni) odstępu między użyciami zdjęcia z żoną
     const lastPhotoTime = state.lastCezaryWiolettaPhotoTime || 0;
     const elapsedHours = (Date.now() - lastPhotoTime) / (1000 * 60 * 60);

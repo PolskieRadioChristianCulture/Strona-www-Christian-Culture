@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "dzien-35",
+      "title": "Z Biblią za Pan Brat — Dzień 35 (Lekcja 35): Znaki wiary, powołanie i powrót do Egiptu: Boża moc w ludzkiej słabości (Wj 4:1–31)",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-35",
+      "type": "course",
+      "image": "kc_day_35_laska_waz_horeb.jpg",
+      "publishedAt": "2026-11-14T11:04:22.974Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "lumina.mariusz",
       "title": "Duchowny Mariusz — Wsparcie Duszpasterskie, Rozmowa Telefoniczna i SMS",
       "url": "https://polskieradio.cc/lumina.mariusz",
@@ -42,7 +51,7 @@
       "title": "Werset Dnia: „Wykład Twoich słów oświeca i daje zrozumienie prostaczkom” (Psalm 119:130, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=318",
       "type": "verse",
-      "image": "sidebar-verse-bg.jpg",
+      "image": "werset-day-318-psalm-119-130.jpg",
       "publishedAt": "2026-11-14T07:04:09.758Z",
       "method": "ccn_auto_broadcaster"
     },
@@ -132,7 +141,7 @@
       "title": "Werset Dnia: „Ty jesteś moją ukrytą twierdzą i tarczą; pokładam nadzieję w Twoim słowie” (Psalm 119:114, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=317",
       "type": "verse",
-      "image": "sidebar-verse-bg.jpg",
+      "image": "werset-day-317-psalm-119-114.jpg",
       "publishedAt": "2026-11-13T20:34:59.694Z",
       "method": "ccn_auto_broadcaster"
     },
