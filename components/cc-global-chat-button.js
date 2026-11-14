@@ -706,9 +706,10 @@
         text-decoration: none !important;
       }
 
-      .cc-chat-icon-btn:hover {
-        background: rgba(133, 71, 216, 0.25) !important;
-        border-color: #8547D8 !important;
+      .cc-chat-icon-btn:hover,
+      .cc-chat-icon-btn.is-active {
+        background: rgba(133, 71, 216, 0.28) !important;
+        border-color: #D8AD57 !important;
         color: #FFFFFF !important;
       }
 
@@ -2409,13 +2410,39 @@
         <div class="cc-chat-tab-panel" id="ccChatViewMore" role="tabpanel" aria-labelledby="ccChatTabMoreBtn">
           <div class="cc-tab-content-wrap">
             <h3 class="cc-section-headline">Ustawienia i Personalizacja</h3>
-            
+
+            <div id="ccDrawerAccountCard" style="background:var(--lumi-card-surface);border:1px solid var(--lumi-border);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+                <div>
+                  <span style="font-size:0.86rem;font-weight:700;display:block;color:var(--lumi-text-main);">Konto LUMINA & Sesja</span>
+                  <span id="ccDrawerAccountStatus" style="font-size:0.78rem;color:var(--lumi-text-muted);">Sprawdzanie sesji...</span>
+                </div>
+                <button type="button" id="ccDrawerAccountActionBtn" class="cc-showcase-pill is-primary" style="min-height:44px;padding:0 14px;">Ustawienia konta</button>
+              </div>
+            </div>
+
+            <div id="ccDrawerSoundCard" style="background:var(--lumi-card-surface);border:1px solid var(--lumi-border);border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <div>
+                <label for="ccDrawerSoundToggle" style="font-size:0.86rem;font-weight:700;display:block;color:var(--lumi-text-main);cursor:pointer;">🔔 Dźwięk powiadomień czatu</label>
+                <span style="font-size:0.76rem;color:var(--lumi-text-muted);">Sygnał nowych wiadomości w LUMI MESS</span>
+              </div>
+              <input type="checkbox" id="ccDrawerSoundToggle" style="width:24px;height:24px;min-width:24px;min-height:24px;accent-color:#D8AD57;cursor:pointer;" checked aria-label="Włącz lub wyłącz dźwięk powiadomień czatu">
+            </div>
+
             <div style="background:var(--lumi-card-surface);border:1px solid var(--lumi-border);border-radius:16px;padding:14px;">
               <span style="font-size:0.86rem;font-weight:700;display:block;margin-bottom:8px;">Wybierz Asystentkę LUMI:</span>
-              <div style="display:flex;gap:8px;">
-                <button type="button" class="cc-showcase-pill" data-asst-id="asystentka-1" onclick="window.selectAssistantAndRefresh('asystentka-1', true)">Rut</button>
-                <button type="button" class="cc-showcase-pill" data-asst-id="asystentka-2" onclick="window.selectAssistantAndRefresh('asystentka-2', true)">Lea</button>
-                <button type="button" class="cc-showcase-pill" data-asst-id="asystentka-3" onclick="window.selectAssistantAndRefresh('asystentka-3', true)">Noemi</button>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button type="button" class="cc-showcase-pill" style="min-height:44px;" data-asst-id="asystentka-1" onclick="window.selectAssistantAndRefresh('asystentka-1', true)">Rut</button>
+                <button type="button" class="cc-showcase-pill" style="min-height:44px;" data-asst-id="asystentka-2" onclick="window.selectAssistantAndRefresh('asystentka-2', true)">Lea</button>
+                <button type="button" class="cc-showcase-pill" style="min-height:44px;" data-asst-id="asystentka-3" onclick="window.selectAssistantAndRefresh('asystentka-3', true)">Noemi</button>
+              </div>
+            </div>
+
+            <div style="background:var(--lumi-card-surface);border:1px solid var(--lumi-border);border-radius:16px;padding:14px;">
+              <span style="font-size:0.86rem;font-weight:700;display:block;margin-bottom:8px;">Szybkie przełączenie pokoju:</span>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button type="button" class="cc-showcase-pill" style="min-height:44px;" id="ccMoreGoPublicBtn">🌐 Czat ogólny</button>
+                <button type="button" class="cc-showcase-pill is-primary" style="min-height:44px;" id="ccMoreGoAsstBtn">✨ Asystentki CC (3)</button>
               </div>
             </div>
 
@@ -2771,6 +2798,33 @@
       { btn: tabMoreBtn, view: viewMore, id: 'more' }
     ];
 
+    const settingsBtn = document.getElementById('ccChatSettingsBtn');
+    const notifBtn = document.getElementById('ccChatNotifBtn');
+
+    function refreshDrawerSettingsUI() {
+      const soundToggle = document.getElementById('ccDrawerSoundToggle');
+      if (soundToggle) {
+        let soundOn = true;
+        try { soundOn = localStorage.getItem('lumina_chat_sound_enabled') !== 'false'; } catch (_) {}
+        soundToggle.checked = soundOn;
+      }
+      const statusEl = document.getElementById('ccDrawerAccountStatus');
+      const actionBtn = document.getElementById('ccDrawerAccountActionBtn');
+      const user = getUserState();
+      if (statusEl) {
+        statusEl.textContent = user.isLoggedIn
+          ? `Zalogowano: ${user.name}`
+          : 'Tryb gościa — zaloguj się, aby wysyłać na Czacie Ogólnym';
+      }
+      if (actionBtn) {
+        if (typeof window.openChatSettingsModal === 'function') {
+          actionBtn.textContent = user.isLoggedIn ? 'Pełne ustawienia konta' : 'Zaloguj / Ustawienia';
+        } else {
+          actionBtn.textContent = user.isLoggedIn ? 'Mój profil LUMINA' : 'Zaloguj się do LUMINA';
+        }
+      }
+    }
+
     function switchTab(targetId) {
       allTabs.forEach(t => {
         if (!t.btn || !t.view) return;
@@ -2780,7 +2834,15 @@
         t.view.classList.toggle('is-active', isTarget);
       });
 
-      if (targetId === 'members') {
+      if (settingsBtn) {
+        const inMore = targetId === 'more';
+        settingsBtn.classList.toggle('is-active', inMore);
+        settingsBtn.setAttribute('aria-expanded', inMore ? 'true' : 'false');
+      }
+
+      if (targetId === 'more') {
+        refreshDrawerSettingsUI();
+      } else if (targetId === 'members') {
         renderMembersList('');
         const sInput = document.getElementById('ccChatMembersSearchInput');
         if (sInput && window.innerWidth > 768) sInput.focus();
@@ -2795,6 +2857,49 @@
     tabMembersBtn?.addEventListener('click', () => switchTab('members'));
     tabChannelsBtn?.addEventListener('click', () => switchTab('channels'));
     tabMoreBtn?.addEventListener('click', () => switchTab('more'));
+
+    settingsBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isAlreadyMore = viewMore && viewMore.classList.contains('is-active');
+      switchTab(isAlreadyMore ? 'live' : 'more');
+    });
+
+    notifBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      switchTab('more');
+      const soundCard = document.getElementById('ccDrawerSoundCard');
+      soundCard?.scrollIntoView?.({ block: 'nearest' });
+    });
+
+    document.getElementById('ccDrawerSoundToggle')?.addEventListener('change', (e) => {
+      const enabled = !!e.target.checked;
+      try { localStorage.setItem('lumina_chat_sound_enabled', enabled ? 'true' : 'false'); } catch (_) {}
+      if (typeof window.toggleChatSoundSetting === 'function') {
+        try { window.toggleChatSoundSetting(enabled); } catch (_) {}
+      }
+    });
+
+    document.getElementById('ccDrawerAccountActionBtn')?.addEventListener('click', () => {
+      if (typeof window.openChatSettingsModal === 'function') {
+        window.openChatSettingsModal();
+        return;
+      }
+      const user = getUserState();
+      window.location.href = user.isLoggedIn ? '/lumina-tablica.html' : '/lumina-login?next=%2F';
+    });
+
+    document.getElementById('ccMoreGoPublicBtn')?.addEventListener('click', () => {
+      setChatPartner(COMMUNITY_MEMBERS[0]);
+      setChatMode('public');
+      switchTab('live');
+    });
+
+    document.getElementById('ccMoreGoAsstBtn')?.addEventListener('click', () => {
+      setChatMode('assistant');
+      switchTab('live');
+    });
 
     // [+] Popover
     if (plusBtn && composerPopover) {

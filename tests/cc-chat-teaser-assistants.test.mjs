@@ -60,4 +60,10 @@ test('cc-global-chat-button & cc-assistant: strict separation of General Chat vs
   assert.match(assistantJs, /id="ccAsstPickerBar"[\s\S]*data-asst-id="asystentka-2"[\s\S]*Lea/);
   assert.match(assistantJs, /id="ccAsstPickerBar"[\s\S]*data-asst-id="asystentka-3"[\s\S]*Noemi/);
   assert.match(assistantJs, /<span class="tab-label">Asystentki CC<\/span>/);
+
+  // Działający przycisk Ustawienia (⚙️) i Powiadomienia (🔔) w nagłówku LUMI Messenger
+  assert.match(globalChat, /settingsBtn\?\.addEventListener\('click'/);
+  assert.match(globalChat, /notifBtn\?\.addEventListener\('click'/);
+  assert.match(globalChat, /id="ccDrawerSoundToggle"/);
+  assert.match(globalChat, /id="ccDrawerAccountActionBtn"/);
 });
