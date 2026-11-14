@@ -55,6 +55,74 @@ export function scheduleTarget({ channelName = null, isShorts = false, now = new
   return { ymd, date: studioDate(new Date(`${ymd}T12:00:00Z`)), time };
 }
 
+// Termin premiery dokładnie N godzin do przodu (Europe/Warsaw, wyrównany do kwadransów dropdownu YT Studio: 00/15/30/45).
+export function computeOffsetSchedule(hoursAhead = 48, now = new Date()) {
+  const rawTarget = new Date(now.getTime() + Number(hoursAhead) * 3600 * 1000);
+  const hmParts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Warsaw', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+  }).formatToParts(rawTarget).map(p => [p.type, p.value]));
+  const rem = Number(hmParts.minute) % 15;
+  const snapMin = rem <= 7 ? -rem : (15 - rem);
+  const snapped = new Date(rawTarget.getTime() + snapMin * 60 * 1000);
+  const ymd = warsawDay(snapped);
+  const snappedHm = Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Warsaw', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+  }).formatToParts(snapped).map(p => [p.type, p.value]));
+  return {
+    ymd,
+    date: studioDate(new Date(`${ymd}T12:00:00Z`)),
+    time: `${snappedHm.hour}:${snappedHm.minute}`
+  };
+}
+
+function languageCandidates(lang) {
+  if (!lang) return [];
+  if (Array.isArray(lang)) return lang;
+  const k = String(lang).trim().toLowerCase();
+  if (k === 'en' || k === 'english' || k === 'angielski') {
+    return ['angielski', 'english', 'angielski (stany zjednoczone)', 'english (united states)', 'angielski (wielka brytania)', 'english (united kingdom)'];
+  }
+  if (k === 'pl' || k === 'polish' || k === 'polski') {
+    return ['polski', 'polish'];
+  }
+  return [String(lang).trim()];
+}
+
+async function selectStudioLanguage(page, triggerIndex, lang) {
+  const candidates = languageCandidates(lang);
+  if (candidates.length === 0) return null;
+  const triggers = page.locator('ytcp-form-language-input ytcp-dropdown-trigger');
+  if ((await triggers.count()) <= triggerIndex) return null;
+  const trigger = triggers.nth(triggerIndex);
+  await trigger.scrollIntoViewIfNeeded().catch(() => {});
+  await trigger.click({ force: true });
+  await page.waitForTimeout(900);
+  const picked = await page.evaluate((cands) => {
+    const norm = s => (s || '').replace(/\s+/g, ' ').trim().toLowerCase();
+    const visibleContainers = [...document.querySelectorAll('tp-yt-paper-dialog, ytcp-text-menu, tp-yt-paper-listbox')]
+      .filter(el => el.offsetParent !== null && el.getAttribute('aria-hidden') !== 'true');
+    // Preferuj menu z listą języków (dziesiątki pozycji), aby nigdy nie trafić w inne menu strony.
+    visibleContainers.sort((a, b) => b.querySelectorAll('tp-yt-paper-item').length - a.querySelectorAll('tp-yt-paper-item').length);
+    const items = visibleContainers.flatMap(m => [...m.querySelectorAll('tp-yt-paper-item.selectable-item, tp-yt-paper-item, [role="option"]')]);
+    for (const cand of cands.map(norm)) {
+      const match = items.find(el => norm(el.innerText) === cand);
+      if (match) { match.scrollIntoView({ block: 'center' }); match.click(); return match.innerText.trim(); }
+    }
+    for (const cand of cands.map(norm)) {
+      const match = items.find(el => norm(el.innerText).startsWith(cand));
+      if (match) { match.scrollIntoView({ block: 'center' }); match.click(); return match.innerText.trim(); }
+    }
+    return null;
+  }, candidates);
+  await page.waitForTimeout(600);
+  if (!picked) {
+    // Zamknij menu kliknięciem na trigger zamiast Escape, żeby nie zamknąć całego okna dialogu uploadu.
+    await trigger.click({ force: true }).catch(() => {});
+    await page.waitForTimeout(300);
+  }
+  return picked;
+}
+
 async function scheduleVisibility(page, { date, time }, premiere) {
   const expand = page.locator('ytcp-uploads-dialog #second-container-expand-button').first();
   await expand.waitFor({ state: 'visible', timeout: 15000 });
@@ -159,7 +227,11 @@ export async function uploadEpisodeToChannel({
   visibility = 'public',
   draftVideoId = null,
   scheduleTime = undefined, // np. '20:00' bieżący odcinek, domyślnie CC_YT_SCHEDULE_TIME || '18:00'
-  scheduleYmd = undefined // opcjonalnie stała data premiery 'YYYY-MM-DD' (Europe/Warsaw) — pomija kolejkę kanału
+  scheduleYmd = undefined, // opcjonalnie stała data premiery 'YYYY-MM-DD' (Europe/Warsaw) — pomija kolejkę kanału
+  scheduleOffsetHours = undefined, // np. 48 -> dokładnie N godzin do przodu od momentu wgrania
+  thumbnailPath = undefined, // opcjonalnie dedykowana miniatura (JPG/PNG)
+  videoLanguage = undefined, // np. 'en' / 'pl'
+  titleDescriptionLanguage = undefined // np. 'en' / 'pl'
 }) {
   console.log('\n========================================================');
   console.log(`🚀 PUBLIKACJA NA KANALE: ${channelName}`);
@@ -182,12 +254,16 @@ export async function uploadEpisodeToChannel({
   const title = (meta.title || path.basename(videoPath, path.extname(videoPath))).slice(0, 100);
   const description = (meta.description || meta.full_description || title).slice(0, 5000);
   const tags = Array.isArray(meta.tags) ? meta.tags.join(', ') : (meta.tags || '');
+  const resolvedThumbPath = thumbnailPath || meta.thumbnailPath;
+  const resolvedVideoLang = videoLanguage || meta.videoLanguage;
+  const resolvedTitleDescLang = titleDescriptionLanguage || meta.titleDescriptionLanguage;
 
   console.log(`• Tytuł: ${title}`);
   console.log(`• Plik: ${path.basename(videoPath)}`);
   const isShorts = /shorts/i.test(path.basename(videoPath));
   const schedule = visibility !== 'public' ? null
     : scheduleYmd ? { ymd: scheduleYmd, date: studioDate(new Date(`${scheduleYmd}T12:00:00Z`)), time: scheduleTime || '20:00' }
+    : scheduleOffsetHours != null ? computeOffsetSchedule(scheduleOffsetHours)
     : scheduleTarget({ channelName, isShorts }, undefined, scheduleTime);
   console.log(`• Widoczność: ${visibility}${schedule ? ` — zaplanowana na ${schedule.date} ${schedule.time}${isShorts ? '' : ' (premiera)'}` : ''}`);
 
@@ -297,6 +373,17 @@ export async function uploadEpisodeToChannel({
       if (dd) dd.remove();
     });
 
+    // Dedykowana miniatura (opcjonalna)
+    if (resolvedThumbPath) {
+      const absThumb = path.resolve(resolvedThumbPath);
+      if (!fs.existsSync(absThumb)) throw new Error(`Brak pliku miniatury: ${absThumb}`);
+      const thumbInput = page.locator('ytcp-thumbnail-uploader input#file-loader[accept*="image"], input#file-loader[accept*="image"]').first();
+      await thumbInput.waitFor({ state: 'attached', timeout: 15000 });
+      await thumbInput.setInputFiles(absThumb);
+      await page.waitForTimeout(1500);
+      console.log(`  -> Miniatura wgrana: ${path.basename(absThumb)}`);
+    }
+
     // COPPA: Nieprzeznaczony dla dzieci (opcjonalny dla kanałów z polityką globalną)
     const notForKids = page.locator('tp-yt-paper-radio-button[name="VIDEO_MADE_FOR_KIDS_NOT_MFK"]').first();
     if (await notForKids.isVisible().catch(() => false)) {
@@ -308,16 +395,18 @@ export async function uploadEpisodeToChannel({
     }
     await page.waitForTimeout(1000);
 
-    // Tagi (opcjonalne)
-    if (tags) {
+    // Opcje zaawansowane: Tagi oraz Język filmu / Tytułu i opisu
+    if (tags || resolvedVideoLang || resolvedTitleDescLang) {
       try {
         const showMore = page.locator(
-          'ytcp-button#toggle-button:has-text("Pokaż więcej"), ytcp-button#toggle-button:has-text("Show more"), button:has-text("Pokaż więcej")'
+          'ytcp-button#toggle-button:has-text("Pokaż więcej"), ytcp-button#toggle-button:has-text("Show more"), button:has-text("Pokaż więcej"), button:has-text("Show more")'
         ).first();
         if (await showMore.isVisible().catch(() => false)) {
           await showMore.click();
-          await page.waitForTimeout(1000);
-          
+          await page.waitForTimeout(1200);
+        }
+
+        if (tags) {
           // Usuń domyślne tagi kanału, aby uniknąć przekroczenia limitu 500 znaków
           await page.evaluate(() => {
             const clearBtn = document.querySelector('#tags-container ytcp-icon-button[id="delete-all-button"], #tags-container button[aria-label*="Usuń"], #tags-container [id*="delete-all"]');
@@ -360,8 +449,17 @@ export async function uploadEpisodeToChannel({
             }
           }
         }
+
+        if (resolvedVideoLang) {
+          const pickedVideoLang = await selectStudioLanguage(page, 0, resolvedVideoLang);
+          console.log(`  -> Język filmu: ${pickedVideoLang || `nie znaleziono (${resolvedVideoLang})`}`);
+        }
+        if (resolvedTitleDescLang) {
+          const pickedMetaLang = await selectStudioLanguage(page, 1, resolvedTitleDescLang);
+          console.log(`  -> Język tytułu i opisu: ${pickedMetaLang || `nie znaleziono (${resolvedTitleDescLang})`}`);
+        }
       } catch (err) {
-        console.warn('  -> Tagi pominięte:', err.message);
+        console.warn('  -> Opcje zaawansowane (tagi/język) częściowo pominięte:', err.message);
       }
     }
 
@@ -601,7 +699,16 @@ export async function uploadEpisodeToChannel({
       // plik jest już w całości na YouTube — zamknięcie przeglądarki niczego nie przerwie
       console.log(`  -> ${err.message}`);
       await ctx.close();
-      return uploadEpisodeToChannel({ videoPath, metaPath, channelId, channelName, visibility, draftVideoId: err.resumedVideoId, scheduleTime, scheduleYmd });
+      return uploadEpisodeToChannel({
+        videoPath, metaPath, channelId, channelName, visibility,
+        draftVideoId: err.resumedVideoId,
+        scheduleTime: schedule?.time ?? scheduleTime,
+        scheduleYmd: schedule?.ymd ?? scheduleYmd,
+        scheduleOffsetHours,
+        thumbnailPath: resolvedThumbPath,
+        videoLanguage: resolvedVideoLang,
+        titleDescriptionLanguage: resolvedTitleDescLang
+      });
     }
     console.error(`❌ BŁĄD PUBLIKACJI:`, err.message);
     try {

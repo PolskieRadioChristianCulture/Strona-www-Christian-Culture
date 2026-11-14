@@ -1,0 +1,507 @@
+{
+  "version": "1.0",
+  "sourcePage": "https://downloads.clashofminds.com/wup-mp4/",
+  "series": "What's Up Prof? — Walter Veith & Martin Smith (Clash of Minds)",
+  "episodes": [
+    {
+      "seq": 1,
+      "epCode": "001",
+      "titleEn": "001. American Election Campaign | Prof. Walter Veith & Martin Smith (What's Up Prof?)",
+      "titlePl": "001. Amerykańska kampania wyborcza | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "American Election Campaign",
+      "topicPl": "Amerykańska kampania wyborcza",
+      "sizeLabel": "306.88 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1557/001-american-election-campaign-2.mp4"
+    },
+    {
+      "seq": 2,
+      "epCode": "002",
+      "titleEn": "002. Religious Freedom, Persecution & The Coronavirus | Prof. Walter Veith",
+      "titlePl": "002. Wolność religijna, prześladowania a koronawirus | Prof. Walter Veith",
+      "topicEn": "Religious Freedom, Persecution & The Coronavirus",
+      "topicPl": "Wolność religijna, prześladowania a koronawirus",
+      "sizeLabel": "380.75 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1559/002-religious-freedom-persecution-the-coronavirus.mp4"
+    },
+    {
+      "seq": 3,
+      "epCode": "003",
+      "titleEn": "003. Coronavirus, Noahide Laws, End Time | Prof. Walter Veith & Martin Smith",
+      "titlePl": "003. Koronawirus, Prawa Noachidzkie i czasy ostateczne | Prof. Walter Veith",
+      "topicEn": "Coronavirus, Noahide Laws, End Time",
+      "topicPl": "Koronawirus, Prawa Noachidzkie i czasy ostateczne",
+      "sizeLabel": "648.15 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1561/003-coronavirus-noahide-laws-end-time-2.mp4"
+    },
+    {
+      "seq": 4,
+      "epCode": "004",
+      "titleEn": "004. Mark Of The Beast, RFID Chip, Little Time Of Trouble (FAQ) | Walter Veith",
+      "titlePl": "004. Znamię bestii, czip RFID i mały czas ucisku (FAQ) | Prof. Walter Veith",
+      "topicEn": "Mark Of The Beast, RFID Chip, Little Time Of Trouble (FAQ)",
+      "topicPl": "Znamię bestii, czip RFID i mały czas ucisku (FAQ)",
+      "sizeLabel": "335.44 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1563/004-mark-of-the-beast-rfid-chip-little-time-of-trouble-faq-2.mp4"
+    },
+    {
+      "seq": 5,
+      "epCode": "005",
+      "titleEn": "005. Which Bible? Part 1 | Prof. Walter Veith & Martin Smith (What's Up Prof?)",
+      "titlePl": "005. Która Biblia? Część 1 | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "Which Bible? Part 1",
+      "topicPl": "Która Biblia? Część 1",
+      "sizeLabel": "328.39 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1565/005-which-bible-part-1-2.mp4"
+    },
+    {
+      "seq": 6,
+      "epCode": "006",
+      "titleEn": "006. Which Bible? Part 2 | Prof. Walter Veith & Martin Smith (What's Up Prof?)",
+      "titlePl": "006. Która Biblia? Część 2 | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "Which Bible? Part 2",
+      "topicPl": "Która Biblia? Część 2",
+      "sizeLabel": "441.43 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1567/006-which-bible-part-2-2.mp4"
+    },
+    {
+      "seq": 7,
+      "epCode": "007",
+      "titleEn": "007. What Do We Believe, Why Do We Believe It? | Prof. Walter Veith",
+      "titlePl": "007. W co wierzymy i dlaczego w to wierzymy? | Prof. Walter Veith",
+      "topicEn": "What do we believe, why do we believe it?",
+      "topicPl": "W co wierzymy i dlaczego w to wierzymy?",
+      "sizeLabel": "614.84 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1569/007-what-do-we-believe-why-do-we-believe-it-2.mp4"
+    },
+    {
+      "seq": 8,
+      "epCode": "008",
+      "titleEn": "008. Is This The End? Part 1 (In Depth Study) | Prof. Walter Veith",
+      "titlePl": "008. Czy to już koniec? Cz. 1 (Pogłębione studium) | Prof. Walter Veith",
+      "topicEn": "Is This The End? Part 1 (2 Hour In Depth Study)",
+      "topicPl": "Czy to już koniec? Cz. 1 (2-godzinne studium biblijne)",
+      "sizeLabel": "1.26 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1571/008-is-this-the-end-part-1-2-hour-in-depth-study-2.mp4"
+    },
+    {
+      "seq": 9,
+      "epCode": "009",
+      "titleEn": "009. Is This The End? Part 2 (Questions Answered) | Prof. Walter Veith",
+      "titlePl": "009. Czy to już koniec? Cz. 2 (Odpowiedzi na pytania) | Prof. Walter Veith",
+      "topicEn": "Is This The End? Part 2 (Questions answered)",
+      "topicPl": "Czy to już koniec? Cz. 2 (Odpowiedzi na pytania)",
+      "sizeLabel": "1.11 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1573/009-is-this-the-end-part-2-questions-answered-2.mp4"
+    },
+    {
+      "seq": 10,
+      "epCode": "010",
+      "titleEn": "010. QAnon, Dr. Fauci, Deep State, Spirit of Prophecy | Prof. Walter Veith",
+      "titlePl": "010. QAnon, dr Fauci, głębokie państwo i Duch Proroctwa | Prof. Walter Veith",
+      "topicEn": "QAnon, Dr. Fauci, Deep State, Spirit of Prophecy",
+      "topicPl": "QAnon, dr Fauci, głębokie państwo i Duch Proroctwa",
+      "sizeLabel": "629.18 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1575/010-qanon-dr-fauci-deep-state-spirit-of-prophecy-2.mp4"
+    },
+    {
+      "seq": 11,
+      "epCode": "011",
+      "titleEn": "011. Double Blind, What Is The Agenda For The World? | Prof. Walter Veith",
+      "titlePl": "011. Podwójnie ślepa próba — jaki jest plan dla świata? | Prof. Walter Veith",
+      "topicEn": "Double Blind, What Is The Agenda For The World?",
+      "topicPl": "Podwójnie ślepa próba — jaki jest plan dla świata?",
+      "sizeLabel": "621.53 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1577/011-double-blind-what-is-the-agenda-for-the-world-2.mp4"
+    },
+    {
+      "seq": 12,
+      "epCode": "012",
+      "titleEn": "012. Behold, The Bridegroom Cometh | Prof. Walter Veith & Martin Smith",
+      "titlePl": "012. Oto Oblubieniec nadchodzi | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "Behold, The Bridegroom Cometh",
+      "topicPl": "Oto Oblubieniec nadchodzi",
+      "sizeLabel": "765.40 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1579/012-behold-the-bridegroom-cometh-2.mp4"
+    },
+    {
+      "seq": 13,
+      "epCode": "013",
+      "titleEn": "013. The Great Disappointment, 1844 & The Sanctuary | Prof. Walter Veith",
+      "titlePl": "013. Wielkie Rozczarowanie, rok 1844 i Świątynia | Prof. Walter Veith",
+      "topicEn": "The Great Disappointment, 1844 & The Sanctuary",
+      "topicPl": "Wielkie Rozczarowanie, rok 1844 i Świątynia",
+      "sizeLabel": "780.49 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1581/013-the-great-disappointment-1844-the-sanctuary-2.mp4"
+    },
+    {
+      "seq": 14,
+      "epCode": "014",
+      "titleEn": "014. Guidelines For Discernment | Prof. Walter Veith & Martin Smith",
+      "titlePl": "014. Zasady duchowego rozeznania | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "Guidelines For Discernment",
+      "topicPl": "Zasady duchowego rozeznania",
+      "sizeLabel": "892.12 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1583/014-guidelines-for-discernment-2.mp4"
+    },
+    {
+      "seq": 15,
+      "epCode": "015",
+      "titleEn": "015. Trump Kneels At Catholic Shrine, Jubilee For Earth | Prof. Walter Veith",
+      "titlePl": "015. Trump w sanktuarium katolickim i Jubileusz dla Ziemi | Walter Veith",
+      "topicEn": "Trump Kneels At Catholic Shrine, Jubilee For Earth",
+      "topicPl": "Trump w sanktuarium katolickim i Jubileusz dla Ziemi",
+      "sizeLabel": "847.39 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1585/015-trump-kneels-at-catholic-shrine-jubilee-for-earth-2.mp4"
+    },
+    {
+      "seq": 16,
+      "epCode": "016",
+      "titleEn": "016. The Shaking | Prof. Walter Veith & Martin Smith (What's Up Prof?)",
+      "titlePl": "016. Przesiewanie i duchowe wstrząśnienie | Prof. Walter Veith",
+      "topicEn": "The Shaking",
+      "topicPl": "Przesiewanie i duchowe wstrząśnienie",
+      "sizeLabel": "1.00 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1587/016-the-shaking-2.mp4"
+    },
+    {
+      "seq": 17,
+      "epCode": "017",
+      "titleEn": "017. The Doctrine Of The Serpent (Part 1) | Prof. Walter Veith",
+      "titlePl": "017. Doktryna Węża — Część 1 | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "The Doctrine Of The Serpent 1",
+      "topicPl": "Doktryna Węża — Część 1",
+      "sizeLabel": "949.93 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1589/017-the-doctrine-of-the-serpent-1-2.mp4"
+    },
+    {
+      "seq": 18,
+      "epCode": "018",
+      "titleEn": "018. Ye Shall Be As Gods - The Doctrine Of The Serpent 2 | Walter Veith",
+      "titlePl": "018. Będziecie jako bogowie — Doktryna Węża cz. 2 | Prof. Walter Veith",
+      "topicEn": "Ye Shall Be As Gods - The Doctrine Of The Serpent 2",
+      "topicPl": "Będziecie jako bogowie — Doktryna Węża cz. 2",
+      "sizeLabel": "679.85 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1591/018-ye-shall-be-as-gods-the-doctrine-of-the-serpent-2-2.mp4"
+    },
+    {
+      "seq": 19,
+      "epCode": "019",
+      "titleEn": "019. The Atonement Of Jesus Christ - Doctrine Of The Serpent 3 | W. Veith",
+      "titlePl": "019. Pojednanie Jezusa Chrystusa — Doktryna Węża cz. 3 | Walter Veith",
+      "topicEn": "The Atonement Of Jesus Christ - The Doctrine Of The Serpent 3",
+      "topicPl": "Pojednanie Jezusa Chrystusa — Doktryna Węża cz. 3",
+      "sizeLabel": "576.98 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1593/019-the-atonement-of-jesus-christ-the-doctrine-of-the-serpent-3-2.mp4"
+    },
+    {
+      "seq": 20,
+      "epCode": "020",
+      "titleEn": "020. World War 3, North vs South | Prof. Walter Veith & Martin Smith",
+      "titlePl": "020. III wojna światowa: Północ kontra Południe | Prof. Walter Veith",
+      "topicEn": "World War 3, North vs South",
+      "topicPl": "III wojna światowa: Północ kontra Południe",
+      "sizeLabel": "0.94 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1595/020-world-war-3-north-vs-south-2.mp4"
+    },
+    {
+      "seq": 21,
+      "epCode": "021",
+      "titleEn": "021. The Great Reset, Donald Trump Prophecy, Kanye West | Walter Veith",
+      "titlePl": "021. Wielki Reset, proroctwa o Trumpie i Kanye West | Prof. Walter Veith",
+      "topicEn": "The Great Reset, Donald Trump Prophecy, Kanye West",
+      "topicPl": "Wielki Reset, proroctwa o Trumpie i Kanye West",
+      "sizeLabel": "822.98 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1597/021-the-great-reset-donald-trump-prophecy-kanye-west-2.mp4"
+    },
+    {
+      "seq": 22,
+      "epCode": "022",
+      "titleEn": "022. Black Lives Matter, Amazon Synod, Freedom Sunday | Walter Veith",
+      "titlePl": "022. Black Lives Matter, Synod Amazoński i Wolna Niedziela | Walter Veith",
+      "topicEn": "Black Lives Matter, Amazon Synod, Freedom Sunday",
+      "topicPl": "Black Lives Matter, Synod Amazoński i Wolna Niedziela",
+      "sizeLabel": "0.96 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1599/022-black-lives-matter-amazon-synod-freedom-sunday-2.mp4"
+    },
+    {
+      "seq": 23,
+      "epCode": "023",
+      "titleEn": "023. 3 Days & 3 Nights, Earth Shape, Organic Farming (FAQ) | Walter Veith",
+      "titlePl": "023. 3 dni i 3 noce, kształt Ziemi i rolnictwo ekologiczne (FAQ) | Veith",
+      "topicEn": "3 Days & 3 Nights, Earth Round Or Flat, Organic Farming (FAQ)",
+      "topicPl": "3 dni i 3 noce, kształt Ziemi i rolnictwo ekologiczne (FAQ)",
+      "sizeLabel": "1.00 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1601/023-3-days-3-nights-earth-round-or-flat-organic-farming-faq-2.mp4"
+    },
+    {
+      "seq": 24,
+      "epCode": "024",
+      "titleEn": "024. Conspiracy Theories?, Depopulation, UFOs | Prof. Walter Veith",
+      "titlePl": "024. Teorie spiskowe, depopulacja i UFO | Prof. Walter Veith",
+      "topicEn": "Conspiracy Theories?, Depopulation, UFO's",
+      "topicPl": "Teorie spiskowe, depopulacja i UFO",
+      "sizeLabel": "910.65 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1603/024-conspiracy-theories-depopulation-ufos-2.mp4"
+    },
+    {
+      "seq": 25,
+      "epCode": "025",
+      "titleEn": "025. Get Out Of The Cities, Age of Reason, Two Witnesses | Walter Veith",
+      "titlePl": "025. Wyjdźcie z miast, Wiek Rozumu i Dwaj Świadkowie | Prof. Walter Veith",
+      "topicEn": "Get Out Of The Cities, Age of Reason, Two Witnesses",
+      "topicPl": "Wyjdźcie z miast, Wiek Rozumu i Dwaj Świadkowie",
+      "sizeLabel": "1.11 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1605/025-get-out-of-the-cities-age-of-reason-two-witnesses-2.mp4"
+    },
+    {
+      "seq": 26,
+      "epCode": "026",
+      "titleEn": "026. New Normal, Human Enhancement, Depopulation | Prof. Walter Veith",
+      "titlePl": "026. Nowa normalność, ulepszanie człowieka i depopulacja | Walter Veith",
+      "topicEn": "New Normal, Human Enhancement, Depopulation",
+      "topicPl": "Nowa normalność, ulepszanie człowieka i depopulacja",
+      "sizeLabel": "0.97 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1607/026-new-normal-human-enhancement-depopulation-2.mp4"
+    },
+    {
+      "seq": 27,
+      "epCode": "027",
+      "titleEn": "027. Vaccines & The Mark | Prof. Walter Veith & Martin Smith",
+      "titlePl": "027. Szczepionki a Znamię Bestii | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "Vaccines & The Mark",
+      "topicPl": "Szczepionki a Znamię Bestii",
+      "sizeLabel": "1.02 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1609/027-vaccines-the-mark-2.mp4"
+    },
+    {
+      "seq": 28,
+      "epCode": "028",
+      "titleEn": "028. USA \"We Want God\", Israel & UAE Peace Agreement | Walter Veith",
+      "titlePl": "028. USA \"Chcemy Boga\" i porozumienie Izrael–ZEA | Prof. Walter Veith",
+      "topicEn": "USA \"We want God\", Israel & UAE Peace Agreement",
+      "topicPl": "USA \"Chcemy Boga\" i porozumienie Izrael–ZEA",
+      "sizeLabel": "1.13 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1611/028-usa-we-want-god-israel-uae-peace-agreement-2.mp4"
+    },
+    {
+      "seq": 29,
+      "epCode": "029",
+      "titleEn": "029. Rider On White Horse & The 144,000 (FAQ) | Prof. Walter Veith",
+      "titlePl": "029. Jeździec na białym koniu i 144 000 zbawionych (FAQ) | Walter Veith",
+      "topicEn": "Who Is The Rider On White Horse? Who are the 144 000? (FAQ)",
+      "topicPl": "Kim jest Jeździec na białym koniu i kim jest 144 000? (FAQ)",
+      "sizeLabel": "939.36 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1613/029-who-is-the-rider-on-white-horse-who-are-the-144-000-faq-2.mp4"
+    },
+    {
+      "seq": 30,
+      "epCode": "030",
+      "titleEn": "030. Prophets, Miracles, Signs & Wonders | Prof. Walter Veith",
+      "titlePl": "030. Prorocy, cuda, znaki i dziwy | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "Prophets, Miracles, Signs & Wonders",
+      "topicPl": "Prorocy, cuda, znaki i dziwy",
+      "sizeLabel": "841.95 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1615/030-prophets-miracles-signs-wonders-2.mp4"
+    },
+    {
+      "seq": 31,
+      "epCode": "031",
+      "titleEn": "031. Israel Of God, Lord's Day, Sabbath In End Times | Walter Veith",
+      "titlePl": "031. Izrael Boży, Dzień Pański i Sabat w czasach końca | Walter Veith",
+      "topicEn": "Israel Of God, Lord's Day, Sabbath In The End Times",
+      "topicPl": "Izrael Boży, Dzień Pański i Sabat w czasach ostatecznych",
+      "sizeLabel": "1.10 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1617/031-israel-of-god-lords-day-sabbath-in-the-end-times-2.mp4"
+    },
+    {
+      "seq": 32,
+      "epCode": "032",
+      "titleEn": "032. \"Doomsday\" Clock, Amy C. Barrett, 2020 UN Speeches | Walter Veith",
+      "titlePl": "032. Zegar zagłady, Amy C. Barrett i przemówienia w ONZ | Walter Veith",
+      "topicEn": "\"Doomsday\" Clock, Amy C.Barrett, 2020 UN Speeches",
+      "topicPl": "Zegar zagłady, Amy C. Barrett i przemówienia w ONZ (2020)",
+      "sizeLabel": "758.01 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1619/032-doomsday-clock-amy-c-barrett-2020-un-speeches-2.mp4"
+    },
+    {
+      "seq": 33,
+      "epCode": "033",
+      "titleEn": "033. The Return & Prayer March At Washington Mall | Prof. Walter Veith",
+      "titlePl": "033. The Return i marsz modlitewny w Waszyngtonie | Prof. Walter Veith",
+      "topicEn": "The Return & Prayer March At The Washington Mall",
+      "topicPl": "The Return i marsz modlitewny w Waszyngtonie",
+      "sizeLabel": "1.03 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1621/033-the-return-prayer-march-at-the-washington-mall-2.mp4"
+    },
+    {
+      "seq": 34,
+      "epCode": "034",
+      "titleEn": "034. Donald Trump vs Joe Biden, Does It Matter Who Wins? | Walter Veith",
+      "titlePl": "034. Trump kontra Biden — czy ma znaczenie, kto wygra? | Walter Veith",
+      "topicEn": "Donald Trump vs Joe Biden, Does It Matter Who Wins?",
+      "topicPl": "Donald Trump kontra Joe Biden — czy ma znaczenie, kto wygra?",
+      "sizeLabel": "1.10 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1623/034-donald-trump-vs-joe-biden-does-it-matter-who-wins-2.mp4"
+    },
+    {
+      "seq": 35,
+      "epCode": "035",
+      "titleEn": "035. Fratelli Tutti, Pope Francis Encyclical 2020 | Prof. Walter Veith",
+      "titlePl": "035. Fratelli Tutti — encyklika papieża Franciszka (2020) | Walter Veith",
+      "topicEn": "Fratelli Tutti, Pope Francis Encyclical 2020",
+      "topicPl": "Fratelli Tutti — encyklika papieża Franciszka (2020)",
+      "sizeLabel": "1.01 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1625/035-fratelli-tutti-pope-francis-encyclical-2020-2.mp4"
+    },
+    {
+      "seq": 36,
+      "epCode": "036",
+      "titleEn": "036. What If Adam And Eve Never Sinned? (FAQ) | Prof. Walter Veith",
+      "titlePl": "036. Co gdyby Adam i Ewa nigdy nie zgrzeszyli? (FAQ) | Walter Veith",
+      "topicEn": "What If Adam And Eve Never Sinned? (FAQ)",
+      "topicPl": "Co gdyby Adam i Ewa nigdy nie zgrzeszyli? (FAQ)",
+      "sizeLabel": "672.23 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1627/036-what-if-adam-and-eve-never-sinned-faq-2.mp4"
+    },
+    {
+      "seq": 37,
+      "epCode": "037",
+      "titleEn": "037. Reflection on the Election | Prof. Walter Veith & Martin Smith",
+      "titlePl": "037. Refleksja po wyborach prezydenckich w USA | Prof. Walter Veith",
+      "topicEn": "Reflection on the Election",
+      "topicPl": "Refleksja po wyborach prezydenckich w USA",
+      "sizeLabel": "860.27 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1629/037-reflection-on-the-election-2.mp4"
+    },
+    {
+      "seq": 38,
+      "epCode": "038",
+      "titleEn": "038. Prayers For The Dead | Prof. Walter Veith & Martin Smith",
+      "titlePl": "038. Modlitwy za zmarłych w świetle Pisma Świętego | Prof. Walter Veith",
+      "topicEn": "Prayers For The Dead",
+      "topicPl": "Modlitwy za zmarłych w świetle Pisma Świętego",
+      "sizeLabel": "787.20 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1631/038-prayers-for-the-dead-2.mp4"
+    },
+    {
+      "seq": 39,
+      "epCode": "039",
+      "titleEn": "039. A \"New\" Education For The World | Prof. Walter Veith & Martin Smith",
+      "titlePl": "039. \"Nowa\" edukacja dla świata | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "A \"New\" Education For The World",
+      "topicPl": "\"Nowa\" edukacja dla świata",
+      "sizeLabel": "713.75 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1633/039-a-new-education-for-the-world-2.mp4"
+    },
+    {
+      "seq": 40,
+      "epCode": "040",
+      "titleEn": "040. \"Solidarity\" For The Common Good | Prof. Walter Veith",
+      "titlePl": "040. \"Solidarność\" dla dobra wspólnego | Prof. Walter Veith",
+      "topicEn": "\"Solidarity\" For The Common Good",
+      "topicPl": "\"Solidarność\" dla dobra wspólnego",
+      "sizeLabel": "816.19 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1635/040-solidarity-for-the-common-good-2.mp4"
+    },
+    {
+      "seq": 41,
+      "epCode": "041",
+      "titleEn": "041. Trump, Q, WEF... Who Will Drain The World's Swamp? | Walter Veith",
+      "titlePl": "041. Trump, Q, WEF... Kto oczyści światowe bagno? | Prof. Walter Veith",
+      "topicEn": "Trump, Q, WEF... Who Will Drain The World's Swamp?",
+      "topicPl": "Trump, Q, WEF... Kto oczyści światowe bagno?",
+      "sizeLabel": "1.05 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1637/041-trump-q-wef-who-will-drain-the-worlds-swamp-2.mp4"
+    },
+    {
+      "seq": 42,
+      "epCode": "042",
+      "titleEn": "042. To Feast Or Not To Feast | Prof. Walter Veith & Martin Smith",
+      "titlePl": "042. Świętować czy nie świętować? Biblijne spojrzenie | Walter Veith",
+      "topicEn": "To Feast Or Not To Feast",
+      "topicPl": "Świętować czy nie świętować? Biblijne spojrzenie na święta",
+      "sizeLabel": "146.74 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/9352/042-to-feast-or-not-to-feast-2.mp4"
+    },
+    {
+      "seq": 43,
+      "epCode": "043",
+      "titleEn": "043. Out Of Darkness Into The Light: Martin's Testimony | Walter Veith",
+      "titlePl": "043. Z ciemności do światła: świadectwo Martina Smitha | Walter Veith",
+      "topicEn": "Out Of Darkness Into The Light: Martin's Testimony",
+      "topicPl": "Z ciemności do światła: świadectwo Martina Smitha",
+      "sizeLabel": "672.21 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1707/043-out-of-darkness-into-the-light-martins-testimony-2.mp4"
+    },
+    {
+      "seq": 44,
+      "epCode": "044",
+      "titleEn": "044. Is Heaven Real? | Prof. Walter Veith & Martin Smith (What's Up Prof?)",
+      "titlePl": "044. Czy niebo istnieje naprawdę? | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "Is Heaven Real?",
+      "topicPl": "Czy niebo istnieje naprawdę?",
+      "sizeLabel": "935.06 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1708/044-is-heaven-real-2.mp4"
+    },
+    {
+      "seq": 45,
+      "epCode": "045",
+      "titleEn": "045. \"Sons of God; Daughters of Men\" — Who Are They? (FAQ) | Walter Veith",
+      "titlePl": "045. Synowie Boży i córki ludzkie — kim oni byli? (FAQ) | Walter Veith",
+      "topicEn": "\"Sons of God; daughters of men\" Who are they? (FAQ)",
+      "topicPl": "Synowie Boży i córki ludzkie — kim oni byli? (FAQ)",
+      "sizeLabel": "569.39 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1709/045-sons-of-god-daughters-of-men-who-are-they-faq-2.mp4"
+    },
+    {
+      "seq": 46,
+      "epCode": "046",
+      "titleEn": "046. To Vax Or Not To Vax | Prof. Walter Veith & Martin Smith",
+      "titlePl": "046. Szczepić się czy nie szczepić? | Prof. Walter Veith",
+      "topicEn": "To Vax or not to Vax",
+      "topicPl": "Szczepić się czy nie szczepić?",
+      "sizeLabel": "1.12 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1710/046-to-vax-or-not-to-vax-2.mp4"
+    },
+    {
+      "seq": 47,
+      "epCode": "047",
+      "titleEn": "047. The Great Reset, A Long Time Coming? (Part 1) | Prof. Walter Veith",
+      "titlePl": "047. Wielki Reset — czy zbliża się od dawna? Cz. 1 | Prof. Walter Veith",
+      "topicEn": "The Great Reset, A Long Time Coming? - Part 1",
+      "topicPl": "Wielki Reset — czy zbliża się od dawna? Część 1",
+      "sizeLabel": "920.31 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1711/047-the-great-reset-a-long-time-coming-part-1-2.mp4"
+    },
+    {
+      "seq": 48,
+      "epCode": "048-NEWSTART",
+      "titleEn": "48. NEWSTART, The Divine Health Formula | Prof. Walter Veith & Martin Smith",
+      "titlePl": "48. NEWSTART — Boża formuła zdrowia | Prof. Walter Veith",
+      "topicEn": "Newstart, The Divine Health Formula 720",
+      "topicPl": "NEWSTART — Boża formuła zdrowia",
+      "sizeLabel": "786.42 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/14319/48-newstart-the-divine-health-formula-720.mp4"
+    },
+    {
+      "seq": 49,
+      "epCode": "048",
+      "titleEn": "048. The Great Reset, A Long Time Coming? (Part 2) | Prof. Walter Veith",
+      "titlePl": "048. Wielki Reset — czy zbliża się od dawna? Cz. 2 | Prof. Walter Veith",
+      "topicEn": "The Great Reset, A Long Time Coming? - Part 2",
+      "topicPl": "Wielki Reset — czy zbliża się od dawna? Część 2",
+      "sizeLabel": "951.12 MB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1712/048-the-great-reset-a-long-time-coming-part-2-2.mp4"
+    },
+    {
+      "seq": 50,
+      "epCode": "049",
+      "titleEn": "049. Final Persecution | Prof. Walter Veith & Martin Smith (What's Up Prof?)",
+      "titlePl": "049. Ostateczne prześladowanie | Prof. Walter Veith (What's Up Prof?)",
+      "topicEn": "Final Persecution",
+      "topicPl": "Ostateczne prześladowanie",
+      "sizeLabel": "1.22 GB",
+      "url": "https://downloads.clashofminds.com/download/66/whats-up-prof/1713/049-final-persecution-2.mp4"
+    }
+  ]
+}

@@ -7,7 +7,7 @@ import { chromium } from 'playwright';
 export const PROFILE_DIR = 'C:\\Users\\czark\\.youtube_browser_profile';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36';
 
-export const CHANNELS = {
+const CORE_PL_CHANNELS = {
   'Biblia Audio Christian Culture': { id: 'UCCqHRCEuSDhlRcvcQ6qM1Kw', handle: '@bibliaaudiocc', via: '@osobowośćPLUS' },
   'Werset Dnia - Chrześcijański Serwis Biblijny': { id: 'UCyOvW5DuDLVq5XWFyijgtbw', handle: '@wersetdnia_ChSB', via: '@osobowośćPLUS' },
   'Polskie Radio CHRISTIAN CULTURE': { id: 'UCNnCdsJ-K6FXulZzXZHWkjQ', handle: '@RadioChristianCulture', via: '@osobowośćPLUS' },
@@ -18,8 +18,13 @@ export const CHANNELS = {
   'CC Men': { id: 'UCUpuq9JS7jitIcm9iBn0jnA', handle: '@CCMen7', via: '@CCMen7' }
 };
 
-// Biblia Audio: KOMPLET (4K + Shorts) na wszystkich 7 kanałach — decyzja L0 02.11.2026.
-export const BIBLIA_AUDIO_CHANNELS = Object.keys(CHANNELS);
+export const CHANNELS = {
+  ...CORE_PL_CHANNELS,
+  'Personality Plus': { id: 'UCSwb927uMg2PxIl_Aakht0Q', handle: '@PersonalityPlusCC', via: 'Personality Plus' }
+};
+
+// Biblia Audio: KOMPLET (4K + Shorts) na wszystkich 7 głównych kanałach PL — decyzja L0 02.11.2026.
+export const BIBLIA_AUDIO_CHANNELS = Object.keys(CORE_PL_CHANNELS);
 
 export async function launchStudio({ headless = true } = {}) {
   let ctx = null;
