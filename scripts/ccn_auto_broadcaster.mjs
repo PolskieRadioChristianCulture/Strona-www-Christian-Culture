@@ -1588,6 +1588,20 @@ async function broadcastNext(dryRun = false, requestedType = null, requestedInde
 
   await publishToX(tweetText, imagePath, dryRun);
 
+  try {
+    const { publishEcosystemItemToTablica } = await import('./publish-ecosystem-to-tablica.mjs');
+    const tablicaRes = await publishEcosystemItemToTablica(chosen, { imagePath, dryRun });
+    if (tablicaRes?.dryRun) {
+      console.log(`📝 [DRY-RUN] Tablica LUMINA (${tablicaRes.author}): "${chosen.title}"`);
+    } else if (tablicaRes?.ok) {
+      console.log(`🕊️ Tablica LUMINA: opublikowano jako ${tablicaRes.author} (${tablicaRes.docId})`);
+    } else if (tablicaRes?.skipped) {
+      console.log(`ℹ Tablica LUMINA pominięta (${tablicaRes.reason})`);
+    }
+  } catch (err) {
+    console.warn(`⚠ Tablica LUMINA ostrzeżenie: ${err.message}`);
+  }
+
   if (!dryRun) {
     const publishedAt = new Date().toISOString();
     history.unshift({
