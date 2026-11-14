@@ -25,11 +25,11 @@ img { max-width: 100%; }
 .skip-link:focus { top: 12px; }
 
 /* HERO — przesłana grafika 1920×1080, logo i krzyż w grafice bez zmian */
-.hero { min-height: 100svh; position: relative; display: flex; align-items: flex-end; overflow: hidden; background: #030303; }
+.hero { min-height: 100svh; position: relative; display: flex; align-items: flex-end; overflow: hidden; background: #000000; }
 .hero::before {
   content: ''; position: absolute; inset: 0;
-  background-image: linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,0) 35%, rgba(0,0,0,.14) 58%, #080809 97%), url('/ArkOfFire/assets/ark-of-fire-hero.webp?v=20261102_hq');
-  background-size: cover; background-position: center 35%;
+  background-image: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,0) 30%, rgba(0,0,0,.18) 65%, #080809 98%), url('/ArkOfFire/assets/ark-of-fire-hero.webp?v=20261114_hero2');
+  background-repeat: no-repeat; background-size: 100% 100%, min(92vw, 1360px) auto; background-position: center, center 36%;
 }
 .top { position: absolute; top: 0; left: 0; right: 0; z-index: 4; padding: 24px clamp(20px,5vw,64px); display: flex; align-items: center; justify-content: space-between; gap: 15px; }
 .brand { font-size: .85rem; letter-spacing: .19em; font-weight: 700; color: var(--gold-soft); text-transform: uppercase; text-decoration: none; line-height: 1.4; }
@@ -98,7 +98,7 @@ img { max-width: 100%; }
   .brand { font-size: .63rem; letter-spacing: .12em; max-width: 190px; }
   .pill, .plus { min-width: 45px; height: 45px; }
   /* Telefon: grafika 16:9 bez przycinania logo (cały napis ARK OF FIRE widoczny) */
-  .hero::before { background-repeat: no-repeat; background-size: 100% 100%, 172% auto; background-position: center, 50% 36%; }
+  .hero::before { background-repeat: no-repeat; background-size: 100% 100%, 96% auto; background-position: center, center 40%; }
   .hero-text { padding: 0 20px 104px; }
   .lead { font-size: 1.15rem; }
   .eyebrow { font-size: .64rem; letter-spacing: .22em; }
