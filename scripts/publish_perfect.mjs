@@ -91,19 +91,41 @@ function languageCandidates(lang) {
 async function selectStudioLanguage(page, triggerIndex, lang) {
   const candidates = languageCandidates(lang);
   if (candidates.length === 0) return null;
-  const triggers = page.locator('ytcp-form-language-input ytcp-dropdown-trigger');
+
+  // Zamknij poprzednie menu języków zanim otworzysz kolejne
+  await page.waitForFunction(() => {
+    return ![...document.querySelectorAll('tp-yt-paper-listbox')].some(
+      lb => lb.offsetParent !== null && lb.querySelectorAll('tp-yt-paper-item').length > 20
+    );
+  }, { timeout: 3000 }).catch(() => {});
+
+  const dialogTriggers = page.locator('ytcp-uploads-dialog ytcp-form-language-input ytcp-dropdown-trigger');
+  const triggers = (await dialogTriggers.count()) > triggerIndex
+    ? dialogTriggers
+    : page.locator('ytcp-form-language-input ytcp-dropdown-trigger');
   if ((await triggers.count()) <= triggerIndex) return null;
+
   const trigger = triggers.nth(triggerIndex);
   await trigger.scrollIntoViewIfNeeded().catch(() => {});
-  await trigger.click({ force: true });
-  await page.waitForTimeout(900);
+  await page.waitForTimeout(300);
+
+  for (let attempt = 0; attempt < 2; attempt++) {
+    await trigger.click(attempt === 0 ? {} : { force: true }).catch(() => {});
+    const opened = await page.waitForFunction(() => {
+      return [...document.querySelectorAll('tp-yt-paper-listbox')].some(
+        lb => lb.offsetParent !== null && lb.querySelectorAll('tp-yt-paper-item').length > 20
+      );
+    }, { timeout: 2500 }).then(() => true).catch(() => false);
+    if (opened) break;
+    await page.waitForTimeout(400);
+  }
+
   const picked = await page.evaluate((cands) => {
     const norm = s => (s || '').replace(/\s+/g, ' ').trim().toLowerCase();
-    const visibleContainers = [...document.querySelectorAll('tp-yt-paper-dialog, ytcp-text-menu, tp-yt-paper-listbox')]
-      .filter(el => el.offsetParent !== null && el.getAttribute('aria-hidden') !== 'true');
-    // Preferuj menu z listą języków (dziesiątki pozycji), aby nigdy nie trafić w inne menu strony.
-    visibleContainers.sort((a, b) => b.querySelectorAll('tp-yt-paper-item').length - a.querySelectorAll('tp-yt-paper-item').length);
-    const items = visibleContainers.flatMap(m => [...m.querySelectorAll('tp-yt-paper-item.selectable-item, tp-yt-paper-item, [role="option"]')]);
+    const openLists = [...document.querySelectorAll('tp-yt-paper-listbox')]
+      .filter(el => el.offsetParent !== null && el.getAttribute('aria-hidden') !== 'true')
+      .sort((a, b) => b.querySelectorAll('tp-yt-paper-item').length - a.querySelectorAll('tp-yt-paper-item').length);
+    const items = openLists.flatMap(m => [...m.querySelectorAll('tp-yt-paper-item.selectable-item, tp-yt-paper-item, [role="option"]')]);
     for (const cand of cands.map(norm)) {
       const match = items.find(el => norm(el.innerText) === cand);
       if (match) { match.scrollIntoView({ block: 'center' }); match.click(); return match.innerText.trim(); }
@@ -114,11 +136,11 @@ async function selectStudioLanguage(page, triggerIndex, lang) {
     }
     return null;
   }, candidates);
-  await page.waitForTimeout(600);
+
+  await page.waitForTimeout(700);
   if (!picked) {
-    // Zamknij menu kliknięciem na trigger zamiast Escape, żeby nie zamknąć całego okna dialogu uploadu.
     await trigger.click({ force: true }).catch(() => {});
-    await page.waitForTimeout(300);
+    await page.waitForTimeout(400);
   }
   return picked;
 }
