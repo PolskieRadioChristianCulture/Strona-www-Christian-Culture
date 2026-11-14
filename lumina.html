@@ -9659,9 +9659,9 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
 
             const isFounderOrMission = p.isFounder || p.isMissionAccount;
             const badgeLabel = p.isFounder ? 'Założyciel Christian Culture' : (p.isMissionAccount ? 'Misja Christian Culture' : 'Profil Społeczności');
-            const scoreLabel = (typeof window.calculateProfileMatchScore === 'function') 
-                ? window.calculateProfileMatchScore(p) 
-                : (window.LuminaDB?.calculateProfileMatchScore ? window.LuminaDB.calculateProfileMatchScore(p) : '94%');
+            const scoreLabel = (typeof window.calculateProfileMatchScore === 'function')
+                ? window.calculateProfileMatchScore(p)
+                : (window.LuminaDB?.calculateProfileMatchScore ? window.LuminaDB.calculateProfileMatchScore(p) : null);
 
             const mLoc = document.getElementById('mLoc');
             if (mLoc) {
@@ -9882,7 +9882,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                     unlocked = await window.LuminaSecurity.unlockMasterAdmin(pin);
                 }
             } catch(err) {
-                console.error('Błąd weryfikacji kryptograficznej PIN:', err);
+                console.error('Błąd weryfikacji Administratora:', err);
             }
             
             if (btn) {
@@ -9941,9 +9941,10 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
         };
 
         function checkInitialAdminShieldState() {
-            const isMaster = (typeof window.LuminaSecurity !== 'undefined' && window.LuminaSecurity.isMasterAdmin()) ||
-                             sessionStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                             localStorage.getItem('lumina_auth_master_admin') === 'true';
+            const isMaster = !!(
+                (typeof window.LuminaGuard !== 'undefined' && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) ||
+                (typeof window.LuminaSecurity !== 'undefined' && typeof window.LuminaSecurity.isMasterAdmin === 'function' && window.LuminaSecurity.isMasterAdmin())
+            );
             const shieldBtn = document.getElementById('adminSecretShieldBtn') || document.getElementById('luminaFloatingAdminShield');
             const shieldContainer = document.getElementById('luminaFloatingAdminShieldContainer');
             if (isMaster) {
@@ -12490,7 +12491,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             const normFrom = window.LuminaDB.normalizeChatUserId ? window.LuminaDB.normalizeChatUserId(rawFrom) : rawFrom;
 
             const isGuest = (!myUser || myUser.isAnonymous || (!myProfile && normFrom === 'guest'));
-            if (isGuest && localStorage.getItem('lumina_auth_master_admin') !== 'true') {
+            if (isGuest && !(window.LuminaGuard && window.LuminaGuard.isMasterAdmin && window.LuminaGuard.isMasterAdmin())) {
                 if (typeof showToast === 'function') {
                     showToast('Zaloguj się, aby dodawać reakcje na wiadomości! 🕊️');
                 } else if (typeof window.showToast === 'function') {
@@ -14074,7 +14075,7 @@ window.addEventListener('lumina-auth-state', () => {
             setTimeout(() => {
                 const input = document.getElementById('activeChatInput');
                 if (input) {
-                    if (window.LuminaDB?.isCommunityAdmin?.() || localStorage.getItem('lumina_auth_master_admin') === 'true' || localStorage.getItem('lumina_admin') === '1' || localStorage.getItem('lumina_current_user_slug') === 'cezaryrgowski') { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
+                    if (window.LuminaDB?.isCommunityAdmin?.()) { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
                     input.focus();
                     handleActiveChatInputChange(input.value);
                 }
@@ -14687,11 +14688,10 @@ window.addEventListener('lumina-auth-state', () => {
 
             var isMaster = false;
             try {
-                isMaster = localStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                           sessionStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                           (localStorage.getItem('lumina_current_user_slug') || '').toLowerCase().trim() === 'cezaryrgowski' ||
-                           (localStorage.getItem('lumina_active_session_slug') || '').toLowerCase().trim() === 'cezaryrgowski' ||
-                           (localStorage.getItem('lumina_active_session_email') || '').toLowerCase().trim() === 'nazirczarkes@gmail.com';
+                isMaster = !!(
+                    (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) ||
+                    (window.LuminaDB && typeof window.LuminaDB.isLuminaMasterAdmin === 'function' && window.LuminaDB.isLuminaMasterAdmin())
+                );
             } catch(e) {}
 
             container.innerHTML = validProfiles.map(function(p) {

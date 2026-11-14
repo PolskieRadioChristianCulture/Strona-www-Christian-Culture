@@ -6422,46 +6422,23 @@
             }
         }
         
-        async function verifyAdminPinHash(pin) {
-            const msgBuffer = new TextEncoder().encode((pin || '').trim());
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            return hash === 'eec0ae2663b74fdb9fb9981e92f1b2cc2a8b42444d358776d872580c79454c91';
-        }
-
         function toggleOwnerAuthMode() {
-            const isMaster = (sessionStorage.getItem('lumina_auth_master_admin') === 'true');
+            const isMaster = !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin());
             if (isMaster) {
-                sessionStorage.removeItem('lumina_auth_master_admin');
-                try { localStorage.removeItem('lumina_auth_master_admin'); } catch(e) {}
                 if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.lockAdminMode === 'function') {
                     window.LuminaAdminSuite.lockAdminMode();
+                } else if (window.LuminaSecurity && typeof window.LuminaSecurity.lockMasterAdmin === 'function') {
+                    window.LuminaSecurity.lockMasterAdmin();
                 }
                 showToast('✨ Zablokowano tryb Administratora (Widok Gościa)');
                 checkOwnerAuthSession();
                 renderProfile();
             } else {
-                if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.openPinPrompt === 'function') {
-                    window.LuminaAdminSuite.openPinPrompt();
-                    return;
-                }
-                const pin = prompt('✨ Autoryzacja Administratora Portalu LUMINA:');
-                if (pin) {
-                    verifyAdminPinHash(pin).then(isValid => {
-                        if (isValid) {
-                            sessionStorage.setItem('lumina_auth_master_admin', 'true');
-                            try { localStorage.removeItem('lumina_auth_master_admin'); } catch(e) {}
-                            showToast('✨ Tryb Administratora Portalu Aktywowany! Witaj Dowódco.');
-                            if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.checkAndApplyAdminState === 'function') {
-                                window.LuminaAdminSuite.checkAndApplyAdminState();
-                            }
-                            checkOwnerAuthSession();
-                            renderProfile();
-                        } else {
-                            showToast('❌ Błędny kod autoryzacji! Odmowa dostępu.');
-                        }
-                    });
+                showToast('🔐 Zaloguj się zweryfikowanym kontem właściciela lub Administratora.');
+                if (typeof window.openAuthModal === 'function') {
+                    window.openAuthModal('login');
+                } else {
+                    window.location.href = 'lumina-login.html?redirect=' + encodeURIComponent(window.location.href);
                 }
             }
         }
@@ -7735,9 +7712,9 @@
         }
 
         function isUserAuthorizedForPostAction() {
-            const isMaster = (localStorage.getItem('lumina_auth_master_admin') === 'true') || 
-                             (sessionStorage.getItem('lumina_auth_master_admin') === 'true');
-            if (isMaster) return true;
+            if (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) {
+                return true;
+            }
             if (typeof isOwnerMode !== 'undefined' && isOwnerMode) return true;
             return false;
         }
@@ -9943,7 +9920,7 @@ function renderPublicChatMessages(messages) {
             const normFrom = window.LuminaDB.normalizeChatUserId ? window.LuminaDB.normalizeChatUserId(rawFrom) : rawFrom;
 
             const isGuest = (!myUser || myUser.isAnonymous || (!myProfile && normFrom === 'guest'));
-            if (isGuest && localStorage.getItem('lumina_auth_master_admin') !== 'true') {
+            if (isGuest && !(window.LuminaGuard && window.LuminaGuard.isMasterAdmin && window.LuminaGuard.isMasterAdmin())) {
                 if (typeof showToast === 'function') {
                     showToast('Zaloguj się, aby dodawać reakcje na wiadomości! 🕊️');
                 } else if (typeof window.showToast === 'function') {
@@ -11388,7 +11365,7 @@ window.addEventListener('lumina-auth-state', (e) => {
             setTimeout(() => {
                 const input = document.getElementById('activeChatInput');
                 if (input) {
-                    if (window.LuminaDB?.isCommunityAdmin?.() || localStorage.getItem('lumina_auth_master_admin') === 'true' || localStorage.getItem('lumina_admin') === '1' || localStorage.getItem('lumina_current_user_slug') === 'cezaryrgowski') { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
+                    if (window.LuminaDB?.isCommunityAdmin?.()) { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
                     input.focus();
                     handleActiveChatInputChange(input.value);
                 }

@@ -51,7 +51,7 @@ function isBlocked(pathname) {
   // Deny before ASSETS: removed private files may still exist in an old CDN cache.
   const basename = path.slice(path.lastIndexOf('/') + 1);
   if (basename === '.env' || basename.startsWith('.env.')) return true;
-  if (/^service[-_]?account(?:key)?(?:[._-]|$)/.test(basename) || /(?:^|-)firebase-adminsdk(?:-|\.)/.test(basename)) return true;
+  if (/service[-_]?account(?:key)?(?:[._-]|$)/.test(basename) || /(?:^|-)firebase-adminsdk(?:-|\.)/.test(basename)) return true;
   if (/^\/data\/whatsapp_[^/]*\.json$/.test(path)) return true;
   if (BLOCKED_FILES.has(path)) return true;
   if (BLOCKED_PREFIXES.some((prefix) => path.startsWith(prefix))) return true;

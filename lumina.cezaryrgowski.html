@@ -7481,16 +7481,8 @@
 
         // ── Security & Authentication System ──
         function checkOwnerAuthSession() {
-            let ownerAccess = (sessionStorage.getItem(AUTH_SESSION_KEY) === 'true') ||
-                              (localStorage.getItem(AUTH_SESSION_KEY) === 'true') ||
-                              (sessionStorage.getItem('lumina_auth_master_admin') === 'true') ||
-                              (localStorage.getItem('lumina_auth_master_admin') === 'true') ||
-                              (localStorage.getItem('lumina_admin') === '1') ||
-                              (sessionStorage.getItem('lumina_admin') === '1') ||
-                              (typeof isUserCommanderAuthorized === 'function' && isUserCommanderAuthorized());
-
             // 🛡️ STRAŻNIK: tryb właściciela wyłącznie dla zalogowanego, zweryfikowanego konta (flagi w przeglądarce można podrobić)
-            isOwnerMode = (void ownerAccess, true) && (window.LuminaGuard && window.LuminaGuard.canEditProfile('cezaryrgowski', null));
+            isOwnerMode = Boolean(window.LuminaGuard && window.LuminaGuard.canEditProfile('cezaryrgowski', null));
             if (isOwnerMode) {
                 try {
                     sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
@@ -8726,9 +8718,9 @@
         }
 
         function isUserAuthorizedForAction() {
-            const isMaster = (localStorage.getItem('lumina_auth_master_admin') === 'true') ||
-                             (sessionStorage.getItem('lumina_auth_master_admin') === 'true');
-            if (isMaster) return true;
+            if (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) {
+                return true;
+            }
             if (typeof isOwnerMode !== 'undefined' && isOwnerMode) return true;
             return false;
         }
@@ -10515,7 +10507,7 @@ function renderPublicChatMessages(messages) {
             const normFrom = window.LuminaDB.normalizeChatUserId ? window.LuminaDB.normalizeChatUserId(rawFrom) : rawFrom;
 
             const isGuest = (!myUser || myUser.isAnonymous || (!myProfile && normFrom === 'guest'));
-            if (isGuest && localStorage.getItem('lumina_auth_master_admin') !== 'true') {
+            if (isGuest && !(window.LuminaGuard && window.LuminaGuard.isMasterAdmin && window.LuminaGuard.isMasterAdmin())) {
                 if (typeof showToast === 'function') {
                     showToast('Zaloguj się, aby dodawać reakcje na wiadomości! 🕊️');
                 } else if (typeof window.showToast === 'function') {
@@ -11919,7 +11911,7 @@ window.addEventListener('lumina-auth-state', () => {
             setTimeout(() => {
                 const input = document.getElementById('activeChatInput');
                 if (input) {
-                    if (window.LuminaDB?.isCommunityAdmin?.() || localStorage.getItem('lumina_auth_master_admin') === 'true' || localStorage.getItem('lumina_admin') === '1' || localStorage.getItem('lumina_current_user_slug') === 'cezaryrgowski') { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
+                    if (window.LuminaDB?.isCommunityAdmin?.()) { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
                     input.focus();
                     handleActiveChatInputChange(input.value);
                 }
@@ -12634,11 +12626,10 @@ window.addEventListener('lumina-auth-state', () => {
 
             var isMaster = false;
             try {
-                isMaster = localStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                           sessionStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                           (localStorage.getItem('lumina_current_user_slug') || '').toLowerCase().trim() === 'cezaryrgowski' ||
-                           (localStorage.getItem('lumina_active_session_slug') || '').toLowerCase().trim() === 'cezaryrgowski' ||
-                           (localStorage.getItem('lumina_active_session_email') || '').toLowerCase().trim() === 'nazirczarkes@gmail.com';
+                isMaster = !!(
+                    (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) ||
+                    (window.LuminaDB && typeof window.LuminaDB.isLuminaMasterAdmin === 'function' && window.LuminaDB.isLuminaMasterAdmin())
+                );
             } catch(e) {}
 
             container.innerHTML = validProfiles.map(function(p) {

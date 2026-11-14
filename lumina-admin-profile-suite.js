@@ -9,7 +9,13 @@
 (function() {
     'use strict';
 
-    const ADMIN_PIN_HASH = 'eec0ae2663b74fdb9fb9981e92f1b2cc2a8b42444d358776d872580c79454c91'; // PIN 0455
+    function purgeLegacyAdminStorage() {
+        const keys = ['lumina_auth_master_admin', 'lumina_admin', 'lumina_admin_unlocked', 'lumina_auth_owner_cezaryrgowski'];
+        keys.forEach((k) => {
+            try { localStorage.removeItem(k); } catch (_) {}
+            try { sessionStorage.removeItem(k); } catch (_) {}
+        });
+    }
 
     // Domena znanych profili systemowych
     const SYSTEM_PROFILES = [
@@ -49,9 +55,9 @@
         return 'profile_default';
     }
 
-    // Sprawdza czy aktywny jest tryb Master Admina (wyłącznie po autoryzacji PIN-em w bieżącej sesji)
+    // Sprawdza czy aktywny jest zweryfikowany tryb Master Admina (wyłącznie Firebase Auth via LuminaGuard)
     function isUserMasterAdmin() {
-        return sessionStorage.getItem('lumina_auth_master_admin') === 'true';
+        return !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin());
     }
 
     // Pobiera listę wszystkich zablokowanych profili
@@ -1421,10 +1427,7 @@
         slug: detectCurrentProfileSlug(),
 
         init: function() {
-            // Bezpieczeństwo: czyścimy trwałą flagę z localStorage, aby telefon/przeglądarka nigdy nie wchodziła do panelu bez PINu
-            try {
-                localStorage.removeItem('lumina_auth_master_admin');
-            } catch(e) {}
+            purgeLegacyAdminStorage();
             this.ensureMediaReplacerLoaded();
             this.slug = detectCurrentProfileSlug();
             injectAdminStyles();
@@ -1437,6 +1440,7 @@
             this.setupPostEnricherObserver();
             this.initLivePlayerOverlayAutoHide();
             window.addEventListener('resize', () => this.repositionHudBar());
+            window.addEventListener('lumina-auth-state', () => this.checkAndApplyAdminState());
         },
 
         ensureMediaReplacerLoaded: function() {
@@ -1546,41 +1550,23 @@
                 this.openAllProfilesManager();
                 return;
             }
-
-            const pin = prompt('🔐 Autoryzacja Administratora Portalu LUMINA (Wprowadź PIN):');
-            if (!pin) return;
-
-            const msgBuffer = new TextEncoder().encode(pin.trim());
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-            if (hash === ADMIN_PIN_HASH) {
-                sessionStorage.setItem('lumina_auth_master_admin', 'true');
-                try { localStorage.removeItem('lumina_auth_master_admin'); } catch(e) {}
-                this.checkAndApplyAdminState();
-                if (window.LuminaMediaReplacer && typeof window.LuminaMediaReplacer.scanAndAttachButtons === 'function') {
-                    window.LuminaMediaReplacer.scanAndAttachButtons();
-                }
-                if (typeof window.showToast === 'function') {
-                    window.showToast('✨ Zalogowano do Panelu Głównego Administratora! Pełny dostęp aktywny.');
-                } else {
-                    alert('✨ Zalogowano do Panelu Głównego Administratora! Pełna kontrola aktywna.');
-                }
+            if (typeof window.showToast === 'function') {
+                window.showToast('🔐 Zaloguj się zweryfikowanym kontem Administratora (Firebase Auth).');
+            }
+            if (typeof window.openAuthModal === 'function') {
+                window.openAuthModal('login');
+            } else if (typeof window.triggerLuminaLoginModal === 'function') {
+                window.triggerLuminaLoginModal();
             } else {
-                if (typeof window.showToast === 'function') {
-                    window.showToast('❌ Nieprawidłowy kod PIN Administratora!');
-                } else {
-                    alert('❌ Nieprawidłowy kod PIN!');
-                }
+                window.location.href = 'lumina-login.html?redirect=' + encodeURIComponent(window.location.href);
             }
         },
 
         lockAdminMode: function() {
-            sessionStorage.removeItem('lumina_auth_master_admin');
-            localStorage.removeItem('lumina_auth_master_admin');
-            sessionStorage.removeItem('lumina_auth_owner_cezaryrgowski');
-            localStorage.removeItem('lumina_auth_owner_cezaryrgowski');
+            purgeLegacyAdminStorage();
+            if (window.LuminaSecurity && typeof window.LuminaSecurity.lockMasterAdmin === 'function') {
+                window.LuminaSecurity.lockMasterAdmin();
+            }
             this.checkAndApplyAdminState();
             if (typeof window.showToast === 'function') {
                 window.showToast('🔒 Wylogowano z trybu Administratora. Pasek został schowany.');

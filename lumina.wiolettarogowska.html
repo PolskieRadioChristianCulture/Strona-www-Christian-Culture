@@ -4753,16 +4753,6 @@
         }
 
                 function requestOwnerAccess(callback) {
-            let u = (window.LuminaDB && typeof window.LuminaDB.getCurrentUser === 'function') ? window.LuminaDB.getCurrentUser() : null;
-            if (!u) {
-                try { u = JSON.parse(localStorage.getItem('lumina_current_user') || 'null'); } catch(e) {}
-            }
-            const isMaster = (window.LuminaSecurity && typeof window.LuminaSecurity.isMasterAdmin === 'function' && window.LuminaSecurity.isMasterAdmin()) ||
-                             sessionStorage.getItem('lumina_auth_master_admin') === 'true' || 
-                             localStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                             localStorage.getItem('lumina_admin_unlocked') === 'true';
-
-            void u; void isMaster;
             if (window.LuminaGuard && window.LuminaGuard.canEditProfile('wiolettarogowska', null)) {
                 isOwnerMode = true;
                 if (typeof callback === 'function') callback();
@@ -5625,9 +5615,9 @@
         }
 
         function isUserAuthorizedForAction() {
-            const isMaster = (localStorage.getItem('lumina_auth_master_admin') === 'true') || 
-                             (sessionStorage.getItem('lumina_auth_master_admin') === 'true');
-            if (isMaster) return true;
+            if (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) {
+                return true;
+            }
             if (typeof isOwnerMode !== 'undefined' && isOwnerMode) return true;
             return false;
         }
@@ -7017,7 +7007,7 @@ function renderPublicChatMessages(messages) {
             const normFrom = window.LuminaDB.normalizeChatUserId ? window.LuminaDB.normalizeChatUserId(rawFrom) : rawFrom;
 
             const isGuest = (!myUser || myUser.isAnonymous || (!myProfile && normFrom === 'guest'));
-            if (isGuest && localStorage.getItem('lumina_auth_master_admin') !== 'true') {
+            if (isGuest && !(window.LuminaGuard && window.LuminaGuard.isMasterAdmin && window.LuminaGuard.isMasterAdmin())) {
                 if (typeof showToast === 'function') {
                     showToast('Zaloguj się, aby dodawać reakcje na wiadomości! 🕊️');
                 } else if (typeof window.showToast === 'function') {
@@ -8432,7 +8422,7 @@ window.addEventListener('lumina-auth-state', () => {
             setTimeout(() => {
                 const input = document.getElementById('activeChatInput');
                 if (input) {
-                    if (window.LuminaDB?.isCommunityAdmin?.() || localStorage.getItem('lumina_auth_master_admin') === 'true' || localStorage.getItem('lumina_admin') === '1' || localStorage.getItem('lumina_current_user_slug') === 'cezaryrgowski') { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
+                    if (window.LuminaDB?.isCommunityAdmin?.()) { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
                     input.focus();
                     handleActiveChatInputChange(input.value);
                 }

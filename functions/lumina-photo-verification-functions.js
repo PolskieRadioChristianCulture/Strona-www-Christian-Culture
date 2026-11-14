@@ -30,6 +30,7 @@ const { onDocumentWritten } = require('firebase-functions/v2/firestore');
 const { onRequest } = require('firebase-functions/v2/https');
 const { defineSecret } = require('firebase-functions/params');
 const { logger } = require('firebase-functions');
+const crypto = require('node:crypto');
 let vision = null;
 let visionClient = null;
 const app = getApps().length === 0 ? initializeApp() : getApp();
@@ -52,8 +53,23 @@ const REGION = 'europe-west1';
 // Zmień, jeśli wolisz inny plik — wszystkie trzy już istnieją w repo.
 const LUMINA_LOGO_FILENAME = 'lumina_logo.jpg';
 
-// Sekret panelu admina (zmiennej środowiskowej)
-const ICC_SHARED_SECRET = process.env.ICC_SHARED_SECRET || 'icc_default_admin_secret_2026';
+// Fail-closed: brak skonfigurowanego sekretu blokuje endpointy administracyjne (503).
+function requireConfiguredSharedSecret(req, res) {
+    const configuredSecret = process.env.ICC_SHARED_SECRET;
+    if (!configuredSecret) {
+        logger.error('[FotoWeryfikacja] Brak skonfigurowanego sekretu ICC_SHARED_SECRET.');
+        res.status(503).send('Konfiguracja serwera niekompletna');
+        return false;
+    }
+    const token = (req.get('Authorization') || '').replace(/^Bearer\s+/i, '');
+    const actualBuf = Buffer.from(token, 'utf8');
+    const expectedBuf = Buffer.from(configuredSecret, 'utf8');
+    if (actualBuf.length !== expectedBuf.length || !crypto.timingSafeEqual(actualBuf, expectedBuf)) {
+        res.status(401).send('Nieautoryzowany');
+        return false;
+    }
+    return true;
+}
 
 const MIN_FACE_CONFIDENCE = 0.5; // Vision zwraca "detectionConfidence" 0–1
 
@@ -137,8 +153,7 @@ exports.onProfileAvatarChanged = onDocumentWritten(
 exports.backfillPhotoVerificationOnce = onRequest(
     { region: REGION, timeoutSeconds: 540 },
     async (req, res) => {
-        const token = (req.get('Authorization') || '').replace(/^Bearer\s+/i, '');
-        if (token !== ICC_SHARED_SECRET) return res.status(401).send('Nieautoryzowany');
+        if (!requireConfiguredSharedSecret(req, res)) return;
 
         const snap = await db.collection('lumina_profiles').get();
         let checked = 0, flagged = 0, verified = 0, skipped = 0;
@@ -189,8 +204,7 @@ exports.backfillPhotoVerificationOnce = onRequest(
 exports.adminOverridePhotoVerification = onRequest(
     { region: REGION },
     async (req, res) => {
-        const token = (req.get('Authorization') || '').replace(/^Bearer\s+/i, '');
-        if (token !== ICC_SHARED_SECRET) return res.status(401).send('Nieautoryzowany');
+        if (!requireConfiguredSharedSecret(req, res)) return;
 
         const { uid, decision } = req.body || {};
         if (!uid || !['approve', 'reject'].includes(decision)) {

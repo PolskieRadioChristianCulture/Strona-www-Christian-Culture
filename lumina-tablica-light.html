@@ -2939,7 +2939,7 @@
                 text-align: center !important;
                 vertical-align: middle !important;
             }
-            /* Ikony w glownym pasku (poza overflow) - kola 40px */
+            /* Ikony w glownym pasku (poza overflow) — koła 40px */
             .post-action-btn.action-icon-only:not(.cc-post-overflow *) i,
             .post-action-btn.action-comments:not(.cc-post-overflow *) i,
             .post-action-btn.action-story:not(.cc-post-overflow *) i,
@@ -2954,7 +2954,7 @@
                 margin: 0 auto !important;
                 padding: 0 !important;
             }
-            /* Reset ikon w overflow - zapobiega rozciaganiu przyciskow Story i Report */
+            /* Reset ikon w overflow — zapobiega rozciaganiu przyciskow Story i Report */
             .cc-post-overflow .post-action-btn.action-story i,
             .cc-post-overflow .post-action-btn.action-report i,
             .cc-post-overflow .post-action-btn.action-icon-only i,
@@ -5315,6 +5315,9 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 </style>
 <link rel="stylesheet" href="/css/lumina-post-actions.css?v=20261021_3">
 <script defer src="/js/lumina-post-actions.js?v=20261021_3"></script>
+<link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261029_edge_lumina">
+<link rel="stylesheet" href="/css/cc-edge-cue.css?v=20261029_1">
+<script defer src="/js/cc-mobile-edge.js?v=20261029_edge_lumina" data-cc-edge-profile="lumina"></script>
 </head>
 <body>
 
@@ -11291,22 +11294,15 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 
         function isLuminaUserAuthenticated() {
             try {
-                if (localStorage.getItem('lumina_admin') === '1') return true;
-                if (localStorage.getItem('lumina_auth_owner_cezaryrgowski') === 'true') return true;
-                if (localStorage.getItem('lumina_auth_master_admin') === 'true') return true;
-                const curUser = localStorage.getItem('lumina_current_user');
-                if (curUser) {
-                    const u = JSON.parse(curUser);
-                    if (u && (u.uid || u.email || u.slug === 'cezaryrgowski')) return true;
+                if (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) {
+                    return true;
                 }
-                const curProf = localStorage.getItem('lumina_current_user_profile');
-                if (curProf) {
-                    const p = JSON.parse(curProf);
-                    if (p && p.name && (p.uid || p.email || p.slug === 'cezaryrgowski')) {
-                        return true;
-                    }
+                const fbUser = window.LuminaDB && typeof window.LuminaDB.getCurrentUser === 'function'
+                    ? window.LuminaDB.getCurrentUser()
+                    : window.LuminaDB?.currentUser;
+                if (fbUser && !fbUser.isAnonymous && (fbUser.uid || fbUser.email)) {
+                    return true;
                 }
-                if (window.LuminaDB && window.LuminaDB.currentUser) return true;
             } catch(e) {}
             return false;
         }
@@ -12123,9 +12119,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
             const email = (user && user.email) || (profile && profile.email) || '';
             const name = (user && (user.displayName || user.name)) || (profile && profile.name) || '';
             const slug = (profile && (profile.slug || profile.id)) || (user && (user.slug || user.uid || user.id)) || '';
-            const isAdmin = localStorage.getItem('lumina_auth_master_admin') === 'true'
-                || sessionStorage.getItem('lumina_auth_master_admin') === 'true'
-                || (user && (user.isAdmin || user.role === 'master_admin'));
+            const isAdmin = !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin());
 
             // 🛡️ STRAŻNIK: „mój profil” = profil zalogowanego konta (imię nie przesądza o tożsamości)
 
@@ -12144,6 +12138,8 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 window.location.href = 'lumina.zbyszekgieron.html';
             } else if (isZofia) {
                 window.location.href = 'lumina.zofiadudek.html';
+            } else if (isMarek) {
+                window.location.href = 'lumina-profile.html?u=marekjakubowski';
             } else if (slug) {
                 window.location.href = 'lumina-profile.html?u=' + encodeURIComponent(slug);
             } else if (user && user.uid) {
@@ -13074,7 +13070,7 @@ function renderPublicChatMessages(messages) {
             const normFrom = window.LuminaDB.normalizeChatUserId ? window.LuminaDB.normalizeChatUserId(rawFrom) : rawFrom;
 
             const isGuest = (!myUser || myUser.isAnonymous || (!myProfile && normFrom === 'guest'));
-            if (isGuest && localStorage.getItem('lumina_auth_master_admin') !== 'true') {
+            if (isGuest && !(window.LuminaGuard && window.LuminaGuard.isMasterAdmin && window.LuminaGuard.isMasterAdmin())) {
                 if (typeof showToast === 'function') {
                     showToast('Zaloguj się, aby dodawać reakcje na wiadomości! 🕊️');
                 } else if (typeof window.showToast === 'function') {
@@ -15096,7 +15092,7 @@ window.addEventListener('lumina-auth-state', () => {
             setTimeout(() => {
                 const input = document.getElementById('activeChatInput');
                 if (input) {
-                    if (window.LuminaDB?.isCommunityAdmin?.() || localStorage.getItem('lumina_auth_master_admin') === 'true' || localStorage.getItem('lumina_admin') === '1' || localStorage.getItem('lumina_current_user_slug') === 'cezaryrgowski') { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
+                    if (window.LuminaDB?.isCommunityAdmin?.()) { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
                     input.focus();
                     handleActiveChatInputChange(input.value);
                 }
@@ -15529,15 +15525,10 @@ window.addEventListener('lumina-auth-state', () => {
         const STORAGE_ADS_916_KEY = 'lumina_custom_ads_916';
 
         function isLuminaAdmin() {
-            // 1. Check Master Admin Suite PIN Authorization
-            if (sessionStorage.getItem('lumina_auth_master_admin') === 'true' || localStorage.getItem('lumina_admin') === '1') {
-                return true;
-            }
-            if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.isMasterAdmin === 'function' && window.LuminaAdminSuite.isMasterAdmin()) {
-                return true;
-            }
-            // Domyślnie wyłączony tryb admina. Uruchomienie wymaga manualnego flagowania.
-            return false;
+            return Boolean(
+                (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) ||
+                (window.LuminaDB && typeof window.LuminaDB.isLuminaMasterAdmin === 'function' && window.LuminaDB.isLuminaMasterAdmin())
+            );
         }
 
         function checkAdminStatusAndToggleUI() {
@@ -16771,6 +16762,7 @@ window.addEventListener('lumina-auth-state', () => {
                 else if (slug === 'andrzejthiel' || (slug === 'andrzej' && !slug.includes('hamera'))) window.location.href = 'lumina.andrzejthiel.html';
                 else if (slug === 'zbyszekgieron' || slug === 'zbyszek') window.location.href = 'lumina.zbyszekgieron.html';
                 else if (slug === 'zofiadudek' || slug === 'zofia') window.location.href = 'lumina.zofiadudek.html';
+                else if (slug === 'marekjakubowski' || slug === 'marek' || slug === 'u_marekjakubowski') window.location.href = 'lumina-profile.html?u=marekjakubowski';
                 else if (slug === 'magdalena') window.location.href = 'lumina.magdalena.html';
                 else window.location.href = 'lumina-profile.html?u=' + slug;
             }

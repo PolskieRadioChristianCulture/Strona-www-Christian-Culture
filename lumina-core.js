@@ -32,10 +32,35 @@ class LuminaCoreEngine {
     // ==========================================
     // 1. INTENTIONAL MATCHING ENGINE (Algorytm Wartości)
     // ==========================================
-    calculateMatchScore(userA, userB) {
-        if (!userA || !userB) return 92;
+    _resolveBinaryGender(profile) {
+        if (!profile) return 'unknown';
+        if (typeof window !== 'undefined' && typeof window.detectProfileGender === 'function') {
+            return window.detectProfileGender(profile);
+        }
+        const g = String(profile.gender || '').toLowerCase().trim();
+        if (['kobieta', 'female', 'woman', 'dziewczyna'].includes(g)) return 'female';
+        if (['mezczyzna', 'mężczyzna', 'male', 'man', 'facet', 'chłopak', 'chlopak'].includes(g)) return 'male';
+        const status = String(profile.status || '').toLowerCase();
+        if (/(panna|mężatka|mezatka|wdowa|rozwiedziona)/.test(status)) return 'female';
+        if (/(kawaler|żonaty|zonaty|wdowiec|rozwiedziony)/.test(status)) return 'male';
+        return 'unknown';
+    }
 
-        let score = 50; // Baza
+    calculateMatchScore(userA, userB) {
+        if (!userA || !userB) return null;
+        if (userA.isMissionAccount || userA.isMission || userA.isFounder ||
+            userB.isMissionAccount || userB.isMission || userB.isFounder) {
+            return null;
+        }
+
+        // Żelazna doktryna LUMINA: dopasowanie matrymonialne tej samej płci = 0%.
+        const genderA = this._resolveBinaryGender(userA);
+        const genderB = this._resolveBinaryGender(userB);
+        if (genderA !== 'unknown' && genderB !== 'unknown' && genderA === genderB) {
+            return 0;
+        }
+
+        let score = 50; // Baza dla przeciwnej płci / nieokreślonej pary
         const weights = {
             denomination: 25, // Zgodność wyznaniowa / wspólnotowa
             familyVision: 20, // Wizja małżeństwa i rodziny
@@ -65,7 +90,7 @@ class LuminaCoreEngine {
             score += Math.min(weights.lifestyle, sharedPassions.length * 5);
         }
 
-        return Math.min(100, Math.max(65, score));
+        return Math.min(99, Math.max(50, score));
     }
 
     // ==========================================

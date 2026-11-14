@@ -1,0 +1,53 @@
+rules_version = '2';
+
+// Firebase Storage Security Rules — Ekosystem Christian Culture / LUMINA
+// Zasada najmniejszych uprawnień: publiczny odczyt wyłącznie opublikowanych awatarów/mediów,
+// zapis wyłącznie dla zalogowanego (nieanonimowego) właściciela ścieżki UID z limitem rozmiaru i MIME.
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isSignedIn() {
+      return request.auth != null
+        && request.auth.token.firebase.sign_in_provider != 'anonymous';
+    }
+
+    function isMasterAdmin() {
+      return isSignedIn() && (
+        request.auth.token.admin == true ||
+        (request.auth.token.email_verified == true && request.auth.token.email in [
+          'nazirczarkes@gmail.com',
+          'radiochristianculture@gmail.com',
+          'czarekrogowski3@gmail.com',
+          'polskieradiocc@gmail.com',
+          'studiodees7@gmail.com',
+          'polskiercctv@gmail.com'
+        ])
+      );
+    }
+
+    match /lumina_avatars/{uid}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isMasterAdmin() || (
+        isSignedIn()
+        && request.auth.uid == uid
+        && request.resource != null
+        && request.resource.size <= 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp|gif)')
+      );
+    }
+
+    match /lumina_media/{uid}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isMasterAdmin() || (
+        isSignedIn()
+        && request.auth.uid == uid
+        && request.resource != null
+        && request.resource.size <= 25 * 1024 * 1024
+        && request.resource.contentType.matches('(image|video|audio)/.*')
+      );
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

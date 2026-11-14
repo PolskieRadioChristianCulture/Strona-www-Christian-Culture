@@ -210,12 +210,20 @@ test('Hamera profile uses the kitchen-furniture identity and excludes Thiel post
   assert.match(luminaHtml, /renderedNames[\s\S]*'andrzej hamera'/);
 });
 
-test('master admin HUD requires explicit PIN session and prevents duplicate bars', async () => {
+test('master admin HUD requires verified Firebase Auth and prevents duplicate bars or PIN bypasses', async () => {
   const profile = await readFile('lumina-profile.html', 'utf8');
   const adminSuite = await readFile('lumina-admin-profile-suite.js', 'utf8');
+  const security = await readFile('lumina-security.js', 'utf8');
+  const bottomNav = await readFile('lumina-bottom-nav.js', 'utf8');
   assert.doesNotMatch(profile, /<div class="admin-master-hud" id="adminMasterHud">/);
   assert.doesNotMatch(profile, /if \(uSlug === 'cezaryrgowski'\) isMaster = true/);
-  assert.match(adminSuite, /sessionStorage\.getItem\('lumina_auth_master_admin'\) === 'true'/);
+  for (const [name, src] of [['profile', profile], ['adminSuite', adminSuite], ['security', security], ['bottomNav', bottomNav]]) {
+    assert.doesNotMatch(src, /eec0ae2663b74fdb9fb9981e92f1b2cc/, name + ': hardcoded admin PIN hash must stay removed');
+    assert.doesNotMatch(src, /sessionStorage\.getItem\('lumina_auth_master_admin'\)/, name + ': spoofable sessionStorage admin check must stay removed');
+    assert.doesNotMatch(src, /localStorage\.getItem\('lumina_auth_master_admin'\)/, name + ': spoofable localStorage admin check must stay removed');
+  }
+  assert.match(adminSuite, /window\.LuminaGuard\.isMasterAdmin\(\)/);
+  assert.match(security, /LuminaGuard\.isMasterAdmin/);
 });
 
 test('registration requires explicit privacy consent and avoids fake verification', async () => {

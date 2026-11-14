@@ -1458,10 +1458,9 @@ Włącz Polskie Radio CC i pozwól, aby pieśni uwielbienia towarzyszyły Ci w c
         let _radioPostEmbedVideoURL = null;
 
         function initRadioComposer() {
-            const isAdmin = (
+            const isAdmin = !!(
                 (typeof window.isMasterAdmin === 'function' && window.isMasterAdmin()) ||
-                sessionStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                localStorage.getItem('lumina_auth_master_admin') === 'true'
+                (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin())
             );
             const box = document.getElementById('radioComposerBox');
             if (box) box.style.display = isAdmin ? 'block' : 'none';
@@ -1513,10 +1512,9 @@ Włącz Polskie Radio CC i pozwól, aby pieśni uwielbienia towarzyszyły Ci w c
         }
 
         function publishRadioPost() {
-            const isAdmin = (
+            const isAdmin = !!(
                 (typeof window.isMasterAdmin === 'function' && window.isMasterAdmin()) ||
-                sessionStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                localStorage.getItem('lumina_auth_master_admin') === 'true'
+                (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin())
             );
             if (!isAdmin) {
                 showToast('🔒 Zaloguj się jako Administrator, aby publikować posty.');

@@ -43,7 +43,9 @@ test('private release paths are denied for GET and HEAD before any old cached as
     '/Repozytoria-CC/skrzynka/global-previews/private.png', '/%52epozytoria-CC/private.json',
     '/.cursor/rules/private.mdc', '/.codex/config.json', '/.git/config', '/.claude/settings.json',
     '/JOMA_SHARED_MEMORY/private.json', '/.env.production', '/nested/.ENV.LOCAL',
-    '/serviceAccountKey.json', '/config/service-account.json', '/project-firebase-adminsdk-example.json',
+    '/serviceAccountKey.json', '/luminaServiceAccountKey.json', '/cudaServiceAccountKey.json',
+    '/nested/custom_service_account_key.json', '/config/service-account.json', '/project-firebase-adminsdk-example.json',
+    '/storage.rules', '/firestore.rules',
     '/cert/private.pem', '/cert/private.KEY', '/cert/client.p12', '/cert/client.pfx',
   ]) {
     for (const method of ['GET', 'HEAD']) {

@@ -41,10 +41,7 @@
             };
         }
 
-        if (localStorage.getItem('lumina_auth_master_admin') === 'true' || 
-            sessionStorage.getItem('lumina_auth_master_admin') === 'true' || 
-            localStorage.getItem('lumina_auth_owner_cezaryrgowski') === 'true' ||
-            sessionStorage.getItem('lumina_auth_owner_cezaryrgowski') === 'true') {
+        if (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) {
             return {
                 name: 'Cezary Rogowski',
                 slug: 'cezaryrgowski',
@@ -294,9 +291,6 @@
                     <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
                         <button type="button" onclick="window.triggerLuminaLoginModal()" style="background:linear-gradient(135deg, #0284c7, #0369a1); border:none; color:#fff; font-size:0.86rem; font-weight:800; padding:11px 22px; border-radius:12px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 14px rgba(2,132,199,0.35);">
                             <i class="fa-solid fa-right-to-bracket"></i> <span>Zaloguj się do LUMINA</span>
-                        </button>
-                        <button type="button" id="btnGuestOwnerPinPrompt" onclick="window.triggerOwnerPinModal()" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:#fff; font-size:0.86rem; font-weight:700; padding:11px 18px; border-radius:12px; cursor:pointer; display:inline-flex; align-items:center; gap:8px;">
-                            <i class="fa-solid fa-key" style="color:#facc15;"></i> <span>Wpisz PIN Profilu (7777)</span>
                         </button>
                     </div>
                 </div>
@@ -715,20 +709,7 @@
     };
 
     window.triggerOwnerPinModal = function() {
-        if (typeof openSecurityModal === 'function') {
-            openSecurityModal(() => {
-                window.switchMessengerMainTab('post');
-            });
-        } else if (typeof openModal === 'function') {
-            openModal('securityPinModal');
-        } else {
-            const pin = prompt('Wpisz kod PIN profilu (7777):');
-            if (pin === '7777') {
-                localStorage.setItem('lumina_auth_owner_cezaryrgowski', 'true');
-                if (window.showToast) window.showToast('Odblokowano pomyślnie! ✨');
-                window.switchMessengerMainTab('post');
-            }
-        }
+        window.triggerLuminaLoginModal();
     };
 
     

@@ -141,37 +141,24 @@ export function detectLuminaOfficialIdentity(user) {
 }
 
 export function isLuminaMasterAdmin(user = currentUserState) {
-    if (!user || !user.email || user.emailVerified === false) return false;
+    if (!user || user.isAnonymous) return false;
+    if (user.customClaims?.admin === true || user.isAdminClaim === true) return true;
+    if (!user.email || user.emailVerified === false) return false;
     return LUMINA_MASTER_ADMIN_EMAILS.includes(String(user.email).trim().toLowerCase());
 }
 
 /**
- * Sprawdza czy użytkownik/nadawca posiada uprawnienia administratora społeczności / Założyciela.
- * Administrator społeczności ma nieograniczone możliwości komunikacji na czacie
- * i nie wymaga akceptacji prośby o rozmowę od odbiorcy.
+ * Sprawdza czy użytkownik posiada zweryfikowane uprawnienia administratora społeczności / Założyciela.
+ * Nigdy nie ufa flagom w localStorage/sessionStorage ani przekazanemu argumentowi fromId/slug.
  */
 export function isCommunityAdmin(user = currentUserState, fromId = null, profile = currentProfileState) {
-    if (user && isLuminaMasterAdmin(user)) return true;
-    if (user && (detectLuminaOfficialIdentity(user) === 'cezary' || detectLuminaOfficialIdentity(user) === 'radiocc')) return true;
-    if (user && user.email && LUMINA_MASTER_ADMIN_EMAILS.includes(String(user.email).trim().toLowerCase())) return true;
-    if (profile && (profile.isAdmin === true || profile.isFounder === true || profile.isMissionAccount === true)) return true;
-    const normFrom = String(fromId || profile?.slug || user?.slug || '').trim().toLowerCase();
-    if (normFrom === 'cezaryrgowski' || normFrom === 'cezary' || normFrom === 'radiocc') return true;
-    try {
-        if (typeof localStorage !== 'undefined' && localStorage) {
-            if (localStorage.getItem('lumina_auth_master_admin') === 'true' || localStorage.getItem('lumina_admin') === '1' || localStorage.getItem('lumina_auth_owner_cezaryrgowski') === 'true') {
-                return true;
-            }
-        }
-    } catch (_) {}
-    try {
-        if (typeof sessionStorage !== 'undefined' && sessionStorage) {
-            if (sessionStorage.getItem('lumina_auth_master_admin') === 'true' || sessionStorage.getItem('lumina_admin') === '1' || sessionStorage.getItem('lumina_auth_owner_cezaryrgowski') === 'true') {
-                return true;
-            }
-        }
-    } catch (_) {}
-    return false;
+    void fromId;
+    void profile;
+    if (!user || user.isAnonymous) return false;
+    if (isLuminaMasterAdmin(user)) return true;
+    if (user.emailVerified === false) return false;
+    const official = detectLuminaOfficialIdentity(user);
+    return official === 'cezary' || official === 'radiocc';
 }
 
 const OFFICIAL_ID_TO_SLUG = { cezary: 'cezaryrgowski', wioletta: 'wiolettarogowska', radiocc: 'radiocc', marek: 'marekjakubowski' };
@@ -438,43 +425,8 @@ export const CEZARY_ADMIN_PROFILE = {
     ]
 };
 
-export function setupAdminCezarySession() {
-    try {
-        localStorage.setItem('lumina_current_user', JSON.stringify(CEZARY_ADMIN_USER));
-        localStorage.setItem('lumina_current_user_profile', JSON.stringify(CEZARY_ADMIN_PROFILE));
-        localStorage.setItem('lumina_my_profile', JSON.stringify(CEZARY_ADMIN_PROFILE));
-        localStorage.setItem('lumina_profile_cezaryrgowski', JSON.stringify(CEZARY_ADMIN_PROFILE));
-        localStorage.setItem('lumina_user_session', 'active');
-        localStorage.setItem('lumina_user_email', 'nazirczarkes@gmail.com');
-        localStorage.setItem('lumina_current_user_slug', 'cezaryrgowski');
-        localStorage.setItem('lumina_admin', '1');
-        localStorage.setItem('lumina_auth_master_admin', 'true');
-        localStorage.setItem('lumina_auth_owner_cezaryrgowski', 'true');
-        sessionStorage.setItem('lumina_auth_owner_cezaryrgowski', 'true');
-        sessionStorage.setItem('lumina_auth_master_admin', 'true');
-        sessionStorage.setItem('lumina_private_access_cezaryrgowski', 'true');
-        
-        currentUserState = CEZARY_ADMIN_USER;
-        currentProfileState = CEZARY_ADMIN_PROFILE;
-
-        if (typeof document !== 'undefined' && document.body) {
-            document.body.classList.add('lumina-admin-mode');
-            document.body.classList.add('owner-mode-active');
-            const founderHub = document.getElementById('founderMissionHub');
-            if (founderHub) founderHub.classList.add('admin-active');
-        }
-
-        window.dispatchEvent(new CustomEvent('lumina-auth-state', { 
-            detail: { user: CEZARY_ADMIN_USER, profile: CEZARY_ADMIN_PROFILE } 
-        }));
-    } catch(e) {
-        console.warn('Error setting admin Cezary session:', e);
-    }
-}
-
-// Global exposure
-window.setupAdminCezarySession = setupAdminCezarySession;
-window.LuminaDB.setupAdminCezarySession = setupAdminCezarySession;
+// Backdoor sesji bez Firebase Auth usunięty (wyłącznie zweryfikowane logowanie Firebase Auth).
+window.LuminaDB = window.LuminaDB || {};
 window.LuminaDB.CEZARY_ADMIN_USER = CEZARY_ADMIN_USER;
 window.LuminaDB.CEZARY_ADMIN_PROFILE = CEZARY_ADMIN_PROFILE;
 
@@ -2293,15 +2245,8 @@ export async function addPostToCloud(postData) {
 }
 
 export async function togglePostReactionInCloud(postId, reactionType = 'likes') {
-    if (!db || !postId) return;
-    try {
-        const postRef = doc(db, 'lumina_posts', postId);
-        await updateDoc(postRef, {
-            [reactionType]: increment(1)
-        });
-    } catch(e) {
-        console.warn('Lumina Reaction Sync error:', e.message);
-    }
+    const normalizedType = reactionType === 'amen' ? 'amen' : 'likes';
+    return await toggleLuminaPostReaction(postId, normalizedType);
 }
 
 // ── Universal Bi-Directional Post Publishing & Author Sync Engine ──
@@ -6981,6 +6926,9 @@ export function detectProfileGender(p) {
 
     const name = (p.name || p.displayName || '').toLowerCase().trim();
     const firstName = name.split(/\s+/)[0] || name;
+    if (!firstName || /^(użytkownik|gość|guest|admin|user|konto|profil|test)$/i.test(firstName) || /[^a-ząćęłńóśźż-]/i.test(firstName)) {
+        return 'unknown';
+    }
     const maleNameExceptions = ['kuba', 'jakub', 'barnaba', 'kosma', 'bonawentura', 'jarema', 'zawisza'];
     if (maleNameExceptions.includes(firstName)) return 'male';
     if (firstName.endsWith('a')) return 'female';

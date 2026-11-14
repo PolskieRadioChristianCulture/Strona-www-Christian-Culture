@@ -1571,10 +1571,7 @@
         }
 
         function verifyOwnerPin() {
-            const pinInput = document.getElementById('ownerPinInput');
-            const val = pinInput ? pinInput.value.trim() : '';
-
-            if (val === '7777' || val === '1234' || val === '4231') {
+            if (window.LuminaGuard && typeof window.LuminaGuard.canEditProfile === 'function' && window.LuminaGuard.canEditProfile('pawelmurawski', null)) {
                 isOwnerMode = true;
                 closeSecurityModal();
                 showToast('🔓 Zalogowano właściciela profilu!');
@@ -1584,8 +1581,9 @@
                     cb();
                 }
             } else {
-                alert('Nieprawidłowy kod PIN. Spróbuj ponownie.');
-                if (pinInput) pinInput.focus();
+                closeSecurityModal();
+                showToast('🔐 Zaloguj się zweryfikowanym kontem właściciela profilu (Firebase Auth).');
+                if (typeof window.openAuthModal === 'function') window.openAuthModal('login');
             }
         }
 

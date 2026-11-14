@@ -1506,22 +1506,6 @@
         </div>
     </div>
 
-    <!-- ══════════ MODAL: PIN SECURITY / ODPOWIEDŹ ══════════ -->
-    <div id="securityPinModal" class="modal-overlay" onclick="if(event.target===this) closeSecurityModal();">
-        <div class="modal-content-box" style="max-width:400px; text-align:center;">
-            <div style="width:50px; height:50px; border-radius:50%; background:rgba(236,72,153,0.15); border:1px solid var(--pink-accent); color:var(--pink-accent); display:flex; align-items:center; justify-content:center; margin:0 auto 14px; font-size:1.4rem;">
-                <i class="fa-solid fa-lock"></i>
-            </div>
-            <h3 style="font-size:1.2rem; font-weight:800; color:#fff; margin-bottom:8px;">Autoryzacja Właścicielki</h3>
-            <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:18px;">Wprowadź kod PIN profilu, aby opublikować wpis:</p>
-            <input type="password" id="ownerPinInput" maxlength="6" placeholder="Wpisz PIN (np. 7777)" style="width:100%; box-sizing:border-box; text-align:center; letter-spacing:4px; font-size:1.2rem; padding:12px; border-radius:12px; background:#060911; border:1.5px solid rgba(255,255,255,0.2); color:#fff; outline:none; margin-bottom:18px;" onkeydown="if(event.key==='Enter') verifyOwnerPin();">
-            <div style="display:flex; gap:10px; justify-content:center;">
-                <button type="button" class="btn-action-secondary" onclick="closeSecurityModal()">Anuluj</button>
-                <button type="button" class="btn-action-pink" onclick="verifyOwnerPin()">Potwierdź</button>
-            </div>
-        </div>
-    </div>
-
     <!-- ══════════ TOAST NOTIFICATION CONTAINER ══════════ -->
     <div id="toastContainer"></div>
 
@@ -1686,38 +1670,15 @@
             return div.innerHTML;
         }
 
-        // ── Security PIN Modal ──
+        // ── Verified Owner Auth Check (Firebase Auth) ──
         function openSecurityModal(cb) {
-            pendingPublishCallback = cb;
-            const modal = document.getElementById('securityPinModal');
-            const pinInput = document.getElementById('ownerPinInput');
-            if (modal) modal.style.display = 'flex';
-            if (pinInput) { pinInput.value = ''; pinInput.focus(); }
-        }
-
-        function closeSecurityModal() {
-            const modal = document.getElementById('securityPinModal');
-            if (modal) modal.style.display = 'none';
-            pendingPublishCallback = null;
-        }
-
-        function verifyOwnerPin() {
-            const pinInput = document.getElementById('ownerPinInput');
-            const val = pinInput ? pinInput.value.trim() : '';
-
-            // PIN: 7777 lub 1234
-            if (val === '7777' || val === '1234') {
+            if (window.LuminaGuard && typeof window.LuminaGuard.canEditProfile === 'function' && window.LuminaGuard.canEditProfile('zofiadudek', null)) {
                 isOwnerMode = true;
-                closeSecurityModal();
                 showToast('🔓 Tryb właścicielki odblokowany!');
-                if (typeof pendingPublishCallback === 'function') {
-                    const cb = pendingPublishCallback;
-                    pendingPublishCallback = null;
-                    cb();
-                }
+                if (typeof cb === 'function') cb();
             } else {
-                alert('Nieprawidłowy kod PIN. Spróbuj ponownie.');
-                if (pinInput) pinInput.focus();
+                showToast('🔐 Zaloguj się zweryfikowanym kontem właścicielki (Firebase Auth).');
+                if (typeof window.openAuthModal === 'function') window.openAuthModal('login');
             }
         }
 

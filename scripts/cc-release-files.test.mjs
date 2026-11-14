@@ -12,7 +12,9 @@ const privatePaths = [
   'Repozytoria-CC/skrzynka/global-previews/private.png', 'JOMA_SHARED_MEMORY/private.json',
   '.codex/config.json', '.cursor/rules/local.mdc', '.git/config', '.claude/settings.json',
   'cert/private.pem', 'cert/private.KEY', 'cert/client.p12', 'cert/client.pfx',
-  'serviceAccountKey.json', 'config/service-account.json', 'project-firebase-adminsdk-example.json',
+  'serviceAccountKey.json', 'luminaServiceAccountKey.json', 'cudaServiceAccountKey.json',
+  'nested/custom_service_account_key.json', 'config/service-account.json', 'project-firebase-adminsdk-example.json',
+  'storage.rules', 'firestore.rules',
 ];
 
 test('private operational files, credentials and environment variants are excluded, including Windows paths', () => {

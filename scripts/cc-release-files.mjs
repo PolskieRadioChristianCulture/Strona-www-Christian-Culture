@@ -33,7 +33,7 @@ export function isPublicFile(relativePath) {
   // Local environment, credentials and distribution state never belong on public hosting.
   const basename = path.posix.basename(lower);
   if (basename === '.env' || basename.startsWith('.env.')) return false;
-  if (/^service[-_]?account(?:key)?(?:[._-]|$)/.test(basename) || /(?:^|-)firebase-adminsdk(?:-|\.)/.test(basename)) return false;
+  if (/service[-_]?account(?:key)?(?:[._-]|$)/.test(basename) || /(?:^|-)firebase-adminsdk(?:-|\.)/.test(basename)) return false;
   if (/^data\/whatsapp_[^/]*\.json$/.test(lower)) return false;
   if (file === 'lib/bu-voting-worker.js') return true;
   if (segments.some((segment) => BLOCKED_DIRECTORIES.has(segment))) return false;

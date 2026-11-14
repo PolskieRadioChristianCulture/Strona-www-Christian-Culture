@@ -19,53 +19,58 @@ class LuminaSecurityEngine {
     }
 
     /**
-     * Sprawdza czy bieżący użytkownik jest Głównym Administratorem Portalu.
-     * Domyślnie NIEzalogowany (szara tarcza), wymaga podania autoryzowanego PINu 0455.
+     * Sprawdza czy bieżący użytkownik jest zweryfikowanym Głównym Administratorem Portalu (Firebase Auth).
      */
     isMasterAdmin() {
-        return sessionStorage.getItem('lumina_auth_master_admin') === 'true' || localStorage.getItem('lumina_auth_master_admin') === 'true';
+        return Boolean(
+            (typeof window !== 'undefined' && window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) ||
+            (this.db && typeof this.db.isLuminaMasterAdmin === 'function' && this.db.isLuminaMasterAdmin())
+        );
+    }
+
+    _purgeLegacyAdminStorage() {
+        const keys = [
+            'lumina_auth_master_admin',
+            'lumina_admin',
+            'lumina_admin_unlocked',
+            'lumina_auth_owner_cezaryrgowski',
+            'lumina_private_access_cezaryrgowski'
+        ];
+        keys.forEach((k) => {
+            try { sessionStorage.removeItem(k); } catch (_) {}
+            try { localStorage.removeItem(k); } catch (_) {}
+        });
     }
 
     /**
-     * Bezpieczne kryptograficzne hashowanie SHA-256 w przeglądarce
+     * Uwierzytelnienie wyłącznie przez Firebase Auth (brak lokalnych PIN-ów / flag w Storage).
      */
-    async _hashPin(pin) {
-        const msgBuffer = new TextEncoder().encode((pin || '').trim());
-        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    /**
-     * Odblokowanie uprawnień Administratora wyłącznie bezpiecznym hashem SHA-256
-     */
-    async unlockMasterAdmin(pin) {
-        if (!pin) return false;
-        const hash = await this._hashPin(pin);
-        if (hash === 'eec0ae2663b74fdb9fb9981e92f1b2cc2a8b42444d358776d872580c79454c91') {
-            sessionStorage.setItem('lumina_auth_master_admin', 'true');
-            localStorage.setItem('lumina_auth_master_admin', 'true');
+    async unlockMasterAdmin() {
+        this._purgeLegacyAdminStorage();
+        if (this.isMasterAdmin()) {
             if (typeof document !== 'undefined' && document.body) {
-                document.body.classList.add('lumina-admin-mode');
-                document.body.classList.add('owner-mode-active');
+                document.body.classList.add('lumina-admin-mode', 'owner-mode-active');
             }
             return true;
+        }
+        if (typeof window !== 'undefined') {
+            if (typeof window.openAuthModal === 'function') window.openAuthModal('login');
+            else if (typeof window.triggerLuminaLoginModal === 'function') window.triggerLuminaLoginModal();
         }
         return false;
     }
 
     /**
-     * Blokada uprawnień Administratora (Wylogowanie z trybu Administratora)
+     * Blokada uprawnień Administratora (wylogowanie sesji Firebase / czyszczenie UI).
      */
     lockMasterAdmin() {
-        sessionStorage.removeItem('lumina_auth_master_admin');
-        localStorage.removeItem('lumina_auth_master_admin');
-        localStorage.removeItem('lumina_admin');
-        sessionStorage.removeItem('lumina_auth_owner_cezaryrgowski');
-        localStorage.removeItem('lumina_auth_owner_cezaryrgowski');
+        this._purgeLegacyAdminStorage();
         if (typeof document !== 'undefined' && document.body) {
             document.body.classList.remove('lumina-admin-mode');
             document.body.classList.remove('owner-mode-active');
+        }
+        if (this.db && typeof this.db.logout === 'function' && this.isMasterAdmin()) {
+            this.db.logout().catch(() => {});
         }
     }
 

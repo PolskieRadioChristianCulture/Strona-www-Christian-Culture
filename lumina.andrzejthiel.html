@@ -2838,36 +2838,45 @@ A może w swoim zabieganiu nie znajdujesz czasu na modlitwę? Może nawet myśli
             }
         };
 
+        async function toggleAndrzejReaction(btn, postId, type, successMsg) {
+            if (!postId || !btn) return;
+            const reactFn = window.LuminaDB?.toggleLuminaPostReaction || window.LuminaDB?.togglePostReactionInCloud;
+            if (!reactFn) {
+                showToast('Zaloguj się, aby reagować na rozważania. 🕊️');
+                return;
+            }
+            try {
+                const res = await reactFn(postId, type);
+                const active = Boolean(res?.active);
+                const delta = typeof res?.delta === 'number' ? res.delta : 1;
+                const key = `${postId}_${type}`;
+                localReactionState[key] = active;
+                localStorage.setItem('lumina_andrzej_reactions', JSON.stringify(localReactionState));
+
+                const countEl = btn.querySelector('span');
+                if (countEl) {
+                    const current = parseInt(countEl.textContent, 10) || 0;
+                    countEl.textContent = Math.max(0, current + delta);
+                }
+                btn.classList.toggle(type === 'amen' ? 'active-amen' : 'active-heart', active);
+                if (active) showToast(successMsg);
+            } catch (err) {
+                if (err && err.code === 'auth') {
+                    showToast('Zaloguj się, aby dodawać reakcje na rozważania! 🕊️');
+                    if (typeof window.openAuthModal === 'function') window.openAuthModal('login');
+                } else {
+                    console.warn('[AndrzejThiel] Reaction sync error:', err?.message || err);
+                    showToast('Nie udało się zapisać reakcji. Spróbuj ponownie.');
+                }
+            }
+        }
+
         function togglePostLike(btn, postId) {
-            if (!postId) return;
-            const key = postId + '_likes';
-            const already = !!localReactionState[key];
-            localReactionState[key] = !already;
-            localStorage.setItem('lumina_andrzej_reactions', JSON.stringify(localReactionState));
-
-            const countEl = btn.querySelector('span');
-            const current = parseInt(countEl.textContent, 10) || 0;
-            countEl.textContent = current + (already ? -1 : 1);
-            btn.classList.toggle('active-heart', !already);
-
-            window.LuminaDB?.togglePostReactionInCloud?.(postId, 'likes');
-            if (!already) showToast('❤️ Polubiono rozważanie Andrzeja!');
+            return toggleAndrzejReaction(btn, postId, 'likes', '❤️ Polubiono rozważanie Andrzeja!');
         }
 
         function togglePostAmen(btn, postId) {
-            if (!postId) return;
-            const key = postId + '_amen';
-            const already = !!localReactionState[key];
-            localReactionState[key] = !already;
-            localStorage.setItem('lumina_andrzej_reactions', JSON.stringify(localReactionState));
-
-            const countEl = btn.querySelector('span');
-            const current = parseInt(countEl.textContent, 10) || 0;
-            countEl.textContent = current + (already ? -1 : 1);
-            btn.classList.toggle('active-amen', !already);
-
-            window.LuminaDB?.togglePostReactionInCloud?.(postId, 'amen');
-            if (!already) showToast('🙏 Wypowiedziano Amen!');
+            return toggleAndrzejReaction(btn, postId, 'amen', '🙏 Wypowiedziano Amen!');
         }
 
         let isFollowing = false;

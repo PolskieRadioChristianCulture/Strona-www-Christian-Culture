@@ -2756,22 +2756,15 @@
         function deleteJolaPost(postId) {
             if (!postId) return;
 
-            const isAuth = sessionStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                           sessionStorage.getItem('lumina_jola_admin') === 'true' ||
-                           document.body.classList.contains('lumina-admin-mode');
+            const isAuth = !!(
+                (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) ||
+                (window.LuminaGuard && typeof window.LuminaGuard.canEditProfile === 'function' && window.LuminaGuard.canEditProfile('jolawojcik', null))
+            );
 
             if (!isAuth) {
-                const pin = prompt('🔐 Autoryzacja Administratora / Autora (wprowadź PIN):');
-                if (!pin) return;
-                const cleanPin = pin.trim();
-                if (cleanPin === '7777' || cleanPin === '0455' || cleanPin === '1234') {
-                    sessionStorage.setItem('lumina_auth_master_admin', 'true');
-                    sessionStorage.setItem('lumina_jola_admin', 'true');
-                    showToast('✅ Zalogowano jako Administrator');
-                } else {
-                    alert('❌ Nieprawidłowy kod PIN administratora!');
-                    return;
-                }
+                showToast('🔐 Usunięcie wpisu wymaga zalogowania na konto właściciela lub Administratora (Firebase Auth).');
+                if (typeof window.openAuthModal === 'function') window.openAuthModal('login');
+                return;
             }
 
             if (!confirm('Czy na pewno chcesz bezpowrotnie usunąć ten wpis z profilu Joli Wójcik?')) {

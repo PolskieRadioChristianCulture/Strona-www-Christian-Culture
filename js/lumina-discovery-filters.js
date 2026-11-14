@@ -627,35 +627,25 @@
 
             let isMatch = true;
 
-            // 1. Płeć
+            // 1. Płeć (priorytet dla jawnych danych schematu / detectProfileGender)
+            const detectedGender = pDb && typeof window.detectProfileGender === 'function'
+                ? window.detectProfileGender(pDb)
+                : 'unknown';
             if (filterState.gender === 'kobieta') {
-                const isFemale = category.includes('kobieta') || 
-                                 category.includes('ccwomen') || 
-                                 nameText.includes('wioletta') || 
-                                 nameText.includes('noemi') || 
-                                 nameText.includes('weronika') || 
-                                 nameText.includes('anna') || 
-                                 nameText.includes('jola') || 
-                                 nameText.includes('zofia') || 
-                                 nameText.includes('urszula') || 
-                                 nameText.includes('zyta') || 
-                                 nameText.includes('magdalena') || 
-                                 nameText.includes('julia') ||
-                                 (pDb && (pDb.status === 'Panna' || pDb.status === 'Mężatka' || pDb.status === 'Wdowa' || pDb.gender === 'kobieta' || pDb.denom === 'Chrześcijanka'));
+                const isFemale = detectedGender !== 'unknown'
+                    ? detectedGender === 'female'
+                    : (category.includes('kobieta') ||
+                       category.includes('ccwomen') ||
+                       /\b(wioletta|noemi|weronika|anna|jola|zofia|urszula|zyta|magdalena|julia)\b/.test(nameText) ||
+                       (pDb && (pDb.status === 'Panna' || pDb.status === 'Mężatka' || pDb.status === 'Wdowa' || pDb.gender === 'kobieta' || pDb.denom === 'Chrześcijanka')));
                 if (!isFemale) isMatch = false;
             } else if (filterState.gender === 'mezczyzna') {
-                const isMale = category.includes('mezczyzna') || 
-                               category.includes('ccmen') || 
-                               nameText.includes('cezary') || 
-                               nameText.includes('andrzej') || 
-                               nameText.includes('dawid') || 
-                               nameText.includes('tomek') || 
-                               nameText.includes('tomasz') || 
-                               nameText.includes('zbyszek') || 
-                               nameText.includes('marek') || 
-                               nameText.includes('robert') || 
-                               nameText.includes('piotr') ||
-                               (pDb && (pDb.status === 'Kawaler' || pDb.status === 'Żonaty' || pDb.status === 'Wdowiec' || pDb.gender === 'mezczyzna' || pDb.denom === 'Chrześcijanin'));
+                const isMale = detectedGender !== 'unknown'
+                    ? detectedGender === 'male'
+                    : (category.includes('mezczyzna') ||
+                       category.includes('ccmen') ||
+                       /\b(cezary|andrzej|robert|lukasz|łukasz|tomek|tomasz|dawid|zbyszek|marek|piotr)\b/.test(nameText) ||
+                       (pDb && (pDb.status === 'Kawaler' || pDb.status === 'Żonaty' || pDb.status === 'Wdowiec' || pDb.gender === 'mezczyzna' || pDb.denom === 'Chrześcijanin')));
                 if (!isMale) isMatch = false;
             }
 
