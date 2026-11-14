@@ -154,7 +154,7 @@ test('LUMINA MESS rooms UI v2026-11-14: Aurora Borealis canvas, room headers, co
   assert.match(css, /\.lumina-delivery-status-row/, 'CSS defines .lumina-delivery-status-row');
   assert.match(css, /\.lumina-bubble-emoji-only/, 'CSS defines .lumina-bubble-emoji-only');
 
-  for (const file of HTML_FILES) {
+  for (const file of SURFACES) {
     const html = await readFile(file, 'utf8');
     assert.match(html, /class="lumi-room-subheader"/, `${file} includes public room subheader`);
     assert.match(html, /class="lumi-composer-plus-btn"/, `${file} includes purple + composer button`);
