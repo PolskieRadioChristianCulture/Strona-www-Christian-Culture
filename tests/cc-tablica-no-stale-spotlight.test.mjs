@@ -38,7 +38,28 @@ test('Tablica LUMINA HTML: brak wymuszonego przypięcia starego posta AI/Antychr
       html.includes('function isFreshRecentPost('),
       `${rel} musi zawierać strażnika świeżości isFreshRecentPost() dla cache lumina_recent_published_post`
     );
+
+    assert.equal(
+      html.includes('lumina-community-posts.js?v=20261004_ai_antychryst_v2'),
+      false,
+      `${rel} nie może ładować starego klucza cache Cloudflare ?v=20261004_ai_antychryst_v2`
+    );
   }
+});
+
+test('Cloudflare _headers & profil założyciela: brak starego cache ?v=20261004_ai_antychryst_v2 i wymuszone max-age=0', () => {
+  const headers = fs.readFileSync(path.join(ROOT_CC, '_headers'), 'utf8');
+  assert.ok(
+    /\/js\/lumina-community-posts\.js\*[\s\S]{0,120}max-age=0,\s*must-revalidate/.test(headers),
+    '_headers musi wyłączać 7-dniowy cache edge dla /js/lumina-community-posts.js*'
+  );
+
+  const profileHtml = fs.readFileSync(path.join(ROOT_CC, 'lumina.cezaryrgowski.html'), 'utf8');
+  assert.equal(
+    profileHtml.includes('lumina-community-posts.js?v=20261004_ai_antychryst_v2'),
+    false,
+    'lumina.cezaryrgowski.html nie może ładować starego klucza cache ?v=20261004_ai_antychryst_v2'
+  );
 });
 
 test('Tablica LUMINA HTML: wszystkie klasyczne skrypty inline parsują się bez błędów składniowych', () => {
