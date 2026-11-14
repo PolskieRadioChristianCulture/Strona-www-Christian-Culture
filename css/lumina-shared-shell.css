@@ -87,16 +87,29 @@
     }
 }
 
+:root {
+    --cc-bg-obsidian: #0a0a0c;
+    --cc-surface-obsidian: #141418;
+    --cc-surface-elevated: #1c1c22;
+    --cc-gold: #C4A35A;
+    --cc-gold-hover: #D4B578;
+    --cc-gold-light: #E2CC9A;
+    --cc-gold-dark: #A08040;
+    --cc-btn-orange: #FF7A00;
+    --cc-btn-orange-hover: #FF8C33;
+    --cc-btn-orange-active: #E66A00;
+}
+
 /* ═════════ 100% UNIFIED TOP NAVBAR BUTTONS ═════════ */
 .lumina-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 18px;
-    background: rgba(11, 24, 56, 0.94);
+    background: rgba(10, 10, 12, 0.94);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(250, 204, 21, 0.2);
+    border-bottom: 1px solid rgba(196, 163, 90, 0.24);
     position: sticky;
     top: 0;
     z-index: 10000;
@@ -115,9 +128,9 @@
     height: 38px !important;
     min-width: 38px !important;
     border-radius: 50% !important;
-    background: rgba(15, 23, 42, 0.85) !important;
-    border: 1.5px solid rgba(168, 85, 247, 0.45) !important;
-    color: #c084fc !important;
+    background: rgba(20, 20, 24, 0.92) !important;
+    border: 1.5px solid rgba(196, 163, 90, 0.48) !important;
+    color: #D4B578 !important;
     cursor: pointer !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -130,10 +143,11 @@
 }
 #radioWidget:hover,
 .nav-radio-btn:hover {
-    border-color: rgba(192, 132, 252, 0.8) !important;
-    background: rgba(26, 38, 74, 0.95) !important;
+    border-color: rgba(226, 204, 154, 0.85) !important;
+    background: rgba(28, 28, 34, 0.98) !important;
+    color: #E2CC9A !important;
     transform: translateY(-1px) !important;
-    box-shadow: 0 0 12px rgba(168, 85, 247, 0.4) !important;
+    box-shadow: 0 0 12px rgba(196, 163, 90, 0.35) !important;
 }
 
 .nav-menu-btn {
@@ -141,8 +155,8 @@
     min-height: 38px !important;
     padding: 0 15px !important;
     border-radius: 20px !important;
-    background: rgba(15, 23, 42, 0.85) !important;
-    border: 1.5px solid rgba(168, 85, 247, 0.45) !important;
+    background: rgba(20, 20, 24, 0.92) !important;
+    border: 1.5px solid rgba(196, 163, 90, 0.48) !important;
     color: #fff !important;
     font-family: 'Outfit', sans-serif !important;
     font-size: 0.84rem !important;
@@ -158,14 +172,14 @@
     flex-shrink: 0 !important;
 }
 .nav-menu-btn i.fa-compass {
-    color: #c084fc !important;
+    color: #D4B578 !important;
     font-size: 1rem !important;
 }
 .nav-menu-btn:hover {
-    border-color: rgba(192, 132, 252, 0.8) !important;
-    background: rgba(26, 38, 74, 0.95) !important;
+    border-color: rgba(226, 204, 154, 0.85) !important;
+    background: rgba(28, 28, 34, 0.98) !important;
     transform: translateY(-1px) !important;
-    box-shadow: 0 0 12px rgba(168, 85, 247, 0.4) !important;
+    box-shadow: 0 0 12px rgba(196, 163, 90, 0.35) !important;
 }
 
 .btn-nav-support {
@@ -173,8 +187,8 @@
     min-height: 38px !important;
     padding: 0 15px !important;
     border-radius: 20px !important;
-    background: rgba(15, 23, 42, 0.85) !important;
-    border: 1.5px solid rgba(168, 85, 247, 0.45) !important;
+    background: rgba(20, 20, 24, 0.92) !important;
+    border: 1.5px solid rgba(196, 163, 90, 0.48) !important;
     color: #fff !important;
     font-family: 'Outfit', sans-serif !important;
     font-size: 0.84rem !important;
@@ -190,7 +204,7 @@
     flex-shrink: 0 !important;
 }
 .btn-nav-support i {
-    color: #c084fc !important;
+    color: #D4B578 !important;
     font-size: 1rem !important;
 }
 .btn-nav-support .btn-nav-cta-text {
@@ -200,10 +214,10 @@
     font-family: 'Outfit', sans-serif !important;
 }
 .btn-nav-support:hover {
-    border-color: rgba(192, 132, 252, 0.8) !important;
-    background: rgba(26, 38, 74, 0.95) !important;
+    border-color: rgba(226, 204, 154, 0.85) !important;
+    background: rgba(28, 28, 34, 0.98) !important;
     transform: translateY(-1px) !important;
-    box-shadow: 0 0 12px rgba(168, 85, 247, 0.4) !important;
+    box-shadow: 0 0 12px rgba(196, 163, 90, 0.35) !important;
 }
 
 .user-nav-profile {
@@ -221,7 +235,7 @@
     height: 32px !important;
     border-radius: 50% !important;
     object-fit: cover !important;
-    border: 1.5px solid rgba(192, 132, 252, 0.85) !important;
+    border: 1.5px solid rgba(196, 163, 90, 0.85) !important;
     cursor: pointer !important;
 }
 .btn-nav-logout i {
@@ -236,22 +250,19 @@
 @media (max-width: 640px) {
     .lumina-nav { padding: 8px 12px !important; }
     .lumina-nav-actions { gap: 6px !important; }
-    .nav-menu-btn {
-        width: 38px !important;
-        min-width: 38px !important;
-        height: 38px !important;
+    #radioWidget,
+    .nav-radio-btn,
+    .nav-menu-btn,
+    .btn-nav-support {
+        width: 44px !important;
+        min-width: 44px !important;
+        height: 44px !important;
+        min-height: 44px !important;
         padding: 0 !important;
         border-radius: 50% !important;
     }
     .nav-menu-btn .nav-btn-text,
-    .nav-menu-btn .nav-btn-chevron { display: none !important; }
-    .btn-nav-support {
-        width: 38px !important;
-        min-width: 38px !important;
-        height: 38px !important;
-        padding: 0 !important;
-        border-radius: 50% !important;
-    }
+    .nav-menu-btn .nav-btn-chevron,
     .btn-nav-support .btn-nav-cta-text { display: none !important; }
 }
 
@@ -265,10 +276,10 @@
     height: 28px !important;
     padding: 0 11px !important;
     border-radius: 14px !important;
-    background: linear-gradient(135deg, #ec4899, #8b5cf6) !important;
+    background: linear-gradient(135deg, #D4B578, #A08040) !important;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    color: #fff !important;
+    color: #0a0a0c !important;
     font-size: 0.76rem !important;
     font-weight: 800 !important;
     font-family: 'Outfit', sans-serif !important;
@@ -332,13 +343,13 @@
 /* ═════════ DEEP-LINK CHAT MESSAGE HIGHLIGHT & STATUS PILLS ═════════ */
 .chat-message-highlight {
     animation: luminaMsgGlow 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
-    border: 2px solid #facc15 !important;
+    border: 2px solid #C4A35A !important;
     border-radius: 18px !important;
 }
 @keyframes luminaMsgGlow {
-    0% { transform: scale(1.05); box-shadow: 0 0 35px rgba(250, 204, 21, 0.9), 0 0 15px rgba(56, 189, 248, 0.8); }
-    40% { transform: scale(1.02); box-shadow: 0 0 25px rgba(250, 204, 21, 0.7), 0 0 10px rgba(56, 189, 248, 0.6); }
-    80% { transform: scale(1.01); box-shadow: 0 0 15px rgba(250, 204, 21, 0.4); }
+    0% { transform: scale(1.05); box-shadow: 0 0 35px rgba(196, 163, 90, 0.85), 0 0 15px rgba(226, 204, 154, 0.7); }
+    40% { transform: scale(1.02); box-shadow: 0 0 25px rgba(196, 163, 90, 0.65), 0 0 10px rgba(226, 204, 154, 0.5); }
+    80% { transform: scale(1.01); box-shadow: 0 0 15px rgba(196, 163, 90, 0.35); }
     100% { transform: scale(1); box-shadow: none; border-color: transparent !important; }
 }
 
@@ -400,7 +411,7 @@
 .lumina-quick-actions-modal {
     position: fixed;
     inset: 0;
-    background: rgba(7, 14, 36, 0.78);
+    background: rgba(10, 10, 12, 0.82);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     z-index: 100010;
@@ -416,13 +427,13 @@
     opacity: 1;
 }
 .quick-actions-sheet {
-    background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.98));
-    border: 1.5px solid rgba(168, 85, 247, 0.4);
+    background: linear-gradient(145deg, rgba(14, 14, 18, 0.98), rgba(24, 24, 30, 0.98));
+    border: 1.5px solid rgba(196, 163, 90, 0.42);
     border-radius: 28px;
     width: 100%;
     max-width: 440px;
     padding: 22px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(168, 85, 247, 0.25);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 32px rgba(196, 163, 90, 0.18);
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -475,8 +486,8 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 2.5px solid #a855f7;
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+    border: 2.5px solid #C4A35A;
+    box-shadow: 0 0 15px rgba(196, 163, 90, 0.42);
 }
 .qa-online-badge {
     position: absolute;
@@ -520,14 +531,18 @@
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
     color: #cbd5e1;
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    touch-action: manipulation;
     transition: all 0.2s ease;
 }
 .qa-close-btn:hover {
@@ -557,7 +572,7 @@
 }
 .qa-action-btn:hover {
     background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(168, 85, 247, 0.4);
+    border-color: rgba(196, 163, 90, 0.45);
     transform: translateX(4px);
 }
 .qa-action-btn:active {
@@ -574,8 +589,8 @@
     flex-shrink: 0;
 }
 .qa-icon-poke { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35); }
-.qa-icon-msg { background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35); }
-.qa-icon-follow { background: linear-gradient(135deg, #ec4899, #db2777); color: #fff; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35); }
+.qa-icon-msg { background: linear-gradient(135deg, #D4B578, #A08040); color: #0a0a0c; box-shadow: 0 4px 14px rgba(196, 163, 90, 0.34); }
+.qa-icon-follow { background: linear-gradient(135deg, #FF8C33, #FF7A00); color: #FFFFFF; box-shadow: 0 4px 14px rgba(255, 122, 0, 0.34); }
 .qa-icon-coffee { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35); }
 .qa-icon-profile { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #fff; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35); }
 .qa-btn-content {
@@ -591,4 +606,171 @@
     font-size: 0.73rem;
     color: #94a3b8;
     margin-top: 1px;
+}
+
+/* ═════════ EKOCC V2 PREMIUM: TOP DRAWER, FOCUS-VISIBLE, SKELETONS & REDUCED MOTION ═════════ */
+.top-nav-drawer {
+    background: rgba(14, 14, 18, 0.97) !important;
+    border: 1.5px solid rgba(196, 163, 90, 0.42) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 24px rgba(196, 163, 90, 0.14) !important;
+}
+
+.top-nav-drawer .drawer-nav-item {
+    min-height: 44px;
+    border-radius: 12px;
+}
+
+#luminaGlobalLangBtn {
+    min-height: 36px;
+    color: #E2CC9A !important;
+    background: rgba(196, 163, 90, 0.16) !important;
+    border: 1px solid rgba(196, 163, 90, 0.4) !important;
+}
+
+#luminaGlobalLangBtn:hover {
+    background: rgba(196, 163, 90, 0.28) !important;
+    border-color: rgba(212, 181, 120, 0.75) !important;
+}
+
+/* JOMA-D052 Klasyczny Pomarańczowy CTA (#FF7A00) */
+#drawerAuthCtaBtn,
+.btn-cc-orange-cta {
+    background: #FF7A00 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    min-height: 44px !important;
+    font-weight: 800 !important;
+    box-shadow: 0 4px 16px rgba(255, 122, 0, 0.34) !important;
+    transition: background-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+#drawerAuthCtaBtn:hover,
+.btn-cc-orange-cta:hover {
+    background: #FF8C33 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 6px 20px rgba(255, 140, 51, 0.45) !important;
+}
+
+#drawerAuthCtaBtn:active,
+.btn-cc-orange-cta:active {
+    background: #E66A00 !important;
+    color: #FFFFFF !important;
+    transform: translateY(1px);
+}
+
+/* Dostępność klawiatury (:focus-visible WCAG 2.2 AA) */
+:is(
+    #radioWidget,
+    .nav-radio-btn,
+    .nav-menu-btn,
+    .btn-nav-support,
+    .qa-close-btn,
+    .qa-action-btn,
+    .top-nav-drawer a,
+    .top-nav-drawer button,
+    #luminaGlobalLangBtn,
+    #drawerAuthCtaBtn,
+    .btn-cc-orange-cta
+):focus-visible {
+    outline: 3px solid #D4B578 !important;
+    outline-offset: 2px !important;
+}
+
+/* Szacunek dla jasnego motywu LUMINA */
+:is(html[data-lumina-theme="light"], body.theme-lumina-light) .top-nav-drawer {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border-color: rgba(160, 128, 64, 0.38) !important;
+    box-shadow: 0 18px 42px rgba(28, 25, 23, 0.18) !important;
+}
+
+:is(html[data-lumina-theme="light"], body.theme-lumina-light) .quick-actions-sheet {
+    background: #FFFFFF !important;
+    border-color: rgba(160, 128, 64, 0.36) !important;
+    box-shadow: 0 22px 50px rgba(28, 25, 23, 0.2) !important;
+}
+
+:is(html[data-lumina-theme="light"], body.theme-lumina-light) .qa-close-btn {
+    background: rgba(28, 25, 23, 0.06);
+    border-color: rgba(28, 25, 23, 0.16);
+    color: #292524;
+}
+
+:is(html[data-lumina-theme="light"], body.theme-lumina-light) #luminaGlobalLangBtn {
+    color: #654b18 !important;
+    background: rgba(196, 163, 90, 0.18) !important;
+    border-color: rgba(160, 128, 64, 0.42) !important;
+}
+
+/* GPU-safe Skeleton Shimmer (CLS=0, tylko opacity) */
+.lumina-skeleton {
+    position: relative;
+    overflow: hidden;
+    background: rgba(28, 28, 34, 0.88);
+    border-radius: 12px;
+    animation: luminaSkeletonPulse 1.5s ease-in-out infinite;
+    will-change: opacity;
+}
+
+.lumina-skeleton-card {
+    background: rgba(20, 20, 24, 0.92);
+    border: 1px solid rgba(196, 163, 90, 0.16);
+    border-radius: 20px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 168px;
+    box-sizing: border-box;
+}
+
+.lumina-skeleton-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.lumina-skeleton-line {
+    height: 14px;
+    width: 100%;
+    border-radius: 999px;
+}
+
+.lumina-skeleton-line--short {
+    width: 58%;
+}
+
+:is(html[data-lumina-theme="light"], body.theme-lumina-light) .lumina-skeleton {
+    background: #EAE5DC;
+}
+
+:is(html[data-lumina-theme="light"], body.theme-lumina-light) .lumina-skeleton-card {
+    background: #FAF8F5;
+    border-color: rgba(160, 128, 64, 0.22);
+}
+
+@keyframes luminaSkeletonPulse {
+    0%, 100% { opacity: 0.52; }
+    50% { opacity: 0.92; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lumina-skeleton,
+    .lumina-skeleton-card,
+    .lumina-skeleton-avatar,
+    .lumina-skeleton-line,
+    .chat-message-highlight,
+    .quick-actions-sheet,
+    .lumina-quick-actions-modal,
+    #radioWidget,
+    .nav-radio-btn,
+    .nav-menu-btn,
+    .btn-nav-support,
+    .qa-close-btn,
+    .qa-action-btn,
+    #drawerAuthCtaBtn,
+    .btn-cc-orange-cta {
+        animation: none !important;
+        transition: none !important;
+    }
 }

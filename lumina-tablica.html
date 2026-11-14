@@ -4919,21 +4919,24 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 <button type="button"
                         class="nav-menu-btn"
                         id="topNavMenuBtn"
+                        aria-haspopup="true"
+                        aria-controls="topNavDrawer"
+                        aria-expanded="false"
                         onclick="toggleTopNavDrawer(event)"
                         data-i18n-title="nav_menu"
                         title="Menu Nawigacji LUMINA">
-                    <i class="fa-solid fa-compass" style="color:#c084fc; font-size:1.05rem;"></i>
+                    <i class="fa-solid fa-compass" style="color:#D4B578; font-size:1.05rem;" aria-hidden="true"></i>
                     <span class="nav-btn-text" data-i18n="nav_menu">Menu</span>
                     <i class="fa-solid fa-chevron-down nav-btn-chevron" id="topNavMenuChevron" style="font-size:0.7rem; color:#cbd5e1; transition:transform 0.25s ease;"></i>
                 </button>
 
                 <!-- Wysuwany panel nawigacji (Glassmorphism Drawer) -->
-                <div class="top-nav-drawer" id="topNavDrawer" style="display:none; position:absolute; top:calc(100% + 10px); right:0; width:260px; background:rgba(11,17,32,0.96); border:1.5px solid rgba(168,85,247,0.45); border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.85); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); padding:10px; z-index:10002; flex-direction:column; gap:4px;">
+                <div class="top-nav-drawer" id="topNavDrawer" role="region" aria-label="Menu nawigacji LUMINA" aria-hidden="true" style="display:none; position:absolute; top:calc(100% + 10px); right:0; width:260px; background:rgba(14,14,18,0.97); border:1.5px solid rgba(196,163,90,0.42); border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.85); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); padding:10px; z-index:10002; flex-direction:column; gap:4px;">
                     <!-- 🌐 Wybór Języka w Menu LUMINA (Standard @SMCC 44x44px) -->
-                    <div class="drawer-lang-selector" id="drawerLangSelector" style="display:flex; flex-direction:column; gap:8px; padding:10px 12px; margin-bottom:8px; background:rgba(255,255,255,0.05); border:1px solid rgba(168,85,247,0.35); border-radius:14px;">
+                    <div class="drawer-lang-selector" id="drawerLangSelector" style="display:flex; flex-direction:column; gap:8px; padding:10px 12px; margin-bottom:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(196,163,90,0.34); border-radius:14px;">
                         <div class="drawer-lang-header" style="display:flex; align-items:center; justify-content:space-between; font-size:0.82rem; font-weight:700; color:#f8fafc;">
                             <div style="display:flex; align-items:center; gap:8px;">
-                                <i class="fa-solid fa-globe" style="color:#f59e0b; font-size:1.05rem;"></i>
+                                <i class="fa-solid fa-globe" style="color:#D4B578; font-size:1.05rem;"></i>
                                 <span data-i18n="nav.languageSelect">Język</span>
                             </div>
                             <button type="button"
@@ -4942,7 +4945,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                                     onclick="toggleLanguage()"
                                     data-i18n-title="nav_lang_toggle"
                                     title="Zmień język (PL / EN / ES / FR)"
-                                    style="font-size:0.75rem; font-weight:800; color:#facc15; background:rgba(250,204,21,0.15); padding:3px 8px; border-radius:8px; border:1px solid rgba(250,204,21,0.35); cursor:pointer; touch-action:manipulation;">
+                                    style="font-size:0.75rem; font-weight:800; color:#D4B578; background:rgba(196,163,90,0.15); padding:3px 8px; border-radius:8px; border:1px solid rgba(196,163,90,0.38); cursor:pointer; touch-action:manipulation;">
                                 <span id="navLangBadgeText">PL</span> ↻
                             </button>
                         </div>
@@ -4954,19 +4957,19 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                         </div>
                     </div>
                     <a href="index.html" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-house" style="color:#38bdf8;"></i> <span data-i18n="nav_home">Strona Główna Radia</span></a>
-                    <a href="lumina" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-wand-magic-sparkles" style="color:#ec4899;"></i> <span data-i18n="nav_lumina">Portal LUMINA</span></a>
-                    <a href="tablica" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-rectangle-list" style="color:#facc15;"></i> <span data-i18n="nav_board">Tablica Społeczności</span></a>
+                    <a href="lumina" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-wand-magic-sparkles" style="color:#D4B578;"></i> <span data-i18n="nav_lumina">Portal LUMINA</span></a>
+                    <a href="tablica" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-rectangle-list" style="color:#E2CC9A;"></i> <span data-i18n="nav_board">Tablica Społeczności</span></a>
                     <a href="master-live.html" target="_blank" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-tv" style="color:#ef4444;"></i> <span>Telewizja CC TV 24/7 (Live)</span></a>
-                    <a href="lumina.html#odkrywaj" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof scrollToSection==='function') scrollToSection('odkrywaj');"><i class="fa-solid fa-compass" style="color:#c084fc;"></i> <span data-i18n="nav_explore">Odkrywaj Profile</span></a>
+                    <a href="lumina.html#odkrywaj" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof scrollToSection==='function') scrollToSection('odkrywaj');"><i class="fa-solid fa-compass" style="color:#C4A35A;"></i> <span data-i18n="nav_explore">Odkrywaj Profile</span></a>
                     <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openDirectMessagesModal==='function') openDirectMessagesModal(); else if(typeof openMessageModal==='function') openMessageModal(); else if(typeof openLuminaChatModal==='function') openLuminaChatModal();"><i class="fa-solid fa-comments" style="color:#34d399;"></i> <span data-i18n="nav_messages">Wiadomości & Czat</span></button>
-                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openShareLuminaModal==='function') openShareLuminaModal();"><i class="fa-solid fa-share-nodes" style="color:#a78bfa;"></i> <span data-i18n="nav_share">Polecaj Portal</span></button>
-                    <a href="javascript:void(0)" onclick="closeTopNavDrawer(); if(typeof handleMyProfileNavigation==='function') handleMyProfileNavigation(event);" class="drawer-nav-item" id="drawerMyProfileLink"><i class="fa-solid fa-user" style="color:#f472b6;"></i> <span data-i18n="nav_my_profile">Mój Profil</span></a>
-                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openPersonalSettingsModal==='function') openPersonalSettingsModal();"><i class="fa-solid fa-sliders" style="color:#facc15;"></i> <span>Ustawienia aplikacji</span></button>
-                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openRssSubscriptionModal==='function') openRssSubscriptionModal();"><i class="fa-solid fa-square-rss" style="color:#f59e0b;"></i> <span>Podcast &amp; RSS Hub</span></button>
+                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openShareLuminaModal==='function') openShareLuminaModal();"><i class="fa-solid fa-share-nodes" style="color:#D4B578;"></i> <span data-i18n="nav_share">Polecaj Portal</span></button>
+                    <a href="javascript:void(0)" onclick="closeTopNavDrawer(); if(typeof handleMyProfileNavigation==='function') handleMyProfileNavigation(event);" class="drawer-nav-item" id="drawerMyProfileLink"><i class="fa-solid fa-user" style="color:#E2CC9A;"></i> <span data-i18n="nav_my_profile">Mój Profil</span></a>
+                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openPersonalSettingsModal==='function') openPersonalSettingsModal();"><i class="fa-solid fa-sliders" style="color:#C4A35A;"></i> <span>Ustawienia aplikacji</span></button>
+                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openRssSubscriptionModal==='function') openRssSubscriptionModal();"><i class="fa-solid fa-square-rss" style="color:#FF8C33;"></i> <span>Podcast &amp; RSS Hub</span></button>
 
                     <div style="height:1px; background:rgba(255,255,255,0.08); margin:6px 0;"></div>
 
-                    <button type="button" class="drawer-nav-item" id="drawerAuthCtaBtn" onclick="closeTopNavDrawer(); if(typeof openAuth==='function') openAuth(); else if(typeof openAuthModal==='function') openAuthModal();" style="background:linear-gradient(135deg,#ec4899,#8b5cf6); color:#fff; font-weight:800; border-radius:12px; justify-content:center;">
+                    <button type="button" class="drawer-nav-item" id="drawerAuthCtaBtn" onclick="closeTopNavDrawer(); if(typeof openAuth==='function') openAuth(); else if(typeof openAuthModal==='function') openAuthModal();" style="background:#FF7A00; color:#fff; font-weight:800; border-radius:12px; justify-content:center;">
                         <i class="fa-solid fa-arrow-right-to-bracket"></i> <span data-i18n="nav_login">Zaloguj / Rejestracja</span>
                     </button>
                 </div>
@@ -15837,6 +15840,7 @@ window.addEventListener('lumina-auth-state', () => {
     <script src="js/lumina-events-engine.js" defer></script>
     <script src="js/lumina-background-mission-service.js" defer></script>
     <script src="/lumina-bottom-nav.js?v=20261014_luminav1" defer></script>
+    <script src="/js/lumina-a11y-shell.js?v=20261114_p2" defer></script>
     <script src="/js/lumina-mini-player.js?v=20261013_fab_col_v1" defer></script>
     <script src="lumina-notifications.js?v=20261013_notifsafe1" defer></script>
     <script type="module" src="lumina-badges-engine.js?v=4.1.1_20260909"></script>
@@ -15925,7 +15929,7 @@ window.addEventListener('lumina-auth-state', () => {
     </div>
 
     <!-- ══════════ MODAL: DODATKOWE OPCJE PROFILU (PRZYTRZYMANIE ZDJĘCIA / LONG-PRESS) ══════════ -->
-    <div id="luminaProfileQuickActionsModal" class="lumina-quick-actions-modal" onclick="if(event.target===this) window.closeProfileQuickActions()">
+    <div id="luminaProfileQuickActionsModal" class="lumina-quick-actions-modal" role="dialog" aria-modal="true" aria-labelledby="qaName" onclick="if(event.target===this) window.closeProfileQuickActions()">
         <div class="quick-actions-sheet" onclick="event.stopPropagation()">
             <div class="sheet-drag-handle"></div>
             <div class="quick-actions-header">
@@ -15940,7 +15944,7 @@ window.addEventListener('lumina-auth-state', () => {
                     </div>
                     <div id="qaTagline" class="qa-tagline">Społeczność LUMINA</div>
                 </div>
-                <button type="button" class="qa-close-btn" onclick="window.closeProfileQuickActions()" title="Zamknij">✝️</button>
+                <button type="button" class="qa-close-btn" onclick="window.closeProfileQuickActions()" title="Zamknij" aria-label="Zamknij">✝️</button>
             </div>
 
             <div class="quick-actions-grid">

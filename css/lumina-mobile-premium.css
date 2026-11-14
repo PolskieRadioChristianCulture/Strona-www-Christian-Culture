@@ -380,7 +380,7 @@
     .profile-tab-btn.active i,
     .profile-nav-tabs button.active i,
     .profile-tabs-nav button.active i {
-        color: #facc15 !important;
+        color: #E2CC9A !important;
     }
 
     .profile-tabs-nav .tab-text,
@@ -588,7 +588,7 @@
     }
 
     .post-action-btn.action-story {
-        color: #facc15 !important;
+        color: #E2CC9A !important;
     }
 
     .post-action-btn.liked {

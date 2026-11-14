@@ -45,7 +45,7 @@
 /* ── GLOBAL LUMINA SCROLLBAR STANDARD ── */
 html, body, * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(168, 85, 247, 0.45) #070d1e;
+    scrollbar-color: rgba(196, 163, 90, 0.48) #0a0a0c;
 }
 
 ::-webkit-scrollbar {
@@ -54,22 +54,22 @@ html, body, * {
 }
 
 ::-webkit-scrollbar-track {
-    background: #070d1e !important;
+    background: #0a0a0c !important;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(168, 85, 247, 0.5), rgba(236, 72, 153, 0.5)) !important;
+    background: linear-gradient(180deg, rgba(196, 163, 90, 0.55), rgba(160, 128, 64, 0.55)) !important;
     border-radius: 9999px !important;
-    border: 1.5px solid #070d1e !important;
+    border: 1.5px solid #0a0a0c !important;
     transition: background 0.2s ease !important;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #a855f7, #ec4899) !important;
+    background: linear-gradient(180deg, #D4B578, #C4A35A) !important;
 }
 
 ::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(180deg, #c084fc, #f472b6) !important;
+    background: linear-gradient(180deg, #E2CC9A, #D4B578) !important;
 }
 
 ::-webkit-scrollbar-button {
@@ -79,7 +79,7 @@ html, body, * {
 }
 
 ::-webkit-scrollbar-corner {
-    background: #070d1e !important;
+    background: #0a0a0c !important;
 }
 
 body {
@@ -102,7 +102,7 @@ body {
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%) translateY(100px);
-    background: linear-gradient(135deg, rgba(30, 27, 75, 0.95), rgba(15, 23, 42, 0.95));
+    background: linear-gradient(135deg, rgba(20, 20, 24, 0.96), rgba(10, 10, 12, 0.96));
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     color: #fff;
@@ -124,9 +124,9 @@ body {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 .toast i {
-    color: #facc15;
+    color: #E2CC9A;
     font-size: 1.1rem;
-    filter: drop-shadow(0 0 4px rgba(250, 204, 21, 0.6));
+    filter: drop-shadow(0 0 4px rgba(196, 163, 90, 0.55));
 }
 .toast.show {
     transform: translateX(-50%) translateY(0) scale(1.02);
@@ -142,10 +142,10 @@ body {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #a855f7, #ec4899);
-    color: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.7);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 85, 247, 0.6);
+    background: linear-gradient(135deg, #1c1c22, #141418);
+    color: #E2CC9A;
+    border: 2px solid rgba(196, 163, 90, 0.72);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 18px rgba(196, 163, 90, 0.35);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -167,5 +167,14 @@ body {
 }
 .lumina-scroll-top-btn:hover {
     transform: translateY(-4px) scale(1.08);
-    box-shadow: 0 12px 28px rgba(168, 85, 247, 0.65), 0 0 20px rgba(245, 158, 11, 0.55);
+    box-shadow: 0 12px 28px rgba(196, 163, 90, 0.45), 0 0 20px rgba(226, 204, 154, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lumina-scroll-top-btn,
+    .toast,
+    ::-webkit-scrollbar-thumb {
+        transition: none !important;
+        animation: none !important;
+    }
 }

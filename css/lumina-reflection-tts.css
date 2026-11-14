@@ -14,9 +14,9 @@
     width: 44px;
     height: 44px;
     padding: 0;
-    border: 1px solid rgba(245, 158, 11, .52);
+    border: 1px solid rgba(196, 163, 90, .52);
     border-radius: 50%;
-    background: rgba(15, 23, 42, .86);
+    background: rgba(10, 10, 12, .88);
     color: #f8fafc;
     cursor: pointer;
     box-shadow: 0 7px 22px rgba(0, 0, 0, .34);
@@ -24,10 +24,10 @@
 }
 
 .lumina-reflection-tts-btn:hover { transform: translateY(-50%) scale(1.06); }
-.lumina-reflection-tts-btn:focus-visible { outline: 3px solid rgba(56, 189, 248, .75); outline-offset: 3px; }
+.lumina-reflection-tts-btn:focus-visible { outline: 3px solid #D4B578; outline-offset: 3px; }
 .lumina-reflection-tts-btn[data-state="speaking"] {
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    box-shadow: 0 0 0 7px rgba(59, 130, 246, .13), 0 8px 25px rgba(37, 99, 235, .42);
+    background: linear-gradient(135deg, #FF8C33, #FF7A00);
+    box-shadow: 0 0 0 7px rgba(255, 122, 0, .18), 0 8px 25px rgba(255, 122, 0, .42);
 }
 .lumina-reflection-tts-btn[data-state="paused"] { background: #92400e; color: #fef3c7; }
 .lumina-reflection-tts-btn[data-state="error"] { background: #991b1b; color: #fee2e2; }

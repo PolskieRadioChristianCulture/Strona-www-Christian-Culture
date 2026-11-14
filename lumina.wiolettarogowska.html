@@ -3052,29 +3052,32 @@
             <div class="nav-menu-wrapper" style="position:relative;">
                 <button type="button" 
                         class="nav-menu-btn" 
-                        id="topNavMenuBtn" 
+                        id="topNavMenuBtn"
+                        aria-haspopup="true"
+                        aria-controls="topNavDrawer"
+                        aria-expanded="false"
                         onclick="toggleTopNavDrawer(event)" 
                         title="Menu Nawigacji LUMINA" 
-                        style="display:inline-flex; align-items:center; gap:8px; padding:7px 14px; border-radius:24px; background:linear-gradient(135deg, rgba(168,85,247,0.22), rgba(236,72,153,0.22)); border:1.5px solid rgba(168,85,247,0.5); color:#fff; font-family:'Outfit',sans-serif; font-size:0.84rem; font-weight:800; cursor:pointer; transition:all 0.25s ease; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
-                    <i class="fa-solid fa-compass" style="color:#c084fc; font-size:0.95rem;"></i>
+                        style="display:inline-flex; align-items:center; gap:8px; min-height:44px; min-width:44px; padding:7px 14px; border-radius:24px; background:rgba(196,163,90,0.14); border:1.5px solid rgba(196,163,90,0.45); color:#fff; font-family:'Outfit',sans-serif; font-size:0.84rem; font-weight:800; cursor:pointer; transition:all 0.25s ease; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
+                    <i class="fa-solid fa-compass" style="color:#D4B578; font-size:0.95rem;" aria-hidden="true"></i>
                     <span>Menu</span>
                     <i class="fa-solid fa-chevron-down" id="topNavMenuChevron" style="font-size:0.72rem; color:#cbd5e1; transition:transform 0.25s ease;"></i>
                 </button>
 
                 <!-- Wysuwany panel nawigacji (Glassmorphism Drawer) -->
-                <div class="top-nav-drawer" id="topNavDrawer" style="display:none; position:absolute; top:calc(100% + 10px); right:0; width:260px; background:rgba(11,17,32,0.96); border:1.5px solid rgba(168,85,247,0.45); border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.85); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); padding:10px; z-index:10002; flex-direction:column; gap:4px;">
+                <div class="top-nav-drawer" id="topNavDrawer" role="region" aria-label="Menu nawigacji LUMINA" aria-hidden="true" style="display:none; position:absolute; top:calc(100% + 10px); right:0; width:260px; background:rgba(14,14,18,0.97); border:1.5px solid rgba(196,163,90,0.42); border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.85); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); padding:10px; z-index:10002; flex-direction:column; gap:4px;">
                     <a href="index.html" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-house" style="color:#38bdf8;"></i> <span>Strona Główna Radia</span></a>
-                    <a href="lumina" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-wand-magic-sparkles" style="color:#ec4899;"></i> <span>Portal LUMINA</span></a>
-                    <a href="tablica" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-rectangle-list" style="color:#facc15;"></i> <span>Tablica Społeczności</span></a>
-                    <a href="lumina.html#odkrywaj" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof scrollToSection==='function') scrollToSection('odkrywaj');"><i class="fa-solid fa-compass" style="color:#c084fc;"></i> <span>Odkrywaj Profile</span></a>
+                    <a href="lumina" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-wand-magic-sparkles" style="color:#D4B578;"></i> <span>Portal LUMINA</span></a>
+                    <a href="tablica" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-rectangle-list" style="color:#E2CC9A;"></i> <span>Tablica Społeczności</span></a>
+                    <a href="lumina.html#odkrywaj" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof scrollToSection==='function') scrollToSection('odkrywaj');"><i class="fa-solid fa-compass" style="color:#C4A35A;"></i> <span>Odkrywaj Profile</span></a>
                     <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openDirectMessagesModal==='function') openDirectMessagesModal(); else if(typeof openMessageModal==='function') openMessageModal(); else if(typeof openLuminaChatModal==='function') openLuminaChatModal();"><i class="fa-solid fa-comments" style="color:#34d399;"></i> <span>Wiadomości & Czat</span></button>
-                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openShareLuminaModal==='function') openShareLuminaModal();"><i class="fa-solid fa-share-nodes" style="color:#a78bfa;"></i> <span>Polecaj Portal</span></button>
-                    <a href="javascript:void(0)" onclick="closeTopNavDrawer(); if(typeof handleMyProfileNavigation==='function') handleMyProfileNavigation(event);" class="drawer-nav-item" id="drawerMyProfileLink"><i class="fa-solid fa-user" style="color:#f472b6;"></i> <span>Mój Profil</span></a>
-                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openPersonalSettingsModal==='function') openPersonalSettingsModal();"><i class="fa-solid fa-sliders" style="color:#facc15;"></i> <span>Ustawienia aplikacji</span></button>
+                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openShareLuminaModal==='function') openShareLuminaModal();"><i class="fa-solid fa-share-nodes" style="color:#D4B578;"></i> <span>Polecaj Portal</span></button>
+                    <a href="javascript:void(0)" onclick="closeTopNavDrawer(); if(typeof handleMyProfileNavigation==='function') handleMyProfileNavigation(event);" class="drawer-nav-item" id="drawerMyProfileLink"><i class="fa-solid fa-user" style="color:#E2CC9A;"></i> <span>Mój Profil</span></a>
+                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openPersonalSettingsModal==='function') openPersonalSettingsModal();"><i class="fa-solid fa-sliders" style="color:#C4A35A;"></i> <span>Ustawienia aplikacji</span></button>
                     
                     <div style="height:1px; background:rgba(255,255,255,0.08); margin:6px 0;"></div>
                     
-                    <button type="button" class="drawer-nav-item" id="drawerAuthCtaBtn" onclick="closeTopNavDrawer(); if(typeof openAuth==='function') openAuth(); else if(typeof openAuthModal==='function') openAuthModal();" style="background:linear-gradient(135deg,#ec4899,#8b5cf6); color:#fff; font-weight:800; border-radius:12px; justify-content:center;">
+                    <button type="button" class="drawer-nav-item" id="drawerAuthCtaBtn" onclick="closeTopNavDrawer(); if(typeof openAuth==='function') openAuth(); else if(typeof openAuthModal==='function') openAuthModal();" style="background:#FF7A00; color:#fff; font-weight:800; border-radius:12px; justify-content:center;">
                         <i class="fa-solid fa-arrow-right-to-bracket"></i> <span>Zaloguj / Rejestracja</span>
                     </button>
                 </div>
@@ -8584,6 +8587,7 @@ window.addEventListener('lumina-auth-state', () => {
     </script>
     <!-- Single canonical CC back-to-top standard (js/cc-back-to-top.js) -->
     <script src="/lumina-bottom-nav.js?v=20261014_luminav1" defer></script>
+    <script src="/js/lumina-a11y-shell.js?v=20261114_p2" defer></script>
     <script src="lumina-notifications.js?v=20261013_notifsafe1" defer></script>
     <script type="module" src="lumina-badges-engine.js?v=4.1.1_20260909"></script>
 <!-- ══════════ DARMOWY BANER COOKIES & CONSENT MODE V2 (LUMINA) ══════════ -->

@@ -6,15 +6,15 @@
  */
 
 :root {
-    --lmp-bg: rgba(9, 14, 30, 0.92);
+    --lmp-bg: rgba(10, 10, 12, 0.94);
     --lmp-blur: blur(24px) saturate(190%);
-    --lmp-border: rgba(250, 204, 21, 0.32);
-    --lmp-border-playing: rgba(250, 204, 21, 0.65);
-    --lmp-gold: #facc15;
-    --lmp-gold-dark: #ca8a04;
-    --lmp-cyan: #38bdf8;
-    --lmp-shadow: 0 14px 38px rgba(0, 0, 0, 0.8), 0 0 22px rgba(250, 204, 21, 0.16);
-    --lmp-shadow-playing: 0 16px 42px rgba(0, 0, 0, 0.85), 0 0 28px rgba(250, 204, 21, 0.3);
+    --lmp-border: rgba(196, 163, 90, 0.34);
+    --lmp-border-playing: rgba(196, 163, 90, 0.68);
+    --lmp-gold: #C4A35A;
+    --lmp-gold-dark: #A08040;
+    --lmp-cyan: #E2CC9A;
+    --lmp-shadow: 0 14px 38px rgba(0, 0, 0, 0.85), 0 0 22px rgba(196, 163, 90, 0.16);
+    --lmp-shadow-playing: 0 16px 42px rgba(0, 0, 0, 0.9), 0 0 28px rgba(196, 163, 90, 0.32);
     --lmp-zindex: 100005;
 }
 
@@ -75,12 +75,12 @@ body:has(#messageModal.open) :is(#luminaMiniPlayerContainer, #luminaFloatingRadi
     min-width: 38px;
     border-radius: 50%;
     overflow: hidden;
-    border: 1.5px solid rgba(250, 204, 21, 0.4);
+    border: 1.5px solid rgba(196, 163, 90, 0.45);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #070e24;
+    background: #0a0a0c;
 }
 
 .lmp-cover-img {
@@ -222,36 +222,38 @@ body:has(#messageModal.open) :is(#luminaMiniPlayerContainer, #luminaFloatingRadi
 }
 
 .lmp-btn-stations:hover {
-    background: rgba(250, 204, 21, 0.2);
+    background: rgba(196, 163, 90, 0.18);
     border-color: var(--lmp-gold);
     color: var(--lmp-gold);
     transform: scale(1.05);
 }
 
-/* Główny przycisk Play/Pause */
+/* Główny przycisk Play/Pause (JOMA-D052 Klasyczny Pomarańczowy CTA) */
 .lmp-btn-play {
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+    background: #FF7A00;
     border: none;
-    color: #0b142e;
+    color: #FFFFFF;
     font-size: 0.95rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(250, 204, 21, 0.4);
+    box-shadow: 0 4px 14px rgba(255, 122, 0, 0.4);
     transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     padding: 0;
 }
 
 .lmp-btn-play:hover {
+    background: #FF8C33;
     transform: scale(1.08);
-    box-shadow: 0 6px 18px rgba(250, 204, 21, 0.6);
+    box-shadow: 0 6px 18px rgba(255, 140, 51, 0.58);
 }
 
 .lmp-btn-play:active {
+    background: #E66A00;
     transform: scale(0.95);
 }
 
@@ -297,7 +299,7 @@ body:has(#messageModal.open) :is(#luminaMiniPlayerContainer, #luminaFloatingRadi
     bottom: 256px !important; /* = 76px base + 180px slot; js refines via body:has() */
     transform: none !important;
     border: 2px solid var(--lmp-gold) !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), 0 0 18px rgba(250, 204, 21, 0.4) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85), 0 0 18px rgba(196, 163, 90, 0.36) !important;
     cursor: pointer;
     overflow: visible !important;
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
@@ -305,7 +307,7 @@ body:has(#messageModal.open) :is(#luminaMiniPlayerContainer, #luminaFloatingRadi
 
 #luminaMiniPlayerContainer.minimized:hover {
     transform: scale(1.08) !important;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.9), 0 0 24px rgba(250, 204, 21, 0.6) !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.9), 0 0 24px rgba(196, 163, 90, 0.58) !important;
 }
 
 #luminaMiniPlayerContainer.minimized .lmp-info,
@@ -349,8 +351,8 @@ body:has(#messageModal.open) :is(#luminaMiniPlayerContainer, #luminaFloatingRadi
     height: 18px;
     border-radius: 50%;
     background: var(--lmp-gold);
-    border: 2px solid #070e24;
-    color: #070e24;
+    border: 2px solid #0a0a0c;
+    color: #0a0a0c;
     font-size: 0.55rem;
     align-items: center;
     justify-content: center;
@@ -366,7 +368,7 @@ body:has(#messageModal.open) :is(#luminaMiniPlayerContainer, #luminaFloatingRadi
 
 .lmp-mini-play-indicator i {
     font-size: 8px;
-    color: #070e24;
+    color: #0a0a0c;
     line-height: 1;
     display: flex;
     align-items: center;
@@ -384,12 +386,12 @@ body:has(#messageModal.open) :is(#luminaMiniPlayerContainer, #luminaFloatingRadi
     left: 50%;
     transform: translateX(-50%) translateY(10px);
     width: 290px;
-    background: rgba(11, 18, 42, 0.96);
+    background: rgba(14, 14, 18, 0.97);
     backdrop-filter: blur(28px);
     -webkit-backdrop-filter: blur(28px);
-    border: 1.5px solid rgba(250, 204, 21, 0.4);
+    border: 1.5px solid rgba(196, 163, 90, 0.45);
     border-radius: 18px;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.9), 0 0 24px rgba(250, 204, 21, 0.2);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.9), 0 0 24px rgba(196, 163, 90, 0.22);
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -425,8 +427,8 @@ body:has(#messageModal.open) :is(#luminaMiniPlayerContainer, #luminaFloatingRadi
 
 .lmp-station-option:hover,
 .lmp-station-option.active {
-    background: rgba(250, 204, 21, 0.12);
-    border-color: rgba(250, 204, 21, 0.3);
+    background: rgba(196, 163, 90, 0.14);
+    border-color: rgba(196, 163, 90, 0.36);
 }
 
 .lmp-station-option-img {
@@ -434,7 +436,7 @@ body:has(#messageModal.open) :is(#luminaMiniPlayerContainer, #luminaFloatingRadi
     height: 32px;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px solid rgba(250, 204, 21, 0.4);
+    border: 1px solid rgba(196, 163, 90, 0.42);
     flex-shrink: 0;
 }
 
@@ -535,9 +537,19 @@ body:has(#messageModal.open) :is(#luminaMiniPlayerContainer, #luminaFloatingRadi
 
 @keyframes lmpPulseGesture {
     0%, 100% {
-        box-shadow: 0 0 0 2px #facc15, 0 8px 32px rgba(250, 204, 21, 0.45);
+        box-shadow: 0 0 0 2px #C4A35A, 0 8px 32px rgba(196, 163, 90, 0.42);
     }
     50% {
-        box-shadow: 0 0 0 4px #facc15, 0 8px 36px rgba(250, 204, 21, 0.85);
+        box-shadow: 0 0 0 4px #D4B578, 0 8px 36px rgba(196, 163, 90, 0.78);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lmp-cover-img,
+    .lmp-live-dot,
+    .lmp-eq-bar,
+    #luminaMiniPlayerContainer.lmp-awaiting-gesture {
+        animation: none !important;
+        transition: none !important;
     }
 }
