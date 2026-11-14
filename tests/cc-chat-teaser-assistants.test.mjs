@@ -83,4 +83,9 @@ test('cc-global-chat-button & cc-assistant: strict separation of General Chat vs
   assert.match(globalChat, /syncChatOverlayTopLayer/);
   assert.match(integrationJs, /#ccUnifiedChatHost\{[^}]*z-index:2147483647/);
   assert.match(integrationJs, /cc-lumi-mess-open/);
+
+  // Rolki: przycisk Więcej (.action-sidebar) na wysokości przycisku dolnych napisów (bez kolizji z czatem)
+  const rolkiHtml = fs.readFileSync('rolki.html', 'utf8');
+  assert.match(rolkiHtml, /\.action-sidebar\s*\{[^}]*bottom:\s*calc\(12px\s*\+\s*env\(safe-area-inset-bottom\)\)/);
+  assert.match(rolkiHtml, /\.captions-toggle-btn\s*\{[^}]*bottom:\s*calc\(12px\s*\+\s*env\(safe-area-inset-bottom\)\)/);
 });
