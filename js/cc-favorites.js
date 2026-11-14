@@ -560,10 +560,18 @@
         position: fixed;
         top: max(14px, env(safe-area-inset-top));
         right: max(16px, env(safe-area-inset-right));
-        z-index: 99998;
+        z-index: 995;
         display: flex;
         align-items: center;
         pointer-events: auto;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+      }
+
+      body:has(.cc-chat-drawer-overlay.is-open) .cc-floating-topbar-wrap,
+      .cc-chat-drawer-overlay.is-open ~ .cc-floating-topbar-wrap {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
       }
 
       /* Motyw Jasny */

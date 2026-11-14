@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-14",
+      "topic": "Ulubione CC (cc-favorites.js): Naprawa warstwy z-index — gwiazdka nie zasłania przycisku zamykania czatu LUMI Messenger",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
       "topic": "Rolki Wiary (LUMINA Shorts): Avatar-only przycisk logowania w rozwiniętym pasku Więcej bez wychodzenia poza ekran",
       "agent": "A"
     },
