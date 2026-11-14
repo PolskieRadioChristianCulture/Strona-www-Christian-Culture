@@ -2,6 +2,33 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina.mariusz",
+      "title": "Duchowny Mariusz — Wsparcie Duszpasterskie, Rozmowa Telefoniczna i SMS",
+      "url": "https://polskieradio.cc/lumina.mariusz",
+      "type": "profile",
+      "image": "avatar_mariusz.jpg",
+      "publishedAt": "2026-11-14T10:37:47.801Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "cclite.pl",
+      "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
+      "url": "https://cclite.pl",
+      "type": "module",
+      "image": "cclite.pl.png",
+      "publishedAt": "2026-11-14T08:31:59.829Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "czy-jezus-naprawde-byl-bogiem-biblijne-dowody",
+      "title": "Czy Jezus naprawdę był Bogiem? Pytanie, które obnaża fundament naszej wiary",
+      "url": "https://polskieradio.cc/news/czy-jezus-naprawde-byl-bogiem-biblijne-dowody",
+      "type": "news",
+      "image": "art-czy-jezus-naprawde-byl-bogiem-biblijne-dowody.jpg",
+      "publishedAt": "2026-11-14T08:08:38.743Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "music",
       "title": "CC MUSIC Hub — Chrześcijańska Muzyka, Albumy i Lista Przebojów TOP TEN",
       "url": "https://polskieradio.cc/music",

@@ -5,6 +5,16 @@
   "updatesLog": [
     {
       "date": "2026-11-14",
+      "topic": "CCN News X: Cykliczna publikacja #298 — Społeczność & Relacje: Duchowny Mariusz (Portal LUMINA) z autentyczną fotografią",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
+      "topic": "CCN Finanse / Kalendarz 365: Opracowanie pakietu redakcyjnego LP 11 („Jak przygotować domowy budżet na grudzień bez kredytu?”) — DOCX, ZIP na Pulpicie, status T4",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
       "topic": "LUMINA MESS (/mess): Nowy wzorzec pokojów czatu (prywatnych 1:1 i publicznych) — kosmiczne tło zorzy polarnej, dymki indygo/fiolet, separatory czasu, status Dostarczono i kompozytor",
       "agent": "A"
     },
@@ -876,11 +886,6 @@
     {
       "date": "2026-11-13",
       "topic": "Ark of Fire × Christian Culture: Dwujęzyczny konkurs świadectw wiary PL/EN z oficjalnym zdjęciem koszulki i panelem Jury",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #297 — cclite.pl (Oficjalna Aplikacja Webowa PWA) & Tablica LUMINA (ljMXMcKadNDjFrvZEm63)",
       "agent": "A"
     }
   ],
@@ -4895,8 +4900,13 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-14",
+  "lastUpdated": "2026-11-14T10:10:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-14",
+      "topic": "CCN Finanse / Kalendarz 365: Opracowanie pakietu redakcyjnego LP 11 („Jak przygotować domowy budżet na grudzień bez kredytu?”) — DOCX, ZIP na Pulpicie, status T4",
+      "agent": "A"
+    },
     {
       "date": "2026-11-14",
       "topic": "Biblia i Teologia / Apologetyka / eM / CCN News: Publikacja dwóch analiz Cezarego Rogowskiego („Czy Jezus naprawdę był Bogiem?” oraz „Co z tym Michałem?”) z PDF i indeksem @w",
