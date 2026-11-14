@@ -1072,6 +1072,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🗺️ ŻYWA MAPA EKOSYSTEMU CC';
       callToAction = '👉 Zobacz architekturę na żywo:\n';
       addTags(item.tag || '#MapaCC', '#EkosystemCC', '#ChristianCulture');
+    } else if ((item.url || '').includes('moje-centrum') || (item.title || '').toLowerCase().includes('moje centrum')) {
+      subHeader = '👑 MOJE CENTRUM CC | OSOBISTY PULPIT';
+      callToAction = '👉 Otwórz swój prywatny pulpit w ekosystemie:\n';
+      addTags('#MojeCentrumCC', '#PersonalHub', '#Lumina', '#ChristianCulture');
     } else if ((item.url || '').includes('cclite') || (item.title || '').toLowerCase().includes('cclite')) {
       subHeader = '📱 APLIKACJA PWA | CCLITE.PL';
       callToAction = '👉 Otwórz w przeglądarce:\n';

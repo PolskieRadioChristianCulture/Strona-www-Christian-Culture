@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "moje-centrum",
+      "title": "Moje Centrum CC — Twój Osobisty Pulpit (Personal Hub)",
+      "url": "https://polskieradio.cc/moje-centrum",
+      "type": "module",
+      "image": "art-moje-centrum.jpg",
+      "publishedAt": "2026-11-14T18:05:19.684Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "Ewa",
       "title": "Kącik Ewangelizacyjny Ewy — CC WOMEN",
       "url": "https://polskieradio.cc/Ewa",
