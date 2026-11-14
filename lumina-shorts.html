@@ -148,7 +148,7 @@
         .header-right-cluster {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             flex-shrink: 0;
             opacity: 0;
             max-width: 0;
@@ -163,7 +163,7 @@
 
         .header-more-group.drawer-open .header-right-cluster {
             opacity: 1;
-            max-width: 340px;
+            max-width: 260px;
             overflow: visible;
             pointer-events: auto;
             transform: translateX(0) scale(1);
@@ -179,6 +179,81 @@
             color: var(--gold);
             box-shadow: 0 0 14px rgba(250, 204, 21, 0.4);
         }
+
+        .shorts-header .header-title-box {
+            transition: opacity 0.2s ease, max-width 0.3s ease;
+            max-width: 140px;
+            overflow: hidden;
+        }
+
+        .shorts-header.header-drawer-open .header-title-box {
+            opacity: 0;
+            max-width: 0;
+            pointer-events: none;
+        }
+
+        /* Ograniczenie pigułki logowania / profilu wyłącznie do samego awatara w nagłówku Rolek */
+        .shorts-header .cc-auth-widget-container {
+            display: inline-flex !important;
+            align-items: center !important;
+            position: relative !important;
+            flex-shrink: 0 !important;
+        }
+
+        .shorts-header .cc-auth-user-pill,
+        .shorts-header .user-nav-profile.cc-auth-user-pill {
+            width: 36px !important;
+            min-width: 36px !important;
+            max-width: 36px !important;
+            height: 36px !important;
+            min-height: 36px !important;
+            padding: 0 !important;
+            gap: 0 !important;
+            justify-content: center !important;
+            border-radius: 50% !important;
+            overflow: visible !important;
+        }
+
+        .shorts-header .cc-auth-user-name,
+        .shorts-header .user-nav-name,
+        .shorts-header .cc-auth-user-chevron,
+        .shorts-header .user-nav-chevron {
+            display: none !important;
+        }
+
+        .shorts-header .cc-auth-avatar-wrap,
+        .shorts-header .user-nav-avatar-wrap {
+            width: 30px !important;
+            height: 30px !important;
+            min-width: 30px !important;
+        }
+
+        .shorts-header .cc-auth-avatar-img,
+        .shorts-header .user-nav-avatar {
+            width: 30px !important;
+            height: 30px !important;
+            min-width: 30px !important;
+            max-width: 30px !important;
+        }
+
+        .shorts-header .cc-auth-google-btn {
+            width: 36px !important;
+            min-width: 36px !important;
+            max-width: 36px !important;
+            height: 36px !important;
+            min-height: 36px !important;
+            padding: 0 !important;
+            gap: 0 !important;
+            justify-content: center !important;
+            border-radius: 50% !important;
+        }
+
+        .shorts-header .cc-auth-google-btn .cc-auth-btn-text-full,
+        .shorts-header .cc-auth-google-btn .cc-auth-btn-text-short,
+        .shorts-header .cc-auth-google-btn .cc-auth-lumina-tag {
+            display: none !important;
+        }
+
 
         .header-btn {
             width: 36px;
@@ -3552,6 +3627,10 @@
             if (!group) return;
 
             const isOpen = group.classList.toggle('drawer-open');
+            const header = group.closest('.shorts-header');
+            if (header) {
+                header.classList.toggle('header-drawer-open', isOpen);
+            }
             if (btn) {
                 btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             }
