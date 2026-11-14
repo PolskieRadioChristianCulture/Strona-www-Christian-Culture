@@ -116,7 +116,7 @@ test('11. Nested OSOBOWOSC alias resolves logo, cover and entry scripts from roo
     const base = new URL('/', 'https://polskieradio.cc/lumina/osobowoscplus');
     assert.equal(new URL(path, base).pathname, '/' + path);
   }
-  assert.match(html, /profile_compact_v7/);
+  assert.match(html, /20261114_profile_avatar_v8/);
 
   const wiolettaHtml = await readFile('lumina.wiolettarogowska.html', 'utf8');
   assert.match(wiolettaHtml, /<base href="\/">/);
@@ -137,6 +137,11 @@ test('12. Legacy profile navigation, titles and cards have explicit light styles
 test('13. Mobile header standard: avatar centred on the cover edge, details centred, tabs in a grid', async () => {
   const css = await readFile('css/lumina-profile-standard.css', 'utf8');
   const block = css.slice(css.indexOf('9. MOBILE PROFILE HEADER'));
+  assert.match(css, /\.profile-head-top,\s*\r?\nbody\.lumina-profile-standard\s+\.profile-head-main\s*\{[^}]*overflow:\s*visible\s*!important/);
+  assert.match(css, /body\.lumina-profile-standard\s+\.profile-head-top\s*\{[^}]*overflow:\s*visible\s*!important/);
+  assert.match(css, /body\.lumina-profile-standard\s+\.profile-head-main\s*\{[^}]*overflow:\s*visible\s*!important/);
+  assert.match(block, /:is\(\.profile-head-top,\s*\.hero-head-top\)\s*\{[^}]*overflow:\s*visible\s*!important/);
+  assert.match(block, /\.profile-head-main\s*\{[^}]*overflow:\s*visible\s*!important/);
   assert.ok(block.length > 100, 'mobile header block present');
   assert.match(block, /\.profile-head-main \{[^}]*margin-top: 0 !important/);
   assert.match(block, /align-self: center !important;\s*margin: -48px auto 0 !important/);
@@ -144,6 +149,11 @@ test('13. Mobile header standard: avatar centred on the cover edge, details cent
   assert.match(block, /\.cover-hint-badge \{[^}]*bottom: auto !important/);
   for (const file of profileFiles) {
     const html = await readFile(file, 'utf8');
-    assert.match(html, /lumina-profile-standard\.css\?v=20261011_profile_compact_v7/, `${file} must load the current profile standard`);
+    assert.match(html, /lumina-profile-standard\.css\?v=20261114_profile_avatar_v8/, `${file} must load the current profile standard`);
+    assert.doesNotMatch(
+      html,
+      /\.profile-head-(?:card|top|main)[^{}]*\{[^}]*overflow\s*:\s*hidden\s*!important/i,
+      `${file} must not clip profile avatar with overflow: hidden !important`
+    );
   }
 });

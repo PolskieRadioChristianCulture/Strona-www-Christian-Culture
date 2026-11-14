@@ -72,7 +72,7 @@ test('all standard profiles load the same root module and versioned CSS', async 
   for(const file of names){
     const html = await readFile(file,'utf8');
     assert.match(html, /src="\/js\/lumina-profile-actions\.js\?v=20261008_compact_v1"/,file);
-    assert.match(html, /lumina-profile-standard\.css\?v=20261011_profile_compact_v7/,file);
+    assert.match(html, /lumina-profile-standard\.css\?v=20261114_profile_avatar_v8/,file);
   }
   const css=await readFile('css/lumina-profile-standard.css','utf8');
   assert.match(css, /min-height: 44px !important/);

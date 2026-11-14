@@ -297,10 +297,16 @@ body.lumina-profile-standard .profile-head-main {
     max-width: 100% !important;
     min-width: 0 !important;
     height: auto !important;
+    overflow: visible !important;
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-end !important;
     gap: 20px !important;
+}
+
+body.lumina-profile-standard .hero-head-top,
+body.lumina-profile-standard .hero-head-main {
+    overflow: visible !important;
 }
 
 /* ══════════ 3. PROFILE AVATAR (1:1, CIRCLE, 160x160 DESKTOP) ══════════ */
@@ -619,6 +625,7 @@ body.lumina-profile-standard :is(button, a, input, textarea, select):focus-visib
         align-items: center !important;
         gap: 12px !important;
         padding-bottom: 16px !important;
+        overflow: visible !important;
     }
 
     body.lumina-profile-standard .profile-head-main {
@@ -628,6 +635,7 @@ body.lumina-profile-standard :is(button, a, input, textarea, select):focus-visib
         text-align: center !important;
         gap: 12px !important;
         width: 100% !important;
+        overflow: visible !important;
     }
 
     /* Mobile Avatar: 96x96 px (-48px overlap) */
@@ -797,6 +805,7 @@ body.lumina-profile-standard :is(button, a, input, textarea, select):focus-visib
         gap: 0 !important;
         padding-bottom: 4px !important;
         margin-top: 0 !important;
+        overflow: visible !important;
     }
 
     body.lumina-profile-standard :is(.profile-head-card, .hero-info-bar, .lumina-profile-head-card) .profile-head-main {
@@ -804,6 +813,7 @@ body.lumina-profile-standard :is(button, a, input, textarea, select):focus-visib
         padding: 0 !important;
         align-items: center !important;
         gap: 10px !important;
+        overflow: visible !important;
     }
 
     body.lumina-profile-standard :is(.profile-head-card, .hero-info-bar, .lumina-profile-head-card) :is(.avatar-wrap, .hero-avatar-wrap, .head-avatar-wrapper, .profile-avatar-wrap, .lumina-profile-avatar-wrap) {

@@ -294,3 +294,10 @@
 /ccMC/*
   Cache-Control: no-cache, no-store, must-revalidate
 
+# Standard profili LUMINA CSS — natychmiastowe odświeżanie bez 7-dniowego cache CDN
+/css/lumina-profile-standard.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/css/lumina-profile-standard.css*
+  Cache-Control: public, max-age=0, must-revalidate
+
