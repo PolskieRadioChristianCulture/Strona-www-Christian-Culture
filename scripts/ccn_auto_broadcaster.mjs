@@ -1274,6 +1274,12 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Dzień 33 (Wj 2:1–25): Z wód Nilu do pustyni Madian — ocalenie Mojżesza i Boża pamięć o przymierzu.';
   } else if ((item.url || '').includes('dzien-32')) {
     bodyText = 'Start Księgi Wyjścia! Dzień 32 (Wj 1:1–22): Nowy król, ucisk i Boże ocalenie — heroiczna wiara położnych Szifry i Pui.';
+  } else if ((item.url || '').includes('dzien-31')) {
+    bodyText = 'Dzień 31 (Rdz 50:1–26): Bóg obrócił to w dobro — wiara Józefa, pochówek Jakuba i Boża Opatrzność.';
+  } else if ((item.url || '').includes('dzien-30')) {
+    bodyText = 'Dzień 30 (Rdz 48:1–49:33): Błogosławieństwo Jakuba, proroctwo o Lwie z pokolenia Judy i Boża obietnica.';
+  } else if ((item.url || '').includes('dzien-29')) {
+    bodyText = 'Dzień 29 (Rdz 46–47): Bóg prowadzi swój lud do Egiptu — spotkanie Jakuba z Józefem w Goszen.';
   } else if ((item.url || '').endsWith('/lumina') || (item.url || '') === 'https://polskieradio.cc/lumina') {
     bodyText = 'LUMINA: Wolna od manipulacji i algorytmów przestrzeń społeczności ludzi wiary.';
   } else if ((item.url || '').endsWith('/mess') || (item.url || '') === 'https://polskieradio.cc/mess') {
@@ -1554,10 +1560,10 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
     console.log('🎉 [CCN Broadcaster] Post został zweryfikowany i opublikowany na platformie X!');
 
     await page.close().catch(() => {});
-    await context.close().catch(() => {});
+    await Promise.race([context.close(), new Promise(r => setTimeout(r, 4000))]).catch(() => {});
     return { success: true };
   } catch (err) {
-    await context.close().catch(() => {});
+    await Promise.race([context.close(), new Promise(r => setTimeout(r, 4000))]).catch(() => {});
     throw err;
   }
 }
