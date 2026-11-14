@@ -1,6 +1,6 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-14T03:13:44.300Z",
+  "generatedAt": "2026-11-14T05:01:20.643Z",
   "zeroFakeDataPolicy": true,
   "counts": {
     "totalValidatedUrls": 94,
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-14T03:13:44.294Z",
+        "queuedAt": "2026-11-14T05:01:20.639Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-14T03:13:44.294Z",
+        "queuedAt": "2026-11-14T05:01:20.639Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-14T03:13:44.294Z",
+        "queuedAt": "2026-11-14T05:01:20.639Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-14T03:13:44.294Z",
+        "queuedAt": "2026-11-14T05:01:20.639Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-14T03:13:44.294Z",
+        "queuedAt": "2026-11-14T05:01:20.639Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -386,7 +386,7 @@
     "keyMasked": "cc777b...c28e",
     "totalIndexedUrls": 351,
     "lastSubmittedCount": 351,
-    "lastSubmittedAt": "2026-11-14T03:13:46.761Z"
+    "lastSubmittedAt": "2026-11-14T05:01:22.543Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -603,5 +603,5 @@
       "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-14T03:13:46.760Z"
+  "lastInstantIndexingAt": "2026-11-14T05:01:22.543Z"
 }

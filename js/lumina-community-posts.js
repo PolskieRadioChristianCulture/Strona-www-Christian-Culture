@@ -91,9 +91,9 @@
             "authorRole": "Założyciel Christian Culture ✨ • Redakcja Teologiczna",
             "authorBadge": "📜 DOKUMENT ŹRÓDŁOWY • DZIEŃ REFORMACJI",
             "badgeHtml": "<span class=\"badge-type-tag\" style=\"background:linear-gradient(135deg,#b45309,#78350f);border:1.5px solid #f59e0b;color:#fff;font-weight:800;box-shadow:0 0 10px rgba(245,158,11,0.4);\" title=\"📜 DOKUMENT ŹRÓDŁOWY • 95 TEZ LUTRA\"><i class=\"fa-solid fa-scroll\"></i> <span class=\"badge-type-tag-text\">DZIEŃ REFORMACJI • DOKUMENT ŹRÓDŁOWY</span></span>",
-            "time": "Dzisiaj, 31 października • 📜 Dzień Reformacji",
+            "time": "31 października 2026 • 📜 Dzień Reformacji",
             "title": "95 tez Marcina Lutra (Wittenberga 1517) – Pełny tekst źródłowy w nowej redakcji polskiej",
-            "text": "Dziś, 31 października, przypada Dzień Reformacji — 509 lat od chwili, gdy Marcin Luter ogłosił w Wittenberdze 95 tez przeciw nadużyciom odpustowym, zapoczątkowując powrót do Pisma Świętego i zbawienia z łaski.\n\nOpublikowaliśmy w zasobach Christian Culture pełny, autentyczny tekst wszystkich 95 tez w nowej redakcji polskiej, skonfrontowanej z tekstem łacińskim, wraz z wyszukiwarką w treści tez, wstępem i notą źródłową.\n\nZapraszam do lektury pełnego dokumentu źródłowego oraz mojego eseju teologicznego na portalu CCN Historia & Biblioteka:\n🔗 https://polskieradio.cc/historia/95-tez-marcina-lutra-wittenberga-1517",
+            "text": "31 października wspominamy Dzień Reformacji — 509 lat od chwili, gdy Marcin Luter ogłosił w Wittenberdze 95 tez przeciw nadużyciom odpustowym, zapoczątkowując powrót do Pisma Świętego i zbawienia z łaski.\n\nOpublikowaliśmy w zasobach Christian Culture pełny, autentyczny tekst wszystkich 95 tez w nowej redakcji polskiej, skonfrontowanej z tekstem łacińskim, wraz z wyszukiwarką w treści tez, wstępem i notą źródłową.\n\nZapraszam do lektury pełnego dokumentu źródłowego oraz mojego eseju teologicznego na portalu CCN Historia & Biblioteka:\n🔗 https://polskieradio.cc/historia/95-tez-marcina-lutra-wittenberga-1517",
             "desc": "Pełny tekst historyczny: 95 tez Marcina Lutra z 31 października 1517 roku w nowej polskiej redakcji skonfrontowanej z tekstem łacińskim.",
             "image": "/images/news/95-tez-marcina-lutra-wittenberga-1517.jpg",
             "imageUrl": "/images/news/95-tez-marcina-lutra-wittenberga-1517.jpg",
@@ -106,10 +106,7 @@
             "likes": 517,
             "amen": 495,
             "createdAtTimestamp": 1793444000000,
-            "_sortTs": 1793444000000,
-            "_isNewlyPublished": true,
-            "_isFreshSpotlight": true,
-            "_isTopSpotlight": true
+            "_sortTs": 1793444000000
         },
         {
             "id": "post_art_ai_si_antychryst_cezary_rogowski",
@@ -120,9 +117,9 @@
             "authorSlug": "cezaryrgowski",
             "authorAvatar": "avatar_cezary_official.jpg",
             "authorRole": "Założyciel Christian Culture ✨ • Redakcja Teologiczna",
-            "authorBadge": "👑 PUBLIKACJA GŁÓWNA • NOWE TECHNOLOGIE & SI",
-            "badgeHtml": "<span class=\"badge-type-tag\" style=\"background:linear-gradient(135deg,#bb142e,#7f1d1d);border:1.5px solid #f87171;color:#fff;font-weight:800;box-shadow:0 0 10px rgba(187,20,46,0.4);\" title=\"👑 GŁÓWNA PUBLIKACJA • NOWE TECHNOLOGIE & SI\"><i class=\"fa-solid fa-microchip\"></i> <span class=\"badge-type-tag-text\">NOWE TECHNOLOGIE & SI • EKSKLUZYWNY ARTYKUŁ</span></span>",
-            "time": "Dzisiaj • 👑 Główna Publikacja Założyciela",
+            "authorBadge": "👑 ARTYKUŁ CCN • NOWE TECHNOLOGIE & SI",
+            "badgeHtml": "<span class=\"badge-type-tag\" style=\"background:linear-gradient(135deg,#bb142e,#7f1d1d);border:1.5px solid #f87171;color:#fff;font-weight:800;box-shadow:0 0 10px rgba(187,20,46,0.4);\" title=\"👑 ARTYKUŁ CCN • NOWE TECHNOLOGIE & SI\"><i class=\"fa-solid fa-microchip\"></i> <span class=\"badge-type-tag-text\">NOWE TECHNOLOGIE & SI • EKSKLUZYWNY ARTYKUŁ</span></span>",
+            "time": "4 października 2026 • 👑 Artykuł CCN Nowe Technologie & SI",
             "title": "AI, SI a biblijny Antychryst: Dlaczego sztuczna inteligencja nie może być Antychrystem",
             "text": "Dlaczego sztuczna inteligencja — w świetle krytyki biblijno-historycznej, proroczej i eschatologicznej — nie może być Antychrystem?\n\nWraz z rozwojem sztucznej inteligencji coraz częściej pojawiają się próby łączenia AI z biblijnym Antychrystem, „obrazem bestii” czy systemem kontroli z Apokalipsy 13. Z perspektywy rzetelnej analizy Pisma Świętego i proroctw Księgi Daniela takie utożsamienie jest jednak metodologicznie błędne.\n\nBiblia nie przedstawia Antychrysta jako technologii, lecz jako historyczny system religijno-polityczny o określonej sukcesji (1260 lat, mały róg, roszczenia do Bożego Prawa i kultu). Sztuczna inteligencja jest narzędziem, a nie biblijnym podmiotem proroczym.\n\nZapraszam do lektury pełnej, 20-rozdziałowej analizy egzegetycznej z tabelami porównawczymi na portalu CCN Nowe Technologie & SI:\n🔗 https://polskieradio.cc/si/ai-antychryst",
             "desc": "Dlaczego sztuczna inteligencja — w świetle krytyki biblijno-historycznej, proroczej i eschatologicznej — nie może być Antychrystem. Rzetelna analiza Cezarego Rogowskiego.",
@@ -137,10 +134,7 @@
             "likes": 428,
             "amen": 396,
             "createdAtTimestamp": 1791080000000,
-            "_sortTs": 1791080000000,
-            "_isNewlyPublished": true,
-            "_isFreshSpotlight": true,
-            "_isTopSpotlight": true
+            "_sortTs": 1791080000000
         },
 
         {
