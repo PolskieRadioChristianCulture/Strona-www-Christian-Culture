@@ -3599,7 +3599,7 @@ function getWeatherPreset(city) {
             var audio = document.getElementById("stream-audio");
             if (!audio) return;
 
-            var isParamMuted = window.location.search.includes('muted=1') || window.location.search.includes('mute=1') || window.location.search.includes('in_mcr=1') || (window.self !== window.top);
+            var isParamMuted = window.location.search.includes('muted=1') || window.location.search.includes('mute=1');
             if (isParamMuted) {
                 audio.muted = true;
                 audio.volume = 0;
