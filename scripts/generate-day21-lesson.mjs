@@ -1131,7 +1131,7 @@ export function getDay21Html() {
   <button class="back-to-top" id="backToTopBtn" type="button" aria-label="Przewiń do góry" title="Przewiń do góry">
     <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
   </button>
-  <script src="/js/cc-daily-course-share.js?v=20261108_wa1" defer></script>
+  <script src="/js/cc-daily-course-share.js?v=20261114_share2" defer></script>
 </body>
 </html>`;
 }

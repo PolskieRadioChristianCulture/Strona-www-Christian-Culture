@@ -793,7 +793,7 @@ html = html.replace(/const u = new SpeechSynthesisUtterance\("[^"]*"\);/,
   `const u = new SpeechSynthesisUtterance("Jeden drugiego nie widział i nikt nie wstał ze swego miejsca przez trzy dni; lecz wszyscy synowie Izraela mieli światło w swoich mieszkaniach. (Księga Wyjścia 10:23 (UBG))");`);
 
 // Share script version unification
-html = html.replace(/cc-daily-course-share\.js\?v=[\w.-]+/g, `cc-daily-course-share.js?v=20261108_wa1`);
+html = html.replace(/cc-daily-course-share\.js\?v=[\w.-]+/g, `cc-daily-course-share.js?v=20261114_share2`);
 
 fs.writeFileSync(path.join(PACKAGE_DIR, 'lekcja.html'), html, 'utf8');
 console.log('✅ Zapisano kolejka-publikacji/kurs-codzienny/2026-11-10/lekcja.html');

@@ -420,7 +420,7 @@ html = html.replace(/const STORAGE_KEY = 'kc_quiz_day33_score';/g, "const STORAG
 // Ensure share script is clean and empty
 html = html.replace(
   /<script src="\/js\/cc-daily-course-share\.js[^"]*" defer>[\s\S]*?<\/script>/,
-  '<script src="/js/cc-daily-course-share.js?v=20261108_wa1" defer></script>'
+  '<script src="/js/cc-daily-course-share.js?v=20261114_share2" defer></script>'
 );
 
 // Target 4 paths:

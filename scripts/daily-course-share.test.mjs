@@ -76,7 +76,7 @@ test('każda istniejąca lekcja, alias i katalog ładuje jeden wspólny panel i 
       else if (path.endsWith('.html')) {
         const content = readFileSync(path, 'utf8');
         assert.equal((content.match(/cc-daily-course-share\.js/g) || []).length, 1, path);
-        assert.ok(content.includes('cc-daily-course-share.js?v=20261108_wa1'),path+' musi ładować aktualną subskrypcję');
+        assert.ok(content.includes('cc-daily-course-share.js?v=20261114_share2'),path+' musi ładować aktualną subskrypcję');
         assert.ok(content.includes('id="backToTopBtn"'), path + ' musi zawierać id="backToTopBtn"');
         if (path.includes('dzien-')) {
           assert.ok(content.includes('id="kcJumpShareBtn"'), path + ' musi zawierać id="kcJumpShareBtn"');

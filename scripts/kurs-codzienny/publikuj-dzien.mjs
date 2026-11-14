@@ -32,7 +32,7 @@ const WYSZUKIWARKA = ['szukaj/catalog.json', 'data/cc-search-index.json'];
 const MAPA = 'sitemaps/akademia.xml';
 const ROZWAZANIA = 'rozwazania_baza.json';
 const OBRAZY = 'images/academy/daily';
-export const WERSJA_UDOSTEPNIANIA = '20261108_wa1'; // ?v= dla js/cc-daily-course-share.js (test daily-course-share pilnuje zgodności)
+export const WERSJA_UDOSTEPNIANIA = '20261114_share2'; // ?v= dla js/cc-daily-course-share.js (test daily-course-share pilnuje zgodności)
 
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const md5 = (b) => crypto.createHash('md5').update(b).digest('hex');
