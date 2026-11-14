@@ -268,6 +268,8 @@
   // Stan lokalny i użytkownika
   let currentChatPartner = COMMUNITY_MEMBERS[0];
   let currentPartnerRealtimeMessages = null;
+  let chatMode = 'public'; // 'public' (Czat ogólny) | 'assistant' (3 Asystentki CC) | 'direct' (Rozmowy 1:1)
+  const assistantHistories = {};
   let assistantConversationHistory = [];
   let isShowcaseCollapsed = false;
 
@@ -885,6 +887,180 @@
 
       .cc-chat-tab-panel.is-active {
         display: flex !important;
+      }
+
+      /* ── PODZIAŁ CZATU: CZAT OGÓLNY vs 3 ASYSTENTKI CC ── */
+      .cc-chat-mode-bar {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        padding: 8px 14px 6px 14px !important;
+        background: #0D1020 !important;
+        border-bottom: 1px solid rgba(52, 58, 80, 0.55) !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-mode-tab-btn {
+        flex: 1 1 0 !important;
+        min-height: 44px !important;
+        padding: 6px 10px !important;
+        border-radius: 12px !important;
+        border: 1px solid #343A50 !important;
+        background: #15192B !important;
+        color: #A5AEC4 !important;
+        font-size: 0.8rem !important;
+        font-weight: 700 !important;
+        font-family: inherit !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        cursor: pointer !important;
+        transition: all 0.18s ease !important;
+        white-space: nowrap !important;
+      }
+
+      .cc-mode-tab-btn:hover {
+        color: #FFFFFF !important;
+        border-color: rgba(216, 173, 87, 0.55) !important;
+      }
+
+      .cc-mode-tab-btn.is-active {
+        background: linear-gradient(135deg, rgba(133, 71, 216, 0.38), rgba(216, 173, 87, 0.22)) !important;
+        border-color: #D8AD57 !important;
+        color: #FFFFFF !important;
+        box-shadow: 0 2px 12px rgba(133, 71, 216, 0.28) !important;
+      }
+
+      .cc-asst-picker-strip {
+        display: flex !important;
+        align-items: stretch !important;
+        gap: 6px !important;
+        padding: 8px 14px !important;
+        background: rgba(21, 25, 43, 0.92) !important;
+        border-bottom: 1px solid rgba(133, 71, 216, 0.35) !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-asst-picker-strip[hidden],
+      .cc-section-hidden {
+        display: none !important;
+      }
+
+      .cc-asst-pick-btn {
+        flex: 1 1 0 !important;
+        min-height: 44px !important;
+        min-width: 0 !important;
+        padding: 5px 8px !important;
+        border-radius: 12px !important;
+        border: 1.5px solid #343A50 !important;
+        background: #1D2235 !important;
+        color: #E2E8F0 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 7px !important;
+        cursor: pointer !important;
+        text-align: left !important;
+        font-family: inherit !important;
+        transition: all 0.18s ease !important;
+      }
+
+      .cc-asst-pick-btn:hover {
+        border-color: rgba(216, 173, 87, 0.65) !important;
+        background: rgba(29, 34, 53, 0.95) !important;
+      }
+
+      .cc-asst-pick-btn.is-active {
+        border-color: #D8AD57 !important;
+        background: linear-gradient(135deg, rgba(133, 71, 216, 0.35), rgba(216, 173, 87, 0.22)) !important;
+        color: #FFFFFF !important;
+        box-shadow: 0 2px 10px rgba(216, 173, 87, 0.25) !important;
+      }
+
+      .cc-asst-pick-avatar-wrap {
+        position: relative !important;
+        width: 30px !important;
+        height: 30px !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-asst-pick-avatar {
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        border: 1.5px solid rgba(216, 173, 87, 0.7) !important;
+        display: block !important;
+      }
+
+      .cc-asst-pick-dot {
+        position: absolute !important;
+        right: -1px !important;
+        bottom: -1px !important;
+        width: 8px !important;
+        height: 8px !important;
+        border-radius: 50% !important;
+        background: #20C997 !important;
+        border: 1.5px solid #1D2235 !important;
+      }
+
+      .cc-asst-pick-meta {
+        display: flex !important;
+        flex-direction: column !important;
+        min-width: 0 !important;
+        line-height: 1.15 !important;
+      }
+
+      .cc-asst-pick-name {
+        font-size: 0.78rem !important;
+        font-weight: 800 !important;
+        color: #FFFFFF !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      .cc-asst-pick-role {
+        font-size: 0.64rem !important;
+        color: #A5AEC4 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      .cc-public-mode-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+        padding: 8px 10px !important;
+        margin: 4px 0 6px 0 !important;
+        border-radius: 12px !important;
+        background: rgba(21, 25, 43, 0.9) !important;
+        border: 1px solid rgba(52, 58, 80, 0.75) !important;
+      }
+
+      .cc-public-mode-title {
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        color: #F7F8FC !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        min-width: 0 !important;
+      }
+
+      .cc-public-back-btn {
+        min-height: 44px !important;
+        padding: 4px 12px !important;
+        border-radius: 999px !important;
+        border: 1px solid rgba(216, 173, 87, 0.5) !important;
+        background: rgba(216, 173, 87, 0.12) !important;
+        color: #F2D17C !important;
+        font-size: 0.73rem !important;
+        font-weight: 700 !important;
+        cursor: pointer !important;
+        white-space: nowrap !important;
       }
 
       /* ── BANER ASYSTENTEK CC (SHOWCASE 1:1 ARTWORK & HOTSPOTS) ── */
@@ -1898,103 +2074,161 @@
           </button>
         </nav>
 
-        <!-- ════ WIDOK 1: CZAT & ASYSTENTKI CC ════ -->
+        <!-- ════ WIDOK 1: CZAT OGÓLNY & ASYSTENTKI CC (3 DO WYBORU) ════ -->
         <div class="cc-chat-tab-panel is-active" id="ccChatViewLive" role="tabpanel" aria-labelledby="ccChatTabLiveBtn">
-          
-          <!-- BANER ASYSTENTEK CC (SHOWCASE 1:1 ARTWORK & HOTSPOTS) -->
-          <section class="cc-chat-asst-showcase" id="ccChatAsstShowcase" aria-label="Asystentki Christian Culture">
-            <div class="cc-hero-art-container">
-              <img src="/images/chat/lumi_hero_banner.webp" alt="Asystentki Christian Culture - Lea, Rut, Noemi" class="cc-hero-art-img" width="474" height="288" loading="eager">
-              <div class="cc-hero-hotspots">
-                <!-- Lea -->
-                <button type="button" class="cc-hotspot cc-hotspot-lea cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea - Organizer i planista" title="Lea - Organizer i planista"></button>
-                <!-- Rut (Center) -->
-                <button type="button" class="cc-hotspot cc-hotspot-rut cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut - Wspieram Cię i pomagam" title="Rut - Wspieram Cię i pomagam"></button>
-                <!-- Noemi -->
-                <button type="button" class="cc-hotspot cc-hotspot-noemi cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi - Twoje zasoby i rozwiązania" title="Noemi - Twoje zasoby i rozwiązania"></button>
-                <!-- Pigułki pod banerem -->
-                <button type="button" class="cc-hotspot cc-hotspot-pill1" id="ccPillRadio" aria-label="Posłuchaj radia" title="Posłuchaj radia"></button>
-                <button type="button" class="cc-hotspot cc-hotspot-pill2" id="ccPillBible" aria-label="Poznaj Biblię" title="Poznaj Biblię"></button>
-                <button type="button" class="cc-hotspot cc-hotspot-pill3" id="ccPillDiscover" aria-label="Odkryj CC" title="Odkryj CC"></button>
-              </div>
-            </div>
-          </section>
 
-          <!-- ŚWIETLISTA LINIA ROZDZIELAJĄCA -->
-          <div class="cc-lumi-divider" aria-hidden="true"></div>
-
-          <!-- MINI-BAR AKTYWNEJ ASYSTENTKI -->
-          <div class="cc-chat-active-asst-bar" id="ccChatActiveAsstBar">
-            <div class="cc-active-asst-left">
-              <div class="cc-active-asst-avatar-wrap" aria-hidden="true">
-                <img src="/images/chat/lumi_avatar_rut_circle.webp" alt="Rut" id="ccChatActiveAsstAvatar" class="cc-active-asst-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.webp'">
-                <span class="cc-active-asst-dot"></span>
-              </div>
-              <div class="cc-active-asst-meta">
-                <span class="cc-active-asst-name" id="ccChatActiveAsstName">Rut</span>
-                <span class="cc-active-asst-role" id="ccChatActiveAsstRole">· Asystentka CC</span>
-              </div>
-            </div>
-            <button type="button" class="cc-asst-toggle-showcase-btn" id="ccAsstToggleShowcaseBtn" style="display:none;" aria-label="Zwiń / rozwiń prezentację asystentek" title="Zwiń / rozwiń asystentki">
-              <span id="ccAsstToggleIcon">▾</span>
+          <!-- PRZEŁĄCZNIK TRYBU: CZAT OGÓLNY vs ASYSTENTKI CC -->
+          <div class="cc-chat-mode-bar" id="ccChatModeBar" role="tablist" aria-label="Wybór trybu czatu">
+            <button type="button" class="cc-mode-tab-btn is-active" id="ccModePublicBtn" data-chat-mode="public" role="tab" aria-selected="true">
+              <span>🌐</span><span>Czat ogólny</span>
+            </button>
+            <button type="button" class="cc-mode-tab-btn" id="ccModeAssistantBtn" data-chat-mode="assistant" role="tab" aria-selected="false">
+              <span>✨</span><span>Asystentki CC (3)</span>
             </button>
           </div>
 
-          <!-- FEED WIADOMOŚCI I REKOMENDACJI -->
+          <!-- WYBÓR JEDNEJ Z 3 ASYSTENTEK (ZAWSZE WIDOCZNY W TRYBIE ASYSTENTEK) -->
+          <div class="cc-asst-picker-strip" id="ccAssistantSelectorStrip" role="radiogroup" aria-label="Wybierz Asystentkę Christian Culture" hidden>
+            <button type="button" class="cc-asst-pick-btn cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut — Gospodyni LUMI MESS">
+              <span class="cc-asst-pick-avatar-wrap" aria-hidden="true">
+                <img src="/images/chat/lumi_avatar_rut_circle.webp" alt="Rut" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.jpg'">
+                <span class="cc-asst-pick-dot"></span>
+              </span>
+              <span class="cc-asst-pick-meta">
+                <span class="cc-asst-pick-name">Rut</span>
+                <span class="cc-asst-pick-role">Gospodyni CC</span>
+              </span>
+            </button>
+            <button type="button" class="cc-asst-pick-btn cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea — Przewodnik i planista">
+              <span class="cc-asst-pick-avatar-wrap" aria-hidden="true">
+                <img src="/images/chat/lumi_avatar_lea_circle.webp" alt="Lea" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-2.jpg'">
+                <span class="cc-asst-pick-dot"></span>
+              </span>
+              <span class="cc-asst-pick-meta">
+                <span class="cc-asst-pick-name">Lea</span>
+                <span class="cc-asst-pick-role">Planista</span>
+              </span>
+            </button>
+            <button type="button" class="cc-asst-pick-btn cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi — Doradca i zasoby">
+              <span class="cc-asst-pick-avatar-wrap" aria-hidden="true">
+                <img src="/images/chat/lumi_avatar_noemi_circle.webp" alt="Noemi" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-3.jpg'">
+                <span class="cc-asst-pick-dot"></span>
+              </span>
+              <span class="cc-asst-pick-meta">
+                <span class="cc-asst-pick-name">Noemi</span>
+                <span class="cc-asst-pick-role">Doradca</span>
+              </span>
+            </button>
+          </div>
+
+          <!-- FEED WIADOMOŚCI (ROZDZIELONY: SPOŁECZNOŚĆ vs ASYSTENTKI) -->
           <div class="cc-chat-partners-bar" id="ccChatPartnersBar" style="display:none !important;"></div>
           <div class="cc-chat-feed" id="ccChatFeed">
-            
-            <!-- Powitanie 1:1 -->
-            <div class="cc-asst-welcome-container">
-              <div class="cc-asst-welcome-bubble" id="ccChatWelcomeBubble">
-                <div class="cc-welcome-headline">Cześć! ❤️ Dobrze, że jesteś.</div>
-                <div class="cc-welcome-lead" id="ccChatWelcomeBody">Nazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.</div>
-                <div class="cc-welcome-help">Przez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem.</div>
-                <div class="cc-welcome-ask">W czym mogę Ci dziś pomóc?</div>
+
+            <!-- SEKCJA 1: CZAT OGÓLNY & ROZMOWY 1:1 -->
+            <div id="ccPublicChatSection">
+              <div class="cc-public-mode-header" id="ccPublicModeHeader">
+                <div class="cc-public-mode-title" id="ccPublicModeTitle">
+                  <span>🌐</span><span>Czat Ogólny Społeczności LUMINA</span>
+                </div>
+                <button type="button" class="cc-public-back-btn" id="ccPublicBackBtn" hidden>← Czat ogólny</button>
               </div>
-              <div class="cc-welcome-art-wrap" aria-hidden="true">
-                <img src="/images/chat/lumi_welcome_cross_bible.webp" alt="Krzyż i Biblia" class="cc-welcome-art-img" width="88" height="168">
-              </div>
+              <div id="ccChatMessagesList" style="display: flex; flex-direction: column; gap: 10px;"></div>
             </div>
 
-            <!-- 3 Karty Szybkich Akcji 1:1 -->
-            <div class="cc-chat-quick-cards-grid" id="ccChatQuickCardsGrid">
-              <a href="/player" class="cc-quick-card cc-qc-gold" id="ccQcRadio" aria-label="Posłuchaj radia">
-                <div class="cc-qc-thumb-wrap" aria-hidden="true">
-                  <img src="/images/chat/lumi_thumb_mic.webp" alt="Radio 24/7" class="cc-qc-thumb-img" width="76" height="48">
+            <!-- SEKCJA 2: CZAT Z WYBRANĄ ASYSTENTKĄ CC -->
+            <div id="ccAssistantChatSection" class="cc-section-hidden">
+              <!-- BANER ASYSTENTEK CC (SHOWCASE 1:1 ARTWORK & HOTSPOTS) -->
+              <section class="cc-chat-asst-showcase" id="ccChatAsstShowcase" aria-label="Asystentki Christian Culture">
+                <div class="cc-hero-art-container">
+                  <img src="/images/chat/lumi_hero_banner.webp" alt="Asystentki Christian Culture - Lea, Rut, Noemi" class="cc-hero-art-img" width="474" height="288" loading="eager">
+                  <div class="cc-hero-hotspots">
+                    <!-- Lea -->
+                    <button type="button" class="cc-hotspot cc-hotspot-lea cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea - Organizer i planista" title="Lea - Organizer i planista"></button>
+                    <!-- Rut (Center) -->
+                    <button type="button" class="cc-hotspot cc-hotspot-rut cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut - Wspieram Cię i pomagam" title="Rut - Wspieram Cię i pomagam"></button>
+                    <!-- Noemi -->
+                    <button type="button" class="cc-hotspot cc-hotspot-noemi cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi - Twoje zasoby i rozwiązania" title="Noemi - Twoje zasoby i rozwiązania"></button>
+                    <!-- Pigułki pod banerem -->
+                    <button type="button" class="cc-hotspot cc-hotspot-pill1" id="ccPillRadio" aria-label="Posłuchaj radia" title="Posłuchaj radia"></button>
+                    <button type="button" class="cc-hotspot cc-hotspot-pill2" id="ccPillBible" aria-label="Poznaj Biblię" title="Poznaj Biblię"></button>
+                    <button type="button" class="cc-hotspot cc-hotspot-pill3" id="ccPillDiscover" aria-label="Odkryj CC" title="Odkryj CC"></button>
+                  </div>
                 </div>
-                <div class="cc-qc-meta">
-                  <span class="cc-qc-title">🎧 Posłuchaj radia</span>
-                  <span class="cc-qc-desc">Radio 24/7 · Audycje · Muzyka · Na żywo</span>
-                </div>
-                <span class="cc-qc-arrow" aria-hidden="true">›</span>
-              </a>
+              </section>
 
-              <a href="/Ewangelia" class="cc-quick-card cc-qc-blue" id="ccQcBible" aria-label="Poznaj Dobrą Nowinę">
-                <div class="cc-qc-thumb-wrap" aria-hidden="true">
-                  <img src="/images/chat/lumi_thumb_bible.webp" alt="Biblia" class="cc-qc-thumb-img" width="76" height="48">
-                </div>
-                <div class="cc-qc-meta">
-                  <span class="cc-qc-title">📖 Poznaj Dobrą Nowinę</span>
-                  <span class="cc-qc-desc">Biblia · Wersety · Kontemplacja · Kursy</span>
-                </div>
-                <span class="cc-qc-arrow" aria-hidden="true">›</span>
-              </a>
+              <!-- ŚWIETLISTA LINIA ROZDZIELAJĄCA -->
+              <div class="cc-lumi-divider" aria-hidden="true"></div>
 
-              <a href="/akademia" class="cc-quick-card cc-qc-purple" id="ccQcAcademy" aria-label="Akademia Biblijna">
-                <div class="cc-qc-thumb-wrap" aria-hidden="true">
-                  <img src="/images/chat/lumi_thumb_cap.webp" alt="Akademia Biblijna" class="cc-qc-thumb-img" width="76" height="48">
+              <!-- MINI-BAR AKTYWNEJ ASYSTENTKI -->
+              <div class="cc-chat-active-asst-bar" id="ccChatActiveAsstBar">
+                <div class="cc-active-asst-left">
+                  <div class="cc-active-asst-avatar-wrap" aria-hidden="true">
+                    <img src="/images/chat/lumi_avatar_rut_circle.webp" alt="Rut" id="ccChatActiveAsstAvatar" class="cc-active-asst-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.webp'">
+                    <span class="cc-active-asst-dot"></span>
+                  </div>
+                  <div class="cc-active-asst-meta">
+                    <span class="cc-active-asst-name" id="ccChatActiveAsstName">Rut</span>
+                    <span class="cc-active-asst-role" id="ccChatActiveAsstRole">· Asystentka CC</span>
+                  </div>
                 </div>
-                <div class="cc-qc-meta">
-                  <span class="cc-qc-title">🎓 Akademia Biblijna</span>
-                  <span class="cc-qc-desc">Kursy · Wykłady · Rozwój duchowy</span>
+                <button type="button" class="cc-asst-toggle-showcase-btn" id="ccAsstToggleShowcaseBtn" style="display:none;" aria-label="Zwiń / rozwiń prezentację asystentek" title="Zwiń / rozwiń asystentki">
+                  <span id="ccAsstToggleIcon">▾</span>
+                </button>
+              </div>
+
+              <!-- Powitanie 1:1 -->
+              <div class="cc-asst-welcome-container">
+                <div class="cc-asst-welcome-bubble" id="ccChatWelcomeBubble">
+                  <div class="cc-welcome-headline">Cześć! ❤️ Dobrze, że jesteś.</div>
+                  <div class="cc-welcome-lead" id="ccChatWelcomeBody">Nazywam się Rut – jestem Asystentką Christian Culture i gospodynią LUMI MESS.</div>
+                  <div class="cc-welcome-help" id="ccChatWelcomeHelp">Przez całą dobę pomogę Ci znaleźć radio 24/7, Biblię, kursy, filmy VOD, społeczność LUMINA lub kontakt z zespołem.</div>
+                  <div class="cc-welcome-ask" id="ccChatWelcomeAsk">W czym mogę Ci dziś pomóc?</div>
                 </div>
-                <span class="cc-qc-arrow" aria-hidden="true">›</span>
-              </a>
+                <div class="cc-welcome-art-wrap" aria-hidden="true">
+                  <img src="/images/chat/lumi_welcome_cross_bible.webp" alt="Krzyż i Biblia" class="cc-welcome-art-img" width="88" height="168">
+                </div>
+              </div>
+
+              <!-- 3 Karty Szybkich Akcji 1:1 -->
+              <div class="cc-chat-quick-cards-grid" id="ccChatQuickCardsGrid">
+                <a href="/player" class="cc-quick-card cc-qc-gold" id="ccQcRadio" aria-label="Posłuchaj radia">
+                  <div class="cc-qc-thumb-wrap" aria-hidden="true">
+                    <img src="/images/chat/lumi_thumb_mic.webp" alt="Radio 24/7" class="cc-qc-thumb-img" width="76" height="48">
+                  </div>
+                  <div class="cc-qc-meta">
+                    <span class="cc-qc-title">🎧 Posłuchaj radia</span>
+                    <span class="cc-qc-desc">Radio 24/7 · Audycje · Muzyka · Na żywo</span>
+                  </div>
+                  <span class="cc-qc-arrow" aria-hidden="true">›</span>
+                </a>
+
+                <a href="/Ewangelia" class="cc-quick-card cc-qc-blue" id="ccQcBible" aria-label="Poznaj Dobrą Nowinę">
+                  <div class="cc-qc-thumb-wrap" aria-hidden="true">
+                    <img src="/images/chat/lumi_thumb_bible.webp" alt="Biblia" class="cc-qc-thumb-img" width="76" height="48">
+                  </div>
+                  <div class="cc-qc-meta">
+                    <span class="cc-qc-title">📖 Poznaj Dobrą Nowinę</span>
+                    <span class="cc-qc-desc">Biblia · Wersety · Kontemplacja · Kursy</span>
+                  </div>
+                  <span class="cc-qc-arrow" aria-hidden="true">›</span>
+                </a>
+
+                <a href="/akademia" class="cc-quick-card cc-qc-purple" id="ccQcAcademy" aria-label="Akademia Biblijna">
+                  <div class="cc-qc-thumb-wrap" aria-hidden="true">
+                    <img src="/images/chat/lumi_thumb_cap.webp" alt="Akademia Biblijna" class="cc-qc-thumb-img" width="76" height="48">
+                  </div>
+                  <div class="cc-qc-meta">
+                    <span class="cc-qc-title">🎓 Akademia Biblijna</span>
+                    <span class="cc-qc-desc">Kursy · Wykłady · Rozwój duchowy</span>
+                  </div>
+                  <span class="cc-qc-arrow" aria-hidden="true">›</span>
+                </a>
+              </div>
+
+              <!-- Wydzielony strumień rozmowy z wybraną Asystentką CC -->
+              <div id="ccAssistantMessagesList" style="display: flex; flex-direction: column; gap: 10px;"></div>
             </div>
-
-            <!-- Strumień wiadomości -->
-            <div id="ccChatMessagesList" style="display: flex; flex-direction: column; gap: 10px;"></div>
 
             <!-- Przycisk powrotu do najnowszych wiadomości -->
             <button type="button" class="cc-chat-scroll-bottom-btn" id="ccChatScrollBottomBtn" aria-label="Przejdź do najnowszych wiadomości" style="display: none;">
@@ -2179,9 +2413,9 @@
             <div style="background:var(--lumi-card-surface);border:1px solid var(--lumi-border);border-radius:16px;padding:14px;">
               <span style="font-size:0.86rem;font-weight:700;display:block;margin-bottom:8px;">Wybierz Asystentkę LUMI:</span>
               <div style="display:flex;gap:8px;">
-                <button type="button" class="cc-showcase-pill" onclick="window.selectAssistantAndRefresh('asystentka-1')">Rut</button>
-                <button type="button" class="cc-showcase-pill" onclick="window.selectAssistantAndRefresh('asystentka-2')">Lea</button>
-                <button type="button" class="cc-showcase-pill" onclick="window.selectAssistantAndRefresh('asystentka-3')">Noemi</button>
+                <button type="button" class="cc-showcase-pill" data-asst-id="asystentka-1" onclick="window.selectAssistantAndRefresh('asystentka-1', true)">Rut</button>
+                <button type="button" class="cc-showcase-pill" data-asst-id="asystentka-2" onclick="window.selectAssistantAndRefresh('asystentka-2', true)">Lea</button>
+                <button type="button" class="cc-showcase-pill" data-asst-id="asystentka-3" onclick="window.selectAssistantAndRefresh('asystentka-3', true)">Noemi</button>
               </div>
             </div>
 
@@ -2222,6 +2456,62 @@
     const teaserMsg = document.getElementById('ccChatTeaserMsg');
     const teaserClose = document.getElementById('ccChatTeaserClose');
 
+    function renderAssistantActionButtons(actions) {
+      if (!actions || !actions.length) return '';
+      return `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">` +
+        actions.map(act => {
+          if (act.type === 'radio_play') {
+            return `<button type="button" class="cc-showcase-pill is-primary" onclick="document.getElementById('ccChatRadioPlayBtn')?.click()">${escapeHtml(act.label)}</button>`;
+          }
+          if (act.type === 'switch_tab_team') {
+            return `<button type="button" class="cc-showcase-pill" onclick="document.getElementById('ccChatTabTeamBtn')?.click()">${escapeHtml(act.label)}</button>`;
+          }
+          return `<a href="${escapeHtml(act.url)}" class="cc-showcase-pill is-primary" style="text-decoration:none;">${escapeHtml(act.label)} →</a>`;
+        }).join('') +
+      `</div>`;
+    }
+
+    function renderAssistantMessages() {
+      const list = document.getElementById('ccAssistantMessagesList');
+      if (!list) return;
+      const asst = getActiveAssistant();
+      const history = assistantHistories[asst.id] || [];
+      if (!history.length) {
+        list.innerHTML = '';
+        return;
+      }
+      list.innerHTML = history.map(entry => {
+        if (entry.sender === 'user') {
+          return `
+            <div class="cc-chat-msg-row is-me">
+              <div class="cc-chat-msg-content">
+                <div class="cc-chat-msg-meta">
+                  <span class="cc-chat-msg-sender">Ty</span>
+                  <span>${escapeHtml(entry.timeStr)}</span>
+                </div>
+                <div class="cc-chat-msg-bubble">${escapeHtml(entry.text)}</div>
+              </div>
+            </div>
+          `;
+        }
+        return `
+          <div class="cc-chat-msg-row">
+            <img src="${escapeHtml(asst.avatar)}" alt="${escapeHtml(asst.name)}" class="cc-chat-msg-avatar" onerror="this.src='${escapeHtml(asst.avatarFallback)}'">
+            <div class="cc-chat-msg-content">
+              <div class="cc-chat-msg-meta">
+                <span class="cc-chat-msg-sender">${escapeHtml(asst.name)}</span>
+                <span>${escapeHtml(entry.timeStr)}</span>
+              </div>
+              <div class="cc-chat-msg-bubble">
+                <div>${escapeHtml(entry.reply)}</div>
+                ${renderAssistantActionButtons(entry.actions)}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
     function refreshAssistantUI(asst) {
       activeAssistant = asst;
       if (teaserAvatar) {
@@ -2235,26 +2525,94 @@
       const activeName = document.getElementById('ccChatActiveAsstName');
       const activeRole = document.getElementById('ccChatActiveAsstRole');
       const welcomeBody = document.getElementById('ccChatWelcomeBody');
+      const welcomeHelp = document.getElementById('ccChatWelcomeHelp');
+      const headerSub = document.getElementById('ccChatHeaderSubText');
 
       if (activeAvatar) {
         activeAvatar.src = asst.circleAvatar || asst.avatar;
         activeAvatar.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
       }
       if (activeName) activeName.textContent = asst.shortName || asst.name.split(' ')[0];
-      if (activeRole) activeRole.textContent = '· Asystentka CC';
+      if (activeRole) activeRole.textContent = `· ${asst.role || 'Asystentka CC'}`;
       if (welcomeBody) welcomeBody.textContent = `Nazywam się ${asst.shortName || asst.name} – jestem Asystentką Christian Culture i gospodynią LUMI MESS.`;
+      if (welcomeHelp && asst.greeting) welcomeHelp.textContent = asst.greeting;
+      if (headerSub && chatMode === 'assistant') {
+        headerSub.textContent = `Asystentka CC: ${asst.shortName || asst.name}`;
+      }
 
-      // Trio radio sync
-      document.querySelectorAll('.cc-trio-card').forEach(btn => {
+      // Trio radio & selector sync
+      document.querySelectorAll('.cc-trio-card, #ccChatViewMore [data-asst-id]').forEach(btn => {
         const isThis = btn.getAttribute('data-asst-id') === asst.id;
         btn.classList.toggle('is-active', isThis);
-        btn.setAttribute('aria-checked', isThis ? 'true' : 'false');
+        if (btn.getAttribute('role') === 'radio') {
+          btn.setAttribute('aria-checked', isThis ? 'true' : 'false');
+        }
       });
+
+      renderAssistantMessages();
     }
 
-    window.selectAssistantAndRefresh = function(asstId) {
+    function setChatMode(mode) {
+      const normalized = (mode === 'assistant' || mode === 'direct') ? mode : 'public';
+      chatMode = normalized;
+
+      const modePublicBtn = document.getElementById('ccModePublicBtn');
+      const modeAssistantBtn = document.getElementById('ccModeAssistantBtn');
+      const asstStrip = document.getElementById('ccAssistantSelectorStrip');
+      const publicSection = document.getElementById('ccPublicChatSection');
+      const assistantSection = document.getElementById('ccAssistantChatSection');
+      const publicHeaderTitle = document.getElementById('ccPublicModeTitle');
+      const publicBackBtn = document.getElementById('ccPublicBackBtn');
+      const headerSub = document.getElementById('ccChatHeaderSubText');
+      const inputEl = document.getElementById('ccChatInput');
+
+      const isAsstMode = normalized === 'assistant';
+      if (modePublicBtn) {
+        modePublicBtn.classList.toggle('is-active', !isAsstMode);
+        modePublicBtn.setAttribute('aria-selected', !isAsstMode ? 'true' : 'false');
+      }
+      if (modeAssistantBtn) {
+        modeAssistantBtn.classList.toggle('is-active', isAsstMode);
+        modeAssistantBtn.setAttribute('aria-selected', isAsstMode ? 'true' : 'false');
+      }
+      if (asstStrip) asstStrip.hidden = !isAsstMode;
+      if (publicSection) publicSection.classList.toggle('cc-section-hidden', isAsstMode);
+      if (assistantSection) assistantSection.classList.toggle('cc-section-hidden', !isAsstMode);
+
+      if (isAsstMode) {
+        const asst = getActiveAssistant();
+        refreshAssistantUI(asst);
+        if (inputEl) inputEl.placeholder = `Zapytaj Asystentkę ${asst.shortName || asst.name} (np. radio, Biblia, kursy)...`;
+      } else if (normalized === 'direct' && currentChatPartner && !currentChatPartner.isPublic) {
+        if (publicHeaderTitle) {
+          publicHeaderTitle.innerHTML = `<span>💬</span><span>Rozmowa 1:1: ${escapeHtml(currentChatPartner.name)}</span>`;
+        }
+        if (publicBackBtn) publicBackBtn.hidden = false;
+        if (headerSub) headerSub.textContent = `Rozmowa: ${currentChatPartner.name}`;
+        if (inputEl) inputEl.placeholder = `Napisz wiadomość do ${currentChatPartner.name}...`;
+      } else {
+        if (publicHeaderTitle) {
+          publicHeaderTitle.innerHTML = '<span>🌐</span><span>Czat Ogólny Społeczności LUMINA</span>';
+        }
+        if (publicBackBtn) publicBackBtn.hidden = true;
+        if (headerSub) headerSub.textContent = 'Na żywo w Chrystusie';
+        if (inputEl) inputEl.placeholder = 'Napisz wiadomość na Czacie Ogólnym...';
+      }
+    }
+
+    window.setCCChatMode = setChatMode;
+
+    window.selectAssistantAndRefresh = function(asstId, switchToAssistant) {
       const asst = setActiveAssistantById(asstId);
       refreshAssistantUI(asst);
+      if (switchToAssistant) {
+        setChatMode('assistant');
+        const liveBtn = document.getElementById('ccChatTabLiveBtn');
+        if (liveBtn) liveBtn.click();
+      } else if (chatMode === 'assistant') {
+        const inputEl = document.getElementById('ccChatInput');
+        if (inputEl) inputEl.placeholder = `Zapytaj Asystentkę ${asst.shortName || asst.name} (np. radio, Biblia, kursy)...`;
+      }
     };
 
     if (teaserBubble && activeAssistant) {
@@ -2329,11 +2687,32 @@
       }
     }
 
-    // Podpięcie przełączania trio asystentek
+    // Podpięcie przełącznika trybu: Czat ogólny vs Asystentki CC (3 do wyboru)
+    document.getElementById('ccModePublicBtn')?.addEventListener('click', function () {
+      if (!currentChatPartner || !currentChatPartner.isPublic) {
+        setChatPartner(COMMUNITY_MEMBERS[0]);
+      }
+      setChatMode('public');
+      scrollToBottom();
+    });
+    document.getElementById('ccModeAssistantBtn')?.addEventListener('click', function () {
+      setChatMode('assistant');
+      scrollToBottom();
+    });
+    document.getElementById('ccPublicBackBtn')?.addEventListener('click', function () {
+      setChatPartner(COMMUNITY_MEMBERS[0]);
+      setChatMode('public');
+      scrollToBottom();
+    });
+
+    // Podpięcie przełączania trio asystentek (Rut / Lea / Noemi)
     document.querySelectorAll('.cc-trio-card').forEach(btn => {
       btn.addEventListener('click', function() {
         const aid = btn.getAttribute('data-asst-id');
         window.selectAssistantAndRefresh(aid);
+        if (chatMode !== 'assistant') {
+          setChatMode('assistant');
+        }
       });
     });
 
@@ -2342,9 +2721,11 @@
       toggleMiniPlayer();
     });
     document.getElementById('ccPillBible')?.addEventListener('click', function() {
+      setChatMode('assistant');
       sendAssistantMessage('Gdzie znajdę Biblię i rozważania?');
     });
     document.getElementById('ccPillDiscover')?.addEventListener('click', function() {
+      setChatMode('assistant');
       sendAssistantMessage('Czym jest Christian Culture?');
     });
 
@@ -2432,7 +2813,10 @@
         item.addEventListener('click', () => {
           const q = item.getAttribute('data-query');
           composerPopover.hidden = true;
-          if (q) sendAssistantMessage(q);
+          if (q) {
+            setChatMode('assistant');
+            sendAssistantMessage(q);
+          }
         });
       });
     }
@@ -2535,9 +2919,13 @@
 
     // Przewijanie i przycisk powrotu do najnowszych
     const feed = document.getElementById('ccChatFeed');
+    function getActiveMessagesContainer() {
+      return document.getElementById(chatMode === 'assistant' ? 'ccAssistantMessagesList' : 'ccChatMessagesList');
+    }
+
     function scrollToBottom() {
       if (!feed) return;
-      const msgList = document.getElementById('ccChatMessagesList');
+      const msgList = getActiveMessagesContainer();
       const msgRows = msgList ? msgList.querySelectorAll('.cc-chat-msg-row') : [];
       if (msgRows.length === 0) {
         feed.scrollTop = 0;
@@ -2548,7 +2936,7 @@
 
     if (feed && scrollBottomBtn) {
       feed.addEventListener('scroll', () => {
-        const msgList = document.getElementById('ccChatMessagesList');
+        const msgList = getActiveMessagesContainer();
         const msgRows = msgList ? msgList.querySelectorAll('.cc-chat-msg-row') : [];
         if (msgRows.length < 2) {
           scrollBottomBtn.style.display = 'none';
@@ -2563,85 +2951,115 @@
       });
     }
 
-    // Asystent: wysyłanie wiadomości
+    // Asystentka CC: wysyłanie wiadomości wyłącznie do wydzielonego strumienia wybranej asystentki
     function sendAssistantMessage(text) {
       if (!text || !text.trim()) return;
+      if (chatMode !== 'assistant') setChatMode('assistant');
       const cleanText = text.trim();
       const asst = getActiveAssistant();
       const now = new Date();
       const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-      // Dodaj wiadomość użytkownika do feedu
-      const list = document.getElementById('ccChatMessagesList');
-      if (!list) return;
-
-      const userRow = document.createElement('div');
-      userRow.className = 'cc-chat-msg-row is-me';
-      userRow.innerHTML = `
-        <div class="cc-chat-msg-content">
-          <div class="cc-chat-msg-meta">
-            <span class="cc-chat-msg-sender">Ty</span>
-            <span>${timeStr}</span>
-          </div>
-          <div class="cc-chat-msg-bubble">${escapeHtml(cleanText)}</div>
-        </div>
-      `;
-      list.appendChild(userRow);
+      if (!assistantHistories[asst.id]) assistantHistories[asst.id] = [];
+      assistantHistories[asst.id].push({ sender: 'user', text: cleanText, timeStr });
+      renderAssistantMessages();
       scrollToBottom();
 
-      // Automatyczne zwijanie baneru po wysłaniu wiadomości, by zrobić miejsce
+      // Automatyczne zwijanie dużego baneru po wysłaniu wiadomości, by zrobić miejsce
+      // Pasek wyboru 3 Asystentek (#ccAssistantSelectorStrip) pozostaje zawsze przypięty na górze
       if (showcaseEl && !isShowcaseCollapsed) {
         isShowcaseCollapsed = true;
         showcaseEl.classList.add('is-collapsed');
         if (toggleIcon) toggleIcon.textContent = '▸';
       }
 
-      // Wskaźnik pisania asystenta (180 ms)
+      // Odpowiedź wybranej Asystentki CC (180 ms)
       setTimeout(() => {
         const answer = getAssistantAnswer(cleanText, asst);
-        const botRow = document.createElement('div');
-        botRow.className = 'cc-chat-msg-row';
-
-        let actionsHtml = '';
-        if (answer.actions && answer.actions.length) {
-          actionsHtml = `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">` +
-            answer.actions.map(act => {
-              if (act.type === 'radio_play') {
-                return `<button type="button" class="cc-showcase-pill is-primary" onclick="document.getElementById('ccChatRadioPlayBtn')?.click()">${escapeHtml(act.label)}</button>`;
-              }
-              if (act.type === 'switch_tab_team') {
-                return `<button type="button" class="cc-showcase-pill" onclick="document.getElementById('ccChatTabTeamBtn')?.click()">${escapeHtml(act.label)}</button>`;
-              }
-              return `<a href="${escapeHtml(act.url)}" class="cc-showcase-pill is-primary" style="text-decoration:none;">${escapeHtml(act.label)} →</a>`;
-            }).join('') +
-          `</div>`;
+        if (!assistantHistories[asst.id]) assistantHistories[asst.id] = [];
+        assistantHistories[asst.id].push({
+          sender: 'assistant',
+          reply: answer.reply,
+          actions: answer.actions || [],
+          timeStr
+        });
+        if (getActiveAssistant().id === asst.id) {
+          renderAssistantMessages();
+          scrollToBottom();
         }
-
-        botRow.innerHTML = `
-          <img src="${asst.avatar}" alt="${asst.name}" class="cc-chat-msg-avatar" onerror="this.src='${asst.avatarFallback}'">
-          <div class="cc-chat-msg-content">
-            <div class="cc-chat-msg-meta">
-              <span class="cc-chat-msg-sender">${asst.name}</span>
-              <span>${timeStr}</span>
-            </div>
-            <div class="cc-chat-msg-bubble">
-              <div>${escapeHtml(answer.reply)}</div>
-              ${actionsHtml}
-            </div>
-          </div>
-        `;
-        list.appendChild(botRow);
-        scrollToBottom();
       }, 180);
     }
 
-    // Obsługa wysyłania z pola textarea
+    // Czat Ogólny i rozmowy 1:1: wysyłanie do chmury LUMINA (bez ingerencji asystentek)
+    function sendCommunityMessage(text) {
+      if (!text || !text.trim()) return;
+      const cleanText = text.trim();
+      const user = getUserState();
+      const list = document.getElementById('ccChatMessagesList');
+
+      if (!user.isLoggedIn || !user.uid) {
+        if (list) {
+          const prevNotice = list.querySelector('.cc-guest-send-notice');
+          if (prevNotice) prevNotice.remove();
+          const notice = document.createElement('div');
+          notice.className = 'cc-guest-send-notice';
+          notice.style.cssText = 'text-align:center;padding:14px 16px;margin-top:8px;border-radius:14px;background:rgba(216,173,87,0.1);border:1px solid rgba(216,173,87,0.35);color:#F7F8FC;font-size:0.84rem;line-height:1.5;';
+          notice.innerHTML = `
+            <div style="font-weight:700;color:#E2CC9A;margin-bottom:4px;">Aby wysłać wiadomość do społeczności, zaloguj się do LUMINA</div>
+            <div style="color:#A5AEC4;margin-bottom:10px;">Goście mogą czytać czat lub przełączyć na zakładkę „Asystentki CC (3)”.</div>
+            <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+              <a href="/lumina.html?action=login" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;background:linear-gradient(135deg,#D8AD57,#B58A38);color:#0D1020;font-weight:700;font-size:0.8rem;text-decoration:none;">Zaloguj się 🕊️</a>
+              <button type="button" class="cc-showcase-pill is-primary" style="min-height:44px;" onclick="window.setCCChatMode('assistant')">✨ Zapytaj Asystentkę CC</button>
+            </div>
+          `;
+          list.appendChild(notice);
+          scrollToBottom();
+        }
+        return;
+      }
+
+      if (currentChatPartner && currentChatPartner.isPublic) {
+        if (window.LuminaDB && typeof window.LuminaDB.sendPublicChatMessage === 'function') {
+          Promise.resolve(window.LuminaDB.sendPublicChatMessage({
+            text: cleanText,
+            senderId: user.slug || user.uid,
+            senderName: user.name,
+            senderAvatar: user.avatar,
+            senderBadge: user.badge
+          })).then(() => scrollToBottom()).catch(err => console.warn('Public chat send error:', err));
+        }
+      } else if (currentChatPartner) {
+        const partnerId = currentChatPartner.slug || currentChatPartner.id;
+        const myId = user.slug || user.uid;
+        const chatId = (window.LuminaDB && typeof window.LuminaDB.getChatId === 'function')
+          ? window.LuminaDB.getChatId(myId, partnerId)
+          : [myId, partnerId].sort().join('_');
+        if (window.LuminaDB && typeof window.LuminaDB.sendDirectMessageToCloud === 'function') {
+          Promise.resolve(window.LuminaDB.sendDirectMessageToCloud(chatId, {
+            text: cleanText,
+            senderId: myId,
+            senderAuthUid: user.uid,
+            senderUid: user.uid,
+            senderName: user.name,
+            senderAvatar: user.avatar,
+            senderBadge: user.badge,
+            recipientId: partnerId
+          })).then(() => scrollToBottom()).catch(err => console.warn('Direct chat send error:', err));
+        }
+      }
+    }
+
+    // Obsługa wysyłania z pola textarea zgodnie z aktywnym trybem
     chatForm.addEventListener('submit', function (e) {
       e.preventDefault();
       const text = (chatInput.value || '').trim();
       if (!text) return;
       chatInput.value = '';
-      sendAssistantMessage(text);
+      if (chatMode === 'assistant') {
+        sendAssistantMessage(text);
+      } else {
+        sendCommunityMessage(text);
+      }
     });
 
     chatInput.addEventListener('keydown', function (e) {
@@ -2696,9 +3114,8 @@
       overlay.classList.add('is-open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
-      switchTab('live');
+      setChatMode(chatMode);
       renderChatMessages();
-      document.body.style.overflow = 'hidden';
       switchTab('live');
       setTimeout(() => {
         scrollToBottom();
@@ -3094,7 +3511,15 @@
 
     if (!msgs || msgs.length === 0) {
       if (currentChatPartner.isPublic) {
-        list.innerHTML = '<div class="cc-chat-empty-state" style="display:none;" aria-hidden="true">Czat Ogólny Społeczności LUMINA</div>';
+        list.innerHTML = `
+          <div class="cc-chat-empty-state" style="text-align:center;padding:22px 14px;color:#A5AEC4;border:1px dashed rgba(216,173,87,0.22);border-radius:16px;background:rgba(255,255,255,0.02);">
+            <div style="font-size:1.35rem;margin-bottom:6px;" aria-hidden="true">🌐</div>
+            <div style="font-weight:700;color:#F7F8FC;font-size:0.94rem;margin-bottom:4px;">Czat Ogólny Społeczności LUMINA</div>
+            <p style="font-size:0.83rem;line-height:1.5;max-width:300px;margin:0 auto;color:#A5AEC4;">
+              Tutaj toczy się wspólna rozmowa społeczności. Jeśli chcesz porozmawiać 1:1 z Rut, Leą lub Noemi, wybierz zakładkę „Asystentki CC (3)” powyżej.
+            </p>
+          </div>
+        `;
         return;
       } else {
         list.innerHTML = `
@@ -3203,13 +3628,28 @@
     currentPartnerRealtimeMessages = null;
     currentChatPartner = partner || COMMUNITY_MEMBERS[0];
 
-    const subText = document.getElementById('ccChatHeaderSubText');
-    if (subText) {
-      subText.textContent = currentChatPartner.isPublic ? 'Na żywo w Chrystusie' : `Rozmowa: ${currentChatPartner.name}`;
+    if (typeof window.setCCChatMode === 'function') {
+      if (!currentChatPartner.isPublic) {
+        window.setCCChatMode('direct');
+      } else if (chatMode === 'direct') {
+        window.setCCChatMode('public');
+      }
     }
-    const title = document.getElementById('ccChatActiveAsstName');
-    if (title && !currentChatPartner.isPublic) {
-      title.textContent = currentChatPartner.name;
+
+    const publicHeaderTitle = document.getElementById('ccPublicModeTitle');
+    const publicBackBtn = document.getElementById('ccPublicBackBtn');
+    if (publicHeaderTitle) {
+      publicHeaderTitle.innerHTML = currentChatPartner.isPublic
+        ? '<span>🌐</span><span>Czat Ogólny Społeczności LUMINA</span>'
+        : `<span>💬</span><span>Rozmowa 1:1: ${escapeHtml(currentChatPartner.name)}</span>`;
+    }
+    if (publicBackBtn) {
+      publicBackBtn.hidden = !!currentChatPartner.isPublic;
+    }
+
+    const subText = document.getElementById('ccChatHeaderSubText');
+    if (subText && chatMode !== 'assistant') {
+      subText.textContent = currentChatPartner.isPublic ? 'Na żywo w Chrystusie' : `Rozmowa: ${currentChatPartner.name}`;
     }
 
     const user = getUserState();
@@ -3220,7 +3660,7 @@
             if (currentChatPartner.isPublic && Array.isArray(msgs)) {
               currentPartnerRealtimeMessages = msgs;
               renderChatMessages();
-              scrollToBottom();
+              if (chatMode !== 'assistant') scrollToBottom();
             }
           });
         } catch(err) {
@@ -3240,7 +3680,7 @@
             if (!currentChatPartner.isPublic && Array.isArray(msgs)) {
               currentPartnerRealtimeMessages = msgs;
               renderChatMessages();
-              scrollToBottom();
+              if (chatMode !== 'assistant') scrollToBottom();
             }
           });
         } catch(err) {
@@ -3283,17 +3723,23 @@
         document.body.style.overflow = 'hidden';
       }
       if (targetTab === 'assistant' || targetPartnerId === 'cc-assistant' || (targetPartnerId && String(targetPartnerId).startsWith('asystentka-'))) {
-        const asstId = targetPartnerId && String(targetPartnerId).startsWith('asystentka-') ? targetPartnerId : 'asystentka-1';
+        const asstId = targetPartnerId && String(targetPartnerId).startsWith('asystentka-') ? targetPartnerId : (getActiveAssistant().id || 'asystentka-1');
         try { sessionStorage.setItem('cc_active_assistant_id', asstId); } catch (_) {}
         if (window.selectAssistantAndRefresh) window.selectAssistantAndRefresh(asstId);
+        if (window.setCCChatMode) window.setCCChatMode('assistant');
+        const liveBtn = document.getElementById('ccChatTabLiveBtn');
+        if (liveBtn) liveBtn.click();
+      } else if (targetPartnerId === 'public' || targetTab === 'public') {
+        setChatPartner(COMMUNITY_MEMBERS[0]);
+        if (window.setCCChatMode) window.setCCChatMode('public');
         const liveBtn = document.getElementById('ccChatTabLiveBtn');
         if (liveBtn) liveBtn.click();
       } else if (targetPartnerId) {
         const p = COMMUNITY_MEMBERS.find(x => x.id === targetPartnerId || x.slug === targetPartnerId);
         if (p) {
           setChatPartner(p);
-          const pBtn = document.querySelector(`[data-partner-id="${p.id}"]`);
-          if (pBtn) pBtn.click();
+          const liveBtn = document.getElementById('ccChatTabLiveBtn');
+          if (liveBtn) liveBtn.click();
         }
       } else if (targetTab) {
         const tabMap = {

@@ -1880,7 +1880,7 @@
       btn.id = 'tabBtnAssistant';
       btn.className = 'messenger-main-tab active';
       btn.setAttribute('aria-label', 'Asystentki Christian Culture');
-      btn.innerHTML = '<span class="cc-tab-icon" aria-hidden="true">💬</span> <span class="tab-label">Czat</span>';
+      btn.innerHTML = '<span class="cc-tab-icon" aria-hidden="true">💬</span> <span class="tab-label">Asystentki CC</span>';
       btn.addEventListener('click', () => {
         this.open({ source: 'tab_button' });
       });
@@ -1967,6 +1967,31 @@
             <button type="button" class="cc-asst-icon-btn" id="ccAsstBackToPublicBtn" title="Wróć do Czatu Ogólnego" aria-label="Wróć do Czatu Ogólnego">← Czat</button>
           </div>
         </header>
+
+        <!-- ZAWSZE WIDOCZNY PASEK WYBORU 3 ASYSTENTEK (RUT / LEA / NOEMI) -->
+        <div class="cc-asst-picker-bar" id="ccAsstPickerBar" role="radiogroup" aria-label="Wybierz Asystentkę Christian Culture">
+          <button type="button" class="cc-asst-picker-btn cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut — Gospodyni CC">
+            <img src="/images/chat/lumi_avatar_rut_circle.webp" alt="Rut" class="cc-asst-picker-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.jpg'">
+            <span class="cc-asst-picker-meta">
+              <span class="cc-asst-picker-name">Rut</span>
+              <span class="cc-asst-picker-role">Gospodyni CC</span>
+            </span>
+          </button>
+          <button type="button" class="cc-asst-picker-btn cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea — Planista">
+            <img src="/images/chat/lumi_avatar_lea_circle.webp" alt="Lea" class="cc-asst-picker-avatar" onerror="this.src='/images/chat/assistants/asystentka-2.jpg'">
+            <span class="cc-asst-picker-meta">
+              <span class="cc-asst-picker-name">Lea</span>
+              <span class="cc-asst-picker-role">Planista</span>
+            </span>
+          </button>
+          <button type="button" class="cc-asst-picker-btn cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi — Doradca">
+            <img src="/images/chat/lumi_avatar_noemi_circle.webp" alt="Noemi" class="cc-asst-picker-avatar" onerror="this.src='/images/chat/assistants/asystentka-3.jpg'">
+            <span class="cc-asst-picker-meta">
+              <span class="cc-asst-picker-name">Noemi</span>
+              <span class="cc-asst-picker-role">Doradca</span>
+            </span>
+          </button>
+        </div>
 
         <!-- BANER ASYSTENTEK CC (1:1 ARTWORK + HOTSPOTY) -->
         <section class="cc-asst-showcase" id="ccAsstShowcase" aria-label="Asystentki Christian Culture">
