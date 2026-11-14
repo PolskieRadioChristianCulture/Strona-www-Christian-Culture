@@ -905,13 +905,21 @@
         var CHECK_EVERY_MS = 2000;
         var audio = document.getElementById('ccWorshipFallbackAudio');
         // Ten sam stan wyciszenia co strona: master-live wstępnie ładuje kanał wyciszony (muted=1) i odcisza komunikatem
-        audio.muted = /[?&]muted=1(&|$)/.test(location.search);
+        var isFrameMuted = /[?&]muted=1(&|$)/.test(location.search);
+        audio.muted = true;
         window.addEventListener('message', function (e) {
             var d = e && e.data; var type = '';
             if (typeof d === 'string') { try { var p = JSON.parse(d); type = p.type || p.event || ''; if (p.func === 'unMute') type = 'UNMUTE_AUDIO'; if (p.func === 'mute') type = 'MUTE_AUDIO'; } catch (err) { type = d; } }
             else if (d && typeof d === 'object') { type = d.type || ''; }
-            if (type === 'UNMUTE_AUDIO' || type === 'unMute') audio.muted = false;
-            else if (type === 'MUTE_AUDIO' || type === 'mute') audio.muted = true;
+            if (type === 'UNMUTE_AUDIO' || type === 'unMute') {
+                isFrameMuted = false;
+                notPlayingSince = Date.now();
+                audio.muted = !fallbackOn;
+            }
+            else if (type === 'MUTE_AUDIO' || type === 'mute') {
+                isFrameMuted = true;
+                stopFallback();
+            }
         });
         var tracks = [];
         var idx = 0;
@@ -947,8 +955,9 @@
         }
 
         function playNext() {
-            if (!fallbackOn || !tracks.length) return;
+            if (!fallbackOn || isFrameMuted || ytIsPlaying() || !tracks.length) return;
             audio.src = tracks[idx % tracks.length];
+            audio.muted = isFrameMuted;
             idx++;
             var p = audio.play();
             if (p && typeof p.catch === 'function') {
@@ -959,8 +968,9 @@
         audio.addEventListener('error', function () { setTimeout(playNext, 1500); });
 
         function startFallback(reason) {
-            if (fallbackOn) return;
+            if (fallbackOn || isFrameMuted || ytIsPlaying()) return;
             fallbackOn = true;
+            audio.muted = false;
             console.warn('[uwielbienie] dźwięk zastępczy ON (' + reason + ') ' + new Date().toISOString());
             hideOverlay();
             loadTracks().then(function () {
@@ -970,9 +980,14 @@
         }
 
         function stopFallback() {
-            if (!fallbackOn) return;
+            if (!fallbackOn && !audio.getAttribute('src')) return;
             fallbackOn = false;
-            try { audio.pause(); } catch (e) {}
+            try {
+                audio.pause();
+                audio.muted = true;
+                audio.removeAttribute('src');
+                audio.load();
+            } catch (e) {}
             console.info('[uwielbienie] YouTube gra — dźwięk zastępczy OFF ' + new Date().toISOString());
         }
 
@@ -982,6 +997,11 @@
 
         setInterval(function () {
             if (ytIsPlaying()) {
+                notPlayingSince = Date.now();
+                stopFallback();
+                return;
+            }
+            if (isFrameMuted) {
                 notPlayingSince = Date.now();
                 stopFallback();
                 return;

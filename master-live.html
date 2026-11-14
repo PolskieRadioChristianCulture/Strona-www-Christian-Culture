@@ -674,154 +674,6 @@
             .dekalog-brand-badge { padding: 0 10px; }
             .dekalog-brand-title { font-size: 0.72rem; }
         }
-
-        /* --- MCR EMERGENCY STANDBY SLATE (AWARYJNA PLANSZA Z MUZYKĄ) --- */
-        #mcr-standby-slate {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, #141824 0%, #08090e 70%, #030407 100%);
-            z-index: 9990;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        #mcr-standby-slate.show {
-            display: flex;
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .mcr-standby-vignette {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.85) 100%);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .mcr-standby-glass-card {
-            position: relative;
-            z-index: 2;
-            background: rgba(12, 16, 26, 0.75);
-            border: 1.5px solid rgba(212, 175, 55, 0.5);
-            border-radius: 24px;
-            padding: 35px 50px;
-            text-align: center;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.2);
-            max-width: 820px;
-            width: 90%;
-            animation: bumperPulse 3s infinite alternate ease-in-out;
-        }
-
-        .mcr-standby-brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            font-weight: 800;
-            letter-spacing: 3px;
-            color: var(--gold-primary);
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-
-        .mcr-standby-live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 14px;
-            border-radius: 20px;
-            background: rgba(220, 38, 38, 0.2);
-            border: 1px solid rgba(220, 38, 38, 0.6);
-            color: #fca5a5;
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 18px;
-        }
-
-        .mcr-standby-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ef4444;
-            box-shadow: 0 0 10px #ef4444;
-            animation: mcrLivePulse 1.5s infinite;
-        }
-
-        @keyframes mcrLivePulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.85); }
-        }
-
-        .mcr-standby-title {
-            font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin: 0 0 12px 0;
-            letter-spacing: 2px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
-        }
-
-        .mcr-standby-desc {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.88);
-            margin: 0 auto 24px auto;
-            max-width: 650px;
-        }
-
-        .mcr-standby-equalizer {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 6px;
-            height: 36px;
-            margin: 0 auto 18px auto;
-        }
-
-        .mcr-standby-equalizer span {
-            width: 5px;
-            background: linear-gradient(180deg, var(--gold-primary), #fff);
-            border-radius: 3px;
-            animation: mcrEqWave 1.2s ease-in-out infinite alternate;
-        }
-
-        .mcr-standby-equalizer span:nth-child(1) { height: 12px; animation-delay: 0.1s; }
-        .mcr-standby-equalizer span:nth-child(2) { height: 24px; animation-delay: 0.3s; }
-        .mcr-standby-equalizer span:nth-child(3) { height: 34px; animation-delay: 0.15s; }
-        .mcr-standby-equalizer span:nth-child(4) { height: 18px; animation-delay: 0.45s; }
-        .mcr-standby-equalizer span:nth-child(5) { height: 30px; animation-delay: 0.25s; }
-        .mcr-standby-equalizer span:nth-child(6) { height: 22px; animation-delay: 0.35s; }
-        .mcr-standby-equalizer span:nth-child(7) { height: 14px; animation-delay: 0.5s; }
-
-        @keyframes mcrEqWave {
-            0% { transform: scaleY(0.3); opacity: 0.6; }
-            100% { transform: scaleY(1); opacity: 1; }
-        }
-
-        .mcr-standby-meta {
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            color: rgba(212, 175, 55, 0.85);
-            font-weight: 700;
-            text-transform: uppercase;
-        }
     </style>
 </head>
 <body>
@@ -846,28 +698,6 @@
             <div class="bumper-progress-container">
                 <div class="bumper-progress-bar" id="bumperProgressBar"></div>
             </div>
-        </div>
-    </div>
-
-    <!-- EMERGENCY AUDIO BACKUP STREAM -->
-    <audio id="mcr-fallback-audio" preload="none" src="https://stream.zeno.fm/gn3uhltrrytuv"></audio>
-
-    <!-- FULL-SCREEN STANDBY SLATE (AWARYJNA PLANSZA Z MUZYKĄ) -->
-    <div id="mcr-standby-slate" class="mcr-standby-slate" aria-hidden="true">
-        <div class="mcr-standby-vignette"></div>
-        <div class="mcr-standby-glass-card">
-            <div class="mcr-standby-brand">
-                <i class="fa-solid fa-tv"></i> TELEWIZJA CHRISTIAN CULTURE &bull; EMISJA 24/7
-            </div>
-            <div class="mcr-standby-live-badge">
-                <span class="mcr-standby-dot"></span> CAŁODOBOWY STRUMIEŃ MUZYCZNY
-            </div>
-            <h1 class="mcr-standby-title">CHWILOWA PRZERWA TECHNICZNA</h1>
-            <p class="mcr-standby-desc">Trwa automatyczne wznawianie strumienia wideo. W tle nadajemy najpiękniejszą muzykę chwały i uwielbienia Christian Culture.</p>
-            <div class="mcr-standby-equalizer" aria-hidden="true">
-                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-            </div>
-            <div class="mcr-standby-meta" id="mcrStandbyMeta">CC AUDIO BACKUP ACTIVE &bull; SYNC IN PROGRESS</div>
         </div>
     </div>
 
@@ -1400,6 +1230,7 @@
                 // Przejście z przebitką trwa ok. 8 s; jeśli „wisi” dłużej niż 30 s — odblokowujemy ramówkę.
                 if (ccSwitchStartedAt && Date.now() - ccSwitchStartedAt > 30000) {
                     ccNote('przejście zawisło — odblokowuję ramówkę');
+                    clearSwitchTimers();
                     isSwitchingWithBumper = false;
                     bumperOverlay.classList.remove('show');
                     bumperOverlay.style.opacity = '1';
@@ -1424,11 +1255,16 @@
             }
         }
 
+        let switchTimers = [];
+        function clearSwitchTimers() {
+            while (switchTimers.length > 0) {
+                clearTimeout(switchTimers.pop());
+            }
+        }
+
         function switchChannel(newChannel, force = false) {
             if (currentUrl === newChannel && !force) return;
-            if (isStandbyFallbackActive && force) {
-                deactivateStandbyFallback();
-            }
+            clearSwitchTimers();
             console.log("MCR: Przełączanie kanału na " + newChannel + (force ? " (wymuszone przejście do nowego bloku)" : ""));
             status.textContent = "MCR: " + newChannel;
             const isFirstLoad = (currentUrl === null);
@@ -1457,16 +1293,10 @@
             const activeFrame = getActiveFrame();
             const inactiveFrame = getInactiveFrame();
 
-            // 8-second subframe watchdog in MCR: if child fails to report ready or play, handle error
-            let subframeReadyReported = false;
-            const subframeWatchdogTimer = setTimeout(() => {
-                if (!subframeReadyReported && !isStandbyFallbackActive) {
-                    logMcrEvent('Subkanał nie zgłosił gotowości w 8s — uruchomienie procedury naprawczej', { channel: newChannel });
-                    handleYtPlayerError('SUBFRAME_INIT_TIMEOUT_8S');
-                }
-            }, 8000);
-            window.__activeSubframeWatchdog = subframeWatchdogTimer;
             if (isFirstLoad) {
+                isSwitchingWithBumper = false;
+                silenceFrame(inactiveFrame, true);
+                if (inactiveFrame) inactiveFrame.src = 'about:blank';
                 // First load -> direct smooth load on Active Frame
                 const sepChar = newChannel.includes("?") ? "&" : "?";
                 const audioQuery = isMutedDefault ? "muted=1&autoplay=1" : "autoplay=1";
@@ -1474,12 +1304,12 @@
                 activeFrame.src = newChannel + sepChar + audioQuery + "&in_mcr=1&noticker=1" + safeParam + "&t=" + Date.now();
                 fade.style.display = "block";
                 fade.style.opacity = "1";
-                setTimeout(() => {
+                switchTimers.push(setTimeout(() => {
                     fade.style.opacity = "0";
-                    setTimeout(() => { fade.style.display = "none"; }, 800);
-                }, 600);
+                    switchTimers.push(setTimeout(() => { fade.style.display = "none"; }, 800));
+                }, 600));
             } else {
-                // Subsequent program switches -> Launch Video Bumper + Dual-Iframe Preload!
+                // Subsequent program switches -> Launch Video Bumper + Dual-Iframe Preload without audio overlap
                 isSwitchingWithBumper = true;
                 ccSwitchStartedAt = Date.now();
                 bumperTitle.textContent = meta.title;
@@ -1488,16 +1318,13 @@
                 bumperProgress.style.transition = 'none';
                 bumperProgress.style.width = '0%';
 
-                // 1) Mute & pause outgoing active frame via postMessage immediately
-                try {
-                    if (activeFrame && activeFrame.contentWindow) {
-                        activeFrame.contentWindow.postMessage({ type: 'MUTE_AUDIO' }, '*');
-                        activeFrame.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
-                        activeFrame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                    }
-                } catch(e) {}
+                // 1) Silence & pause both outgoing and preloading frames immediately
+                silenceFrame(activeFrame, true);
+                silenceFrame(inactiveFrame, true);
+                if (inactiveFrame) inactiveFrame.src = 'about:blank';
 
                 // 2) Show bumper overlay and play transition video
+                bumperOverlay.style.opacity = '1';
                 bumperOverlay.classList.add('show');
                 try {
                     bumperVideo.currentTime = 0;
@@ -1514,38 +1341,35 @@
                     console.error("Video Bumper play error:", e);
                 }
 
-                // 3) Preload incoming channel IMMEDIATELY (at T=500ms) MUTED so it buffers fully without audio bleed!
-                setTimeout(() => {
+                // 3) Preload incoming channel at T=500ms strictly MUTED so it buffers without audio bleed
+                switchTimers.push(setTimeout(() => {
                     const sep = newChannel.includes('?') ? '&' : '?';
                     const safeParam = isSafeMonetizationMode ? "&safe_monetization=1" : "&safe_monetization=0";
                     inactiveFrame.src = newChannel + sep + "muted=1&autoplay=1&in_mcr=1&noticker=1" + safeParam + "&t=" + Date.now();
-                }, 500);
+                }, 500));
 
                 // 4) Determine video duration (default 8s fallback)
                 const durationSec = (bumperVideo.duration && !isNaN(bumperVideo.duration) && bumperVideo.duration > 2) ? bumperVideo.duration : 8;
 
-                setTimeout(() => {
+                switchTimers.push(setTimeout(() => {
                     bumperProgress.style.transition = `width ${durationSec}s linear`;
                     bumperProgress.style.width = '100%';
-                }, 50);
+                }, 50));
 
-                // 5) Swap frames & UNMUTE incoming channel seamlessly when bumper finishes
+                // 5) Silence & unload outgoing channel + bumper BEFORE unmuting incoming channel
                 const switchLeadTime = Math.max((durationSec - 0.5) * 1000, 3000);
 
-                setTimeout(() => {
-                    // Forward audio state to incoming frame at exact moment of frame swap
+                switchTimers.push(setTimeout(() => {
                     try {
-                        if (inactiveFrame && inactiveFrame.contentWindow) {
-                            if (!isMutedDefault) {
-                                inactiveFrame.contentWindow.postMessage({ type: 'UNMUTE_AUDIO' }, '*');
-                                inactiveFrame.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-                                inactiveFrame.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
-                            } else {
-                                inactiveFrame.contentWindow.postMessage({ type: 'MUTE_AUDIO' }, '*');
-                                inactiveFrame.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
-                            }
+                        if (bumperVideo) {
+                            bumperVideo.pause();
+                            bumperVideo.muted = true;
                         }
                     } catch(e) {}
+
+                    // Stop and clear outgoing frame first so two audio streams never overlap
+                    silenceFrame(activeFrame, true);
+                    if (activeFrame) activeFrame.src = 'about:blank';
 
                     inactiveFrame.classList.remove('inactive');
                     inactiveFrame.classList.add('active');
@@ -1553,22 +1377,26 @@
                     activeFrame.classList.remove('active');
                     activeFrame.classList.add('inactive');
 
-                    // Swap index pointer
+                    // Swap index pointer before applying target audio state
                     activeFrameIndex = activeFrameIndex === 0 ? 1 : 0;
 
-                    // Fade out bumper overlay
+                    if (!isMutedDefault) {
+                        unmuteFrame(inactiveFrame);
+                    } else {
+                        silenceFrame(inactiveFrame, false);
+                    }
+
+                    // Fade out bumper overlay smoothly
                     bumperOverlay.style.opacity = '0';
 
-                    setTimeout(() => {
+                    switchTimers.push(setTimeout(() => {
                         bumperOverlay.classList.remove('show');
                         bumperOverlay.style.opacity = '1';
                         bumperProgress.style.width = '0%';
-                        // Clean up old frame AFTER frame swap is 100% complete
-                        activeFrame.src = 'about:blank';
                         isSwitchingWithBumper = false;
-                    }, 600);
+                    }, 600));
 
-                }, switchLeadTime);
+                }, switchLeadTime));
             }
         }
 
@@ -1665,45 +1493,77 @@
         setTimeout(hideMasterBanner, 4000);
 
         // Forward click/touch interaction to unmute nested iframes & video bumper
+        function silenceFrame(frame, shouldPause = false) {
+            if (!frame) return;
+            try {
+                const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+                if (doc) {
+                    doc.querySelectorAll('audio, video').forEach(m => {
+                        m.muted = true;
+                        if (shouldPause) {
+                            try { m.pause(); } catch(err) {}
+                        }
+                    });
+                }
+            } catch(err) {}
+            if (frame.contentWindow) {
+                try {
+                    frame.contentWindow.postMessage({ type: 'MUTE_AUDIO' }, '*');
+                    frame.contentWindow.postMessage('MUTE_AUDIO', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+                    if (shouldPause) {
+                        frame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                        frame.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+                    }
+                } catch(err) {}
+            }
+        }
+
+        function unmuteFrame(frame) {
+            if (!frame) return;
+            try {
+                const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+                if (doc) {
+                    doc.querySelectorAll('audio, video').forEach(m => {
+                        if (m.id === 'ccWorshipFallbackAudio' && m.paused) return;
+                        m.muted = false;
+                        m.volume = 1.0;
+                        if (m.id !== 'ccWorshipFallbackAudio') {
+                            m.play().catch(() => {});
+                        }
+                    });
+                }
+            } catch(err) {}
+            if (frame.contentWindow) {
+                try {
+                    frame.contentWindow.postMessage({ type: 'UNMUTE_AUDIO' }, '*');
+                    frame.contentWindow.postMessage('UNMUTE_AUDIO', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"unloadModule","args":["captions"]}', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"unloadModule","args":["cc"]}', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"setOption","args":["captions","track",{}]}', '*');
+                } catch(err) {}
+            }
+        }
+
         function unmuteSubframe() {
             isMutedDefault = false;
             hideMasterBanner();
             try {
-                if (bumperVideo) {
-                    bumperVideo.muted = false;
-                }
-                const fallbackAudio = document.getElementById('mcr-fallback-audio');
-                if (fallbackAudio) {
-                    fallbackAudio.muted = false;
-                    if (isStandbyFallbackActive) fallbackAudio.play().catch(() => {});
-                }
-                const frameA = document.getElementById('channel-frame-a');
-                const frameB = document.getElementById('channel-frame-b');
-                [frameA, frameB].forEach(f => {
-                    if (!f) return;
-                    try {
-                        const doc = f.contentDocument || (f.contentWindow && f.contentWindow.document);
-                        if (doc) {
-                            doc.querySelectorAll('audio, video').forEach(m => {
-                                m.muted = false;
-                                m.volume = 1.0;
-                                m.play().catch(() => {});
-                            });
-                        }
-                    } catch(err) {}
-                    if (f.contentWindow) {
-                        try {
-                            f.contentWindow.postMessage({ type: 'UNMUTE_AUDIO' }, '*');
-                            f.contentWindow.postMessage('UNMUTE_AUDIO', '*');
-                            f.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-                            f.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
-                            f.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                            f.contentWindow.postMessage('{"event":"command","func":"unloadModule","args":["captions"]}', '*');
-                            f.contentWindow.postMessage('{"event":"command","func":"unloadModule","args":["cc"]}', '*');
-                            f.contentWindow.postMessage('{"event":"command","func":"setOption","args":["captions","track",{}]}', '*');
-                        } catch(err) {}
+                silenceFrame(getInactiveFrame(), true);
+                if (isSwitchingWithBumper) {
+                    if (bumperVideo && !bumperVideo.paused) {
+                        bumperVideo.muted = false;
                     }
-                });
+                    return;
+                }
+                if (bumperVideo) {
+                    bumperVideo.muted = true;
+                    try { bumperVideo.pause(); } catch(err) {}
+                }
+                unmuteFrame(getActiveFrame());
             } catch(e) {}
         }
 
@@ -1713,30 +1573,8 @@
                 if (bumperVideo) {
                     bumperVideo.muted = true;
                 }
-                const fallbackAudio = document.getElementById('mcr-fallback-audio');
-                if (fallbackAudio) {
-                    fallbackAudio.muted = true;
-                }
-                const frameA = document.getElementById('channel-frame-a');
-                const frameB = document.getElementById('channel-frame-b');
-                [frameA, frameB].forEach(f => {
-                    if (!f) return;
-                    try {
-                        const doc = f.contentDocument || (f.contentWindow && f.contentWindow.document);
-                        if (doc) {
-                            doc.querySelectorAll('audio, video').forEach(m => {
-                                m.muted = true;
-                            });
-                        }
-                    } catch(err) {}
-                    if (f.contentWindow) {
-                        try {
-                            f.contentWindow.postMessage({ type: 'MUTE_AUDIO' }, '*');
-                            f.contentWindow.postMessage('MUTE_AUDIO', '*');
-                            f.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
-                        } catch(err) {}
-                    }
-                });
+                silenceFrame(frameA, false);
+                silenceFrame(frameB, false);
             } catch(e) {}
         }
 
@@ -1755,141 +1593,12 @@
             if (f) {
                 f.addEventListener('load', () => {
                     suppressSubframeTicker(f);
-                    if (isMutedDefault) {
-                        muteSubframe();
+                    if (isMutedDefault || f !== getActiveFrame() || isSwitchingWithBumper) {
+                        silenceFrame(f, false);
                     }
                 });
             }
         });
-
-
-        // ── 🛡️ MCR WATCHDOG & EMERGENCY AUDIO/SLATE FALLBACK ──
-        let ytErrorCount = 0;
-        let ytLastErrorTime = 0;
-        let ytRetryTimer = null;
-        let fallbackRecoveryTimer = null;
-        let isStandbyFallbackActive = false;
-
-        function logMcrEvent(eventDescription, details = {}) {
-            const now = new Date();
-            const entry = {
-                iso: now.toISOString(),
-                localTime: now.toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' }),
-                event: eventDescription,
-                details: details
-            };
-            try {
-                let logs = JSON.parse(localStorage.getItem('cc_mcr_error_log') || '[]');
-                logs.push(entry);
-                if (logs.length > 100) logs.shift();
-                localStorage.setItem('cc_mcr_error_log', JSON.stringify(logs));
-            } catch(e) {}
-            console.warn(`[MCR Watchdog ${entry.localTime}] ${eventDescription}`, details);
-        }
-
-        function reloadActiveSubchannel() {
-            const f = getActiveFrame();
-            if (!f || !currentUrl) return;
-            logMcrEvent('Wymuszone przeładowanie aktywnego kanału', { channel: currentUrl });
-            const sep = currentUrl.includes('?') ? '&' : '?';
-            const audioQuery = isMutedDefault ? 'muted=1&autoplay=1' : 'autoplay=1';
-            const safeParam = isSafeMonetizationMode ? '&safe_monetization=1' : '&safe_monetization=0';
-            f.src = currentUrl + sep + audioQuery + '&in_mcr=1&noticker=1' + safeParam + '&t=' + Date.now();
-        }
-
-        function activateStandbyFallback() {
-            if (isStandbyFallbackActive) return;
-            isStandbyFallbackActive = true;
-            logMcrEvent('Uruchomienie planszy awaryjnej oraz zapasowego strumienia audio', { channel: currentUrl });
-            const slate = document.getElementById('mcr-standby-slate');
-            const audio = document.getElementById('mcr-fallback-audio');
-            if (slate) {
-                slate.classList.add('show');
-                slate.setAttribute('aria-hidden', 'false');
-            }
-            if (audio) {
-                audio.currentTime = 0;
-                audio.muted = isMutedDefault;
-                const p = audio.play();
-                if (p !== undefined) {
-                    p.catch(err => {
-                        console.log('MCR fallback audio play caught:', err);
-                        if (!isMutedDefault) {
-                            audio.muted = true;
-                            audio.play().catch(() => {});
-                        }
-                    });
-                }
-            }
-
-            if (!fallbackRecoveryTimer) {
-                fallbackRecoveryTimer = setInterval(() => {
-                    if (!isStandbyFallbackActive) {
-                        clearInterval(fallbackRecoveryTimer);
-                        fallbackRecoveryTimer = null;
-                        return;
-                    }
-                    logMcrEvent('Cicha próba wznowienia kanału w tle planszy awaryjnej', { channel: currentUrl });
-                    reloadActiveSubchannel();
-                }, 45000);
-            }
-        }
-
-        function deactivateStandbyFallback() {
-            if (!isStandbyFallbackActive) return;
-            isStandbyFallbackActive = false;
-            ytErrorCount = 0;
-            if (ytRetryTimer) {
-                clearTimeout(ytRetryTimer);
-                ytRetryTimer = null;
-            }
-            if (fallbackRecoveryTimer) {
-                clearInterval(fallbackRecoveryTimer);
-                fallbackRecoveryTimer = null;
-            }
-            const slate = document.getElementById('mcr-standby-slate');
-            const audio = document.getElementById('mcr-fallback-audio');
-            if (slate) {
-                slate.classList.remove('show');
-                slate.setAttribute('aria-hidden', 'true');
-            }
-            if (audio) {
-                audio.pause();
-            }
-            logMcrEvent('Program wznowiony poprawnie — wyłączenie planszy awaryjnej', { channel: currentUrl });
-        }
-
-        function handleYtPlayerError(errorCode) {
-            const now = Date.now();
-            logMcrEvent('Błąd odtwarzacza YouTube w podkanale', { code: errorCode, activeChannel: currentUrl });
-
-            if (now - ytLastErrorTime < 60000) {
-                ytErrorCount++;
-            } else {
-                ytErrorCount = 1;
-            }
-            ytLastErrorTime = now;
-
-            if (ytErrorCount === 1) {
-                logMcrEvent('Próba automatycznego restartu odtwarzacza po błędzie (za 3 s)', { retry: 1, channel: currentUrl });
-                if (ytRetryTimer) clearTimeout(ytRetryTimer);
-                ytRetryTimer = setTimeout(() => {
-                    reloadActiveSubchannel();
-                }, 3000);
-            } else {
-                logMcrEvent('Powtórzony błąd odtwarzacza YouTube — włączenie planszy awaryjnej z muzyką', { errorCount: ytErrorCount, channel: currentUrl });
-                activateStandbyFallback();
-            }
-        }
-
-        window.__mcrWatchdog = {
-            handleYtPlayerError,
-            activateStandbyFallback,
-            deactivateStandbyFallback,
-            reloadActiveSubchannel,
-            logMcrEvent,
-            getState: () => ({ ytErrorCount, isStandbyFallbackActive })
-        };
 
         // Listen for control & completion signals (from LUMINA feed parent or sub-channels)
         window.addEventListener('message', (event) => {
@@ -1916,17 +1625,6 @@
             if (type === 'MUTE_AUDIO' || type === 'mute') {
                 isMutedDefault = true;
                 muteSubframe();
-                return;
-            }
-            if (type === 'YT_PLAYER_ERROR') {
-                const errCode = (event.data && event.data.code !== undefined) ? event.data.code : -1;
-                handleYtPlayerError(errCode);
-                return;
-            }
-            if (type === 'YT_PLAYER_PLAYING' || type === 'YT_PLAYER_READY') {
-                if (isStandbyFallbackActive) {
-                    deactivateStandbyFallback();
-                }
                 return;
             }
             if (type === 'APOKALIPSA_FINISHED' || type === 'STUDIUM_FINISHED' || type === 'KSIEGA_NADZIEI_FINISHED' || type === 'APOKALIPSA_KSIEGA_NADZIEI_FINISHED' || type === 'RANDKI_MALZENSTWO_FINISHED' || type === 'PROGRAM_FINISHED') {
