@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "ksiazki-autora",
+      "title": "Półka z Książkami: Cezary Rogowski — Oficjalna Biblioteka Autorska",
+      "url": "https://polskieradio.cc/ksiazki-autora",
+      "type": "book",
+      "image": "ksiazki-autora-og.jpg",
+      "publishedAt": "2026-11-14T19:38:26.779Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dzien-29",
       "title": "Z Biblią za Pan Brat — Dzień 29 (Lekcja 29): Bóg prowadzi swój lud do Egiptu (Rdz 46:1–47:31)",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-29",
