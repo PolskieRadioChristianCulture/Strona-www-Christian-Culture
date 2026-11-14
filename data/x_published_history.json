@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "music",
+      "title": "CC MUSIC Hub — Chrześcijańska Muzyka, Albumy i Lista Przebojów TOP TEN",
+      "url": "https://polskieradio.cc/music",
+      "type": "music",
+      "image": "art-chan-muzyka.jpg",
+      "publishedAt": "2026-11-14T07:42:54.939Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=318",
       "title": "Werset Dnia: „Wykład Twoich słów oświeca i daje zrozumienie prostaczkom” (Psalm 119:130, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=318",

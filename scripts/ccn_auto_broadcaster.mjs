@@ -193,6 +193,14 @@ function resolveItemImage(item, rootDir) {
     const p3 = path.join(rootDir, 'images', 'news', 'art-rdz15-abram-gwiazdy.jpg');
     if (fs.existsSync(p3)) return p3;
   }
+  if (pathLower.includes('01-pismo-swiete') || (titleLower.includes('pismo święte') && pathLower.includes('kursy'))) {
+    const p = path.join(rootDir, 'images', 'news', 'art-kraj-czytelnictwo-biblii-polska-2026.jpg');
+    if (fs.existsSync(p)) return p;
+  }
+  if (pathLower.includes('kursy/apokalipsa')) {
+    const p = path.join(rootDir, 'images', 'news', 'art-cbdc-prawo-niedzielne-apokalipsa-13.jpg');
+    if (fs.existsSync(p)) return p;
+  }
   if (pathLower.includes('biblia-audio') || titleLower.includes('rodzaju')) {
     const p = path.join(rootDir, 'biblia-audio', 'assets', 'rodzaju-hero.jpg');
     if (fs.existsSync(p)) return p;
@@ -261,6 +269,14 @@ function resolveItemImage(item, rootDir) {
   if (pathLower.includes('lumina') || pathLower.includes('cezary') || pathLower.includes('wioletta')) {
     const p = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
     if (fs.existsSync(p)) return p;
+  }
+  if (pathLower.includes('/music') || pathLower.includes('music') || titleLower.includes('cc music') || titleLower.includes('muzyka chrześcijańska')) {
+    const p1 = path.join(rootDir, 'images', 'player', 'art-chan-muzyka.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'images', 'player', 'popular-muzyka-uwielbienie.jpg');
+    if (fs.existsSync(p2)) return p2;
+    const p3 = path.join(rootDir, 'images', 'player', 'art-worship.jpg');
+    if (fs.existsSync(p3)) return p3;
   }
   if (pathLower.includes('player') || pathLower.includes('/radio') || pathLower.includes('muzyka') || titleLower.includes('gerald welch')) {
     const p = path.join(rootDir, 'images', 'news', 'art-gerald-welch-the-call.jpg');
@@ -928,6 +944,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '🎙️ OFICJALNE PODCASTY | CHRISTIAN CULTURE';
       callToAction = '👉 Słuchaj podcastów i audycji:\n';
       addTags('#PodcastyCC', '#PolskieRadioCC', '#ChristianCulture', '#Wiara');
+    } else if ((item.url || '').includes('/music') || (item.title || '').includes('CC MUSIC')) {
+      subHeader = '🎵 CC MUSIC | CHRZEŚCIJAŃSKIE BRZMIENIA';
+      callToAction = '👉 Odkryj muzykę i słuchaj online:\n';
+      addTags('#CCMusic', '#PolskieRadioCC', '#MuzykaChrzescijanska', '#WorshipLive');
     } else {
       subHeader = '🎵 MUZYKA & KANAŁY LIVE';
       callToAction = '👉 Słuchaj na żywo:\n';
@@ -938,10 +958,22 @@ function formatBroadcasterTweet(item) {
       subHeader = '🎓 AKADEMIA BIBLIJNA | KURS CODZIENNY';
       callToAction = '👉 Studiuj lekcję w serwisie:\n';
       addTags(item.tag || '#KursCodzienny', '#ZBibliaZaPanBrat', '#AkademiaBiblijna');
-    } else {
+    } else if ((item.url || '').toLowerCase().includes('rozwiaz')) {
       subHeader = '🕊️ ROZWIĄŻ PROBLEM | NOWY KURS';
       callToAction = '👉 Rozpocznij kurs:\n';
       addTags(item.tag || '#RozwiazProblem', '#RzucPalenie', '#Wolnosc');
+    } else if ((item.url || '').includes('/kursy/') && (item.title || '').includes('28 Kroków')) {
+      subHeader = '📖 28 ZASAD WIARY | KURS BIBLIJNY';
+      callToAction = '👉 Studiuj lekcję w serwisie:\n';
+      addTags('#28ZasadWiary', '#KanonWiary', '#ChristianCulture');
+    } else if ((item.url || '').includes('/kursy/apokalipsa')) {
+      subHeader = '📜 APOKALIPSA: KSIĘGA NADZIEI | KURS';
+      callToAction = '👉 Studiuj lekcję w serwisie:\n';
+      addTags('#Apokalipsa', '#KsiegaNadziei', '#Proroctwa', '#ChristianCulture');
+    } else {
+      subHeader = '🎓 KURSY BIBLIJNE | AKADEMIA CC';
+      callToAction = '👉 Studiuj kurs w serwisie:\n';
+      addTags('#KursyBiblijne', '#AkademiaBiblijna', '#ChristianCulture');
     }
   } else if (item.type === 'profile') {
     subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
@@ -1136,6 +1168,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Wirtualny telewizor Christian Culture: 6 stacji TV na żywo, pilot online i pełny ekran na smartfony i Smart TV!';
   } else if ((item.url || '').includes('/program') || (item.title || '').includes('Program TV')) {
     bodyText = 'Oficjalny program telewizyjny ekosystemu CC: sprawdź ramówkę na dziś i nadchodzące transmisje na żywo.';
+  } else if ((item.url || '').includes('01-pismo-swiete')) {
+    bodyText = 'Lekcja 1: Pismo Święte — Źródło Prawdy i Boże Objawienie. Poznaj fundament wiary i autorytet Słowa Bożego.';
   } else if ((item.url || '').includes('dzien-46')) {
     bodyText = 'Dzień 46 (Wj 16:1–36): Manna z nieba, chleb powszedni, Boże zaopatrzenie na pustyni i nienaruszalna świętość szabatu.';
   } else if ((item.url || '').includes('dzien-45')) {
@@ -1459,6 +1493,19 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   const recentUrls = new Set(history.slice(0, 15).map(h => (typeof h === 'string' ? h : h.url)));
   const lastItem = history[0] || {};
   const lastTitleLower = (lastItem.title || '').toLowerCase();
+  const lastUrlLower = (lastItem.url || '').toLowerCase();
+
+  const isTopicDuplicate = (cand) => {
+    const candTitleLower = (cand.title || '').toLowerCase();
+    const candUrlLower = (cand.url || '').toLowerCase();
+    return (
+      (lastTitleLower.includes('halloween') && candTitleLower.includes('halloween')) ||
+      (lastTitleLower.includes('blackout') && candTitleLower.includes('blackout')) ||
+      (lastTitleLower.includes('bioetyka') && candTitleLower.includes('bioetyka')) ||
+      ((lastTitleLower.includes('z biblią za pan brat') || lastTitleLower.includes('kurs codzienny') || lastTitleLower.includes('akademia biblijna') || lastUrlLower.includes('kurscodzienny')) &&
+       (candTitleLower.includes('z biblią za pan brat') || candTitleLower.includes('kurs codzienny') || candTitleLower.includes('akademia biblijna') || candUrlLower.includes('kurscodzienny')))
+    );
+  };
 
   // Ochrona przed powtarzaniem tego samego tematu kluczowego (np. książka i artykuł) w odstępie poniżej 6 postów
   const recentTopics = history.slice(0, 6).map(h => ((h.title || '') + ' ' + (h.url || '')).toLowerCase());
@@ -1515,7 +1562,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
 
   for (const p of priorityTypes) {
     const matching = candidates.filter(c => (c.type || 'news') === p.type);
-    const available = matching.filter(c => !recentUrls.has(c.url) && !isTopicTooRecent(c));
+    const available = matching.filter(c => !recentUrls.has(c.url) && !isTopicTooRecent(c) && !isTopicDuplicate(c));
     if (available.length > 0) {
       // Priorytet dla pozycji, które jeszcze nigdy nie były publikowane, a następnie o największym dystansie
       available.sort((a, b) => {
