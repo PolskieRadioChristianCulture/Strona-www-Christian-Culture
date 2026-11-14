@@ -2660,11 +2660,12 @@
     function parseColorToRgb(input) {
       if (!input || typeof input !== 'string') return null;
       const val = input.trim();
-      const rgbMatch = val.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([0-9.]+))?\s*\)$/i);
+      const rgbMatch = val.match(/^rgba?\(\s*([0-9.]+)\s*[,\s]\s*([0-9.]+)\s*[,\s]\s*([0-9.]+)(?:\s*[,/]\s*([0-9.]+%?))?\s*\)$/i);
       if (rgbMatch) {
-        const a = rgbMatch[4] === undefined ? 1 : parseFloat(rgbMatch[4]);
+        const aRaw = rgbMatch[4];
+        const a = aRaw === undefined ? 1 : (aRaw.endsWith('%') ? parseFloat(aRaw) / 100 : parseFloat(aRaw));
         if (a === 0) return null;
-        return { r: Number(rgbMatch[1]), g: Number(rgbMatch[2]), b: Number(rgbMatch[3]) };
+        return { r: Math.round(Number(rgbMatch[1])), g: Math.round(Number(rgbMatch[2])), b: Math.round(Number(rgbMatch[3])) };
       }
       const hexMatch = val.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
       if (hexMatch) {
@@ -2676,6 +2677,44 @@
           b: parseInt(h.slice(4, 6), 16)
         };
       }
+      const okMatch = val.match(/^(oklch|oklab)\(\s*([0-9.+-]+%?)\s+([0-9.+-]+%?)\s+([0-9.+-]+(?:deg|rad|turn)?)(?:\s*\/\s*([0-9.]+%?))?\s*\)$/i);
+      if (okMatch) {
+        const fn = okMatch[1].toLowerCase();
+        const aRaw = okMatch[5];
+        const alpha = aRaw === undefined ? 1 : (aRaw.endsWith('%') ? parseFloat(aRaw) / 100 : parseFloat(aRaw));
+        if (alpha === 0) return null;
+        const L = okMatch[2].endsWith('%') ? parseFloat(okMatch[2]) / 100 : parseFloat(okMatch[2]);
+        let a = 0, b = 0;
+        if (fn === 'oklch') {
+          const C = parseFloat(okMatch[3]);
+          const hStr = okMatch[4].toLowerCase();
+          let hDeg = parseFloat(hStr);
+          if (hStr.endsWith('rad')) hDeg = hDeg * (180 / Math.PI);
+          else if (hStr.endsWith('turn')) hDeg = hDeg * 360;
+          const rad = (hDeg * Math.PI) / 180;
+          a = C * Math.cos(rad);
+          b = C * Math.sin(rad);
+        } else {
+          a = parseFloat(okMatch[3]);
+          b = parseFloat(okMatch[4]);
+        }
+        const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
+        const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
+        const s_ = L - 0.0894841775 * a - 1.2914855480 * b;
+        const l = l_ * l_ * l_;
+        const m = m_ * m_ * m_;
+        const s = s_ * s_ * s_;
+        const compand = c => {
+          const clamped = Math.max(0, Math.min(1, c));
+          const srgb = clamped <= 0.0031308 ? 12.92 * clamped : 1.055 * Math.pow(clamped, 1 / 2.4) - 0.055;
+          return Math.round(Math.max(0, Math.min(255, srgb * 255)));
+        };
+        return {
+          r: compand(+4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s),
+          g: compand(-1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s),
+          b: compand(-0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s)
+        };
+      }
       return null;
     }
 
@@ -2685,32 +2724,39 @@
       const path = (window.location.pathname || '/').toLowerCase();
 
       let bgRgb = null;
+      let textRgb = null;
       try {
         if (typeof window.getComputedStyle === 'function') {
-          bgRgb = parseColorToRgb(window.getComputedStyle(bodyEl).backgroundColor) ||
-                  parseColorToRgb(window.getComputedStyle(htmlEl).backgroundColor);
+          const bodyCs = bodyEl ? window.getComputedStyle(bodyEl) : null;
+          const htmlCs = htmlEl ? window.getComputedStyle(htmlEl) : null;
+          bgRgb = parseColorToRgb(bodyCs?.backgroundColor) || parseColorToRgb(htmlCs?.backgroundColor);
+          textRgb = parseColorToRgb(bodyCs?.color) || parseColorToRgb(htmlCs?.color);
         }
       } catch (_) {}
 
       const metaTheme = document.querySelector('meta[name="theme-color"]')?.getAttribute('content') || '';
       const metaRgb = parseColorToRgb(metaTheme);
-      if (!bgRgb && metaRgb) bgRgb = metaRgb;
+      if (!bgRgb && !textRgb && metaRgb) bgRgb = metaRgb;
 
-      const attrTheme = (htmlEl?.getAttribute('data-lumina-theme') || '').toLowerCase();
-      const isLightAttr = attrTheme === 'light' || !!bodyEl?.classList?.contains('theme-lumina-light');
+      const noSwitch = !!htmlEl?.hasAttribute('data-no-theme-switch');
+      const attrTheme = (!noSwitch ? (htmlEl?.getAttribute('data-lumina-theme') || '') : '').toLowerCase();
+      const isLightAttr = attrTheme === 'light' || (!noSwitch && !!bodyEl?.classList?.contains('theme-lumina-light'));
       const isDarkAttr = attrTheme === 'dark' || !!htmlEl?.classList?.contains('dark');
 
-      const luminance = bgRgb ? (0.299 * bgRgb.r + 0.587 * bgRgb.g + 0.114 * bgRgb.b) / 255 : 0.08;
-      const isLight = isLightAttr || (!isDarkAttr && bgRgb && luminance > 0.58);
+      const bgLum = bgRgb ? (0.299 * bgRgb.r + 0.587 * bgRgb.g + 0.114 * bgRgb.b) / 255 : null;
+      const textLum = textRgb ? (0.299 * textRgb.r + 0.587 * textRgb.g + 0.114 * textRgb.b) / 255 : null;
+      const isLight = bgLum !== null
+        ? (isLightAttr || (!isDarkAttr && bgLum > 0.56))
+        : (textLum !== null ? textLum < 0.45 : isLightAttr);
 
       // Kolor akcentu dopasowany indywidualnie do konkretnej strony / portalu
       let accentRgb = null;
       try {
         if (typeof window.getComputedStyle === 'function') {
-          const rootStyle = window.getComputedStyle(htmlEl);
-          const bodyStyle = window.getComputedStyle(bodyEl);
+          const rootStyle = htmlEl ? window.getComputedStyle(htmlEl) : null;
+          const bodyStyle = bodyEl ? window.getComputedStyle(bodyEl) : null;
           for (const vName of ['--cc-accent', '--ccn-accent', '--accent-color', '--brand-accent', '--theme-accent']) {
-            const candidate = parseColorToRgb(bodyStyle.getPropertyValue(vName) || rootStyle.getPropertyValue(vName));
+            const candidate = parseColorToRgb(bodyStyle?.getPropertyValue(vName) || rootStyle?.getPropertyValue(vName));
             if (candidate) { accentRgb = candidate; break; }
           }
         }
@@ -2741,16 +2787,17 @@
 
       const ar = accentRgb.r, ag = accentRgb.g, ab = accentRgb.b;
       if (isLight) {
-        const br = bgRgb ? Math.round((bgRgb.r * 0.3 + 255 * 0.7)) : 255;
-        const bg = bgRgb ? Math.round((bgRgb.g * 0.3 + 255 * 0.7)) : 255;
-        const bb = bgRgb ? Math.round((bgRgb.b * 0.3 + 255 * 0.7)) : 255;
+        const useBg = (bgLum !== null && bgLum > 0.56) ? bgRgb : { r: 252, g: 250, b: 247 };
+        const br = Math.round(useBg.r * 0.45 + 255 * 0.55);
+        const bg = Math.round(useBg.g * 0.45 + 255 * 0.55);
+        const bb = Math.round(useBg.b * 0.45 + 255 * 0.55);
         const ctaR = Math.max(0, Math.round(ar * 0.78));
         const ctaG = Math.max(0, Math.round(ag * 0.78));
         const ctaB = Math.max(0, Math.round(ab * 0.78));
         return {
           bg: `linear-gradient(145deg, rgba(${br}, ${bg}, ${bb}, 0.98), rgba(${Math.max(236, br - 8)}, ${Math.max(238, bg - 7)}, ${Math.max(244, bb - 4)}, 0.98))`,
-          border: `rgba(${ar}, ${ag}, ${ab}, 0.42)`,
-          shadow: `0 14px 36px rgba(15, 23, 42, 0.16), 0 0 18px rgba(${ar}, ${ag}, ${ab}, 0.14)`,
+          border: `rgba(${ar}, ${ag}, ${ab}, 0.45)`,
+          shadow: `0 14px 36px rgba(15, 23, 42, 0.16), 0 0 18px rgba(${ar}, ${ag}, ${ab}, 0.16)`,
           text: '#0F172A',
           muted: '#475569',
           cta: `rgb(${ctaR}, ${ctaG}, ${ctaB})`,
@@ -2760,9 +2807,10 @@
         };
       }
 
-      const dr = bgRgb ? Math.min(48, Math.max(12, Math.round(bgRgb.r * 0.8 + ar * 0.08 + 10))) : 21;
-      const dg = bgRgb ? Math.min(54, Math.max(15, Math.round(bgRgb.g * 0.8 + ag * 0.08 + 12))) : 25;
-      const db = bgRgb ? Math.min(72, Math.max(24, Math.round(bgRgb.b * 0.8 + ab * 0.08 + 18))) : 43;
+      const useDarkBg = (bgLum !== null && bgLum <= 0.56) ? bgRgb : { r: 13, g: 16, b: 32 };
+      const dr = Math.min(48, Math.max(12, Math.round(useDarkBg.r * 0.8 + ar * 0.08 + 10)));
+      const dg = Math.min(54, Math.max(15, Math.round(useDarkBg.g * 0.8 + ag * 0.08 + 12)));
+      const db = Math.min(72, Math.max(24, Math.round(useDarkBg.b * 0.8 + ab * 0.08 + 18)));
       const d2r = Math.max(8, dr - 8);
       const d2g = Math.max(10, dg - 8);
       const d2b = Math.max(18, db - 11);
@@ -2771,8 +2819,8 @@
       const ctaLb = Math.min(255, Math.round(ab * 0.65 + 255 * 0.35));
       return {
         bg: `linear-gradient(145deg, rgba(${dr}, ${dg}, ${db}, 0.97), rgba(${d2r}, ${d2g}, ${d2b}, 0.98))`,
-        border: `rgba(${ar}, ${ag}, ${ab}, 0.45)`,
-        shadow: `0 16px 40px rgba(0, 0, 0, 0.7), 0 0 22px rgba(${ar}, ${ag}, ${ab}, 0.22)`,
+        border: `rgba(${ar}, ${ag}, ${ab}, 0.48)`,
+        shadow: `0 16px 40px rgba(0, 0, 0, 0.7), 0 0 22px rgba(${ar}, ${ag}, ${ab}, 0.24)`,
         text: '#F7F8FC',
         muted: '#B8C0D4',
         cta: `rgb(${ctaLr}, ${ctaLg}, ${ctaLb})`,
@@ -2796,7 +2844,50 @@
       el.style.setProperty('--cc-teaser-badge-border', pal.badgeBorder);
     }
 
+    let isTeaserDismissed = false;
+    let teaserAutoHideTimer = null;
+
+    function hideTeaserImmediately() {
+      if (!teaserBubble) return;
+      isTeaserDismissed = true;
+      if (teaserAutoHideTimer) {
+        clearTimeout(teaserAutoHideTimer);
+        teaserAutoHideTimer = null;
+      }
+      teaserBubble.classList.add('is-fading', 'is-hidden');
+      teaserBubble.hidden = true;
+      teaserBubble.style.setProperty('display', 'none', 'important');
+    }
+
+    function dismissTeaserBubble(immediate) {
+      isTeaserDismissed = true;
+      if (teaserAutoHideTimer) {
+        clearTimeout(teaserAutoHideTimer);
+        teaserAutoHideTimer = null;
+      }
+      if (!teaserBubble) return;
+      if (immediate) {
+        hideTeaserImmediately();
+        return;
+      }
+      teaserBubble.classList.add('is-fading');
+      setTimeout(hideTeaserImmediately, 280);
+    }
+
+    function scheduleTeaserAutoHide() {
+      if (isTeaserDismissed || !teaserBubble) return;
+      if (teaserAutoHideTimer) clearTimeout(teaserAutoHideTimer);
+      teaserAutoHideTimer = setTimeout(() => {
+        dismissTeaserBubble(false);
+      }, 6000);
+    }
+
     if (teaserBubble && activeAssistant) {
+      try { sessionStorage.removeItem('cc_teaser_dismissed'); } catch (_) {}
+      teaserBubble.classList.remove('is-fading', 'is-hidden');
+      teaserBubble.hidden = false;
+      teaserBubble.style.removeProperty('display');
+
       refreshAssistantUI(activeAssistant);
       applyTeaserPageTheme(teaserBubble);
 
@@ -2807,56 +2898,15 @@
       }
       window.addEventListener('lumina-theme-change', () => applyTeaserPageTheme(teaserBubble));
 
-      let isTeaserDismissed = false;
-      let teaserAutoHideTimer = null;
-      try {
-        isTeaserDismissed = sessionStorage.getItem('cc_teaser_dismissed') === '1';
-      } catch (_) {}
-
-      function hideTeaserImmediately() {
-        teaserBubble.classList.add('is-fading', 'is-hidden');
-        teaserBubble.hidden = true;
-        teaserBubble.style.setProperty('display', 'none', 'important');
-      }
-
-      function dismissTeaserBubble(persist, immediate) {
-        isTeaserDismissed = true;
-        if (teaserAutoHideTimer) {
-          clearTimeout(teaserAutoHideTimer);
-          teaserAutoHideTimer = null;
-        }
-        if (persist) {
-          try { sessionStorage.setItem('cc_teaser_dismissed', '1'); } catch (_) {}
-        }
-        if (immediate) {
-          hideTeaserImmediately();
-          return;
-        }
-        teaserBubble.classList.add('is-fading');
-        setTimeout(hideTeaserImmediately, 280);
-      }
-
-      function scheduleTeaserAutoHide() {
-        if (isTeaserDismissed) return;
-        if (teaserAutoHideTimer) clearTimeout(teaserAutoHideTimer);
-        teaserAutoHideTimer = setTimeout(() => {
-          dismissTeaserBubble(true, false);
-        }, 6000);
-      }
-
-      if (isTeaserDismissed) {
-        hideTeaserImmediately();
-      } else {
-        scheduleTeaserAutoHide();
-        teaserBubble.addEventListener('mouseenter', () => {
-          if (teaserAutoHideTimer) { clearTimeout(teaserAutoHideTimer); teaserAutoHideTimer = null; }
-        });
-        teaserBubble.addEventListener('mouseleave', scheduleTeaserAutoHide);
-        teaserBubble.addEventListener('focusin', () => {
-          if (teaserAutoHideTimer) { clearTimeout(teaserAutoHideTimer); teaserAutoHideTimer = null; }
-        });
-        teaserBubble.addEventListener('focusout', scheduleTeaserAutoHide);
-      }
+      scheduleTeaserAutoHide();
+      teaserBubble.addEventListener('mouseenter', () => {
+        if (teaserAutoHideTimer) { clearTimeout(teaserAutoHideTimer); teaserAutoHideTimer = null; }
+      });
+      teaserBubble.addEventListener('mouseleave', scheduleTeaserAutoHide);
+      teaserBubble.addEventListener('focusin', () => {
+        if (teaserAutoHideTimer) { clearTimeout(teaserAutoHideTimer); teaserAutoHideTimer = null; }
+      });
+      teaserBubble.addEventListener('focusout', scheduleTeaserAutoHide);
 
       function handleTeaserClick(e) {
         if (e.target && (e.target.id === 'ccChatTeaserClose' || e.target.closest('#ccChatTeaserClose'))) return;
@@ -2866,7 +2916,7 @@
         try {
           sessionStorage.setItem('cc_active_assistant_id', asst.id);
         } catch (_) {}
-        dismissTeaserBubble(true, true);
+        dismissTeaserBubble(true);
         window.CCGlobalChat.open('assistant', 'cc-assistant');
       }
 
@@ -2879,7 +2929,7 @@
         teaserClose.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
-          dismissTeaserBubble(true, true);
+          dismissTeaserBubble(true);
         });
       }
     }
@@ -3386,12 +3436,7 @@
 
     // Otwieranie / zamykanie czatu
     function openChat() {
-      if (teaserBubble) {
-        teaserBubble.classList.add('is-fading', 'is-hidden');
-        teaserBubble.hidden = true;
-        teaserBubble.style.setProperty('display', 'none', 'important');
-        try { sessionStorage.setItem('cc_teaser_dismissed', '1'); } catch (_) {}
-      }
+      hideTeaserImmediately();
       overlay.classList.add('is-open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';

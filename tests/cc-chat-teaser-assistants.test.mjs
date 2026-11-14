@@ -67,9 +67,12 @@ test('cc-global-chat-button & cc-assistant: strict separation of General Chat vs
   assert.match(globalChat, /id="ccDrawerSoundToggle"/);
   assert.match(globalChat, /id="ccDrawerAccountActionBtn"/);
 
-  // Dymek zaczepki: znikanie po 6s (klasa .is-hidden + !important) i adaptacja kolorów do strony
+  // Dymek zaczepki: pokazuje się na wejściu, znika sam po 6s (klasa .is-hidden + !important), bez blokowania w sessionStorage, z obsługą oklch i adaptacją kolorów
   assert.match(globalChat, /\.cc-chat-teaser-bubble\.is-hidden\s*\{\s*display:\s*none\s*!important/);
   assert.match(globalChat, /setProperty\('display',\s*'none',\s*'important'\)/);
+  assert.match(globalChat, /sessionStorage\.removeItem\('cc_teaser_dismissed'\)/);
+  assert.doesNotMatch(globalChat, /sessionStorage\.setItem\('cc_teaser_dismissed'/);
+  assert.match(globalChat, /\(oklch\|oklab\)/);
   assert.match(globalChat, /detectPageThemePalette/);
   assert.match(globalChat, /applyTeaserPageTheme\(teaserBubble\)/);
 });
