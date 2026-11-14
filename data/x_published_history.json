@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "vod",
+      "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+      "publishedAt": "2026-11-14T16:33:43.074Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=320",
       "title": "Werset Dnia: „Ci, którzy sieją ze łzami, zbierać będą z radością” (Psalm 126:5-6, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=320",
