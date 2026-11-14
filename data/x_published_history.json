@@ -2,6 +2,42 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "werset-dnia",
+      "title": "Mój Werset Dnia",
+      "url": "https://polskieradio.cc/werset-dnia",
+      "type": "module",
+      "image": "werset-pismo-swiete-ubg-minimalistyczna-wyszukiwarka-slo.jpg",
+      "publishedAt": "2026-11-14T21:36:07.136Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "Global",
+      "title": "Christian Culture Global (Międzynarodowa Platforma Chrześcijańska)",
+      "url": "https://polskieradio.cc/Global/",
+      "type": "music",
+      "image": "global-radio.jpg",
+      "publishedAt": "2026-11-14T21:04:06.776Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "z-biblia-za-pan-brat-dzien-30-blogoslawienstwo-obietnica-i-lew-z-judy",
+      "title": "Z Biblią za Pan Brat: Dzień 30 — Błogosławieństwo Jakuba, proroctwo o berle Judy i Chrystus jako Lew i Baranek w Rdz 48–49",
+      "url": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-30-blogoslawienstwo-obietnica-i-lew-z-judy",
+      "type": "news",
+      "image": "art-z-biblia-za-pan-brat-dzien-30-blogoslawienstwo-obietnica-i-lew-z-judy.jpg",
+      "publishedAt": "2026-11-14T20:34:40.205Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=321",
+      "title": "Werset Dnia: „Pan dokona tego, co mnie dotyczy; Twoje miłosierdzie, Panie, trwa na wieki” (Psalm 138:8, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=321",
+      "type": "verse",
+      "image": "werset-day-321-psalm-138-8.jpg",
+      "publishedAt": "2026-11-14T20:04:02.641Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "ksiazki-autora",
       "title": "Półka z Książkami: Cezary Rogowski — Oficjalna Biblioteka Autorska",
       "url": "https://polskieradio.cc/ksiazki-autora",

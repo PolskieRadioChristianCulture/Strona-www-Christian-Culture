@@ -311,6 +311,10 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'images', 'chat', 'lumi-mess-bg.webp');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('global') || titleLower.includes('global')) {
+    const p1 = path.join(rootDir, 'images', 'search', 'global-radio.jpg');
+    if (fs.existsSync(p1)) return p1;
+  }
   if (pathLower.includes('lumina') || pathLower.includes('cezary') || pathLower.includes('wioletta')) {
     const p = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
     if (fs.existsSync(p)) return p;
@@ -1068,6 +1072,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📖 MOJA BIBLIA INTERLINEARNA';
       callToAction = '👉 Badaj Pismo Święte:\n';
       addTags(item.tag || '#MojaBiblia', '#Strong', '#UBG');
+    } else if ((item.url || '').endsWith('/werset-dnia') || (item.url || '') === 'https://polskieradio.cc/werset-dnia' || (item.title || '').toLowerCase().includes('mój werset dnia')) {
+      subHeader = '📖 MÓJ WERSET DNIA | GENERATOR KART';
+      callToAction = '👉 Wyszukaj werset i stwórz kartę:\n';
+      addTags('#WersetDnia', '#SlowoBoze', '#ChristianCulture');
     } else if ((item.url || '').includes('mapa')) {
       subHeader = '🗺️ ŻYWA MAPA EKOSYSTEMU CC';
       callToAction = '👉 Zobacz architekturę na żywo:\n';
@@ -1230,6 +1238,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Rzuć palenie w 14 dni — bezpłatny kurs, plan na głód nikotynowy, audio i biblijna nadzieja.';
   } else if ((item.url || '').includes('cclite') || (item.title || '').toLowerCase().includes('cclite')) {
     bodyText = 'cclite.pl — lekka aplikacja PWA ekosystemu Christian Culture. Radio 24/7, rozważania i modlitwy!';
+  } else if ((item.url || '').endsWith('/werset-dnia') || (item.url || '') === 'https://polskieradio.cc/werset-dnia' || (item.title || '').toLowerCase().includes('mój werset dnia')) {
+    bodyText = 'Wyszukiwarka Słowa Bożego i generator kart z wersetami. Wylosuj werset na dziś i podziel się nadzieją!';
   } else if ((item.url || '').includes('blackout') || (item.title || '').toLowerCase().includes('blackout')) {
     bodyText = 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę według biblijnej roztropności.';
   } else if ((item.url || '').includes('badz-blisko')) {

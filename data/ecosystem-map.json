@@ -5,6 +5,31 @@
   "updatesLog": [
     {
       "date": "2026-11-14",
+      "topic": "CCN News X: Cykliczna publikacja #319 — Mój Werset Dnia: Wyszukiwarka Słowa Bożego i generator kart z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
+      "topic": "CCN News X: Cykliczna publikacja #318 — Muzyka & Live: Christian Culture Global (Międzynarodowa Platforma Chrześcijańska) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
+      "topic": "CCN News X: Cykliczna publikacja #317 — Akademia Biblijna: Dzień 30 (Rdz 48–49) — Błogosławieństwo Jakuba i berło Judy z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
+      "topic": "Niezawodność kolejki WhatsApp (D1 Fallback, weryfikacja daty, obsługa @c.us LID) oraz naprawa publikacji Facebook / YT Live Promo",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
+      "topic": "CCN News X: Cykliczna publikacja #316 — Słowo Boże: Werset Dnia Psalm 138:8 (UBG) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
       "topic": "CCN News X: Cykliczna publikacja #315 — Książki & Wydawnictwo CC: Oficjalna Biblioteka Autorska Cezarego Rogowskiego z dedykowaną grafiką i Tablicą LUMINA",
       "agent": "A"
     },
@@ -5000,8 +5025,28 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-14",
+  "lastUpdated": "2026-11-14T22:36:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-14",
+      "topic": "CCN News X: Cykliczna publikacja #319 — Mój Werset Dnia: Wyszukiwarka Słowa Bożego i generator kart z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
+      "topic": "CCN News X: Cykliczna publikacja #317 — Akademia Biblijna: Dzień 30 (Rdz 48–49) — Błogosławieństwo Jakuba i berło Judy z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
+      "topic": "CCN News X: Cykliczna publikacja #316 — Słowo Boże: Werset Dnia Psalm 138:8 (UBG) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
+      "topic": "Wysyłka kampanii wsparcia SMS-CC do 133 subskrybentów (SIM 2 / polskieradio.cc/wspieraj)",
+      "agent": "A"
+    },
     {
       "date": "2026-11-14",
       "topic": "CCN News X: Cykliczna publikacja #304 — Społeczność CC: Holistyczny Coaching & Terapia Wolności (Paweł Murawski) z grafiką tematyczną i Tablicą LUMINA",
@@ -5096,141 +5141,9 @@
       "date": "2026-11-09",
       "topic": "cclite.pl: Likwidacja blokady modalu aktualizacji, ciche auto-odzyskiwanie PWA i przycisk zamknięcia",
       "agent": "A"
-    },
-    {
-      "date": "2026-11-09",
-      "topic": "Cykliczna publikacja CCN News na platformie X #220: Wizytówka Wioletta Rogowska (LUMINA)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-09",
-      "topic": "Higiena bazy SMS-CC: usunięcie 11 nieaktywnych numerów (baza: 133 numery 100% PASS)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-09",
-      "topic": "Kompleksowy raport stanu misji i infrastruktury SMS-CC (@SMS)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-09",
-      "topic": "Publikacja artykułu CCN News: Świętość nie wymaga udawania (Cezary Rogowski, Slot 6 EkoCC 365)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-09",
-      "topic": "Poranna emisja newslettera: Codzienne Rozważanie Biblijne Dzień 40 (Wj 9:1–35)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Cykliczna emisja CCN News X #185: Portal Społecznościowy LUMINA (lumina-tablica)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Cykliczna emisja CCN News X #183: Werset Dnia (Rdz 50:20 UBG / Akademia Biblijna)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Cykliczna emisja CCN News X #182: Kino VOD & YouTube — Studio Dobrego Słowa: Proroctwa Księgi Apokalipsy",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-08",
-      "topic": "Herbaciarnia Między Słowami: ujednolicenie nazwy w całym ekosystemie CC & SDS",
-      "agent": "A"
     }
   ],
   "updates": [
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #295 — CC MUSIC Hub — Chrześcijańska Muzyka i TOP TEN z dedykowaną grafiką tematyczną",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Newsletter EkoCC: Poranna wysyłka rozważania biblijnego na Dzień 45 (Wj 15 Pieśń Zwycięstwa i Mara) + synchronizacja D1",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Akademia Biblijna: Nocna publikacja i aktywacja Lekcji Dnia 45 (Wj 15 — Pieśń Zwycięstwa i Gorzkie Wody Mara) + Word .docx na Pulpicie",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-13",
-      "topic": "Master-Synchronizacja Rozważań TV & LUMINA (Dzień 44) + Harmonogram /automation (06:00)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-13",
-      "agent": "A",
-      "title": "OpenBot Diagram Kanałów Nadawczych (37 Kanałów TV/Radio • 6 Filarów • OBS 24/7)",
-      "description": "Rozpisanie kompletnego przepływu emisji kanałów nadawczych (Pasmo 0B, workflow CC 0B) na kanwie OpenBot: 37 kanałów telewizyjnych i portali CCN, stacje radiowe 24/7, integracja OBS, podcasty RSS 2.0 i globalna syndykacja."
-    },
-    {
-      "date": "2026-11-13",
-      "agent": "A",
-      "title": "OpenBot Diagram Federacji @777 (L0-L5) oraz Unifikacja GA4 Internal Traffic",
-      "description": "Wizualizacja przepływu pracy 777 agentów (L0-L5, 21 Kolegiów x 37 ról) na kanwie OpenBot (Pasmo 0) oraz wdrożenie filtru ruchu wewnętrznego traffic_type=internal i eventów cc-analytics na lumina.html, vod.html i badz-blisko."
-    },
-    {
-      "date": "2026-11-13",
-      "topic": "Cykliczna publikacja CCN News na platformie X #265: Wizytówka Społeczności LUMINA — Cezary Rogowski",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-11",
-      "topic": "Cykliczna publikacja CCN News na platformie X #264: Werset Dnia Wj 20:8 UBG (Dekalog)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-11",
-      "topic": "Cykliczna publikacja CCN News na platformie X #263: Żywa Interaktywna Mapa Ekosystemu CC",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-11",
-      "topic": "Cykliczna publikacja CCN News na platformie X #262: Kino VOD & SDS — Proroctwa Księgi Apokalipsy",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-11",
-      "topic": "Cykliczna publikacja CCN News na platformie X #261: Książka — Pokonać Goliata (Cezary Rogowski)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-11",
-      "topic": "Oficjalna wizytówka Ark of Fire (PL/EN) oraz integracja z Christian Culture Global",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-10",
-      "agent": "A",
-      "topic": "Biblia Audio CC: Produkcja i publikacja Księgi Rodzaju 19 i 20 (standard V7 EBU R128)"
-    },
-    {
-      "date": "2026-11-10",
-      "agent": "A",
-      "topic": "Zabezpieczenie automatyzacji: pętla do skutku (retry loop) dla FB i Biblii Audio"
-    },
-    {
-      "date": "2026-11-10",
-      "topic": "Cykliczna publikacja CCN News na platformie X #238: Wizytówka Społeczności LUMINA — Cezary Rogowski",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-10",
-      "topic": "Cykliczna publikacja CCN News na platformie X #237: Książka i Wydawnictwo CC — Kod Źródłowy Duszy (Cezary Rogowski)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-10",
-      "topic": "Cykliczna publikacja CCN News na platformie X #235: Akademia Biblijna — Dzień 38: Laska połykająca węże i woda w krew (Wj 7:1–25)",
-      "agent": "A"
-    },
     {
       "date": "2026-11-10",
       "topic": "Cykliczna publikacja CCN News na platformie X #234: Werset Dnia — „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8, UBG)",
@@ -5374,6 +5287,16 @@
     {
       "date": "2026-11-14",
       "topic": "Cykliczna emisja CCN News X #307: Książka — Pokonać Goliata (Cezary Rogowski)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
+      "topic": "Wysyłka kampanii wsparcia SMS-CC do 133 subskrybentów (SIM 2 / polskieradio.cc/wspieraj)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-14",
+      "topic": "Z Biblią za Pan Brat: Kompletna lekcja Dzień 46 (Wj 16) + pakiet 5 wersji + DOCX",
       "agent": "A"
     }
   ]
