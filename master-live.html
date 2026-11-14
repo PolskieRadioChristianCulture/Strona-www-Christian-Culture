@@ -1595,6 +1595,14 @@
                     suppressSubframeTicker(f);
                     if (isMutedDefault || f !== getActiveFrame() || isSwitchingWithBumper) {
                         silenceFrame(f, false);
+                    } else {
+                        [300, 1200, 3000].forEach(delay => {
+                            setTimeout(() => {
+                                if (!isMutedDefault && f === getActiveFrame() && !isSwitchingWithBumper) {
+                                    unmuteFrame(f);
+                                }
+                            }, delay);
+                        });
                     }
                 });
             }
@@ -1625,6 +1633,12 @@
             if (type === 'MUTE_AUDIO' || type === 'mute') {
                 isMutedDefault = true;
                 muteSubframe();
+                return;
+            }
+            if (type === 'YT_PLAYER_PLAYING' || type === 'YT_PLAYER_READY') {
+                if (!isMutedDefault && !isSwitchingWithBumper) {
+                    unmuteFrame(getActiveFrame());
+                }
                 return;
             }
             if (type === 'APOKALIPSA_FINISHED' || type === 'STUDIUM_FINISHED' || type === 'KSIEGA_NADZIEI_FINISHED' || type === 'APOKALIPSA_KSIEGA_NADZIEI_FINISHED' || type === 'RANDKI_MALZENSTWO_FINISHED' || type === 'PROGRAM_FINISHED') {

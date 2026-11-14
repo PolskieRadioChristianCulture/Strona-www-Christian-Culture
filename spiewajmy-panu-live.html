@@ -510,7 +510,7 @@
         const initialTrackIndex = calculateDailyStartingTrackIndex();
 
         // ── 3. YouTube Iframe Player ──
-        const isPreloadMuted = window.location.search.includes('muted=1');
+        let isPreloadMuted = window.location.search.includes('muted=1');
         let player = null;
 
         function disableCaptions() {
@@ -537,8 +537,9 @@
 
         const playerIframe = document.getElementById("yt-player");
         if (playerIframe) {
-            const muteParam = isPreloadMuted ? '&mute=1' : '';
-            playerIframe.src = `https://www.youtube.com/embed/videoseries?list=${PLAYLIST_ID}&index=${initialTrackIndex}&autoplay=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}&widget_referrer=${encodeURIComponent(location.href)}&controls=0&rel=0&modestbranding=1&loop=1&cc_load_policy=0&iv_load_policy=3${muteParam}`;
+            // Zawsze startuj embed z mute=1, aby Chromium/CEF 150 nigdy nie zablokował autostartu wideo (brak czarnego ekranu playerState=-1),
+            // a po starcie odtwarzania (PLAYING) odciszaj automatycznie jeśli !isPreloadMuted.
+            playerIframe.src = `https://www.youtube.com/embed/videoseries?list=${PLAYLIST_ID}&index=${initialTrackIndex}&autoplay=1&mute=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}&widget_referrer=${encodeURIComponent(location.href)}&controls=0&rel=0&modestbranding=1&loop=1&cc_load_policy=0&iv_load_policy=3`;
         }
 
         function onYouTubeIframeAPIReady() {
@@ -556,17 +557,31 @@
         }
 
         function enableAudio() {
+            isPreloadMuted = false;
             const overlay = document.getElementById("startOverlay");
             if (overlay) overlay.style.display = "none";
 
             try {
+                if (player && typeof player.getPlayerState === 'function') {
+                    const st = player.getPlayerState();
+                    if (st !== YT.PlayerState.PLAYING && st !== YT.PlayerState.BUFFERING) {
+                        // Jeśli wideo jeszcze nie gra (np. -1 lub 5), najpierw uruchom je wyciszone (gwarancja startu wideo), a potem odcisz
+                        try { player.mute(); } catch(e) {}
+                        try { player.playVideo(); } catch(e) {}
+                        setTimeout(() => {
+                            try {
+                                if (!isPreloadMuted && player && typeof player.unMute === 'function') {
+                                    player.unMute();
+                                    player.setVolume(100);
+                                }
+                            } catch(e) {}
+                        }, 450);
+                        return;
+                    }
+                }
                 if (player && typeof player.unMute === 'function') {
-                    try { player.mute(); } catch(e) {}
                     player.unMute();
                     player.setVolume(100);
-                    if (typeof player.getPlayerState === 'function' && player.getPlayerState() !== YT.PlayerState.PLAYING) {
-                        player.playVideo();
-                    }
                 }
             } catch(e) {}
 
@@ -581,6 +596,7 @@
         }
 
         function disableAudio() {
+            isPreloadMuted = true;
             try {
                 if (player && typeof player.mute === 'function') {
                     player.mute();
@@ -700,21 +716,20 @@
         let ytReadyFired = false;
         setTimeout(() => {
             if (!ytReadyFired) {
-                console.warn("YouTube Player failed to become ready within 8s. Notifying parent...");
+                console.warn("YouTube Player failed to become ready within 25s. Notifying parent...");
                 try {
                     if (window.parent && window.parent !== window) {
-                        window.parent.postMessage({ type: 'YT_PLAYER_ERROR', code: 'TIMEOUT_8S', time: Date.now() }, '*');
+                        window.parent.postMessage({ type: 'YT_PLAYER_ERROR', code: 'TIMEOUT_25S', time: Date.now() }, '*');
                     }
                 } catch(e) {}
             }
-        }, 8000);
+        }, 25000);
 
         function onPlayerReady(event) {
             try { if (window.parent && window.parent !== window) { window.parent.postMessage({ type: 'YT_PLAYER_READY' }, '*'); } } catch(e) {}
             ytReadyFired = true;
-            if (isPreloadMuted) {
-                try { event.target.mute(); } catch(e) {}
-            }
+            // Zawsze wycisz przed loadPlaylist, aby Chromium/CEF 150 natychmiast wystartował obraz (playerState=1)
+            try { event.target.mute(); } catch(e) {}
             const overlay = document.getElementById("startOverlay");
             if (overlay) overlay.style.display = "none";
 
@@ -746,7 +761,7 @@
             } catch(e) {}
 
             if (!isPreloadMuted) {
-                [200, 500, 1000, 2000, 3000, 5000].forEach(ms => {
+                [800, 1500, 3000, 5000].forEach(ms => {
                     setTimeout(() => {
                         enableAudio();
                         disableCaptions();
@@ -814,6 +829,15 @@
             }
 
             if (event.data === YT.PlayerState.PLAYING) {
+                ytReadyFired = true;
+                if (!isPreloadMuted) {
+                    try {
+                        if (player && typeof player.unMute === 'function') {
+                            player.unMute();
+                            player.setVolume(100);
+                        }
+                    } catch(e) {}
+                }
                 disableCaptions();
                 updateTrackMetadata();
                 try {
