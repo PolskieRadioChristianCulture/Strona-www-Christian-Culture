@@ -216,6 +216,13 @@ html44 = html44.replace(/<span class="text-brand-gold font-mono font-semibold">C
 html44 = html44.replace(/Księga Wyjścia 12:37–13:22 • Wymarsz z Egiptu[^<]*/, `Księga Wyjścia 14:1–31 • Przejście przez Morze Czerwone, mur z wód po prawej i lewej stronie oraz Boży ratunek`);
 
 html44 = html44.replace(/<blockquote class="font-serif text-base sm:text-lg md:text-xl text-zinc-100 font-medium leading-relaxed mb-4">[\s\S]*?<\/blockquote>/, `<blockquote class="font-serif text-base sm:text-lg md:text-xl text-zinc-100 font-medium leading-relaxed mb-4">\n            ${day44Data.memoryVerse}\n          </blockquote>`);
+html44 = html44.replace(/<p class="font-serif italic text-base sm:text-lg text-white">[\s\S]*?<\/p>/, `<p class="font-serif italic text-base sm:text-lg text-white">\n            ${day44Data.memoryVerse}\n          </p>`);
+html44 = html44.replace(/<meta name="description" content="[^"]*"[^>]*>(?:\s*>+\s*\/>)?/, `<meta name="description" content="${day44Data.title} — ${day44Data.reading}" />`);
+html44 = html44.replace(/https:\/\/patronite\.pl\/radiocc/g, 'https://patronite.pl/osobowoscplus');
+html44 = html44.replace(/(<a[^>]*patronite\.pl[^>]*?)\s+id="ccTopSubLink"/g, '$1');
+html44 = html44.replace(/<a\s+<a/gi, '<a');
+html44 = html44.replace(/completeDay4[23]/g, 'completeDay44');
+html44 = html44.replace(/Dzień 4[23] ukończony!/g, 'Dzień 44 ukończony!');
 html44 = html44.replace(/— Księga Wyjścia 13:21 \(UBG\)/, `— Księga Wyjścia 14:14 (UBG)`);
 html44 = html44.replace(/navigator\.clipboard\.writeText\('[^']+'\)/, `navigator.clipboard.writeText('${day44Data.memoryVerse.replace(/'/g, "\\'")}')`);
 html44 = html44.replace(/<strong class="text-brand-gold uppercase tracking-wider block mb-1">Myśl przewodnia lekcji:<\/strong>[\s\S]*?<\/div>\s*<\/div>/, `<strong class="text-brand-gold uppercase tracking-wider block mb-1">Myśl przewodnia lekcji:</strong>\n${day44Data.theme}\n      </div>\n    </div>`);

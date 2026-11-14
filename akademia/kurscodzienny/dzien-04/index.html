@@ -73,6 +73,50 @@
   <style>
     body { background: #07090E; color: #f1f5f9; }
     .ak-header { background: rgba(7,9,14,0.95); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(196,163,90,0.18); position: sticky; top: 0; z-index: 50; }
+    /* Topbar Icon-First Standard (Desktop & Mobile Clean Action Bar) */
+    .ak-header #reader-font-label,
+    .ak-header #tts-btn-text,
+    .ak-header .theme-toggle-label,
+    .ak-header #ccTopSubLink .sr-only,
+    .ak-header #ccTopSubLink span:not(:first-child),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child) {
+      display: none !important;
+    }
+    .ak-header .kc-reader-pill,
+    .ak-header #btn-audio-tts,
+    .ak-header #btn-theme-toggle,
+    .ak-header #ccTopSubLink,
+    .ak-header a[href*="patronite"] {
+      width: 38px !important;
+      height: 38px !important;
+      min-width: 38px !important;
+      min-height: 38px !important;
+      padding: 0 !important;
+      justify-content: center !important;
+      align-items: center !important;
+      display: inline-flex !important;
+      border-radius: 9999px !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+    }
+    .ak-header .rounded-full.border-zinc-800 {
+      height: 38px !important;
+      padding: 2px 4px !important;
+      box-sizing: border-box !important;
+      display: inline-flex !important;
+      align-items: center !important;
+    }
+    .ak-header .ak-header-course-title {
+      max-width: none !important;
+      white-space: nowrap !important;
+      text-overflow: clip !important;
+      display: inline-block !important;
+    }
+    @media (max-width: 768px) {
+      .ak-header .ak-header-slash, .ak-header .ak-header-course-title, .ak-header .ak-header-brand-sub { display: none !important; }
+      .ak-header .max-w-6xl, .ak-header .max-w-7xl { padding-left: 12px !important; padding-right: 12px !important; }
+    }
     .kc-card { background: #0E121A; border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 24px; margin-bottom: 24px; }
     @media (min-width: 640px) { .kc-card { padding: 32px; } }
     .kc-card h2, .kc-card h3 { font-family: 'Cinzel', serif; letter-spacing: 0.06em; color: #E2CC9A; }
@@ -180,11 +224,11 @@
           <span class="text-amber-400 text-lg">←</span>
           <div class="flex items-center gap-2">
             <span class="font-display text-sm font-bold text-brand-gold tracking-widest">LUMINA</span>
-            <span class="text-xs font-semibold text-zinc-400 hidden sm:inline">BIBLE ACADEMY</span>
+            <span class="text-xs font-semibold text-zinc-400 hidden md:inline ak-header-brand-sub">BIBLE ACADEMY</span>
           </div>
         </a>
-        <span class="text-zinc-700">/</span>
-        <a href="/akademia/kurscodzienny" class="text-xs font-semibold text-amber-200/90 hover:text-amber-300 truncate max-w-[180px] sm:max-w-none">
+        <span class="text-zinc-700 hidden md:inline ak-header-slash">/</span>
+        <a href="/akademia/kurscodzienny" class="text-xs font-semibold text-amber-200/90 hover:text-amber-300 whitespace-nowrap hidden md:inline ak-header-course-title">
           Z Biblią za Pan Brat
         </a>
       </div>
@@ -193,11 +237,11 @@
         <!-- Reader Typography Toggle Hook -->
         <button type="button" id="btn-reader-font" onclick="toggleReaderFont()" class="kc-reader-pill" title="Zmień krój pisma: Lora (Książkowa szeryfowa) / Inter (Ekranowa bezszeryfowa)">
           <i class="fa-solid fa-font text-amber-400 text-xs"></i>
-          <span id="reader-font-label" class="hidden sm:inline font-semibold">Krój: Lora</span>
+          <span id="reader-font-label" class="sr-only font-semibold">Krój: Lora</span>
         </button>
 
 <!-- Przełącznik motywu (Jasny / Ciemny) -->
-        <button type="button" id="btn-theme-toggle" class="kc-reader-pill cin-btn-theme" title="Przełącz motyw (Jasny / Ciemny)" aria-label="Przełącz motyw">
+        <button type="button" id="btn-theme-toggle" onclick="toggleCourseTheme()" class="kc-reader-pill cin-btn-theme" title="Przełącz motyw (Jasny / Ciemny)" aria-label="Przełącz motyw">
           <i class="fa-solid fa-sun text-amber-400 text-xs theme-toggle-icon"></i>
         </button>
 
@@ -210,13 +254,10 @@
         <!-- Audio TTS Hook -->
         <button type="button" id="btn-audio-tts" onclick="toggleAudioLesson()" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-bold hover:bg-amber-500/20 transition flex items-center justify-center" title="Słuchaj lekcji z lektorem">
           <i class="fa-solid fa-volume-high text-xs" id="tts-icon"></i>
-          <span id="tts-btn-text" class="hidden sm:inline">Słuchaj Audio</span>
+          <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 min-h-[44px]">
-          <span>❤️</span>
-          <span class="hidden sm:inline">Wspieraj</span>
-        </a>
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
@@ -924,9 +965,7 @@
             </div>
             <p class="text-xs text-zinc-400 mb-4">Wesprzyj nagrania lektora TTS, studio i technologię misji.</p>
           </div>
-          <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 font-bold text-xs hover:bg-rose-500/30 transition min-h-[44px]">
-            <span>❤️</span> Zostań Patronem
-          </a>
+          <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         </div>
       </div>
     </section>

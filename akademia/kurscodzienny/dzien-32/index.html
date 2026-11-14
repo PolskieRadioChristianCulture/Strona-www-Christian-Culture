@@ -67,7 +67,9 @@
     .ak-header #reader-font-label,
     .ak-header #tts-btn-text,
     .ak-header .theme-toggle-label,
-    .ak-header #ccTopSubLink span,
+    .ak-header #ccTopSubLink .sr-only,
+    .ak-header #ccTopSubLink span:not(:first-child),
+    .ak-header a[href*="patronite"] .sr-only,
     .ak-header a[href*="patronite"] span:not(:first-child) {
       display: none !important;
     }
@@ -238,9 +240,7 @@
           <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
-          <span>❤️</span>
-        </a>
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>

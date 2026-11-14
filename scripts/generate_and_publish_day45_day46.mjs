@@ -122,7 +122,7 @@ const templateHtml = fs.readFileSync(d44HtmlPath, 'utf8');
 // Budujemy Dzień 45 na podstawie Dnia 44
 let html45 = templateHtml;
 html45 = html45.replace(/<title>Dzień 44:[^<]+<\/title>/, `<title>Dzień 45: ${day45Data.title} (${day45Data.reading}) | Z Biblią za Pan Brat | LUMINA Bible Academy</title>`);
-html45 = html45.replace(/<meta name="description" content="[^"]+"/, `<meta name="description" content="Dzień 45 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. ${day45Data.book} ${day45Data.reading}: ${day45Data.subtitle}">`);
+html45 = html45.replace(/<meta name="description" content="[^"]*"[^>]*>(?:\s*>+\s*\/>)?/, `<meta name="description" content="Dzień 45 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. ${day45Data.book} ${day45Data.reading}: ${day45Data.subtitle}">`);
 html45 = html45.replace(/<link rel="canonical" href="https:\/\/polskieradio\.cc\/akademia\/kurscodzienny\/dzien-44"/, `<link rel="canonical" href="https://polskieradio.cc/akademia/kurscodzienny/dzien-45"`);
 html45 = html45.replace(/property="og:title" content="[^"]+"/, `property="og:title" content="Dzień 45: ${day45Data.title} (${day45Data.reading}) | Z Biblią za Pan Brat"`);
 html45 = html45.replace(/property="og:description" content="[^"]+"/, `property="og:description" content="${day45Data.subtitle}"`);
@@ -188,7 +188,7 @@ console.log('✅ Zapisano 8 ścieżek HTML dla Dnia 45');
 // Budujemy Dzień 46 na podstawie Dnia 45
 let html46 = html45;
 html46 = html46.replace(/<title>Dzień 45:[^<]+<\/title>/, `<title>Dzień 46: ${day46Data.title} (${day46Data.reading}) | Z Biblią za Pan Brat | LUMINA Bible Academy</title>`);
-html46 = html46.replace(/<meta name="description" content="[^"]+"/, `<meta name="description" content="Dzień 46 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. ${day46Data.book} ${day46Data.reading}: ${day46Data.subtitle}">`);
+html46 = html46.replace(/<meta name="description" content="[^"]*"[^>]*>(?:\s*>+\s*\/>)?/, `<meta name="description" content="Dzień 46 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. ${day46Data.book} ${day46Data.reading}: ${day46Data.subtitle}">`);
 html46 = html46.replace(/<link rel="canonical" href="https:\/\/polskieradio\.cc\/akademia\/kurscodzienny\/dzien-45"/, `<link rel="canonical" href="https://polskieradio.cc/akademia/kurscodzienny/dzien-46"`);
 html46 = html46.replace(/property="og:title" content="[^"]+"/, `property="og:title" content="Dzień 46: ${day46Data.title} (${day46Data.reading}) | Z Biblią za Pan Brat"`);
 html46 = html46.replace(/property="og:description" content="[^"]+"/, `property="og:description" content="${day46Data.subtitle}"`);

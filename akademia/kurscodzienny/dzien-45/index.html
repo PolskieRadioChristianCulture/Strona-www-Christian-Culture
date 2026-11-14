@@ -14,7 +14,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Dzień 45: PIEŚŃ ZWYCIĘSTWA I GORZKIE WODY MARA — PAN TWOIM LEKARZEM (Wj 15:1–27) | Z Biblią za Pan Brat | LUMINA Bible Academy</title>
-  <meta name="description" content="Dzień 45 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 15:1–27: Triumf nad egipskim wojskiem, pieśń Miriam i przemiana gorzkich wód w słodkie (Wj 15:1–27)">>>> />
+  <meta name="description" content="Dzień 45 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 15:1–27: Triumf nad egipskim wojskiem, pieśń Miriam i przemiana gorzkich wód w słodkie (Wj 15:1–27)">
   <link rel="canonical" href="https://polskieradio.cc/akademia/kurscodzienny/dzien-45" />
 
   <!-- Open Graph -->
@@ -66,13 +66,19 @@
     .ak-header #reader-font-label,
     .ak-header #tts-btn-text,
     .ak-header .theme-toggle-label,
-    .ak-header #ccTopSubLink span,
+    .ak-header #ccTopSubLink .sr-only,
+    .ak-header #ccTopSubLink span:not(:first-child),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child),
     .ak-header #cc-auth-nav-container span { display: none !important; }
     @media (min-width: 640px) {
       .ak-header #reader-font-label,
       .ak-header #tts-btn-text,
       .ak-header .theme-toggle-label,
-      .ak-header #ccTopSubLink span,
+      .ak-header #ccTopSubLink span:not(.sr-only),
+      .ak-header a[href*="patronite"] span:not(.sr-only),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child),
       .ak-header #cc-auth-nav-container span { display: inline !important; }
     }
     .kc-card {
@@ -155,10 +161,7 @@
           <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <a href="https://patronite.pl/radiocc" target="_blank" rel="noopener noreferrer" id="ccTopSubLink" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
-          <span>❤️</span>
-          <span class="sr-only">Wspieraj</span>
-        </a>
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
@@ -243,12 +246,12 @@
             <span>Werset do zapamiętania</span>
           </div>
           <p class="font-serif italic text-base sm:text-lg text-white">
-            „PAN będzie za was walczył, a wy będziecie milczeć.”
+            „PAN moją mocą i moją chwałą, bo stał się dla mnie zbawieniem. To mój Bóg, dlatego zbuduję mu przybytek, to Bóg mego ojca, dlatego będę go wywyższał.”
           </p>
           <p class="text-xs text-zinc-400 font-semibold">— Księga Wyjścia 15:2 (UBG)</p>
         </div>
         <button
-          onclick="navigator.clipboard.writeText('„PAN moją mocą i moją chwałą, bo stał się dla mnie zbawieniem. To mój Bóg, dlatego zbuduję mu przybytek, to Bóg mego ojca, dlatego będę go wywyższał.” (Wj 15:2, UBG)'); this.innerHTML = '<i class=\'fa-solid fa-check\'></i> Skopiowano'; setTimeout(() => this.innerHTML = '<i class=\'fa-regular fa-copy\'></i> Kopiuj', 2000);"
+          onclick="navigator.clipboard.writeText('PAN moją mocą i moją chwałą, bo stał się dla mnie zbawieniem. To mój Bóg, dlatego zbuduję mu przybytek, to Bóg mego ojca, dlatego będę go wywyższał. (Wj 15:2, UBG)'); this.innerHTML = '<i class=\'fa-solid fa-check\'></i> Skopiowano'; setTimeout(() => this.innerHTML = '<i class=\'fa-regular fa-copy\'></i> Kopiuj', 2000);"
           class="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 shrink-0 min-h-[44px]"
           title="Kopiuj werset do schowka"
         >
@@ -286,10 +289,7 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
           <p>
             Zanim przeczytasz rozważanie, otwórz Biblię i przeczytaj cały fragment. Komentarz ma prowadzić do Słowa, a nie je zastępować.
           </p>
-          <a <a href="/mojabiblia?book=EXO&chapter=15" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
-            <i class="fa-solid fa-book-bible"></i>
-            <span>Czytaj Wj 11:1–12:36</span>
-          </a>
+          <a href="/mojabiblia?book=EXO&chapter=15" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]"><i class="fa-solid fa-book-open"></i><span>Czytaj Wj 15:1–27</span></a>
         </div>
       </article>
 
@@ -351,7 +351,7 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
           <span>Klucze Językowe & Kody Stronga (Wj 15)</span>
         </div>
         <p class="text-xs text-zinc-300 mb-4 leading-relaxed font-serif">
-          Poniższe terminy hebrajskie stanowią osnowę teologiczną 11. i 12. rozdziału Księgi Wyjścia:
+          Poniższe terminy hebrajskie stanowią osnowę teologiczną 15. rozdziału Księgi Wyjścia:
         </p>
         <div class="flex flex-wrap gap-2">
           <span class="strong-chip"><span class="strong-id">H7892</span> <span class="strong-orig">שִׁיר (szir)</span> — pieśń / śpiew uwielbienia za ocalenie (Wj 15:1)</span>
@@ -474,27 +474,20 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
           <span>Jezus w centrum</span>
         </div>
         <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
-          Nasz Baranek Paschalny i Krew Nowego Przymierza — Chrystus w centrum Wj 11–12
+          Pieśń Mojżesza i Baranka — Chrystus Uzdrowiciel Gorzkich Wód w Mara
         </h3>
-        <p class="text-sm sm:text-base text-zinc-300 leading-relaxed mb-4 font-serif">
-          Jedenasty i dwunasty rozdział Księgi Wyjścia stanowią najważniejszą zapowiedź ofiary Chrystusa w całym Pięcioksięgu:
-        </p>
-        <div class="space-y-4 text-sm sm:text-base text-zinc-200 font-serif">
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">1. Jezus Chrystus — Nasz Baranek Paschalny (Wj 12:3–6 a 1 Kor 5:7, J 1:29)</h4>
-            <p class="text-zinc-300 leading-relaxed">Baranek paschalny w Egipcie był proroczą zapowiedzią Jezusa Chrystusa. Jan Chrzciciel zawołał nad Jordanem: „Oto Baranek Boży, który gładzi grzech świata!”. Apostoł Paweł ogłasza z absolutną mocą: „Chrystus bowiem, nasza pascha, został za nas ofiarowany”.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">2. Baranek bez skazy i nienaruszona kość (Wj 12:5, 46 a 1 P 1:18–19, J 19:36)</h4>
-            <p class="text-zinc-300 leading-relaxed">Baranek musiał być doskonały (tamim), a żadna jego kość nie mogła być złamana. Na Golgocie żołnierze nie połamali kości Zbawiciela, „aby wypełniło się Pismo: Kość jego nie będzie złamana”. Zostaliśmy wykupieni niewinną i nieskalaną krwią Chrystusa.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">3. Krew Przebłagania na odrzwiach serca (Wj 12:7, 13 a Rz 3:25, Hbr 9:14, 22)</h4>
-            <p class="text-zinc-300 leading-relaxed">Krew na drewnianych odrzwiach układała się w zarys krzyża. Bóg obiecał: „Gdy ujrzę krew, ominę was!”. Dziś krew Chrystusa przyjęta z wiarą w sercu chroni przed wiecznym sądem i oczyszcza sumienie z martwych uczynków do służby Bogu żywemu.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">4. Chleb Przaśny i Nowe Przymierze — Wieczerza Pańska (Wj 12:8, 14 a Łk 22:19–20, 1 Kor 11:23–26)</h4>
-            <p class="text-zinc-300 leading-relaxed">Podczas ostatniej wieczerzy paschalnej Jezus ustanowił Wieczerzę Pańską: „To jest ciało moje... Ten kielich to nowe przymierze w mojej krwi”. Obchodzimy tę pamiątkę z przaśnym chlebem szczerości i prawdy aż do Jego powtórnego przyjścia.</p>
+        <div class="space-y-4 text-sm sm:text-base text-zinc-200 font-serif leading-relaxed">
+          <p>
+            Piętnasty rozdział Księgi Wyjścia otwiera najstarszy hymn odkupienia w Piśmie Świętym, który rozbrzmi jeszcze w wieczności jako „pieśń Mojżesza, sługi Bożego, i pieśń Baranka” (Obj 15:3). Słowa Wj 15:2 — „PAN moją mocą i moją chwałą, bo stał się dla mnie zbawieniem” — niosą imię <em>Jeszua</em> („zbawienie”), w którym objawił się Jezus z Nazaretu! To On zrzucił duchowego jeźdźca w morze sądu i podarował nam nowe życie.
+          </p>
+          <p>
+            A zaledwie trzy dni później, przy gorzkich źródłach Mara (Wj 15:23–25), PAN ukazuje Mojżeszowi drzewo: wrzucone w gorycz wody czyni ją słodką! Ojcowie Kościoła i teologowie od wieków widzą w tym drzewie rzuconym w gorycz życia zapowiedź Krzyża Chrystusa. Tam, gdzie gorzkość grzechu, rozczarowania czy cierpienia czyni życie niezdatnym do picia, Chrystus objawia się jako „PAN, który cię uzdrawia” (<em>JHWH Rofe</em>, Wj 15:26; 1 P 2:24) i wprowadza spragnioną duszę pod dwanaście źródeł pokoju w Elim (Wj 15:27).
+          </p>
+          <div class="pt-2">
+            <a href="/mojabiblia?book=EXO&chapter=15" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
+              <i class="fa-solid fa-book-open"></i>
+              <span>Czytaj Wj 15:1–27</span>
+            </a>
           </div>
         </div>
       </section>
@@ -509,18 +502,18 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
           Sprawdź w Biblii — 12 Wersetów Porównawczych
         </h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-zinc-300 font-serif">
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 11:1 → Rdz 15:14</strong>: Bóg wypełnia po 430 latach obietnicę daną Abrahamowi: sąd nad Egiptem i wyjście z wielkim majątkiem.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 11:7 → Ml 3:18</strong>: Wyraźne rozdzielenie: „Wtedy znowu zobaczycie różnicę między sprawiedliwym a bezbożnym”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:2 → 2 Kor 5:17</strong>: Nowy kalendarz: „Jeśli ktoś jest w Chrystusie, nowym jest stworzeniem; stare przeminęło”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:5 → 1 P 1:19</strong>: „Drogocenną krwią Chrystusa, jako baranka niewinnego i nieskalanego”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:7 → Hbr 10:22</strong>: Serca pokropione krwią i oczyszczone od złego sumienia.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:8 → 1 Kor 5:8</strong>: „Obchodźmy święto z przaśnym chlebem szczerości i prawdy”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:11 → Łk 12:35</strong>: Postawa pielgrzyma: „Niech wasze biodra będą przepasane i wasze lampy zapalone”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:13 → Rz 5:9</strong>: „Będąc usprawiedliwieni jego krwią, będziemy przez niego ocaleni od gniewu”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:22 → Hbr 11:28</strong>: „Przez wiarę uczynił paschę i pokropienie krwią, aby niszczyciel ich nie dotknął”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:29 → Hbr 10:31</strong>: Nieuchronność Bożego wyroku: „Straszna to rzecz wpaść w ręce Boga żywego”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:31 → Iz 52:11–12</strong>: Wymarsz z niewoli: „Odejdźcie, odejdźcie, wyjdźcie stamtąd... PAN pójdzie przed wami”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:36 → Kol 2:15</strong>: Triumf nad potęgami: „Rozbroił zwierzchności i władze, triumfując nad nimi na krzyżu”.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:2 → Iz 12:2</strong>: Dosłowne echo hymnu Mojżesza u proroka Izajasza: „PAN moją mocą i pieśnią, stał się moim zbawieniem”.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:2 → Ps 118:14</strong>: Ten sam okrzyk triumfu wybrzmiewa w psalmie zapowiadającym odrzucony Kamień Węgielny — Chrystusa.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:3 → Obj 19:11–16</strong>: „PAN jest wojownikiem” — Jezus jako sprawiedliwy Zwycięzca nad wszelką niesprawiedliwością.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:11 → Ps 89:7</strong>: „Któż jak Ty, PANIE, wśród bogów, okazały w świętości?” — nieporównywalny majestat Stwórcy.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:13 → 1 P 1:18–19</strong>: „W Twoim miłosierdziu prowadzisz lud, który wykupiłeś” — pasterstwo łaski po odkupieniu krwią.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:17–18 → Obj 11:15</strong>: „PAN będzie królował na wieki wieków” — od świętej góry po wieczne Królestwo Baranka.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:20 → 1 Kor 14:26</strong>: Pieśń Miriam i kobiet jako radosne uwielbienie Bożego ratunku we wspólnocie.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:23–25 → Gal 3:13</strong>: Drzewo wrzucone w gorzkie wody Mara jako proroczy znak krzyża przemieniającego przekleństwo w błogosławieństwo.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:25 → Hbr 12:15</strong>: Ostrzeżenie przed gorzkim korzeniem w sercu — tylko łaska Chrystusa czyni gorycz słodką.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:26 → 1 P 2:24</strong>: „Ja jestem PAN, który cię uzdrawia” — „Jego ranami zostaliście uzdrowieni”.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:26 → Pwt 7:15</strong>: Przymierze posłuszeństwa Słowu jako droga błogosławieństwa i ochrony od chorób Sądu Egiptu.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 15:27 → Obj 22:1–2</strong>: Dwanaście źródeł i siedemdziesiąt palm w Elim — przedsmak odpocznienia u wód życia.</div>
         </div>
       </section>
 
@@ -589,20 +582,20 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
             <!-- ── TWOJA DECYZJA ── -->
       <section class="kc-card">
         <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
-          <i class="fa-solid fa-hand-holding-heart"></i>
+          <i class="fa-solid fa-flag-checkered"></i>
           <span>Twoja decyzja</span>
         </div>
         <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
-          Wybierz Bezpieczeństwo pod Krwią Baranka — Wyjdź z Domu Niewoli!
+          Zaśpiewaj Pieśń Odkupienia — Rzuć Drzewo Krzyża w Swoją „Mara”!
         </h3>
         <div class="space-y-4 text-sm sm:text-base text-zinc-200 font-serif leading-relaxed">
           <p>
-            Dwunasty rozdział Księgi Wyjścia stawia przed nami ostateczną alternatywę: albo pozostajesz w sferze buntu tego świata i podlegasz sprawiedliwemu sądowi Bożemu, albo chronisz się pod Krwią Baranka bez skazy. Bóg nie badał zasług Hebrajczyków ani ich moralnej doskonałości — badał, czy na drzwiach ich domów znajduje się krew przymierza. Dziś Pan Jezus Chrystus wzywa Cię do osobistego zaufania Jego ofierze na krzyżu. Wyrzecz się wszelkiego kwasu grzechu, weź laskę pielgrzyma i wyrusz w drogę wolności za Królem Królów!
+            Rozdział piętnasty odsłania bolesny kontrast ludzkiego serca: łatwo śpiewać hymny chwały na drugim brzegu Morza Czerwonego (Wj 15:1–21), ale zaledwie trzy dni bez wody potrafią zamienić uwielbienie w szemranie przy źródłach Mara (Wj 15:22–24). Dziś nie zatrzymuj się w rozgoryczeniu i nie szukaj ulgi poza Bogiem. Wzorem Mojżesza zawołaj do PANA (15:25), przyjmij uzdrawiającą moc Krzyża Chrystusa i idź w posłuszeństwie ku źródłom w Elim!
           </p>
           <div class="p-5 rounded-2xl bg-gradient-to-br from-amber-500/15 via-black/40 to-transparent border border-brand-gold/40">
             <h4 class="font-bold text-amber-300 mb-2 uppercase tracking-wide text-xs">Osobiste Wyznanie Decyzji:</h4>
             <p class="italic text-white">
-              „Panie Boże Wszechmogący, Święty Sędzio i Miłosierny Zbawicielu! Dziękuję Ci z całego serca za dar Jezusa Chrystusa — mojego Baranka Paschalnego. Wyznaję, że sam z siebie nie mam żadnych zasług, którymi mógłbym uchronić się przed Twoim sprawiedliwym sądem. Wiarą kropię dziś węgary mojego serca, mój dom, moją rodzinę i moją przyszłość najdroższą Krwią Jezusa. Wyrzucam ze swojego życia wszelki stary kwas grzechu, obłudy i kompromisu. Przepasuję biodra wiarą i postanawiam iść za Tobą jako wierny pielgrzym każdego dnia mojego życia. Amen!”
+              „Panie Jezu Chryste, Ty jesteś moją mocą, moją pieśnią i moim zbawieniem! Odrzucam gorzkie szemranie, kiedy po chwilach zachwytu przychodzi próba pustyni. Zapraszam Twój krzyż w każde gorzkie miejsce mojej historii i przyjmuję Cię jako JHWH Rofe — PANA, który uzdrawia duszę i ciało. Ucz mnie słuchać Twojego głosu w codziennym posłuszeństwie!”
             </p>
           </div>
         </div>
@@ -697,7 +690,7 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
             </label>
           </div>
 
-          <button id="btn-complete-day" onclick="completeDay42()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-extrabold text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2 min-h-[44px]">
+          <button id="btn-complete-day" onclick="completeDay45()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-extrabold text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2 min-h-[44px]">
             <i class="fa-solid fa-check"></i>
             <span>Oznacz Dzień 45 jako ukończony</span>
           </button>
@@ -752,7 +745,7 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
           Nie zatrzymuj tego poselstwa dla siebie. Jedno kliknięcie może przynieść Bożą wolność komuś, kto zmaga się w niewoli kompromisów.
         </p>
         <div class="flex items-center justify-center gap-3 flex-wrap">
-          <a href="https://api.whatsapp.com/send?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2042%3A%20%C5%9Awi%C4%99to%20Paschy%2C%20krew%20Baranka%20i%20wykupienie%20pierworodnych%20%28Wj%2011%E2%80%9312%29%3A%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-45" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
+          <a href="https://api.whatsapp.com/send?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2045%3A%20PIE%C5%9A%C5%83%20ZWYCI%C4%98STWA%20I%20GORZKIE%20WODY%20MARA%20%E2%80%94%20PAN%20TWOIM%20LEKARZEM%20(Wj%2015%3A1%E2%80%9327).%20%E2%80%9EPAN%20moj%C4%85%20moc%C4%85%20i%20moj%C4%85%20chwa%C5%82%C4%85%2C%20bo%20sta%C5%82%20si%C4%99%20dla%20mnie%20zbawieniem.%20To%20m%C3%B3j%20B%C3%B3g%2C%20dlatego%20zbuduj%C4%99%20mu%20przybytek%2C%20to%20B%C3%B3g%20mego%20ojca%2C%20dlatego%20b%C4%99d%C4%99%20go%20wywy%C5%BCsza%C5%82.%E2%80%9D%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-45" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
             <i class="fa-brands fa-whatsapp text-sm"></i>
             <span>WhatsApp</span>
           </a>
@@ -760,7 +753,7 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
             <i class="fa-brands fa-facebook-f text-sm"></i>
             <span>Facebook</span>
           </a>
-          <a href="https://twitter.com/intent/tweet?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2042%3A%20%C5%9Awi%C4%99to%20Paschy%2C%20krew%20Baranka%20i%20wykupienie%20pierworodnych%20%28Wj%2011%E2%80%9312%29&url=https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-45" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
+          <a href="https://twitter.com/intent/tweet?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2045%3A%20PIE%C5%9A%C5%83%20ZWYCI%C4%98STWA%20I%20GORZKIE%20WODY%20MARA%20%E2%80%94%20PAN%20TWOIM%20LEKARZEM%20(Wj%2015%3A1%E2%80%9327).%20%E2%80%9EPAN%20moj%C4%85%20moc%C4%85%20i%20moj%C4%85%20chwa%C5%82%C4%85%2C%20bo%20sta%C5%82%20si%C4%99%20dla%20mnie%20zbawieniem.%20To%20m%C3%B3j%20B%C3%B3g%2C%20dlatego%20zbuduj%C4%99%20mu%20przybytek%2C%20to%20B%C3%B3g%20mego%20ojca%2C%20dlatego%20b%C4%99d%C4%99%20go%20wywy%C5%BCsza%C5%82.%E2%80%9D%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-45" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
             <i class="fa-brands fa-x-twitter text-sm"></i>
             <span>X (Twitter)</span>
           </a>
@@ -781,7 +774,7 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
   <script src="/js/cc-daily-course-share.js?v=20261108_wa1" defer></script>
 
   <script>
-    // ── QUIZ LOGIC (20 PYTAŃ Z WJ 9:1–35) ──
+    // ── QUIZ LOGIC (20 PYTAŃ Z WJ 15:1–27) ──
     const QUIZ_DATA = [
   {
     "q": "Kto według Wj 15:1 zaśpiewał pieśń PANU nad brzegiem morza?",
@@ -1075,7 +1068,7 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
     }
 
     // ── PROGRESS & AUTO-SAVE ──
-    function completeDay42() {
+    function completeDay45() {
       try {
         localStorage.setItem(DAY_KEY + '_completed', 'true');
         localStorage.setItem(DAY_KEY + '_learned', document.getElementById('kc-input-learned').value || '');
@@ -1090,7 +1083,7 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
         btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Dzień 45 ukończony!</span>';
       } catch(e) {}
     }
-    window.completeDay42 = completeDay42;
+    window.completeDay45 = completeDay45;
 
     function toggleTaskState(idx) {
       try {
@@ -1136,7 +1129,7 @@ Piętnasty rozdział Księgi Wyjścia ukazuje najstarszą i najbardziej przejmuj
           window.speechSynthesis.cancel();
           if (btnText) btnText.textContent = 'Lektor';
         } else {
-          const u = new SpeechSynthesisUtterance("A ta krew będzie dla was znakiem na domach, w których będziecie. Gdy bowiem ujrzę krew, ominę was i nie dotknie was plaga zniszczenia, gdy będę zabijał w ziemi Egiptu. (Księga Wyjścia 12:13 (UBG))");
+          const u = new SpeechSynthesisUtterance("PAN moją mocą i moją chwałą, bo stał się dla mnie zbawieniem. To mój Bóg, dlatego zbuduję mu przybytek, to Bóg mego ojca, dlatego będę go wywyższał. (Księga Wyjścia 15:2)");
           u.lang = 'pl-PL';
           u.onend = () => { if (btnText) btnText.textContent = 'Lektor'; };
           window.speechSynthesis.speak(u);

@@ -66,13 +66,19 @@
     .ak-header #reader-font-label,
     .ak-header #tts-btn-text,
     .ak-header .theme-toggle-label,
-    .ak-header #ccTopSubLink span,
+    .ak-header #ccTopSubLink .sr-only,
+    .ak-header #ccTopSubLink span:not(:first-child),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child),
     .ak-header #cc-auth-nav-container span { display: none !important; }
     @media (min-width: 640px) {
       .ak-header #reader-font-label,
       .ak-header #tts-btn-text,
       .ak-header .theme-toggle-label,
-      .ak-header #ccTopSubLink span,
+      .ak-header #ccTopSubLink span:not(.sr-only),
+      .ak-header a[href*="patronite"] span:not(.sr-only),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child),
       .ak-header #cc-auth-nav-container span { display: inline !important; }
     }
     .kc-card {
@@ -155,10 +161,7 @@
           <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <a href="https://patronite.pl/radiocc" target="_blank" rel="noopener noreferrer" id="ccTopSubLink" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
-          <span>❤️</span>
-          <span class="sr-only">Wspieraj</span>
-        </a>
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
@@ -243,12 +246,12 @@
             <span>Werset do zapamiętania</span>
           </div>
           <p class="font-serif italic text-base sm:text-lg text-white">
-            „Jeden drugiego nie widział i nikt nie wstał ze swego miejsca przez trzy dni; lecz wszyscy synowie Izraela mieli światło w swoich mieszkaniach.”
+            „Jeden nie widział drugiego i nikt przez te trzy dni nie podniósł się ze swego miejsca. Lecz w domach wszystkich synów Izraela było światło.”
           </p>
           <p class="text-xs text-zinc-400 font-semibold">— Księga Wyjścia 10:23 (UBG)</p>
         </div>
         <button
-          onclick="navigator.clipboard.writeText('Jeden drugiego nie widział i nikt nie wstał ze swego miejsca przez trzy dni; lecz wszyscy synowie Izraela mieli światło w swoich mieszkaniach. (Księga Wyjścia 10:23 (UBG))'); this.innerHTML = '<i class=\'fa-solid fa-check\'></i> Skopiowano'; setTimeout(() => this.innerHTML = '<i class=\'fa-regular fa-copy\'></i> Kopiuj', 2000);"
+          onclick="navigator.clipboard.writeText('Jeden nie widział drugiego i nikt przez te trzy dni nie podniósł się ze swego miejsca. Lecz w domach wszystkich synów Izraela było światło. (Wj 10:23, UBG)'); this.innerHTML = '<i class=\'fa-solid fa-check\'></i> Skopiowano'; setTimeout(() => this.innerHTML = '<i class=\'fa-regular fa-copy\'></i> Kopiuj', 2000);"
           class="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 shrink-0 min-h-[44px]"
           title="Kopiuj werset do schowka"
         >
@@ -1140,7 +1143,7 @@ Dziesiąty rozdział Księgi Wyjścia ukazuje dwie przedostatnie plagi przed ost
           window.speechSynthesis.cancel();
           if (btnText) btnText.textContent = 'Lektor';
         } else {
-          const u = new SpeechSynthesisUtterance("Jeden drugiego nie widział i nikt nie wstał ze swego miejsca przez trzy dni; lecz wszyscy synowie Izraela mieli światło w swoich mieszkaniach. (Księga Wyjścia 10:23 (UBG))");
+          const u = new SpeechSynthesisUtterance("Jeden nie widział drugiego i nikt przez te trzy dni nie podniósł się ze swego miejsca. Lecz w domach wszystkich synów Izraela było światło. (Księga Wyjścia 10:23)");
           u.lang = 'pl-PL';
           u.onend = () => { if (btnText) btnText.textContent = 'Lektor'; };
           window.speechSynthesis.speak(u);

@@ -66,13 +66,19 @@
     .ak-header #reader-font-label,
     .ak-header #tts-btn-text,
     .ak-header .theme-toggle-label,
-    .ak-header #ccTopSubLink span,
+    .ak-header #ccTopSubLink .sr-only,
+    .ak-header #ccTopSubLink span:not(:first-child),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child),
     .ak-header #cc-auth-nav-container span { display: none !important; }
     @media (min-width: 640px) {
       .ak-header #reader-font-label,
       .ak-header #tts-btn-text,
       .ak-header .theme-toggle-label,
-      .ak-header #ccTopSubLink span,
+      .ak-header #ccTopSubLink span:not(.sr-only),
+      .ak-header a[href*="patronite"] span:not(.sr-only),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child),
       .ak-header #cc-auth-nav-container span { display: inline !important; }
     }
     .kc-card {
@@ -155,10 +161,7 @@
           <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <a href="https://patronite.pl/radiocc" target="_blank" rel="noopener noreferrer" id="ccTopSubLink" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
-          <span>❤️</span>
-          <span class="sr-only">Wspieraj</span>
-        </a>
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
@@ -243,12 +246,12 @@
             <span>Werset do zapamiętania</span>
           </div>
           <p class="font-serif italic text-base sm:text-lg text-white">
-            „Wtedy czarownicy powiedzieli do faraona: To jest palec Boży. Lecz serce faraona było zatwardziałe i nie usłuchał ich, tak jak PAN powiedział.”
+            „Lecz dlatego cię postawiłem, aby okazać na tobie moją moc i żeby rozgłaszano moje imię na całej ziemi.”
           </p>
           <p class="text-xs text-zinc-400 font-semibold">— Księga Wyjścia 9:16 (UBG)</p>
         </div>
         <button
-          onclick="navigator.clipboard.writeText('Lecz dlatego cię postawiłem, aby okazać na tobie moją moc i żeby rozgłaszano moje imię na całej ziemi. (Księga Wyjścia 9:16 (UBG))'); this.innerHTML = '<i class=\'fa-solid fa-check\'></i> Skopiowano'; setTimeout(() => this.innerHTML = '<i class=\'fa-regular fa-copy\'></i> Kopiuj', 2000);"
+          onclick="navigator.clipboard.writeText('Lecz dlatego cię postawiłem, aby okazać na tobie moją moc i żeby rozgłaszano moje imię na całej ziemi. (Wj 9:16, UBG)'); this.innerHTML = '<i class=\'fa-solid fa-check\'></i> Skopiowano'; setTimeout(() => this.innerHTML = '<i class=\'fa-regular fa-copy\'></i> Kopiuj', 2000);"
           class="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 shrink-0 min-h-[44px]"
           title="Kopiuj werset do schowka"
         >
@@ -743,9 +746,10 @@ Dziewiąty rozdział Księgi Wyjścia ukazuje trzy kolejne, niszczycielskie sąd
           Dzień 41: Księga Wyjścia 10:1–29. Dwie przedostatnie plagi przed sądem nad pierworodnymi. Chmary niszczycielskiej szarańczy pożerające resztki plonów oraz przerażająca trzydniowa ciemność dotykalna w całym Egipcie, podczas gdy w domach synów Izraela jaśniało Boże światło.
         </p>
         <div class="flex items-center gap-3 flex-wrap">
-          <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-500 text-xs font-bold uppercase tracking-wider min-h-[44px]">
-            <span>Dostępne od północy (10 listopada)</span>
-          </span>
+          <a href="/akademia/kurscodzienny/dzien-41" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-extrabold text-xs uppercase tracking-wider transition shadow-lg min-h-[44px]">
+            <span>Studiuj Dzień 41</span>
+            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
           <a href="/akademia/kurscodzienny" class="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-300 hover:text-white text-xs font-bold transition min-h-[44px] flex items-center">
             ← Spis kursu
           </a>
@@ -1125,7 +1129,7 @@ Dziewiąty rozdział Księgi Wyjścia ukazuje trzy kolejne, niszczycielskie sąd
           window.speechSynthesis.cancel();
           if (btnText) btnText.textContent = 'Lektor';
         } else {
-          const u = new SpeechSynthesisUtterance("„Lecz dlatego cię postawiłem, aby okazać na tobie moją moc i żeby rozgłaszano moje imię na całej ziemi.” (Księga Wyjścia 9:16 (UBG))");
+          const u = new SpeechSynthesisUtterance("Lecz dlatego cię postawiłem, aby okazać na tobie moją moc i żeby rozgłaszano moje imię na całej ziemi. (Księga Wyjścia 9:16)");
           u.lang = 'pl-PL';
           u.onend = () => { if (btnText) btnText.textContent = 'Lektor'; };
           window.speechSynthesis.speak(u);

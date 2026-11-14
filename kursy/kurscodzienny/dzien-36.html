@@ -67,7 +67,9 @@
     .ak-header #reader-font-label,
     .ak-header #tts-btn-text,
     .ak-header .theme-toggle-label,
-    .ak-header #ccTopSubLink span,
+    .ak-header #ccTopSubLink .sr-only,
+    .ak-header #ccTopSubLink span:not(:first-child),
+    .ak-header a[href*="patronite"] .sr-only,
     .ak-header a[href*="patronite"] span:not(:first-child) {
       display: none !important;
     }
@@ -278,9 +280,7 @@
           <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
-          <span>❤️</span>
-        </a>
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
@@ -304,6 +304,10 @@
         <a href="/akademia/kurscodzienny/dzien-35" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 min-h-[44px]">
           <i class="fa-solid fa-chevron-left text-[10px]"></i>
           <span>← Dzień 35</span>
+        </a>
+        <a href="/akademia/kurscodzienny/dzien-37" class="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-xs text-amber-300 hover:text-amber-200 transition flex items-center gap-1.5 min-h-[44px]">
+          <span>Dzień 37 →</span>
+          <i class="fa-solid fa-chevron-right text-[10px]"></i>
         </a>
       </div>
     </div>
@@ -738,7 +742,7 @@
       </div>
 
       <div class="flex flex-col sm:flex-row items-center gap-4">
-        <button type="button" id="btn-complete-day" onclick="completeDay34()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:from-amber-400 hover:to-amber-500 transition min-h-[44px]">
+        <button type="button" id="btn-complete-day" onclick="completeDay36()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg hover:from-amber-400 hover:to-amber-500 transition min-h-[44px]">
           <i class="fa-solid fa-check"></i>
           <span id="btn-complete-text">Oznacz Dzień 36 jako ukończony</span>
         </button>
@@ -819,7 +823,11 @@
         Jutro czytamy szósty rozdział Księgi Wyjścia: w odpowiedzi na rozpaczliwe pytanie Mojżesza z końca Wj 5 Bóg wypowiada potężne słowa: „Teraz zobaczysz, co uczynię faraonowi!”. Poznamy głębię Imienia JHWH, siedem filarów Bożego odkupienia („wyprowadzę, wybawię, odkupię, wezmę was za swój lud...”) oraz rodowód Mojżesza i Aarona. Wróć jutro, aby kontynuować podróż!
       </p>
       <div class="flex items-center gap-3 flex-wrap">
-        <a href="/akademia/kurscodzienny" class="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-300 hover:text-white text-xs font-bold transition min-h-[44px] flex items-center">
+        <a href="/akademia/kurscodzienny/dzien-37" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-extrabold text-xs uppercase tracking-wider transition shadow-lg min-h-[44px]">
+            <span>Studiuj Dzień 37</span>
+            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
+          <a href="/akademia/kurscodzienny" class="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-300 hover:text-white text-xs font-bold transition min-h-[44px] flex items-center">
           ← Wróć do spisu kursu
         </a>
       </div>
@@ -1144,7 +1152,7 @@
       window.updateChecklist = function () {
         ['read', 'understood', 'apply'].forEach((k) => { const el = document.getElementById('chk-' + k); if (el) set('chk_' + k, el.checked); });
       };
-      window.completeDay34 = function () {
+      window.completeDay36 = function () {
         const done = get('completed') !== 'true';
         set('completed', done);
         renderCompleted(done);

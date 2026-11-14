@@ -412,8 +412,20 @@
         justify-content: center !important;
         pointer-events: auto !important;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        touch-action: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
         -webkit-tap-highlight-color: transparent !important;
         transition: bottom 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      }
+      .cc-chat-fab-wrap,
+      .cc-chat-fab-wrap * {
+        touch-action: none !important;
+      }
+      html.cc-fab-touch-dragging,
+      html.cc-fab-touch-dragging body {
+        touch-action: none !important;
+        overscroll-behavior: none !important;
       }
 
       html[data-lumina-theme] .cc-chat-fab-wrap,
@@ -4084,7 +4096,25 @@
               didDrag = true;
               if (typeof hideTeaserImmediately === 'function') hideTeaserImmediately();
               fabWrap.classList.add('is-fab-dragging');
-              if (e.pointerId !== undefined && typeof btn.setPointerCapture === 'function') {
+              if (e.pointerType === 'touch') {
+                document.documentElement.classList.add('cc-fab-touch-dragging');
+                const preventTouchScroll = (te) => {
+                  if (te.cancelable) te.preventDefault();
+                };
+                const endTouchLock = () => {
+                  document.documentElement.classList.remove('cc-fab-touch-dragging');
+                  window.removeEventListener('touchmove', preventTouchScroll);
+                  window.removeEventListener('touchend', endTouchLock);
+                  window.removeEventListener('touchcancel', endTouchLock);
+                  window.removeEventListener('pointerup', endTouchLock);
+                  window.removeEventListener('pointercancel', endTouchLock);
+                };
+                window.addEventListener('touchmove', preventTouchScroll, { passive: false });
+                window.addEventListener('touchend', endTouchLock, { once: true });
+                window.addEventListener('touchcancel', endTouchLock, { once: true });
+                window.addEventListener('pointerup', endTouchLock, { once: true });
+                window.addEventListener('pointercancel', endTouchLock, { once: true });
+              } else if (e.pointerId !== undefined && typeof btn.setPointerCapture === 'function') {
                 try { btn.setPointerCapture(e.pointerId); } catch (_) {}
               }
             }
@@ -4128,7 +4158,8 @@
             if (!wasDrag) return;
             suppressNextClickUntil = Date.now() + 360;
 
-            if (ev.type === 'pointerup') {
+            document.documentElement.classList.remove('cc-fab-touch-dragging');
+            if (ev.type === 'pointerup' || ev.type === 'pointercancel') {
               const hideEval = evaluateHideTrigger(endX, endY, dy, dx, currentDragTop);
               if (hideEval.willHide) {
                 hideFabByGesture(preDragLeft, preDragTop, preDragHadCustom, { immediate: false });

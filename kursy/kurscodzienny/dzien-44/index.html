@@ -14,7 +14,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Dzień 44: PRZEJŚCIE PRZEZ MORZE CZERWONE — PAN BĘDZIE ZA WAS WALCZYŁ (Wj 14:1–31) | Z Biblią za Pan Brat | LUMINA Bible Academy</title>
-  <meta name="description" content="Dzień 44 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 14:1–31: Pułapka nad brzegiem morza, pościg rydwanów faraona i cudowne rozstąpienie wód (Wj 14:1–31)">>> />
+  <meta name="description" content="Dzień 44 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 14:1–31: Pułapka nad brzegiem morza, pościg rydwanów faraona i cudowne rozstąpienie wód (Wj 14:1–31)">
   <link rel="canonical" href="https://polskieradio.cc/akademia/kurscodzienny/dzien-44" />
 
   <!-- Open Graph -->
@@ -66,13 +66,19 @@
     .ak-header #reader-font-label,
     .ak-header #tts-btn-text,
     .ak-header .theme-toggle-label,
-    .ak-header #ccTopSubLink span,
+    .ak-header #ccTopSubLink .sr-only,
+    .ak-header #ccTopSubLink span:not(:first-child),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child),
     .ak-header #cc-auth-nav-container span { display: none !important; }
     @media (min-width: 640px) {
       .ak-header #reader-font-label,
       .ak-header #tts-btn-text,
       .ak-header .theme-toggle-label,
-      .ak-header #ccTopSubLink span,
+      .ak-header #ccTopSubLink span:not(.sr-only),
+      .ak-header a[href*="patronite"] span:not(.sr-only),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child),
       .ak-header #cc-auth-nav-container span { display: inline !important; }
     }
     .kc-card {
@@ -155,10 +161,7 @@
           <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <a href="https://patronite.pl/radiocc" target="_blank" rel="noopener noreferrer" id="ccTopSubLink" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
-          <span>❤️</span>
-          <span class="sr-only">Wspieraj</span>
-        </a>
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
@@ -248,7 +251,7 @@
           <p class="text-xs text-zinc-400 font-semibold">— Księga Wyjścia 14:14 (UBG)</p>
         </div>
         <button
-          onclick="navigator.clipboard.writeText('„PAN będzie za was walczył, a wy będziecie milczeć.” (Wj 14:14, UBG)'); this.innerHTML = '<i class=\'fa-solid fa-check\'></i> Skopiowano'; setTimeout(() => this.innerHTML = '<i class=\'fa-regular fa-copy\'></i> Kopiuj', 2000);"
+          onclick="navigator.clipboard.writeText('PAN będzie za was walczył, a wy będziecie milczeć. (Wj 14:14, UBG)'); this.innerHTML = '<i class=\'fa-solid fa-check\'></i> Skopiowano'; setTimeout(() => this.innerHTML = '<i class=\'fa-regular fa-copy\'></i> Kopiuj', 2000);"
           class="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 shrink-0 min-h-[44px]"
           title="Kopiuj werset do schowka"
         >
@@ -286,10 +289,7 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
           <p>
             Zanim przeczytasz rozważanie, otwórz Biblię i przeczytaj cały fragment. Komentarz ma prowadzić do Słowa, a nie je zastępować.
           </p>
-          <a <a href="/mojabiblia?book=EXO&chapter=14" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
-            <i class="fa-solid fa-book-bible"></i>
-            <span>Czytaj Wj 11:1–12:36</span>
-          </a>
+          <a href="/mojabiblia?book=EXO&chapter=14" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]"><i class="fa-solid fa-book-open"></i><span>Czytaj Wj 14:1–31</span></a>
         </div>
       </article>
 
@@ -351,20 +351,20 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
       <section class="kc-card">
         <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-gold mb-4">
           <i class="fa-solid fa-spell-check text-amber-400"></i>
-          <span>Klucze Językowe & Kody Stronga (Wj 14)</span>
+          <span>Klucze Językowe & Kody Stronga (Wj 14:1–31)</span>
         </div>
         <p class="text-xs text-zinc-300 mb-4 leading-relaxed font-serif">
-          Poniższe terminy hebrajskie stanowią osnowę teologiczną 11. i 12. rozdziału Księgi Wyjścia:
+          Poniższe terminy hebrajskie stanowią osnowę teologiczną 14. rozdziału Księgi Wyjścia (przejście przez Morze Czerwone i ratunek PANA):
         </p>
         <div class="flex flex-wrap gap-2">
-          <span class="strong-chip"><span class="strong-id">H6453</span> <span class="strong-orig">פֶּסַח (pesach)</span> — Pascha / ominięcie / przejście ocalające (Wj 12:11, 21, 27)</span>
-          <span class="strong-chip"><span class="strong-id">H1818</span> <span class="strong-orig">דָּם (dam)</span> — krew / krew znaku przymierza na odrzwiach (Wj 12:7, 13, 22)</span>
-          <span class="strong-chip"><span class="strong-id">H7716</span> <span class="strong-orig">שֶׂה (seh)</span> — baranek / jagnię bez skazy dla każdego domu (Wj 12:3–5)</span>
-          <span class="strong-chip"><span class="strong-id">H8549</span> <span class="strong-orig">תָּמִים (tamim)</span> — bez skazy / doskonały, nienaganny (Wj 12:5)</span>
-          <span class="strong-chip"><span class="strong-id">H4682</span> <span class="strong-orig">מַצָּה (macca)</span> — przaśny chleb / chleb niekwaszony czystości (Wj 12:8, 15, 18)</span>
-          <span class="strong-chip"><span class="strong-id">H1060</span> <span class="strong-orig">בְּכוֹר (bechor)</span> — pierworodny / wykupienie pierworodnych (Wj 11:5; 12:12, 29)</span>
-          <span class="strong-chip"><span class="strong-id">H7843</span> <span class="strong-orig">מַשְׁחִית (maszchit)</span> — niszczyciel / anioł niszczący, przed którym chroni krew (Wj 12:13, 23)</span>
-          <span class="strong-chip"><span class="strong-id">H2320</span> <span class="strong-orig">חֹדֶשׁ (chodesz)</span> — miesiąc / początek miesięcy, nowy czas (Wj 12:2)</span>
+          <span class="strong-chip"><span class="strong-id">H3898</span> <span class="strong-orig">לָחַם (lacham)</span> — walczyć w obronie swojego ludu jak potężny Wojownik (Wj 14:14, 25)</span>
+          <span class="strong-chip"><span class="strong-id">H2790</span> <span class="strong-orig">חָרַשׁ (charasz)</span> — milczeć w pokornej ciszy wiary przed dziełem Bożym (Wj 14:14)</span>
+          <span class="strong-chip"><span class="strong-id">H3444</span> <span class="strong-orig">יְשׁוּעָה (jeszua)</span> — ratunek, zbawienie i pełne ocalenie od PANA (Wj 14:13, 30)</span>
+          <span class="strong-chip"><span class="strong-id">H2724</span> <span class="strong-orig">חָרָבָה (charabah)</span> — sucha ziemia pośrodku rozstąpionych głębin morskich (Wj 14:21)</span>
+          <span class="strong-chip"><span class="strong-id">H3220</span> <span class="strong-orig">יָם (jam)</span> — morze — symbol śmiertelnego żywiołu ujarzmionego słowem PANA (Wj 14:16, 22)</span>
+          <span class="strong-chip"><span class="strong-id">H7307</span> <span class="strong-orig">רוּחַ קָדִים (ruach qadim)</span> — gwałtowny wiatr wschodni rozcinający wody przez całą noc (Wj 14:21)</span>
+          <span class="strong-chip"><span class="strong-id">H3513</span> <span class="strong-orig">כָּבֵד (kabad)</span> — okazać chwałę nad faraonem i całym jego wojskiem (Wj 14:4, 17–18)</span>
+          <span class="strong-chip"><span class="strong-id">H539</span> <span class="strong-orig">אָמַן (aman)</span> — uwierzyć, zaufać PANU oraz Jego słudze Mojżeszowi po wielkim cudzie (Wj 14:31)</span>
         </div>
       </section>
  
@@ -372,106 +372,82 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
       <section class="kc-card space-y-6">
         <div class="flex items-center gap-2 border-b border-brand-line pb-4">
           <span class="w-8 h-8 rounded-lg bg-brand-gold/15 flex items-center justify-center text-brand-gold">
-            <i class="fa-solid fa-feather-pointed"></i>
+            <i class="fa-solid fa-scroll"></i>
           </span>
           <div>
             <h2 class="text-xl sm:text-2xl font-bold text-white font-display">EGZEGEZA & FORMACJA TEOLOGICZNA</h2>
-            <p class="text-xs text-zinc-400">Pięć części studium Wj 11:1–12:36 (42 punkty analityczne)</p>
+            <p class="text-xs text-zinc-400">Pięć części studium Wj 14:1–31 (35 punktów analitycznych)</p>
           </div>
         </div>
 
         <div class="space-y-6 text-zinc-200 leading-relaxed font-serif text-sm sm:text-base">
-          <!-- CZĘŚĆ I -->
-          <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
-            <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">I</span>
-              ZAPOWIEDŹ DZIESIĄTEJ PLAGI I UPRZYWILEJOWANIE LUDU (WJ 11:1–10)
-            </h3>
-            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
-              <p><strong>1. Ostatni cios sądu (11:1a):</strong> Bóg zapowiada nadejście jednej, ostatecznej plagi, po której opór faraona zostanie ostatecznie złamany.</p>
-              <p><strong>2. Całkowite wypędzenie (11:1b):</strong> Tyran, który wzbraniał wyjścia, wkrótce sam w pośpiechu i panicznym strachu wypędzi lud Boży ze swoich granic.</p>
-              <p><strong>3. Sprawiedliwa restytucja majątkowa (11:2):</strong> Nakaz prośby o złoto i srebro stanowi Bożą rekompensatę za pokolenia niewolniczego trudu przy budowie miast imperium.</p>
-              <p><strong>4. Szacunek w oczach wrogów (11:3):</strong> Bóg daje swemu ludowi i Mojżeszowi niezwykły autorytet w oczach urzędników i ludu Egiptu.</p>
-              <p><strong>5. Północna godzina sądu (11:4):</strong> „O północy przejdę przez Egipt” — wyznaczenie precyzyjnego terminu Bożej interwencji w samo jądro egipskiej nocy.</p>
-              <p><strong>6. Uniwersalność wyroku na pychę (11:5):</strong> Od dziedzica tronu aż po niewolnicę przy żarnach — żaden status społeczny nie ocali pogańskiego buntu przed sprawiedliwością.</p>
-              <p><strong>7. Bezprecedensowy krzyk rozpaczy (11:6):</strong> Egipt doświadcza lamentu, jakiego nie było w całych jego dziejach, gdy ginie pokolenie nadziei imperium.</p>
-              <p><strong>8. Cudowne rozdzielenie Goszen (11:7):</strong> Nawet pies nie szczeknie na synów Izraela — Bóg w widoczny sposób okazuje różnicę między bezbożnym Egiptem a Jego ludem.</p>
-            </div>
+        <!-- CZĘŚĆ I -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
+          <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">I</span>
+            BOŻA STRATEGIA POD PI-HACHIROT I POŚCIG FARAONA (WJ 14:1–9)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
+            <p><strong>1. Celowy manewr nad brzegiem morza (14:1–3):</strong> Bóg każe zawrócić przed Pi-Hachirot między Migdol a morzem, sprawiając, że faraon błędnie ocenia położenie Izraela jako śmiertelną pułapkę.</p>
+            <p><strong>2. Chwała PANA ponad pogańską armią (14:4):</strong> Celem nie jest ucieczka w cieniu wstydu, lecz jawne objawienie, „że Ja jestem PAN”.</p>
+            <p><strong>3. Pycha imperialnej pogoni (14:5–7):</strong> Faraon zaprzęga 600 wyborowych rydwanów i wszystkie rydwany Egiptu z dowódcami, żałując utraty darmowej siły roboczej.</p>
+            <p><strong>4. Zuchwałość naprzeciw „wysokiej ręki” (14:8–9):</strong> Podczas gdy Izrael wychodził pod osłoną mocy Bożej, rydwany dopadają ich przy samym obozowisku nad morzem.</p>
           </div>
+        </div>
 
-          <!-- CZĘŚĆ II -->
-          <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
-            <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">II</span>
-              NOWY KALENDARZ I BARANEK PASCHALNY (WJ 12:1–10)
-            </h3>
-            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
-              <p><strong>9. Reset czasu przymierza (12:1–2):</strong> Miesiąc Abib (Nisan) staje się początkiem nowego roku; prawdziwe życie człowieka liczy się od momentu odkupienia.</p>
-              <p><strong>10. Baranek dla każdego domu (12:3):</strong> Odkupienie ma wymiar osobisty i rodzinny; każdy dom musi posiadać własną ofiarę przymierza.</p>
-              <p><strong>11. Wspólnota i solidarność sąsiedzka (12:4):</strong> Małe rodziny łączą się z sąsiadami, aby żadna cząstka daru Bożego nie została zmarnowana.</p>
-              <p><strong>12. Doskonałość ofiary bez skazy (12:5a):</strong> Baranek ma być samcem jednorocznym, absolutnie zdrowym i bez wady (hebr. tamim).</p>
-              <p><strong>13. Czterodniowa próba wierności (12:6a):</strong> Wybór 10. dnia i strzeżenie do 14. dnia nisan pozwalało na dokładną inspekcję zwierzęcia przed ofiarowaniem.</p>
-              <p><strong>14. Godzina wieczornej ofiary (12:6b):</strong> Zabicie baranka pod wieczór (hebr. bejn haarba’im) zapowiada godzinę śmierci Chrystusa.</p>
-              <p><strong>15. Znamię krwi na odrzwiach (12:7):</strong> Pokropienie węgarów i nadproża stanowiło publiczną tarczę wiary oddzielającą domowników od potępienia.</p>
-              <p><strong>16. Ogień, przaśniki i gorzkie zioła (12:8–10):</strong> Pieczenie w ogniu symbolizuje pełnię sądu Bożego; zioła przypominają gorycz niewoli, a przaśniki wzywają do czystości serca.</p>
-            </div>
+        <!-- CZĘŚĆ II -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
+          <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">II</span>
+            PANIKA LUDU I WIELKIE SŁOWO WIARY MOJŻESZA (WJ 14:10–14)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
+            <p><strong>5. Krzyk lęku i pamięć „grobów w Egipcie” (14:10–12):</strong> Przerażony lud zapomina dziesięciu plag zaledwie po kilku dniach marszu i wini Mojżesza za ucieczkę z niewoli.</p>
+            <p><strong>6. Trzykrotny program odwagi (14:13):</strong> „Nie bójcie się! Stójcie mocno i oglądajcie ratunek PANA, którego dokona dziś dla was”.</p>
+            <p><strong>7. Ostateczny koniec przeszłości (14:13b):</strong> „Egipcjan, których dziś widzicie, już nigdy więcej nie zobaczycie” — całkowite zerwanie więzów.</p>
+            <p><strong>8. Obietnica z Wj 14:14:</strong> „PAN będzie za was walczył, a wy będziecie milczeć” — koniec nerwowego szemrania, początek ufnej bezradności wiary.</p>
           </div>
+        </div>
 
-          <!-- CZĘŚĆ III -->
-          <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
-            <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">III</span>
-              POŚPIECH PIELGRZYMA I ŚWIĘTO PRZAŚNIKÓW (WJ 12:11–20)
-            </h3>
-            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
-              <p><strong>17. Postawa gotowości do drogi (12:11a):</strong> Biodra przepasane, obuwie na nogach i laska w ręku — zbawiony człowiek nie mości się w świecie, lecz jest pielgrzymem.</p>
-              <p><strong>18. Pośpieszne spożywanie Paschy (12:11b):</strong> Zbawienie wymaga natychmiastowej decyzji zerwania z przeszłością i gotowości do pójścia za Bożym wezwaniem.</p>
-              <p><strong>19. Sąd nad bogami Egiptu (12:12):</strong> Pascha to nie tylko ocalenie ludzi, ale publiczne zdemaskowanie niemocy panteonu demonicznych bóstw Nilu.</p>
-              <p><strong>20. Obiektywna tarcza krwi (12:13a):</strong> „Gdy ujrzę krew, ominę was” — fundamentem pokoju nie jest ludzkie samopoczucie, lecz Boże spojrzenie na krew ofiary.</p>
-              <p><strong>21. Wieczna pamiątka pokoleń (12:14):</strong> Pascha zostaje ustanowiona jako ustawa wieczna, kształtująca tożsamość dzieci Bożych po wszystkie czasy.</p>
-              <p><strong>22. Siedmiodniowe Święto Przaśników (12:15):</strong> Całkowite usunięcie zakwasu z domostw jako warunek trwania w przymierzu ze Świętym Bogiem.</p>
-              <p><strong>23. Święte zgromadzenia pierwszego i siódmego dnia (12:16):</strong> Odpoczynek od codziennej pracy i poświęcenie czasu na uroczyste wielbienie Odkupiciela.</p>
-              <p><strong>24. Nakaz czystości od zakwasu (12:17–20):</strong> Zakwas jako symbol pychy, hipokryzji i grzechu musi zostać bezwzględnie usunięty z życia wspólnoty.</p>
-            </div>
+        <!-- CZĘŚĆ III -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
+          <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">III</span>
+            PODNIESIONA LASKA I NOCNE ROZDZIELENIE OBOZÓW (WJ 14:15–20)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
+            <p><strong>9. Od modlitwy do kroku posłuszeństwa (14:15):</strong> „Powiedz synom Izraela, niech ruszą naprzód!” — wiara wchodzi naprzeciw ścianie wody.</p>
+            <p><strong>10. Podniesiona laska nad morzem (14:16):</strong> Symbol Bożego autorytetu wskazuje drogę, gdzie po ludzku istnieje tylko przepaść.</p>
+            <p><strong>11. Anioł Boży i Słup za plecami ludu (14:19–20):</strong> Tarcza Boga wkracza dokładnie między atakujące wojsko a bezbronne rodziny Izraela: ciemność dla wroga, światło w nocy dla swoich.</p>
           </div>
+        </div>
 
-          <!-- CZĘŚĆ IV -->
-          <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
-            <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">IV</span>
-              POSŁUSZEŃSTWO WIARY I OCHRONA PRZED NISZCZYCIELEM (WJ 12:21–28)
-            </h3>
-            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
-              <p><strong>25. Zwołanie starszyzny Izraela (12:21):</strong> Mojżesz przekazuje instrukcje paschalne przywódcom, uruchamiając posłuszeństwo całego ludu.</p>
-              <p><strong>26. Wiązka hizopu i misa z krwią (12:22a):</strong> Hizop — roślina pokory i oczyszczenia — służy do przeniesienia krwi z naczynia na futrynę domu.</p>
-              <p><strong>27. Zakaz wychodzenia za próg (12:22b):</strong> „Niech nikt z was nie wychodzi za drzwi swego domu aż do rana” — bezpieczeństwo istnieje wyłącznie pod krwią przymierza.</p>
-              <p><strong>28. Boża tarcza przed aniołem niszczycielem (12:23):</strong> Sam PAN strzeże wejścia do domów oznaczonych krwią, nie dopuszczając śmierci do wnętrza.</p>
-              <p><strong>29. Wychowanie międzypokoleniowe (12:24–26):</strong> Pytanie dzieci: „Co oznacza ten wasz obrzęd?” staje się szkołą żywej wiary i wdzięczności.</p>
-              <p><strong>30. Świadectwo ocalenia rodzin (12:27a):</strong> Odpowiedź rodziców przypomina o Bożej suwerennej łasce, która ominęła hebrajskie domy w nocy sądu.</p>
-              <p><strong>31. Pokłon adoracji i wdzięczności (12:27b):</strong> Wobec majestatu Bożego planu lud upada na twarz w głębokim dziękczynieniu.</p>
-              <p><strong>32. Precyzyjne posłuszeństwo nakazom (12:28):</strong> Izraelici uczynili dokładnie tak, jak nakazał PAN przez Mojżesza i Aarona — wiara wyraża się w posłuszeństwie.</p>
-            </div>
+        <!-- CZĘŚĆ IV -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
+          <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">IV</span>
+            SUCHE DNO POŚRODKU MORZA I ODWRÓT WÓD (WJ 14:21–28)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
+            <p><strong>12. Silny wiatr wschodni przez całą noc (14:21):</strong> PAN posługuje się żywiołem stworzenia, aby przemienić morskie dno w suchy trakt.</p>
+            <p><strong>13. Mur wody po prawej i lewej (14:22):</strong> Śmierć została ujarzmiona po obu stronach ścieżki odkupionych.</p>
+            <p><strong>14. Straż poranna i zamieszanie w obozie wroga (14:23–25):</strong> Kiedy rydwany wjeżdżają w ślad za Izraelem, Bóg zdejmuje z nich koła — sami Egipcjanie wyznają: „PAN walczy za nich przeciwko Egipcjanom”.</p>
+            <p><strong>15. Zamknięcie wód o świcie (14:26–28):</strong> Na powrotny gest laski wody wracają na miejsce — nie ocalał ani jeden żołnierz pościgu.</p>
           </div>
+        </div>
 
-          <!-- CZĘŚĆ V -->
-          <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
-            <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">V</span>
-              SĄD O PÓŁNOCY, KRZYK W EGIPCIE I WYJŚCIE (WJ 12:29–36)
-            </h3>
-            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
-              <p><strong>33. Uderzenie o północy (12:29a):</strong> W najciemniejszej godzinie nocy PAN wykonuje sprawiedliwy wyrok nad pierworodnymi w całej krainie Nilu.</p>
-              <p><strong>34. Porażka dynastycznego bóstwa (12:29b):</strong> Śmierć syna faraona obnaża bezsilność roszczeń władcy podającego się za potomka boga Ra.</p>
-              <p><strong>35. Nocny zryw monarchy i dworzan (12:30a):</strong> Faraon wstaje w środku nocy, skonfrontowany z nieodwracalną klęską swojej pychy.</p>
-              <p><strong>36. Żałoba w każdym egipskim domu (12:30b):</strong> Powszechny krzyk w Egipcie — nie było rodziny, w której nie leżałby zmarły pierworodny.</p>
-              <p><strong>37. Nocne wezwanie Mojżesza i Aarona (12:31):</strong> Złamany monarcha wzywa proroków w ciemności i nakazuje natychmiastowe opuszczenie kraju.</p>
-              <p><strong>38. Zgoda na pełne uwielbienie (12:32a):</strong> Faraon zezwala na zabranie stad i dzieci — bezwarunkowa kapitulacja wobec żądania: „Ani jedno kopyto nie zostanie!”.</p>
-              <p><strong>39. Błaganie o błogosławieństwo (12:32b):</strong> Pogański monarcha prosi Mojżesza o modlitwę wstawienniczą: „Mnie też błogosławcie!”.</p>
-              <p><strong>40. Panika i przynaglanie Egipcjan (12:33):</strong> Mieszkańcy Egiptu wypychają Izraelitów w lęku przed całkowitą zagładą biologiczną.</p>
-              <p><strong>41. Chleb w dzieżach na ramionach (12:34):</strong> W pośpiechu lud zabiera niezakwaszone ciasto w szatach — żywa ilustracja pośpiechu wyjścia z grzechu.</p>
-              <p><strong>42. Triumfalne ogołocenie niewoli (12:35–36):</strong> Bóg napełnia Egipcjan życzliwością, dzięki czemu lud Boży otrzymuje bogate dary na drogę do Ziemi Obiecanej.</p>
-            </div>
+        <!-- CZĘŚĆ V -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
+          <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">V</span>
+            WYBAWIENIE, BOJAŹŃ PAŃSKA I NARODZINY WIARY (WJ 14:29–31)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
+            <p><strong>16. Kontrast ocalenia i sądu (14:29–30):</strong> Izrael staje na przeciwnym brzegu żywy, widząc dowód całkowitej klęski tyranii.</p>
+            <p><strong>17. Z lęku przed faraonem do bojaźni PANA (14:31a):</strong> Strach przed człowiekiem ustępuje czci wobec Wszechmogącego.</p>
+            <p><strong>18. Wiara w PANA i w Mojżesza (14:31b):</strong> Wielkie dzieło nad Morzem Czerwonym pieczętuje zaufanie do Bożego zbawienia na dalszą wędrówkę przez pustynię.</p>
           </div>
+        </div>
         </div>
       </section>
 
@@ -482,27 +458,20 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
           <span>Jezus w centrum</span>
         </div>
         <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
-          Nasz Baranek Paschalny i Krew Nowego Przymierza — Chrystus w centrum Wj 11–12
+          Chrystus — Droga Przez Wody Śmierci i Ten, Który Zwycięża Za Swój Lud
         </h3>
-        <p class="text-sm sm:text-base text-zinc-300 leading-relaxed mb-4 font-serif">
-          Jedenasty i dwunasty rozdział Księgi Wyjścia stanowią najważniejszą zapowiedź ofiary Chrystusa w całym Pięcioksięgu:
-        </p>
-        <div class="space-y-4 text-sm sm:text-base text-zinc-200 font-serif">
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">1. Jezus Chrystus — Nasz Baranek Paschalny (Wj 12:3–6 a 1 Kor 5:7, J 1:29)</h4>
-            <p class="text-zinc-300 leading-relaxed">Baranek paschalny w Egipcie był proroczą zapowiedzią Jezusa Chrystusa. Jan Chrzciciel zawołał nad Jordanem: „Oto Baranek Boży, który gładzi grzech świata!”. Apostoł Paweł ogłasza z absolutną mocą: „Chrystus bowiem, nasza pascha, został za nas ofiarowany”.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">2. Baranek bez skazy i nienaruszona kość (Wj 12:5, 46 a 1 P 1:18–19, J 19:36)</h4>
-            <p class="text-zinc-300 leading-relaxed">Baranek musiał być doskonały (tamim), a żadna jego kość nie mogła być złamana. Na Golgocie żołnierze nie połamali kości Zbawiciela, „aby wypełniło się Pismo: Kość jego nie będzie złamana”. Zostaliśmy wykupieni niewinną i nieskalaną krwią Chrystusa.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">3. Krew Przebłagania na odrzwiach serca (Wj 12:7, 13 a Rz 3:25, Hbr 9:14, 22)</h4>
-            <p class="text-zinc-300 leading-relaxed">Krew na drewnianych odrzwiach układała się w zarys krzyża. Bóg obiecał: „Gdy ujrzę krew, ominę was!”. Dziś krew Chrystusa przyjęta z wiarą w sercu chroni przed wiecznym sądem i oczyszcza sumienie z martwych uczynków do służby Bogu żywemu.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">4. Chleb Przaśny i Nowe Przymierze — Wieczerza Pańska (Wj 12:8, 14 a Łk 22:19–20, 1 Kor 11:23–26)</h4>
-            <p class="text-zinc-300 leading-relaxed">Podczas ostatniej wieczerzy paschalnej Jezus ustanowił Wieczerzę Pańską: „To jest ciało moje... Ten kielich to nowe przymierze w mojej krwi”. Obchodzimy tę pamiątkę z przaśnym chlebem szczerości i prawdy aż do Jego powtórnego przyjścia.</p>
+        <div class="space-y-4 text-sm sm:text-base text-zinc-200 font-serif leading-relaxed">
+          <p>
+            Apostoł Paweł w 1 Kor 10:1–2 odkrywa przed nami głęboką tajemnicę czternastego rozdziału Księgi Wyjścia: wszyscy ojcowie nasi byli pod obłokiem i wszyscy przeszli przez morze, i wszyscy „w Mojżesza zostali ochrzczeni w obłoku i w morzu”. Wody Morza Czerwonego są obrazem sądu i śmierci, przez które Bóg przeprowadził swój lud po suchej ziemi, zamykając na zawsze za jego plecami moc dawnego ciemięzcy.
+          </p>
+          <p>
+            To dokładnie czyni śmierć i zmartwychwstanie Jezusa Chrystusa! Gdy stoją przed nami oskarżenia grzechu, lęk śmierci i niemożliwa przeszkoda, brzmi Boże słowo z Wj 14:14: „PAN będzie za was walczył, a wy będziecie milczeć”. Na krzyżu Jezus Sam pokonał zwierzchności i moce ciemności (Kol 2:15), przeprowadzając wierzącego w Nim przez chrzest śmierci do nowego, zwycięskiego życia (Rz 6:4).
+          </p>
+          <div class="pt-2">
+            <a href="/mojabiblia?book=EXO&chapter=14" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
+              <i class="fa-solid fa-book-open"></i>
+              <span>Czytaj Wj 14:1–31</span>
+            </a>
           </div>
         </div>
       </section>
@@ -517,18 +486,18 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
           Sprawdź w Biblii — 12 Wersetów Porównawczych
         </h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-zinc-300 font-serif">
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 11:1 → Rdz 15:14</strong>: Bóg wypełnia po 430 latach obietnicę daną Abrahamowi: sąd nad Egiptem i wyjście z wielkim majątkiem.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 11:7 → Ml 3:18</strong>: Wyraźne rozdzielenie: „Wtedy znowu zobaczycie różnicę między sprawiedliwym a bezbożnym”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:2 → 2 Kor 5:17</strong>: Nowy kalendarz: „Jeśli ktoś jest w Chrystusie, nowym jest stworzeniem; stare przeminęło”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:5 → 1 P 1:19</strong>: „Drogocenną krwią Chrystusa, jako baranka niewinnego i nieskalanego”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:7 → Hbr 10:22</strong>: Serca pokropione krwią i oczyszczone od złego sumienia.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:8 → 1 Kor 5:8</strong>: „Obchodźmy święto z przaśnym chlebem szczerości i prawdy”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:11 → Łk 12:35</strong>: Postawa pielgrzyma: „Niech wasze biodra będą przepasane i wasze lampy zapalone”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:13 → Rz 5:9</strong>: „Będąc usprawiedliwieni jego krwią, będziemy przez niego ocaleni od gniewu”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:22 → Hbr 11:28</strong>: „Przez wiarę uczynił paschę i pokropienie krwią, aby niszczyciel ich nie dotknął”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:29 → Hbr 10:31</strong>: Nieuchronność Bożego wyroku: „Straszna to rzecz wpaść w ręce Boga żywego”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:31 → Iz 52:11–12</strong>: Wymarsz z niewoli: „Odejdźcie, odejdźcie, wyjdźcie stamtąd... PAN pójdzie przed wami”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:36 → Kol 2:15</strong>: Triumf nad potęgami: „Rozbroił zwierzchności i władze, triumfując nad nimi na krzyżu”.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:4 → Rz 9:17</strong>: Historia konfrontacji z faraonem objawia suwerenną moc i chwałę Imienia Boga na całej ziemi.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:13 → 2 Krn 20:17</strong>: „Stójcie i oglądajcie ratunek PANA, który jest z wami” — ponadludzkie wybawienie w obliczu przewagi wroga.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:14 → Ps 46:11</strong>: „Zatrzymajcie się i poznajcie, że Ja jestem Bogiem” — cisza wiary wobec bitwy toczonej przez PANA.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:15 → Mt 14:29</strong>: Wezwanie do ruchu naprzód w wierze mimo wzburzonych wód życiowej niemożliwości.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:19 → Ps 34:8</strong>: Anioł Pański zakłada obóz wokół tych, którzy się Go boją, i wyrywa ich z pułapki.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:21 → Ps 66:6</strong>: „Przemienił morze w suchą ziemię; przeszli przez rzekę pieszo — tam radowaliśmy się w Nim”.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:22 → 1 Kor 10:1–2</strong>: Przejście przez obłok i morze jako biblijny pierwowzór chrztu i nowej przynależności do Chrystusa.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:25 → Rz 8:31</strong>: Skoro sam Bóg walczy za nas, nawet potężne rydwany wroga nie mogą się ostać.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:28 → J 8:36</strong>: Gdy Syn wyzwoli człowieka, dawni nadzorcy grzechu tracą nad nim władzę na zawsze.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:30 → Hbr 11:29</strong>: „Przez wiarę przeszli przez Morze Czerwone jak po suchej ziemi; gdy Egipcjanie spróbowali tego samego, zostali pochłonięci”.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:31 → Ps 106:12</strong>: Dzieło Bożego ratunku rodzi żywą wiarę, cześć oraz pieśń dziękczynienia.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 14:20 → Iz 52:12</strong>: „PAN pójdzie przed wami, a Bóg Izraela będzie waszą tylną strażą” — podwójna ochrona odkupionych.</div>
         </div>
       </section>
 
@@ -539,17 +508,14 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
           <span>Prawda na dziś</span>
         </div>
         <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
-          8 Zasad Przymierza — Co zmienia się w Twoim patrzeniu?
+          5 Prawdy Zwycięstwa — Co zmienia się, gdy przed Tobą stoi Morze?
         </h3>
         <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 font-serif leading-relaxed">
-          <p>• <strong>Ocalenie wyłącznie przez Krew:</strong> Żadne ludzkie uczynki ani status nie uchronią przed sądem — jedyną tarczą zbawienia jest Krew Chrystusa (Wj 12:13).</p>
-          <p>• <strong>Nowy początek w Bożym kalendarzu:</strong> Prawdziwy czas Twojego życia rozpoczął się w dniu spotkania ze Zbawicielem (Wj 12:2).</p>
-          <p>• <strong>Bezpieczeństwo w granicach przymierza:</strong> Wiara wymaga trwania w Bożej prawdzie i niewychodzenia poza ramy Słowa Bożego (Wj 12:22).</p>
-          <p>• <strong>Radykalne usunięcie zakwasu:</strong> Kto należy do Chrystusa, musi bezwzględnie usunąć z życia kwas pychy, nieszczerości i grzechu (Wj 12:15).</p>
-          <p>• <strong>Postawa pielgrzyma:</strong> Wierzący żyje w świecie z przepasanymi biodrami i laską w ręku — gotowy do natychmiastowego pójścia za Panem (Wj 12:11).</p>
-          <p>• <strong>Edukacja wiary w rodzinie:</strong> Naszym świętym obowiązkiem jest opowiadać dzieciom o Krzyżu i wielkich dziełach Bożych (Wj 12:26–27).</p>
-          <p>• <strong>Nieuchronność sądu nad pychą:</strong> Odrzucenie Bożych ostrzeżeń prowadzi buntowników do nieodwracalnego sądu o północy (Wj 12:29).</p>
-          <p>• <strong>Boża sprawiedliwość i wynagrodzenie:</strong> Bóg nie zapomina o trudach swoich sług i sprawiedliwie wynagradza lata wiernej służby (Wj 12:36).</p>
+          <p>• <strong>Ślepy zaułek dla człowieka jest sceną chwały dla Boga:</strong> Zanim Bóg każe rozbić obóz pod Pi-Hachirot, ma już wyznaczony suchy trakt w sercu morza.</p>
+          <p>• <strong>Cisza ufności jest potężniejsza od krzyku paniki:</strong> Wj 14:14 wzywa do odłożenia nerwowej walki o własnych siłach tam, gdzie walczy sam Wszechmogący.</p>
+          <p>• <strong>Wiara nie ucieka w tył, lecz robi krok naprzód:</strong> Dopiero gdy Mojżesz wyciąga laskę i lud rusza ku falom, wody rozstępują się krok po kroku.</p>
+          <p>• <strong>Boży Słup staje między Tobą a przeszłością:</strong> Ten sam Obłok, który daje światło dziecku Bożemu, oślepia pościg ciemności.</p>
+          <p>• <strong>Zmartwychwstanie to Twoje Morze Czerwone:</strong> Chrystus raz na zawsze rozbroił moce, które goniły Cię w grzechu i lęku śmierci.</p>
         </div>
       </section>
 
@@ -563,14 +529,14 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
           Refleksja Osobista — Spójrz w Światło Słowa
         </h3>
         <div class="space-y-3 text-xs sm:text-sm text-zinc-300 font-serif leading-relaxed">
-          <p>1. Czy masz absolutną pewność wiary, że Twoje życie jest bezpiecznie ukryte za krwią Baranka Paschalnego — Jezusa Chrystusa (Wj 12:13)?</p>
-          <p>2. W jaki sposób spotkanie z Chrystusem zresetowało Twój osobisty kalendarz i cele życiowe (Wj 12:2)?</p>
-          <p>3. Jaki „zakwas” grzechu, goryczy lub kompromisu tolerujesz jeszcze w zakamarkach swojego serca lub domu (Wj 12:15)?</p>
-          <p>4. Czy Twoja codzienna postawa odzwierciedla pielgrzyma gotowego do drogi ku wieczności, czy też zbyt mocno zapuściłeś korzenie w świecie (Wj 12:11)?</p>
-          <p>5. Co odpowiadasz swoim dzieciom i bliskim, gdy pytają Cię o sens Twojej wiary i nadziei (Wj 12:26–27)?</p>
-          <p>6. Czy trwasz w granicach Bożej ochrony, czy zdarza Ci się wychodzić za próg posłuszeństwa Słowu (Wj 12:22)?</p>
-          <p>7. Czy wierzysz, że krew Chrystusa ma moc skruszyć najcięższe łańcuchy niewoli w Twojej rodzinie?</p>
-          <p>8. Za jakie konkretne wyzwolenie z domu niewoli dziękujesz dziś Bogu z najgłębszą wdzięcznością?</p>
+          <p>1. Przed jakim „Morzem Czerwonym” stoisz dzisiaj, mając za plecami pędzące rydwany dawnych problemów lub lęku (Wj 14:9–10)?</p>
+          <p>2. Czy kiedy narasta presja, Twoim pierwszym odruchem jest tęsknota za wygodą przeszłości („lepiej było w Egipcie”), czy stanięcie w wierze (Wj 14:12–13)?</p>
+          <p>3. W jakiej jednej sprawie Bóg mówi Ci dziś bardzo konkretnie: „PAN będzie za was walczył, a wy będziecie milczeć” (Wj 14:14)?</p>
+          <p>4. Jaki praktyczny krok „naprzód” (Wj 14:15) musisz wykonać dzisiaj w zaufaniu, zanim zobaczysz suche dno pod stopami?</p>
+          <p>5. Czy doświadczyłeś kiedyś chwili, gdy Bóg stanął dosłownie za Twoimi plecami między Tobą a zagrożeniem, dokładnie jak Słup Obłoku w Wj 14:19–20?</p>
+          <p>6. Jakiego dawnego „Egipcjanina” — grzechu, nałogu czy paraliżującego strachu — potrzebujesz dziś oddać Bogu z wiarą, że „już go nigdy nie zobaczysz” (Wj 14:13)?</p>
+          <p>7. Czy pielęgnujesz w sobie bojaźń Pańską zrodzoną ze wspominania Bożych dzieł w Twoim życiu (Wj 14:31)?</p>
+          <p>8. Komu z zastraszonych przyjaciół możesz dzisiaj przekazać odwagę słów z Wj 14:13–14?</p>
         </div>
       </section>
 
@@ -597,20 +563,20 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
             <!-- ── TWOJA DECYZJA ── -->
       <section class="kc-card">
         <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
-          <i class="fa-solid fa-hand-holding-heart"></i>
+          <i class="fa-solid fa-flag-checkered"></i>
           <span>Twoja decyzja</span>
         </div>
         <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
-          Wybierz Bezpieczeństwo pod Krwią Baranka — Wyjdź z Domu Niewoli!
+          Przestań Drżeć Przed Pościgiem — Zrób Krok w Stronę Morza w Imię PANA!
         </h3>
         <div class="space-y-4 text-sm sm:text-base text-zinc-200 font-serif leading-relaxed">
           <p>
-            Dwunasty rozdział Księgi Wyjścia stawia przed nami ostateczną alternatywę: albo pozostajesz w sferze buntu tego świata i podlegasz sprawiedliwemu sądowi Bożemu, albo chronisz się pod Krwią Baranka bez skazy. Bóg nie badał zasług Hebrajczyków ani ich moralnej doskonałości — badał, czy na drzwiach ich domów znajduje się krew przymierza. Dziś Pan Jezus Chrystus wzywa Cię do osobistego zaufania Jego ofierze na krzyżu. Wyrzecz się wszelkiego kwasu grzechu, weź laskę pielgrzyma i wyrusz w drogę wolności za Królem Królów!
+            Czternasty rozdział Księgi Wyjścia uczy, że między paniką bezradności a triumfem brzegu leży jedno słowo: zaufanie, które nie cofa się do niewoli. Bóg nie oczekuje, abyś sam rozdzielił wody przed sobą ani pokonał 600 rydwanów wroga. Twoim zadaniem jest uciszyć oskarżycielskie myśli, patrzeć na zbawienie PANA i ruszyć naprzód w ślad za Jego obecnością.
           </p>
           <div class="p-5 rounded-2xl bg-gradient-to-br from-amber-500/15 via-black/40 to-transparent border border-brand-gold/40">
             <h4 class="font-bold text-amber-300 mb-2 uppercase tracking-wide text-xs">Osobiste Wyznanie Decyzji:</h4>
             <p class="italic text-white">
-              „Panie Boże Wszechmogący, Święty Sędzio i Miłosierny Zbawicielu! Dziękuję Ci z całego serca za dar Jezusa Chrystusa — mojego Baranka Paschalnego. Wyznaję, że sam z siebie nie mam żadnych zasług, którymi mógłbym uchronić się przed Twoim sprawiedliwym sądem. Wiarą kropię dziś węgary mojego serca, mój dom, moją rodzinę i moją przyszłość najdroższą Krwią Jezusa. Wyrzucam ze swojego życia wszelki stary kwas grzechu, obłudy i kompromisu. Przepasuję biodra wiarą i postanawiam iść za Tobą jako wierny pielgrzym każdego dnia mojego życia. Amen!”
+              „Panie Jezu Chryste, Zwycięzco śmierci i mocy ciemności! Dziękuję Ci, że walczysz za mnie tam, gdzie moje własne siły dawno się skończyły. Odrzucam panikę i pokusę powrotu do przeszłości. Wybieram posłuszeństwo wiary i stawiam dziś krok naprzód, ufając, że Twoje Słowo otwiera suchą ścieżkę pośród niemożliwych głębin. Tobie oddaję chwałę na wieki!”
             </p>
           </div>
         </div>
@@ -620,20 +586,20 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
       <section class="kc-card">
         <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
           <i class="fa-solid fa-hands-praying"></i>
-          <span>Modlitwa na 11 listopada</span>
+          <span>Modlitwa na 13 listopada</span>
         </div>
         <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
-          Modlitwa o Ochronę Krwi Chrystusa i Czystość Pielgrzyma
+          Modlitwa Ufności Przed Morzem Prób i Zaufania Zwycięskiemu Panu
         </h3>
         <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 text-sm sm:text-base text-zinc-200 font-serif leading-relaxed space-y-3">
           <p>
-            Święty, Sprawiedliwy i Wszechmogący Boże! Przynosimy Ci dziś pokłon i uwielbienie za wielką tajemnicę Paschy, która rozświetliła mroki egipskiej nocy i zapowiedziała wieczny triumf Krzyża Golgoty.
+            Wszechmogący Boże, Wojowniku sprawiedliwości i Ojcze miłosierdzia! Stajemy przed Tobą z czternastym rozdziałem Księgi Wyjścia, wiedząc, że po ludzku sami znaleźliśmy się nieraz w potrzasku między falami lęku a pościgiem trudności.
           </p>
           <p>
-            Panie Jezu Chryste, nasz Baranku Paschalny! Dziękujemy Ci, że złożyłeś Siebie w ofierze bez skazy, przelewając drogocenną krew dla naszego wiecznego zbawienia. Dziękujemy, że gdy Ojciec patrzy na nas przez Twoją krew, omija nas sąd i potępienie, a śmierć nie ma nad nami władzy.
+            Przebacz nam każde szemranie i słabość serca, w których pytaliśmy, czy nie lepiej było pozostać w starym wygodnym świecie. Ucisz dziś zgiełk naszych trosk słowem z Wj 14:14: „PAN będzie za was walczył, a wy będziecie milczeć”.
           </p>
           <p>
-            Usuń z naszych serc i domów wszelki kwas obłudy i grzechu. Przepasz nasze biodra wiernością i uczyń nas odważnymi pielgrzymami Twojej prawdy. Bądź uwielbiony w naszych rodzinach teraz i na wieki wieków. Amen!
+            Panie Jezu, który przez swój krzyż i pusty grób otworzyłeś drogę przez wody śmierci, stań dziś Swoim Duchem jako tarcza za naszymi plecami. Poprowadź nas suchym gruntem wiary na drugi brzeg, abyśmy wraz z całym Kościołem wyznali bojaźń i wiarę w Ciebie, jedynego Wybawiciela. Amen.
           </p>
         </div>
       </section>
@@ -652,33 +618,35 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
 
         <div class="space-y-4 text-xs sm:text-sm text-zinc-300 font-serif">
           <p class="text-zinc-200 font-semibold mb-2">Wykonaj dzisiejsze kroki formacji biblijnej:</p>
+          
+          
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-1" onchange="toggleTaskState(1)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>1. Przeczytaj osobiście cały jedenasty i dwunasty rozdział Księgi Wyjścia (Wj 11:1–12:36) w przekładzie UBG.</span>
+            <span>1. Przeczytaj osobiście cały rozdział <a href="/mojabiblia?book=EXO&chapter=14" class="text-amber-300 underline font-semibold">Wj 14:1–31</a> w przekładzie UBG.</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-2" onchange="toggleTaskState(2)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>2. Podziękuj Chrystusowi w modlitwie za Jego krew przelaną na krzyżu, która jest Twoim jedynym i wiecznym schronieniem.</span>
+            <span>2. Przeczytaj głośno Wj 14:13–14 i oddaj Bogu jedną sprawę, w której sam próbowałeś gorączkowo walczyć.</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-3" onchange="toggleTaskState(3)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>3. Zbadaj swoje serce i dom: czy nie ma w Twoim życiu jakiegoś „zakwasu” grzechu lub nieszczerości, który należy bezzwłocznie usunąć (1 Kor 5:7–8)?</span>
+            <span>3. Rozważ 1 Kor 10:1–2 i podziękuj Jezusowi za chrzest przymierza oddzielający Cię od starego życia.</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-4" onchange="toggleTaskState(4)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>4. Przeczytaj 1 Kor 5:7–8 oraz 1 P 1:18–19, rozważając doskonałość Baranka Bożego.</span>
+            <span>4. Zidentyfikuj jeden „krok naprzód” (Wj 14:15), który od dawna odkładałeś przez lęk, i wykonaj go dziś.</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-5" onchange="toggleTaskState(5)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>5. Pomyśl o swoich bliskich i powierz ich w modlitwie pod ochronę krwi Zbawiciela.</span>
+            <span>5. Wpisz poniżej świadectwo dawnej sytuacji, z której PAN już Cię bezpiecznie przeprowadził.</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-6" onchange="toggleTaskState(6)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>6. Zapisz poniżej swoje osobiste postanowienie wierności i wdzięczności za Boże odkupienie.</span>
+            <span>6. Powierz w modlitwie osobę, która czuje się dziś osaczona bez wyjścia.</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-7" onchange="toggleTaskState(7)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>7. Podziel się dzisiejszym rozważaniem z osobą, która zmaga się z lękiem przed śmiercią lub sądem Bożym.</span>
+            <span>7. Powtórz wieczorem z pamięci: „PAN będzie za was walczył, a wy będziecie milczeć” (Wj 14:14).</span>
           </label>
         </div>
         <div class="space-y-4 pt-2">
@@ -706,7 +674,7 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
             </label>
           </div>
 
-          <button id="btn-complete-day" onclick="completeDay42()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-extrabold text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2 min-h-[44px]">
+          <button id="btn-complete-day" onclick="completeDay44()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-extrabold text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2 min-h-[44px]">
             <i class="fa-solid fa-check"></i>
             <span>Oznacz Dzień 44 jako ukończony</span>
           </button>
@@ -737,15 +705,16 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
           JUTRO — 14 LISTOPADA 2026
         </div>
         <h3 class="font-serif text-lg sm:text-xl font-bold text-white mb-2">
-          DZIEŃ 43 — WYJŚCIE Z RAMZES, FILAR OBŁOKU I OGNIA ORAZ POŚWIĘCENIE PIERWORODNYCH (Wj 12:37–13:22)
+          DZIEŃ 45 — PIEŚŃ ZWYCIĘSTWA I GORZKIE WODY MARA — PAN TWOIM LEKARZEM (Wj 15:1–27)
         </h3>
         <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-4 font-serif">
-          Dzień 44: Wymarsz z Egiptu, noc czuwania dla Pana, obwarowania Paschy, poświęcenie każdego pierworodnego oraz cudowne Boże prowadzenie w słupie obłoku we dnie i w słupie ognia w nocy.
+          Dzień 45: Najstarszy hymn odkupienia Mojżesza i Miriam nad brzegiem wolności oraz przemiana gorzkich wód w słodkie przy źródłach Mara.
         </p>
         <div class="flex items-center gap-3 flex-wrap">
-          <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-500 text-xs font-bold uppercase tracking-wider min-h-[44px]">
-            <span>Dostępne od północy (12 listopada)</span>
-          </span>
+          <a href="/akademia/kurscodzienny/dzien-45" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-extrabold text-xs uppercase tracking-wider transition shadow-lg min-h-[44px]">
+            <span>Studiuj Dzień 45</span>
+            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
           <a href="/akademia/kurscodzienny" class="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-300 hover:text-white text-xs font-bold transition min-h-[44px] flex items-center">
             ← Spis kursu
           </a>
@@ -761,7 +730,7 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
           Nie zatrzymuj tego poselstwa dla siebie. Jedno kliknięcie może przynieść Bożą wolność komuś, kto zmaga się w niewoli kompromisów.
         </p>
         <div class="flex items-center justify-center gap-3 flex-wrap">
-          <a href="https://api.whatsapp.com/send?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2042%3A%20%C5%9Awi%C4%99to%20Paschy%2C%20krew%20Baranka%20i%20wykupienie%20pierworodnych%20%28Wj%2011%E2%80%9312%29%3A%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-44" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
+          <a href="https://api.whatsapp.com/send?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2044%3A%20PRZEJ%C5%9ACIE%20PRZEZ%20MORZE%20CZERWONE%20%E2%80%94%20PAN%20B%C4%98DZIE%20ZA%20WAS%20WALCZY%C5%81%20(Wj%2014%3A1%E2%80%9331).%20%E2%80%9EPAN%20b%C4%99dzie%20za%20was%20walczy%C5%82%2C%20a%20wy%20b%C4%99dziecie%20milcze%C4%87.%E2%80%9D%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-44" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
             <i class="fa-brands fa-whatsapp text-sm"></i>
             <span>WhatsApp</span>
           </a>
@@ -769,7 +738,7 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
             <i class="fa-brands fa-facebook-f text-sm"></i>
             <span>Facebook</span>
           </a>
-          <a href="https://twitter.com/intent/tweet?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2042%3A%20%C5%9Awi%C4%99to%20Paschy%2C%20krew%20Baranka%20i%20wykupienie%20pierworodnych%20%28Wj%2011%E2%80%9312%29&url=https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-44" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
+          <a href="https://twitter.com/intent/tweet?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2044%3A%20PRZEJ%C5%9ACIE%20PRZEZ%20MORZE%20CZERWONE%20%E2%80%94%20PAN%20B%C4%98DZIE%20ZA%20WAS%20WALCZY%C5%81%20(Wj%2014%3A1%E2%80%9331).%20%E2%80%9EPAN%20b%C4%99dzie%20za%20was%20walczy%C5%82%2C%20a%20wy%20b%C4%99dziecie%20milcze%C4%87.%E2%80%9D%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-44" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
             <i class="fa-brands fa-x-twitter text-sm"></i>
             <span>X (Twitter)</span>
           </a>
@@ -790,205 +759,205 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
   <script src="/js/cc-daily-course-share.js?v=20261108_wa1" defer></script>
 
   <script>
-    // ── QUIZ LOGIC (20 PYTAŃ Z WJ 9:1–35) ──
+    // ── QUIZ LOGIC (20 PYTAŃ Z WJ 14:1–31) ──
     const QUIZ_DATA = [
   {
-    "q": "Co według Wj 11:1 zapowiedział PAN Mojżeszowi w sprawie faraona?",
+    "q": "Gdzie Bóg nakazał Izraelitom zawrócić i rozbić obóz w Wj 14:2?",
     "a": [
-      "Że faraon od razu uwierzy w Boga",
-      "Że sprowadzi jeszcze jedną plagę, po której faraon całkowicie ich stąd wypędzi",
-      "Że ustanowi Mojżesza wezyrem Egiptu",
-      "Że wody Nilu wyschną na zawsze"
+      "Przed Jerychem nad Jordanem",
+      "Przed Pi-Hachirot, między Migdol a morzem, naprzeciw Baal-Sefon",
+      "Pod górą Tabor w Galilei",
+      "Na nizinie Goszen daleko od wody"
     ],
     "c": 1
   },
   {
-    "q": "O co Izraelici mieli poprosić swoich egipskich sąsiadów przed wyjściem (Wj 11:2)?",
+    "q": "Co według Wj 14:3 miał pomyśleć faraon o położeniu Izraela?",
     "a": [
-      "O konie i rydwany bojowe",
-      "O srebrne i złote przedmioty",
-      "O zboże i oliwę",
-      "O mapy pustyni"
+      "Że przygotowali już okręty wojenne",
+      "Że zbłądzili w kraju i zamknęła ich pustynia",
+      "Że wrócili potajemnie do Ramzes",
+      "Że zawarli pokój z Kanaanem"
     ],
     "c": 1
   },
   {
-    "q": "Kiedy według słów Mojżesza PAN miał przejść przez Egipt w dziesiątej pladze (Wj 11:4)?",
+    "q": "Ile wyborowych rydwanów zabrał faraon do pościgu za Izraelem według Wj 14:7?",
     "a": [
-      "O wschodzie słońca",
-      "W samo południe",
-      "O północy",
-      "O zmierzchu"
+      "Sto pięćdziesiąt rydwanów",
+      "Sześćset wyborowych rydwanów oraz wszystkie pozostałe rydwany Egiptu z dowódcami",
+      "Cztery tysiące łodzi rzecznych",
+      "Dwanaście rydwanów samej straży pałacowej"
     ],
-    "c": 2
+    "c": 1
   },
   {
-    "q": "Jaki niezwykły znak pokoju i rozdzielenia zapowiedział Bóg dla Izraela w Wj 11:7?",
+    "q": "Jaką reakcję wśród Izraelitów wywołał widok nadciągających wojsk egipskich (Wj 14:10–11)?",
     "a": [
-      "Że na nikogo z synów Izraela pies nie ruszy swym językiem",
-      "Że nad Goszen pojawi się tęcza",
-      "Że spadnie manna z nieba",
-      "Że zapłoną ogniska na granicach"
+      "Natychmiast zaśpiewali hymn triumfu",
+      "Bardzo się przestraszyli, wołali do PANA i czynili wyrzuty Mojżeszowi, pytając, czy nie było grobów w Egipcie",
+      "Wyruszyli z mieczami naprzeciw rydwanów",
+      "Uciekli w ciszy na łodzie kupców"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Czego według Wj 14:12 rzekomo chcieli Izraelici w Egipcie zamiast umierać na pustyni?",
+    "a": [
+      "Walczyć w imieniu Aarona",
+      "Raczej służyć Egipcjanom niż umrzeć na pustyni",
+      "Zbudować miasto w Etam",
+      "Oddać całe bydło faraonowi"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Jaką pierwszą obietnicę złożył Mojżesz przerażonemu ludowi w Wj 14:13?",
+    "a": [
+      "„Przygotujcie proce i włócznie do walki!”",
+      "„Nie bójcie się! Stójcie a oglądajcie ratunek PANA... Egipcjan, których dziś widzicie, już nigdy nie zobaczycie”",
+      "„Napiszemy prośbę o ułaskawienie do faraona”",
+      "„Rozproszymy się po górach Synaju”"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Jak brzmi dokładna treść wersetu pamięciowego Wj 14:14 (UBG)?",
+    "a": [
+      "„PAN pośle pomoc po trzech dniach, gdy zbudujecie most”",
+      "„PAN będzie za was walczył, a wy będziecie milczeć”",
+      "„Każdy niech walczy swoim mieczem o swoją rodzinę”",
+      "„Wody cofną się same przed brzaskiem lata”"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Jaką komendę dał PAN Mojżeszowi dla całego ludu w Wj 14:15?",
+    "a": [
+      "„Rozbijcie obóz na trzydzieści dni”",
+      "„Czemu wołasz do Mnie? Powiedz synom Izraela, niech ruszą naprzód!”",
+      "„Wróćcie do Sukkot przed nocą”",
+      "„Przepłyńcie morze na tratwach”"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Co Mojżesz miał uczynić swoją laską nad morzem w Wj 14:16?",
+    "a": [
+      "Rzucić ją przed rydwany faraona",
+      "Podnieść laskę, wyciągnąć rękę nad morze i rozdzielić je",
+      "Zakopać ją w piasku przy Pi-Hachirot",
+      "Przekazać ją dowódcom straży"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Co uczynił Anioł Boży i słup obłoku tuż przed przejściem (Wj 14:19–20)?",
+    "a": [
+      "Odeszli daleko przed cały Izrael na pustynię",
+      "Przesunęli się i stanęli za nimi — między obozem Egipcjan a obozem Izraela",
+      "Zniknęli całkowicie w chmurach",
+      "Spalili namioty Izraela od tyłu"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Jak słup obłoku oddziaływał na oba obozy tej samej nocy (Wj 14:20)?",
+    "a": [
+      "Oba obozy miały jednakowy blask księżyca",
+      "Dla jednych (Egipcjan) był chmurą i ciemnością, a drugim (Izraelowi) oświecał noc",
+      "Zamarzł powierzchnię całego morza",
+      "Zasypał rydwany gradem i popiołem"
+    ],
+    "c": 1
+  },
+  {
+    "q": "W jaki sposób PAN cofnął wody morskie w Wj 14:21?",
+    "a": [
+      "Silnym wiatrem wschodnim wiejącym przez całą noc",
+      "Trzęsieniem ziemi bez żadnego wiatru",
+      "Południowym upałem wysuszającym morze w minutę",
+      "Przez trzy wielkie tamy z kamieni"
     ],
     "c": 0
   },
   {
-    "q": "Co Bóg powiedział o miesiącu Paschy w Wj 12:2?",
+    "q": "Co stało się z wodą, gdy synowie Izraela weszli w środek morza po suchej ziemi (Wj 14:22)?",
     "a": [
-      "Że będzie to miesiąc żałoby",
-      "Że ten miesiąc będzie początkiem miesięcy, pierwszym miesiącem roku",
-      "Że będzie to ostatni miesiąc w kalendarzu",
-      "Że należy go wykreślić z pamięci"
+      "Sięgała im stale do ramion",
+      "Woda była dla nich murem po ich prawej i po lewej stronie",
+      "Rozlała się spokojnie na daleką pustynię",
+      "Zamieniła się w twardy lód"
     ],
     "c": 1
   },
   {
-    "q": "Którego dnia pierwszego miesiąca należało wybrać baranka dla domu (Wj 12:3)?",
+    "q": "Kiedy PAN spojrzał na obóz Egipcjan ze słupa ognia i obłoku, wprowadzając zamieszanie (Wj 14:24)?",
     "a": [
-      "Pierwszego dnia",
-      "Dziesiątego dnia",
-      "Czternastego dnia",
-      "Dwudziestego pierwszego dnia"
+      "W samo południe",
+      "O straży porannej",
+      "Tuż po zachodzie słońca",
+      "Trzeciego dnia po wymarszu"
     ],
     "c": 1
   },
   {
-    "q": "Jakie cechy musiał posiadać baranek paschalny według Wj 12:5?",
+    "q": "Jakie mechaniczne uszkodzenie sprawił PAN rydwanom egipskim w środku morza (Wj 14:25)?",
     "a": [
-      "Dowolny wiek i maść",
-      "Samica bez rogów",
-      "Baranek bez skazy, jednoroczny samiec, spośród owiec lub kóz",
-      "Zwierzę ofiarowane wcześniej w pogańskiej świątyni"
-    ],
-    "c": 2
-  },
-  {
-    "q": "Do którego dnia miesiąca należało strzec baranka przed zabiciem (Wj 12:6)?",
-    "a": [
-      "Do dwunastego dnia",
-      "Do czternastego dnia",
-      "Do piętnastego dnia",
-      "Przez cały miesiąc"
+      "Złamały się wszystkie dyszle i miecze",
+      "Poodpadały koła ich rydwanów, tak że z trudem się posuwały",
+      "Konie zasnęły w głębokiej wodzie",
+      "Piasek przykrył wszystkie wozy w jednej chwili"
     ],
     "c": 1
   },
   {
-    "q": "Czym i w jaki sposób należało oznaczyć wejście do domu krwią baranka (Wj 12:7, 22)?",
+    "q": "Co krzyknęli sami Egipcjanie, widząc chaos swoich rydwanów (Wj 14:25)?",
     "a": [
-      "Wylać krew na próg wejściowy",
-      "Pokropić wiązką hizopu oba węgary i nadproże",
-      "Namalować znak na dachu",
-      "Zanurzyć dłonie i odcisnąć je na drzwiach"
+      "„Szybciej naprzód, woda opada!”",
+      "„Uciekajmy przed Izraelem, bo PAN walczy za nich przeciwko Egipcjanom!”",
+      "„Złóżmy ofiary bogom Nilu!”",
+      "„Wracajmy szukać naszych kół!”"
     ],
     "c": 1
   },
   {
-    "q": "Z czym należało spożywać pieczone mięso baranka w noc paschalną (Wj 12:8)?",
+    "q": "Kiedy morze wróciło na swoje miejsce i zalało armię pościgu (Wj 14:27)?",
     "a": [
-      "Z miodem i figami",
-      "Z przaśnym chlebem i gorzkimi ziołami",
-      "Z winem i oliwkami",
-      "Z gotowanym jęczmieniem"
+      "W środku nocy bez księżyca",
+      "Nad ranem / o świcie, gdy Mojżesz znów wyciągnął rękę nad morze",
+      "Po siedmiu dniach oblężenia",
+      "Dopiero po wejściu Izraela na górę Synaj"
     ],
     "c": 1
   },
   {
-    "q": "Czego kategorycznie zakazano przy przyrządzaniu baranka w Wj 12:9?",
+    "q": "Ilu żołnierzy z całego wojska faraona, które weszło do morza, ocalało według Wj 14:28?",
     "a": [
-      "Pieczenia przy ogniu",
-      "Jedzenia mięsa surowego lub ugotowanego w wodzie",
-      "Solenia mięsa",
-      "Spożywania z rodziną"
+      "Ocalał tylko sam faraon i trzej dowódcy",
+      "Nie ocalał z nich ani jeden",
+      "Ocalała połowa konnicy",
+      "Wszystkich wyłowiono żywych na drugi brzeg"
     ],
     "c": 1
   },
   {
-    "q": "W jakim ubiorze i w jaki sposób Izraelici mieli spożywać Paschę (Wj 12:11)?",
+    "q": "Jaka była duchowa reakcja Izraela po ujrzeniu potężnego dzieła PANA w Wj 14:31?",
     "a": [
-      "W szatach żałobnych, leżąc przy stole",
-      "Z biodrami przepasanymi, obuwiem na nogach, laską w ręku i w pośpiechu",
-      "Na kolanach w milczeniu",
-      "W tańcu wokół ołtarza"
+      "Zaraz wrócili na zachodni brzeg",
+      "Lud bał się PANA i uwierzył PANU oraz Mojżeszowi, Jego słudze",
+      "Uznali, że to był zwykły przypadek wiatru",
+      "Wybrali nowego wodza zamiast Mojżesza"
     ],
     "c": 1
   },
   {
-    "q": "Jakie fundamentalne słowa wypowiedział Bóg w Wj 12:13 w sprawie krwi na domach?",
+    "q": "Gdzie według Wj 14:30 zobaczył Izrael martwych Egipcjan jako dowód całkowitego wybawienia?",
     "a": [
-      "„Gdy przyniesiecie złoto, ominę was”",
-      "„Gdy bowiem ujrzę krew, ominę was i nie dotknie was plaga zniszczenia”",
-      "„Gdy Mojżesz zawoła, spojrzę na was”",
-      "„Gdy usłyszę wasz płacz, zlituję się”"
-    ],
-    "c": 1
-  },
-  {
-    "q": "Przez ile dni należało jeść przaśny chleb podczas Święta Przaśników (Wj 12:15)?",
-    "a": [
-      "Przez 3 dni",
-      "Przez 7 dni",
-      "Przez 14 dni",
-      "Przez 40 dni"
-    ],
-    "c": 1
-  },
-  {
-    "q": "Jaki kategoryczny zakaz obowiązywał synów Izraela w noc paschalną aż do rana (Wj 12:22)?",
-    "a": [
-      "Zakaz spania",
-      "Zakaz rozmawiania z dziećmi",
-      "Niech nikt z was nie wychodzi za drzwi swego domu aż do rana",
-      "Zakaz palenia ognia"
-    ],
-    "c": 2
-  },
-  {
-    "q": "Co rodzice mieli odpowiedzieć swoim dzieciom, gdy zapytają o znaczenie obrzędu (Wj 12:26–27)?",
-    "a": [
-      "Że to tradycja pradziadków",
-      "Że to ofiara paschy PANA, który ominął domy synów Izraela w Egipcie, a nasze domy ocalił",
-      "Że to tajemnica kapłanów",
-      "Że dowiedzą się w dorosłości"
-    ],
-    "c": 1
-  },
-  {
-    "q": "Kto zginął w ziemi Egiptu o północy w dziesiątej pladze (Wj 12:29)?",
-    "a": [
-      "Tylko wojsko faraona",
-      "Wszystko, co pierworodne: od syna faraona po pierworodnego więźnia i bydła",
-      "Wszyscy kapłani pogańscy",
-      "Tylko starcy w miastach"
-    ],
-    "c": 1
-  },
-  {
-    "q": "Jak zareagował faraon i Egipcjanie w nocy po uderzeniu plagi (Wj 12:30–31)?",
-    "a": [
-      "Zmobilizowali armię do walki",
-      "Podniósł się wielki krzyk, a faraon w nocy wezwał Mojżesza i kazał natychmiast wyjść ludowi",
-      "Zamknęli bramy miast",
-      "Złożyli okup z owiec"
-    ],
-    "c": 1
-  },
-  {
-    "q": "O co poprosił złamany faraon Mojżesza i Aarona na odchodnym w Wj 12:32?",
-    "a": [
-      "O zwrot pożyczonego złota",
-      "„Mnie też błogosławcie”",
-      "O pozostawienie lekarzy",
-      "O obietnicę powrotu za rok"
-    ],
-    "c": 1
-  },
-  {
-    "q": "W czym lud Izraela niósł niezakwaszone ciasto opuszczając Egipt (Wj 12:34)?",
-    "a": [
-      "W żelaznych skrzyniach",
-      "W dzieżach owiniętych w swoje szaty na ramionach",
-      "Na wozach zaprzężonych w woły",
-      "W glinianych dzbanach"
+      "W głębinach studni w Etam",
+      "Na brzegu morza",
+      "Pod murami Ramzes",
+      "W dolinie Migdol"
     ],
     "c": 1
   }
@@ -1084,7 +1053,7 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
     }
 
     // ── PROGRESS & AUTO-SAVE ──
-    function completeDay42() {
+    function completeDay44() {
       try {
         localStorage.setItem(DAY_KEY + '_completed', 'true');
         localStorage.setItem(DAY_KEY + '_learned', document.getElementById('kc-input-learned').value || '');
@@ -1096,10 +1065,10 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
         const btn = document.getElementById('btn-complete-day');
         btn.classList.remove('from-amber-500', 'to-amber-600');
         btn.classList.add('bg-emerald-600', 'text-white');
-        btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Dzień 42 ukończony!</span>';
+        btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Dzień 44 ukończony!</span>';
       } catch(e) {}
     }
-    window.completeDay42 = completeDay42;
+    window.completeDay44 = completeDay44;
 
     function toggleTaskState(idx) {
       try {
@@ -1116,7 +1085,7 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
           if (btn) {
             btn.classList.remove('from-amber-500', 'to-amber-600');
             btn.classList.add('bg-emerald-600', 'text-white');
-            btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Dzień 42 ukończony!</span>';
+            btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Dzień 44 ukończony!</span>';
           }
         }
         const learned = localStorage.getItem(DAY_KEY + '_learned');
@@ -1145,7 +1114,7 @@ Czternasty rozdział Księgi Wyjścia ukazuje ostateczny triumf Bożej mocy nad 
           window.speechSynthesis.cancel();
           if (btnText) btnText.textContent = 'Lektor';
         } else {
-          const u = new SpeechSynthesisUtterance("A ta krew będzie dla was znakiem na domach, w których będziecie. Gdy bowiem ujrzę krew, ominę was i nie dotknie was plaga zniszczenia, gdy będę zabijał w ziemi Egiptu. (Księga Wyjścia 12:13 (UBG))");
+          const u = new SpeechSynthesisUtterance("PAN będzie za was walczył, a wy będziecie milczeć. (Księga Wyjścia 14:14)");
           u.lang = 'pl-PL';
           u.onend = () => { if (btnText) btnText.textContent = 'Lektor'; };
           window.speechSynthesis.speak(u);

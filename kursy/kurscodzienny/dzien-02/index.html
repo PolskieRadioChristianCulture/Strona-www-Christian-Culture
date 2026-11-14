@@ -78,7 +78,9 @@
     .ak-header #reader-font-label,
     .ak-header #tts-btn-text,
     .ak-header .theme-toggle-label,
-    .ak-header #ccTopSubLink span,
+    .ak-header #ccTopSubLink .sr-only,
+    .ak-header #ccTopSubLink span:not(:first-child),
+    .ak-header a[href*="patronite"] .sr-only,
     .ak-header a[href*="patronite"] span:not(:first-child) {
       display: none !important;
     }
@@ -259,10 +261,7 @@
           <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
-          <span>❤️</span>
-          <span class="sr-only">Wspieraj</span>
-        </a>
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
@@ -1341,9 +1340,7 @@
             </div>
             <p class="text-xs text-zinc-400 mb-4">Wesprzyj nagrania lektora TTS, studio i technologię misji.</p>
           </div>
-          <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 font-bold text-xs hover:bg-rose-500/30 transition min-h-[44px]">
-            <span>❤️</span> Zostań Patronem
-          </a>
+          <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         </div>
       </div>
     </section>
@@ -1360,7 +1357,11 @@
         Jutro pojawi się wąż i pierwsze pytanie podważające Słowo Boga: <em>„Czy Bóg rzeczywiście powiedział…?”</em> (Rdz 3:1). Zobaczymy, jak działa pokusa, czym naprawdę jest grzech, dlaczego człowiek zaczął ukrywać się przed Bogiem i kto jako pierwszy rozpoczął poszukiwanie zgubionego grzesznika. A w samym środku tragedii usłyszymy pierwszą wielką obietnicę nadziei: <em>„Ono zrani ci głowę…”</em> (Rdz 3:15). Bóg już zapowiada Zbawiciela.
       </p>
       <div class="flex items-center gap-3">
-        <a href="/akademia/kurscodzienny" class="px-4 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-300 hover:text-white text-xs font-bold transition min-h-[44px] flex items-center">
+        <a href="/akademia/kurscodzienny/dzien-03" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-extrabold text-xs uppercase tracking-wider transition shadow-lg min-h-[44px]">
+            <span>Studiuj Dzień 3</span>
+            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
+          <a href="/akademia/kurscodzienny" class="px-4 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-300 hover:text-white text-xs font-bold transition min-h-[44px] flex items-center">
           ← Wróć do spisu kursu
         </a>
       </div>

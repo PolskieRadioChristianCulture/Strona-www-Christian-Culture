@@ -67,7 +67,9 @@
     .ak-header #reader-font-label,
     .ak-header #tts-btn-text,
     .ak-header .theme-toggle-label,
-    .ak-header #ccTopSubLink span,
+    .ak-header #ccTopSubLink .sr-only,
+    .ak-header #ccTopSubLink span:not(:first-child),
+    .ak-header a[href*="patronite"] .sr-only,
     .ak-header a[href*="patronite"] span:not(:first-child) {
       display: none !important;
     }
@@ -278,9 +280,7 @@
           <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
-          <span>❤️</span>
-        </a>
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
@@ -360,22 +360,22 @@
         <div class="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-1 flex items-center gap-1.5">
           <i class="fa-solid fa-bookmark"></i>
           <span>Werset Pamięciowy Dnia:</span>
-          <button type="button" onclick="navigator.clipboard.writeText('I Bóg odpowiedział Mojżeszowi: JESTEM, KTÓRY JESTEM. I dodał: Tak powiesz synom Izraela: JESTEM posłał mnie do was. (Wj 3:14)'); alert('Skopiowano werset!');" class="ml-auto text-zinc-400 hover:text-amber-300 text-xs normal-case font-sans min-h-[44px] px-2">
+          <button type="button" onclick="navigator.clipboard.writeText('Wtedy Bóg odrzekł do Mojżesza: JESTEM, KTÓRY JESTEM. I dodał: Tak powiesz synom Izraela: JESTEM posłał mnie do was. (Wj 3:14, UBG)'); alert('Skopiowano werset!');" class="ml-auto text-zinc-400 hover:text-amber-300 text-xs normal-case font-sans min-h-[44px] px-2">
             <i class="fa-regular fa-copy mr-1"></i>Kopiuj
           </button>
         </div>
         <blockquote class="font-serif italic text-base sm:text-lg text-white">
-          „I Bóg usłyszał ich narzekanie, i wspomniał Bóg na swoje przymierze z Abrahamem, Izaakiem i Jakubem. I wejrzał Bóg na synów Izraela, i poznał ich Bóg.”
+          „Wtedy Bóg odrzekł do Mojżesza: JESTEM, KTÓRY JESTEM. I dodał: Tak powiesz synom Izraela: JESTEM posłał mnie do was.”
         </blockquote>
         <div class="text-right text-xs text-brand-gold font-bold mt-1 font-mono">
-          — Księga Wyjścia 2:24–25 (UBG)
+          — Księga Wyjścia 3:14 (UBG)
         </div>
       </div>
 
       <!-- CORE THESIS -->
       <div class="p-4 rounded-xl bg-brand-panel/60 border border-brand-border/30 text-xs sm:text-sm text-zinc-300">
         <strong class="text-brand-gold uppercase tracking-wider block mb-1">Myśl przewodnia lekcji:</strong>
-        Bóg obraca dekret śmierci w drogę ocalenia, kształtuje Mojżesza w szkole pustyni i nigdy nie zapomina o swoim przymierzu — słyszy, pamięta, widzi i zna swój lud.
+        Trzeci rozdział Księgi Wyjścia to objawienie Świętego Imienia JAHWE (JESTEM, KTÓRY JESTEM) z płonącego krzaka: Bóg widzi niedolę swego ludu, pamięta o przymierzu i zstępuje osobiście, aby wyrwać go z niewoli Egiptu.
       </div>
     </header>
 
@@ -402,7 +402,7 @@
           <p>
             Zanim przeczytasz rozważanie, otwórz Biblię i przeczytaj cały fragment. Komentarz ma prowadzić do Słowa, a nie je zastępować.
           </p>
-          <a href="/mojabiblia?book=EXO&chapter=2" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
+          <a href="/mojabiblia?book=EXO&chapter=3" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
             <i class="fa-solid fa-book-bible"></i>
             <span>Czytaj Wj 3:1–22</span>
           </a>

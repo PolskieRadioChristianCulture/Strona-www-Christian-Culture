@@ -14,7 +14,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Dzień 46: MANNA Z NIEBA I ŚWIĘTOŚĆ SZABATU — BOŻE ZAOPATRZENIE NA PUSTYNI (Wj 16:1–36) | Z Biblią za Pan Brat | LUMINA Bible Academy</title>
-  <meta name="description" content="Dzień 46 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 16:1–36: Głód na pustyni Sin, deszcz chleba z nieba, przepiórki i dar świętego odpoczynku (Wj 16:1–36)">>>>> />
+  <meta name="description" content="Dzień 46 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 16:1–36: Głód na pustyni Sin, deszcz chleba z nieba, przepiórki i dar świętego odpoczynku (Wj 16:1–36)">
   <link rel="canonical" href="https://polskieradio.cc/akademia/kurscodzienny/dzien-46" />
 
   <!-- Open Graph -->
@@ -66,13 +66,19 @@
     .ak-header #reader-font-label,
     .ak-header #tts-btn-text,
     .ak-header .theme-toggle-label,
-    .ak-header #ccTopSubLink span,
+    .ak-header #ccTopSubLink .sr-only,
+    .ak-header #ccTopSubLink span:not(:first-child),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child),
     .ak-header #cc-auth-nav-container span { display: none !important; }
     @media (min-width: 640px) {
       .ak-header #reader-font-label,
       .ak-header #tts-btn-text,
       .ak-header .theme-toggle-label,
-      .ak-header #ccTopSubLink span,
+      .ak-header #ccTopSubLink span:not(.sr-only),
+      .ak-header a[href*="patronite"] span:not(.sr-only),
+    .ak-header a[href*="patronite"] .sr-only,
+    .ak-header a[href*="patronite"] span:not(:first-child),
       .ak-header #cc-auth-nav-container span { display: inline !important; }
     }
     .kc-card {
@@ -155,10 +161,7 @@
           <span id="tts-btn-text" class="sr-only">Słuchaj Audio</span>
         </button>
 
-        <a href="https://patronite.pl/radiocc" target="_blank" rel="noopener noreferrer" id="ccTopSubLink" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję">
-          <span>❤️</span>
-          <span class="sr-only">Wspieraj</span>
-        </a>
+        <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="w-[38px] h-[38px] min-w-[38px] min-h-[38px] p-0 rounded-full border border-rose-500/30 text-rose-400 text-xs font-semibold hover:bg-rose-500/10 inline-flex items-center justify-center" title="Wspieraj Misję Christian Culture" aria-label="Wspieraj Misję Christian Culture"><span>❤️</span><span class="sr-only">Wspieraj</span></a>
         <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
       </div>
     </div>
@@ -187,7 +190,6 @@
         </a>
         <span class="px-3 py-1.5 rounded-lg bg-zinc-900/50 text-xs text-zinc-600 flex items-center gap-1.5 min-h-[44px]">
           <span>Dzień 47 (Poniedziałek) →</span>
-        </span>
         </span>
       </div>
     </div>
@@ -243,12 +245,12 @@
             <span>Werset do zapamiętania</span>
           </div>
           <p class="font-serif italic text-base sm:text-lg text-white">
-            „Jeden drugiego nie widział i nikt nie wstał ze swego miejsca przez trzy dni; lecz wszyscy synowie Izraela mieli światło w swoich mieszkaniach.”
+            „Wtedy PAN powiedział do Mojżesza: Oto spuszczę wam jak deszcz chleb z nieba. Lud będzie wychodził i każdego dnia będzie zbierał według potrzeby dziennej, abym mógł go wystawić na próbę, czy będzie postępował zgodnie z moim prawem, czy nie.”
           </p>
           <p class="text-xs text-zinc-400 font-semibold">— Księga Wyjścia 16:4 (UBG)</p>
         </div>
         <button
-          onclick="navigator.clipboard.writeText('„Wtedy PAN powiedział do Mojżesza: Oto spuszczę wam jak deszcz chleb z nieba. Lud będzie wychodził i każdego dnia będzie zbierał według potrzeby dziennej, abym mógł go wystawić na próbę, czy będzie postępował zgodnie z moim prawem, czy nie.” (Wj 16:4, UBG)'); this.innerHTML = '<i class=\'fa-solid fa-check\'></i> Skopiowano'; setTimeout(() => this.innerHTML = '<i class=\'fa-regular fa-copy\'></i> Kopiuj', 2000);"
+          onclick="navigator.clipboard.writeText('Wtedy PAN powiedział do Mojżesza: Oto spuszczę wam jak deszcz chleb z nieba. Lud będzie wychodził i każdego dnia będzie zbierał według potrzeby dziennej, abym mógł go wystawić na próbę, czy będzie postępował zgodnie z moim prawem, czy nie. (Wj 16:4, UBG)'); this.innerHTML = '<i class=\'fa-solid fa-check\'></i> Skopiowano'; setTimeout(() => this.innerHTML = '<i class=\'fa-regular fa-copy\'></i> Kopiuj', 2000);"
           class="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 shrink-0 min-h-[44px]"
           title="Kopiuj werset do schowka"
         >
@@ -286,10 +288,7 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
           <p>
             Zanim przeczytasz rozważanie, otwórz Biblię i przeczytaj cały fragment. Komentarz ma prowadzić do Słowa, a nie je zastępować.
           </p>
-          <a <a href="/mojabiblia?book=EXO&chapter=16" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
-            <i class="fa-solid fa-book-bible"></i>
-            <span>Czytaj Wj 11:1–12:36</span>
-          </a>
+          <a href="/mojabiblia?book=EXO&chapter=16" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]"><i class="fa-solid fa-book-open"></i><span>Czytaj Wj 16:1–36</span></a>
         </div>
       </article>
 
@@ -357,20 +356,20 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
       <section class="kc-card">
         <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-gold mb-4">
           <i class="fa-solid fa-spell-check text-amber-400"></i>
-          <span>Klucze Językowe & Kody Stronga (Wj 16)</span>
+          <span>Klucze Językowe & Kody Stronga (Wj 16:1–36)</span>
         </div>
         <p class="text-xs text-zinc-300 mb-4 leading-relaxed font-serif">
-          Poniższe terminy hebrajskie stanowią osnowę teologiczną 11. i 12. rozdziału Księgi Wyjścia:
+          Poniższe terminy hebrajskie stanowią osnowę teologiczną 16. rozdziału Księgi Wyjścia (manna z nieba, codzienne zaufanie i święty Szabat):
         </p>
         <div class="flex flex-wrap gap-2">
-          <span class="strong-chip"><span class="strong-id">H6453</span> <span class="strong-orig">פֶּסַח (pesach)</span> — Pascha / ominięcie / przejście ocalające (Wj 12:11, 21, 27)</span>
-          <span class="strong-chip"><span class="strong-id">H1818</span> <span class="strong-orig">דָּם (dam)</span> — krew / krew znaku przymierza na odrzwiach (Wj 12:7, 13, 22)</span>
-          <span class="strong-chip"><span class="strong-id">H7716</span> <span class="strong-orig">שֶׂה (seh)</span> — baranek / jagnię bez skazy dla każdego domu (Wj 12:3–5)</span>
-          <span class="strong-chip"><span class="strong-id">H8549</span> <span class="strong-orig">תָּמִים (tamim)</span> — bez skazy / doskonały, nienaganny (Wj 12:5)</span>
-          <span class="strong-chip"><span class="strong-id">H4682</span> <span class="strong-orig">מַצָּה (macca)</span> — przaśny chleb / chleb niekwaszony czystości (Wj 12:8, 15, 18)</span>
-          <span class="strong-chip"><span class="strong-id">H1060</span> <span class="strong-orig">בְּכוֹר (bechor)</span> — pierworodny / wykupienie pierworodnych (Wj 11:5; 12:12, 29)</span>
-          <span class="strong-chip"><span class="strong-id">H7843</span> <span class="strong-orig">מַשְׁחִית (maszchit)</span> — niszczyciel / anioł niszczący, przed którym chroni krew (Wj 12:13, 23)</span>
-          <span class="strong-chip"><span class="strong-id">H2320</span> <span class="strong-orig">חֹדֶשׁ (chodesz)</span> — miesiąc / początek miesięcy, nowy czas (Wj 12:2)</span>
+          <span class="strong-chip"><span class="strong-id">H4478</span> <span class="strong-orig">מָן (man / Man hu?)</span> — manna — dosł. „Co to jest?”; codzienny chleb z nieba zsyłany jak rosa (Wj 16:15, 31)</span>
+          <span class="strong-chip"><span class="strong-id">H3899</span> <span class="strong-orig">לֶחֶם (lechem)</span> — chleb z nieba dający życie zgłodniałemu ludowi na pustyni (Wj 16:4, 8, 15)</span>
+          <span class="strong-chip"><span class="strong-id">H4057</span> <span class="strong-orig">מִדְבָּר (midbar)</span> — pustynia Sin — miejsce próby zaufania z dala od egipskich pól (Wj 16:1, 32)</span>
+          <span class="strong-chip"><span class="strong-id">H7676</span> <span class="strong-orig">שַׁבָּת (szabbat)</span> — święty siódmy dzień odpoczynku ustanowiony zanim podano Dekalog na Synaju (Wj 16:23, 25–26, 29)</span>
+          <span class="strong-chip"><span class="strong-id">H7677</span> <span class="strong-orig">שַׁבָּתוֹן (szabbaton)</span> — uroczysty, całkowity odpoczynek poświęcony wyłącznie PANU (Wj 16:23)</span>
+          <span class="strong-chip"><span class="strong-id">H6016</span> <span class="strong-orig">עֹמֶר (omer)</span> — dzienna miara na osobę (~2,2 l) ucząca zaufania bez chciwego gromadzenia (Wj 16:16, 36)</span>
+          <span class="strong-chip"><span class="strong-id">H5254</span> <span class="strong-orig">נָסָה (nacah)</span> — wystawić na próbę posłuszeństwa względem prawa Bożego i dnia Szabatu (Wj 16:4)</span>
+          <span class="strong-chip"><span class="strong-id">H3519</span> <span class="strong-orig">כָּבוֹד (kabod)</span> — chwała PANA ukazująca się w obłoku jako odpowiedź na szemranie (Wj 16:7, 10)</span>
         </div>
       </section>
  
@@ -378,106 +377,79 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
       <section class="kc-card space-y-6">
         <div class="flex items-center gap-2 border-b border-brand-line pb-4">
           <span class="w-8 h-8 rounded-lg bg-brand-gold/15 flex items-center justify-center text-brand-gold">
-            <i class="fa-solid fa-feather-pointed"></i>
+            <i class="fa-solid fa-scroll"></i>
           </span>
           <div>
             <h2 class="text-xl sm:text-2xl font-bold text-white font-display">EGZEGEZA & FORMACJA TEOLOGICZNA</h2>
-            <p class="text-xs text-zinc-400">Pięć części studium Wj 11:1–12:36 (42 punkty analityczne)</p>
+            <p class="text-xs text-zinc-400">Pięć części studium Wj 16:1–36 (35 punktów analitycznych)</p>
           </div>
         </div>
 
         <div class="space-y-6 text-zinc-200 leading-relaxed font-serif text-sm sm:text-base">
-          <!-- CZĘŚĆ I -->
-          <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
-            <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">I</span>
-              ZAPOWIEDŹ DZIESIĄTEJ PLAGI I UPRZYWILEJOWANIE LUDU (WJ 11:1–10)
-            </h3>
-            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
-              <p><strong>1. Ostatni cios sądu (11:1a):</strong> Bóg zapowiada nadejście jednej, ostatecznej plagi, po której opór faraona zostanie ostatecznie złamany.</p>
-              <p><strong>2. Całkowite wypędzenie (11:1b):</strong> Tyran, który wzbraniał wyjścia, wkrótce sam w pośpiechu i panicznym strachu wypędzi lud Boży ze swoich granic.</p>
-              <p><strong>3. Sprawiedliwa restytucja majątkowa (11:2):</strong> Nakaz prośby o złoto i srebro stanowi Bożą rekompensatę za pokolenia niewolniczego trudu przy budowie miast imperium.</p>
-              <p><strong>4. Szacunek w oczach wrogów (11:3):</strong> Bóg daje swemu ludowi i Mojżeszowi niezwykły autorytet w oczach urzędników i ludu Egiptu.</p>
-              <p><strong>5. Północna godzina sądu (11:4):</strong> „O północy przejdę przez Egipt” — wyznaczenie precyzyjnego terminu Bożej interwencji w samo jądro egipskiej nocy.</p>
-              <p><strong>6. Uniwersalność wyroku na pychę (11:5):</strong> Od dziedzica tronu aż po niewolnicę przy żarnach — żaden status społeczny nie ocali pogańskiego buntu przed sprawiedliwością.</p>
-              <p><strong>7. Bezprecedensowy krzyk rozpaczy (11:6):</strong> Egipt doświadcza lamentu, jakiego nie było w całych jego dziejach, gdy ginie pokolenie nadziei imperium.</p>
-              <p><strong>8. Cudowne rozdzielenie Goszen (11:7):</strong> Nawet pies nie szczeknie na synów Izraela — Bóg w widoczny sposób okazuje różnicę między bezbożnym Egiptem a Jego ludem.</p>
-            </div>
+        <!-- CZĘŚĆ I -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
+          <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">I</span>
+            PUSTYNIA SIN I SZEMRANIE O „GARNCACH MIĘSA” (WJ 16:1–5)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
+            <p><strong>1. Piętnasty dzień drugiego miesiąca (16:1):</strong> Miesiąc po wyjściu z Egiptu kończą się własne zapasy i w sercu pustyni Sin zaczyna się prawdziwa szkoła zależności od Boga.</p>
+            <p><strong>2. Fałszywa nostalgia niewoli (16:2–3):</strong> Głód zamienia pamięć: naród idealizuje egipskie „garnce mięsa i chleb do syta”, zapominając o biczu nadzorców i mordowaniu niemowląt.</p>
+            <p><strong>3. Boża odpowiedź na niezasłużony wyrzut (16:4):</strong> Zamiast gniewu Bóg zsyła chleb z nieba — zarazem jako łaskę podtrzymania życia i jako codzienną próbę posłuszeństwa prawu.</p>
           </div>
+        </div>
 
-          <!-- CZĘŚĆ II -->
-          <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
-            <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">II</span>
-              NOWY KALENDARZ I BARANEK PASCHALNY (WJ 12:1–10)
-            </h3>
-            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
-              <p><strong>9. Reset czasu przymierza (12:1–2):</strong> Miesiąc Abib (Nisan) staje się początkiem nowego roku; prawdziwe życie człowieka liczy się od momentu odkupienia.</p>
-              <p><strong>10. Baranek dla każdego domu (12:3):</strong> Odkupienie ma wymiar osobisty i rodzinny; każdy dom musi posiadać własną ofiarę przymierza.</p>
-              <p><strong>11. Wspólnota i solidarność sąsiedzka (12:4):</strong> Małe rodziny łączą się z sąsiadami, aby żadna cząstka daru Bożego nie została zmarnowana.</p>
-              <p><strong>12. Doskonałość ofiary bez skazy (12:5a):</strong> Baranek ma być samcem jednorocznym, absolutnie zdrowym i bez wady (hebr. tamim).</p>
-              <p><strong>13. Czterodniowa próba wierności (12:6a):</strong> Wybór 10. dnia i strzeżenie do 14. dnia nisan pozwalało na dokładną inspekcję zwierzęcia przed ofiarowaniem.</p>
-              <p><strong>14. Godzina wieczornej ofiary (12:6b):</strong> Zabicie baranka pod wieczór (hebr. bejn haarba’im) zapowiada godzinę śmierci Chrystusa.</p>
-              <p><strong>15. Znamię krwi na odrzwiach (12:7):</strong> Pokropienie węgarów i nadproża stanowiło publiczną tarczę wiary oddzielającą domowników od potępienia.</p>
-              <p><strong>16. Ogień, przaśniki i gorzkie zioła (12:8–10):</strong> Pieczenie w ogniu symbolizuje pełnię sądu Bożego; zioła przypominają gorycz niewoli, a przaśniki wzywają do czystości serca.</p>
-            </div>
+        <!-- CZĘŚĆ II -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
+          <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">II</span>
+            CHWAŁA PANA W OBŁOKU, PRZEPIÓRKI I MANNA (WJ 16:6–15)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
+            <p><strong>4. „Szemrzecie nie przeciw nam, lecz przeciw PANU” (16:6–8):</strong> Bunt przeciw Bożym sługom dotyka samego Boga, który kieruje historią.</p>
+            <p><strong>5. Chwała objawiona mimo niewdzięczności (16:9–12):</strong> PAN wysłuchuje szemrania i zapowiada mięso wieczorem oraz sytość chleba o poranku.</p>
+            <p><strong>6. Przepiórki o zmierzchu i rosa o świcie (16:13–15):</strong> Po opadnięciu rosy na pustyni pojawia się drobne, jak szron ciało: <em>Man hu?</em> — „To jest chleb, który wam dał PAN”.</p>
           </div>
+        </div>
 
-          <!-- CZĘŚĆ III -->
-          <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
-            <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">III</span>
-              POŚPIECH PIELGRZYMA I ŚWIĘTO PRZAŚNIKÓW (WJ 12:11–20)
-            </h3>
-            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
-              <p><strong>17. Postawa gotowości do drogi (12:11a):</strong> Biodra przepasane, obuwie na nogach i laska w ręku — zbawiony człowiek nie mości się w świecie, lecz jest pielgrzymem.</p>
-              <p><strong>18. Pośpieszne spożywanie Paschy (12:11b):</strong> Zbawienie wymaga natychmiastowej decyzji zerwania z przeszłością i gotowości do pójścia za Bożym wezwaniem.</p>
-              <p><strong>19. Sąd nad bogami Egiptu (12:12):</strong> Pascha to nie tylko ocalenie ludzi, ale publiczne zdemaskowanie niemocy panteonu demonicznych bóstw Nilu.</p>
-              <p><strong>20. Obiektywna tarcza krwi (12:13a):</strong> „Gdy ujrzę krew, ominę was” — fundamentem pokoju nie jest ludzkie samopoczucie, lecz Boże spojrzenie na krew ofiary.</p>
-              <p><strong>21. Wieczna pamiątka pokoleń (12:14):</strong> Pascha zostaje ustanowiona jako ustawa wieczna, kształtująca tożsamość dzieci Bożych po wszystkie czasy.</p>
-              <p><strong>22. Siedmiodniowe Święto Przaśników (12:15):</strong> Całkowite usunięcie zakwasu z domostw jako warunek trwania w przymierzu ze Świętym Bogiem.</p>
-              <p><strong>23. Święte zgromadzenia pierwszego i siódmego dnia (12:16):</strong> Odpoczynek od codziennej pracy i poświęcenie czasu na uroczyste wielbienie Odkupiciela.</p>
-              <p><strong>24. Nakaz czystości od zakwasu (12:17–20):</strong> Zakwas jako symbol pychy, hipokryzji i grzechu musi zostać bezwzględnie usunięty z życia wspólnoty.</p>
-            </div>
+        <!-- CZĘŚĆ III -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
+          <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">III</span>
+            MIARA OMERA I ROBACZYWIENIE CHCIWOŚCI (WJ 16:16–21)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
+            <p><strong>7. Sprawiedliwa równość łaski (16:16–18):</strong> Jeden omer na osobę; kto zebrał więcej, nie miał nadmiaru, a słabszy, kto zebrał mniej — nie cierpiał braku (cytowane przez Pawła w 2 Kor 8:15).</p>
+            <p><strong>8. Zakaz chomikowania na jutro (16:19–20):</strong> Kto z braku zaufania zatrzymał mannę do rana w dni powszednie, znalazł robactwo i zgniliznę — lekcja codziennego „chleba naszego powszedniego daj nam dzisiaj”.</p>
+            <p><strong>9. Ranny rytm modlitwy i pracy (16:21):</strong> Mannę trzeba było zbierać wcześnie rano, zanim wzejdzie słońce i ją roztopi.</p>
           </div>
+        </div>
 
-          <!-- CZĘŚĆ IV -->
-          <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
-            <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">IV</span>
-              POSŁUSZEŃSTWO WIARY I OCHRONA PRZED NISZCZYCIELEM (WJ 12:21–28)
-            </h3>
-            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
-              <p><strong>25. Zwołanie starszyzny Izraela (12:21):</strong> Mojżesz przekazuje instrukcje paschalne przywódcom, uruchamiając posłuszeństwo całego ludu.</p>
-              <p><strong>26. Wiązka hizopu i misa z krwią (12:22a):</strong> Hizop — roślina pokory i oczyszczenia — służy do przeniesienia krwi z naczynia na futrynę domu.</p>
-              <p><strong>27. Zakaz wychodzenia za próg (12:22b):</strong> „Niech nikt z was nie wychodzi za drzwi swego domu aż do rana” — bezpieczeństwo istnieje wyłącznie pod krwią przymierza.</p>
-              <p><strong>28. Boża tarcza przed aniołem niszczycielem (12:23):</strong> Sam PAN strzeże wejścia do domów oznaczonych krwią, nie dopuszczając śmierci do wnętrza.</p>
-              <p><strong>29. Wychowanie międzypokoleniowe (12:24–26):</strong> Pytanie dzieci: „Co oznacza ten wasz obrzęd?” staje się szkołą żywej wiary i wdzięczności.</p>
-              <p><strong>30. Świadectwo ocalenia rodzin (12:27a):</strong> Odpowiedź rodziców przypomina o Bożej suwerennej łasce, która ominęła hebrajskie domy w nocy sądu.</p>
-              <p><strong>31. Pokłon adoracji i wdzięczności (12:27b):</strong> Wobec majestatu Bożego planu lud upada na twarz w głębokim dziękczynieniu.</p>
-              <p><strong>32. Precyzyjne posłuszeństwo nakazom (12:28):</strong> Izraelici uczynili dokładnie tak, jak nakazał PAN przez Mojżesza i Aarona — wiara wyraża się w posłuszeństwie.</p>
-            </div>
+        <!-- CZĘŚĆ IV -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
+          <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">IV</span>
+            PODWÓJNA PORCJA SZÓSTEGO DNIA I ŚWIĘTY SZABAT (WJ 16:22–30)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
+            <p><strong>10. Cud potrójnej lekcji w szóstym dniu (16:22–24):</strong> W piątek z nieba spada podwójna porcja (dwa omery na głowę) i jako jedyna przechowana na siódmy dzień — nie psuje się ani nie rodzi robaków!</p>
+            <p><strong>11. Szabat przed Synajem (16:25–26):</strong> Bóg wskazuje na święty dzień siódmy — odpoczynek Szabatu PANA — już przed nadaniem tablic na górze Synaj, potwierdzając jego uniwersalne pochodzenie od stworzenia (Rdz 2:2–3).</p>
+            <p><strong>12. Porażka zachłannej pracy w Szabat (16:27–30):</strong> Ci, którzy wyszli szukać w siódmym dniu, wrócili z pustymi rękami; Bóg wzywa do zatrzymania gonitwy i odpoczęcia z ludem.</p>
           </div>
+        </div>
 
-          <!-- CZĘŚĆ V -->
-          <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
-            <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
-              <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">V</span>
-              SĄD O PÓŁNOCY, KRZYK W EGIPCIE I WYJŚCIE (WJ 12:29–36)
-            </h3>
-            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
-              <p><strong>33. Uderzenie o północy (12:29a):</strong> W najciemniejszej godzinie nocy PAN wykonuje sprawiedliwy wyrok nad pierworodnymi w całej krainie Nilu.</p>
-              <p><strong>34. Porażka dynastycznego bóstwa (12:29b):</strong> Śmierć syna faraona obnaża bezsilność roszczeń władcy podającego się za potomka boga Ra.</p>
-              <p><strong>35. Nocny zryw monarchy i dworzan (12:30a):</strong> Faraon wstaje w środku nocy, skonfrontowany z nieodwracalną klęską swojej pychy.</p>
-              <p><strong>36. Żałoba w każdym egipskim domu (12:30b):</strong> Powszechny krzyk w Egipcie — nie było rodziny, w której nie leżałby zmarły pierworodny.</p>
-              <p><strong>37. Nocne wezwanie Mojżesza i Aarona (12:31):</strong> Złamany monarcha wzywa proroków w ciemności i nakazuje natychmiastowe opuszczenie kraju.</p>
-              <p><strong>38. Zgoda na pełne uwielbienie (12:32a):</strong> Faraon zezwala na zabranie stad i dzieci — bezwarunkowa kapitulacja wobec żądania: „Ani jedno kopyto nie zostanie!”.</p>
-              <p><strong>39. Błaganie o błogosławieństwo (12:32b):</strong> Pogański monarcha prosi Mojżesza o modlitwę wstawienniczą: „Mnie też błogosławcie!”.</p>
-              <p><strong>40. Panika i przynaglanie Egipcjan (12:33):</strong> Mieszkańcy Egiptu wypychają Izraelitów w lęku przed całkowitą zagładą biologiczną.</p>
-              <p><strong>41. Chleb w dzieżach na ramionach (12:34):</strong> W pośpiechu lud zabiera niezakwaszone ciasto w szatach — żywa ilustracja pośpiechu wyjścia z grzechu.</p>
-              <p><strong>42. Triumfalne ogołocenie niewoli (12:35–36):</strong> Bóg napełnia Egipcjan życzliwością, dzięki czemu lud Boży otrzymuje bogate dary na drogę do Ziemi Obiecanej.</p>
-            </div>
+        <!-- CZĘŚĆ V -->
+        <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 space-y-3">
+          <h3 class="font-display font-bold text-base sm:text-lg text-amber-300 flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-brand-gold/20 text-brand-gold text-xs flex items-center justify-center font-sans font-bold">V</span>
+            OMER MANNY PRZED PANEM — WIECZNA PAMIĄTKA WIARY (WJ 16:31–36)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 pl-2 border-l border-brand-gold/30">
+            <p><strong>13. Biały dar o smaku placka z miodem (16:31):</strong> Chleb Boży żywi i smakuje słodyczą tym, którzy przyjmują go z wdzięcznością.</p>
+            <p><strong>14. Naczynie przed Świadectwem (16:32–34):</strong> Pełny omer manny zostaje zachowany na pamiątkę pokoleń (Hbr 9:4), aby dzieci pamiętały wierność Boga na pustkowiu.</p>
+            <p><strong>15. Czterdzieści lat codziennego cudu (16:35–36):</strong> Ani jednego dnia nie zabrakło chleba z nieba aż do samej granicy Kanaanu.</p>
           </div>
+        </div>
         </div>
       </section>
 
@@ -488,27 +460,20 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
           <span>Jezus w centrum</span>
         </div>
         <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
-          Nasz Baranek Paschalny i Krew Nowego Przymierza — Chrystus w centrum Wj 11–12
+          Jezus Chrystus — Prawdziwy Chleb z Nieba i Pan Świętego Szabatu
         </h3>
-        <p class="text-sm sm:text-base text-zinc-300 leading-relaxed mb-4 font-serif">
-          Jedenasty i dwunasty rozdział Księgi Wyjścia stanowią najważniejszą zapowiedź ofiary Chrystusa w całym Pięcioksięgu:
-        </p>
-        <div class="space-y-4 text-sm sm:text-base text-zinc-200 font-serif">
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">1. Jezus Chrystus — Nasz Baranek Paschalny (Wj 12:3–6 a 1 Kor 5:7, J 1:29)</h4>
-            <p class="text-zinc-300 leading-relaxed">Baranek paschalny w Egipcie był proroczą zapowiedzią Jezusa Chrystusa. Jan Chrzciciel zawołał nad Jordanem: „Oto Baranek Boży, który gładzi grzech świata!”. Apostoł Paweł ogłasza z absolutną mocą: „Chrystus bowiem, nasza pascha, został za nas ofiarowany”.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">2. Baranek bez skazy i nienaruszona kość (Wj 12:5, 46 a 1 P 1:18–19, J 19:36)</h4>
-            <p class="text-zinc-300 leading-relaxed">Baranek musiał być doskonały (tamim), a żadna jego kość nie mogła być złamana. Na Golgocie żołnierze nie połamali kości Zbawiciela, „aby wypełniło się Pismo: Kość jego nie będzie złamana”. Zostaliśmy wykupieni niewinną i nieskalaną krwią Chrystusa.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">3. Krew Przebłagania na odrzwiach serca (Wj 12:7, 13 a Rz 3:25, Hbr 9:14, 22)</h4>
-            <p class="text-zinc-300 leading-relaxed">Krew na drewnianych odrzwiach układała się w zarys krzyża. Bóg obiecał: „Gdy ujrzę krew, ominę was!”. Dziś krew Chrystusa przyjęta z wiarą w sercu chroni przed wiecznym sądem i oczyszcza sumienie z martwych uczynków do służby Bogu żywemu.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-white/5 border border-brand-border/20">
-            <h4 class="font-bold text-amber-300 mb-1">4. Chleb Przaśny i Nowe Przymierze — Wieczerza Pańska (Wj 12:8, 14 a Łk 22:19–20, 1 Kor 11:23–26)</h4>
-            <p class="text-zinc-300 leading-relaxed">Podczas ostatniej wieczerzy paschalnej Jezus ustanowił Wieczerzę Pańską: „To jest ciało moje... Ten kielich to nowe przymierze w mojej krwi”. Obchodzimy tę pamiątkę z przaśnym chlebem szczerości i prawdy aż do Jego powtórnego przyjścia.</p>
+        <div class="space-y-4 text-sm sm:text-base text-zinc-200 font-serif leading-relaxed">
+          <p>
+            W szóstym rozdziale Ewangelii Jana tłum pyta Jezusa, wskazując właśnie na Wj 16: „Ojcowie nasi jedli mannę na pustyni, jak jest napisane: Dał im do jedzenia chleb z nieba” (J 6:31). Jezus odpowiada im z boskim autorytetem: „Zaprawdę, zaprawdę powiadam wam: Nie Mojżesz dał wam chleb z nieba, ale mój Ojciec daje wam prawdziwy chleb z nieba. [...] Ja jestem chlebem życia. Kto do Mnie przychodzi, nigdy nie będzie łaknął” (J 6:32, 35, 48–51).
+          </p>
+          <p>
+            Manna podtrzymywała życie doczesne przez 40 lat, lecz ciało Chrystusa wydane za świat daje życie wieczne. Równie wymownie brzmi obecność Szabatu w Wj 16:23–30! Ten sam Zbawiciel, który karmił Izraela na pustyni i nie dopuścił zepsucia podwójnej porcji w piątek, ogłasza się „Panem Szabatu” (Mk 2:27–28) i zaprasza zmęczonych pogonią tego świata: „Przyjdźcie do Mnie wszyscy, którzy jesteście spracowani i obciążeni, a Ja wam dam odpoczynek” (Mt 11:28).
+          </p>
+          <div class="pt-2">
+            <a href="/mojabiblia?book=EXO&chapter=16" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-xs font-extrabold uppercase tracking-wider hover:from-amber-400 hover:to-amber-500 transition shadow-lg min-h-[44px]">
+              <i class="fa-solid fa-book-open"></i>
+              <span>Czytaj Wj 16:1–36</span>
+            </a>
           </div>
         </div>
       </section>
@@ -523,18 +488,18 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
           Sprawdź w Biblii — 12 Wersetów Porównawczych
         </h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm text-zinc-300 font-serif">
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 11:1 → Rdz 15:14</strong>: Bóg wypełnia po 430 latach obietnicę daną Abrahamowi: sąd nad Egiptem i wyjście z wielkim majątkiem.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 11:7 → Ml 3:18</strong>: Wyraźne rozdzielenie: „Wtedy znowu zobaczycie różnicę między sprawiedliwym a bezbożnym”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:2 → 2 Kor 5:17</strong>: Nowy kalendarz: „Jeśli ktoś jest w Chrystusie, nowym jest stworzeniem; stare przeminęło”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:5 → 1 P 1:19</strong>: „Drogocenną krwią Chrystusa, jako baranka niewinnego i nieskalanego”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:7 → Hbr 10:22</strong>: Serca pokropione krwią i oczyszczone od złego sumienia.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:8 → 1 Kor 5:8</strong>: „Obchodźmy święto z przaśnym chlebem szczerości i prawdy”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:11 → Łk 12:35</strong>: Postawa pielgrzyma: „Niech wasze biodra będą przepasane i wasze lampy zapalone”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:13 → Rz 5:9</strong>: „Będąc usprawiedliwieni jego krwią, będziemy przez niego ocaleni od gniewu”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:22 → Hbr 11:28</strong>: „Przez wiarę uczynił paschę i pokropienie krwią, aby niszczyciel ich nie dotknął”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:29 → Hbr 10:31</strong>: Nieuchronność Bożego wyroku: „Straszna to rzecz wpaść w ręce Boga żywego”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:31 → Iz 52:11–12</strong>: Wymarsz z niewoli: „Odejdźcie, odejdźcie, wyjdźcie stamtąd... PAN pójdzie przed wami”.</div>
-          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 12:36 → Kol 2:15</strong>: Triumf nad potęgami: „Rozbroił zwierzchności i władze, triumfując nad nimi na krzyżu”.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:4 → Pwt 8:3</strong>: Upokorzenie głodem i nakarmienie manną, abyś poznał, że „nie samym chlebem żyje człowiek, ale każdym słowem z ust PANA”.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:4 → J 6:31–33</strong>: Manna jako proroctwo o prawdziwym Chlebie z nieba — Jezusie Chrystusie.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:8 → Łk 10:16</strong>: Kto odrzuca wiernych posłańców PANA, odrzuca samego Tego, który ich posłał.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:15 → J 6:51</strong>: „To jest chleb, który wam dał PAN” kontra „Ja jestem chlebem żywym, który zstąpił z nieba”.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:18 → 2 Kor 8:15</strong>: „Ten, kto miał dużo, nie miał nadmiaru, a kto miał mało, nie miał braku” — zasada hojnej solidarności w Kościele.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:19–20 → Mt 6:11, 34</strong>: Zaufanie o chleb na dziś zamiast chciwego lęku o jutro — „Dosyć ma dzień swojej biedy”.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:21 → Ps 5:4</strong>: Wczesny poranek jako czas szukania Bożego posilenia, zanim żar dnia pochłonie siły.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:23 → Rdz 2:2–3</strong>: Siódmy dzień poświęcony odpoczynkowi PANA jeszcze zanim Izrael stanął pod górą Synaj.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:26 → Wj 20:8–11</strong>: Przygotowanie w szóstym dniu, aby siódmy dzień był w pełni wolny na odpoczynek i cześć dla Boga.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:29 → Mk 2:27</strong>: „Szabat został ustanowiony dla człowieka” — Boży dar wytchnienia chroniący przed niewolnictwem pracy.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:33 → Hbr 9:4</strong>: Złote naczynie z manną złożone przed Arką Przymierza jako znak Bożej wierności.</div>
+          <div class="p-3 rounded-lg bg-black/40 border border-brand-line"><strong class="text-amber-300">Wj 16:35 → Obj 2:17</strong>: Zwycięzcy w Chrystusie obiecana jest „ukryta manna” wiecznego pokoju z Bogiem.</div>
         </div>
       </section>
 
@@ -545,17 +510,14 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
           <span>Prawda na dziś</span>
         </div>
         <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
-          8 Zasad Przymierza — Co zmienia się w Twoim patrzeniu?
+          5 Lekcji Pustyni Sin — Co zmienia się w Twojej ekonomii i odpoczynku?
         </h3>
         <div class="space-y-2.5 text-xs sm:text-sm text-zinc-300 font-serif leading-relaxed">
-          <p>• <strong>Ocalenie wyłącznie przez Krew:</strong> Żadne ludzkie uczynki ani status nie uchronią przed sądem — jedyną tarczą zbawienia jest Krew Chrystusa (Wj 12:13).</p>
-          <p>• <strong>Nowy początek w Bożym kalendarzu:</strong> Prawdziwy czas Twojego życia rozpoczął się w dniu spotkania ze Zbawicielem (Wj 12:2).</p>
-          <p>• <strong>Bezpieczeństwo w granicach przymierza:</strong> Wiara wymaga trwania w Bożej prawdzie i niewychodzenia poza ramy Słowa Bożego (Wj 12:22).</p>
-          <p>• <strong>Radykalne usunięcie zakwasu:</strong> Kto należy do Chrystusa, musi bezwzględnie usunąć z życia kwas pychy, nieszczerości i grzechu (Wj 12:15).</p>
-          <p>• <strong>Postawa pielgrzyma:</strong> Wierzący żyje w świecie z przepasanymi biodrami i laską w ręku — gotowy do natychmiastowego pójścia za Panem (Wj 12:11).</p>
-          <p>• <strong>Edukacja wiary w rodzinie:</strong> Naszym świętym obowiązkiem jest opowiadać dzieciom o Krzyżu i wielkich dziełach Bożych (Wj 12:26–27).</p>
-          <p>• <strong>Nieuchronność sądu nad pychą:</strong> Odrzucenie Bożych ostrzeżeń prowadzi buntowników do nieodwracalnego sądu o północy (Wj 12:29).</p>
-          <p>• <strong>Boża sprawiedliwość i wynagrodzenie:</strong> Bóg nie zapomina o trudach swoich sług i sprawiedliwie wynagradza lata wiernej służby (Wj 12:36).</p>
+          <p>• <strong>Niewola potrafi wydawać się syta, gdy zapomnisz jej cenę:</strong> Lęk przed brakiem idealizuje przeszłe „garnce mięsa”, lecz Bóg nie wyprowadził Cię, byś żył jako syty niewolnik.</p>
+          <p>• <strong>Codzienna zależność bije na głowę lękowe gromadzenie:</strong> Manna w tygodniu uczy odbierania Bożej łaski dziś rano bez nerwowego chomikowania jutra.</p>
+          <p>• <strong>Chleb Boży szuka się z samego rana:</strong> Kto zaczyna dzień od Słowa i modlitwy (Wj 16:21), zbiera pokarm zanim upał obowiązków go roztopi.</p>
+          <p>• <strong>Święty Szabat to test zaufania i dar wolności:</strong> Odpoczynek siódmego dnia dowodzi, że Twoje utrzymanie nie leży w siedmiodniowym wyścigu, lecz w błogosławieństwie Stwórcy.</p>
+          <p>• <strong>Chrystus jest jedyną pełnią głodnej duszy:</strong> Każde ziemskie nasycenie wraca w głód — tylko Chleb Życia gasi pragnienie wieczności.</p>
         </div>
       </section>
 
@@ -569,14 +531,14 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
           Refleksja Osobista — Spójrz w Światło Słowa
         </h3>
         <div class="space-y-3 text-xs sm:text-sm text-zinc-300 font-serif leading-relaxed">
-          <p>1. Czy masz absolutną pewność wiary, że Twoje życie jest bezpiecznie ukryte za krwią Baranka Paschalnego — Jezusa Chrystusa (Wj 12:13)?</p>
-          <p>2. W jaki sposób spotkanie z Chrystusem zresetowało Twój osobisty kalendarz i cele życiowe (Wj 12:2)?</p>
-          <p>3. Jaki „zakwas” grzechu, goryczy lub kompromisu tolerujesz jeszcze w zakamarkach swojego serca lub domu (Wj 12:15)?</p>
-          <p>4. Czy Twoja codzienna postawa odzwierciedla pielgrzyma gotowego do drogi ku wieczności, czy też zbyt mocno zapuściłeś korzenie w świecie (Wj 12:11)?</p>
-          <p>5. Co odpowiadasz swoim dzieciom i bliskim, gdy pytają Cię o sens Twojej wiary i nadziei (Wj 12:26–27)?</p>
-          <p>6. Czy trwasz w granicach Bożej ochrony, czy zdarza Ci się wychodzić za próg posłuszeństwa Słowu (Wj 12:22)?</p>
-          <p>7. Czy wierzysz, że krew Chrystusa ma moc skruszyć najcięższe łańcuchy niewoli w Twojej rodzinie?</p>
-          <p>8. Za jakie konkretne wyzwolenie z domu niewoli dziękujesz dziś Bogu z najgłębszą wdzięcznością?</p>
+          <p>1. Czy kiedy brakuje Ci wygody lub poczucia kontroli, łapiesz się na idealizowaniu przeszłości sprzed nawrócenia („garnce mięsa w Egipcie”, Wj 16:3)?</p>
+          <p>2. Jak zaczyna się Twój poranek — czy zbierasz duchową mannę Bożego Słowa o świcie, zanim roztopi ją skwar codziennych spraw (Wj 16:21)?</p>
+          <p>3. Gdzie w Twoim myśleniu o pieniądzach, czasie czy karierze psuje się „manna zachomikowana ze strachu” zamiast ufności w codzienne „daj nam dzisiaj” (Wj 16:19–20)?</p>
+          <p>4. Czy traktujesz siódmy dzień — święty Szabat — jako radosny dar odpoczynku w obecności PANA, z wcześniejszym przygotowaniem szóstego dnia (Wj 16:22–30)?</p>
+          <p>5. Kiedy ostatnio podzieliłeś się nadmiarem swoich zasobów z kimś, kto zebrał „mniej” w trudniejszej porze życia (Wj 16:18; 2 Kor 8:15)?</p>
+          <p>6. Jaka chciwość lub niewiara w Boże zaopatrzenie psuje Twój pokój serca dzisiaj?</p>
+          <p>7. Co znaczy dla Ciebie karmić się Chrystusem jako prawdziwym Chlebem z nieba w zwykłych obowiązkach tego tygodnia (J 6:35)?</p>
+          <p>8. Jaki „omer pamięci” (Wj 16:32) z wdzięczności za wierność Boga w tym roku warto zachować przed oczami swojej rodziny?</p>
         </div>
       </section>
 
@@ -603,20 +565,20 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
             <!-- ── TWOJA DECYZJA ── -->
       <section class="kc-card">
         <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
-          <i class="fa-solid fa-hand-holding-heart"></i>
+          <i class="fa-solid fa-flag-checkered"></i>
           <span>Twoja decyzja</span>
         </div>
         <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
-          Wybierz Bezpieczeństwo pod Krwią Baranka — Wyjdź z Domu Niewoli!
+          Odrzuć Narzekanie Pustyni — Karm Się Chrystusem i Świętuj Odpoczynek PANA!
         </h3>
         <div class="space-y-4 text-sm sm:text-base text-zinc-200 font-serif leading-relaxed">
           <p>
-            Dwunasty rozdział Księgi Wyjścia stawia przed nami ostateczną alternatywę: albo pozostajesz w sferze buntu tego świata i podlegasz sprawiedliwemu sądowi Bożemu, albo chronisz się pod Krwią Baranka bez skazy. Bóg nie badał zasług Hebrajczyków ani ich moralnej doskonałości — badał, czy na drzwiach ich domów znajduje się krew przymierza. Dziś Pan Jezus Chrystus wzywa Cię do osobistego zaufania Jego ofierze na krzyżu. Wyrzecz się wszelkiego kwasu grzechu, weź laskę pielgrzyma i wyrusz w drogę wolności za Królem Królów!
+            Szesnasty rozdział Księgi Wyjścia wystawia na próbę dwa obszary, w których najłatwiej zapominamy o Bogu: nasz lęk o codzienny chleb oraz naszą gorączkę nieustannej pracy bez odpoczynku. Bóg zaprasza Cię dziś do porannej modlitwy ufności i do wejścia w błogosławiony rytm Szabatu — jako człowiek wolny, którego nie utrzymuje faraon, ale Ojciec Niebieski.
           </p>
           <div class="p-5 rounded-2xl bg-gradient-to-br from-amber-500/15 via-black/40 to-transparent border border-brand-gold/40">
             <h4 class="font-bold text-amber-300 mb-2 uppercase tracking-wide text-xs">Osobiste Wyznanie Decyzji:</h4>
             <p class="italic text-white">
-              „Panie Boże Wszechmogący, Święty Sędzio i Miłosierny Zbawicielu! Dziękuję Ci z całego serca za dar Jezusa Chrystusa — mojego Baranka Paschalnego. Wyznaję, że sam z siebie nie mam żadnych zasług, którymi mógłbym uchronić się przed Twoim sprawiedliwym sądem. Wiarą kropię dziś węgary mojego serca, mój dom, moją rodzinę i moją przyszłość najdroższą Krwią Jezusa. Wyrzucam ze swojego życia wszelki stary kwas grzechu, obłudy i kompromisu. Przepasuję biodra wiarą i postanawiam iść za Tobą jako wierny pielgrzym każdego dnia mojego życia. Amen!”
+              „Panie Jezu Chryste, Chlebie Żywy zstępujący z nieba! Wyznaję moje lękowe narzekania i brak wiary w Twoje codzienne zaopatrzenie. Wybieram od dziś zbierać Twoje Słowo o poranku, dzielić się hojnie tym, co otrzymuję, i czcić Twój święty dzień odpoczynku z sercem wolnym od gonitwy. Wiem, że Ten, który karmił Izraela przez czterdzieści lat, zatroszczy się wiernie o każdy mój dzień.”
             </p>
           </div>
         </div>
@@ -626,20 +588,20 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
       <section class="kc-card">
         <div class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2 flex items-center gap-2">
           <i class="fa-solid fa-hands-praying"></i>
-          <span>Modlitwa na 11 listopada</span>
+          <span>Modlitwa na 15 listopada</span>
         </div>
         <h3 class="font-serif text-xl sm:text-2xl font-bold text-white mb-4">
-          Modlitwa o Ochronę Krwi Chrystusa i Czystość Pielgrzyma
+          Modlitwa o Chleb Powszedni, Hojność i Błogosławiony Odpoczynek Szabatu
         </h3>
         <div class="p-5 rounded-2xl bg-black/40 border border-brand-border/30 text-sm sm:text-base text-zinc-200 font-serif leading-relaxed space-y-3">
           <p>
-            Święty, Sprawiedliwy i Wszechmogący Boże! Przynosimy Ci dziś pokłon i uwielbienie za wielką tajemnicę Paschy, która rozświetliła mroki egipskiej nocy i zapowiedziała wieczny triumf Krzyża Golgoty.
+            Ojcze Niebieski, Dawco wszelkiego dobrego daru i Stwórco nieba i ziemi! Dziękujemy Ci za szesnasty rozdział Księgi Wyjścia, w którym z czułością karmisz nawet szemrzący lud na pustkowiu Sin, ucząc go codziennego zaufania i świętości Szabatu.
           </p>
           <p>
-            Panie Jezu Chryste, nasz Baranku Paschalny! Dziękujemy Ci, że złożyłeś Siebie w ofierze bez skazy, przelewając drogocenną krew dla naszego wiecznego zbawienia. Dziękujemy, że gdy Ojciec patrzy na nas przez Twoją krew, omija nas sąd i potępienie, a śmierć nie ma nad nami władzy.
+            Przebacz nam każdą chwilę tęsknoty za złudnymi garncami świata i każdy strach o jutro, przez który próbowaliśmy gromadzić szczęście własnymi siłami zamiast przyjmować Twój powszedni omer łaski. Naucz nas otwierać Twoje Słowo wcześnie rano i dziękować za drobne, cudowne dowody Twojej obecności.
           </p>
           <p>
-            Usuń z naszych serc i domów wszelki kwas obłudy i grzechu. Przepasz nasze biodra wiernością i uczyń nas odważnymi pielgrzymami Twojej prawdy. Bądź uwielbiony w naszych rodzinach teraz i na wieki wieków. Amen!
+            Panie Jezu Chryste, nasz prawdziwy Chlebie z nieba i Panie Szabatu! Karm nasze dusze Sobą samym, byśmy nie żyli samym chlebem, lecz każdym Twoim słowem. Wlej w nasze rodziny pokój świętego odpoczynku w Twoje imię i spraw, aby każdy dzień naszego życia głosił Twoją chwałę. Amen.
           </p>
         </div>
       </section>
@@ -658,33 +620,35 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
 
         <div class="space-y-4 text-xs sm:text-sm text-zinc-300 font-serif">
           <p class="text-zinc-200 font-semibold mb-2">Wykonaj dzisiejsze kroki formacji biblijnej:</p>
+          
+          
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-1" onchange="toggleTaskState(1)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>1. Przeczytaj osobiście cały jedenasty i dwunasty rozdział Księgi Wyjścia (Wj 11:1–12:36) w przekładzie UBG.</span>
+            <span>1. Przeczytaj cały rozdział <a href="/mojabiblia?book=EXO&chapter=16" class="text-amber-300 underline font-semibold">Wj 16:1–36</a> w przekładzie UBG.</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-2" onchange="toggleTaskState(2)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>2. Podziękuj Chrystusowi w modlitwie za Jego krew przelaną na krzyżu, która jest Twoim jedynym i wiecznym schronieniem.</span>
+            <span>2. Przeczytaj Ewangelię Jana 6:31–51, odkrywając, jak Jezus wypełnia znak manny na pustyni.</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-3" onchange="toggleTaskState(3)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>3. Zbadaj swoje serce i dom: czy nie ma w Twoim życiu jakiegoś „zakwasu” grzechu lub nieszczerości, który należy bezzwłocznie usunąć (1 Kor 5:7–8)?</span>
+            <span>3. Zarezerwuj jutro rano 15 minut cichego spotkania ze Słowem przed rozpoczęciem gonitwy dnia (Wj 16:21).</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-4" onchange="toggleTaskState(4)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>4. Przeczytaj 1 Kor 5:7–8 oraz 1 P 1:18–19, rozważając doskonałość Baranka Bożego.</span>
+            <span>4. Sprawdź swój plan tygodnia pod kątem świętego odpoczynku siódmego dnia i przygotowania przed Szabatem (Wj 16:23).</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-5" onchange="toggleTaskState(5)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>5. Pomyśl o swoich bliskich i powierz ich w modlitwie pod ochronę krwi Zbawiciela.</span>
+            <span>5. Przekaż konkretną pomoc lub zachętę osobie przeżywającej trudniejszy materialnie lub duchowo czas (2 Kor 8:15).</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-6" onchange="toggleTaskState(6)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>6. Zapisz poniżej swoje osobiste postanowienie wierności i wdzięczności za Boże odkupienie.</span>
+            <span>6. Zapisz w notatniku jedno świadectwo Bożego zaopatrzenia z przeszłości jako Twój „omer pamiątki”.</span>
           </label>
           <label class="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-brand-line hover:border-brand-gold/40 cursor-pointer transition">
             <input type="checkbox" id="chk-task-7" onchange="toggleTaskState(7)" class="mt-1 rounded text-amber-500 focus:ring-amber-400">
-            <span>7. Podziel się dzisiejszym rozważaniem z osobą, która zmaga się z lękiem przed śmiercią lub sądem Bożym.</span>
+            <span>7. Powtórz z pamięci Wj 16:4 i oddaj Bogu troskę o nadchodzący tydzień.</span>
           </label>
         </div>
         <div class="space-y-4 pt-2">
@@ -712,7 +676,7 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
             </label>
           </div>
 
-          <button id="btn-complete-day" onclick="completeDay42()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-extrabold text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2 min-h-[44px]">
+          <button id="btn-complete-day" onclick="completeDay46()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-zinc-950 font-extrabold text-xs uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2 min-h-[44px]">
             <i class="fa-solid fa-check"></i>
             <span>Oznacz Dzień 46 jako ukończony</span>
           </button>
@@ -743,14 +707,14 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
           JUTRO — 16 LISTOPADA 2026
         </div>
         <h3 class="font-serif text-lg sm:text-xl font-bold text-white mb-2">
-          DZIEŃ 43 — WYJŚCIE Z RAMZES, FILAR OBŁOKU I OGNIA ORAZ POŚWIĘCENIE PIERWORODNYCH (Wj 12:37–13:22)
+          DZIEŃ 47 — WODA ZE SKAŁY W HOREBIE I ZWYCIĘSTWO NAD AMALEKIEM (Wj 17:1–16)
         </h3>
         <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-4 font-serif">
-          Dzień 44: Wymarsz z Egiptu, noc czuwania dla Pana, obwarowania Paschy, poświęcenie każdego pierworodnego oraz cudowne Boże prowadzenie w słupie obłoku we dnie i w słupie ognia w nocy.
+          Dzień 47: Kolejna próba pragnienia w Massa i Meriba, uderzona skała dająca żywy strumień oraz wzniesione ręce Mojżesza nad doliną bitwy pod Refidim.
         </p>
         <div class="flex items-center gap-3 flex-wrap">
           <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-500 text-xs font-bold uppercase tracking-wider min-h-[44px]">
-            <span>Dostępne od północy (12 listopada)</span>
+            <span>Dostępne od północy (16 listopada 2026)</span>
           </span>
           <a href="/akademia/kurscodzienny" class="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-300 hover:text-white text-xs font-bold transition min-h-[44px] flex items-center">
             ← Spis kursu
@@ -767,7 +731,7 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
           Nie zatrzymuj tego poselstwa dla siebie. Jedno kliknięcie może przynieść Bożą wolność komuś, kto zmaga się w niewoli kompromisów.
         </p>
         <div class="flex items-center justify-center gap-3 flex-wrap">
-          <a href="https://api.whatsapp.com/send?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2042%3A%20%C5%9Awi%C4%99to%20Paschy%2C%20krew%20Baranka%20i%20wykupienie%20pierworodnych%20%28Wj%2011%E2%80%9312%29%3A%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-46" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
+          <a href="https://api.whatsapp.com/send?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2046%3A%20MANNA%20Z%20NIEBA%20I%20%C5%9AWI%C4%98TO%C5%9A%C4%86%20SZABATU%20%E2%80%94%20BO%C5%BBE%20ZAOPATRZENIE%20NA%20PUSTYNI%20(Wj%2016%3A1%E2%80%9336).%20%E2%80%9EWtedy%20PAN%20powiedzia%C5%82%20do%20Moj%C5%BCesza%3A%20Oto%20spuszcz%C4%99%20wam%20jak%20deszcz%20chleb%20z%20nieba.%20Lud%20b%C4%99dzie%20wychodzi%C5%82%20i%20ka%C5%BCdego%20dnia%20b%C4%99dzie%20zbiera%C5%82%20wed%C5%82ug%20potrzeby%20dziennej%2C%20abym%20m%C3%B3g%C5%82%20go%20wystawi%C4%87%20na%20pr%C3%B3b%C4%99%2C%20czy%20b%C4%99dzie%20post%C4%99powa%C5%82%20zgodnie%20z%20moim%20prawem%2C%20czy%20nie.%E2%80%9D%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-46" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
             <i class="fa-brands fa-whatsapp text-sm"></i>
             <span>WhatsApp</span>
           </a>
@@ -775,7 +739,7 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
             <i class="fa-brands fa-facebook-f text-sm"></i>
             <span>Facebook</span>
           </a>
-          <a href="https://twitter.com/intent/tweet?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2042%3A%20%C5%9Awi%C4%99to%20Paschy%2C%20krew%20Baranka%20i%20wykupienie%20pierworodnych%20%28Wj%2011%E2%80%9312%29&url=https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-46" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
+          <a href="https://twitter.com/intent/tweet?text=Z%20Bibli%C4%85%20za%20Pan%20Brat%20%E2%80%94%20Dzie%C5%84%2046%3A%20MANNA%20Z%20NIEBA%20I%20%C5%9AWI%C4%98TO%C5%9A%C4%86%20SZABATU%20%E2%80%94%20BO%C5%BBE%20ZAOPATRZENIE%20NA%20PUSTYNI%20(Wj%2016%3A1%E2%80%9336).%20%E2%80%9EWtedy%20PAN%20powiedzia%C5%82%20do%20Moj%C5%BCesza%3A%20Oto%20spuszcz%C4%99%20wam%20jak%20deszcz%20chleb%20z%20nieba.%20Lud%20b%C4%99dzie%20wychodzi%C5%82%20i%20ka%C5%BCdego%20dnia%20b%C4%99dzie%20zbiera%C5%82%20wed%C5%82ug%20potrzeby%20dziennej%2C%20abym%20m%C3%B3g%C5%82%20go%20wystawi%C4%87%20na%20pr%C3%B3b%C4%99%2C%20czy%20b%C4%99dzie%20post%C4%99powa%C5%82%20zgodnie%20z%20moim%20prawem%2C%20czy%20nie.%E2%80%9D%20https%3A%2F%2Fpolskieradio.cc%2Fakademia%2Fkurscodzienny%2Fdzien-46" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition flex items-center gap-2 shadow min-h-[44px]">
             <i class="fa-brands fa-x-twitter text-sm"></i>
             <span>X (Twitter)</span>
           </a>
@@ -796,205 +760,205 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
   <script src="/js/cc-daily-course-share.js?v=20261108_wa1" defer></script>
 
   <script>
-    // ── QUIZ LOGIC (20 PYTAŃ Z WJ 9:1–35) ──
+    // ── QUIZ LOGIC (20 PYTAŃ Z WJ 16:1–36) ──
     const QUIZ_DATA = [
   {
-    "q": "Co według Wj 11:1 zapowiedział PAN Mojżeszowi w sprawie faraona?",
+    "q": "Dokąd przybyli synowie Izraela po wyruszeniu z Elim piętnastego dnia drugiego miesiąca (Wj 16:1)?",
     "a": [
-      "Że faraon od razu uwierzy w Boga",
-      "Że sprowadzi jeszcze jedną plagę, po której faraon całkowicie ich stąd wypędzi",
-      "Że ustanowi Mojżesza wezyrem Egiptu",
-      "Że wody Nilu wyschną na zawsze"
+      "Do ziemi Kanaan nad Jordanem",
+      "Na pustynię Sin, między Elim a Synajem",
+      "Z powrotem do Sukkot",
+      "Do oazy Ramzes"
     ],
     "c": 1
   },
   {
-    "q": "O co Izraelici mieli poprosić swoich egipskich sąsiadów przed wyjściem (Wj 11:2)?",
+    "q": "O co szemrało całe zgromadzenie Izraelitów przeciw Mojżeszowi i Aaronowi w Wj 16:2–3?",
     "a": [
-      "O konie i rydwany bojowe",
-      "O srebrne i złote przedmioty",
-      "O zboże i oliwę",
-      "O mapy pustyni"
+      "O brak broni do podboju Kanaanu",
+      "O brak jedzenia, wspominając egipskie garnce mięsa i jedzenie chleba do syta",
+      "O zbyt długie pieśni uwielbienia",
+      "O zbyt ciężkie skrzynie ze srebrem"
     ],
     "c": 1
   },
   {
-    "q": "Kiedy według słów Mojżesza PAN miał przejść przez Egipt w dziesiątej pladze (Wj 11:4)?",
+    "q": "Co PAN obiecał spuścić z nieba „jak deszcz” w Wj 16:4?",
     "a": [
-      "O wschodzie słońca",
-      "W samo południe",
-      "O północy",
-      "O zmierzchu"
-    ],
-    "c": 2
-  },
-  {
-    "q": "Jaki niezwykły znak pokoju i rozdzielenia zapowiedział Bóg dla Izraela w Wj 11:7?",
-    "a": [
-      "Że na nikogo z synów Izraela pies nie ruszy swym językiem",
-      "Że nad Goszen pojawi się tęcza",
-      "Że spadnie manna z nieba",
-      "Że zapłoną ogniska na granicach"
-    ],
-    "c": 0
-  },
-  {
-    "q": "Co Bóg powiedział o miesiącu Paschy w Wj 12:2?",
-    "a": [
-      "Że będzie to miesiąc żałoby",
-      "Że ten miesiąc będzie początkiem miesięcy, pierwszym miesiącem roku",
-      "Że będzie to ostatni miesiąc w kalendarzu",
-      "Że należy go wykreślić z pamięci"
+      "Złote monety na pustynię",
+      "Chleb z nieba, aby wystawić lud na próbę posłuszeństwa",
+      "Oliwę z oliwek na siedem lat",
+      "Kamyki szlachetne z gór Synaju"
     ],
     "c": 1
   },
   {
-    "q": "Którego dnia pierwszego miesiąca należało wybrać baranka dla domu (Wj 12:3)?",
+    "q": "Ile podwójnej miary mieli przygotować Izraelici szóstego dnia według Wj 16:5?",
     "a": [
-      "Pierwszego dnia",
-      "Dziesiątego dnia",
-      "Czternastego dnia",
-      "Dwudziestego pierwszego dnia"
+      "Dziesięć razy więcej niż w tygodniu",
+      "Dwa razy tyle, ile zbierali codziennie",
+      "Ani grama — mieli pościć przez dwa dni",
+      "Tylko połowę zwykłej miary"
     ],
     "c": 1
   },
   {
-    "q": "Jakie cechy musiał posiadać baranek paschalny według Wj 12:5?",
+    "q": "Co powiedział Mojżesz ludowi o istocie ich szemrania (Wj 16:7–8)?",
     "a": [
-      "Dowolny wiek i maść",
-      "Samica bez rogów",
-      "Baranek bez skazy, jednoroczny samiec, spośród owiec lub kóz",
-      "Zwierzę ofiarowane wcześniej w pogańskiej świątyni"
-    ],
-    "c": 2
-  },
-  {
-    "q": "Do którego dnia miesiąca należało strzec baranka przed zabiciem (Wj 12:6)?",
-    "a": [
-      "Do dwunastego dnia",
-      "Do czternastego dnia",
-      "Do piętnastego dnia",
-      "Przez cały miesiąc"
+      "Że słusznie narzekają wyłącznie na Aarona",
+      "Że ich szemranie jest nie przeciw Mojżeszowi i Aaronowi, ale przeciwko PANU",
+      "Że to tylko drobna słabość starszyzny",
+      "Że winni są kupcy z Madian"
     ],
     "c": 1
   },
   {
-    "q": "Czym i w jaki sposób należało oznaczyć wejście do domu krwią baranka (Wj 12:7, 22)?",
+    "q": "Jaką postać objawienia ujrzał lud na pustyni, gdy Aaron przemówił (Wj 16:10)?",
     "a": [
-      "Wylać krew na próg wejściowy",
-      "Pokropić wiązką hizopu oba węgary i nadproże",
-      "Namalować znak na dachu",
-      "Zanurzyć dłonie i odcisnąć je na drzwiach"
+      "Potężnego lwa na szczycie góry",
+      "Chwałę PANA, która ukazała się w obłoku",
+      "Błyskawice uderzające w obozowisko",
+      "Anioła z tablicami kamiennymi"
     ],
     "c": 1
   },
   {
-    "q": "Z czym należało spożywać pieczone mięso baranka w noc paschalną (Wj 12:8)?",
+    "q": "Co pojawiło się w obozie wieczorem i nakryło go w Wj 16:13?",
     "a": [
-      "Z miodem i figami",
-      "Z przaśnym chlebem i gorzkimi ziołami",
-      "Z winem i oliwkami",
-      "Z gotowanym jęczmieniem"
+      "Chmura szarańczy",
+      "Przepiórki przylatujące wieczorem i okrywające obóz",
+      "Stado dzikich gołębi z północy",
+      "Stado saren pustynnych"
     ],
     "c": 1
   },
   {
-    "q": "Czego kategorycznie zakazano przy przyrządzaniu baranka w Wj 12:9?",
+    "q": "Co leżało na powierzchni pustyni rano, gdy podniosła się warstwa rosy (Wj 16:14)?",
     "a": [
-      "Pieczenia przy ogniu",
-      "Jedzenia mięsa surowego lub ugotowanego w wodzie",
-      "Solenia mięsa",
-      "Spożywania z rodziną"
+      "Ziarna dojrzałej pszenicy w kłosach",
+      "Coś drobnego, okrągłego / łuskowatego, drobnego jak szron na ziemi",
+      "Gotowe bochenki chleba w koszach",
+      "Słodkie owoce palm z Elim"
     ],
     "c": 1
   },
   {
-    "q": "W jakim ubiorze i w jaki sposób Izraelici mieli spożywać Paschę (Wj 12:11)?",
+    "q": "Dlaczego Izraelici nazwali ten pokarm „manna” (Wj 16:15, 31)?",
     "a": [
-      "W szatach żałobnych, leżąc przy stole",
-      "Z biodrami przepasanymi, obuwiem na nogach, laską w ręku i w pośpiechu",
-      "Na kolanach w milczeniu",
-      "W tańcu wokół ołtarza"
+      "Od imienia pierwszej córki Aarona",
+      "Bo na jego widok pytali jedni drugich: „Man hu?” („Co to jest?”), gdyż nie wiedzieli, co to było",
+      "Bo rósł na drzewach mannowych pod Synajem",
+      "Tak nazywał się królewski chleb w Memfis"
     ],
     "c": 1
   },
   {
-    "q": "Jakie fundamentalne słowa wypowiedział Bóg w Wj 12:13 w sprawie krwi na domach?",
+    "q": "Ile każdy człowiek miał zebrać manny każdego powszedniego dnia (Wj 16:16)?",
     "a": [
-      "„Gdy przyniesiecie złoto, ominę was”",
-      "„Gdy bowiem ujrzę krew, ominę was i nie dotknie was plaga zniszczenia”",
-      "„Gdy Mojżesz zawoła, spojrzę na was”",
-      "„Gdy usłyszę wasz płacz, zlituję się”"
+      "Jedną tonę na całą rodzinę",
+      "Po jednym omerze na głowę według liczby dusz w namiocie",
+      "Tylko garść raz na trzy dni",
+      "Tyle, ile uniesie osioł"
     ],
     "c": 1
   },
   {
-    "q": "Przez ile dni należało jeść przaśny chleb podczas Święta Przaśników (Wj 12:15)?",
+    "q": "Co działo się według Wj 16:18 po odmierzeniu zebranej manny omerem?",
     "a": [
-      "Przez 3 dni",
-      "Przez 7 dni",
-      "Przez 14 dni",
-      "Przez 40 dni"
+      "Kto zebrał więcej, sprzedawał biedniejszym",
+      "Kto zebrał więcej, nie miał za dużo, a kto mniej, nie miał za mało",
+      "Połowa zawsze przepadała w piasku",
+      "Zostawało tylko dla kapłanów Lewiego"
     ],
     "c": 1
   },
   {
-    "q": "Jaki kategoryczny zakaz obowiązywał synów Izraela w noc paschalną aż do rana (Wj 12:22)?",
+    "q": "Co stało się w dzień powszedni z manną zostawioną wbrew zakazowi do rana (Wj 16:20)?",
     "a": [
-      "Zakaz spania",
-      "Zakaz rozmawiania z dziećmi",
-      "Niech nikt z was nie wychodzi za drzwi swego domu aż do rana",
-      "Zakaz palenia ognia"
-    ],
-    "c": 2
-  },
-  {
-    "q": "Co rodzice mieli odpowiedzieć swoim dzieciom, gdy zapytają o znaczenie obrzędu (Wj 12:26–27)?",
-    "a": [
-      "Że to tradycja pradziadków",
-      "Że to ofiara paschy PANA, który ominął domy synów Izraela w Egipcie, a nasze domy ocalił",
-      "Że to tajemnica kapłanów",
-      "Że dowiedzą się w dorosłości"
+      "Stwardniała jak biały marmur",
+      "Zalęgło się w niej robactwo i zaśmierdziała się",
+      "Zamieniła się w wodę źródlaną",
+      "Przemieniła się w czysty miód"
     ],
     "c": 1
   },
   {
-    "q": "Kto zginął w ziemi Egiptu o północy w dziesiątej pladze (Wj 12:29)?",
+    "q": "O jakiej porze zbierano mannę i co działo się z niezebraną później (Wj 16:21)?",
     "a": [
-      "Tylko wojsko faraona",
-      "Wszystko, co pierworodne: od syna faraona po pierworodnego więźnia i bydła",
-      "Wszyscy kapłani pogańscy",
-      "Tylko starcy w miastach"
+      "W południe, gdy wiał zimny wiatr",
+      "Zbierano ją rano; a gdy słońce dogrzewało — topniała",
+      "Wyłącznie o północy przy pochodniach",
+      "Tylko podczas ulewnego deszczu"
     ],
     "c": 1
   },
   {
-    "q": "Jak zareagował faraon i Egipcjanie w nocy po uderzeniu plagi (Wj 12:30–31)?",
+    "q": "Co niezwykłego stało się szóstego dnia bez żadnego zepsucia (Wj 16:22–24)?",
     "a": [
-      "Zmobilizowali armię do walki",
-      "Podniósł się wielki krzyk, a faraon w nocy wezwał Mojżesza i kazał natychmiast wyjść ludowi",
-      "Zamknęli bramy miast",
-      "Złożyli okup z owiec"
+      "Spadła poczwórna porcja ze srebrem",
+      "Zebrali po dwa omery na osobę, a przechowana do siódmego dnia nie zaśmierdziała się i nie miała robaków",
+      "Wszyscy spali przez cały dzień",
+      "Przepiórki zostały na dziesięć dni"
     ],
     "c": 1
   },
   {
-    "q": "O co poprosił złamany faraon Mojżesza i Aarona na odchodnym w Wj 12:32?",
+    "q": "Czym Mojżesz nazwał dzień siódmy w Wj 16:23–26?",
     "a": [
-      "O zwrot pożyczonego złota",
-      "„Mnie też błogosławcie”",
-      "O pozostawienie lekarzy",
-      "O obietnicę powrotu za rok"
+      "Dniem targowym pustyni",
+      "Odpoczynkiem, świętym Szabatem dla PANA, w którym manna nie spada na pole",
+      "Dniem zwykłej pracy przy zbiorze drzewa",
+      "Świętem zakończenia postu"
     ],
     "c": 1
   },
   {
-    "q": "W czym lud Izraela niósł niezakwaszone ciasto opuszczając Egipt (Wj 12:34)?",
+    "q": "Co spotkało tych nieposłusznych, którzy wyszli zbierać mannę siódmego dnia (Wj 16:27)?",
     "a": [
-      "W żelaznych skrzyniach",
-      "W dzieżach owiniętych w swoje szaty na ramionach",
-      "Na wozach zaprzężonych w woły",
-      "W glinianych dzbanach"
+      "Zebrali potrójny omer przed wschodem słońca",
+      "Wyszli, ale nic nie znaleźli",
+      "Zostali ugryzieni przez pustynne węże",
+      "Znaleźli tylko gorzkie zioła"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Do czego werset Wj 16:31 porównuje wygląd i smak manny?",
+    "a": [
+      "Do żółtego jęczmienia o smaku gorzkiej oliwy",
+      "Była jak białe ziarno kolendry, a w smaku jak placek z miodem",
+      "Do czarnego żyta o smaku soli morskiej",
+      "Do czerwonych owoców granatu"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Po co PAN nakazał nabrać jeden pełny omer manny do dzbana i złożyć przed Świadectwem (Wj 16:32–34)?",
+    "a": [
+      "Na sprzedaż w ziemi Kanaan",
+      "Dla pokoleń, aby widziały chleb, którym PAN żywił ich na pustyni po wyjściu z Egiptu",
+      "Jako tajny lek dla faraona",
+      "Do rozdania kupcom z Edomu"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Jak długo synowie Izraela jedli mannę według Wj 16:35?",
+    "a": [
+      "Przez czterdzieści dni pod górą Synaj",
+      "Przez czterdzieści lat, aż przyszli do zamieszkanej ziemi na granicy Kanaanu",
+      "Tylko przez siedem miesięcy zimy",
+      "Przez sto dwadzieścia lat"
+    ],
+    "c": 1
+  },
+  {
+    "q": "Jakiej jednostce objętości odpowiadał jeden omer według ostatniego wersetu Wj 16:36?",
+    "a": [
+      "Połowie bata",
+      "Dziesiątej części efy",
+      "Trzem kwarcom egipskim",
+      "Dwóm talantom srebra"
     ],
     "c": 1
   }
@@ -1090,7 +1054,7 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
     }
 
     // ── PROGRESS & AUTO-SAVE ──
-    function completeDay42() {
+    function completeDay46() {
       try {
         localStorage.setItem(DAY_KEY + '_completed', 'true');
         localStorage.setItem(DAY_KEY + '_learned', document.getElementById('kc-input-learned').value || '');
@@ -1102,10 +1066,10 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
         const btn = document.getElementById('btn-complete-day');
         btn.classList.remove('from-amber-500', 'to-amber-600');
         btn.classList.add('bg-emerald-600', 'text-white');
-        btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Dzień 42 ukończony!</span>';
+        btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Dzień 46 ukończony!</span>';
       } catch(e) {}
     }
-    window.completeDay42 = completeDay42;
+    window.completeDay46 = completeDay46;
 
     function toggleTaskState(idx) {
       try {
@@ -1122,7 +1086,7 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
           if (btn) {
             btn.classList.remove('from-amber-500', 'to-amber-600');
             btn.classList.add('bg-emerald-600', 'text-white');
-            btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Dzień 42 ukończony!</span>';
+            btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Dzień 46 ukończony!</span>';
           }
         }
         const learned = localStorage.getItem(DAY_KEY + '_learned');
@@ -1151,7 +1115,7 @@ Szesnasty rozdział Księgi Wyjścia to fundamentalna lekcja Bożej opatrzności
           window.speechSynthesis.cancel();
           if (btnText) btnText.textContent = 'Lektor';
         } else {
-          const u = new SpeechSynthesisUtterance("A ta krew będzie dla was znakiem na domach, w których będziecie. Gdy bowiem ujrzę krew, ominę was i nie dotknie was plaga zniszczenia, gdy będę zabijał w ziemi Egiptu. (Księga Wyjścia 12:13 (UBG))");
+          const u = new SpeechSynthesisUtterance("Wtedy PAN powiedział do Mojżesza: Oto spuszczę wam jak deszcz chleb z nieba. Lud będzie wychodził i każdego dnia będzie zbierał według potrzeby dziennej, abym mógł go wystawić na próbę, czy będzie postępował zgodnie z moim prawem, czy nie. (Księga Wyjścia 16:4)");
           u.lang = 'pl-PL';
           u.onend = () => { if (btnText) btnText.textContent = 'Lektor'; };
           window.speechSynthesis.speak(u);

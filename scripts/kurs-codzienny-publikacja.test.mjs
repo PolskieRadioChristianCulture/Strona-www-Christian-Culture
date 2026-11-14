@@ -40,7 +40,7 @@ function paczka(root, lekcjaOst, obrazOst, { meta = {}, obraz, lekcja } = {}) {
   // Wszystkie postaci numeru dnia: „Dzień X”, dzien-XX, kc_dayX, kc_day_X i „Dzień X” zakodowany w linkach udostępniania.
   const zmienDzien = (s, z, na) => s
     .replace(new RegExp(`dzien-${pad(z)}(?!\\d)`, 'g'), `dzien-${pad(na)}`)
-    .replace(new RegExp(`(Dzień |kc_day_?|Dzie%C5%84%20)${z}(?!\\d)`, 'g'), `$1${na}`);
+    .replace(new RegExp(`(Dzień |kc_day_?|completeDay|Dzie%C5%84%20)${z}(?!\\d)`, 'g'), `$1${na}`);
   const html = lekcja ?? zmienDzien(zmienDzien(lekcjaOst.split(path.posix.basename(obrazOst)).join(nowyObraz), OSTATNI, N), OSTATNI - 1, OSTATNI)
     .replace(/<section[^>]*id="jutro"[\s\S]*?<\/section>/, (s) => s.replace(/JUTRO — [^<]+/, 'JUTRO — TEST'));
   fs.writeFileSync(path.join(dir, 'lekcja.html'), html);
