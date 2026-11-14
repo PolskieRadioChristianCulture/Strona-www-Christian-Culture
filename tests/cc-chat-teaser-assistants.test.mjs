@@ -75,4 +75,12 @@ test('cc-global-chat-button & cc-assistant: strict separation of General Chat vs
   assert.match(globalChat, /\(oklch\|oklab\)/);
   assert.match(globalChat, /detectPageThemePalette/);
   assert.match(globalChat, /applyTeaserPageTheme\(teaserBubble\)/);
+
+  // LUMI MESS zawsze na wierzchu (maksymalny z-index, brak nakrycia przez pływające przyciski/bary)
+  const integrationJs = fs.readFileSync('js/cc-chat-integration.js', 'utf8');
+  assert.match(globalChat, /\.cc-chat-drawer-overlay\s*\{[\s\S]*z-index:\s*2147483647\s*!important/);
+  assert.match(globalChat, /html\.cc-lumi-mess-open\s+#ccGlobalChatFab/);
+  assert.match(globalChat, /syncChatOverlayTopLayer/);
+  assert.match(integrationJs, /#ccUnifiedChatHost\{[^}]*z-index:2147483647/);
+  assert.match(integrationJs, /cc-lumi-mess-open/);
 });

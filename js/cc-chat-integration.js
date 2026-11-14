@@ -35,7 +35,7 @@
   radioReady.catch(() => {});
   const style = document.createElement('style');
   style.textContent = `
-    #ccUnifiedChatHost{position:fixed;inset:0;z-index:2147483000;background:#090e1a;display:flex;flex-direction:column;color:#f8fafc;font:14px system-ui}
+    #ccUnifiedChatHost{position:fixed;inset:0;z-index:2147483647;background:#090e1a;display:flex;flex-direction:column;color:#f8fafc;font:14px system-ui}
     #ccUnifiedChatHost[hidden]{display:none!important}
     #ccUnifiedChatFrame{width:100%!important;height:100%!important;flex:1;min-height:0;border:0;background:#090e1a}
     .cc-chat-radio{display:inline-flex;align-items:center;gap:6px;padding:3px 4px 3px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(196,163,90,0.3);border-radius:12px;color:#f8fafc;font:12px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;box-shadow:0 2px 6px rgba(0,0,0,0.25);flex-shrink:1;max-width:100%;margin:0 6px 0 auto!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:all .2s ease;height:38px;box-sizing:border-box}
@@ -203,6 +203,11 @@
       previousOverflow = document.body.style.overflow;
       opener = document.activeElement;
     }
+    if (host.parentElement !== document.body || document.body.lastElementChild !== host) {
+      document.body.appendChild(host);
+    }
+    document.documentElement.classList.add('cc-lumi-mess-open');
+    document.body.classList.add('cc-lumi-mess-open');
     host.hidden = false;
     document.body.style.overflow = 'hidden';
     frame?.focus?.();
@@ -211,6 +216,10 @@
   function close() {
     if (!host || host.hidden) return;
     host.hidden = true;
+    if (!document.querySelector('#ccGlobalChatOverlay.is-open')) {
+      document.documentElement.classList.remove('cc-lumi-mess-open');
+      document.body.classList.remove('cc-lumi-mess-open');
+    }
     document.body.style.overflow = previousOverflow || '';
     opener?.focus?.();
   }

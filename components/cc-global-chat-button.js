@@ -30,11 +30,30 @@
     integrationReady = new Promise(resolve => {
       const integration = document.createElement('script');
       integration.id = 'ccChatIntegrationScript';
-      integration.src = '/js/cc-chat-integration.js?v=20261110_asst4';
+      integration.src = '/js/cc-chat-integration.js?v=20261114_topmost1';
       integration.onload = resolve;
       integration.onerror = resolve;
       document.head.appendChild(integration);
     });
+  }
+
+  let hideActiveTeaserOnOpen = null;
+
+  function syncChatOverlayTopLayer(overlayEl, forceOpen, reorderDom) {
+    const overlay = overlayEl || document.getElementById('ccGlobalChatOverlay');
+    const unified = document.getElementById('ccUnifiedChatHost');
+    const overlayOpen = typeof forceOpen === 'boolean' ? forceOpen : !!overlay?.classList?.contains('is-open');
+    const unifiedOpen = !!unified && !unified.hidden;
+    const anyOpen = overlayOpen || unifiedOpen;
+    if (overlay && overlayOpen) {
+      if (reorderDom && document.body && (overlay.parentElement !== document.body || overlay.nextElementSibling)) {
+        document.body.appendChild(overlay);
+        void overlay.offsetWidth;
+      }
+      overlay.style.setProperty('z-index', '2147483647', 'important');
+    }
+    document.documentElement?.classList?.toggle('cc-lumi-mess-open', anyOpen);
+    document.body?.classList?.toggle('cc-lumi-mess-open', anyOpen);
   }
 
   // ── ROTACJA 3 ASYSTENTEK LUMI MESS Z DEDYKOWANYMI AWATARAMI I ZACZEPKĄ ──
@@ -566,9 +585,10 @@
         background: rgba(4, 6, 14, 0.72) !important;
         backdrop-filter: blur(12px) !important;
         -webkit-backdrop-filter: blur(12px) !important;
-        z-index: 10001 !important;
+        z-index: 2147483647 !important;
         opacity: 0 !important;
         visibility: hidden !important;
+        pointer-events: none !important;
         transition: opacity 0.25s ease, visibility 0.25s !important;
         display: flex !important;
         align-items: flex-end !important;
@@ -578,6 +598,44 @@
       .cc-chat-drawer-overlay.is-open {
         opacity: 1 !important;
         visibility: visible !important;
+        pointer-events: auto !important;
+        z-index: 2147483647 !important;
+      }
+
+      html.cc-lumi-mess-open #ccGlobalChatFab,
+      html.cc-lumi-mess-open body #ccGlobalChatFab,
+      html.cc-lumi-mess-open body:has(#luminaThemeSwitchBtn) #ccGlobalChatFab,
+      html.cc-lumi-mess-open #ccFloatingTopBarWrap,
+      html.cc-lumi-mess-open body #ccFloatingTopBarWrap,
+      html.cc-lumi-mess-open .cc-floating-topbar-wrap,
+      html.cc-lumi-mess-open #ccTopBarFavBtn,
+      html.cc-lumi-mess-open #ccFabDockToggle,
+      html.cc-lumi-mess-open #backToTopBtn,
+      html.cc-lumi-mess-open body #backToTopBtn,
+      html.cc-lumi-mess-open body:has(#luminaThemeSwitchBtn) #backToTopBtn,
+      html.cc-lumi-mess-open #luminaThemeSwitchBtn,
+      html.cc-lumi-mess-open body #luminaThemeSwitchBtn,
+      html.cc-lumi-mess-open body:has(#luminaThemeSwitchBtn) #luminaThemeSwitchBtn,
+      html.cc-lumi-mess-open #ccEdgePlusBtn,
+      html.cc-lumi-mess-open .lumina-scroll-top-btn,
+      html.cc-lumi-mess-open .ekocc-info-trigger,
+      html.cc-lumi-mess-open #luminaMiniPlayerContainer,
+      html.cc-lumi-mess-open body #luminaMiniPlayerContainer,
+      html.cc-lumi-mess-open body #luminaMiniPlayerContainer.minimized,
+      html.cc-lumi-mess-open body:has(#luminaThemeSwitchBtn) #luminaMiniPlayerContainer,
+      html.cc-lumi-mess-open body:has(#luminaThemeSwitchBtn) #luminaMiniPlayerContainer.minimized {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+
+      html.cc-lumi-mess-open .lumina-nav,
+      html.cc-lumi-mess-open .lumina-mobile-nav,
+      html.cc-lumi-mess-open .bottom-nav-container,
+      html.cc-lumi-mess-open #mainHeader,
+      html.cc-lumi-mess-open .shorts-header,
+      html.cc-lumi-mess-open #sideDrawer {
+        pointer-events: none !important;
       }
 
       .cc-chat-drawer {
@@ -595,6 +653,7 @@
         display: flex !important;
         flex-direction: column !important;
         overflow: hidden !important;
+        z-index: 2147483647 !important;
         transform: translateY(20px) scale(0.97) !important;
         opacity: 0 !important;
         transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
@@ -2858,6 +2917,7 @@
       teaserBubble.hidden = true;
       teaserBubble.style.setProperty('display', 'none', 'important');
     }
+    hideActiveTeaserOnOpen = hideTeaserImmediately;
 
     function dismissTeaserBubble(immediate) {
       isTeaserDismissed = true;
@@ -3437,6 +3497,7 @@
     // Otwieranie / zamykanie czatu
     function openChat() {
       hideTeaserImmediately();
+      syncChatOverlayTopLayer(overlay, true, true);
       overlay.classList.add('is-open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -3453,6 +3514,18 @@
       overlay.classList.remove('is-open');
       overlay.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      syncChatOverlayTopLayer(overlay, false, false);
+    }
+
+    if (overlay && typeof MutationObserver === 'function' && !overlay.dataset.ccTopLayerObserver) {
+      overlay.dataset.ccTopLayerObserver = '1';
+      new MutationObserver(() => {
+        const isOpenNow = overlay.classList.contains('is-open');
+        syncChatOverlayTopLayer(overlay, isOpenNow, false);
+        if (!isOpenNow && document.body.style.overflow === 'hidden') {
+          document.body.style.overflow = '';
+        }
+      }).observe(overlay, { attributes: true, attributeFilter: ['class'] });
     }
 
     if (btn) {
@@ -3687,9 +3760,9 @@
         modal = document.createElement('div');
         modal.id = 'ccShareMessageModal';
         modal.className = 'lumina-modal cc-share-modal';
-        modal.style.cssText = 'position:fixed; inset:0; background:rgba(0,0,0,0.78); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:9999999; display:flex; align-items:center; justify-content:center; padding:16px; opacity:0; pointer-events:none; transition:opacity 0.2s ease;';
-        document.body.appendChild(modal);
+        modal.style.cssText = 'position:fixed; inset:0; background:rgba(0,0,0,0.78); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:2147483647; display:flex; align-items:center; justify-content:center; padding:16px; opacity:0; pointer-events:none; transition:opacity 0.2s ease;';
       }
+      document.body.appendChild(modal);
 
       const previewQuote = (text.length > 180 ? text.slice(0, 180) + '…' : text);
       const encText = encodeURIComponent(shareText);
@@ -4038,12 +4111,15 @@
         if (overlay) {
           overlay.classList.remove('is-open');
           overlay.setAttribute('aria-hidden', 'true');
+          syncChatOverlayTopLayer(overlay, false, false);
         }
         window.CCUnifiedChat.open({ tab: targetTab === 'members' ? 'private' : 'public', partner: targetPartnerId });
         return;
       }
       const overlay = document.getElementById('ccGlobalChatOverlay');
       if (overlay) {
+        if (typeof hideActiveTeaserOnOpen === 'function') hideActiveTeaserOnOpen();
+        syncChatOverlayTopLayer(overlay, true, true);
         overlay.classList.add('is-open');
         overlay.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
