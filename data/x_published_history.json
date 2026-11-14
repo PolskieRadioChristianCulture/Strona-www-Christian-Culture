@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "holistyczny-coaching",
+      "title": "Holistyczny Coaching & Terapia Wolności — Paweł Murawski",
+      "url": "https://polskieradio.cc/holistyczny-coaching",
+      "type": "profile",
+      "image": "avatar_pawel_murawski.jpg",
+      "publishedAt": "2026-11-14T14:07:05.909Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "tv-epafraz",
       "title": "TV Epafraz — Całodobowy Kanał Telewizyjny Zboru w Warszawie (Live 24/7)",
       "url": "https://polskieradio.cc/tv-epafraz",
