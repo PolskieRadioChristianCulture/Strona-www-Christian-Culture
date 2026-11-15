@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #323 — Werset Dnia: Psalm 143:8 (UBG) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #322 — Książka: U boku Diabła (Cezary Rogowski) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
       "agent": "A"
     },
@@ -5060,8 +5065,18 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-15T09:33:00+01:00",
+  "lastUpdated": "2026-11-15T10:03:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-15",
+      "topic": "Zewnętrzna Promocja YT #3/24: Polskie Radio Christian Culture — Kampania Outbound (X, Facebook, Shorts/Reels)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #323 — Werset Dnia: Psalm 143:8 (UBG) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
     {
       "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #322 — Książka: U boku Diabła (Cezary Rogowski) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
@@ -5205,11 +5220,6 @@
     {
       "date": "2026-11-09",
       "topic": "cclite.pl: Faza 4 EkoCC — ujednolicenie GA4 (G-Y4EFTVBPE3), kafelki Akademii i Mapy CC, pomarańczowy CTA #FF7A00 i ergonomia 44px",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-09",
-      "topic": "cclite.pl: Likwidacja blokady modalu aktualizacji, ciche auto-odzyskiwanie PWA i przycisk zamknięcia",
       "agent": "A"
     }
   ],
