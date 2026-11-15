@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "bog-jest-miloscia",
+      "title": "Książka: Bóg jest MIŁOŚCIĄ? — Cezary i Wioletta Rogowscy. Odpowiedź na trudne pytania",
+      "url": "https://polskieradio.cc/bog-jest-miloscia",
+      "type": "book",
+      "image": "art-bog-jest-miloscia.jpg",
+      "publishedAt": "2026-11-15T16:03:31.253Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=324",
       "title": "Werset Dnia: „Czcij Pana swoją majętnością i pierwocinami wszystkich swoich dochodów” (Księga Przysłów 3:9-10, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=324",
