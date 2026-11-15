@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-15",
+      "topic": "CCN Nauka & Bioetyka: Publikacja artykułu („Implanty mózgowe, BCI, Neuralink a Imago Dei”) — pakiet redakcyjny EkoCC 1.0 DOCX/ZIP na Pulpicie",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #331 — Werset Dnia: Psalm 147:3 z dedykowaną grafiką tematyczną i Tablicą LUMINA",
       "agent": "A"
     },
@@ -246,71 +251,6 @@
     {
       "date": "2026-11-14",
       "topic": "CCN News X: Cykliczna publikacja #294 — Werset Dnia: Psalm 119:130 (UBG) z dedykowaną grafiką Słowa Bożego",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Profile LUMINA: Naprawa wyświetlania awatara (pełne koło nad kartą nagłówka na smartfonach i desktopie)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #293 — Kino VOD: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy z dedykowaną grafiką tematyczną",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #292 — Książka: Bóg jest MIŁOŚCIĄ? z dedykowaną grafiką tematyczną",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Tablica LUMINA (/tablica): Usunięcie błędnego przypięcia i daty 'Dzisiaj' ze starego posta AI/Antychryst oraz deduplikacja i wygaszanie cache",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Tablica LUMINA (/tablica): Całodniowa rotacyjna publikacja zasobów ekosystemu w 3 głosach (Christian Culture, Cezary Rogowski, Wioletta Rogowska)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #290 — Akademia Biblijna: Dzień 46 (Manna z nieba i świętość szabatu) z dedykowaną grafiką tematyczną",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Ulubione CC (cc-favorites.js): Naprawa warstwy z-index — gwiazdka nie zasłania przycisku zamykania czatu LUMI Messenger",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Rolki Wiary (LUMINA Shorts): Avatar-only przycisk logowania w rozwiniętym pasku Więcej bez wychodzenia poza ekran",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #289 — Społeczność CC: Premier HeatFix UK z dedykowaną grafiką tematyczną",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Rolki Wiary (LUMINA Shorts): Chowane panele „Więcej” oraz automatycznie znikające dolne napisy z przyciskiem na życzenie",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Akademia Biblijna: Nocna publikacja i aktywacja Lekcji Dnia 45 (Wj 15 — Pieśń Zwycięstwa i Gorzkie Wody Mara) + Word .docx na Pulpicie",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-13",
-      "topic": "CCN News X: Cykliczna publikacja #287 — Podcasty Christian Culture z dedykowaną grafiką tematyczną",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-13",
-      "topic": "CCN News X: Cykliczna publikacja #286 — Artykuł CCN News: Z Biblią za Pan Brat Dzień 31 (Bóg obrócił to w dobro) z dedykowaną grafiką tematyczną",
       "agent": "A"
     }
   ],
@@ -4325,8 +4265,13 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-15T14:00:00+01:00",
+  "lastUpdated": "2026-11-15",
   "recentUpdates": [
+    {
+      "date": "2026-11-15",
+      "topic": "CCN Nauka & Bioetyka: Publikacja artykułu („Implanty mózgowe, BCI, Neuralink a Imago Dei”) — pakiet redakcyjny EkoCC 1.0 DOCX/ZIP na Pulpicie",
+      "agent": "A"
+    },
     {
       "date": "2026-11-15",
       "topic": "eM / Kalendarz 365: Publikacja artykułu LP 12 („Gdy religia staje się konkursem na nienaganny wizerunek”) — autoryzacja L0 (bramka T3)",
@@ -4420,36 +4365,6 @@
     {
       "date": "2026-11-14",
       "topic": "CCN News X: Cykliczna publikacja #304 — Społeczność CC: Holistyczny Coaching & Terapia Wolności (Paweł Murawski) z grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN Finanse: Publikacja artykułu i pakietu redakcyjnego — Jak przygotować domowy budżet na grudzień bez kredytu (Cezary Rogowski)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #300 — Książka: Kod Źródłowy Duszy (Cezary Rogowski) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #299 — Akademia Biblijna: Dzień 35 (Wj 4:1–31) Znaki wiary i powołanie z dedykowaną grafiką",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN Finanse / Kalendarz 365: Opracowanie pakietu redakcyjnego LP 11 („Jak przygotować domowy budżet na grudzień bez kredytu?”) — DOCX, ZIP na Pulpicie, status T4",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Biblia i Teologia / Apologetyka / eM / CCN News: Publikacja dwóch analiz Cezarego Rogowskiego („Czy Jezus naprawdę był Bogiem?” oraz „Co z tym Michałem?”) z PDF i indeksem @w",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Newsletter EkoCC: Poranna wysyłka rozważania biblijnego na Dzień 45 (Wj 15 Pieśń Zwycięstwa i Mara) + synchronizacja D1",
       "agent": "A"
     }
   ],
