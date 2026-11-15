@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "u-boku-diabla",
+      "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
+      "url": "https://polskieradio.cc/u-boku-diabla",
+      "type": "book",
+      "image": "art-u-boku-diabla.jpg",
+      "publishedAt": "2026-11-15T08:32:55.281Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dzien-28",
       "title": "Z Biblią za Pan Brat — Dzień 28 (Lekcja 28): Ja jestem Józef — Przebaczenie i pojednanie (Rdz 44:1–45:28)",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-28",
