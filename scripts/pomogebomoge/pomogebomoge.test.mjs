@@ -40,7 +40,8 @@ test('dane płatności identyczne w każdym języku', () => {
 });
 
 test('pliki na stronie = wynik generatora (zmiany tylko przez locales i szablon)', () => {
-  for (const j of JEZYKI) assert.equal(fs.readFileSync(plikWyniku(j), 'utf8'), strona(j, wszystkie), `${plikWyniku(j)} różni się od generatora`);
+  const lf = (s) => s.replace(/\r\n/g, '\n'); // Git na Windows może zapisać CRLF — porównujemy treść, nie końce linii
+  for (const j of JEZYKI) assert.equal(lf(fs.readFileSync(plikWyniku(j), 'utf8')), lf(strona(j, wszystkie)), `${plikWyniku(j)} różni się od generatora`);
 });
 
 test('nigdy głos systemowy, zawsze oficjalne logo CC (PNG)', () => {
