@@ -12,11 +12,12 @@
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Wspieraj Christian Culture — darmo dajemy</title>
+<title>Pomogę, bo mogę — wspieraj Christian Culture</title>
 <meta name="description" content="Radio, telewizja, Biblia Audio i codzienna lekcja Pisma są bezpłatne dla każdego. Dobrowolne wsparcie — darowizna, modlitwa, udostępnienie, wolontariat — pozwala Christian Culture dawać dalej." />
-<meta name="robots" content="noindex, nofollow" />
-<link rel="canonical" href="https://polskieradio.cc/wspieraj" />
-<meta property="og:title" content="Wspieraj Christian Culture — darmo dajemy" />
+<link rel="canonical" href="https://polskieradio.cc/pomogebomoge" />
+<meta property="og:url" content="https://polskieradio.cc/pomogebomoge" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Pomogę, bo mogę — wspieraj Christian Culture" />
 <meta property="og:description" content="Bezpłatne radio, TV, Biblia Audio i codzienna lekcja Pisma. Twoje dobrowolne wsparcie pozwala dawać dalej." />
 <meta property="og:image" content="https://polskieradio.cc/biblia-audio/assets/hero-biblia-audio.jpg" />
 <meta name="theme-color" content="#07121D" />
@@ -72,8 +73,9 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
 .plansza h1 { font-size: var(--t-display); line-height: 0.92; letter-spacing: -0.05em; }
 .plansza__tekst p { font: 400 var(--t-lead)/1.4 var(--serif); max-width: 34ch; margin: 32px 0 40px; }
 .akcje { display: flex; flex-wrap: wrap; gap: 12px; }
-.plansza__liczba { justify-self: end; display: grid; gap: 12px; text-decoration: none; color: var(--soft); font: 400 var(--t-lead)/1.3 var(--serif); transition: color .2s; }
+.plansza__liczba { position: relative; z-index: 2; justify-self: end; display: grid; gap: 12px; text-decoration: none; color: var(--soft); font: 400 var(--t-lead)/1.3 var(--serif); transition: color .2s; }
 .plansza__liczba:hover { color: var(--ink); }
+.plansza__liczba > span:last-child { position: relative; z-index: 1; }
 .plansza__nr { font: 600 clamp(9rem, 22vw, 20rem)/0.8 var(--serif); letter-spacing: -0.06em; color: var(--gold); }
 
 /* Za darmo: spis ekosystemu */
@@ -170,12 +172,42 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
 .stopka__mail:hover { color: var(--action); }
 .stopka__meta { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 32px 0 0; font-size: var(--t-small); color: var(--soft); }
 
-/* Ruch */
+/* Ruch — dużo życia, zawsze tylko transform i opacity */
+.postep { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 60; background: var(--gold); transform-origin: left; transform: scaleX(0); }
+.js .slowa .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.js .slowa .w > span { display: inline-block; transform: translateY(108%); transition: transform 1s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
+.js .slowa.jest .w > span { transform: none; }
+.plansza__nr { display: inline-block; will-change: transform; animation: unosi 7s ease-in-out infinite; }
+@keyframes unosi { 0%, 100% { translate: 0 0; } 50% { translate: 0 -14px; } }
+.pas { background: var(--ground-2); margin-top: clamp(16px, 3vw, 40px); padding: 28px var(--m); }
+.pas__okno { overflow: hidden; }
+.pas__tor { display: flex; width: max-content; gap: 28px; align-items: center; animation: przesuw 46s linear infinite; font: 600 clamp(1.5rem, 2.6vw, 2.5rem)/1 var(--serif); letter-spacing: -0.02em; white-space: nowrap; }
+.pas__tor i { font-style: normal; color: var(--gold); }
+.pas:hover .pas__tor { animation-play-state: paused; }
+@keyframes przesuw { to { transform: translateX(-50%); } }
+.spis img { transition: transform .5s var(--ease); }
+.spis a:hover img { transform: scale(1.08) rotate(-2deg); }
+.karta { animation: pojaw .55s var(--ease); }
+@keyframes pojaw { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.pytania details[open] p { animation: pojaw .45s var(--ease); }
+.przycisk { position: relative; overflow: hidden; }
+.przycisk::after { content: ''; position: absolute; inset: 0; background: #fff; opacity: 0; transform: scale(0); border-radius: inherit; transition: transform .5s var(--ease), opacity .5s; }
+.przycisk:active::after { opacity: .18; transform: scale(1); transition: 0s; }
+.koniec .slowa .w > span { transition-duration: 1.2s; }
+.js .bez__uklad figure img { transform: scale(1.15); transition: transform 1.6s var(--ease); }
+.js .bez__uklad figure.jest img { transform: scale(1); }
+
 .js [data-wejscie] { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: var(--d, 0ms); }
 .js [data-wejscie].jest { opacity: 1; transform: none; }
 .js .migawka { clip-path: inset(0 100% 0 0); }
 .js .migawka.jest { clip-path: inset(0 0 0 0); transition: clip-path 1.1s var(--ease); }
 @media (prefers-reduced-motion: reduce) {
+  .postep { display: none; }
+  .js .slowa .w > span { transform: none; transition: none; }
+  .plansza__nr { animation: none; }
+  .pas__tor { animation: none; }
+  .karta, .pytania details[open] p { animation: none; }
+  .js .bez__uklad figure img { transform: none; transition: none; }
   html { scroll-behavior: auto; }
   .js [data-wejscie] { transform: none; transition: opacity .3s; }
   .js .migawka { clip-path: none; }
@@ -219,6 +251,7 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
 </style>
 </head>
 <body>
+<div class="postep" aria-hidden="true"></div>
 <a class="pomin" href="#panel">Przejdź do sposobów wsparcia</a>
 
 <header class="ramka bar">
@@ -232,7 +265,7 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
 <main>
   <section class="plansza ramka" aria-labelledby="tytul">
     <div class="plansza__tekst">
-      <h1 id="tytul">Darmo dajemy.</h1>
+      <h1 id="tytul" class="slowa">Darmo dajemy.</h1>
       <p>Radio, telewizja, Biblia Audio, Akademia, kino, wiadomości i społeczność — cały ekosystem Christian Culture jest bezpłatny dla każdego. Twoje dobrowolne wsparcie sprawia, że możemy dawać dalej.</p>
       <div class="akcje">
         <a class="przycisk" href="#panel" data-ga="support_method_select" data-ga-metoda="hero">Wesprzyj misję</a>
@@ -242,9 +275,11 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
     <a class="plansza__liczba" href="#ekosystem-tytul"><span class="plansza__nr" id="licznikUslug">16</span><span>miejsc w sieci —<br />wszystkie za darmo</span></a>
   </section>
 
+  <div class="pas" aria-hidden="true"><div class="pas__okno"><div class="pas__tor"><span>Radio</span><i>·</i><span>Global</span><i>·</i><span>Telewizja CCTV24</span><i>·</i><span>BCM24</span><i>·</i><span>Biblia Audio</span><i>·</i><span>Akademia Biblijna</span><i>·</i><span>MojaBiblia</span><i>·</i><span>Biblia do pobrania</span><i>·</i><span>Audioteka</span><i>·</i><span>Kino VOD</span><i>·</i><span>CCN News</span><i>·</i><span>LUMINA</span><i>·</i><span>Świadectwa</span><i>·</i><span>Modlitwa</span><i>·</i><span>topTEN</span><i>·</i><span>Ogłoszenia</span><i>·</i><span>Radio</span><i>·</i><span>Global</span><i>·</i><span>Telewizja CCTV24</span><i>·</i><span>BCM24</span><i>·</i><span>Biblia Audio</span><i>·</i><span>Akademia Biblijna</span><i>·</i><span>MojaBiblia</span><i>·</i><span>Biblia do pobrania</span><i>·</i><span>Audioteka</span><i>·</i><span>Kino VOD</span><i>·</i><span>CCN News</span><i>·</i><span>LUMINA</span><i>·</i><span>Świadectwa</span><i>·</i><span>Modlitwa</span><i>·</i><span>topTEN</span><i>·</i><span>Ogłoszenia</span><i>·</i></div></div></div>
+
   <section class="ekosystem ramka" aria-labelledby="ekosystem-tytul">
     <div class="ekosystem__gora">
-      <h2 id="ekosystem-tytul" data-wejscie>Za darmo</h2>
+      <h2 id="ekosystem-tytul" class="slowa">Za darmo</h2>
       <p data-wejscie><b>16 miejsc w sieci.</b> Bez reklam, bez płatnych wersji i bez sprzedawania danych. Codzienna lekcja kursu „Z Biblią za Pan Brat” — dziś dzień <span id="licznikDni">46</span> — Biblia Audio, transmisje i portale powstają dzięki ludziom, którzy dają dobrowolnie.</p>
     </div>
     <ul class="spis">
@@ -269,7 +304,7 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
 
   <section class="panel ramka" id="panel" aria-labelledby="panel-tytul">
     <div class="panel__bok" data-wejscie>
-      <h2 id="panel-tytul">Wybierz, jak chcesz dać</h2>
+      <h2 id="panel-tytul" class="slowa">Wybierz, jak chcesz dać</h2>
       <p>Raz albo regularnie, z Polski albo z zagranicy. Każda kwota jest dobrowolna.</p>
       <p class="cichy">Ta strona nie przyjmuje płatności i nie potwierdza wpłat. Nie podawaj tu danych karty, kodów BLIK ani haseł — płatność zawsze odbywa się w Twoim banku albo w serwisie, do którego prowadzi przycisk.</p>
     </div>
@@ -355,7 +390,7 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
   </section>
 
   <section class="pytania ramka" aria-labelledby="pytania-tytul">
-    <h2 id="pytania-tytul" data-wejscie>Zanim dasz</h2>
+    <h2 id="pytania-tytul" class="slowa">Zanim dasz</h2>
     <div class="pytania__lista">
       <details data-wejscie><summary>Czy ta strona potwierdza moją wpłatę?</summary><p>Nie. Kopiowanie numeru ani kliknięcie przycisku nie jest wpłatą. Płatność odbywa się wyłącznie w Twoim banku albo w serwisie Patronite, Revolut lub Zrzutka.pl i tam też widzisz jej potwierdzenie.</p></details>
       <details data-wejscie><summary>Czy mogę odliczyć darowiznę od podatku?</summary><p>Nie obiecujemy takiej możliwości. Odbiorcą przelewów jest osoba prywatna — Cezary Rogowski. W sprawach podatkowych zapytaj swojego doradcę.</p></details>
@@ -368,7 +403,7 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
 
   <section class="koniec" aria-labelledby="koniec-tytul">
     <div class="ramka">
-      <h2 id="koniec-tytul">Pomóż nieść Słowo dalej.</h2>
+      <h2 id="koniec-tytul" class="slowa">Pomóż nieść Słowo dalej.</h2>
       <div class="koniec__dol">
         <blockquote><p>„Darmo otrzymaliście, darmo dawajcie.”</p><footer>Mt 10:8, UBG</footer></blockquote>
         <a class="przycisk" href="#panel">Wesprzyj misję</a>
@@ -397,6 +432,8 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
     var dzien = Math.round((Date.UTC(+p.year, +p.month - 1, +p.day) - Date.UTC(2026, 9, 1)) / 864e5) + 1;
     if (dzien > 0) ['licznikDni'].forEach(function (id) { var e = document.getElementById(id); if (e) e.textContent = dzien; });
   } catch (e) {}
+
+  var bezRuchu = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Zakładki panelu (klawiatura: strzałki, Home, End).
   var zakladki = [].slice.call(document.querySelectorAll('[role="tab"]'));
@@ -434,7 +471,7 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
 
   // Pozostałe zdarzenia GA4 (bez danych osobowych).
   document.querySelectorAll('[data-ga]').forEach(function (a) { a.addEventListener('click', function () { ga(a.getAttribute('data-ga'), a.getAttribute('data-ga-metoda')); }); });
-  ga('support_view', 'wspieraj-v3');
+  ga('support_view', 'pomogebomoge');
 
   // Udostępnij dzisiejszą lekcję.
   var u = document.getElementById('udostepnij');
@@ -444,10 +481,38 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
     else { location.href = 'https://wa.me/?text=' + encodeURIComponent('Lekcja dnia z Biblią: ' + url); }
   });
 
+  // Słowa nagłówków: każde słowo w osobnej masce, wjeżdża kolejno (czytniki ekranu dostają cały tekst).
+  [].slice.call(document.querySelectorAll('.slowa')).forEach(function (h) {
+    var tekst = h.textContent.trim();
+    h.setAttribute('aria-label', h.getAttribute('aria-label') || tekst);
+    h.innerHTML = tekst.split(/\s+/).map(function (w, i) { return '<span class="w" aria-hidden="true"><span style="--i:' + i + '">' + w + '</span></span>'; }).join(' ');
+  });
+
+  // Licznik „16”: odliczanie od zera, gdy pojawi się na ekranie.
+  var nr = document.getElementById('licznikUslug');
+  function odliczaj() {
+    if (!nr || bezRuchu) return;
+    var cel = +nr.textContent, t0 = null;
+    function krok(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / 1400); nr.textContent = Math.round(cel * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(krok); }
+    nr.textContent = '0'; requestAnimationFrame(krok);
+  }
+
+  // Pasek postępu i lekki paralaksa liczby.
+  var pasek = document.querySelector('.postep'), liczba = document.querySelector('.plansza__liczba'), klatka = 0;
+  function przewijanie() {
+    klatka = 0;
+    var max = document.documentElement.scrollHeight - innerHeight;
+    if (pasek) pasek.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0).toFixed(4) + ')';
+    if (liczba && !bezRuchu) liczba.style.transform = 'translateY(' + Math.min(36, scrollY * 0.08).toFixed(1) + 'px)';
+  }
+  addEventListener('scroll', function () { if (!klatka) klatka = requestAnimationFrame(przewijanie); }, { passive: true });
+  przewijanie();
+
   // Wejścia sekcji i migawka pasma.
-  var cele = [].slice.call(document.querySelectorAll('[data-wejscie]'));
+  var cele = [].slice.call(document.querySelectorAll('[data-wejscie], .slowa, .bez__uklad figure'));
   cele.forEach(function (c, i) { c.style.setProperty('--d', (i % 4) * 80 + 'ms'); });
   var m = null;
+  odliczaj();
   if (typeof IntersectionObserver !== 'function') { cele.concat(m ? [m] : []).forEach(function (c) { c.classList.add('jest'); }); return; }
   var io = new IntersectionObserver(function (w) { w.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('jest'); io.unobserve(x.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
   cele.forEach(function (c) { io.observe(c); });
