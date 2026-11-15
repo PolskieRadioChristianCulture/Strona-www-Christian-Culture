@@ -139,7 +139,7 @@
     },
     "zrzutka": {
       "h3": "Collectes pour des projets précis",
-      "p": "Les objectifs, descriptions et l’état actuel figurent sur les pages de Zrzutka.pl (en polonais).",
+      "p": "Les collectes sur Zrzutka.pl sont gérées par Wioletta Rogowska. Les objectifs, descriptions et l’état actuel figurent sur les pages de Zrzutka.pl (en polonais).",
       "cta": "Collecte"
     },
     "odbiorca": "Bénéficiaire",
@@ -183,12 +183,12 @@
   },
   "ktory": {
     "aria": "Qui reçoit le soutien",
-    "odbiorca": "Bénéficiaire",
+    "odbiorca": "Bénéficiaire des virements",
     "forma": "Forme",
     "formaWartosc": "une initiative chrétienne privée",
     "kontakt": "Contact",
     "kontaktLink": "écrivez-nous",
-    "p1": "<b>Cezary Rogowski</b> dirige Christian Culture avec des personnes qui donnent leur temps à la mission. Tous les dons arrivent sur ses comptes et servent entièrement à garder gratuites la radio, la télévision, la Bible audio et l’Académie.",
+    "p1": "<b>Cezary Rogowski</b> dirige Christian Culture avec des personnes qui donnent leur temps à la mission. Les virements et BLIK arrivent sur ses comptes, les collectes sur Zrzutka.pl sont gérées par Wioletta Rogowska, et Patronite et Revolut indiquent le bénéficiaire sur leurs propres pages. Chaque don sert à garder gratuites la radio, la télévision, la Bible audio et l’Académie.",
     "p2": "Christian Culture est une initiative chrétienne indépendante et privée. Elle n’est liée ni à Polskie Radio S.A. ni à aucun diffuseur public et ne promet aucun avantage fiscal."
   },
   "faq": {

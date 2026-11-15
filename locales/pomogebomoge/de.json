@@ -11,7 +11,12 @@
   "logoAria": "Christian Culture — Startseite",
   "navAria": "Schnellzugriff",
   "jezykiAria": "Sprachen",
-  "nav": { "radio": "Radio", "tv": "Fernsehen", "audio": "Audio-Bibel", "akademia": "Akademie" },
+  "nav": {
+    "radio": "Radio",
+    "tv": "Fernsehen",
+    "audio": "Audio-Bibel",
+    "akademia": "Akademie"
+  },
   "akcja": "Mission unterstützen",
   "hero": {
     "h1": "Umsonst geben wir.",
@@ -24,35 +29,119 @@
     "lead": "<b>16 Orte im Netz.</b> Ohne Werbung, ohne Bezahlversionen und ohne Verkauf von Daten. Die tägliche Lektion unseres Bibelkurses — heute Tag {dzien} — die Audio-Bibel, Livestreams und Portale entstehen dank Menschen, die freiwillig geben. Die meisten Angebote sind auf Polnisch; Christian Culture Global sendet für Hörer weltweit."
   },
   "uslugi": {
-    "radio": ["Radio Christian Culture", "Musik, das Wort und Gespräche rund um die Uhr"],
-    "global": ["Christian Culture Global", "christliches Radio für Hörer in aller Welt"],
-    "tv": ["Fernsehen CCTV24", "ein Live-Kanal mit Lobpreis und Sendungen"],
-    "bcm": ["BCM24", "Biblische Gebetszeit — Live-Kanal rund um die Uhr"],
-    "audio": ["Audio-Bibel", "die Schrift, Kapitel für Kapitel gelesen"],
-    "akademia": ["Bibelakademie", "Kurse und eine tägliche Bibellektion"],
-    "mojabiblia": ["MojaBiblia", "interlineare Bibel und Übersetzungsvergleich"],
-    "pobierz": ["Bibel zum Herunterladen", "Dateien der Heiligen Schrift ohne Kosten"],
-    "audioteka": ["Hörbibliothek", "Hörbücher des Glaubens, kostenlos"],
-    "vod": ["VOD-Kino", "gute christliche Filme rund um die Uhr"],
-    "news": ["CCN News", "ein christliches Nachrichtenportal"],
-    "lumina": ["LUMINA", "eine Gemeinschaft von Beziehungen und Werten"],
-    "swiadectwa": ["Zeugnisse", "wahre Geschichten veränderter Leben"],
-    "modlitwa": ["Gebet", "gemeinsames Gebet für Polen und für Menschen"],
-    "topten": ["topTEN", "Charts christlicher Musik"],
-    "ogloszenia": ["Pinnwand", "eine christliche Gemeinschaftspinnwand"]
+    "radio": [
+      "Radio Christian Culture",
+      "Musik, das Wort und Gespräche rund um die Uhr"
+    ],
+    "global": [
+      "Christian Culture Global",
+      "christliches Radio für Hörer in aller Welt"
+    ],
+    "tv": [
+      "Fernsehen CCTV24",
+      "ein Live-Kanal mit Lobpreis und Sendungen"
+    ],
+    "bcm": [
+      "BCM24",
+      "Biblische Gebetszeit — Live-Kanal rund um die Uhr"
+    ],
+    "audio": [
+      "Audio-Bibel",
+      "die Schrift, Kapitel für Kapitel gelesen"
+    ],
+    "akademia": [
+      "Bibelakademie",
+      "Kurse und eine tägliche Bibellektion"
+    ],
+    "mojabiblia": [
+      "MojaBiblia",
+      "interlineare Bibel und Übersetzungsvergleich"
+    ],
+    "pobierz": [
+      "Bibel zum Herunterladen",
+      "Dateien der Heiligen Schrift ohne Kosten"
+    ],
+    "audioteka": [
+      "Hörbibliothek",
+      "Hörbücher des Glaubens, kostenlos"
+    ],
+    "vod": [
+      "VOD-Kino",
+      "gute christliche Filme rund um die Uhr"
+    ],
+    "news": [
+      "CCN News",
+      "ein christliches Nachrichtenportal"
+    ],
+    "lumina": [
+      "LUMINA",
+      "eine Gemeinschaft von Beziehungen und Werten"
+    ],
+    "swiadectwa": [
+      "Zeugnisse",
+      "wahre Geschichten veränderter Leben"
+    ],
+    "modlitwa": [
+      "Gebet",
+      "gemeinsames Gebet für Polen und für Menschen"
+    ],
+    "topten": [
+      "topTEN",
+      "Charts christlicher Musik"
+    ],
+    "ogloszenia": [
+      "Pinnwand",
+      "eine christliche Gemeinschaftspinnwand"
+    ]
   },
   "panel": {
     "h2": "Wähle, wie du geben möchtest",
     "lead": "Einmalig oder regelmäßig, aus Polen oder aus dem Ausland. Jeder Betrag ist freiwillig.",
     "uwaga": "Diese Seite nimmt keine Zahlungen an und bestätigt keine Spenden. Gib hier niemals Kartendaten, BLIK-Codes oder Passwörter ein — die Zahlung erfolgt immer in deiner Bank oder bei dem Dienst, zu dem die Schaltfläche führt.",
     "tabsAria": "Möglichkeiten zu geben",
-    "kolejnosc": ["revolut", "patronite", "przelew", "blik", "zrzutka"],
-    "tabs": { "blik": "BLIK (Polen)", "przelew": "Überweisung", "patronite": "Monatlich", "revolut": "Online", "zrzutka": "Spendenaktionen" },
-    "blik": { "h3": "BLIK-Überweisung aufs Telefon", "p": "Nur aus polnischen Banken. Wähle in deiner Banking-App „BLIK-Überweisung aufs Telefon“ und gib die Nummer unten ein.", "telefon": "Telefonnummer", "uwaga": "Funktioniert nur bei polnischen Banken, die BLIK-Überweisungen unterstützen. Aus dem Ausland wähle „Online“." },
-    "przelew": { "h3": "Überweisung in PLN", "p": "Zwei Konten in polnischen Złoty — wähle den Zweck, der dir am Herzen liegt.", "rozwoj": "Studio, Radio, TV, Technik", "dar": "Apps, biblische Inhalte, Evangelisation", "tytulWartosc": "„Rozwój Christian Culture“ oder „Dar misyjny“", "uwaga": "Beide Konten werden in PLN geführt. Einen SWIFT/BIC-Code veröffentlichen wir auf dieser Seite nicht; aus dem Ausland geht es am einfachsten über Revolut oder Patronite." },
-    "patronite": { "h3": "Patenschaft — regelmäßige Unterstützung", "p": "Eine monatliche Patenschaft auf Patronite, einer polnischen Plattform, hilft uns, Aufnahmen und Sendungen von Monat zu Monat zu planen. Betrag und Dauer bestimmst du selbst und kannst jederzeit beenden.", "cta": "Zu Patronite" },
-    "revolut": { "h3": "Revolut — online spenden", "p": "Eine einmalige Spende über einen sicheren Revolut-Link. Welche Zahlungsarten und Währungen möglich sind, zeigt Revolut selbst.", "cta": "Zu Revolut" },
-    "zrzutka": { "h3": "Spendenaktionen für einzelne Projekte", "p": "Ziele, Beschreibungen und aktueller Stand stehen auf den Seiten von Zrzutka.pl (auf Polnisch).", "cta": "Spendenaktion" },
+    "kolejnosc": [
+      "revolut",
+      "patronite",
+      "przelew",
+      "blik",
+      "zrzutka"
+    ],
+    "tabs": {
+      "blik": "BLIK (Polen)",
+      "przelew": "Überweisung",
+      "patronite": "Monatlich",
+      "revolut": "Online",
+      "zrzutka": "Spendenaktionen"
+    },
+    "blik": {
+      "h3": "BLIK-Überweisung aufs Telefon",
+      "p": "Nur aus polnischen Banken. Wähle in deiner Banking-App „BLIK-Überweisung aufs Telefon“ und gib die Nummer unten ein.",
+      "telefon": "Telefonnummer",
+      "uwaga": "Funktioniert nur bei polnischen Banken, die BLIK-Überweisungen unterstützen. Aus dem Ausland wähle „Online“."
+    },
+    "przelew": {
+      "h3": "Überweisung in PLN",
+      "p": "Zwei Konten in polnischen Złoty — wähle den Zweck, der dir am Herzen liegt.",
+      "rozwoj": "Studio, Radio, TV, Technik",
+      "dar": "Apps, biblische Inhalte, Evangelisation",
+      "tytulWartosc": "„Rozwój Christian Culture“ oder „Dar misyjny“",
+      "uwaga": "Beide Konten werden in PLN geführt. Einen SWIFT/BIC-Code veröffentlichen wir auf dieser Seite nicht; aus dem Ausland geht es am einfachsten über Revolut oder Patronite."
+    },
+    "patronite": {
+      "h3": "Patenschaft — regelmäßige Unterstützung",
+      "p": "Eine monatliche Patenschaft auf Patronite, einer polnischen Plattform, hilft uns, Aufnahmen und Sendungen von Monat zu Monat zu planen. Betrag und Dauer bestimmst du selbst und kannst jederzeit beenden.",
+      "cta": "Zu Patronite"
+    },
+    "revolut": {
+      "h3": "Revolut — online spenden",
+      "p": "Eine einmalige Spende über einen sicheren Revolut-Link. Welche Zahlungsarten und Währungen möglich sind, zeigt Revolut selbst.",
+      "cta": "Zu Revolut"
+    },
+    "zrzutka": {
+      "h3": "Spendenaktionen für einzelne Projekte",
+      "p": "Die Spendenaktionen auf Zrzutka.pl führt Wioletta Rogowska. Ziele, Beschreibungen und aktueller Stand stehen auf den Seiten von Zrzutka.pl (auf Polnisch).",
+      "cta": "Spendenaktion"
+    },
     "odbiorca": "Empfänger",
     "tytul": "Verwendungszweck",
     "kopiuj": "Kopieren",
@@ -65,34 +154,70 @@
     "h2b": "auch ohne Geld",
     "figAlt": "Audio-Bibel von Christian Culture",
     "nazwa": "Fünf Wege",
-    "modlitwa": ["Bete", "für die Mission und für die Menschen, die das Wort erreicht"],
-    "udostepnij": ["Teile", "diese Seite mit jemandem, der davon wissen sollte"],
-    "wolontariat": ["Mitarbeit", "Zeit und Fähigkeiten: Aufnahmen, Grafik, Übersetzung, Code", "Mitarbeit bei Christian Culture"],
-    "partnerstwo": ["Partnerschaft", "für Gemeinden, Kreative und Organisationen", "Partnerschaft mit Christian Culture"],
-    "sprzet": ["Ausrüstung", "ein Mikrofon, eine Kamera oder ein Computer, den du nicht mehr nutzt", "Ausrüstung für Christian Culture"],
+    "modlitwa": [
+      "Bete",
+      "für die Mission und für die Menschen, die das Wort erreicht"
+    ],
+    "udostepnij": [
+      "Teile",
+      "diese Seite mit jemandem, der davon wissen sollte"
+    ],
+    "wolontariat": [
+      "Mitarbeit",
+      "Zeit und Fähigkeiten: Aufnahmen, Grafik, Übersetzung, Code",
+      "Mitarbeit bei Christian Culture"
+    ],
+    "partnerstwo": [
+      "Partnerschaft",
+      "für Gemeinden, Kreative und Organisationen",
+      "Partnerschaft mit Christian Culture"
+    ],
+    "sprzet": [
+      "Ausrüstung",
+      "ein Mikrofon, eine Kamera oder ein Computer, den du nicht mehr nutzt",
+      "Ausrüstung für Christian Culture"
+    ],
     "udostepnijCo": "strona",
     "udostepnijTytul": "Umsonst geben wir — unterstütze Christian Culture",
     "udostepnijTekst": "Christian Culture gibt alles kostenlos: "
   },
   "ktory": {
     "aria": "Wer die Unterstützung erhält",
-    "odbiorca": "Empfänger",
+    "odbiorca": "Empfänger der Überweisungen",
     "forma": "Form",
     "formaWartosc": "eine private christliche Initiative",
     "kontakt": "Kontakt",
     "kontaktLink": "schreib uns",
-    "p1": "<b>Cezary Rogowski</b> leitet Christian Culture gemeinsam mit Menschen, die der Mission ihre Zeit schenken. Alle Spenden gehen auf seine Konten und dienen vollständig dazu, dass Radio, Fernsehen, Audio-Bibel und Akademie kostenlos bleiben.",
+    "p1": "<b>Cezary Rogowski</b> leitet Christian Culture gemeinsam mit Menschen, die der Mission ihre Zeit schenken. Überweisungen und BLIK gehen auf seine Konten, die Spendenaktionen auf Zrzutka.pl führt Wioletta Rogowska, und Patronite und Revolut zeigen den Empfänger auf ihren eigenen Seiten. Jede Gabe dient dazu, dass Radio, Fernsehen, Audio-Bibel und Akademie kostenlos bleiben.",
     "p2": "Christian Culture ist eine unabhängige, private christliche Initiative. Sie ist weder mit Polskie Radio S.A. noch mit einem anderen öffentlich-rechtlichen Sender verbunden und verspricht keine steuerlichen Vorteile."
   },
   "faq": {
     "h2": "Bevor du gibst",
     "items": [
-      ["Bestätigt diese Seite meine Spende?", "Nein. Das Kopieren einer Nummer oder ein Klick auf eine Schaltfläche ist keine Zahlung. Gezahlt wird nur in deiner Bank oder bei Patronite, Revolut oder Zrzutka.pl, wo du auch die Bestätigung siehst."],
-      ["Kann ich die Spende von der Steuer absetzen?", "Das versprechen wir nicht. Überweisungen gehen an eine Privatperson — Cezary Rogowski. Bitte frage deine Steuerberatung."],
-      ["Ich lebe im Ausland. Wie kann ich helfen?", "BLIK-Überweisungen funktionieren nur bei polnischen Banken, und unsere Konten werden in PLN geführt. Aus dem Ausland ist Revolut oder eine Patenschaft auf Patronite am einfachsten."],
-      ["Was ist der Unterschied zwischen Patenschaft und Spende?", "Eine Patenschaft auf Patronite ist eine regelmäßige monatliche Unterstützung, die du jederzeit beenden kannst. Überweisung, BLIK, Revolut oder Spendenaktion sind einmalige Gaben."],
-      ["Wofür wird das Geld verwendet?", "Das Konto „Rozwój Christian Culture“ finanziert Studio, Radio, Fernsehen und Technik. Das Konto „Dar misyjny“ finanziert Apps, biblische Inhalte und Evangelisation. Patenschaften und Online-Spenden unterstützen die ganze Mission."],
-      ["Veröffentlicht ihr die Namen von Spendern?", "Nur mit deiner ausdrücklichen Zustimmung, die du widerrufen kannst — und nie mit Betrag oder Bankdaten."]
+      [
+        "Bestätigt diese Seite meine Spende?",
+        "Nein. Das Kopieren einer Nummer oder ein Klick auf eine Schaltfläche ist keine Zahlung. Gezahlt wird nur in deiner Bank oder bei Patronite, Revolut oder Zrzutka.pl, wo du auch die Bestätigung siehst."
+      ],
+      [
+        "Kann ich die Spende von der Steuer absetzen?",
+        "Das versprechen wir nicht. Überweisungen gehen an eine Privatperson — Cezary Rogowski. Bitte frage deine Steuerberatung."
+      ],
+      [
+        "Ich lebe im Ausland. Wie kann ich helfen?",
+        "BLIK-Überweisungen funktionieren nur bei polnischen Banken, und unsere Konten werden in PLN geführt. Aus dem Ausland ist Revolut oder eine Patenschaft auf Patronite am einfachsten."
+      ],
+      [
+        "Was ist der Unterschied zwischen Patenschaft und Spende?",
+        "Eine Patenschaft auf Patronite ist eine regelmäßige monatliche Unterstützung, die du jederzeit beenden kannst. Überweisung, BLIK, Revolut oder Spendenaktion sind einmalige Gaben."
+      ],
+      [
+        "Wofür wird das Geld verwendet?",
+        "Das Konto „Rozwój Christian Culture“ finanziert Studio, Radio, Fernsehen und Technik. Das Konto „Dar misyjny“ finanziert Apps, biblische Inhalte und Evangelisation. Patenschaften und Online-Spenden unterstützen die ganze Mission."
+      ],
+      [
+        "Veröffentlicht ihr die Namen von Spendern?",
+        "Nur mit deiner ausdrücklichen Zustimmung, die du widerrufen kannst — und nie mit Betrag oder Bankdaten."
+      ]
     ]
   },
   "koniec": {
@@ -106,5 +231,8 @@
     "prywatnosc": "Datenschutz",
     "grafiki": "Bilder: Angebote von Christian Culture"
   },
-  "sugestia": { "tekst": "Diese Seite gibt es auch auf Deutsch.", "przycisk": "In dieser Version bleiben" }
+  "sugestia": {
+    "tekst": "Diese Seite gibt es auch auf Deutsch.",
+    "przycisk": "In dieser Version bleiben"
+  }
 }
