@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-14T13:11:31.579Z",
+  "updatedAt": "2026-11-15T08:03:53.295Z",
   "totalItems": 451,
   "contextGuides": {
     "nadzieja": {
@@ -8551,7 +8551,7 @@
       "title": "Z Biblią za Pan Brat — Dzień 46: MANNA Z NIEBA I ŚWIĘTOŚĆ SZABATU — BOŻE ZAOPATRZENIE NA PUSTYNI (Wj 16:1–36)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-46",
-      "description": "Dzień 46 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 16:1–36: Głód na pustyni Sin, deszcz chleba z nieba, przepiórki i dar świętego odpoczynku (Wj 16:1–36)",
+      "description": "Dzień 46 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 16:1–36: Głodny lud na pustyni Sin, deszcz chleba z nieba, przepiórki o zmierzchu, miara omera i dar Bożego odpoczynku w Szabacie (Wj 16:1–36)",
       "tags": [
         "kurs codzienny",
         "z biblią za pan brat",
@@ -11034,16 +11034,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 14",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 14 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 15",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 15 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 45)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 46)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-45",
+      "url": "/akademia/kurscodzienny/dzien-46",
       "icon": "book"
     },
     {
@@ -11062,15 +11062,15 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-14T13:11:31.661Z",
+    "updatedAt": "2026-11-15T08:03:53.427Z",
     "heading": "Polecane na dziś",
-    "dateFormattedPL": "14 listopada 2026",
+    "dateFormattedPL": "15 listopada 2026",
     "pools": [
       [
         {
           "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 14",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 14 listopada 2026.",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 15",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 15 listopada 2026.",
           "url": "/player",
           "icon": "heart"
         },
@@ -11099,9 +11099,9 @@
       [
         {
           "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 45)",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 46)",
           "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-45",
+          "url": "/akademia/kurscodzienny/dzien-46",
           "icon": "book"
         },
         {
@@ -11190,16 +11190,16 @@
     "recommendedToday": [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 14",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 14 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 15",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 15 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 45)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 46)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-45",
+        "url": "/akademia/kurscodzienny/dzien-46",
         "icon": "book"
       },
       {

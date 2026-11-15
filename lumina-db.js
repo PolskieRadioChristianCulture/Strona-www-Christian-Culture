@@ -37,6 +37,7 @@ import {
     or,
     orderBy, 
     limit, 
+    startAfter,
     serverTimestamp,
     increment,
     writeBatch,
@@ -79,6 +80,7 @@ import {
 } from './js/lumina-db/badges.js';
 import {
     formatLuminaDevotionalContent,
+    fetchCanonicalDailyReflection,
     loadLuminaDailyDevotional,
     configureDevotionalFeed,
     initDevotionalFeedAutoRefresh
@@ -114,6 +116,7 @@ export {
     open3DBadgeDetailsModal,
     close3DBadgeModal,
     formatLuminaDevotionalContent,
+    fetchCanonicalDailyReflection,
     loadLuminaDailyDevotional,
     LuminaLivePrayer,
     KURS_MALZENSKI_EPISODES,
@@ -2073,29 +2076,15 @@ export function subscribeToAllCommunityProfiles(onUpdate) {
                 const nameLower = '';
                 const slugLower = (LUMINA_RESERVED_PROFILE_SLUGS.includes(_rawSlugLower) || ['andrzejhamera', 'u_yciezywymbogiem_4231'].includes(_rawSlugLower)) ? _rawSlugLower : '';
 
-                // Żelazne wymuszenie i samonaprawa danych Cezarego (51 lat, Ostrowiec Św.)
+                // Wyłącznie projekcja odczytu w pamięci (ZERO zapisów setDoc podczas subskrypcji katalogu)
                 if (slugLower.includes('cezary') || nameLower.includes('cezary')) {
                     p.name = 'Cezary Rogowski';
                     p.age = 51;
                     p.city = 'Ostrowiec Świętokrzyski, Polska';
                     p.avatar = 'avatar_cezary_official.jpg';
                     p.status = 'Żonaty';
-                    if (data.age !== 51 || !data.city?.includes('Ostrowiec')) {
-                        try {
-                            setDoc(doc(db, 'lumina_profiles', d.id), {
-                                name: 'Cezary Rogowski',
-                                age: 51,
-                                city: 'Ostrowiec Świętokrzyski, Polska',
-                                avatar: 'avatar_cezary_official.jpg',
-                                status: 'Żonaty',
-                                job: 'Założyciel Christian Culture',
-                                updatedAt: serverTimestamp()
-                            }, { merge: true });
-                        } catch(err) {}
-                    }
                 }
 
-                // Żelazne wymuszenie i samonaprawa danych Wioletty (50 lat, Ostrowiec Św.)
                 if (slugLower.includes('wioletta') || nameLower.includes('wioletta')) {
                     p.name = 'Wioletta Rogowska';
                     p.age = 50;
@@ -2103,44 +2092,18 @@ export function subscribeToAllCommunityProfiles(onUpdate) {
                     p.avatar = 'avatar_wioletta_official.jpg';
                     p.avatarVideo = 'wioletta_rogowska_video_avatar.mp4';
                     p.status = 'Mężatka';
-                    if (data.age !== 50 || !data.city?.includes('Ostrowiec') || !data.avatarVideo) {
-                        try {
-                            setDoc(doc(db, 'lumina_profiles', d.id), {
-                                name: 'Wioletta Rogowska',
-                                age: 50,
-                                city: 'Ostrowiec Świętokrzyski, Polska',
-                                avatar: 'avatar_wioletta_official.jpg',
-                                avatarVideo: 'wioletta_rogowska_video_avatar.mp4',
-                                status: 'Mężatka',
-                                job: 'Współzałożycielka Christian Culture',
-                                updatedAt: serverTimestamp()
-                            }, { merge: true });
-                        } catch(err) {}
-                    }
                 }
 
                 // Żelazny zakaz prywatnego zdjęcia Dowódcy na obcych profilach (wyjątek wyłącznie dla żony Wioletty)
                 const isCmdProfile = slugLower.includes('cezary') || nameLower.includes('cezary');
                 const isWifeProfile = slugLower.includes('wioletta') || nameLower.includes('wioletta');
                 if (!isCmdProfile && !isWifeProfile) {
-                    let profileContaminated = false;
                     if (p.avatar && (p.avatar.includes('avatar_new1') || p.avatar.includes('avatar_cezary') || p.avatar.includes('cezary_rgowski') || p.avatar.includes('cezary_rogowski'))) {
                         p.avatar = 'lumina_icon.jpg';
-                        profileContaminated = true;
                     }
                     if (Array.isArray(p.photos) && p.photos.some(ph => ph && (ph.includes('avatar_new1') || ph.includes('avatar_cezary') || ph.includes('cezary')))) {
                         p.photos = p.photos.filter(ph => ph && !ph.includes('avatar_new1') && !ph.includes('avatar_cezary') && !ph.includes('cezary'));
                         if (p.photos.length === 0) p.photos = ['lumina_icon.jpg'];
-                        profileContaminated = true;
-                    }
-                    if (profileContaminated) {
-                        try {
-                            setDoc(doc(db, 'lumina_profiles', d.id), {
-                                avatar: p.avatar,
-                                photos: p.photos,
-                                updatedAt: serverTimestamp()
-                            }, { merge: true });
-                        } catch(err) {}
                     }
                 }
 
@@ -2191,7 +2154,7 @@ export function subscribeToAllCommunityProfiles(onUpdate) {
                     p.profileUrl = 'lumina.marekjakubowski.html';
                 }
 
-                // Żelazne wymuszenie i samonaprawa danych Pawła Murawskiego (49 lat, Żywiec, Protestanckie, Nabożeństwa Sobotnie)
+                // Wyłącznie projekcja odczytu w pamięci dla Pawła Murawskiego (ZERO zapisów w onSnapshot)
                 if (slugLower === 'u_yciezywymbogiem_4231' || d.id === 'NHjYeuO4nxM8fIfEJPHmi9rTQV12' || (p.email && p.email.toLowerCase() === 'bozenowezycie@gmail.com') || nameLower.includes('murawski')) {
                     p.name = 'Paweł Murawski';
                     p.age = 49;
@@ -2210,44 +2173,13 @@ export function subscribeToAllCommunityProfiles(onUpdate) {
                     p.photos = ['avatar_pawel_murawski.jpg', 'lumina_default_cover.jpg'];
                     p.carouselMediaUrl = 'avatar_pawel_murawski.jpg';
                     p.hasRealPhoto = true;
-                    if (data.age !== 49 || data.name !== 'Paweł Murawski' || data.avatar !== 'avatar_pawel_murawski.jpg' || data.city !== 'Żywiec, Polska' || data.denom !== 'Protestanckie' || data.church !== 'Nabożeństwa Sobotnie') {
-                        try {
-                            setDoc(doc(db, 'lumina_profiles', d.id), {
-                                name: 'Paweł Murawski',
-                                age: 49,
-                                gender: 'mezczyzna',
-                                lookingFor: 'kobieta',
-                                status: 'Kawaler',
-                                city: 'Żywiec, Polska',
-                                denom: 'Protestanckie',
-                                church: 'Nabożeństwa Sobotnie',
-                                worshipDay: 'Sobotnie nabożeństwo',
-                                avatar: 'avatar_pawel_murawski.jpg',
-                                photos: ['avatar_pawel_murawski.jpg', 'lumina_default_cover.jpg'],
-                                carouselMediaUrl: 'avatar_pawel_murawski.jpg',
-                                hasRealPhoto: true,
-                                profileCompleted: true,
-                                needsProfileCompletion: false,
-                                updatedAt: serverTimestamp()
-                            }, { merge: true }).catch(() => {});
-                        } catch(err) {}
-                    }
                 }
 
 
-                // ── Deduplikacja awatarów: Sylwia nie może mieć tego samego zdjęcia co Dorota ──
-                // Obie zarejestrowały się z domyślnym awatarem lumina_anna2.jpg (identycznym z avatar_dorota.jpg).
-                // Override dla Sylwii → avatar_new2.jpg (całkowicie inne zdjęcie).
+                // ── Deduplikacja awatarów: Sylwia nie może mieć tego samego zdjęcia co Dorota (wyłącznie w pamięci) ──
                 const DUPLICATE_AVATARS = ['lumina_anna2.jpg', 'avatar_dorota.jpg'];
                 if (nameLower.includes('sylwia') && DUPLICATE_AVATARS.includes(p.avatar)) {
                     p.avatar = 'avatar_new2.jpg';
-                    // Spróbuj naprawić też w Firestore (zadziała gdy zalogowana)
-                    try {
-                        setDoc(doc(db, 'lumina_profiles', d.id), {
-                            avatar: 'avatar_new2.jpg',
-                            updatedAt: serverTimestamp()
-                        }, { merge: true }).catch(() => {});
-                    } catch(err) {}
                 }
 
                 profiles.push(p);
@@ -2264,7 +2196,7 @@ export function subscribeToAllCommunityProfiles(onUpdate) {
 // 3. FEED & POSTS REALTIME SYNC (Tablica Społeczności 1:1)
 // ══════════════════════════════════════════════════════════════════════════
 
-export function subscribeToFeedPosts(onUpdate) {
+export function subscribeToFeedPosts(onUpdate, options = {}) {
     try {
         const localCached = localStorage.getItem('lumina_cloud_posts_cache');
         if (localCached) {
@@ -2275,11 +2207,13 @@ export function subscribeToFeedPosts(onUpdate) {
     if (!db) return () => {};
 
     try {
-        const postsQuery = query(
-            collection(db, 'lumina_posts'),
-            orderBy('createdAtTimestamp', 'desc'),
-            limit(50)
-        );
+        const safeLimit = Math.min(50, Math.max(5, Number(options.limitCount) || 25));
+        const constraints = [collection(db, 'lumina_posts')];
+        if (options.authorSlug) constraints.push(where('authorSlug', '==', String(options.authorSlug)));
+        if (options.category) constraints.push(where('type', '==', String(options.category)));
+        constraints.push(orderBy('createdAtTimestamp', 'desc'));
+        constraints.push(limit(safeLimit));
+        const postsQuery = query(...constraints);
 
         return onSnapshot(postsQuery, (snap) => {
             const cloudPosts = [];
@@ -2289,6 +2223,16 @@ export function subscribeToFeedPosts(onUpdate) {
                     ...d.data()
                 });
             });
+
+            const lastDoc = snap.docs && snap.docs.length ? snap.docs[snap.docs.length - 1] : null;
+            const hasMore = Boolean(snap.docs && snap.docs.length >= safeLimit);
+            if (typeof window !== 'undefined') {
+                window._luminaFeedCursor = lastDoc;
+                window._luminaFeedHasMore = hasMore;
+            }
+            if (typeof options.onMeta === 'function') {
+                options.onMeta({ lastDoc, hasMore, limitCount: safeLimit });
+            }
 
             try {
                 localStorage.setItem('lumina_cloud_posts_cache', JSON.stringify(cloudPosts));
@@ -2301,6 +2245,34 @@ export function subscribeToFeedPosts(onUpdate) {
     } catch(err) {
         console.warn('subscribeToFeedPosts error:', err);
         return () => {};
+    }
+}
+
+export async function loadFeedPostsPage({ cursor = null, pageSize = 15, authorSlug = null, category = null } = {}) {
+    if (!db) return { posts: [], lastDoc: null, hasMore: false };
+    try {
+        const safeSize = Math.min(50, Math.max(1, Number(pageSize) || 15));
+        const constraints = [collection(db, 'lumina_posts')];
+        if (authorSlug) constraints.push(where('authorSlug', '==', String(authorSlug)));
+        if (category) constraints.push(where('type', '==', String(category)));
+        constraints.push(orderBy('createdAtTimestamp', 'desc'));
+        if (cursor) constraints.push(startAfter(cursor));
+        constraints.push(limit(safeSize + 1));
+
+        const snap = await getDocs(query(...constraints));
+        const hasMore = snap.docs.length > safeSize;
+        const pageDocs = hasMore ? snap.docs.slice(0, safeSize) : snap.docs;
+        const lastDoc = pageDocs.length ? pageDocs[pageDocs.length - 1] : null;
+        const posts = pageDocs.map(d => ({ id: d.id, ...d.data() }));
+
+        if (typeof window !== 'undefined') {
+            window._luminaFeedCursor = lastDoc;
+            window._luminaFeedHasMore = hasMore;
+        }
+        return { posts, lastDoc, hasMore };
+    } catch (err) {
+        console.warn('loadFeedPostsPage error:', err?.message || err);
+        return { posts: [], lastDoc: null, hasMore: false };
     }
 }
 
@@ -2740,7 +2712,7 @@ export async function publishCloudShort(shortData) {
     return normalized;
 }
 
-export function subscribeToCloudShorts(onUpdate) {
+export function subscribeToCloudShorts(onUpdate, options = {}) {
     // Natychmiastowe przekazanie danych z pamięci podręcznej (Zero-Lag UI)
     try {
         const cached = localStorage.getItem('lumina_cloud_shorts_cache');
@@ -2755,11 +2727,13 @@ export function subscribeToCloudShorts(onUpdate) {
     if (!db) return () => {};
 
     try {
-        const shortsQuery = query(
-            collection(db, 'lumina_shorts'),
-            orderBy('createdAtTimestamp', 'desc'),
-            limit(50)
-        );
+        const safeLimit = Math.min(50, Math.max(4, Number(options.limitCount) || 24));
+        const constraints = [collection(db, 'lumina_shorts')];
+        if (options.authorSlug) constraints.push(where('authorSlug', '==', String(options.authorSlug)));
+        if (options.category) constraints.push(where('category', '==', String(options.category)));
+        constraints.push(orderBy('createdAtTimestamp', 'desc'));
+        constraints.push(limit(safeLimit));
+        const shortsQuery = query(...constraints);
 
         return onSnapshot(shortsQuery, (snap) => {
             const cloudShorts = [];
@@ -2771,6 +2745,13 @@ export function subscribeToCloudShorts(onUpdate) {
                     firestoreDocId: d.id
                 });
             });
+
+            const lastDoc = snap.docs && snap.docs.length ? snap.docs[snap.docs.length - 1] : null;
+            const hasMore = Boolean(snap.docs && snap.docs.length >= safeLimit);
+            if (typeof window !== 'undefined') {
+                window._luminaShortsCursor = lastDoc;
+                window._luminaShortsHasMore = hasMore;
+            }
 
             try {
                 localStorage.setItem('lumina_cloud_shorts_cache', JSON.stringify(cloudShorts));
@@ -2786,7 +2767,38 @@ export function subscribeToCloudShorts(onUpdate) {
     }
 }
 
-export async function getCloudShorts() {
+export async function loadCloudShortsPage({ cursor = null, pageSize = 12, authorSlug = null, category = null } = {}) {
+    if (!db) return { shorts: [], lastDoc: null, hasMore: false };
+    try {
+        const safeSize = Math.min(50, Math.max(1, Number(pageSize) || 12));
+        const constraints = [collection(db, 'lumina_shorts')];
+        if (authorSlug) constraints.push(where('authorSlug', '==', String(authorSlug)));
+        if (category) constraints.push(where('category', '==', String(category)));
+        constraints.push(orderBy('createdAtTimestamp', 'desc'));
+        if (cursor) constraints.push(startAfter(cursor));
+        constraints.push(limit(safeSize + 1));
+
+        const snap = await getDocs(query(...constraints));
+        const hasMore = snap.docs.length > safeSize;
+        const pageDocs = hasMore ? snap.docs.slice(0, safeSize) : snap.docs;
+        const lastDoc = pageDocs.length ? pageDocs[pageDocs.length - 1] : null;
+        const shorts = pageDocs.map(d => {
+            const data = d.data();
+            return { id: data.id || d.id, ...data, firestoreDocId: d.id };
+        });
+
+        if (typeof window !== 'undefined') {
+            window._luminaShortsCursor = lastDoc;
+            window._luminaShortsHasMore = hasMore;
+        }
+        return { shorts, lastDoc, hasMore };
+    } catch (err) {
+        console.warn('[LuminaDB] loadCloudShortsPage error:', err?.message || err);
+        return { shorts: [], lastDoc: null, hasMore: false };
+    }
+}
+
+export async function getCloudShorts(limitCount = 24) {
     if (!db) {
         try {
             return JSON.parse(localStorage.getItem('lumina_custom_shorts') || '[]');
@@ -2795,10 +2807,11 @@ export async function getCloudShorts() {
         }
     }
     try {
+        const safeLimit = Math.min(50, Math.max(4, Number(limitCount) || 24));
         const shortsQuery = query(
             collection(db, 'lumina_shorts'),
             orderBy('createdAtTimestamp', 'desc'),
-            limit(50)
+            limit(safeLimit)
         );
         const snap = await getDocs(shortsQuery);
         const cloudShorts = [];
@@ -5491,6 +5504,7 @@ window.LuminaDB.isProfileRecommendedForUser = isProfileRecommendedForUser;
 // Global window attachment for seamless cross-script integration
 window.LuminaDB = Object.assign(window.LuminaDB || {}, {
     isProfileNew,
+    fetchCanonicalDailyReflection,
     loadLuminaDailyDevotional,
 
     onAuthChange,
@@ -5500,8 +5514,10 @@ window.LuminaDB = Object.assign(window.LuminaDB || {}, {
     createFeedPost,
     publishCloudShort,
     subscribeToCloudShorts,
+    loadCloudShortsPage,
     getCloudShorts,
     subscribeToFeedPosts,
+    loadFeedPostsPage,
     ensureDbReady,
     loginWithGoogle,
     registerWithEmail,

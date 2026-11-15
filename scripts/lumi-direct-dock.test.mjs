@@ -11,7 +11,7 @@ test('Lumi Direct Dock: contract and implementation files exist', () => {
   assert.ok(fs.existsSync(path.join(ROOT, 'components/lumi-direct-dock.js')), 'Component file exists');
   assert.ok(fs.existsSync(path.join(ROOT, 'css/lumi-direct-dock.css')), 'CSS file exists');
   assert.ok(fs.existsSync(path.join(ROOT, 'src/lumi-direct-dock/src/types.ts')), 'Source types exist');
-  assert.ok(fs.existsSync(path.join(ROOT, 'src/lumi-direct-dock/src/LumiDirectDock.tsx')), 'React source exists');
+  assert.ok(fs.existsSync(path.join(ROOT, 'src/lumi-direct-dock/src/LumiDirectDock.vue')), 'Vue 3 source exists');
 });
 
 test('Lumi Direct Dock Adapter: adheres to DirectMessagingAdapter contract', () => {

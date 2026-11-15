@@ -164,7 +164,7 @@ export const LUMINA_BADGES_CATALOG = {
 // Odznaki się ZDOBYWA (Strażnik, 2026-10-11): nikt nie dostaje kompletu na start.
 // Zdobyte = przyznane w profilu (pole badges w Firestore) + to, co wynika z prawdziwych danych:
 // „Zweryfikowany Świadek” za prawdziwe zdjęcie profilowe, „Królewskie Dziedzictwo” dla Założycieli.
-const LUMINA_FOUNDER_SLUGS = ['cezaryrgowski', 'cezaryrogowski', 'wiolettarogowska'];
+export const LUMINA_FOUNDER_SLUGS = ['cezaryrgowski', 'cezaryrogowski', 'wiolettarogowska'];
 
 export function ensure3DBadgeModalInDom() {
     if (typeof document === 'undefined') return;

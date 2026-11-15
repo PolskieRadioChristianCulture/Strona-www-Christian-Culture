@@ -4,6 +4,16 @@
   "name": "Mapa Ekosystemu Christian Culture",
   "updatesLog": [
     {
+      "date": "2026-11-15",
+      "topic": "Aktywacja i nocna publikacja Kursu Codziennego: Dzień 46 (Wj 16:1–36 Manna z Nieba i Świętość Szabatu)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #321 — Akademia Biblijna Kurs Codzienny: Dzień 28 (Rdz 44–45) Ja jestem Józef z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
       "date": "2026-11-14",
       "topic": "CCN News X: Cykliczna publikacja #320 — LumiMess: Chrześcijański Komunikator z dedykowaną grafiką tematyczną i Tablicą LUMINA",
       "agent": "A"
@@ -5035,8 +5045,18 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-14T23:05:00+01:00",
+  "lastUpdated": "2026-11-15T00:00:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-15",
+      "topic": "Aktywacja i nocna publikacja Kursu Codziennego: Dzień 46 (Wj 16:1–36 Manna z Nieba i Świętość Szabatu)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "Poranna wysyłka newslettera z rozważaniem biblijnym — Dzień 46 (Manna z nieba i świętość szabatu)",
+      "agent": "A"
+    },
     {
       "date": "2026-11-14",
       "topic": "CCN News X: Cykliczna publikacja #320 — LumiMess: Chrześcijański Komunikator z dedykowaną grafiką tematyczną i Tablicą LUMINA",
@@ -5317,6 +5337,11 @@
     {
       "date": "2026-11-14",
       "topic": "Z Biblią za Pan Brat: Kompletna lekcja Dzień 46 (Wj 16) + pakiet 5 wersji + DOCX",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "Aktywacja i nocna publikacja Kursu Codziennego: Dzień 46 (Wj 16:1–36 Manna z Nieba i Świętość Szabatu)",
       "agent": "A"
     }
   ]

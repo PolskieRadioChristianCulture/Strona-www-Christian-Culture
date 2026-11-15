@@ -246,6 +246,70 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "lumina_posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "authorSlug", "order": "ASCENDING" },
+        { "fieldPath": "createdAtTimestamp", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "lumina_posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "type", "order": "ASCENDING" },
+        { "fieldPath": "createdAtTimestamp", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "lumina_posts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "isPinned", "order": "DESCENDING" },
+        { "fieldPath": "createdAtTimestamp", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "lumina_profiles",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "profileCompleted", "order": "ASCENDING" },
+        { "fieldPath": "updatedAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "lumina_profiles",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "city", "order": "ASCENDING" },
+        { "fieldPath": "updatedAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "lumina_profiles",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "denom", "order": "ASCENDING" },
+        { "fieldPath": "updatedAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "lumina_shorts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "authorSlug", "order": "ASCENDING" },
+        { "fieldPath": "createdAtTimestamp", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "lumina_shorts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "category", "order": "ASCENDING" },
+        { "fieldPath": "createdAtTimestamp", "order": "DESCENDING" }
+      ]
     }
   ],
   "fieldOverrides": [

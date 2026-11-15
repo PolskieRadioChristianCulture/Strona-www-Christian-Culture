@@ -230,132 +230,10 @@
     <script src="js/lumina-reflection-tts.js?v=20260921_1" defer></script>
     <script src="js/lumina-speech-reader.js?v=20260921_speech_reader_v2" defer></script>
 
-    <!-- Firebase SDK (Rozważanie Dnia) -->
+    <!-- Zunifikowany Loader Rozważań Dnia (cuda-398c0/reflections -> web_inspirations -> JSON fallback) -->
     <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-        import { getFirestore, collection, query, orderBy, limit, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-
-        // ── Projekt Mission Control (web_inspirations = treści dla WWW) ──
-        // TODO: Przepiąć na cuda-398c0 / reflections gdy znany będzie web apiKey
-        const firebaseConfig = {
-            apiKey: "AIzaSyDou1gYyuJnuF2WocXEqglfRPqqwMm0Ge4",
-            authDomain: "cc-mission-control.firebaseapp.com",
-            projectId: "cc-mission-control",
-            storageBucket: "cc-mission-control.firebasestorage.app",
-            messagingSenderId: "519207260358",
-            appId: "1:519207260358:web:d875a610f438ecad2c47c7"
-        };
-
-        // ══════════════════════════════════════════════════════════════════════
-        // STANDARD FORMATOWANIA ROZWAŻAŃ: DOBRZE, ŻE JESTEŚ • PORTAL LUMINA
-        // Reguła portalu: Żadne surowe adresy URL nie są widoczne w tekście. Każdy link ukryty jest pod konkretnymi słowami!
-        // ══════════════════════════════════════════════════════════════════════
-        function formatContentWithActiveLinks(rawText) {
-            if (!rawText) return '';
-            let text = rawText;
-
-            // 1. WhatsApp invite -> zamień na zielony przycisk funkcyjny
-            text = text.replace(/(?<!["'/])(?:https?:\/\/)?(?:www\.)?chat\.whatsapp\.com\/([a-zA-Z0-9_-]+)(?:\s*[-–—]?\s*(?:Wejdź do zespołu ludzi z pasją!?|Dołącz do grupy WhatsApp!?))?/gi, (match, inviteCode) => {
-                const url = `https://chat.whatsapp.com/${inviteCode || 'DBTRDxQWamZDWaOkjupSt0'}`;
-                return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="reflection-smart-link whatsapp-link"><i class="fa-brands fa-whatsapp"></i> Wejdź do zespołu ludzi z pasją! (Grupa WhatsApp) <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
-            });
-
-            // 2. Google Play Apps -> zamień na złoty przycisk funkcyjny
-            text = text.replace(/(?:Apps:\s*)?https?:\/\/play\.google\.com\/store\/apps\/[^\s<)]+/gi, (match) => {
-                const url = match.replace(/^Apps:\s*/i, '').trim();
-                return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="reflection-smart-link apps-link"><i class="fa-brands fa-google-play"></i> Pobierz bezpłatne aplikacje w Google Play <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
-            });
-
-            // 3a. Lumina Portal
-            text = text.replace(/(?<!["'/])(?:https?:\/\/)?(?:www\.)?polskieradio\.cc\/lumina[a-zA-Z0-9_/-]*/gi, () => {
-                return `<a href="https://www.polskieradio.cc/lumina" target="_blank" rel="noopener noreferrer" class="reflection-smart-link radio-link"><i class="fa-solid fa-users-rays"></i> Portal Społeczności LUMINA <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
-            });
-
-            // 3b. Polskie Radio CC
-            text = text.replace(/(?<!["'/])(?:https?:\/\/)?(?:www\.)?polskieradio\.cc(?!\/[a-zA-Z0-9_/-])/gi, () => {
-                return `<a href="https://www.polskieradio.cc" target="_blank" rel="noopener noreferrer" class="reflection-smart-link radio-link"><i class="fa-solid fa-radio"></i> Polskie Radio Christian Culture <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
-            });
-
-            // 4. CC Lite
-            text = text.replace(/(?<!["'/])(?:https?:\/\/)?(?:www\.)?cclite\.pl[a-zA-Z0-9_/-]*/gi, () => {
-                return `<a href="https://www.cclite.pl" target="_blank" rel="noopener noreferrer" class="reflection-smart-link tv-link"><i class="fa-solid fa-tv"></i> Telewizja CC Lite <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
-            });
-
-            // 5. Patronite / Wsparcie Misji -> aktywny przycisk ze serduszkiem
-            text = text.replace(/(?<!["'/])(?:(?:Wspomóż misję|Wspieraj Bożą misję|Wsparcie misji|Wspieraj misję|Zostań patronem|Patronite)\s*:?\s*)?(?:https?:\/\/)?(?:www\.)?patronite\.pl\/([a-zA-Z0-9_-]+)/gi, (match, slug) => {
-                const targetSlug = (slug && slug.toLowerCase() !== 'patronite') ? slug : 'osobowoscplus';
-                const url = `https://patronite.pl/${targetSlug}`;
-                return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="reflection-smart-link support-link"><i class="fa-solid fa-heart" style="color:#ef4444;"></i> Wesprzyj Misję na Patronite <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
-            });
-
-            // 6. Revolut Wsparcie
-            text = text.replace(/(?<!["'/])(?:(?:Wspomóż misję|Wspieraj Bożą misję|Darowizna|Revolut)\s*:?\s*)?(?:https?:\/\/)?(?:www\.)?revolut\.me\/([a-zA-Z0-9_-]+)/gi, (match, tag) => {
-                const targetTag = tag || 'christianculture';
-                const url = `https://revolut.me/${targetTag}`;
-                return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="reflection-smart-link support-link"><i class="fa-solid fa-hand-holding-dollar" style="color:#ef4444;"></i> Wesprzyj przez Revolut <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
-            });
-
-            // 7. Oczyszczenie wiszących separatorów '|' między wygenerowanymi przyciskami
-            text = text.replace(/(<\/a>)\s*\|\s*(?=<a [^>]*class="[^"]*reflection-smart-link)/gi, '$1 ');
-
-            // 8. Markdown links [Tytuł](https://...)
-            text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, (match, label, url) => {
-                return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="reflection-link lumina-post-link">${label} <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.72rem; margin-left:3px;"></i></a>`;
-            });
-
-            // 9. Reszta surowych URL
-            const urlRegex = /(^|[\s(])((https?:\/\/)[^\s<>"')]+)/gi;
-            text = text.replace(urlRegex, (match, prefix, url) => {
-                let cleanUrl = url;
-                let trailing = '';
-                const punct = cleanUrl.match(/[.,;!?:)]+$/);
-                if (punct) {
-                    trailing = punct[0];
-                    cleanUrl = cleanUrl.slice(0, -trailing.length);
-                }
-                let displayUrl = cleanUrl.replace(/^https?:\/\/(?:www\.)?/, '');
-                if (displayUrl.length > 38) displayUrl = displayUrl.substring(0, 35) + '…';
-                return `${prefix}<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="reflection-link lumina-post-link">${displayUrl} <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.72rem; margin-left:3px;"></i></a>${trailing}`;
-            });
-
-            // 10. URLs zaczynające się od www. (bez protokołu)
-            const wwwRegex = /(^|[\s(])(www\.[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+[^\s<>"')]*)/gi;
-            text = text.replace(wwwRegex, (match, prefix, rawDomain) => {
-                let domain = rawDomain;
-                let trailing = '';
-                const punct = domain.match(/[.,;!?:)]+$/);
-                if (punct) {
-                    trailing = punct[0];
-                    domain = domain.slice(0, -trailing.length);
-                }
-                let displayDomain = domain.replace(/^www\./, '');
-                if (displayDomain.length > 38) displayDomain = displayDomain.substring(0, 35) + '…';
-                return `${prefix}<a href="https://${domain}" target="_blank" rel="noopener noreferrer" class="reflection-link lumina-post-link">${displayDomain} <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.72rem; margin-left:3px;"></i></a>${trailing}`;
-            });
-
-            // 7. Podział na akapity i formatowanie modułów
-            return text
-                .split(/\n\n+/)
-                .filter(p => p.trim())
-                .map(p => {
-                    const trimmed = p.trim();
-                    if (trimmed.startsWith('Jezus mówi dziś do Ciebie:') || trimmed.includes('Izajasza 43,19') || trimmed.includes('Izajasza 43, 19')) {
-                        return `<div class="reflection-scripture-box"><div class="scripture-label"><i class="fa-solid fa-cross"></i> Jezus mówi dziś do Ciebie:</div><div class="scripture-quote">${trimmed.replace(/^Jezus mówi dziś do Ciebie:\s*/i, '').replace(/\n/g, '<br>')}</div></div>`;
-                    }
-                    if (trimmed.startsWith('Zadanie Taktyczne:')) {
-                        return `<div class="reflection-task-box"><div class="task-label"><i class="fa-solid fa-shield-halved"></i> Zadanie Taktyczne:</div><p style="margin:0 0 8px; font-size:0.93rem; color:#f1f5f9; line-height:1.7;">${trimmed.replace(/^Zadanie Taktyczne:\s*/i, '').replace(/\n/g, '<br>')}</p></div>`;
-                    }
-                    if (trimmed.startsWith('Modlitwa Bojowa:')) {
-                        return `<div class="reflection-prayer-box"><div class="prayer-label"><i class="fa-solid fa-hands-praying"></i> Modlitwa Bojowa:</div><p style="margin:0; font-style:italic; font-size:0.95rem; line-height:1.75; color:#f8fafc;">${trimmed.replace(/^Modlitwa Bojowa:\s*/i, '').replace(/\n/g, '<br>')}</p></div>`;
-                    }
-                    if (trimmed.startsWith('Baza i wzrost:') || trimmed.includes('PODAJ DALEJ') || trimmed.includes('reflection-smart-link')) {
-                        return `<div class="reflection-links-container"><div style="font-size:0.82rem; font-weight:800; color:#f59e0b; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px;"><i class="fa-solid fa-network-wired"></i> Społeczność & Kanały LUMINA</div>${trimmed.replace(/\n/g, '<br>')}</div>`;
-                    }
-                    return `<p style="margin:0 0 14px; line-height:1.75; color:#e2e8f0;">${trimmed.replace(/\n/g, '<br>')}</p>`;
-                })
-                .join('');
-        }
-        window.formatContentWithActiveLinks = formatContentWithActiveLinks;
+        import { formatLuminaDevotionalContent, fetchCanonicalDailyReflection } from './js/lumina-db/devotional-feed.js';
+        window.formatContentWithActiveLinks = formatLuminaDevotionalContent;
 
         // Dzisiejsze rozważanie (22 sierpnia 2026 - Dzień 22) • Portal LUMINA
         const LUMINA_DAY22_DEVOTIONAL_HTML = `
@@ -438,91 +316,19 @@
             _isReflection: true
         };
 
-        // Pobierz aktualne rozważanie z kolekcji "web_inspirations"
+        // Pobierz aktualne rozważanie przez zunifikowany loader (cuda-398c0 / reflections -> web_inspirations -> JSON)
         async function loadDailyReflection() {
             try {
-                const app = initializeApp(firebaseConfig, 'lumina-board');
-                const db = getFirestore(app);
-
-                const now = new Date();
-                const pad = (n) => n < 10 ? '0' + n : n;
-                const today = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-
-                const q = query(
-                    collection(db, 'web_inspirations'),
-                    orderBy('date', 'desc'),
-                    limit(10)
-                );
-                const snap = await getDocs(q);
-                if (!snap.empty) {
-                    const validDocs = snap.docs.map(docSnap => docSnap.data()).filter(d => d.date && d.date <= today);
-                    let data = validDocs.find(d => d.date === today) || validDocs[0] || null;
-
-                    if (data && (data.contentWeb || data.fullText)) {
-                        const fullContent = data.contentWeb || data.fullText || data.teaser || '';
-                        const formattedContent = formatContentWithActiveLinks(fullContent);
-
-                        window._luminaDailyReflection = {
-                            id: 'daily_rozwazanie_' + (data.date || today),
-                            type: 'reflection',
-                            author: 'Cezary Rogowski',
-                            authorRole: `☀️ Dobrze, że jesteś • Założyciel Christian Culture ✨`,
-                            authorAvatar: 'avatar_cezary_official.jpg',
-                            authorSlug: 'cezaryrgowski',
-                            time: `${data.date || today} • ☀️ Cykl: Dobrze, że jesteś`,
-                            title: data.title || '☀️ Lato z Jezusem — Wielkie Pytania',
-                            fullTextHtml: formattedContent,
-                            image: data.imageUrl || 'promo_dzj.jpg',
-                            streamUrl: data.streamUrl || 'cctv24-worship-live.html?muted=1&mute=1&in_mcr=1',
-                            likes: data.likes || 198,
-                            amen: data.amen || 174,
-                            _pinned: true,
-                            _isReflection: true
-                        };
-                    }
+                const loader = (window.LuminaDB && typeof window.LuminaDB.fetchCanonicalDailyReflection === 'function')
+                    ? window.LuminaDB.fetchCanonicalDailyReflection
+                    : fetchCanonicalDailyReflection;
+                const result = await loader();
+                if (result && result.reflectionRecord) {
+                    window._luminaDailyReflection = result.reflectionRecord;
                     if (typeof renderFeed === 'function') renderFeed();
                 }
-            } catch(e) {
-                console.warn('Lumina Board: Błąd Firestore (próba pobrania z rozwazania_baza.json):', e.message);
-                try {
-                    const now = new Date();
-                    const pad = (n) => n < 10 ? '0' + n : n;
-                    const today = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-
-                    const res = await fetch('/rozwazania_baza.json?v=' + Date.now());
-                    if (res.ok) {
-                        const list = await res.json();
-                        if (Array.isArray(list) && list.length > 0) {
-                            const validList = list.filter(r => r.date && r.date <= today);
-                            const data = validList.find(r => r.date === today) || validList[0] || null;
-                            if (data && (data.contentWeb || data.fullText)) {
-                                const fullContent = data.contentWeb || data.fullText || data.teaser || '';
-                                const formattedContent = formatContentWithActiveLinks(fullContent);
-
-                                window._luminaDailyReflection = {
-                                    id: 'daily_rozwazanie_' + (data.date || today),
-                                    type: 'reflection',
-                                    author: 'Cezary Rogowski',
-                                    authorRole: `☀️ Dobrze, że jesteś • Założyciel Christian Culture ✨`,
-                                    authorAvatar: 'avatar_cezary_official.jpg',
-                                    authorSlug: 'cezaryrgowski',
-                                    time: `${data.date || today} • ☀️ Cykl: Dobrze, że jesteś`,
-                                    title: data.title || '☀️ Lato z Jezusem — Wielkie Pytania',
-                                    fullTextHtml: formattedContent,
-                                    image: data.imageUrl || 'promo_dzj.jpg',
-                                    streamUrl: data.streamUrl || 'cctv24-worship-live.html?muted=1&mute=1&in_mcr=1',
-                                    likes: data.likes || 198,
-                                    amen: data.amen || 174,
-                                    _pinned: true,
-                                    _isReflection: true
-                                };
-                                if (typeof renderFeed === 'function') renderFeed();
-                            }
-                        }
-                    }
-                } catch(fetchErr) {
-                    console.warn('Lumina Board: Fallback z pliku JSON nie powiódł się:', fetchErr.message);
-                }
+            } catch (e) {
+                console.warn('Lumina Board: Błąd zunifikowanego ładowania rozważania:', e && e.message);
             }
         }
 
@@ -8645,6 +8451,24 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
             renderFeed();
             const status = document.getElementById('feedPaginationStatus');
             if (status) status.focus({ preventScroll: true });
+            if (window.LuminaDB && typeof window.LuminaDB.loadFeedPostsPage === 'function'
+                && Array.isArray(window.cloudFeedPosts)
+                && visibleFeedItems >= window.cloudFeedPosts.length
+                && window._luminaFeedHasMore !== false) {
+                window.LuminaDB.loadFeedPostsPage({
+                    cursor: window._luminaFeedCursor || null,
+                    pageSize: 15
+                }).then((page) => {
+                    if (page && Array.isArray(page.posts) && page.posts.length > 0) {
+                        const existingIds = new Set(window.cloudFeedPosts.map(p => p && p.id).filter(Boolean));
+                        const nextPosts = page.posts.filter(p => p && !existingIds.has(p.id));
+                        if (nextPosts.length > 0) {
+                            window.cloudFeedPosts = window.cloudFeedPosts.concat(nextPosts);
+                            renderFeed();
+                        }
+                    }
+                }).catch(() => {});
+            }
         };
 
         // 🎬 SHUFFLER WIDEO-ROLEK — Fisher-Yates z dynamicznym seedem per-render

@@ -397,19 +397,22 @@ async function publishToFacebook(postText, dryRun) {
     await context.addCookies(pwCookies);
     const page = await context.newPage();
 
-    await page.goto('https://www.facebook.com/profile.php?id=100089154402636', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await page.goto('https://www.facebook.com/cezary.rogowski1', { waitUntil: 'domcontentloaded', timeout: 30000 });
     await page.waitForTimeout(4000);
+    await page.locator('div[role="button"]:has-text("Zezwól"), button:has-text("Zezwól na wszystkie pliki cookie")').first().click({ timeout: 2000 }).catch(() => {});
 
-    const trigger = await page.$('div[role="button"]:has-text("Napisz coś..."), div[role="button"]:has-text("O czym myślisz"), div[role="button"]:has-text("Stwórz post"), div[aria-label="Napisz coś..."]');
-    if (!trigger) {
+    const triggerLocator = page.locator(
+      'div[role="button"]:has-text("Co słychać"), div[role="button"]:has-text("Napisz, co myślisz"), div[role="button"]:has-text("Napisz coś"), div[role="button"]:has-text("O czym myślisz"), div[role="button"]:has-text("Stwórz post"), div[aria-label*="Co słychać"], div[aria-label*="Napisz"]'
+    ).locator('visible=true').first();
+    if ((await triggerLocator.count()) === 0) {
       throw new Error('Brak aktywnej sesji edycji na stronie Facebook (widok gościa lub wygasłe fb_session.json).');
     }
 
-    await trigger.click();
+    await triggerLocator.click();
     await page.waitForTimeout(3000);
 
-    const dialogTextbox = await page.$('div[role="dialog"] div[role="textbox"][contenteditable="true"]');
-    if (!dialogTextbox) {
+    const dialogTextbox = page.locator('div[role="dialog"] div[role="textbox"][contenteditable="true"], div[role="dialog"] [contenteditable="true"]').locator('visible=true').first();
+    if ((await dialogTextbox.count()) === 0) {
       throw new Error('Nie znaleziono pola tekstowego w oknie tworzenia posta na Facebooku.');
     }
 
@@ -417,8 +420,14 @@ async function publishToFacebook(postText, dryRun) {
     await page.keyboard.insertText(postText);
     await page.waitForTimeout(3000);
 
-    const submitBtn = await page.$('div[role="dialog"] div[aria-label="Opublikuj"], div[role="dialog"] div[role="button"]:has-text("Opublikuj")');
-    if (!submitBtn) {
+    const nextBtn = page.locator('div[role="dialog"] div[role="button"]:has-text("Dalej")').locator('visible=true').first();
+    if ((await nextBtn.count()) > 0) {
+      await nextBtn.click();
+      await page.waitForTimeout(1500);
+    }
+
+    const submitBtn = page.locator('div[role="dialog"] div[aria-label="Opublikuj"], div[role="dialog"] div[role="button"]:has-text("Opublikuj"), div[role="dialog"] button:has-text("Opublikuj")').locator('visible=true').first();
+    if ((await submitBtn.count()) === 0) {
       throw new Error('Nie znaleziono przycisku Opublikuj na Facebooku.');
     }
 
@@ -445,20 +454,15 @@ async function publishToWhatsApp(postText, dryRun) {
     admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
   }
   const db = admin.firestore();
+  const { loadDistributionGroups, queueWithD1Fallback } = require(path.join(WEKTOR_DIR, 'wa_queue_helpers.js'));
+  const waState = { quotaExhausted: false };
 
   const targets = ['120363409279454206@g.us']; // Grupa Nazira (priorytet)
   try {
-    const groupsSnap = await db.collection('WhatsAppGroups').where('status', '==', 'joined').get();
-    const groups = [];
-    groupsSnap.forEach(doc => groups.push({ doc, data: doc.data() }));
-    groups.sort((a, b) => {
-      const tA = a.data.lastSent?.toDate ? a.data.lastSent.toDate().getTime() : 0;
-      const tB = b.data.lastSent?.toDate ? b.data.lastSent.toDate().getTime() : 0;
-      return tA - tB;
-    });
+    const groups = await loadDistributionGroups({ db, state: waState });
     for (const g of groups.slice(0, 2)) {
-      if (g.data.groupId && !targets.includes(g.data.groupId)) {
-        targets.push(g.data.groupId);
+      if (g.groupId && !targets.includes(g.groupId)) {
+        targets.push(g.groupId);
       }
     }
   } catch {
@@ -467,12 +471,14 @@ async function publishToWhatsApp(postText, dryRun) {
 
   let queued = 0;
   for (const target of targets) {
-    await db.collection('CommandQueue').add({
+    await queueWithD1Fallback({
+      db,
+      admin,
       command: `wyślij celowane [${target}]: ${postText}`,
+      targetGroupId: target,
       sender: 'antigravity',
-      status: 'pending',
-      read: false,
-      timestamp: admin.firestore.FieldValue.serverTimestamp()
+      priority: 4,
+      state: waState
     });
     queued++;
   }
