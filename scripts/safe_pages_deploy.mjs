@@ -108,8 +108,14 @@ for (const rel of CRITICAL_FILES) {
   }
 }
 
-// Weryfikacja integralności assetów SPA w portalach informacyjnych i tematycznych (np. /news, /finanse)
-const SPA_PORTALS = ['news.html', 'finanse.html', 'nauka.html', 'historia.html', 'biologia.html', 'prawo.html', 'seks.html'];
+// Weryfikacja integralności assetów SPA we wszystkich 20 portalach CCN
+const SPA_PORTALS = [
+  'news.html', 'nauka.html', 'historia.html', 'biologia.html', 'prawo.html',
+  'seks.html', 'kultura.html', 'biznes.html', 'kuchnia.html', 'ziu.html',
+  'ogloszenia.html', 'wspolpraca.html', 'network.html', 'biblioteka.html',
+  'edukacja.html', 'psychologia.html', 'finanse.html', 'technologie.html',
+  'misje.html', 'apologetyka.html'
+];
 for (const portal of SPA_PORTALS) {
   const portalFile = path.join(RELEASE_DIR, portal);
   if (!fs.existsSync(portalFile)) continue;

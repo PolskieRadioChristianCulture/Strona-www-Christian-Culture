@@ -22,6 +22,8 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execFileSync } from 'child_process';
+import { isPublicFile } from './scripts/cc-release-files.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -443,6 +445,69 @@ function checkInlineScriptSyntax() {
 }
 
 // ══════════════════════════════════════════════════════════════════════════
+// REGUŁA L — Integralność zasobów SPA i portali CCN (Asset Integrity Guard)
+// Chroni przed awarią 404 po przebudowaniu Vite (brak git add lub brak pliku)
+// ══════════════════════════════════════════════════════════════════════════
+function checkCcnAssetIntegrity() {
+  checksRun++;
+  let trackedFilesSet;
+  try {
+    const gitOutput = execFileSync('git', ['ls-files', '-z'], {
+      cwd: ROOT,
+      encoding: 'utf8',
+      windowsHide: true,
+      maxBuffer: 32 * 1024 * 1024,
+    });
+    trackedFilesSet = new Set(gitOutput.split('\0').filter(Boolean).map(f => f.replace(/\\/g, '/')));
+  } catch {
+    return;
+  }
+
+  const allScanHtml = [
+    ...HTML_FILES,
+    ...['news/index.html', 'finanse/index.html'].filter(f => fs.existsSync(path.join(ROOT, f)))
+  ];
+
+  for (const f of allScanHtml) {
+    const content = readFile(f);
+    if (!content.includes('/assets/')) continue;
+
+    const matches = content.matchAll(/(?:src|href)=["']\/assets\/([^"'?#]+)["']/g);
+    for (const m of matches) {
+      const assetRel = `assets/${m[1]}`.replace(/\\/g, '/');
+      const assetDisk = path.join(ROOT, 'assets', m[1]);
+
+      if (!fs.existsSync(assetDisk)) {
+        report(
+          'L-CCN-ASSET-INTEGRITY',
+          f,
+          `Odwołanie do nieistniejącego assetu na dysku: "${assetRel}". Sprawdź ścieżkę lub uruchom build.`
+        );
+        continue;
+      }
+
+      if (!trackedFilesSet.has(assetRel)) {
+        report(
+          'L-CCN-ASSET-INTEGRITY',
+          f,
+          `Asset "${assetRel}" istnieje na dysku, ale NIE JEST ŚLEDZONY przez Git. ` +
+          `Wydanie Cloudflare Pages budowane z 'git ls-files' pominie ten plik, powodując 404 na produkcji! Uruchom 'git add ${assetRel}'.`
+        );
+        continue;
+      }
+
+      if (!isPublicFile(assetRel)) {
+        report(
+          'L-CCN-ASSET-INTEGRITY',
+          f,
+          `Asset "${assetRel}" jest zablokowany przez isPublicFile i nie trafi do .pages-release.`
+        );
+      }
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
 // URUCHOMIENIE WSZYSTKICH REGUŁ
 // ══════════════════════════════════════════════════════════════════════════
 checkCssFlexDirectionConflicts();
@@ -456,6 +521,7 @@ checkAggressiveDomPolling();
 checkOnErrorIdentitySubstitution();
 checkNameBasedIdentity();
 checkInlineScriptSyntax();
+checkCcnAssetIntegrity();
 
 // ══════════════════════════════════════════════════════════════════════════
 // RAPORT

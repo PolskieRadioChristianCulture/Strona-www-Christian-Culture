@@ -12,10 +12,15 @@ const result = spawnSync(process.execPath, [path.join(source, 'node_modules/vite
 if (result.status !== 0) process.exit(result.status || 1);
 for (const file of await readdir(path.join(source, 'dist/assets'))) {
   await copyFile(path.join(source, 'dist/assets', file), path.join(root, 'assets', file));
+  spawnSync('git', ['add', path.join(root, 'assets', file)], { cwd: root });
 }
 const { articles } = loadArticles();
 const feedSnippet = generateStaticFeedSnippet(articles, 15);
 let html = (await readFile(path.join(source, 'dist/index.html'), 'utf8')).replace(/\r\n/g, '\n').replace(/[\t ]+$/gm, '');
+html = html.replace(
+  '<script type="module" crossorigin src="/assets/news-index-',
+  '<script type="module" crossorigin onerror="var m=document.getElementById(\'news-startup-message\'),h=document.getElementById(\'news-startup-help\');if(m&&h){m.textContent=\'Wystąpił problem z pobraniem aplikacji. Wyświetlamy wersję statyczną wiadomości.\';h.hidden=false;}" src="/assets/news-index-'
+);
 html = html.replace(
   '<noscript><p class="news-startup-help">Włącz JavaScript w przeglądarce, aby wyświetlić wiadomości.</p></noscript>',
   `<noscript>\n        <section class="news-noscript-feed" aria-label="Wydanie bieżące wiadomości CCN">\n${feedSnippet}\n        </section>\n      </noscript>`
@@ -39,8 +44,13 @@ if (fs.existsSync(finanseSource)) {
   if (finResult.status !== 0) process.exit(finResult.status || 1);
   for (const file of await readdir(path.join(finanseSource, 'dist/assets'))) {
     await copyFile(path.join(finanseSource, 'dist/assets', file), path.join(root, 'assets', file));
+    spawnSync('git', ['add', path.join(root, 'assets', file)], { cwd: root });
   }
   let finHtml = (await readFile(path.join(finanseSource, 'dist/index.html'), 'utf8')).replace(/\r\n/g, '\n').replace(/[\t ]+$/gm, '');
+  finHtml = finHtml.replace(
+    '<script type="module" crossorigin src="/assets/finanse-index-',
+    '<script type="module" crossorigin onerror="var m=document.getElementById(\'finanse-startup-message\');if(m){m.textContent=\'Wystąpił problem z siecią. Wyświetlamy wersję tekstową artykułów.\';}" src="/assets/finanse-index-'
+  );
   const { articles: finArticles } = loadArticles(path.join(finanseSource, 'src/data/articles.ts'));
   const finFeedSnippet = generateStaticFeedSnippet(finArticles, 10, {
     baseSlug: 'finanse',

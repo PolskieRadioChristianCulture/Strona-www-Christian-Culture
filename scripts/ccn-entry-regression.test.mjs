@@ -1,7 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import vm from 'node:vm';
+import { isPublicFile } from './cc-release-files.mjs';
 
 const read = p => readFile(new URL('../' + p, import.meta.url), 'utf8');
 const html = await read('news.html');
@@ -65,4 +68,39 @@ test('canonical build uses portable repository paths and does not overwrite anot
   assert.ok(!builder.includes('.gemini'));
   assert.ok(!builder.includes('Desktop'));
   assert.ok((await read('AGENTS.md')).includes('CC_NO_REGRESSION_POLICY.md'));
+});
+
+test('all 20 CCN thematic portals have 100% of referenced script and css assets tracked in Git and present on disk', async () => {
+  const CCN_PORTALS = [
+    'news', 'nauka', 'historia', 'biologia', 'prawo',
+    'seks', 'kultura', 'biznes', 'kuchnia', 'ziu',
+    'ogloszenia', 'wspolpraca', 'network', 'biblioteka',
+    'edukacja', 'psychologia', 'finanse', 'technologie',
+    'misje', 'apologetyka'
+  ];
+
+  const gitOutput = execFileSync('git', ['ls-files', '-z'], { encoding: 'utf8' });
+  const tracked = new Set(gitOutput.split('\0').filter(Boolean).map(f => f.replace(/\\/g, '/')));
+
+  for (const portal of CCN_PORTALS) {
+    const htmlFile = `${portal}.html`;
+    const content = await read(htmlFile);
+    assert.ok(content.length > 0, `Portal HTML is missing or empty: ${htmlFile}`);
+
+    const matches = [...content.matchAll(/(?:src|href)=["']\/assets\/([^"'?#]+)["']/g)];
+    for (const m of matches) {
+      const assetRel = `assets/${m[1]}`.replace(/\\/g, '/');
+      assert.ok(existsSync(assetRel), `Asset referenced in ${htmlFile} missing on disk: ${assetRel}`);
+      assert.ok(tracked.has(assetRel), `Asset referenced in ${htmlFile} is NOT tracked in Git: ${assetRel}`);
+      assert.ok(isPublicFile(assetRel), `Asset ${assetRel} is blocked by isPublicFile`);
+    }
+  }
+});
+
+test('news.html provides immediate runtime fallback on script bundle error', async () => {
+  const newsHtml = await read('news.html');
+  assert.match(newsHtml, /<script[^>]+(?:src="\/assets\/news-index-[^"]+\.js"[^>]*\bonerror=|\bonerror=[^>]*src="\/assets\/news-index-[^"]+\.js")[^>]*>/);
+  assert.ok(newsHtml.includes('news-startup-articles'));
+  assert.ok(newsHtml.includes('news-startup-message'));
+  assert.ok(newsHtml.includes('news-startup-help'));
 });

@@ -89,6 +89,28 @@ for (const required of REQUIRED_FILES) {
   }
 }
 
+// Bramka integralności assetów SPA dla wszystkich 20 portali CCN
+const CCN_PORTALS = [
+  'news.html', 'nauka.html', 'historia.html', 'biologia.html', 'prawo.html',
+  'seks.html', 'kultura.html', 'biznes.html', 'kuchnia.html', 'ziu.html',
+  'ogloszenia.html', 'wspolpraca.html', 'network.html', 'biblioteka.html',
+  'edukacja.html', 'psychologia.html', 'finanse.html', 'technologie.html',
+  'misje.html', 'apologetyka.html'
+];
+for (const portal of CCN_PORTALS) {
+  const portalFile = path.join(resolvedOutput, portal);
+  if (!fs.existsSync(portalFile)) continue;
+  const content = fs.readFileSync(portalFile, 'utf8');
+  const matches = content.matchAll(/(?:src|href)=["']\/assets\/([^"'?#]+)["']/g);
+  for (const m of matches) {
+    const assetRel = path.join('assets', m[1]);
+    const assetFull = path.join(resolvedOutput, assetRel);
+    if (!fs.existsSync(assetFull) || fs.statSync(assetFull).size === 0) {
+      throw new Error(`Wydanie przerwane — BRAMKA ASSETÓW CCN: portal ${portal} odwołuje się do brakującego lub pustego assetu w paczce wydania: ${assetRel}`);
+    }
+  }
+}
+
 const courseManifest = dailyCourseManifest(tracked,file=>fs.readFileSync(path.join(ROOT,file),'utf8'));
 fs.mkdirSync(path.join(resolvedOutput,'data'),{recursive:true});
 fs.writeFileSync(path.join(resolvedOutput,'data','daily-course-push.json'),JSON.stringify(courseManifest));
