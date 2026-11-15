@@ -108,7 +108,24 @@ for (const rel of CRITICAL_FILES) {
   }
 }
 
-console.log(`✅ Bramka integralności zaliczona (${copied} plików w .pages-release, wszystkie pliki krytyczne obecne).`);
+// Weryfikacja integralności assetów SPA w portalach informacyjnych i tematycznych (np. /news, /finanse)
+const SPA_PORTALS = ['news.html', 'finanse.html', 'nauka.html', 'historia.html', 'biologia.html', 'prawo.html', 'seks.html'];
+for (const portal of SPA_PORTALS) {
+  const portalFile = path.join(RELEASE_DIR, portal);
+  if (!fs.existsSync(portalFile)) continue;
+  const content = fs.readFileSync(portalFile, 'utf8');
+  const matches = content.matchAll(/(?:src|href)=["']\/assets\/([^"'?#]+)["']/g);
+  for (const m of matches) {
+    const assetRel = path.join('assets', m[1]);
+    const assetFull = path.join(RELEASE_DIR, assetRel);
+    if (!fs.existsSync(assetFull) || fs.statSync(assetFull).size === 0) {
+      console.error(`❌ BLOKADA WDROŻENIA: portal ${portal} odwołuje się do brakującego assetu w wydaniu: ${assetRel}`);
+      process.exit(1);
+    }
+  }
+}
+
+console.log(`✅ Bramka integralności zaliczona (${copied} plików w .pages-release, wszystkie pliki krytyczne i assety SPA obecne).`);
 execSync('npx.cmd wrangler pages deploy "polskieradio.cc\\.pages-release" --project-name polskieradio --branch main --commit-dirty=true', {
   cwd: PARENT,
   stdio: 'inherit'

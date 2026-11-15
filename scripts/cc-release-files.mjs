@@ -4,7 +4,7 @@ const BLOCKED_DIRECTORIES = new Set([
   '.git', '.codex', '.codex-remote-attachments', '.codex-attachments', '.cursor', '.claude', 'repozytoria-cc', 'joma_shared_memory',
   '.agents', '.firebase', '.gemini', '.github', '.vscode', '.wrangler', '_wydanie',
   'cloudflare', 'cloudflare-worker', 'docs', 'firebase_functions', 'functions', 'migrations', 'node_modules',
-  'lib', 'scratch', 'scripts', 'src', 'test', 'tests', 'windows_tools',
+  'lib', 'scratch', 'scripts', 'src', 'test', 'tests', 'windows_tools', 'cc-cross-channel-boost',
   // Zatwierdzone lekcje czekające na swoją datę — nigdy nie mogą trafić na stronę przed czasem.
   'kolejka-publikacji',
 ]);
@@ -37,6 +37,7 @@ export function isPublicFile(relativePath) {
   if (/^data\/whatsapp_[^/]*\.json$/.test(lower)) return false;
   if (file === 'lib/bu-voting-worker.js') return true;
   if (file === 'test/wspieraj/index.html') return true;
+  if (file === 'test/cc-youtube-boost/index.html' || file === 'test/cc-youtube-boost/data.json') return true;
   if (segments.some((segment) => BLOCKED_DIRECTORIES.has(segment))) return false;
   if (BLOCKED_FILES.has(lower) || BLOCKED_FILES.has(path.posix.basename(lower))) return false;
   if (lower.includes('backup') || lower.includes('.matrix_sessions')) return false;
