@@ -5,6 +5,16 @@
   "updatesLog": [
     {
       "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #324 — Gerald Welch – THE CALL (Analiza Muzyczna i Wiara) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "eM / Kalendarz 365: Opracowanie pakietu redakcyjnego LP 12 („Gdy religia staje się konkursem na nienaganny wizerunek”) — DOCX, ZIP na Pulpicie, status T4",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #323 — Werset Dnia: Psalm 143:8 (UBG) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
       "agent": "A"
     },
@@ -1046,11 +1056,6 @@
     {
       "date": "2026-11-13",
       "topic": "CCN News X: Cykliczna publikacja #276 — Radio SKINS 2.0 (Odtwarzacz ze Skórkami Wizualnymi) & assets/skin-earth.png",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-13",
-      "topic": "Ark of Fire × Christian Culture: Dwujęzyczny konkurs świadectw wiary PL/EN z oficjalnym zdjęciem koszulki i panelem Jury",
       "agent": "A"
     }
   ],
@@ -5065,8 +5070,18 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-15T10:03:00+01:00",
+  "lastUpdated": "2026-11-15T10:36:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #324 — Gerald Welch – THE CALL (Analiza Muzyczna i Wiara) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "eM / Kalendarz 365: Opracowanie pakietu redakcyjnego LP 12 („Gdy religia staje się konkursem na nienaganny wizerunek”) — DOCX, ZIP na Pulpicie, status T4",
+      "agent": "A"
+    },
     {
       "date": "2026-11-15",
       "topic": "Zewnętrzna Promocja YT #3/24: Polskie Radio Christian Culture — Kampania Outbound (X, Facebook, Shorts/Reels)",
@@ -5205,21 +5220,6 @@
     {
       "date": "2026-11-11",
       "topic": "Oficjalna wizytówka Ark of Fire (PL/EN) oraz integracja z Christian Culture Global",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-10",
-      "topic": "CC Singing Bible Factory 1.0 — Autonomiczna Linia Produkcyjna Biblii Śpiewanej",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-10",
-      "topic": "Publikacja Dnia 41: Akademia Biblijna & Rozważania DZJ (Wj 10:1-29)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-09",
-      "topic": "cclite.pl: Faza 4 EkoCC — ujednolicenie GA4 (G-Y4EFTVBPE3), kafelki Akademii i Mapy CC, pomarańczowy CTA #FF7A00 i ergonomia 44px",
       "agent": "A"
     }
   ],
