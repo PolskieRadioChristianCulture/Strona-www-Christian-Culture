@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mess",
+      "title": "LumiMess — Chrześcijański Komunikator",
+      "url": "https://polskieradio.cc/mess",
+      "type": "profile",
+      "image": "lumi-mess-bg.webp",
+      "publishedAt": "2026-11-15T07:56:05.023Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia",
       "title": "Mój Werset Dnia",
       "url": "https://polskieradio.cc/werset-dnia",
