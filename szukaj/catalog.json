@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-15T12:07:28.252Z",
-  "totalItems": 452,
+  "updatedAt": "2026-11-15T13:12:01.350Z",
+  "totalItems": 453,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -4207,6 +4207,34 @@
         "psychologia",
         "artykuł"
       ],
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-15T14:00:00Z",
+      "title": "Implanty mózgowe, interfejs mózg-komputer i granica człowieczeństwa: Przełom Neuralink a biblijna prawda o obrazie Boga (Imago Dei)",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/nauka/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei",
+      "description": "Przełom w technologii interfejsów mózg-komputer (BCI) oraz pierwsze pomyślne procedury wszczepienia elektrod neuronowych pacjentom z paraliżem otwierają bezprecedensowy rozdział w dziejach medycyny regeneracyjnej.",
+      "contentSnippet": "Rozwój dwukierunkowych interfejsów mózg-komputer (BCI) wszedł w fazę dojrzałych testów klinicznych na ludziach, przekraczając granice dotychczasowych teorii laboratoryjnych. Prowadzona przez firmę Neuralink próba kliniczna PRIME udowodniła, że miniaturowy bezprzewodowy implant N1 pozwala pacjentom z porażeniem czterokończynowym sterować komputerem …",
+      "author": "Cezary Rogowski",
+      "date": "15 listopada 2026",
+      "tags": [
+        "Bioetyka",
+        "Neuralink",
+        "BCI",
+        "ImagoDei",
+        "Transhumanizm",
+        "Nauka",
+        "bioetyka",
+        "Bioetyka & Neurotechnologia",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "Księga Rodzaju 1:26–27 / Psalm 139:13–14 (UBG) Stworzył więc Bóg człowieka na swój obraz, na obraz Boga go stworzył... Chwalę cię, bo zostałem cudownie i trwożnie stworzony; cudowne są twoje dzieła.",
       "featured": true
     },
     {
@@ -11082,7 +11110,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-15T12:07:28.327Z",
+    "updatedAt": "2026-11-15T13:12:01.425Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "15 listopada 2026",
     "pools": [

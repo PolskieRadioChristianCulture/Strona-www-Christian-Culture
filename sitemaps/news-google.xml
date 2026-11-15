@@ -3,6 +3,21 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://polskieradio.cc/nauka/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-15T13:00:00.000Z</news:publication_date>
+      <news:title>Implanty mózgowe, interfejs mózg-komputer i granica człowieczeństwa: Przełom Neuralink, badanie PRIME a biblijna prawda o obrazie Boga (Imago Dei)</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-implanty-mozgowe-bci-neuralink-bioetyka-imago-dei.jpg</image:loc>
+      <image:title>Implanty mózgowe, interfejs mózg-komputer i granica człowieczeństwa: Przełom Neuralink, badanie PRIME a biblijna prawda o obrazie Boga (Imago Dei)</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/news</loc>
     <news:news>
       <news:publication>

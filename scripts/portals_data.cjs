@@ -40,6 +40,39 @@ const PORTALS = [
     articles: [
 
       {
+        id: 'nauka-implanty-mozgowe-bci-neuralink',
+        slug: 'implanty-mozgowe-bci-neuralink-bioetyka-imago-dei',
+        title: 'Implanty mózgowe, interfejs mózg-komputer i granica człowieczeństwa: Przełom Neuralink a biblijna prawda o obrazie Boga (Imago Dei)',
+        excerpt: 'Przełom w technologii interfejsów mózg-komputer (BCI) oraz pierwsze pomyślne procedury wszczepienia elektrod neuronowych pacjentom z paraliżem otwierają bezprecedensowy rozdział w dziejach medycyny regeneracyjnej.',
+        content: [
+          'Rozwój dwukierunkowych interfejsów mózg-komputer (BCI) wszedł w fazę dojrzałych testów klinicznych na ludziach, przekraczając granice dotychczasowych teorii laboratoryjnych. Prowadzona przez firmę Neuralink próba kliniczna PRIME udowodniła, że miniaturowy bezprzewodowy implant N1 pozwala pacjentom z porażeniem czterokończynowym sterować komputerem za pomocą samej intencji motorycznej.',
+          'Entuzjazm związany z sukcesami klinicznymi neurotechnologii jest jednak nierozerwalnie spleciony z głębokim niepokojem bioetycznym, którego źródłem są dalekosiężne postulaty transhumanizmu dążące do modyfikowania zdrowego układu nerwowego i rzekomej symbiozy ze sztuczną inteligencją.',
+          'Fundamentem chrześcijańskiej odpowiedzi jest prawda o stworzeniu człowieka na obraz i podobieństwo Boże (Rdz 1:26–27 UBG). Człowiek nie jest biologiczną maszyną do optymalizacji, lecz arcydziełem Stwórcy, a prawdziwa odnowa umysłu to duchowe uświęcenie przez Chrystusa, a nie cybernetyczna rekonfiguracja synaps.'
+        ],
+        scriptureReference: {
+          verse: 'Księga Rodzaju 1:26–27 / Psalm 139:13–14 (UBG)',
+          text: 'Stworzył więc Bóg człowieka na swój obraz, na obraz Boga go stworzył... Chwalę cię, bo zostałem cudownie i trwożnie stworzony; cudowne są twoje dzieła.',
+          strongCode: 'H6754 (celem) / H1823 (demut)'
+        },
+        category: 'bioetyka',
+        categoryLabel: 'Bioetyka & Neurotechnologia',
+        author: {
+          id: 'cezary-rogowski',
+          name: 'Cezary Rogowski',
+          role: 'Założyciel Christian Culture',
+          avatarUrl: '/avatar_cezary_official.jpg'
+        },
+        publishedAt: '2026-11-15T14:00:00Z',
+        dateFormatted: '15 listopada 2026',
+        imageUrl: '/images/news/art-implanty-mozgowe-bci-neuralink-bioetyka-imago-dei.jpg',
+        imageCaption: 'Laboratorium neuroinżynierii: mikrochip interfejsu mózg-komputer (BCI) pod mikroskopem chirurgicznym.',
+        readTimeMinutes: 10,
+        isHero: true,
+        isPopular: true,
+        popularRank: 1,
+        tags: ['Bioetyka', 'Neuralink', 'BCI', 'ImagoDei', 'Transhumanizm', 'Nauka']
+      },
+      {
         id: 'art-z-biblia-za-pan-brat-dzien-03',
         title: 'Gdzie jesteś? Anatomia upadku i pierwsza Ewangelia Edenu',
         slug: 'gdzie-jestes-anatomia-upadku-i-pierwsza-ewangelia-edenu',

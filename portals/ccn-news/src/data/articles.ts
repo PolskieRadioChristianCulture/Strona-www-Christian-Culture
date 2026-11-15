@@ -41,6 +41,7 @@ export const AUTHORS: Record<string, Author> = {
 };
 
 export const BREAKING_NEWS: string[] = [
+  "NOWY ARTYKUŁ CCN NAUKA & BIOETYKA: Implanty mózgowe, interfejs mózg-komputer i granica człowieczeństwa — analiza bioetyczna Cezarego Rogowskiego (Rdz 1:26–27; Ps 139:13–16 UBG) (https://polskieradio.cc/news/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei)",
   "NOWY ARTYKUŁ eM (@MCC): Gdy religia staje się konkursem na nienaganny wizerunek — analiza Cezarego Rogowskiego o faryzejskiej presji i łasce Chrystusa (https://polskieradio.cc/news/gdy-religia-staje-sie-konkursem-na-nienaganny-wizerunek)",
   "NOWY ARTYKUŁ CCN FINANSE: Jak przygotować domowy budżet na grudzień bez kredytu? Praktyczny przewodnik Cezarego Rogowskiego (https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu)",
   "NOWY ARTYKUŁ BIBLIA & TEOLOGIA: Czy Jezus naprawdę był Bogiem? Dowody z Biblii — egzegeza J 1,1, J 20,28 i 1 J 5,20 Cezarego Rogowskiego (https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody)",
@@ -94,6 +95,85 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    id: 'art-implanty-mozgowe-bci-neuralink-bioetyka-imago-dei',
+    title: "Implanty mózgowe, interfejs mózg-komputer i granica człowieczeństwa: Przełom Neuralink, badanie PRIME a biblijna prawda o obrazie Boga (Imago Dei)",
+    slug: 'implanty-mozgowe-bci-neuralink-bioetyka-imago-dei',
+    excerpt: "Przełom w technologii interfejsów mózg-komputer (BCI) oraz pierwsze pomyślne procedury wszczepienia elektrod neuronowych pacjentom z paraliżem otwierają bezprecedensowy rozdział w dziejach medycyny regeneracyjnej. Jednocześnie dynamiczny rozwój neuroinżynierii i ideologia transhumanizmu stawiają ludzkość przed fundamentalnymi pytaniami o nienaruszalność ludzkiego umysłu, granice biologicznego ulepszania i tożsamość człowieka. Pismo Święte nie potępia niesienia ulgi chorym i cierpiącym, lecz jednoznacznie przypomina, że człowiek nie jest biologiczną maszyną do nieograniczonej rekonfiguracji, ale istotą stworzoną na obraz i podobieństwo Boże (Imago Dei). Prawdziwa mądrość polega na rozróżnieniu pomiędzy medycznym leczeniem a niebezpieczną próbą technologicznej samozbawczości.",
+    content: [
+      "Przełom w technologii interfejsów mózg-komputer (BCI) oraz pierwsze pomyślne procedury wszczepienia elektrod neuronowych pacjentom z paraliżem otwierają bezprecedensowy rozdział w dziejach medycyny regeneracyjnej. Jednocześnie dynamiczny rozwój neuroinżynierii i ideologia transhumanizmu stawiają ludzkość przed fundamentalnymi pytaniami o nienaruszalność ludzkiego umysłu, granice biologicznego ulepszania i tożsamość człowieka. Pismo Święte nie potępia niesienia ulgi chorym i cierpiącym, lecz jednoznacznie przypomina, że człowiek nie jest biologiczną maszyną do nieograniczonej rekonfiguracji, ale istotą stworzoną na obraz i podobieństwo Boże (Imago Dei). Prawdziwa mądrość polega na rozróżnieniu pomiędzy medycznym leczeniem a niebezpieczną próbą technologicznej samozbawczości.",
+      "1. PRZEŁOM TECHNOLOGICZNY W NEUROINŻYNIERII: OD EKSPERYMENTÓW DO BADANIA KLINICZNEGO PRIME",
+      "Rozwój dwukierunkowych interfejsów mózg-komputer (ang. Brain-Computer Interfaces — BCI) wszedł w fazę dojrzałych testów klinicznych na ludziach, przekraczając granice dotychczasowych teorii laboratoryjnych. Prowadzona przez firmę Neuralink próba kliniczna PRIME (Precise Robotically Implanted Brain-Computer Interface), zatwierdzona w ramach procedury Investigational Device Exemption (IDE) przez amerykańską Agencję Żywności i Leków (FDA), udowodniła, że miniaturowy bezprzewodowy implant N1, wyposażony w 1024 elektrody rozmieszczone na 64 ultra-cienkich biokompatybilnych niciach, pozwala pacjentom z całkowitym porażeniem czterokończynowym sterować kursorem komputera, grać w szachy oraz komunikować się ze światem za pomocą samej intencji motorycznej.",
+      "Podobne spektakularne rezultaty odnotowują zespoły badawcze korzystające z platform Blackrock Neurotech, Synchron oraz BrainGate, o czym szczegółowo informują prestiżowe czasopisma naukowe „Nature Electronics” oraz „The Lancet Neurology”. Współczesna neurotechnologia nie ogranicza się już do biernego rejestrowania potencjałów czynnościowych kory ruchowej, lecz rozwija technologie precyzyjnej stymulacji zwrotnej, dążąc do przywrócenia czucia dotyku, wzroku, a także leczenia lekoopornej depresji czy choroby Parkinsona.",
+      "Dla milionów osób zmagających się z przerwaniem rdzenia kręgowego, udarami mózgu czy stwardnieniem zanikowym bocznym (ALS) technologie BCI stanowią autentyczną medyczną nadzieję na przełamanie paraliżującej izolacji i odzyskanie elementarnej samodzielności. Skala tego osiągnięcia inżynieryjnego budzi uzasadniony podziw wobec ludzkiego intelektu, potwierdzając, że ludzka wiedza może służyć ratowaniu zdrowia w sposób, który jeszcze pokolenie temu uchodził za domenę literatury naukowej.",
+      "2. MEDYCYNA NAPRAWCZA A TRANSHUMANIZM: GDZIE PRZEBIEGA GRANICA MIĘDZY TERAPIĄ A „ULEPSZANIEM” CZŁOWIEKA?",
+      "Entuzjazm związany z sukcesami klinicznymi neurotechnologii jest jednak nierozerwalnie spleciony z głębokim niepokojem bioetycznym, którego źródłem są dalekosiężne deklaracje twórców tych technologii. O ile wdrożenie implantu u pacjenta sparaliżowanego mieści się w klasycznym paradygmacie medycyny hipokratejskiej jako terapia odtwórcza (ang. restorative therapy), o tyle deklarowanym celem wiodących inżynierów z Doliny Krzemowej jest tzw. ulepszanie człowieka (ang. human enhancement) oraz osiągnięcie „symbiozy z cyfrową sztuczną inteligencją”.",
+      "Jak wskazuje w swoich wytycznych bioetycznych The Hastings Center, przejście od leczenia uszkodzonego narządu do modyfikowania zdrowego układu nerwowego przekracza krytyczną granicę antropologiczną. W postulatach ruchu transhumanistycznego ludzkie ciało i mózg przestają być darem, a stają się zaledwie „sprzętem” (ang. wetware), który należy poddać stałej optymalizacji, wyposażając jednostki w bezpośrednie łącze z bazami danych, rozszerzoną pamięć roboczą czy telepatyczną komunikację cyfrową.",
+      "Tego rodzaju dążenia nie są neutralnym postępem naukowym, lecz wyrazem materialistycznej filozofii redukcjonizmu, która sprowadza ludzką świadomość, miłość, sumienie i wolę do sumy impulsów elektrochemicznych. Wizja podziału społeczeństwa na ludzi ulepszonych technologicznie i uboższą biologiczną większość rodzi bezprecedensowe zagrożenie nową formą cybernetycznej eugeniki i segregacji społecznej.",
+      "3. ZAGROŻENIE DLA PRAW NEURONOWYCH: PRYWATNOŚĆ MYŚLI, WOLNOŚĆ WOLI I ETYCZNY RAPORT UNESCO",
+      "Radykalna ingerencja w neuronalne podłoże ludzkiej psychiki skłoniła międzynarodowe gremia prawnicze i etyczne do pilnego sformułowania nowych zasad ochrony człowieka. W opublikowanym przez UNESCO dokumencie „Recommendation on the Ethics of Neurotechnology” oraz analizach Międzynarodowego Komitetu Bioetyki (IBC) podniesiono alarm dotyczący konieczności prawnego zagwarantowania tzw. praw neuronowych (ang. neurorights). Obejmują one prawo do prywatności neuronalnej, integralności psychicznej oraz wolności poznawczej (ang. cognitive liberty).",
+      "Odczytywanie sygnałów z kory mózgowej w czasie rzeczywistym niesie ze sobą ryzyko dekodowania nie tylko intencji ruchowych, lecz także emocji, ukrytych preferencji wyborczych, a w perspektywie kolejnych dekad — samego strumienia myśli. Jeśli dane neuronalne trafią na serwery korporacji technologicznych lub w ręce reżimów autorytarnych, człowiek może zostać pozbawiony ostatniego azylu wolności, jakim jest wnętrze własnego umysłu.",
+      "Eksperci do spraw bezpieczeństwa teleinformatycznego zwracają także uwagę na zjawisko tzw. brainjackingu — możliwości zdalnego zhakowania aktywnego stymulatora mózgowego, manipulowania nastrojem pacjenta lub wymuszenia określonych zachowań. Technologia, która miała wyzwalać z więzienia paraliżu, w warunkach braku rygorystycznych ograniczeń moralnych może przekształcić się w narzędzie absolutnej kontroli i behawioralnego zniewolenia.",
+      "4. EGZEGEZA BIBLIJNA: CZŁOWIEK STWORZONY NA OBRAZ BOGA (IMAGO DEI) A REDUKCJONIZM CYFROWY (RDZ 1:26–27, PS 139:13–16 UBG)",
+      "W obliczu neurotechnologicznego redukcjonizmu fundamentem chrześcijańskiej odpowiedzi jest prawda o stworzeniu człowieka na obraz i podobieństwo Boże. W Księdze Rodzaju czytamy natchnione słowa: „I powiedział Bóg: Uczyńmy człowieka na nasz obraz, według naszego podobieństwa... Stworzył więc Bóg człowieka na swój obraz, na obraz Boga go stworzył; stworzył ich mężczyzną i kobietą” (Rdz 1:26–27 UBG). W języku hebrajskim pojęcie obrazu (celem, Strong H6754) oraz podobieństwa (demut, Strong H1823) wskazuje na wyjątkową, transcendentną godność osoby ludzkiej, która nie wynika z jej sprawności intelektualnej, wydajności neuronowej czy technologicznego wyposażenia, lecz z suwerennego aktu Stwórcy.",
+      "Człowiek nie jest przypadkowym zbiegiem ewolucyjnych algorytmów, który musi połączyć się z procesorem, by osiągnąć wyższy etap istnienia. Psałterz w natchnionym 139. Psalmie celebruje niezwykłą, uświęconą złożoność ludzkiego organizmu: „Ty bowiem ukształtowałeś moje nerki; utkałeś mnie w łonie mojej matki. Chwalę cię, bo zostałem cudownie i trwożnie stworzony; cudowne są twoje dzieła, a moja dusza wie to bardzo dobrze” (Ps 139:13–14 UBG). Użyty tutaj hebrajski czasownik sakak (Strong H5526 — „utkać, osłonić”) oraz raqam (Strong H7551 — „haftować, misternie komponować”) podkreślają, że ludzkie ciało i mózg są arcydziełem Boga, a nie wadliwym prototypem wymagającym zastąpienia syntetycznym interfejsem.",
+      "Próba samowolnego przekraczania biologicznych granic gatunku ludzkiego pod hasłem technologicznego samoudoskonalenia jest echem pradawnego kłamstwa węża w Edenie: „będziecie jak bogowie” (Rdz 3:5 UBG). Pismo Święte demaskuje pychę stworzenia, które odrzucając panowanie Stwórcy, usiłuje zająć Jego miejsce, co nieuchronnie prowadzi do dehumanizacji i utraty prawdziwej wolności.",
+      "5. ŚWIĄTYNIA DUCHA ŚWIĘTEGO I PRZEMIANA UMYSŁU: CIAŁO W PERSPEKTYWIE NOWEGO TESTAMENTU (1 KOR 6:19–20, RZ 12:2 UBG)",
+      "Nowy Testament wnosi jeszcze głębszą, chrystocentryczną perspektywę w rozumienie ludzkiej cielesności i psychiki. Apostoł Paweł w 1 Liście do Koryntian przypomina z mocą: „Czyż nie wiecie, że wasze ciało jest świątynią Ducha Świętego, który jest w was, a którego macie od Boga, i nie należycie do samych siebie? Drogo bowiem zostaliście kupieni. Chwalcie więc Boga w waszym ciele i w waszym duchu, które należą do Boga” (1 Kor 6:19–20 UBG). W języku greckim słowo naos (Strong G3485) oznacza wewnętrzne sanktuarium, Miejsce Najświętsze świątyni, gdzie przebywała Boża obecność.",
+      "Dla chrześcijanina ciało i procesy myślowe nie są prywatną własnością podlegającą dowolnym eksperymentom rynkowym czy korporacyjnym licencjom. Każda ingerencja w układ nerwowy musi respektować świętość ludzkiej osoby i nie może naruszać wolności sumienia, w którym człowiek odpowiada przed Bogiem. Oddanie kontroli nad własnym mózgiem zamkniętym systemom operacyjnym i algorytmom korporacji jest bezpośrednim zagrożeniem dla duchowej integralności wierzącego.",
+      "Co więcej, biblijna obietnica odnowienia człowieka nie polega na aktualizacji oprogramowania neuronowego, lecz na duchowym uświęceniu. W Liście do Rzymian czytamy: „A nie upodabniajcie się do tego świata, ale przekształcajcie się przez odnowienie waszego umysłu, abyście mogli rozeznać, co jest dobrą, przyjemną i doskonałą wolą Boga” (Rz 12:2 UBG). Grecki termin anakainosis (Strong G342) oznacza całkowitą odnowę moralną i duchową pod wpływem Słowa Bożego i łaski Chrystusa, a nie cybernetyczny doping poznawczy.",
+      "6. ROZDZIELENIE FAKTÓW OD TEOLOGII: LECZNICZE BŁOGOSŁAWIEŃSTWO MEDYCYNY A PUŁAPKA DEIFIKACJI TECHNOLOGII",
+      "Zgodnie ze standardami Podręcznika Redakcyjnego EkoCC oraz normami chrześcijańskiej hermeneutyki, obowiązkiem analityka jest rygorystyczne oddzielenie faktów medycznych od religijnej oceny i eschatologicznych spekulacji. Błędem teologicznym i nadużyciem hermeneutycznym byłoby utożsamianie dzisiejszych medycznych implantów BCI ze „znamieniem bestii” opisanym w 13. rozdziale Apokalipsy św. Jana. Tego rodzaju sensacjonalistyczne wnioski kompromitują powagę biblijnego świadectwa i rodzą niepotrzebną panikę wśród wierzących.",
+      "Fakty kliniczne dowodzą, że interfejsy mózg-komputer są wysoce specjalistycznymi wyrobami medycznymi ratującymi ludzi przed całkowitym wykluczeniem społecznym. Wykorzystanie wiedzy neurochirurgicznej do przywrócenia mowy choremu na ALS czy umożliwienia poruszania protezą osobie po amputacji jest w pełni zgodne z duchem miłosierdzia Chrystusa, który sam uzdrawiał chorych, przywracał wzrok niewidomym i podnosił sparaliżowanych (por. Mt 9:1–8, Łk 10:33–37 UBG).",
+      "Komentarz teologiczny wkracza w momencie, gdy technologia przestaje być narzędziem służby cierpiącemu, a staje się religią transhumanistycznego samozbawienia i próbą ucieczki przed śmiercią bez Chrystusa. Jako chrześcijanie z wdzięcznością przyjmujemy rzetelne osiągnięcia medycyny naprawczej, stawiając jednocześnie bezkompromisowe „nie” wszelkim próbom manipulowania ludzką tożsamością, handlu danymi myśli i budowania cyfrowego bożka w miejscu żywego Boga."
+    ],
+    imageUrl: '/images/news/art-implanty-mozgowe-bci-neuralink-bioetyka-imago-dei.jpg',
+    imageCaption: 'Zaawansowane laboratorium neuroinżynierii: precyzyjny mikrochip interfejsu mózg-komputer (BCI) z ultracienkimi nićmi elektrod pod mikroskopem chirurgicznym na tle monitorów aktywności neuronalnej. Ilustracja redakcyjna EkoCC / Christian Culture',
+    readTimeMinutes: 10,
+    isHero: true,
+    isPopular: true,
+    popularRank: 1,
+    tags: [
+      '@CezaryRogowski',
+      '@CCNNews',
+      '@NaukaEkoCC',
+      '@ChristianCulture',
+      '#Bioetyka',
+      '#Neuralink',
+      '#BCI',
+      '#ImagoDei',
+      '#Transhumanizm',
+      '#SolaScriptura'
+    ],
+    author: AUTHORS.cezary,
+    primaryPortalUrl: 'https://polskieradio.cc/nauka/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei',
+    primaryPortalLabel: 'CCN NAUKA & BIOETYKA • RAPORT SPECJALNY',
+    category: 'nauka',
+    categoryLabel: 'CCN NAUKA & BIOETYKA • RAPORT SPECJALNY',
+    publishedAt: '2026-11-15T14:00:00+01:00',
+    dateFormatted: '15 listopada 2026',
+    scriptureReference: {
+      verse: 'Rodzaju 1:26–27; Psalmów 139:13–16; 1 Koryntian 6:19–20; Rzymian 12:2 (UBG)',
+      text: 'Stworzył więc Bóg człowieka na swój obraz, na obraz Boga go stworzył... Ty bowiem ukształtowałeś moje nerki; utkałeś mnie w łonie mojej matki. Chwalę cię, bo zostałem cudownie i trwożnie stworzony... Czyż nie wiecie, że wasze ciało jest świątynią Ducha Świętego?',
+      strongCode: 'H6754 (celem) / H1823 (demut) / G3485 (naos)'
+    },
+    sourceCitation: {
+      sourceName: 'Neuralink PRIME Trial (NCT06429735), UNESCO Ethics of Neurotechnology, The Lancet Neurology oraz UBG',
+      sourceUrl: 'https://clinicaltrials.gov/study/NCT06429735',
+      name: 'Neuralink PRIME Trial (NCT06429735), UNESCO Ethics of Neurotechnology, The Lancet Neurology oraz UBG',
+      url: 'https://clinicaltrials.gov/study/NCT06429735'
+    },
+    actionLinks: [
+      {
+        label: 'CCN Nauka — Raporty i Etyka',
+        url: 'https://polskieradio.cc/nauka'
+      },
+      {
+        label: 'Cudownie i trwożnie stworzony — MojaBiblia (Ps 139)',
+        url: 'https://polskieradio.cc/mojabiblia'
+      }
+    ]
+  },
   {
     id: 'art-gdy-religia-staje-sie-konkursem-na-nienaganny-wizerunek',
     title: "Gdy religia staje się konkursem na nienaganny wizerunek",

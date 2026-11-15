@@ -1,13 +1,13 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-15T12:07:26.200Z",
+  "generatedAt": "2026-11-15T13:11:59.224Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 98,
-    "validUrls": 98,
+    "totalValidatedUrls": 99,
+    "validUrls": 99,
     "invalidUrls": 0,
-    "newsArticlesCount": 92,
-    "googleNews48hCount": 46,
+    "newsArticlesCount": 93,
+    "googleNews48hCount": 47,
     "akademiaUrlsCount": 77,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
@@ -31,25 +31,25 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 24979,
+      "sizeBytes": 25677,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 32701,
+      "sizeBytes": 33347,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 41804,
+      "sizeBytes": 42361,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 36569,
+      "sizeBytes": 37473,
       "status": "OK"
     },
     {
@@ -92,8 +92,8 @@
   "indexNow": {
     "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 45,
-    "pendingCount": 45,
+    "totalQueued": 46,
+    "pendingCount": 46,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-15T12:07:26.195Z",
+        "queuedAt": "2026-11-15T13:11:59.220Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-15T12:07:26.195Z",
+        "queuedAt": "2026-11-15T13:11:59.220Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-15T12:07:26.195Z",
+        "queuedAt": "2026-11-15T13:11:59.220Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-15T12:07:26.195Z",
+        "queuedAt": "2026-11-15T13:11:59.220Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-15T12:07:26.195Z",
+        "queuedAt": "2026-11-15T13:11:59.220Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 355,
-    "lastSubmittedCount": 355,
-    "lastSubmittedAt": "2026-11-15T12:07:28.007Z"
+    "totalIndexedUrls": 356,
+    "lastSubmittedCount": 356,
+    "lastSubmittedAt": "2026-11-15T13:12:01.023Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei.html",
+      "canonicalUrl": "https://polskieradio.cc/nauka/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/gdy-religia-staje-sie-konkursem-na-nienaganny-wizerunek.html",
       "canonicalUrl": "https://polskieradio.cc/news",
@@ -593,15 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/gdy-lek-o-jutro-odbiera-ci-pokoj-5-zasad-cezary-rogowski.html",
-      "canonicalUrl": "https://polskieradio.cc/news/gdy-lek-o-jutro-odbiera-ci-pokoj-5-zasad-cezary-rogowski",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-15T12:07:28.007Z"
+  "lastInstantIndexingAt": "2026-11-15T13:12:01.023Z"
 }

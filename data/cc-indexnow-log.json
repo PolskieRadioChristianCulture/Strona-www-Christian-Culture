@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-15T13:12:01.022Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 356
+    },
+    {
+      "timestamp": "2026-11-15T13:12:00.486Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 356
+    },
+    {
+      "timestamp": "2026-11-15T13:11:59.221Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/nauka/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei",
+        "https://polskieradio.cc/news",
+        "https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu"
+      ]
+    },
+    {
       "timestamp": "2026-11-15T12:07:28.005Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",

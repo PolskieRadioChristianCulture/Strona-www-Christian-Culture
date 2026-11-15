@@ -8,7 +8,7 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sun, 15 Nov 2026 12:07:26 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2026 13:11:59 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
     <item>
       <title>Gdy religia staje się konkursem na nienaganny wizerunek</title>
@@ -19,6 +19,16 @@
       <category>eM • FORMACJA DUCHOWA, ETYKA I WSPÓLNOTA KOŚCIOŁA</category>
       <description>Dla wielu ludzi niedzielne przekroczenie progu wspólnoty wiary wiąże się z podświadomym przymusem założenia nieskazitelnej maski: wygładzonego uśmiechu, nienagannego wyglądu i deklaracji nieustannego sukcesu duchowego. Za tą starannie wyreżyserowaną fasadą kryje się jednak nierzadko głęboki lęk przed odrzuceniem, chroniczne poczucie winy oraz wycieńczenie ciągłą grą pozorów. Pismo Święte nie wzywa nas do religijnego teatru ani budowania iluzji własnej doskonałości, lecz zaprasza do stanięcia w prawdzie przed Bogiem, którego łaska objawia się w naszej ludzkiej kruchości. Prawdziwa wiara zaczyna się w miejscu, w którym wreszcie mamy odwagę zdjąć maskę i pozwolić Chrystusowi uleczyć nasze prawdziwe serce.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-gdy-religia-staje-sie-konkursem-na-nienaganny-wizerunek.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Implanty mózgowe, interfejs mózg-komputer i granica człowieczeństwa: Przełom Neuralink, badanie PRIME a biblijna prawda o obrazie Boga (Imago Dei)</title>
+      <link>https://polskieradio.cc/nauka/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei</link>
+      <guid isPermaLink="true">https://polskieradio.cc/nauka/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei</guid>
+      <pubDate>Sun, 15 Nov 2026 13:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN NAUKA &amp; BIOETYKA • RAPORT SPECJALNY</category>
+      <description>Przełom w technologii interfejsów mózg-komputer (BCI) oraz pierwsze pomyślne procedury wszczepienia elektrod neuronowych pacjentom z paraliżem otwierają bezprecedensowy rozdział w dziejach medycyny regeneracyjnej. Jednocześnie dynamiczny rozwój neuroinżynierii i ideologia transhumanizmu stawiają ludzkość przed fundamentalnymi pytaniami o nienaruszalność ludzkiego umysłu, granice biologicznego ulepszania i tożsamość człowieka. Pismo Święte nie potępia niesienia ulgi chorym i cierpiącym, lecz jednoznacznie przypomina, że człowiek nie jest biologiczną maszyną do nieograniczonej rekonfiguracji, ale istotą stworzoną na obraz i podobieństwo Boże (Imago Dei). Prawdziwa mądrość polega na rozróżnieniu pomiędzy medycznym leczeniem a niebezpieczną próbą technologicznej samozbawczości.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-implanty-mozgowe-bci-neuralink-bioetyka-imago-dei.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Jak przygotować domowy budżet na grudzień bez kredytu?</title>
@@ -299,16 +309,6 @@
       <category>eM / Motywacja Christian Culture</category>
       <description>Czy religijny wizerunek zgadza się z Twoim życiem? Mocny biblijny rachunek sumienia o prawdzie, uczciwości, przemocy, łasce i nawróceniu autorstwa Cezarego Rogowskiego w ramach eM — Motywacja Christian Culture.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-jaka-jest-twoja-poboznosc-wiara-czy-maska.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Jak zdefiniować osobisty sukces w chrześcijaństwie? Biblijna miara życia w perspektywie wieczności</title>
-      <link>https://polskieradio.cc/news/osobisty-sukces-chrzescijanina-w-perspektywie-wiecznosci</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/osobisty-sukces-chrzescijanina-w-perspektywie-wiecznosci</guid>
-      <pubDate>Thu, 29 Oct 2026 08:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>eM / Motywacja Christian Culture</category>
-      <description>Czym jest prawdziwy osobisty sukces chrześcijanina? Poznaj biblijną miarę charakteru, wierności, miłości i życia w perspektywie wieczności autorstwa Cezarego Rogowskiego w ramach eM — Motywacja Christian Culture.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-osobisty-sukces-chrzescijanina-w-perspektywie-wiecznosci.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>
