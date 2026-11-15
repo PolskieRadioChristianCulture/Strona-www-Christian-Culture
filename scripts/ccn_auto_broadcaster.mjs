@@ -299,6 +299,14 @@ function resolveItemImage(item, rootDir) {
     const p3 = path.join(rootDir, 'images', 'team', 'mariusz-duszpasterz.jpg');
     if (fs.existsSync(p3)) return p3;
   }
+  if (pathLower.includes('studium') || titleLower.includes('studio dobrego słowa') || titleLower.includes('sds')) {
+    const p1 = path.join(rootDir, 'images', 'news', 'art-globalny-reset-premiera-sds.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'avatar_mariusz_sds.jpg');
+    if (fs.existsSync(p2)) return p2;
+    const p3 = path.join(rootDir, 'images', 'courses', 'apokalipsa', 'banner-promo.jpg');
+    if (fs.existsSync(p3)) return p3;
+  }
   if (pathLower.includes('/ewa') || pathLower.includes('ewa.') || /\b(ewa|ewy|ewie|ewę)\b/i.test(titleLower) || titleLower.includes('cc women')) {
     const p1 = path.join(rootDir, 'images', 'news', 'art-ewa-cc-women.jpg');
     if (fs.existsSync(p1)) return p1;
@@ -330,6 +338,20 @@ function resolveItemImage(item, rootDir) {
   if (pathLower.includes('gerald-welch') || titleLower.includes('gerald welch')) {
     const p = path.join(rootDir, 'images', 'news', 'art-gerald-welch-the-call.jpg');
     if (fs.existsSync(p)) return p;
+  }
+  if (pathLower.includes('worship') || titleLower.includes('worship')) {
+    const p1 = path.join(rootDir, 'worship_bg.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'images', 'player', 'art-worship.jpg');
+    if (fs.existsSync(p2)) return p2;
+    const p3 = path.join(rootDir, 'images', 'biblijne-uwielbienie', 'worship-cross-fullscreen.jpg');
+    if (fs.existsSync(p3)) return p3;
+  }
+  if (pathLower.includes('cctv24') || titleLower.includes('cctv24')) {
+    const p1 = path.join(rootDir, 'tv24 CC.png');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'tv24_master_live.png');
+    if (fs.existsSync(p2)) return p2;
   }
   if (pathLower.includes('player') || pathLower.includes('/radio') || pathLower.includes('muzyka')) {
     const p = path.join(rootDir, 'images', 'player', 'art-worship.jpg');
@@ -1100,6 +1122,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📅 PROGRAM TV & RAMÓWKA CC';
       callToAction = '👉 Sprawdź ramówkę w serwisie:\n';
       addTags('#ProgramTV', '#RamowkaCC', '#TelewizjaCC', '#ChristianCulture');
+    } else if ((item.url || '').endsWith('/studium') || (item.title || '').includes('Studio Dobrego Słowa')) {
+      subHeader = '🏛️ STUDIO DOBREGO SŁOWA | SDS';
+      callToAction = '👉 Oglądaj wykłady i transmisje:\n';
+      addTags('#StudioDobregoSlowa', '#Apokalipsa', '#Biblia', '#CCNNews');
     } else {
       subHeader = '🌐 EKOSYSTEM CHRISTIAN CULTURE';
       callToAction = '👉 Odkryj w ekosystemie:\n';
@@ -1213,15 +1239,32 @@ function formatBroadcasterTweet(item) {
       addTags('#CCNNews', '#ChristianCulture', '#Prawda');
     }
   } else {
-    addTags(item.tag || '#CCNNews', '#ChristianCulture', '#Prawda');
+    if ((item.url || '').endsWith('/studium') || tLower.includes('studio dobrego słowa') || tLower.includes('sds')) {
+      addTags('#StudioDobregoSlowa', '#Biblia', '#CCNNews', '#ChristianCulture');
+    } else {
+      addTags(item.tag || '#CCNNews', '#ChristianCulture', '#Prawda');
+    }
   }
 
   const hashtags = tagList.join(' ');
   const url = item.url;
+  const subLine = subHeader ? `\n${subHeader}\n` : '\n\n';
   let bodyText = '';
 
-  if (item.type === 'verse' && item.lead) {
-    bodyText = item.lead;
+  if (item.type === 'verse') {
+    if (item.text) {
+      bodyText = item.reference ? `„${item.text}” (${item.reference}, UBG)` : `„${item.text}”`;
+      const testTweet = `${header}${subLine}${bodyText}\n\n${callToAction}${url}\n\n${hashtags}`;
+      if (testTweet.length - url.length + 23 > 278 && item.reference) {
+        bodyText = `„${item.text}” (${item.reference})`;
+        const testTweet2 = `${header}${subLine}${bodyText}\n\n${callToAction}${url}\n\n${hashtags}`;
+        if (testTweet2.length - url.length + 23 > 278) {
+          bodyText = `„${item.text}”`;
+        }
+      }
+    } else if (item.lead) {
+      bodyText = item.lead;
+    }
   } else if ((item.url || '').includes('topTEN')) {
     bodyText = 'Oficjalna lista przebojów muzyki chrześcijańskiej. Głosuj na utwory i wspieraj artystów!';
   } else if ((item.url || '').includes('BiblijneUwielbienie') || (item.title || '').toLowerCase().includes('biblia śpiewana')) {
@@ -1295,31 +1338,33 @@ function formatBroadcasterTweet(item) {
   } else if ((item.url || '').includes('dzien-30')) {
     bodyText = 'Dzień 30 (Rdz 48:1–49:33): Błogosławieństwo Jakuba, proroctwo o Lwie z pokolenia Judy i Boża obietnica.';
   } else if ((item.url || '').includes('dzien-29')) {
-    bodyText = 'Dzień 29 (Rdz 46–47): Bóg prowadzi swój lud do Egiptu — spotkanie Jakuba z Józefem w Goszen.';
+    bodyText = 'Dzień 29 (Rdz 46:1–47:31): Bóg prowadzi swój lud do Egiptu — spotkanie Jakuba z Józefem w Goszen.';
   } else if ((item.url || '').includes('dzien-28')) {
-    bodyText = 'Dzień 28 (Rdz 44–45): Ja jestem Józef! Wzruszające przebaczenie braciom i Boża opatrzność.';
+    bodyText = 'Dzień 28 (Rdz 44:1–45:28): „Ja jestem Józef!” — wzruszające przebaczenie braciom i Boża Opatrzność.';
   } else if ((item.url || '').includes('dzien-27')) {
-    bodyText = 'Dzień 27 (Rdz 43): Druga wyprawa do Egiptu, próba serc braci i Boża łaska w Goszen.';
+    bodyText = 'Dzień 27 (Rdz 42:1–43:34): Gdy przeszłość wraca — bracia Józefa w Egipcie, wyrzuty sumienia i Boża łaska.';
   } else if ((item.url || '').includes('dzien-26')) {
-    bodyText = 'Dzień 26 (Rdz 42): Pierwsza wyprawa do Egiptu, wyrzuty sumienia i początek przemiany braci.';
+    bodyText = 'Dzień 26 (Rdz 40:1–41:57): Od więzienia do pałacu — sny faraona, Boża mądrość i zaopatrzenie w czasie głodu.';
   } else if ((item.url || '').includes('dzien-25')) {
-    bodyText = 'Dzień 25 (Rdz 41): Sny faraona, wyniesienie Józefa na zarządcę Egiptu i Boża mądrość.';
+    bodyText = 'Dzień 25 (Rdz 38:1–39:23): Józef w domu Potifara i w więzieniu — czystość, wierność w próbie i Boża obecność.';
   } else if ((item.url || '').includes('dzien-24')) {
-    bodyText = 'Dzień 24 (Rdz 40): Józef w więzieniu, sny podczaszego i piekarza oraz wierność w próbie.';
+    bodyText = 'Dzień 24 (Rdz 36:1–37:36): Józef — marzenie, zdrada i Boża Opatrzność ponad ludzką nienawiścią.';
   } else if ((item.url || '').includes('dzien-23')) {
-    bodyText = 'Dzień 23 (Rdz 39): Józef w domu Potifara, ucieczka przed grzechem i Boża obecność w cierpieniu.';
+    bodyText = 'Dzień 23 (Rdz 33:1–35:29): Pojednanie z Ezawem, powrót do Betel i odnowienie przymierza z Bogiem.';
   } else if ((item.url || '').includes('dzien-22')) {
-    bodyText = 'Dzień 22 (Rdz 38): Juda i Tamar — ludzki upadek, Boża sprawiedliwość i linia Mesjasza.';
+    bodyText = 'Dzień 22 (Rdz 31:1–32:32): Jakub walczy z Bogiem nad potokiem Jabbok — przemiana człowieka i imię Izrael.';
   } else if ((item.url || '').includes('dzien-21')) {
-    bodyText = 'Dzień 21 (Rdz 37): Józef sprzedany do Egiptu — zawiść braci i tajemnica Bożego planu.';
+    bodyText = 'Dzień 21 (Rdz 29:1–30:43): Bóg działa pośród niedoskonałych rodzin — służba u Labana i Boże błogosławieństwo.';
   } else if ((item.url || '').includes('dzien-20')) {
-    bodyText = 'Dzień 20 (Rdz 35–36): Powrót do Betel, odnowienie przymierza i narodziny Beniamina.';
+    bodyText = 'Dzień 20 (Rdz 28:1–22): Drabina Jakuba w Betel — Bóg jest bliżej, niż myślisz, i dotrzymuje obietnic.';
   } else if ((item.url || '').endsWith('/lumina') || (item.url || '') === 'https://polskieradio.cc/lumina') {
     bodyText = 'LUMINA: Wolna od manipulacji i algorytmów przestrzeń społeczności ludzi wiary.';
   } else if ((item.url || '').endsWith('/mess') || (item.url || '') === 'https://polskieradio.cc/mess') {
     bodyText = 'LumiMess: Bezpieczny chrześcijański komunikator. Czatuj, rozmawiaj i bądź blisko.';
   } else if ((item.url || '').endsWith('/akademia')) {
     bodyText = 'Akademia Biblijna & Kurs Codzienny: Systematyczne studium Pisma Świętego i bezpłatne kursy dla każdego.';
+  } else if ((item.url || '').endsWith('/studium') || (item.title || '').includes('Studio Dobrego Słowa')) {
+    bodyText = 'Studio Dobrego Słowa (SDS): Wykłady biblijne, seria Apokalipsa i prawda Pisma Świętego.';
   } else if ((item.title || '').includes('GEN-015') || (item.title || '').includes('Rodzaju 15')) {
     bodyText = 'Nowy rozdział w słuchowisku! Księga Rodzaju 15 (UBG): Przymierze z Abramem, gwiazdy na niebie i wiara (Rdz 15,6).';
   } else if ((item.title || '').includes('GEN-012') || (item.title || '').includes('Rodzaju 12')) {
@@ -1406,17 +1451,31 @@ function formatBroadcasterTweet(item) {
     }
   }
 
-  const subLine = subHeader ? `\n${subHeader}\n` : '\n\n';
   let tweet = `${header}${subLine}${bodyText}\n\n${callToAction}${url}\n\n${hashtags}`;
 
   // Limit 280 znaków (link t.co liczony jako 23 znaki)
   const calcLen = () => tweet.length - url.length + 23;
 
   if (calcLen() > 278) {
+    // 1. Zredukuj dodatkowe hashtagi, aby zachować pełne zdanie tekstu lub wersetu
+    if (tagList.length > 1) {
+      let currentTags = [...tagList];
+      while (currentTags.length > 1 && calcLen() > 278) {
+        currentTags.pop();
+        const testTags = currentTags.join(' ');
+        const testTweet = `${header}${subLine}${bodyText}\n\n${callToAction}${url}\n\n${testTags}`;
+        if (testTweet.length - url.length + 23 <= 278) {
+          return testTweet;
+        }
+      }
+    }
+
+    // 2. Skróć treść, zachowując zamykający cudzysłów
     while (calcLen() > 278 && bodyText.includes(' ')) {
       bodyText = bodyText.replace(/\s+\S+$/, '').trim();
       const cleaned = bodyText.replace(/\s+(według|w|z|do|i|a|o|na|oraz|ze|od|po|dla|pod|nad|u|przez)\s*$/i, '').trim();
-      tweet = `${header}${subLine}${cleaned}…\n\n${callToAction}${url}\n\n${hashtags}`;
+      const closing = (bodyText.startsWith('„') || bodyText.startsWith('"')) ? '…”' : '…';
+      tweet = `${header}${subLine}${cleaned}${closing}\n\n${callToAction}${url}\n\n${hashtags}`;
     }
   }
 

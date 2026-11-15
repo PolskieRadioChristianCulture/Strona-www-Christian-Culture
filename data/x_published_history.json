@@ -2,6 +2,51 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "werset-dnia?day=324",
+      "title": "Werset Dnia: „Czcij Pana swoją majętnością i pierwocinami wszystkich swoich dochodów” (Księga Przysłów 3:9-10, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=324",
+      "type": "verse",
+      "image": "werset-day-324-ksiega-przyslow-3-9-10.jpg",
+      "publishedAt": "2026-11-15T15:35:42.839Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "dzien-26",
+      "title": "Z Biblią za Pan Brat — Dzień 26 (Lekcja 26): Od więzienia do pałacu (Rdz 40:1–41:57)",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-26",
+      "type": "course",
+      "image": "kc_day_26_jozef_od_wiezienia_do_palacu.jpg",
+      "publishedAt": "2026-11-15T15:05:40.526Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "studium",
+      "title": "Studio Dobrego Słowa (SDS)",
+      "url": "https://polskieradio.cc/studium",
+      "type": "module",
+      "image": "art-globalny-reset-premiera-sds.jpg",
+      "publishedAt": "2026-11-15T14:35:53.875Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "cctv24-worship.html",
+      "title": "CCTV24 Worship TV Live 24/7",
+      "url": "https://polskieradio.cc/cctv24-worship.html",
+      "type": "music",
+      "image": "worship_bg.jpg",
+      "publishedAt": "2026-11-15T14:03:29.748Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "implanty-mozgowe-bci-neuralink-bioetyka-imago-dei",
+      "title": "Implanty mózgowe, interfejs mózg-komputer i granica człowieczeństwa: Przełom Neuralink, badanie PRIME a biblijna prawda o obrazie Boga (Imago Dei)",
+      "url": "https://polskieradio.cc/news/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei",
+      "type": "news",
+      "image": "art-implanty-mozgowe-bci-neuralink-bioetyka-imago-dei.jpg",
+      "publishedAt": "2026-11-15T13:34:27.022Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=323",
       "title": "Werset Dnia: „On leczy tych, którzy mają złamane serce, i obwiązuje ich rany” (Psalm 147:3, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=323",
