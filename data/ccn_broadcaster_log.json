@@ -1,5 +1,29 @@
 [
   {
+    "timestamp": "2026-11-15T12:04:45.202Z",
+    "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
+    "url": "https://polskieradio.cc/lumina-tablica",
+    "type": "profile",
+    "image": "card-lumina.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-15T11:32:59.389Z",
+    "title": "Z Biblią za Pan Brat — Dzień 27 (Lekcja 27): Bracia w Egipcie — Przebudzenie sumienia (Rdz 42:1–43:34)",
+    "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-27",
+    "type": "course",
+    "image": "kc_day_27_gdy_przeszlosc_wraca_bracia_jozefa.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-15T11:03:11.515Z",
+    "title": "Dobrze, że jesteś — Codzienne Rozważania",
+    "url": "https://polskieradio.cc/dzj",
+    "type": "module",
+    "image": "cezary-wioletta-radiocc.jpg",
+    "status": "PUBLISHED"
+  },
+  {
     "timestamp": "2026-11-15T10:33:55.256Z",
     "title": "Na początku Bóg stworzył niebo i ziemię — Księga Rodzaju 1 (Biblia Śpiewana)",
     "url": "https://polskieradio.cc/BiblijneUwielbienie?chapter=GEN-001",

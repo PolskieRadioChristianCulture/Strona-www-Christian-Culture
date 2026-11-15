@@ -1,7 +1,29 @@
 {
-  "lastPromotedIndex": 0,
-  "lastPromotedDate": "2026-11-14",
+  "lastPromotedIndex": 3,
+  "lastPromotedDate": "2026-11-15",
   "history": [
+    {
+      "date": "2026-11-15",
+      "channelName": "Christian Culture TV",
+      "handle": "@ChristianCultureTV",
+      "url": "https://www.youtube.com/@ChristianCultureTV/live",
+      "results": {
+        "lumina": {
+          "status": "published",
+          "docId": "c5WzWLTgBlhlLVIdAb0F"
+        },
+        "x": {
+          "status": "published"
+        },
+        "fb": {
+          "status": "published"
+        },
+        "wa": {
+          "status": "error",
+          "error": "The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services."
+        }
+      }
+    },
     {
       "date": "2026-11-14",
       "channelName": "Polskie Radio CC",

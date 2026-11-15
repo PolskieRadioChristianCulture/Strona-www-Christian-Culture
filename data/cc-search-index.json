@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-15T08:10:37.622Z",
-  "totalItems": 451,
+  "updatedAt": "2026-11-15T12:07:28.252Z",
+  "totalItems": 452,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -4212,6 +4212,38 @@
     {
       "type": "article",
       "access": "public",
+      "publishedAt": "2026-11-06T14:00:00Z",
+      "title": "Czy patriotyzm zobowiązuje do szacunku wobec przeciwnika?",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/news",
+      "description": "W obliczu zbliżającego się Narodowego Święta Niepodległości w polskiej debacie publicznej z nową siłą powraca pytanie o granice sporu i fundamenty wspólnoty obywatelskiej. Coraz częściej miłość do ojczyzny bywa utożsamiana z bezwzględnością wobec oponentów, a inaczej myślący rodak staje się wrogiem pozbawionym prawa do szacunku. Pismo Święte, polskie dziedzictwo ustrojowe oraz twarde dane socjologiczne dowodzą jednak, że prawdziwy patriotyzm nie karmi się pogardą — jego miarą jest zdolność do wierności prawdzie przy jednoczesnym poszanowaniu godności każdego człowieka.",
+      "contentSnippet": "W obliczu zbliżającego się Narodowego Święta Niepodległości w polskiej debacie publicznej z nową siłą powraca pytanie o granice sporu i fundamenty wspólnoty obywatelskiej. Coraz częściej miłość do ojczyzny bywa utożsamiana z bezwzględnością wobec oponentów, a inaczej myślący rodak staje się wrogiem pozbawionym prawa do szacunku. Pismo Święte, polsk…",
+      "author": "Cezary Rogowski",
+      "date": "6 listopada 2026",
+      "tags": [
+        "Patriotyzm",
+        "Święto Niepodległości",
+        "Kultura Debaty",
+        "Szacunek",
+        "Dekalog",
+        "1 List Piotra",
+        "Konfederacja Warszawska",
+        "Cezary Rogowski",
+        "CCN News",
+        "EkoCC365",
+        "spoleczenstwo",
+        "CCN NEWS • SPOŁECZEŃSTWO, HISTORIA I DIALOG",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "1 List Piotra 2:17 (UBG) Wszystkich szanujcie, braci miłujcie, Boga się bójcie, króla czcijcie.",
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
       "publishedAt": "2026-11-14T14:00:00+01:00",
       "title": "Jak przygotować domowy budżet na grudzień bez kredytu?",
       "category": "Artykuły & Wiedza CCN",
@@ -4344,38 +4376,6 @@
         "ccn"
       ],
       "scripture": "1 Sm 16,7 Pan bowiem nie patrzy na to, na co patrzy człowiek, bo człowiek patrzy na to, co jest przed oczyma, ale Pan patrzy na serce.",
-      "featured": true
-    },
-    {
-      "type": "article",
-      "access": "public",
-      "publishedAt": "2026-11-06T14:00:00Z",
-      "title": "Czy patriotyzm zobowiązuje do szacunku wobec przeciwnika?",
-      "category": "Artykuły & Wiedza CCN",
-      "url": "https://polskieradio.cc/news",
-      "description": "W obliczu zbliżającego się Narodowego Święta Niepodległości w polskiej debacie publicznej z nową siłą powraca pytanie o granice sporu i fundamenty wspólnoty obywatelskiej. Coraz częściej miłość do ojczyzny bywa utożsamiana z bezwzględnością wobec oponentów, a inaczej myślący rodak staje się wrogiem pozbawionym prawa do szacunku. Pismo Święte, polskie dziedzictwo ustrojowe oraz twarde dane socjologiczne dowodzą jednak, że prawdziwy patriotyzm nie karmi się pogardą — jego miarą jest zdolność do wierności prawdzie przy jednoczesnym poszanowaniu godności każdego człowieka.",
-      "contentSnippet": "W obliczu zbliżającego się Narodowego Święta Niepodległości w polskiej debacie publicznej z nową siłą powraca pytanie o granice sporu i fundamenty wspólnoty obywatelskiej. Coraz częściej miłość do ojczyzny bywa utożsamiana z bezwzględnością wobec oponentów, a inaczej myślący rodak staje się wrogiem pozbawionym prawa do szacunku. Pismo Święte, polsk…",
-      "author": "Cezary Rogowski",
-      "date": "6 listopada 2026",
-      "tags": [
-        "Patriotyzm",
-        "Święto Niepodległości",
-        "Kultura Debaty",
-        "Szacunek",
-        "Dekalog",
-        "1 List Piotra",
-        "Konfederacja Warszawska",
-        "Cezary Rogowski",
-        "CCN News",
-        "EkoCC365",
-        "spoleczenstwo",
-        "CCN NEWS • SPOŁECZEŃSTWO, HISTORIA I DIALOG",
-        "Cezary Rogowski",
-        "artykuł",
-        "wiedza",
-        "ccn"
-      ],
-      "scripture": "1 List Piotra 2:17 (UBG) Wszystkich szanujcie, braci miłujcie, Boga się bójcie, króla czcijcie.",
       "featured": true
     },
     {
@@ -8691,6 +8691,26 @@
       "featured": false
     },
     {
+      "title": "Rozważanie: JAKI JEST TWÓJ PUNKT KRYTYCZNY?",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/dzj",
+      "description": "15 LISTOPADA 2026: Niedawno miałam okazję być w Grecji na zorganizowanej wycieczce obejmującej również miejsca, które odwiedził apostoł Paweł. To fascynujące móc poznawać kontekst historyczny, społec… Modlitwa: …",
+      "contentSnippet": "Niedawno miałam okazję być w Grecji na zorganizowanej wycieczce obejmującej również miejsca, które odwiedził apostoł Paweł. To fascynujące móc poznawać kontekst historyczny, społeczny, duchowy i geograficzny Kościołów w Filippi, Berei, Koryncie czy Tesalonikach. Ale nie o tym dzisiaj. Czasem, jak się okazuje, drobne niedogodności potrafią nam przesłonić wyjątkowość chwili. W czasie całego pobytu p",
+      "tags": [
+        "dobrze że jesteś",
+        "cuda każdego dnia",
+        "rozważanie",
+        "modlitwa",
+        "poranna inspiracja",
+        "15 LISTOPADA 2026",
+        "nadzieja",
+        "pokój boży",
+        "wiara",
+        "słowo boże"
+      ],
+      "featured": false
+    },
+    {
       "title": "Rozważanie: CZEGO BÓG OCZEKUJE OD CIEBIE?",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/dzj",
@@ -11062,7 +11082,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-15T08:10:37.722Z",
+    "updatedAt": "2026-11-15T12:07:28.327Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "15 listopada 2026",
     "pools": [

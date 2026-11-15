@@ -1,13 +1,13 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-15T08:10:35.504Z",
+  "generatedAt": "2026-11-15T12:07:26.200Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 97,
-    "validUrls": 97,
+    "totalValidatedUrls": 98,
+    "validUrls": 98,
     "invalidUrls": 0,
-    "newsArticlesCount": 91,
-    "googleNews48hCount": 45,
+    "newsArticlesCount": 92,
+    "googleNews48hCount": 46,
     "akademiaUrlsCount": 77,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
@@ -31,13 +31,13 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 24968,
+      "sizeBytes": 24979,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 32346,
+      "sizeBytes": 32701,
       "status": "OK"
     },
     {
@@ -49,7 +49,7 @@
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 35900,
+      "sizeBytes": 36569,
       "status": "OK"
     },
     {
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-15T08:10:35.497Z",
+        "queuedAt": "2026-11-15T12:07:26.195Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-15T08:10:35.497Z",
+        "queuedAt": "2026-11-15T12:07:26.195Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-15T08:10:35.497Z",
+        "queuedAt": "2026-11-15T12:07:26.195Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-15T08:10:35.497Z",
+        "queuedAt": "2026-11-15T12:07:26.195Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-15T08:10:35.497Z",
+        "queuedAt": "2026-11-15T12:07:26.195Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -386,7 +386,7 @@
     "keyMasked": "cc777b...c28e",
     "totalIndexedUrls": 355,
     "lastSubmittedCount": 355,
-    "lastSubmittedAt": "2026-11-15T08:10:37.254Z"
+    "lastSubmittedAt": "2026-11-15T12:07:28.007Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/gdy-religia-staje-sie-konkursem-na-nienaganny-wizerunek.html",
+      "canonicalUrl": "https://polskieradio.cc/news",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu.html",
       "canonicalUrl": "https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
@@ -593,15 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/z-biblia-za-pan-brat-dzien-30-blogoslawienstwo-obietnica-i-lew-z-judy.html",
-      "canonicalUrl": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-30-blogoslawienstwo-obietnica-i-lew-z-judy",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-15T08:10:37.254Z"
+  "lastInstantIndexingAt": "2026-11-15T12:07:28.007Z"
 }

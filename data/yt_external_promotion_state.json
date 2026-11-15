@@ -1,7 +1,7 @@
 {
-  "lastIndex": 1,
-  "lastChannelId": "osobowosc_plus",
-  "lastTimestamp": "2026-11-14T17:02:35.346Z",
+  "lastIndex": 2,
+  "lastChannelId": "radio_cc",
+  "lastTimestamp": "2026-11-15T09:04:08.125Z",
   "history": [
     {
       "index": 0,
@@ -21,6 +21,17 @@
       "targetAudience": "Przedsiębiorcy, ambitni liderzy, osoby zmagające się ze stresem i poszukujące siły ducha",
       "hook": "Jak zachować niezłomny spokój i wygrywać w czasach totalnego chaosu?",
       "timestamp": "2026-11-14T17:02:35.346Z",
+      "status": "PROMOTED"
+    },
+    {
+      "index": 2,
+      "channelId": "radio_cc",
+      "channelName": "Polskie Radio Christian Culture",
+      "handle": "@RadioChristianCulture",
+      "url": "https://www.youtube.com/@RadioChristianCulture",
+      "targetAudience": "Miłośnicy dobrej muzyki z przesłaniem, kierowcy, pracownicy biurowi szukający spokoju",
+      "hook": "Masz dość toksycznej papki w komercyjnych rozgłośniach?",
+      "timestamp": "2026-11-15T09:04:08.125Z",
       "status": "PROMOTED"
     }
   ]

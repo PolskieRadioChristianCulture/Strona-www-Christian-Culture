@@ -8,7 +8,7 @@
     <atom:link href="https://polskieradio.cc/feed.xml" rel="self" type="application/rss+xml" />
     <description>Główny kanał publikacji ekosystemu Christian Culture: CCN News, Akademia Biblijna, Biblijne Uwielbienie, Radio i Kino VOD.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Sun, 15 Nov 2026 08:10:35 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2026 12:07:26 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
     <item>
       <title>Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?</title>
@@ -19,6 +19,16 @@
       <category>CCN Finanse</category>
       <description>Dyskusja o cyfrowych walutach banków centralnych (CBDC) coraz częściej wykracza poza ekonomię. Analiza CBDC, prawa niedzielnego oraz Apokalipsy 13 (z wydaniem audio 17:51).</description>
       <enclosure url="https://polskieradio.cc/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Gdy religia staje się konkursem na nienaganny wizerunek</title>
+      <link>https://polskieradio.cc/news</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news</guid>
+      <pubDate>Sun, 15 Nov 2026 14:00:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>eM • FORMACJA DUCHOWA, ETYKA I WSPÓLNOTA KOŚCIOŁA</category>
+      <description>Dla wielu ludzi niedzielne przekroczenie progu wspólnoty wiary wiąże się z podświadomym przymusem założenia nieskazitelnej maski: wygładzonego uśmiechu, nienagannego wyglądu i deklaracji nieustannego sukcesu duchowego. Za tą starannie wyreżyserowaną fasadą kryje się jednak nierzadko głęboki lęk przed odrzuceniem, chroniczne poczucie winy oraz wycieńczenie ciągłą grą pozorów. Pismo Święte nie wzywa nas do religijnego teatru ani budowania iluzji własnej doskonałości, lecz zaprasza do stanięcia w prawdzie przed Bogiem, którego łaska objawia się w naszej ludzkiej kruchości. Prawdziwa wiara zaczyna się w miejscu, w którym wreszcie mamy odwagę zdjąć maskę i pozwolić Chrystusowi uleczyć nasze prawdziwe serce.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-gdy-religia-staje-sie-konkursem-na-nienaganny-wizerunek.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Jak przygotować domowy budżet na grudzień bez kredytu?</title>
@@ -209,16 +219,6 @@
       <category>Wiara &amp; Rozwój</category>
       <description>Księga Rodzaju 50: Finał Księgi Rodzaju — pochówek Jakuba w Kanaanie, lęk braci przed zemstą, wyznanie Bożej Opatrzności i kości Józefa w świetle Chrystusa.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Bioetyka i granice ingerencji w ludzki genom. CRISPR, syntetyczne embriony a biblijna prawda o początku życia</title>
-      <link>https://polskieradio.cc/news/bioetyka-edycja-genomu-syntetyczne-embriony-biblia</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/bioetyka-edycja-genomu-syntetyczne-embriony-biblia</guid>
-      <pubDate>Fri, 30 Oct 2026 13:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>Nauka &amp; Bioetyka</category>
-      <description>Rewolucja w inżynierii genetycznej osiągnęła punkt zwrotny. Narzędzia precyzyjnej edycji DNA, takie jak CRISPR-Cas9, oraz laboratoryjna hodowla syntetycznych modeli embrionów ze komórek macierzystych stawiają ludzkość przed pytaniami, które do niedawna należały do sfery science fiction. Gdzie kończy się uprawnione leczenie wrodzonych chorób, a zaczyna niebezpieczna pycha samostworzenia? W obliczu globalnych raportów WHO i wytycznych bioetycznych, chrześcijanie są wezwani do obrony nienaruszalnej godności człowieka, którego życie od pierwszego zalążka pozostaje pod suwerenną opieką Stwórcy.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-bioetyka-edycja-genomu-syntetyczne-embriony-biblia.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Z Biblią za Pan Brat — Dzień 17: Wiara patrząca w przyszłość (Rdz 23–24)</title>

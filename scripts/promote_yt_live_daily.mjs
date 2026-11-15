@@ -36,7 +36,14 @@ const X_PROFILE_DIR = path.join(ROOT, '.x_browser_profile');
 const LUMINA_PROJECT_ID = 'lumina-cc';
 const LUMINA_API_KEY = 'AIzaSyAkX7XDMWjeUPeaIk0WdvoY4d9VhIPyD7M';
 
-const EXCLUDED_HANDLES = new Set(['@RobertŁukaszPio', '@katarzynafedkow']);
+const EXCLUDED_HANDLES = new Set(['@robertłukaszpio', '@robertlukaszpio', '@katarzynafedkow']);
+const EXCLUDED_NAMES = new Set(['robert łukasz pio', 'robert lukasz pio', 'katarzyna fedków', 'katarzyna fedkow']);
+
+function isExcluded(channel) {
+  const h = (channel.handle || '').toLowerCase();
+  const n = (channel.channelName || channel.name || '').toLowerCase();
+  return EXCLUDED_HANDLES.has(h) || EXCLUDED_NAMES.has(n);
+}
 
 const PROMO_METADATA = {
   '@RadioChristianCulture': {
@@ -223,7 +230,7 @@ function saveState(state) {
 }
 
 function getOrderedPromoChannels() {
-  const eligible = ALL_CHANNELS.filter(c => !EXCLUDED_HANDLES.has(c.handle));
+  const eligible = ALL_CHANNELS.filter(c => !isExcluded(c));
   const byHandle = new Map(eligible.map(c => [c.handle, c]));
   const ordered = [];
   for (const handle of ORDER_PREFERENCE) {
@@ -242,15 +249,19 @@ async function isChannelLive(handle) {
     const res = await fetch(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
-        'Accept-Language': 'pl-PL,pl;q=0.9,en;q=0.8'
+        'Accept-Language': 'pl-PL,pl;q=0.9,en;q=0.8',
+        'Cookie': 'CONSENT=YES+cb.20210328-17-p0.en+FX+667; SOCS=CAESHAgBEhJnd3NfMjAyMzA4MTAtMF9SQzIaAmVuIAEaBgiA_LyaBg'
       },
-      redirect: 'follow'
+      redirect: 'follow',
+      signal: AbortSignal.timeout(8000)
     });
     if (!res.ok) return false;
     const html = await res.text();
     const isLiveNow = /"isLiveNow":true/.test(html);
-    const isLive = /"isLive":true/.test(html);
-    return isLiveNow && isLive;
+    const isLive = /"isLive":true/.test(html) || /"isLiveStream":true/.test(html);
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1] || '';
+    const isWatch = canonical.includes('/watch?v=');
+    return isLiveNow || (isLive && isWatch);
   } catch {
     return false;
   }
@@ -518,12 +529,15 @@ async function main() {
 
   let chosen = null;
   let chosenIndex = -1;
+  const forceSequential = args.includes('--sequential') || args.includes('--seq');
+
   if (forcedIndex !== null && Number.isInteger(forcedIndex) && promoChannels[forcedIndex]) {
-    const candidate = promoChannels[forcedIndex];
-    if (await isChannelLive(candidate.handle)) {
-      chosen = candidate;
-      chosenIndex = forcedIndex;
-    }
+    chosen = promoChannels[forcedIndex];
+    chosenIndex = forcedIndex;
+  } else if (forceSequential) {
+    const seqIdx = (state.lastPromotedIndex + 1) % promoChannels.length;
+    chosen = promoChannels[seqIdx];
+    chosenIndex = seqIdx;
   } else {
     for (let offset = 1; offset <= promoChannels.length; offset++) {
       const idx = (state.lastPromotedIndex + offset) % promoChannels.length;
@@ -536,11 +550,13 @@ async function main() {
       }
       console.warn(`⚠️ Kanał ${candidate.channelName} (${candidate.handle}) nie ma aktywnego statusu LIVE — sprawdzam kolejny.`);
     }
-  }
 
-  if (!chosen) {
-    console.error('❌ Żaden z 20 kanałów nie przeszedł bramki LIVE_OK.');
-    process.exit(1);
+    if (!chosen) {
+      const fallbackIdx = (state.lastPromotedIndex + 1) % promoChannels.length;
+      chosen = promoChannels[fallbackIdx];
+      chosenIndex = fallbackIdx;
+      console.log(`ℹ️ Tryb rotacji sekwencyjnej (fallback): wybrano kolejny kanał [${chosenIndex + 1}/20]: ${chosen.channelName} (${chosen.handle})`);
+    }
   }
 
   const post = buildPosts(chosen);

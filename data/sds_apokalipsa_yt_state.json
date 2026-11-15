@@ -1,5 +1,5 @@
 {
-  "lastPublishedEpisode": 6,
+  "lastPublishedEpisode": 7,
   "history": [
     {
       "ep": 1,
@@ -93,6 +93,30 @@
       ],
       "allChannelsOk": true,
       "at": "2026-11-14T09:57:38.062Z"
+    },
+    {
+      "ep": 7,
+      "title": "Falsyfikat Trójcy",
+      "premiere": "2026-11-17 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/-F-7vxF3OeI"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/Ulmm6Mw0hlY"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/jjFVj3gReJc"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-15T09:19:15.736Z"
     }
   ]
 }

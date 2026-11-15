@@ -12,6 +12,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://polskieradio.cc/news</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-czy-patriotyzm-zobowiazuje-do-szacunku-wobec-przeciwnika.jpg</image:loc>
+      <image:title>Czy patriotyzm zobowiązuje do szacunku wobec przeciwnika?</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu</loc>
     <lastmod>2026-11-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -49,16 +59,6 @@
     <image:image>
       <image:loc>https://polskieradio.cc/images/news/art-kim-jestem-gdy-nikt-nie-patrzy-uczciwosc-sumienie.jpg</image:loc>
       <image:title>Kim jestem, gdy nikt nie patrzy? Uczciwość i sumienie według Biblii</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://polskieradio.cc/news</loc>
-    <lastmod>2026-11-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://polskieradio.cc/images/news/art-czy-patriotyzm-zobowiazuje-do-szacunku-wobec-przeciwnika.jpg</image:loc>
-      <image:title>Czy patriotyzm zobowiązuje do szacunku wobec przeciwnika?</image:title>
     </image:image>
   </url>
   <url>

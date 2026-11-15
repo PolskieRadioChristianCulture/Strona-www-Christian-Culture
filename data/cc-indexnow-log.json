@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-15T12:07:28.005Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 355
+    },
+    {
+      "timestamp": "2026-11-15T12:07:27.481Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 355
+    },
+    {
+      "timestamp": "2026-11-15T12:07:26.197Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news",
+        "https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
+        "https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody"
+      ]
+    },
+    {
       "timestamp": "2026-11-15T08:10:37.252Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",
