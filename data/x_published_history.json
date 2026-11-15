@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina.cezaryrgowski",
+      "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
+      "url": "https://polskieradio.cc/lumina.cezaryrgowski",
+      "type": "profile",
+      "image": "em-cezary-rogowski-16-9.jpg",
+      "publishedAt": "2026-11-15T16:33:22.011Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "bog-jest-miloscia",
       "title": "Książka: Bóg jest MIŁOŚCIĄ? — Cezary i Wioletta Rogowscy. Odpowiedź na trudne pytania",
       "url": "https://polskieradio.cc/bog-jest-miloscia",
