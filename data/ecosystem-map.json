@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #349 — Akademia Biblijna: Dzień 21 (Rdz 29:1–30:43) z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #348 — topTEN: Notowanie Muzyki Chrześcijańskiej z dedykowaną grafiką i Tablicą LUMINA",
       "agent": "A"
     },
@@ -4340,8 +4345,13 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-15T22:06:00+01:00",
+  "lastUpdated": "2026-11-15T23:03:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #349 — Akademia Biblijna: Dzień 21 (Rdz 29:1–30:43) z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
     {
       "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #347 — Wizytówka: Wioletta Rogowska z dedykowaną grafiką i Tablicą LUMINA",
@@ -4435,61 +4445,6 @@
     {
       "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #324 — Gerald Welch – THE CALL (Analiza Muzyczna i Wiara) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-15",
-      "topic": "Zewnętrzna Promocja YT #3/24: Polskie Radio Christian Culture — Kampania Outbound (X, Facebook, Shorts/Reels)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-15",
-      "topic": "CCN News X: Cykliczna publikacja #323 — Werset Dnia: Psalm 143:8 (UBG) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-15",
-      "topic": "CCN News X: Cykliczna publikacja #322 — Książka: U boku Diabła (Cezary Rogowski) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-15",
-      "topic": "Aktywacja i nocna publikacja Kursu Codziennego: Dzień 46 (Wj 16:1–36 Manna z Nieba i Świętość Szabatu)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-15",
-      "topic": "Poranna wysyłka newslettera z rozważaniem biblijnym — Dzień 46 (Manna z nieba i świętość szabatu)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #320 — LumiMess: Chrześcijański Komunikator z dedykowaną grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Aktualizacja 4. celu publikacji Facebook na fanpage Dobre Słowo dla Ciebie (Wektor1_VideoFactory)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #319 — Mój Werset Dnia: Wyszukiwarka Słowa Bożego i generator kart z dedykowaną grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #317 — Akademia Biblijna: Dzień 30 (Rdz 48–49) — Błogosławieństwo Jakuba i berło Judy z dedykowaną grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #316 — Słowo Boże: Werset Dnia Psalm 138:8 (UBG) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Wysyłka kampanii wsparcia SMS-CC do 133 subskrybentów (SIM 2 / polskieradio.cc/wspieraj)",
       "agent": "A"
     }
   ],
