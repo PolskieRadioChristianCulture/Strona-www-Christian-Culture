@@ -1,0 +1,110 @@
+{
+  "lang": "en",
+  "nazwaJezyka": "English",
+  "sciezka": "/pomogebomoge/en",
+  "meta": {
+    "title": "Freely we give — support Christian Culture",
+    "description": "Radio, television, the Audio Bible and a daily Bible lesson are free for everyone. Voluntary support — a gift, prayer, sharing or volunteering — lets Christian Culture keep giving.",
+    "ogDescription": "Free radio, TV, Audio Bible and a daily Bible lesson. Your voluntary support helps us keep giving."
+  },
+  "pomin": "Skip to ways of giving",
+  "logoAria": "Christian Culture — home page",
+  "navAria": "Shortcuts",
+  "jezykiAria": "Languages",
+  "nav": { "radio": "Radio", "tv": "Television", "audio": "Audio Bible", "akademia": "Academy" },
+  "akcja": "Support the mission",
+  "hero": {
+    "h1": "Freely we give.",
+    "lead": "Radio, television, the Audio Bible, the Academy, films, news and community — the whole Christian Culture ecosystem is free for everyone. Your voluntary support helps us keep giving.",
+    "cta2": "Help without giving money",
+    "liczba": "places online —<br />all of them free"
+  },
+  "eko": {
+    "h2": "Free",
+    "lead": "<b>16 places online.</b> No ads, no paid tiers and no selling of data. The daily lesson of our Bible course — today is day {dzien} — the Audio Bible, live streams and portals exist thanks to people who give voluntarily. Most services are in Polish; Christian Culture Global broadcasts for listeners worldwide."
+  },
+  "uslugi": {
+    "radio": ["Radio Christian Culture", "music, the Word and conversation around the clock"],
+    "global": ["Christian Culture Global", "Christian radio for listeners around the world"],
+    "tv": ["CCTV24 Television", "a live channel with worship and programmes"],
+    "bcm": ["BCM24", "Bible Prayer Time — a live channel 24/7"],
+    "audio": ["Audio Bible", "Scripture read chapter by chapter"],
+    "akademia": ["Bible Academy", "courses and a daily Bible lesson"],
+    "mojabiblia": ["MojaBiblia", "an interlinear Bible and translation comparison"],
+    "pobierz": ["Bible downloads", "Scripture files at no cost"],
+    "audioteka": ["Audio library", "audiobooks of faith, free of charge"],
+    "vod": ["VOD Cinema", "good Christian films 24/7"],
+    "news": ["CCN News", "a Christian news portal"],
+    "lumina": ["LUMINA", "a community of relationships and values"],
+    "swiadectwa": ["Testimonies", "true stories of changed lives"],
+    "modlitwa": ["Prayer", "praying together for Poland and for people"],
+    "topten": ["topTEN", "Christian music charts"],
+    "ogloszenia": ["Notice board", "a Christian community board"]
+  },
+  "panel": {
+    "h2": "Choose how you want to give",
+    "lead": "Once or regularly, from Poland or from abroad. Every amount is voluntary.",
+    "uwaga": "This page does not take payments or confirm gifts. Never enter card details, BLIK codes or passwords here — payment always happens in your bank or on the service the button leads to.",
+    "tabsAria": "Ways to give",
+    "kolejnosc": ["revolut", "patronite", "przelew", "blik", "zrzutka"],
+    "tabs": { "blik": "BLIK (Poland)", "przelew": "Bank transfer", "patronite": "Monthly", "revolut": "Online", "zrzutka": "Fundraisers" },
+    "blik": { "h3": "BLIK phone transfer", "p": "Only from Polish banks. In your banking app choose “BLIK phone transfer” and enter the number below.", "telefon": "Phone number", "uwaga": "Works only with Polish banks that support BLIK phone transfers. From abroad, choose “Online”." },
+    "przelew": { "h3": "Bank transfer in PLN", "p": "Two accounts in Polish złoty — choose the purpose closest to your heart.", "rozwoj": "studio, radio, TV, technology", "dar": "apps, Bible content, evangelism", "tytulWartosc": "„Rozwój Christian Culture” or „Dar misyjny”", "uwaga": "Both accounts are held in PLN. We do not publish a SWIFT/BIC code on this page; from abroad, Revolut or Patronite is the simplest way." },
+    "patronite": { "h3": "Patronage — regular support", "p": "Monthly patronage on Patronite, a Polish platform, helps us plan recordings and broadcasts month by month. You choose the amount and duration and can end it at any time.", "cta": "Go to Patronite" },
+    "revolut": { "h3": "Revolut — give online", "p": "A one-off gift through a secure Revolut link. The payment methods and currencies available are shown by Revolut itself.", "cta": "Go to Revolut" },
+    "zrzutka": { "h3": "Fundraisers for specific projects", "p": "Goals, descriptions and current progress are on the Zrzutka.pl pages (in Polish).", "cta": "Fundraiser" },
+    "odbiorca": "Recipient",
+    "tytul": "Transfer title",
+    "kopiuj": "Copy",
+    "skopiowano": "Copied",
+    "statusOk": "Copied to the clipboard. Paste it into your banking app.",
+    "statusBlad": "Automatic copying failed. Select and copy: "
+  },
+  "bez": {
+    "h2a": "You can help",
+    "h2b": "without money",
+    "figAlt": "Christian Culture Audio Bible",
+    "nazwa": "Five ways",
+    "modlitwa": ["Pray", "for the mission and for the people the Word reaches"],
+    "udostepnij": ["Share", "this page with someone who would want to know"],
+    "wolontariat": ["Volunteer", "time and skills: recording, design, translation, code", "Volunteering for Christian Culture"],
+    "partnerstwo": ["Partnership", "for churches, creators and organisations", "Partnership with Christian Culture"],
+    "sprzet": ["Equipment", "a microphone, camera or computer you no longer use", "Equipment for Christian Culture"],
+    "udostepnijCo": "strona",
+    "udostepnijTytul": "Freely we give — support Christian Culture",
+    "udostepnijTekst": "Christian Culture gives everything for free: "
+  },
+  "ktory": {
+    "aria": "Who receives the support",
+    "odbiorca": "Recipient",
+    "forma": "Form",
+    "formaWartosc": "a private Christian initiative",
+    "kontakt": "Contact",
+    "kontaktLink": "write to us",
+    "p1": "<b>Cezary Rogowski</b> leads Christian Culture together with people who give their time to the mission. All gifts go to his accounts and are used in full to keep the radio, television, Audio Bible and Academy free.",
+    "p2": "Christian Culture is an independent, private Christian initiative. It is not affiliated with Polskie Radio S.A. or any public broadcaster, and it does not promise any tax relief."
+  },
+  "faq": {
+    "h2": "Before you give",
+    "items": [
+      ["Does this page confirm my gift?", "No. Copying a number or clicking a button is not a payment. Payment happens only in your bank or on Patronite, Revolut or Zrzutka.pl, where you also see its confirmation."],
+      ["Can I deduct my gift from my taxes?", "We do not promise that. Transfers go to a private person — Cezary Rogowski. Please ask your tax adviser about your situation."],
+      ["I live abroad. How can I help?", "BLIK phone transfers work only with Polish banks, and our accounts are in PLN. From abroad, Revolut or patronage on Patronite is the simplest way."],
+      ["What is the difference between patronage and a gift?", "Patronage on Patronite is regular monthly support that you can end at any time. A bank transfer, BLIK, Revolut or a fundraiser is a one-off gift."],
+      ["Where does the money go?", "The “Rozwój Christian Culture” account funds the studio, radio, television and technology. The “Dar misyjny” account funds apps, Bible content and evangelism. Patronage and online gifts support the whole mission."],
+      ["Do you publish donors' names?", "Only with your explicit consent, which you can withdraw — and never with an amount or bank details."]
+    ]
+  },
+  "koniec": {
+    "h2": "Help carry the Word further.",
+    "cytat": "“Freely ye have received, freely give.”",
+    "zrodlo": "Matthew 10:8, KJV"
+  },
+  "stopka": {
+    "opis": "Christian Culture — an independent, private Christian initiative. Radio, TV, Audio Bible and Academy for free.",
+    "doGory": "Back to top",
+    "prywatnosc": "Privacy policy",
+    "grafiki": "Images: Christian Culture services"
+  },
+  "sugestia": { "tekst": "This page is also available in English.", "przycisk": "Stay in this version" }
+}

@@ -15,12 +15,20 @@
 <title>Pomogę, bo mogę — wspieraj Christian Culture</title>
 <meta name="description" content="Radio, telewizja, Biblia Audio i codzienna lekcja Pisma są bezpłatne dla każdego. Dobrowolne wsparcie — darowizna, modlitwa, udostępnienie, wolontariat — pozwala Christian Culture dawać dalej." />
 <link rel="canonical" href="https://polskieradio.cc/pomogebomoge" />
+<link rel="alternate" hreflang="pl" href="https://polskieradio.cc/pomogebomoge" />
+<link rel="alternate" hreflang="en" href="https://polskieradio.cc/pomogebomoge/en" />
+<link rel="alternate" hreflang="de" href="https://polskieradio.cc/pomogebomoge/de" />
+<link rel="alternate" hreflang="es" href="https://polskieradio.cc/pomogebomoge/es" />
+<link rel="alternate" hreflang="fr" href="https://polskieradio.cc/pomogebomoge/fr" />
+<link rel="alternate" hreflang="x-default" href="https://polskieradio.cc/pomogebomoge" />
 <meta property="og:url" content="https://polskieradio.cc/pomogebomoge" />
 <meta property="og:type" content="website" />
+<meta property="og:locale" content="pl_PL" />
 <meta property="og:title" content="Pomogę, bo mogę — wspieraj Christian Culture" />
 <meta property="og:description" content="Bezpłatne radio, TV, Biblia Audio i codzienna lekcja Pisma. Twoje dobrowolne wsparcie pozwala dawać dalej." />
 <meta property="og:image" content="https://polskieradio.cc/biblia-audio/assets/hero-biblia-audio.jpg" />
 <meta name="theme-color" content="#07121D" />
+<link rel="icon" href="/app-christian-culture.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
@@ -158,7 +166,7 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
 
 /* Zakończenie: odwrócone pole */
 .koniec { margin-top: var(--odstep); background: var(--ink); color: var(--ground); padding-block: clamp(96px, 11vw, 168px); }
-.koniec h2 { font-size: clamp(3rem, 9vw, 8.5rem); line-height: 0.92; letter-spacing: -0.05em; max-width: 10ch; }
+.koniec h2 { font-size: clamp(3rem, 9vw, 8.5rem); line-height: 0.92; letter-spacing: -0.05em; max-width: 16ch; }
 .koniec__dol { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; margin-top: 56px; }
 .koniec__dol p { font: 400 var(--t-lead)/1.4 var(--serif); max-width: 34ch; margin: 0; }
 .koniec blockquote { margin: 0; font: 500 italic clamp(1.25rem, 2vw, 1.625rem)/1.4 var(--serif); max-width: 30ch; }
@@ -231,7 +239,7 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
   .bar { min-height: 64px; }
   .znak span { display: none; }
   .plansza { padding-block: 32px 56px; gap: 32px; }
-  .plansza h1 { font-size: 22vw; }
+  .plansza h1 { font-size: 17vw; }
   .plansza__tekst p { font-size: 1.125rem; margin: 20px 0 28px; }
   .akcje { justify-content: stretch; }
   .akcje .przycisk { flex: 1 1 100%; }
@@ -248,17 +256,34 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
   .ktory__tekst img { width: 4.8em; height: 4.8em; }
   .stopka { min-height: 56svh; }
 }
+
+/* Języki */
+.jezyki { display: flex; gap: 2px; }
+.jezyki a { display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 40px; padding: 0 8px; border-radius: 999px; font: 600 0.8125rem var(--sans); letter-spacing: 0.02em; color: var(--soft); text-decoration: none; transition: background-color .2s, color .2s; }
+.jezyki a:hover { background: var(--ground-3); color: var(--ink); }
+.jezyki a[aria-current="page"] { color: var(--gold-ink); background: var(--gold); }
+.stopka .jezyki { margin-top: 24px; }
+.sugestia { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: center; padding: 10px var(--m); background: var(--ground-3); font-size: var(--t-small); }
+.sugestia[hidden] { display: none; }
+.sugestia a { font-weight: 600; color: var(--ink); }
+.sugestia button { min-height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--soft); font: 500 var(--t-small) var(--sans); cursor: pointer; }
+@media (max-width: 640px) { .bar .jezyki { display: none; } .bar .przycisk { margin-left: auto; } }
+@media (max-width: 1080px) { .bar .jezyki { margin-left: auto; } .bar .przycisk { margin-left: 8px; } }
+@media (max-width: 640px) { .bar .przycisk { margin-left: auto; } }
+
 </style>
 </head>
 <body>
 <div class="postep" aria-hidden="true"></div>
 <a class="pomin" href="#panel">Przejdź do sposobów wsparcia</a>
+<div class="sugestia" id="sugestia" hidden><span id="sugestiaTekst"></span><a id="sugestiaLink" href="#"></a><button type="button" id="sugestiaZostan"></button></div>
 
 <header class="ramka bar">
   <a class="znak" href="/" aria-label="Christian Culture — strona główna"><img src="/app-christian-culture.png" alt="" width="40" height="40" /><span>Christian Culture</span></a>
   <nav aria-label="Na skróty">
     <a href="/player">Radio</a><a href="/cctv24">Telewizja</a><a href="/biblia-audio">Biblia Audio</a><a href="/akademia">Akademia</a>
   </nav>
+  <nav class="jezyki jezyki--bar" aria-label="Wersje językowe"><a href="/pomogebomoge" hreflang="pl" lang="pl" data-jezyk="pl" aria-current="page" title="Polski">PL</a><a href="/pomogebomoge/en" hreflang="en" lang="en" data-jezyk="en" title="English">EN</a><a href="/pomogebomoge/de" hreflang="de" lang="de" data-jezyk="de" title="Deutsch">DE</a><a href="/pomogebomoge/es" hreflang="es" lang="es" data-jezyk="es" title="Español">ES</a><a href="/pomogebomoge/fr" hreflang="fr" lang="fr" data-jezyk="fr" title="Français">FR</a></nav>
   <a class="przycisk" href="#panel">Wesprzyj misję</a>
 </header>
 
@@ -275,7 +300,7 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
     <a class="plansza__liczba" href="#ekosystem-tytul"><span class="plansza__nr" id="licznikUslug">16</span><span>miejsc w sieci —<br />wszystkie za darmo</span></a>
   </section>
 
-  <div class="pas" aria-hidden="true"><div class="pas__okno"><div class="pas__tor"><span>Radio</span><i>·</i><span>Global</span><i>·</i><span>Telewizja CCTV24</span><i>·</i><span>BCM24</span><i>·</i><span>Biblia Audio</span><i>·</i><span>Akademia Biblijna</span><i>·</i><span>MojaBiblia</span><i>·</i><span>Biblia do pobrania</span><i>·</i><span>Audioteka</span><i>·</i><span>Kino VOD</span><i>·</i><span>CCN News</span><i>·</i><span>LUMINA</span><i>·</i><span>Świadectwa</span><i>·</i><span>Modlitwa</span><i>·</i><span>topTEN</span><i>·</i><span>Ogłoszenia</span><i>·</i><span>Radio</span><i>·</i><span>Global</span><i>·</i><span>Telewizja CCTV24</span><i>·</i><span>BCM24</span><i>·</i><span>Biblia Audio</span><i>·</i><span>Akademia Biblijna</span><i>·</i><span>MojaBiblia</span><i>·</i><span>Biblia do pobrania</span><i>·</i><span>Audioteka</span><i>·</i><span>Kino VOD</span><i>·</i><span>CCN News</span><i>·</i><span>LUMINA</span><i>·</i><span>Świadectwa</span><i>·</i><span>Modlitwa</span><i>·</i><span>topTEN</span><i>·</i><span>Ogłoszenia</span><i>·</i></div></div></div>
+  <div class="pas" aria-hidden="true"><div class="pas__okno"><div class="pas__tor"><span>Radio Christian Culture</span><i>·</i><span>Christian Culture Global</span><i>·</i><span>Telewizja CCTV24</span><i>·</i><span>BCM24</span><i>·</i><span>Biblia Audio</span><i>·</i><span>Akademia Biblijna</span><i>·</i><span>MojaBiblia</span><i>·</i><span>Biblia do pobrania</span><i>·</i><span>Audioteka</span><i>·</i><span>Kino VOD</span><i>·</i><span>CCN News</span><i>·</i><span>LUMINA</span><i>·</i><span>Świadectwa</span><i>·</i><span>Modlitwa</span><i>·</i><span>topTEN</span><i>·</i><span>Ogłoszenia</span><i>·</i><span>Radio Christian Culture</span><i>·</i><span>Christian Culture Global</span><i>·</i><span>Telewizja CCTV24</span><i>·</i><span>BCM24</span><i>·</i><span>Biblia Audio</span><i>·</i><span>Akademia Biblijna</span><i>·</i><span>MojaBiblia</span><i>·</i><span>Biblia do pobrania</span><i>·</i><span>Audioteka</span><i>·</i><span>Kino VOD</span><i>·</i><span>CCN News</span><i>·</i><span>LUMINA</span><i>·</i><span>Świadectwa</span><i>·</i><span>Modlitwa</span><i>·</i><span>topTEN</span><i>·</i><span>Ogłoszenia</span><i>·</i></div></div></div>
 
   <section class="ekosystem ramka" aria-labelledby="ekosystem-tytul">
     <div class="ekosystem__gora">
@@ -415,25 +440,54 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
 <footer class="stopka">
   <div class="ramka">
     <div class="stopka__gora"><span>Christian Culture — niezależna, prywatna inicjatywa chrześcijańska. Radio, TV, Biblia Audio i Akademia za darmo.</span><a class="link" href="#tytul">Do góry</a></div>
+    <nav class="jezyki jezyki--stopka" aria-label="Wersje językowe"><a href="/pomogebomoge" hreflang="pl" lang="pl" data-jezyk="pl" aria-current="page" title="Polski">PL</a><a href="/pomogebomoge/en" hreflang="en" lang="en" data-jezyk="en" title="English">EN</a><a href="/pomogebomoge/de" hreflang="de" lang="de" data-jezyk="de" title="Deutsch">DE</a><a href="/pomogebomoge/es" hreflang="es" lang="es" data-jezyk="es" title="Español">ES</a><a href="/pomogebomoge/fr" hreflang="fr" lang="fr" data-jezyk="fr" title="Français">FR</a></nav>
     <a class="stopka__mail" href="mailto:radiochristianculture@gmail.com">radiochristianculture<wbr>@gmail.com</a>
     <p class="stopka__meta"><a class="link" href="/privacy.html">Polityka prywatności</a><span>Grafiki: serwisy Christian Culture</span><span>polskieradio.cc · 2026</span></p>
   </div>
 </footer>
 
+<script>window.PBM = {"kopiuj":"Kopiuj","skopiowano":"Skopiowano","statusOk":"Skopiowano do schowka. Wklej w aplikacji swojego banku.","statusBlad":"Nie udało się skopiować automatycznie. Zaznacz i skopiuj: ","udostepnijCo":"lekcja","udostepnijTytul":"Z Biblią za Pan Brat — lekcja dnia","udostepnijTekst":"Lekcja dnia z Biblią: ","lang":"pl","sciezki":{"pl":"/pomogebomoge","en":"/pomogebomoge/en","de":"/pomogebomoge/de","es":"/pomogebomoge/es","fr":"/pomogebomoge/fr"},"sugestie":{"pl":["Ta strona jest dostępna po polsku.","Zostań w tej wersji"],"en":["This page is also available in English.","Stay in this version"],"de":["Diese Seite gibt es auch auf Deutsch.","In dieser Version bleiben"],"es":["Esta página también está en español.","Quedarme en esta versión"],"fr":["Cette page existe aussi en français.","Rester sur cette version"]}};</script>
 <script>
 (function () {
   'use strict';
+  var T = window.PBM || {};
   document.documentElement.classList.add('js');
   var ga = function (nazwa, metoda) { try { if (typeof gtag === 'function') gtag('event', nazwa, { method: metoda || '' }); } catch (e) {} };
+  var schowek = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
 
   // Licznik dni kursu (dzień 1 = 1 października 2026), liczony z daty w Polsce.
   try {
     var p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date()).map(function (x) { return [x.type, x.value]; }));
     var dzien = Math.round((Date.UTC(+p.year, +p.month - 1, +p.day) - Date.UTC(2026, 9, 1)) / 864e5) + 1;
-    if (dzien > 0) ['licznikDni'].forEach(function (id) { var e = document.getElementById(id); if (e) e.textContent = dzien; });
+    var ld = document.getElementById('licznikDni');
+    if (dzien > 0 && ld) ld.textContent = dzien;
   } catch (e) {}
 
   var bezRuchu = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Języki: świadomy wybór zapamiętany (cc.support.locale); język przeglądarki tylko jako podpowiedź.
+  document.querySelectorAll('[data-jezyk]').forEach(function (a) {
+    a.addEventListener('click', function () { schowek.set('cc.support.locale', a.getAttribute('data-jezyk')); ga('support_locale_change', a.getAttribute('data-jezyk')); });
+  });
+  (function () {
+    var wybrany = schowek.get('cc.support.locale');
+    if (wybrany && wybrany !== T.lang && T.sciezki && T.sciezki[wybrany]) return; // nie przekierowujemy na siłę
+    if (wybrany) return;
+    var przegladarka = ((navigator.languages && navigator.languages[0]) || navigator.language || '').slice(0, 2).toLowerCase();
+    if (!przegladarka || przegladarka === T.lang || !T.sciezki || !T.sciezki[przegladarka]) return;
+    var pasek = document.getElementById('sugestia');
+    if (!pasek) return;
+    document.getElementById('sugestiaTekst').textContent = T.sugestie[przegladarka][0];
+    var link = document.getElementById('sugestiaLink');
+    link.textContent = przegladarka.toUpperCase() + ' →';
+    link.href = T.sciezki[przegladarka];
+    link.setAttribute('hreflang', przegladarka);
+    link.addEventListener('click', function () { schowek.set('cc.support.locale', przegladarka); ga('support_locale_change', przegladarka); });
+    var zostan = document.getElementById('sugestiaZostan');
+    zostan.textContent = T.sugestie[T.lang][1];
+    zostan.addEventListener('click', function () { schowek.set('cc.support.locale', T.lang); pasek.hidden = true; });
+    pasek.hidden = false;
+  })();
 
   // Zakładki panelu (klawiatura: strzałki, Home, End).
   var zakladki = [].slice.call(document.querySelectorAll('[role="tab"]'));
@@ -462,8 +516,8 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
   document.querySelectorAll('[data-kopiuj]').forEach(function (b) {
     b.addEventListener('click', function () {
       var tekst = b.getAttribute('data-kopiuj');
-      var gotowe = function () { b.textContent = 'Skopiowano'; b.classList.add('ok'); status.textContent = 'Skopiowano do schowka. Wklej w aplikacji swojego banku.'; setTimeout(function () { b.textContent = 'Kopiuj'; b.classList.remove('ok'); }, 2200); };
-      var reczne = function () { status.textContent = 'Nie udało się skopiować automatycznie. Zaznacz i skopiuj: ' + tekst; };
+      var gotowe = function () { b.textContent = T.skopiowano; b.classList.add('ok'); status.textContent = T.statusOk; setTimeout(function () { b.textContent = T.kopiuj; b.classList.remove('ok'); }, 2200); };
+      var reczne = function () { status.textContent = T.statusBlad + tekst; };
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(tekst).then(gotowe, reczne); else reczne();
       ga('support_copy_account', b.getAttribute('data-ga-metoda'));
     });
@@ -471,33 +525,37 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
 
   // Pozostałe zdarzenia GA4 (bez danych osobowych).
   document.querySelectorAll('[data-ga]').forEach(function (a) { a.addEventListener('click', function () { ga(a.getAttribute('data-ga'), a.getAttribute('data-ga-metoda')); }); });
-  ga('support_view', 'pomogebomoge');
+  ga('support_view', 'pomogebomoge_' + T.lang);
 
-  // Udostępnij dzisiejszą lekcję.
+  // Udostępnij: po polsku dzisiejszą lekcję, w innych językach tę stronę.
   var u = document.getElementById('udostepnij');
   if (u) u.addEventListener('click', function () {
-    var d = document.getElementById('licznikDni').textContent, url = 'https://polskieradio.cc/akademia/kurscodzienny/dzien-' + String(d).padStart(2, '0');
-    if (navigator.share) navigator.share({ title: 'Z Biblią za Pan Brat — lekcja dnia', url: url }).catch(function () {});
-    else { location.href = 'https://wa.me/?text=' + encodeURIComponent('Lekcja dnia z Biblią: ' + url); }
+    var url = location.origin + (T.sciezki ? T.sciezki[T.lang] : location.pathname);
+    if (T.udostepnijCo === 'lekcja') {
+      var d = (document.getElementById('licznikDni') || {}).textContent || '';
+      url = 'https://polskieradio.cc/akademia/kurscodzienny/dzien-' + String(d).padStart(2, '0');
+    }
+    if (navigator.share) navigator.share({ title: T.udostepnijTytul, url: url }).catch(function () {});
+    else { location.href = 'https://wa.me/?text=' + encodeURIComponent(T.udostepnijTekst + url); }
   });
 
   // Słowa nagłówków: każde słowo w osobnej masce, wjeżdża kolejno (czytniki ekranu dostają cały tekst).
   [].slice.call(document.querySelectorAll('.slowa')).forEach(function (h) {
     var tekst = h.textContent.trim();
     h.setAttribute('aria-label', h.getAttribute('aria-label') || tekst);
-    h.innerHTML = tekst.split(/\s+/).map(function (w, i) { return '<span class="w" aria-hidden="true"><span style="--i:' + i + '">' + w + '</span></span>'; }).join(' ');
+    h.innerHTML = tekst.split(/\s+/).map(function (w, i) { return '<span class="w" aria-hidden="true"><span style="--i:' + i + '">' + w.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span></span>'; }).join(' ');
   });
 
-  // Licznik „16”: odliczanie od zera, gdy pojawi się na ekranie.
+  // Licznik usług: odliczanie od zera.
   var nr = document.getElementById('licznikUslug');
   function odliczaj() {
     if (!nr || bezRuchu) return;
     var cel = +nr.textContent, t0 = null;
-    function krok(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / 1400); nr.textContent = Math.round(cel * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(krok); }
+    function krok(t) { if (!t0) t0 = t; var q = Math.min(1, (t - t0) / 1400); nr.textContent = Math.round(cel * (1 - Math.pow(1 - q, 3))); if (q < 1) requestAnimationFrame(krok); }
     nr.textContent = '0'; requestAnimationFrame(krok);
   }
 
-  // Pasek postępu i lekki paralaksa liczby.
+  // Pasek postępu i lekka paralaksa liczby.
   var pasek = document.querySelector('.postep'), liczba = document.querySelector('.plansza__liczba'), klatka = 0;
   function przewijanie() {
     klatka = 0;
@@ -508,16 +566,15 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
   addEventListener('scroll', function () { if (!klatka) klatka = requestAnimationFrame(przewijanie); }, { passive: true });
   przewijanie();
 
-  // Wejścia sekcji i migawka pasma.
+  // Wejścia sekcji.
   var cele = [].slice.call(document.querySelectorAll('[data-wejscie], .slowa, .bez__uklad figure'));
   cele.forEach(function (c, i) { c.style.setProperty('--d', (i % 4) * 80 + 'ms'); });
-  var m = null;
   odliczaj();
-  if (typeof IntersectionObserver !== 'function') { cele.concat(m ? [m] : []).forEach(function (c) { c.classList.add('jest'); }); return; }
+  if (typeof IntersectionObserver !== 'function') { cele.forEach(function (c) { c.classList.add('jest'); }); return; }
   var io = new IntersectionObserver(function (w) { w.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('jest'); io.unobserve(x.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
   cele.forEach(function (c) { io.observe(c); });
-  if (m) requestAnimationFrame(function () { requestAnimationFrame(function () { m.classList.add('jest'); }); });
 })();
+
 </script>
 </body>
 </html>

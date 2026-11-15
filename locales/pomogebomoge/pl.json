@@ -1,0 +1,110 @@
+{
+  "lang": "pl",
+  "nazwaJezyka": "Polski",
+  "sciezka": "/pomogebomoge",
+  "meta": {
+    "title": "Pomogę, bo mogę — wspieraj Christian Culture",
+    "description": "Radio, telewizja, Biblia Audio i codzienna lekcja Pisma są bezpłatne dla każdego. Dobrowolne wsparcie — darowizna, modlitwa, udostępnienie, wolontariat — pozwala Christian Culture dawać dalej.",
+    "ogDescription": "Bezpłatne radio, TV, Biblia Audio i codzienna lekcja Pisma. Twoje dobrowolne wsparcie pozwala dawać dalej."
+  },
+  "pomin": "Przejdź do sposobów wsparcia",
+  "logoAria": "Christian Culture — strona główna",
+  "navAria": "Na skróty",
+  "jezykiAria": "Wersje językowe",
+  "nav": { "radio": "Radio", "tv": "Telewizja", "audio": "Biblia Audio", "akademia": "Akademia" },
+  "akcja": "Wesprzyj misję",
+  "hero": {
+    "h1": "Darmo dajemy.",
+    "lead": "Radio, telewizja, Biblia Audio, Akademia, kino, wiadomości i społeczność — cały ekosystem Christian Culture jest bezpłatny dla każdego. Twoje dobrowolne wsparcie sprawia, że możemy dawać dalej.",
+    "cta2": "Pomóż bez wpłaty",
+    "liczba": "miejsc w sieci —<br />wszystkie za darmo"
+  },
+  "eko": {
+    "h2": "Za darmo",
+    "lead": "<b>16 miejsc w sieci.</b> Bez reklam, bez płatnych wersji i bez sprzedawania danych. Codzienna lekcja kursu „Z Biblią za Pan Brat” — dziś dzień {dzien} — Biblia Audio, transmisje i portale powstają dzięki ludziom, którzy dają dobrowolnie."
+  },
+  "uslugi": {
+    "radio": ["Radio Christian Culture", "muzyka, Słowo i rozmowy przez całą dobę"],
+    "global": ["Christian Culture Global", "radio chrześcijańskie dla słuchaczy na świecie"],
+    "tv": ["Telewizja CCTV24", "kanał na żywo z uwielbieniem i programami"],
+    "bcm": ["BCM24", "Biblijny Czas Modlitwy — kanał na żywo 24/7"],
+    "audio": ["Biblia Audio", "Pismo czytane rozdział po rozdziale"],
+    "akademia": ["Akademia Biblijna", "kursy i codzienna lekcja „Z Biblią za Pan Brat”"],
+    "mojabiblia": ["MojaBiblia", "Biblia interlinearna i porównywarka przekładów"],
+    "pobierz": ["Biblia do pobrania", "pliki Pisma Świętego bez opłat"],
+    "audioteka": ["Audioteka", "audiobiblioteka wiary za 0 zł"],
+    "vod": ["Kino VOD", "dobre kino chrześcijańskie 24/7"],
+    "news": ["CCN News", "chrześcijański portal informacyjny"],
+    "lumina": ["LUMINA", "społeczność relacji i wartości"],
+    "swiadectwa": ["Świadectwa", "prawdziwe historie przemiany życia"],
+    "modlitwa": ["Modlitwa", "wspólna modlitwa za Polskę i ludzi"],
+    "topten": ["topTEN", "notowania muzyki chrześcijańskiej"],
+    "ogloszenia": ["Ogłoszenia", "tablica społeczności chrześcijańskiej"]
+  },
+  "panel": {
+    "h2": "Wybierz, jak chcesz dać",
+    "lead": "Raz albo regularnie, z Polski albo z zagranicy. Każda kwota jest dobrowolna.",
+    "uwaga": "Ta strona nie przyjmuje płatności i nie potwierdza wpłat. Nie podawaj tu danych karty, kodów BLIK ani haseł — płatność zawsze odbywa się w Twoim banku albo w serwisie, do którego prowadzi przycisk.",
+    "tabsAria": "Formy darowizny",
+    "kolejnosc": ["blik", "przelew", "patronite", "revolut", "zrzutka"],
+    "tabs": { "blik": "BLIK", "przelew": "Przelew", "patronite": "Regularnie", "revolut": "Z zagranicy", "zrzutka": "Zrzutki" },
+    "blik": { "h3": "Przelew na telefon BLIK", "p": "Najszybciej z polskiego banku. W aplikacji wybierz „Przelew na telefon BLIK” i wpisz numer poniżej.", "telefon": "Numer telefonu", "uwaga": "Tylko w polskich bankach obsługujących przelew na telefon BLIK. Z zagranicy wybierz „Z zagranicy”." },
+    "przelew": { "h3": "Przelew na rachunek w PLN", "p": "Dwa rachunki w polskich złotych — wybierz cel, który jest Ci bliższy.", "rozwoj": "studio, radio, TV, technologia", "dar": "aplikacje, treści biblijne, ewangelizacja", "tytulWartosc": "„Rozwój Christian Culture” albo „Dar misyjny”", "uwaga": "Oba rachunki są prowadzone w PLN. Nie podajemy kodu SWIFT/BIC na tej stronie; przelew z zagranicy najprościej zrobić przez Revolut lub Patronite." },
+    "patronite": { "h3": "Patronat — stałe wsparcie", "p": "Regularny patronat w serwisie Patronite pomaga nam planować nagrania i transmisje z miesiąca na miesiąc. Kwotę i czas wybierasz sam i możesz go zakończyć w każdej chwili.", "cta": "Przejdź do Patronite" },
+    "revolut": { "h3": "Revolut — wpłata online", "p": "Jednorazowa darowizna przez bezpieczny link Revolut. Obsługiwane metody i waluty pokazuje sam serwis Revolut.", "cta": "Przejdź do Revolut" },
+    "zrzutka": { "h3": "Zrzutki na wybrane projekty", "p": "Cele, opisy i aktualny stan zbiórek są na stronach serwisu Zrzutka.pl.", "cta": "Zbiórka" },
+    "odbiorca": "Odbiorca",
+    "tytul": "Tytuł",
+    "kopiuj": "Kopiuj",
+    "skopiowano": "Skopiowano",
+    "statusOk": "Skopiowano do schowka. Wklej w aplikacji swojego banku.",
+    "statusBlad": "Nie udało się skopiować automatycznie. Zaznacz i skopiuj: "
+  },
+  "bez": {
+    "h2a": "Pomóc można",
+    "h2b": "bez wpłaty",
+    "figAlt": "Biblia Audio Christian Culture",
+    "nazwa": "Pięć sposobów",
+    "modlitwa": ["Módl się", "za misję i ludzi, do których dociera Słowo"],
+    "udostepnij": ["Udostępnij", "dzisiejszą lekcję komuś, kto jej potrzebuje"],
+    "wolontariat": ["Wolontariat", "czas i umiejętności: nagrania, grafika, tłumaczenia, kod", "Wolontariat w Christian Culture"],
+    "partnerstwo": ["Partnerstwo", "dla wspólnot, twórców i organizacji", "Partnerstwo z Christian Culture"],
+    "sprzet": ["Sprzęt", "mikrofon, kamera, komputer, którego już nie używasz", "Sprzęt dla Christian Culture"],
+    "udostepnijCo": "lekcja",
+    "udostepnijTytul": "Z Biblią za Pan Brat — lekcja dnia",
+    "udostepnijTekst": "Lekcja dnia z Biblią: "
+  },
+  "ktory": {
+    "aria": "Kto otrzymuje wsparcie",
+    "odbiorca": "Odbiorca",
+    "forma": "Forma",
+    "formaWartosc": "prywatna inicjatywa chrześcijańska",
+    "kontakt": "Kontakt",
+    "kontaktLink": "napisz do nas",
+    "p1": "<b>Cezary Rogowski</b> prowadzi Christian Culture razem z ludźmi, którzy oddają misji swój czas. Wszystkie darowizny trafiają na jego rachunki i w całości służą temu, by radio, telewizja, Biblia Audio i Akademia pozostały bezpłatne.",
+    "p2": "Christian Culture to niezależna, prywatna inicjatywa chrześcijańska. Nie jest powiązana z Polskim Radiem S.A. ani z żadnym nadawcą publicznym i nie obiecuje ulg podatkowych."
+  },
+  "faq": {
+    "h2": "Zanim dasz",
+    "items": [
+      ["Czy ta strona potwierdza moją wpłatę?", "Nie. Kopiowanie numeru ani kliknięcie przycisku nie jest wpłatą. Płatność odbywa się wyłącznie w Twoim banku albo w serwisie Patronite, Revolut lub Zrzutka.pl i tam też widzisz jej potwierdzenie."],
+      ["Czy mogę odliczyć darowiznę od podatku?", "Nie obiecujemy takiej możliwości. Odbiorcą przelewów jest osoba prywatna — Cezary Rogowski. W sprawach podatkowych zapytaj swojego doradcę."],
+      ["Jestem za granicą. Jak mogę pomóc?", "Przelew na telefon BLIK działa tylko w polskich bankach, a rachunki są w PLN. Z zagranicy najprościej skorzystać z Revolut albo z patronatu w serwisie Patronite."],
+      ["Czym różni się patronat od darowizny?", "Patronat na Patronite to stałe, comiesięczne wsparcie, które możesz zakończyć w każdej chwili. Przelew, BLIK, Revolut i zrzutka to dar jednorazowy."],
+      ["Na co idą pieniądze?", "Na rachunek „Rozwój Christian Culture” — studio, radio, telewizję i technologię. Na rachunek „Dar misyjny” — aplikacje, treści biblijne i ewangelizację. Patronat i wpłaty online wspierają całą misję."],
+      ["Czy publikujecie nazwiska darczyńców?", "Tylko za Twoją wyraźną zgodą, którą możesz wycofać, i nigdy z kwotą ani danymi bankowymi."]
+    ]
+  },
+  "koniec": {
+    "h2": "Pomóż nieść Słowo dalej.",
+    "cytat": "„Darmo otrzymaliście, darmo dawajcie.”",
+    "zrodlo": "Mt 10:8, UBG"
+  },
+  "stopka": {
+    "opis": "Christian Culture — niezależna, prywatna inicjatywa chrześcijańska. Radio, TV, Biblia Audio i Akademia za darmo.",
+    "doGory": "Do góry",
+    "prywatnosc": "Polityka prywatności",
+    "grafiki": "Grafiki: serwisy Christian Culture"
+  },
+  "sugestia": { "tekst": "Ta strona jest dostępna po polsku.", "przycisk": "Zostań w tej wersji" }
+}

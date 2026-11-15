@@ -1,0 +1,110 @@
+{
+  "lang": "es",
+  "nazwaJezyka": "Español",
+  "sciezka": "/pomogebomoge/es",
+  "meta": {
+    "title": "Damos de gracia — apoya a Christian Culture",
+    "description": "La radio, la televisión, la Biblia en audio y una lección bíblica diaria son gratuitas para todos. El apoyo voluntario — un donativo, la oración, compartir o el voluntariado — permite a Christian Culture seguir dando.",
+    "ogDescription": "Radio, TV, Biblia en audio y una lección bíblica diaria gratuitas. Tu apoyo voluntario nos ayuda a seguir dando."
+  },
+  "pomin": "Ir a las formas de apoyar",
+  "logoAria": "Christian Culture — página de inicio",
+  "navAria": "Accesos directos",
+  "jezykiAria": "Idiomas",
+  "nav": { "radio": "Radio", "tv": "Televisión", "audio": "Biblia en audio", "akademia": "Academia" },
+  "akcja": "Apoyar la misión",
+  "hero": {
+    "h1": "Damos de gracia.",
+    "lead": "Radio, televisión, la Biblia en audio, la Academia, cine, noticias y comunidad: todo el ecosistema de Christian Culture es gratuito para todos. Tu apoyo voluntario nos permite seguir dando.",
+    "cta2": "Ayudar sin dinero",
+    "liczba": "lugares en la red —<br />todos gratuitos"
+  },
+  "eko": {
+    "h2": "Gratis",
+    "lead": "<b>16 lugares en la red.</b> Sin anuncios, sin versiones de pago y sin vender datos. La lección diaria de nuestro curso bíblico — hoy es el día {dzien} —, la Biblia en audio, las transmisiones y los portales existen gracias a personas que dan voluntariamente. La mayoría de los servicios están en polaco; Christian Culture Global emite para oyentes de todo el mundo."
+  },
+  "uslugi": {
+    "radio": ["Radio Christian Culture", "música, la Palabra y conversación las 24 horas"],
+    "global": ["Christian Culture Global", "radio cristiana para oyentes de todo el mundo"],
+    "tv": ["Televisión CCTV24", "un canal en directo con alabanza y programas"],
+    "bcm": ["BCM24", "Tiempo Bíblico de Oración — canal en directo 24/7"],
+    "audio": ["Biblia en audio", "la Escritura leída capítulo a capítulo"],
+    "akademia": ["Academia Bíblica", "cursos y una lección bíblica diaria"],
+    "mojabiblia": ["MojaBiblia", "Biblia interlineal y comparador de traducciones"],
+    "pobierz": ["Biblia para descargar", "archivos de las Escrituras sin coste"],
+    "audioteka": ["Audioteca", "audiolibros de fe, gratis"],
+    "vod": ["Cine VOD", "buen cine cristiano 24/7"],
+    "news": ["CCN News", "un portal cristiano de noticias"],
+    "lumina": ["LUMINA", "una comunidad de relaciones y valores"],
+    "swiadectwa": ["Testimonios", "historias reales de vidas transformadas"],
+    "modlitwa": ["Oración", "oración en común por Polonia y por las personas"],
+    "topten": ["topTEN", "listas de música cristiana"],
+    "ogloszenia": ["Tablón de anuncios", "un tablón de la comunidad cristiana"]
+  },
+  "panel": {
+    "h2": "Elige cómo quieres dar",
+    "lead": "Una vez o de forma periódica, desde Polonia o desde el extranjero. Cualquier cantidad es voluntaria.",
+    "uwaga": "Esta página no acepta pagos ni confirma donativos. Nunca introduzcas aquí datos de tarjeta, códigos BLIK ni contraseñas: el pago se hace siempre en tu banco o en el servicio al que lleva el botón.",
+    "tabsAria": "Formas de dar",
+    "kolejnosc": ["revolut", "patronite", "przelew", "blik", "zrzutka"],
+    "tabs": { "blik": "BLIK (Polonia)", "przelew": "Transferencia", "patronite": "Mensual", "revolut": "En línea", "zrzutka": "Colectas" },
+    "blik": { "h3": "Transferencia BLIK al teléfono", "p": "Solo desde bancos polacos. En tu aplicación bancaria elige «Transferencia BLIK al teléfono» e introduce el número de abajo.", "telefon": "Número de teléfono", "uwaga": "Solo funciona con bancos polacos que admiten transferencias BLIK al teléfono. Desde el extranjero, elige «En línea»." },
+    "przelew": { "h3": "Transferencia en PLN", "p": "Dos cuentas en esloti polaco: elige el fin que más te importe.", "rozwoj": "estudio, radio, TV, tecnología", "dar": "aplicaciones, contenidos bíblicos, evangelización", "tytulWartosc": "«Rozwój Christian Culture» o «Dar misyjny»", "uwaga": "Ambas cuentas están en PLN. No publicamos un código SWIFT/BIC en esta página; desde el extranjero lo más sencillo es Revolut o Patronite." },
+    "patronite": { "h3": "Mecenazgo — apoyo periódico", "p": "Un mecenazgo mensual en Patronite, una plataforma polaca, nos ayuda a planificar grabaciones y emisiones mes a mes. Tú eliges la cantidad y la duración y puedes terminarlo cuando quieras.", "cta": "Ir a Patronite" },
+    "revolut": { "h3": "Revolut — donar en línea", "p": "Un donativo único a través de un enlace seguro de Revolut. Los métodos de pago y las monedas disponibles los muestra el propio Revolut.", "cta": "Ir a Revolut" },
+    "zrzutka": { "h3": "Colectas para proyectos concretos", "p": "Los objetivos, descripciones y el estado actual están en las páginas de Zrzutka.pl (en polaco).", "cta": "Colecta" },
+    "odbiorca": "Beneficiario",
+    "tytul": "Concepto",
+    "kopiuj": "Copiar",
+    "skopiowano": "Copiado",
+    "statusOk": "Copiado al portapapeles. Pégalo en tu aplicación bancaria.",
+    "statusBlad": "No se pudo copiar automáticamente. Selecciona y copia: "
+  },
+  "bez": {
+    "h2a": "Se puede ayudar",
+    "h2b": "sin dinero",
+    "figAlt": "Biblia en audio de Christian Culture",
+    "nazwa": "Cinco formas",
+    "modlitwa": ["Ora", "por la misión y por las personas a las que llega la Palabra"],
+    "udostepnij": ["Comparte", "esta página con alguien a quien le gustaría conocerla"],
+    "wolontariat": ["Voluntariado", "tiempo y talentos: grabación, diseño, traducción, código", "Voluntariado en Christian Culture"],
+    "partnerstwo": ["Colaboración", "para iglesias, creadores y organizaciones", "Colaboración con Christian Culture"],
+    "sprzet": ["Equipos", "un micrófono, una cámara o un ordenador que ya no usas", "Equipos para Christian Culture"],
+    "udostepnijCo": "strona",
+    "udostepnijTytul": "Damos de gracia — apoya a Christian Culture",
+    "udostepnijTekst": "Christian Culture lo da todo gratis: "
+  },
+  "ktory": {
+    "aria": "Quién recibe el apoyo",
+    "odbiorca": "Beneficiario",
+    "forma": "Forma",
+    "formaWartosc": "una iniciativa cristiana privada",
+    "kontakt": "Contacto",
+    "kontaktLink": "escríbenos",
+    "p1": "<b>Cezary Rogowski</b> dirige Christian Culture junto con personas que dedican su tiempo a la misión. Todos los donativos llegan a sus cuentas y se destinan íntegramente a que la radio, la televisión, la Biblia en audio y la Academia sigan siendo gratuitas.",
+    "p2": "Christian Culture es una iniciativa cristiana independiente y privada. No está vinculada a Polskie Radio S.A. ni a ninguna emisora pública y no promete beneficios fiscales."
+  },
+  "faq": {
+    "h2": "Antes de dar",
+    "items": [
+      ["¿Esta página confirma mi donativo?", "No. Copiar un número o pulsar un botón no es un pago. El pago se realiza solo en tu banco o en Patronite, Revolut o Zrzutka.pl, donde también verás la confirmación."],
+      ["¿Puedo deducir el donativo de mis impuestos?", "No lo prometemos. Las transferencias van a una persona privada, Cezary Rogowski. Consulta tu caso con tu asesor fiscal."],
+      ["Vivo en el extranjero. ¿Cómo puedo ayudar?", "Las transferencias BLIK solo funcionan con bancos polacos y nuestras cuentas están en PLN. Desde el extranjero, lo más sencillo es Revolut o un mecenazgo en Patronite."],
+      ["¿Qué diferencia hay entre mecenazgo y donativo?", "El mecenazgo en Patronite es un apoyo mensual periódico que puedes terminar cuando quieras. Una transferencia, BLIK, Revolut o una colecta son donativos únicos."],
+      ["¿A qué se destina el dinero?", "La cuenta «Rozwój Christian Culture» financia el estudio, la radio, la televisión y la tecnología. La cuenta «Dar misyjny» financia aplicaciones, contenidos bíblicos y evangelización. El mecenazgo y los donativos en línea apoyan toda la misión."],
+      ["¿Publicáis los nombres de los donantes?", "Solo con tu consentimiento expreso, que puedes retirar, y nunca con la cantidad ni datos bancarios."]
+    ]
+  },
+  "koniec": {
+    "h2": "Ayuda a llevar la Palabra más lejos.",
+    "cytat": "«De gracia recibisteis, dad de gracia.»",
+    "zrodlo": "Mateo 10:8, Reina-Valera 1909"
+  },
+  "stopka": {
+    "opis": "Christian Culture — una iniciativa cristiana independiente y privada. Radio, TV, Biblia en audio y Academia gratis.",
+    "doGory": "Volver arriba",
+    "prywatnosc": "Política de privacidad",
+    "grafiki": "Imágenes: servicios de Christian Culture"
+  },
+  "sugestia": { "tekst": "Esta página también está en español.", "przycisk": "Quedarme en esta versión" }
+}
