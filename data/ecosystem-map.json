@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #339 — eM: Gdy religia staje się konkursem na nienaganny wizerunek (Cezary Rogowski) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #338 — Wizytówka Społeczności LUMINA: Cezary Rogowski (Założyciel Christian Culture) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
       "agent": "A"
     },
@@ -4300,8 +4305,13 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-15T17:33:22+01:00",
+  "lastUpdated": "2026-11-15T18:09:35+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #339 — eM: Gdy religia staje się konkursem na nienaganny wizerunek (Cezary Rogowski) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
     {
       "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #338 — Wizytówka Społeczności LUMINA: Cezary Rogowski (Założyciel Christian Culture) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
@@ -4430,6 +4440,11 @@
     {
       "date": "2026-11-15",
       "topic": "YouTube What's Up Prof? — Publikacja Odc. 002 (Walter Veith) jako premiera +48h na 8 kanałach CC",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "Zewnętrzna rotacyjna promocja 24 kanałów YouTube (#4/24: Biblia Audio CC)",
       "agent": "A"
     }
   ],
@@ -4602,6 +4617,11 @@
     {
       "date": "2026-11-15",
       "topic": "YouTube What's Up Prof? — Publikacja Odc. 002 (Walter Veith) jako premiera +48h na 8 kanałach CC",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "Zewnętrzna rotacyjna promocja 24 kanałów YouTube (#4/24: Biblia Audio CC)",
       "agent": "A"
     }
   ]

@@ -1221,6 +1221,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '💡 eM • WIARA & AUTENTYCZNOŚĆ | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#KryzysWiary', '#CezaryRogowski', '#CCNNews', '#Prawda');
+    } else if (tLower.includes('religia staje się') || tLower.includes('nienaganny wizerunek') || (item.url || '').includes('gdy-religia-staje-sie-konkursem')) {
+      subHeader = '💡 eM • WIARA & AUTENTYCZNOŚĆ | CEZARY ROGOWSKI';
+      callToAction = '👉 Czytaj w serwisie:\n';
+      addTags('#ReligiaBezMaski', '#CezaryRogowski', '#CCNNews', '#Prawda');
     } else if (tLower.includes('świętość') || tLower.includes('swietosc') || tLower.includes('słabości') || tLower.includes('slabosci')) {
       subHeader = '✝️ FORMACJA & WIARA | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj artykuł w serwisie:\n';
@@ -1275,6 +1279,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'THE JOURNAL — 90-dniowy przewodnik formacji, wiary i nawyków. Karta dzienna, pytania wieczorne i bezpłatne PDF!';
   } else if ((item.url || '').includes('dobroc') || (item.title || '').toLowerCase().includes('dobroć')) {
     bodyText = 'Dobroć nie jest słabością: 7 decyzji, które uzdrawiają relacje i przynoszą Boży pokój.';
+  } else if ((item.url || '').includes('gdy-religia-staje-sie-konkursem') || (item.title || '').toLowerCase().includes('nienaganny wizerunek')) {
+    bodyText = 'Gdy religia staje się konkursem na nienaganny wizerunek — faryzejska presja pozorów a Boża łaska.';
   } else if ((item.url || '').includes('CezaryRogowski') && item.lead) {
     bodyText = item.lead;
   } else if ((item.url || '').includes('krakow') || (item.title || '').toLowerCase().includes('kraków')) {
