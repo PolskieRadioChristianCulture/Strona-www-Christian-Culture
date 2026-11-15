@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-odrzucic-falszywy-blysk-sukcesu",
+      "title": "Książka: Kod Źródłowy Duszy — Cezary Rogowski. Biblijna tożsamość i sens istnienia",
+      "url": "https://polskieradio.cc/news/kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-odrzucic-falszywy-blysk-sukcesu",
+      "type": "book",
+      "image": "art-kod-zrodlowy.jpg",
+      "publishedAt": "2026-11-15T20:04:31.485Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=325",
+      "title": "Werset Dnia: „Błogosławieństwo Pana wzbogaca, a żaden trud nie przynosi ze sobą troski” (Księga Przysłów 10:22, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=325",
+      "type": "verse",
+      "image": "werset-day-325-ksiega-przyslow-10-22.jpg",
+      "publishedAt": "2026-11-15T19:34:03.227Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "tv",
       "title": "Smart TV CC — Telewizja Chrześcijańska 24/7 (6 Stacji & Pilot Online)",
       "url": "https://polskieradio.cc/tv",
