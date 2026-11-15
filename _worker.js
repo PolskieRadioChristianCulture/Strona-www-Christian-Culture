@@ -2019,7 +2019,7 @@ export default {
 
     // Skrót /wspieram kierujący do wsparcia mecenatu / Patronite
     if (decodedP === '/wspieram') {
-      return Response.redirect('https://patronite.pl/christian-culture', 302);
+      return Response.redirect('https://patronite.pl/osobowoscplus', 302); // L0 15.11.2026: aktualny profil Patronite
     }
 
     // @007 2026-11-15 (L0): strona „Pomogę, bo mogę” — kanoniczny adres /pomogebomoge; pisownia z polskimi znakami i wielkimi literami → 301
