@@ -1,5 +1,29 @@
 [
   {
+    "timestamp": "2026-11-15T21:34:34.146Z",
+    "title": "topTEN — Notowanie Muzyki Chrześcijańskiej na żywo (lista przebojów)",
+    "url": "https://polskieradio.cc/topTEN/",
+    "type": "music",
+    "image": "wspieramto-banner.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-15T21:06:08.534Z",
+    "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
+    "url": "https://polskieradio.cc/lumina.wiolettarogowska",
+    "type": "profile",
+    "image": "wioletta-og.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-15T20:32:29.891Z",
+    "title": "Gerald Welch – THE CALL. A Rock-Driven Wake-Up Call to Conscience and Living Faith",
+    "url": "https://polskieradio.cc/news/gerald-welch-the-call-a-rock-driven-wake-up-call-to-conscience-and-living-faith",
+    "type": "news",
+    "image": "art-gerald-welch-the-call.jpg",
+    "status": "PUBLISHED"
+  },
+  {
     "timestamp": "2026-11-15T20:04:31.485Z",
     "title": "Książka: Kod Źródłowy Duszy — Cezary Rogowski. Biblijna tożsamość i sens istnienia",
     "url": "https://polskieradio.cc/news/kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-odrzucic-falszywy-blysk-sukcesu",

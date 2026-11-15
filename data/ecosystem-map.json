@@ -5,6 +5,21 @@
   "updatesLog": [
     {
       "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #348 — topTEN: Notowanie Muzyki Chrześcijańskiej z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #347 — Wizytówka: Wioletta Rogowska z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #346 — Raport CCN: Gerald Welch – THE CALL z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #345 — Książka: Kod Źródłowy Duszy — Cezary Rogowski z dedykowaną grafiką i Tablicą LUMINA",
       "agent": "A"
     },
@@ -4325,8 +4340,13 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-15T21:04:00+01:00",
+  "lastUpdated": "2026-11-15T22:06:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #347 — Wizytówka: Wioletta Rogowska z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
     {
       "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #345 — Książka: Kod Źródłowy Duszy — Cezary Rogowski z dedykowaną grafiką i Tablicą LUMINA",
@@ -4470,11 +4490,6 @@
     {
       "date": "2026-11-14",
       "topic": "Wysyłka kampanii wsparcia SMS-CC do 133 subskrybentów (SIM 2 / polskieradio.cc/wspieraj)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Aktualizacja 4. celu publikacji Facebook na fanpage Dobre Słowo dla Ciebie (Wektor1_VideoFactory)",
       "agent": "A"
     }
   ],
@@ -4652,6 +4667,11 @@
     {
       "date": "2026-11-15",
       "topic": "Zewnętrzna rotacyjna promocja 24 kanałów YouTube (#4/24: Biblia Audio CC)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "Strategiczny Audyt Jakości CC GUARDIAN 360 (godz. 22:00 CET) — LUMINA & LUMI MESS Zero-QA",
       "agent": "A"
     }
   ]
