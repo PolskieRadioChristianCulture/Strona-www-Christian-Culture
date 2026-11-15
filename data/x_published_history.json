@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "BiblijneUwielbienie",
+      "title": "Biblijne Uwielbienie — Cała Biblia w Muzyce (66 ksiąg, 1189 rozdziałów)",
+      "url": "https://polskieradio.cc/BiblijneUwielbienie",
+      "type": "music",
+      "image": "uwielbienie-w-blasku-krzyza-live.png",
+      "publishedAt": "2026-11-15T17:34:07.318Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "gdy-religia-staje-sie-konkursem-na-nienaganny-wizerunek",
       "title": "Gdy religia staje się konkursem na nienaganny wizerunek",
       "url": "https://polskieradio.cc/news/gdy-religia-staje-sie-konkursem-na-nienaganny-wizerunek",

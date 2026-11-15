@@ -241,6 +241,14 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'images', 'news', 'art-rdz15-abram-gwiazdy.jpg');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('biblijneuwielbienie') || pathLower.includes('biblijne-uwielbienie') || titleLower.includes('biblijne uwielbienie')) {
+    const p1 = path.join(rootDir, 'images', 'biblijne-uwielbienie', 'uwielbienie-w-blasku-krzyza-live.png');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'images', 'biblijne-uwielbienie', 'uwielbienie-w-blasku-krzyza-live.webp');
+    if (fs.existsSync(p2)) return p2;
+    const p3 = path.join(rootDir, 'Logo_Biblia_Spiewana.jpg');
+    if (fs.existsSync(p3)) return p3;
+  }
   if (pathLower.includes('biblia') || titleLower.includes('biblia') || titleLower.includes('pismo święte')) {
     const p1 = path.join(rootDir, 'images', 'ogloszenia-biblia-gdanska.jpg');
     if (fs.existsSync(p1)) return p1;
