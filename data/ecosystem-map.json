@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #325 — Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #324 — Gerald Welch – THE CALL (Analiza Muzyczna i Wiara) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
       "agent": "A"
     },
@@ -5070,8 +5075,13 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-15T10:36:00+01:00",
+  "lastUpdated": "2026-11-15T11:03:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #325 — Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
     {
       "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #324 — Gerald Welch – THE CALL (Analiza Muzyczna i Wiara) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
@@ -5215,11 +5225,6 @@
     {
       "date": "2026-11-11",
       "topic": "Oficjalna premiera Audioteka Christian Culture (Audiobiblioteka Wiary 0,00 zł)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-11",
-      "topic": "Oficjalna wizytówka Ark of Fire (PL/EN) oraz integracja z Christian Culture Global",
       "agent": "A"
     }
   ],
