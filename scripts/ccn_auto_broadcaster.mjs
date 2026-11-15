@@ -299,7 +299,7 @@ function resolveItemImage(item, rootDir) {
     const p3 = path.join(rootDir, 'images', 'team', 'mariusz-duszpasterz.jpg');
     if (fs.existsSync(p3)) return p3;
   }
-  if (pathLower.includes('ewa') || titleLower.includes('ewa') || titleLower.includes('cc women')) {
+  if (pathLower.includes('/ewa') || pathLower.includes('ewa.') || /\b(ewa|ewy|ewie|ewę)\b/i.test(titleLower) || titleLower.includes('cc women')) {
     const p1 = path.join(rootDir, 'images', 'news', 'art-ewa-cc-women.jpg');
     if (fs.existsSync(p1)) return p1;
     const p2 = path.join(rootDir, 'Ewa', 'assets', 'ewa-hero.webp');
@@ -1006,10 +1006,14 @@ function formatBroadcasterTweet(item) {
       subHeader = '🎵 CC MUSIC | CHRZEŚCIJAŃSKIE BRZMIENIA';
       callToAction = '👉 Odkryj muzykę i słuchaj online:\n';
       addTags('#CCMusic', '#PolskieRadioCC', '#MuzykaChrzescijanska', '#WorshipLive');
-    } else if ((item.url || '').toLowerCase().includes('ewa') || (item.title || '').toLowerCase().includes('ewa')) {
+    } else if ((item.url || '').toLowerCase().includes('/ewa') || (item.url || '').toLowerCase().includes('ewa.') || /\b(ewa|ewy|ewie|ewę)\b/i.test(item.title || '') || (item.title || '').toLowerCase().includes('cc women')) {
       subHeader = '🌸 CC WOMEN | KĄCIK EWANGELIZACYJNY EWY';
       callToAction = '👉 Przeczytaj świadectwo i posłuchaj nagrań:\n';
       addTags('#CCWomen', '#Ewangelizacja', '#PolskieRadioCC', '#ChristianCulture');
+    } else if ((item.url || '').includes('BiblijneUwielbienie') || (item.url || '').includes('biblia-spiewana') || (item.title || '').toLowerCase().includes('biblia śpiewana') || (item.title || '').toLowerCase().includes('rodzaju')) {
+      subHeader = '🎶 BIBLIA ŚPIEWANA | ROZDZIAŁ 1';
+      callToAction = '👉 Słuchaj z tekstem:\n';
+      addTags('#BibliaSpiewana', '#SlowoBoze', '#ChristianCulture');
     } else {
       subHeader = '🎵 MUZYKA & KANAŁY LIVE';
       callToAction = '👉 Słuchaj na żywo:\n';
@@ -1220,6 +1224,8 @@ function formatBroadcasterTweet(item) {
     bodyText = item.lead;
   } else if ((item.url || '').includes('topTEN')) {
     bodyText = 'Oficjalna lista przebojów muzyki chrześcijańskiej. Głosuj na utwory i wspieraj artystów!';
+  } else if ((item.url || '').includes('BiblijneUwielbienie') || (item.title || '').toLowerCase().includes('biblia śpiewana')) {
+    bodyText = 'Księga Rodzaju 1: Słowo Boże ubrane w natchnioną muzykę uwielbienia. Słuchaj i czytaj z tekstem!';
   } else if ((item.url || '').includes('ArkOfFire') || (item.title || '').includes('Ark of Fire')) {
     bodyText = 'Ark of Fire — chrześcijański rock z Holandii. Świadectwo odkupienia i utwór „It Is Finished” w Polskim Radiu CC.';
   } else if ((item.url || '').includes('the-journal') || (item.title || '').includes('THE JOURNAL')) {
