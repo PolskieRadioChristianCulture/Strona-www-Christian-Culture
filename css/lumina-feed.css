@@ -168,14 +168,14 @@
     color: #7dd3fc !important;
 }
 .reflection-smart-link.tv-link {
-    background: rgba(236, 72, 153, 0.16) !important;
-    border: 1.5px solid #ec4899 !important;
-    color: #f472b6 !important;
+    background: rgba(196, 163, 90, 0.16) !important;
+    border: 1.5px solid #C4A35A !important;
+    color: #E2CC9A !important;
 }
 .reflection-smart-link.apps-link {
-    background: rgba(245, 158, 11, 0.16) !important;
-    border: 1.5px solid #f59e0b !important;
-    color: #fde047 !important;
+    background: rgba(196, 163, 90, 0.16) !important;
+    border: 1.5px solid #C4A35A !important;
+    color: #E2CC9A !important;
 }
 .reflection-smart-link.support-link {
     background: linear-gradient(135deg, rgba(239, 68, 68, 0.18), rgba(220, 38, 38, 0.28)) !important;
@@ -196,7 +196,7 @@
     min-height: 220px;
     max-height: 520px;
     position: relative;
-    background: radial-gradient(circle at center, rgba(30, 41, 59, 0.6), #070b14);
+    background: radial-gradient(circle at center, rgba(28, 28, 34, 0.72), #0a0a0c);
     border-radius: var(--radius-md);
     overflow: hidden;
     display: flex !important;
@@ -255,9 +255,9 @@
     transform: translateY(-1px) !important;
 }
 .post-action-btn.liked {
-    background: rgba(236, 72, 153, 0.2) !important;
-    border-color: rgba(236, 72, 153, 0.5) !important;
-    color: #f472b6 !important;
+    background: rgba(196, 163, 90, 0.18) !important;
+    border-color: rgba(196, 163, 90, 0.52) !important;
+    color: #E2CC9A !important;
 }
 .post-action-btn.amen-active,
 .post-action-btn.amen {
@@ -298,7 +298,7 @@
     margin-bottom: 12px;
 }
 .composer-input:focus {
-    border-color: var(--accent-purple);
+    border-color: var(--cc-gold-hover, #D4B578);
     background: rgba(255, 255, 255, 0.06);
 }
 
@@ -372,12 +372,12 @@
     height: 38px !important;
     padding: 0 !important;
     border-radius: 50% !important;
-    background: linear-gradient(135deg, #a855f7, #3b82f6) !important;
+    background: linear-gradient(135deg, #FF8C33, #FF7A00) !important;
     color: #fff !important;
     border: none !important;
     font-size: 1rem !important;
     cursor: pointer !important;
-    box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35) !important;
+    box-shadow: 0 4px 14px rgba(255, 122, 0, 0.35) !important;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     flex-shrink: 0 !important;
     margin-left: auto !important;
@@ -386,12 +386,14 @@
 
 .composer-btn-publish:hover,
 .btn-publish-post:hover {
+    background: #FF8C33 !important;
     transform: translateY(-1px) scale(1.08) !important;
-    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.55) !important;
+    box-shadow: 0 6px 20px rgba(255, 122, 0, 0.52) !important;
 }
 
 .composer-btn-publish:active,
 .btn-publish-post:active {
+    background: #E66A00 !important;
     transform: scale(0.96) !important;
 }
 
@@ -431,9 +433,9 @@
 }
 
 #composerOwnerStatusBadge.locked {
-    background: rgba(250, 204, 21, 0.15) !important;
-    border-color: rgba(250, 204, 21, 0.4) !important;
-    color: #fde047 !important;
+    background: rgba(196, 163, 90, 0.16) !important;
+    border-color: rgba(196, 163, 90, 0.42) !important;
+    color: #E2CC9A !important;
 }
 
 #composerOwnerStatusBadge:hover {
@@ -479,7 +481,7 @@
 }
 .card-916:hover {
     transform: translateY(-4px);
-    border-color: rgba(250, 204, 21, 0.5);
+    border-color: rgba(196, 163, 90, 0.55);
 }
 .card-916-media-wrap {
     position: relative;
@@ -583,7 +585,7 @@
 
 .btn-unmute-live,
 .btn-expand-live {
-    background: rgba(15, 23, 42, 0.88) !important;
+    background: rgba(10, 10, 12, 0.88) !important;
     border: 1px solid rgba(255, 255, 255, 0.28) !important;
     color: #fff !important;
     font-size: 0.80rem !important;
@@ -603,9 +605,9 @@
 }
 
 .btn-unmute-live:hover {
-    background: rgba(212, 175, 55, 0.35) !important;
-    border-color: #d4af37 !important;
-    color: #fde047 !important;
+    background: rgba(196, 163, 90, 0.28) !important;
+    border-color: #D4B578 !important;
+    color: #E2CC9A !important;
     transform: translateY(-1.5px) !important;
 }
 

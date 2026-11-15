@@ -1,5 +1,10 @@
 {
-  "day": 46,
-  "date": "2026-11-15",
-  "status": "published"
+  "data": "2026-11-15",
+  "dzien": 46,
+  "zatwierdzil": "Cezary Rogowski",
+  "zatwierdzono": "2026-11-14T21:08:12.405Z",
+  "karta": {
+    "tytul": "Dzień 46: MANNA Z NIEBA I ŚWIĘTOŚĆ SZABATU — BOŻE ZAOPATRZENIE NA PUSTYNI",
+    "opis": "KSIĘGA WYJŚCIA Wj 16:1–36: Głodny lud na pustyni Sin, deszcz chleba z nieba, przepiórki o zmierzchu, miara omera i dar Bożego odpoczynku w Szabacie (Wj 16:1–36)"
+  }
 }

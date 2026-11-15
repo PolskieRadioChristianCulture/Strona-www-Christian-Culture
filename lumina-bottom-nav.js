@@ -1193,8 +1193,7 @@
     try {
         let curUser = null;
         try { curUser = JSON.parse(localStorage.getItem('lumina_current_user') || 'null'); } catch(e) {}
-        const isAdmin = localStorage.getItem('lumina_auth_master_admin') === 'true' 
-            || sessionStorage.getItem('lumina_auth_master_admin') === 'true'
+        const isAdmin = !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin())
             || ((window.LuminaDB && typeof window.LuminaDB.detectLuminaOfficialIdentity === 'function') && window.LuminaDB.detectLuminaOfficialIdentity(window.LuminaDB.getCurrentUser && window.LuminaDB.getCurrentUser()) === 'cezary');
         const curProf = JSON.parse(localStorage.getItem('lumina_current_user_profile') || localStorage.getItem('lumina_my_profile') || 'null');
         
@@ -1799,8 +1798,7 @@
         if (event) event.preventDefault();
         let curUser = null;
         try { curUser = JSON.parse(localStorage.getItem('lumina_current_user') || 'null'); } catch(e) {}
-        const isAdmin = localStorage.getItem('lumina_auth_master_admin') === 'true' 
-            || sessionStorage.getItem('lumina_auth_master_admin') === 'true'
+        const isAdmin = !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin())
             || ((window.LuminaDB && typeof window.LuminaDB.detectLuminaOfficialIdentity === 'function') && window.LuminaDB.detectLuminaOfficialIdentity(window.LuminaDB.getCurrentUser && window.LuminaDB.getCurrentUser()) === 'cezary');
         let curProf = null;
         try {
@@ -1884,80 +1882,29 @@
     // ══════════════════════════════════════════════════════════════════════════
     // TAJNY SUBTELNY PRZYCISK & DOWIĄZANIA ADMINISTRATORA PORTALU LUMINA
     // ══════════════════════════════════════════════════════════════════════════
-    const ADMIN_HASH = 'eec0ae2663b74fdb9fb9981e92f1b2cc2a8b42444d358776d872580c79454c91';
-
     window.triggerSecretAdminPrompt = async function(e) {
         if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
 
-        // ══ PRIORYTET 1: Deleguj do LuminaAdminSuite gdy panel jest gotowy ══
-        if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.openPinPrompt === 'function') {
-            const isCurrentlyAdmin = (
-                sessionStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                localStorage.getItem('lumina_auth_master_admin') === 'true'
-            );
-            if (isCurrentlyAdmin) {
-                // Już zalogowany — otwieramy panel quickModal z Tarczą
-                if (typeof window.LuminaAdminSuite.openAllProfilesManager === 'function') {
-                    window.LuminaAdminSuite.openAllProfilesManager();
-                } else {
-                    window.LuminaAdminSuite.openPinPrompt();
-                }
-            } else {
-                // Niezalogowany — uruchamiamy uwierzytelnienie via LuminaAdminSuite
-                window.LuminaAdminSuite.openPinPrompt();
-            }
-            return;
-        }
-
-        // ══ FALLBACK: LuminaAdminSuite jeszcze niedostępne — własna weryfikacja PIN ══
-        const isCurrentlyAdmin = (sessionStorage.getItem('lumina_auth_master_admin') === 'true' || localStorage.getItem('lumina_auth_master_admin') === 'true');
+        const isCurrentlyAdmin = !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin());
         if (isCurrentlyAdmin) {
-            const confirmLock = confirm('👑 Jesteś obecnie zalogowany jako Główny Administrator Portalu LUMINA.\n\nCzy chcesz ZABLOKOWAĆ tryb Administratora i przejść do widoku zwykłego gościa?');
-            if (confirmLock) {
-                sessionStorage.removeItem('lumina_auth_master_admin');
-                localStorage.removeItem('lumina_auth_master_admin');
-                document.body.classList.remove('owner-mode-active');
-                if (typeof window.checkOwnerAuthSession === 'function') window.checkOwnerAuthSession();
-                const toastFn = window.showToast || window.luminaToast || alert;
-                toastFn('🔒 Zablokowano tryb Administratora (Tryb Gościa)');
-                setTimeout(() => window.location.reload(), 400);
+            if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.openAllProfilesManager === 'function') {
+                window.LuminaAdminSuite.openAllProfilesManager();
+            } else if (window.LuminaSecurity && typeof window.LuminaSecurity.lockMasterAdmin === 'function') {
+                window.LuminaSecurity.lockMasterAdmin();
             }
             return;
         }
 
-        const inputPin = prompt('🔐 Autoryzacja Administratora Portalu LUMINA:');
-        if (!inputPin) return;
-
-        try {
-            const msgBuffer = new TextEncoder().encode(inputPin.trim());
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-            if (hash === ADMIN_HASH) {
-                sessionStorage.setItem('lumina_auth_master_admin', 'true');
-                localStorage.setItem('lumina_auth_master_admin', 'true');
-                document.body.classList.add('owner-mode-active');
-                if (typeof window.checkOwnerAuthSession === 'function') window.checkOwnerAuthSession();
-                // Spróbuj otworzyć panel bezpośrednio jeśli suite załadowało się w tym czasie
-                if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.checkAndApplyAdminState === 'function') {
-                    window.LuminaAdminSuite.checkAndApplyAdminState();
-                    if (typeof window.LuminaAdminSuite.openAllProfilesManager === 'function') {
-                        window.LuminaAdminSuite.openAllProfilesManager();
-                    }
-                    const toastFn = window.showToast || window.luminaToast || alert;
-                    toastFn('👑 Witaj Dowódco! Panel Master Admin aktywowany.');
-                } else {
-                    const toastFn = window.showToast || window.luminaToast || alert;
-                    toastFn('👑 Witaj Dowódco! Panel Administratora Portalu Aktywowany.');
-                    setTimeout(() => window.location.reload(), 500);
-                }
-            } else {
-                const toastFn = window.showToast || window.luminaToast || alert;
-                toastFn('❌ Błędny kod autoryzacji! Odmowa dostępu.');
-            }
-        } catch(err) {
-            console.error('Błąd weryfikacji:', err);
+        const toastFn = window.showToast || window.luminaToast;
+        if (typeof toastFn === 'function') {
+            toastFn('🔐 Panel Administratora wymaga zweryfikowanego logowania Firebase Auth.');
+        }
+        if (typeof window.triggerLuminaLogin === 'function') {
+            window.triggerLuminaLogin(e);
+        } else if (typeof window.openAuthModal === 'function') {
+            window.openAuthModal('login');
+        } else {
+            window.location.href = 'lumina-login.html?redirect=' + encodeURIComponent(window.location.href);
         }
     };
 
@@ -2059,9 +2006,8 @@
         let isAuthenticated = false;
         let isMaster = false;
 
-        // 1. Sprawdź tryb Administratora
-        if (sessionStorage.getItem('lumina_auth_master_admin') === 'true' || 
-            localStorage.getItem('lumina_auth_master_admin') === 'true') {
+        // 1. Sprawdź zweryfikowany tryb Administratora (Firebase Auth)
+        if (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) {
             isAuthenticated = true;
             isMaster = true;
         }
@@ -2164,8 +2110,8 @@
                 dot.setAttribute('title', '🔴 Wylogowany — Kliknij, aby się zalogować');
                 dot.onclick = (e) => {
                     e.stopPropagation();
-                    if (window.triggerSecretAdminPrompt) window.triggerSecretAdminPrompt(e);
-                    else if (window.triggerLuminaLogin) window.triggerLuminaLogin(e);
+                    if (window.triggerLuminaLogin) window.triggerLuminaLogin(e);
+                    else if (window.openAuthModal) window.openAuthModal('login');
                 };
             }
         });

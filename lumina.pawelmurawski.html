@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <!-- LUMINA THEME FOIT GUARD (Default Light Edition) -->
     <script>
     (function() {
@@ -36,7 +38,6 @@
   gtag('config', 'G-M24C85RG49');
 </script>
 
-    <meta charset="UTF-8">
 <!-- ══════════ OPEN GRAPH & SOCIAL PREVIEWS (WhatsApp / FB / Twitter) ══════════ -->
     <title>Paweł Murawski • Holistyczny Coaching w Duchu Biblijnym | LUMINA</title>
     <meta name="description" content="Oficjalny profil Pawła Murawskiego w chrześcijańskiej społeczności LUMINA. Holistyczny Coach Biblijny, Żywiec, wsparcie duchowe i emocjonalne, wychodzenie z uzależnień i kryzysów życiowych.">
@@ -55,7 +56,6 @@
     <meta name="twitter:description" content="Holistyczny Coach w Duchu Biblijnym. Ciało • Dusza • Duch. Odzyskaj harmonię i zacznij żyć pełnią Bożego planu.">
     <meta name="twitter:image" content="https://polskieradio.cc/avatar_pawel_murawski.jpg">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title id="pageTitle">Paweł Murawski – Holistyczny Coaching | LUMINA</title>
 
     <link rel="icon" type="image/jpeg" href="avatar_pawel_murawski.jpg">
@@ -1571,10 +1571,7 @@
         }
 
         function verifyOwnerPin() {
-            const pinInput = document.getElementById('ownerPinInput');
-            const val = pinInput ? pinInput.value.trim() : '';
-
-            if (val === '7777' || val === '1234' || val === '4231') {
+            if (window.LuminaGuard && typeof window.LuminaGuard.canEditProfile === 'function' && window.LuminaGuard.canEditProfile('pawelmurawski', null)) {
                 isOwnerMode = true;
                 closeSecurityModal();
                 showToast('🔓 Zalogowano właściciela profilu!');
@@ -1584,8 +1581,9 @@
                     cb();
                 }
             } else {
-                alert('Nieprawidłowy kod PIN. Spróbuj ponownie.');
-                if (pinInput) pinInput.focus();
+                closeSecurityModal();
+                showToast('🔐 Zaloguj się zweryfikowanym kontem właściciela profilu (Firebase Auth).');
+                if (typeof window.openAuthModal === 'function') window.openAuthModal('login');
             }
         }
 

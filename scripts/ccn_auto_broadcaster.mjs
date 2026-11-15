@@ -311,6 +311,10 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'images', 'chat', 'lumi-mess-bg.webp');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('global') || titleLower.includes('global')) {
+    const p1 = path.join(rootDir, 'images', 'search', 'global-radio.jpg');
+    if (fs.existsSync(p1)) return p1;
+  }
   if (pathLower.includes('lumina') || pathLower.includes('cezary') || pathLower.includes('wioletta')) {
     const p = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
     if (fs.existsSync(p)) return p;
@@ -1068,6 +1072,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📖 MOJA BIBLIA INTERLINEARNA';
       callToAction = '👉 Badaj Pismo Święte:\n';
       addTags(item.tag || '#MojaBiblia', '#Strong', '#UBG');
+    } else if ((item.url || '').endsWith('/werset-dnia') || (item.url || '') === 'https://polskieradio.cc/werset-dnia' || (item.title || '').toLowerCase().includes('mój werset dnia')) {
+      subHeader = '📖 MÓJ WERSET DNIA | GENERATOR KART';
+      callToAction = '👉 Wyszukaj werset i stwórz kartę:\n';
+      addTags('#WersetDnia', '#SlowoBoze', '#ChristianCulture');
     } else if ((item.url || '').includes('mapa')) {
       subHeader = '🗺️ ŻYWA MAPA EKOSYSTEMU CC';
       callToAction = '👉 Zobacz architekturę na żywo:\n';
@@ -1230,6 +1238,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Rzuć palenie w 14 dni — bezpłatny kurs, plan na głód nikotynowy, audio i biblijna nadzieja.';
   } else if ((item.url || '').includes('cclite') || (item.title || '').toLowerCase().includes('cclite')) {
     bodyText = 'cclite.pl — lekka aplikacja PWA ekosystemu Christian Culture. Radio 24/7, rozważania i modlitwy!';
+  } else if ((item.url || '').endsWith('/werset-dnia') || (item.url || '') === 'https://polskieradio.cc/werset-dnia' || (item.title || '').toLowerCase().includes('mój werset dnia')) {
+    bodyText = 'Wyszukiwarka Słowa Bożego i generator kart z wersetami. Wylosuj werset na dziś i podziel się nadzieją!';
   } else if ((item.url || '').includes('blackout') || (item.title || '').toLowerCase().includes('blackout')) {
     bodyText = 'Kryzys infrastrukturalny, blackout i 72 godziny w domu: Jak mądrze zabezpieczyć rodzinę według biblijnej roztropności.';
   } else if ((item.url || '').includes('badz-blisko')) {
@@ -1280,6 +1290,24 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Dzień 30 (Rdz 48:1–49:33): Błogosławieństwo Jakuba, proroctwo o Lwie z pokolenia Judy i Boża obietnica.';
   } else if ((item.url || '').includes('dzien-29')) {
     bodyText = 'Dzień 29 (Rdz 46–47): Bóg prowadzi swój lud do Egiptu — spotkanie Jakuba z Józefem w Goszen.';
+  } else if ((item.url || '').includes('dzien-28')) {
+    bodyText = 'Dzień 28 (Rdz 44–45): Ja jestem Józef! Wzruszające przebaczenie braciom i Boża opatrzność.';
+  } else if ((item.url || '').includes('dzien-27')) {
+    bodyText = 'Dzień 27 (Rdz 43): Druga wyprawa do Egiptu, próba serc braci i Boża łaska w Goszen.';
+  } else if ((item.url || '').includes('dzien-26')) {
+    bodyText = 'Dzień 26 (Rdz 42): Pierwsza wyprawa do Egiptu, wyrzuty sumienia i początek przemiany braci.';
+  } else if ((item.url || '').includes('dzien-25')) {
+    bodyText = 'Dzień 25 (Rdz 41): Sny faraona, wyniesienie Józefa na zarządcę Egiptu i Boża mądrość.';
+  } else if ((item.url || '').includes('dzien-24')) {
+    bodyText = 'Dzień 24 (Rdz 40): Józef w więzieniu, sny podczaszego i piekarza oraz wierność w próbie.';
+  } else if ((item.url || '').includes('dzien-23')) {
+    bodyText = 'Dzień 23 (Rdz 39): Józef w domu Potifara, ucieczka przed grzechem i Boża obecność w cierpieniu.';
+  } else if ((item.url || '').includes('dzien-22')) {
+    bodyText = 'Dzień 22 (Rdz 38): Juda i Tamar — ludzki upadek, Boża sprawiedliwość i linia Mesjasza.';
+  } else if ((item.url || '').includes('dzien-21')) {
+    bodyText = 'Dzień 21 (Rdz 37): Józef sprzedany do Egiptu — zawiść braci i tajemnica Bożego planu.';
+  } else if ((item.url || '').includes('dzien-20')) {
+    bodyText = 'Dzień 20 (Rdz 35–36): Powrót do Betel, odnowienie przymierza i narodziny Beniamina.';
   } else if ((item.url || '').endsWith('/lumina') || (item.url || '') === 'https://polskieradio.cc/lumina') {
     bodyText = 'LUMINA: Wolna od manipulacji i algorytmów przestrzeń społeczności ludzi wiary.';
   } else if ((item.url || '').endsWith('/mess') || (item.url || '') === 'https://polskieradio.cc/mess') {

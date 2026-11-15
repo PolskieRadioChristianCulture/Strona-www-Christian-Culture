@@ -24,9 +24,9 @@
         border-radius: 0 !important;
         box-shadow: none !important;
     }
-    #directMessagesModal .chat-header-bar { box-shadow:none!important; border-bottom:1px solid #ffffff18!important; }
-    #directMessagesModal .fb-msg-bubble-me { background:#7551d8!important; box-shadow:none!important; }
-    #directMessagesModal .fb-msg-bubble-them { background:#263244!important; box-shadow:none!important; }
+    #directMessagesModal .chat-header-bar { box-shadow:none!important; border-bottom:1px solid rgba(196, 163, 90, 0.16)!important; }
+    #directMessagesModal .fb-msg-bubble-me { background:linear-gradient(135deg, #2a2416, #1c1914)!important; border:1px solid rgba(196, 163, 90, 0.38)!important; box-shadow:none!important; }
+    #directMessagesModal .fb-msg-bubble-them { background:#141418!important; box-shadow:none!important; }
     #directMessagesModal #dmConversationsList > div[onclick] {
         min-height:72px!important; padding:12px!important; gap:14px!important;
         background:transparent!important; border:0!important; border-radius:12px!important;
@@ -35,7 +35,7 @@
     #directMessagesModal #dmConversationsList > div[onclick] img {
         width:56px!important; height:56px!important; border:0!important;
     }
-    #directMessagesModal .dm-avatar-badge { background:#5865f2!important; box-shadow:none!important; animation:none!important; }
+    #directMessagesModal .dm-avatar-badge { background:#C4A35A!important; color:#0a0a0c!important; box-shadow:none!important; animation:none!important; }
     #directMessagesModal #dmUserSearchInput { min-height:44px!important; font-size:16px!important; border-radius:22px!important; }
 }
 
@@ -54,13 +54,13 @@
 }
 .lumina-chat-avatar:hover {
     transform: scale(1.06);
-    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.5), 0 0 14px rgba(139, 92, 246, 0.35);
+    box-shadow: 0 0 0 2px rgba(212, 181, 120, 0.55), 0 0 14px rgba(196, 163, 90, 0.35);
 }
 
 /* --- Dymek premium: subtelne szkło zamiast płaskiego koloru --- */
 .lumina-bubble-mine {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.95), rgba(6, 182, 212, 0.9));
-    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+    background: linear-gradient(135deg, rgba(196, 163, 90, 0.28), rgba(20, 20, 24, 0.95));
+    box-shadow: 0 4px 14px rgba(196, 163, 90, 0.2), inset 0 1px 0 rgba(255,255,255,0.12);
 }
 .lumina-bubble-theirs {
     background: rgba(255, 255, 255, 0.08);
@@ -93,7 +93,7 @@
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: #ec4899;
+    background: #C4A35A;
     animation: luminaTypingBounce 1.1s infinite ease-in-out;
 }
 .lumina-typing-dots span:nth-child(2) { animation-delay: 0.15s; }
@@ -106,8 +106,8 @@
 /* --- Pole wpisywania: delikatna poświata przy fokusie, czuje się "żywe" --- */
 .lumina-chat-input-premium:focus {
     outline: none;
-    border-color: rgba(236, 72, 153, 0.6) !important;
-    box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.15);
+    border-color: rgba(212, 181, 120, 0.65) !important;
+    box-shadow: 0 0 0 3px rgba(196, 163, 90, 0.18);
 }
 
 /* --- Przycisk wysyłania: mikroanimacja przy kliknięciu --- */
@@ -118,13 +118,13 @@
     transform: scale(0.94);
 }
 .lumina-send-btn-premium:hover {
-    box-shadow: 0 4px 16px rgba(236, 72, 153, 0.4);
+    box-shadow: 0 4px 16px rgba(255, 122, 0, 0.4);
 }
 
 /* --- Podświetlenie wiadomości, do której skoczono (np. z powiadomienia) --- */
 @keyframes luminaHighlightPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
-    30% { box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.5); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(196, 163, 90, 0); }
+    30% { box-shadow: 0 0 0 4px rgba(212, 181, 120, 0.55); }
 }
 .chat-message-highlight {
     animation: luminaHighlightPulse 1.4s ease-in-out 2;
@@ -141,9 +141,9 @@
     height: 760px !important;
     max-height: 90vh !important;
     border-radius: 24px !important;
-    background: #070d1e !important;
-    border: 1.5px solid rgba(168, 85, 247, 0.35) !important;
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 30px rgba(168, 85, 247, 0.15) !important;
+    background: #0a0a0c !important;
+    border: 1.5px solid rgba(196, 163, 90, 0.35) !important;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 28px rgba(196, 163, 90, 0.14) !important;
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
@@ -213,9 +213,9 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
     margin: 0 !important;
     flex: 0 0 36px !important;
     border-radius: 10px !important;
-    border: 1px solid rgba(168, 85, 247, 0.35) !important;
-    background: rgba(168, 85, 247, 0.12) !important;
-    color: #c084fc !important;
+    border: 1px solid rgba(196, 163, 90, 0.36) !important;
+    background: rgba(196, 163, 90, 0.14) !important;
+    color: #D4B578 !important;
     font-size: 0.95rem !important;
     cursor: pointer !important;
     display: inline-flex !important;
@@ -228,9 +228,9 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 .chat-fullscreen-btn:hover,
 #directMessagesModal .chat-fullscreen-btn:hover,
 #directMessagesModal button#btnChatFullscreen:hover {
-    background: rgba(168, 85, 247, 0.28) !important;
-    border-color: rgba(192, 132, 252, 0.6) !important;
-    color: #e9d5ff !important;
+    background: rgba(196, 163, 90, 0.22) !important;
+    border-color: rgba(212, 181, 120, 0.6) !important;
+    color: #E2CC9A !important;
 }
 .chat-fullscreen-btn:active,
 #directMessagesModal .chat-fullscreen-btn:active,
@@ -267,7 +267,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
     min-width: 310px !important;
     max-width: 360px !important;
     border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
-    background: rgba(11, 17, 32, 0.6) !important;
+    background: rgba(14, 14, 18, 0.85) !important;
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -283,7 +283,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
     height: 100%;
     min-height: 0;
     min-width: 0;
-    background: rgba(7, 13, 30, 0.85);
+    background: rgba(10, 10, 12, 0.92);
     position: relative;
 }
 
@@ -310,15 +310,15 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
     width: 84px;
     height: 84px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.2));
-    border: 2px solid rgba(168, 85, 247, 0.4);
+    background: linear-gradient(135deg, rgba(196, 163, 90, 0.22), rgba(212, 181, 120, 0.14));
+    border: 2px solid rgba(196, 163, 90, 0.42);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2.3rem;
-    color: #facc15;
+    color: #E2CC9A;
     margin-bottom: 20px;
-    box-shadow: 0 0 32px rgba(168, 85, 247, 0.35);
+    box-shadow: 0 0 28px rgba(196, 163, 90, 0.32);
     animation: messengerFloat 3s ease-in-out infinite;
 }
 
@@ -329,10 +329,11 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 
 /* Styl dymków Meta Messenger / WhatsApp */
 .fb-msg-bubble-me {
-    background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%) !important;
+    background: linear-gradient(135deg, #2b2416 0%, #1c1914 100%) !important;
+    border: 1px solid rgba(196, 163, 90, 0.42) !important;
     color: #ffffff !important;
     border-radius: 18px 18px 4px 18px !important;
-    box-shadow: 0 3px 12px rgba(168, 85, 247, 0.35) !important;
+    box-shadow: 0 3px 12px rgba(196, 163, 90, 0.18) !important;
     max-width: 76% !important;
     padding: 9px 14px 6px 14px !important;
     position: relative !important;
@@ -376,9 +377,9 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 }
 
 .fb-check-read {
-    color: #facc15;
+    color: #E2CC9A;
     font-size: 0.78rem;
-    text-shadow: 0 0 6px rgba(250, 204, 21, 0.6);
+    text-shadow: 0 0 6px rgba(196, 163, 90, 0.55);
 }
 
 /* Szybki wybór Emoji (Messenger Emoji Picker) */
@@ -387,7 +388,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(14, 14, 18, 0.95);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     overflow-x: auto;
     scrollbar-width: none;
@@ -426,13 +427,13 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
     grid-template-columns: 42px minmax(0, 1fr);
     gap: 9px;
     padding: 10px;
-    border: 1px solid rgba(250, 204, 21, .26);
+    border: 1px solid rgba(196, 163, 90, .3);
     border-radius: 14px;
-    background: linear-gradient(135deg, rgba(250, 204, 21, .11), rgba(168, 85, 247, .10));
+    background: linear-gradient(135deg, rgba(196, 163, 90, .12), rgba(20, 20, 24, .92));
 }
 .lumina-message-request-avatar {
     width: 42px; height: 42px; border-radius: 50%; object-fit: cover;
-    border: 2px solid rgba(250, 204, 21, .65);
+    border: 2px solid rgba(212, 181, 120, .65);
 }
 .lumina-message-request-content { min-width: 0; }
 .lumina-message-request-content strong { display:block; color:#fff; font-size:.82rem; }
@@ -474,7 +475,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
         border: none !important;
         border-radius: 0 !important;
         z-index: 20000000 !important;
-        background: #070d1e !important;
+        background: #0a0a0c !important;
         display: flex !important;
         flex-direction: column !important;
     }
@@ -491,7 +492,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
         display: flex !important;
         flex-direction: column !important;
         flex: 1 1 100% !important;
-        background: #070d1e !important;
+        background: #0a0a0c !important;
     }
 
     /* Dual-pane container: flex column occupying all remaining space */
@@ -547,7 +548,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
     /* Pasek nagłówka czatu (Chat Header Bar) */
     #directMessagesModal .chat-header-bar {
         padding: max(10px, env(safe-area-inset-top)) 14px 10px !important;
-        background: rgba(11, 18, 38, 0.95) !important;
+        background: rgba(10, 10, 12, 0.95) !important;
         backdrop-filter: blur(10px) !important;
         flex-shrink: 0 !important;
     }
@@ -561,7 +562,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
         min-width: 44px !important;
         min-height: 44px !important;
         padding: 0 !important;
-        color: #c084fc !important;
+        color: #D4B578 !important;
         font-size: 1.25rem !important;
         cursor: pointer !important;
         touch-action: manipulation !important;
@@ -608,7 +609,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
         padding: 5px 10px !important;
         scrollbar-width: none !important;
         flex-shrink: 0 !important;
-        background: rgba(7, 13, 30, 0.92) !important;
+        background: rgba(10, 10, 12, 0.94) !important;
         border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
     }
     #activeChatSmartBar::-webkit-scrollbar,
@@ -668,9 +669,10 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
         align-items: center !important;
         justify-content: center !important;
         flex-shrink: 0 !important;
-        background: linear-gradient(135deg, #ec4899, #8b5cf6) !important;
+        background: linear-gradient(135deg, #FF8C33, #FF7A00) !important;
+        color: #FFFFFF !important;
         border: none !important;
-        box-shadow: 0 3px 12px rgba(236, 72, 153, 0.4) !important;
+        box-shadow: 0 3px 12px rgba(255, 122, 0, 0.38) !important;
     }
 
     #directMessagesModal #btnActiveChatSubmit #btnActiveChatSubmitLabel,
@@ -730,7 +732,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 .lumina-chat-scroll,
 .dm-conversations-list {
     scrollbar-width: thin;
-    scrollbar-color: rgba(168, 85, 247, 0.55) rgba(7, 13, 30, 0.4);
+    scrollbar-color: rgba(196, 163, 90, 0.55) rgba(10, 10, 12, 0.4);
 }
 
 /* Webkit (Chrome, Safari, Edge, Android WebView) */
@@ -756,7 +758,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 .messenger-chat-column::-webkit-scrollbar-track,
 .lumina-chat-scroll::-webkit-scrollbar-track,
 .dm-conversations-list::-webkit-scrollbar-track {
-    background: rgba(7, 13, 30, 0.35);
+    background: rgba(10, 10, 12, 0.35);
     border-radius: 999px;
 }
 
@@ -769,7 +771,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 .messenger-chat-column::-webkit-scrollbar-thumb,
 .lumina-chat-scroll::-webkit-scrollbar-thumb,
 .dm-conversations-list::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #a855f7 0%, #ec4899 100%);
+    background: linear-gradient(180deg, #C4A35A 0%, #A08040 100%);
     border-radius: 999px;
     min-height: 28px;
 }
@@ -783,7 +785,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 .messenger-chat-column::-webkit-scrollbar-thumb:hover,
 .lumina-chat-scroll::-webkit-scrollbar-thumb:hover,
 .dm-conversations-list::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #c084fc 0%, #f472b6 100%);
+    background: linear-gradient(180deg, #E2CC9A 0%, #D4B578 100%);
 }
 
 /* Filter-tabs poziomy scrollbar (Wszyscy / Rozmowy / Liderzy & Misja):
@@ -1438,8 +1440,8 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 /* ══════════ REAKCJE EMOTIKONAMI LUMINA CZAT ══════════ */
 .lumina-reaction-picker {
   position: fixed !important;
-  background: rgba(15, 23, 42, 0.98) !important;
-  border: 1.5px solid rgba(168, 85, 247, 0.45) !important;
+  background: rgba(14, 14, 18, 0.98) !important;
+  border: 1.5px solid rgba(196, 163, 90, 0.42) !important;
   border-radius: 20px !important;
   padding: 6px 8px !important;
   display: grid !important;
@@ -1448,7 +1450,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
   align-items: center !important;
   justify-items: center !important;
   z-index: 2147483647 !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(168, 85, 247, 0.25) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(196, 163, 90, 0.2) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
   user-select: none !important;
@@ -1524,7 +1526,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 
 .lumina-reaction-add-btn:hover {
   background: rgba(255, 255, 255, 0.15) !important;
-  border-color: rgba(168, 85, 247, 0.45) !important;
+  border-color: rgba(196, 163, 90, 0.45) !important;
   color: #fff !important;
   transform: translateY(-1px) !important;
 }
@@ -1561,9 +1563,9 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
   align-items: center;
   justify-content: space-between;
   padding: 8px 14px;
-  background: rgba(168, 85, 247, 0.14) !important;
-  border-top: 1px solid rgba(168, 85, 247, 0.3) !important;
-  border-left: 3px solid #c084fc !important;
+  background: rgba(196, 163, 90, 0.14) !important;
+  border-top: 1px solid rgba(196, 163, 90, 0.32) !important;
+  border-left: 3px solid #D4B578 !important;
   gap: 10px;
   animation: luminaSlideIn 0.2s ease forwards;
 }
@@ -1574,8 +1576,8 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 }
 
 .lumina-quote-block {
-  background: rgba(0, 0, 0, 0.24) !important;
-  border-left: 3px solid #c084fc !important;
+  background: rgba(0, 0, 0, 0.26) !important;
+  border-left: 3px solid #D4B578 !important;
   padding: 5px 9px !important;
   border-radius: 6px !important;
   margin-bottom: 6px !important;
@@ -1586,7 +1588,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 }
 
 .lumina-quote-block:hover {
-  background: rgba(0, 0, 0, 0.4) !important;
+  background: rgba(0, 0, 0, 0.42) !important;
 }
 
 .chat-message-highlight {
@@ -1595,11 +1597,11 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 
 @keyframes luminaMsgHighlight {
   0% {
-    box-shadow: 0 0 0 3px #c084fc, 0 0 20px rgba(192, 132, 252, 0.6) !important;
-    background-color: rgba(168, 85, 247, 0.35) !important;
+    box-shadow: 0 0 0 3px #C4A35A, 0 0 20px rgba(196, 163, 90, 0.58) !important;
+    background-color: rgba(196, 163, 90, 0.28) !important;
   }
   70% {
-    box-shadow: 0 0 0 2px #c084fc, 0 0 10px rgba(192, 132, 252, 0.3) !important;
+    box-shadow: 0 0 0 2px #D4B578, 0 0 10px rgba(196, 163, 90, 0.3) !important;
   }
   100% {
     box-shadow: none !important;
@@ -1609,15 +1611,15 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 /* ══════════ MENU AKCJI WIADOMOŚCI (LONG PRESS / PRAWY KLIK) ══════════ */
 .lumina-msg-action-menu {
   position: fixed !important;
-  background: rgba(15, 23, 42, 0.96) !important;
-  border: 1px solid rgba(168, 85, 247, 0.35) !important;
+  background: rgba(14, 14, 18, 0.96) !important;
+  border: 1px solid rgba(196, 163, 90, 0.38) !important;
   border-radius: 16px !important;
   padding: 6px !important;
   display: flex !important;
   flex-direction: column !important;
   gap: 3px !important;
   z-index: 2147483647 !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(168, 85, 247, 0.25) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 20px rgba(196, 163, 90, 0.2) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
   min-width: 190px !important;
@@ -1657,7 +1659,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
 
 .lumina-msg-action-item:hover,
 .lumina-msg-action-item:focus-visible {
-  background: rgba(168, 85, 247, 0.25) !important;
+  background: rgba(196, 163, 90, 0.22) !important;
   color: #fff !important;
 }
 
@@ -1665,7 +1667,7 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
   font-size: 0.95rem !important;
   width: 18px !important;
   text-align: center !important;
-  color: #c084fc !important;
+  color: #D4B578 !important;
   flex-shrink: 0 !important;
 }
 
@@ -2239,7 +2241,7 @@ html.lumi-mess-page #commanderChatMessagesBox,
 html.lumi-mess-page #messengerLiveView .llr-box,
 html.lumi-mess-page #ccChatMessagesList,
 html.lumi-mess-page .ldd-messages {
-    background-color: #060814 !important;
+    background-color: #0a0a0c !important;
     background-image:
         radial-gradient(1.5px 1.5px at 14% 18%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
         radial-gradient(1px 1px at 78% 12%, rgba(255, 255, 255, 0.48) 50%, transparent 100%),
@@ -2248,9 +2250,9 @@ html.lumi-mess-page .ldd-messages {
         radial-gradient(1.5px 1.5px at 22% 84%, rgba(255, 255, 255, 0.42) 50%, transparent 100%),
         radial-gradient(1px 1px at 64% 88%, rgba(196, 181, 253, 0.45) 50%, transparent 100%),
         radial-gradient(ellipse 88% 42% at 18% 26%, rgba(16, 185, 129, 0.25) 0%, rgba(6, 182, 212, 0.12) 45%, transparent 74%),
-        radial-gradient(ellipse 82% 48% at 84% 40%, rgba(139, 92, 246, 0.30) 0%, rgba(168, 85, 247, 0.14) 48%, transparent 76%),
-        radial-gradient(ellipse 90% 46% at 62% 76%, rgba(16, 185, 129, 0.24) 0%, rgba(59, 130, 246, 0.16) 52%, transparent 78%),
-        linear-gradient(170deg, #050711 0%, #091026 38%, #0c172e 68%, #060814 100%) !important;
+        radial-gradient(ellipse 82% 48% at 84% 40%, rgba(196, 163, 90, 0.20) 0%, rgba(212, 181, 120, 0.08) 48%, transparent 76%),
+        radial-gradient(ellipse 90% 46% at 62% 76%, rgba(16, 185, 129, 0.18) 0%, rgba(196, 163, 90, 0.10) 52%, transparent 78%),
+        linear-gradient(170deg, #070709 0%, #0e0e13 38%, #141418 68%, #0a0a0c 100%) !important;
     background-attachment: local !important;
 }
 
@@ -2348,25 +2350,25 @@ html:not([data-lumina-theme="light"]) #messengerLiveView .llr-msg:not(.me) .llr-
 html.lumi-mess-page #publicChatMessagesBox .lumina-bubble-theirs,
 html.lumi-mess-page #directMessagesModal .fb-msg-bubble-them,
 html.lumi-mess-page #messengerLiveView .llr-msg:not(.me) .llr-b {
-    background: linear-gradient(145deg, #1E234A 0%, #171C3C 100%) !important;
-    border: 1px solid rgba(148, 163, 184, 0.16) !important;
+    background: linear-gradient(145deg, #1c1c22 0%, #141418 100%) !important;
+    border: 1px solid rgba(196, 163, 90, 0.18) !important;
     border-radius: 20px 20px 20px 6px !important;
     color: #F8FAFC !important;
-    box-shadow: 0 4px 14px rgba(2, 6, 23, 0.42) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
 }
 
-/* 4. Dymki wiadomości wychodzących (prawa strona — królewski błękit do elektrycznego fioletu) */
+/* 4. Dymki wiadomości wychodzących (prawa strona — Obsidian Gold Premium) */
 html:not([data-lumina-theme="light"]) #publicChatMessagesBox .lumina-bubble-mine,
 html:not([data-lumina-theme="light"]) #directMessagesModal .fb-msg-bubble-me,
 html:not([data-lumina-theme="light"]) #messengerLiveView .llr-msg.me .llr-b,
 html.lumi-mess-page #publicChatMessagesBox .lumina-bubble-mine,
 html.lumi-mess-page #directMessagesModal .fb-msg-bubble-me,
 html.lumi-mess-page #messengerLiveView .llr-msg.me .llr-b {
-    background: linear-gradient(135deg, #4E65FF 0%, #7C3AED 52%, #9333EA 100%) !important;
-    border: 1px solid rgba(192, 132, 252, 0.28) !important;
+    background: linear-gradient(135deg, #2b2416 0%, #1c1914 100%) !important;
+    border: 1px solid rgba(196, 163, 90, 0.45) !important;
     border-radius: 20px 20px 6px 20px !important;
     color: #FFFFFF !important;
-    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.36) !important;
+    box-shadow: 0 6px 18px rgba(196, 163, 90, 0.16) !important;
 }
 
 /* Ukrycie dużego prawego awatara własnego przy wysłanych wiadomościach — wyrównanie do prawej krawędzi jak w Messengerze */
@@ -2458,7 +2460,7 @@ html.lumi-mess-page #directMessagesModal .chat-input-bar {
     min-width: 34px !important;
     min-height: 34px !important;
     border-radius: 50% !important;
-    background: linear-gradient(135deg, #9333EA 0%, #7C3AED 100%) !important;
+    background: linear-gradient(135deg, #FF8C33 0%, #FF7A00 100%) !important;
     color: #FFFFFF !important;
     border: none !important;
     display: inline-flex !important;
@@ -2467,19 +2469,19 @@ html.lumi-mess-page #directMessagesModal .chat-input-bar {
     font-size: 0.95rem !important;
     cursor: pointer !important;
     flex-shrink: 0 !important;
-    box-shadow: 0 2px 10px rgba(147, 51, 234, 0.45) !important;
+    box-shadow: 0 2px 10px rgba(255, 122, 0, 0.42) !important;
     transition: transform 0.18s ease, filter 0.18s ease !important;
 }
 
 .lumi-composer-plus-btn:hover {
     transform: scale(1.06);
-    filter: brightness(1.12);
+    filter: brightness(1.08);
 }
 
 .lumi-composer-tool-btn {
     background: transparent !important;
     border: none !important;
-    color: #A855F7 !important;
+    color: #C4A35A !important;
     width: 34px !important;
     height: 34px !important;
     min-width: 34px !important;
@@ -2495,16 +2497,16 @@ html.lumi-mess-page #directMessagesModal .chat-input-bar {
 }
 
 .lumi-composer-tool-btn:hover {
-    background: rgba(168, 85, 247, 0.15) !important;
-    color: #C084FC !important;
+    background: rgba(196, 163, 90, 0.16) !important;
+    color: #E2CC9A !important;
 }
 
 html:not([data-lumina-theme="light"]) #directMessagesModal #publicChatInput,
 html:not([data-lumina-theme="light"]) #directMessagesModal #activeChatInput,
 html.lumi-mess-page #directMessagesModal #publicChatInput,
 html.lumi-mess-page #directMessagesModal #activeChatInput {
-    background: #1A1F38 !important;
-    border: 1px solid rgba(148, 163, 184, 0.2) !important;
+    background: #141418 !important;
+    border: 1px solid rgba(196, 163, 90, 0.24) !important;
     border-radius: 999px !important;
     color: #F8FAFC !important;
     padding: 10px 16px !important;
@@ -2515,12 +2517,23 @@ html:not([data-lumina-theme="light"]) #directMessagesModal #btnPublicChatEmoji,
 html:not([data-lumina-theme="light"]) #directMessagesModal .lumi-composer-emoji-btn,
 html.lumi-mess-page #directMessagesModal #btnPublicChatEmoji,
 html.lumi-mess-page #directMessagesModal .lumi-composer-emoji-btn {
-    color: #A855F7 !important;
+    color: #D4B578 !important;
 }
 
 @media (max-width: 480px) {
     .lumi-composer-tool-btn.hide-on-narrow-mobile {
         display: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lumina-typing-dots span,
+    .chat-message-highlight,
+    .lumina-quote-bar,
+    .lumi-composer-plus-btn,
+    .lumi-composer-tool-btn {
+        animation: none !important;
+        transition: none !important;
     }
 }
 

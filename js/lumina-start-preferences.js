@@ -32,12 +32,8 @@
             const slug = (profile && (profile.slug || profile.id)) || (user && (user.slug || user.uid || user.id)) || '';
             const email = ((user && user.email) || (profile && profile.email) || '').toLowerCase();
             const name = ((user && (user.displayName || user.name)) || (profile && profile.name) || '').toLowerCase();
-            const isAdmin = localStorage.getItem('lumina_auth_master_admin') === 'true' 
-                || sessionStorage.getItem('lumina_auth_master_admin') === 'true'
-                || (user && (user.isAdmin || user.role === 'master_admin'));
-
-            // 🛡️ STRAŻNIK (2026-10-07): „mój profil” z zalogowanego konta, nie z imienia
-            void isAdmin; void email; void name;
+            // 🛡️ STRAŻNIK (2026-10-07): „mój profil” z zalogowanego konta, nie z flag w Storage ani z imienia
+            void email; void name;
             const _oid = (window.LuminaDB && typeof window.LuminaDB.detectLuminaOfficialIdentity === 'function') ? window.LuminaDB.detectLuminaOfficialIdentity(window.LuminaDB.getCurrentUser && window.LuminaDB.getCurrentUser()) : null;
             if (_oid === 'cezary') {
                 target = 'lumina.cezaryrgowski.html';

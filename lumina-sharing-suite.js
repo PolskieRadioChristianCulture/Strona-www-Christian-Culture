@@ -885,8 +885,8 @@
                 }
             } catch(e) {}
         }
-        // 4. Cezary Rogowski fallback if admin or on Cezary's page
-        const isAdmin = localStorage.getItem('lumina_admin') === '1' || localStorage.getItem('lumina_auth_master_admin') === 'true';
+        // 4. Cezary Rogowski fallback wyłącznie po zweryfikowanym logowaniu Administratora lub na jego profilu
+        const isAdmin = !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin());
         if (isAdmin || window.location.pathname.includes('cezary')) {
             return {
                 name: 'Cezary Rogowski',

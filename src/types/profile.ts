@@ -31,6 +31,8 @@ export interface LuminaProfile {
   isMission?: boolean;
   isNew?: boolean;
   visibility?: 'public' | 'private' | 'community';
+  isOnline?: boolean;
+  isVerified?: boolean;
   matchScore?: string | null;
   likesCount?: number;
   followersCount?: number;

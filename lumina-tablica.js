@@ -383,16 +383,27 @@ class LuminaTablicaEngine {
     // ── 5. ASYNCHRONICZNE REAKCJE (Amen, Polubienia) ──
     async toggleReaction(postId, reactionType) {
         if (!postId) return;
-
-        // Optymistyczna aktualizacja UI
-        const post = this.currentPosts.find(p => p.id === postId);
-        if (post) {
-            post[reactionType] = (post[reactionType] || 0) + 1;
-            this.renderFeed(this.currentPosts);
-        }
-
-        if (this.db.togglePostReactionInCloud) {
-            await this.db.togglePostReactionInCloud(postId, reactionType);
+        const type = reactionType === 'amen' ? 'amen' : 'likes';
+        const reactFn = this.db.toggleLuminaPostReaction || this.db.togglePostReactionInCloud;
+        if (!reactFn) return;
+        try {
+            const res = await reactFn(postId, type);
+            const post = this.currentPosts.find(p => p.id === postId);
+            if (post && res && typeof res.delta === 'number') {
+                post[type] = Math.max(0, (Number(post[type]) || 0) + res.delta);
+                this.renderFeed(this.currentPosts);
+            }
+        } catch (err) {
+            if (err && err.code === 'auth') {
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Zaloguj się, aby reagować na wpisy na Tablicy. 🕊️');
+                }
+                if (typeof window.openAuthModal === 'function') {
+                    window.openAuthModal('login');
+                }
+            } else {
+                console.warn('Lumina Reaction Sync error:', err?.message || err);
+            }
         }
     }
 }

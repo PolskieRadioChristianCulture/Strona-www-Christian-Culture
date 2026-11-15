@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="pl">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <!-- RSS Auto-Discovery (Apple Podcasts, Spotify, Feed Readers) -->
     <link rel="alternate" type="application/rss+xml" title="Polskie Radio Christian Culture • Podcast RSS" href="https://polskieradio.cc/podcast.xml">
     <link rel="alternate" type="application/rss+xml" title="LUMINA • Tablica Społeczności i Rozważania RSS" href="https://polskieradio.cc/tablica.xml">
@@ -148,7 +150,7 @@
                 if (!slug) return;
                 const customAvatar = localStorage.getItem('lumina_custom_avatar_' + slug) || localStorage.getItem('lumina_avatar_' + slug);
                 if (customAvatar) {
-                    // BEZWZGLÄDNA BLOKADA: Zdjęcia Dowódcy wyłącznie dla profilu Cezarego Rogowskiego
+                    // BEZWZGLĘDNA BLOKADA: Zdjęcia Dowódcy wyłącznie dla profilu Cezarego Rogowskiego
                     if (slug !== 'cezaryrgowski' && slug !== 'cezary_wioletta' && isCommanderPhotoAsset(customAvatar)) {
                         localStorage.removeItem('lumina_custom_avatar_' + slug);
                         localStorage.removeItem('lumina_avatar_' + slug);
@@ -278,7 +280,6 @@
   gtag('config', 'G-M24C85RG49', (function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
   gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
-    <meta charset="UTF-8">
 <!-- ══════════ OPEN GRAPH & SOCIAL PREVIEWS (WhatsApp / FB / Twitter) ══════════ -->
     <title>LUMINA – Chrześcijańska Społeczność Relacji & Wartości | Christian Culture</title>
     <meta name="description" content="LUMINA – Globalny chrześcijański portal relacji, wartości i randek opartych na fundamencie Chrystusa. Poznaj ludzi wierzących, twórz karty wersetów Story 9:16, dziel się świadectwami i buduj trwałe małżeństwo.">
@@ -299,7 +300,6 @@
     <meta name="twitter:title" content="LUMINA – Chrześcijańska Społeczność Relacji & Wartości | Christian Culture">
     <meta name="twitter:description" content="LUMINA – Globalny chrześcijański portal relacji, wartości i randek opartych na fundamencie Chrystusa. Poznaj ludzi wierzących, twórz karty wersetów Story 9:16, dziel się świadectwami i buduj trwałe małżeństwo.">
     <meta name="twitter:image" content="https://polskieradio.cc/lumina_icon.jpg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <!-- ══════════ AI SEARCH ENGINE & LLM STRUCTURED DATA (JSON-LD SCHEMA.ORG) ══════════ -->
     <script type="application/ld+json">
@@ -355,17 +355,7 @@
       ]
     }
     </script>
-    
-    
-        
-    
-    
-    
-    
-    
-    
-    
-    
+
     <link rel="icon" type="image/svg+xml" href="lumina-push-badge-v4.1.5.svg">
     <link rel="icon" type="image/png" sizes="192x192" href="lumina-icon-192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="lumina-icon-512.png">
@@ -3289,8 +3279,6 @@
             flex-shrink: 0;
         }
 
-    
-
         /* ── PANCERNA DIODA OBECNOŚCI ONLINE (Brak ucinania) ── */
         .avatar-wrap, .head-avatar-wrapper, .profile-avatar-wrap {
             overflow: visible !important;
@@ -3621,336 +3609,10 @@
     <script type="module" src="js/lumina-editor.js?v=1786937908032"></script>
     <script type="module" src="js/lumina-feed.js?v=1786937908032"></script>
     <script type="module" src="js/lumina-search.js?v=1786937908032"></script>
-<style>
-        /* ========= SMCC Mobile Standard: IKONY ZAMIAST ETYKIET, TOUCH TARGET 44px ========= */
-        @media (max-width: 640px) {
-            /* 1. Gorna Belka — same ikony, touch target 44px */
-            .nav-menu-btn .nav-btn-text,
-            .btn-nav-support .btn-nav-cta-text,
-            .btn-nav-back span { display: none !important; }
-            .nav-menu-btn,
-            .btn-nav-support {
-                min-width: 44px !important; min-height: 44px !important;
-                width: 44px !important; height: 44px !important;
-                border-radius: 50% !important; padding: 0 !important;
-                display: inline-flex !important;
-                align-items: center !important; justify-content: center !important;
-            }
-            .nav-menu-btn i, .btn-nav-support i {
-                margin: 0 !important; font-size: 1.15rem !important;
-            }
 
-            /* 2. Zakładki Messengera — wszystkie (incl. dynamiczny #tabBtnGroupsChat) */
-            #tabBtnPublicChat .tab-label,
-            #tabBtnCommanderChat .tab-label,
-            #tabBtnPrivateChat .tab-label,
-            #tabBtnGroupsChat .tab-label,
-            .messenger-tab-btn .tab-label,
-            #tabBtnPublicChat span:not(.tab-badge):not(.tab-icon-wrap),
-            #tabBtnCommanderChat span:not(.tab-badge):not(.tab-icon-wrap),
-            #tabBtnPrivateChat span:not(.tab-badge):not(.tab-icon-wrap),
-            #tabBtnGroupsChat span:not(.tab-badge):not(.tab-icon-wrap),
-            .messenger-tab-btn span:not(.tab-badge):not(.tab-icon-wrap) { display: none !important; }
-            #tabBtnPublicChat,
-            #tabBtnCommanderChat.is-commander-authorized,
-            #tabBtnPrivateChat,
-            #tabBtnGroupsChat,
-            .messenger-tab-btn {
-                position: relative !important;
-                overflow: visible !important;
-                min-height: 44px !important; min-width: 44px !important;
-                padding: 0 !important; gap: 0 !important;
-                display: inline-flex !important;
-                align-items: center !important; justify-content: center !important;
-            }
-            #tabBtnCommanderChat:not(.is-commander-authorized),
-            #tabBtnCommanderChat[hidden],
-            #tabBtnCommanderChat.is-commander-hidden { display: none !important; }
-            #tabBtnPublicChat i,
-            #tabBtnCommanderChat i,
-            #tabBtnPrivateChat i,
-            #tabBtnGroupsChat i,
-            .messenger-tab-btn i {
-                font-size: 1.3rem !important; margin: 0 !important;
-            }
-
-            /* 3. Karuzela Odkrywaj & Filtry — tylko ikona */
-            .card-action-label,
-            .discover-action-text,
-            .lumina-filter-trigger-text,
-            .lumina-events-btn-label { display: none !important; }
-
-            /* 4. Globalny touch-target — bezpieczna wersja bez zniekształceń */
-            /* Przyciski prostokątne i linkowe */
-            a.btn, .btn-primary, .btn-secondary, .btn-action,
-            input[type="button"], input[type="submit"] {
-                min-height: 44px;
-                touch-action: manipulation;
-            }
-            /* touch-action dla wszystkich przycisków bez wpływu na wymiary */
-            button { touch-action: manipulation; }
-
-            /* Naprawa modal-close-btn: był 28x28 → oval przez min-height:44px */
-            .modal-close-btn {
-                width: 44px !important;
-                height: 44px !important;
-                min-height: 44px !important;
-                min-width: 44px !important;
-                max-width: 44px !important;
-                max-height: 44px !important;
-                border-radius: 50% !important;
-                padding: 0 !important;
-                display: inline-flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-size: 1rem !important;
-                flex-shrink: 0 !important;
-            }
-        }
-    </style>
-<style>
-
-        /* ══════════ 100% UNIFIED TOP NAVBAR BUTTONS ══════════ */
-        .lumina-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 18px;
-            background: rgba(11, 24, 56, 0.94);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(250, 204, 21, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 10000;
-        }
-
-        .lumina-nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-        }
-
-        /* 1. Mini Radio Button */
-        #radioWidget,
-        .nav-radio-btn {
-            width: 38px !important;
-            height: 38px !important;
-            min-width: 38px !important;
-            border-radius: 50% !important;
-            background: rgba(15, 23, 42, 0.85) !important;
-            border: 1.5px solid rgba(168, 85, 247, 0.45) !important;
-            color: #c084fc !important;
-            cursor: pointer !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            flex-shrink: 0 !important;
-            transition: all 0.22s ease !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
-            box-sizing: border-box !important;
-            padding: 0 !important;
-        }
-        #radioWidget:hover,
-        .nav-radio-btn:hover {
-            border-color: rgba(192, 132, 252, 0.8) !important;
-            background: rgba(26, 38, 74, 0.95) !important;
-            transform: translateY(-1px) !important;
-            box-shadow: 0 0 12px rgba(168, 85, 247, 0.4) !important;
-        }
-
-        /* 2. Menu Button (Unified) */
-        .nav-menu-btn {
-            height: 38px !important;
-            min-height: 38px !important;
-            padding: 0 15px !important;
-            border-radius: 20px !important;
-            background: rgba(15, 23, 42, 0.85) !important;
-            border: 1.5px solid rgba(168, 85, 247, 0.45) !important;
-            color: #fff !important;
-            font-family: 'Outfit', sans-serif !important;
-            font-size: 0.84rem !important;
-            font-weight: 800 !important;
-            cursor: pointer !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 7px !important;
-            transition: all 0.22s ease !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
-            box-sizing: border-box !important;
-            flex-shrink: 0 !important;
-        }
-        .nav-menu-btn i.fa-compass {
-            color: #c084fc !important;
-            font-size: 1rem !important;
-        }
-        .nav-menu-btn:hover {
-            border-color: rgba(192, 132, 252, 0.8) !important;
-            background: rgba(26, 38, 74, 0.95) !important;
-            transform: translateY(-1px) !important;
-            box-shadow: 0 0 12px rgba(168, 85, 247, 0.4) !important;
-        }
-
-        /* 3. Support Button (Unified) */
-        .btn-nav-support {
-            height: 38px !important;
-            min-height: 38px !important;
-            padding: 0 15px !important;
-            border-radius: 20px !important;
-            background: rgba(15, 23, 42, 0.85) !important;
-            border: 1.5px solid rgba(168, 85, 247, 0.45) !important;
-            color: #fff !important;
-            font-family: 'Outfit', sans-serif !important;
-            font-size: 0.84rem !important;
-            font-weight: 800 !important;
-            cursor: pointer !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 7px !important;
-            transition: all 0.22s ease !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
-            box-sizing: border-box !important;
-            flex-shrink: 0 !important;
-        }
-        .btn-nav-support i {
-            color: #c084fc !important;
-            font-size: 1rem !important;
-        }
-        .btn-nav-support .btn-nav-cta-text {
-            color: #fff !important;
-            font-weight: 800 !important;
-            font-size: 0.84rem !important;
-            font-family: 'Outfit', sans-serif !important;
-        }
-        .btn-nav-support:hover {
-            border-color: rgba(192, 132, 252, 0.8) !important;
-            background: rgba(26, 38, 74, 0.95) !important;
-            transform: translateY(-1px) !important;
-            box-shadow: 0 0 12px rgba(168, 85, 247, 0.4) !important;
-        }
-
-        /* 4. User Profile Pill Container (Unified Wrapper) */
-        .user-nav-profile {
-            background: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 6px !important;
-            flex-shrink: 0 !important;
-        }
-        .user-nav-avatar {
-            width: 32px !important;
-            height: 32px !important;
-            border-radius: 50% !important;
-            object-fit: cover !important;
-            border: 1.5px solid rgba(192, 132, 252, 0.85) !important;
-            cursor: pointer !important;
-        }
-        .btn-nav-logout i {
-            color: #cbd5e1 !important;
-            font-size: 0.9rem !important;
-            transition: color 0.2s ease !important;
-        }
-        .btn-nav-logout:hover i {
-            color: #ec4899 !important;
-        }
-        .btn-nav-more i {
-            color: #cbd5e1 !important;
-            font-size: 0.95rem !important;
-            transition: color 0.2s ease !important;
-        }
-        .btn-nav-more:hover i {
-            color: #c084fc !important;
-        }
-
-        /* ══════════ MOBILE (<= 640px) ══════════ */
-        @media (max-width: 640px) {
-            .lumina-nav {
-                padding: 8px 12px !important;
-            }
-            .lumina-nav-actions {
-                gap: 6px !important;
-            }
-
-            .nav-menu-btn {
-                width: 38px !important;
-                min-width: 38px !important;
-                height: 38px !important;
-                padding: 0 !important;
-                border-radius: 50% !important;
-            }
-            .nav-menu-btn .nav-btn-text,
-            .nav-menu-btn .nav-btn-chevron {
-                display: none !important;
-            }
-
-            .btn-nav-support {
-                width: 38px !important;
-                min-width: 38px !important;
-                height: 38px !important;
-                padding: 0 !important;
-                border-radius: 50% !important;
-            }
-            .btn-nav-support .btn-nav-cta-text {
-                display: none !important;
-            }
-        }
-        /* ══════════ 100% UNIFIED CARD BADGES (MATCH & NEW) ══════════ */
-        .card-match {
-            position: absolute !important;
-            top: 12px !important;
-            left: 12px !important;
-            bottom: auto !important;
-            right: auto !important;
-            height: 28px !important;
-            padding: 0 11px !important;
-            border-radius: 14px !important;
-            background: linear-gradient(135deg, #ec4899, #8b5cf6) !important;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            color: #fff !important;
-            font-size: 0.76rem !important;
-            font-weight: 800 !important;
-            font-family: 'Outfit', sans-serif !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.35) !important;
-            border: 1px solid rgba(255,255,255,0.25) !important;
-            z-index: 5 !important;
-            box-sizing: border-box !important;
-            line-height: 1 !important;
-            white-space: nowrap !important;
-        }
-
-        .card-new-badge {
-            position: absolute !important;
-            top: 12px !important;
-            left: auto !important;
-            right: 60px !important; /* Dokładnie 10px czystego odstępu od serduszka (które kończy się na right: 50px) */
-            bottom: auto !important;
-            height: 28px !important;
-            padding: 0 10px !important;
-            border-radius: 14px !important;
-            background: linear-gradient(135deg, #10b981, #059669) !important;
-            color: #fff !important;
-            font-size: 0.72rem !important;
-            font-weight: 800 !important;
-            font-family: 'Outfit', sans-serif !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 4px !important;
-            box-shadow: 0 2px 8px rgba(16,185,129,0.45) !important;
-            border: 1px solid rgba(255,255,255,0.35) !important;
-            z-index: 6 !important;
-            box-sizing: border-box !important;
-            line-height: 1 !important;
+<style id="lumina-devotional-light-theme">
+        /* Pozycja plakietki NOWY na karcie Odkrywaj (nie zasłania serduszka) */
+        .card-new-badge { left: auto !important; right: 60px !important; padding: 0 10px !important; font-size: 0.72rem !important; gap: 4px !important; }
         /* ══════════════════════════════════════════════════════════════════════════
            LUMINA DEVOTIONAL BANNER & READER MODAL — LIGHT THEME (WARM IVORY & GOLD)
            ══════════════════════════════════════════════════════════════════════════ */
@@ -4278,7 +3940,7 @@
             border: 1.5px solid rgba(225, 29, 72, 0.40) !important;
             color: #be123c !important;
         }
-</style>
+    </style>
 <!-- Realtime Firestore Community Profiles Synchronizer (Carousel & Directory) -->
     <script>
     (function(){
@@ -4371,104 +4033,7 @@
 
     <script src="lumina-mobile-back-guard.js?v=20260825_urszula_real_face_v370"></script>
 <!-- Deep-Link Chat Message Highlight & Glow -->
-    <style>
-    .chat-message-highlight {
-        animation: luminaMsgGlow 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
-        border: 2px solid #facc15 !important;
-        border-radius: 18px !important;
-    }
-    @keyframes luminaMsgGlow {
-        0% { transform: scale(1.05); box-shadow: 0 0 35px rgba(250, 204, 21, 0.9), 0 0 15px rgba(56, 189, 248, 0.8); }
-        40% { transform: scale(1.02); box-shadow: 0 0 25px rgba(250, 204, 21, 0.7), 0 0 10px rgba(56, 189, 248, 0.6); }
-        80% { transform: scale(1.01); box-shadow: 0 0 15px rgba(250, 204, 21, 0.4); }
-        100% { transform: scale(1); box-shadow: none; border-color: transparent !important; }
-    }
-    </style>
-<style id="luminaMobilePerfOverrides">
-/* 🚀 PANCERNA OPTYMALIZACJA MOBILNA: ZERO PRZEGRZEWANIA I LAGÓW */
-.profile-card {
-    contain: layout paint;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    will-change: auto;
-}
-@media (max-width: 768px) {
-    .profile-card {
-        box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
-    }
-    .profile-card:hover {
-        transform: none !important;
-    }
-    /* Zmniejszenie obciążenia GPU dla rozmyć tła na telefonach */
-    .glass-panel, .nav-bottom-bar, .modal-box {
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
-    }
-}
-</style>
 
-    
-
-    
-
-    
-
-<style id="lumina-chat-status-styles">
-    /* ── DYNAMIC CHAT STATUS PILLS WITH AUTO-FADE ── */
-    @keyframes luminaStatusPillFadeOut {
-        0% { opacity: 1; max-width: 180px; transform: scale(1); margin-left: 6px; }
-        70% { opacity: 1; max-width: 180px; transform: scale(1); margin-left: 6px; }
-        100% { opacity: 0; max-width: 0; transform: scale(0.9); margin-left: 0; padding-left: 0; padding-right: 0; border: none; pointer-events: none; }
-    }
-
-    .lumina-msg-status-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 0.70rem;
-        font-weight: 800;
-        padding: 2.5px 8px;
-        border-radius: 8px;
-        overflow: hidden;
-        white-space: nowrap;
-        animation: luminaStatusPillFadeOut 4.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        transition: opacity 0.3s ease, max-width 0.3s ease, padding 0.3s ease;
-        vertical-align: middle;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.35);
-        cursor: pointer;
-    }
-
-    .lumina-msg-bubble:hover .lumina-msg-status-pill,
-    .lumina-msg-bubble:active .lumina-msg-status-pill,
-    .lumina-msg-bubble.show-status .lumina-msg-status-pill {
-        opacity: 1 !important;
-        max-width: 180px !important;
-        animation: none !important;
-        padding: 2.5px 8px !important;
-        margin-left: 6px !important;
-    }
-
-    .lumina-msg-status-pill.status-read {
-        color: #86efac !important;
-        background: rgba(34, 197, 94, 0.28) !important;
-        border: 1px solid rgba(34, 197, 94, 0.6) !important;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.7);
-    }
-
-    .lumina-msg-status-pill.status-unread {
-        color: #fed7aa !important;
-        background: rgba(249, 115, 22, 0.28) !important;
-        border: 1px solid rgba(249, 115, 22, 0.6) !important;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.7);
-    }
-
-    .lumina-msg-status-pill.status-delivered {
-        color: #bae6fd !important;
-        background: rgba(56, 189, 248, 0.28) !important;
-        border: 1px solid rgba(56, 189, 248, 0.6) !important;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.7);
-    }
-</style>
 <style>
         /* LUMINA NAVBAR SEARCH & BRAND ZONE */
         .nav-brand-group {
@@ -4879,6 +4444,7 @@
         #missionShowcaseToggle[aria-expanded="true"] .fa-chevron-down { transform: rotate(180deg); }
         #missionShowcasePanel[hidden] { display: none !important; }
     </style>
+    <link rel="stylesheet" href="/css/lumina-shared-shell.css?v=20261114_v1">
     <link rel="stylesheet" href="/css/lumina-mobile-premium.css?v=20260928_single_v3">
     <link rel="stylesheet" href="/css/lumina-light-edition.css?v=20261013_fab_col_v1">
     <link id="luminaMiniPlayerCSS" rel="stylesheet" href="/css/lumina-mini-player.css?v=20261029_fab_v2">
@@ -5008,22 +4574,25 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
             <div class="nav-menu-wrapper" style="position:relative; display:inline-flex; align-items:center; flex-shrink:0;">
                 <button type="button" 
                         class="nav-menu-btn" 
-                        id="topNavMenuBtn" 
+                        id="topNavMenuBtn"
+                        aria-haspopup="true"
+                        aria-controls="topNavDrawer"
+                        aria-expanded="false"
                         onclick="toggleTopNavDrawer(event)" 
                         data-i18n-title="nav.menuTitle"
                         title="Menu Nawigacji LUMINA">
-                    <i class="fa-solid fa-compass" style="color:#c084fc; font-size:1.05rem;"></i>
+                    <i class="fa-solid fa-compass" style="color:#D4B578; font-size:1.05rem;" aria-hidden="true"></i>
                     <span class="nav-btn-text" data-i18n="nav.menu">Menu</span>
                     <i class="fa-solid fa-chevron-down nav-btn-chevron" id="topNavMenuChevron" style="font-size:0.7rem; color:#cbd5e1; transition:transform 0.25s ease;"></i>
                 </button>
 
                 <!-- Wysuwany panel nawigacji (Glassmorphism Drawer) -->
-                <div class="top-nav-drawer" id="topNavDrawer" style="display:none; position:absolute; top:calc(100% + 10px); right:0; width:260px; background:rgba(11,17,32,0.96); border:1.5px solid rgba(168,85,247,0.45); border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.85); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); padding:10px; z-index:10002; flex-direction:column; gap:4px;">
+                <div class="top-nav-drawer" id="topNavDrawer" role="region" aria-label="Menu nawigacji LUMINA" aria-hidden="true" style="display:none; position:absolute; top:calc(100% + 10px); right:0; width:260px; background:rgba(14,14,18,0.97); border:1.5px solid rgba(196,163,90,0.42); border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.85); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); padding:10px; z-index:10002; flex-direction:column; gap:4px;">
                     <!-- 🌐 Wybór Języka w Menu LUMINA (Standard @SMCC 44x44px) -->
-                    <div class="drawer-lang-selector" id="drawerLangSelector" style="display:flex; flex-direction:column; gap:8px; padding:10px 12px; margin-bottom:8px; background:rgba(255,255,255,0.05); border:1px solid rgba(168,85,247,0.35); border-radius:14px;">
+                    <div class="drawer-lang-selector" id="drawerLangSelector" style="display:flex; flex-direction:column; gap:8px; padding:10px 12px; margin-bottom:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(196,163,90,0.34); border-radius:14px;">
                         <div class="drawer-lang-header" style="display:flex; align-items:center; justify-content:space-between; font-size:0.82rem; font-weight:700; color:#f8fafc;">
                             <div style="display:flex; align-items:center; gap:8px;">
-                                <i class="fa-solid fa-globe" style="color:#c084fc; font-size:1.05rem;"></i>
+                                <i class="fa-solid fa-globe" style="color:#D4B578; font-size:1.05rem;"></i>
                                 <span data-i18n="nav.languageSelect">Język</span>
                             </div>
                             <button type="button" 
@@ -5032,31 +4601,31 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                                     onclick="toggleLanguage()"
                                     data-i18n-title="nav_lang_toggle" 
                                     title="Zmień język (PL / EN / ES / FR)"
-                                    style="font-size:0.75rem; font-weight:800; color:#c084fc; background:rgba(168,85,247,0.15); padding:3px 8px; border-radius:8px; border:1px solid rgba(168,85,247,0.35); cursor:pointer; touch-action:manipulation;">
+                                    style="font-size:0.75rem; font-weight:800; color:#D4B578; background:rgba(196,163,90,0.15); padding:3px 8px; border-radius:8px; border:1px solid rgba(196,163,90,0.38); cursor:pointer; touch-action:manipulation;">
                                 <span id="navLangBadgeText">PL</span> ↻
                             </button>
                         </div>
                         <div class="drawer-lang-pills" style="display:flex; gap:5px;">
                             <button type="button" class="drawer-lang-pill" data-lang="pl" title="Polski">PL</button>
                             <button type="button" class="drawer-lang-pill" data-lang="en" title="English">EN</button>
-                            <button type="button" class="drawer-lang-pill" data-lang="es" title="EspaĂ±ol">ES</button>
-                            <button type="button" class="drawer-lang-pill" data-lang="fr" title="FranĂ§ais">FR</button>
+                            <button type="button" class="drawer-lang-pill" data-lang="es" title="Español">ES</button>
+                            <button type="button" class="drawer-lang-pill" data-lang="fr" title="Français">FR</button>
                         </div>
                     </div>
                     <a href="index.html" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-house" style="color:#38bdf8;"></i> <span data-i18n="nav.radioHome">Strona Główna Radia</span></a>
-                    <a href="lumina" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-wand-magic-sparkles" style="color:#ec4899;"></i> <span data-i18n="nav.luminaPortal">Portal LUMINA</span></a>
-                    <a href="tablica" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-rectangle-list" style="color:#c084fc;"></i> <span data-i18n="nav.communityFeed">Tablica Społeczności</span></a>
-                    <a href="rolki" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-clapperboard" style="color:#ec4899;"></i> <span data-i18n="nav.shortsFeed">Rolki Wiary 9:16</span></a>
-                    <a href="lumina.html#odkrywaj" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof scrollToSection==='function') scrollToSection('odkrywaj');"><i class="fa-solid fa-compass" style="color:#c084fc;"></i> <span data-i18n="nav.discoverProfiles">Odkrywaj Profile</span></a>
+                    <a href="lumina" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-wand-magic-sparkles" style="color:#D4B578;"></i> <span data-i18n="nav.luminaPortal">Portal LUMINA</span></a>
+                    <a href="tablica" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-rectangle-list" style="color:#E2CC9A;"></i> <span data-i18n="nav.communityFeed">Tablica Społeczności</span></a>
+                    <a href="rolki" class="drawer-nav-item" onclick="closeTopNavDrawer()"><i class="fa-solid fa-clapperboard" style="color:#FF7A00;"></i> <span data-i18n="nav.shortsFeed">Rolki Wiary 9:16</span></a>
+                    <a href="lumina.html#odkrywaj" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof scrollToSection==='function') scrollToSection('odkrywaj');"><i class="fa-solid fa-compass" style="color:#C4A35A;"></i> <span data-i18n="nav.discoverProfiles">Odkrywaj Profile</span></a>
                     <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openDirectMessagesModal==='function') openDirectMessagesModal(); else if(typeof openMessageModal==='function') openMessageModal(); else if(typeof openLuminaChatModal==='function') openLuminaChatModal();"><i class="fa-solid fa-comments" style="color:#34d399;"></i> <span data-i18n="nav.messagesChat">Wiadomości & Czat</span></button>
-                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openShareLuminaModal==='function') openShareLuminaModal();"><i class="fa-solid fa-share-nodes" style="color:#a78bfa;"></i> <span data-i18n="nav.recommendPortal">Polecaj Portal</span></button>
-                    <a href="javascript:void(0)" onclick="closeTopNavDrawer(); if(typeof handleMyProfileNavigation==='function') handleMyProfileNavigation(event);" class="drawer-nav-item" id="drawerMyProfileLink"><i class="fa-solid fa-user" style="color:#f472b6;"></i> <span data-i18n="nav.myProfile">Mój Profil</span></a>
-                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openPersonalSettingsModal==='function') openPersonalSettingsModal();"><i class="fa-solid fa-sliders" style="color:#facc15;"></i> <span>Ustawienia aplikacji</span></button>
-                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openRssSubscriptionModal==='function') openRssSubscriptionModal();"><i class="fa-solid fa-square-rss" style="color:#f59e0b;"></i> <span>Podcast &amp; RSS Hub</span></button>
+                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openShareLuminaModal==='function') openShareLuminaModal();"><i class="fa-solid fa-share-nodes" style="color:#D4B578;"></i> <span data-i18n="nav.recommendPortal">Polecaj Portal</span></button>
+                    <a href="javascript:void(0)" onclick="closeTopNavDrawer(); if(typeof handleMyProfileNavigation==='function') handleMyProfileNavigation(event);" class="drawer-nav-item" id="drawerMyProfileLink"><i class="fa-solid fa-user" style="color:#E2CC9A;"></i> <span data-i18n="nav.myProfile">Mój Profil</span></a>
+                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openPersonalSettingsModal==='function') openPersonalSettingsModal();"><i class="fa-solid fa-sliders" style="color:#C4A35A;"></i> <span>Ustawienia aplikacji</span></button>
+                    <button type="button" class="drawer-nav-item" onclick="closeTopNavDrawer(); if(typeof openRssSubscriptionModal==='function') openRssSubscriptionModal();"><i class="fa-solid fa-square-rss" style="color:#FF8C33;"></i> <span>Podcast &amp; RSS Hub</span></button>
                     
                     <div style="height:1px; background:rgba(255,255,255,0.08); margin:6px 0;"></div>
                     
-                    <button type="button" class="drawer-nav-item" id="drawerAuthCtaBtn" onclick="closeTopNavDrawer(); if(typeof openAuth==='function') openAuth(); else if(typeof openAuthModal==='function') openAuthModal();" style="background:linear-gradient(135deg,#ec4899,#8b5cf6); color:#fff; font-weight:800; border-radius:12px; justify-content:center;">
+                    <button type="button" class="drawer-nav-item" id="drawerAuthCtaBtn" onclick="closeTopNavDrawer(); if(typeof openAuth==='function') openAuth(); else if(typeof openAuthModal==='function') openAuthModal();" style="background:#FF7A00; color:#fff; font-weight:800; border-radius:12px; justify-content:center;">
                         <i class="fa-solid fa-arrow-right-to-bracket"></i> <span data-i18n="nav.authLogin">Zaloguj / Rejestracja</span>
                     </button>
                 </div>
@@ -5167,7 +4736,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 <div class="profile-card" id="card_profile_zofiadudek" data-profile-slug="zofiadudek" onclick="openCommunityProfile('zofiadudek')" data-category="kobieta spolecznosc" style="cursor:pointer;">
                     <div class="card-photo" style="position:relative;">
                         <div class="card-new-badge" style="background:linear-gradient(135deg,#ec4899,#f43f5e); border:1px solid rgba(255,255,255,0.3);">
-                            <i class="fa-solid fa-heart" style="color:#fde047; font-size:0.65rem;"></i> SPOĹECZNOŚĆ
+                            <i class="fa-solid fa-heart" style="color:#fde047; font-size:0.65rem;"></i> SPOŁECZNOŚĆ
                         </div>
                         <img src="avatar_zofia_dudek.jpg" onerror="this.src='lumina_icon.jpg'" alt="Zofia Dudek" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
                         <button class="card-heart liked" onclick="toggleLike(event,this,'zofiadudek','Zofia Dudek','avatar_zofia_dudek.jpg')"><i class="fa-solid fa-heart"></i></button>
@@ -5186,7 +4755,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 <div class="profile-card" id="card_profile_u_yciezywymbogiem_4231" data-profile-slug="pawelmurawski" onclick="openCommunityProfile('pawelmurawski')" data-category="mezczyzna spolecznosc" style="cursor:pointer;">
                     <div class="card-photo" style="position:relative;">
                         <div class="card-new-badge">
-                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOĹECZNOŚĆ
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOŁECZNOŚĆ
                         </div>
                         <img src="avatar_pawel_murawski.jpg" onerror="this.src='lumina_icon.jpg'" alt="Paweł Murawski" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
                         <button class="btn-carousel-follow-pulse" onclick="handleCarouselFollowClick(event, this, 'u_yciezywymbogiem_4231', 'Paweł Murawski', 'avatar_pawel_murawski.jpg')">
@@ -5224,7 +4793,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 <div class="profile-card" id="card_profile_u_urszula_7685" data-profile-slug="u_urszula_7685" onclick="openCommunityProfile('u_urszula_7685')" data-category="kobieta spolecznosc" style="cursor:pointer;">
                     <div class="card-photo" style="position:relative;">
                         <div class="card-new-badge">
-                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOĹECZNOŚĆ
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOŁECZNOŚĆ
                         </div>
                         <img src="avatar_urszula.jpg" onerror="this.src='lumina_icon.jpg'" alt="Urszula" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
                         <button class="btn-carousel-follow-pulse" onclick="handleCarouselFollowClick(event, this, 'u_urszula_7685', 'Urszula', 'avatar_urszula.jpg')">
@@ -5239,20 +4808,20 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                     </div>
                 </div>
 
-                <!-- 11d. Robert Ĺukasz Pio (Członek Społeczności LUMINA • Kraków) -->
+                <!-- 11d. Robert Łukasz Pio (Członek Społeczności LUMINA • Kraków) -->
                 <div class="profile-card" id="card_profile_u_robertukaszpio_5668" data-profile-slug="u_robertukaszpio_5668" onclick="openCommunityProfile('u_robertukaszpio_5668')" data-category="mezczyzna spolecznosc" style="cursor:pointer;">
                     <div class="card-photo" style="position:relative;">
                         <div class="card-new-badge">
-                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOĹECZNOŚĆ
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOŁECZNOŚĆ
                         </div>
-                        <img src="avatar_robert.jpg" onerror="this.src='lumina_icon.jpg'" alt="Robert Ĺukasz Pio" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
-                        <button class="btn-carousel-follow-pulse" onclick="handleCarouselFollowClick(event, this, 'u_robertukaszpio_5668', 'Robert Ĺukasz Pio', 'avatar_robert.jpg')">
+                        <img src="avatar_robert.jpg" onerror="this.src='lumina_icon.jpg'" alt="Robert Łukasz Pio" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+                        <button class="btn-carousel-follow-pulse" onclick="handleCarouselFollowClick(event, this, 'u_robertukaszpio_5668', 'Robert Łukasz Pio', 'avatar_robert.jpg')">
                             <i class="fa-solid fa-bell"></i> OBSERWUJ
                         </button>
-                        <button class="card-heart" onclick="toggleLike(event,this,'u_robertukaszpio_5668','Robert Ĺukasz Pio','avatar_robert.jpg')"><i class="fa-solid fa-heart"></i></button>
+                        <button class="card-heart" onclick="toggleLike(event,this,'u_robertukaszpio_5668','Robert Łukasz Pio','avatar_robert.jpg')"><i class="fa-solid fa-heart"></i></button>
                     </div>
                     <div class="card-body">
-                        <div class="card-name">Robert Ĺukasz Pio, 41</div>
+                        <div class="card-name">Robert Łukasz Pio, 41</div>
                         <div class="card-city">📍 Kraków • <span style="color:#10b981;font-weight:800;font-size:0.72rem;background:rgba(16,185,129,0.14);border:1px solid rgba(16,185,129,0.35);padding:2px 7px;border-radius:8px;">🌐ż Wdowiec</span></div>
                         <div class="card-desc">"Szczęść Boże! Chrześcijanin, wdowiec. Cieszę się, że mogę być częścią chrześcijańskiej społeczności LUMINA."</div>
                     </div>
@@ -5262,7 +4831,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 <div class="profile-card" id="card_profile_u_zytagrzesik_7502" data-profile-slug="u_zytagrzesik_7502" onclick="openCommunityProfile('u_zytagrzesik_7502')" data-category="kobieta spolecznosc" style="cursor:pointer;">
                     <div class="card-photo" style="position:relative;">
                         <div class="card-new-badge">
-                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOĹECZNOŚĆ
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOŁECZNOŚĆ
                         </div>
                         <img src="avatar_zyta_grzesik.jpg" onerror="this.src='avatar_zyta_grzesik.webp'" alt="Zyta Grzesik" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
                         <button class="btn-carousel-follow-pulse" onclick="handleCarouselFollowClick(event, this, 'u_zytagrzesik_7502', 'Zyta Grzesik', 'avatar_zyta_grzesik.jpg')">
@@ -5281,7 +4850,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 <div class="profile-card" id="card_profile_u_davidleoniuk_yu9l" data-profile-slug="u_davidleoniuk_yu9l" onclick="openCommunityProfile('u_davidleoniuk_yu9l')" data-category="mezczyzna spolecznosc" style="cursor:pointer;">
                     <div class="card-photo" style="position:relative;">
                         <div class="card-new-badge">
-                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOĹECZNOŚĆ
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOŁECZNOŚĆ
                         </div>
                         <img src="avatar_david_leoniuk.jpg" onerror="this.src='avatar_davidleoniuk_yu9l.jpg'" alt="David Leoniuk" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
                         <button class="btn-carousel-follow-pulse" onclick="handleCarouselFollowClick(event, this, 'u_davidleoniuk_yu9l', 'David Leoniuk', 'avatar_david_leoniuk.jpg')">
@@ -5300,7 +4869,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 <div class="profile-card" id="card_profile_u_mariankampa_mmsa" data-profile-slug="u_mariankampa_mmsa" onclick="openCommunityProfile('u_mariankampa_mmsa')" data-category="mezczyzna spolecznosc" style="cursor:pointer;">
                     <div class="card-photo" style="position:relative;">
                         <div class="card-new-badge">
-                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOĹECZNOŚĆ
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color:#fde047; font-size:0.65rem;"></i> SPOŁECZNOŚĆ
                         </div>
                         <img src="avatar_dawid.jpg" onerror="this.src='lumina_icon.jpg'" alt="Marian Kampa" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
                         <button class="btn-carousel-follow-pulse" onclick="handleCarouselFollowClick(event, this, 'u_mariankampa_mmsa', 'Marian Kampa', 'avatar_dawid.jpg')">
@@ -5335,8 +4904,6 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                     </div>
                 </div>
 
-
-
             </div>
             <button class="carousel-btn right" onclick="scrollCarousel(1)" aria-label="Następne profile"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
         </div>
@@ -5360,7 +4927,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
             <button class="filter-chip" id="chip_mezczyzni" onclick="applyDiscoveryFilter('mezczyzna', this)" title="Mężczyźni" aria-label="Mężczyźni"><i class="fa-solid fa-mars"></i> <span class="filter-chip-text">Mężczyźni</span></button>
             <button class="filter-chip" id="chip_mlodzi" onclick="applyDiscoveryFilter('mlodzi', this)" title="18–30 lat" aria-label="18–30 lat"><i class="fa-solid fa-bolt"></i> <span class="filter-chip-text">18–30 lat</span></button>
 
-            <!-- ✨ PRZYCISK "POLECAJ" (POLEĆ ZNAJOMEMU) W STYLU POZOSTAĹYCH PRZYCISKÓW ✨ -->
+            <!-- ✨ PRZYCISK "POLECAJ" (POLEĆ ZNAJOMEMU) W STYLU POZOSTAŁYCH PRZYCISKÓW ✨ -->
             <button type="button" class="filter-chip" id="btnRecommendLumina" onclick="openShareLuminaModal()" title="Poleć portal LUMINA znajomemu ✨" aria-label="Poleć portal znajomym">
                 <i class="fa-solid fa-paper-plane"></i>
                 <span class="filter-chip-text">Polecaj</span>
@@ -5368,7 +4935,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
         </div>
     </section>
 
-    <!-- ══════════ STREFA ROZWOJU, MAĹŻEĹSTWA & SKLEP CC (PARTNERZY MISYJNI) ══════════ -->
+    <!-- ══════════ STREFA ROZWOJU, MAŁŻEŃSTWA & SKLEP CC (PARTNERZY MISYJNI) ══════════ -->
     <section class="cards-section lumina-mission-showcase-section" id="strefaMisyjna" style="margin-top: 0;">
         <button id="missionShowcaseToggle" type="button" class="filter-chip mission-disclosure-toggle" aria-expanded="false" aria-controls="missionShowcasePanel" onclick="toggleMissionShowcase()">
             <i class="fa-solid fa-compass" aria-hidden="true"></i>
@@ -5499,7 +5066,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                     </div>
                 </div>
 
-                <!-- 8. MISJA 3: STUDIO DOBREGO SĹOWA (YouTube @StudioDeeS, studiods.pl & Herbaciarnia Między Słowami) -->
+                <!-- 8. MISJA 3: STUDIO DOBREGO SŁOWA (YouTube @StudioDeeS, studiods.pl & Herbaciarnia Między Słowami) -->
                 <div class="profile-card mission-profile-card" id="card_profile_studiodobregoslowa" data-profile-slug="studiodobregoslowa" onclick="window.location.href='lumina/studiodobregoslowa'" data-category="misja media" style="cursor:pointer;">
                     <div class="card-photo">
                         <img src="studiodobregoslowa_karuzela.jpg" onerror="this.src='studiodobregoslowa_avatar.jpg'" alt="Studio Dobrego Słowa" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
@@ -6201,7 +5768,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                         <!-- Dynamic Users & Conversations Stream -->
                         <div id="dmConversationsList" style="overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:6px; margin-bottom:10px; padding-right:2px;">
                             <div style="text-align:center; padding:20px 0; color:#94a3b8; font-size:0.80rem;">
-                                <i class="fa-solid fa-spinner fa-spin" style="color:#c084fc; margin-right:6px;"></i> Ĺadowanie społeczności LUMINA...
+                                <i class="fa-solid fa-spinner fa-spin" style="color:#c084fc; margin-right:6px;"></i> Ładowanie społeczności LUMINA...
                             </div>
                         </div>
 
@@ -6614,7 +6181,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 <button type="button" class="btn-google" id="btnGoogleAuth" onclick="handleGoogleAuthAction()">
                     <img loading="lazy" decoding="async" src="google_logo_custom.jpg" alt="Google" style="width: 22px; height: 22px; object-fit: contain; border-radius: 50%;"> Kontynuuj przez Google
                 </button>
-                <div class="auth-divider"><span>LUB E-MAIL I HASĹO</span></div>
+                <div class="auth-divider"><span>LUB E-MAIL I HASŁO</span></div>
 
                 <form id="loginForm" onsubmit="handleEmailLoginSubmit(event)">
                     <div class="form-row">
@@ -7028,7 +6595,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                     </button>
                 </div>
 
-                <!-- 3. BEZPIECZEĹSTWO & SESJA -->
+                <!-- 3. BEZPIECZEŃSTWO & SESJA -->
                 <div style="padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                         <div style="display: flex; align-items: center; gap: 8px;">
@@ -7796,7 +7363,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             { slug: 'jolawojcik', name: 'Jola Wójcik', job: 'Biblijny Czas Modlitwy • Polskie Radio CC 🕊️🌸', city: 'Polska', avatar: 'avatar_jolawojcik.jpg', badge: '🕊️ Pasmo Modlitwy', isMission: true },
             { slug: 'studiodobregoslowa', name: 'Studio Dobrego Słowa', job: 'Oficjalny Kanał Audio & Wideo 🎙️', city: 'Polska', avatar: 'studiodobregoslowa_avatar.jpg', badge: '🎙️ Studio CC', isMission: true },
             { slug: 'osobowoscplus', name: 'Osobowość Plus', job: 'Formacja Chrześcijańska & Psychologia 🕊️', city: 'Polska', avatar: 'logo_osobowosc_plus.jpg', badge: '🕊️ Formacja', isMission: true },
-            { slug: 'u_robertukaszpio_5668', uid: 'jIdflt3G8ohgpCoWmCLJAZ9i5d42', name: 'Robert Ĺukasz Pio', job: 'Członek Społeczności LUMINA ✨', city: 'Kraków, Polska', avatar: 'avatar_robert.jpg', badge: '✨ Społeczność', isMission: false },
+            { slug: 'u_robertukaszpio_5668', uid: 'jIdflt3G8ohgpCoWmCLJAZ9i5d42', name: 'Robert Łukasz Pio', job: 'Członek Społeczności LUMINA ✨', city: 'Kraków, Polska', avatar: 'avatar_robert.jpg', badge: '✨ Społeczność', isMission: false },
             { slug: 'u_zytagrzesik_7502', name: 'Zyta Grzesik', job: 'Członkini Społeczności LUMINA 🌸', city: 'Warszawa, Polska', avatar: 'avatar_zyta_grzesik.jpg', badge: '✨ Społeczność', isMission: false },
             { slug: 'u_davidleoniuk_yu9l', name: 'David Leoniuk', job: 'Członek Społeczności LUMINA ✨', city: 'New York, USA', avatar: 'avatar_david_leoniuk.jpg', badge: '✨ Społeczność', isMission: false },
             { slug: 'u_mariankampa_mmsa', name: 'Marian Kampa', job: 'Członek Społeczności LUMINA ✨', city: 'Polska', avatar: 'avatar_dawid.jpg', badge: '✨ Społeczność', isMission: false },
@@ -8006,7 +7573,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
         window.LUMINA_BASE_PROFILES = {
             'robertlukaszpio': {
                 slug: 'robertlukaszpio',
-                name: 'Brat Robert (Robert Ĺukasz Pio)',
+                name: 'Brat Robert (Robert Łukasz Pio)',
                 age: 45,
                 city: 'Polska',
                 avatar: 'avatar_robert.jpg',
@@ -8340,7 +7907,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             },
             'u_robertukaszpio_5668': {
                 slug: 'u_robertukaszpio_5668',
-                name: 'Robert Ĺukasz Pio',
+                name: 'Robert Łukasz Pio',
                 age: 41,
                 city: 'Kraków, Polska',
                 gender: 'mezczyzna',
@@ -8353,7 +7920,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             },
             'robertlukaszpio': {
                 slug: 'u_robertukaszpio_5668',
-                name: 'Robert Ĺukasz Pio',
+                name: 'Robert Łukasz Pio',
                 age: 41,
                 city: 'Kraków, Polska',
                 gender: 'mezczyzna',
@@ -8728,7 +8295,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                     if (!isLuminaRealPhoto(rawAvatar)) {
                         rawAvatar = 'lumina_icon.jpg';
                     }
-                    // Kluczowe: jeśli użytkownik wybrał zdjęcie/wideo na karuzelę (customCarouselUrl), to ma ono BEZWZGLÄDNY priorytet!
+                    // Kluczowe: jeśli użytkownik wybrał zdjęcie/wideo na karuzelę (customCarouselUrl), to ma ono BEZWZGLĘDNY priorytet!
                     let mediaUrl = customCarouselUrl || (isVideoMedia ? (p.avatarVideo || p.carouselVideo) : ((p.avatar && isLuminaRealPhoto(p.avatar)) ? p.avatar : rawAvatar));
                     if (!isLuminaRealPhoto(mediaUrl) && !isVideoMedia) {
                         mediaUrl = isLuminaRealPhoto(rawAvatar) ? rawAvatar : 'lumina_icon.jpg';
@@ -9659,9 +9226,9 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
 
             const isFounderOrMission = p.isFounder || p.isMissionAccount;
             const badgeLabel = p.isFounder ? 'Założyciel Christian Culture' : (p.isMissionAccount ? 'Misja Christian Culture' : 'Profil Społeczności');
-            const scoreLabel = (typeof window.calculateProfileMatchScore === 'function') 
-                ? window.calculateProfileMatchScore(p) 
-                : (window.LuminaDB?.calculateProfileMatchScore ? window.LuminaDB.calculateProfileMatchScore(p) : '94%');
+            const scoreLabel = (typeof window.calculateProfileMatchScore === 'function')
+                ? window.calculateProfileMatchScore(p)
+                : (window.LuminaDB?.calculateProfileMatchScore ? window.LuminaDB.calculateProfileMatchScore(p) : null);
 
             const mLoc = document.getElementById('mLoc');
             if (mLoc) {
@@ -9882,7 +9449,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                     unlocked = await window.LuminaSecurity.unlockMasterAdmin(pin);
                 }
             } catch(err) {
-                console.error('Błąd weryfikacji kryptograficznej PIN:', err);
+                console.error('Błąd weryfikacji Administratora:', err);
             }
             
             if (btn) {
@@ -9941,9 +9508,10 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
         };
 
         function checkInitialAdminShieldState() {
-            const isMaster = (typeof window.LuminaSecurity !== 'undefined' && window.LuminaSecurity.isMasterAdmin()) ||
-                             sessionStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                             localStorage.getItem('lumina_auth_master_admin') === 'true';
+            const isMaster = !!(
+                (typeof window.LuminaGuard !== 'undefined' && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) ||
+                (typeof window.LuminaSecurity !== 'undefined' && typeof window.LuminaSecurity.isMasterAdmin === 'function' && window.LuminaSecurity.isMasterAdmin())
+            );
             const shieldBtn = document.getElementById('adminSecretShieldBtn') || document.getElementById('luminaFloatingAdminShield');
             const shieldContainer = document.getElementById('luminaFloatingAdminShieldContainer');
             if (isMaster) {
@@ -11463,8 +11031,6 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             }
         });
 
-
-        
         /// ── Smart Multi-Source Navigation for "Mój Profil" ──
         window.handleMyProfileNavigation = function(event) {
             if (event && event.preventDefault) event.preventDefault();
@@ -11738,7 +11304,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             }
         }
 
-        // ══════════ BEZPIECZEĹSTWO CZATU: escapowanie danych użytkownika (anty-XSS) ══════════
+        // ══════════ BEZPIECZEŃSTWO CZATU: escapowanie danych użytkownika (anty-XSS) ══════════
         function cleanMojibake(str) {
             if (!str) return '';
             let s = String(str);
@@ -12490,7 +12056,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             const normFrom = window.LuminaDB.normalizeChatUserId ? window.LuminaDB.normalizeChatUserId(rawFrom) : rawFrom;
 
             const isGuest = (!myUser || myUser.isAnonymous || (!myProfile && normFrom === 'guest'));
-            if (isGuest && localStorage.getItem('lumina_auth_master_admin') !== 'true') {
+            if (isGuest && !(window.LuminaGuard && window.LuminaGuard.isMasterAdmin && window.LuminaGuard.isMasterAdmin())) {
                 if (typeof showToast === 'function') {
                     showToast('Zaloguj się, aby dodawać reakcje na wiadomości! 🕊️');
                 } else if (typeof window.showToast === 'function') {
@@ -13441,7 +13007,7 @@ window.addEventListener('lumina-auth-state', () => {
         });
 
         
-        // ── BĹYSKAWICZNA WYSZUKIWARKA & KATALOG UŻYTKOWNIKÓW DLA ROZMÓW PRYWATNYCH 🔍✨ ──
+        // ── BŁYSKAWICZNA WYSZUKIWARKA & KATALOG UŻYTKOWNIKÓW DLA ROZMÓW PRYWATNYCH 🔍✨ ──
         let dmCommunityUsersCache = [];
         let currentDmFilter = 'all';
         let currentDmSearchQuery = '';
@@ -13454,7 +13020,7 @@ window.addEventListener('lumina-auth-state', () => {
             { slug: 'jolawojcik', name: 'Jola Wójcik', job: 'Biblijny Czas Modlitwy • Polskie Radio CC 🕊️🌸', city: 'Polska', avatar: 'avatar_jolawojcik.jpg', badge: '🕊️ Pasmo Modlitwy', isMission: true },
             { slug: 'studiodobregoslowa', name: 'Studio Dobrego Słowa', job: 'Oficjalny Kanał Audio & Wideo 🎙️', city: 'Polska', avatar: 'studiodobregoslowa_avatar.jpg', badge: '🎙️ Studio CC', isMission: true },
             { slug: 'osobowoscplus', name: 'Osobowość Plus', job: 'Formacja Chrześcijańska & Psychologia 🕊️', city: 'Polska', avatar: 'logo_osobowosc_plus.jpg', badge: '🕊️ Formacja', isMission: true },
-            { slug: 'u_robertukaszpio_5668', uid: 'jIdflt3G8ohgpCoWmCLJAZ9i5d42', name: 'Robert Ĺukasz Pio', job: 'Członek Społeczności LUMINA ✨', city: 'Kraków, Polska', avatar: 'avatar_robert.jpg', badge: '✨ Społeczność', isMission: false },
+            { slug: 'u_robertukaszpio_5668', uid: 'jIdflt3G8ohgpCoWmCLJAZ9i5d42', name: 'Robert Łukasz Pio', job: 'Członek Społeczności LUMINA ✨', city: 'Kraków, Polska', avatar: 'avatar_robert.jpg', badge: '✨ Społeczność', isMission: false },
             { slug: 'u_zytagrzesik_7502', name: 'Zyta Grzesik', job: 'Członkini Społeczności LUMINA 🌸', city: 'Warszawa, Polska', avatar: 'avatar_zyta_grzesik.jpg', badge: '✨ Społeczność', isMission: false },
             { slug: 'u_davidleoniuk_yu9l', name: 'David Leoniuk', job: 'Członek Społeczności LUMINA ✨', city: 'New York, USA', avatar: 'avatar_david_leoniuk.jpg', badge: '✨ Społeczność', isMission: false },
             { slug: 'u_mariankampa_mmsa', name: 'Marian Kampa', job: 'Członek Społeczności LUMINA ✨', city: 'Polska', avatar: 'avatar_dawid.jpg', badge: '✨ Społeczność', isMission: false },
@@ -14074,7 +13640,7 @@ window.addEventListener('lumina-auth-state', () => {
             setTimeout(() => {
                 const input = document.getElementById('activeChatInput');
                 if (input) {
-                    if (window.LuminaDB?.isCommunityAdmin?.() || localStorage.getItem('lumina_auth_master_admin') === 'true' || localStorage.getItem('lumina_admin') === '1' || localStorage.getItem('lumina_current_user_slug') === 'cezaryrgowski') { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
+                    if (window.LuminaDB?.isCommunityAdmin?.()) { input.removeAttribute('maxlength'); } else { input.setAttribute('maxlength', '1000'); }
                     input.focus();
                     handleActiveChatInputChange(input.value);
                 }
@@ -14431,6 +13997,7 @@ window.addEventListener('lumina-auth-state', () => {
     <script src="js/lumina-discovery-filters.js?v=20260912_values_filter_v3"></script>
     <script src="js/lumina-background-mission-service.js" defer></script>
     <script src="/lumina-bottom-nav.js?v=20261014_luminav1" defer></script>
+    <script src="/js/lumina-a11y-shell.js?v=20261114_p2" defer></script>
     <script id="luminaMiniPlayerScript" src="/js/lumina-mini-player.js?v=20261013_fab_col_v1" defer></script>
     <script src="lumina-notifications.js?v=20261013_notifsafe1" defer></script>
     <script type="module" src="lumina-badges-engine.js?v=4.1.1_20260909"></script>
@@ -14687,11 +14254,10 @@ window.addEventListener('lumina-auth-state', () => {
 
             var isMaster = false;
             try {
-                isMaster = localStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                           sessionStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                           (localStorage.getItem('lumina_current_user_slug') || '').toLowerCase().trim() === 'cezaryrgowski' ||
-                           (localStorage.getItem('lumina_active_session_slug') || '').toLowerCase().trim() === 'cezaryrgowski' ||
-                           (localStorage.getItem('lumina_active_session_email') || '').toLowerCase().trim() === 'nazirczarkes@gmail.com';
+                isMaster = !!(
+                    (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) ||
+                    (window.LuminaDB && typeof window.LuminaDB.isLuminaMasterAdmin === 'function' && window.LuminaDB.isLuminaMasterAdmin())
+                );
             } catch(e) {}
 
             container.innerHTML = validProfiles.map(function(p) {
@@ -14772,7 +14338,7 @@ window.addEventListener('lumina-auth-state', () => {
         </div>
     </div>
 
-    <!-- ══════════ MODAL: WYMÓG REGULAMINOWY UZUPEŁNIENIA PROFILU & ZDJÄCIA ══════════ -->
+    <!-- ══════════ MODAL: WYMÓG REGULAMINOWY UZUPEŁNIENIA PROFILU & ZDJĘCIA ══════════ -->
     <div class="modal-overlay" id="modalRealPhotoRequired" style="z-index: 100003;">
         <div class="modal-card" style="max-width: 500px; text-align: left; background: #0b142e; border: 2px solid rgba(245, 158, 11, 0.6); border-radius: 24px; padding: 26px 22px; box-shadow: 0 20px 60px rgba(0,0,0,0.8);">
             <button class="modal-close-btn" onclick="closeModal('modalRealPhotoRequired')"><i class="fa-solid fa-xmark"></i></button>
@@ -14843,8 +14409,8 @@ window.addEventListener('lumina-auth-state', () => {
         </div>
     </div>
 
-    <!-- ══════════ MODAL: DODATKOWE OPCJE PROFILU (PRZYTRZYMANIE ZDJÄCIA / LONG-PRESS) ══════════ -->
-    <div id="luminaProfileQuickActionsModal" class="lumina-quick-actions-modal" onclick="if(event.target===this) window.closeProfileQuickActions()">
+    <!-- ══════════ MODAL: DODATKOWE OPCJE PROFILU (PRZYTRZYMANIE ZDJĘCIA / LONG-PRESS) ══════════ -->
+    <div id="luminaProfileQuickActionsModal" class="lumina-quick-actions-modal" role="dialog" aria-modal="true" aria-labelledby="qaName" onclick="if(event.target===this) window.closeProfileQuickActions()">
         <div class="quick-actions-sheet" onclick="event.stopPropagation()">
             <div class="sheet-drag-handle"></div>
             <div class="quick-actions-header">
@@ -14859,7 +14425,7 @@ window.addEventListener('lumina-auth-state', () => {
                     </div>
                     <div id="qaTagline" class="qa-tagline">Społeczność LUMINA</div>
                 </div>
-                <button type="button" class="qa-close-btn" onclick="window.closeProfileQuickActions()" title="Zamknij">✝️</button>
+                <button type="button" class="qa-close-btn" onclick="window.closeProfileQuickActions()" title="Zamknij" aria-label="Zamknij">✝️</button>
             </div>
 
             <div class="quick-actions-grid">
@@ -14890,7 +14456,7 @@ window.addEventListener('lumina-auth-state', () => {
                     </div>
                 </button>
 
-                <!-- 4. ZAPRO9a NA KAWĘ -->
+                <!-- 4. ZAPROŚ NA KAWĘ -->
                 <button type="button" class="qa-action-btn" onclick="window.handleQuickActionCoffee()">
                     <div class="qa-icon-box qa-icon-coffee"><i class="fa-solid fa-mug-hot"></i></div>
                     <div class="qa-btn-content">
@@ -14899,7 +14465,7 @@ window.addEventListener('lumina-auth-state', () => {
                     </div>
                 </button>
 
-                <!-- 5. OTWÓRZ PEĹNY PROFIL -->
+                <!-- 5. OTWÓRZ PEŁNY PROFIL -->
                 <button type="button" class="qa-action-btn" onclick="window.handleQuickActionOpenProfile()">
                     <div class="qa-icon-box qa-icon-profile"><i class="fa-solid fa-user"></i></div>
                     <div class="qa-btn-content">
@@ -14910,210 +14476,6 @@ window.addEventListener('lumina-auth-state', () => {
             </div>
         </div>
     </div>
-
-    <style>
-        /* ══════════ LUMINA PROFILE QUICK ACTIONS (LONG-PRESS) ══════════ */
-        .lumina-quick-actions-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(7, 14, 36, 0.78);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            z-index: 100010;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            opacity: 0;
-            transition: opacity 0.25s ease;
-        }
-        .lumina-quick-actions-modal.open {
-            display: flex;
-            opacity: 1;
-        }
-        .quick-actions-sheet {
-            background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.98));
-            border: 1.5px solid rgba(168, 85, 247, 0.4);
-            border-radius: 28px;
-            width: 100%;
-            max-width: 440px;
-            padding: 22px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(168, 85, 247, 0.25);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            animation: qaPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-origin: center bottom;
-        }
-        @media (max-width: 600px) {
-            .lumina-quick-actions-modal {
-                align-items: flex-end;
-                padding: 0;
-            }
-            .quick-actions-sheet {
-                max-width: 100vw;
-                border-radius: 28px 28px 0 0;
-                padding: 16px 20px 28px;
-                animation: qaSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            }
-        }
-        @keyframes qaPopIn {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        @keyframes qaSlideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-        .sheet-drag-handle {
-            width: 44px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 3px;
-            margin: 0 auto 4px;
-        }
-        .quick-actions-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            position: relative;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .quick-actions-avatar-wrap {
-            position: relative;
-            width: 58px;
-            height: 58px;
-            flex-shrink: 0;
-        }
-        .qa-avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2.5px solid #a855f7;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
-        }
-        .qa-online-badge {
-            position: absolute;
-            bottom: 2px;
-            right: 2px;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #10b981;
-            border: 2px solid #0f172a;
-            box-shadow: 0 0 8px #10b981;
-        }
-        .quick-actions-user-info {
-            flex: 1;
-            min-width: 0;
-        }
-        .qa-name-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .qa-name {
-            margin: 0;
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-family: 'Outfit', sans-serif;
-        }
-        .qa-tagline {
-            font-size: 0.78rem;
-            color: #94a3b8;
-            margin-top: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .qa-close-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #cbd5e1;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-        .qa-close-btn:hover {
-            background: rgba(239, 68, 68, 0.2);
-            color: #f87171;
-            border-color: rgba(239, 68, 68, 0.4);
-        }
-        .quick-actions-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 9px;
-        }
-        .qa-action-btn {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 12px 14px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #fff;
-            cursor: pointer;
-            text-align: left;
-            font-family: inherit;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            -webkit-tap-highlight-color: transparent;
-        }
-        .qa-action-btn:hover {
-            background: rgba(255, 255, 255, 0.09);
-            border-color: rgba(168, 85, 247, 0.4);
-            transform: translateX(4px);
-        }
-        .qa-action-btn:active {
-            transform: scale(0.98);
-        }
-        .qa-icon-box {
-            width: 42px;
-            height: 42px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.15rem;
-            flex-shrink: 0;
-        }
-        .qa-icon-poke { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35); }
-        .qa-icon-msg { background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; box-shadow: 0 4px 14px rgba(168, 85, 247, 0.35); }
-        .qa-icon-follow { background: linear-gradient(135deg, #ec4899, #db2777); color: #fff; box-shadow: 0 4px 14px rgba(236, 72, 153, 0.35); }
-        .qa-icon-coffee { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35); }
-        .qa-icon-profile { background: linear-gradient(135deg, #06b6d4, #0891b2); color: #fff; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35); }
-
-        .qa-btn-content {
-            flex: 1;
-            min-width: 0;
-        }
-        .qa-btn-title {
-            font-weight: 800;
-            font-size: 0.92rem;
-            color: #fff;
-        }
-        .qa-btn-desc {
-            font-size: 0.73rem;
-            color: #94a3b8;
-            margin-top: 1px;
-        }
-    
-
-    
-
-    </style>
 
     <script>
         let _activeQuickActionSlug = null;
@@ -15274,7 +14636,7 @@ window.addEventListener('lumina-auth-state', () => {
                     const status = document.getElementById('luminaSupportLoadStatus');
                     if (status) {
                         status.hidden = false;
-                        status.textContent = 'Ĺadowanie formularza wsparcia…';
+                        status.textContent = 'Ładowanie formularza wsparcia…';
                     }
                     const script = document.createElement('script');
                     script.id = 'luminaDonorboxScript';

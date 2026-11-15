@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-14T13:11:31.661Z",
+  "updatedAt": "2026-11-15T08:10:37.722Z",
   "heading": "Polecane na dziś",
-  "dateFormattedPL": "14 listopada 2026",
+  "dateFormattedPL": "15 listopada 2026",
   "pools": [
     [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 14",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 14 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 15",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 15 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
@@ -36,9 +36,9 @@
     [
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 45)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 46)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-45",
+        "url": "/akademia/kurscodzienny/dzien-46",
         "icon": "book"
       },
       {
@@ -127,16 +127,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 14",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 14 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 15",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 15 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 45)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 46)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-45",
+      "url": "/akademia/kurscodzienny/dzien-46",
       "icon": "book"
     },
     {

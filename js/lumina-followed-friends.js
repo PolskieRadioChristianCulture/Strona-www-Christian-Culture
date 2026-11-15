@@ -1030,30 +1030,12 @@
         }
     }
 
-    // Sprawdza uprawnienia Dowódcy / Master Admin
+    // Sprawdza uprawnienia Dowódcy / Master Admin (wyłącznie zweryfikowany Firebase Auth)
     function checkIsMasterAdmin() {
-        try {
-            if (localStorage.getItem('lumina_auth_master_admin') === 'true' || 
-                sessionStorage.getItem('lumina_auth_master_admin') === 'true' ||
-                localStorage.getItem('lumina_current_user_slug') === 'cezaryrgowski' ||
-                localStorage.getItem('lumina_user_slug') === 'cezaryrgowski') {
-                return true;
-            }
-            if (window.LuminaDB && typeof window.LuminaDB.getCurrentUser === 'function') {
-                const u = window.LuminaDB.getCurrentUser();
-                if (u && (u.email === 'nazirczarkes@gmail.com' || u.uid === 'cezaryrgowski' || u.slug === 'cezaryrgowski')) {
-                    return true;
-                }
-            }
-            const raw = localStorage.getItem('lumina_current_user');
-            if (raw) {
-                const u = JSON.parse(raw);
-                if (u && (u.email === 'nazirczarkes@gmail.com' || u.uid === 'cezaryrgowski' || u.slug === 'cezaryrgowski')) {
-                    return true;
-                }
-            }
-        } catch(e) {}
-        return false;
+        return Boolean(
+            (window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin()) ||
+            (window.LuminaDB && typeof window.LuminaDB.isLuminaMasterAdmin === 'function' && window.LuminaDB.isLuminaMasterAdmin())
+        );
     }
 
     function ensureRelationshipModal() {

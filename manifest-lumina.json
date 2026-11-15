@@ -1,10 +1,10 @@
 {
   "gcm_sender_id": "103953800507",
-  "id": "/cc-app",
-  "name": "Christian Culture",
-  "short_name": "Christian Culture",
-  "description": "Ekosystem Christian Culture — Radio, Telewizja TV24, Wiadomości CCN News i Społeczność.",
-  "start_url": "/?source=pwa",
+  "id": "/lumina-app",
+  "name": "LUMINA — Christian Culture",
+  "short_name": "LUMINA",
+  "description": "Portal Społecznościowy LUMINA — Christian Culture: Świadectwa, Modlitwa, Tablica i Czat.",
+  "start_url": "/lumina?source=pwa",
   "scope": "/",
   "display": "standalone",
   "display_override": [

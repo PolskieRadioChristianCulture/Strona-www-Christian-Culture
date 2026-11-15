@@ -10,55 +10,13 @@
 (function(global) {
     'use strict';
 
-    // ── 1. Wszechstronne sprawdzenie uprawnień Administratora ──
+    // ── 1. Zweryfikowane sprawdzenie uprawnień Administratora (wyłącznie Firebase Auth) ──
     function isMasterAdmin() {
-        // 1. Główne flagi w Storage
-        if (sessionStorage.getItem('lumina_auth_master_admin') === 'true' || 
-            localStorage.getItem('lumina_auth_master_admin') === 'true' ||
-            sessionStorage.getItem('lumina_admin') === '1' ||
-            localStorage.getItem('lumina_admin') === '1' ||
-            localStorage.getItem('lumina_admin_unlocked') === 'true' ||
-            localStorage.getItem('lumina_auth_owner_cezaryrgowski') === 'true' ||
-            sessionStorage.getItem('lumina_auth_owner_cezaryrgowski') === 'true') {
-            return true;
-        }
-
-        // 2. Klasy na body aktywowane przez systemy autoryzacji
-        if (document.body && (
-            document.body.classList.contains('lumina-admin-mode') || 
-            document.body.classList.contains('owner-mode-active') ||
-            document.body.classList.contains('has-admin-hud')
-        )) {
-            return true;
-        }
-
-        // 3. Flagi w URL (?admin=1 itp.)
-        if (window.location && (
-            window.location.search.includes('admin=1') ||
-            window.location.search.includes('admin=true') ||
-            window.location.search.includes('master=1') ||
-            window.location.search.includes('master=true')
-        )) {
-            return true;
-        }
-
-        // 4. Globalny pakiet LuminaAdminSuite
-        if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.isMasterAdmin === 'function' && window.LuminaAdminSuite.isMasterAdmin()) {
-            return true;
-        }
-
-        // 5. Zalogowany profil w localStorage lub na oknie
-        try {
-            const u = JSON.parse(localStorage.getItem('lumina_current_user') || '{}');
-            if (u && (u.isAdmin === true || u.role === 'admin' || u.email === 'nazirczarkes@gmail.com' || u.slug === 'cezaryrgowski')) {
-                return true;
-            }
-        } catch(e) {}
-        if (window.currentUser && (window.currentUser.isAdmin || window.currentUser.role === 'admin' || window.currentUser.email === 'nazirczarkes@gmail.com' || window.currentUser.slug === 'cezaryrgowski')) {
-            return true;
-        }
-
-        return false;
+        return Boolean(
+            (global.LuminaGuard && typeof global.LuminaGuard.isMasterAdmin === 'function' && global.LuminaGuard.isMasterAdmin()) ||
+            (global.LuminaDB && typeof global.LuminaDB.isLuminaMasterAdmin === 'function' && global.LuminaDB.isLuminaMasterAdmin()) ||
+            (global.LuminaSecurity && typeof global.LuminaSecurity.isMasterAdmin === 'function' && global.LuminaSecurity.isMasterAdmin())
+        );
     }
 
     // ── 2. Parser linków zewnętrznych (YouTube & Dysk Google) ──

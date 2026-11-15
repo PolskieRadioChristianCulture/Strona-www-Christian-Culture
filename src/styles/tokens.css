@@ -5,18 +5,24 @@
  */
 
 :root {
-  /* Brand Palette */
-  --cc-bg-primary: #070c18;
-  --cc-bg-card: rgba(15, 23, 42, 0.78);
-  --cc-bg-card-hover: rgba(22, 33, 62, 0.88);
+  /* Brand Palette — Obsidian & Champagne Gold (EkoCC v2 PREMIUM) */
+  --cc-bg-primary: #0a0a0c;
+  --cc-bg-obsidian: #0a0a0c;
+  --cc-surface-obsidian: #141418;
+  --cc-surface-elevated: #1c1c22;
+  --cc-bg-card: rgba(20, 20, 24, 0.86);
+  --cc-bg-card-hover: rgba(28, 28, 34, 0.94);
   --cc-border-glass: rgba(255, 255, 255, 0.10);
-  --cc-border-gold: rgba(245, 158, 11, 0.45);
-  
-  /* Accents */
-  --cc-gold-primary: #f59e0b;
-  --cc-gold-light: #fef08a;
-  --cc-pink-accent: #ec4899;
-  --cc-purple-accent: #8b5cf6;
+  --cc-border-gold: rgba(196, 163, 90, 0.42);
+
+  /* Accents — Champagne Gold & Classic Orange CTA (JOMA-D052) */
+  --cc-gold-primary: #C4A35A;
+  --cc-gold-hover: #D4B578;
+  --cc-gold-light: #E2CC9A;
+  --cc-gold-dark: #A08040;
+  --cc-btn-orange: #FF7A00;
+  --cc-btn-orange-hover: #FF8C33;
+  --cc-btn-orange-active: #E66A00;
   --cc-blue-accent: #38bdf8;
   --cc-green-online: #10b981;
   
