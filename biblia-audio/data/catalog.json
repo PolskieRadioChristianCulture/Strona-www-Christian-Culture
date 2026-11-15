@@ -362,10 +362,16 @@
     "book": "genesis",
     "chapter": 25,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_25_1-34_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 25,1–34 (UBG) — Śmierć Abrahama, Narodziny Ezawa i Jakuba oraz Pierworództwo",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_25_1-34_Biblia_Audio_CC.mp3",
+        "verses": "1–34"
+      }
+    ]
   },
   {
     "id": "genesis-26",
