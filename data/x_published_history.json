@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "dzien-22",
+      "title": "Z Biblią za Pan Brat — Dzień 22 (Lekcja 22 na dziś): Jakub walczy z Bogiem — Przemiana człowieka (Rdz 31:1–32:32)",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-22",
+      "type": "course",
+      "image": "kc_day_22_jakub_walczy_z_bogiem_jabbok.jpg",
+      "publishedAt": "2026-11-15T18:33:35.647Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+      "publishedAt": "2026-11-15T18:04:18.553Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "BiblijneUwielbienie",
       "title": "Biblijne Uwielbienie — Cała Biblia w Muzyce (66 ksiąg, 1189 rozdziałów)",
       "url": "https://polskieradio.cc/BiblijneUwielbienie",
