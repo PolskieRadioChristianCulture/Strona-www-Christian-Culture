@@ -5,6 +5,21 @@
   "updatesLog": [
     {
       "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #334 — Studio Dobrego Słowa (SDS): Wykłady biblijne, seria Apokalipsa i prawda Pisma Świętego z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #333 — Radio & Live: CCTV24 Worship TV Live 24/7 z dedykowaną grafiką tematyczną worship_bg.jpg i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #332 — Bioetyka i Neuralink: Implanty mózgowe a Boży obraz człowieka z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
       "topic": "CCN Nauka & Bioetyka: Publikacja artykułu („Implanty mózgowe, BCI, Neuralink a Imago Dei”) — pakiet redakcyjny EkoCC 1.0 DOCX/ZIP na Pulpicie",
       "agent": "A"
     },
@@ -4265,8 +4280,18 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-15",
+  "lastUpdated": "2026-11-15T14:34:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #332 — Bioetyka i Neuralink: Implanty mózgowe a Boży obraz człowieka z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #332 — Bioetyka i Neuralink: Implanty mózgowe a Boży obraz człowieka z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
     {
       "date": "2026-11-15",
       "topic": "CCN Nauka & Bioetyka: Publikacja artykułu („Implanty mózgowe, BCI, Neuralink a Imago Dei”) — pakiet redakcyjny EkoCC 1.0 DOCX/ZIP na Pulpicie",
@@ -4365,6 +4390,11 @@
     {
       "date": "2026-11-14",
       "topic": "CCN News X: Cykliczna publikacja #304 — Społeczność CC: Holistyczny Coaching & Terapia Wolności (Paweł Murawski) z grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "YouTube What's Up Prof? — Publikacja Odc. 002 (Walter Veith) jako premiera +48h na 8 kanałach CC",
       "agent": "A"
     }
   ],
@@ -4532,6 +4562,11 @@
     {
       "date": "2026-11-15",
       "topic": "Cykliczna emisja CCN News X #330: Książka — Prawda Bez Filtra (Cezary Rogowski)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "YouTube What's Up Prof? — Publikacja Odc. 002 (Walter Veith) jako premiera +48h na 8 kanałach CC",
       "agent": "A"
     }
   ]

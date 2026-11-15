@@ -3,7 +3,7 @@
   "series": "What's Up Prof? — Walter Veith & Martin Smith (Clash of Minds)",
   "scheduleOffsetHours": 48,
   "dailyCron": "CRON_TZ=Europe/Warsaw 0 15 * * *",
-  "lastRunAt": "2026-11-14T13:42:14.691Z",
+  "lastRunAt": "2026-11-15T14:48:50.718Z",
   "episodes": {
     "1": {
       "seq": 1,
@@ -77,6 +77,79 @@
       },
       "scheduledYmd": "2026-11-16",
       "scheduledTime": "13:00"
+    },
+    "2": {
+      "seq": 2,
+      "epCode": "002",
+      "completed": true,
+      "channels": {
+        "Personality Plus": {
+          "status": "ok",
+          "channelId": "UCSwb927uMg2PxIl_Aakht0Q",
+          "videoUrl": "https://youtu.be/dcNYJD6HSx4",
+          "title": "002. Religious Freedom, Persecution & The Coronavirus | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-15T14:27:48.668Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/J4Fw_QRIdaQ",
+          "title": "002. Wolność religijna, prześladowania a koronawirus | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-15T14:32:09.002Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "ok",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "videoUrl": "https://youtu.be/8AOdw6GizVo",
+          "title": "002. Wolność religijna, prześladowania a koronawirus | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-15T14:47:07.498Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/0-rLIvdNamU",
+          "title": "002. Wolność religijna, prześladowania a koronawirus | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-15T14:48:50.718Z"
+        },
+        "Christian Culture TV": {
+          "status": "ok",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "videoUrl": "https://youtu.be/Kl14lVgpSPc",
+          "title": "002. Wolność religijna, prześladowania a koronawirus | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-15T14:16:19.012Z"
+        },
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "videoUrl": "https://youtu.be/svDKZ2Cz8-8",
+          "title": "002. Wolność religijna, prześladowania a koronawirus | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-15T14:18:02.319Z"
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "videoUrl": "https://youtu.be/g3otQwqbF7s",
+          "title": "002. Wolność religijna, prześladowania a koronawirus | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-15T14:19:38.263Z"
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "videoUrl": "https://youtu.be/6CaCJWW4Ejg",
+          "title": "002. Wolność religijna, prześladowania a koronawirus | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-15T14:21:06.138Z"
+        }
+      },
+      "scheduledYmd": "2026-11-17",
+      "scheduledTime": "15:15"
     }
   }
 }

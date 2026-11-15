@@ -180,19 +180,33 @@ export function resolveScheduleForEpisode(epRecord, offsetHours = DEFAULT_SCHEDU
   return { ymd: computed.ymd, time: computed.time };
 }
 
-function checkProfileNotInUse() {
+export async function waitForProfileFree(maxWaitMs = 15 * 60 * 1000) {
   if (process.platform !== 'win32') return;
-  try {
-    const out = execSync(
-      'powershell -NoProfile -Command "(Get-CimInstance Win32_Process -Filter \\"Name=\'chrome.exe\'\\").CommandLine"',
-      { encoding: 'utf8', timeout: 8000 }
-    );
-    if (out && out.toLowerCase().includes('.youtube_browser_profile')) {
-      throw new Error(`Profil ${PROFILE_DIR} jest aktualnie używany przez inny proces Chrome/Playwright. Przerywam, aby nie uszkodzić sesji.`);
+  const start = Date.now();
+  let loggedWait = false;
+  while (Date.now() - start < maxWaitMs) {
+    try {
+      const out = execSync(
+        'powershell -NoProfile -Command "(Get-CimInstance Win32_Process -Filter \\"Name=\'chrome.exe\'\\").CommandLine"',
+        { encoding: 'utf8', timeout: 8000 }
+      );
+      if (out && out.toLowerCase().includes('.youtube_browser_profile')) {
+        if (!loggedWait) {
+          console.log(`⏳ Profil ${PROFILE_DIR} jest aktualnie używany przez inny proces (np. równoległa publikacja). Czekam na zwolnienie...`);
+          loggedWait = true;
+        }
+        await new Promise(r => setTimeout(r, 6000));
+        continue;
+      }
+      if (loggedWait) {
+        console.log(`✅ Profil zwolniony! Przystępuję do uploadu.`);
+      }
+      return;
+    } catch (err) {
+      await new Promise(r => setTimeout(r, 4000));
     }
-  } catch (err) {
-    if (err.message.includes('aktualnie używany')) throw err;
   }
+  throw new Error(`Przekroczono limit ${maxWaitMs / 1000}s oczekiwania na zwolnienie profilu ${PROFILE_DIR}.`);
 }
 
 function cleanupOldCompletedCache(cacheDir, catalog, state, currentFileName) {
@@ -337,7 +351,7 @@ async function main() {
     return;
   }
 
-  checkProfileNotInUse();
+  await waitForProfileFree();
 
   const fileName = buildEpisodeFileName(episode);
   cleanupOldCompletedCache(cacheDir, catalog, state, fileName);
@@ -369,20 +383,39 @@ async function main() {
       tags: meta.tags
     }, null, 2), 'utf8');
 
-    try {
-      const result = await uploadEpisodeToChannel({
-        videoPath,
-        metaPath,
-        channelId: chCfg.id,
-        channelName: ch,
-        visibility: opts.visibility,
-        scheduleYmd: schedule?.ymd,
-        scheduleTime: schedule?.time,
-        thumbnailPath: meta.thumbnailPath,
-        videoLanguage: meta.videoLanguage,
-        titleDescriptionLanguage: meta.titleDescriptionLanguage
-      });
+    let result = null;
+    let uploadError = null;
 
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        await waitForProfileFree();
+        result = await uploadEpisodeToChannel({
+          videoPath,
+          metaPath,
+          channelId: chCfg.id,
+          channelName: ch,
+          visibility: opts.visibility,
+          scheduleYmd: schedule?.ymd,
+          scheduleTime: schedule?.time,
+          thumbnailPath: meta.thumbnailPath,
+          videoLanguage: meta.videoLanguage,
+          titleDescriptionLanguage: meta.titleDescriptionLanguage
+        });
+        uploadError = null;
+        break;
+      } catch (err) {
+        uploadError = err;
+        const isSingleton = err.message && (err.message.includes('ProcessSingleton') || err.message.includes('Target page, context or browser has been closed'));
+        if (isSingleton && attempt < 3) {
+          console.log(`⚠️ Próba ${attempt}/3 dla kanału ${ch} napotkała zajętość profilu. Oczekuję na zwolnienie i ponawiam...`);
+          await new Promise(r => setTimeout(r, 6000));
+        } else {
+          break;
+        }
+      }
+    }
+
+    if (result) {
       existingRec.channels[ch] = {
         status: 'ok',
         channelId: chCfg.id,
@@ -391,14 +424,14 @@ async function main() {
         skipped: Boolean(result.skipped),
         publishedAt: new Date().toISOString()
       };
-    } catch (err) {
+    } else if (uploadError) {
       existingRec.channels[ch] = {
         status: 'error',
         channelId: chCfg.id,
-        error: err.message,
+        error: uploadError.message,
         failedAt: new Date().toISOString()
       };
-      console.error(`❌ Błąd na kanale ${ch}: ${err.message}`);
+      console.error(`❌ Błąd na kanale ${ch}: ${uploadError.message}`);
     }
 
     existingRec.completed = isEpisodeFullyPublished(existingRec, TARGET_CHANNELS);
