@@ -73,6 +73,7 @@ import {
 } from './js/lumina-db/media-links.js';
 import {
     LUMINA_BADGES_CATALOG,
+    LUMINA_FOUNDER_SLUGS,
     ensure3DBadgeModalInDom,
     open3DBadgeDetailsModal,
     close3DBadgeModal,
