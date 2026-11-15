@@ -5,6 +5,16 @@
   "updatesLog": [
     {
       "date": "2026-11-15",
+      "topic": "Biblia Audio CC: Publikacja Księgi Rodzaju 25,1–34 (GEN-025) w standardzie V7 oraz naprawa harmonogramu i sidecara automatyzacji 08:00 (GEN-021..050)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #344 — Werset Dnia: Przysłów 10:22 (UBG) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #340 — Biblijne Uwielbienie: Cała Biblia w Muzyce (Księga Rodzaju 1) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
       "agent": "A"
     },
@@ -4310,8 +4320,13 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-15T20:02:00+01:00",
+  "lastUpdated": "2026-11-15T20:34:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-15",
+      "topic": "CCN News X: Cykliczna publikacja #344 — Werset Dnia: Przysłów 10:22 (UBG) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
     {
       "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #343 — Smart TV CC: Telewizja Chrześcijańska 24/7 (6 Stacji & Pilot Online) z dedykowaną grafiką tematyczną",
@@ -4455,21 +4470,6 @@
     {
       "date": "2026-11-14",
       "topic": "Niezawodność kolejki WhatsApp (D1 Fallback, weryfikacja daty, obsługa @c.us LID) oraz naprawa publikacji Facebook / YT Live Promo",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #304 — Społeczność CC: Holistyczny Coaching & Terapia Wolności (Paweł Murawski) z grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-15",
-      "topic": "YouTube What's Up Prof? — Publikacja Odc. 002 (Walter Veith) jako premiera +48h na 8 kanałach CC",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-15",
-      "topic": "Zewnętrzna rotacyjna promocja 24 kanałów YouTube (#4/24: Biblia Audio CC)",
       "agent": "A"
     }
   ],
