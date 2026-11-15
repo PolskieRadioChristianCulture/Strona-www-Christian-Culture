@@ -1,0 +1,614 @@
+/* ==========================================================================
+   CHRISTIAN CULTURE — CC DESIGN CORE (PREMIUM DESIGN SYSTEM 2027)
+   Modułowy fundament wizualny i ergonomiczny dla całego ekosystemu EkoCC.
+   Synteza wzorców: ScrewFast (Bento/i18n/RTL), Tailcast (głębia/szkło),
+   Launch UI (kompozycja Hero), shadcn/ui (tokeny & WAI-ARIA),
+   AstroWind (rytm Editorial Clean), Motion (GPU transform/opacity), Lucide (SVG).
+   Standardy CC: JOMA-D052 (#FF7A00 CTA), Champagne Gold (#C4A35A),
+   @SMCC min. 44x44px touch targets, WCAG 2.2 AA, CSS logical properties (RTL).
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* --- 1. PALETA KANONICZNA CHRISTIAN CULTURE --- */
+  --cc-gold: #C4A35A;
+  --cc-gold-hover: #D4B578;
+  --cc-gold-light: #E2CC9A;
+  --cc-gold-dark: #A08040;
+  --cc-gold-glow: rgba(196, 163, 90, 0.24);
+  --cc-gold-subtle: rgba(196, 163, 90, 0.12);
+
+  /* --- 2. KLASYCZNY POMARAŃCZOWY PRZYCISK AKCJI (JOMA-D052) --- */
+  --cc-btn-orange: #FF7A00;
+  --cc-btn-orange-hover: #FF8C33;
+  --cc-btn-orange-active: #E66A00;
+  --cc-btn-orange-text: #FFFFFF;
+  --cc-btn-orange-shadow: 0 10px 28px -8px rgba(255, 122, 0, 0.45);
+
+  /* --- 3. POWIERZCHNIE I TŁA (WCAG 2.2 AA CONTRAST) --- */
+  --cc-bg-canvas: #040D15;
+  --cc-bg-elevated: #081521;
+  --cc-bg-surface: #0C1D2D;
+  --cc-bg-glass: rgba(8, 21, 33, 0.84);
+  --cc-bg-glass-strong: rgba(5, 15, 24, 0.94);
+
+  --cc-border-subtle: rgba(226, 204, 154, 0.18);
+  --cc-border-strong: rgba(226, 204, 154, 0.34);
+  --cc-border-gold: rgba(196, 163, 90, 0.42);
+
+  /* --- 4. TEKST (KONTRAST >= 4.5:1 / 5.5:1+) --- */
+  --cc-text-primary: #F8FAFC;
+  --cc-text-secondary: #CBD5E1;
+  --cc-text-muted: #94A3B8;
+  --cc-text-on-gold: #12100B;
+
+  /* --- 5. TYPOGRAFIA I RYTMIKA (ASTRO-WIND / EDITORIAL) --- */
+  --cc-font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --cc-font-sans: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --cc-font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --cc-text-xs: 0.78rem;
+  --cc-text-sm: 0.88rem;
+  --cc-text-base: 1rem;
+  --cc-text-lg: clamp(1.08rem, 1.5vw, 1.25rem);
+  --cc-text-xl: clamp(1.25rem, 2.2vw, 1.65rem);
+  --cc-text-2xl: clamp(1.65rem, 3vw, 2.35rem);
+  --cc-text-hero: clamp(2.25rem, 5vw, 4.1rem);
+
+  /* --- 6. SKALA ODSTĘPÓW 4/8PT --- */
+  --cc-space-1: 0.25rem;
+  --cc-space-2: 0.5rem;
+  --cc-space-3: 0.75rem;
+  --cc-space-4: 1rem;
+  --cc-space-5: 1.25rem;
+  --cc-space-6: 1.5rem;
+  --cc-space-8: 2rem;
+  --cc-space-10: 2.5rem;
+  --cc-space-12: 3rem;
+  --cc-space-16: 4rem;
+
+  /* --- 7. PROMIENIE I RUCH (MOTION MIT PATTERNS) --- */
+  --cc-radius-sm: 0.5rem;
+  --cc-radius-md: 0.85rem;
+  --cc-radius-lg: 1.15rem;
+  --cc-radius-pill: 9999px;
+
+  --cc-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --cc-motion-fast: 160ms;
+  --cc-motion-normal: 260ms;
+
+  /* --- 8. ERGONOMIA @SMCC --- */
+  --cc-touch-min: 44px;
+  --cc-container-max: 1280px;
+  --cc-archetype-glow: radial-gradient(60% 45% at 80% 10%, rgba(196, 163, 90, 0.16), transparent 72%);
+}
+
+/* Tryb jasny (Akademia / LUMINA Light Edition) */
+[data-cc-theme="light"] {
+  color-scheme: light;
+  --cc-bg-canvas: #FAF7F0;
+  --cc-bg-elevated: #FFFFFF;
+  --cc-bg-surface: #F3EDE0;
+  --cc-bg-glass: rgba(255, 255, 255, 0.9);
+  --cc-bg-glass-strong: rgba(250, 247, 240, 0.96);
+  --cc-border-subtle: rgba(118, 84, 20, 0.16);
+  --cc-border-strong: rgba(118, 84, 20, 0.32);
+  --cc-border-gold: rgba(160, 128, 64, 0.48);
+  --cc-text-primary: #171410;
+  --cc-text-secondary: #3B352D;
+  --cc-text-muted: #5C5449;
+}
+
+/* ==========================================================================
+   4 ARCHETYPY RODZINY WIZUALNEJ CHRISTIAN CULTURE
+   ========================================================================== */
+[data-cc-archetype="cinematic"] {
+  --cc-bg-canvas: #03070D;
+  --cc-bg-elevated: #0A111D;
+  --cc-archetype-glow: radial-gradient(65% 50% at 75% 8%, rgba(255, 122, 0, 0.15), transparent 70%);
+}
+
+[data-cc-archetype="editorial"] {
+  --cc-bg-canvas: #080C12;
+  --cc-bg-elevated: #0F1724;
+  --cc-archetype-glow: radial-gradient(55% 45% at 20% 0%, rgba(196, 163, 90, 0.11), transparent 70%);
+}
+
+[data-cc-archetype="audio"] {
+  --cc-bg-canvas: #050B14;
+  --cc-bg-elevated: #0C1A2B;
+  --cc-archetype-glow: radial-gradient(70% 50% at 50% 0%, rgba(56, 189, 248, 0.12), transparent 70%);
+}
+
+[data-cc-archetype="giving"] {
+  --cc-bg-canvas: #040D15;
+  --cc-bg-elevated: #081521;
+  --cc-archetype-glow:
+    radial-gradient(62% 48% at 82% 8%, rgba(196, 163, 90, 0.20), transparent 70%),
+    radial-gradient(45% 40% at 12% 35%, rgba(255, 122, 0, 0.08), transparent 72%);
+}
+
+/* ==========================================================================
+   RESET & PODSTAWY Z WŁAŚCIWOŚCIAMI LOGICZNYMI CSS (LTR / RTL READY)
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cc-bg-canvas);
+  background-image: var(--cc-archetype-glow);
+  background-repeat: no-repeat;
+  color: var(--cc-text-primary);
+  font-family: var(--cc-font-sans);
+  font-size: var(--cc-text-base);
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+[role="button"],
+summary,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cc-gold-light);
+  outline-offset: 3px;
+}
+
+.cc-skip-link {
+  position: fixed;
+  inset-block-start: -100px;
+  inset-inline-start: var(--cc-space-4);
+  z-index: 1000;
+  min-height: var(--cc-touch-min);
+  padding-block: var(--cc-space-2);
+  padding-inline: var(--cc-space-4);
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--cc-radius-sm);
+  background: var(--cc-btn-orange);
+  color: var(--cc-btn-orange-text);
+  font-weight: 700;
+}
+
+.cc-skip-link:focus {
+  inset-block-start: var(--cc-space-4);
+}
+
+.cc-wrap {
+  width: min(var(--cc-container-max), calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .cc-wrap {
+    width: min(var(--cc-container-max), calc(100% - 3.5rem));
+  }
+}
+
+.cc-prose {
+  max-inline-size: 65ch;
+}
+
+.cc-sacred-static {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+.cc-quote {
+  margin-block: 0;
+  padding-inline-start: var(--cc-space-4);
+  border-inline-start: 2px solid var(--cc-gold);
+}
+
+/* ==========================================================================
+   PRZYCISKI (@SMCC >= 44x44px, JOMA-D052 #FF7A00)
+   ========================================================================== */
+.cc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: var(--cc-touch-min);
+  min-width: var(--cc-touch-min);
+  padding-block: 0.625rem;
+  padding-inline: 1.25rem;
+  border-radius: var(--cc-radius-sm);
+  border: 1px solid var(--cc-border-gold);
+  background: rgba(196, 163, 90, 0.08);
+  color: var(--cc-text-primary);
+  font-weight: 700;
+  font-size: 0.92rem;
+  line-height: 1.25;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--cc-motion-fast) var(--cc-ease-out),
+    border-color var(--cc-motion-fast) var(--cc-ease-out),
+    color var(--cc-motion-fast) var(--cc-ease-out),
+    transform var(--cc-motion-fast) var(--cc-ease-out),
+    box-shadow var(--cc-motion-fast) var(--cc-ease-out);
+}
+
+.cc-btn:hover {
+  background: rgba(196, 163, 90, 0.18);
+  border-color: var(--cc-gold-hover);
+  transform: translateY(-1px);
+}
+
+.cc-btn:active {
+  transform: translateY(0);
+}
+
+.cc-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Główny CTA Christian Culture: Klasyczny Pomarańczowy #FF7A00 (JOMA-D052) */
+.cc-btn-orange {
+  background: var(--cc-btn-orange);
+  border-color: var(--cc-btn-orange);
+  color: var(--cc-btn-orange-text);
+  box-shadow: var(--cc-btn-orange-shadow);
+}
+
+.cc-btn-orange:hover {
+  background: var(--cc-btn-orange-hover);
+  border-color: var(--cc-btn-orange-hover);
+  color: var(--cc-btn-orange-text);
+}
+
+.cc-btn-orange:active {
+  background: var(--cc-btn-orange-active);
+  border-color: var(--cc-btn-orange-active);
+  color: var(--cc-btn-orange-text);
+}
+
+/* Wariant Champagne Gold */
+.cc-btn-gold {
+  background: linear-gradient(135deg, var(--cc-gold-light), var(--cc-gold));
+  border-color: var(--cc-gold-light);
+  color: var(--cc-text-on-gold);
+}
+
+.cc-btn-gold:hover {
+  background: var(--cc-gold-hover);
+  border-color: var(--cc-gold-hover);
+  color: var(--cc-text-on-gold);
+}
+
+.cc-btn-outline {
+  background: transparent;
+  border-color: var(--cc-border-strong);
+  color: var(--cc-text-primary);
+}
+
+.cc-btn-outline:hover {
+  border-color: var(--cc-gold-light);
+  background: var(--cc-gold-subtle);
+}
+
+.cc-btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--cc-text-secondary);
+}
+
+.cc-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--cc-border-subtle);
+  color: var(--cc-text-primary);
+}
+
+.cc-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--cc-touch-min);
+  min-height: var(--cc-touch-min);
+  padding: 0;
+  border-radius: var(--cc-radius-sm);
+  border: 1px solid var(--cc-border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--cc-text-primary);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--cc-motion-fast) var(--cc-ease-out),
+    border-color var(--cc-motion-fast) var(--cc-ease-out);
+}
+
+.cc-icon-btn:hover {
+  background: var(--cc-gold-subtle);
+  border-color: var(--cc-gold);
+  color: var(--cc-gold-light);
+}
+
+/* ==========================================================================
+   KARTY, BENTO GRID, PLAKIETKI I RAMKI ILUMINOWANE
+   ========================================================================== */
+.cc-bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--cc-space-4);
+}
+
+@media (min-width: 720px) {
+  .cc-bento-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1080px) {
+  .cc-bento-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.cc-card {
+  position: relative;
+  border-radius: var(--cc-radius-lg);
+  border: 1px solid var(--cc-border-subtle);
+  background: var(--cc-bg-glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: var(--cc-space-6);
+  transition:
+    border-color var(--cc-motion-normal) var(--cc-ease-out),
+    transform var(--cc-motion-normal) var(--cc-ease-out),
+    background-color var(--cc-motion-normal) var(--cc-ease-out);
+}
+
+.cc-card:hover {
+  border-color: var(--cc-border-gold);
+}
+
+.cc-card-illuminated {
+  background:
+    linear-gradient(155deg, rgba(196, 163, 90, 0.12), rgba(196, 163, 90, 0.02) 48%),
+    var(--cc-bg-elevated);
+  border-color: var(--cc-border-gold);
+  box-shadow:
+    0 24px 56px -28px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.cc-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cc-space-2);
+  padding-block: 0.35rem;
+  padding-inline: 0.85rem;
+  border-radius: var(--cc-radius-pill);
+  border: 1px solid var(--cc-border-gold);
+  background: rgba(196, 163, 90, 0.11);
+  color: var(--cc-gold-light);
+  font-size: var(--cc-text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   PRYMITYWY SHADCN/UI: ZAKŁADKI, PRZEŁĄCZNIK JĘZYKÓW, COPY BOX, AKORDEON, TOAST
+   ========================================================================== */
+.cc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cc-space-2);
+  margin-block-end: var(--cc-space-5);
+}
+
+.cc-tab-trigger {
+  min-height: var(--cc-touch-min);
+  padding-block: var(--cc-space-2);
+  padding-inline: var(--cc-space-4);
+  border-radius: var(--cc-radius-pill);
+  border: 1px solid var(--cc-border-subtle);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--cc-text-secondary);
+  font-size: var(--cc-text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--cc-motion-fast) var(--cc-ease-out),
+    border-color var(--cc-motion-fast) var(--cc-ease-out),
+    color var(--cc-motion-fast) var(--cc-ease-out);
+}
+
+.cc-tab-trigger:hover {
+  border-color: var(--cc-gold);
+  color: var(--cc-text-primary);
+}
+
+.cc-tab-trigger[aria-selected="true"] {
+  background: var(--cc-gold);
+  border-color: var(--cc-gold);
+  color: var(--cc-text-on-gold);
+  font-weight: 800;
+}
+
+.cc-lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.2rem;
+  border-radius: var(--cc-radius-md);
+  border: 1px solid var(--cc-border-subtle);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cc-lang-btn {
+  min-width: var(--cc-touch-min);
+  min-height: var(--cc-touch-min);
+  padding-inline: 0.5rem;
+  border-radius: var(--cc-radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--cc-text-secondary);
+  font-size: var(--cc-text-xs);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.cc-lang-btn:hover {
+  color: var(--cc-text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cc-lang-btn[aria-pressed="true"] {
+  background: var(--cc-gold);
+  color: var(--cc-text-on-gold);
+}
+
+.cc-copy-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cc-space-3);
+  padding: var(--cc-space-3) var(--cc-space-4);
+  border-radius: var(--cc-radius-md);
+  border: 1px solid var(--cc-border-subtle);
+  background: rgba(4, 13, 21, 0.55);
+}
+
+.cc-copy-value {
+  font-family: var(--cc-font-serif);
+  font-variant-numeric: tabular-nums;
+  color: var(--cc-gold-light);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.cc-accordion details {
+  border-block-end: 1px solid var(--cc-border-subtle);
+}
+
+.cc-accordion summary {
+  min-height: var(--cc-touch-min);
+  padding-block: var(--cc-space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cc-space-4);
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  color: var(--cc-gold-light);
+}
+
+.cc-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.cc-accordion details p {
+  margin-block: 0 var(--cc-space-4);
+  color: var(--cc-text-secondary);
+  font-size: var(--cc-text-sm);
+}
+
+.cc-toast {
+  position: fixed;
+  inset-inline-start: 50%;
+  inset-block-end: max(1.25rem, env(safe-area-inset-bottom, 1.25rem));
+  transform: translate(-50%, 8px);
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  padding-block: 0.75rem;
+  padding-inline: 1.25rem;
+  border-radius: var(--cc-radius-md);
+  border: 1px solid var(--cc-gold);
+  background: var(--cc-bg-glass-strong);
+  color: var(--cc-text-primary);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.7);
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--cc-motion-fast) var(--cc-ease-out),
+    transform var(--cc-motion-fast) var(--cc-ease-out);
+}
+
+.cc-toast.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ==========================================================================
+   ANIMACJE PROGRESYWNE (MOTION MIT — CLS=0 + PREFERS-REDUCED-MOTION)
+   ========================================================================== */
+.cc-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+html.cc-motion-ready .cc-reveal[data-cc-reveal="pending"] {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+html.cc-motion-ready .cc-reveal[data-cc-reveal="visible"] {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 220ms var(--cc-ease-out),
+    transform 220ms var(--cc-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --cc-motion-fast: 0ms;
+    --cc-motion-normal: 0ms;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html.cc-motion-ready .cc-reveal[data-cc-reveal="pending"],
+  html.cc-motion-ready .cc-reveal[data-cc-reveal="visible"] {
+    opacity: 1;
+    transform: none;
+  }
+}

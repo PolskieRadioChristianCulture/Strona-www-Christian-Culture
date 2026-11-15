@@ -1534,6 +1534,24 @@ async function handleSurvivalRoute(request, env) {
 async function handleSupportRoute(request, env) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/$/, '');
+  // Pilotaż nowego Design Systemu 2027 wyłącznie pod /test/wspieraj (bez zmiany produkcji /wspieraj)
+  if (path === '/test/wspieraj') {
+    const assetUrl = new URL(request.url);
+    assetUrl.pathname = '/wspieraj-pilot.html';
+    assetUrl.search = '';
+    const assetResp = await env.ASSETS.fetch(new Request(assetUrl.toString(), { method: 'GET', headers: { 'Accept': 'text/html' } }));
+    const body = await assetResp.arrayBuffer();
+    return new Response(body, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'public, max-age=0, must-revalidate',
+        'X-Content-Type-Options': 'nosniff',
+        'X-Robots-Tag': 'noindex, nofollow',
+        'Content-Security-Policy': "default-src 'self' https: data: blob:; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube-nocookie.com https://www.gstatic.com https://apis.google.com https://*.firebaseapp.com https://accounts.google.com https:; frame-src 'self' https://open.spotify.com https://drive.google.com https://www.youtube-nocookie.com https://www.youtube.com https://accounts.google.com https://*.firebaseapp.com; connect-src 'self' https: wss:; media-src 'self' blob: data: https:; font-src 'self' data: https:;",
+      },
+    });
+  }
   // Bezpośrednia obsługa /wspieraj i /wspieraj/ — worker pobiera asset i zwraca świeży 200
   // (omija wbudowany mechanizm canonical redirect Cloudflare Pages → 308)
   if (path === '/wspieraj') {

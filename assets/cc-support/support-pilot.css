@@ -1,0 +1,644 @@
+/* ==========================================================================
+   CHRISTIAN CULTURE — PILOTAŻ /test/wspieraj (EkoCC v2 PREMIUM / Giving)
+   Buduje bezpośrednio na css/cc-design-core.css.
+   Ergonomia @SMCC (>= 44x44px), RTL-ready (CSS logical properties), 0px overflow.
+   ========================================================================== */
+
+.pilot-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 40;
+  background: var(--cc-bg-glass-strong);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-block-end: 1px solid var(--cc-border-subtle);
+}
+
+.pilot-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cc-space-2);
+  min-height: 64px;
+  padding-block: var(--cc-space-2);
+}
+
+.pilot-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: var(--cc-touch-min);
+  font-family: var(--cc-font-serif);
+  font-weight: 700;
+  font-size: 1.04rem;
+  letter-spacing: 0.02em;
+  color: var(--cc-text-primary);
+}
+
+.pilot-brand img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.pilot-brand small {
+  display: block;
+  font-family: var(--cc-font-sans);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cc-gold-light);
+}
+
+.pilot-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--cc-space-2);
+  flex-wrap: wrap;
+}
+
+.pilot-nav {
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--cc-text-secondary);
+}
+
+.pilot-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cc-touch-min);
+  padding-inline: 0.45rem;
+  white-space: nowrap;
+  border-block-end: 2px solid transparent;
+  transition: color var(--cc-motion-fast) var(--cc-ease-out);
+}
+
+.pilot-nav a:hover,
+.pilot-nav a[aria-current="page"] {
+  color: var(--cc-gold-light);
+}
+
+.pilot-nav a[aria-current="page"] {
+  border-block-end-color: var(--cc-gold);
+}
+
+.pilot-nav.open {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.25rem;
+  position: fixed;
+  inset-inline: 0;
+  inset-block-start: 70px;
+  max-height: calc(100dvh - 70px);
+  overflow-y: auto;
+  padding: var(--cc-space-4);
+  background: var(--cc-bg-elevated);
+  border-block-end: 1px solid var(--cc-border-gold);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.78);
+  z-index: 45;
+}
+
+.pilot-header-cta {
+  display: none;
+}
+
+.pilot-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-inline: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .pilot-header-inner {
+    min-height: 0;
+    padding-block: 0.35rem;
+    gap: 0.4rem;
+  }
+  .pilot-brand {
+    order: 1;
+    gap: 0.45rem;
+    font-size: 0.92rem;
+  }
+  .pilot-brand img {
+    width: 30px;
+    height: 30px;
+  }
+  .pilot-brand small {
+    display: none;
+  }
+  .pilot-header-actions {
+    display: contents;
+  }
+  #cc-auth-nav-container {
+    order: 2;
+    margin-inline-start: auto;
+  }
+  .pilot-header .cc-lang-switcher {
+    order: 3;
+    gap: 2px;
+    padding: 2px;
+  }
+  .pilot-menu-btn {
+    order: 4;
+    margin-inline-start: auto;
+  }
+}
+
+@media (min-width: 1180px) {
+  .pilot-header-inner {
+    flex-wrap: nowrap;
+    min-height: 70px;
+    gap: var(--cc-space-3);
+  }
+  .pilot-brand {
+    flex-shrink: 0;
+  }
+  .pilot-brand strong,
+  .pilot-brand small {
+    white-space: nowrap;
+  }
+  .pilot-menu-btn {
+    display: none;
+  }
+  .pilot-nav {
+    display: flex;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .pilot-header-actions {
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    gap: 0.45rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .pilot-header-cta {
+    display: inline-flex;
+  }
+}
+
+/* ── Pasek Podziękowań (Strict 44x44px Controls) ── */
+.pilot-thanks-bar {
+  background: rgba(6, 17, 27, 0.92);
+  border-block-end: 1px solid var(--cc-border-subtle);
+  padding-block: var(--cc-space-2);
+}
+
+.pilot-thanks-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cc-space-3);
+}
+
+.pilot-thanks-label {
+  font-family: var(--cc-font-serif);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  color: var(--cc-gold-light);
+  white-space: nowrap;
+}
+
+.pilot-thanks-viewport {
+  flex: 1 1 200px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pilot-thanks-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.pilot-thanks-viewport ul {
+  display: flex;
+  gap: 1.75rem;
+  width: max-content;
+  margin: 0;
+  padding: 0.25rem 0;
+  list-style: none;
+  font-size: 0.92rem;
+  color: var(--cc-text-primary);
+}
+
+.pilot-thanks-viewport li {
+  white-space: nowrap;
+}
+
+.pilot-thanks-viewport li::after {
+  content: '•';
+  margin-inline-start: 1.75rem;
+  color: var(--cc-gold);
+}
+
+.pilot-thanks-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.pilot-thanks-caption {
+  margin: 0.25rem 0 0;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--cc-text-muted);
+}
+
+/* ── Hero Split (Launch UI + Tailcast Glass + ScrewFast Bento) ── */
+.pilot-hero {
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--cc-space-10) var(--cc-space-8);
+  border-block-end: 1px solid var(--cc-border-subtle);
+}
+
+.pilot-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(95deg, rgba(4, 13, 21, 0.95) 0%, rgba(4, 13, 21, 0.72) 55%, rgba(4, 13, 21, 0.45) 100%),
+    url('./earth.webp') right top / cover no-repeat;
+}
+
+.pilot-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--cc-space-6);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .pilot-hero-grid {
+    grid-template-columns: 1.25fr 0.95fr;
+    gap: var(--cc-space-8);
+  }
+}
+
+.pilot-hero-copy h1 {
+  font-family: var(--cc-font-serif);
+  font-size: var(--cc-text-hero);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin: var(--cc-space-4) 0;
+  font-weight: 600;
+}
+
+.pilot-hero-copy h1 span {
+  display: block;
+  color: var(--cc-gold-light);
+}
+
+.pilot-hero-intro {
+  font-size: var(--cc-text-lg);
+  color: var(--cc-text-secondary);
+  max-inline-size: 58ch;
+  margin: 0 0 var(--cc-space-5);
+}
+
+.pilot-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cc-space-3);
+  margin-block-end: var(--cc-space-5);
+}
+
+.pilot-hero-verse {
+  margin: 0;
+  padding-inline-start: var(--cc-space-4);
+  border-inline-start: 2px solid var(--cc-gold);
+}
+
+.pilot-hero-verse p {
+  margin: 0 0 0.25rem;
+  font-family: var(--cc-font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--cc-gold-light);
+}
+
+.pilot-hero-verse cite {
+  font-style: normal;
+  font-size: var(--cc-text-xs);
+  color: var(--cc-text-muted);
+}
+
+.pilot-quick-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cc-space-4);
+}
+
+.pilot-quick-kicker {
+  margin: 0;
+  font-size: var(--cc-text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cc-gold-light);
+}
+
+.pilot-quick-card h2 {
+  margin: 0;
+  font-family: var(--cc-font-serif);
+  font-size: 1.55rem;
+  font-weight: 600;
+}
+
+.pilot-blik-big {
+  font-family: var(--cc-font-serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--cc-gold-light);
+}
+
+.pilot-trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pilot-trust-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--cc-radius-pill);
+  border: 1px solid var(--cc-border-subtle);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: var(--cc-text-xs);
+  color: var(--cc-text-secondary);
+}
+
+/* ── Sekcje wspólne ── */
+.pilot-section {
+  padding-block: var(--cc-space-12) 0;
+}
+
+.pilot-section-header {
+  margin-block-end: var(--cc-space-6);
+}
+
+.pilot-section-header h2 {
+  font-family: var(--cc-font-serif);
+  font-size: var(--cc-text-2xl);
+  font-weight: 600;
+  margin: 0 0 var(--cc-space-2);
+}
+
+.pilot-section-header p {
+  margin: 0;
+  color: var(--cc-text-secondary);
+  max-inline-size: 64ch;
+}
+
+.pilot-icon {
+  width: 24px;
+  height: 24px;
+  stroke: var(--cc-gold-light);
+  stroke-width: 1.75;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.pilot-icon-lg {
+  width: 34px;
+  height: 34px;
+}
+
+/* ── Karty ścieżek ── */
+.pilot-path-card {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: var(--cc-space-3);
+  min-height: 92px;
+  padding: var(--cc-space-4);
+}
+
+.pilot-path-icon-wrap {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--cc-radius-md);
+  border: 1px solid var(--cc-border-gold);
+  background: rgba(196, 163, 90, 0.1);
+}
+
+.pilot-path-card h3 {
+  margin: 0 0 0.25rem;
+  font-family: var(--cc-font-serif);
+  font-size: 1.12rem;
+}
+
+.pilot-path-card p {
+  margin: 0;
+  font-size: var(--cc-text-sm);
+  color: var(--cc-text-secondary);
+}
+
+/* ── Karty płatności z filtrowaniem zakładek ── */
+.pilot-pay-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cc-space-4);
+}
+
+.pilot-pay-card[hidden] {
+  display: none !important;
+}
+
+.pilot-pay-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--cc-space-3);
+}
+
+.pilot-pay-head h3 {
+  margin: 0 0 0.25rem;
+  font-family: var(--cc-font-serif);
+  font-size: 1.25rem;
+}
+
+.pilot-pay-head p {
+  margin: 0;
+  font-size: var(--cc-text-sm);
+  color: var(--cc-text-secondary);
+}
+
+.pilot-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cc-space-2);
+  margin-block-start: auto;
+}
+
+.pilot-card-actions > .cc-btn {
+  flex: 1 1 160px;
+}
+
+/* ── Pasek misyjny Mt 10,8 ── */
+.pilot-mission-band {
+  margin-block-start: var(--cc-space-12);
+  padding-block: var(--cc-space-8);
+  border-block: 1px solid var(--cc-border-gold);
+  background: radial-gradient(ellipse at 30% 100%, rgba(196, 163, 90, 0.16), transparent 72%);
+  text-align: center;
+}
+
+.pilot-mission-band p {
+  margin: 0 0 0.5rem;
+  font-size: var(--cc-text-sm);
+  color: var(--cc-text-secondary);
+}
+
+.pilot-mission-band .pilot-mission-verse {
+  font-family: var(--cc-font-serif);
+  font-style: italic;
+  font-size: var(--cc-text-xl);
+  color: var(--cc-gold-light);
+}
+
+/* ── Konta bankowe & QR ── */
+.pilot-bank-dl {
+  margin: var(--cc-space-4) 0 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.pilot-bank-dl dt {
+  font-size: var(--cc-text-xs);
+  color: var(--cc-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pilot-bank-dl dd {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--cc-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.pilot-qr-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cc-space-6);
+  margin-block-start: var(--cc-space-5);
+}
+
+.pilot-qr-card img {
+  width: 152px;
+  height: 152px;
+  flex-shrink: 0;
+  background: #FFFFFF;
+  padding: 8px;
+  border-radius: var(--cc-radius-sm);
+}
+
+/* ── Panel konta LUMINA i formularz zgód ── */
+.pilot-consent-form {
+  display: grid;
+  gap: var(--cc-space-4);
+  margin-block-start: var(--cc-space-4);
+}
+
+.pilot-consent-form[hidden] {
+  display: none !important;
+}
+
+.pilot-input {
+  width: min(100%, 420px);
+  min-height: var(--cc-touch-min);
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--cc-radius-sm);
+  border: 1px solid var(--cc-border-strong);
+  background: var(--cc-bg-canvas);
+  color: var(--cc-text-primary);
+}
+
+.pilot-check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: var(--cc-text-secondary);
+  font-size: var(--cc-text-sm);
+  cursor: pointer;
+}
+
+.pilot-check-row input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--cc-btn-orange);
+}
+
+/* ── Kontakt & Stopka ── */
+.pilot-contact-box {
+  text-align: center;
+}
+
+.pilot-contact-box .pilot-card-actions {
+  justify-content: center;
+  margin-block-start: var(--cc-space-4);
+}
+
+.pilot-footer {
+  margin-block-start: var(--cc-space-12);
+  border-block-start: 1px solid var(--cc-border-subtle);
+  padding-block: var(--cc-space-6) var(--cc-space-10);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cc-space-4);
+  font-size: var(--cc-text-sm);
+  color: var(--cc-text-muted);
+}
+
+.pilot-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cc-space-4);
+}
+
+.pilot-footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cc-touch-min);
+}
+
+.pilot-footer-links a:hover {
+  color: var(--cc-gold-light);
+}
+
+/* Ochrona dla ultra-małych ekranów 320px */
+@media (max-width: 390px) {
+  .pilot-header-inner {
+    gap: var(--cc-space-2);
+  }
+  .pilot-lang-switcher .cc-lang-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .pilot-card-actions > .cc-btn {
+    flex-basis: 100%;
+  }
+}

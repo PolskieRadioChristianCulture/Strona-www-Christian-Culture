@@ -763,6 +763,8 @@
 /zrzutki/ /wspieraj 301
 /wspieraj/ /wspieraj.html 200
 /wspieraj /wspieraj.html 200
+/test/wspieraj/ /wspieraj-pilot.html 200
+/test/wspieraj /wspieraj-pilot.html 200
 
 # === POLITYKA REDAKCYJNA CCN 1.0 ===
 /polityka-redakcyjna /polityka-redakcyjna.html 200
