@@ -1534,8 +1534,15 @@ async function handleSurvivalRoute(request, env) {
 async function handleSupportRoute(request, env) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/$/, '');
-  // Pilotaż nowego Design Systemu 2027 wyłącznie pod /test/wspieraj (bez zmiany produkcji /wspieraj)
-  if (path === '/test/wspieraj') {
+  // Pilotaż nowego Design Systemu 2027 wyłącznie pod /test/wspieraj i lokalizacjami testowymi (bez zmiany produkcji /wspieraj)
+  const testSupportPaths = new Set([
+    '/test/wspieraj',
+    '/test/wspieraj/en/support',
+    '/test/wspieraj/de/unterstuetzen',
+    '/test/wspieraj/es/apoyar',
+    '/test/wspieraj/fr/soutenir',
+  ]);
+  if (testSupportPaths.has(path)) {
     const assetUrl = new URL(request.url);
     assetUrl.pathname = '/wspieraj-pilot.html';
     assetUrl.search = '';

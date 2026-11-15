@@ -765,6 +765,14 @@
 /wspieraj /wspieraj.html 200
 /test/wspieraj/ /wspieraj-pilot.html 200
 /test/wspieraj /wspieraj-pilot.html 200
+/test/wspieraj/en/support/ /wspieraj-pilot.html 200
+/test/wspieraj/en/support /wspieraj-pilot.html 200
+/test/wspieraj/de/unterstuetzen/ /wspieraj-pilot.html 200
+/test/wspieraj/de/unterstuetzen /wspieraj-pilot.html 200
+/test/wspieraj/es/apoyar/ /wspieraj-pilot.html 200
+/test/wspieraj/es/apoyar /wspieraj-pilot.html 200
+/test/wspieraj/fr/soutenir/ /wspieraj-pilot.html 200
+/test/wspieraj/fr/soutenir /wspieraj-pilot.html 200
 
 # === POLITYKA REDAKCYJNA CCN 1.0 ===
 /polityka-redakcyjna /polityka-redakcyjna.html 200

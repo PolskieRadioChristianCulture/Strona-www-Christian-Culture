@@ -1,397 +1,564 @@
-<!doctype html>
-<html lang="pl" dir="ltr" data-cc-archetype="giving" data-cc-theme="dark">
+<!DOCTYPE html>
+<html lang="pl" dir="ltr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wspieraj misję Christian Culture | Modlitwa, darowizny, współpraca</title>
-<meta name="description" content="Razem niesiemy nadzieję dalej. Wesprzyj Christian Culture przez modlitwę, udostępnianie, wolontariat, BLIK, przelew, Patronite lub Revolut.">
-<meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#040d15">
-<link rel="canonical" href="https://polskieradio.cc/wspieraj">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
-<link rel="preload" as="image" href="/assets/cc-support/earth.webp">
-<link rel="stylesheet" href="/css/cc-design-core.css?v=20261115_pilot1">
-<link rel="stylesheet" href="/assets/cc-support/support-pilot.css?v=20261115_pilot1">
-<script src="/js/cc-global-auth.js?v=20261007_auth_v2" defer></script>
-<script type="module" src="/assets/cc-support/support-pilot.js?v=20261115_pilot1"></script>
-<script defer src="/components/ekocc-info.js?v=20261020_1"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Wspieraj misję Christian Culture | Modlitwa, darowizny, współpraca</title>
+  <meta name="description" content="Tworzymy bezpłatne radio, telewizję i Biblię Audio. Twoje dobrowolne wsparcie pomaga kontynuować misję Christian Culture." />
+  <meta property="og:title" content="Pomóż nam nieść Ewangelię dalej — Christian Culture" />
+  <meta property="og:description" content="Bezpłatne radio, telewizja, Biblia Audio, Akademia i aplikacje Christian Culture. Poznaj dobrowolne formy wsparcia i bezpłatne sposoby pomocy." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:site_name" content="Christian Culture" />
+  <meta property="og:url" content="https://polskieradio.cc/wspieraj" />
+  <link rel="canonical" href="https://polskieradio.cc/wspieraj" />
+  <link rel="icon" type="image/png" href="/images/logo_gold_200.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/cc-design-core.css?v=20261115_wspieraj2" />
+  <link rel="stylesheet" href="/assets/cc-support/support-pilot.css?v=20261115_wspieraj2" />
+
+  <script type="module" src="/assets/cc-support/support-pilot.js?v=20261115_wspieraj2"></script>
 </head>
-<body>
-<a class="cc-skip-link" href="#main" data-i18n="skip_to_content">Przejdź do treści</a>
+<body class="cc-design-surface" data-cc-archetype="giving">
+  <a class="cc-skip-link" href="#main" data-i18n="skip_to_content">Przejdź do treści</a>
+  <div id="status" class="cc-sr-only" aria-live="polite" aria-atomic="true"></div>
 
-<!-- Spójny zestaw ikon wektorowych (Lucide ISC Pattern) -->
-<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
-  <defs>
-    <symbol id="ic-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
-    <symbol id="ic-prayer" viewBox="0 0 24 24"><path d="M12 3v4"/><path d="m8 11 4-4 4 4"/><path d="M7 21v-5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v5"/><path d="M12 14v7"/></symbol>
-    <symbol id="ic-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
-    <symbol id="ic-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></symbol>
-    <symbol id="ic-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></symbol>
-    <symbol id="ic-laptop" viewBox="0 0 24 24"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></symbol>
-    <symbol id="ic-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
-    <symbol id="ic-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></symbol>
-    <symbol id="ic-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
-    <symbol id="ic-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
-    <symbol id="ic-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></symbol>
-  </defs>
-</svg>
+  <!-- Zlokalizowane ikony Lucide (ISC) bez zewnętrznego kosztu sieciowego -->
+  <svg xmlns="http://www.w3.org/2000/svg" hidden aria-hidden="true">
+    <symbol id="ic-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+    <symbol id="ic-bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></symbol>
+    <symbol id="ic-blik" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
+    <symbol id="ic-qr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></symbol>
+    <symbol id="ic-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+    <symbol id="ic-pray" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></symbol>
+    <symbol id="ic-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></symbol>
+    <symbol id="ic-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="ic-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="ic-bible" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M12 6v7"/><path d="M9.5 9.5h5"/></symbol>
+    <symbol id="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></symbol>
+  </svg>
 
-<header class="pilot-header">
-  <div class="cc-wrap pilot-header-inner">
-    <a class="pilot-brand" href="https://polskieradio.cc/" data-i18n-aria="brand_aria" aria-label="Christian Culture — strona główna">
-      <img src="/assets/cc-support/logo.png" alt="Christian Culture" width="38" height="38">
-      <span>CHRISTIAN CULTURE<small data-i18n="brand_sub">Premium Design System · Pilotaż</small></span>
-    </a>
+  <header class="pilot-header">
+    <div class="cc-container pilot-header-inner">
+      <a class="pilot-brand" href="/" data-i18n-aria-label="brand_aria" aria-label="Christian Culture — strona główna">
+        <img src="/assets/cc-support/logo.png" alt="Logo Christian Culture" width="36" height="36" loading="eager" />
+        <span>
+          <strong>Christian Culture</strong>
+          <small data-i18n="brand_sub">Wspieraj 2.0 · Wersja testowa</small>
+        </span>
+      </a>
 
-    <nav class="pilot-nav" id="navigation" data-i18n-aria="nav_aria" aria-label="Menu główne">
-      <a href="https://polskieradio.cc/" data-i18n="nav_radio">Radio</a>
-      <a href="https://polskieradio.cc/lumina" data-i18n="nav_lumina">LUMINA</a>
-      <a href="https://polskieradio.cc/akademia" data-i18n="nav_academy">Akademia</a>
-      <a href="https://polskieradio.cc/kino" data-i18n="nav_vod">Kino VOD</a>
-      <a href="https://polskieradio.cc/biblia-do-pobrania" data-i18n="nav_bible">Biblia</a>
-      <a href="https://polskieradio.cc/news" data-i18n="nav_news">News</a>
-      <a href="#main" aria-current="page" data-i18n="nav_support">Wspieraj</a>
-    </nav>
+      <nav id="pilot-nav" class="pilot-nav" data-i18n-aria-label="nav_aria" aria-label="Menu główne">
+        <a href="/radio" data-i18n="nav_radio">Radio</a>
+        <a href="/lumina" data-i18n="nav_lumina">LUMINA</a>
+        <a href="/akademia" data-i18n="nav_academy">Akademia</a>
+        <a href="/vod" data-i18n="nav_vod">Kino VOD</a>
+        <a href="/mojabiblia" data-i18n="nav_bible">Biblia</a>
+        <a href="/news" data-i18n="nav_news">News</a>
+        <a href="/test/wspieraj" aria-current="page" data-i18n="nav_support">Wspieraj</a>
+      </nav>
 
-    <div class="pilot-header-actions">
-      <div class="cc-lang-switcher pilot-lang-switcher" role="group" data-i18n-aria="lang_switcher_aria" aria-label="Wybór języka strony">
-        <button type="button" class="cc-lang-btn" data-lang="pl" aria-pressed="true">PL</button>
-        <button type="button" class="cc-lang-btn" data-lang="en" aria-pressed="false">EN</button>
-        <button type="button" class="cc-lang-btn" data-lang="de" aria-pressed="false">DE</button>
-        <button type="button" class="cc-lang-btn" data-lang="es" aria-pressed="false">ES</button>
-        <button type="button" class="cc-lang-btn" data-lang="fr" aria-pressed="false">FR</button>
-      </div>
-      <div id="cc-auth-nav-container" class="cc-auth-widget-container"></div>
-      <a class="cc-btn cc-btn-orange pilot-header-cta" href="#darowizny" data-i18n="nav_cta">Wesprzyj misję →</a>
-      <button type="button" class="cc-btn cc-btn-outline pilot-menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="navigation">
-        <svg class="pilot-icon" aria-hidden="true"><use href="#ic-menu"/></svg>
-        <span data-i18n="menu_btn">Menu</span>
-      </button>
-    </div>
-  </div>
-</header>
+      <div class="pilot-header-actions">
+        <div id="cc-auth-nav-container"></div>
 
-<section class="pilot-thanks-bar" aria-labelledby="thanks-label">
-  <div class="cc-wrap">
-    <div class="pilot-thanks-inner">
-      <strong class="pilot-thanks-label" id="thanks-label" data-i18n="thanks_label">DZIĘKUJEMY</strong>
-      <div class="pilot-thanks-viewport" id="thanks-viewport" tabindex="0" data-i18n-aria="thanks_viewport_aria" aria-label="Przewijane podziękowania. Użyj strzałek lub przewiń palcem.">
-        <ul id="thanks-list"></ul>
-      </div>
-      <div class="pilot-thanks-controls">
-        <button type="button" class="cc-icon-btn" id="thanks-prev" data-i18n-aria="thanks_prev_aria" aria-label="Poprzednie podziękowanie">‹</button>
-        <button type="button" class="cc-icon-btn" id="thanks-pause" aria-pressed="true" aria-label="Zatrzymaj przewijanie">Ⅱ</button>
-        <button type="button" class="cc-icon-btn" id="thanks-next" data-i18n-aria="thanks_next_aria" aria-label="Następne podziękowanie">›</button>
+        <div class="cc-lang-switcher" role="group" data-i18n-aria-label="lang_switcher_aria" aria-label="Wybór języka strony">
+          <button type="button" class="cc-lang-btn" data-lang="pl" aria-pressed="true">PL</button>
+          <button type="button" class="cc-lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          <button type="button" class="cc-lang-btn" data-lang="de" aria-pressed="false">DE</button>
+          <button type="button" class="cc-lang-btn" data-lang="es" aria-pressed="false">ES</button>
+          <button type="button" class="cc-lang-btn" data-lang="fr" aria-pressed="false">FR</button>
+        </div>
+
+        <button id="menu-toggle" type="button" class="cc-btn cc-btn-secondary pilot-menu-btn" aria-expanded="false" aria-controls="pilot-nav">
+          <svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-menu"/></svg>
+          <span data-i18n="menu_btn">Menu</span>
+        </button>
+
+        <a class="cc-btn cc-btn-orange pilot-header-cta" href="#panel-wsparcia" data-i18n="nav_cta">Wesprzyj misję</a>
       </div>
     </div>
-    <p class="pilot-thanks-caption" data-i18n="thanks_caption">Imienne podziękowania: potwierdzone wsparcie i zgoda na publikację.</p>
-  </div>
-</section>
+  </header>
 
-<main id="main">
-  <div class="pilot-hero">
-    <div class="cc-wrap">
-      <div class="pilot-hero-grid">
+  <section class="pilot-thanks-bar" aria-labelledby="thanks-heading">
+    <div class="cc-container">
+      <div class="pilot-thanks-inner">
+        <span id="thanks-heading" class="pilot-thanks-label" data-i18n="thanks_label">DZIĘKUJEMY</span>
+        <div class="pilot-thanks-viewport" tabindex="0" role="region" data-i18n-aria-label="thanks_viewport_aria" aria-label="Przewijane podziękowania. Użyj strzałek lub przewiń palcem.">
+          <ul id="thanks-track">
+            <li>Patronom wspierającym regularnie</li>
+            <li>Wspierającym transmisje i media</li>
+            <li>Darczyńcom misji</li>
+            <li>Za każdą modlitwę</li>
+            <li>Za każdy dobrowolny dar</li>
+            <li>Za udostępnianie Słowa Bożego</li>
+          </ul>
+        </div>
+        <div class="pilot-thanks-controls">
+          <button id="thanks-toggle" type="button" class="cc-btn cc-btn-ghost cc-btn-icon" aria-pressed="false" data-i18n-aria-label="thanks_pause_label" aria-label="Zatrzymaj przewijanie">❚❚</button>
+          <button id="thanks-prev" type="button" class="cc-btn cc-btn-ghost cc-btn-icon" data-i18n-aria-label="thanks_prev_aria" aria-label="Poprzednie podziękowanie">‹</button>
+          <button id="thanks-next" type="button" class="cc-btn cc-btn-ghost cc-btn-icon" data-i18n-aria-label="thanks_next_aria" aria-label="Następne podziękowanie">›</button>
+        </div>
+      </div>
+      <p class="pilot-thanks-caption" data-i18n="thanks_caption">Imienne podziękowania publikujemy wyłącznie za wyraźną, możliwą do wycofania zgodą — bez kwot i danych bankowych.</p>
+    </div>
+  </section>
+
+  <!-- Baner sugestii języka przeglądarki (zero automatycznego przekierowania) -->
+  <section id="lang-suggestion" class="pilot-lang-banner" hidden aria-live="polite">
+    <div class="cc-container pilot-lang-banner-inner">
+      <p id="lang-suggestion-text" class="pilot-lang-banner-text" data-i18n="lang_suggest_prompt">Sugerowany język przeglądarki: Polski. Chcesz przełączyć teraz?</p>
+      <div class="pilot-lang-banner-actions">
+        <button id="lang-suggestion-accept" type="button" class="cc-btn cc-btn-orange" data-i18n="lang_suggest_accept">Przełącz na Polski</button>
+        <button id="lang-suggestion-dismiss" type="button" class="cc-btn cc-btn-secondary" data-i18n="lang_suggest_dismiss">Zostań w obecnym</button>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- 1. HERO -->
+    <section id="hero" class="pilot-hero pilot-hero-backdrop" aria-labelledby="hero-title">
+      <div class="cc-container pilot-hero-grid">
         <div class="pilot-hero-copy">
-          <span class="cc-stat-pill" data-i18n="hero_badge">Christian Culture · Centrum wsparcia misji</span>
-          <h1 id="headline"><span data-i18n="hero_title_line1">Razem niesiemy</span> <span data-i18n="hero_title_line2">nadzieję dalej.</span></h1>
-          <p class="pilot-hero-intro" data-i18n="hero_intro">Nie każdy może dać pieniądze. Każdy może pomóc nieść Ewangelię dalej — modlitwą, dobrym słowem, talentem lub dobrowolnym darem.</p>
+          <span class="cc-badge" data-i18n="hero_badge">Christian Culture · Centrum wsparcia misji</span>
+          <h1 id="hero-title" data-i18n="hero_headline">Pomóż nam nieść Ewangelię dalej.</h1>
+          <p class="pilot-hero-lead" data-i18n="hero_intro">Tworzymy bezpłatne radio, telewizję i Biblię Audio. Twoje dobrowolne wsparcie pomaga kontynuować misję.</p>
+
+          <p class="pilot-free-notice" data-i18n="hero_free_notice">Radio, TV, Biblia Audio, Akademia, aplikacje oraz codzienne materiały biblijne są i pozostają bezpłatne dla każdego. Każde wsparcie — modlitwa, pomoc, udostępnienie czy darowizna — ma równoprawną wartość i jest całkowicie dobrowolne.</p>
+
           <div class="pilot-hero-actions">
-            <a class="cc-btn cc-btn-orange" href="#darowizny" data-i18n="hero_cta_primary">Wesprzyj misję →</a>
-            <a class="cc-btn cc-btn-outline" href="#mozliwosci" data-i18n="hero_cta_secondary">Zobacz inne możliwości</a>
+            <a class="cc-btn cc-btn-orange" href="#panel-wsparcia" data-i18n="hero_cta_primary">Wesprzyj misję</a>
+            <a class="cc-btn cc-btn-secondary" href="#inne-sposoby" data-i18n="hero_cta_secondary">Pomóż bez wpłaty</a>
           </div>
-          <blockquote class="pilot-hero-verse cc-sacred-static">
-            <p data-i18n="hero_verse">Idźcie na cały świat i głoście Ewangelię wszelkiemu stworzeniu.</p>
-            <cite data-i18n="hero_verse_ref">— Mk 16,15</cite>
+
+          <blockquote class="pilot-hero-verse">
+            <span data-i18n="hero_verse">Idźcie na cały świat i głoście Ewangelię wszelkiemu stworzeniu.</span>
+            <cite data-i18n="hero_verse_ref">— Mk 16,15 · UBG</cite>
           </blockquote>
         </div>
 
-        <aside class="cc-card cc-card-illuminated pilot-quick-card cc-reveal">
-          <p class="pilot-quick-kicker" data-i18n="quick_card_kicker">Szybkie wsparcie · BLIK i Przelew</p>
-          <h2 data-i18n="quick_card_title">Przelew na telefon BLIK</h2>
-          <div class="cc-copy-box">
-            <div>
-              <strong class="pilot-blik-big">537 137 043</strong>
-              <div style="font-size:0.82rem;color:var(--cc-text-secondary)" data-i18n="quick_card_recipient">Odbiorca: Cezary Rogowski</div>
+        <aside class="pilot-quick-widget" aria-labelledby="widget-title">
+          <div>
+            <p class="pilot-widget-kicker" data-i18n="widget_kicker">Szybki wybór formy wsparcia</p>
+            <h2 id="widget-title" class="pilot-widget-title" data-i18n="widget_title">Wybierz kanał lub przelej BLIK</h2>
+          </div>
+
+          <div class="pilot-widget-tabs">
+            <button type="button" class="pilot-widget-tab-btn" data-select-tab="patronite" data-i18n="widget_quick_patronite">Patronite (regularnie)</button>
+            <button type="button" class="pilot-widget-tab-btn" data-select-tab="revolut" data-i18n="widget_quick_revolut">Revolut (online)</button>
+            <button type="button" class="pilot-widget-tab-btn" data-select-tab="bank" data-i18n="widget_quick_bank">Przelew bankowy (PLN)</button>
+            <button type="button" class="pilot-widget-tab-btn" data-select-tab="blik" data-i18n="widget_quick_blik">BLIK (Polska)</button>
+          </div>
+
+          <div class="pilot-widget-blik-box">
+            <div class="pilot-widget-blik-head">
+              <span class="pilot-badge-region" data-i18n="quick_blik_badge">Wyłącznie polskie banki (PL)</span>
+              <span class="cc-badge" data-i18n="quick_card_recipient">Odbiorca: Cezary Rogowski</span>
             </div>
-            <button type="button" class="cc-btn cc-btn-orange" data-copy="blik" data-i18n="quick_copy_blik">Kopiuj numer BLIK</button>
+            <div class="pilot-widget-blik-num" id="hero-blik-num">537 137 043</div>
+            <button type="button" class="cc-btn cc-btn-orange" data-copy="blik">
+              <svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-copy"/></svg>
+              <span data-i18n="quick_copy_blik">Kopiuj numer BLIK</span>
+            </button>
           </div>
-          <div class="pilot-trust-row">
-            <span class="pilot-trust-tag"><svg class="pilot-icon" style="width:16px;height:16px" aria-hidden="true"><use href="#ic-shield"/></svg><span data-i18n="quick_trust_1">100% dobrowolności</span></span>
-            <span class="pilot-trust-tag" data-i18n="quick_trust_2">Brak ukrytych prowizji CC</span>
-            <span class="pilot-trust-tag" data-i18n="quick_trust_3">Bezpieczne i jawne metody</span>
-          </div>
-          <a class="cc-btn cc-btn-ghost" href="#darowizny" data-i18n="quick_all_methods">Zobacz wszystkie rachunki i metody ↓</a>
+
+          <a href="#panel-wsparcia" class="cc-btn cc-btn-ghost" data-i18n="quick_all_methods">Przejdź do pełnego panelu metod ↓</a>
+
+          <ul class="pilot-widget-trust">
+            <li><svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-check"/></svg> <span data-i18n="quick_trust_1">100% dobrowolności</span></li>
+            <li><svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-check"/></svg> <span data-i18n="quick_trust_2">Treści w pełni bezpłatne</span></li>
+            <li><svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-check"/></svg> <span data-i18n="quick_trust_3">Bez zbierania kart i kodów</span></li>
+          </ul>
         </aside>
       </div>
+    </section>
+
+    <!-- 2. NA CO WPŁYWA TWOJE WSPARCIE -->
+    <section id="wplyw" class="cc-section" aria-labelledby="impact-title">
+      <div class="cc-container">
+        <div class="pilot-section-head">
+          <span class="cc-eyebrow" data-i18n="impact_eyebrow">Po co istnieje wsparcie</span>
+          <h2 id="impact-title" data-i18n="impact_title">Na co wpływa Twoje wsparcie</h2>
+          <p class="pilot-section-sub" data-i18n="impact_sub">Wszystkie projekty Christian Culture służą udostępnianiu Ewangelii bez barier finansowych. Przekazujemy wyłącznie rzetelny opis kierunków działania bez niezweryfikowanych statystyk.</p>
+        </div>
+
+        <div class="pilot-impact-grid">
+          <article class="cc-card pilot-impact-card">
+            <h3 data-i18n="impact_1_t">Radio 24/7 i transmisje TV LIVE</h3>
+            <p data-i18n="impact_1_d">Utrzymanie ciągłości emisji internetowej, serwerów streamingowych oraz infrastruktury produkcyjnej dla audycji i uwielbienia.</p>
+          </article>
+          <article class="cc-card pilot-impact-card">
+            <h3 data-i18n="impact_2_t">Biblia Audio, Akademia i rozważania</h3>
+            <p data-i18n="impact_2_d">Przygotowywanie codziennych materiałów biblijnych, nagrań lektorskich i lekcji w Akademii Biblijnej dostępnych bez opłat.</p>
+          </article>
+          <article class="cc-card pilot-impact-card">
+            <h3 data-i18n="impact_3_t">Aplikacje i rozwój cyfrowy</h3>
+            <p data-i18n="impact_3_d">Rozwój darmowych aplikacji mobilnych, portalu LUMINA oraz otwartych narzędzi ułatwiających codzienny kontakt ze Słowem Bożym.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. BEZPIECZNY PANEL WSPARCIA I DAROWIZN -->
+    <section id="panel-wsparcia" class="cc-section" aria-labelledby="pay-title">
+      <div id="darowizny" class="cc-container">
+        <div class="pilot-section-head">
+          <h2 id="pay-title" data-i18n="payment_title">Bezpieczny panel wsparcia i darowizn</h2>
+          <p class="pilot-section-sub" data-i18n="payment_sub">Wybierz dogodny kanał. Regularny patronat i darowizny jednorazowe są wyraźnie rozdzielone.</p>
+        </div>
+
+        <div class="pilot-safety-banner" role="note">
+          <svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-shield"/></svg>
+          <span data-i18n="payment_safety_note">Informacja bezpieczeństwa: skopiowanie numeru ani kliknięcie przycisku na tej stronie nie jest potwierdzeniem wpłaty. Strona nie pobiera numerów kart płatniczych, kodów BLIK ani loginów bankowych.</span>
+        </div>
+
+        <div class="cc-tabs" role="tablist" data-i18n-aria-label="payment_aria" aria-label="Kategorie metod darowizny" id="payment-tabs">
+          <button type="button" role="tab" class="cc-tab" id="tab-all" aria-selected="true" data-tab="all" data-i18n="tab_all">Wszystkie metody</button>
+          <button type="button" role="tab" class="cc-tab" id="tab-patronite" aria-selected="false" data-tab="patronite" data-i18n="tab_patronite">Patronite (regularnie)</button>
+          <button type="button" role="tab" class="cc-tab" id="tab-revolut" aria-selected="false" data-tab="revolut" data-i18n="tab_revolut">Revolut (online)</button>
+          <button type="button" role="tab" class="cc-tab" id="tab-bank" aria-selected="false" data-tab="bank" data-i18n="tab_bank">Przelew bankowy</button>
+          <button type="button" role="tab" class="cc-tab" id="tab-blik" aria-selected="false" data-tab="blik" data-i18n="tab_blik">BLIK (Polska)</button>
+          <button type="button" role="tab" class="cc-tab" id="tab-zrzutki" aria-selected="false" data-tab="zrzutki" data-i18n="tab_zrzutki">Zrzutki (projekty)</button>
+        </div>
+
+        <div class="pilot-methods-grid" data-pay-panels>
+          <!-- Patronite (regularnie) -->
+          <article class="cc-card pilot-card-body" data-tab-panel="patronite">
+            <span class="pilot-tag pilot-tag--recurring" data-i18n="pay_patronite_tag">Wsparcie regularne · Patronat</span>
+            <h3 data-i18n="pay_patronite_t">Patronite — stałe wsparcie misji</h3>
+            <p class="pilot-card-desc" data-i18n="pay_patronite_d">Regularny patronat na profilu Osobowość Plus pomaga planować produkcję audycji i nagrań biblijnych.</p>
+            <p class="pilot-card-note" data-i18n="pay_patronite_note">Uwaga porządkowa: opis profilu zewnętrznego zawiera historyczne odniesienie do zakończonego programu „Cuda Każdego Dnia” (aktualizacja poza tą stroną testową).</p>
+            <div class="pilot-card-actions">
+              <a class="cc-btn cc-btn-orange" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" data-outbound="patronite" data-i18n="online_patronite_btn">Przejdź do Patronite ↗</a>
+            </div>
+          </article>
+
+          <!-- Revolut (online / jednorazowo) -->
+          <article class="cc-card pilot-card-body" data-tab-panel="revolut">
+            <span class="pilot-tag pilot-tag--onetime" data-i18n="pay_revolut_tag">Darowizna jednorazowa · Online</span>
+            <h3 data-i18n="pay_revolut_t">Revolut — szybka wpłata online</h3>
+            <p class="pilot-card-desc" data-i18n="pay_revolut_d">Przekaż dobrowolną darowiznę jednorazową online. Obsługiwane metody i waluty prezentuje bezpośrednio serwis Revolut.</p>
+            <div class="pilot-card-actions">
+              <a class="cc-btn cc-btn-orange" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-outbound="revolut" data-i18n="online_revolut_btn">Przejdź do Revolut ↗</a>
+            </div>
+          </article>
+
+          <!-- BLIK (tylko polskie banki) -->
+          <article class="cc-card pilot-card-body" data-tab-panel="blik">
+            <span class="pilot-tag pilot-tag--poland" data-i18n="pay_blik_tag">Opcja wyłącznie dla polskich banków</span>
+            <h3 data-i18n="pay_blik_t">BLIK — przelew na telefon (Polska)</h3>
+            <p class="pilot-card-desc" data-i18n="blik_poland_only">Usługa dostępna wyłącznie w aplikacjach polskich banków obsługujących przelew na telefon BLIK.</p>
+            <div class="pilot-bank-row">
+              <span class="pilot-bank-label" data-i18n="bank_lbl_recipient">Odbiorca</span>
+              <span class="pilot-bank-value">Cezary Rogowski</span>
+              <span class="pilot-bank-label" data-i18n="pay_blik_small">Numer telefonu do przelewu BLIK (PL)</span>
+              <span class="pilot-iban">537 137 043</span>
+            </div>
+            <p class="pilot-card-note" data-i18n="blik_detail_desc">W aplikacji swojego polskiego banku wybierz „Przelew na telefon BLIK”, wpisz numer 537 137 043, odbiorcę Cezary Rogowski i tytuł „Wsparcie Christian Culture”.</p>
+            <div class="pilot-card-actions">
+              <button type="button" class="cc-btn cc-btn-orange" data-copy="blik">
+                <svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-copy"/></svg>
+                <span data-i18n="quick_copy_blik">Kopiuj numer BLIK</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Zrzutki + QR -->
+          <article id="zrzutki" class="cc-card pilot-card-body" data-tab-panel="zrzutki">
+            <span class="pilot-tag pilot-tag--onetime" data-i18n="pay_zrzutki_tag">Projekty celowe · Zrzutka.pl</span>
+            <h3 data-i18n="zrzutki_title">Zrzutki na wybrane projekty</h3>
+            <p class="pilot-card-desc" data-i18n="zrzutki_intro">Cele, opisy i aktualny stan zbiórek znajdują się bezpośrednio na stronach zewnętrznego serwisu Zrzutka.pl.</p>
+            <div class="pilot-card-actions">
+              <a class="cc-btn cc-btn-orange" href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer" data-outbound="zrzutka_rs4g4v" data-i18n="zrzutka_1">Zbiórka rs4g4v ↗</a>
+              <a class="cc-btn cc-btn-secondary" href="https://zrzutka.pl/3bbxzn" target="_blank" rel="noopener noreferrer" data-outbound="zrzutka_3bbxzn" data-i18n="zrzutka_2">Zbiórka 3bbxzn ↗</a>
+              <button id="qr-toggle" type="button" class="cc-btn cc-btn-ghost" aria-expanded="false" aria-controls="qr-box" data-qr-btn>
+                <svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-qr"/></svg>
+                <span data-i18n="qr_title">Kod QR centrum wsparcia</span>
+              </button>
+            </div>
+            <div id="qr-box" class="pilot-qr-wrap" data-qr-box hidden>
+              <canvas id="support-qr-canvas" data-qr-canvas width="200" height="200" aria-label="Kod QR do centrum wsparcia Christian Culture"></canvas>
+              <p class="pilot-card-note" data-i18n="qr_desc">Prowadzi do centrum wsparcia Christian Culture. Możesz pobrać kod do materiałów informacyjnych.</p>
+              <button type="button" class="cc-btn cc-btn-secondary" data-qr-download data-i18n="qr_download">Pobierz kod QR</button>
+            </div>
+          </article>
+
+          <!-- Przelew bankowy (PLN, bez fałszywego FX / niezweryfikowanego SWIFT) -->
+          <article class="cc-card pilot-card-body pilot-method-bank-wide" data-tab-panel="bank">
+            <span class="pilot-tag pilot-tag--onetime" data-i18n="pay_bank_tag">Darowizna jednorazowa · Rachunki PLN</span>
+            <h3 data-i18n="pay_bank_t">Przelew bankowy (PLN)</h3>
+            <p class="pilot-card-desc" data-i18n="pay_bank_d">Odbiorcą obu rachunków jest Cezary Rogowski. Rachunki prowadzone są w PLN — bez symulacji przeliczników walutowych.</p>
+            <p class="pilot-bank-currency-note" data-i18n="bank_currency_note">Uwaga: oba rachunki są prowadzone w PLN. Nie dodajemy niezweryfikowanych kodów SWIFT/BIC ani automatycznych przeliczeń FX.</p>
+
+            <div class="pilot-bank-grid">
+              <div class="pilot-bank-subcard">
+                <h4 data-i18n="bank_acc1_t">Rozwój Christian Culture</h4>
+                <p class="pilot-card-note" data-i18n="bank_acc1_note">Studio · Radio · TV · Technologia (PLN)</p>
+                <div class="pilot-bank-row">
+                  <span class="pilot-bank-label" data-i18n="bank_lbl_recipient">Odbiorca</span>
+                  <span class="pilot-bank-value">Cezary Rogowski</span>
+                  <span class="pilot-bank-label" data-i18n="bank_lbl_iban">IBAN</span>
+                  <span class="pilot-iban">PL74 2910 0006 2469 8002 1062 8039</span>
+                  <span class="pilot-iban">74 2910 0006 2469 8002 1062 8039</span>
+                  <span class="pilot-bank-label" data-i18n="bank_lbl_title">Tytuł przelewu</span>
+                  <span class="pilot-bank-value">Rozwój Christian Culture</span>
+                </div>
+                <div class="pilot-card-actions">
+                  <button type="button" class="cc-btn cc-btn-orange" data-copy="acc1">
+                    <svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-copy"/></svg>
+                    <span data-i18n="bank_copy_btn">Kopiuj numer rachunku</span>
+                  </button>
+                  <button type="button" class="cc-btn cc-btn-secondary" data-copy="iban1">
+                    <svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-copy"/></svg>
+                    <span data-i18n="bank_copy_iban">Kopiuj IBAN</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="pilot-bank-subcard">
+                <h4 data-i18n="bank_acc2_t">Dar misyjny</h4>
+                <p class="pilot-card-note" data-i18n="bank_acc2_note">Aplikacje · Treści biblijne · Ewangelizacja (PLN)</p>
+                <div class="pilot-bank-row">
+                  <span class="pilot-bank-label" data-i18n="bank_lbl_recipient">Odbiorca</span>
+                  <span class="pilot-bank-value">Cezary Rogowski</span>
+                  <span class="pilot-bank-label" data-i18n="bank_lbl_iban">IBAN</span>
+                  <span class="pilot-iban">PL48 2910 0006 0000 0000 0527 2629</span>
+                  <span class="pilot-iban">48 2910 0006 0000 0000 0527 2629</span>
+                  <span class="pilot-bank-label" data-i18n="bank_lbl_title">Tytuł przelewu</span>
+                  <span class="pilot-bank-value">Dar misyjny</span>
+                </div>
+                <div class="pilot-card-actions">
+                  <button type="button" class="cc-btn cc-btn-orange" data-copy="acc2">
+                    <svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-copy"/></svg>
+                    <span data-i18n="bank_copy_btn">Kopiuj numer rachunku</span>
+                  </button>
+                  <button type="button" class="cc-btn cc-btn-secondary" data-copy="iban2">
+                    <svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-copy"/></svg>
+                    <span data-i18n="bank_copy_iban">Kopiuj IBAN</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <aside class="pilot-mission-band" aria-label="Mt 10,8">
+          <div class="pilot-mission-services" data-i18n="mission_services">Studio · Radio · TV · Biblia Audio · Akademia · Aplikacje · Bezpłatnie dla każdego</div>
+          <blockquote data-i18n="mission_verse">Darmo wzięliście, darmo dawajcie.</blockquote>
+          <cite data-i18n="mission_verse_ref">— Mt 10,8 · UBG</cite>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 4. INNE RÓWNOPRAWNE SPOSOBY POMOCY (BEZ WPŁATY) + SKLEP HTTP 410 -->
+    <section id="inne-sposoby" class="cc-section" aria-labelledby="comm-title">
+      <div id="mozliwosci" class="cc-container">
+        <div class="pilot-section-head">
+          <h2 id="comm-title" data-i18n="community_title">Inne równoprawne sposoby pomocy (bez wpłaty)</h2>
+          <p class="pilot-section-sub" data-i18n="community_intro">Każda forma zaangażowania jest tak samo ważna jak dar finansowy. Pomóż nam modlitwą, udostępnieniem, wolontariatem, partnerstwem lub wsparciem technicznym.</p>
+        </div>
+
+        <div class="pilot-comm-grid">
+          <article class="cc-card pilot-comm-card">
+            <div class="pilot-path-icon"><svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-pray"/></svg></div>
+            <h3 data-i18n="path_2_t">Modlitwa</h3>
+            <p data-i18n="comm_prayer_d">Módl się za słuchaczy, czytelników, twórców oraz o mądrość i wierność Słowu Bożemu w każdym działaniu misji.</p>
+            <div class="pilot-card-actions">
+              <a class="cc-btn cc-btn-secondary" href="/modlitwa" data-nonfinancial="prayer" data-i18n="comm_prayer_btn">Przejdź do modlitwy →</a>
+            </div>
+          </article>
+
+          <article class="cc-card pilot-comm-card">
+            <div class="pilot-path-icon"><svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-share"/></svg></div>
+            <h3 data-i18n="comm_share_t">Udostępnianie</h3>
+            <p data-i18n="comm_share_d">Poleć radio, Biblię Audio lub lekcję Akademii osobie, której mogą przynieść pokój i nadzieję.</p>
+            <div class="pilot-card-actions">
+              <button type="button" class="cc-btn cc-btn-orange" id="share-native" data-share="native" data-nonfinancial="share" data-i18n="comm_share_btn1">Udostępnij stronę</button>
+              <button type="button" class="cc-btn cc-btn-secondary" data-copy="url" data-nonfinancial="share_copy" data-i18n="comm_share_btn2">Kopiuj link</button>
+            </div>
+          </article>
+
+          <article class="cc-card pilot-comm-card">
+            <div class="pilot-path-icon"><svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-users"/></svg></div>
+            <h3 data-i18n="path_3_t">Wolontariat</h3>
+            <p data-i18n="comm_vol_d">Wspomóż montaż audio/wideo, korektę, tłumaczenia, oprawę graficzną lub opiekę nad społecznością.</p>
+            <div class="pilot-card-actions">
+              <a class="cc-btn cc-btn-secondary" href="mailto:radiochristianculture@gmail.com?subject=Wolontariat%20Christian%20Culture" data-nonfinancial="volunteering" data-i18n="comm_vol_btn">Zgłoś wolontariat (e-mail) →</a>
+            </div>
+          </article>
+
+          <article class="cc-card pilot-comm-card">
+            <div class="pilot-path-icon"><svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-heart"/></svg></div>
+            <h3 data-i18n="comm_part_t">Partnerstwo</h3>
+            <p data-i18n="comm_part_d">Współpraca ze zborami, wspólnotami, twórcami i organizacjami przy projektach medialnych i ewangelizacyjnych.</p>
+            <div class="pilot-card-actions">
+              <a class="cc-btn cc-btn-secondary" href="mailto:radiochristianculture@gmail.com?subject=Partnerstwo%20Christian%20Culture" data-nonfinancial="partnership" data-i18n="comm_part_btn">Napisz o partnerstwie (e-mail) →</a>
+            </div>
+          </article>
+
+          <article class="cc-card pilot-comm-card">
+            <div class="pilot-path-icon"><svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-sun"/></svg></div>
+            <h3 data-i18n="path_6_t">Sprzęt i technologia</h3>
+            <p data-i18n="comm_tech_d">Masz sprawny mikrofon, interfejs audio, komputer albo kompetencje programistyczne? Napisz, jak możesz pomóc.</p>
+            <div class="pilot-card-actions">
+              <a class="cc-btn cc-btn-secondary" href="mailto:radiochristianculture@gmail.com?subject=Wsparcie%20sprzetowe%20i%20technologiczne%20CC" data-nonfinancial="hardware" data-i18n="comm_tech_btn">Zaproponuj sprzęt lub pomoc (e-mail) →</a>
+            </div>
+          </article>
+
+          <article class="cc-card pilot-comm-card">
+            <div class="pilot-path-icon"><svg class="cc-icon" width="18" height="18" aria-hidden="true"><use href="#ic-bible"/></svg></div>
+            <h3 data-i18n="comm_bible_t">Bezpłatna Biblia i SMS (PL)</h3>
+            <p data-i18n="comm_bible_d">Pobierz Pismo Święte bez opłat lub zapytaj o drukowaną Biblię przez SMS BIBLIA na +48 507 821 789 (koszt wysyłki wg zasad inicjatywy).</p>
+            <div class="pilot-card-actions">
+              <a class="cc-btn cc-btn-secondary" href="/mojabiblia" data-nonfinancial="bible_web" data-i18n="comm_bible_btn1">Biblia do pobrania →</a>
+              <a class="cc-btn cc-btn-ghost" href="sms:+48507821789?body=BIBLIA" data-nonfinancial="bible_sms" data-i18n="comm_bible_btn2">Wyślij SMS: BIBLIA</a>
+            </div>
+          </article>
+        </div>
+
+        <aside class="pilot-shop-status" aria-labelledby="shop-status-heading">
+          <div class="pilot-shop-status-copy">
+            <h3 id="shop-status-heading" data-i18n="shop_status_title">Sklep CC (Creator Spring)</h3>
+            <p data-i18n="shop_status_desc">Zewnętrzny sklep pod dawnym adresem my-store-1009741.creator-spring.com przestał być aktywny po weryfikacji technicznej (HTTP 410). Link został oznaczony jako nieaktywny do czasu ewentualnej decyzji o nowym kanale.</p>
+            <span class="pilot-shop-url">https://my-store-1009741.creator-spring.com/</span>
+          </div>
+          <span class="cc-badge" data-i18n="shop_status_badge">Nieaktywny po weryfikacji (HTTP 410)</span>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 5. TRANSPARENTNOŚĆ I KONTO LUMINA -->
+    <section id="transparentnosc" class="cc-section" aria-labelledby="trust-title">
+      <div class="cc-container">
+        <div class="pilot-section-head">
+          <span class="cc-eyebrow" data-i18n="trust_eyebrow">Przejrzystość i status prawny</span>
+          <h2 id="trust-title" data-i18n="trust_title">Transparentność, odbiorca i zasady bezpieczeństwa</h2>
+        </div>
+
+        <div class="pilot-trust-grid">
+          <article class="cc-card pilot-trust-card">
+            <h3 data-i18n="trust_entity_t">Prywatna inicjatywa chrześcijańska</h3>
+            <p data-i18n="trust_entity_d">Christian Culture jest niezależną, prywatną inicjatywą misyjną. Darowizny są w pełni dobrowolne — nie określamy ich jako wpłat „na cele statutowe” i nie obiecujemy odliczeń podatkowych.</p>
+          </article>
+          <article class="cc-card pilot-trust-card">
+            <h3 data-i18n="trust_beneficiary_t">Odbiorca przelewów</h3>
+            <p data-i18n="trust_beneficiary_d">Jedynym wskazanym odbiorcą powyższych rachunków bankowych i przelewów BLIK jest Cezary Rogowski. Serwis nie udostępnia niezweryfikowanych certyfikatów ani pośredników płatności.</p>
+          </article>
+          <article class="cc-card pilot-trust-card">
+            <h3 data-i18n="trust_independent_t">Brak powiązania z Polskie Radio S.A.</h3>
+            <p data-i18n="trust_independent_d">Projekt polskieradio.cc / Christian Culture nie jest powiązany ani stowarzyszony z publicznym nadawcą Polskie Radio S.A.</p>
+          </article>
+          <article class="cc-card pilot-trust-card">
+            <h3 data-i18n="trust_privacy_t">Zgoda i brak danych wrażliwych</h3>
+            <p data-i18n="trust_privacy_d">Publiczne podziękowania publikujemy wyłącznie za wyraźną zgodą, którą można wycofać w każdej chwili — zawsze bez kwot, danych bankowych i identyfikatorów transakcji.</p>
+          </article>
+        </div>
+
+        <p class="pilot-trust-shared-note" data-i18n="trust_shared_note">Informacja architektoniczna: w wybranych częściach serwisu działa współdzielony moduł stopki (components/cc-support-footer.js) z identycznymi danymi rachunku Rozwój Christian Culture.</p>
+
+        <div id="moje-podziekowania" class="cc-card pilot-consent-card">
+          <div class="pilot-consent-header">
+            <h3 data-i18n="account_title">Konto LUMINA i podziękowania</h3>
+          </div>
+
+          <div id="auth-box" class="pilot-auth-box" data-auth-box>
+            <p id="auth-status-text" data-i18n="auth_checking">Sprawdzamy dostępność konta LUMINA…</p>
+            <button id="auth-login-btn" type="button" class="cc-btn cc-btn-orange" hidden data-i18n="auth_login_btn">Zaloguj się przez Google</button>
+          </div>
+
+          <form id="consent-form" class="pilot-consent-form" hidden>
+            <label for="consent-name">
+              <span data-i18n="consent_name_lbl">Publiczna nazwa w podziękowaniach</span>
+              <input id="consent-name" name="displayName" type="text" maxlength="60" autocomplete="nickname" data-i18n-placeholder="consent_name_ph" placeholder="Imię lub pseudonim" />
+            </label>
+
+            <label class="pilot-check-row">
+              <input id="consent-public" type="checkbox" name="consentPublic" />
+              <span data-i18n="consent_public_txt">Zgadzam się na publikację wybranej nazwy po potwierdzonym wsparciu (bez kwoty). Zgodę mogę wycofać w każdej chwili.</span>
+            </label>
+
+            <label class="pilot-check-row">
+              <input id="consent-anonymous" type="checkbox" name="consentAnonymous" />
+              <span data-i18n="consent_anon_txt">Wsparcie anonimowe — wyłącznie podziękowanie zbiorcze bez nazwy, kwoty i danych mojego konta.</span>
+            </label>
+
+            <p class="pilot-card-note" data-i18n="consent_hint">Możesz odznaczyć obie opcje — wówczas informacja nie trafi do paska podziękowań.</p>
+
+            <div class="pilot-card-actions">
+              <button id="consent-submit" type="submit" class="cc-btn cc-btn-orange" data-i18n="consent_save">Zapisz ustawienia</button>
+            </div>
+          </form>
+
+          <p class="pilot-consent-disclaimer" data-i18n="consent_disclaimer">Zalogowanie ani zaznaczenie zgody nie potwierdza darowizny. Nie logujemy ani nie publikujemy danych bankowych czy kwot.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. NAJCZĘSTSZE PYTANIA (FAQ) -->
+    <section id="faq" class="cc-section" aria-labelledby="faq-title">
+      <div class="cc-container">
+        <div class="pilot-section-head">
+          <h2 id="faq-title" data-i18n="faq_title">Najczęstsze pytania (FAQ)</h2>
+        </div>
+
+        <div class="cc-accordion">
+          <details class="cc-accordion-item" open>
+            <summary data-i18n="faq_1_q">Czy treści Christian Culture wymagają opłaty lub wsparcia?</summary>
+            <p data-i18n="faq_1_a">Nie. Radio, telewizja, Biblia Audio, Akademia, aplikacje i codzienne materiały biblijne są bezpłatne dla każdego. Wszelkie wsparcie ma charakter całkowicie dobrowolny.</p>
+          </details>
+          <details class="cc-accordion-item">
+            <summary data-i18n="faq_2_q">Czy mogę pomóc bez przekazywania pieniędzy?</summary>
+            <p data-i18n="faq_2_a">Tak — każda pomoc bez wpłaty jest równoprawna: modlitwa, udostępnianie treści, wolontariat, partnerstwo lub wsparcie sprzętem i technologią.</p>
+          </details>
+          <details class="cc-accordion-item">
+            <summary data-i18n="faq_3_q">Jak działa przelew BLIK 537 137 043 i dla kogo jest przeznaczony?</summary>
+            <p data-i18n="faq_3_a">To przelew na telefon BLIK dostępny wyłącznie w aplikacjach polskich banków. Odbiorcą jest Cezary Rogowski. Ta strona nie zbiera kodów BLIK ani loginów.</p>
+          </details>
+          <details class="cc-accordion-item">
+            <summary data-i18n="faq_4_q">Czym różni się Patronite od jednorazowego przelewu lub Revolut?</summary>
+            <p data-i18n="faq_4_a">Patronite służy do regularnego, cyklicznego patronatu. Przelew bankowy PLN, BLIK i Revolut umożliwiają dobrowolny dar jednorazowy — bez automatycznych subskrypcji.</p>
+          </details>
+          <details class="cc-accordion-item">
+            <summary data-i18n="faq_5_q">Kto jest odbiorcą przelewów i czy projekt należy do Polskie Radio S.A.?</summary>
+            <p data-i18n="faq_5_a">Odbiorcą przelewów jest Cezary Rogowski. Christian Culture jest niezależną prywatną inicjatywą chrześcijańską i nie jest powiązana z Polskie Radio S.A.</p>
+          </details>
+          <details class="cc-accordion-item">
+            <summary data-i18n="faq_6_q">Czy otrzymam ulgę podatkową lub publiczne podziękowanie?</summary>
+            <p data-i18n="faq_6_a">Nie obiecujemy ulg ani odliczeń podatkowych i nie określamy darów jako wpłat na cele statutowe. Podziękowanie publikujemy wyłącznie po Twojej dobrowolnej zgodzie, bez kwot.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. KONTAKT BEZPOŚREDNI -->
+    <section id="kontakt" class="cc-section" aria-labelledby="contact-title">
+      <div class="cc-container">
+        <div class="pilot-contact-box">
+          <span class="cc-eyebrow" data-i18n="contact_eyebrow">Bezpośredni kontakt i nota prawna</span>
+          <h2 id="contact-title" data-i18n="contact_title">Kontakt z zespołem Christian Culture</h2>
+          <p class="pilot-section-sub" data-i18n="contact_sub">Bezpośredni kontakt e-mailowy i telefoniczny w sprawach wolontariatu, partnerstwa, sprzętu i darowizn.</p>
+          <div class="pilot-contact-links">
+            <a class="cc-btn cc-btn-orange" href="mailto:radiochristianculture@gmail.com">radiochristianculture@gmail.com</a>
+            <a class="cc-btn cc-btn-secondary" href="mailto:polskiercctv@gmail.com">polskiercctv@gmail.com</a>
+            <a class="cc-btn cc-btn-secondary" href="tel:+48783478280">+48 783 478 280</a>
+          </div>
+          <p class="pilot-contact-note" data-i18n="contact_email_note">Adres radiochristianculture@gmail.com otwiera Twoją pocztę e-mail (formularz WWW pozostaje wyłączony do czasu potwierdzenia obsługi skrzynki).</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pilot-footer">
+    <div class="cc-container pilot-footer-inner">
+      <p data-i18n="footer_legal">Christian Culture · Niezależna prywatna inicjatywa chrześcijańska (niezwiązana z Polskie Radio S.A.) · Odbiorca: Cezary Rogowski</p>
+      <a href="/polityka-prywatnosci.html" data-i18n="footer_privacy">Polityka prywatności</a>
     </div>
-  </div>
-
-  <div class="cc-wrap">
-    <section class="pilot-section cc-reveal" id="mozliwosci" aria-labelledby="pathways-title">
-      <div class="pilot-section-header">
-        <h2 id="pathways-title" data-i18n="pathways_title">Sześć form wsparcia</h2>
-        <p data-i18n="pathways_sub">Wybierz formę, która najlepiej odpowiada Twoim możliwościom.</p>
-      </div>
-      <div class="cc-bento-grid cc-bento-grid--3">
-        <a class="cc-card pilot-path-card" href="#darowizny"><span class="pilot-path-icon-wrap"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-heart"/></svg></span><div><h3 data-i18n="path_1_t">Darowizna i patronat</h3><p data-i18n="path_1_d">Regularne lub jednorazowe wsparcie naszej misji medialnej.</p></div><span aria-hidden="true">›</span></a>
-        <a class="cc-card pilot-path-card" href="#modlitwa"><span class="pilot-path-icon-wrap"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-prayer"/></svg></span><div><h3 data-i18n="path_2_t">Modlitwa</h3><p data-i18n="path_2_d">Dołącz do wspólnej modlitwy za misję i jej odbiorców.</p></div><span aria-hidden="true">›</span></a>
-        <a class="cc-card pilot-path-card" href="#wolontariat"><span class="pilot-path-icon-wrap"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-users"/></svg></span><div><h3 data-i18n="path_3_t">Wolontariat</h3><p data-i18n="path_3_d">Podziel się swoim czasem, talentami i umiejętnościami.</p></div><span aria-hidden="true">›</span></a>
-        <a class="cc-card pilot-path-card" href="#udostepniaj"><span class="pilot-path-icon-wrap"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-share"/></svg></span><div><h3 data-i18n="path_4_t">Udostępnij treści</h3><p data-i18n="path_4_d">Pomóż nam dotrzeć do nowych osób. Każde udostępnienie ma znaczenie.</p></div><span aria-hidden="true">›</span></a>
-        <a class="cc-card pilot-path-card" href="#partnerstwo"><span class="pilot-path-icon-wrap"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-handshake"/></svg></span><div><h3 data-i18n="path_5_t">Partnerstwo</h3><p data-i18n="path_5_d">Współpraca ze wspólnotami, twórcami i organizacjami.</p></div><span aria-hidden="true">›</span></a>
-        <a class="cc-card pilot-path-card" href="#technologia"><span class="pilot-path-icon-wrap"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-laptop"/></svg></span><div><h3 data-i18n="path_6_t">Sprzęt i technologia</h3><p data-i18n="path_6_d">Wesprzyj nas sprzętem lub swoimi kompetencjami technicznymi.</p></div><span aria-hidden="true">›</span></a>
-      </div>
-    </section>
-
-    <section class="pilot-section cc-reveal" aria-labelledby="payment-title">
-      <div class="pilot-section-header">
-        <h2 id="payment-title" data-i18n="payment_title">Wybierz formę wsparcia</h2>
-        <p data-i18n="payment_sub">Przejrzyste, sprawdzone kanały wsparcia w Polsce i za granicą.</p>
-      </div>
-
-      <div class="cc-tabs" id="payment-tabs" role="tablist" aria-label="Kategorie form wsparcia">
-        <button type="button" class="cc-tab-trigger" role="tab" aria-selected="true" tabindex="0" data-tab="all" data-i18n="tab_all">Wszystkie formy</button>
-        <button type="button" class="cc-tab-trigger" role="tab" aria-selected="false" tabindex="-1" data-tab="bank" data-i18n="tab_bank">BLIK i przelew</button>
-        <button type="button" class="cc-tab-trigger" role="tab" aria-selected="false" tabindex="-1" data-tab="online" data-i18n="tab_online">Patronite i Revolut</button>
-        <button type="button" class="cc-tab-trigger" role="tab" aria-selected="false" tabindex="-1" data-tab="projects" data-i18n="tab_projects">Zrzutki i Sklep</button>
-      </div>
-
-      <div class="cc-bento-grid cc-bento-grid--3" id="payment-grid">
-        <article class="cc-card pilot-pay-card" data-category="bank">
-          <div class="pilot-pay-head">
-            <svg class="pilot-icon pilot-icon-lg" aria-hidden="true"><use href="#ic-phone"/></svg>
-            <div><h3 data-i18n="pay_blik_t">BLIK i przelew</h3><p data-i18n="pay_blik_d">Wesprzyj misję przelewem na telefon BLIK lub na rachunek bankowy.</p></div>
-          </div>
-          <div class="cc-copy-box">
-            <div><small style="color:var(--cc-text-muted)" data-i18n="pay_blik_small">BLIK na numer</small><div class="cc-copy-value" style="font-size:1.35rem">537 137 043</div></div>
-            <button type="button" class="cc-btn cc-btn-orange" data-copy="blik" data-i18n="quick_copy_blik">Kopiuj numer BLIK</button>
-          </div>
-          <div class="pilot-card-actions">
-            <a class="cc-btn cc-btn-outline" href="#darowizny" data-i18n="pay_blik_btn">Dane do przelewu →</a>
-          </div>
-        </article>
-
-        <article class="cc-card pilot-pay-card" data-category="online">
-          <div class="pilot-pay-head">
-            <svg class="pilot-icon pilot-icon-lg" aria-hidden="true"><use href="#ic-heart"/></svg>
-            <div><h3 data-i18n="pay_online_t">Patronite i Revolut</h3><p data-i18n="pay_online_d">Zostań Patronem lub przekaż jednorazowy dar z zagranicy przez Revolut.</p></div>
-          </div>
-          <div class="pilot-card-actions">
-            <a class="cc-btn cc-btn-orange" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" data-i18n="online_patronite_btn">Przejdź do Patronite ↗</a>
-            <a class="cc-btn cc-btn-gold" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-i18n="online_revolut_btn">Wesprzyj przez Revolut ↗</a>
-          </div>
-        </article>
-
-        <article class="cc-card pilot-pay-card" data-category="projects">
-          <div class="pilot-pay-head">
-            <svg class="pilot-icon pilot-icon-lg" aria-hidden="true"><use href="#ic-bag"/></svg>
-            <div><h3 data-i18n="pay_shop_t">Zrzutki i sklep CC</h3><p data-i18n="pay_shop_d">Wesprzyj konkretny projekt ewangelizacyjny lub odwiedź sklep CC.</p></div>
-          </div>
-          <div class="pilot-card-actions">
-            <a class="cc-btn cc-btn-outline" href="#zrzutki" data-i18n="pay_shop_btn1">Zobacz zrzutki →</a>
-            <a class="cc-btn cc-btn-gold" id="shop-link" href="https://my-store-1009741.creator-spring.com/" target="_blank" rel="noopener noreferrer" data-i18n="pay_shop_btn2">Odwiedź sklep CC →</a>
-          </div>
-        </article>
-      </div>
-    </section>
-  </div>
-
-  <div class="pilot-mission-band cc-sacred-static">
-    <div class="cc-wrap">
-      <p data-i18n="mission_services">Studio · Radio · TV · Biblia Audio · Aplikacje · Globalna ewangelizacja</p>
-      <p class="pilot-mission-verse" data-i18n="mission_verse">Darmo wzięliście, darmo dawajcie.</p>
-      <small data-i18n="mission_verse_ref">— Mt 10,8</small>
-    </div>
-  </div>
-
-  <div class="cc-wrap">
-    <section class="pilot-section cc-reveal" id="darowizny" aria-labelledby="bank-title">
-      <div class="pilot-section-header">
-        <span class="cc-stat-pill" data-i18n="bank_eyebrow">Twój dar ma znaczenie</span>
-        <h2 id="bank-title" style="margin-top:0.75rem" data-i18n="bank_title">Darowizny i przelewy</h2>
-        <p data-i18n="bank_intro">Wybierz dogodną metodę. Wszystkie wpłaty są dobrowolne. Odbiorcą przelewów jest Cezary Rogowski.</p>
-      </div>
-
-      <div class="cc-bento-grid">
-        <article class="cc-card cc-card-illuminated">
-          <h3 style="margin-top:0" data-i18n="bank_acc1_t">Rozwój Christian Culture</h3>
-          <p style="color:var(--cc-text-secondary);font-size:0.88rem" data-i18n="bank_acc1_note">Studio · Radio · TV · Technologia</p>
-          <div class="cc-copy-box">
-            <span class="cc-copy-value">74 2910 0006 2469 8002 1062 8039</span>
-            <button type="button" class="cc-btn" data-copy="0" data-i18n="bank_copy_btn">Kopiuj numer rachunku</button>
-          </div>
-          <dl class="pilot-bank-dl">
-            <div><dt data-i18n="bank_lbl_recipient">Odbiorca</dt><dd>Cezary Rogowski</dd></div>
-            <div><dt data-i18n="bank_lbl_title">Tytuł przelewu</dt><dd>Rozwój Christian Culture</dd></div>
-            <div><dt data-i18n="bank_lbl_iban">IBAN</dt><dd>PL74 2910 0006 2469 8002 1062 8039</dd></div>
-          </dl>
-        </article>
-
-        <article class="cc-card cc-card-illuminated">
-          <h3 style="margin-top:0" data-i18n="bank_acc2_t">Dar misyjny</h3>
-          <p style="color:var(--cc-text-secondary);font-size:0.88rem" data-i18n="bank_acc2_note">Aplikacje · Treści biblijne · Ewangelizacja</p>
-          <div class="cc-copy-box">
-            <span class="cc-copy-value">48 2910 0006 0000 0000 0527 2629</span>
-            <button type="button" class="cc-btn" data-copy="1" data-i18n="bank_copy_btn">Kopiuj numer rachunku</button>
-          </div>
-          <dl class="pilot-bank-dl">
-            <div><dt data-i18n="bank_lbl_recipient">Odbiorca</dt><dd>Cezary Rogowski</dd></div>
-            <div><dt data-i18n="bank_lbl_title">Tytuł przelewu</dt><dd>Dar misyjny</dd></div>
-            <div><dt data-i18n="bank_lbl_iban">IBAN</dt><dd>PL48 2910 0006 0000 0000 0527 2629</dd></div>
-          </dl>
-        </article>
-      </div>
-
-      <article class="cc-card pilot-qr-card" style="justify-content:space-between">
-        <div>
-          <h3 style="margin-top:0" data-i18n="blik_detail_title">Przelew na telefon BLIK</h3>
-          <p class="pilot-blik-big" style="margin:0.25rem 0">537 137 043</p>
-          <p style="margin:0;color:var(--cc-text-secondary);max-inline-size:58ch" data-i18n="blik_detail_desc">W aplikacji swojego banku wybierz „Przelew na telefon BLIK”. Tytuł wpłaty: Wsparcie Christian Culture.</p>
-        </div>
-        <button type="button" class="cc-btn cc-btn-orange" data-copy="blik" data-i18n="quick_copy_blik">Kopiuj numer BLIK</button>
-      </article>
-    </section>
-
-    <section class="pilot-section cc-reveal" aria-labelledby="online-title">
-      <div class="pilot-section-header">
-        <h2 id="online-title" data-i18n="online_title">Wsparcie online i regularny patronat</h2>
-      </div>
-      <div class="cc-bento-grid cc-bento-grid--3">
-        <article class="cc-card pilot-pay-card">
-          <h3>Patronite</h3>
-          <p data-i18n="online_patronite_d">Buduj z nami ciągłość misyjnej pracy. Aktualne możliwości wsparcia znajdziesz na profilu Osobowość Plus.</p>
-          <div class="pilot-card-actions"><a class="cc-btn cc-btn-orange" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" data-i18n="online_patronite_btn">Przejdź do Patronite ↗</a></div>
-        </article>
-        <article class="cc-card pilot-pay-card">
-          <h3>Revolut</h3>
-          <p data-i18n="online_revolut_d">Przekaż dar z Polski lub zagranicy. Dostępne metody, waluty i warunki pokazuje serwis płatności.</p>
-          <div class="pilot-card-actions"><a class="cc-btn cc-btn-orange" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-i18n="online_revolut_btn">Wesprzyj przez Revolut ↗</a></div>
-        </article>
-        <article class="cc-card pilot-pay-card">
-          <h3 data-i18n="online_coffee_t">Wirtualna kawa</h3>
-          <p data-i18n="online_coffee_d">Mały dar też pomaga. Wybierz kwotę w Revolut i, jeśli chcesz, dołącz słowo zachęty.</p>
-          <div class="pilot-card-actions"><a class="cc-btn cc-btn-gold" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-i18n="online_coffee_btn">Postaw misyjną kawę ↗</a></div>
-        </article>
-      </div>
-
-      <article class="cc-card pilot-qr-card">
-        <img src="/assets/cc-support/support-qr.png" width="152" height="152" loading="lazy" alt="Kod QR otwierający stronę polskieradio.cc/wspieraj">
-        <div>
-          <h3 style="margin-top:0" data-i18n="qr_title">Zeskanuj i wybierz formę wsparcia</h3>
-          <p style="color:var(--cc-text-secondary);max-inline-size:58ch" data-i18n="qr_desc">Ten kod prowadzi do centrum wsparcia Christian Culture. Możesz pobrać go i umieścić na plakacie lub w transmisji.</p>
-          <a class="cc-btn cc-btn-outline" href="/assets/cc-support/support-qr.png" download="Christian-Culture-wspieraj-QR.png" data-i18n="qr_download">Pobierz kod QR</a>
-        </div>
-      </article>
-    </section>
-
-    <section class="pilot-section cc-reveal" id="zrzutki" aria-labelledby="zrzutki-title">
-      <div class="pilot-section-header">
-        <h2 id="zrzutki-title" data-i18n="zrzutki_title">Wesprzyj projekty misyjne</h2>
-        <p data-i18n="zrzutki_intro">Opisy, cele i aktualny stan każdej zbiórki znajdziesz bezpośrednio na jej stronie.</p>
-      </div>
-      <div class="pilot-hero-actions">
-        <a class="cc-btn cc-btn-gold" href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer" data-i18n="zrzutka_1">Zbiórka rs4g4v ↗</a>
-        <a class="cc-btn cc-btn-outline" href="https://zrzutka.pl/3bbxzn" target="_blank" rel="noopener noreferrer" data-i18n="zrzutka_2">Zbiórka 3bbxzn ↗</a>
-      </div>
-    </section>
-
-    <section class="pilot-section cc-reveal" aria-labelledby="community-title">
-      <div class="pilot-section-header">
-        <h2 id="community-title" data-i18n="community_title">Każdy może pomóc</h2>
-        <p data-i18n="community_intro">Twój czas, modlitwa i dobre słowo mają wartość. Wybierz to, co możesz dać.</p>
-      </div>
-      <div class="cc-bento-grid">
-        <article class="cc-card pilot-pay-card" id="modlitwa">
-          <div class="pilot-pay-head"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-prayer"/></svg><div><h3 data-i18n="path_2_t">Modlitwa</h3><p data-i18n="comm_prayer_d">Módl się za osoby, do których dociera Ewangelia, za twórców i ich rodziny oraz o mądrość w prowadzeniu misji.</p></div></div>
-          <div class="pilot-card-actions"><a class="cc-btn cc-btn-outline" href="https://polskieradio.cc/modlitwa" data-i18n="comm_prayer_btn">Przejdź do przestrzeni modlitwy →</a></div>
-        </article>
-        <article class="cc-card pilot-pay-card" id="udostepniaj">
-          <div class="pilot-pay-head"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-share"/></svg><div><h3 data-i18n="comm_share_t">Udostępniaj nadzieję</h3><p data-i18n="comm_share_d">Poleć radio, rozważanie lub aplikację osobie, której może pomóc. Udostępnij też tę stronę.</p></div></div>
-          <div class="pilot-card-actions">
-            <button type="button" class="cc-btn cc-btn-orange" data-share data-i18n="comm_share_btn1">Udostępnij stronę</button>
-            <button type="button" class="cc-btn cc-btn-outline" data-copy="url" data-i18n="comm_share_btn2">Kopiuj link</button>
-          </div>
-        </article>
-        <article class="cc-card pilot-pay-card" id="wolontariat">
-          <div class="pilot-pay-head"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-users"/></svg><div><h3 data-i18n="path_3_t">Wolontariat</h3><p data-i18n="comm_vol_d">Pomóż przy montażu, nagraniach, tekstach, tłumaczeniach lub kontaktach ze społecznością.</p></div></div>
-          <div class="pilot-card-actions"><a class="cc-btn cc-btn-outline" href="mailto:radiochristianculture@gmail.com?subject=Wolontariat%20Christian%20Culture" data-i18n="comm_vol_btn">Zgłoś chęć pomocy →</a></div>
-        </article>
-        <article class="cc-card pilot-pay-card" id="partnerstwo">
-          <div class="pilot-pay-head"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-handshake"/></svg><div><h3 data-i18n="comm_part_t">Partnerstwo misyjne</h3><p data-i18n="comm_part_d">Zapraszamy twórców, wspólnoty i organizacje do współpracy przy audycjach i projektach biblijnych.</p></div></div>
-          <div class="pilot-card-actions"><a class="cc-btn cc-btn-outline" href="mailto:radiochristianculture@gmail.com?subject=Partnerstwo%20misyjne" data-i18n="comm_part_btn">Porozmawiajmy o współpracy →</a></div>
-        </article>
-        <article class="cc-card pilot-pay-card" id="technologia">
-          <div class="pilot-pay-head"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-laptop"/></svg><div><h3 data-i18n="path_6_t">Sprzęt i technologia</h3><p data-i18n="comm_tech_d">Masz sprawny sprzęt audio, komputer lub umiejętności programistyczne? Opisz swoją propozycję.</p></div></div>
-          <div class="pilot-card-actions"><a class="cc-btn cc-btn-outline" href="mailto:radiochristianculture@gmail.com?subject=Sprz%C4%99t%20i%20technologia" data-i18n="comm_tech_btn">Zaproponuj pomoc →</a></div>
-        </article>
-        <article class="cc-card pilot-pay-card">
-          <div class="pilot-pay-head"><svg class="pilot-icon" aria-hidden="true"><use href="#ic-gift"/></svg><div><h3 data-i18n="comm_bible_t">Pismo Święte dla każdego</h3><p data-i18n="comm_bible_d">Poleć bezpłatną Biblię w wersji cyfrowej. O drukowane Pismo Święte zapytaj SMS-em BIBLIA na +48 507 821 789.</p></div></div>
-          <div class="pilot-card-actions">
-            <a class="cc-btn cc-btn-outline" href="https://polskieradio.cc/biblia-do-pobrania" data-i18n="comm_bible_btn1">Biblia do pobrania →</a>
-            <a class="cc-btn cc-btn-outline" href="sms:+48507821789?body=BIBLIA" data-i18n="comm_bible_btn2">Napisz SMS: BIBLIA</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="pilot-section cc-reveal" id="moje-podziekowania" aria-labelledby="account-title">
-      <div class="pilot-section-header">
-        <h2 id="account-title" data-i18n="account_title">Twoje konto i podziękowania</h2>
-      </div>
-      <div class="cc-card">
-        <p id="auth-status" style="color:var(--cc-text-secondary);margin-top:0" data-i18n="auth_checking">Sprawdzamy dostępność konta LUMINA…</p>
-        <form class="pilot-consent-form" id="consent-form" hidden>
-          <div>
-            <label for="public-name" style="display:block;margin-bottom:0.4rem;font-size:0.88rem" data-i18n="consent_name_lbl">Publiczna nazwa w podziękowaniach</label>
-            <input class="pilot-input" id="public-name" type="text" maxlength="60" autocomplete="nickname" data-i18n-placeholder="consent_name_ph" placeholder="Imię lub pseudonim">
-          </div>
-          <label class="pilot-check-row"><input id="public-consent" type="checkbox"><span data-i18n="consent_public_txt">Zgadzam się na publikację wybranej nazwy w podziękowaniach za moje potwierdzone wsparcie. Zgodę mogę w każdej chwili wycofać.</span></label>
-          <label class="pilot-check-row"><input id="anonymous-consent" type="checkbox"><span data-i18n="consent_anon_txt">Wsparcie anonimowe — zgadzam się wyłącznie na zbiorcze podziękowanie bez nazwy, kwoty i danych mojego konta.</span></label>
-          <p style="margin:0;color:var(--cc-text-muted);font-size:0.82rem" data-i18n="consent_hint">Możesz też odznaczyć obie opcje: wtedy wsparcie nie pojawi się w pasku.</p>
-          <div><button type="submit" class="cc-btn cc-btn-orange" data-i18n="consent_save">Zapisz ustawienia</button></div>
-        </form>
-        <p style="margin-bottom:0;color:var(--cc-text-muted);font-size:0.82rem" data-i18n="consent_disclaimer">Zalogowanie ani zaznaczenie zgody nie potwierdza wpłaty. Nie publikujemy kwot ani danych bankowych.</p>
-      </div>
-    </section>
-
-    <section class="pilot-section cc-accordion cc-reveal" aria-labelledby="faq-title">
-      <div class="pilot-section-header">
-        <h2 id="faq-title" data-i18n="faq_title">Pytania o wsparcie</h2>
-      </div>
-      <div class="cc-card">
-        <details><summary data-i18n="faq_1_q">Czy mogę pomóc bez wpłacania pieniędzy?</summary><p data-i18n="faq_1_a">Tak. Możesz modlić się, udostępniać materiały, podjąć wolontariat lub zaoferować sprzęt i wiedzę.</p></details>
-        <details><summary data-i18n="faq_2_q">Jak wpłacić dar przez BLIK?</summary><p data-i18n="faq_2_a">W bankowości mobilnej wybierz przelew na telefon BLIK i wpisz 537 137 043. Ta strona nie pobiera kodów BLIK ani danych logowania do banku.</p></details>
-        <details><summary data-i18n="faq_3_q">Czy mogę wspierać misję regularnie?</summary><p data-i18n="faq_3_a">Możesz skorzystać z Patronite lub ustawić zlecenie stałe na wybrany rachunek.</p></details>
-        <details><summary data-i18n="faq_4_q">Kto otrzymuje przelewy?</summary><p data-i18n="faq_4_a">Odbiorcą jest Cezary Rogowski. Christian Culture jest niezależną, prywatną chrześcijańską inicjatywą misyjną.</p></details>
-        <details><summary data-i18n="faq_5_q">Czy moje nazwisko pojawi się w podziękowaniach?</summary><p data-i18n="faq_5_a">Imienne podziękowania publikujemy wyłącznie po uzgodnieniu i uzyskaniu zgody. Możesz pozostać anonimowym darczyńcą.</p></details>
-      </div>
-    </section>
-
-    <section class="pilot-section cc-reveal">
-      <div class="cc-card cc-card-illuminated pilot-contact-box">
-        <h2 style="margin-top:0" data-i18n="contact_title">Porozmawiajmy o Twojej formie wsparcia</h2>
-        <p style="color:var(--cc-text-secondary)" data-i18n="contact_sub">Masz pytanie lub pomysł? Skontaktuj się z nami.</p>
-        <div class="pilot-card-actions">
-          <a class="cc-btn cc-btn-outline" href="mailto:radiochristianculture@gmail.com">radiochristianculture@gmail.com</a>
-          <a class="cc-btn cc-btn-outline" href="mailto:polskiercctv@gmail.com">polskiercctv@gmail.com</a>
-          <a class="cc-btn cc-btn-outline" href="tel:+48783478280">+48 783 478 280</a>
-        </div>
-      </div>
-    </section>
-
-    <footer class="pilot-footer">
-      <span>© <span id="year">2026</span> Christian Culture · polskieradio.cc</span>
-      <div class="pilot-footer-links">
-        <a href="https://polskieradio.cc/privacy.html" data-i18n="footer_privacy">Prywatność</a>
-        <a href="https://linktr.ee/christianculturenetwork" target="_blank" rel="noopener noreferrer">CC NETWORK ↗</a>
-        <a href="https://linktr.ee/christianculturemusic" target="_blank" rel="noopener noreferrer">CC Music ↗</a>
-      </div>
-    </footer>
-  </div>
-</main>
-
-<div id="status" class="cc-toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  </footer>
 </body>
 </html>

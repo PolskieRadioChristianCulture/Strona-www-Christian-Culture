@@ -122,11 +122,18 @@
 }
 
 [data-cc-archetype="giving"] {
-  --cc-bg-canvas: #040D15;
-  --cc-bg-elevated: #081521;
+  --cc-bg-canvas: #07121D;
+  --cc-bg-elevated: #101E2B;
+  --cc-bg-surface: #101E2B;
+  --cc-text-primary: #F5F3EF;
+  --cc-text-secondary: #93A5B5;
+  --cc-text-muted: #93A5B5;
+  --cc-gold: #C8B78C;
+  --cc-border-subtle: rgba(245, 243, 239, 0.12);
+  --cc-border-gold: rgba(200, 183, 140, 0.34);
   --cc-archetype-glow:
-    radial-gradient(62% 48% at 82% 8%, rgba(196, 163, 90, 0.20), transparent 70%),
-    radial-gradient(45% 40% at 12% 35%, rgba(255, 122, 0, 0.08), transparent 72%);
+    radial-gradient(58% 44% at 84% 6%, rgba(200, 183, 140, 0.10), transparent 72%),
+    radial-gradient(44% 36% at 10% 24%, rgba(255, 122, 0, 0.05), transparent 72%);
 }
 
 /* ==========================================================================

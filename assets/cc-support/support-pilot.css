@@ -1,17 +1,22 @@
 /* ==========================================================================
-   CHRISTIAN CULTURE — PILOTAŻ /test/wspieraj (EkoCC v2 PREMIUM / Giving)
-   Buduje bezpośrednio na css/cc-design-core.css.
+   CHRISTIAN CULTURE — PILOTAŻ /test/wspieraj (Wspieraj 2.0 PREMIUM / Giving)
+   Paleta Dark Editorial Premium (#07121D, #101E2B, #F5F3EF, #C8B78C, #93A5B5)
+   + Klasyczny Pomarańczowy Akcji (#FF7A00, JOMA-D052).
    Ergonomia @SMCC (>= 44x44px), RTL-ready (CSS logical properties), 0px overflow.
    ========================================================================== */
+
+:root {
+  --cc-radius-card: 20px;
+}
 
 .pilot-header {
   position: sticky;
   inset-block-start: 0;
   z-index: 40;
-  background: var(--cc-bg-glass-strong);
+  background: rgba(7, 18, 29, 0.92);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border-block-end: 1px solid var(--cc-border-subtle);
+  border-block-end: 1px solid rgba(245, 243, 239, 0.12);
 }
 
 .pilot-header-inner {
@@ -188,8 +193,8 @@
 
 /* ── Pasek Podziękowań (Strict 44x44px Controls) ── */
 .pilot-thanks-bar {
-  background: rgba(6, 17, 27, 0.92);
-  border-block-end: 1px solid var(--cc-border-subtle);
+  background: rgba(7, 18, 29, 0.96);
+  border-block-end: 1px solid rgba(245, 243, 239, 0.12);
   padding-block: var(--cc-space-2);
 }
 
@@ -641,4 +646,563 @@
   .pilot-card-actions > .cc-btn {
     flex-basis: 100%;
   }
+}
+
+
+/* ==========================================================================
+   WSPIERAJ 2.0 PREMIUM — DARK EDITORIAL OVERRIDES & 7-SECTION LAYOUT
+   ========================================================================== */
+
+[data-cc-archetype="giving"] {
+  background-color: #07121D;
+  color: #F5F3EF;
+}
+
+.cc-card {
+  background: #101E2B;
+  border: 1px solid rgba(245, 243, 239, 0.12);
+  border-radius: 20px;
+}
+
+.cc-card:hover {
+  border-color: rgba(200, 183, 140, 0.36);
+}
+
+/* ── Baner sugestii języka (zero automatycznego przekierowania) ── */
+.pilot-lang-banner {
+  background: #101E2B;
+  border-block-end: 1px solid rgba(200, 183, 140, 0.28);
+  padding-block: 0.6rem;
+}
+
+.pilot-lang-banner[hidden] {
+  display: none !important;
+}
+
+.pilot-lang-banner-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.pilot-lang-banner-text {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #F5F3EF;
+}
+
+.pilot-lang-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── Hero Dark Editorial (Subtle Canvas + Verified CC Earth Visual) ── */
+.pilot-hero {
+  background: linear-gradient(180deg, #07121D 0%, #091726 100%);
+  padding-block: clamp(2.25rem, 4.5vw, 4rem);
+}
+
+.pilot-hero-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('/assets/cc-support/earth.webp') no-repeat center / cover;
+  opacity: 0.14;
+  mask-image: radial-gradient(circle at 74% 38%, rgba(0, 0, 0, 0.9), transparent 72%);
+  -webkit-mask-image: radial-gradient(circle at 74% 38%, rgba(0, 0, 0, 0.9), transparent 72%);
+  pointer-events: none;
+}
+
+.pilot-hero h1 {
+  color: #F5F3EF;
+  font-size: clamp(2.05rem, 4vw, 3.35rem);
+  line-height: 1.14;
+  max-width: 19ch;
+}
+
+.pilot-hero-lead {
+  color: #D7DEE6;
+  max-width: 58ch;
+  line-height: 1.62;
+}
+
+.pilot-free-notice {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1.05rem;
+  border-radius: 14px;
+  background: rgba(16, 30, 43, 0.88);
+  border: 1px solid rgba(200, 183, 140, 0.28);
+  border-inline-start: 3px solid #C8B78C;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: #F5F3EF;
+  max-width: 58ch;
+}
+
+.pilot-hero-verse {
+  margin-block-start: 1.25rem;
+  background: rgba(16, 30, 43, 0.72);
+  border-color: rgba(200, 183, 140, 0.24);
+  border-radius: 16px;
+}
+
+/* ── Widget wyboru wsparcia w Hero ── */
+.pilot-quick-widget {
+  background: #101E2B;
+  border: 1px solid rgba(200, 183, 140, 0.3);
+  border-radius: 22px;
+  padding: clamp(1.15rem, 2.5vw, 1.65rem);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.36);
+  display: grid;
+  gap: 0.95rem;
+  min-width: 0;
+}
+
+.pilot-widget-kicker {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #C8B78C;
+}
+
+.pilot-widget-title {
+  margin: 0;
+  font-family: var(--cc-font-serif);
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  color: #F5F3EF;
+}
+
+.pilot-widget-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.pilot-widget-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+  background: rgba(7, 18, 29, 0.72);
+  border: 1px solid rgba(245, 243, 239, 0.14);
+  color: #F5F3EF;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--cc-motion-fast) var(--cc-ease-out), background var(--cc-motion-fast) var(--cc-ease-out);
+}
+
+.pilot-widget-tab-btn:hover,
+.pilot-widget-tab-btn:focus-visible {
+  border-color: #C8B78C;
+  background: rgba(200, 183, 140, 0.12);
+}
+
+.pilot-widget-blik-box {
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  background: #07121D;
+  border: 1px solid rgba(245, 243, 239, 0.14);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.pilot-widget-blik-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+}
+
+.pilot-badge-region {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(200, 183, 140, 0.14);
+  border: 1px solid rgba(200, 183, 140, 0.36);
+  color: #C8B78C;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.pilot-widget-blik-num {
+  font-family: var(--cc-font-mono);
+  font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #F5F3EF;
+}
+
+.pilot-widget-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.78rem;
+  color: #93A5B5;
+}
+
+.pilot-widget-trust li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ── Sekcja 2: Wpływ na misję (3 jakościowe filary) ── */
+.pilot-impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.35rem);
+}
+
+.pilot-impact-card {
+  border-block-start: 2px solid rgba(200, 183, 140, 0.55);
+  display: grid;
+  gap: 0.65rem;
+  align-content: start;
+}
+
+.pilot-impact-card h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #F5F3EF;
+}
+
+.pilot-impact-card p {
+  margin: 0;
+  color: #93A5B5;
+  line-height: 1.58;
+}
+
+/* ── Sekcja 3: Panel bezpiecznego wsparcia ── */
+.pilot-safety-banner {
+  margin-block-end: 1.35rem;
+  padding: 0.95rem 1.15rem;
+  border-radius: 16px;
+  background: rgba(16, 30, 43, 0.92);
+  border: 1px solid rgba(200, 183, 140, 0.32);
+  color: #F5F3EF;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.pilot-safety-banner svg {
+  color: #C8B78C;
+  flex-shrink: 0;
+  margin-block-start: 0.12rem;
+}
+
+.pilot-tag--recurring {
+  background: rgba(200, 183, 140, 0.16);
+  color: #C8B78C;
+  border: 1px solid rgba(200, 183, 140, 0.38);
+}
+
+.pilot-tag--onetime {
+  background: rgba(147, 165, 181, 0.14);
+  color: #D7DEE6;
+  border: 1px solid rgba(147, 165, 181, 0.32);
+}
+
+.pilot-tag--poland {
+  background: rgba(255, 122, 0, 0.14);
+  color: #FFAE66;
+  border: 1px solid rgba(255, 122, 0, 0.38);
+}
+
+.pilot-bank-currency-note {
+  margin: 0;
+  padding: 0.75rem 0.95rem;
+  border-radius: 12px;
+  background: rgba(7, 18, 29, 0.85);
+  border: 1px solid rgba(200, 183, 140, 0.25);
+  color: #93A5B5;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* ── Sekcja 4: Sklep Creator Spring (ujawnienie HTTP 410) ── */
+.pilot-shop-status {
+  margin-block-start: 1.35rem;
+  padding: 1.15rem 1.25rem;
+  border-radius: 20px;
+  background: rgba(16, 30, 43, 0.65);
+  border: 1px dashed rgba(147, 165, 181, 0.34);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.85rem;
+}
+
+.pilot-shop-status-copy {
+  display: grid;
+  gap: 0.35rem;
+  max-width: 68ch;
+}
+
+.pilot-shop-status-copy h3 {
+  margin: 0;
+  font-size: 1.04rem;
+  color: #F5F3EF;
+}
+
+.pilot-shop-status-copy p {
+  margin: 0;
+  color: #93A5B5;
+  font-size: 0.9rem;
+  line-height: 1.52;
+}
+
+.pilot-shop-url {
+  font-family: var(--cc-font-mono);
+  font-size: 0.8rem;
+  color: #93A5B5;
+  overflow-wrap: anywhere;
+}
+
+/* ── Sekcja 5: Transparentność i brak powiązań z Polskie Radio S.A. ── */
+.pilot-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.35rem);
+  margin-block-end: 1.5rem;
+}
+
+.pilot-trust-card {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+}
+
+.pilot-trust-card h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  color: #C8B78C;
+}
+
+.pilot-trust-card p {
+  margin: 0;
+  color: #D7DEE6;
+  font-size: 0.93rem;
+  line-height: 1.56;
+}
+
+.pilot-trust-shared-note {
+  margin: 0 0 1.5rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 16px;
+  background: rgba(7, 18, 29, 0.85);
+  border: 1px solid rgba(147, 165, 181, 0.24);
+  color: #93A5B5;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+/* ── Sekcja 7: Kontakt & Stopka ── */
+.pilot-contact-box {
+  background: #101E2B;
+  border: 1px solid rgba(245, 243, 239, 0.14);
+  border-radius: 20px;
+}
+
+.pilot-contact-note {
+  margin: 0.65rem 0 0;
+  font-size: 0.88rem;
+  color: #93A5B5;
+  line-height: 1.5;
+}
+
+.pilot-footer {
+  background: #050D16;
+  border-block-start: 1px solid rgba(245, 243, 239, 0.12);
+}
+
+/* ── Responsywność (320px / 375px / 768px / 1024px / 1440px / 200% Zoom / RTL) ── */
+@media (max-width: 960px) {
+  .pilot-impact-grid,
+  .pilot-trust-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pilot-widget-tabs {
+    grid-template-columns: 1fr;
+  }
+  .pilot-hero h1 {
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
+  }
+}
+
+.pilot-iban,
+.pilot-qr-url,
+.pilot-widget-blik-num {
+  overflow-wrap: anywhere;
+}
+
+[dir="rtl"] .pilot-brand small,
+[dir="rtl"] .pilot-section-head,
+[dir="rtl"] .pilot-hero-copy,
+[dir="rtl"] .pilot-card-body {
+  text-align: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ==========================================================================
+   KROK 1 FIXES — SVG DIMENSIONS, 44PX TABS, TOAST #STATUS & 320PX REFLOW
+   ========================================================================== */
+
+.cc-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.pilot-path-icon .cc-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.cc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block-end: 1.35rem;
+}
+
+.cc-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.55rem 1.05rem;
+  border-radius: 999px;
+  background: #101E2B;
+  border: 1px solid rgba(245, 243, 239, 0.16);
+  color: #93A5B5;
+  font-family: var(--cc-font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--cc-motion-fast) var(--cc-ease-out), background var(--cc-motion-fast) var(--cc-ease-out), color var(--cc-motion-fast) var(--cc-ease-out);
+}
+
+.cc-tab:hover,
+.cc-tab:focus-visible {
+  border-color: #C8B78C;
+  color: #F5F3EF;
+}
+
+.cc-tab[aria-selected="true"] {
+  background: #C8B78C;
+  border-color: #C8B78C;
+  color: #07121D;
+}
+
+#status.visible {
+  position: fixed;
+  inset-block-end: 1.25rem;
+  inset-inline-end: 1.25rem;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.75rem 1.1rem;
+  clip: auto;
+  clip-path: none;
+  overflow: visible;
+  white-space: normal;
+  max-width: min(92vw, 360px);
+  z-index: 90;
+  border-radius: 14px;
+  background: #101E2B;
+  color: #F5F3EF;
+  border: 1px solid #C8B78C;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .pilot-hero-grid,
+  .pilot-methods-grid,
+  .pilot-bank-grid,
+  .pilot-comm-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .pilot-method-bank-wide {
+    grid-column: 1 / -1 !important;
+  }
+
+  .pilot-header-inner,
+  .pilot-header-actions {
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .pilot-header .cc-lang-switcher {
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  .pilot-header .cc-lang-btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding-inline: 0.4rem;
+  }
+
+  #cc-auth-nav-container {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  #cc-auth-nav-container .cc-btn {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+.cc-sr-only:not(.visible) {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
