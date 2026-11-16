@@ -35,7 +35,17 @@ const resolvedOutput = path.resolve(OUTPUT);
 if (path.dirname(resolvedOutput) !== path.resolve(ROOT) || path.basename(resolvedOutput) !== '.pages-release') {
   throw new Error('Nieprawidłowy katalog wydania.');
 }
-fs.rmSync(resolvedOutput, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
+if (fs.existsSync(resolvedOutput)) {
+  try {
+    fs.rmSync(resolvedOutput, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
+  } catch (err) {
+    // Fallback dla Windows EPERM przy usuwaniu katalogu głównego: czyść zawartość
+    for (const item of fs.readdirSync(resolvedOutput)) {
+      const itemPath = path.join(resolvedOutput, item);
+      fs.rmSync(itemPath, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
+    }
+  }
+}
 fs.mkdirSync(resolvedOutput, { recursive: true });
 
 const tracked = execFileSync('git', ['ls-files', '-z'], {

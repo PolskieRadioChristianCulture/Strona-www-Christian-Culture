@@ -1681,7 +1681,8 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
     return { chosen: candidates[requestedIndex], nextIndex: requestedIndex };
   }
 
-  const recentUrls = new Set(history.slice(0, 15).map(h => (typeof h === 'string' ? h : h.url)));
+  const cleanUrl = (u) => (typeof u === 'string' ? u : (u?.url || '')).trim().toLowerCase().replace(/\/+$/, '');
+  const recentUrls = new Set(history.slice(0, 15).map(h => cleanUrl(typeof h === 'string' ? h : h.url)));
   const lastItem = history[0] || {};
   const lastTitleLower = (lastItem.title || '').toLowerCase();
   const lastUrlLower = (lastItem.url || '').toLowerCase();
@@ -1717,7 +1718,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   if (requestedType) {
     const typeCandidates = candidates.filter(c => (c.type || 'news') === requestedType);
     if (typeCandidates.length > 0) {
-      let cand = typeCandidates.find(c => !recentUrls.has(c.url)) || typeCandidates[0];
+      let cand = typeCandidates.find(c => !recentUrls.has(cleanUrl(c.url))) || typeCandidates[0];
       const idx = candidates.indexOf(cand);
       return { chosen: cand, nextIndex: idx };
     }
@@ -1754,7 +1755,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
 
   for (const p of priorityTypes) {
     const matching = candidates.filter(c => (c.type || 'news') === p.type);
-    const available = matching.filter(c => !recentUrls.has(c.url) && !isTopicTooRecent(c) && !isTopicDuplicate(c));
+    const available = matching.filter(c => !recentUrls.has(cleanUrl(c.url)) && !isTopicTooRecent(c) && !isTopicDuplicate(c));
     if (available.length > 0) {
       // Priorytet dla pozycji, które jeszcze nigdy nie były publikowane, a następnie o największym dystansie
       available.sort((a, b) => {
@@ -1776,7 +1777,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   while (attempts < candidates.length) {
     const cand = candidates[nextIndex];
     const candTitleLower = (cand.title || '').toLowerCase();
-    const isRecent = recentUrls.has(cand.url);
+    const isRecent = recentUrls.has(cleanUrl(cand.url));
 
     // Ochrona przed dwoma postami o tym samym temacie pod rząd
     const isTopicDuplicate =
