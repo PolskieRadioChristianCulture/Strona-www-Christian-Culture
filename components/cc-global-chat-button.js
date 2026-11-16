@@ -46,7 +46,7 @@
   const CC_FAB_HIDDEN_KEY = 'cc_lumi_fab_hidden';
   const CC_FAB_HIDDEN_AT_KEY = 'cc_lumi_fab_hidden_at';
   const CC_FAB_UNREAD_AT_HIDE_KEY = 'cc_lumi_fab_unread_at_hide';
-  const CC_FAB_POS_KEY = 'cc_lumi_fab_pos_v1';
+  const CC_FAB_POS_KEY = 'cc_lumi_fab_pos_v2';
 
   function safeLsGet(key) {
     try { return typeof localStorage !== 'undefined' ? localStorage.getItem(key) : null; } catch (_) { return null; }
@@ -404,8 +404,10 @@
       /* ── FAB BUTTON & TEASER (NEON W SZKLE) ── */
       .cc-chat-fab-wrap {
         position: fixed !important;
-        right: max(18px, env(safe-area-inset-right)) !important;
+        right: max(16px, env(safe-area-inset-right)) !important;
         bottom: max(25px, env(safe-area-inset-bottom)) !important;
+        width: 48px !important;
+        height: 48px !important;
         z-index: 10000 !important;
         display: flex !important;
         align-items: center !important;
@@ -417,6 +419,11 @@
         -webkit-user-select: none !important;
         -webkit-tap-highlight-color: transparent !important;
         transition: bottom 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      }
+      @media (min-width: 768px) {
+        .cc-chat-fab-wrap:not(.is-custom-positioned) {
+          right: 24px !important;
+        }
       }
       .cc-chat-fab-wrap,
       .cc-chat-fab-wrap * {
@@ -485,12 +492,12 @@
       }
 
       .cc-chat-fab-btn {
-        width: 50px !important;
-        height: 50px !important;
-        min-width: 50px !important;
-        min-height: 50px !important;
-        max-width: 50px !important;
-        max-height: 50px !important;
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important;
+        min-height: 48px !important;
+        max-width: 48px !important;
+        max-height: 48px !important;
         border-radius: 50% !important;
         border: none !important;
         padding: 0 !important;
@@ -507,6 +514,11 @@
         -webkit-user-select: none !important;
         transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.22s ease !important;
         filter: drop-shadow(0 8px 22px rgba(133, 71, 216, 0.45)) drop-shadow(0 3px 10px rgba(0, 0, 0, 0.6)) !important;
+      }
+      .cc-chat-fab-btn picture {
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
       }
 
       .cc-chat-fab-wrap.is-fab-dragging .cc-chat-fab-btn {
@@ -2067,7 +2079,12 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
-        *, ::before, ::after {
+        .cc-chat-drawer,
+        .cc-chat-drawer-overlay,
+        .cc-chat-msg-row,
+        .cc-chat-teaser-bubble,
+        .cc-chat-fab-wrap,
+        .cc-chat-fab-btn {
           animation-duration: 0.01ms !important;
           transition-duration: 0.01ms !important;
         }
@@ -2212,7 +2229,7 @@
         <button type="button" class="cc-chat-fab-btn" id="ccChatFabBtn" aria-label="Otwórz LUMI Messenger">
           <picture>
             <source srcset="/images/chat/cc-chat-button.webp" type="image/webp">
-            <img src="/images/chat/cc-chat-button.png" alt="LUMI Messenger" class="cc-chat-fab-img" width="50" height="50" loading="eager" decoding="sync">
+            <img src="/images/chat/cc-chat-button.png" alt="LUMI Messenger" class="cc-chat-fab-img" width="48" height="48" loading="eager" decoding="sync">
           </picture>
           <span class="cc-chat-fab-badge" aria-hidden="true"></span>
         </button>
@@ -4094,7 +4111,7 @@
           const { vw, vh } = getViewportSize();
           const rect = typeof fabWrap.getBoundingClientRect === 'function' ? fabWrap.getBoundingClientRect() : null;
           const savedBefore = readSavedFabPos();
-          const fallbackLeft = vw - fabW - 18;
+          const fallbackLeft = vw - fabW - (vw >= 768 ? 24 : 16);
           const fallbackTop = vh - fabH - 25;
           const baseLeft = (rect && rect.width > 0) ? rect.left : (savedBefore ? savedBefore.left : fallbackLeft);
           const baseTop = (rect && rect.height > 0) ? rect.top : (savedBefore ? savedBefore.top : fallbackTop);
@@ -4366,19 +4383,22 @@
       ) {
         // 4. Wspólna pionowa kolumna z przyciskiem „do góry” (#backToTopBtn, właściciel: /js/cc-back-to-top.js).
         //    Przycisk „do góry” zostaje na dole; czat stoi zawsze NAD nim, środek w tej samej osi pionowej.
-        //    (L0 16.11.2026: ikona czatu zasłaniała przycisk przewijania.)
+        //    (L0 16.11.2026: ikona czatu zasłaniała przycisk przewijania i przesuwała się przez szerokość scrollbara.)
         const btt = document.getElementById('backToTopBtn');
-        const fabW = fabBtn.offsetWidth || 50;
+        const clientW = (document.documentElement && document.documentElement.clientWidth) || window.innerWidth;
+        const fabW = fabBtn.offsetWidth || 48;
         if (btt) {
           const bttCs = window.getComputedStyle(btt);
           const bttRect = btt.getBoundingClientRect();
           const bttShown = bttRect.width > 0 && bttRect.height > 0;
-          let bttBottom = bttShown ? (window.innerHeight - bttRect.bottom) : parseFloat(bttCs.bottom);
-          if (!Number.isFinite(bttBottom)) bttBottom = window.innerWidth >= 768 ? 24 : 16;
+          const bttCssBottom = parseFloat(bttCs.bottom);
+          let bttBottom = bttShown ? (window.innerHeight - bttRect.bottom) : bttCssBottom;
+          if (!Number.isFinite(bttBottom)) bttBottom = clientW >= 768 ? 24 : 16;
           const bttH = bttShown ? bttRect.height : (parseFloat(bttCs.height) || 48);
           const bttW = bttShown ? bttRect.width : (parseFloat(bttCs.width) || 48);
-          let bttRight = bttShown ? (window.innerWidth - bttRect.right) : parseFloat(bttCs.right);
-          if (!Number.isFinite(bttRight)) bttRight = 16;
+          const bttCssRight = parseFloat(bttCs.right);
+          let bttRight = bttShown ? (clientW - bttRect.right) : bttCssRight;
+          if (!Number.isFinite(bttRight)) bttRight = Number.isFinite(bttCssRight) ? bttCssRight : (clientW >= 768 ? 24 : 16);
           const stackedBottom = Math.max(bottomOffset, Math.round(bttBottom + bttH + 12));
           const alignedRight = Math.round(bttRight + (bttW - fabW) / 2);
           if (stackedBottom + fabH <= window.innerHeight * 0.8) {
@@ -4390,6 +4410,7 @@
           fabWrap.style.setProperty('bottom', `${alignedBottom}px`, 'important');
         } else {
           fabWrap.style.setProperty('bottom', `${bottomOffset}px`, 'important');
+          fabWrap.style.setProperty('right', clientW >= 768 ? '24px' : 'max(16px, env(safe-area-inset-right))', 'important');
         }
       }
     }
