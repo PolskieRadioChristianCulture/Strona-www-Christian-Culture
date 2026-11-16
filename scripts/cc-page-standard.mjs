@@ -25,7 +25,7 @@ export function applyPageStandard(file, html) {
   if (/http-equiv\s*=\s*["']refresh["']/i.test(html)) return html;
   html = applyChannelNumbering(file, html);
   // Refresh the shared chat loader even when back-to-top is already installed.
-  html = html.replace(/(src=["'])(\/(?:components|js)\/cc-support-footer\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261014_mockup4$3');
+  html = html.replace(/(src=["'])(\/(?:components|js)\/cc-support-footer\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261116_a007_column$3');
   html = html.replace(/(src=["'])(\/?lumina-bottom-nav\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261014_mockup4$3');
   html = html.replace(/(src=["'])(\/?app\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261110_ccwomen5$3');
   html = html.replace(/(src=["'])(\/components\/cc-global-chat-button\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261116_a007_column$3');

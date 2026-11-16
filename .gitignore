@@ -63,3 +63,6 @@ ccMC/gcal-cals.json
 ccMC/gcal-primary.json
 ccMC/gcal-holidays.json
 ccMC/gcal-mission.json
+
+# CC Skaner Wizualny — raporty lokalne
+reports/cc-skaner/
