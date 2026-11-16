@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "program",
+      "title": "Program TV & Ramówka Emisyjna — Dziś, Tydzień i Nadchodzące Audycje",
+      "url": "https://polskieradio.cc/program",
+      "type": "module",
+      "image": "tv24 CC.png",
+      "publishedAt": "2026-11-16T19:04:25.890Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "u-boku-diabla",
       "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
       "url": "https://polskieradio.cc/u-boku-diabla",
