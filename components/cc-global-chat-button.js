@@ -4333,31 +4333,52 @@
         !fabWrap.classList.contains('is-custom-positioned') &&
         !fabWrap.classList.contains('is-fab-dragging')
       ) {
-        if (playerCenterFromBottom !== null) {
+        // 4. Wspólna pionowa kolumna z przyciskiem „do góry” (#backToTopBtn, właściciel: /js/cc-back-to-top.js).
+        //    Przycisk „do góry” zostaje na dole; czat stoi zawsze NAD nim, środek w tej samej osi pionowej.
+        //    (L0 16.11.2026: ikona czatu zasłaniała przycisk przewijania.)
+        const btt = document.getElementById('backToTopBtn');
+        const fabW = fabBtn.offsetWidth || 50;
+        if (btt) {
+          const bttCs = window.getComputedStyle(btt);
+          const bttRect = btt.getBoundingClientRect();
+          const bttShown = bttRect.width > 0 && bttRect.height > 0;
+          let bttBottom = bttShown ? (window.innerHeight - bttRect.bottom) : parseFloat(bttCs.bottom);
+          if (!Number.isFinite(bttBottom)) bttBottom = window.innerWidth >= 768 ? 24 : 16;
+          const bttH = bttShown ? bttRect.height : (parseFloat(bttCs.height) || 48);
+          const bttW = bttShown ? bttRect.width : (parseFloat(bttCs.width) || 48);
+          let bttRight = bttShown ? (window.innerWidth - bttRect.right) : parseFloat(bttCs.right);
+          if (!Number.isFinite(bttRight)) bttRight = 16;
+          const stackedBottom = Math.round(bttBottom + bttH + 12);
+          const alignedRight = Math.round(bttRight + (bttW - fabW) / 2);
+          fabWrap.style.setProperty('bottom', `${Math.max(bottomOffset, stackedBottom)}px`, 'important');
+          fabWrap.style.setProperty('right', `${Math.max(0, alignedRight)}px`, 'important');
+        } else if (playerCenterFromBottom !== null) {
           const alignedBottom = Math.round(playerCenterFromBottom - (fabH / 2));
           fabWrap.style.setProperty('bottom', `${alignedBottom}px`, 'important');
         } else {
           fabWrap.style.setProperty('bottom', `${bottomOffset}px`, 'important');
         }
       }
-
-      // 4. Bezpieczne pozycjonowanie przycisku "do góry" (#backToTopBtn) — ZAWSZE w całości nad dolnym paskiem!
-      const btt = document.getElementById('backToTopBtn');
-      if (btt) {
-        let bttBottom = 0;
-        if (detectedBarTopFromBottom > 0) {
-          // Dolny pasek radia/audio jest obecny — umieść przycisk bezpiecznie 16px nad górną krawędzią paska
-          bttBottom = detectedBarTopFromBottom + 16;
-        } else {
-          // Brak paska — umieść przycisk nad ikoną czatu
-          bttBottom = bottomOffset + (isMobile ? 64 : 70);
-        }
-        btt.style.setProperty('bottom', `${bttBottom}px`, 'important');
-      }
     }
 
-    window.addEventListener('resize', adjust, { passive: true });
-    window.addEventListener('scroll', adjust, { passive: true });
+    // cc-back-to-top.js przelicza swoją pozycję w requestAnimationFrame — czytamy ją klatkę później.
+    let adjustPending = false;
+    function scheduleAdjust() {
+      if (adjustPending) return;
+      adjustPending = true;
+      requestAnimationFrame(() => requestAnimationFrame(() => { adjustPending = false; adjust(); }));
+    }
+    function watchBackToTop() {
+      const btt = document.getElementById('backToTopBtn');
+      if (!btt || btt.dataset.ccChatWatch === '1' || typeof MutationObserver === 'undefined') return;
+      btt.dataset.ccChatWatch = '1';
+      new MutationObserver(scheduleAdjust).observe(btt, { attributes: true, attributeFilter: ['style'] });
+    }
+    setTimeout(watchBackToTop, 300);
+    setTimeout(watchBackToTop, 1500);
+
+    window.addEventListener('resize', scheduleAdjust, { passive: true });
+    window.addEventListener('scroll', scheduleAdjust, { passive: true });
     setTimeout(adjust, 100);
     setTimeout(adjust, 300);
     setTimeout(adjust, 1000);
