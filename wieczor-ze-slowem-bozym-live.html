@@ -158,11 +158,22 @@
             align-items: center;
         }
 
-        /* Bardzo spokojna, czytelna prędkość przewijania dla osób starszych (170s) */
-        .top-ticker-content {
-            display: inline-block;
+        /* Płynny, nieprzerwany pasek ciągły (Seamless Continuous Marquee) - tekst płynie natychmiast, bez żadnej pustki */
+        .top-ticker-inner {
+            display: inline-flex;
             white-space: nowrap;
-            animation: scrollMarquee 170s linear infinite;
+            animation: continuousTicker 160s linear infinite;
+            will-change: transform;
+        }
+
+        .top-ticker-inner:hover {
+            animation-play-state: paused;
+        }
+
+        .top-ticker-group {
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
             font-size: 25px;
             font-weight: 700;
             letter-spacing: 0.8px;
@@ -170,11 +181,7 @@
             text-shadow: 0 2px 8px rgba(0,0,0,0.8);
         }
 
-        .top-ticker-content:hover {
-            animation-play-state: paused;
-        }
-
-        .top-ticker-content span {
+        .top-ticker-group span {
             display: inline-block;
             margin-right: 70px;
         }
@@ -195,9 +202,9 @@
             font-weight: 800;
         }
 
-        @keyframes scrollMarquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+        @keyframes continuousTicker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* ───────────────────────────────────────────────────────────
@@ -378,15 +385,27 @@
             </div>
             <div class="top-ticker-divider"></div>
             <div class="top-ticker-track">
-                <div class="top-ticker-content" id="ticker-text">
-                    <span><strong class="ticker-sig">J 14,27</strong><span class="ticker-sep">•</span>„Pokój zostawiam wam, pokój mój daję wam. Nie tak jak daje świat, Ja wam daję. Niech się nie trwoży serce wasze ani się nie lęka.”</span>
-                    <span><strong class="ticker-sig">Flp 4,6-7</strong><span class="ticker-sep">•</span>„O nic się zbytnio nie troskajcie, ale we wszystkim w modlitwie i błaganiu z dziękczynieniem powierzcie prośby wasze Bogu.”</span>
-                    <span><strong class="ticker-sig">WSPARCIE MISJI</strong><span class="ticker-sep">•</span>Pomóż nam budować niezależne chrześcijańskie media w Polsce: <strong class="ticker-highlight">https://polskieradio.cc/wspieraj</strong> • Szybki BLIK: <strong>537 137 043</strong></span>
-                    <span><strong class="ticker-sig">Mt 11,28</strong><span class="ticker-sep">•</span>„Pójdźcie do Mnie wszyscy, którzy utrudzeni i obciążeni jesteście, a Ja wam dam ukojenie.”</span>
-                    <span><strong class="ticker-sig">Iz 26,3</strong><span class="ticker-sep">•</span>„Temu, którego myśl jest stała, zachowujesz pokój, pokój, bo tobie zaufał.”</span>
-                    <span><strong class="ticker-sig">PORTAL LUMINA</strong><span class="ticker-sep">•</span>Dołącz do wolnej społeczności wierzących: <strong class="ticker-highlight">https://polskieradio.cc/lumina</strong> • Dobre treści bez zgiełku</span>
-                    <span><strong class="ticker-sig">Ps 4,9</strong><span class="ticker-sep">•</span>„W pokoju się położę i zaraz zasnę, bo Ty sam, Panie, sprawiasz, że bezpiecznie mieszkam.”</span>
-                    <span><strong class="ticker-sig">BIBLIA INTERLINEARNA</strong><span class="ticker-sep">•</span>Odkryj oryginalny tekst Pisma Świętego z kodami Stronga: <strong class="ticker-highlight">https://polskieradio.cc/mojabiblia</strong></span>
+                <div class="top-ticker-inner" id="ticker-text">
+                    <div class="top-ticker-group">
+                        <span><strong class="ticker-sig">J 14,27</strong><span class="ticker-sep">•</span>„Pokój zostawiam wam, pokój mój daję wam. Nie tak jak daje świat, Ja wam daję. Niech się nie trwoży serce wasze ani się nie lęka.”</span>
+                        <span><strong class="ticker-sig">Flp 4,6-7</strong><span class="ticker-sep">•</span>„O nic się zbytnio nie troskajcie, ale we wszystkim w modlitwie i błaganiu z dziękczynieniem powierzcie prośby wasze Bogu.”</span>
+                        <span><strong class="ticker-sig">WSPARCIE MISJI</strong><span class="ticker-sep">•</span>Pomóż nam budować niezależne chrześcijańskie media w Polsce: <strong class="ticker-highlight">https://polskieradio.cc/wspieraj</strong> • Szybki BLIK: <strong>537 137 043</strong></span>
+                        <span><strong class="ticker-sig">Mt 11,28</strong><span class="ticker-sep">•</span>„Pójdźcie do Mnie wszyscy, którzy utrudzeni i obciążeni jesteście, a Ja wam dam ukojenie.”</span>
+                        <span><strong class="ticker-sig">Iz 26,3</strong><span class="ticker-sep">•</span>„Temu, którego myśl jest stała, zachowujesz pokój, pokój, bo tobie zaufał.”</span>
+                        <span><strong class="ticker-sig">PORTAL LUMINA</strong><span class="ticker-sep">•</span>Dołącz do wolnej społeczności wierzących: <strong class="ticker-highlight">https://polskieradio.cc/lumina</strong> • Dobre treści bez zgiełku</span>
+                        <span><strong class="ticker-sig">Ps 4,9</strong><span class="ticker-sep">•</span>„W pokoju się położę i zaraz zasnę, bo Ty sam, Panie, sprawiasz, że bezpiecznie mieszkam.”</span>
+                        <span><strong class="ticker-sig">BIBLIA INTERLINEARNA</strong><span class="ticker-sep">•</span>Odkryj oryginalny tekst Pisma Świętego z kodami Stronga: <strong class="ticker-highlight">https://polskieradio.cc/mojabiblia</strong></span>
+                    </div>
+                    <div class="top-ticker-group" aria-hidden="true">
+                        <span><strong class="ticker-sig">J 14,27</strong><span class="ticker-sep">•</span>„Pokój zostawiam wam, pokój mój daję wam. Nie tak jak daje świat, Ja wam daję. Niech się nie trwoży serce wasze ani się nie lęka.”</span>
+                        <span><strong class="ticker-sig">Flp 4,6-7</strong><span class="ticker-sep">•</span>„O nic się zbytnio nie troskajcie, ale we wszystkim w modlitwie i błaganiu z dziękczynieniem powierzcie prośby wasze Bogu.”</span>
+                        <span><strong class="ticker-sig">WSPARCIE MISJI</strong><span class="ticker-sep">•</span>Pomóż nam budować niezależne chrześcijańskie media w Polsce: <strong class="ticker-highlight">https://polskieradio.cc/wspieraj</strong> • Szybki BLIK: <strong>537 137 043</strong></span>
+                        <span><strong class="ticker-sig">Mt 11,28</strong><span class="ticker-sep">•</span>„Pójdźcie do Mnie wszyscy, którzy utrudzeni i obciążeni jesteście, a Ja wam dam ukojenie.”</span>
+                        <span><strong class="ticker-sig">Iz 26,3</strong><span class="ticker-sep">•</span>„Temu, którego myśl jest stała, zachowujesz pokój, pokój, bo tobie zaufał.”</span>
+                        <span><strong class="ticker-sig">PORTAL LUMINA</strong><span class="ticker-sep">•</span>Dołącz do wolnej społeczności wierzących: <strong class="ticker-highlight">https://polskieradio.cc/lumina</strong> • Dobre treści bez zgiełku</span>
+                        <span><strong class="ticker-sig">Ps 4,9</strong><span class="ticker-sep">•</span>„W pokoju się położę i zaraz zasnę, bo Ty sam, Panie, sprawiasz, że bezpiecznie mieszkam.”</span>
+                        <span><strong class="ticker-sig">BIBLIA INTERLINEARNA</strong><span class="ticker-sep">•</span>Odkryj oryginalny tekst Pisma Świętego z kodami Stronga: <strong class="ticker-highlight">https://polskieradio.cc/mojabiblia</strong></span>
+                    </div>
                 </div>
             </div>
         </div>
