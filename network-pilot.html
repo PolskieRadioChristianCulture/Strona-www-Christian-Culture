@@ -43,7 +43,8 @@ button,a.btn,a.cta-btn,.seg button,.filter-chip,.btn-ghost{min-height:44px;min-w
 /* ---------- top bar & ticker ---------- */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:linear-gradient(var(--bg) 55%,rgba(7,8,13,.88))}
 .ticker{overflow:hidden;border-bottom:1px solid var(--line);background:rgba(255,122,0,.05);-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.tk-track{display:flex;gap:34px;width:max-content;padding:8px 0;animation:tk 48s linear infinite;font-size:14px;font-weight:600;white-space:nowrap}
+.tk-track{display:flex;gap:34px;width:max-content;padding:8px 0;animation:tk 160s linear infinite;font-size:14px;font-weight:600;white-space:nowrap}
+.ticker:hover .tk-track{animation-play-state:paused}
 .tk-track span{display:inline-flex;gap:8px;align-items:center;color:var(--muted)}
 .tk-track b{font-variant-numeric:tabular-nums;color:var(--gold)}
 @keyframes tk{to{transform:translateX(-50%)}}
