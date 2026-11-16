@@ -109,6 +109,8 @@ test('release refreshes the shared chat loader without touching frozen channels'
  const html='<body><script src="/components/cc-support-footer.js" defer></script><script src="/js/cc-back-to-top.js"></script></body>';
  const result=applyPageStandard('lumina.html',html);
  assert.match(result,/cc-support-footer\.js\?v=20261116_a007_column/);
+ const auth=applyPageStandard('akademia/kurscodzienny/index.html','<body><script src="/js/cc-global-auth.js?v=20261007_auth_v2"></script><script src="../../js/cc-global-auth.js?v=20260930_auth_v10"></script></body>');
+ assert.equal((auth.match(/cc-global-auth\.js\?v=20261116_a007_auth/g)||[]).length,2,'wszystkie wersje skryptu logowania → jeden aktualny adres');
  assert.equal(applyPageStandard('lumina.html',result),result);
  for(const file of ['cctv24-worship.html','stream-scene.html','snadaniowa-live.html','zapolske-live.html'])assert.equal(applyPageStandard(file,html),html);
 });
