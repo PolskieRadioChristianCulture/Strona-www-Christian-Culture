@@ -378,10 +378,16 @@
     "book": "genesis",
     "chapter": 26,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_26_1-35_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 26,1–35 (UBG) — Izaak w Gerarze, Studnie Abrahama i Przymierze w Beer-Szebie",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_26_1-35_Biblia_Audio_CC.mp3",
+        "verses": "1–35"
+      }
+    ]
   },
   {
     "id": "genesis-27",
