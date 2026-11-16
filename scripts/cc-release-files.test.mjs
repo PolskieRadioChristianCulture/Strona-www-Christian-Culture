@@ -49,7 +49,7 @@ test('real release builder excludes private fixtures and keeps public and frozen
   };
   for (const file of ['build-pages-release.mjs', 'cc-release-files.mjs', 'cc-release-secret-scan.mjs',
     'daily-course-manifest.mjs', 'cc-page-standard.mjs', 'cc-channel-numbering.mjs', 'lumi-page.mjs', 'lumi-dashboard.mjs',
-    'kurs-codzienny/straznik-lekcji.mjs', 'kurs-codzienny/lib.mjs']) {
+    'kurs-codzienny/straznik-lekcji.mjs', 'kurs-codzienny/lib.mjs', 'cc-release-branch-guard.mjs']) {
     put('scripts/' + file, fs.readFileSync(new URL(file, import.meta.url)));
   }
   put('data/cc-channels.json', fs.readFileSync(new URL('../data/cc-channels.json', import.meta.url)));
@@ -66,7 +66,8 @@ test('real release builder excludes private fixtures and keeps public and frozen
   const git = args => execFileSync('git', args, { cwd: root, windowsHide: true, stdio: 'pipe' });
   git(['init', '-q']); git(['add', '-f', '.']);
   git(['-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', '-c', 'commit.gpgsign=false', 'commit', '-qm', 'fixture']);
-  const result = spawnSync(process.execPath, ['scripts/build-pages-release.mjs'], { cwd: root, encoding: 'utf8', windowsHide: true, timeout: 30000 });
+  // Repo-fikstura nie ma origin — bramka gałęzi ma własne testy (cc-release-branch-guard.test.mjs).
+  const result = spawnSync(process.execPath, ['scripts/build-pages-release.mjs'], { cwd: root, encoding: 'utf8', windowsHide: true, timeout: 30000, env: { ...process.env, CC_RELEASE_BRANCH_GUARD: 'off' } });
   assert.equal(result.status, 0, result.stderr);
   const output = path.join(root, '.pages-release');
   for (const file of privatePaths) assert.equal(fs.existsSync(path.join(output, file)), false, file);

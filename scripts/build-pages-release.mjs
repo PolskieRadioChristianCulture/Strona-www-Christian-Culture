@@ -8,6 +8,7 @@ import { renderLumiPage } from './lumi-page.mjs';
 import { scanReleaseForSecrets } from './cc-release-secret-scan.mjs';
 import { isPublicFile } from './cc-release-files.mjs';
 import { sprawdzPliki, plikiLekcji } from './kurs-codzienny/straznik-lekcji.mjs';
+import { enforceReleaseBranch } from './cc-release-branch-guard.mjs';
 
 const ROOT = process.cwd();
 const OUTPUT = path.join(ROOT, '.pages-release');
@@ -24,6 +25,8 @@ const trackedChanges = execFileSync('git', ['status', '--porcelain', '--untracke
 if (trackedChanges) {
   throw new Error('Wydanie przerwane: pliki kontrolowane przez Git nie są czyste. Najpierw zatwierdź albo wycofaj zmiany.');
 }
+// Bramka gałęzi (@007, L0 16.11.2026): tylko main i nic z origin/main nie może zniknąć z produkcji.
+enforceReleaseBranch(ROOT);
 
 // Strażnik lekcji KC (@007, 2026-11-03): żadne wydanie z lekcją zawierającą resztki innego dnia.
 const niespojneLekcje = sprawdzPliki(ROOT, plikiLekcji(ROOT));
