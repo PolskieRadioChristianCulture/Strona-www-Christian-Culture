@@ -1,0 +1,59 @@
+name: CC Skaner Wizualny (@A008)
+# Prawdziwa przeglądarka sprawdza strony produkcji w widoku telefonu i komputera.
+# Tylko odczyt: brak wdrożeń, brak zapisu do kodu; jedyny zapis to zgłoszenie (Issue) z listą usterek.
+on:
+  schedule:
+    - cron: '30 2 * * *'   # 03:30 czasu polskiego (zima) — komputer L0 może być wyłączony
+    - cron: '30 11 * * *'  # 12:30 — po porannych publikacjach automatów
+  workflow_dispatch:
+    inputs:
+      base:
+        description: 'Adres do sprawdzenia (np. podgląd https://galaz.polskieradio.pages.dev)'
+        required: false
+        default: 'https://polskieradio.cc'
+      pages:
+        description: 'Lista stron po przecinku (puste = domyślna lista)'
+        required: false
+        default: ''
+concurrency:
+  group: cc-skaner-wizualny
+  cancel-in-progress: false
+jobs:
+  skan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Playwright (tylko Chromium)
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Skan
+        id: skan
+        continue-on-error: true
+        env:
+          CC_SKANER_BASE: ${{ inputs.base || 'https://polskieradio.cc' }}
+          CC_SKANER_PAGES: ${{ inputs.pages }}
+        run: node scripts/cc-skaner-wizualny.mjs
+      - name: Raport w podsumowaniu
+        if: always()
+        run: cat reports/cc-skaner/raport.md >> "$GITHUB_STEP_SUMMARY" || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cc-skaner
+          path: reports/cc-skaner/
+          retention-days: 14
+      - name: Zgłoszenie (Issue)
+        if: always() && (inputs.base == '' || inputs.base == 'https://polskieradio.cc' || github.event_name == 'schedule')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node scripts/cc-skaner-zgloszenie.mjs

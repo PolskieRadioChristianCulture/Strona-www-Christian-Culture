@@ -108,7 +108,7 @@ test('release refreshes the shared chat loader without touching frozen channels'
  const {applyPageStandard}=await import('./cc-page-standard.mjs');
  const html='<body><script src="/components/cc-support-footer.js" defer></script><script src="/js/cc-back-to-top.js"></script></body>';
  const result=applyPageStandard('lumina.html',html);
- assert.match(result,/cc-support-footer\.js\?v=20261014_mockup4/);
+ assert.match(result,/cc-support-footer\.js\?v=20261116_a007_column/);
  assert.equal(applyPageStandard('lumina.html',result),result);
  for(const file of ['cctv24-worship.html','stream-scene.html','snadaniowa-live.html','zapolske-live.html'])assert.equal(applyPageStandard(file,html),html);
 });
