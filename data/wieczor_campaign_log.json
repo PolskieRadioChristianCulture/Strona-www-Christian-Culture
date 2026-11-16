@@ -77,6 +77,70 @@
         "status": "queued",
         "targets": 3
       }
+    },
+    {
+      "hour": 15,
+      "slotName": "15:00 — Godzina Wytchnienia i Łaski",
+      "executedAt": "2026-11-16T14:00:57.822Z",
+      "lumina": {
+        "status": "published",
+        "docId": "CbRwAzaR8wuSnZZSk7uF"
+      },
+      "x": {
+        "status": "published"
+      },
+      "whatsapp": {
+        "status": "queued",
+        "targets": 3
+      }
+    },
+    {
+      "hour": 16,
+      "slotName": "16:00 — Powroty i domowe zacisze",
+      "executedAt": "2026-11-16T15:00:58.301Z",
+      "lumina": {
+        "status": "published",
+        "docId": "4dFZMDuvYpxOueByXDLY"
+      },
+      "x": {
+        "status": "published"
+      },
+      "whatsapp": {
+        "status": "queued",
+        "targets": 3
+      }
+    },
+    {
+      "hour": 17,
+      "slotName": "17:00 — Spotkanie dla Ciebie i Twoich bliskich",
+      "executedAt": "2026-11-16T16:00:59.476Z",
+      "lumina": {
+        "status": "published",
+        "docId": "CdbPSupWHkqPC2vnqDtE"
+      },
+      "x": {
+        "status": "published"
+      },
+      "whatsapp": {
+        "status": "queued",
+        "targets": 3
+      }
+    },
+    {
+      "hour": 17,
+      "slotName": "17:00 — Spotkanie dla Ciebie i Twoich bliskich",
+      "executedAt": "2026-11-16T16:01:58.757Z",
+      "lumina": {
+        "status": "published",
+        "docId": "z87VVKOXNXIp6euAIjpp"
+      },
+      "x": {
+        "status": "published"
+      },
+      "whatsapp": {
+        "status": "queued",
+        "targets": 3
+      }
     }
   ]
 }

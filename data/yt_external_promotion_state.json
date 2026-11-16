@@ -1,7 +1,7 @@
 {
-  "lastIndex": 4,
-  "lastChannelId": "werset_dnia",
-  "lastTimestamp": "2026-11-16T09:01:46.698Z",
+  "lastIndex": 5,
+  "lastChannelId": "cc_women",
+  "lastTimestamp": "2026-11-16T17:02:43.794Z",
   "history": [
     {
       "index": 0,
@@ -55,6 +55,17 @@
       "url": "https://www.youtube.com/@wersetdnia_ChSB",
       "targetAudience": "Użytkownicy Shorts/Reels/TikTok szukający szybkiej dawki Bożej obietnicy każdego ranka",
       "hook": "Jedno zdanie z Biblii potrafi zatrzymać lawinę złych myśli i dać siłę na cały dzień."
+    },
+    {
+      "index": 5,
+      "channelId": "cc_women",
+      "timestamp": "2026-11-16T17:02:43.794Z",
+      "status": "PROMOTED",
+      "channelName": "CC Women",
+      "handle": "@CCWomen7",
+      "url": "https://www.youtube.com/@CCWomen7",
+      "targetAudience": "Kobiety w każdym wieku zmęczone toksyczną presją mediów społecznościowych",
+      "hook": "Przestań udowadniać światu swoją wartość. Bóg już określił, kim jesteś."
     }
   ]
 }
