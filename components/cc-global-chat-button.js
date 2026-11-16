@@ -3097,6 +3097,24 @@
       }, 6000);
     }
 
+    function checkTeaserVideoCollision() {
+      if (!teaserBubble || isTeaserDismissed) return false;
+      const videos = document.querySelectorAll('iframe[src*="live"], iframe[src*="master"], video, .video-container');
+      if (!videos.length) return false;
+      const tRect = teaserBubble.getBoundingClientRect();
+      if (tRect.width <= 0 || tRect.height <= 0) return false;
+      for (const v of videos) {
+        if (v.closest('#lumiIntroOverlay, .lumi-intro-video-wrap, #directMessagesModal, .lumi-standalone')) continue;
+        const vRect = v.getBoundingClientRect();
+        if (vRect.width <= 0 || vRect.height <= 0) continue;
+        if (vRect.bottom > 0 && vRect.top < window.innerHeight && vRect.right > 0 && vRect.left < window.innerWidth) {
+          const intersects = !(tRect.right < vRect.left || tRect.left > vRect.right || tRect.bottom < vRect.top || tRect.top > vRect.bottom);
+          if (intersects) return true;
+        }
+      }
+      return false;
+    }
+
     const isFabHiddenOnInit = safeLsGet(CC_FAB_HIDDEN_KEY) === '1';
     const fabWrapEarlyInit = document.getElementById('ccGlobalChatFab');
     if (fabWrapEarlyInit && isFabHiddenOnInit) {
@@ -3125,7 +3143,20 @@
       }
       window.addEventListener('lumina-theme-change', () => applyTeaserPageTheme(teaserBubble));
 
-      scheduleTeaserAutoHide();
+      if (checkTeaserVideoCollision()) {
+        hideTeaserImmediately();
+      } else {
+        scheduleTeaserAutoHide();
+        setTimeout(() => {
+          if (!isTeaserDismissed && checkTeaserVideoCollision()) hideTeaserImmediately();
+        }, 150);
+        setTimeout(() => {
+          if (!isTeaserDismissed && checkTeaserVideoCollision()) hideTeaserImmediately();
+        }, 600);
+        window.addEventListener('scroll', () => {
+          if (!isTeaserDismissed && checkTeaserVideoCollision()) hideTeaserImmediately();
+        }, { passive: true });
+      }
       teaserBubble.addEventListener('mouseenter', () => {
         if (teaserAutoHideTimer) { clearTimeout(teaserAutoHideTimer); teaserAutoHideTimer = null; }
       });

@@ -310,11 +310,11 @@
 }
 @media (max-width: 600px) {
     .lumina-tts-btn {
-        min-width: 30px !important;
-        min-height: 30px !important;
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 0.9rem !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        width: 44px !important;
+        height: 44px !important;
+        font-size: 1.05rem !important;
     }
 }
 `;

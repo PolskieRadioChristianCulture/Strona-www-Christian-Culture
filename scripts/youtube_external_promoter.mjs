@@ -354,7 +354,13 @@ if (process.argv[1] && process.argv[1].endsWith('youtube_external_promoter.mjs')
   console.log(`=== 3. HAK DO SHORTS / REELS / TIKTOK ===\n${channel.shortsHook}\n`);
   console.log(`Hashtagi: ${channel.hashtags.join(' ')}\n`);
   if (apply) {
-    saveExternalPromotionState(nextIndex, channel.id);
+    saveExternalPromotionState(nextIndex, channel.id, {
+      channelName: channel.name,
+      handle: channel.handle,
+      url: channel.url,
+      targetAudience: channel.targetAudience,
+      hook: channel.hook
+    });
     console.log(`[STATUS] Zapisano wskaźnik rotacji: ${channel.id} (index ${nextIndex})`);
   } else {
     console.log('[DRY-RUN] Użyj flagi --publish, aby przesunąć wskaźnik kolejki.');

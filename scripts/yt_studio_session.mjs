@@ -20,7 +20,17 @@ const CORE_PL_CHANNELS = {
 
 export const CHANNELS = {
   ...CORE_PL_CHANNELS,
-  'Personality Plus': { id: 'UCSwb927uMg2PxIl_Aakht0Q', handle: '@PersonalityPlusCC', via: 'Personality Plus' }
+  'Personality Plus': { id: 'UCSwb927uMg2PxIl_Aakht0Q', handle: '@PersonalityPlusCC', via: 'Personality Plus' },
+  'Christian Culture Instrumental': { id: null, handle: '@ChristianCultureInstrumental', via: '@ChristianCultureInstrumental' },
+  'CC Prayer 24': { id: null, handle: '@CCPrayer24', via: '@CCPrayer24' },
+  'CC Nature Sounds': { id: null, handle: '@CCNatureSounds', via: '@CCNatureSounds' },
+  'CC Worship International': { id: null, handle: '@CCWorshipInternational', via: '@CCWorshipInternational' },
+  'Christian Culture Praise & Worship': { id: null, handle: '@ChristianCulturePraiseWorship', via: '@ChristianCulturePraiseWorship' },
+  'Christian Culture Rodzina': { id: null, handle: '@ChristianCultureRodzina', via: '@ChristianCultureRodzina' },
+  'CC Marriage': { id: null, handle: '@CCMarriage', via: '@CCMarriage' },
+  'Christian Culture Biznes': { id: null, handle: '@ChristianCultureBiznes', via: '@ChristianCultureBiznes' },
+  'CC Identity': { id: null, handle: '@CCIdentityTwojaDuchowaTożsamoś', via: '@CCIdentityTwojaDuchowaTożsamoś' },
+  'Worship LIVE CC': { id: null, handle: '@WorshipLiveCC', via: '@WorshipLiveCC' }
 };
 
 // Biblia Audio: KOMPLET (4K + Shorts) na wszystkich 7 głównych kanałach PL — decyzja L0 02.11.2026.

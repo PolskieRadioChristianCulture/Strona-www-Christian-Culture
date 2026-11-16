@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-15T13:12:01.350Z",
-  "totalItems": 453,
+  "updatedAt": "2026-11-16T05:03:41.312Z",
+  "totalItems": 455,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -8593,6 +8593,23 @@
       "featured": false
     },
     {
+      "title": "Z Biblią za Pan Brat — Dzień 47: WODA ZE SKAŁY W HOREBIE I ZWYCIĘSTWO NAD AMALEKIEM — JAHWE NISSI (Wj 17:1–16)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-47",
+      "description": "Dzień 47 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 17:1–16: Pragnienie ludu w Refidim, uderzona laska Mojżesza na Horebie, strumienie żywej wody, bitwa z Amalekiem i ręce podtrzymywane przez Aarona i Chura (Wj 17:1–16)",
+      "tags": [
+        "kurs codzienny",
+        "z biblią za pan brat",
+        "dzień 47",
+        "dzien 47",
+        "lekcja 47",
+        "księga wyjścia",
+        "lekcja biblijna",
+        "rozważanie"
+      ],
+      "featured": false
+    },
+    {
       "title": "Leksykon: Paruzja (Parousia)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/apokalipsa/lekcja-20",
@@ -8716,6 +8733,26 @@
         "słownik biblijny"
       ],
       "scripture": "Jeremiasza 31:33: Lecz takie będzie przymierze, które zawrę z domem Izraela po tych dniach, mówi Pan: Złożę moje prawo w ich wnętrzu i wypiszę je na ich sercach. Łukasza 22:20: Podobnie i kielich po wieczerzy, mówiąc: Ten kielich to nowe przymierze w mojej krwi, która się za was wylewa. Hebrajczyków 8:6: Teraz zaś otrzymał zaszczytniejszą służbę, o ile jest pośrednikiem lepszego przymierza, opartego na lepszych obietnicach.",
+      "featured": false
+    },
+    {
+      "title": "Rozważanie: KAŻDY MA PRAWO DO OPINII",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/dzj",
+      "description": "16 LISTOPADA 2026: 16 listopada został ustanowiony przez ONZ jako Międzynarodowy Dzień Tolerancji. A jednak w świecie, w którym coraz częściej mówi się o tolerancji, jest jej coraz mniej. S.C. Lewis … Modlitwa: …",
+      "contentSnippet": "16 listopada został ustanowiony przez ONZ jako Międzynarodowy Dzień Tolerancji. A jednak w świecie, w którym coraz częściej mówi się o tolerancji, jest jej coraz mniej. S.C. Lewis twierdzi, że: „Kiedy społeczeństwo przestaje wierzyć w obiektywną moralność, nie staje się tolerancyjne… staje się podatne na manipulację”. Czy masz świadomość, jak bardzo w dobie wszechobecnych mediów jesteśmy codzienni",
+      "tags": [
+        "dobrze że jesteś",
+        "cuda każdego dnia",
+        "rozważanie",
+        "modlitwa",
+        "poranna inspiracja",
+        "16 LISTOPADA 2026",
+        "nadzieja",
+        "pokój boży",
+        "wiara",
+        "słowo boże"
+      ],
       "featured": false
     },
     {
@@ -11082,16 +11119,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 15",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 15 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 16",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 16 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 46)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 47)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-46",
+      "url": "/akademia/kurscodzienny/dzien-47",
       "icon": "book"
     },
     {
@@ -11110,15 +11147,15 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-15T13:12:01.425Z",
+    "updatedAt": "2026-11-16T05:03:41.413Z",
     "heading": "Polecane na dziś",
-    "dateFormattedPL": "15 listopada 2026",
+    "dateFormattedPL": "16 listopada 2026",
     "pools": [
       [
         {
           "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 15",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 15 listopada 2026.",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 16",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 16 listopada 2026.",
           "url": "/player",
           "icon": "heart"
         },
@@ -11147,9 +11184,9 @@
       [
         {
           "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 46)",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 47)",
           "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-46",
+          "url": "/akademia/kurscodzienny/dzien-47",
           "icon": "book"
         },
         {
@@ -11238,16 +11275,16 @@
     "recommendedToday": [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 15",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 15 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 16",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 16 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 46)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 47)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-46",
+        "url": "/akademia/kurscodzienny/dzien-47",
         "icon": "book"
       },
       {

@@ -12,7 +12,7 @@ import { reconcile } from './yt_reconcile_history.mjs';
 import { uploadEpisodeToChannel } from './publish_perfect.mjs';
 import { BIBLIA_AUDIO_CHANNELS } from './yt_studio_session.mjs';
 
-const GENESIS_DIR = 'C:\\Users\\czark\\Desktop\\Biblia Audio CC — Gotowe do Emisji\\01_Stary_Testament\\01_Ksiega_Rodzaju';
+const GENESIS_DIR = 'H:\\Mój dysk\\OA - orkiestracja Agentowa\\Biblia Audio CC — Gotowe do Emisji\\01_Stary_Testament\\01_Ksiega_Rodzaju';
 const HISTORY_FILE = path.resolve('C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\data\\youtube_published_history.json');
 const REPORT_FILE = path.resolve('C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\data\\youtube_repair_report.json');
 const PRIMARY = BIBLIA_AUDIO_CHANNELS; // komplet na wszystkich 7 kanałach (L0 02.11.2026)

@@ -1,7 +1,7 @@
 {
-  "lastIndex": 2,
-  "lastChannelId": "radio_cc",
-  "lastTimestamp": "2026-11-15T09:04:08.125Z",
+  "lastIndex": 3,
+  "lastChannelId": "biblia_audio",
+  "lastTimestamp": "2026-11-15T17:07:57.241Z",
   "history": [
     {
       "index": 0,
@@ -33,6 +33,17 @@
       "hook": "Masz dość toksycznej papki w komercyjnych rozgłośniach?",
       "timestamp": "2026-11-15T09:04:08.125Z",
       "status": "PROMOTED"
+    },
+    {
+      "index": 3,
+      "channelId": "biblia_audio",
+      "timestamp": "2026-11-15T17:07:57.246Z",
+      "status": "PROMOTED",
+      "channelName": "Biblia Audio CC",
+      "handle": "@bibliaaudiocc",
+      "url": "https://www.youtube.com/@bibliaaudiocc",
+      "targetAudience": "Osoby w podróży, biegacze, ludzie cierpiący na bezsenność, chcący poznać Pismo Święte",
+      "hook": "Brakuje Ci czasu na czytanie Biblii? Pozwól, by Słowo mówiło do Ciebie w podróży i przed snem."
     }
   ]
 }
