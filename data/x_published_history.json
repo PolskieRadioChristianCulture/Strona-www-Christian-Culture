@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina.mariusz",
+      "title": "Duchowny Mariusz — Wsparcie Duszpasterskie, Rozmowa Telefoniczna i SMS",
+      "url": "https://polskieradio.cc/lumina.mariusz",
+      "type": "profile",
+      "image": "avatar_mariusz.jpg",
+      "publishedAt": "2026-11-16T16:34:12.431Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "topTEN",
+      "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+      "url": "https://polskieradio.cc/topTEN",
+      "type": "music",
+      "image": "wspieramto-banner.png",
+      "publishedAt": "2026-11-16T16:08:31.245Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=328",
       "title": "Werset Dnia: „Serce człowieka planuje jego drogę, ale Pan kieruje jego krokami” (Księga Przysłów 16:9, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=328",
