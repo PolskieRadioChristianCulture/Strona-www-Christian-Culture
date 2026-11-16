@@ -81,7 +81,7 @@
             background-size: cover;
         }
 
-        /* Subtelny ambientowy blask na tle */
+        /* Subtelny blask ambientowy */
         .ambient-glow {
             position: absolute;
             top: 0;
@@ -99,115 +99,80 @@
             100% { opacity: 0.9; }
         }
 
-        /* Górny pasek - zegar studyjny po lewej */
-        .top-clock-container {
+        /* ───────────────────────────────────────────────────────────
+           GÓRNY PASEK ZE SŁOWEM BOŻYM (TICKER)
+           Umieszczony na samej górze, z bardzo spokojną prędkością
+        ─────────────────────────────────────────────────────────── */
+        .top-ticker-container {
             position: absolute;
-            top: 22px;
-            left: 45px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            z-index: 20;
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(10px);
-            padding: 10px 22px;
-            border-radius: 30px;
-            border: 1px solid rgba(196, 163, 90, 0.35);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-        }
-
-        .clock-pulse-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #2ed573;
-            box-shadow: 0 0 10px #2ed573;
-            animation: pulseDot 2s infinite ease-in-out;
-        }
-
-        @keyframes pulseDot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.85); }
-        }
-
-        .clock-time {
-            font-family: 'Outfit', 'Montserrat', sans-serif;
-            font-size: 24px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: 1.5px;
-        }
-
-        .clock-date {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--gold-bright);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding-left: 12px;
-            border-left: 1px solid rgba(255,255,255,0.25);
-        }
-
-        /* Dolny pasek informacyjny (News Ticker) w czarnej strefie */
-        .bottom-ticker-container {
-            position: absolute;
-            bottom: 0;
-            left: 420px; /* Za czerwoną belką YouTube "DZISIAJ O 20:00" */
+            top: 0;
+            left: 0;
             right: 0;
-            height: 98px;
+            height: 54px;
             z-index: 30;
             display: flex;
             align-items: center;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(196, 163, 90, 0.45);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
             overflow: hidden;
-            background: transparent;
         }
 
-        .ticker-prefix {
+        .top-ticker-prefix {
             display: flex;
             align-items: center;
             gap: 10px;
-            background: linear-gradient(135deg, rgba(196, 163, 90, 0.3), rgba(0, 0, 0, 0.8));
-            border-left: 3px solid var(--gold-bright);
-            padding: 10px 20px;
-            border-radius: 8px;
-            margin-right: 18px;
+            background: linear-gradient(135deg, rgba(196, 163, 90, 0.35), rgba(0, 0, 0, 0.9));
+            border-right: 2px solid var(--gold-bright);
+            padding: 0 24px;
+            height: 100%;
             white-space: nowrap;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            z-index: 32;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.6);
         }
 
-        .ticker-prefix i {
+        .top-ticker-prefix i {
             color: var(--gold-bright);
-            font-size: 18px;
+            font-size: 19px;
         }
 
-        .ticker-prefix span {
-            font-size: 14px;
+        .top-ticker-prefix span {
+            font-size: 13px;
             font-weight: 800;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             color: #ffffff;
             text-transform: uppercase;
         }
 
-        .ticker-track {
+        .top-ticker-track {
             flex: 1;
             overflow: hidden;
             white-space: nowrap;
             position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
         }
 
-        .ticker-content {
+        /* Bardzo spokojna, czytelna prędkość przewijania (135 sekund) */
+        .top-ticker-content {
             display: inline-block;
             white-space: nowrap;
-            animation: scrollMarquee 42s linear infinite;
+            animation: scrollMarquee 135s linear infinite;
             font-size: 18px;
             font-weight: 600;
             letter-spacing: 0.8px;
-            color: #f1f2f6;
+            color: #f5f6fa;
         }
 
-        .ticker-content span {
+        .top-ticker-content:hover {
+            animation-play-state: paused;
+        }
+
+        .top-ticker-content span {
             display: inline-block;
-            margin-right: 40px;
+            margin-right: 60px;
         }
 
         .ticker-highlight {
@@ -218,16 +183,79 @@
         .ticker-badge {
             background: rgba(196, 163, 90, 0.25);
             border: 1px solid var(--gold-bright);
-            color: #fff;
-            padding: 2px 10px;
+            color: #ffffff;
+            padding: 3px 12px;
             border-radius: 4px;
-            font-weight: 700;
-            margin-right: 8px;
+            font-weight: 800;
+            margin-right: 12px;
+            letter-spacing: 1px;
         }
 
         @keyframes scrollMarquee {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
+        }
+
+        /* ───────────────────────────────────────────────────────────
+           DOLNY PRAWY RÓG - INFORMACJA I ZEGAR STUDYJNY
+           Przeniesione na dół w prawy róg, aby nie kolidować z grafiką
+        ─────────────────────────────────────────────────────────── */
+        .bottom-right-info-container {
+            position: absolute;
+            bottom: 14px;
+            right: 36px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 25;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(12px);
+            padding: 9px 22px;
+            border-radius: 28px;
+            border: 1px solid rgba(196, 163, 90, 0.4);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8);
+        }
+
+        .clock-pulse-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #2ed573;
+            box-shadow: 0 0 12px #2ed573;
+            animation: pulseDot 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.85); }
+        }
+
+        .info-time {
+            font-family: 'Outfit', 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1.5px;
+        }
+
+        .info-date {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold-bright);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding-left: 14px;
+            border-left: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .info-brand {
+            font-size: 11px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding-left: 12px;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Nakładka Unmute dla przeglądarki */
@@ -335,30 +363,32 @@
     <div id="scene-wrapper">
         <div class="ambient-glow"></div>
 
-        <!-- Top Header Clock -->
-        <div class="top-clock-container">
-            <div class="clock-pulse-dot" title="Transmisja Aktywna"></div>
-            <div class="clock-time" id="clock-time">00:00:00</div>
-            <div class="clock-date" id="clock-date">PONIEDZIAŁEK, 16 LISTOPADA</div>
-        </div>
-
-        <!-- Bottom Informational Ticker in the Black Band -->
-        <div class="bottom-ticker-container">
-            <div class="ticker-prefix">
+        <!-- 1. GÓRNY PASEK ZE SŁOWEM BOŻYM (Spokojny Ticker) -->
+        <div class="top-ticker-container">
+            <div class="top-ticker-prefix">
                 <i class="fa-solid fa-book-bible"></i>
-                <span>SŁOWO BOŻE</span>
+                <span>SŁOWO BOŻE NA WIECZÓR</span>
             </div>
-            <div class="ticker-track">
-                <div class="ticker-content" id="ticker-text">
+            <div class="top-ticker-track">
+                <div class="top-ticker-content" id="ticker-text">
                     <span><strong class="ticker-badge">J 14,27</strong> „Pokój zostawiam wam, pokój mój daję wam. Nie tak jak daje świat, Ja wam daję. Niech się nie trwoży serce wasze ani się nie lęka.”</span>
-                    <span><strong class="ticker-badge">WSPARCIE MISJI</strong> Pomóż nam budować niezależne chrześcijańskie media w Polsce: <strong class="ticker-highlight">https://polskieradio.cc/wspieraj</strong> • BLIK: <strong>537 137 043</strong></span>
                     <span><strong class="ticker-badge">Flp 4,6-7</strong> „O nic się zbytnio nie troskajcie, ale we wszystkim w modlitwie i błaganiu z dziękczynieniem powierzcie prośby wasze Bogu.”</span>
-                    <span><strong class="ticker-badge">PORTAL LUMINA</strong> Dołącz do wolnej społeczności wierzących: <strong class="ticker-highlight">https://polskieradio.cc/lumina</strong> • Dobre treści bez algorytmów zgiełku</span>
+                    <span><strong class="ticker-badge">WSPARCIE MISJI</strong> Pomóż nam budować niezależne chrześcijańskie media w Polsce: <strong class="ticker-highlight">https://polskieradio.cc/wspieraj</strong> • Szybki BLIK: <strong>537 137 043</strong></span>
                     <span><strong class="ticker-badge">Mt 11,28</strong> „Pójdźcie do Mnie wszyscy, którzy utrudzeni i obciążeni jesteście, a Ja wam dam ukojenie.”</span>
-                    <span><strong class="ticker-badge">BIBLIA INTERLINEARNA</strong> Odkryj oryginalny tekst Pisma Świętego z kodami Stronga: <strong class="ticker-highlight">https://polskieradio.cc/mojabiblia</strong></span>
+                    <span><strong class="ticker-badge">Iz 26,3</strong> „Temu, którego myśl jest stała, zachowujesz pokój, pokój, bo tobie zaufał.”</span>
+                    <span><strong class="ticker-badge">PORTAL LUMINA</strong> Dołącz do wolnej społeczności wierzących: <strong class="ticker-highlight">https://polskieradio.cc/lumina</strong> • Dobre treści bez zgiełku</span>
                     <span><strong class="ticker-badge">Ps 4,9</strong> „W pokoju się położę i zaraz zasnę, bo Ty sam, Panie, sprawiasz, że bezpiecznie mieszkam.”</span>
+                    <span><strong class="ticker-badge">BIBLIA INTERLINEARNA</strong> Odkryj oryginalny tekst Pisma Świętego z kodami Stronga: <strong class="ticker-highlight">https://polskieradio.cc/mojabiblia</strong></span>
                 </div>
             </div>
+        </div>
+
+        <!-- 2. DOLNY PRAWY RÓG: INFORMACJA ZE STUDYJNYM ZEGAREM -->
+        <div class="bottom-right-info-container">
+            <div class="clock-pulse-dot" title="Emisja Aktywna"></div>
+            <div class="info-time" id="clock-time">00:00:00</div>
+            <div class="info-date" id="clock-date">PONIEDZIAŁEK, 16 LISTOPADA</div>
+            <div class="info-brand">CHRISTIAN CULTURE TV</div>
         </div>
     </div>
 
