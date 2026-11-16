@@ -48,6 +48,11 @@
             padding: 0;
         }
 
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
         body {
             background-color: var(--bg-dark);
             color: #ffffff;
@@ -68,11 +73,12 @@
             background: rgba(7, 9, 13, 0.88);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-subtle);
-            padding: 14px 24px;
+            padding: 14px 16px;
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            gap: 12px;
         }
 
         .brand-link {
@@ -119,15 +125,22 @@
 
         .nav-actions {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            max-width: 100%;
+        }
+
+        .btn-nav, button {
+            min-height: 44px;
+            min-width: 44px;
         }
 
         .btn-nav {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 16px;
+            padding: 10px 14px;
             border-radius: 10px;
             font-family: 'Outfit', sans-serif;
             font-size: 0.82rem;

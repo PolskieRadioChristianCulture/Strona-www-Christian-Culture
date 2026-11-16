@@ -927,3 +927,8 @@ html[data-lumina-theme="light"] body.lumina-profile-standard .stat-label { color
 html[data-lumina-theme="light"] body.lumina-profile-standard .hero-cc-badge { color: #ffffff !important; }
 html[data-lumina-theme="light"] body.lumina-profile-standard .mini-radio-title { color: #765414 !important; }
 html[data-lumina-theme="light"] body.lumina-profile-standard .mini-radio-sub { color: #57534e !important; }
+
+body.lumina-profile-standard :is(button, a.btn, a[role="button"]) {
+    min-height: 44px !important;
+    min-width: 44px !important;
+}

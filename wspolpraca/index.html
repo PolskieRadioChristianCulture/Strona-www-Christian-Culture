@@ -78,6 +78,18 @@
     
     <style>
       /* Hide browser scrollbar globally while preserving smooth scrolling */
+      html, body, #root {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+      }
+      header nav {
+        flex-wrap: wrap !important;
+        max-width: 100% !important;
+      }
+      button, a[role="button"] {
+        min-height: 44px !important;
+        min-width: 44px !important;
+      }
       .no-scrollbar::-webkit-scrollbar,
       nav::-webkit-scrollbar,
       [class*="overflow-x-auto"]::-webkit-scrollbar {
