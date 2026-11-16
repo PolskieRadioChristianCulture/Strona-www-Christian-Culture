@@ -1229,7 +1229,7 @@ function formatBroadcasterTweet(item) {
       subHeader = '💡 eM • WIARA & AUTENTYCZNOŚĆ | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#KryzysWiary', '#CezaryRogowski', '#CCNNews', '#Prawda');
-    } else if (tLower.includes('religia staje się') || tLower.includes('nienaganny wizerunek') || (item.url || '').includes('gdy-religia-staje-sie-konkursem')) {
+    } else if (tLower.includes('religia staje się') || tLower.includes('nienaganny wizerunek') || tLower.includes('pobożność') || tLower.includes('poboznosc') || tLower.includes('religijna maska') || (item.url || '').includes('gdy-religia-staje-sie-konkursem') || (item.url || '').includes('poboznosc')) {
       subHeader = '💡 eM • WIARA & AUTENTYCZNOŚĆ | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#ReligiaBezMaski', '#CezaryRogowski', '#CCNNews', '#Prawda');
