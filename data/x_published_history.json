@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "pokonac-goliata",
+      "title": "Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo",
+      "url": "https://polskieradio.cc/pokonac-goliata",
+      "type": "book",
+      "image": "art-pokonac-goliata.jpg",
+      "publishedAt": "2026-11-16T09:03:50.274Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dzien-45",
       "title": "Akademia Biblijna: Z Biblią za Pan Brat — Dzień 45 (Wj 15:1–27): Pieśń zwycięstwa i gorzkie wody Mara — PAN twoim Lekarzem",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-45",
