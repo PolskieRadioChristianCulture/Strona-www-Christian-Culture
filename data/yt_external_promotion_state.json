@@ -1,7 +1,7 @@
 {
-  "lastIndex": 3,
-  "lastChannelId": "biblia_audio",
-  "lastTimestamp": "2026-11-15T17:07:57.241Z",
+  "lastIndex": 4,
+  "lastChannelId": "werset_dnia",
+  "lastTimestamp": "2026-11-16T09:01:46.698Z",
   "history": [
     {
       "index": 0,
@@ -44,6 +44,17 @@
       "url": "https://www.youtube.com/@bibliaaudiocc",
       "targetAudience": "Osoby w podróży, biegacze, ludzie cierpiący na bezsenność, chcący poznać Pismo Święte",
       "hook": "Brakuje Ci czasu na czytanie Biblii? Pozwól, by Słowo mówiło do Ciebie w podróży i przed snem."
+    },
+    {
+      "index": 4,
+      "channelId": "werset_dnia",
+      "timestamp": "2026-11-16T09:01:46.699Z",
+      "status": "PROMOTED",
+      "channelName": "Werset Dnia (ChSB)",
+      "handle": "@wersetdnia_ChSB",
+      "url": "https://www.youtube.com/@wersetdnia_ChSB",
+      "targetAudience": "Użytkownicy Shorts/Reels/TikTok szukający szybkiej dawki Bożej obietnicy każdego ranka",
+      "hook": "Jedno zdanie z Biblii potrafi zatrzymać lawinę złych myśli i dać siłę na cały dzień."
     }
   ]
 }

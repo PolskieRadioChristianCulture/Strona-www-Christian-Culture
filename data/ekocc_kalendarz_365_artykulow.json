@@ -273,11 +273,20 @@
       "portal_docelowy": "CCN News / aktualności",
       "priorytet": "B",
       "start_przygotowania": "2026-11-08",
-      "status": "Planowany / do opracowania",
+      "status": "Opublikowany (Autoryzacja L0: 2026-11-16)",
       "zrodlo_pomyslu": "Nowa propozycja redakcyjna",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "źródła pierwotne + 2 niezależne potwierdzenia; stanowiska stron",
-      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk."
+      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk.",
+      "url_opublikowany": "https://polskieradio.cc/news/dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko",
+      "data_publikacji_dokonana": "2026-11-16T14:00:00+01:00",
+      "pakiet_zip": "C:\\Users\\czark\\Desktop\\EkoCC_news_dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko_2026-11-16.zip",
+      "pakiet_docx": "C:\\Users\\czark\\Desktop\\EkoCC_news_dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko_2026-11-16.docx",
+      "grafika_16_9": "images/news/art-dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko.jpg",
+      "data_opracowania": "2026-11-16T14:00:00+01:00",
+      "bramka_bezpieczenstwa": "T3 (OPUBLIKOWANO PRODUKCYJNIE)",
+      "slug": "dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko",
+      "autor": "Cezary Rogowski"
     },
     {
       "lp": 14,

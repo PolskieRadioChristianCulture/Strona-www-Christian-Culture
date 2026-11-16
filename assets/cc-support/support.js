@@ -30,7 +30,7 @@ async function copy(value) {
 document.querySelectorAll('[data-copy]').forEach(button => {
   button.addEventListener('click', async () => {
     const key = button.dataset.copy;
-    const value = key === 'blik' ? support.blik : key === 'url' ? support.canonical : support.accounts[Number(key)].number;
+    const value = button.dataset.copyText || (key === 'blik' ? support.blik : key === 'url' ? support.canonical : (support.accounts[Number(key)] ? support.accounts[Number(key)].number : key));
     announce(await copy(value) ? 'Skopiowano do schowka.' : 'Nie udało się skopiować. Zaznacz widoczny numer i skopiuj go ręcznie.');
   });
 });

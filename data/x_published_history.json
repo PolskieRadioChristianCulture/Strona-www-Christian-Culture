@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "dzien-20",
+      "title": "Z Biblią za Pan Brat — Dzień 20 (Lekcja 20): Drabina Jakuba — Bóg jest bliżej, niż myślisz (Rdz 28:1–22)",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-20",
+      "type": "course",
+      "image": "kc_day_20_drabina_jakuba.jpg",
+      "publishedAt": "2026-11-16T11:34:01.105Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+      "publishedAt": "2026-11-16T11:04:39.186Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "premier-heatfix",
       "title": "Premier HeatFix UK — Certyfikowane Usługi Gazowe i Hydrauliczne w Londynie",
       "url": "https://polskieradio.cc/premier-heatfix",

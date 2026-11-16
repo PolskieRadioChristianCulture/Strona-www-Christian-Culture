@@ -61,6 +61,22 @@
         "status": "queued",
         "targets": 3
       }
+    },
+    {
+      "hour": 14,
+      "slotName": "14:00 — Odkryj siłę Bożego Słowa",
+      "executedAt": "2026-11-16T13:00:57.385Z",
+      "lumina": {
+        "status": "published",
+        "docId": "wfP95FPcRPBOw13fJu8K"
+      },
+      "x": {
+        "status": "published"
+      },
+      "whatsapp": {
+        "status": "queued",
+        "targets": 3
+      }
     }
   ]
 }

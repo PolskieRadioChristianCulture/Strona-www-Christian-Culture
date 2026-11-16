@@ -1,5 +1,5 @@
 {
-  "lastPublishedEpisode": 7,
+  "lastPublishedEpisode": 8,
   "history": [
     {
       "ep": 1,
@@ -117,6 +117,30 @@
       ],
       "allChannelsOk": true,
       "at": "2026-11-15T09:19:15.736Z"
+    },
+    {
+      "ep": 8,
+      "title": "Antychryst w proroctwach",
+      "premiere": "2026-11-18 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/9cAc5ykmN5w"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/LX9uLDDt3aQ"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/kVJl_7BfN4k"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-16T09:17:47.466Z"
     }
   ]
 }

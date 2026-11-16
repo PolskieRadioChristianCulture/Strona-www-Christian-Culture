@@ -5,6 +5,21 @@
   "updatesLog": [
     {
       "date": "2026-11-16",
+      "topic": "CCN News / Kalendarz 365: Publikacja artykułu LP 13 („Dzień Tolerancji: czy szacunek oznacza zgodę na wszystko?”) — autoryzacja L0 (bramka T3)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-16",
+      "topic": "CCN News X: Cykliczna publikacja #358 — Kurs Codzienny: Dzień 20 Drabina Jakuba z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-16",
+      "topic": "CCN News X: Cykliczna publikacja #357 — Kino VOD & YouTube: SDS Proroctwa Apokalipsy z dedykowaną grafiką",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-16",
       "topic": "CCN News X: Cykliczna publikacja #356 — Wizytówka Społeczności: Premier HeatFix UK z dedykowaną grafiką i Tablicą LUMINA",
       "agent": "A"
     },
@@ -286,106 +301,6 @@
     {
       "date": "2026-11-14",
       "topic": "Zewnętrzna Promocja YT #2/24: Osobowość + (Studio Dobrego Słowa) — Kampania Outbound (X, Facebook, Shorts/Reels)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #310 — Biblia & Teologia: Co z tym Michałem? Czy archanioł Michał to Jezus Chrystus? (Cezary Rogowski) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #309 — Kino VOD: Proroctwa Apokalipsy SDS z dedykowaną grafiką",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #308 — Werset Dnia: Psalm 126:5-6 UBG z dedykowaną kartą graficzną i publikacją na Tablicy LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #305 — Pismo Święte & Formacja: Pełny Przekład Pisma Świętego do Pobrania (PDF) z dedykowaną fotografią Biblii i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #304 — Profil & Terapia: Holistyczny Coaching & Terapia Wolności (Paweł Murawski) z autentycznym portretem",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "YouTube / What's Up Prof? #001: Zaplanowano premierę +48h (16.11.2026 13:00) na wszystkich 8 kanałach (Personality Plus EN oraz 7 kanałach PL z polskim opisem, miniaturą i auto-dubbingiem)",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #303 — TV Epafraz 24/7: Całodobowy Kanał Telewizyjny z dedykowaną grafiką",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #302 — CCN Finanse: Jak przygotować domowy budżet na grudzień bez kredytu? z dedykowaną grafiką",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Telewizja CC LIVE (/master): Usunięcie planszy przerwy technicznej, pojedynczy tor audio i płynna synchronizacja ramówki",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #300 — Książka: Kod Źródłowy Duszy (Cezary Rogowski) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "YouTube / Automatyzacja: Codzienna publikacja serii What's Up Prof? (50 odcinków) na Personality Plus (EN) i 7 kanałach PL (automatyczny lektor) jako premiera +48h",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Werset Dnia (X, WhatsApp, Facebook, Tablica LUMINA): Generator dedykowanych grafik tematycznych UBG 365 i blokada przypadkowych zdjęć",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #299 — Akademia Biblijna: Dzień 35 (Wj 4:1–31) Znaki wiary i powołanie z dedykowaną grafiką",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #298 — Społeczność & Relacje: Duchowny Mariusz (Portal LUMINA) z autentyczną fotografią",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN Finanse / Kalendarz 365: Opracowanie pakietu redakcyjnego LP 11 („Jak przygotować domowy budżet na grudzień bez kredytu?”) — DOCX, ZIP na Pulpicie, status T4",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "LUMINA MESS (/mess): Nowy wzorzec pokojów czatu (prywatnych 1:1 i publicznych) — kosmiczne tło zorzy polarnej, dymki indygo/fiolet, separatory czasu, status Dostarczono i kompozytor",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #296 — Biblia i Teologia: „Czy Jezus naprawdę był Bogiem?” (Cezary Rogowski) z dedykowaną grafiką tematyczną",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #295 — CC MUSIC Hub — Chrześcijańska Muzyka i TOP TEN z dedykowaną grafiką tematyczną",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "Biblia i Teologia / Apologetyka / eM / CCN News: Publikacja dwóch analiz Cezarego Rogowskiego („Czy Jezus naprawdę był Bogiem?” oraz „Co z tym Michałem?”) z PDF i indeksem @w",
-      "agent": "A"
-    },
-    {
-      "date": "2026-11-14",
-      "topic": "CCN News X: Cykliczna publikacja #294 — Werset Dnia: Psalm 119:130 (UBG) z dedykowaną grafiką Słowa Bożego",
       "agent": "A"
     }
   ],
@@ -4400,8 +4315,13 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-16T06:15:00+01:00",
+  "lastUpdated": "2026-11-16T14:00:00+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-16",
+      "topic": "CCN News / Kalendarz 365: Publikacja artykułu LP 13 („Dzień Tolerancji: czy szacunek oznacza zgodę na wszystko?”) — autoryzacja L0 (bramka T3)",
+      "agent": "A"
+    },
     {
       "date": "2026-11-16",
       "topic": "CCN News X: Cykliczna publikacja #351 — Premiera Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men) z dedykowaną grafiką i Tablicą LUMINA",
