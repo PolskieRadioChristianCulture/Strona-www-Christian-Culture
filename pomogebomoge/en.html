@@ -327,6 +327,12 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
     </ul>
   </section>
 
+  <div class="ramka" style="margin-bottom: 24px;">
+    <a href="https://polskieradio.cc/wspieraj#przelewy-zagraniczne" target="_blank" rel="noopener" style="display:block;border-radius:16px;overflow:hidden;border:1px solid rgba(212,169,74,0.35);box-shadow:0 10px 28px rgba(0,0,0,0.6);" title="Supporting from Abroad?">
+      <img src="/images/banners/banner-global-support.jpg" alt="Supporting from Abroad? Send direct SEPA/SWIFT donations in GBP, EUR or USD without conversion fees." style="width:100%;height:auto;display:block;" loading="lazy" />
+    </a>
+  </div>
+
   <section class="panel ramka" id="panel" aria-labelledby="panel-tytul">
     <div class="panel__bok" data-wejscie>
       <h2 id="panel-tytul" class="slowa">Choose how you want to give</h2>
@@ -335,14 +341,31 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
     </div>
     <div data-wejscie>
       <div class="zakladki" role="tablist" aria-label="Ways to give">
-        <button role="tab" id="t-revolut" aria-controls="p-revolut" aria-selected="true">Online</button>
+        <button role="tab" id="t-intl" aria-controls="p-intl" aria-selected="true">International Wire</button>
+        <button role="tab" id="t-revolut" aria-controls="p-revolut" aria-selected="false" tabindex="-1">Online</button>
         <button role="tab" id="t-patronite" aria-controls="p-patronite" aria-selected="false" tabindex="-1">Monthly</button>
         <button role="tab" id="t-przelew" aria-controls="p-przelew" aria-selected="false" tabindex="-1">Bank transfer</button>
         <button role="tab" id="t-blik" aria-controls="p-blik" aria-selected="false" tabindex="-1">BLIK (Poland)</button>
         <button role="tab" id="t-zrzutka" aria-controls="p-zrzutka" aria-selected="false" tabindex="-1">Fundraisers</button>
       </div>
 
-      <div class="karta" role="tabpanel" id="p-revolut" aria-labelledby="t-revolut">
+      <div class="karta" role="tabpanel" id="p-intl" aria-labelledby="t-intl">
+        <h3>Direct Bank Transfer (SEPA / SWIFT)</h3>
+        <p>Direct bank transfers in GBP, EUR, and USD with zero currency conversion fees via multi-currency Revolut account.</p>
+        <dl class="dane">
+          <div><dt>IBAN (GBP, EUR, USD)</dt><dd class="duze">LT23 3250 0920 7156 6231</dd><button class="kopiuj" data-kopiuj="LT233250092071566231" data-ga-metoda="iban_intl">Copy</button></div>
+          <div><dt>BIC / SWIFT</dt><dd class="duze">REVOLT21</dd><button class="kopiuj" data-kopiuj="REVOLT21" data-ga-metoda="bic_revolut">Copy</button></div>
+          <div><dt>Recipient</dt><dd>Cezary Rogowski</dd><span></span></div>
+          <div><dt>Beneficiary Bank</dt><dd>Revolut Bank UAB, Konstitucijos ave. 21B, 08130 Vilnius, Lithuania</dd><span></span></div>
+          <div><dt>Correspondent BIC (EUR)</dt><dd>CHASDEFX (JPMorgan Chase Frankfurt)</dd><button class="kopiuj" data-kopiuj="CHASDEFX" data-ga-metoda="bic_eur">Copy</button></div>
+          <div><dt>Correspondent BIC (GBP &amp; USD)</dt><dd>CHASGB2L (JPMorgan Chase London)</dd><button class="kopiuj" data-kopiuj="CHASGB2L" data-ga-metoda="bic_gbp_usd">Copy</button></div>
+          <div><dt>Transfer title</dt><dd>Christian Culture Mission Support</dd><button class="kopiuj" data-kopiuj="Christian Culture Mission Support" data-ga-metoda="tytul_intl">Copy</button></div>
+        </dl>
+        <p class="uwaga">SEPA transfers in EUR usually arrive within 1 business day without intermediary fees. You can also give by card online:</p>
+        <a class="przycisk" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-ga="support_external_click" data-ga-metoda="revolut_intl">Give via Revolut.me</a>
+      </div>
+
+      <div class="karta" role="tabpanel" id="p-revolut" aria-labelledby="t-revolut" hidden>
         <h3>Revolut — give online</h3>
         <p>A one-off gift through a secure Revolut link. The payment methods and currencies available are shown by Revolut itself.</p>
         <a class="przycisk" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-ga="support_external_click" data-ga-metoda="revolut">Go to Revolut</a>

@@ -100,6 +100,7 @@
     "uwaga": "Diese Seite nimmt keine Zahlungen an und bestätigt keine Spenden. Gib hier niemals Kartendaten, BLIK-Codes oder Passwörter ein — die Zahlung erfolgt immer in deiner Bank oder bei dem Dienst, zu dem die Schaltfläche führt.",
     "tabsAria": "Möglichkeiten zu geben",
     "kolejnosc": [
+      "intl",
       "revolut",
       "patronite",
       "przelew",
@@ -111,7 +112,8 @@
       "przelew": "Überweisung",
       "patronite": "Monatlich",
       "revolut": "Online",
-      "zrzutka": "Spendenaktionen"
+      "zrzutka": "Spendenaktionen",
+      "intl": "Ausland Überweisung"
     },
     "blik": {
       "h3": "BLIK-Überweisung aufs Telefon",
@@ -147,7 +149,20 @@
     "kopiuj": "Kopieren",
     "skopiowano": "Kopiert",
     "statusOk": "In die Zwischenablage kopiert. Füge es in deiner Banking-App ein.",
-    "statusBlad": "Automatisches Kopieren fehlgeschlagen. Markiere und kopiere: "
+    "statusBlad": "Automatisches Kopieren fehlgeschlagen. Markiere und kopiere: ",
+    "intl": {
+      "h3": "Banküberweisung aus dem Ausland (SEPA / SWIFT)",
+      "p": "Direkte Spendenüberweisungen in EUR, GBP und USD ohne Wechselkursverluste über unser Revolut-Mehrwährungskonto.",
+      "ibanEtykieta": "IBAN (EUR, GBP, USD)",
+      "bicEtykieta": "BIC / SWIFT",
+      "bankEtykieta": "Bank des Empfängers",
+      "bankWartosc": "Revolut Bank UAB, Konstitucijos ave. 21B, 08130 Vilnius, Litauen",
+      "korBankEur": "Korrespondenzbank BIC (EUR)",
+      "korBankGbpUsd": "Korrespondenzbank BIC (GBP & USD)",
+      "tytulWartosc": "Christian Culture Mission Support",
+      "uwaga": "SEPA-Überweisungen in EUR erreichen uns meist innerhalb eines Werktages gebührenfrei. Schnelle Kartenspenden sind auch online möglich:",
+      "cta": "Spenden über Revolut.me"
+    }
   },
   "bez": {
     "h2a": "Helfen kann man",

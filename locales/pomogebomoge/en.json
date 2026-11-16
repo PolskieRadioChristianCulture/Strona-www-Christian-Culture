@@ -100,6 +100,7 @@
     "uwaga": "This page does not take payments or confirm gifts. Never enter card details, BLIK codes or passwords here — payment always happens in your bank or on the service the button leads to.",
     "tabsAria": "Ways to give",
     "kolejnosc": [
+      "intl",
       "revolut",
       "patronite",
       "przelew",
@@ -111,7 +112,8 @@
       "przelew": "Bank transfer",
       "patronite": "Monthly",
       "revolut": "Online",
-      "zrzutka": "Fundraisers"
+      "zrzutka": "Fundraisers",
+      "intl": "International Wire"
     },
     "blik": {
       "h3": "BLIK phone transfer",
@@ -147,7 +149,20 @@
     "kopiuj": "Copy",
     "skopiowano": "Copied",
     "statusOk": "Copied to the clipboard. Paste it into your banking app.",
-    "statusBlad": "Automatic copying failed. Select and copy: "
+    "statusBlad": "Automatic copying failed. Select and copy: ",
+    "intl": {
+      "h3": "Direct Bank Transfer (SEPA / SWIFT)",
+      "p": "Direct bank transfers in GBP, EUR, and USD with zero currency conversion fees via multi-currency Revolut account.",
+      "ibanEtykieta": "IBAN (GBP, EUR, USD)",
+      "bicEtykieta": "BIC / SWIFT",
+      "bankEtykieta": "Beneficiary Bank",
+      "bankWartosc": "Revolut Bank UAB, Konstitucijos ave. 21B, 08130 Vilnius, Lithuania",
+      "korBankEur": "Correspondent BIC (EUR)",
+      "korBankGbpUsd": "Correspondent BIC (GBP & USD)",
+      "tytulWartosc": "Christian Culture Mission Support",
+      "uwaga": "SEPA transfers in EUR usually arrive within 1 business day without intermediary fees. You can also give by card online:",
+      "cta": "Give via Revolut.me"
+    }
   },
   "bez": {
     "h2a": "You can help",

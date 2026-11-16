@@ -102,6 +102,7 @@
     "kolejnosc": [
       "blik",
       "przelew",
+      "intl",
       "patronite",
       "revolut",
       "zrzutka"
@@ -111,7 +112,8 @@
       "przelew": "Przelew",
       "patronite": "Regularnie",
       "revolut": "Z zagranicy",
-      "zrzutka": "Zrzutki"
+      "zrzutka": "Zrzutki",
+      "intl": "Z zagranicy"
     },
     "blik": {
       "h3": "Przelew na telefon BLIK",
@@ -147,7 +149,20 @@
     "kopiuj": "Kopiuj",
     "skopiowano": "Skopiowano",
     "statusOk": "Skopiowano do schowka. Wklej w aplikacji swojego banku.",
-    "statusBlad": "Nie udało się skopiować automatycznie. Zaznacz i skopiuj: "
+    "statusBlad": "Nie udało się skopiować automatycznie. Zaznacz i skopiuj: ",
+    "intl": {
+      "h3": "Przelew zagraniczny (SEPA / SWIFT)",
+      "p": "Wpłaty bezpośrednie w GBP, EUR oraz USD bez przewalutowania na dedykowane konto wielowalutowe Revolut.",
+      "ibanEtykieta": "IBAN (GBP, EUR, USD)",
+      "bicEtykieta": "BIC / SWIFT",
+      "bankEtykieta": "Bank odbiorcy",
+      "bankWartosc": "Revolut Bank UAB, Konstitucijos ave. 21B, 08130 Vilnius, Litwa",
+      "korBankEur": "BIC korespondenta EUR",
+      "korBankGbpUsd": "BIC korespondenta GBP i USD",
+      "tytulWartosc": "Christian Culture Mission Support",
+      "uwaga": "Przelewy SEPA w EUR zazwyczaj docierają w ciągu 1 dnia roboczego bez prowizji bankowej. Możesz też wpłacić kartą online:",
+      "cta": "Wpłać przez Revolut.me"
+    }
   },
   "bez": {
     "h2a": "Pomóc można",

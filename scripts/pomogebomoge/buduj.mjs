@@ -59,6 +59,19 @@ export function strona(j, wszystkie) {
           <div><dt>${esc(P.tytul)}</dt><dd>${esc(P.przelew.tytulWartosc)}</dd><span></span></div>
         </dl>
         <p class="uwaga">${esc(P.przelew.uwaga)}</p>`,
+    intl: `        <h3>${esc(P.intl.h3)}</h3>
+        <p>${esc(P.intl.p)}</p>
+        <dl class="dane">
+          <div><dt>${esc(P.intl.ibanEtykieta)}</dt><dd class="duze">LT23 3250 0920 7156 6231</dd>${kopiuj(L, 'LT233250092071566231', 'iban_intl')}</div>
+          <div><dt>${esc(P.intl.bicEtykieta)}</dt><dd class="duze">REVOLT21</dd>${kopiuj(L, 'REVOLT21', 'bic_revolut')}</div>
+          <div><dt>${esc(P.odbiorca)}</dt><dd>Cezary Rogowski</dd><span></span></div>
+          <div><dt>${esc(P.intl.bankEtykieta)}</dt><dd>${esc(P.intl.bankWartosc)}</dd><span></span></div>
+          <div><dt>${esc(P.intl.korBankEur)}</dt><dd>CHASDEFX (JPMorgan Chase Frankfurt)</dd>${kopiuj(L, 'CHASDEFX', 'bic_eur')}</div>
+          <div><dt>${esc(P.intl.korBankGbpUsd)}</dt><dd>CHASGB2L (JPMorgan Chase London)</dd>${kopiuj(L, 'CHASGB2L', 'bic_gbp_usd')}</div>
+          <div><dt>${esc(P.tytul)}</dt><dd>${esc(P.intl.tytulWartosc)}</dd>${kopiuj(L, 'Christian Culture Mission Support', 'tytul_intl')}</div>
+        </dl>
+        <p class="uwaga">${esc(P.intl.uwaga)}</p>
+        <a class="przycisk" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-ga="support_external_click" data-ga-metoda="revolut_intl">${esc(P.intl.cta)}</a>`,
     patronite: `        <h3>${esc(P.patronite.h3)}</h3>
         <p>${esc(P.patronite.p)}</p>
         <a class="przycisk" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" data-ga="support_external_click" data-ga-metoda="patronite">${esc(P.patronite.cta)}</a>`,
@@ -148,6 +161,12 @@ ${CSS}
       ${USLUGI.map(([k, href, img]) => `<li data-wejscie><a href="${href}"><img src="${img}" alt="" width="96" height="96" loading="lazy" /><span><b>${esc(L.uslugi[k][0])}</b><span>${esc(L.uslugi[k][1])}</span></span><i aria-hidden="true">→</i></a></li>`).join('\n      ')}
     </ul>
   </section>
+
+  <div class="ramka" style="margin-bottom: 24px;">
+    <a href="https://polskieradio.cc/wspieraj#przelewy-zagraniczne" target="_blank" rel="noopener" style="display:block;border-radius:16px;overflow:hidden;border:1px solid rgba(212,169,74,0.35);box-shadow:0 10px 28px rgba(0,0,0,0.6);" title="Supporting from Abroad?">
+      <img src="/images/banners/banner-global-support.jpg" alt="Supporting from Abroad? Send direct SEPA/SWIFT donations in GBP, EUR or USD without conversion fees." style="width:100%;height:auto;display:block;" loading="lazy" />
+    </a>
+  </div>
 
   <section class="panel ramka" id="panel" aria-labelledby="panel-tytul">
     <div class="panel__bok" data-wejscie>

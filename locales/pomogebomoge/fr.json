@@ -100,6 +100,7 @@
     "uwaga": "Cette page n’accepte aucun paiement et ne confirme aucun don. N’y saisissez jamais de données de carte, de codes BLIK ni de mots de passe : le paiement se fait toujours dans votre banque ou sur le service vers lequel mène le bouton.",
     "tabsAria": "Façons de donner",
     "kolejnosc": [
+      "intl",
       "revolut",
       "patronite",
       "przelew",
@@ -111,7 +112,8 @@
       "przelew": "Virement",
       "patronite": "Mensuel",
       "revolut": "En ligne",
-      "zrzutka": "Collectes"
+      "zrzutka": "Collectes",
+      "intl": "International"
     },
     "blik": {
       "h3": "Virement BLIK par téléphone",
@@ -147,7 +149,20 @@
     "kopiuj": "Copier",
     "skopiowano": "Copié",
     "statusOk": "Copié dans le presse-papiers. Collez-le dans votre application bancaire.",
-    "statusBlad": "La copie automatique a échoué. Sélectionnez et copiez : "
+    "statusBlad": "La copie automatique a échoué. Sélectionnez et copiez : ",
+    "intl": {
+      "h3": "Virement bancaire international (SEPA / SWIFT)",
+      "p": "Virements bancaires directs en EUR, GBP et USD sans frais de change via compte multi-devises Revolut.",
+      "ibanEtykieta": "IBAN (EUR, GBP, USD)",
+      "bicEtykieta": "BIC / SWIFT",
+      "bankEtykieta": "Banque du bénéficiaire",
+      "bankWartosc": "Revolut Bank UAB, Konstitucijos ave. 21B, 08130 Vilnius, Lituanie",
+      "korBankEur": "BIC banque correspondante (EUR)",
+      "korBankGbpUsd": "BIC banque correspondante (GBP et USD)",
+      "tytulWartosc": "Christian Culture Mission Support",
+      "uwaga": "Les virements SEPA en EUR arrivent généralement en 1 jour ouvré sans frais bancaires. Vous pouvez aussi donner par carte :",
+      "cta": "Donner via Revolut.me"
+    }
   },
   "bez": {
     "h2a": "On peut aider",

@@ -327,6 +327,12 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
     </ul>
   </section>
 
+  <div class="ramka" style="margin-bottom: 24px;">
+    <a href="https://polskieradio.cc/wspieraj#przelewy-zagraniczne" target="_blank" rel="noopener" style="display:block;border-radius:16px;overflow:hidden;border:1px solid rgba(212,169,74,0.35);box-shadow:0 10px 28px rgba(0,0,0,0.6);" title="Supporting from Abroad?">
+      <img src="/images/banners/banner-global-support.jpg" alt="Supporting from Abroad? Send direct SEPA/SWIFT donations in GBP, EUR or USD without conversion fees." style="width:100%;height:auto;display:block;" loading="lazy" />
+    </a>
+  </div>
+
   <section class="panel ramka" id="panel" aria-labelledby="panel-tytul">
     <div class="panel__bok" data-wejscie>
       <h2 id="panel-tytul" class="slowa">Wähle, wie du geben möchtest</h2>
@@ -335,14 +341,31 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 var(--
     </div>
     <div data-wejscie>
       <div class="zakladki" role="tablist" aria-label="Möglichkeiten zu geben">
-        <button role="tab" id="t-revolut" aria-controls="p-revolut" aria-selected="true">Online</button>
+        <button role="tab" id="t-intl" aria-controls="p-intl" aria-selected="true">Ausland Überweisung</button>
+        <button role="tab" id="t-revolut" aria-controls="p-revolut" aria-selected="false" tabindex="-1">Online</button>
         <button role="tab" id="t-patronite" aria-controls="p-patronite" aria-selected="false" tabindex="-1">Monatlich</button>
         <button role="tab" id="t-przelew" aria-controls="p-przelew" aria-selected="false" tabindex="-1">Überweisung</button>
         <button role="tab" id="t-blik" aria-controls="p-blik" aria-selected="false" tabindex="-1">BLIK (Polen)</button>
         <button role="tab" id="t-zrzutka" aria-controls="p-zrzutka" aria-selected="false" tabindex="-1">Spendenaktionen</button>
       </div>
 
-      <div class="karta" role="tabpanel" id="p-revolut" aria-labelledby="t-revolut">
+      <div class="karta" role="tabpanel" id="p-intl" aria-labelledby="t-intl">
+        <h3>Banküberweisung aus dem Ausland (SEPA / SWIFT)</h3>
+        <p>Direkte Spendenüberweisungen in EUR, GBP und USD ohne Wechselkursverluste über unser Revolut-Mehrwährungskonto.</p>
+        <dl class="dane">
+          <div><dt>IBAN (EUR, GBP, USD)</dt><dd class="duze">LT23 3250 0920 7156 6231</dd><button class="kopiuj" data-kopiuj="LT233250092071566231" data-ga-metoda="iban_intl">Kopieren</button></div>
+          <div><dt>BIC / SWIFT</dt><dd class="duze">REVOLT21</dd><button class="kopiuj" data-kopiuj="REVOLT21" data-ga-metoda="bic_revolut">Kopieren</button></div>
+          <div><dt>Empfänger</dt><dd>Cezary Rogowski</dd><span></span></div>
+          <div><dt>Bank des Empfängers</dt><dd>Revolut Bank UAB, Konstitucijos ave. 21B, 08130 Vilnius, Litauen</dd><span></span></div>
+          <div><dt>Korrespondenzbank BIC (EUR)</dt><dd>CHASDEFX (JPMorgan Chase Frankfurt)</dd><button class="kopiuj" data-kopiuj="CHASDEFX" data-ga-metoda="bic_eur">Kopieren</button></div>
+          <div><dt>Korrespondenzbank BIC (GBP &amp; USD)</dt><dd>CHASGB2L (JPMorgan Chase London)</dd><button class="kopiuj" data-kopiuj="CHASGB2L" data-ga-metoda="bic_gbp_usd">Kopieren</button></div>
+          <div><dt>Verwendungszweck</dt><dd>Christian Culture Mission Support</dd><button class="kopiuj" data-kopiuj="Christian Culture Mission Support" data-ga-metoda="tytul_intl">Kopieren</button></div>
+        </dl>
+        <p class="uwaga">SEPA-Überweisungen in EUR erreichen uns meist innerhalb eines Werktages gebührenfrei. Schnelle Kartenspenden sind auch online möglich:</p>
+        <a class="przycisk" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-ga="support_external_click" data-ga-metoda="revolut_intl">Spenden über Revolut.me</a>
+      </div>
+
+      <div class="karta" role="tabpanel" id="p-revolut" aria-labelledby="t-revolut" hidden>
         <h3>Revolut — online spenden</h3>
         <p>Eine einmalige Spende über einen sicheren Revolut-Link. Welche Zahlungsarten und Währungen möglich sind, zeigt Revolut selbst.</p>
         <a class="przycisk" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-ga="support_external_click" data-ga-metoda="revolut">Zu Revolut</a>

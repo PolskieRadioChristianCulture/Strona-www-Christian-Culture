@@ -100,6 +100,7 @@
     "uwaga": "Esta página no acepta pagos ni confirma donativos. Nunca introduzcas aquí datos de tarjeta, códigos BLIK ni contraseñas: el pago se hace siempre en tu banco o en el servicio al que lleva el botón.",
     "tabsAria": "Formas de dar",
     "kolejnosc": [
+      "intl",
       "revolut",
       "patronite",
       "przelew",
@@ -111,7 +112,8 @@
       "przelew": "Transferencia",
       "patronite": "Mensual",
       "revolut": "En línea",
-      "zrzutka": "Colectas"
+      "zrzutka": "Colectas",
+      "intl": "Internacional"
     },
     "blik": {
       "h3": "Transferencia BLIK al teléfono",
@@ -147,7 +149,20 @@
     "kopiuj": "Copiar",
     "skopiowano": "Copiado",
     "statusOk": "Copiado al portapapeles. Pégalo en tu aplicación bancaria.",
-    "statusBlad": "No se pudo copiar automáticamente. Selecciona y copia: "
+    "statusBlad": "No se pudo copiar automáticamente. Selecciona y copia: ",
+    "intl": {
+      "h3": "Transferencia Bancaria Internacional (SEPA / SWIFT)",
+      "p": "Donaciones bancarias directas en EUR, USD y GBP sin comisiones por cambio de divisa a través de cuenta multidivisa Revolut.",
+      "ibanEtykieta": "IBAN (EUR, USD, GBP)",
+      "bicEtykieta": "BIC / SWIFT",
+      "bankEtykieta": "Banco beneficiario",
+      "bankWartosc": "Revolut Bank UAB, Konstitucijos ave. 21B, 08130 Vilnius, Lituania",
+      "korBankEur": "BIC banco corresponsal (EUR)",
+      "korBankGbpUsd": "BIC banco corresponsal (GBP y USD)",
+      "tytulWartosc": "Christian Culture Mission Support",
+      "uwaga": "Las transferencias SEPA en EUR suelen llegar en 1 día hábil sin comisiones bancarias. También puedes donar con tarjeta:",
+      "cta": "Donar por Revolut.me"
+    }
   },
   "bez": {
     "h2a": "Se puede ayudar",
