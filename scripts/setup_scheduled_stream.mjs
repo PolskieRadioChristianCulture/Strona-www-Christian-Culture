@@ -1,6 +1,6 @@
 import { launchStudio, openChannelStudio } from './yt_studio_session.mjs';
 
-export async function setupScheduledStream(channelName, streamTitle) {
+export async function setupScheduledStream(channelName, streamTitle, streamDescription = null) {
   const { ctx, page } = await launchStudio({ headless: true });
   console.log(`\n========================================`);
   console.log(`Setting up stream for: ${channelName}`);
@@ -36,6 +36,24 @@ export async function setupScheduledStream(channelName, streamTitle) {
     const titleInput = page.locator('#textbox, input[name="title"], textarea').first();
     if (await titleInput.isVisible().catch(() => false)) {
       await titleInput.fill(streamTitle);
+    }
+
+    // Description with Donor CTA
+    const fullDesc = streamDescription || 
+`🕊️ WESPRZYJ MISJĘ CHRISTIAN CULTURE:
+Jeśli to Słowo i modlitwa wnoszą pokój do Twojego serca, pomóż nam budować niezależne chrześcijańskie media w Polsce:
+👉 https://polskieradio.cc/wspieraj (BLIK, karta, przelew)
+
+Dołącz do społeczności i korzystaj z darmowych narzędzi wiary:
+📱 Portal LUMINA: https://polskieradio.cc/lumina
+📖 Biblia Interlinearna: https://polskieradio.cc/mojabiblia
+🎧 Chrześcijańskie Radio i Podcasty: https://polskieradio.cc/player
+
+#ChristianCulture #Modlitwa #Biblia #PismoŚwięte #Wiara #PokójBoży`;
+
+    const descInput = page.locator('#description-textarea, #textbox[aria-label*="opis"], textarea[name="description"]').first();
+    if (await descInput.isVisible().catch(() => false)) {
+      await descInput.fill(fullDesc);
     }
 
     // Select Not made for kids

@@ -47,32 +47,39 @@ function isExcluded(channel) {
 
 const PROMO_METADATA = {
   '@RadioChristianCulture': {
-    title: 'Polskie Radio CC — muzyka i Słowo na żywo 24/7',
-    body: 'Rozpocznij dzień z chrześcijańskim radiem, które towarzyszy w pracy, w drodze i w domu. Dobra muzyka, wartościowe treści i pokój płynący ze Słowa przez całą dobę.',
-    cta: 'Włącz transmisję na żywo i posłuchaj teraz:',
-    hashtags: '#PolskieRadioCC #ChristianCulture #RadioNaŻywo #MuzykaChrześcijańska #SłowoBoże',
-    xHook: 'Dobra muzyka i Słowo na żywo przez całą dobę w Polskim Radiu CC.'
+    title: 'Polskie Radio CC — Modlitwa, Uwielbienie i Pokój Serca na Żywo',
+    body: 'Zatrzymaj się w biegu dnia i napełnij dom Bożą obecnością. Pieśni uwielbienia, Pismo Święte i wspólna modlitwa, która przynosi ukojenie w trudnych chwilach.\n\n🕊️ Wesprzyj rozwój misji i radia: https://polskieradio.cc/wspieraj',
+    cta: 'Dołącz do modlitwy i słuchaj na żywo:',
+    hashtags: '#PolskieRadioCC #Modlitwa #Uwielbienie #ChristianCulture #Wiara #PokójBoży',
+    xHook: 'Pieśni chwały, Słowo i modlitwa na żywo w Polskim Radiu CC — znajdź pokój w Bogu.'
   },
-  '@bibliaaudiocc': {
-    title: 'Biblia Audio CC — słuchowisko Pisma Świętego 24/7',
-    body: 'Słuchaj Pisma Świętego w drodze, w pracy lub podczas wieczornego wyciszenia. Całodobowe słuchowisko biblijne pomaga karmić się Słowem Bożym każdego dnia.',
-    cta: 'Dołącz do słuchania Biblii na żywo:',
-    hashtags: '#BibliaAudio #PismoŚwięte #ChristianCulture #SłowoBoże #NaŻywo',
-    xHook: 'Pismo Święte w wersji audio na żywo 24/7 — włącz w drodze lub w domu.'
-  },
-  '@wersetdnia_ChSB': {
-    title: 'Werset Dnia LIVE — zatrzymaj się przy Słowie',
-    body: 'W biegu codziennych spraw warto znaleźć chwilę na jeden werset, który porządkuje myśli i przypomina o Bożych obietnicach.',
-    cta: 'Obejrzyj transmisję Werset Dnia LIVE:',
-    hashtags: '#WersetDnia #Biblia #ChristianCulture #CodzienneSłowo #Wiara',
-    xHook: 'Chwila zatrzymania nad Pismem Świętym w środku dnia — Werset Dnia LIVE.'
+  '@osobowoscPLUS': {
+    title: 'Osobowość + — Odzyskaj Pokój i Wewnętrzną Siłę w Chrystusie',
+    body: 'Gdy lęk, stres i trudne relacje odbierają radość życia, Boże Słowo daje fundament, który nigdy nie runie. Odkryj praktyczną mądrość biblijną dla Twojego małżeństwa, rodziny i emocji.\n\n🕊️ Buduj z nami niezależne media z wartościami: https://polskieradio.cc/wspieraj',
+    cta: 'Obejrzyj inspirację na żywo:',
+    hashtags: '#OsobowośćPlus #Relacje #PokójSerca #ChristianCulture #Nadzieja #Wiara',
+    xHook: 'Jak pokonać lęk i odzyskać pokój serca? Dołącz do Osobowość + na żywo.'
   },
   '@ChristianCultureTV': {
-    title: 'Christian Culture TV — główna antena wideo 24/7',
-    body: 'Główny kanał telewizji internetowej Christian Culture: programy, inspirujące treści i chrześcijańska kultura w jednym miejscu o każdej porze dnia.',
-    cta: 'Oglądaj Christian Culture TV na żywo:',
-    hashtags: '#ChristianCultureTV #TelewizjaChrześcijańska #NaŻywo #ChristianCulture #Wiara',
-    xHook: 'Główna antena wideo Christian Culture TV nadaje na żywo 24/7.'
+    title: 'Christian Culture TV — Prawda Pisma Świętego i Znaki Czasów',
+    body: 'Rzetelne studia biblijne, wykłady Księgi Objawienia i chrześcijańskie słuchowiska w najwyższej jakości. Poznaj prawdę, która uwalnia od lęku przed przyszłością.\n\n🕊️ Wesprzyj produkcję chrześcijańskich filmów i audycji: https://polskieradio.cc/wspieraj',
+    cta: 'Oglądaj transmisję Christian Culture TV:',
+    hashtags: '#ChristianCultureTV #Biblia #Prawda #Apokalipsa #ChristianCulture #TelewizjaChrześcijańska',
+    xHook: 'Co mówi Pismo Święte o współczesnym świecie? Oglądaj Christian Culture TV na żywo.'
+  },
+  '@bibliaaudiocc': {
+    title: 'Biblia Audio CC — Pismo Święte Słuchowisko 24/7',
+    body: 'Zanurz się w czystym Słowie Bożym czytanym z dbałością o każdy werset i kojącym tłem muzycznym. Idealne do wieczornego wyciszenia, odpoczynku i modlitwy.\n\n🕊️ Pomóż nam nagrać całe Pismo Święte w audio: https://polskieradio.cc/wspieraj',
+    cta: 'Posłuchaj Pisma Świętego na żywo:',
+    hashtags: '#BibliaAudio #PismoŚwięte #SłowoBoże #ChristianCulture #SpokojnySen',
+    xHook: 'Kojący głos Pisma Świętego i modlitewna muzyka na żywo — Biblia Audio CC.'
+  },
+  '@wersetdnia_ChSB': {
+    title: 'Werset Dnia LIVE — Boża Obietnica na Dziś',
+    body: 'Jeden werset z Pisma Świętego potrafi odmienić bieg całego Twojego dnia. Pozwól Bożym obietnicom zakotwiczyć Twoje serce w pokoju i ufności.\n\n🕊️ Wesprzyj codzienną ewangelizację: https://polskieradio.cc/wspieraj',
+    cta: 'Zatrzymaj się przy Słowie na żywo:',
+    hashtags: '#WersetDnia #BożeObietnice #Biblia #ChristianCulture #CodziennaWiara',
+    xHook: 'Mocny werset z Pisma Świętego na Twój dzisiejszy dzień — Werset Dnia LIVE.'
   },
   '@WorshipLiveCC': {
     title: 'Worship LIVE CC — uwielbienie na żywo 24/7',
@@ -188,7 +195,14 @@ const PROMO_METADATA = {
   }
 };
 
-const ORDER_PREFERENCE = Object.keys(PROMO_METADATA);
+// Reorganizacja na 5 Filarów o najwyższej masie krytycznej i konwersji misyjnej
+const ORDER_PREFERENCE = [
+  '@RadioChristianCulture',
+  '@osobowoscPLUS',
+  '@ChristianCultureTV',
+  '@bibliaaudiocc',
+  '@wersetdnia_ChSB'
+];
 
 function loadEnv() {
   for (const envFile of [path.join(ROOT, '.env.local'), path.join(ROOT, '.env')]) {
