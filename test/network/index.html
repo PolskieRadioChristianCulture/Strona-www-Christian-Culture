@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#07080d">
+<title>CC NETWORK · Ekosystem 51 Kanałów Christian Culture (Pilotaż Ultra-Premium)</title>
+<meta name="description" content="Interaktywne centrum sieci Christian Culture Network: 51 kanałów, 27 aktywnych playlist Cross-Channel Boost oraz 348 promowanych nagrań.">
+<link rel="canonical" href="https://polskieradio.cc/network">
+<link rel="icon" type="image/png" href="/images/logo_gold_200.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="/js/cc-mobile-edge.js?v=20261116" defer></script>
+<style>
+:root{
+  --bg:#07080d; --bg2:#0d1018; --panel:rgba(20,24,36,.62); --line:rgba(255,190,120,.14);
+  --fg:#f7f3ec; --muted:#c3bcb0; --dim:#8d877d;
+  --gold:#f2c46d; --orange:#FF7A00; --orange2:#FF8C33; --orange3:#E66A00;
+  --good:#5fd39a; --warn:#ffb547; --bad:#ff5d5d;
+  --f-display:"Unbounded","Segoe UI",system-ui,sans-serif;
+  --f-body:"Manrope","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden;max-width:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;overflow-x:hidden;max-width:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:600;letter-spacing:-.01em;text-wrap:balance;margin:0}
+.num{font-family:var(--f-body);font-weight:700;font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.01em}
+.eyebrow{font-family:var(--f-body);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange2)}
+#progress{position:fixed;left:0;top:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--orange3),var(--orange),var(--gold));z-index:30;box-shadow:0 0 12px var(--orange)}
+.aurora{position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 20% 30%,rgba(255,122,0,.09),transparent 70%),radial-gradient(35% 30% at 80% 70%,rgba(242,196,109,.07),transparent 70%);animation:drift 28s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(6%,-5%) rotate(8deg)}}
+a{color:var(--orange2);text-decoration:none}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:8px}
+button,a.btn,a.cta-btn,.seg button,.filter-chip,.btn-ghost{min-height:44px;min-width:44px}
+
+/* ---------- top bar & ticker ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:linear-gradient(var(--bg) 55%,rgba(7,8,13,.88))}
+.ticker{overflow:hidden;border-bottom:1px solid var(--line);background:rgba(255,122,0,.05);-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.tk-track{display:flex;gap:34px;width:max-content;padding:8px 0;animation:tk 48s linear infinite;font-size:14px;font-weight:600;white-space:nowrap}
+.tk-track span{display:inline-flex;gap:8px;align-items:center;color:var(--muted)}
+.tk-track b{font-variant-numeric:tabular-nums;color:var(--gold)}
+@keyframes tk{to{transform:translateX(-50%)}}
+.top .wrap{display:flex;align-items:center;gap:12px;padding-block:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:600;font-size:14px;letter-spacing:.04em;color:var(--fg)}
+.brand img{width:36px;height:36px;border-radius:10px;filter:drop-shadow(0 0 10px rgba(242,196,109,.45))}
+.brand small{display:block;font-family:var(--f-mono);font-weight:400;font-size:10px;color:var(--muted);letter-spacing:.14em}
+.demo-pill{margin-left:auto;font-family:var(--f-body);font-weight:800;font-size:12px;letter-spacing:.03em;color:#1a0d00;background:linear-gradient(100deg,var(--orange2),var(--orange));padding:7px 14px;border-radius:99px;white-space:nowrap;box-shadow:0 0 0 0 rgba(255,122,0,.5);animation:pillpulse 3s infinite}
+@keyframes pillpulse{0%{box-shadow:0 0 0 0 rgba(255,122,0,.45)}70%{box-shadow:0 0 0 10px rgba(255,122,0,0)}100%{box-shadow:0 0 0 0 rgba(255,122,0,0)}}
+.cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:12px;background:var(--orange);color:#fff;font-weight:700;font-size:14px;border:0;cursor:pointer;transition:background .2s,transform .2s}
+.cta-btn:hover{background:var(--orange2);transform:translateY(-1px)}
+.cta-btn:active{background:var(--orange3)}
+
+/* ---------- hero 3D + HUD ---------- */
+.hero{position:relative;min-height:min(740px,90vh)}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;padding-block:28px 40px;min-height:min(740px,90vh);pointer-events:none}
+.hero-copy{align-self:start;pointer-events:auto}
+.hero-copy h1{font-size:clamp(30px,4.5vw,54px);line-height:1.05;font-weight:800;margin:10px 0 14px}
+.hero-copy h1 em{font-style:normal;background:linear-gradient(100deg,var(--gold),var(--orange) 60%,var(--orange3));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:goldflow 6s ease-in-out infinite alternate}
+@keyframes goldflow{to{background-position:100% 0}}
+.hero-copy p{color:var(--fg);opacity:.88;font-size:16px;max-width:46ch;margin:0;text-shadow:0 2px 12px rgba(0,0,0,.85)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 16px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--fg);font-weight:700;font-size:14px}
+.hud{align-self:end;justify-self:end;width:min(100%,410px);display:grid;gap:10px;pointer-events:auto;position:relative}
+.glass{background:var(--panel);border:1px solid var(--line);border-radius:18px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.hud .glass{background:rgba(14,16,26,.82)}
+.bal{padding:18px 20px}
+.bal .lab{font-size:13px;color:var(--muted);font-weight:500}
+.bal .big{font-size:clamp(34px,4.4vw,46px);font-weight:800;letter-spacing:-.025em;line-height:1.1;margin-top:4px;display:inline-block}
+.bal .big .u{font-size:.42em;font-weight:600;color:var(--muted);margin-left:6px}
+.bal .delta{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--good);background:rgba(95,211,154,.13);padding:5px 12px;border-radius:99px;margin-top:10px}
+.bal .delta::before{content:"▲";font-size:10px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{padding:12px 14px}
+.kpi .lab{font-size:12px;font-weight:500;color:var(--muted);line-height:1.3}
+.kpi .v{font-size:22px;font-weight:800;margin-top:4px}
+.kpi .v.good{color:var(--good)} .kpi .v.gold{color:var(--gold)}
+.sustain{display:flex;align-items:center;gap:14px;padding:14px 16px}
+.ring{--p:100;width:64px;height:64px;flex:none;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--orange) calc(var(--p)*1%),rgba(255,255,255,.08) 0);position:relative;animation:ringglow 3s ease-in-out infinite}
+@keyframes ringglow{50%{filter:drop-shadow(0 0 10px rgba(255,122,0,.6))}}
+.ring::after{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--bg2)}
+.ring b{position:relative;z-index:1;font-family:var(--f-body);font-weight:800;font-size:15px}
+.sustain p{margin:0;font-size:14px;color:var(--muted)} .sustain strong{color:var(--fg)}
+.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--good);margin-right:6px;animation:pillpulse 1.6s infinite}
+.tip{position:absolute;z-index:5;pointer-events:none;padding:10px 12px;min-width:200px;font-size:12px;transform:translate(-50%,calc(-100% - 16px));transition:opacity .15s;opacity:0}
+.tip.on{opacity:1}
+.tip h4{margin:0 0 6px;font-size:13px}
+.tip .row{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:13px} .tip .row b{color:var(--fg)}
+.legend{position:absolute;z-index:2;left:max(16px,env(safe-area-inset-left,0px));bottom:16px;display:flex;gap:14px;flex-wrap:wrap;font-size:13px;font-weight:500;color:var(--muted);pointer-events:none;text-shadow:0 1px 8px #000}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+/* ---------- odometer ---------- */
+.odo{display:inline-flex;align-items:flex-end;white-space:nowrap;vertical-align:bottom}
+.odo>span:not(.reel){white-space:pre;display:inline-block;height:1.18em;line-height:1.18em}
+.reel{display:inline-block;height:1.18em;line-height:1.18em;overflow:hidden;position:relative}
+.reel>i{display:flex;flex-direction:column;font-style:normal;transition:transform .75s cubic-bezier(.3,1.35,.5,1)}
+.reel>i>b{display:block;height:1.18em;font-weight:inherit;text-align:center}
+.reel::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(7,8,13,.55),transparent 28%,transparent 72%,rgba(7,8,13,.55));pointer-events:none}
+
+/* ---------- sections, border beam, reveal ---------- */
+section{padding-block:64px 8px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.sec-head h2{font-size:clamp(22px,2.8vw,32px);margin-top:8px;perspective:600px}
+.sec-head h2 .w{display:inline-block;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .8s;transition-delay:calc(var(--i)*70ms)}
+.js .sec-head:not(.in) h2 .w{transform:translateY(.5em) rotateX(-55deg);opacity:.2}
+.sec-head p{color:var(--muted);max-width:54ch;margin:0}
+.reveal{transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .9s,filter .9s;transition-delay:calc(var(--d,0)*80ms)}
+.js .reveal:not(.in){transform:translateY(38px) rotateX(12deg) scale(.97);opacity:.25;filter:blur(2px)}
+
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+.projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;perspective:1000px}
+.pcard{padding:22px;position:relative;overflow:hidden;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1),border-color .3s}
+.pcard.tilting{transition:transform .12s ease-out,border-color .3s}
+.pcard:hover{border-color:rgba(255,140,51,.45)}
+.pcard::before{content:"";position:absolute;inset:-1px;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(255,122,0,.16),transparent 45%);pointer-events:none}
+.pcard::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:conic-gradient(from var(--ang),transparent 0 70%,var(--orange) 80%,var(--gold) 85%,transparent 95%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 6s linear infinite;animation-delay:calc(var(--d,0)*-1s);pointer-events:none;opacity:.8}
+@keyframes spin{to{--ang:360deg}}
+.pcard .hd{display:flex;align-items:center;gap:10px}
+.pcard .dot{width:12px;height:12px;border-radius:50%;flex:none;box-shadow:0 0 14px currentColor}
+.pcard h3{font-size:17px}
+.pcard .src{font-size:11px;color:var(--dim);margin-left:auto;font-weight:700}
+.pcard .net{font-size:32px;font-weight:800;margin:14px 0 4px}
+.pcard .net small{font-size:13px;color:var(--muted);font-weight:500;margin-left:6px}
+.bars{display:grid;gap:8px;margin-top:12px}
+.bar{display:grid;grid-template-columns:92px minmax(0,1fr) 74px;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.bar .t{height:8px;border-radius:8px;background:rgba(255,255,255,.06);overflow:hidden}
+.bar .t i{display:block;height:100%;border-radius:8px;width:0;transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.bar .v{text-align:right;color:var(--fg)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:6px 12px;border-radius:99px;margin-top:14px;font-weight:700;background:rgba(95,211,154,.12);color:var(--good)}
+
+/* ---------- playlists & forecast ---------- */
+.fc{padding:22px}
+.fc-ctrl{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;margin-bottom:16px}
+.seg{display:inline-flex;flex-wrap:wrap;background:rgba(255,255,255,.05);border-radius:12px;padding:4px;gap:4px;max-width:100%}
+.seg button{border:0;background:transparent;cursor:pointer;padding:8px 14px;border-radius:9px;font-family:inherit;font-size:13px;font-weight:600;color:var(--muted);transition:background .25s,color .25s}
+.seg button[aria-pressed="true"]{background:var(--orange);color:#1a0d00;font-weight:800}
+.slider{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+.slider input{accent-color:var(--orange);width:180px;min-height:44px}
+.slider output{color:var(--fg);font-size:17px;font-weight:800}
+.chart-box{position:relative;height:300px}
+#fcChart{width:100%;height:100%;display:block}
+.fc-sum{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.fc-sum div{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.03)}
+.fc-sum .lab{font-size:12px;color:var(--muted)} .fc-sum .v{font-size:20px;font-weight:800;margin-top:4px}
+
+.pl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pl-card{padding:18px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.pl-card h3{font-size:15px;line-height:1.35}
+.pl-card p{margin:0;font-size:13px;color:var(--muted);flex:1}
+.pl-meta{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--gold);font-weight:700}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.search-in{flex:1 1 240px;min-height:44px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:var(--fg);font:inherit;font-size:15px}
+.ch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ch-card{padding:16px;display:flex;flex-direction:column;gap:8px}
+.ch-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.ch-card h3{font-size:15px}
+.ch-handle{font-family:var(--f-mono);font-size:12px;color:var(--muted);word-break:break-all}
+.ch-stats{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;color:var(--gold);font-weight:700}
+
+footer{padding-block:48px 40px;color:var(--dim);font-size:13px;border-top:1px solid var(--line);margin-top:48px}
+
+@media (max-width:980px){
+  .projects,.pl-grid,.ch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .hero{min-height:0}
+  .hero .wrap{grid-template-columns:minmax(0,1fr);min-height:0;padding-top:290px}
+  .hero-copy{position:absolute;top:16px;left:16px;right:16px}
+  .hero-copy p,.legend,.demo-pill{display:none}
+  #scene{height:380px}
+  .hud{justify-self:stretch;width:100%}
+  .projects,.pl-grid,.ch-grid{grid-template-columns:minmax(0,1fr)}
+  .fc-sum{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chart-box{height:240px}
+}
+</style>
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+<div class="aurora" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="ticker" aria-label="Aktywne playlisty sieci Christian Culture"><div class="tk-track" id="tkTrack"></div></div>
+  <div class="wrap">
+    <a class="brand" href="https://polskieradio.cc/">
+      <img src="/images/logo_gold_200.png" alt="Christian Culture">
+      <div>CC NETWORK<small>EKOSYSTEM 51 KANAŁÓW</small></div>
+    </a>
+    <div class="demo-pill">PILOTAŻ ULTRA-PREMIUM · DANE NA ŻYWO</div>
+    <a class="cta-btn" href="#boost">27 Playlist Boost ↓</a>
+  </div>
+</header>
+
+<section class="hero" id="hero" style="padding-block:0">
+  <canvas id="scene" aria-label="Interaktywna scena 3D sieci 51 kanałów Christian Culture"></canvas>
+  <div class="tip glass" id="tip" role="status" aria-live="polite"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">Christian Culture Network · Live Ecosystem</div>
+      <h1>51 kanałów, <em>jedna żywa sieć</em></h1>
+      <p>Każda planeta to grupa tematyczna naszego ekosystemu. Złote strumienie niosą zasięg z 3 głównych kanałów do wszystkich 40 aktywnych mniejszych twórców.</p>
+      <div class="hero-actions">
+        <a class="cta-btn" href="#boost">▶ Przeglądaj 27 playlist</a>
+        <a class="btn-ghost" href="#katalog">Katalog 51 kanałów</a>
+      </div>
+    </div>
+    <div class="hud">
+      <div class="glass bal">
+        <div class="lab"><span class="live-dot"></span>Włączonych nagrań w sieci playlist Boost</div>
+        <div class="big num"><span class="odo" id="balNum">0</span><span class="u">filmów</span></div>
+        <div class="delta">100% pokrycia 40 aktywnych kanałów źródłowych</div>
+      </div>
+      <div class="kpis">
+        <div class="glass kpi"><div class="lab">Kanały sieci</div><div class="v num gold" id="kCh">51</div></div>
+        <div class="glass kpi"><div class="lab">Playlisty LIVE</div><div class="v num good" id="kPl">27</div></div>
+        <div class="glass kpi"><div class="lab">Gospodarze</div><div class="v num" id="kHost">3</div></div>
+      </div>
+      <div class="glass sustain">
+        <div class="ring" id="ring" style="--p:100"><b id="ringV">100%</b></div>
+        <p><strong>Pełna pajęczyna powiązań.</strong> Zero duplikatów między playlistami, miksy do 60 min oraz wsparcie kanałów 100–1000 sub.</p>
+      </div>
+    </div>
+  </div>
+  <div class="legend"><span><i style="background:var(--gold)"></i>przepływ widzów do małych kanałów</span><span><i style="background:var(--orange)"></i>impuls z kanałów gospodarzy</span><span><i style="background:var(--good)"></i>klaster aktywny</span></div>
+</section>
+
+<main class="wrap">
+  <section id="klastry">
+    <div class="sec-head reveal">
+      <div><div class="eyebrow">Architektura sieci</div><h2>6 klastrów ekosystemu</h2></div>
+      <p>Najedź na karty, aby zobaczyć podział 51 kanałów oraz udział w aktywnej dystrybucji Cross-Channel Boost.</p>
+    </div>
+    <div class="projects" id="clusterGrid"></div>
+  </section>
+
+  <section id="boost">
+    <div class="sec-head reveal">
+      <div><div class="eyebrow">Cross-Channel Boost 1.0</div><h2>27 opublikowanych playlist LIVE</h2></div>
+      <p>Wszystkie playlisty są już aktywne na YouTube (po 9 na każdym z 3 największych kanałów) i kierują odsłuchy na mniejsze kanały.</p>
+    </div>
+    <div class="fc-ctrl">
+      <div class="seg" role="group" aria-label="Filtruj według kanału gospodarza" id="hostSeg">
+        <button type="button" data-host="ALL" aria-pressed="true">Wszystkie (27)</button>
+        <button type="button" data-host="@osobowoscPLUS" aria-pressed="false">Osobowość + (9)</button>
+        <button type="button" data-host="@RadioChristianCulture" aria-pressed="false">Polskie Radio CC (9)</button>
+        <button type="button" data-host="@ChristianCultureTV" aria-pressed="false">Christian Culture TV (9)</button>
+      </div>
+    </div>
+    <div class="pl-grid" id="plGrid"></div>
+  </section>
+
+  <section id="prognoza">
+    <div class="sec-head reveal">
+      <div><div class="eyebrow">Symulator wzrostu 12 miesięcy</div><h2>Dynamika zasięgu i rotacji</h2></div>
+      <p>Sprawdź prognozę miesięcznych przekierowań odsłuchań dla mniejszych kanałów w zależności od tempa kolejnych fal playlist.</p>
+    </div>
+    <div class="glass fc reveal">
+      <div class="fc-ctrl">
+        <div class="seg" role="group" aria-label="Scenariusz rozwoju sieci" id="scSeg">
+          <button type="button" data-sc="care" aria-pressed="false">Ostrożny</button>
+          <button type="button" data-sc="base" aria-pressed="true">Bazowy</button>
+          <button type="button" data-sc="opt" aria-pressed="false">Przebudzenie</button>
+        </div>
+        <label class="slider" for="waveRate">Nowych playlist / mies.: <input type="range" id="waveRate" min="3" max="27" step="3" value="12"> <output class="num" id="rateOut">12</output></label>
+      </div>
+      <div class="chart-box"><canvas id="fcChart" aria-label="Wykres prognozy zasięgu sieci na 12 miesięcy"></canvas></div>
+      <div class="fc-sum">
+        <div><div class="lab">Playlisty za 12 mies.</div><div class="v num" id="sPl">–</div></div>
+        <div><div class="lab">Wypromowanych filmów</div><div class="v num" id="sVids">–</div></div>
+        <div><div class="lab">Szac. ekspozycje / mies.</div><div class="v num" id="sExp">–</div></div>
+        <div><div class="lab">Kanały aktywne</div><div class="v num" id="sCh">40 / 51</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="katalog">
+    <div class="sec-head reveal">
+      <div><div class="eyebrow">Pełny rejestr</div><h2>Wszystkie 51 kanałów Christian Culture</h2></div>
+      <p>Wyszukaj dowolny kanał, sprawdź liczbę subskrybentów oraz ile filmów trafiło już do wspólnej sieci playlist.</p>
+    </div>
+    <div class="toolbar">
+      <input type="search" id="chSearch" class="search-in" placeholder="Szukaj kanału po nazwie lub @handle..." aria-label="Szukaj kanału">
+      <div class="seg" role="group" aria-label="Filtruj kanały" id="chSeg">
+        <button type="button" data-tier="ALL" aria-pressed="true">Wszystkie (51)</button>
+        <button type="button" data-tier="host" aria-pressed="false">Gospodarze (3)</button>
+        <button type="button" data-tier="tier1_near_1k" aria-pressed="false">Blisko 1k</button>
+        <button type="button" data-tier="tier2_100_to_599" aria-pressed="false">100–599 sub.</button>
+        <button type="button" data-tier="tier3_micro_dormant" aria-pressed="false">Mikro &lt;100</button>
+      </div>
+    </div>
+    <div class="ch-grid" id="chGrid"></div>
+  </section>
+
+  <footer>
+    Christian Culture Network · Strona pilotażowa wzorowana na Skarbcu Misji CC (`noindex,nofollow`) · Zero-Cost Edition.
+  </footer>
+</main>
+
+<script id="networkData" type="application/json">{"channels": [{"name": "CC Recovery / Healing", "handle": "@CCRecoveryHealing", "role": "source", "category": "bible_testimony", "tier": "tier3_micro_dormant", "subs": 5, "vids": 7, "promoted": 7, "url": "https://www.youtube.com/@CCRecoveryHealing"}, {"name": "CC Prayer 24", "handle": "@CCPrayer24", "role": "source", "category": "worship_calm", "tier": "tier3_micro_dormant", "subs": 79, "vids": 14, "promoted": 12, "url": "https://www.youtube.com/@CCPrayer24"}, {"name": "Christian Culture POP", "handle": "@ChristianCulturePOP", "role": "source", "category": "music_genre", "tier": "tier3_micro_dormant", "subs": 73, "vids": 14, "promoted": 13, "url": "https://www.youtube.com/@ChristianCulturePOP"}, {"name": "CC Story / Testimony", "handle": "@CCStoryTestimony", "role": "source", "category": "bible_testimony", "tier": "tier3_micro_dormant", "subs": 5, "vids": 6, "promoted": 6, "url": "https://www.youtube.com/@CCStoryTestimony"}, {"name": "Christian Culture Studio", "handle": "@ChristianCultureStudio", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 43, "vids": 8, "promoted": 8, "url": "https://www.youtube.com/@ChristianCultureStudio"}, {"name": "CC Women", "handle": "@CCWomen7", "role": "source", "category": "music_and_message", "tier": "tier1_near_1k", "subs": 901, "vids": 24, "promoted": 21, "url": "https://www.youtube.com/@CCWomen7"}, {"name": "CC Worship International", "handle": "@CCWorshipInternational", "role": "source", "category": "worship_calm", "tier": "tier3_micro_dormant", "subs": 18, "vids": 16, "promoted": 16, "url": "https://www.youtube.com/@CCWorshipInternational"}, {"name": "Osobowość +", "handle": "@osobowoscPLUS", "role": "host", "category": "talks_culture_media", "tier": "host", "subs": 12100, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@osobowoscPLUS"}, {"name": "CC Nations", "handle": "@CCNations", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 4, "vids": 6, "promoted": 6, "url": "https://www.youtube.com/@CCNations"}, {"name": "CC Bible Deep", "handle": "@CCBibleDeep", "role": "source", "category": "bible_testimony", "tier": "tier3_micro_dormant", "subs": 41, "vids": 12, "promoted": 9, "url": "https://www.youtube.com/@CCBibleDeep"}, {"name": "Chrześcijański Survival – Strażnik", "handle": "@SurvivalChrzescijanski", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 27, "vids": 9, "promoted": 9, "url": "https://www.youtube.com/@SurvivalChrzescijanski"}, {"name": "Christian Culture Instrumental", "handle": "@CCInstrumental", "role": "source", "category": "worship_calm", "tier": "tier3_micro_dormant", "subs": null, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@CCInstrumental"}, {"name": "Christian Culture News", "handle": "@CCNews7", "role": "source", "category": "talks_culture_media", "tier": "tier2_100_to_599", "subs": 100, "vids": 10, "promoted": 10, "url": "https://www.youtube.com/@CCNews7"}, {"name": "CC Kids Worship", "handle": "@CCKidsWorship7", "role": "source", "category": "worship_calm", "tier": "tier3_micro_dormant", "subs": 9, "vids": 3, "promoted": 3, "url": "https://www.youtube.com/@CCKidsWorship7"}, {"name": "CC Academy / Masterclass", "handle": "@CCAcademyMasterclass", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 3, "vids": 3, "promoted": 3, "url": "https://www.youtube.com/@CCAcademyMasterclass"}, {"name": "Christian Culture Network", "handle": "@ChristianCultureNetwork", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 41, "vids": 11, "promoted": 11, "url": "https://www.youtube.com/@ChristianCultureNetwork"}, {"name": "CC NOW", "handle": "@CCNOW7", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 21, "vids": 10, "promoted": 10, "url": "https://www.youtube.com/@CCNOW7"}, {"name": "Christian Culture Biznes", "handle": "@ChristianCultureBiznes", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 12, "vids": 4, "promoted": 4, "url": "https://www.youtube.com/@ChristianCultureBiznes"}, {"name": "Kids CC TV", "handle": "@KidsTVCC", "role": "source", "category": "family_youth", "tier": "tier3_micro_dormant", "subs": 15, "vids": 5, "promoted": 5, "url": "https://www.youtube.com/@KidsTVCC"}, {"name": "Personality Plus", "handle": "@PersonalityPlusCC", "role": "source", "category": "talks_culture_media", "tier": "tier2_100_to_599", "subs": 172, "vids": 30, "promoted": 15, "url": "https://www.youtube.com/@PersonalityPlusCC"}, {"name": "CC Marriage – Małżeństwo z Misją", "handle": "@CCMarriage", "role": "source", "category": "family_youth", "tier": "tier3_micro_dormant", "subs": 20, "vids": 9, "promoted": 9, "url": "https://www.youtube.com/@CCMarriage"}, {"name": "Christian Culture Rock", "handle": "@ChristianCultureRock", "role": "source", "category": "music_genre", "tier": "tier3_micro_dormant", "subs": 32, "vids": 9, "promoted": 9, "url": "https://www.youtube.com/@ChristianCultureRock"}, {"name": "Popraw Koronę", "handle": "@PoprawKoroneCC", "role": "source", "category": "music_genre", "tier": "tier3_micro_dormant", "subs": 78, "vids": 19, "promoted": 16, "url": "https://www.youtube.com/@PoprawKoroneCC"}, {"name": "Chrześcijański Patriota", "handle": "@ChrzescijanskiPatriota", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 28, "vids": 9, "promoted": 9, "url": "https://www.youtube.com/@ChrzescijanskiPatriota"}, {"name": "CC Men", "handle": "@CCMen7", "role": "source", "category": "music_and_message", "tier": "tier2_100_to_599", "subs": 261, "vids": 29, "promoted": 24, "url": "https://www.youtube.com/@CCMen7"}, {"name": "Christian Culture TV", "handle": "@ChristianCultureTV", "role": "host", "category": "talks_culture_media", "tier": "host", "subs": 5990, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@ChristianCultureTV"}, {"name": "CC Youth Talks – Głos Młodych", "handle": "@YouthTalksChristianCulture", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 5, "vids": 5, "promoted": 5, "url": "https://www.youtube.com/@YouthTalksChristianCulture"}, {"name": "Christian Culture Praise & Worship", "handle": "@ChristianCulturePraiseWorship", "role": "source", "category": "worship_calm", "tier": "tier2_100_to_599", "subs": 109, "vids": 13, "promoted": 12, "url": "https://www.youtube.com/@ChristianCulturePraiseWorship"}, {"name": "CC Dialog", "handle": "@CCDialog", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 9, "vids": 1, "promoted": 1, "url": "https://www.youtube.com/@CCDialog"}, {"name": "CC Teens Worship", "handle": "@CCTeensWorship", "role": "source", "category": "worship_calm", "tier": "tier3_micro_dormant", "subs": 8, "vids": 6, "promoted": 6, "url": "https://www.youtube.com/@CCTeensWorship"}, {"name": "Top Seven", "handle": "@TopSeven_CC", "role": "source", "category": "talks_culture_media", "tier": "tier2_100_to_599", "subs": 148, "vids": 30, "promoted": 19, "url": "https://www.youtube.com/@TopSeven_CC"}, {"name": "CC Identity – Twoja Duchowa Tożsamość", "handle": "@CCIdentityTwojaDuchowaTozsamosc", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": null, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@CCIdentityTwojaDuchowaTozsamosc"}, {"name": "Christian Culture Hip Hop", "handle": "@ChristianCultureHipHop", "role": "source", "category": "music_genre", "tier": "tier3_micro_dormant", "subs": 4, "vids": 2, "promoted": 2, "url": "https://www.youtube.com/@ChristianCultureHipHop"}, {"name": "CC Apologetyka", "handle": "@CCApologetyka", "role": "source", "category": "bible_testimony", "tier": "tier3_micro_dormant", "subs": 16, "vids": 4, "promoted": 4, "url": "https://www.youtube.com/@CCApologetyka"}, {"name": "Worship LIVE CC", "handle": "@WorshipLiveCC", "role": "source", "category": "worship_calm", "tier": "tier2_100_to_599", "subs": 271, "vids": 30, "promoted": 19, "url": "https://www.youtube.com/@WorshipLiveCC"}, {"name": "Christian Culture Rodzina", "handle": "@ChristianCultureRodzina", "role": "source", "category": "family_youth", "tier": "tier3_micro_dormant", "subs": 48, "vids": 12, "promoted": 12, "url": "https://www.youtube.com/@ChristianCultureRodzina"}, {"name": "CC Life Skills", "handle": "@CCLifeSkills", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 5, "vids": 1, "promoted": 1, "url": "https://www.youtube.com/@CCLifeSkills"}, {"name": "CC Historia", "handle": "@CCHistoria", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 18, "vids": 5, "promoted": 4, "url": "https://www.youtube.com/@CCHistoria"}, {"name": "Polskie Radio CHRISTIAN CULTURE", "handle": "@RadioChristianCulture", "role": "host", "category": "talks_culture_media", "tier": "host", "subs": 4410, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@RadioChristianCulture"}, {"name": "CC FILM", "handle": "@CCFILM7", "role": "source", "category": "talks_culture_media", "tier": "tier2_100_to_599", "subs": 208, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@CCFILM7"}, {"name": "TENS CC", "handle": "@TENSCC", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 12, "vids": 2, "promoted": 2, "url": "https://www.youtube.com/@TENSCC"}, {"name": "CC Shorts", "handle": "@CCShorts7", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": null, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@CCShorts7"}, {"name": "CC Creative", "handle": "@CCCreative7", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 4, "vids": 4, "promoted": 4, "url": "https://www.youtube.com/@CCCreative7"}, {"name": "Prawda Bez Filtra", "handle": "@PrawdaBezFiltra18plus", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": 20, "vids": 3, "promoted": 3, "url": "https://www.youtube.com/@PrawdaBezFiltra18plus"}, {"name": "CC Nature Sounds", "handle": "@CCNatureSounds", "role": "source", "category": "worship_calm", "tier": "tier3_micro_dormant", "subs": 5, "vids": 4, "promoted": 4, "url": "https://www.youtube.com/@CCNatureSounds"}, {"name": "CC MUSIC", "handle": "@CCMUSIC7", "role": "source", "category": "music_genre", "tier": "tier3_micro_dormant", "subs": 13, "vids": 2, "promoted": 2, "url": "https://www.youtube.com/@CCMUSIC7"}, {"name": "RCC TV 24", "handle": "@ToDlaCiebieGramy", "role": "source", "category": "talks_culture_media", "tier": "tier2_100_to_599", "subs": 156, "vids": 30, "promoted": 13, "url": "https://www.youtube.com/@ToDlaCiebieGramy"}, {"name": "Cezary Rogowski", "handle": "@CezaryRogowski", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": null, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@CezaryRogowski"}, {"name": "Werset Dnia - Chrześcijański Serwis", "handle": "@WersetDniaChrzescijanskiSerwis", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": null, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@WersetDniaChrzescijanskiSerwis"}, {"name": "Ubierz Słowa - Your Imagination Studio", "handle": "@UbierzSlowaYourImagination", "role": "source", "category": "talks_culture_media", "tier": "tier3_micro_dormant", "subs": null, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@UbierzSlowaYourImagination"}, {"name": "Biblia Audio Christian Culture", "handle": "@BibliaAudioCC", "role": "source", "category": "bible_testimony", "tier": "tier2_100_to_599", "subs": 163, "vids": 0, "promoted": 0, "url": "https://www.youtube.com/@BibliaAudioCC"}], "playlists": [{"key": "cctv_1_women_men_wiara", "host": "Christian Culture TV", "hostHandle": "@ChristianCultureTV", "title": "Kobiety i Mężczyźni Wiary — Pieśni i Przesłania (CC Women & CC Men)", "desc": "Specjalna playlista łącząca twórczość kanałów CC Women (~900 sub.) oraz CC Men (~260 sub.) — pieśni uwielbienia, modlitwy i przesłania umacniające wiarę.", "ytId": "PLB0XAwTR9b40", "url": "https://www.youtube.com/playlist?list=PLB0XAwTR9b40", "items": 14, "mins": 59}, {"key": "cctv_2_domowe_uwielbienie_rodzina", "host": "Christian Culture TV", "hostHandle": "@ChristianCultureTV", "title": "Domowe Uwielbienie i Rodzina — Chrześcijańska Telewizja", "desc": "Pieśni dla całej rodziny, dziecięce uwielbienie i inspiracje domowe z kanałów CC Kids Worship, Kids CC TV, Christian Culture Rodzina, CC Marriage i Worship LIVE CC.", "ytId": "PLPJ15KiqnL3M", "url": "https://www.youtube.com/playlist?list=PLPJ15KiqnL3M", "items": 16, "mins": 54}, {"key": "cctv_3_przebudzenie_misja", "host": "Christian Culture TV", "hostHandle": "@ChristianCultureTV", "title": "Współczesne Przebudzenie i Misja — Młodzi, Kultura i Wiara", "desc": "Współczesne tematy, historia, misja i głos młodego pokolenia z mniejszych kanałów: Christian Culture Network, CC NOW, Chrześcijański Patriota, Survival, CC News i Youth Talks.", "ytId": "PLRwE32NGM904", "url": "https://www.youtube.com/playlist?list=PLRwE32NGM904", "items": 15, "mins": 60}, {"key": "osobowosc_1_spokoj_modlitwa", "host": "Osobowość +", "hostHandle": "@osobowoscPLUS", "title": "Chrześcijański Spokój i Modlitwa — Muzyka do Rozmyślań i Snu", "desc": "Wyselekcjonowane pieśni modlitewne, muzyka wyciszenia i spokojne brzmienia z mniejszych kanałów Christian Culture (CC Prayer 24, CC Nature Sounds, CC Women, CC Men). Każdy utwór odtwarzany jest bezpośrednio z oryginalnego kanału twórcy.", "ytId": "PLBiHILqtm8Tw", "url": "https://www.youtube.com/playlist?list=PLBiHILqtm8Tw", "items": 16, "mins": 124}, {"key": "osobowosc_2_rozwoj_wiara", "host": "Osobowość +", "hostHandle": "@osobowoscPLUS", "title": "Rozwój Duchowy i Rozmowy o Wierze — Inspiracje na Każdy Dzień", "desc": "Rozważania, rozmowy o dojrzałości duchowej, rodzinie i codziennych wyzwaniach z kanałów Personality Plus, Popraw Koronę, Christian Culture Rodzina, CC Marriage i CC Men.", "ytId": "PLSQkNg1IiU7A", "url": "https://www.youtube.com/playlist?list=PLSQkNg1IiU7A", "items": 16, "mins": 57}, {"key": "osobowosc_3_slowo_swiadectwa", "host": "Osobowość +", "hostHandle": "@osobowoscPLUS", "title": "Pismo Święte i Świadectwa — Słowo, Które Podnosi", "desc": "Nagrania Biblii Audio, głębokie studium Słowa Bożego oraz poruszające świadectwa z kanałów Biblia Audio Christian Culture, CC Bible Deep, CC Recovery i CC Story.", "ytId": "PLAT29HL07fsY", "url": "https://www.youtube.com/playlist?list=PLAT29HL07fsY", "items": 16, "mins": 53}, {"key": "radio_1_uwielbienie_worship", "host": "Polskie Radio CHRISTIAN CULTURE", "hostHandle": "@RadioChristianCulture", "title": "Uwielbienie i Modlitwa Non-Stop — Chrześcijańska Muzyka Worship", "desc": "Najpiękniejsze pieśni uwielbienia z kanałów Worship LIVE CC, Christian Culture Praise & Worship, CC Worship International, CC Women oraz CC Men. Wspieraj mniejsze kanały jednym odsłuchem.", "ytId": "PLEq8sxRIzdc8", "url": "https://www.youtube.com/playlist?list=PLEq8sxRIzdc8", "items": 16, "mins": 58}, {"key": "radio_2_pop_rock_brzmienia", "host": "Polskie Radio CHRISTIAN CULTURE", "hostHandle": "@RadioChristianCulture", "title": "Chrześcijański POP, Rock i Nowe Brzmienia — Radio Christian Culture", "desc": "Energia i nowoczesne brzmienia chrześcijańskie: POP, Rock, Hip-Hop i listy przebojów z kanałów Christian Culture POP, Christian Culture Rock, Top Seven, CC MUSIC i Christian Culture Hip Hop.", "ytId": "PLI6r1Hx8jDOs", "url": "https://www.youtube.com/playlist?list=PLI6r1Hx8jDOs", "items": 16, "mins": 59}, {"key": "radio_3_wieczorna_cisza_radio", "host": "Polskie Radio CHRISTIAN CULTURE", "hostHandle": "@RadioChristianCulture", "title": "Wieczorna Cisza i Słowo — Radio dla Serca i Rodziny", "desc": "Spokojne audycje wieczorne, muzyka radiowa RCC TV 24, fragmenty Biblii Audio i modlitwa na zakończenie dnia z mniejszych kanałów Christian Culture.", "ytId": "PLG-oil8YlbBM", "url": "https://www.youtube.com/playlist?list=PLG-oil8YlbBM", "items": 16, "mins": 50}, {"key": "cctv_4_mlodzi_teens_praise", "host": "Christian Culture TV", "hostHandle": "@ChristianCultureTV", "title": "Młode Pokolenie i Nowe Uwielbienie — CC Teens, Praise & Worship i Top Seven", "desc": "Około 60-minutowy miks muzyki i przesłań dla młodego pokolenia z kanałów CC Teens Worship, Christian Culture Praise & Worship, Top Seven, RCC TV 24 i CC Youth Talks.", "ytId": "PLBvVFpDTG7FE", "url": "https://www.youtube.com/playlist?list=PLBvVFpDTG7FE", "items": 13, "mins": 48}, {"key": "osobowosc_4_odwaga_rozmowy", "host": "Osobowość +", "hostHandle": "@osobowoscPLUS", "title": "Odważne Rozmowy, Wiara i Życie — Popraw Koronę, Biznes i Głos Młodych", "desc": "Miks inspirujących rozmów, wartości chrześcijańskich i praktycznych lekcji życia z kanałów Popraw Koronę, Christian Culture Biznes, CC Youth Talks, Prawda Bez Filtra, CC Life Skills, CC Dialog i CC Creative.", "ytId": "PLCsdBp-SrS0g", "url": "https://www.youtube.com/playlist?list=PLCsdBp-SrS0g", "items": 13, "mins": 52}, {"key": "radio_4_top_praise_rcc", "host": "Polskie Radio CHRISTIAN CULTURE", "hostHandle": "@RadioChristianCulture", "title": "Złote Hity Chrześcijańskie i Uwielbienie — Top Seven, RCC TV 24 i Praise & Worship", "desc": "Wyjątkowy miks do 60 minut z mniejszych kanałów Christian Culture: Top Seven, RCC TV 24, Christian Culture Praise & Worship oraz CC Teens Worship.", "ytId": "PLb7IVwTQSv68", "url": "https://www.youtube.com/playlist?list=PLb7IVwTQSv68", "items": 7, "mins": 58}, {"key": "cctv_5_koncert_uwielbienia_tv", "host": "Christian Culture TV", "hostHandle": "@ChristianCultureTV", "title": "Wieczór Uwielbienia przed Ekranem — Worship LIVE, Praise & Worship i Dom Boży", "desc": "Telewizyjny blok uwielbienia i pieśni rodzinnych z kanałów Worship LIVE CC, Christian Culture Praise & Worship, CC Worship International, Kids CC TV i CC Teens Worship.", "ytId": "PLe45VjXCgWKQ", "url": "https://www.youtube.com/playlist?list=PLe45VjXCgWKQ", "items": 14, "mins": 48}, {"key": "cctv_6_puls_misji_network_now", "host": "Christian Culture TV", "hostHandle": "@ChristianCultureTV", "title": "Puls Misji i Świata — CC Network, CC NOW, News i Nations", "desc": "Publicystyka, aktualności misyjne i komentarze z mniejszych kanałów: Christian Culture Network, CC NOW, Christian Culture News, CC Nations, Chrześcijański Patriota i Survival.", "ytId": "PLfSfrROfZNc0", "url": "https://www.youtube.com/playlist?list=PLfSfrROfZNc0", "items": 14, "mins": 60}, {"key": "cctv_7_top_muzyka_inspiracje_tv", "host": "Christian Culture TV", "hostHandle": "@ChristianCultureTV", "title": "Muzyka i Inspiracje Tygodnia — Top Seven, RCC TV 24, POP i Personality Plus", "desc": "Różnorodny ~60-minutowy miks muzyki i inspiracji z kanałów Top Seven, RCC TV 24, Christian Culture POP, Christian Culture Rock, Personality Plus i Popraw Koronę.", "ytId": "PLeqP8Mjkj4qY", "url": "https://www.youtube.com/playlist?list=PLeqP8Mjkj4qY", "items": 12, "mins": 58}, {"key": "osobowosc_5_charakter_relacje", "host": "Osobowość +", "hostHandle": "@osobowoscPLUS", "title": "Siła Charakteru, Relacje i Małżeństwo — Personality Plus, Rodzina i Popraw Koronę", "desc": "Około 60-minutowy zestaw rozmów i inspiracji o relacjach, małżeństwie i dojrzałości z kanałów Personality Plus, Popraw Koronę, Christian Culture Rodzina, CC Marriage, CC Recovery i CC Story.", "ytId": "PLOF8FUlPPI4g", "url": "https://www.youtube.com/playlist?list=PLOF8FUlPPI4g", "items": 13, "mins": 59}, {"key": "osobowosc_6_glebia_slowa_historia", "host": "Osobowość +", "hostHandle": "@osobowoscPLUS", "title": "Głębia Pisma, Apologetyka i Historia Wiary — Bible Deep, Historia i Świadectwa", "desc": "Wykłady biblijne, historia chrześcijaństwa, apologetyka i świadectwa z mniejszych kanałów: CC Bible Deep, CC Historia, CC Apologetyka, CC Academy, CC Story, CC Recovery i Personality Plus.", "ytId": "PLIlhwjNcPDm4", "url": "https://www.youtube.com/playlist?list=PLIlhwjNcPDm4", "items": 14, "mins": 56}, {"key": "osobowosc_7_odwaga_wartosci_zycie", "host": "Osobowość +", "hostHandle": "@osobowoscPLUS", "title": "Wartości w Codzienności — Strażnik, Patriota, Biznes i Rozwój", "desc": "Praktyczne przesłania o odpowiedzialności, pracy, odwadze i wartościach z kanałów Chrześcijański Survival, Chrześcijański Patriota, Christian Culture Biznes, Prawda Bez Filtra, Youth Talks, TENS CC, Popraw Koronę i Personality Plus.", "ytId": "PLLtoadgMK9HA", "url": "https://www.youtube.com/playlist?list=PLLtoadgMK9HA", "items": 14, "mins": 59}, {"key": "radio_5_uwielbienie_miedzynarodowe", "host": "Polskie Radio CHRISTIAN CULTURE", "hostHandle": "@RadioChristianCulture", "title": "Pieśni Chwały bez Granic — Worship LIVE, Praise & Worship i Worship International", "desc": "Blisko 60 minut muzyki uwielbienia po polsku i angielsku z kanałów Worship LIVE CC, CC Worship International, Christian Culture Praise & Worship, CC Men, CC Prayer 24 i CC Nature Sounds.", "ytId": "PLFaVlGVZseNA", "url": "https://www.youtube.com/playlist?list=PLFaVlGVZseNA", "items": 5, "mins": 57}, {"key": "radio_6_przeboje_pop_rock_studio", "host": "Polskie Radio CHRISTIAN CULTURE", "hostHandle": "@RadioChristianCulture", "title": "Lista Przebojów Dobrego Brzmienia — Top Seven, POP, Rock i Studio CC", "desc": "Energetyczny miks chrześcijańskiego POP-u, Rocka i utworów studyjnych z kanałów Top Seven, Christian Culture POP, Christian Culture Rock, Christian Culture Studio i CC Teens Worship.", "ytId": "PLSAOdSW4KF-M", "url": "https://www.youtube.com/playlist?list=PLSAOdSW4KF-M", "items": 14, "mins": 59}, {"key": "radio_7_pasmo_rcc_audycje", "host": "Polskie Radio CHRISTIAN CULTURE", "hostHandle": "@RadioChristianCulture", "title": "Pasmo Radiowo-Telewizyjne — RCC TV 24, Top Seven i Muzyka Serca", "desc": "Wybrane nagrania z pasma RCC TV 24, Top Seven, Worship LIVE CC oraz CC Worship International w około 60-minutowym bloku radiowym.", "ytId": "PLEdC2DVG3g1I", "url": "https://www.youtube.com/playlist?list=PLEdC2DVG3g1I", "items": 14, "mins": 51}, {"key": "cctv_8_chrzescijanska_kultura_dzis", "host": "Christian Culture TV", "hostHandle": "@ChristianCultureTV", "title": "Chrześcijańska Kultura Dziś — Muzyka, Publicystyka i Misja", "desc": "Przekrojowy ~60-minutowy program łączący muzykę i publicystykę z mniejszych kanałów Christian Culture (CC Network, CC News, Top Seven, RCC TV 24, Personality Plus).", "ytId": "PLZBoe6FthXXQ", "url": "https://www.youtube.com/playlist?list=PLZBoe6FthXXQ", "items": 8, "mins": 59}, {"key": "cctv_9_glos_wiary_pokolenia", "host": "Christian Culture TV", "hostHandle": "@ChristianCultureTV", "title": "Głos Wiary i Pokolenia — Pieśni, Rozmowy i Inspiracje CC TV", "desc": "Około 60-minutowy miks utworów muzycznych, rozmów i inspiracji z mniejszych kanałów Christian Culture.", "ytId": "PLWAdqxkt_axw", "url": "https://www.youtube.com/playlist?list=PLWAdqxkt_axw", "items": 8, "mins": 59}, {"key": "osobowosc_8_madrosc_codziennosci", "host": "Osobowość +", "hostHandle": "@osobowoscPLUS", "title": "Mądrość w Codziennych Wyborach — Rozmowy, Charakter i Nadzieja", "desc": "Około 60-minutowy miks rozmów o charakterze, wierze i codziennych decyzjach z mniejszych kanałów Christian Culture (Personality Plus, Popraw Koronę, CC Bible Deep, Chrześcijański Patriota, Survival).", "ytId": "PLd-zXNgWCJIc", "url": "https://www.youtube.com/playlist?list=PLd-zXNgWCJIc", "items": 11, "mins": 55}, {"key": "osobowosc_9_swiatlo_w_trudnosciach", "host": "Osobowość +", "hostHandle": "@osobowoscPLUS", "title": "Światło w Trudnych Chwilach — Pokój Serca, Słowo i Wsparcie", "desc": "Pokrzepiające przesłania, rozmowy i pieśni podnoszące na duchu z kanałów ekosystemu Christian Culture.", "ytId": "PLXB-wLlbLzRw", "url": "https://www.youtube.com/playlist?list=PLXB-wLlbLzRw", "items": 11, "mins": 60}, {"key": "radio_8_poranek_z_pieśnia", "host": "Polskie Radio CHRISTIAN CULTURE", "hostHandle": "@RadioChristianCulture", "title": "Dobre Brzmienie na Każdy Dzień — Pieśni, POP i Uwielbienie", "desc": "Radosny i budujący ~60-minutowy miks muzyczny z mniejszych kanałów Christian Culture (Top Seven, RCC TV 24, Christian Culture POP, Worship LIVE CC, CC Worship International).", "ytId": "PLFbuzAZk5qwU", "url": "https://www.youtube.com/playlist?list=PLFbuzAZk5qwU", "items": 11, "mins": 41}, {"key": "radio_9_wieczorne_uwielbienie_radio", "host": "Polskie Radio CHRISTIAN CULTURE", "hostHandle": "@RadioChristianCulture", "title": "Wieczorne Brzmienia Wiary — Muzyka i Przesłanie Radia CC", "desc": "Spokojniejszy ~60-minutowy zestaw utworów i audycji z kanałów RCC TV 24, Worship LIVE CC, Top Seven i mniejszych kanałów Christian Culture.", "ytId": "PLNvrOLnfo_pE", "url": "https://www.youtube.com/playlist?list=PLNvrOLnfo_pE", "items": 11, "mins": 45}], "totalPromoted": 348}</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const RM = false;
+  document.documentElement.classList.add('js');
+  const DATA = JSON.parse(document.getElementById('networkData').textContent);
+
+  const tkHtml = DATA.playlists.map(p => `<span><b>▶ ${p.items} filmów</b>${p.title} (${p.host})</span>`).join('');
+  document.getElementById('tkTrack').innerHTML = tkHtml + tkHtml;
+
+  const DIG30 = Array.from({length: 30}, (_, i) => `<b>${i % 10}</b>`).join('');
+  function odoSet(el, str) {
+    str = String(str);
+    el.classList.add('odo');
+    el.innerHTML = [...str].map(c => /\d/.test(c) ? `<span class="reel"><i style="transform:translateY(0)">${DIG30}</i></span>` : `<span>${c}</span>`).join('');
+    void el.offsetWidth;
+    const reels = [...el.querySelectorAll('.reel')];
+    const ds = [...str].filter(c => /\d/.test(c));
+    reels.forEach((r, k) => {
+      const i = r.firstChild, d = +ds[k];
+      i.style.transitionDelay = (reels.length - 1 - k) * 45 + 'ms';
+      i.style.transform = `translateY(${-(20 + d) * 1.18}em)`;
+    });
+  }
+  odoSet(document.getElementById('balNum'), DATA.totalPromoted);
+  ['kCh', 'kPl', 'kHost'].forEach(id => {
+    const el = document.getElementById(id);
+    odoSet(el, el.textContent);
+  });
+
+  const CLUSTERS = [
+    { id:'hosts', name:'Kanały Gospodarze', col:'#f2c46d', orbit:3.0, sp:.15, tilt:.22, filter: c => c.role === 'host', desc:'Trzy największe kanały napędzające ruch w całej sieci' },
+    { id:'worship', name:'Uwielbienie & Modlitwa', col:'#5fd39a', orbit:3.7, sp:.12, tilt:-.18, filter: c => c.role === 'source' && c.category === 'worship_calm', desc:'Worship LIVE, Praise & Worship, Modlitwa 24, Instrumental' },
+    { id:'wm', name:'Kobiety i Mężczyźni', col:'#FF8C33', orbit:4.3, sp:.10, tilt:.30, filter: c => c.category === 'music_and_message', desc:'CC Women (~901 sub.) oraz CC Men (~261 sub.) blisko progu 1k' },
+    { id:'bible', name:'Biblia & Świadectwa', col:'#7dd3fc', orbit:4.9, sp:.09, tilt:-.26, filter: c => c.category === 'bible_testimony', desc:'Biblia Audio CC, CC Bible Deep, Recovery, Apologetyka' },
+    { id:'family', name:'Rodzina & Młodzi', col:'#c084fc', orbit:5.4, sp:.08, tilt:.14, filter: c => c.category === 'family_youth', desc:'Kids Worship, Teens Worship, Małżeństwo, Rodzina' },
+    { id:'culture', name:'Media, Kultura & Brzmienia', col:'#fbbf24', orbit:5.9, sp:.07, tilt:-.10, filter: c => c.role === 'source' && (c.category === 'talks_culture_media' || c.category === 'music_genre'), desc:'Top Seven, POP, Rock, RCC TV 24, Network, NOW, Patriota' },
+  ];
+
+  const cGrid = document.getElementById('clusterGrid');
+  cGrid.innerHTML = CLUSTERS.map((cl, idx) => {
+    const list = DATA.channels.filter(cl.filter);
+    const subs = list.reduce((s, x) => s + (x.subs || 0), 0);
+    const prom = list.reduce((s, x) => s + (x.promoted || 0), 0);
+    const pct = Math.min(100, Math.round((list.length / 18) * 100));
+    const promPct = Math.min(100, Math.round((prom / 140) * 100));
+    return `<article class="glass pcard reveal" style="--d:${idx}">
+      <div class="hd"><span class="dot" style="color:${cl.col};background:${cl.col}"></span><h3>${cl.name}</h3><span class="src">${list.length} kanałów</span></div>
+      <div class="net num" style="color:${cl.col}">${subs.toLocaleString('pl-PL')}<small>subskrybentów łącznie</small></div>
+      <div class="bars">
+        <div class="bar"><span>Kanały</span><span class="t"><i data-w="${pct}" style="background:var(--gold)"></i></span><span class="v num">${list.length}</span></div>
+        <div class="bar"><span>Na playlistach</span><span class="t"><i data-w="${promPct}" style="background:var(--orange2)"></i></span><span class="v num">${prom} filmów</span></div>
+      </div>
+      <span class="chip">${cl.desc}</span>
+    </article>`;
+  }).join('');
+
+  if (!RM) document.querySelectorAll('.pcard').forEach(c => {
+    c.addEventListener('pointermove', e => {
+      const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      c.classList.add('tilting');
+      c.style.transform = `rotateX(${(.5 - y) * 8}deg) rotateY(${(x - .5) * 10}deg) translateZ(6px)`;
+      c.style.setProperty('--mx', x * 100 + '%');
+      c.style.setProperty('--my', y * 100 + '%');
+    });
+    c.addEventListener('pointerleave', () => { c.classList.remove('tilting'); c.style.transform = ''; });
+  });
+
+  let activeHost = 'ALL';
+  function renderPlaylists() {
+    const list = DATA.playlists.filter(p => activeHost === 'ALL' || p.hostHandle === activeHost);
+    document.getElementById('plGrid').innerHTML = list.map((p, idx) => `
+      <article class="glass pl-card reveal in" style="--d:${idx % 6}">
+        <div class="eyebrow">${p.host}</div>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+        <div class="pl-meta"><span>${p.items} utworów</span><span>•</span><span>~${p.mins} min</span></div>
+        <a class="cta-btn" href="${p.url}" target="_blank" rel="noopener noreferrer">▶ Otwórz na YouTube</a>
+      </article>
+    `).join('');
+  }
+  renderPlaylists();
+  document.querySelectorAll('#hostSeg button').forEach(b => b.addEventListener('click', () => {
+    activeHost = b.dataset.host;
+    document.querySelectorAll('#hostSeg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    renderPlaylists();
+  }));
+
+  const SC = { care: 1.04, base: 1.09, opt: 1.16 };
+  let sc = 'base', rate = 12, shown = null;
+  const MONTHS = ['gru','sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis'];
+  const cv = document.getElementById('fcChart'), cx = cv.getContext('2d');
+  function project() {
+    const mult = SC[sc];
+    let pts = [], plCount = 27, reach = 2700;
+    for (let m = 0; m < 12; m++) {
+      plCount += rate;
+      reach = Math.round(reach * mult + rate * 95);
+      pts.push(reach);
+    }
+    return { pts, finalPl: plCount, finalVids: plCount * 12, finalExp: pts[11] };
+  }
+  function drawChart(r) {
+    const dpr = Math.min(devicePixelRatio || 1, 2), W = cv.clientWidth, H = cv.clientHeight;
+    if (!W || !H) return;
+    cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.clearRect(0, 0, W, H);
+    const pad = { l: 58, r: 16, t: 18, b: 28 }, lo = 0, hi = Math.max(...r.pts) * 1.1;
+    const X = i => pad.l + (W - pad.l - pad.r) * i / 11;
+    const Y = v => pad.t + (H - pad.t - pad.b) * (1 - (v - lo) / (hi - lo));
+    cx.font = '600 12px Manrope, sans-serif'; cx.textBaseline = 'middle';
+    for (let step = 0; step <= 4; step++) {
+      const v = Math.round((hi / 4) * step);
+      cx.strokeStyle = 'rgba(255,255,255,.07)'; cx.beginPath(); cx.moveTo(pad.l, Y(v)); cx.lineTo(W - pad.r, Y(v)); cx.stroke();
+      cx.fillStyle = '#8d877d'; cx.textAlign = 'right'; cx.fillText((v / 1000).toFixed(1) + ' tys.', pad.l - 8, Y(v));
+    }
+    cx.textAlign = 'center'; cx.fillStyle = '#8d877d';
+    r.pts.forEach((_, i) => { if (W > 460 || i % 2 === 0) cx.fillText(MONTHS[i], X(i), H - 10); });
+    const g = cx.createLinearGradient(0, pad.t, 0, H - pad.b); g.addColorStop(0, 'rgba(255,122,0,.35)'); g.addColorStop(1, 'rgba(255,122,0,0)');
+    cx.beginPath(); r.pts.forEach((v, i) => i ? cx.lineTo(X(i), Y(v)) : cx.moveTo(X(i), Y(v)));
+    cx.lineTo(X(11), Y(0)); cx.lineTo(X(0), Y(0)); cx.closePath(); cx.fillStyle = g; cx.fill();
+    cx.beginPath(); r.pts.forEach((v, i) => i ? cx.lineTo(X(i), Y(v)) : cx.moveTo(X(i), Y(v)));
+    cx.strokeStyle = '#FF8C33'; cx.lineWidth = 3; cx.stroke();
+    cx.beginPath(); cx.arc(X(11), Y(r.pts[11]), 5, 0, Math.PI * 2); cx.fillStyle = '#f2c46d'; cx.fill();
+  }
+  function updateForecast() {
+    const r = project(); shown = r;
+    document.getElementById('rateOut').textContent = rate;
+    document.getElementById('sPl').textContent = r.finalPl;
+    document.getElementById('sVids').textContent = r.finalVids;
+    document.getElementById('sExp').textContent = r.finalExp.toLocaleString('pl-PL');
+    drawChart(r);
+  }
+  document.querySelectorAll('#scSeg button').forEach(b => b.addEventListener('click', () => {
+    sc = b.dataset.sc;
+    document.querySelectorAll('#scSeg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    updateForecast();
+  }));
+  document.getElementById('waveRate').addEventListener('input', e => { rate = +e.target.value; updateForecast(); });
+  addEventListener('resize', () => shown && drawChart(shown));
+  updateForecast();
+
+  let chTier = 'ALL';
+  function renderChannels() {
+    const q = document.getElementById('chSearch').value.trim().toLowerCase();
+    const list = DATA.channels.filter(c =>
+      (chTier === 'ALL' || c.tier === chTier) &&
+      (!q || c.name.toLowerCase().includes(q) || c.handle.toLowerCase().includes(q))
+    );
+    document.getElementById('chGrid').innerHTML = list.map(c => `
+      <article class="glass ch-card">
+        <div class="ch-top">
+          <div>
+            <h3>${c.name}</h3>
+            <div class="ch-handle">${c.handle}</div>
+          </div>
+          <a class="btn-ghost" href="${c.url}" target="_blank" rel="noopener noreferrer">Kanał ↗</a>
+        </div>
+        <div class="ch-stats">
+          <span>${c.subs !== null ? c.subs.toLocaleString('pl-PL') + ' sub.' : 'ukryte sub.'}</span>
+          <span>•</span>
+          <span>${c.promoted} filmów na playlistach</span>
+        </div>
+      </article>
+    `).join('');
+  }
+  renderChannels();
+  document.getElementById('chSearch').addEventListener('input', renderChannels);
+  document.querySelectorAll('#chSeg button').forEach(b => b.addEventListener('click', () => {
+    chTier = b.dataset.tier;
+    document.querySelectorAll('#chSeg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    renderChannels();
+  }));
+
+  document.querySelectorAll('.sec-head h2').forEach(h => {
+    h.innerHTML = h.textContent.split(' ').map((w, i) => `<span class="w" style="--i:${i}">${w}</span>`).join(' ');
+  });
+  const fillBars = root => root.querySelectorAll('[data-w]').forEach(i => i.style.width = i.dataset.w + '%');
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); fillBars(e.target); io.unobserve(e.target); }
+  }), { threshold: .1 });
+  document.querySelectorAll('.reveal, .sec-head').forEach(el => io.observe(el));
+  setTimeout(() => document.querySelectorAll('.reveal, .sec-head').forEach(el => { el.classList.add('in'); fillBars(el); }), 1500);
+  addEventListener('scroll', () => {
+    const h = document.documentElement;
+    document.getElementById('progress').style.transform = `scaleX(${h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)})`;
+  }, { passive: true });
+
+  (function init3D() {
+    const canvas = document.getElementById('scene'), hero = document.getElementById('hero'), tip = document.getElementById('tip');
+    if (!window.THREE || !canvas) return;
+    try {
+      const R = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      R.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+      const S = new THREE.Scene(); S.fog = new THREE.FogExp2(0x07080d, .035);
+      const C = new THREE.PerspectiveCamera(42, 1, .1, 200);
+      const root = new THREE.Group(); S.add(root);
+
+      function glowTex(stops) {
+        const c = document.createElement('canvas'); c.width = c.height = 128;
+        const g = c.getContext('2d'), r = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+        stops.forEach(s => r.addColorStop(s[0], s[1])); g.fillStyle = r; g.fillRect(0, 0, 128, 128);
+        return new THREE.CanvasTexture(c);
+      }
+      const dotTex = glowTex([[0, 'rgba(255,255,255,1)'], [.25, 'rgba(255,255,255,.8)'], [1, 'rgba(255,255,255,0)']]);
+
+      const N = 2600, gp = new Float32Array(N * 3);
+      for (let i = 0; i < N; i++) {
+        const y = 1 - 2 * (i + .5) / N, r = Math.sqrt(1 - y * y), t = i * 2.39996;
+        gp[i * 3] = Math.cos(t) * r * 1.5; gp[i * 3 + 1] = y * 1.5; gp[i * 3 + 2] = Math.sin(t) * r * 1.5;
+      }
+      const gGeo = new THREE.BufferGeometry(); gGeo.setAttribute('position', new THREE.BufferAttribute(gp, 3));
+      const globe = new THREE.Points(gGeo, new THREE.PointsMaterial({ size: .05, map: dotTex, color: 0xf2c46d, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+      root.add(globe);
+      const wire = new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.SphereGeometry(1.52, 18, 12)), new THREE.LineBasicMaterial({ color: 0xFF8C33, transparent: true, opacity: .09 }));
+      root.add(wire);
+      const core = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex([[0, 'rgba(255,230,170,1)'], [.2, 'rgba(255,140,40,.85)'], [.5, 'rgba(255,90,0,.25)'], [1, 'rgba(255,60,0,0)']]), blending: THREE.AdditiveBlending, depthWrite: false }));
+      core.scale.set(3.4, 3.4, 1); root.add(core);
+      S.add(new THREE.AmbientLight(0x404050, .9));
+      S.add(new THREE.PointLight(0xffa040, 2.2, 30));
+
+      const planets = CLUSTERS.map((cl, i) => {
+        const list = DATA.channels.filter(cl.filter);
+        const orbit = new THREE.Group(); orbit.rotation.x = cl.tilt; orbit.rotation.z = cl.tilt * .6; root.add(orbit);
+        const ring = new THREE.Mesh(new THREE.RingGeometry(cl.orbit - .006, cl.orbit + .006, 120), new THREE.MeshBasicMaterial({ color: 0xffb070, transparent: true, opacity: .13, side: THREE.DoubleSide }));
+        ring.rotation.x = Math.PI / 2; orbit.add(ring);
+        const col = new THREE.Color(cl.col), size = .2 + (list.length / 18) * .22;
+        const m = new THREE.Mesh(new THREE.SphereGeometry(size, 28, 20), new THREE.MeshStandardMaterial({ color: col, emissive: col, emissiveIntensity: .55, roughness: .35, metalness: .3 }));
+        m.userData = { cl, count: list.length, prom: list.reduce((s, x) => s + (x.promoted || 0), 0) };
+        orbit.add(m);
+        return { cl, m, ang: i * 1.05 + .4 };
+      });
+
+      const F = 650, fp = new Float32Array(F * 3), fc = new Float32Array(F * 3), parts = [];
+      const gold = new THREE.Color(0xf2c46d), org = new THREE.Color(0xff6a00);
+      function spawn(o, init) {
+        o.inflow = Math.random() < .65;
+        o.src = planets[Math.floor(Math.random() * planets.length)];
+        const a = Math.random() * 6.283, b = (Math.random() - .5) * 1.4;
+        o.dir = new THREE.Vector3(Math.cos(a) * Math.cos(b), Math.sin(b), Math.sin(a) * Math.cos(b));
+        o.t = init ? Math.random() : 0; o.sp = .18 + Math.random() * .24;
+      }
+      for (let i = 0; i < F; i++) { const o = {}; spawn(o, true); parts.push(o); }
+      const fGeo = new THREE.BufferGeometry(); fGeo.setAttribute('position', new THREE.BufferAttribute(fp, 3)); fGeo.setAttribute('color', new THREE.BufferAttribute(fc, 3));
+      root.add(new THREE.Points(fGeo, new THREE.PointsMaterial({ size: .09, map: dotTex, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })));
+
+      let mx = 0, my = 0, tx = 0, ty = 0, hover = null;
+      function size() {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        if (!w || !h) return;
+        R.setSize(w, h, false); C.aspect = w / h;
+        const wide = w > 720;
+        C.position.set(wide ? -2.5 : 0, wide ? 2.5 : 3.2, wide ? 14 : 17);
+        C.lookAt(wide ? -2.5 : 0, 0, 0); C.updateProjectionMatrix();
+      }
+      size(); addEventListener('resize', size);
+      const ray = new THREE.Raycaster(), v2 = new THREE.Vector2();
+      hero.addEventListener('pointermove', e => {
+        const r = canvas.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width - .5) * 2; ty = ((e.clientY - r.top) / r.height - .5) * 2;
+        v2.set(tx, -ty); ray.setFromCamera(v2, C);
+        const hit = ray.intersectObjects(planets.map(x => x.m))[0];
+        hover = hit ? hit.object : null;
+        if (hover) {
+          const u = hover.userData;
+          tip.innerHTML = `<h4>${u.cl.name}</h4><div class="row">Kanały<b>${u.count}</b></div><div class="row">Promowane filmy<b>${u.prom}</b></div>`;
+          tip.style.left = (e.clientX - hero.getBoundingClientRect().left) + 'px';
+          tip.style.top = (e.clientY - hero.getBoundingClientRect().top) + 'px';
+          tip.classList.add('on');
+        } else tip.classList.remove('on');
+      });
+      hero.addEventListener('pointerleave', () => { tx = ty = 0; tip.classList.remove('on'); hover = null; });
+
+      const clock = new THREE.Clock(), tmp = new THREE.Vector3();
+      function frame() {
+        requestAnimationFrame(frame);
+        const dt = Math.min(clock.getDelta(), .05), T = clock.elapsedTime;
+        mx += (tx - mx) * .05; my += (ty - my) * .05;
+        root.rotation.y = -.35 + mx * .35 + T * .02; root.rotation.x = .12 + my * .18;
+        globe.rotation.y = T * .08; wire.rotation.y = T * .08;
+        const pulse = 1 + Math.sin(T * 2.2) * .06; core.scale.set(3.4 * pulse, 3.4 * pulse, 1);
+        planets.forEach(x => { x.ang += x.cl.sp * dt * (hover === x.m ? .2 : 1); x.m.position.set(Math.cos(x.ang) * x.cl.orbit, 0, Math.sin(x.ang) * x.cl.orbit); });
+        root.updateMatrixWorld(true);
+        for (let i = 0; i < F; i++) {
+          const o = parts[i]; o.t += dt * o.sp; if (o.t >= 1) spawn(o, false);
+          let x, y, z, c, f;
+          if (o.inflow) {
+            o.src.m.getWorldPosition(tmp); root.worldToLocal(tmp); const t = o.t, e = t * t;
+            x = tmp.x * (1 - e); y = tmp.y * (1 - e) + Math.sin(t * 3.14) * .4; z = tmp.z * (1 - e); c = gold; f = Math.sin(t * 3.14);
+          } else {
+            const d = 1.4 + o.t * 5.2; x = o.dir.x * d; y = o.dir.y * d; z = o.dir.z * d; c = org; f = (1 - o.t) * .9;
+          }
+          fp[i * 3] = x; fp[i * 3 + 1] = y; fp[i * 3 + 2] = z;
+          fc[i * 3] = c.r * f; fc[i * 3 + 1] = c.g * f; fc[i * 3 + 2] = c.b * f;
+        }
+        fGeo.attributes.position.needsUpdate = true; fGeo.attributes.color.needsUpdate = true;
+        R.render(S, C);
+      }
+      frame();
+    } catch (e) {}
+  })();
+});
+</script>
+</body>
+</html>
