@@ -20,6 +20,7 @@ const CORE_PL_CHANNELS = {
 
 export const CHANNELS = {
   ...CORE_PL_CHANNELS,
+  'Robert Łukasz Pio': { id: 'UC34DD8FTh_y2GhZhg3qBaIQ', handle: '@RobertŁukaszPio', via: 'Robert Łukasz Pio' },
   'Personality Plus': { id: 'UCSwb927uMg2PxIl_Aakht0Q', handle: '@PersonalityPlusCC', via: 'Personality Plus' },
   'Christian Culture Instrumental': { id: null, handle: '@ChristianCultureInstrumental', via: '@ChristianCultureInstrumental' },
   'CC Prayer 24': { id: null, handle: '@CCPrayer24', via: '@CCPrayer24' },
