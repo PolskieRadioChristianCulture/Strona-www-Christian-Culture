@@ -421,9 +421,16 @@ function getAllEcosystemCandidates() {
   function addCandidate(item) {
     if (!item.url || seenUrls.has(item.url)) return;
 
+    const textToCheck = ((item.title || '') + ' ' + (item.url || '') + ' ' + (item.tag || '') + ' ' + (item.image || '') + ' ' + (item.imageUrl || '') + ' ' + (item.lead || '')).toLowerCase();
+
+    // Blokada dokumentów prawnych i regulaminów (nie publikujemy regulaminów ani polityk prywatności jako postów na X)
+    const isLegalOrPolicy = textToCheck.includes('regulamin') || textToCheck.includes('polityka prywatności') || textToCheck.includes('polityka-prywatnosci') || textToCheck.includes('polityka_prywatnosci') || textToCheck.includes('privacy');
+    if (isLegalOrPolicy) {
+      return;
+    }
+
     // Blokada rocznicowa (Dyrektywa Dowódcy 01.11.2026):
     // Artykuły o Dniu Reformacji i Marcinie Lutrze publikowane wyłącznie w rocznicę (31 października).
-    const textToCheck = ((item.title || '') + ' ' + (item.url || '') + ' ' + (item.tag || '') + ' ' + (item.image || '') + ' ' + (item.imageUrl || '') + ' ' + (item.lead || '')).toLowerCase();
     const isReformation = textToCheck.includes('reformacj') || textToCheck.includes('luter') || textToCheck.includes('lutr') || textToCheck.includes('95-tez');
     const isHalloween = textToCheck.includes('halloween') || textToCheck.includes('31 października') || textToCheck.includes('31 pazdziernika');
     if (isHalloween) {

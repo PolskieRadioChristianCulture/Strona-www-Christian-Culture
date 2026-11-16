@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "karaoke",
+      "title": "Karaoke Biblijne & Śpiewnik Słowa Bożego — Biblijne Uwielbienie (Tryb Pełnoekranowy Worship Mode)",
+      "url": "https://polskieradio.cc/karaoke",
+      "type": "music",
+      "image": "uwielbienie-w-blasku-krzyza-live.png",
+      "publishedAt": "2026-11-16T19:36:57.717Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "program",
       "title": "Program TV & Ramówka Emisyjna — Dziś, Tydzień i Nadchodzące Audycje",
       "url": "https://polskieradio.cc/program",
