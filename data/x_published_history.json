@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "u-boku-diabla",
+      "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
+      "url": "https://polskieradio.cc/u-boku-diabla",
+      "type": "book",
+      "image": "art-u-boku-diabla.jpg",
+      "publishedAt": "2026-11-16T18:34:10.260Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=329",
       "title": "Werset Dnia: „Pycha poprzedza upadek, a duch wyniosły wyprzedza zgubę” (Księga Przysłów 16:18, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=329",

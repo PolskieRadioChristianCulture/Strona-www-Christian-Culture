@@ -5,6 +5,16 @@
   "updatesLog": [
     {
       "date": "2026-11-16",
+      "topic": "CCN News X: Cykliczna publikacja #369 — Książka: U boku Diabła (Cezary Rogowski) pod szyldem 🔴 CCN NEWS z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-16",
+      "topic": "CCN News X: Cykliczna publikacja #368 — Werset Dnia: Przypowieści 16:18 UBG z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-16",
       "topic": "CCN News X: Cykliczna publikacja #367 — eM Motywacja: Jak zdefiniować sukces w chrześcijaństwie (Cezary Rogowski) pod szyldem 🔴 CCN NEWS z dedykowaną grafiką i Tablicą LUMINA",
       "agent": "A"
     },
@@ -4365,8 +4375,18 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-16T18:35:06+01:00",
+  "lastUpdated": "2026-11-16T19:34:10+01:00",
   "recentUpdates": [
+    {
+      "date": "2026-11-16",
+      "topic": "CCN News X: Cykliczna publikacja #369 — Książka: U boku Diabła (Cezary Rogowski) pod szyldem 🔴 CCN NEWS z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-16",
+      "topic": "CCN News X: Cykliczna publikacja #368 — Werset Dnia: Przypowieści 16:18 UBG z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
     {
       "date": "2026-11-16",
       "topic": "CCN News X: Cykliczna publikacja #367 — eM Motywacja: Jak zdefiniować sukces w chrześcijaństwie (Cezary Rogowski) pod szyldem 🔴 CCN NEWS z dedykowaną grafiką i Tablicą LUMINA",
@@ -4727,6 +4747,11 @@
     {
       "date": "2026-11-16",
       "topic": "Cykliczna emisja CCN News X #368: Werset Dnia — Przypowieści 16:18 UBG (Wioletta Rogowska)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-16",
+      "topic": "Cykliczna emisja CCN News X #369: Książka — U boku Diabła (Cezary Rogowski)",
       "agent": "A"
     }
   ]

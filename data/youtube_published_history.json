@@ -7003,6 +7003,58 @@
       "premiere": true,
       "confirmedByYouTube": true,
       "publishedAt": "2026-11-16T16:10:51.221Z"
+    },
+    {
+      "title": "Muzyka relaksacyjna do snu i czytania • 3 Godziny Spokoju, Wyciszenia i Regeneracji",
+      "videoFile": "video_3h_ccwomen.mp4",
+      "channel": "CC Women",
+      "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+      "videoUrl": "https://youtu.be/4fcFlClptgE",
+      "visibility": "public",
+      "scheduledFor": "23 lis 2026 21:30 Europe/Warsaw",
+      "scheduledDate": "2026-11-23",
+      "premiere": true,
+      "confirmedByYouTube": true,
+      "publishedAt": "2026-11-16T17:19:38.893Z"
+    },
+    {
+      "title": "Muzyka relaksacyjna do snu i czytania • 3 Godziny Kosmicznego Spokoju i Ukojenia",
+      "videoFile": "video_3h_cctv.mp4",
+      "channel": "Christian Culture TV",
+      "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+      "videoUrl": "https://youtu.be/3pcuQSmDK7A",
+      "visibility": "public",
+      "scheduledFor": "24 lis 2026 21:30 Europe/Warsaw",
+      "scheduledDate": "2026-11-24",
+      "premiere": true,
+      "confirmedByYouTube": true,
+      "publishedAt": "2026-11-16T17:24:55.025Z"
+    },
+    {
+      "title": "Muzyka relaksacyjna do snu i czytania • 3 Godziny Harmonii i Głębokiego Odpoczynku",
+      "videoFile": "video_3h_osobowosc.mp4",
+      "channel": "Osobowość +",
+      "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+      "videoUrl": "https://youtu.be/aYUCcioqxFk",
+      "visibility": "public",
+      "scheduledFor": "25 lis 2026 21:30 Europe/Warsaw",
+      "scheduledDate": "2026-11-25",
+      "premiere": true,
+      "confirmedByYouTube": true,
+      "publishedAt": "2026-11-16T17:30:29.277Z"
+    },
+    {
+      "title": "Muzyka relaksacyjna do snu i czytania • 3 Godziny Nocnego Pasma Polskiego Radia CC",
+      "videoFile": "video_3h_radiocc.mp4",
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+      "videoUrl": "https://youtu.be/dMjHUiW-Y8M",
+      "visibility": "public",
+      "scheduledFor": "26 lis 2026 22:00 Europe/Warsaw",
+      "scheduledDate": "2026-11-26",
+      "premiere": true,
+      "confirmedByYouTube": true,
+      "publishedAt": "2026-11-16T17:36:49.706Z"
     }
   ]
 }
