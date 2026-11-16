@@ -34,7 +34,7 @@ const OFF_BRAND_NEON_RE =
   /#(?:a855f7|8b5cf6|c084fc|ec4899|f472b6|facc15|fde047|0b1120|fbcfe8|e9d5ff|070b14|060814)\b|var\(--accent-(?:purple|pink|yellow)\)|rgba\(\s*(?:168\s*,\s*85\s*,\s*247|139\s*,\s*92\s*,\s*246|192\s*,\s*132\s*,\s*252|236\s*,\s*72\s*,\s*153|244\s*,\s*114\s*,\s*182|250\s*,\s*204\s*,\s*21|253\s*,\s*224\s*,\s*71|11\s*,\s*17\s*,\s*32|15\s*,\s*23\s*,\s*42|30\s*,\s*27\s*,\s*75|7\s*,\s*13\s*,\s*30)\b/i;
 
 const MOJIBAKE_RE =
-  /(?:EspaĂ±ol|FranĂ§ais|ZDJÄCIA|ZAPRO9a|PEĹNY|SPOĹECZNOŚĆ|Robert Ĺukasz Pio|Ĺadowanie|HASĹO|MAĹŻEĹSTWA|POZOSTAĹYCH|SĹOWA|BĹYSKAWICZNA|BEZWZGLÄDN|BEZPIECZEĹSTW)/;
+  /(?:EspaĂ±ol|FranĂ§ais|ZDJÄCIA|ZAPRO9a|PEĹNY|SPOĹECZNOŚĆ|Robert Ĺukasz Pio|Ĺadowanie|HASĹO|MAĹŻEĹSTWA|POZOSTAĹYCH|SĹOWA|BĹYSKAWICZNA|BEZWZGLÄDN|BEZPIECZEĹSTW|Ă—|Â[·§])/; // + zepsute ×, ·, § (L0 16.11.2026: „Ă—” w banerze cookies)
 
 test('design tokens and dark LUMINA stylesheets enforce Obsidian, Champagne Gold and Classic Orange #FF7A00 without off-brand neon accents', async () => {
   const tokensCss = await readRepoFile('src/styles/tokens.css');
