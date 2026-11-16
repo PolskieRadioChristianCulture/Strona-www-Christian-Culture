@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko",
+      "title": "Dzień Tolerancji: czy szacunek oznacza zgodę na wszystko?",
+      "url": "https://polskieradio.cc/news/dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko",
+      "type": "news",
+      "image": "art-dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko.jpg",
+      "publishedAt": "2026-11-16T14:08:09.451Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "nominacje",
       "title": "topTEN — Zgłoś utwór do notowań (nominacja)",
       "url": "https://polskieradio.cc/topTEN/nominacje/",
