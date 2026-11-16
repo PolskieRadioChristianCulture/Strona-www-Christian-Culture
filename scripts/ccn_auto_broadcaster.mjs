@@ -1201,7 +1201,7 @@ function formatBroadcasterTweet(item) {
       subHeader = '🤝 SPOŁECZEŃSTWO & EMPATIA | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#CCNNews', '#Samotnosc', '#PomocSasiedzka', '#CezaryRogowski', '#Prawda');
-    } else if (tLower.includes('życzliwość') || tLower.includes('zyczliwosc') || (item.url || '').includes('zyczliwosc') || tLower.includes('pomaganiu')) {
+    } else if (tLower.includes('życzliwość') || tLower.includes('zyczliwosc') || (item.url || '').includes('zyczliwosc') || tLower.includes('pomaganiu') || tLower.includes('sukces') || (item.url || '').includes('sukces')) {
       subHeader = '💡 eM • MOTYWACJA & ETYKA | CEZARY ROGOWSKI';
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#CCNNews', '#eM', '#CezaryRogowski', '#Prawda');
