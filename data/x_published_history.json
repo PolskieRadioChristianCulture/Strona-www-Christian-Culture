@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "nominacje",
+      "title": "topTEN — Zgłoś utwór do notowań (nominacja)",
+      "url": "https://polskieradio.cc/topTEN/nominacje/",
+      "type": "music",
+      "image": "wspieramto-banner.png",
+      "publishedAt": "2026-11-16T13:35:18.597Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dzien-20",
       "title": "Z Biblią za Pan Brat — Dzień 20 (Lekcja 20): Drabina Jakuba — Bóg jest bliżej, niż myślisz (Rdz 28:1–22)",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-20",
