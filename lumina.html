@@ -5641,7 +5641,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 <div id="commanderBiometricOverlay" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; min-height: 380px; padding: 24px 16px; background: radial-gradient(circle at center, #111827 0%, #050811 100%); text-align: center; color: #fff; user-select: none; -webkit-user-select: none;">
                     <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 20px; background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.35); margin-bottom: 14px;">
                         <i class="fa-solid fa-shield-halved" style="color: #D4AF37; font-size: 0.85rem;"></i>
-                        <span style="font-size: 0.72rem; color: #fde047; font-weight: 800; letter-spacing: 1px;">STREFA CHRONIONA L0 Â· AUTORYZACJA BIOMETRYCZNA</span>
+                        <span style="font-size: 0.72rem; color: #fde047; font-weight: 800; letter-spacing: 1px;">STREFA CHRONIONA L0 · AUTORYZACJA BIOMETRYCZNA</span>
                     </div>
 
                     <h3 style="margin: 0 0 6px 0; font-size: 1.15rem; color: #fff; font-weight: 800; letter-spacing: 0.5px;">Weryfikacja Odciskiem Palca (WebAuthn / Passkeys)</h3>
@@ -12823,7 +12823,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 padEl.classList.add('is-verified');
             }
             if (statusEl) {
-                statusEl.innerHTML = '<span style="color:#34d399; font-weight:800;"><i class="fa-solid fa-circle-check"></i> TOŻSAMOŚĆ POTWIERDZONA Â· DOWÓDCA NAZIR</span>';
+                statusEl.innerHTML = '<span style="color:#34d399; font-weight:800;"><i class="fa-solid fa-circle-check"></i> TOŻSAMOŚĆ POTWIERDZONA · DOWÓDCA NAZIR</span>';
             }
             if (bioStatusEl) {
                 bioStatusEl.style.color = "#2ecc71";
@@ -13096,7 +13096,7 @@ window.addEventListener('lumina-auth-state', () => {
                                       partsList.find(p => p && p !== myUser?.uid);
                     if (!otherSlug) return;
                     const isFamily = Boolean(chat.kidsFamily);
-                    const name = chat.otherName || chat['name_' + otherSlug] || (isFamily ? 'Rozmowa rodzinna Â· LUMI KIDS' : otherSlug);
+                    const name = chat.otherName || chat['name_' + otherSlug] || (isFamily ? 'Rozmowa rodzinna · LUMI KIDS' : otherSlug);
                     const avatar = chat.otherAvatar || chat['avatar_' + otherSlug] || (isFamily ? '/lumi-kids/assets/lumi-kids-logo.svg' : 'lumina_icon.jpg');
                     const badge = isFamily ? '⭐ LUMI KIDS' : '✨ Rozmowa';
                     const job = chat.lastMessageText || (isFamily ? 'Rozmowa rodzinna LUMI KIDS' : 'Rozmowa prywatna LUMINA ✨');
@@ -14007,7 +14007,7 @@ window.addEventListener('lumina-auth-state', () => {
         <div style="line-height: 1.45; color: #e2e8f0;">
             ✨ Portal <strong>LUMINA</strong> używa plików cookies w celach analitycznych oraz prawidłowego działania społeczności.
         </div>
-        <button type="button" onclick="rejectCookies()" style="background: transparent; border: none; color: #94a3b8; font-size: 22px; cursor: pointer; padding: 0; line-height: 1; min-width: 44px; min-height: 44px; margin: -12px -14px 0 0; display: inline-flex; align-items: center; justify-content: center;" title="Zamknij bez zgody na analitykę" aria-label="Zamknij bez zgody na analitykę">Ă—</button>
+        <button type="button" onclick="rejectCookies()" style="background: transparent; border: none; color: #94a3b8; font-size: 22px; cursor: pointer; padding: 0; line-height: 1; min-width: 44px; min-height: 44px; margin: -12px -14px 0 0; display: inline-flex; align-items: center; justify-content: center;" title="Zamknij bez zgody na analitykę" aria-label="Zamknij bez zgody na analitykę">×</button>
     </div>
     <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 2px;">
         <a href="/privacy" style="color: #f59e0b; text-decoration: underline; font-size: 12.5px; display: inline-flex; align-items: center; min-height: 44px;">Polityka Prywatności</a>
@@ -14854,7 +14854,7 @@ window.addEventListener('lumina-auth-state', () => {
     </script>
 
     <script>
-    // SMCC Â§Mobile — Tab Button Mobile Enforcer (v4.1.0)
+    // SMCC §Mobile — Tab Button Mobile Enforcer (v4.1.0)
     // Prevents JS-applied inline styles from restoring text on small screens
     (function() {
         var MOBILE_BP = 640;
