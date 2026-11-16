@@ -1057,7 +1057,7 @@ const htmlContent = `<!DOCTYPE html>
   <!-- SKRYPTY EKOSYSTEMU -->
   <script src="/js/cc-mobile-edge.js?v=20261030_1" defer></script>
   <script src="/components/cc-omni-search.js?v=20261026_1" defer></script>
-  <script src="/components/cc-global-chat-button.js?v=20261111_v2" defer></script>
+  <script src="/components/cc-global-chat-button.js?v=20261116_a007_column" defer></script>
 
   <script>
     // ─── AUDIO ENGINE LOGIC ───
