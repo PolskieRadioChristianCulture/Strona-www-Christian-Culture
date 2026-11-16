@@ -1,0 +1,50 @@
+{
+  "history": [
+    {
+      "hour": 12,
+      "slotName": "12:00 — Południowe zatrzymanie",
+      "executedAt": "2026-11-16T10:57:08.703Z",
+      "lumina": {
+        "status": "dry_run"
+      },
+      "x": {
+        "status": "dry_run"
+      },
+      "whatsapp": {
+        "status": "dry_run"
+      }
+    },
+    {
+      "hour": 12,
+      "slotName": "12:00 — Południowe zatrzymanie",
+      "executedAt": "2026-11-16T10:57:30.680Z",
+      "lumina": {
+        "status": "published",
+        "docId": "sok7dJo5ky6W1RmjauFw"
+      },
+      "x": {
+        "status": "published"
+      },
+      "whatsapp": {
+        "status": "error",
+        "error": "The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services."
+      }
+    },
+    {
+      "hour": 12,
+      "slotName": "12:00 — Południowe zatrzymanie",
+      "executedAt": "2026-11-16T10:58:27.423Z",
+      "lumina": {
+        "status": "published",
+        "docId": "LJ4C4mP4jfMJx7s9OHrI"
+      },
+      "x": {
+        "status": "published"
+      },
+      "whatsapp": {
+        "status": "queued",
+        "targets": 3
+      }
+    }
+  ]
+}
