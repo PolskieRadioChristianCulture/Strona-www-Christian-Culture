@@ -36,8 +36,8 @@ const X_PROFILE_DIR = path.join(ROOT, '.x_browser_profile');
 const LUMINA_PROJECT_ID = 'lumina-cc';
 const LUMINA_API_KEY = 'AIzaSyAkX7XDMWjeUPeaIk0WdvoY4d9VhIPyD7M';
 
-const EXCLUDED_HANDLES = new Set(['@robertłukaszpio', '@robertlukaszpio', '@katarzynafedkow']);
-const EXCLUDED_NAMES = new Set(['robert łukasz pio', 'robert lukasz pio', 'katarzyna fedków', 'katarzyna fedkow']);
+const EXCLUDED_HANDLES = new Set(['@katarzynafedkow']);
+const EXCLUDED_NAMES = new Set(['katarzyna fedków', 'katarzyna fedkow']);
 
 function isExcluded(channel) {
   const h = (channel.handle || '').toLowerCase();
@@ -46,6 +46,13 @@ function isExcluded(channel) {
 }
 
 const PROMO_METADATA = {
+  '@RobertŁukaszPio': {
+    title: 'Robert Łukasz Pio • W Obecności Bożej na Żywo — Pieśni i Modlitwa Wyciszenia',
+    body: 'Wejdź w przestrzeń czystej Bożej obecności, pokoju i modlitwy wstawienniczej. Ponadczasowe pieśni chwały i słowo umocnienia dla Twojego serca i rodziny.\n\n🕊️ Poznaj ekosystem modlitwy, Pisma Świętego i radia Christian Culture: https://polskieradio.cc',
+    cta: 'Dołącz do modlitewnej transmisji na żywo:',
+    hashtags: '#RobertŁukaszPio #WObecności #Modlitwa #Uwielbienie #SoliDeoGloria #ChristianCulture #Wiara',
+    xHook: 'Czysta Boża obecność, pieśni chwały i modlitwa wyciszenia — Robert Łukasz Pio na żywo.'
+  },
   '@RadioChristianCulture': {
     title: 'Polskie Radio CC — Modlitwa, Uwielbienie i Pokój Serca na Żywo',
     body: 'Zatrzymaj się w biegu dnia i napełnij dom Bożą obecnością. Pieśni uwielbienia, Pismo Święte i wspólna modlitwa, która przynosi ukojenie w trudnych chwilach.\n\n🕊️ Wesprzyj rozwój misji i radia: https://polskieradio.cc/wspieraj',
@@ -195,8 +202,9 @@ const PROMO_METADATA = {
   }
 };
 
-// Reorganizacja na 5 Filarów o najwyższej masie krytycznej i konwersji misyjnej
+// Reorganizacja na Główny Filar Sojuszniczy (Robert 19.4k) i 5 Filarów Własnych o najwyższej masie krytycznej
 const ORDER_PREFERENCE = [
+  '@RobertŁukaszPio',
   '@RadioChristianCulture',
   '@osobowoscPLUS',
   '@ChristianCultureTV',
