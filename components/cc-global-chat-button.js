@@ -4348,10 +4348,12 @@
           const bttW = bttShown ? bttRect.width : (parseFloat(bttCs.width) || 48);
           let bttRight = bttShown ? (window.innerWidth - bttRect.right) : parseFloat(bttCs.right);
           if (!Number.isFinite(bttRight)) bttRight = 16;
-          const stackedBottom = Math.round(bttBottom + bttH + 12);
+          const stackedBottom = Math.max(bottomOffset, Math.round(bttBottom + bttH + 12));
           const alignedRight = Math.round(bttRight + (bttW - fabW) / 2);
-          fabWrap.style.setProperty('bottom', `${Math.max(bottomOffset, stackedBottom)}px`, 'important');
-          fabWrap.style.setProperty('right', `${Math.max(0, alignedRight)}px`, 'important');
+          if (stackedBottom + fabH <= window.innerHeight * 0.8) {
+            fabWrap.style.setProperty('bottom', `${stackedBottom}px`, 'important');
+            fabWrap.style.setProperty('right', `${Math.max(0, alignedRight)}px`, 'important');
+          }
         } else if (playerCenterFromBottom !== null) {
           const alignedBottom = Math.round(playerCenterFromBottom - (fabH / 2));
           fabWrap.style.setProperty('bottom', `${alignedBottom}px`, 'important');
@@ -4383,6 +4385,9 @@
     setTimeout(adjust, 300);
     setTimeout(adjust, 1000);
   }
+    // Funkcja była zdefiniowana, ale nigdy nie uruchamiana — bez tego czat zostawał na 25 px i zasłaniał #backToTopBtn.
+    const fabWrapForSync = document.getElementById('ccGlobalChatFab');
+    if (fabWrapForSync) setupPositionSync(fabWrapForSync);
     if (typeof renderPartnersBar === 'function') renderPartnersBar();
     if (typeof setChatPartner === 'function' && typeof COMMUNITY_MEMBERS !== 'undefined' && COMMUNITY_MEMBERS.length > 0) {
       setChatPartner(COMMUNITY_MEMBERS[0]);
