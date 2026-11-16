@@ -1,0 +1,59 @@
+{
+  "event": "Wieczór ze Słowem Bożym • Zaznaj spokoju serca",
+  "date": "2026-11-16",
+  "scheduledTime": "20:00:00+01:00",
+  "plannedDuration": "20:00 - 24:00 (co najmniej do 23:00)",
+  "cleanUrl": "https://polskieradio.cc/wieczor",
+  "landingUrl": "https://polskieradio.cc/spokoj-serca",
+  "obsMachine": "192.168.50.217:4455",
+  "obsSource": "https://polskieradio.cc/wieczor?obs=1",
+  "channels": [
+    {
+      "name": "Robert Łukasz Pio",
+      "handle": "@RobertŁukaszPio",
+      "subscribers": "19,4 tys.",
+      "channelId": "UC34DD8FTh_y2GhZhg3qBaIQ",
+      "videoId": "z33rEkjNciY",
+      "watchUrl": "https://youtube.com/live/z33rEkjNciY",
+      "visibility": "PUBLIC"
+    },
+    {
+      "name": "Osobowość +",
+      "handle": "@osobowośćPLUS",
+      "subscribers": "12,1 tys.",
+      "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+      "videoId": "Al56YdVI40c",
+      "watchUrl": "https://youtube.com/live/Al56YdVI40c",
+      "visibility": "PUBLIC"
+    },
+    {
+      "name": "Christian Culture TV",
+      "handle": "@ChristianCultureTV",
+      "subscribers": "6,0 tys.",
+      "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+      "videoId": "OGmZpYMGve4",
+      "watchUrl": "https://youtube.com/live/OGmZpYMGve4",
+      "visibility": "PUBLIC"
+    },
+    {
+      "name": "Polskie Radio CHRISTIAN CULTURE",
+      "handle": "@RadioChristianCulture",
+      "subscribers": "4,4 tys.",
+      "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+      "videoId": "tPipeO1iMD0",
+      "watchUrl": "https://youtube.com/live/tPipeO1iMD0",
+      "visibility": "PUBLIC"
+    },
+    {
+      "name": "CC Women",
+      "handle": "@CCWomen7",
+      "subscribers": "901",
+      "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+      "videoId": "yWyj0Iz1HeA",
+      "watchUrl": "https://youtube.com/live/yWyj0Iz1HeA",
+      "visibility": "PUBLIC"
+    }
+  ],
+  "totalReachSubscribers": "42 800+",
+  "status": "ALL_CHANNELS_PUBLIC_AND_SCHEDULED"
+}
