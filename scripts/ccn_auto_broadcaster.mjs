@@ -1701,6 +1701,8 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
       (lastTitleLower.includes('halloween') && candTitleLower.includes('halloween')) ||
       (lastTitleLower.includes('blackout') && candTitleLower.includes('blackout')) ||
       (lastTitleLower.includes('bioetyka') && candTitleLower.includes('bioetyka')) ||
+      ((lastTitleLower.includes('studio dobrego słowa') || lastTitleLower.includes('sds')) &&
+       (candTitleLower.includes('studio dobrego słowa') || candTitleLower.includes('sds'))) ||
       ((lastTitleLower.includes('z biblią za pan brat') || lastTitleLower.includes('kurs codzienny') || lastTitleLower.includes('akademia biblijna') || lastUrlLower.includes('kurscodzienny')) &&
        (candTitleLower.includes('z biblią za pan brat') || candTitleLower.includes('kurs codzienny') || candTitleLower.includes('akademia biblijna') || candUrlLower.includes('kurscodzienny')))
     );
@@ -1791,6 +1793,8 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
       (lastTitleLower.includes('halloween') && candTitleLower.includes('halloween')) ||
       (lastTitleLower.includes('blackout') && candTitleLower.includes('blackout')) ||
       (lastTitleLower.includes('bioetyka') && candTitleLower.includes('bioetyka')) ||
+      ((lastTitleLower.includes('studio dobrego słowa') || lastTitleLower.includes('sds')) &&
+       (candTitleLower.includes('studio dobrego słowa') || candTitleLower.includes('sds'))) ||
       (lastTitleLower.includes('dzień 33') && candTitleLower.includes('dzień 33')) ||
       (lastTitleLower.includes('dzien-33') && candTitleLower.includes('dzien-33')) ||
       (lastTitleLower.includes('dzień 34') && candTitleLower.includes('dzień 34')) ||
