@@ -347,7 +347,7 @@
     state.activeDeckItem = item;
 
     if (el.liveMusicDeckFrame) {
-      el.liveMusicDeckFrame.src = item.embedUrl;
+      el.liveMusicDeckFrame.src = item.embedUrl || 'https://open.spotify.com/embed/artist/3ZgXCNnAllDbNDtzk4jkg6';
       el.liveMusicDeckFrame.title = item.title + ' • Odtwarzacz Spotify';
     }
 
@@ -417,7 +417,7 @@
     // Build Sandboxed Iframe with Official Permitted Attributes
     el.embedBody.innerHTML = '';
     const iframe = document.createElement('iframe');
-    iframe.src = item.embedUrl;
+    iframe.src = item.embedUrl || 'https://open.spotify.com/embed/artist/3ZgXCNnAllDbNDtzk4jkg6';
     iframe.title = item.title || 'Odtwarzacz mediów';
     iframe.loading = 'lazy';
     iframe.style.width = '100%';
@@ -497,7 +497,8 @@
 
     // Default mount initial album if available
     if (state.catalog && state.catalog.spotifyAlbums && state.catalog.spotifyAlbums.length) {
-      mountDeckItem(state.catalog.spotifyAlbums[0], false);
+      const initialDeck = state.catalog.spotifyAlbums.find(a => a.embedUrl) || state.catalog.spotifyAlbums[0];
+      mountDeckItem(initialDeck, false);
     }
   }
 
