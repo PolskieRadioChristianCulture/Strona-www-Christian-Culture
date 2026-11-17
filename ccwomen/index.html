@@ -89,16 +89,17 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;letter-spacing:-.015em;tex
   linear-gradient(180deg,rgba(8,4,10,.55) 0%,rgba(8,4,10,0) 22%,rgba(8,4,10,0) 45%,rgba(8,4,10,.82) 74%,var(--bg) 100%),
   radial-gradient(70% 60% at 85% 100%,rgba(200,0,106,.35),transparent 70%)}
 #ribbons{position:absolute;inset:0;z-index:-1;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
-.hero-inner{width:100%;padding-bottom:max(56px,calc(env(safe-area-inset-bottom,0px) + 40px));padding-top:110px}
+.hero-inner{width:100%;padding-bottom:max(34px,calc(env(safe-area-inset-bottom,0px) + 24px));padding-top:110px}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:end}
 .hero-grid>div{max-width:760px}
-.live-chip{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:99px;background:rgba(12,5,12,.66);border:1px solid var(--line-strong);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-weight:700;font-size:14px;color:var(--blush);max-width:100%}
+.live-chip{display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 9px;border-radius:99px;background:rgba(12,5,12,.22);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(4px) saturate(1.15);-webkit-backdrop-filter:blur(4px) saturate(1.15);font-weight:700;font-size:13px;color:var(--blush);max-width:100%;text-shadow:0 1px 8px rgba(0,0,0,.85)}
 .live-chip .dot{width:10px;height:10px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 0 rgba(255,31,142,.7);animation:pulse 1.8s infinite;flex:none}
 @keyframes pulse{70%{box-shadow:0 0 0 12px rgba(255,31,142,0)}100%{box-shadow:0 0 0 0 rgba(255,31,142,0)}}
 .live-chip b{color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .hero h1{font-size:clamp(38px,7.4vw,104px);line-height:.98;font-weight:800;margin-top:18px;letter-spacing:-.03em}
-.hero h1 .script{display:inline-block;font-size:1.18em;line-height:.8;padding-right:.08em;background:linear-gradient(100deg,var(--pink2),var(--pink) 45%,var(--orange2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 24px rgba(255,31,142,.35))}
-.hero .lead{font-size:clamp(16px,1.5vw,20px);color:var(--muted);max-width:58ch;margin:18px 0 0}
+.hero h1 .script{display:inline-block;font-size:1.18em;line-height:1.2;padding:0 .1em .2em 0;margin-bottom:-.2em;vertical-align:baseline;background:linear-gradient(100deg,var(--pink2),var(--pink) 45%,var(--orange2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 24px rgba(255,31,142,.35))}
+.hero-after{padding-top:clamp(20px,3vw,36px);padding-bottom:clamp(28px,4vw,46px)}
+.hero-after .lead{font-size:clamp(16px,1.5vw,20px);color:var(--muted);max-width:62ch;margin:0}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:99px;font:800 16px var(--f-body);cursor:pointer;border:1px solid transparent;transition:transform .2s,background .2s,box-shadow .2s;color:var(--fg);text-decoration:none}
 .btn:active{transform:scale(.97)}
@@ -109,18 +110,18 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;letter-spacing:-.015em;tex
 .btn.pink{background:linear-gradient(120deg,var(--magenta),var(--pink));color:#fff}
 .hero-logo{justify-self:end;width:min(100%,460px);height:auto;filter:drop-shadow(0 0 34px rgba(255,31,142,.5));animation:float 7s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-12px) rotate(-1deg)}}
-.scroll-cue{position:absolute;left:50%;bottom:max(14px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:26px;height:42px;border-radius:14px;border:2px solid rgba(255,255,255,.35)}
+.scroll-cue{position:absolute;right:max(32px,env(safe-area-inset-right,0px));bottom:max(30px,env(safe-area-inset-bottom,0px));width:26px;height:42px;border-radius:14px;border:2px solid rgba(255,255,255,.35)}
 .scroll-cue::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--pink2);animation:cue 1.8s infinite}
 @keyframes cue{60%{transform:translateY(12px);opacity:0}}
 @media (max-aspect-ratio:1/1){
-  .hero .bg{object-position:50% 18%}
+  .hero .bg{object-position:50% 8%}
   .hero::before{background:linear-gradient(180deg,rgba(8,4,10,.5) 0%,rgba(8,4,10,0) 18%,rgba(8,4,10,.05) 38%,rgba(8,4,10,.86) 62%,var(--bg) 100%)}
   .hero-grid{grid-template-columns:minmax(0,1fr)}
   .hero-logo{order:-1;justify-self:start;width:min(52vw,250px)}
   .scroll-cue{display:none}
-  .hero-inner{padding-top:84px}
+  .hero-inner{padding-top:84px;padding-bottom:max(18px,calc(env(safe-area-inset-bottom,0px) + 12px))}
   .hero h1{font-size:clamp(34px,10vw,64px);margin-top:12px}
-  .hero .lead{font-size:15px;margin-top:12px}
+  .hero-after .lead{font-size:15px}
   .hero-cta{margin-top:18px}
   .hero-cta .btn{flex:1 1 100%;min-height:50px}
 }
@@ -128,7 +129,6 @@ h1,h2,h3{font-family:var(--f-display);font-weight:600;letter-spacing:-.015em;tex
 @media (max-height:520px) and (min-aspect-ratio:1/1){
   .hero-inner{padding-top:70px;padding-bottom:20px}
   .hero h1{font-size:clamp(28px,5.4vw,44px);margin-top:10px}
-  .hero .lead{display:none}
   .hero-cta{margin-top:14px}
   .hero-cta .btn{min-height:44px}
   .hero-logo{width:min(34vw,240px)}
@@ -278,16 +278,19 @@ footer.mini .brandrow img{height:34px;width:auto}
         <div>
           <a class="live-chip" href="#tvw"><span class="dot" aria-hidden="true"></span>Teraz w TVW:&nbsp;<b id="heroNow">Telewizja Kobiet</b></a>
           <h1>Dla kobiet takich jak <span class="script">Ty</span></h1>
-          <p class="lead">TVW — Telewizja Kobiet Christian Culture. Słowo Boże, rozmowy kobiet z kobietami, małżeństwo i rodzina, modlitwa i muzyka. Na żywo, przez całą dobę.</p>
-          <div class="hero-cta">
-            <a class="btn orange" href="#tvw">▶ Oglądaj TVW na żywo</a>
-            <a class="btn ghost" href="https://www.youtube.com/@CCWomen7" target="_blank" rel="noopener">Kanał @CCWomen7 ↗</a>
-          </div>
         </div>
       </div>
     </div>
     <span class="scroll-cue" aria-hidden="true"></span>
   </section>
+
+  <!-- Pod pierwszym ekranem: opis i przyciski (pierwszy ekran = twarz, logo, tytuł) -->
+  <div class="wrap hero-after">
+    <p class="lead">TVW — Telewizja Kobiet Christian Culture. Słowo Boże, rozmowy kobiet z kobietami, małżeństwo i rodzina, modlitwa i muzyka. Na żywo, przez całą dobę.</p>
+    <div class="hero-cta"><a class="btn orange" href="#tvw">▶ Oglądaj TVW na żywo</a>
+            <a class="btn ghost" href="https://www.youtube.com/@CCWomen7" target="_blank" rel="noopener">Kanał @CCWomen7 ↗</a>
+    </div>
+  </div>
 
   <!-- LICZBY -->
   <div class="wrap">
