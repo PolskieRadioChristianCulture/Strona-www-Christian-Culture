@@ -132,16 +132,36 @@ async function main() {
     const metaPath = writeMeta(ep);
     const results = [];
     for (const channelName of CHANNELS) {
-      try {
-        const r = await uploadEpisodeToChannel({ videoPath: video, metaPath, channelId: KNOWN[channelName].id, channelName,
-          visibility: 'public', scheduleYmd: ymd, scheduleTime: '20:00' });
+      let r = null;
+      let lastErr = null;
+      for (let attempt = 1; attempt <= 2; attempt++) {
+        try {
+          r = await uploadEpisodeToChannel({ videoPath: video, metaPath, channelId: KNOWN[channelName].id, channelName,
+            visibility: 'public', scheduleYmd: ymd, scheduleTime: '20:00' });
+          lastErr = null;
+          break;
+        } catch (err) {
+          lastErr = err;
+          if (attempt < 2) {
+            console.warn(`  ⚠️ Błąd na kanale "${channelName}" (próba ${attempt}/2): ${err.message}. Ponawiam za 5s...`);
+            await new Promise(res => setTimeout(res, 5000));
+          }
+        }
+      }
+      if (r && !lastErr) {
         results.push({ channel: channelName, ok: true, url: r.videoUrl });
-      } catch (err) {
-        results.push({ channel: channelName, ok: false, error: err.message });
+      } else {
+        results.push({ channel: channelName, ok: false, error: lastErr?.message || 'Nieznany błąd' });
       }
     }
     const allChannelsOk = results.every(r => r.ok);
-    state.history.push({ ep: n, title: ep.title, premiere: `${ymd} 20:00`, results, allChannelsOk, at: new Date().toISOString() });
+    const existingIdx = state.history.findIndex(h => h.ep === n);
+    const newEntry = { ep: n, title: ep.title, premiere: `${ymd} 20:00`, results, allChannelsOk, at: new Date().toISOString() };
+    if (existingIdx !== -1) {
+      state.history[existingIdx] = newEntry;
+    } else {
+      state.history.push(newEntry);
+    }
     if (allChannelsOk) state.lastPublishedEpisode = Math.max(state.lastPublishedEpisode || 0, n);
     saveState(state);
     console.log(`${allChannelsOk ? '✅' : '⚠️'} Odc. ${n} → premiera ${ymd} 20:00`);

@@ -3,9 +3,28 @@
 // TYLKO z tożsamości „Osobowość +”. Kanały marki (CC TV, CC Women, CC Men, Osobowość +) — przez przełącznik.
 // Każde wejście kończy się weryfikacją, że Studio pokazuje DOKŁADNIE żądany kanał.
 import { chromium } from 'playwright';
+import { execSync } from 'node:child_process';
 
 export const PROFILE_DIR = 'C:\\Users\\czark\\.youtube_browser_profile';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36';
+
+export function killOrphanChromeProfiles() {
+  try {
+    const out = execSync(
+      'powershell -NoProfile -Command "Get-CimInstance Win32_Process | Select-Object ProcessId, Name, CommandLine | ConvertTo-Json -Compress"',
+      { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000 }
+    );
+    const procs = JSON.parse(out);
+    const list = Array.isArray(procs) ? procs : [procs];
+    const chromeProcs = list.filter(p => p && p.Name === 'chrome.exe' && p.CommandLine && p.CommandLine.toLowerCase().includes('youtube_browser_profile'));
+    for (const p of chromeProcs) {
+      try { process.kill(p.ProcessId, 'SIGKILL'); } catch (e) {}
+    }
+    if (chromeProcs.length > 0) {
+      console.log(`  -> [Auto-recovery] Wyczyszczono ${chromeProcs.length} osieroconych procesów Chrome blokujących profil.`);
+    }
+  } catch (e) {}
+}
 
 const CORE_PL_CHANNELS = {
   'Biblia Audio Christian Culture': { id: 'UCCqHRCEuSDhlRcvcQ6qM1Kw', handle: '@bibliaaudiocc', via: '@osobowośćPLUS' },
@@ -47,9 +66,13 @@ export async function launchStudio({ headless = true } = {}) {
       });
       break;
     } catch (err) {
-      if (err.message && err.message.includes('ProcessSingleton') && attempt < 4) {
-        console.log(`  [Retry ${attempt}/3] Oczekiwanie 4s na zwolnienie profilu Chromium...`);
-        await new Promise(r => setTimeout(r, 4000));
+      if (err.message && err.message.includes('ProcessSingleton')) {
+        console.log(`  [Retry ${attempt}/4] Wykryto ProcessSingleton — uruchamiam auto-recovery...`);
+        killOrphanChromeProfiles();
+        await new Promise(r => setTimeout(r, 2000));
+      } else if (attempt < 4) {
+        console.log(`  [Retry ${attempt}/4] Błąd uruchamiania kontekstu: ${err.message}. Ponawiam za 3s...`);
+        await new Promise(r => setTimeout(r, 3000));
       } else {
         throw err;
       }

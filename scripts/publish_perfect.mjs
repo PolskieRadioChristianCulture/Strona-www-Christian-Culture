@@ -729,10 +729,37 @@ export async function uploadEpisodeToChannel({
       console.log(`  -> Przesyłanie zakończone: "${uploadLabel.replace(/\s+/g, ' ')}"`);
     }
 
-    // Kliknij Publikuj / Zapisz
-    const doneBtn = page.locator('#done-button, button#done-button, ytcp-button#done-button, button:has-text("Opublikuj"), button:has-text("Publish")').first();
-    await doneBtn.waitFor({ state: 'visible', timeout: 15000 });
-    await doneBtn.click({ force: true });
+    // Kliknij Publikuj / Zapisz / Zaplanuj
+    console.log('Klikam przycisk zatwierdzenia publikacji/harmonogramu...');
+    // Zamknij ewentualny otwarty datepicker/overlay przed kliknięciem
+    await page.evaluate(() => {
+      document.querySelector('tp-yt-iron-overlay-backdrop:not([opened])')?.remove();
+    }).catch(() => {});
+
+    const doneSelectors = [
+      '#done-button',
+      '#done-button button',
+      'ytcp-button#done-button',
+      'ytcp-button#done-button button',
+      'button:has-text("Zaplanuj")',
+      'button:has-text("Schedule")',
+      'button:has-text("Gotowe")',
+      'button:has-text("Zapisz")',
+      'button:has-text("Opublikuj")',
+      'button:has-text("Publish")'
+    ];
+    let doneBtn = page.locator(doneSelectors.join(', ')).first();
+    try {
+      await doneBtn.waitFor({ state: 'visible', timeout: 30000 });
+      await doneBtn.click({ force: true });
+    } catch (btnErr) {
+      console.warn('  -> Pierwsza próba kliknięcia przycisku zatwierdzenia nie powiodła się, ponawiam po wymuszeniu zamknięcia nakładek...');
+      await page.keyboard.press('Escape').catch(() => {});
+      await page.waitForTimeout(1500);
+      doneBtn = page.locator(doneSelectors.join(', ')).first();
+      await doneBtn.waitFor({ state: 'visible', timeout: 15000 });
+      await doneBtn.click({ force: true });
+    }
 
     // Sukces tylko, gdy YouTube pokaże okno „opublikowano” (lub „nadal przetwarzany — zostanie opublikowany”)
     console.log('Oczekiwanie na potwierdzenie publikacji przez YouTube...');

@@ -1,5 +1,5 @@
 {
-  "lastPublishedEpisode": 8,
+  "lastPublishedEpisode": 9,
   "history": [
     {
       "ep": 1,
@@ -141,6 +141,30 @@
       ],
       "allChannelsOk": true,
       "at": "2026-11-16T09:17:47.466Z"
+    },
+    {
+      "ep": 9,
+      "title": "Największe odstępstwo",
+      "premiere": "2026-11-19 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/d9HwlHezVfg"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/T7Az3cyLpnM"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/sHRxlqrQWs8"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-17T17:31:51.971Z"
     }
   ]
 }
