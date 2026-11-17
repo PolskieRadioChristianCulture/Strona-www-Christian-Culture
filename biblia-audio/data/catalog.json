@@ -394,10 +394,16 @@
     "book": "genesis",
     "chapter": 27,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_27_1-46_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 27,1–46 (UBG) — Błogosławieństwo Jakuba i Płacz Ezawa",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_27_1-46_Biblia_Audio_CC.mp3",
+        "verses": "1–46"
+      }
+    ]
   },
   {
     "id": "genesis-28",
