@@ -496,10 +496,10 @@ function getAllEcosystemCandidates() {
       tag: '#PrawdaBezFiltra'
     },
     {
-      title: 'Książka: Bóg jest MIŁOŚCIĄ? — Cezary i Wioletta Rogowscy. Odpowiedź na trudne pytania',
-      lead: '„Jak pogodzić cierpienie z miłością Stwórcy? Biblijne świadectwo i refleksja nad prawdziwym charakterem Boga, który oddał wszystko za człowieka.”',
+      title: 'Książka: Bóg jest MIŁOŚCIĄ? — Cezary Rogowski. Powieść dialogowa o charakterze Boga',
+      lead: 'Wieczorami, przy otwartej Biblii, młody człowiek i Mistrz stawiają 38 najtrudniejszych pytań o charakter Boga. Czytaj online, słuchaj lektora lub pobierz za darmo!',
       url: 'https://polskieradio.cc/bog-jest-miloscia',
-      image: 'images/news/art-bog-jest-miloscia.jpg',
+      image: 'assets/bog-jest-miloscia-og.jpg',
       category: 'Książki',
       type: 'book',
       tag: '#BogJestMiloscia'
