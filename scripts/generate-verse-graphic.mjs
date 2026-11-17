@@ -243,7 +243,8 @@ const BIBLICAL_THEMATIC_SCENES = [
     tintBottom: '#1D1409',
     keywords: [
       'wszystko mogę', 'umacnia', 'nowych sił', 'skrzydłach jak orły', 'ducha bojaźni',
-      'mocy i miłości', 'bądźcie mężni', 'zwycię', 'filipian 4:13', 'izajasza 40:31', 'tymoteusza 1:7'
+      'mocy i miłości', 'bądźcie mężni', 'zwycię', 'filipian 4:13', 'izajasza 40:31', 'tymoteusza 1:7',
+      'upada siedem razy', 'znowu powstaje', 'przysłów 24:16'
     ],
     backgrounds: [
       'images/academy/daily/kc_day_30_blogoslawienstwo_obietnica_i_lew_z_judy.jpg',
@@ -570,9 +571,11 @@ export async function generateVerseGraphic(input = {}, options = {}) {
   const centerY = 355;
   const startY = Math.round(centerY - totalTextHeight / 2 + fontSize * 0.35);
 
-  const badgeLabel = escapeXml(
-    (info.theme ? `${ scene.badge } • ${ info.theme.toUpperCase() }` : scene.badge).slice(0, 58)
-  );
+  const fullBadge = info.theme ? `${scene.badge} • ${info.theme.toUpperCase()}` : scene.badge;
+  const badgeText = fullBadge.length <= 64
+    ? fullBadge
+    : (info.theme && info.theme.length <= 58 ? info.theme.toUpperCase() : scene.badge);
+  const badgeLabel = escapeXml(badgeText);
   const refLabel = escapeXml(`${info.reference.toUpperCase()}  •  PRZEKŁAD UBG`);
   const dayLabel = info.day ? `DZIEŃ ${info.day} / 365` : 'SŁOWO BOŻE NA DZIŚ';
 
