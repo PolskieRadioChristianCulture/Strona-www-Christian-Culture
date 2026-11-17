@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "vod",
+      "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+      "publishedAt": "2026-11-17T15:34:23.395Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=332",
       "title": "Werset Dnia: „Sprawiedliwy upadnie siedem razy i znowu wstanie, lecz bezbożni wpadną w nieszczęście” (Księga Przysłów 24:16, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=332",
