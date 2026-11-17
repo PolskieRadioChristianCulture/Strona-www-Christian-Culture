@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+<script>/* @007 2026-11-17: wybór rozważania – dzisiejsze, a gdy go brak: najnowsze z datą ≤ dziś (nigdy archiwum) */window.ccPickReflectionIdx=function(list){var d=new Date(),t=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),best=-1,bd='';for(var i=0;i<(list||[]).length;i++){var x=list[i]&&list[i].date;if(!x)continue;if(x===t)return i;if(x<t&&x>bd){bd=x;best=i;}}return best!==-1?best:0;};</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
 <script>
@@ -2516,17 +2517,12 @@ WORSHIP INSTRUMENTAL CCTV24
                     loadedDate = currentDay;
                     
                     // If a manual day selection is active in safeStorage, increment it by 1
-                    if (safeStorage.getItem("dzj_stream_day")) {
-                        let nextDay = (parseInt(safeStorage.getItem("dzj_stream_day"), 10) + 1) % reflectionsData.length;
-                        safeStorage.setItem("dzj_stream_day", nextDay);
-                        currentDayIndex = nextDay;
-                        if (daySelect) daySelect.value = nextDay;
-                    }
+                    safeStorage.removeItem("dzj_stream_day"); // @007: o północy wracamy do rozważania z dzisiejszą datą (bez cofania się do archiwum)
                     
                     // Reload matched index (either updated manual day or today's matching date)
                     const todayStr = (()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
                     const foundIdx = reflectionsData.findIndex(r => r.date === todayStr);
-                    let matchedIdx = (foundIdx !== -1) ? foundIdx : currentDayIndex;
+                    let matchedIdx = (foundIdx !== -1) ? foundIdx : window.ccPickReflectionIdx(reflectionsData);
                     if (daySelect && matchedIdx !== undefined) daySelect.value = matchedIdx;
                     
                     // Re-render reflection text and adapt layout if timezone changed background requirements
@@ -3598,7 +3594,7 @@ function getWeatherPreset(city) {
                     // Match today's date if no manual index override is saved
                     const todayStr = (()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
                     const foundIdx = reflectionsData.findIndex(r => r.date === todayStr);
-                    let matchedIdx = (foundIdx !== -1) ? foundIdx : currentDayIndex;
+                    let matchedIdx = (foundIdx !== -1) ? foundIdx : window.ccPickReflectionIdx(reflectionsData);
                     if (daySelect && matchedIdx !== undefined) daySelect.value = matchedIdx;
 
                     renderReflection(reflectionsData[matchedIdx] || reflectionsData[reflectionsData.length - 1] || reflectionsData[0]);

@@ -95,6 +95,57 @@
     return out;
   }
 
+  // ── @007 2026-11-17: rozważanie bez scenariusza TV → czat prowadzących (Noemi / Sara) ──────
+  // Słowa rozważania pozostają bez zmian; dzielimy je tylko na kolejne kwestie prowadzących.
+  const PROSE_SKIP = /(dziękuję,? że jesteś|^baza i wzrost|^sms:|^apps:|podaj dalej|^#\w+(\s+#\w+)*$)/i;
+  const PROSE_PRAYER = /^(modlitwa|błogosławieństwo|blogoslawienstwo|amen)/i;
+  function splitLong(s, max) {
+    if (s.length <= max) return [s];
+    const parts = s.match(/[^.!?…]+[.!?…]+["”»)]*\s*|[^.!?…]+$/g) || [s];
+    const out = []; let buf = '';
+    parts.forEach((p) => { if ((buf + p).length > max && buf) { out.push(buf.trim()); buf = ''; } buf += p; });
+    if (buf.trim()) out.push(buf.trim());
+    return out;
+  }
+  // Pora roku astronomiczna (L0 2026-11-17): Wiosna od 20.03, Lato od 21.06, Jesień od 23.09, Zima od 21.12
+  function season(d) {
+    d = d || new Date();
+    const md = (d.getMonth() + 1) * 100 + d.getDate();
+    if (md >= 1221 || md < 320) return { name: 'Zima', emoji: '❄️', label: '❄️ Zima z Jezusem' };
+    if (md < 621) return { name: 'Wiosna', emoji: '🌱', label: '🌱 Wiosna z Jezusem' };
+    if (md < 923) return { name: 'Lato', emoji: '☀️', label: '☀️ Lato z Jezusem' };
+    return { name: 'Jesień', emoji: '🍂', label: '🍂 Jesień z Jezusem' };
+  }
+  // Tytuł z „☀️” na początku dostaje emoji bieżącej pory roku
+  function seasonTitle(title, d) {
+    return String(title || '').replace(/^\s*(☀️|☀|🍂|❄️|❄|🌱)\s*/, season(d).emoji + ' ');
+  }
+  // Krótki nagłówek okna czatu (L0 2026-11-17): „🍂 Z Biblią za Pan Brat — Dzień 48” zamiast całego tytułu
+  function shortTitle(title, d) {
+    return seasonTitle(title, d).split(':')[0].trim();
+  }
+  function fromProse(text) {
+    const out = { isDialogue: false, messages: [] };
+    if (!text) return out;
+    let section = '', turn = 0, prayer = false;
+    String(text).split('\n').map((l) => l.trim()).filter(Boolean).forEach((line) => {
+      if (META_LINE.test(line) && !/^###/.test(line)) return;
+      const plain = stripMd(line.replace(/^#+\s*/, ''));
+      if (!plain || PROSE_SKIP.test(plain)) return;
+      if (/^(☀️|☀|🍂|❄️|❄|🌱)/.test(plain)) return; // nagłówek z tytułem cyklu — tytuł pokazujemy osobno
+      if (/^>/.test(line)) { out.messages.push({ kind: 'scripture', sender: 'Pismo Święte', section, text: stripMd(line.replace(/^>\s*/, '')) }); return; }
+      const isHeading = /^#{1,6}\s/.test(line) || (/^\*\*[^*]+\*\*:?$/.test(line)) || (plain.length <= 60 && !/[.!?…,;]$/.test(plain) && plain.split(' ').length <= 8);
+      if (isHeading) { section = plain.replace(/:$/, ''); prayer = PROSE_PRAYER.test(section); return; }
+      splitLong(plain, 320).forEach((chunk) => {
+        if (prayer) { out.messages.push({ kind: 'both', sender: 'Noemi i Sara', section, text: chunk }); return; }
+        const kind = turn++ % 2 === 0 ? 'noemi' : 'sara';
+        out.messages.push({ kind, sender: kind === 'noemi' ? 'Noemi' : 'Sara', section, text: chunk });
+      });
+    });
+    out.isDialogue = out.messages.filter((m) => m.kind !== 'scripture').length >= 2;
+    return out;
+  }
+
   // ── Odtwarzacz: wiadomości pojawiają się kolejno, z „pisze…”, jak w komunikatorze ─────────
   function el(tag, cls, text) {
     const e = document.createElement(tag);
@@ -520,7 +571,7 @@
   }
 
   global.CCTvDialogue = {
-    isDialogue, parse, play, timeline, liveStartToday, todaySessionStarts, chatSessionStart,
+    isDialogue, parse, fromProse, season, seasonTitle, shortTitle, play, timeline, liveStartToday, todaySessionStarts, chatSessionStart,
     setManualStart, startManualPolling, onScheduleChange, setViewerMessages, getViewerMessages,
     version: '20261019_tv6_livechat1'
   };

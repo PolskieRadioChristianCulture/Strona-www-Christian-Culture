@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+<script>/* @007 2026-11-17: wybór rozważania – dzisiejsze, a gdy go brak: najnowsze z datą ≤ dziś (nigdy archiwum) */window.ccPickReflectionIdx=function(list){var d=new Date(),t=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),best=-1,bd='';for(var i=0;i<(list||[]).length;i++){var x=list[i]&&list[i].date;if(!x)continue;if(x===t)return i;if(x<t&&x>bd){bd=x;best=i;}}return best!==-1?best:0;};</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
 <script>
@@ -1804,7 +1805,7 @@ body.za-polske-wallpaper #livePrayerOverlay { position: fixed !important; bottom
     </script>
     <link rel="stylesheet" href="live-window-manager.css">
     <link rel="stylesheet" href="/css/cc-tv-calm.css?v=20261026_3">
-    <script src="/js/cc-tv-dialogue.js?v=20261019_tv7_a007e"></script>
+    <script src="/js/cc-tv-dialogue.js?v=20261019_tv7_a007chat1117"></script>
 </head>
 <body>
 
@@ -2350,17 +2351,12 @@ body.za-polske-wallpaper #livePrayerOverlay { position: fixed !important; bottom
                     loadedDate = currentDay;
                     
                     // If a manual day selection is active in safeStorage, increment it by 1
-                    if (safeStorage.getItem("dzj_stream_day")) {
-                        let nextDay = (parseInt(safeStorage.getItem("dzj_stream_day"), 10) + 1) % reflectionsData.length;
-                        safeStorage.setItem("dzj_stream_day", nextDay);
-                        currentDayIndex = nextDay;
-                        if (daySelect) daySelect.value = nextDay;
-                    }
+                    safeStorage.removeItem("dzj_stream_day"); // @007: o północy wracamy do rozważania z dzisiejszą datą (bez cofania się do archiwum)
                     
                     // Reload matched index (either updated manual day or today's matching date)
                     const todayStr = (()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
                     const foundIdx = reflectionsData.findIndex(r => r.date === todayStr);
-                    let matchedIdx = (foundIdx !== -1) ? foundIdx : currentDayIndex;
+                    let matchedIdx = (foundIdx !== -1) ? foundIdx : window.ccPickReflectionIdx(reflectionsData);
                     if (daySelect && matchedIdx !== undefined) daySelect.value = matchedIdx;
                     
                     // Re-render reflection text and adapt layout if timezone changed background requirements
@@ -2868,7 +2864,12 @@ function getWeatherPreset(city) {
                 // Strażnik 2026-10-19: wspólny parser scenariusza TV (Noemi i Sara) — rozważanie jako żywy czat prowadzących.
                 const tvParsed = window.CCTvDialogue ? window.CCTvDialogue.parse((reflection.tvScript || reflection.scenariuszTV || reflection.wersjaTV || reflection.wersja4 || "") || text) : null; // Wersja 4 (scenariusz TV) ma pierwszeństwo
                 if (tvParsed && tvParsed.isDialogue && tvParsed.messages.length) {
-                    return [{ type: "chat", live: true, tag: "ROZWAŻANIE NA ŻYWO", title: reflection.title, messages: tvParsed.messages, l3Title: reflection.title, l3Desc: "TELEWIZJA CHRISTIAN CULTURE 24" }];
+                    return [{ type: "chat", live: true, tag: (window.CCTvDialogue && window.CCTvDialogue.season ? window.CCTvDialogue.season().label + " · " : "") + "ROZWAŻANIE NA ŻYWO", title: (window.CCTvDialogue && window.CCTvDialogue.shortTitle ? window.CCTvDialogue.shortTitle(reflection.title) : reflection.title), messages: tvParsed.messages, l3Title: (window.CCTvDialogue && window.CCTvDialogue.seasonTitle ? window.CCTvDialogue.seasonTitle(reflection.title) : reflection.title), l3Desc: "TELEWIZJA CHRISTIAN CULTURE 24" }];
+                }
+                // @007 2026-11-17 (L0): rozważanie zawsze jako czat prowadzących — gdy brak scenariusza TV, ten sam tekst dzielimy na kwestie Noemi i Sary
+                const proseChat = (window.CCTvDialogue && window.CCTvDialogue.fromProse) ? window.CCTvDialogue.fromProse(text) : null;
+                if (proseChat && proseChat.isDialogue && proseChat.messages.length) {
+                    return [{ type: "chat", live: true, tag: (window.CCTvDialogue && window.CCTvDialogue.season ? window.CCTvDialogue.season().label + " · " : "") + "ROZWAŻANIE NA ŻYWO", title: (window.CCTvDialogue && window.CCTvDialogue.shortTitle ? window.CCTvDialogue.shortTitle(reflection.title) : reflection.title), messages: proseChat.messages, l3Title: (window.CCTvDialogue && window.CCTvDialogue.seasonTitle ? window.CCTvDialogue.seasonTitle(reflection.title) : reflection.title), l3Desc: "TELEWIZJA CHRISTIAN CULTURE 24" }];
                 }
                 const isDialogue = !window.CCTvDialogue && (text.includes("Noemi") || text.includes("Sara"));
 
@@ -3143,10 +3144,10 @@ function getWeatherPreset(city) {
                         '"': '&quot;',
                         "'": '&#39;'
                     }[char]));                    if (slideData.type === "chat" && slideData.live && window.CCTvDialogue) {
-                        slideEl.innerHTML = `<div class="slide-tag"><i class="fa-solid fa-comments"></i> <span class="cctv-live-badge">NA ŻYWO · ROZWAŻANIE</span></div><div class="slide-title" style="font-size: 1.90rem; margin-bottom: 12px; font-family: 'Cinzel', serif;"></div><div class="chat-container" data-live="1" aria-live="polite"></div>`;
+                        slideEl.innerHTML = `<div class="slide-tag"><i class="fa-solid fa-comments"></i> <span class="cctv-live-badge">${(window.CCTvDialogue && window.CCTvDialogue.season ? window.CCTvDialogue.season().label + " · " : "")}NA ŻYWO · ROZWAŻANIE</span></div><div class="slide-title" style="font-size: 1.90rem; margin-bottom: 12px; font-family: 'Cinzel', serif;"></div><div class="chat-container" data-live="1" aria-live="polite"></div>`;
                         slideEl.querySelector(".slide-title").textContent = slideData.title || "";
                         try { if (window._cctvLivePlayer) window._cctvLivePlayer.stop(); } catch (_) {}
-                        window._cctvLivePlayer = window.CCTvDialogue.play(slideEl.querySelector(".chat-container"), slideData.messages, { adapt: (t) => adaptTextToTimeOfDay(t), onMode: (m) => { const bd = slideEl.querySelector(".cctv-live-badge"); if (bd) { bd.textContent = m === "live" ? "NA ŻYWO · ROZWAŻANIE" : "POWTÓRKA · ROZWAŻANIE"; bd.classList.toggle("is-replay", m !== "live"); } } });
+                        window._cctvLivePlayer = window.CCTvDialogue.play(slideEl.querySelector(".chat-container"), slideData.messages, { adapt: (t) => adaptTextToTimeOfDay(t), onMode: (m) => { const bd = slideEl.querySelector(".cctv-live-badge"); if (bd) { bd.textContent = (window.CCTvDialogue && window.CCTvDialogue.season ? window.CCTvDialogue.season().label + " · " : "") + (m === "live" ? "NA ŻYWO · ROZWAŻANIE" : "POWTÓRKA · ROZWAŻANIE"); bd.classList.toggle("is-replay", m !== "live"); } } });
                     } else if (slideData.type === "chat") {
                         let chatHTML = `
                             <div class="slide-tag"><i class="fa-solid fa-comments"></i> <span>${escapeHtml(slideData.tag)}</span></div>
@@ -3505,7 +3506,7 @@ function getWeatherPreset(city) {
                     // Match today's date if no manual index override is saved
                     const todayStr = (()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
                     const foundIdx = reflectionsData.findIndex(r => r.date === todayStr);
-                    let matchedIdx = (foundIdx !== -1) ? foundIdx : currentDayIndex;
+                    let matchedIdx = (foundIdx !== -1) ? foundIdx : window.ccPickReflectionIdx(reflectionsData);
                     if (daySelect && matchedIdx !== undefined) daySelect.value = matchedIdx;
 
                     renderReflection(reflectionsData[matchedIdx] || reflectionsData[reflectionsData.length - 1] || reflectionsData[0]);

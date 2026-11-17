@@ -1,15 +1,15 @@
 {
   "cctv24-worship.html": {
-    "sha256": "33e30330ec2a6f39089a86243b784ad2f84f44295550d6f74d48cca06b4573f8",
-    "date": "2026-10-17",
+    "sha256": "5f364e4e48d902d08fee950483872224e203513df878026c8c54dbe40567242f",
+    "date": "2026-11-17",
     "approvedBy": "Dowódca Cezary Rogowski",
-    "reason": "Bezposrednia zgoda wlasciciela: Na czas aktualizacji - odmrazam; Publikuj aktualizacje. CC Broadcast P0: tylko neutralne poczatkowe pola daty i godziny, bez zmian zegara runtime i emisji."
+    "reason": "Bezposrednia zgoda wlasciciela w czacie z @007 (2026-11-17): \"Czy moge poprawic 9 kanalow na zywo (rozwazanie dnia)?\" -> \"✅ TAK, popraw\"; publikacja -> \"✅ TAK, publikuj\". Zakres: wybor rozwazania dnia (dzisiejsze albo najnowsze <= dzis, bez archiwum, bez cofania o polnocy). Bez zmian emisji, zegara i strumienia."
   },
   "cctv24-worship-live.html": {
-    "sha256": "52d9f155a4aa2993778d5d6b23bf9ae90be1f8351e500903385642b74b1407ec",
-    "date": "2026-10-08",
+    "sha256": "46753d8d4791d65268c52316c5b8a4686b64f9d694c52e67b7b61566715965f2",
+    "date": "2026-11-17",
     "approvedBy": "Dowódca Cezary Rogowski",
-    "reason": "prawdziwe dane: pogoda, Mission Control (natychmiastowe odświeżanie paska), intencje (Strażnik Standardów)"
+    "reason": "Bezposrednia zgoda wlasciciela w czacie z @007 (2026-11-17): \"Czy moge poprawic 9 kanalow na zywo (rozwazanie dnia)?\" -> \"✅ TAK, popraw\"; publikacja -> \"✅ TAK, publikuj\". Zakres: wybor rozwazania dnia (dzisiejsze albo najnowsze <= dzis, bez archiwum, bez cofania o polnocy). Bez zmian emisji, zegara i strumienia."
   },
   "stream-scene.html": {
     "sha256": "453688daa98921aa5d85b3375e2859a4ff06cc21758a7bc244226ffa28559120",

@@ -1428,7 +1428,26 @@
                 if (doc) {
                     if (doc.documentElement) doc.documentElement.classList.add('inside-iframe', 'no-ticker');
                     if (doc.body) doc.body.classList.add('inside-iframe', 'no-ticker');
-                    
+
+                    // @007 2026-11-17: w Master Live kanały dostają kolor misji (pomarańcz CC) zamiast żółtego/złotego
+                    if (doc.head && !doc.getElementById('ml-cc-orange-palette')) {
+                        const pal = doc.createElement('style');
+                        pal.id = 'ml-cc-orange-palette';
+                        pal.textContent = ':root{--gold-primary:#FF8C33 !important;--gold-dark:#E66A00 !important;--breakfast-accent:#FF7A00 !important;--accent-gold:#FF8C33 !important;--gold:#FF8C33 !important}'
+                            // czytelność rozważania: ciemniejsze tło karty, prosty krój tytułu, jaśniejszy tekst
+                            + '.reflection-canvas-card{background:rgba(6,8,14,.86) !important;border-color:rgba(255,122,0,.45) !important}'
+                            + '.slide-title{font-family:"Outfit","Segoe UI",sans-serif !important;font-weight:800 !important;letter-spacing:0 !important;line-height:1.22 !important;font-variant:normal !important;color:#fff !important}'
+                            + '.slide-text,.slide-text *{color:#fff !important;font-weight:500 !important;line-height:1.5 !important}'
+                            + '.slide-text{text-shadow:0 1px 3px rgba(0,0,0,.7)}'
+                            + '.slide-tag{letter-spacing:1.5px !important}'
+                            // okno rozważania wyśrodkowane między paskami Master Live (nie dotyka górnej belki)
+                            // bez srebrnego paska przewijania w oknie rozważania (L0)
+                            + '.reflection-canvas-card,.reflection-canvas-card *{scrollbar-width:none !important;-ms-overflow-style:none !important}'
+                            + '.reflection-canvas-card ::-webkit-scrollbar,.reflection-canvas-card::-webkit-scrollbar{display:none !important;width:0 !important;height:0 !important}'
+                            + 'html body .right-panel .reflection-canvas-card.live-window-card{height:660px !important;max-height:660px !important;position:relative !important;top:120px !important}';
+                        doc.head.appendChild(pal);
+                    }
+
                     try {
                         const so = doc.getElementById("startOverlay") || doc.querySelector(".start-overlay");
                         if (so) so.style.display = "none";
@@ -1696,5 +1715,138 @@
     </script>
     <!-- Christian Culture & LUMINA Universal Google Auth Connector -->
     <script src="js/cc-global-auth.js?v=20260907_auth1" defer></script>
+<!-- ═══ @007 2026-11-17: układ telefonu (pion/poziom) + autopromocja „Polecamy” + kolory spójne z banerami (czerń + pomarańcz CC) ═══ -->
+<style>
+    :root { --gold-primary: #FF8C33; --gold-dark: #E66A00; --ccn-red: #FF7A00; }
+    .dekalog-top-ticker { border-bottom: 2px solid #FF7A00; box-shadow: 0 4px 20px rgba(0,0,0,.95), 0 2px 18px rgba(255,122,0,.28) !important; }
+    .dekalog-brand-badge { background: linear-gradient(135deg, #FF8C33 0%, #E66A00 100%) !important; border-right: none !important; }
+    .dekalog-brand-title { color: #1a0d00 !important; font-style: italic; font-weight: 900 !important; }
+    .dekalog-text { color: #ffffff !important; }
+    .ccn-master-ticker { border-top-color: #FF7A00 !important; box-shadow: 0 -8px 25px rgba(0,0,0,.95), 0 0 20px rgba(255,122,0,.35) !important; }
+    .ccn-live-badge { background: linear-gradient(180deg, #FF8C33 0%, #E66A00 100%) !important; color: #1a0d00 !important; }
+    .cc-lang-toggle { border-color: rgba(255,122,0,.55) !important; }
+    .cc-lang-pill-btn[style*="#d4af37"], .cc-lang-pill-btn[style*="#D4AF37"] { background: #FF7A00 !important; color: #1a0d00 !important; }
+    .ccn-ticker-item .gold-text { color: #FF8C33 !important; }
+    .ccn-badge-now { background: #FF7A00 !important; color: #1a0d00 !important; border-color: #FF8C33 !important; }
+    .ccn-badge:not(.ccn-badge-now):not(.ccn-badge-next) { background: #14161d !important; color: #FF8C33 !important; border: 1px solid rgba(255,122,0,.5) !important; }
+    #mlPromo{display:none;position:fixed;left:0;right:0;z-index:99990;box-sizing:border-box;flex-direction:column;gap:12px;padding:14px max(14px,env(safe-area-inset-left,0px)) 12px max(14px,env(safe-area-inset-right,0px));background:radial-gradient(90% 60% at 80% 0%,rgba(255,122,0,.16),transparent 70%),#05070c;overflow:hidden;font-family:'Outfit','Segoe UI',sans-serif;color:#f7f3ec}
+    #mlPromo .ml-now{display:flex;align-items:center;gap:10px;font-size:.95rem;line-height:1.3}
+    #mlPromo .ml-now b{color:#FF8C33;font-size:.72rem;letter-spacing:.14em;white-space:nowrap}
+    #mlPromo .ml-now span{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    #mlPromo .ml-head{display:flex;align-items:center;font-weight:800;font-size:.78rem;letter-spacing:.16em;color:#FF8C33}
+    #mlPromo .ml-dots{margin-left:auto;display:flex;gap:6px}
+    #mlPromo .ml-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.22);transition:background .3s}
+    #mlPromo .ml-dots i.on{background:#FF7A00}
+    #mlPromo .ml-slide{position:relative;width:100%;aspect-ratio:16/9;max-height:42vh;border-radius:14px;overflow:hidden;background:#0d1018;border:1px solid rgba(255,140,51,.35);flex:none}
+    #mlPromo .ml-slide a{position:absolute;inset:0;display:block;color:inherit;text-decoration:none;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .8s}
+    #mlPromo .ml-slide a.ml-in{transform:translateX(100%);opacity:0}
+    #mlPromo .ml-slide a.ml-out{transform:translateX(-60%);opacity:0}
+    #mlPromo .ml-slide img{width:100%;height:100%;object-fit:contain;display:block}
+    #mlPromo .ml-card{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:16px;background:radial-gradient(80% 90% at 90% 10%,rgba(255,122,0,.32),transparent 60%),#0d1018}
+    #mlPromo .ml-card small{font-weight:800;font-size:.72rem;letter-spacing:.14em;color:#FF8C33;text-transform:uppercase}
+    #mlPromo .ml-card strong{display:block;font-size:1.45rem;line-height:1.15;margin-top:6px}
+    #mlPromo .ml-card p{margin:6px 0 0;font-size:.92rem;color:#c3bcb0}
+    #mlPromo .ml-card em{align-self:flex-start;font-style:normal;background:#FF7A00;color:#1a0d00;font-weight:800;font-size:.85rem;padding:6px 12px;border-radius:99px}
+    #mlPromo .ml-bar{height:3px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;flex:none}
+    #mlPromo .ml-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#FF7A00,#f2c46d)}
+    #mlPromo .ml-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+    #mlPromo .ml-links a{min-height:48px;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,140,51,.22);color:#f7f3ec;text-decoration:none;font-weight:700;font-size:.82rem;line-height:1.2}
+    #mlL3{position:fixed;left:32px;bottom:calc(var(--ticker-height) + 24px);z-index:99991;display:flex;align-items:stretch;transform:translateX(-130%);transition:transform .8s cubic-bezier(.2,.8,.2,1);text-decoration:none;font-family:'Outfit','Segoe UI',sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+    #mlL3.ml-show{transform:none}
+    #mlL3 .t{background:#FF7A00;color:#1a0d00;font-weight:800;letter-spacing:.1em;padding:12px 16px;display:flex;align-items:center;font-size:1rem}
+    #mlL3 .x{background:rgba(8,10,16,.94);color:#fff;font-weight:800;padding:10px 18px;display:flex;align-items:center;gap:12px;font-size:1.25rem}
+    #mlL3 .x span{color:#f2c46d}
+
+    /* TELEFON PIONOWO: paski proporcjonalne, obraz 16:9 na pełną szerokość, pod nim autopromocja */
+    @media (orientation: portrait) and (max-width: 900px) {
+        :root { --dekalog-height: 44px; --ticker-height: 52px; --ml-video-h: calc(100vw * 9 / 16); }
+        .dekalog-brand-badge { padding: 0 8px; }
+        .dekalog-brand-title { font-size: .6rem; letter-spacing: .6px; }
+        .dekalog-content { font-size: .88rem; }
+        .ccn-ticker-brand img { max-width: 92px; }
+        .ccn-live-badge { padding: 0 8px; font-size: .68rem; }
+        .ccn-ticker-content { font-size: .85rem; }
+        .ccn-clock-box { display: none; }
+        .channel-frame { top: var(--dekalog-height) !important; height: var(--ml-video-h) !important; }
+        #mlPromo { display: flex; top: calc(var(--dekalog-height) + var(--ml-video-h)); bottom: var(--ticker-height); }
+        #masterUnmuteBanner { top: calc(var(--dekalog-height) + var(--ml-video-h) - 64px) !important; padding: 10px 18px !important; font-size: .8rem !important; }
+        #mlL3 { display: none; }
+    }
+    /* TELEFON POZIOMO: pełny obraz, górny pasek ukryty, cienki pasek CCN pod obrazem */
+    @media (orientation: landscape) and (max-height: 500px) {
+        :root { --dekalog-height: 0px; --ticker-height: 40px; }
+        .dekalog-top-ticker { display: none !important; }
+        .channel-frame { top: 0 !important; height: calc(100% - var(--ticker-height)) !important; }
+        .ccn-ticker-brand img { max-width: 80px; }
+        .ccn-live-badge { padding: 0 8px; font-size: .66rem; }
+        .ccn-ticker-content { font-size: .8rem; }
+        .ccn-clock-box { display: none; }
+        #masterUnmuteBanner { top: 12px !important; padding: 8px 16px !important; font-size: .78rem !important; }
+        #mlL3 { display: none; }
+    }
+    html.no-ticker #mlPromo, html.embedded-mode #mlPromo, body.no-ticker #mlPromo, body.embedded-mode #mlPromo,
+    html.no-ticker #mlL3, html.embedded-mode #mlL3, body.no-ticker #mlL3, body.embedded-mode #mlL3 { display: none !important; }
+</style>
+<aside id="mlPromo" aria-label="Polecamy">
+    <div class="ml-now"><b>TERAZ</b><span class="dynamic-current-program">Telewizja Christian Culture 24/7</span></div>
+    <div class="ml-head">★ POLECAMY<div class="ml-dots" id="mlDots"></div></div>
+    <div class="ml-slide" id="mlSlide"></div>
+    <div class="ml-bar"><i id="mlBar"></i></div>
+    <nav class="ml-links" aria-label="Szybkie linki">
+        <a href="/akademia" target="_blank" rel="noopener" data-promo="akademia">Kurs Codzienny</a>
+        <a href="/biblia-audio" target="_blank" rel="noopener" data-promo="biblia-audio">Biblia Audio</a>
+        <a href="/wspieraj" target="_blank" rel="noopener" data-promo="wspieraj">Wspieraj misję</a>
+    </nav>
+</aside>
+<a id="mlL3" href="/wspieraj" target="_blank" rel="noopener" data-promo="l3"><span class="t">POLECAMY</span><span class="x" id="mlL3txt"></span></a>
+<script>
+(function () {
+    var SL = [
+        { id: 'wspieraj', href: '/wspieraj', img: '/assets/promo/promo-wspieraj-klasyczny.webp', alt: 'Pomóż nam nieść Ewangelię dalej – polskieradio.cc/wspieraj', l3: 'Pomóż nam nieść Ewangelię dalej · <span>polskieradio.cc/wspieraj</span>' },
+        { id: 'akademia', href: '/akademia', k: 'Akademia', h: 'Kurs Codzienny', p: '10 minut ze Słowem każdego dnia. Dziś nowa lekcja.', u: 'polskieradio.cc/akademia', l3: 'Kurs Codzienny · <span>polskieradio.cc/akademia</span>' },
+        { id: 'biblia-audio', href: '/biblia-audio', k: 'Słuchaj', h: 'Biblia Audio', p: 'Całe Pismo do słuchania w drodze, w domu i w pracy.', u: 'polskieradio.cc/biblia-audio', l3: 'Biblia Audio · <span>polskieradio.cc/biblia-audio</span>' },
+        { id: 'topten', href: '/topten', k: 'Głosuj', h: 'topTEN tygodnia', p: 'Wybierz pieśni, które usłyszy Polska i świat.', u: 'polskieradio.cc/topten', l3: 'topTEN · <span>polskieradio.cc/topten</span>' },
+        { id: 'mojabiblia', href: '/mojabiblia', k: 'Czytaj', h: 'Moja Biblia', p: 'Tekst, przekłady i słowo po słowie.', u: 'polskieradio.cc/mojabiblia', l3: 'Moja Biblia · <span>polskieradio.cc/mojabiblia</span>' }
+    ];
+    var box = document.getElementById('mlSlide'), dots = document.getElementById('mlDots'), bar = document.getElementById('mlBar');
+    var l3 = document.getElementById('mlL3'), l3t = document.getElementById('mlL3txt');
+    if (!box) return;
+    function ga(name, id) { try { if (window.gtag) gtag('event', name, { promo_id: id, placement: 'master_live' }); } catch (e) {} }
+    dots.innerHTML = SL.map(function () { return '<i></i>'; }).join('');
+    var i = -1, cur = null, DUR = 15000, seen = {};
+    function card(s) {
+        var a = document.createElement('a'); a.href = s.href; a.target = '_blank'; a.rel = 'noopener'; a.setAttribute('data-promo', s.id);
+        a.innerHTML = s.img ? '<img src="' + s.img + '" alt="' + s.alt + '" loading="lazy">' :
+            '<div class="ml-card"><div><small>' + s.k + '</small><strong>' + s.h + '</strong><p>' + s.p + '</p></div><em>' + s.u + '</em></div>';
+        return a;
+    }
+    function visible() { return getComputedStyle(document.getElementById('mlPromo')).display !== 'none'; }
+    function next() {
+        i = (i + 1) % SL.length;
+        if (visible()) {
+            var n = card(SL[i]); n.className = 'ml-in'; box.appendChild(n); void n.offsetWidth; n.className = '';
+            if (cur) { var c = cur; c.className = 'ml-out'; setTimeout(function () { c.remove(); }, 850); }
+            cur = n;
+            [].forEach.call(dots.children, function (d, k) { d.classList.toggle('on', k === i); });
+            bar.style.transition = 'none'; bar.style.width = '0'; void bar.offsetWidth;
+            bar.style.transition = 'width ' + DUR + 'ms linear'; bar.style.width = '100%';
+            if (!seen[SL[i].id]) { seen[SL[i].id] = 1; ga('promo_impression', SL[i].id); }
+        }
+        setTimeout(next, DUR);
+    }
+    next();
+    // Duży ekran: belka „Polecamy” co 4 min na 14 s (tylko gdy nie widać panelu telefonu)
+    var j = 0;
+    function belka() {
+        if (!visible() && innerWidth > 900) {
+            var s = SL[j++ % SL.length]; l3.href = s.href; l3.setAttribute('data-promo', 'l3-' + s.id); l3t.innerHTML = s.l3;
+            l3.classList.add('ml-show'); ga('promo_impression', 'l3-' + s.id);
+            setTimeout(function () { l3.classList.remove('ml-show'); }, 14000);
+        }
+    }
+    setTimeout(belka, 60000); setInterval(belka, 240000);
+    document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('[data-promo]'); if (a) ga('promo_click', a.getAttribute('data-promo')); });
+})();
+</script>
 </body>
 </html>
