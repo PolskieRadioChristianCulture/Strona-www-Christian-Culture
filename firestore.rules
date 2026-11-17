@@ -959,6 +959,99 @@ service cloud.firestore {
       );
     }
 
+    // ── CCLITE.PL (cclite.pl / _cclite-release): publiczne liczniki, statystyki radia i obecność ──
+    function isValidCounterStatsCreate(d) {
+      return d.keys().hasOnly(['totalViews']) &&
+        d.totalViews is int && d.totalViews >= 0 && d.totalViews <= 1;
+    }
+
+    function isValidCounterStatsUpdate(n, o) {
+      return n.diff(o).affectedKeys().hasOnly(['totalViews']) &&
+        n.totalViews is int &&
+        n.totalViews == o.get('totalViews', 0) + 1;
+    }
+
+    function isValidGlobalIntentionsCreate(d) {
+      return d.keys().size() >= 1 && d.keys().size() <= 3 &&
+        (!('lastUpdate' in d) || d.lastUpdate == request.time);
+    }
+
+    function isValidGlobalIntentionsUpdate(n, o) {
+      let changed = n.diff(o).affectedKeys();
+      return changed.size() >= 1 && changed.size() <= 3 &&
+        (!changed.hasAny(['lastUpdate']) || n.lastUpdate == request.time);
+    }
+
+    match /counters/{counterId} {
+      allow read: if true;
+      allow create: if isMasterAdmin() || (
+        (counterId == 'stats' && isValidCounterStatsCreate(request.resource.data)) ||
+        (counterId == 'global_intentions' && isValidGlobalIntentionsCreate(request.resource.data))
+      );
+      allow update: if isMasterAdmin() || (
+        (counterId == 'stats' && isValidCounterStatsUpdate(request.resource.data, resource.data)) ||
+        (counterId == 'global_intentions' && isValidGlobalIntentionsUpdate(request.resource.data, resource.data))
+      );
+      allow delete: if isMasterAdmin();
+    }
+
+    function isValidRadioStatsDoc(d) {
+      return d.keys().hasOnly(['totalClicks', 'clicks', 'timestamp']) &&
+        d.keys().size() >= 1 &&
+        (!('totalClicks' in d) || (d.totalClicks is int && d.totalClicks >= 0)) &&
+        (!('clicks' in d) || (d.clicks is int && d.clicks >= 0)) &&
+        (!('timestamp' in d) || d.timestamp is timestamp || (d.timestamp is string && d.timestamp.size() <= 40));
+    }
+
+    match /radio_stats/{dateId} {
+      allow read: if true;
+      allow create: if isMasterAdmin() || (
+        dateId.matches('^\\d{4}-\\d{2}-\\d{2}$') &&
+        isValidRadioStatsDoc(request.resource.data) &&
+        (!('totalClicks' in request.resource.data) || request.resource.data.totalClicks <= 1) &&
+        (!('clicks' in request.resource.data) || request.resource.data.clicks <= 1)
+      );
+      allow update: if isMasterAdmin() || (
+        dateId.matches('^\\d{4}-\\d{2}-\\d{2}$') &&
+        isValidRadioStatsDoc(request.resource.data) &&
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['totalClicks']) ||
+          request.resource.data.totalClicks == resource.data.get('totalClicks', 0) + 1) &&
+        (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['clicks']) ||
+          request.resource.data.clicks == resource.data.get('clicks', 0) + 1)
+      );
+      allow delete: if isMasterAdmin();
+    }
+
+    function isValidLivePresence(d, presenceId) {
+      return presenceId is string && presenceId.size() >= 3 && presenceId.size() <= 128 &&
+        d.keys().hasAll(['uid', 'userName', 'lastSeen', 'activeStream', 'isPraying']) &&
+        d.keys().hasOnly(['uid', 'userName', 'lastSeen', 'activeStream', 'isPraying']) &&
+        d.uid is string && d.uid == presenceId &&
+        d.userName is string && d.userName.size() > 0 && d.userName.size() <= 60 &&
+        d.lastSeen is string && d.lastSeen.size() >= 10 && d.lastSeen.size() <= 40 &&
+        d.activeStream is string && d.activeStream.size() > 0 && d.activeStream.size() <= 64 &&
+        d.isPraying is bool;
+    }
+
+    function canWriteLivePresence(presenceId) {
+      return (isAuthenticated() && request.auth.uid == presenceId) ||
+        (!isAuthenticated() && presenceId.matches('^(guest|anon)_[A-Za-z0-9_-]{4,80}$'));
+    }
+
+    match /live_presence/{presenceId} {
+      allow read: if true;
+      allow create: if isMasterAdmin() || (
+        canWriteLivePresence(presenceId) &&
+        isValidLivePresence(request.resource.data, presenceId)
+      );
+      allow update: if isMasterAdmin() || (
+        canWriteLivePresence(presenceId) &&
+        isValidLivePresence(request.resource.data, presenceId) &&
+        request.resource.data.uid == resource.data.uid
+      );
+      allow delete: if isMasterAdmin() || (isAuthenticated() && request.auth.uid == presenceId);
+    }
+
     match /{topCollection}/{rest=**} {
       allow read, write: if isMasterAdmin() && topCollection != 'lumina_family_rooms' &&
         topCollection != 'lumi_agent_commands';
