@@ -5,6 +5,16 @@
   "updatesLog": [
     {
       "date": "2026-11-17",
+      "topic": "CCN News X: Cykliczna publikacja #379 — Śpiewajmy Panu TV (Pieśni chrześcijańskie, chóry i hymny 24/7) z dedykowaną grafiką i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-17",
+      "topic": "Codzienna rotacyjna promocja YouTube LIVE [4/20]: Biblia Audio CC (@bibliaaudiocc) na LUMINA, X, Facebook i WhatsApp",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-17",
       "topic": "CCN News X: Cykliczna publikacja #378 — Książka: Prawda Bez Filtra (Cezary Rogowski) z dedykowaną grafiką i Tablicą LUMINA",
       "agent": "A"
     },
@@ -4420,7 +4430,7 @@
       "status": "active"
     }
   ],
-  "lastUpdated": "2026-11-16T19:37:00.000Z",
+  "lastUpdated": "2026-11-17T07:35:57.290Z",
   "recentUpdates": [
     {
       "date": "2026-11-16",
@@ -4590,6 +4600,11 @@
     {
       "date": "2026-11-15",
       "topic": "CCN News X: Cykliczna publikacja #324 — Gerald Welch – THE CALL (Analiza Muzyczna i Wiara) z dedykowaną grafiką tematyczną i Tablicą LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-17",
+      "topic": "CCN News X: Cykliczna publikacja #379 — Śpiewajmy Panu TV (Pieśni chrześcijańskie, chóry i hymny 24/7) z dedykowaną grafiką i Tablicą LUMINA",
       "agent": "A"
     }
   ],
@@ -4817,6 +4832,11 @@
     {
       "date": "2026-11-17",
       "topic": "Cykliczna emisja CCN News X #377: Werset Dnia — Księga Przysłów 19:21 UBG (Dzień 330/365)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-17",
+      "topic": "Codzienna rotacyjna promocja YouTube LIVE [4/20]: Biblia Audio CC (@bibliaaudiocc) na LUMINA, X, Facebook i WhatsApp",
       "agent": "A"
     }
   ]

@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "spiewajmy-panu",
+      "title": "Śpiewajmy Panu TV",
+      "url": "https://polskieradio.cc/spiewajmy-panu",
+      "type": "music",
+      "image": "art-spiewajmy-panu.jpg",
+      "publishedAt": "2026-11-17T07:35:57.290Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "prawda-bez-filtra",
       "title": "Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo",
       "url": "https://polskieradio.cc/prawda-bez-filtra",
