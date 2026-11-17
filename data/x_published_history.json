@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "mess",
+      "title": "LumiMess — Chrześcijański Komunikator",
+      "url": "https://polskieradio.cc/mess",
+      "type": "profile",
+      "image": "lumi-mess-bg.webp",
+      "publishedAt": "2026-11-17T17:33:04.900Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-odrzucic-falszywy-blysk-sukcesu",
       "title": "Książka: Kod Źródłowy Duszy — Cezary Rogowski. Biblijna tożsamość i sens istnienia",
       "url": "https://polskieradio.cc/news/kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-odrzucic-falszywy-blysk-sukcesu",
