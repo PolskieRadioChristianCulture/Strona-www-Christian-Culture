@@ -1,7 +1,7 @@
 {
-  "lastIndex": 6,
-  "lastChannelId": "cc_men",
-  "lastTimestamp": "2026-11-17T09:15:57.172Z",
+  "lastIndex": 7,
+  "lastChannelId": "cc_bible_deep",
+  "lastTimestamp": "2026-11-17T17:03:00.964Z",
   "history": [
     {
       "index": 0,
@@ -77,6 +77,17 @@
       "url": "https://www.youtube.com/@CCMen7",
       "targetAudience": "Mężczyźni, ojcowie, mężowie szukający wzorców męstwa, walki z pokusami i braterstwa",
       "hook": "Prawdziwe męstwo to nie siła mięśni, lecz gotowość do wzięcia odpowiedzialności za innych."
+    },
+    {
+      "index": 7,
+      "channelId": "cc_bible_deep",
+      "timestamp": "2026-11-17T17:03:00.965Z",
+      "status": "PROMOTED",
+      "channelName": "CC Bible Deep",
+      "handle": "@CCBibleDeep",
+      "url": "https://www.youtube.com/@CCBibleDeep",
+      "targetAudience": "Studenci teologii, pasjonaci Pisma Świętego, dociekliwi poszukiwacze faktów historycznych",
+      "hook": "Co naprawdę kryje się w oryginalnym tekście hebrajskim i greckim Pisma Świętego?"
     }
   ]
 }
