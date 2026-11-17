@@ -1761,6 +1761,11 @@
         .chat-container .chat-sender-name { font-size: 1.15rem !important; }
         .chat-container .chat-avatar { width: 54px !important; height: 54px !important; }
     
+        /* Google Translate Toolbar & Highlight suppression (Anti-slop) */
+        .goog-te-banner-frame, .skiptranslate iframe, #goog-gt-tt, .goog-te-balloon-frame { display: none !important; visibility: hidden !important; height: 0 !important; width: 0 !important; }
+        body { top: 0px !important; }
+        .goog-text-highlight { background: none !important; box-shadow: none !important; }
+    
         
         /* --- LIVE HELPLINE PANEL ANIMATIONS --- */
         @keyframes live-helpline-pulse {
@@ -2099,8 +2104,8 @@
             <!-- Prayer Intentions Real-time Broadcast Overlay -->
             <div id="livePrayerOverlay" style="position: fixed; bottom: 189px; left: 70px; width: 800px; background: rgba(15, 18, 30, 0.96); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 3px solid var(--breakfast-accent); border-radius: 24px; padding: 25px 35px; box-shadow: 0 25px 50px rgba(0,0,0,0.95); display: flex; flex-direction: column; gap: 14px; z-index: 1000; opacity: 0; transform: translateY(30px); pointer-events: none; transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1); border-left: 8px solid #dc143c;">
                 <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
-                    <span style="font-family: 'Cinzel', serif; font-size: 1.45rem; font-weight: 800; color: #ff4d6d; letter-spacing: 2px; text-transform: uppercase; display: flex; align-items: center; gap: 10px;"><i class="fa-solid fa-hands-praying"></i> WSPÓLNA MODLITWA LIVE</span>
-                    <span style="font-size: 1.2rem; color: rgba(255,255,255,0.4); font-weight: 700; letter-spacing: 1px;">TERAZ</span>
+                    <span id="livePrayerHeaderTitle" style="font-family: 'Cinzel', serif; font-size: 1.45rem; font-weight: 800; color: #ff4d6d; letter-spacing: 2px; text-transform: uppercase; display: flex; align-items: center; gap: 10px;"><i class="fa-solid fa-hands-praying"></i> WSPÓLNA MODLITWA LIVE</span>
+                    <span id="livePrayerHeaderBadge" style="font-size: 1.2rem; color: rgba(255,255,255,0.4); font-weight: 700; letter-spacing: 1px;">TERAZ</span>
                 </div>
                 <p id="livePrayerText" style="font-size: 1.95rem; color: #ffffff; line-height: 1.5; font-style: italic; text-align: left; margin: 0; font-family: 'Inter', sans-serif; font-weight: 500; text-shadow: 0 2px 5px rgba(0,0,0,0.6);"></p>
                 <p id="livePrayerAuthor" style="font-size: 1.5rem; color: var(--breakfast-accent); font-weight: 800; text-align: right; margin: 5px 0 0 0; font-family: 'Outfit', sans-serif; text-transform: uppercase; letter-spacing: 1px;"></p>
@@ -2276,10 +2281,148 @@
         };
 
 
-        // Force Google Translate to translate to English immediately
-        document.cookie = "googtrans=/pl/en; path=/";
-        document.cookie = "googtrans=/pl/en; path=/; domain=" + window.location.hostname;
-        document.cookie = "googtrans=/pl/en; path=/; domain=.polskieradio.cc";
+        function applySubframeLanguage(lang) {
+            const isEn = (lang === 'en');
+            try {
+                safeStorage.setItem('cc_user_lang_choice', lang);
+                localStorage.setItem('lumina_lang', lang);
+            } catch(e){}
+
+            // Dynamic Google Translate cookie
+            try {
+                if (isEn) {
+                    document.cookie = "googtrans=/pl/en; path=/";
+                    document.cookie = "googtrans=/pl/en; path=/; domain=" + window.location.hostname;
+                    document.cookie = "googtrans=/pl/en; path=/; domain=.polskieradio.cc";
+                } else {
+                    document.cookie = "googtrans=/pl/pl; path=/";
+                    document.cookie = "googtrans=/pl/pl; path=/; domain=" + window.location.hostname;
+                    document.cookie = "googtrans=/pl/pl; path=/; domain=.polskieradio.cc";
+                }
+                const select = document.querySelector('.goog-te-combo');
+                if (select) {
+                    select.value = isEn ? 'en' : 'pl';
+                    select.dispatchEvent(new Event('change'));
+                }
+            } catch(e){}
+
+            // 1. Prayer Title & Badge
+            const prayerTitle = document.getElementById('livePrayerHeaderTitle') || document.querySelector('#livePrayerOverlay span:first-child');
+            if (prayerTitle) {
+                prayerTitle.innerHTML = isEn 
+                    ? '<i class="fa-solid fa-hands-praying"></i> COMMUNITY PRAYER LIVE' 
+                    : '<i class="fa-solid fa-hands-praying"></i> WSPÓLNA MODLITWA LIVE';
+            }
+            const prayerBadge = document.getElementById('livePrayerHeaderBadge') || document.querySelector('#livePrayerOverlay span:nth-child(2)');
+            if (prayerBadge) {
+                prayerBadge.textContent = isEn ? 'NOW' : 'TERAZ';
+            }
+
+            // 2. Fallback Prayer text & author
+            const prayerText = document.getElementById('livePrayerText');
+            if (prayerText && prayerText.textContent) {
+                if (isEn) {
+                    if (prayerText.textContent.includes('Módlmy się o pokój')) {
+                        prayerText.textContent = '„Let us pray for peace and security for our Homeland and for all who guard her borders.”';
+                    } else if (prayerText.textContent.includes('Panie, daj nam mądrość')) {
+                        prayerText.textContent = '„Lord, grant us wisdom, courage and unity in this challenging time.”';
+                    }
+                } else {
+                    if (prayerText.textContent.includes('Let us pray for peace')) {
+                        prayerText.textContent = '„Módlmy się o pokój i bezpieczeństwo dla naszej Ojczyzny oraz wszystkich strzegących jej granic.”';
+                    } else if (prayerText.textContent.includes('Lord, grant us wisdom')) {
+                        prayerText.textContent = '„Panie, daj nam mądrość, odwagę i jedność w tym trudnym czasie.”';
+                    }
+                }
+            }
+            const prayerAuthor = document.getElementById('livePrayerAuthor');
+            if (prayerAuthor && prayerAuthor.textContent) {
+                if (isEn) {
+                    prayerAuthor.textContent = prayerAuthor.textContent
+                        .replace(/Wspólnota,\s*Polska/i, 'Community, Poland')
+                        .replace(/Redakcja,\s*Christian Culture/i, 'Editorial Team, Christian Culture')
+                        .replace(/na żywo z LUMI Messenger/i, 'live from LUMI Messenger');
+                } else {
+                    prayerAuthor.textContent = prayerAuthor.textContent
+                        .replace(/Community,\s*Poland/i, 'Wspólnota, Polska')
+                        .replace(/Editorial Team,\s*Christian Culture/i, 'Redakcja, Christian Culture')
+                        .replace(/live from LUMI Messenger/i, 'na żywo z LUMI Messenger');
+                }
+            }
+
+            // 3. Cycle Badge in reflection footer
+            const cycleBadge = document.getElementById('cycleBadge');
+            if (cycleBadge && cycleBadge.textContent) {
+                if (isEn) {
+                    cycleBadge.textContent = cycleBadge.textContent
+                        .replace(/Dzień\s*(\d+)/i, 'Day $1')
+                        .replace(/Z Biblią za pan brat/i, 'Walking with the Bible');
+                } else {
+                    cycleBadge.textContent = cycleBadge.textContent
+                        .replace(/Day\s*(\d+)/i, 'Dzień $1')
+                        .replace(/Walking with the Bible/i, 'Z Biblią za pan brat');
+                }
+            }
+
+            // 4. Slide Tags & Titles
+            document.querySelectorAll('.slide-tag span, .slide-tag').forEach(tag => {
+                const t = tag.textContent.trim();
+                if (isEn) {
+                    if (t === 'Słowo Wprowadzenia') tag.textContent = 'Daily Devotion';
+                    else if (t === 'Dzień dzisiejszy') tag.textContent = 'Today\'s Word';
+                    else if (t === 'Słowo Pana') tag.textContent = 'Word of the Lord';
+                    else if (t === 'Zadanie Taktyczne') tag.textContent = 'Action for Today';
+                    else if (t === 'Zabezpieczenie Dnia') tag.textContent = 'Daily Protection';
+                    else if (t.includes('ROZWAŻANIE NA ŻYWO')) tag.textContent = t.replace('NA ŻYWO · ROZWAŻANIE', 'LIVE · DEVOTION');
+                } else {
+                    if (t === 'Daily Devotion') tag.textContent = 'Słowo Wprowadzenia';
+                    else if (t === 'Today\'s Word') tag.textContent = 'Dzień dzisiejszy';
+                    else if (t === 'Word of the Lord') tag.textContent = 'Słowo Pana';
+                    else if (t === 'Action for Today') tag.textContent = 'Zadanie Taktyczne';
+                    else if (t === 'Daily Protection') tag.textContent = 'Zabezpieczenie Dnia';
+                    else if (t.includes('LIVE · DEVOTION')) tag.textContent = t.replace('LIVE · DEVOTION', 'NA ŻYWO · ROZWAŻANIE');
+                }
+            });
+
+            document.querySelectorAll('.slide-title').forEach(title => {
+                const t = title.textContent.trim();
+                if (isEn) {
+                    if (t === 'Duchowy Horyzont') title.textContent = 'Spiritual Horizon';
+                    else if (t === 'Jezus mówi do Ciebie') title.textContent = 'Jesus Speaks to You';
+                    else if (t === 'Praktyka i Czyn') title.textContent = 'Faith in Action';
+                    else if (t === 'Oręż Modlitewny') title.textContent = 'Armor of Prayer';
+                } else {
+                    if (t === 'Spiritual Horizon') title.textContent = 'Duchowy Horyzont';
+                    else if (t === 'Jesus Speaks to You') title.textContent = 'Jezus mówi do Ciebie';
+                    else if (t === 'Faith in Action') title.textContent = 'Praktyka i Czyn';
+                    else if (t === 'Armor of Prayer') title.textContent = 'Oręż Modlitewny';
+                }
+            });
+
+            // 5. Chat senders
+            document.querySelectorAll('.chat-sender-name').forEach(s => {
+                const t = s.textContent.trim();
+                if (isEn && t === 'PISMO ŚWIĘTE') s.textContent = 'HOLY SCRIPTURE';
+                else if (!isEn && t === 'HOLY SCRIPTURE') s.textContent = 'PISMO ŚWIĘTE';
+            });
+        }
+
+        window.addEventListener('message', function(e) {
+            if (!e || !e.data) return;
+            const type = e.data.type || e.data;
+            if (type === 'SET_LANGUAGE') {
+                const lang = e.data.lang || 'pl';
+                applySubframeLanguage(lang);
+            }
+        });
+
+        // Initialize language from storage on startup
+        const initialLang = (safeStorage.getItem('cc_user_lang_choice') || localStorage.getItem('lumina_lang') || 'pl');
+        if (initialLang === 'en') {
+            document.cookie = "googtrans=/pl/en; path=/; domain=" + window.location.hostname;
+            document.cookie = "googtrans=/pl/en; path=/; domain=.polskieradio.cc";
+            setTimeout(() => { applySubframeLanguage('en'); }, 500);
+        }
 
         // ── AUDIO INIT (global scope — called from overlay onclick) ──
         function initStream() {
@@ -3096,7 +3239,8 @@ function getWeatherPreset(city) {
             function buildSlides(reflection) {
                 if (!reflection) return null;
 
-                let cycleTitle = "Z BIBLIĄ ZA PAN BRAT";
+                const isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
+                let cycleTitle = isEn ? "WALKING WITH THE BIBLE" : "Z BIBLIĄ ZA PAN BRAT";
                 
                 const dayNumMatch = String(reflection.id || "").match(/ref_day(\d+)/);
                 const dayNum = dayNumMatch ? dayNumMatch[1] : (reflectionsData.indexOf(reflection) + 1);
@@ -3107,7 +3251,7 @@ function getWeatherPreset(city) {
                     agendaActive.textContent = reflection.title;
                     agendaActive.dataset.customized = "true";
                 }
-                cycleBadge.textContent = `Dzień ${dayNum} | ${cycleTitle}`;
+                cycleBadge.textContent = isEn ? `Day ${dayNum} | ${cycleTitle}` : `Dzień ${dayNum} | ${cycleTitle}`;
 
                 const text = reflection.fullText || reflection.contentWeb || reflection.content || "";
 
@@ -3257,10 +3401,10 @@ function getWeatherPreset(city) {
                     // Slide 1: Welcome & Teaser
                     slides.push({
                         type: "content",
-                        tag: "Dzień dzisiejszy",
+                        tag: isEn ? "Today's Word" : "Dzień dzisiejszy",
                         title: reflection.title,
                         text: cleanMarkdown(cleanTeaserText(reflection.teaser)),
-                        l3Title: "ROZWAŻANIE DNIA",
+                        l3Title: isEn ? "DAILY DEVOTION" : "ROZWAŻANIE DNIA",
                         l3Desc: reflection.title
                     });
 
@@ -3269,10 +3413,10 @@ function getWeatherPreset(city) {
                         const chunk = introText.slice(i, i + 2).join("<br><br>");
                         slides.push({
                             type: "content",
-                            tag: "Słowo Wprowadzenia",
-                            title: "Duchowy Horyzont",
+                            tag: isEn ? "Daily Devotion" : "Słowo Wprowadzenia",
+                            title: isEn ? "Spiritual Horizon" : "Duchowy Horyzont",
                             text: cleanMarkdown(chunk),
-                            l3Title: "GŁÓWNE ROZWAŻANIE",
+                            l3Title: isEn ? "MAIN DEVOTION" : "GŁÓWNE ROZWAŻANIE",
                             l3Desc: reflection.title
                         });
                     }
@@ -3281,11 +3425,11 @@ function getWeatherPreset(city) {
                     if (bibleQuote) {
                         slides.push({
                             type: "content",
-                            tag: "Słowo Pana",
-                            title: "Jezus mówi do Ciebie",
+                            tag: isEn ? "Word of the Lord" : "Słowo Pana",
+                            title: isEn ? "Jesus Speaks to You" : "Jezus mówi do Ciebie",
                             text: `<div class="bible-citation">${cleanMarkdown(bibleQuote)}</div>`,
-                            l3Title: "SŁOWO Z PISMA ŚWIĘTEGO",
-                            l3Desc: (new Date().getHours() < 12 ? "Ewangelia Poranka" : (new Date().getHours() < 18 ? "Ewangelia na Popołudnie" : "Ewangelia na Wieczór"))
+                            l3Title: isEn ? "WORD FROM SCRIPTURE" : "SŁOWO Z PISMA ŚWIĘTEGO",
+                            l3Desc: isEn ? "Gospel of the Day" : (new Date().getHours() < 12 ? "Ewangelia Poranka" : (new Date().getHours() < 18 ? "Ewangelia na Popołudnie" : "Ewangelia na Wieczór"))
                         });
                     }
 
@@ -3293,27 +3437,27 @@ function getWeatherPreset(city) {
                     if (zadanieText) {
                         slides.push({
                             type: "content",
-                            tag: "Zadanie Taktyczne",
-                            title: "Praktyka i Czyn",
-                            text: `<strong>Wytyczne do działania na dzisiaj:</strong><br>${cleanMarkdown(zadanieText)}`,
-                            l3Title: "MISJA PORANKA",
-                            l3Desc: "Czas wdrożyć wiarę w konkretne czyny"
+                            tag: isEn ? "Action for Today" : "Zadanie Taktyczne",
+                            title: isEn ? "Faith in Action" : "Praktyka i Czyn",
+                            text: `<strong>${isEn ? "Guidelines for today:" : "Wytyczne do działania na dzisiaj:"}</strong><br>${cleanMarkdown(zadanieText)}`,
+                            l3Title: isEn ? "DAILY MISSION" : "MISJA PORANKA",
+                            l3Desc: isEn ? "Time to put faith into concrete action" : "Czas wdrożyć wiarę w konkretne czyny"
                         });
                     }
 
                     // Slide Modlitwa / Błogosławieństwo
                     const finalTexts = [];
-                    if (modlitwaText) finalTexts.push(`<strong>Modlitwa:</strong> ${cleanMarkdown(modlitwaText)}`);
-                    if (blogoslawienstwoText) finalTexts.push(`<strong>Błogosławieństwo:</strong> ${cleanMarkdown(blogoslawienstwoText)}`);
+                    if (modlitwaText) finalTexts.push(`<strong>${isEn ? "Prayer:" : "Modlitwa:"}</strong> ${cleanMarkdown(modlitwaText)}`);
+                    if (blogoslawienstwoText) finalTexts.push(`<strong>${isEn ? "Blessing:" : "Błogosławieństwo:"}</strong> ${cleanMarkdown(blogoslawienstwoText)}`);
 
                     if (finalTexts.length > 0) {
                         slides.push({
                             type: "content",
-                            tag: "Zabezpieczenie Dnia",
-                            title: "Oręż Modlitewny",
+                            tag: isEn ? "Daily Protection" : "Zabezpieczenie Dnia",
+                            title: isEn ? "Armor of Prayer" : "Oręż Modlitewny",
                             text: finalTexts.join("<br><br>"),
-                            l3Title: "MODLITWA & BŁOGOSŁAWIEŃSTWO",
-                            l3Desc: "Podsumowanie programu"
+                            l3Title: isEn ? "PRAYER & BLESSING" : "MODLITWA & BŁOGOSŁAWIEŃSTWO",
+                            l3Desc: isEn ? "Broadcast Summary" : "Podsumowanie programu"
                         });
                     }
 
@@ -3449,6 +3593,7 @@ function getWeatherPreset(city) {
                 });
 
                 activeSlideIndex = 0;
+                applySubframeLanguage(safeStorage.getItem('cc_user_lang_choice') || localStorage.getItem('lumina_lang') || 'pl');
                 if (slideInterval) clearInterval(slideInterval);
 
                 const domSlides = document.querySelectorAll(".canvas-slide");
@@ -3944,8 +4089,21 @@ function getWeatherPreset(city) {
             currentPrayerIsLive = !!(fromLive || (prayer && prayer.live));
             
             // Populate and display
-            livePrayerText.textContent = `„${prayer.text}”`;
-            livePrayerAuthor.textContent = `— ${prayer.name}, ${prayer.city}`;
+            const isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
+            let pText = prayer.text || '';
+            let pName = prayer.name || '';
+            let pCity = prayer.city || '';
+            if (isEn) {
+                if (pText.includes("Módlmy się o pokój")) {
+                    pText = "Let us pray for peace and security for our Homeland and for all who guard her borders.";
+                } else if (pText.includes("Panie, daj nam mądrość")) {
+                    pText = "Lord, grant us wisdom, courage and unity in this challenging time.";
+                }
+                if (pName) pName = pName.replace(/Wspólnota,\s*Polska/i, "Community, Poland");
+                if (pCity) pCity = pCity.replace(/na żywo z LUMI Messenger/i, "live from LUMI Messenger");
+            }
+            livePrayerText.textContent = `„${pText}”`;
+            livePrayerAuthor.textContent = `— ${pName}, ${pCity}`;
             
             livePrayerOverlay.style.opacity = "1";
             livePrayerOverlay.style.transform = "translateY(0)";
@@ -4133,9 +4291,16 @@ function getWeatherPreset(city) {
             
             if (overlay && window.getComputedStyle(overlay).opacity === "0") {
                 console.log("Independent Fallback triggered due to module/Firebase failure!");
+                const isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
                 const fallbacks = [
-                    {text:'"Módlmy się o pokój i bezpieczeństwo dla naszej Ojczyzny oraz wszystkich strzegących jej granic."', name:'Wspólnota, Polska'},
-                    {text:'"Panie, daj nam mądrość, odwagę i jedność w tym trudnym czasie."', name:'Redakcja, Christian Culture'}
+                    {
+                        text: isEn ? '„Let us pray for peace and security for our Homeland and for all who guard her borders.”' : '„Módlmy się o pokój i bezpieczeństwo dla naszej Ojczyzny oraz wszystkich strzegących jej granic.”',
+                        name: isEn ? 'Community, Poland' : 'Wspólnota, Polska'
+                    },
+                    {
+                        text: isEn ? '„Lord, grant us wisdom, courage and unity in this challenging time.”' : '„Panie, daj nam mądrość, odwagę i jedność w tym trudnym czasie.”',
+                        name: isEn ? 'Editorial Team, Christian Culture' : 'Redakcja, Christian Culture'
+                    }
                 ];
                 let idx = 0;
                 
@@ -4254,6 +4419,20 @@ if(typeof initStream === 'function') initStream();
     <script type="module" src="js/cc-live-mission-feed.js?v=20261008_kanaly3&autostart=1"></script>
     <!-- Czat widzów LUMI MESS ze wszystkich pokoi LIVE TV (Claude @A007, 19.10) — położenie w kadrze 1920×1080 -->
     <script src="/js/cc-live-viewer-chat.js?v=20261020_a002b" data-left="96" data-bottom="189" data-width="640" data-height="179" data-hide="#livePrayerOverlay"></script>
+
+    <!-- Google Translate Auto-Localization Engine for Global Viewers -->
+    <div id="google_translate_element" style="position: absolute; left: -9999px; top: -9999px; visibility: hidden; width: 0; height: 0;"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'pl',
+                includedLanguages: 'en,pl',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
 

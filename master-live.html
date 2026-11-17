@@ -1495,14 +1495,21 @@
             const ss = String(now.getSeconds()).padStart(2, '0');
             timeEl.textContent = `${hh}:${mm}:${ss}`;
 
-            const months = ['STY', 'LUT', 'MAR', 'KWI', 'MAJ', 'CZE', 'LIP', 'SIE', 'WRZ', 'PAŹ', 'LIS', 'GRU'];
+            const isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
+            const monthsPl = ['STY', 'LUT', 'MAR', 'KWI', 'MAJ', 'CZE', 'LIP', 'SIE', 'WRZ', 'PAŹ', 'LIS', 'GRU'];
+            const monthsEn = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+            const months = isEn ? monthsEn : monthsPl;
             const day = now.getDate();
             const month = months[now.getMonth()];
             dateEl.textContent = `${day} ${month}`;
         }
         updateCcnClock();
         setInterval(updateCcnClock, 1000);
-        setInterval(() => { suppressSubframeTicker(getActiveFrame()); }, 2000);
+        setInterval(() => { 
+            const f = getActiveFrame();
+            suppressSubframeTicker(f);
+            applySubframeLanguage(f);
+        }, 2000);
 
         // ── SUPPRESS SUB-CHANNEL TICKERS (ENSURE ONLY 1 CCN NEWS LOWER THIRD) ──
         function suppressSubframeTicker(frame) {
@@ -1575,6 +1582,115 @@
             } catch(e) {
                 // Cross-origin fallback (postMessage or query params handled)
             }
+        }
+
+        function applySubframeLanguage(frame) {
+            if (!frame) return;
+            try {
+                const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+                if (!doc) return;
+                const isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
+                
+                // 1. Prayer Title & Badge
+                const prayerTitle = doc.getElementById('livePrayerHeaderTitle') || doc.querySelector('#livePrayerOverlay span:first-child');
+                if (prayerTitle) {
+                    prayerTitle.innerHTML = isEn 
+                        ? '<i class="fa-solid fa-hands-praying"></i> COMMUNITY PRAYER LIVE' 
+                        : '<i class="fa-solid fa-hands-praying"></i> WSPÓLNA MODLITWA LIVE';
+                }
+                const prayerBadge = doc.getElementById('livePrayerHeaderBadge') || doc.querySelector('#livePrayerOverlay span:nth-child(2)');
+                if (prayerBadge) {
+                    prayerBadge.textContent = isEn ? 'NOW' : 'TERAZ';
+                }
+
+                // 2. Fallback Prayer text & author
+                const prayerText = doc.getElementById('livePrayerText');
+                if (prayerText && prayerText.textContent) {
+                    if (isEn) {
+                        if (prayerText.textContent.includes('Módlmy się o pokój')) {
+                            prayerText.textContent = '„Let us pray for peace and security for our Homeland and for all who guard her borders.”';
+                        } else if (prayerText.textContent.includes('Panie, daj nam mądrość')) {
+                            prayerText.textContent = '„Lord, grant us wisdom, courage and unity in this challenging time.”';
+                        }
+                    } else {
+                        if (prayerText.textContent.includes('Let us pray for peace')) {
+                            prayerText.textContent = '„Módlmy się o pokój i bezpieczeństwo dla naszej Ojczyzny oraz wszystkich strzegących jej granic.”';
+                        } else if (prayerText.textContent.includes('Lord, grant us wisdom')) {
+                            prayerText.textContent = '„Panie, daj nam mądrość, odwagę i jedność w tym trudnym czasie.”';
+                        }
+                    }
+                }
+                const prayerAuthor = doc.getElementById('livePrayerAuthor');
+                if (prayerAuthor && prayerAuthor.textContent) {
+                    if (isEn) {
+                        prayerAuthor.textContent = prayerAuthor.textContent
+                            .replace(/Wspólnota,\s*Polska/i, 'Community, Poland')
+                            .replace(/Redakcja,\s*Christian Culture/i, 'Editorial Team, Christian Culture')
+                            .replace(/na żywo z LUMI Messenger/i, 'live from LUMI Messenger');
+                    } else {
+                        prayerAuthor.textContent = prayerAuthor.textContent
+                            .replace(/Community,\s*Poland/i, 'Wspólnota, Polska')
+                            .replace(/Editorial Team,\s*Christian Culture/i, 'Redakcja, Christian Culture')
+                            .replace(/live from LUMI Messenger/i, 'na żywo z LUMI Messenger');
+                    }
+                }
+
+                // 3. Cycle Badge in reflection footer
+                const cycleBadge = doc.getElementById('cycleBadge');
+                if (cycleBadge && cycleBadge.textContent) {
+                    if (isEn) {
+                        cycleBadge.textContent = cycleBadge.textContent
+                            .replace(/Dzień\s*(\d+)/i, 'Day $1')
+                            .replace(/Z Biblią za pan brat/i, 'Walking with the Bible');
+                    } else {
+                        cycleBadge.textContent = cycleBadge.textContent
+                            .replace(/Day\s*(\d+)/i, 'Dzień $1')
+                            .replace(/Walking with the Bible/i, 'Z Biblią za pan brat');
+                    }
+                }
+
+                // 4. Slide Tags & Titles
+                doc.querySelectorAll('.slide-tag span, .slide-tag').forEach(tag => {
+                    const t = tag.textContent.trim();
+                    if (isEn) {
+                        if (t === 'Słowo Wprowadzenia') tag.textContent = 'Daily Devotion';
+                        else if (t === 'Dzień dzisiejszy') tag.textContent = 'Today\'s Word';
+                        else if (t === 'Słowo Pana') tag.textContent = 'Word of the Lord';
+                        else if (t === 'Zadanie Taktyczne') tag.textContent = 'Action for Today';
+                        else if (t === 'Zabezpieczenie Dnia') tag.textContent = 'Daily Protection';
+                        else if (t.includes('ROZWAŻANIE NA ŻYWO')) tag.textContent = t.replace('NA ŻYWO · ROZWAŻANIE', 'LIVE · DEVOTION');
+                    } else {
+                        if (t === 'Daily Devotion') tag.textContent = 'Słowo Wprowadzenia';
+                        else if (t === 'Today\'s Word') tag.textContent = 'Dzień dzisiejszy';
+                        else if (t === 'Word of the Lord') tag.textContent = 'Słowo Pana';
+                        else if (t === 'Action for Today') tag.textContent = 'Zadanie Taktyczne';
+                        else if (t === 'Daily Protection') tag.textContent = 'Zabezpieczenie Dnia';
+                        else if (t.includes('LIVE · DEVOTION')) tag.textContent = t.replace('LIVE · DEVOTION', 'NA ŻYWO · ROZWAŻANIE');
+                    }
+                });
+
+                doc.querySelectorAll('.slide-title').forEach(title => {
+                    const t = title.textContent.trim();
+                    if (isEn) {
+                        if (t === 'Duchowy Horyzont') title.textContent = 'Spiritual Horizon';
+                        else if (t === 'Jezus mówi do Ciebie') title.textContent = 'Jesus Speaks to You';
+                        else if (t === 'Praktyka i Czyn') title.textContent = 'Faith in Action';
+                        else if (t === 'Oręż Modlitewny') title.textContent = 'Armor of Prayer';
+                    } else {
+                        if (t === 'Spiritual Horizon') title.textContent = 'Duchowy Horyzont';
+                        else if (t === 'Jesus Speaks to You') title.textContent = 'Jezus mówi do Ciebie';
+                        else if (t === 'Faith in Action') title.textContent = 'Praktyka i Czyn';
+                        else if (t === 'Armor of Prayer') title.textContent = 'Oręż Modlitewny';
+                    }
+                });
+
+                // 5. Chat senders
+                doc.querySelectorAll('.chat-sender-name').forEach(s => {
+                    const t = s.textContent.trim();
+                    if (isEn && t === 'PISMO ŚWIĘTE') s.textContent = 'HOLY SCRIPTURE';
+                    else if (!isEn && t === 'HOLY SCRIPTURE') s.textContent = 'PISMO ŚWIĘTE';
+                });
+            } catch(e) {}
         }
 
         function updateProgramTitles(titleText) {
@@ -1980,6 +2096,24 @@
 
         window.updateMasterLiveLanguage = function(lang) {
             const isEn = (lang === 'en');
+            try {
+                localStorage.setItem('cc_user_lang_choice', lang);
+                localStorage.setItem('lumina_lang', lang);
+            } catch(e){}
+
+            // Set googtrans cookies for full site translation
+            try {
+                if (isEn) {
+                    document.cookie = "googtrans=/pl/en; path=/";
+                    document.cookie = "googtrans=/pl/en; path=/; domain=" + window.location.hostname;
+                    document.cookie = "googtrans=/pl/en; path=/; domain=.polskieradio.cc";
+                } else {
+                    document.cookie = "googtrans=/pl/pl; path=/";
+                    document.cookie = "googtrans=/pl/pl; path=/; domain=" + window.location.hostname;
+                    document.cookie = "googtrans=/pl/pl; path=/; domain=.polskieradio.cc";
+                }
+            } catch(e){}
+
             const dekalogEl = document.getElementById('dekalogContent');
             if (dekalogEl) {
                 dekalogEl.innerHTML = isEn ? DEKALOG_HTML_EN : DEKALOG_HTML_PL;
@@ -2006,15 +2140,30 @@
             }
             const headTag = document.querySelector('#mlPromo .ml-head');
             if (headTag) {
-                headTag.textContent = isEn ? 'RECOMMENDED' : 'POLECAMY';
+                const dotsEl = document.getElementById('mlDots');
+                const dotsHtml = dotsEl ? dotsEl.outerHTML : '<div class="ml-dots" id="mlDots"></div>';
+                headTag.innerHTML = (isEn ? '★ RECOMMENDED' : '★ POLECAMY') + dotsHtml;
             }
+            document.querySelectorAll('.ml-links a').forEach(a => {
+                const p = a.getAttribute('data-promo');
+                if (p === 'akademia') a.textContent = isEn ? 'Daily Bible Course' : 'Kurs Codzienny';
+                else if (p === 'biblia-audio') a.textContent = isEn ? 'Audio Bible' : 'Biblia Audio';
+                else if (p === 'wspieraj') a.textContent = isEn ? 'Support the mission' : 'Wspieraj misję';
+            });
             updateMuteUi();
+            updateCcnClock();
+            if (typeof window.updatePromoLanguage === 'function') {
+                window.updatePromoLanguage(lang);
+            }
 
-            // Notify subframes of language change
+            // Notify and translate subframes of language change
             [frameA, frameB].forEach(f => {
                 try {
-                    if (f && f.contentWindow) {
-                        f.contentWindow.postMessage({ type: 'SET_LANGUAGE', lang: lang }, '*');
+                    if (f) {
+                        applySubframeLanguage(f);
+                        if (f.contentWindow) {
+                            f.contentWindow.postMessage({ type: 'SET_LANGUAGE', lang: lang }, '*');
+                        }
                     }
                 } catch(e){}
             });
@@ -2061,6 +2210,11 @@
             if (f) {
                 f.addEventListener('load', () => {
                     suppressSubframeTicker(f);
+                    applySubframeLanguage(f);
+                    const curLang = localStorage.getItem('cc_user_lang_choice') || localStorage.getItem('lumina_lang') || 'pl';
+                    if (f.contentWindow) {
+                        try { f.contentWindow.postMessage({ type: 'SET_LANGUAGE', lang: curLang }, '*'); } catch(_) {}
+                    }
                     if (isMutedDefault || f !== getActiveFrame() || isSwitchingWithBumper) {
                         silenceFrame(f, false);
                     } else {
@@ -2251,11 +2405,11 @@
 <script>
 (function () {
     var SL = [
-        { id: 'wspieraj', href: '/wspieraj', img: '/assets/promo/promo-wspieraj-klasyczny.webp', alt: 'Pomóż nam nieść Ewangelię dalej – polskieradio.cc/wspieraj', l3: 'Pomóż nam nieść Ewangelię dalej · <span>polskieradio.cc/wspieraj</span>' },
-        { id: 'akademia', href: '/akademia', k: 'Akademia', h: 'Kurs Codzienny', p: '10 minut ze Słowem każdego dnia. Dziś nowa lekcja.', u: 'polskieradio.cc/akademia', l3: 'Kurs Codzienny · <span>polskieradio.cc/akademia</span>' },
-        { id: 'biblia-audio', href: '/biblia-audio', k: 'Słuchaj', h: 'Biblia Audio', p: 'Całe Pismo do słuchania w drodze, w domu i w pracy.', u: 'polskieradio.cc/biblia-audio', l3: 'Biblia Audio · <span>polskieradio.cc/biblia-audio</span>' },
-        { id: 'topten', href: '/topten', k: 'Głosuj', h: 'topTEN tygodnia', p: 'Wybierz pieśni, które usłyszy Polska i świat.', u: 'polskieradio.cc/topten', l3: 'topTEN · <span>polskieradio.cc/topten</span>' },
-        { id: 'mojabiblia', href: '/mojabiblia', k: 'Czytaj', h: 'Moja Biblia', p: 'Tekst, przekłady i słowo po słowie.', u: 'polskieradio.cc/mojabiblia', l3: 'Moja Biblia · <span>polskieradio.cc/mojabiblia</span>' }
+        { id: 'wspieraj', href: '/wspieraj', img: '/assets/promo/promo-wspieraj-klasyczny.webp', alt: 'Pomóż nam nieść Ewangelię dalej – polskieradio.cc/wspieraj', l3: 'Pomóż nam nieść Ewangelię dalej · <span>polskieradio.cc/wspieraj</span>', l3En: 'Help us proclaim the Gospel · <span>polskieradio.cc/wspieraj</span>' },
+        { id: 'akademia', href: '/akademia', k: 'Akademia', kEn: 'Academy', h: 'Kurs Codzienny', hEn: 'Daily Bible Course', p: '10 minut ze Słowem każdego dnia. Dziś nowa lekcja.', pEn: '10 minutes in the Word each day. New lesson today.', u: 'polskieradio.cc/akademia', l3: 'Kurs Codzienny · <span>polskieradio.cc/akademia</span>', l3En: 'Daily Bible Course · <span>polskieradio.cc/akademia</span>' },
+        { id: 'biblia-audio', href: '/biblia-audio', k: 'Słuchaj', kEn: 'Listen', h: 'Biblia Audio', hEn: 'Audio Bible', p: 'Całe Pismo do słuchania w drodze, w domu i w pracy.', pEn: 'All Scripture to listen on the road, at home, at work.', u: 'polskieradio.cc/biblia-audio', l3: 'Biblia Audio · <span>polskieradio.cc/biblia-audio</span>', l3En: 'Audio Bible 24/7 · <span>polskieradio.cc/biblia-audio</span>' },
+        { id: 'topten', href: '/topten', k: 'Głosuj', kEn: 'Vote', h: 'topTEN tygodnia', hEn: 'topTEN of the Week', p: 'Wybierz pieśni, które usłyszy Polska i świat.', pEn: 'Vote for the songs Poland and the world will hear.', u: 'polskieradio.cc/topten', l3: 'topTEN · <span>polskieradio.cc/topten</span>', l3En: 'topTEN of the Week · <span>polskieradio.cc/topten</span>' },
+        { id: 'mojabiblia', href: '/mojabiblia', k: 'Czytaj', kEn: 'Read', h: 'Moja Biblia', hEn: 'My Bible Study', p: 'Tekst, przekłady i słowo po słowie.', pEn: 'Scripture, translations and original texts.', u: 'polskieradio.cc/mojabiblia', l3: 'Moja Biblia · <span>polskieradio.cc/mojabiblia</span>', l3En: 'My Bible Study · <span>polskieradio.cc/mojabiblia</span>' }
     ];
     var box = document.getElementById('mlSlide'), dots = document.getElementById('mlDots'), bar = document.getElementById('mlBar');
     var l3 = document.getElementById('mlL3'), l3t = document.getElementById('mlL3txt');
@@ -2264,9 +2418,10 @@
     dots.innerHTML = SL.map(function () { return '<i></i>'; }).join('');
     var i = -1, cur = null, DUR = 15000, seen = {};
     function card(s) {
+        var isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
         var a = document.createElement('a'); a.href = s.href; a.target = '_blank'; a.rel = 'noopener'; a.setAttribute('data-promo', s.id);
         a.innerHTML = s.img ? '<img src="' + s.img + '" alt="' + s.alt + '" loading="lazy">' :
-            '<div class="ml-card"><div><small>' + s.k + '</small><strong>' + s.h + '</strong><p>' + s.p + '</p></div><em>' + s.u + '</em></div>';
+            '<div class="ml-card"><div><small>' + (isEn ? (s.kEn || s.k) : s.k) + '</small><strong>' + (isEn ? (s.hEn || s.h) : s.h) + '</strong><p>' + (isEn ? (s.pEn || s.p) : s.p) + '</p></div><em>' + s.u + '</em></div>';
         return a;
     }
     function visible() { return getComputedStyle(document.getElementById('mlPromo')).display !== 'none'; }
@@ -2288,12 +2443,27 @@
     var j = 0;
     function belka() {
         if (!visible() && innerWidth > 900) {
-            var s = SL[j++ % SL.length]; l3.href = s.href; l3.setAttribute('data-promo', 'l3-' + s.id); l3t.innerHTML = s.l3;
+            var isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
+            var s = SL[j++ % SL.length]; l3.href = s.href; l3.setAttribute('data-promo', 'l3-' + s.id); l3t.innerHTML = isEn ? (s.l3En || s.l3) : s.l3;
             l3.classList.add('ml-show'); ga('promo_impression', 'l3-' + s.id);
             setTimeout(function () { l3.classList.remove('ml-show'); }, 14000);
         }
     }
     setTimeout(belka, 60000); setInterval(belka, 240000);
+    window.updatePromoLanguage = function(lang) {
+        var isEn = (lang === 'en');
+        var idx = j > 0 ? (j - 1) % SL.length : 0;
+        var s = SL[idx] || SL[0];
+        if (l3t && s) {
+            l3t.innerHTML = isEn ? (s.l3En || s.l3) : s.l3;
+        }
+        var promoCard = box && box.querySelector('.ml-card');
+        if (promoCard && s) {
+            var sm = promoCard.querySelector('small'); if (sm) sm.textContent = isEn ? (s.kEn || s.k) : s.k;
+            var str = promoCard.querySelector('strong'); if (str) str.textContent = isEn ? (s.hEn || s.h) : s.h;
+            var p = promoCard.querySelector('p'); if (p) p.textContent = isEn ? (s.pEn || s.p) : s.p;
+        }
+    };
     document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('[data-promo]'); if (a) ga('promo_click', a.getAttribute('data-promo')); });
 })();
 </script>
