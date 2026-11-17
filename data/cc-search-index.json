@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-17T12:53:29.303Z",
+  "updatedAt": "2026-11-17T13:22:54.206Z",
   "totalItems": 459,
   "contextGuides": {
     "nadzieja": {
@@ -1061,6 +1061,21 @@
     }
   },
   "items": [
+    {
+      "id": "ccwomen-tv",
+      "title": "CC Women TV — Oficjalna wizytówka i telewizja 24/7",
+      "category": "Moduły & Platformy",
+      "url": "/ccwomen",
+      "description": "Oficjalna wizytówka Christian Culture i całodobowa telewizja dla kobiet 24/7 (@CCWomen7).",
+      "keywords": [
+        "ccwomen",
+        "cc women",
+        "kobiety",
+        "telewizja dla kobiet",
+        "wioletta rogowska",
+        "tv 24/7"
+      ]
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",

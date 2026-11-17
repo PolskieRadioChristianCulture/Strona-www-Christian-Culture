@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-17T12:53:29.303Z",
+  "updatedAt": "2026-11-17T13:22:54.206Z",
   "totalItems": 459,
   "contextGuides": {
     "nadzieja": {
@@ -1061,6 +1061,20 @@
     }
   },
   "items": [
+    {
+      "id": "ccwomen-tv",
+      "title": "CC Women TV — Oficjalna wizytówka i telewizja 24/7",
+      "category": "platform",
+      "url": "/ccwomen",
+      "summary": "Elegancka wizytówka Christian Culture i całodobowa telewizja dla kobiet 24/7.",
+      "tags": [
+        "ccwomen",
+        "kobiety",
+        "tv",
+        "telewizja",
+        "lumina"
+      ]
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
