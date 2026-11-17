@@ -3,7 +3,7 @@
   "series": "What's Up Prof? — Walter Veith & Martin Smith (Clash of Minds)",
   "scheduleOffsetHours": 48,
   "dailyCron": "CRON_TZ=Europe/Warsaw 0 15 * * *",
-  "lastRunAt": "2026-11-16T15:32:17.192Z",
+  "lastRunAt": "2026-11-17T15:50:41.825Z",
   "episodes": {
     "1": {
       "seq": 1,
@@ -223,6 +223,79 @@
       },
       "scheduledYmd": "2026-11-18",
       "scheduledTime": "15:00"
+    },
+    "4": {
+      "seq": 4,
+      "epCode": "004",
+      "completed": true,
+      "channels": {
+        "Personality Plus": {
+          "status": "ok",
+          "channelId": "UCSwb927uMg2PxIl_Aakht0Q",
+          "videoUrl": "https://youtu.be/AtbvP0Zu32g",
+          "title": "004. Mark Of The Beast, RFID Chip, Little Time Of Trouble (FAQ) | Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-17T14:35:03.100Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/xzG3--Zn5f0",
+          "title": "004. Znamię bestii, czip RFID i mały czas ucisku (FAQ) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-17T15:42:58.983Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "ok",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "videoUrl": "https://youtu.be/sBaGYbUdyEs",
+          "title": "004. Znamię bestii, czip RFID i mały czas ucisku (FAQ) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-17T15:50:41.825Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/JdDAGMd0yhY",
+          "title": "004. Znamię bestii, czip RFID i mały czas ucisku (FAQ) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-17T15:02:13.660Z"
+        },
+        "Christian Culture TV": {
+          "status": "ok",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "videoUrl": "https://youtu.be/J0iMPJXzWv4",
+          "title": "004. Znamię bestii, czip RFID i mały czas ucisku (FAQ) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-17T15:12:12.780Z"
+        },
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "videoUrl": "https://youtu.be/N2wnwiHBWqs",
+          "title": "004. Znamię bestii, czip RFID i mały czas ucisku (FAQ) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-17T15:22:04.946Z"
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "videoUrl": "https://youtu.be/yn2VNHZpkIM",
+          "title": "004. Znamię bestii, czip RFID i mały czas ucisku (FAQ) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-17T15:27:27.069Z"
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "videoUrl": "https://youtu.be/H7ks4u-nZSU",
+          "title": "004. Znamię bestii, czip RFID i mały czas ucisku (FAQ) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-17T15:37:42.783Z"
+        }
+      },
+      "scheduledYmd": "2026-11-19",
+      "scheduledTime": "15:30"
     }
   }
 }
