@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "dzien-17",
+      "title": "Z Biblią za Pan Brat — Dzień 17 (Lekcja 17): Wiara patrząca w przyszłość (Rdz 23:1–24:67)",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-17",
+      "type": "course",
+      "image": "kc_day_17_machpela_rebeka.jpg",
+      "publishedAt": "2026-11-17T08:06:06.434Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "spiewajmy-panu",
       "title": "Śpiewajmy Panu TV",
       "url": "https://polskieradio.cc/spiewajmy-panu",
