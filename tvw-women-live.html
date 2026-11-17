@@ -184,18 +184,48 @@
             if (type === 'MUTE_AUDIO') { tvwMuted = true; applyAudio(); }
         });
         // Pancerne wznawianie wideo (anty-zamrażanie obrazu)
+        // @007 2026-11-17 (L0: „obraz często stoi na logo”): strażnik mierzy, czy film NAPRAWDĘ idzie
+        // (czas odtwarzania rośnie). Bez postępu: 10 s → wznów, 18 s → następny film,
+        // 30 s → przeładuj playlistę w innym miejscu, 60 s → przeładuj stronę. Działa też w stanach
+        // „nie rozpoczęto”, „buforowanie” i „wskazany”, w których dawny strażnik nic nie robił.
+        const tvwBoot = Date.now();
+        let tvwLastT = -1, tvwLastProgress = Date.now(), tvwStrikes = 0;
+        // @007 2026-11-17: w /tvw (OBS) biblioteka YouTube bywa gotowa, zanim zostanie wywołane
+        // onYouTubeIframeAPIReady — odtwarzacz nigdy nie powstawał i stało logo. Tworzymy go sami.
+        function tvwEnsurePlayer() {
+            if (!player && window.YT && YT.loaded && typeof YT.Player === 'function') {
+                try { onYouTubeIframeAPIReady(); } catch (e) {}
+            }
+        }
+        setTimeout(tvwEnsurePlayer, 1500);
         setInterval(() => {
-            if (!player || typeof player.getPlayerState !== 'function') return;
+            tvwEnsurePlayer();
+            if (!player || typeof player.getPlayerState !== 'function') {
+                if (Date.now() - tvwBoot > 45000) location.reload(); // API YouTube nie wstało
+                return;
+            }
             try {
                 const st = player.getPlayerState();
-                if (st === YT.PlayerState.PAUSED) {
-                    player.playVideo();
-                } else if (st === YT.PlayerState.ENDED) {
-                    if (player.nextVideo) player.nextVideo();
-                }
-                if (st === YT.PlayerState.PLAYING) {
-                    const fb = document.getElementById('tvwFallback');
+                const t = player.getCurrentTime ? player.getCurrentTime() : 0;
+                const fb = document.getElementById('tvwFallback');
+                if (st === YT.PlayerState.PLAYING && t !== tvwLastT) {
+                    tvwLastT = t; tvwLastProgress = Date.now(); tvwStrikes = 0;
                     if (fb && fb.style.opacity !== '0') fb.style.opacity = '0';
+                    return;
+                }
+                if (st === YT.PlayerState.PAUSED) player.playVideo();
+                else if (st === YT.PlayerState.ENDED && player.nextVideo) player.nextVideo();
+                const idle = Date.now() - tvwLastProgress;
+                if (idle > 60000) { location.reload(); return; }
+                if (idle > 30000 && tvwStrikes < 3) {
+                    tvwStrikes = 3;
+                    const n = ((player.getPlaylist && player.getPlaylist()) || []).length || 50;
+                    player.loadPlaylist({ listType: 'playlist', list: TVW_PLAYLIST, index: Math.floor(Math.random() * n) });
+                    player.mute(); player.playVideo();
+                } else if (idle > 18000 && tvwStrikes < 2) {
+                    tvwStrikes = 2; if (player.nextVideo) player.nextVideo();
+                } else if (idle > 10000 && tvwStrikes < 1) {
+                    tvwStrikes = 1; player.mute(); player.playVideo();
                 }
             } catch (e) {}
         }, 3000);
