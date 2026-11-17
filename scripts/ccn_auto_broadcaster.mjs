@@ -1043,6 +1043,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📺 TV EPAFRAZ 24/7 | KANAŁ TELEWIZYJNY';
       callToAction = '👉 Oglądaj na żywo:\n';
       addTags('#TVEpafraz', '#TelewizjaCC', '#WorshipLive');
+    } else if ((item.url || '').includes('czuwanie') || (item.title || '').toLowerCase().includes('nocne czuwanie')) {
+      subHeader = '🌙 NOCNE CZUWANIE TV | MODLITWA 24/7';
+      callToAction = '👉 Oglądaj i módl się na żywo:\n';
+      addTags('#NocneCzuwanie', '#Modlitwa', '#ChristianCulture');
     } else if ((item.url || '').includes('/music') || (item.title || '').includes('CC MUSIC')) {
       subHeader = '🎵 CC MUSIC | CHRZEŚCIJAŃSKIE BRZMIENIA';
       callToAction = '👉 Odkryj muzykę i słuchaj online:\n';
@@ -1322,6 +1326,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Historia hymnu „Cudowna Boża Łaska” (Amazing Grace): Od handlarza niewolników do pieśni Bożego odkupienia.';
   } else if ((item.url || '').includes('tv-epafraz')) {
     bodyText = 'Całodobowy kanał TV: nabożeństwa, kazania biblijne, wykłady teologiczne i uwielbienie (Live 24/7).';
+  } else if ((item.url || '').includes('czuwanie') || (item.title || '').toLowerCase().includes('nocne czuwanie')) {
+    bodyText = 'Nocny strumień modlitwy, łagodnego uwielbienia i obecności Bożej. Oaza pokoju na trudne noce.';
   } else if ((item.url || '').includes('/tv') || (item.title || '').includes('Smart TV')) {
     bodyText = 'Wirtualny telewizor Christian Culture: 6 stacji TV na żywo, pilot online i pełny ekran na smartfony i Smart TV!';
   } else if ((item.url || '').includes('/program') || (item.title || '').includes('Program TV')) {

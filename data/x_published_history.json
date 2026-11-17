@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "czuwanie",
+      "title": "Nocne Czuwanie TV",
+      "url": "https://polskieradio.cc/czuwanie",
+      "type": "music",
+      "image": "art-czuwanie.jpg",
+      "publishedAt": "2026-11-17T12:34:59.857Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "bog-jest-miloscia",
       "title": "Książka: Bóg jest MIŁOŚCIĄ? — Cezary Rogowski. Powieść dialogowa o charakterze Boga",
       "url": "https://polskieradio.cc/bog-jest-miloscia",
