@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "nadawaj",
+      "title": "Nadawaj z Nami — Retransmisja Sygnału Radiowego & Gotowe Sceny OBS Studio",
+      "url": "https://polskieradio.cc/nadawaj",
+      "type": "module",
+      "image": "art-nadawaj.jpg",
+      "publishedAt": "2026-11-17T09:39:01.593Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "dzien-17",
       "title": "Z Biblią za Pan Brat — Dzień 17 (Lekcja 17): Wiara patrząca w przyszłość (Rdz 23:1–24:67)",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-17",
