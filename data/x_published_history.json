@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "network",
+      "title": "CC NETWORK — Oficjalna Sieć Ponad 40 Kanałów Medialnych Christian Culture",
+      "url": "https://polskieradio.cc/network",
+      "type": "module",
+      "image": "cezary-wioletta-radiocc.jpg",
+      "publishedAt": "2026-11-17T16:32:37.966Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "vod",
       "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
       "url": "https://polskieradio.cc/vod",
