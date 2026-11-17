@@ -95,7 +95,7 @@
             object-fit: cover;
             z-index: 1;
             transition: opacity 3s ease-in-out, filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            animation: ken-burns-zoom 22s ease-in-out infinite alternate; /* Dynamic camera pan & zoom motion */
+            /* Zoom animation handled by .zoom-forward / .zoom-backward */
             will-change: transform;
         }
 
@@ -107,23 +107,39 @@
             filter: brightness(0.96) contrast(1.04);
         }
 
-        /* TV Broadcast Camera Motion (Pan, Tilt & Zoom) */
-        @keyframes ken-burns-zoom {
+        /* TV Broadcast Dynamic Camera Motion: Alternating Zoom Forward & Backward */
+        @keyframes ken-burns-forward {
             0% {
                 transform: scale(1.0) translate(0px, 0px);
             }
-            25% {
-                transform: scale(1.07) translate(-18px, -10px);
+            50% {
+                transform: scale(1.04) translate(-7px, -4px);
+            }
+            100% {
+                transform: scale(1.08) translate(-14px, -8px);
+            }
+        }
+
+        @keyframes ken-burns-backward {
+            0% {
+                transform: scale(1.08) translate(-14px, -8px);
             }
             50% {
-                transform: scale(1.04) translate(12px, 8px);
-            }
-            75% {
-                transform: scale(1.09) translate(-10px, 12px);
+                transform: scale(1.04) translate(-7px, -4px);
             }
             100% {
                 transform: scale(1.0) translate(0px, 0px);
             }
+        }
+
+        .bg-layer.zoom-forward {
+            animation: ken-burns-forward 26s ease-in-out forwards !important;
+            will-change: transform;
+        }
+
+        .bg-layer.zoom-backward {
+            animation: ken-burns-backward 26s ease-in-out forwards !important;
+            will-change: transform;
         }
 
         /* --- DYNAMIC STUDIO LIGHTING OVERLAYS --- */
@@ -1863,10 +1879,10 @@
     <link rel="stylesheet" href="live-window-manager.css">
 
     <script>
-        // Force the background to the user's new uploaded background just once
-        if (localStorage.getItem('dzj_stream_image_forced_v2') !== 'true') {
-            localStorage.setItem('dzj_stream_image', 'tlo_live_1.png');
-            localStorage.setItem('dzj_stream_image_forced_v2', 'true');
+        // Force default to Autumn studio backgrounds loop
+        if (localStorage.getItem('dzj_stream_image_forced_autumn_v1') !== 'true') {
+            localStorage.setItem('dzj_stream_image', 'loop_jesien');
+            localStorage.setItem('dzj_stream_image_forced_autumn_v1', 'true');
         }
         if (localStorage.getItem('dzj_reflection_pos_right_v2') !== 'true') {
             localStorage.removeItem('live_win_cfg_reflection-canvas-card');
@@ -1881,7 +1897,7 @@
     <div id="app-container">
 
         <!-- Background Image -->
-        <img id="bg-img-active" class="bg-layer bg-image" style="opacity: 1; transition: opacity 3s ease-in-out;" src="tlo_live_1.png" alt="Breakfast Studio">
+        <img id="bg-img-active" class="bg-layer bg-image zoom-forward" style="opacity: 1; transition: opacity 3s ease-in-out;" src="tlo_studio_jesien_1.jpg" alt="Breakfast Studio">
           <img id="bg-img-next" class="bg-layer bg-image" style="opacity: 0; transition: opacity 3s ease-in-out;" src="" alt="">
         
         <video id="bg-video-1" class="bg-layer bg-video" style="opacity: 0;" muted playsinline></video>
@@ -2206,10 +2222,18 @@
         </div>
         
         <div class="control-group">
-                <option value="breakfast_studio.jpg">Studio Bliski Kadr (Kawa + Książka)</option>
-                <option value="breakfast_studio_alt.jpg">Alternatywne Tło Drewniane</option>
-                  <option value="tlo_live_1.png">Nowe Tło Poranne 1</option>
-          </div>
+            <label for="bgImageSelect">Obraz Tła (Domyślnie: Pętla Jesień 1-5)</label>
+            <select id="bgImageSelect">
+                <option value="loop_jesien" selected>🍂 Pętla Jesienna (Tła 1-5 z zoomem naprzemiennym)</option>
+                <option value="tlo_studio_jesien_1.jpg">Jesień Studio 1</option>
+                <option value="tlo_studio_jesien_2.jpg">Jesień Studio 2</option>
+                <option value="tlo_studio_jesien_3.jpg">Jesień Studio 3</option>
+                <option value="tlo_studio_jesien_4.jpg">Jesień Studio 4</option>
+                <option value="tlo_studio_jesien_5.jpg">Jesień Studio 5</option>
+                <option value="tlo_live_1.png">Studio Panorama Miasta 1</option>
+                <option value="tlo_live_2.png">Studio Panorama Miasta 2</option>
+            </select>
+        </div>
 
           <div class="control-group">
               <label for="bgVideoSelect">Alternatywne Tło Wideo (Lokalnie)</label>
@@ -2548,47 +2572,70 @@
 
             // DOM elements
             
-              function crossfadeBackground(newSrc) {
-                  const active = document.getElementById("bg-img-active");
-                  const next = document.getElementById("bg-img-next");
-                  if (!active || !next) return;
-                  
-                  let currentSrc = active.src.substring(active.src.lastIndexOf('/') + 1).split('?')[0];
-                  let targetSrc = newSrc.substring(newSrc.lastIndexOf('/') + 1).split('?')[0];
-                  
-                  if (currentSrc === targetSrc && parseFloat(active.style.opacity) >= 1) return;
-                  
-                  // Prepare next layer
-                  next.src = newSrc;
-                  next.style.transition = "none";
-                  next.style.opacity = "0";
-                  
-                  next.onload = () => {
-                      // Re-enable transition AFTER setting opacity 0 (avoids flash)
-                      requestAnimationFrame(() => {
-                          next.style.transition = "opacity 3s ease-in-out";
-                          next.style.opacity = "1";
-                          active.style.transition = "opacity 3s ease-in-out";
-                          active.style.opacity = "0";
-                          
-                          // After transition completes: swap IDs and reset new "next" to invisible
-                          setTimeout(() => {
-                              // Swap: make "next" the new "active"
-                              next.id = "bg-img-active";
-                              active.id = "bg-img-next";
-                              // Reset old active (now next) so it's ready for the next crossfade
-                              active.style.transition = "none";
-                              active.style.opacity = "0";
-                          }, 3100);
-                      });
-                  };
-                  next.onerror = () => {
-                      // Fallback: just update the active image without crossfade
-                      active.src = newSrc;
-                  };
-              }
+              // Autumn Studio Backgrounds Loop with Alternating Zoom Forward / Backward
+            const AUTUMN_STUDIO_BGS = [
+                "tlo_studio_jesien_1.jpg",
+                "tlo_studio_jesien_2.jpg",
+                "tlo_studio_jesien_3.jpg",
+                "tlo_studio_jesien_4.jpg",
+                "tlo_studio_jesien_5.jpg"
+            ];
+            let autumnBgIdx = 0;
+            let autumnZoomForward = true;
 
-              const opPanel = document.getElementById("operatorPanel");
+            function crossfadeBackground(newSrc, isForward = true) {
+                const active = document.getElementById("bg-img-active");
+                const next = document.getElementById("bg-img-next");
+                if (!active || !next) return;
+                
+                let currentSrc = active.src.substring(active.src.lastIndexOf('/') + 1).split('?')[0];
+                let targetSrc = newSrc.substring(newSrc.lastIndexOf('/') + 1).split('?')[0];
+                
+                if (currentSrc === targetSrc && parseFloat(active.style.opacity) >= 1) return;
+                
+                // Prepare next layer with target zoom animation
+                next.classList.remove("zoom-forward", "zoom-backward");
+                void next.offsetWidth; // Reflow to reset animation
+                next.classList.add(isForward ? "zoom-forward" : "zoom-backward");
+                
+                next.style.transition = "none";
+                next.style.opacity = "0";
+                next.src = newSrc;
+                
+                next.onload = () => {
+                    requestAnimationFrame(() => {
+                        next.style.transition = "opacity 3s ease-in-out";
+                        next.style.opacity = "1";
+                        active.style.transition = "opacity 3s ease-in-out";
+                        active.style.opacity = "0";
+                        
+                        setTimeout(() => {
+                            next.id = "bg-img-active";
+                            active.id = "bg-img-next";
+                            active.classList.remove("zoom-forward", "zoom-backward");
+                            active.style.transition = "none";
+                            active.style.opacity = "0";
+                        }, 3100);
+                    });
+                };
+                next.onerror = () => {
+                    active.src = newSrc;
+                };
+            }
+
+            function rotateAutumnBackground() {
+                if (customImgSrc && customImgSrc !== "loop_jesien" && !customImgSrc.includes("tlo_studio_jesien")) {
+                    return;
+                }
+                autumnBgIdx = (autumnBgIdx + 1) % AUTUMN_STUDIO_BGS.length;
+                autumnZoomForward = !autumnZoomForward; // Alternates direction every transition: true -> false -> true -> false
+                crossfadeBackground(AUTUMN_STUDIO_BGS[autumnBgIdx], autumnZoomForward);
+            }
+            setInterval(rotateAutumnBackground, 24000);
+            window.rotateAutumnBackground = rotateAutumnBackground;
+            window.AUTUMN_STUDIO_BGS = AUTUMN_STUDIO_BGS;
+
+            const opPanel = document.getElementById("operatorPanel");
             const panelTriggerBtn = document.getElementById("panelTriggerBtn");
             const closePanelBtn = document.getElementById("closePanelBtn");
             const daySelect = document.getElementById("daySelect");
@@ -2867,46 +2914,13 @@
 
                         // Helper to get dynamic background based on time of day and calendar date
             function getDynamicBackground(imagePath) {
-                const now = new Date();
-                if (now.getMonth() === 7 && now.getDate() === 1) {
-                    return "tlo_1_sie_2026.jpg";
+                if (imagePath && imagePath !== "loop_jesien" && imagePath !== "SOBOTA.jpg" && !imagePath.includes("breakfast_presenters") && !imagePath.includes("tlo_live") && !imagePath.includes("tlo_poranne")) {
+                    return imagePath;
                 }
-                
-                // Auto-rotation every 1 minute between new morning bg and dynamic presenters
-                const min = new Date().getMinutes();
-                  const isPoranneTurn = (Math.floor(min / 5) % 2 === 0); // Even minutes = Poranne, Odd minutes = Presenters
-
-                // Normalize cache busted URLs if present
-                if (imagePath && imagePath.includes("?v=")) {
-                    imagePath = imagePath.split("?v=")[0];
-                }
-
-                                if (imagePath === "tlo_poranne_live.png" || imagePath === "breakfast_presenters.jpg") {
-                    if (isPoranneTurn) {
-                        return "tlo_poranne_live.png";
-                    } else {
-                        imagePath = "breakfast_presenters.jpg"; // Fall through to time-based presenters logic
-                    }
-                }
-                
-                if (imagePath === "tlo_live_1.png" || imagePath === "tlo_live_2.png") {
-                    if (isPoranneTurn) {
-                        return "tlo_live_1.png";
-                    } else {
-                        return "tlo_live_2.png";
-                    }
-                }
-
-                const hour = new Date().getHours();
-                // if (hour >= 21 || hour < 6) return "CCTV_NOCA.jpg?v=1";
-                if (imagePath && imagePath !== "breakfast_presenters.jpg") return imagePath;
-                if (hour >= 5 && hour < 9) return "breakfast_presenters_morning_2.jpg";
-                if (hour >= 9 && hour < 12) return "breakfast_presenters_forenoon.jpg";
-                if (hour >= 12 && hour < 18) return "breakfast_presenters.jpg";
-                return "breakfast_presenters.jpg";
+                return AUTUMN_STUDIO_BGS[autumnBgIdx];
             }
 
-                                    // Real-time weather data cache and city coordinates
+            // Real-time weather data cache and city coordinates
             let realWeatherData = {};
             const cityCoords = {
                 "WARSZAWA": { lat: 52.2297, lon: 21.0122 },
@@ -3149,10 +3163,15 @@ function getWeatherPreset(city) {
 
                         if (safeStorage.getItem("dzj_stream_image")) {
                 customImgSrc = safeStorage.getItem("dzj_stream_image");
+                if (customImgSrc.includes("tlo_live_") || customImgSrc.includes("breakfast_presenters") || customImgSrc.includes("tlo_poranne")) {
+                    customImgSrc = "loop_jesien";
+                    safeStorage.setItem("dzj_stream_image", customImgSrc);
+                }
                 if (bgImageSelect) bgImageSelect.value = customImgSrc;
-                crossfadeBackground(getDynamicBackground(customImgSrc));
+                crossfadeBackground(getDynamicBackground(customImgSrc), true);
             } else {
-                crossfadeBackground(getDynamicBackground(customImgSrc));
+                customImgSrc = "loop_jesien";
+                crossfadeBackground(getDynamicBackground(customImgSrc), true);
             }
             if (safeStorage.getItem("dzj_stream_video")) {
                 customVideoSrc = safeStorage.getItem("dzj_stream_video");
