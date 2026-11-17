@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina",
+      "title": "LUMINA — Portal Społecznościowy",
+      "url": "https://polskieradio.cc/lumina",
+      "type": "profile",
+      "image": "card-lumina.jpg",
+      "publishedAt": "2026-11-17T11:33:48.770Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=331",
       "title": "Werset Dnia: „Kroki człowieka zależą od Pana; jakże człowiek może zrozumieć własną drogę” (Księga Przysłów 20:24, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=331",

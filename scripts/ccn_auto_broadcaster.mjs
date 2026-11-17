@@ -331,6 +331,10 @@ function resolveItemImage(item, rootDir) {
     const p1 = path.join(rootDir, 'images', 'search', 'global-radio.jpg');
     if (fs.existsSync(p1)) return p1;
   }
+  if (pathLower.includes('lumina') && !pathLower.includes('cezary') && !pathLower.includes('wioletta')) {
+    const p1 = path.join(rootDir, 'images', 'kultura', 'card-lumina.jpg');
+    if (fs.existsSync(p1)) return p1;
+  }
   if (pathLower.includes('lumina') || pathLower.includes('cezary') || pathLower.includes('wioletta')) {
     const p = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
     if (fs.existsSync(p)) return p;
