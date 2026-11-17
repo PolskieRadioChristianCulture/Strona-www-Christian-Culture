@@ -9,6 +9,7 @@ import { scanReleaseForSecrets } from './cc-release-secret-scan.mjs';
 import { isPublicFile } from './cc-release-files.mjs';
 import { sprawdzPliki, plikiLekcji } from './kurs-codzienny/straznik-lekcji.mjs';
 import { enforceReleaseBranch } from './cc-release-branch-guard.mjs';
+import { enforceProtectedPages } from './cc-protected-pages.mjs';
 
 const ROOT = process.cwd();
 const OUTPUT = path.join(ROOT, '.pages-release');
@@ -128,5 +129,7 @@ const courseManifest = dailyCourseManifest(tracked,file=>fs.readFileSync(path.jo
 fs.mkdirSync(path.join(resolvedOutput,'data'),{recursive:true});
 fs.writeFileSync(path.join(resolvedOutput,'data','daily-course-push.json'),JSON.stringify(courseManifest));
 scanReleaseForSecrets(resolvedOutput);
+// Chronione strony (@007, L0 17.11.2026): wydanie nie może cofnąć zatwierdzonej wersji.
+enforceProtectedPages({ root: ROOT, releaseDir: resolvedOutput });
 
 console.log(JSON.stringify({ output: resolvedOutput, copied, source: 'tracked-clean-worktree' }, null, 2));

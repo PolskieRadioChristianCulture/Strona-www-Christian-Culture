@@ -13,6 +13,8 @@ import { applyPageStandard } from './cc-page-standard.mjs';
 import { renderLumiPage } from './lumi-page.mjs';
 import { scanReleaseForSecrets } from './cc-release-secret-scan.mjs';
 import { isPublicFile } from './cc-release-files.mjs';
+import { enforceReleaseBranch } from './cc-release-branch-guard.mjs';
+import { enforceProtectedPages } from './cc-protected-pages.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,6 +45,10 @@ const CRITICAL_FILES = [
   'components/cc-omni-search.js',
   'js/cc-favorites.js'
 ];
+
+// Incydent 17.11.2026 16:27: ten skrypt wdrożył wydanie z lokalnego main bez origin/main i cofnął /ccwomen.
+// Od teraz te same bramki co build-pages-release: tylko main zawierający origin/main + chronione strony.
+enforceReleaseBranch(ROOT);
 
 console.log('📦 Budowanie pełnego wydania w .pages-release...');
 fs.rmSync(RELEASE_DIR, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
@@ -131,8 +137,11 @@ for (const portal of SPA_PORTALS) {
   }
 }
 
+enforceProtectedPages({ root: ROOT, releaseDir: RELEASE_DIR });
+
 console.log(`✅ Bramka integralności zaliczona (${copied} plików w .pages-release, wszystkie pliki krytyczne i assety SPA obecne).`);
-execSync('npx.cmd wrangler pages deploy "polskieradio.cc\\.pages-release" --project-name polskieradio --branch main --commit-dirty=true', {
-  cwd: PARENT,
+// Wdrażamy katalog wydania zbudowany w TYM drzewie (wcześniej na sztywno polskieradio.cc\.pages-release).
+execSync('npx.cmd wrangler pages deploy .pages-release --project-name polskieradio --branch main --commit-dirty=true', {
+  cwd: ROOT,
   stdio: 'inherit'
 });
