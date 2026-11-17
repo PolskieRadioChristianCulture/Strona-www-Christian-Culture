@@ -106,8 +106,11 @@
             background-position: center center;
             background-repeat: no-repeat;
             opacity: 0;
-            transition: opacity 2.8s ease-in-out;
+            transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1);
             will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         /* Nakładka ekranu ściennego z tytułem „▶ LIVE: 20:00 — Dlaczego Potrzebujesz Żywego Słowa?”
@@ -116,12 +119,14 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: url('images/live_2000_dlaczego_potrzebujesz_zywego_slowa.jpg?v=20261117_2') no-repeat center center;
+            background: url('images/live_2000_dlaczego_potrzebujesz_zywego_slowa.jpg?v=20261117_hd') no-repeat center center;
             background-size: cover;
             clip-path: inset(6% 0.5% 47.5% 60.5%);
             -webkit-mask-image: radial-gradient(ellipse 21% 23% at 80.5% 28.5%, #000 72%, transparent 100%);
             mask-image: radial-gradient(ellipse 21% 23% at 80.5% 28.5%, #000 72%, transparent 100%);
             pointer-events: none;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         .bg-slide.active {
@@ -137,13 +142,13 @@
         }
 
         @keyframes kenBurnsForward {
-            0%   { transform: scale(1.0); }
-            100% { transform: scale(1.08); }
+            0%   { transform: translate3d(0, 0, 0) scale(1.0); }
+            100% { transform: translate3d(0, 0, 0) scale(1.06); }
         }
 
         @keyframes kenBurnsBackward {
-            0%   { transform: scale(1.08); }
-            100% { transform: scale(1.0); }
+            0%   { transform: translate3d(0, 0, 0) scale(1.06); }
+            100% { transform: translate3d(0, 0, 0) scale(1.0); }
         }
 
         /* Subtelny blask ambientowy */
@@ -664,13 +669,13 @@
     <!-- Main Scene Container (1920x1080) -->
     <div id="scene-wrapper">
 
-        <!-- 5 JESIENNYCH TEŁ W PĘTLI Z PRZENIKANIEM I ZOOMEM DO PRZODU / DO TYŁU -->
+        <!-- 5 JESIENNYCH TEŁ W PĘTLI Z PRZENIKANIEM I ZOOMEM DO PRZODU / DO TYŁU (1920x1080 Full HD) -->
         <div class="bg-Rotator" id="bgRotator">
-            <div class="bg-slide active zoom-forward" style="background-image: url('tlo_studio_jesien_1.jpg?v=20261117');"></div>
-            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_2.jpg?v=20261117');"></div>
-            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_3.jpg?v=20261117');"></div>
-            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_4.jpg?v=20261117');"></div>
-            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_5.jpg?v=20261117');"></div>
+            <div class="bg-slide active zoom-forward" style="background-image: url('tlo_studio_jesien_1.jpg?v=20261117_hd');"></div>
+            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_2.jpg?v=20261117_hd');"></div>
+            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_3.jpg?v=20261117_hd');"></div>
+            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_4.jpg?v=20261117_hd');"></div>
+            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_5.jpg?v=20261117_hd');"></div>
         </div>
 
         <div class="ambient-glow"></div>
