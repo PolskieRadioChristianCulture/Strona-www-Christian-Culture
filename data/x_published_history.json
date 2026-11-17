@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "topTEN",
+      "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+      "url": "https://polskieradio.cc/topTEN",
+      "type": "music",
+      "image": "wspieramto-banner.png",
+      "publishedAt": "2026-11-17T20:33:22.262Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=333",
       "title": "Werset Dnia: „Kto ukrywa swoje grzechy, temu się nie poszczęści; kto je wyznaje i porzuca, dostąpi miłosierdzia” (Księga Przysłów 28:13, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=333",
