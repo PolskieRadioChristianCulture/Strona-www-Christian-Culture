@@ -308,13 +308,11 @@
         function post(frame, msg) { try { frame && frame.contentWindow && frame.contentWindow.postMessage(msg, '*'); } catch (e) {} }
         function silence(frame, pause) {
             if (!frame) return;
-            try { frame.contentDocument.querySelectorAll('audio,video').forEach(m => { m.muted = true; if (pause) try { m.pause(); } catch (e) {} }); } catch (e) {}
             post(frame, { type: 'MUTE_AUDIO' }); post(frame, 'MUTE_AUDIO'); post(frame, '{"event":"command","func":"mute","args":""}');
             if (pause) post(frame, '{"event":"command","func":"pauseVideo","args":""}');
         }
         function unmute(frame) {
             if (!frame) return;
-            try { frame.contentDocument.querySelectorAll('audio,video').forEach(m => { m.muted = false; m.volume = 1; }); } catch (e) {}
             post(frame, { type: 'UNMUTE_AUDIO' }); post(frame, 'UNMUTE_AUDIO');
             post(frame, '{"event":"command","func":"unMute","args":""}'); post(frame, '{"event":"command","func":"playVideo","args":""}');
         }

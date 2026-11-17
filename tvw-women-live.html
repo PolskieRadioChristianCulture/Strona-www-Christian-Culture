@@ -176,9 +176,29 @@
             const d = ev.data; let type = '';
             if (typeof d === 'string') { try { const p = JSON.parse(d); type = p.type || p.event || ''; if (p.func === 'unMute') type = 'UNMUTE_AUDIO'; if (p.func === 'mute') type = 'MUTE_AUDIO'; } catch (e) { type = d; } }
             else if (d && typeof d === 'object') type = d.type || '';
-            if (type === 'UNMUTE_AUDIO') { tvwMuted = false; applyAudio(); }
+            if (type === 'UNMUTE_AUDIO') {
+                tvwMuted = false;
+                applyAudio();
+                try { if (player && player.playVideo) player.playVideo(); } catch (e) {}
+            }
             if (type === 'MUTE_AUDIO') { tvwMuted = true; applyAudio(); }
         });
+        // Pancerne wznawianie wideo (anty-zamrażanie obrazu)
+        setInterval(() => {
+            if (!player || typeof player.getPlayerState !== 'function') return;
+            try {
+                const st = player.getPlayerState();
+                if (st === YT.PlayerState.PAUSED) {
+                    player.playVideo();
+                } else if (st === YT.PlayerState.ENDED) {
+                    if (player.nextVideo) player.nextVideo();
+                }
+                if (st === YT.PlayerState.PLAYING) {
+                    const fb = document.getElementById('tvwFallback');
+                    if (fb && fb.style.opacity !== '0') fb.style.opacity = '0';
+                }
+            } catch (e) {}
+        }, 3000);
         // Samodzielnie (poza TVW): pierwsze dotknięcie włącza dźwięk.
         if (window.self === window.top && !tvwMuted) {
             const unlock = () => { applyAudio(); };
