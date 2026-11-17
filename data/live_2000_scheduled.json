@@ -10,10 +10,10 @@
       "videoId": "3v9Dnwidgjk",
       "watchUrl": "https://youtube.com/live/3v9Dnwidgjk",
       "streamRoomUrl": "https://studio.youtube.com/video/3v9Dnwidgjk/livestreaming",
-      "streamKey": "UKRYTY_W_STUDIO",
+      "streamKey": "Default stream key",
       "visibility": "PUBLIC",
       "time": "20:00 (17.11.2026)",
-      "status": "READY"
+      "status": "LIVE_NOW"
     },
     {
       "channel": "Osobowość +",
@@ -21,21 +21,21 @@
       "videoId": "DTEt2rW_YH4",
       "watchUrl": "https://youtube.com/live/DTEt2rW_YH4",
       "streamRoomUrl": "https://studio.youtube.com/video/DTEt2rW_YH4/livestreaming",
-      "streamKey": "UKRYTY_W_STUDIO",
+      "streamKey": "Default stream key",
       "visibility": "PUBLIC",
       "time": "20:00 (17.11.2026)",
-      "status": "READY"
+      "status": "LIVE_NOW"
     },
     {
       "channel": "Christian Culture TV",
       "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
-      "videoId": "7w4bIOba5Z4",
-      "watchUrl": "https://youtube.com/live/7w4bIOba5Z4",
-      "streamRoomUrl": "https://studio.youtube.com/video/7w4bIOba5Z4/livestreaming",
-      "streamKey": "UKRYTY_W_STUDIO",
+      "videoId": "UyE9BDuk2F0",
+      "watchUrl": "https://youtube.com/live/UyE9BDuk2F0",
+      "streamRoomUrl": "https://studio.youtube.com/video/UyE9BDuk2F0/livestreaming",
+      "streamKey": "rzeb-442c-078a-pvv1-7d9j",
       "visibility": "PUBLIC",
       "time": "20:00 (17.11.2026)",
-      "status": "READY"
+      "status": "LIVE_NOW"
     },
     {
       "channel": "Polskie Radio CHRISTIAN CULTURE",
@@ -43,10 +43,10 @@
       "videoId": "2IrFZMYWQiA",
       "watchUrl": "https://youtube.com/live/2IrFZMYWQiA",
       "streamRoomUrl": "https://studio.youtube.com/video/2IrFZMYWQiA/livestreaming",
-      "streamKey": "UKRYTY_W_STUDIO",
+      "streamKey": "Default stream key",
       "visibility": "PUBLIC",
       "time": "20:00 (17.11.2026)",
-      "status": "READY"
+      "status": "LIVE_NOW"
     },
     {
       "channel": "CC Women",
@@ -57,7 +57,7 @@
       "streamKey": "qh86-7jv9-4xmy-sqxd-1sk0",
       "visibility": "PUBLIC",
       "time": "20:00 (17.11.2026)",
-      "status": "READY"
+      "status": "LIVE_NOW"
     }
   ]
 }
