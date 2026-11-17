@@ -2,6 +2,24 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "prawda-bez-filtra",
+      "title": "Książka: Prawda Bez Filtra — Cezary Rogowski. Bezkompromisowe chrześcijaństwo",
+      "url": "https://polskieradio.cc/prawda-bez-filtra",
+      "type": "book",
+      "image": "art-prawda-bez-filtra.jpg",
+      "publishedAt": "2026-11-17T07:03:11.587Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=330",
+      "title": "Werset Dnia: „Wiele jest zamysłów w sercu człowieka, lecz wola Pana się ostoi” (Księga Przysłów 19:21, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=330",
+      "type": "verse",
+      "image": "werset-day-330-ksiega-przyslow-19-21.jpg",
+      "publishedAt": "2026-11-17T06:32:55.585Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "z-biblia-za-pan-brat-dzien-29-bog-prowadzi-swoj-lud-do-egiptu",
       "title": "Z Biblią za Pan Brat: Dzień 29 — Zejście Izraela do Egiptu: Teofania w Beer-Szebie, etyka administracji kryzysowej i nadzieja Kanaanu w Rdz 46–47",
       "url": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-29-bog-prowadzi-swoj-lud-do-egiptu",
