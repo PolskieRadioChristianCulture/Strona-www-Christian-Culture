@@ -79,6 +79,10 @@
 
     applyTranslations(lang);
     updateSwitcherButtons(lang);
+
+    try {
+      window.dispatchEvent(new CustomEvent('ccLanguageChanged', { detail: { lang: lang } }));
+    } catch (_) {}
   }
 
   // Słownik tłumaczeń dla 3 kluczowych stron
@@ -131,6 +135,15 @@
     });
 
     // 3. Specjalne dopasowania per strona
+    // Wywołanie dedykowanego i18n dla master-live.html
+    if (typeof window.updateMasterLiveLanguage === 'function') {
+      try {
+        window.updateMasterLiveLanguage(lang);
+      } catch (e) {
+        console.warn('updateMasterLiveLanguage error:', e);
+      }
+    }
+
     // Strona master-live.html: banner unmute
     var unmuteBanner = document.querySelector('#masterUnmuteBanner span');
     if (unmuteBanner) {
