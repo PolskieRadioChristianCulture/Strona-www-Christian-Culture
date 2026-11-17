@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "dzien-15",
+      "title": "Z Biblią za Pan Brat — Dzień 15 (Lekcja 15): Bóg Dotrzymuje Obietnicy (Narodziny Izaaka, Rdz 20–21)",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-15",
+      "type": "course",
+      "image": "kc_day_15_isaac_obietnica.jpg",
+      "publishedAt": "2026-11-17T18:33:16.447Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "ambient-sleep-live.html",
       "title": "Ambient Sleep Live",
       "url": "https://polskieradio.cc/ambient-sleep-live.html",
