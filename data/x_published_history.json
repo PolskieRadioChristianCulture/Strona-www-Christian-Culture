@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "pokonac-goliata",
+      "title": "Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo",
+      "url": "https://polskieradio.cc/pokonac-goliata",
+      "type": "book",
+      "image": "art-pokonac-goliata.jpg",
+      "publishedAt": "2026-11-17T21:03:38.915Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "topTEN",
       "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
       "url": "https://polskieradio.cc/topTEN",
