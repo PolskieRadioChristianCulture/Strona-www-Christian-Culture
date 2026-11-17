@@ -394,6 +394,12 @@
 /lumina/radio-cc /lumina.radiocc 200
 /lumina/ccmen /lumina.ccmen 200
 /lumina/ccwomen /lumina.ccwomen 200
+/ccwomen /ccwomen/index.html 200
+/ccwomen/ /ccwomen/index.html 200
+/CCWomen /ccwomen 301
+/CCWomen/ /ccwomen 301
+/test/ccwomen /test/ccwomen/index.html 200
+/test/ccwomen/ /test/ccwomen/index.html 200
 /lumina/studiodobregoslowa /lumina.studiodobregoslowa 200
 /lumina/studio-dobrego-slowa /lumina.studiodobregoslowa 200
 /studiodobregoslowa /lumina.studiodobregoslowa 200
