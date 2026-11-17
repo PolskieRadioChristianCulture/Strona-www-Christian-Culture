@@ -1744,12 +1744,12 @@
         body #livePrayerOverlay {
             position: fixed !important;
             left: 96px !important;
-            bottom: 245px !important; /* safe area nad paskiem CCN i popupami promocyjnymi */
+            bottom: 189px !important; /* dół 891 px — idealnie równo w jednej linii z oknem rozważań */
             width: 760px !important;
         }
         body #ccLiveViewerChat {
             left: 96px !important;
-            bottom: 245px !important;
+            bottom: 189px !important;
         }
         /* Rozważanie czytelne z telewizora (Dowódca 19.10, Claude @A007): tekst Noemi i Sary 18 → 26 px przy 1920×1080. */
         .chat-container .chat-bubble {
@@ -2097,7 +2097,7 @@
             <!-- Popup Tab (Outside footer to sit behind it) -->
 
             <!-- Prayer Intentions Real-time Broadcast Overlay -->
-            <div id="livePrayerOverlay" style="position: fixed; bottom: 245px; left: 70px; width: 800px; background: rgba(15, 18, 30, 0.96); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 3px solid var(--breakfast-accent); border-radius: 24px; padding: 25px 35px; box-shadow: 0 25px 50px rgba(0,0,0,0.95); display: flex; flex-direction: column; gap: 14px; z-index: 1000; opacity: 0; transform: translateY(30px); pointer-events: none; transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1); border-left: 8px solid #dc143c;">
+            <div id="livePrayerOverlay" style="position: fixed; bottom: 189px; left: 70px; width: 800px; background: rgba(15, 18, 30, 0.96); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 3px solid var(--breakfast-accent); border-radius: 24px; padding: 25px 35px; box-shadow: 0 25px 50px rgba(0,0,0,0.95); display: flex; flex-direction: column; gap: 14px; z-index: 1000; opacity: 0; transform: translateY(30px); pointer-events: none; transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1); border-left: 8px solid #dc143c;">
                 <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
                     <span style="font-family: 'Cinzel', serif; font-size: 1.45rem; font-weight: 800; color: #ff4d6d; letter-spacing: 2px; text-transform: uppercase; display: flex; align-items: center; gap: 10px;"><i class="fa-solid fa-hands-praying"></i> WSPÓLNA MODLITWA LIVE</span>
                     <span style="font-size: 1.2rem; color: rgba(255,255,255,0.4); font-weight: 700; letter-spacing: 1px;">TERAZ</span>
@@ -4253,7 +4253,7 @@ if(typeof initStream === 'function') initStream();
     <!-- Strażnik 2026-10-07: komunikaty i stan LIVE z Mission Control (projekt cc-mission-control) -->
     <script type="module" src="js/cc-live-mission-feed.js?v=20261008_kanaly3&autostart=1"></script>
     <!-- Czat widzów LUMI MESS ze wszystkich pokoi LIVE TV (Claude @A007, 19.10) — położenie w kadrze 1920×1080 -->
-    <script src="/js/cc-live-viewer-chat.js?v=20261020_a002b" data-left="96" data-bottom="245" data-width="640" data-height="179" data-hide="#livePrayerOverlay"></script>
+    <script src="/js/cc-live-viewer-chat.js?v=20261020_a002b" data-left="96" data-bottom="189" data-width="640" data-height="179" data-hide="#livePrayerOverlay"></script>
 </body>
 </html>
 
