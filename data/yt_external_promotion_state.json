@@ -1,7 +1,7 @@
 {
-  "lastIndex": 5,
-  "lastChannelId": "cc_women",
-  "lastTimestamp": "2026-11-16T17:02:43.794Z",
+  "lastIndex": 6,
+  "lastChannelId": "cc_men",
+  "lastTimestamp": "2026-11-17T09:15:57.172Z",
   "history": [
     {
       "index": 0,
@@ -66,6 +66,17 @@
       "url": "https://www.youtube.com/@CCWomen7",
       "targetAudience": "Kobiety w każdym wieku zmęczone toksyczną presją mediów społecznościowych",
       "hook": "Przestań udowadniać światu swoją wartość. Bóg już określił, kim jesteś."
+    },
+    {
+      "index": 6,
+      "channelId": "cc_men",
+      "timestamp": "2026-11-17T09:15:57.172Z",
+      "status": "PROMOTED",
+      "channelName": "CC Men",
+      "handle": "@CCMen7",
+      "url": "https://www.youtube.com/@CCMen7",
+      "targetAudience": "Mężczyźni, ojcowie, mężowie szukający wzorców męstwa, walki z pokusami i braterstwa",
+      "hook": "Prawdziwe męstwo to nie siła mięśni, lecz gotowość do wzięcia odpowiedzialności za innych."
     }
   ]
 }
