@@ -1,0 +1,63 @@
+{
+  "event": "Dlaczego Potrzebujesz Żywego Słowa?",
+  "date": "2026-11-17",
+  "scheduledTime": "20:00:00+01:00",
+  "thumbnail": "images/live_2000_dlaczego_potrzebujesz_zywego_slowa.jpg",
+  "channels": [
+    {
+      "channel": "Robert Łukasz Pio",
+      "channelId": "UC34DD8FTh_y2GhZhg3qBaIQ",
+      "videoId": "3v9Dnwidgjk",
+      "watchUrl": "https://youtube.com/live/3v9Dnwidgjk",
+      "streamRoomUrl": "https://studio.youtube.com/video/3v9Dnwidgjk/livestreaming",
+      "streamKey": "UKRYTY_W_STUDIO",
+      "visibility": "PUBLIC",
+      "time": "20:00 (17.11.2026)",
+      "status": "READY"
+    },
+    {
+      "channel": "Osobowość +",
+      "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+      "videoId": "DTEt2rW_YH4",
+      "watchUrl": "https://youtube.com/live/DTEt2rW_YH4",
+      "streamRoomUrl": "https://studio.youtube.com/video/DTEt2rW_YH4/livestreaming",
+      "streamKey": "UKRYTY_W_STUDIO",
+      "visibility": "PUBLIC",
+      "time": "20:00 (17.11.2026)",
+      "status": "READY"
+    },
+    {
+      "channel": "Christian Culture TV",
+      "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+      "videoId": "7w4bIOba5Z4",
+      "watchUrl": "https://youtube.com/live/7w4bIOba5Z4",
+      "streamRoomUrl": "https://studio.youtube.com/video/7w4bIOba5Z4/livestreaming",
+      "streamKey": "UKRYTY_W_STUDIO",
+      "visibility": "PUBLIC",
+      "time": "20:00 (17.11.2026)",
+      "status": "READY"
+    },
+    {
+      "channel": "Polskie Radio CHRISTIAN CULTURE",
+      "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+      "videoId": "2IrFZMYWQiA",
+      "watchUrl": "https://youtube.com/live/2IrFZMYWQiA",
+      "streamRoomUrl": "https://studio.youtube.com/video/2IrFZMYWQiA/livestreaming",
+      "streamKey": "UKRYTY_W_STUDIO",
+      "visibility": "PUBLIC",
+      "time": "20:00 (17.11.2026)",
+      "status": "READY"
+    },
+    {
+      "channel": "CC Women",
+      "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+      "videoId": "uHDqU-rlzsg",
+      "watchUrl": "https://youtube.com/live/uHDqU-rlzsg",
+      "streamRoomUrl": "https://studio.youtube.com/video/uHDqU-rlzsg/livestreaming",
+      "streamKey": "qh86-7jv9-4xmy-sqxd-1sk0",
+      "visibility": "PUBLIC",
+      "time": "20:00 (17.11.2026)",
+      "status": "READY"
+    }
+  ]
+}
