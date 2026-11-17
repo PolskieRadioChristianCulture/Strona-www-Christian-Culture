@@ -483,6 +483,79 @@
         
         /* Całkowite wyłączenie zegara Polonii na życzenie Dowódcy - nie zasłania ekranu transmisji */
         [data-cc-polonia-clock], .cc-polonia-clock-wrap { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+
+        /* Zintegrowana, kompaktowa kapsuła sterowania dźwiękiem i językiem (Dowódca 17.11) */
+        .cc-master-controls-capsule {
+            display: inline-flex;
+            align-items: center;
+            align-self: center;
+            background: rgba(18, 18, 26, 0.88);
+            border: 1px solid rgba(255, 122, 0, 0.5);
+            border-radius: 20px;
+            padding: 2px 4px;
+            gap: 3px;
+            margin: 0 8px;
+            flex-shrink: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .cc-controls-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+            margin: 0 1px;
+        }
+
+        .cc-master-controls-capsule .cc-lang-toggle {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            gap: 2px !important;
+        }
+
+        .cc-master-controls-capsule .cc-lang-pill-btn {
+            min-width: 32px !important;
+            width: 32px !important;
+            height: 28px !important;
+            min-height: 28px !important;
+            padding: 0 !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            border-radius: 14px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .cc-master-controls-capsule .master-sound-btn {
+            width: 28px !important;
+            min-width: 28px !important;
+            height: 28px !important;
+            min-height: 28px !important;
+            padding: 0 !important;
+            border-radius: 14px !important;
+            border: none !important;
+            cursor: pointer;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 0.85rem !important;
+            transition: all 0.2s ease !important;
+            color: #cbd5e1;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .cc-master-controls-capsule .master-sound-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .cc-master-controls-capsule .master-sound-btn.is-active {
+            background: #FF7A00 !important;
+            color: #1a0d00 !important;
+            box-shadow: 0 0 10px rgba(255, 122, 0, 0.6);
+        }
         @media (max-width: 900px) {
             :root { --ticker-height: 68px; }
             .ccn-ticker-brand img { max-width: 140px; }
@@ -947,12 +1020,15 @@
             </div>
         </div>
 
-        <!-- 4. RIGHT CONTROLS: AUDIO TOGGLE, LANG SWITCHER & CLOCK -->
-        <button id="masterMuteToggleBtn" class="master-sound-btn" onclick="toggleMasterAudio(event);" aria-label="Włącz lub wyłącz dźwięk transmisji" style="min-width: 44px; min-height: 38px; padding: 4px 14px; border-radius: 20px; border: 1.5px solid #FF7A00; background: #FF7A00; color: #1a0d00; font-weight: 800; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; margin: 0 4px; z-index: 10;">
-            <i id="masterMuteIcon" class="fa-solid fa-volume-high"></i>
-            <span id="masterMuteText">DŹWIĘK: WŁ</span>
-        </button>
-        <div data-cc-lang-switcher style="display:inline-flex;align-items:center;margin:0 4px;"></div>
+        <!-- 4. RIGHT CONTROLS: COMPACT INTEGRATED AUDIO & LANG CAPSULE + CLOCK -->
+        <div class="cc-master-controls-capsule" role="group" aria-label="Sterowanie dźwiękiem i językiem">
+            <button id="masterMuteToggleBtn" class="master-sound-btn" onclick="toggleMasterAudio(event);" aria-label="Włącz lub wyłącz dźwięk transmisji" title="Włącz lub wyłącz dźwięk transmisji">
+                <i id="masterMuteIcon" class="fa-solid fa-volume-xmark"></i>
+                <span id="masterMuteText" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">WYCISZONY</span>
+            </button>
+            <div class="cc-controls-divider"></div>
+            <div data-cc-lang-switcher style="display:inline-flex;align-items:center;"></div>
+        </div>
         <div class="ccn-clock-box">
             <div class="ccn-clock-time" id="ccnClockTime">--:--:--</div>
             <div class="ccn-clock-date" id="ccnClockDate">-- ---</div>
@@ -1583,9 +1659,9 @@
                 if (icon) icon.className = 'fa-solid fa-volume-xmark';
                 if (text) text.textContent = isEn ? 'MUTED' : 'WYCISZONY';
                 if (btn) {
-                    btn.style.background = 'rgba(255, 255, 255, 0.15)';
-                    btn.style.borderColor = 'rgba(255, 255, 255, 0.4)';
-                    btn.style.color = '#ffffff';
+                    btn.classList.remove('is-active');
+                    btn.setAttribute('title', isEn ? 'Unmute live audio' : 'Włącz dźwięk transmisji');
+                    btn.setAttribute('aria-label', isEn ? 'Unmute live audio' : 'Włącz dźwięk transmisji');
                 }
                 if (banner && !isEmbedMode) {
                     banner.style.display = 'flex';
@@ -1598,9 +1674,9 @@
                 if (icon) icon.className = 'fa-solid fa-volume-high';
                 if (text) text.textContent = isEn ? 'SOUND: ON' : 'DŹWIĘK: WŁ';
                 if (btn) {
-                    btn.style.background = '#FF7A00';
-                    btn.style.borderColor = '#FF7A00';
-                    btn.style.color = '#1a0d00';
+                    btn.classList.add('is-active');
+                    btn.setAttribute('title', isEn ? 'Mute live audio' : 'Wycisz dźwięk transmisji');
+                    btn.setAttribute('aria-label', isEn ? 'Mute live audio' : 'Wycisz dźwięk transmisji');
                 }
                 if (banner) {
                     banner.style.display = 'none';
