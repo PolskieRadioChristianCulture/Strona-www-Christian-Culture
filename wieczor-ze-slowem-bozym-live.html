@@ -466,14 +466,17 @@
             box-shadow: 0 0 10px rgba(255, 122, 0, 0.45);
         }
 
-        /* Zegar studyjny po prawej w dolnym pasku */
+        /* Zegar studyjny po prawej w dolnym pasku — sztywno osadzony (stała szerokość boksów cyfr i kontenera) */
         .ccn-clock-box {
             display: flex;
-            align-items: baseline;
-            gap: 10px;
-            padding: 0 22px 0 14px;
-            height: 100%;
             align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 214px;
+            min-width: 214px;
+            max-width: 214px;
+            padding: 0 14px;
+            height: 100%;
             background: #05070c;
             border-left: 1px solid rgba(255, 255, 255, 0.14);
             flex-shrink: 0;
@@ -485,8 +488,26 @@
             font-size: 25px;
             font-weight: 900;
             color: #ffffff;
-            letter-spacing: 1.2px;
+            letter-spacing: 0;
             line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 112px;
+            min-width: 112px;
+            max-width: 112px;
+        }
+
+        .ccn-clock-time .clk-d {
+            display: inline-block;
+            width: 16px;
+            text-align: center;
+        }
+
+        .ccn-clock-time .clk-sep {
+            display: inline-block;
+            width: 8px;
+            text-align: center;
         }
 
         .ccn-clock-date {
@@ -496,6 +517,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             line-height: 1;
+            white-space: nowrap;
         }
 
         /* ───────────────────────────────────────────────────────────
@@ -778,7 +800,7 @@
             }, 21000);
         })();
 
-        // 3. Zegar studyjny w dolnym pasku
+        // 3. Zegar studyjny w dolnym pasku (sztywne komórki na każdą cyfrę — zero przesunięć)
         function updateClock() {
             const now = new Date();
             const timeStr = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -786,7 +808,11 @@
             
             const timeEl = document.getElementById('clock-time');
             const dateEl = document.getElementById('clock-date');
-            if (timeEl) timeEl.textContent = timeStr;
+            if (timeEl) {
+                timeEl.innerHTML = timeStr.split('').map(ch =>
+                    ch === ':' ? '<span class="clk-sep">:</span>' : `<span class="clk-d">${ch}</span>`
+                ).join('');
+            }
             if (dateEl) dateEl.textContent = dateStr;
         }
         setInterval(updateClock, 1000);
