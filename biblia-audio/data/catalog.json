@@ -409,11 +409,17 @@
     "id": "genesis-28",
     "book": "genesis",
     "chapter": 28,
-    "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "description": "Błogosławieństwo Izaaka dla Jakuba, sen o drabinie sięgającej nieba w Betel, przymierze PANA („Oto ja jestem z tobą”) i ślubowanie dziesięciny.",
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_28_1-22_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 28,1–22 (UBG) — Drabina Jakuba w Betel, Przymierze PANA i Ślubowanie",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_28_1-22_Biblia_Audio_CC.mp3",
+        "verses": "1–22"
+      }
+    ]
   },
   {
     "id": "genesis-29",
