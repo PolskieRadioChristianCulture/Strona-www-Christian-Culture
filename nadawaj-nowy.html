@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Nadawaj z Christian Culture – Telewizja z misją 24/7 (wersja testowa)</title>
+<meta name="description" content="Wszystkie kanały nadawcze Christian Culture: telewizja 24/7, kursy biblijne, muzyka, radio i sceny 9:16. Wybierz kanał i oglądaj na żywo.">
+<link rel="icon" href="/app-christian-culture.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Manrope:wght@500;600;700;800&display=swap">
+<style>
+/* Layout: centrum nadawcze — wejście z Master Live i „teraz w ramówce”, filtry, grupy kanałów 16:9, miejsca na banery autopromocji, karuzela 9:16. Styl Skarbca: czerń + pomarańcz CC. */
+:root{--bg:#06070b;--panel:#0e1118;--panel2:#141824;--line:rgba(255,140,51,.18);--fg:#f7f3ec;--muted:#c3bcb0;--dim:#8d877d;--o:#FF7A00;--o2:#FF8C33;--o3:#E66A00;--gold:#f2c46d;--live:#ff3b30;--f-d:"Unbounded","Segoe UI",sans-serif;--f-b:"Manrope","Segoe UI",sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-b);font-size:16px;line-height:1.5;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-d);letter-spacing:-.01em;margin:0;text-wrap:balance}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--o);outline-offset:3px;border-radius:8px}
+.aurora{position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 15% 20%,rgba(255,122,0,.10),transparent 70%),radial-gradient(35% 30% at 85% 75%,rgba(242,196,109,.06),transparent 70%);animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(5%,-4%) rotate(6deg)}}
+
+/* górny pasek */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(6,7,11,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-d);font-size:14px;text-decoration:none}
+.brand img{width:34px;height:34px;filter:drop-shadow(0 0 10px rgba(242,196,109,.45))}
+.onair{margin-left:auto;display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px}
+.onair i{width:9px;height:9px;border-radius:50%;background:var(--live);box-shadow:0 0 0 0 rgba(255,59,48,.6);animation:pulse 1.6s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(255,59,48,0)}}
+.demo{font-weight:800;font-size:12px;color:#1a0d00;background:var(--gold);padding:5px 10px;border-radius:99px}
+
+/* hero */
+.hero{padding-block:26px 10px}
+/* ── TV HERO: intro wideo → kosmos z pierścieniem ekranów kanałów ── */
+.tvhero{position:relative;height:min(86vh,820px);min-height:520px;overflow:hidden;background:#02030a;isolation:isolate}
+.tvhero video,.tvhero .space{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tvhero .space{background:url(/assets/nadawaj/intro-end.webp) center/cover;opacity:0;transition:opacity 1.2s;animation:spacezoom 40s ease-in-out infinite alternate}
+@keyframes spacezoom{to{transform:scale(1.12) rotate(1deg)}}
+.tvhero.orbit .space{opacity:1}
+.tvhero.orbit video{opacity:0;transition:opacity 1.2s}
+.tvhero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(60% 50% at 50% 45%,transparent 40%,rgba(2,3,10,.75)),linear-gradient(0deg,rgba(6,7,11,1) 0%,rgba(6,7,11,.0) 35%)}
+.ring-stage{position:absolute;left:50%;top:39%;width:0;height:0;z-index:2;perspective:1400px;perspective-origin:50% 20%;opacity:0;transition:opacity 1s .2s}
+.tvhero.orbit .ring-stage{opacity:1}
+.ring{position:absolute;transform-style:preserve-3d;transform:rotateX(-8deg) rotateY(var(--ry,0deg));transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.screen{position:absolute;width:var(--sw,230px);aspect-ratio:16/9;left:calc(var(--sw,230px)/-2);top:calc(var(--sw,230px)*-.28);transform:rotateY(var(--a)) translateZ(var(--r,520px));border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,140,51,.35);background:#0b0d14;box-shadow:0 0 30px rgba(255,122,0,.25);transition:box-shadow .4s,border-color .4s,filter .4s;backface-visibility:hidden}
+.screen img{width:100%;height:100%;object-fit:cover;display:block}
+.screen::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.18),transparent 35%),repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 2px,transparent 2px 4px)}
+.screen .nm{position:absolute;left:0;right:0;bottom:0;padding:6px 8px;font-size:12px;font-weight:800;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent);z-index:1}
+.screen.on{border-color:var(--o);box-shadow:0 0 0 2px var(--o),0 0 60px rgba(255,122,0,.75)}
+.screen .lv{position:absolute;right:6px;top:6px;z-index:1;background:var(--live);color:#fff;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px}
+.ring-stage:not(.focusing) .screen:not(.on){filter:saturate(.75) brightness(.8)}
+.hud-top{position:absolute;z-index:3;top:16px;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hud-now{background:rgba(6,7,11,.7);border:1px solid var(--line);padding:6px 12px;border-radius:10px;font-size:14px;backdrop-filter:blur(8px)}
+.hud-now b{color:var(--o2)}
+.hud-bottom{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:0 max(16px,env(safe-area-inset-right,0px)) 26px max(16px,env(safe-area-inset-left,0px));display:flex;justify-content:center;opacity:0;transform:translateY(30px);transition:all .9s .5s}
+.tvhero.orbit .hud-bottom{opacity:1;transform:none}
+.focus{text-align:center;max-width:760px;display:grid;gap:8px;justify-items:center}
+.focus h1{font-size:clamp(24px,3.6vw,46px);line-height:1.08;text-shadow:0 4px 24px rgba(0,0,0,.8)}
+.focus p{margin:0;color:var(--muted);text-shadow:0 2px 10px #000}
+.focus.swap{animation:fswap .6s}
+@keyframes fswap{from{opacity:0;transform:translateY(12px)}}
+.f-acts{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;justify-content:center}
+.btn-go,.btn-ghost{all:unset;cursor:pointer;min-height:50px;padding:0 22px;border-radius:14px;font-weight:800;display:inline-flex;align-items:center;gap:8px}
+.btn-go{background:linear-gradient(100deg,var(--o2),var(--o));color:#1a0d00;box-shadow:0 10px 30px -10px var(--o);animation:gopulse 2.4s infinite}
+@keyframes gopulse{70%{box-shadow:0 0 0 14px rgba(255,122,0,0),0 10px 30px -10px var(--o)}}
+.btn-ghost{background:rgba(255,255,255,.08);border:1px solid var(--line)}
+.btn-go:focus-visible,.btn-ghost:focus-visible{outline:2px solid var(--gold)}
+.nav{all:unset;cursor:pointer;position:absolute;z-index:3;top:44%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:rgba(6,7,11,.6);border:1px solid var(--line);opacity:0;transition:opacity .8s .8s,background .2s}
+.tvhero.orbit .nav{opacity:1}
+.nav:hover{background:var(--o);color:#1a0d00}
+.nav.prev{left:max(12px,env(safe-area-inset-left,0px))}.nav.next{right:max(12px,env(safe-area-inset-right,0px))}
+@media (max-width:760px){.tvhero{height:640px;min-height:0}.ring-stage{top:38%}.screen{--sw:150px}.ring .screen{--r:300px}.nav{display:none}}
+.eyebrow{font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--o2)}
+.feature{position:relative;border-radius:22px;overflow:hidden;min-height:340px;display:flex;align-items:flex-end;text-decoration:none;border:1px solid var(--line);box-shadow:0 30px 80px -30px rgba(255,122,0,.4)}
+.feature img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);animation:kb 18s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.12) translate(-2%,-1%)}}
+.feature::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,7,11,.95) 8%,rgba(6,7,11,.2) 60%,transparent)}
+.feature .in{position:relative;z-index:1;padding:26px;display:grid;gap:10px}
+.feature h1{font-size:clamp(26px,3.4vw,44px);line-height:1.08}
+.feature p{margin:0;color:var(--muted);max-width:52ch}
+.live-pill{justify-self:start;display:inline-flex;align-items:center;gap:8px;background:var(--live);color:#fff;font-weight:800;font-size:13px;padding:6px 12px;border-radius:8px}
+.live-pill i{width:8px;height:8px;border-radius:50%;background:#fff;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.3}}
+.side{display:grid;gap:14px;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:stretch}
+@media (max-width:860px){.side{grid-template-columns:minmax(0,1fr)}}
+.now{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:20px}
+.now h2{font-size:18px;margin:6px 0 14px}
+.slot{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;align-items:center;padding:10px 0;border-top:1px solid rgba(255,255,255,.06)}
+.slot .t{font-weight:800;font-size:18px;color:var(--o2);font-variant-numeric:tabular-nums}
+.slot b{display:block;font-size:16px}
+.slot small{color:var(--muted)}
+.slot.cur .t::before{content:"● ";color:var(--live)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;align-content:center}
+.stat .v{font-weight:800;font-size:32px;line-height:1.1}
+.stat .l{color:var(--muted);font-size:14px}
+
+/* filtry */
+.filters{position:sticky;top:calc(env(safe-area-inset-top,0px) + 56px);z-index:15;display:flex;gap:8px;flex-wrap:wrap;padding-block:14px;background:linear-gradient(var(--bg) 70%,transparent)}
+.filters button{all:unset;cursor:pointer;min-height:44px;padding:0 16px;display:inline-flex;align-items:center;border-radius:12px;font-weight:700;font-size:15px;background:rgba(255,255,255,.05);border:1px solid var(--line);transition:all .2s}
+.filters button[aria-pressed="true"]{background:var(--o);color:#1a0d00;border-color:var(--o)}
+.filters button:focus-visible{outline:2px solid var(--gold)}
+
+/* grupy i karty */
+section{padding-block:26px 6px;scroll-margin-top:130px}
+.gh{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+.gh h2{font-size:clamp(20px,2.4vw,28px)}
+.gh span{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;perspective:1200px}
+.card{position:relative;background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,140,51,.5);box-shadow:0 20px 50px -24px var(--o)}
+.card[hidden]{display:none}
+.thumb{position:relative;aspect-ratio:16/9;overflow:hidden;display:block}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.card:hover .thumb img{transform:scale(1.08)}
+.thumb .play{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.35);opacity:0;transition:opacity .3s}
+.card:hover .play,.thumb:focus-visible .play{opacity:1}
+.play span{width:62px;height:62px;border-radius:50%;background:var(--o);display:grid;place-items:center;font-size:22px;color:#1a0d00;box-shadow:0 0 0 8px rgba(255,122,0,.25)}
+.chip{position:absolute;left:10px;top:10px;font-weight:800;font-size:12px;padding:4px 9px;border-radius:8px;background:rgba(6,7,11,.85);border:1px solid var(--line)}
+.chip.new{background:var(--o);color:#1a0d00;border:none}
+.chip.onnow{left:auto;right:10px;background:var(--live);color:#fff;border:none}
+.body{padding:16px;display:grid;gap:6px;flex:1}
+.badge{font-weight:800;font-size:12px;letter-spacing:.06em;color:var(--o2);text-transform:uppercase}
+.card h3{font-family:var(--f-b);font-size:18px;font-weight:800;line-height:1.25}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.acts{display:flex;gap:8px;padding:0 16px 16px}
+.acts a,.acts button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 14px;border-radius:11px;font-weight:800;font-size:14px;transition:background .2s}
+.acts .go{background:var(--o);color:#1a0d00;flex:1}
+.acts .sec{background:rgba(255,255,255,.07)}
+.acts .sec:hover{background:rgba(255,122,0,.2)}
+.acts .ok{background:#5fd39a !important;color:#04210f}
+.acts a:focus-visible,.acts button:focus-visible{outline:2px solid var(--gold)}
+
+/* banery autopromocji */
+.ad{position:relative;border-radius:18px;overflow:hidden;border:1px dashed rgba(242,196,109,.55);background:var(--panel2);display:block;text-decoration:none}
+.ad img{width:100%;height:100%;object-fit:cover;display:block}
+.ad .lab{position:absolute;right:10px;top:10px;font-size:11px;font-weight:800;letter-spacing:.12em;background:var(--gold);color:#1a0d00;padding:4px 8px;border-radius:6px}
+.ad.empty{display:grid;place-items:center;text-align:center;color:var(--muted);padding:20px}
+.ad.empty b{display:block;color:var(--fg);font-size:17px;margin-bottom:4px}
+.grid .ad{aspect-ratio:16/9;align-self:start}
+.strip{margin-top:26px;aspect-ratio:2000/562}
+
+/* 9:16 */
+.vert{display:flex;gap:16px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory}
+.vcard{flex:0 0 220px;scroll-snap-align:start;background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:24px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .4s}
+.vcard:hover{transform:translateY(-6px) rotate(-1deg);border-color:rgba(255,140,51,.5)}
+.vcard .ph{aspect-ratio:9/16;overflow:hidden}
+.vcard img{width:100%;height:100%;object-fit:cover}
+.vcard .b{padding:12px}
+.vcard b{display:block;font-size:15px}
+.vcard small{color:var(--muted)}
+.vcard.ad9{border:1px dashed rgba(242,196,109,.55)}
+.vcard.ad9 .ph{display:grid;place-items:center;text-align:center;color:var(--muted);padding:16px;background:var(--panel2)}
+footer{padding-block:50px 40px;color:var(--dim);font-size:14px;text-align:center}
+footer a{color:var(--o2);font-weight:800}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#5fd39a;color:#04210f;font-weight:800;padding:12px 18px;border-radius:12px;z-index:50}
+@media (max-width:980px){.hero{grid-template-columns:minmax(0,1fr)}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.grid{grid-template-columns:minmax(0,1fr)}.stats .v{font-size:26px}.feature{min-height:260px}.onair span{display:none}}
+</style>
+
+</head>
+<body>
+<div class="aurora" aria-hidden="true"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="https://polskieradio.cc/"><img src="/app-christian-culture.png" alt="">Nadawaj z CC</a>
+  <div class="onair"><i></i><span>Na antenie:</span> <span id="onairName">Master Live 24/7</span></div>
+  
+</div></header>
+
+<section class="tvhero" id="tvhero" aria-label="Telewizja Christian Culture – wybierz kanał">
+  <video id="intro" muted playsinline autoplay preload="auto" poster="/assets/nadawaj/intro-first.webp">
+    <source src="/assets/nadawaj/intro-960.mp4" media="(max-width: 760px)" type="video/mp4">
+    <source src="/assets/nadawaj/intro.mp4" type="video/mp4">
+  </video>
+  <div class="space" aria-hidden="true"></div>
+  <div class="ring-stage" id="stage"><div class="ring" id="ring"></div></div>
+  <div class="hud-top">
+    <span class="live-pill"><i></i>NA ŻYWO · 24/7</span>
+    <span class="hud-now">Teraz: <b id="heroNow">Master Live</b></span>
+  </div>
+  <div class="hud-bottom">
+    <div class="focus" id="focus" aria-live="polite">
+      <div class="eyebrow" id="fBadge">Główny kanał nadawczy</div>
+      <h1 id="fTitle">Telewizja Christian Culture 24/7</h1>
+      <p id="fDesc">Obróć pierścień i wybierz kanał. Master Live przełącza pasma sam, całą dobę.</p>
+      <div class="f-acts"><a class="btn-go" id="fGo" href="https://polskieradio.cc/master-live" target="_blank" rel="noopener">▶ Oglądaj</a><button type="button" class="btn-ghost" id="replay">↺ Intro</button></div>
+    </div>
+  </div>
+  <button type="button" class="nav prev" id="prev" aria-label="Poprzedni kanał">‹</button>
+  <button type="button" class="nav next" id="next" aria-label="Następny kanał">›</button>
+</section>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="side">
+      <div class="now">
+        <div class="eyebrow">Ramówka dziś</div>
+        <h2>Co teraz i co dalej</h2>
+        <div id="sched"></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="v" id="cnt">0</div><div class="l">scen nadawczych</div></div>
+        <div class="stat"><div class="v">24/7</div><div class="l">bez przerwy</div></div>
+        <div class="stat"><div class="v">PL·EN</div><div class="l">dwa języki</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters" role="group" aria-label="Filtruj kanały">
+    <button type="button" id="fAll" data-f="all" aria-pressed="true">Wszystkie</button>
+    <button type="button" id="fTv" data-f="tv" aria-pressed="false">Telewizja</button>
+    <button type="button" id="fKurs" data-f="kurs" aria-pressed="false">Kursy i studium</button>
+    <button type="button" id="fMuz" data-f="muz" aria-pressed="false">Muzyka i wyciszenie</button>
+    <button type="button" id="fRad" data-f="radio" aria-pressed="false">Radio i Global</button>
+    <button type="button" id="fMob" data-f="mob" aria-pressed="false">Telefon 9:16</button>
+  </div>
+
+  <div id="groups"></div>
+
+  <a class="ad strip" href="https://polskieradio.cc/ccwomen" target="_blank" rel="noopener"><img src="/assets/promo/promo-ccwomen.webp" alt="Jak kobieta kobiecie… Polecam CC Women – polskieradio.cc/ccwomen" loading="lazy"><span class="lab">BANER 3</span></a>
+
+  <section id="g-mob" data-group="mob">
+    <div class="gh"><h2>Telefon 9:16</h2><span>Sceny pionowe na Shorts, TikTok i relacje</span></div>
+    <div class="vert" id="vert"></div>
+  </section>
+</main>
+<footer class="wrap">Christian Culture · Centrum nadawcze · <a href="https://polskieradio.cc/wspieraj" target="_blank" rel="noopener">Wspieraj misję</a> · Christian Culture 24/7</footer>
+
+<script>
+const BASE='https://polskieradio.cc/';
+const IMG="/assets/nadawaj/" + "img/";
+const G=[
+ {id:'tv',name:'Telewizja 24/7',sub:'Kanały ogólne i wydania specjalne',items:[
+  {f:'cctv24-pl.html',img:'dzj-presenters',b:'Rozważanie dnia · Noemi i Sara',t:'Dobrze, że jesteś TV (16:9)',d:'Codzienne rozważanie jako rozmowa prowadzących, pogoda, intencje i ramówka.',nw:1},
+  {f:'tvw-women-live.html',img:'tvw',b:'Telewizja Kobiet · 24/7',t:'TVW — CC Women (16:9)',d:'Nowy kanał dla kobiet: rozmowy, świadectwa i uwielbienie, nadawany przez OBS.',nw:1},
+  {f:'zapolske-live.html',img:'POLAND',b:'Wydanie specjalne',t:'Zjednoczeni za Polskę (16:9)',d:'Strumień modlitewny za Ojczyznę: modlitwy poranne i intencje widzów.'},
+  {f:'tv-epafraz-live.html',img:'tv_epafraz_thumb',b:'YouTube 24/7 · Podcast i Pismo',t:'TV Epafraz 24/7 (16:9)',d:'Całodobowy kanał biblijny z 24 wybranych serii.'},
+  {f:'wieczor-ze-slowem-bozym-live.html',img:'wieczor-slowo',b:'Codziennie · 20:00',t:'Wieczór ze Słowem Bożym (LIVE)',d:'Wieczorna transmisja ze Słowem na zakończenie dnia.',nw:1,at:[20,21]},
+  {ad:1,n:1,txt:'Twój baner /wspieraj (16:9)',img:'promo'}
+ ]},
+ {id:'kurs',name:'Kursy i studium',sub:'Systematyczna nauka Pisma',items:[
+  {f:'apokalipsa-ksiega-nadziei-live.html',img:'tlo_ksiega_nadziei',b:'Kurs biblijny · 10:00 i 22:00',t:'Apokalipsa: Księga Nadziei (16:9)',d:'28 lekcji o proroctwach Księgi Objawienia.',at:[10,11,22,23]},
+  {f:'apokalipsa-live.html',img:'tv24-cc',b:'Codziennie',t:'Apokalipsa Dzień po Dniu',d:'Codzienna transmisja cyklu o Księdze Objawienia.',nw:1},
+  {f:'studium-live.html',img:'tlo_studium',b:'Studium biblijne · 08:00 i 20:00',t:'Studium Telewizyjne Pisma Świętego',d:'572 wykłady werset po wersecie.',at:[8,9]},
+  {f:'totalny-atak-live.html',img:'walter_veith',b:'Wykłady · Pn–Pt 18:00',t:'Totalny Atak — Prof. Walter Veith',d:'Wykłady biblijne, apologetyczne i profetyczne.',at:[18,19],wd:[1,2,3,4,5]},
+  {f:'randki-malzenstwo-live.html',img:'tv24_master_live',b:'Relacje i rodzina · Pt–Nd 22:00',t:'Randki i Małżeństwo (16:9)',d:'Kurs „Prawdziwe szczęście w rodzinie” Romana Chałupki.'},
+  {ad:1,n:2,txt:'Miejsce na baner nr 2 · 16:9 (np. Kurs Codzienny)'}
+ ]},
+ {id:'muz',name:'Muzyka, film i wyciszenie',sub:'Uwielbienie, kino i noc',items:[
+  {f:'spiewajmy-panu-live.html',img:'spiewajmy-panu-thumb',b:'Blok muzyczny · 16:00',t:'Codzienne Uwielbienie (16:9)',d:'Dwie godziny pieśni chwały i nowości muzycznych.',at:[16,17]},
+  {f:'biblia-spiewana-live.html',img:'Logo_Biblia_Spiewana',b:'Muzyka i Słowo',t:'Biblia Śpiewana (16:9)',d:'Śpiewane Przypowieści Salomona.'},
+  {f:'cctv24-worship.html',img:'worship_logo_thumb',b:'Instrumentalnie · 24/7',t:'Instrumental Worship Music CC',d:'Nieprzerwana muzyka instrumentalna uwielbienia.'},
+  {f:'nocne-czuwanie-live.html',img:'tlo_tv_nocna',b:'00:00 – 06:00',t:'Nocne Czuwanie',d:'Wyciszenie: jeden film relaksacyjny z cyklu 23 na dobę.',at:[0,1,2,3,4,5]},
+  {f:'ambient-sleep-live.html',img:'ambient',b:'Do snu · 24/7',t:'Ambient Sleep TV',d:'Kojące dźwięki do snu i odpoczynku.',nw:1},
+  {f:'kino-live.html',img:'tlo_ksiega_nadziei',b:'Kino · weekendy 18:00',t:'Chrześcijański Blok Filmowy',d:'Filmy i dokumenty z przesłaniem.',at:[18,19,20],wd:[0,6]},
+  {f:'swiadectwa-live.html',img:'tlo_tv_live2',b:'Niedziela · 18:00–20:00',t:'Świadectwa — Historie Wiary',d:'Historie nawróceń, uzdrowień i uwolnień.'}
+ ]},
+ {id:'radio',name:'Radio i Global',sub:'Biblia Audio i wydania angielskie',items:[
+  {f:'stream-scene.html',img:'Logo-Biblia-Audio-CC',b:'Radio internetowe PL',t:'Radio Biblia Audio (16:9)',d:'Całe Pismo do słuchania, scena radiowa.'},
+  {f:'cctv24-global.html',img:'GLOBAL',b:'Global TV 24/7',t:'Good to have you — Global',d:'Angielska wersja telewizji Dobrze, że jesteś.'},
+  {f:'bibleaudio-global.html',img:'Logo-Globalna-Biblia-Audio',b:'English Edition',t:'Bible Audio Global (16:9)',d:'Bible Audio for listeners around the world.'}
+ ]}
+];
+const V=[
+ {f:'stream-scene-vertical.html',img:'Logo-Globalna-Biblia-Audio',t:'Radio Biblia Audio',s:'9:16'},
+ {f:'dzj-vertical-live.html',img:'dzj-916-thumb',t:'Dobrze, że jesteś',s:'9:16'},
+ {f:'biblia-spiewana-vertical.html',img:'Logo_Biblia_Spiewana',t:'Biblia Śpiewana',s:'9:16'},
+ {ad:1}
+];
+const now=new Date(),H=now.getHours(),WD=now.getDay();
+const isOn=x=>x.at&&x.at.includes(H)&&(!x.wd||x.wd.includes(WD));
+const card=x=>x.ad?(x.img?`<a class="ad" href="${BASE}wspieraj" target="_blank" rel="noopener" data-kind="ad"><img src="/assets/promo/promo-wspieraj-klasyczny.webp" alt="Pomóż nam nieść Ewangelię dalej – polskieradio.cc/wspieraj" loading="lazy"><span class="lab">BANER ${x.n}</span></a>`:`<div class="ad empty" data-kind="ad"><div><b>${x.txt}</b>Wstawimy tu Twoją grafikę 1280×720</div><span class="lab">BANER ${x.n}</span></div>`):
+ `<article class="card" data-kind="ch"><a class="thumb" href="${BASE}${x.f}" target="_blank" rel="noopener" aria-label="Otwórz ${x.t}"><img src="${IMG}${x.img}.webp" alt="" loading="lazy"><span class="play"><span>▶</span></span>${x.nw?'<span class="chip new">NOWY NA LIŚCIE</span>':''}${isOn(x)?'<span class="chip onnow">● TERAZ</span>':''}</a>
+  <div class="body"><div class="badge">${x.b}</div><h3>${x.t}</h3><p>${x.d}</p></div>
+  <div class="acts"><a class="go" href="${BASE}${x.f}" target="_blank" rel="noopener">Oglądaj</a><button class="sec" type="button" data-copy="${BASE}${x.f}" data-what="URL dla OBS">OBS</button><button class="sec" type="button" data-copy='<iframe src="${BASE}${x.f}" width="1280" height="720" allow="autoplay; fullscreen" style="border:0"></iframe>' data-what="Kod do osadzenia">&lt;/&gt;</button></div></article>`;
+document.getElementById('groups').innerHTML=G.map(g=>`<section id="g-${g.id}" data-group="${g.id}"><div class="gh"><h2>${g.name}</h2><span>${g.sub}</span></div><div class="grid">${g.items.map(card).join('')}</div></section>`).join('');
+document.getElementById('vert').innerHTML=V.map(x=>x.ad?`<div class="vcard ad9"><div class="ph"><div><b>Miejsce na baner nr 4</b><br>9:16 · 1080×1920<br>np. na relacje</div></div><div class="b"><b>BANER 4</b><small>pionowy</small></div></div>`:`<a class="vcard" href="${BASE}${x.f}" target="_blank" rel="noopener"><div class="ph"><img src="${IMG}${x.img}.webp" alt="" loading="lazy" style="object-position:center"></div><div class="b"><b>${x.t}</b><small>Format ${x.s}</small></div></a>`).join('');
+// licznik scen
+const total=G.reduce((s,g)=>s+g.items.filter(x=>!x.ad).length,0)+V.filter(x=>!x.ad).length;
+(function c(i){document.getElementById('cnt').textContent=i;if(i<total)setTimeout(()=>c(i+1),45);})(0);
+// ramówka: teraz + dwa następne pasma
+const SL=[[0,'Nocne Czuwanie','00:00–06:00'],[8,'Studium Pisma Świętego','08:00'],[10,'Apokalipsa: Księga Nadziei','10:00'],[16,'Codzienne Uwielbienie','16:00'],[18,(WD===0||WD===6)?'Blok Filmowy':'Totalny Atak — W. Veith','18:00'],[20,'Wieczór ze Słowem Bożym','20:00'],[22,(WD>=5||WD===0)?'Randki i Małżeństwo':'Apokalipsa: Księga Nadziei','22:00']];
+let ci=SL.reduce((a,s,i)=>s[0]<=H?i:a,0);
+const rows=[0,1,2].map(k=>SL[(ci+k)%SL.length]);
+document.getElementById('sched').innerHTML=rows.map((s,k)=>`<div class="slot${k===0?' cur':''}"><div class="t">${String(s[0]).padStart(2,'0')}:00</div><div><b>${s[1]}</b><small>${k===0?'teraz w Master Live':'następnie · '+s[2]}</small></div></div>`).join('');
+document.getElementById('onairName').textContent=rows[0][1];
+// ── TV HERO: pierścień ekranów kanałów po intro ──
+(function(){
+  const hero=document.getElementById('tvhero'),vid=document.getElementById('intro'),ring=document.getElementById('ring'),stage=document.getElementById('stage');
+  const CH=[{f:'master-live',img:'tv24_master_live',t:'Telewizja Christian Culture 24/7',b:'Główny kanał nadawczy',d:'Master Live przełącza pasma sam, całą dobę.'}];
+  G.forEach(g=>g.items.forEach(x=>{if(!x.ad)CH.push({f:x.f.replace(/\.html$/,''),img:x.img,t:x.t,b:x.b,d:x.d,on:isOn(x)})}));
+  const L=CH.slice(0,14),n=L.length,step=360/n;
+  ring.innerHTML=L.map((c,i)=>`<div class="screen${i===0?' on':''}" style="--a:${i*step}deg" data-i="${i}" role="button" tabindex="0" aria-label="${c.t}"><img src="${IMG}${c.img}.webp" alt="" loading="lazy">${c.on||i===0?'<span class="lv">● NA ŻYWO</span>':''}<span class="nm">${c.t}</span></div>`).join('');
+  let cur=0,auto=true,ry=0;
+  const fT=document.getElementById('fTitle'),fB=document.getElementById('fBadge'),fD=document.getElementById('fDesc'),fG=document.getElementById('fGo'),focus=document.getElementById('focus');
+  function go(i,user){cur=(i+n)%n;ry=-cur*step;ring.style.setProperty('--ry',ry+'deg');
+    ring.querySelectorAll('.screen').forEach((s,k)=>s.classList.toggle('on',k===cur));
+    const c=L[cur];fT.textContent=c.t;fB.textContent=c.b;fD.textContent=c.d;fG.href='https://polskieradio.cc/'+c.f;
+    focus.classList.remove('swap');void focus.offsetWidth;focus.classList.add('swap');if(user)auto=false;}
+  ring.addEventListener('click',e=>{const s=e.target.closest('.screen');if(!s)return;const i=+s.dataset.i;i===cur?window.open(fG.href,'_blank','noopener'):go(i,true);});
+  ring.addEventListener('keydown',e=>{if(e.key==='Enter'){const s=e.target.closest('.screen');if(s)go(+s.dataset.i,true);}});
+  document.getElementById('prev').onclick=()=>go(cur-1,true);document.getElementById('next').onclick=()=>go(cur+1,true);
+  // przeciąganie palcem / myszą
+  let sx=null;hero.addEventListener('pointerdown',e=>{if(e.target.closest('a,button'))return;sx=e.clientX;});
+  addEventListener('pointerup',e=>{if(sx==null)return;const dx=e.clientX-sx;sx=null;if(Math.abs(dx)>40)go(cur+(dx<0?1:-1),true);});
+  addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(cur+1,true);if(e.key==='ArrowLeft')go(cur-1,true);});
+  setInterval(()=>{if(auto&&hero.classList.contains('orbit'))go(cur+1,false);},4500);
+  function orbit(){hero.classList.add('orbit');}
+  vid.addEventListener('ended',orbit);vid.addEventListener('error',orbit);
+  setTimeout(()=>{if(vid.paused||vid.readyState<2)orbit();},6500);
+  document.getElementById('replay').onclick=()=>{hero.classList.remove('orbit');vid.currentTime=0;vid.play().catch(orbit);};
+  document.getElementById('heroNow').textContent=document.getElementById('onairName').textContent;
+})();
+// filtry
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{const f=b.dataset.f;document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  document.querySelectorAll('[data-group]').forEach(s=>s.hidden=!(f==='all'||s.dataset.group===f));}));
+// kopiowanie
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-copy]');if(!b)return;try{await navigator.clipboard.writeText(b.dataset.copy);b.classList.add('ok');setTimeout(()=>b.classList.remove('ok'),1500);toast(b.dataset.what+' skopiowany');}catch(_){toast(b.dataset.copy.slice(0,60));}});
+</script>
+</body>
+</html>
