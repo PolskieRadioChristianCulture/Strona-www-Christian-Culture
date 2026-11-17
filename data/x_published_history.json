@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "dzien-16",
+      "title": "Z Biblią za Pan Brat — Dzień 16 (Lekcja 16): Bóg sam zapewni Baranka (Rdz 22:1–24)",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-16",
+      "type": "course",
+      "image": "kc_day_16_baranek_moria.jpg",
+      "publishedAt": "2026-11-17T13:05:29.133Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "czuwanie",
       "title": "Nocne Czuwanie TV",
       "url": "https://polskieradio.cc/czuwanie",
