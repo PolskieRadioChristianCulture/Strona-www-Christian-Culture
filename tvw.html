@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+    <script>
+        if (window.self !== window.top || /[?&](embed|noticker)\b/.test(location.search) || /[?&]muted=1\b/.test(location.search)) {
+            document.documentElement.classList.add('tvw-embedded');
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVW — Telewizja Kobiet 24/7 | Christian Culture</title>
+    <meta name="description" content="TVW — Telewizja Kobiet Christian Culture. Na żywo 24/7 z CC Women: Słowo, rozmowy, małżeństwo i rodzina, modlitwa i muzyka.">
+    <link rel="canonical" href="https://polskieradio.cc/TVW">
+    <link rel="icon" href="/images/tvw/tvw-logo-360.webp" type="image/webp">
+    <meta property="og:type" content="video.other">
+    <meta property="og:site_name" content="TVW — Telewizja Kobiet">
+    <meta property="og:title" content="🔴 TVW — Telewizja Kobiet na żywo 24/7">
+    <meta property="og:description" content="Telewizja Kobiet Christian Culture z CC Women: Słowo, rozmowy, modlitwa i muzyka. Kliknij i oglądaj na żywo.">
+    <meta property="og:url" content="https://polskieradio.cc/TVW">
+    <meta property="og:image" content="https://polskieradio.cc/images/tvw/tvw-og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#07040a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /*
+         * TVW — Telewizja Kobiet. Stacja na wzór Master Live (@007, 2026-11-17).
+         * Branding z logo „Women”: magenta/róż na czerni, napis pisany (Dancing Script), sylwetka kobiety w sercu.
+         * PC/antena: kanał na pełnym ekranie + górny pasek „Teraz / Za chwilę” + dolny pasek TVW.
+         * Telefon pion: obraz 16:9 u góry, pod nim pasek TVW i panel z ramówką. Telefon poziom: sam obraz.
+         */
+        :root {
+            --tvw-pink: #FF1F8E;
+            --tvw-pink-2: #FF5FB0;
+            --tvw-magenta: #D6006F;
+            --tvw-ink: #fff5fa;
+            --tvw-muted: #d9b7c9;
+            --tvw-bg: #07040a;
+            --tvw-panel: #120a12;
+            --tvw-line: rgba(255, 95, 176, 0.3);
+            --tvw-top-h: 76px;
+            --tvw-ticker-h: 66px;
+            --ml-s: 1; --ml-x: 0px; --ml-y: 0px; --ml-stage-h: 56.25vw;
+        }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; font-family: 'Outfit', 'Segoe UI', sans-serif; color: var(--tvw-ink); }
+
+        .channel-frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; transition: opacity .8s ease; background: #000; }
+        .channel-frame.active { opacity: 1; z-index: 2; pointer-events: auto; }
+        .channel-frame.inactive { opacity: 0; z-index: 1; pointer-events: none; }
+
+        /* ── Plansza przejścia TVW ── */
+        #tvwBumper { position: fixed; inset: 0; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2vh;
+            background: radial-gradient(55% 60% at 50% 42%, rgba(214, 0, 111, .38), transparent 70%), var(--tvw-bg);
+            opacity: 0; pointer-events: none; transition: opacity .6s ease; text-align: center; padding: 0 6vw; }
+        #tvwBumper.show { opacity: 1; }
+        #tvwBumper img { width: min(56vw, 760px); filter: drop-shadow(0 0 30px rgba(255, 31, 142, .5)); animation: tvwFloat 6s ease-in-out infinite; }
+        @keyframes tvwFloat { 50% { transform: translateY(-1.2vh) scale(1.015); } }
+        #tvwBumper .next { font-weight: 800; letter-spacing: .3em; font-size: clamp(12px, 1.3vw, 22px); color: var(--tvw-pink-2); }
+        #tvwBumper h1 { margin: 0; font-weight: 900; font-size: clamp(22px, 3.2vw, 56px); line-height: 1.1; text-wrap: balance; }
+        #tvwBumper p { margin: 0; color: var(--tvw-muted); font-size: clamp(14px, 1.5vw, 26px); }
+        #tvwBumper .bar { width: min(40vw, 520px); height: 6px; border-radius: 9px; background: rgba(255, 255, 255, .1); overflow: hidden; }
+        #tvwBumper .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--tvw-magenta), var(--tvw-pink-2)); }
+
+        /* ── Górny pasek ── */
+        .tvw-top { position: fixed; top: 0; left: 0; right: 0; height: var(--tvw-top-h); z-index: 9000; display: flex; align-items: stretch;
+            background: linear-gradient(180deg, rgba(7, 4, 10, .96), rgba(7, 4, 10, .86)); border-bottom: 2px solid var(--tvw-pink); box-shadow: 0 6px 24px rgba(0, 0, 0, .6); }
+        .tvw-brand { display: flex; align-items: center; gap: 12px; padding: 0 22px; background: linear-gradient(135deg, #1b0b16, #0b060b); border-right: 1px solid var(--tvw-line); flex: none; }
+        .tvw-brand img { height: calc(var(--tvw-top-h) - 18px); width: auto; filter: drop-shadow(0 0 10px rgba(255, 31, 142, .45)); }
+        .tvw-brand .tv { font-weight: 900; letter-spacing: .22em; font-size: 15px; color: var(--tvw-muted); line-height: 1.1; }
+        .tvw-brand .tv b { display: block; color: var(--tvw-pink-2); font-size: 22px; letter-spacing: .12em; }
+        .tvw-now { flex: 1; min-width: 0; display: flex; align-items: center; gap: 18px; padding: 0 24px; }
+        .tvw-live { background: var(--tvw-pink); color: #fff; font-weight: 900; font-size: 14px; letter-spacing: .14em; padding: 6px 12px; border-radius: 7px; white-space: nowrap; animation: tvwBlink 1.8s infinite; }
+        @keyframes tvwBlink { 50% { opacity: .65; } }
+        .tvw-now .lbl { font-size: 12px; font-weight: 800; letter-spacing: .2em; color: var(--tvw-muted); text-transform: uppercase; }
+        .tvw-now .ttl { font-size: 22px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .tvw-now .col { min-width: 0; display: flex; flex-direction: column; }
+        .tvw-now .sep { width: 1px; align-self: stretch; margin: 14px 0; background: var(--tvw-line); }
+        .tvw-now .nxt .ttl { color: var(--tvw-muted); font-weight: 700; font-size: 18px; }
+        .tvw-now .nxt .time { color: var(--tvw-pink-2); font-weight: 900; font-variant-numeric: tabular-nums; }
+        .tvw-clock { flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 22px; border-left: 1px solid var(--tvw-line); }
+        .tvw-clock .t { font-weight: 900; font-size: 26px; font-variant-numeric: tabular-nums; letter-spacing: .04em; }
+        .tvw-clock .d { font-weight: 800; font-size: 11px; letter-spacing: .2em; color: var(--tvw-pink-2); }
+
+        /* ── Dolny pasek TVW ── */
+        .tvw-ticker { position: fixed; left: 0; right: 0; bottom: 0; height: var(--tvw-ticker-h); z-index: 9000; display: flex; align-items: stretch; background: #0b060b; border-top: 3px solid var(--tvw-pink); }
+        .tvw-ticker .lab { flex: none; display: flex; align-items: center; padding: 0 22px; background: linear-gradient(135deg, var(--tvw-pink), var(--tvw-magenta)); font-family: 'Dancing Script', cursive; font-size: 34px; color: #fff; }
+        .tvw-ticker .roll { flex: 1; min-width: 0; overflow: hidden; display: flex; align-items: center;
+            mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent); }
+        .tvw-ticker .track { display: inline-flex; white-space: nowrap; animation: tvwRoll 120s linear infinite; font-size: 22px; font-weight: 700; }
+        .tvw-ticker .track:hover { animation-play-state: paused; }
+        @keyframes tvwRoll { to { transform: translateX(-50%); } }
+        .tvw-ticker .it { display: inline-flex; align-items: center; gap: 12px; padding: 0 30px; }
+        .tvw-ticker .it a { color: inherit; text-decoration: none; }
+        .tvw-ticker .it b { color: var(--tvw-pink-2); }
+        .tvw-ticker .it .badge { font-size: 13px; font-weight: 900; letter-spacing: .14em; padding: 4px 10px; border-radius: 6px; background: rgba(255, 31, 142, .18); color: var(--tvw-pink-2); border: 1px solid var(--tvw-line); }
+        .tvw-ticker .it .heart { color: var(--tvw-pink); }
+
+        /* ── Baner „włącz dźwięk” (PC) ── */
+        #tvwUnmute { position: fixed; top: calc(var(--tvw-top-h) + 22px); left: 50%; transform: translateX(-50%); z-index: 9500; display: flex; align-items: center; gap: 12px;
+            background: rgba(12, 6, 12, .9); border: 1.5px solid var(--tvw-pink); color: #fff; padding: 12px 26px; border-radius: 99px; font-weight: 800; letter-spacing: .06em; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .7); transition: opacity .5s ease; font-size: 15px; }
+
+        /* ── Panel telefonu (pion) ── */
+        #tvwPanel { display: none; }
+        html[data-ml-mode="portrait"] #tvwPanel { display: flex; flex-direction: column; gap: 12px; position: fixed; left: 0; right: 0; top: calc(var(--ml-stage-h) + 44px); bottom: 0; z-index: 8500;
+            padding: 14px 16px max(16px, env(safe-area-inset-bottom, 0px)); overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch;
+            background: radial-gradient(110% 55% at 100% 0%, rgba(214, 0, 111, .22), transparent 60%), var(--tvw-bg); }
+        #tvwPanel > * { flex-shrink: 0; }
+        .tp-head { display: flex; align-items: center; gap: 12px; }
+        .tp-head img { width: 132px; height: auto; flex: none; }
+        .tp-head .ttl { font-weight: 800; font-size: 1.02rem; line-height: 1.2; min-width: 0; }
+        .tp-head .ttl small { display: block; color: var(--tvw-muted); font-weight: 600; font-size: .82rem; margin-top: 2px; }
+        .tp-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .tp-btn { min-height: 48px; border-radius: 99px; border: 1px solid var(--tvw-line); background: rgba(255, 255, 255, .04); color: var(--tvw-ink); font: 800 .92rem 'Outfit', sans-serif;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+        .tp-btn.primary { background: linear-gradient(135deg, var(--tvw-pink), var(--tvw-magenta)); border-color: transparent; color: #fff; }
+        .tp-btn[hidden] { display: none; }
+        .tp-sec { font-size: .7rem; font-weight: 800; letter-spacing: .18em; color: var(--tvw-pink-2); text-transform: uppercase; margin-top: 2px; }
+        .tp-list { display: flex; flex-direction: column; border: 1px solid rgba(255, 255, 255, .07); border-radius: 14px; overflow: hidden; background: var(--tvw-panel); }
+        .tp-row { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 10px; padding: 10px 12px; border-top: 1px solid rgba(255, 255, 255, .05); align-items: center; }
+        .tp-row:first-child { border-top: 0; }
+        .tp-row .h { font-weight: 900; font-variant-numeric: tabular-nums; color: var(--tvw-muted); }
+        .tp-row .n { font-weight: 700; font-size: .92rem; line-height: 1.25; }
+        .tp-row.now { background: linear-gradient(90deg, rgba(255, 31, 142, .2), transparent); }
+        .tp-row.now .h { color: var(--tvw-pink-2); }
+        .tp-row.now .n::after { content: ' · teraz'; color: var(--tvw-pink-2); font-weight: 800; font-size: .78rem; }
+        .tp-row.past { opacity: .45; }
+        .tp-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .tp-links a { min-height: 48px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 8px 10px; border-radius: 12px; text-decoration: none;
+            color: var(--tvw-ink); background: var(--tvw-panel); border: 1px solid var(--tvw-line); font-weight: 700; font-size: .88rem; }
+
+        /* ── Tryby ekranu (ustawia skrypt): portrait / land / desktop ── */
+        html[data-ml-mode="portrait"] .channel-frame,
+        html[data-ml-mode="land"] .channel-frame { width: 1920px !important; height: 1080px !important; transform-origin: 0 0; transform: translate(var(--ml-x), var(--ml-y)) scale(var(--ml-s)); }
+        html[data-ml-mode="portrait"] { --tvw-ticker-h: 44px; }
+        html[data-ml-mode="portrait"] .tvw-top { display: none; }
+        html[data-ml-mode="portrait"] .tvw-ticker { top: var(--ml-stage-h); bottom: auto; height: 44px; border-top-width: 2px; }
+        html[data-ml-mode="portrait"] .tvw-ticker .lab { font-size: 22px; padding: 0 12px; }
+        html[data-ml-mode="portrait"] .tvw-ticker .track { font-size: .92rem; }
+        html[data-ml-mode="portrait"] .tvw-ticker .it { padding: 0 18px; gap: 8px; }
+        html[data-ml-mode="portrait"] .tvw-ticker .it .badge { font-size: .62rem; padding: 3px 6px; }
+        html[data-ml-mode="portrait"] #tvwBumper { bottom: auto; height: var(--ml-stage-h); }
+        html[data-ml-mode="portrait"] #tvwBumper h1, html[data-ml-mode="portrait"] #tvwBumper p { display: none; }
+        html[data-ml-mode="portrait"] #tvwUnmute, html[data-ml-mode="land"] #tvwUnmute { display: none !important; }
+        html[data-ml-mode="land"] .tvw-top, html[data-ml-mode="land"] .tvw-ticker, html[data-ml-mode="land"] #tvwPanel { display: none !important; }
+        html[data-ml-mode="land"] #tvwBumper h1, html[data-ml-mode="land"] #tvwBumper p { display: none; }
+
+        @media (max-width: 1100px) {
+            :root { --tvw-top-h: 64px; --tvw-ticker-h: 56px; }
+            .tvw-now .nxt, .tvw-now .sep { display: none; }
+            .tvw-brand .tv { display: none; }
+            .tvw-ticker .track { font-size: 18px; }
+        }
+        /* Osadzenie (np. Tablica LUMINA, OBS z ?noticker): sam obraz. */
+        html.tvw-embedded .tvw-top, html.tvw-embedded .tvw-ticker, html.tvw-embedded #tvwUnmute, html.tvw-embedded #tvwPanel { display: none !important; }
+        :focus-visible { outline: 3px solid var(--tvw-pink-2); outline-offset: 2px; }
+    </style>
+</head>
+<body>
+    <iframe id="channel-frame-a" class="channel-frame active" title="TVW — kanał na żywo" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write; web-share"></iframe>
+    <iframe id="channel-frame-b" class="channel-frame inactive" title="TVW — następny kanał" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write; web-share"></iframe>
+
+    <div id="tvwBumper" aria-hidden="true">
+        <img src="/images/tvw/tvw-logo.webp" alt="">
+        <div class="next">ZA CHWILĘ W TVW</div>
+        <h1 id="tvwBumperTitle">Telewizja Kobiet</h1>
+        <p id="tvwBumperDesc"></p>
+        <div class="bar"><i id="tvwBumperBar"></i></div>
+    </div>
+
+    <header class="tvw-top" aria-label="TVW — teraz na antenie">
+        <div class="tvw-brand"><img src="/images/tvw/tvw-logo-360.webp" alt="TVW — Telewizja Kobiet" width="360" height="209"><div class="tv"><b>TVW</b>TELEWIZJA KOBIET</div></div>
+        <div class="tvw-now">
+            <span class="tvw-live">● NA ŻYWO</span>
+            <div class="col"><span class="lbl">Teraz</span><span class="ttl" id="tvwNowTitle">TVW — Telewizja Kobiet</span></div>
+            <span class="sep"></span>
+            <div class="col nxt"><span class="lbl">Za chwilę</span><span class="ttl"><span class="time" id="tvwNextTime">--:--</span> · <span id="tvwNextTitle"></span></span></div>
+        </div>
+        <div class="tvw-clock"><span class="t" id="tvwClock">--:--</span><span class="d" id="tvwDate">--</span></div>
+    </header>
+
+    <div id="tvwUnmute" role="button" tabindex="0"><span aria-hidden="true">🔊</span> Kliknij w dowolnym miejscu, aby włączyć dźwięk</div>
+
+    <div class="tvw-ticker" aria-label="Pasek informacyjny TVW">
+        <div class="lab">Women</div>
+        <div class="roll"><div class="track" id="tvwTrack"></div></div>
+    </div>
+
+    <section id="tvwPanel" aria-label="TVW na telefonie">
+        <div class="tp-head"><img src="/images/tvw/tvw-logo-360.webp" alt="TVW — Telewizja Kobiet" width="360" height="209">
+            <div class="ttl"><span class="tvw-live">● NA ŻYWO</span><div id="tpNow" style="margin-top:6px">TVW — Telewizja Kobiet</div><small id="tpNowDesc"></small></div></div>
+        <div class="tp-actions">
+            <button type="button" class="tp-btn primary" id="tpSound">🔊 Włącz dźwięk</button>
+            <button type="button" class="tp-btn" id="tpFull">⛶ Pełny ekran</button>
+        </div>
+        <div class="tp-sec">Dziś w TVW · od teraz</div>
+        <div class="tp-list" id="tpList"></div>
+        <div class="tp-sec">Odkryj więcej</div>
+        <div class="tp-links">
+            <a href="/ccwomen" target="_blank" rel="noopener">CC Women</a>
+            <a href="/Ewa/" target="_blank" rel="noopener">Kącik Ewy</a>
+            <a href="/Zaneta/" target="_blank" rel="noopener">Kącik Żanety</a>
+            <a href="/wspieraj" target="_blank" rel="noopener">Wesprzyj TVW</a>
+        </div>
+    </section>
+
+    <script>
+        // ════════════════════════════════════════════════════════════════════
+        // RAMÓWKA TVW — jedyne miejsce do zmian programu (wersja robocza do akceptacji L0).
+        // from/to: "GG:MM" czasu lokalnego; to="24:00" = do północy.
+        // ════════════════════════════════════════════════════════════════════
+        // Playlisty kanału YouTube @CCWomen7 (stan 17.11.2026). Każda grana jest przez kanał tvw-women-live.html.
+        const TVW_PLAYLISTS = {
+            slowo:     { list: 'PLcWRjZtKUlTduVymQJdFCjgbyroIu5C12', title: 'ŻYJ W MOCY SŁOWA', desc: 'Poranne Słowo i refleksje CC Women' },
+            styl:      { list: 'PLcWRjZtKUlTfbbMIbz-vPzkXoUpGLib63', title: 'KOBIETA W BOŻYM STYLU', desc: 'Tożsamość, piękno i powołanie kobiety' },
+            womentv:   { list: 'PLfE7bG8T8xFE', title: 'WOMEN TV', desc: 'Program telewizyjny CC Women' },
+            babskie:   { list: 'PLcWRjZtKUlTcxyTIEE7yMfVfz1gvvRAig', title: 'BABSKIE GRANIE', desc: 'Muzyka i rozmowy kobiet z kobietami' },
+            radio:     { list: 'PLPkpY3wBciWM', title: 'RADIO CC WOMEN', desc: 'Audycje Radia CC Women' },
+            nowoczesna:{ list: 'PLcWRjZtKUlTfYxJ0mDf4LgOOCGYj7kzRN', title: 'NOWOCZESNA MUZYKA CHRZEŚCIJAŃSKA', desc: 'Nowe brzmienia muzyki chrześcijańskiej' },
+            marriage:  { list: 'PLc4FTh2vwsrk', title: 'CC MARRIAGE — MAŁŻEŃSTWO Z MISJĄ', desc: 'O małżeństwie budowanym na Bogu' },
+            rodzina:   { list: 'PLN-Qbmg15OBo', title: 'CHRISTIAN CULTURE RODZINA', desc: 'Rodzina, dom i wiara na co dzień' },
+            wybrane:   { list: 'PLO1uN8P9s260', title: 'WOMEN TV — WYBRANE', desc: 'Najlepsze odcinki Women TV' },
+            modlitwa:  { list: 'PLPJWnfHbD1jo', title: 'BIBLIJNY CZAS MODLITWY', desc: 'Wspólna modlitwa ze Słowem Bożym' },
+            polska:    { list: 'PLcWRjZtKUlTcmlG2o8ybRFH6HcV8_LeoZ', title: 'POLSKA MUZYKA CHRZEŚCIJAŃSKA', desc: 'Wieczór z polską muzyką chrześcijańską' },
+            worship:   { list: 'PLcWRjZtKUlTdN-uHfk3R90J5Du8HG2Tyb', title: 'MUZYKA DLA KOBIET — WORSHIP, POKÓJ I SIŁA', desc: 'Uwielbienie, pokój i siła na noc' }
+        };
+        const TVW_CHANNELS = {};
+        Object.keys(TVW_PLAYLISTS).forEach(k => {
+            const p = TVW_PLAYLISTS[k];
+            TVW_CHANNELS[k] = { url: 'tvw-women-live.html?playlist=' + p.list + '&show=' + encodeURIComponent(p.title), title: p.title, desc: p.desc };
+        });
+        const TVW_RAMOWKA = [
+            { from: '00:00', to: '06:00', ch: 'worship',    name: 'Noc z uwielbieniem' },
+            { from: '06:00', to: '08:00', ch: 'slowo',      name: 'Żyj w Mocy Słowa' },
+            { from: '08:00', to: '10:00', ch: 'styl',       name: 'Kobieta w Bożym Stylu' },
+            { from: '10:00', to: '12:00', ch: 'womentv',    name: 'Women TV' },
+            { from: '12:00', to: '14:00', ch: 'babskie',    name: 'Babskie Granie' },
+            { from: '14:00', to: '16:00', ch: 'radio',      name: 'Radio CC Women' },
+            { from: '16:00', to: '18:00', ch: 'nowoczesna', name: 'Nowoczesna muzyka chrześcijańska' },
+            { from: '18:00', to: '19:00', ch: 'marriage',   name: 'CC Marriage — Małżeństwo z Misją' },
+            { from: '19:00', to: '20:00', ch: 'rodzina',    name: 'Christian Culture Rodzina' },
+            { from: '20:00', to: '21:00', ch: 'wybrane',    name: 'Women TV — wybrane' },
+            { from: '21:00', to: '22:00', ch: 'modlitwa',   name: 'Biblijny Czas Modlitwy' },
+            { from: '22:00', to: '24:00', ch: 'polska',     name: 'Polska muzyka chrześcijańska' }
+        ];
+        // Kanał zastępczy, gdy program skończy się wcześniej (sygnał *_FINISHED z kanału).
+        const TVW_FALLBACK = 'babskie';
+
+        // Okno pt (od zachodu) – sob (do zachodu): tylko dobór repertuaru, nigdy nie oznaczane publicznie.
+        const CC_LAT = 52.23, CC_LON = 21.01;
+        function ccSunsetMs(day) {
+            const rad = Math.PI / 180, y = day.getFullYear(), m = day.getMonth(), d = day.getDate();
+            const doy = Math.round((Date.UTC(y, m, d) - Date.UTC(y, 0, 0)) / 864e5), g = 2 * Math.PI / 365 * (doy - 1);
+            const eq = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+            const decl = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g) - 0.006758 * Math.cos(2 * g) + 0.000907 * Math.sin(2 * g) - 0.002697 * Math.cos(3 * g) + 0.00148 * Math.sin(3 * g);
+            const ha = Math.acos(Math.cos(90.833 * rad) / (Math.cos(CC_LAT * rad) * Math.cos(decl)) - Math.tan(CC_LAT * rad) * Math.tan(decl)) / rad;
+            return Date.UTC(y, m, d) + (720 - 4 * (CC_LON - ha) - eq) * 60000;
+        }
+        function ccIsRestWindow(now) {
+            const day = now.getDay();
+            if (day === 5) return now.getTime() >= ccSunsetMs(now);
+            if (day === 6) return now.getTime() < ccSunsetMs(now);
+            return false;
+        }
+        const CC_REST_SWAP = { nowoczesna: 'worship', babskie: 'worship' };
+
+        const toMin = (s) => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
+        let earlyFinished = {}, earlyDay = new Date().toDateString();
+
+        function getScheduleState(now = new Date()) {
+            const mins = now.getHours() * 60 + now.getMinutes();
+            const slot = TVW_RAMOWKA.find(s => mins >= toMin(s.from) && mins < toMin(s.to)) || TVW_RAMOWKA[0];
+            const key = slot.from + '_' + slot.ch;
+            let ch = slot.ch;
+            if (ccIsRestWindow(now) && CC_REST_SWAP[ch]) ch = CC_REST_SWAP[ch];
+            if (earlyFinished[key] && now.toDateString() === earlyDay) ch = TVW_FALLBACK;
+            return { blockKey: key, chKey: ch, slot, channel: TVW_CHANNELS[ch].url, meta: TVW_CHANNELS[ch] };
+        }
+        window.TVW = { ramowka: TVW_RAMOWKA, channels: TVW_CHANNELS, getScheduleState };
+
+        // ── Silnik dwóch ramek (jak Master Live) ──
+        const params = new URLSearchParams(location.search);
+        const isEmbed = document.documentElement.classList.contains('tvw-embedded');
+        let isMuted = params.get('muted') === '1' || (isEmbed && params.get('muted') !== '0');
+        const frames = [document.getElementById('channel-frame-a'), document.getElementById('channel-frame-b')];
+        let activeIdx = 0, currentUrl = null, currentKey = null, switching = false, switchStarted = 0, timers = [];
+        const active = () => frames[activeIdx], inactive = () => frames[1 - activeIdx];
+        const bumper = document.getElementById('tvwBumper'), bumperBar = document.getElementById('tvwBumperBar');
+
+        function srcFor(url, muted) {
+            const sep = url.includes('?') ? '&' : '?';
+            return url + sep + (muted ? 'muted=1&autoplay=1' : 'autoplay=1') + '&in_mcr=1&noticker=1&safe_monetization=1&t=' + Date.now();
+        }
+        function post(frame, msg) { try { frame && frame.contentWindow && frame.contentWindow.postMessage(msg, '*'); } catch (e) {} }
+        function silence(frame, pause) {
+            if (!frame) return;
+            try { frame.contentDocument.querySelectorAll('audio,video').forEach(m => { m.muted = true; if (pause) try { m.pause(); } catch (e) {} }); } catch (e) {}
+            post(frame, { type: 'MUTE_AUDIO' }); post(frame, 'MUTE_AUDIO'); post(frame, '{"event":"command","func":"mute","args":""}');
+            if (pause) post(frame, '{"event":"command","func":"pauseVideo","args":""}');
+        }
+        function unmute(frame) {
+            if (!frame) return;
+            try { frame.contentDocument.querySelectorAll('audio,video').forEach(m => { m.muted = false; m.volume = 1; m.play().catch(() => {}); }); } catch (e) {}
+            post(frame, { type: 'UNMUTE_AUDIO' }); post(frame, 'UNMUTE_AUDIO');
+            post(frame, '{"event":"command","func":"unMute","args":""}'); post(frame, '{"event":"command","func":"playVideo","args":""}');
+        }
+        // Kanały mają własne paski — w TVW chowamy je, żeby był jeden, różowy pasek stacji.
+        function suppressChannelChrome(frame) {
+            try {
+                const d = frame.contentDocument;
+                if (!d || !d.documentElement) return;
+                d.documentElement.classList.add('inside-iframe', 'no-ticker');
+                if (d.body) d.body.classList.add('inside-iframe', 'no-ticker');
+                if (!d.getElementById('tvw-suppressor')) {
+                    const st = d.createElement('style');
+                    st.id = 'tvw-suppressor';
+                    st.textContent = `footer,.footer,.footer-ticker,.ticker-popup-tab,.bottom-ticker-bar,.tv24-ticker-system,.worship-live-ticker,.lumina-master-ticker,.ticker-wrap,.radio-ticker-wrap,.top-header-bar,.top-header,.header-bar,.channel-header-bar,#startOverlay,.start-overlay,#masterUnmuteBanner{display:none!important}
+                        html.tvw-phone .reflection-canvas-card{display:none!important}`;
+                    (d.head || d.documentElement).appendChild(st);
+                }
+                d.documentElement.classList.toggle('tvw-phone', mode === 'portrait' || mode === 'land');
+            } catch (e) {}
+        }
+
+        function switchChannel(state, force) {
+            if (currentUrl === state.channel && !force) return;
+            timers.forEach(clearTimeout); timers = [];
+            const first = currentUrl === null;
+            currentUrl = state.channel;
+            updateNowNext();
+            if (first) {
+                silence(inactive(), true); inactive().src = 'about:blank';
+                active().src = srcFor(state.channel, isMuted);
+                return;
+            }
+            switching = true; switchStarted = Date.now();
+            document.getElementById('tvwBumperTitle').textContent = state.meta.title;
+            document.getElementById('tvwBumperDesc').textContent = state.meta.desc;
+            bumperBar.style.transition = 'none'; bumperBar.style.width = '0';
+            bumper.classList.add('show');
+            silence(active(), true); silence(inactive(), true);
+            inactive().src = 'about:blank';
+            timers.push(setTimeout(() => { inactive().src = srcFor(state.channel, true); }, 400));
+            timers.push(setTimeout(() => { bumperBar.style.transition = 'width 6.5s linear'; bumperBar.style.width = '100%'; }, 50));
+            timers.push(setTimeout(() => {
+                const out = active(), inc = inactive();
+                silence(out, true); out.src = 'about:blank';
+                inc.classList.replace('inactive', 'active'); out.classList.replace('active', 'inactive');
+                activeIdx = 1 - activeIdx;
+                if (!isMuted) unmute(inc); else silence(inc, false);
+                bumper.classList.remove('show');
+                timers.push(setTimeout(() => { switching = false; }, 700));
+            }, 7000));
+        }
+
+        function checkSchedule() {
+            const today = new Date().toDateString();
+            if (today !== earlyDay) { earlyDay = today; earlyFinished = {}; }
+            if (switching) {
+                if (Date.now() - switchStarted > 30000) { switching = false; bumper.classList.remove('show'); } else return;
+            }
+            const st = getScheduleState(new Date());
+            if (currentKey === null) { currentKey = st.blockKey; switchChannel(st); }
+            else if (currentKey !== st.blockKey) { currentKey = st.blockKey; switchChannel(st, true); }
+            else if (currentUrl !== st.channel) switchChannel(st);
+        }
+
+        // ── Teraz / Za chwilę / zegar ──
+        const hhmm = (d) => String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+        function updateNowNext() {
+            const now = new Date(), cur = getScheduleState(now);
+            const nowTitle = cur.slot.name;
+            document.getElementById('tvwNowTitle').textContent = nowTitle;
+            document.getElementById('tpNow').textContent = nowTitle;
+            document.getElementById('tpNowDesc').textContent = cur.meta.desc;
+            const base = new Date(now); base.setSeconds(0, 0);
+            for (let i = 1; i <= 1440; i++) {
+                const at = new Date(base.getTime() + i * 60000), st = getScheduleState(at);
+                if (st.blockKey !== cur.blockKey) {
+                    document.getElementById('tvwNextTime').textContent = hhmm(at);
+                    document.getElementById('tvwNextTitle').textContent = st.slot.name;
+                    break;
+                }
+            }
+            const mins = now.getHours() * 60 + now.getMinutes();
+            // Na telefonie: od pasma trwającego teraz do końca dnia.
+            document.getElementById('tpList').innerHTML = TVW_RAMOWKA.filter(s => mins < toMin(s.to)).map(s => {
+                const cls = mins >= toMin(s.from) ? 'now' : '';
+                return '<div class="tp-row ' + cls + '"><span class="h">' + s.from + '</span><span class="n">' + s.name + '</span></div>';
+            }).join('');
+        }
+        function tickClock() {
+            const n = new Date();
+            document.getElementById('tvwClock').textContent = hhmm(n);
+            document.getElementById('tvwDate').textContent = n.toLocaleDateString('pl-PL', { weekday: 'short', day: 'numeric', month: 'short' }).toUpperCase();
+        }
+
+        // ── Pasek informacyjny (tylko prawdziwe adresy i informacje) ──
+        const TVW_NEWS = [
+            '<span class="badge">TVW</span> Telewizja Kobiet Christian Culture — na żywo 24/7 na <b>polskieradio.cc/TVW</b>',
+            '<span class="badge">CC WOMEN</span> <a href="/ccwomen" target="_blank" rel="noopener">Poznaj CC Women — <b>polskieradio.cc/ccwomen</b></a>',
+            '<span class="badge">YOUTUBE</span> Subskrybuj kanał <b>@CCWomen7</b> na YouTube',
+            '<span class="badge">KĄCIKI</span> <a href="/Ewa/" target="_blank" rel="noopener">Kącik Ewangelizacyjny Ewy</a> <span class="heart">♥</span> <a href="/Zaneta/" target="_blank" rel="noopener">Kącik Żanety</a>',
+            '<span class="badge">KURS</span> <a href="/akademia/kurscodzienny" target="_blank" rel="noopener">Kurs Codzienny: 10 minut ze Słowem — <b>polskieradio.cc/akademia</b></a>',
+            '<span class="badge">WSPARCIE</span> <a href="/wspieraj" target="_blank" rel="noopener">Pomóż nam nieść Ewangelię dalej — <b>polskieradio.cc/wspieraj</b></a>',
+            '<span class="badge">BIBLIA</span> <a href="/biblia-audio" target="_blank" rel="noopener">Biblia Audio: słuchaj w drodze — <b>polskieradio.cc/biblia-audio</b></a>'
+        ];
+        const items = TVW_NEWS.map(t => '<span class="it">' + t + ' <span class="heart" aria-hidden="true">♥</span></span>').join('');
+        document.getElementById('tvwTrack').innerHTML = items + items;
+
+        // ── Tryb ekranu: telefon pion / poziom / PC (jak Master Live PLUS) ──
+        let mode = '';
+        function layout() {
+            const vv = window.visualViewport;
+            const w = Math.round(vv ? vv.width : innerWidth), h = Math.round(vv ? vv.height : innerHeight);
+            if (!w || !h) return;
+            const next = isEmbed ? 'desktop' : (h > w ? 'portrait' : (h <= 500 ? 'land' : 'desktop'));
+            const r = document.documentElement.style;
+            if (next === 'portrait') { const s = w / 1920; r.setProperty('--ml-s', s.toFixed(5)); r.setProperty('--ml-x', '0px'); r.setProperty('--ml-y', '0px'); r.setProperty('--ml-stage-h', Math.round(1080 * s) + 'px'); }
+            if (next === 'land') { const s = Math.min(w / 1920, h / 1080); r.setProperty('--ml-s', s.toFixed(5)); r.setProperty('--ml-x', Math.round((w - 1920 * s) / 2) + 'px'); r.setProperty('--ml-y', Math.round((h - 1080 * s) / 2) + 'px'); }
+            if (next !== mode) { mode = next; document.documentElement.setAttribute('data-ml-mode', mode); frames.forEach(suppressChannelChrome); }
+        }
+
+        // ── Dźwięk ──
+        const unmuteBanner = document.getElementById('tvwUnmute');
+        function hideBanner() { unmuteBanner.style.opacity = '0'; setTimeout(() => { unmuteBanner.style.display = 'none'; }, 500); }
+        function userUnmute() {
+            isMuted = false; hideBanner();
+            document.getElementById('tpSound').hidden = true;
+            if (!switching) unmute(active());
+        }
+        if (isMuted || isEmbed) unmuteBanner.style.display = 'none';
+        else {
+            window.addEventListener('click', userUnmute);
+            window.addEventListener('touchstart', userUnmute, { passive: true });
+            setTimeout(hideBanner, 5000);
+            [800, 1600, 3200].forEach(t => setTimeout(() => { if (!switching) unmute(active()); }, t));
+        }
+        unmuteBanner.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') userUnmute(); });
+        document.getElementById('tpFull').addEventListener('click', (e) => {
+            e.stopPropagation(); userUnmute();
+            const el = document.documentElement, req = el.requestFullscreen || el.webkitRequestFullscreen;
+            try { Promise.resolve(req && req.call(el)).then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape')).catch(() => {}); } catch (err) {}
+        });
+
+        frames.forEach(f => f.addEventListener('load', () => {
+            suppressChannelChrome(f);
+            if (isMuted || f !== active() || switching) silence(f, false);
+            else [300, 1200, 3000].forEach(t => setTimeout(() => { if (!isMuted && f === active() && !switching) unmute(f); }, t));
+        }));
+        window.addEventListener('message', (ev) => {
+            let type = '';
+            const d = ev.data;
+            if (typeof d === 'string') { try { const p = JSON.parse(d); type = p.type || p.event || ''; } catch (e) { type = d; } } else if (d && typeof d === 'object') type = d.type || '';
+            if (type === 'YT_PLAYER_PLAYING' && !isMuted && !switching) unmute(active());
+            if (/_FINISHED$/.test(type) && currentKey) { earlyFinished[currentKey] = true; checkSchedule(); }
+            if (type === 'UNMUTE_AUDIO') userUnmute();
+            if (type === 'MUTE_AUDIO') { isMuted = true; silence(active(), false); }
+        });
+
+        // Strażnik obrazu: pusta ramka przez 30 s → ponowne wczytanie kanału.
+        let badTicks = 0;
+        setInterval(() => {
+            if (switching || !currentUrl) return;
+            let bad = false;
+            try { const d = active().contentDocument; bad = !d || !d.body || d.location.href === 'about:blank' || d.body.childElementCount === 0; } catch (e) { bad = true; }
+            badTicks = bad ? badTicks + 1 : 0;
+            if (badTicks >= 3) { badTicks = 0; active().src = srcFor(currentUrl, isMuted); }
+        }, 10000);
+
+        layout();
+        window.addEventListener('resize', layout);
+        window.addEventListener('orientationchange', () => { setTimeout(layout, 200); setTimeout(layout, 700); });
+        if (window.visualViewport) window.visualViewport.addEventListener('resize', layout);
+        tickClock(); setInterval(tickClock, 10000);
+        setInterval(updateNowNext, 30000);
+        setInterval(() => frames.forEach(suppressChannelChrome), 2000);
+        setInterval(checkSchedule, 10000);
+        checkSchedule();
+    </script>
+</body>
+</html>

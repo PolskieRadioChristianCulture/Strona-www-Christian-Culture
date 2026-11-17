@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVW — CC Women 24/7 | Telewizja Kobiet Christian Culture</title>
+    <meta name="description" content="Kanał CC Women w Telewizji Kobiet TVW: rozmowy, świadectwa i inspiracje dla kobiet — Christian Culture.">
+    <link rel="icon" href="/images/tvw/tvw-logo-360.webp" type="image/webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Kanał TVW „CC Women”: playlista YouTube @CCWomen7 w kadrze 1920×1080 (jak pozostałe kanały CC), branding TVW: magenta na czerni. */
+        :root {
+            --tvw-pink: #FF1F8E;
+            --tvw-pink-2: #FF5FB0;
+            --tvw-magenta: #D6006F;
+            --tvw-ink: #fff5fa;
+            --tvw-muted: #e7c4d6;
+            --tvw-bg: #07040a;
+        }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; font-family: 'Outfit', 'Segoe UI', sans-serif; }
+        #app-container { position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--tvw-bg); transform-origin: top left; }
+        #ytWrap, #ytWrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        .tvw-vignette { position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(180deg, rgba(7,4,10,.55) 0%, transparent 16%, transparent 70%, rgba(7,4,10,.8) 100%); z-index: 2; }
+        .tvw-top { position: absolute; left: 48px; right: 48px; top: 36px; display: flex; align-items: center; gap: 20px; z-index: 3; color: var(--tvw-ink); }
+        .tvw-live { background: var(--tvw-pink); color: #fff; font-weight: 900; letter-spacing: .14em; font-size: 22px; padding: 8px 16px; border-radius: 8px; animation: tvwBlink 1.8s infinite; }
+        @keyframes tvwBlink { 50% { opacity: .65; } }
+        .tvw-chan { font-weight: 800; letter-spacing: .18em; font-size: 22px; color: var(--tvw-muted); text-transform: uppercase; }
+        .tvw-bug { margin-left: auto; width: 230px; filter: drop-shadow(0 0 18px rgba(255,31,142,.45)); }
+        .tvw-l3 { position: absolute; left: 48px; bottom: 56px; z-index: 3; display: flex; align-items: stretch; max-width: 1400px; }
+        .tvw-l3 .tag { background: linear-gradient(135deg, var(--tvw-pink), var(--tvw-magenta)); color: #fff; font-family: 'Dancing Script', cursive; font-size: 46px; padding: 6px 26px; display: flex; align-items: center; border-radius: 14px 0 0 14px; }
+        .tvw-l3 .txt { background: rgba(10,6,12,.88); color: var(--tvw-ink); padding: 14px 28px; display: flex; flex-direction: column; justify-content: center; border-radius: 0 14px 14px 0; border: 1px solid rgba(255,95,176,.35); border-left: 0; min-width: 0; }
+        .tvw-l3 .k { font-size: 18px; font-weight: 800; letter-spacing: .2em; color: var(--tvw-pink-2); text-transform: uppercase; }
+        .tvw-l3 .t { font-size: 34px; font-weight: 800; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 1100px; }
+        #tvwFallback { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 26px;
+            background: radial-gradient(60% 60% at 50% 45%, rgba(214,0,111,.35), transparent 70%), var(--tvw-bg); color: var(--tvw-muted); font-size: 30px; font-weight: 600; }
+        #tvwFallback img { width: 760px; }
+        /* W Master/TVW (ramka) ukrywamy pasek górny kanału — stacja ma własne paski. */
+        html.inside-iframe .tvw-top .tvw-chan { display: none; }
+        /* W stacji TVW na PC górny pasek i znak daje stacja — kanał ich nie dubluje; belka nad dolnym paskiem stacji. */
+        html.inside-iframe:not(.tvw-phone) .tvw-top { display: none; }
+        html.inside-iframe:not(.tvw-phone) .tvw-l3 { bottom: 104px; }
+    </style>
+</head>
+<body>
+    <div id="app-container">
+        <div id="tvwFallback"><img src="/images/tvw/tvw-logo.webp" alt="TVW — Telewizja Kobiet"><div>Za chwilę program CC Women</div></div>
+        <div id="ytWrap"><div id="ytPlayer"></div></div>
+        <div class="tvw-vignette"></div>
+        <div class="tvw-top">
+            <span class="tvw-live">● NA ŻYWO</span>
+            <span class="tvw-chan">CC Women · Telewizja Kobiet</span>
+            <img class="tvw-bug" src="/images/tvw/tvw-logo-360.webp" alt="TVW">
+        </div>
+        <div class="tvw-l3">
+            <div class="tag">Women</div>
+            <div class="txt"><div class="k" id="tvwShow">Teraz w TVW</div><div class="t" id="tvwTitle">CC Women — rozmowy, świadectwa, inspiracje</div></div>
+        </div>
+    </div>
+
+    <script>
+        // ── Skala 1920×1080 → okno (jak pozostałe kanały CC) ──
+        function tvwResize() {
+            const c = document.getElementById('app-container');
+            const vv = window.visualViewport;
+            const w = vv ? vv.width : window.innerWidth, h = vv ? vv.height : window.innerHeight;
+            if (!w || !h) return;
+            const s = Math.min(w / 1920, h / 1080);
+            c.style.transform = 'scale(' + s + ')';
+            c.style.left = Math.max(0, (w - 1920 * s) / 2) + 'px';
+            c.style.top = Math.max(0, (h - 1080 * s) / 2) + 'px';
+        }
+        window.addEventListener('resize', tvwResize);
+        window.addEventListener('orientationchange', () => { setTimeout(tvwResize, 200); setTimeout(tvwResize, 600); });
+        if (window.visualViewport) window.visualViewport.addEventListener('resize', tvwResize);
+        tvwResize();
+        if (window.self !== window.top) document.documentElement.classList.add('inside-iframe');
+    </script>
+    <script src="js/cc-broadcast-guard.js?v=20261008_kanaly2"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // ── Playlista CC Women (@CCWomen7) ──
+        const params = new URLSearchParams(location.search);
+        const TVW_PLAYLIST = params.get('playlist') || 'PLcWRjZtKUlTcxyTIEE7yMfVfz1gvvRAig';
+        const TVW_SHOW = (params.get('show') || 'CC Women').slice(0, 80);
+        let tvwMuted = params.get('muted') === '1';
+        let player = null, seeded = false;
+        document.getElementById('tvwShow').textContent = 'TVW · ' + TVW_SHOW;
+
+        function dailySeed(n) {
+            const d = new Date();
+            const doy = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 864e5);
+            return ((doy * 79) + (d.getDate() * 17) + (d.getHours() * 7)) % Math.max(1, n);
+        }
+        function postParent(type) { try { if (window.parent !== window) window.parent.postMessage({ type }, '*'); } catch (e) {} }
+        function updateTitle() {
+            try {
+                const t = player && player.getVideoData && player.getVideoData().title;
+                if (t) document.getElementById('tvwTitle').textContent = t;
+            } catch (e) {}
+        }
+        function applyAudio() {
+            if (!player || !player.mute) return;
+            try { if (tvwMuted) player.mute(); else { player.unMute(); player.setVolume(100); } } catch (e) {}
+        }
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('ytPlayer', {
+                width: 1920, height: 1080,
+                playerVars: { listType: 'playlist', list: TVW_PLAYLIST, autoplay: 1, mute: 1, playsinline: 1, controls: 0, rel: 0, modestbranding: 1, iv_load_policy: 3, cc_load_policy: 0, loop: 1 },
+                events: {
+                    onReady: () => { player.mute(); player.playVideo(); },
+                    onStateChange: (e) => {
+                        if (e.data === YT.PlayerState.PLAYING) {
+                            document.getElementById('tvwFallback').style.opacity = '0';
+                            if (!seeded) {
+                                seeded = true;
+                                // Każdego dnia i o każdej godzinie start w innym miejscu playlisty.
+                                const list = (player.getPlaylist && player.getPlaylist()) || [];
+                                if (list.length > 1) { player.playVideoAt(dailySeed(list.length)); return; }
+                            }
+                            applyAudio();
+                            updateTitle();
+                            postParent('YT_PLAYER_PLAYING');
+                        }
+                    }
+                }
+            });
+        }
+
+        // Sterowanie z Master Live / TVW (wyciszenie, dźwięk).
+        window.addEventListener('message', (ev) => {
+            const d = ev.data; let type = '';
+            if (typeof d === 'string') { try { const p = JSON.parse(d); type = p.type || p.event || ''; if (p.func === 'unMute') type = 'UNMUTE_AUDIO'; if (p.func === 'mute') type = 'MUTE_AUDIO'; } catch (e) { type = d; } }
+            else if (d && typeof d === 'object') type = d.type || '';
+            if (type === 'UNMUTE_AUDIO') { tvwMuted = false; applyAudio(); }
+            if (type === 'MUTE_AUDIO') { tvwMuted = true; applyAudio(); }
+        });
+        // Samodzielnie (poza TVW): pierwsze dotknięcie włącza dźwięk.
+        if (window.self === window.top && !tvwMuted) {
+            const unlock = () => { applyAudio(); };
+            window.addEventListener('click', unlock); window.addEventListener('touchstart', unlock, { passive: true });
+        }
+        setInterval(updateTitle, 15000);
+    </script>
+</body>
+</html>

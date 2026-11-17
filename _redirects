@@ -419,6 +419,9 @@
 /spokoj-serca /wieczor-ze-slowem-bozym-live 200
 /live /master-live 200
 /master /master-live 200
+/TVW /tvw 200
+/TVW/ /tvw 200
+/tvw/ /tvw 200
 /tv /smart-tv 200
 /telewizja /smart-tv 200
 /remote /pilot 200
