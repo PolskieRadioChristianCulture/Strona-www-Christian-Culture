@@ -2,6 +2,40 @@
   "version": "2.1",
   "items": [
     {
+      "id": "ccwomen-werset-dnia-2026-11-17-16x9",
+      "format": "16:9",
+      "headline": "ON NIE ZOSTAWI CIEBIE SAMEJ",
+      "reference": "PSALM 138:8",
+      "motif": "Dlonie kobiety na oknie w fioletowo-rozowym swietle poranka",
+      "palette": {
+        "bg": "#160824",
+        "text": "#FFFFFF",
+        "accent": "#FF4FA3"
+      },
+      "layout": "left-overlay",
+      "emotion": "Nadzieja",
+      "file": "C:/Users/czark/.gemini/antigravity/brain/db144fde-c11f-407d-ac06-6b4bec418097/ccwomen_02_werset_dnia_ps138_16x9.jpg",
+      "hash": "05bc4faa8321c4e7",
+      "createdAt": "2026-11-17T19:20:11.459Z"
+    },
+    {
+      "id": "ccwomen-werset-dnia-2026-11-17-1x1",
+      "format": "1:1",
+      "headline": "Werset Dnia — Psalm 138:8 (UBG)",
+      "reference": "Psalm 138:8 (UBG)",
+      "motif": "Portret CC Women",
+      "palette": {
+        "bg": "#0A040E",
+        "text": "#FFFFFF",
+        "accent": "#E91E8C"
+      },
+      "layout": "cc-women-social-1x1",
+      "emotion": "Nadzieja",
+      "file": "C:/Users/czark/.gemini/antigravity/brain/db144fde-c11f-407d-ac06-6b4bec418097/ccwomen_01_werset_dnia_ps138_1x1.jpg",
+      "hash": "e61a47420f11acf6",
+      "createdAt": "2026-11-17T19:20:09.901Z"
+    },
+    {
       "id": "werset-dnia-2026-11-17-ps138-9x16",
       "format": "9:16",
       "headline": "BÓG CIĘ NIE OPUŚCI",
