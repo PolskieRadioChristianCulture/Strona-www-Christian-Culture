@@ -115,10 +115,18 @@
             try { if (tvwMuted) player.mute(); else { player.unMute(); player.setVolume(100); } } catch (e) {}
         }
 
+        // Bez automatycznych napisów YouTube na antenie (tak jak w Master Live).
+        function hideCaptions() {
+            try {
+                if (player.unloadModule) { player.unloadModule('captions'); player.unloadModule('cc'); }
+                if (player.setOption) player.setOption('captions', 'track', {});
+            } catch (e) {}
+        }
+
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('ytPlayer', {
                 width: 1920, height: 1080,
-                playerVars: { listType: 'playlist', list: TVW_PLAYLIST, autoplay: 1, mute: 1, playsinline: 1, controls: 0, rel: 0, modestbranding: 1, iv_load_policy: 3, cc_load_policy: 0, loop: 1 },
+                playerVars: { listType: 'playlist', list: TVW_PLAYLIST, autoplay: 1, mute: 1, playsinline: 1, controls: 0, rel: 0, modestbranding: 1, iv_load_policy: 3, cc_load_policy: 0, cc_lang_pref: 'pl', loop: 1 },
                 events: {
                     onReady: () => { player.mute(); player.playVideo(); },
                     onStateChange: (e) => {
@@ -131,6 +139,7 @@
                                 if (list.length > 1) { player.playVideoAt(dailySeed(list.length)); return; }
                             }
                             applyAudio();
+                            hideCaptions(); setTimeout(hideCaptions, 1500); setTimeout(hideCaptions, 5000);
                             updateTitle();
                             postParent('YT_PLAYER_PLAYING');
                         }
