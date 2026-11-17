@@ -38,6 +38,7 @@ export function isPublicFile(relativePath) {
   if (file === 'lib/bu-voting-worker.js') return true;
   if (file === 'test/wspieraj/index.html') return true;
   if (file === 'network-pilot.html' || file === 'test/network/index.html') return true;
+  if (file.startsWith('test/ccwomen/')) return true;
   if (file === 'test/cc-youtube-boost/index.html' || file === 'test/cc-youtube-boost/data.json') return true;
   if (segments.some((segment) => BLOCKED_DIRECTORIES.has(segment))) return false;
   if (BLOCKED_FILES.has(lower) || BLOCKED_FILES.has(path.posix.basename(lower))) return false;
