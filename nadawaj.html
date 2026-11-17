@@ -10,1587 +10,324 @@
 
   gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Nadawaj z Christian Culture - Zestaw Scen OBS</title>
-    <meta name="description" content="Pobierz w pełni darmowe, zoptymalizowane sceny przeglądarki dla programu OBS Studio i nadawaj z Christian Culture na swoim własnym kanale.">
-    
-    <!-- Google AdSense Verification Code -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6762200025251358"
-         crossorigin="anonymous"></script>
-    
-    <!-- Google Fonts: Cinzel (Headers) and Montserrat (UI & Body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome for Premium Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=11">
-    <style>
-        /* Aggressive Google Translate Banner and Offsets Hider */
-        iframe.goog-te-banner-frame,
-        .goog-te-banner-frame,
-        .goog-te-banner-frame.skiptranslate,
-        iframe[id*="goog"],
-        iframe[class*="goog"],
-        #goog-gt-tt,
-        .goog-te-balloon-frame {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            height: 0 !important;
-            width: 0 !important;
-        }
-        body {
-            top: 0px !important;
-            position: static !important;
-        }
-        /* Responsive override for broadcast grid */
-        @media (max-width: 768px) {
-            .cards-grid {
-                grid-template-columns: 1fr !important;
-            }
-        }
-        /* Premium Embed Modal & Toast Styles */
-        .premium-modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            inset: 0;
-            background: rgba(3, 4, 7, 0.85);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .premium-modal.show {
-            display: flex;
-            opacity: 1;
-        }
-        .modal-content {
-            box-sizing: border-box;
-            max-height: 90dvh;
-            overflow-y: auto;
-            background: rgba(20, 24, 35, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 3px solid var(--gold-primary);
-            border-radius: 20px;
-            padding: 35px;
-            max-width: 550px;
-            width: 90%;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-        .premium-modal.show .modal-content {
-            transform: scale(1);
-        }
-        .modal-close {
-            min-width: 44px;
-            min-height: 44px;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: rgba(255,255,255,0.8);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .modal-close:hover {
-            color: #fff;
-        }
-        .modal-title {
-            padding-right: 32px;
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 15px;
-        }
-        .modal-body p {
-            color: #a1a1aa;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        .code-textarea {
-            width: 100%;
-            height: 110px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 10px;
-            padding: 15px;
-            color: var(--gold-primary, #C4A35A);
-            font-family: monospace;
-            font-size: 0.9rem;
-            resize: none;
-            margin-bottom: 20px;
-            outline: none;
-            box-sizing: border-box;
-        }
-        .copy-btn {
-            min-height: 44px;
-            background: linear-gradient(135deg, var(--gold-primary, #C4A35A) 0%, var(--gold-dark, #aa820a) 100%);
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            padding: 12px 24px;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            cursor: pointer;
-            letter-spacing: 1px;
-            width: 100%;
-            transition: opacity 0.2s;
-        }
-        .copy-btn:hover {
-            opacity: 0.9;
-        }
-        #embedModal :focus-visible {
-            outline: 2px solid #C4A35A;
-            outline-offset: 3px;
-        }
-        .toast-notification {
-            max-width: calc(100% - 32px);
-            box-sizing: border-box;
-            text-align: center;
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(50px);
-            background: rgba(212, 175, 55, 0.95);
-            color: #000;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            z-index: 10001;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            pointer-events: none;
-        }
-        .toast-notification.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-    </style>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="apple-touch-icon" href="icon.png">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nadawaj z Christian Culture – Telewizja z misją 24/7</title>
+<link rel="canonical" href="https://polskieradio.cc/nadawaj">
+<meta name="description" content="Wszystkie kanały nadawcze Christian Culture: telewizja 24/7, kursy biblijne, muzyka, radio i sceny 9:16. Wybierz kanał i oglądaj na żywo.">
+<link rel="icon" href="/app-christian-culture.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Manrope:wght@500;600;700;800&display=swap">
 <style>
-        /* --- UNIFORM BROADCAST CARDS SYSTEM --- */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
-            gap: 25px;
-            align-items: stretch;
-        }
+/* Layout: centrum nadawcze — wejście z Master Live i „teraz w ramówce”, filtry, grupy kanałów 16:9, miejsca na banery autopromocji, karuzela 9:16. Styl Skarbca: czerń + pomarańcz CC. */
+:root{--bg:#06070b;--panel:#0e1118;--panel2:#141824;--line:rgba(255,140,51,.18);--fg:#f7f3ec;--muted:#c3bcb0;--dim:#8d877d;--o:#FF7A00;--o2:#FF8C33;--o3:#E66A00;--gold:#f2c46d;--live:#ff3b30;--f-d:"Unbounded","Segoe UI",sans-serif;--f-b:"Manrope","Segoe UI",sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-b);font-size:16px;line-height:1.5;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-d);letter-spacing:-.01em;margin:0;text-wrap:balance}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--o);outline-offset:3px;border-radius:8px}
+.aurora{position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 15% 20%,rgba(255,122,0,.10),transparent 70%),radial-gradient(35% 30% at 85% 75%,rgba(242,196,109,.06),transparent 70%);animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(5%,-4%) rotate(6deg)}}
 
-        .broadcast-card {
-            min-width: 0;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 20px;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
+/* górny pasek */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(6,7,11,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:14px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-d);font-size:14px;text-decoration:none}
+.brand img{width:34px;height:34px;filter:drop-shadow(0 0 10px rgba(242,196,109,.45))}
+.onair{margin-left:auto;display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px}
+.onair i{width:9px;height:9px;border-radius:50%;background:var(--live);box-shadow:0 0 0 0 rgba(255,59,48,.6);animation:pulse 1.6s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(255,59,48,0)}}
+.demo{font-weight:800;font-size:12px;color:#1a0d00;background:var(--gold);padding:5px 10px;border-radius:99px}
 
-        .broadcast-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--gold-primary, #d4af37);
-            background: rgba(212, 175, 55, 0.02);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-        }
+/* hero */
+.hero{padding-block:26px 10px}
+/* ── TV HERO: intro wideo → kosmos z pierścieniem ekranów kanałów ── */
+.tvhero{position:relative;height:min(86vh,820px);min-height:520px;overflow:hidden;background:#02030a;isolation:isolate}
+.tvhero video,.tvhero .space{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tvhero .space{background:url(/assets/nadawaj/intro-end.webp) center/cover;opacity:0;transition:opacity 1.2s;animation:spacezoom 40s ease-in-out infinite alternate}
+@keyframes spacezoom{to{transform:scale(1.12) rotate(1deg)}}
+.tvhero.orbit .space{opacity:1}
+.tvhero.orbit video{opacity:0;transition:opacity 1.2s}
+.tvhero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(60% 50% at 50% 45%,transparent 40%,rgba(2,3,10,.75)),linear-gradient(0deg,rgba(6,7,11,1) 0%,rgba(6,7,11,.0) 35%)}
+.ring-stage{position:absolute;left:50%;top:39%;width:0;height:0;z-index:2;perspective:1400px;perspective-origin:50% 20%;opacity:0;transition:opacity 1s .2s}
+.tvhero.orbit .ring-stage{opacity:1}
+.ring{position:absolute;transform-style:preserve-3d;transform:rotateX(-8deg) rotateY(var(--ry,0deg));transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.screen{position:absolute;width:var(--sw,230px);aspect-ratio:16/9;left:calc(var(--sw,230px)/-2);top:calc(var(--sw,230px)*-.28);transform:rotateY(var(--a)) translateZ(var(--r,520px));border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,140,51,.35);background:#0b0d14;box-shadow:0 0 30px rgba(255,122,0,.25);transition:box-shadow .4s,border-color .4s,filter .4s;backface-visibility:hidden}
+.screen img{width:100%;height:100%;object-fit:cover;display:block}
+.screen::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.18),transparent 35%),repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 2px,transparent 2px 4px)}
+.screen .nm{position:absolute;left:0;right:0;bottom:0;padding:6px 8px;font-size:12px;font-weight:800;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent);z-index:1}
+.screen.on{border-color:var(--o);box-shadow:0 0 0 2px var(--o),0 0 60px rgba(255,122,0,.75)}
+.screen .lv{position:absolute;right:6px;top:6px;z-index:1;background:var(--live);color:#fff;font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px}
+.ring-stage:not(.focusing) .screen:not(.on){filter:saturate(.75) brightness(.8)}
+.hud-top{position:absolute;z-index:3;top:16px;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hud-now{background:rgba(6,7,11,.7);border:1px solid var(--line);padding:6px 12px;border-radius:10px;font-size:14px;backdrop-filter:blur(8px)}
+.hud-now b{color:var(--o2)}
+.hud-bottom{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:0 max(16px,env(safe-area-inset-right,0px)) 26px max(16px,env(safe-area-inset-left,0px));display:flex;justify-content:center;opacity:0;transform:translateY(30px);transition:all .9s .5s}
+.tvhero.orbit .hud-bottom{opacity:1;transform:none}
+.focus{text-align:center;max-width:760px;display:grid;gap:8px;justify-items:center}
+.focus h1{font-size:clamp(24px,3.6vw,46px);line-height:1.08;text-shadow:0 4px 24px rgba(0,0,0,.8)}
+.focus p{margin:0;color:var(--muted);text-shadow:0 2px 10px #000}
+.focus.swap{animation:fswap .6s}
+@keyframes fswap{from{opacity:0;transform:translateY(12px)}}
+.f-acts{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;justify-content:center}
+.btn-go,.btn-ghost{all:unset;cursor:pointer;min-height:50px;padding:0 22px;border-radius:14px;font-weight:800;display:inline-flex;align-items:center;gap:8px}
+.btn-go{background:linear-gradient(100deg,var(--o2),var(--o));color:#1a0d00;box-shadow:0 10px 30px -10px var(--o);animation:gopulse 2.4s infinite}
+@keyframes gopulse{70%{box-shadow:0 0 0 14px rgba(255,122,0,0),0 10px 30px -10px var(--o)}}
+.btn-ghost{background:rgba(255,255,255,.08);border:1px solid var(--line)}
+.btn-go:focus-visible,.btn-ghost:focus-visible{outline:2px solid var(--gold)}
+.nav{all:unset;cursor:pointer;position:absolute;z-index:3;top:44%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:rgba(6,7,11,.6);border:1px solid var(--line);opacity:0;transition:opacity .8s .8s,background .2s}
+.tvhero.orbit .nav{opacity:1}
+.nav:hover{background:var(--o);color:#1a0d00}
+.nav.prev{left:max(12px,env(safe-area-inset-left,0px))}.nav.next{right:max(12px,env(safe-area-inset-right,0px))}
+@media (max-width:760px){.tvhero{height:640px;min-height:0}.ring-stage{top:38%}.screen{--sw:150px}.ring .screen{--r:300px}.nav{display:none}}
+.eyebrow{font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--o2)}
+.feature{position:relative;border-radius:22px;overflow:hidden;min-height:340px;display:flex;align-items:flex-end;text-decoration:none;border:1px solid var(--line);box-shadow:0 30px 80px -30px rgba(255,122,0,.4)}
+.feature img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);animation:kb 18s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.12) translate(-2%,-1%)}}
+.feature::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,7,11,.95) 8%,rgba(6,7,11,.2) 60%,transparent)}
+.feature .in{position:relative;z-index:1;padding:26px;display:grid;gap:10px}
+.feature h1{font-size:clamp(26px,3.4vw,44px);line-height:1.08}
+.feature p{margin:0;color:var(--muted);max-width:52ch}
+.live-pill{justify-self:start;display:inline-flex;align-items:center;gap:8px;background:var(--live);color:#fff;font-weight:800;font-size:13px;padding:6px 12px;border-radius:8px}
+.live-pill i{width:8px;height:8px;border-radius:50%;background:#fff;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.3}}
+.side{display:grid;gap:14px;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:stretch}
+@media (max-width:860px){.side{grid-template-columns:minmax(0,1fr)}}
+.now{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:20px}
+.now h2{font-size:18px;margin:6px 0 14px}
+.slot{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;align-items:center;padding:10px 0;border-top:1px solid rgba(255,255,255,.06)}
+.slot .t{font-weight:800;font-size:18px;color:var(--o2);font-variant-numeric:tabular-nums}
+.slot b{display:block;font-size:16px}
+.slot small{color:var(--muted)}
+.slot.cur .t::before{content:"● ";color:var(--live)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;align-content:center}
+.stat .v{font-weight:800;font-size:32px;line-height:1.1}
+.stat .l{color:var(--muted);font-size:14px}
 
-        .card-img-wrapper {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-            background: #000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            flex-shrink: 0;
-            display: block;
-            text-decoration: none;
-            cursor: pointer;
-        }
+/* filtry */
+.filters{position:sticky;top:calc(env(safe-area-inset-top,0px) + 56px);z-index:15;display:flex;gap:8px;flex-wrap:wrap;padding-block:14px;background:linear-gradient(var(--bg) 70%,transparent)}
+.filters button{all:unset;cursor:pointer;min-height:44px;padding:0 16px;display:inline-flex;align-items:center;border-radius:12px;font-weight:700;font-size:15px;background:rgba(255,255,255,.05);border:1px solid var(--line);transition:all .2s}
+.filters button[aria-pressed="true"]{background:var(--o);color:#1a0d00;border-color:var(--o)}
+.filters button:focus-visible{outline:2px solid var(--gold)}
 
-        .card-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: block;
-        }
+/* grupy i karty */
+section{padding-block:26px 6px;scroll-margin-top:130px}
+.gh{display:flex;align-items:baseline;gap:12px;margin-bottom:16px}
+.gh h2{font-size:clamp(20px,2.4vw,28px)}
+.gh span{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;perspective:1200px}
+.card{position:relative;background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,140,51,.5);box-shadow:0 20px 50px -24px var(--o)}
+.card[hidden]{display:none}
+.thumb{position:relative;aspect-ratio:16/9;overflow:hidden;display:block}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.card:hover .thumb img{transform:scale(1.08)}
+.thumb .play{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.35);opacity:0;transition:opacity .3s}
+.card:hover .play,.thumb:focus-visible .play{opacity:1}
+.play span{width:62px;height:62px;border-radius:50%;background:var(--o);display:grid;place-items:center;font-size:22px;color:#1a0d00;box-shadow:0 0 0 8px rgba(255,122,0,.25)}
+.chip{position:absolute;left:10px;top:10px;font-weight:800;font-size:12px;padding:4px 9px;border-radius:8px;background:rgba(6,7,11,.85);border:1px solid var(--line)}
+.chip.new{background:var(--o);color:#1a0d00;border:none}
+.chip.onnow{left:auto;right:10px;background:var(--live);color:#fff;border:none}
+.body{padding:16px;display:grid;gap:6px;flex:1}
+.badge{font-weight:800;font-size:12px;letter-spacing:.06em;color:var(--o2);text-transform:uppercase}
+.card h3{font-family:var(--f-b);font-size:18px;font-weight:800;line-height:1.25}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.acts{display:flex;gap:8px;padding:0 16px 16px}
+.acts a,.acts button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 14px;border-radius:11px;font-weight:800;font-size:14px;transition:background .2s}
+.acts .go{background:var(--o);color:#1a0d00;flex:1}
+.acts .sec{background:rgba(255,255,255,.07)}
+.acts .sec:hover{background:rgba(255,122,0,.2)}
+.acts .ok{background:#5fd39a !important;color:#04210f}
+.acts a:focus-visible,.acts button:focus-visible{outline:2px solid var(--gold)}
 
-        .broadcast-card:hover .card-img-wrapper img {
-            transform: scale(1.06);
-        }
+/* banery autopromocji */
+.ad{position:relative;border-radius:18px;overflow:hidden;border:1px dashed rgba(242,196,109,.55);background:var(--panel2);display:block;text-decoration:none}
+.ad img{width:100%;height:100%;object-fit:cover;display:block}
+.ad .lab{position:absolute;right:10px;top:10px;font-size:11px;font-weight:800;letter-spacing:.12em;background:var(--gold);color:#1a0d00;padding:4px 8px;border-radius:6px}
+.ad.empty{display:grid;place-items:center;text-align:center;color:var(--muted);padding:20px}
+.ad.empty b{display:block;color:var(--fg);font-size:17px;margin-bottom:4px}
+.grid .ad{aspect-ratio:16/9;align-self:start}
+.strip{margin-top:26px;aspect-ratio:2000/562}
 
-        /* Play overlay on hover */
-        .card-play-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            opacity: 0;
-            transition: opacity 0.25s ease;
-            z-index: 2;
-        }
-
-        .broadcast-card:hover .card-play-overlay,
-        .card-img-wrapper:focus .card-play-overlay {
-            opacity: 1;
-        }
-
-        .card-play-btn-circle {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold-primary, #d4af37) 0%, #aa820a 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-size: 1.3rem;
-            padding-left: 3px;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6), 0 4px 15px rgba(0,0,0,0.5);
-            transform: scale(0.85);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .broadcast-card:hover .card-play-btn-circle {
-            transform: scale(1);
-        }
-
-        .card-play-text {
-            font-family: 'Cinzel', serif;
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            color: #fff;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-            background: rgba(0, 0, 0, 0.75);
-            padding: 5px 14px;
-            border-radius: 20px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            transform: translateY(6px);
-            transition: transform 0.3s ease;
-        }
-
-        .broadcast-card:hover .card-play-text {
-            transform: translateY(0);
-        }
-
-        /* Subtle permanent play pill in bottom-right corner for touchscreens & instant clarity */
-        .card-live-indicator {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.75);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.68rem;
-            font-weight: 800;
-            color: var(--gold-light, #f3e5ab);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            backdrop-filter: blur(6px);
-            z-index: 1;
-            transition: opacity 0.2s ease;
-            pointer-events: none;
-        }
-
-        .broadcast-card:hover .card-live-indicator {
-            opacity: 0;
-        }
-
-        .card-title a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .card-title a:hover {
-            color: var(--gold-primary, #d4af37);
-        }
-
-        .card-body {
-            padding: 24px 26px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            justify-content: space-between;
-        }
-
-        .card-badge {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--gold-light, #f3e5ab);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            padding: 3px 10px;
-            border-radius: 6px;
-            font-weight: 800;
-            font-size: 0.65rem;
-            font-family: 'Outfit', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 10px;
-            align-self: flex-start;
-        }
-
-        .card-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.25rem;
-            color: #fff;
-            margin-bottom: 10px;
-            font-weight: 700;
-            line-height: 1.35;
-            min-height: 3.4rem;
-            height: auto;
-            overflow: visible;
-        }
-
-        .card-desc {
-            font-size: 0.92rem;
-            color: #a1a1aa;
-            line-height: 1.55;
-            margin-bottom: 22px;
-            min-height: 4.5rem;
-            height: auto;
-            overflow: visible;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 8px;
-            width: 100%;
-            margin-top: auto;
-        }
-
-        .btn-obs {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #fff;
-            font-weight: 800;
-            font-size: 0.82rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 12px 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-        }
-
-        .btn-obs:hover {
-            background: rgba(212, 175, 55, 0.15);
-            border-color: var(--gold-primary, #d4af37);
-            color: var(--gold-light, #f3e5ab);
-        }
-
-        .btn-icon-square {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #fff;
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .btn-icon-square:hover {
-            border-color: var(--gold-primary, #d4af37);
-            color: var(--gold-primary, #d4af37);
-            background: rgba(212, 175, 55, 0.1);
-        }
+/* 9:16 */
+.vert{display:flex;gap:16px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory}
+.vcard{flex:0 0 220px;scroll-snap-align:start;background:var(--panel);border:1px solid rgba(255,255,255,.07);border-radius:24px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .4s}
+.vcard:hover{transform:translateY(-6px) rotate(-1deg);border-color:rgba(255,140,51,.5)}
+.vcard .ph{aspect-ratio:9/16;overflow:hidden}
+.vcard img{width:100%;height:100%;object-fit:cover}
+.vcard .b{padding:12px}
+.vcard b{display:block;font-size:15px}
+.vcard small{color:var(--muted)}
+.vcard.ad9{border:1px dashed rgba(242,196,109,.55)}
+.vcard.ad9 .ph{display:grid;place-items:center;text-align:center;color:var(--muted);padding:16px;background:var(--panel2)}
+footer{padding-block:50px 40px;color:var(--dim);font-size:14px;text-align:center}
+footer a{color:var(--o2);font-weight:800}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#5fd39a;color:#04210f;font-weight:800;padding:12px 18px;border-radius:12px;z-index:50}
+@media (max-width:980px){.hero{grid-template-columns:minmax(0,1fr)}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.grid{grid-template-columns:minmax(0,1fr)}.stats .v{font-size:26px}.feature{min-height:260px}.onair span{display:none}}
 </style>
+
 </head>
 <body>
+<div class="aurora" aria-hidden="true"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="https://polskieradio.cc/"><img src="/app-christian-culture.png" alt="">Nadawaj z CC</a>
+  <div class="onair"><i></i><span>Na antenie:</span> <span id="onairName">Master Live 24/7</span></div>
+  
+</div></header>
 
-    <!-- SECTION A: HEADER -->
-    <header class="main-header" id="mainHeader">
-        <div class="header-container">
-            <!-- Left Side: Hamburger Menu & Logo -->
-            <div class="header-left">
-                <button class="hamburger-menu" id="hamburgerBtn" aria-label="Otwórz menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-                <div class="brand-logo">
-                    <a href="#" class="logo-link">
-                        <span class="logo-top">CHRISTIAN</span>
-                        <span class="logo-bottom">CULTURE</span>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Right Side: SMS Subscription -->
-            <div class="header-right">
-                <!-- Google Translate Dropdown (Rendered off-screen so Google Translate initializes properly) -->
-                <div id="google_translate_element" style="position: absolute; left: -9999px; top: -9999px; visibility: hidden;"></div>
-                
-                <div style="display: flex; align-items: center; gap: 6px;">
-                    <button class="sms-button" id="navDzjIconBtn" aria-label="Dobrze, że jesteś" title="Dzisiejsze Rozważanie">
-                        <div class="avatar-ring" style="overflow: hidden; padding: 0; background: #000;">
-                            <img src="dzj-logo.jpg" alt="Dobrze, że jesteś" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                        </div>
-                    </button>
-                </div>
-
-                <button class="sms-button" id="smsBtn" aria-label="Subskrypcje SMS/MMS" title="Bezpłatne Subskrypcje SMS/MMS">
-                    <div class="avatar-ring">
-                        <i class="fa-solid fa-comment-sms" style="color: var(--gold-primary); font-size: 1.15rem;"></i>
-                    </div>
-                </button>
-
-                <!-- OBS Broadcast Panel Link -->
-                <a href="nadawaj" class="sms-button" title="Panel Nadawania OBS - Wszystkie Formaty" aria-label="Panel Nadawania" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
-                    <style>
-                        @keyframes broadcast-glow {
-                            0% { opacity: 0.65; transform: scale(0.95); }
-                            50% { opacity: 1; transform: scale(1.10); }
-                            100% { opacity: 0.65; transform: scale(0.95); }
-                        }
-                    </style>
-                    <div class="avatar-ring" style="display: flex; align-items: center; justify-content: center;">
-                        <i class="fa-solid fa-tower-broadcast" style="color: var(--gold-primary); font-size: 1.1rem; animation: broadcast-glow 2.2s infinite ease-in-out;"></i>
-                    </div>
-                </a>
-
-                <!-- Premium Custom Language Toggle Button -->
-                <button class="sms-button" id="langToggleBtn" title="Switch to English" aria-label="Zmień język">
-                    <div class="avatar-ring" style="display: flex; align-items: center; justify-content: center;">
-                        <span id="langToggleText" style="color: var(--gold-primary); font-size: 0.8rem; font-weight: 800; letter-spacing: 0.05em; font-family: 'Montserrat', sans-serif;">EN</span>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- SIDE DRAWER NAVIGATION -->
-    <div class="side-drawer" id="sideDrawer">
-        <button class="drawer-close" id="drawerCloseBtn" aria-label="Zamknij menu">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="drawer-content">
-            <h2 class="drawer-brand">CHRISTIAN CULTURE</h2>
-            <nav class="drawer-nav">
-                <a href="index.html" class="drawer-link"><i class="fa-solid fa-house"></i> Strona Główna</a>
-                <a href="#" class="drawer-link" id="drawerShowLiveLink" onclick="restoreLiveStream(event)" style="display: none; color: #ff0000; font-weight: 700;"><i class="fa-solid fa-circle-play"></i> POKAŻ TRANSMISJĘ</a>
-                <a href="#" class="drawer-link" id="navDzjLink" style="color: var(--gold-primary); font-weight: 700;"><i class="fa-solid fa-heart"></i> DOBRZE, ŻE JESTEŚ</a>
-                <a href="#radio-player-anchor" class="drawer-link scroll-to" id="navRadioLink"><i class="fa-solid fa-radio"></i> Radio Internetowe</a>
-                <a href="#" class="drawer-link active" style="color: var(--gold-primary); font-weight: 700;"><i class="fa-solid fa-tower-broadcast"></i> Nadawaj z Christian Culture</a>
-
-                <a href="#" class="drawer-link" id="navSmsLink"><i class="fa-solid fa-comment-sms"></i> Subskrypcje SMS</a>
-                <a href="#aktualnosci-czerwiec" class="drawer-link scroll-to" id="navAktualnosciLink" style="color: var(--gold-primary);"><i class="fa-solid fa-newspaper"></i> Aktualności</a>
-                <a href="#" class="drawer-link" id="navDecalogueLink" style="color: var(--gold-primary);"><i class="fa-solid fa-book-open"></i> Dekalog</a>
-                <!-- Promocja Pisma Świętego (Biblia UBG) -->
-                <div class="drawer-bible-promo">
-                    <div class="bible-promo-badge">Darmowy Egzemplarz</div>
-                    <h3 class="bible-promo-title">PISMO ŚWIĘTE</h3>
-                    <p class="bible-promo-subtitle">Biblia UBG</p>
-                    <div class="bible-promo-image-wrapper">
-                        <img src="reklama_biblia_2.jpeg" alt="Reklama Pismo Święte Biblia UBG" class="bible-promo-img">
-                    </div>
-                    <div class="bible-promo-actions">
-                        <div class="sms-instruction">
-                            <span>Wyślij SMS o treści:</span>
-                            <strong>"BIBLIA"</strong>
-                        </div>
-                        <a href="tel:+48530736155" class="promo-btn call-btn" style="flex-direction: column; gap: 4px; padding: 10px 15px;">
-                            <span style="font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; font-weight: 700; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-phone"></i> Zadzwoń</span>
-                            <span style="font-size: 0.95rem; font-weight: 800; white-space: nowrap;">+48 507 821 789</span>
-                        </a>
-                        <a href="sms:+48530736155?body=BIBLIA" class="promo-btn sms-btn" style="flex-direction: column; gap: 4px; padding: 10px 15px;">
-                            <span style="font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; font-weight: 700; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-envelope"></i> Wyślij SMS</span>
-                            <span style="font-size: 0.95rem; font-weight: 800; white-space: nowrap;">+48 507 821 789</span>
-                        </a>
-                    </div>
-                    <p class="bible-promo-footnote">* Zamawiający ponosi jedynie koszt przesyłki</p>
-                </div>
-                <!-- Przycisk pobierania Biblii Jakuba Wujka -->
-                <a href="https://drive.google.com/file/d/1HCcafv4rdU-otttgkQJEsWauvwjWlNy3/view?usp=sharing" target="_blank" class="drawer-link download-wujek-link" style="color: var(--gold-primary); font-weight: 700; border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 12px; padding: 12px; text-align: center; justify-content: center; background: rgba(212, 175, 55, 0.05); margin-top: -0.5rem; margin-bottom: 0.5rem; font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px; transition: var(--transition-fast);" onmouseover="this.style.background='rgba(212, 175, 55, 0.15)'; this.style.borderColor='var(--gold-primary)';" onmouseout="this.style.background='rgba(212, 175, 55, 0.05)'; this.style.borderColor='rgba(212, 175, 55, 0.25)';">
-                    <span style="font-weight: 700;">Pobierz Biblię</span>
-                    <span style="font-weight: 500; font-size: 0.75rem; opacity: 0.85; text-transform: none; letter-spacing: 0.03em;">ks. Jakuba Wujka (PDF)</span>
-                    <i class="fa-solid fa-download" style="font-size: 1.15rem; margin-top: 4px;"></i>
-                </a>
-                <a href="#apps-section" class="drawer-link scroll-to"><i class="fa-solid fa-mobile-screen-button"></i> Nasze Aplikacje</a>
-                <a href="#social-channels" class="drawer-link scroll-to"><i class="fa-solid fa-share-nodes"></i> Sieć YouTube & Spotify</a>
-                <a href="https://linktr.ee/christianculture" target="_blank" class="drawer-link"><i class="fa-solid fa-address-card"></i> Wizytówka Linktree</a>
-                <a href="#support-store" class="drawer-link scroll-to"><i class="fa-solid fa-heart"></i> Wsparcie & Sklep</a>
-                <a href="#contact-section" class="drawer-link scroll-to"><i class="fa-solid fa-envelope"></i> Kontakt</a>
-                <a href="#app-ads-link" class="drawer-link"><i class="fa-solid fa-certificate"></i> AdMob Weryfikacja</a>
-                <a href="privacy.html" class="drawer-link"><i class="fa-solid fa-user-shield"></i> Polityka Prywatności</a>
-                <a href="general-safety.html" class="drawer-link"><i class="fa-solid fa-shield-halved"></i> Standardy Bezpieczeństwa</a>
-                <a href="lumina-safety.html" class="drawer-link"><i class="fa-solid fa-child-reaching"></i> Ochrona Dzieci (Lumina)</a>
-            </nav>
-            <div class="drawer-footer">
-                <p>&copy; 2026 Christian Culture</p>
-                <p class="drawer-sub">Elevating Faith</p>
-            </div>
-        </div>
+<section class="tvhero" id="tvhero" aria-label="Telewizja Christian Culture – wybierz kanał">
+  <video id="intro" muted playsinline autoplay preload="auto" poster="/assets/nadawaj/intro-first.webp">
+    <source src="/assets/nadawaj/intro-960.mp4" media="(max-width: 760px)" type="video/mp4">
+    <source src="/assets/nadawaj/intro.mp4" type="video/mp4">
+  </video>
+  <div class="space" aria-hidden="true"></div>
+  <div class="ring-stage" id="stage"><div class="ring" id="ring"></div></div>
+  <div class="hud-top">
+    <span class="live-pill"><i></i>NA ŻYWO · 24/7</span>
+    <span class="hud-now">Teraz: <b id="heroNow">Master Live</b></span>
+  </div>
+  <div class="hud-bottom">
+    <div class="focus" id="focus" aria-live="polite">
+      <div class="eyebrow" id="fBadge">Główny kanał nadawczy</div>
+      <h1 id="fTitle">Telewizja Christian Culture 24/7</h1>
+      <p id="fDesc">Obróć pierścień i wybierz kanał. Master Live przełącza pasma sam, całą dobę.</p>
+      <div class="f-acts"><a class="btn-go" id="fGo" href="https://polskieradio.cc/master-live" target="_blank" rel="noopener">▶ Oglądaj</a><button type="button" class="btn-ghost" id="replay">↺ Intro</button></div>
     </div>
-    <div class="drawer-overlay" id="drawerOverlay"></div>
+  </div>
+  <button type="button" class="nav prev" id="prev" aria-label="Poprzedni kanał">‹</button>
+  <button type="button" class="nav next" id="next" aria-label="Następny kanał">›</button>
+</section>
 
-    <!-- SECTION B: GŁÓWNY HERO BANNER -->
-    <!-- SECTION C: CODZIENNE ROZWAŻANIE (DOBRZE, ŻE JESTEŚ) -->
-    <!-- SECTION D: NASZE APLIKACJE (SHOWCASE) -->
-    <!-- SECTION E: STRUMIENIE SOCIAL MEDIA (SPOTIFY & YOUTUBE) -->
-    <!-- SECTION E: RETRANSMISJA & OBS NADAWANIE (BROADCAST SECTION) -->
-    
-    <!-- SECTION E: RETRANSMISJA & OBS NADAWANIE (BROADCAST SECTION) -->
-    <section class="broadcast-section" id="broadcast-section" style="padding: 90px 0; background: linear-gradient(180deg, #090b11 0%, #030407 100%); position: relative; border-bottom: 1px solid rgba(255,255,255,0.03);">
-        <div class="section-container" style="max-width: 1240px; margin: 0 auto; padding: 0 24px;">
-            
-            <div class="section-header" style="text-align: center; margin-bottom: 60px;">
-                <span class="section-tag" style="display: inline-block; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; color: var(--gold-primary, #d4af37); text-transform: uppercase; margin-bottom: 12px; background: rgba(212, 175, 55, 0.08); padding: 6px 16px; border-radius: 50px; border: 1px solid rgba(212, 175, 55, 0.2);">Retransmisja 24/7</span>
-                <h2 class="section-title" style="font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; color: #fff; margin-bottom: 15px;">NADAWAJ Z CHRISTIAN CULTURE</h2>
-                <div class="gold-divider centered" style="width: 60px; height: 3px; background: var(--gold-primary, #d4af37); margin: 0 auto 20px auto; border-radius: 2px;"></div>
-                <p class="section-subtitle" style="font-size: 1.05rem; color: #a1a1aa; max-width: 800px; margin: 0 auto; line-height: 1.6;">
-                    Chcesz szerzyć Słowo Boże na swoim własnym kanale? Udostępniamy w pełni darmowe, zoptymalizowane sceny przeglądarki dla programu OBS Studio oraz wsparcie technologii Chromecast / Smart TV.
-                </p>
-                <p style="color: #a1a1aa; line-height: 1.6; margin-top: 16px;">Wybierz scenę i sprawdź podgląd przed emisją. Katalog nie jest wskaźnikiem trwającej transmisji.</p>
-            </div>
-
-            <!-- SECTION 1: GŁÓWNE PASMA I KURSY BIBLIJNE (PL) -->
-            <div style="margin-bottom: 50px;">
-                <h3 style="font-family: 'Cinzel', serif; font-size: 1.45rem; color: var(--gold-primary, #d4af37); font-weight: 800; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 12px; margin-bottom: 25px;">
-                    <i class="fa-solid fa-tv"></i> GŁÓWNE PASMA I KURSY BIBLIJNE
-                </h3>
-                <div class="cards-grid">
-                    
-                    <!-- Card 1: Master Live 24/7 (MCR Główny Kanał Nadawczy) -->
-                    <div class="broadcast-card" style="border: 2px solid var(--gold-primary, #d4af37); box-shadow: 0 8px 30px rgba(212, 175, 55, 0.25); background: rgba(212, 175, 55, 0.03);">
-                        <a href="master-live.html" target="_blank" rel="noopener" class="card-img-wrapper" style="position: relative;" title="Otwórz scenę: Telewizja Christian Culture 24/7 (Master Live)">
-                            <picture>
-                                <source srcset="tv24_master_live.webp" type="image/webp">
-                                <img src="tv24_master_live.png" alt="Telewizja Christian Culture 24/7 (Master Live)">
-                            </picture>
-                            <div style="position: absolute; top: 12px; left: 12px; background: rgba(0, 0, 0, 0.85); border: 1.5px solid var(--gold-primary, #d4af37); padding: 5px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; color: #ffd700; display: flex; align-items: center; gap: 7px; backdrop-filter: blur(8px); z-index: 3;">
-                                <span style="width: 9px; height: 9px; background: #ff0000; border-radius: 50%; box-shadow: 0 0 10px #ff0000; animation: broadcast-glow 1.6s infinite ease-in-out;"></span>
-                                <span>GŁÓWNY KANAŁ NADAWCZY 24/7</span>
-                            </div>
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: linear-gradient(135deg, #ffd700, #d4af37); color: #000; font-weight: 900; letter-spacing: 1px;">👑 MCR • Auto-Switch 24/7</span>
-                                <h4 class="card-title"><a href="master-live.html" target="_blank" rel="noopener">Telewizja Christian Culture 24/7 (Master Live 16:9)</a></h4>
-                                <p class="card-desc">Oficjalny, całodobowy kanał telewizyjny Christian Culture. Automatyczne bezszwowe przełączanie pasm 24/7: Zjednoczeni za Polskę, Studium Biblijne, Apokalipsa, Uwielbienie, Totalny Atak oraz Nocne Czuwanie.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('master-live.html')" style="background: linear-gradient(135deg, rgba(212,175,55,0.35), rgba(212,175,55,0.15)); border-color: var(--gold-primary, #d4af37); color: #fff; font-weight: 900;"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('master-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('master-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Zjednoczeni za Polskę -->
-                    <div class="broadcast-card" style="border-left: 4px solid var(--red-national, #dc143c);">
-                        <a href="zapolske-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Zjednoczeni za Polskę (16:9)">
-                            <img src="POLAND.jpg" alt="Zjednoczeni za Polskę">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: #dc143c; color: #fff;">Wydanie Specjalne</span>
-                                <h4 class="card-title"><a href="zapolske-live.html" target="_blank" rel="noopener">Zjednoczeni za Polskę (16:9)</a></h4>
-                                <p class="card-desc">Dedykowany strumień modlitewny za Ojczyznę. Modlitwy poranne, intencje widzów wyświetlane automatycznie na żywo.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('zapolske-live.html')"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('zapolske-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('zapolske-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card: TV Epafraz 24/7 (Ciągła Emisja 24 Playlist YouTube) -->
-                    <div class="broadcast-card" style="border-left: 4px solid var(--gold-primary, #d4af37);">
-                        <a href="tv-epafraz-live.html" target="_blank" rel="noopener" class="card-img-wrapper" style="position: relative;" title="Otwórz scenę: TV Epafraz 24/7 (16:9)">
-                            <picture>
-                                <source srcset="tv_epafraz_thumb.webp" type="image/webp">
-                                <img src="tv_epafraz_thumb.png" alt="TV Epafraz 24/7 — Transmisja na Żywo">
-                            </picture>
-                            <div style="position: absolute; top: 12px; left: 12px; background: rgba(0, 0, 0, 0.85); border: 1.5px solid var(--gold-primary, #d4af37); padding: 5px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; color: #ffd700; display: flex; align-items: center; gap: 7px; backdrop-filter: blur(8px); z-index: 3;">
-                                <span style="width: 9px; height: 9px; background: #dc143c; border-radius: 50%; box-shadow: 0 0 10px #dc143c; animation: broadcast-glow 1.6s infinite ease-in-out;"></span>
-                                <span>24 SERIE • AUTO-LOOP 24/7</span>
-                            </div>
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light, #ffd700); border: 1px solid var(--gold-primary);">📺 YouTube 24/7 • Podcast & Pismo</span>
-                                <h4 class="card-title"><a href="tv-epafraz-live.html" target="_blank" rel="noopener">TV Epafraz 24/7 (16:9)</a></h4>
-                                <p class="card-desc">Całodobowy kanał biblijny oparty na 24 wyselekcjonowanych seriach: Podcast Apokalipsa Palla, nauczania, proroctwa czasów końca, uwielbienie i filmy. Płynne automatyczne przejścia między playlistami 24/7/365.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('tv-epafraz-live.html')" style="background: linear-gradient(135deg, rgba(212,175,55,0.35), rgba(212,175,55,0.15)); border-color: var(--gold-primary, #d4af37); color: #fff; font-weight: 800;"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('tv-epafraz-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('tv-epafraz-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: Apokalipsa: Księga Nadziei -->
-                    <div class="broadcast-card">
-                        <a href="apokalipsa-ksiega-nadziei-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Apokalipsa: Księga Nadziei (16:9)">
-                            <img src="tlo_ksiega_nadziei.png" alt="Apokalipsa: Księga Nadziei">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(255, 193, 7, 0.2); color: #ffc107;">Kurs Biblijny • 10:00 & 22:00</span>
-                                <h4 class="card-title"><a href="apokalipsa-ksiega-nadziei-live.html" target="_blank" rel="noopener">Apokalipsa: Księga Nadziei (16:9)</a></h4>
-                                <p class="card-desc">28 lekcji cyklu o proroctwach Księgi Objawienia. Otwórz podgląd i wybierz dostępne nagranie.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('apokalipsa-ksiega-nadziei-live.html')"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('apokalipsa-ksiega-nadziei-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('apokalipsa-ksiega-nadziei-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card: Randki & Małżeństwo -->
-                    <div class="broadcast-card" style="border-left: 4px solid #f43f5e;">
-                        <a href="randki-malzenstwo-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Randki & Małżeństwo (16:9)">
-                            <img src="tv24_master_live.png" alt="Randki & Małżeństwo">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(244, 63, 94, 0.2); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.4);">💑 Relacje & Rodzina • Pt, Sob, Ndz 22:00</span>
-                                <h4 class="card-title"><a href="randki-malzenstwo-live.html" target="_blank" rel="noopener">Randki & Małżeństwo (16:9)</a></h4>
-                                <p class="card-desc">18-odcinkowy kurs „Prawdziwe szczęście w rodzinie” Romana Chałupki. Narzeczeństwo, małżeństwo, rodzina i Boże zasady relacji.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('randki-malzenstwo-live.html')"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('randki-malzenstwo-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('randki-malzenstwo-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 4: Studium Telewizyjne Pisma Świętego -->
-                    <div class="broadcast-card">
-                        <a href="studium-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Studium Telewizyjne Pisma Świętego">
-                            <img src="tlo_studium.png" alt="Studium Telewizyjne Pisma Świętego">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(255, 42, 85, 0.2); color: #ff5e7e;">Studium Biblijne • 08:00 & 20:00</span>
-                                <h4 class="card-title"><a href="studium-live.html" target="_blank" rel="noopener">Studium Telewizyjne Pisma Świętego</a></h4>
-                                <p class="card-desc">572-odcinkowy cykl wykładów werset po wersecie. Systematyczny rozwój wiedzy biblijnej bez opóźnień.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('studium-live.html')"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('studium-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('studium-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card: Totalny Atak — Wykłady Biblijne -->
-                    <div class="broadcast-card" style="border-left: 4px solid #d4af37;">
-                        <a href="totalny-atak-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Totalny Atak — Prof. Walter Veith">
-                            <img src="walter_veith.png" alt="Totalny Atak — Prof. Walter Veith">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light, #f3e5ab);">Wykłady Apologetyczne • Pn–Pt 18:00</span>
-                                <h4 class="card-title"><a href="totalny-atak-live.html" target="_blank" rel="noopener">Totalny Atak — Prof. Walter Veith</a></h4>
-                                <p class="card-desc">Seria wykładów biblijnych, apologetycznych i profetycznych. Proroctwa, historia świata i walka dobra ze złem według Pisma Świętego.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('totalny-atak-live.html')"><i class="fa-solid fa-bolt"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('totalny-atak-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('totalny-atak-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card: Chrześcijański Blok Filmowy -->
-                    <div class="broadcast-card">
-                        <a href="kino-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Chrześcijański Blok Filmowy (16:9)">
-                            <img src="tlo_ksiega_nadziei.png" alt="Chrześcijański Blok Filmowy">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light, #f3e5ab);">Kino & Dokumenty • Weekendy 18:00</span>
-                                <h4 class="card-title"><a href="kino-live.html" target="_blank" rel="noopener">Chrześcijański Blok Filmowy (16:9)</a></h4>
-                                <p class="card-desc">Seanse filmowe i dokumentalne z przesłaniem. Emisja w weekendy od 18:00 oraz stały dostęp na życzenie.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('kino-live.html')"><i class="fa-solid fa-film"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('kino-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('kino-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- SECTION 2: STRUMIENIE MUZYCZNE 24/7 -->
-            <div style="margin-bottom: 50px;">
-                <h3 style="font-family: 'Cinzel', serif; font-size: 1.45rem; color: var(--gold-primary, #d4af37); font-weight: 800; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 12px; margin-bottom: 25px;">
-                    <i class="fa-solid fa-music"></i> STRUMIENIE MUZYCZNE 24/7
-                </h3>
-                <div class="cards-grid">
-                    
-                    <!-- Card 5: Codzienne Uwielbienie -->
-                    <div class="broadcast-card">
-                        <a href="spiewajmy-panu-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Codzienne Uwielbienie (16:9)">
-                            <img src="spiewajmy-panu-thumb.png" alt="Codzienne Uwielbienie">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: var(--gold-primary, #d4af37); color: #000;">Blok Muzyczny • 16:00</span>
-                                <h4 class="card-title"><a href="spiewajmy-panu-live.html" target="_blank" rel="noopener">Codzienne Uwielbienie (16:9)</a></h4>
-                                <p class="card-desc">Codzienny dwugodzinny blok muzyczny. Utwory uwielbienia, pieśni chwały i nowości muzyczne Christian Culture Music.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('spiewajmy-panu-live.html')"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('spiewajmy-panu-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('spiewajmy-panu-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card: Świadectwa — Historie Wiary -->
-                    <div class="broadcast-card">
-                        <a href="swiadectwa-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Świadectwa — Historie Wiary (16:9)">
-                            <img src="tlo_tv_live2.png" alt="Świadectwa — Historie Wiary">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(220, 20, 60, 0.2); color: #ff5e7e;">Niedziela • 18:00 - 20:00</span>
-                                <h4 class="card-title"><a href="swiadectwa-live.html" target="_blank" rel="noopener">Świadectwa — Historie Wiary (16:9)</a></h4>
-                                <p class="card-desc">Poruszające historie nawróceń, uzdrowień i uwolnień. 11 wyselekcjonowanych filmów w rotacji na niedzielne wieczory.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('swiadectwa-live.html')"><i class="fa-solid fa-heart-pulse"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('swiadectwa-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('swiadectwa-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 6: Muzyka Instrumentalna & Nocne Czuwanie -->
-                    <div class="broadcast-card">
-                        <a href="nocne-czuwanie-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Muzyka Instrumentalna & Nocne Czuwanie">
-                            <img src="tlo_tv_nocna.jpg" alt="Muzyka Instrumentalna & Nocne Czuwanie">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(159, 77, 255, 0.2); color: #d19eff;">23 Filmy w Rotacji • 00:00 - 06:00</span>
-                                <h4 class="card-title"><a href="nocne-czuwanie-live.html" target="_blank" rel="noopener">Muzyka Instrumentalna & Nocne Czuwanie</a></h4>
-                                <p class="card-desc">Głębokie wyciszenie, 1 unikalny film relaksacyjny z cyklu 23 pozycji na dobę. Przestrzeń modlitwy, kontemplacji i snu.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('nocne-czuwanie-live.html')"><i class="fa-solid fa-moon"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('nocne-czuwanie-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('nocne-czuwanie-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 7: Biblia Śpiewana 16:9 -->
-                    <div class="broadcast-card">
-                        <a href="biblia-spiewana-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Biblia Śpiewana (16:9)">
-                            <img src="Logo_Biblia_Spiewana.jpg" alt="Biblia Śpiewana">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: #D4AF37; color: #000;">Muzyka & Słowo</span>
-                                <h4 class="card-title"><a href="biblia-spiewana-live.html" target="_blank" rel="noopener">Biblia Śpiewana (16:9)</a></h4>
-                                <p class="card-desc">Pozioma scena nadawcza dla programu Biblia Śpiewana (Śpiewane Przypowieści Salomona). Wyjątkowa oprawa muzyczna.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('biblia-spiewana-live.html')"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('biblia-spiewana-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('biblia-spiewana-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card: Instrumental Worship Music CC -->
-                    <div class="broadcast-card" style="border-left: 4px solid #8E2DE2;">
-                        <a href="cctv24-worship.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Instrumental Worship Music CC (16:9)">
-                            <img src="worship_logo_thumb.jpg" alt="Instrumental Worship Music CC">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: #c084fc;"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle" style="background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%); color: #fff;"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text" style="border-color: rgba(142, 45, 226, 0.5);">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(142, 45, 226, 0.2); color: #c084fc;">Muzyka Instrumentalna • 24/7</span>
-                                <h4 class="card-title"><a href="cctv24-worship.html" target="_blank" rel="noopener">Instrumental Worship Music CC (16:9)</a></h4>
-                                <p class="card-desc">Nieprzerwany strumień muzyki instrumentalnej uwielbienia. Rotacja 31 wyselekcjonowanych kompozycji – idealna do modlitwy, kontemplacji i pracy.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('cctv24-worship.html')"><i class="fa-solid fa-music"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('cctv24-worship.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('cctv24-worship.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- SECTION 3: STRUMIENIE RADIOWE & FORMATY MOBILNE (9:16) -->
-            <div style="margin-bottom: 50px;">
-                <h3 style="font-family: 'Cinzel', serif; font-size: 1.45rem; color: var(--gold-primary, #d4af37); font-weight: 800; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(212,175,55,0.2); padding-bottom: 12px; margin-bottom: 25px;">
-                    <i class="fa-solid fa-mobile-screen-button"></i> STRUMIENIE RADIOWE & FORMATY MOBILNE (9:16)
-                </h3>
-                <div class="cards-grid">
-                    
-                    <!-- Card 8: Radio Biblia Audio 16:9 -->
-                    <div class="broadcast-card">
-                        <a href="stream-scene.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Radio Biblia Audio (16:9)">
-                            <img src="Logo Biblia Audio CC.jpg" alt="Radio Biblia Audio Poziomo">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(255,255,255,0.1); color: #fff;">Radio Internetowe PL</span>
-                                <h4 class="card-title"><a href="stream-scene.html" target="_blank" rel="noopener">Radio Biblia Audio (16:9)</a></h4>
-                                <p class="card-desc">Pozioma scena zintegrowana ze strumieniem audio radia Zeno.fm. Wizualizacja fal dźwiękowych, zegar z datownikiem i werset dnia.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('stream-scene.html')"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('stream-scene.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('stream-scene.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 9: Radio Biblia Audio 9:16 -->
-                    <div class="broadcast-card">
-                        <a href="stream-scene-vertical.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Radio Biblia Audio (9:16)">
-                            <img src="Logo Globalna Biblia Audio.jpg" alt="Radio Biblia Audio Pionowo">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(255,255,255,0.1); color: #fff;">Format Mobilny</span>
-                                <h4 class="card-title"><a href="stream-scene-vertical.html" target="_blank" rel="noopener">Radio Biblia Audio (9:16)</a></h4>
-                                <p class="card-desc">Pionowa scena stworzona specjalnie dla formatów mobilnych na TikTok Live, YouTube Shorts i Instagram Reels.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('stream-scene-vertical.html')"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('stream-scene-vertical.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('stream-scene-vertical.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 10: Dobrze że jesteś 9:16 -->
-                    <div class="broadcast-card">
-                        <a href="dzj-vertical-live.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Dobrze, że jesteś (9:16)">
-                            <img src="dzj-916-thumb.png" alt="Dobrze, że jesteś Pionowo">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: rgba(255,255,255,0.1); color: #fff;">Format Mobilny</span>
-                                <h4 class="card-title"><a href="dzj-vertical-live.html" target="_blank" rel="noopener">Dobrze, że jesteś (9:16)</a></h4>
-                                <p class="card-desc">Pionowy wariant popularnego programu śniadaniowego zoptymalizowany dla urządzeń mobilnych i relacji.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('dzj-vertical-live.html')"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('dzj-vertical-live.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('dzj-vertical-live.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 11: Biblia Śpiewana 9:16 -->
-                    <div class="broadcast-card">
-                        <a href="biblia-spiewana-vertical.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Otwórz scenę: Biblia Śpiewana (9:16)">
-                            <img src="Logo_Biblia_Spiewana.jpg" alt="Biblia Śpiewana Pionowo">
-                            <div class="card-live-indicator">
-                                <i class="fa-solid fa-play" style="color: var(--gold-primary, #d4af37);"></i> OGLĄDAJ
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text">OTWÓRZ PODGLĄD</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: #D4AF37; color: #000;">Format Mobilny</span>
-                                <h4 class="card-title"><a href="biblia-spiewana-vertical.html" target="_blank" rel="noopener">Biblia Śpiewana (9:16)</a></h4>
-                                <p class="card-desc">Pionowy szablon nadawczy Biblia Śpiewana dla widzów na YouTube Shorts, TikTok Live lub Instagram Reels.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('biblia-spiewana-vertical.html')"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('biblia-spiewana-vertical.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('biblia-spiewana-vertical.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- SECTION 4: STRUMIENIE ANGIELSKIE (GLOBAL) -->
-            <div style="margin-bottom: 30px;">
-                <h3 style="font-family: 'Cinzel', serif; font-size: 1.45rem; color: #00a2ff; font-weight: 800; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(0, 162, 255, 0.3); padding-bottom: 12px; margin-bottom: 25px;">
-                    <i class="fa-solid fa-globe"></i> STRUMIENIE ANGIELSKIE (GLOBAL)
-                </h3>
-                <div class="cards-grid">
-                    
-                    <!-- Card 12: Good to have you Global 16:9 -->
-                    <div class="broadcast-card" style="border-left: 4px solid #00a2ff;">
-                        <a href="cctv24-global.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Watch Live: Good to have you Global (16:9)">
-                            <img src="GLOBAL.jpg" alt="Good to have you Global">
-                            <div class="card-live-indicator" style="border-color: rgba(0, 162, 255, 0.4); color: #80c2ff;">
-                                <i class="fa-solid fa-play" style="color: #00a2ff;"></i> OPEN PREVIEW
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle" style="background: linear-gradient(135deg, #00a2ff 0%, #0056b3 100%); color: #fff;"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text" style="border-color: rgba(0, 162, 255, 0.4);">OPEN PREVIEW</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: #00a2ff; color: #000;">Global TV 24/7</span>
-                                <h4 class="card-title"><a href="cctv24-global.html" target="_blank" rel="noopener">Good to have you Global (16:9)</a></h4>
-                                <p class="card-desc">Global English version of the breakfast show. Blue-navy themed styling, Christian Culture Global radio signal.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('cctv24-global.html')" style="border-color: rgba(0,162,255,0.4);"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('cctv24-global.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('cctv24-global.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 13: Bible Audio Global 16:9 -->
-                    <div class="broadcast-card" style="border-left: 4px solid #00a2ff;">
-                        <a href="bibleaudio-global.html" target="_blank" rel="noopener" class="card-img-wrapper" title="Watch Live: Bible Audio Global (16:9)">
-                            <img src="Logo Globalna Biblia Audio.jpg" alt="Bible Audio Global">
-                            <div class="card-live-indicator" style="border-color: rgba(0, 162, 255, 0.4); color: #80c2ff;">
-                                <i class="fa-solid fa-play" style="color: #00a2ff;"></i> OPEN PREVIEW
-                            </div>
-                            <div class="card-play-overlay">
-                                <div class="card-play-btn-circle" style="background: linear-gradient(135deg, #00a2ff 0%, #0056b3 100%); color: #fff;"><i class="fa-solid fa-play"></i></div>
-                                <span class="card-play-text" style="border-color: rgba(0, 162, 255, 0.4);">OPEN PREVIEW</span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <div>
-                                <span class="card-badge" style="background: #00a2ff; color: #000;">English Edition</span>
-                                <h4 class="card-title"><a href="bibleaudio-global.html" target="_blank" rel="noopener">Bible Audio Global (16:9)</a></h4>
-                                <p class="card-desc">Anglojęzyczny wirtualny stream modlitewny ze zsynchronizowanym sygnałem Bible Audio Global oraz intencjami widzów.</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn-obs" onclick="copyAndOpenOBS('bibleaudio-global.html')" style="border-color: rgba(0,162,255,0.4);"><i class="fa-solid fa-play"></i> Kopiuj URL OBS</button>
-                                <button class="btn-icon-square" onclick="openChromecastModal('bibleaudio-global.html')" title="Prześlij na TV (Chromecast)"><img src="chromecast.png" alt="" style="height: 18px; width: auto;"></button>
-                                <button class="btn-icon-square" onclick="openEmbedModal('bibleaudio-global.html')" title="Osadź na stronie"><i class="fa-solid fa-code"></i></button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- SECTION F: SKLEP & WSPARCIE MISJI (SUPPORT & STORE) -->
-    <!-- SECTION F2: OPINIE UŻYTKOWNIKÓW (GOOGLE REVIEWS) -->
-    <!-- SECTION G: KONTAKT (CONTACT) -->
-    <!-- ANCHOR FOR SCROLLING -->
-    <div id="radio-player-anchor"></div>
-
-    <!-- SECTION C: DOLNY PANEL ODTWARZACZA (RADIO PLAYER BAR) -->
-    <section class="radio-player-bar" id="radioPlayerBar">
-        <div class="player-container">
-            
-            <!-- Left Side: Station Info & Selector -->
-            <div class="player-left">
-                <div class="station-thumbnail-container">
-                    <img src="./Aplikacja Christian Culture.png" id="playerStationLogo" class="station-thumbnail-img" alt="Logo stacji">
-                </div>
-                <div class="station-details">
-                    <div class="station-selection-dropdown">
-                        <button class="station-select-btn" id="stationDropdownBtn">
-                            <span id="activeStationName">RADIO PL</span> <i class="fa-solid fa-chevron-up"></i>
-                        </button>
-                        <!-- Dropdown Menu -->
-                        <div class="station-dropdown-menu" id="stationDropdownMenu">
-                            <button class="dropdown-item active" data-station-id="poland">
-                                <span class="dot pl-accent"></span> Radio PL
-                            </button>
-                            <button class="dropdown-item" data-station-id="global">
-                                <span class="dot global-accent"></span> Radio Global
-                            </button>
-                            <button class="dropdown-item" data-station-id="biblia_audio">
-                                <span class="dot biblia-accent"></span> Radio Biblia (Audio)
-                            </button>
-                            <button class="dropdown-item" data-station-id="global_biblia">
-                                <span class="dot global-biblia-accent"></span> Global Audio Bible
-                            </button>
-                            <button class="dropdown-item" data-station-id="biblia_spiewana">
-                                <span class="dot biblia-spiewana-accent"></span> Biblia Śpiewana
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Scrolling / Real-time Track Title -->
-                    <div class="track-scroller-container">
-                        <span class="track-title" id="playerTrackTitle">Wczytywanie informacji o utworze...</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Center: Waveform Visualization -->
-            <div class="player-center">
-                <!-- Custom Canvas for highly performant and CORS-safe visualizer -->
-                <canvas id="visualizerCanvas" class="visualizer-canvas"></canvas>
-            </div>
-            
-            <!-- Right Side: Controls (Play/Pause, Mute, Volume) -->
-            <div class="player-right">
-                <!-- Status/Buffering Indicator -->
-                <div class="player-status" id="playerStatusText">Wyciszony</div>
-                
-                <!-- Play/Pause Button with circular border and glow -->
-                <button class="play-btn" id="playBtn" aria-label="Odtwarzaj">
-                    <i class="fa-solid fa-play" id="playIcon"></i>
-                </button>
-                
-                <!-- Volume Control -->
-                <div class="volume-container">
-                    <button class="volume-btn" id="volumeBtn" aria-label="Wycisz/Włącz dźwięk">
-                        <i class="fa-solid fa-volume-high" id="volumeIcon"></i>
-                    </button>
-                    <input type="range" min="0" max="100" value="80" class="volume-slider" id="volumeSlider" aria-label="Suwak głośności">
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <!-- SMS/MMS SUBSCRIPTION MODAL -->
-    <div class="modal-overlay" id="smsModal">
-        <div class="modal-content">
-            <button class="modal-close" id="modalCloseBtn" aria-label="Zamknij"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-header">
-                <i class="fa-solid fa-comment-sms modal-user-icon"></i>
-                <h2>Bezpłatne Subskrypcje SMS/MMS</h2>
-                <p>Subskrybuj Chrześcijańskie Inspiracje</p>
-            </div>
-            <div class="modal-sms-content">
-                <div class="sms-instructions-card">
-                    <p class="sms-instruction-text">Wyślij SMS o treści:</p>
-                    <div class="sms-keyword-badge">Inspiracje</div>
-                    <p class="sms-instruction-text">na numer:</p>
-                    <div class="sms-number-badge">783 478 280</div>
-                </div>
-                
-                <div class="sms-info-box">
-                    <p class="sms-disclaimer">
-                        <i class="fa-solid fa-circle-info"></i> Usługa dostępna tylko na terenie PL i tylko dla użytkowników korzystających z usług polskich operatorów komórkowych. Koszt wysłania SMS według stawek Twojego operatora.
-                    </p>
-                </div>
-            </div>
-        </div>
+<main class="wrap">
+  <div class="hero">
+    <div class="side">
+      <div class="now">
+        <div class="eyebrow">Ramówka dziś</div>
+        <h2>Co teraz i co dalej</h2>
+        <div id="sched"></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="v" id="cnt">0</div><div class="l">scen nadawczych</div></div>
+        <div class="stat"><div class="v">24/7</div><div class="l">bez przerwy</div></div>
+        <div class="stat"><div class="v">PL·EN</div><div class="l">dwa języki</div></div>
+      </div>
     </div>
+  </div>
 
-    <!-- Hidden AdMob App-Ads link verification block (for SEO/indexing convenience) -->
-    <div style="display:none;" id="app-ads-link">
-        <a href="app-ads.txt">AdMob Verification Link</a>
-    </div>
+  <div class="filters" role="group" aria-label="Filtruj kanały">
+    <button type="button" id="fAll" data-f="all" aria-pressed="true">Wszystkie</button>
+    <button type="button" id="fTv" data-f="tv" aria-pressed="false">Telewizja</button>
+    <button type="button" id="fKurs" data-f="kurs" aria-pressed="false">Kursy i studium</button>
+    <button type="button" id="fMuz" data-f="muz" aria-pressed="false">Muzyka i wyciszenie</button>
+    <button type="button" id="fRad" data-f="radio" aria-pressed="false">Radio i Global</button>
+    <button type="button" id="fMob" data-f="mob" aria-pressed="false">Telefon 9:16</button>
+  </div>
 
-    <!-- BACK TO TOP BUTTON -->
-    <button class="back-to-top" id="backToTopBtn" aria-label="Przewiń do góry">
-        <i class="fa-solid fa-arrow-up"></i>
-    </button>
+  <div id="groups"></div>
 
-    <!-- MODAL DEKALOG -->
-    <div id="decalogueModal" class="dzj-modal-wrapper" style="z-index: 10000; display: none;">
-        <div class="dzj-modal-overlay" id="decalogueModalOverlay"></div>
-        <div class="dzj-modal-content" style="max-height: 90vh; overflow-y: auto; background: linear-gradient(135deg, #111, #0a0a0a); border: 1px solid rgba(212, 175, 55, 0.2);">
-            <button class="dzj-close-top" id="decalogueCloseBtn" style="color: #fff;"><i class="fa-solid fa-xmark"></i></button>
-            <div class="dzj-header" style="background: none; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 1rem;">
-                <div class="dzj-logo-wrapper" style="box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);">
-                    <img src="icon.png" alt="Christian Culture Logo" style="filter: brightness(1.2);">
-                </div>
-                <h2 class="dzj-title" style="color: #d4af37; font-family: 'Cinzel', serif; letter-spacing: 0.1em; text-transform: uppercase;">Dekalog</h2>
-                <p style="color: #a0a0a0; font-size: 0.85rem; margin-top: 5px;">DZIESIĘCIORO PRZYKAZAŃ</p>
-            </div>
-            <div class="dzj-body" id="decalogueContentBox" style="color: #eaeaea; font-family: 'Montserrat', sans-serif; line-height: 1.6; padding: 20px;">
-                  <div class="decalogue-list" style="display: flex; flex-direction: column; gap: 15px; font-weight: bold;">
-                      <div style="padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">1. NIE BĘDZIESZ MIAŁ BOGÓW CUDZYCH PRZEDE MNĄ</div>
-                      <div style="padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">2. NIE BĘDZIESZ BRAŁ IMIENIA PANA, BOGA TWEGO, NADAREMNIE</div>
-                      <div style="padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">3. PAMIĘTAJ, ABYŚ DZIEŃ ŚWIĘTY ŚWIĘCIŁ</div>
-                      <div style="padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">4. CZCIJ OJCA SWEGO I MATKĘ SWOJĄ</div>
-                      <div style="padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">5. NIE ZABIJAJ</div>
-                      <div style="padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">6. NIE CUDZOŁÓŻ</div>
-                      <div style="padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">7. NIE KRADNIJ</div>
-                      <div style="padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">8. NIE MÓW FAŁSZYWEGO ŚWIADECTWA PRZECIW BLIŹNIEMU SWEMU</div>
-                      <div style="padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">9. NIE POŻĄDAJ ŻONY BLIŹNIEGO SWEGO</div>
-                      <div style="padding: 15px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">10. ANI ŻADNEJ RZECZY, KTÓRA JEGO JEST</div>
-                  </div>
-                
-                <div class="mt-12 p-8 text-center" style="margin-top: 3rem; padding: 2rem; background: rgba(197,160,89,0.05); border: 1px solid rgba(197,160,89,0.2); border-radius: 1.5rem;">
-                    <p style="color: #C5A059; font-style: italic; font-size: 1.125rem; font-family: 'Lora', serif;">
-                        "Ja jestem Pan, Bóg twój, którym cię wywiódł z ziemi egipskiej, z domu niewoli."
-                    </p>
-                    <p style="font-size: 0.625rem; font-weight: 900; color: #71717a; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 1rem;">
-                        Księga Wyjścia 20,1-17 (Wyd. 1962)
-                    </p>
-                    
-                    <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
-                        <button id="btnCopyDecalogue" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 9999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: all 0.3s;">
-                            <i class="fa-solid fa-copy"></i> Kopiuj
-                        </button>
-                        <button id="btnShareDecalogue" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 9999px; background: #C5A059; color: black; font-weight: 900; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border: none; box-shadow: 0 0 20px rgba(197,160,89,0.3); transition: all 0.3s;">
-                            <i class="fa-solid fa-share-nodes"></i> Udostępnij
-                        </button>
-                    </div>
-                </div>
+  <a class="ad strip" href="https://polskieradio.cc/ccwomen" target="_blank" rel="noopener"><img src="/assets/promo/promo-ccwomen.webp" alt="Jak kobieta kobiecie… Polecam CC Women – polskieradio.cc/ccwomen" loading="lazy"><span class="lab">BANER 3</span></a>
 
-                <!-- Pobieranie Biblii ks. Jakuba Wujka z Dysku Google -->
-                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(212, 175, 55, 0.2); text-align: center;">
-                    <p style="color: #eaeaea; font-size: 0.85rem; margin-bottom: 1.25rem; font-weight: 500; font-family: 'Montserrat', sans-serif;">Pobierz pełne Pismo Święte w tradycyjnym przekładzie ks. Jakuba Wujka:</p>
-                    <a href="https://drive.google.com/file/d/1HCcafv4rdU-otttgkQJEsWauvwjWlNy3/view?usp=sharing" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.75rem; border-radius: 9999px; background: rgba(212, 175, 55, 0.15); border: 1.5px solid #d4af37; color: #f3e5ab; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; text-decoration: none; transition: all 0.3s; box-shadow: 0 0 15px rgba(212,175,55,0.1);" onmouseover="this.style.background='#d4af37'; this.style.color='#000'; this.style.boxShadow='0 0 25px rgba(212,175,55,0.3)';" onmouseout="this.style.background='rgba(212, 175, 55, 0.15)'; this.style.color='#f3e5ab'; this.style.boxShadow='0 0 15px rgba(212,175,55,0.1)';">
-                        <i class="fa-solid fa-download"></i> Pobierz Biblię ks. Jakuba Wujka (PDF)
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+  <section id="g-mob" data-group="mob">
+    <div class="gh"><h2>Telefon 9:16</h2><span>Sceny pionowe na Shorts, TikTok i relacje</span></div>
+    <div class="vert" id="vert"></div>
+  </section>
+</main>
+<footer class="wrap">Christian Culture · Centrum nadawcze · <a href="https://polskieradio.cc/wspieraj" target="_blank" rel="noopener">Wspieraj misję</a> · Christian Culture 24/7</footer>
 
-    <!-- MODAL DOBRZE, ZE JESTES -->
-    <div id="dzjModal" class="dzj-modal-wrapper">
-        <div class="dzj-modal-overlay" id="dzjModalOverlay"></div>
-        <div class="dzj-modal-content">
-            <button class="dzj-close-top" id="dzjCloseBtn"><i class="fa-solid fa-xmark"></i></button>
-            <div class="dzj-header">
-                <div class="dzj-logo-wrapper">
-                    <img src="dzj-logo.jpg" alt="Dobrze że jesteś Logo">
-                </div>
-                <div class="dzj-date-badge">
-                    <i class="fa-solid fa-calendar"></i> <span id="dzjDate">Ładowanie...</span>
-                </div>
-                <h2 id="dzjTitle" class="dzj-title">Szukam dzisiejszego słowa...</h2>
-            </div>
-            <div class="dzj-body" id="dzjContentBox">
-                <!-- Content gets injected by JS -->
-            </div>
-            <div class="dzj-footer">
-                <button class="dzj-close-bottom" id="dzjCloseFooterBtn">ZAMKNIJ OKNO</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'pl',
-                includedLanguages: 'en,pl',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const langBtn = document.getElementById('langToggleBtn');
-            const langText = document.getElementById('langToggleText');
-
-            // Function to check if translated to English (based on Google Translate cookie)
-            function isEnglish() {
-                return document.cookie.includes('googtrans=/pl/en') || document.cookie.includes('googtrans=%2Fpl%2Fen');
-            }
-
-            // Sync button label on load
-            if (isEnglish()) {
-                langText.textContent = 'PL';
-                langBtn.title = 'Przełącz na język polski';
-            } else {
-                langText.textContent = 'EN';
-                langBtn.title = 'Switch to English';
-            }
-
-            if (langBtn && langText) {
-                langBtn.addEventListener('click', () => {
-                    if (isEnglish()) {
-                        // Switch back to Polish by clearing the cookies
-                        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-                        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.polskieradio.cc";
-                        document.cookie = "googtrans=/pl/pl; path=/";
-                        document.cookie = "googtrans=/pl/pl; path=/; domain=.polskieradio.cc";
-                    } else {
-                        // Switch to English
-                        document.cookie = "googtrans=/pl/en; path=/";
-                        document.cookie = "googtrans=/pl/en; path=/; domain=.polskieradio.cc";
-                    }
-                    // Reload the page to let Google Translate apply the translation immediately
-                    window.location.reload();
-                });
-            }
-
-            // Dynamic fail-safe cleanup for Google Translate top banner (only hides Google Translate bar, NEVER player iframes!)
-            function cleanGoogleBanner() {
-                document.querySelectorAll('iframe.goog-te-banner-frame, iframe[id*=":1.container"], .goog-te-banner-frame, iframe[src*="translate.google.com"], iframe[src*="translate.googleapis.com"]').forEach(iframe => {
-                    iframe.style.setProperty('display', 'none', 'important');
-                    iframe.style.setProperty('visibility', 'hidden', 'important');
-                    iframe.style.setProperty('height', '0px', 'important');
-                    iframe.style.setProperty('width', '0px', 'important');
-                    iframe.style.setProperty('opacity', '0', 'important');
-                });
-                document.body.style.setProperty('top', '0px', 'important');
-                document.body.style.setProperty('position', 'static', 'important');
-                document.documentElement.style.setProperty('margin-top', '0px', 'important');
-            }
-            cleanGoogleBanner();
-            setInterval(cleanGoogleBanner, 500);
-
-            // ── PREMIUM EMBED MODAL & SHARE FUNCTIONS ──
-            const embedModal = document.getElementById("embedModal");
-            const embedTextArea = document.getElementById("embedCodeArea");
-            const toast = document.getElementById("toastNotification");
-
-            let returnFocus = null;
-            const modalTitle = document.getElementById('embedModalTitle');
-            const modalHelp = document.getElementById('embedModalHelp');
-            document.querySelectorAll('.broadcast-card button[title]').forEach(button => {
-                button.setAttribute('aria-label', button.getAttribute('title'));
-            });
-            function sceneUrl(url) {
-                // Only catalogue entries can be copied or embedded. No arbitrary iframe URLs.
-                const known = Array.from(document.querySelectorAll('.card-title a'))
-                    .some(link => link.getAttribute('href') === url);
-                if (!known) throw new Error('Unknown catalogue scene');
-                const origin = window.location.protocol === 'file:' ? 'https://polskieradio.cc' : window.location.origin;
-                return new URL('/' + url, origin).href;
-            }
-            function openCopyModal(value, title, help) {
-                returnFocus = document.activeElement;
-                modalTitle.textContent = title;
-                modalHelp.textContent = help;
-                embedTextArea.value = value;
-                embedModal.classList.add('show');
-                embedTextArea.focus();
-                embedTextArea.select();
-            }
-            async function copyText(value) {
-                try {
-                    if (!navigator.clipboard || !navigator.clipboard.writeText) return false;
-                    await navigator.clipboard.writeText(value);
-                    return true;
-                } catch { return false; }
-            }
-            // Historical handler name retained for existing catalogue buttons; never launches OBS.
-            window.copyAndOpenOBS = async function(url) {
-                const fullUrl = sceneUrl(url);
-                if (await copyText(fullUrl)) {
-                    showToast('Adres skopiowany. OBS → Źródła → Przeglądarka → URL.');
-                } else {
-                    openCopyModal(fullUrl, 'Adres sceny do OBS', 'Automatyczne kopiowanie jest niedostępne. Skopiuj zaznaczony adres i wklej go w OBS: Źródła → Przeglądarka → URL.');
-                }
-            };
-
-            window.openEmbedModal = function(url) {
-                const fullUrl = sceneUrl(url);
-                const iframeCode = `<iframe src="${fullUrl}" width="100%" height="600" style="border:0; border-radius:12px; box-shadow:0 15px 35px rgba(0,0,0,0.5);" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
-                openCopyModal(iframeCode, 'Osadź scenę na stronie', 'Skopiuj kod HTML do swojej witryny. Przed publikacją sprawdź odtwarzanie i zgodność osadzania z ustawieniami Twojej strony.');
-            };
-
-            window.closeEmbedModal = function() {
-                if(embedModal) embedModal.classList.remove("show");
-                if(returnFocus && returnFocus.isConnected) returnFocus.focus();
-            };
-
-            window.copyEmbedCode = async function() {
-                if (await copyText(embedTextArea.value)) {
-                    showToast('Skopiowano.');
-                    window.closeEmbedModal();
-                } else {
-                    modalHelp.textContent = 'Nie udało się skopiować automatycznie. Użyj „Kopiuj” dla zaznaczonego tekstu.';
-                    embedTextArea.focus();
-                    embedTextArea.select();
-                }
-            };
-            embedModal.addEventListener('keydown', event => {
-                if (event.key === 'Escape') {
-                    event.preventDefault();
-                    window.closeEmbedModal();
-                } else if (event.key === 'Tab') {
-                    const controls = Array.from(embedModal.querySelectorAll('button, textarea'));
-                    const first = controls[0], last = controls[controls.length - 1];
-                    if (event.shiftKey && document.activeElement === first) {
-                        event.preventDefault(); last.focus();
-                    } else if (!event.shiftKey && document.activeElement === last) {
-                        event.preventDefault(); first.focus();
-                    }
-                }
-            });
-
-            window.shareOnFacebook = function(url) {
-                const baseUrl = (window.location.protocol === "file:" || !window.location.origin || window.location.origin === "null") ? "https://polskieradio.cc" : window.location.origin;
-                const fullUrl = encodeURIComponent(baseUrl.replace(/\/$/, "") + "/" + url);
-                const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${fullUrl}`;
-                window.open(fbUrl, '_blank', 'width=600,height=400');
-            };
-
-            window.shareOnWhatsApp = function(url) {
-                const baseUrl = (window.location.protocol === "file:" || !window.location.origin || window.location.origin === "null") ? "https://polskieradio.cc" : window.location.origin;
-                const fullUrl = encodeURIComponent(baseUrl.replace(/\/$/, "") + "/" + url);
-                const waUrl = `https://api.whatsapp.com/send?text=${fullUrl}`;
-                window.open(waUrl, '_blank');
-            };
-
-            function showToast(message) {
-                if(toast) {
-                    toast.textContent = message;
-                    toast.classList.add("show");
-                    setTimeout(() => {
-                        toast.classList.remove("show");
-                    }, 2500);
-                }
-            }
-        });
-    </script>
-
-    <!-- EMBED CODE MODAL -->
-    <div class="premium-modal" id="embedModal" role="dialog" aria-modal="true" aria-labelledby="embedModalTitle" aria-describedby="embedModalHelp" onclick="if(event.target === this) closeEmbedModal();">
-        <div class="modal-content">
-            <button class="modal-close" aria-label="Zamknij okno" onclick="closeEmbedModal();">&times;</button>
-            <h3 class="modal-title" id="embedModalTitle">Osadź scenę na stronie</h3>
-            <div class="modal-body">
-                <p id="embedModalHelp">Skopiuj kod HTML do swojej witryny.</p>
-                <textarea class="code-textarea" id="embedCodeArea" aria-label="Tekst do skopiowania" readonly onclick="this.select();"></textarea>
-                <button class="copy-btn" onclick="copyEmbedCode();">Kopiuj</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- TOAST SYSTEM NOTIFICATION -->
-    <div class="toast-notification" id="toastNotification" role="status" aria-live="polite" aria-atomic="true"></div>
-
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script type="module" src="app.js?v=27"></script>
-    <script type="module" src="dobrzezejestes.js?v=6"></script>
-
-    <!-- CHROMECAST / SMART TV CAST MODAL -->
-    <div id="chromecastModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 99999; display: none; align-items: center; justify-content: center; padding: 20px;">
-        <div style="background: rgba(18, 18, 26, 0.95); border: 2px solid var(--gold-primary, #d4af37); border-radius: 24px; max-width: 580px; width: 100%; padding: 35px; box-shadow: 0 20px 60px rgba(212,175,55,0.25); text-align: center; position: relative;">
-            <button onclick="closeChromecastModal()" style="position: absolute; top: 18px; right: 20px; background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">&times;</button>
-            
-            <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px;">
-                <img src="chromecast.png" alt="Chromecast" style="height: 38px; width: auto; filter: drop-shadow(0 0 10px rgba(212,175,55,0.5));">
-                <h2 style="font-family: 'Cinzel', serif; font-size: 1.6rem; color: #fff; font-weight: 800; margin: 0;">PRZEŚLIJ EKRAN NA TV</h2>
-            </div>
-            
-            <p style="color: rgba(255,255,255,0.8); font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px;">
-                Oglądaj transmisję <strong>Christian Culture TV</strong> na dużym ekranie Twojego telewizora (Chromecast, Google TV, Apple TV, Samsung, LG webOS).
-            </p>
-
-            <div style="display: flex; flex-direction: column; gap: 14px; text-align: left; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 25px;">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <i class="fa-brands fa-chromecast" style="color: var(--gold-primary, #d4af37); font-size: 1.4rem;"></i>
-                    <div>
-                        <strong style="color: #fff; display: block; font-size: 0.95rem;">Google Chromecast & Android TV:</strong>
-                        <span style="color: rgba(255,255,255,0.65); font-size: 0.85rem;">W menu przeglądarki Chrome wybierz <strong>"Prześlij..." (Cast)</strong> i wskaż swój telewizor.</span>
-                    </div>
-                </div>
-                <div style="display: flex; align-items: center; gap: 12px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
-                    <i class="fa-brands fa-apple" style="color: #fff; font-size: 1.4rem;"></i>
-                    <div>
-                        <strong style="color: #fff; display: block; font-size: 0.95rem;">AirPlay (iPhone / iPad / Mac):</strong>
-                        <span style="color: rgba(255,255,255,0.65); font-size: 0.85rem;">Użyj przycisku AirPlay w menu klonowania ekranu iOS/macOS i wybierz Apple TV.</span>
-                    </div>
-                </div>
-                <div style="display: flex; align-items: center; gap: 12px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
-                    <i class="fa-solid fa-tv" style="color: #80c2ff; font-size: 1.4rem;"></i>
-                    <div>
-                        <strong style="color: #fff; display: block; font-size: 0.95rem;">Smart TV (Samsung / LG / Panasonic):</strong>
-                        <span style="color: rgba(255,255,255,0.65); font-size: 0.85rem;">Otwórz przeglądarkę w TV i wpisz adres: <strong>polskieradio.cc</strong></span>
-                    </div>
-                </div>
-            </div>
-
-            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                <button id="chromecastDirectTriggerBtn" onclick="triggerNativeCast()" style="background: linear-gradient(135deg, var(--gold-primary, #d4af37) 0%, #aa820a 100%); color: #000; font-weight: 800; font-size: 0.9rem; padding: 14px 24px; border-radius: 50px; border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; display: inline-flex; align-items: center; gap: 8px;">
-                    <img src="chromecast.png" alt="" style="height: 18px; width: auto;"> WŁĄCZ TRANSMISJĘ NA TV
-                </button>
-                <button onclick="closeChromecastModal()" style="background: rgba(255,255,255,0.1); color: #fff; font-weight: 700; font-size: 0.9rem; padding: 14px 24px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;">
-                    ZAMKNIJ
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let currentTargetCastUrl = 'master-live.html';
-
-        function openChromecastModal(targetUrl) {
-            if (targetUrl) currentTargetCastUrl = targetUrl;
-            const modal = document.getElementById('chromecastModal');
-            if (modal) modal.style.display = 'flex';
-        }
-
-        function closeChromecastModal() {
-            const modal = document.getElementById('chromecastModal');
-            if (modal) modal.style.display = 'none';
-        }
-
-        function triggerNativeCast() {
-            // Attempt Web Presentation / Cast API or open clean fullscreen player for Smart TV
-            if (navigator.presentation && navigator.presentation.defaultRequest) {
-                navigator.presentation.defaultRequest.start()
-                    .then(connection => console.log('Connected to cast display:', connection))
-                    .catch(err => {
-                        window.open(currentTargetCastUrl, '_blank');
-                    });
-            } else {
-                window.open(currentTargetCastUrl, '_blank');
-            }
-        }
-    </script>
-
+<script>
+const BASE='https://polskieradio.cc/';
+const IMG="/assets/nadawaj/" + "img/";
+const G=[
+ {id:'tv',name:'Telewizja 24/7',sub:'Kanały ogólne i wydania specjalne',items:[
+  {f:'cctv24-pl.html',img:'dzj-presenters',b:'Rozważanie dnia · Noemi i Sara',t:'Dobrze, że jesteś TV (16:9)',d:'Codzienne rozważanie jako rozmowa prowadzących, pogoda, intencje i ramówka.',nw:1},
+  {f:'tvw-women-live.html',img:'tvw',b:'Telewizja Kobiet · 24/7',t:'TVW — CC Women (16:9)',d:'Nowy kanał dla kobiet: rozmowy, świadectwa i uwielbienie, nadawany przez OBS.',nw:1},
+  {f:'zapolske-live.html',img:'POLAND',b:'Wydanie specjalne',t:'Zjednoczeni za Polskę (16:9)',d:'Strumień modlitewny za Ojczyznę: modlitwy poranne i intencje widzów.'},
+  {f:'tv-epafraz-live.html',img:'tv_epafraz_thumb',b:'YouTube 24/7 · Podcast i Pismo',t:'TV Epafraz 24/7 (16:9)',d:'Całodobowy kanał biblijny z 24 wybranych serii.'},
+  {f:'wieczor-ze-slowem-bozym-live.html',img:'wieczor-slowo',b:'Codziennie · 20:00',t:'Wieczór ze Słowem Bożym (LIVE)',d:'Wieczorna transmisja ze Słowem na zakończenie dnia.',nw:1,at:[20,21]},
+  {ad:1,n:1,txt:'Twój baner /wspieraj (16:9)',img:'promo'}
+ ]},
+ {id:'kurs',name:'Kursy i studium',sub:'Systematyczna nauka Pisma',items:[
+  {f:'apokalipsa-ksiega-nadziei-live.html',img:'tlo_ksiega_nadziei',b:'Kurs biblijny · 10:00 i 22:00',t:'Apokalipsa: Księga Nadziei (16:9)',d:'28 lekcji o proroctwach Księgi Objawienia.',at:[10,11,22,23]},
+  {f:'apokalipsa-live.html',img:'tv24-cc',b:'Codziennie',t:'Apokalipsa Dzień po Dniu',d:'Codzienna transmisja cyklu o Księdze Objawienia.',nw:1},
+  {f:'studium-live.html',img:'tlo_studium',b:'Studium biblijne · 08:00 i 20:00',t:'Studium Telewizyjne Pisma Świętego',d:'572 wykłady werset po wersecie.',at:[8,9]},
+  {f:'totalny-atak-live.html',img:'walter_veith',b:'Wykłady · Pn–Pt 18:00',t:'Totalny Atak — Prof. Walter Veith',d:'Wykłady biblijne, apologetyczne i profetyczne.',at:[18,19],wd:[1,2,3,4,5]},
+  {f:'randki-malzenstwo-live.html',img:'tv24_master_live',b:'Relacje i rodzina · Pt–Nd 22:00',t:'Randki i Małżeństwo (16:9)',d:'Kurs „Prawdziwe szczęście w rodzinie” Romana Chałupki.'},
+  {ad:1,n:2,txt:'Miejsce na baner nr 2 · 16:9 (np. Kurs Codzienny)'}
+ ]},
+ {id:'muz',name:'Muzyka, film i wyciszenie',sub:'Uwielbienie, kino i noc',items:[
+  {f:'spiewajmy-panu-live.html',img:'spiewajmy-panu-thumb',b:'Blok muzyczny · 16:00',t:'Codzienne Uwielbienie (16:9)',d:'Dwie godziny pieśni chwały i nowości muzycznych.',at:[16,17]},
+  {f:'biblia-spiewana-live.html',img:'Logo_Biblia_Spiewana',b:'Muzyka i Słowo',t:'Biblia Śpiewana (16:9)',d:'Śpiewane Przypowieści Salomona.'},
+  {f:'cctv24-worship.html',img:'worship_logo_thumb',b:'Instrumentalnie · 24/7',t:'Instrumental Worship Music CC',d:'Nieprzerwana muzyka instrumentalna uwielbienia.'},
+  {f:'nocne-czuwanie-live.html',img:'tlo_tv_nocna',b:'00:00 – 06:00',t:'Nocne Czuwanie',d:'Wyciszenie: jeden film relaksacyjny z cyklu 23 na dobę.',at:[0,1,2,3,4,5]},
+  {f:'ambient-sleep-live.html',img:'ambient',b:'Do snu · 24/7',t:'Ambient Sleep TV',d:'Kojące dźwięki do snu i odpoczynku.',nw:1},
+  {f:'kino-live.html',img:'tlo_ksiega_nadziei',b:'Kino · weekendy 18:00',t:'Chrześcijański Blok Filmowy',d:'Filmy i dokumenty z przesłaniem.',at:[18,19,20],wd:[0,6]},
+  {f:'swiadectwa-live.html',img:'tlo_tv_live2',b:'Niedziela · 18:00–20:00',t:'Świadectwa — Historie Wiary',d:'Historie nawróceń, uzdrowień i uwolnień.'}
+ ]},
+ {id:'radio',name:'Radio i Global',sub:'Biblia Audio i wydania angielskie',items:[
+  {f:'stream-scene.html',img:'Logo-Biblia-Audio-CC',b:'Radio internetowe PL',t:'Radio Biblia Audio (16:9)',d:'Całe Pismo do słuchania, scena radiowa.'},
+  {f:'cctv24-global.html',img:'GLOBAL',b:'Global TV 24/7',t:'Good to have you — Global',d:'Angielska wersja telewizji Dobrze, że jesteś.'},
+  {f:'bibleaudio-global.html',img:'Logo-Globalna-Biblia-Audio',b:'English Edition',t:'Bible Audio Global (16:9)',d:'Bible Audio for listeners around the world.'}
+ ]}
+];
+const V=[
+ {f:'stream-scene-vertical.html',img:'Logo-Globalna-Biblia-Audio',t:'Radio Biblia Audio',s:'9:16'},
+ {f:'dzj-vertical-live.html',img:'dzj-916-thumb',t:'Dobrze, że jesteś',s:'9:16'},
+ {f:'biblia-spiewana-vertical.html',img:'Logo_Biblia_Spiewana',t:'Biblia Śpiewana',s:'9:16'},
+ {ad:1}
+];
+const now=new Date(),H=now.getHours(),WD=now.getDay();
+const isOn=x=>x.at&&x.at.includes(H)&&(!x.wd||x.wd.includes(WD));
+const card=x=>x.ad?(x.img?`<a class="ad" href="${BASE}wspieraj" target="_blank" rel="noopener" data-kind="ad"><img src="/assets/promo/promo-wspieraj-klasyczny.webp" alt="Pomóż nam nieść Ewangelię dalej – polskieradio.cc/wspieraj" loading="lazy"><span class="lab">BANER ${x.n}</span></a>`:`<div class="ad empty" data-kind="ad"><div><b>${x.txt}</b>Wstawimy tu Twoją grafikę 1280×720</div><span class="lab">BANER ${x.n}</span></div>`):
+ `<article class="card" data-kind="ch"><a class="thumb" href="${BASE}${x.f}" target="_blank" rel="noopener" aria-label="Otwórz ${x.t}"><img src="${IMG}${x.img}.webp" alt="" loading="lazy"><span class="play"><span>▶</span></span>${x.nw?'<span class="chip new">NOWY NA LIŚCIE</span>':''}${isOn(x)?'<span class="chip onnow">● TERAZ</span>':''}</a>
+  <div class="body"><div class="badge">${x.b}</div><h3>${x.t}</h3><p>${x.d}</p></div>
+  <div class="acts"><a class="go" href="${BASE}${x.f}" target="_blank" rel="noopener">Oglądaj</a><button class="sec" type="button" data-copy="${BASE}${x.f}" data-what="URL dla OBS">OBS</button><button class="sec" type="button" data-copy='<iframe src="${BASE}${x.f}" width="1280" height="720" allow="autoplay; fullscreen" style="border:0"></iframe>' data-what="Kod do osadzenia">&lt;/&gt;</button></div></article>`;
+document.getElementById('groups').innerHTML=G.map(g=>`<section id="g-${g.id}" data-group="${g.id}"><div class="gh"><h2>${g.name}</h2><span>${g.sub}</span></div><div class="grid">${g.items.map(card).join('')}</div></section>`).join('');
+document.getElementById('vert').innerHTML=V.map(x=>x.ad?`<div class="vcard ad9"><div class="ph"><div><b>Miejsce na baner nr 4</b><br>9:16 · 1080×1920<br>np. na relacje</div></div><div class="b"><b>BANER 4</b><small>pionowy</small></div></div>`:`<a class="vcard" href="${BASE}${x.f}" target="_blank" rel="noopener"><div class="ph"><img src="${IMG}${x.img}.webp" alt="" loading="lazy" style="object-position:center"></div><div class="b"><b>${x.t}</b><small>Format ${x.s}</small></div></a>`).join('');
+// licznik scen
+const total=G.reduce((s,g)=>s+g.items.filter(x=>!x.ad).length,0)+V.filter(x=>!x.ad).length;
+(function c(i){document.getElementById('cnt').textContent=i;if(i<total)setTimeout(()=>c(i+1),45);})(0);
+// ramówka: teraz + dwa następne pasma
+const SL=[[0,'Nocne Czuwanie','00:00–06:00'],[8,'Studium Pisma Świętego','08:00'],[10,'Apokalipsa: Księga Nadziei','10:00'],[16,'Codzienne Uwielbienie','16:00'],[18,(WD===0||WD===6)?'Blok Filmowy':'Totalny Atak — W. Veith','18:00'],[20,'Wieczór ze Słowem Bożym','20:00'],[22,(WD>=5||WD===0)?'Randki i Małżeństwo':'Apokalipsa: Księga Nadziei','22:00']];
+let ci=SL.reduce((a,s,i)=>s[0]<=H?i:a,0);
+const rows=[0,1,2].map(k=>SL[(ci+k)%SL.length]);
+document.getElementById('sched').innerHTML=rows.map((s,k)=>`<div class="slot${k===0?' cur':''}"><div class="t">${String(s[0]).padStart(2,'0')}:00</div><div><b>${s[1]}</b><small>${k===0?'teraz w Master Live':'następnie · '+s[2]}</small></div></div>`).join('');
+document.getElementById('onairName').textContent=rows[0][1];
+// ── TV HERO: pierścień ekranów kanałów po intro ──
+(function(){
+  const hero=document.getElementById('tvhero'),vid=document.getElementById('intro'),ring=document.getElementById('ring'),stage=document.getElementById('stage');
+  const CH=[{f:'master-live',img:'tv24_master_live',t:'Telewizja Christian Culture 24/7',b:'Główny kanał nadawczy',d:'Master Live przełącza pasma sam, całą dobę.'}];
+  G.forEach(g=>g.items.forEach(x=>{if(!x.ad)CH.push({f:x.f.replace(/\.html$/,''),img:x.img,t:x.t,b:x.b,d:x.d,on:isOn(x)})}));
+  const L=CH.slice(0,14),n=L.length,step=360/n;
+  ring.innerHTML=L.map((c,i)=>`<div class="screen${i===0?' on':''}" style="--a:${i*step}deg" data-i="${i}" role="button" tabindex="0" aria-label="${c.t}"><img src="${IMG}${c.img}.webp" alt="" loading="lazy">${c.on||i===0?'<span class="lv">● NA ŻYWO</span>':''}<span class="nm">${c.t}</span></div>`).join('');
+  let cur=0,auto=true,ry=0;
+  const fT=document.getElementById('fTitle'),fB=document.getElementById('fBadge'),fD=document.getElementById('fDesc'),fG=document.getElementById('fGo'),focus=document.getElementById('focus');
+  function go(i,user){cur=(i+n)%n;ry=-cur*step;ring.style.setProperty('--ry',ry+'deg');
+    ring.querySelectorAll('.screen').forEach((s,k)=>s.classList.toggle('on',k===cur));
+    const c=L[cur];fT.textContent=c.t;fB.textContent=c.b;fD.textContent=c.d;fG.href='https://polskieradio.cc/'+c.f;
+    focus.classList.remove('swap');void focus.offsetWidth;focus.classList.add('swap');if(user)auto=false;}
+  ring.addEventListener('click',e=>{const s=e.target.closest('.screen');if(!s)return;const i=+s.dataset.i;i===cur?window.open(fG.href,'_blank','noopener'):go(i,true);});
+  ring.addEventListener('keydown',e=>{if(e.key==='Enter'){const s=e.target.closest('.screen');if(s)go(+s.dataset.i,true);}});
+  document.getElementById('prev').onclick=()=>go(cur-1,true);document.getElementById('next').onclick=()=>go(cur+1,true);
+  // przeciąganie palcem / myszą
+  let sx=null;hero.addEventListener('pointerdown',e=>{if(e.target.closest('a,button'))return;sx=e.clientX;});
+  addEventListener('pointerup',e=>{if(sx==null)return;const dx=e.clientX-sx;sx=null;if(Math.abs(dx)>40)go(cur+(dx<0?1:-1),true);});
+  addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(cur+1,true);if(e.key==='ArrowLeft')go(cur-1,true);});
+  setInterval(()=>{if(auto&&hero.classList.contains('orbit'))go(cur+1,false);},4500);
+  function orbit(){hero.classList.add('orbit');}
+  vid.addEventListener('ended',orbit);vid.addEventListener('error',orbit);
+  setTimeout(()=>{if(vid.paused||vid.readyState<2)orbit();},6500);
+  document.getElementById('replay').onclick=()=>{hero.classList.remove('orbit');vid.currentTime=0;vid.play().catch(orbit);};
+  document.getElementById('heroNow').textContent=document.getElementById('onairName').textContent;
+})();
+// filtry
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{const f=b.dataset.f;document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  document.querySelectorAll('[data-group]').forEach(s=>s.hidden=!(f==='all'||s.dataset.group===f));}));
+// kopiowanie
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-copy]');if(!b)return;try{await navigator.clipboard.writeText(b.dataset.copy);b.classList.add('ok');setTimeout(()=>b.classList.remove('ok'),1500);toast(b.dataset.what+' skopiowany');}catch(_){toast(b.dataset.copy.slice(0,60));}});
+</script>
 </body>
 </html>

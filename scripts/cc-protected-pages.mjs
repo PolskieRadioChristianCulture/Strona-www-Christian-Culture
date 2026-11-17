@@ -32,6 +32,18 @@ export const PROTECTED_PAGES = [
     approved: 'L0 17.11.2026 (kanał CC Women w TVW)',
     markers: ['function hideCaptions', 'TVW_PLAYLIST'],
   },
+  {
+    file: 'master-live.html',
+    url: 'https://polskieradio.cc/master-live',
+    approved: 'L0 17.11.2026 (telefon pion/poziom, Polecamy, kolory CC, czat prowadzących)',
+    markers: ['id="mlPromo"', 'ml-cc-orange-palette'],
+  },
+  {
+    file: 'nadawaj.html',
+    url: 'https://polskieradio.cc/nadawaj',
+    approved: 'L0 17.11.2026 (nowa /nadawaj: intro CC TV, pierścień kanałów, 25 kanałów)',
+    markers: ['id="tvhero"', 'id="ring"'],
+  },
 ];
 
 const normalize = (text) => String(text).replace(/\r\n/g, '\n');
