@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "ambient-sleep-live.html",
+      "title": "Ambient Sleep Live",
+      "url": "https://polskieradio.cc/ambient-sleep-live.html",
+      "type": "music",
+      "image": "ambient_hero.jpg",
+      "publishedAt": "2026-11-17T18:06:05.239Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "mess",
       "title": "LumiMess — Chrześcijański Komunikator",
       "url": "https://polskieradio.cc/mess",

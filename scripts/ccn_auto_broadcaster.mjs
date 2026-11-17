@@ -427,9 +427,9 @@ function getAllEcosystemCandidates() {
 
     const textToCheck = ((item.title || '') + ' ' + (item.url || '') + ' ' + (item.tag || '') + ' ' + (item.image || '') + ' ' + (item.imageUrl || '') + ' ' + (item.lead || '')).toLowerCase();
 
-    // Blokada dokumentów prawnych i regulaminów (nie publikujemy regulaminów ani polityk prywatności jako postów na X)
+    // Blokada dokumentów prawnych, regulaminów i wycofanych przekierowań (np. snadaniowa-live.html -> cctv24-worship)
     const isLegalOrPolicy = textToCheck.includes('regulamin') || textToCheck.includes('polityka prywatności') || textToCheck.includes('polityka-prywatnosci') || textToCheck.includes('polityka_prywatnosci') || textToCheck.includes('privacy');
-    if (isLegalOrPolicy) {
+    if (isLegalOrPolicy || (item.url || '').toLowerCase().includes('snadaniowa-live')) {
       return;
     }
 
@@ -1043,6 +1043,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📺 TV EPAFRAZ 24/7 | KANAŁ TELEWIZYJNY';
       callToAction = '👉 Oglądaj na żywo:\n';
       addTags('#TVEpafraz', '#TelewizjaCC', '#WorshipLive');
+    } else if ((item.url || '').includes('ambient-sleep-live') || (item.title || '').toLowerCase().includes('ambient sleep live')) {
+      subHeader = '🌙 AMBIENT SLEEP TV 24/7';
+      callToAction = '👉 Włącz na żywo:\n';
+      addTags('#AmbientSleep', '#PolskieRadioCC', '#ChristianCulture');
     } else if ((item.url || '').includes('czuwanie') || (item.title || '').toLowerCase().includes('nocne czuwanie')) {
       subHeader = '🌙 NOCNE CZUWANIE TV | MODLITWA 24/7';
       callToAction = '👉 Oglądaj i módl się na żywo:\n';
@@ -1326,6 +1330,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Historia hymnu „Cudowna Boża Łaska” (Amazing Grace): Od handlarza niewolników do pieśni Bożego odkupienia.';
   } else if ((item.url || '').includes('tv-epafraz')) {
     bodyText = 'Całodobowy kanał TV: nabożeństwa, kazania biblijne, wykłady teologiczne i uwielbienie (Live 24/7).';
+  } else if ((item.url || '').includes('ambient-sleep-live') || (item.title || '').toLowerCase().includes('ambient sleep live')) {
+    bodyText = 'Kojące dźwięki deszczu, kominka, szum brązowy i wersety biblijne na spokojny sen pod Bożą opieką.';
   } else if ((item.url || '').includes('czuwanie') || (item.title || '').toLowerCase().includes('nocne czuwanie')) {
     bodyText = 'Nocny strumień modlitwy, łagodnego uwielbienia i obecności Bożej. Oaza pokoju na trudne noce.';
   } else if ((item.url || '').includes('/tv') || (item.title || '').includes('Smart TV')) {
