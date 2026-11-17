@@ -47,10 +47,13 @@
 
     <style>
         :root {
-            --gold-primary: #C4A35A;
+            --gold-primary: #FF8C33;
             --gold-bright: #F5D77F;
-            --gold-dark: #8C6D23;
+            --gold-dark: #E66A00;
+            --ccn-orange: #FF7A00;
             --bg-dark: #000000;
+            --top-bar-h: 40px;
+            --bottom-bar-h: 46px;
         }
 
         * {
@@ -77,54 +80,112 @@
             left: 0;
             transform-origin: top left;
             overflow: hidden;
-            background: #000 url('images/live_2000_dlaczego_potrzebujesz_zywego_slowa.jpg?v=20261117') no-repeat center center;
+            background: #000;
+        }
+
+        /* ───────────────────────────────────────────────────────────
+           5 JESIENNYCH TEŁ STUDYJNYCH W PĘTLI Z PRZENIKANIEM I ZOOMEM
+           (raz do przodu 1.0 -> 1.08, raz do tyłu 1.08 -> 1.0)
+           + Napis na ekranie ściennym po prawej stronie w każdym ujęciu
+        ─────────────────────────────────────────────────────────── */
+        .bg-Rotator {
+            position: absolute;
+            top: var(--top-bar-h);
+            bottom: var(--bottom-bar-h);
+            left: 0;
+            right: 0;
+            overflow: hidden;
+            z-index: 1;
+            background: #000;
+        }
+
+        .bg-slide {
+            position: absolute;
+            inset: 0;
             background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 2.8s ease-in-out;
+            will-change: transform, opacity;
+        }
+
+        /* Nakładka ekranu ściennego z tytułem „▶ LIVE: 20:00 — Dlaczego Potrzebujesz Żywego Słowa?”
+           zintegrowana z każdym slajdem, dzięki czemu zoomuje naturalnie razem ze ścianą studia */
+        .bg-slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('images/live_2000_dlaczego_potrzebujesz_zywego_slowa.jpg?v=20261117_2') no-repeat center center;
+            background-size: cover;
+            clip-path: inset(6% 0.5% 47.5% 60.5%);
+            -webkit-mask-image: radial-gradient(ellipse 21% 23% at 80.5% 28.5%, #000 72%, transparent 100%);
+            mask-image: radial-gradient(ellipse 21% 23% at 80.5% 28.5%, #000 72%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .bg-slide.active {
+            opacity: 1;
+        }
+
+        .bg-slide.zoom-forward {
+            animation: kenBurnsForward 24s ease-in-out forwards;
+        }
+
+        .bg-slide.zoom-backward {
+            animation: kenBurnsBackward 24s ease-in-out forwards;
+        }
+
+        @keyframes kenBurnsForward {
+            0%   { transform: scale(1.0); }
+            100% { transform: scale(1.08); }
+        }
+
+        @keyframes kenBurnsBackward {
+            0%   { transform: scale(1.08); }
+            100% { transform: scale(1.0); }
         }
 
         /* Subtelny blask ambientowy */
         .ambient-glow {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             pointer-events: none;
-            background: radial-gradient(circle at 50% 65%, rgba(245, 215, 127, 0.08) 0%, transparent 60%);
+            z-index: 5;
+            background: radial-gradient(circle at 50% 65%, rgba(255, 140, 51, 0.07) 0%, transparent 60%);
             mix-blend-mode: screen;
             animation: breatheGlow 6s ease-in-out infinite alternate;
         }
 
         @keyframes breatheGlow {
-            0% { opacity: 0.5; }
-            100% { opacity: 0.9; }
+            0% { opacity: 0.45; }
+            100% { opacity: 0.85; }
         }
 
         /* ───────────────────────────────────────────────────────────
-           GÓRNY PASEK: SŁOWO BOŻE NA WIECZÓR (TICKER)
-           - Dokładnie 84px wysokości (wypełnia cały górny czarny pas, bez żadnej czarnej linii)
-           - Bez żadnych ramek, naturalna część tła
-           - Elegancka pionowa kreseczka oddzielająca tytuł od wersetów
-           - Duży, wyrazisty tekst (25px) dla czytelności na smartfonach i dla seniorów
-           - Spokojna, dostojna prędkość (170s)
+           1. GÓRNY PASEK: ŻYWE SŁOWO BOŻE (1mm marginesu góra/dół)
         ─────────────────────────────────────────────────────────── */
         .top-ticker-container {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 84px;
+            height: var(--top-bar-h);
+            padding: 4px 0;
             z-index: 30;
             display: flex;
             align-items: center;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(5, 7, 12, 0.96);
+            border-bottom: 2px solid var(--ccn-orange);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 2px 18px rgba(255, 122, 0, 0.28);
             overflow: hidden;
         }
 
         .top-ticker-title {
             display: flex;
             align-items: center;
-            padding-left: 36px;
-            padding-right: 24px;
+            padding-left: 28px;
+            padding-right: 20px;
             height: 100%;
             white-space: nowrap;
             z-index: 32;
@@ -132,18 +193,19 @@
 
         .top-ticker-title span {
             font-family: 'Cinzel', 'Montserrat', serif;
-            font-size: 21px;
+            font-size: 19px;
             font-weight: 800;
             letter-spacing: 2px;
             color: var(--gold-bright);
             text-transform: uppercase;
+            line-height: 1;
         }
 
         .top-ticker-divider {
             width: 2px;
-            height: 40px;
-            background: rgba(245, 215, 127, 0.5);
-            margin-right: 30px;
+            height: 24px;
+            background: rgba(255, 140, 51, 0.55);
+            margin-right: 24px;
             flex-shrink: 0;
             z-index: 32;
         }
@@ -158,7 +220,6 @@
             align-items: center;
         }
 
-        /* Płynny, nieprzerwany pasek ciągły (Seamless Continuous Marquee) - tekst płynie natychmiast, bez żadnej pustki */
         .top-ticker-inner {
             display: inline-flex;
             white-space: nowrap;
@@ -166,17 +227,14 @@
             will-change: transform;
         }
 
-        .top-ticker-inner:hover {
-            animation-play-state: paused;
-        }
-
         .top-ticker-group {
             display: inline-flex;
             align-items: center;
             white-space: nowrap;
             font-size: 25px;
+            line-height: 1.1;
             font-weight: 700;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.6px;
             color: #ffffff;
             text-shadow: 0 2px 8px rgba(0,0,0,0.8);
         }
@@ -187,13 +245,13 @@
         }
 
         .ticker-sig {
-            color: var(--gold-bright);
+            color: var(--gold-primary);
             font-weight: 800;
             margin-right: 8px;
         }
 
         .ticker-sep {
-            color: rgba(245, 215, 127, 0.6);
+            color: rgba(255, 140, 51, 0.65);
             margin: 0 10px;
         }
 
@@ -208,75 +266,292 @@
         }
 
         /* ───────────────────────────────────────────────────────────
-           DOLNY PRAWY RÓG: INFORMACJA I ZEGAR STUDYJNY
-           - Wysokość 113px, idealne wyśrodkowanie w osi belki DZISIAJ O 20:00
-           - Bez żadnych ramek ani pigułek — czysta, szlachetna treść z subtelnymi kreseczkami
+           2. DOLNY PASEK INFORMACYJNY CCN NEWS (jak na głównym kanale LIVE)
         ─────────────────────────────────────────────────────────── */
-        .bottom-right-info-container {
+        .ccn-master-ticker {
             position: absolute;
             bottom: 0;
-            right: 45px;
-            height: 113px;
+            left: 0;
+            right: 0;
+            height: var(--bottom-bar-h);
+            padding: 4px 0;
+            background: rgba(5, 7, 12, 0.98);
+            border-top: 2px solid var(--ccn-orange);
+            box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.95), 0 0 20px rgba(255, 122, 0, 0.35);
             display: flex;
             align-items: center;
-            gap: 20px;
-            z-index: 25;
-            background: transparent;
+            z-index: 40;
+            overflow: hidden;
+            font-family: 'Outfit', 'Montserrat', sans-serif;
         }
 
-        .clock-pulse-dot {
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: #2ed573;
-            box-shadow: 0 0 12px #2ed573;
-            animation: pulseDot 2s infinite ease-in-out;
+        .ccn-ticker-brand {
+            display: flex;
+            align-items: center;
+            height: calc(100% + 8px);
+            margin: -4px 0;
+            background: #ffffff;
+            padding: 0 14px;
             flex-shrink: 0;
+            z-index: 42;
+        }
+
+        .ccn-brand-boxes {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            margin-right: 8px;
+        }
+
+        .ccn-box {
+            width: 24px;
+            height: 24px;
+            background: #000000;
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0;
+        }
+
+        .ccn-box.red {
+            color: #e61919;
+        }
+
+        .ccn-brand-sub {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+            padding-right: 6px;
+            border-right: 2px solid #111;
+        }
+
+        .ccn-brand-sub strong {
+            color: #c91818;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .ccn-brand-sub small {
+            color: #222;
+            font-size: 6.5px;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+        }
+
+        .ccn-live-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: calc(100% + 8px);
+            margin: -4px 0;
+            padding: 0 18px;
+            background: linear-gradient(180deg, #FF8C33 0%, #E66A00 100%);
+            color: #1a0d00;
+            font-weight: 900;
+            font-size: 16px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+            z-index: 42;
+        }
+
+        .ccn-live-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 8px #ffffff;
+            animation: pulseDot 1.6s infinite ease-in-out;
         }
 
         @keyframes pulseDot {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.35; transform: scale(0.85); }
+            50% { opacity: 0.4; transform: scale(0.82); }
         }
 
-        .info-time {
-            font-family: 'Outfit', 'Montserrat', sans-serif;
-            font-size: 26px;
+        .ccn-ticker-track {
+            flex: 1;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .ccn-ticker-inner {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: continuousTicker 135s linear infinite;
+            will-change: transform;
+        }
+
+        .ccn-ticker-group {
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            font-size: 27px;
+            line-height: 1.1;
             font-weight: 800;
             color: #ffffff;
-            letter-spacing: 2px;
-            line-height: 1;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 6px rgba(0, 0, 0, 0.9);
         }
 
-        .info-divider {
-            width: 1.5px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.28);
-            flex-shrink: 0;
+        .ccn-ticker-item {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 56px;
         }
 
-        .info-date {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--gold-bright);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            line-height: 1;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+        .ccn-ticker-item .gold-text {
+            color: #FF8C33;
+            margin: 0 8px;
+            font-weight: 900;
         }
 
-        .info-brand {
-            font-size: 13px;
+        .ccn-support-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 122, 0, 0.16);
+            border: 1px solid rgba(255, 140, 51, 0.55);
+            color: #FF8C33;
+            font-size: 14px;
             font-weight: 800;
-            color: rgba(255, 255, 255, 0.8);
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 8px;
+            margin-right: 16px;
             text-transform: uppercase;
-            line-height: 1;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
         }
 
-        /* Nakładka Unmute dla przeglądarki */
+        /* Zintegrowana kapsułka dźwięku + PL/EN */
+        .cc-controls-capsule {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 6px;
+            margin: 0 12px;
+            border-radius: 999px;
+            background: rgba(20, 22, 29, 0.95);
+            border: 1px solid rgba(255, 122, 0, 0.55);
+            flex-shrink: 0;
+            z-index: 42;
+        }
+
+        .cc-capsule-btn {
+            min-width: 28px;
+            height: 26px;
+            padding: 0 8px;
+            border-radius: 999px;
+            border: none;
+            background: transparent;
+            color: #b8c2cc;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .cc-capsule-btn.active {
+            background: #FF7A00;
+            color: #1a0d00;
+            box-shadow: 0 0 10px rgba(255, 122, 0, 0.45);
+        }
+
+        /* Zegar studyjny po prawej w dolnym pasku */
+        .ccn-clock-box {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            padding: 0 22px 0 14px;
+            height: 100%;
+            align-items: center;
+            background: #05070c;
+            border-left: 1px solid rgba(255, 255, 255, 0.14);
+            flex-shrink: 0;
+            z-index: 42;
+        }
+
+        .ccn-clock-time {
+            font-family: 'Outfit', sans-serif;
+            font-size: 25px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1.2px;
+            line-height: 1;
+        }
+
+        .ccn-clock-date {
+            font-size: 12px;
+            font-weight: 800;
+            color: #FF8C33;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        /* ───────────────────────────────────────────────────────────
+           3. AUTOPROMOCJA EKOSYSTEMU PO LEWEJ STRONIE (#mlL3 — POLECAMY)
+           Wjeżdża płynnie z lewej strony ponad dolnym paskiem
+        ─────────────────────────────────────────────────────────── */
+        #mlL3 {
+            position: absolute;
+            left: 36px;
+            bottom: calc(var(--bottom-bar-h) + 26px);
+            z-index: 35;
+            display: flex;
+            align-items: stretch;
+            transform: translateX(-135%);
+            transition: transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1);
+            text-decoration: none;
+            font-family: 'Outfit', 'Montserrat', sans-serif;
+            box-shadow: 0 12px 34px rgba(0, 0, 0, 0.75);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 140, 51, 0.4);
+        }
+
+        #mlL3.ml-show {
+            transform: translateX(0);
+        }
+
+        #mlL3 .t {
+            background: #FF7A00;
+            color: #1a0d00;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            font-size: 17px;
+            text-transform: uppercase;
+        }
+
+        #mlL3 .x {
+            background: rgba(8, 10, 16, 0.95);
+            color: #ffffff;
+            font-weight: 800;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 21px;
+        }
+
+        #mlL3 .x span {
+            color: #f2c46d;
+            font-weight: 900;
+        }
+
+        /* Nakładka Unmute dla przeglądarki (ukryta w OBS) */
         #unmute-overlay {
             position: absolute;
             top: 0;
@@ -303,7 +578,7 @@
         .unmute-card {
             background: rgba(18, 18, 22, 0.95);
             border: 2px solid var(--gold-primary);
-            box-shadow: 0 0 40px rgba(196, 163, 90, 0.35);
+            box-shadow: 0 0 40px rgba(255, 140, 51, 0.35);
             border-radius: 20px;
             padding: 40px 60px;
             text-align: center;
@@ -313,14 +588,8 @@
 
         .unmute-card i {
             font-size: 64px;
-            color: var(--gold-bright);
+            color: var(--gold-primary);
             margin-bottom: 20px;
-            animation: pulseScale 1.8s infinite ease-in-out;
-        }
-
-        @keyframes pulseScale {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
         }
 
         .unmute-card h1 {
@@ -340,7 +609,7 @@
         }
 
         .unmute-btn {
-            background: linear-gradient(135deg, var(--gold-bright), var(--gold-primary));
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
             color: #000000;
             font-size: 16px;
             font-weight: 800;
@@ -352,13 +621,6 @@
             cursor: pointer;
             min-height: 44px;
             min-width: 44px;
-            box-shadow: 0 6px 20px rgba(196, 163, 90, 0.5);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .unmute-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(245, 215, 127, 0.7);
         }
     </style>
 </head>
@@ -371,20 +633,30 @@
     <div id="unmute-overlay" onclick="startBroadcasting()">
         <div class="unmute-card">
             <i class="fa-solid fa-dove"></i>
-            <h1>WIECZÓR ZE SŁOWEM BOŻYM</h1>
-            <p>Zaznaj spokoju serca • Oficjalna transmisja Christian Culture.<br>Kliknij, aby włączyć dźwięk i rozpocząć wieczorne wyciszenie.</p>
+            <h1>DLACZEGO POTRZEBUJESZ ŻYWEGO SŁOWA?</h1>
+            <p>Transmisja na żywo • Oficjalny kanał Christian Culture.<br>Kliknij, aby włączyć dźwięk i dołączyć do transmisji.</p>
             <button class="unmute-btn" id="start-btn" aria-label="Włącz dźwięk transmisji">Włącz dźwięk i transmisję</button>
         </div>
     </div>
 
     <!-- Main Scene Container (1920x1080) -->
     <div id="scene-wrapper">
+
+        <!-- 5 JESIENNYCH TEŁ W PĘTLI Z PRZENIKANIEM I ZOOMEM DO PRZODU / DO TYŁU -->
+        <div class="bg-Rotator" id="bgRotator">
+            <div class="bg-slide active zoom-forward" style="background-image: url('tlo_studio_jesien_1.jpg?v=20261117');"></div>
+            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_2.jpg?v=20261117');"></div>
+            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_3.jpg?v=20261117');"></div>
+            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_4.jpg?v=20261117');"></div>
+            <div class="bg-slide" style="background-image: url('tlo_studio_jesien_5.jpg?v=20261117');"></div>
+        </div>
+
         <div class="ambient-glow"></div>
 
-        <!-- 1. GÓRNY PASEK ZE SŁOWEM BOŻYM (Czysty, szeroki na 84px, duży czytelny font, bez ramek) -->
+        <!-- 1. GÓRNY PASEK ZE SŁOWEM BOŻYM (1mm marginesu nad i pod tekstem) -->
         <div class="top-ticker-container">
             <div class="top-ticker-title">
-                <span>Żywe Słowo Boże</span>
+                <span id="topTickerLabel">Żywe Słowo Boże</span>
             </div>
             <div class="top-ticker-divider"></div>
             <div class="top-ticker-track">
@@ -392,37 +664,79 @@
                     <div class="top-ticker-group">
                         <span><strong class="ticker-sig">Hbr 4,12</strong><span class="ticker-sep">•</span>„Bo Słowo Boże jest żywe i skuteczne, ostrzejsze niż wszelki miecz obosieczny, przenikające aż do rozdzielenia duszy i ducha.”</span>
                         <span><strong class="ticker-sig">Iz 55,11</strong><span class="ticker-sep">•</span>„Tak jest ze słowem, które wychodzi z moich ust: nie wraca do Mnie bezowocne, lecz czyni wszystko, co zechcę, i spełnia pomyślnie swoją misję.”</span>
-                        <span><strong class="ticker-sig">WSPARCIE MISJI</strong><span class="ticker-sep">•</span>Pomóż nam budować niezależne chrześcijańskie media w Polsce: <strong class="ticker-highlight">https://polskieradio.cc/wspieraj</strong> • Szybki BLIK: <strong>537 137 043</strong></span>
                         <span><strong class="ticker-sig">J 6,63</strong><span class="ticker-sep">•</span>„Słowa, które Ja wam powiedziałem, są duchem i są życiem.”</span>
                         <span><strong class="ticker-sig">Ps 119,105</strong><span class="ticker-sep">•</span>„Twoje słowo jest lampą dla moich stóp i światłem na mojej ścieżce.”</span>
-                        <span><strong class="ticker-sig">PORTAL LUMINA</strong><span class="ticker-sep">•</span>Dołącz do wolnej społeczności wierzących: <strong class="ticker-highlight">https://polskieradio.cc/lumina</strong> • Dobre treści bez zgiełku</span>
                         <span><strong class="ticker-sig">Mt 4,4</strong><span class="ticker-sep">•</span>„Nie samym chlebem żyje człowiek, lecz każdym słowem, które pochodzi z ust Bożych.”</span>
                         <span><strong class="ticker-sig">J 14,27</strong><span class="ticker-sep">•</span>„Pokój zostawiam wam, pokój mój daję wam. Nie tak jak daje świat, Ja wam daję. Niech się nie trwoży serce wasze ani się nie lęka.”</span>
-                        <span><strong class="ticker-sig">BIBLIA INTERLINEARNA</strong><span class="ticker-sep">•</span>Odkryj oryginalny tekst Pisma Świętego z kodami Stronga: <strong class="ticker-highlight">https://polskieradio.cc/mojabiblia</strong></span>
                     </div>
                     <div class="top-ticker-group" aria-hidden="true">
                         <span><strong class="ticker-sig">Hbr 4,12</strong><span class="ticker-sep">•</span>„Bo Słowo Boże jest żywe i skuteczne, ostrzejsze niż wszelki miecz obosieczny, przenikające aż do rozdzielenia duszy i ducha.”</span>
                         <span><strong class="ticker-sig">Iz 55,11</strong><span class="ticker-sep">•</span>„Tak jest ze słowem, które wychodzi z moich ust: nie wraca do Mnie bezowocne, lecz czyni wszystko, co zechcę, i spełnia pomyślnie swoją misję.”</span>
-                        <span><strong class="ticker-sig">WSPARCIE MISJI</strong><span class="ticker-sep">•</span>Pomóż nam budować niezależne chrześcijańskie media w Polsce: <strong class="ticker-highlight">https://polskieradio.cc/wspieraj</strong> • Szybki BLIK: <strong>537 137 043</strong></span>
                         <span><strong class="ticker-sig">J 6,63</strong><span class="ticker-sep">•</span>„Słowa, które Ja wam powiedziałem, są duchem i są życiem.”</span>
                         <span><strong class="ticker-sig">Ps 119,105</strong><span class="ticker-sep">•</span>„Twoje słowo jest lampą dla moich stóp i światłem na mojej ścieżce.”</span>
-                        <span><strong class="ticker-sig">PORTAL LUMINA</strong><span class="ticker-sep">•</span>Dołącz do wolnej społeczności wierzących: <strong class="ticker-highlight">https://polskieradio.cc/lumina</strong> • Dobre treści bez zgiełku</span>
                         <span><strong class="ticker-sig">Mt 4,4</strong><span class="ticker-sep">•</span>„Nie samym chlebem żyje człowiek, lecz każdym słowem, które pochodzi z ust Bożych.”</span>
                         <span><strong class="ticker-sig">J 14,27</strong><span class="ticker-sep">•</span>„Pokój zostawiam wam, pokój mój daję wam. Nie tak jak daje świat, Ja wam daję. Niech się nie trwoży serce wasze ani się nie lęka.”</span>
-                        <span><strong class="ticker-sig">BIBLIA INTERLINEARNA</strong><span class="ticker-sep">•</span>Odkryj oryginalny tekst Pisma Świętego z kodami Stronga: <strong class="ticker-highlight">https://polskieradio.cc/mojabiblia</strong></span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 2. DOLNY PRAWY RÓG: INFORMACJA ZE STUDYJNYM ZEGAREM (Idealnie wyśrodkowany w pionie 113px, bez ramek) -->
-        <div class="bottom-right-info-container">
-            <div class="clock-pulse-dot" title="Emisja Aktywna"></div>
-            <div class="info-time" id="clock-time">00:00:00</div>
-            <div class="info-divider"></div>
-            <div class="info-date" id="clock-date">WTOREK, 17 LISTOPADA</div>
-            <div class="info-divider"></div>
-            <div class="info-brand">CHRISTIAN CULTURE TV</div>
+        <!-- 2. AUTOPROMOCJA EKOSYSTEMU PO LEWEJ STRONIE (#mlL3 — POLECAMY) -->
+        <a id="mlL3" href="/wspieraj" target="_blank" rel="noopener" data-promo="l3">
+            <span class="t" id="mlL3Tag">POLECAMY</span>
+            <span class="x" id="mlL3txt">Pomóż nam nieść Ewangelię dalej · <span>polskieradio.cc/wspieraj</span></span>
+        </a>
+
+        <!-- 3. DOLNY PASEK INFORMACYJNY CCN NEWS -->
+        <div class="ccn-master-ticker">
+            <div class="ccn-ticker-brand">
+                <div class="ccn-brand-boxes">
+                    <span class="ccn-box">C</span>
+                    <span class="ccn-box">C</span>
+                    <span class="ccn-box red">N</span>
+                </div>
+                <div class="ccn-brand-sub">
+                    <strong>NEWS</strong>
+                    <small>CHRISTIAN CULTURE</small>
+                </div>
+            </div>
+
+            <div class="ccn-live-badge">
+                <span class="ccn-live-dot"></span>
+                <span id="liveBadgeText">NA ŻYWO</span>
+            </div>
+
+            <div class="ccn-ticker-track">
+                <div class="ccn-ticker-inner">
+                    <div class="ccn-ticker-group">
+                        <span class="ccn-ticker-item">Dziś o <span class="gold-text">20:00</span> transmisja na żywo: <span class="gold-text">Dlaczego Potrzebujesz Żywego Słowa?</span> ✦</span>
+                        <span class="ccn-ticker-item"><span class="ccn-support-pill">❤ WSPARCIE MISJI</span> Zostań Darczyńcą Misji na <span class="gold-text">polskieradio.cc/wspieraj</span> • Szybki BLIK na telefon: <span class="gold-text">537 137 043</span> ✦</span>
+                        <span class="ccn-ticker-item">Wejdź na <span class="gold-text">polskieradio.cc/lumina</span> — Chrześcijańska społeczność wolna od hejtu i komercji ✦</span>
+                        <span class="ccn-ticker-item">Codzienny kurs biblijny „Z Biblią za Pan Brat”: <span class="gold-text">polskieradio.cc/akademia</span> ✦</span>
+                        <span class="ccn-ticker-item">Pismo Święte Interlinearne z kodami Stronga: <span class="gold-text">polskieradio.cc/mojabiblia</span> ✦</span>
+                        <span class="ccn-ticker-item">Słuchaj Radia i Biblii Audio 24/7: <span class="gold-text">polskieradio.cc/player</span> ✦</span>
+                    </div>
+                    <div class="ccn-ticker-group" aria-hidden="true">
+                        <span class="ccn-ticker-item">Dziś o <span class="gold-text">20:00</span> transmisja na żywo: <span class="gold-text">Dlaczego Potrzebujesz Żywego Słowa?</span> ✦</span>
+                        <span class="ccn-ticker-item"><span class="ccn-support-pill">❤ WSPARCIE MISJI</span> Zostań Darczyńcą Misji na <span class="gold-text">polskieradio.cc/wspieraj</span> • Szybki BLIK na telefon: <span class="gold-text">537 137 043</span> ✦</span>
+                        <span class="ccn-ticker-item">Wejdź na <span class="gold-text">polskieradio.cc/lumina</span> — Chrześcijańska społeczność wolna od hejtu i komercji ✦</span>
+                        <span class="ccn-ticker-item">Codzienny kurs biblijny „Z Biblią za Pan Brat”: <span class="gold-text">polskieradio.cc/akademia</span> ✦</span>
+                        <span class="ccn-ticker-item">Pismo Święte Interlinearne z kodami Stronga: <span class="gold-text">polskieradio.cc/mojabiblia</span> ✦</span>
+                        <span class="ccn-ticker-item">Słuchaj Radia i Biblii Audio 24/7: <span class="gold-text">polskieradio.cc/player</span> ✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cc-controls-capsule">
+                <button class="cc-capsule-btn active" id="capsuleMuteBtn" onclick="toggleAudioMute()" title="Dźwięk"><i class="fa-solid fa-volume-high"></i></button>
+                <button class="cc-capsule-btn active" id="btnLangPl" onclick="setPageLang('pl')">PL</button>
+                <button class="cc-capsule-btn" id="btnLangEn" onclick="setPageLang('en')">EN</button>
+            </div>
+
+            <div class="ccn-clock-box">
+                <span class="ccn-clock-time" id="clock-time">00:00:00</span>
+                <span class="ccn-clock-date" id="clock-date">17 LIS</span>
+            </div>
         </div>
     </div>
 
@@ -443,11 +757,32 @@
         window.addEventListener('load', resizeScene);
         resizeScene();
 
-        // 2. Real-time Clock
+        // 2. Rotacja 5 jesiennych teł z przenikaniem i naprzemiennym zoomem (do przodu / do tyłu)
+        (function initBgRotator() {
+            const slides = Array.from(document.querySelectorAll('#bgRotator .bg-slide'));
+            if (slides.length < 2) return;
+            let currentIdx = 0;
+            let zoomStep = 0;
+
+            setInterval(() => {
+                const prevSlide = slides[currentIdx];
+                currentIdx = (currentIdx + 1) % slides.length;
+                zoomStep++;
+                const nextSlide = slides[currentIdx];
+                const zoomClass = (zoomStep % 2 === 0) ? 'zoom-forward' : 'zoom-backward';
+
+                nextSlide.classList.remove('zoom-forward', 'zoom-backward');
+                void nextSlide.offsetWidth;
+                nextSlide.classList.add('active', zoomClass);
+                prevSlide.classList.remove('active');
+            }, 21000);
+        })();
+
+        // 3. Zegar studyjny w dolnym pasku
         function updateClock() {
             const now = new Date();
             const timeStr = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            const dateStr = now.toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase();
+            const dateStr = now.toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' }).replace('.', '').toUpperCase();
             
             const timeEl = document.getElementById('clock-time');
             const dateEl = document.getElementById('clock-date');
@@ -457,17 +792,85 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // 3. Audio & OBS Detection
+        // 4. Autopromocja ekosystemu po lewej stronie (#mlL3 — POLECAMY / RECOMMENDED)
+        (function initPromoL3() {
+            const SL = [
+                { id: 'wspieraj', href: '/wspieraj', l3: 'Pomóż nam nieść Ewangelię dalej · <span>polskieradio.cc/wspieraj</span>', l3En: 'Help us proclaim the Gospel · <span>polskieradio.cc/wspieraj</span>' },
+                { id: 'akademia', href: '/akademia', l3: 'Kurs Codzienny „Z Biblią za Pan Brat” · <span>polskieradio.cc/akademia</span>', l3En: 'Daily Bible Course · <span>polskieradio.cc/akademia</span>' },
+                { id: 'lumina', href: '/lumina', l3: 'Społeczność Chrześcijan bez hejtu · <span>polskieradio.cc/lumina</span>', l3En: 'Christian Community · <span>polskieradio.cc/lumina</span>' },
+                { id: 'biblia-audio', href: '/biblia-audio', l3: 'Słuchowisko Biblia Audio 24/7 · <span>polskieradio.cc/biblia-audio</span>', l3En: 'Audio Bible 24/7 · <span>polskieradio.cc/biblia-audio</span>' },
+                { id: 'topten', href: '/topten', l3: 'Głosuj na listę przebojów topTEN · <span>polskieradio.cc/topten</span>', l3En: 'Vote on topTEN of the Week · <span>polskieradio.cc/topten</span>' },
+                { id: 'mojabiblia', href: '/mojabiblia', l3: 'Pismo Święte Interlinearne · <span>polskieradio.cc/mojabiblia</span>', l3En: 'Interlinear Study Bible · <span>polskieradio.cc/mojabiblia</span>' }
+            ];
+            const l3 = document.getElementById('mlL3');
+            const l3t = document.getElementById('mlL3txt');
+            const l3Tag = document.getElementById('mlL3Tag');
+            if (!l3 || !l3t) return;
+            let j = 0;
+
+            function showBelka() {
+                const isEn = (window.currentSceneLang === 'en');
+                const s = SL[j++ % SL.length];
+                l3.href = s.href;
+                if (l3Tag) l3Tag.textContent = isEn ? 'RECOMMENDED' : 'POLECAMY';
+                l3t.innerHTML = isEn ? (s.l3En || s.l3) : s.l3;
+                l3.classList.add('ml-show');
+                setTimeout(() => {
+                    l3.classList.remove('ml-show');
+                }, 14000);
+            }
+
+            // Pierwsze wysunięcie po 4 sekundach, kolejne co 38 sekund
+            setTimeout(showBelka, 4000);
+            setInterval(showBelka, 38000);
+        })();
+
+        // 5. Audio, Mute & OBS Detection
         const audio = document.getElementById('stream-audio');
         const overlay = document.getElementById('unmute-overlay');
 
         function startBroadcasting() {
             if (audio) {
+                audio.muted = false;
                 audio.play().catch(e => console.log('Autoplay blocked:', e));
             }
             if (overlay) {
                 overlay.classList.add('hidden');
             }
+        }
+
+        function toggleAudioMute() {
+            if (!audio) return;
+            const btn = document.getElementById('capsuleMuteBtn');
+            if (audio.paused || audio.muted) {
+                audio.muted = false;
+                audio.play().catch(() => {});
+                if (btn) {
+                    btn.classList.add('active');
+                    btn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+                }
+            } else {
+                audio.muted = true;
+                if (btn) {
+                    btn.classList.remove('active');
+                    btn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+                }
+            }
+        }
+
+        function setPageLang(lang) {
+            window.currentSceneLang = lang;
+            const isEn = (lang === 'en');
+            const btnPl = document.getElementById('btnLangPl');
+            const btnEn = document.getElementById('btnLangEn');
+            if (btnPl) btnPl.classList.toggle('active', !isEn);
+            if (btnEn) btnEn.classList.toggle('active', isEn);
+            const liveBadge = document.getElementById('liveBadgeText');
+            if (liveBadge) liveBadge.textContent = isEn ? 'LIVE' : 'NA ŻYWO';
+            const topLabel = document.getElementById('topTickerLabel');
+            if (topLabel) topLabel.textContent = isEn ? 'Living Word of God' : 'Żywe Słowo Boże';
+            const l3Tag = document.getElementById('mlL3Tag');
+            if (l3Tag) l3Tag.textContent = isEn ? 'RECOMMENDED' : 'POLECAMY';
         }
 
         // Jeśli działa w OBS Studio (Browser Source) lub z flagą ?obs=1
@@ -479,27 +882,6 @@
                     document.addEventListener('click', () => audio.play(), { once: true });
                 });
             }
-        }
-
-        // 4. Subskrypcja dynamicznych metadanych Zeno.fm SSE (RDS)
-        try {
-            const activeMountId = 'imo45hqnshyuv';
-            const sseUrl = `https://api.zeno.fm/mounts/metadata/subscribe/${activeMountId}`;
-            const metaSource = new EventSource(sseUrl);
-
-            metaSource.onmessage = function(event) {
-                try {
-                    const data = JSON.parse(event.data);
-                    if (data && data.streamTitle) {
-                        const cleanTitle = data.streamTitle.replace(/•?\s*Wersja:.*$/gi, '').trim();
-                        if (cleanTitle) {
-                            console.log('NowPlaying RDS:', cleanTitle);
-                        }
-                    }
-                } catch(e) {}
-            };
-        } catch(err) {
-            console.log('RDS SSE error:', err);
         }
     </script>
 </body>
