@@ -841,4 +841,14 @@
       <image:title>Szabat i odpowiedzialność — Boży projekt dla ludzkiego życia</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus.png</image:loc>
+      <image:title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</image:title>
+    </image:image>
+  </url>
 </urlset>

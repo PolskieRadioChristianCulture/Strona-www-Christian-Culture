@@ -97,6 +97,105 @@ export const BREAKING_NEWS: string[] = [
 
 export const INITIAL_ARTICLES: Article[] = [
   {
+    id: 'art-papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus',
+    title: "Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?",
+    slug: 'papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus',
+    excerpt: "Od sensacyjnego nagłówka w Peru do źródła wiary: jednego Ojca w niebie i jedynego Pośrednika, Jezusa Chrystusa. Czy incydent z różańcem w papamobile był zamachem, czy niefortunnym gestem religijnego entuzjazmu? Pismo Święte wzywa nas do bezwzględnej uczciwości wobec faktów oraz stawia fundamentalne pytanie: co dzieje się z ludzkim sercem, gdy jego duchowe poczucie bezpieczeństwa staje się zależne od zbliżenia się do człowieka? W Chrystusie Bóg otwiera bezpośrednią drogę do Ojca w niebie bez ludzkiego pośrednictwa.",
+    content: [
+      "Zdarzenie prawdziwe. „Zamach” — niepotwierdzony",
+      "W poniedziałek 16 listopada 2026 roku, podczas końcowego etapu podróży apostolskiej po Ameryce Południowej, papież Leon XIV przemierzał w papamobile zgromadzenie wiernych na terenie bazy lotniczej Las Palmas w Limie. Z tłumu poleciał w jego stronę przedmiot przypominający różaniec. Uderzył w okolice oka. Papież skrzywił się, dotknął twarzy i kontynuował spotkanie. Nie odnotowano poważnych obrażeń. Tak przebieg wydarzeń opisują Reuters i Euronews.",
+      "W udostępnionym w internecie obrazku pojawia się jednak tytuł: „Zamach na papieża Leona w Peru!”. Słowo „zamach” wywołuje skojarzenie z zaplanowaną próbą skrzywdzenia lub zabójstwa. Tego dostępne materiały nie potwierdzają. Co więcej, nazajutrz, podczas rozmowy z dziennikarzami w samolocie, sam Leon XIV potraktował sytuację jako niefortunny gest wiernego pragnącego ofiarować różaniec i okazał mu wyrozumiałość. Według relacji Associated Press mówił o głębokiej wierze i entuzjazmie ludzi w Peru.",
+      "Wierność Chrystusowi zaczyna się również od uczciwości wobec faktów. Nie należy przerabiać niezręcznego incydentu na historię o zamachu tylko dlatego, że taki tytuł budzi większe emocje. Przykazanie zakazujące fałszywego świadectwa (Wj 20,16) dotyczy także naszych kliknięć, komentarzy i publikacji.",
+      "Ważniejsza wiadomość niż przedmiot rzucony z tłumu",
+      "O zdarzeniu warto opowiedzieć, ale nie po to, by je wyśmiewać. Znamy ludzi, którzy w porywie religijnego entuzjazmu chcą dotknąć duchowego przywódcy, wręczyć mu symbol wiary lub otrzymać błogosławieństwo. Bywa w tym szczere pragnienie bliskości Boga. Równocześnie takie zachowania mogą być niebezpieczne — nie rzucajmy przedmiotami w kierunku nikogo, nawet z dobrymi intencjami.",
+      "Ale stawiam dziś pytanie znacznie ważniejsze: co właściwie dzieje się z ludzkim sercem, gdy jego duchowe poczucie bezpieczeństwa staje się zależne od zbliżenia się do człowieka? Czy nie przegapiamy wówczas zaproszenia, które sam Jezus kieruje do każdego z nas?",
+      "Nie muszę przedostawać się przez tłum, aby Bóg mnie usłyszał. Nie potrzebuję szczególnego miejsca w pierwszym rzędzie ani przedmiotu dotkniętego przez sławnego człowieka, aby zwrócić się do Ojca. Chrystus uczy nas modlić się bezpośrednio do Boga (Mt 6,6.9).",
+      "„Ojcze nasz” — do kogo Jezus kierował uczniów?",
+      "Gdy uczniowie poprosili Jezusa o naukę modlitwy, nie otrzymali wskazówki, aby szukali na ziemi najważniejszego religijnego pośrednika. Jezus skierował ich wzrok ku Ojcu: „Ojcze nasz, któryś jest w niebie” — taki jest początek Modlitwy Pańskiej (Mt 6,9; por. Łk 11,2). Bóg nie jest anonimową siłą ani instytucją. Jest Ojcem, do którego wierzący może zwrócić się w zaufaniu.",
+      "Nie oznacza to, że wszyscy ludzie automatycznie żyją w odnowionej relacji z Bogiem. Nowy Testament łączy przywilej dziecięctwa Bożego z przyjęciem Chrystusa i wiarą w Jego imię (J 1,12–13). Paweł mówi o Duchu synostwa, w którym wierzący wołają „Abba, Ojcze” (Rz 8,15–16).",
+      "Czy nie jest to jeden z najpiękniejszych darów Ewangelii? Do Boga nie trzeba docierać przez dwór, kolejkę do dostojnika albo system duchowych znajomości. W Jezusie Chrystusie otwiera się droga do Ojca (Ef 2,18).",
+      "Co Jezus miał na myśli mówiąc: „Nikogo na ziemi nie nazywajcie ojcem”?",
+      "W Mt 23,8–12 Jezus piętnuje religijną pychę, ostentacyjne tytuły i pragnienie pierwszych miejsc. W tym kontekście pada wezwanie, by nie przypisywać ludziom rangi, która w duchowym sensie przysługuje jedynemu Ojcu w niebie. To fragment poważny, którego nie wolno pomijać, gdy rozmawiamy o autorytecie religijnym.",
+      "Trzeba jednak przeczytać również szerszy kontekst Pisma. Apostoł Paweł określa siebie wobec Koryntian mianem duchowego ojca w sensie duszpasterskim (1 Kor 4,15), a Biblia wielokrotnie nazywa ojcami rodziców i przodków. Dlatego istnieją chrześcijanie — w tym katolicy — którzy rozumieją Mt 23 jako zakaz przywłaszczania sobie absolutnego, boskiego autorytetu, a nie całkowity zakaz użycia słowa „ojciec” w jakimkolwiek znaczeniu. Inni chrześcijanie uznają religijne tytułowanie duchownych „ojcami” za praktykę nieodpowiednią w świetle tego ostrzeżenia.",
+      "Spór o sam tytuł nie powinien zasłonić sedna: żaden człowiek, niezależnie od urzędu i tradycji kościelnej, nie zajmuje miejsca Boga. Wiara w autorytet Pisma wymaga oceniania każdej religijnej władzy w świetle nauczania Chrystusa, a nie uznawania ludzkiej pozycji za nieomylną w każdej wypowiedzi.",
+      "Jeden Pośrednik: dlaczego centrum stanowi Jezus Chrystus?",
+      "Pierwszy List do Tymoteusza 2,5 stwierdza, że jest jeden Bóg oraz jeden Pośrednik między Bogiem i ludźmi — człowiek Chrystus Jezus. W bezpośrednim kontekście Paweł wzywa Kościół do modlitwy za wszystkich ludzi, ponieważ Bóg pragnie ich zbawienia (1 Tm 2,1–6). To nie opowieść o uprzywilejowanej religijnej elicie, lecz o powszechnym zaproszeniu płynącym z dzieła Chrystusa.",
+      "Jezus powiedział, że nikt nie przychodzi do Ojca inaczej jak przez Niego (J 14,6). List do Hebrajczyków zachęca wierzących do ufnego przystępowania do tronu łaski dzięki wielkiemu Arcykapłanowi, Jezusowi (Hbr 4,14–16; 7,25). A List do Efezjan przypomina, że zbawienie jest darem łaski przyjmowanym przez wiarę, nie zapłatą za uczynki (Ef 2,8–10).",
+      "Możemy szanować duchownych, dziękować im za służbę, słuchać dobrego nauczania i modlić się za nich. Nie wolno jednak uczynić z któregokolwiek człowieka źródła odkupienia. To Chrystus oddał za nas życie, zmartwychwstał i prowadzi do Ojca. Nie urząd, nie tytuł i nie religijny przedmiot zbawiają człowieka.",
+      "Różaniec, modlitwa i przedmiot — gdzie przebiega biblijna granica?",
+      "W katolickiej praktyce różaniec jest pomocą w modlitwie, a nie — według oficjalnego rozumienia tej praktyki — samodzielnym źródłem boskiej mocy. Protestanci różnią się w ocenie modlitw maryjnych i pośrednictwa świętych, szczególnie w świetle 1 Tm 2,5. Spór ten zasługuje na uczciwą analizę, a nie na wyśmiewanie wierzących.",
+      "Pismo przestrzega przed traktowaniem przedmiotów jako magicznych gwarancji ochrony czy zbawienia. W 2 Krl 18,4 król Ezechiasz usuwa węża miedzianego, gdy stał się przedmiotem nieuprawnionej czci, choć wcześniej miał on znaczenie w historii Izraela (Lb 21,8–9). To mocna przestroga: nawet przedmiot związany z religijną historią nie może zastąpić Boga.",
+      "Nie rozstrzygajmy jednak o intencjach konkretnej osoby, która rzuciła różaniec. Według dostępnych relacji papież uznał gest za przejaw religijnego entuzjazmu. Lepiej zapytać o własne serce: czy moje praktyki i symbole naprawdę prowadzą do posłuszeństwa Chrystusowi, czy czasem przesłaniają mi Jego Ewangelię?",
+      "Czy szacunek dla papieża i wierność Chrystusowi muszą się wykluczać?",
+      "Nie. Człowiek ma niezbywalną godność bez względu na wyznanie, funkcję czy przekonania. 1 P 2,17 uczy okazywania szacunku wszystkim ludziom. Możemy życzyć Leonowi XIV zdrowia, bezpieczeństwa i mądrości. Możemy docenić, że nie odpowiedział gniewem na incydent, lecz wyrozumiałością.",
+      "Jednocześnie chrześcijanin może rozważać krytycznie doktryny i praktyki kościelne w świetle Pisma (Dz 17,11). Takie badanie nie wymaga pogardy dla katolików ani negowania ich szczerej wiary. Nie ma również potrzeby udawać, że między tradycjami chrześcijańskimi nie istnieją rzeczywiste różnice dotyczące autorytetu, pośrednictwa czy kultu.",
+      "Najbardziej wiarygodna krytyka doktrynalna to taka, która jest merytoryczna, oparta na kontekście Pisma i wolna od osobistych obelg. To nie papież jest bohaterem naszej Ewangelii. Jest nim Jezus Chrystus — a właśnie dlatego powinniśmy mówić o innych ludziach w duchu prawdy i miłości (Ef 4,15).",
+      "Powrót do źródła: co zrobić dziś?",
+      "Nie potrzebujesz kolejnego sensacyjnego nagłówka. Potrzebujesz żywego Słowa Bożego. Otwórz Ewangelię Mateusza, przeczytaj uważnie rozdział szósty i fragment 23,8–12. Następnie przeczytaj J 14,1–11, 1 Tm 2,1–6 i Hbr 4,14–16. Zobacz, komu Jezus poleca ufać, do kogo się modlić i przez kogo przystępować do Boga.",
+      "Niech ta historia stanie się początkiem uczciwego pytania: w kim pokładam swoją ostateczną nadzieję? W urzędzie religijnym, obrzędzie, symbolu, reputacji jakiegoś kaznodziei, czy w ukrzyżowanym i zmartwychwstałym Synu Bożym?",
+      "Nawet jeśli nigdy nie zobaczysz ważnego przywódcy religijnego z bliska, droga do Ojca nie jest przed Tobą zamknięta. W Chrystusie Bóg przyjmuje wierzących z łaski. Nie jesteś zaproszony do wielbienia człowieka, lecz do poznania Ojca przez Syna.",
+      "Panie Jezu Chryste, dziękuję Ci, że objawiasz Ojca. Oczyść moją wiarę z zabobonu, pychy i ślepego przywiązania do ludzi. Naucz mnie szanować każdego człowieka, lecz całą nadzieję zbawienia składać w Tobie. Ojcze nasz, prowadź nas w prawdzie Twojego Słowa. Amen.",
+      "Cezary Rogowski\nChristian Culture Network — CCN News / Biblia i Teologia\nhttps://polskieradio.cc",
+      "ŹRÓDŁA:\nVatican News, 17.11.2026 — wypowiedź Leona XIV podczas lotu powrotnego: https://www.vaticannews.va/pl/papiez/news/2026-11/konferencja-prasowa-papieza-podczas-lotu-z-peru-do-rzymu.html\nAssociated Press, 17.11.2026 — papież wybaczył osobie, która rzuciła różaniec: https://apnews.com/article/peru-pope-rosary-popemobile-0a1c02ea91c22da3dd5a6386a5fc1efc\nReuters, 16.11.2026 — trafienie różańcem w okolice oka w Limie: https://www.internazionale.it/ultime-notizie-reuters/2026/11/16/pope-leo-misses-the-catch-as-rosary-from-crowd-hits-his-eye-in-peru\nEuronews, 16.11.2026 — relacja polska, brak poważnych obrażeń: https://pl.euronews.com/2026/11/16/papiez-leon-xiv-trafiony-rozancem-w-oko-podczas-wizyty-w-peru\nWatykańskie biuro prasowe — podróż do Peru, 16.11.2026: https://press.vatican.va/content/salastampa/en/bollettino/pubblico/2026/11/16/261116a.html"
+],
+    primaryPortalLabel: 'CCN NEWS • BIBLIA I TEOLOGIA',
+    category: 'wiara',
+    categoryLabel: 'CCN NEWS • BIBLIA I TEOLOGIA',
+    author: AUTHORS.cezary,
+    publishedAt: '2026-11-17T13:30:00Z',
+    dateFormatted: '17 listopada 2026',
+    imageUrl: '/images/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus.png',
+    imageCaption: 'Otwarta Biblia i krzyż na tle historycznej Limy — od sensacji do Ewangelii. Grafika koncepcyjna AI.',
+    readTimeMinutes: 7,
+    isHero: true,
+    isPopular: true,
+    popularRank: 1,
+    tags: [
+      'Leon XIV',
+      'Papież',
+      'Peru',
+      'Różaniec',
+      'Jeden Ojciec',
+      'Jeden Pośrednik',
+      'Ewangelia',
+      'Teologia',
+      'Mt 23:9',
+      '1 Tm 2:5',
+      'UBG',
+      'CCN News'
+    ],
+    viewsCount: 1420,
+    scriptureReference: {
+      verse: 'Ewangelia Mateusza 23:8–12; 1 List do Tymoteusza 2:5; Ewangelia Jana 14:6 (UBG)',
+      text: 'Jeden bowiem jest wasz Ojciec, ten, który jest w niebie... Jeden też jest Pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus... Ja jestem drogą, prawdą i życiem. Nikt nie przychodzi do Ojca jak tylko przeze mnie.',
+      strongCode: 'G3962'
+    },
+    sourceCitation: {
+      sourceName: 'Vatican News, Reuters, Euronews, Associated Press (16–17.11.2026) oraz Uwspółcześniona Biblia Gdańska (UBG)',
+      sourceUrl: 'https://polskieradio.cc/mojabiblia',
+      name: 'Vatican News, Reuters, Euronews, Associated Press (16–17.11.2026) oraz Uwspółcześniona Biblia Gdańska (UBG)',
+      url: 'https://polskieradio.cc/mojabiblia'
+    },
+    actionLinks: [
+      {
+        label: 'MojaBiblia — Ewangelia Mateusza 23 (UBG)',
+        url: 'https://polskieradio.cc/mojabiblia?ref=Mt23:1-12'
+      },
+      {
+        label: 'MojaBiblia — 1 List do Tymoteusza 2 (UBG)',
+        url: 'https://polskieradio.cc/mojabiblia?ref=1Tm2:1-6'
+      },
+      {
+        label: 'Akademia Biblijna — Kurs Codzienny',
+        url: 'https://polskieradio.cc/akademia#kurscodzienny'
+      },
+      {
+        label: 'CCN News — Wszystkie artykuły',
+        url: 'https://polskieradio.cc/news'
+      }
+    ]
+  },
+  {
     id: 'art-dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko',
     title: "Dzień Tolerancji: czy szacunek oznacza zgodę na wszystko?",
     slug: 'dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko',

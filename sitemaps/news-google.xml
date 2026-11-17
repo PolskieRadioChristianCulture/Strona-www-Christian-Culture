@@ -707,4 +707,19 @@
       <image:title>BÓG SAM ZAPEWNI BARANKA — ABRAHAM NA GÓRZE MORIA I TYPOLOGIA OFIARY CHRYSTUSA</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-17T13:30:00.000Z</news:publication_date>
+      <news:title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus.png</image:loc>
+      <image:title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</image:title>
+    </image:image>
+  </url>
 </urlset>
