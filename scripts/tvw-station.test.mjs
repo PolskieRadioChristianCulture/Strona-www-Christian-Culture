@@ -62,3 +62,16 @@ test('branding i dostęp: logo TVW, /TVW w _redirects, GA4, wersja osadzona bez 
     assert.match(html, /html\.tvw-embedded \.tvw-top, html\.tvw-embedded \.tvw-ticker/);
     assert.doesNotMatch(html, /prefers-reduced-motion/, 'L0 ma ograniczony ruch w Windows — animacji nie wyłączamy');
 });
+
+test('/test/ccwomen: hero na 100% ekranu, osadzona stacja TVW (tryb telewizora), noindex, logo CC', () => {
+    const page = read('test/ccwomen/index.html');
+    assert.match(page, /\.hero\{[^}]*min-height:100svh/);
+    assert.match(page, /<iframe id="tvwFrame"[^>]+src="\/tvw\?tv=1&amp;muted=1"/);
+    assert.match(page, /<meta name="robots" content="noindex,nofollow">/);
+    assert.match(page, /\/app-christian-culture\.png/);
+    assert.match(html, /\[\?&\]tv=1\b/, 'tvw.html musi obsługiwać tryb ?tv=1');
+    for (const f of ['test/ccwomen/hero-ccwomen-1920.webp', 'test/ccwomen/hero-ccwomen-portrait.webp']) {
+        assert.ok(fs.statSync(path.join(root, f)).size < 250 * 1024, f);
+    }
+    assert.doesNotMatch(page, /prefers-reduced-motion/);
+});
