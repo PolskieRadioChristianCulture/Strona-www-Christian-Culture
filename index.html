@@ -2360,6 +2360,12 @@
                         (function() {
                             window.playMasterLiveInline = function(event) {
                                 if (event) event.preventDefault();
+                                try {
+                                    if (window.radioPlayer && typeof window.radioPlayer.pause === 'function') window.radioPlayer.pause();
+                                    document.querySelectorAll('audio').forEach(function(a){ try { a.pause(); } catch(e){} });
+                                    var playIcon = document.getElementById('playIcon');
+                                    if (playIcon) playIcon.className = 'fa-solid fa-play';
+                                } catch(e){}
                                 const box = document.querySelector('#liveStreamBox .video-container') || document.querySelector('.hero-section .video-container');
                                 if (box) {
                                     box.innerHTML = '<iframe id="masterLiveFrame" class="live-player-embed" src="master-live.html?muted=0&autoplay=1&embed=1" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 12px; z-index: 10; display: block;" allow="autoplay; camera; microphone; fullscreen; picture-in-picture; display-capture; clipboard-write; clipboard-read; accelerometer; encrypted-media; gyroscope; web-share" allowfullscreen></iframe>';

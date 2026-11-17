@@ -322,8 +322,7 @@
             display: flex;
             align-items: center;
             background: #000000;
-            mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 1.5%, rgba(0,0,0,1) 98.5%, transparent 100%);
-            -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 1.5%, rgba(0,0,0,1) 98.5%, transparent 100%);
+            contain: layout paint;
         }
 
         .ccn-ticker-content {
@@ -335,7 +334,12 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             color: #ffffff;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         .ccn-ticker-content:hover {
@@ -343,8 +347,8 @@
         }
 
         @keyframes ccnTickerScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
         }
 
         .ccn-ticker-item {
@@ -573,6 +577,7 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             white-space: nowrap;
+            font-style: normal !important;
         }
 
         .dekalog-brand-title .gold-accent {
@@ -587,8 +592,7 @@
             display: flex;
             align-items: center;
             background: #000000;
-            mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 1.5%, rgba(0,0,0,1) 98.5%, transparent 100%);
-            -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,1) 1.5%, rgba(0,0,0,1) 98.5%, transparent 100%);
+            contain: layout paint;
         }
 
         .dekalog-content {
@@ -601,7 +605,12 @@
             font-weight: 700;
             letter-spacing: 0.4px;
             color: #ffffff;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         .dekalog-content:hover {
@@ -609,8 +618,8 @@
         }
 
         @keyframes dekalogScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
         }
 
         .dekalog-segment {
@@ -704,7 +713,7 @@
     <!-- ── GÓRNY PASEK EMISYJNY: DEKALOG BIBLIJNY CO DO SŁOWA (BJW 1962) ── -->
     <div class="dekalog-top-ticker" aria-label="Dekalog w przekładzie ks. Jakuba Wujka">
         <div class="dekalog-brand-badge">
-            <div class="dekalog-brand-title">Boży Dekalog</div>
+            <div class="dekalog-brand-title">DEKALOG</div>
         </div>
         <div class="dekalog-track-wrap">
             <div class="dekalog-content" id="dekalogContent">
@@ -1477,12 +1486,12 @@
                             #ccLiveViewerChat {
                                 left: 96px !important;
                                 right: auto !important;
-                                bottom: 130px !important;
+                                bottom: 180px !important;
                                 top: auto !important;
                             }
                             #livePrayerOverlay {
                                 left: 96px !important;
-                                bottom: 130px !important;
+                                bottom: 180px !important;
                             }
                         `;
                         (doc.head || doc.documentElement).appendChild(style);
@@ -1720,7 +1729,7 @@
     :root { --gold-primary: #FF8C33; --gold-dark: #E66A00; --ccn-red: #FF7A00; }
     .dekalog-top-ticker { border-bottom: 2px solid #FF7A00; box-shadow: 0 4px 20px rgba(0,0,0,.95), 0 2px 18px rgba(255,122,0,.28) !important; }
     .dekalog-brand-badge { background: linear-gradient(135deg, #FF8C33 0%, #E66A00 100%) !important; border-right: none !important; }
-    .dekalog-brand-title { color: #1a0d00 !important; font-style: italic; font-weight: 900 !important; }
+    .dekalog-brand-title { color: #1a0d00 !important; font-style: normal !important; font-weight: 900 !important; }
     .dekalog-text { color: #ffffff !important; }
     .ccn-master-ticker { border-top-color: #FF7A00 !important; box-shadow: 0 -8px 25px rgba(0,0,0,.95), 0 0 20px rgba(255,122,0,.35) !important; }
     .ccn-live-badge { background: linear-gradient(180deg, #FF8C33 0%, #E66A00 100%) !important; color: #1a0d00 !important; }

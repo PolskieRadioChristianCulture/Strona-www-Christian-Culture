@@ -4666,7 +4666,7 @@
     <!-- STRAŻNIK (2026-10-11): miejsce na mobilny pasek ZAŁÓŻ KONTO | LOGOWANIE rezerwowane od pierwszego
          wyświetlenia — pasek wstawiany później przez lumina-bottom-nav.js nie przesuwa już tablicy (CLS). -->
     <script>try{if(localStorage.getItem('lumina_user_session')==='active')document.documentElement.classList.add('cc-authed')}catch(e){}</script>
-    <style>@media (max-width:900px){html:not(.cc-authed) nav.lumina-nav{margin-bottom:42px}html:not(.cc-authed) nav.lumina-nav + .lumina-mobile-auth-bar{margin-top:-42px}}</style>
+    <style>@media (max-width:900px){html:not(.cc-authed) nav.lumina-nav{margin-bottom:42px}html:not(.cc-authed) nav.lumina-nav:has(+ .lumina-mobile-auth-bar){margin-bottom:0}html:not(.cc-authed) nav.lumina-nav + .lumina-mobile-auth-bar{margin-top:0}}</style>
 <style id="lumina-live-card-standard">
 /* Karta transmisji na żywo: jedna informacja „NA ŻYWO”, bez powtórzeń; przyciski jako czytelne ikony (Strażnik, 2026-10-11). */
 .mission-live-broadcast-card .post-header .post-time { display: none !important; }
