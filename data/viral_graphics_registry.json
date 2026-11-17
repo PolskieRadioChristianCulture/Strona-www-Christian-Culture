@@ -1,0 +1,39 @@
+{
+  "version": "2.1",
+  "items": [
+    {
+      "id": "werset-dnia-2026-11-17-ps138-9x16",
+      "format": "9:16",
+      "headline": "BÓG CIĘ NIE OPUŚCI",
+      "reference": "PSALM 138:8",
+      "motif": "Nocne jezioro we mgle ze zlota sciezka swiatla",
+      "palette": {
+        "bg": "#0B162C",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "top-safe",
+      "emotion": "Pokój",
+      "file": "C:/Users/czark/.gemini/antigravity/brain/db144fde-c11f-407d-ac06-6b4bec418097/pokaz_02_werset_dnia_ps138_9x16.jpg",
+      "hash": "a8adda709d3469af",
+      "createdAt": "2026-11-17T19:14:43.837Z"
+    },
+    {
+      "id": "werset-dnia-2026-11-17-ps138-16x9",
+      "format": "16:9",
+      "headline": "ON DOKOŃCZY TO, CO ZACZĄŁ",
+      "reference": "PSALM 138:8",
+      "motif": "Sylwetka przy uchylonych wrotach w pomaranczowym swietle switu",
+      "palette": {
+        "bg": "#0D1117",
+        "text": "#F8F5EE",
+        "accent": "#FF7A00"
+      },
+      "layout": "left-overlay",
+      "emotion": "Nadzieja",
+      "file": "C:/Users/czark/.gemini/antigravity/brain/db144fde-c11f-407d-ac06-6b4bec418097/pokaz_01_werset_dnia_ps138_16x9.jpg",
+      "hash": "6e051705d6ead87b",
+      "createdAt": "2026-11-17T19:14:42.375Z"
+    }
+  ]
+}
