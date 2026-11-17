@@ -314,7 +314,7 @@
         }
         function unmute(frame) {
             if (!frame) return;
-            try { frame.contentDocument.querySelectorAll('audio,video').forEach(m => { m.muted = false; m.volume = 1; m.play().catch(() => {}); }); } catch (e) {}
+            try { frame.contentDocument.querySelectorAll('audio,video').forEach(m => { m.muted = false; m.volume = 1; }); } catch (e) {}
             post(frame, { type: 'UNMUTE_AUDIO' }); post(frame, 'UNMUTE_AUDIO');
             post(frame, '{"event":"command","func":"unMute","args":""}'); post(frame, '{"event":"command","func":"playVideo","args":""}');
         }

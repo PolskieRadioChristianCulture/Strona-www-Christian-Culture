@@ -128,7 +128,28 @@
                 width: 1920, height: 1080,
                 playerVars: { listType: 'playlist', list: TVW_PLAYLIST, autoplay: 1, mute: 1, playsinline: 1, controls: 0, rel: 0, modestbranding: 1, iv_load_policy: 3, cc_load_policy: 0, cc_lang_pref: 'pl', loop: 1 },
                 events: {
-                    onReady: () => { player.mute(); player.playVideo(); },
+                    onReady: () => {
+                        player.mute();
+                        player.playVideo();
+                        setTimeout(() => {
+                            const fb = document.getElementById('tvwFallback');
+                            if (fb && fb.style.opacity !== '0') {
+                                try {
+                                    if (player.getPlayerState && player.getPlayerState() !== YT.PlayerState.PLAYING) {
+                                        player.playVideo();
+                                        setTimeout(() => { if (fb.style.opacity !== '0' && player.nextVideo) player.nextVideo(); }, 2000);
+                                    }
+                                } catch (e) {}
+                            }
+                        }, 5000);
+                    },
+                    onError: (err) => {
+                        console.warn('TVW YT Player error:', err);
+                        try {
+                            if (player && player.nextVideo) player.nextVideo();
+                            else if (player && player.playVideo) player.playVideo();
+                        } catch (e) {}
+                    },
                     onStateChange: (e) => {
                         if (e.data === YT.PlayerState.PLAYING) {
                             document.getElementById('tvwFallback').style.opacity = '0';
@@ -142,6 +163,8 @@
                             hideCaptions(); setTimeout(hideCaptions, 1500); setTimeout(hideCaptions, 5000);
                             updateTitle();
                             postParent('YT_PLAYER_PLAYING');
+                        } else if (e.data === YT.PlayerState.ENDED) {
+                            try { if (player && player.nextVideo) player.nextVideo(); } catch (e) {}
                         }
                     }
                 }
