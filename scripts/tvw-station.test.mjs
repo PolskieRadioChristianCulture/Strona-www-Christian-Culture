@@ -75,3 +75,13 @@ test('/test/ccwomen: hero na 100% ekranu, osadzona stacja TVW (tryb telewizora),
     }
     assert.doesNotMatch(page, /prefers-reduced-motion/);
 });
+
+test('/ccwomen (produkcja, ✅ L0 17.11): wersja ultra premium, indeksowana, z obrazami w /ccwomen/', () => {
+    const page = read('ccwomen/index.html');
+    assert.match(page, /<meta name="robots" content="index,follow/);
+    assert.doesNotMatch(page, /noindex/);
+    assert.doesNotMatch(page, /\/test\//, 'strona produkcyjna nie może wskazywać zasobów testowych');
+    assert.match(page, /<iframe id="tvwFrame"[^>]+src="\/tvw\?tv=1&amp;muted=1"/);
+    for (const f of ['ccwomen/hero-ccwomen-1920.webp', 'ccwomen/hero-ccwomen-portrait.webp']) assert.ok(fs.existsSync(path.join(root, f)), f);
+    assert.match(read('_redirects'), /^\/ccwomen \/ccwomen\/index\.html 200$/m);
+});
