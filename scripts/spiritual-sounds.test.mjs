@@ -144,6 +144,8 @@ test('v2: paski informacyjne i „Polecamy” jak w Master (górny + dolny pasek
   }
   assert.ok(eco.PROMOS.length >= 6, 'promocja ekosystemu');
   assert.ok(eco.PROMOS.some((p) => p.id === 'wspieraj' && p.href === '/wspieraj'));
+  assert.ok(eco.PROMOS.some((p) => p.id === 'ccwomen' && p.img && p.img.startsWith('/assets/promo/promo-ccwomen-16x9.webp')));
+  assert.equal(isPublicFile('assets/promo/promo-ccwomen-16x9.webp'), true);
   const tk = eco.ticker('pl').map((x) => x.id);
   for (const id of ['now', 'latest', 'wspieraj', 'patronite']) assert.ok(tk.includes(id), id);
   for (const l of ['pl', 'en']) {

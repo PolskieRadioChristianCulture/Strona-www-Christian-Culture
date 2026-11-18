@@ -23,7 +23,7 @@
       p: 'Całe Pismo do słuchania w drodze, w domu i w pracy.', pEn: 'All Scripture to listen to on the road, at home, at work.', u: 'polskieradio.cc/biblia-audio' },
     { id: 'akademia', href: '/akademia/kurscodzienny', k: 'Akademia', kEn: 'Academy', h: 'Kurs Codzienny', hEn: 'Daily Bible Course',
       p: '10 minut ze Słowem każdego dnia.', pEn: '10 minutes in the Word every day.', u: 'polskieradio.cc/akademia' },
-    { id: 'ccwomen', href: '/ccwomen', img: '/assets/promo/promo-ccwomen.webp', imgLang: 'pl',
+    { id: 'ccwomen', href: '/ccwomen', img: '/assets/promo/promo-ccwomen-16x9.webp?v=20261118_3', imgLang: 'pl',
       k: 'TVW', kEn: 'TVW', h: 'Telewizja Kobiet 24/7', hEn: 'Women’s TV 24/7',
       p: 'CC Women — Słowo, rozmowy, rodzina, modlitwa i muzyka.', pEn: 'CC Women — the Word, conversations, family, prayer and music.', u: 'polskieradio.cc/ccwomen' },
     { id: 'topten', href: '/topten', k: 'Głosuj', kEn: 'Vote', h: 'topTEN tygodnia', hEn: 'topTEN of the Week',
