@@ -62,6 +62,12 @@ gtag('config', 'G-9M92G6S27M', { anonymize_ip: true, page_title: 'Katalog Wizyt�
 gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9M92G6S27M"></script>
+<script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
+<script src="/js/cc-favorites.js?v=20261114_favz1" defer></script>
+<script src="/components/cc-omni-search.js?v=20261030_feat11" defer></script>
+<script src="/components/cc-global-chat-button.js?v=20261116_a007_col2" defer></script>
+<script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
+<script src="/components/cc-support-footer.js?v=20261116_a007_column" defer></script>
 <style>
 :root {
   --ground: #09090b;
@@ -149,6 +155,12 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   background: #ffffff; color: #171717; border-color: #ffffff;
 }
 .btn-google:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-orange { background: #FF7A00; border-color: #FF7A00; color: #ffffff; }
+.btn-orange:hover { background: #FF8C33; border-color: #FF8C33; color: #ffffff; }
+.btn-wa { background: #25D366; border-color: #25D366; color: #04190b; font-weight: 800; }
+.btn-wa:hover { background: #32e272; border-color: #32e272; color: #021107; }
+.cc-auth-widget-container { display: inline-flex; align-items: center; min-height: 44px; }
+#ccBackToTopBtn, .cc-back-to-top, #cc-global-chat-btn, .cc-global-chat-btn { right: 18px !important; }
 .btn svg, .edge-btn svg { width: 19px; height: 19px; flex: 0 0 auto; }
 
 /* Lewy panel krawędziowy EkoCC: kompaktowy pasek ikon jak na polskieradio.cc */
@@ -515,9 +527,11 @@ footer {
 <header class="bar">
   <button class="plus" type="button" data-menu-open aria-controls="ekocc-menu" aria-expanded="false" aria-label="Otwórz panel nawigacji EkoCC">+</button>
   <a class="brand" href="/wizytówki">Christian Culture <small>polskieradio.cc/wizytówki</small></a>
-  <div class="bar-actions">
-    <a class="btn btn-quiet ghost" href="/wizytówka" data-track="glowna_wizytowka" data-place="naglowek">Główna wizytówka</a>
+  <div class="header-right bar-actions">
+    <a class="btn btn-quiet ghost" href="/wizytówka" data-track="glowna_wizytowka" data-place="naglowek">O wizytówkach i zgłoszenia</a>
+    <a class="btn btn-orange" href="/wspieraj" data-track="wspieraj" data-place="naglowek">Wspieram to</a>
     <button class="btn" type="button" data-play data-place="naglowek" aria-pressed="false">Słuchaj</button>
+    <div class="cc-auth-widget-container"></div>
   </div>
 </header>
 
@@ -940,10 +954,11 @@ footer {
       <p class="rise" style="--i:1; margin-top:0.85rem; color:#e2dccf; max-width:58ch;">Udostępniamy bezpłatną przestrzeń pod krótkim adresem (np. <strong>polskieradio.cc/TwojeImię</strong> lub nazwa służby). Przygotowujemy autorskie wizytówki świadectw, Kącików Ewangelizacyjnych, inicjatyw i projektów z wartościami.</p>
     </div>
     <div class="cta-box rise" style="--i:2">
-      <h3>Napisz do nas i opowiedz o swojej misji</h3>
+      <h3>Dołącz do grupy WhatsApp i zgłoś swoją wizytówkę</h3>
       <p>Kontakt bezpośredni: <a class="kacik-mail" href="mailto:polskiercctv@gmail.com">polskiercctv@gmail.com</a></p>
       <div class="hero-actions">
-        <a class="btn" href="mailto:polskiercctv@gmail.com?subject=Nowa%20wizyt%C3%B3wka%20w%20katalogu%20Christian%20Culture" data-track="katalog_kontakt_mail" data-place="cta">Napisz: polskiercctv@gmail.com</a>
+        <a class="btn btn-wa" href="https://chat.whatsapp.com/GYnE4yZeEOlA5zfN8Bxdix" target="_blank" rel="noopener" data-track="katalog_kontakt_whatsapp" data-place="cta">Dołącz do grupy WhatsApp ↗</a>
+        <a class="btn btn-quiet" href="mailto:polskiercctv@gmail.com?subject=Nowa%20wizyt%C3%B3wka%20w%20katalogu%20Christian%20Culture" data-track="katalog_kontakt_mail" data-place="cta">Napisz: polskiercctv@gmail.com</a>
         <button class="btn btn-google" type="button" data-google><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1A6.6 6.6 0 0 1 5.5 12c0-.73.13-1.44.34-2.1V7.06H2.18A11 11 0 0 0 1 12c0 1.77.42 3.45 1.18 4.94l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg><span data-google-label>Dołącz przez Google do LUMINA</span></button>
       </div>
       <p class="login-note" aria-live="polite" data-login-status></p>
