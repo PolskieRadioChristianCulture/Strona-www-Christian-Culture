@@ -4930,7 +4930,10 @@
           .then(data => {
             if (data && data.ok && data.dialogue) {
               dailyDialogueCache = data.dialogue;
-              if (currentChatPartner && currentChatPartner.isPublic) renderChatMessages();
+              if (currentChatPartner && currentChatPartner.isPublic) {
+                renderChatMessages();
+                if (chatMode === 'public' && typeof scrollToBottom === 'function') scrollToBottom();
+              }
             }
           })
           .catch(() => {});
@@ -5033,7 +5036,7 @@
       return;
     }
 
-    let html = dailyHtml;
+    let html = '';
     msgs.forEach(m => {
       const isMe = m.isMe || (user.uid && (m.senderAuthUid === user.uid || m.senderUid === user.uid)) || (user.slug && m.senderId === user.slug);
       const name = escapeHtml(m.senderName || (isMe ? user.name : currentChatPartner.name));
@@ -5075,6 +5078,7 @@
         </div>
       `;
     });
+    html += dailyHtml;
     list.innerHTML = html;
     bindDailyDialogueToggle();
   }
