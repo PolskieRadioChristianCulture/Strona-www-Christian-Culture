@@ -436,6 +436,9 @@ const K = katalog(), N = nabor();
 for (const [rel, html] of [['wizytowki/index.html', K], ['wizytowki.html', K], ['wizytowka/index.html', N], ['wizytowka.html', N]]) {
   const out = path.join(ROOT, rel);
   fs.mkdirSync(path.dirname(out), { recursive: true });
-  fs.writeFileSync(out, html);
+  const existing = fs.existsSync(out) ? fs.readFileSync(out, 'utf8') : '';
+  const lineEnding = existing.match(/\r?\n/)?.[0] ?? '\n';
+  const output = html.replaceAll('\n', lineEnding);
+  if (output !== existing) fs.writeFileSync(out, output);
   console.log('zapisano', rel);
 }
