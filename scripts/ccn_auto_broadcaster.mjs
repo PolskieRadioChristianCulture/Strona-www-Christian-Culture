@@ -399,6 +399,12 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'tv_epafraz_thumb.png');
     if (fs.existsSync(p)) return p;
   }
+  if (pathLower.includes('spiritualsounds') || titleLower.includes('spiritual sounds')) {
+    const p1 = path.join(rootDir, 'SpiritualSounds', 'img', 'ss-og-1200x630.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'SpiritualSounds', 'img', 'ss-emblem-720.webp');
+    if (fs.existsSync(p2)) return p2;
+  }
   if (pathLower.includes('/tv') || pathLower.includes('smart-tv') || titleLower.includes('smart tv') || titleLower.includes('telewizja') || pathLower.includes('/program')) {
     const p1 = path.join(rootDir, 'tv24 CC.png');
     if (fs.existsSync(p1)) return p1;
@@ -1155,6 +1161,14 @@ function formatBroadcasterTweet(item) {
       subHeader = '📱 APLIKACJA PWA | CCLITE.PL';
       callToAction = '👉 Otwórz w przeglądarce:\n';
       addTags('#cclite', '#AplikacjaPWA', '#PolskieRadioCC', '#ChristianCulture');
+    } else if ((item.url || '').toLowerCase().includes('spiritualsounds/tv')) {
+      subHeader = '🎶 SPIRITUAL SOUNDS 24/7 | KANAŁ BIBLIJNY';
+      callToAction = '👉 Włącz kanał non-stop:\n';
+      addTags('#SpiritualSounds', '#Psalmy', '#SlowoBoze', '#ChristianCulture');
+    } else if ((item.url || '').toLowerCase().includes('spiritualsounds')) {
+      subHeader = '🎶 SPIRITUAL SOUNDS | PSALMY I SŁOWO BOŻE';
+      callToAction = '👉 Odkryj muzykę biblijną:\n';
+      addTags('#SpiritualSounds', '#Psalmy', '#MuzykaBiblijna', '#ChristianCulture');
     } else if ((item.url || '').includes('/tv') || (item.title || '').includes('Smart TV')) {
       subHeader = '📺 SMART TV CC | TELEWIZJA 24/7';
       callToAction = '👉 Oglądaj na żywo w przeglądarce:\n';
@@ -1356,6 +1370,10 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Kojące dźwięki deszczu, kominka, szum brązowy i wersety biblijne na spokojny sen pod Bożą opieką.';
   } else if ((item.url || '').includes('czuwanie') || (item.title || '').toLowerCase().includes('nocne czuwanie')) {
     bodyText = 'Nocny strumień modlitwy, łagodnego uwielbienia i obecności Bożej. Oaza pokoju na trudne noce.';
+  } else if ((item.url || '').toLowerCase().includes('spiritualsounds/tv')) {
+    bodyText = 'Spiritual Sounds 24/7: Psalmy i Słowo Boże w muzyce przez całą dobę — oficjalny kanał biblijny non-stop.';
+  } else if ((item.url || '').toLowerCase().includes('spiritualsounds')) {
+    bodyText = 'Spiritual Sounds — Christian Culture: Psalmy po polsku, muzyka biblijna 24/7 oraz oficjalne playlisty.';
   } else if ((item.url || '').includes('/tv') || (item.title || '').includes('Smart TV')) {
     bodyText = 'Wirtualny telewizor Christian Culture: 6 stacji TV na żywo, pilot online i pełny ekran na smartfony i Smart TV!';
   } else if ((item.url || '').includes('/program') || (item.title || '').includes('Program TV')) {
