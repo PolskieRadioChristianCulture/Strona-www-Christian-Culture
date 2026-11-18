@@ -3,6 +3,36 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-17T13:30:00.000Z</news:publication_date>
+      <news:title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus.png</image:loc>
+      <image:title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/news/dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-16T14:00:00.000Z</news:publication_date>
+      <news:title>Dzień Tolerancji: czy szacunek oznacza zgodę na wszystko?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko.jpg</image:loc>
+      <image:title>Dzień Tolerancji: czy szacunek oznacza zgodę na wszystko?</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/nauka/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei</loc>
     <news:news>
       <news:publication>
@@ -705,21 +735,6 @@
     <image:image>
       <image:loc>https://polskieradio.cc/images/academy/daily/kc_day_16_baranek_moria.jpg</image:loc>
       <image:title>BÓG SAM ZAPEWNI BARANKA — ABRAHAM NA GÓRZE MORIA I TYPOLOGIA OFIARY CHRYSTUSA</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus</loc>
-    <news:news>
-      <news:publication>
-        <news:name>Christian Culture News (CCN)</news:name>
-        <news:language>pl</news:language>
-      </news:publication>
-      <news:publication_date>2026-11-17T13:30:00.000Z</news:publication_date>
-      <news:title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</news:title>
-    </news:news>
-    <image:image>
-      <image:loc>https://polskieradio.cc/images/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus.png</image:loc>
-      <image:title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</image:title>
     </image:image>
   </url>
 </urlset>

@@ -2,6 +2,40 @@
   "version": "2.1",
   "items": [
     {
+      "id": "ccwomen-gen27-2026-11-17-16x9",
+      "format": "16:9",
+      "headline": "CZY MOŻNA UKRAŚĆ BŁOGOSŁAWIEŃSTWO?",
+      "reference": "KS. RODZAJU 27",
+      "motif": "Dlonie Izaaka w geście błogosławieństwa w namiocie w świetle lampy",
+      "palette": {
+        "bg": "#160824",
+        "text": "#FFFFFF",
+        "accent": "#FF4FA3"
+      },
+      "layout": "left-overlay",
+      "emotion": "Odkrycie",
+      "file": "C:/Users/czark/.gemini/antigravity/brain/db144fde-c11f-407d-ac06-6b4bec418097/ccwomen_gen27_16x9_final.jpg",
+      "hash": "a60b9fe581f0d2c1",
+      "createdAt": "2026-11-17T20:12:44.386Z"
+    },
+    {
+      "id": "ccwomen-werset-dnia-2026-11-17-9x16",
+      "format": "9:16",
+      "headline": "BÓG DOKOŃCZY TO W TOBIE",
+      "reference": "PSALM 138:8",
+      "motif": "Sylwetka kobiety na wzgorzu o swicie w fioletowo-rozowym swietle",
+      "palette": {
+        "bg": "#19082A",
+        "text": "#FFFFFF",
+        "accent": "#FF4FA3"
+      },
+      "layout": "top-safe",
+      "emotion": "Nadzieja",
+      "file": "C:/Users/czark/.gemini/antigravity/brain/db144fde-c11f-407d-ac06-6b4bec418097/ccwomen_03_werset_dnia_ps138_9x16.jpg",
+      "hash": "5a097cacbc9553af",
+      "createdAt": "2026-11-17T20:09:35.211Z"
+    },
+    {
       "id": "ccwomen-werset-dnia-2026-11-17-16x9",
       "format": "16:9",
       "headline": "ON NIE ZOSTAWI CIEBIE SAMEJ",

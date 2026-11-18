@@ -12,6 +12,26 @@
     </image:image>
   </url>
   <url>
+    <loc>https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus.png</image:loc>
+      <image:title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/news/dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko.jpg</image:loc>
+      <image:title>Dzień Tolerancji: czy szacunek oznacza zgodę na wszystko?</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/nauka/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei</loc>
     <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -839,16 +859,6 @@
     <image:image>
       <image:loc>https://polskieradio.cc/ccn-news-nadzieja-photo.jpg</image:loc>
       <image:title>Szabat i odpowiedzialność — Boży projekt dla ludzkiego życia</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus</loc>
-    <lastmod>2026-11-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-    <image:image>
-      <image:loc>https://polskieradio.cc/images/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus.png</image:loc>
-      <image:title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</image:title>
     </image:image>
   </url>
 </urlset>

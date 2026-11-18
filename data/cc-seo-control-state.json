@@ -1,14 +1,14 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-16T05:13:59.635Z",
+  "generatedAt": "2026-11-18T05:27:03.244Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 99,
-    "validUrls": 99,
+    "totalValidatedUrls": 101,
+    "validUrls": 101,
     "invalidUrls": 0,
-    "newsArticlesCount": 93,
-    "googleNews48hCount": 47,
-    "akademiaUrlsCount": 78,
+    "newsArticlesCount": 95,
+    "googleNews48hCount": 49,
+    "akademiaUrlsCount": 80,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 2,
@@ -31,31 +31,31 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 25677,
+      "sizeBytes": 25859,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 33347,
+      "sizeBytes": 34336,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 42361,
+      "sizeBytes": 43301,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 37473,
+      "sizeBytes": 38929,
       "status": "OK"
     },
     {
       "path": "/sitemaps/akademia.xml",
       "exists": true,
-      "sizeBytes": 14758,
+      "sizeBytes": 15136,
       "status": "OK"
     },
     {
@@ -92,8 +92,8 @@
   "indexNow": {
     "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 46,
-    "pendingCount": 46,
+    "totalQueued": 48,
+    "pendingCount": 48,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-16T05:13:59.628Z",
+        "queuedAt": "2026-11-18T05:27:03.238Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-16T05:13:59.628Z",
+        "queuedAt": "2026-11-18T05:27:03.238Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-16T05:13:59.628Z",
+        "queuedAt": "2026-11-18T05:27:03.238Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-16T05:13:59.628Z",
+        "queuedAt": "2026-11-18T05:27:03.238Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-16T05:13:59.628Z",
+        "queuedAt": "2026-11-18T05:27:03.238Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 357,
-    "lastSubmittedCount": 357,
-    "lastSubmittedAt": "2026-11-16T05:14:01.307Z"
+    "totalIndexedUrls": 361,
+    "lastSubmittedCount": 361,
+    "lastSubmittedAt": "2026-11-18T05:27:05.440Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,22 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus.html",
+      "canonicalUrl": "https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "file": "news/dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko.html",
+      "canonicalUrl": "https://polskieradio.cc/news/dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei.html",
       "canonicalUrl": "https://polskieradio.cc/nauka/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei",
@@ -585,23 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/cyfrowy-detoks-rodziny-jak-odzyskac-bliskosc-i-spokoj.html",
-      "canonicalUrl": "https://polskieradio.cc/news/cyfrowy-detoks-rodziny-jak-odzyskac-bliskosc-i-spokoj",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "file": "news/przeglad-ekosystemu-nowe-artykuly-i-lekcje-akademii.html",
-      "canonicalUrl": "https://polskieradio.cc/news/przeglad-ekosystemu-nowe-artykuly-i-lekcje-akademii",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-16T05:14:01.307Z"
+  "lastInstantIndexingAt": "2026-11-18T05:27:05.440Z"
 }
