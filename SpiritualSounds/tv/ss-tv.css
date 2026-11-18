@@ -217,6 +217,11 @@ button{font:inherit}
 /* Przycisk „+” ekosystemu nad dolnym paskiem */
 #ccEdgePlusBtn,.cc-edge-plus,.cc-edge-plus-btn{bottom:calc(var(--bottom) + 14px)!important}
 
+/* Stała reklama portalu LUMINA w panelu bocznym */
+.tv-lumina-card{display:block;border-radius:14px;overflow:hidden;border:1px solid rgba(227,168,87,.42);background:#070d1f;box-shadow:0 12px 28px -14px rgba(0,0,0,.85);transition:transform .2s var(--spring),border-color .2s,box-shadow .2s}
+.tv-lumina-card:hover{transform:translateY(-2px);border-color:var(--amber);box-shadow:0 16px 32px -12px rgba(227,168,87,.4)}
+.tv-lumina-card img{display:block;width:100%;aspect-ratio:16/9;height:auto;object-fit:cover}
+
 @media (prefers-reduced-motion:reduce){
   .tv-tick__run,.tv-bottom__run{animation-duration:calc(var(--run,90s) * 1.6)}
   .tv-sound{animation-duration:5s}
