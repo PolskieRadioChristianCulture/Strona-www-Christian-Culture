@@ -125,7 +125,8 @@ button{font:inherit}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);animation:pulse 2.2s ease-out infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(227,168,87,.6)}80%,100%{box-shadow:0 0 0 10px rgba(227,168,87,0)}}
 .hero h1{margin:0;font:500 clamp(58px,10vw,148px)/.88 var(--display);color:var(--cream);letter-spacing:-.025em;text-shadow:0 10px 60px rgba(0,0,0,.6)}
-.hero h1 .l{display:block;overflow:hidden}
+/* L0 18.11: zapas pod literami z ogonkami (p, y, j) — maska animacji nie może ich ucinać */
+.hero h1 .l{display:block;overflow:hidden;padding:0 .08em .24em 0;margin-bottom:-.16em}
 .hero h1 .l>span{display:inline-block;transform:translateY(105%);animation:rise 1.2s var(--ease) forwards}
 .hero h1 .l:nth-child(2)>span{animation-delay:.12s;font-style:italic;background:linear-gradient(100deg,var(--cream),var(--amber3) 35%,var(--amber) 60%,var(--cream));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rise 1.2s var(--ease) .12s forwards,sheen 8s linear 1.4s infinite}
 .hero .sub{display:block;margin-top:22px;font:800 clamp(13px,1.3vw,16px)/1.2 var(--sans);letter-spacing:.42em;text-transform:uppercase;color:var(--amber2);opacity:0;animation:fade 1s var(--ease) .5s forwards}

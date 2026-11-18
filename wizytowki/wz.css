@@ -100,7 +100,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--cc);animation:pulse 2.2s ease-out infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,122,0,.6)}80%,100%{box-shadow:0 0 0 10px rgba(255,122,0,0)}}
 .hero h1{margin:0;font:600 clamp(48px,7.6vw,118px)/.92 var(--display);color:var(--cream);letter-spacing:-.03em}
-.hero h1 .l{display:block;overflow:hidden;padding-bottom:.06em}
+/* L0 18.11: zapas pod literami z ogonkami (y, j, ę, ą) — maska animacji nie może ich ucinać */
+.hero h1 .l{display:block;overflow:hidden;padding:0 .08em .24em 0;margin-bottom:-.16em}
 .hero h1 .l>span{display:inline-block;transform:translateY(105%);animation:rise 1.15s var(--ease) forwards}
 .hero h1 .l:nth-child(2)>span{animation-delay:.12s;font-style:italic;font-weight:500;background:linear-gradient(100deg,var(--cream),var(--gold2) 30%,var(--cc2) 55%,var(--cream));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:rise 1.15s var(--ease) .12s forwards,sheen 8s linear 1.4s infinite}
 .hero .lead{color:#cfcac2;margin-top:22px;opacity:0;animation:fade 1s var(--ease) .6s forwards}
@@ -118,16 +119,20 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ring__card img{width:100%;height:100%;object-fit:cover}
 .ring__card span{position:absolute;inset:auto 0 0 0;padding:28px 10px 9px;background:linear-gradient(180deg,transparent,rgba(5,5,7,.92));font:700 12px/1.2 var(--sans);color:var(--cream)}
 .ring__glow{position:absolute;left:50%;top:50%;width:46%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(255,140,51,.35),transparent 65%);filter:blur(10px);animation:breathe 6s ease-in-out infinite;pointer-events:none}
-.ring__logo{position:absolute;left:50%;top:50%;width:min(150px,30%);translate:-50% -50%;filter:drop-shadow(0 0 30px rgba(255,140,51,.6));animation:float 7s ease-in-out infinite;pointer-events:none}
+/* L0 18.11: logo CC NAD karuzelą (górna warstwa i nad pierścieniem kart, nigdy nie zasłaniane) */
+.ring__spin{top:60%}
+.ring__glow{top:60%}
+.ring__logo{position:absolute;z-index:5;left:50%;top:0;width:clamp(76px,9vw,120px);translate:-50% 0;filter:drop-shadow(0 0 26px rgba(255,140,51,.75)) drop-shadow(0 6px 18px rgba(0,0,0,.8));animation:float 7s ease-in-out infinite;pointer-events:none}
 @keyframes spin{from{transform:rotateX(-8deg) rotateY(0)}to{transform:rotateX(-8deg) rotateY(-360deg)}}
 @keyframes breathe{50%{transform:scale(1.12);opacity:.8}}
-@keyframes float{50%{translate:-50% calc(-50% - 10px)}}
+@keyframes float{50%{translate:-50% -8px}}
 @media (max-width:960px){
   .hero{min-height:auto;padding:24px 0 48px}
   .hero__grid{grid-template-columns:1fr;gap:6px}
-  .ring{order:-1;height:300px;margin:-10px 0 0}
+  .ring{order:-1;height:330px;margin:-10px 0 0}
+  .ring__spin,.ring__glow{top:62%}
 }
-@media (max-width:420px){.btn{width:100%}.ring{height:250px}}
+@media (max-width:420px){.btn{width:100%}.ring{height:290px}.ring__logo{width:68px}}
 
 /* Wyszukiwarka i filtry */
 .search{position:relative;margin-top:26px;max-width:560px}
@@ -194,7 +199,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .card::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(360px circle at var(--mx) var(--my),rgba(255,160,80,.16),transparent 45%);opacity:0;transition:opacity .4s}
 .card:hover{border-color:var(--line);box-shadow:0 30px 60px -30px rgba(255,122,0,.45)}
 .card:hover::after{opacity:1}
-.card__img{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0d0d12}
+.card__img{position:relative;aspect-ratio:4/3;overflow:hidden;background:#0d0d12}
 .card__img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
 .card:hover .card__img img{transform:scale(1.07)}
 .card__body{display:flex;flex-direction:column;gap:6px;padding:16px 18px 18px;flex:1}
@@ -310,3 +315,14 @@ button,input,select,textarea{font:inherit;color:inherit}
   .card:hover,.acard:hover,.btn:hover{transform:none}
 }
 #ccBackToTopBtn,.cc-back-to-top,#cc-global-chat-btn,.cc-global-chat-btn{right:18px!important}
+
+/* L0 18.11 — poprawki po przeglądzie:
+ * 1) Ogonki liter (j, y, p, ę) w tytułach z gradientem: tło-gradient maluje się tylko w obrębie pudełka tekstu,
+ *    więc dajemy zapas pod spodem (padding) bez zmiany układu (ujemny margines).
+ * 2) Zdjęcia: punkt kadru per karta (object-position z danych), logotypy w całości (contain) na ciemnym tle. */
+.hero h1 .l>span{padding-bottom:.2em;margin-bottom:-.2em;padding-right:.06em}
+.h2 em,.cat__head h2 em{padding:0 .06em .14em 0}
+img.is-logo{background:#0b0b0f;padding:8%}
+.ring__card img.is-logo{padding:14% 10% 34%}
+.acard img.is-logo{padding:14% 12% 46%;filter:none}
+.card__img img.is-logo{padding:7% 10%}

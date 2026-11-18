@@ -41,7 +41,8 @@
       "desc": "Oficjalna wizytówka artysty: świadectwo wiary i dyskografia — THE CALL, SECOND WIND i nadchodzący singiel WORLD WAR YOU.",
       "kw": "gerald welch the call second wind world war you rock artysta english",
       "lang": "EN",
-      "featured": true
+      "featured": true,
+      "pos": "55% 30%"
     },
     {
       "id": "arkoffire",
@@ -55,7 +56,8 @@
       "desc": "Chrześcijański rock i metal z Holandii — świadectwo wiary, utwory i konkurs świadectw PL/EN.",
       "kw": "ark of fire zespół band rock metal holandia netherlands konkurs świadectw",
       "lang": "EN",
-      "featured": true
+      "featured": true,
+      "fit": "contain"
     },
     {
       "id": "spiritualsounds",
@@ -70,7 +72,8 @@
       "desc": "Psalmy i Słowo Boże w muzyce — wizytówka twórcy i kanał biblijny 24/7.",
       "kw": "spiritual sounds psalmy po polsku muzyka biblijna kanał 24/7 artur",
       "lang": "PL",
-      "featured": true
+      "featured": true,
+      "fit": "contain"
     },
     {
       "id": "jjbeauvais",
@@ -84,7 +87,8 @@
       "desc": "„Now Is The Time” i „Written In Heaven (Live)” — dwie pieśni udostępnione za zgodą artysty w Christian Culture Global.",
       "kw": "jj beauvais worship now is the time written in heaven global english artist",
       "lang": "EN",
-      "featured": true
+      "featured": true,
+      "pos": "4% 50%"
     },
     {
       "id": "cezary",
@@ -97,7 +101,8 @@
       "eyebrow": "Twórca & Misja",
       "title": "Cezary Rogowski",
       "desc": "Założyciel Christian Culture: autorska muzyka chrześcijańska, Słowo Boże, ewangelizacja i wizja misji.",
-      "kw": "cezary rogowski założyciel muzyka słowo boże gitara misja christian culture"
+      "kw": "cezary rogowski założyciel muzyka słowo boże gitara misja christian culture",
+      "pos": "50% 22%"
     },
     {
       "id": "ss-tv",
@@ -121,7 +126,8 @@
       "eyebrow": "Modlitwa 24/7",
       "title": "BCM24 · Biblijny Czas Modlitwy",
       "desc": "Kanał modlitwy przez całą dobę z pokojem LUMINA.",
-      "kw": "bcm24 biblijny czas modlitwy kanał 24/7 modlitwa"
+      "kw": "bcm24 biblijny czas modlitwy kanał 24/7 modlitwa",
+      "pos": "62% 45%"
     },
     {
       "id": "tvw",
@@ -141,7 +147,7 @@
       "cats": [
         "kanaly"
       ],
-      "img": "/test/wizytowki/img/master-640.webp",
+      "img": "/wizytowki/img/master-640.webp",
       "eyebrow": "Telewizja CC",
       "title": "Christian Culture Master",
       "desc": "Kanał główny Telewizji Christian Culture — Słowo Boże i uwielbienie przez całą dobę.",
@@ -194,7 +200,8 @@
       "eyebrow": "Wizytówka autorska",
       "title": "Wioletta Rogowska — Autorka",
       "desc": "Autorka siedmiotomowego cyklu „Pardon, Czy To Miłość?” — historie o miłości, wierze i sile kobiecego serca.",
-      "kw": "wioletta rogowska autorka powieść pardon czy to miłość literatura"
+      "kw": "wioletta rogowska autorka powieść pardon czy to miłość literatura",
+      "pos": "52% 22%"
     },
     {
       "id": "wizytowka",
@@ -206,7 +213,8 @@
       "eyebrow": "Drzwi główne",
       "title": "Wizytówka Christian Culture",
       "desc": "Główna wizytówka ekosystemu: radio 24/7, Biblia, telewizja, LUMINA i bezpłatne wizytówki dla twórców.",
-      "kw": "wizytówka główna drzwi ekosystem christian culture radio biblia tv lumina"
+      "kw": "wizytówka główna drzwi ekosystem christian culture radio biblia tv lumina",
+      "pos": "50% 40%"
     },
     {
       "id": "zaneta",
@@ -218,7 +226,8 @@
       "eyebrow": "Kącik ewangelizacyjny",
       "title": "Kącik Żanety",
       "desc": "Osobiste świadectwo przemiany serca, modlitwa i zamówienie bezpłatnej Biblii w przekładzie UBG.",
-      "kw": "żaneta zaneta kącik ewangelizacyjny świadectwo bezpłatna biblia ubg modlitwa"
+      "kw": "żaneta zaneta kącik ewangelizacyjny świadectwo bezpłatna biblia ubg modlitwa",
+      "pos": "50% 22%"
     },
     {
       "id": "ewa",
@@ -230,7 +239,8 @@
       "eyebrow": "Kącik ewangelizacyjny",
       "title": "Kącik Ewy — CC WOMEN",
       "desc": "Przestrzeń kobiecej wrażliwości, pieśni uwielbienia, żywej wiary i autentycznego świadectwa.",
-      "kw": "ewa kącik ewangelizacyjny cc women muzyka uwielbienie wiara świadectwo"
+      "kw": "ewa kącik ewangelizacyjny cc women muzyka uwielbienie wiara świadectwo",
+      "pos": "50% 22%"
     },
     {
       "id": "ewangelia",
@@ -242,7 +252,8 @@
       "eyebrow": "Dobra Nowina",
       "title": "Wizytówka Ewangelii",
       "desc": "Przesłanie Dobrej Nowiny o Jezusie Chrystusie, uzdrowieniu serca i pokoju.",
-      "kw": "ewangelia dobra nowina jezus chrystus zbawienie pokój nadzieja"
+      "kw": "ewangelia dobra nowina jezus chrystus zbawienie pokój nadzieja",
+      "pos": "52% 40%"
     },
     {
       "id": "bcm",
@@ -254,7 +265,8 @@
       "eyebrow": "Modlitwa 24/7",
       "title": "Biblijny Czas Modlitwy",
       "desc": "Codzienna wspólnota modlitewna, nagrania spotkań, intencje i duchowe wsparcie przez całą dobę.",
-      "kw": "bcm biblijny czas modlitwy wspólnota modlitewna modlitwa wstawiennicza"
+      "kw": "bcm biblijny czas modlitwy wspólnota modlitewna modlitwa wstawiennicza",
+      "pos": "68% 38%"
     },
     {
       "id": "coaching",
@@ -266,7 +278,8 @@
       "eyebrow": "Poradnictwo & rozwój",
       "title": "Holistyczny Coaching",
       "desc": "Paweł Murawski: chrześcijański coaching łączący biblijną mądrość z troską o ciało, duszę i ducha.",
-      "kw": "holistyczny coaching paweł murawski ciało dusza duch rozwój biblijny"
+      "kw": "holistyczny coaching paweł murawski ciało dusza duch rozwój biblijny",
+      "pos": "50% 20%"
     },
     {
       "id": "herbatka",
@@ -278,7 +291,8 @@
       "eyebrow": "Miejsce spotkań",
       "title": "Herbaciarnia Między Słowami",
       "desc": "Klimatyczna herbaciarnia, naturalne napary i spokojna przestrzeń do rozmów o tym, co najważniejsze.",
-      "kw": "herbaciarnia między słowami herbatka kawiarnia rozmowy spotkania piła"
+      "kw": "herbaciarnia między słowami herbatka kawiarnia rozmowy spotkania piła",
+      "pos": "50% 22%"
     },
     {
       "id": "heatfix",
@@ -290,7 +304,8 @@
       "eyebrow": "Rzetelne rzemiosło",
       "title": "Premier HeatFix",
       "desc": "Mariusz: profesjonalne instalacje grzewcze, hydraulika i uczciwy serwis techniczny.",
-      "kw": "premier heatfix mariusz hydraulik instalacje grzewcze serwis usługi"
+      "kw": "premier heatfix mariusz hydraulik instalacje grzewcze serwis usługi",
+      "pos": "50% 20%"
     },
     {
       "id": "yis",
@@ -302,7 +317,8 @@
       "eyebrow": "Design & grafika",
       "title": "Your Imagination Studio (YIS)",
       "desc": "Studio projektowe: design bez granic — grafika, identyfikacja i materiały dla twórców i inicjatyw.",
-      "kw": "yis your imagination studio design grafika projektowanie identyfikacja"
+      "kw": "yis your imagination studio design grafika projektowanie identyfikacja",
+      "fit": "contain"
     },
     {
       "id": "halloween",
@@ -314,7 +330,8 @@
       "eyebrow": "Akcja społeczna",
       "title": "Akcja #antyHALLOWEEN",
       "desc": "Kampania edukacyjna i ewangelizacyjna: chrześcijańska alternatywa światłości.",
-      "kw": "halloween antyhalloween światłość kampania edukacja rodzina dzieci"
+      "kw": "halloween antyhalloween światłość kampania edukacja rodzina dzieci",
+      "fit": "contain"
     },
     {
       "id": "pobierz",
@@ -326,7 +343,8 @@
       "eyebrow": "Paczki misyjne",
       "title": "Pobierz materiały misyjne",
       "desc": "Gotowe wizytówki do druku, złote kody QR, grafiki na social media i materiały ewangelizacyjne.",
-      "kw": "pobierz materiały ewangelizacyjne karty qr druk grafiki ulotki"
+      "kw": "pobierz materiały ewangelizacyjne karty qr druk grafiki ulotki",
+      "fit": "contain"
     },
     {
       "id": "p-osobowosc",
@@ -338,7 +356,8 @@
       "eyebrow": "Kanał tematyczny",
       "title": "Osobowość+",
       "desc": "Dojrzałość emocjonalna, zdrowe relacje i psychologia w świetle wartości biblijnych.",
-      "kw": "osobowość plus osobowoscplus psychologia emocje relacje rozwój wiara"
+      "kw": "osobowość plus osobowoscplus psychologia emocje relacje rozwój wiara",
+      "fit": "contain"
     },
     {
       "id": "p-ccwomen",
@@ -350,8 +369,10 @@
       "eyebrow": "Społeczność kobiet · TVW",
       "title": "CC WOMEN",
       "desc": "Ruch kobiet Christian Culture: spotkania, modlitwa, pieśni i wzajemne wsparcie.",
-      "kw": "cc women ccwomen kobiety wiary społeczność uwielbienie świadectwa"
+      "kw": "cc women ccwomen kobiety wiary społeczność uwielbienie świadectwa",
+      "fit": "contain"
     }
   ],
-  "_zasada": "L0 18.11.2026: prywatne profile LUMINA (osób) NIE są wizytówkami i nie wolno ich promować w katalogu ani nigdzie indziej bez wyraźnej zgody L0 i właściciela profilu. Martwe linki (404) usuwamy całkowicie."
+  "_zasada": "L0 18.11.2026: prywatne profile LUMINA (osób) NIE są wizytówkami i nie wolno ich promować w katalogu ani nigdzie indziej bez wyraźnej zgody L0 i właściciela profilu. Martwe linki (404) usuwamy całkowicie.",
+  "_kadr": "pos = object-position (punkt kadru: twarz/oczy w kadrze), fit=contain dla logotypów — L0 18.11.2026: nie wolno ucinać twarzy ani logotypów."
 }

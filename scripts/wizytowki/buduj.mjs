@@ -1,5 +1,5 @@
-// Wizytówki Christian Culture — generator wersji premium v2 (TEST), @007 2026-11-18.
-// Źródło: data/wizytowki-katalog.json  →  test/wizytowki/index.html (katalog) i test/wizytowka/index.html (nabór).
+// Wizytówki Christian Culture — generator wersji premium v2 (PRODUKCJA po ✅ L0 18.11.2026), @007.
+// Źródło: data/wizytowki-katalog.json  →  wizytowki/index.html + wizytowki.html (katalog), wizytowka/index.html + wizytowka.html (nabór).
 // Zasada L0 18.11.2026: prywatnych profili LUMINA nie promujemy; martwe linki usuwamy.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -11,6 +11,9 @@ const V = '20261118_1';
 const ORIGIN = 'https://polskieradio.cc';
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+// Kadr zdjęcia (L0 18.11): punkt kadru na twarz/oczy, logotypy w całości.
+const imgStyle = (k) => { const st = []; if (k.pos) st.push(`object-position:${k.pos}`); if (k.fit) st.push(`object-fit:${k.fit}`); return st.length ? ` style="${st.join(';')}"` : ''; };
+const imgCls = (k) => (k.fit === 'contain' ? ' class="is-logo"' : '');
 const cards = DATA.karty;
 const cats = DATA.kategorie;
 const primaryCount = (id) => cards.filter((k) => k.cats[0] === id).length;
@@ -34,9 +37,9 @@ const STATIONS = [
 ];
 
 const TICKER = [
-  { id: 'katalog', b: 'Katalog', t: `<strong>${total} wizytówek</strong> twórców, artystów, kanałów i służb`, href: '/test/wizytowki/' },
-  { id: 'artysci', b: 'Nowość', t: `Artyści i zespoły: <strong>${artists.map((a) => esc(a.title)).join(' · ')}</strong>`, href: '/test/wizytowki/#artysci' },
-  { id: 'zglos', cc: true, b: 'Bezpłatnie', t: 'Zgłoś swoją wizytówkę — <strong>0 zł</strong>, grupa WhatsApp', href: '/test/wizytowka/#zglos' },
+  { id: 'katalog', b: 'Katalog', t: `<strong>${total} wizytówek</strong> twórców, artystów, kanałów i służb`, href: '/wizytówki' },
+  { id: 'artysci', b: 'Nowość', t: `Artyści i zespoły: <strong>${artists.map((a) => esc(a.title)).join(' · ')}</strong>`, href: '/wizytówki#artysci' },
+  { id: 'zglos', cc: true, b: 'Bezpłatnie', t: 'Zgłoś swoją wizytówkę — <strong>0 zł</strong>, grupa WhatsApp', href: '/wizytówka#zglos' },
   { id: 'wspieraj', cc: true, b: 'Wspieram to', t: 'Pomóż nieść Ewangelię dalej — <strong>polskieradio.cc/wspieraj</strong>', href: '/wspieraj' },
   { id: 'ss', b: 'Kanał 24/7', t: 'Spiritual Sounds — Psalmy non-stop', href: '/SpiritualSounds/tv/' },
   { id: 'radio', b: 'Radio', t: 'Polskie Radio CC, Biblia Audio i Radio Global 24/7', href: '/player' },
@@ -63,8 +66,8 @@ function head({ title, desc, canonical, og }) {
 ${GA}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- WYGENEROWANE: scripts/wizytowki/buduj.mjs z data/wizytowki-katalog.json — nie edytuj ręcznie. WERSJA TESTOWA: noindex do akceptacji L0. -->
-<meta name="robots" content="noindex,nofollow">
+<!-- WYGENEROWANE: scripts/wizytowki/buduj.mjs z data/wizytowki-katalog.json — nie edytuj ręcznie. PRODUKCJA (✅ L0 18.11.2026). -->
+<meta name="robots" content="index,follow">
 <meta name="theme-color" content="#050507">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
@@ -82,7 +85,7 @@ ${GA}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;600;700;800&display=swap">
 <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
-<link rel="stylesheet" href="/test/wizytowki/wz.css?v=${V}">
+<link rel="stylesheet" href="/wizytowki/wz.css?v=${V}">
 <script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
 <script src="/js/cc-favorites.js?v=20261114_favz1" defer></script>
 <script src="/js/cc-mobile-edge.js?v=20261110_edge12" defer></script>
@@ -92,13 +95,13 @@ ${GA}
 <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
 <script src="/components/cc-support-footer.js?v=20261116_a007_column" defer></script>
 <script src="/js/cc-eco-bars.js?v=${V}" defer></script>
-<script src="/test/wizytowki/wz.js?v=${V}" defer></script>`;
+<script src="/wizytowki/wz.js?v=${V}" defer></script>`;
 }
 
 function topbar(active) {
   const links = active === 'katalog'
-    ? [['#artysci', 'Artyści', true], ['#kanaly', 'Kanały 24/7'], ['#ksiazki', 'Książki'], ['#kaciki', 'Kąciki'], ['#sluzby', 'Służby'], ['/test/wizytowka/#zglos', 'Zgłoś wizytówkę']]
-    : [['#zglos', 'Zgłoś się', true], ['#artysci', 'Artyści'], ['#radio', 'Radio'], ['#lumina', 'LUMINA'], ['/test/wizytowki/', `Katalog (${total})`]];
+    ? [['#artysci', 'Artyści', true], ['#kanaly', 'Kanały 24/7'], ['#ksiazki', 'Książki'], ['#kaciki', 'Kąciki'], ['#sluzby', 'Służby'], ['/wizytówka#zglos', 'Zgłoś wizytówkę']]
+    : [['#zglos', 'Zgłoś się', true], ['#artysci', 'Artyści'], ['#radio', 'Radio'], ['#lumina', 'LUMINA'], ['/wizytówki', `Katalog (${total})`]];
   return `<a class="skip" href="#tresc">Przejdź do treści</a>
 <div class="tick" role="region" aria-label="Pasek informacyjny">
   <span class="tick__badge"><i aria-hidden="true"></i>Wizytówki CC</span>
@@ -128,7 +131,7 @@ function ring(list) {
   return `<div class="ring" aria-hidden="true" style="--spin:${n * 5}s">
         <span class="ring__glow"></span>
         <div class="ring__spin">
-${items.map((k, i) => `          <a class="ring__card" tabindex="-1" href="${esc(k.href)}" style="--a:${(360 / n * i).toFixed(1)}deg;--r:clamp(180px,24vw,320px);--w:clamp(110px,12vw,170px);--h:clamp(150px,16vw,230px)"><img src="${esc(k.img)}" alt="" loading="lazy" decoding="async"><span>${esc(k.title)}</span></a>`).join('\n')}
+${items.map((k, i) => `          <a class="ring__card" tabindex="-1" href="${esc(k.href)}" style="--a:${(360 / n * i).toFixed(1)}deg;--r:clamp(180px,24vw,320px);--w:clamp(110px,12vw,170px);--h:clamp(150px,16vw,230px)"><img src="${esc(k.img)}"${imgCls(k)}${imgStyle(k)} alt="" loading="lazy" decoding="async"><span>${esc(k.title)}</span></a>`).join('\n')}
         </div>
         <img class="ring__logo" src="/app-christian-culture.png" width="150" height="150" alt="">
       </div>`;
@@ -137,14 +140,14 @@ ${items.map((k, i) => `          <a class="ring__card" tabindex="-1" href="${esc
 function card(k, catId) {
   const primary = k.cats[0] === catId ? '1' : '0';
   return `        <a class="card" href="${esc(k.href)}" data-card data-primary="${primary}" data-cats="${esc(k.cats.join(' '))}" data-kw="${esc(`${k.title} ${k.eyebrow} ${k.desc} ${k.kw}`)}" data-track="karta-${esc(k.id)}" data-tilt>
-          <div class="card__img"><img src="${esc(k.img)}" alt="" loading="lazy" decoding="async"><span class="card__url">${esc(decodeURI(k.href).replace(/\/$/, ''))}</span></div>
+          <div class="card__img"><img src="${esc(k.img)}"${imgCls(k)}${imgStyle(k)} alt="" loading="lazy" decoding="async"><span class="card__url">${esc(decodeURI(k.href).replace(/\/$/, ''))}</span></div>
           <div class="card__body"><small>${esc(k.eyebrow)}</small><h3>${esc(k.title)}</h3><p>${esc(k.desc)}</p><span class="card__go">Otwórz wizytówkę</span></div>
         </a>`;
 }
 
 function artistCards() {
   return artists.map((k) => `      <a class="acard" href="${esc(k.href)}" data-track="artysta-${esc(k.id)}" data-tilt>
-        <img src="${esc(k.img)}" alt="" loading="lazy" decoding="async">
+        <img src="${esc(k.img)}"${imgCls(k)}${imgStyle(k)} alt="" loading="lazy" decoding="async">
         ${k.lang ? `<span class="lang-badge">${esc(k.lang)}</span>` : ''}
         <small>${esc(k.eyebrow)}</small><h3>${esc(k.title)}</h3><p>${esc(k.desc)}</p>
       </a>`).join('\n');
@@ -193,7 +196,7 @@ function promoAndPatron() {
 function footer() {
   return `<footer class="footer">
   <div class="wrap footer__grid">
-    <div><h2>Wizytówki</h2><ul><li><a href="/test/wizytowki/">Katalog wizytówek</a></li><li><a href="/test/wizytowka/#zglos">Zgłoś wizytówkę</a></li><li><a href="${esc(DATA.whatsapp)}" target="_blank" rel="noopener">Grupa WhatsApp</a></li></ul></div>
+    <div><h2>Wizytówki</h2><ul><li><a href="/wizytówki">Katalog wizytówek</a></li><li><a href="/wizytówka#zglos">Zgłoś wizytówkę</a></li><li><a href="${esc(DATA.whatsapp)}" target="_blank" rel="noopener">Grupa WhatsApp</a></li></ul></div>
     <div><h2>Christian Culture</h2><ul><li><a href="/">Strona główna</a></li><li><a href="/master">Telewizja CC</a></li><li><a href="/Global/">Christian Culture Global</a></li><li><a href="/wspieraj">Wspieram to</a></li></ul></div>
     <p style="max-width:40ch;margin:0">Każda wizytówka powstaje na zgłoszenie i za zgodą jej właściciela. Razem możemy więcej — ku chwale Boga i dla dobra ludzi.</p>
   </div>
@@ -218,7 +221,7 @@ ${list.map((k) => card(k, c.id)).join('\n')}
         </div>
       </div>`;
   }).join('\n');
-  const html = `${head({ title: 'Wizytówki Christian Culture — artyści, twórcy, kanały i służby | Katalog', desc: `Katalog ${total} wizytówek Christian Culture: artyści i zespoły z Polski i ze świata, kanały 24/7, książki, kąciki ewangelizacyjne i służby.`, canonical: '/test/wizytowki/', og: '/wizytowka/img/og-wizytowka.jpg' })}
+  const html = `${head({ title: 'Wizytówki Christian Culture — artyści, twórcy, kanały i służby | Katalog', desc: `Katalog ${total} wizytówek Christian Culture: artyści i zespoły z Polski i ze świata, kanały 24/7, książki, kąciki ewangelizacyjne i służby.`, canonical: '/wizytowki', og: '/wizytowka/img/og-wizytowka.jpg' })}
 </head>
 <body data-page="katalog">
 ${topbar('katalog')}
@@ -233,7 +236,7 @@ ${topbar('katalog')}
         <p class="lead">Ludzie, muzyka, książki i kanały, które niosą Ewangelię — w Polsce i na świecie. Znajdź artystę, kącik, służbę albo kanał 24/7.</p>
         <label class="search"><span class="vh">Szukaj wizytówki</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
-          <input id="q" type="search" placeholder="Szukaj: rock, Psalmy, modlitwa, książka…" autocomplete="off" aria-describedby="qInfo">
+          <input id="wizytowkiSearch" type="search" placeholder="Szukaj: rock, Psalmy, modlitwa, książka…" autocomplete="off" aria-describedby="qInfo">
         </label>
         <p id="qInfo" class="vh">Wyniki: <span id="qCount">${total}</span></p>
       </div>
@@ -262,9 +265,9 @@ ${artistCards()}
   <section class="section" id="katalog" aria-label="Wszystkie wizytówki" style="padding-top:48px">
     <div class="wrap">
 ${sections}
-      <p class="empty" id="empty" hidden>Nic nie znaleźliśmy. Spróbuj innego słowa albo <a href="/test/wizytowka/#zglos">zgłoś własną wizytówkę</a>.</p>
+      <p class="empty" id="empty" hidden>Nic nie znaleźliśmy. Spróbuj innego słowa albo <a href="/wizytówka#zglos">zgłoś własną wizytówkę</a>.</p>
       <div class="cta reveal" style="margin-top:48px;justify-content:center">
-        <a class="btn btn--cc" href="/test/wizytowka/#zglos" data-track="katalog-zglos">Zgłoś swoją wizytówkę — 0 zł</a>
+        <a class="btn btn--cc" href="/wizytówka#zglos" data-track="katalog-zglos">Zgłoś swoją wizytówkę — 0 zł</a>
         <a class="btn btn--wa" href="${esc(DATA.whatsapp)}" target="_blank" rel="noopener" data-track="katalog-whatsapp">${WA}Grupa WhatsApp</a>
       </div>
     </div>
@@ -284,7 +287,7 @@ ${dataScript({})}
 function nabor() {
   const featured = cards.filter((k) => !k.cats.includes('artysci') && ['zaneta', 'ewa', 'coaching', 'herbatka', 'heatfix', 'wioletta'].includes(k.id));
   const fields = ['Twórczość & Muzyka', 'Książki & Publicystyka', 'Filmy, Podcasty & Media', 'Służba & Ewangelizacja', 'Działalność & Rzemiosło z Wartościami'];
-  const html = `${head({ title: 'Wizytówki Christian Culture — Twoja misja ma znaczenie! | polskieradio.cc/wizytówka', desc: 'Bezpłatna wizytówka w ekosystemie Christian Culture dla chrześcijańskich twórców, artystów, autorów, służb i firm z wartościami. Zgłoś się na WhatsAppie.', canonical: '/test/wizytowka/', og: '/wizytowka/img/og-wizytowka.jpg' })}
+  const html = `${head({ title: 'Wizytówki Christian Culture — Twoja misja ma znaczenie! | polskieradio.cc/wizytówka', desc: 'Bezpłatna wizytówka w ekosystemie Christian Culture dla chrześcijańskich twórców, artystów, autorów, służb i firm z wartościami. Zgłoś się na WhatsAppie.', canonical: '/wizytowka', og: '/wizytowka/img/og-wizytowka.jpg' })}
 <script src="/js/cc-radio-catalog.js?v=20261025_repertoire" defer></script>
 <script src="/js/cc-chat-radio.js?v=20261026_spectrum1" defer></script>
 <script src="/js/cc-radio-milion.js?v=20261024_playing" defer></script>
@@ -303,7 +306,7 @@ ${topbar('nabor')}
         <div class="cta">
           <a class="btn btn--wa" href="${esc(DATA.whatsapp)}" target="_blank" rel="noopener" data-track="hero-whatsapp">${WA}Dołącz do grupy WhatsApp</a>
           <a class="btn btn--cc" href="#zglos" data-track="hero-kreator">Przygotuj zgłoszenie</a>
-          <a class="btn btn--ghost" href="/test/wizytowki/" data-track="hero-katalog">Katalog ${total} wizytówek</a>
+          <a class="btn btn--ghost" href="/wizytówki" data-track="hero-katalog">Katalog ${total} wizytówek</a>
         </div>
       </div>
 ${ring(cards)}
@@ -359,11 +362,11 @@ ${ring(cards)}
 
   <section class="section spot" id="artysci" aria-labelledby="h-art">
     <div class="wrap">
-      <div class="head reveal"><div><p class="eyebrow">Zobacz przykłady</p><h2 class="h2" id="h-art">Artyści <em>i zespoły</em></h2><p class="p">Wizytówki artystów z Polski i ze świata — publikowane za ich zgodą.</p></div><a class="btn btn--ghost" href="/test/wizytowki/#artysci">Wszyscy artyści</a></div>
+      <div class="head reveal"><div><p class="eyebrow">Zobacz przykłady</p><h2 class="h2" id="h-art">Artyści <em>i zespoły</em></h2><p class="p">Wizytówki artystów z Polski i ze świata — publikowane za ich zgodą.</p></div><a class="btn btn--ghost" href="/wizytówki#artysci">Wszyscy artyści</a></div>
       <div class="artists reveal">
 ${artistCards()}
       </div>
-      <div class="head reveal" style="margin-top:56px"><div><h2 class="h2" style="font-size:clamp(28px,3.2vw,40px)">Twórcy, kąciki <em>i służby</em></h2></div><a class="btn btn--ghost" href="/test/wizytowki/">Cały katalog (${total})</a></div>
+      <div class="head reveal" style="margin-top:56px"><div><h2 class="h2" style="font-size:clamp(28px,3.2vw,40px)">Twórcy, kąciki <em>i służby</em></h2></div><a class="btn btn--ghost" href="/wizytówki">Cały katalog (${total})</a></div>
       <div class="grid reveal">
 ${featured.map((k) => card(k, k.cats[0])).join('\n')}
       </div>
@@ -407,6 +410,18 @@ ${STATIONS.map((s, i) => `          <button class="station" type="button" aria-p
     </div>
   </section>
 
+  <section class="section" id="milion" aria-labelledby="h-mil" style="padding-top:20px">
+    <div class="wrap">
+      <div class="reveal"><p class="eyebrow">Razem możemy więcej</p><h2 class="h2" id="h-mil">Misja <em>w liczbach</em></h2></div>
+      <div class="benefits reveal">
+        <div class="benefit"><strong data-count>—</strong><span>osób w liczniku „Celujemy w Pierwszy Milion”, stan na żywo · <a href="/milion" data-track="milion" style="color:var(--cc2)">Pierwszy Milion</a></span></div>
+        <div class="benefit"><strong>24/7</strong><span>radio, telewizja i wsparcie bez przerwy i bez opłat</span></div>
+        <div class="benefit"><strong>0 zł</strong><span>za przygotowanie i publikację Twojej wizytówki</span></div>
+        <div class="benefit"><strong>${total}</strong><span>wizytówek w katalogu — <a href="/wizytówki" style="color:var(--cc2)">zobacz wszystkie</a></span></div>
+      </div>
+    </div>
+  </section>
+
 ${promoAndPatron()}
 </main>
 ${footer()}
@@ -417,7 +432,8 @@ ${dataScript({ stations: STATIONS })}
   return html;
 }
 
-for (const [rel, html] of [['test/wizytowki/index.html', katalog()], ['test/wizytowka/index.html', nabor()]]) {
+const K = katalog(), N = nabor();
+for (const [rel, html] of [['wizytowki/index.html', K], ['wizytowki.html', K], ['wizytowka/index.html', N], ['wizytowka.html', N]]) {
   const out = path.join(ROOT, rel);
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, html);

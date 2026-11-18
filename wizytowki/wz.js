@@ -65,7 +65,7 @@
   // Iskry i promienie (canvas) — tło hero
   (function fx() {
     var c = $('heroFx'); if (!c || !c.getContext) return;
-    var ctx = c.getContext('2d'), w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5), t = 0, vis = true, last = 0, parts = [];
+    var ctx = c.getContext('2d'); if (!ctx) return; var w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5), t = 0, vis = true, last = 0, parts = [];
     function size() { var r = c.getBoundingClientRect(); w = r.width; h = r.height; c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       parts = []; var n = Math.round(Math.min(110, w / 11)); for (var i = 0; i < n; i++) parts.push({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.8 + .3, s: Math.random() * .5 + .12, a: Math.random() * .6 + .25, hue: Math.random() < .7 ? 26 : 42 }); }
     size(); addEventListener('resize', size);
@@ -105,7 +105,7 @@
 
   // ---------- KATALOG: wyszukiwarka i filtry ----------
   if (PAGE === 'katalog') {
-    var q = $('q'), fbtns = document.querySelectorAll('.fbtn'), cards = document.querySelectorAll('[data-card]'), cats = document.querySelectorAll('.cat'), empty = $('empty'), active = 'all';
+    var q = $('wizytowkiSearch'), fbtns = document.querySelectorAll('.fbtn'), cards = document.querySelectorAll('[data-card]'), cats = document.querySelectorAll('.cat'), empty = $('empty'), active = 'all';
     var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); };
     function apply() {
       var term = norm(q.value.trim()), shown = 0;
@@ -176,11 +176,36 @@
       var start = function () {
         if (ytPlayer && ytPlayer.loadPlaylist) { ytPlayer.loadPlaylist({ listType: 'playlist', list: st.yt }); setPlaying(true); return; }
         ytPlayer = new YT.Player('ytBox', { host: 'https://www.youtube-nocookie.com', playerVars: { listType: 'playlist', list: st.yt, autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1 },
-          events: { onReady: function () { setPlaying(true); } } });
+          events: { onReady: function () { setPlaying(true); },
+            onStateChange: function (e) { if (e.data === 1) { status.textContent = 'Nagrania YouTube: ' + ST[idx].name; if (window.wzCountYouTube) window.wzCountYouTube(); } } } });
       };
       if (window.YT && YT.Player) start();
       else { window.onYouTubeIframeAPIReady = start; var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(s); }
     }
+    // Licznik „Celujemy w Pierwszy Milion” (te same zasady co /milion i dawna /wizytówka):
+    // strumienie na żywo liczy /js/cc-radio-milion.js; odsłuch playlisty YouTube zgłaszamy raz na wizytę.
+    var ytCounted = false;
+    function loadCount() {
+      fetch('/api/milion/count', { cache: 'no-store' }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (x) {
+          var d = x.d;
+          if (!x.ok || d.success !== true || d.source !== 'd1' || !Number.isSafeInteger(d.count) || d.count < 0) throw new Error('counter');
+          var txt = d.count.toLocaleString('pl-PL');
+          document.querySelectorAll('[data-count]').forEach(function (n) { n.textContent = txt; });
+        }).catch(function () {});
+    }
+    function countYouTube() {
+      if (ytCounted) return; ytCounted = true;
+      var body = JSON.stringify({ type: 'radio' });
+      try {
+        if (!(navigator.sendBeacon && navigator.sendBeacon('/api/milion/count', new Blob([body], { type: 'text/plain' })))) {
+          fetch('/api/milion/count', { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: body, keepalive: true }).catch(function () {});
+        }
+      } catch (e) {}
+      setTimeout(loadCount, 1500);
+    }
+    loadCount();
+    window.wzCountYouTube = countYouTube;
     stBtns.forEach(function (b, i) { b.addEventListener('click', function () { idx = i; paintSt(); play(); }); });
     $('deckPlay').addEventListener('click', function () { if (playing) stopAll(); else play(); });
     paintSt();
