@@ -51,6 +51,8 @@ button{font:inherit}
 .tv-pill--cc{color:#ffd2a6;border-color:rgba(255,122,0,.35);background:rgba(255,122,0,.08)}
 .tv-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);animation:pulse 2.4s ease-out infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(227,168,87,.6)}80%,100%{box-shadow:0 0 0 9px rgba(227,168,87,0)}}
+.tv-actions{display:flex;align-items:center;gap:8px;flex:none}
+.tv-actions .cc-topbar-fav-btn{border-color:var(--line)!important;background:rgba(10,14,28,.6)!important;color:var(--amber2)!important}
 .tv-support{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:linear-gradient(180deg,var(--cc2),var(--cc3));color:#1a0d00;font:800 13px/1 inherit;text-decoration:none;white-space:nowrap;box-shadow:0 10px 24px -12px rgba(255,122,0,.9);transition:transform .2s var(--spring)}
 .tv-support:hover{transform:translateY(-2px)}
 .tv-support svg{width:16px;height:16px}
@@ -61,6 +63,7 @@ button{font:inherit}
 @media (max-width:820px){.tv-hide-sm{display:none}.tv-brand small{display:none}}
 @media (max-width:560px){.tv-status{display:none}.tv-support{padding:0 12px;font-size:12.5px}.tv-support svg{display:none}.tv-brand b{font-size:18px}.tv-brand img{width:32px;height:32px}}
 @media (max-width:360px){.tv-brand b{display:none}}
+@media (max-width:440px){.tv-support{padding:0;width:44px;justify-content:center}.tv-support-txt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.tv-support svg{display:block!important;width:18px;height:18px}.tv-actions{gap:6px}}
 
 /* Układ: obraz + panel boczny */
 .tv-main{padding:clamp(10px,1.6vw,20px) clamp(0px,1.6vw,20px) 24px}

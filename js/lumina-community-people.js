@@ -13,11 +13,11 @@
     if (window.getLuminaCarouselPeople) return;
 
     var OFFICIAL_PEOPLE = [
-        { name: 'Cezary Rogowski',   slug: 'cezaryrgowski',    tag: 'Założyciel CC',        avatar: 'avatar_cezary_official.jpg',   verified: true },
-        { name: 'Wioletta Rogowska', slug: 'wiolettarogowska', tag: 'Ewangelizacja',        avatar: 'avatar_wioletta_official.jpg', verified: true },
-        { name: 'Andrzej Thiel',     slug: 'andrzejthiel',     tag: 'Słowo na każdy dzień', avatar: 'avatar_andrzej_thiel.jpg',     verified: true }
+        { name: 'Cezary Rogowski',   slug: 'cezaryrgowski',    tag: 'Założyciel CC',        avatar: '/avatar_cezary_official.jpg',   verified: true },
+        { name: 'Wioletta Rogowska', slug: 'wiolettarogowska', tag: 'Ewangelizacja',        avatar: '/avatar_wioletta_official.jpg', verified: true },
+        { name: 'Andrzej Thiel',     slug: 'andrzejthiel',     tag: 'Słowo na każdy dzień', avatar: '/avatar_andrzej_thiel.jpg',     verified: true }
     ];
-    var FALLBACK_AVATAR = 'images/lumina-avatar-zastepczy.jpg';
+    var FALLBACK_AVATAR = '/images/lumina-avatar-zastepczy.jpg';
     var community = [];
     window.LUMINA_CAROUSEL_FALLBACK_AVATAR = FALLBACK_AVATAR;
     // Gdy zdjęcie się nie wczyta — logo LUMINA (karta zostaje; nikt nie znika z karuzeli).

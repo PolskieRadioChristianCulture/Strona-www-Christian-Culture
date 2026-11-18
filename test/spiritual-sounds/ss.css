@@ -63,6 +63,8 @@ button{font:inherit}
 .menu a:hover{color:var(--cream)}
 .menu a:hover::after{transform:none}
 .menu a.is-247{color:var(--amber2)}
+.nav__actions{display:flex;align-items:center;gap:8px;flex:none}
+.nav__actions .cc-topbar-fav-btn{border-color:var(--line)!important;background:rgba(10,14,28,.6)!important;color:var(--amber2)!important}
 .support-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;background:linear-gradient(180deg,var(--cc2),var(--cc3));color:#1a0d00;font:800 13.5px/1 var(--sans);letter-spacing:.04em;text-decoration:none;box-shadow:0 10px 26px -12px rgba(255,122,0,.9);transition:transform .2s var(--spring),box-shadow .2s;white-space:nowrap}
 .support-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 16px 32px -12px rgba(255,122,0,1)}
 .support-btn svg{width:16px;height:16px}
@@ -87,6 +89,7 @@ button{font:inherit}
   .lang a{min-width:38px}
 }
 @media (max-width:400px){.brand b{display:none}}
+@media (max-width:440px){.support-btn{padding:0;width:44px;justify-content:center}.support-btn .support-txt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.support-btn svg{display:block!important;width:18px;height:18px}.nav__actions{gap:6px}}
 
 /* ---------- Przyciski ---------- */
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:999px;font:800 14px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:1px solid transparent;overflow:hidden;transition:transform .25s var(--spring),background .25s,border-color .25s,box-shadow .25s}

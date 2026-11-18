@@ -208,9 +208,12 @@ ${GA}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700;800&display=swap">
 <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
 <link rel="stylesheet" href="${BASE}ss.css?v=${V}">
+<script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
+<script src="/js/cc-favorites.js?v=20261114_favz1" defer></script>
 <script src="/js/cc-mobile-edge.js?v=20261110_edge12" defer></script>
 <script src="/js/cc-edge-plus.js?v=20261110_edgep2" defer></script>
 <script src="/components/cc-omni-search.js?v=20261030_feat11" defer></script>
+<script src="/components/cc-global-chat-button.js?v=20261116_a007_col2" defer></script>
 <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
 <script src="/components/cc-support-footer.js?v=20261116_a007_column" defer></script>
 <script src="${BASE}ss-eco.js?v=${V}" defer></script>
@@ -246,10 +249,13 @@ ${nav}
         <li><a href="${YT_CHANNEL}" target="_blank" rel="noopener">YouTube</a></li>
       </ul>
     </nav>
-    <a class="support-btn" href="/wspieraj" data-promo="nav-wspieram">${ICON.heart}${t.support}</a>
-    <div class="lang" role="group" aria-label="${t.langAria}">
-      <a href="${T.pl.path}" hreflang="pl" lang="pl"${t.lang === 'pl' ? ' aria-current="true"' : ''}>PL</a>
-      <a href="${T.en.path}" hreflang="en" lang="en"${t.lang === 'en' ? ' aria-current="true"' : ''}>EN</a>
+    <!-- .header-right = miejsce na gwiazdkę „Ulubione” z js/cc-favorites.js (wstawiana jako pierwsza) -->
+    <div class="header-right nav__actions">
+      <a class="support-btn" href="/wspieraj" data-promo="nav-wspieram">${ICON.heart}<span class="support-txt">${t.support}</span></a>
+      <div class="lang" role="group" aria-label="${t.langAria}">
+        <a href="${T.pl.path}" hreflang="pl" lang="pl"${t.lang === 'pl' ? ' aria-current="true"' : ''}>PL</a>
+        <a href="${T.en.path}" hreflang="en" lang="en"${t.lang === 'en' ? ' aria-current="true"' : ''}>EN</a>
+      </div>
     </div>
     <button class="burger" type="button" aria-expanded="false" aria-controls="menu">${t.menu}</button>
   </div>
