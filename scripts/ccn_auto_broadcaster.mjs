@@ -417,6 +417,13 @@ function resolveItemImage(item, rootDir) {
     if (fs.existsSync(p2)) return p2;
   }
 
+  if (pathLower.includes('/ziu') || titleLower.includes('ccn ziu') || titleLower.includes('atlas ziół')) {
+    const p1 = path.join(rootDir, 'images', 'news', 'art-ccn-ziu-zdrowie-atlas-ziol.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'images', 'holos', 'holos_health.jpg');
+    if (fs.existsSync(p2)) return p2;
+  }
+
   // 4. Bezpieczna, estetyczna grafika redakcyjna wysokiej rozdzielczości
   const fallback = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
   if (fs.existsSync(fallback)) return fallback;
@@ -1275,6 +1282,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📖 POLSKA & BIBLIA | RAPORT CCN';
       callToAction = '👉 Czytaj raport w serwisie:\n';
       addTags('#CCNNews', '#Biblia', '#SlowoBoze', '#ChristianCulture');
+    } else if (tLower.includes('ccn ziu') || (item.url || '').includes('/ziu') || tLower.includes('atlas ziół')) {
+      subHeader = '🌿 CCN ZIU | ZDROWIE, URODA & ATLAS ZIÓŁ';
+      callToAction = '👉 Odkryj w serwisie:\n';
+      addTags('#CCNZiu', '#Zdrowie', '#AtlasZiol', '#ChristianCulture');
     } else {
       subHeader = '📰 RAPORT & PUBLICYSTYKA CCN';
       callToAction = '👉 Czytaj w serwisie:\n';
