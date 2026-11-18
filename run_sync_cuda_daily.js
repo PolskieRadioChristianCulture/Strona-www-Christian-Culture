@@ -20,7 +20,7 @@ const __dirname = path.dirname(__filename);
 export const CUDA_FILES = ['rozwazania_cuda_baza.json', 'cuda_kazdego_dnia_*', 'cuda_kazgo_dnia_current.webp'];
 export const COMMIT_MSG = 'chore(cuda): auto-sync Cuda Kazdego Dnia';
 
-const gitIn = (dir, args) => execFileSync('git', args, { cwd: dir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+const gitIn = (dir, args) => execFileSync('git', args, { cwd: dir, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
 
 /** Zmienione pliki pasujące do wzorców (zmodyfikowane, nowe, usunięte; z `force` także ignorowane). */
 export function changedCudaFiles(dir, patterns, { force = false } = {}) {
@@ -56,7 +56,7 @@ function log(msg) {
   } catch (e) {}
 }
 
-const sh = (cmd, cwd = __dirname) => execSync(cmd, { cwd, stdio: ['ignore', 'pipe', 'pipe'] }).toString().trim();
+const sh = (cmd, cwd = __dirname) => execSync(cmd, { cwd, stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true }).toString().trim();
 
 // Commit plików Cuda i push do origin; zwraca true tylko gdy origin/main zawiera commit.
 // push:false = tylko commit (używane w teście regresji na tymczasowym repozytorium).

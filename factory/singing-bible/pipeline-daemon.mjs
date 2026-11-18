@@ -53,7 +53,7 @@ export function computeSha256(filePath) {
 export function getAudioMetadata(filePath) {
   try {
     const cmd = `ffprobe -v error -show_entries format=duration,size,bit_rate -of json "${filePath}"`;
-    const res = execSync(cmd, { encoding: 'utf8' });
+    const res = execSync(cmd, { encoding: 'utf8', windowsHide: true });
     const data = JSON.parse(res);
     const duration = parseFloat(data.format?.duration || 0);
     const size = parseInt(data.format?.size || fs.statSync(filePath).size, 10);
@@ -211,7 +211,7 @@ export function renderFullVideo(songId, audioPath, vttPath, titleText) {
   const cmd = `ffmpeg -y -loop 1 -framerate 2 -i "${selectedBg}" -i "${audioPath}" -vf "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080" -c:v libx264 -tune stillimage -c:a aac -b:a 320k -pix_fmt yuv420p -shortest -movflags +faststart "${outVideo}"`;
   
   try {
-    execSync(cmd, { stdio: 'inherit' });
+    execSync(cmd, { stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
     console.log(`Full 16:9 video rendered successfully: ${outVideo}`);
 
     if (fs.existsSync(gdVideoDir)) {
@@ -250,7 +250,7 @@ export function renderShortsVideo(songId, audioPath, titleText) {
   const cmd = `ffmpeg -y -loop 1 -framerate 2 -i "${bgImage}" -ss ${startTime} -i "${audioPath}" -t ${clipLen} -vf "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920" -c:v libx264 -tune stillimage -c:a aac -b:a 256k -pix_fmt yuv420p -shortest -movflags +faststart "${outShorts}"`;
 
   try {
-    execSync(cmd, { stdio: 'inherit' });
+    execSync(cmd, { stdio: ['ignore', 'pipe', 'pipe'], windowsHide: true });
     console.log(`Shorts 9:16 video rendered successfully: ${outShorts}`);
 
     if (fs.existsSync(gdShortsDir)) {
