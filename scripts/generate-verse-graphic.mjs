@@ -287,6 +287,22 @@ const BIBLICAL_THEMATIC_SCENES = [
     ]
   },
   {
+    id: 'proroctwo_emmanuel_mesjasz',
+    badge: 'PROROCTWO MESJAŃSKIE',
+    icon: 'star',
+    accent: '#E8C25A',
+    tintTop: '#0A1224',
+    tintBottom: '#161108',
+    keywords: [
+      'emmanuel', 'dziewica pocznie', 'panna pocznie', 'izajasza 7:14',
+      'bóg z nami', 'mesjasz', 'izajasza 9', 'narodził się nam', 'da wam znak'
+    ],
+    backgrounds: [
+      'images/player/sidebar-verse-bg.jpg',
+      'images/academy/daily/kc_day_01_creation.jpg'
+    ]
+  },
+  {
     id: 'stworzenie_majestat_boga',
     badge: 'MAJESTAT STWÓRCY I SŁOWO PANA',
     icon: 'sun',
