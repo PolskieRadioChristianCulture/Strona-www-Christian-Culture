@@ -21,9 +21,13 @@ const pages = {
 test('playlista autora jest jedynym źródłem (bez ręcznej listy filmów)', () => {
   assert.equal(tv.SS_PLAYLIST, 'PLD0gxYiiSZMA');
   assert.equal((tvJs.match(/PLD0gxYiiSZMA/g) || []).length, 1, 'ID playlisty tylko w jednej stałej');
-  assert.doesNotMatch(tvJs, /videoId\s*:|playlist\s*:\s*\[|loadVideoById|cuePlaylist\(\s*\[/, 'zakaz statycznej listy filmów');
-  assert.match(tvJs, /listType:\s*'playlist',\s*list:\s*SS_PLAYLIST/);
-  assert.match(tvJs, /loop:\s*1/);
+  assert.doesNotMatch(tvJs, /videoId\s*:|playlist\s*:\s*\[|cuePlaylist\(\s*\[/, 'zakaz statycznej listy filmów');
+  // Tryb kolejki (18.11): loadVideoById WYŁĄCZNIE z kolejki Q, a Q WYŁĄCZNIE z odpowiedzi Workera (cała playlista autora).
+  assert.deepEqual(tvJs.match(/loadVideoById\([^)]*\)/g), ['loadVideoById(Q[qi].id)']);
+  assert.deepEqual(tvJs.match(/\bQ = [^;=]+;/g), ['Q = items;']);
+  assert.match(tvJs, /fetch\('\/api\/spiritual-sounds\/playlist\?list=' \+ SS_PLAYLIST/);
+  // Tryb playlisty (bez klucza): jak dotąd.
+  assert.match(tvJs, /vars\.listType = 'playlist'; vars\.list = SS_PLAYLIST; vars\.loop = 1;/);
 });
 
 test('start wyciszony + duży przycisk dźwięku', () => {
@@ -165,7 +169,58 @@ test('v2: ?v= z „Najnowszych” — tylko poprawne ID YouTube, nadal w kontek�
   assert.equal(tv.deepLinkId('?lang=en&v=dFsyIS_vAVY'), 'dFsyIS_vAVY');
   assert.equal(tv.deepLinkId('?v=<script>'), '');
   assert.equal(tv.deepLinkId('?v=dFsyIS_vAVYxx'), '');
-  assert.match(tvJs, /if \(DEEP\) opts\.videoId = DEEP;/);
+  assert.match(tvJs, /opts\.videoId = DEEP;/);
+});
+
+// ---------- 18.11: pełna playlista (YouTube Data API, klucz tylko w sekrecie Cloudflare) ----------
+test('kolejka: tylko poprawne ID YouTube, bez powtórzeń, kolejność autora', () => {
+  const q = [...tv.sanitizeQueue([{ id: 'dFsyIS_vAVY', title: 'A' }, { id: 'dFsyIS_vAVY', title: 'dup' }, { id: '<script>' }, { id: 'jjS2__6YEog', title: 'B' }, null])];
+  assert.deepEqual(JSON.parse(JSON.stringify(q)), [{ id: 'dFsyIS_vAVY', title: 'A' }, { id: 'jjS2__6YEog', title: 'B' }]);
+  assert.deepEqual([...tv.sanitizeQueue('nie-lista')], []);
+  // pełna kolejka (312) nie jest „ucięta” — następne pozycje zawijają się na początek
+  assert.deepEqual([...tv.upcoming(312, 311, 2, false)], [0, 1]);
+  assert.deepEqual([...tv.upcoming(200, 199, 2)], [], 'tryb playlisty (ucięta lista) — bez ręcznego zawijania');
+  assert.ok(tvJs.includes('upcoming(n, cur, 8, !Q && isCapped(n))'), 'w trybie kolejki lista nie jest „ucięta”');
+});
+
+test('endpoint pełnej playlisty: bez klucza 503, z kluczem cała lista stronami, klucz nigdy w odpowiedzi', async () => {
+  const feed = await import('../services/spiritual-sounds/feed-service.js');
+  const req = (q = '') => new Request(`https://x/api/spiritual-sounds/playlist${q}`);
+  const noKey = await feed.handleSpiritualSoundsPlaylist(req(), {}, null, async () => { throw new Error('bez klucza nie wolno pytać API'); });
+  assert.equal(noKey.status, 503);
+  assert.equal((await noKey.json()).reason, 'brak-klucza');
+  const bad = await feed.handleSpiritualSoundsPlaylist(req('?list=PLobca'), { YT_API_KEY: 'k' }, null, async () => { throw new Error('x'); });
+  assert.equal(bad.status, 400);
+
+  const SECRET = 'TEST-KLUCZ-XYZ';
+  const calls = [];
+  const page = (ids, next) => ({ ok: true, json: async () => ({ nextPageToken: next, items: ids.map((id, i) => ({ snippet: { title: id === 'deleted0000' ? 'Deleted video' : `Psalm ${id}`, resourceId: { videoId: id }, videoOwnerChannelId: 'UCaSBnRGUiiE-ySLlHacGpeQ' }, status: { privacyStatus: 'public' } })) }) });
+  const fake = async (u) => {
+    calls.push(u);
+    assert.ok(u.startsWith('https://www.googleapis.com/youtube/v3/playlistItems?'));
+    return new URL(u).searchParams.get('pageToken') ? page(['jjS2__6YEog', 'deleted0000'], '') : page(['dFsyIS_vAVY', 'A5ARrYwA9-4'], 'P2');
+  };
+  const ok = await feed.handleSpiritualSoundsPlaylist(req(), { YT_API_KEY: SECRET }, null, fake);
+  const text = await ok.text();
+  assert.equal(ok.status, 200);
+  assert.equal(calls.length, 2, 'dwie strony');
+  const body = JSON.parse(text);
+  assert.deepEqual(body.items.map((x) => x.id), ['dFsyIS_vAVY', 'A5ARrYwA9-4', 'jjS2__6YEog'], 'bez usuniętych, kolejność autora');
+  assert.equal(body.total, 3);
+  assert.ok(!text.includes(SECRET), 'klucz nie może trafić do odpowiedzi');
+
+  const failing = await feed.handleSpiritualSoundsPlaylist(req(), { YT_API_KEY: SECRET }, null, async () => ({ ok: false, status: 403, json: async () => ({}) }));
+  const ftext = await failing.text();
+  assert.equal(failing.status, 502);
+  assert.ok(!ftext.includes(SECRET), 'klucz nie może trafić do komunikatu błędu');
+  assert.match(read('_worker.js'), /url\.pathname === '\/api\/spiritual-sounds\/playlist'\) \{\s*return handleSpiritualSoundsPlaylist\(request, env, ctx\);/);
+});
+
+test('klucz YouTube nie jest nigdzie zapisany w repozytorium (tylko sekret YT_API_KEY)', () => {
+  for (const f of ['services/spiritual-sounds/feed-service.js', 'SpiritualSounds/tv/ss-tv.js', '_worker.js', 'wrangler.toml']) {
+    let src = ''; try { src = read(f); } catch { continue; }
+    assert.doesNotMatch(src, /AIza[0-9A-Za-z_-]{20,}/, `klucz Google w pliku ${f}`);
+  }
 });
 
 test('v2: endpoint najnowszych nagrań — tylko playlisty Spiritual Sounds, parsowanie RSS', async () => {

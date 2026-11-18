@@ -59,3 +59,64 @@ export async function handleSpiritualSoundsFeed(request, ctx, fetchImpl = fetch)
   if (cache && ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, res.clone()));
   return res;
 }
+
+// ---------------------------------------------------------------------------------------------------------------
+// Pełna playlista (ponad limit 200 pozycji odtwarzacza IFrame) — YouTube Data API v3, @007 2026-11-18.
+// Klucz: WYŁĄCZNIE sekret Cloudflare `YT_API_KEY` (przekazany przez autora kanału, tylko odczyt danych publicznych).
+// Klucz nigdy nie trafia do odpowiedzi, logów ani kodu. Bez klucza endpoint zwraca 503 i kanał działa w trybie playlisty.
+// Cache 6 h — kilka zapytań na dobę, daleko poniżej darmowego limitu (10 000 jednostek/dzień).
+// ---------------------------------------------------------------------------------------------------------------
+const UNPLAYABLE = /^(Deleted video|Private video|Usunięty film|Prywatny film)$/i;
+
+/** Pobiera wszystkie pozycje playlisty (kolejność autora). Zwraca [{id, title}] bez filmów usuniętych/prywatnych. */
+export async function fetchFullPlaylist(list, key, fetchImpl = fetch, maxPages = 20) {
+  const items = [];
+  let pageToken = '';
+  for (let page = 0; page < maxPages; page++) {
+    const u = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
+    u.searchParams.set('part', 'snippet,status');
+    u.searchParams.set('maxResults', '50');
+    u.searchParams.set('playlistId', list);
+    u.searchParams.set('key', key);
+    if (pageToken) u.searchParams.set('pageToken', pageToken);
+    const r = await fetchImpl(u.toString(), { headers: { Accept: 'application/json' } });
+    if (!r.ok) throw new Error(`youtube-api ${r.status}`);
+    const j = await r.json();
+    for (const it of j.items || []) {
+      const sn = it.snippet || {};
+      const id = sn.resourceId && sn.resourceId.videoId;
+      const privacy = it.status && it.status.privacyStatus;
+      if (!id || !/^[\w-]{11}$/.test(id) || UNPLAYABLE.test(sn.title || '') || privacy === 'private') continue;
+      if (sn.videoOwnerChannelId && sn.videoOwnerChannelId !== SS_CHANNEL_ID) continue;
+      items.push({ id, title: decode(sn.title) });
+    }
+    pageToken = j.nextPageToken || '';
+    if (!pageToken) break;
+  }
+  return items;
+}
+
+export async function handleSpiritualSoundsPlaylist(request, env, ctx, fetchImpl = fetch) {
+  const url = new URL(request.url);
+  const list = url.searchParams.get('list') || 'PLD0gxYiiSZMA';
+  const headers = { 'Content-Type': 'application/json; charset=utf-8', 'X-Content-Type-Options': 'nosniff', 'X-Robots-Tag': 'noindex' };
+  if (request.method !== 'GET') return new Response(JSON.stringify({ ok: false, reason: 'method' }), { status: 405, headers });
+  if (!SS_ALLOWED_PLAYLISTS.has(list)) return new Response(JSON.stringify({ ok: false, reason: 'playlist' }), { status: 400, headers });
+  const key = env && env.YT_API_KEY;
+  if (!key) return new Response(JSON.stringify({ ok: false, reason: 'brak-klucza' }), { status: 503, headers: { ...headers, 'Cache-Control': 'no-store' } });
+
+  const cacheKey = new Request(`https://polskieradio.cc/api/spiritual-sounds/playlist?list=${list}`);
+  const cache = (typeof caches !== 'undefined' && caches.default) ? caches.default : null;
+  if (cache) { const hit = await cache.match(cacheKey); if (hit) return hit; }
+  let items;
+  try { items = await fetchFullPlaylist(list, key, fetchImpl); }
+  catch (e) {
+    // Bez szczegółów (adres zapytania zawiera klucz) — tylko kod błędu.
+    return new Response(JSON.stringify({ ok: false, reason: 'youtube' }), { status: 502, headers: { ...headers, 'Cache-Control': 'no-store' } });
+  }
+  if (!items.length) return new Response(JSON.stringify({ ok: false, reason: 'pusta' }), { status: 502, headers: { ...headers, 'Cache-Control': 'no-store' } });
+  const body = JSON.stringify({ ok: true, playlist: list, total: items.length, items, fetchedAt: new Date().toISOString() });
+  const res = new Response(body, { status: 200, headers: { ...headers, 'Cache-Control': 'public, max-age=21600' } });
+  if (cache && ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, res.clone()));
+  return res;
+}

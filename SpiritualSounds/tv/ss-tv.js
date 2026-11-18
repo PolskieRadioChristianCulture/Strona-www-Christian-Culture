@@ -31,12 +31,14 @@
   var YT_LIST_CAP = 200;
   function isCapped(n) { return n >= YT_LIST_CAP; }
   /** Indeksy kolejnych k pozycji po bieżącej; zawinięcie na początek tylko dla pełnej (nieuciętej) listy. */
-  function upcoming(n, current, k) {
+  /** capped: czy lista jest ucięta przez IFrame (domyślnie wg długości); w trybie kolejki zawsze pełna. */
+  function upcoming(n, current, k, capped) {
+    if (capped === undefined) capped = isCapped(n);
     var out = [];
     if (!(n > 1) || current < 0) return out;
     for (var i = 1; i <= Math.min(k, n - 1); i++) {
       var j = current + i;
-      if (j >= n) { if (isCapped(n)) break; j = j % n; }
+      if (j >= n) { if (capped) break; j = j % n; }
       out.push(j);
     }
     return out;
@@ -63,7 +65,17 @@
     if (s.paused) return { action: 'resume', strikes: s.strikes };
     return { action: 'none', strikes: s.strikes };
   }
-  var api = { SS_PLAYLIST: SS_PLAYLIST, seedIndex: seedIndex, upcoming: upcoming, guardDecide: guardDecide, isCapped: isCapped, deepLinkId: deepLinkId };
+  /** Kolejka z Workera: tylko poprawne ID YouTube, bez powtórzeń, kolejność autora. */
+  function sanitizeQueue(items) {
+    var seen = {}, out = [];
+    (Array.isArray(items) ? items : []).forEach(function (it) {
+      var id = it && it.id;
+      if (typeof id !== 'string' || !/^[\w-]{11}$/.test(id) || seen[id]) return;
+      seen[id] = 1; out.push({ id: id, title: String((it && it.title) || '').slice(0, 200) });
+    });
+    return out;
+  }
+  var api = { SS_PLAYLIST: SS_PLAYLIST, seedIndex: seedIndex, upcoming: upcoming, guardDecide: guardDecide, isCapped: isCapped, deepLinkId: deepLinkId, sanitizeQueue: sanitizeQueue };
   if (typeof module === 'object' && module.exports) module.exports = api;
   root.SSTV = api;
   if (typeof document === 'undefined') return;
@@ -139,9 +151,22 @@
     location.reload();
   }
 
+  // Tryb kolejki (@007 18.11.2026): gdy /api/spiritual-sounds/playlist zwróci CAŁĄ playlistę autora (YouTube Data API,
+  // klucz tylko w sekrecie Cloudflare), gramy z własnej kolejki — wszystkie nagrania, nie tylko 200 widocznych w IFrame.
+  // Bez klucza/odpowiedzi: dotychczasowy tryb playlisty YouTube (limit 200). Źródłem nadal jest wyłącznie playlista autora.
+  var Q = null, qi = 0, qReady = false;
   function ytState(name) { return (root.YT && YT.PlayerState) ? YT.PlayerState[name] : NaN; }
-  function playlist() { try { return (player && player.getPlaylist && player.getPlaylist()) || []; } catch (e) { return []; } }
-  function curIndex() { try { return player.getPlaylistIndex(); } catch (e) { return -1; } }
+  function playlist() {
+    if (Q) return Q.map(function (x) { return x.id; });
+    try { return (player && player.getPlaylist && player.getPlaylist()) || []; } catch (e) { return []; }
+  }
+  function curIndex() { if (Q) return qi; try { return player.getPlaylistIndex(); } catch (e) { return -1; } }
+  function goTo(i) {
+    if (Q) { qi = ((i % Q.length) + Q.length) % Q.length; player.loadVideoById(Q[qi].id); return; }
+    player.playVideoAt(i);
+  }
+  function goNext() { if (Q) goTo(qi + 1); else player.nextVideo(); }
+  function titleAt(i) { return Q && Q[i] ? Q[i].title : ''; }
   function thumb(id, q) { return 'https://i.ytimg.com/vi/' + encodeURIComponent(id) + '/' + (q || 'mqdefault') + '.jpg'; }
   function fmt(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
 
@@ -172,7 +197,7 @@
   function mountBottom() {
     var items = [
       { b: L.bNow, live: 'now', t: L.nowFallback },
-      { b: L.bNext, t: L.bNextT },
+      { b: L.bNext, live: 'next', t: L.bNextT },
       { b: L.bLatest, live: 'latest', t: '…' },
       { b: L.bChannel, t: L.bChannelT },
       { b: L.bSupport, cc: true, href: '/wspieraj', t: '<strong>polskieradio.cc/wspieraj</strong>' },
@@ -213,7 +238,7 @@
   }
 
   function nextId() {
-    var list = playlist(), n = list.length, c = curIndex(), up = upcoming(n, c, 1);
+    var list = playlist(), n = list.length, c = curIndex(), up = upcoming(n, c, 1, !Q && isCapped(n));
     return up.length ? list[up[0]] : '';
   }
 
@@ -234,6 +259,10 @@
       var nx = nextId();
       $('tv-next1-img').src = nx ? thumb(nx) : '/SpiritualSounds/img/ss-emblem-360.webp';
       $('tv-upnext-img').src = nx ? thumb(nx) : '/SpiritualSounds/img/ss-emblem-360.webp';
+      // W trybie kolejki znamy tytuł następnego nagrania — pokazujemy go zamiast ogólnego opisu.
+      var nt = Q ? titleAt((qi + 1) % Q.length) : '';
+      document.querySelectorAll('.tv-next1 b, .tv-upnext b').forEach(function (b) { b.textContent = nt || L.bNextT.charAt(0).toUpperCase() + L.bNextT.slice(1); });
+      if (nt) setLive('next', nt);
       renderRail();
     }
     try {
@@ -252,9 +281,9 @@
   function renderRail() {
     var list = playlist(), n = list.length, cur = curIndex();
     var rail = $('tv-rail'), count = $('tv-count');
-    if (n) count.textContent = isCapped(n) ? L.countCapped : L.count.replace('{n}', String(n));
+    if (n) count.textContent = (!Q && isCapped(n)) ? L.countCapped : L.count.replace('{n}', String(n));
     if (!rail || !n || cur < 0) return;
-    var idx = upcoming(n, cur, 8);
+    var idx = upcoming(n, cur, 8, !Q && isCapped(n));
     rail.innerHTML = '';
     idx.forEach(function (i, k) {
       var li = document.createElement('li');
@@ -266,7 +295,7 @@
       im.src = thumb(list[i]);
       var sp = document.createElement('span'); sp.textContent = k === 0 ? L.upNext : L.later;
       b.appendChild(im); b.appendChild(sp);
-      b.addEventListener('click', function () { userPaused = false; try { player.playVideoAt(i); } catch (e) {} syncButtons(); });
+      b.addEventListener('click', function () { userPaused = false; try { goTo(i); } catch (e) {} syncButtons(); });
       li.appendChild(b); rail.appendChild(li);
     });
   }
@@ -283,15 +312,17 @@
   }
 
   function createPlayer() {
-    if (player || !(root.YT && YT.Player)) return;
+    if (player || !qReady || !(root.YT && YT.Player)) return;
+    var vars = {
+      autoplay: 1, mute: 1, playsinline: 1, controls: 0, rel: 0,
+      modestbranding: 1, iv_load_policy: 3, cc_load_policy: 0, disablekb: 1, fs: 0,
+      hl: EN ? 'en' : 'pl', origin: location.origin
+    };
+    if (!Q) { vars.listType = 'playlist'; vars.list = SS_PLAYLIST; vars.loop = 1; }
     var opts = {
       width: 1280, height: 720,
       host: 'https://www.youtube-nocookie.com',
-      playerVars: {
-        listType: 'playlist', list: SS_PLAYLIST, autoplay: 1, mute: 1, playsinline: 1, controls: 0, rel: 0,
-        modestbranding: 1, iv_load_policy: 3, cc_load_policy: 0, loop: 1, disablekb: 1, fs: 0,
-        hl: EN ? 'en' : 'pl', origin: location.origin
-      },
+      playerVars: vars,
       events: {
         onReady: function () {
           try { var f = document.querySelector('#tv-stage iframe'); if (f) { f.setAttribute('title', 'Spiritual Sounds 24/7 — YouTube'); f.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen'); } } catch (e) {}
@@ -300,7 +331,7 @@
         },
         onError: function (err) {
           if (root.console) console.warn('SS 24/7: błąd odtwarzacza YouTube', err && err.data);
-          try { player.nextVideo(); } catch (e) {}
+          try { goNext(); } catch (e) {}
         },
         onStateChange: function (e) {
           if (e.data === ytState('PLAYING')) {
@@ -314,16 +345,32 @@
             applyAudio(); hideCaptions(); setTimeout(hideCaptions, 1500);
             updateNow();
           } else if (e.data === ytState('ENDED')) {
-            // Następne nagranie. Po ostatnim YouTube sam wraca na początek (loop: 1) — także dla pozycji ponad 200,
-            // których nie widać w getPlaylist(); dlatego nie zawijamy ręcznie do 0.
-            try { player.nextVideo(); } catch (er) {}
+            // Następne nagranie. Tryb playlisty: po ostatnim YouTube sam wraca na początek (loop: 1).
+            // Tryb kolejki: goNext() zawija na początek całej playlisty autora.
+            try { goNext(); } catch (er) {}
           }
         }
       }
     };
-    // Karta „Najnowsze”: start od wskazanego nagrania, dalej ta sama playlista autora.
-    if (DEEP) opts.videoId = DEEP;
+    if (Q) {
+      // Start kanału: wskazane nagranie (?v=) albo pozycja godzinowa z CAŁEJ playlisty.
+      var at = DEEP ? Q.map(function (x) { return x.id; }).indexOf(DEEP) : -1;
+      qi = at >= 0 ? at : seedIndex(Q.length, Date.now());
+      seeded = true;
+      opts.videoId = Q[qi].id;
+    } else if (DEEP) {
+      // Karta „Najnowsze”: start od wskazanego nagrania, dalej ta sama playlista autora.
+      opts.videoId = DEEP;
+    }
     player = new YT.Player('tv-player', opts);
+  }
+  /** Pełna playlista z Workera: [{id, title}] — tylko poprawne ID YouTube; przy błędzie pusta lista. */
+  function fetchFullQueue() {
+    if (!root.fetch) return Promise.resolve([]);
+    return fetch('/api/spiritual-sounds/playlist?list=' + SS_PLAYLIST, { credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { return sanitizeQueue(j && j.ok ? j.items : []); })
+      .catch(function () { return []; });
   }
   // YouTube wywołuje to po załadowaniu API.
   root.onYouTubeIframeAPIReady = createPlayer;
@@ -349,10 +396,11 @@
     try {
       switch (r.action) {
         case 'resume': player.playVideo(); break;
-        case 'next': player.nextVideo(); break;
+        case 'next': goNext(); break;
         case 'restart-list':
           var n = playlist().length || 50;
-          player.loadPlaylist({ listType: 'playlist', list: SS_PLAYLIST, index: Math.floor(Math.random() * n) });
+          if (Q) goTo(Math.floor(Math.random() * n));
+          else player.loadPlaylist({ listType: 'playlist', list: SS_PLAYLIST, index: Math.floor(Math.random() * n) });
           applyAudio(); break;
         case 'reload-page': safeReload(); break;
       }
@@ -419,7 +467,7 @@
     soundBtn.addEventListener('click', function () { setMuted(false); });
     playBtn.addEventListener('click', togglePlay);
     muteBtn.addEventListener('click', function () { setMuted(!muted); });
-    nextBtn.addEventListener('click', function () { userPaused = false; try { player.nextVideo(); } catch (e) {} syncButtons(); });
+    nextBtn.addEventListener('click', function () { userPaused = false; try { goNext(); } catch (e) {} syncButtons(); });
     fsBtn.addEventListener('click', toggleFs);
     $('tv-share').addEventListener('click', share);
     document.addEventListener('keydown', function (e) {
@@ -435,6 +483,11 @@
       else if (k === 'f') toggleFs();
     });
     document.addEventListener('fullscreenchange', function () { fsBtn.setAttribute('aria-label', isFs() ? L.fsExit : L.fs); });
+
+    // Najpierw próba pobrania CAŁEJ playlisty (maks. 3 s), potem odtwarzacz — w trybie kolejki albo playlisty.
+    var markReady = function () { if (qReady) return; qReady = true; ssEnsurePlayer(); };
+    setTimeout(markReady, 3000);
+    fetchFullQueue().then(function (items) { if (!qReady && items && items.length > 1) Q = items; }).catch(function () {}).then(markReady);
 
     var s = document.createElement('script');
     s.src = 'https://www.youtube.com/iframe_api';

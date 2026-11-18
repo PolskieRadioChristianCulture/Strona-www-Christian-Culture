@@ -8,7 +8,7 @@ import { handleMissionCalendarApi } from './services/cc-mission-calendar/mission
 import { handleVolunteerApiRequest } from './services/cc-volunteer/volunteer-service.js';
 import { handleAssistantIdeaApiRequest } from './services/cc-assistant/idea-service.js';
 import { handleArkContestApiRequest } from './services/cc-ark-contest/contest-service.js';
-import { handleSpiritualSoundsFeed } from './services/spiritual-sounds/feed-service.js';
+import { handleSpiritualSoundsFeed, handleSpiritualSoundsPlaylist } from './services/spiritual-sounds/feed-service.js';
 
 const BLOCKED_PREFIXES = [
   '/.git/', '/.codex/', '/.cursor/', '/.claude/', '/repozytoria-cc/', '/joma_shared_memory/',
@@ -1908,6 +1908,10 @@ export default {
     // Spiritual Sounds × CC: najnowsze nagrania z playlist autora (RSS YouTube, cache 30 min) — @007 2026-11-18
     if (url.pathname === '/api/spiritual-sounds/feed') {
       return handleSpiritualSoundsFeed(request, ctx);
+    }
+    // Pełna playlista Spiritual Sounds (ponad limit 200 IFrame) — klucz tylko w sekrecie YT_API_KEY — @007 2026-11-18
+    if (url.pathname === '/api/spiritual-sounds/playlist') {
+      return handleSpiritualSoundsPlaylist(request, env, ctx);
     }
     if (url.pathname.startsWith('/api/ai-dla-jezusa/v1')) {
       return handleAiDlaJezusaApi(request, env);
