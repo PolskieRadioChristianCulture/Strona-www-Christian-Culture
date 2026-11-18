@@ -14,7 +14,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!-- WERSJA TESTOWA: noindex do akceptacji L0. Po ✅ produkcja: /SpiritualSounds/tv/ + index,follow -->
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#060a16">
+<meta name="theme-color" content="#04070f">
 <title>Spiritual Sounds 24/7 – Kanał Biblijny | Christian Culture</title>
 <meta name="description" content="Spiritual Sounds 24/7: Psalmy i Słowo Boże w muzyce przez całą dobę. Kanał odtwarza oficjalną playlistę autora z YouTube, bez przerw.">
 <link rel="canonical" href="https://polskieradio.cc/test/spiritual-sounds/tv/">
@@ -29,29 +29,37 @@
 <meta property="og:image" content="https://polskieradio.cc/test/spiritual-sounds/img/ss-og-1200x630.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" href="/test/spiritual-sounds/img/ss-icon-192.png">
-<link rel="preconnect" href="https://www.youtube.com">
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
 <link rel="preconnect" href="https://i.ytimg.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;600;700;800&display=swap">
-<link rel="stylesheet" href="/test/spiritual-sounds/tv/ss-tv.css?v=20261118_1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="/test/spiritual-sounds/tv/ss-tv.css?v=20261118_2">
 <script src="/js/cc-edge-plus.js?v=20261110_edgep2" defer></script>
-<script src="/test/spiritual-sounds/tv/ss-tv.js?v=20261118_1" defer></script>
+<script src="/test/spiritual-sounds/ss-eco.js?v=20261118_2" defer></script>
+<script src="/test/spiritual-sounds/tv/ss-tv.js?v=20261118_2" defer></script>
 </head>
 <body>
 <a class="tv-skip" href="#tv-controls" data-i18n="skip">Przejdź do sterowania</a>
-<div class="tv-testbar" role="note" data-i18n="testbar">Wersja testowa — kanał nie jest jeszcze opublikowany ani indeksowany.</div>
+<div class="tv-ambient" id="tv-ambient" aria-hidden="true"></div>
+
+<!-- Górny pasek informacyjny (wzorzec Master) -->
+<div class="tv-tick" role="region" aria-label="Pasek informacyjny" data-i18n-aria="tickAria">
+  <span class="tv-tick__badge"><i aria-hidden="true"></i><span data-i18n="tickBadge">Polecamy</span></span>
+  <div class="tv-tick__track"><div class="tv-tick__run" id="tv-tick"></div></div>
+</div>
 
 <header class="tv-top">
   <a class="tv-brand" href="/test/spiritual-sounds/" data-href-en="/test/spiritual-sounds/en/" aria-label="Spiritual Sounds — wizytówka" data-i18n-aria="brandAria">
-    <img src="/test/spiritual-sounds/img/ss-emblem-360.webp" width="36" height="36" alt="">
+    <img src="/test/spiritual-sounds/img/ss-emblem-360.webp" width="40" height="40" alt="">
     <span><b>Spiritual Sounds</b><small data-i18n="tagline">Psalmy i Słowo Boże</small></span>
   </a>
   <ul class="tv-status" aria-label="Status kanału" data-i18n-aria="statusAria">
     <li class="tv-pill tv-pill--air"><span class="tv-dot" aria-hidden="true"></span><span data-i18n="air">24/7 · Non-stop</span></li>
-    <li class="tv-pill tv-hide-sm">Psalms &amp; the Word of God</li>
-    <li class="tv-pill tv-pill--cc tv-hide-xs">Christian Culture</li>
+    <li class="tv-pill tv-hide-md">Psalms &amp; the Word of God</li>
+    <li class="tv-pill tv-pill--cc tv-hide-sm">Christian Culture</li>
   </ul>
+  <a class="tv-support" href="/wspieraj" data-promo="tv-nav-wspieram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.1 5.2 3 1.6-1.9 3.1-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg><span data-i18n="support">Wspieram to</span></a>
   <div class="tv-lang" role="group" aria-label="Język" data-i18n-aria="langAria">
     <a href="/test/spiritual-sounds/tv/" hreflang="pl" lang="pl" data-lang="pl">PL</a>
     <a href="/test/spiritual-sounds/tv/?lang=en" hreflang="en" lang="en" data-lang="en">EN</a>
@@ -60,60 +68,104 @@
 
 <main class="tv-main">
   <h1 class="tv-vh" data-i18n="h1">Spiritual Sounds – Kanał Biblijny 24/7</h1>
-  <div class="tv-stage" id="tv-stage">
-    <div class="tv-frame">
-      <div id="tv-player" title="Spiritual Sounds 24/7 — odtwarzacz YouTube"></div>
-      <div class="tv-cover" id="tv-cover" aria-hidden="true">
-        <img src="/test/spiritual-sounds/img/ss-emblem-720.webp" width="720" height="720" alt="">
-        <p id="tv-cover-msg" data-i18n="loading">Uruchamiamy kanał…</p>
+  <div class="tv-layout">
+    <div class="tv-col">
+      <div class="tv-stage" id="tv-stage">
+        <div class="tv-frame">
+          <div id="tv-player" title="Spiritual Sounds 24/7 — odtwarzacz YouTube"></div>
+          <div class="tv-cover" id="tv-cover" aria-hidden="true">
+            <img src="/test/spiritual-sounds/img/ss-emblem-720.webp" width="720" height="720" alt="">
+            <p id="tv-cover-msg" data-i18n="loading">Uruchamiamy kanał…</p>
+          </div>
+          <span class="tv-badge" aria-hidden="true"><span class="tv-dot"></span><span data-i18n="badge">24/7 · Non-stop</span></span>
+          <img class="tv-bug" src="/test/spiritual-sounds/img/ss-emblem-360.webp" width="56" height="56" alt="" aria-hidden="true">
+          <!-- Belka „Teraz” przy każdym nowym nagraniu -->
+          <div class="tv-l3" id="tv-l3" aria-hidden="true"><span class="tv-l3__t" data-i18n="l3Now">Teraz</span><span class="tv-l3__x" id="tv-l3-x"></span></div>
+          <!-- „Za chwilę” w ostatnich sekundach nagrania -->
+          <div class="tv-upnext" id="tv-upnext" aria-hidden="true"><img id="tv-upnext-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""><div><small data-i18n="upNext">Za chwilę</small><b data-i18n="upNextText">Kolejne nagranie Spiritual Sounds</b><i id="tv-upnext-sec"></i></div></div>
+          <!-- Belka „Polecamy” (wzorzec #mlL3 z Master) -->
+          <a class="tv-promo-l3" id="tv-promo-l3" href="/wspieraj" data-promo="tv-l3"><span class="t" data-i18n="recommended">Polecamy</span><span class="x" id="tv-promo-l3-x"></span></a>
+          <button class="tv-sound" id="tv-sound" type="button" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span><span data-i18n="soundCta">Włącz dźwięk</span><span class="tv-sound-more" data-i18n="soundMore"> / Rozpocznij transmisję</span></span>
+          </button>
+        </div>
       </div>
-      <button class="tv-sound" id="tv-sound" type="button" hidden>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <span><span data-i18n="soundCta">Włącz dźwięk</span><span class="tv-sound-more" data-i18n="soundMore"> / Rozpocznij transmisję</span></span>
-      </button>
-      <span class="tv-badge" aria-hidden="true"><span class="tv-dot"></span><span data-i18n="badge">24/7 · Non-stop</span></span>
+
+      <section class="tv-bar" id="tv-controls" aria-label="Sterowanie kanałem" data-i18n-aria="controlsAria">
+        <div class="tv-ctrls">
+          <button class="tv-btn" id="tv-play" type="button" aria-label="Pauza">
+            <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>
+            <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+          </button>
+          <button class="tv-btn" id="tv-mute" type="button" aria-label="Włącz dźwięk" aria-pressed="true">
+            <svg class="i-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="m16 9 5 6m0-6-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg class="i-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+          <button class="tv-btn" id="tv-next" type="button" aria-label="Następne nagranie">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5v13l9-6.5zM16 5h3v14h-3z" fill="currentColor"/></svg>
+          </button>
+          <button class="tv-btn" id="tv-fs" type="button" aria-label="Pełny ekran">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+          <button class="tv-btn" id="tv-share" type="button" aria-label="Udostępnij kanał">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="12" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4" stroke="currentColor" stroke-width="2"/></svg>
+          </button>
+        </div>
+        <div class="tv-links">
+          <a class="tv-link" href="https://www.youtube.com/@SpiritualSoundsPsalmy" target="_blank" rel="noopener" data-i18n="ytChannel">Otwórz kanał YouTube</a>
+          <a class="tv-link" href="/test/spiritual-sounds/#o-projekcie" data-href-en="/test/spiritual-sounds/en/#o-projekcie" data-i18n="about">O artyście / O projekcie</a>
+        </div>
+      </section>
     </div>
+
+    <!-- Panel boczny (wzorzec #mlPromo z Master) -->
+    <aside class="tv-side" aria-label="Panel kanału" data-i18n-aria="sideAria">
+      <div class="tv-now" aria-live="polite">
+        <div class="tv-now__head"><b><span class="tv-eq" aria-hidden="true"><i></i><i></i><i></i></span><span data-i18n="nowLabel">Teraz na kanale</span></b><small id="tv-time"></small></div>
+        <a class="tv-now__title" id="tv-now-link" href="https://www.youtube.com/playlist?list=PLD0gxYiiSZMA" target="_blank" rel="noopener"><span id="tv-now-title" data-i18n="nowWaiting">Łączenie z playlistą…</span></a>
+        <div class="tv-prog" aria-hidden="true"><i id="tv-prog"></i></div>
+      </div>
+      <div class="tv-next1">
+        <img id="tv-next1-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="128" height="72" alt="">
+        <div><small data-i18n="upNext">Za chwilę</small><b data-i18n="upNextText">Kolejne nagranie Spiritual Sounds</b></div>
+      </div>
+      <div class="tv-promo">
+        <div class="tv-promo__head"><span data-i18n="promoHead">★ Polecamy</span><div class="tv-dots" id="tv-promo-dots"></div></div>
+        <div class="tv-promo__stage" id="tv-promo-stage"></div>
+        <div class="tv-promo__bar"><i id="tv-promo-bar"></i></div>
+      </div>
+      <nav class="tv-q" aria-label="Szybkie linki" data-i18n-aria="quickAria">
+        <a href="/akademia/kurscodzienny" data-promo="tv-q-akademia" data-i18n="qAkademia">Kurs Codzienny</a>
+        <a href="/biblia-audio" data-promo="tv-q-biblia-audio" data-i18n="qBiblia">Biblia Audio</a>
+        <a class="is-cc" href="/wspieraj" data-promo="tv-q-wspieram" data-i18n="support">Wspieram to</a>
+      </nav>
+      <a class="tv-patron" href="/wspieraj" data-promo="tv-patron">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.1 5.2 3 1.6-1.9 3.1-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>
+        <span><b data-i18n="patronH">Ten kanał jest za darmo dla każdego</b><small data-i18n="patronP">Pomóż, by Psalmy docierały dalej — Wspieram to</small></span>
+      </a>
+    </aside>
   </div>
 
-  <section class="tv-bar" id="tv-controls" aria-label="Sterowanie kanałem" data-i18n-aria="controlsAria">
-    <div class="tv-ctrls">
-      <button class="tv-btn" id="tv-play" type="button" aria-label="Pauza" data-label-play="Odtwarzaj" data-label-pause="Pauza">
-        <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>
-        <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
-      </button>
-      <button class="tv-btn" id="tv-mute" type="button" aria-label="Włącz dźwięk" aria-pressed="true">
-        <svg class="i-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="m16 9 5 6m0-6-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <svg class="i-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-      <button class="tv-btn" id="tv-next" type="button" aria-label="Następne nagranie">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5v13l9-6.5zM16 5h3v14h-3z" fill="currentColor"/></svg>
-      </button>
-      <button class="tv-btn" id="tv-fs" type="button" aria-label="Pełny ekran">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div class="tv-now" aria-live="polite">
-      <img id="tv-now-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="96" height="54" alt="">
-      <div>
-        <small data-i18n="nowLabel">Teraz na kanale</small>
-        <a id="tv-now-link" href="https://www.youtube.com/playlist?list=PLD0gxYiiSZMA" target="_blank" rel="noopener"><span id="tv-now-title" data-i18n="nowWaiting">Łączenie z playlistą…</span></a>
-      </div>
-    </div>
-    <div class="tv-links">
-      <a class="tv-link" href="https://www.youtube.com/@SpiritualSoundsPsalmy" target="_blank" rel="noopener" data-i18n="ytChannel">Otwórz kanał YouTube</a>
-      <a class="tv-link" href="/test/spiritual-sounds/#o-projekcie" data-href-en="/test/spiritual-sounds/en/#o-projekcie" data-i18n="about">O artyście / O projekcie</a>
-    </div>
+  <section class="tv-sect" aria-labelledby="tv-latest-h">
+    <div class="tv-sect__head"><h2 id="tv-latest-h" data-i18n="latestHead">Najnowsze w playliście</h2><p class="tv-count" data-i18n="latestNote">Kliknij, aby kanał zagrał od tego nagrania</p></div>
+    <ol class="tv-rail tv-rail--latest" id="tv-latest"></ol>
   </section>
-
-  <section class="tv-next" aria-labelledby="tv-next-h">
-    <div class="tv-next__head">
-      <h2 id="tv-next-h" data-i18n="nextHead">Dalej w playliście</h2>
-      <p id="tv-count" class="tv-count"></p>
-    </div>
+  <section class="tv-sect" aria-labelledby="tv-next-h">
+    <div class="tv-sect__head"><h2 id="tv-next-h" data-i18n="nextHead">Dalej w playliście</h2><p id="tv-count" class="tv-count"></p></div>
     <ol class="tv-rail" id="tv-rail"></ol>
     <p class="tv-note" data-i18n="note">Kanał odtwarza w kółko oficjalną playlistę „Psalmy i Słowo Boże w Muzyce” z YouTube — za zgodą autora. Nowe nagrania dodane przez autora pojawiają się tu same. To nie jest transmisja na żywo, lecz kanał non-stop.</p>
   </section>
 </main>
+
+<!-- Dolny pasek kanału (wzorzec paska CCN w Master) -->
+<footer class="tv-bottom" aria-label="Pasek kanału" data-i18n-aria="bottomAria">
+  <a class="tv-bottom__brand" href="/test/spiritual-sounds/" data-href-en="/test/spiritual-sounds/en/"><img src="/test/spiritual-sounds/img/ss-emblem-360.webp" width="28" height="28" alt=""><b>Spiritual Sounds</b></a>
+  <span class="tv-bottom__badge"><i aria-hidden="true"></i><span data-i18n="air">24/7 · Non-stop</span></span>
+  <div class="tv-bottom__track"><div class="tv-bottom__run" id="tv-bottom-run"></div></div>
+  <div class="tv-clock"><b id="tv-clock">--:--</b><small id="tv-date"></small></div>
+</footer>
+<div class="tv-toast" id="tv-toast" role="status"></div>
 <noscript><p class="tv-note" style="padding:16px">Do odtwarzania kanału potrzebny jest JavaScript. Playlista: <a href="https://www.youtube.com/playlist?list=PLD0gxYiiSZMA">YouTube</a>.</p></noscript>
 </body>
 </html>

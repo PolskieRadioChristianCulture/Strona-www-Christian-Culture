@@ -122,3 +122,71 @@ test('wszystkie lokalne zasoby z linków istnieją', () => {
     }
   }
 });
+
+// ---------- v2 (18.11.2026, po uwagach L0): wzorce Master, patronat, żywe dane ----------
+const ecoJs = read('test/spiritual-sounds/ss-eco.js');
+const ecoBox = { module: { exports: {} } };
+vm.runInNewContext(ecoJs, ecoBox);
+const eco = ecoBox.module.exports;
+
+test('v2: patronat „Wspieram to” na wszystkich stronach (link /wspieraj) + Patronite na wizytówce', () => {
+  assert.match(pages.pl, /href="\/wspieraj"[^>]*>[\s\S]{0,400}?Wspieram to/);
+  assert.match(pages.en, /href="\/wspieraj"[^>]*>[\s\S]{0,400}?I support this/);
+  assert.match(pages.tv, /class="tv-support" href="\/wspieraj"/);
+  assert.match(pages.tv, /class="tv-patron" href="\/wspieraj"/);
+  for (const html of [pages.pl, pages.en]) assert.match(html, /https:\/\/patronite\.pl\/osobowoscplus/);
+});
+
+test('v2: paski informacyjne i „Polecamy” jak w Master (górny + dolny pasek z zegarem, panel, belki)', () => {
+  for (const html of [pages.pl, pages.en]) { assert.match(html, /id="tickRun"/); assert.match(html, /id="promoStage"/); }
+  for (const id of ['tv-tick', 'tv-bottom-run', 'tv-clock', 'tv-promo-stage', 'tv-l3', 'tv-upnext', 'tv-promo-l3', 'tv-ambient']) {
+    assert.match(pages.tv, new RegExp(`id="${id}"`), id);
+  }
+  assert.ok(eco.PROMOS.length >= 6, 'promocja ekosystemu');
+  assert.ok(eco.PROMOS.some((p) => p.id === 'wspieraj' && p.href === '/wspieraj'));
+  const tk = eco.ticker('pl').map((x) => x.id);
+  for (const id of ['now', 'latest', 'wspieraj', 'patronite']) assert.ok(tk.includes(id), id);
+  for (const l of ['pl', 'en']) {
+    const txt = eco.ticker(l).map((x) => `${x.b} ${x.t}`).join(' ') + eco.PROMOS.map((p) => `${p.h} ${p.hEn} ${p.p} ${p.pEn}`).join(' ');
+    assert.doesNotMatch(txt, /\blive\b|na żywo/i, `${l}: bez fałszywego LIVE`);
+  }
+});
+
+test('v2: ten sam start kanału na wizytówce i w /tv (wspólny seedIndex)', () => {
+  for (const n of [2, 50, 200]) for (const h of [0, 5, 23]) {
+    const ms = Date.UTC(2026, 10, 18, h);
+    assert.equal(eco.seedIndex(n, ms), tv.seedIndex(n, ms));
+  }
+});
+
+test('v2: ?v= z „Najnowszych” — tylko poprawne ID YouTube, nadal w kontekście playlisty', () => {
+  assert.equal(tv.deepLinkId('?v=dFsyIS_vAVY'), 'dFsyIS_vAVY');
+  assert.equal(tv.deepLinkId('?lang=en&v=dFsyIS_vAVY'), 'dFsyIS_vAVY');
+  assert.equal(tv.deepLinkId('?v=<script>'), '');
+  assert.equal(tv.deepLinkId('?v=dFsyIS_vAVYxx'), '');
+  assert.match(tvJs, /if \(DEEP\) opts\.videoId = DEEP;/);
+});
+
+test('v2: endpoint najnowszych nagrań — tylko playlisty Spiritual Sounds, parsowanie RSS', async () => {
+  const feed = await import('../services/spiritual-sounds/feed-service.js');
+  const xml = '<feed><yt:channelId>UCaSBnRGUiiE-ySLlHacGpeQ</yt:channelId><title>Psalmy &amp; Słowo</title>'
+    + '<entry><yt:videoId>dFsyIS_vAVY</yt:videoId><title>Psalm 19 &quot;śpiewany&quot;</title><published>2026-11-10T17:30:14+00:00</published></entry></feed>';
+  const p = feed.parseYouTubeFeed(xml);
+  assert.equal(p.items.length, 1);
+  assert.equal(p.items[0].title, 'Psalm 19 "śpiewany"');
+  const bad = await feed.handleSpiritualSoundsFeed(new Request('https://x/api/spiritual-sounds/feed?list=PLinny'), null, async () => { throw new Error('nie wolno pobierać'); });
+  assert.equal(bad.status, 400);
+  const ok = await feed.handleSpiritualSoundsFeed(new Request('https://x/api/spiritual-sounds/feed'), null, async () => new Response(xml));
+  const body = await ok.json();
+  assert.equal(ok.status, 200);
+  assert.equal(body.items[0].id, 'dFsyIS_vAVY');
+  const foreign = await feed.handleSpiritualSoundsFeed(new Request('https://x/api/spiritual-sounds/feed'), null, async () => new Response(xml.replace('UCaSBnRGUiiE-ySLlHacGpeQ', 'UCinnykanal')));
+  assert.equal(foreign.status, 502, 'cudzy kanał odrzucony');
+  assert.match(read('_worker.js'), /url\.pathname === '\/api\/spiritual-sounds\/feed'/);
+});
+
+test('v2: wizytówka PL/EN wygenerowana z jednego źródła (scripts/spiritual-sounds/buduj.mjs)', () => {
+  for (const html of [pages.pl, pages.en]) assert.match(html, /WYGENEROWANE: scripts\/spiritual-sounds\/buduj\.mjs/);
+  assert.equal(isPublicFile('test/spiritual-sounds/ss-eco.js'), true);
+  assert.equal(isPublicFile('scripts/spiritual-sounds/buduj.mjs'), false);
+});

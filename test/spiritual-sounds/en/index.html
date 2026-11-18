@@ -12,9 +12,9 @@
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- TEST VERSION: noindex until approved by L0. After approval, production: /SpiritualSounds/en/ + index,follow -->
+<!-- WYGENEROWANE: scripts/spiritual-sounds/buduj.mjs — nie edytuj ręcznie. WERSJA TESTOWA: noindex do akceptacji L0. -->
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#060a16">
+<meta name="theme-color" content="#04070f">
 <title>Spiritual Sounds – Polish Psalms | Christian Culture</title>
 <meta name="description" content="Psalms and the Word of God in music. Spiritual Sounds creates Bible-inspired music for prayer, reflection and worship. A 24/7 Bible channel on Christian Culture.">
 <link rel="canonical" href="https://polskieradio.cc/test/spiritual-sounds/en/">
@@ -34,20 +34,24 @@
 <meta property="og:image:alt" content="Spiritual Sounds emblem: a luminous sound wave forming a cross on deep navy">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Spiritual Sounds – Polish Psalms">
-<meta name="twitter:description" content="Psalms and the Word of God in music. Bible channel 24/7.">
+<meta name="twitter:description" content="Psalms and the Word of God in music. Bible channel 24/7 — Spiritual Sounds × Christian Culture.">
 <meta name="twitter:image" content="https://polskieradio.cc/test/spiritual-sounds/img/ss-og-1200x630.jpg">
 <link rel="icon" type="image/png" href="/test/spiritual-sounds/img/ss-icon-192.png">
 <link rel="preload" as="image" href="/test/spiritual-sounds/img/ss-emblem-720.webp" fetchpriority="high">
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+<link rel="preconnect" href="https://i.ytimg.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700;800&display=swap">
 <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
-<link rel="stylesheet" href="/test/spiritual-sounds/ss.css?v=20261118_1">
+<link rel="stylesheet" href="/test/spiritual-sounds/ss.css?v=20261118_2">
 <script src="/js/cc-mobile-edge.js?v=20261110_edge12" defer></script>
 <script src="/js/cc-edge-plus.js?v=20261110_edgep2" defer></script>
 <script src="/components/cc-omni-search.js?v=20261030_feat11" defer></script>
 <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
-<script src="/test/spiritual-sounds/ss.js?v=20261118_1" defer></script>
+<script src="/components/cc-support-footer.js?v=20261116_a007_column" defer></script>
+<script src="/test/spiritual-sounds/ss-eco.js?v=20261118_2" defer></script>
+<script src="/test/spiritual-sounds/ss.js?v=20261118_2" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -58,8 +62,14 @@
       "url": "https://polskieradio.cc/test/spiritual-sounds/en/",
       "name": "Spiritual Sounds – Polish Psalms | Christian Culture",
       "inLanguage": "en",
-      "isPartOf": { "@type": "WebSite", "name": "Christian Culture", "url": "https://polskieradio.cc/" },
-      "about": { "@id": "https://polskieradio.cc/test/spiritual-sounds/#playlista" }
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Christian Culture",
+        "url": "https://polskieradio.cc/"
+      },
+      "about": {
+        "@id": "https://polskieradio.cc/test/spiritual-sounds/#playlista"
+      }
     },
     {
       "@type": "MusicPlaylist",
@@ -71,179 +81,264 @@
         "@type": "Organization",
         "name": "Spiritual Sounds – Psalmy po polsku",
         "url": "https://www.youtube.com/@SpiritualSoundsPsalmy",
-        "sameAs": ["https://www.youtube.com/channel/UCaSBnRGUiiE-ySLlHacGpeQ"]
+        "sameAs": [
+          "https://www.youtube.com/channel/UCaSBnRGUiiE-ySLlHacGpeQ"
+        ]
       }
     }
   ]
 }
 </script>
 </head>
-<body>
-<a class="ss-skip" href="#tresc">Skip to content</a>
-<div class="ss-testbar" role="note">Test version — this page is not yet published or indexed.</div>
+<body data-lang="en" data-tv="/test/spiritual-sounds/tv/?lang=en">
+<a class="skip" href="#tresc">Skip to content</a>
+<div class="tick" role="region" aria-label="Information bar">
+  <span class="tick__badge"><i aria-hidden="true"></i>24/7 · Non-stop</span>
+  <div class="tick__track"><div class="tick__run" id="tickRun"></div></div>
+</div>
 
-<header class="ss-nav">
-  <div class="ss-wrap ss-nav__in">
-    <a class="ss-brand" href="#start" aria-label="Spiritual Sounds — top of page">
-      <img src="/test/spiritual-sounds/img/ss-emblem-360.webp" width="34" height="34" alt="">
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#start" aria-label="Spiritual Sounds — top of page">
+      <img src="/test/spiritual-sounds/img/ss-emblem-360.webp" width="36" height="36" alt="">
       <b>Spiritual Sounds</b>
     </a>
     <nav aria-label="Main navigation">
-      <ul class="ss-menu" id="ss-menu">
-        <li><a href="#start">Start</a></li>
+      <ul class="menu" id="menu">
+        <li><a href="#start">Home</a></li>
         <li><a class="is-247" href="#kanal-247">24/7</a></li>
+        <li><a href="#najnowsze">Latest</a></li>
         <li><a href="#misja">Mission</a></li>
         <li><a href="#psalmy">Psalms</a></li>
         <li><a href="#o-projekcie">About</a></li>
         <li><a href="https://www.youtube.com/@SpiritualSoundsPsalmy" target="_blank" rel="noopener">YouTube</a></li>
       </ul>
     </nav>
-    <div class="ss-lang" role="group" aria-label="Language">
+    <a class="support-btn" href="/wspieraj" data-promo="nav-wspieram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.1 5.2 3 1.6-1.9 3.1-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>I support this</a>
+    <div class="lang" role="group" aria-label="Language">
       <a href="/test/spiritual-sounds/" hreflang="pl" lang="pl">PL</a>
       <a href="/test/spiritual-sounds/en/" hreflang="en" lang="en" aria-current="true">EN</a>
     </div>
-    <button class="ss-burger" type="button" aria-expanded="false" aria-controls="ss-menu">Menu</button>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   </div>
 </header>
 
 <main id="tresc">
-  <section class="ss-hero" id="start" aria-labelledby="ss-h1">
-    <div class="ss-wrap ss-hero__grid">
+  <section class="hero" id="start" aria-labelledby="h1">
+    <div class="hero__media" aria-hidden="true"><div class="hero__yt" id="heroYt"><div id="heroPlayer"></div></div></div>
+    <div class="hero__shade" aria-hidden="true"></div>
+    <canvas class="hero__fx" id="heroFx" aria-hidden="true"></canvas>
+    <div class="wrap hero__grid">
       <div>
-        <ul class="ss-chips" aria-label="Labels">
-          <li class="ss-chip"><span class="ss-dot" aria-hidden="true"></span>24/7 channel · non-stop</li>
-          <li class="ss-chip ss-chip--cc">× Christian Culture</li>
+        <ul class="chips" aria-label="Information bar">
+          <li class="chip"><span class="dot" aria-hidden="true"></span>24/7 channel · non-stop</li>
+          <li class="chip chip--cc">× Christian Culture</li>
         </ul>
-        <h1 id="ss-h1">Spiritual Sounds<span>Polish Psalms</span></h1>
-        <p class="ss-claim">Psalms and the Word of God in Music</p>
-        <p class="ss-lead">Bible-inspired music created for prayer, reflection, worship and a daily encounter with the Word of God.</p>
-        <div class="ss-cta">
-          <a class="ss-btn ss-btn--primary" href="/test/spiritual-sounds/tv/?lang=en">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>Watch 24/7</a>
-          <a class="ss-btn ss-btn--ghost" href="https://www.youtube.com/playlist?list=PLD0gxYiiSZMA" target="_blank" rel="noopener">Open Playlist</a>
-          <a class="ss-btn ss-btn--ghost" href="https://www.youtube.com/@SpiritualSoundsPsalmy" target="_blank" rel="noopener">YouTube</a>
+        <h1 id="h1"><span class="l"><span>Spiritual</span></span><span class="l"><span>Sounds</span></span><span class="sub">Polish Psalms</span></h1>
+        <p class="claim">Psalms and the Word of God in Music</p>
+        <p class="lead">Bible-inspired music created for prayer, reflection, worship and a daily encounter with the Word of God.</p>
+        <div class="cta">
+          <a class="btn btn--gold" href="/test/spiritual-sounds/tv/?lang=en" data-promo="hero-tv"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>Watch 24/7</a>
+          <a class="btn btn--ghost" href="https://www.youtube.com/playlist?list=PLD0gxYiiSZMA" target="_blank" rel="noopener">Open Playlist</a>
+          <a class="btn btn--ghost" href="https://www.youtube.com/@SpiritualSoundsPsalmy" target="_blank" rel="noopener">YouTube</a>
         </div>
       </div>
-      <div class="ss-emblem">
-        <img src="/test/spiritual-sounds/img/ss-emblem-720.webp" width="720" height="720" fetchpriority="high"
-             alt="Spiritual Sounds emblem: a luminous sound wave forming a cross inside a golden circle on night navy">
-      </div>
-    </div>
-  </section>
-
-  <section class="ss-section" id="kanal-247" aria-labelledby="ss-h2-247">
-    <div class="ss-wrap ss-split">
-      <div class="ss-reveal">
-        <p class="ss-eyebrow">24/7 · non-stop</p>
-        <h2 class="ss-h2" id="ss-h2-247">Spiritual Sounds – Bible Channel 24/7</h2>
-        <p class="ss-lead">Psalms and the Word of God available around the clock.</p>
-        <p class="ss-p">Watch and listen without having to manually select the next recording. The channel plays the creator’s official playlist — new recordings appear in it automatically.</p>
-        <div class="ss-cta" style="margin-top:26px">
-          <a class="ss-btn ss-btn--primary" href="/test/spiritual-sounds/tv/?lang=en">Start Channel</a>
+      <aside class="onair" aria-live="polite" aria-label="Now on the 24/7 channel">
+        <div class="onair__top"><b><span class="dot" aria-hidden="true"></span>Now on the 24/7 channel</b><small id="onairTime"></small></div>
+        <a class="onair__media" id="onairLink" href="/test/spiritual-sounds/tv/?lang=en">
+          <img id="onairImg" src="/test/spiritual-sounds/img/ss-emblem-720.webp" width="480" height="270" alt="">
+          <span class="onair__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        </a>
+        <p class="onair__title" id="onairTitle">Connecting to the channel…</p>
+        <div class="onair__bar" aria-hidden="true"><i id="onairBar"></i></div>
+        <div class="onair__row">
+          <button class="btn btn--gold" type="button" id="onairSound" data-on="Listen here" data-off="Mute">Listen here</button>
+          <a class="btn btn--ghost" href="/test/spiritual-sounds/tv/?lang=en">Full channel</a>
         </div>
-      </div>
-      <a class="ss-tv-card ss-reveal" href="/test/spiritual-sounds/tv/?lang=en" aria-label="Start the Spiritual Sounds 24/7 channel">
-        <img src="/test/spiritual-sounds/img/ss-emblem-720.webp" width="720" height="720" loading="lazy" decoding="async" alt="">
-        <span class="ss-tv-card__veil" aria-hidden="true"></span>
-        <span class="ss-chip ss-tv-card__badge"><span class="ss-dot" aria-hidden="true"></span>24/7 · non-stop</span>
-        <span class="ss-tv-card__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-        <span class="ss-tv-card__meta"><strong>Psalms and the Word of God in Music</strong><span class="ss-chip">Creator’s playlist</span></span>
-      </a>
+      </aside>
     </div>
   </section>
 
-  <section class="ss-section" id="misja" aria-labelledby="ss-h2-misja">
-    <div class="ss-wrap ss-split">
-      <div class="ss-reveal">
-        <p class="ss-eyebrow">Mission</p>
-        <h2 class="ss-h2" id="ss-h2-misja">Music that leads you closer to God</h2>
-      </div>
-      <div class="ss-reveal">
-        <p class="ss-lead">Spiritual Sounds is a space where faith meets music. The channel features Psalms in new musical arrangements, Christian songs, prayerful reflections and musical interpretations of Scripture.</p>
-        <p class="ss-p">Its purpose is to create music filled with peace, hope and a biblical message for people seeking prayer, reflection, worship and spiritual encouragement.</p>
-      </div>
-    </div>
-  </section>
+  <div class="stats" role="list">
+    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="300">300</span><span>+</span></strong><small>recordings in the playlist</small></div>
+    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="24">24</span><span>/7</span></strong><small>non-stop, no picking</small></div>
+    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="0">0</span><span> PLN</span></strong><small>free for everyone</small></div>
+  </div>
 
-  <section class="ss-section" id="psalmy" aria-labelledby="ss-h2-psalmy">
-    <div class="ss-wrap">
-      <div class="ss-reveal">
-        <p class="ss-eyebrow">Psalms &amp; Scripture</p>
-        <h2 class="ss-h2" id="ss-h2-psalmy">The Book of Psalms and Scripture in music</h2>
-        <p class="ss-lead">The main Spiritual Sounds collection contains hundreds of musical interpretations of the Book of Psalms and other passages of Scripture in many different styles – from peaceful, reflective arrangements to powerful vocal and instrumental compositions.</p>
-        <p class="ss-p">The playlist continues to grow as new recordings are added by its creator.</p>
+  <section class="section" id="najnowsze" aria-labelledby="h-latest">
+    <div class="wrap">
+      <div class="rail-head reveal">
+        <div>
+          <p class="eyebrow">Latest</p>
+          <h2 class="h2" id="h-latest">Freshly added to the <em>playlist</em></h2>
+          <p class="p">Straight from the creator’s channel — the list refreshes itself whenever a new recording appears.</p>
+        </div>
+        <div class="rail-ctrl"><button type="button" id="railPrev" aria-label="Previous"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button type="button" id="railNext" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
       </div>
-      <div class="ss-series ss-reveal" role="list">
-        <a role="listitem" class="ss-tile ss-tile--main" href="https://www.youtube.com/playlist?list=PLD0gxYiiSZMA" target="_blank" rel="noopener">
-          <h3 lang="pl">Psalmy i Słowo Boże w Muzyce</h3>
-          <small>Main playlist · source of the 24/7 channel <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></small>
-        </a>
-        <a role="listitem" class="ss-tile" href="https://www.youtube.com/playlist?list=PLBpfEVvRZNuo" target="_blank" rel="noopener">
-          <h3 lang="pl">Nadzieja</h3>
-          <small>Hope in God <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></small>
-        </a>
-        <a role="listitem" class="ss-tile" href="https://www.youtube.com/playlist?list=PLDpP3o66gJ4U" target="_blank" rel="noopener">
-          <h3 lang="pl">Ufność</h3>
-          <small>Trust in the Lord <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></small>
-        </a>
-        <a role="listitem" class="ss-tile" href="https://www.youtube.com/playlist?list=PLYbBAoBR7wig" target="_blank" rel="noopener">
-          <h3 lang="pl">Pieśni z Księgi Izajasza</h3>
-          <small>Songs from the Book of Isaiah <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></small>
-        </a>
-        <a role="listitem" class="ss-tile" href="https://www.youtube.com/playlist?list=PLcaRxlJcJEjs" target="_blank" rel="noopener">
-          <h3 lang="pl">Biblijny western: Głos z Synaju</h3>
-          <small>Bible western · series <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></small>
-        </a>
-        <a role="listitem" class="ss-tile" href="https://www.youtube.com/playlist?list=PLdbrl4UN_wepjPhy4LRJduhznKdE5nBoq" target="_blank" rel="noopener">
-          <h3 lang="pl">Spokój Duszy: Modlitwa bez Słów</h3>
-          <small>Music for prayer and stillness <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></small>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="ss-section" id="o-projekcie" aria-labelledby="ss-h2-tworca">
-    <div class="ss-wrap ss-split">
-      <div class="ss-reveal">
-        <p class="ss-eyebrow">About</p>
-        <h2 class="ss-h2" id="ss-h2-tworca">Creator &amp; technology</h2>
-        <p class="ss-lead">Artur is the creator of Spiritual Sounds.</p>
-        <p class="ss-p">According to the information provided by the creator, the recordings are produced with the assistance of Suno under a paid Pro plan.</p>
-      </div>
-      <ul class="ss-facts ss-reveal">
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/></svg>
-          <div><b>A human leads</b><span>The creator is responsible for the creative direction, Scripture selection and publication.</span></div>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h2l2-5 3 10 3-7 2 4h4"/></svg>
-          <div><b>Tools assist</b><span>Generative tools assist in the music production process.</span></div>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h9l3 3v13H6z"/><path d="M9 11h6M9 15h6"/></svg>
-          <div><b>Transparently</b><span>We say plainly how the recordings are made — as the creator told us.</span></div>
-        </li>
+      <ul class="rail" id="rail" data-new="NEW" data-err="The list could not be loaded right now. Open the playlist on YouTube." aria-live="polite">
+        <li><div class="vcard"><div class="vcard__img skel"></div><div class="vcard__body"><small>&nbsp;</small><strong>&nbsp;</strong></div></div></li>
+        <li><div class="vcard"><div class="vcard__img skel"></div><div class="vcard__body"><small>&nbsp;</small><strong>&nbsp;</strong></div></div></li>
+        <li><div class="vcard"><div class="vcard__img skel"></div><div class="vcard__body"><small>&nbsp;</small><strong>&nbsp;</strong></div></div></li>
+        <li><div class="vcard"><div class="vcard__img skel"></div><div class="vcard__body"><small>&nbsp;</small><strong>&nbsp;</strong></div></div></li>
       </ul>
     </div>
   </section>
 
-  <section class="ss-section" id="wspolpraca" aria-labelledby="ss-h2-coop">
-    <div class="ss-wrap">
-      <div class="ss-coop ss-reveal">
+  <section class="section" id="kanal-247" aria-labelledby="h-247">
+    <div class="wrap split">
+      <div class="reveal">
+        <p class="eyebrow">24/7 · non-stop</p>
+        <h2 class="h2" id="h-247">Spiritual Sounds – <em>Bible Channel 24/7</em></h2>
+        <p class="lead">Psalms and the Word of God available around the clock.</p>
+        <p class="p">Watch and listen without having to manually select the next recording. The channel plays the creator’s official playlist — new recordings appear in it automatically.</p>
+        <div class="cta" style="margin-top:28px"><a class="btn btn--gold" href="/test/spiritual-sounds/tv/?lang=en" data-promo="section-tv"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>Start Channel</a></div>
+      </div>
+      <a class="screen reveal" href="/test/spiritual-sounds/tv/?lang=en" aria-label="Start the Spiritual Sounds 24/7 channel" data-tilt>
+        <img id="screenImg" src="https://i.ytimg.com/vi/dFsyIS_vAVY/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="">
+        <span class="screen__veil" aria-hidden="true"></span>
+        <span class="chip screen__badge"><span class="dot" aria-hidden="true"></span>24/7 · non-stop</span>
+        <span class="screen__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <span class="screen__meta"><strong id="screenTitle">Now on the channel</strong></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="section mission" id="misja" aria-labelledby="h-mis">
+    <span class="orb" aria-hidden="true"></span>
+    <div class="wrap">
+      <p class="eyebrow reveal">Mission</p>
+      <h2 class="h2 reveal" id="h-mis">Music that leads you <em>closer to God</em></h2>
+      <div class="mission__line reveal" aria-hidden="true"></div>
+      <div class="split">
+        <p class="mission__quote reveal">Spiritual Sounds is a space where <em>faith meets music.</em></p>
+        <div class="reveal"><p class="lead">The channel features Psalms in new musical arrangements, Christian songs, prayerful reflections and musical interpretations of Scripture.</p><p class="p">Its purpose is to create music filled with peace, hope and a biblical message for people seeking prayer, reflection, worship and spiritual encouragement.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="psalmy" aria-labelledby="h-ps">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">Psalms &amp; Scripture</p>
+        <h2 class="h2" id="h-ps">The Book of Psalms and Scripture <em>in music</em></h2>
+        <p class="lead">The main Spiritual Sounds collection contains hundreds of musical interpretations of the Book of Psalms and other passages of Scripture in many different styles – from peaceful, reflective arrangements to powerful vocal and instrumental compositions.</p>
+        <p class="p">The playlist continues to grow as new recordings are added by its creator.</p>
+      </div>
+      <div class="series reveal" aria-label="Spiritual Sounds series">
+        <a class="tile tile--main" href="https://www.youtube.com/playlist?list=PLD0gxYiiSZMA" target="_blank" rel="noopener" aria-label="Open on YouTube: Psalmy i Słowo Boże w Muzyce" data-tilt>
+          <img src="https://i.ytimg.com/vi/dFsyIS_vAVY/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="">
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          <small><span class="dot" aria-hidden="true"></span>Main playlist · source of the 24/7 channel</small>
+          <h3 lang="pl">Psalmy i Słowo Boże w Muzyce</h3>
+        </a>
+        <a class="tile" href="https://www.youtube.com/playlist?list=PLBpfEVvRZNuo" target="_blank" rel="noopener" aria-label="Open on YouTube: Nadzieja" data-tilt>
+          <img src="https://i.ytimg.com/vi/jpoqkzZo8Og/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="">
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          <small><span class="dot" aria-hidden="true"></span>Hope in God</small>
+          <h3 lang="pl">Nadzieja</h3>
+        </a>
+        <a class="tile" href="https://www.youtube.com/playlist?list=PLDpP3o66gJ4U" target="_blank" rel="noopener" aria-label="Open on YouTube: Ufność" data-tilt>
+          <img src="https://i.ytimg.com/vi/vtOgTxy1EEE/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="">
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          <small><span class="dot" aria-hidden="true"></span>Trust in the Lord</small>
+          <h3 lang="pl">Ufność</h3>
+        </a>
+        <a class="tile" href="https://www.youtube.com/playlist?list=PLYbBAoBR7wig" target="_blank" rel="noopener" aria-label="Open on YouTube: Pieśni z Księgi Izajasza" data-tilt>
+          <img src="https://i.ytimg.com/vi/guhp_uxZtf4/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="">
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          <small><span class="dot" aria-hidden="true"></span>Songs from the Book of Isaiah</small>
+          <h3 lang="pl">Pieśni z Księgi Izajasza</h3>
+        </a>
+        <a class="tile" href="https://www.youtube.com/playlist?list=PLcaRxlJcJEjs" target="_blank" rel="noopener" aria-label="Open on YouTube: Biblijny western: Głos z Synaju" data-tilt>
+          <img src="https://i.ytimg.com/vi/Y0d9XCwS3jE/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="">
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          <small><span class="dot" aria-hidden="true"></span>Bible western · series</small>
+          <h3 lang="pl">Biblijny western: Głos z Synaju</h3>
+        </a>
+        <a class="tile" href="https://www.youtube.com/playlist?list=PLdbrl4UN_wepjPhy4LRJduhznKdE5nBoq" target="_blank" rel="noopener" aria-label="Open on YouTube: Spokój Duszy: Modlitwa bez Słów" data-tilt>
+          <img src="https://i.ytimg.com/vi/Hjz563fFy7I/hqdefault.jpg" width="480" height="360" loading="lazy" decoding="async" alt="">
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          <small><span class="dot" aria-hidden="true"></span>Music for prayer and stillness</small>
+          <h3 lang="pl">Spokój Duszy: Modlitwa bez Słów</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="o-projekcie" aria-labelledby="h-ab">
+    <div class="wrap split">
+      <div class="reveal">
+        <p class="eyebrow">About</p>
+        <h2 class="h2" id="h-ab">Creator <em>&amp; technology</em></h2>
+        <p class="lead">Artur is the creator of Spiritual Sounds.</p>
+        <p class="p">According to the information provided by the creator, the recordings are produced with the assistance of Suno under a paid Pro plan.</p>
+      </div>
+      <ul class="facts reveal">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/></svg><div><b>A human leads</b><span>The creator is responsible for the creative direction, Scripture selection and publication.</span></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h2l2-5 3 10 3-7 2 4h4"/></svg><div><b>Tools assist</b><span>Generative tools assist in the music production process.</span></div></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h9l3 3v13H6z"/><path d="M9 11h6M9 15h6"/></svg><div><b>Transparently</b><span>We say plainly how the recordings are made — as the creator told us.</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="polecamy" aria-labelledby="h-promo">
+    <div class="wrap">
+      <div class="reveal"><p class="eyebrow">Christian Culture</p><h2 class="h2" id="h-promo">Recommended <em>in the ecosystem</em></h2></div>
+      <div class="promo reveal" aria-label="Recommended on Christian Culture">
+        <div class="promo__stage" id="promoStage"></div>
+        <div class="promo__side">
+          <div class="promo__head">★ RECOMMENDED<div class="dots" id="promoDots"></div></div>
+          <div class="promo__bar"><i id="promoBar"></i></div>
+          <nav class="qlinks" aria-label="Recommended on Christian Culture">
+          <a href="/biblia-audio" data-promo="q-bibliaaudio">Audio Bible<span>All Scripture to listen to →</span></a>
+          <a href="/akademia/kurscodzienny" data-promo="q-akademiakurscodzienny">Daily Bible Course<span>10 minutes in the Word →</span></a>
+          <a href="/master" data-promo="q-master">CC Television 24/7<span>Christian Culture Master →</span></a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="wspieram" aria-labelledby="h-pat">
+    <div class="wrap">
+      <div class="patron reveal">
+        <div class="patron__grid">
+          <div>
+            <p class="eyebrow">Patronage</p>
+            <h2 class="h2" id="h-pat">This mission lives <em>thanks to people</em></h2>
+            <p class="lead">The 24/7 channel and this page are free for everyone. If you want the Psalms and the Word of God to reach further — join in.</p>
+            <div class="cta">
+              <a class="btn btn--cc" href="/wspieraj" data-promo="patron-wspieram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.1 5.2 3 1.6-1.9 3.1-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>I support this</a>
+              <a class="btn btn--ghost" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener" data-promo="patron-patronite">Become a patron</a>
+              <button class="btn btn--ghost" type="button" id="shareBtn" data-done="Link copied">Share</button>
+            </div>
+          </div>
+          <ul class="patron__ways">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.3-9-8.6C1.6 8.2 3.6 5 7 5c2 0 3.4 1 5 2.8C13.6 6 15 5 17 5c3.4 0 5.4 3.2 4 6.4-2 4.3-9 8.6-9 8.6z"/></svg><span>Support the Christian Culture mission — donation, BLIK, bank transfer</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg><span>Become a patron on Patronite</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3"/><path d="m10 9.5 5 2.5-5 2.5z"/></svg><span>Support the creator: subscribe, like and share Spiritual Sounds recordings</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="wspolpraca" aria-labelledby="h-coop">
+    <div class="wrap">
+      <div class="coop reveal">
         <picture>
           <source media="(max-width:900px)" srcset="/test/spiritual-sounds/img/ss-banner-900.webp">
-          <img src="/test/spiritual-sounds/img/ss-banner-1707.webp" width="1707" height="282" loading="lazy" decoding="async"
-               alt="Spiritual Sounds banner — Psalms and worship in Polish: a cross against a sunset sky">
+          <img src="/test/spiritual-sounds/img/ss-banner-1707.webp" width="1707" height="282" loading="lazy" decoding="async" alt="Spiritual Sounds banner — Psalms and worship in Polish: a cross against a sunset sky">
         </picture>
-        <div class="ss-coop__body">
+        <div class="coop__body">
           <div>
-            <p class="ss-eyebrow">Cooperation</p>
-            <h2 class="ss-h2" id="ss-h2-coop">Spiritual Sounds × Christian Culture</h2>
-            <p class="ss-p">The dedicated 24/7 channel and artist showcase were created as part of a missionary collaboration between Spiritual Sounds and Christian Culture, helping Psalms and Bible-based music reach more people.</p>
+            <p class="eyebrow">Cooperation</p>
+            <h2 class="h2" id="h-coop">Spiritual Sounds × Christian Culture</h2>
+            <p class="p">The dedicated 24/7 channel and artist showcase were created as part of a missionary collaboration between Spiritual Sounds and Christian Culture, helping Psalms and Bible-based music reach more people.</p>
           </div>
-          <div class="ss-cta">
-            <a class="ss-btn ss-btn--primary" href="/test/spiritual-sounds/tv/?lang=en">Watch 24/7</a>
-            <a class="ss-btn ss-btn--ghost" href="https://www.youtube.com/@SpiritualSoundsPsalmy" target="_blank" rel="noopener">Subscribe on YouTube</a>
+          <div class="cta">
+            <a class="btn btn--gold" href="/test/spiritual-sounds/tv/?lang=en"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>Watch 24/7</a>
+            <a class="btn btn--ghost" href="https://www.youtube.com/@SpiritualSoundsPsalmy" target="_blank" rel="noopener">Subscribe on YouTube</a>
           </div>
         </div>
       </div>
@@ -251,8 +346,8 @@
   </section>
 </main>
 
-<footer class="ss-footer">
-  <div class="ss-wrap ss-footer__grid">
+<footer class="footer">
+  <div class="wrap footer__grid">
     <div>
       <h2>Spiritual Sounds</h2>
       <ul>
@@ -267,10 +362,12 @@
         <li><a href="/">Christian Culture</a></li>
         <li><a href="/Global/">Christian Culture Global</a></li>
         <li><a href="/master">Christian Culture Master</a></li>
+        <li><a href="/wspieraj">I support this</a></li>
       </ul>
     </div>
     <p style="max-width:36ch;margin:0">All recordings belong to the creator of Spiritual Sounds and are played from the official YouTube channel with his permission.</p>
   </div>
 </footer>
+<div class="toast" id="toast" role="status"></div>
 </body>
 </html>
