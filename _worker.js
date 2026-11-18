@@ -8,6 +8,7 @@ import { handleMissionCalendarApi } from './services/cc-mission-calendar/mission
 import { handleVolunteerApiRequest } from './services/cc-volunteer/volunteer-service.js';
 import { handleAssistantIdeaApiRequest } from './services/cc-assistant/idea-service.js';
 import { handleArkContestApiRequest } from './services/cc-ark-contest/contest-service.js';
+import { handleSpiritualSoundsFeed } from './services/spiritual-sounds/feed-service.js';
 
 const BLOCKED_PREFIXES = [
   '/.git/', '/.codex/', '/.cursor/', '/.claude/', '/repozytoria-cc/', '/joma_shared_memory/',
@@ -1542,9 +1543,13 @@ async function handleSupportRoute(request, env) {
     '/test/wspieraj/es/apoyar',
     '/test/wspieraj/fr/soutenir',
   ]);
-  if (path === '/test/network' || path === '/test/lumina') {
+  if (path === '/test/network' || path === '/test/lumina' || path === '/test/czat' || path === '/test/mess') {
     const assetUrl = new URL(request.url);
-    assetUrl.pathname = path === '/test/lumina' ? '/lumina-pilot.html' : '/network-pilot.html';
+    assetUrl.pathname = path === '/test/lumina'
+      ? '/lumina-pilot.html'
+      : (path === '/test/czat' || path === '/test/mess')
+        ? '/czat-pilot.html'
+        : '/network-pilot.html';
     assetUrl.search = '';
     const assetResp = await env.ASSETS.fetch(new Request(assetUrl.toString(), { method: 'GET', headers: { 'Accept': 'text/html' } }));
     const body = await assetResp.arrayBuffer();
@@ -1899,6 +1904,10 @@ export default {
     }
     if (url.pathname.startsWith('/api/topten/')) {
       return handleTopTenApi(request, env, ctx, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
+    }
+    // Spiritual Sounds × CC: najnowsze nagrania z playlist autora (RSS YouTube, cache 30 min) — @007 2026-11-18
+    if (url.pathname === '/api/spiritual-sounds/feed') {
+      return handleSpiritualSoundsFeed(request, ctx);
     }
     if (url.pathname.startsWith('/api/ai-dla-jezusa/v1')) {
       return handleAiDlaJezusaApi(request, env);

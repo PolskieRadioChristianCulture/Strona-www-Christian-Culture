@@ -402,6 +402,10 @@
 /test/ccwomen/ /test/ccwomen/index.html 200
 /test/lumina /test/lumina/index.html 200
 /test/lumina/ /test/lumina/index.html 200
+/test/czat /test/czat/index.html 200
+/test/czat/ /test/czat/index.html 200
+/test/mess /test/czat/index.html 200
+/test/mess/ /test/czat/index.html 200
 # Spiritual Sounds × CC — WERSJA TESTOWA (@007 2026-11-18, noindex; produkcja /SpiritualSounds po ✅ L0)
 /test/spiritual-sounds /test/spiritual-sounds/index.html 200
 /test/spiritual-sounds/ /test/spiritual-sounds/index.html 200

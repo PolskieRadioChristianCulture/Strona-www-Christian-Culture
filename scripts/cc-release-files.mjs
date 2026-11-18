@@ -39,6 +39,7 @@ export function isPublicFile(relativePath) {
   if (file === 'test/wspieraj/index.html') return true;
   if (file === 'network-pilot.html' || file === 'test/network/index.html') return true;
   if (file === 'lumina-pilot.html' || file === 'test/lumina/index.html') return true;
+  if (file === 'czat-pilot.html' || file === 'test/czat/index.html') return true;
   if (file.startsWith('test/ccwomen/')) return true;
   // Spiritual Sounds × CC — wersja testowa (noindex) do akceptacji L0 (@007 2026-11-18).
   if (file.startsWith('test/spiritual-sounds/')) return true;
