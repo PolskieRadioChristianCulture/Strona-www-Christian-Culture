@@ -516,7 +516,7 @@ function getAllEcosystemCandidates() {
       title: 'Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa',
       lead: '„Największym sukcesem wroga jest przekonanie człowieka, że walka duchowa to tylko mit. Słowo Boże obnaża każdą strategię ciemności i daje oręż zwycięstwa w Chrystusie.”',
       url: 'https://polskieradio.cc/u-boku-diabla',
-      image: 'images/news/art-u-boku-diabla.jpg',
+      image: 'assets/u-boku-diabla-og.jpg',
       category: 'Książki',
       type: 'book',
       tag: '#UbokuDiabla'

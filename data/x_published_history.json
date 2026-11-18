@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "u-boku-diabla",
+      "title": "Książka: U boku Diabła — Cezary Rogowski. Anatomia duchowej walki i zwycięstwa",
+      "url": "https://polskieradio.cc/u-boku-diabla",
+      "type": "book",
+      "image": "u-boku-diabla-og.jpg",
+      "publishedAt": "2026-11-18T13:38:48.637Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "gerald-welch-the-call",
       "title": "Nowość Muzyczna: Gerald Welch — THE CALL. Głębokie uwielbienie w Polskim Radiu CC",
       "url": "https://polskieradio.cc/news/gerald-welch-the-call",
