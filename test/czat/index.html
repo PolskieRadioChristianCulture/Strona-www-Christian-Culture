@@ -962,7 +962,10 @@
           `;
           msgContainer.appendChild(botRow);
           const feed = document.getElementById("lumiFeed");
-          feed.scrollTop = feed.scrollHeight;
+          const wasNearBottom = feed.scrollHeight - feed.scrollTop - feed.clientHeight < 160;
+          if (wasNearBottom) {
+            feed.scrollTop = feed.scrollHeight;
+          }
         }, 220);
       }
 
