@@ -441,6 +441,13 @@ function resolveItemImage(item, rootDir) {
     if (fs.existsSync(p2)) return p2;
   }
 
+  if (pathLower.includes('/kalendarz') || titleLower.includes('kalendarz 2027')) {
+    const p1 = path.join(rootDir, 'og-kalendarz-v2.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'og-kalendarz-2027.png');
+    if (fs.existsSync(p2)) return p2;
+  }
+
   // 4. Bezpieczna, estetyczna grafika redakcyjna wysokiej rozdzielczości
   const fallback = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
   if (fs.existsSync(fallback)) return fallback;
@@ -1197,6 +1204,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '⏳ HOLOS | ŻYCIE I SZAFARSTWO CZASU';
       callToAction = '👉 Odkryj w ekosystemie:\n';
       addTags('#HOLOS', '#SzafarstwoCzasu', '#ChristianCulture');
+    } else if ((item.url || '').includes('/kalendarz') || (item.title || '').toLowerCase().includes('kalendarz 2027')) {
+      subHeader = '📅 KALENDARZ BIBLIJNY 2027 | A4/PDF';
+      callToAction = '👉 Stwórz i pobierz za darmo:\n';
+      addTags('#Kalendarz2027', '#Szabat', '#ChristianCulture');
     } else if ((item.url || '').endsWith('/studium') || (item.title || '').includes('Studio Dobrego Słowa')) {
       subHeader = '🏛️ STUDIO DOBREGO SŁOWA | SDS';
       callToAction = '👉 Oglądaj wykłady i transmisje:\n';
@@ -1462,6 +1473,8 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Nowy rozdział w słuchowisku! Księga Rodzaju 15 (UBG): Przymierze z Abramem, gwiazdy na niebie i wiara (Rdz 15,6).';
   } else if ((item.title || '').includes('GEN-012') || (item.title || '').includes('Rodzaju 12')) {
     bodyText = 'Nowy rozdział w słuchowisku! Księga Rodzaju 12 (UBG): Powołanie Abrama, wyjście z Haranu i obietnica wielkiego narodu.';
+  } else if ((item.url || '').includes('/kalendarz') || (item.title || '').toLowerCase().includes('kalendarz 2027')) {
+    bodyText = 'Bezpłatny generator kalendarza ściennego 2027 (A4/PDF) — oznaczone szabaty, wersety i miejsce na notatki!';
   } else if (item.type === 'vod' && item.title.includes('Proroctwa')) {
     bodyText = 'Proroctwa Daniela i Księgi Objawienia w serii wykładów biblijnych 4K UHD ze SDS.';
   } else if (item.type === 'vod' && item.title.includes('Księga Nadziei')) {

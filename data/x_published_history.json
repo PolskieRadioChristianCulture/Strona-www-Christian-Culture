@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "kalendarz",
+      "title": "Kalendarz 2027 — Generator Kalendarza Biblijnego A4/PDF do Druku",
+      "url": "https://polskieradio.cc/kalendarz",
+      "type": "module",
+      "image": "og-kalendarz-v2.jpg",
+      "publishedAt": "2026-11-18T19:34:21.278Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "03-bog-ojciec.html",
       "title": "Kurs 28 Kroków — Lekcja 3: Bóg Ojciec — Suwerenny Stwórca i Miłujący Ojciec",
       "url": "https://polskieradio.cc/kursy/03-bog-ojciec.html",
