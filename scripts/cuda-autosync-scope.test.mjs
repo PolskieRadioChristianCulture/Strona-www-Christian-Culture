@@ -6,8 +6,24 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { CUDA_FILES, COMMIT_MSG, commitAndPush, changedCudaFiles } from '../run_sync_cuda_daily.js';
+
+test('bez zainstalowanej zależności bezpośrednie uruchomienie zwraca błąd przed synchronizacją', () => {
+  const parent = fs.realpathSync(os.tmpdir());
+  const dir = fs.mkdtempSync(path.join(parent, 'cuda-empty-'));
+  assert.ok(dir.startsWith(path.join(parent, 'cuda-empty-')));
+  try {
+    const entry = 'run_sync_cuda_daily.mjs';
+    fs.copyFileSync(new URL('../run_sync_cuda_daily.js', import.meta.url), path.join(dir, entry));
+    const run = spawnSync(process.execPath, [entry], { cwd: dir, encoding: 'utf8', windowsHide: true });
+    assert.equal(run.status, 1, run.error?.message);
+    assert.match(run.stdout + run.stderr, /Cannot find module.*sync_cuda_kazdego_dnia/);
+    assert.doesNotMatch(run.stdout, /Wynik synchronizacji/);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
 
 const git = (cwd, ...args) => execFileSync('git', args, { cwd, encoding: 'utf8' }).trim();
 

@@ -168,10 +168,11 @@ test('primary LUMINA HTML files load lumina-a11y-shell.js, expose drawer/modal A
 
   const tablicaSrc = await readRepoFile('lumina-tablica.html');
   const tablicaLight = await readRepoFile('lumina-tablica-light.html');
+  const eol = tablicaSrc.match(/\r?\n/)?.[0] ?? '\n';
   const marker = '<!-- PLIK GENEROWANY przez scripts/build-tablica-light.mjs z lumina-tablica.html — nie edytuj ręcznie -->';
   const expectedLight = tablicaSrc.replace(/<html(\s[^>]*)?>/i, (_m, attrs = '') => {
     const clean = String(attrs).replace(/\sdata-lumina-theme(-lock)?="[^"]*"/g, '');
-    return `<html${clean} data-lumina-theme="light" data-lumina-theme-lock="light">\n${marker}`;
+    return `<html${clean} data-lumina-theme="light" data-lumina-theme-lock="light">${eol}${marker}`;
   });
   assert.equal(tablicaLight, expectedLight, 'lumina-tablica-light.html is out of sync with lumina-tablica.html');
   assert.match(tablicaLight, /data-lumina-theme-lock="light"/);

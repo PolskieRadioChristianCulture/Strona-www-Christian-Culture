@@ -1,4 +1,3 @@
-import { syncCudaDaily } from './sync_cuda_kazdego_dnia.js';
 import { execSync, execFileSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
@@ -108,6 +107,7 @@ function deployCleanRelease() {
 async function main() {
   log("🚀 Rozpoczynam automatyczną procedurę synchronizacji Cuda Każdego Dnia...");
   try {
+    const { syncCudaDaily } = await import('./sync_cuda_kazdego_dnia.js');
     const res = await syncCudaDaily();
     log(`Wynik synchronizacji: published=${res?.published}, success=${res?.success}`);
 
@@ -173,6 +173,7 @@ async function main() {
       log("ℹ️ Brak nowych zmian w Cuda Każdego Dnia, git push i deploy pominięty.");
     }
   } catch (err) {
+    process.exitCode = 1;
     log(`❌ Błąd krytyczny procedury: ${err.message}`);
   }
   log("🏁 Zakończono automatyczną procedurę synchronizacji Cuda Każdego Dnia.");

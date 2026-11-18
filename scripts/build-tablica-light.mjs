@@ -5,10 +5,11 @@
 // Nie edytuj lumina-tablica-light.html ręcznie — zmieniaj lumina-tablica.html.
 import fs from 'node:fs';
 const src = fs.readFileSync('lumina-tablica.html', 'utf8');
+const eol = src.match(/\r?\n/)?.[0] ?? '\n';
 const marker = '<!-- PLIK GENEROWANY przez scripts/build-tablica-light.mjs z lumina-tablica.html — nie edytuj ręcznie -->';
 const out = src.replace(/<html(\s[^>]*)?>/i, (m, attrs = '') => {
   const clean = String(attrs).replace(/\sdata-lumina-theme(-lock)?="[^"]*"/g, '');
-  return `<html${clean} data-lumina-theme="light" data-lumina-theme-lock="light">\n${marker}`;
+  return `<html${clean} data-lumina-theme="light" data-lumina-theme-lock="light">${eol}${marker}`;
 });
 if (out === src || !out.includes('data-lumina-theme-lock="light"')) throw new Error('Nie znaleziono <html> w lumina-tablica.html');
 const prev = fs.existsSync('lumina-tablica-light.html') ? fs.readFileSync('lumina-tablica-light.html', 'utf8') : '';
