@@ -160,11 +160,11 @@ async function publishMissionControl() {
     const nazirGroupId = '120363403565056716@g.us';
     const bartekTarget = '48509370007@c.us';
 
-    const warsawHourNow = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Warsaw', hour: '2-digit', hour12: false }).format(new Date()));
-    const isAfternoonNow = warsawHourNow >= 12;
-    const ttsLabel = isAfternoonNow ? '1. ROZWAŻANIE POPOŁUDNIOWE (TTS)' : '1. ROZWAŻANIE PORANNE (TTS)';
-    const ttsHeader = isAfternoonNow ? 'WERSJA POPOŁUDNIOWA TTS' : 'WERSJA PORANNA TTS';
-    const normT = s => isAfternoonNow ? String(s || '').replace(/Poranne rozważanie/g, 'Popołudniowe rozważanie').replace(/poranne rozważanie/g, 'popołudniowe rozważanie').replace(/Rozważanie poranne/g, 'Rozważanie popołudniowe').replace(/rozważanie poranne/g, 'rozważanie popołudniowe') : String(s || '');
+    const { getWarsawDayPhase, adjustReflectionTimeOfDay } = await import('./warsaw_day_phase.mjs');
+    const phaseNow = getWarsawDayPhase();
+    const ttsLabel = phaseNow === 'evening' ? '1. ROZWAŻANIE WIECZORNE (TTS)' : (phaseNow === 'afternoon' ? '1. ROZWAŻANIE POPOŁUDNIOWE (TTS)' : '1. ROZWAŻANIE PORANNE (TTS)');
+    const ttsHeader = phaseNow === 'evening' ? 'WERSJA WIECZORNA TTS' : (phaseNow === 'afternoon' ? 'WERSJA POPOŁUDNIOWA TTS' : 'WERSJA PORANNA TTS');
+    const normT = s => adjustReflectionTimeOfDay(s);
 
     const nazirCommands = [
       {
@@ -245,8 +245,9 @@ async function publishMissionControl() {
     const mc = require(path.join(WEKTOR_ROOT, 'mc_d1_client'));
     const nazirGroupId = '120363403565056716@g.us';
     const bartekTarget = '48509370007@c.us';
-    const warsawHourD1 = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Warsaw', hour: '2-digit', hour12: false }).format(new Date()));
-    const ttsLabelD1 = warsawHourD1 >= 12 ? '1. ROZWAŻANIE POPOŁUDNIOWE (TTS)' : '1. ROZWAŻANIE PORANNE (TTS)';
+    const { getWarsawDayPhase } = await import('./warsaw_day_phase.mjs');
+    const phaseD1 = getWarsawDayPhase();
+    const ttsLabelD1 = phaseD1 === 'evening' ? '1. ROZWAŻANIE WIECZORNE (TTS)' : (phaseD1 === 'afternoon' ? '1. ROZWAŻANIE POPOŁUDNIOWE (TTS)' : '1. ROZWAŻANIE PORANNE (TTS)');
     await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: 📖 *${ttsLabelD1}* — Dzień ${DAY_NUM}\n\n${contentApp}`, nazirGroupId, 9, DAY_NUM);
     await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: ☀️ *2. ROZWAŻANIE NA CAŁY DZIEŃ (WWW)* — Dzień ${DAY_NUM}\n\n${contentWeb}`, nazirGroupId, 8, DAY_NUM);
     if (contentSms) {
