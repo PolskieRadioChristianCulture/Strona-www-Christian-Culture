@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "ziu",
+      "title": "CCN ZIU — Portal Zdrowia, Urody & Atlas Ziół („Ciało Świątynią Ducha Świętego”)",
+      "url": "https://polskieradio.cc/ziu",
+      "type": "news",
+      "image": "art-ccn-ziu-zdrowie-atlas-ziol.jpg",
+      "publishedAt": "2026-11-18T06:09:24.945Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "holos",
       "title": "HOLOS — Chrześcijański System Rozwoju Osobistego & Szafarstwa Czasu (Life OS)",
       "url": "https://polskieradio.cc/holos",
