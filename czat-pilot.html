@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#07090E">
   <meta name="robots" content="noindex, nofollow">
-  <title>Podgląd: LUMI Messenger 2027 (Obsidian &amp; Champagne Gold) | Christian Culture</title>
+  <title>Podgląd: LUMI Messenger 2027 (Minimalistyczny · Rozwijany na życzenie) | Christian Culture</title>
   <link rel="icon" type="image/webp" href="/images/chat/lumi_header_logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -97,12 +97,12 @@
     }
 
     /* =====================================================================
-       LUMI MESSENGER 2027 WIDGET FRAME (DOKŁADNY PODGLĄD 1:1)
+       LUMI MESSENGER 2027 — MINIMALISTYCZNY WIDOK DOMYŚLNY + PANEL "WIĘCEJ"
        ===================================================================== */
     .lumi-window {
       width: 100%;
       max-width: 430px;
-      height: 720px;
+      height: 700px;
       margin: 0 auto;
       background: #0A0E18;
       border: 1px solid rgba(196, 163, 90, 0.38);
@@ -114,19 +114,17 @@
       position: relative;
     }
 
-    /* 1. Nagłówek okna + zintegrowany kompaktowy pasek radia */
+    /* 1. Smukły pojedynczy nagłówek (tylko to, co niezbędne + ikona Więcej) */
     .lumi-hdr {
-      padding: 12px 14px 10px;
+      padding: 10px 12px;
       background: linear-gradient(180deg, #131A2C 0%, #0D1220 100%);
-      border-bottom: 1px solid rgba(196, 163, 90, 0.2);
-      flex-shrink: 0;
-    }
-    .lumi-hdr-top {
+      border-bottom: 1px solid rgba(196, 163, 90, 0.22);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 8px;
+      flex-shrink: 0;
+      z-index: 20;
     }
     .lumi-brand {
       display: flex;
@@ -135,17 +133,17 @@
       min-width: 0;
     }
     .lumi-brand-logo {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid var(--gold);
-      box-shadow: 0 0 14px rgba(196, 163, 90, 0.35);
+      box-shadow: 0 0 12px rgba(196, 163, 90, 0.32);
       flex-shrink: 0;
     }
     .lumi-brand-title {
       font-family: var(--f-head);
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 800;
       color: #fff;
       line-height: 1.15;
@@ -154,142 +152,126 @@
       gap: 5px;
     }
     .lumi-brand-status {
-      font-size: 0.75rem;
-      color: var(--muted);
+      font-size: 0.74rem;
+      color: var(--gold-light);
       display: flex;
       align-items: center;
       gap: 6px;
       margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .online-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--green);
       box-shadow: 0 0 0 3px rgba(32, 201, 151, 0.2);
+      flex-shrink: 0;
     }
     .lumi-hdr-btns {
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-shrink: 0;
     }
-    .hdr-circle-btn {
-      width: 44px;
-      height: 44px;
-      min-width: 44px;
+    /* Kompaktowy mini-przycisk radia w nagłówku */
+    .hdr-radio-pill {
       min-height: 44px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.05);
-      color: #E2E8F0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.95rem;
-      transition: background 0.18s, border-color 0.18s;
-    }
-    .hdr-circle-btn:hover {
-      background: rgba(196, 163, 90, 0.18);
-      border-color: var(--gold);
-    }
-
-    /* Zintegrowany pasek radia */
-    .lumi-radio-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 5px 8px 5px 12px;
-      border-radius: 999px;
-      background: rgba(7, 9, 14, 0.65);
-      border: 1px solid rgba(196, 163, 90, 0.26);
-    }
-    .radio-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #F1F5F9;
-      min-width: 0;
-    }
-    .radio-left span.station-name {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .eq-bars {
-      display: inline-flex;
-      align-items: flex-end;
-      gap: 2px;
-      height: 13px;
-      margin-left: 4px;
-    }
-    .eq-bars i {
-      width: 3px;
-      background: var(--gold);
-      border-radius: 2px;
-      display: inline-block;
-    }
-    .eq-bars i:nth-child(1) { height: 6px; }
-    .eq-bars i:nth-child(2) { height: 12px; }
-    .eq-bars i:nth-child(3) { height: 8px; }
-    .eq-bars i:nth-child(4) { height: 10px; }
-    .eq-bars.playing i {
-      animation: eqBounce 0.8s ease-in-out infinite alternate;
-    }
-    .eq-bars.playing i:nth-child(2) { animation-delay: 0.15s; }
-    .eq-bars.playing i:nth-child(3) { animation-delay: 0.3s; }
-    .eq-bars.playing i:nth-child(4) { animation-delay: 0.45s; }
-    @keyframes eqBounce {
-      0% { height: 4px; }
-      100% { height: 13px; }
-    }
-    .radio-play-btn {
-      min-height: 36px;
-      min-width: 88px;
-      padding: 6px 14px;
+      padding: 0 12px;
       border-radius: 999px;
       border: none;
       background: var(--orange);
       color: #fff;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 800;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 5px;
-      box-shadow: 0 4px 12px rgba(255, 122, 0, 0.32);
+      box-shadow: 0 4px 12px rgba(255, 122, 0, 0.3);
       transition: background 0.18s;
     }
-    .radio-play-btn:hover { background: var(--orange-hover); }
-    .radio-play-btn:active { background: var(--orange-active); }
+    .hdr-radio-pill:hover { background: var(--orange-hover); }
+    .hdr-radio-pill:active { background: var(--orange-active); }
 
-    /* 2. NAPRAWIONA SIATKA 5 ZAKŁADEK (100% szerokości, zero sklejania napisów!) */
+    /* Główny przycisk-ikona WIĘCEJ (rozwija wszystkie funkcje na życzenie) */
+    .hdr-more-btn {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold-border);
+      background: rgba(196, 163, 90, 0.12);
+      color: var(--gold-light);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .hdr-more-btn:hover, .hdr-more-btn[aria-expanded="true"] {
+      background: var(--gold);
+      color: #07090E;
+      border-color: var(--gold-hover);
+      box-shadow: 0 0 16px rgba(196, 163, 90, 0.45);
+    }
+
+    /* 2. SZUFLADA WSZYSTKICH FUNKCJI (DOMYŚLNIE ZWINIĘTA!) */
+    .lumi-drawer {
+      background: #0E1322;
+      border-bottom: 1px solid rgba(196, 163, 90, 0.28);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      border-bottom-width: 0;
+      transition: max-height 0.34s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.24s ease, padding 0.24s ease;
+      flex-shrink: 0;
+      z-index: 15;
+    }
+    .lumi-drawer.is-open {
+      max-height: 420px;
+      opacity: 1;
+      border-bottom-width: 1px;
+      padding: 10px 12px 12px;
+    }
+    .drawer-section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin: 8px 2px 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .drawer-section-label:first-child {
+      margin-top: 0;
+    }
+
+    /* Siatka 5 zakładek wewnątrz szuflady */
     .lumi-tabs-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 5px;
       width: 100%;
-      margin: 0;
-      padding: 6px 10px;
-      background: #0C101C;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      flex-shrink: 0;
     }
     .lumi-tab {
       min-height: 46px;
       padding: 4px 2px;
       border-radius: 12px;
-      border: 1px solid transparent;
-      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: #141B2D;
       color: var(--muted);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 2px;
-      font-size: 0.71rem;
+      font-size: 0.7rem;
       font-weight: 600;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -298,34 +280,24 @@
     }
     .lumi-tab:hover {
       color: #fff;
-      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--gold-border);
     }
     .lumi-tab.is-active {
-      background: linear-gradient(135deg, rgba(196, 163, 90, 0.24), rgba(196, 163, 90, 0.08));
+      background: linear-gradient(135deg, rgba(196, 163, 90, 0.26), rgba(196, 163, 90, 0.08));
       border-color: var(--gold);
       color: var(--gold-light);
       font-weight: 700;
-      box-shadow: 0 4px 14px rgba(196, 163, 90, 0.16);
     }
     .lumi-tab-ico {
-      font-size: 1rem;
+      font-size: 0.98rem;
       line-height: 1;
     }
 
-    /* 3. Kompaktowy pasek wyboru trybu i asystentki */
-    .lumi-subbar {
-      padding: 8px 12px;
-      background: #0E1322;
-      border-bottom: 1px solid rgba(196, 163, 90, 0.18);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex-shrink: 0;
-    }
     .mode-switch {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6px;
+      margin-top: 6px;
     }
     .mode-btn {
       min-height: 44px;
@@ -352,6 +324,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 6px;
+      margin-top: 6px;
     }
     .asst-pill {
       min-height: 44px;
@@ -369,17 +342,16 @@
     .asst-pill.is-active {
       border-color: var(--gold);
       background: rgba(196, 163, 90, 0.16);
-      box-shadow: 0 2px 10px rgba(196, 163, 90, 0.18);
     }
     .asst-ava-wrap {
       position: relative;
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       flex-shrink: 0;
     }
     .asst-ava-wrap img {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid var(--gold);
@@ -401,99 +373,64 @@
       line-height: 1.15;
     }
     .asst-meta strong {
-      font-size: 0.77rem;
+      font-size: 0.76rem;
       color: #fff;
     }
     .asst-meta span {
-      font-size: 0.66rem;
+      font-size: 0.65rem;
       color: var(--gold-light);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    /* 4. POWIĘKSZONY OBSZAR WIADOMOŚCI + DYSKRETNY ZŁOTY SCROLLBAR 4PX */
-    .lumi-feed {
-      flex: 1;
-      min-height: 0;
-      overflow-y: auto;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      background: #0A0E18;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(196, 163, 90, 0.38) transparent;
-    }
-    .lumi-feed::-webkit-scrollbar {
-      width: 5px;
-    }
-    .lumi-feed::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .lumi-feed::-webkit-scrollbar-thumb {
-      background: rgba(196, 163, 90, 0.38);
-      border-radius: 999px;
-    }
-
-    /* Kompaktowa, zwijana wizytówka zamiast gigantycznego baneru zasłaniającego czat */
-    .compact-showcase {
-      background: linear-gradient(135deg, rgba(196, 163, 90, 0.14), rgba(20, 27, 45, 0.92));
-      border: 1px solid var(--gold-border);
-      border-radius: 16px;
-      padding: 10px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .compact-showcase.is-collapsed .showcase-body {
-      display: none;
-    }
-    .showcase-top {
+    .drawer-tools-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-    }
-    .showcase-title {
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--gold-light);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    .showcase-toggle {
-      min-height: 32px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(196, 163, 90, 0.3);
-      background: rgba(0, 0, 0, 0.25);
-      color: var(--muted);
-      font-size: 0.7rem;
-      font-weight: 600;
-    }
-    .quick-actions-row {
-      display: flex;
-      flex-wrap: wrap;
       gap: 6px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
     }
-    .quick-chip {
-      min-height: 38px;
-      padding: 6px 11px;
-      border-radius: 999px;
-      border: 1px solid var(--gold-border);
-      background: rgba(13, 18, 32, 0.85);
-      color: #F8FAFC;
+    .tool-btn {
+      flex: 1;
+      min-height: 44px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--fg);
       font-size: 0.75rem;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      transition: all 0.18s;
+      justify-content: center;
+      gap: 6px;
     }
-    .quick-chip:hover {
-      background: rgba(196, 163, 90, 0.22);
-      border-color: var(--gold-hover);
+    .tool-btn:hover {
+      border-color: var(--gold);
+      background: rgba(196, 163, 90, 0.15);
+    }
+
+    /* 3. MAKSYMALNY OBSZAR ROZMOWY (~85% wysokości okna!) */
+    .lumi-feed {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: #0A0E18;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(196, 163, 90, 0.38) transparent;
+    }
+    .lumi-feed::-webkit-scrollbar { width: 5px; }
+    .lumi-feed::-webkit-scrollbar-track { background: transparent; }
+    .lumi-feed::-webkit-scrollbar-thumb {
+      background: rgba(196, 163, 90, 0.38);
+      border-radius: 999px;
     }
 
     /* Dymki wiadomości */
@@ -514,10 +451,10 @@
       flex-shrink: 0;
     }
     .msg-col {
-      max-width: 82%;
+      max-width: 84%;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
     }
     .msg-row.is-user .msg-col {
       align-items: flex-end;
@@ -534,9 +471,9 @@
       border: 1px solid rgba(196, 163, 90, 0.25);
       border-radius: 16px;
       border-top-left-radius: 4px;
-      padding: 11px 14px;
-      font-size: 0.85rem;
-      line-height: 1.48;
+      padding: 12px 14px;
+      font-size: 0.86rem;
+      line-height: 1.5;
       color: #F8FAFC;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
@@ -548,7 +485,34 @@
       color: #FFFFFF;
     }
 
-    /* 5. NAPRAWIONY COMPOSER NA DOLE (zero szarego scrollbara, czysty 1-liniowy placeholder) */
+    /* Subtelne pigułki pod wiadomością powitalną (zamiast osobnego paska!) */
+    .inline-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+    .quick-chip {
+      min-height: 38px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--gold-border);
+      background: rgba(20, 27, 45, 0.9);
+      color: var(--gold-light);
+      font-size: 0.76rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.18s;
+    }
+    .quick-chip:hover {
+      background: rgba(196, 163, 90, 0.22);
+      border-color: var(--gold-hover);
+      color: #fff;
+    }
+
+    /* 4. Czysty Composer na dole */
     .lumi-composer {
       padding: 10px 12px;
       background: #0E1322;
@@ -564,20 +528,25 @@
       min-width: 44px;
       min-height: 44px;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid var(--gold-border);
       background: #151C2F;
-      color: #F8FAFC;
+      color: var(--gold-light);
       font-size: 1.15rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      transition: all 0.18s;
+    }
+    .comp-plus-btn:hover {
+      background: rgba(196, 163, 90, 0.2);
+      color: #fff;
     }
     .comp-input-box {
       flex: 1;
       min-width: 0;
       min-height: 44px;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 999px;
       background: #141B2D;
       border: 1.5px solid var(--gold-border);
@@ -602,7 +571,7 @@
       overflow-y: hidden;
       color: #FFFFFF;
       font: inherit;
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       line-height: 22px;
       padding: 0;
     }
@@ -633,7 +602,7 @@
     .comp-send-btn:hover { background: var(--orange-hover); }
     .comp-send-btn:active { background: var(--orange-active); }
 
-    /* Prawa kolumna: omówienie zmian i porównanie */
+    /* Prawa kolumna: opis */
     .info-panel {
       display: flex;
       flex-direction: column;
@@ -684,8 +653,8 @@
   <div class="page-wrap">
     <header class="top-bar">
       <div>
-        <h1>Podgląd: <span>LUMI Messenger 2027</span> (Standard Obsidian &amp; Champagne Gold)</h1>
-        <div style="font-size:0.85rem;color:var(--muted);">Interaktywny prototyp 1:1 przed wdrożeniem do globalnego przycisku czatu</div>
+        <h1>Podgląd: <span>LUMI Messenger 2027</span> (Minimalistyczny · Funkcje na życzenie)</h1>
+        <div style="font-size:0.85rem;color:var(--muted);">Domyślnie wszystko zwinięte — kliknij ikonę <b>•••</b> w prawym górnym rogu czatu lub <b>+</b> na dole, aby rozwinąć pełne menu</div>
       </div>
       <div class="top-links">
         <a class="pill-link" href="/test/lumina">← Powrót do /test/lumina</a>
@@ -694,63 +663,72 @@
     </header>
 
     <div class="preview-layout">
-      <!-- LEWA KOLUMNA: INTERAKTYWNE OKNO LUMI MESSENGER 2027 -->
-      <section class="lumi-window" aria-label="Podgląd nowego okna LUMI Messenger">
-        <!-- 1. Nagłówek + Radio -->
+      <!-- LEWA KOLUMNA: ULTRA-CZYSTE OKNO LUMI MESSENGER -->
+      <section class="lumi-window" aria-label="Podgląd minimalistycznego okna LUMI Messenger">
+        <!-- 1. Pojedynczy smukły nagłówek -->
         <div class="lumi-hdr">
-          <div class="lumi-hdr-top">
-            <div class="lumi-brand">
-              <img class="lumi-brand-logo" src="/images/chat/lumi_header_logo.webp" onerror="this.onerror=null;this.src='/images/chat/lumi_header_logo.png'" alt="LUMI Messenger">
-              <div>
-                <div class="lumi-brand-title">LUMI Messenger <span style="color:var(--gold);">✨</span></div>
-                <div class="lumi-brand-status">
-                  <span class="online-dot"></span>
-                  <span id="hdrActiveAsstLabel">Asystentka CC: Noemi</span>
-                </div>
+          <div class="lumi-brand">
+            <img class="lumi-brand-logo" src="/images/chat/lumi_header_logo.webp" onerror="this.onerror=null;this.src='/images/chat/lumi_header_logo.png'" alt="LUMI Messenger">
+            <div style="min-width:0;">
+              <div class="lumi-brand-title">LUMI Messenger <span style="color:var(--gold);">✨</span></div>
+              <div class="lumi-brand-status">
+                <span class="online-dot"></span>
+                <span id="hdrActiveAsstLabel">Noemi · Asystentka CC</span>
               </div>
-            </div>
-            <div class="lumi-hdr-btns">
-              <button type="button" class="hdr-circle-btn" aria-label="Powiadomienia" title="Powiadomienia">🔔</button>
-              <button type="button" class="hdr-circle-btn" aria-label="Ustawienia czatu" title="Ustawienia">⚙️</button>
             </div>
           </div>
 
-          <div class="lumi-radio-bar">
-            <div class="radio-left">
-              <span style="color:var(--gold);">((•))</span>
-              <span class="station-name">Radio Christian Culture PL</span>
-              <span class="eq-bars" id="radioEq"><i></i><i></i><i></i><i></i></span>
-            </div>
-            <button type="button" class="radio-play-btn" id="radioToggleBtn">▶ Słuchaj</button>
+          <div class="lumi-hdr-btns">
+            <button type="button" class="hdr-radio-pill" id="radioToggleBtn" title="Włącz lub zatrzymaj Radio Christian Culture">
+              ▶ Radio
+            </button>
+            <button
+              type="button"
+              class="hdr-more-btn"
+              id="moreDrawerToggleBtn"
+              aria-expanded="false"
+              aria-controls="lumiFunctionsDrawer"
+              aria-label="Rozwiń wszystkie funkcje i zakładki"
+              title="Więcej — rozwiń wszystkie funkcje">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <circle cx="5" cy="12" r="2.2"></circle>
+                <circle cx="12" cy="12" r="2.2"></circle>
+                <circle cx="19" cy="12" r="2.2"></circle>
+              </svg>
+            </button>
           </div>
         </div>
 
-        <!-- 2. Naprawiona siatka 5 zakładek (100% szerokości, równe kolumny, zero nachodzenia!) -->
-        <nav class="lumi-tabs-grid" role="tablist" aria-label="Nawigacja LUMI Messenger">
-          <button type="button" class="lumi-tab is-active" data-tab="chat" role="tab" aria-selected="true">
-            <span class="lumi-tab-ico">💬</span>
-            <span>Czat</span>
-          </button>
-          <button type="button" class="lumi-tab" data-tab="team" role="tab" aria-selected="false">
-            <span class="lumi-tab-ico">👥</span>
-            <span>Zespół CC</span>
-          </button>
-          <button type="button" class="lumi-tab" data-tab="community" role="tab" aria-selected="false">
-            <span class="lumi-tab-ico">🌸</span>
-            <span>Społeczność</span>
-          </button>
-          <button type="button" class="lumi-tab" data-tab="resources" role="tab" aria-selected="false">
-            <span class="lumi-tab-ico">🌐</span>
-            <span>Zasoby</span>
-          </button>
-          <button type="button" class="lumi-tab" data-tab="more" role="tab" aria-selected="false">
-            <span class="lumi-tab-ico">•••</span>
-            <span>Więcej</span>
-          </button>
-        </nav>
+        <!-- 2. Szuflada wszystkich funkcji (DOMYŚLNIE ZWINIĘTA — otwierana przyciskiem ••• lub +) -->
+        <div class="lumi-drawer" id="lumiFunctionsDrawer" aria-hidden="true">
+          <div class="drawer-section-label">
+            <span>Nawigacja LUMI Messenger</span>
+            <button type="button" id="closeDrawerMiniBtn" style="background:none;border:none;color:var(--gold-light);font-size:0.72rem;font-weight:700;">Zwiń ▲</button>
+          </div>
+          <nav class="lumi-tabs-grid" role="tablist" aria-label="Nawigacja LUMI Messenger">
+            <button type="button" class="lumi-tab is-active" data-tab="chat" role="tab" aria-selected="true">
+              <span class="lumi-tab-ico">💬</span>
+              <span>Czat</span>
+            </button>
+            <button type="button" class="lumi-tab" data-tab="team" role="tab" aria-selected="false">
+              <span class="lumi-tab-ico">👥</span>
+              <span>Zespół CC</span>
+            </button>
+            <button type="button" class="lumi-tab" data-tab="community" role="tab" aria-selected="false">
+              <span class="lumi-tab-ico">🌸</span>
+              <span>Społeczność</span>
+            </button>
+            <button type="button" class="lumi-tab" data-tab="resources" role="tab" aria-selected="false">
+              <span class="lumi-tab-ico">🌐</span>
+              <span>Zasoby</span>
+            </button>
+            <button type="button" class="lumi-tab" data-tab="more" role="tab" aria-selected="false">
+              <span class="lumi-tab-ico">🧭</span>
+              <span>Odkryj</span>
+            </button>
+          </nav>
 
-        <!-- 3. Przełącznik trybu i pasek 3 asystentek -->
-        <div class="lumi-subbar" id="chatSubbar">
+          <div class="drawer-section-label">Tryb rozmowy i wybór Asystentki</div>
           <div class="mode-switch">
             <button type="button" class="mode-btn" id="modePublicBtn">🌐 Czat ogólny</button>
             <button type="button" class="mode-btn is-active" id="modeAsstBtn">✨ Asystentki CC (3)</button>
@@ -764,7 +742,7 @@
               </span>
               <span class="asst-meta">
                 <strong>Rut</strong>
-                <span>Gospodyni CC</span>
+                <span>Gospodyni</span>
               </span>
             </button>
             <button type="button" class="asst-pill" data-asst="lea">
@@ -788,30 +766,26 @@
               </span>
             </button>
           </div>
-        </div>
 
-        <!-- 4. Powiększony obszar rozmowy -->
-        <div class="lumi-feed" id="lumiFeed">
-          <div class="compact-showcase" id="compactShowcase">
-            <div class="showcase-top">
-              <span class="showcase-title">✨ Szybkie skróty Asystentki</span>
-              <button type="button" class="showcase-toggle" id="toggleShowcaseBtn">Zwiń ▲</button>
-            </div>
-            <div class="showcase-body">
-              <div class="quick-actions-row">
-                <button type="button" class="quick-chip" data-quick="Posłuchaj radia 24/7">🎧 Posłuchaj radia</button>
-                <button type="button" class="quick-chip" data-quick="Pokaż Kurs Codzienny i MojaBiblia">📖 Poznaj Biblię</button>
-                <button type="button" class="quick-chip" data-quick="Co nowego w ekosystemie CC?">🧭 Odkryj CC</button>
-              </div>
-            </div>
+          <div class="drawer-tools-row">
+            <button type="button" class="tool-btn">🔔 Powiadomienia</button>
+            <button type="button" class="tool-btn">⚙️ Ustawienia czatu</button>
           </div>
-
-          <div id="messagesContainer" style="display:flex;flex-direction:column;gap:12px;"></div>
         </div>
 
-        <!-- 5. Czysty Composer na dole -->
+        <!-- 3. Maksymalny obszar rozmowy (85% wysokości okna!) -->
+        <div class="lumi-feed" id="lumiFeed">
+          <div id="messagesContainer" style="display:flex;flex-direction:column;gap:14px;"></div>
+        </div>
+
+        <!-- 4. Czysty Composer na dole -->
         <form class="lumi-composer" id="chatForm">
-          <button type="button" class="comp-plus-btn" title="Szybkie załączniki i skróty" aria-label="Więcej opcji">+</button>
+          <button
+            type="button"
+            class="comp-plus-btn"
+            id="bottomPlusToggleBtn"
+            title="Rozwiń lub zwiń wszystkie funkcje"
+            aria-label="Rozwiń lub zwiń funkcje">+</button>
           <div class="comp-input-box">
             <textarea
               id="chatInput"
@@ -824,30 +798,26 @@
         </form>
       </section>
 
-      <!-- PRAWA KOLUMNA: PODSUMOWANIE 5 POPRAWEK -->
+      <!-- PRAWA KOLUMNA: OPIS ZMIAN -->
       <aside class="info-panel">
         <div class="info-card">
-          <h2>Co zostało naprawione w podglądzie 2027:</h2>
+          <h2>Minimalistyczny standard „Wszystko zwinięte + ikona Więcej (•••)”</h2>
           <ul class="fix-list">
             <li class="fix-item">
-              <strong>1. Ponad 2,5× większe pole rozmowy (koniec uciętych wiadomości)</strong>
-              <span>Zamiast wysokiego na 230 px baneru dublującego 3 asystentki zastosowano kompaktową belkę szybkich akcji ze zwijaniem („Zwiń ▲”), dzięki czemu cała wiadomość powitalna i historia rozmowy są od razu widoczne.</span>
+              <strong>1. Domyślnie widoczna wyłącznie rozmowa (85% okna na czat!)</strong>
+              <span>Po otwarciu czatu użytkownik widzi tylko pojedynczy smukły nagłówek, czystą rozmowę z Asystentką (z 3 subtelnymi skrótami bezpośrednio pod dymkiem) oraz pole wpisywania wiadomości na dole.</span>
             </li>
             <li class="fix-item">
-              <strong>2. Naprawiony pasek 5 zakładek (zero sklejania „Zespół CCSpołecznośćZasoby”)</strong>
-              <span>Pasek zakładek używa równej siatki <code>grid-template-columns: repeat(5, minmax(0, 1fr))</code> na 100% szerokości okna z odstępami <code>gap: 5px</code> — zewnętrzne style <code>nav</code> ze strony głównej nie spychają już zakładek na prawą stronę.</span>
+              <strong>2. Przycisk-ikona „•••” (Więcej) w górnym rogu oraz „+” na dole</strong>
+              <span>Jedno kliknięcie w ikonę <code>•••</code> (lub <code>+</code> obok pola tekstowego) płynnie rozwija wszystkie funkcje na życzenie: 5 zakładek (Czat, Zespół CC, Społeczność, Zasoby, Odkryj), przełącznik <code>Czat ogólny / Asystentki CC (3)</code>, wybór <code>Rut / Lea / Noemi</code> oraz Powiadomienia i Ustawienia.</span>
             </li>
             <li class="fix-item">
-              <strong>3. Czyste pole wpisywania wiadomości bez szarego paska przewijania (▲/▼)</strong>
-              <span>Usunięto natywny, jasnoszary scrollbar Windows wewnątrz pola tekstowego i dopasowano placeholder do jednej czystej linii (<code>Zapytaj Noemi (radio, Biblia, kursy)...</code>), z automatycznym rozszerzaniem podczas pisania.</span>
+              <strong>3. Automatyczne zwijanie po wyborze</strong>
+              <span>Gdy użytkownik wybierze w menu np. inną Asystentkę albo przełączy się na Czat ogólny, szuflada funkcji automatycznie zwija się z powrotem, oddając pełną przestrzeń na rozmowę.</span>
             </li>
             <li class="fix-item">
-              <strong>4. Dyskretny złoty pasek przewijania (4 px)</strong>
-              <span>Gruby, jasnoszary pasek systemowy po prawej stronie zastąpiono subtelnym paskiem w odcieniu przydymionego złota.</span>
-            </li>
-            <li class="fix-item">
-              <strong>5. Spójna paleta Obsidian &amp; Champagne Gold (#C4A35A) + Orange CTA (#FF7A00)</strong>
-              <span>Wyeliminowano fioletowe tła zakładek i dymków na rzecz kanonicznego złota Champagne Gold i pomarańczowych przycisków akcji (<code>▶ Słuchaj</code>, <code>➤ Wyślij</code>), przy zachowaniu odrębnego logo LUMI Messenger.</span>
+              <strong>4. Kompaktowy przycisk „▶ Radio” zawsze pod ręką</strong>
+              <span>Na górnej belce obok ikony <code>•••</code> znajduje się pomarańczowy przycisk <code>▶ Radio</code> (<code>#FF7A00</code>), więc słuchanie Radia CC 24/7 nie wymaga otwierania menu ani osobnego paska.</span>
             </li>
           </ul>
         </div>
@@ -880,18 +850,45 @@
 
       let activeAsst = "noemi";
       let activeMode = "assistant";
+      const drawer = document.getElementById("lumiFunctionsDrawer");
+      const moreBtn = document.getElementById("moreDrawerToggleBtn");
+      const bottomPlusBtn = document.getElementById("bottomPlusToggleBtn");
+      const closeDrawerMiniBtn = document.getElementById("closeDrawerMiniBtn");
       const msgContainer = document.getElementById("messagesContainer");
       const hdrLabel = document.getElementById("hdrActiveAsstLabel");
       const chatInput = document.getElementById("chatInput");
       const asstStrip = document.getElementById("asstStrip");
-      const compactShowcase = document.getElementById("compactShowcase");
+
+      function setDrawerOpen(open) {
+        drawer.classList.toggle("is-open", open);
+        drawer.setAttribute("aria-hidden", open ? "false" : "true");
+        moreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        bottomPlusBtn.textContent = open ? "×" : "+";
+      }
+
+      moreBtn.addEventListener("click", () => {
+        setDrawerOpen(!drawer.classList.contains("is-open"));
+      });
+      bottomPlusBtn.addEventListener("click", () => {
+        setDrawerOpen(!drawer.classList.contains("is-open"));
+      });
+      closeDrawerMiniBtn.addEventListener("click", () => {
+        setDrawerOpen(false);
+      });
+
+      function bindQuickChips() {
+        msgContainer.querySelectorAll(".quick-chip").forEach((chip) => {
+          chip.addEventListener("click", () => {
+            appendExchange(chip.getAttribute("data-quick") || chip.textContent);
+          });
+        });
+      }
 
       function renderInitialMessages() {
         if (activeMode === "public") {
-          hdrLabel.textContent = "Czat Ogólny Społeczności LUMINA";
+          hdrLabel.textContent = "Czat ogólny społeczności";
           chatInput.placeholder = "Napisz wiadomość na czacie ogólnym...";
           asstStrip.style.display = "none";
-          compactShowcase.style.display = "none";
           msgContainer.innerHTML = `
             <div class="msg-row">
               <img class="msg-ava" src="/avatar_cezary_official.webp" onerror="this.onerror=null;this.src='/avatar_cezary_official.jpg'" alt="Cezary Rogowski">
@@ -912,19 +909,24 @@
         }
 
         const a = ASSISTANTS[activeAsst];
-        hdrLabel.textContent = "Asystentka CC: " + a.name;
+        hdrLabel.textContent = a.name + " · Asystentka CC";
         chatInput.placeholder = "Zapytaj " + a.name + " (radio, Biblia, kursy)...";
         asstStrip.style.display = "grid";
-        compactShowcase.style.display = "flex";
         msgContainer.innerHTML = `
           <div class="msg-row">
             <img class="msg-ava" src="${a.avatar}" alt="${a.name}">
             <div class="msg-col">
               <div class="msg-meta"><strong>${a.name}</strong> · ${a.role}</div>
               <div class="msg-bubble">${a.greeting}</div>
+              <div class="inline-chips">
+                <button type="button" class="quick-chip" data-quick="Posłuchaj radia 24/7">🎧 Posłuchaj radia</button>
+                <button type="button" class="quick-chip" data-quick="Pokaż Kurs Codzienny i MojaBiblia">📖 Poznaj Biblię</button>
+                <button type="button" class="quick-chip" data-quick="Co nowego w ekosystemie CC?">🧭 Odkryj CC</button>
+              </div>
             </div>
           </div>
         `;
+        bindQuickChips();
       }
 
       function appendExchange(userText) {
@@ -939,17 +941,14 @@
         `;
         userRow.querySelector(".msg-bubble").textContent = userText;
         msgContainer.appendChild(userRow);
-
-        compactShowcase.classList.add("is-collapsed");
-        const toggleBtn = document.getElementById("toggleShowcaseBtn");
-        if (toggleBtn) toggleBtn.textContent = "Rozwiń ▼";
+        setDrawerOpen(false);
 
         setTimeout(() => {
           const botRow = document.createElement("div");
           botRow.className = "msg-row";
-          let reply = "Już przygotowuję dla Ciebie odpowiednie miejsce w ekosystemie Christian Culture: możesz przejść bezpośrednio do Odtwarzacza Radio (/player), Kursu Codziennego (/akademia#kurscodzienny), MojejBiblii (/mojabiblia) lub nowej telewizji CC Women TV (/ccwomen).";
+          let reply = "Już prowadzę Cię do wybranego miejsca w ekosystemie Christian Culture: możesz przejść do Odtwarzacza Radio (/player), Kursu Codziennego (/akademia#kurscodzienny), MojejBiblii (/mojabiblia) lub nowej telewizji CC Women TV (/ccwomen).";
           if (/radio/i.test(userText)) {
-            reply = "📻 Radio Christian Culture gra 24/7! Możesz kliknąć pomarańczowy przycisk „▶ Słuchaj” na górnej belce czatu lub otworzyć pełny odtwarzacz na polskieradio.cc/player.";
+            reply = "📻 Radio Christian Culture gra 24/7! Możesz kliknąć pomarańczowy przycisk „▶ Radio” na górnej belce czatu lub otworzyć pełny odtwarzacz na polskieradio.cc/player.";
           } else if (/bibli|kurs/i.test(userText)) {
             reply = "📖 Zapraszam do interlinearnej platformy MojaBiblia (polskieradio.cc/mojabiblia) oraz dzisiejszej lekcji Kursu Codziennego „Z Biblią za Pan Brat” (polskieradio.cc/akademia#kurscodzienny).";
           }
@@ -974,6 +973,7 @@
           activeAsst = btn.getAttribute("data-asst") || "noemi";
           document.querySelectorAll(".asst-pill").forEach((b) => b.classList.toggle("is-active", b === btn));
           renderInitialMessages();
+          setDrawerOpen(false);
         });
       });
 
@@ -984,23 +984,13 @@
         modePublicBtn.classList.add("is-active");
         modeAsstBtn.classList.remove("is-active");
         renderInitialMessages();
+        setDrawerOpen(false);
       });
       modeAsstBtn.addEventListener("click", () => {
         activeMode = "assistant";
         modeAsstBtn.classList.add("is-active");
         modePublicBtn.classList.remove("is-active");
         renderInitialMessages();
-      });
-
-      document.getElementById("toggleShowcaseBtn").addEventListener("click", function () {
-        const collapsed = compactShowcase.classList.toggle("is-collapsed");
-        this.textContent = collapsed ? "Rozwiń ▼" : "Zwiń ▲";
-      });
-
-      document.querySelectorAll(".quick-chip").forEach((chip) => {
-        chip.addEventListener("click", () => {
-          appendExchange(chip.getAttribute("data-quick") || chip.textContent);
-        });
       });
 
       document.getElementById("chatForm").addEventListener("submit", (e) => {
@@ -1017,11 +1007,10 @@
         chatInput.style.height = Math.min(84, chatInput.scrollHeight) + "px";
       });
 
-      // Symulacja / strumień Radio CC
+      // Strumień Radio CC w nagłówku
       let audio = null;
       let playing = false;
       const radioBtn = document.getElementById("radioToggleBtn");
-      const radioEq = document.getElementById("radioEq");
       radioBtn.addEventListener("click", () => {
         if (!audio) {
           audio = new Audio("https://s2.radioparty.pl:7000/stream");
@@ -1031,12 +1020,10 @@
           audio.play().catch(() => {});
           playing = true;
           radioBtn.textContent = "■ Stop";
-          radioEq.classList.add("playing");
         } else {
           audio.pause();
           playing = false;
-          radioBtn.textContent = "▶ Słuchaj";
-          radioEq.classList.remove("playing");
+          radioBtn.textContent = "▶ Radio";
         }
       });
 
