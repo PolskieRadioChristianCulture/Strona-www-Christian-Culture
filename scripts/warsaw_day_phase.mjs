@@ -38,24 +38,28 @@ export function getWarsawDayPhase(date = new Date()) {
   return 'morning';
 }
 
+function matchCase(source, targetLower) {
+  if (source === source.toUpperCase() && source !== source.toLowerCase()) return targetLower.toUpperCase();
+  if (source[0] && source[0] === source[0].toUpperCase()) return targetLower[0].toUpperCase() + targetLower.slice(1);
+  return targetLower;
+}
+
 export function adjustReflectionTimeOfDay(text, date = new Date()) {
   const phase = getWarsawDayPhase(date);
   if (phase === 'morning') return String(text || '');
-  const adjUpper = phase === 'evening' ? 'WIECZORNE' : 'POPOŁUDNIOWE';
-  const adjLower = phase === 'evening' ? 'wieczorne' : 'popołudniowe';
-  const adjCap = phase === 'evening' ? 'Wieczorne' : 'Popołudniowe';
-  const femUpper = phase === 'evening' ? 'WIECZORNA' : 'POPOŁUDNIOWA';
-  const femCap = phase === 'evening' ? 'Wieczorna' : 'Popołudniowa';
-  const femLower = phase === 'evening' ? 'wieczorna' : 'popołudniowa';
 
-  return String(text || '')
-    .replace(/ROZWAŻANIE PORANNE/g, `ROZWAŻANIE ${adjUpper}`)
-    .replace(/Rozważanie poranne/g, `Rozważanie ${adjLower}`)
-    .replace(/rozważanie poranne/g, `rozważanie ${adjLower}`)
-    .replace(/Poranne rozważanie/g, `${adjCap} rozważanie`)
-    .replace(/poranne rozważanie/g, `${adjLower} rozważanie`)
-    .replace(/WERSJA PORANNA/g, `WERSJA ${femUpper}`)
-    .replace(/Wersja Poranna/g, `Wersja ${femCap}`)
-    .replace(/Poranna inspiracja/g, `${femCap} inspiracja`)
-    .replace(/poranna inspiracja/g, `${femLower} inspiracja`);
+  const stem = phase === 'evening' ? 'wieczorn' : 'popołudniow';
+  const isEve = phase === 'evening';
+
+  let out = String(text || '')
+    .replace(/\bporann(ego|emu|ych|ymi|ym|ej|ą|y|a|e)\b/gi, (m, suf) => matchCase(m, stem + suf.toLowerCase()))
+    .replace(/\bo poranku\b/gi, (m) => matchCase(m, isEve ? 'wieczorem' : 'po południu'))
+    .replace(/\bdzień dobry\b/gi, (m) => matchCase(m, isEve ? 'dobry wieczór' : 'dobrego popołudnia'))
+    .replace(/\bGotowi na nowy dzień walki\?/gi, isEve ? 'Słowo Boże na wieczór:' : 'Słowo Boże na popołudnie:')
+    .replace(/\bna (?:dobry )?początek dnia\b/gi, (m) => matchCase(m, isEve ? 'na spokojny wieczór' : 'na dobre popołudnie'));
+
+  if (isEve) {
+    out = out.replace(/^☀️\s*\*1\. ROZWAŻANIE/gm, '🌙 *1. ROZWAŻANIE');
+  }
+  return out;
 }
