@@ -406,13 +406,23 @@
 /test/czat/ /test/czat/index.html 200
 /test/mess /test/czat/index.html 200
 /test/mess/ /test/czat/index.html 200
-# Spiritual Sounds × CC — WERSJA TESTOWA (@007 2026-11-18, noindex; produkcja /SpiritualSounds po ✅ L0)
-/test/spiritual-sounds /test/spiritual-sounds/index.html 200
-/test/spiritual-sounds/ /test/spiritual-sounds/index.html 200
-/test/spiritual-sounds/en /test/spiritual-sounds/en/index.html 200
-/test/spiritual-sounds/en/ /test/spiritual-sounds/en/index.html 200
-/test/spiritual-sounds/tv /test/spiritual-sounds/tv/index.html 200
-/test/spiritual-sounds/tv/ /test/spiritual-sounds/tv/index.html 200
+# Spiritual Sounds × CC — PRODUKCJA (/SpiritualSounds + /SpiritualSounds/tv)
+/SpiritualSounds /SpiritualSounds/index.html 200
+/SpiritualSounds/ /SpiritualSounds/index.html 200
+/SpiritualSounds/en /SpiritualSounds/en/index.html 200
+/SpiritualSounds/en/ /SpiritualSounds/en/index.html 200
+/SpiritualSounds/tv /SpiritualSounds/tv/index.html 200
+/SpiritualSounds/tv/ /SpiritualSounds/tv/index.html 200
+/spiritual-sounds /SpiritualSounds/ 301
+/spiritual-sounds/ /SpiritualSounds/ 301
+/spiritualsounds /SpiritualSounds/ 301
+/spiritualsounds/ /SpiritualSounds/ 301
+/test/spiritual-sounds /SpiritualSounds/ 301
+/test/spiritual-sounds/ /SpiritualSounds/ 301
+/test/spiritual-sounds/en /SpiritualSounds/en/ 301
+/test/spiritual-sounds/en/ /SpiritualSounds/en/ 301
+/test/spiritual-sounds/tv /SpiritualSounds/tv/ 301
+/test/spiritual-sounds/tv/ /SpiritualSounds/tv/ 301
 /lumina/studiodobregoslowa /lumina.studiodobregoslowa 200
 /lumina/studio-dobrego-slowa /lumina.studiodobregoslowa 200
 /studiodobregoslowa /lumina.studiodobregoslowa 200

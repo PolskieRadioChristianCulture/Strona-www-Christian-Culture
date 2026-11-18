@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const BASE = '/test/spiritual-sounds/';
+const BASE = '/SpiritualSounds/';
 const ORIGIN = 'https://polskieradio.cc';
 const PLAYLIST = 'PLD0gxYiiSZMA';
 const YT_CHANNEL = 'https://www.youtube.com/@SpiritualSoundsPsalmy';
@@ -175,8 +175,8 @@ function page(t) {
 ${GA}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- WYGENEROWANE: scripts/spiritual-sounds/buduj.mjs — nie edytuj ręcznie. WERSJA TESTOWA: noindex do akceptacji L0. -->
-<meta name="robots" content="noindex,nofollow">
+<!-- WYGENEROWANE: scripts/spiritual-sounds/buduj.mjs — nie edytuj ręcznie. PRODUKCJA: /SpiritualSounds/ (index,follow) -->
+<meta name="robots" content="index,follow">
 <meta name="theme-color" content="#04070f">
 <title>${t.title}</title>
 <meta name="description" content="${t.desc}">

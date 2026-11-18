@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "updatedAt": "2026-11-18T05:27:05.903Z",
-  "totalItems": 461,
+  "totalItems": 463,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1061,6 +1061,34 @@
     }
   },
   "items": [
+    {
+      "id": "spiritual-sounds-tv",
+      "title": "Spiritual Sounds TV 24/7 � Kana� Biblijny Non-Stop",
+      "description": "Ca�odobowy kana� muzyczno-biblijny Spiritual Sounds 24/7 z oficjalnej playlisty Psalm�w i S�owa Bo�ego.",
+      "url": "/SpiritualSounds/tv/",
+      "category": "live",
+      "keywords": [
+        "spiritual sounds tv",
+        "kana� 24/7",
+        "psalmy live",
+        "telewizja biblijna",
+        "non-stop"
+      ]
+    },
+    {
+      "id": "spiritual-sounds-main",
+      "title": "Spiritual Sounds � Psalmy i S�owo Bo�e w Muzyce",
+      "description": "Oficjalna wizyt�wka kana�u Spiritual Sounds � Christian Culture (PL/EN): Psalmy po polsku, muzyka biblijna 24/7 i playlisty.",
+      "url": "/SpiritualSounds/",
+      "category": "music",
+      "keywords": [
+        "spiritual sounds",
+        "psalmy",
+        "muzyka biblijna",
+        "psalmy po polsku",
+        "uwielbienie"
+      ]
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
