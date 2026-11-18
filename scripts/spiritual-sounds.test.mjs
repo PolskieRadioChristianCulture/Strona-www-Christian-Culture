@@ -183,12 +183,15 @@ test('kolejka: tylko poprawne ID YouTube, bez powtórzeń, kolejność autora', 
   assert.ok(tvJs.includes('upcoming(n, cur, 8, !Q && isCapped(n))'), 'w trybie kolejki lista nie jest „ucięta”');
 });
 
-test('endpoint pełnej playlisty: bez klucza 503, z kluczem cała lista stronami, klucz nigdy w odpowiedzi', async () => {
+test('endpoint pełnej playlisty: bez klucza ok:false, z kluczem cała lista stronami, klucz nigdy w odpowiedzi', async () => {
   const feed = await import('../services/spiritual-sounds/feed-service.js');
   const req = (q = '') => new Request(`https://x/api/spiritual-sounds/playlist${q}`);
   const noKey = await feed.handleSpiritualSoundsPlaylist(req(), {}, null, async () => { throw new Error('bez klucza nie wolno pytać API'); });
-  assert.equal(noKey.status, 503);
-  assert.equal((await noKey.json()).reason, 'brak-klucza');
+  // 200 + ok:false (Cloudflare na domenie podmienia odpowiedzi 5xx na własną stronę błędu — 18.11.2026)
+  assert.equal(noKey.status, 200);
+  const nk = await noKey.json();
+  assert.equal(nk.ok, false);
+  assert.equal(nk.reason, 'brak-klucza');
   const bad = await feed.handleSpiritualSoundsPlaylist(req('?list=PLobca'), { YT_API_KEY: 'k' }, null, async () => { throw new Error('x'); });
   assert.equal(bad.status, 400);
 
@@ -209,10 +212,16 @@ test('endpoint pełnej playlisty: bez klucza 503, z kluczem cała lista stronami
   assert.equal(body.total, 3);
   assert.ok(!text.includes(SECRET), 'klucz nie może trafić do odpowiedzi');
 
-  const failing = await feed.handleSpiritualSoundsPlaylist(req(), { YT_API_KEY: SECRET }, null, async () => ({ ok: false, status: 403, json: async () => ({}) }));
+  // Google odrzuca zapytanie: diagnoza (kod, status, powód) bez klucza — nawet gdy Google wstawi klucz do komunikatu.
+  const failing = await feed.handleSpiritualSoundsPlaylist(req(), { YT_API_KEY: SECRET }, null, async () => ({ ok: false, status: 403,
+    json: async () => ({ error: { status: 'PERMISSION_DENIED', message: 'Requests from referer <empty> are blocked. key=AIzaTESTTESTTESTTESTTESTTEST', errors: [{ reason: 'forbidden' }] } }) }));
   const ftext = await failing.text();
-  assert.equal(failing.status, 502);
+  assert.equal(failing.status, 200);
+  const fj = JSON.parse(ftext);
+  assert.equal(fj.ok, false);
+  assert.deepEqual([fj.detail.http, fj.detail.status, fj.detail.reason], [403, 'PERMISSION_DENIED', 'forbidden']);
   assert.ok(!ftext.includes(SECRET), 'klucz nie może trafić do komunikatu błędu');
+  assert.doesNotMatch(ftext, /AIza/, 'klucz z komunikatu Google zamaskowany');
   assert.match(read('_worker.js'), /url\.pathname === '\/api\/spiritual-sounds\/playlist'\) \{\s*return handleSpiritualSoundsPlaylist\(request, env, ctx\);/);
 });
 

@@ -80,7 +80,14 @@ export async function fetchFullPlaylist(list, key, fetchImpl = fetch, maxPages =
     u.searchParams.set('key', key);
     if (pageToken) u.searchParams.set('pageToken', pageToken);
     const r = await fetchImpl(u.toString(), { headers: { Accept: 'application/json' } });
-    if (!r.ok) throw new Error(`youtube-api ${r.status}`);
+    if (!r.ok) {
+      // Diagnoza bez klucza: tylko kod, status i powód z odpowiedzi Google (nigdy adres zapytania).
+      let g = {}; try { g = ((await r.json()) || {}).error || {}; } catch (_) {}
+      const err = new Error(`youtube-api ${r.status}`);
+      err.detail = { http: r.status, status: String(g.status || ''), reason: String((g.errors && g.errors[0] && g.errors[0].reason) || ''),
+        message: String(g.message || '').replace(/AIza[0-9A-Za-z_-]+/g, '[klucz]').slice(0, 160) };
+      throw err;
+    }
     const j = await r.json();
     for (const it of j.items || []) {
       const sn = it.snippet || {};
@@ -103,7 +110,7 @@ export async function handleSpiritualSoundsPlaylist(request, env, ctx, fetchImpl
   if (request.method !== 'GET') return new Response(JSON.stringify({ ok: false, reason: 'method' }), { status: 405, headers });
   if (!SS_ALLOWED_PLAYLISTS.has(list)) return new Response(JSON.stringify({ ok: false, reason: 'playlist' }), { status: 400, headers });
   const key = env && env.YT_API_KEY;
-  if (!key) return new Response(JSON.stringify({ ok: false, reason: 'brak-klucza' }), { status: 503, headers: { ...headers, 'Cache-Control': 'no-store' } });
+  if (!key) return new Response(JSON.stringify({ ok: false, reason: 'brak-klucza' }), { status: 200, headers: { ...headers, 'Cache-Control': 'no-store' } });
 
   const cacheKey = new Request(`https://polskieradio.cc/api/spiritual-sounds/playlist?list=${list}`);
   const cache = (typeof caches !== 'undefined' && caches.default) ? caches.default : null;
@@ -111,10 +118,11 @@ export async function handleSpiritualSoundsPlaylist(request, env, ctx, fetchImpl
   let items;
   try { items = await fetchFullPlaylist(list, key, fetchImpl); }
   catch (e) {
-    // Bez szczegółów (adres zapytania zawiera klucz) — tylko kod błędu.
-    return new Response(JSON.stringify({ ok: false, reason: 'youtube' }), { status: 502, headers: { ...headers, 'Cache-Control': 'no-store' } });
+    // Status 200 + ok:false: Cloudflare na domenie podmienia odpowiedzi 5xx na własną stronę błędu.
+    // Kanał przechodzi wtedy na tryb playlisty. Szczegóły bez klucza (adres zapytania nigdy nie wychodzi).
+    return new Response(JSON.stringify({ ok: false, reason: 'youtube', detail: e.detail || null }), { status: 200, headers: { ...headers, 'Cache-Control': 'no-store' } });
   }
-  if (!items.length) return new Response(JSON.stringify({ ok: false, reason: 'pusta' }), { status: 502, headers: { ...headers, 'Cache-Control': 'no-store' } });
+  if (!items.length) return new Response(JSON.stringify({ ok: false, reason: 'pusta' }), { status: 200, headers: { ...headers, 'Cache-Control': 'no-store' } });
   const body = JSON.stringify({ ok: true, playlist: list, total: items.length, items, fetchedAt: new Date().toISOString() });
   const res = new Response(body, { status: 200, headers: { ...headers, 'Cache-Control': 'public, max-age=21600' } });
   if (cache && ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, res.clone()));
