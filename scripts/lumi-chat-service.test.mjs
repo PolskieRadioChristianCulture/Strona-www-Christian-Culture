@@ -29,9 +29,9 @@ const MOCK_DATA = {
   }
 };
 
-test('Smart-catalog fallback odpowiada konkretnie na „Co dobrego w CC?” dla Rut, Lei i Noemi', async () => {
+test('Smart-catalog fallback odpowiada konkretnie na „Co dobrego w CC?” dla Rut, Lei, Noemi i Miriam', async () => {
   resetLumiChatState();
-  for (const id of ['rut', 'lea', 'noemi']) {
+  for (const id of ['rut', 'lea', 'noemi', 'miriam']) {
     const res = await processLumiChat(
       { assistantId: id, message: 'Co dobrego w CC?' },
       {},
@@ -44,6 +44,28 @@ test('Smart-catalog fallback odpowiada konkretnie na „Co dobrego w CC?” dla 
     assert.match(res.reply, /Rady Jetry/i);
     assert.ok(Array.isArray(res.actions) && res.actions.length >= 2);
   }
+  const aliasRes = await processLumiChat(
+    { assistantId: 'asystentka-4', message: 'Co dobrego w CC?' },
+    {},
+    { data: MOCK_DATA }
+  );
+  assert.equal(aliasRes.assistant, 'miriam');
+});
+
+test('GET /api/lumi-chat?daily=1 zwraca dialog 4 asystentek z dzisiejszego rozważania (0 kosztów)', async () => {
+  resetLumiChatState();
+  const r = await handleLumiChatApi(
+    new Request('https://polskieradio.cc/api/lumi-chat?daily=1', { method: 'GET' }),
+    {},
+    { data: MOCK_DATA }
+  );
+  assert.equal(r.status, 200);
+  const json = await r.json();
+  assert.equal(json.ok, true);
+  assert.equal(json.zeroCostGuaranteed, true);
+  assert.equal(json.dialogue.day, 48);
+  assert.equal(json.dialogue.turns.length, 4);
+  assert.deepEqual(json.dialogue.turns.map(t => t.name), ['Rut', 'Lea', 'Noemi', 'Miriam']);
 });
 
 test('Dopasowuje kontekstowy temat i werset UBG z katalogu CC', async () => {

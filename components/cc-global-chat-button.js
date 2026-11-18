@@ -112,6 +112,18 @@
       avatarFallback: '/images/chat/assistants/asystentka-3.jpg',
       greeting: 'Masz pytanie o radio, Biblię lub pomoc? Jestem tu dla Ciebie!',
       welcomeText: 'Pokój Boży! ✨ Nazywam się Noemi — jestem Asystentką Christian Culture i doradcą społeczności LUMINA.\n\nPomogę Ci w korzystaniu z interlinearnej Biblii, słuchowisk Biblia Audio i bezpośrednim kontakcie ze Sztabem CC.\n\nW czym mogę Ci służyć?'
+    },
+    {
+      id: 'asystentka-4',
+      name: 'Miriam · Uwielbienie CC',
+      shortName: 'Miriam',
+      role: 'Psalmy i uwielbienie',
+      badge: 'Przewodniczka Słowa i Pieśni',
+      avatar: '/images/chat/assistants/asystentka-4.webp',
+      circleAvatar: '/images/chat/lumi_avatar_miriam_circle.webp',
+      avatarFallback: '/images/chat/assistants/asystentka-4.jpg',
+      greeting: 'Chwała Panu! 🎶 Posłuchajmy razem Psalmów, pieśni i rozważmy dzisiejsze Słowo.',
+      welcomeText: 'Niech będzie pochwalony Pan! 🎶 Nazywam się Miriam — prowadzę w Christian Culture przez Psalmy, muzykę uwielbienia i codzienne rozważania.\n\nChętnie wskażę Ci Spiritual Sounds 24/7, Biblię Śpiewaną, listę topTEN i rozważanie dnia.\n\nCzego dziś szukasz?'
     }
   ];
 
@@ -2371,7 +2383,7 @@
               <span>🌐</span><span>Czat ogólny</span>
             </button>
             <button type="button" class="cc-mode-tab-btn" id="ccModeAssistantBtn" data-chat-mode="assistant" role="tab" aria-selected="false">
-              <span>✨</span><span>Asystentki CC (3)</span>
+              <span>✨</span><span>Asystentki CC (4)</span>
             </button>
           </div>
 
@@ -4814,24 +4826,88 @@
     });
   }
 
+  let dailyDialogueCache = null;
+  let dailyDialogueFetching = false;
+  let dailyDialogueCollapsed = false;
+
+  function renderDailyDialogueCardHtml() {
+    if (!dailyDialogueCache || !Array.isArray(dailyDialogueCache.turns) || !dailyDialogueCache.turns.length) {
+      if (!dailyDialogueFetching) {
+        dailyDialogueFetching = true;
+        fetch('/api/lumi-chat?daily=1')
+          .then(r => r.ok ? r.json() : null)
+          .then(data => {
+            if (data && data.ok && data.dialogue) {
+              dailyDialogueCache = data.dialogue;
+              if (currentChatPartner && currentChatPartner.isPublic) renderChatMessages();
+            }
+          })
+          .catch(() => {});
+      }
+      return '';
+    }
+    const d = dailyDialogueCache;
+    const turnsHtml = dailyDialogueCollapsed ? '' : `
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+        ${d.turns.map(t => `
+          <div style="display:flex;gap:8px;align-items:flex-start;background:rgba(13,16,32,0.55);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:8px 10px;">
+            <img src="${escapeHtml(t.avatar)}" alt="${escapeHtml(t.name)}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1.5px solid #D8AD57;flex-shrink:0;margin-top:2px;" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+            <div style="min-width:0;flex:1;">
+              <div style="font-size:0.74rem;font-weight:700;color:#E2CC9A;">${escapeHtml(t.name)} <span style="font-weight:500;color:#8E99B3;">· ${escapeHtml(t.role)}</span></div>
+              <div style="font-size:0.8rem;line-height:1.45;color:#EEF1F8;margin-top:2px;">${escapeHtml(t.text)}</div>
+            </div>
+          </div>
+        `).join('')}
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+          <a href="${escapeHtml(d.lessonUrl || '/akademia/kurscodzienny')}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border-radius:999px;background:#FF7A00;color:#FFFFFF;font-weight:700;font-size:0.76rem;text-decoration:none;">📖 Czytaj całość${d.day ? ` (Dzień ${escapeHtml(String(d.day))})` : ''}</a>
+          <button type="button" class="cc-showcase-pill is-primary" style="min-height:36px;font-size:0.76rem;" onclick="window.setCCChatMode('assistant')">✨ Zapytaj Asystentki (4)</button>
+        </div>
+      </div>
+    `;
+    return `
+      <div id="ccPublicDailyDialogue" style="border:1px solid rgba(216,173,87,0.32);background:linear-gradient(145deg,rgba(24,29,56,0.92),rgba(14,18,36,0.95));border-radius:16px;padding:12px 13px;margin-bottom:6px;box-shadow:0 6px 20px rgba(0,0,0,0.28);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <div style="min-width:0;">
+            <div style="font-size:0.72rem;font-weight:800;letter-spacing:0.04em;color:#D8AD57;text-transform:uppercase;">☀️ Rozważanie dnia · Dialog 4 Asystentek</div>
+            <div style="font-size:0.86rem;font-weight:700;color:#FFFFFF;margin-top:2px;line-height:1.3;">${escapeHtml(d.title || 'Z Biblią za Pan Brat')}${d.reading ? ` <span style="color:#A5AEC4;font-weight:500;">(${escapeHtml(d.reading)})</span>` : ''}</div>
+          </div>
+          <button type="button" id="ccToggleDailyDialogueBtn" aria-label="Zwiń lub rozwiń rozważanie dnia" style="min-width:36px;min-height:36px;border-radius:10px;border:1px solid rgba(216,173,87,0.3);background:rgba(255,255,255,0.05);color:#E2CC9A;cursor:pointer;font-size:0.82rem;flex-shrink:0;">${dailyDialogueCollapsed ? '▾ Rozwiń' : '▴ Zwiń'}</button>
+        </div>
+        ${turnsHtml}
+      </div>
+    `;
+  }
+
+  function bindDailyDialogueToggle() {
+    const btn = document.getElementById('ccToggleDailyDialogueBtn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        dailyDialogueCollapsed = !dailyDialogueCollapsed;
+        renderChatMessages();
+      });
+    }
+  }
+
   function renderChatMessages() {
     const list = document.getElementById('ccChatMessagesList');
     if (!list) return;
 
     const msgs = getChatMessagesForPartner(currentChatPartner);
     const user = getUserState();
+    const dailyHtml = currentChatPartner.isPublic ? renderDailyDialogueCardHtml() : '';
 
     if (!msgs || msgs.length === 0) {
       if (currentChatPartner.isPublic) {
-        list.innerHTML = `
+        list.innerHTML = dailyHtml + `
           <div class="cc-chat-empty-state" style="text-align:center;padding:22px 14px;color:#A5AEC4;border:1px dashed rgba(216,173,87,0.22);border-radius:16px;background:rgba(255,255,255,0.02);">
             <div style="font-size:1.35rem;margin-bottom:6px;" aria-hidden="true">🌐</div>
             <div style="font-weight:700;color:#F7F8FC;font-size:0.94rem;margin-bottom:4px;">Czat Ogólny Społeczności LUMINA</div>
             <p style="font-size:0.83rem;line-height:1.5;max-width:300px;margin:0 auto;color:#A5AEC4;">
-              Tutaj toczy się wspólna rozmowa społeczności. Jeśli chcesz porozmawiać 1:1 z Rut, Leą lub Noemi, wybierz zakładkę „Asystentki CC (3)” powyżej.
+              Tutaj toczy się wspólna rozmowa społeczności. Jeśli chcesz porozmawiać 1:1 z Rut, Leą, Noemi lub Miriam, wybierz zakładkę „Asystentki CC (4)” powyżej.
             </p>
           </div>
         `;
+        bindDailyDialogueToggle();
         return;
       } else {
         list.innerHTML = `
@@ -4857,7 +4933,7 @@
       return;
     }
 
-    let html = '';
+    let html = dailyHtml;
     msgs.forEach(m => {
       const isMe = m.isMe || (user.uid && (m.senderAuthUid === user.uid || m.senderUid === user.uid)) || (user.slug && m.senderId === user.slug);
       const name = escapeHtml(m.senderName || (isMe ? user.name : currentChatPartner.name));
@@ -4900,6 +4976,7 @@
       `;
     });
     list.innerHTML = html;
+    bindDailyDialogueToggle();
   }
 
   

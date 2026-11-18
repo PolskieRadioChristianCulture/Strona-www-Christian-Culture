@@ -52,8 +52,82 @@ const PERSONAS = {
     role: 'Doradca',
     greeting: 'Pokój Tobie! Jestem Noemi. Jeśli szukasz wsparcia w Słowie Bożym, modlitwie lub codziennym rozważaniu — jestem tu dla Ciebie.',
     system: 'Jesteś Noemi — łagodną, biblijną doradczynią w Christian Culture (polskieradio.cc). Kierujesz się wyłącznie Pismem Świętym (UBG) i Ewangelią Jezusa Chrystusa. Pocieszasz, wskazujesz wersety i modlitwę. Odpowiadasz spokojnie, z szacunkiem po polsku (2-4 zdania).'
+  },
+  miriam: {
+    name: 'Miriam',
+    role: 'Psalmy i Uwielbienie',
+    greeting: 'Niech będzie pochwalony Pan! Jestem Miriam — prowadzę przez Psalmy, muzykę uwielbienia i codzienne rozważania w duchu wdzięczności.',
+    system: 'Jesteś Miriam — radosną, rozmodloną przewodniczką po Psalmach, pieśniach uwielbienia i codziennych rozważaniach w Christian Culture (polskieradio.cc). Wskazujesz Spiritual Sounds 24/7, Biblię Śpiewaną, topTEN i rozważania dnia. Odpowiadasz ciepło i poetycko-konkretnie po polsku (2-4 zdania).'
   }
 };
+
+const ASSISTANT_ALIASES = {
+  'asystentka-1': 'rut',
+  'asystentka-2': 'lea',
+  'asystentka-3': 'noemi',
+  'asystentka-4': 'miriam',
+  rut: 'rut',
+  lea: 'lea',
+  noemi: 'noemi',
+  miriam: 'miriam'
+};
+
+export function resolveAssistantKey(id) {
+  const k = String(id || '').trim().toLowerCase();
+  return ASSISTANT_ALIASES[k] || 'rut';
+}
+
+export function buildDailyDialogue(reflection) {
+  if (!reflection) return null;
+  const day = reflection.day || '';
+  const title = String(reflection.title || '').replace(/^☀️\s*/, '').trim();
+  const reading = reflection.reading || '';
+  const verse = reflection.memoryVerse || '';
+  const teaser = reflection.teaser || reflection.theme || '';
+  const firstSentence = String(teaser).split(/(?<=[.!?])\s+/)[0] || teaser;
+
+  const turns = [
+    {
+      assistantId: 'rut',
+      name: 'Rut',
+      role: 'Gospodyni CC',
+      avatar: '/images/chat/lumi_avatar_rut_circle.webp',
+      text: `Dzień dobry kochani! ${day ? `Dziś Dzień ${day}` : 'Dziś'} rozważamy: „${title}”${reading ? ` (${reading})` : ''}. ${firstSentence}`
+    },
+    {
+      assistantId: 'lea',
+      name: 'Lea',
+      role: 'Planista',
+      avatar: '/images/chat/lumi_avatar_lea_circle.webp',
+      text: `Zróbmy z tego konkretny krok na dziś: poświęć 10 minut na spokojną lekturę ${reading || 'dzisiejszego fragmentu'} i zastosuj jedną myśl w swojej codzienności.`
+    },
+    {
+      assistantId: 'noemi',
+      name: 'Noemi',
+      role: 'Doradca',
+      avatar: '/images/chat/lumi_avatar_noemi_circle.webp',
+      text: verse
+        ? `Słowo do serca na ten dzień: ${verse}`
+        : `Pamiętajmy, że w każdej sprawie możemy przyjść z modlitwą do naszego Pana Jezusa Chrystusa.`
+    },
+    {
+      assistantId: 'miriam',
+      name: 'Miriam',
+      role: 'Psalmy i Uwielbienie',
+      avatar: '/images/chat/lumi_avatar_miriam_circle.webp',
+      text: `Panie, dziękujemy Ci za Twoje Słowo i prowadzenie na cały dzień! Zapraszamy Was do wspólnej rozmowy poniżej oraz do pełnej lekcji w Akademii.`
+    }
+  ];
+
+  return {
+    day,
+    date: reflection.date || '',
+    title,
+    reading,
+    lessonUrl: day ? `/akademia/kurscodzienny/dzien-${day}` : '/akademia/kurscodzienny',
+    turns
+  };
+}
 
 export function resetLumiChatState() {
   ipBuckets.clear();
@@ -261,6 +335,13 @@ function buildSmartCatalogReply(query, personaKey, ecoData) {
         mode: 'smart-catalog'
       };
     }
+    if (personaKey === 'miriam') {
+      return {
+        reply: `Chwała Panu!${refPart} Zapraszam Cię do uwielbienia w Spiritual Sounds 24/7, Biblii Śpiewanej i wspólnego rozważania Słowa Bożego.`,
+        actions,
+        mode: 'smart-catalog'
+      };
+    }
     return {
       reply: `W Christian Culture zawsze czeka na Ciebie coś dobrego bez opłat i algorytmów!${refPart} Polecam szczególnie muzykę biblijną Spiritual Sounds 24/7, bezpłatne Kino VOD oraz naszą listę topTEN.`,
       actions,
@@ -383,7 +464,7 @@ async function callWorkersAi(env, systemPrompt, query) {
 }
 
 export async function processLumiChat({ assistantId = 'rut', message = '', history = [] }, env = {}, deps = {}) {
-  const personaKey = PERSONAS[assistantId] ? assistantId : 'rut';
+  const personaKey = resolveAssistantKey(assistantId);
   const persona = PERSONAS[personaKey];
   const cleanMsg = String(message || '').trim().slice(0, 600);
 
@@ -453,6 +534,17 @@ export async function handleLumiChatApi(request, env = {}, deps = {}) {
   }
 
   if (request.method === 'GET') {
+    const reqUrl = new URL(request.url);
+    if (reqUrl.searchParams.get('daily') === '1') {
+      const ecoData = await getEcosystemData(env, deps.data);
+      const reflection = pickTodayReflection(ecoData.reflections);
+      const dialogue = buildDailyDialogue(reflection);
+      return Response.json({
+        ok: Boolean(dialogue),
+        zeroCostGuaranteed: true,
+        dialogue
+      }, { headers: { 'Cache-Control': 'public, max-age=300' } });
+    }
     return Response.json({
       ok: true,
       service: 'lumi-chat-assistants',
