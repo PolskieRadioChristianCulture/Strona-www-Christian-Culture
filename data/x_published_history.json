@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "topTEN",
+      "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+      "url": "https://polskieradio.cc/topTEN",
+      "type": "music",
+      "image": "wspieramto-banner.png",
+      "publishedAt": "2026-11-18T16:03:32.039Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=336",
       "title": "Werset Dnia: „Pochłonie śmierć na wieki i obetrze Pan Bóg łzy z wszelkiego oblicza” (Księga Izajasza 25:8, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=336",
