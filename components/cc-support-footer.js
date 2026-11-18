@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ══════════════════════════════════════════════════════════════════════════
  * CHRISTIAN CULTURE — SUPPORT FOOTER COMPONENT
  * Plik: /components/cc-support-footer.js (or /js/cc-support-footer.js)
@@ -543,7 +543,7 @@
     if (!window.CCGlobalChatButton && !document.getElementById('ccGlobalChatScript') && !document.querySelector('script[src*="cc-global-chat-button"]')) {
       const chatScript = document.createElement('script');
       chatScript.id = 'ccGlobalChatScript';
-      chatScript.src = '/components/cc-global-chat-button.js?v=20261118_miriam4';
+      chatScript.src = '/components/cc-global-chat-button.js?v=20261118_miriam5';
       chatScript.defer = true;
       document.head.appendChild(chatScript);
     }

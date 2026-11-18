@@ -1220,13 +1220,20 @@
       }
 
       .cc-asst-picker-strip {
-        display: flex !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
         align-items: stretch !important;
         gap: 6px !important;
         padding: 8px 14px !important;
         background: rgba(21, 25, 43, 0.92) !important;
         border-bottom: 1px solid rgba(133, 71, 216, 0.35) !important;
         flex-shrink: 0 !important;
+      }
+
+      @media (min-width: 520px) {
+        .cc-asst-picker-strip {
+          grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        }
       }
 
       .cc-asst-picker-strip[hidden],
@@ -2387,7 +2394,7 @@
             </button>
           </div>
 
-          <!-- WYBÓR JEDNEJ Z 3 ASYSTENTEK (ZAWSZE WIDOCZNY W TRYBIE ASYSTENTEK) -->
+          <!-- WYBÓR JEDNEJ Z 4 ASYSTENTEK (ZAWSZE WIDOCZNY W TRYBIE ASYSTENTEK) -->
           <div class="cc-asst-picker-strip" id="ccAssistantSelectorStrip" role="radiogroup" aria-label="Wybierz Asystentkę Christian Culture" hidden>
             <button type="button" class="cc-asst-pick-btn cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut — Gospodyni LUMI MESS">
               <span class="cc-asst-pick-avatar-wrap" aria-hidden="true">
@@ -2417,6 +2424,16 @@
               <span class="cc-asst-pick-meta">
                 <span class="cc-asst-pick-name">Noemi</span>
                 <span class="cc-asst-pick-role">Doradca</span>
+              </span>
+            </button>
+            <button type="button" class="cc-asst-pick-btn cc-trio-card" data-asst-id="asystentka-4" role="radio" aria-checked="false" aria-label="Wybierz Miriam — Psalmy i uwielbienie">
+              <span class="cc-asst-pick-avatar-wrap" aria-hidden="true">
+                <img src="/images/chat/lumi_avatar_miriam_circle.webp" alt="Miriam" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-4.jpg'">
+                <span class="cc-asst-pick-dot"></span>
+              </span>
+              <span class="cc-asst-pick-meta">
+                <span class="cc-asst-pick-name">Miriam</span>
+                <span class="cc-asst-pick-role">Uwielbienie</span>
               </span>
             </button>
           </div>
@@ -2734,6 +2751,7 @@
                 <button type="button" class="cc-showcase-pill" style="min-height:44px;" data-asst-id="asystentka-1" onclick="window.selectAssistantAndRefresh('asystentka-1', true)">Rut</button>
                 <button type="button" class="cc-showcase-pill" style="min-height:44px;" data-asst-id="asystentka-2" onclick="window.selectAssistantAndRefresh('asystentka-2', true)">Lea</button>
                 <button type="button" class="cc-showcase-pill" style="min-height:44px;" data-asst-id="asystentka-3" onclick="window.selectAssistantAndRefresh('asystentka-3', true)">Noemi</button>
+                <button type="button" class="cc-showcase-pill" style="min-height:44px;" data-asst-id="asystentka-4" onclick="window.selectAssistantAndRefresh('asystentka-4', true)">Miriam</button>
               </div>
             </div>
 
@@ -2741,7 +2759,7 @@
               <span style="font-size:0.86rem;font-weight:700;display:block;margin-bottom:8px;">Szybkie przełączenie pokoju:</span>
               <div style="display:flex;gap:8px;flex-wrap:wrap;">
                 <button type="button" class="cc-showcase-pill" style="min-height:44px;" id="ccMoreGoPublicBtn">🌐 Czat ogólny</button>
-                <button type="button" class="cc-showcase-pill is-primary" style="min-height:44px;" id="ccMoreGoAsstBtn">✨ Asystentki CC (3)</button>
+                <button type="button" class="cc-showcase-pill is-primary" style="min-height:44px;" id="ccMoreGoAsstBtn">✨ Asystentki CC (4)</button>
               </div>
             </div>
 
@@ -2923,6 +2941,7 @@
         if (publicBackBtn) publicBackBtn.hidden = true;
         if (headerSub) headerSub.textContent = 'Na żywo w Chrystusie';
         if (inputEl) inputEl.placeholder = 'Napisz na Czacie Ogólnym...';
+        if (typeof renderChatMessages === 'function') renderChatMessages();
       }
     }
 
