@@ -16,6 +16,9 @@
 
   // Polecamy w ekosystemie — te same miejsca co w Master (zweryfikowane adresy na polskieradio.cc).
   var PROMOS = [
+    { id: 'wizytowka', href: '/wizyt%C3%B3wka', img: '/assets/promo/promo-wizytowka-16x9.jpg?v=20261118_4', imgLang: 'pl',
+      k: 'Wizytówki CC', kEn: 'Business Cards', h: 'Wizytówki Christian Culture', hEn: 'Christian Culture Cards',
+      p: 'Bezpłatna promocja chrześcijańskich twórców, autorów i inicjatyw — zgłoś się na WhatsApp.', pEn: 'Free promotion for Christian creators, authors and initiatives.', u: 'polskieradio.cc/wizytówka' },
     { id: 'wspieraj', href: '/wspieraj', img: '/assets/promo/promo-wspieraj-klasyczny.webp', imgLang: 'pl',
       k: 'Wspieram to', kEn: 'I support this', h: 'Pomóż nieść Słowo dalej', hEn: 'Help carry the Word further',
       p: 'Modlitwa, darowizna, BLIK, przelew albo patronat — każda forma pomaga.', pEn: 'Prayer, donation, BLIK, transfer or patronage — every way helps.', u: 'polskieradio.cc/wspieraj' },
@@ -39,6 +42,7 @@
     return [
       { id: 'now', b: en ? 'Now on the channel' : 'Teraz na kanale', t: en ? 'Spiritual Sounds 24/7' : 'Spiritual Sounds 24/7', href: null, live: 'now' },
       { id: 'latest', b: en ? 'Latest' : 'Najnowsze', t: '…', href: null, live: 'latest' },
+      { id: 'wizytowka', cc: true, b: en ? 'Cards' : 'Wizytówki', t: en ? 'Free promotion for Christian creators — <strong>polskieradio.cc/wizytówka</strong>' : 'Bezpłatna promocja chrześcijańskich twórców i inicjatyw — <strong>polskieradio.cc/wizytówka</strong>', href: '/wizyt%C3%B3wka' },
       { id: 'wspieraj', cc: true, b: en ? 'I support this' : 'Wspieram to', t: en ? 'Help the Psalms reach further — <strong>polskieradio.cc/wspieraj</strong>' : 'Pomóż nieść Psalmy dalej — <strong>polskieradio.cc/wspieraj</strong>', href: '/wspieraj' },
       { id: 'patronite', cc: true, b: en ? 'Patronage' : 'Patronat', t: '<strong>patronite.pl/osobowoscplus</strong>', href: 'https://patronite.pl/osobowoscplus' },
       { id: 'biblia-audio', b: en ? 'Audio Bible' : 'Biblia Audio', t: en ? 'All Scripture to listen to — <strong>polskieradio.cc/biblia-audio</strong>' : 'Całe Pismo do słuchania — <strong>polskieradio.cc/biblia-audio</strong>', href: '/biblia-audio' },

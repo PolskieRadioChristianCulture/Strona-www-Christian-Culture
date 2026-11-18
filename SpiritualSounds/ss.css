@@ -65,6 +65,9 @@ button{font:inherit}
 .menu a.is-247{color:var(--amber2)}
 .nav__actions{display:flex;align-items:center;gap:8px;flex:none}
 .nav__actions .cc-topbar-fav-btn{border-color:var(--line)!important;background:rgba(10,14,28,.6)!important;color:var(--amber2)!important}
+.nav__actions .cc-auth-google-btn,.nav__actions .cc-auth-user-pill{min-height:44px!important;height:44px!important;padding:0 14px 0 10px!important;font-size:13px!important;line-height:1!important;border-radius:999px!important;box-sizing:border-box!important}
+.nav__actions .cc-auth-google-btn svg{width:16px!important;height:16px!important}
+@media (max-width:560px){.nav__actions .cc-auth-google-btn,.nav__actions .cc-auth-user-pill{min-height:44px!important;height:44px!important;padding:0 11px!important;font-size:12px!important}.nav__actions .cc-auth-lumina-tag{display:none!important}}
 .support-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;background:linear-gradient(180deg,var(--cc2),var(--cc3));color:#1a0d00;font:800 13.5px/1 var(--sans);letter-spacing:.04em;text-decoration:none;box-shadow:0 10px 26px -12px rgba(255,122,0,.9);transition:transform .2s var(--spring),box-shadow .2s;white-space:nowrap}
 .support-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 16px 32px -12px rgba(255,122,0,1)}
 .support-btn svg{width:16px;height:16px}
