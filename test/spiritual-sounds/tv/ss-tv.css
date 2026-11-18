@@ -1,0 +1,111 @@
+/* Spiritual Sounds 24/7 — kanał (WERSJA TESTOWA), @007 2026-11-18.
+ * Filozofia Mastera (duży centralny player, minimum rozpraszaczy, status 24/7, pełny ekran), własny wygląd. */
+:root{
+  --ink:#060a16;--navy:#0a1124;--navy2:#111a33;--line:rgba(241,201,138,.16);--line2:rgba(244,237,225,.10);
+  --amber:#e3a857;--amber2:#f1c98a;--cream:#f4ede1;--text:#e9e4da;--muted:#a9b0c2;--cc:#FF7A00;
+  --top:60px;--bar:76px;--ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--ink);color:var(--text);font:400 16px/1.5 "Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:radial-gradient(80% 60% at 50% 30%,rgba(227,168,87,.10),transparent 65%),linear-gradient(180deg,var(--navy),var(--ink) 70%);min-height:100svh}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber2);outline-offset:3px;border-radius:8px}
+.tv-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tv-skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--amber);color:var(--ink);padding:10px 16px;border-radius:10px;font-weight:800;text-decoration:none}
+.tv-skip:focus{top:12px}
+.tv-testbar{background:#1d1608;color:var(--amber2);font:600 12.5px/1.4 inherit;text-align:center;padding:6px 12px;border-bottom:1px solid var(--line)}
+
+/* Górny pasek */
+.tv-top{display:flex;align-items:center;gap:14px;min-height:var(--top);padding:8px max(16px,env(safe-area-inset-left)) 8px max(16px,env(safe-area-inset-left));border-bottom:1px solid var(--line2)}
+.tv-brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-height:44px;margin-right:auto;min-width:0}
+.tv-brand img{width:36px;height:36px;border-radius:50%;box-shadow:0 0 0 1px var(--line);flex:none}
+.tv-brand b{display:block;font:600 19px/1.05 "Cormorant Garamond",Georgia,serif;color:var(--cream);letter-spacing:.02em;white-space:nowrap}
+.tv-brand small{display:block;font:700 10.5px/1.2 inherit;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.tv-status{display:flex;gap:8px;list-style:none;margin:0;padding:0}
+.tv-pill{display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--line);font:700 11px/1 inherit;letter-spacing:.14em;text-transform:uppercase;color:var(--amber2);white-space:nowrap}
+.tv-pill--air{background:rgba(227,168,87,.10)}
+.tv-pill--cc{color:#ffd2a6;border-color:rgba(255,122,0,.35);background:rgba(255,122,0,.08)}
+.tv-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:tvpulse 2.6s ease-out infinite}
+@keyframes tvpulse{0%{box-shadow:0 0 0 0 rgba(227,168,87,.55)}80%,100%{box-shadow:0 0 0 9px rgba(227,168,87,0)}}
+.tv-lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.tv-lang a{min-width:44px;min-height:40px;display:inline-flex;align-items:center;justify-content:center;font:700 12.5px/1 inherit;letter-spacing:.08em;text-decoration:none;color:var(--muted)}
+.tv-lang a[aria-current="true"]{background:var(--amber);color:var(--ink)}
+@media (max-width:1000px){.tv-hide-sm{display:none}.tv-brand small{display:none}}
+@media (max-width:560px){.tv-hide-xs{display:none}.tv-brand small{display:none}}
+@media (max-width:380px){.tv-status{display:none}}
+
+/* Scena z playerem: 16:9, mieści się w pierwszym ekranie */
+.tv-main{padding:clamp(10px,2vw,22px) 0 40px}
+.tv-stage{display:flex;justify-content:center;padding:0 clamp(0px,2vw,24px)}
+.tv-frame{position:relative;width:min(100%,calc((100svh - var(--top) - var(--bar) - 70px) * 16 / 9));min-width:min(100%,560px);aspect-ratio:16/9;background:#000;border-radius:clamp(0px,1.4vw,18px);overflow:hidden;box-shadow:0 0 0 1px var(--line2),0 40px 90px -40px rgba(0,0,0,.9)}
+@media (max-width:700px){.tv-stage{padding:0}.tv-frame{width:100%;min-width:0;border-radius:0}}
+#tv-player,.tv-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.tv-cover{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:14px;background:radial-gradient(60% 70% at 50% 45%,#121a35,#05080f);transition:opacity 600ms var(--ease);text-align:center;padding:16px}
+.tv-cover img{width:min(34%,260px);aspect-ratio:1;border-radius:50%;-webkit-mask-image:radial-gradient(circle,#000 58%,transparent 71%);mask-image:radial-gradient(circle,#000 58%,transparent 71%);animation:tvbreathe 6s ease-in-out infinite}
+.tv-cover p{margin:0;font:600 clamp(13px,1.6vw,16px)/1.4 inherit;letter-spacing:.06em;color:var(--muted)}
+.tv-cover.is-off{opacity:0;pointer-events:none}
+@keyframes tvbreathe{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.04);opacity:1}}
+.tv-badge{position:absolute;left:14px;top:12px;display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:999px;background:rgba(6,10,22,.6);backdrop-filter:blur(6px);font:800 10.5px/1 inherit;letter-spacing:.16em;text-transform:uppercase;color:var(--amber2);pointer-events:none}
+/* Duży przycisk dźwięku — na dole kadru, nie zasłania środka obrazu */
+.tv-sound{position:absolute;left:12px;right:12px;margin-inline:auto;width:fit-content;bottom:clamp(12px,4%,32px);display:inline-flex;align-items:center;justify-content:center;text-align:center;gap:12px;min-height:56px;padding:0 26px;border-radius:999px;border:0;cursor:pointer;background:linear-gradient(180deg,#f0c27c,#e0a24c);color:#1a1205;font:800 clamp(13px,1.6vw,16px)/1.15 inherit;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 18px 40px -16px rgba(227,168,87,.8),0 0 0 6px rgba(227,168,87,.16);transition:transform 220ms var(--ease)}
+.tv-sound:hover{transform:translateY(-2px)}
+.tv-sound svg{width:24px;height:24px;flex:none}
+.tv-sound[hidden]{display:none}
+@media (max-width:520px){.tv-sound-more{display:none}}
+@media (max-width:420px){.tv-sound{min-height:48px;padding:0 16px;gap:8px}.tv-sound svg{width:20px;height:20px}}
+
+/* Pseudo-pełny ekran (iPhone nie obsługuje pełnego ekranu dla elementu) */
+.tv-stage.is-pseudo-fs{position:fixed;inset:0;z-index:200;background:#000;padding:0;align-items:center}
+.tv-stage.is-pseudo-fs .tv-frame,.tv-stage:fullscreen .tv-frame{width:min(100vw,177.78vh);min-width:0;border-radius:0}
+.tv-stage:fullscreen{background:#000;align-items:center;padding:0}
+
+/* Pasek sterowania */
+.tv-bar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;width:min(1280px,100% - 32px);margin:14px auto 0;padding:10px 12px;border-radius:18px;border:1px solid var(--line2);background:rgba(255,255,255,.025)}
+.tv-ctrls{display:flex;gap:6px}
+.tv-btn{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;border:1px solid var(--line2);background:rgba(244,237,225,.04);color:var(--cream);cursor:pointer;transition:background 200ms var(--ease),border-color 200ms var(--ease)}
+.tv-btn:hover{background:rgba(227,168,87,.14);border-color:var(--line)}
+.tv-btn svg{width:22px;height:22px}
+#tv-play .i-play,#tv-play.is-paused .i-pause{display:none}
+#tv-play.is-paused .i-play{display:block}
+#tv-mute .i-sound,#tv-mute[aria-pressed="false"] .i-muted{display:none}
+#tv-mute[aria-pressed="false"] .i-sound{display:block}
+.tv-now{display:flex;align-items:center;gap:12px;min-width:0}
+.tv-now img{width:96px;height:54px;object-fit:cover;border-radius:8px;background:var(--navy2);flex:none}
+.tv-now div{min-width:0}
+.tv-now small{display:block;font:700 10.5px/1.2 inherit;letter-spacing:.18em;text-transform:uppercase;color:var(--amber2)}
+.tv-now a{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--cream);font-weight:600;text-decoration:none;line-height:1.35;padding:2px 0}
+.tv-now a:hover{text-decoration:underline;text-underline-offset:3px}
+.tv-links{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.tv-link{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid rgba(244,237,225,.22);text-decoration:none;font:700 13px/1.1 inherit;color:var(--cream);white-space:nowrap}
+.tv-link:hover{border-color:var(--amber2)}
+@media (max-width:1000px){.tv-bar{grid-template-columns:auto 1fr}.tv-links{grid-column:1/-1;justify-content:flex-start}}
+@media (max-width:640px){
+  .tv-bar{grid-template-columns:1fr;width:calc(100% - 24px);gap:12px}
+  .tv-ctrls{justify-content:space-between}
+  .tv-btn{width:auto;flex:1;height:48px}
+  .tv-now img{width:80px;height:45px}
+  .tv-link{flex:1 1 auto;justify-content:center;white-space:normal;text-align:center}
+}
+
+/* Dalej w playliście */
+.tv-next{width:min(1280px,100% - 32px);margin:26px auto 0}
+.tv-next__head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tv-next h2{margin:0;font:500 clamp(22px,2.6vw,28px)/1.2 "Cormorant Garamond",Georgia,serif;color:var(--cream)}
+.tv-count{margin:0;color:var(--muted);font-size:14px}
+.tv-rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(180px,1fr);gap:12px;list-style:none;margin:14px 0 0;padding:0 0 8px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain}
+.tv-rail li{scroll-snap-align:start}
+.tv-rail button{display:block;width:100%;padding:0;border:1px solid var(--line2);border-radius:12px;overflow:hidden;background:var(--navy2);cursor:pointer;color:var(--muted);text-align:left;transition:border-color 200ms var(--ease),transform 200ms var(--ease)}
+.tv-rail button:hover{border-color:var(--line);transform:translateY(-2px)}
+.tv-rail img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.tv-rail span{display:block;padding:8px 10px;font:700 11px/1.2 inherit;letter-spacing:.14em;text-transform:uppercase}
+.tv-note{color:var(--muted);font-size:14px;max-width:80ch;margin:16px 0 0}
+.tv-note a{color:var(--amber2)}
+@media (max-width:640px){.tv-next{width:calc(100% - 24px)}.tv-rail{grid-auto-columns:62%}}
+
+@media (prefers-reduced-motion:reduce){
+  .tv-dot{animation-duration:5s}
+  .tv-cover img{animation-duration:12s}
+  .tv-rail button:hover,.tv-sound:hover{transform:none}
+}
