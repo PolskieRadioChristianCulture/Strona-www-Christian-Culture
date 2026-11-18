@@ -160,12 +160,18 @@ async function publishMissionControl() {
     const nazirGroupId = '120363403565056716@g.us';
     const bartekTarget = '48509370007@c.us';
 
+    const warsawHourNow = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Warsaw', hour: '2-digit', hour12: false }).format(new Date()));
+    const isAfternoonNow = warsawHourNow >= 12;
+    const ttsLabel = isAfternoonNow ? '1. ROZWAŻANIE POPOŁUDNIOWE (TTS)' : '1. ROZWAŻANIE PORANNE (TTS)';
+    const ttsHeader = isAfternoonNow ? 'WERSJA POPOŁUDNIOWA TTS' : 'WERSJA PORANNA TTS';
+    const normT = s => isAfternoonNow ? String(s || '').replace(/Poranne rozważanie/g, 'Popołudniowe rozważanie').replace(/poranne rozważanie/g, 'popołudniowe rozważanie').replace(/Rozważanie poranne/g, 'Rozważanie popołudniowe').replace(/rozważanie poranne/g, 'rozważanie popołudniowe') : String(s || '');
+
     const nazirCommands = [
       {
         action: 'send_whatsapp_message',
         chatId: nazirGroupId,
-        command: `wyślij celowane [${nazirGroupId}]: 📖 *1. ROZWAŻANIE PORANNE (TTS)* — Dzień ${DAY_NUM}\n\n${contentApp}`,
-        message: `📖 *WERSJA PORANNA TTS (Dzień ${DAY_NUM})*\n\n${contentApp}`,
+        command: `wyślij celowane [${nazirGroupId}]: 📖 *${ttsLabel}* — Dzień ${DAY_NUM}\n\n${normT(contentApp)}`,
+        message: `📖 *${ttsHeader} (Dzień ${DAY_NUM})*\n\n${normT(contentApp)}`,
         priority: 'high', status: 'pending', date: DATE_STR, dayNumber: DAY_NUM,
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
         source: 'auto_universal_publisher'
@@ -239,7 +245,9 @@ async function publishMissionControl() {
     const mc = require(path.join(WEKTOR_ROOT, 'mc_d1_client'));
     const nazirGroupId = '120363403565056716@g.us';
     const bartekTarget = '48509370007@c.us';
-    await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: 📖 *1. ROZWAŻANIE PORANNE (TTS)* — Dzień ${DAY_NUM}\n\n${contentApp}`, nazirGroupId, 9, DAY_NUM);
+    const warsawHourD1 = Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Warsaw', hour: '2-digit', hour12: false }).format(new Date()));
+    const ttsLabelD1 = warsawHourD1 >= 12 ? '1. ROZWAŻANIE POPOŁUDNIOWE (TTS)' : '1. ROZWAŻANIE PORANNE (TTS)';
+    await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: 📖 *${ttsLabelD1}* — Dzień ${DAY_NUM}\n\n${contentApp}`, nazirGroupId, 9, DAY_NUM);
     await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: ☀️ *2. ROZWAŻANIE NA CAŁY DZIEŃ (WWW)* — Dzień ${DAY_NUM}\n\n${contentWeb}`, nazirGroupId, 8, DAY_NUM);
     if (contentSms) {
       await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: 🌙 *3. ROZWAŻANIE WIECZORNE (SMS)* — Dzień ${DAY_NUM}\n\n${contentSms}`, nazirGroupId, 7, DAY_NUM);
