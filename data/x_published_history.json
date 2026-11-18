@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "pl",
+      "title": "Ark of Fire — Chrześcijański Rock i Metal z Holandii w Polskim Radiu CC",
+      "url": "https://polskieradio.cc/ArkOfFire/pl/",
+      "type": "music",
+      "image": "ark-of-fire-hero.webp",
+      "publishedAt": "2026-11-18T20:33:18.645Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=337",
       "title": "Werset Dnia: „W powrocie i spokoju będzie wasze ocalenie, w ciszy i zaufaniu wasza siła” (Księga Izajasza 30:15, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=337",
