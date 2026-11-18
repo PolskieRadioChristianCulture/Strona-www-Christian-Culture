@@ -167,6 +167,7 @@ footer a{color:var(--o2);font-weight:800}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#5fd39a;color:#04210f;font-weight:800;padding:12px 18px;border-radius:12px;z-index:50}
 @media (max-width:980px){.hero{grid-template-columns:minmax(0,1fr)}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){.grid{grid-template-columns:minmax(0,1fr)}.stats .v{font-size:26px}.feature{min-height:260px}.onair span{display:none}}
+.cc-broadcast-number{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:12px;color:var(--o2)}.cc-broadcast-number img{border-radius:6px}.honest{color:var(--dim);font-size:13px;margin:16px 0 0}
 </style>
 
 </head>
@@ -217,6 +218,7 @@ footer a{color:var(--o2);font-weight:800}
     </div>
   </div>
 
+  <p class="honest">Katalog nie jest wskaźnikiem trwającej transmisji. „Teraz” pokazuje pasmo według ramówki.</p>
   <div class="filters" role="group" aria-label="Filtruj kanały">
     <button type="button" id="fAll" data-f="all" aria-pressed="true">Wszystkie</button>
     <button type="button" id="fTv" data-f="tv" aria-pressed="false">Telewizja</button>
@@ -240,6 +242,10 @@ footer a{color:var(--o2);font-weight:800}
 <script>
 const BASE='https://polskieradio.cc/';
 const IMG="/assets/nadawaj/" + "img/";
+// Oficjalne numery kanałów z data/cc-channels.json (kanały nadawcze 1–17)
+const CC_NUM={"master-live":1,"cctv24":1,"zapolske-live":2,"tv-epafraz-live":3,"apokalipsa-ksiega-nadziei-live":4,"randki-malzenstwo-live":5,"studium-live":6,"totalny-atak-live":7,"kino-live":8,"spiewajmy-panu-live":9,"swiadectwa-live":10,"nocne-czuwanie-live":11,"biblia-spiewana-live":12,"biblia-spiewana-vertical":12,"cctv24-worship":13,"cctv24-worship-live":13,"stream-scene":14,"stream-scene-vertical":14,"dzj-vertical-live":14,"cctv24-global":15,"bibleaudio-global":16,"BCM24":17};
+const ccNum=f=>CC_NUM[String(f).replace(/.html$/,"")];
+const numChip=f=>{const n=ccNum(f);return n?'<span class="cc-broadcast-number" data-cc-channel-number="'+n+'"><img src="/images/channels/channel-'+String(n).padStart(2,"0")+'.webp" width="22" height="22" alt="" loading="lazy"><span>Kanał '+n+'</span></span>':""};
 const G=[
  {id:'tv',name:'Telewizja 24/7',sub:'Kanały ogólne i wydania specjalne',items:[
   {f:'cctv24-pl.html',img:'dzj-presenters',b:'Rozważanie dnia · Noemi i Sara',t:'Dobrze, że jesteś TV (16:9)',d:'Codzienne rozważanie jako rozmowa prowadzących, pogoda, intencje i ramówka.',nw:1},
@@ -250,7 +256,7 @@ const G=[
   {ad:1,n:1,txt:'Twój baner /wspieraj (16:9)',img:'promo'}
  ]},
  {id:'kurs',name:'Kursy i studium',sub:'Systematyczna nauka Pisma',items:[
-  {f:'apokalipsa-ksiega-nadziei-live.html',img:'tlo_ksiega_nadziei',b:'Kurs biblijny · 10:00 i 22:00',t:'Apokalipsa: Księga Nadziei (16:9)',d:'28 lekcji o proroctwach Księgi Objawienia.',at:[10,11,22,23]},
+  {f:'apokalipsa-ksiega-nadziei-live.html',img:'tlo_ksiega_nadziei',b:'Kurs biblijny · 10:00 i 22:00',t:'Apokalipsa: Księga Nadziei (16:9)',d:'28 lekcji cyklu o proroctwach Księgi Objawienia.',at:[10,11,22,23]},
   {f:'apokalipsa-live.html',img:'tv24-cc',b:'Codziennie',t:'Apokalipsa Dzień po Dniu',d:'Codzienna transmisja cyklu o Księdze Objawienia.',nw:1},
   {f:'studium-live.html',img:'tlo_studium',b:'Studium biblijne · 08:00 i 20:00',t:'Studium Telewizyjne Pisma Świętego',d:'572 wykłady werset po wersecie.',at:[8,9]},
   {f:'totalny-atak-live.html',img:'walter_veith',b:'Wykłady · Pn–Pt 18:00',t:'Totalny Atak — Prof. Walter Veith',d:'Wykłady biblijne, apologetyczne i profetyczne.',at:[18,19],wd:[1,2,3,4,5]},
@@ -282,7 +288,7 @@ const now=new Date(),H=now.getHours(),WD=now.getDay();
 const isOn=x=>x.at&&x.at.includes(H)&&(!x.wd||x.wd.includes(WD));
 const card=x=>x.ad?(x.img?`<a class="ad" href="${BASE}wspieraj" target="_blank" rel="noopener" data-kind="ad"><img src="/assets/promo/promo-wspieraj-klasyczny.webp" alt="Pomóż nam nieść Ewangelię dalej – polskieradio.cc/wspieraj" loading="lazy"><span class="lab">BANER ${x.n}</span></a>`:`<div class="ad empty" data-kind="ad"><div><b>${x.txt}</b>Wstawimy tu Twoją grafikę 1280×720</div><span class="lab">BANER ${x.n}</span></div>`):
  `<article class="card" data-kind="ch"><a class="thumb" href="${BASE}${x.f}" target="_blank" rel="noopener" aria-label="Otwórz ${x.t}"><img src="${IMG}${x.img}.webp" alt="" loading="lazy"><span class="play"><span>▶</span></span>${x.nw?'<span class="chip new">NOWY NA LIŚCIE</span>':''}${isOn(x)?'<span class="chip onnow">● TERAZ</span>':''}</a>
-  <div class="body"><div class="badge">${x.b}</div><h3>${x.t}</h3><p>${x.d}</p></div>
+  <div class="body">${numChip(x.f)}<div class="badge">${x.b}</div><h3>${x.t}</h3><p>${x.d}</p></div>
   <div class="acts"><a class="go" href="${BASE}${x.f}" target="_blank" rel="noopener">Oglądaj</a><button class="sec" type="button" data-copy="${BASE}${x.f}" data-what="URL dla OBS">OBS</button><button class="sec" type="button" data-copy='<iframe src="${BASE}${x.f}" width="1280" height="720" allow="autoplay; fullscreen" style="border:0"></iframe>' data-what="Kod do osadzenia">&lt;/&gt;</button></div></article>`;
 document.getElementById('groups').innerHTML=G.map(g=>`<section id="g-${g.id}" data-group="${g.id}"><div class="gh"><h2>${g.name}</h2><span>${g.sub}</span></div><div class="grid">${g.items.map(card).join('')}</div></section>`).join('');
 document.getElementById('vert').innerHTML=V.map(x=>x.ad?`<div class="vcard ad9"><div class="ph"><div><b>Miejsce na baner nr 4</b><br>9:16 · 1080×1920<br>np. na relacje</div></div><div class="b"><b>BANER 4</b><small>pionowy</small></div></div>`:`<a class="vcard" href="${BASE}${x.f}" target="_blank" rel="noopener"><div class="ph"><img src="${IMG}${x.img}.webp" alt="" loading="lazy" style="object-position:center"></div><div class="b"><b>${x.t}</b><small>Format ${x.s}</small></div></a>`).join('');
@@ -301,7 +307,7 @@ document.getElementById('onairName').textContent=rows[0][1];
   const CH=[{f:'master-live',img:'tv24_master_live',t:'Telewizja Christian Culture 24/7',b:'Główny kanał nadawczy',d:'Master Live przełącza pasma sam, całą dobę.'}];
   G.forEach(g=>g.items.forEach(x=>{if(!x.ad)CH.push({f:x.f.replace(/\.html$/,''),img:x.img,t:x.t,b:x.b,d:x.d,on:isOn(x)})}));
   const L=CH.slice(0,14),n=L.length,step=360/n;
-  ring.innerHTML=L.map((c,i)=>`<div class="screen${i===0?' on':''}" style="--a:${i*step}deg" data-i="${i}" role="button" tabindex="0" aria-label="${c.t}"><img src="${IMG}${c.img}.webp" alt="" loading="lazy">${c.on||i===0?'<span class="lv">● NA ŻYWO</span>':''}<span class="nm">${c.t}</span></div>`).join('');
+  ring.innerHTML=L.map((c,i)=>`<div class="screen${i===0?' on':''}" style="--a:${i*step}deg" data-i="${i}" role="button" tabindex="0" aria-label="${c.t}"><img src="${IMG}${c.img}.webp" alt="" loading="lazy">${i===0?'<span class="lv">24/7</span>':(c.on?'<span class="lv">W RAMÓWCE</span>':'')}<span class="nm">${c.t}</span></div>`).join('');
   let cur=0,auto=true,ry=0;
   const fT=document.getElementById('fTitle'),fB=document.getElementById('fBadge'),fD=document.getElementById('fDesc'),fG=document.getElementById('fGo'),focus=document.getElementById('focus');
   function go(i,user){cur=(i+n)%n;ry=-cur*step;ring.style.setProperty('--ry',ry+'deg');

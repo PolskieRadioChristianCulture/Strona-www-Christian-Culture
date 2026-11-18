@@ -30,22 +30,20 @@ test('portrait scene variants retain their channel number, while articles are no
   assert.equal(channelForPath('/news/example-article'),undefined);
 });
 
-test('build adds correct numbering to all 19 catalogue scenes without changing scene links or players',async()=>{
+// @007 2026-11-18: nowa /nadawaj (L0 17.11) buduje karty w JS; numery kanałów ma w mapie CC_NUM zgodnej z rejestrem.
+test('catalogue /nadawaj shows the official number for every numbered broadcast scene',async()=>{
   const raw=fs.readFileSync('nadawaj.html','utf8');
   const html=applyPageStandard('nadawaj.html',raw);
   assert.equal(applyPageStandard('nadawaj.html',html),html);
-  const win=new Window({settings:{disableJavaScriptEvaluation:true,disableJavaScriptFileLoading:true,disableCSSFileLoading:true,disableIframePageLoading:true}});
-  try{
-    win.document.write(html);
-    const cards=[...win.document.querySelectorAll('.broadcast-card')];
-    assert.equal(cards.length,19);
-    for(const card of cards){
-      const link=card.querySelector('.card-title a');
-      assert.equal(card.querySelector('[data-cc-channel-number]').getAttribute('data-cc-channel-number'),String(channelForPath(link.getAttribute('href')).number));
-      assert.equal(card.querySelector('.card-img-wrapper').getAttribute('href'),link.getAttribute('href'));
-      assert.equal(card.querySelectorAll('iframe,audio,video').length,0);
-    }
-  }finally{await win.happyDOM.close()}
+  const map=JSON.parse(raw.match(/const CC_NUM=(\{[^;]+\});/)[1]);
+  const files=[...raw.matchAll(/\{f:'([^']+\.html)'/g)].map(m=>m[1]);
+  let numbered=0;
+  for(const file of files){
+    const ch=channelForPath(file);
+    if(ch&&ch.kind==='broadcast'){numbered++;assert.equal(map[file.replace(/\.html$/,'')],ch.number,file);}
+  }
+  assert.ok(numbered>=15,'za mało numerowanych scen: '+numbered);
+  assert.match(raw,/data-cc-channel-number=/);
 });
 
 test('all CCN portal roots get an accessible identity strip; protected broadcast sources remain byte-identical',()=>{

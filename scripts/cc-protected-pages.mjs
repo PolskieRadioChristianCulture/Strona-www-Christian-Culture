@@ -44,6 +44,12 @@ export const PROTECTED_PAGES = [
     approved: 'L0 17.11.2026 (nowa /nadawaj: intro CC TV, pierścień kanałów, 25 kanałów)',
     markers: ['id="tvhero"', 'id="ring"'],
   },
+  {
+    file: 'wspieraj.html',
+    url: 'https://polskieradio.cc/wspieraj',
+    approved: 'L0 18.11.2026 (nowa /wspieraj: glob 3D, szybki BLIK, konto LUMINA i podziękowania)',
+    markers: ['id="ccAuthWidgetSlot"', 'id="gifts"'],
+  },
 ];
 
 const normalize = (text) => String(text).replace(/\r\n/g, '\n');

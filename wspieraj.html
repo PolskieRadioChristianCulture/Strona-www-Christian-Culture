@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -10,140 +10,400 @@
 
   gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
-
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Wspieraj misję Christian Culture | Modlitwa, darowizny, współpraca</title>
-<meta name="description" content="Razem niesiemy nadzieję dalej. Wesprzyj Christian Culture przez modlitwę, udostępnianie, wolontariat, BLIK, przelew, Patronite lub Revolut.">
-<meta name="robots" content="index,follow,max-image-preview:large"><meta name="theme-color" content="#040d15">
 <link rel="canonical" href="https://polskieradio.cc/wspieraj">
-<meta property="og:type" content="website"><meta property="og:locale" content="pl_PL"><meta property="og:site_name" content="Christian Culture">
-<meta property="og:title" content="Razem niesiemy nadzieję dalej — Christian Culture"><meta property="og:description" content="Nie każdy może dać pieniądze. Każdy może pomóc nieść Ewangelię dalej. Wybierz swoją formę wsparcia."><meta property="og:url" content="https://polskieradio.cc/wspieraj"><meta property="og:image" content="https://polskieradio.cc/assets/cc-support/social.jpg"><meta property="og:image:alt" content="Złote światła Europy z kosmosu — Christian Culture"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Wspieraj misję Christian Culture"><meta name="twitter:description" content="Modlitwa, darowizny i współpraca. Razem niesiemy nadzieję dalej."><meta name="twitter:image" content="https://polskieradio.cc/assets/cc-support/social.jpg">
-<link rel="stylesheet" href="assets/cc-support/support.css?v=20261012_ticker_v6"><link rel="preload" as="image" href="assets/cc-support/earth.webp">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Christian Culture">
+<meta property="og:title" content="Razem niesiemy nadzieję dalej — Christian Culture">
+<meta property="og:description" content="Nie każdy może dać pieniądze. Każdy może pomóc nieść Ewangelię dalej. Wybierz swoją formę wsparcia.">
+<meta property="og:url" content="https://polskieradio.cc/wspieraj">
+<meta property="og:image" content="https://polskieradio.cc/assets/cc-support/social.jpg">
+<meta property="og:image:alt" content="Złote światła Europy z kosmosu — Christian Culture">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wspieraj misję Christian Culture">
+<meta name="twitter:description" content="Modlitwa, darowizny i współpraca. Razem niesiemy nadzieję dalej.">
+<meta name="twitter:image" content="https://polskieradio.cc/assets/cc-support/social.jpg">
+<meta name="description" content="Wesprzyj Christian Culture: BLIK, przelew, Patronite, Revolut, zbiórki, modlitwa i wolontariat. Razem niesiemy Słowo na cały świat.">
+<link rel="icon" href="/app-christian-culture.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://polskieradio.cc/wspieraj#page","url":"https://polskieradio.cc/wspieraj","name":"Centrum Wsparcia Misji Christian Culture","description":"Wsparcie Christian Culture przez modlitwę, darowizny, wolontariat i udostępnianie.","inLanguage":"pl-PL","breadcrumb":{"@id":"https://polskieradio.cc/wspieraj#breadcrumbs"},"isPartOf":{"@type":"WebSite","url":"https://polskieradio.cc/","name":"Christian Culture"}},{"@type":"BreadcrumbList","@id":"https://polskieradio.cc/wspieraj#breadcrumbs","itemListElement":[{"@type":"ListItem","position":1,"name":"Christian Culture","item":"https://polskieradio.cc/"},{"@type":"ListItem","position":2,"name":"Wspieraj misję","item":"https://polskieradio.cc/wspieraj"}]}]}</script>
 <script src="/js/cc-global-auth.js?v=20261007_auth_v2" defer></script>
 <script type="module" src="assets/cc-support/support.js?v=20261012_ticker_v6"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: pełnoekranowe wejście (glob 3D, do którego płyną strumienie wsparcia) → szybkie przyciski daru → zasięg misji na bębenkach → „co daje Twój dar” → dane do przelewu → inne formy pomocy. Styl Skarbca, ciemny. */
+:root{
+  --bg:#07080d; --bg2:#0d1018; --panel:rgba(20,24,36,.66); --line:rgba(255,190,120,.16);
+  --fg:#f7f3ec; --muted:#c3bcb0; --dim:#8d877d;
+  --gold:#f2c46d; --orange:#FF7A00; --orange2:#FF8C33; --orange3:#E66A00; --good:#5fd39a;
+  --f-display:"Unbounded","Segoe UI",system-ui,sans-serif;
+  --f-body:"Manrope","Segoe UI",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);font-weight:800;letter-spacing:-.01em;text-wrap:balance;margin:0}
+.num{font-weight:800;font-variant-numeric:tabular-nums lining-nums}
+.eyebrow{font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange2)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:8px}
+.aurora{position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 20% 30%,rgba(255,122,0,.10),transparent 70%),radial-gradient(35% 30% at 80% 70%,rgba(242,196,109,.07),transparent 70%);animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(6%,-5%) rotate(8deg)}}
+#progress{position:fixed;left:0;top:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--orange3),var(--orange),var(--gold));z-index:30}
+
+/* top */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:linear-gradient(var(--bg) 40%,rgba(7,8,13,0))}
+.ticker{overflow:hidden;border-bottom:1px solid var(--line);background:rgba(255,122,0,.06);-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.tk{display:flex;gap:40px;width:max-content;padding:7px 0;animation:tk 34s linear infinite;font-size:14px;font-weight:600;white-space:nowrap;color:var(--muted)}
+.tk b{color:var(--gold)}
+@keyframes tk{to{transform:translateX(-50%)}}
+.bar{display:flex;align-items:center;gap:14px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:14px;letter-spacing:.04em;text-decoration:none}
+.brand img{width:36px;height:36px;filter:drop-shadow(0 0 10px rgba(242,196,109,.45))}
+nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+nav a{text-decoration:none;font-weight:700;font-size:14px;color:var(--muted);padding:10px 12px;border-radius:10px;min-height:44px;display:inline-flex;align-items:center}
+nav a:hover{color:var(--fg);background:rgba(255,255,255,.05)}
+nav a[aria-current]{color:#1a0d00;background:var(--orange)}
+.demo-pill{font-weight:800;font-size:12px;color:#1a0d00;background:var(--gold);padding:6px 12px;border-radius:99px;white-space:nowrap}
+
+/* hero */
+.hero{position:relative;min-height:min(720px,90vh)}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:24px;align-items:center;min-height:min(720px,90vh);padding-block:24px 48px;pointer-events:none}
+.hero-copy{pointer-events:auto;animation:rise 1.1s cubic-bezier(.2,.8,.2,1) backwards}
+.hero h1{font-size:clamp(34px,5.4vw,68px);line-height:1.02;margin:12px 0 16px}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,var(--gold),var(--orange) 55%,var(--orange3));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:goldflow 6s ease-in-out infinite alternate}
+@keyframes goldflow{to{background-position:100% 0}}
+.hero p.lead{font-size:18px;max-width:40ch;margin:0 0 22px;text-shadow:0 2px 14px rgba(0,0,0,.85)}
+@keyframes rise{from{transform:translateY(30px);opacity:0}}
+.cta-row{display:flex;flex-wrap:wrap;gap:10px}
+.btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:14px;font-weight:800;font-size:16px;transition:transform .2s,box-shadow .3s,background .3s}
+.btn.primary{background:linear-gradient(100deg,var(--orange2),var(--orange));color:#1a0d00;box-shadow:0 10px 30px -10px var(--orange);animation:pulse 2.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,122,0,.5),0 10px 30px -10px var(--orange)}70%{box-shadow:0 0 0 14px rgba(255,122,0,0),0 10px 30px -10px var(--orange)}100%{box-shadow:0 0 0 0 rgba(255,122,0,0),0 10px 30px -10px var(--orange)}}
+.btn.ghost{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--fg)}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:scale(.97)}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.quick{pointer-events:auto;justify-self:end;width:min(100%,400px);display:grid;gap:10px;animation:rise 1.1s .2s cubic-bezier(.2,.8,.2,1) backwards}
+.glass{background:var(--panel);border:1px solid var(--line);border-radius:18px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.quick .glass{background:rgba(14,16,26,.84)}
+.qcard{padding:16px 18px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;transition:transform .3s,border-color .3s}
+.qcard:hover{transform:translateX(-4px);border-color:rgba(255,140,51,.5)}
+.qcard .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;background:rgba(255,122,0,.14);color:var(--orange2)}
+.qcard h3{font-family:var(--f-body);font-size:16px;font-weight:800}
+.qcard .v{font-size:20px;letter-spacing:.02em}
+.qcard small{display:block;color:var(--muted);font-size:13px}
+.copy{all:unset;cursor:pointer;min-height:44px;min-width:44px;padding:0 14px;border-radius:10px;font-weight:800;font-size:14px;background:rgba(255,255,255,.07);display:inline-flex;align-items:center;justify-content:center;transition:background .2s}
+.copy:hover{background:rgba(255,122,0,.2)}
+.copy.ok{background:var(--good);color:#04210f}
+.copy:focus-visible{outline:2px solid var(--orange)}
+
+/* sections */
+section{padding-block:80px 8px;scroll-margin-top:100px}
+.sec-head{margin-bottom:26px;display:grid;gap:8px}
+.sec-head h2{font-size:clamp(24px,3vw,36px)}
+.sec-head p{color:var(--muted);max-width:60ch;margin:0;font-size:17px}
+.sec-head h2 .w{display:inline-block;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .8s;transition-delay:calc(var(--i)*70ms)}
+.js .sec-head:not(.in) h2 .w{transform:translateY(.6em) rotateX(-60deg);opacity:.2}
+.reveal{transition:transform 1s cubic-bezier(.2,.8,.2,1),opacity 1s,filter 1s;transition-delay:calc(var(--d,0)*90ms)}
+.js .reveal:not(.in){transform:translateY(46px) rotateX(12deg) scale(.96);opacity:.25;filter:blur(3px)}
+main{perspective:1400px}
+
+/* reach counters */
+.reach{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat{padding:22px}
+.stat .v{font-size:clamp(30px,3.6vw,44px);line-height:1.1}
+.stat .lab{color:var(--muted);font-size:15px;margin-top:6px}
+.src-note{font-size:13px;color:var(--dim);margin-top:12px}
+
+/* impact */
+.impact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.imp-l{padding:26px}
+.amounts{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.amounts button{all:unset;cursor:pointer;min-height:52px;min-width:84px;padding:0 16px;border-radius:14px;font-weight:800;font-size:18px;text-align:center;background:rgba(255,255,255,.06);border:1px solid var(--line);transition:all .25s}
+.amounts button[aria-pressed="true"]{background:var(--orange);color:#1a0d00;border-color:var(--orange);transform:translateY(-2px)}
+.amounts button:focus-visible{outline:2px solid var(--gold)}
+.imp-r{padding:26px;display:grid;gap:12px;align-content:start}
+.gift{display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;align-items:center;padding:12px;border-radius:14px;background:rgba(255,255,255,.03);transition:transform .5s,opacity .5s}
+.gift .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:rgba(242,196,109,.12)}
+.gift b{display:block;font-size:17px}
+.gift span{color:var(--muted);font-size:14px}
+.gift.swap{transform:translateX(16px);opacity:0}
+.demo-note{font-size:13px;color:var(--gold);margin-top:6px}
+
+/* payment */
+.pay{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;perspective:1000px}
+.pcard{padding:22px;position:relative;overflow:hidden;transform-style:preserve-3d}
+.pcard,.way{transition:transform .9s cubic-bezier(.2,.8,.2,1) calc(var(--d,0)*90ms),opacity 1s calc(var(--d,0)*90ms),filter 1s calc(var(--d,0)*90ms),border-color .3s}
+.pcard.tilting{transition:transform .12s ease-out,border-color .3s}
+.pcard::before{content:"";position:absolute;inset:-1px;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(255,122,0,.16),transparent 45%);pointer-events:none}
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+.pcard::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:conic-gradient(from var(--ang),transparent 0 70%,var(--orange) 80%,var(--gold) 85%,transparent 95%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 6s linear infinite;animation-delay:calc(var(--d,0)*-1s);pointer-events:none}
+@keyframes spin{to{--ang:360deg}}
+.pcard .k{font-size:13px;color:var(--orange2);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.pcard h3{font-family:var(--f-body);font-size:19px;margin:6px 0 2px}
+.pcard p{margin:0;color:var(--muted);font-size:14px}
+.pcard .acc{font-size:clamp(17px,1.6vw,20px);margin:16px 0 12px;letter-spacing:.02em;word-break:break-word}
+.pcard .row{display:flex;gap:8px;flex-wrap:wrap}
+.pcard a.link{min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border-radius:10px;font-weight:800;font-size:14px;text-decoration:none;background:var(--orange);color:#1a0d00}
+.recipient{margin-top:14px;font-size:15px;color:var(--muted)}
+
+/* ways */
+.ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.way{padding:20px;text-decoration:none;display:grid;gap:6px}
+.way.in:hover{transform:translateY(-6px);transition-delay:0s;border-color:rgba(255,140,51,.5)}
+.way .ic{font-size:26px;animation:bob 4s ease-in-out infinite;animation-delay:calc(var(--d,0)*-.7s);display:inline-block}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.way h3{font-family:var(--f-body);font-size:18px}
+.way p{margin:0;color:var(--muted);font-size:14px}
+.verse{text-align:center;padding-block:90px 30px}
+.verse q{font-family:var(--f-display);font-size:clamp(24px,3.6vw,44px);font-weight:800;quotes:"„" "”"}
+.verse cite{display:block;margin-top:12px;color:var(--orange2);font-style:normal;font-weight:800}
+footer{padding-block:30px 50px;color:var(--dim);font-size:14px;border-top:1px solid var(--line);margin-top:40px}
+footer a{color:var(--muted)}
+
+/* odometer */
+.odo{display:inline-flex;align-items:flex-end;white-space:nowrap;vertical-align:bottom}
+.odo>span:not(.reel){white-space:pre;display:inline-block;height:1.18em;line-height:1.18em}
+.reel{display:inline-block;height:1.18em;line-height:1.18em;overflow:hidden;position:relative}
+.reel>i{display:flex;flex-direction:column;font-style:normal;transition:transform 1.4s cubic-bezier(.3,1.25,.5,1)}
+.reel>i>b{display:block;height:1.18em;font-weight:inherit;text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;background:var(--good);color:#04210f;font-weight:800;padding:12px 18px;border-radius:12px;animation:toast 2.4s forwards}
+@keyframes toast{0%{opacity:0;transform:translate(-50%,14px)}12%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
+
+@media (max-width:980px){
+  .reach{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pay,.ways{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .impact{grid-template-columns:minmax(0,1fr)}
+  nav{display:none}
+}
+@media (max-width:720px){
+  .hero,.hero .wrap{min-height:0}
+  .hero .wrap{grid-template-columns:minmax(0,1fr);padding-top:250px}
+  #scene{height:380px}
+  .hero-copy{position:relative}
+  .quick{justify-self:stretch;width:100%}
+  .pay,.ways{grid-template-columns:minmax(0,1fr)}
+  .demo-pill{margin-left:auto}
+}
+</style>
+
+<style>
+/* @007: wygląd przeniesionych sekcji (podziękowania, konto, FAQ, kontakt) w stylu nowej strony */
+html,body{margin:0}
+.auth-slot{display:flex;align-items:center;flex:none}
+.auth-slot .cc-auth-widget-container{margin:0 !important}
+@media (max-width:980px){.auth-slot{margin-left:auto}.menu-toggle{margin-left:8px}}
+.menu-toggle{all:unset;display:none;cursor:pointer;margin-left:auto;min-height:44px;padding:0 14px;border-radius:10px;font-weight:800;background:rgba(255,255,255,.06);border:1px solid var(--line)}
+@media (max-width:980px){.menu-toggle{display:inline-flex;align-items:center}nav#navigation{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#07080d;padding:10px 16px;border-bottom:1px solid var(--line)}nav#navigation.open{display:flex}.bar{position:relative}}
+.thanks-bar{border-bottom:1px solid var(--line);background:rgba(255,122,0,.06);padding-block:0 !important}
+.legacy > section{padding-block:0 !important}
+.thanks-inner{display:flex;align-items:center;gap:12px;max-width:1200px;margin:0 auto;padding:6px max(16px,env(safe-area-inset-left,0px))}
+.thanks-inner strong{font-weight:800;font-size:12px;letter-spacing:.14em;color:var(--gold)}
+.thanks-viewport{flex:1;overflow-x:auto;scrollbar-width:none;-webkit-mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.thanks-viewport::-webkit-scrollbar{display:none}
+#thanks-list{display:flex;gap:34px;list-style:none;margin:0;padding:4px 0;white-space:nowrap;font-weight:600;font-size:14px;color:var(--muted)}
+.thanks-controls{display:flex;gap:4px}.thanks-controls button{all:unset;cursor:pointer;width:32px;height:32px;display:grid;place-items:center;border-radius:8px;background:rgba(255,255,255,.06);font-size:14px}
+.thanks-caption{display:none}
+.legacy{padding-block:60px 0}
+.legacy h2{font-family:var(--f-display);font-size:clamp(22px,2.6vw,30px);margin:0 0 14px}
+.legacy .detail-card,.legacy .faq details{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
+.legacy label{display:block;margin:12px 0 6px;font-weight:600}
+.legacy input[type=text]{width:100%;max-width:420px;min-height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:#0b0d14;color:var(--fg);font:inherit}
+.legacy input[type=checkbox]{accent-color:var(--orange);width:20px;height:20px;margin-right:8px;vertical-align:middle}
+.legacy .note,.legacy .auth-status{color:var(--muted);font-size:14px}
+.legacy .btn,.legacy button:not(.copy){display:inline-flex;align-items:center;min-height:46px;padding:0 18px;border-radius:12px;font-weight:800;background:linear-gradient(100deg,var(--orange2),var(--orange));color:#1a0d00;border:none;cursor:pointer;text-decoration:none;font:inherit;font-weight:800}
+.legacy .faq{display:grid;gap:10px}.legacy .faq summary{cursor:pointer;font-weight:800;font-size:16px;min-height:28px}.legacy .faq p{color:var(--muted);margin:10px 0 0}
+.legacy .contact .inline-actions,.legacy .inline-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.legacy .contact .btn{background:rgba(255,255,255,.06);color:var(--fg);border:1px solid var(--line)}
+button.way{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:6px;padding:20px}
+.toast#status:empty{display:none}
+#status{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:40;background:var(--good);color:#04210f;font-weight:800;padding:12px 18px;border-radius:12px}
+</style>
 </head>
 <body>
-<a class="skip" href="#main">Przejdź do treści</a>
-<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
-<symbol id="heart" viewBox="0 0 48 48"><path d="M24 22C5 10 18 0 24 10c6-10 19 0 0 12ZM5 29h8l8-3 8 3c4 2 1 6-2 5l-8-2m-14-3v13h9l14 3 15-12c3-3-1-6-4-4l-10 6"/></symbol>
-<symbol id="prayer" viewBox="0 0 48 48"><path d="m24 7-4 14-7 10 7 11 4-15V7Zm0 0 4 14 7 10-7 11-4-15M13 31l-5 4 9 10 3-3m15-11 5 4-9 10-3-3"/></symbol>
-<symbol id="people" viewBox="0 0 48 48"><circle cx="24" cy="12" r="7"/><circle cx="7" cy="16" r="4"/><circle cx="41" cy="16" r="4"/><path d="M13 42V30c0-12 22-12 22 0v12ZM10 25c-9-2-9 8-9 13h7m30-13c9-2 9 8 9 13h-7"/></symbol>
-<symbol id="share" viewBox="0 0 48 48"><circle cx="9" cy="24" r="6"/><circle cx="37" cy="8" r="6"/><circle cx="37" cy="40" r="6"/><path d="m14 21 17-10M14 27l17 10"/></symbol>
-<symbol id="handshake" viewBox="0 0 48 48"><path d="m3 18 6-9 10 3 10-3 10 3 6 14-7 4-10 11-6-3-5-4-6-5-5 2-4-8Zm8-5-5 17m32-15 5 14M19 12l-7 11c-1 4 3 5 5 2l6-6 15 11m-17-4 11 10m-16-4 10 9"/></symbol>
-<symbol id="laptop" viewBox="0 0 48 48"><path d="M7 8h34v27H7Zm0 27-5 7h44l-5-7M18 38h12"/></symbol>
-<symbol id="phone" viewBox="0 0 48 48"><rect x="12" y="2" width="24" height="44" rx="4"/><path d="M20 6h8m-7 35h6"/><text x="24" y="25" fill="currentColor" stroke="none" text-anchor="middle" font-size="11">blik</text></symbol>
-<symbol id="gift" viewBox="0 0 48 48"><path d="M6 18h36v9H6Zm3 9v18h30V27M24 18v27M24 18C-1 14 14-9 24 18c10-27 25-4 0 0"/></symbol>
-<symbol id="bag" viewBox="0 0 48 48"><path d="M9 16h30l5 29H4ZM17 20V10c0-13 14-13 14 0v10"/></symbol>
-</defs></svg>
-<header><div class="wrap header-inner"><a class="brand" href="https://polskieradio.cc/" aria-label="Christian Culture — strona główna"><img src="assets/cc-support/logo.png" alt="Christian Culture" class="brand-logo" width="38" height="38">CHRISTIAN CULTURE</a><button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="navigation">Menu</button><nav id="navigation" aria-label="Menu główne"><a href="https://polskieradio.cc/">Radio</a><a href="https://polskieradio.cc/lumina">LUMINA</a><a href="https://polskieradio.cc/akademia">Akademia</a><a href="https://polskieradio.cc/kino">Kino VOD</a><a href="https://polskieradio.cc/biblia-do-pobrania">Biblia</a><a href="https://polskieradio.cc/news">News</a><a href="#main" aria-current="page">Wspieraj</a></nav><div id="cc-auth-nav-container" class="cc-auth-widget-container"></div><a class="btn header-cta" href="#darowizny">Wesprzyj misję <span class="arrow" aria-hidden="true">→</span></a></div></header>
-<section class="thanks-bar" aria-labelledby="thanks-label"><div class="wrap thanks-inner"><strong id="thanks-label">DZIĘKUJEMY</strong><div class="thanks-viewport" id="thanks-viewport" tabindex="0" aria-label="Przewijane podziękowania. Użyj strzałek lub przewiń palcem."><ul id="thanks-list"><li>Patronom z Patronite</li><li>Wspierającym na YouTube</li><li>Darczyńcom misji</li><li>Za każdą modlitwę</li><li>Za każdy dar misyjny</li><li>Za udostępnianie Ewangelii</li><li>Za pomoc przy Biblii Audio</li><li>Za wsparcie radia, telewizji i aplikacji</li></ul></div><div class="thanks-controls"><button id="thanks-prev" aria-label="Poprzednie podziękowanie">‹</button><button id="thanks-pause" aria-label="Zatrzymaj przewijanie" aria-pressed="true">Ⅱ</button><button id="thanks-next" aria-label="Następne podziękowanie">›</button></div></div><p class="thanks-caption">Imienne podziękowania: potwierdzone wsparcie i zgoda na publikację.</p></section>
-<main id="main">
-<div class="hero-area"><div class="wrap"><section class="hero" aria-labelledby="headline"><div class="hero-copy"><p class="eyebrow"><strong>Christian Culture</strong> · Centrum wsparcia misji</p><h1 id="headline">Razem niesiemy <span>nadzieję dalej.</span></h1><p class="intro">Nie każdy może dać pieniądze.<br>Każdy może pomóc nieść Ewangelię dalej.</p><div class="hero-actions"><a class="btn primary" href="#darowizny">Wesprzyj misję <span class="arrow" aria-hidden="true">→</span></a><a class="btn" href="#mozliwosci">Zobacz inne możliwości</a></div></div><blockquote class="hero-verse"><p>Idźcie na cały świat<br>i głoście Ewangelię<br>wszelkiemu stworzeniu.</p><cite>— Mk 16,15</cite></blockquote></section>
-<section class="pathways" id="mozliwosci" aria-label="Sześć form wsparcia">
-<a class="path-card" href="#darowizny"><svg class="icon" aria-hidden="true"><use href="#heart"/></svg><div><h3>Darowizna i patronat</h3><p>Regularne lub jednorazowe wsparcie naszej misji medialnej.</p></div><span class="arrow" aria-hidden="true">›</span></a>
-<a class="path-card" href="#modlitwa"><svg class="icon" aria-hidden="true"><use href="#prayer"/></svg><div><h3>Modlitwa</h3><p>Dołącz do wspólnej modlitwy za misję i jej odbiorców.</p></div><span class="arrow" aria-hidden="true">›</span></a>
-<a class="path-card" href="#wolontariat"><svg class="icon" aria-hidden="true"><use href="#people"/></svg><div><h3>Wolontariat</h3><p>Podziel się swoim czasem, talentami i umiejętnościami.</p></div><span class="arrow" aria-hidden="true">›</span></a>
-<a class="path-card" href="#udostepniaj"><svg class="icon" aria-hidden="true"><use href="#share"/></svg><div><h3>Udostępnij treści</h3><p>Pomóż nam dotrzeć do nowych osób. Każde udostępnienie ma znaczenie.</p></div><span class="arrow" aria-hidden="true">›</span></a>
-<a class="path-card" href="#partnerstwo"><svg class="icon" aria-hidden="true"><use href="#handshake"/></svg><div><h3>Partnerstwo</h3><p>Współpraca ze wspólnotami, twórcami i organizacjami.</p></div><span class="arrow" aria-hidden="true">›</span></a>
-<a class="path-card" href="#technologia"><svg class="icon" aria-hidden="true"><use href="#laptop"/></svg><div><h3>Sprzęt i technologia</h3><p>Wesprzyj nas sprzętem lub swoimi kompetencjami technicznymi.</p></div><span class="arrow" aria-hidden="true">›</span></a>
-</section>
-<section aria-labelledby="payment-title"><h2 class="section-title" id="payment-title">Wybierz formę wsparcia</h2><div class="payment-grid">
-<article class="payment-card"><div class="payment-heading"><svg class="icon" aria-hidden="true"><use href="#phone"/></svg><div><h3>BLIK i przelew</h3><p>Wesprzyj misję przelewem na telefon BLIK lub na rachunek bankowy.</p></div></div><div class="payment-actions"><div class="blik-box"><small>BLIK na numer</small><strong>537 137 043</strong></div><a class="btn" href="#darowizny">Dane do przelewu →</a></div></article>
-<article class="payment-card"><div class="payment-heading"><svg class="icon" aria-hidden="true"><use href="#heart"/></svg><div><h3>Patronite i Revolut</h3><p>Zostań Patronem lub przekaż dar przez Revolut.</p></div></div><div class="payment-actions"><a class="btn" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer">Patronite ↗</a><a class="btn" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer">Revolut ↗</a></div></article>
-<article class="payment-card"><div class="payment-heading"><svg class="icon" aria-hidden="true"><use href="#bag"/></svg><div><h3>Zrzutki i sklep CC</h3><p>Wesprzyj konkretny projekt lub odwiedź sklep z materiałami CC.</p></div></div><div class="payment-actions"><a class="btn" href="#zrzutki">Zobacz zrzutki →</a><a class="btn" id="shop-link" href="https://my-store-1009741.creator-spring.com/" target="_blank" rel="noopener noreferrer">Odwiedź sklep CC →</a></div></article>
-</div></section></div></div>
-<div class="mission-band"><div class="wrap"><p>Studio · Radio · TV · Biblia Audio · Aplikacje · Globalna ewangelizacja</p><p class="verse">Darmo wzięliście, darmo dawajcie.</p><small>— Mt 10,8</small></div></div>
-<div class="wrap">
-<section class="detail-section" id="darowizny"><p class="eyebrow"><strong>Twój dar ma znaczenie</strong></p><h2>Darowizny i przelewy</h2><p class="section-intro">Wybierz dogodną metodę. Wszystkie wpłaty są dobrowolne. Odbiorcą przelewów jest Cezary Rogowski.</p>
-
-<div class="global-support-banner-wrap" style="margin:20px 0 28px">
-  <a href="#przelewy-zagraniczne" class="global-banner-link" style="display:block;border-radius:16px;overflow:hidden;border:1px solid rgba(212,169,74,.35);box-shadow:0 12px 32px rgba(0,0,0,.6);transition:transform .2s,box-shadow .2s;">
-    <img src="/images/banners/banner-global-support.jpg" alt="Supporting from Abroad? Send direct SEPA/SWIFT donations in GBP, EUR or USD without conversion fees. Support the Mission." style="width:100%;height:auto;display:block" loading="lazy">
-  </a>
-</div>
-
-<div class="bank-grid">
-<article class="detail-card"><h3>Rozwój Christian Culture</h3><p class="note">Studio · Radio · TV · Technologia</p><p class="account-number">74 2910 0006 2469 8002 1062 8039</p><button class="btn small" data-copy="0">Kopiuj numer rachunku</button><dl><dt>Odbiorca</dt><dd>Cezary Rogowski</dd><dt>Tytuł przelewu</dt><dd>Rozwój Christian Culture</dd><dt>IBAN</dt><dd>PL74 2910 0006 2469 8002 1062 8039</dd></dl></article>
-<article class="detail-card"><h3>Dar misyjny</h3><p class="note">Aplikacje · Treści biblijne · Ewangelizacja</p><p class="account-number">48 2910 0006 0000 0000 0527 2629</p><button class="btn small" data-copy="1">Kopiuj numer rachunku</button><dl><dt>Odbiorca</dt><dd>Cezary Rogowski</dd><dt>Tytuł przelewu</dt><dd>Dar misyjny</dd><dt>IBAN</dt><dd>PL48 2910 0006 0000 0000 0527 2629</dd></dl></article>
-</div><article class="detail-card blik-detail"><div><h3>Przelew na telefon BLIK</h3><p class="phone">537 137 043</p><p>W aplikacji swojego banku wybierz „Przelew na telefon BLIK”.<br>Tytuł wpłaty: Wsparcie Christian Culture.</p></div><button class="btn primary" data-copy="blik">Kopiuj numer BLIK</button></article>
-
-<div id="przelewy-zagraniczne" style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(212,169,74,.25)">
-  <p class="eyebrow" style="color:var(--gold,#D4A94A)"><strong>Global Support · Wsparcie z zagranicy</strong></p>
-  <h3 style="font-size:24px;margin:6px 0 10px;color:#fff">Przelewy zagraniczne (GBP · EUR · USD)</h3>
-  <p class="section-intro" style="margin-bottom:20px">Mieszkasz poza Polską? Możesz wesprzeć misję bez prowizji za przewalutowanie — bezpośrednio w Funtach (GBP), Euro (darmowe SEPA) lub Dolarach (USD). Wszystkie rachunki prowadzone są w Revolut Bank UAB.</p>
-  <div class="bank-grid">
-    <article class="detail-card">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <span style="font-size:26px">🇬🇧</span>
-        <div><h3 style="margin:0;font-size:18px">Funt brytyjski (GBP)</h3><small style="color:#aaa">Wielka Brytania & Wspólnota</small></div>
-      </div>
-      <p class="account-number" style="font-size:15px;letter-spacing:.04em">LT23 3250 0920 7156 6231</p>
-      <button class="btn small" data-copy="iban_gbp" data-copy-text="LT23 3250 0920 7156 6231">Kopiuj IBAN</button>
-      <dl>
-        <dt>Odbiorca</dt><dd>Cezary Rogowski</dd>
-        <dt>IBAN</dt><dd>LT23 3250 0920 7156 6231</dd>
-        <dt>BIC / SWIFT</dt><dd>REVOLT21</dd>
-        <dt>Bank odbiorcy</dt><dd>Revolut Bank UAB (Vilnius)</dd>
-        <dt>Bank korespondent</dt><dd>CHASGB2L (JPMorgan Chase UK)</dd>
-        <dt>Tytuł przelewu</dt><dd>Christian Culture Mission Support</dd>
-      </dl>
-    </article>
-    <article class="detail-card">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <span style="font-size:26px">🇪🇺</span>
-        <div><h3 style="margin:0;font-size:18px">Euro (EUR · SEPA)</h3><small style="color:#4ade80">Darmowy przelew SEPA w całej UE</small></div>
-      </div>
-      <p class="account-number" style="font-size:15px;letter-spacing:.04em">LT23 3250 0920 7156 6231</p>
-      <button class="btn small" data-copy="iban_eur" data-copy-text="LT23 3250 0920 7156 6231">Kopiuj IBAN</button>
-      <dl>
-        <dt>Odbiorca</dt><dd>Cezary Rogowski</dd>
-        <dt>IBAN (SEPA)</dt><dd>LT23 3250 0920 7156 6231</dd>
-        <dt>BIC / SWIFT</dt><dd>REVOLT21</dd>
-        <dt>Bank odbiorcy</dt><dd>Revolut Bank UAB (Vilnius)</dd>
-        <dt>Bank korespondent</dt><dd>CHASDEFX (JPMorgan Frankfurt)</dd>
-        <dt>Tytuł przelewu</dt><dd>Christian Culture Mission Support</dd>
-      </dl>
-    </article>
-    <article class="detail-card">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <span style="font-size:26px">🇺🇸</span>
-        <div><h3 style="margin:0;font-size:18px">Dolar (USD)</h3><small style="color:#aaa">USA, Kanada & Płatności globalne</small></div>
-      </div>
-      <p class="account-number" style="font-size:15px;letter-spacing:.04em">LT23 3250 0920 7156 6231</p>
-      <button class="btn small" data-copy="iban_usd" data-copy-text="LT23 3250 0920 7156 6231">Kopiuj IBAN</button>
-      <dl>
-        <dt>Odbiorca</dt><dd>Cezary Rogowski</dd>
-        <dt>IBAN</dt><dd>LT23 3250 0920 7156 6231</dd>
-        <dt>BIC / SWIFT</dt><dd>REVOLT21</dd>
-        <dt>Bank odbiorcy</dt><dd>Revolut Bank UAB (Vilnius)</dd>
-        <dt>Bank korespondent</dt><dd>CHASGB2L (JPMorgan Chase)</dd>
-        <dt>Tytuł przelewu</dt><dd>Christian Culture Mission Support</dd>
-      </dl>
-    </article>
+<div id="progress" aria-hidden="true"></div>
+<div class="aurora" aria-hidden="true"></div>
+<header class="top">
+  <section class="thanks-bar" aria-labelledby="thanks-label"><div class="wrap thanks-inner"><strong id="thanks-label">DZIĘKUJEMY</strong><div class="thanks-viewport" id="thanks-viewport" tabindex="0" aria-label="Przewijane podziękowania. Użyj strzałek lub przewiń palcem."><ul id="thanks-list"><li>Patronom z Patronite</li><li>Wspierającym na YouTube</li><li>Darczyńcom misji</li><li>Za każdą modlitwę</li><li>Za każdy dar misyjny</li><li>Za udostępnianie Ewangelii</li><li>Za pomoc przy Biblii Audio</li><li>Za wsparcie radia, telewizji i aplikacji</li></ul></div><div class="thanks-controls"><button id="thanks-prev" aria-label="Poprzednie podziękowanie">‹</button><button id="thanks-pause" aria-label="Zatrzymaj przewijanie" aria-pressed="true">Ⅱ</button><button id="thanks-next" aria-label="Następne podziękowanie">›</button></div></div><p class="thanks-caption">Imienne podziękowania: potwierdzone wsparcie i zgoda na publikację.</p></section>
+  <div class="wrap bar">
+    <a class="brand" href="https://polskieradio.cc/"><img src="/app-christian-culture.png" alt="">Christian Culture</a>
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="navigation">Menu</button>
+    <nav id="navigation" aria-label="Główne">
+      <a href="https://polskieradio.cc/player">Radio</a><a href="https://polskieradio.cc/akademia">Akademia</a><a href="https://polskieradio.cc/kino">Kino VOD</a><a href="https://polskieradio.cc/mojabiblia">Biblia</a><a href="https://polskieradio.cc/news">News</a><a href="#wesprzyj" aria-current="page">Wspieraj</a>
+    </nav>
+    <div id="ccAuthWidgetSlot" class="auth-slot"></div>
   </div>
-  <div style="margin-top:20px;text-align:center">
-    <a class="btn primary" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" style="min-height:48px;display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:12px;font-weight:700">
-      💳 Szybka wpłata kartą / Apple Pay przez Revolut.me ↗
-    </a>
+</header>
+
+<div class="hero">
+  <canvas id="scene" aria-label="Złoty glob: do misji płyną strumienie wsparcia z całego świata"></canvas>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">Wspieraj misję Christian Culture</div>
+      <h1>Razem niesiemy <em>Słowo na cały świat</em></h1>
+      <p class="lead">Studio, radio, telewizja i Biblia Audio działają dzięki ludziom takim jak Ty. Każdy dar, modlitwa i udostępnienie niesie Ewangelię dalej.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#wesprzyj" data-donate="hero">Wesprzyj teraz</a>
+        <a class="btn ghost" href="#inaczej">Pomóż inaczej</a>
+      </div>
+    </div>
+    <div class="quick" id="wesprzyj">
+      <div class="glass qcard"><div class="ic">B</div><div><h3>BLIK na telefon</h3><div class="v num" data-copy-src>537 137 043</div><small>„Przelew na telefon BLIK” w aplikacji banku</small></div><button class="copy" type="button" data-copy="blik" data-label="BLIK">Kopiuj</button></div>
+      <a class="glass qcard" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener" data-donate="patronite" style="text-decoration:none"><div class="ic">P</div><div><h3>Patronite</h3><small>Stałe wsparcie co miesiąc: zostań patronem</small></div><span class="copy">↗</span></a>
+      <a class="glass qcard" href="https://revolut.me/christianculture" target="_blank" rel="noopener" data-donate="revolut" style="text-decoration:none"><div class="ic">R</div><div><h3>Revolut</h3><small>Dar z Polski i z zagranicy, w dowolnej walucie</small></div><span class="copy">↗</span></a>
+    </div>
   </div>
 </div>
-</section>
-<section class="detail-section" aria-labelledby="online-title"><h2 id="online-title">Wsparcie online i regularny patronat</h2><div class="giving-grid"><article class="detail-card"><h3>Patronite</h3><p>Buduj z nami ciągłość misyjnej pracy. Aktualne możliwości wsparcia znajdziesz na profilu Osobowość Plus.</p><a class="btn primary" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer">Przejdź do Patronite ↗</a></article><article class="detail-card"><h3>Revolut</h3><p>Przekaż dar z Polski lub zagranicy. Dostępne metody, waluty i warunki pokazuje serwis płatności.</p><a class="btn primary" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer">Wesprzyj przez Revolut ↗</a></article><article class="detail-card"><h3>Wirtualna kawa</h3><p>Mały dar też pomaga. Wybierz kwotę w Revolut i, jeśli chcesz, dołącz słowo zachęty.</p><a class="btn" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer">Postaw misyjną kawę ↗</a></article></div><article class="detail-card qr-card"><img src="assets/cc-support/support-qr.png" width="152" height="152" loading="lazy" alt="Kod QR otwierający stronę polskieradio.cc/wspieraj"><div><h3>Zeskanuj i wybierz formę wsparcia</h3><p>Ten kod prowadzi do centrum wsparcia Christian Culture. Możesz pobrać go i umieścić na plakacie lub w transmisji.</p><a class="text-link" href="assets/cc-support/support-qr.png" download="Christian-Culture-wspieraj-QR.png">Pobierz kod QR</a></div></article></section>
-<section class="detail-section" id="zrzutki"><h2>Wesprzyj projekty misyjne</h2><p class="section-intro">Opisy, cele i aktualny stan każdej zbiórki znajdziesz bezpośrednio na jej stronie.</p><div class="inline-actions"><a class="btn" href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer">Zbiórka rs4g4v ↗</a><a class="btn" href="https://zrzutka.pl/3bbxzn" target="_blank" rel="noopener noreferrer">Zbiórka 3bbxzn ↗</a></div></section>
-<section class="detail-section" aria-labelledby="community-title"><h2 id="community-title">Każdy może pomóc</h2><p class="section-intro">Twój czas, modlitwa i dobre słowo mają wartość. Wybierz to, co możesz dać.</p><div class="community-grid">
-<article class="detail-card" id="modlitwa"><h3><svg class="icon" aria-hidden="true"><use href="#prayer"/></svg>Modlitwa</h3><p>Módl się za osoby, do których dociera Ewangelia, za twórców i ich rodziny oraz o mądrość w prowadzeniu misji.</p><a class="btn small" href="https://polskieradio.cc/modlitwa">Przejdź do przestrzeni modlitwy →</a></article>
-<article class="detail-card" id="udostepniaj"><h3><svg class="icon" aria-hidden="true"><use href="#share"/></svg>Udostępniaj nadzieję</h3><p>Poleć radio, rozważanie lub aplikację osobie, której może pomóc. Udostępnij też tę stronę.</p><div class="inline-actions"><button class="btn small" data-share>Udostępnij stronę</button><button class="btn small" data-copy="url">Kopiuj link</button><a class="btn small" href="https://cclite.pl">CC Lite →</a><a class="btn small" href="https://polskieradio.cc/moj-werset-dnia">Mój werset dnia →</a></div></article>
-<article class="detail-card" id="wolontariat"><h3><svg class="icon" aria-hidden="true"><use href="#people"/></svg>Wolontariat</h3><p>Pomóż przy montażu, nagraniach, tekstach, tłumaczeniach lub kontaktach ze społecznością. Napisz, ile czasu możesz przeznaczyć i co lubisz robić.</p><a class="btn small" href="mailto:radiochristianculture@gmail.com?subject=Wolontariat%20Christian%20Culture">Zgłoś chęć pomocy →</a></article>
-<article class="detail-card" id="partnerstwo"><h3><svg class="icon" aria-hidden="true"><use href="#handshake"/></svg>Partnerstwo misyjne</h3><p>Zapraszamy twórców, wspólnoty i organizacje do współpracy przy audycjach, materiałach biblijnych i działaniach ewangelizacyjnych.</p><a class="btn small" href="mailto:radiochristianculture@gmail.com?subject=Partnerstwo%20misyjne">Porozmawiajmy o współpracy →</a></article>
-<article class="detail-card" id="technologia"><h3><svg class="icon" aria-hidden="true"><use href="#laptop"/></svg>Sprzęt i technologia</h3><p>Masz sprawny sprzęt audio, komputer lub umiejętności programistyczne? Opisz swoją propozycję, a ustalimy, jak może służyć misji.</p><a class="btn small" href="mailto:radiochristianculture@gmail.com?subject=Sprz%C4%99t%20i%20technologia">Zaproponuj pomoc →</a></article>
-<article class="detail-card"><h3><svg class="icon" aria-hidden="true"><use href="#gift"/></svg>Pismo Święte dla każdego</h3><p>Poleć bezpłatną Biblię w wersji cyfrowej. O drukowane Pismo Święte zapytaj SMS-em o treści BIBLIA pod numerem +48 507 821 789. Według informacji inicjatywy odbiorca pokrywa koszt przesyłki.</p><div class="inline-actions"><a class="btn small" href="https://polskieradio.cc/biblia-do-pobrania">Biblia do pobrania →</a><a class="btn small" href="sms:+48507821789?body=BIBLIA">Napisz SMS: BIBLIA</a></div></article>
-</div></section>
-<section class="detail-section" id="moje-podziekowania"><h2>Twoje konto i podziękowania</h2><div class="detail-card account-panel"><p id="auth-status" class="auth-status">Sprawdzamy dostępność konta LUMINA…</p><form id="consent-form" hidden><label for="public-name">Publiczna nazwa w podziękowaniach</label><input id="public-name" type="text" maxlength="60" autocomplete="nickname" placeholder="Imię lub pseudonim"><label><input id="public-consent" type="checkbox"><span>Zgadzam się na publikację wybranej nazwy w podziękowaniach za moje potwierdzone wsparcie. Zgodę mogę w każdej chwili wycofać.</span></label><label><input id="anonymous-consent" type="checkbox"><span>Wsparcie anonimowe — zgadzam się wyłącznie na zbiorcze podziękowanie bez nazwy, kwoty i danych mojego konta.</span></label><p class="note">Możesz też odznaczyć obie opcje: wtedy wsparcie nie pojawi się w pasku.</p><button class="btn primary" type="submit">Zapisz ustawienia</button></form><p class="note">Zalogowanie ani zaznaczenie zgody nie potwierdza wpłaty. Nie publikujemy kwot ani danych bankowych.</p></div></section>
-<section class="faq" aria-labelledby="faq-title"><h2 id="faq-title">Pytania o wsparcie</h2><details><summary>Czy mogę pomóc bez wpłacania pieniędzy?</summary><p>Tak. Możesz modlić się, udostępniać materiały, podjąć wolontariat lub zaoferować sprzęt i wiedzę.</p></details><details><summary>Jak wpłacić dar przez BLIK?</summary><p>W bankowości mobilnej wybierz przelew na telefon BLIK i wpisz 537 137 043. Ta strona nie pobiera kodów BLIK ani danych logowania do banku.</p></details><details><summary>Czy mogę wspierać misję regularnie?</summary><p>Możesz skorzystać z Patronite lub ustawić zlecenie stałe na wybrany rachunek.</p></details><details><summary>Kto otrzymuje przelewy?</summary><p>Odbiorcą jest Cezary Rogowski. Christian Culture jest niezależną, prywatną chrześcijańską inicjatywą misyjną.</p></details><details><summary>Czy moje nazwisko pojawi się w podziękowaniach?</summary><p>Imienne podziękowania publikujemy wyłącznie po uzgodnieniu i uzyskaniu zgody. Możesz pozostać anonimowym darczyńcą.</p></details></section>
-<section class="contact"><h2>Porozmawiajmy o Twojej formie wsparcia</h2><p>Masz pytanie lub pomysł? Skontaktuj się z nami.</p><div class="inline-actions"><a class="btn" href="mailto:radiochristianculture@gmail.com">radiochristianculture@gmail.com</a><a class="btn" href="mailto:polskiercctv@gmail.com">polskiercctv@gmail.com</a><a class="btn" href="tel:+48783478280">+48 783 478 280</a></div></section>
-<footer class="footer"><span>© <span id="year">2026</span> Christian Culture · polskieradio.cc</span><div class="footer-links"><a href="https://polskieradio.cc/privacy.html">Prywatność</a><a href="https://linktr.ee/christianculturenetwork" target="_blank" rel="noopener noreferrer">CC NETWORK ↗</a><a href="https://linktr.ee/christianculturemusic" target="_blank" rel="noopener noreferrer">CC Music ↗</a></div></footer>
-</div></main><div id="status" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-<!-- EkoCC INFO ⓘ Standard Strategiczny -->
-<script defer src="/components/ekocc-info.js?v=20261020_1"></script>
-</body></html>
+
+<main class="wrap">
+  <section id="zasieg">
+    <div class="sec-head reveal"><div class="eyebrow">Zasięg misji · ostatnie 28 dni</div><h2>Tyle osób już dociera do Słowa</h2><p>Liczby z naszych statystyk strony. Twoje wsparcie sprawia, że rosną.</p></div>
+    <div class="reach">
+      <div class="glass stat reveal"><div class="v num" data-tw>1 034</div><div class="lab">osób słuchało i czytało</div></div>
+      <div class="glass stat reveal"><div class="v num" data-tw>5 408</div><div class="lab">otwartych stron z treścią</div></div>
+      <div class="glass stat reveal"><div class="v num" data-tw>1 424</div><div class="lab">odtworzeń audio i radia</div></div>
+      <div class="glass stat reveal"><div class="v num" data-tw>59 %</div><div class="lab">odbiorców spoza Polski</div></div>
+    </div>
+    <p class="src-note">Źródło: Google Analytics polskieradio.cc, 28 dni do 16.11.2026. </p>
+  </section>
+
+  <section id="dar">
+    <div class="sec-head reveal"><div class="eyebrow">Twój dar</div><h2>Wybierz kwotę i zobacz, co wspierasz</h2></div>
+    <div class="impact">
+      <div class="glass imp-l reveal">
+        <div class="amounts" role="group" aria-label="Kwota daru">
+          <button type="button" id="a20" data-a="20" aria-pressed="false">20 zł</button>
+          <button type="button" id="a50" data-a="50" aria-pressed="true">50 zł</button>
+          <button type="button" id="a100" data-a="100" aria-pressed="false">100 zł</button>
+          <button type="button" id="a250" data-a="250" aria-pressed="false">250 zł</button>
+        </div>
+        <div class="num" style="font-size:clamp(40px,5vw,60px);line-height:1.1"><span id="amt" class="odo">50</span> zł</div>
+        <p style="color:var(--muted);margin:8px 0 18px">Jednorazowo albo co miesiąc. Każda kwota ma znaczenie.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://revolut.me/christianculture" target="_blank" rel="noopener" data-donate="kwota">Przekaż dar</a>
+          <a class="btn ghost" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener" data-donate="patronite-kwota">Co miesiąc na Patronite</a>
+        </div>
+        
+      </div>
+      <div class="glass imp-r reveal" id="gifts" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="przelew">
+    <div class="sec-head reveal"><div class="eyebrow">Darowizny i przelewy</div><h2>Dane do przelewu</h2><p>Wszystkie wpłaty są dobrowolne. Odbiorcą przelewów jest Cezary Rogowski.</p></div>
+    <div class="pay">
+      <article class="glass pcard reveal"><div class="k">Rozwój Christian Culture</div><h3>Studio · Radio · TV · Technologia</h3><div class="acc num">74 2910 0006 2469 8002 1062 8039</div><div class="row"><button class="copy" type="button" data-copy="0" data-label="Numer rachunku">Kopiuj numer</button></div></article>
+      <article class="glass pcard reveal"><div class="k">Dar misyjny</div><h3>Aplikacje · Treści biblijne · Ewangelizacja</h3><div class="acc num">48 2910 0006 0000 0000 0527 2629</div><div class="row"><button class="copy" type="button" data-copy="1" data-label="Numer rachunku">Kopiuj numer</button></div></article>
+      <article class="glass pcard reveal"><div class="k">Z zagranicy · Revolut</div><h3>GBP · EUR (SEPA) · USD</h3><div class="acc num">LT23 3250 0920 7156 6231</div><div class="row"><button class="copy" type="button" data-copy="LT233250092071566231" data-copy-text="LT233250092071566231" data-label="IBAN">Kopiuj IBAN</button></div><p style="margin-top:10px">Bez prowizji za przewalutowanie.</p></article>
+    </div>
+    <div class="cta-row" style="margin-top:16px">
+      <a class="btn ghost" href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener" data-donate="zrzutka">Zbiórka rs4g4v ↗</a><a class="btn ghost" href="https://zrzutka.pl/3bbxzn" target="_blank" rel="noopener" data-donate="zrzutka">Zbiórka 3bbxzn ↗</a>
+      <a class="btn ghost" id="shop-link" href="https://my-store-1009741.creator-spring.com/" target="_blank" rel="noopener">Sklep CC ↗</a>
+      <a class="btn ghost" href="https://revolut.me/christianculture" target="_blank" rel="noopener" data-donate="kawa">Postaw misyjną kawę ↗</a>
+    </div>
+  </section>
+
+  <section id="inaczej">
+    <div class="sec-head reveal"><div class="eyebrow">Nie każdy może dać pieniądze</div><h2>Pomóż inaczej</h2></div>
+    <div class="ways">
+      <a class="glass way reveal" href="https://polskieradio.cc/modlitwa"><span class="ic">🙏</span><h3>Modlitwa</h3><p>Dołącz do wspólnej modlitwy za misję i jej odbiorców.</p></a>
+      <a class="glass way reveal" href="mailto:radiochristianculture@gmail.com?subject=Wolontariat%20Christian%20Culture"><span class="ic">🤝</span><h3>Wolontariat</h3><p>Podziel się czasem, talentami i umiejętnościami.</p></a>
+      <button type="button" class="glass way reveal" data-share><span class="ic">📣</span><h3>Udostępnij</h3><p>Każde udostępnienie pomaga dotrzeć do nowych osób.</p></button>
+      <a class="glass way reveal" href="mailto:radiochristianculture@gmail.com?subject=Partnerstwo%20misyjne"><span class="ic">⛪</span><h3>Partnerstwo</h3><p>Współpraca ze wspólnotami, twórcami i organizacjami.</p></a>
+      <a class="glass way reveal" href="mailto:radiochristianculture@gmail.com?subject=Sprz%C4%99t%20i%20technologia"><span class="ic">🎙️</span><h3>Sprzęt i technologia</h3><p>Wesprzyj nas sprzętem lub kompetencjami technicznymi.</p></a>
+      <a class="glass way reveal" href="https://polskieradio.cc/biblia-do-pobrania"><span class="ic">📖</span><h3>Pismo Święte dla każdego</h3><p>Biblia do pobrania. Drukowaną zamówisz SMS-em BIBLIA na +48 507 821 789 (płacisz tylko przesyłkę).</p></a>
+    </div>
+  </section>
+
+  <section class="legacy" id="podziekowania-konto"><section class="detail-section" id="moje-podziekowania"><h2>Twoje konto i podziękowania</h2><div class="detail-card account-panel"><p id="auth-status" class="auth-status">Sprawdzamy dostępność konta LUMINA…</p><form id="consent-form" hidden><label for="public-name">Publiczna nazwa w podziękowaniach</label><input id="public-name" type="text" maxlength="60" autocomplete="nickname" placeholder="Imię lub pseudonim"><label><input id="public-consent" type="checkbox"><span>Zgadzam się na publikację wybranej nazwy w podziękowaniach za moje potwierdzone wsparcie. Zgodę mogę w każdej chwili wycofać.</span></label><label><input id="anonymous-consent" type="checkbox"><span>Wsparcie anonimowe — zgadzam się wyłącznie na zbiorcze podziękowanie bez nazwy, kwoty i danych mojego konta.</span></label><p class="note">Możesz też odznaczyć obie opcje: wtedy wsparcie nie pojawi się w pasku.</p><button class="btn primary" type="submit">Zapisz ustawienia</button></form><p class="note">Zalogowanie ani zaznaczenie zgody nie potwierdza wpłaty. Nie publikujemy kwot ani danych bankowych.</p></div></section></section>
+  <section class="legacy"><section class="faq" aria-labelledby="faq-title"><h2 id="faq-title">Pytania o wsparcie</h2><details><summary>Czy mogę pomóc bez wpłacania pieniędzy?</summary><p>Tak. Możesz modlić się, udostępniać materiały, podjąć wolontariat lub zaoferować sprzęt i wiedzę.</p></details><details><summary>Jak wpłacić dar przez BLIK?</summary><p>W bankowości mobilnej wybierz przelew na telefon BLIK i wpisz 537 137 043. Ta strona nie pobiera kodów BLIK ani danych logowania do banku.</p></details><details><summary>Czy mogę wspierać misję regularnie?</summary><p>Możesz skorzystać z Patronite lub ustawić zlecenie stałe na wybrany rachunek.</p></details><details><summary>Kto otrzymuje przelewy?</summary><p>Odbiorcą jest Cezary Rogowski. Christian Culture jest niezależną, prywatną chrześcijańską inicjatywą misyjną.</p></details><details><summary>Czy moje nazwisko pojawi się w podziękowaniach?</summary><p>Imienne podziękowania publikujemy wyłącznie po uzgodnieniu i uzyskaniu zgody. Możesz pozostać anonimowym darczyńcą.</p></details></section></section>
+  <section class="legacy"><section class="contact"><h2>Porozmawiajmy o Twojej formie wsparcia</h2><p>Masz pytanie lub pomysł? Skontaktuj się z nami.</p><div class="inline-actions"><a class="btn" href="mailto:radiochristianculture@gmail.com">radiochristianculture@gmail.com</a><a class="btn" href="mailto:polskiercctv@gmail.com">polskiercctv@gmail.com</a><a class="btn" href="tel:+48783478280">+48 783 478 280</a></div></section></section>
+  <div class="verse reveal"><q>Darmo wzięliście, darmo dawajcie.</q><cite>Mt 10,8</cite></div>
+</main>
+<footer class="wrap">Christian Culture · Studio · Radio · TV · Biblia Audio · Aplikacje · <a href="https://polskieradio.cc/privacy.html">Prywatność</a> · <span id="year">2026</span></footer>
+<div id="status" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+document.documentElement.classList.add('js');
+/* pasek „co się dzieje” – fakty misji, bez zmyślonych wpłat */
+const TK=['<b>Radio CC 24/7</b> nadaje teraz','<b>Biblia Audio</b> nowe odcinki codziennie','<b>Kurs Codzienny</b> 10 minut ze Słowem','<b>59%</b> odbiorców spoza Polski','<b>Master Live</b> telewizja 24/7','<b>Moja Biblia</b> tekst i przekłady','<b>topTEN</b> głosuj na pieśni tygodnia'];
+
+
+/* bębenki cyfr – przekręcają się raz */
+const DIG=Array.from({length:30},(_,i)=>`<b>${i%10}</b>`).join('');
+function odoSet(el,str){str=String(str);el.classList.add('odo');
+  el.innerHTML=[...str].map(c=>/\d/.test(c)?`<span class="reel"><i style="transform:translateY(0)">${DIG}</i></span>`:`<span>${c}</span>`).join('');
+  void el.offsetWidth; const r=[...el.querySelectorAll('.reel>i')], d=[...str].filter(c=>/\d/.test(c));
+  r.forEach((i,k)=>{i.style.transitionDelay=(r.length-1-k)*70+'ms';i.style.transform=`translateY(${-(20+ +d[k])*1.18}em)`;});}
+
+/* co daje dar (DEMO – przykładowe przeliczenia) */
+const GIFT_LIST=[['🎧','Radio CC 24/7','nadawanie bez przerwy, serwer i stream'],['📖','Biblia Audio','nagrania i publikacja kolejnych ksiąg'],['📺','Telewizja CC i Master Live','kanały 24/7 dla widzów z wielu krajów'],['🎓','Kurs Codzienny','codzienna lekcja ze Słowem'],['🌍','Tłumaczenia','Ewangelia w kolejnych językach']];
+const GIFTS={20:GIFT_LIST,50:GIFT_LIST,100:GIFT_LIST,250:GIFT_LIST};
+const giftsEl=document.getElementById('gifts');
+function showGifts(a){giftsEl.querySelectorAll('.gift').forEach(g=>g.classList.add('swap'));
+  setTimeout(()=>{giftsEl.innerHTML=GIFTS[a].map(g=>`<div class="gift swap"><div class="ic">${g[0]}</div><div><b>${g[1]}</b><span>${g[2]}</span></div></div>`).join('');
+    giftsEl.querySelectorAll('.gift').forEach((g,i)=>setTimeout(()=>g.classList.remove('swap'),60+i*120));},220);}
+document.querySelectorAll('.amounts button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.amounts button').forEach(x=>x.setAttribute('aria-pressed',x===b));odoSet(document.getElementById('amt'),b.dataset.a);showGifts(b.dataset.a);}));
+showGifts(50);
+
+/* kopiowanie obsługuje support.js (komunikat w #status); tu tylko zielone potwierdzenie i GA4 */
+function toast(t){}
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{b.classList.add('ok');setTimeout(()=>b.classList.remove('ok'),1600);window.gtag&&gtag('event','donate_click',{method:b.dataset.label||'kopiuj'});}));
+document.querySelectorAll('[data-donate]').forEach(a=>a.addEventListener('click',()=>window.gtag&&gtag('event','donate_click',{method:a.dataset.donate})));
+
+/* nagłówki słowo po słowie, kolejność wejść, odsłanianie */
+document.querySelectorAll('.sec-head h2').forEach(h=>{h.innerHTML=h.textContent.split(' ').map((w,i)=>`<span class="w" style="--i:${i}">${w}</span>`).join(' ');});
+['.reach > *','.pay > *','.ways > *'].forEach(s=>document.querySelectorAll(s).forEach((el,i)=>el.style.setProperty('--d',i)));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');e.target.querySelectorAll('[data-tw]').forEach(el=>{if(!el._d){el._d=1;odoSet(el,el.textContent);}});io.unobserve(e.target);}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')),4500);
+addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progress').style.transform=`scaleX(${h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight)})`;},{passive:true});
+document.querySelectorAll('.pcard').forEach(c=>{c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.classList.add('tilting');c.style.transform=`rotateX(${(.5-y)*9}deg) rotateY(${(x-.5)*11}deg)`;c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');});
+  c.addEventListener('pointerleave',()=>{c.classList.remove('tilting');c.style.transform='';});});
+
+/* scena 3D: glob, do którego płyną strumienie wsparcia z całego świata */
+(function(){ if(!window.THREE) return;
+  const cv=document.getElementById('scene'), R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true}); R.setPixelRatio(Math.min(devicePixelRatio||1,2));
+  const S=new THREE.Scene(), C=new THREE.PerspectiveCamera(40,1,.1,200), G=new THREE.Group(); S.add(G);
+  const tex=(st)=>{const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d'),r=g.createRadialGradient(64,64,0,64,64,64);st.forEach(s=>r.addColorStop(s[0],s[1]));g.fillStyle=r;g.fillRect(0,0,128,128);return new THREE.CanvasTexture(c);};
+  const dot=tex([[0,'#fff'],[.25,'rgba(255,255,255,.8)'],[1,'rgba(255,255,255,0)']]);
+  const N=2400,p=new Float32Array(N*3); for(let i=0;i<N;i++){const y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),t=i*2.39996;p[i*3]=Math.cos(t)*r*1.6;p[i*3+1]=y*1.6;p[i*3+2]=Math.sin(t)*r*1.6;}
+  const gg=new THREE.BufferGeometry(); gg.setAttribute('position',new THREE.BufferAttribute(p,3));
+  const globe=new THREE.Points(gg,new THREE.PointsMaterial({size:.05,map:dot,color:0xf2c46d,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending})); G.add(globe);
+  G.add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.SphereGeometry(1.62,18,12)),new THREE.LineBasicMaterial({color:0xFF8C33,transparent:true,opacity:.08})));
+  const core=new THREE.Sprite(new THREE.SpriteMaterial({map:tex([[0,'rgba(255,230,170,1)'],[.2,'rgba(255,140,40,.85)'],[.5,'rgba(255,90,0,.25)'],[1,'rgba(255,60,0,0)']]),blending:THREE.AdditiveBlending,depthWrite:false})); core.scale.set(3.6,3.6,1); G.add(core);
+  const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:tex([[0,'rgba(242,196,109,.32)'],[1,'rgba(242,196,109,0)']]),blending:THREE.AdditiveBlending,depthWrite:false})); halo.scale.set(10,10,1); G.add(halo);
+  // strumienie wsparcia: cząsteczki z daleka spiralą do środka
+  const F=900,fp=new Float32Array(F*3),fc=new Float32Array(F*3),P=[];
+  const sp=o=>{const a=Math.random()*6.283,b=(Math.random()-.5)*2.2;o.a=a;o.b=b;o.r=6+Math.random()*5;o.t=Math.random();o.s=.08+Math.random()*.12;o.w=(Math.random()-.5)*2.4;o.c=Math.random()<.7?0:1;};
+  for(let i=0;i<F;i++){const o={};sp(o);P.push(o);}
+  const fg=new THREE.BufferGeometry(); fg.setAttribute('position',new THREE.BufferAttribute(fp,3)); fg.setAttribute('color',new THREE.BufferAttribute(fc,3));
+  G.add(new THREE.Points(fg,new THREE.PointsMaterial({size:.08,map:dot,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending})));
+  const cols=[new THREE.Color(0xf2c46d),new THREE.Color(0xff7a00)];
+  let tx=0,ty=0,mx=0,my=0,wide=true;
+  function size(){const w=cv.clientWidth,h=cv.clientHeight;R.setSize(w,h,false);C.aspect=w/h;wide=w>720;C.position.set(wide?-.9:0,wide?1.2:2,wide?12:15);C.lookAt(wide?-.9:0,wide?0:-.3,0);C.updateProjectionMatrix();G.position.set(wide?0:0,wide?0:.6,0);}
+  size(); addEventListener('resize',size);
+  addEventListener('pointermove',e=>{tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5;},{passive:true});
+  let vis=true; new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(cv);
+  const clk=new THREE.Clock();
+  (function f(){requestAnimationFrame(f); if(!vis) return; const dt=Math.min(clk.getDelta(),.05),T=clk.elapsedTime;
+    mx+=(tx-mx)*.05; my+=(ty-my)*.05; G.rotation.y=T*.05+mx*.5; G.rotation.x=.15+my*.25; globe.rotation.y=T*.08;
+    const pu=1+Math.sin(T*2.2)*.06; core.scale.set(3.6*pu,3.6*pu,1);
+    for(let i=0;i<F;i++){const o=P[i]; o.t+=dt*o.s; if(o.t>=1){sp(o);o.t=0;}
+      const e=o.t*o.t, r=o.r*(1-e)+1.55*e, a=o.a+o.w*o.t*3, b=o.b*(1-e*.6);
+      fp[i*3]=Math.cos(a)*Math.cos(b)*r; fp[i*3+1]=Math.sin(b)*r; fp[i*3+2]=Math.sin(a)*Math.cos(b)*r;
+      const k=Math.sin(o.t*3.14)*.95, c=cols[o.c]; fc[i*3]=c.r*k; fc[i*3+1]=c.g*k; fc[i*3+2]=c.b*k;}
+    fg.attributes.position.needsUpdate=true; fg.attributes.color.needsUpdate=true; R.render(S,C);})();
+})();
+</script>
+
+</body>
+</html>

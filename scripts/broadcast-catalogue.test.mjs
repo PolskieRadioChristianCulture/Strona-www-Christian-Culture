@@ -2,122 +2,43 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync, existsSync} from 'node:fs';
 import vm from 'node:vm';
-import {Window} from 'happy-dom';
 
+// @007 2026-11-18: /nadawaj w nowej wersji (L0 17.11, ae923b3f) — karty kanałów budowane w JS z tablic G i V.
 const html = readFileSync('nadawaj.html', 'utf8');
-const start = html.indexOf('            const embedModal =');
-const end = html.indexOf('\n        });', start);
-assert.ok(start > 0 && end > start);
-const runtime = html.slice(start, end);
-function fixture(clipboard) {
-  const win = new Window({url: 'https://polskieradio.cc/nadawaj'});
-  win.document.write(html);
-  const api = {location: {origin: 'https://polskieradio.cc', protocol: 'https:'}};
-  const opened = [];
-  api.open = (...args) => opened.push(args);
-  vm.runInNewContext(runtime, {
-    window: api, document: win.document, navigator: {clipboard}, URL,
-    setTimeout: () => 0,
-  });
-  return {win, api, opened, modal: win.document.getElementById('embedModal'),
-    area: win.document.getElementById('embedCodeArea'),
-    toast: win.document.getElementById('toastNotification')};
-}
+const registry = JSON.parse(readFileSync('data/cc-channels.json', 'utf8')).channels.filter(c => c.kind === 'broadcast');
+const files = [...html.matchAll(/\{f:'([^']+\.html)'/g)].map(m => m[1]);
+const strip = (url) => url.replace(/^\//, '').replace(/\.html$/, '');
 
-test('all 19 scenes use the same existing destination for preview, OBS, embed and share', () => {
-  const {win} = fixture();
-  const cards = [...win.document.querySelectorAll('.broadcast-card')];
-  assert.equal(cards.length, 19);
+test('każda scena w katalogu prowadzi do istniejącego pliku i występuje raz', () => {
+  assert.ok(files.length >= 19, 'za mało scen: ' + files.length);
   const seen = new Set();
-  for (const card of cards) {
-    const url = card.querySelector('.card-title a').getAttribute('href');
-    assert.ok(existsSync(url), url);
-    assert.equal(seen.has(url), false, url);
-    seen.add(url);
-    assert.equal(card.querySelector('.card-img-wrapper').getAttribute('href'), url);
-    for (const button of card.querySelectorAll('[onclick]')) {
-      const action = button.getAttribute('onclick');
-      if (/^(copyAndOpenOBS|openEmbedModal|shareOnFacebook|shareOnWhatsApp)\(/.test(action)) {
-        assert.equal(action.match(/\('([^']+)'\)/)[1], url, action);
-      }
-    }
-  }
-  assert.equal(win.document.querySelectorAll('.broadcast-card iframe').length, 0);
-});
-
-test('OBS copies the exact scene URL without opening extra players', async () => {
-  const copied = [];
-  const {api, opened, toast, modal} = fixture({writeText: async text => copied.push(text)});
-  await api.copyAndOpenOBS('kino-live.html');
-  assert.deepEqual(copied, ['https://polskieradio.cc/kino-live.html']);
-  assert.equal(opened.length, 0);
-  assert.equal(modal.classList.contains('show'), false);
-  assert.match(toast.textContent, /Adres skopiowany/);
-});
-
-for (const [name, clipboard] of [
-  ['missing', undefined],
-  ['denied', {writeText: async () => {throw new Error('denied');}}],
-]) {
-  test(`clipboard ${name}: manual selection, no false success, Escape restores focus`, async () => {
-    const {api, win, modal, area, toast} = fixture(clipboard);
-    const trigger = win.document.querySelector('.btn-obs');
-    trigger.focus();
-    await api.copyAndOpenOBS('master-live.html');
-    assert.equal(modal.classList.contains('show'), true);
-    assert.equal(area.value, 'https://polskieradio.cc/master-live.html');
-    assert.equal(win.document.activeElement, area);
-    assert.equal(toast.textContent, '');
-    await api.copyEmbedCode();
-    assert.equal(modal.classList.contains('show'), true);
-    assert.match(win.document.getElementById('embedModalHelp').textContent, /Nie udało się/);
-    area.dispatchEvent(new win.KeyboardEvent('keydown', {key: 'Escape', bubbles: true, cancelable: true}));
-    assert.equal(modal.classList.contains('show'), false);
-    assert.equal(win.document.activeElement, trigger);
-  });
-}
-
-test('embed code is copied only after confirmation by the clipboard', async () => {
-  const copied = [];
-  const {api, modal, area} = fixture({writeText: async text => copied.push(text)});
-  api.openEmbedModal('stream-scene-vertical.html');
-  assert.match(area.value, /src="https:\/\/polskieradio.cc\/stream-scene-vertical.html"/);
-  assert.equal(modal.classList.contains('show'), true);
-  await api.copyEmbedCode();
-  assert.equal(copied[0], area.value);
-  assert.equal(modal.classList.contains('show'), false);
-});
-
-test('only known catalogue entries can be embedded or copied', async () => {
-  const {api} = fixture();
-  for (const url of ['https://example.com', 'javascript:alert(1)', '../private', 'master']) {
-    assert.throws(() => api.openEmbedModal(url), /Unknown catalogue scene/);
-    await assert.rejects(api.copyAndOpenOBS(url), /Unknown catalogue scene/);
+  for (const file of files) {
+    assert.ok(existsSync(file), file);
+    assert.equal(seen.has(file), false, file);
+    seen.add(file);
   }
 });
 
-test('copy dialog is named and traps keyboard focus in both directions', () => {
-  const {api, win, modal} = fixture();
-  api.openEmbedModal('master-live.html');
-  assert.equal(modal.getAttribute('role'), 'dialog');
-  assert.equal(modal.getAttribute('aria-modal'), 'true');
-  assert.ok(win.document.getElementById(modal.getAttribute('aria-labelledby')));
-  assert.ok(win.document.getElementById(modal.getAttribute('aria-describedby')));
-  const first = modal.querySelector('.modal-close');
-  const last = modal.querySelector('.copy-btn');
-  last.focus();
-  last.dispatchEvent(new win.KeyboardEvent('keydown', {key:'Tab', bubbles:true, cancelable:true}));
-  assert.equal(win.document.activeElement, first);
-  first.dispatchEvent(new win.KeyboardEvent('keydown', {key:'Tab', shiftKey:true, bubbles:true, cancelable:true}));
-  assert.equal(win.document.activeElement, last);
+test('oficjalne numery kanałów 1–17 zgadzają się z rejestrem data/cc-channels.json', () => {
+  const map = JSON.parse(html.match(/const CC_NUM=(\{[^;]+\});/)[1]);
+  for (const ch of registry) {
+    for (const url of [ch.url, ...(ch.aliases || [])]) assert.equal(map[strip(url)], ch.number, url);
+  }
+  assert.match(html, /data-cc-channel-number=/);
 });
 
-test('catalogue has no unverified live-preview claim and grid adapts to narrow screens', () => {
+test('OBS i kod osadzenia używają dokładnie adresu sceny, bez odtwarzaczy w kartach', () => {
+  assert.ok(html.includes('data-copy="${BASE}${x.f}" data-what="URL dla OBS"'));
+  assert.ok(html.includes('<iframe src="${BASE}${x.f}"'));
+  const tpl = html.slice(html.indexOf('const card=x=>'), html.indexOf("document.getElementById('groups')"));
+  assert.doesNotMatch(tpl.replace(/data-copy='<iframe[^']*'/, ''), /<iframe|<video|<audio/);
+});
+
+test('katalog nie udaje trwającej transmisji i działa na wąskim ekranie', () => {
   assert.doesNotMatch(html, /OGLĄDAJ NA ŻYWO|WATCH LIVE|Uruchom w OBS/);
   assert.match(html, /Katalog nie jest wskaźnikiem trwającej transmisji/);
-  assert.match(html, /minmax\(min\(100%, 340px\), 1fr\)/);
-  assert.match(html, /@media \(max-width: 768px\)\s*{\s*\.cards-grid/);
-  assert.match(html, /\.copy-btn\s*{\s*min-height: 44px/);
+  assert.ok(html.includes('@media (max-width:620px){.grid{grid-template-columns:minmax(0,1fr)}'));
+  assert.ok(html.includes('min-height:44px'));
 });
 
 test('Apocalypse lesson count matches the actual registry and runtime uses its length', () => {
