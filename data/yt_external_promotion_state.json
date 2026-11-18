@@ -1,7 +1,7 @@
 {
-  "lastIndex": 8,
-  "lastChannelId": "worship_live",
-  "lastTimestamp": "2026-11-18T09:05:55.859Z",
+  "lastIndex": 9,
+  "lastChannelId": "cc_prayer_24",
+  "lastTimestamp": "2026-11-18T17:05:48.015Z",
   "history": [
     {
       "index": 0,
@@ -99,6 +99,17 @@
       "url": "https://www.youtube.com/@WorshipLiveCC",
       "targetAudience": "Wszyscy potrzebujący wyciszenia, obecności Bożej, modlitwy i pięknej muzyki bez reklam",
       "hook": "Czujesz przytłoczenie i gonitwę myśli? Włącz nieprzerwane uwielbienie i odzyskaj Boży pokój."
+    },
+    {
+      "index": 9,
+      "channelId": "cc_prayer_24",
+      "timestamp": "2026-11-18T17:05:48.015Z",
+      "status": "PROMOTED",
+      "channelName": "CC Prayer 24",
+      "handle": "@CCPrayer24",
+      "url": "https://www.youtube.com/@CCPrayer24",
+      "targetAudience": "Ludzie w kryzysie życiowym, chorzy, osoby szukające wsparcia modlitewnego",
+      "hook": "Nosisz w sercu ciężar, z którym nie masz już siły walczyć samemu?"
     }
   ]
 }
