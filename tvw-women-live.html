@@ -221,11 +221,11 @@
                     tvwStrikes = 3;
                     const n = ((player.getPlaylist && player.getPlaylist()) || []).length || 50;
                     player.loadPlaylist({ listType: 'playlist', list: TVW_PLAYLIST, index: Math.floor(Math.random() * n) });
-                    player.mute(); player.playVideo();
+                    player.playVideo(); applyAudio();
                 } else if (idle > 18000 && tvwStrikes < 2) {
                     tvwStrikes = 2; if (player.nextVideo) player.nextVideo();
                 } else if (idle > 10000 && tvwStrikes < 1) {
-                    tvwStrikes = 1; player.mute(); player.playVideo();
+                    tvwStrikes = 1; player.playVideo(); applyAudio();
                 }
             } catch (e) {}
         }, 3000);

@@ -58,7 +58,7 @@
     if (s.playing && s.progressed) return { action: 'none', strikes: 0 };
     if (s.ended) return { action: 'next', strikes: s.strikes };
     // Przeładowanie strony tylko, gdy kanał już grał (inaczej to blokada autoplay — czekamy na kliknięcie widza).
-    if (s.idleMs > 60000 && !s.hidden && s.everPlayed) return { action: 'reload-page', strikes: s.strikes };
+    if (s.idleMs > 60000 && !s.hidden && (s.everPlayed || s.isObs)) return { action: 'reload-page', strikes: s.strikes };
     if (s.idleMs > 30000 && s.strikes < 3) return { action: 'restart-list', strikes: 3 };
     if (s.idleMs > 18000 && s.strikes < 2) return { action: 'next', strikes: 2 };
     if (s.idleMs > 10000 && s.strikes < 1) return { action: 'resume', strikes: 1 };
@@ -137,7 +137,8 @@
 
   // ---------- Player ----------
   var DEEP = deepLinkId(location.search);
-  var player = null, seeded = !!DEEP, muted = true, userPaused = false, lastNowId = '', everPlayed = false;
+  var isObs = !!(root.obsstudio || (typeof window !== 'undefined' && window.obsstudio) || /[?&](in_mcr|obs|live|unmute|audio)=1/.test(location.search));
+  var player = null, seeded = !!DEEP, muted = !isObs, userPaused = false, lastNowId = '', everPlayed = false;
   var boot = Date.now(), lastT = -1, lastProgress = Date.now(), strikes = 0;
   var cover, coverMsg, soundBtn, playBtn, muteBtn, nextBtn, fsBtn, stage, bottomRun, topRun;
 
@@ -180,11 +181,18 @@
     playBtn.setAttribute('aria-label', userPaused ? L.play : L.pause);
     muteBtn.setAttribute('aria-pressed', muted ? 'true' : 'false');
     muteBtn.setAttribute('aria-label', muted ? L.unmute : L.mute);
-    soundBtn.hidden = !muted || !player;
+    soundBtn.hidden = isObs || !muted || !player;
   }
   function applyAudio() {
     if (!player || !player.mute) return;
-    try { if (muted) player.mute(); else { player.unMute(); player.setVolume(100); } } catch (e) {}
+    try {
+      if (muted && !isObs) {
+        player.mute();
+      } else {
+        player.unMute();
+        player.setVolume(100);
+      }
+    } catch (e) {}
   }
   function hideCaptions() {
     try {
@@ -318,6 +326,7 @@
       modestbranding: 1, iv_load_policy: 3, cc_load_policy: 0, disablekb: 1, fs: 0,
       hl: EN ? 'en' : 'pl', origin: location.origin
     };
+    if (isObs) vars.mute = 0;
     if (!Q) { vars.listType = 'playlist'; vars.list = SS_PLAYLIST; vars.loop = 1; }
     var opts = {
       width: 1280, height: 720,
@@ -326,7 +335,12 @@
       events: {
         onReady: function () {
           try { var f = document.querySelector('#tv-stage iframe'); if (f) { f.setAttribute('title', 'Spiritual Sounds 24/7 — YouTube'); f.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen'); } } catch (e) {}
-          player.mute(); player.playVideo();
+          if (isObs) {
+            try { player.unMute(); player.setVolume(100); } catch (e) {}
+          } else {
+            player.mute();
+          }
+          player.playVideo();
           syncButtons();
         },
         onError: function (err) {
@@ -342,6 +356,7 @@
               var s = seedIndex(n, Date.now());
               if (n > 1 && s !== curIndex()) { player.playVideoAt(s); return; }
             }
+            if (isObs) { muted = false; try { player.unMute(); player.setVolume(100); } catch (er) {} }
             applyAudio(); hideCaptions(); setTimeout(hideCaptions, 1500);
             updateNow();
           } else if (e.data === ytState('ENDED')) {
@@ -385,7 +400,7 @@
     var progressed = (st === ytState('PLAYING') && t !== lastT);
     if (progressed) { lastT = t; lastProgress = Date.now(); everPlayed = true; }
     var r = guardDecide({
-      everPlayed: everPlayed,
+      everPlayed: everPlayed, isObs: isObs,
       hasPlayer: has, playing: st === ytState('PLAYING'), paused: st === ytState('PAUSED'), ended: st === ytState('ENDED'),
       progressed: progressed, idleMs: userPaused ? 0 : Date.now() - lastProgress, strikes: strikes,
       userPaused: userPaused, hidden: document.hidden, sinceBootMs: Date.now() - boot
@@ -470,6 +485,16 @@
     nextBtn.addEventListener('click', function () { userPaused = false; try { goNext(); } catch (e) {} syncButtons(); });
     fsBtn.addEventListener('click', toggleFs);
     $('tv-share').addEventListener('click', share);
+    window.addEventListener('message', function (ev) {
+      var d = ev && ev.data; var type = '';
+      if (typeof d === 'string') {
+        try { var p = JSON.parse(d); type = p.type || p.event || ''; if (p.func === 'unMute') type = 'UNMUTE_AUDIO'; if (p.func === 'mute') type = 'MUTE_AUDIO'; } catch (e) { type = d; }
+      } else if (d && typeof d === 'object') {
+        type = d.type || '';
+      }
+      if (type === 'UNMUTE_AUDIO') { setMuted(false); }
+      else if (type === 'MUTE_AUDIO') { setMuted(true); }
+    });
     document.addEventListener('keydown', function (e) {
       if (e.altKey || e.ctrlKey || e.metaKey) return;
       var tag = (e.target && e.target.tagName) || '';

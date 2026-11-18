@@ -50,7 +50,10 @@ export const CHANNELS = {
   'CC Marriage': { id: null, handle: '@CCMarriage', via: '@CCMarriage' },
   'Christian Culture Biznes': { id: null, handle: '@ChristianCultureBiznes', via: '@ChristianCultureBiznes' },
   'CC Identity': { id: null, handle: '@CCIdentityTwojaDuchowaTożsamoś', via: '@CCIdentityTwojaDuchowaTożsamoś' },
-  'Worship LIVE CC': { id: null, handle: '@WorshipLiveCC', via: '@WorshipLiveCC' }
+  'Worship LIVE CC': { id: null, handle: '@WorshipLiveCC', via: '@WorshipLiveCC' },
+  'Popraw Koronę': { id: 'UCquRtlfo1jrhZGO8LqFVllQ', handle: '@PoprawKoronęCC', via: '@PoprawKoronęCC' },
+  'Katarzyna Fedków': { id: 'UCnipJdX6mtsxaoEENzEVusA', handle: '@katarzynafedkow', via: '@katarzynafedkow' },
+  'Top Seven': { id: 'UCdo_1-cjf5TEjSfEG_rxmyw', handle: '@TopSeven_CC', via: '@TopSeven_CC' }
 };
 
 // Biblia Audio: KOMPLET (4K + Shorts) na wszystkich 7 głównych kanałach PL — decyzja L0 02.11.2026.
@@ -95,8 +98,11 @@ async function switchIdentity(page, handle) {
       await page.waitForTimeout(1500);
       const item = page.locator('ytd-account-item-renderer', { hasText: handle }).first();
       if (!(await item.count())) throw new Error(`Brak tożsamości ${handle} w przełączniku kanałów`);
-      await item.click();
-      await page.waitForTimeout(5000);
+      await Promise.all([
+        page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 20000 }).catch(() => {}),
+        item.click()
+      ]);
+      await new Promise(r => setTimeout(r, 4000));
       return;
     } catch (err) {
       if (attempt === 1) {
