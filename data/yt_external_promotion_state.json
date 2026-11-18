@@ -1,7 +1,7 @@
 {
-  "lastIndex": 7,
-  "lastChannelId": "cc_bible_deep",
-  "lastTimestamp": "2026-11-17T17:03:00.964Z",
+  "lastIndex": 8,
+  "lastChannelId": "worship_live",
+  "lastTimestamp": "2026-11-18T09:05:55.859Z",
   "history": [
     {
       "index": 0,
@@ -88,6 +88,17 @@
       "url": "https://www.youtube.com/@CCBibleDeep",
       "targetAudience": "Studenci teologii, pasjonaci Pisma Świętego, dociekliwi poszukiwacze faktów historycznych",
       "hook": "Co naprawdę kryje się w oryginalnym tekście hebrajskim i greckim Pisma Świętego?"
+    },
+    {
+      "index": 8,
+      "channelId": "worship_live",
+      "timestamp": "2026-11-18T09:05:55.860Z",
+      "status": "PROMOTED",
+      "channelName": "Worship LIVE CC",
+      "handle": "@WorshipLiveCC",
+      "url": "https://www.youtube.com/@WorshipLiveCC",
+      "targetAudience": "Wszyscy potrzebujący wyciszenia, obecności Bożej, modlitwy i pięknej muzyki bez reklam",
+      "hook": "Czujesz przytłoczenie i gonitwę myśli? Włącz nieprzerwane uwielbienie i odzyskaj Boży pokój."
     }
   ]
 }
