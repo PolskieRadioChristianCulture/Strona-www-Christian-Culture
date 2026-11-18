@@ -425,11 +425,17 @@
     "id": "genesis-29",
     "book": "genesis",
     "chapter": 29,
-    "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "description": "Spotkanie Jakuba z Rachelą przy studni w Charanie, siedem lat służby z miłości, podstęp Labana, małżeństwo z Leą i Rachelą oraz narodziny Rubena, Symeona, Lewiego i Judy.",
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_29_1-35_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 29,1–35 (UBG) — Jakub u Labana, Lea i Rachela",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_29_1-35_Biblia_Audio_CC.mp3",
+        "verses": "1–35"
+      }
+    ]
   },
   {
     "id": "genesis-30",
