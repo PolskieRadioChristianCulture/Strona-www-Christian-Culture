@@ -52,7 +52,7 @@ test('Smart-catalog fallback odpowiada konkretnie na „Co dobrego w CC?” dla 
   assert.equal(aliasRes.assistant, 'miriam');
 });
 
-test('GET /api/lumi-chat?daily=1 zwraca dialog 4 asystentek z dzisiejszego rozważania (0 kosztów)', async () => {
+test('GET /api/lumi-chat?daily=1 zwraca 8-częściowy dialog 4 asystentek z sesjami NA ŻYWO 09:00 i 19:00 (0 kosztów)', async () => {
   resetLumiChatState();
   const r = await handleLumiChatApi(
     new Request('https://polskieradio.cc/api/lumi-chat?daily=1', { method: 'GET' }),
@@ -64,8 +64,11 @@ test('GET /api/lumi-chat?daily=1 zwraca dialog 4 asystentek z dzisiejszego rozwa
   assert.equal(json.ok, true);
   assert.equal(json.zeroCostGuaranteed, true);
   assert.equal(json.dialogue.day, 48);
-  assert.equal(json.dialogue.turns.length, 4);
-  assert.deepEqual(json.dialogue.turns.map(t => t.name), ['Rut', 'Lea', 'Noemi', 'Miriam']);
+  assert.deepEqual(json.dialogue.sessions, ['09:00', '19:00']);
+  assert.equal(json.dialogue.stepSeconds, 18);
+  assert.equal(json.dialogue.turns.length, 8);
+  const speakers = new Set(json.dialogue.turns.map(t => t.name));
+  for (const s of ['Rut', 'Lea', 'Noemi', 'Miriam']) assert.ok(speakers.has(s));
 });
 
 test('Dopasowuje kontekstowy temat i werset UBG z katalogu CC', async () => {

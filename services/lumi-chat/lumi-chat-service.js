@@ -77,6 +77,23 @@ export function resolveAssistantKey(id) {
   return ASSISTANT_ALIASES[k] || 'rut';
 }
 
+function extractReflectionHighlights(reflection) {
+  const raw = String(reflection.contentWeb || reflection.fullText || '').replace(/\r/g, '');
+  const lines = raw.split('\n').map((l) => l.trim()).filter(Boolean);
+  const skipRe = /^(☀️|📖|👉|💬|w christian culture|dołącz|podaj dalej|www\.|https?:|wspomóż|zadanie taktyczne)/i;
+  const body = [];
+  let actionLine = '';
+  for (const l of lines) {
+    if (/^•\s*dzia[łl]aj:/i.test(l) || /^dzia[łl]aj:/i.test(l)) {
+      actionLine = l.replace(/^•\s*/i, '').trim();
+      continue;
+    }
+    if (skipRe.test(l)) continue;
+    if (l.length >= 35 && l.length <= 340) body.push(l);
+  }
+  return { body, actionLine };
+}
+
 export function buildDailyDialogue(reflection) {
   if (!reflection) return null;
   const day = reflection.day || '';
@@ -84,7 +101,13 @@ export function buildDailyDialogue(reflection) {
   const reading = reflection.reading || '';
   const verse = reflection.memoryVerse || '';
   const teaser = reflection.teaser || reflection.theme || '';
-  const firstSentence = String(teaser).split(/(?<=[.!?])\s+/)[0] || teaser;
+  const teaserSentences = String(teaser).split(/(?<=[.!?])\s+/).filter(Boolean);
+  const { body, actionLine } = extractReflectionHighlights(reflection);
+
+  const p1 = teaserSentences[0] || body[0] || '';
+  const p2 = body.find((l) => /^\d+\./.test(l)) || teaserSentences[1] || body[1] || 'Zatrzymajmy się dziś nad tym fragmentem i zobaczmy, jak Bóg przemawia do naszego serca.';
+  const p3 = body.find((l) => /^2\./.test(l)) || teaserSentences[2] || body[2] || 'Słowo Boże nie jest teorią — uczy nas konkretnych decyzji w rodzinie, pracy i służbie.';
+  const p4 = actionLine || 'DZIAŁAJ: Wybierz dziś jedną konkretną sprawę, w której zaufasz Bogu bardziej niż własnym siłom.';
 
   const turns = [
     {
@@ -92,30 +115,58 @@ export function buildDailyDialogue(reflection) {
       name: 'Rut',
       role: 'Gospodyni CC',
       avatar: '/images/chat/lumi_avatar_rut_circle.webp',
-      text: `Dzień dobry kochani! ${day ? `Dziś Dzień ${day}` : 'Dziś'} rozważamy: „${title}”${reading ? ` (${reading})` : ''}. ${firstSentence}`
-    },
-    {
-      assistantId: 'lea',
-      name: 'Lea',
-      role: 'Planista',
-      avatar: '/images/chat/lumi_avatar_lea_circle.webp',
-      text: `Zróbmy z tego konkretny krok na dziś: poświęć 10 minut na spokojną lekturę ${reading || 'dzisiejszego fragmentu'} i zastosuj jedną myśl w swojej codzienności.`
+      text: `Dzień dobry kochani! ${day ? `Dziś Dzień ${day}` : 'Dziś'} rozważamy: „${title}”${reading ? ` (${reading})` : ''}.`
     },
     {
       assistantId: 'noemi',
       name: 'Noemi',
       role: 'Doradca',
       avatar: '/images/chat/lumi_avatar_noemi_circle.webp',
-      text: verse
-        ? `Słowo do serca na ten dzień: ${verse}`
-        : `Pamiętajmy, że w każdej sprawie możemy przyjść z modlitwą do naszego Pana Jezusa Chrystusa.`
+      text: p1 || `Otwórzmy razem ${reading || 'Pismo Święte'} i wsłuchajmy się w to, co Bóg chce nam dziś powiedzieć.`
+    },
+    {
+      assistantId: 'lea',
+      name: 'Lea',
+      role: 'Planista',
+      avatar: '/images/chat/lumi_avatar_lea_circle.webp',
+      text: p2
     },
     {
       assistantId: 'miriam',
       name: 'Miriam',
       role: 'Psalmy i Uwielbienie',
       avatar: '/images/chat/lumi_avatar_miriam_circle.webp',
-      text: `Panie, dziękujemy Ci za Twoje Słowo i prowadzenie na cały dzień! Zapraszamy Was do wspólnej rozmowy poniżej oraz do pełnej lekcji w Akademii.`
+      text: verse
+        ? `Werset przewodni na dziś: ${verse}`
+        : `„Słowo Twoje jest pochodnią nogom moim i światłością na ścieżce mojej.” (Ps 119:105, UBG)`
+    },
+    {
+      assistantId: 'rut',
+      name: 'Rut',
+      role: 'Gospodyni CC',
+      avatar: '/images/chat/lumi_avatar_rut_circle.webp',
+      text: p3
+    },
+    {
+      assistantId: 'lea',
+      name: 'Lea',
+      role: 'Planista',
+      avatar: '/images/chat/lumi_avatar_lea_circle.webp',
+      text: p4
+    },
+    {
+      assistantId: 'noemi',
+      name: 'Noemi',
+      role: 'Doradca',
+      avatar: '/images/chat/lumi_avatar_noemi_circle.webp',
+      text: `Panie Jezu, dziękujemy Ci za Twoje Słowo. Prowadź nas dziś swoim Duchem, daj pokój w decyzjach i odwagę do dzielenia się Dobrą Nowiną.`
+    },
+    {
+      assistantId: 'miriam',
+      name: 'Miriam',
+      role: 'Psalmy i Uwielbienie',
+      avatar: '/images/chat/lumi_avatar_miriam_circle.webp',
+      text: `Niech Pan błogosławi cały Twój dzień! Poniżej możesz podzielić się swoją myślą ze społecznością albo kliknąć i przeczytać pełne studium.`
     }
   ];
 
@@ -125,6 +176,8 @@ export function buildDailyDialogue(reflection) {
     title,
     reading,
     lessonUrl: day ? `/akademia/kurscodzienny/dzien-${day}` : '/akademia/kurscodzienny',
+    sessions: ['09:00', '19:00'],
+    stepSeconds: 18,
     turns
   };
 }

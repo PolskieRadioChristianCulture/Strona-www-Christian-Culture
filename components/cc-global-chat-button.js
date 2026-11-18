@@ -4848,6 +4848,78 @@
   let dailyDialogueCache = null;
   let dailyDialogueFetching = false;
   let dailyDialogueCollapsed = false;
+  let dailyDialogueTimer = null;
+  let dailyLastVisibleCount = -1;
+
+  function getWarsawDaySeconds() {
+    try {
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Warsaw',
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      }).formatToParts(new Date());
+      const h = Number(parts.find(p => p.type === 'hour')?.value || 0);
+      const m = Number(parts.find(p => p.type === 'minute')?.value || 0);
+      const s = Number(parts.find(p => p.type === 'second')?.value || 0);
+      return (h % 24) * 3600 + m * 60 + s;
+    } catch {
+      const d = new Date();
+      return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+    }
+  }
+
+  function getDailyDialogueLiveState(d) {
+    const turns = Array.isArray(d?.turns) ? d.turns : [];
+    const total = turns.length;
+    const step = Number(d?.stepSeconds) || 18;
+    const sessions = Array.isArray(d?.sessions) && d.sessions.length ? d.sessions : ['09:00', '19:00'];
+    const nowSec = getWarsawDaySeconds();
+    const duration = total * step;
+
+    for (const label of sessions) {
+      const [hh, mm] = String(label).split(':').map(Number);
+      const startSec = (hh || 0) * 3600 + (mm || 0) * 60;
+      const elapsed = nowSec - startSec;
+      if (elapsed >= 0 && elapsed < duration) {
+        const visibleCount = Math.min(total, Math.floor(elapsed / step) + 1);
+        const nextInSec = visibleCount < total ? (step - (elapsed % step)) : 0;
+        return { isLive: true, sessionLabel: label, visibleCount, total, nextInSec, sessions };
+      }
+    }
+    return { isLive: false, sessionLabel: '', visibleCount: total, total, nextInSec: 0, sessions };
+  }
+
+  function ensureDailyDialogueTicker() {
+    if (dailyDialogueTimer) return;
+    dailyDialogueTimer = setInterval(() => {
+      if (!dailyDialogueCache || !currentChatPartner || !currentChatPartner.isPublic || chatMode !== 'public') {
+        clearInterval(dailyDialogueTimer);
+        dailyDialogueTimer = null;
+        return;
+      }
+      const st = getDailyDialogueLiveState(dailyDialogueCache);
+      if (!st.isLive) {
+        if (dailyLastVisibleCount !== st.total) {
+          dailyLastVisibleCount = st.total;
+          renderChatMessages();
+        }
+        clearInterval(dailyDialogueTimer);
+        dailyDialogueTimer = null;
+        return;
+      }
+      if (st.visibleCount !== dailyLastVisibleCount) {
+        dailyLastVisibleCount = st.visibleCount;
+        renderChatMessages();
+        return;
+      }
+      const cd = document.getElementById('ccDailyDialogueCountdown');
+      if (cd) {
+        cd.textContent = st.nextInSec > 0 ? `Kolejna myśl za ${st.nextInSec} s` : 'Finał sesji na żywo';
+      }
+    }, 1000);
+  }
 
   function renderDailyDialogueCardHtml() {
     if (!dailyDialogueCache || !Array.isArray(dailyDialogueCache.turns) || !dailyDialogueCache.turns.length) {
@@ -4866,9 +4938,18 @@
       return '';
     }
     const d = dailyDialogueCache;
+    const liveState = getDailyDialogueLiveState(d);
+    dailyLastVisibleCount = liveState.visibleCount;
+    if (liveState.isLive) ensureDailyDialogueTicker();
+
+    const shownTurns = d.turns.slice(0, liveState.visibleCount);
+    const statusBadge = liveState.isLive
+      ? `<span style="display:inline-flex;align-items:center;gap:5px;color:#34D399;font-weight:800;">● NA ŻYWO · ${escapeHtml(liveState.sessionLabel)}</span> <span id="ccDailyDialogueCountdown" style="color:#A5AEC4;font-weight:500;">${liveState.nextInSec > 0 ? `Kolejna myśl za ${liveState.nextInSec} s` : 'Finał sesji na żywo'}</span>`
+      : `<span>☀️ Rozważanie dnia · Zapis (${escapeHtml(liveState.sessions.join(' i '))} NA ŻYWO)</span>`;
+
     const turnsHtml = dailyDialogueCollapsed ? '' : `
       <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
-        ${d.turns.map(t => `
+        ${shownTurns.map(t => `
           <div style="display:flex;gap:8px;align-items:flex-start;background:rgba(13,16,32,0.55);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:8px 10px;">
             <img src="${escapeHtml(t.avatar)}" alt="${escapeHtml(t.name)}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1.5px solid #D8AD57;flex-shrink:0;margin-top:2px;" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
             <div style="min-width:0;flex:1;">
@@ -4887,7 +4968,7 @@
       <div id="ccPublicDailyDialogue" style="border:1px solid rgba(216,173,87,0.32);background:linear-gradient(145deg,rgba(24,29,56,0.92),rgba(14,18,36,0.95));border-radius:16px;padding:12px 13px;margin-bottom:6px;box-shadow:0 6px 20px rgba(0,0,0,0.28);">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
           <div style="min-width:0;">
-            <div style="font-size:0.72rem;font-weight:800;letter-spacing:0.04em;color:#D8AD57;text-transform:uppercase;">☀️ Rozważanie dnia · Dialog 4 Asystentek</div>
+            <div style="font-size:0.72rem;font-weight:800;letter-spacing:0.03em;color:#D8AD57;text-transform:uppercase;">${statusBadge}</div>
             <div style="font-size:0.86rem;font-weight:700;color:#FFFFFF;margin-top:2px;line-height:1.3;">${escapeHtml(d.title || 'Z Biblią za Pan Brat')}${d.reading ? ` <span style="color:#A5AEC4;font-weight:500;">(${escapeHtml(d.reading)})</span>` : ''}</div>
           </div>
           <button type="button" id="ccToggleDailyDialogueBtn" aria-label="Zwiń lub rozwiń rozważanie dnia" style="min-width:36px;min-height:36px;border-radius:10px;border:1px solid rgba(216,173,87,0.3);background:rgba(255,255,255,0.05);color:#E2CC9A;cursor:pointer;font-size:0.82rem;flex-shrink:0;">${dailyDialogueCollapsed ? '▾ Rozwiń' : '▴ Zwiń'}</button>
