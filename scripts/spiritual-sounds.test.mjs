@@ -7,15 +7,15 @@ import vm from 'node:vm';
 import { isPublicFile } from './cc-release-files.mjs';
 
 const read = (p) => fs.readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
-const tvJs = read('test/spiritual-sounds/tv/ss-tv.js');
+const tvJs = read('SpiritualSounds/tv/ss-tv.js');
 // Plik przeglądarkowy (repo ma "type": "module") — wczytujemy w piaskownicy vm jak skrypt klasyczny.
 const sandbox = { module: { exports: {} } };
 vm.runInNewContext(tvJs, sandbox);
 const tv = sandbox.module.exports;
 const pages = {
-  pl: read('test/spiritual-sounds/index.html'),
-  en: read('test/spiritual-sounds/en/index.html'),
-  tv: read('test/spiritual-sounds/tv/index.html'),
+  pl: read('SpiritualSounds/index.html'),
+  en: read('SpiritualSounds/en/index.html'),
+  tv: read('SpiritualSounds/tv/index.html'),
 };
 
 test('playlista autora jest jedynym źródłem (bez ręcznej listy filmów)', () => {
@@ -82,10 +82,10 @@ test('uczciwe oznaczenia: 24/7 / non-stop, nigdy „LIVE”', () => {
   assert.doesNotMatch(tvJs.replace(/\/\*[\s\S]*?\*\//, ''), /'[^']*\bLIVE\b[^']*'/);
 });
 
-test('wersja testowa: noindex, canonical, hreflang pl/en/x-default, OG, GA4', () => {
+test('wersja produkcyjna: index,follow, canonical, hreflang pl/en/x-default, OG, GA4', () => {
   for (const [k, html] of Object.entries(pages)) {
-    assert.match(html, /<meta name="robots" content="noindex,nofollow">/, k);
-    assert.match(html, /<link rel="canonical" href="https:\/\/polskieradio\.cc\/test\/spiritual-sounds\//, k);
+    assert.match(html, /<meta name="robots" content="index,follow">/, k);
+    assert.match(html, /<link rel="canonical" href="https:\/\/polskieradio\.cc\/SpiritualSounds\//, k);
     for (const l of ['pl', 'en', 'x-default']) assert.match(html, new RegExp(`hreflang="${l}"`), `${k} ${l}`);
     assert.match(html, /property="og:image"/, k);
     assert.match(html, /gtag\('config','G-Y4EFTVBPE3'/, k);
@@ -103,28 +103,27 @@ test('treść: Suno przedstawione neutralnie jako narzędzie, nie wykonawca', ()
   for (const html of [pages.pl, pages.en]) assert.doesNotMatch(html, /Suno (jest|is) (artyst|an artist|wykonawc)/i);
 });
 
-test('trasy testowe i wydanie: pliki trafiają na hosting, adresy działają', () => {
-  for (const f of ['test/spiritual-sounds/index.html', 'test/spiritual-sounds/en/index.html', 'test/spiritual-sounds/tv/index.html',
-    'test/spiritual-sounds/tv/ss-tv.js', 'test/spiritual-sounds/ss.css', 'test/spiritual-sounds/img/ss-emblem-720.webp']) {
+test('trasy produkcyjne i wydanie: pliki trafiają na hosting, adresy działają', () => {
+  for (const f of ['SpiritualSounds/index.html', 'SpiritualSounds/en/index.html', 'SpiritualSounds/tv/index.html',
+    'SpiritualSounds/tv/ss-tv.js', 'SpiritualSounds/ss.css', 'SpiritualSounds/img/ss-emblem-720.webp']) {
     assert.equal(isPublicFile(f), true, f);
   }
   const redirects = read('_redirects');
-  for (const p of ['/test/spiritual-sounds/', '/test/spiritual-sounds/en/', '/test/spiritual-sounds/tv/']) {
+  for (const p of ['/SpiritualSounds/', '/SpiritualSounds/en/', '/SpiritualSounds/tv/']) {
     assert.match(redirects, new RegExp(`^${p.replace(/\//g, '\\/')} ${p.replace(/\//g, '\\/')}index\\.html 200`, 'm'));
   }
-  assert.doesNotMatch(redirects, /^\/SpiritualSounds/m, 'produkcja dopiero po ✅ L0');
 });
 
 test('wszystkie lokalne zasoby z linków istnieją', () => {
   for (const html of Object.values(pages)) {
-    for (const m of html.matchAll(/(?:src|href)="(\/test\/spiritual-sounds\/[^"?#]+\.(?:webp|png|jpg|css|js))/g)) {
+    for (const m of html.matchAll(/(?:src|href)="(\/SpiritualSounds\/[^"?#]+\.(?:webp|png|jpg|css|js))/g)) {
       assert.ok(fs.existsSync(new URL(`..${m[1]}`, import.meta.url)), m[1]);
     }
   }
 });
 
 // ---------- v2 (18.11.2026, po uwagach L0): wzorce Master, patronat, żywe dane ----------
-const ecoJs = read('test/spiritual-sounds/ss-eco.js');
+const ecoJs = read('SpiritualSounds/ss-eco.js');
 const ecoBox = { module: { exports: {} } };
 vm.runInNewContext(ecoJs, ecoBox);
 const eco = ecoBox.module.exports;
