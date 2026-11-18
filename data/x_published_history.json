@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "player",
+      "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej Spotify-Style & Transmisje 24/7",
+      "url": "https://polskieradio.cc/player",
+      "type": "music",
+      "image": "art-worship.jpg",
+      "publishedAt": "2026-11-18T08:03:19.805Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "werset-dnia?day=334",
       "title": "Werset Dnia: „Oto panna pocznie i porodzi syna, i nazwie Jego imię Emmanuel” (Księga Izajasza 7:14, UBG)",
       "url": "https://polskieradio.cc/werset-dnia?day=334",
