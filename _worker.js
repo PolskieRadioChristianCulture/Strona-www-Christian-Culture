@@ -1542,9 +1542,9 @@ async function handleSupportRoute(request, env) {
     '/test/wspieraj/es/apoyar',
     '/test/wspieraj/fr/soutenir',
   ]);
-  if (path === '/test/network') {
+  if (path === '/test/network' || path === '/test/lumina') {
     const assetUrl = new URL(request.url);
-    assetUrl.pathname = '/network-pilot.html';
+    assetUrl.pathname = path === '/test/lumina' ? '/lumina-pilot.html' : '/network-pilot.html';
     assetUrl.search = '';
     const assetResp = await env.ASSETS.fetch(new Request(assetUrl.toString(), { method: 'GET', headers: { 'Accept': 'text/html' } }));
     const body = await assetResp.arrayBuffer();

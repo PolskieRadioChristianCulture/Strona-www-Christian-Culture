@@ -1,0 +1,1443 @@
+<!doctype html>
+<html lang="pl" data-lumina-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07090E">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="LUMINA • Chrześcijańska Społeczność Relacji & Wartości. Poznaj ludzi wiary, odkrywaj Tablicę Społeczności, świadectwa, modlitwę i transmisje 24/7.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LUMINA · Christian Culture">
+  <meta property="og:title" content="LUMINA • Chrześcijańska Społeczność Relacji & Wartości">
+  <meta property="og:description" content="Poznaj ludzi, którzy budują relacje oparte na wierze i wartościach • Świadectwa • Modlitwa • Media 24/7.">
+  <meta property="og:image" content="https://polskieradio.cc/images/lumina/lumina-logo-black.jpg">
+  <meta property="og:url" content="https://polskieradio.cc/lumina">
+  <link rel="icon" type="image/png" href="/images/lumina/lumina-icon-transparent.png">
+  <link rel="manifest" href="/manifest-lumina.json">
+  <title>LUMINA • Chrześcijańska Społeczność Relacji &amp; Wartości (Standard 2027)</title>
+
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("lumina_theme");
+        var q = new URLSearchParams(window.location.search).get("theme");
+        var theme = q === "light" || q === "dark" ? q : (saved === "light" ? "light" : "dark");
+        document.documentElement.setAttribute("data-lumina-theme", theme);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
+
+  <script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+  <script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
+  <script src="/js/cc-mobile-edge.js?v=20261110_edge12" data-cc-edge-profile="lumina" defer></script>
+  <script src="/js/cc-edge-plus.js?v=20261110_edgep2" defer></script>
+  <script src="/components/cc-omni-search.js?v=20261030_feat11" defer></script>
+  <script src="/components/cc-global-chat-button.js?v=20261116_chat" defer></script>
+  <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
+  <script src="/components/cc-support-footer.js?v=20261116_a007_column" defer></script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07090E;
+      --bg-elevated: #0E131F;
+      --panel: rgba(16, 22, 35, 0.78);
+      --panel-solid: #111726;
+      --fg: #F8FAFC;
+      --muted: #A3B1C6;
+      --dim: #6E7E96;
+      --gold: #C4A35A;
+      --gold-hover: #D4B578;
+      --gold-light: #E2CC9A;
+      --gold-dark: #A08040;
+      --orange: #FF7A00;
+      --orange-hover: #FF8C33;
+      --orange-active: #E66A00;
+      --line: rgba(196, 163, 90, 0.24);
+      --line-subtle: rgba(255, 255, 255, 0.08);
+      --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.48);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --f-head: 'Outfit', system-ui, -apple-system, sans-serif;
+      --f-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html[data-lumina-theme="light"] {
+      color-scheme: light;
+      --bg: #FAF8F5;
+      --bg-elevated: #FFFFFF;
+      --panel: rgba(255, 255, 255, 0.88);
+      --panel-solid: #FFFFFF;
+      --fg: #0F172A;
+      --muted: #475569;
+      --dim: #64748B;
+      --gold: #9E7B2F;
+      --gold-hover: #B89240;
+      --gold-light: #7D5F1E;
+      --gold-dark: #7A5C1B;
+      --line: rgba(158, 123, 47, 0.26);
+      --line-subtle: rgba(15, 23, 42, 0.08);
+      --glass-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font: 16px/1.6 var(--f-body);
+      background:
+        radial-gradient(ellipse 75% 45% at 50% 0%, rgba(196, 163, 90, 0.14), transparent 65%),
+        radial-gradient(ellipse 55% 40% at 85% 25%, rgba(255, 122, 0, 0.07), transparent 60%),
+        var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+    }
+    /* Zero Underline Policy */
+    a {
+      color: inherit;
+      text-decoration: none !important;
+    }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 2px solid var(--gold-light);
+      outline-offset: 3px;
+    }
+    button { font: inherit; cursor: pointer; }
+    .wrap {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* Auto-collapsing top pulse bar */
+    .pulse-bar {
+      background: linear-gradient(90deg, rgba(196, 163, 90, 0.14), rgba(255, 122, 0, 0.12), rgba(196, 163, 90, 0.14));
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      max-height: 44px;
+      transition: max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease, border-color 0.45s ease;
+    }
+    .pulse-bar.collapsed {
+      max-height: 0;
+      opacity: 0;
+      border-bottom-color: transparent;
+    }
+    .pulse-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      min-height: 38px;
+      padding: 4px 16px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--gold-light);
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22C55E;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+      margin-right: 6px;
+    }
+
+    /* Sticky Header */
+    header.lumina-header {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      background: rgba(7, 9, 14, 0.84);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    html[data-lumina-theme="light"] header.lumina-header {
+      background: rgba(250, 248, 245, 0.88);
+    }
+    .hdr-row {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 10px 0 10px 54px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 44px;
+    }
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 12px rgba(196, 163, 90, 0.35));
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .brand-name {
+      font-family: var(--f-head);
+      font-size: 1.22rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--fg);
+    }
+    .brand-name span {
+      color: var(--gold);
+    }
+    .brand-sub {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hdr-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--fg);
+      background: rgba(196, 163, 90, 0.08);
+      border: 1px solid var(--line);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .nav-pill:hover {
+      background: rgba(196, 163, 90, 0.18);
+      border-color: var(--gold-hover);
+    }
+    .hdr-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .icon-btn-44 {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(196, 163, 90, 0.1);
+      border: 1px solid var(--line);
+      color: var(--fg);
+      font-size: 0.86rem;
+      font-weight: 600;
+      gap: 6px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .icon-btn-44:hover {
+      background: rgba(196, 163, 90, 0.22);
+      border-color: var(--gold-hover);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 44px 0 36px;
+      overflow: hidden;
+    }
+    #luminaCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+    .hero-card {
+      position: relative;
+      z-index: 2;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--glass-shadow);
+      padding: clamp(24px, 4vw, 48px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .eyebrow-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(196, 163, 90, 0.14);
+      border: 1px solid var(--line);
+      color: var(--gold-light);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: var(--f-head);
+      font-size: clamp(2rem, 4.2vw, 3.35rem);
+      line-height: 1.1;
+      margin: 0 0 14px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(120deg, var(--gold-light), var(--gold), var(--orange));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-lead {
+      font-size: clamp(1rem, 1.4vw, 1.14rem);
+      color: var(--muted);
+      margin: 0 0 24px;
+      max-width: 58ch;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 26px;
+    }
+    /* Standard JOMA-D052: Klasyczny Pomarańczowy Przycisk Akcji (#FF7A00) */
+    .btn-orange-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: var(--orange);
+      border: 1px solid var(--orange-hover);
+      color: #FFFFFF;
+      font-family: var(--f-head);
+      font-size: 0.98rem;
+      font-weight: 700;
+      box-shadow: 0 10px 28px rgba(255, 122, 0, 0.32);
+      transition: background 0.18s ease, transform 0.15s ease;
+    }
+    .btn-orange-cta:hover { background: var(--orange-hover); transform: translateY(-1px); }
+    .btn-orange-cta:active { background: var(--orange-active); transform: translateY(0); }
+
+    .btn-gold-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: rgba(196, 163, 90, 0.1);
+      border: 1px solid var(--line);
+      color: var(--fg);
+      font-family: var(--f-head);
+      font-size: 0.94rem;
+      font-weight: 700;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-gold-ghost:hover {
+      background: rgba(196, 163, 90, 0.22);
+      border-color: var(--gold-hover);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line-subtle);
+    }
+    .metric-box strong {
+      display: block;
+      font-family: var(--f-head);
+      font-size: 1.35rem;
+      color: var(--gold-light);
+    }
+    .metric-box span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* Right Hero Spotlight Card */
+    .hero-spotlight {
+      background: rgba(10, 14, 24, 0.65);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    html[data-lumina-theme="light"] .hero-spotlight {
+      background: rgba(250, 248, 245, 0.92);
+    }
+    .spot-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .spot-Identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .spot-Identity img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+    }
+    .spot-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(196, 163, 90, 0.18);
+      color: var(--gold-light);
+      border: 1px solid var(--line);
+    }
+    .spot-quote {
+      margin: 0;
+      padding: 14px 16px;
+      border-left: 3px solid var(--gold);
+      background: rgba(196, 163, 90, 0.07);
+      border-radius: 0 12px 12px 0;
+      font-size: 0.92rem;
+      color: var(--fg);
+    }
+    .spot-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Section Headings */
+    .sec {
+      padding: 32px 0;
+    }
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .sec-head h2 {
+      font-family: var(--f-head);
+      font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+      margin: 4px 0 0;
+    }
+    .sec-sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 4px 0 0;
+    }
+
+    /* Filter & Perspective Toolbar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 12px 16px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+    }
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip-btn {
+      min-height: 44px;
+      padding: 8px 15px;
+      border-radius: 999px;
+      border: 1px solid var(--line-subtle);
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .chip-btn.active, .chip-btn:hover {
+      background: rgba(196, 163, 90, 0.2);
+      border-color: var(--gold);
+      color: var(--fg);
+    }
+    .perspective-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .perspective-select {
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--panel-solid);
+      color: var(--fg);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Profiles Grid */
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .prof-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+    .prof-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold-hover);
+    }
+    .prof-media {
+      position: relative;
+      aspect-ratio: 4 / 4;
+      background: #0b0f1a;
+      overflow: hidden;
+    }
+    .prof-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+    }
+    .match-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(7, 9, 14, 0.82);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-size: 0.74rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+    .verified-pill {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.55);
+      color: #A7F3D0;
+      font-size: 0.72rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+    .prof-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .prof-name {
+      font-family: var(--f-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .prof-meta {
+      font-size: 0.8rem;
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+    .prof-bio {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0;
+      flex: 1;
+    }
+    .prof-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .act-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-height: 44px;
+      padding: 6px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(196, 163, 90, 0.08);
+      color: var(--fg);
+      font-size: 0.76rem;
+      font-weight: 600;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .act-btn:hover {
+      background: rgba(196, 163, 90, 0.22);
+      border-color: var(--gold-hover);
+    }
+    .prof-open-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      margin-top: 4px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line-subtle);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      transition: background 0.2s;
+    }
+    .prof-open-link:hover {
+      background: rgba(196, 163, 90, 0.16);
+    }
+
+    /* Bento Grid 4 Pillars */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .bento-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--glass-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .col-7 { grid-column: span 7; }
+    .col-5 { grid-column: span 5; }
+    .col-6 { grid-column: span 6; }
+
+    .bento-card h3 {
+      font-family: var(--f-head);
+      font-size: 1.35rem;
+      margin: 4px 0 6px;
+    }
+    .feed-preview-item {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--line-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .feed-item-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .feed-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .feed-author img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--gold);
+    }
+    .share-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    /* Obowiązkowy przycisk L z przeźroczystą ikoną oraz przycisk X */
+    .lumina-share-l-btn, .x-share-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(196, 163, 90, 0.12);
+      color: var(--fg);
+      font-size: 0.8rem;
+      font-weight: 700;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .lumina-share-l-btn:hover, .x-share-btn:hover {
+      background: rgba(196, 163, 90, 0.24);
+      border-color: var(--gold-hover);
+    }
+    .lumina-share-l-btn img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
+    .stream-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .stream-tile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 54px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(196, 163, 90, 0.08);
+      border: 1px solid var(--line);
+      font-size: 0.86rem;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .stream-tile:hover {
+      background: rgba(196, 163, 90, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Standard CC Footer */
+    .cc-site-footer {
+      margin-top: 56px;
+      padding: 44px 0 92px;
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(14, 19, 31, 0.85), rgba(7, 9, 14, 0.98));
+    }
+    html[data-lumina-theme="light"] .cc-site-footer {
+      background: linear-gradient(180deg, #F3EFE6, #EAE3D5);
+    }
+    .cc-foot-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+    .cc-foot-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .cc-foot-brand img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+    }
+    .cc-foot-desc {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0;
+      max-width: 44ch;
+    }
+    .cc-foot-col h4 {
+      font-size: 13px;
+      color: var(--gold);
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .cc-foot-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 14px;
+    }
+    .cc-foot-links a {
+      color: var(--muted);
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .cc-foot-links a:hover { color: var(--fg); }
+    .cc-foot-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line-subtle);
+      font-size: 13px;
+      color: var(--dim);
+    }
+    .top-scroll-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: rgba(255, 122, 0, 0.16);
+      border: 1px solid rgba(255, 122, 0, 0.5);
+      color: var(--fg);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .top-scroll-btn:hover {
+      background: var(--orange);
+      color: #fff;
+    }
+
+    /* Wyrównanie w jednej linii pionowej przycisku przewijania i czatu LUMI */
+    #ccBackToTopBtn, .cc-back-to-top, #cc-global-chat-btn, .cc-global-chat-btn {
+      right: 18px !important;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-card { grid-template-columns: 1fr; }
+      .profiles-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .col-7, .col-5, .col-6 { grid-column: span 12; }
+      .cc-foot-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 680px) {
+      .profiles-grid, .stream-grid, .cc-foot-grid { grid-template-columns: 1fr; }
+      .hdr-row { padding-left: 52px; }
+      .nav-label-mobile-hide { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      #luminaCanvas { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="pulse-bar" id="topPulseBar" role="region" aria-label="Puls społeczności LUMINA">
+  <div class="wrap pulse-inner">
+    <span><span class="pulse-dot"></span>LUMINA LIVE · Zweryfikowana społeczność wiary</span>
+    <span>📖 Rozważanie dnia: „Dobrze, że jesteś” i „Cuda Każdego Dnia”</span>
+    <span>📺 Nowość: CC Women TV 24/7 (/ccwomen)</span>
+    <span>🕊️ Doktryna czystych relacji &amp; weryfikacja autentyczności</span>
+  </div>
+</div>
+
+<header class="lumina-header">
+  <div class="wrap hdr-row">
+    <a class="brand" href="/lumina" aria-label="LUMINA, strona główna">
+      <img class="brand-logo" id="hdrLuminaLogo" src="/images/lumina/lumina-logo-transparent.png" onerror="this.onerror=null;this.src='/lumina_logo_portal.jpg'" alt="Oficjalne Logo LUMINA">
+      <div class="brand-text">
+        <span class="brand-name">LUMI<span>NA</span></span>
+        <span class="brand-sub">Społeczność Relacji &amp; Wartości</span>
+      </div>
+    </a>
+
+    <nav class="hdr-nav" aria-label="Nawigacja główna portalu LUMINA">
+      <a class="nav-pill" href="#odkrywaj">👥 <span class="nav-label-mobile-hide">Profile</span></a>
+      <a class="nav-pill" href="/tablica">🏛️ <span class="nav-label-mobile-hide">Tablica</span></a>
+      <a class="nav-pill" href="#filary">✨ <span class="nav-label-mobile-hide">4 Filary</span></a>
+      <a class="nav-pill" href="/ccwomen">📺 <span class="nav-label-mobile-hide">CC Women TV</span></a>
+      <button type="button" class="icon-btn-44" id="openOmniSearchBtn" aria-label="Otwórz wyszukiwarkę ekosystemu @w">
+        🔍 <span class="nav-label-mobile-hide">Szukaj</span>
+      </button>
+      <button type="button" class="icon-btn-44" id="themeToggleBtn" aria-label="Przełącz motyw jasny lub ciemny" title="Przełącz motyw (Dark / Light)">
+        <span id="themeIcon">☀️</span>
+      </button>
+    </nav>
+
+    <div class="hdr-actions">
+      <div class="cc-auth-widget-container" style="display:inline-flex;align-items:center;min-height:44px;"></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <canvas id="luminaCanvas" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="hero-card">
+        <div>
+          <div class="eyebrow-badge">✨ LUMINA • Chrześcijańska Społeczność Relacji &amp; Wartości</div>
+          <h1>Przestrzeń <em>prawdziwych relacji</em>, wiary i pokoju serca</h1>
+          <p class="hero-lead">
+            Bezpieczna alternatywa wolna od manipulacji algorytmów. Poznaj ludzi budujących przyjaźnie i małżeństwa na fundamencie Chrystusa, dziel się świadectwem na Tablicy i wzrastaj każdego dnia.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn-orange-cta" href="/lumina-login.html">
+              ▶ Dołącz bezpłatnie · Zacznij w minutę
+            </a>
+            <a class="btn-gold-ghost" href="/tablica">
+              Otwórz Tablicę Społeczności →
+            </a>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric-box">
+              <strong>100% HD</strong>
+              <span>Prawdziwe twarze · Vision AI</span>
+            </div>
+            <div class="metric-box">
+              <strong>4 Filary</strong>
+              <span>Relacje · Tablica · Media · Modlitwa</span>
+            </div>
+            <div class="metric-box">
+              <strong>24/7</strong>
+              <span>Radio CC, CCTV24 &amp; Rozważania</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-spotlight" aria-label="Założyciele i puls społeczności">
+          <div class="spot-header">
+            <div class="spot-Identity">
+              <img src="/avatar_cezary_karuzela_2026.webp" onerror="this.onerror=null;this.src='/avatar_cezary_karuzela_2026.jpg'" alt="Cezary i Wioletta Rogowscy">
+              <div>
+                <strong style="display:block;font-family:var(--f-head);font-size:1.02rem;">Cezary i Wioletta Rogowscy</strong>
+                <span style="font-size:0.78rem;color:var(--muted);">Założyciele Christian Culture · Ostrowiec Św.</span>
+              </div>
+            </div>
+            <span class="spot-tag">Gospodarze</span>
+          </div>
+          <blockquote class="spot-quote">
+            „Tworzymy miejsce, w którym każdy człowiek może doświadczyć Bożej miłości, znaleźć wiernych przyjaciół i budować dom na Skale Słowa Bożego.”
+          </blockquote>
+          <div class="spot-actions">
+            <a class="act-btn" href="/lumina/rogowski" style="flex:1;">👤 Profil Cezarego</a>
+            <a class="act-btn" href="/lumina/rogowska" style="flex:1;">🌸 Profil Wioletty</a>
+            <a class="act-btn" href="/tablica" style="flex:1;">📖 Rozważanie dziś</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- KARUZELA & KATALOG PROFILI -->
+  <section class="sec" id="odkrywaj" aria-labelledby="discoverHeading">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow-badge" style="margin-bottom:6px;">Filar I · Lumina Connect &amp; Wspólnota</div>
+          <h2 id="discoverHeading">Poznaj ludzi i służby społeczności LUMINA</h2>
+          <p class="sec-sub">Każdy profil opiera się na jednym kanonicznym standardzie, autentycznym zdjęciu HD i 3 bezstresowych krokach wejścia.</p>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="filter-chips" role="tablist" aria-label="Filtruj profile społeczności">
+          <button type="button" class="chip-btn active" data-filter="all">Wszyscy (8)</button>
+          <button type="button" class="chip-btn" data-filter="founders">Założyciele &amp; Autorzy</button>
+          <button type="button" class="chip-btn" data-filter="women">Kobiety Wiary</button>
+          <button type="button" class="chip-btn" data-filter="men">Mężczyźni Wiary</button>
+          <button type="button" class="chip-btn" data-filter="ministry">Kanały &amp; Służby CC</button>
+        </div>
+        <div class="perspective-box">
+          <label for="matchModeSelect" style="font-size:0.8rem;color:var(--muted);font-weight:600;">Tryb dopasowania:</label>
+          <select id="matchModeSelect" class="perspective-select" aria-label="Wybierz tryb dopasowania relacji">
+            <option value="community">🤝 Wspólnota &amp; Braterstwo (Wszyscy)</option>
+            <option value="man_seeking_woman">💍 Mężczyzna szuka Żony (0% ta sama płeć)</option>
+            <option value="woman_seeking_man">💍 Kobieta szuka Męża (0% ta sama płeć)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="profiles-grid" id="profilesGrid"></div>
+    </div>
+  </section>
+
+  <!-- BENTO GRID 4 FILARÓW -->
+  <section class="sec" id="filary" aria-labelledby="pillarsHeading">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow-badge" style="margin-bottom:6px;">Architektura Światowej Klasy · 4 Filary</div>
+          <h2 id="pillarsHeading">Kompletny ekosystem życia chrześcijańskiego</h2>
+        </div>
+      </div>
+
+      <div class="bento-grid">
+        <!-- FILAR II: TABLICA LUMINA -->
+        <article class="bento-card col-7">
+          <div>
+            <div class="eyebrow-badge" style="margin-bottom:6px;">Filar II · Tablica Społeczności (/tablica)</div>
+            <h3>Żywy strumień Słowa Bożego, rozważań i świadectw</h3>
+            <p class="sec-sub" style="margin-bottom:16px;">Codzienne rozważania („Dobrze, że jesteś” i „Cuda Każdego Dnia”), artykuły CCN i świadectwa z obowiązkowym przyciskiem udostępniania „L” oraz publikacją na X.</p>
+
+            <div class="feed-preview-item">
+              <div class="feed-item-top">
+                <div class="feed-author">
+                  <img src="/avatar_cezary_official.webp" onerror="this.onerror=null;this.src='/avatar_cezary_official.jpg'" alt="Cezary Rogowski">
+                  <div>
+                    <div>Cezary Rogowski · Dobrze, że jesteś</div>
+                    <span style="font-size:0.75rem;color:var(--muted);font-weight:500;">Przypięte rozważanie dnia · Tablica LUMINA</span>
+                  </div>
+                </div>
+                <span class="spot-tag">Dzisiaj</span>
+              </div>
+              <p style="margin:0;font-size:0.9rem;color:var(--fg);">
+                „Siła i godność są jej szatą i cieszy się na myśl o przyszłym dniu” (Prz 31:25 UBG). Niezależnie od burz wokół Ciebie, w Chrystusie masz niezachwiany fundament i pokój.
+              </p>
+              <div class="share-row">
+                <a class="lumina-share-l-btn" href="/tablica?share_url=https%3A%2F%2Fpolskieradio.cc%2Flumina&amp;share_title=Rozwa%C5%BCanie%20Dnia%20w%20LUMINA" title="Udostępnij na Tablicy LUMINA">
+                  <img class="lumina-l-icon" src="/images/lumina/lumina-icon-transparent.png" alt="L">
+                  <span>Udostępnij na LUMINA</span>
+                </a>
+                <a class="x-share-btn" href="https://x.com/intent/tweet?url=https%3A%2F%2Fpolskieradio.cc%2Flumina&amp;text=LUMINA%20%E2%80%A2%20Chrze%C5%9Bcija%C5%84ska%20Spo%C5%82eczno%C5%9B%C4%87%20Relacji%20%26%20Warto%C5%9Bci" target="_blank" rel="noopener noreferrer" title="Udostępnij na platformie X">
+                  𝕏 Udostępnij na X
+                </a>
+                <a class="act-btn" href="/tablica" style="margin-left:auto;">Przejdź na Tablicę →</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FILAR III: LUMINA STREAM 24/7 -->
+        <article class="bento-card col-5">
+          <div>
+            <div class="eyebrow-badge" style="margin-bottom:6px;">Filar III · Lumina Stream &amp; Media 24/7</div>
+            <h3>Radio, Telewizja i Biblia Audio bez wychodzenia z ekosystemu</h3>
+            <p class="sec-sub" style="margin-bottom:16px;">Bezpośrednie połączenie z całodobowymi kanałami Christian Culture.</p>
+            <div class="stream-grid">
+              <a class="stream-tile" href="/player">
+                <span>📻 Radio Player HI-RES</span>
+                <span style="color:var(--gold);">▶</span>
+              </a>
+              <a class="stream-tile" href="/ccwomen">
+                <span>💗 CC Women TV 24/7</span>
+                <span style="color:var(--gold);">▶</span>
+              </a>
+              <a class="stream-tile" href="/biblia-audio">
+                <span>📖 Biblia Audio 320kbps</span>
+                <span style="color:var(--gold);">▶</span>
+              </a>
+              <a class="stream-tile" href="/network">
+                <span>🌐 Sieć 51 Kanałów CC</span>
+                <span style="color:var(--gold);">▶</span>
+              </a>
+            </div>
+          </div>
+          <a class="btn-gold-ghost" href="/live" style="width:100%;">📺 Otwórz Główną Scenę TV LIVE →</a>
+        </article>
+
+        <!-- FILAR IV: MODLITWA & ZAUFANIE -->
+        <article class="bento-card col-6">
+          <div>
+            <div class="eyebrow-badge" style="margin-bottom:6px;">Filar IV · Duchowe Wstawiennictwo</div>
+            <h3>Jedność w modlitwie i wzajemnym wsparciu</h3>
+            <p class="sec-sub">Dołącz do codziennego łańcucha modlitwy za rodziny, małżeństwa i Polskę. Jedno kliknięcie potwierdza Twoje duchowe wsparcie.</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+            <button type="button" class="btn-orange-cta" id="prayAmenBtn">
+              🕊️ Modlę się razem z Wami · Amen (<span id="prayAmenCount">412</span>)
+            </button>
+            <a class="btn-gold-ghost" href="/modlitwa">Zjednoczeni za Polskę →</a>
+          </div>
+        </article>
+
+        <!-- FILAR V: TRUST & SAFETY -->
+        <article class="bento-card col-6">
+          <div>
+            <div class="eyebrow-badge" style="margin-bottom:6px;">Filar V · Lumina Trust &amp; Safety</div>
+            <h3>Królewski standard bezpieczeństwa i autentyczności</h3>
+            <p class="sec-sub">Weryfikacja autentyczności twarzy Vision AI, zero anonimowego hejtu, ochrona danych zgodna z RODO (Art. 9) oraz pełna kontrola nad własnym profilem.</p>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a class="act-btn" href="/lumina-safety.html" style="padding:10px 16px;">🛡️ Karta Bezpieczeństwa LUMINA</a>
+            <a class="act-btn" href="/akademia#kurscodzienny" style="padding:10px 16px;">🎓 Akademia &amp; Kurs Codzienny</a>
+            <a class="act-btn" href="/wspieraj" style="padding:10px 16px;">🤝 Skarbiec &amp; Wsparcie Misji</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="cc-site-footer">
+  <div class="wrap">
+    <div class="cc-foot-grid">
+      <div>
+        <div class="cc-foot-brand">
+          <img id="footLuminaLogo" src="/images/lumina/lumina-logo-transparent.png" onerror="this.onerror=null;this.src='/images/cc-globe-flame-logo.png'" alt="Logo LUMINA">
+          <div>
+            <strong>LUMINA · Christian Culture</strong><br>
+            <span style="font-size:12px;color:var(--muted);">PolskieRadio.cc · Chrześcijańska Społeczność Relacji &amp; Wartości</span>
+          </div>
+        </div>
+        <p class="cc-foot-desc">Suwerenna, bezpłatna chrześcijańska sieć relacji, modlitwy, świadectw i całodobowych mediów budujących wiarę w Jezusa Chrystusa.</p>
+      </div>
+      <div class="cc-foot-col">
+        <h4>Portal LUMINA</h4>
+        <div class="cc-foot-links">
+          <a href="/lumina">Strona główna LUMINA</a>
+          <a href="/tablica">Tablica Społeczności</a>
+          <a href="/lumina/rogowski">Profil Cezarego</a>
+          <a href="/lumina/rogowska">Profil Wioletty</a>
+          <a href="/lumina/ccwomen">LUMINA CC Women</a>
+          <a href="/lumina-safety.html">Bezpieczeństwo &amp; RODO</a>
+        </div>
+      </div>
+      <div class="cc-foot-col">
+        <h4>Ekosystem Christian Culture</h4>
+        <div class="cc-foot-links">
+          <a href="/">PolskieRadio.cc</a>
+          <a href="/ccwomen">CC Women TV 24/7</a>
+          <a href="/network">Sieć 51 Kanałów</a>
+          <a href="/akademia">Akademia Biblijna</a>
+          <a href="/mapa">Mapa Ekosystemu (@m)</a>
+          <a href="/wspieraj">Wesprzyj Misję</a>
+        </div>
+      </div>
+    </div>
+    <div class="cc-foot-bottom">
+      <span>© 2026 Christian Culture · Portal LUMINA · Darmo wzięliście — darmo dawajcie.</span>
+      <button type="button" class="top-scroll-btn" id="footerBackToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Przewiń na samą górę">↑ Przewiń na samą górę</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const PROFILES = [
+      {
+        slug: "rogowski",
+        name: "Cezary Rogowski",
+        role: "Założyciel Christian Culture",
+        city: "Ostrowiec Świętokrzyski",
+        marital: "Żonaty",
+        gender: "M",
+        category: ["founders", "men"],
+        url: "/lumina/rogowski",
+        avatar: "/avatar_cezary_karuzela_2026.webp",
+        fallback: "/avatar_cezary_karuzela_2026.jpg",
+        bio: "Założyciel Christian Culture. Razem z żoną Wiolettą służymy Panu, budując globalny ekosystem Ewangelii.",
+        baseValues: 99
+      },
+      {
+        slug: "rogowska",
+        name: "Wioletta Rogowska",
+        role: "Współzałożycielka Christian Culture",
+        city: "Ostrowiec Świętokrzyski",
+        marital: "Mężatka",
+        gender: "F",
+        category: ["founders", "women"],
+        url: "/lumina/rogowska",
+        avatar: "/avatar_wioletta_official.webp",
+        fallback: "/avatar_wioletta_official.jpg",
+        bio: "Współtwórczyni Christian Culture i CC Women. Przestrzeń kobiecej godności, modlitwy i Bożego pokoju.",
+        baseValues: 99
+      },
+      {
+        slug: "thiel",
+        name: "Andrzej Thiel",
+        role: "Autor „Cuda Każdego Dnia”",
+        city: "Polska · Służba Słowa",
+        marital: "Służba",
+        gender: "M",
+        category: ["founders", "men"],
+        url: "/lumina/thiel",
+        avatar: "/avatar_andrzej_thiel.webp",
+        fallback: "/avatar_andrzej_thiel.jpg",
+        bio: "Codzienne rozważania biblijne i świadectwa Bożego działania w codziennym życiu.",
+        baseValues: 97
+      },
+      {
+        slug: "ccwomen",
+        name: "CC Women TV & Społeczność",
+        role: "Oficjalna Służba Kobiet 24/7",
+        city: "Polska & Polonia",
+        marital: "Kanał Misyjny",
+        gender: "MINISTRY",
+        category: ["ministry", "women"],
+        url: "/lumina/ccwomen",
+        avatar: "/ccwomen/logo-ccwomen.jpg",
+        fallback: "/avatar_ccwomen_official_2026.webp",
+        bio: "Bezpieczna przestrzeń modlitwy, duchowego wzrostu, telewizji 24/7 i siostrzeństwa dla kobiet wiary.",
+        baseValues: 100
+      },
+      {
+        slug: "mariusz",
+        name: "Mariusz Adamczyk (SDS)",
+        role: "Studio Dobrego Słowa",
+        city: "Bielsko-Biała",
+        marital: "Służba Nauczycielska",
+        gender: "M",
+        category: ["founders", "men", "ministry"],
+        url: "/lumina/mariusz",
+        avatar: "/avatar_mariusz_sds.jpg",
+        fallback: "/avatar_mariusz.jpg",
+        bio: "Wnikliwe wykłady biblijne, proroctwa Apokalipsy i obrona prawdy Pisma Świętego.",
+        baseValues: 96
+      },
+      {
+        slug: "magdalena",
+        name: "Magdalena",
+        role: "Społeczność LUMINA",
+        city: "Polska",
+        marital: "Panna · Szuka relacji w wierze",
+        gender: "F",
+        category: ["women"],
+        url: "/lumina/magdalena",
+        avatar: "/avatar_magdalena.webp",
+        fallback: "/avatar_magdalena.jpg",
+        bio: "Wierzę, że najpiękniejsze relacje rodzą się ze wspólnej modlitwy, szczerości i Bożego prowadzenia.",
+        baseValues: 95
+      },
+      {
+        slug: "pawelmurawski",
+        name: "Paweł Murawski",
+        role: "Społeczność LUMINA",
+        city: "Polska",
+        marital: "Kawaler · Szuka relacji w wierze",
+        gender: "M",
+        category: ["men"],
+        url: "/lumina/pawelmurawski",
+        avatar: "/avatar_pawel_murawski.jpg",
+        fallback: "/images/cc-globe-flame-logo.png",
+        bio: "Pasjonat Słowa Bożego, muzyki uwielbienia i autentycznego chrześcijańskiego braterstwa.",
+        baseValues: 94
+      },
+      {
+        slug: "radiocc",
+        name: "Polskie Radio Christian Culture",
+        role: "Stacja Radiowa & Biblia Audio 24/7",
+        city: "Emisja Globalna",
+        marital: "Kanał Misyjny",
+        gender: "MINISTRY",
+        category: ["ministry"],
+        url: "/lumina/radiocc",
+        avatar: "/avatar_christian_culture_hq_2026.webp",
+        fallback: "/images/cc-globe-flame-logo.png",
+        bio: "Całodobowy strumień uwielbienia, Biblii Audio i Słowa Bożego łączący Polaków na całym świecie.",
+        baseValues: 100
+      }
+    ];
+
+    const grid = document.getElementById("profilesGrid");
+    const filterBtns = Array.from(document.querySelectorAll(".chip-btn"));
+    const matchModeSelect = document.getElementById("matchModeSelect");
+    let currentFilter = "all";
+    let currentMode = "community";
+
+    function computeMatchLabel(prof) {
+      if (prof.gender === "MINISTRY") {
+        return "🌟 Kanał Misyjny · 100%";
+      }
+      if (currentMode === "man_seeking_woman") {
+        if (prof.gender === "M") return "0% · Ta sama płeć (Braterstwo)";
+        if (prof.marital.includes("Mężatka")) return "🤝 Wspólnota · Mężatka";
+        return "💍 Dopasowanie: " + prof.baseValues + "%";
+      }
+      if (currentMode === "woman_seeking_man") {
+        if (prof.gender === "F") return "0% · Ta sama płeć (Siostrzeństwo)";
+        if (prof.marital.includes("Żonaty")) return "🤝 Wspólnota · Żonaty";
+        return "💍 Dopasowanie: " + prof.baseValues + "%";
+      }
+      return "✨ Wspólnota Wartości · " + prof.baseValues + "%";
+    }
+
+    function renderProfiles() {
+      const list = PROFILES.filter((p) =>
+        currentFilter === "all" ? true : p.category.includes(currentFilter)
+      );
+      grid.innerHTML = list
+        .map((p) => {
+          const badge = computeMatchLabel(p);
+          return `
+            <article class="prof-card">
+              <a href="${p.url}" class="prof-media" aria-label="Otwórz profil ${p.name}">
+                <img src="${p.avatar}" onerror="this.onerror=null;this.src='${p.fallback}'" alt="${p.name}" loading="lazy">
+                <span class="match-badge">${badge}</span>
+                <span class="verified-pill">✓ Zweryfikowany</span>
+              </a>
+              <div class="prof-body">
+                <h3 class="prof-name"><a href="${p.url}">${p.name}</a></h3>
+                <div class="prof-meta">📍 ${p.city} · ${p.marital}</div>
+                <p class="prof-bio">${p.bio}</p>
+                <div class="prof-actions">
+                  <a class="act-btn" href="${p.url}?action=hello" title="Poznajmy się">👋 Poznajmy się</a>
+                  <a class="act-btn" href="${p.url}?action=coffee" title="Zaproś na kawę">☕ Kawa</a>
+                  <a class="act-btn" href="${p.url}?action=pray" title="Pomódlmy się">🕊️ Modlitwa</a>
+                </div>
+                <a class="prof-open-link" href="${p.url}">Otwórz pełny profil →</a>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        currentFilter = btn.getAttribute("data-filter") || "all";
+        filterBtns.forEach((b) => b.classList.toggle("active", b === btn));
+        renderProfiles();
+      });
+    });
+
+    if (matchModeSelect) {
+      matchModeSelect.addEventListener("change", () => {
+        currentMode = matchModeSelect.value;
+        renderProfiles();
+      });
+    }
+
+    renderProfiles();
+
+    // Auto-collapse top pulse bar after 6 seconds (matching /news standard)
+    setTimeout(() => {
+      const bar = document.getElementById("topPulseBar");
+      if (bar) bar.classList.add("collapsed");
+    }, 6000);
+
+    // Dual-Theme Switcher (Dark Obsidian <-> Light Alabaster + Official Dual-Theme Logos)
+    function syncThemeAssets(theme) {
+      const hdrLogo = document.getElementById("hdrLuminaLogo");
+      const footLogo = document.getElementById("footLuminaLogo");
+      const themeIcon = document.getElementById("themeIcon");
+      const lIcons = document.querySelectorAll(".lumina-l-icon");
+      const isLight = theme === "light";
+
+      if (hdrLogo) {
+        hdrLogo.src = isLight
+          ? "/images/lumina/lumina-logo-light.png"
+          : "/images/lumina/lumina-logo-transparent.png";
+      }
+      if (footLogo) {
+        footLogo.src = isLight
+          ? "/images/lumina/lumina-logo-light.png"
+          : "/images/lumina/lumina-logo-transparent.png";
+      }
+      lIcons.forEach((img) => {
+        img.src = isLight
+          ? "/images/lumina/lumina-icon-light-transparent.png"
+          : "/images/lumina/lumina-icon-transparent.png";
+      });
+      if (themeIcon) {
+        themeIcon.textContent = isLight ? "🌙" : "☀️";
+      }
+    }
+
+    const currentTheme = document.documentElement.getAttribute("data-lumina-theme") || "dark";
+    syncThemeAssets(currentTheme);
+
+    const themeBtn = document.getElementById("themeToggleBtn");
+    if (themeBtn) {
+      themeBtn.addEventListener("click", () => {
+        const now = document.documentElement.getAttribute("data-lumina-theme") === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-lumina-theme", now);
+        try {
+          localStorage.setItem("lumina_theme", now);
+        } catch (e) {}
+        syncThemeAssets(now);
+      });
+    }
+
+    // Prayer counter interaction
+    const prayBtn = document.getElementById("prayAmenBtn");
+    const prayCount = document.getElementById("prayAmenCount");
+    if (prayBtn && prayCount) {
+      prayBtn.addEventListener("click", () => {
+        const n = parseInt(prayCount.textContent || "412", 10) + 1;
+        prayCount.textContent = String(n);
+        prayBtn.disabled = true;
+      });
+    }
+
+    // OmniSearch button trigger
+    const searchBtn = document.getElementById("openOmniSearchBtn");
+    if (searchBtn) {
+      searchBtn.addEventListener("click", () => {
+        if (window.CCOmniSearch && typeof window.CCOmniSearch.open === "function") {
+          window.CCOmniSearch.open();
+        } else {
+          document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, bubbles: true }));
+        }
+      });
+    }
+
+    // Subtle Champagne Gold particle canvas in Hero
+    const canvas = document.getElementById("luminaCanvas");
+    if (canvas && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const ctx = canvas.getContext("2d");
+      let w = 0, h = 0;
+      const dots = Array.from({ length: 28 }, () => ({
+        x: Math.random(),
+        y: Math.random(),
+        r: 1 + Math.random() * 2.2,
+        vy: -0.0003 - Math.random() * 0.0005,
+        a: 0.2 + Math.random() * 0.5
+      }));
+      function resize() {
+        w = canvas.width = canvas.offsetWidth || window.innerWidth;
+        h = canvas.height = canvas.offsetHeight || 420;
+      }
+      resize();
+      window.addEventListener("resize", resize, { passive: true });
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        for (const d of dots) {
+          d.y += d.vy;
+          if (d.y < 0) d.y = 1;
+          ctx.beginPath();
+          ctx.arc(d.x * w, d.y * h, d.r, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(196, 163, 90, " + d.a + ")";
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
+    }
+  })();
+</script>
+</body>
+</html>
