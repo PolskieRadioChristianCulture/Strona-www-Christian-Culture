@@ -1069,27 +1069,28 @@
 
       /* ── 3. NAWIGACJA (5 ZAKŁADEK 1:1) ── */
       .cc-chat-nav-tabs {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        padding: 2px 14px 4px 14px !important;
+        display: grid !important;
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+        width: 100% !important;
+        margin: 0 !important;
+        gap: 5px !important;
+        padding: 6px 12px !important;
         background: #0D1020 !important;
-        border-bottom: none !important;
+        border-bottom: 1px solid rgba(196, 163, 90, 0.2) !important;
         flex-shrink: 0 !important;
       }
 
       .cc-chat-nav-tab {
-        flex: 1 1 0 !important;
         min-width: 0 !important;
         min-height: 44px !important;
-        padding: 3px 2px !important;
-        border-radius: 14px !important;
-        border: 1px solid transparent !important;
-        background: transparent !important;
+        padding: 4px 2px !important;
+        border-radius: 12px !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        background: #141B2D !important;
         color: #A5AEC4 !important;
         font-family: inherit !important;
-        font-size: 0.72rem !important;
-        font-weight: 500 !important;
+        font-size: 0.7rem !important;
+        font-weight: 600 !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -1098,18 +1099,50 @@
         cursor: pointer !important;
         transition: all 0.18s ease !important;
         white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
       }
 
       .cc-chat-nav-tab:hover {
         color: #F7F8FC !important;
+        border-color: rgba(196, 163, 90, 0.45) !important;
       }
 
       .cc-chat-nav-tab.is-active {
-        background: #3F226D !important;
-        border: 1px solid rgba(133, 71, 216, 0.6) !important;
-        color: #FFFFFF !important;
+        background: linear-gradient(135deg, rgba(196, 163, 90, 0.26), rgba(196, 163, 90, 0.08)) !important;
+        border: 1px solid #C4A35A !important;
+        color: #E2CC9A !important;
         font-weight: 700 !important;
-        box-shadow: 0 0 12px rgba(133, 71, 216, 0.45) !important;
+        box-shadow: 0 4px 12px rgba(196, 163, 90, 0.18) !important;
+      }
+
+      /* ── DOMYŚLNIE ZWINIĘTE PASKI NARZĘDZIOWE (OTWIERANE PRZYCISKIEM WIĘCEJ •••) ── */
+      .cc-chat-drawer:not(.cc-bars-expanded) .cc-chat-mini-player,
+      .cc-chat-drawer:not(.cc-bars-expanded) .cc-chat-nav-tabs,
+      .cc-chat-drawer:not(.cc-bars-expanded) .cc-chat-mode-bar,
+      .cc-chat-drawer:not(.cc-bars-expanded) .cc-asst-picker-strip,
+      .cc-chat-drawer:not(.cc-bars-expanded) #ccChatNotifBtn,
+      .cc-chat-drawer:not(.cc-bars-expanded) #ccChatSettingsBtn,
+      .cc-chat-drawer .cc-chat-asst-showcase {
+        display: none !important;
+      }
+
+      .cc-more-drawer-toggle-btn[aria-expanded="true"] {
+        background: #C4A35A !important;
+        color: #090D16 !important;
+        border-color: #D4B578 !important;
+      }
+
+      .cc-chat-feed {
+        scrollbar-width: thin !important;
+        scrollbar-color: rgba(196, 163, 90, 0.38) transparent !important;
+      }
+      .cc-chat-feed::-webkit-scrollbar {
+        width: 5px !important;
+      }
+      .cc-chat-feed::-webkit-scrollbar-thumb {
+        background: rgba(196, 163, 90, 0.38) !important;
+        border-radius: 999px !important;
       }
 
       .cc-nav-icon {
@@ -1758,15 +1791,21 @@
         outline: none !important;
         color: #FFFFFF !important;
         font-family: inherit !important;
-        font-size: 0.78rem !important;
+        font-size: 0.8rem !important;
         flex: 1 !important;
         resize: none !important;
-        line-height: 1.35 !important;
-        padding: 6px 0 !important;
+        overflow-y: hidden !important;
+        height: 22px !important;
+        max-height: 84px !important;
+        line-height: 22px !important;
+        padding: 0 !important;
       }
 
       .cc-composer-textarea::placeholder {
         color: #7E88A2 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
       }
 
       .cc-composer-mic-btn {
@@ -1887,8 +1926,8 @@
       }
 
       .cc-chat-msg-row.is-user .cc-chat-msg-bubble {
-        background: linear-gradient(135deg, #8547D8 0%, #6830B5 100%) !important;
-        border: 1px solid rgba(180, 117, 245, 0.4) !important;
+        background: linear-gradient(135deg, rgba(196, 163, 90, 0.28) 0%, rgba(160, 128, 64, 0.22) 100%) !important;
+        border: 1px solid #C4A35A !important;
         border-radius: 16px !important;
         border-top-right-radius: 4px !important;
         color: #FFFFFF !important;
@@ -2255,7 +2294,6 @@
             <div class="cc-chat-header-titles">
               <div class="cc-chat-header-title" id="ccChatHeaderTitle">
                 <span>LUMI Messenger</span>
-                <span class="cc-header-sparkle">✨</span>
               </div>
               <div class="cc-chat-header-sub">
                 <span class="cc-chat-live-dot" aria-hidden="true"></span>
@@ -2264,6 +2302,9 @@
             </div>
           </a>
           <div class="cc-chat-header-actions">
+            <button type="button" class="cc-chat-icon-btn cc-more-drawer-toggle-btn" id="ccHeaderMoreToggleBtn" title="Więcej — rozwiń lub zwiń funkcje" aria-label="Więcej — rozwiń lub zwiń funkcje" aria-expanded="false">
+              •••
+            </button>
             <button type="button" class="cc-chat-icon-btn" id="ccChatNotifBtn" title="Powiadomienia" aria-label="Powiadomienia">
               🔔
             </button>
@@ -2855,21 +2896,21 @@
       if (isAsstMode) {
         const asst = getActiveAssistant();
         refreshAssistantUI(asst);
-        if (inputEl) inputEl.placeholder = `Zapytaj Asystentkę ${asst.shortName || asst.name} (np. radio, Biblia, kursy)...`;
+        if (inputEl) inputEl.placeholder = `Zapytaj ${asst.shortName || asst.name} (radio, Biblia, kursy)...`;
       } else if (normalized === 'direct' && currentChatPartner && !currentChatPartner.isPublic) {
         if (publicHeaderTitle) {
           publicHeaderTitle.innerHTML = `<span>💬</span><span>Rozmowa 1:1: ${escapeHtml(currentChatPartner.name)}</span>`;
         }
         if (publicBackBtn) publicBackBtn.hidden = false;
         if (headerSub) headerSub.textContent = `Rozmowa: ${currentChatPartner.name}`;
-        if (inputEl) inputEl.placeholder = `Napisz wiadomość do ${currentChatPartner.name}...`;
+        if (inputEl) inputEl.placeholder = `Napisz do ${currentChatPartner.name}...`;
       } else {
         if (publicHeaderTitle) {
           publicHeaderTitle.innerHTML = '<span>🌐</span><span>Czat Ogólny Społeczności LUMINA</span>';
         }
         if (publicBackBtn) publicBackBtn.hidden = true;
         if (headerSub) headerSub.textContent = 'Na żywo w Chrystusie';
-        if (inputEl) inputEl.placeholder = 'Napisz wiadomość na Czacie Ogólnym...';
+        if (inputEl) inputEl.placeholder = 'Napisz na Czacie Ogólnym...';
       }
     }
 
@@ -2884,7 +2925,7 @@
         if (liveBtn) liveBtn.click();
       } else if (chatMode === 'assistant') {
         const inputEl = document.getElementById('ccChatInput');
-        if (inputEl) inputEl.placeholder = `Zapytaj Asystentkę ${asst.shortName || asst.name} (np. radio, Biblia, kursy)...`;
+        if (inputEl) inputEl.placeholder = `Zapytaj ${asst.shortName || asst.name} (radio, Biblia, kursy)...`;
       }
     };
 
@@ -3209,12 +3250,27 @@
       }
     }
 
+    const drawerRoot = overlay.querySelector('.cc-chat-drawer');
+    const headerMoreToggleBtn = document.getElementById('ccHeaderMoreToggleBtn');
+    function setBarsExpanded(expanded) {
+      if (!drawerRoot) return;
+      drawerRoot.classList.toggle('cc-bars-expanded', Boolean(expanded));
+      if (headerMoreToggleBtn) {
+        headerMoreToggleBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      }
+    }
+    headerMoreToggleBtn?.addEventListener('click', function () {
+      const next = !drawerRoot?.classList.contains('cc-bars-expanded');
+      setBarsExpanded(next);
+    });
+
     // Podpięcie przełącznika trybu: Czat ogólny vs Asystentki CC (3 do wyboru)
     document.getElementById('ccModePublicBtn')?.addEventListener('click', function () {
       if (!currentChatPartner || !currentChatPartner.isPublic) {
         setChatPartner(COMMUNITY_MEMBERS[0]);
       }
       setChatMode('public');
+      setBarsExpanded(false);
       scrollToBottom();
     });
     document.getElementById('ccModeAssistantBtn')?.addEventListener('click', function () {
@@ -3224,6 +3280,7 @@
     document.getElementById('ccPublicBackBtn')?.addEventListener('click', function () {
       setChatPartner(COMMUNITY_MEMBERS[0]);
       setChatMode('public');
+      setBarsExpanded(false);
       scrollToBottom();
     });
 
@@ -3235,6 +3292,7 @@
         if (chatMode !== 'assistant') {
           setChatMode('assistant');
         }
+        setBarsExpanded(false);
       });
     });
 
