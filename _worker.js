@@ -9,6 +9,7 @@ import { handleVolunteerApiRequest } from './services/cc-volunteer/volunteer-ser
 import { handleAssistantIdeaApiRequest } from './services/cc-assistant/idea-service.js';
 import { handleArkContestApiRequest } from './services/cc-ark-contest/contest-service.js';
 import { handleSpiritualSoundsFeed, handleSpiritualSoundsPlaylist } from './services/spiritual-sounds/feed-service.js';
+import { handleLumiChatApi } from './services/lumi-chat/lumi-chat-service.js';
 
 const BLOCKED_PREFIXES = [
   '/.git/', '/.codex/', '/.cursor/', '/.claude/', '/repozytoria-cc/', '/joma_shared_memory/',
@@ -1933,6 +1934,9 @@ export default {
     }
     if (url.pathname === '/api/answer' || url.pathname.startsWith('/api/search-rag')) {
       return handleSearchRagApi(request, env);
+    }
+    if (url.pathname === '/api/lumi-chat') {
+      return handleLumiChatApi(request, env);
     }
     if (isBlocked(url.pathname)) {
       return new Response('Not Found', {

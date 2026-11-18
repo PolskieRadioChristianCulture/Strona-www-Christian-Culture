@@ -3631,21 +3631,62 @@
         if (toggleIcon) toggleIcon.textContent = '▸';
       }
 
-      // Odpowiedź wybranej Asystentki CC (180 ms)
-      setTimeout(() => {
-        const answer = getAssistantAnswer(cleanText, asst);
-        if (!assistantHistories[asst.id]) assistantHistories[asst.id] = [];
-        assistantHistories[asst.id].push({
+      // Wskaźnik pisania + zapytanie do /api/lumi-chat (z bezpiecznym fallbackiem lokalnym)
+      const histSnapshot = (assistantHistories[asst.id] || [])
+        .slice(-5, -1)
+        .map(m => ({ role: m.sender === 'user' ? 'user' : 'assistant', text: m.sender === 'user' ? m.text : m.reply }));
+
+      const typingEntry = {
+        sender: 'assistant',
+        reply: `${asst.name} przygotowuje odpowiedź…`,
+        actions: [],
+        timeStr,
+        _typing: true
+      };
+      assistantHistories[asst.id].push(typingEntry);
+      if (getActiveAssistant().id === asst.id) {
+        renderAssistantMessages();
+        scrollToBottom();
+      }
+
+      const replaceTyping = (answer) => {
+        const list = assistantHistories[asst.id] || [];
+        const idx = list.indexOf(typingEntry);
+        const entry = {
           sender: 'assistant',
           reply: answer.reply,
           actions: answer.actions || [],
-          timeStr
-        });
+          timeStr: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        if (idx !== -1) list[idx] = entry;
+        else list.push(entry);
         if (getActiveAssistant().id === asst.id) {
           renderAssistantMessages();
           scrollToBottom();
         }
-      }, 180);
+      };
+
+      const ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      const timer = ctrl ? setTimeout(() => ctrl.abort(), 7000) : null;
+      fetch('/api/lumi-chat', {
+        method: 'POST',
+        signal: ctrl ? ctrl.signal : undefined,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ assistantId: asst.id, message: cleanText, history: histSnapshot })
+      })
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          if (timer) clearTimeout(timer);
+          if (data && data.ok && data.reply) {
+            replaceTyping({ reply: data.reply, actions: data.actions || [] });
+          } else {
+            replaceTyping(getAssistantAnswer(cleanText, asst));
+          }
+        })
+        .catch(() => {
+          if (timer) clearTimeout(timer);
+          replaceTyping(getAssistantAnswer(cleanText, asst));
+        });
     }
 
     // Czat Ogólny i rozmowy 1:1: wysyłanie do chmury LUMINA (bez ingerencji asystentek)
