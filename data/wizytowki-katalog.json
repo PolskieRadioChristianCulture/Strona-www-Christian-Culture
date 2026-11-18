@@ -1,0 +1,357 @@
+{
+  "_opis": "Jedno źródło katalogu Wizytówek Christian Culture (@007, 18.11.2026). Generator: scripts/wizytowki/buduj.mjs. Każda karta = istniejąca strona (HTTP 200 sprawdzone 18.11.2026). cats[0] = kategoria główna, kolejne = dodatkowe filtry.",
+  "whatsapp": "https://chat.whatsapp.com/GYnE4yZeEOlA5zfN8Bxdix",
+  "kategorie": [
+    {
+      "id": "artysci",
+      "nazwa": "Artyści i zespoły",
+      "opis": "Muzyka chrześcijańska z Polski i ze świata — wizytówki artystów publikowane za ich zgodą."
+    },
+    {
+      "id": "kanaly",
+      "nazwa": "Kanały 24/7",
+      "opis": "Telewizja i kanały non-stop ekosystemu."
+    },
+    {
+      "id": "ksiazki",
+      "nazwa": "Książki i autorzy",
+      "opis": "Wizytówki książek i autorów Christian Culture."
+    },
+    {
+      "id": "kaciki",
+      "nazwa": "Kąciki i twórcy",
+      "opis": "Kąciki ewangelizacyjne, świadectwa i twórcy."
+    },
+    {
+      "id": "sluzby",
+      "nazwa": "Służby i firmy",
+      "opis": "Inicjatywy, służby i rzetelne firmy z wartościami."
+    }
+  ],
+  "karty": [
+    {
+      "id": "welch",
+      "href": "/Welch",
+      "cats": [
+        "artysci"
+      ],
+      "img": "/Welch/assets/gerald-welch-contemporary-portrait-1000.webp",
+      "eyebrow": "Rock · PL / EN",
+      "title": "Gerald Welch",
+      "desc": "Oficjalna wizytówka artysty: świadectwo wiary i dyskografia — THE CALL, SECOND WIND i nadchodzący singiel WORLD WAR YOU.",
+      "kw": "gerald welch the call second wind world war you rock artysta english",
+      "lang": "EN",
+      "featured": true
+    },
+    {
+      "id": "arkoffire",
+      "href": "/ArkOfFire",
+      "cats": [
+        "artysci"
+      ],
+      "img": "/ArkOfFire/assets/ark-of-fire-hero.webp",
+      "eyebrow": "Rock & metal · Holandia",
+      "title": "Ark of Fire",
+      "desc": "Chrześcijański rock i metal z Holandii — świadectwo wiary, utwory i konkurs świadectw PL/EN.",
+      "kw": "ark of fire zespół band rock metal holandia netherlands konkurs świadectw",
+      "lang": "EN",
+      "featured": true
+    },
+    {
+      "id": "spiritualsounds",
+      "href": "/SpiritualSounds/",
+      "cats": [
+        "artysci",
+        "kanaly"
+      ],
+      "img": "/SpiritualSounds/img/ss-emblem-720.webp",
+      "eyebrow": "Psalmy · PL / EN",
+      "title": "Spiritual Sounds",
+      "desc": "Psalmy i Słowo Boże w muzyce — wizytówka twórcy i kanał biblijny 24/7.",
+      "kw": "spiritual sounds psalmy po polsku muzyka biblijna kanał 24/7 artur",
+      "lang": "PL",
+      "featured": true
+    },
+    {
+      "id": "jjbeauvais",
+      "href": "/Global/articles/jj-beauvais-two-songs-of-hope/",
+      "cats": [
+        "artysci"
+      ],
+      "img": "/Global/assets/now-is-the-time.webp",
+      "eyebrow": "Artist Story · EN",
+      "title": "JJ Beauvais",
+      "desc": "„Now Is The Time” i „Written In Heaven (Live)” — dwie pieśni udostępnione za zgodą artysty w Christian Culture Global.",
+      "kw": "jj beauvais worship now is the time written in heaven global english artist",
+      "lang": "EN",
+      "featured": true
+    },
+    {
+      "id": "cezary",
+      "href": "/CezaryRogowski",
+      "cats": [
+        "kaciki",
+        "artysci"
+      ],
+      "img": "/wizytowka/img/karta-cezary-v2.webp",
+      "eyebrow": "Twórca & Misja",
+      "title": "Cezary Rogowski",
+      "desc": "Założyciel Christian Culture: autorska muzyka chrześcijańska, Słowo Boże, ewangelizacja i wizja misji.",
+      "kw": "cezary rogowski założyciel muzyka słowo boże gitara misja christian culture"
+    },
+    {
+      "id": "ss-tv",
+      "href": "/SpiritualSounds/tv/",
+      "cats": [
+        "kanaly"
+      ],
+      "img": "/SpiritualSounds/img/ss-og-1200x630.jpg",
+      "eyebrow": "24/7 · Non-stop",
+      "title": "Spiritual Sounds 24/7",
+      "desc": "Kanał biblijny non-stop z oficjalnej playlisty Psalmów autora.",
+      "kw": "spiritual sounds tv kanał 24/7 psalmy non-stop"
+    },
+    {
+      "id": "bcm24",
+      "href": "/BCM24",
+      "cats": [
+        "kanaly"
+      ],
+      "img": "/BCM24/assets/og-bcm24.jpg",
+      "eyebrow": "Modlitwa 24/7",
+      "title": "BCM24 · Biblijny Czas Modlitwy",
+      "desc": "Kanał modlitwy przez całą dobę z pokojem LUMINA.",
+      "kw": "bcm24 biblijny czas modlitwy kanał 24/7 modlitwa"
+    },
+    {
+      "id": "tvw",
+      "href": "/tvw",
+      "cats": [
+        "kanaly"
+      ],
+      "img": "/images/tvw/tvw-og.jpg",
+      "eyebrow": "TVW · 24/7",
+      "title": "Telewizja Kobiet TVW",
+      "desc": "CC Women: Słowo, rozmowy kobiet, rodzina, modlitwa i muzyka przez całą dobę.",
+      "kw": "tvw telewizja kobiet cc women 24/7"
+    },
+    {
+      "id": "master",
+      "href": "/master",
+      "cats": [
+        "kanaly"
+      ],
+      "img": "/test/wizytowki/img/master-640.webp",
+      "eyebrow": "Telewizja CC",
+      "title": "Christian Culture Master",
+      "desc": "Kanał główny Telewizji Christian Culture — Słowo Boże i uwielbienie przez całą dobę.",
+      "kw": "master telewizja christian culture tv 24/7"
+    },
+    {
+      "id": "goliat",
+      "href": "/pokonac-goliata",
+      "cats": [
+        "ksiazki"
+      ],
+      "img": "/assets/pokonac-goliata-og.jpg",
+      "eyebrow": "Książka · Cezary Rogowski",
+      "title": "Pokonać Goliata",
+      "desc": "Jak zwyciężać własne słabości — książka Cezarego Rogowskiego.",
+      "kw": "pokonać goliata książka cezary rogowski słabości"
+    },
+    {
+      "id": "kod",
+      "href": "/kod",
+      "cats": [
+        "ksiazki"
+      ],
+      "img": "/assets/kod-zrodlowy-og.jpg",
+      "eyebrow": "Książka · Cezary Rogowski",
+      "title": "Kod Źródłowy",
+      "desc": "Odkryj siłę wolności — druga książka Cezarego Rogowskiego.",
+      "kw": "kod źródłowy książka cezary rogowski wolność"
+    },
+    {
+      "id": "bjm",
+      "href": "/bog-jest-miloscia",
+      "cats": [
+        "ksiazki"
+      ],
+      "img": "/assets/bog-jest-miloscia-og.jpg",
+      "eyebrow": "Powieść dialogowa",
+      "title": "Bóg jest MIŁOŚCIĄ?",
+      "desc": "Powieść dialogowa Cezarego Rogowskiego o trudnych pytaniach wiary.",
+      "kw": "bóg jest miłością powieść dialogowa cezary rogowski"
+    },
+    {
+      "id": "wioletta",
+      "href": "/Wioletta",
+      "cats": [
+        "ksiazki",
+        "kaciki"
+      ],
+      "img": "/images/wioletta/wioletta-portrait.webp",
+      "eyebrow": "Wizytówka autorska",
+      "title": "Wioletta Rogowska — Autorka",
+      "desc": "Autorka siedmiotomowego cyklu „Pardon, Czy To Miłość?” — historie o miłości, wierze i sile kobiecego serca.",
+      "kw": "wioletta rogowska autorka powieść pardon czy to miłość literatura"
+    },
+    {
+      "id": "wizytowka",
+      "href": "/wizytówka",
+      "cats": [
+        "kaciki"
+      ],
+      "img": "/wizytowka/img/radio.webp",
+      "eyebrow": "Drzwi główne",
+      "title": "Wizytówka Christian Culture",
+      "desc": "Główna wizytówka ekosystemu: radio 24/7, Biblia, telewizja, LUMINA i bezpłatne wizytówki dla twórców.",
+      "kw": "wizytówka główna drzwi ekosystem christian culture radio biblia tv lumina"
+    },
+    {
+      "id": "zaneta",
+      "href": "/Żaneta",
+      "cats": [
+        "kaciki"
+      ],
+      "img": "/wizytowka/img/karta-zaneta.webp",
+      "eyebrow": "Kącik ewangelizacyjny",
+      "title": "Kącik Żanety",
+      "desc": "Osobiste świadectwo przemiany serca, modlitwa i zamówienie bezpłatnej Biblii w przekładzie UBG.",
+      "kw": "żaneta zaneta kącik ewangelizacyjny świadectwo bezpłatna biblia ubg modlitwa"
+    },
+    {
+      "id": "ewa",
+      "href": "/Ewa",
+      "cats": [
+        "kaciki"
+      ],
+      "img": "/wizytowka/img/karta-ewa.webp",
+      "eyebrow": "Kącik ewangelizacyjny",
+      "title": "Kącik Ewy — CC WOMEN",
+      "desc": "Przestrzeń kobiecej wrażliwości, pieśni uwielbienia, żywej wiary i autentycznego świadectwa.",
+      "kw": "ewa kącik ewangelizacyjny cc women muzyka uwielbienie wiara świadectwo"
+    },
+    {
+      "id": "ewangelia",
+      "href": "/Ewangelia",
+      "cats": [
+        "kaciki"
+      ],
+      "img": "/pobierz/assets/ewangelia-hero.webp",
+      "eyebrow": "Dobra Nowina",
+      "title": "Wizytówka Ewangelii",
+      "desc": "Przesłanie Dobrej Nowiny o Jezusie Chrystusie, uzdrowieniu serca i pokoju.",
+      "kw": "ewangelia dobra nowina jezus chrystus zbawienie pokój nadzieja"
+    },
+    {
+      "id": "bcm",
+      "href": "/BCM",
+      "cats": [
+        "kaciki"
+      ],
+      "img": "/pobierz/assets/bcm.webp",
+      "eyebrow": "Modlitwa 24/7",
+      "title": "Biblijny Czas Modlitwy",
+      "desc": "Codzienna wspólnota modlitewna, nagrania spotkań, intencje i duchowe wsparcie przez całą dobę.",
+      "kw": "bcm biblijny czas modlitwy wspólnota modlitewna modlitwa wstawiennicza"
+    },
+    {
+      "id": "coaching",
+      "href": "/holistyczny-coaching",
+      "cats": [
+        "sluzby"
+      ],
+      "img": "/wizytowka/img/karta-pawel.webp",
+      "eyebrow": "Poradnictwo & rozwój",
+      "title": "Holistyczny Coaching",
+      "desc": "Paweł Murawski: chrześcijański coaching łączący biblijną mądrość z troską o ciało, duszę i ducha.",
+      "kw": "holistyczny coaching paweł murawski ciało dusza duch rozwój biblijny"
+    },
+    {
+      "id": "herbatka",
+      "href": "/herbatka",
+      "cats": [
+        "sluzby"
+      ],
+      "img": "/wizytowka/img/karta-herbatka-v2.webp",
+      "eyebrow": "Miejsce spotkań",
+      "title": "Herbaciarnia Między Słowami",
+      "desc": "Klimatyczna herbaciarnia, naturalne napary i spokojna przestrzeń do rozmów o tym, co najważniejsze.",
+      "kw": "herbaciarnia między słowami herbatka kawiarnia rozmowy spotkania piła"
+    },
+    {
+      "id": "heatfix",
+      "href": "/premier-heatfix",
+      "cats": [
+        "sluzby"
+      ],
+      "img": "/wizytowka/img/karta-premier-v2.webp",
+      "eyebrow": "Rzetelne rzemiosło",
+      "title": "Premier HeatFix",
+      "desc": "Mariusz: profesjonalne instalacje grzewcze, hydraulika i uczciwy serwis techniczny.",
+      "kw": "premier heatfix mariusz hydraulik instalacje grzewcze serwis usługi"
+    },
+    {
+      "id": "yis",
+      "href": "/YIS",
+      "cats": [
+        "sluzby"
+      ],
+      "img": "/YIS/assets/service-brand-20261024.jpg",
+      "eyebrow": "Design & grafika",
+      "title": "Your Imagination Studio (YIS)",
+      "desc": "Studio projektowe: design bez granic — grafika, identyfikacja i materiały dla twórców i inicjatyw.",
+      "kw": "yis your imagination studio design grafika projektowanie identyfikacja"
+    },
+    {
+      "id": "halloween",
+      "href": "/Halloween",
+      "cats": [
+        "sluzby"
+      ],
+      "img": "/wizytowka/img/akcja.webp",
+      "eyebrow": "Akcja społeczna",
+      "title": "Akcja #antyHALLOWEEN",
+      "desc": "Kampania edukacyjna i ewangelizacyjna: chrześcijańska alternatywa światłości.",
+      "kw": "halloween antyhalloween światłość kampania edukacja rodzina dzieci"
+    },
+    {
+      "id": "pobierz",
+      "href": "/pobierz",
+      "cats": [
+        "sluzby"
+      ],
+      "img": "/pobierz/assets/radio-cc-logo.webp",
+      "eyebrow": "Paczki misyjne",
+      "title": "Pobierz materiały misyjne",
+      "desc": "Gotowe wizytówki do druku, złote kody QR, grafiki na social media i materiały ewangelizacyjne.",
+      "kw": "pobierz materiały ewangelizacyjne karty qr druk grafiki ulotki"
+    },
+    {
+      "id": "p-osobowosc",
+      "href": "/osobowoscplus",
+      "cats": [
+        "kanaly"
+      ],
+      "img": "/logo_osobowosc_plus.jpg",
+      "eyebrow": "Kanał tematyczny",
+      "title": "Osobowość+",
+      "desc": "Dojrzałość emocjonalna, zdrowe relacje i psychologia w świetle wartości biblijnych.",
+      "kw": "osobowość plus osobowoscplus psychologia emocje relacje rozwój wiara"
+    },
+    {
+      "id": "p-ccwomen",
+      "href": "/ccwomen",
+      "cats": [
+        "kanaly"
+      ],
+      "img": "/avatar_ccwomen_official_2026.jpg",
+      "eyebrow": "Społeczność kobiet · TVW",
+      "title": "CC WOMEN",
+      "desc": "Ruch kobiet Christian Culture: spotkania, modlitwa, pieśni i wzajemne wsparcie.",
+      "kw": "cc women ccwomen kobiety wiary społeczność uwielbienie świadectwa"
+    }
+  ],
+  "_zasada": "L0 18.11.2026: prywatne profile LUMINA (osób) NIE są wizytówkami i nie wolno ich promować w katalogu ani nigdzie indziej bez wyraźnej zgody L0 i właściciela profilu. Martwe linki (404) usuwamy całkowicie."
+}

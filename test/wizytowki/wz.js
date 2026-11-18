@@ -1,0 +1,196 @@
+/*
+ * Wizytówki Christian Culture — premium v2 (WERSJA TESTOWA), @007 2026-11-18.
+ * Wspólne: pasek i „Polecamy” (js/cc-eco-bars.js), reveal, liczniki, 3D tilt, iskry (canvas), udostępnianie.
+ * Katalog: wyszukiwarka + filtry kategorii. Nabór: kreator zgłoszenia, radio (CCChatRadio + YouTube), wideo na kliknięcie.
+ */
+(function () {
+  'use strict';
+  var root = document.documentElement; root.classList.remove('no-js');
+  var $ = function (id) { return document.getElementById(id); };
+  var E = window.CCEco;
+  var DATA = {}; try { DATA = JSON.parse($('wzData').textContent); } catch (e) {}
+  var PAGE = document.body.getAttribute('data-page');
+  var PLACE = PAGE === 'katalog' ? 'wizytowki_katalog' : 'wizytowka_nabor';
+  var fine = window.matchMedia && matchMedia('(pointer:fine)').matches;
+  function track(name, params) { try { if (window.gtag) gtag('event', name, Object.assign({ placement: PLACE }, params || {})); } catch (e) {} }
+
+  setTimeout(function () { var h = document.querySelector('.hero'); if (h) h.classList.add('is-ready'); }, 3000);
+
+  // Nawigacja
+  var nav = $('nav'), burger = document.querySelector('.burger');
+  addEventListener('scroll', function () { nav.classList.toggle('is-scrolled', scrollY > 30); }, { passive: true });
+  if (burger) {
+    var setOpen = function (o) { nav.classList.toggle('is-open', o); burger.setAttribute('aria-expanded', o ? 'true' : 'false'); };
+    burger.addEventListener('click', function () { setOpen(!nav.classList.contains('is-open')); });
+    nav.querySelectorAll('.menu a').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && nav.classList.contains('is-open')) { setOpen(false); burger.focus(); } });
+  }
+
+  // Pasek + Polecamy
+  if (E) {
+    E.mountTicker($('tickRun'), DATA.ticker || [], PLACE);
+    E.mountPromo($('promoStage'), $('promoDots'), $('promoBar'), 'pl', PLACE, 9000);
+  }
+  document.querySelectorAll('[data-track]').forEach(function (a) {
+    a.addEventListener('click', function () { track('wizytowki_click', { target: a.getAttribute('data-track') }); });
+  });
+
+  // Reveal + liczniki bębnowe
+  function reel(el) {
+    var target = el.getAttribute('data-reel'); if (!target || el.dataset.done) return; el.dataset.done = '1';
+    el.innerHTML = target.split('').map(function (d) { var col = ''; for (var k = 0; k <= 9; k++) col += '<span>' + k + '</span>'; return '<span data-d="' + d + '">' + col + '</span>'; }).join('');
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      el.querySelectorAll('[data-d]').forEach(function (c, i) { c.style.transitionDelay = (i * 120) + 'ms'; c.style.transform = 'translateY(-' + (Number(c.getAttribute('data-d')) * 10) + '%)'; });
+    }); });
+    el.setAttribute('aria-label', target);
+  }
+  var rev = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('is-in'); x.target.querySelectorAll('[data-reel]').forEach(reel); io.unobserve(x.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .06 });
+    rev.forEach(function (el) { io.observe(el); });
+  } else { rev.forEach(function (el) { el.classList.add('is-in'); }); document.querySelectorAll('[data-reel]').forEach(reel); }
+
+  // 3D tilt + światło
+  function bindTilt(el) {
+    if (!fine || el.dataset.tiltOn) return; el.dataset.tiltOn = '1';
+    el.addEventListener('pointermove', function (e) {
+      var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      el.style.transform = 'rotateX(' + ((.5 - y) * 7).toFixed(2) + 'deg) rotateY(' + ((x - .5) * 9).toFixed(2) + 'deg)';
+      el.style.setProperty('--mx', (x * 100).toFixed(1) + '%'); el.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+    });
+    el.addEventListener('pointerleave', function () { el.style.transform = ''; });
+  }
+  document.querySelectorAll('[data-tilt]').forEach(bindTilt);
+
+  // Iskry i promienie (canvas) — tło hero
+  (function fx() {
+    var c = $('heroFx'); if (!c || !c.getContext) return;
+    var ctx = c.getContext('2d'), w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5), t = 0, vis = true, last = 0, parts = [];
+    function size() { var r = c.getBoundingClientRect(); w = r.width; h = r.height; c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      parts = []; var n = Math.round(Math.min(110, w / 11)); for (var i = 0; i < n; i++) parts.push({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.8 + .3, s: Math.random() * .5 + .12, a: Math.random() * .6 + .25, hue: Math.random() < .7 ? 26 : 42 }); }
+    size(); addEventListener('resize', size);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { vis = e[0].isIntersecting; }).observe(c);
+    function frame(ts) {
+      requestAnimationFrame(frame);
+      if (!vis || document.hidden || ts - last < 33) return; last = ts; t += .016;
+      ctx.clearRect(0, 0, w, h); ctx.globalCompositeOperation = 'lighter';
+      var cx = w < 960 ? w * .5 : w * .72, cy = w < 960 ? 150 : h * .48;
+      for (var k = 0; k < 7; k++) {
+        var ang = t * .08 + k * .9, len = Math.max(w, h) * .9;
+        var g = ctx.createLinearGradient(cx, cy, cx + Math.cos(ang) * len, cy + Math.sin(ang) * len);
+        g.addColorStop(0, 'rgba(255,140,51,' + (.07 + .03 * Math.sin(t + k)) + ')'); g.addColorStop(1, 'rgba(255,140,51,0)');
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(ang - .05) * len, cy + Math.sin(ang - .05) * len); ctx.lineTo(cx + Math.cos(ang + .05) * len, cy + Math.sin(ang + .05) * len); ctx.closePath(); ctx.fillStyle = g; ctx.fill();
+      }
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i]; p.y -= p.s; p.x += Math.sin(t * 1.3 + i) * .25; if (p.y < -5) { p.y = h + 5; p.x = Math.random() * w; }
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fillStyle = 'hsla(' + p.hue + ',100%,62%,' + (p.a * (.55 + .45 * Math.sin(t * 2 + i))) + ')'; ctx.fill();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  // Udostępnianie
+  var toast = $('toast');
+  function say(m) { if (!toast) return; toast.textContent = m; toast.classList.add('on'); setTimeout(function () { toast.classList.remove('on'); }, 2200); }
+  function copy(text) { if (navigator.clipboard) return navigator.clipboard.writeText(text); var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); return Promise.resolve(); }
+  document.querySelectorAll('[data-share]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var url = location.origin + location.pathname;
+      if (navigator.share) navigator.share({ title: document.title, url: url }).catch(function () {});
+      else copy(url).then(function () { say('Link skopiowany'); });
+      track('share', { target: PAGE });
+    });
+  });
+
+  // ---------- KATALOG: wyszukiwarka i filtry ----------
+  if (PAGE === 'katalog') {
+    var q = $('q'), fbtns = document.querySelectorAll('.fbtn'), cards = document.querySelectorAll('[data-card]'), cats = document.querySelectorAll('.cat'), empty = $('empty'), active = 'all';
+    var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); };
+    function apply() {
+      var term = norm(q.value.trim()), shown = 0;
+      cards.forEach(function (c) {
+        var okCat = active === 'all' || (' ' + c.getAttribute('data-cats') + ' ').indexOf(' ' + active + ' ') > -1;
+        var okQ = !term || norm(c.getAttribute('data-kw')).indexOf(term) > -1;
+        var inCat = c.closest('.cat'), catId = inCat && inCat.getAttribute('data-cat');
+        // W widoku „wszystkie” każda karta tylko w swojej kategorii głównej; w filtrze — także w dodatkowych.
+        var primary = c.getAttribute('data-primary') === '1';
+        var on = okCat && okQ && (active === 'all' ? primary : catId === active);
+        c.hidden = !on; if (on) shown++;
+      });
+      cats.forEach(function (s) { s.hidden = !s.querySelector('[data-card]:not([hidden])'); });
+      empty.hidden = shown > 0;
+      $('qCount').textContent = shown;
+    }
+    fbtns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        active = b.getAttribute('data-f'); fbtns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        apply(); track('wizytowki_filter', { target: active });
+        var t = document.querySelector('#katalog'); if (t && scrollY > t.offsetTop) t.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    var qt = null;
+    q.addEventListener('input', function () { apply(); clearTimeout(qt); qt = setTimeout(function () { if (q.value.trim()) track('wizytowki_search', { target: q.value.trim().slice(0, 40) }); }, 900); });
+    var hash = (location.hash || '').replace('#', '');
+    var pre = document.querySelector('.fbtn[data-f="' + hash + '"]'); if (pre) pre.click(); else apply();
+  }
+
+  // ---------- NABÓR: kreator zgłoszenia ----------
+  if (PAGE === 'nabor') {
+    var f = { name: $('cName'), field: $('cField'), desc: $('cDesc') };
+    var pv = { url: $('pUrl'), field: $('pField'), name: $('pName'), desc: $('pDesc') };
+    var slug = function (s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').replace(/Ł/g, 'L').replace(/[^A-Za-z0-9]+/g, '').slice(0, 28) || 'TwojaMisja'; };
+    function msg() {
+      return 'Szczęść Boże! Zgłaszam wizytówkę do Christian Culture.\n\nNazwa: ' + (f.name.value.trim() || '—') + '\nDziedzina: ' + f.field.value + '\nO mnie / o misji: ' + (f.desc.value.trim() || '—') + '\nProponowany adres: polskieradio.cc/' + slug(f.name.value) + '\n\nRazem możemy więcej. Ku chwale Boga i dla dobra ludzi!';
+    }
+    function paint() {
+      pv.url.textContent = 'polskieradio.cc/' + slug(f.name.value);
+      pv.field.textContent = f.field.value;
+      pv.name.textContent = f.name.value.trim() || 'Twoja Misja w Christian Culture';
+      pv.desc.textContent = f.desc.value.trim() || 'Tworzę chrześcijańską muzykę, dzielę się świadectwem wiary i chcę służyć swoimi talentami ku chwale Boga i dla dobra ludzi.';
+    }
+    [f.name, f.field, f.desc].forEach(function (el) { el.addEventListener('input', paint); });
+    paint();
+    $('cWa').addEventListener('click', function () { copy(msg()).then(function () { say('Zgłoszenie skopiowane — wklej je na grupie'); }); window.open(DATA.whatsapp, '_blank', 'noopener'); track('wizytowka_zgloszenie', { target: 'whatsapp' }); });
+    $('cCopy').addEventListener('click', function () { copy(msg()).then(function () { say('Tekst skopiowany'); }); track('wizytowka_zgloszenie', { target: 'kopiuj' }); });
+
+    // Radio — te same stacje co na /wizytówka (repertuar CC), odtwarzanie przez CCChatRadio lub YouTube
+    var ST = DATA.stations || [], idx = 0, deck = $('deck'), now = $('deckNow'), status = $('deckStatus'), ytWrap = $('ytWrap'), ytPlayer = null, req = 0, playing = false;
+    var radio = function () { return window.CCChatRadio; };
+    var stBtns = document.querySelectorAll('.station');
+    function paintSt() { stBtns.forEach(function (b, i) { b.setAttribute('aria-pressed', i === idx ? 'true' : 'false'); }); now.textContent = ST[idx] ? ST[idx].name : ''; }
+    function setPlaying(p) { playing = p; deck.classList.toggle('is-playing', p); $('deckPlay').textContent = p ? 'Pauza' : 'Słuchaj tutaj'; }
+    function stopAll() { req++; try { if (radio()) radio().pause(); } catch (e) {} try { if (ytPlayer && ytPlayer.pauseVideo) ytPlayer.pauseVideo(); } catch (e) {} setPlaying(false); }
+    function play() {
+      var st = ST[idx]; if (!st) return; stopAll(); var my = req; track('wizytowka_radio_play', { target: st.short });
+      if (st.nativeId) {
+        ytWrap.hidden = true;
+        if (!radio()) { status.textContent = 'Odtwarzacz audio jest niedostępny — otwórz pełny odtwarzacz.'; return; }
+        status.textContent = 'Łączę z: ' + st.name + '…';
+        radio().prepare(st.nativeId).then(function () { if (my !== req) return; radio().select(st.nativeId); return radio().play(); })
+          .then(function () { if (my === req) { setPlaying(true); status.textContent = 'Gra: ' + st.name; } })
+          .catch(function () { if (my === req) status.textContent = 'Nie udało się wczytać nagrań. Spróbuj ponownie.'; });
+        return;
+      }
+      ytWrap.hidden = false; status.textContent = 'Playlista YouTube: ' + st.name;
+      var start = function () {
+        if (ytPlayer && ytPlayer.loadPlaylist) { ytPlayer.loadPlaylist({ listType: 'playlist', list: st.yt }); setPlaying(true); return; }
+        ytPlayer = new YT.Player('ytBox', { host: 'https://www.youtube-nocookie.com', playerVars: { listType: 'playlist', list: st.yt, autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1 },
+          events: { onReady: function () { setPlaying(true); } } });
+      };
+      if (window.YT && YT.Player) start();
+      else { window.onYouTubeIframeAPIReady = start; var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(s); }
+    }
+    stBtns.forEach(function (b, i) { b.addEventListener('click', function () { idx = i; paintSt(); play(); }); });
+    $('deckPlay').addEventListener('click', function () { if (playing) stopAll(); else play(); });
+    paintSt();
+
+    // Wideo „Dobrze, że jesteś” — wczytanie po kliknięciu
+    var vf = $('vFacade');
+    if (vf) vf.addEventListener('click', function () {
+      var id = vf.getAttribute('data-id'), box = document.createElement('div');
+      box.className = 'yt-wrap'; box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0" title="Dobrze, że jesteś — Christian Culture" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+      vf.replaceWith(box); track('wizytowka_video', { target: id });
+    });
+  }
+})();

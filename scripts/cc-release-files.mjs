@@ -41,6 +41,8 @@ export function isPublicFile(relativePath) {
   if (file === 'lumina-pilot.html' || file === 'test/lumina/index.html') return true;
   if (file === 'czat-pilot.html' || file === 'test/czat/index.html') return true;
   if (file.startsWith('test/ccwomen/')) return true;
+  // Wizytówki CC premium v2 — wersja testowa (noindex) do akceptacji L0 (@007 2026-11-18).
+  if (file.startsWith('test/wizytowki/') || file.startsWith('test/wizytowka/')) return true;
   // Spiritual Sounds × CC — wersja testowa (noindex) do akceptacji L0 (@007 2026-11-18).
   if (file.startsWith('test/spiritual-sounds/')) return true;
   if (file === 'test/cc-youtube-boost/index.html' || file === 'test/cc-youtube-boost/data.json') return true;

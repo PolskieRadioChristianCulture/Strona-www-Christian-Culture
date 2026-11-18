@@ -62,6 +62,11 @@
 /Wizyt%C3%B3wki/ /wizytowki 301
 /katalog-wizytowek /wizytowki 301
 /katalog-wizytówek /wizytowki 301
+# Wizytówki CC premium v2 — WERSJA TESTOWA (@007 2026-11-18, noindex; produkcja po ✅ L0)
+/test/wizytowki /test/wizytowki/index.html 200
+/test/wizytowki/ /test/wizytowki/index.html 200
+/test/wizytowka /test/wizytowka/index.html 200
+/test/wizytowka/ /test/wizytowka/index.html 200
 
 # === USŁUGI EKOCC — KATALOG USŁUG I POMOCY (/uslugi, /usługi) ===
 /uslugi /uslugi/index.html 200
