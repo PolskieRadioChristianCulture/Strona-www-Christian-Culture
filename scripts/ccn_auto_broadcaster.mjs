@@ -222,6 +222,17 @@ function resolveItemImage(item, rootDir) {
     const p = path.join(rootDir, 'biblia-audio', 'assets', 'rodzaju-hero.jpg');
     if (fs.existsSync(p)) return p;
   }
+  const kursy28Match = pathLower.match(/\/kursy\/(\d{2})-/);
+  if (kursy28Match) {
+    const padNum = kursy28Match[1];
+    const numNoPad = String(parseInt(padNum, 10));
+    const pPng = path.join(rootDir, 'images', 'lessons', `${numNoPad}.png`);
+    const pWebp = path.join(rootDir, 'images', 'lessons', `lesson-${padNum}.webp`);
+    const pAltWebp = path.join(rootDir, 'images', 'lessons', `${numNoPad}.webp`);
+    if (fs.existsSync(pPng)) return pPng;
+    if (fs.existsSync(pWebp)) return pWebp;
+    if (fs.existsSync(pAltWebp)) return pAltWebp;
+  }
   if (pathLower.includes('akademia') || pathLower.includes('kurs')) {
     const dayMatch = pathLower.match(/dzien-(\d+)/);
     if (dayMatch) {
