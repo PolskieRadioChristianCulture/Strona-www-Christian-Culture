@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "lumina-tablica",
+      "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
+      "url": "https://polskieradio.cc/lumina-tablica",
+      "type": "profile",
+      "image": "card-lumina.jpg",
+      "publishedAt": "2026-11-18T06:33:20.980Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "ziu",
       "title": "CCN ZIU — Portal Zdrowia, Urody & Atlas Ziół („Ciało Świątynią Ducha Świętego”)",
       "url": "https://polskieradio.cc/ziu",
