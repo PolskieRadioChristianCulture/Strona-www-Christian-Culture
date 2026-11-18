@@ -2,6 +2,15 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "holistyczny-coaching",
+      "title": "Holistyczny Coaching & Terapia Wolności — Paweł Murawski",
+      "url": "https://polskieradio.cc/holistyczny-coaching",
+      "type": "profile",
+      "image": "avatar_pawel_murawski.jpg",
+      "publishedAt": "2026-11-18T16:33:32.380Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "topTEN",
       "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
       "url": "https://polskieradio.cc/topTEN",
