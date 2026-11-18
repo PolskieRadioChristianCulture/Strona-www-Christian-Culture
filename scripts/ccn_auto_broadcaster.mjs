@@ -445,6 +445,21 @@ function getAllEcosystemCandidates() {
   function addCandidate(item) {
     if (!item.url || seenUrls.has(item.url)) return;
 
+    // Zasada L0 (18.11.2026): zakaz promowania prywatnych profili LUMINA w social media
+    let urlPathname = '';
+    try {
+      urlPathname = new URL(item.url, 'https://polskieradio.cc').pathname.toLowerCase();
+    } catch (e) {
+      urlPathname = (item.url || '').toLowerCase();
+    }
+    const isPrivateLuminaProfile =
+      /\/lumina\.[^/]+/i.test(urlPathname) ||
+      /\/lumina-profile(\.html)?$/i.test(urlPathname) ||
+      /^\/(mariusz|jolawojcik|andrzejthiel|pawelmurawski|zofiadudek|magdalena|wiolettarogowska)(\.html)?\/?$/i.test(urlPathname);
+    if (isPrivateLuminaProfile) {
+      return;
+    }
+
     const textToCheck = ((item.title || '') + ' ' + (item.url || '') + ' ' + (item.tag || '') + ' ' + (item.image || '') + ' ' + (item.imageUrl || '') + ' ' + (item.lead || '')).toLowerCase();
 
     // Blokada dokumentów prawnych, regulaminów i wycofanych przekierowań (np. snadaniowa-live.html -> cctv24-worship)
@@ -686,26 +701,8 @@ function getAllEcosystemCandidates() {
   ];
   for (const m of musicItems) addCandidate(m);
 
-  // 4. WIZYTÓWKI & PROFILE SPOŁECZNOŚCI LUMINA
+  // 4. SPOŁECZNOŚĆ LUMINA & PARTNERZY (bez prywatnych profili LUMINA — decyzja L0 18.11.2026)
   const profiles = [
-    {
-      title: 'Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC',
-      lead: 'Poznaj profil założyciela misji Christian Culture, architekta ekosystemu mediów biblijnych, publicysty i autora książek. Dołącz do dyskusji na portalu LUMINA.',
-      url: 'https://polskieradio.cc/lumina.cezaryrgowski',
-      image: 'images/mcc/em-cezary-rogowski-16-9.jpg',
-      category: 'Wizytówka',
-      type: 'profile',
-      tag: '#CezaryRogowski'
-    },
-    {
-      title: 'Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara',
-      lead: 'Poznaj autorski profil Wioletty Rogowskiej na portalu LUMINA. Poradniki dotyczące chrześcijańskiego domu, wychowania dzieci w wierze, cyfrowego detoksu i służby bliźnim.',
-      url: 'https://polskieradio.cc/lumina.wiolettarogowska',
-      image: 'images/wioletta/wioletta-og.jpg',
-      category: 'Wizytówka',
-      type: 'profile',
-      tag: '#WiolettaRogowska'
-    },
     {
       title: 'Studio Dobrego Słowa: Mariusz & pastor Wincenty Sieja — Cykl „Apokalipsa: Księga Nadziei”',
       lead: 'Głębokie studium biblijnych proroctw Księgi Objawienia w świetle Ewangelii i Słowa Bożego. Odkryj nadzieję w Chrystusie w cyklu prowadzonym przez Mariusza i pastora Wincentego Sieję ze Studia Dobrego Słowa.',
@@ -1115,6 +1112,14 @@ function formatBroadcasterTweet(item) {
       subHeader = '💬 LUMI MESS | CHRZEŚCIJAŃSKI KOMUNIKATOR';
       callToAction = '👉 Czatuj i poznaj ludzi wiary:\n';
       addTags('#LumiMess', '#Lumina', '#KomunikatorCC', '#ChristianCulture');
+    } else if ((item.url || '').toLowerCase().includes('premier-heatfix') || (item.title || '').toLowerCase().includes('premier heatfix')) {
+      subHeader = '🤝 WIZYTÓWKA & MECENAS CC | PREMIER HEATFIX UK';
+      callToAction = '👉 Zobacz wizytówkę i ofertę w Londynie:\n';
+      addTags('#PremierHeatFix', '#WizytowkaCC', '#MecenasMisji', '#ChristianCulture');
+    } else if ((item.url || '').toLowerCase().includes('holistyczny-coaching') || (item.title || '').toLowerCase().includes('holistyczny')) {
+      subHeader = '🤝 WIZYTÓWKA PARTNERA | CHRISTIAN CULTURE';
+      callToAction = '👉 Zobacz wizytówkę i ofertę:\n';
+      addTags('#WizytowkaCC', '#ChristianCulture');
     } else {
       subHeader = '👤 SPOŁECZNOŚĆ CC | Portal LUMINA';
       callToAction = '👉 Dołącz do społeczności LUMINA:\n';
