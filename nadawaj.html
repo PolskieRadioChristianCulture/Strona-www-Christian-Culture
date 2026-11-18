@@ -231,6 +231,7 @@ footer a{color:var(--o2);font-weight:800}
   <div id="groups"></div>
 
   <a class="ad strip" href="https://polskieradio.cc/ccwomen" target="_blank" rel="noopener"><img src="/assets/promo/promo-ccwomen.webp" alt="Jak kobieta kobiecie… Polecam CC Women – polskieradio.cc/ccwomen" loading="lazy"><span class="lab">BANER 3</span></a>
+  <a class="ad strip" href="https://polskieradio.cc/wizytowki" target="_blank" rel="noopener" style="margin-top:12px"><img src="/assets/promo/promo-wizytowki-akademia-strip.webp" alt="Wizytówki CC & Kurs Codzienny – polskieradio.cc/wizytowki" loading="lazy"><span class="lab">BANER 5</span></a>
 
   <section id="g-mob" data-group="mob">
     <div class="gh"><h2>Telefon 9:16</h2><span>Sceny pionowe na Shorts, TikTok i relacje</span></div>
@@ -261,7 +262,7 @@ const G=[
   {f:'studium-live.html',img:'tlo_studium',b:'Studium biblijne · 08:00 i 20:00',t:'Studium Telewizyjne Pisma Świętego',d:'572 wykłady werset po wersecie.',at:[8,9]},
   {f:'totalny-atak-live.html',img:'walter_veith',b:'Wykłady · Pn–Pt 18:00',t:'Totalny Atak — Prof. Walter Veith',d:'Wykłady biblijne, apologetyczne i profetyczne.',at:[18,19],wd:[1,2,3,4,5]},
   {f:'randki-malzenstwo-live.html',img:'tv24_master_live',b:'Relacje i rodzina · Pt–Nd 22:00',t:'Randki i Małżeństwo (16:9)',d:'Kurs „Prawdziwe szczęście w rodzinie” Romana Chałupki.'},
-  {ad:1,n:2,txt:'Miejsce na baner nr 2 · 16:9 (np. Kurs Codzienny)'}
+  {ad:1,n:2,href:'akademia/kurscodzienny',img:'/assets/promo/promo-kurscodzienny-16x9.webp',alt:'Kurs Codzienny – 10 minut ze Słowem każdego dnia – polskieradio.cc/akademia'}
  ]},
  {id:'muz',name:'Muzyka, film i wyciszenie',sub:'Uwielbienie, kino i noc',items:[
   {f:'spiewajmy-panu-live.html',img:'spiewajmy-panu-thumb',b:'Blok muzyczny · 16:00',t:'Codzienne Uwielbienie (16:9)',d:'Dwie godziny pieśni chwały i nowości muzycznych.',at:[16,17]},
@@ -282,16 +283,16 @@ const V=[
  {f:'stream-scene-vertical.html',img:'Logo-Globalna-Biblia-Audio',t:'Radio Biblia Audio',s:'9:16'},
  {f:'dzj-vertical-live.html',img:'dzj-916-thumb',t:'Dobrze, że jesteś',s:'9:16'},
  {f:'biblia-spiewana-vertical.html',img:'Logo_Biblia_Spiewana',t:'Biblia Śpiewana',s:'9:16'},
- {ad:1}
+ {ad:1,href:'wizytowki',img:'/assets/promo/promo-wspieraj-wizytowki-9x16.webp',alt:'Wspieram to! Wizytówki CC – polskieradio.cc/wizytowki'}
 ];
 const now=new Date(),H=now.getHours(),WD=now.getDay();
 const isOn=x=>x.at&&x.at.includes(H)&&(!x.wd||x.wd.includes(WD));
-const card=x=>x.ad?(x.img?`<a class="ad" href="${BASE}wspieraj" target="_blank" rel="noopener" data-kind="ad"><img src="/assets/promo/promo-wspieraj-klasyczny.webp" alt="Pomóż nam nieść Ewangelię dalej – polskieradio.cc/wspieraj" loading="lazy"><span class="lab">BANER ${x.n}</span></a>`:`<div class="ad empty" data-kind="ad"><div><b>${x.txt}</b>Wstawimy tu Twoją grafikę 1280×720</div><span class="lab">BANER ${x.n}</span></div>`):
+const card=x=>x.ad?(x.img?`<a class="ad" href="${BASE}${x.href||'wspieraj'}" target="_blank" rel="noopener" data-kind="ad"><img src="${x.img==='promo'?'/assets/promo/promo-wspieraj-klasyczny.webp':x.img}" alt="${x.alt||'Pomóż nam nieść Ewangelię dalej – polskieradio.cc/wspieraj'}" loading="lazy"><span class="lab">BANER ${x.n}</span></a>`:`<div class="ad empty" data-kind="ad"><div><b>${x.txt}</b>Wstawimy tu Twoją grafikę 1280×720</div><span class="lab">BANER ${x.n}</span></div>`):
  `<article class="card" data-kind="ch"><a class="thumb" href="${BASE}${x.f}" target="_blank" rel="noopener" aria-label="Otwórz ${x.t}"><img src="${IMG}${x.img}.webp" alt="" loading="lazy"><span class="play"><span>▶</span></span>${x.nw?'<span class="chip new">NOWY NA LIŚCIE</span>':''}${isOn(x)?'<span class="chip onnow">● TERAZ</span>':''}</a>
   <div class="body">${numChip(x.f)}<div class="badge">${x.b}</div><h3>${x.t}</h3><p>${x.d}</p></div>
   <div class="acts"><a class="go" href="${BASE}${x.f}" target="_blank" rel="noopener">Oglądaj</a><button class="sec" type="button" data-copy="${BASE}${x.f}" data-what="URL dla OBS">OBS</button><button class="sec" type="button" data-copy='<iframe src="${BASE}${x.f}" width="1280" height="720" allow="autoplay; fullscreen" style="border:0"></iframe>' data-what="Kod do osadzenia">&lt;/&gt;</button></div></article>`;
 document.getElementById('groups').innerHTML=G.map(g=>`<section id="g-${g.id}" data-group="${g.id}"><div class="gh"><h2>${g.name}</h2><span>${g.sub}</span></div><div class="grid">${g.items.map(card).join('')}</div></section>`).join('');
-document.getElementById('vert').innerHTML=V.map(x=>x.ad?`<div class="vcard ad9"><div class="ph"><div><b>Miejsce na baner nr 4</b><br>9:16 · 1080×1920<br>np. na relacje</div></div><div class="b"><b>BANER 4</b><small>pionowy</small></div></div>`:`<a class="vcard" href="${BASE}${x.f}" target="_blank" rel="noopener"><div class="ph"><img src="${IMG}${x.img}.webp" alt="" loading="lazy" style="object-position:center"></div><div class="b"><b>${x.t}</b><small>Format ${x.s}</small></div></a>`).join('');
+document.getElementById('vert').innerHTML=V.map(x=>x.ad?(x.img?`<a class="vcard ad9" href="${BASE}${x.href}" target="_blank" rel="noopener"><div class="ph"><img src="${x.img}" alt="${x.alt}" loading="lazy" style="object-position:center"></div><div class="b"><b>BANER 4</b><small>pionowy</small></div></a>`:`<div class="vcard ad9"><div class="ph"><div><b>Miejsce na baner nr 4</b><br>9:16 · 1080×1920<br>np. na relacje</div></div><div class="b"><b>BANER 4</b><small>pionowy</small></div></div>`):`<a class="vcard" href="${BASE}${x.f}" target="_blank" rel="noopener"><div class="ph"><img src="${IMG}${x.img}.webp" alt="" loading="lazy" style="object-position:center"></div><div class="b"><b>${x.t}</b><small>Format ${x.s}</small></div></a>`).join('');
 // licznik scen
 const total=G.reduce((s,g)=>s+g.items.filter(x=>!x.ad).length,0)+V.filter(x=>!x.ad).length;
 (function c(i){document.getElementById('cnt').textContent=i;if(i<total)setTimeout(()=>c(i+1),45);})(0);

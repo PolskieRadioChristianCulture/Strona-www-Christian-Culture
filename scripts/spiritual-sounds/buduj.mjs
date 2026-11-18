@@ -11,7 +11,7 @@ const ORIGIN = 'https://polskieradio.cc';
 const PLAYLIST = 'PLD0gxYiiSZMA';
 const YT_CHANNEL = 'https://www.youtube.com/@SpiritualSoundsPsalmy';
 const YT_PLAYLIST = `https://www.youtube.com/playlist?list=${PLAYLIST}`;
-const V = '20261118_3';
+const V = '20261118_4';
 
 // Serie potwierdzone na kanale (18.11.2026) — okładka = pierwsze nagranie z RSS playlisty.
 const SERIES = [
