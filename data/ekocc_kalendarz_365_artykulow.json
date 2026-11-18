@@ -316,11 +316,19 @@
       "portal_docelowy": "EkoCC — rodzina i relacje (dokładny URL do potwierdzenia)",
       "priorytet": "B",
       "start_przygotowania": "2026-11-10",
-      "status": "Planowany / do opracowania",
+      "status": "Opracowany / Czeka na autoryzację L0",
       "zrodlo_pomyslu": "Nowa propozycja redakcyjna",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "badania/eksperci; bez diagnoz i liczb bez źródeł",
-      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk."
+      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk.",
+      "bramka_bezpieczenstwa": "T4 (DO AUTORYZACJI CZŁOWIEKA - L0)",
+      "autor": "Cezary Rogowski",
+      "slug": "zimno-za-oknem-chlod-w-domu-od-czego-zaczac-pojednanie",
+      "pakiet_zip": "C:\\Users\\czark\\Desktop\\EkoCC_news_zimno-za-oknem-chlod-w-domu-od-czego-zaczac-pojednanie_2026-11-18.zip",
+      "pakiet_docx": "C:\\Users\\czark\\Desktop\\EkoCC_news_zimno-za-oknem-chlod-w-domu-od-czego-zaczac-pojednanie_2026-11-18.docx",
+      "grafika_16_9": "images/news/art-zimno-za-oknem-chlod-w-domu-od-czego-zaczac-pojednanie.jpg",
+      "data_opracowania": "2026-11-18T10:05:00+01:00",
+      "uwagi_redakcyjne": "Portal docelowy do potwierdzenia L0 (pakiet przygotowany roboczo jako news / propozycja kanoniczna: /news lub /konflikty-rodzinne)."
     },
     {
       "lp": 16,

@@ -24,7 +24,16 @@ await fs.mkdir(path.join(out, 'screenshots'), { recursive: true });
 console.log(`[CC GUARDIAN 360] Rozpoczynam audyt: ${runId}`);
 console.log(`[CC GUARDIAN 360] Liczba serwisów: ${config.targets.length}, Ekrany: ${config.viewports.map(v => v.name).join(', ')}\n`);
 
-const browser = await chromium.launch({ headless: true });
+async function launchBrowser() {
+  for (const opts of [{ headless: true }, { channel: 'chrome', headless: true }, { channel: 'msedge', headless: true }]) {
+    try {
+      return await chromium.launch(opts);
+    } catch (_) {}
+  }
+  return await chromium.launch({ headless: true });
+}
+
+const browser = await launchBrowser();
 const findings = [];
 const scans = [];
 const safe = s => s.replace(/[^a-z0-9]+/gi, '-').slice(0, 70);

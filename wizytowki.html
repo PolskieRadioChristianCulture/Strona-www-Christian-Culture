@@ -504,6 +504,17 @@ footer {
 .rise { opacity: 0; transform: translateY(14px); transition: opacity 420ms ease, transform 420ms ease; }
 .rise.in { opacity: 1; transform: none; }
 
+/* MOBILE_POLISH_WIZYTOWKI */
+.edge { width: 124px; justify-content: flex-start; }
+.edge-grid { display: grid; grid-template-columns: repeat(2, 44px); gap: 6px; justify-content: center; width: 100%; }
+.edge-btn { width: 44px; height: 44px; }
+.edge-tip { left: 8.6rem; }
+@media (max-width: 640px) {
+  .bar { padding: 0.4rem 0.75rem; gap: 0.5rem; max-width: 100vw; overflow-x: clip; }
+  .bar-actions [data-play] { display: none; }
+  .bar-actions .btn { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
+  .hero-actions .btn { width: 100%; white-space: normal; text-align: center; }
+}
 @media (min-width: 860px) {
   .brand small { display: inline; }
   .bar-actions .ghost { display: inline-flex; }

@@ -20,21 +20,21 @@
             name: 'Polskie Radio CC',
             sub: 'Muzyka Uwielbienia & Słowo 24/7',
             streamUrl: 'https://stream.zeno.fm/vz96pvl3pnktv',
-            logo: 'logo_radio_cc.jpg'
+            logo: '/logo_radio_cc.jpg'
         },
         {
             id: 'radiobiblia',
             name: 'Radio Biblia Audio',
             sub: 'Pismo Święte Dzień i Noc',
             streamUrl: 'https://stream.zeno.fm/imo45hqnshyuv',
-            logo: 'logo-biblia-audio.jpg'
+            logo: '/logo-biblia-audio.jpg'
         },
         {
             id: 'radioglobal',
             name: 'Radio Global Praise',
             sub: 'Worship Without Ceasing 24/7',
             streamUrl: 'https://stream.zeno.fm/umej2cuqncluv',
-            logo: 'worship_logo_thumb.jpg'
+            logo: '/worship_logo_thumb.jpg'
         }
     ];
 

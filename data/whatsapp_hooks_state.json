@@ -1,9 +1,17 @@
 {
-  "lastSentTime": "2026-10-30T08:39:35.178Z",
-  "nextScheduledTime": "2026-10-30T09:00:35.178Z",
-  "lastGroupIndex": 0,
-  "totalDispatched": 1,
+  "lastSentTime": "2026-11-17T09:52:12.109Z",
+  "nextScheduledTime": "2026-11-17T10:10:12.109Z",
+  "lastGroupIndex": 1,
+  "totalDispatched": 2,
   "history": [
+    {
+      "timestamp": "2026-11-17T09:52:12.109Z",
+      "groupName": "Buduj Swoją Wiarę",
+      "groupId": "120363208685830452@g.us",
+      "category": "studium",
+      "hookId": "studium-02",
+      "commandDocId": "Ng1sGLtnOOlcvxzwuZrk"
+    },
     {
       "timestamp": "2026-10-30T08:39:35.178Z",
       "groupName": "Klub Christian Culture",

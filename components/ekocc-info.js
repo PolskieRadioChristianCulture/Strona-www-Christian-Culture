@@ -636,6 +636,14 @@
           }
         }
       }
+      const chatFab = document.querySelector('#ccGlobalChatFab, .cc-chat-fab-wrap');
+      if (chatFab && window.getComputedStyle(chatFab).display !== 'none' && !chatFab.classList.contains('is-fab-hidden')) {
+        const fRect = chatFab.getBoundingClientRect();
+        if (fRect.height > 0 && fRect.top < window.innerHeight) {
+          const fabTopSpace = Math.round(window.innerHeight - fRect.top);
+          bottomOffset = Math.max(bottomOffset, fabTopSpace + 14);
+        }
+      }
       btn.style.bottom = bottomOffset + 'px';
     }
 

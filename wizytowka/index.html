@@ -62,11 +62,9 @@
 <link rel="preload" as="image" href="/wizytowka/img/hero-wizytowki-16x9.webp" fetchpriority="high">
 <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
 
-<!-- Moduły ekosystemu @ICC: logowanie Google LUMINA, ulubione, panel krawędziowy, wyszukiwarka @w, czat LUMI, powrót na górę, stopka wsparcia -->
+<!-- Moduły ekosystemu @ICC: logowanie Google LUMINA, ulubione, wyszukiwarka @w, czat LUMI, powrót na górę, stopka wsparcia -->
 <script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
 <script src="/js/cc-favorites.js?v=20261114_favz1" defer></script>
-<script src="/js/cc-mobile-edge.js?v=20261110_edge12" defer></script>
-<script src="/js/cc-edge-plus.js?v=20261110_edgep2" defer></script>
 <script src="/components/cc-omni-search.js?v=20261030_feat11" defer></script>
 <script src="/components/cc-global-chat-button.js?v=20261116_a007_col2" defer></script>
 <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
@@ -220,18 +218,38 @@ p { margin: 0; }
 .scrim { position: fixed; inset: 0; z-index: 59; background: rgba(0,0,0,.65); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity .2s; }
 .scrim.show { opacity: 1; pointer-events: auto; }
 .edge {
-  position: fixed; top: 0; left: 0; bottom: 0; z-index: 60; width: 168px;
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  position: fixed; top: 0; left: 0; bottom: 0; z-index: 60; width: 168px; max-width: 84vw;
+  display: flex; flex-direction: column; justify-content: flex-start; align-items: center; gap: 6px;
   background: #050507; color: #F3E5C8; border-right: 1px solid rgba(196,163,90,.38);
   border-radius: 0 22px 22px 0; box-shadow: 6px 0 30px rgba(0,0,0,.85);
-  padding: max(env(safe-area-inset-top), 10px) 8px max(env(safe-area-inset-bottom), 10px);
+  padding: max(env(safe-area-inset-top, 10px), 10px) 8px max(env(safe-area-inset-bottom, 12px), 12px);
   overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; scrollbar-width: none;
   transform: translateX(-102%); visibility: hidden; transition: transform .22s ease-out, visibility 0s .22s;
 }
 .edge.open { transform: none; visibility: visible; transition: transform .22s ease-out; }
 .edge::-webkit-scrollbar { display: none; }
-.edge-grid { display: grid; grid-template-columns: 44px 44px 44px; gap: 6px; margin: auto 0; }
+.edge-head {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4px 4px; border-bottom: 1px solid rgba(196,163,90,.28); flex: none;
+}
+.edge-head-title {
+  font: 800 11px/1.1 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--accent-light);
+}
+.edge-grid { display: grid; grid-template-columns: 44px 44px 44px; gap: 6px; margin: 2px 0 0 0; align-content: start; }
 .edge-grid > [data-track="yis"] { grid-column: 2; }
+.edge-plus-float {
+  position: fixed; left: 0; bottom: max(18px, env(safe-area-inset-bottom, 18px)); z-index: 54;
+  width: 44px; height: 48px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(196,163,90,.55); border-left: 0;
+  border-radius: 0 14px 14px 0;
+  background: rgba(13, 20, 34, 0.94); color: var(--accent-light);
+  box-shadow: 0 10px 26px rgba(0,0,0,.65);
+  font: 700 22px/1 var(--text); cursor: pointer;
+  transition: width .18s ease, background-color .18s ease, color .18s ease;
+}
+.edge-plus-float:hover { width: 50px; background: var(--cc-btn-orange); color: #fff; }
+.edge-plus-float[aria-expanded="true"] { opacity: 0; pointer-events: none; }
 .edge-btn {
   position: relative; display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; padding: 0; border: 0; border-radius: 12px;
@@ -250,8 +268,8 @@ p { margin: 0; }
 .edge-station { grid-column: 1 / -1; margin: 0; text-align: center; line-height: 1.2; }
 .edge-station span { display: block; font: 700 12px/1.2 var(--text); color: var(--accent); }
 .edge-station b { display: block; font: 600 12.5px/1.25 var(--text); }
-.edge-spectrum { grid-column: 1 / -1; height: 44px; position: relative; border-radius: 4px; overflow: hidden; }
-.edge-spectrum canvas { display: block; width: 100%; height: 44px; }
+.edge-spectrum { grid-column: 1 / -1; height: 18px; position: relative; border-radius: 4px; overflow: hidden; }
+.edge-spectrum canvas { display: block; width: 100%; height: 18px; }
 .edge-spectrum-note { position: absolute; inset: 0; display: grid; place-items: center; padding: 3px; text-align: center; font: 10px/1.25 var(--text); color: var(--accent-light); }
 .edge-spectrum-note[hidden] { display: none; }
 .edge-radio [data-play] { grid-column: 2; color: var(--cc-btn-orange); }
@@ -651,20 +669,91 @@ footer { background: #050408; color: var(--muted); padding: 0 var(--margin) 40px
   .door:nth-child(7) .door-frame { aspect-ratio: 16 / 7; }
   .radio, .lumina, .card { grid-template-columns: 1fr; }
   .kacik-grid { grid-template-columns: repeat(2, 1fr); }
-  .radio .arch-big { order: -1; aspect-ratio: 4 / 4.4; }
-  .lumina .arch-photo { order: 0; }
-  .stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .radio .arch-big { order: -1; aspect-ratio: 16 / 9; max-height: 220px; width: 100%; border-radius: 20px; }
+  .lumina .arch-photo { order: 0; aspect-ratio: 16 / 9; max-height: 240px; width: 100%; border-radius: 20px; }
+  .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
   .stats h2 { grid-column: 1 / 3; grid-row: auto; }
-  .tile-a { grid-column: 1 / 3; grid-row: auto; min-height: 42vw; }
-  .tile-b { grid-column: 1; grid-row: auto; min-height: 38vw; }
-  .tile-c { grid-column: 2; grid-row: auto; margin-top: 0; min-height: 38vw; }
+  .tile-a { grid-column: 1 / 3; grid-row: auto; min-height: auto; padding: 20px; border-radius: 24px; }
+  .tile-b { grid-column: 1; grid-row: auto; min-height: auto; padding: 18px; border-radius: 20px; }
+  .tile-c { grid-column: 2; grid-row: auto; margin-top: 0; min-height: auto; padding: 18px; border-radius: 20px; }
   .foot { grid-template-columns: 1fr; }
   .foot nav { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 540px) {
+@media (max-width: 720px) {
+  :root {
+    --margin: 14px;
+    --gap: 44px;
+    --s-body: 15.5px;
+    --s-sub: 18px;
+    --s-h2: clamp(22px, 6vw, 30px);
+    --s-h1: clamp(26px, 7.2vw, 36px);
+  }
+  html, body { max-width: 100vw; overflow-x: hidden; }
+  .bar {
+    min-height: 58px; padding: 6px 12px; gap: 8px;
+    max-width: 100vw; overflow-x: clip;
+  }
+  .mark {
+    min-width: 0; flex: 1 1 auto; gap: 8px;
+    font-size: 14px; overflow: hidden;
+  }
+  .mark img { width: 32px; height: 32px; flex: none; }
+  .mark span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .mark small { display: none; }
-  .pillars-strip { grid-template-columns: 1fr; }
-  .hero-cta .btn { width: 100%; }
+  .bar .actions { gap: 6px; margin-left: auto; flex: 0 0 auto; }
+  .bar .actions [data-play] { display: none; }
+  .bar .actions .btn { min-height: 44px; padding: 0 12px; font-size: 12.5px; }
+  .hero { padding: 20px var(--margin) 0; }
+  .kicker-pill { font-size: 10.5px; padding: 5px 11px; margin-bottom: 12px; letter-spacing: .08em; }
+  .hero .lead { margin-top: 12px; font-size: 15.5px; line-height: 1.5; }
+  .hero-checks { margin-top: 16px; gap: 8px; }
+  .hero-checks li { padding: 10px 12px; font-size: 13.5px; }
+  .hero-cta { margin-top: 18px; gap: 10px; }
+  .hero-cta .btn, .studio-actions .btn, .kacik-cta .btn, .card .controls .btn {
+    width: 100%; max-width: 100%; min-height: 48px;
+    white-space: normal; text-align: center; padding: 10px 16px; font-size: 14px; line-height: 1.25;
+  }
+  .pillars-strip { margin-top: 22px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .pillar-box { padding: 14px; border-radius: 16px; }
+  .pillar-box strong { font-size: 20px; }
+  .pillar-box span { font-size: 12.5px; }
+  .apply-sec { padding: 36px var(--margin); }
+  .apply-head { margin-bottom: 22px; gap: 14px; }
+  .apply-head p { font-size: 15.5px; }
+  .steps-grid { gap: 12px; margin-bottom: 26px; }
+  .step-card { padding: 18px; border-radius: 18px; gap: 8px; }
+  .step-card h3 { font-size: 18px; }
+  .step-card p { font-size: 14px; }
+  .studio-grid { padding: 18px 14px; border-radius: 20px; gap: 20px; }
+  .preview-card { padding: 18px 16px; border-radius: 18px; gap: 12px; }
+  .preview-body h4 { font-size: 20px; }
+  .preview-body p { font-size: 14px; }
+  .kacik-card { padding: 10px 10px 14px; border-radius: 24px 24px 14px 14px; }
+  .kacik-pic { border-radius: 18px 18px 8px 8px; aspect-ratio: 1 / 1; }
+  .kacik-card h3 { font-size: 15px; }
+  .kacik-card p { font-size: 12.5px; }
+  .doors { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .door .door-frame, .door:nth-child(n) .door-frame { aspect-ratio: 16 / 10; border-radius: 18px; }
+  .door p { font-size: 12.5px; }
+  .radio-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .radio-list h2, .radio-list h3 { grid-column: 1 / -1; }
+  .station, .radio-list + .radio-list .station {
+    font: 600 13.5px/1.25 var(--text); padding: 10px 12px;
+    border-radius: 12px; border: 1px solid var(--line);
+    background: rgba(255,255,255,0.03); min-height: 44px;
+  }
+  .station[aria-pressed="true"] {
+    background: rgba(255, 122, 0, 0.15); border-color: var(--cc-btn-orange);
+  }
+  .card .qr { max-width: 220px; padding: 18px 14px 14px; border-radius: 24px; }
+}
+@media (max-width: 440px) {
+  .bar .actions a[href="/wspieraj"] {
+    width: 44px; padding: 0; justify-content: center;
+  }
+  .bar .actions a[href="/wspieraj"] span {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -679,8 +768,12 @@ footer { background: #050408; color: var(--muted); padding: 0 var(--margin) 40px
 <div id="scrollProgress" aria-hidden="true"></div>
 
 <div class="scrim" data-menu-close aria-hidden="true"></div>
+<button class="edge-plus-float" type="button" data-menu-open aria-controls="ekocc-menu" aria-expanded="false" aria-haspopup="dialog" aria-label="Otwórz panel nawigacji EkoCC">+</button>
 <nav class="edge" id="ekocc-menu" role="dialog" aria-modal="true" aria-label="Panel krawędziowy EkoCC: odkrywaj więcej">
-  <button class="edge-btn edge-close" type="button" data-menu-close aria-label="Zamknij panel nawigacji"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+  <div class="edge-head">
+    <span class="edge-head-title">EkoCC</span>
+    <button class="edge-btn edge-close" type="button" data-menu-close aria-label="Zamknij panel nawigacji"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+  </div>
   <div class="edge-grid">
     <a class="edge-btn" href="https://polskieradio.cc/" aria-label="Strona główna polskieradio.cc" data-track="start" data-place="panel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/></svg></a>
     <a class="edge-btn" href="/szukaj" aria-label="Szukaj w całym ekosystemie Christian Culture" data-track="szukaj" data-place="panel"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></a>
@@ -709,6 +802,7 @@ footer { background: #050408; color: var(--muted); padding: 0 var(--margin) 40px
     <a class="edge-btn" href="/pobierz/" aria-label="Pobierz: pliki i grafiki" data-track="pobierz" data-place="panel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
     <a class="edge-btn" href="/wspolpraca" aria-label="Współpraca misyjna" data-track="wspolpraca" data-place="panel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3a4 4 0 0 1 0 8M22 21v-2a4 4 0 0 0-3-3.87M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0"/></svg></a>
     <a class="edge-btn" href="https://polskieradio.cc/yis" aria-label="Your Imagination Studio" data-track="yis" data-place="panel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l6 8 6-8M12 12v8"/></svg></a>
+    <button class="edge-btn edge-gold" type="button" data-google aria-label="Zaloguj się z Google do LUMINA"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1A6.6 6.6 0 0 1 5.5 12c0-.73.13-1.44.34-2.1V7.06H2.18A11 11 0 0 0 1 12c0 1.77.42 3.45 1.18 4.94l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg></button>
   </div>
 </nav>
 <div class="edge-tip" role="tooltip" aria-hidden="true" data-edge-tip></div>

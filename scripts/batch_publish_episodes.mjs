@@ -3,7 +3,11 @@ import path from 'node:path';
 import { uploadEpisodeToChannel } from './publish_perfect.mjs';
 import { BIBLIA_AUDIO_CHANNELS } from './yt_studio_session.mjs';
 
-const GENESIS_DIR = 'C:\\Users\\czark\\Desktop\\Biblia Audio CC — Gotowe do Emisji\\01_Stary_Testament\\01_Ksiega_Rodzaju';
+const GENESIS_DIRS = [
+  'D:\\Biblia_Audio_Video_Out',
+  'H:\\Mój dysk\\OA - orkiestracja Agentowa\\Biblia Audio CC — Gotowe do Emisji\\01_Stary_Testament\\01_Ksiega_Rodzaju',
+  'C:\\Users\\czark\\Desktop\\Biblia Audio CC — Gotowe do Emisji\\01_Stary_Testament\\01_Ksiega_Rodzaju'
+];
 
 // Decyzja L0 02.11.2026: komplet (4K + Shorts) na WSZYSTKICH 7 kanałach, codziennie zaraz po produkcji.
 // Bieżący odcinek ma własną porę premiery (20:00), więc nie czeka w kolejce za zaległościami (18:00).
@@ -63,20 +67,33 @@ if (process.argv[1] && path.basename(process.argv[1]) === 'batch_publish_episode
     process.exit(1);
   }
 
-  const files = fs.readdirSync(GENESIS_DIR);
-  const video4k = files.find(f => f.startsWith(chapterPrefix) && f.endsWith('_4K.mp4'));
-  const shorts = files.find(f => f.startsWith(chapterPrefix) && f.includes('Shorts') && f.endsWith('.mp4'));
-  const meta = files.find(f => f.startsWith(chapterPrefix) && f.endsWith('_metadata.json'));
+  let video4kPath = null, shortsPath = null, metaPath = null;
+  for (const dir of GENESIS_DIRS) {
+    if (!fs.existsSync(dir)) continue;
+    const files = fs.readdirSync(dir);
+    if (!video4kPath) {
+      const f = files.find(x => x.startsWith(chapterPrefix) && x.endsWith('_4K.mp4'));
+      if (f) video4kPath = path.join(dir, f);
+    }
+    if (!shortsPath) {
+      const f = files.find(x => x.startsWith(chapterPrefix) && x.includes('Shorts') && x.endsWith('.mp4'));
+      if (f) shortsPath = path.join(dir, f);
+    }
+    if (!metaPath) {
+      const f = files.find(x => x.startsWith(chapterPrefix) && x.endsWith('_metadata.json'));
+      if (f) metaPath = path.join(dir, f);
+    }
+  }
 
-  if (!video4k || !meta) {
-    console.error(`Nie znaleziono kompletu plików dla prefixu "${chapterPrefix}" w ${GENESIS_DIR}`);
+  if (!video4kPath || !metaPath) {
+    console.error(`Nie znaleziono kompletu plików dla prefixu "${chapterPrefix}" w katalogach: ${GENESIS_DIRS.join(', ')}`);
     process.exit(1);
   }
 
   publishSingleEpisode({
-    video4kFile: path.join(GENESIS_DIR, video4k),
-    shortsFile: shorts ? path.join(GENESIS_DIR, shorts) : null,
-    metaFile: path.join(GENESIS_DIR, meta)
+    video4kFile: video4kPath,
+    shortsFile: shortsPath,
+    metaFile: metaPath
   }).then(({ failed }) => process.exit(failed ? 1 : 0)).catch(err => {
     console.error('Błąd publikacji seryjnej:', err);
     process.exit(1);

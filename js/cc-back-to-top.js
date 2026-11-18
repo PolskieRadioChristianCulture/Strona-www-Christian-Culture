@@ -52,7 +52,9 @@
       var modalOpen = Array.from(document.querySelectorAll('dialog[open], [aria-modal="true"]:not([hidden])')).some(function (modal) {
         var rect = modal.getBoundingClientRect();
         var css = window.getComputedStyle(modal);
-        return rect.width > 0 && rect.height > 0 && css.visibility !== 'hidden' && css.display !== 'none';
+        var op = css.opacity !== undefined && css.opacity !== '' ? Number(css.opacity) : 1;
+        var pe = css.pointerEvents || 'auto';
+        return rect.width > 0 && rect.height > 0 && css.visibility !== 'hidden' && css.display !== 'none' && op >= 0.1 && pe !== 'none';
       });
       if (document.fullscreenElement || modalOpen) visible = false;
 

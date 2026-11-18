@@ -246,10 +246,17 @@ export function toMarkdown(all, meta) {
   return md;
 }
 
+async function launchBrowser() {
+  for (const opts of [{ headless: true }, { channel: 'chrome', headless: true }, { channel: 'msedge', headless: true }]) {
+    try { return await chromium.launch(opts); } catch (_) {}
+  }
+  return await chromium.launch({ headless: true });
+}
+
 async function main() {
   fs.mkdirSync(OUT, { recursive: true });
   const pages = PAGES.length ? PAGES : DEFAULT_PAGES;
-  const browser = await chromium.launch({ headless: true });
+  const browser = await launchBrowser();
   const all = [];
   for (const vp of VIEWPORTS) {
     for (const p of pages) {

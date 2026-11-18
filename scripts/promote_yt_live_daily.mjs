@@ -36,8 +36,8 @@ const X_PROFILE_DIR = path.join(ROOT, '.x_browser_profile');
 const LUMINA_PROJECT_ID = 'lumina-cc';
 const LUMINA_API_KEY = 'AIzaSyAkX7XDMWjeUPeaIk0WdvoY4d9VhIPyD7M';
 
-const EXCLUDED_HANDLES = new Set(['@katarzynafedkow']);
-const EXCLUDED_NAMES = new Set(['katarzyna fedków', 'katarzyna fedkow']);
+const EXCLUDED_HANDLES = new Set(['@robertłukaszpio', '@robertlukaszpio', '@katarzynafedkow']);
+const EXCLUDED_NAMES = new Set(['robert łukasz pio', 'robert lukasz pio', 'katarzyna fedków', 'katarzyna fedkow']);
 
 function isExcluded(channel) {
   const h = (channel.handle || '').toLowerCase();
@@ -94,13 +94,6 @@ const PROMO_METADATA = {
     cta: 'Wejdź w transmisję uwielbienia na żywo:',
     hashtags: '#WorshipLive #Uwielbienie #Modlitwa #ChristianCulture #MuzykaUwielbienia',
     xHook: 'Całodobowy strumień pieśni uwielbienia i wyciszenia przed Bogiem.'
-  },
-  '@osobowoscPLUS': {
-    title: 'Osobowość + — rozwój charakteru i zdrowe relacje',
-    body: 'Praktyczne spojrzenie na relacje, dojrzałość emocjonalną i chrześcijańskie wartości w codziennym życiu rodzinnym i zawodowym.',
-    cta: 'Dołącz do transmisji Osobowość + na żywo:',
-    hashtags: '#OsobowośćPlus #Relacje #RozwójDuchowy #ChristianCulture #Wartości',
-    xHook: 'Rozmowy o relacjach, charakterze i dojrzałości w świetle wiary.'
   },
   '@CCWomen7': {
     title: 'CC Women — zachęta i inspiracja dla kobiet',
@@ -202,9 +195,8 @@ const PROMO_METADATA = {
   }
 };
 
-// Reorganizacja na Główny Filar Sojuszniczy (Robert 19.4k) i 5 Filarów Własnych o najwyższej masie krytycznej
+// Reorganizacja na 5 Filarów o najwyższej masie krytycznej i konwersji misyjnej (z wyłączeniem Robert Łukasz Pio i Katarzyna Fedków)
 const ORDER_PREFERENCE = [
-  '@RobertŁukaszPio',
   '@RadioChristianCulture',
   '@osobowoscPLUS',
   '@ChristianCultureTV',
@@ -280,10 +272,11 @@ async function isChannelLive(handle) {
     if (!res.ok) return false;
     const html = await res.text();
     const isLiveNow = /"isLiveNow":true/.test(html);
+    const isOfflineOrUpcoming = /"status":"LIVE_STREAM_OFFLINE"/.test(html) || /"isUpcoming":true/.test(html);
     const isLive = /"isLive":true/.test(html) || /"isLiveStream":true/.test(html);
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1] || '';
     const isWatch = canonical.includes('/watch?v=');
-    return isLiveNow || (isLive && isWatch);
+    return isLiveNow || (!isOfflineOrUpcoming && isLive && isWatch);
   } catch {
     return false;
   }
@@ -420,7 +413,16 @@ async function publishToFacebook(postText, dryRun) {
     return copy;
   });
 
-  const browser = await chromium.launch({ headless: true });
+  let browser;
+  try {
+    browser = await chromium.launch({
+      headless: true,
+      channel: 'chrome',
+      args: ['--disable-blink-features=AutomationControlled', '--no-sandbox']
+    });
+  } catch {
+    browser = await chromium.launch({ headless: true });
+  }
   try {
     const context = await browser.newContext({
       userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
@@ -453,14 +455,16 @@ async function publishToFacebook(postText, dryRun) {
     await page.keyboard.insertText(postText);
     await page.waitForTimeout(3000);
 
-    const nextBtn = page.locator('div[role="dialog"] div[role="button"]:has-text("Dalej")').locator('visible=true').first();
+    const nextBtn = page.locator('div[role="dialog"] [aria-label="Dalej"], div[role="dialog"] div[role="button"]:has-text("Dalej")').locator('visible=true').first();
     if ((await nextBtn.count()) > 0) {
       await nextBtn.click();
-      await page.waitForTimeout(1500);
+      await page.waitForTimeout(2000);
     }
 
-    const submitBtn = page.locator('div[role="dialog"] div[aria-label="Opublikuj"], div[role="dialog"] div[role="button"]:has-text("Opublikuj"), div[role="dialog"] button:has-text("Opublikuj")').locator('visible=true').first();
-    if ((await submitBtn.count()) === 0) {
+    const submitBtn = page.locator('div[role="dialog"] [aria-label="Opublikuj"], div[role="dialog"] div[role="button"]:has-text("Opublikuj"), div[role="dialog"] button:has-text("Opublikuj")').locator('visible=true').first();
+    try {
+      await submitBtn.waitFor({ state: 'visible', timeout: 10000 });
+    } catch {
       throw new Error('Nie znaleziono przycisku Opublikuj na Facebooku.');
     }
 
@@ -483,10 +487,10 @@ async function publishToWhatsApp(postText, dryRun) {
 
   const admin = require(path.join(WEKTOR_DIR, 'node_modules', 'firebase-admin'));
   const serviceAccount = require(SERVICE_ACCOUNT_PATH);
-  if (!admin.apps.length) {
-    admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
-  }
-  const db = admin.firestore();
+  const mcAppName = 'mc-yt-promo-wa';
+  const existingMcApp = admin.apps.find(a => a && a.name === mcAppName);
+  const mcApp = existingMcApp || admin.initializeApp({ credential: admin.credential.cert(serviceAccount) }, mcAppName);
+  const db = mcApp.firestore();
   const { loadDistributionGroups, queueWithD1Fallback } = require(path.join(WEKTOR_DIR, 'wa_queue_helpers.js'));
   const waState = { quotaExhausted: false };
 
@@ -552,17 +556,20 @@ async function main() {
   let chosen = null;
   let chosenIndex = -1;
   const forceSequential = args.includes('--sequential') || args.includes('--seq');
+  const lastHandle = state.history?.[0]?.handle;
+  const resolvedLastIdx = lastHandle ? promoChannels.findIndex(c => c.handle === lastHandle) : -1;
+  const baseIdx = resolvedLastIdx !== -1 ? resolvedLastIdx : (Number.isInteger(state.lastPromotedIndex) ? state.lastPromotedIndex : -1);
 
   if (forcedIndex !== null && Number.isInteger(forcedIndex) && promoChannels[forcedIndex]) {
     chosen = promoChannels[forcedIndex];
     chosenIndex = forcedIndex;
   } else if (forceSequential) {
-    const seqIdx = (state.lastPromotedIndex + 1) % promoChannels.length;
+    const seqIdx = (baseIdx + 1) % promoChannels.length;
     chosen = promoChannels[seqIdx];
     chosenIndex = seqIdx;
   } else {
     for (let offset = 1; offset <= promoChannels.length; offset++) {
-      const idx = (state.lastPromotedIndex + offset) % promoChannels.length;
+      const idx = (baseIdx + offset) % promoChannels.length;
       const candidate = promoChannels[idx];
       const live = await isChannelLive(candidate.handle);
       if (live) {
@@ -574,10 +581,10 @@ async function main() {
     }
 
     if (!chosen) {
-      const fallbackIdx = (state.lastPromotedIndex + 1) % promoChannels.length;
+      const fallbackIdx = (baseIdx + 1) % promoChannels.length;
       chosen = promoChannels[fallbackIdx];
       chosenIndex = fallbackIdx;
-      console.log(`ℹ️ Tryb rotacji sekwencyjnej (fallback): wybrano kolejny kanał [${chosenIndex + 1}/20]: ${chosen.channelName} (${chosen.handle})`);
+      console.log(`ℹ️ Tryb rotacji sekwencyjnej (fallback): wybrano kolejny kanał [${chosenIndex + 1}/${promoChannels.length}]: ${chosen.channelName} (${chosen.handle})`);
     }
   }
 

@@ -11,12 +11,18 @@ async function main() {
     await openChannelStudio(page, CHANNEL_NAME);
     const editUrl = `https://studio.youtube.com/video/${VIDEO_ID}/edit`;
     console.log(`[Playlist] Nawigacja do: ${editUrl}`);
-    await page.goto(`${editUrl}?approve_browser_access=true`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    await page.goto(editUrl, { waitUntil: 'domcontentloaded', timeout: 45000 });
     await page.waitForTimeout(3000);
     const passBtn = page.locator('a:has-text("PRZEJDŹ DO YOUTUBE STUDIO"), a:has-text("GO TO YOUTUBE STUDIO")').first();
     if (await passBtn.isVisible().catch(() => false)) {
       console.log(`[Playlist] Przechodzę przez bramkę browser gate...`);
       await passBtn.click();
+      await page.waitForTimeout(4000);
+      await page.goto(editUrl, { waitUntil: 'domcontentloaded', timeout: 45000 });
+      await page.waitForTimeout(3000);
+    }
+    if (!page.url().includes(VIDEO_ID)) {
+      await page.goto(editUrl, { waitUntil: 'domcontentloaded', timeout: 45000 });
       await page.waitForTimeout(4000);
     }
     await page.waitForTimeout(3000);

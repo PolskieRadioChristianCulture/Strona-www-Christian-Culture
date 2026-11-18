@@ -1,7 +1,51 @@
 {
-  "lastPromotedIndex": 3,
-  "lastPromotedDate": "2026-11-15",
+  "lastPromotedIndex": 4,
+  "lastPromotedDate": "2026-11-18",
   "history": [
+    {
+      "date": "2026-11-18",
+      "channelName": "Werset Dnia",
+      "handle": "@wersetdnia_ChSB",
+      "url": "https://www.youtube.com/@wersetdnia_ChSB/live",
+      "results": {
+        "lumina": {
+          "status": "published",
+          "docId": "gwK6BOG6YKOlMi1jNxbA"
+        },
+        "x": {
+          "status": "published"
+        },
+        "fb": {
+          "status": "published"
+        },
+        "wa": {
+          "status": "queued",
+          "targets": 3
+        }
+      }
+    },
+    {
+      "date": "2026-11-17",
+      "channelName": "Biblia Audio CC",
+      "handle": "@bibliaaudiocc",
+      "url": "https://www.youtube.com/@bibliaaudiocc/live",
+      "results": {
+        "lumina": {
+          "status": "published",
+          "docId": "cpFKJmCaGtwdOMjUOEHh"
+        },
+        "x": {
+          "status": "published"
+        },
+        "fb": {
+          "status": "published"
+        },
+        "wa": {
+          "status": "queued",
+          "targets": 3
+        }
+      }
+    },
     {
       "date": "2026-11-15",
       "channelName": "Christian Culture TV",
