@@ -410,6 +410,13 @@ function resolveItemImage(item, rootDir) {
     if (fs.existsSync(p4)) return p4;
   }
 
+  if (pathLower.includes('/holos') || titleLower.includes('holos')) {
+    const p1 = path.join(rootDir, 'images', 'holos', 'holos_emblem.jpg');
+    if (fs.existsSync(p1)) return p1;
+    const p2 = path.join(rootDir, 'images', 'holos', 'holos_hero_bg.jpg');
+    if (fs.existsSync(p2)) return p2;
+  }
+
   // 4. Bezpieczna, estetyczna grafika redakcyjna wysokiej rozdzielczości
   const fallback = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
   if (fs.existsSync(fallback)) return fallback;
@@ -1149,6 +1156,10 @@ function formatBroadcasterTweet(item) {
       subHeader = '📅 PROGRAM TV & RAMÓWKA CC';
       callToAction = '👉 Sprawdź ramówkę w serwisie:\n';
       addTags('#ProgramTV', '#RamowkaCC', '#TelewizjaCC', '#ChristianCulture');
+    } else if ((item.url || '').includes('/holos') || (item.title || '').toLowerCase().includes('holos')) {
+      subHeader = '⏳ HOLOS | ŻYCIE I SZAFARSTWO CZASU';
+      callToAction = '👉 Odkryj w ekosystemie:\n';
+      addTags('#HOLOS', '#SzafarstwoCzasu', '#ChristianCulture');
     } else if ((item.url || '').endsWith('/studium') || (item.title || '').includes('Studio Dobrego Słowa')) {
       subHeader = '🏛️ STUDIO DOBREGO SŁOWA | SDS';
       callToAction = '👉 Oglądaj wykłady i transmisje:\n';
