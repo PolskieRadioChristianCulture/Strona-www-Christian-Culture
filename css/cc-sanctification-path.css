@@ -109,6 +109,31 @@
   -webkit-backdrop-filter: blur(16px);
 }
 
+.cc-verse-header {
+  max-height: 160px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.55s ease, max-height 0.65s cubic-bezier(0.16, 1, 0.3, 1), margin-bottom 0.55s ease, transform 0.55s ease;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.cc-verse-header.is-hidden {
+  opacity: 0 !important;
+  max-height: 0 !important;
+  margin-bottom: 0 !important;
+  transform: translateY(-8px) !important;
+  pointer-events: none !important;
+}
+
+.cc-verse-node:hover .cc-verse-header.is-hidden {
+  opacity: 0.9 !important;
+  max-height: 160px !important;
+  margin-bottom: 12px !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
 .cc-verse-node-top {
   display: flex;
   flex-wrap: wrap;

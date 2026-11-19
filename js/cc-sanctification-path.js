@@ -431,11 +431,13 @@
       var streak = calcStreak(state.checksByDate, info.dateStr);
 
       verseNode.innerHTML =
-        '<div class="cc-verse-node-top">' +
-          '<span class="cc-verse-badge"><i class="fa-solid fa-sun"></i> Werset Dnia · ' + escapeHtml(dayBadge) + '</span>' +
-          '<span class="cc-streak-pill" title="Liczba kolejnych dni aktywności na ścieżce"><i class="fa-solid fa-fire"></i> Seria: ' + streak + (streak === 1 ? ' dzień' : ' dni') + '</span>' +
+        '<div class="cc-verse-header" id="ccVerseHeader">' +
+          '<div class="cc-verse-node-top">' +
+            '<span class="cc-verse-badge"><i class="fa-solid fa-sun"></i> Werset Dnia · ' + escapeHtml(dayBadge) + '</span>' +
+            '<span class="cc-streak-pill" title="Liczba kolejnych dni aktywności na ścieżce"><i class="fa-solid fa-fire"></i> Seria: ' + streak + (streak === 1 ? ' dzień' : ' dni') + '</span>' +
+          '</div>' +
+          '<p class="cc-verse-theme-title">' + escapeHtml(rawTitle) + '</p>' +
         '</div>' +
-        '<p class="cc-verse-theme-title">' + escapeHtml(rawTitle) + '</p>' +
         '<blockquote class="cc-verse-quote">' + escapeHtml(verse.quote) + '</blockquote>' +
         '<div class="cc-verse-meta-row">' +
           '<a class="cc-verse-ref-link" href="' + escapeHtml(verse.refUrl) + '"><i class="fa-solid fa-book-bible"></i> ' + escapeHtml(verse.refLabel) + '</a>' +
@@ -454,6 +456,29 @@
           '</div>' +
           '<div class="cc-prayer-saved-msg" id="ccVersePrayerSavedMsg">' + (savedPrayer ? 'Zapisano na Twoim urządzeniu dla ' + info.dateStr : '') + '</div>' +
         '</div>';
+
+      // Automatyczne płynne zwijanie nagłówka po 3 sekundach obecności w polu widzenia
+      var verseHeaderEl = document.getElementById('ccVerseHeader');
+      if (verseHeaderEl) {
+        var headerHideTimer = null;
+        var scheduleHeaderHide = function () {
+          if (headerHideTimer) clearTimeout(headerHideTimer);
+          headerHideTimer = setTimeout(function () {
+            if (verseHeaderEl) verseHeaderEl.classList.add('is-hidden');
+          }, 3000);
+        };
+        if (typeof IntersectionObserver !== 'undefined') {
+          var headerObs = new IntersectionObserver(function (entries) {
+            if (entries[0] && entries[0].isIntersecting) {
+              scheduleHeaderHide();
+              headerObs.disconnect();
+            }
+          }, { threshold: 0.15 });
+          headerObs.observe(verseNode);
+        } else {
+          scheduleHeaderHide();
+        }
+      }
 
       var speakBtn = document.getElementById('ccVerseSpeakBtn');
       if (speakBtn) {
