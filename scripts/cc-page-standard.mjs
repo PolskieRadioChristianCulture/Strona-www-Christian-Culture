@@ -30,7 +30,7 @@ export function applyPageStandard(file, html) {
   // Cloudflare trzyma stare adresy ?v= do 7 dni, więc 7 starych wersji = stary czat na części stron (@007 16.11.2026).
   html = html.replace(/(src=["'])((?:\/|(?:\.\.\/)+)?js\/cc-global-auth\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261116_a007_auth$3');
   html = html.replace(/(src=["'])(\/?lumina-bottom-nav\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261014_mockup4$3');
-  html = html.replace(/(src=["'])(\/?app\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261110_ccwomen5$3');
+  html = html.replace(/(src=["'])(\/?app\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_stations1$3');
   html = html.replace(/(src=["'])(\/components\/cc-global-chat-button\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_gold3$3');
   html = html.replace(/(src=["'])(\/js\/cc-back-to-top\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_btt7$3');
   html = html.replace(/(src=["'])(\/components\/cc-omni-search\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261030_feat11$3');

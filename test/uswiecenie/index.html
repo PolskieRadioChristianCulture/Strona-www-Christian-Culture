@@ -282,7 +282,7 @@
 
     <!-- Custom Style Sheet -->
     <link rel="stylesheet" href="css/christian-culture-design-system.css">
-    <link rel="stylesheet" href="style.css?v=51">
+    <link rel="stylesheet" href="style.css?v=52">
     <style>
         /* CC v2 Premium: przy reduced-motion zwalniamy ruch zamiast go zatrzymywać */
         @media (prefers-reduced-motion: reduce) {
@@ -3702,9 +3702,25 @@
                 </div>
                 <div class="station-details">
                     <div class="station-selection-dropdown">
-                        <button class="station-select-btn" id="stationDropdownBtn">
-                            <span id="activeStationName">RADIO PL</span> <i class="fa-solid fa-chevron-up"></i>
-                        </button>
+                        <div class="station-selector-row">
+                            <button class="station-select-btn" id="stationDropdownBtn">
+                                <span id="activeStationName">RADIO PL</span> <i class="fa-solid fa-chevron-up"></i>
+                            </button>
+                            <button type="button" class="station-discover-pill is-cta" id="stationDiscoverBtn" aria-label="Odkryj więcej stacji radiowych Christian Culture" title="Odkryj wszystkie 7 stacji radiowych CC — kliknij, aby wybrać">
+                                <span class="station-waves-icon" aria-hidden="true">
+                                    <svg width="16" height="14" viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path class="wave-outer" d="M3.5 3.5a9.5 9.5 0 0 0 0 13" />
+                                        <path class="wave-inner" d="M7.2 6.5a5.2 5.2 0 0 0 0 7" />
+                                        <circle class="wave-core" cx="12" cy="10" r="2" fill="currentColor" stroke="none" />
+                                        <path class="wave-inner" d="M16.8 6.5a5.2 5.2 0 0 1 0 7" />
+                                        <path class="wave-outer" d="M20.5 3.5a9.5 9.5 0 0 1 0 13" />
+                                    </svg>
+                                </span>
+                                <span class="station-discover-track">
+                                    <span class="station-discover-label" id="stationDiscoverLabel">ODKRYJ WIĘCEJ</span>
+                                </span>
+                            </button>
+                        </div>
                         <!-- Dropdown Menu -->
                         <div class="station-dropdown-menu" id="stationDropdownMenu">
                             <button class="dropdown-item active" data-station-id="poland">
@@ -4399,7 +4415,7 @@
         });
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <script type="module" src="app.js?v=20261110_ccwomen5"></script>
+    <script type="module" src="app.js?v=20261119_stations1"></script>
     <script type="module" src="dobrzezejestes.js?v=20260831_v8"></script>
     <script>
         // Automatic reliable smooth-scroller for news report hashes

@@ -836,7 +836,7 @@ const canvasCtx = visualizerCanvas ? visualizerCanvas.getContext("2d") : null;
 function initializeApp() {
     // Dynamically render station dropdown menu items
     renderStationDropdown();
-    
+
     // Setup initial station details WITHOUT auto-starting audio
     selectStation("poland", true);
     
@@ -1009,6 +1009,72 @@ function renderStationDropdown() {
 }
 
 renderStationDropdown();
+
+function initStationDiscoverTicker() {
+    const discoverBtn = document.getElementById("stationDiscoverBtn");
+    const discoverLabel = document.getElementById("stationDiscoverLabel");
+    if (!discoverBtn || !discoverLabel) return;
+
+    if (window.__ccStationDiscoverTimer) {
+        clearTimeout(window.__ccStationDiscoverTimer);
+        window.__ccStationDiscoverTimer = null;
+    }
+
+    if (!discoverBtn.dataset.ccBound) {
+        discoverBtn.dataset.ccBound = "1";
+        discoverBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (stationDropdownBtn) stationDropdownBtn.classList.toggle("active");
+            if (stationDropdownMenu) stationDropdownMenu.classList.toggle("active");
+        });
+    }
+
+    const buildSlides = () => {
+        const isEn = document.documentElement.lang === "en";
+        const ctaText = isEn ? "DISCOVER MORE" : "ODKRYJ WIĘCEJ";
+        const slides = [{ text: ctaText, isCta: true, delay: 2800 }];
+        Object.values(STATIONS).forEach((st) => {
+            if (st && st.name) {
+                slides.push({ text: String(st.name).toUpperCase(), isCta: false, delay: 2100 });
+            }
+        });
+        return slides;
+    };
+
+    let slideIndex = 0;
+
+    function scheduleNext(overrideDelay) {
+        const slides = buildSlides();
+        const current = slides[slideIndex % slides.length];
+        const waitMs = typeof overrideDelay === "number" ? overrideDelay : current.delay;
+        window.__ccStationDiscoverTimer = setTimeout(() => {
+            if (stationDropdownMenu && stationDropdownMenu.classList.contains("active")) {
+                scheduleNext(800);
+                return;
+            }
+            const freshSlides = buildSlides();
+            slideIndex = (slideIndex + 1) % freshSlides.length;
+            const next = freshSlides[slideIndex];
+
+            discoverLabel.classList.add("is-exiting");
+            setTimeout(() => {
+                discoverLabel.textContent = next.text;
+                discoverBtn.classList.toggle("is-cta", Boolean(next.isCta));
+                discoverLabel.classList.remove("is-exiting");
+                discoverLabel.classList.add("is-entering");
+                void discoverLabel.offsetWidth;
+                discoverLabel.classList.remove("is-entering");
+                scheduleNext();
+            }, 240);
+        }, waitMs);
+    }
+
+    discoverLabel.textContent = buildSlides()[0].text;
+    discoverBtn.classList.add("is-cta");
+    scheduleNext();
+}
+
+initStationDiscoverTicker();
 
 // Main Play / Pause click
 if (playBtn) {

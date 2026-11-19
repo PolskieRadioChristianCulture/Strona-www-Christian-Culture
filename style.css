@@ -1171,7 +1171,7 @@ button {
     margin: 0 auto;
     padding: 0 2rem;
     display: grid;
-    grid-template-columns: 320px 1fr 340px;
+    grid-template-columns: minmax(360px, 430px) 1fr 340px;
     align-items: center;
     gap: 1.5rem;
 }
@@ -1213,6 +1213,16 @@ button {
 .station-selection-dropdown {
     position: relative;
     align-self: flex-start;
+    max-width: 100%;
+}
+
+.station-selector-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .station-select-btn {
@@ -1225,6 +1235,8 @@ button {
     align-items: center;
     gap: 0.5rem;
     text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .station-select-btn i {
@@ -1234,6 +1246,133 @@ button {
 
 .station-select-btn.active i {
     transform: rotate(180deg);
+}
+
+.station-discover-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 24px;
+    max-width: 195px;
+    min-width: 0;
+    padding: 0 10px 0 8px;
+    border-radius: 999px;
+    background: rgba(212, 169, 74, 0.12);
+    border: 1px solid rgba(212, 169, 74, 0.45);
+    color: #E8C97A;
+    cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 1;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+}
+
+.station-discover-pill.is-cta {
+    color: #F5DC94;
+    border-color: rgba(212, 169, 74, 0.72);
+    animation: ccDiscoverPillPulse 2s ease-in-out infinite;
+}
+
+.station-discover-pill:hover {
+    background: rgba(212, 169, 74, 0.24);
+    border-color: #E8C97A;
+    color: #FFFFFF;
+}
+
+.station-waves-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #D4A94A;
+    line-height: 0;
+}
+
+.station-waves-icon .wave-core {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ccWaveCorePulse 1.6s ease-in-out infinite;
+}
+
+.station-waves-icon .wave-inner {
+    animation: ccWaveArcPulse 1.6s ease-in-out 0.2s infinite;
+}
+
+.station-waves-icon .wave-outer {
+    animation: ccWaveArcPulse 1.6s ease-in-out 0.45s infinite;
+}
+
+.station-discover-track {
+    overflow: hidden;
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+.station-discover-label {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1;
+    display: inline-block;
+    transition: opacity 0.26s ease, transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.station-discover-label.is-exiting {
+    opacity: 0;
+    transform: translateY(-6px);
+}
+
+.station-discover-label.is-entering {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: none;
+}
+
+@keyframes ccDiscoverPillPulse {
+    0%, 100% {
+        background: rgba(212, 169, 74, 0.14);
+        box-shadow: 0 0 0 0 rgba(212, 169, 74, 0.35);
+    }
+    50% {
+        background: rgba(212, 169, 74, 0.26);
+        box-shadow: 0 0 12px 1px rgba(212, 169, 74, 0.32);
+    }
+}
+
+@keyframes ccWaveCorePulse {
+    0%, 100% {
+        opacity: 0.85;
+        transform: scale(0.92);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.22);
+    }
+}
+
+@keyframes ccWaveArcPulse {
+    0%, 100% {
+        opacity: 0.32;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 1199px) {
+    .station-discover-pill {
+        max-width: 155px;
+        padding: 0 8px 0 6px;
+        gap: 5px;
+    }
+    .station-discover-label {
+        font-size: 0.62rem;
+    }
 }
 
 .station-dropdown-menu {
@@ -1821,6 +1960,18 @@ button {
         width: 36px;
         height: 36px;
         border-radius: 6px;
+    }
+
+    .station-details {
+        min-width: 0;
+        flex: 1;
+        gap: 0.15rem;
+    }
+
+    .station-discover-pill {
+        max-width: 175px;
+        height: 19px;
+        padding: 0 8px 0 6px;
     }
     
     .track-scroller-container {
@@ -3512,7 +3663,7 @@ html {
         padding: 0.4rem 1rem !important;
     }
     .player-container {
-        grid-template-columns: 210px 1fr auto !important;
+        grid-template-columns: minmax(250px, 310px) 1fr auto !important;
         grid-template-rows: 1fr !important;
         gap: 0.75rem !important;
         padding: 0 76px 0 1rem !important;
