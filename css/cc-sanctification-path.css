@@ -63,7 +63,7 @@
   position: relative;
   z-index: 12;
   padding: 0 16px 56px 16px;
-  background: radial-gradient(ellipse 80% 35% at 50% 0%, rgba(212, 169, 74, 0.10) 0%, rgba(5, 7, 15, 0.96) 55%, #05070f 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 10, 0.94) 72px, #080808 100%);
   overflow-x: clip;
 }
 
@@ -81,7 +81,7 @@
   position: relative;
   width: 2px;
   height: 112px;
-  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.9), rgba(255, 122, 0, 0.78), rgba(212, 169, 74, 0.35));
+  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.92), rgba(232, 201, 122, 0.72), rgba(212, 169, 74, 0.28));
   overflow: hidden;
 }
 
@@ -89,9 +89,9 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 201, 122, 0.35) 0%, rgba(16, 20, 38, 0.95) 68%);
-  border: 1.5px solid rgba(212, 169, 74, 0.72);
-  box-shadow: 0 0 22px rgba(212, 169, 74, 0.45), inset 0 0 10px rgba(212, 169, 74, 0.3);
+  background: radial-gradient(circle, rgba(232, 201, 122, 0.34) 0%, #0e0e0e 70%);
+  border: 1.5px solid rgba(212, 169, 74, 0.78);
+  box-shadow: 0 0 22px rgba(212, 169, 74, 0.42), inset 0 0 10px rgba(212, 169, 74, 0.26);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,8 +101,8 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #FF7A00;
-  box-shadow: 0 0 12px #FF7A00;
+  background: #E8C97A;
+  box-shadow: 0 0 12px rgba(212, 169, 74, 0.9);
 }
 
 .cc-thread-spark {
@@ -112,7 +112,7 @@
   width: 8px;
   height: 26px;
   border-radius: 999px;
-  background: radial-gradient(circle, #ffffff 0%, #FF7A00 45%, transparent 100%);
+  background: radial-gradient(circle, #ffffff 0%, #E8C97A 48%, transparent 100%);
   animation: ccThreadPulse 3.6s ease-in-out infinite;
   will-change: transform, opacity;
 }
@@ -128,11 +128,11 @@
 /* 3. Interaktywny Werset Dnia (Node 01 na złotej nici) */
 .cc-verse-node {
   position: relative;
-  background: linear-gradient(155deg, rgba(16, 21, 42, 0.94) 0%, rgba(8, 11, 22, 0.98) 100%);
-  border: 1px solid rgba(212, 169, 74, 0.42);
+  background: linear-gradient(155deg, rgba(22, 21, 19, 0.97) 0%, rgba(10, 10, 10, 0.99) 100%);
+  border: 1px solid rgba(212, 169, 74, 0.38);
   border-radius: 22px;
   padding: clamp(20px, 3.5vw, 34px);
-  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.65), 0 0 42px rgba(212, 169, 74, 0.08);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.82), 0 0 36px rgba(212, 169, 74, 0.08);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -167,9 +167,9 @@
   gap: 6px;
   padding: 6px 14px;
   border-radius: 999px;
-  background: rgba(255, 122, 0, 0.14);
-  border: 1px solid rgba(255, 122, 0, 0.38);
-  color: #FFB36B;
+  background: rgba(212, 169, 74, 0.10);
+  border: 1px solid rgba(212, 169, 74, 0.34);
+  color: #E8C97A;
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -182,13 +182,13 @@
 }
 
 .cc-verse-quote {
-  font-family: var(--font-serif, Georgia, serif);
-  font-size: clamp(1.22rem, 2.5vw, 1.72rem);
-  line-height: 1.5;
+  font-family: Georgia, 'Playfair Display', serif;
+  font-size: clamp(1.18rem, 2.4vw, 1.66rem);
+  line-height: 1.52;
   color: #FFFFFF;
   margin: 0 0 14px 0;
   padding-left: 16px;
-  border-left: 3px solid #FF7A00;
+  border-left: 3px solid #D4A94A;
 }
 
 .cc-verse-meta-row {
@@ -286,6 +286,18 @@
   border-color: rgba(212, 169, 74, 0.7);
 }
 
+.cc-sanctification-section .lumina-share-btn-l {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(212, 169, 74, 0.38) !important;
+  color: #E8C97A !important;
+  box-shadow: none !important;
+}
+
+.cc-sanctification-section .lumina-share-btn-l:hover {
+  background: rgba(212, 169, 74, 0.16) !important;
+  border-color: #D4A94A !important;
+}
+
 /* Szybka osobista modlitwa / notatka przy wersecie */
 .cc-verse-prayer-box {
   margin-top: 16px;
@@ -309,8 +321,8 @@
   min-height: 44px;
   padding: 10px 14px;
   border-radius: 12px;
-  border: 1px solid rgba(212, 169, 74, 0.35);
-  background: rgba(5, 7, 15, 0.78);
+  border: 1px solid rgba(212, 169, 74, 0.36);
+  background: #0a0a0a;
   color: #FFFFFF;
   font-size: 0.9rem;
   font-family: inherit;
@@ -319,7 +331,7 @@
 .cc-prayer-saved-msg {
   margin-top: 8px;
   font-size: 0.82rem;
-  color: #34D399;
+  color: #E8C97A;
   font-weight: 600;
 }
 
@@ -334,16 +346,16 @@
 .cc-mid-line {
   width: 2px;
   height: 42px;
-  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.7), rgba(255, 122, 0, 0.7));
+  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.78), rgba(232, 201, 122, 0.25));
 }
 
 /* 4. Inteligentna Mapa / Ścieżka Uświęcenia */
 .cc-map-card {
-  background: linear-gradient(165deg, rgba(13, 17, 34, 0.94) 0%, rgba(7, 10, 20, 0.98) 100%);
+  background: linear-gradient(165deg, rgba(20, 19, 17, 0.97) 0%, rgba(9, 9, 9, 0.99) 100%);
   border: 1px solid rgba(212, 169, 74, 0.34);
   border-radius: 22px;
   padding: clamp(20px, 3.5vw, 34px);
-  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.62);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.8);
 }
 
 .cc-map-header {
@@ -403,8 +415,8 @@
   min-height: 44px;
   padding: 8px 15px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 169, 74, 0.22);
+  background: rgba(255, 255, 255, 0.03);
   color: rgba(255, 255, 255, 0.88);
   font-size: 0.84rem;
   font-weight: 600;
@@ -418,11 +430,11 @@
 }
 
 .cc-need-pill.is-active {
-  background: linear-gradient(135deg, rgba(255, 122, 0, 0.24), rgba(212, 169, 74, 0.22));
-  border-color: #FF7A00;
+  background: linear-gradient(135deg, rgba(212, 169, 74, 0.26), rgba(212, 169, 74, 0.10));
+  border-color: #D4A94A;
   color: #FFFFFF;
   font-weight: 800;
-  box-shadow: 0 0 18px rgba(255, 122, 0, 0.22);
+  box-shadow: 0 0 18px rgba(212, 169, 74, 0.22);
 }
 
 /* Oś ścieżki 4 kroków */
@@ -441,13 +453,13 @@
   top: 22px;
   bottom: 22px;
   width: 2px;
-  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.65), rgba(255, 122, 0, 0.45), rgba(52, 211, 153, 0.45));
+  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.72), rgba(212, 169, 74, 0.36), rgba(232, 201, 122, 0.48));
 }
 
 .cc-step-item {
   position: relative;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.028);
+  border: 1px solid rgba(212, 169, 74, 0.16);
   border-radius: 16px;
   padding: 15px 16px;
   display: flex;
@@ -459,8 +471,8 @@
 }
 
 .cc-step-item.is-done {
-  border-color: rgba(52, 211, 153, 0.48);
-  background: rgba(52, 211, 153, 0.06);
+  border-color: rgba(212, 169, 74, 0.56);
+  background: rgba(212, 169, 74, 0.08);
 }
 
 .cc-step-num {
@@ -470,7 +482,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #10152a;
+  background: #0f0f0f;
   border: 2px solid #D4A94A;
   color: #E8C97A;
   font-size: 0.76rem;
@@ -482,9 +494,9 @@
 }
 
 .cc-step-item.is-done .cc-step-num {
-  background: #10B981;
-  border-color: #34D399;
-  color: #06130e;
+  background: #D4A94A;
+  border-color: #E8C97A;
+  color: #0a0a0a;
 }
 
 .cc-step-info {
@@ -530,18 +542,18 @@
   min-height: 44px;
   padding: 8px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(255, 255, 255, 0.05);
-  color: #F7F8FC;
+  border: 1px solid rgba(212, 169, 74, 0.26);
+  background: rgba(255, 255, 255, 0.04);
+  color: #F5F2EA;
   font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
 }
 
 .cc-step-item.is-done .cc-step-check-btn {
-  border-color: #34D399;
-  background: rgba(52, 211, 153, 0.2);
-  color: #A7F3D0;
+  border-color: #D4A94A;
+  background: rgba(212, 169, 74, 0.20);
+  color: #E8C97A;
 }
 
 .cc-step-go-btn {
@@ -552,9 +564,9 @@
   min-height: 44px;
   padding: 8px 16px;
   border-radius: 999px;
-  background: rgba(255, 122, 0, 0.16);
-  border: 1px solid rgba(255, 122, 0, 0.55);
-  color: #FFB36B;
+  background: rgba(212, 169, 74, 0.12);
+  border: 1px solid rgba(212, 169, 74, 0.45);
+  color: #E8C97A;
   font-size: 0.82rem;
   font-weight: 800;
   text-decoration: none;
@@ -562,15 +574,15 @@
 }
 
 .cc-step-go-btn:hover {
-  background: #FF7A00;
-  color: #FFFFFF;
+  background: #D4A94A;
+  color: #0a0a0a;
 }
 
 /* 7-dniowa ścieżka powrotu */
 .cc-week-rhythm {
   margin-top: 20px;
   padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  border-top: 1px solid rgba(212, 169, 74, 0.16);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -589,8 +601,8 @@
   min-height: 44px;
   padding: 4px 6px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 169, 74, 0.20);
+  background: rgba(255, 255, 255, 0.025);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -615,7 +627,7 @@
 .cc-more-bar-wrap {
   padding: 18px 16px 40px 16px;
   text-align: center;
-  background: #05070f;
+  background: #080808;
 }
 
 .cc-more-toggle-btn {
@@ -627,12 +639,12 @@
   padding: 12px 26px;
   border-radius: 999px;
   border: 1.5px solid rgba(212, 169, 74, 0.48);
-  background: linear-gradient(135deg, rgba(19, 24, 46, 0.92), rgba(10, 13, 25, 0.96));
-  color: #F7F8FC;
+  background: linear-gradient(135deg, #161615 0%, #0b0b0b 100%);
+  color: #E8C97A;
   font-weight: 800;
   font-size: 0.94rem;
   cursor: pointer;
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.65);
   transition: border-color 220ms ease, transform 220ms ease, background 220ms ease;
 }
 

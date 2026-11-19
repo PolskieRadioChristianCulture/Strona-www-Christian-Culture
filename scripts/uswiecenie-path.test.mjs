@@ -40,6 +40,7 @@ test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynami
   const css = fs.readFileSync(cssPath, 'utf8');
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
   assert.match(css, /\.hero-section\s+\.mandala-svg[\s\S]*animation-iteration-count:\s*infinite\s*!important/);
+  assert.match(css, /#080808|#0a0a0a/i);
 
   const js = fs.readFileSync(jsPath, 'utf8');
   assert.match(js, /fetch\(['"]\/rozwazania_baza\.json['"]/);
@@ -47,6 +48,7 @@ test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynami
   assert.match(js, /cc_sanctification_state_v1/);
 
   const chatJs = fs.readFileSync(path.join(ROOT, 'components', 'cc-global-chat-button.js'), 'utf8');
-  assert.match(chatJs, /cc-chat-home-theme/);
+  assert.match(chatJs, /#ccGlobalChatOverlay\.cc-chat-home-theme/);
   assert.match(chatJs, /buildVerseGreetingForAssistant/);
+  assert.match(chatJs, /trimVerseByWord/);
 });

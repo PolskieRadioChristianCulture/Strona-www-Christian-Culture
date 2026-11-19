@@ -633,62 +633,37 @@
       }
 
       /* ── MOTYW STRONY GŁÓWNEJ CC (obsydian + szampańskie złoto #D4A94A + #FF7A00) ── */
-      .cc-chat-fab-gold-icon {
+      .cc-chat-fab-gold-icon,
+      .cc-chat-header-gold-icon,
+      .cc-nav-icon-svg {
         display: none !important;
-        width: 24px !important;
-        height: 24px !important;
-        color: #E8C97A !important;
         align-items: center !important;
         justify-content: center !important;
       }
-      .cc-chat-home-theme .cc-chat-fab-btn {
-        background: radial-gradient(circle at 30% 28%, #1d2233 0%, #07090f 88%) !important;
-        border: 1.5px solid rgba(212, 169, 74, 0.72) !important;
-        filter: drop-shadow(0 8px 20px rgba(212, 169, 74, 0.35)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7)) !important;
+      .cc-chat-fab-gold-icon {
+        width: 24px !important;
+        height: 24px !important;
+        color: #E8C97A !important;
       }
-      .cc-chat-home-theme .cc-chat-fab-btn:hover {
+      .cc-chat-header-gold-icon {
+        width: 22px !important;
+        height: 22px !important;
+        color: #E8C97A !important;
+      }
+      #ccGlobalChatFab.cc-chat-home-theme .cc-chat-fab-btn {
+        background: radial-gradient(circle at 30% 28%, #1e1c18 0%, #0a0a0a 88%) !important;
+        border: 1.5px solid rgba(212, 169, 74, 0.72) !important;
+        filter: drop-shadow(0 8px 20px rgba(212, 169, 74, 0.35)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.75)) !important;
+      }
+      #ccGlobalChatFab.cc-chat-home-theme .cc-chat-fab-btn:hover {
         border-color: #FF7A00 !important;
         filter: drop-shadow(0 10px 26px rgba(255, 122, 0, 0.42)) drop-shadow(0 4px 14px rgba(212, 169, 74, 0.45)) !important;
       }
-      .cc-chat-home-theme .cc-chat-fab-btn picture {
+      #ccGlobalChatFab.cc-chat-home-theme .cc-chat-fab-btn picture {
         display: none !important;
       }
-      .cc-chat-home-theme .cc-chat-fab-gold-icon {
+      #ccGlobalChatFab.cc-chat-home-theme .cc-chat-fab-gold-icon {
         display: inline-flex !important;
-      }
-      .cc-chat-home-theme.cc-chat-drawer-overlay {
-        --lumi-bg-main: #07090F;
-        --lumi-bg-panel: #0E111B;
-        --lumi-card-surface: #151926;
-        --lumi-accent: #D4A94A;
-        --lumi-accent-light: #E8C97A;
-        --lumi-border: rgba(212, 169, 74, 0.32);
-      }
-      .cc-chat-home-theme .cc-chat-drawer {
-        background: #080A11 !important;
-        border: 1px solid rgba(212, 169, 74, 0.42) !important;
-        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.92), 0 0 36px rgba(212, 169, 74, 0.16), inset 0 1px 0 rgba(232, 201, 122, 0.16) !important;
-      }
-      .cc-chat-home-theme .cc-chat-header,
-      .cc-chat-home-theme .cc-chat-tabs,
-      .cc-chat-home-theme .cc-chat-mode-switcher,
-      .cc-chat-home-theme .cc-asst-picker-strip {
-        background: #0D1019 !important;
-        border-color: rgba(212, 169, 74, 0.25) !important;
-      }
-      .cc-chat-home-theme .cc-chat-mode-btn.is-active,
-      .cc-chat-home-theme .cc-chat-tab.is-active {
-        background: linear-gradient(135deg, rgba(212, 169, 74, 0.22), rgba(255, 122, 0, 0.14)) !important;
-        border-color: #D4A94A !important;
-        color: #FFFFFF !important;
-      }
-      .cc-chat-home-theme .cc-asst-pick-btn.is-active {
-        border-color: #D4A94A !important;
-        background: rgba(212, 169, 74, 0.14) !important;
-      }
-      .cc-chat-home-theme .cc-chat-msg-row.is-me .cc-chat-msg-bubble {
-        background: linear-gradient(135deg, rgba(212, 169, 74, 0.22), rgba(255, 122, 0, 0.18)) !important;
-        border-color: rgba(212, 169, 74, 0.45) !important;
       }
 
       /* ── DYMEK ZACZEPKA: ROTACJA ASYSTENTEK (ADAPTACYJNY DO KOLORÓW STRONY) ── */
@@ -1289,7 +1264,7 @@
         flex-shrink: 0 !important;
       }
 
-      @media (min-width: 520px) {
+      @container lumiChat (min-width: 560px) {
         .cc-asst-picker-strip {
           grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
         }
@@ -2195,6 +2170,223 @@
         100% { transform: scale(1.08); }
       }
 
+      /* ── MOTYW STRONY GŁÓWNEJ CC: PEŁNA HARMONIA WĘGLOWA CZERŃ (#0A0A0A / #141414) + ZŁOTO (#D4A94A) + #FF7A00 ── */
+      #ccGlobalChatOverlay.cc-chat-home-theme {
+        --lumi-bg-main: #0A0A0A;
+        --lumi-bg-panel: #101010;
+        --lumi-card-surface: #151514;
+        --lumi-accent: #D4A94A;
+        --lumi-accent-light: #E8C97A;
+        --lumi-border: rgba(212, 169, 74, 0.28);
+        --lumi-text-muted: #B6AFA0;
+        background: rgba(5, 5, 5, 0.80) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-drawer {
+        background: #0A0A0A !important;
+        border: 1px solid rgba(212, 169, 74, 0.44) !important;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.94), 0 0 40px rgba(212, 169, 74, 0.16), inset 0 1px 0 rgba(232, 201, 122, 0.18) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-header {
+        background: #0E0E0D !important;
+        border-bottom: 1px solid rgba(212, 169, 74, 0.16) !important;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-header-logo-wrap {
+        background: radial-gradient(circle at 30% 28%, #1e1c18 0%, #0a0a0a 88%) !important;
+        border: 1.5px solid rgba(212, 169, 74, 0.75) !important;
+        box-shadow: 0 0 14px rgba(212, 169, 74, 0.30) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme #ccChatHeaderPartnerAvatar {
+        display: none !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-header-gold-icon,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-nav-icon-svg {
+        display: inline-flex !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-nav-icon-emoji {
+        display: none !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-icon-btn {
+        background: #151514 !important;
+        border-color: rgba(212, 169, 74, 0.24) !important;
+        color: #C7BFA9 !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-icon-btn:hover,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-icon-btn.is-active {
+        background: rgba(212, 169, 74, 0.20) !important;
+        border-color: #E8C97A !important;
+        color: #FFFFFF !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-more-drawer-toggle-btn[aria-expanded="true"] {
+        background: #D4A94A !important;
+        color: #0A0A0A !important;
+        border-color: #E8C97A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-mini-player {
+        background: #131312 !important;
+        border-color: rgba(212, 169, 74, 0.28) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-radio-glyph,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-radio-eq span {
+        color: #E8C97A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-radio-eq span {
+        background: #E8C97A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-nav-tabs {
+        background: #0E0E0D !important;
+        border-bottom: 1px solid rgba(212, 169, 74, 0.20) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-nav-tab {
+        background: #141413 !important;
+        border-color: rgba(212, 169, 74, 0.16) !important;
+        color: #B4AC9B !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-nav-tab:hover {
+        border-color: rgba(212, 169, 74, 0.45) !important;
+        color: #FFFFFF !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-nav-tab.is-active {
+        background: linear-gradient(135deg, rgba(212, 169, 74, 0.26), rgba(255, 122, 0, 0.10)) !important;
+        border-color: #D4A94A !important;
+        color: #F2D17C !important;
+        box-shadow: 0 4px 12px rgba(212, 169, 74, 0.18) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-tab-panel,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-tab-content-wrap {
+        background: #0A0A0A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-mode-bar {
+        background: #0E0E0D !important;
+        border-bottom-color: rgba(212, 169, 74, 0.20) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-mode-tab-btn {
+        background: #151514 !important;
+        border-color: rgba(212, 169, 74, 0.20) !important;
+        color: #B9B1A0 !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-mode-tab-btn:hover {
+        border-color: rgba(212, 169, 74, 0.50) !important;
+        color: #FFFFFF !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-mode-tab-btn.is-active {
+        background: linear-gradient(135deg, rgba(212, 169, 74, 0.26), rgba(255, 122, 0, 0.14)) !important;
+        border-color: #D4A94A !important;
+        color: #FFFDF7 !important;
+        box-shadow: 0 2px 14px rgba(212, 169, 74, 0.24) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-asst-picker-strip {
+        background: #0E0E0D !important;
+        border-bottom: 1px solid rgba(212, 169, 74, 0.26) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-asst-pick-btn {
+        background: #151514 !important;
+        border-color: rgba(212, 169, 74, 0.20) !important;
+        color: #EFEAE0 !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-asst-pick-btn:hover {
+        background: #1C1B19 !important;
+        border-color: rgba(212, 169, 74, 0.55) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-asst-pick-btn.is-active {
+        background: linear-gradient(135deg, rgba(212, 169, 74, 0.22), rgba(255, 122, 0, 0.10)) !important;
+        border-color: #E8C97A !important;
+        box-shadow: 0 2px 12px rgba(212, 169, 74, 0.22) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-lumi-divider {
+        background: linear-gradient(90deg, transparent, rgba(212, 169, 74, 0.35) 22%, #E8C97A 50%, rgba(212, 169, 74, 0.35) 78%, transparent) !important;
+        box-shadow: 0 0 8px rgba(212, 169, 74, 0.38) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-active-asst-avatar {
+        border-color: #D4A94A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-active-asst-dot,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-asst-pick-dot {
+        border-color: #0A0A0A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-asst-welcome-bubble {
+        background: rgba(20, 19, 17, 0.96) !important;
+        border: 1px solid rgba(212, 169, 74, 0.40) !important;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 18px rgba(212, 169, 74, 0.08) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-welcome-art-wrap,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-qc-thumb-wrap {
+        border: 1px solid rgba(212, 169, 74, 0.26) !important;
+        background: #101010 !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-welcome-art-img,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-qc-thumb-img {
+        filter: sepia(0.28) saturate(1.08) contrast(1.06) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-quick-card,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-card-item {
+        background: #131312 !important;
+        border-color: rgba(212, 169, 74, 0.22) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-quick-card:hover,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-card-item:hover {
+        background: #1B1A18 !important;
+        border-color: #D4A94A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-public-mode-header {
+        background: #131312 !important;
+        border-color: rgba(212, 169, 74, 0.26) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme #ccPublicDailyDialogue {
+        background: linear-gradient(145deg, rgba(22, 21, 19, 0.97), rgba(11, 11, 10, 0.99)) !important;
+        border-color: rgba(212, 169, 74, 0.38) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme #ccPublicDailyDialogue .cc-daily-dialogue-turn {
+        background: rgba(12, 12, 11, 0.88) !important;
+        border-color: rgba(212, 169, 74, 0.16) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-msg-bubble {
+        background: #151514 !important;
+        border-color: rgba(212, 169, 74, 0.22) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-msg-row.is-me .cc-chat-msg-bubble,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-msg-row.is-user .cc-chat-msg-bubble {
+        background: linear-gradient(135deg, rgba(212, 169, 74, 0.24), rgba(255, 122, 0, 0.14)) !important;
+        border-color: #D4A94A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-msg-row.is-user .cc-chat-msg-sender {
+        color: #E8C97A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-showcase-pill {
+        background: #151514 !important;
+        border-color: rgba(212, 169, 74, 0.36) !important;
+        color: #E8C97A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-showcase-pill.is-primary {
+        background: linear-gradient(135deg, rgba(212, 169, 74, 0.24), rgba(255, 122, 0, 0.14)) !important;
+        border-color: #D4A94A !important;
+        color: #FFFFFF !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-showcase-pill.is-primary:hover {
+        background: rgba(255, 122, 0, 0.28) !important;
+        border-color: #FF7A00 !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-scroll-bottom-btn {
+        background: rgba(212, 169, 74, 0.22) !important;
+        border-color: #D4A94A !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-composer-premium {
+        background: #0E0E0D !important;
+        border-top: 1px solid rgba(212, 169, 74, 0.22) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-composer-plus-btn {
+        background: #161615 !important;
+        border-color: rgba(212, 169, 74, 0.32) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-composer-plus-btn:hover {
+        background: rgba(212, 169, 74, 0.18) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-composer-input-wrap,
+      #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-search-input {
+        background: #0A0A0A !important;
+        border-color: rgba(212, 169, 74, 0.42) !important;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .cc-chat-drawer,
         .cc-chat-drawer-overlay,
@@ -2381,6 +2573,9 @@
           <a href="/mess" class="cc-chat-header-brand" id="ccChatHeaderBrand" title="LUMI Messenger">
             <div class="cc-chat-header-logo-wrap" aria-hidden="true">
               <img src="/images/chat/lumi_header_logo.webp" id="ccChatHeaderPartnerAvatar" alt="LUMI Messenger" class="cc-chat-header-icon" width="38" height="38" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+              <span class="cc-chat-header-gold-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              </span>
             </div>
             <div class="cc-chat-header-titles">
               <div class="cc-chat-header-title" id="ccChatHeaderTitle">
@@ -2397,10 +2592,10 @@
               •••
             </button>
             <button type="button" class="cc-chat-icon-btn" id="ccChatNotifBtn" title="Powiadomienia" aria-label="Powiadomienia">
-              🔔
+              <span class="cc-nav-icon-emoji">🔔</span><span class="cc-nav-icon-svg" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>
             </button>
             <button type="button" class="cc-chat-icon-btn" id="ccChatSettingsBtn" title="Ustawienia czatu" aria-label="Ustawienia czatu">
-              ⚙️
+              <span class="cc-nav-icon-emoji">⚙️</span><span class="cc-nav-icon-svg" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
             </button>
             <button type="button" class="cc-chat-icon-btn is-close cc-chat-close-btn" id="ccChatCloseBtn" aria-label="Zamknij czat" title="Zamknij">
               ✕
@@ -2432,19 +2627,19 @@
         <!-- 3. NAWIGACJA: 5 ZAKŁADEK 1:1 -->
         <nav class="cc-chat-nav-tabs" role="tablist" aria-label="Nawigacja czatu">
           <button type="button" class="cc-chat-nav-tab is-active" id="ccChatTabLiveBtn" role="tab" aria-selected="true" aria-controls="ccChatViewLive">
-            <span class="cc-nav-icon">💬</span>
+            <span class="cc-nav-icon"><span class="cc-nav-icon-emoji">💬</span><span class="cc-nav-icon-svg" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span></span>
             <span>Czat</span>
           </button>
           <button type="button" class="cc-chat-nav-tab" id="ccChatTabTeamBtn" role="tab" aria-selected="false" aria-controls="ccChatViewTeam">
-            <span class="cc-nav-icon">👥</span>
+            <span class="cc-nav-icon"><span class="cc-nav-icon-emoji">👥</span><span class="cc-nav-icon-svg" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></span>
             <span>Zespół CC</span>
           </button>
           <button type="button" class="cc-chat-nav-tab" id="ccChatTabMembersBtn" role="tab" aria-selected="false" aria-controls="ccChatViewMembers">
-            <span class="cc-nav-icon">👥</span>
+            <span class="cc-nav-icon"><span class="cc-nav-icon-emoji">👥</span><span class="cc-nav-icon-svg" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span></span>
             <span>Społeczność</span>
           </button>
           <button type="button" class="cc-chat-nav-tab" id="ccChatTabChannelsBtn" role="tab" aria-selected="false" aria-controls="ccChatViewChannels">
-            <span class="cc-nav-icon">🌐</span>
+            <span class="cc-nav-icon"><span class="cc-nav-icon-emoji">🌐</span><span class="cc-nav-icon-svg" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span></span>
             <span>Zasoby</span>
           </button>
           <button type="button" class="cc-chat-nav-tab" id="ccChatTabMoreBtn" role="tab" aria-selected="false" aria-controls="ccChatViewMore">
@@ -2453,16 +2648,16 @@
           </button>
         </nav>
 
-        <!-- ════ WIDOK 1: CZAT OGÓLNY & ASYSTENTKI CC (3 DO WYBORU) ════ -->
+        <!-- ════ WIDOK 1: CZAT OGÓLNY & ASYSTENTKI CC (4 DO WYBORU) ════ -->
         <div class="cc-chat-tab-panel is-active" id="ccChatViewLive" role="tabpanel" aria-labelledby="ccChatTabLiveBtn">
 
           <!-- PRZEŁĄCZNIK TRYBU: CZAT OGÓLNY vs ASYSTENTKI CC -->
           <div class="cc-chat-mode-bar" id="ccChatModeBar" role="tablist" aria-label="Wybór trybu czatu">
             <button type="button" class="cc-mode-tab-btn is-active" id="ccModePublicBtn" data-chat-mode="public" role="tab" aria-selected="true">
-              <span>🌐</span><span>Czat ogólny</span>
+              <span class="cc-nav-icon-emoji">🌐</span><span class="cc-nav-icon-svg" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span>Czat ogólny</span>
             </button>
             <button type="button" class="cc-mode-tab-btn" id="ccModeAssistantBtn" data-chat-mode="assistant" role="tab" aria-selected="false">
-              <span>✨</span><span>Asystentki CC (4)</span>
+              <span class="cc-nav-icon-emoji">✨</span><span class="cc-nav-icon-svg" aria-hidden="true" style="color:#E8C97A;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/></svg></span><span>Asystentki CC (4)</span>
             </button>
           </div>
 
@@ -2931,22 +3126,33 @@
     let ccDailyVerseData = null;
     let ccDailyVerseLoading = false;
 
+    function trimVerseByWord(text, maxLen) {
+      const clean = String(text || '').replace(/\s+/g, ' ').trim().replace(/^[„"']+|[”"']+$/g, '');
+      if (!clean) return '';
+      if (clean.length <= maxLen) return `„${clean}”`;
+      const slice = clean.slice(0, maxLen);
+      const lastSpace = slice.lastIndexOf(' ');
+      let safe = (lastSpace > Math.floor(maxLen * 0.55)) ? slice.slice(0, lastSpace) : slice;
+      safe = safe.replace(/[,;:\-–\s]+$/, '').replace(/\s+(?:z|w|i|o|a|u|na|do|od|ku|po)$/i, '').replace(/[,;:\-–\s]+$/, '');
+      return `„${safe}…”`;
+    }
+
     function buildVerseGreetingForAssistant(asst, daily) {
       if (!daily || (!daily.verse && !daily.reading && !daily.title)) return asst.greeting;
       const reading = daily.reading ? ` (${daily.reading})` : '';
-      const rawVerse = String(daily.verse || '').replace(/\s+/g, ' ').trim();
-      const shortVerse = rawVerse.length > 76 ? rawVerse.slice(0, 73).trim() + '…' : rawVerse;
+      const shortVerse = trimVerseByWord(daily.verse || '', 84);
+      const verseOrTitle = shortVerse || daily.title || '';
       const key = String(asst.shortName || asst.id || '').toLowerCase();
       if (key.includes('lea')) {
-        return `Werset Dnia${reading}: ${shortVerse || daily.title} — zaplanujmy 10 minut w Kursie Codziennym!`;
+        return `Werset Dnia${reading}: ${verseOrTitle} — zaplanujmy 10 minut w Kursie Codziennym!`;
       }
       if (key.includes('noemi')) {
-        return `Słowo na dziś${reading}: ${shortVerse || daily.title} — zamieńmy ten werset w modlitwę.`;
+        return `Słowo na dziś${reading}: ${verseOrTitle} — zamieńmy ten werset w modlitwę.`;
       }
       if (key.includes('miriam')) {
-        return `Chwała Panu! Werset Dnia${reading}: ${shortVerse || daily.title} — posłuchaj Psalmów 24/7.`;
+        return `Chwała Panu! Werset Dnia${reading}: ${verseOrTitle} — posłuchaj Psalmów 24/7.`;
       }
-      return `Dzień ${daily.day || ''}${reading}: ${shortVerse || daily.title} — o czym dziś porozmawiamy?`.trim();
+      return `Dzień ${daily.day || ''}${reading}: ${verseOrTitle} — o czym dziś porozmawiamy?`.trim();
     }
 
     function loadDailyVerseForWelcome() {
@@ -3268,15 +3474,15 @@
     function applyTeaserPageTheme(el) {
       if (!el) return;
       const pal = useHomeTheme ? {
-        bg: 'linear-gradient(145deg, rgba(16, 19, 30, 0.97), rgba(7, 9, 15, 0.98))',
+        bg: 'linear-gradient(145deg, rgba(20, 19, 17, 0.98), rgba(10, 10, 10, 0.99))',
         border: 'rgba(212, 169, 74, 0.48)',
-        shadow: '0 16px 40px rgba(0, 0, 0, 0.78), 0 0 22px rgba(212, 169, 74, 0.20)',
-        text: '#F7F8FC',
+        shadow: '0 16px 40px rgba(0, 0, 0, 0.82), 0 0 22px rgba(212, 169, 74, 0.20)',
+        text: '#FFFFFF',
         muted: '#D1C7B2',
         cta: '#E8C97A',
         ring: '#D4A94A',
-        avatarBg: '#10131E',
-        badgeBorder: '#07090F'
+        avatarBg: '#141413',
+        badgeBorder: '#0A0A0A'
       } : detectPageThemePalette();
       el.style.setProperty('--cc-teaser-bg', pal.bg);
       el.style.setProperty('--cc-teaser-border', pal.border);
@@ -5095,7 +5301,7 @@
     const turnsHtml = dailyDialogueCollapsed ? '' : `
       <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
         ${shownTurns.map(t => `
-          <div style="display:flex;gap:8px;align-items:flex-start;background:rgba(13,16,32,0.55);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:8px 10px;">
+          <div class="cc-daily-dialogue-turn" style="display:flex;gap:8px;align-items:flex-start;background:rgba(13,16,32,0.55);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:8px 10px;">
             <img src="${escapeHtml(t.avatar)}" alt="${escapeHtml(t.name)}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1.5px solid #D8AD57;flex-shrink:0;margin-top:2px;" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
             <div style="min-width:0;flex:1;">
               <div style="font-size:0.74rem;font-weight:700;color:#E2CC9A;">${escapeHtml(t.name)} <span style="font-weight:500;color:#8E99B3;">· ${escapeHtml(t.role)}</span></div>
