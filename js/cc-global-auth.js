@@ -438,17 +438,18 @@
                 flex: 0 0 30px !important;
             }
             .cc-auth-google-btn {
-                width: 38px !important;
-                min-width: 38px !important;
-                max-width: 38px !important;
-                height: 38px !important;
-                min-height: 38px !important;
+                width: 44px !important;
+                min-width: 44px !important;
+                max-width: 44px !important;
+                height: 44px !important;
+                min-height: 44px !important;
                 aspect-ratio: 1 / 1 !important;
                 padding: 0 !important;
                 border-radius: 50% !important;
                 justify-content: center !important;
                 align-items: center !important;
                 box-sizing: border-box !important;
+                touch-action: manipulation !important;
             }
             .cc-auth-google-btn span.cc-auth-btn-text-full,
             .cc-auth-google-btn span.cc-auth-btn-text-short,

@@ -109,13 +109,39 @@
         }
 
         .gold-button-gradient {
-            background: linear-gradient(135deg, #D4A94A 0%, #E8C97A 100%);
-            color: #0A0A0F !important;
-            box-shadow: 0 4px 20px rgba(212, 169, 74, 0.35);
+            background: #FF7A00 !important;
+            color: #FFFFFF !important;
+            border: 1px solid rgba(255, 190, 110, 0.55);
+            box-shadow: inset 0 1px 0 rgba(255, 230, 180, 0.45), 0 6px 20px rgba(255, 122, 0, 0.28);
+            min-width: 44px;
+            min-height: 44px;
+            transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
         }
         .gold-button-gradient:hover {
-            background: linear-gradient(135deg, #E8C97A 0%, #F5DC9A 100%);
-            box-shadow: 0 6px 25px rgba(212, 169, 74, 0.55);
+            background: #FF8C33 !important;
+            color: #FFFFFF !important;
+            box-shadow: inset 0 1px 0 rgba(255, 245, 210, 0.65), 0 8px 26px rgba(255, 140, 51, 0.42);
+        }
+        .gold-button-gradient:active {
+            background: #E66A00 !important;
+            color: #FFFFFF !important;
+        }
+        .filter-pill {
+            min-height: 44px !important;
+            min-width: 44px;
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding: 0 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+        .filter-pill.active,
+        .filter-pill.bg-amber-500 {
+            background: #FF7A00 !important;
+            color: #FFFFFF !important;
+            border-color: rgba(255, 190, 110, 0.55) !important;
         }
 
         /* Equalizer waveform animation */
@@ -267,7 +293,7 @@
 
         <!-- Right User Actions -->
         <div class="flex items-center gap-3">
-            <button onclick="toggleTheme()" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-[#8A8578] hover:text-[#E8C97A] flex items-center justify-center transition text-xs" title="Przełącz motyw">
+            <button onclick="toggleTheme()" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/5 hover:bg-white/10 text-[#8A8578] hover:text-[#E8C97A] flex items-center justify-center transition text-sm" title="Przełącz motyw" aria-label="Przełącz motyw">
                 <i class="fa-solid fa-moon"></i>
             </button>
             <div class="cc-auth-widget-container" data-cc-auth-mount="true"></div>
@@ -493,7 +519,7 @@
                     <a href="/milion" class="inline-flex items-center min-h-[44px] text-xs text-amber-200 underline mb-3">Celujemy w pierwszy milion — licznik aktywności</a>
                     <!-- Pasek sterowania w Hero -->
                     <div class="flex flex-wrap items-center gap-4 pt-1">
-                        <button onclick="togglePlay()" id="hero-play-btn" class="gold-button-gradient px-6 py-3 rounded-full text-xs md:text-sm font-bold text-gray-950 flex items-center gap-2.5 transition active:scale-95 cursor-pointer">
+                        <button onclick="togglePlay()" id="hero-play-btn" class="gold-button-gradient px-6 py-3 min-h-[44px] rounded-full text-xs md:text-sm font-bold text-white flex items-center gap-2.5 transition active:scale-95 cursor-pointer">
                             <i id="hero-play-icon" class="fa-solid fa-play"></i>
                             <span id="hero-play-label">Odtwarzaj</span>
                         </button>
@@ -739,7 +765,7 @@
                             Poczuj głęboki relaks dzięki starannie dobranej bibliotece: szum brązowy, prawdziwy deszcz, trzaskające ognisko, fale oceanu, nocny las ze świerszczami oraz fale binauralne delta (3 Hz) i theta (6 Hz). 100% bezpłatnie, bez przerw i bez reklam.
                         </p>
                         <div class="flex flex-wrap items-center justify-center md:justify-start gap-3">
-                            <a href="/AmbientSleep" class="gold-button-gradient px-5 py-2.5 rounded-full text-xs font-bold text-gray-950 flex items-center gap-2 shadow-lg transition active:scale-95 hover:shadow-[0_0_20px_rgba(212,169,74,0.4)]">
+                            <a href="/AmbientSleep" class="gold-button-gradient px-5 py-2.5 min-h-[44px] rounded-full text-xs font-bold text-white flex items-center gap-2 shadow-lg transition active:scale-95">
                                 <i class="fa-solid fa-volume-high"></i>
                                 <span>Otwórz Generator Snu Free</span>
                             </a>
@@ -894,7 +920,7 @@
                             <i class="fa-solid fa-rotate-left"></i>
                         </button>
 
-                        <button onclick="togglePlay()" id="player-main-play-btn" class="w-12 h-12 rounded-full gold-button-gradient flex items-center justify-center text-gray-950 text-base font-black shadow-xl hover:scale-105 active:scale-95 transition cursor-pointer">
+                        <button onclick="togglePlay()" id="player-main-play-btn" class="w-12 h-12 rounded-full gold-button-gradient flex items-center justify-center text-white text-base font-black shadow-xl hover:scale-105 active:scale-95 transition cursor-pointer">
                             <i id="player-main-play-icon" class="fa-solid fa-play ml-0.5"></i>
                         </button>
 
@@ -990,7 +1016,7 @@
             <button onclick="prevTrack()" aria-label="Poprzednia stacja lub film" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-300 text-xs active:scale-95">
                 <i class="fa-solid fa-backward-step"></i>
             </button>
-            <button onclick="togglePlay()" id="mobile-play-btn" aria-label="Odtwarzaj" class="w-10 h-10 rounded-full gold-button-gradient flex items-center justify-center text-gray-950 text-sm shadow-md active:scale-95">
+            <button onclick="togglePlay()" id="mobile-play-btn" aria-label="Odtwarzaj" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full gold-button-gradient flex items-center justify-center text-white text-sm shadow-md active:scale-95">
                 <i id="mobile-play-icon" class="fa-solid fa-play"></i>
             </button>
             <button onclick="nextTrack()" aria-label="Następna stacja lub film" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-300 text-xs active:scale-95">
@@ -1962,10 +1988,10 @@
         function filterByTag(tag) {
             document.querySelectorAll('.filter-pill').forEach(btn => {
                 if (btn.textContent.trim().includes(tag)) {
-                    btn.classList.add('bg-amber-500', 'text-gray-950', 'font-bold');
-                    btn.classList.remove('bg-white/5', 'text-gray-300');
+                    btn.classList.add('active', 'bg-amber-500', 'text-white', 'font-bold');
+                    btn.classList.remove('bg-white/5', 'text-gray-300', 'text-gray-950');
                 } else {
-                    btn.classList.remove('bg-amber-500', 'text-gray-950', 'font-bold');
+                    btn.classList.remove('active', 'bg-amber-500', 'text-gray-950', 'text-white', 'font-bold');
                     btn.classList.add('bg-white/5', 'text-gray-300');
                 }
             });

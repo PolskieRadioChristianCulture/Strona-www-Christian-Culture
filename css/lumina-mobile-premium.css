@@ -44,10 +44,10 @@
         overflow-x: auto !important;
     }
     .chat-header-profile-btn {
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-        min-height: 36px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
         padding: 0 !important;
         border-radius: 50% !important;
         display: inline-flex !important;

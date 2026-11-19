@@ -767,15 +767,23 @@
 
       .cc-chat-teaser-close {
         position: absolute !important;
-        top: 6px !important;
-        right: 8px !important;
+        top: 0 !important;
+        right: 0 !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         background: none !important;
         border: none !important;
         color: var(--cc-teaser-muted, var(--lumi-text-muted)) !important;
-        font-size: 13px !important;
+        font-size: 14px !important;
         cursor: pointer !important;
-        padding: 4px !important;
+        padding: 0 !important;
         line-height: 1 !important;
+        touch-action: manipulation !important;
       }
 
       #ccGlobalChatFab.cc-teaser-align-left .cc-chat-teaser-bubble,
@@ -976,10 +984,10 @@
       }
 
       .cc-chat-icon-btn {
-        width: 38px !important;
-        height: 38px !important;
-        min-width: 38px !important;
-        min-height: 38px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
         border-radius: 50% !important;
         border: 1px solid #343A50 !important;
         background: #1D2235 !important;
@@ -991,6 +999,7 @@
         font-size: 0.95rem !important;
         transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease !important;
         text-decoration: none !important;
+        touch-action: manipulation !important;
       }
 
       .cc-chat-icon-btn:hover,
@@ -1090,13 +1099,17 @@
         font-weight: 750 !important;
         border: none !important;
         border-radius: 999px !important;
-        padding: 3px 12px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        padding: 0 14px !important;
         cursor: pointer !important;
         display: flex !important;
         align-items: center !important;
+        justify-content: center !important;
         gap: 5px !important;
         transition: all 0.18s ease !important;
         white-space: nowrap !important;
+        touch-action: manipulation !important;
       }
 
       .cc-chat-radio-play-btn:hover {
@@ -1796,10 +1809,10 @@
       }
 
       .cc-composer-plus-btn {
-        width: 38px !important;
-        height: 38px !important;
-        min-width: 38px !important;
-        min-height: 38px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
         border-radius: 50% !important;
         background: #1D2235 !important;
         border: 1.5px solid #343A50 !important;
@@ -1813,6 +1826,7 @@
         flex-shrink: 0 !important;
         transition: background 0.18s ease, transform 0.18s ease !important;
         line-height: 1 !important;
+        touch-action: manipulation !important;
       }
 
       .cc-composer-plus-btn:hover {
@@ -1866,6 +1880,8 @@
         border: none !important;
         color: #A5AEC4 !important;
         cursor: pointer !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
         padding: 4px !important;
         display: flex !important;
         align-items: center !important;
@@ -1873,6 +1889,7 @@
         font-size: 1.1rem !important;
         flex-shrink: 0 !important;
         transition: color 0.18s ease !important;
+        touch-action: manipulation !important;
       }
 
       .cc-composer-mic-btn:hover {
@@ -1887,14 +1904,17 @@
         border: none !important;
         border-radius: 999px !important;
         padding: 0 16px !important;
-        min-height: 40px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
         display: inline-flex !important;
         align-items: center !important;
+        justify-content: center !important;
         gap: 6px !important;
         cursor: pointer !important;
         flex-shrink: 0 !important;
         box-shadow: 0 2px 10px rgba(255, 122, 0, 0.35) !important;
         transition: transform 0.18s ease, filter 0.18s ease, background 0.18s ease !important;
+        touch-action: manipulation !important;
       }
 
       .cc-composer-send-btn:hover {
@@ -1989,17 +2009,21 @@
       .cc-showcase-pill {
         display: inline-flex !important;
         align-items: center !important;
+        justify-content: center !important;
         gap: 5px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
         background: rgba(29, 34, 53, 0.9) !important;
         border: 1px solid rgba(216, 173, 87, 0.4) !important;
         border-radius: 999px !important;
-        padding: 5px 12px !important;
-        font-size: 0.75rem !important;
+        padding: 6px 14px !important;
+        font-size: 0.78rem !important;
         font-weight: 600 !important;
         color: #F2D17C !important;
         cursor: pointer !important;
         text-decoration: none !important;
         transition: all 0.18s ease !important;
+        touch-action: manipulation !important;
       }
 
       .cc-showcase-pill:hover {
@@ -2120,19 +2144,18 @@
 
       /* ── RESPONSYWNOŚĆ MOBILE (320-768px) ── */
       @media (max-width: 768px) {
-    .cc-chat-drawer {
-      height: var(--lumi-viewport-height, 100dvh) !important;
-      max-height: var(--lumi-viewport-height, 100dvh) !important;
-    }
         .cc-chat-drawer {
           right: 0 !important;
           bottom: 0 !important;
           width: 100vw !important;
           max-width: 100vw !important;
-          height: 100dvh !important;
-          max-height: 100dvh !important;
+          height: var(--lumi-viewport-height, 100dvh) !important;
+          max-height: var(--lumi-viewport-height, 100dvh) !important;
           border-radius: 0 !important;
           border: none !important;
+        }
+        .cc-composer-textarea {
+          font-size: 16px !important;
         }
 
         .cc-chat-header {
@@ -4189,7 +4212,23 @@
       });
     }
 
-    // Otwieranie / zamykanie czatu
+    // Otwieranie / zamykanie czatu + ochrona przed wirtualną klawiaturą (visualViewport)
+    function syncGlobalChatViewportHeight() {
+      try {
+        if (!overlay.classList.contains('is-open')) return;
+        const vv = window.visualViewport;
+        const h = vv ? Math.round(vv.height) : window.innerHeight;
+        if (h > 120) {
+          document.documentElement.style.setProperty('--lumi-viewport-height', h + 'px');
+        }
+      } catch (_) {}
+    }
+    if (typeof window !== 'undefined' && window.visualViewport && !window.__ccChatViewportBound) {
+      window.__ccChatViewportBound = true;
+      window.visualViewport.addEventListener('resize', syncGlobalChatViewportHeight);
+      window.visualViewport.addEventListener('scroll', syncGlobalChatViewportHeight);
+    }
+
     function openChat() {
       hideTeaserImmediately();
       const fabWrapCurrent = (btn && typeof btn.closest === 'function' ? btn.closest('.cc-chat-fab-wrap') : null) || document.getElementById('ccGlobalChatFab');
@@ -4198,6 +4237,7 @@
       overlay.classList.add('is-open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      syncGlobalChatViewportHeight();
       setChatMode(chatMode);
       renderChatMessages();
       switchTab('live');
@@ -4211,6 +4251,7 @@
       overlay.classList.remove('is-open');
       overlay.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      try { document.documentElement.style.removeProperty('--lumi-viewport-height'); } catch (_) {}
       syncChatOverlayTopLayer(overlay, false, false);
     }
 
@@ -5356,8 +5397,8 @@
           </div>
         `).join('')}
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
-          <a href="${escapeHtml(d.lessonUrl || '/akademia/kurscodzienny')}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border-radius:999px;background:#FF7A00;color:#FFFFFF;font-weight:700;font-size:0.76rem;text-decoration:none;">📖 Czytaj całość${d.day ? ` (Dzień ${escapeHtml(String(d.day))})` : ''}</a>
-          <button type="button" class="cc-showcase-pill is-primary" style="min-height:36px;font-size:0.76rem;" onclick="window.setCCChatMode('assistant')">✨ Zapytaj Asystentki (4)</button>
+          <a href="${escapeHtml(d.lessonUrl || '/akademia/kurscodzienny')}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;background:#FF7A00;color:#FFFFFF;font-weight:700;font-size:0.78rem;text-decoration:none;">📖 Czytaj całość${d.day ? ` (Dzień ${escapeHtml(String(d.day))})` : ''}</a>
+          <button type="button" class="cc-showcase-pill is-primary" style="min-height:44px;font-size:0.78rem;" onclick="window.setCCChatMode('assistant')">✨ Zapytaj Asystentki (4)</button>
         </div>
       </div>
     `;
@@ -5368,7 +5409,7 @@
             <div style="font-size:0.72rem;font-weight:800;letter-spacing:0.03em;color:#D8AD57;text-transform:uppercase;">${statusBadge}</div>
             <div style="font-size:0.86rem;font-weight:700;color:#FFFFFF;margin-top:2px;line-height:1.3;">${escapeHtml(d.title || 'Z Biblią za Pan Brat')}${d.reading ? ` <span style="color:#A5AEC4;font-weight:500;">(${escapeHtml(d.reading)})</span>` : ''}</div>
           </div>
-          <button type="button" id="ccToggleDailyDialogueBtn" aria-label="Zwiń lub rozwiń rozważanie dnia" style="min-width:36px;min-height:36px;border-radius:10px;border:1px solid rgba(216,173,87,0.3);background:rgba(255,255,255,0.05);color:#E2CC9A;cursor:pointer;font-size:0.82rem;flex-shrink:0;">${dailyDialogueCollapsed ? '▾ Rozwiń' : '▴ Zwiń'}</button>
+          <button type="button" id="ccToggleDailyDialogueBtn" aria-label="Zwiń lub rozwiń rozważanie dnia" style="min-width:44px;min-height:44px;padding:0 10px;border-radius:10px;border:1px solid rgba(216,173,87,0.3);background:rgba(255,255,255,0.05);color:#E2CC9A;cursor:pointer;font-size:0.82rem;flex-shrink:0;">${dailyDialogueCollapsed ? '▾ Rozwiń' : '▴ Zwiń'}</button>
         </div>
         ${turnsHtml}
       </div>

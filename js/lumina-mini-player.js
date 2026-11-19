@@ -254,7 +254,7 @@
             <div class="lmp-stations-popup" id="lmpStationsPopup" onclick="event.stopPropagation()">
                 <div style="font-size:0.75rem;font-weight:800;color:#facc15;padding:4px 8px 6px;text-transform:uppercase;letter-spacing:0.5px;font-family:'Outfit',sans-serif;display:flex;align-items:center;justify-content:space-between;">
                     <span>Wybierz Stację Radia CC</span>
-                    <button type="button" onclick="window.LuminaMiniPlayer.closeStationsPopup()" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:0.8rem;"><i class="fa-solid fa-xmark"></i></button>
+                    <button type="button" onclick="window.LuminaMiniPlayer.closeStationsPopup()" aria-label="Zamknij wybór stacji" title="Zamknij" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:0.95rem;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 ${STATIONS.map((s, idx) => `
                     <button type="button" class="lmp-station-option ${idx === currentStationIndex ? 'active' : ''}" onclick="window.LuminaMiniPlayer.selectStation(${idx}, event)">

@@ -384,8 +384,8 @@
           font-size: 0.8rem;
           font-weight: 700;
           cursor: pointer;
-          min-width: 38px;
-          min-height: 36px;
+          min-width: 44px;
+          min-height: 44px;
           border-radius: 6px;
           transition: all 0.2s ease;
         }
