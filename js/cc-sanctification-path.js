@@ -271,6 +271,38 @@
       .replace(/"/g, '&quot;');
   }
 
+  function formatAnimatedVerseHtml(rawQuote) {
+    var txt = String(rawQuote || '').trim();
+    var body = txt;
+    var citation = '';
+    var match = txt.match(/^([\s\S]*?[”"])\s*((?:—|–|-)\s*[\s\S]+|\([^)]+\))$/);
+    if (match) {
+      body = match[1].trim();
+      citation = match[2].trim();
+    }
+
+    var words = body.split(/\s+/).filter(Boolean);
+    if (!words.length) {
+      return escapeHtml(txt);
+    }
+
+    var stepMs = Math.min(46, Math.max(24, Math.floor(1100 / words.length)));
+    var wordHtml = words.map(function (word, idx) {
+      var isSacred = /^(?:PAN|PANIE|Bóg|Boga|Bogu)[,.!?”":;]*$/.test(word);
+      var inDelay = idx * stepMs;
+      var waveDelay = (idx * 0.085).toFixed(3);
+      return '<span class="cc-vw' + (isSacred ? ' cc-vw-sacred' : '') +
+        '" style="--cc-in:' + inDelay + 'ms;--cc-wave:' + waveDelay + 's">' +
+        escapeHtml(word) + '</span>';
+    }).join(' ');
+
+    if (citation) {
+      var citDelay = words.length * stepMs + 140;
+      wordHtml += ' <span class="cc-verse-citation" style="--cc-in:' + citDelay + 'ms">' + escapeHtml(citation) + '</span>';
+    }
+    return wordHtml;
+  }
+
   function pickReflection(list, todayStr) {
     if (!Array.isArray(list) || !list.length) return null;
     var exact = list.find(function (x) { return x && x.date === todayStr; });
@@ -393,12 +425,108 @@
 
   function initSanctificationWidget() {
     var verseNode = document.getElementById('ccDailyVerseNode');
+    var reflectionCard = document.getElementById('ccVerseReflectionCard');
+    var reflectionToggleBtn = document.getElementById('ccReflectionToggleBtn');
+    var reflectionToggleLabel = document.getElementById('ccReflectionToggleLabel');
+    var connIntoReflection = document.getElementById('ccConnectorIntoReflection');
     var mapNode = document.getElementById('ccSanctificationMap');
+    var mapToggleBtn = document.getElementById('ccSanctificationToggleBtn');
+    var mapToggleLabel = document.getElementById('ccSanctificationToggleLabel');
+    var connIntoMap = document.getElementById('ccConnectorIntoMap');
     if (!verseNode || !mapNode) return;
 
     var info = getWarsawNowInfo();
     var state = loadState();
     var activeReflection = null;
+    var isReflectionOpen = false;
+    var isMapOpen = false;
+    var headerCleanup = null;
+    var readyTimer = null;
+
+    function triggerUnfoldAnimation(panel) {
+      if (!panel) return;
+      panel.classList.remove('is-revealed');
+      void panel.offsetWidth;
+      panel.classList.add('is-revealed');
+    }
+
+    function setReflectionOpen(open) {
+      isReflectionOpen = !!open;
+      if (reflectionCard) {
+        reflectionCard.hidden = !isReflectionOpen;
+        if (isReflectionOpen) {
+          triggerUnfoldAnimation(reflectionCard);
+        }
+      }
+      if (connIntoReflection) {
+        connIntoReflection.hidden = !isReflectionOpen;
+      }
+      if (reflectionToggleBtn) {
+        reflectionToggleBtn.setAttribute('aria-expanded', isReflectionOpen ? 'true' : 'false');
+        reflectionToggleBtn.classList.toggle('is-open', isReflectionOpen);
+      }
+      if (reflectionToggleLabel) {
+        reflectionToggleLabel.textContent = isReflectionOpen
+          ? 'Zwiń rozważanie'
+          : 'Odkryj rozważanie i modlitwę';
+      }
+    }
+
+    function setMapOpen(open, shouldScroll) {
+      isMapOpen = !!open;
+      if (mapNode) {
+        mapNode.hidden = !isMapOpen;
+        if (isMapOpen) {
+          triggerUnfoldAnimation(mapNode);
+          if (shouldScroll) {
+            setTimeout(function () {
+              if (mapNode && !mapNode.hidden) {
+                mapNode.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            }, 70);
+          }
+        }
+      }
+      if (connIntoMap) {
+        connIntoMap.hidden = !isMapOpen;
+      }
+      if (mapToggleBtn) {
+        mapToggleBtn.setAttribute('aria-expanded', isMapOpen ? 'true' : 'false');
+        mapToggleBtn.classList.toggle('is-open', isMapOpen);
+      }
+      if (mapToggleLabel) {
+        mapToggleLabel.textContent = isMapOpen
+          ? 'Zwiń ścieżkę uświęcenia'
+          : 'Wejdź na ścieżkę uświęcenia';
+      }
+    }
+
+    if (reflectionToggleBtn) {
+      reflectionToggleBtn.addEventListener('click', function () {
+        setReflectionOpen(!isReflectionOpen);
+      });
+    }
+
+    if (mapToggleBtn) {
+      mapToggleBtn.addEventListener('click', function () {
+        var nextState = !isMapOpen;
+        setMapOpen(nextState, nextState);
+      });
+    }
+
+    if (window.location.hash === '#ccSanctificationMap') {
+      setTimeout(function () { setMapOpen(true, true); }, 180);
+    } else if (window.location.hash === '#ccVerseReflectionCard') {
+      setTimeout(function () { setReflectionOpen(true); }, 180);
+    }
+
+    function updateStreakPill() {
+      var streak = calcStreak(state.checksByDate, info.dateStr);
+      var pill = document.getElementById('ccVerseStreakPill');
+      if (pill) {
+        pill.innerHTML = '<i class="fa-solid fa-fire"></i> Seria: ' + streak + (streak === 1 ? ' dzień' : ' dni');
+      }
+    }
 
     function renderWeekDots(streak) {
       var dayLabels = ['Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb'];
@@ -420,42 +548,46 @@
     }
 
     function renderVerse(reflection) {
+      if (headerCleanup) {
+        headerCleanup();
+        headerCleanup = null;
+      }
+      if (readyTimer) {
+        clearTimeout(readyTimer);
+        readyTimer = null;
+      }
+
       var dayBadge = reflection && reflection.day ? 'Dzień ' + reflection.day : info.dateStr;
       var rawTitle = reflection && reflection.title ? String(reflection.title).replace(/^☀️\s*/, '') : 'Codzienne Rozważanie — Dobrze, że jesteś';
-      var teaser = reflection && (reflection.teaser || reflection.theme)
-        ? String(reflection.teaser || reflection.theme).split(/(?<=[.!?])\s+/).slice(0, 2).join(' ')
-        : 'Otwórz serce na dzisiejsze Słowo Boże i rozpocznij swój kolejny krok uświęcenia.';
       var verse = extractVerseInfo(reflection);
-      var lessonUrl = reflection && reflection.day ? '/akademia/kurscodzienny/dzien-' + reflection.day : '/akademia/kurscodzienny';
-      var savedPrayer = (state.prayersByDate && state.prayersByDate[info.dateStr]) || '';
       var streak = calcStreak(state.checksByDate, info.dateStr);
 
+      verseNode.classList.remove('is-ready');
       verseNode.innerHTML =
-        '<div class="cc-verse-header" id="ccVerseHeader">' +
-          '<div class="cc-verse-node-top">' +
-            '<span class="cc-verse-badge"><i class="fa-solid fa-sun"></i> Werset Dnia · ' + escapeHtml(dayBadge) + '</span>' +
-            '<span class="cc-streak-pill" title="Liczba kolejnych dni aktywności na ścieżce"><i class="fa-solid fa-fire"></i> Seria: ' + streak + (streak === 1 ? ' dzień' : ' dni') + '</span>' +
+        '<div class="cc-verse-motes" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>' +
+        '<div class="cc-verse-inner">' +
+          '<div class="cc-verse-header" id="ccVerseHeader">' +
+            '<div class="cc-verse-node-top">' +
+              '<span class="cc-verse-badge"><i class="fa-solid fa-sun"></i> Werset Dnia · ' + escapeHtml(dayBadge) + '</span>' +
+              '<span class="cc-streak-pill" id="ccVerseStreakPill" title="Liczba kolejnych dni aktywności na ścieżce"><i class="fa-solid fa-fire"></i> Seria: ' + streak + (streak === 1 ? ' dzień' : ' dni') + '</span>' +
+            '</div>' +
+            '<p class="cc-verse-theme-title">' + escapeHtml(rawTitle) + '</p>' +
           '</div>' +
-          '<p class="cc-verse-theme-title">' + escapeHtml(rawTitle) + '</p>' +
-        '</div>' +
-        '<blockquote class="cc-verse-quote">' + escapeHtml(verse.quote) + '</blockquote>' +
-        '<div class="cc-verse-meta-row">' +
-          '<a class="cc-verse-ref-link" href="' + escapeHtml(verse.refUrl) + '"><i class="fa-solid fa-book-bible"></i> ' + escapeHtml(verse.refLabel) + '</a>' +
-        '</div>' +
-        '<p class="cc-verse-teaser">' + escapeHtml(teaser) + '</p>' +
-        '<div class="cc-verse-actions">' +
-          '<button type="button" class="cc-btn-orange" id="ccVerseSpeakBtn"><i class="fa-solid fa-play"></i> Posłuchaj</button>' +
-          '<a class="cc-btn-glass" href="' + escapeHtml(lessonUrl) + '"><i class="fa-solid fa-graduation-cap"></i> Pełna lekcja (' + escapeHtml(dayBadge) + ')</a>' +
-          '<button type="button" class="cc-btn-glass" id="ccVersePrayerToggleBtn"><i class="fa-solid fa-hands-praying"></i> Moja modlitwa na dziś</button>' +
-          '<button type="button" class="cc-btn-glass" id="ccVerseShareBtn"><i class="fa-solid fa-share-nodes"></i> Udostępnij</button>' +
-        '</div>' +
-        '<div class="cc-verse-prayer-box' + (savedPrayer ? ' is-open' : '') + '" id="ccVersePrayerBox">' +
-          '<div class="cc-prayer-input-row">' +
-            '<input type="text" class="cc-prayer-input" id="ccVersePrayerInput" maxlength="240" placeholder="Zapisz jedno zdanie modlitwy lub postanowienia na dziś..." value="' + escapeHtml(savedPrayer) + '">' +
-            '<button type="button" class="cc-btn-glass" id="ccVersePrayerSaveBtn"><i class="fa-solid fa-check"></i> Zapisz u siebie</button>' +
+          '<blockquote class="cc-verse-quote cc-verse-alive">' +
+            '<span class="cc-quote-pillar" aria-hidden="true"><span class="cc-quote-pillar-spark"></span></span>' +
+            formatAnimatedVerseHtml(verse.quote) +
+          '</blockquote>' +
+          '<div class="cc-verse-meta-row">' +
+            '<a class="cc-verse-ref-link" href="' + escapeHtml(verse.refUrl) + '"><i class="fa-solid fa-book-bible"></i> ' + escapeHtml(verse.refLabel) + '</a>' +
           '</div>' +
-          '<div class="cc-prayer-saved-msg" id="ccVersePrayerSavedMsg">' + (savedPrayer ? 'Zapisano na Twoim urządzeniu dla ' + info.dateStr : '') + '</div>' +
         '</div>';
+
+      // Failsafe: po zakończeniu wejścia słowa pozostają w pełni czytelne nawet przy wstrzymaniu animacji
+      readyTimer = setTimeout(function () {
+        if (verseNode) {
+          verseNode.classList.add('is-ready');
+        }
+      }, 2400);
 
       // Zablokuj wysokość okna na wyrenderowanym poziomie, aby okno nie skakało, nie powiększało się i nie zmniejszało
       if (verseNode) {
@@ -474,6 +606,7 @@
       var verseHeaderEl = document.getElementById('ccVerseHeader');
       if (verseHeaderEl) {
         var headerHideTimer = null;
+        var headerObs = null;
         var hasStartedHide = false;
         var scheduleHeaderHide = function () {
           if (hasStartedHide) return;
@@ -486,16 +619,20 @@
           }, 3000);
         };
 
-        // Sprawdź czy karta już jest widoczna w oknie
+        headerCleanup = function () {
+          if (headerHideTimer) clearTimeout(headerHideTimer);
+          if (headerObs) headerObs.disconnect();
+        };
+
         var rect = verseNode.getBoundingClientRect();
         var isInView = rect.top < window.innerHeight && rect.bottom > 0;
         if (isInView) {
           scheduleHeaderHide();
         } else if (typeof IntersectionObserver !== 'undefined') {
-          var headerObs = new IntersectionObserver(function (entries) {
+          headerObs = new IntersectionObserver(function (entries) {
             if (entries[0] && entries[0].isIntersecting) {
               scheduleHeaderHide();
-              headerObs.disconnect();
+              if (headerObs) headerObs.disconnect();
             }
           }, { threshold: 0 });
           headerObs.observe(verseNode);
@@ -503,6 +640,36 @@
           scheduleHeaderHide();
         }
       }
+    }
+
+    function renderReflectionCard(reflection) {
+      if (!reflectionCard) return;
+      var dayBadge = reflection && reflection.day ? 'Dzień ' + reflection.day : info.dateStr;
+      var rawTitle = reflection && reflection.title ? String(reflection.title).replace(/^☀️\s*/, '') : 'Codzienne Rozważanie — Dobrze, że jesteś';
+      var teaser = reflection && (reflection.teaser || reflection.theme)
+        ? String(reflection.teaser || reflection.theme).split(/(?<=[.!?])\s+/).slice(0, 2).join(' ')
+        : 'Otwórz serce na dzisiejsze Słowo Boże i rozpocznij swój kolejny krok uświęcenia.';
+      var verse = extractVerseInfo(reflection);
+      var lessonUrl = reflection && reflection.day ? '/akademia/kurscodzienny/dzien-' + reflection.day : '/akademia/kurscodzienny';
+      var savedPrayer = (state.prayersByDate && state.prayersByDate[info.dateStr]) || '';
+
+      reflectionCard.hidden = !isReflectionOpen;
+      reflectionCard.innerHTML =
+        '<div class="cc-reflection-kicker">Krok 1 · Rozważanie, audio i modlitwa</div>' +
+        '<p class="cc-verse-teaser">' + escapeHtml(teaser) + '</p>' +
+        '<div class="cc-verse-actions">' +
+          '<button type="button" class="cc-btn-orange" id="ccVerseSpeakBtn"><i class="fa-solid fa-play"></i> Posłuchaj</button>' +
+          '<a class="cc-btn-glass" href="' + escapeHtml(lessonUrl) + '"><i class="fa-solid fa-graduation-cap"></i> Pełna lekcja (' + escapeHtml(dayBadge) + ')</a>' +
+          '<button type="button" class="cc-btn-glass" id="ccVersePrayerToggleBtn"><i class="fa-solid fa-hands-praying"></i> Moja modlitwa na dziś</button>' +
+          '<button type="button" class="cc-btn-glass" id="ccVerseShareBtn"><i class="fa-solid fa-share-nodes"></i> Udostępnij</button>' +
+        '</div>' +
+        '<div class="cc-verse-prayer-box' + (savedPrayer ? ' is-open' : '') + '" id="ccVersePrayerBox">' +
+          '<div class="cc-prayer-input-row">' +
+            '<input type="text" class="cc-prayer-input" id="ccVersePrayerInput" maxlength="240" placeholder="Zapisz jedno zdanie modlitwy lub postanowienia na dziś..." value="' + escapeHtml(savedPrayer) + '">' +
+            '<button type="button" class="cc-btn-glass" id="ccVersePrayerSaveBtn"><i class="fa-solid fa-check"></i> Zapisz u siebie</button>' +
+          '</div>' +
+          '<div class="cc-prayer-saved-msg" id="ccVersePrayerSavedMsg">' + (savedPrayer ? 'Zapisano na Twoim urządzeniu dla ' + info.dateStr : '') + '</div>' +
+        '</div>';
 
       var speakBtn = document.getElementById('ccVerseSpeakBtn');
       if (speakBtn) {
@@ -581,6 +748,7 @@
         '</div>';
       }).join('');
 
+      mapNode.hidden = !isMapOpen;
       mapNode.innerHTML =
         '<div class="cc-map-header">' +
           '<div>' +
@@ -617,7 +785,7 @@
           else arr.splice(pos, 1);
           state.checksByDate[info.dateStr] = arr;
           saveState(state);
-          renderVerse(activeReflection);
+          updateStreakPill();
           renderMap(activeReflection);
         });
       });
@@ -625,6 +793,7 @@
 
     // Natychmiastowe renderowanie bazowe, a potem podmiana dynamicznym Wersetem Dnia z /rozwazania_baza.json
     renderVerse(null);
+    renderReflectionCard(null);
     renderMap(null);
 
     fetch('/rozwazania_baza.json', { cache: 'no-cache' })
@@ -633,6 +802,7 @@
         activeReflection = pickReflection(list, info.dateStr);
         if (activeReflection) {
           renderVerse(activeReflection);
+          renderReflectionCard(activeReflection);
           renderMap(activeReflection);
         }
       })

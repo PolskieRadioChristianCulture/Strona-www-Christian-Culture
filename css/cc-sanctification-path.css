@@ -73,7 +73,7 @@
 .cc-sanctification-section {
   position: relative;
   z-index: 4;
-  padding: 36px 16px 56px 16px;
+  padding: 36px 16px 0 16px;
   background: transparent !important;
   overflow-x: clip;
 }
@@ -100,7 +100,7 @@
   align-items: stretch;
 }
 
-/* 3. Interaktywny Werset Dnia (Node 01 na złotej nici) */
+/* 3. Interaktywny Żywy Werset Dnia (Node 01 na złotej nici) */
 .cc-verse-node {
   position: relative;
   background: linear-gradient(155deg, rgba(22, 21, 19, 0.97) 0%, rgba(10, 10, 10, 0.99) 100%);
@@ -112,6 +112,78 @@
   -webkit-backdrop-filter: blur(16px);
   box-sizing: border-box;
   overflow: hidden;
+  isolation: isolate;
+}
+
+.cc-verse-node::before {
+  content: '';
+  position: absolute;
+  inset: -35%;
+  background: radial-gradient(circle at 24% 32%, rgba(212, 169, 74, 0.18) 0%, rgba(212, 169, 74, 0.05) 38%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: ccVerseAuraBreathe 7.5s ease-in-out infinite;
+}
+
+.cc-verse-node::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(242, 212, 133, 0.85) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+  animation: ccVerseTopSheen 8.5s linear infinite;
+}
+
+.cc-verse-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Subtelne złote drobinki światła wędrujące w tle karty wersetu */
+.cc-verse-motes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.cc-verse-motes span {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFF1C2 0%, rgba(232, 201, 122, 0.65) 55%, transparent 100%);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: ccVerseMoteFloat 9s ease-in-out infinite;
+}
+
+.cc-verse-motes span:nth-child(1) { left: 12%; width: 3px; height: 3px; animation-duration: 8.5s; animation-delay: 0s; }
+.cc-verse-motes span:nth-child(2) { left: 31%; width: 4px; height: 4px; animation-duration: 10.5s; animation-delay: 1.8s; }
+.cc-verse-motes span:nth-child(3) { left: 54%; width: 2.5px; height: 2.5px; animation-duration: 7.8s; animation-delay: 3.1s; }
+.cc-verse-motes span:nth-child(4) { left: 74%; width: 3.5px; height: 3.5px; animation-duration: 9.6s; animation-delay: 0.9s; }
+.cc-verse-motes span:nth-child(5) { left: 89%; width: 3px; height: 3px; animation-duration: 11s; animation-delay: 4.2s; }
+
+@keyframes ccVerseAuraBreathe {
+  0%, 100% { opacity: 0.45; transform: scale(1) translate3d(0, 0, 0); }
+  50% { opacity: 0.92; transform: scale(1.06) translate3d(3%, -2%, 0); }
+}
+
+@keyframes ccVerseTopSheen {
+  0% { transform: translateX(-110%); opacity: 0; }
+  15%, 85% { opacity: 0.85; }
+  100% { transform: translateX(220%); opacity: 0; }
+}
+
+@keyframes ccVerseMoteFloat {
+  0% { transform: translate3d(0, 0, 0) scale(0.75); opacity: 0; }
+  18% { opacity: 0.7; }
+  75% { opacity: 0.45; }
+  100% { transform: translate3d(12px, -195px, 0) scale(1.15); opacity: 0; }
 }
 
 .cc-verse-node:hover {
@@ -196,13 +268,111 @@
 }
 
 .cc-verse-quote {
+  position: relative;
   font-family: Georgia, 'Playfair Display', serif;
   font-size: clamp(1.18rem, 2.4vw, 1.66rem);
-  line-height: 1.52;
+  line-height: 1.56;
   color: #FFFFFF;
   margin: 0 0 14px 0;
-  padding-left: 16px;
-  border-left: 3px solid #D4A94A;
+  padding-left: 20px;
+  border-left: none;
+}
+
+.cc-quote-pillar {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(212, 169, 74, 0.25) 0%, #D4A94A 45%, #F2D485 68%, rgba(212, 169, 74, 0.25) 100%);
+  box-shadow: 0 0 12px rgba(212, 169, 74, 0.36);
+  overflow: hidden;
+}
+
+.cc-quote-pillar-spark {
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 5px;
+  height: 36px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, #FFF6D6, #E8C97A, transparent);
+  will-change: transform, opacity;
+  animation: ccPillarSpark 4.8s ease-in-out infinite;
+}
+
+@keyframes ccPillarSpark {
+  0% { transform: translateY(-40px); opacity: 0; }
+  20% { opacity: 0.95; }
+  80% { opacity: 0.95; }
+  100% { transform: translateY(200px); opacity: 0; }
+}
+
+/* Żywa typografia Wersetu Dnia: sekwencyjne wyłonienie słów + złota fala światła */
+.cc-vw {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(9px);
+  will-change: transform, opacity, filter;
+  animation:
+    ccVerseWordIn 760ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--cc-in, 0ms) forwards,
+    ccVerseWordWave 8s ease-in-out calc(1.9s + var(--cc-wave, 0s)) infinite;
+}
+
+.cc-vw-sacred {
+  color: #F2D485;
+  font-weight: 600;
+  text-shadow: 0 0 12px rgba(242, 212, 133, 0.34);
+  animation:
+    ccVerseWordIn 760ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--cc-in, 0ms) forwards,
+    ccVerseSacredGlow 5.5s ease-in-out calc(1.9s + var(--cc-wave, 0s)) infinite;
+}
+
+.cc-verse-citation {
+  display: inline-block;
+  color: #E8C97A;
+  font-size: 0.88em;
+  font-style: italic;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: ccVerseWordIn 760ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--cc-in, 900ms) forwards;
+}
+
+.cc-verse-node.is-ready .cc-vw,
+.cc-verse-node.is-ready .cc-verse-citation {
+  opacity: 1 !important;
+}
+
+@keyframes ccVerseWordIn {
+  0% { opacity: 0; transform: translateY(9px); filter: blur(3px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes ccVerseWordWave {
+  0%, 34%, 100% {
+    color: #FFFFFF;
+    text-shadow: none;
+    transform: translateY(0);
+  }
+  16% {
+    color: #F6DFA0;
+    text-shadow: 0 0 14px rgba(232, 201, 122, 0.44);
+    transform: translateY(-1.5px);
+  }
+}
+
+@keyframes ccVerseSacredGlow {
+  0%, 100% {
+    color: #F2D485;
+    text-shadow: 0 0 10px rgba(242, 212, 133, 0.34);
+    transform: translateY(0);
+  }
+  50% {
+    color: #FFEBB3;
+    text-shadow: 0 0 18px rgba(255, 235, 179, 0.68);
+    transform: translateY(-1px);
+  }
 }
 
 .cc-verse-meta-row {
@@ -210,7 +380,322 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 10px 18px;
-  margin-bottom: 14px;
+  margin-bottom: 0;
+}
+
+/* Złote linie łączące każdy krok Ścieżki Uświęcenia */
+.cc-path-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: -1px auto -1px auto;
+  position: relative;
+  z-index: 6;
+}
+
+.cc-path-connector[hidden] {
+  display: none !important;
+}
+
+.cc-path-line {
+  position: relative;
+  width: 2px;
+  height: 36px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(212, 169, 74, 0.72) 0%, rgba(232, 201, 122, 0.42) 55%, rgba(212, 169, 74, 0.65) 100%);
+  box-shadow: 0 0 10px rgba(212, 169, 74, 0.25);
+  overflow: hidden;
+}
+
+.cc-path-line--short {
+  height: 22px;
+}
+
+.cc-path-line--muted {
+  height: 34px;
+  opacity: 0.75;
+}
+
+.cc-path-spark {
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 4px;
+  height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, #FFF3CC, #E8C97A, transparent);
+  will-change: transform, opacity;
+  animation: ccPathSparkDrop 3.2s ease-in-out infinite;
+}
+
+.cc-path-spark--delayed {
+  animation-delay: 1.4s;
+}
+
+.cc-path-spark--slow {
+  animation-duration: 4.6s;
+  animation-delay: 0.7s;
+}
+
+@keyframes ccPathSparkDrop {
+  0% { transform: translateY(-18px); opacity: 0; }
+  20% { opacity: 0.95; }
+  80% { opacity: 0.95; }
+  100% { transform: translateY(42px); opacity: 0; }
+}
+
+.cc-mandala-ring-hub {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #0f0e0c;
+  border: 1.5px solid #D4A94A;
+  box-shadow: 0 0 12px rgba(212, 169, 74, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px 0;
+}
+
+.cc-mandala-ring-core {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #FFEBB3;
+  animation: ccHubCorePulse 2.8s ease-in-out infinite;
+}
+
+@keyframes ccHubCorePulse {
+  0%, 100% { transform: scale(0.85); opacity: 0.7; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+/* Pulsująca ikona otwierająca rozważanie, audio i modlitwę */
+.cc-path-node-trigger-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 7;
+}
+
+.cc-pulse-icon-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 54px;
+  min-width: 54px;
+  padding: 6px 18px 6px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 169, 74, 0.44);
+  background: linear-gradient(145deg, rgba(22, 21, 18, 0.96) 0%, rgba(11, 11, 10, 0.98) 100%);
+  color: #E8C97A;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.72), 0 0 22px rgba(212, 169, 74, 0.14);
+  transition: border-color 220ms ease, transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 220ms ease, background 220ms ease;
+}
+
+.cc-pulse-icon-trigger:hover {
+  border-color: #F2D485;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.78), 0 0 28px rgba(212, 169, 74, 0.28);
+}
+
+.cc-pulse-icon-trigger.is-open {
+  border-color: #D4A94A;
+  background: linear-gradient(145deg, rgba(212, 169, 74, 0.18) 0%, rgba(16, 15, 13, 0.98) 100%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.68), 0 0 20px rgba(212, 169, 74, 0.22);
+}
+
+.cc-pulse-orb {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(242, 212, 133, 0.28) 0%, rgba(212, 169, 74, 0.12) 65%, rgba(16, 15, 13, 0.9) 100%);
+  border: 1.5px solid rgba(232, 201, 122, 0.72);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #F5DC93;
+  box-shadow: 0 0 16px rgba(212, 169, 74, 0.3);
+}
+
+.cc-pulse-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(232, 201, 122, 0.65);
+  pointer-events: none;
+  animation: ccOrbRingPulse 2.6s ease-out infinite;
+}
+
+.cc-pulse-ring--2 {
+  animation-delay: 1.3s;
+}
+
+.cc-pulse-icon-trigger.is-open .cc-pulse-ring {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes ccOrbRingPulse {
+  0% { transform: scale(0.95); opacity: 0.75; }
+  75% { opacity: 0.15; }
+  100% { transform: scale(1.65); opacity: 0; }
+}
+
+.cc-pulse-icon-caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cc-pulse-icon-label {
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #F2D485;
+}
+
+.cc-pulse-chevron {
+  transition: transform 280ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.cc-pulse-icon-trigger.is-open .cc-pulse-chevron,
+.cc-sanctification-cta-btn.is-open .cc-pulse-chevron {
+  transform: rotate(180deg);
+}
+
+/* Krok 2: Ukryta karta rozważania, audio i modlitwy */
+.cc-reflection-card {
+  background: linear-gradient(160deg, rgba(21, 20, 18, 0.97) 0%, rgba(10, 10, 10, 0.99) 100%);
+  border: 1px solid rgba(212, 169, 74, 0.34);
+  border-radius: 22px;
+  padding: clamp(20px, 3.5vw, 30px);
+  box-shadow: 0 20px 52px rgba(0, 0, 0, 0.82), 0 0 28px rgba(212, 169, 74, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.cc-reflection-card[hidden],
+.cc-map-card[hidden] {
+  display: none !important;
+}
+
+.cc-reflection-kicker {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #E8C97A;
+  margin: 0 0 10px 0;
+}
+
+.cc-step-reveal-panel.is-revealed {
+  animation: ccStepPanelReveal 480ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes ccStepPanelReveal {
+  0% { opacity: 0; transform: translateY(-10px) scale(0.99); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Pulsujący główny przycisk CTA: „Wejdź na ścieżkę uświęcenia” */
+.cc-sanctification-cta-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 13px 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 212, 158, 0.45);
+  background: linear-gradient(135deg, #FF7A00 0%, #FF8C33 100%);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.96rem;
+  cursor: pointer;
+  overflow: visible;
+  box-shadow: 0 10px 30px rgba(255, 122, 0, 0.38);
+  transition: background 220ms ease, border-color 220ms ease, color 220ms ease, transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 220ms ease;
+}
+
+.cc-sanctification-cta-btn:hover {
+  background: linear-gradient(135deg, #FF8C33 0%, #FF9E4F 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(255, 122, 0, 0.48);
+}
+
+.cc-sanctification-cta-btn:active {
+  background: #E66A00;
+  transform: scale(0.98);
+}
+
+.cc-cta-pulse-halo {
+  position: absolute;
+  inset: -3px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 122, 0, 0.65);
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: ccCtaHaloPulse 2.4s ease-out infinite;
+}
+
+@keyframes ccCtaHaloPulse {
+  0% { transform: scale(1); opacity: 0.72; }
+  75% { opacity: 0.16; }
+  100% { transform: scale(1.08, 1.28); opacity: 0; }
+}
+
+.cc-cta-sheen-wrap {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cc-cta-sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 45%;
+  background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.34) 50%, transparent 100%);
+  will-change: transform, opacity;
+  animation: ccCtaSheenSweep 4.2s ease-in-out infinite;
+}
+
+@keyframes ccCtaSheenSweep {
+  0%, 35% { transform: translateX(-140%) skewX(-18deg); opacity: 0; }
+  55% { opacity: 0.9; }
+  100% { transform: translateX(300%) skewX(-18deg); opacity: 0; }
+}
+
+.cc-cta-icon,
+.cc-cta-text,
+.cc-sanctification-cta-btn .cc-pulse-chevron {
+  position: relative;
+  z-index: 2;
+}
+
+.cc-sanctification-cta-btn.is-open {
+  background: linear-gradient(135deg, rgba(212, 169, 74, 0.22), rgba(20, 19, 17, 0.96));
+  border-color: #D4A94A;
+  color: #E8C97A;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+
+.cc-sanctification-cta-btn.is-open .cc-cta-pulse-halo,
+.cc-sanctification-cta-btn.is-open .cc-cta-sheen {
+  animation: none;
+  opacity: 0;
 }
 
 .cc-verse-ref-link {
@@ -347,22 +832,6 @@
   font-size: 0.82rem;
   color: #E8C97A;
   font-weight: 600;
-}
-
-/* Kontynuacja pionowej linii z Wersetu Dnia do Mapy Uświęcenia */
-.cc-mid-connector {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: -1px auto -1px auto;
-  position: relative;
-  z-index: 6;
-}
-
-.cc-mid-line {
-  width: 1px;
-  height: 28px;
-  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.65), rgba(232, 201, 122, 0.25));
 }
 
 /* 4. Inteligentna Mapa / Ścieżka Uświęcenia */
@@ -639,9 +1108,9 @@
   color: #E8C97A;
 }
 
-/* 5. Jeden przycisk "Więcej" ukrywający 9 rozwijanych sekcji */
+/* 5. Jeden przycisk "Odkryj więcej" ukrywający 9 rozwijanych sekcji */
 .cc-more-bar-wrap {
-  padding: 18px 16px 40px 16px;
+  padding: 0 16px 40px 16px;
   text-align: center;
   background: transparent;
 }
@@ -672,7 +1141,7 @@
 .cc-more-subnote {
   margin: 10px auto 0 auto;
   max-width: 62ch;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: rgba(255, 255, 255, 0.56);
 }
 
@@ -684,6 +1153,34 @@
   .cc-mandala-thread {
     height: 48px;
   }
+  .cc-verse-quote {
+    padding-left: 14px;
+    font-size: clamp(1.12rem, 4.6vw, 1.38rem);
+  }
+  .cc-path-line {
+    height: 28px;
+  }
+  .cc-path-line--short {
+    height: 18px;
+  }
+  .cc-pulse-icon-trigger {
+    max-width: calc(100% - 20px);
+    padding: 5px 14px 5px 6px;
+    gap: 9px;
+  }
+  .cc-pulse-icon-label {
+    font-size: 0.82rem;
+    text-align: left;
+    line-height: 1.25;
+  }
+  .cc-sanctification-cta-btn {
+    width: 100%;
+    max-width: 380px;
+    padding: 12px 18px;
+    font-size: 0.9rem;
+    white-space: normal;
+    text-align: center;
+  }
   .cc-verse-actions > *,
   .cc-step-controls > * {
     flex: 1 1 auto;
@@ -691,5 +1188,65 @@
   .cc-more-toggle-btn {
     width: 100%;
     max-width: 400px;
+  }
+}
+
+@media (max-width: 360px) {
+  .cc-sanctification-section {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .cc-sanctification-cta-btn {
+    padding: 12px 14px;
+    gap: 8px;
+    font-size: 0.86rem;
+  }
+}
+
+/* CC v2 Premium: przy prefers-reduced-motion zwalniamy ruch zamiast go zabijać */
+@media (prefers-reduced-motion: reduce) {
+  .cc-verse-node::before {
+    animation-duration: 12s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .cc-verse-node::after {
+    animation-duration: 14s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .cc-verse-motes span {
+    animation-duration: 15s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .cc-quote-pillar-spark {
+    animation-duration: 8s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .cc-vw {
+    animation-duration: 900ms, 13s !important;
+    animation-iteration-count: 1, infinite !important;
+  }
+  .cc-vw-sacred {
+    animation-duration: 900ms, 9s !important;
+    animation-iteration-count: 1, infinite !important;
+  }
+  .cc-path-spark {
+    animation-duration: 5.5s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .cc-mandala-ring-core {
+    animation-duration: 4.8s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .cc-pulse-ring {
+    animation-duration: 4.4s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .cc-cta-pulse-halo {
+    animation-duration: 4.2s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .cc-cta-sheen {
+    animation-duration: 7.2s !important;
+    animation-iteration-count: infinite !important;
   }
 }

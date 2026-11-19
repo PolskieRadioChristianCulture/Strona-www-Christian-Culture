@@ -18,7 +18,13 @@ test('test/uswiecenie/index.html spełnia kontrakt testowej Ścieżki Uświęcen
   assert.match(html, /id="sciezka-uswiecenia"/, 'brak sekcji #sciezka-uswiecenia');
   assert.match(html, /class="cc-mandala-thread"/, 'brak pionowej linii łączącej z Mandali');
   assert.match(html, /id="ccDailyVerseNode"/, 'brak węzła Wersetu Dnia');
-  assert.match(html, /id="ccSanctificationMap"/, 'brak węzła Mapy Uświęcenia');
+  assert.match(html, /id="ccReflectionToggleBtn"/, 'brak pulsującej ikony odkrywającej rozważanie i modlitwę');
+  assert.match(html, /class="cc-reflection-card[^"]*"[^>]*id="ccVerseReflectionCard"\s+hidden/, 'karta rozważania i modlitwy musi być domyślnie ukryta');
+  assert.match(html, /id="ccSanctificationToggleBtn"/, 'brak pulsującego przycisku Wejdź na ścieżkę uświęcenia');
+  assert.ok(html.includes('Wejdź na ścieżkę uświęcenia'), 'przycisk musi mieć napis Wejdź na ścieżkę uświęcenia');
+  assert.match(html, /class="cc-map-card[^"]*"[^>]*id="ccSanctificationMap"\s+hidden/, 'okno Mapy Uświęcenia musi być domyślnie ukryte');
+  assert.match(html, /class="cc-path-connector/, 'brak linii łączących kroki ścieżki');
+  assert.match(html, /v=20261119_gold9/, 'brak zaktualizowanego cache-bustera v=20261119_gold9');
   assert.match(html, /id="ccMoreArchiveToggle"/, 'brak pojedynczego przycisku Więcej');
   assert.match(html, /id="ccMoreSectionsWrapper"\s+hidden/, '9 zakładek musi być ukrytych pod Więcej');
 
@@ -41,11 +47,18 @@ test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynami
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
   assert.match(css, /\.hero-section\s+\.mandala-svg[\s\S]*animation-iteration-count:\s*infinite\s*!important/);
   assert.match(css, /#080808|#0a0a0a/i);
+  assert.match(css, /ccVerseWordWave/, 'brak animacji falowania słów Wersetu Dnia');
+  assert.match(css, /ccOrbRingPulse/, 'brak animacji pulsowania ikony rozważania');
+  assert.match(css, /ccCtaHaloPulse/, 'brak animacji pulsowania przycisku ścieżki');
+  assert.match(css, /ccPathSparkDrop/, 'brak animacji światła na liniach łączących kroki');
 
   const js = fs.readFileSync(jsPath, 'utf8');
   assert.match(js, /fetch\(['"]\/rozwazania_baza\.json['"]/);
   assert.match(js, /Europe\/Warsaw/);
   assert.match(js, /cc_sanctification_state_v1/);
+  assert.match(js, /formatAnimatedVerseHtml/, 'brak funkcji animacji słów Wersetu Dnia');
+  assert.match(js, /renderReflectionCard/, 'brak funkcji renderującej ukryte rozważanie i modlitwę');
+  assert.match(js, /updateStreakPill/, 'brak funkcji aktualizującej serię bez restartu animacji wersetu');
 
   const chatJs = fs.readFileSync(path.join(ROOT, 'components', 'cc-global-chat-button.js'), 'utf8');
   assert.match(chatJs, /#ccGlobalChatOverlay\.cc-chat-home-theme/);

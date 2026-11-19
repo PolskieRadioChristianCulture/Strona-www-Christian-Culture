@@ -40,19 +40,19 @@ html = html.replace(
 html = html.replace(/src="\.\/Aplikacja Christian Culture\.png"/g, 'src="/Aplikacja Christian Culture.png"');
 
 // 4. Dołączenie arkusza stylów cc-sanctification-path.css przed </head>
-const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold8">\n</head>';
+const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold9">\n</head>';
 if (!html.includes('cc-sanctification-path.css')) {
   html = html.replace('</head>', cssTag);
 }
 
-// 5. Wstawienie Czystego Luksusowego Przejścia + Interaktywnego Wersetu Dnia + Mapy Uświęcenia + „Więcej” dla 9 zakładek
+// 5. Wstawienie Czystego Luksusowego Przejścia + Interaktywnego Wersetu Dnia + Pulsującego Rozważania + „Wejdź na ścieżkę uświęcenia” + „Więcej” dla 9 zakładek
 const sectionCMarker = '    <!-- SECTION C: CODZIENNE ROZWAŻANIE (DOBRZE, ŻE JESTEŚ) -->';
 if (!html.includes(sectionCMarker)) {
   throw new Error('Nie znaleziono znacznika SECTION C w index.html');
 }
 
 const sanctificationBlock = `    <!-- ═══════════════════════════════════════════════════════════════
-         NOWA SEKCJA GŁÓWNA: WERSET DNIA -> MAPA UŚWIĘCENIA -> WIĘCEJ
+         NOWA SEKCJA GŁÓWNA: WERSET DNIA -> ROZWAŻANIE -> MAPA UŚWIĘCENIA -> WIĘCEJ
          ═══════════════════════════════════════════════════════════════ -->
     <section class="cc-sanctification-section" id="sciezka-uswiecenia" aria-label="Interaktywny Werset Dnia i Mapa Uświęcenia">
         <div class="cc-mandala-bridge" aria-hidden="true" style="display:none !important;">
@@ -61,12 +61,63 @@ const sanctificationBlock = `    <!-- ══════════════
         </div>
         <div class="cc-sanctification-container">
             <article class="cc-verse-node" id="ccDailyVerseNode" aria-live="polite"></article>
-            <div class="cc-mid-connector" aria-hidden="true">
-                <div class="cc-mid-line"></div>
-                <div class="cc-mandala-ring-hub"><span class="cc-mandala-ring-core"></span></div>
-                <div class="cc-mid-line"></div>
+
+            <div class="cc-path-connector cc-path-connector--top" id="ccConnectorVerseToReflection" aria-hidden="true">
+                <div class="cc-path-line"><span class="cc-path-spark"></span></div>
             </div>
-            <div class="cc-map-card" id="ccSanctificationMap"></div>
+
+            <div class="cc-path-node-trigger-wrap" id="ccReflectionTriggerWrap">
+                <button type="button" class="cc-pulse-icon-trigger" id="ccReflectionToggleBtn" aria-expanded="false" aria-controls="ccVerseReflectionCard" aria-label="Odkryj rozważanie, nagranie audio, pełną lekcję i modlitwę na dziś">
+                    <span class="cc-pulse-orb" aria-hidden="true">
+                        <span class="cc-pulse-ring cc-pulse-ring--1"></span>
+                        <span class="cc-pulse-ring cc-pulse-ring--2"></span>
+                        <svg class="cc-pulse-orb-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/>
+                            <path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/>
+                        </svg>
+                    </span>
+                    <span class="cc-pulse-icon-caption">
+                        <span class="cc-pulse-icon-label" id="ccReflectionToggleLabel">Odkryj rozważanie i modlitwę</span>
+                        <svg class="cc-pulse-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                </button>
+            </div>
+
+            <div class="cc-path-connector cc-path-connector--reveal" id="ccConnectorIntoReflection" aria-hidden="true" hidden>
+                <div class="cc-path-line cc-path-line--short"><span class="cc-path-spark"></span></div>
+                <div class="cc-mandala-ring-hub"><span class="cc-mandala-ring-core"></span></div>
+                <div class="cc-path-line cc-path-line--short"></div>
+            </div>
+
+            <div class="cc-reflection-card cc-step-reveal-panel" id="ccVerseReflectionCard" hidden></div>
+
+            <div class="cc-path-connector" id="ccConnectorToSanctificationBtn" aria-hidden="true">
+                <div class="cc-path-line"><span class="cc-path-spark cc-path-spark--delayed"></span></div>
+            </div>
+
+            <div class="cc-path-node-trigger-wrap cc-path-cta-wrap" id="ccSanctificationTriggerWrap">
+                <button type="button" class="cc-sanctification-cta-btn" id="ccSanctificationToggleBtn" aria-expanded="false" aria-controls="ccSanctificationMap">
+                    <span class="cc-cta-pulse-halo" aria-hidden="true"></span>
+                    <span class="cc-cta-sheen-wrap" aria-hidden="true"><span class="cc-cta-sheen"></span></span>
+                    <svg class="cc-cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/>
+                        <path d="M19 16l.9 2.1L22 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9L19 16z"/>
+                    </svg>
+                    <span class="cc-cta-text" id="ccSanctificationToggleLabel">Wejdź na ścieżkę uświęcenia</span>
+                    <svg class="cc-pulse-chevron" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+            </div>
+
+            <div class="cc-path-connector cc-path-connector--reveal" id="ccConnectorIntoMap" aria-hidden="true" hidden>
+                <div class="cc-path-line cc-path-line--short"><span class="cc-path-spark"></span></div>
+                <div class="cc-mandala-ring-hub"><span class="cc-mandala-ring-core"></span></div>
+                <div class="cc-path-line cc-path-line--short"></div>
+            </div>
+
+            <div class="cc-map-card cc-step-reveal-panel" id="ccSanctificationMap" hidden></div>
+        </div>
+        <div class="cc-path-connector cc-path-connector--to-more" id="ccConnectorToMore" aria-hidden="true">
+            <div class="cc-path-line cc-path-line--muted"><span class="cc-path-spark cc-path-spark--slow"></span></div>
         </div>
     </section>
 
@@ -93,7 +144,7 @@ if (html.includes(footerMarker)) {
 }
 
 // 6. Podpięcie logiki przed </body>
-const jsTag = '    <script src="/js/cc-sanctification-path.js?v=20261119_gold8" defer></script>\n</body>';
+const jsTag = '    <script src="/js/cc-sanctification-path.js?v=20261119_gold9" defer></script>\n</body>';
 if (!html.includes('cc-sanctification-path.js')) {
   html = html.replace('</body>', jsTag);
 }
