@@ -47,6 +47,7 @@
 
   // 2. LOGIKA JĘZYKA (PL | EN)
   function getCurrentLang() {
+    if (window.CCHomeLanguage) return window.CCHomeLanguage.get();
     try {
       var choice = localStorage.getItem(STORAGE_KEY);
       if (choice === 'en' || choice === 'pl') return choice;
@@ -57,6 +58,10 @@
 
   function setLanguage(lang) {
     if (lang !== 'pl' && lang !== 'en') return;
+    if (window.CCHomeLanguage) {
+      window.CCHomeLanguage.choose(lang);
+      return;
+    }
     try {
       localStorage.setItem(STORAGE_KEY, lang);
       localStorage.setItem('lumina_lang', lang);
@@ -187,6 +192,7 @@
   function updateSwitcherButtons(lang) {
     document.querySelectorAll('.cc-lang-pill-btn').forEach(function (btn) {
       var target = btn.getAttribute('data-lang');
+      btn.setAttribute('aria-pressed', target === lang ? 'true' : 'false');
       if (target === lang) {
         btn.style.background = '#d4af37';
         btn.style.color = '#0a0a0f';
@@ -234,6 +240,11 @@
     renderLanguageSwitchers();
 
     var current = getCurrentLang();
+    if (window.CCHomeLanguage) {
+      document.documentElement.lang = current;
+      document.querySelectorAll('.cc-lang-pill-btn').forEach(function (button) { button.style.minHeight = '44px'; });
+      updateSwitcherButtons(current);
+    }
     if (current === 'en') {
       applyTranslations('en');
     }
