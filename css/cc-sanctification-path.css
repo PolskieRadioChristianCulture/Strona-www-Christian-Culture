@@ -107,6 +107,12 @@
   box-shadow: 0 20px 55px rgba(0, 0, 0, 0.82), 0 0 36px rgba(212, 169, 74, 0.08);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.cc-verse-node:hover {
+  transform: none !important;
 }
 
 .cc-verse-header {
@@ -128,6 +134,18 @@
   pointer-events: none !important;
   visibility: hidden;
   transition: opacity 0.55s ease, max-height 0.65s cubic-bezier(0.16, 1, 0.3, 1), margin-bottom 0.55s ease, transform 0.55s ease, visibility 0s 0.65s !important;
+}
+
+/* Kategoryczny zakaz przywracania schowanego nagłówka po najechaniu kursorem — okno nie skacze */
+.cc-verse-node:hover .cc-verse-header.is-hidden,
+.cc-verse-header.is-hidden:hover {
+  opacity: 0 !important;
+  max-height: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  transform: translateY(-8px) !important;
 }
 
 .cc-verse-node-top {

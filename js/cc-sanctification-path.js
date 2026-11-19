@@ -457,6 +457,19 @@
           '<div class="cc-prayer-saved-msg" id="ccVersePrayerSavedMsg">' + (savedPrayer ? 'Zapisano na Twoim urządzeniu dla ' + info.dateStr : '') + '</div>' +
         '</div>';
 
+      // Zablokuj wysokość okna na wyrenderowanym poziomie, aby okno nie skakało, nie powiększało się i nie zmniejszało
+      if (verseNode) {
+        verseNode.style.minHeight = '';
+        requestAnimationFrame(function () {
+          if (verseNode) {
+            var h = verseNode.offsetHeight;
+            if (h > 0) {
+              verseNode.style.minHeight = h + 'px';
+            }
+          }
+        });
+      }
+
       // Automatyczne płynne zwijanie nagłówka po 3 sekundach obecności w polu widzenia
       var verseHeaderEl = document.getElementById('ccVerseHeader');
       if (verseHeaderEl) {
