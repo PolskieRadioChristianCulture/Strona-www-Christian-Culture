@@ -632,6 +632,65 @@
         display: none !important;
       }
 
+      /* ── MOTYW STRONY GŁÓWNEJ CC (obsydian + szampańskie złoto #D4A94A + #FF7A00) ── */
+      .cc-chat-fab-gold-icon {
+        display: none !important;
+        width: 24px !important;
+        height: 24px !important;
+        color: #E8C97A !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .cc-chat-home-theme .cc-chat-fab-btn {
+        background: radial-gradient(circle at 30% 28%, #1d2233 0%, #07090f 88%) !important;
+        border: 1.5px solid rgba(212, 169, 74, 0.72) !important;
+        filter: drop-shadow(0 8px 20px rgba(212, 169, 74, 0.35)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.7)) !important;
+      }
+      .cc-chat-home-theme .cc-chat-fab-btn:hover {
+        border-color: #FF7A00 !important;
+        filter: drop-shadow(0 10px 26px rgba(255, 122, 0, 0.42)) drop-shadow(0 4px 14px rgba(212, 169, 74, 0.45)) !important;
+      }
+      .cc-chat-home-theme .cc-chat-fab-btn picture {
+        display: none !important;
+      }
+      .cc-chat-home-theme .cc-chat-fab-gold-icon {
+        display: inline-flex !important;
+      }
+      .cc-chat-home-theme.cc-chat-drawer-overlay {
+        --lumi-bg-main: #07090F;
+        --lumi-bg-panel: #0E111B;
+        --lumi-card-surface: #151926;
+        --lumi-accent: #D4A94A;
+        --lumi-accent-light: #E8C97A;
+        --lumi-border: rgba(212, 169, 74, 0.32);
+      }
+      .cc-chat-home-theme .cc-chat-drawer {
+        background: #080A11 !important;
+        border: 1px solid rgba(212, 169, 74, 0.42) !important;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.92), 0 0 36px rgba(212, 169, 74, 0.16), inset 0 1px 0 rgba(232, 201, 122, 0.16) !important;
+      }
+      .cc-chat-home-theme .cc-chat-header,
+      .cc-chat-home-theme .cc-chat-tabs,
+      .cc-chat-home-theme .cc-chat-mode-switcher,
+      .cc-chat-home-theme .cc-asst-picker-strip {
+        background: #0D1019 !important;
+        border-color: rgba(212, 169, 74, 0.25) !important;
+      }
+      .cc-chat-home-theme .cc-chat-mode-btn.is-active,
+      .cc-chat-home-theme .cc-chat-tab.is-active {
+        background: linear-gradient(135deg, rgba(212, 169, 74, 0.22), rgba(255, 122, 0, 0.14)) !important;
+        border-color: #D4A94A !important;
+        color: #FFFFFF !important;
+      }
+      .cc-chat-home-theme .cc-asst-pick-btn.is-active {
+        border-color: #D4A94A !important;
+        background: rgba(212, 169, 74, 0.14) !important;
+      }
+      .cc-chat-home-theme .cc-chat-msg-row.is-me .cc-chat-msg-bubble {
+        background: linear-gradient(135deg, rgba(212, 169, 74, 0.22), rgba(255, 122, 0, 0.18)) !important;
+        border-color: rgba(212, 169, 74, 0.45) !important;
+      }
+
       /* ── DYMEK ZACZEPKA: ROTACJA ASYSTENTEK (ADAPTACYJNY DO KOLORÓW STRONY) ── */
       .cc-chat-teaser-bubble {
         position: absolute !important;
@@ -2254,16 +2313,26 @@
     };
   }
 
+  function isHomepageSurface() {
+    try {
+      const p = String((window.location && window.location.pathname) || '').toLowerCase();
+      return p === '/' || p === '/index.html' || /^\/test\/uswiecenie\/?(?:index\.html)?$/.test(p);
+    } catch (_) {
+      return false;
+    }
+  }
+
   // 5. Montowanie struktury HTML przycisku i okna czatu
   function mountComponent() {
     if (document.getElementById('ccGlobalChatOverlay')) return;
+    const useHomeTheme = isHomepageSurface();
 
     // Przycisk FAB
     let fabWrap = document.getElementById('ccGlobalChatFab');
     if (!fabWrap) {
       fabWrap = document.createElement('div');
       fabWrap.id = 'ccGlobalChatFab';
-      fabWrap.className = 'cc-chat-fab-wrap';
+      fabWrap.className = 'cc-chat-fab-wrap' + (useHomeTheme ? ' cc-chat-home-theme' : '');
       fabWrap.setAttribute('role', 'region');
       fabWrap.setAttribute('aria-label', 'LUMI Messenger');
 
@@ -2289,6 +2358,9 @@
             <source srcset="/images/chat/cc-chat-button.webp" type="image/webp">
             <img src="/images/chat/cc-chat-button.png" alt="LUMI Messenger" class="cc-chat-fab-img" width="48" height="48" loading="eager" decoding="sync">
           </picture>
+          <span class="cc-chat-fab-gold-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </span>
           <span class="cc-chat-fab-badge" aria-hidden="true"></span>
         </button>
       `;
@@ -2298,7 +2370,7 @@
     // Okno czatu LUMI MESSENGER PREMIUM UI 2.0
     const overlay = document.createElement('div');
     overlay.id = 'ccGlobalChatOverlay';
-    overlay.className = 'cc-chat-drawer-overlay';
+    overlay.className = 'cc-chat-drawer-overlay' + (useHomeTheme ? ' cc-chat-home-theme' : '');
     overlay.setAttribute('aria-hidden', 'true');
 
     overlay.innerHTML = `
@@ -2856,14 +2928,74 @@
       }).join('');
     }
 
+    let ccDailyVerseData = null;
+    let ccDailyVerseLoading = false;
+
+    function buildVerseGreetingForAssistant(asst, daily) {
+      if (!daily || (!daily.verse && !daily.reading && !daily.title)) return asst.greeting;
+      const reading = daily.reading ? ` (${daily.reading})` : '';
+      const rawVerse = String(daily.verse || '').replace(/\s+/g, ' ').trim();
+      const shortVerse = rawVerse.length > 76 ? rawVerse.slice(0, 73).trim() + '…' : rawVerse;
+      const key = String(asst.shortName || asst.id || '').toLowerCase();
+      if (key.includes('lea')) {
+        return `Werset Dnia${reading}: ${shortVerse || daily.title} — zaplanujmy 10 minut w Kursie Codziennym!`;
+      }
+      if (key.includes('noemi')) {
+        return `Słowo na dziś${reading}: ${shortVerse || daily.title} — zamieńmy ten werset w modlitwę.`;
+      }
+      if (key.includes('miriam')) {
+        return `Chwała Panu! Werset Dnia${reading}: ${shortVerse || daily.title} — posłuchaj Psalmów 24/7.`;
+      }
+      return `Dzień ${daily.day || ''}${reading}: ${shortVerse || daily.title} — o czym dziś porozmawiamy?`.trim();
+    }
+
+    function loadDailyVerseForWelcome() {
+      if (ccDailyVerseData || ccDailyVerseLoading || typeof fetch !== 'function') return;
+      ccDailyVerseLoading = true;
+      fetch('/api/lumi-chat?daily=1')
+        .then(r => (r && r.ok) ? r.json() : null)
+        .then(data => {
+          if (data && data.ok && data.dialogue) {
+            ccDailyVerseData = data.dialogue;
+            refreshAssistantUI(getActiveAssistant());
+            return;
+          }
+          throw new Error('fallback');
+        })
+        .catch(() => {
+          fetch('/rozwazania_baza.json')
+            .then(r => (r && r.ok) ? r.json() : null)
+            .then(list => {
+              if (!Array.isArray(list) || !list.length) return;
+              let today = new Date().toISOString().slice(0, 10);
+              try {
+                today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+              } catch (_) {}
+              const item = list.find(x => x && x.date === today) || list.filter(x => x && x.date).sort((a, b) => String(b.date).localeCompare(String(a.date)))[0] || list[0];
+              if (item) {
+                ccDailyVerseData = {
+                  day: item.day || '',
+                  title: item.title || '',
+                  reading: item.reading || '',
+                  verse: item.memoryVerse || ''
+                };
+                refreshAssistantUI(getActiveAssistant());
+              }
+            })
+            .catch(() => {});
+        });
+    }
+
     function refreshAssistantUI(asst) {
       activeAssistant = asst;
+      loadDailyVerseForWelcome();
+      const dynamicGreeting = buildVerseGreetingForAssistant(asst, ccDailyVerseData);
       if (teaserAvatar) {
         teaserAvatar.src = asst.avatar;
         teaserAvatar.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
       }
       if (teaserName) teaserName.textContent = asst.name;
-      if (teaserMsg) teaserMsg.textContent = asst.greeting;
+      if (teaserMsg) teaserMsg.textContent = dynamicGreeting;
 
       const activeAvatar = document.getElementById('ccChatActiveAsstAvatar');
       const activeName = document.getElementById('ccChatActiveAsstName');
@@ -2879,7 +3011,7 @@
       if (activeName) activeName.textContent = asst.shortName || asst.name.split(' ')[0];
       if (activeRole) activeRole.textContent = `· ${asst.role || 'Asystentka CC'}`;
       if (welcomeBody) welcomeBody.textContent = `Nazywam się ${asst.shortName || asst.name} – jestem Asystentką Christian Culture i gospodynią LUMI MESS.`;
-      if (welcomeHelp && asst.greeting) welcomeHelp.textContent = asst.greeting;
+      if (welcomeHelp) welcomeHelp.textContent = dynamicGreeting;
       if (headerSub && chatMode === 'assistant') {
         headerSub.textContent = `Asystentka CC: ${asst.shortName || asst.name}`;
       }
@@ -3135,7 +3267,17 @@
 
     function applyTeaserPageTheme(el) {
       if (!el) return;
-      const pal = detectPageThemePalette();
+      const pal = useHomeTheme ? {
+        bg: 'linear-gradient(145deg, rgba(16, 19, 30, 0.97), rgba(7, 9, 15, 0.98))',
+        border: 'rgba(212, 169, 74, 0.48)',
+        shadow: '0 16px 40px rgba(0, 0, 0, 0.78), 0 0 22px rgba(212, 169, 74, 0.20)',
+        text: '#F7F8FC',
+        muted: '#D1C7B2',
+        cta: '#E8C97A',
+        ring: '#D4A94A',
+        avatarBg: '#10131E',
+        badgeBorder: '#07090F'
+      } : detectPageThemePalette();
       el.style.setProperty('--cc-teaser-bg', pal.bg);
       el.style.setProperty('--cc-teaser-border', pal.border);
       el.style.setProperty('--cc-teaser-shadow', pal.shadow);

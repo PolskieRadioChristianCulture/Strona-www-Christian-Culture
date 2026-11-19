@@ -91,9 +91,9 @@ ${GA}
 <script src="/js/cc-mobile-edge.js?v=20261110_edge12" defer></script>
 <script src="/js/cc-edge-plus.js?v=20261110_edgep2" defer></script>
 <script src="/components/cc-omni-search.js?v=20261030_feat11" defer></script>
-<script src="/components/cc-global-chat-button.js?v=20261118_miriam7" defer></script>
+<script src="/components/cc-global-chat-button.js?v=20261119_gold1" defer></script>
 <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
-<script src="/components/cc-support-footer.js?v=20261118_miriam7" defer></script>
+<script src="/components/cc-support-footer.js?v=20261119_gold1" defer></script>
 <script src="/js/cc-eco-bars.js?v=${V}" defer></script>
 <script src="/wizytowki/wz.js?v=${V}" defer></script>`;
 }

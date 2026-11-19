@@ -175,6 +175,7 @@ export function buildDailyDialogue(reflection) {
     date: reflection.date || '',
     title,
     reading,
+    verse: verse || `„Słowo Twoje jest pochodnią nogom moim i światłością na ścieżce mojej.” (Ps 119:105, UBG)`,
     lessonUrl: day ? `/akademia/kurscodzienny/dzien-${day}` : '/akademia/kurscodzienny',
     sessions: ['09:00', '19:00'],
     stepSeconds: 18,
