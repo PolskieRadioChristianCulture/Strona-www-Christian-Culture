@@ -73,9 +73,26 @@
 
       // Sample only the right-hand action lane.
       // Dolna belka odtwarzacza (#radioPlayerBar) integruje przycisk na swojej wysokości (polecenie L0).
+      var alignedToPlay = false;
+      var playBtn = typeof document.querySelector === 'function'
+        ? document.querySelector('#radioPlayerBar #playBtn, .radio-player-bar .play-btn')
+        : null;
+      if (playBtn && typeof playBtn.getBoundingClientRect === 'function') {
+        var pcs = window.getComputedStyle ? window.getComputedStyle(playBtn) : {};
+        var playRect = playBtn.getBoundingClientRect();
+        if (pcs.display !== 'none' && pcs.visibility !== 'hidden' && playRect.width > 0 && playRect.height > 0 && playRect.top < height && playRect.bottom > 0) {
+          var bcs = window.getComputedStyle ? window.getComputedStyle(button) : {};
+          var btnH = parseFloat(bcs.height);
+          if (!btnH || isNaN(btnH)) btnH = button.offsetHeight || parseFloat(bcs.minHeight) || 48;
+          var playCenterY = playRect.top + playRect.height / 2;
+          bottom = Math.max(8, Math.round(height - playCenterY - btnH / 2));
+          alignedToPlay = true;
+        }
+      }
+
       var luminaActions = document.querySelector && document.querySelector('#luminaThemeSwitchBtn');
       if (visible && !luminaActions && document.elementsFromPoint) {
-        for (var pass = 0; pass < 12; pass++) {
+        for (var pass = 0; !alignedToPlay && pass < 12; pass++) {
           var previous = bottom;
           [right - 24, right - 2].forEach(function (x) {
             [height - bottom - 2, height - bottom - 24, height - bottom - 46].forEach(function (y) {
@@ -113,10 +130,12 @@
     }
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule, { passive: true });
+    window.addEventListener('load', schedule);
     document.addEventListener('click', schedule, { passive: true });
     document.addEventListener('fullscreenchange', schedule);
     document.addEventListener('transitionend', schedule, { passive: true });
     if (window.visualViewport) window.visualViewport.addEventListener('resize', schedule, { passive: true });
+    if (typeof setTimeout === 'function') setTimeout(schedule, 300);
     update();
   }
 

@@ -340,8 +340,8 @@
       wrap.hidden = !open;
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       btn.innerHTML = open
-        ? '<i class="fa-solid fa-chevron-up"></i> Zwiń dodatkowe sekcje CC (9)'
-        : '<i class="fa-solid fa-layer-group"></i> Więcej zasobów i informacji CC (9)';
+        ? '<i class="fa-solid fa-chevron-up"></i> Zwiń'
+        : '<i class="fa-solid fa-layer-group"></i> Odkryj więcej';
     }
 
     btn.addEventListener('click', function () {

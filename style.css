@@ -387,14 +387,14 @@ button {
     color: var(--gold-primary) !important;
 }
 
-/* Przełącznik języka (PL | EN) — dopasowany rozmiar i wysokość (38px) do przycisku logowania */
+/* Przełącznik języka (PL | EN) — identyczny rozmiar i wykończenie jak pigułka logowania */
 .cc-header-lang-switcher,
 [data-cc-lang-switcher] {
     display: inline-flex !important;
     align-items: center !important;
-    height: 38px !important;
-    min-height: 38px !important;
-    max-height: 38px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    max-height: 36px !important;
     box-sizing: border-box !important;
     margin-right: 4px !important;
 }
@@ -403,16 +403,18 @@ button {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    height: 38px !important;
-    min-height: 38px !important;
-    max-height: 38px !important;
+    width: 111px !important;
+    min-width: 111px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    max-height: 36px !important;
     box-sizing: border-box !important;
-    background: linear-gradient(165deg, rgba(18, 18, 20, 0.98) 0%, rgba(8, 8, 10, 0.99) 100%) !important;
-    border: 1.5px solid rgba(212, 175, 55, 0.35) !important;
-    border-radius: 24px !important;
-    padding: 2px 3px !important;
+    background: linear-gradient(165deg, rgba(16, 16, 18, 0.98) 0%, rgba(9, 9, 11, 0.99) 100%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.25) !important;
+    border-radius: 9999px !important;
+    padding: 3px !important;
     gap: 2px !important;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 14px rgba(212, 175, 55, 0.12) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), 0 0 10px rgba(212, 175, 55, 0.10), inset 0 1px 1px rgba(255, 235, 170, 0.18) !important;
     backdrop-filter: blur(28px) !important;
     -webkit-backdrop-filter: blur(28px) !important;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -420,29 +422,50 @@ button {
 }
 
 .cc-lang-toggle:hover {
-    border-color: #d4af37 !important;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.65), 0 0 20px rgba(212, 175, 55, 0.3) !important;
+    border-color: rgba(212, 175, 55, 0.45) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65), 0 0 16px rgba(212, 175, 55, 0.20), inset 0 1px 1px rgba(255, 235, 170, 0.25) !important;
 }
 
 .cc-lang-pill-btn {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    min-width: 36px !important;
-    height: 30px !important;
-    min-height: 30px !important;
-    max-height: 30px !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    max-height: 28px !important;
     padding: 0 8px !important;
-    border-radius: 18px !important;
+    border-radius: 9999px !important;
     border: none !important;
     font-size: 11.5px !important;
     font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
+    letter-spacing: 0.4px !important;
     cursor: pointer !important;
     box-sizing: border-box !important;
     transition: all 0.2s ease !important;
     user-select: none !important;
     line-height: 1 !important;
+}
+
+@media (max-width: 768px) {
+    .cc-header-lang-switcher,
+    [data-cc-lang-switcher],
+    .cc-lang-toggle {
+        height: 38px !important;
+        min-height: 38px !important;
+        max-height: 38px !important;
+        width: auto !important;
+        min-width: 78px !important;
+    }
+
+    .cc-lang-pill-btn {
+        height: 30px !important;
+        min-height: 30px !important;
+        max-height: 30px !important;
+        min-width: 34px !important;
+        padding: 0 8px !important;
+    }
 }
 
 .cc-lang-pill-btn[aria-pressed="true"] {
@@ -870,6 +893,14 @@ button {
     color: var(--bg-deep-black);
     transform: translateY(-3px);
     box-shadow: 0 8px 30px rgba(212, 169, 74, 0.25);
+}
+
+.hero-buttons .btn,
+#heroRadioBtn,
+#heroTvBtn {
+    border-radius: 999px;
+    padding-left: 2.1rem;
+    padding-right: 2.1rem;
 }
 
 .btn-block {
@@ -2474,9 +2505,9 @@ button {
 .back-to-top {
     position: fixed;
     right: 1.5rem;
-    bottom: max(16px, env(safe-area-inset-bottom, 16px)); /* Zintegrowany na dolnej belce */
-    width: 44px;
-    height: 44px;
+    bottom: max(26px, env(safe-area-inset-bottom, 26px)); /* Wyrównany do osi pionowej #playBtn na dolnej belce */
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     background: rgba(18, 18, 18, 0.94);
     border: 1.5px solid var(--gold-primary);
@@ -3481,11 +3512,15 @@ html {
         padding: 0.4rem 1rem !important;
     }
     .player-container {
-        grid-template-columns: 210px 1fr 180px !important;
+        grid-template-columns: 210px 1fr auto !important;
         grid-template-rows: 1fr !important;
         gap: 0.75rem !important;
-        padding: 0 1rem !important;
+        padding: 0 76px 0 1rem !important;
         align-items: center !important;
+    }
+    .volume-container {
+        max-width: 110px !important;
+        min-width: 80px !important;
     }
     .player-left {
         grid-column: 1 !important;
@@ -3539,6 +3574,12 @@ html {
         max-width: 580px !important;
         margin: 0 auto !important;
         width: 100% !important;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1520px) {
+    .player-container {
+        padding-right: 88px;
     }
 }
 

@@ -46,10 +46,10 @@
             align-items: center;
             gap: 8px;
             background: linear-gradient(165deg, rgba(18, 18, 20, 0.98) 0%, rgba(8, 8, 10, 0.99) 100%);
-            border: 1.5px solid rgba(212, 175, 55, 0.35);
+            border: 1px solid rgba(212, 175, 55, 0.25);
             color: #ffffff;
-            padding: 6px 14px 6px 10px;
-            border-radius: 24px;
+            padding: 0 14px 0 10px;
+            border-radius: 9999px;
             font-size: 0.82rem;
             font-weight: 700;
             cursor: pointer;
@@ -60,7 +60,9 @@
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             user-select: none;
             white-space: nowrap;
-            min-height: 38px;
+            min-height: 36px;
+            height: 36px;
+            box-sizing: border-box;
         }
 
         .cc-auth-google-btn:hover {
@@ -335,6 +337,10 @@
         }
 
         @media (max-width: 768px) {
+            .cc-auth-google-btn {
+                min-height: 38px;
+                height: 38px;
+            }
             .cc-auth-google-btn span.cc-auth-btn-text-full {
                 display: none;
             }

@@ -40,7 +40,7 @@ html = html.replace(
 html = html.replace(/src="\.\/Aplikacja Christian Culture\.png"/g, 'src="/Aplikacja Christian Culture.png"');
 
 // 4. Dołączenie arkusza stylów cc-sanctification-path.css przed </head>
-const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold7">\n</head>';
+const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold8">\n</head>';
 if (!html.includes('cc-sanctification-path.css')) {
   html = html.replace('</head>', cssTag);
 }
@@ -72,7 +72,7 @@ const sanctificationBlock = `    <!-- ══════════════
 
     <div class="cc-more-bar-wrap">
         <button type="button" class="cc-more-toggle-btn" id="ccMoreArchiveToggle" aria-expanded="false" aria-controls="ccMoreSectionsWrapper">
-            <i class="fa-solid fa-layer-group"></i> Więcej zasobów i informacji CC (9)
+            <i class="fa-solid fa-layer-group"></i> Odkryj więcej
         </button>
         <p class="cc-more-subnote">Codzienne rozważania, aplikacje mobilne, książki, sieć YouTube &amp; Spotify, nadawanie 24/7, wsparcie misji, opinie, Q&amp;A oraz kontakt.</p>
     </div>
@@ -93,7 +93,7 @@ if (html.includes(footerMarker)) {
 }
 
 // 6. Podpięcie logiki przed </body>
-const jsTag = '    <script src="/js/cc-sanctification-path.js?v=20261119_gold7" defer></script>\n</body>';
+const jsTag = '    <script src="/js/cc-sanctification-path.js?v=20261119_gold8" defer></script>\n</body>';
 if (!html.includes('cc-sanctification-path.js')) {
   html = html.replace('</body>', jsTag);
 }

@@ -61,9 +61,12 @@
   }
 }
 
-/* Ulepszenie dotyku przycisków Hero RADIO / TELEWIZJA */
-.hero-buttons .btn {
+/* Ulepszenie dotyku i pełne zaokrąglenie przycisków Hero RADIO / TELEWIZJA */
+.hero-buttons .btn,
+#heroRadioBtn,
+#heroTvBtn {
   min-height: 52px;
+  border-radius: 999px !important;
 }
 
 /* 2. Czyste, luksusowe przejście architektoniczne do sekcji Werset Dnia */
