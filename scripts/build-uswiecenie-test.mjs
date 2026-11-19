@@ -40,7 +40,7 @@ html = html.replace(
 html = html.replace(/src="\.\/Aplikacja Christian Culture\.png"/g, 'src="/Aplikacja Christian Culture.png"');
 
 // 4. Dołączenie arkusza stylów cc-sanctification-path.css przed </head>
-const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold2">\n</head>';
+const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold3">\n</head>';
 if (!html.includes('cc-sanctification-path.css')) {
   html = html.replace('</head>', cssTag);
 }
@@ -56,8 +56,8 @@ const sanctificationBlock = `    <!-- ══════════════
          ═══════════════════════════════════════════════════════════════ -->
     <section class="cc-sanctification-section" id="sciezka-uswiecenia" aria-label="Interaktywny Werset Dnia i Mapa Uświęcenia">
         <div class="cc-mandala-bridge" aria-hidden="true">
-            <div class="cc-mandala-ring-hub"><span class="cc-mandala-ring-core"></span></div>
             <div class="cc-mandala-thread"><span class="cc-thread-spark"></span></div>
+            <div class="cc-mandala-ring-hub"><span class="cc-mandala-ring-core"></span></div>
         </div>
         <div class="cc-sanctification-container">
             <article class="cc-verse-node" id="ccDailyVerseNode" aria-live="polite"></article>
@@ -93,7 +93,7 @@ if (html.includes(footerMarker)) {
 }
 
 // 6. Podpięcie logiki przed </body>
-const jsTag = '    <script src="/js/cc-sanctification-path.js?v=20261119_gold2" defer></script>\n</body>';
+const jsTag = '    <script src="/js/cc-sanctification-path.js?v=20261119_gold3" defer></script>\n</body>';
 if (!html.includes('cc-sanctification-path.js')) {
   html = html.replace('</body>', jsTag);
 }

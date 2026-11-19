@@ -7,12 +7,20 @@
 .hero-section {
   position: relative;
   overflow: visible !important;
-  padding-bottom: 18px !important;
+  padding-bottom: 28px !important;
+  background: transparent !important;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 5;
 }
 
 .mandala-bg-container {
-  opacity: 0.44 !important;
+  opacity: 0.42 !important;
   will-change: transform;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 46%, transparent 74%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 46%, transparent 74%);
 }
 
 .hero-section .mandala-svg {
@@ -31,10 +39,10 @@
 }
 
 @keyframes ccThreadPulse {
-  0%   { transform: translateY(-24px); opacity: 0; }
-  20%  { opacity: 1; }
-  80%  { opacity: 1; }
-  100% { transform: translateY(112px); opacity: 0; }
+  0%   { transform: translateY(-20px); opacity: 0; }
+  25%  { opacity: 0.85; }
+  75%  { opacity: 0.85; }
+  100% { transform: translateY(72px); opacity: 0; }
 }
 
 /* Szanujemy reduced-motion: zwalniamy ruch ~2x, NIGDY go nie wyłączamy (CC Full Premium 2.0) */
@@ -58,12 +66,12 @@
   min-height: 52px;
 }
 
-/* 2. Pionowa świetlista linia prowadząca z okręgu Mandali pod przyciskami RADIO / TELEWIZJA */
+/* 2. Subtelna architektoniczna linia światła wychodząca płynnie spod osi Mandali Hero */
 .cc-sanctification-section {
   position: relative;
-  z-index: 12;
-  padding: 0 16px 56px 16px;
-  background: linear-gradient(180deg, transparent 0%, rgba(10, 10, 10, 0.94) 72px, #080808 100%);
+  z-index: 4;
+  padding: 6px 16px 56px 16px;
+  background: transparent !important;
   overflow-x: clip;
 }
 
@@ -72,48 +80,50 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -48px;
-  margin-bottom: 12px;
+  margin-top: 4px;
+  margin-bottom: -5px;
   pointer-events: none;
+  z-index: 6;
 }
 
 .cc-mandala-thread {
   position: relative;
-  width: 2px;
-  height: 112px;
-  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.92), rgba(232, 201, 122, 0.72), rgba(212, 169, 74, 0.28));
-  overflow: hidden;
+  width: 1px;
+  height: 68px;
+  background: linear-gradient(to bottom, rgba(212, 169, 74, 0) 0%, rgba(212, 169, 74, 0.38) 38%, rgba(232, 201, 122, 0.85) 100%);
+  box-shadow: 0 0 8px rgba(212, 169, 74, 0.28);
+  overflow: visible;
 }
 
 .cc-mandala-ring-hub {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 201, 122, 0.34) 0%, #0e0e0e 70%);
-  border: 1.5px solid rgba(212, 169, 74, 0.78);
-  box-shadow: 0 0 22px rgba(212, 169, 74, 0.42), inset 0 0 10px rgba(212, 169, 74, 0.26);
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  background: #141311;
+  border: 1px solid #E8C97A;
+  box-shadow: 0 0 10px rgba(212, 169, 74, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .cc-mandala-ring-core {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
   background: #E8C97A;
-  box-shadow: 0 0 12px rgba(212, 169, 74, 0.9);
 }
 
 .cc-thread-spark {
   position: absolute;
   top: 0;
-  left: -3px;
-  width: 8px;
-  height: 26px;
+  left: -1.5px;
+  width: 4px;
+  height: 18px;
   border-radius: 999px;
-  background: radial-gradient(circle, #ffffff 0%, #E8C97A 48%, transparent 100%);
-  animation: ccThreadPulse 3.6s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(232, 201, 122, 0.7) 55%, transparent 100%);
+  animation: ccThreadPulse 4.2s ease-in-out infinite;
   will-change: transform, opacity;
 }
 
@@ -340,13 +350,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 auto;
+  margin: -1px auto -1px auto;
+  position: relative;
+  z-index: 6;
 }
 
 .cc-mid-line {
-  width: 2px;
-  height: 42px;
-  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.78), rgba(232, 201, 122, 0.25));
+  width: 1px;
+  height: 28px;
+  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.65), rgba(232, 201, 122, 0.25));
 }
 
 /* 4. Inteligentna Mapa / Ścieżka Uświęcenia */
@@ -627,7 +639,7 @@
 .cc-more-bar-wrap {
   padding: 18px 16px 40px 16px;
   text-align: center;
-  background: #080808;
+  background: transparent;
 }
 
 .cc-more-toggle-btn {
@@ -666,7 +678,7 @@
 
 @media (max-width: 520px) {
   .cc-mandala-thread {
-    height: 62px;
+    height: 48px;
   }
   .cc-verse-actions > *,
   .cc-step-controls > * {
