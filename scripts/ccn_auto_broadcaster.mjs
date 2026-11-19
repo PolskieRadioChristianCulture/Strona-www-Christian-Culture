@@ -27,6 +27,8 @@ import {
   isForbiddenVerseImage
 } from './generate-verse-graphic.mjs';
 import {
+  OFFICIAL_VOD_SOCIAL_GRAPHICS,
+  pickOfficialVodGraphic,
   isImageAdequateForItem,
   ensureSocialTopicGraphicSync
 } from './generate-social-topic-graphic.mjs';
@@ -133,9 +135,10 @@ function appendLog(entry) {
 }
 
 // Inteligentny resolver dedykowanych grafik tematycznych na dysku
-function resolveItemImage(item, rootDir) {
+function resolveItemImage(item, rootDir, options = {}) {
   const titleLower = (item.title || '').toLowerCase();
   const pathLower = item.url ? (() => { try { return new URL(item.url).pathname.toLowerCase(); } catch (e) { return item.url.toLowerCase(); } })() : '';
+  const cleanPathLower = pathLower.replace(/\/+$/, '') || '/';
 
   // 0. ŻELAZNA DYREKTYWA DOWÓDCY (14.11.2026):
   // Każdy Werset Dnia (X, Facebook, WhatsApp, Tablica) MUSI mieć własną wygenerowaną tematyczną grafikę!
@@ -148,6 +151,24 @@ function resolveItemImage(item, rootDir) {
   }
 
   const accept = (p) => (p && fs.existsSync(p) && isImageAdequateForItem(p, item, rootDir) ? p : null);
+
+  // 0b. Oficjalna rotacja 3 wzorców graficznych VOD Christian Culture (zero SDS, zero kadrowania)
+  const isGenericVodPromo =
+    cleanPathLower === '/vod' ||
+    (item.type === 'vod' && (!item.image || /(kino-vod-christian-culture|vod-christian-culture|card-vod|vod_hity_kina)/i.test(String(item.image))));
+  if (isGenericVodPromo) {
+    let vodSeed = Number.isInteger(options?.vodRotationIndex) ? options.vodRotationIndex : null;
+    if (vodSeed === null) {
+      try {
+        const hist = loadHistory();
+        vodSeed = hist.filter((h) => String(h?.url || '').toLowerCase().includes('/vod')).length;
+      } catch {
+        vodSeed = 0;
+      }
+    }
+    const rotatedVod = accept(pickOfficialVodGraphic(rootDir, vodSeed));
+    if (rotatedVod) return rotatedVod;
+  }
 
   const resolveCandidate = (rawPath) => {
     if (!rawPath) return null;
@@ -217,8 +238,9 @@ function resolveItemImage(item, rootDir) {
     const p3 = accept(path.join(rootDir, 'images', 'news', 'art-rdz15-abram-gwiazdy.jpg'));
     if (p3) return p3;
   }
-  if (pathLower === '/vod' || pathLower.startsWith('/vod/') || item.type === 'vod' || titleLower.includes('kino vod')) {
-    const vodImg = accept(path.join(rootDir, 'images', 'social', 'kino-vod-christian-culture-16x9.jpg'));
+  if (cleanPathLower === '/vod' || pathLower.startsWith('/vod/') || item.type === 'vod' || titleLower.includes('kino vod')) {
+    const vodSeed = Number.isInteger(options?.vodRotationIndex) ? options.vodRotationIndex : null;
+    const vodImg = accept(pickOfficialVodGraphic(rootDir, vodSeed));
     if (vodImg) return vodImg;
   }
   if (pathLower.includes('01-pismo-swiete') || (titleLower.includes('pismo święte') && pathLower.includes('kursy'))) {
@@ -726,7 +748,7 @@ function getAllEcosystemCandidates() {
       title: 'Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem',
       lead: 'Oglądaj bezpłatnie pełnometrażowe filmy fabularne, ekranizacje biblijne i poruszające dramaty wiary z polskim lektorem w Kinie VOD Christian Culture.',
       url: 'https://polskieradio.cc/vod',
-      image: 'images/social/kino-vod-christian-culture-16x9.jpg',
+      image: OFFICIAL_VOD_SOCIAL_GRAPHICS[0],
       category: 'Kino VOD',
       type: 'vod',
       tag: '#KinoVOD'

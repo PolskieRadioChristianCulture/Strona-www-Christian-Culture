@@ -2,6 +2,57 @@
   "version": "2.1",
   "items": [
     {
+      "id": "vod-cc-benchmark-01-smarttv",
+      "format": "1:1",
+      "headline": "VOD Christian Culture — Oglądaj wartościowe treści, kiedy chcesz",
+      "reference": "https://polskieradio.cc/vod",
+      "motif": "Smart TV mockup Christian Culture VOD z ekranami Nauczanie biblijne, Biblia Audio, Świadectwa, Rozmowy, Muzyka, Modlitwa i przyciskiem Oglądaj teraz",
+      "palette": {
+        "bg": "#0B1628",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "vod-smarttv-benchmark",
+      "emotion": "Zaproszenie",
+      "file": "images/social/vod-christian-culture-01-smarttv.jpg",
+      "approvedBy": "L0",
+      "createdAt": "2026-11-19T18:39:00.000Z"
+    },
+    {
+      "id": "vod-cc-benchmark-02-rodzina-24-7",
+      "format": "1:1",
+      "headline": "VOD Christian Culture — DOBRE KINO 24/7",
+      "reference": "https://polskieradio.cc/vod",
+      "motif": "Rodzina oglądająca wspólnie ekranizacje biblijne na Smart TV w ciepłym domu, plakietka LEKTOR PL i przycisk OGLĄDAJ ZA DARMO polskieradio.cc/vod",
+      "palette": {
+        "bg": "#0B1628",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "vod-family-tv-benchmark",
+      "emotion": "Wspólnota",
+      "file": "images/social/vod-christian-culture-02-rodzina-24-7.jpg",
+      "approvedBy": "L0",
+      "createdAt": "2026-11-19T18:39:00.000Z"
+    },
+    {
+      "id": "vod-cc-benchmark-03-dobre-kino-24-7",
+      "format": "1:1",
+      "headline": "VOD Christian Culture — DOBRE KINO 24/7",
+      "reference": "https://polskieradio.cc/vod",
+      "motif": "Lewitujące kadry filmów chrześcijańskich i dramatów biblijnych z przyciskami odtwarzania, ikony SMART TV • MOBILE • PC, plakietka LEKTOR PL, CTA OGLĄDAJ ZA DARMO",
+      "palette": {
+        "bg": "#0B1628",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "vod-cinema-collage-benchmark",
+      "emotion": "Odkrycie",
+      "file": "images/social/vod-christian-culture-03-dobre-kino-24-7.jpg",
+      "approvedBy": "L0",
+      "createdAt": "2026-11-19T18:39:00.000Z"
+    },
+    {
       "id": "social-topic-https-polskieradio-cc-news-nie-czekaj-az-zycie-s-7add2b29",
       "format": "16:9",
       "headline": "Nie czekaj, aż życie się zmieni. Zacznij od siebie — z Bogiem możesz więcej!",

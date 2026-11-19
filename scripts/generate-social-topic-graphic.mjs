@@ -7,6 +7,8 @@
  * - ZERO kiczu AI, ZERO niedopasowanych obrazów zastępczych (art-cbdc przy VOD, portret założycieli na modułach itp.)
  *
  * Eksportuje:
+ * - OFFICIAL_VOD_SOCIAL_GRAPHICS
+ * - pickOfficialVodGraphic(rootDir, rotationIndex)
  * - isImageAdequateForItem(imagePathOrRel, item, rootDir)
  * - generateSocialTopicGraphic(item, options)
  * - ensureSocialTopicGraphicSync(item, rootDir)
@@ -93,6 +95,34 @@ function wrapTextLines(text, maxCharsPerLine = 34, maxLines = 4) {
     return trimmed;
   }
   return lines;
+}
+
+/**
+ * Oficjalne zatwierdzone przez Dowódcę wzorce graficzne dla Kina Chrześcijańskiego VOD
+ * (Christian Culture — natywny format 1:1 1024x1024 bez kadrowania).
+ */
+export const OFFICIAL_VOD_SOCIAL_GRAPHICS = Object.freeze([
+  'images/social/vod-christian-culture-01-smarttv.jpg',
+  'images/social/vod-christian-culture-02-rodzina-24-7.jpg',
+  'images/social/vod-christian-culture-03-dobre-kino-24-7.jpg'
+]);
+
+/**
+ * Dobiera rotacyjnie jeden z oficjalnych wzorców graficznych VOD Christian Culture.
+ */
+export function pickOfficialVodGraphic(rootDir = DEFAULT_ROOT, rotationIndex = null) {
+  const available = OFFICIAL_VOD_SOCIAL_GRAPHICS.filter((rel) =>
+    fs.existsSync(path.join(rootDir, rel))
+  );
+  if (available.length > 0) {
+    const idx =
+      Number.isInteger(rotationIndex) && rotationIndex >= 0
+        ? rotationIndex % available.length
+        : Math.floor(Date.now() / 3600000) % available.length;
+    return path.join(rootDir, available[idx]);
+  }
+  const fallback = path.join(rootDir, 'images', 'social', 'kino-vod-christian-culture-16x9.jpg');
+  return fs.existsSync(fallback) ? fallback : null;
 }
 
 /**

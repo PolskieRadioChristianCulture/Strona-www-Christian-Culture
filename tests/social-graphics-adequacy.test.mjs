@@ -6,6 +6,8 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
 import {
+  OFFICIAL_VOD_SOCIAL_GRAPHICS,
+  pickOfficialVodGraphic,
   isImageAdequateForItem,
   generateSocialTopicGraphic
 } from '../scripts/generate-social-topic-graphic.mjs';
@@ -14,6 +16,7 @@ import {
   resolveItemImage,
   formatBroadcasterTweet
 } from '../scripts/ccn_auto_broadcaster.mjs';
+import { resolveTablicaImageUrl } from '../scripts/publish-ecosystem-to-tablica.mjs';
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
@@ -78,6 +81,15 @@ test('Bramka isImageAdequateForItem bezwzględnie odrzuca błędne dopasowania i
 
   // Akceptacje właściwe
   assert.equal(isImageAdequateForItem('images/social/kino-vod-christian-culture-16x9.jpg', vodItem, ROOT), true);
+  assert.equal(OFFICIAL_VOD_SOCIAL_GRAPHICS.length, 3);
+  for (const vodRel of OFFICIAL_VOD_SOCIAL_GRAPHICS) {
+    const absVod = path.join(ROOT, vodRel);
+    assert.ok(fs.existsSync(absVod), `Brak oficjalnej grafiki VOD: ${vodRel}`);
+    assert.ok(fs.statSync(absVod).size > 100000, `Zbyt mały plik oficjalnej grafiki VOD: ${vodRel}`);
+    assert.equal(isImageAdequateForItem(vodRel, vodItem, ROOT), true);
+    assert.equal(isImageAdequateForItem(vodRel, sdsCourseItem, ROOT), false);
+    assert.equal(isImageAdequateForItem(vodRel, sdsLessonItem, ROOT), false);
+  }
   assert.equal(isImageAdequateForItem('images/courses/apokalipsa/banner-promo.jpg', sdsCourseItem, ROOT), true);
   assert.equal(isImageAdequateForItem('images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg', cbdcArticle, ROOT), true);
   assert.equal(isImageAdequateForItem('images/brand/cezary-wioletta-radiocc.jpg', founderItem, ROOT), true);
@@ -111,9 +123,25 @@ test('Rozdzielenie Kino VOD (CC) i Studio Dobrego Słowa (Apokalipsa: Księga Na
   assert.ok(vodItem, 'Kandydat /vod musi istnieć');
   assert.ok(sdsItem, 'Kandydat /kursy/apokalipsa musi istnieć');
 
-  const vodImg = resolveItemImage(vodItem, ROOT);
-  assert.ok(vodImg && vodImg.replace(/\\/g, '/').endsWith('images/social/kino-vod-christian-culture-16x9.jpg'), `Nieoczekiwana grafika VOD: ${vodImg}`);
-  assert.equal(resolveFbFallbackImage(vodItem, ROOT).replace(/\\/g, '/').endsWith('images/social/kino-vod-christian-culture-16x9.jpg'), true);
+  const expectedVodCycle = [
+    'images/social/vod-christian-culture-01-smarttv.jpg',
+    'images/social/vod-christian-culture-02-rodzina-24-7.jpg',
+    'images/social/vod-christian-culture-03-dobre-kino-24-7.jpg',
+    'images/social/vod-christian-culture-01-smarttv.jpg'
+  ];
+  for (let i = 0; i < expectedVodCycle.length; i += 1) {
+    const pickedDirect = pickOfficialVodGraphic(ROOT, i).replace(/\\/g, '/');
+    const vodImg = resolveItemImage(vodItem, ROOT, { vodRotationIndex: i }).replace(/\\/g, '/');
+    const fbImg = resolveFbFallbackImage(vodItem, ROOT, i).replace(/\\/g, '/');
+    assert.ok(pickedDirect.endsWith(expectedVodCycle[i]), `Nieoczekiwana rotacja helpera [${i}]: ${pickedDirect}`);
+    assert.ok(vodImg.endsWith(expectedVodCycle[i]), `Nieoczekiwana grafika VOD X [${i}]: ${vodImg}`);
+    assert.ok(fbImg.endsWith(expectedVodCycle[i]), `Nieoczekiwana grafika VOD FB [${i}]: ${fbImg}`);
+  }
+  const tablicaVodUrl = resolveTablicaImageUrl(vodItem, null, ROOT);
+  assert.ok(
+    OFFICIAL_VOD_SOCIAL_GRAPHICS.some((rel) => tablicaVodUrl === `https://polskieradio.cc/${rel}`),
+    `Nieoczekiwany URL VOD na Tablicy LUMINA: ${tablicaVodUrl}`
+  );
 
   const sdsImg = resolveItemImage(sdsItem, ROOT);
   assert.ok(sdsImg && sdsImg.replace(/\\/g, '/').endsWith('images/courses/apokalipsa/banner-promo.jpg'), `Nieoczekiwana grafika SDS: ${sdsImg}`);

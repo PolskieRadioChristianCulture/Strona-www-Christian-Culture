@@ -17,6 +17,7 @@ import {
   ensureVerseGraphicSync,
   isForbiddenVerseImage
 } from './generate-verse-graphic.mjs';
+import { pickOfficialVodGraphic } from './generate-social-topic-graphic.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -270,6 +271,16 @@ export function resolveTablicaImageUrl(item = {}, imagePath = null, rootDir = RO
     const generatedPath = ensureVerseGraphicSync(item, rootDir);
     if (generatedPath && fs.existsSync(generatedPath) && !isForbiddenVerseImage(generatedPath)) {
       const rel = path.relative(rootDir, generatedPath).replace(/\\/g, '/');
+      if (rel && !rel.startsWith('..')) {
+        return `https://polskieradio.cc/${rel}`;
+      }
+    }
+  }
+
+  if (!imagePath && (category === 'vod' || /\/vod\/?$/.test(urlLower.split('?')[0]))) {
+    const pickedVod = pickOfficialVodGraphic(rootDir);
+    if (pickedVod && fs.existsSync(pickedVod)) {
+      const rel = path.relative(rootDir, pickedVod).replace(/\\/g, '/');
       if (rel && !rel.startsWith('..')) {
         return `https://polskieradio.cc/${rel}`;
       }
