@@ -3,6 +3,21 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-19T05:15:00.000Z</news:publication_date>
+      <news:title>Silni aż do wyczerpania: dlaczego mężczyźni wciąż boją się prosić o pomoc?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc.jpg</image:loc>
+      <image:title>Silni aż do wyczerpania: dlaczego mężczyźni wciąż boją się prosić o pomoc?</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus</loc>
     <news:news>
       <news:publication>

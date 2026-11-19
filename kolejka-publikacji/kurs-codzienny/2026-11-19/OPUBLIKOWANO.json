@@ -1,0 +1,94 @@
+{
+  "data": "2026-11-19",
+  "dzien": 50,
+  "opublikowano": "2026-11-19T04:30:58.406Z",
+  "zatwierdzil": "Cezary Rogowski (L0)",
+  "zatwierdzono": "2026-11-19T05:11:12+01:00",
+  "ostrzezenia": [],
+  "pliki": [
+    {
+      "plik": "akademia/kurscodzienny/dzien-50.html",
+      "sha256": "b1720ddc1bdce5ed2e8e88848bc6518b16ccf427702b2be22052274ad8a11366"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-50/index.html",
+      "sha256": "b1720ddc1bdce5ed2e8e88848bc6518b16ccf427702b2be22052274ad8a11366"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-50.html",
+      "sha256": "b1720ddc1bdce5ed2e8e88848bc6518b16ccf427702b2be22052274ad8a11366"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-50/index.html",
+      "sha256": "b1720ddc1bdce5ed2e8e88848bc6518b16ccf427702b2be22052274ad8a11366"
+    },
+    {
+      "plik": "images/academy/daily/kc_day_50_dekalog_dziesiec_przykazan.jpg",
+      "sha256": "94737db42878b0c840c4730616ef0e4e0eafbe394c72d228cc5f9844d11ea766"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-49.html",
+      "sha256": "2972552d01e0348a400a83a51e9ceb30236f5db9034db515e604e6b58f4b9214"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-49/index.html",
+      "sha256": "2972552d01e0348a400a83a51e9ceb30236f5db9034db515e604e6b58f4b9214"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-49.html",
+      "sha256": "2972552d01e0348a400a83a51e9ceb30236f5db9034db515e604e6b58f4b9214"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-49/index.html",
+      "sha256": "2972552d01e0348a400a83a51e9ceb30236f5db9034db515e604e6b58f4b9214"
+    },
+    {
+      "plik": "akademia.html",
+      "sha256": "8e59c531567cb85b05a7de1c09765c2069c9e51ad564554305b5aa4964b4bfcf"
+    },
+    {
+      "plik": "akademia/index.html",
+      "sha256": "8e59c531567cb85b05a7de1c09765c2069c9e51ad564554305b5aa4964b4bfcf"
+    },
+    {
+      "plik": "akademia/kurscodzienny.html",
+      "sha256": "badbc54fe8e588e784ad43a3ef9f29cd507a7d2cb6d9c40f1639f41a23273e8f"
+    },
+    {
+      "plik": "akademia/kurscodzienny/index.html",
+      "sha256": "badbc54fe8e588e784ad43a3ef9f29cd507a7d2cb6d9c40f1639f41a23273e8f"
+    },
+    {
+      "plik": "kursy.html",
+      "sha256": "8e59c531567cb85b05a7de1c09765c2069c9e51ad564554305b5aa4964b4bfcf"
+    },
+    {
+      "plik": "kursy/index.html",
+      "sha256": "8e59c531567cb85b05a7de1c09765c2069c9e51ad564554305b5aa4964b4bfcf"
+    },
+    {
+      "plik": "kursy/kurscodzienny.html",
+      "sha256": "badbc54fe8e588e784ad43a3ef9f29cd507a7d2cb6d9c40f1639f41a23273e8f"
+    },
+    {
+      "plik": "kursy/kurscodzienny/index.html",
+      "sha256": "badbc54fe8e588e784ad43a3ef9f29cd507a7d2cb6d9c40f1639f41a23273e8f"
+    },
+    {
+      "plik": "szukaj/catalog.json",
+      "sha256": "5059aad3daf72a53c2dbbe11cf9ee7a2a7cda3aa19b7014756feae17f632121b"
+    },
+    {
+      "plik": "data/cc-search-index.json",
+      "sha256": "5059aad3daf72a53c2dbbe11cf9ee7a2a7cda3aa19b7014756feae17f632121b"
+    },
+    {
+      "plik": "sitemaps/akademia.xml",
+      "sha256": "f9e4ec15bf792cdfab899223a2f022ae93cc3939bad291d1baa023837a1ec8d3"
+    },
+    {
+      "plik": "rozwazania_baza.json",
+      "sha256": "932e4dd825f9e0fbb3bab0160ff341923e215c3dcc15c7b15171a198ca2bce7d"
+    }
+  ]
+}

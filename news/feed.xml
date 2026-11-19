@@ -8,8 +8,18 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Wed, 18 Nov 2026 05:27:03 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 04:32:35 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Silni aż do wyczerpania: dlaczego mężczyźni wciąż boją się prosić o pomoc?</title>
+      <link>https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc</guid>
+      <pubDate>Thu, 19 Nov 2026 05:15:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN NEWS • RODZINA I RELACJE</category>
+      <description>Przez pokolenia wielu mężczyzn słyszało, że prawdziwy mężczyzna musi wszystko unieść sam, nie okazywać zmęczenia i nigdy nie przyznawać się do bezradności. Z perspektywy danych Komendy Głównej Policji oraz Światowej Organizacji Zdrowia ten cichy przymus samowystarczalności okazuje się jednak śmiertelnie kosztowny. Z okazji Międzynarodowego Dnia Mężczyzn warto oddzielić kulturowe stereotypy od rzetelnej nauki oraz przekazu Pisma Świętego, które nigdy nie myliło męstwa z samotniczą pychą.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</title>
       <link>https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus</link>
@@ -299,16 +309,6 @@
       <category>Społeczeństwo &amp; Wiara</category>
       <description>Żyjemy w epoce, w której niepewność stała się towarem powszechnym. Nagłówki serwisów informacyjnych, widmo kryzysów finansowych, wojen i technologicznego przyspieszenia sprawiają, że setki tysięcy ludzi budzą się w środku nocy z przyspieszonym tętnem i paraliżującym pytaniem: „Co będzie jutro?”. Jako chrześcijanie nie jesteśmy powołani do unikania rzeczywistości, ale do stanięcia w obliczu burzy z kotwicą, której ten świat nie jest w stanie zerwać. Oto pięć biblijnych filarów prawdziwego pokoju w Chrystusie.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-gdy-lek-o-jutro-odbiera-ci-pokoj-5-zasad-cezary-rogowski.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Gerald Welch – THE CALL. Rockowe wezwanie do przebudzenia sumienia i żywej wiary</title>
-      <link>https://polskieradio.cc/news/gerald-welch-the-call-rockowe-wezwanie-do-przebudzenia-sumienia-i-zywej-wiary</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/gerald-welch-the-call-rockowe-wezwanie-do-przebudzenia-sumienia-i-zywej-wiary</guid>
-      <pubDate>Thu, 29 Oct 2026 16:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>CCN Muzyka &amp; Kultura · Recenzja Albumu</category>
-      <description>Album, który nie chce być muzycznym tłem. Teologiczna i muzyczna analiza dziewięciu utworów debiutanckiego krążka Geralda Welcha w Christian Culture Network.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-gerald-welch-the-call.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>

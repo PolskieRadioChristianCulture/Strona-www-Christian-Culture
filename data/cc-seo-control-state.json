@@ -1,14 +1,14 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-18T05:27:03.244Z",
+  "generatedAt": "2026-11-19T04:32:35.417Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 101,
-    "validUrls": 101,
+    "totalValidatedUrls": 102,
+    "validUrls": 102,
     "invalidUrls": 0,
-    "newsArticlesCount": 95,
-    "googleNews48hCount": 49,
-    "akademiaUrlsCount": 80,
+    "newsArticlesCount": 96,
+    "googleNews48hCount": 50,
+    "akademiaUrlsCount": 81,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 2,
@@ -31,31 +31,31 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 25859,
+      "sizeBytes": 25756,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 34336,
+      "sizeBytes": 34722,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 43301,
+      "sizeBytes": 43835,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 38929,
+      "sizeBytes": 39742,
       "status": "OK"
     },
     {
       "path": "/sitemaps/akademia.xml",
       "exists": true,
-      "sizeBytes": 15136,
+      "sizeBytes": 15325,
       "status": "OK"
     },
     {
@@ -90,10 +90,10 @@
     }
   ],
   "indexNow": {
-    "keyConfigured": true,
+    "keyConfigured": false,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 48,
-    "pendingCount": 48,
+    "totalQueued": 49,
+    "pendingCount": 49,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-18T05:27:03.238Z",
+        "queuedAt": "2026-11-19T04:32:35.407Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-18T05:27:03.238Z",
+        "queuedAt": "2026-11-19T04:32:35.407Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-18T05:27:03.238Z",
+        "queuedAt": "2026-11-19T04:32:35.407Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-18T05:27:03.238Z",
+        "queuedAt": "2026-11-19T04:32:35.407Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-18T05:27:03.238Z",
+        "queuedAt": "2026-11-19T04:32:35.407Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -382,11 +382,7 @@
         },
         "status": "PENDING"
       }
-    ],
-    "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 361,
-    "lastSubmittedCount": 361,
-    "lastSubmittedAt": "2026-11-18T05:27:05.440Z"
+    ]
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +398,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc.html",
+      "canonicalUrl": "https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus.html",
       "canonicalUrl": "https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus",
@@ -593,15 +597,6 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/oficjalny-start-newslettera-christian-culture-dolacz.html",
-      "canonicalUrl": "https://polskieradio.cc/news/oficjalny-start-newslettera-christian-culture-dolacz",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
-  ],
-  "lastInstantIndexingAt": "2026-11-18T05:27:05.440Z"
+  ]
 }

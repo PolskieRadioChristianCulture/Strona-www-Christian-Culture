@@ -8,7 +8,7 @@
     <atom:link href="https://polskieradio.cc/feed.xml" rel="self" type="application/rss+xml" />
     <description>Główny kanał publikacji ekosystemu Christian Culture: CCN News, Akademia Biblijna, Biblijne Uwielbienie, Radio i Kino VOD.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Wed, 18 Nov 2026 05:27:03 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 04:32:35 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
     <item>
       <title>Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13. Czy technologia może stać się narzędziem przymusu religijnego?</title>
@@ -19,6 +19,16 @@
       <category>CCN Finanse</category>
       <description>Dyskusja o cyfrowych walutach banków centralnych (CBDC) coraz częściej wykracza poza ekonomię. Analiza CBDC, prawa niedzielnego oraz Apokalipsy 13 (z wydaniem audio 17:51).</description>
       <enclosure url="https://polskieradio.cc/images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Silni aż do wyczerpania: dlaczego mężczyźni wciąż boją się prosić o pomoc?</title>
+      <link>https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc</guid>
+      <pubDate>Thu, 19 Nov 2026 05:15:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN NEWS • RODZINA I RELACJE</category>
+      <description>Przez pokolenia wielu mężczyzn słyszało, że prawdziwy mężczyzna musi wszystko unieść sam, nie okazywać zmęczenia i nigdy nie przyznawać się do bezradności. Z perspektywy danych Komendy Głównej Policji oraz Światowej Organizacji Zdrowia ten cichy przymus samowystarczalności okazuje się jednak śmiertelnie kosztowny. Z okazji Międzynarodowego Dnia Mężczyzn warto oddzielić kulturowe stereotypy od rzetelnej nauki oraz przekazu Pisma Świętego, które nigdy nie myliło męstwa z samotniczą pychą.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Różaniec trafił papieża. Ale kto naprawdę jest naszym Ojcem?</title>
@@ -209,16 +219,6 @@
       <category>AKADEMIA BIBLIJNA • KURS CODZIENNY DZIEŃ 33</category>
       <description>Księga Wyjścia 2: Koszyk z sitowia, litość córki faraona, porażka ludzkiej przemocy, 40 lat formacji w Madianie i Boża pamięć o przymierzu (Wj 2:1–25 UBG).</description>
       <enclosure url="https://polskieradio.cc/images/news/art-z-biblia-za-pan-brat-dzien-33-ocalenie-mojzesza-nil-madian.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Sprawozdanie misyjne Christian Culture za październik 2026: Słowo Boże, muzyka i prawda na 5 kontynentach</title>
-      <link>https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026</guid>
-      <pubDate>Sat, 31 Oct 2026 19:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>CCN MISJE &amp; RAPORT MIESIĘCZNY • PAŹDZIERNIK 2026</category>
-      <description>Z głębi serca pragniemy podzielić się z Wami podsumowaniem minionego miesiąca w Misji Christian Culture. Październik 2026 był czasem intensywnego wzrostu, codziennej pracy ewangelizacyjnej i docierania z czystą biblijną prawdą tam, gdzie ludzie poszukują pokoju, sensu i zbawienia. Dzięki Waszym modlitwom i wsparciu naszych Patronów, Polskie Radio CC oraz Biblia Audio dotarły do słuchaczy w 32 krajach na 5 kontynentach, notując ponad 1 022 godziny nieprzerwanego słuchania Słowa Bożego i budującej muzyki w 2 560 sesjach. Przedstawiamy pełne, transparentne sprawozdanie misyjne oraz serdecznie zapraszamy do objęcia patronatu nad kolejnymi etapami misji.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-sprawozdanie-misyjne-pazdziernik-2026.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
       <title>Z Biblią za Pan Brat — Dzień 17: Wiara patrząca w przyszłość (Rdz 23–24)</title>
