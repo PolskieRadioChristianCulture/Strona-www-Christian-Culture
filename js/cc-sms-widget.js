@@ -7,6 +7,102 @@
 (function () {
   'use strict';
 
+  function syncSmsWithChatFab() {
+    var pending = false;
+
+    function attachFabObserver() {
+      var fab = document.getElementById('ccGlobalChatFab');
+      if (!fab || (fab.dataset && fab.dataset.ccSmsObserved === '1') || typeof MutationObserver === 'undefined') {
+        return !!fab;
+      }
+      if (fab.dataset) fab.dataset.ccSmsObserved = '1';
+      new MutationObserver(scheduleReconcile).observe(fab, { attributes: true, attributeFilter: ['style', 'class'] });
+      return true;
+    }
+
+    function reconcile() {
+      pending = false;
+      var smsWrap = document.getElementById('ccSmsFloatWidget');
+      if (!smsWrap) return;
+      var fab = document.getElementById('ccGlobalChatFab');
+      if (!fab || fab.classList.contains('is-fab-hidden')) {
+        smsWrap.style.removeProperty('bottom');
+        return;
+      }
+      if (fab.classList.contains('is-fab-dragging')) return;
+
+      attachFabObserver();
+
+      var vh = window.innerHeight || document.documentElement.clientHeight || 800;
+      var vw = window.innerWidth || document.documentElement.clientWidth || 1280;
+      var isDesktop = vw >= 768;
+      var defaultBottom = isDesktop ? 100 : 84;
+      var minSafeBottom = isDesktop ? 76 : 72;
+
+      if (!fab.classList.contains('is-custom-positioned')) {
+        if (smsWrap.style.bottom) smsWrap.style.removeProperty('bottom');
+        var smsRect = smsWrap.getBoundingClientRect();
+        var fabRect = fab.getBoundingClientRect();
+        if (smsRect.height > 0 && fabRect.width > 0 && fabRect.height > 0) {
+          var minChatBottom = Math.round(vh - smsRect.top) + 16;
+          var currentChatBottom = Math.round(vh - fabRect.bottom);
+          if (currentChatBottom < minChatBottom && (minChatBottom + fabRect.height) <= vh * 0.8) {
+            fab.style.setProperty('bottom', minChatBottom + 'px', 'important');
+          }
+        }
+        return;
+      }
+
+      var customRect = fab.getBoundingClientRect();
+      var smsH = Math.max(44, Math.round(smsWrap.offsetHeight || 44));
+      var smsW = Math.round(smsWrap.offsetWidth || 220);
+      var smsRightEdge = vw - (isDesktop ? 24 : 16);
+      var smsLeftEdge = smsRightEdge - smsW;
+      var defaultSmsTopFromBottom = defaultBottom + smsH;
+      var fabBottomFromEdge = Math.round(vh - customRect.bottom);
+      var fabTopFromEdge = Math.round(vh - customRect.top);
+      var horizOverlap = customRect.width > 0 && customRect.right > (smsLeftEdge - 8) && customRect.left < (smsRightEdge + 8);
+      var vertCrowd = customRect.height > 0 && fabBottomFromEdge < (defaultSmsTopFromBottom + 12) && fabTopFromEdge > (defaultBottom - 12);
+
+      if (horizOverlap && vertCrowd) {
+        var tuckedBottom = Math.round(fabBottomFromEdge - 12 - smsH);
+        if (tuckedBottom >= minSafeBottom) {
+          smsWrap.style.setProperty('bottom', tuckedBottom + 'px', 'important');
+        } else {
+          smsWrap.style.removeProperty('bottom');
+        }
+      } else {
+        smsWrap.style.removeProperty('bottom');
+      }
+    }
+
+    function scheduleReconcile() {
+      if (pending) return;
+      pending = true;
+      var raf = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 16); };
+      raf(reconcile);
+    }
+
+    try { window.dispatchEvent(new Event('resize')); } catch (_) {}
+
+    if (!attachFabObserver() && document.body && typeof MutationObserver !== 'undefined') {
+      var bodyObserver = new MutationObserver(function () {
+        if (attachFabObserver()) {
+          scheduleReconcile();
+          bodyObserver.disconnect();
+        }
+      });
+      bodyObserver.observe(document.body, { childList: true });
+    }
+
+    window.addEventListener('resize', scheduleReconcile, { passive: true });
+    window.addEventListener('scroll', scheduleReconcile, { passive: true });
+    setTimeout(scheduleReconcile, 150);
+    setTimeout(scheduleReconcile, 500);
+    setTimeout(scheduleReconcile, 1200);
+    scheduleReconcile();
+  }
+
   function createWidgetModal() {
     if (document.getElementById('ccSmsModal')) return;
 
@@ -98,9 +194,34 @@
 
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 
+    if (!document.getElementById('ccSmsFloatStyle') && document.head) {
+      const floatStyle = document.createElement('style');
+      floatStyle.id = 'ccSmsFloatStyle';
+      const nonceMeta = document.querySelector && document.querySelector('meta[name="cc-csp-nonce"]');
+      if (nonceMeta && nonceMeta.content) floatStyle.nonce = nonceMeta.content;
+      floatStyle.textContent = `
+        #ccSmsFloatWidget.cc-sms-float-widget {
+          position: fixed;
+          right: max(16px, env(safe-area-inset-right));
+          bottom: max(84px, calc(70px + env(safe-area-inset-bottom)));
+          z-index: 90;
+          display: flex;
+          align-items: center;
+          transition: bottom 0.2s ease;
+        }
+        @media (min-width: 768px) {
+          #ccSmsFloatWidget.cc-sms-float-widget {
+            right: 24px;
+            bottom: 100px;
+          }
+        }
+      `;
+      document.head.appendChild(floatStyle);
+    }
+
     // Pływający przycisk skrótu na stronach Akademii
     const floatBtnHtml = `
-      <div id="ccSmsFloatWidget" class="fixed bottom-24 right-4 z-[90] flex items-center">
+      <div id="ccSmsFloatWidget" class="cc-sms-float-widget">
         <button
           id="ccSmsOpenModalBtn"
           type="button"
@@ -115,6 +236,7 @@
       </div>
     `;
     document.body.insertAdjacentHTML('beforeend', floatBtnHtml);
+    syncSmsWithChatFab();
 
     // Logika modala
     const modal = document.getElementById('ccSmsModal');

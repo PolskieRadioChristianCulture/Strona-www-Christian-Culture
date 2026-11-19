@@ -4890,8 +4890,24 @@
         !fabWrap.classList.contains('is-fab-dragging')
       ) {
         // 4. Wspólna pionowa kolumna z przyciskiem „do góry” (#backToTopBtn, właściciel: /js/cc-back-to-top.js).
-        //    Przycisk „do góry” zostaje na dole; czat stoi zawsze NAD nim, środek w tej samej osi pionowej.
+        //    Przycisk „do góry” zostaje na dole; czat stoi zawsze NAD nim (oraz nad opcjonalną pigułką SMS), środek w tej samej osi pionowej.
         //    (L0 16.11.2026: ikona czatu zasłaniała przycisk przewijania i przesuwała się przez szerokość scrollbara.)
+        let smsClearanceBottom = 0;
+        const smsWidget = document.getElementById('ccSmsFloatWidget');
+        if (smsWidget) {
+          const smsCs = window.getComputedStyle(smsWidget);
+          const smsRect = smsWidget.getBoundingClientRect();
+          if (
+            smsCs.display !== 'none' &&
+            smsCs.visibility !== 'hidden' &&
+            smsRect.width > 0 &&
+            smsRect.height > 0 &&
+            smsRect.top < window.innerHeight &&
+            smsRect.bottom > 0
+          ) {
+            smsClearanceBottom = Math.round(window.innerHeight - smsRect.top) + 16;
+          }
+        }
         const btt = document.getElementById('backToTopBtn');
         const clientW = (document.documentElement && document.documentElement.clientWidth) || window.innerWidth;
         const fabW = fabBtn.offsetWidth || 48;
@@ -4907,7 +4923,7 @@
           const bttCssRight = parseFloat(bttCs.right);
           let bttRight = bttShown ? (clientW - bttRect.right) : bttCssRight;
           if (!Number.isFinite(bttRight)) bttRight = Number.isFinite(bttCssRight) ? bttCssRight : (clientW >= 768 ? 24 : 16);
-          const stackedBottom = Math.max(bottomOffset, Math.round(bttBottom + bttH + 12));
+          const stackedBottom = Math.max(bottomOffset, Math.round(bttBottom + bttH + 12), smsClearanceBottom);
           const alignedRight = Math.round(bttRight + (bttW - fabW) / 2);
           if (stackedBottom + fabH <= window.innerHeight * 0.8) {
             fabWrap.style.setProperty('bottom', `${stackedBottom}px`, 'important');
@@ -4917,7 +4933,7 @@
           const alignedBottom = Math.round(playerCenterFromBottom - (fabH / 2));
           fabWrap.style.setProperty('bottom', `${alignedBottom}px`, 'important');
         } else {
-          fabWrap.style.setProperty('bottom', `${bottomOffset}px`, 'important');
+          fabWrap.style.setProperty('bottom', `${Math.max(bottomOffset, smsClearanceBottom)}px`, 'important');
           fabWrap.style.setProperty('right', clientW >= 768 ? '24px' : 'max(16px, env(safe-area-inset-right))', 'important');
         }
       }
