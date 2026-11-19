@@ -815,17 +815,21 @@
 
 
   /* ==========================================================================
-     KASKADOWA PREZENTACJA HERO (5 etapów):
-     1) Christian Culture + hasło + opis  2) ZOBACZ WIĘCEJ  3) aktualna transmisja
-     4) tekst pisany jak na maszynie  5) przyciski RADIO / TELEWIZJA / WERSET
+     KASKADOWA PREZENTACJA HERO — TRZY OKNA W TYM SAMYM MIEJSCU (bez przewijania)
+     Okno 1: Christian Culture + hasło + opis + ZOBACZ WIĘCEJ
+     Okno 2: aktualna transmisja
+     Okno 3: tekst pisany jak na maszynie + przyciski RADIO / TELEWIZJA / WERSET
      ========================================================================== */
   function initHeroCascade() {
     var heroSection = document.getElementById('hero');
     if (!heroSection) return;
+    var stageEl = document.getElementById('heroStage');
+    var slides = [1, 2, 3].map(function (n) { return document.getElementById('heroSlide' + n); });
+    var dots = Array.prototype.slice.call(document.querySelectorAll('#heroDots .cc-hero-dot'));
     var titleEl = heroSection.querySelector('.hero-title');
     var subtitleEl = heroSection.querySelector('.hero-subtitle');
     var introEl = heroSection.querySelector('.hero-intro-text');
-    var dividerEl = heroSection.querySelector('.hero-text-col > .gold-divider');
+    var dividerEl = heroSection.querySelector('#heroSlide1 > .gold-divider') || heroSection.querySelector('.hero-text-col .gold-divider');
     var seeMoreEl = document.getElementById('heroSeeMoreBanner');
     var seeMoreBtn = document.getElementById('heroSeeMoreBtn');
     var liveBoxEl = document.getElementById('liveStreamBox');
@@ -833,7 +837,7 @@
     var buttonsEl = document.getElementById('heroActionButtons') || heroSection.querySelector('.hero-buttons');
     var verseBtn = document.getElementById('heroVerseBtn');
     var radioBtn = document.getElementById('heroRadioBtn');
-    if (!seeMoreEl || !liveBoxEl || !descEl || !buttonsEl) return;
+    if (!stageEl || !slides[0] || !slides[1] || !slides[2] || !seeMoreEl || !liveBoxEl || !descEl || !buttonsEl) return;
 
     // RADIO: włącza radio w dolnym odtwarzaczu (bez przechodzenia na inną stronę)
     if (radioBtn) {
@@ -870,7 +874,7 @@
     }
 
     function buildCharCascade(el, charStepMs, baseDelayMs) {
-      if (!el) return 0;
+      if (!el) return;
       var text = el.textContent.replace(/\s+/g, ' ').trim();
       var idx = 0;
       el.innerHTML = text.split(' ').map(function (word) {
@@ -879,16 +883,14 @@
           return '<span class="cc-hc-char" style="--cc-hc-delay:' + d + 'ms">' + escapeHtml(ch) + '</span>';
         }).join('') + '</span>';
       }).join(' ');
-      return baseDelayMs + idx * charStepMs;
     }
 
     function buildWordCascade(el, wordStepMs, baseDelayMs) {
-      if (!el) return 0;
+      if (!el) return;
       var words = el.textContent.replace(/\s+/g, ' ').trim().split(' ');
       el.innerHTML = words.map(function (w, i) {
         return '<span class="cc-hc-word" style="--cc-hc-delay:' + (baseDelayMs + i * wordStepMs) + 'ms">' + escapeHtml(w) + '</span>';
       }).join(' ');
-      return baseDelayMs + words.length * wordStepMs;
     }
 
     heroSection.classList.add('cc-hero-cascade-armed');
@@ -912,33 +914,57 @@
     });
 
     var timers = [];
-    var finished = false;
-    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
-    function show(el) { if (el) el.classList.add('is-stage-visible'); }
-    function stage(n) { if (!finished) heroSection.setAttribute('data-hero-stage', String(n)); }
+    var currentSlide = 1;
+    var typingStarted = false;
+    var typingDone = false;
+    var liveHeld = false;
 
-    function finishAll() {
-      if (finished) return;
-      finished = true;
-      timers.forEach(clearTimeout);
-      timers = [];
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function clearAll() { timers.forEach(clearTimeout); timers = []; }
+    function show(el) { if (el) el.classList.add('is-stage-visible'); }
+    function stage(v) { heroSection.setAttribute('data-hero-stage', String(v)); }
+
+    function goTo(n) {
+      currentSlide = n;
+      heroSection.setAttribute('data-hero-slide', String(n));
+      slides.forEach(function (sl, i) {
+        var active = (i + 1) === n;
+        sl.classList.toggle('is-active', active);
+        sl.setAttribute('aria-hidden', active ? 'false' : 'true');
+        if ('inert' in sl) sl.inert = !active;
+      });
+      dots.forEach(function (d) {
+        var active = Number(d.getAttribute('data-go')) === n;
+        d.classList.toggle('is-active', active);
+        if (active) d.setAttribute('aria-current', 'true');
+        else d.removeAttribute('aria-current');
+      });
+    }
+
+    function revealSlide1Now() {
+      [titleEl, subtitleEl, introEl, dividerEl, seeMoreEl].forEach(show);
+    }
+
+    function completeSlide3() {
+      typingDone = true;
       if (typedSpan) typedSpan.textContent = fullDescText;
-      [titleEl, subtitleEl, introEl, dividerEl, seeMoreEl, liveBoxEl, descEl, buttonsEl].forEach(show);
+      show(descEl);
       descEl.classList.remove('is-typing');
       descEl.classList.add('is-typed-done');
-      heroSection.setAttribute('data-hero-stage', 'done');
+      show(buttonsEl);
+      stage('done');
       heroSection.classList.add('cc-hero-seq-done');
     }
 
     function typeFrom(i) {
-      if (finished || !typedSpan) return;
+      if (typingDone || !typedSpan) return;
       if (i >= fullDescText.length) {
         descEl.classList.remove('is-typing');
         descEl.classList.add('is-typed-done');
         later(function () {
           stage(5);
           show(buttonsEl);
-          later(finishAll, 650 + 320);
+          later(completeSlide3, 650 + 320);
         }, 220);
         return;
       }
@@ -948,26 +974,68 @@
       later(function () { typeFrom(i + 1); }, delay);
     }
 
+    function startSlide3() {
+      goTo(3);
+      stage(4);
+      if (typingDone) { completeSlide3(); return; }
+      if (typingStarted) return;
+      typingStarted = true;
+      later(function () {
+        show(descEl);
+        descEl.classList.add('is-typing');
+        typeFrom(0);
+      }, 520);
+    }
+
+    function startSlide2(autoAdvance) {
+      revealSlide1Now();
+      goTo(2);
+      stage(3);
+      show(liveBoxEl);
+      if (autoAdvance && !liveHeld) {
+        later(function () { if (!liveHeld && currentSlide === 2) startSlide3(); }, 5600);
+      }
+    }
+
+    // Okno 1 → (ZOBACZ WIĘCEJ) → Okno 2 → Okno 3
+    goTo(1);
     show(titleEl); show(subtitleEl); show(introEl);
     later(function () { show(dividerEl); }, 2550);
     later(function () { stage(2); show(seeMoreEl); }, 3050);
-    later(function () { stage(3); show(liveBoxEl); }, 4150);
-    later(function () {
-      stage(4);
-      show(descEl);
-      descEl.classList.add('is-typing');
-      typeFrom(0);
-    }, 5050);
-    setTimeout(finishAll, 16000);
+    later(function () { startSlide2(true); }, 6300);
+
+    // Jeśli użytkownik zaczyna oglądać transmisję, nie przełączamy okna automatycznie
+    ['pointerdown', 'focusin', 'keydown'].forEach(function (evt) {
+      liveBoxEl.addEventListener(evt, function () { liveHeld = true; });
+    });
 
     if (seeMoreBtn) {
       seeMoreBtn.addEventListener('click', function () {
-        finishAll();
-        setTimeout(function () {
-          try { liveBoxEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (_) {}
-        }, 60);
+        clearAll();
+        startSlide2(true);
       });
     }
+
+    dots.forEach(function (d) {
+      d.addEventListener('click', function () {
+        var n = Number(d.getAttribute('data-go'));
+        clearAll();
+        if (n === 1) { revealSlide1Now(); goTo(1); }
+        else if (n === 2) { liveHeld = true; startSlide2(false); }
+        else { revealSlide1Now(); show(liveBoxEl); typingDone = true; startSlide3(); }
+      });
+    });
+
+    // Zabezpieczenie: najpóźniej po 28 s widoczne jest okno 3 z kompletnym tekstem i przyciskami
+    setTimeout(function () {
+      if (heroSection.getAttribute('data-hero-stage') === 'done') return;
+      if (currentSlide === 2 && liveHeld) return;
+      clearAll();
+      revealSlide1Now();
+      show(liveBoxEl);
+      typingDone = true;
+      startSlide3();
+    }, 28000);
   }
 
   if (document.readyState === 'loading') {

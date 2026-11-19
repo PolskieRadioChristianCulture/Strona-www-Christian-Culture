@@ -24,7 +24,13 @@ test('test/uswiecenie/index.html spełnia kontrakt testowej Ścieżki Uświęcen
   assert.ok(html.includes('Wejdź na ścieżkę uświęcenia'), 'przycisk musi mieć napis Wejdź na ścieżkę uświęcenia');
   assert.match(html, /class="cc-map-card[^"]*"[^>]*id="ccSanctificationMap"\s+hidden/, 'okno Mapy Uświęcenia musi być domyślnie ukryte');
   assert.match(html, /class="cc-path-connector/, 'brak linii łączących kroki ścieżki');
-  assert.match(html, /v=20261119_gold10/, 'brak zaktualizowanego cache-bustera v=20261119_gold10');
+  assert.match(html, /v=20261119_gold11/, 'brak zaktualizowanego cache-bustera v=20261119_gold11');
+  for (const n of [1, 2, 3]) assert.match(html, new RegExp('id="heroSlide' + n + '"'), 'brak okna prezentacji ' + n);
+  const iS1 = html.indexOf('id="heroSlide1"'), iS2 = html.indexOf('id="heroSlide2"'), iS3 = html.indexOf('id="heroSlide3"');
+  assert.ok(iS1 < html.indexOf('id="heroSeeMoreBtn"') && html.indexOf('id="heroSeeMoreBtn"') < iS2, 'ZOBACZ WIĘCEJ w oknie 1');
+  assert.ok(iS2 < html.indexOf('id="liveStreamBox"') && html.indexOf('id="liveStreamBox"') < iS3, 'transmisja w oknie 2');
+  assert.ok(iS3 < html.indexOf('id="heroVerseBtn"'), 'przyciski w oknie 3');
+  assert.match(html, /id="heroDots"/, 'brak kropek przełączania okien');
   assert.match(html, /id="heroSeeMoreBtn"/, 'brak dużego napisu ZOBACZ WIĘCEJ w Hero');
   assert.ok(html.includes('ZOBACZ WIĘCEJ'), 'brak tekstu ZOBACZ WIĘCEJ');
   assert.match(html, /id="heroThirdDescription"/, 'brak trzeciej prezentacji (maszyna do pisania)');
@@ -64,6 +70,7 @@ test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynami
   assert.match(css, /ccHeroCascadeIn/, 'brak kaskadowej animacji Hero');
   assert.match(css, /ccCaretBlink/, 'brak kursora maszyny do pisania');
   assert.match(css, /\.btn-verse/, 'brak stylu przycisku WERSET');
+  assert.match(css, /\.cc-hero-slide\s*\{[\s\S]*?grid-area:\s*1\s*\/\s*1/, 'okna muszą być w tym samym miejscu');
 
   const js = fs.readFileSync(jsPath, 'utf8');
   assert.match(js, /fetch\(['"]\/rozwazania_baza\.json['"]/);
