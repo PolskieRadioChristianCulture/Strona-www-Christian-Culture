@@ -107,7 +107,7 @@
         <strong style="color: #cbd5e1;">Nota Prawna & Misja:</strong> Christian Culture (polskieradio.cc) to niezależna, prywatna chrześcijańska inicjatywa misyjna i ewangelizacyjna, finansowana z dobrowolnych darowizn i prowadzona w duchu chrześcijańskiego wolontariatu.
       </p>
       <p style="margin: 0;">
-        Projekt nie jest powiązany ani stowarzyszony z publicznym nadawcą <em>Polskie Radio S.A.</em> (polskieradio.pl). | <a href="/privacy" style="color: #C4A35A; text-decoration: underline;">Polityka Prywatności</a>
+        Projekt nie jest powiązany ani stowarzyszony z publicznym nadawcą <em>Polskie Radio S.A.</em> (polskieradio.pl). | <a href="/privacy" style="color: #C4A35A; text-decoration: underline;">Polityka Prywatności</a> | <button type="button" onclick="if (window.CCGlobalChat) { window.CCGlobalChat.showFab && window.CCGlobalChat.showFab(); window.CCGlobalChat.open('live'); } else { window.location.href='/mess'; }" style="background:none;border:none;padding:6px 2px;min-height:44px;color:#C4A35A;text-decoration:underline;cursor:pointer;font:inherit;">Otwórz / przywróć czat LUMI</button>
       </p>
     </div>
 
@@ -543,7 +543,7 @@
     if (!window.CCGlobalChatButton && !document.getElementById('ccGlobalChatScript') && !document.querySelector('script[src*="cc-global-chat-button"]')) {
       const chatScript = document.createElement('script');
       chatScript.id = 'ccGlobalChatScript';
-      chatScript.src = '/components/cc-global-chat-button.js?v=20261119_gold2';
+      chatScript.src = '/components/cc-global-chat-button.js?v=20261119_gold3';
       chatScript.defer = true;
       document.head.appendChild(chatScript);
     }

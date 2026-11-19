@@ -364,6 +364,13 @@
       }
       if (url.pathname === '/mess') {
         a.addEventListener('click', event => {
+          if (window.CCGlobalChat && typeof window.CCGlobalChat.getFabState === 'function' && window.CCGlobalChat.getFabState().hidden && current !== '/mess') {
+            event.preventDefault();
+            close();
+            if (typeof window.CCGlobalChat.showFab === 'function') window.CCGlobalChat.showFab();
+            if (typeof window.CCGlobalChat.open === 'function') window.CCGlobalChat.open('live');
+            return;
+          }
           if (window.CCUnifiedChat && typeof window.CCUnifiedChat.open === 'function') {
             event.preventDefault();
             close();

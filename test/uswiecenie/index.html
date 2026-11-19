@@ -914,6 +914,14 @@
                         </div>
                         <i class="fa-solid fa-chevron-right pill-arrow"></i>
                     </a>
+                    <button type="button" class="strip-pill-card pill-spolecznosc" data-title="LUMI Messenger" data-keywords="czat chat lumi messenger asystentki przywołaj otwórz rozmowa" onclick="document.getElementById('actionsList')?.classList.remove('active'); if (window.CCGlobalChat) { window.CCGlobalChat.showFab && window.CCGlobalChat.showFab(); window.CCGlobalChat.open('live'); } else { window.location.href='/mess'; }">
+                        <div class="pill-icon" style="color: var(--gold-light);"><i class="fa-solid fa-comments"></i></div>
+                        <div class="pill-info">
+                            <span class="pill-name">LUMI Messenger</span>
+                            <span class="pill-desc">Przywołaj / otwórz czat</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right pill-arrow"></i>
+                    </button>
                 </div>
             </section>
 
@@ -1667,6 +1675,7 @@
             <h2 class="drawer-brand">CHRISTIAN CULTURE</h2>
             <nav class="drawer-nav">
                 <a href="#hero" class="drawer-link active" style="margin-bottom: 4px;"><i class="fa-solid fa-house"></i> Strona Główna</a>
+                <button type="button" class="drawer-link" style="margin-bottom: 4px; width: 100%; text-align: left;" onclick="document.getElementById('sideDrawer')?.classList.remove('active'); if (window.CCGlobalChat) { window.CCGlobalChat.showFab && window.CCGlobalChat.showFab(); window.CCGlobalChat.open('live'); } else { window.location.href='/mess'; }"><i class="fa-solid fa-comments"></i> LUMI Messenger (Przywołaj czat)</button>
 
                 <!-- KAFEL 1: STACJE & MEDIA LIVE (Cyan) -->
                 <div class="cc-col cc-col-media" data-col="media">
@@ -3673,6 +3682,8 @@
             <a href="https://polskieradio.cc/biznes">Biznes</a>
             <span class="footer-separator">|</span>
             <a href="https://polskieradio.cc/milion">Licznik CC (1 000 000)</a>
+            <span class="footer-separator">|</span>
+            <button type="button" onclick="if (window.CCGlobalChat) { window.CCGlobalChat.showFab && window.CCGlobalChat.showFab(); window.CCGlobalChat.open('live'); } else { window.location.href='/mess'; }" style="background:none;border:none;color:var(--gold-light);cursor:pointer;font:inherit;padding:6px 4px;min-height:44px;">Otwórz / przywróć czat LUMI</button>
         </div>
     </footer>
 
@@ -4528,7 +4539,7 @@
     <!-- Christian Culture & LUMINA Universal Google Auth Connector -->
     <script src="js/cc-global-auth.js?v=20261007_auth_v2" defer></script>
     <script src="js/lumina-share.js" defer></script>
-  <script src="/components/cc-support-footer.js?v=20261119_gold2" defer></script>
+  <script src="/components/cc-support-footer.js?v=20261119_gold3" defer></script>
   <script src="/js/cc-mobile-helpline.js?v=20261013_mobile1" defer></script>
     <script src="js/lumina-rss-suite.js" defer></script>
     <script src="/components/cc-omni-search.js?v=20261105_help3" defer></script>

@@ -3131,6 +3131,8 @@
       if (!clean) return '';
       if (clean.length <= maxLen) return `„${clean}”`;
       const slice = clean.slice(0, maxLen);
+      const sentMatch = slice.match(/^([\s\S]{40,}?[.!?])(?:\s|$)/);
+      if (sentMatch && sentMatch[1]) return `„${sentMatch[1].trim()}”`;
       const lastSpace = slice.lastIndexOf(' ');
       let safe = (lastSpace > Math.floor(maxLen * 0.55)) ? slice.slice(0, lastSpace) : slice;
       safe = safe.replace(/[,;:\-–\s]+$/, '').replace(/\s+(?:z|w|i|o|a|u|na|do|od|ku|po)$/i, '').replace(/[,;:\-–\s]+$/, '');
@@ -3140,7 +3142,7 @@
     function buildVerseGreetingForAssistant(asst, daily) {
       if (!daily || (!daily.verse && !daily.reading && !daily.title)) return asst.greeting;
       const reading = daily.reading ? ` (${daily.reading})` : '';
-      const shortVerse = trimVerseByWord(daily.verse || '', 84);
+      const shortVerse = trimVerseByWord(daily.verse || '', 88);
       const verseOrTitle = shortVerse || daily.title || '';
       const key = String(asst.shortName || asst.id || '').toLowerCase();
       if (key.includes('lea')) {
@@ -4372,6 +4374,25 @@
         if (typeof hideTeaserImmediately === 'function') hideTeaserImmediately();
       }
 
+      function showFabHiddenToast() {
+        try {
+          let toast = document.getElementById('ccFabHiddenToast');
+          if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'ccFabHiddenToast';
+            toast.style.cssText = 'position:fixed;right:18px;bottom:84px;z-index:2147483645;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:rgba(15,15,15,0.96);border:1px solid rgba(212,169,74,0.45);color:#F5F2EA;font:600 13px/1.35 system-ui,-apple-system,sans-serif;box-shadow:0 12px 32px rgba(0,0,0,0.65);max-width:calc(100vw - 32px);';
+            toast.innerHTML = '<span>Czat ukryty. Przywołasz go w <strong>Menu</strong> lub skrótem <strong>Alt+C</strong>.</span><button type="button" id="ccFabRestoreNowBtn" style="min-height:44px;padding:0 14px;border-radius:999px;border:1px solid #D4A94A;background:rgba(212,169,74,0.18);color:#E8C97A;font-weight:700;cursor:pointer;white-space:nowrap;">Przywróć</button>';
+            document.body.appendChild(toast);
+            toast.querySelector('#ccFabRestoreNowBtn')?.addEventListener('click', () => {
+              revealFabOnIncomingMessage({ source: 'toast_restore', force: true, quiet: true });
+              toast.remove();
+            });
+          }
+          clearTimeout(toast.__ccTimer);
+          toast.__ccTimer = setTimeout(() => { toast.remove(); }, 5500);
+        } catch (_) {}
+      }
+
       function hideFabByGesture(preserveLeft, preserveTop, hadCustomPos, options) {
         const opts = (options && typeof options === 'object') ? options : {};
         clearTimeout(hideAnimTimer);
@@ -4397,6 +4418,7 @@
 
         if (opts.immediate || reduceMotion) {
           finalizeHiddenDomState();
+          if (!opts.immediate) showFabHiddenToast();
           return getFabStateSnapshot();
         }
 
@@ -4406,6 +4428,7 @@
         hideAnimTimer = setTimeout(() => {
           finalizeHiddenDomState();
         }, 210);
+        showFabHiddenToast();
         return getFabStateSnapshot();
       }
 
@@ -4445,7 +4468,7 @@
         }
 
         const overlayOpen = overlay && overlay.classList && overlay.classList.contains('is-open');
-        if (!overlayOpen) {
+        if (!overlayOpen && !d.quiet) {
           fabWrap.classList.add('has-unread-message');
         }
 
@@ -4719,6 +4742,13 @@
       addCleanListener(window, 'lumina:chat_message_received', onIncomingMessageEvent);
       addCleanListener(window, 'lumina:new_message', onIncomingMessageEvent);
       addCleanListener(window, 'lumina-push-message', onIncomingMessageEvent);
+      addCleanListener(document, 'keydown', (ev) => {
+        if (ev && ev.altKey && !ev.ctrlKey && !ev.metaKey && String(ev.key || '').toLowerCase() === 'c') {
+          ev.preventDefault();
+          revealFabOnIncomingMessage({ source: 'shortcut_alt_c', force: true, quiet: true });
+          window.CCGlobalChat?.open?.('live');
+        }
+      });
 
       addCleanListener(window, 'storage', (ev) => {
         if (!ev) return;
@@ -5633,6 +5663,9 @@
         window.CCUnifiedChat.open({ tab: targetTab === 'members' ? 'private' : 'public', partner: targetPartnerId });
         return;
       }
+      if (typeof revealFabController === 'function') {
+        revealFabController({ source: 'manual_open', force: true, quiet: true });
+      }
       const overlay = document.getElementById('ccGlobalChatOverlay');
       if (overlay) {
         if (typeof hideActiveTeaserOnOpen === 'function') hideActiveTeaserOnOpen();
@@ -5698,6 +5731,17 @@
       safeLsSet(CC_FAB_HIDDEN_KEY, '1');
       safeLsSet(CC_FAB_HIDDEN_AT_KEY, String(Date.now()));
       return { hidden: true };
+    },
+    showFab: function () {
+      if (typeof revealFabController === 'function') {
+        revealFabController({ source: 'manual_restore', force: true, quiet: true });
+      } else {
+        safeLsRemove(CC_FAB_HIDDEN_KEY);
+        safeLsRemove(CC_FAB_HIDDEN_AT_KEY);
+        safeLsRemove(CC_FAB_UNREAD_AT_HIDE_KEY);
+      }
+      if (typeof getFabStateController === 'function') return getFabStateController();
+      return { hidden: false };
     },
     resetFabPosition: function () {
       if (typeof resetFabPosController === 'function') return resetFabPosController();
