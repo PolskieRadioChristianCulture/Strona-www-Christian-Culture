@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "name": "Mapa Ekosystemu Christian Culture",
   "updatesLog": [
+    {
+      "date": "2026-11-19",
+      "topic": "Przycisk informacji EkoCC INFO ⓘ — przeniesienie pod górną belkę (+) i ukrywanie przy przewijaniu",
+      "agent": "A"
+    },
     {"date":"2026-11-19","topic":"Strona główna — automatyczny język i zapamiętany wybór","agent":"G"},
     {
       "date": "2026-11-18",

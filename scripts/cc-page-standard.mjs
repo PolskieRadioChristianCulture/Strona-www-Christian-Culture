@@ -37,6 +37,7 @@ export function applyPageStandard(file, html) {
   html = html.replace(/(src=["'])(\/js\/cc-favorites\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261114_favz1$3');
   html = html.replace(/(src=["'])(\/js\/cc-newsletter\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261030_nl1$3');
   html = html.replace(/(src=["'])(\/js\/cc-mobile-edge\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_gold3$3');
+  html = html.replace(/(src=["'])(\/components\/ekocc-info\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_info1$3');
   html = html.replace(/(src=["'])(\/js\/cc-edge-plus\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261110_edgep2$3');
   html = html.replace(/(href=["'])(\/css\/cc-mobile-edge\.css)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261113_edge13$3');
 

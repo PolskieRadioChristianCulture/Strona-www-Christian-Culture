@@ -130,6 +130,12 @@ async function runSuite() {
 
     // Reduced motion
     assert.ok(code.includes('prefers-reduced-motion'), 'Musi wspierać media query prefers-reduced-motion');
+
+    // Górna pozycja pod przyciskiem "+" / belką górną + ukrywanie przy przewijaniu w dół
+    assert.ok(code.includes('.ekocc-info-trigger.is-scroll-hidden'), 'Musi definiować stan ukrycia przy przewijaniu .is-scroll-hidden');
+    assert.ok(code.includes('updateScrollVisibility'), 'Musi zarządzać widocznością podczas przewijania strony');
+    assert.ok(code.includes('actionsToggleBtn'), 'Musi pozycjonować się pod przyciskiem + w górnej belce');
+    assert.ok(code.includes("btn.style.bottom = 'auto'"), 'Nie może kotwiczyć przycisku przy dolnej krawędzi ekranu');
   });
 
   // 6. Dołączenie skryptu w plikach HTML rolloutu

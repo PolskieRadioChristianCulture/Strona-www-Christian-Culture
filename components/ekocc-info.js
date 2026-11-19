@@ -228,9 +228,10 @@
 
         .ekocc-info-trigger {
           position: fixed;
-          bottom: 118px;
-          right: 20px;
-          z-index: 1001;
+          top: 80px;
+          right: 24px;
+          bottom: auto;
+          z-index: 995;
           width: 48px;
           height: 48px;
           min-width: 44px;
@@ -240,13 +241,24 @@
           border: none;
           padding: 0;
           cursor: pointer;
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0) scale(1);
           filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 10px rgba(212, 169, 74, 0.3));
-          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, bottom 0.2s ease;
+          transition: opacity 0.24s ease, visibility 0.24s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, top 0.2s ease, right 0.2s ease;
           touch-action: manipulation;
           -webkit-tap-highlight-color: transparent;
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+        .ekocc-info-trigger.is-scroll-hidden,
+        .ekocc-info-trigger.is-scroll-hidden:hover,
+        .ekocc-info-trigger.is-scroll-hidden:focus-visible {
+          opacity: 0 !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+          transform: translateY(-10px) scale(0.9) !important;
         }
         .ekocc-info-trigger .ekocc-info-icon-img {
           width: 48px;
@@ -586,8 +598,9 @@
             transform: translateY(0);
           }
           .ekocc-info-trigger {
-            bottom: 110px;
+            top: 70px;
             right: 16px;
+            bottom: auto;
           }
         }
 
@@ -617,34 +630,148 @@
 
       document.body.appendChild(btn);
       this.adjustTriggerPosition(btn);
-      window.addEventListener('resize', () => this.adjustTriggerPosition());
-      window.addEventListener('orientationchange', () => this.adjustTriggerPosition());
+      this.updateScrollVisibility(btn);
+
+      const syncPosition = () => this.adjustTriggerPosition();
+      window.addEventListener('resize', syncPosition, { passive: true });
+      window.addEventListener('orientationchange', syncPosition, { passive: true });
+      window.addEventListener('load', () => {
+        this.adjustTriggerPosition();
+        this.updateScrollVisibility();
+      }, { passive: true });
+
+      let scrollTicking = false;
+      const runScrollSync = () => {
+        scrollTicking = false;
+        this.updateScrollVisibility();
+      };
+      const onScroll = () => {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        if (typeof window.requestAnimationFrame === 'function') {
+          window.requestAnimationFrame(runScrollSync);
+        } else {
+          setTimeout(runScrollSync, 16);
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('scrollend', onScroll, { passive: true });
+      document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+
+      if (typeof IntersectionObserver === 'function' && document.body) {
+        let sentinel = document.getElementById('ekoccInfoTopSentinel');
+        if (!sentinel) {
+          sentinel = document.createElement('div');
+          sentinel.id = 'ekoccInfoTopSentinel';
+          sentinel.setAttribute('aria-hidden', 'true');
+          sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:24px;pointer-events:none;opacity:0;visibility:hidden;z-index:-1;';
+          document.body.prepend(sentinel);
+        }
+        const topObserver = new IntersectionObserver(() => {
+          onScroll();
+        }, { threshold: [0, 0.1] });
+        topObserver.observe(sentinel);
+      }
+
+      if (typeof ResizeObserver === 'function') {
+        const ro = new ResizeObserver(() => this.adjustTriggerPosition());
+        const headerEl = document.querySelector('#mainHeader, .main-header, header');
+        const plusEl = document.getElementById('actionsToggleBtn');
+        if (headerEl) ro.observe(headerEl);
+        if (plusEl) ro.observe(plusEl);
+      }
+      setTimeout(() => {
+        this.adjustTriggerPosition();
+        this.updateScrollVisibility();
+      }, 300);
+      setTimeout(() => {
+        this.adjustTriggerPosition();
+        this.updateScrollVisibility();
+      }, 1000);
+    }
+
+    getScrollTop() {
+      const y = typeof window.scrollY === 'number'
+        ? window.scrollY
+        : (typeof window.pageYOffset === 'number' ? window.pageYOffset : 0);
+      const docY = document.documentElement ? document.documentElement.scrollTop : 0;
+      const bodyY = document.body ? document.body.scrollTop : 0;
+      return Math.max(0, y, docY || 0, bodyY || 0);
+    }
+
+    isElementVisibleBox(el) {
+      if (!el || typeof el.getBoundingClientRect !== 'function') return null;
+      const cs = window.getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) === 0) return null;
+      const rect = el.getBoundingClientRect();
+      if (!rect || rect.width <= 0 || rect.height <= 0) return null;
+      return rect;
+    }
+
+    updateScrollVisibility(btn) {
+      if (!btn) btn = document.getElementById('ekoccInfoTriggerBtn');
+      if (!btn || this.isOpen) return;
+      const isAtTop = this.getScrollTop() <= 24;
+      const wasHidden = btn.classList.contains('is-scroll-hidden');
+      if (isAtTop) {
+        if (wasHidden) {
+          btn.classList.remove('is-scroll-hidden');
+          btn.removeAttribute('aria-hidden');
+          btn.tabIndex = 0;
+        }
+        this.adjustTriggerPosition(btn);
+      } else if (!wasHidden) {
+        if (document.activeElement === btn && typeof btn.blur === 'function') {
+          btn.blur();
+        }
+        btn.classList.add('is-scroll-hidden');
+        btn.setAttribute('aria-hidden', 'true');
+        btn.tabIndex = -1;
+      }
     }
 
     adjustTriggerPosition(btn) {
       if (!btn) btn = document.getElementById('ekoccInfoTriggerBtn');
       if (!btn) return;
-      const candidates = ['#radioPlayerBar', '.radio-player-bar', '#globalAudioBar', '.player-bottom-bar', '.player-sticky-controls'];
-      let bottomOffset = window.innerWidth <= 640 ? 24 : 32;
-      for (const sel of candidates) {
+      const vw = window.innerWidth || document.documentElement.clientWidth || 1280;
+      const btnWidth = btn.offsetWidth || 48;
+
+      const headerSelectors = ['#mainHeader', '.main-header', '.cc-omni-topnav', 'header.navbar', 'header'];
+      let headerRect = null;
+      for (const sel of headerSelectors) {
         const el = document.querySelector(sel);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.height > 0 && rect.top < window.innerHeight && rect.bottom >= window.innerHeight - 10) {
-            const barHeight = Math.round(window.innerHeight - rect.top);
-            bottomOffset = Math.max(bottomOffset, barHeight + 16);
-          }
+        const rect = this.isElementVisibleBox(el);
+        if (rect && rect.top <= 48 && rect.bottom >= 36 && rect.bottom <= 150) {
+          headerRect = rect;
+          break;
         }
       }
-      const chatFab = document.querySelector('#ccGlobalChatFab, .cc-chat-fab-wrap');
-      if (chatFab && window.getComputedStyle(chatFab).display !== 'none' && !chatFab.classList.contains('is-fab-hidden')) {
-        const fRect = chatFab.getBoundingClientRect();
-        if (fRect.height > 0 && fRect.top < window.innerHeight) {
-          const fabTopSpace = Math.round(window.innerHeight - fRect.top);
-          bottomOffset = Math.max(bottomOffset, fabTopSpace + 14);
+
+      const plusSelectors = ['#actionsToggleBtn', '.main-header .toggle-trigger', 'header [data-cc-topbar-plus]'];
+      let plusRect = null;
+      for (const sel of plusSelectors) {
+        const el = document.querySelector(sel);
+        const rect = this.isElementVisibleBox(el);
+        if (rect && rect.top >= -8 && rect.bottom <= 160) {
+          plusRect = rect;
+          break;
         }
       }
-      btn.style.bottom = bottomOffset + 'px';
+
+      const baseBottom = headerRect ? headerRect.bottom : (plusRect ? plusRect.bottom : (vw <= 640 ? 60 : 70));
+      const topOffset = Math.max(48, Math.min(168, Math.round(baseBottom + 10)));
+
+      let rightOffset = vw <= 640 ? 16 : 24;
+      if (plusRect) {
+        const plusCenterX = plusRect.left + plusRect.width / 2;
+        const centeredRight = Math.round(vw - (plusCenterX + btnWidth / 2));
+        rightOffset = Math.max(12, Math.min(vw - btnWidth - 12, centeredRight));
+      }
+
+      btn.style.bottom = 'auto';
+      btn.style.left = 'auto';
+      btn.style.top = `${topOffset}px`;
+      btn.style.right = `${rightOffset}px`;
     }
 
     createModalDialog() {
@@ -926,8 +1053,9 @@
       }
 
       document.body.style.overflow = '';
+      this.updateScrollVisibility();
 
-      if (this.lastFocusedElement && typeof this.lastFocusedElement.focus === 'function') {
+      if (this.lastFocusedElement && typeof this.lastFocusedElement.focus === 'function' && !this.lastFocusedElement.classList?.contains('is-scroll-hidden')) {
         this.lastFocusedElement.focus();
       }
     }
