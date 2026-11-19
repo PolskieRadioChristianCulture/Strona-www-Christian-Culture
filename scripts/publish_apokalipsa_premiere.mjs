@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import { uploadEpisodeToChannel } from './publish_perfect.mjs';
 import { CHANNELS } from './yt_studio_session.mjs';
 
-const ASSETS = 'C:/Users/czark/Christian_Culture_Projekty/sds_apokalipsa_assets';
+const ASSETS = 'C:/Users/czark/Christian_Culture_Projekty/apokalipsa_dunkel_assets';
 const TARGET_CHANNELS = ['Osobowość +', 'Polskie Radio CHRISTIAN CULTURE', 'Christian Culture TV'];
 
 const EPISODES = {

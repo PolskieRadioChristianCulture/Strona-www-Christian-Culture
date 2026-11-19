@@ -8,17 +8,18 @@
  *   (odc. 1–3 opublikowane ręcznie 11.11: premiery 11, 12, 13.11; odc. 4 → wgranie 12.11, premiera 14.11).
  * Idempotentny: uploader pomija pary plik+kanał już obecne w historii; zaległe dni są nadrabiane.
  * NIE mieszać z projektem „Apokalipsa: Księga Nadziei”.
+ * UWAGA: Seria „Apokalipsa — Jonatan Dunkel” NIE jest produkcją Studia Dobrego Słowa (SDS).
  *
- * Użycie: node scripts/sds_apokalipsa_daily_pipeline.mjs [--dry-run] [--ep N]
+ * Użycie: node scripts/apokalipsa_dunkel_daily_pipeline.mjs [--dry-run] [--ep N]
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const ROOT = 'C:/Users/czark/Christian_Culture_Projekty/polskieradio.cc';
-const ASSETS = 'C:/Users/czark/Christian_Culture_Projekty/sds_apokalipsa_assets';
-const STATE_FILE = path.join(ROOT, 'data/sds_apokalipsa_yt_state.json');
-const EPISODES_CATALOG = path.join(ROOT, 'data/sds_apokalipsa_catalog.json');
+const ASSETS = 'C:/Users/czark/Christian_Culture_Projekty/apokalipsa_dunkel_assets';
+const STATE_FILE = path.join(ROOT, 'data/apokalipsa_dunkel_yt_state.json');
+const EPISODES_CATALOG = path.join(ROOT, 'data/apokalipsa_dunkel_catalog.json');
 const WORK = path.join(ASSETS, 'work');
 const OUT_DIR = path.join(ASSETS, 'odcinki');
 const INTRO = path.join(ASSETS, 'Intro Apokalipsa.mp4');
@@ -169,6 +170,6 @@ async function main() {
   }
 }
 
-if (process.argv[1] && path.basename(process.argv[1]) === 'sds_apokalipsa_daily_pipeline.mjs') {
+if (process.argv[1] && path.basename(process.argv[1]) === 'apokalipsa_dunkel_daily_pipeline.mjs') {
   main().catch(err => { console.error('❌', err.message); process.exit(1); });
 }
