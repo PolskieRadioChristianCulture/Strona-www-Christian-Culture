@@ -245,7 +245,7 @@
           visibility: visible;
           transform: translateY(0) scale(1);
           filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 10px rgba(212, 169, 74, 0.3));
-          transition: opacity 0.24s ease, visibility 0.24s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, top 0.2s ease, right 0.2s ease;
+          transition: opacity 0.24s ease, visibility 0.24s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease, top 0.2s ease, left 0.2s ease, right 0.2s ease;
           touch-action: manipulation;
           -webkit-tap-highlight-color: transparent;
           display: flex;
@@ -677,17 +677,30 @@
         const ro = new ResizeObserver(() => this.adjustTriggerPosition());
         const headerEl = document.querySelector('#mainHeader, .main-header, header');
         const plusEl = document.getElementById('actionsToggleBtn');
+        const quickMenu = document.getElementById('quickActionsMenu');
+        const headerRight = document.querySelector('.header-right');
         if (headerEl) ro.observe(headerEl);
         if (plusEl) ro.observe(plusEl);
+        if (quickMenu) ro.observe(quickMenu);
+        if (headerRight) ro.observe(headerRight);
+        if (document.body) ro.observe(document.body);
       }
       setTimeout(() => {
         this.adjustTriggerPosition();
         this.updateScrollVisibility();
-      }, 300);
+      }, 150);
+      setTimeout(() => {
+        this.adjustTriggerPosition();
+        this.updateScrollVisibility();
+      }, 400);
       setTimeout(() => {
         this.adjustTriggerPosition();
         this.updateScrollVisibility();
       }, 1000);
+      setTimeout(() => {
+        this.adjustTriggerPosition();
+        this.updateScrollVisibility();
+      }, 2500);
     }
 
     getScrollTop() {
@@ -733,7 +746,7 @@
     adjustTriggerPosition(btn) {
       if (!btn) btn = document.getElementById('ekoccInfoTriggerBtn');
       if (!btn) return;
-      const vw = window.innerWidth || document.documentElement.clientWidth || 1280;
+      const clientW = document.documentElement.clientWidth || window.innerWidth || 1280;
       const btnWidth = btn.offsetWidth || 48;
 
       const headerSelectors = ['#mainHeader', '.main-header', '.cc-omni-topnav', 'header.navbar', 'header'];
@@ -747,31 +760,41 @@
         }
       }
 
-      const plusSelectors = ['#actionsToggleBtn', '.main-header .toggle-trigger', 'header [data-cc-topbar-plus]'];
+      const plusSelectors = [
+        '#actionsToggleIcon',
+        '#actionsToggleBtn .avatar-ring',
+        '#actionsToggleBtn',
+        '.main-header .toggle-trigger',
+        'header [data-cc-topbar-plus]'
+      ];
       let plusRect = null;
       for (const sel of plusSelectors) {
         const el = document.querySelector(sel);
         const rect = this.isElementVisibleBox(el);
-        if (rect && rect.top >= -8 && rect.bottom <= 160) {
+        if (rect && rect.top >= -8 && rect.bottom <= 160 && rect.width > 0) {
           plusRect = rect;
           break;
         }
       }
 
-      const baseBottom = headerRect ? headerRect.bottom : (plusRect ? plusRect.bottom : (vw <= 640 ? 60 : 70));
+      const baseBottom = headerRect ? headerRect.bottom : (plusRect ? plusRect.bottom : (clientW <= 640 ? 60 : 70));
       const topOffset = Math.max(48, Math.min(168, Math.round(baseBottom + 10)));
 
-      let rightOffset = vw <= 640 ? 16 : 24;
-      if (plusRect) {
+      if (plusRect && plusRect.width > 0) {
+        // Obliczenie osi pionowej (center X) przycisku plus na górnej belce
         const plusCenterX = plusRect.left + plusRect.width / 2;
-        const centeredRight = Math.round(vw - (plusCenterX + btnWidth / 2));
-        rightOffset = Math.max(12, Math.min(vw - btnWidth - 12, centeredRight));
+        // Bezpośrednie pozycjonowanie lewej krawędzi (left) względem viewportu (odporne na szerokość paska przewijania)
+        const targetLeft = Math.round(plusCenterX - btnWidth / 2);
+        btn.style.left = `${targetLeft}px`;
+        btn.style.right = 'auto';
+      } else {
+        const rightOffset = clientW <= 640 ? 16 : 24;
+        btn.style.left = 'auto';
+        btn.style.right = `${rightOffset}px`;
       }
 
       btn.style.bottom = 'auto';
-      btn.style.left = 'auto';
       btn.style.top = `${topOffset}px`;
-      btn.style.right = `${rightOffset}px`;
     }
 
     createModalDialog() {
