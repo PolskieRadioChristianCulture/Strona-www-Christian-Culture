@@ -24,7 +24,17 @@ test('test/uswiecenie/index.html spełnia kontrakt testowej Ścieżki Uświęcen
   assert.ok(html.includes('Wejdź na ścieżkę uświęcenia'), 'przycisk musi mieć napis Wejdź na ścieżkę uświęcenia');
   assert.match(html, /class="cc-map-card[^"]*"[^>]*id="ccSanctificationMap"\s+hidden/, 'okno Mapy Uświęcenia musi być domyślnie ukryte');
   assert.match(html, /class="cc-path-connector/, 'brak linii łączących kroki ścieżki');
-  assert.match(html, /v=20261119_gold9/, 'brak zaktualizowanego cache-bustera v=20261119_gold9');
+  assert.match(html, /v=20261119_gold10/, 'brak zaktualizowanego cache-bustera v=20261119_gold10');
+  assert.match(html, /id="heroSeeMoreBtn"/, 'brak dużego napisu ZOBACZ WIĘCEJ w Hero');
+  assert.ok(html.includes('ZOBACZ WIĘCEJ'), 'brak tekstu ZOBACZ WIĘCEJ');
+  assert.match(html, /id="heroThirdDescription"/, 'brak trzeciej prezentacji (maszyna do pisania)');
+  assert.match(html, /id="heroVerseBtn"[^>]*>[\s\S]*?Werset<\/a>/, 'brak przycisku WERSET');
+  const iVerse = html.indexOf('id="ccDailyVerseNode"');
+  const iRef = html.indexOf('id="ccVerseRefLink"');
+  const iRefl = html.indexOf('id="ccReflectionToggleBtn"');
+  assert.ok(iVerse !== -1 && iRef > iVerse && iRefl > iRef, 'odnośnik MojaBiblia musi stać na ścieżce między wersetem a „Odkryj rozważanie”');
+  assert.match(html, /id="ccConnectorVerseToRef"/, 'brak linii wersetu do odnośnika');
+  assert.match(html, /id="ccConnectorVerseToReflection"/, 'brak linii odnośnika do rozważania');
   assert.match(html, /id="ccMoreArchiveToggle"/, 'brak pojedynczego przycisku Więcej');
   assert.match(html, /id="ccMoreSectionsWrapper"\s+hidden/, '9 zakładek musi być ukrytych pod Więcej');
 
@@ -51,6 +61,9 @@ test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynami
   assert.match(css, /ccOrbRingPulse/, 'brak animacji pulsowania ikony rozważania');
   assert.match(css, /ccCtaHaloPulse/, 'brak animacji pulsowania przycisku ścieżki');
   assert.match(css, /ccPathSparkDrop/, 'brak animacji światła na liniach łączących kroki');
+  assert.match(css, /ccHeroCascadeIn/, 'brak kaskadowej animacji Hero');
+  assert.match(css, /ccCaretBlink/, 'brak kursora maszyny do pisania');
+  assert.match(css, /\.btn-verse/, 'brak stylu przycisku WERSET');
 
   const js = fs.readFileSync(jsPath, 'utf8');
   assert.match(js, /fetch\(['"]\/rozwazania_baza\.json['"]/);
@@ -59,6 +72,9 @@ test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynami
   assert.match(js, /formatAnimatedVerseHtml/, 'brak funkcji animacji słów Wersetu Dnia');
   assert.match(js, /renderReflectionCard/, 'brak funkcji renderującej ukryte rozważanie i modlitwę');
   assert.match(js, /updateStreakPill/, 'brak funkcji aktualizującej serię bez restartu animacji wersetu');
+  assert.match(js, /initHeroCascade/, 'brak kaskadowej prezentacji Hero');
+  assert.match(js, /cc-tw-typed/, 'brak maszyny do pisania');
+  assert.match(js, /getElementById\('playBtn'\)/, 'RADIO musi włączać dolny odtwarzacz');
 
   const chatJs = fs.readFileSync(path.join(ROOT, 'components', 'cc-global-chat-button.js'), 'utf8');
   assert.match(chatJs, /#ccGlobalChatOverlay\.cc-chat-home-theme/);

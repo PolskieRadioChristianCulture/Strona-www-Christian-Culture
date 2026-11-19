@@ -518,7 +518,7 @@
     <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261030_edge10">
     <link rel="stylesheet" href="/css/cc-edge-cue.css?v=20261021_1">
     <script defer src="/js/cc-mobile-edge.js?v=20261030_edge10" data-cc-edge-profile="home"></script>
-    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold9">
+    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold10">
 </head>
 <body>
 <a class="cc-home-skip" href="#main-content">Przejdź do głównej treści</a>
@@ -2200,6 +2200,12 @@
                 <p class="hero-intro-text" data-cc-i18n-pl="Christian Culture to chrześcijański ekosystem mediów, edukacji, społeczności i nowoczesnych narzędzi. Słuchaj radia, studiuj Biblię, oglądaj wartościowe filmy, poznawaj ludzi, rozwijaj swoje talenty i odkrywaj inspirujące treści — w jednym miejscu, bezpłatnie." data-cc-i18n-en="Christian Culture is a faith-centered ecosystem of media, education, community, and scripture tools. Listen to radio, study the Bible, watch Christian cinema, connect with believers, and discover inspiring content — free worldwide." style="font-size: 0.95rem; line-height: 1.6; color: rgba(255,255,255,0.78); max-width: 560px; margin: 12px 0 16px 0;">Christian Culture to chrześcijański ekosystem mediów, edukacji, społeczności i nowoczesnych narzędzi. Słuchaj radia, studiuj Biblię, oglądaj wartościowe filmy, poznawaj ludzi, rozwijaj swoje talenty i odkrywaj inspirujące treści — w jednym miejscu, bezpłatnie.</p>
                 <div class="gold-divider"></div>
                 
+                <div class="cc-hero-see-more-wrap" id="heroSeeMoreBanner">
+                    <button type="button" class="cc-hero-see-more-btn" id="heroSeeMoreBtn" aria-label="Zobacz więcej — przejdź do aktualnej transmisji">
+                        <span class="cc-hero-see-more-text">ZOBACZ WIĘCEJ</span>
+                        <svg class="cc-hero-see-more-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                </div>
                 <!-- YOUTUBE LIVE STREAM EMBED -->
                 <div class="live-stream-box" id="liveStreamBox" style="margin: 15px 0 25px 0; width: 100%; max-width: 560px; display: block; opacity: 1;">
                     <style>
@@ -2380,11 +2386,13 @@
                         })();
                     </script>
                 </div>
-                <p class="hero-description">
+                <p class="hero-description" id="heroThirdDescription">
                     Witaj w przestrzeni nowej kultury chrześcijańskiej. Doświadczaj wiary na co dzień dzięki sześciu stacjom radiowym z muzyką i Słowem Bożym bezpośrednio w przeglądarce oraz pobierz nasze dedykowane aplikacje mobilne wspierające Twój rozwój duchowy.
-                <div class="hero-buttons">
-                    <a href="https://polskieradio.cc/player" class="btn btn-gold" id="heroRadioBtn" title="Odtwarzacz Audio Polskie Radio CC"><i class="fa-solid fa-radio"></i> Radio</a>
+                </p>
+                <div class="hero-buttons" id="heroActionButtons">
+                    <a href="https://polskieradio.cc/player" class="btn btn-gold" id="heroRadioBtn" title="Włącz radio w dolnym odtwarzaczu"><i class="fa-solid fa-radio"></i> Radio</a>
                     <a href="https://polskieradio.cc/nadawaj" class="btn btn-outline" id="heroTvBtn" title="Telewizja i Panel Nadawania CC"><i class="fa-solid fa-tv"></i> Telewizja</a>
+                    <a href="#sciezka-uswiecenia" class="btn btn-verse" id="heroVerseBtn" title="Przejdź do dzisiejszego Wersetu Dnia"><i class="fa-solid fa-book-bible"></i> Werset</a>
                 </div>
             </div>
         </div>
@@ -2410,8 +2418,16 @@
         <div class="cc-sanctification-container">
             <article class="cc-verse-node" id="ccDailyVerseNode" aria-live="polite"></article>
 
-            <div class="cc-path-connector cc-path-connector--top" id="ccConnectorVerseToReflection" aria-hidden="true">
-                <div class="cc-path-line"><span class="cc-path-spark"></span></div>
+            <div class="cc-path-connector cc-path-connector--top" id="ccConnectorVerseToRef" aria-hidden="true">
+                <div class="cc-path-line cc-path-line--short"><span class="cc-path-spark"></span></div>
+            </div>
+
+            <div class="cc-path-node-trigger-wrap cc-verse-ref-path-wrap" id="ccVerseRefNodeWrap">
+                <a class="cc-verse-ref-link cc-verse-ref-path-pill" id="ccVerseRefLink" href="/mojabiblia"><i class="fa-solid fa-book-bible" aria-hidden="true"></i> <span>Czytaj w MojaBiblia (UBG)</span></a>
+            </div>
+
+            <div class="cc-path-connector" id="ccConnectorVerseToReflection" aria-hidden="true">
+                <div class="cc-path-line cc-path-line--short"><span class="cc-path-spark cc-path-spark--delayed"></span></div>
             </div>
 
             <div class="cc-path-node-trigger-wrap" id="ccReflectionTriggerWrap">
@@ -4616,6 +4632,6 @@
   <script type="module" src="/components/cc-warm-welcome.js?v=20261031_1"></script>
     <!-- Menedżer akcji sezonowych: automatyczne show/hide wg kalendarza -->
     <script src="/js/cc-seasonal-campaigns.js?v=20261101_1" defer></script>
-    <script src="/js/cc-sanctification-path.js?v=20261119_gold9" defer></script>
+    <script src="/js/cc-sanctification-path.js?v=20261119_gold10" defer></script>
 </body>
 </html>

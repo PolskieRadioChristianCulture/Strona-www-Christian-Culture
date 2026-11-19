@@ -40,7 +40,7 @@ html = html.replace(
 html = html.replace(/src="\.\/Aplikacja Christian Culture\.png"/g, 'src="/Aplikacja Christian Culture.png"');
 
 // 4. Dołączenie arkusza stylów cc-sanctification-path.css przed </head>
-const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold9">\n</head>';
+const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold10">\n</head>';
 if (!html.includes('cc-sanctification-path.css')) {
   html = html.replace('</head>', cssTag);
 }
@@ -62,8 +62,16 @@ const sanctificationBlock = `    <!-- ══════════════
         <div class="cc-sanctification-container">
             <article class="cc-verse-node" id="ccDailyVerseNode" aria-live="polite"></article>
 
-            <div class="cc-path-connector cc-path-connector--top" id="ccConnectorVerseToReflection" aria-hidden="true">
-                <div class="cc-path-line"><span class="cc-path-spark"></span></div>
+            <div class="cc-path-connector cc-path-connector--top" id="ccConnectorVerseToRef" aria-hidden="true">
+                <div class="cc-path-line cc-path-line--short"><span class="cc-path-spark"></span></div>
+            </div>
+
+            <div class="cc-path-node-trigger-wrap cc-verse-ref-path-wrap" id="ccVerseRefNodeWrap">
+                <a class="cc-verse-ref-link cc-verse-ref-path-pill" id="ccVerseRefLink" href="/mojabiblia"><i class="fa-solid fa-book-bible" aria-hidden="true"></i> <span>Czytaj w MojaBiblia (UBG)</span></a>
+            </div>
+
+            <div class="cc-path-connector" id="ccConnectorVerseToReflection" aria-hidden="true">
+                <div class="cc-path-line cc-path-line--short"><span class="cc-path-spark cc-path-spark--delayed"></span></div>
             </div>
 
             <div class="cc-path-node-trigger-wrap" id="ccReflectionTriggerWrap">
@@ -144,10 +152,40 @@ if (html.includes(footerMarker)) {
 }
 
 // 6. Podpięcie logiki przed </body>
-const jsTag = '    <script src="/js/cc-sanctification-path.js?v=20261119_gold9" defer></script>\n</body>';
+const jsTag = '    <script src="/js/cc-sanctification-path.js?v=20261119_gold10" defer></script>\n</body>';
 if (!html.includes('cc-sanctification-path.js')) {
   html = html.replace('</body>', jsTag);
 }
+
+
+// 7. Kaskadowa prezentacja Hero: ZOBACZ WIĘCEJ, transmisja, maszyna do pisania i przyciski RADIO / TELEWIZJA / WERSET
+const dividerMarker = '<div class="gold-divider"></div>';
+const liveMarker = '<!-- YOUTUBE LIVE STREAM EMBED -->';
+const dividerIdx = html.indexOf(dividerMarker);
+const liveIdx = html.indexOf(liveMarker);
+if (dividerIdx === -1 || liveIdx === -1 || liveIdx < dividerIdx) {
+  throw new Error('Nie znaleziono znaczników gold-divider / YOUTUBE LIVE STREAM EMBED w Hero');
+}
+const seeMoreHtml = '<div class="cc-hero-see-more-wrap" id="heroSeeMoreBanner">\n' +
+  '                    <button type="button" class="cc-hero-see-more-btn" id="heroSeeMoreBtn" aria-label="Zobacz więcej — przejdź do aktualnej transmisji">\n' +
+  '                        <span class="cc-hero-see-more-text">ZOBACZ WIĘCEJ</span>\n' +
+  '                        <svg class="cc-hero-see-more-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>\n' +
+  '                    </button>\n' +
+  '                </div>\n                ';
+html = html.slice(0, liveIdx) + seeMoreHtml + html.slice(liveIdx);
+
+const descRe = /<p class="hero-description">[\s\S]*?<div class="hero-buttons">[\s\S]*?<\/div>/;
+if (!descRe.test(html)) {
+  throw new Error('Nie znaleziono bloku hero-description / hero-buttons');
+}
+html = html.replace(descRe, '<p class="hero-description" id="heroThirdDescription">\n' +
+  '                    Witaj w przestrzeni nowej kultury chrześcijańskiej. Doświadczaj wiary na co dzień dzięki sześciu stacjom radiowym z muzyką i Słowem Bożym bezpośrednio w przeglądarce oraz pobierz nasze dedykowane aplikacje mobilne wspierające Twój rozwój duchowy.\n' +
+  '                </p>\n' +
+  '                <div class="hero-buttons" id="heroActionButtons">\n' +
+  '                    <a href="https://polskieradio.cc/player" class="btn btn-gold" id="heroRadioBtn" title="Włącz radio w dolnym odtwarzaczu"><i class="fa-solid fa-radio"></i> Radio</a>\n' +
+  '                    <a href="https://polskieradio.cc/nadawaj" class="btn btn-outline" id="heroTvBtn" title="Telewizja i Panel Nadawania CC"><i class="fa-solid fa-tv"></i> Telewizja</a>\n' +
+  '                    <a href="#sciezka-uswiecenia" class="btn btn-verse" id="heroVerseBtn" title="Przejdź do dzisiejszego Wersetu Dnia"><i class="fa-solid fa-book-bible"></i> Werset</a>\n' +
+  '                </div>');
 
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(outPath, html, 'utf8');

@@ -1250,3 +1250,390 @@
     animation-iteration-count: infinite !important;
   }
 }
+
+/* ==========================================================================
+   KASKADOWA PREZENTACJA HERO (5 etapów) — /test/uswiecenie/
+   ========================================================================== */
+.cc-hc-word-group {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.cc-hero-cascade-armed .cc-hc-char,
+.cc-hero-cascade-armed .cc-hc-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(4px);
+  will-change: transform, opacity, filter;
+}
+
+.cc-hero-cascade-armed .is-stage-visible .cc-hc-char,
+.cc-hero-cascade-armed .is-stage-visible .cc-hc-word,
+.cc-hero-cascade-armed .is-stage-visible.cc-hc-char {
+  animation: ccHeroCascadeIn 620ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--cc-hc-delay, 0ms) forwards;
+}
+
+.cc-hero-cascade-armed .hero-title.is-stage-visible .cc-hc-char {
+  animation:
+    ccHeroCascadeIn 620ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--cc-hc-delay, 0ms) forwards,
+    ccHeroTitleGlow 1400ms ease-out calc(var(--cc-hc-delay, 0ms) + 300ms) 1;
+}
+
+@keyframes ccHeroCascadeIn {
+  0% { opacity: 0; transform: translateY(18px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes ccHeroTitleGlow {
+  0% { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); }
+  40% { text-shadow: 0 0 22px rgba(242, 212, 133, 0.75), 0 2px 10px rgba(0, 0, 0, 0.5); }
+  100% { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); }
+}
+
+.cc-hero-cascade-armed .hero-text-col > .gold-divider {
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  transition: transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1), opacity 400ms ease;
+}
+
+.cc-hero-cascade-armed .hero-text-col > .gold-divider.is-stage-visible {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* Duży napis ZOBACZ WIĘCEJ */
+.cc-hero-see-more-wrap {
+  display: flex;
+  align-items: center;
+  margin: 4px 0 14px 0;
+}
+
+.cc-hero-cascade-armed .cc-hero-see-more-wrap {
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 550ms ease, transform 620ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.cc-hero-cascade-armed .cc-hero-see-more-wrap.is-stage-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.cc-hero-see-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 6px 2px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #F2D485;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.38rem, 2.5vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-shadow: 0 0 24px rgba(212, 169, 74, 0.42);
+  transition: color 220ms ease, transform 220ms ease;
+}
+
+.cc-hero-see-more-btn:hover {
+  color: #FFEBB3;
+  transform: translateY(-1px);
+}
+
+.cc-hero-see-more-btn:focus-visible {
+  outline: 2px solid #FF7A00;
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+.cc-hero-see-more-arrow {
+  flex-shrink: 0;
+  animation: ccSeeMoreArrowBob 2.2s ease-in-out infinite;
+}
+
+@keyframes ccSeeMoreArrowBob {
+  0%, 100% { transform: translateY(-2px); opacity: 0.75; }
+  50% { transform: translateY(4px); opacity: 1; }
+}
+
+/* Aktualna transmisja — pojawia się po ZOBACZ WIĘCEJ */
+.cc-hero-cascade-armed #liveStreamBox {
+  opacity: 0 !important;
+  transform: translateY(22px) scale(0.975);
+  pointer-events: none;
+  transition: opacity 780ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 820ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.cc-hero-cascade-armed #liveStreamBox.is-stage-visible {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.cc-hero-cascade-armed #liveStreamBox.is-stage-visible .video-container {
+  animation: ccLiveBoxBloom 1600ms ease-out 1;
+}
+
+@keyframes ccLiveBoxBloom {
+  0% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 0 rgba(212, 169, 74, 0); }
+  45% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 34px rgba(212, 169, 74, 0.45); }
+  100% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 0 rgba(212, 169, 74, 0); }
+}
+
+/* Tekst pisany jak na maszynie (bez skoków układu) */
+.cc-hero-typewriter {
+  position: relative;
+}
+
+.cc-hero-cascade-armed #heroThirdDescription {
+  opacity: 0;
+  margin-bottom: 1.8rem;
+  transition: opacity 320ms ease;
+}
+
+.cc-hero-cascade-armed #heroThirdDescription.is-stage-visible {
+  opacity: 1;
+}
+
+.cc-tw-ghost {
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cc-tw-live {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.cc-tw-caret {
+  display: inline-block;
+  width: 2.5px;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: -0.14em;
+  background: #F2D485;
+  box-shadow: 0 0 10px rgba(242, 212, 133, 0.8);
+  animation: ccCaretBlink 0.72s steps(2, start) infinite;
+}
+
+.cc-hero-typewriter.is-typed-done .cc-tw-caret {
+  opacity: 0;
+  animation: none;
+  transition: opacity 500ms ease 400ms;
+}
+
+@keyframes ccCaretBlink {
+  to { visibility: hidden; }
+}
+
+.cc-tw-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Trzy przyciski: RADIO / TELEWIZJA / WERSET */
+#heroActionButtons.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.hero-buttons .btn,
+#heroRadioBtn,
+#heroTvBtn,
+#heroVerseBtn {
+  min-height: 52px;
+  border-radius: 999px !important;
+  padding-left: 1.55rem !important;
+  padding-right: 1.55rem !important;
+}
+
+.btn-verse,
+#heroVerseBtn {
+  background: linear-gradient(135deg, #FF7A00 0%, #FF8C33 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 212, 158, 0.45);
+  box-shadow: 0 6px 22px rgba(255, 122, 0, 0.34);
+}
+
+.btn-verse:hover,
+#heroVerseBtn:hover {
+  background: #FF8C33;
+  color: #FFFFFF;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 122, 0, 0.45);
+}
+
+.btn-verse:active,
+#heroVerseBtn:active {
+  background: #E66A00;
+  transform: scale(0.98);
+}
+
+.cc-hero-cascade-armed .hero-buttons .btn {
+  opacity: 0;
+  transform: translateY(16px) scale(0.95);
+  pointer-events: none;
+  transition:
+    opacity 520ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--cc-btn-delay, 0ms),
+    transform 560ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--cc-btn-delay, 0ms),
+    background 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.cc-hero-cascade-armed .hero-buttons.is-stage-visible .btn {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Zabezpieczenie: po zakończeniu sekwencji wszystko jest w pełni widoczne */
+.cc-hero-seq-done .cc-hc-char,
+.cc-hero-seq-done .cc-hc-word {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.cc-hero-seq-done .cc-hero-see-more-wrap,
+.cc-hero-seq-done #heroThirdDescription,
+.cc-hero-seq-done .hero-text-col > .gold-divider {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.cc-hero-seq-done #liveStreamBox {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.cc-hero-seq-done .hero-buttons .btn {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Dolny odtwarzacz: krótkie podświetlenie po kliknięciu RADIO */
+#radioPlayerBar.cc-bar-attention {
+  animation: ccBarAttention 1.5s ease-out 1;
+}
+
+@keyframes ccBarAttention {
+  0% { box-shadow: 0 -2px 0 rgba(212, 169, 74, 0); }
+  35% { box-shadow: 0 -2px 0 rgba(242, 212, 133, 0.9), 0 -12px 34px rgba(212, 169, 74, 0.35); }
+  100% { box-shadow: 0 -2px 0 rgba(212, 169, 74, 0); }
+}
+
+/* Odnośnik MojaBiblia jako wyśrodkowany węzeł złotej ścieżki */
+#ccDailyVerseNode .cc-verse-quote {
+  margin: 0;
+}
+
+.cc-verse-ref-path-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cc-verse-ref-link.cc-verse-ref-path-pill {
+  min-height: 46px;
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, rgba(22, 21, 18, 0.96) 0%, rgba(11, 11, 10, 0.98) 100%);
+  border: 1px solid rgba(212, 169, 74, 0.44);
+  color: #E8C97A;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65), 0 0 18px rgba(212, 169, 74, 0.14);
+  max-width: calc(100% - 20px);
+  text-align: center;
+  transition: border-color 220ms ease, transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 220ms ease;
+}
+
+.cc-verse-ref-link.cc-verse-ref-path-pill:hover {
+  border-color: #F2D485;
+  background: linear-gradient(145deg, rgba(212, 169, 74, 0.16) 0%, rgba(14, 13, 12, 0.98) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.72), 0 0 26px rgba(212, 169, 74, 0.28);
+}
+
+#sciezka-uswiecenia,
+#ccDailyVerseNode {
+  scroll-margin-top: 96px;
+}
+
+#ccDailyVerseNode.is-verse-spotlight {
+  animation: ccVerseArrivalPulse 1.4s ease-out 1;
+}
+
+@keyframes ccVerseArrivalPulse {
+  0% { box-shadow: 0 20px 55px rgba(0, 0, 0, 0.82), 0 0 0 0 rgba(242, 212, 133, 0.6); border-color: rgba(212, 169, 74, 0.38); }
+  35% { box-shadow: 0 20px 55px rgba(0, 0, 0, 0.82), 0 0 0 6px rgba(242, 212, 133, 0.22), 0 0 46px rgba(212, 169, 74, 0.4); border-color: #F2D485; }
+  100% { box-shadow: 0 20px 55px rgba(0, 0, 0, 0.82), 0 0 36px rgba(212, 169, 74, 0.08); border-color: rgba(212, 169, 74, 0.38); }
+}
+
+@media (max-width: 1023px) {
+  .cc-hero-see-more-wrap {
+    justify-content: center;
+  }
+  .cc-hero-cascade-armed .hero-text-col > .gold-divider {
+    transform-origin: center center;
+  }
+  #heroActionButtons.hero-buttons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  #heroActionButtons.hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    gap: 0.75rem;
+  }
+  #heroActionButtons.hero-buttons .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .cc-hero-see-more-btn {
+    font-size: clamp(1.2rem, 6vw, 1.55rem);
+    letter-spacing: 0.14em;
+  }
+  .cc-verse-ref-link.cc-verse-ref-path-pill {
+    padding: 8px 16px;
+    font-size: 0.84rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-hero-cascade-armed .cc-hc-char,
+  .cc-hero-cascade-armed .cc-hc-word {
+    transform: translateY(6px);
+  }
+  .cc-hero-see-more-arrow {
+    animation-duration: 3.6s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .cc-tw-caret {
+    animation-duration: 1.1s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+

@@ -412,7 +412,7 @@
         revealIfInside(href);
         try {
           var t = document.querySelector(href);
-          if (t && wrap.hidden === false) return;
+          if (t && wrap.contains(t) && wrap.hidden === false) return;
           if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } catch (_) {}
       }
@@ -577,10 +577,14 @@
             '<span class="cc-quote-pillar" aria-hidden="true"><span class="cc-quote-pillar-spark"></span></span>' +
             formatAnimatedVerseHtml(verse.quote) +
           '</blockquote>' +
-          '<div class="cc-verse-meta-row">' +
-            '<a class="cc-verse-ref-link" href="' + escapeHtml(verse.refUrl) + '"><i class="fa-solid fa-book-bible"></i> ' + escapeHtml(verse.refLabel) + '</a>' +
-          '</div>' +
         '</div>';
+
+      // Odnośnik MojaBiblia jest osobnym, wyśrodkowanym węzłem na złotej ścieżce (przed „Odkryj rozważanie i modlitwę”)
+      var refLinkEl = document.getElementById('ccVerseRefLink');
+      if (refLinkEl) {
+        refLinkEl.setAttribute('href', verse.refUrl);
+        refLinkEl.innerHTML = '<i class="fa-solid fa-book-bible" aria-hidden="true"></i> <span>' + escapeHtml(verse.refLabel) + '</span>';
+      }
 
       // Failsafe: po zakończeniu wejścia słowa pozostają w pełni czytelne nawet przy wstrzymaniu animacji
       readyTimer = setTimeout(function () {
@@ -809,12 +813,171 @@
       .catch(function () {});
   }
 
+
+  /* ==========================================================================
+     KASKADOWA PREZENTACJA HERO (5 etapów):
+     1) Christian Culture + hasło + opis  2) ZOBACZ WIĘCEJ  3) aktualna transmisja
+     4) tekst pisany jak na maszynie  5) przyciski RADIO / TELEWIZJA / WERSET
+     ========================================================================== */
+  function initHeroCascade() {
+    var heroSection = document.getElementById('hero');
+    if (!heroSection) return;
+    var titleEl = heroSection.querySelector('.hero-title');
+    var subtitleEl = heroSection.querySelector('.hero-subtitle');
+    var introEl = heroSection.querySelector('.hero-intro-text');
+    var dividerEl = heroSection.querySelector('.hero-text-col > .gold-divider');
+    var seeMoreEl = document.getElementById('heroSeeMoreBanner');
+    var seeMoreBtn = document.getElementById('heroSeeMoreBtn');
+    var liveBoxEl = document.getElementById('liveStreamBox');
+    var descEl = document.getElementById('heroThirdDescription') || heroSection.querySelector('.hero-description');
+    var buttonsEl = document.getElementById('heroActionButtons') || heroSection.querySelector('.hero-buttons');
+    var verseBtn = document.getElementById('heroVerseBtn');
+    var radioBtn = document.getElementById('heroRadioBtn');
+    if (!seeMoreEl || !liveBoxEl || !descEl || !buttonsEl) return;
+
+    // RADIO: włącza radio w dolnym odtwarzaczu (bez przechodzenia na inną stronę)
+    if (radioBtn) {
+      radioBtn.addEventListener('click', function (e) {
+        var playBtn = document.getElementById('playBtn');
+        if (!playBtn) return;
+        e.preventDefault();
+        var icon = document.getElementById('playIcon');
+        var alreadyPlaying = icon && /fa-pause/.test(icon.className);
+        if (!alreadyPlaying) playBtn.click();
+        var bar = document.getElementById('radioPlayerBar');
+        if (bar) {
+          bar.classList.remove('cc-bar-attention');
+          void bar.offsetWidth;
+          bar.classList.add('cc-bar-attention');
+          setTimeout(function () { bar.classList.remove('cc-bar-attention'); }, 1600);
+        }
+      });
+    }
+
+    // WERSET: płynne przewinięcie do Wersetu Dnia + delikatne podświetlenie
+    if (verseBtn) {
+      verseBtn.addEventListener('click', function (e) {
+        var target = document.getElementById('ccDailyVerseNode') || document.getElementById('sciezka-uswiecenia');
+        if (!target) return;
+        e.preventDefault();
+        var top = target.getBoundingClientRect().top + window.scrollY - 96;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        target.classList.remove('is-verse-spotlight');
+        void target.offsetWidth;
+        target.classList.add('is-verse-spotlight');
+        setTimeout(function () { target.classList.remove('is-verse-spotlight'); }, 1500);
+      });
+    }
+
+    function buildCharCascade(el, charStepMs, baseDelayMs) {
+      if (!el) return 0;
+      var text = el.textContent.replace(/\s+/g, ' ').trim();
+      var idx = 0;
+      el.innerHTML = text.split(' ').map(function (word) {
+        return '<span class="cc-hc-word-group">' + Array.from(word).map(function (ch) {
+          var d = baseDelayMs + (idx++) * charStepMs;
+          return '<span class="cc-hc-char" style="--cc-hc-delay:' + d + 'ms">' + escapeHtml(ch) + '</span>';
+        }).join('') + '</span>';
+      }).join(' ');
+      return baseDelayMs + idx * charStepMs;
+    }
+
+    function buildWordCascade(el, wordStepMs, baseDelayMs) {
+      if (!el) return 0;
+      var words = el.textContent.replace(/\s+/g, ' ').trim().split(' ');
+      el.innerHTML = words.map(function (w, i) {
+        return '<span class="cc-hc-word" style="--cc-hc-delay:' + (baseDelayMs + i * wordStepMs) + 'ms">' + escapeHtml(w) + '</span>';
+      }).join(' ');
+      return baseDelayMs + words.length * wordStepMs;
+    }
+
+    heroSection.classList.add('cc-hero-cascade-armed');
+    heroSection.setAttribute('data-hero-stage', '1');
+
+    buildCharCascade(titleEl, 38, 80);
+    buildWordCascade(subtitleEl, 75, 680);
+    buildWordCascade(introEl, 28, 1350);
+    buildCharCascade(seeMoreEl.querySelector('.cc-hero-see-more-text'), 40, 40);
+
+    var fullDescText = descEl.textContent.replace(/\s+/g, ' ').trim();
+    descEl.classList.add('cc-hero-typewriter');
+    descEl.innerHTML =
+      '<span class="cc-tw-ghost" aria-hidden="true">' + escapeHtml(fullDescText) + '</span>' +
+      '<span class="cc-tw-live" aria-hidden="true"><span class="cc-tw-typed"></span><span class="cc-tw-caret"></span></span>' +
+      '<span class="cc-tw-sr">' + escapeHtml(fullDescText) + '</span>';
+    var typedSpan = descEl.querySelector('.cc-tw-typed');
+
+    Array.prototype.forEach.call(buttonsEl.querySelectorAll('.btn'), function (b, i) {
+      b.style.setProperty('--cc-btn-delay', (i * 160) + 'ms');
+    });
+
+    var timers = [];
+    var finished = false;
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function show(el) { if (el) el.classList.add('is-stage-visible'); }
+    function stage(n) { if (!finished) heroSection.setAttribute('data-hero-stage', String(n)); }
+
+    function finishAll() {
+      if (finished) return;
+      finished = true;
+      timers.forEach(clearTimeout);
+      timers = [];
+      if (typedSpan) typedSpan.textContent = fullDescText;
+      [titleEl, subtitleEl, introEl, dividerEl, seeMoreEl, liveBoxEl, descEl, buttonsEl].forEach(show);
+      descEl.classList.remove('is-typing');
+      descEl.classList.add('is-typed-done');
+      heroSection.setAttribute('data-hero-stage', 'done');
+      heroSection.classList.add('cc-hero-seq-done');
+    }
+
+    function typeFrom(i) {
+      if (finished || !typedSpan) return;
+      if (i >= fullDescText.length) {
+        descEl.classList.remove('is-typing');
+        descEl.classList.add('is-typed-done');
+        later(function () {
+          stage(5);
+          show(buttonsEl);
+          later(finishAll, 650 + 320);
+        }, 220);
+        return;
+      }
+      typedSpan.textContent = fullDescText.slice(0, i + 1);
+      var ch = fullDescText.charAt(i);
+      var delay = (ch === '.' || ch === '—') ? 150 : (ch === ',' ? 60 : 16);
+      later(function () { typeFrom(i + 1); }, delay);
+    }
+
+    show(titleEl); show(subtitleEl); show(introEl);
+    later(function () { show(dividerEl); }, 2550);
+    later(function () { stage(2); show(seeMoreEl); }, 3050);
+    later(function () { stage(3); show(liveBoxEl); }, 4150);
+    later(function () {
+      stage(4);
+      show(descEl);
+      descEl.classList.add('is-typing');
+      typeFrom(0);
+    }, 5050);
+    setTimeout(finishAll, 16000);
+
+    if (seeMoreBtn) {
+      seeMoreBtn.addEventListener('click', function () {
+        finishAll();
+        setTimeout(function () {
+          try { liveBoxEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (_) {}
+        }, 60);
+      });
+    }
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
+      initHeroCascade();
       initMoreToggle();
       initSanctificationWidget();
     });
   } else {
+    initHeroCascade();
     initMoreToggle();
     initSanctificationWidget();
   }
