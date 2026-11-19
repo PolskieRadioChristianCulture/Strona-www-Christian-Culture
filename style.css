@@ -387,6 +387,83 @@ button {
     color: var(--gold-primary) !important;
 }
 
+/* Przełącznik języka (PL | EN) — dopasowany rozmiar i wysokość (38px) do przycisku logowania */
+.cc-header-lang-switcher,
+[data-cc-lang-switcher] {
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+    box-sizing: border-box !important;
+    margin-right: 4px !important;
+}
+
+.cc-lang-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+    box-sizing: border-box !important;
+    background: linear-gradient(165deg, rgba(18, 18, 20, 0.98) 0%, rgba(8, 8, 10, 0.99) 100%) !important;
+    border: 1.5px solid rgba(212, 175, 55, 0.35) !important;
+    border-radius: 24px !important;
+    padding: 2px 3px !important;
+    gap: 2px !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 14px rgba(212, 175, 55, 0.12) !important;
+    backdrop-filter: blur(28px) !important;
+    -webkit-backdrop-filter: blur(28px) !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    user-select: none !important;
+}
+
+.cc-lang-toggle:hover {
+    border-color: #d4af37 !important;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.65), 0 0 20px rgba(212, 175, 55, 0.3) !important;
+}
+
+.cc-lang-pill-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 36px !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+    padding: 0 8px !important;
+    border-radius: 18px !important;
+    border: none !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease !important;
+    user-select: none !important;
+    line-height: 1 !important;
+}
+
+.cc-lang-pill-btn[aria-pressed="true"] {
+    background: #d4af37 !important;
+    color: #0a0a0f !important;
+    font-weight: 800 !important;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.35) !important;
+}
+
+.cc-lang-pill-btn[aria-pressed="false"],
+.cc-lang-pill-btn:not([aria-pressed="true"]) {
+    background: transparent !important;
+    color: #cbd5e1 !important;
+    font-weight: 600 !important;
+}
+
+.cc-lang-pill-btn:hover:not([aria-pressed="true"]) {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
 .dzj-nav-wrapper {
     display: flex;
     align-items: center;

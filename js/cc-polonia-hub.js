@@ -192,15 +192,18 @@
   function updateSwitcherButtons(lang) {
     document.querySelectorAll('.cc-lang-pill-btn').forEach(function (btn) {
       var target = btn.getAttribute('data-lang');
-      btn.setAttribute('aria-pressed', target === lang ? 'true' : 'false');
-      if (target === lang) {
+      var isActive = target === lang;
+      btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      if (isActive) {
         btn.style.background = '#d4af37';
         btn.style.color = '#0a0a0f';
         btn.style.fontWeight = '800';
+        btn.style.boxShadow = '0 2px 8px rgba(212, 175, 55, 0.35)';
       } else {
         btn.style.background = 'transparent';
         btn.style.color = '#cbd5e1';
-        btn.style.fontWeight = '500';
+        btn.style.fontWeight = '600';
+        btn.style.boxShadow = 'none';
       }
     });
   }
@@ -211,9 +214,9 @@
 
     targets.forEach(function (target) {
       target.innerHTML = [
-        '<div class="cc-lang-toggle" role="group" aria-label="Wybór języka / Language selection" style="display:inline-flex;align-items:center;background:rgba(18,18,26,0.85);border:1px solid rgba(212,175,55,0.3);border-radius:22px;padding:2px;gap:2px;">',
-        '<button type="button" class="cc-lang-pill-btn" data-lang="pl" aria-label="Język Polski" style="min-width:44px;min-height:36px;padding:4px 10px;border-radius:18px;border:none;font-size:11px;cursor:pointer;transition:all 0.2s;' + (current === 'pl' ? 'background:#d4af37;color:#0a0a0f;font-weight:800;' : 'background:transparent;color:#cbd5e1;font-weight:500;') + '">PL</button>',
-        '<button type="button" class="cc-lang-pill-btn" data-lang="en" aria-label="English Language" style="min-width:44px;min-height:36px;padding:4px 10px;border-radius:18px;border:none;font-size:11px;cursor:pointer;transition:all 0.2s;' + (current === 'en' ? 'background:#d4af37;color:#0a0a0f;font-weight:800;' : 'background:transparent;color:#cbd5e1;font-weight:500;') + '">EN</button>',
+        '<div class="cc-lang-toggle" role="group" aria-label="Wybór języka / Language selection">',
+        '<button type="button" class="cc-lang-pill-btn" data-lang="pl" aria-label="Język Polski" aria-pressed="' + (current === 'pl' ? 'true' : 'false') + '">PL</button>',
+        '<button type="button" class="cc-lang-pill-btn" data-lang="en" aria-label="English Language" aria-pressed="' + (current === 'en' ? 'true' : 'false') + '">EN</button>',
         '</div>'
       ].join('');
 
@@ -224,6 +227,8 @@
         });
       });
     });
+
+    updateSwitcherButtons(current);
   }
 
   // 3. AUTO-START I ANALITYKA POLONII
@@ -242,7 +247,6 @@
     var current = getCurrentLang();
     if (window.CCHomeLanguage) {
       document.documentElement.lang = current;
-      document.querySelectorAll('.cc-lang-pill-btn').forEach(function (button) { button.style.minHeight = '44px'; });
       updateSwitcherButtons(current);
     }
     if (current === 'en') {
