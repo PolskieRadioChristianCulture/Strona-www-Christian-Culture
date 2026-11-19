@@ -461,19 +461,30 @@
       var verseHeaderEl = document.getElementById('ccVerseHeader');
       if (verseHeaderEl) {
         var headerHideTimer = null;
+        var hasStartedHide = false;
         var scheduleHeaderHide = function () {
+          if (hasStartedHide) return;
+          hasStartedHide = true;
           if (headerHideTimer) clearTimeout(headerHideTimer);
           headerHideTimer = setTimeout(function () {
-            if (verseHeaderEl) verseHeaderEl.classList.add('is-hidden');
+            if (verseHeaderEl) {
+              verseHeaderEl.classList.add('is-hidden');
+            }
           }, 3000);
         };
-        if (typeof IntersectionObserver !== 'undefined') {
+
+        // Sprawdź czy karta już jest widoczna w oknie
+        var rect = verseNode.getBoundingClientRect();
+        var isInView = rect.top < window.innerHeight && rect.bottom > 0;
+        if (isInView) {
+          scheduleHeaderHide();
+        } else if (typeof IntersectionObserver !== 'undefined') {
           var headerObs = new IntersectionObserver(function (entries) {
             if (entries[0] && entries[0].isIntersecting) {
               scheduleHeaderHide();
               headerObs.disconnect();
             }
-          }, { threshold: 0.15 });
+          }, { threshold: 0 });
           headerObs.observe(verseNode);
         } else {
           scheduleHeaderHide();
