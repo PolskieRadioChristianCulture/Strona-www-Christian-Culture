@@ -6,7 +6,8 @@
 /* 1. Przywrócenie i uszlachetnienie obrotu Mandali Hero (także przy reduced-motion!) */
 .hero-section {
   position: relative;
-  overflow: visible !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
   padding-bottom: 28px !important;
   background: transparent !important;
 }
@@ -69,11 +70,11 @@
   border-radius: 999px !important;
 }
 
-/* 2. Czyste, luksusowe przejście architektoniczne do sekcji Werset Dnia */
+/* 2. Czyste, luksusowe przejście architektoniczne do ścieżki pod Hero */
 .cc-sanctification-section {
   position: relative;
   z-index: 4;
-  padding: 36px 16px 0 16px;
+  padding: 14px 16px 0 16px;
   background: transparent !important;
   overflow-x: clip;
 }
@@ -84,7 +85,7 @@
   width: 100%;
   max-width: 480px;
   height: 1px;
-  margin: 0 auto 28px auto;
+  margin: 0 auto 14px auto;
   background: radial-gradient(circle, rgba(212, 169, 74, 0.45) 0%, rgba(212, 169, 74, 0.12) 60%, transparent 100%);
 }
 
@@ -1742,6 +1743,110 @@
   }
   .cc-hero-slide.is-active {
     transform: none;
+  }
+  .cc-verse-enter-arrow {
+    animation-duration: 3.6s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+/* ==========================================================================
+   OKNO 4 HERO: ŻYWY WERSET DNIA JAKO KLIKALNE WEJŚCIE DO KROKU 1
+   ========================================================================== */
+#heroSlide4 .cc-verse-node,
+.cc-hero-verse-card {
+  width: 100%;
+  max-width: 580px;
+  text-align: left;
+  cursor: pointer;
+  padding: clamp(18px, 2.5vw, 26px);
+  transition: border-color 240ms ease, box-shadow 260ms ease, transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#heroSlide4 .cc-verse-node:hover,
+.cc-hero-verse-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: rgba(242, 212, 133, 0.72);
+  box-shadow: 0 22px 58px rgba(0, 0, 0, 0.85), 0 0 42px rgba(212, 169, 74, 0.22);
+}
+
+#heroSlide4 .cc-verse-node:active,
+.cc-hero-verse-card:active {
+  transform: scale(0.992) !important;
+}
+
+#heroSlide4 .cc-verse-node:focus-visible,
+.cc-hero-verse-card:focus-visible {
+  outline: 2px solid #FF7A00;
+  outline-offset: 4px;
+}
+
+#heroSlide4 .cc-verse-quote {
+  font-size: clamp(1.06rem, 1.85vw, 1.38rem);
+  line-height: 1.52;
+  padding-left: 18px;
+}
+
+.cc-verse-enter-hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(212, 169, 74, 0.18);
+  color: #E8C97A;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: color 220ms ease;
+}
+
+.cc-verse-enter-hint-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cc-verse-enter-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #F2D485;
+  box-shadow: 0 0 10px rgba(242, 212, 133, 0.75);
+  flex-shrink: 0;
+}
+
+.cc-verse-enter-arrow {
+  flex-shrink: 0;
+  animation: ccSeeMoreArrowBob 2.2s ease-in-out infinite;
+}
+
+#heroSlide4 .cc-verse-node:hover .cc-verse-enter-hint,
+.cc-hero-verse-card:hover .cc-verse-enter-hint {
+  color: #FFEBB3;
+}
+
+#ccReflectionTriggerWrap,
+#ccVerseReflectionCard {
+  scroll-margin-top: 96px;
+}
+
+#ccVerseReflectionCard.is-verse-spotlight {
+  animation: ccVerseArrivalPulse 1.4s ease-out 1;
+}
+
+@media (max-width: 520px) {
+  #heroSlide4 .cc-verse-node,
+  .cc-hero-verse-card {
+    padding: 16px;
+  }
+  #heroSlide4 .cc-verse-quote {
+    font-size: clamp(1rem, 4.3vw, 1.2rem);
+    padding-left: 14px;
+  }
+  .cc-verse-enter-hint {
+    font-size: 0.78rem;
   }
 }
 

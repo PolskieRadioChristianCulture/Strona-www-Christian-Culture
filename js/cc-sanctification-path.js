@@ -404,6 +404,7 @@
     }
 
     document.addEventListener('click', function (e) {
+      if (e.defaultPrevented) return;
       var a = e.target.closest('a[href*="#"]');
       if (!a) return;
       var href = a.getAttribute('href') || '';
@@ -577,6 +578,10 @@
             '<span class="cc-quote-pillar" aria-hidden="true"><span class="cc-quote-pillar-spark"></span></span>' +
             formatAnimatedVerseHtml(verse.quote) +
           '</blockquote>' +
+          '<div class="cc-verse-enter-hint">' +
+            '<span class="cc-verse-enter-hint-left"><span class="cc-verse-enter-dot" aria-hidden="true"></span><span>Kliknij, aby przejść do rozważania i modlitwy</span></span>' +
+            '<i class="fa-solid fa-arrow-down cc-verse-enter-arrow" aria-hidden="true"></i>' +
+          '</div>' +
         '</div>';
 
       // Odnośnik MojaBiblia jest osobnym, wyśrodkowanym węzłem na złotej ścieżce (przed „Odkryj rozważanie i modlitwę”)
@@ -586,62 +591,105 @@
         refLinkEl.innerHTML = '<i class="fa-solid fa-book-bible" aria-hidden="true"></i> <span>' + escapeHtml(verse.refLabel) + '</span>';
       }
 
-      // Failsafe: po zakończeniu wejścia słowa pozostają w pełni czytelne nawet przy wstrzymaniu animacji
-      readyTimer = setTimeout(function () {
-        if (verseNode) {
-          verseNode.classList.add('is-ready');
-        }
-      }, 2400);
-
-      // Zablokuj wysokość okna na wyrenderowanym poziomie, aby okno nie skakało, nie powiększało się i nie zmniejszało
-      if (verseNode) {
-        verseNode.style.minHeight = '';
-        requestAnimationFrame(function () {
-          if (verseNode) {
-            var h = verseNode.offsetHeight;
-            if (h > 0) {
-              verseNode.style.minHeight = h + 'px';
-            }
+      if (verseNode.dataset && verseNode.dataset.ccStep1Bound !== '1') {
+        verseNode.dataset.ccStep1Bound = '1';
+        var openStepOneFromVerse = function () {
+          setReflectionOpen(true);
+          var target = document.getElementById('ccReflectionTriggerWrap') || reflectionCard || document.getElementById('sciezka-uswiecenia');
+          if (target) {
+            var top = target.getBoundingClientRect().top + window.scrollY - 96;
+            window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+          }
+          if (reflectionCard) {
+            reflectionCard.classList.remove('is-verse-spotlight');
+            void reflectionCard.offsetWidth;
+            reflectionCard.classList.add('is-verse-spotlight');
+            setTimeout(function () {
+              if (reflectionCard) reflectionCard.classList.remove('is-verse-spotlight');
+            }, 1500);
+          }
+        };
+        verseNode.addEventListener('click', function (e) {
+          if (e.target && e.target.closest && e.target.closest('a')) return;
+          openStepOneFromVerse();
+        });
+        verseNode.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openStepOneFromVerse();
           }
         });
       }
 
-      // Automatyczne płynne zwijanie nagłówka po 3 sekundach obecności w polu widzenia
       var verseHeaderEl = document.getElementById('ccVerseHeader');
-      if (verseHeaderEl) {
-        var headerHideTimer = null;
-        var headerObs = null;
-        var hasStartedHide = false;
-        var scheduleHeaderHide = function () {
-          if (hasStartedHide) return;
-          hasStartedHide = true;
-          if (headerHideTimer) clearTimeout(headerHideTimer);
+      var heroSlide4 = verseNode.closest ? verseNode.closest('#heroSlide4') : null;
+      var headerHideTimer = null;
+      var headerObs = null;
+      var entranceActivated = false;
+
+      var activateVerseEntrance = function () {
+        if (entranceActivated) return;
+        entranceActivated = true;
+        if (readyTimer) clearTimeout(readyTimer);
+        readyTimer = setTimeout(function () {
+          if (verseNode) {
+            verseNode.classList.add('is-ready');
+          }
+        }, 2400);
+
+        // Zablokuj wysokość okna na wyrenderowanym poziomie, aby okno nie skakało po zwinięciu nagłówka
+        if (verseNode) {
+          verseNode.style.minHeight = '';
+          requestAnimationFrame(function () {
+            if (verseNode) {
+              var h = verseNode.offsetHeight;
+              if (h > 0) {
+                verseNode.style.minHeight = h + 'px';
+              }
+            }
+          });
+        }
+
+        if (verseHeaderEl) {
           headerHideTimer = setTimeout(function () {
             if (verseHeaderEl) {
               verseHeaderEl.classList.add('is-hidden');
             }
-          }, 3000);
-        };
+          }, heroSlide4 ? 4500 : 3000);
+        }
+      };
 
-        headerCleanup = function () {
-          if (headerHideTimer) clearTimeout(headerHideTimer);
-          if (headerObs) headerObs.disconnect();
-        };
+      var onVerseShown = function () {
+        activateVerseEntrance();
+      };
 
+      headerCleanup = function () {
+        if (headerHideTimer) clearTimeout(headerHideTimer);
+        if (headerObs) headerObs.disconnect();
+        window.removeEventListener('cc:hero-verse-shown', onVerseShown);
+      };
+
+      if (heroSlide4) {
+        if (heroSlide4.classList.contains('is-active')) {
+          activateVerseEntrance();
+        } else {
+          window.addEventListener('cc:hero-verse-shown', onVerseShown, { once: true });
+        }
+      } else {
         var rect = verseNode.getBoundingClientRect();
         var isInView = rect.top < window.innerHeight && rect.bottom > 0;
         if (isInView) {
-          scheduleHeaderHide();
+          activateVerseEntrance();
         } else if (typeof IntersectionObserver !== 'undefined') {
           headerObs = new IntersectionObserver(function (entries) {
             if (entries[0] && entries[0].isIntersecting) {
-              scheduleHeaderHide();
+              activateVerseEntrance();
               if (headerObs) headerObs.disconnect();
             }
           }, { threshold: 0 });
           headerObs.observe(verseNode);
         } else {
-          scheduleHeaderHide();
+          activateVerseEntrance();
         }
       }
     }
@@ -815,16 +863,17 @@
 
 
   /* ==========================================================================
-     KASKADOWA PREZENTACJA HERO — TRZY OKNA W TYM SAMYM MIEJSCU (bez przewijania)
+     KASKADOWA PREZENTACJA HERO — CZTERY OKNA W TYM SAMYM MIEJSCU (bez przewijania)
      Okno 1: Christian Culture + hasło + opis + ZOBACZ WIĘCEJ
      Okno 2: aktualna transmisja
      Okno 3: tekst pisany jak na maszynie + przyciski RADIO / TELEWIZJA / WERSET
+     Okno 4: Żywy Werset Dnia (kliknięcie otwiera Krok 1 na ścieżce poniżej)
      ========================================================================== */
   function initHeroCascade() {
     var heroSection = document.getElementById('hero');
     if (!heroSection) return;
     var stageEl = document.getElementById('heroStage');
-    var slides = [1, 2, 3].map(function (n) { return document.getElementById('heroSlide' + n); });
+    var slides = [1, 2, 3, 4].map(function (n) { return document.getElementById('heroSlide' + n); });
     var dots = Array.prototype.slice.call(document.querySelectorAll('#heroDots .cc-hero-dot'));
     var titleEl = heroSection.querySelector('.hero-title');
     var subtitleEl = heroSection.querySelector('.hero-subtitle');
@@ -837,11 +886,12 @@
     var buttonsEl = document.getElementById('heroActionButtons') || heroSection.querySelector('.hero-buttons');
     var verseBtn = document.getElementById('heroVerseBtn');
     var radioBtn = document.getElementById('heroRadioBtn');
-    if (!stageEl || !slides[0] || !slides[1] || !slides[2] || !seeMoreEl || !liveBoxEl || !descEl || !buttonsEl) return;
+    if (!stageEl || !slides[0] || !slides[1] || !slides[2] || !slides[3] || !seeMoreEl || !liveBoxEl || !descEl || !buttonsEl) return;
 
     // RADIO: włącza radio w dolnym odtwarzaczu (bez przechodzenia na inną stronę)
     if (radioBtn) {
       radioBtn.addEventListener('click', function (e) {
+        slide3Held = true;
         var playBtn = document.getElementById('playBtn');
         if (!playBtn) return;
         e.preventDefault();
@@ -858,18 +908,17 @@
       });
     }
 
-    // WERSET: płynne przewinięcie do Wersetu Dnia + delikatne podświetlenie
+    // WERSET: przełącza płynnie do Okna 4 prezentacji Hero z dzisiejszym Wersetem Dnia
     if (verseBtn) {
       verseBtn.addEventListener('click', function (e) {
-        var target = document.getElementById('ccDailyVerseNode') || document.getElementById('sciezka-uswiecenia');
-        if (!target) return;
         e.preventDefault();
-        var top = target.getBoundingClientRect().top + window.scrollY - 96;
-        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-        target.classList.remove('is-verse-spotlight');
-        void target.offsetWidth;
-        target.classList.add('is-verse-spotlight');
-        setTimeout(function () { target.classList.remove('is-verse-spotlight'); }, 1500);
+        e.stopPropagation();
+        clearAll();
+        revealSlide1Now();
+        show(liveBoxEl);
+        typingDone = true;
+        finishSlide3Visuals();
+        startSlide4(true);
       });
     }
 
@@ -918,6 +967,7 @@
     var typingStarted = false;
     var typingDone = false;
     var liveHeld = false;
+    var slide3Held = false;
 
     function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
     function clearAll() { timers.forEach(clearTimeout); timers = []; }
@@ -945,15 +995,39 @@
       [titleEl, subtitleEl, introEl, dividerEl, seeMoreEl].forEach(show);
     }
 
-    function completeSlide3() {
-      typingDone = true;
+    function finishSlide3Visuals() {
       if (typedSpan) typedSpan.textContent = fullDescText;
       show(descEl);
       descEl.classList.remove('is-typing');
       descEl.classList.add('is-typed-done');
       show(buttonsEl);
+    }
+
+    function startSlide4(spotlight) {
+      goTo(4);
       stage('done');
       heroSection.classList.add('cc-hero-seq-done');
+      try { window.dispatchEvent(new CustomEvent('cc:hero-verse-shown')); } catch (_) {}
+      if (spotlight) {
+        var vNode = document.getElementById('ccDailyVerseNode');
+        if (vNode) {
+          vNode.classList.remove('is-verse-spotlight');
+          void vNode.offsetWidth;
+          vNode.classList.add('is-verse-spotlight');
+          setTimeout(function () { vNode.classList.remove('is-verse-spotlight'); }, 1500);
+        }
+      }
+    }
+
+    function completeSlide3(autoAdvance) {
+      typingDone = true;
+      finishSlide3Visuals();
+      stage(5);
+      if (autoAdvance && !slide3Held) {
+        later(function () {
+          if (!slide3Held && currentSlide === 3) startSlide4(false);
+        }, 5500);
+      }
     }
 
     function typeFrom(i) {
@@ -964,7 +1038,7 @@
         later(function () {
           stage(5);
           show(buttonsEl);
-          later(completeSlide3, 1400);
+          later(function () { completeSlide3(true); }, 1400);
         }, 650);
         return;
       }
@@ -974,10 +1048,14 @@
       later(function () { typeFrom(i + 1); }, delay);
     }
 
-    function startSlide3() {
+    function startSlide3(autoAdvance) {
+      if (typeof autoAdvance === 'undefined') autoAdvance = true;
       goTo(3);
       stage(4);
-      if (typingDone) { completeSlide3(); return; }
+      if (typingDone) {
+        completeSlide3(autoAdvance);
+        return;
+      }
       if (typingStarted) return;
       typingStarted = true;
       later(function () {
@@ -993,11 +1071,11 @@
       stage(3);
       show(liveBoxEl);
       if (autoAdvance && !liveHeld) {
-        later(function () { if (!liveHeld && currentSlide === 2) startSlide3(); }, 9000);
+        later(function () { if (!liveHeld && currentSlide === 2) startSlide3(true); }, 9000);
       }
     }
 
-    // Okno 1 → (ZOBACZ WIĘCEJ) → Okno 2 → Okno 3
+    // Okno 1 → (ZOBACZ WIĘCEJ) → Okno 2 → Okno 3 → Okno 4 (Werset Dnia)
     goTo(1);
     show(titleEl); show(subtitleEl); show(introEl);
     later(function () { show(dividerEl); }, 6900);
@@ -1022,20 +1100,22 @@
         clearAll();
         if (n === 1) { revealSlide1Now(); goTo(1); }
         else if (n === 2) { liveHeld = true; startSlide2(false); }
-        else { revealSlide1Now(); show(liveBoxEl); typingDone = true; startSlide3(); }
+        else if (n === 3) { slide3Held = true; revealSlide1Now(); show(liveBoxEl); typingDone = true; startSlide3(false); }
+        else { revealSlide1Now(); show(liveBoxEl); typingDone = true; finishSlide3Visuals(); startSlide4(false); }
       });
     });
 
-    // Zabezpieczenie: najpóźniej po 48 s widoczne jest okno 3 z kompletnym tekstem i przyciskami
+    // Zabezpieczenie: najpóźniej po 56 s prezentacja kończy w Oknie 4 (Werset Dnia)
     setTimeout(function () {
       if (heroSection.getAttribute('data-hero-stage') === 'done') return;
-      if (currentSlide === 2 && liveHeld) return;
+      if ((currentSlide === 2 && liveHeld) || (currentSlide === 3 && slide3Held)) return;
       clearAll();
       revealSlide1Now();
       show(liveBoxEl);
       typingDone = true;
-      startSlide3();
-    }, 48000);
+      finishSlide3Visuals();
+      startSlide4(false);
+    }, 56000);
   }
 
   if (document.readyState === 'loading') {

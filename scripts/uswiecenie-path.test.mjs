@@ -13,28 +13,34 @@ function assertSanctificationContract(html, label) {
   assert.match(html, /id="sciezka-uswiecenia"/, `${label}: brak sekcji #sciezka-uswiecenia`);
   assert.match(html, /class="cc-mandala-thread"/, `${label}: brak pionowej linii łączącej z Mandali`);
   assert.match(html, /id="ccDailyVerseNode"/, `${label}: brak węzła Wersetu Dnia`);
+  assert.strictEqual((html.match(/id="ccDailyVerseNode"/g) || []).length, 1, `${label}: w dokumencie może istnieć tylko jeden #ccDailyVerseNode`);
   assert.match(html, /id="ccReflectionToggleBtn"/, `${label}: brak pulsującej ikony odkrywającej rozważanie i modlitwę`);
   assert.match(html, /class="cc-reflection-card[^"]*"[^>]*id="ccVerseReflectionCard"\s+hidden/, `${label}: karta rozważania i modlitwy musi być domyślnie ukryta`);
   assert.match(html, /id="ccSanctificationToggleBtn"/, `${label}: brak pulsującego przycisku Wejdź na ścieżkę uświęcenia`);
   assert.ok(html.includes('Wejdź na ścieżkę uświęcenia'), `${label}: przycisk musi mieć napis Wejdź na ścieżkę uświęcenia`);
   assert.match(html, /class="cc-map-card[^"]*"[^>]*id="ccSanctificationMap"\s+hidden/, `${label}: okno Mapy Uświęcenia musi być domyślnie ukryte`);
   assert.match(html, /class="cc-path-connector/, `${label}: brak linii łączących kroki ścieżki`);
-  assert.match(html, /v=20261119_gold12/, `${label}: brak zaktualizowanego cache-bustera v=20261119_gold12`);
-  for (const n of [1, 2, 3]) assert.match(html, new RegExp('id="heroSlide' + n + '"'), `${label}: brak okna prezentacji ${n}`);
-  const iS1 = html.indexOf('id="heroSlide1"'), iS2 = html.indexOf('id="heroSlide2"'), iS3 = html.indexOf('id="heroSlide3"');
+  assert.match(html, /v=20261119_gold13/, `${label}: brak zaktualizowanego cache-bustera v=20261119_gold13`);
+  for (const n of [1, 2, 3, 4]) assert.match(html, new RegExp('id="heroSlide' + n + '"'), `${label}: brak okna prezentacji ${n}`);
+  for (const n of [1, 2, 3, 4]) assert.match(html, new RegExp('data-go="' + n + '"'), `${label}: brak kropki nawigacyjnej ${n}`);
+  const iS1 = html.indexOf('id="heroSlide1"'), iS2 = html.indexOf('id="heroSlide2"'), iS3 = html.indexOf('id="heroSlide3"'), iS4 = html.indexOf('id="heroSlide4"');
+  const iDots = html.indexOf('id="heroDots"');
+  const iVerse = html.indexOf('id="ccDailyVerseNode"');
   assert.ok(iS1 < html.indexOf('id="heroSeeMoreBtn"') && html.indexOf('id="heroSeeMoreBtn"') < iS2, `${label}: ZOBACZ WIĘCEJ w oknie 1`);
   assert.ok(iS2 < html.indexOf('id="liveStreamBox"') && html.indexOf('id="liveStreamBox"') < iS3, `${label}: transmisja w oknie 2`);
-  assert.ok(iS3 < html.indexOf('id="heroVerseBtn"'), `${label}: przyciski w oknie 3`);
+  assert.ok(iS3 < html.indexOf('id="heroVerseBtn"') && html.indexOf('id="heroVerseBtn"') < iS4, `${label}: przyciski w oknie 3`);
+  assert.ok(iS4 < iVerse && iVerse < iDots, `${label}: #ccDailyVerseNode musi znajdować się w oknie 4 prezentacji Hero (przed #heroDots)`);
+  assert.match(html, /id="ccDailyVerseNode"[^>]*role="button"[^>]*tabindex="0"|id="heroSlide4"[\s\S]*role="button"[^>]*tabindex="0"/, `${label}: 4. okno Wersetu Dnia musi być dostępne do kliknięcia i z klawiatury`);
   assert.match(html, /id="heroDots"/, `${label}: brak kropek przełączania okien`);
   assert.match(html, /id="heroSeeMoreBtn"/, `${label}: brak dużego napisu ZOBACZ WIĘCEJ w Hero`);
   assert.ok(html.includes('ZOBACZ WIĘCEJ'), `${label}: brak tekstu ZOBACZ WIĘCEJ`);
   assert.match(html, /id="heroThirdDescription"/, `${label}: brak trzeciej prezentacji (maszyna do pisania)`);
   assert.match(html, /id="heroVerseBtn"[^>]*>[\s\S]*?Werset<\/a>/, `${label}: brak przycisku WERSET`);
-  const iVerse = html.indexOf('id="ccDailyVerseNode"');
+  const iSec = html.indexOf('id="sciezka-uswiecenia"');
   const iRef = html.indexOf('id="ccVerseRefLink"');
   const iRefl = html.indexOf('id="ccReflectionToggleBtn"');
-  assert.ok(iVerse !== -1 && iRef > iVerse && iRefl > iRef, `${label}: odnośnik MojaBiblia musi stać na ścieżce między wersetem a „Odkryj rozważanie”`);
-  assert.match(html, /id="ccConnectorVerseToRef"/, `${label}: brak linii wersetu do odnośnika`);
+  assert.ok(iVerse < iSec && iSec < iRef && iRef < iRefl, `${label}: po przeniesieniu Wersetu Dnia do Hero sekcja ścieżki zaczyna się od odnośnika MojaBiblia przed „Odkryj rozważanie”`);
+  assert.match(html, /id="ccConnectorVerseToRef"/, `${label}: brak linii od góry ścieżki do odnośnika`);
   assert.match(html, /id="ccConnectorVerseToReflection"/, `${label}: brak linii odnośnika do rozważania`);
   assert.match(html, /id="ccMoreArchiveToggle"/, `${label}: brak pojedynczego przycisku Więcej`);
   assert.match(html, /id="ccMoreSectionsWrapper"\s+hidden/, `${label}: 9 zakładek musi być ukrytych pod Więcej`);
@@ -53,7 +59,7 @@ function assertSanctificationContract(html, label) {
   }
 }
 
-test('produkcyjna strona główna index.html spełnia kontrakt 3-oknowego Hero i Ścieżki Uświęcenia bez noindex', () => {
+test('produkcyjna strona główna index.html spełnia kontrakt 4-oknowego Hero i Ścieżki Uświęcenia bez noindex', () => {
   assert.ok(fs.existsSync(prodHtmlPath), 'brak index.html');
   const html = fs.readFileSync(prodHtmlPath, 'utf8');
   assert.doesNotMatch(html, /noindex/i, 'index.html nie może zawierać noindex');
@@ -85,6 +91,7 @@ test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynami
   assert.match(css, /ccCaretBlink/, 'brak kursora maszyny do pisania');
   assert.match(css, /\.btn-verse/, 'brak stylu przycisku WERSET');
   assert.match(css, /\.cc-hero-slide\s*\{[\s\S]*?grid-area:\s*1\s*\/\s*1/, 'okna muszą być w tym samym miejscu');
+  assert.match(css, /\.cc-verse-enter-hint/, 'brak stylu wskazówki kliknięcia 4. okna Wersetu Dnia');
 
   const js = fs.readFileSync(jsPath, 'utf8');
   assert.match(js, /fetch\(['"]\/rozwazania_baza\.json['"]/);
@@ -96,6 +103,10 @@ test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynami
   assert.match(js, /initHeroCascade/, 'brak kaskadowej prezentacji Hero');
   assert.match(js, /cc-tw-typed/, 'brak maszyny do pisania');
   assert.match(js, /getElementById\('playBtn'\)/, 'RADIO musi włączać dolny odtwarzacz');
+  assert.match(js, /function startSlide4\(/, 'brak obsługi 4. okna prezentacji Hero');
+  assert.match(js, /cc:hero-verse-shown/, 'brak synchronizacji wejścia Wersetu Dnia z Oknem 4');
+  assert.match(js, /openStepOneFromVerse/, 'brak przejścia po kliknięciu 4. okna do Kroku 1');
+  assert.match(js, /setReflectionOpen\(true\)/, 'kliknięcie 4. okna musi otwierać kartę rozważania i modlitwy');
 
   const chatJs = fs.readFileSync(path.join(ROOT, 'components', 'cc-global-chat-button.js'), 'utf8');
   assert.match(chatJs, /#ccGlobalChatOverlay\.cc-chat-home-theme/);
