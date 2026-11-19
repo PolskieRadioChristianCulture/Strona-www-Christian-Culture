@@ -1916,11 +1916,11 @@
   }
 }
 
-/* Powiększony, wycentrowany i lekko podniesiony portret Hero względem pokazu slajdów po prawej */
+/* Powiększony (o ok. 1 cm), wycentrowany i lekko podniesiony portret Hero względem pokazu slajdów po prawej */
 @media (min-width: 1024px) {
   .hero-section .hero-container {
-    grid-template-columns: 1.08fr 0.92fr;
-    gap: clamp(2rem, 3.2vw, 3.5rem);
+    grid-template-columns: 1.14fr 0.86fr;
+    gap: clamp(1.75rem, 2.8vw, 3rem);
     align-items: center;
   }
 
@@ -1929,12 +1929,12 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    transform: translateY(clamp(-46px, -4.5vh, -26px));
+    transform: translateY(clamp(-44px, -4.2vh, -24px));
   }
 
   .hero-section .hero-character-img {
     width: 100%;
-    max-width: min(100%, clamp(500px, 44vw, 650px), calc(66vh * 1.193));
+    max-width: min(100%, clamp(540px, 47.5vw, 700px), calc(71vh * 1.193));
     height: auto;
     display: block;
     margin: 0 auto;

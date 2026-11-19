@@ -2,7 +2,7 @@
 import { applyChannelNumbering } from './cc-channel-numbering.mjs';
 export const BACK_TO_TOP_SCRIPT = '/js/cc-back-to-top.js?v=20261119_btt7';
 export const OMNI_SEARCH_SCRIPT = '/components/cc-omni-search.js?v=20261030_feat11';
-export const FAVORITES_SCRIPT = '/js/cc-favorites.js?v=20261119_fav2';
+export const FAVORITES_SCRIPT = '/js/cc-favorites.js?v=20261119_fav3';
 export const NEWSLETTER_SCRIPT = '/js/cc-newsletter.js?v=20261030_nl1';
 export const MOBILE_EDGE_CSS = '/css/cc-mobile-edge.css?v=20261113_edge13';
 export const MOBILE_EDGE_SCRIPT = '/js/cc-mobile-edge.js?v=20261119_gold3';
@@ -34,7 +34,7 @@ export function applyPageStandard(file, html) {
   html = html.replace(/(src=["'])(\/components\/cc-global-chat-button\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_gold3$3');
   html = html.replace(/(src=["'])(\/js\/cc-back-to-top\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_btt7$3');
   html = html.replace(/(src=["'])(\/components\/cc-omni-search\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261030_feat11$3');
-  html = html.replace(/(src=["'])(\/js\/cc-favorites\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_fav2$3');
+  html = html.replace(/(src=["'])(\/js\/cc-favorites\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_fav3$3');
   html = html.replace(/(src=["'])(\/js\/cc-newsletter\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261030_nl1$3');
   html = html.replace(/(src=["'])(\/js\/cc-mobile-edge\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_gold3$3');
   html = html.replace(/(src=["'])(\/components\/ekocc-info\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_info2$3');

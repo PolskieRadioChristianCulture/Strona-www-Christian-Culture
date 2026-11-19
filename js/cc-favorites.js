@@ -504,7 +504,7 @@
         min-width: 40px;
         min-height: 40px;
         padding: 0;
-        border-radius: 50%;
+        border-radius: 9999px;
         border: 1.5px solid var(--border-gold-low, rgba(212, 169, 74, 0.35));
         background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(12px);
@@ -516,6 +516,7 @@
         box-sizing: border-box;
         flex-shrink: 0;
         margin: 0 4px;
+        overflow: hidden;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
       }
       .cc-topbar-fav-btn:hover {
@@ -532,8 +533,12 @@
         color: var(--gold-primary, #D4A94A) !important;
       }
       .cc-topbar-fav-btn svg {
-        width: 19px;
-        height: 19px;
+        width: 18px;
+        height: 18px;
+        min-width: 18px;
+        min-height: 18px;
+        flex-shrink: 0;
+        display: block;
         fill: none;
         stroke: var(--gold-primary, #D4A94A);
         stroke-width: 2;
@@ -544,30 +549,6 @@
       .cc-topbar-fav-btn:hover svg {
         stroke: var(--gold-primary, #D4A94A);
         transform: scale(1.15);
-      }
-      .cc-topbar-fav-btn.is-active svg {
-        fill: var(--gold-primary, #D4A94A);
-        stroke: var(--gold-primary, #D4A94A);
-        transform: scale(1.18);
-      }
-
-      /* Motyw Jasny dla Gwiazdki */
-      [data-theme="light"] .cc-topbar-fav-btn,
-      [data-lumina-theme="light"] .cc-topbar-fav-btn {
-        background: rgba(255, 255, 255, 0.85);
-        border-color: rgba(212, 169, 74, 0.5);
-        color: #8a6a1a;
-      }
-      [data-theme="light"] .cc-topbar-fav-btn:hover,
-      [data-lumina-theme="light"] .cc-topbar-fav-btn:hover {
-        background: rgba(212, 169, 74, 0.2) !important;
-        border-color: #D4A94A !important;
-        color: #63470e !important;
-      }
-      [data-theme="light"] .cc-topbar-fav-btn.is-active svg,
-      [data-lumina-theme="light"] .cc-topbar-fav-btn.is-active svg {
-        fill: #D4A94A;
-        stroke: #D4A94A;
       }
       .cc-topbar-fav-btn.is-active svg {
         fill: #c4a35a;
@@ -622,22 +603,115 @@
       [data-theme="light"] .cc-topbar-fav-btn,
       [data-lumina-theme="light"] .cc-topbar-fav-btn {
         background: rgba(255, 255, 255, 0.9);
-        border-color: rgba(196, 163, 90, 0.4);
-        color: #64748b;
+        border-color: rgba(196, 163, 90, 0.45);
+        color: #8a6a1a;
         box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       }
       [data-theme="light"] .cc-topbar-fav-btn:hover,
       [data-lumina-theme="light"] .cc-topbar-fav-btn:hover {
-        background: #fefce8;
-        border-color: #c4a35a;
-        color: #b45309;
+        background: #fefce8 !important;
+        border-color: #c4a35a !important;
+        color: #b45309 !important;
       }
       [data-theme="light"] .cc-topbar-fav-btn.is-active,
       [data-lumina-theme="light"] .cc-topbar-fav-btn.is-active {
-        background: #fef3c7;
-        border-color: #d97706;
-        color: #b45309;
-        box-shadow: 0 0 14px rgba(217, 119, 6, 0.25);
+        background: #fef3c7 !important;
+        border-color: #d97706 !important;
+        color: #b45309 !important;
+        box-shadow: 0 0 14px rgba(217, 119, 6, 0.25) !important;
+      }
+      [data-theme="light"] .cc-topbar-fav-btn.is-active svg,
+      [data-lumina-theme="light"] .cc-topbar-fav-btn.is-active svg {
+        fill: #d97706;
+        stroke: #d97706;
+      }
+
+      /* ── Standard dla wszystkich lekcji i rozważań (.ak-header / .cin-header / .cin-topbar) ── */
+      .ak-header .cc-topbar-fav-btn,
+      .cin-header .cc-topbar-fav-btn,
+      .cin-topbar .cc-topbar-fav-btn {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border-radius: 9999px !important;
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        background: rgba(245, 158, 11, 0.10);
+        color: #fcd34d;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        overflow: hidden;
+      }
+      .ak-header .cc-topbar-fav-btn:hover,
+      .cin-header .cc-topbar-fav-btn:hover,
+      .cin-topbar .cc-topbar-fav-btn:hover,
+      .ak-header .cc-topbar-fav-btn.is-active,
+      .cin-header .cc-topbar-fav-btn.is-active,
+      .cin-topbar .cc-topbar-fav-btn.is-active {
+        background: rgba(245, 158, 11, 0.22) !important;
+        border-color: #f59e0b !important;
+        color: #fde68a !important;
+        box-shadow: 0 0 14px rgba(245, 158, 11, 0.35) !important;
+        transform: scale(1.06);
+      }
+      .ak-header .cc-topbar-fav-btn svg,
+      .cin-header .cc-topbar-fav-btn svg,
+      .cin-topbar .cc-topbar-fav-btn svg {
+        width: 16px;
+        height: 16px;
+        min-width: 16px;
+        min-height: 16px;
+        stroke: currentColor;
+      }
+      .ak-header .cc-topbar-fav-btn.is-active svg,
+      .cin-header .cc-topbar-fav-btn.is-active svg,
+      .cin-topbar .cc-topbar-fav-btn.is-active svg {
+        fill: #f59e0b;
+        stroke: #f59e0b;
+      }
+      [data-theme="light"] .ak-header .cc-topbar-fav-btn,
+      [data-lumina-theme="light"] .ak-header .cc-topbar-fav-btn,
+      [data-theme="light"] .cin-header .cc-topbar-fav-btn,
+      [data-lumina-theme="light"] .cin-header .cc-topbar-fav-btn,
+      [data-theme="light"] .cin-topbar .cc-topbar-fav-btn,
+      [data-lumina-theme="light"] .cin-topbar .cc-topbar-fav-btn {
+        background: rgba(212, 169, 74, 0.12);
+        border-color: rgba(184, 142, 62, 0.45);
+        color: #8c6d23;
+        box-shadow: none;
+      }
+      [data-theme="light"] .ak-header .cc-topbar-fav-btn:hover,
+      [data-lumina-theme="light"] .ak-header .cc-topbar-fav-btn:hover,
+      [data-theme="light"] .cin-header .cc-topbar-fav-btn:hover,
+      [data-lumina-theme="light"] .cin-header .cc-topbar-fav-btn:hover,
+      [data-theme="light"] .cin-topbar .cc-topbar-fav-btn:hover,
+      [data-lumina-theme="light"] .cin-topbar .cc-topbar-fav-btn:hover {
+        background: rgba(212, 169, 74, 0.22) !important;
+        border-color: #c4a35a !important;
+        color: #6b5216 !important;
+      }
+      [data-theme="light"] .ak-header .cc-topbar-fav-btn.is-active,
+      [data-lumina-theme="light"] .ak-header .cc-topbar-fav-btn.is-active,
+      [data-theme="light"] .cin-header .cc-topbar-fav-btn.is-active,
+      [data-lumina-theme="light"] .cin-header .cc-topbar-fav-btn.is-active,
+      [data-theme="light"] .cin-topbar .cc-topbar-fav-btn.is-active,
+      [data-lumina-theme="light"] .cin-topbar .cc-topbar-fav-btn.is-active {
+        background: #fef3c7 !important;
+        border-color: #d97706 !important;
+        color: #b45309 !important;
+        box-shadow: 0 0 12px rgba(217, 119, 6, 0.25) !important;
+      }
+      [data-theme="light"] .ak-header .cc-topbar-fav-btn.is-active svg,
+      [data-lumina-theme="light"] .ak-header .cc-topbar-fav-btn.is-active svg,
+      [data-theme="light"] .cin-header .cc-topbar-fav-btn.is-active svg,
+      [data-lumina-theme="light"] .cin-header .cc-topbar-fav-btn.is-active svg,
+      [data-theme="light"] .cin-topbar .cc-topbar-fav-btn.is-active svg,
+      [data-lumina-theme="light"] .cin-topbar .cc-topbar-fav-btn.is-active svg {
+        fill: #d97706;
+        stroke: #d97706;
       }
 
       /* Integracja z paskiem szybkiej nawigacji CC GO (.quick) */
@@ -767,55 +841,97 @@
       </svg>
     `;
 
+    let mounted = false;
+
+    // 1. Standard dla wszystkich lekcji i rozważań Akademii Biblijnej LUMINA (.ak-header, .cin-header, .cin-topbar)
+    const academySupportAnchor = document.querySelector(
+      '.ak-header a[href*="patronite"], .cin-header .cin-btn-support, .cin-topbar .cin-btn-support'
+    );
+    if (academySupportAnchor && academySupportAnchor.parentElement) {
+      academySupportAnchor.insertAdjacentElement('beforebegin', favBtn);
+      mounted = true;
+    } else {
+      const academyAuthAnchor = document.querySelector(
+        '.ak-header #cc-auth-nav-container, .ak-header [data-cc-auth-mount], .cin-header #cc-auth-nav-container, .cin-header [data-cc-auth-mount], .cin-topbar #cc-auth-nav-container, .cin-topbar [data-cc-auth-mount]'
+      );
+      if (academyAuthAnchor && academyAuthAnchor.parentElement) {
+        academyAuthAnchor.insertAdjacentElement('beforebegin', favBtn);
+        mounted = true;
+      }
+    }
+
     const candidates = [
-      '.hub-nav-actions',                       // Moje Centrum CC (/moje-centrum)
-      '.lumina-nav-actions',                     // Portal LUMINA, Tablica, Profile (/lumina, /tablica, /lumina-profile)
-      '.site-header .nav-right',                 // Biblijne Uwielbienie (/BiblijneUwielbienie)
-      '.nav-right',                              // Ogólne belki nav-right
-      '#quickActionsMenu',                       // Strona Główna Radia CC (index.html)
-      '.header-right',                           // Nagłówek Radia CC
-      '.top-nav .nav-links',                     // Wyszukiwarka /szukaj
-      'header .nav-links',                       // Ogólne nagłówki
-      'header .nav-actions',                     // Ogólne akcje nagłówka
-      'header nav',                              // Ogólna nawigacja w headerze
-      'nav .nav-right',
-      'nav'
+      '.hub-nav-actions',                                                // Moje Centrum CC (/moje-centrum)
+      '.lumina-nav-actions',                                             // Portal LUMINA, Tablica, Profile (/lumina, /tablica, /lumina-profile)
+      '.site-header .nav-right',                                         // Biblijne Uwielbienie (/BiblijneUwielbienie)
+      '.nav-right',                                                      // Ogólne belki nav-right
+      '#quickActionsMenu',                                               // Strona Główna Radia CC (index.html)
+      '.header-right',                                                   // Nagłówek Radia CC, /badz-blisko, /mapa, /ccwomen
+      '.header-actions',                                                 // Książka /pokonac-goliata i podstrony z prawym zasobnikiem
+      '.cc-header-actions',                                              // Podcasty (/podcasty)
+      '.bar-actions',                                                    // Usługi (/uslugi)
+      '.mb-header-actions',                                              // MojaBiblia (/mojabiblia)
+      '.top-nav .nav-links',                                             // Wyszukiwarka /szukaj
+      'header .nav-actions',                                             // Ogólne akcje nagłówka
+      'header .ccn-nav-links',                                           // Rozważania i artykuły tematyczne CCN (/news/*, itp.)
+      'header .nav-links',                                               // Ogólne nagłówki z .nav-links
+      'header > div.flex.items-center.justify-between > div:last-child', // Świadectwa (swiadectwa/s01..s19) i nagłówki Tailwind flex
+      '.ccn-header .header-inner > div:last-child',                      // Polityka redakcyjna (.ccn-header)
+      '.app-top-bar > div:last-child',                                   // Skiny i player mini-nagłówki
+      'header #cc-auth-nav-container',                                   // Uniwersalna kotwica logowania w nagłówku
+      'header [data-cc-auth-mount]',                                     // Uniwersalny atrybut logowania w nagłówku
+      'header nav',                                                      // Ogólna nawigacja w headerze (np. serie pomocy)
+      'nav.quick, .quick'                                                // Pasek szybkiej nawigacji CC GO (/go/)
     ];
 
-    let mounted = false;
-    for (const selector of candidates) {
-      const container = document.querySelector(selector);
-      if (container) {
-        if (selector === '.hub-nav-actions') {
-          favBtn.classList.add('hub-btn-icon');
-          container.insertBefore(favBtn, container.firstChild);
-        } else if (selector === '.site-header .nav-right') {
-          favBtn.classList.add('nav-icon-btn');
-          container.insertBefore(favBtn, container.firstChild);
-        } else if (selector === '#quickActionsMenu' || selector === '.header-right') {
-          container.insertBefore(favBtn, container.firstChild);
-        } else if (selector === '.lumina-nav-actions') {
-          container.insertBefore(favBtn, container.firstChild);
-        } else if (selector === '.top-nav .nav-links') {
-          const themeBtn = container.querySelector('#themeToggleBtn') || container.querySelector('.theme-toggle-btn');
-          if (themeBtn) {
-            container.insertBefore(favBtn, themeBtn);
+    const insertBeforeFirstSelectors = new Set([
+      '#quickActionsMenu',
+      '.header-right',
+      '.lumina-nav-actions',
+      '.header-actions',
+      '.cc-header-actions',
+      '.bar-actions',
+      '.mb-header-actions',
+      'header > div.flex.items-center.justify-between > div:last-child',
+      '.ccn-header .header-inner > div:last-child',
+      '.app-top-bar > div:last-child'
+    ]);
+
+    if (!mounted) {
+      for (const selector of candidates) {
+        const container = document.querySelector(selector);
+        if (container) {
+          if (selector === '.hub-nav-actions') {
+            favBtn.classList.add('hub-btn-icon');
+            container.insertBefore(favBtn, container.firstChild);
+          } else if (selector === '.site-header .nav-right') {
+            favBtn.classList.add('nav-icon-btn');
+            container.insertBefore(favBtn, container.firstChild);
+          } else if (selector === 'header #cc-auth-nav-container' || selector === 'header [data-cc-auth-mount]') {
+            container.insertAdjacentElement('beforebegin', favBtn);
+          } else if (insertBeforeFirstSelectors.has(selector)) {
+            container.insertBefore(favBtn, container.firstChild);
+          } else if (selector === '.top-nav .nav-links') {
+            const themeBtn = container.querySelector('#themeToggleBtn') || container.querySelector('.theme-toggle-btn');
+            if (themeBtn) {
+              container.insertBefore(favBtn, themeBtn);
+            } else {
+              container.appendChild(favBtn);
+            }
           } else {
+            if (container.classList.contains('quick')) {
+              favBtn.innerHTML = `
+                <svg class="ic cc-fav-star-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <span>Ulubione</span>
+              `;
+            }
             container.appendChild(favBtn);
           }
-        } else {
-          if (container.classList.contains('quick') || selector === 'nav') {
-            favBtn.innerHTML = `
-              <svg class="ic cc-fav-star-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-              </svg>
-              <span>Ulubione</span>
-            `;
-          }
-          container.appendChild(favBtn);
+          mounted = true;
+          break;
         }
-        mounted = true;
-        break;
       }
     }
 

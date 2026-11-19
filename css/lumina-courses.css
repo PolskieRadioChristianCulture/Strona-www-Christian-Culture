@@ -2167,6 +2167,20 @@ html[data-lumina-theme="light"] .cin-progress-title {
   flex-shrink: 0 !important;
 }
 
+.ak-header .cc-topbar-fav-btn,
+.cin-header .cc-topbar-fav-btn,
+.cin-topbar .cc-topbar-fav-btn {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 9999px !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+}
+
 .cin-header .cin-btn-support .support-icon,
 .cin-topbar .cin-btn-support .support-icon {
   margin: 0 !important;

@@ -51,7 +51,13 @@ assert(favScriptContent.includes('cc-topbar-fav-btn'), 'Defines top-bar star but
 assert(favScriptContent.includes('ccTopBarFavBtn'), 'Defines top-bar star button ID (#ccTopBarFavBtn)');
 assert(favScriptContent.includes('injectTopBarFavoriteButton'), 'Implements top-bar star button injection function');
 assert(favScriptContent.includes('cc-floating-topbar-wrap'), 'Implements top-bar fallback floating wrap for pages without nav');
+assert(favScriptContent.includes('.ak-header a[href*="patronite"]') && favScriptContent.includes('.cin-topbar .cin-btn-support'), 'Mounts #ccTopBarFavBtn in .ak-header / .cin-header / .cin-topbar before Patronite');
+assert(!/\n\s*'nav'\s*\r?\n/.test(favScriptContent) && !favScriptContent.includes("selector === 'nav'"), 'Never mounts #ccTopBarFavBtn as loose "Ulubione" tile inside arbitrary <nav> (only .quick)');
 assert(favScriptContent.includes('moje-centrum'), 'Toast notification links to Moje Centrum CC');
+
+const pageStandardPath = path.join(rootDir, 'scripts', 'cc-page-standard.mjs');
+const pageStandardContent = fs.readFileSync(pageStandardPath, 'utf8');
+assert(pageStandardContent.includes('/js/cc-favorites.js?v=20261119_fav3'), 'cc-page-standard.mjs enforces updated cc-favorites.js?v=20261119_fav3');
 
 // 2. Test firestore.rules
 console.log('\n--- 2. Testing firestore.rules Security & Isolation ---');
