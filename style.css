@@ -347,6 +347,46 @@ button {
     transform: rotate(225deg) scale(1.18);
 }
 
+/* Przycisk Ulubionych (Gwiazdka) — identyczny kształt i kolor z przyciskiem + (MENU CC) */
+#ccTopBarFavBtn,
+.cc-topbar-fav-btn {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    border-radius: 50% !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    border: 1.5px solid var(--border-gold-low) !important;
+    color: var(--gold-primary) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    margin: 0 4px !important;
+    padding: 0 !important;
+}
+
+#ccTopBarFavBtn:hover,
+.cc-topbar-fav-btn:hover {
+    background: rgba(212, 169, 74, 0.25) !important;
+    border-color: var(--gold-primary) !important;
+    box-shadow: 0 0 20px rgba(212, 169, 74, 0.6) !important;
+    color: var(--gold-primary) !important;
+    transform: scale(1.08) !important;
+}
+
+#ccTopBarFavBtn.is-active,
+.cc-topbar-fav-btn.is-active {
+    background: rgba(212, 169, 74, 0.25) !important;
+    border-color: var(--gold-primary) !important;
+    box-shadow: 0 0 18px rgba(212, 169, 74, 0.55) !important;
+    color: var(--gold-primary) !important;
+}
+
 .dzj-nav-wrapper {
     display: flex;
     align-items: center;
@@ -2357,25 +2397,26 @@ button {
 .back-to-top {
     position: fixed;
     right: 1.5rem;
-    bottom: 74px; /* Podstawa kolumny FAB: strzałka 74px | motyw 134px | radio 194px */
-    width: 38px;
-    height: 38px;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px)); /* Zintegrowany na dolnej belce */
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: rgba(15, 15, 15, 0.92);
+    background: rgba(18, 18, 18, 0.94);
     border: 1.5px solid var(--gold-primary);
     color: var(--gold-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.95rem;
+    font-size: 1rem;
     cursor: pointer;
-    z-index: 1001; /* Ponad paskiem odtwarzacza, chroni przed przycięciem */
+    z-index: 100005; /* Ponad dolną belką odtwarzacza */
     opacity: 0;
     visibility: hidden;
     transform: translateY(15px);
     transition: var(--transition-smooth);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 10px rgba(212, 169, 74, 0.2);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7), 0 0 10px rgba(212, 169, 74, 0.25);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .back-to-top.visible {
@@ -2387,17 +2428,17 @@ button {
 .back-to-top:hover {
     background: var(--gold-primary);
     color: var(--bg-deep-black);
-    box-shadow: 0 8px 25px rgba(212, 169, 74, 0.4);
-    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 169, 74, 0.45);
+    transform: translateY(-2px);
 }
 
-/* Adjust for mobile to fit above the modified mobile player bar */
+/* Adjust for mobile to fit on the bottom player bar */
 @media (max-width: 767px) {
     .back-to-top {
-        right: 1.25rem;
-        bottom: 74px; /* Podstawa kolumny FAB na mobile */
-        width: 42px;
-        height: 42px;
+        right: 1rem;
+        bottom: max(14px, env(safe-area-inset-bottom, 14px));
+        width: 44px;
+        height: 44px;
         font-size: 1rem;
     }
 }

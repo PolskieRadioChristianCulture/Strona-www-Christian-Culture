@@ -40,22 +40,22 @@ html = html.replace(
 html = html.replace(/src="\.\/Aplikacja Christian Culture\.png"/g, 'src="/Aplikacja Christian Culture.png"');
 
 // 4. Dołączenie arkusza stylów cc-sanctification-path.css przed </head>
-const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold3">\n</head>';
+const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold4">\n</head>';
 if (!html.includes('cc-sanctification-path.css')) {
   html = html.replace('</head>', cssTag);
 }
 
-// 5. Wstawienie Pionowej Nici z Mandali + Interaktywnego Wersetu Dnia + Mapy Uświęcenia + „Więcej” dla 9 zakładek
+// 5. Wstawienie Czystego Luksusowego Przejścia + Interaktywnego Wersetu Dnia + Mapy Uświęcenia + „Więcej” dla 9 zakładek
 const sectionCMarker = '    <!-- SECTION C: CODZIENNE ROZWAŻANIE (DOBRZE, ŻE JESTEŚ) -->';
 if (!html.includes(sectionCMarker)) {
   throw new Error('Nie znaleziono znacznika SECTION C w index.html');
 }
 
 const sanctificationBlock = `    <!-- ═══════════════════════════════════════════════════════════════
-         NOWA SEKCJA GŁÓWNA: NIĆ MANDALI -> WERSET DNIA -> MAPA UŚWIĘCENIA -> WIĘCEJ
+         NOWA SEKCJA GŁÓWNA: WERSET DNIA -> MAPA UŚWIĘCENIA -> WIĘCEJ
          ═══════════════════════════════════════════════════════════════ -->
     <section class="cc-sanctification-section" id="sciezka-uswiecenia" aria-label="Interaktywny Werset Dnia i Mapa Uświęcenia">
-        <div class="cc-mandala-bridge" aria-hidden="true">
+        <div class="cc-mandala-bridge" aria-hidden="true" style="display:none !important;">
             <div class="cc-mandala-thread"><span class="cc-thread-spark"></span></div>
             <div class="cc-mandala-ring-hub"><span class="cc-mandala-ring-core"></span></div>
         </div>

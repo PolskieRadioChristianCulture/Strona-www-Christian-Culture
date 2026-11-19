@@ -34,7 +34,7 @@
     var nonceMeta = document.querySelector && document.querySelector('meta[name="cc-csp-nonce"]');
     if (nonceMeta && nonceMeta.content) style.nonce = nonceMeta.content;
     // Jeden przycisk „do góry” na stronie: starszy moduł LUMINA (#luminaScrollTop) ustępuje standardowi CC.
-    style.textContent = '#luminaScrollTop{display:none!important}.lumina-scroll-top,.lumina-scroll-top-btn{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important}#backToTopBtn[data-cc-back-to-top]{position:fixed!important;right:max(16px,env(safe-area-inset-right))!important;bottom:var(--cc-floating-bottom,max(16px,env(safe-area-inset-bottom)))!important;left:auto!important;top:auto!important;width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;margin:0!important;padding:0!important;border:1px solid #b08a3c!important;border-radius:50%!important;background:#fff!important;color:#63470e!important;box-shadow:0 3px 14px #0003!important;z-index:900!important;align-items:center!important;justify-content:center!important;opacity:1!important;visibility:visible!important;transform:none!important;cursor:pointer;touch-action:manipulation}@media (min-width:768px){#backToTopBtn[data-cc-back-to-top]{right:24px!important}}#backToTopBtn[data-cc-back-to-top]:focus-visible{outline:3px solid #2563eb!important;outline-offset:3px}[data-lumina-theme="dark"] #backToTopBtn[data-cc-back-to-top],html.dark #backToTopBtn[data-cc-back-to-top]{background:#171923!important;color:#ffe2a1!important}';
+    style.textContent = '#luminaScrollTop{display:none!important}.lumina-scroll-top,.lumina-scroll-top-btn{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important}#backToTopBtn[data-cc-back-to-top]{position:fixed!important;right:max(16px,env(safe-area-inset-right))!important;bottom:var(--cc-floating-bottom,max(16px,env(safe-area-inset-bottom)))!important;left:auto!important;top:auto!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;margin:0!important;padding:0!important;border:1.5px solid rgba(212,169,74,0.45)!important;border-radius:50%!important;background:#141414!important;color:#D4A94A!important;box-shadow:0 4px 18px rgba(0,0,0,0.7)!important;z-index:100005!important;align-items:center!important;justify-content:center!important;opacity:1!important;visibility:visible!important;transform:none!important;cursor:pointer;touch-action:manipulation;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}@media (min-width:768px){#backToTopBtn[data-cc-back-to-top]{right:24px!important}}#backToTopBtn[data-cc-back-to-top]:hover{background:#D4A94A!important;color:#0a0a0a!important;border-color:#E8C97A!important;box-shadow:0 0 20px rgba(212,169,74,0.6)!important}#backToTopBtn[data-cc-back-to-top]:focus-visible{outline:3px solid #D4A94A!important;outline-offset:3px}[data-lumina-theme="light"] #backToTopBtn[data-cc-back-to-top],html.light #backToTopBtn[data-cc-back-to-top]{background:#ffffff!important;color:#63470e!important;border-color:#b08a3c!important}';
     document.head.appendChild(style);
     // Capture prevents old book/course handlers from issuing a second scroll.
     button.addEventListener('click', function (event) {
@@ -47,11 +47,12 @@
       pending = false;
       var height = window.innerHeight;
       var right = window.innerWidth - 16;
-      var bottom = window.innerWidth >= 768 ? 24 : 16;
+      var bottom = window.innerWidth >= 768 ? 18 : 14;
       var visible = (window.scrollY || document.documentElement.scrollTop || 0) > 300;
-      var modalOpen = Array.from(document.querySelectorAll('dialog[open], [aria-modal="true"]:not([hidden])')).some(function (modal) {
-        var rect = modal.getBoundingClientRect();
-        var css = window.getComputedStyle(modal);
+      var modalOpen = Array.from(document.querySelectorAll('dialog[open], [aria-modal="true"]:not([hidden]):not([aria-hidden="true"])')).some(function (modal) {
+        if (typeof modal.getAttribute === 'function' && modal.getAttribute('aria-hidden') === 'true') return false;
+        var rect = modal.getBoundingClientRect ? modal.getBoundingClientRect() : { width: 1, height: 1 };
+        var css = window.getComputedStyle ? window.getComputedStyle(modal) : (modal.style || {});
         var op = css.opacity !== undefined && css.opacity !== '' ? Number(css.opacity) : 1;
         var pe = css.pointerEvents || 'auto';
         return rect.width > 0 && rect.height > 0 && css.visibility !== 'hidden' && css.display !== 'none' && op >= 0.1 && pe !== 'none';
@@ -70,8 +71,8 @@
         }
       }
 
-      // Sample only the right-hand action lane, avoiding expensive whole-DOM scans.
-      // Fixed players, navigation and floating controls reserve space above them.
+      // Sample only the right-hand action lane.
+      // Dolna belka odtwarzacza (#radioPlayerBar) integruje przycisk na swojej wysokości (polecenie L0).
       var luminaActions = document.querySelector && document.querySelector('#luminaThemeSwitchBtn');
       if (visible && !luminaActions && document.elementsFromPoint) {
         for (var pass = 0; pass < 12; pass++) {
@@ -79,7 +80,7 @@
           [right - 24, right - 2].forEach(function (x) {
             [height - bottom - 2, height - bottom - 24, height - bottom - 46].forEach(function (y) {
               document.elementsFromPoint(x, y).forEach(function (element) {
-                if (element === button || button.contains(element) || element.id === 'ccGlobalChatFab' || (typeof element.closest === 'function' && element.closest('#ccGlobalChatFab')) || element.classList?.contains('lumina-floating-chat-btn')) return;
+                if (element === button || button.contains(element) || element.id === 'ccGlobalChatFab' || (typeof element.closest === 'function' && element.closest('#ccGlobalChatFab')) || element.id === 'radioPlayerBar' || (typeof element.closest === 'function' && element.closest('#radioPlayerBar')) || (element.classList && (element.classList.contains('radio-player-bar') || element.classList.contains('lumina-floating-chat-btn')))) return;
                 var position = window.getComputedStyle(element).position;
                 if (position !== 'fixed' && position !== 'sticky') return;
                 var rect = element.getBoundingClientRect();

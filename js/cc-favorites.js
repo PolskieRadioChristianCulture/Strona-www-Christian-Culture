@@ -494,54 +494,80 @@
         transform: scale(1.1);
       }
 
-      /* ── Gwiazdka w Górnej Belce (Top Bar Star) ── */
+      /* ── Gwiazdka w Górnej Belce (Top Bar Star) - kształt i kolor identyczny z przyciskiem + (MENU CC) ── */
       .cc-topbar-fav-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 44px;
-        height: 44px;
-        min-width: 44px;
-        min-height: 44px;
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
         padding: 0;
-        border-radius: 12px;
-        border: 1px solid rgba(196, 163, 90, 0.35);
-        background: rgba(15, 23, 42, 0.65);
+        border-radius: 50%;
+        border: 1.5px solid var(--border-gold-low, rgba(212, 169, 74, 0.35));
+        background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        color: #cbd5e1;
+        color: var(--gold-primary, #D4A94A);
         cursor: pointer;
-        transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: all 0.3s ease;
         touch-action: manipulation;
         box-sizing: border-box;
         flex-shrink: 0;
         margin: 0 4px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
       }
       .cc-topbar-fav-btn:hover {
-        background: rgba(196, 163, 90, 0.18);
-        border-color: rgba(196, 163, 90, 0.7);
-        color: #ffd978;
-        transform: translateY(-1px);
+        background: rgba(212, 169, 74, 0.25) !important;
+        border-color: var(--gold-primary, #D4A94A) !important;
+        box-shadow: 0 0 20px rgba(212, 169, 74, 0.6) !important;
+        color: var(--gold-primary, #D4A94A) !important;
+        transform: scale(1.08);
       }
       .cc-topbar-fav-btn.is-active {
-        background: linear-gradient(135deg, rgba(196, 163, 90, 0.28), rgba(217, 119, 6, 0.22));
-        border-color: #c4a35a;
-        color: #ffd978;
-        box-shadow: 0 0 16px rgba(196, 163, 90, 0.38);
+        background: rgba(212, 169, 74, 0.25) !important;
+        border-color: var(--gold-primary, #D4A94A) !important;
+        box-shadow: 0 0 18px rgba(212, 169, 74, 0.55) !important;
+        color: var(--gold-primary, #D4A94A) !important;
       }
       .cc-topbar-fav-btn svg {
-        width: 20px;
-        height: 20px;
+        width: 19px;
+        height: 19px;
         fill: none;
-        stroke: currentColor;
+        stroke: var(--gold-primary, #D4A94A);
         stroke-width: 2;
         stroke-linecap: round;
         stroke-linejoin: round;
-        transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), fill 0.2s ease, stroke 0.2s ease;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), fill 0.25s ease, stroke 0.25s ease;
       }
       .cc-topbar-fav-btn:hover svg {
-        stroke: #c4a35a;
-        transform: scale(1.12);
+        stroke: var(--gold-primary, #D4A94A);
+        transform: scale(1.15);
+      }
+      .cc-topbar-fav-btn.is-active svg {
+        fill: var(--gold-primary, #D4A94A);
+        stroke: var(--gold-primary, #D4A94A);
+        transform: scale(1.18);
+      }
+
+      /* Motyw Jasny dla Gwiazdki */
+      [data-theme="light"] .cc-topbar-fav-btn,
+      [data-lumina-theme="light"] .cc-topbar-fav-btn {
+        background: rgba(255, 255, 255, 0.85);
+        border-color: rgba(212, 169, 74, 0.5);
+        color: #8a6a1a;
+      }
+      [data-theme="light"] .cc-topbar-fav-btn:hover,
+      [data-lumina-theme="light"] .cc-topbar-fav-btn:hover {
+        background: rgba(212, 169, 74, 0.2) !important;
+        border-color: #D4A94A !important;
+        color: #63470e !important;
+      }
+      [data-theme="light"] .cc-topbar-fav-btn.is-active svg,
+      [data-lumina-theme="light"] .cc-topbar-fav-btn.is-active svg {
+        fill: #D4A94A;
+        stroke: #D4A94A;
       }
       .cc-topbar-fav-btn.is-active svg {
         fill: #c4a35a;

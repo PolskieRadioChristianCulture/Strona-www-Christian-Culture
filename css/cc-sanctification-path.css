@@ -66,65 +66,27 @@
   min-height: 52px;
 }
 
-/* 2. Subtelna architektoniczna linia światła wychodząca płynnie spod osi Mandali Hero */
+/* 2. Czyste, luksusowe przejście architektoniczne do sekcji Werset Dnia */
 .cc-sanctification-section {
   position: relative;
   z-index: 4;
-  padding: 6px 16px 56px 16px;
+  padding: 36px 16px 56px 16px;
   background: transparent !important;
   overflow-x: clip;
 }
 
+.cc-sanctification-section::before {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: 1px;
+  margin: 0 auto 28px auto;
+  background: radial-gradient(circle, rgba(212, 169, 74, 0.45) 0%, rgba(212, 169, 74, 0.12) 60%, transparent 100%);
+}
+
 .cc-mandala-bridge {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 4px;
-  margin-bottom: -5px;
-  pointer-events: none;
-  z-index: 6;
-}
-
-.cc-mandala-thread {
-  position: relative;
-  width: 1px;
-  height: 68px;
-  background: linear-gradient(to bottom, rgba(212, 169, 74, 0) 0%, rgba(212, 169, 74, 0.38) 38%, rgba(232, 201, 122, 0.85) 100%);
-  box-shadow: 0 0 8px rgba(212, 169, 74, 0.28);
-  overflow: visible;
-}
-
-.cc-mandala-ring-hub {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  transform: rotate(45deg);
-  background: #141311;
-  border: 1px solid #E8C97A;
-  box-shadow: 0 0 10px rgba(212, 169, 74, 0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cc-mandala-ring-core {
-  width: 4px;
-  height: 4px;
-  border-radius: 1px;
-  background: #E8C97A;
-}
-
-.cc-thread-spark {
-  position: absolute;
-  top: 0;
-  left: -1.5px;
-  width: 4px;
-  height: 18px;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(232, 201, 122, 0.7) 55%, transparent 100%);
-  animation: ccThreadPulse 4.2s ease-in-out infinite;
-  will-change: transform, opacity;
+  display: none !important;
 }
 
 .cc-sanctification-container {

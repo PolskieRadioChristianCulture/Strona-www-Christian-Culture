@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-19",
+      "topic": "Harmonizacja UI: powrót i integracja przycisku do góry na dolnej belce, złota paleta obsidian bocznego panelu info, gwiazdka ulubionych 1:1 z przyciskiem + oraz czyste przejście Hero-Werset",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-19",
       "topic": "Przycisk informacji EkoCC INFO ⓘ — przeniesienie pod górną belkę (+) i ukrywanie przy przewijaniu",
       "agent": "A"
     },

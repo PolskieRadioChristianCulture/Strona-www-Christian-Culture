@@ -156,19 +156,19 @@
         /* 1. Strona Główna (polskieradio.cc) - Głęboki Kosmiczny Obsidian & Imperial Gold */
         .ekocc-info-panel,
         .ekocc-info-panel[data-page-theme="home"] {
-          --ekocc-info-bg: #07090e;
-          --ekocc-info-bg-gradient: linear-gradient(180deg, #0a0d17 0%, #05070a 100%);
-          --ekocc-info-header-bg: linear-gradient(180deg, rgba(16, 22, 34, 0.98) 0%, rgba(10, 14, 22, 0.98) 100%);
-          --ekocc-info-card-bg: linear-gradient(145deg, rgba(18, 24, 38, 0.72) 0%, rgba(10, 14, 22, 0.88) 100%);
-          --ekocc-info-card-border: 1px solid rgba(212, 169, 74, 0.22);
-          --ekocc-info-card-hover-border: rgba(212, 169, 74, 0.45);
-          --ekocc-info-border: rgba(212, 169, 74, 0.22);
-          --ekocc-info-text: #f8fafc;
-          --ekocc-info-text-body: #cbd5e1;
-          --ekocc-info-muted: #94a3b8;
+          --ekocc-info-bg: #0a0a0a;
+          --ekocc-info-bg-gradient: linear-gradient(180deg, #141414 0%, #0a0a0a 100%);
+          --ekocc-info-header-bg: linear-gradient(180deg, rgba(22, 22, 20, 0.98) 0%, rgba(12, 12, 12, 0.98) 100%);
+          --ekocc-info-card-bg: linear-gradient(145deg, rgba(26, 26, 24, 0.75) 0%, rgba(16, 16, 15, 0.88) 100%);
+          --ekocc-info-card-border: 1px solid rgba(212, 169, 74, 0.24);
+          --ekocc-info-card-hover-border: rgba(212, 169, 74, 0.52);
+          --ekocc-info-border: rgba(212, 169, 74, 0.24);
+          --ekocc-info-text: #F3F0E6;
+          --ekocc-info-text-body: #D4CFBE;
+          --ekocc-info-muted: #9E9885;
           --ekocc-info-gold: #D4A94A;
           --ekocc-info-gold-light: #E8C97A;
-          --ekocc-info-footer-bg: rgba(10, 14, 22, 0.98);
+          --ekocc-info-footer-bg: rgba(14, 14, 14, 0.98);
           --ekocc-info-tag-bg: rgba(212, 169, 74, 0.12);
         }
 
