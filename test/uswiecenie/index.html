@@ -10,7 +10,7 @@
 
   gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
-    <script src="/js/cc-polonia-hub.js?v=20261109_2" defer></script>
+    <script src="/js/cc-polonia-hub.js?v=20261119_home1" defer></script>
     <script src="/js/cc-ramowka.js?v=20261027_v1"></script>
     <!-- ==========================================
          1. PODSTAWOWE METADANE I SEO
@@ -30,37 +30,12 @@
     <link rel="alternate" type="application/rss+xml" title="Polskie Radio Christian Culture • Podcast RSS" href="https://polskieradio.cc/podcast.xml">
     <link rel="alternate" type="application/rss+xml" title="LUMINA • Tablica Społeczności i Rozważania RSS" href="https://polskieradio.cc/tablica.xml">
 
-    <!-- ══════════ GWARANCJA JĘZYKA POLSKIEGO JAKO DOMYŚLNEGO (Christian Culture) ══════════ -->
-    <script>
-        (function() {
-            try {
-                // Jeśli użytkownik nie wybrał wyraźnie i świadomie języka angielskiego, ZAWSZE wymuś polski
-                var isExplicitEn = localStorage.getItem('lumina_lang') === 'en' && sessionStorage.getItem('lumina_explicit_en') === '1';
-                if (!isExplicitEn) {
-                    localStorage.setItem('lumina_lang', 'pl');
-                    sessionStorage.removeItem('lumina_explicit_en');
-                    
-                    // Skuteczne czyszczenie ciasteczek googtrans na wszystkich poziomach domen
-                    var host = window.location.hostname;
-                    var domains = ['', host, '.' + host];
-                    var parts = host.split('.');
-                    if (parts.length >= 2) {
-                        var rootDomain = parts.slice(-2).join('.');
-                        domains.push(rootDomain);
-                        domains.push('.' + rootDomain);
-                    }
-                    var paths = ['/', ''];
-                    domains.forEach(function(d) {
-                        paths.forEach(function(p) {
-                            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=' + p + (d ? '; domain=' + d : '');
-                            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=' + p;
-                        });
-                    });
-                    document.cookie = 'googtrans=/pl/pl; path=/;';
-                }
-            } catch(e) {}
-        })();
-    </script>
+    <!-- First visit: browser language; manual choices persist; English fallback. -->
+    <script src="/js/cc-home-language.js?v=20261119_1"></script>
+    <style>
+        /* Translation widget overlays must never intercept the site's language controls. */
+        iframe.skiptranslate, .skiptranslate > iframe { display: none !important; pointer-events: none !important; }
+    </style>
 
     <!-- ══════════ AI SEARCH ENGINE & LLM STRUCTURED DATA (JSON-LD SCHEMA.ORG — GEO / AIO) ══════════ -->
     <script type="application/ld+json">
@@ -3938,42 +3913,8 @@
 
     <!-- Scripts -->
     <script type="text/javascript">
-        // ── ENFORCE POLISH AS DEFAULT LANGUAGE & CLEAN TRANSLATE ──
-        function purgeGoogleTransCookies() {
-            try {
-                var host = window.location.hostname;
-                var domains = ['', host, '.' + host];
-                var parts = host.split('.');
-                if (parts.length >= 2) {
-                    var rootDomain = parts.slice(-2).join('.');
-                    domains.push(rootDomain);
-                    domains.push('.' + rootDomain);
-                }
-                var paths = ['/', ''];
-                domains.forEach(function(d) {
-                    paths.forEach(function(p) {
-                        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=' + p + (d ? '; domain=' + d : '');
-                        document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=' + p;
-                    });
-                });
-            } catch(e) {}
-        }
-
-        (function() {
-            try {
-                var isExplicitEn = localStorage.getItem('lumina_lang') === 'en' && sessionStorage.getItem('lumina_explicit_en') === '1';
-                if (!isExplicitEn) {
-                    localStorage.setItem('lumina_lang', 'pl');
-                    sessionStorage.removeItem('lumina_explicit_en');
-                    purgeGoogleTransCookies();
-                    document.cookie = 'googtrans=/pl/pl; path=/;';
-                }
-            } catch(e) {}
-        })();
-
         function googleTranslateElementInit() {
-            // Google Translate uruchamia się WYŁĄCZNIE gdy użytkownik świadomie wybrał język angielski
-            if (localStorage.getItem('lumina_lang') === 'en' && sessionStorage.getItem('lumina_explicit_en') === '1') {
+            if (window.CCHomeLanguage && window.CCHomeLanguage.get() === 'en') {
                 new google.translate.TranslateElement({
                     pageLanguage: 'pl',
                     includedLanguages: 'en,pl',
@@ -3985,47 +3926,17 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const langBtn = document.getElementById('shortcutLangRow');
-            const langSubtitle = document.getElementById('langSubtitle');
- 
-            // Function to check if translated to English
-            function isEnglish() {
-                return localStorage.getItem('lumina_lang') === 'en' && sessionStorage.getItem('lumina_explicit_en') === '1';
-            }
- 
-            // Sync button label on load
-            function syncLangButton() {
-                const langToggleText = document.getElementById('langToggleText');
-                if (langBtn) {
-                    if (isEnglish()) {
-                        langBtn.title = 'Przełącz na język polski 🇵🇱';
-                        if (langSubtitle) langSubtitle.textContent = 'Zmień na polski';
-                        if (langToggleText) langToggleText.textContent = 'Zmień na polski';
-                    } else {
-                        langBtn.title = 'Switch to English 🇬🇧';
-                        if (langSubtitle) langSubtitle.textContent = 'Zmień na angielski';
-                        if (langToggleText) langToggleText.textContent = 'Zmień na angielski';
-                    }
-                }
-            }
-            syncLangButton();
-
+            const english = window.CCHomeLanguage.get() === 'en';
+            const langToggleText = document.getElementById('langToggleText');
             if (langBtn) {
-                langBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (isEnglish()) {
-                        localStorage.setItem('lumina_lang', 'pl');
-                        sessionStorage.removeItem('lumina_explicit_en');
-                        purgeGoogleTransCookies();
-                        document.cookie = 'googtrans=/pl/pl; path=/;';
-                        window.location.reload();
-                    } else {
-                        localStorage.setItem('lumina_lang', 'en');
-                        sessionStorage.setItem('lumina_explicit_en', '1');
-                        document.cookie = 'googtrans=/pl/en; path=/;';
-                        if (window.location.hostname.includes('.')) {
-                            document.cookie = 'googtrans=/pl/en; path=/; domain=' + window.location.hostname + ';';
-                        }
-                        window.location.reload();
+                langBtn.title = english ? 'Switch to Polish' : 'Switch to English';
+                if (langToggleText) langToggleText.textContent = english ? 'Switch to Polish' : 'Zmień na angielski';
+                const chooseLanguage = () => window.ccSetLanguage(english ? 'pl' : 'en');
+                langBtn.addEventListener('click', chooseLanguage);
+                langBtn.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        chooseLanguage();
                     }
                 });
             }
