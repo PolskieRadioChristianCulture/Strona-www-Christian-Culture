@@ -20,7 +20,7 @@ function assertSanctificationContract(html, label) {
   assert.ok(html.includes('Wejdź na ścieżkę uświęcenia'), `${label}: przycisk musi mieć napis Wejdź na ścieżkę uświęcenia`);
   assert.match(html, /class="cc-map-card[^"]*"[^>]*id="ccSanctificationMap"\s+hidden/, `${label}: okno Mapy Uświęcenia musi być domyślnie ukryte`);
   assert.match(html, /class="cc-path-connector/, `${label}: brak linii łączących kroki ścieżki`);
-  assert.match(html, /v=20261119_gold13/, `${label}: brak zaktualizowanego cache-bustera v=20261119_gold13`);
+  assert.match(html, /v=20261119_gold14/, `${label}: brak zaktualizowanego cache-bustera v=20261119_gold14`);
   for (const n of [1, 2, 3, 4]) assert.match(html, new RegExp('id="heroSlide' + n + '"'), `${label}: brak okna prezentacji ${n}`);
   for (const n of [1, 2, 3, 4]) assert.match(html, new RegExp('data-go="' + n + '"'), `${label}: brak kropki nawigacyjnej ${n}`);
   const iS1 = html.indexOf('id="heroSlide1"'), iS2 = html.indexOf('id="heroSlide2"'), iS3 = html.indexOf('id="heroSlide3"'), iS4 = html.indexOf('id="heroSlide4"');
@@ -91,7 +91,10 @@ test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynami
   assert.match(css, /ccCaretBlink/, 'brak kursora maszyny do pisania');
   assert.match(css, /\.btn-verse/, 'brak stylu przycisku WERSET');
   assert.match(css, /\.cc-hero-slide\s*\{[\s\S]*?grid-area:\s*1\s*\/\s*1/, 'okna muszą być w tym samym miejscu');
-  assert.match(css, /\.cc-verse-enter-hint/, 'brak stylu wskazówki kliknięcia 4. okna Wersetu Dnia');
+  assert.match(css, /\.cc-verse-enter-hint[\s\S]*justify-content:\s*flex-end/, 'wskazówka musi być wyrównana do prawego dolnego rogu');
+  assert.match(css, /ccVerseClickPulse/, 'brak animacji pulsowania słowa Kliknij');
+  assert.match(css, /\.cc-hero-cascade-armed\.cc-hero-dots-visible\s+#heroDots/, 'brak ukrywania kropek do końca prezentacji');
+  assert.match(css, /\.hero-section\s+\.hero-character-img/, 'brak reguły powiększenia i wycentrowania zdjęcia Hero');
 
   const js = fs.readFileSync(jsPath, 'utf8');
   assert.match(js, /fetch\(['"]\/rozwazania_baza\.json['"]/);
@@ -104,6 +107,10 @@ test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynami
   assert.match(js, /cc-tw-typed/, 'brak maszyny do pisania');
   assert.match(js, /getElementById\('playBtn'\)/, 'RADIO musi włączać dolny odtwarzacz');
   assert.match(js, /function startSlide4\(/, 'brak obsługi 4. okna prezentacji Hero');
+  assert.match(js, /function revealDots\(/, 'brak funkcji revealDots');
+  assert.match(js, /cc-hero-dots-visible/, 'brak klasy ujawniającej kropki po prezentacji');
+  assert.match(js, /cc-verse-click-pulse/, 'brak pulsującego słowa Kliknij w JS');
+  assert.match(js, /aby rozpocząć/, 'wskazówka musi mieć treść „Kliknij, aby rozpocząć”');
   assert.match(js, /cc:hero-verse-shown/, 'brak synchronizacji wejścia Wersetu Dnia z Oknem 4');
   assert.match(js, /openStepOneFromVerse/, 'brak przejścia po kliknięciu 4. okna do Kroku 1');
   assert.match(js, /setReflectionOpen\(true\)/, 'kliknięcie 4. okna musi otwierać kartę rozważania i modlitwy');

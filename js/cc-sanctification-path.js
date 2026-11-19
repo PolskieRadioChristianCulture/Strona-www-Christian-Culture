@@ -579,8 +579,11 @@
             formatAnimatedVerseHtml(verse.quote) +
           '</blockquote>' +
           '<div class="cc-verse-enter-hint">' +
-            '<span class="cc-verse-enter-hint-left"><span class="cc-verse-enter-dot" aria-hidden="true"></span><span>Kliknij, aby przejść do rozważania i modlitwy</span></span>' +
-            '<i class="fa-solid fa-arrow-down cc-verse-enter-arrow" aria-hidden="true"></i>' +
+            '<span class="cc-verse-enter-hint-right">' +
+              '<span class="cc-verse-enter-dot" aria-hidden="true"></span>' +
+              '<span><span class="cc-verse-click-pulse">Kliknij</span>, aby rozpocząć</span>' +
+              '<i class="fa-solid fa-arrow-down cc-verse-enter-arrow" aria-hidden="true"></i>' +
+            '</span>' +
           '</div>' +
         '</div>';
 
@@ -874,6 +877,7 @@
     if (!heroSection) return;
     var stageEl = document.getElementById('heroStage');
     var slides = [1, 2, 3, 4].map(function (n) { return document.getElementById('heroSlide' + n); });
+    var dotsWrap = document.getElementById('heroDots');
     var dots = Array.prototype.slice.call(document.querySelectorAll('#heroDots .cc-hero-dot'));
     var titleEl = heroSection.querySelector('.hero-title');
     var subtitleEl = heroSection.querySelector('.hero-subtitle');
@@ -892,6 +896,7 @@
     if (radioBtn) {
       radioBtn.addEventListener('click', function (e) {
         slide3Held = true;
+        scheduleDotsReveal(1200);
         var playBtn = document.getElementById('playBtn');
         if (!playBtn) return;
         e.preventDefault();
@@ -944,6 +949,10 @@
 
     heroSection.classList.add('cc-hero-cascade-armed');
     heroSection.setAttribute('data-hero-stage', '1');
+    if (dotsWrap) {
+      dotsWrap.setAttribute('aria-hidden', 'true');
+      if ('inert' in dotsWrap) dotsWrap.inert = true;
+    }
 
     buildCharCascade(titleEl, 75, 200);
     buildWordCascade(subtitleEl, 175, 1650);
@@ -963,6 +972,7 @@
     });
 
     var timers = [];
+    var dotsRevealTimer = null;
     var currentSlide = 1;
     var typingStarted = false;
     var typingDone = false;
@@ -973,6 +983,17 @@
     function clearAll() { timers.forEach(clearTimeout); timers = []; }
     function show(el) { if (el) el.classList.add('is-stage-visible'); }
     function stage(v) { heroSection.setAttribute('data-hero-stage', String(v)); }
+    function revealDots() {
+      heroSection.classList.add('cc-hero-dots-visible');
+      if (dotsWrap) {
+        dotsWrap.setAttribute('aria-hidden', 'false');
+        if ('inert' in dotsWrap) dotsWrap.inert = false;
+      }
+    }
+    function scheduleDotsReveal(ms) {
+      if (dotsRevealTimer) clearTimeout(dotsRevealTimer);
+      dotsRevealTimer = setTimeout(revealDots, ms);
+    }
 
     function goTo(n) {
       currentSlide = n;
@@ -1007,6 +1028,7 @@
       goTo(4);
       stage('done');
       heroSection.classList.add('cc-hero-seq-done');
+      scheduleDotsReveal(1400);
       try { window.dispatchEvent(new CustomEvent('cc:hero-verse-shown')); } catch (_) {}
       if (spotlight) {
         var vNode = document.getElementById('ccDailyVerseNode');
@@ -1084,7 +1106,10 @@
 
     // Jeśli użytkownik zaczyna oglądać transmisję, nie przełączamy okna automatycznie
     ['pointerdown', 'focusin', 'keydown'].forEach(function (evt) {
-      liveBoxEl.addEventListener(evt, function () { liveHeld = true; });
+      liveBoxEl.addEventListener(evt, function () {
+        liveHeld = true;
+        scheduleDotsReveal(1200);
+      });
     });
 
     if (seeMoreBtn) {
