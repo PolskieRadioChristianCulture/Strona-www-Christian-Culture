@@ -4,45 +4,40 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = process.cwd();
+const prodHtmlPath = path.join(ROOT, 'index.html');
 const testHtmlPath = path.join(ROOT, 'test', 'uswiecenie', 'index.html');
 const cssPath = path.join(ROOT, 'css', 'cc-sanctification-path.css');
 const jsPath = path.join(ROOT, 'js', 'cc-sanctification-path.js');
 
-test('test/uswiecenie/index.html spełnia kontrakt testowej Ścieżki Uświęcenia', () => {
-  assert.ok(fs.existsSync(testHtmlPath), 'brak test/uswiecenie/index.html');
-  assert.ok(fs.existsSync(cssPath), 'brak css/cc-sanctification-path.css');
-  assert.ok(fs.existsSync(jsPath), 'brak js/cc-sanctification-path.js');
-
-  const html = fs.readFileSync(testHtmlPath, 'utf8');
-  assert.match(html, /<meta\s+name="robots"\s+content="noindex,\s*nofollow">/i, 'wersja testowa musi mieć noindex, nofollow');
-  assert.match(html, /id="sciezka-uswiecenia"/, 'brak sekcji #sciezka-uswiecenia');
-  assert.match(html, /class="cc-mandala-thread"/, 'brak pionowej linii łączącej z Mandali');
-  assert.match(html, /id="ccDailyVerseNode"/, 'brak węzła Wersetu Dnia');
-  assert.match(html, /id="ccReflectionToggleBtn"/, 'brak pulsującej ikony odkrywającej rozważanie i modlitwę');
-  assert.match(html, /class="cc-reflection-card[^"]*"[^>]*id="ccVerseReflectionCard"\s+hidden/, 'karta rozważania i modlitwy musi być domyślnie ukryta');
-  assert.match(html, /id="ccSanctificationToggleBtn"/, 'brak pulsującego przycisku Wejdź na ścieżkę uświęcenia');
-  assert.ok(html.includes('Wejdź na ścieżkę uświęcenia'), 'przycisk musi mieć napis Wejdź na ścieżkę uświęcenia');
-  assert.match(html, /class="cc-map-card[^"]*"[^>]*id="ccSanctificationMap"\s+hidden/, 'okno Mapy Uświęcenia musi być domyślnie ukryte');
-  assert.match(html, /class="cc-path-connector/, 'brak linii łączących kroki ścieżki');
-  assert.match(html, /v=20261119_gold12/, 'brak zaktualizowanego cache-bustera v=20261119_gold12');
-  for (const n of [1, 2, 3]) assert.match(html, new RegExp('id="heroSlide' + n + '"'), 'brak okna prezentacji ' + n);
+function assertSanctificationContract(html, label) {
+  assert.match(html, /id="sciezka-uswiecenia"/, `${label}: brak sekcji #sciezka-uswiecenia`);
+  assert.match(html, /class="cc-mandala-thread"/, `${label}: brak pionowej linii łączącej z Mandali`);
+  assert.match(html, /id="ccDailyVerseNode"/, `${label}: brak węzła Wersetu Dnia`);
+  assert.match(html, /id="ccReflectionToggleBtn"/, `${label}: brak pulsującej ikony odkrywającej rozważanie i modlitwę`);
+  assert.match(html, /class="cc-reflection-card[^"]*"[^>]*id="ccVerseReflectionCard"\s+hidden/, `${label}: karta rozważania i modlitwy musi być domyślnie ukryta`);
+  assert.match(html, /id="ccSanctificationToggleBtn"/, `${label}: brak pulsującego przycisku Wejdź na ścieżkę uświęcenia`);
+  assert.ok(html.includes('Wejdź na ścieżkę uświęcenia'), `${label}: przycisk musi mieć napis Wejdź na ścieżkę uświęcenia`);
+  assert.match(html, /class="cc-map-card[^"]*"[^>]*id="ccSanctificationMap"\s+hidden/, `${label}: okno Mapy Uświęcenia musi być domyślnie ukryte`);
+  assert.match(html, /class="cc-path-connector/, `${label}: brak linii łączących kroki ścieżki`);
+  assert.match(html, /v=20261119_gold12/, `${label}: brak zaktualizowanego cache-bustera v=20261119_gold12`);
+  for (const n of [1, 2, 3]) assert.match(html, new RegExp('id="heroSlide' + n + '"'), `${label}: brak okna prezentacji ${n}`);
   const iS1 = html.indexOf('id="heroSlide1"'), iS2 = html.indexOf('id="heroSlide2"'), iS3 = html.indexOf('id="heroSlide3"');
-  assert.ok(iS1 < html.indexOf('id="heroSeeMoreBtn"') && html.indexOf('id="heroSeeMoreBtn"') < iS2, 'ZOBACZ WIĘCEJ w oknie 1');
-  assert.ok(iS2 < html.indexOf('id="liveStreamBox"') && html.indexOf('id="liveStreamBox"') < iS3, 'transmisja w oknie 2');
-  assert.ok(iS3 < html.indexOf('id="heroVerseBtn"'), 'przyciski w oknie 3');
-  assert.match(html, /id="heroDots"/, 'brak kropek przełączania okien');
-  assert.match(html, /id="heroSeeMoreBtn"/, 'brak dużego napisu ZOBACZ WIĘCEJ w Hero');
-  assert.ok(html.includes('ZOBACZ WIĘCEJ'), 'brak tekstu ZOBACZ WIĘCEJ');
-  assert.match(html, /id="heroThirdDescription"/, 'brak trzeciej prezentacji (maszyna do pisania)');
-  assert.match(html, /id="heroVerseBtn"[^>]*>[\s\S]*?Werset<\/a>/, 'brak przycisku WERSET');
+  assert.ok(iS1 < html.indexOf('id="heroSeeMoreBtn"') && html.indexOf('id="heroSeeMoreBtn"') < iS2, `${label}: ZOBACZ WIĘCEJ w oknie 1`);
+  assert.ok(iS2 < html.indexOf('id="liveStreamBox"') && html.indexOf('id="liveStreamBox"') < iS3, `${label}: transmisja w oknie 2`);
+  assert.ok(iS3 < html.indexOf('id="heroVerseBtn"'), `${label}: przyciski w oknie 3`);
+  assert.match(html, /id="heroDots"/, `${label}: brak kropek przełączania okien`);
+  assert.match(html, /id="heroSeeMoreBtn"/, `${label}: brak dużego napisu ZOBACZ WIĘCEJ w Hero`);
+  assert.ok(html.includes('ZOBACZ WIĘCEJ'), `${label}: brak tekstu ZOBACZ WIĘCEJ`);
+  assert.match(html, /id="heroThirdDescription"/, `${label}: brak trzeciej prezentacji (maszyna do pisania)`);
+  assert.match(html, /id="heroVerseBtn"[^>]*>[\s\S]*?Werset<\/a>/, `${label}: brak przycisku WERSET`);
   const iVerse = html.indexOf('id="ccDailyVerseNode"');
   const iRef = html.indexOf('id="ccVerseRefLink"');
   const iRefl = html.indexOf('id="ccReflectionToggleBtn"');
-  assert.ok(iVerse !== -1 && iRef > iVerse && iRefl > iRef, 'odnośnik MojaBiblia musi stać na ścieżce między wersetem a „Odkryj rozważanie”');
-  assert.match(html, /id="ccConnectorVerseToRef"/, 'brak linii wersetu do odnośnika');
-  assert.match(html, /id="ccConnectorVerseToReflection"/, 'brak linii odnośnika do rozważania');
-  assert.match(html, /id="ccMoreArchiveToggle"/, 'brak pojedynczego przycisku Więcej');
-  assert.match(html, /id="ccMoreSectionsWrapper"\s+hidden/, '9 zakładek musi być ukrytych pod Więcej');
+  assert.ok(iVerse !== -1 && iRef > iVerse && iRefl > iRef, `${label}: odnośnik MojaBiblia musi stać na ścieżce między wersetem a „Odkryj rozważanie”`);
+  assert.match(html, /id="ccConnectorVerseToRef"/, `${label}: brak linii wersetu do odnośnika`);
+  assert.match(html, /id="ccConnectorVerseToReflection"/, `${label}: brak linii odnośnika do rozważania`);
+  assert.match(html, /id="ccMoreArchiveToggle"/, `${label}: brak pojedynczego przycisku Więcej`);
+  assert.match(html, /id="ccMoreSectionsWrapper"\s+hidden/, `${label}: 9 zakładek musi być ukrytych pod Więcej`);
 
   const requiredAccordions = [
     'dailyReflectionSection', 'apps-section', 'books-section',
@@ -51,11 +46,30 @@ test('test/uswiecenie/index.html spełnia kontrakt testowej Ścieżki Uświęcen
   ];
   const wrapperStart = html.indexOf('id="ccMoreSectionsWrapper"');
   const wrapperEnd = html.indexOf('<!-- /#ccMoreSectionsWrapper -->');
-  assert.ok(wrapperStart !== -1 && wrapperEnd > wrapperStart, 'niepoprawne granice #ccMoreSectionsWrapper');
+  assert.ok(wrapperStart !== -1 && wrapperEnd > wrapperStart, `${label}: niepoprawne granice #ccMoreSectionsWrapper`);
   const wrappedSlice = html.slice(wrapperStart, wrapperEnd);
   for (const id of requiredAccordions) {
-    assert.ok(wrappedSlice.includes(`id="${id}"`), `sekcja #${id} powinna znajdować się wewnątrz #ccMoreSectionsWrapper`);
+    assert.ok(wrappedSlice.includes(`id="${id}"`), `${label}: sekcja #${id} powinna znajdować się wewnątrz #ccMoreSectionsWrapper`);
   }
+}
+
+test('produkcyjna strona główna index.html spełnia kontrakt 3-oknowego Hero i Ścieżki Uświęcenia bez noindex', () => {
+  assert.ok(fs.existsSync(prodHtmlPath), 'brak index.html');
+  const html = fs.readFileSync(prodHtmlPath, 'utf8');
+  assert.doesNotMatch(html, /noindex/i, 'index.html nie może zawierać noindex');
+  assert.match(html, /<link\s+rel="canonical"\s+href="https:\/\/polskieradio\.cc\/"\s*>/i, 'brak canonical strony głównej');
+  assert.doesNotMatch(html, /<base\s+href=/i, 'produkcyjny index.html nie powinien mieć <base href>');
+  assertSanctificationContract(html, 'index.html');
+});
+
+test('test/uswiecenie/index.html spełnia kontrakt testowej Ścieżki Uświęcenia', () => {
+  assert.ok(fs.existsSync(testHtmlPath), 'brak test/uswiecenie/index.html');
+  assert.ok(fs.existsSync(cssPath), 'brak css/cc-sanctification-path.css');
+  assert.ok(fs.existsSync(jsPath), 'brak js/cc-sanctification-path.js');
+
+  const html = fs.readFileSync(testHtmlPath, 'utf8');
+  assert.match(html, /<meta\s+name="robots"\s+content="noindex,\s*nofollow">/i, 'wersja testowa musi mieć noindex, nofollow');
+  assertSanctificationContract(html, 'test/uswiecenie/index.html');
 });
 
 test('CSS i JS zachowują obrót Mandali przy prefers-reduced-motion oraz dynamiczny odczyt rozważań', () => {

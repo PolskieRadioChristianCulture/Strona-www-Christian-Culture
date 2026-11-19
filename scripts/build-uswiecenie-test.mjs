@@ -33,10 +33,12 @@ html = html.replace(
 );
 
 // 3. <base href="/"> zapewnia bezbłędne ładowanie względnych skryptów/JSON-ów/logo z katalogu głównego
-html = html.replace(
-  '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
-  '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <base href="/">'
-);
+if (!html.includes('<base href="/">')) {
+  html = html.replace(
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <base href="/">'
+  );
+}
 html = html.replace(/src="\.\/Aplikacja Christian Culture\.png"/g, 'src="/Aplikacja Christian Culture.png"');
 
 // 4. Dołączenie arkusza stylów cc-sanctification-path.css przed </head>
@@ -46,12 +48,13 @@ if (!html.includes('cc-sanctification-path.css')) {
 }
 
 // 5. Wstawienie Czystego Luksusowego Przejścia + Interaktywnego Wersetu Dnia + Pulsującego Rozważania + „Wejdź na ścieżkę uświęcenia” + „Więcej” dla 9 zakładek
-const sectionCMarker = '    <!-- SECTION C: CODZIENNE ROZWAŻANIE (DOBRZE, ŻE JESTEŚ) -->';
-if (!html.includes(sectionCMarker)) {
-  throw new Error('Nie znaleziono znacznika SECTION C w index.html');
-}
+if (!html.includes('id="sciezka-uswiecenia"')) {
+  const sectionCMarker = '    <!-- SECTION C: CODZIENNE ROZWAŻANIE (DOBRZE, ŻE JESTEŚ) -->';
+  if (!html.includes(sectionCMarker)) {
+    throw new Error('Nie znaleziono znacznika SECTION C w index.html');
+  }
 
-const sanctificationBlock = `    <!-- ═══════════════════════════════════════════════════════════════
+  const sanctificationBlock = `    <!-- ═══════════════════════════════════════════════════════════════
          NOWA SEKCJA GŁÓWNA: WERSET DNIA -> ROZWAŻANIE -> MAPA UŚWIĘCENIA -> WIĘCEJ
          ═══════════════════════════════════════════════════════════════ -->
     <section class="cc-sanctification-section" id="sciezka-uswiecenia" aria-label="Interaktywny Werset Dnia i Mapa Uświęcenia">
@@ -139,16 +142,17 @@ const sanctificationBlock = `    <!-- ══════════════
     <div id="ccMoreSectionsWrapper" hidden>
 `;
 
-html = html.replace(sectionCMarker, sanctificationBlock + sectionCMarker);
+  html = html.replace(sectionCMarker, sanctificationBlock + sectionCMarker);
 
-const footerMarker = '    <!-- ==========================================\r\n         SITE FOOTER';
-const footerMarkerLf = '    <!-- ==========================================\n         SITE FOOTER';
-if (html.includes(footerMarker)) {
-  html = html.replace(footerMarker, '    </div><!-- /#ccMoreSectionsWrapper -->\r\n\r\n' + footerMarker);
-} else if (html.includes(footerMarkerLf)) {
-  html = html.replace(footerMarkerLf, '    </div><!-- /#ccMoreSectionsWrapper -->\n\n' + footerMarkerLf);
-} else {
-  throw new Error('Nie znaleziono znacznika SITE FOOTER w index.html');
+  const footerMarker = '    <!-- ==========================================\r\n         SITE FOOTER';
+  const footerMarkerLf = '    <!-- ==========================================\n         SITE FOOTER';
+  if (html.includes(footerMarker)) {
+    html = html.replace(footerMarker, '    </div><!-- /#ccMoreSectionsWrapper -->\r\n\r\n' + footerMarker);
+  } else if (html.includes(footerMarkerLf)) {
+    html = html.replace(footerMarkerLf, '    </div><!-- /#ccMoreSectionsWrapper -->\n\n' + footerMarkerLf);
+  } else {
+    throw new Error('Nie znaleziono znacznika SITE FOOTER w index.html');
+  }
 }
 
 // 6. Podpięcie logiki przed </body>
@@ -159,67 +163,71 @@ if (!html.includes('cc-sanctification-path.js')) {
 
 
 // 7. Kaskadowa prezentacja Hero: ZOBACZ WIĘCEJ, transmisja, maszyna do pisania i przyciski RADIO / TELEWIZJA / WERSET
-const dividerMarker = '<div class="gold-divider"></div>';
-const liveMarker = '<!-- YOUTUBE LIVE STREAM EMBED -->';
-const dividerIdx = html.indexOf(dividerMarker);
-const liveIdx = html.indexOf(liveMarker);
-if (dividerIdx === -1 || liveIdx === -1 || liveIdx < dividerIdx) {
-  throw new Error('Nie znaleziono znaczników gold-divider / YOUTUBE LIVE STREAM EMBED w Hero');
-}
-const seeMoreHtml = '<div class="cc-hero-see-more-wrap" id="heroSeeMoreBanner">\n' +
-  '                    <button type="button" class="cc-hero-see-more-btn" id="heroSeeMoreBtn" aria-label="Zobacz więcej — przejdź do aktualnej transmisji">\n' +
-  '                        <span class="cc-hero-see-more-text">ZOBACZ WIĘCEJ</span>\n' +
-  '                        <svg class="cc-hero-see-more-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>\n' +
-  '                    </button>\n' +
-  '                </div>\n                ';
-html = html.slice(0, liveIdx) + seeMoreHtml + html.slice(liveIdx);
+if (!html.includes('id="heroSeeMoreBanner"')) {
+  const dividerMarker = '<div class="gold-divider"></div>';
+  const liveMarker = '<!-- YOUTUBE LIVE STREAM EMBED -->';
+  const dividerIdx = html.indexOf(dividerMarker);
+  const liveIdx = html.indexOf(liveMarker);
+  if (dividerIdx === -1 || liveIdx === -1 || liveIdx < dividerIdx) {
+    throw new Error('Nie znaleziono znaczników gold-divider / YOUTUBE LIVE STREAM EMBED w Hero');
+  }
+  const seeMoreHtml = '<div class="cc-hero-see-more-wrap" id="heroSeeMoreBanner">\n' +
+    '                    <button type="button" class="cc-hero-see-more-btn" id="heroSeeMoreBtn" aria-label="Zobacz więcej — przejdź do aktualnej transmisji">\n' +
+    '                        <span class="cc-hero-see-more-text">ZOBACZ WIĘCEJ</span>\n' +
+    '                        <svg class="cc-hero-see-more-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>\n' +
+    '                    </button>\n' +
+    '                </div>\n                ';
+  html = html.slice(0, liveIdx) + seeMoreHtml + html.slice(liveIdx);
 
-const descRe = /<p class="hero-description">[\s\S]*?<div class="hero-buttons">[\s\S]*?<\/div>/;
-if (!descRe.test(html)) {
-  throw new Error('Nie znaleziono bloku hero-description / hero-buttons');
+  const descRe = /<p class="hero-description">[\s\S]*?<div class="hero-buttons">[\s\S]*?<\/div>/;
+  if (!descRe.test(html)) {
+    throw new Error('Nie znaleziono bloku hero-description / hero-buttons');
+  }
+  html = html.replace(descRe, '<p class="hero-description" id="heroThirdDescription">\n' +
+    '                    Witaj w przestrzeni nowej kultury chrześcijańskiej. Doświadczaj wiary na co dzień dzięki sześciu stacjom radiowym z muzyką i Słowem Bożym bezpośrednio w przeglądarce oraz pobierz nasze dedykowane aplikacje mobilne wspierające Twój rozwój duchowy.\n' +
+    '                </p>\n' +
+    '                <div class="hero-buttons" id="heroActionButtons">\n' +
+    '                    <a href="https://polskieradio.cc/player" class="btn btn-gold" id="heroRadioBtn" title="Włącz radio w dolnym odtwarzaczu"><i class="fa-solid fa-radio"></i> Radio</a>\n' +
+    '                    <a href="https://polskieradio.cc/nadawaj" class="btn btn-outline" id="heroTvBtn" title="Telewizja i Panel Nadawania CC"><i class="fa-solid fa-tv"></i> Telewizja</a>\n' +
+    '                    <a href="#sciezka-uswiecenia" class="btn btn-verse" id="heroVerseBtn" title="Przejdź do dzisiejszego Wersetu Dnia"><i class="fa-solid fa-book-bible"></i> Werset</a>\n' +
+    '                </div>');
 }
-html = html.replace(descRe, '<p class="hero-description" id="heroThirdDescription">\n' +
-  '                    Witaj w przestrzeni nowej kultury chrześcijańskiej. Doświadczaj wiary na co dzień dzięki sześciu stacjom radiowym z muzyką i Słowem Bożym bezpośrednio w przeglądarce oraz pobierz nasze dedykowane aplikacje mobilne wspierające Twój rozwój duchowy.\n' +
-  '                </p>\n' +
-  '                <div class="hero-buttons" id="heroActionButtons">\n' +
-  '                    <a href="https://polskieradio.cc/player" class="btn btn-gold" id="heroRadioBtn" title="Włącz radio w dolnym odtwarzaczu"><i class="fa-solid fa-radio"></i> Radio</a>\n' +
-  '                    <a href="https://polskieradio.cc/nadawaj" class="btn btn-outline" id="heroTvBtn" title="Telewizja i Panel Nadawania CC"><i class="fa-solid fa-tv"></i> Telewizja</a>\n' +
-  '                    <a href="#sciezka-uswiecenia" class="btn btn-verse" id="heroVerseBtn" title="Przejdź do dzisiejszego Wersetu Dnia"><i class="fa-solid fa-book-bible"></i> Werset</a>\n' +
-  '                </div>');
 
 
 // 8. Trzy okna prezentacji w jednym miejscu: (1) marka + ZOBACZ WIĘCEJ, (2) transmisja, (3) powitanie + przyciski
-function insertBefore(marker, snippet) {
-  const i = html.indexOf(marker);
-  if (i === -1) throw new Error('Brak znacznika okna prezentacji: ' + marker);
-  html = html.slice(0, i) + snippet + html.slice(i);
+if (!html.includes('id="heroStage"')) {
+  const insertBefore = function (marker, snippet) {
+    const i = html.indexOf(marker);
+    if (i === -1) throw new Error('Brak znacznika okna prezentacji: ' + marker);
+    html = html.slice(0, i) + snippet + html.slice(i);
+  };
+  const textColOpen = '<div class="hero-text-col">';
+  const tci = html.indexOf(textColOpen);
+  if (tci === -1) throw new Error('Brak .hero-text-col');
+  html = html.slice(0, tci + textColOpen.length) +
+    '\n                <div class="cc-hero-stage" id="heroStage" aria-live="polite">\n' +
+    '                <div class="cc-hero-slide is-active" id="heroSlide1" data-slide="1">' +
+    html.slice(tci + textColOpen.length);
+  insertBefore('<!-- YOUTUBE LIVE STREAM EMBED -->',
+    '</div>\n                <div class="cc-hero-slide" id="heroSlide2" data-slide="2" aria-hidden="true">\n                ');
+  insertBefore('<p class="hero-description" id="heroThirdDescription">',
+    '</div>\n                <div class="cc-hero-slide" id="heroSlide3" data-slide="3" aria-hidden="true">\n                ');
+  const btnOpen = '<div class="hero-buttons" id="heroActionButtons">';
+  const bi = html.indexOf(btnOpen);
+  if (bi === -1) throw new Error('Brak #heroActionButtons');
+  const bEnd = html.indexOf('</div>', bi) + '</div>'.length;
+  html = html.slice(0, bEnd) +
+    '\n                </div>\n                </div>\n' +
+    '                <div class="cc-hero-dots" id="heroDots" aria-label="Okna prezentacji">\n' +
+    '                    <button type="button" class="cc-hero-dot is-active" data-go="1" aria-label="Okno 1: Christian Culture" aria-current="true"></button>\n' +
+    '                    <button type="button" class="cc-hero-dot" data-go="2" aria-label="Okno 2: aktualna transmisja"></button>\n' +
+    '                    <button type="button" class="cc-hero-dot" data-go="3" aria-label="Okno 3: Radio, Telewizja, Werset"></button>\n' +
+    '                </div>' +
+    html.slice(bEnd);
+  // Okno transmisji bez dodatkowych marginesów (stoi w miejscu okna 1)
+  html = html.replace('<div class="live-stream-box" id="liveStreamBox" style="margin: 15px 0 25px 0; width: 100%; max-width: 560px; display: block; opacity: 1;">',
+    '<div class="live-stream-box" id="liveStreamBox" style="margin: 0; width: 100%; max-width: 560px; display: block;">');
 }
-const textColOpen = '<div class="hero-text-col">';
-const tci = html.indexOf(textColOpen);
-if (tci === -1) throw new Error('Brak .hero-text-col');
-html = html.slice(0, tci + textColOpen.length) +
-  '\n                <div class="cc-hero-stage" id="heroStage" aria-live="polite">\n' +
-  '                <div class="cc-hero-slide is-active" id="heroSlide1" data-slide="1">' +
-  html.slice(tci + textColOpen.length);
-insertBefore('<!-- YOUTUBE LIVE STREAM EMBED -->',
-  '</div>\n                <div class="cc-hero-slide" id="heroSlide2" data-slide="2" aria-hidden="true">\n                ');
-insertBefore('<p class="hero-description" id="heroThirdDescription">',
-  '</div>\n                <div class="cc-hero-slide" id="heroSlide3" data-slide="3" aria-hidden="true">\n                ');
-const btnOpen = '<div class="hero-buttons" id="heroActionButtons">';
-const bi = html.indexOf(btnOpen);
-if (bi === -1) throw new Error('Brak #heroActionButtons');
-const bEnd = html.indexOf('</div>', bi) + '</div>'.length;
-html = html.slice(0, bEnd) +
-  '\n                </div>\n                </div>\n' +
-  '                <div class="cc-hero-dots" id="heroDots" aria-label="Okna prezentacji">\n' +
-  '                    <button type="button" class="cc-hero-dot is-active" data-go="1" aria-label="Okno 1: Christian Culture" aria-current="true"></button>\n' +
-  '                    <button type="button" class="cc-hero-dot" data-go="2" aria-label="Okno 2: aktualna transmisja"></button>\n' +
-  '                    <button type="button" class="cc-hero-dot" data-go="3" aria-label="Okno 3: Radio, Telewizja, Werset"></button>\n' +
-  '                </div>' +
-  html.slice(bEnd);
-// Okno transmisji bez dodatkowych marginesów (stoi w miejscu okna 1)
-html = html.replace('<div class="live-stream-box" id="liveStreamBox" style="margin: 15px 0 25px 0; width: 100%; max-width: 560px; display: block; opacity: 1;">',
-  '<div class="live-stream-box" id="liveStreamBox" style="margin: 0; width: 100%; max-width: 560px; display: block;">');
 
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(outPath, html, 'utf8');
