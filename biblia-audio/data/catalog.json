@@ -441,11 +441,17 @@
     "id": "genesis-30",
     "book": "genesis",
     "chapter": 30,
-    "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "description": "Narodziny synów Jakuba (Dan, Neftali, Gad, Aszer, Issachar, Zebulon) i córki Diny, wysłuchanie Racheli przez Boga i narodziny Józefa oraz umowa Jakuba z Labanem o stada i obfite błogosławieństwo PANA.",
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_30_1-43_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 30,1–43 (UBG) — Narodziny Synów Jakuba i Józefa oraz Błogosławieństwo PANA",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_30_1-43_Biblia_Audio_CC.mp3",
+        "verses": "1–43"
+      }
+    ]
   },
   {
     "id": "genesis-31",
