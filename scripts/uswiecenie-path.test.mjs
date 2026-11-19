@@ -24,7 +24,7 @@ test('test/uswiecenie/index.html spełnia kontrakt testowej Ścieżki Uświęcen
   assert.ok(html.includes('Wejdź na ścieżkę uświęcenia'), 'przycisk musi mieć napis Wejdź na ścieżkę uświęcenia');
   assert.match(html, /class="cc-map-card[^"]*"[^>]*id="ccSanctificationMap"\s+hidden/, 'okno Mapy Uświęcenia musi być domyślnie ukryte');
   assert.match(html, /class="cc-path-connector/, 'brak linii łączących kroki ścieżki');
-  assert.match(html, /v=20261119_gold11/, 'brak zaktualizowanego cache-bustera v=20261119_gold11');
+  assert.match(html, /v=20261119_gold12/, 'brak zaktualizowanego cache-bustera v=20261119_gold12');
   for (const n of [1, 2, 3]) assert.match(html, new RegExp('id="heroSlide' + n + '"'), 'brak okna prezentacji ' + n);
   const iS1 = html.indexOf('id="heroSlide1"'), iS2 = html.indexOf('id="heroSlide2"'), iS3 = html.indexOf('id="heroSlide3"');
   assert.ok(iS1 < html.indexOf('id="heroSeeMoreBtn"') && html.indexOf('id="heroSeeMoreBtn"') < iS2, 'ZOBACZ WIĘCEJ w oknie 1');

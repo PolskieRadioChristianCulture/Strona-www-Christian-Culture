@@ -896,10 +896,10 @@
     heroSection.classList.add('cc-hero-cascade-armed');
     heroSection.setAttribute('data-hero-stage', '1');
 
-    buildCharCascade(titleEl, 38, 80);
-    buildWordCascade(subtitleEl, 75, 680);
-    buildWordCascade(introEl, 28, 1350);
-    buildCharCascade(seeMoreEl.querySelector('.cc-hero-see-more-text'), 40, 40);
+    buildCharCascade(titleEl, 75, 200);
+    buildWordCascade(subtitleEl, 175, 1650);
+    buildWordCascade(introEl, 105, 3100);
+    buildCharCascade(seeMoreEl.querySelector('.cc-hero-see-more-text'), 75, 80);
 
     var fullDescText = descEl.textContent.replace(/\s+/g, ' ').trim();
     descEl.classList.add('cc-hero-typewriter');
@@ -910,7 +910,7 @@
     var typedSpan = descEl.querySelector('.cc-tw-typed');
 
     Array.prototype.forEach.call(buttonsEl.querySelectorAll('.btn'), function (b, i) {
-      b.style.setProperty('--cc-btn-delay', (i * 160) + 'ms');
+      b.style.setProperty('--cc-btn-delay', (i * 340) + 'ms');
     });
 
     var timers = [];
@@ -964,13 +964,13 @@
         later(function () {
           stage(5);
           show(buttonsEl);
-          later(completeSlide3, 650 + 320);
-        }, 220);
+          later(completeSlide3, 1400);
+        }, 650);
         return;
       }
       typedSpan.textContent = fullDescText.slice(0, i + 1);
       var ch = fullDescText.charAt(i);
-      var delay = (ch === '.' || ch === '—') ? 150 : (ch === ',' ? 60 : 16);
+      var delay = (ch === '.' || ch === '—') ? 320 : (ch === ',' ? 140 : 36);
       later(function () { typeFrom(i + 1); }, delay);
     }
 
@@ -984,7 +984,7 @@
         show(descEl);
         descEl.classList.add('is-typing');
         typeFrom(0);
-      }, 520);
+      }, 900);
     }
 
     function startSlide2(autoAdvance) {
@@ -993,16 +993,16 @@
       stage(3);
       show(liveBoxEl);
       if (autoAdvance && !liveHeld) {
-        later(function () { if (!liveHeld && currentSlide === 2) startSlide3(); }, 5600);
+        later(function () { if (!liveHeld && currentSlide === 2) startSlide3(); }, 9000);
       }
     }
 
     // Okno 1 → (ZOBACZ WIĘCEJ) → Okno 2 → Okno 3
     goTo(1);
     show(titleEl); show(subtitleEl); show(introEl);
-    later(function () { show(dividerEl); }, 2550);
-    later(function () { stage(2); show(seeMoreEl); }, 3050);
-    later(function () { startSlide2(true); }, 6300);
+    later(function () { show(dividerEl); }, 6900);
+    later(function () { stage(2); show(seeMoreEl); }, 7600);
+    later(function () { startSlide2(true); }, 11800);
 
     // Jeśli użytkownik zaczyna oglądać transmisję, nie przełączamy okna automatycznie
     ['pointerdown', 'focusin', 'keydown'].forEach(function (evt) {
@@ -1026,7 +1026,7 @@
       });
     });
 
-    // Zabezpieczenie: najpóźniej po 28 s widoczne jest okno 3 z kompletnym tekstem i przyciskami
+    // Zabezpieczenie: najpóźniej po 48 s widoczne jest okno 3 z kompletnym tekstem i przyciskami
     setTimeout(function () {
       if (heroSection.getAttribute('data-hero-stage') === 'done') return;
       if (currentSlide === 2 && liveHeld) return;
@@ -1035,7 +1035,7 @@
       show(liveBoxEl);
       typingDone = true;
       startSlide3();
-    }, 28000);
+    }, 48000);
   }
 
   if (document.readyState === 'loading') {

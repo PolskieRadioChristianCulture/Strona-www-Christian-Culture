@@ -40,7 +40,7 @@ html = html.replace(
 html = html.replace(/src="\.\/Aplikacja Christian Culture\.png"/g, 'src="/Aplikacja Christian Culture.png"');
 
 // 4. Dołączenie arkusza stylów cc-sanctification-path.css przed </head>
-const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold11">\n</head>';
+const cssTag = '    <link rel="stylesheet" href="/css/cc-sanctification-path.css?v=20261119_gold12">\n</head>';
 if (!html.includes('cc-sanctification-path.css')) {
   html = html.replace('</head>', cssTag);
 }
@@ -152,7 +152,7 @@ if (html.includes(footerMarker)) {
 }
 
 // 6. Podpięcie logiki przed </body>
-const jsTag = '    <script src="/js/cc-sanctification-path.js?v=20261119_gold11" defer></script>\n</body>';
+const jsTag = '    <script src="/js/cc-sanctification-path.js?v=20261119_gold12" defer></script>\n</body>';
 if (!html.includes('cc-sanctification-path.js')) {
   html = html.replace('</body>', jsTag);
 }
