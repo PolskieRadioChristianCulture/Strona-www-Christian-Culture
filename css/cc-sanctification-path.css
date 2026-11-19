@@ -1916,11 +1916,14 @@
   }
 }
 
-/* Powiększony (o ok. 1 cm), wycentrowany i lekko podniesiony portret Hero względem pokazu slajdów po prawej */
+/* Wyraźnie powiększony (o ok. 1 cm na ekranach laptopów), wycentrowany i podniesiony portret Hero */
 @media (min-width: 1024px) {
   .hero-section .hero-container {
-    grid-template-columns: 1.14fr 0.86fr;
-    gap: clamp(1.75rem, 2.8vw, 3rem);
+    max-width: 1480px;
+    padding-left: clamp(1.5rem, 2.6vw, 2.5rem);
+    padding-right: clamp(1.5rem, 2.6vw, 2.5rem);
+    grid-template-columns: 1.16fr 0.84fr;
+    gap: clamp(1.5rem, 2.5vw, 2.75rem);
     align-items: center;
   }
 
@@ -1929,15 +1932,16 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    transform: translateY(clamp(-44px, -4.2vh, -24px));
+    transform: translateY(clamp(-58px, -5.8vh, -34px));
   }
 
   .hero-section .hero-character-img {
     width: 100%;
-    max-width: min(100%, clamp(540px, 47.5vw, 700px), calc(71vh * 1.193));
+    max-width: min(100%, clamp(620px, 53vw, 790px), calc(86vh * 1.193));
     height: auto;
     display: block;
     margin: 0 auto;
+    pointer-events: none;
   }
 }
 
