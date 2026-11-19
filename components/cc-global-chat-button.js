@@ -4923,7 +4923,7 @@
 
   function renderDailyDialogueCardHtml() {
     if (!dailyDialogueCache || !Array.isArray(dailyDialogueCache.turns) || !dailyDialogueCache.turns.length) {
-      if (!dailyDialogueFetching) {
+      if (!dailyDialogueFetching && typeof fetch === 'function') {
         dailyDialogueFetching = true;
         fetch('/api/lumi-chat?daily=1')
           .then(r => r.ok ? r.json() : null)

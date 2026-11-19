@@ -1,0 +1,667 @@
+/* ==========================================================================
+   CC FULL PREMIUM — MANDALA THREAD + INTERAKTYWNY WERSET DNIA + ŚCIEŻKA UŚWIĘCENIA
+   Standard: CC v2 Premium (Europe/Warsaw, reduced-motion calm speed, >=44px touch)
+   ========================================================================== */
+
+/* 1. Przywrócenie i uszlachetnienie obrotu Mandali Hero (także przy reduced-motion!) */
+.hero-section {
+  position: relative;
+  overflow: visible !important;
+  padding-bottom: 18px !important;
+}
+
+.mandala-bg-container {
+  opacity: 0.44 !important;
+  will-change: transform;
+}
+
+.hero-section .mandala-svg {
+  animation: rotateMandala 72s linear infinite !important;
+  transform-origin: center center;
+}
+
+.hero-section .mandala-petals {
+  animation: rotateMandalaCounter 110s linear infinite;
+  transform-origin: 100px 100px;
+}
+
+@keyframes rotateMandalaCounter {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes ccThreadPulse {
+  0%   { transform: translateY(-24px); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(112px); opacity: 0; }
+}
+
+/* Szanujemy reduced-motion: zwalniamy ruch ~2x, NIGDY go nie wyłączamy (CC Full Premium 2.0) */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section .mandala-svg {
+    animation-duration: 140s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .hero-section .mandala-petals {
+    animation-duration: 210s !important;
+    animation-iteration-count: infinite !important;
+  }
+  .cc-thread-spark {
+    animation-duration: 7.5s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+/* Ulepszenie dotyku przycisków Hero RADIO / TELEWIZJA */
+.hero-buttons .btn {
+  min-height: 52px;
+}
+
+/* 2. Pionowa świetlista linia prowadząca z okręgu Mandali pod przyciskami RADIO / TELEWIZJA */
+.cc-sanctification-section {
+  position: relative;
+  z-index: 12;
+  padding: 0 16px 56px 16px;
+  background: radial-gradient(ellipse 80% 35% at 50% 0%, rgba(212, 169, 74, 0.10) 0%, rgba(5, 7, 15, 0.96) 55%, #05070f 100%);
+  overflow-x: clip;
+}
+
+.cc-mandala-bridge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -48px;
+  margin-bottom: 12px;
+  pointer-events: none;
+}
+
+.cc-mandala-thread {
+  position: relative;
+  width: 2px;
+  height: 112px;
+  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.9), rgba(255, 122, 0, 0.78), rgba(212, 169, 74, 0.35));
+  overflow: hidden;
+}
+
+.cc-mandala-ring-hub {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 201, 122, 0.35) 0%, rgba(16, 20, 38, 0.95) 68%);
+  border: 1.5px solid rgba(212, 169, 74, 0.72);
+  box-shadow: 0 0 22px rgba(212, 169, 74, 0.45), inset 0 0 10px rgba(212, 169, 74, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cc-mandala-ring-core {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #FF7A00;
+  box-shadow: 0 0 12px #FF7A00;
+}
+
+.cc-thread-spark {
+  position: absolute;
+  top: 0;
+  left: -3px;
+  width: 8px;
+  height: 26px;
+  border-radius: 999px;
+  background: radial-gradient(circle, #ffffff 0%, #FF7A00 45%, transparent 100%);
+  animation: ccThreadPulse 3.6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.cc-sanctification-container {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* 3. Interaktywny Werset Dnia (Node 01 na złotej nici) */
+.cc-verse-node {
+  position: relative;
+  background: linear-gradient(155deg, rgba(16, 21, 42, 0.94) 0%, rgba(8, 11, 22, 0.98) 100%);
+  border: 1px solid rgba(212, 169, 74, 0.42);
+  border-radius: 22px;
+  padding: clamp(20px, 3.5vw, 34px);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.65), 0 0 42px rgba(212, 169, 74, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.cc-verse-node-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.cc-verse-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(212, 169, 74, 0.14);
+  border: 1px solid rgba(212, 169, 74, 0.36);
+  color: #E8C97A;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cc-streak-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 122, 0, 0.14);
+  border: 1px solid rgba(255, 122, 0, 0.38);
+  color: #FFB36B;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.cc-verse-theme-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0 0 10px 0;
+}
+
+.cc-verse-quote {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.22rem, 2.5vw, 1.72rem);
+  line-height: 1.5;
+  color: #FFFFFF;
+  margin: 0 0 14px 0;
+  padding-left: 16px;
+  border-left: 3px solid #FF7A00;
+}
+
+.cc-verse-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  margin-bottom: 14px;
+}
+
+.cc-verse-ref-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 169, 74, 0.3);
+  color: #E8C97A;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: background 220ms ease, transform 220ms ease;
+}
+
+.cc-verse-ref-link:hover {
+  background: rgba(212, 169, 74, 0.16);
+  transform: translateY(-1px);
+}
+
+.cc-verse-teaser {
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0 0 18px 0;
+  max-width: 72ch;
+}
+
+.cc-verse-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cc-btn-orange {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  background: #FF7A00;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(255, 122, 0, 0.32);
+  transition: background 200ms ease, transform 220ms cubic-bezier(.34,1.56,.64,1);
+}
+
+.cc-btn-orange:hover {
+  background: #FF8C33;
+  transform: translateY(-2px);
+}
+
+.cc-btn-orange:active {
+  background: #E66A00;
+  transform: scale(0.98);
+}
+
+.cc-btn-glass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 169, 74, 0.38);
+  background: rgba(255, 255, 255, 0.05);
+  color: #F7F8FC;
+  font-weight: 700;
+  font-size: 0.86rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+.cc-btn-glass:hover {
+  background: rgba(212, 169, 74, 0.14);
+  border-color: rgba(212, 169, 74, 0.7);
+}
+
+/* Szybka osobista modlitwa / notatka przy wersecie */
+.cc-verse-prayer-box {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  display: none;
+}
+
+.cc-verse-prayer-box.is-open {
+  display: block;
+}
+
+.cc-prayer-input-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cc-prayer-input {
+  flex: 1 1 240px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 169, 74, 0.35);
+  background: rgba(5, 7, 15, 0.78);
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.cc-prayer-saved-msg {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: #34D399;
+  font-weight: 600;
+}
+
+/* Kontynuacja pionowej linii z Wersetu Dnia do Mapy Uświęcenia */
+.cc-mid-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.cc-mid-line {
+  width: 2px;
+  height: 42px;
+  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.7), rgba(255, 122, 0, 0.7));
+}
+
+/* 4. Inteligentna Mapa / Ścieżka Uświęcenia */
+.cc-map-card {
+  background: linear-gradient(165deg, rgba(13, 17, 34, 0.94) 0%, rgba(7, 10, 20, 0.98) 100%);
+  border: 1px solid rgba(212, 169, 74, 0.34);
+  border-radius: 22px;
+  padding: clamp(20px, 3.5vw, 34px);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.62);
+}
+
+.cc-map-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.cc-map-kicker {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #E8C97A;
+  margin-bottom: 6px;
+}
+
+.cc-map-title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.38rem, 2.8vw, 2.05rem);
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.cc-map-progress-summary {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #E8C97A;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(212, 169, 74, 0.12);
+  border: 1px solid rgba(212, 169, 74, 0.28);
+}
+
+/* Pigułki wyboru potrzeby użytkownika */
+.cc-needs-label {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.76);
+  margin: 0 0 10px 0;
+}
+
+.cc-needs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.cc-need-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
+}
+
+.cc-need-pill:hover {
+  border-color: rgba(212, 169, 74, 0.65);
+  background: rgba(212, 169, 74, 0.1);
+}
+
+.cc-need-pill.is-active {
+  background: linear-gradient(135deg, rgba(255, 122, 0, 0.24), rgba(212, 169, 74, 0.22));
+  border-color: #FF7A00;
+  color: #FFFFFF;
+  font-weight: 800;
+  box-shadow: 0 0 18px rgba(255, 122, 0, 0.22);
+}
+
+/* Oś ścieżki 4 kroków */
+.cc-steps-spine {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-left: 34px;
+}
+
+.cc-steps-spine::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 22px;
+  bottom: 22px;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(212, 169, 74, 0.65), rgba(255, 122, 0, 0.45), rgba(52, 211, 153, 0.45));
+}
+
+.cc-step-item {
+  position: relative;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 16px;
+  padding: 15px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: border-color 220ms ease, background 220ms ease;
+}
+
+.cc-step-item.is-done {
+  border-color: rgba(52, 211, 153, 0.48);
+  background: rgba(52, 211, 153, 0.06);
+}
+
+.cc-step-num {
+  position: absolute;
+  left: -34px;
+  top: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #10152a;
+  border: 2px solid #D4A94A;
+  color: #E8C97A;
+  font-size: 0.76rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.cc-step-item.is-done .cc-step-num {
+  background: #10B981;
+  border-color: #34D399;
+  color: #06130e;
+}
+
+.cc-step-info {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.cc-step-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #E8C97A;
+  margin-bottom: 4px;
+}
+
+.cc-step-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 4px 0;
+}
+
+.cc-step-desc {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.76);
+  margin: 0;
+}
+
+.cc-step-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.cc-step-check-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.05);
+  color: #F7F8FC;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cc-step-item.is-done .cc-step-check-btn {
+  border-color: #34D399;
+  background: rgba(52, 211, 153, 0.2);
+  color: #A7F3D0;
+}
+
+.cc-step-go-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 122, 0, 0.16);
+  border: 1px solid rgba(255, 122, 0, 0.55);
+  color: #FFB36B;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.cc-step-go-btn:hover {
+  background: #FF7A00;
+  color: #FFFFFF;
+}
+
+/* 7-dniowa ścieżka powrotu */
+.cc-week-rhythm {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cc-week-dots {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cc-day-dot {
+  min-width: 38px;
+  min-height: 44px;
+  padding: 4px 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.cc-day-dot.is-today {
+  border-color: #FF7A00;
+  color: #FFFFFF;
+}
+
+.cc-day-dot.is-completed {
+  background: rgba(212, 169, 74, 0.22);
+  border-color: #D4A94A;
+  color: #E8C97A;
+}
+
+/* 5. Jeden przycisk "Więcej" ukrywający 9 rozwijanych sekcji */
+.cc-more-bar-wrap {
+  padding: 18px 16px 40px 16px;
+  text-align: center;
+  background: #05070f;
+}
+
+.cc-more-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(212, 169, 74, 0.48);
+  background: linear-gradient(135deg, rgba(19, 24, 46, 0.92), rgba(10, 13, 25, 0.96));
+  color: #F7F8FC;
+  font-weight: 800;
+  font-size: 0.94rem;
+  cursor: pointer;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45);
+  transition: border-color 220ms ease, transform 220ms ease, background 220ms ease;
+}
+
+.cc-more-toggle-btn:hover {
+  border-color: #FF7A00;
+  transform: translateY(-2px);
+}
+
+.cc-more-subnote {
+  margin: 10px auto 0 auto;
+  max-width: 62ch;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+#ccMoreSectionsWrapper[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 520px) {
+  .cc-mandala-thread {
+    height: 62px;
+  }
+  .cc-verse-actions > *,
+  .cc-step-controls > * {
+    flex: 1 1 auto;
+  }
+  .cc-more-toggle-btn {
+    width: 100%;
+    max-width: 400px;
+  }
+}
