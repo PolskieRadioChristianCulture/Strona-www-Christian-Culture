@@ -13,10 +13,18 @@ import {
 } from '../scripts/generate-social-topic-graphic.mjs';
 import {
   getAllEcosystemCandidates,
+  chooseNextCandidate,
   resolveItemImage,
   formatBroadcasterTweet
 } from '../scripts/ccn_auto_broadcaster.mjs';
-import { resolveTablicaImageUrl } from '../scripts/publish-ecosystem-to-tablica.mjs';
+import {
+  TABLICA_VOICES,
+  normalizeCategory,
+  isSdsItem,
+  resolveTablicaImageUrl,
+  formatTablicaPost
+} from '../scripts/publish-ecosystem-to-tablica.mjs';
+import { loadCcPomocCandidates } from '../scripts/cc-pomoc-promo.mjs';
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
@@ -206,4 +214,98 @@ test('Generator grafik tematycznych renderuje poprawne karty 1280x720 JPG dla kl
     assert.equal(directGen.ok, true);
     assert.ok(fs.existsSync(directGen.outPath));
   }
+});
+
+test('CC Pomoc (200 stron PL/EN z /depresja na czele): obecność w pulach X/FB, rotacja, karty 1280x720 ze zdjęciem i format postów', async () => {
+  const helpItems = loadCcPomocCandidates(ROOT);
+  assert.equal(helpItems.length, 200, `Oczekiwano 200 stron CC Pomoc, jest ${helpItems.length}`);
+  assert.equal(helpItems.filter((x) => x.lang === 'pl').length, 100);
+  assert.equal(helpItems.filter((x) => x.lang === 'en').length, 100);
+  assert.equal(helpItems[0].url, 'https://polskieradio.cc/depresja');
+
+  for (const h of helpItems) {
+    const slug = h.url.replace(/^https:\/\/polskieradio\.cc\/+/, '');
+    assert.ok(
+      fs.existsSync(path.join(ROOT, `${slug}.html`)) || fs.existsSync(path.join(ROOT, slug, 'index.html')),
+      `Brak pliku HTML dla ${h.url}`
+    );
+    assert.ok(h.sourceImage && fs.existsSync(path.join(ROOT, h.sourceImage)), `Brak zdjęcia źródłowego dla ${h.url}: ${h.sourceImage}`);
+  }
+
+  const xCandidates = getAllEcosystemCandidates();
+  const xByUrl = new Map(xCandidates.map((c) => [c.url, c]));
+  for (const h of helpItems) {
+    const found = xByUrl.get(h.url);
+    assert.ok(found, `Brak strony CC Pomoc w puli X: ${h.url}`);
+    assert.equal(found.type, 'help', `Niepoprawny typ kandydata X dla ${h.url}: ${found.type}`);
+  }
+
+  const fbCandidates = getFbFallbackCandidates();
+  const fbUrls = new Set(fbCandidates.map((c) => c.url));
+  for (const h of helpItems) {
+    assert.ok(fbUrls.has(h.url), `Brak strony CC Pomoc w zapasowej puli FB: ${h.url}`);
+  }
+
+  // Rotacja: gdy dawno nie było typu help, wybierze help; zaraz po help nigdy nie wybierze drugiego help pod rząd
+  const nonHelpHistory = [
+    { type: 'news', title: 'Artykuł 1', url: 'https://polskieradio.cc/news/1' },
+    { type: 'verse', title: 'Werset 1', url: 'https://polskieradio.cc/mojabiblia' },
+    { type: 'book', title: 'Książka 1', url: 'https://polskieradio.cc/ksiazki/pokonac-goliata' },
+    { type: 'music', title: 'Player', url: 'https://polskieradio.cc/player' },
+    { type: 'course', title: 'Kurs', url: 'https://polskieradio.cc/akademia/kurscodzienny/dzien-1' },
+    { type: 'vod', title: 'VOD', url: 'https://polskieradio.cc/vod' }
+  ];
+  const pick1 = chooseNextCandidate(xCandidates, nonHelpHistory, { lastIndex: 0 });
+  assert.equal(pick1.chosen.type, 'help', `Po braku help powinien zostać wybrany temat CC Pomoc (wylosowano ${pick1.chosen.type}: ${pick1.chosen.url})`);
+
+  const pick2 = chooseNextCandidate(xCandidates, [pick1.chosen, ...nonHelpHistory], { lastIndex: 0 });
+  assert.notEqual(pick2.chosen.type, 'help', 'Nie wolno publikować dwóch stron CC Pomoc bezpośrednio pod rząd');
+
+  // Generowanie i walidacja kart JPG 1280x720 dla próbki PL/EN
+  const targetUrls = [
+    'https://polskieradio.cc/depresja',
+    'https://polskieradio.cc/en/depression-support',
+    'https://polskieradio.cc/dlugi',
+    'https://polskieradio.cc/sabat'
+  ];
+  for (const u of targetUrls) {
+    const item = helpItems.find((x) => x.url === u);
+    assert.ok(item, `Brak wzorca testowego ${u}`);
+    const card = await generateSocialTopicGraphic(item, { rootDir: ROOT, force: true });
+    assert.equal(card.ok, true);
+    assert.ok(fs.existsSync(card.outPath));
+    assert.ok(fs.statSync(card.outPath).size > 25000, `Zbyt mała karta ${u}: ${fs.statSync(card.outPath).size} B`);
+    assert.equal(isImageAdequateForItem(card.outPath, item, ROOT), true);
+  }
+
+  // Walidacja treści postów X, FB i Tablicy LUMINA dla PL (/depresja) i EN (/en/depression-support)
+  const plItem = helpItems.find((x) => x.url === 'https://polskieradio.cc/depresja');
+  const enItem = helpItems.find((x) => x.url === 'https://polskieradio.cc/en/depression-support');
+
+  const plTweet = formatBroadcasterTweet(plItem);
+  const enTweet = formatBroadcasterTweet(enItem);
+  assert.ok(plTweet.includes('CC POMOC') && plTweet.includes('#CCPomoc'));
+  assert.ok(enTweet.includes('CC HELP') && enTweet.includes('#CCHelp'));
+  assert.ok(!/sds|studio dobrego|\bvod\b/i.test(plTweet + '\n' + enTweet));
+
+  const plFb = formatFacebookPost(plItem);
+  const enFb = formatFacebookPost(enItem);
+  assert.ok(plFb.includes('CC POMOC') && plFb.includes('#CCPomoc'));
+  assert.ok(enFb.includes('CC HELP') && enFb.includes('#CCHelp'));
+  for (const post of [plFb, enFb]) {
+    assert.ok(!/\*[^*\n]+\*/.test(post), `Post FB zawiera surowe gwiazdki Markdown:\n${post}`);
+    assert.ok(!/sds|studio dobrego|\bvod\b|wiadomosci/i.test(post), `Post FB zawiera niedozwoloną mieszankę marek:\n${post}`);
+  }
+
+  assert.equal(normalizeCategory(plItem.category), 'help');
+  assert.equal(normalizeCategory(enItem.category), 'help');
+  assert.equal(isSdsItem(plItem), false);
+  assert.equal(isSdsItem(enItem), false);
+
+  const tablicaPl = formatTablicaPost(plItem, TABLICA_VOICES[0], resolveTablicaImageUrl(plItem, null, ROOT));
+  const tablicaEn = formatTablicaPost(enItem, TABLICA_VOICES[1], resolveTablicaImageUrl(enItem, null, ROOT));
+  assert.equal(tablicaPl.category, 'help');
+  assert.equal(tablicaEn.category, 'help');
+  assert.ok(tablicaPl.imageUrl && tablicaPl.imageUrl.includes('/images/social/generated/'));
+  assert.ok(tablicaEn.imageUrl && tablicaEn.imageUrl.includes('/images/social/generated/'));
 });

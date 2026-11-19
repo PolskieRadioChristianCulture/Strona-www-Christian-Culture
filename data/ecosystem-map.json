@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-19",
+      "topic": "CC Pomoc — publikacja 200 stron tematycznych PL/EN i włączenie wszystkich 200 stron do promocji X/FB/LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-19",
       "topic": "VOD Christian Culture — 3 oficjalne wzorce graficzne w rotacji social media",
       "agent": "A"
     },
@@ -3347,6 +3352,14 @@
       ]
     },
     {
+      "id": "audioteka",
+      "label": "Audioteka Christian Culture",
+      "category": "audio",
+      "url": "https://polskieradio.cc/audioteka",
+      "description": "Chrześcijańska Audiobiblioteka Wiary 0,00 zł",
+      "status": "active"
+    },
+    {
       "id": "cc-help-free-legal-aid",
       "branchId": "misja-wspolpraca",
       "name": "CC Pomoc — Bezpłatna pomoc prawna",
@@ -4447,6 +4460,864 @@
       ]
     },
     {
+      "id": "cc-help-senior-loneliness",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Samotność w starszym wieku",
+      "shortDesc": "Umów jeden kontakt na najbliższy tydzień.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/samotnosc-seniorow",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Samotność w starszym wieku",
+        "Loneliness in later life",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-senior-care",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Opieka nad osobą starszą",
+      "shortDesc": "Zaplanuj pomoc razem z osobą, która ma z niej korzystać.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/opieka-senioralna",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Opieka nad osobą starszą",
+        "Care for an older person",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-disability-rights",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Niepełnosprawność — prawa i możliwości",
+      "shortDesc": "Zacznij od konkretnej potrzeby i ustal właściwą procedurę w Polsce.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/niepelnosprawnosc",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Niepełnosprawność — prawa i możliwości",
+        "Disability rights and opportunities",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-family-carers",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Pomoc dla opiekunów rodzinnych",
+      "shortDesc": "Ułóż plan zastępstwa na najbliższy tydzień.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/opiekun-rodzinny",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Pomoc dla opiekunów rodzinnych",
+        "Help for family carers",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-retirement-support",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Emerytura — nowy rozdział życia",
+      "shortDesc": "Przygotuj rozmowę o świadczeniu i zaplanuj swój pierwszy miesiąc.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/emerytura",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Emerytura — nowy rozdział życia",
+        "Retirement — a new chapter",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-care-home-support",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Domy opieki i placówki wsparcia",
+      "shortDesc": "Porównaj dostępne formy opieki w Polsce przed podjęciem decyzji.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/domy-opieki",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Domy opieki i placówki wsparcia",
+        "Care homes and support facilities",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-senior-volunteering",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Wolontariat seniorów",
+      "shortDesc": "Wybierz rolę, która pasuje do Twojego czasu i możliwości.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/wolontariat-seniorow",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Wolontariat seniorów",
+        "Volunteering in later life",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-finding-work",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Praca — znajdź kierunek zawodowy",
+      "shortDesc": "Wybierz dwa stanowiska do porównania i dopasuj CV do rzeczywistych wymagań.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/praca",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Praca — znajdź kierunek zawodowy",
+        "Finding work",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-unemployment-support",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Bezrobocie — jak zacząć od nowa?",
+      "shortDesc": "Sprawdź dostępne wsparcie i zaplanuj pierwsze działanie na ten tydzień.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/bezrobocie",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Bezrobocie — jak zacząć od nowa?",
+        "Unemployment support",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-career-guidance",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Doradca zawodowy — poznaj swoje możliwości",
+      "shortDesc": "Przygotuj jedną decyzję zawodową do omówienia z doradcą.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/doradca-zawodowy",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Doradca zawodowy — poznaj swoje możliwości",
+        "Career guidance",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-responsible-entrepreneurship",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Przedsiębiorczość oparta na wartościach",
+      "shortDesc": "Przygotuj ofertę z jasnym zakresem, ceną i warunkami.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/przedsiebiorczosc",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Przedsiębiorczość oparta na wartościach",
+        "Responsible entrepreneurship",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-starting-a-business",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Własna firma — odpowiedzialny początek",
+      "shortDesc": "Porównaj koszty, formę działalności i obowiązki przed rejestracją.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/wlasna-firma",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Własna firma — odpowiedzialny początek",
+        "Starting a business",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-workplace-bullying",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Mobbing — prawa pracownika i pomoc",
+      "shortDesc": "Uporządkuj fakty i sprawdź, gdzie uzyskać pomoc w Polsce.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/mobbing",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Mobbing — prawa pracownika i pomoc",
+        "Workplace bullying — rights and support",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-personal-development",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Rozwój osobisty — charakter i kompetencje",
+      "shortDesc": "Wybierz umiejętność do przećwiczenia w konkretnej sytuacji.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/rozwoj-osobisty-wsparcie",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Rozwój osobisty — charakter i kompetencje",
+        "Personal development — character and skills",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-time-management",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Zarządzanie czasem i obowiązkami",
+      "shortDesc": "Zaplanuj pracę i rozmowę o terminach, gdy zobowiązania się nakładają.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/zarzadzanie-czasem",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Zarządzanie czasem i obowiązkami",
+        "Managing time and commitments",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-social-assistance",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Pomoc społeczna",
+      "shortDesc": "Dowiedz się, gdzie zgłosić potrzebę i jak przygotować pierwszą rozmowę.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/pomoc-spoleczna",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Pomoc społeczna",
+        "Social assistance",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-homelessness-support",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Bezdomność — bezpieczne schronienie",
+      "shortDesc": "Jeśli potrzebujesz noclegu, ustal, kto potwierdzi miejsce i warunki przyjęcia.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/bezdomnosc",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Bezdomność — bezpieczne schronienie",
+        "Homelessness — finding safe shelter",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-poverty-support",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Ubóstwo — dostępne formy wsparcia",
+      "shortDesc": "Uporządkuj najpilniejsze potrzeby i przygotuj rozmowę o możliwej pomocy.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/ubostwo",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Ubóstwo — dostępne formy wsparcia",
+        "Poverty — routes to support",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-housing-crisis",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Kryzys mieszkaniowy — prawa i możliwości",
+      "shortDesc": "Rozpoznaj, czy potrzebujesz odpowiedzi na pismo, wsparcia w kosztach lub schronienia.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/problemy-mieszkaniowe",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Kryzys mieszkaniowy — prawa i możliwości",
+        "Housing crisis — rights and options",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-food-assistance",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Pomoc żywnościowa i materialna",
+      "shortDesc": "Sprawdź, gdzie można dziś otrzymać posiłek i gdzie pytać o pomoc okresową.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/pomoc-zywnosciowa",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Pomoc żywnościowa i materialna",
+        "Food and material assistance",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-migrant-support",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Pomoc dla uchodźców i migrantów",
+      "shortDesc": "Ustal, która instytucja może pomóc w sprawie pobytu, dokumentów lub wsparcia.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/pomoc-uchodzcom",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Pomoc dla uchodźców i migrantów",
+        "Help for refugees and migrants",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-mediation-support",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Mediacje — rozwiązywanie konfliktów",
+      "shortDesc": "Sprawdź, czy dobrowolna rozmowa z mediatorem odpowiada obu stronom.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/mediacje",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Mediacje — rozwiązywanie konfliktów",
+        "Mediation — resolving disputes",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-urgent-life-support",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Pomoc w nagłych kryzysach życiowych",
+      "shortDesc": "Zacznij od bezpieczeństwa i ustal właściwe miejsce pomocy na dziś.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/pomoc-kryzysowa",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Pomoc w nagłych kryzysach życiowych",
+        "Support during a sudden life crisis",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-questions-about-god",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Pytania o Boga i Biblię",
+      "shortDesc": "Zacznij od pytania, które chcesz lepiej zrozumieć.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/pytania-o-boga",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Pytania o Boga i Biblię",
+        "Questions about God and the Bible",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-prayer-support",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Modlitwa — porozmawiajmy z Bogiem",
+      "shortDesc": "Zacznij od kilku zwykłych słów, w których nazwiesz to, co przeżywasz.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/modlitwa-wsparcie",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Modlitwa — porozmawiajmy z Bogiem",
+        "Prayer — speaking with God",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-faith-crisis",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Kryzys wiary — gdzie szukać odpowiedzi?",
+      "shortDesc": "Daj sobie przestrzeń na pytania, żal i rozmowę bez presji.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/kryzys-wiary",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Kryzys wiary — gdzie szukać odpowiedzi?",
+        "A crisis of faith — where to look for answers",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-bible-study",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Studium Biblii — poznawanie Pisma",
+      "shortDesc": "Przeczytaj fragment w kontekście i sprawdź, na czym opiera się Twój wniosek.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/studium-biblii",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Studium Biblii — poznawanie Pisma",
+        "Bible study — getting to know Scripture",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-gospel-guide",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Ewangelia — dobra wiadomość dla każdego",
+      "shortDesc": "Przeczytaj, jak Paweł przedstawia śmierć i zmartwychwstanie Jezusa.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/ewangelia-przewodnik",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Ewangelia — dobra wiadomość dla każdego",
+        "The gospel — good news for everyone",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-sabbath-guide",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Sabat — odpoczynek i spotkanie ze Stwórcą",
+      "shortDesc": "Zobacz, jak Christian Culture rozumie biblijny siódmy dzień odpoczynku.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/sabat",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Sabat — odpoczynek i spotkanie ze Stwórcą",
+        "Sabbath — rest and time with the Creator",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-forgiveness-support",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Przebaczenie — droga do pojednania",
+      "shortDesc": "Przemyśl przebaczenie, odpowiedzialność i granice potrzebne do bezpieczeństwa.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/przebaczenie",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Przebaczenie — droga do pojednania",
+        "Forgiveness and reconciliation",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-christian-daily-life",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Życie chrześcijańskie na co dzień",
+      "shortDesc": "Wybierz jeden sposób, w jaki wiara może kształtować Twoją codzienność.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/zycie-chrzescijanskie",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Życie chrześcijańskie na co dzień",
+        "Everyday Christian life",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-christian-mentoring",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Chrześcijański mentor — rozmowa i rozwój",
+      "shortDesc": "Ustal cel rozmowy i wybierz osobę, która uszanuje Twoje granice.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/mentor",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Chrześcijański mentor — rozmowa i rozwój",
+        "Christian mentoring — conversation and growth",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-christian-organisations",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Fundacje i organizacje chrześcijańskie",
+      "shortDesc": "Sprawdź, kto prowadzi inicjatywę i na czym polega proponowana współpraca.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/fundacje",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Fundacje i organizacje chrześcijańskie",
+        "Christian foundations and organisations",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-christian-retreats",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Ośrodki wypoczynkowe i turnusy chrześcijańskie",
+      "shortDesc": "Przed rezerwacją ustal, co obejmuje wyjazd i jak ośrodek odpowiada na Twoje potrzeby.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/osrodki-wypoczynkowe",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Ośrodki wypoczynkowe i turnusy chrześcijańskie",
+        "Christian retreats and places to stay",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-christian-media",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Chrześcijańskie radio i telewizja",
+      "shortDesc": "Znajdź oficjalny odtwarzacz i sprawdź, czy materiał jest emitowany na żywo lub dostępny jako nagranie.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/media-chrzescijanskie",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Chrześcijańskie radio i telewizja",
+        "Christian radio and television",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-church-and-community",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Kościoły, zbory i wspólnoty",
+      "shortDesc": "Zaplanuj pierwszą wizytę i zostaw sobie czas na decyzję o dalszym kontakcie.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/wspolnoty",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Kościoły, zbory i wspólnoty",
+        "Churches and Christian communities",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-volunteering-with-cc",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Wolontariat — dołącz do naszej misji",
+      "shortDesc": "Przygotuj krótki opis tego, co możesz zaoferować, i pytań o warunki współpracy.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/wolontariat",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Wolontariat — dołącz do naszej misji",
+        "Volunteering with Christian Culture",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-volunteer-roles",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Nabór specjalistów do CC Pomoc",
+      "shortDesc": "Sprawdź, czy CC Pomoc prowadzi nabór do roli odpowiadającej Twoim kwalifikacjom.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/wakaty",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Nabór specjalistów do CC Pomoc",
+        "Specialist volunteer recruitment",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
+      "id": "cc-help-specialist-application",
+      "branchId": "misja-wspolpraca",
+      "name": "CC Pomoc — Zgłoszenie specjalisty — współpraca z CC",
+      "shortDesc": "Przygotuj szkic zgłoszenia, sprawdź odbiorcę i wyślij samodzielnie, jeśli chcesz.",
+      "fullDesc": "Informacyjna strona PL/EN z pierwszymi krokami i oficjalnymi źródłami pomocy w Polsce. Nabór trwa; bez ogłoszonych dyżurów.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/zglos-specjaliste",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🤝",
+      "category": "Misja i współpraca",
+      "keywords": [
+        "Zgłoszenie specjalisty — współpraca z CC",
+        "Applying as a specialist",
+        "CC Pomoc",
+        "wsparcie"
+      ],
+      "connections": [
+        "cc-help-debt"
+      ]
+    },
+    {
       "id": "cc-help-pastor",
       "branchId": "misja-wspolpraca",
       "name": "CC Pomoc — Pastor — rozmowa o wierze",
@@ -4665,14 +5536,6 @@
       "connections": [
         "cc-help-debt"
       ]
-    },
-    {
-      "id": "audioteka",
-      "label": "Audioteka Christian Culture",
-      "category": "audio",
-      "url": "https://polskieradio.cc/audioteka",
-      "description": "Chrześcijańska Audiobiblioteka Wiary 0,00 zł",
-      "status": "active"
     }
   ],
   "lastUpdated": "2026-11-19",

@@ -247,6 +247,17 @@ export function isImageAdequateForItem(imagePathOrRel, item = {}, rootDir = DEFA
     }
   }
 
+  // 7. CC Pomoc / CC Help — zakaz mieszania grafik SDS, VOD, CBDC oraz zdjęcia założycieli
+  const isHelpItem =
+    type.toLowerCase() === 'help' ||
+    category.toLowerCase() === 'cc pomoc' ||
+    category.toLowerCase() === 'cc help';
+  if (isHelpItem) {
+    if (/(sds|mariusz_sds|studiodobregoslowa|courses\/apokalipsa|vod|card-vod|logo_vod|art-cbdc|cezary-wioletta-radiocc)/.test(relNorm)) {
+      return false;
+    }
+  }
+
   return true;
 }
 
@@ -285,6 +296,35 @@ function selectTopicProfile(item = {}) {
       badge: 'CC WOMEN • KOBIETA WIARY',
       footer: 'CHRISTIAN CULTURE • polskieradio.cc/ccwomen',
       icon: 'flame'
+    };
+  }
+
+  // 2b. CC Pomoc / CC Help (200 stron wsparcia PL/EN)
+  if (
+    item.type === 'help' ||
+    catLower === 'cc pomoc' ||
+    catLower === 'cc help' ||
+    pathLower === '/help'
+  ) {
+    const isEn = item.lang === 'en' || pathLower.startsWith('/en/');
+    const rawSectionUpper = String(
+      item.sectionTitle || (isEn ? 'SUPPORT & FIRST STEPS' : 'WSPARCIE I PIERWSZY KROK')
+    )
+      .toUpperCase()
+      .replace(/\s+/g, ' ')
+      .trim();
+    const sectionUpper = rawSectionUpper.length <= 56
+      ? rawSectionUpper
+      : rawSectionUpper.slice(0, 56).replace(/\s+\S*$/, '').trim();
+    return {
+      brand: 'cc-help',
+      bgTop: '#0B1220',
+      bgBottom: '#131D2E',
+      accent: '#C4A35A',
+      badge: `${isEn ? 'CC HELP' : 'CC POMOC'} • ${sectionUpper}`,
+      footer: buildFooterLabel(urlLower),
+      icon: 'heart',
+      isEn
     };
   }
 
@@ -405,6 +445,12 @@ function renderTopicIconSvg(icon, accent) {
         <path d="M28 12 L42 18 V29 C42 37 36 43 28 46 C20 43 14 37 14 29 V18 Z" fill="none" stroke="${accent}" stroke-width="2.2"/>
         <path d="M28 20 V36 M22 27 H34" stroke="${accent}" stroke-width="2.2" stroke-linecap="round"/>
       </g>`;
+    case 'heart':
+      return `<g transform="translate(72, 78)">
+        <rect x="0" y="0" width="56" height="56" rx="14" fill="#101827" fill-opacity="0.92" stroke="${accent}" stroke-width="2"/>
+        <path d="M28 42 C28 42 14 33 14 22.5 C14 17.8 17.6 14 22 14 C24.8 14 27 15.4 28 17.4 C29 15.4 31.2 14 34 14 C38.4 14 42 17.8 42 22.5 C42 33 28 42 28 42 Z" fill="none" stroke="${accent}" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M28 22.5 V31.5 M23.5 27 H32.5" stroke="${accent}" stroke-width="2" stroke-linecap="round"/>
+      </g>`;
     default:
       return `<g transform="translate(88, 92)">
         <rect x="0" y="0" width="56" height="56" rx="14" fill="#121521" stroke="${accent}" stroke-width="2"/>
@@ -419,7 +465,8 @@ function getTargetRelativePath(item = {}) {
   const url = String(item.url || '');
   const urlLeaf = url ? url.split('/').filter(Boolean).pop() : '';
   const slug = slugify(urlLeaf || title);
-  const hash8 = hashHex8(`${TEMPLATE_VERSION}|${url}|${title}|${item.category || ''}`);
+  const helpPhotoPrefix = item.type === 'help' && item.sourceImage ? 'help-photo-v1|' : '';
+  const hash8 = hashHex8(`${helpPhotoPrefix}${TEMPLATE_VERSION}|${url}|${title}|${item.category || ''}`);
   return `images/social/generated/topic-${slug}-${hash8}.jpg`;
 }
 
@@ -479,6 +526,127 @@ export async function generateSocialTopicGraphic(item = {}, options = {}) {
   const cleanLead = String(item.lead || item.description || item.summary || '')
     .replace(/\s+/g, ' ')
     .trim();
+
+  const sourcePhotoRel = String(item.sourceImage || '').replace(/^\/+/, '');
+  const sourcePhotoPath = sourcePhotoRel ? path.join(rootDir, sourcePhotoRel) : null;
+
+  if (profile.brand === 'cc-help' && sourcePhotoPath && fs.existsSync(sourcePhotoPath)) {
+    const rawDisplayTitle = String(item.rawTitle || cleanTitle)
+      .replace(/^CC (?:Pomoc|Help)\s*[:—–-]\s*/i, '')
+      .replace(/\s+/g, ' ')
+      .trim() || cleanTitle;
+
+    let hFontSize = 44;
+    let hLineHeight = 56;
+    let hMaxChars = 26;
+    if (rawDisplayTitle.length > 54) {
+      hFontSize = 38;
+      hLineHeight = 50;
+      hMaxChars = 29;
+    }
+
+    const helpTitleLines = wrapTextLines(rawDisplayTitle, hMaxChars, 4);
+    const helpTitleStartY = 224;
+    const helpTitleLastY = helpTitleStartY + (helpTitleLines.length - 1) * hLineHeight;
+
+    const helpLeadMaxLines = helpTitleLines.length >= 4 ? 2 : 3;
+    const helpLeadLines =
+      cleanLead && cleanLead.toLowerCase() !== rawDisplayTitle.toLowerCase()
+        ? wrapTextLines(cleanLead, 42, helpLeadMaxLines)
+        : [];
+    const helpLeadStartY = Math.min(helpTitleLastY + 52, 488);
+
+    const helpTitleSvg = helpTitleLines
+      .map((line, i) => {
+        const y = helpTitleStartY + i * hLineHeight;
+        return `<text x="72" y="${y}" font-family="Arial, 'Segoe UI', Helvetica, sans-serif" font-size="${hFontSize}" font-weight="bold" fill="#FFFFFF">${escapeXml(line)}</text>`;
+      })
+      .join('\n    ');
+
+    const helpLeadSvg = helpLeadLines
+      .map((line, i) => {
+        const y = helpLeadStartY + i * 32;
+        return `<text x="72" y="${y}" font-family="Arial, 'Segoe UI', Helvetica, sans-serif" font-size="22" font-weight="normal" fill="#E2E8F0">${escapeXml(line)}</text>`;
+      })
+      .join('\n    ');
+
+    const rightTagline = profile.isEn
+      ? 'No judgement · Trusted sources'
+      : 'Bez oceniania · Sprawdzone źródła';
+
+    const overlaySvg = `<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="helpLeftScrim" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#0A111F" stop-opacity="0.94"/>
+        <stop offset="46%" stop-color="#0A111F" stop-opacity="0.88"/>
+        <stop offset="66%" stop-color="#0A111F" stop-opacity="0.56"/>
+        <stop offset="100%" stop-color="#0A111F" stop-opacity="0.12"/>
+      </linearGradient>
+      <linearGradient id="helpBottomScrim" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0A111F" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#0A111F" stop-opacity="0.72"/>
+      </linearGradient>
+      <linearGradient id="helpRule" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="${profile.accent}" stop-opacity="0.95"/>
+        <stop offset="60%" stop-color="${profile.accent}" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="${profile.accent}" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+
+    <rect x="0" y="0" width="1280" height="720" fill="url(#helpLeftScrim)"/>
+    <rect x="0" y="540" width="1280" height="180" fill="url(#helpBottomScrim)"/>
+
+    <rect x="28" y="24" width="1224" height="672" rx="18" fill="none" stroke="${profile.accent}" stroke-width="1.8" stroke-opacity="0.55"/>
+    <rect x="72" y="30" width="160" height="5" rx="2.5" fill="${profile.accent}"/>
+
+    ${renderTopicIconSvg('heart', profile.accent)}
+    <text x="148" y="113" font-family="Arial, 'Segoe UI', Helvetica, sans-serif" font-size="16" font-weight="bold" fill="${profile.accent}" letter-spacing="1.8">${escapeXml(profile.badge)}</text>
+    <line x1="72" y1="154" x2="860" y2="154" stroke="url(#helpRule)" stroke-width="1.5"/>
+
+    ${helpTitleSvg}
+    ${helpLeadSvg}
+
+    <line x1="72" y1="608" x2="1208" y2="608" stroke="url(#helpRule)" stroke-width="1.2"/>
+    <text x="72" y="652" font-family="Arial, 'Segoe UI', Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#FFFFFF" fill-opacity="0.94" letter-spacing="1.1">${escapeXml(profile.footer)}</text>
+    <text x="1208" y="652" text-anchor="end" font-family="Arial, 'Segoe UI', Helvetica, sans-serif" font-size="16" font-weight="bold" fill="${profile.accent}" fill-opacity="0.95" letter-spacing="0.6">${escapeXml(rightTagline)}</text>
+  </svg>`;
+
+    fs.mkdirSync(path.dirname(outPath), { recursive: true });
+    await sharp(sourcePhotoPath)
+      .resize(1280, 720, { fit: 'cover', position: 'attention' })
+      .composite([{ input: Buffer.from(overlaySvg), top: 0, left: 0 }])
+      .jpeg({ quality: 92, progressive: true })
+      .toFile(outPath);
+
+    syncTopicMirrors(outPath, relPath, rootDir);
+
+    const hash8 = hashHex8(relPath);
+    registerViralGraphic(rootDir, {
+      id: `social-topic-${slugify(item.url || cleanTitle)}-${hash8}`,
+      format: '16:9',
+      headline: rawDisplayTitle.slice(0, 80),
+      reference: String(item.url || ''),
+      motif: profile.badge,
+      palette: {
+        bg: '#0A111F',
+        text: '#FFFFFF',
+        accent: profile.accent
+      },
+      layout: 'help-photo-card',
+      emotion: 'Nadzieja',
+      file: relPath,
+      hash: hash8,
+      createdAt: new Date().toISOString()
+    });
+
+    return {
+      ok: true,
+      cached: false,
+      outPath,
+      relPath,
+      publicUrl: `https://polskieradio.cc/${relPath}`
+    };
+  }
 
   let titleFontSize = 48;
   let titleLineHeight = 62;

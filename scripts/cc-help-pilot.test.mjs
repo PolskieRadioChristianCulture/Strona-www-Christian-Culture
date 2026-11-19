@@ -48,3 +48,32 @@ test('PL and EN pilot can be found by actual search engine queries',()=>{
  assert.ok(context.window.CCOmniSearch.performSearch('CC Pomoc').items.some(i=>(i.tags||[]).includes('CC Pomoc')),'broad help query returns a published help topic');
  for(const [query,url] of [['wyjść z długów','/dlugi'],['debt help','/en/debt-help']])assert.ok(context.window.CCOmniSearch.performSearch(query).items.some(i=>i.url.endsWith(url)),query);
 });
+
+test('preparing a volunteer draft reveals the email options without sending data',()=>{
+ const source = read('dlugi/help-page.js');
+ const registration = source.match(/volunteerForm\.addEventListener\('submit',[\s\S]+?(?=\n  document\.getElementById\('download-draft'\))/)?.[0];
+ assert.ok(registration);
+ for (const lang of ['pl','en']) {
+  let handleSubmit;
+  let linkUpdates=0;
+  const scope={
+   lang,
+   draft:'',
+   draftPanel:{hidden:true},
+   volunteerForm:{
+    addEventListener(type,handler){assert.equal(type,'submit');handleSubmit=handler;},
+    reportValidity(){return true;}
+   },
+   readDraft(){return 'synthetic enquiry';},
+   setLinks(){linkUpdates++;},
+   fetch(){assert.fail('preparing a draft must not send an enquiry');}
+  };
+  vm.runInNewContext(registration,scope);
+  let prevented=false;
+  handleSubmit({preventDefault(){prevented=true;}});
+  assert.equal(prevented,true);
+  assert.equal(scope.draft,'synthetic enquiry');
+  assert.equal(scope.draftPanel.hidden,false);
+  assert.equal(linkUpdates,1);
+ }
+});

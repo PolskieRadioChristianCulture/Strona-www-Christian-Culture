@@ -32,6 +32,7 @@ import {
   isImageAdequateForItem,
   ensureSocialTopicGraphicSync
 } from './generate-social-topic-graphic.mjs';
+import { loadCcPomocCandidates } from './cc-pomoc-promo.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -168,6 +169,13 @@ function resolveItemImage(item, rootDir, options = {}) {
     }
     const rotatedVod = accept(pickOfficialVodGraphic(rootDir, vodSeed));
     if (rotatedVod) return rotatedVod;
+  }
+
+  // 0c. CC Pomoc / CC Help — karta 1280x720 JPG oparta na fotografii z danego tematu
+  const helpCatLower = String(item.category || '').toLowerCase();
+  if (item.type === 'help' || helpCatLower === 'cc pomoc' || helpCatLower === 'cc help') {
+    const helpImg = ensureSocialTopicGraphicSync(item, rootDir);
+    if (helpImg && fs.existsSync(helpImg)) return helpImg;
   }
 
   const resolveCandidate = (rawPath) => {
@@ -527,7 +535,18 @@ function getAllEcosystemCandidates() {
     const textToCheck = ((item.title || '') + ' ' + (item.url || '') + ' ' + (item.tag || '') + ' ' + (item.image || '') + ' ' + (item.imageUrl || '') + ' ' + (item.lead || '')).toLowerCase();
 
     // Blokada dokumentów prawnych, regulaminów i wycofanych przekierowań (np. snadaniowa-live.html -> cctv24-worship)
-    const isLegalOrPolicy = textToCheck.includes('regulamin') || textToCheck.includes('polityka prywatności') || textToCheck.includes('polityka-prywatnosci') || textToCheck.includes('polityka_prywatnosci') || textToCheck.includes('privacy');
+    const isLegalPolicyUrl =
+      urlPathname.includes('regulamin') ||
+      urlPathname.includes('polityka-prywatnosci') ||
+      urlPathname.includes('polityka_prywatnosci') ||
+      urlPathname.includes('privacy-policy') ||
+      urlPathname === '/privacy';
+    const isLegalOrPolicy =
+      isLegalPolicyUrl ||
+      (item.type !== 'help' &&
+        (textToCheck.includes('regulamin') ||
+          textToCheck.includes('polityka prywatności') ||
+          textToCheck.includes('privacy')));
     if (isLegalOrPolicy || (item.url || '').toLowerCase().includes('snadaniowa-live')) {
       return;
     }
@@ -973,6 +992,10 @@ function getAllEcosystemCandidates() {
   ];
   for (const m of coreModules) addCandidate(m);
 
+  // 5b. CC POMOC — 200 STRON TEMATYCZNYCH (100 PL + 100 EN)
+  const ccPomocItems = loadCcPomocCandidates(ROOT);
+  for (const h of ccPomocItems) addCandidate(h);
+
   // 6. ARTYKUŁY Z ARTICLES.TS Z DEDYKOWANYMI GRAFIKAMI
   if (fs.existsSync(ARTICLES_TS_PATH)) {
     try {
@@ -1039,6 +1062,9 @@ function getAllEcosystemCandidates() {
             } else if (cat.includes('VOD') || uLower.includes('/vod')) {
               itemType = 'vod';
               tag = '#KinoVOD';
+            } else if (uLower.endsWith('/help') || uLower.endsWith('/pomoc')) {
+              itemType = 'help';
+              tag = '#CCPomoc';
             } else if (cat.includes('Społeczność') || uLower.includes('lumina')) {
               itemType = 'profile';
               tag = '#Lumina';
@@ -1075,7 +1101,7 @@ function getAllEcosystemCandidates() {
 
 // Formatowanie posta zgodnie z dyrektywą Dowódcy
 function formatBroadcasterTweet(item) {
-  const header = '🔴 CCN NEWS | polskieradio.cc/news';
+  let header = '🔴 CCN NEWS | polskieradio.cc/news';
   let subHeader = '';
   let callToAction = '👉 Sprawdź w ekosystemie:\n';
   const tagList = [];
@@ -1386,6 +1412,19 @@ function formatBroadcasterTweet(item) {
       callToAction = '👉 Czytaj w serwisie:\n';
       addTags('#CCNNews', '#ChristianCulture', '#Prawda');
     }
+  } else if (item.type === 'help' || item.category === 'CC Pomoc' || item.category === 'CC Help') {
+    const isEnHelp = item.lang === 'en' || (item.url || '').toLowerCase().includes('/en/');
+    if (isEnHelp) {
+      header = '🤝 CC HELP | polskieradio.cc/help';
+      subHeader = `🤝 ${String(item.sectionTitle || 'PRACTICAL SUPPORT & FIRST STEPS').toUpperCase()}`;
+      callToAction = '👉 First steps & trusted support sources:\n';
+      addTags('#CCHelp', '#ChristianCulture', '#Hope');
+    } else {
+      header = '🤝 CC POMOC | polskieradio.cc/help';
+      subHeader = `🤝 ${String(item.sectionTitle || 'WSPARCIE I PIERWSZY KROK').toUpperCase()}`;
+      callToAction = '👉 Pierwsze kroki i sprawdzone źródła pomocy:\n';
+      addTags('#CCPomoc', '#ChristianCulture', '#Wsparcie');
+    }
   } else {
     if ((item.url || '').endsWith('/studium') || tLower.includes('studio dobrego słowa') || tLower.includes('sds')) {
       addTags('#StudioDobregoSlowa', '#Biblia', '#CCNNews', '#ChristianCulture');
@@ -1533,6 +1572,12 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Kino Chrześcijańskie VOD — bezpłatne filmy fabularne, ekranizacje biblijne i historie wiary z polskim lektorem!';
   } else if ((item.url || '').includes('/kursy/apokalipsa') || (item.title || '').includes('Księga Nadziei')) {
     bodyText = 'Cykl „Apokalipsa: Księga Nadziei” w Studio Dobrego Słowa — wykłady biblijne o proroctwach Pisma Świętego.';
+  } else if (item.type === 'help' || item.category === 'CC Pomoc' || item.category === 'CC Help') {
+    const cleanTopic = String(item.rawTitle || item.title || '').replace(/^CC (?:Pomoc|Help)\s*[:—–-]\s*/i, '').trim();
+    const leadSnippet = String(item.lead || '').trim();
+    bodyText = leadSnippet && leadSnippet.toLowerCase() !== cleanTopic.toLowerCase()
+      ? `${cleanTopic} — ${leadSnippet}`
+      : cleanTopic;
   } else {
     bodyText = item.title.trim()
       .replace(/^CCN News\s*[-–—:]\s*/i, '')
@@ -1842,6 +1887,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
       (lastTitleLower.includes('bioetyka') && candTitleLower.includes('bioetyka')) ||
       ((lastTitleLower.includes('studio dobrego słowa') || lastTitleLower.includes('sds')) &&
        (candTitleLower.includes('studio dobrego słowa') || candTitleLower.includes('sds'))) ||
+      (lastItem.type === 'help' && cand.type === 'help') ||
       ((lastTitleLower.includes('z biblią za pan brat') || lastTitleLower.includes('kurs codzienny') || lastTitleLower.includes('akademia biblijna') || lastUrlLower.includes('kurscodzienny')) &&
        (candTitleLower.includes('z biblią za pan brat') || candTitleLower.includes('kurs codzienny') || candTitleLower.includes('akademia biblijna') || candUrlLower.includes('kurscodzienny')))
     );
@@ -1849,7 +1895,9 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
 
   // Ochrona przed powtarzaniem tego samego tematu kluczowego (np. książka i artykuł) w odstępie poniżej 10 postów
   const recentTopics = history.slice(0, 10).map(h => ((h.title || '') + ' ' + (h.url || '')).toLowerCase());
+  const recentTopicIds = new Set(history.slice(0, 15).map(h => h?.topicId).filter(Boolean));
   const isTopicTooRecent = (cand) => {
+    if (cand.topicId && recentTopicIds.has(cand.topicId)) return true;
     const cText = ((cand.title || '') + ' ' + (cand.url || '')).toLowerCase();
     const keywords = [
       'kod-zrodlowy', 'kod źródłowy',
@@ -1884,6 +1932,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   const distProfile = getDistanceSinceType('profile');
   const distModule = getDistanceSinceType('module');
   const distVod = getDistanceSinceType('vod');
+  const distHelp = getDistanceSinceType('help');
   const distCourse = getDistanceSinceType('course');
   const distNews = getDistanceSinceType('news');
 
@@ -1891,6 +1940,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   // Dyrektywa Dowódcy: Werset dnia co ~1.5 - 2h (co 3-4 posty), książki, muzyka, profile regularnie
   const priorityTypes = [];
   if (distNews >= 5) priorityTypes.push({ type: 'news', dist: distNews });
+  if (distHelp >= 5) priorityTypes.push({ type: 'help', dist: distHelp });
   if (distCourse >= 6) priorityTypes.push({ type: 'course', dist: distCourse });
   if (distBook >= 6) priorityTypes.push({ type: 'book', dist: distBook });
   if (distVerse >= 4) priorityTypes.push({ type: 'verse', dist: distVerse });
@@ -1942,10 +1992,11 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
       ((lastTitleLower.includes('z biblią za pan brat') || lastTitleLower.includes('kurs codzienny') || lastTitleLower.includes('akademia biblijna')) &&
        (candTitleLower.includes('z biblią za pan brat') || candTitleLower.includes('kurs codzienny') || candTitleLower.includes('akademia biblijna')));
 
-    // Ochrona przed dwoma postami tego samego typu pod rząd (np. 2x profile, 2x music)
+    // Ochrona przed dwoma postami tego samego typu pod rząd (np. 2x profile, 2x music, 2x help)
     const isTypeDuplicate = lastItem.type && cand.type === lastItem.type;
+    const isSameTopicTwin = Boolean(cand.topicId && recentTopicIds.has(cand.topicId));
 
-    if (!isRecent && !isTopicDuplicate && !isTypeDuplicate) {
+    if (!isRecent && !isTopicDuplicate && !isTypeDuplicate && !isSameTopicTwin) {
       break;
     }
     nextIndex = (nextIndex + 1) % candidates.length;
@@ -1999,6 +2050,7 @@ async function broadcastNext(dryRun = false, requestedType = null, requestedInde
       title: chosen.title,
       url: chosen.url,
       type: chosen.type || 'news',
+      topicId: chosen.topicId || null,
       image: imagePath ? path.basename(imagePath) : null,
       publishedAt,
       method: 'ccn_auto_broadcaster'

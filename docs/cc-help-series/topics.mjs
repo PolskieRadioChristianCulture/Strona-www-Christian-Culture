@@ -8,6 +8,11 @@ import {batch8Sources,batch8Topics} from './batch8.mjs';
 import {batch9Sources,batch9Topics} from './batch9.mjs';
 import {batch10Sources,batch10Topics} from './batch10.mjs';
 import {batch11Sources,batch11Topics} from './batch11.mjs';
+import {batch12Sources,batch12Topics} from './batch12.mjs';
+import {batch13Sources,batch13Topics} from './batch13.mjs';
+import {batch14Sources,batch14Topics} from './batch14.mjs';
+import {batch15Sources,batch15Topics} from './batch15.mjs';
+import {batch16Sources,batch16Topics} from './batch16.mjs';
 export const sources = {
  ...batch3Sources,
  ...batch4Sources,
@@ -18,6 +23,11 @@ export const sources = {
  ...batch9Sources,
  ...batch10Sources,
  ...batch11Sources,
+ ...batch12Sources,
+ ...batch13Sources,
+ ...batch14Sources,
+ ...batch15Sources,
+ ...batch16Sources,
  legal: ['https://www.gov.pl/web/gov/skorzystaj-z-darmowej-pomocy-prawnej','Nieodpłatna pomoc prawna — gov.pl','Free legal aid — gov.pl'],
  mental: ['https://pacjent.gov.pl/leczenie-ambulatoryjne-doroslych','Pomoc ambulatoryjna dla dorosłych — Pacjent.gov.pl','Adult outpatient care — Pacjent.gov.pl'],
  crisis: ['https://www.gov.pl/web/zdrowie/depresja-to-powazny-problem-zdrowotny-nie-boj-sie-szukac-pomocy','Depresja i źródła wsparcia — Ministerstwo Zdrowia','Depression and support — Ministry of Health'],
@@ -38,6 +48,11 @@ export const topics = [
  ...batch9Topics,
  ...batch10Topics,
  ...batch11Topics,
+ ...batch12Topics,
+ ...batch13Topics,
+ ...batch14Topics,
+ ...batch15Topics,
+ ...batch16Topics,
  {id:'pastor',route:'pastor',enRoute:'pastoral-support',ref:'1 Tes 5,21',resources:['bible','academy','mental'],
  pl:{name:'Pastor — rozmowa o wierze',title:'Miejsce na pytania. Rozmowa z szacunkiem.',lead:'Wiara, codzienne wybory i trudne pytania. Przygotuj się do rozmowy duszpasterskiej i poznaj granice takiego wsparcia.',alt:'Otwarta Biblia, notatnik i kubek na drewnianym stole',
  steps:[['Nazwij temat rozmowy','Zapisz pytanie lub sytuację, o której chcesz porozmawiać. Możesz wskazać fragment Biblii, którego nie rozumiesz, bez opisywania publicznie prywatnej historii.'],['Poznaj rozmówcę','Zapytaj o wspólnotę, rolę i doświadczenie osoby oferującej wsparcie. Sam tytuł duszpasterski nie oznacza uprawnień do terapii ani porad prawnych.'],['Uzgodnij zasady','Przed spotkaniem ustal zakres rozmowy, poufność, ewentualne opłaty i możliwość zakończenia kontaktu. Masz prawo odmówić odpowiedzi na pytanie.']],

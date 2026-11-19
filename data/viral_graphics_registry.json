@@ -2,6 +2,74 @@
   "version": "2.1",
   "items": [
     {
+      "id": "social-topic-https-polskieradio-cc-sabat-c77d71c2",
+      "format": "16:9",
+      "headline": "Sabat – odpoczynek i spotkanie ze Stwórcą",
+      "reference": "https://polskieradio.cc/sabat",
+      "motif": "CC POMOC • WIARA, BIBLIA I PORADNICTWO DUCHOWE",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-sabat-413b4276.jpg",
+      "hash": "c77d71c2",
+      "createdAt": "2026-11-19T18:32:45.244Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-dlugi-1cf75e46",
+      "format": "16:9",
+      "headline": "Wyjść z długów. Odzyskać spokój",
+      "reference": "https://polskieradio.cc/dlugi",
+      "motif": "CC POMOC • PRAWO, DŁUGI I BEZPIECZEŃSTWO FINANSOW",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-dlugi-ea8b5453.jpg",
+      "hash": "1cf75e46",
+      "createdAt": "2026-11-19T18:32:45.094Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-en-depression-support-40c7795d",
+      "format": "16:9",
+      "headline": "Depression — finding help",
+      "reference": "https://polskieradio.cc/en/depression-support",
+      "motif": "CC HELP • PSYCHOLOGY AND MENTAL HEALTH",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-depression-support-396c3d36.jpg",
+      "hash": "40c7795d",
+      "createdAt": "2026-11-19T18:32:44.991Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-depresja-1930b30b",
+      "format": "16:9",
+      "headline": "Depresja – nie musisz cierpieć w samotności",
+      "reference": "https://polskieradio.cc/depresja",
+      "motif": "CC POMOC • PSYCHOLOGIA, EMOCJE I ZDROWIE PSYCHICZ",
+      "palette": {
+        "bg": "#0A111F",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "help-photo-card",
+      "emotion": "Nadzieja",
+      "file": "images/social/generated/topic-depresja-5ecaab6f.jpg",
+      "hash": "1930b30b",
+      "createdAt": "2026-11-19T18:32:44.906Z"
+    },
+    {
       "id": "vod-cc-benchmark-01-smarttv",
       "format": "1:1",
       "headline": "VOD Christian Culture — Oglądaj wartościowe treści, kiedy chcesz",

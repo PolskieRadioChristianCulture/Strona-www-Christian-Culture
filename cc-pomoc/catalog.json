@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-28",
+  "updated": "2026-11-18",
   "kind": "public-topic-plan-not-provider-contacts",
   "total": 100,
   "sections": [
@@ -781,9 +781,9 @@
           },
           "route": {
             "pl": "/samotnosc-seniorow",
-            "en": null
+            "en": "/en/loneliness-in-later-life"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "opieka-senioralna",
@@ -793,9 +793,9 @@
           },
           "route": {
             "pl": "/opieka-senioralna",
-            "en": null
+            "en": "/en/care-for-older-people"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "niepelnosprawnosc",
@@ -805,9 +805,9 @@
           },
           "route": {
             "pl": "/niepelnosprawnosc",
-            "en": null
+            "en": "/en/disability-rights"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "opiekun-rodzinny",
@@ -817,9 +817,9 @@
           },
           "route": {
             "pl": "/opiekun-rodzinny",
-            "en": null
+            "en": "/en/family-carers"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "emerytura",
@@ -829,9 +829,9 @@
           },
           "route": {
             "pl": "/emerytura",
-            "en": null
+            "en": "/en/retirement-support"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "domy-opieki",
@@ -841,9 +841,9 @@
           },
           "route": {
             "pl": "/domy-opieki",
-            "en": null
+            "en": "/en/care-homes"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "wolontariat-seniorow",
@@ -853,9 +853,9 @@
           },
           "route": {
             "pl": "/wolontariat-seniorow",
-            "en": null
+            "en": "/en/senior-volunteering"
           },
-          "status": "planned"
+          "status": "published"
         }
       ]
     },
@@ -886,9 +886,9 @@
           },
           "route": {
             "pl": "/pytania-o-boga",
-            "en": null
+            "en": "/en/questions-about-god"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "modlitwa",
@@ -897,10 +897,10 @@
             "en": "Prayer"
           },
           "route": {
-            "pl": "/modlitwa",
-            "en": null
+            "pl": "/modlitwa-wsparcie",
+            "en": "/en/prayer-support"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "kryzys-wiary",
@@ -910,9 +910,9 @@
           },
           "route": {
             "pl": "/kryzys-wiary",
-            "en": null
+            "en": "/en/faith-crisis"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "studium-biblii",
@@ -922,9 +922,9 @@
           },
           "route": {
             "pl": "/studium-biblii",
-            "en": null
+            "en": "/en/bible-study"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "ewangelia",
@@ -933,10 +933,10 @@
             "en": "The gospel — good news"
           },
           "route": {
-            "pl": "/ewangelia",
-            "en": null
+            "pl": "/ewangelia-przewodnik",
+            "en": "/en/gospel-guide"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "sabat",
@@ -946,9 +946,9 @@
           },
           "route": {
             "pl": "/sabat",
-            "en": null
+            "en": "/en/sabbath-guide"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "przebaczenie",
@@ -958,9 +958,9 @@
           },
           "route": {
             "pl": "/przebaczenie",
-            "en": null
+            "en": "/en/forgiveness-support"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "zycie-chrzescijanskie",
@@ -970,9 +970,9 @@
           },
           "route": {
             "pl": "/zycie-chrzescijanskie",
-            "en": null
+            "en": "/en/christian-daily-life"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "mentor",
@@ -982,9 +982,9 @@
           },
           "route": {
             "pl": "/mentor",
-            "en": null
+            "en": "/en/christian-mentoring"
           },
-          "status": "planned"
+          "status": "published"
         }
       ]
     },
@@ -1003,9 +1003,9 @@
           },
           "route": {
             "pl": "/praca",
-            "en": null
+            "en": "/en/finding-work"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "bezrobocie",
@@ -1015,9 +1015,9 @@
           },
           "route": {
             "pl": "/bezrobocie",
-            "en": null
+            "en": "/en/unemployment-support"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "doradca-zawodowy",
@@ -1027,9 +1027,9 @@
           },
           "route": {
             "pl": "/doradca-zawodowy",
-            "en": null
+            "en": "/en/career-guidance"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "przedsiebiorczosc",
@@ -1039,9 +1039,9 @@
           },
           "route": {
             "pl": "/przedsiebiorczosc",
-            "en": null
+            "en": "/en/responsible-entrepreneurship"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "wlasna-firma",
@@ -1051,9 +1051,9 @@
           },
           "route": {
             "pl": "/wlasna-firma",
-            "en": null
+            "en": "/en/starting-a-business"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "mobbing",
@@ -1063,9 +1063,9 @@
           },
           "route": {
             "pl": "/mobbing",
-            "en": null
+            "en": "/en/workplace-bullying"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "rozwoj-osobisty",
@@ -1074,10 +1074,10 @@
             "en": "Personal growth and character"
           },
           "route": {
-            "pl": "/rozwoj-osobisty",
-            "en": null
+            "pl": "/rozwoj-osobisty-wsparcie",
+            "en": "/en/personal-development"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "zarzadzanie-czasem",
@@ -1087,9 +1087,9 @@
           },
           "route": {
             "pl": "/zarzadzanie-czasem",
-            "en": null
+            "en": "/en/time-management"
           },
-          "status": "planned"
+          "status": "published"
         }
       ]
     },
@@ -1108,9 +1108,9 @@
           },
           "route": {
             "pl": "/pomoc-spoleczna",
-            "en": null
+            "en": "/en/social-assistance"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "bezdomnosc",
@@ -1120,9 +1120,9 @@
           },
           "route": {
             "pl": "/bezdomnosc",
-            "en": null
+            "en": "/en/homelessness-support"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "ubostwo",
@@ -1132,9 +1132,9 @@
           },
           "route": {
             "pl": "/ubostwo",
-            "en": null
+            "en": "/en/poverty-support"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "problemy-mieszkaniowe",
@@ -1144,9 +1144,9 @@
           },
           "route": {
             "pl": "/problemy-mieszkaniowe",
-            "en": null
+            "en": "/en/housing-crisis"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "pomoc-zywnosciowa",
@@ -1156,9 +1156,9 @@
           },
           "route": {
             "pl": "/pomoc-zywnosciowa",
-            "en": null
+            "en": "/en/food-assistance"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "pomoc-uchodzcom",
@@ -1168,9 +1168,9 @@
           },
           "route": {
             "pl": "/pomoc-uchodzcom",
-            "en": null
+            "en": "/en/migrant-support"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "mediacje",
@@ -1180,9 +1180,9 @@
           },
           "route": {
             "pl": "/mediacje",
-            "en": null
+            "en": "/en/mediation-support"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "pomoc-kryzysowa",
@@ -1192,9 +1192,9 @@
           },
           "route": {
             "pl": "/pomoc-kryzysowa",
-            "en": null
+            "en": "/en/urgent-life-support"
           },
-          "status": "planned"
+          "status": "published"
         }
       ]
     },
@@ -1213,9 +1213,9 @@
           },
           "route": {
             "pl": "/fundacje",
-            "en": null
+            "en": "/en/christian-organisations"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "osrodki-wypoczynkowe",
@@ -1225,9 +1225,9 @@
           },
           "route": {
             "pl": "/osrodki-wypoczynkowe",
-            "en": null
+            "en": "/en/christian-retreats"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "media-chrzescijanskie",
@@ -1237,9 +1237,9 @@
           },
           "route": {
             "pl": "/media-chrzescijanskie",
-            "en": null
+            "en": "/en/christian-media"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "wspolnoty",
@@ -1249,9 +1249,9 @@
           },
           "route": {
             "pl": "/wspolnoty",
-            "en": null
+            "en": "/en/church-and-community"
           },
-          "status": "planned"
+          "status": "published"
         }
       ]
     },
@@ -1282,9 +1282,9 @@
           },
           "route": {
             "pl": "/wolontariat",
-            "en": null
+            "en": "/en/volunteering-with-cc"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "wakaty",
@@ -1294,9 +1294,9 @@
           },
           "route": {
             "pl": "/wakaty",
-            "en": null
+            "en": "/en/volunteer-roles"
           },
-          "status": "planned"
+          "status": "published"
         },
         {
           "id": "zglos-specjaliste",
@@ -1306,9 +1306,9 @@
           },
           "route": {
             "pl": "/zglos-specjaliste",
-            "en": null
+            "en": "/en/specialist-application"
           },
-          "status": "planned"
+          "status": "published"
         }
       ]
     }

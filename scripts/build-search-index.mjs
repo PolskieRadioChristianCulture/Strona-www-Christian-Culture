@@ -5,6 +5,7 @@ import esbuild from 'esbuild';
 import ccnArticleRoutes from '../data/ccn-article-routes.js';
 import portalsData from './portals_data.cjs';
 import { loadCourses, searchItem } from './rozwiaz-problem/build.mjs';
+import { loadCcPomocCandidates } from './cc-pomoc-promo.mjs';
 
 const ROZWIAZ_PROBLEM_ITEMS = loadCourses().map(searchItem);
 
@@ -1262,6 +1263,39 @@ async function build() {
       await import(new URL(script, import.meta.url));
     }
   } finally { process.argv = originalArgs; }
+
+  const ccPomocItems = loadCcPomocCandidates(ROOT);
+  if (ccPomocItems.length > 0) {
+    const mergedCatalog = JSON.parse(fs.readFileSync(outPath2, 'utf8'));
+    const ccPomocUrls = new Set(ccPomocItems.map((h) => h.url));
+    mergedCatalog.items = (mergedCatalog.items || []).filter((x) => !ccPomocUrls.has(x.url));
+    for (const h of ccPomocItems) {
+      const cleanSlug = h.url.replace(/^https:\/\/polskieradio\.cc\/+/, '');
+      mergedCatalog.items.push({
+        title: `${h.rawTitle} — CC ${h.lang === 'en' ? 'Help' : 'Pomoc'}`,
+        category: h.lang === 'en' ? 'Help and support' : 'Pomoc i wsparcie',
+        url: h.url,
+        description: h.lead,
+        tags: [
+          h.rawTitle,
+          cleanSlug,
+          'CC Pomoc',
+          'CC Help',
+          h.lang === 'en' ? 'support' : 'wsparcie',
+          ...(h.topicId === 'dlugi' ? ['dlugi', 'debt help'] : [])
+        ],
+        type: 'page',
+        access: 'public',
+        lang: h.lang
+      });
+    }
+    mergedCatalog.totalItems = mergedCatalog.items.length;
+    const unifiedSerialized = JSON.stringify(mergedCatalog, null, 2) + '\n';
+    fs.writeFileSync(outPath1, unifiedSerialized, 'utf8');
+    fs.writeFileSync(outPath2, unifiedSerialized, 'utf8');
+    console.log(`✨ Zachowano ${ccPomocItems.length} stron CC Pomoc w indeksie wyszukiwarki (łącznie: ${mergedCatalog.totalItems}).`);
+  }
+
   const completeCatalog = fs.readFileSync(outPath2, 'utf8');
   if (process.argv.includes('--no-mirror')) return;
 

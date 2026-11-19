@@ -14,7 +14,7 @@ test('generator restores both missing debt pilot entries and preserves unrelated
  // This is an exclusively test-created directory, validated before recursive cleanup.
  assert(path.resolve(temp).startsWith(path.resolve(os.tmpdir())+path.sep+'cc-help-index-'));
  try{
-  for(const file of ['scripts/build-cc-help-series.mjs','cc-pomoc/catalog.json','dlugi/index.html','en/debt-help/index.html']){const dst=path.join(temp,file);fs.mkdirSync(path.dirname(dst),{recursive:true});fs.copyFileSync(path.join(root,file),dst);}
+  for(const file of ['scripts/build-cc-help-series.mjs','cc-pomoc/catalog.json','help.html','dlugi/index.html','en/debt-help/index.html']){const dst=path.join(temp,file);fs.mkdirSync(path.dirname(dst),{recursive:true});fs.copyFileSync(path.join(root,file),dst);}
   fs.cpSync(path.join(root,'docs/cc-help-series'),path.join(temp,'docs/cc-help-series'),{recursive:true});
   const other={title:'Other agent page',url:'https://polskieradio.cc/unrelated',category:'Other',type:'page'};
   fs.mkdirSync(path.join(temp,'szukaj'),{recursive:true});fs.mkdirSync(path.join(temp,'data'),{recursive:true});
@@ -37,10 +37,10 @@ test('generator restores both missing debt pilot entries and preserves unrelated
   }
  }finally{fs.rmSync(temp,{recursive:true,force:true});}
 });
-test('sixty approved topics, one hundred twenty unique routes, existing aliases preserved',()=>{
- assert.equal(topics.length,60);assert.deepEqual(new Set(topics.map(t=>t.id)),new Set(['legal','addiction','psychology','marriage','parenting','family','senior','depression','pastor','specialists','free-legal-aid','consumer-rights','household-budget','emotional-crisis','loneliness','grief','child-psychology','teenagers','school-difficulties','cyberbullying','child-behaviour','parenting-guide','anxiety','stress','burnout','self-worth','trauma','digital-balance','children-separation','children-faith','marriage-crisis','separation','infidelity','marriage-communication','family-conflict','domestic-violence','single-parenting','engagement','enforcement','debt-planning','personal-insolvency','collection-rights','loan-support','alcohol-support','drug-support','gambling-support','pornography-support','stop-smoking','family-addiction-support','addiction-treatment','health-support','dietitian-support','healthy-living','diabetes-support','pressure-support','heart-health','sleep-support','rehabilitation-support','physical-activity','spa-treatment']));const routes=topics.flatMap(x=>[x.route,'en/'+x.enRoute]);assert.equal(new Set(routes).size,120);
- for(const r of ['rodzina','malzenstwo','wychowanie','pomoc','psychologia','dlugi','zdrowie'])assert(!routes.includes(r));
- const redirects=read('_redirects');for(const r of ['/rodzina /edukacja 301','/malzenstwo /seks 301','/wychowanie /edukacja 301','/zdrowie /ziu 301'])assert(redirects.includes(r));
+test('ninety-nine approved series topics, one hundred ninety-eight unique routes, existing aliases preserved',()=>{
+ assert.equal(topics.length,99);assert.deepEqual(new Set(topics.map(t=>t.id)),new Set(['legal','addiction','psychology','marriage','parenting','family','senior','depression','pastor','specialists','free-legal-aid','consumer-rights','household-budget','emotional-crisis','loneliness','grief','child-psychology','teenagers','school-difficulties','cyberbullying','child-behaviour','parenting-guide','anxiety','stress','burnout','self-worth','trauma','digital-balance','children-separation','children-faith','marriage-crisis','separation','infidelity','marriage-communication','family-conflict','domestic-violence','single-parenting','engagement','enforcement','debt-planning','personal-insolvency','collection-rights','loan-support','alcohol-support','drug-support','gambling-support','pornography-support','stop-smoking','family-addiction-support','addiction-treatment','health-support','dietitian-support','healthy-living','diabetes-support','pressure-support','heart-health','sleep-support','rehabilitation-support','physical-activity','spa-treatment','senior-loneliness','senior-care','disability-rights','family-carers','retirement-support','care-home-support','senior-volunteering','finding-work','unemployment-support','career-guidance','responsible-entrepreneurship','starting-a-business','workplace-bullying','personal-development','time-management','social-assistance','homelessness-support','poverty-support','housing-crisis','food-assistance','migrant-support','mediation-support','urgent-life-support','questions-about-god','prayer-support','faith-crisis','bible-study','gospel-guide','sabbath-guide','forgiveness-support','christian-daily-life','christian-mentoring','christian-organisations','christian-retreats','christian-media','church-and-community','volunteering-with-cc','volunteer-roles','specialist-application']));const routes=topics.flatMap(x=>[x.route,'en/'+x.enRoute]);assert.equal(new Set(routes).size,198);
+ for(const r of ['rodzina','malzenstwo','wychowanie','pomoc','psychologia','dlugi','zdrowie','rozwoj-osobisty','modlitwa','ewangelia'])assert(!routes.includes(r));
+ const redirects=read('_redirects');for(const r of ['/rodzina /edukacja 301','/malzenstwo /seks 301','/wychowanie /edukacja 301','/zdrowie /ziu 301','/rozwoj-osobisty /holos 200'])assert(redirects.includes(r));
 });
 for(const t of topics)for(const lang of ['pl','en'])test(`${t.id}/${lang}: static translated content, routes, safeguards and local assets`,()=>{
  const route=lang==='pl'?t.route:'en/'+t.enRoute;const h=read(route+'/index.html');
@@ -51,7 +51,7 @@ for(const t of topics)for(const lang of ['pl','en'])test(`${t.id}/${lang}: stati
  assert.equal((h.match(/id="ccTopBarFavBtn"/g)||[]).length,1);assert(h.indexOf('id="ccTopBarFavBtn"')>h.indexOf('<dialog'));
  for(const [,p] of t[lang].steps)assert(p.length>55);
  for(const [,p] of t[lang].guides)assert(p.length>110);
- for(const key of t.resources){assert(sources[key]);assert(h.includes((lang==='en'&&sources[key][3])||sources[key][0]));}
+ for(const key of t.resources){assert(sources[key]);const href=((lang==='en'&&sources[key][3])||sources[key][0]).replaceAll('&','&amp;');assert(h.includes('href="'+href+'"'),href);}
  for(const m of h.matchAll(/(?:src|href)="(\/[^"?#]+)(?:[?#][^"]*)?"/g)){
  const p=m[1];const file=path.join(root,p);assert(fs.existsSync(file)||fs.existsSync(file+'.html'),`missing local target ${p}`);
  }

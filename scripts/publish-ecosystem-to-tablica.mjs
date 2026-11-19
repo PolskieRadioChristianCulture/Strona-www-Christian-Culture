@@ -17,7 +17,10 @@ import {
   ensureVerseGraphicSync,
   isForbiddenVerseImage
 } from './generate-verse-graphic.mjs';
-import { pickOfficialVodGraphic } from './generate-social-topic-graphic.mjs';
+import {
+  pickOfficialVodGraphic,
+  ensureSocialTopicGraphicSync
+} from './generate-social-topic-graphic.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -58,6 +61,7 @@ const VOICE_INTROS = Object.freeze({
     music: 'Włącz teraz i posłuchaj w Christian Culture:',
     course: 'Zapraszamy do codziennego studium Pisma Świętego:',
     vod: 'Polecamy materiał wideo na dziś:',
+    help: 'Jeśli przechodzisz trudniejszy czas lub wspierasz bliską osobę — sprawdź praktyczny poradnik CC Pomoc:',
     profile: 'Poznaj ludzi i inicjatywy tworzące naszą społeczność:',
     module: 'Odkryj nasze zasoby na cały dzień:'
   }),
@@ -68,6 +72,7 @@ const VOICE_INTROS = Object.freeze({
     music: 'Włączam u siebie i polecam również Wam na dzisiejszy czas:',
     course: 'Zapraszam do wspólnego odkrywania Pisma Świętego:',
     vod: 'Warto obejrzeć ten materiał i podać go dalej bliskim:',
+    help: 'Nie zostawaj z trudnością sam — przygotowaliśmy konkretne pierwsze kroki i sprawdzone źródła pomocy:',
     profile: 'Dzielę się z Wami kolejnym miejscem w naszym ekosystemie:',
     module: 'Korzystajcie śmiało z naszych narzędzi i materiałów:'
   }),
@@ -78,6 +83,7 @@ const VOICE_INTROS = Object.freeze({
     music: 'Posłuchajcie razem z nami — piękny czas z muzyką i Słowem:',
     course: 'Zapraszam do dzisiejszej lekcji i chwili refleksji z Biblią:',
     vod: 'Zachęcam do obejrzenia i podzielenia się z innymi:',
+    help: 'Z troską i szacunkiem dzielimy się poradnikiem, który pomaga zrobić spokojny pierwszy krok:',
     profile: 'Zapraszamy Was serdecznie do naszej wspólnej przestrzeni:',
     module: 'Dzielę się z Wami kolejnym dobrym miejscem na portalu:'
   })
@@ -90,6 +96,7 @@ const CATEGORY_HASHTAGS = Object.freeze({
   music: '#BibliaAudio #RadioCC #ChristianCulture',
   course: '#AkademiaBiblijna #ZBibliąZaPanBrat #ChristianCulture',
   vod: '#VOD #WartoObejrzeć #ChristianCulture',
+  help: '#CCPomoc #Wsparcie #ChristianCulture',
   profile: '#LUMINA #SpołecznośćCC #ChristianCulture',
   module: '#ChristianCulture #LUMINA'
 });
@@ -140,11 +147,17 @@ export function normalizeCategory(rawTypeOrCategory) {
   if (value.includes('music') || value.includes('podcast') || value.includes('song') || value.includes('audio') || value.includes('radio')) return 'music';
   if (value.includes('sds') || value.includes('course') || value.includes('akademia') || value.includes('lesson')) return 'course';
   if (value.includes('vod') || value.includes('video') || value.includes('tv')) return 'vod';
+  if (value === 'help' || value.includes('cc pomoc') || value.includes('cc help') || value.includes('pomoc i wsparcie') || value.includes('help and support')) return 'help';
   if (value.includes('profile') || value.includes('lumina') || value.includes('społeczno')) return 'profile';
   return 'module';
 }
 
 export function isSdsItem(item = {}) {
+  const rawType = String(item.type || '').toLowerCase();
+  const rawCat = String(item.category || '').toLowerCase();
+  if (rawType === 'help' || rawCat.includes('cc pomoc') || rawCat.includes('cc help')) {
+    return false;
+  }
   const haystack = [
     item.title,
     item.subtitle,
@@ -281,6 +294,16 @@ export function resolveTablicaImageUrl(item = {}, imagePath = null, rootDir = RO
     const pickedVod = pickOfficialVodGraphic(rootDir);
     if (pickedVod && fs.existsSync(pickedVod)) {
       const rel = path.relative(rootDir, pickedVod).replace(/\\/g, '/');
+      if (rel && !rel.startsWith('..')) {
+        return `https://polskieradio.cc/${rel}`;
+      }
+    }
+  }
+
+  if (!imagePath && category === 'help') {
+    const generatedHelpPath = ensureSocialTopicGraphicSync(item, rootDir);
+    if (generatedHelpPath && fs.existsSync(generatedHelpPath)) {
+      const rel = path.relative(rootDir, generatedHelpPath).replace(/\\/g, '/');
       if (rel && !rel.startsWith('..')) {
         return `https://polskieradio.cc/${rel}`;
       }
