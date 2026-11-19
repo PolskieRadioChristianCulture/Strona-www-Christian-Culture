@@ -141,9 +141,9 @@ export function normalizeItemUrl(rawUrl) {
 export function normalizeCategory(rawTypeOrCategory) {
   const value = String(rawTypeOrCategory || '').trim().toLowerCase();
   if (!value || value === 'ckd') return 'module';
-  if (value.includes('news') || value.includes('portal') || value === 'article') return 'news';
+  if (value.includes('news') || value.includes('portal') || value === 'article' || value.includes('świadectwa') || value.includes('swiadectwa') || value.includes('global')) return 'news';
   if (value.includes('verse') || value.includes('werset') || value.includes('biblia_werset')) return 'verse';
-  if (value.includes('book') || value.includes('książk') || value.includes('ksiazk')) return 'book';
+  if (value.includes('book') || value.includes('książk') || value.includes('ksiazk') || value.includes('biblioteka')) return 'book';
   if (value.includes('music') || value.includes('podcast') || value.includes('song') || value.includes('audio') || value.includes('radio')) return 'music';
   if (value.includes('sds') || value.includes('course') || value.includes('akademia') || value.includes('lesson')) return 'course';
   if (value.includes('vod') || value.includes('video') || value.includes('tv')) return 'vod';

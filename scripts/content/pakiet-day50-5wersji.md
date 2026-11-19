@@ -23,7 +23,7 @@ Studiuj pełny tekst UBG, 8 kodów Stronga, 45-punktową egzegezę i quiz z 20 p
 
 Dołącz do wspólnoty wzrostu:
 💬 https://chat.whatsapp.com/DBTRDxQWamZDWaOkjupSt0
-Wspieraj misję Słowa: https://patronite.pl/radiocc
+Wspieraj misję Słowa: https://patronite.pl/osobowoscplus
 
 ====================================================================
 WERSJA 3: WERSJA WIECZORNA (SMS)

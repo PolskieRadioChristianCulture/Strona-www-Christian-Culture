@@ -736,7 +736,8 @@ export function formatRichTextAndMedia(rawText, postData = null) {
 
     // 0. Rozpoznanie i zamiana linku wsparcia Patronite na aktywny lśniący przycisk (schowany w tokenie)
     let placeholderText = sanitizedText.replace(/(?:(?:Wspomóż misję|Wspieraj Bożą misję|Wsparcie misji|Wspieraj misję|Zostań patronem|Patronite)\s*:?\s*)?(?:https?:\/\/)?(?:www\.)?patronite\.pl\/([a-zA-Z0-9_-]+)/gi, (match, slug) => {
-        const targetSlug = (slug && slug.toLowerCase() !== 'patronite') ? slug : 'osobowoscplus';
+        const cleanSlug = String(slug || '').trim().toLowerCase();
+        const targetSlug = (cleanSlug && !/^(patronite|radiocc|christian-culture|christianculture|polskieradiocc)$/.test(cleanSlug)) ? slug.trim() : 'osobowoscplus';
         const url = `https://patronite.pl/${targetSlug}`;
         return stashLink(`<a href="${url}" target="_blank" rel="noopener noreferrer" class="reflection-smart-link support-link" onclick="event.stopPropagation()"><i class="fa-solid fa-heart" style="color:#ef4444;"></i> Wesprzyj Misję na Patronite <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`);
     });

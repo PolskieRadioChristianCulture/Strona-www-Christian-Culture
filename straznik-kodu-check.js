@@ -508,6 +508,55 @@ function checkCcnAssetIntegrity() {
 }
 
 // ══════════════════════════════════════════════════════════════════════════
+// REGUŁA M — ZAKAZ FAŁSZYWYCH ADRESÓW PATRONITE (P0 — incydent 19.11.2026)
+// Oficjalny jedyny adres Patronite CC: https://patronite.pl/osobowoscplus
+// ══════════════════════════════════════════════════════════════════════════
+function checkForbiddenPatroniteUrls() {
+  checksRun++;
+  const badPatroniteRe = /patronite\.pl\/(radiocc|christian-culture|christianculture|polskieradiocc)\b/i;
+
+  const filesToCheck = [];
+  for (const f of [...HTML_FILES, ...JS_FILES]) {
+    if (!/\.test\./i.test(f)) filesToCheck.push(f);
+  }
+  for (const rel of ['rozwazania_baza.json']) {
+    if (fs.existsSync(path.join(ROOT, rel))) filesToCheck.push(rel);
+  }
+  for (const dirRel of ['kolejka-publikacji/kurs-codzienny', 'scripts/content', 'scripts']) {
+    const dirAbs = path.join(ROOT, dirRel);
+    if (!fs.existsSync(dirAbs)) continue;
+    const walk = (d, prefix) => {
+      for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+        const subRel = `${prefix}/${e.name}`;
+        if (e.isDirectory()) {
+          if (dirRel === 'kolejka-publikacji/kurs-codzienny') walk(path.join(d, e.name), subRel);
+        } else if (e.isFile()) {
+          if (/\.test\./i.test(e.name)) continue;
+          if ((dirRel === 'kolejka-publikacji/kurs-codzienny' && e.name === 'rozwazanie.json') ||
+              (dirRel === 'scripts/content' && /^pakiet-day.*\.(md|txt|json)$/i.test(e.name)) ||
+              (dirRel === 'scripts' && /^generate-day.*\.(mjs|js)$/i.test(e.name))) {
+            filesToCheck.push(subRel);
+          }
+        }
+      }
+    };
+    walk(dirAbs, dirRel);
+  }
+
+  for (const rel of [...new Set(filesToCheck)]) {
+    const content = readFile(rel);
+    const match = content.match(badPatroniteRe);
+    if (match) {
+      report(
+        'L-PATRONITE-URL',
+        rel,
+        `Wykryto fałszywy/nieistniejący adres "${match[0]}". Jedynym oficjalnym linkiem jest https://patronite.pl/osobowoscplus.`
+      );
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════
 // URUCHOMIENIE WSZYSTKICH REGUŁ
 // ══════════════════════════════════════════════════════════════════════════
 checkCssFlexDirectionConflicts();
@@ -522,6 +571,7 @@ checkOnErrorIdentitySubstitution();
 checkNameBasedIdentity();
 checkInlineScriptSyntax();
 checkCcnAssetIntegrity();
+checkForbiddenPatroniteUrls();
 
 // ══════════════════════════════════════════════════════════════════════════
 // RAPORT

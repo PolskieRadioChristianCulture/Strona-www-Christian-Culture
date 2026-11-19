@@ -113,7 +113,7 @@ Studiuj pełny tekst UBG, 8 kodów Stronga, 45-punktową egzegezę i quiz z 20 p
 
 Dołącz do wspólnoty wzrostu:
 💬 https://chat.whatsapp.com/DBTRDxQWamZDWaOkjupSt0
-Wspieraj misję Słowa: https://patronite.pl/radiocc`;
+Wspieraj misję Słowa: https://patronite.pl/osobowoscplus`;
 
 const v3SmsText = `Dzień 50 (Wj 20:2-3): „Ja jestem PAN, twój Bóg, który cię wyprowadził... z domu niewoli”. Łaska daje wolność, a Dekalog strzeże naszego pokoju i miłości w Chrystusie! Dobrej nocy. polskieradio.cc`;
 

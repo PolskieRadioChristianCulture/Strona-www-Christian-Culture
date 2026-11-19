@@ -33,6 +33,7 @@ import {
   ensureSocialTopicGraphicSync
 } from './generate-social-topic-graphic.mjs';
 import { loadCcPomocCandidates } from './cc-pomoc-promo.mjs';
+import { loadEcosystemPublicPages } from './cc-ecosystem-promo.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -261,6 +262,10 @@ function resolveItemImage(item, rootDir, options = {}) {
       const p = accept(path.join(rootDir, 'images', 'courses', 'apokalipsa', 'banner-promo.jpg'));
       if (p) return p;
     }
+    const topicImg = ensureSocialTopicGraphicSync(item, rootDir);
+    if (topicImg && fs.existsSync(topicImg)) return topicImg;
+  }
+  if (pathLower.startsWith('/biblioteka') || cleanPathLower === '/bibleaudio-global') {
     const topicImg = ensureSocialTopicGraphicSync(item, rootDir);
     if (topicImg && fs.existsSync(topicImg)) return topicImg;
   }
@@ -509,13 +514,26 @@ function resolveItemImage(item, rootDir, options = {}) {
   return null;
 }
 
+function normalizeCandidateKey(rawUrl = '') {
+  try {
+    const u = new URL(String(rawUrl || ''), 'https://polskieradio.cc');
+    u.hash = '';
+    const p = u.pathname.replace(/\/+$/, '').replace(/\.html$/i, '') || '';
+    return `${u.origin}${p}${u.search}`.toLowerCase();
+  } catch {
+    return String(rawUrl || '').trim().toLowerCase().replace(/\/+$/, '').replace(/\.html$/i, '');
+  }
+}
+
 // Baza treści całego ekosystemu Christian Culture
 function getAllEcosystemCandidates() {
   const candidates = [];
   const seenUrls = new Set();
 
   function addCandidate(item) {
-    if (!item.url || seenUrls.has(item.url)) return;
+    if (!item.url) return;
+    const canonicalKey = normalizeCandidateKey(item.url);
+    if (seenUrls.has(canonicalKey)) return;
 
     // Zasada L0 (18.11.2026): zakaz promowania prywatnych profili LUMINA w social media
     let urlPathname = '';
@@ -571,7 +589,7 @@ function getAllEcosystemCandidates() {
       }
     }
 
-    seenUrls.add(item.url);
+    seenUrls.add(canonicalKey);
     candidates.push(item);
   }
 
@@ -1096,6 +1114,12 @@ function getAllEcosystemCandidates() {
     }
   }
 
+  // 8. PEŁNY EKOSYSTEM PUBLICZNYCH STRON POLSKIERADIO.CC (wszystkie portale CCN, Świadectwa Wiary, Biblioteka, Global, Muzyka, Pomogę Bo Mogę)
+  const ecosystemPages = loadEcosystemPublicPages(ROOT);
+  for (const pageItem of ecosystemPages) {
+    addCandidate(pageItem);
+  }
+
   return candidates;
 }
 
@@ -1111,10 +1135,23 @@ function formatBroadcasterTweet(item) {
     }
   }
 
+  const uLower = String(item.url || '').toLowerCase();
+
   if (item.type === 'book') {
-    subHeader = '📚 KSIĄŻKA & WYDAWNICTWO CC';
-    callToAction = '👉 Czytaj w ekosystemie:\n';
-    addTags(item.tag || '#KsiazkiCC', '#CezaryRogowski', '#ChristianCulture');
+    if (uLower.includes('/biblioteka')) {
+      header = '📚 BIBLIOTEKA CC | polskieradio.cc/biblioteka';
+      subHeader = '📖 LEKTURY WIARY, AUDIOBOOKI I E-BOOKI';
+      callToAction = '👉 Czytaj i pobieraj bezpłatnie:\n';
+      addTags('#BibliotekaCC', '#LekturyWiary', '#ChristianCulture');
+    } else if (uLower.includes('/wioletta')) {
+      subHeader = '📚 POWIEŚĆ & WYDAWNICTWO CC | WIOLETTA ROGOWSKA';
+      callToAction = '👉 Czytaj w ekosystemie:\n';
+      addTags(item.tag || '#WiolettaRogowska', '#KsiazkiCC', '#ChristianCulture');
+    } else {
+      subHeader = '📚 KSIĄŻKA & WYDAWNICTWO CC';
+      callToAction = '👉 Czytaj w ekosystemie:\n';
+      addTags(item.tag || '#KsiazkiCC', '#CezaryRogowski', '#ChristianCulture');
+    }
   } else if (item.type === 'verse') {
     subHeader = '📖 WERSET DNIA (UBG)';
     if ((item.url || '').includes('akademia')) {
@@ -1292,6 +1329,23 @@ function formatBroadcasterTweet(item) {
       subHeader = '🏛️ STUDIO DOBREGO SŁOWA | SDS';
       callToAction = '👉 Oglądaj wykłady i transmisje:\n';
       addTags('#StudioDobregoSlowa', '#Apokalipsa', '#Biblia', '#CCNNews');
+    } else if ((item.url || '').toLowerCase().includes('/pomogebomoge')) {
+      header = '🤝 POMOGĘ BO MOGĘ | polskieradio.cc/pomogebomoge';
+      subHeader = '🌿 DARMOWE ZASOBY EWANGELII I WSPARCIE MISJI';
+      callToAction = '👉 Poznaj i wesprzyj dzieło wiary:\n';
+      addTags('#PomogeBoMoge', '#ChristianCulture', '#MisjaCC');
+    } else if ((item.url || '').toLowerCase().includes('/bcm')) {
+      subHeader = '🙏 BIBLIJNY CZAS MODLITWY | 24/7';
+      callToAction = '👉 Módl się i słuchaj na żywo:\n';
+      addTags('#BCM24', '#Modlitwa', '#ChristianCulture');
+    } else if ((item.url || '').toLowerCase().includes('/tvw') || (item.url || '').toLowerCase().includes('/ccwomen')) {
+      subHeader = '🌸 TVW • TELEWIZJA KOBIET 24/7 | CC WOMEN';
+      callToAction = '👉 Oglądaj na żywo i odkrywaj:\n';
+      addTags('#TVW', '#CCWomen', '#ChristianCulture');
+    } else if ((item.url || '').toLowerCase().includes('/welch')) {
+      subHeader = '🎸 GERALD WELCH | CHRISTIAN CULTURE NETWORK';
+      callToAction = '👉 Listen & discover:\n';
+      addTags('#GeraldWelch', '#ChristianRock', '#ChristianCulture');
     } else {
       subHeader = '🌐 EKOSYSTEM CHRISTIAN CULTURE';
       callToAction = '👉 Odkryj w ekosystemie:\n';
@@ -1299,7 +1353,29 @@ function formatBroadcasterTweet(item) {
     }
   } else if (item.type === 'news') {
     const tLower = (item.title || '').toLowerCase();
-    if (tLower.includes('z biblią za pan brat') || tLower.includes('kurs codzienny') || (item.url || '').includes('/akademia/')) {
+    if (uLower.includes('/swiadectwa/')) {
+      header = '🕊️ ŚWIADECTWA WIARY | polskieradio.cc/swiadectwa';
+      subHeader = '✨ PRAWDZIWA HISTORIA PRZEMIANY ŻYCIA';
+      callToAction = '👉 Przeczytaj pełne świadectwo:\n';
+      addTags('#SwiadectwaWiary', '#ChristianCulture', '#Nadzieja');
+    } else if (uLower.includes('/global/articles/') || uLower === 'https://polskieradio.cc/bibleaudio-global' || (item.lang === 'en' && item.type !== 'help')) {
+      header = '🌍 CHRISTIAN CULTURE GLOBAL | polskieradio.cc/Global';
+      subHeader = '✝️ SCRIPTURE, WORSHIP & GLOBAL TESTIMONY';
+      callToAction = '👉 Read in Christian Culture Global:\n';
+      addTags('#ChristianCulture', '#ChristianCultureGlobal', '#Gospel');
+    } else if (uLower.includes('/si/') || uLower.endsWith('/si') || uLower.includes('/technologie')) {
+      subHeader = '🤖 CCN TECHNOLOGIE & AI | ETYKA BIBLIJNA';
+      callToAction = '👉 Czytaj analizę w serwisie:\n';
+      addTags('#CCNTechnologie', '#SztucznaInteligencja', '#Prawda');
+    } else if (uLower.endsWith('/survival')) {
+      subHeader = '🛡️ SURVIVAL CC | SZKOŁA PRZETRWANIA';
+      callToAction = '👉 Poznaj biblijne zasady gotowości:\n';
+      addTags('#SurvivalCC', '#Bezpieczenstwo', '#ChristianCulture');
+    } else if (uLower.endsWith('/motywacja')) {
+      subHeader = '💡 eM • MOTYWACJA CHRISTIAN CULTURE';
+      callToAction = '👉 Odkryj inspirację i odwagę:\n';
+      addTags('#eMMotywacja', '#CCNNews', '#ChristianCulture');
+    } else if (tLower.includes('z biblią za pan brat') || tLower.includes('kurs codzienny') || (item.url || '').includes('/akademia/')) {
       subHeader = '🎓 AKADEMIA BIBLIJNA | KURS CODZIENNY';
       callToAction = '👉 Studiuj w serwisie:\n';
       addTags('#KursCodzienny', '#AkademiaBiblijna', '#CCNNews');
@@ -1947,7 +2023,7 @@ function chooseNextCandidate(candidates, history, state, requestedType = null, r
   if (distVod >= 6) priorityTypes.push({ type: 'vod', dist: distVod });
   if (distMusic >= 6) priorityTypes.push({ type: 'music', dist: distMusic });
   if (distProfile >= 8) priorityTypes.push({ type: 'profile', dist: distProfile });
-  if (distModule >= 8) priorityTypes.push({ type: 'module', dist: distModule });
+  if (distModule >= 6) priorityTypes.push({ type: 'module', dist: distModule });
 
   priorityTypes.sort((a, b) => b.dist - a.dist);
 

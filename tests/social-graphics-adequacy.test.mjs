@@ -25,12 +25,18 @@ import {
   formatTablicaPost
 } from '../scripts/publish-ecosystem-to-tablica.mjs';
 import { loadCcPomocCandidates } from '../scripts/cc-pomoc-promo.mjs';
+import {
+  loadEcosystemPublicPages,
+  ECOSYSTEM_SKIP_ROOT_SLUGS
+} from '../scripts/cc-ecosystem-promo.mjs';
 
 const require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
-const FB_SCRIPT = 'C:/Users/czark/Christian_Culture_Projekty/Wektor1_VideoFactory/publish_facebook_ccn_news.js';
+const WEKTOR_ROOT = 'C:/Users/czark/Christian_Culture_Projekty/Wektor1_VideoFactory';
+const FB_SCRIPT = `${WEKTOR_ROOT}/publish_facebook_ccn_news.js`;
+const { sanitizeSupportLinks } = require(`${WEKTOR_ROOT}/wa_queue_helpers.js`);
 
 const {
   formatFacebookPost,
@@ -308,4 +314,92 @@ test('CC Pomoc (200 stron PL/EN z /depresja na czele): obecność w pulach X/FB,
   assert.equal(tablicaEn.category, 'help');
   assert.ok(tablicaPl.imageUrl && tablicaPl.imageUrl.includes('/images/social/generated/'));
   assert.ok(tablicaEn.imageUrl && tablicaEn.imageUrl.includes('/images/social/generated/'));
+});
+
+test('P0 Patronite: ZERO fałszywych linków /radiocc w bazach i generatorach + sanitizer WhatsApp naprawia w locie', () => {
+  const badRe = /patronite\.pl\/(radiocc|christian-culture|christianculture|polskieradiocc)\b/i;
+  const checkFiles = [
+    path.join(ROOT, 'rozwazania_baza.json'),
+    path.join(WEKTOR_ROOT, 'rozwazania_baza.json'),
+    path.join(WEKTOR_ROOT, 'rozwazania_baza.md'),
+    ...['2026-11-17', '2026-11-18', '2026-11-19'].map((d) =>
+      path.join(ROOT, 'kolejka-publikacji', 'kurs-codzienny', d, 'rozwazanie.json')
+    ),
+    ...fs.readdirSync(path.join(ROOT, 'scripts', 'content'))
+      .filter((f) => /^pakiet-day.*\.(md|txt|json)$/i.test(f))
+      .map((f) => path.join(ROOT, 'scripts', 'content', f)),
+    ...fs.readdirSync(path.join(ROOT, 'scripts'))
+      .filter((f) => /^generate-day.*\.(mjs|js)$/i.test(f))
+      .map((f) => path.join(ROOT, 'scripts', f))
+  ];
+
+  for (const filePath of checkFiles) {
+    assert.ok(fs.existsSync(filePath), `Oczekiwano pliku: ${filePath}`);
+    const content = fs.readFileSync(filePath, 'utf8');
+    const match = content.match(badRe);
+    assert.equal(match, null, `Wykryto zakazany link Patronite (${match?.[0]}) w ${filePath}`);
+  }
+
+  // Runtime sanitizer w kolejce i wysyłce WhatsApp
+  const dirty = 'Wspieraj misję: https://patronite.pl/radiocc oraz patronite.pl/christian-culture';
+  const cleaned = sanitizeSupportLinks(dirty);
+  assert.equal(
+    cleaned,
+    'Wspieraj misję: https://patronite.pl/osobowoscplus oraz patronite.pl/osobowoscplus'
+  );
+  assert.equal(
+    sanitizeSupportLinks('Oficjalny link: https://patronite.pl/osobowoscplus'),
+    'Oficjalny link: https://patronite.pl/osobowoscplus'
+  );
+});
+
+test('Pełna promocja całego ekosystemu polskieradio.cc: wszystkie czyste portale CCN i podstrony bez duplikatów ani profili prywatnych', () => {
+  const ecoPages = loadEcosystemPublicPages(ROOT);
+  assert.ok(ecoPages.length >= 100, `Oczekiwano >= 100 stron z loadEcosystemPublicPages, jest ${ecoPages.length}`);
+
+  const skipSlugsLower = new Set([...ECOSYSTEM_SKIP_ROOT_SLUGS].map((s) => s.toLowerCase()));
+  const seenEco = new Set();
+  for (const p of ecoPages) {
+    const key = p.url.toLowerCase().replace(/\/+$/, '').replace(/\.html$/i, '');
+    assert.ok(!seenEco.has(key), `Duplikat kanonicznego URL w loadEcosystemPublicPages: ${p.url}`);
+    seenEco.add(key);
+    assert.ok(!/\/lumina\./i.test(key) && !/\/lumina-profile$/i.test(key), `Niedozwolony profil prywatny LUMINA: ${p.url}`);
+    const pathname = new URL(p.url).pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+    assert.ok(!skipSlugsLower.has(pathname), `Wykluczony slug ze SKIP_ROOT w puli promocji: ${p.url}`);
+    assert.ok(!/backup|\/test-|\/privacy$|\/404$|\/ccmc$|\/kalendarz$/i.test(key), `Niedozwolona strona techniczna/prywatna: ${p.url}`);
+  }
+
+  const allCandidates = getAllEcosystemCandidates();
+  assert.ok(allCandidates.length >= 1000, `Oczekiwano >= 1000 czystych kandydatów w puli ekosystemu, jest ${allCandidates.length}`);
+
+  const allByNorm = new Map(
+    allCandidates.map((c) => [c.url.toLowerCase().replace(/\/+$/, '').replace(/\.html$/i, ''), c])
+  );
+
+  // Obowiązkowe nowe rodziny stron w puli promocji X / FB / LUMINA
+  const requiredUrls = [
+    'https://polskieradio.cc/swiadectwa/s01-od-uzaleznienia-do-wolnosci',
+    'https://polskieradio.cc/biblioteka/ksiega-psalmow-biblia-audio-cc-przeklad-ubg',
+    'https://polskieradio.cc/global/articles/biblical-worship-sing-the-word-of-god',
+    'https://polskieradio.cc/music/artysci',
+    'https://polskieradio.cc/si',
+    'https://polskieradio.cc/survival',
+    'https://polskieradio.cc/pomogebomoge',
+    'https://polskieradio.cc/spiritualsounds',
+    'https://polskieradio.cc/welch',
+    'https://polskieradio.cc/bcm',
+    'https://polskieradio.cc/tvw',
+    'https://polskieradio.cc/bibleaudio-global'
+  ];
+
+  for (const reqUrl of requiredUrls) {
+    const cand = allByNorm.get(reqUrl);
+    assert.ok(cand, `Brak kluczowej publicznej strony w puli promocji: ${reqUrl}`);
+    const tweet = formatBroadcasterTweet(cand);
+    const weightedLen = tweet.length - cand.url.length + 23;
+    assert.ok(weightedLen <= 278, `Tweet przekracza limit 278 znaków (${weightedLen}) dla ${cand.url}:\n${tweet}`);
+    const img = resolveItemImage(cand, ROOT);
+    assert.ok(img && fs.existsSync(img), `Brak adekwatnej grafiki dla ${cand.url}`);
+    assert.equal(isImageAdequateForItem(img, cand, ROOT), true, `Grafika ${img} odrzucona przez bramkę dla ${cand.url}`);
+  }
 });

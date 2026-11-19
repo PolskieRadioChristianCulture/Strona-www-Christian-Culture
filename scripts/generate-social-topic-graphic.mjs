@@ -374,11 +374,35 @@ function selectTopicProfile(item = {}) {
   } else if (pathLower.includes('apologetyka') || combined.includes('apologetyka')) {
     badge = 'CCN APOLOGETYKA • PISMO ŚWIĘTE';
     icon = 'shield';
+  } else if (pathLower.startsWith('/biblioteka') || combined.includes('biblioteka cc')) {
+    badge = 'BIBLIOTEKA • CHRISTIAN CULTURE';
+    icon = 'book';
+  } else if (pathLower.startsWith('/swiadectwa') || combined.includes('świadectwa wiary')) {
+    badge = 'ŚWIADECTWA WIARY • CHRISTIAN CULTURE';
+    icon = 'flame';
+  } else if (pathLower.startsWith('/pomogebomoge') || combined.includes('pomogę bo mogę')) {
+    badge = 'POMOGĘ BO MOGĘ • CHRISTIAN CULTURE';
+    icon = 'heart';
+  } else if (pathLower.startsWith('/global') || pathLower === '/bibleaudio-global' || pathLower.includes('/welch')) {
+    badge = 'CHRISTIAN CULTURE GLOBAL • ENGLISH';
+    icon = 'waves';
+  } else if (pathLower === '/survival' || combined.includes('survival')) {
+    badge = 'SURVIVAL CC • SZKOŁA PRZETRWANIA';
+    icon = 'shield';
+  } else if (pathLower === '/si' || pathLower.startsWith('/si/') || pathLower.startsWith('/technologie')) {
+    badge = 'CCN TECHNOLOGIE & AI • ETYKA BIBLIJNA';
+    icon = 'shield';
+  } else if (pathLower.startsWith('/bcm')) {
+    badge = 'BIBLIJNY CZAS MODLITWY • 24/7';
+    icon = 'flame';
+  } else if (pathLower.startsWith('/tvw') || pathLower.includes('ccwomen')) {
+    badge = 'TVW • TELEWIZJA KOBIET 24/7';
+    icon = 'camera';
   } else if (pathLower.includes('kuchnia')) {
     badge = 'CCN KUCHNIA • TRADYCJA BIBLIJNA';
     icon = 'flame';
-  } else if (pathLower.includes('network') || pathLower.includes('radio') || pathLower.includes('widget')) {
-    badge = 'CC NETWORK • RADIO I MEDIA 24/7';
+  } else if (pathLower.includes('network') || pathLower.includes('radio') || pathLower.includes('widget') || pathLower.startsWith('/music') || pathLower === '/audioteka' || pathLower === '/stacje') {
+    badge = 'CC MUSIC & RADIO • STREAM 24/7';
     icon = 'waves';
   } else if (pathLower.includes('rolki') || pathLower.includes('tv')) {
     badge = 'WIDEO I TRANSMISJE • CHRISTIAN CULTURE';

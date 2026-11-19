@@ -2,6 +2,363 @@
   "version": "2.1",
   "items": [
     {
+      "id": "social-topic-https-polskieradio-cc-cc-light-db5ca676",
+      "format": "16:9",
+      "headline": "Aplikacje CC Hub — Centrum Pobierania Aplikacji Mobilnych i Webowych (PWA)",
+      "reference": "https://polskieradio.cc/cc-light",
+      "motif": "NARZĘDZIA I MISJA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-cc-light-cd7bb964.jpg",
+      "hash": "db5ca676",
+      "createdAt": "2026-11-19T19:06:16.201Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-bibleaudio-global-2be930d0",
+      "format": "16:9",
+      "headline": "Bible Audio Global",
+      "reference": "https://polskieradio.cc/bibleaudio-global",
+      "motif": "CHRISTIAN CULTURE GLOBAL • ENGLISH",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-bibleaudio-global-b07940a3.jpg",
+      "hash": "2be930d0",
+      "createdAt": "2026-11-19T19:06:13.704Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-si-82b678e2",
+      "format": "16:9",
+      "headline": "CCN Nowe Technologie, SI & AI – Sztuczna Inteligencja (Synthetic Intelligence)",
+      "reference": "https://polskieradio.cc/si",
+      "motif": "CCN TECHNOLOGIE & AI • ETYKA BIBLIJNA",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-si-6731188b.jpg",
+      "hash": "82b678e2",
+      "createdAt": "2026-11-19T19:06:13.440Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-biblioteka-ksiega-psalmow--5a08155f",
+      "format": "16:9",
+      "headline": "Księga Psalmów – Biblia Audio CC w Przekładzie Uwspółcześnionej Biblii Gdańskiej",
+      "reference": "https://polskieradio.cc/biblioteka/ksiega-psalmow-biblia-audio-cc-przeklad-ubg",
+      "motif": "CHRISTIAN CULTURE • PISMO ŚWIĘTE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-ksiega-psalmow-biblia-audio-cc-przeklad-ubg-8c8ae876.jpg",
+      "hash": "5a08155f",
+      "createdAt": "2026-11-19T19:06:13.216Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-wspolpraca-6a6727a4",
+      "format": "16:9",
+      "headline": "CCN Współpraca — Dołącz do Misji Christian Culture, Wolontariat & Redakcja",
+      "reference": "https://polskieradio.cc/wspolpraca",
+      "motif": "NARZĘDZIA I MISJA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-wspolpraca-c3a3a4d1.jpg",
+      "hash": "6a6727a4",
+      "createdAt": "2026-11-19T19:00:35.913Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-wspieraj-eaec721a",
+      "format": "16:9",
+      "headline": "Wsparcie Misji Christian Culture — Zostań Patronem lub Mecenasem",
+      "reference": "https://polskieradio.cc/wspieraj",
+      "motif": "NARZĘDZIA I MISJA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-wspieraj-faa3eca1.jpg",
+      "hash": "eaec721a",
+      "createdAt": "2026-11-19T19:00:35.643Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-swiadectwa-445f2a21",
+      "format": "16:9",
+      "headline": "Świadectwa Wiary Live",
+      "reference": "https://polskieradio.cc/swiadectwa",
+      "motif": "MEDIA I TREŚCI • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-swiadectwa-2b0debb2.jpg",
+      "hash": "445f2a21",
+      "createdAt": "2026-11-19T19:00:35.362Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-apologetyka-5248f308",
+      "format": "16:9",
+      "headline": "CCN Apologetyka — Obrona Wiary Chrześcijańskiej, Dowody Historyczne & Rzetelność",
+      "reference": "https://polskieradio.cc/apologetyka",
+      "motif": "CCN APOLOGETYKA • PISMO ŚWIĘTE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-apologetyka-86e56ce0.jpg",
+      "hash": "5248f308",
+      "createdAt": "2026-11-19T19:00:35.115Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-technologie-5fffd1e5",
+      "format": "16:9",
+      "headline": "CCN Technologie — AI w Służbie Ewangelii",
+      "reference": "https://polskieradio.cc/technologie",
+      "motif": "PORTALE • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-technologie-2200de85.jpg",
+      "hash": "5fffd1e5",
+      "createdAt": "2026-11-19T19:00:34.883Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-seks-68c1b18e",
+      "format": "16:9",
+      "headline": "CCN Seks & Małżeństwo — Boży Zamysł Intymności",
+      "reference": "https://polskieradio.cc/seks",
+      "motif": "PORTALE • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-seks-bb341f68.jpg",
+      "hash": "68c1b18e",
+      "createdAt": "2026-11-19T19:00:34.660Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-psychologia-5fdfdf5e",
+      "format": "16:9",
+      "headline": "CCN Psychologia — Wiara i Zdrowie Psychiczne",
+      "reference": "https://polskieradio.cc/psychologia",
+      "motif": "PORTALE • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-psychologia-f32c5ecc.jpg",
+      "hash": "5fdfdf5e",
+      "createdAt": "2026-11-19T19:00:34.409Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-prawo-2a359bec",
+      "format": "16:9",
+      "headline": "CCN Prawo — Etyka, Wolność i Dekalog",
+      "reference": "https://polskieradio.cc/prawo",
+      "motif": "PORTALE • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-prawo-de81b7b2.jpg",
+      "hash": "2a359bec",
+      "createdAt": "2026-11-19T19:00:34.155Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-nauka-8c711206",
+      "format": "16:9",
+      "headline": "CCN Nauka — Kosmologia, Fizyka i Wiara",
+      "reference": "https://polskieradio.cc/nauka",
+      "motif": "PORTALE • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-nauka-41a52669.jpg",
+      "hash": "8c711206",
+      "createdAt": "2026-11-19T19:00:33.924Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-kultura-4adabe45",
+      "format": "16:9",
+      "headline": "CCN Kultura & Sztuka Chrześcijańska",
+      "reference": "https://polskieradio.cc/kultura",
+      "motif": "PORTALE • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-kultura-c829b33a.jpg",
+      "hash": "4adabe45",
+      "createdAt": "2026-11-19T19:00:33.684Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-kuchnia-c0a06bac",
+      "format": "16:9",
+      "headline": "CCN Kuchnia — Tradycja Kulinarna Biblii, Chleb Ezechiela & Przepisy Pisma",
+      "reference": "https://polskieradio.cc/kuchnia",
+      "motif": "CCN KUCHNIA • TRADYCJA BIBLIJNA",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-kuchnia-0db97e79.jpg",
+      "hash": "c0a06bac",
+      "createdAt": "2026-11-19T19:00:33.452Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-historia-cdcd44cc",
+      "format": "16:9",
+      "headline": "CCN Historia — Archeologia i Rzetelność Biblii",
+      "reference": "https://polskieradio.cc/historia",
+      "motif": "PORTALE • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-historia-6284d382.jpg",
+      "hash": "cdcd44cc",
+      "createdAt": "2026-11-19T19:00:33.225Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-finanse-40e2eda3",
+      "format": "16:9",
+      "headline": "CCN Finanse — Biblijne Zasady Zarządzania Pieniędzmi & Wyjście z Długów",
+      "reference": "https://polskieradio.cc/finanse",
+      "motif": "CCN FINANSE & ETYKA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-finanse-917ec051.jpg",
+      "hash": "40e2eda3",
+      "createdAt": "2026-11-19T19:00:32.982Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-em-c4d3641b",
+      "format": "16:9",
+      "headline": "Kim jestem, gdy nikt nie patrzy? Uczciwość i sumienie według Biblii",
+      "reference": "https://polskieradio.cc/eM",
+      "motif": "CCN NEWS • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-em-4ec9c030.jpg",
+      "hash": "c4d3641b",
+      "createdAt": "2026-11-19T19:00:32.754Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-edukacja-320c7bcb",
+      "format": "16:9",
+      "headline": "CCN Edukacja — Wychowanie w Wartościach",
+      "reference": "https://polskieradio.cc/edukacja",
+      "motif": "PORTALE • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-edukacja-ec6d4e9c.jpg",
+      "hash": "320c7bcb",
+      "createdAt": "2026-11-19T19:00:32.477Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-biznes-b566767d",
+      "format": "16:9",
+      "headline": "CCN Biznes — Etyka Chrześcijańska w Przedsiębiorczości & Boże Prowadzenie w Prac",
+      "reference": "https://polskieradio.cc/biznes",
+      "motif": "CCN FINANSE & ETYKA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-biznes-317e144c.jpg",
+      "hash": "b566767d",
+      "createdAt": "2026-11-19T19:00:32.231Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-biologia-a2eca549",
+      "format": "16:9",
+      "headline": "CCN Biologia — Genom i Projekt w Naturze",
+      "reference": "https://polskieradio.cc/biologia",
+      "motif": "PORTALE • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-biologia-28166859.jpg",
+      "hash": "a2eca549",
+      "createdAt": "2026-11-19T19:00:31.980Z"
+    },
+    {
       "id": "social-topic-https-polskieradio-cc-sabat-c77d71c2",
       "format": "16:9",
       "headline": "Sabat – odpoczynek i spotkanie ze Stwórcą",
