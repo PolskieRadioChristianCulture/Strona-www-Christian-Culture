@@ -2,6 +2,91 @@
   "version": "2.1",
   "items": [
     {
+      "id": "social-topic-https-polskieradio-cc-news-nie-czekaj-az-zycie-s-7add2b29",
+      "format": "16:9",
+      "headline": "Nie czekaj, aż życie się zmieni. Zacznij od siebie — z Bogiem możesz więcej!",
+      "reference": "https://polskieradio.cc/news/nie-czekaj-az-zycie-sie-zmieni-zacznij-od-siebie-z-bogiem-mozesz-wiecej",
+      "motif": "CCN NEWS • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-nie-czekaj-az-zycie-sie-zmieni-zacznij-od-siebie-aa6e060e.jpg",
+      "hash": "7add2b29",
+      "createdAt": "2026-11-19T17:40:18.603Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-finanse-1d05170e",
+      "format": "16:9",
+      "headline": "CCN Finanse — Biblijne Zasady Zarządzania Pieniędzmi & Wyjście z Długów",
+      "reference": "https://polskieradio.cc/finanse",
+      "motif": "CCN FINANSE & ETYKA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-finanse-905c291a.jpg",
+      "hash": "1d05170e",
+      "createdAt": "2026-11-19T17:40:00.830Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-dzj-8bc817ac",
+      "format": "16:9",
+      "headline": "Dobrze, że jesteś — Codzienne Rozważania",
+      "reference": "https://polskieradio.cc/dzj",
+      "motif": "DOBRZE, ŻE JESTEŚ • ROZWAŻANIE DNIA",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-dzj-538ac712.jpg",
+      "hash": "8bc817ac",
+      "createdAt": "2026-11-19T17:40:00.590Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-mojabiblia-5e8f686c",
+      "format": "16:9",
+      "headline": "Interlinearna MojaBiblia — Kody Stronga, Greka, Hebrajski i Przekład UBG",
+      "reference": "https://polskieradio.cc/mojabiblia",
+      "motif": "MOJA BIBLIA INTERLINEARNA • UBG",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#C4A35A"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-mojabiblia-d0efb294.jpg",
+      "hash": "5e8f686c",
+      "createdAt": "2026-11-19T17:40:00.295Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-kursy-apokalipsa-lekcja-01-e4523d50",
+      "format": "16:9",
+      "headline": "Kurs Apokalipsa — Lekcja 1: Objawienie Jezusa Chrystusa — Księga, która odsłania",
+      "reference": "https://polskieradio.cc/kursy/apokalipsa/lekcja-01.html",
+      "motif": "STUDIO DOBREGO SŁOWA • APOKALIPSA: KSIĘGA NADZIEI",
+      "palette": {
+        "bg": "#0D0E12",
+        "text": "#FFFFFF",
+        "accent": "#B91C1C"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Odkrycie",
+      "file": "images/social/generated/topic-lekcja-01-html-0b180aca.jpg",
+      "hash": "e4523d50",
+      "createdAt": "2026-11-19T17:40:00.053Z"
+    },
+    {
       "id": "ccwomen-gen27-2026-11-17-16x9",
       "format": "16:9",
       "headline": "CZY MOŻNA UKRAŚĆ BŁOGOSŁAWIEŃSTWO?",

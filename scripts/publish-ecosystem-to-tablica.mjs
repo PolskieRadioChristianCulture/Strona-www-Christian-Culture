@@ -137,8 +137,8 @@ export function normalizeCategory(rawTypeOrCategory) {
   if (value.includes('verse') || value.includes('werset') || value.includes('biblia_werset')) return 'verse';
   if (value.includes('book') || value.includes('książk') || value.includes('ksiazk')) return 'book';
   if (value.includes('music') || value.includes('podcast') || value.includes('song') || value.includes('audio') || value.includes('radio')) return 'music';
-  if (value.includes('course') || value.includes('akademia') || value.includes('lesson')) return 'course';
-  if (value.includes('vod') || value.includes('video') || value.includes('sds') || value.includes('tv')) return 'vod';
+  if (value.includes('sds') || value.includes('course') || value.includes('akademia') || value.includes('lesson')) return 'course';
+  if (value.includes('vod') || value.includes('video') || value.includes('tv')) return 'vod';
   if (value.includes('profile') || value.includes('lumina') || value.includes('społeczno')) return 'profile';
   return 'module';
 }
@@ -157,7 +157,10 @@ export function isSdsItem(item = {}) {
   ]
     .filter(Boolean)
     .join(' ');
-  return /\b(sds|studio dobrego s[łl]owa|apokalips[ay]?|mariusz\s+adamczyk|wincenty\s+sieja)\b/i.test(haystack);
+  if (/\b(dunkel|cbdc|cyfrowy pieni[aą]dz)\b/i.test(haystack)) {
+    return false;
+  }
+  return /\b(sds|studio dobrego s[łl]owa|studiods|ksi[ęe]g[ai]\s+nadziei|kursy\/apokalipsa|mariusz\s+adamczyk|wincenty\s+sieja)\b/i.test(haystack);
 }
 
 export function isFutureDatedItem(item = {}, now = new Date()) {

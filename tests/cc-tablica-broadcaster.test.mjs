@@ -89,8 +89,8 @@ test('Tablica LUMINA: wpisy całodniowe nigdy nie przejmują slotu CKD (isDevoti
 test('Tablica LUMINA: zachowanie atrybucji Studia Dobrego Słowa (Mariusz Adamczyk)', () => {
   const sdsItem = {
     title: 'Apokalipsa: Czas Końca - Wykład SDS',
-    url: 'https://polskieradio.cc/vod',
-    category: 'vod',
+    url: 'https://polskieradio.cc/kursy/apokalipsa/',
+    category: 'course',
     subtitle: 'Studio Dobrego Słowa'
   };
   assert.equal(isSdsItem(sdsItem), true);
@@ -98,6 +98,34 @@ test('Tablica LUMINA: zachowanie atrybucji Studia Dobrego Słowa (Mariusz Adamcz
   const post = formatTablicaPost(sdsItem, TABLICA_VOICES[2], null);
   assert.ok(post.text.includes('Mariusz Adamczyk'));
   assert.ok(post.text.includes('Studio Dobrego Słowa'));
+
+  assert.equal(
+    isSdsItem({
+      title: 'Kino Chrześcijańskie VOD — Dobre Kino 24/7',
+      url: 'https://polskieradio.cc/vod',
+      category: 'Kino VOD',
+      type: 'vod'
+    }),
+    false
+  );
+  assert.equal(
+    isSdsItem({
+      title: 'Apokalipsa — Jonatan Dunkel | Rozdział 11',
+      url: 'https://polskieradio.cc/bank-tresci',
+      category: 'wykład',
+      type: 'news'
+    }),
+    false
+  );
+  assert.equal(
+    isSdsItem({
+      title: 'Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13',
+      url: 'https://polskieradio.cc/news/cbdc-prawo-niedzielne-apokalipsa-13',
+      category: 'news',
+      type: 'news'
+    }),
+    false
+  );
 });
 
 test('Tablica LUMINA: rozwiązywanie obrazów webowych i blokowanie plików wewnętrznych', () => {

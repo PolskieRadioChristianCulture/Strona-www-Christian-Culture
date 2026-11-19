@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-19",
+      "topic": "Zewnętrzna rotacyjna promocja 24 kanałów YouTube (#12/24: CC FILM (Kino Chrześcijańskie) @CCFILM77)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-19",
       "topic": "Zewnętrzna rotacyjna promocja 24 kanałów YouTube (#11/24: Top Seven (Lista Przebojów CC) @TopSeven_CC)",
       "agent": "A"
     },
@@ -23,7 +28,11 @@
       "topic": "Przycisk informacji EkoCC INFO ⓘ — przeniesienie pod górną belkę (+) i ukrywanie przy przewijaniu",
       "agent": "A"
     },
-    {"date":"2026-11-19","topic":"Strona główna — automatyczny język i zapamiętany wybór","agent":"G"},
+    {
+      "date": "2026-11-19",
+      "topic": "Strona główna — automatyczny język i zapamiętany wybór",
+      "agent": "G"
+    },
     {
       "date": "2026-11-18",
       "topic": "CCN News X: Cykliczna publikacja #424 — Kurs 28 Kroków — Lekcja 3: Bóg Ojciec (/kursy/03-bog-ojciec) z dedykowaną grafiką i Tablicą LUMINA",
@@ -4663,6 +4672,11 @@
   ],
   "lastUpdated": "2026-11-19",
   "recentUpdates": [
+    {
+      "date": "2026-11-19",
+      "topic": "Rozdzielenie Kino VOD (CC) od Studia Dobrego Słowa (SDS) + bramka adekwatności i generator grafik tematycznych Social Media",
+      "agent": "A"
+    },
     {
       "date": "2026-11-19",
       "topic": "Porządek nazewnictwa Apokalipsa — Jonatan Dunkel (rozdzielenie od SDS) + naprawa watchdoga Biblia Audio",

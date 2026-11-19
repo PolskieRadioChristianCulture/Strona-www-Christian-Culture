@@ -26,6 +26,10 @@ import {
   getVerseGraphicRelativePath,
   isForbiddenVerseImage
 } from './generate-verse-graphic.mjs';
+import {
+  isImageAdequateForItem,
+  ensureSocialTopicGraphicSync
+} from './generate-social-topic-graphic.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -143,6 +147,8 @@ function resolveItemImage(item, rootDir) {
     }
   }
 
+  const accept = (p) => (p && fs.existsSync(p) && isImageAdequateForItem(p, item, rootDir) ? p : null);
+
   const resolveCandidate = (rawPath) => {
     if (!rawPath) return null;
     const cleanPath = rawPath.replace(/^https?:\/\/[^\/]+\//i, '').replace(/^\/+/, '');
@@ -162,12 +168,12 @@ function resolveItemImage(item, rootDir) {
     const cacheDir = path.join(rootDir, 'data', '.image_cache');
     if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
     const cacheFile = path.join(cacheDir, slug);
-    if (fs.existsSync(cacheFile) && fs.statSync(cacheFile).size > 1000) {
+    if (accept(cacheFile) && fs.statSync(cacheFile).size > 1000) {
       return cacheFile;
     }
     try {
       execSync(`curl.exe -s -L -o "${cacheFile}" "${remoteUrl}"`, { timeout: 10000 });
-      if (fs.existsSync(cacheFile) && fs.statSync(cacheFile).size > 1000) {
+      if (accept(cacheFile) && fs.statSync(cacheFile).size > 1000) {
         return cacheFile;
       }
     } catch (e) {}
@@ -175,11 +181,11 @@ function resolveItemImage(item, rootDir) {
 
   // 2. Bezpośrednia ścieżka do grafiki w obiekcie
   if (item.image) {
-    const p = resolveCandidate(item.image);
+    const p = accept(resolveCandidate(item.image));
     if (p) return p;
   }
   if (item.imageUrl) {
-    const p = resolveCandidate(item.imageUrl);
+    const p = accept(resolveCandidate(item.imageUrl));
     if (p) return p;
   }
 
@@ -195,7 +201,8 @@ function resolveItemImage(item, rootDir) {
       path.join(rootDir, 'images', `${slug}.png`)
     ];
     for (const cand of candidateFiles) {
-      if (fs.existsSync(cand)) return cand;
+      const p = accept(cand);
+      if (p) return p;
     }
   }
 
@@ -203,35 +210,44 @@ function resolveItemImage(item, rootDir) {
   if (item.type === 'verse' || pathLower.includes('werset-dnia') || titleLower.includes('werset')) {
     const generatedVerseImg = ensureVerseGraphicSync(item, rootDir);
     if (generatedVerseImg && fs.existsSync(generatedVerseImg)) return generatedVerseImg;
-    const p1 = path.join(rootDir, 'images', 'player', 'sidebar-verse-bg.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'images', 'player', 'verse-pure-bg.jpg');
-    if (fs.existsSync(p2)) return p2;
-    const p3 = path.join(rootDir, 'images', 'news', 'art-rdz15-abram-gwiazdy.jpg');
-    if (fs.existsSync(p3)) return p3;
+    const p1 = accept(path.join(rootDir, 'images', 'player', 'sidebar-verse-bg.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'images', 'player', 'verse-pure-bg.jpg'));
+    if (p2) return p2;
+    const p3 = accept(path.join(rootDir, 'images', 'news', 'art-rdz15-abram-gwiazdy.jpg'));
+    if (p3) return p3;
+  }
+  if (pathLower === '/vod' || pathLower.startsWith('/vod/') || item.type === 'vod' || titleLower.includes('kino vod')) {
+    const vodImg = accept(path.join(rootDir, 'images', 'social', 'kino-vod-christian-culture-16x9.jpg'));
+    if (vodImg) return vodImg;
   }
   if (pathLower.includes('01-pismo-swiete') || (titleLower.includes('pismo święte') && pathLower.includes('kursy'))) {
-    const p = path.join(rootDir, 'images', 'news', 'art-kraj-czytelnictwo-biblii-polska-2026.jpg');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'images', 'news', 'art-kraj-czytelnictwo-biblii-polska-2026.jpg'));
+    if (p) return p;
   }
   if (pathLower.includes('kursy/apokalipsa')) {
-    const p = path.join(rootDir, 'images', 'news', 'art-cbdc-prawo-niedzielne-apokalipsa-13.jpg');
-    if (fs.existsSync(p)) return p;
+    const cleanApoPath = pathLower.replace(/\/+$/, '');
+    if (cleanApoPath.endsWith('/kursy/apokalipsa')) {
+      const p = accept(path.join(rootDir, 'images', 'courses', 'apokalipsa', 'banner-promo.jpg'));
+      if (p) return p;
+    }
+    const topicImg = ensureSocialTopicGraphicSync(item, rootDir);
+    if (topicImg && fs.existsSync(topicImg)) return topicImg;
   }
   if (pathLower.includes('biblia-audio') || titleLower.includes('rodzaju')) {
-    const p = path.join(rootDir, 'biblia-audio', 'assets', 'rodzaju-hero.jpg');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'biblia-audio', 'assets', 'rodzaju-hero.jpg'));
+    if (p) return p;
   }
   const kursy28Match = pathLower.match(/\/kursy\/(\d{2})-/);
   if (kursy28Match) {
     const padNum = kursy28Match[1];
     const numNoPad = String(parseInt(padNum, 10));
-    const pPng = path.join(rootDir, 'images', 'lessons', `${numNoPad}.png`);
-    const pWebp = path.join(rootDir, 'images', 'lessons', `lesson-${padNum}.webp`);
-    const pAltWebp = path.join(rootDir, 'images', 'lessons', `${numNoPad}.webp`);
-    if (fs.existsSync(pPng)) return pPng;
-    if (fs.existsSync(pWebp)) return pWebp;
-    if (fs.existsSync(pAltWebp)) return pAltWebp;
+    const pPng = accept(path.join(rootDir, 'images', 'lessons', `${numNoPad}.png`));
+    const pWebp = accept(path.join(rootDir, 'images', 'lessons', `lesson-${padNum}.webp`));
+    const pAltWebp = accept(path.join(rootDir, 'images', 'lessons', `${numNoPad}.webp`));
+    if (pPng) return pPng;
+    if (pWebp) return pWebp;
+    if (pAltWebp) return pAltWebp;
   }
   if (pathLower.includes('akademia') || pathLower.includes('kurs')) {
     const dayMatch = pathLower.match(/dzien-(\d+)/);
@@ -240,217 +256,225 @@ function resolveItemImage(item, rootDir) {
       const dailyDir = path.join(rootDir, 'images', 'academy', 'daily');
       if (fs.existsSync(dailyDir)) {
         const found = fs.readdirSync(dailyDir).find(f => f.startsWith(`kc_day_${dayNum}_`) && (f.endsWith('.jpg') || f.endsWith('.png')));
-        if (found) return path.join(dailyDir, found);
+        if (found) {
+          const p = accept(path.join(dailyDir, found));
+          if (p) return p;
+        }
       }
     }
-    const p1 = path.join(rootDir, 'images', 'academy', 'z_biblia_za_pan_brat_hero.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p = path.join(rootDir, 'images', 'news', 'art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg');
-    if (fs.existsSync(p)) return p;
+    const p1 = accept(path.join(rootDir, 'images', 'academy', 'z_biblia_za_pan_brat_hero.jpg'));
+    if (p1) return p1;
+    const p = accept(path.join(rootDir, 'images', 'news', 'art-z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.jpg'));
+    if (p) return p;
   }
   if (pathLower.includes('mojabiblia')) {
-    const p = path.join(rootDir, 'images', 'news', 'art-rdz15-abram-gwiazdy.jpg');
-    if (fs.existsSync(p)) return p;
+    const topicImg = ensureSocialTopicGraphicSync(item, rootDir);
+    if (topicImg && fs.existsSync(topicImg)) return topicImg;
   }
   if (pathLower.includes('biblijneuwielbienie') || pathLower.includes('biblijne-uwielbienie') || titleLower.includes('biblijne uwielbienie')) {
-    const p1 = path.join(rootDir, 'images', 'biblijne-uwielbienie', 'uwielbienie-w-blasku-krzyza-live.png');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'images', 'biblijne-uwielbienie', 'uwielbienie-w-blasku-krzyza-live.webp');
-    if (fs.existsSync(p2)) return p2;
-    const p3 = path.join(rootDir, 'Logo_Biblia_Spiewana.jpg');
-    if (fs.existsSync(p3)) return p3;
+    const p1 = accept(path.join(rootDir, 'images', 'biblijne-uwielbienie', 'uwielbienie-w-blasku-krzyza-live.png'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'images', 'biblijne-uwielbienie', 'uwielbienie-w-blasku-krzyza-live.webp'));
+    if (p2) return p2;
+    const p3 = accept(path.join(rootDir, 'Logo_Biblia_Spiewana.jpg'));
+    if (p3) return p3;
   }
   if (pathLower.includes('biblia') || titleLower.includes('biblia') || titleLower.includes('pismo święte')) {
-    const p1 = path.join(rootDir, 'images', 'ogloszenia-biblia-gdanska.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'images', 'news', 'art-kraj-czytelnictwo-biblii-polska-2026.jpg');
-    if (fs.existsSync(p2)) return p2;
-    const p3 = path.join(rootDir, 'images', 'survival', 'filar-07-biblia.jpg');
-    if (fs.existsSync(p3)) return p3;
+    const p1 = accept(path.join(rootDir, 'images', 'ogloszenia-biblia-gdanska.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'images', 'news', 'art-kraj-czytelnictwo-biblii-polska-2026.jpg'));
+    if (p2) return p2;
+    const p3 = accept(path.join(rootDir, 'images', 'survival', 'filar-07-biblia.jpg'));
+    if (p3) return p3;
   }
   if (pathLower.includes('mapa')) {
-    const p1 = path.join(rootDir, 'assets', 'mapa', 'planeta-poster.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'images', 'mapa-bg-earth.jpg');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'assets', 'mapa', 'planeta-poster.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'images', 'mapa-bg-earth.jpg'));
+    if (p2) return p2;
   }
   if (pathLower.includes('cclite') || titleLower.includes('cclite')) {
-    const p1 = path.join(rootDir, 'reklamy', 'cclite.pl.png');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'reklamy', 'cclite.pl.webp');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'reklamy', 'cclite.pl.png'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'reklamy', 'cclite.pl.webp'));
+    if (p2) return p2;
   }
   if (pathLower.includes('skins') || pathLower.includes('skin')) {
-    const p1 = path.join(rootDir, 'assets', 'skin-earth.png');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'assets', 'skins', 'skin-earth-v2.webp');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'assets', 'skin-earth.png'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'assets', 'skins', 'skin-earth-v2.webp'));
+    if (p2) return p2;
   }
   if (pathLower.includes('badz-blisko')) {
-    const p = path.join(rootDir, 'badz-blisko', 'swiatlo.png');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'badz-blisko', 'swiatlo.png'));
+    if (p) return p;
   }
   if (pathLower.includes('rozwiaz')) {
-    const p = path.join(rootDir, 'rozwiaz-problem', 'assets', 'og-rozwiaz-problem.jpg');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'rozwiaz-problem', 'assets', 'og-rozwiaz-problem.jpg'));
+    if (p) return p;
   }
   if (pathLower.includes('arkoffire') || pathLower.includes('ark-of-fire') || pathLower.includes('ark_of_fire')) {
-    const p = path.join(rootDir, 'ArkOfFire', 'assets', 'ark-of-fire-hero.webp');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'ArkOfFire', 'assets', 'ark-of-fire-hero.webp'));
+    if (p) return p;
   }
   if (pathLower.includes('the-journal') || pathLower.includes('journal')) {
-    const p1 = path.join(rootDir, 'the-journal', 'assets', 'the-journal.png');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'the-journal', 'assets', 'pamietnik.png');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'the-journal', 'assets', 'the-journal.png'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'the-journal', 'assets', 'pamietnik.png'));
+    if (p2) return p2;
   }
   if (pathLower.includes('topten')) {
-    const p1 = path.join(rootDir, 'topTEN', 'assets', 'wspieramto-banner.png');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'images', 'brand', 'topten-logo.png');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'topTEN', 'assets', 'wspieramto-banner.png'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'images', 'brand', 'topten-logo.png'));
+    if (p2) return p2;
   }
   if (pathLower.includes('mariusz')) {
-    const p1 = path.join(rootDir, 'avatar_mariusz.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'avatar_mariusz_sds.jpg');
-    if (fs.existsSync(p2)) return p2;
-    const p3 = path.join(rootDir, 'images', 'team', 'mariusz-duszpasterz.jpg');
-    if (fs.existsSync(p3)) return p3;
+    const p1 = accept(path.join(rootDir, 'avatar_mariusz.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'avatar_mariusz_sds.jpg'));
+    if (p2) return p2;
+    const p3 = accept(path.join(rootDir, 'images', 'team', 'mariusz-duszpasterz.jpg'));
+    if (p3) return p3;
   }
   if (pathLower.includes('studium') || titleLower.includes('studio dobrego słowa') || titleLower.includes('sds')) {
-    const p1 = path.join(rootDir, 'images', 'news', 'art-globalny-reset-premiera-sds.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'avatar_mariusz_sds.jpg');
-    if (fs.existsSync(p2)) return p2;
-    const p3 = path.join(rootDir, 'images', 'courses', 'apokalipsa', 'banner-promo.jpg');
-    if (fs.existsSync(p3)) return p3;
+    if (pathLower.endsWith('/studium') || pathLower.endsWith('/studium.html')) {
+      const p1 = accept(path.join(rootDir, 'images', 'courses', 'apokalipsa', 'banner-promo.jpg'));
+      if (p1) return p1;
+      const p2 = accept(path.join(rootDir, 'avatar_mariusz_sds.jpg'));
+      if (p2) return p2;
+    }
+    const topicImg = ensureSocialTopicGraphicSync(item, rootDir);
+    if (topicImg && fs.existsSync(topicImg)) return topicImg;
   }
   if (pathLower.includes('/ewa') || pathLower.includes('ewa.') || /\b(ewa|ewy|ewie|ewę)\b/i.test(titleLower) || titleLower.includes('cc women')) {
-    const p1 = path.join(rootDir, 'images', 'news', 'art-ewa-cc-women.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'Ewa', 'assets', 'ewa-hero.webp');
-    if (fs.existsSync(p2)) return p2;
-    const p3 = path.join(rootDir, 'Ewa', 'assets', 'cc-women.png');
-    if (fs.existsSync(p3)) return p3;
+    const p1 = accept(path.join(rootDir, 'images', 'news', 'art-ewa-cc-women.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'Ewa', 'assets', 'ewa-hero.webp'));
+    if (p2) return p2;
+    const p3 = accept(path.join(rootDir, 'Ewa', 'assets', 'cc-women.png'));
+    if (p3) return p3;
   }
   if (pathLower.includes('/mess') || titleLower.includes('lumimess') || titleLower.includes('lumi mess')) {
-    const p = path.join(rootDir, 'images', 'chat', 'lumi-mess-bg.webp');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'images', 'chat', 'lumi-mess-bg.webp'));
+    if (p) return p;
   }
   if (pathLower.includes('global') || titleLower.includes('global')) {
-    const p1 = path.join(rootDir, 'images', 'search', 'global-radio.jpg');
-    if (fs.existsSync(p1)) return p1;
+    const p1 = accept(path.join(rootDir, 'images', 'search', 'global-radio.jpg'));
+    if (p1) return p1;
   }
   if (pathLower.includes('lumina') && !pathLower.includes('cezary') && !pathLower.includes('wioletta')) {
-    const p1 = path.join(rootDir, 'images', 'kultura', 'card-lumina.jpg');
-    if (fs.existsSync(p1)) return p1;
+    const p1 = accept(path.join(rootDir, 'images', 'kultura', 'card-lumina.jpg'));
+    if (p1) return p1;
   }
   if (pathLower.includes('lumina') || pathLower.includes('cezary') || pathLower.includes('wioletta')) {
-    const p = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg'));
+    if (p) return p;
   }
   if (pathLower.includes('/music') || pathLower.includes('music') || titleLower.includes('cc music') || titleLower.includes('muzyka chrześcijańska')) {
-    const p1 = path.join(rootDir, 'images', 'player', 'art-chan-muzyka.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'images', 'player', 'popular-muzyka-uwielbienie.jpg');
-    if (fs.existsSync(p2)) return p2;
-    const p3 = path.join(rootDir, 'images', 'player', 'art-worship.jpg');
-    if (fs.existsSync(p3)) return p3;
+    const p1 = accept(path.join(rootDir, 'images', 'player', 'art-chan-muzyka.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'images', 'player', 'popular-muzyka-uwielbienie.jpg'));
+    if (p2) return p2;
+    const p3 = accept(path.join(rootDir, 'images', 'player', 'art-worship.jpg'));
+    if (p3) return p3;
   }
   if (pathLower.includes('gerald-welch') || titleLower.includes('gerald welch')) {
-    const p = path.join(rootDir, 'images', 'news', 'art-gerald-welch-the-call.jpg');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'images', 'news', 'art-gerald-welch-the-call.jpg'));
+    if (p) return p;
   }
   if (pathLower.includes('worship') || titleLower.includes('worship')) {
-    const p1 = path.join(rootDir, 'worship_bg.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'images', 'player', 'art-worship.jpg');
-    if (fs.existsSync(p2)) return p2;
-    const p3 = path.join(rootDir, 'images', 'biblijne-uwielbienie', 'worship-cross-fullscreen.jpg');
-    if (fs.existsSync(p3)) return p3;
+    const p1 = accept(path.join(rootDir, 'worship_bg.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'images', 'player', 'art-worship.jpg'));
+    if (p2) return p2;
+    const p3 = accept(path.join(rootDir, 'images', 'biblijne-uwielbienie', 'worship-cross-fullscreen.jpg'));
+    if (p3) return p3;
   }
   if (pathLower.includes('cctv24') || titleLower.includes('cctv24')) {
-    const p1 = path.join(rootDir, 'tv24 CC.png');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'tv24_master_live.png');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'tv24 CC.png'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'tv24_master_live.png'));
+    if (p2) return p2;
   }
   if (pathLower.includes('player') || pathLower.includes('/radio') || pathLower.includes('muzyka')) {
-    const p = path.join(rootDir, 'images', 'player', 'art-worship.jpg');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'images', 'player', 'art-worship.jpg'));
+    if (p) return p;
   }
   if (pathLower.includes('ambientsleep') || pathLower.includes('ambient') || titleLower.includes('ambient')) {
-    const p1 = path.join(rootDir, 'ambient_hero.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'ambient_hero.webp');
-    if (fs.existsSync(p2)) return p2;
-    const p3 = path.join(rootDir, 'ambient_logo.jpg');
-    if (fs.existsSync(p3)) return p3;
+    const p1 = accept(path.join(rootDir, 'ambient_hero.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'ambient_hero.webp'));
+    if (p2) return p2;
+    const p3 = accept(path.join(rootDir, 'ambient_logo.jpg'));
+    if (p3) return p3;
   }
   if (pathLower.includes('holistyczny') || titleLower.includes('murawski')) {
-    const p = path.join(rootDir, 'avatar_pawel_murawski.jpg');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'avatar_pawel_murawski.jpg'));
+    if (p) return p;
   }
   if (pathLower.includes('heatfix') || titleLower.includes('heatfix')) {
-    const p = path.join(rootDir, 'images', 'ogloszenia-premier-heatfix.jpg');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'images', 'ogloszenia-premier-heatfix.jpg'));
+    if (p) return p;
   }
   if (pathLower.includes('podcast') || titleLower.includes('podcast')) {
-    const p1 = path.join(rootDir, 'images', 'podcasts', 'hero-podcasts.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'assets', 'podcasts', 'hero-podcasts.jpg');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'images', 'podcasts', 'hero-podcasts.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'assets', 'podcasts', 'hero-podcasts.jpg'));
+    if (p2) return p2;
   }
   if (pathLower.includes('dobroc') || titleLower.includes('dobroć') || titleLower.includes('dobroc')) {
-    const p = path.join(rootDir, 'images', 'news', 'art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.jpg');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'images', 'news', 'art-dobroc-nie-jest-slaboscia-7-decyzji-ktore-zmieniaja-relacje.jpg'));
+    if (p) return p;
   }
   if (pathLower.includes('epafraz') || titleLower.includes('epafraz')) {
-    const p = path.join(rootDir, 'tv_epafraz_thumb.png');
-    if (fs.existsSync(p)) return p;
+    const p = accept(path.join(rootDir, 'tv_epafraz_thumb.png'));
+    if (p) return p;
   }
   if (pathLower.includes('spiritualsounds') || titleLower.includes('spiritual sounds')) {
-    const p1 = path.join(rootDir, 'SpiritualSounds', 'img', 'ss-og-1200x630.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'SpiritualSounds', 'img', 'ss-emblem-720.webp');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'SpiritualSounds', 'img', 'ss-og-1200x630.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'SpiritualSounds', 'img', 'ss-emblem-720.webp'));
+    if (p2) return p2;
   }
   if (pathLower.includes('/tv') || pathLower.includes('smart-tv') || titleLower.includes('smart tv') || titleLower.includes('telewizja') || pathLower.includes('/program')) {
-    const p1 = path.join(rootDir, 'tv24 CC.png');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'tv24_master_live.png');
-    if (fs.existsSync(p2)) return p2;
-    const p3 = path.join(rootDir, 'tlo_tv_live2.png');
-    if (fs.existsSync(p3)) return p3;
-    const p4 = path.join(rootDir, 'images', 'kultura', 'card-live.webp');
-    if (fs.existsSync(p4)) return p4;
+    const p1 = accept(path.join(rootDir, 'tv24 CC.png'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'tv24_master_live.png'));
+    if (p2) return p2;
+    const p3 = accept(path.join(rootDir, 'tlo_tv_live2.png'));
+    if (p3) return p3;
+    const p4 = accept(path.join(rootDir, 'images', 'kultura', 'card-live.webp'));
+    if (p4) return p4;
   }
 
   if (pathLower.includes('/holos') || titleLower.includes('holos')) {
-    const p1 = path.join(rootDir, 'images', 'holos', 'holos_emblem.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'images', 'holos', 'holos_hero_bg.jpg');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'images', 'holos', 'holos_emblem.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'images', 'holos', 'holos_hero_bg.jpg'));
+    if (p2) return p2;
   }
 
   if (pathLower.includes('/ziu') || titleLower.includes('ccn ziu') || titleLower.includes('atlas ziół')) {
-    const p1 = path.join(rootDir, 'images', 'news', 'art-ccn-ziu-zdrowie-atlas-ziol.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'images', 'holos', 'holos_health.jpg');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'images', 'news', 'art-ccn-ziu-zdrowie-atlas-ziol.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'images', 'holos', 'holos_health.jpg'));
+    if (p2) return p2;
   }
 
   if (pathLower.includes('/kalendarz') || titleLower.includes('kalendarz 2027')) {
-    const p1 = path.join(rootDir, 'og-kalendarz-v2.jpg');
-    if (fs.existsSync(p1)) return p1;
-    const p2 = path.join(rootDir, 'og-kalendarz-2027.png');
-    if (fs.existsSync(p2)) return p2;
+    const p1 = accept(path.join(rootDir, 'og-kalendarz-v2.jpg'));
+    if (p1) return p1;
+    const p2 = accept(path.join(rootDir, 'og-kalendarz-2027.png'));
+    if (p2) return p2;
   }
 
-  // 4. Bezpieczna, estetyczna grafika redakcyjna wysokiej rozdzielczości
-  const fallback = path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg');
-  if (fs.existsSync(fallback)) return fallback;
+  // 4. Grafika założycieli wyłącznie dla tematów autorskich; w przeciwnym razie dedykowana karta tematyczna 16:9
+  const founderFallback = accept(path.join(rootDir, 'images', 'brand', 'cezary-wioletta-radiocc.jpg'));
+  if (founderFallback) return founderFallback;
+
+  const generatedTopicImg = ensureSocialTopicGraphicSync(item, rootDir);
+  if (generatedTopicImg && fs.existsSync(generatedTopicImg)) return generatedTopicImg;
 
   return null;
 }
@@ -699,13 +723,13 @@ function getAllEcosystemCandidates() {
       tag: '#PolskieRadioCC'
     },
     {
-      title: 'Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy',
-      lead: 'Fascynująca seria wykładów biblijnych wyjaśniających proroctwa Daniela i Objawienia św. Jana w jakości 4K UHD. Oglądaj bezpłatnie w Kinie Chrześcijańskim VOD.',
+      title: 'Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem',
+      lead: 'Oglądaj bezpłatnie pełnometrażowe filmy fabularne, ekranizacje biblijne i poruszające dramaty wiary z polskim lektorem w Kinie VOD Christian Culture.',
       url: 'https://polskieradio.cc/vod',
-      image: 'images/news/art-cbdc-prawo-niedzielne-apokalipsa-13.jpg',
+      image: 'images/social/kino-vod-christian-culture-16x9.jpg',
       category: 'Kino VOD',
       type: 'vod',
-      tag: '#StudioDobregoSlowa'
+      tag: '#KinoVOD'
     },
     {
       title: 'Kanał Transmisyjny: Biblia Śpiewana Live — Słowo Boże ubrane w natchnioną muzykę',
@@ -722,12 +746,12 @@ function getAllEcosystemCandidates() {
   // 4. SPOŁECZNOŚĆ LUMINA & PARTNERZY (bez prywatnych profili LUMINA — decyzja L0 18.11.2026)
   const profiles = [
     {
-      title: 'Studio Dobrego Słowa: Mariusz & pastor Wincenty Sieja — Cykl „Apokalipsa: Księga Nadziei”',
-      lead: 'Głębokie studium biblijnych proroctw Księgi Objawienia w świetle Ewangelii i Słowa Bożego. Odkryj nadzieję w Chrystusie w cyklu prowadzonym przez Mariusza i pastora Wincentego Sieję ze Studia Dobrego Słowa.',
-      url: 'https://polskieradio.cc/vod',
-      image: 'avatar_mariusz_sds.jpg',
+      title: 'Studio Dobrego Słowa — Cykl „Apokalipsa: Księga Nadziei”',
+      lead: 'Systematyczne studium biblijnych proroctw Księgi Apokalipsy w cyklu „Apokalipsa: Księga Nadziei” realizowanym w Studio Dobrego Słowa. Oglądaj wykłady i badaj Pismo Święte werset po wersecie.',
+      url: 'https://polskieradio.cc/kursy/apokalipsa/',
+      image: 'images/courses/apokalipsa/banner-promo.jpg',
       category: 'Studio Dobrego Słowa',
-      type: 'vod',
+      type: 'course',
       tag: '#StudioDobregoSlowa'
     },
     {
@@ -901,7 +925,7 @@ function getAllEcosystemCandidates() {
       title: 'Interlinearna MojaBiblia — Kody Stronga, Greka, Hebrajski i Przekład UBG',
       lead: 'Nowoczesne cyfrowe narzędzie do wnikliwego badania tekstu Pisma Świętego w językach oryginalnych.',
       url: 'https://polskieradio.cc/mojabiblia',
-      image: 'images/news/art-rdz15-abram-gwiazdy.jpg',
+      image: null,
       category: 'Pismo Święte',
       type: 'module',
       tag: '#MojaBiblia'
@@ -1053,10 +1077,14 @@ function formatBroadcasterTweet(item) {
       callToAction = '👉 MojaBiblia:\n';
     }
     addTags(item.tag || '#WersetDnia', '#SlowoBoze');
-  } else if (item.type === 'vod' || (item.url || '').includes('/vod') || item.category === 'Kino VOD' || item.category === 'Studio Dobrego Słowa') {
-    subHeader = '🎬 KINO CHRZEŚCIJAŃSKIE VOD | SDS';
-    callToAction = '👉 Oglądaj bezpłatnie w jakości 4K:\n';
-    addTags(item.tag || '#StudioDobregoSlowa', '#KinoVOD', '#Apokalipsa', '#ChristianCulture');
+  } else if (item.type === 'vod' || (item.url || '').includes('/vod') || item.category === 'Kino VOD') {
+    subHeader = '🎬 KINO CHRZEŚCIJAŃSKIE VOD | CHRISTIAN CULTURE';
+    callToAction = '👉 Oglądaj bezpłatnie filmy chrześcijańskie:\n';
+    addTags('#KinoVOD', '#FilmyChrzescijanskie', '#ChristianCulture');
+  } else if (item.category === 'Studio Dobrego Słowa' || (item.url || '').includes('/kursy/apokalipsa') || (item.url || '').endsWith('/studium')) {
+    subHeader = '📜 APOKALIPSA: KSIĘGA NADZIEI | STUDIO DOBREGO SŁOWA';
+    callToAction = '👉 Oglądaj wykłady i studiuj:\n';
+    addTags('#StudioDobregoSlowa', '#Apokalipsa', '#KsiegaNadziei', '#Biblia');
   } else if (item.type === 'music') {
     if ((item.url || '').includes('topTEN') || item.tag === '#topTEN') {
       subHeader = '🏆 TOPTEN | NOTOWANIA CC';
@@ -1103,6 +1131,10 @@ function formatBroadcasterTweet(item) {
       callToAction = '👉 Słuchaj na żywo:\n';
       addTags(item.tag || '#CCNMuzyka', '#PolskieRadioCC', '#WorshipLive', '#ChristianCulture');
     }
+  } else if ((item.url || '').includes('/kursy/apokalipsa') && !(item.title || '').toLowerCase().includes('apokalipsa')) {
+    subHeader = '📜 APOKALIPSA: KSIĘGA NADZIEI | STUDIO DOBREGO SŁOWA';
+    callToAction = '👉 Oglądaj wykłady i studiuj:\n';
+    addTags('#StudioDobregoSlowa', '#Apokalipsa', '#KsiegaNadziei', '#Biblia');
   } else if (item.type === 'course' || (item.url || '').toLowerCase().includes('rozwiaz')) {
     if ((item.url || '').includes('akademia') || (item.url || '').includes('kurscodzienny')) {
       subHeader = '🎓 AKADEMIA BIBLIJNA | KURS CODZIENNY';
@@ -1117,9 +1149,9 @@ function formatBroadcasterTweet(item) {
       callToAction = '👉 Studiuj lekcję w serwisie:\n';
       addTags('#28ZasadWiary', '#KanonWiary', '#ChristianCulture');
     } else if ((item.url || '').includes('/kursy/apokalipsa')) {
-      subHeader = '📜 APOKALIPSA: KSIĘGA NADZIEI | KURS';
-      callToAction = '👉 Studiuj lekcję w serwisie:\n';
-      addTags('#Apokalipsa', '#KsiegaNadziei', '#Proroctwa', '#ChristianCulture');
+      subHeader = '📜 APOKALIPSA: KSIĘGA NADZIEI | STUDIO DOBREGO SŁOWA';
+      callToAction = '👉 Oglądaj wykłady i studiuj:\n';
+      addTags('#StudioDobregoSlowa', '#Apokalipsa', '#KsiegaNadziei', '#Biblia');
     } else {
       subHeader = '🎓 KURSY BIBLIJNE | AKADEMIA CC';
       callToAction = '👉 Studiuj kurs w serwisie:\n';
@@ -1475,10 +1507,10 @@ function formatBroadcasterTweet(item) {
     bodyText = 'Nowy rozdział w słuchowisku! Księga Rodzaju 12 (UBG): Powołanie Abrama, wyjście z Haranu i obietnica wielkiego narodu.';
   } else if ((item.url || '').includes('/kalendarz') || (item.title || '').toLowerCase().includes('kalendarz 2027')) {
     bodyText = 'Bezpłatny generator kalendarza ściennego 2027 (A4/PDF) — oznaczone szabaty, wersety i miejsce na notatki!';
-  } else if (item.type === 'vod' && item.title.includes('Proroctwa')) {
-    bodyText = 'Proroctwa Daniela i Księgi Objawienia w serii wykładów biblijnych 4K UHD ze SDS.';
-  } else if (item.type === 'vod' && item.title.includes('Księga Nadziei')) {
-    bodyText = 'Cykl „Apokalipsa: Księga Nadziei” — Mariusz i pastor Wincenty Sieja (SDS).';
+  } else if (item.type === 'vod' || (item.url || '').includes('/vod')) {
+    bodyText = 'Kino Chrześcijańskie VOD — bezpłatne filmy fabularne, ekranizacje biblijne i historie wiary z polskim lektorem!';
+  } else if ((item.url || '').includes('/kursy/apokalipsa') || (item.title || '').includes('Księga Nadziei')) {
+    bodyText = 'Cykl „Apokalipsa: Księga Nadziei” w Studio Dobrego Słowa — wykłady biblijne o proroctwach Pisma Świętego.';
   } else {
     bodyText = item.title.trim()
       .replace(/^CCN News\s*[-–—:]\s*/i, '')
