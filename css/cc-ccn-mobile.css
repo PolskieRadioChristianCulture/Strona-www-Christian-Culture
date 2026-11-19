@@ -1,0 +1,156 @@
+/* ==========================================================================
+   WSPÓLNY STANDARD MOBILNY PORTALI CCN (/news + 19 portali tematycznych)
+   Naprawa przepełnień poziomych, pasków ekosystemu i górnych belek nawigacji.
+   ========================================================================== */
+
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+@media (max-width: 767px) {
+  /* 1. Górny czarny pasek ekosystemu na portalach tematycznych */
+  #root > div > header > div:first-child:not(.news-ecosystem-strip) {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    padding: 4px 10px !important;
+  }
+
+  #root > div > header > div:first-child:not(.news-ecosystem-strip) > div,
+  #root > div > header > div:first-child:not(.news-ecosystem-strip) > div > div {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  #root > div > header > div:first-child:not(.news-ecosystem-strip) div[class*="overflow-x-auto"],
+  #root > div > header > div:first-child:not(.news-ecosystem-strip) nav[class*="overflow-x-auto"] {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    gap: 14px !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(to right, #000 90%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 90%, transparent 100%);
+  }
+
+  #root > div > header > div:first-child:not(.news-ecosystem-strip) div[class*="overflow-x-auto"]::-webkit-scrollbar,
+  #root > div > header > div:first-child:not(.news-ecosystem-strip) nav[class*="overflow-x-auto"]::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #root > div > header > div:first-child:not(.news-ecosystem-strip) a {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* 2. Biały wiersz marki i przycisków akcji na portalach tematycznych */
+  #root > div > header > div:nth-child(2) {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    max-width: 100% !important;
+  }
+
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) {
+    gap: 6px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    flex-wrap: wrap !important;
+    row-gap: 6px !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) > a:first-child,
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) > div:first-child {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    gap: 6px !important;
+    flex-shrink: 1 !important;
+  }
+
+  header img[src*="ccn-logo"]:not(.news-header-logo img):not(.news-brand-button img) {
+    height: 26px !important;
+    width: auto !important;
+    max-width: 104px !important;
+    object-fit: contain;
+  }
+
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) > div:last-child {
+    gap: 4px !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-end !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-left: auto !important;
+  }
+
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) > div:last-child > button,
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) > div:last-child > a,
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) > div:last-child .cc-auth-google-btn {
+    min-width: 34px !important;
+    min-height: 36px !important;
+    padding: 4px 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) > div:last-child .cc-auth-google-btn span,
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) > div:last-child > button > span.hidden {
+    display: none !important;
+  }
+
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) > div:last-child .lumina-share-btn-l {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+  }
+
+  #root > div > header > div:nth-child(2) > div:first-child:not(.news-brand-row) > div:last-child .lumina-share-btn-l span:last-child {
+    display: none !important;
+  }
+
+  /* 3. Ograniczenie niekontrolowanego rozlewania dekoracyjnych sekcji tła */
+  main,
+  section {
+    max-width: 100%;
+  }
+
+  section:has(> div[class*="absolute"]) {
+    overflow-x: clip;
+  }
+}
+
+@media (max-width: 359px) {
+  header img[src*="ccn-logo"]:not(.news-header-logo img):not(.news-brand-button img) {
+    height: 22px !important;
+    max-width: 88px !important;
+  }
+
+  .news-brand-row {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    gap: 4px !important;
+  }
+
+  .news-brand-row .news-brand-button img {
+    width: 84px !important;
+    height: auto !important;
+  }
+
+  .news-brand-row > div {
+    gap: 2px !important;
+  }
+}

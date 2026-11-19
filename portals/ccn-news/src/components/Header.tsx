@@ -172,17 +172,15 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Main Brand & Nav Row */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="news-brand-row flex flex-wrap items-center justify-between gap-3 py-3 sm:py-4">
-          {/* Logo */}
-          
+      <div className="max-w-7xl mx-auto px-3 sm:px-6">
+        <div className="news-brand-row flex items-center justify-between gap-2 sm:gap-3 py-2 sm:py-3.5 flex-nowrap md:flex-wrap">
           {/* Brand & Mobile Edge Panel Trigger */}
-          <div className="flex items-center gap-2.5 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 min-w-0 shrink">
             {/* Mobile + Trigger Button for Edge Panel */}
             <button
               type="button"
               onClick={() => setEdgePanelOpen(!edgePanelOpen)}
-              className="md:hidden flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#091526] border border-[#C4A35A]/50 text-[#E2CC9A] hover:text-white hover:border-[#C4A35A] transition-all cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-[#C4A35A]"
+              className="md:hidden flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] shrink-0 rounded-xl bg-[#091526] border border-[#C4A35A]/50 text-[#E2CC9A] hover:text-white hover:border-[#C4A35A] transition-all cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-[#C4A35A]"
               aria-label={edgePanelOpen ? 'Zamknij panel nawigacji' : 'Otwórz panel nawigacji EkoCC'}
               aria-expanded={edgePanelOpen}
               aria-controls="cc-mobile-edge-panel"
@@ -195,7 +193,47 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             {/* Logo */}
-            <a href="/news" className="news-brand-button group cursor-pointer focus:outline-none text-left block" aria-label="CCN News – Christian Culture Strona Główna" title="Przejdź do strony głównej CCN News"><CcnLogo layout="horizontal" className="news-header-logo" disableLink={true} /></a>
+            <a href="/news" className="news-brand-button group cursor-pointer focus:outline-none text-left block min-w-0 shrink" aria-label="CCN News – Christian Culture Strona Główna" title="Przejdź do strony głównej CCN News"><CcnLogo layout="horizontal" className="news-header-logo" disableLink={true} /></a>
+          </div>
+
+          {/* Mobile Compact Quick Actions (Radio, Search, Bookmarks) */}
+          <div className="flex md:hidden items-center gap-1 shrink-0">
+            <button
+              type="button"
+              onClick={onToggleRadio}
+              className={`w-11 h-11 min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-lg transition cursor-pointer border ${
+                isRadioPlaying
+                  ? 'bg-[#bb142e] border-[#bb142e] text-white animate-pulse'
+                  : 'bg-zinc-100 hover:bg-zinc-200 text-zinc-900 border-zinc-200'
+              }`}
+              aria-label={isRadioPlaying ? 'Zatrzymaj Radio Live' : 'Włącz Radio Live'}
+              title="Radio Christian Culture Na Żywo"
+            >
+              <Radio className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={onOpenSearch}
+              className="w-11 h-11 min-w-[44px] min-h-[44px] inline-flex items-center justify-center text-gray-700 hover:text-[#bb142e] hover:bg-gray-100 rounded-lg transition cursor-pointer"
+              aria-label="Szukaj artykułów"
+              title="Szukaj w portalu"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={onOpenBookmarks}
+              className="hidden min-[360px]:inline-flex w-11 h-11 min-w-[44px] min-h-[44px] items-center justify-center text-gray-700 hover:text-[#bb142e] hover:bg-gray-100 rounded-lg transition relative cursor-pointer"
+              aria-label="Zapisane artykuły"
+              title="Zapisane artykuły"
+            >
+              <Bookmark className="w-5 h-5" />
+              {bookmarksCount > 0 && (
+                <span className="absolute top-1.5 right-1.5 bg-[#f9282b] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {bookmarksCount}
+                </span>
+              )}
+            </button>
           </div>
 
           {/* Desktop Navigation */}
@@ -388,14 +426,14 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         )}
         {/* Mobile Horizontal Category Pills */}
-        <div className="mobile-category-pills md:hidden border-t border-gray-100 -mx-4 px-4 py-2 overflow-x-auto flex items-center gap-1.5 scrollbar-none">
+        <div className="mobile-category-pills md:hidden border-t border-gray-100 -mx-3 sm:-mx-4 px-3 py-1.5 overflow-x-auto flex items-center gap-1.5 no-scrollbar">
           {NAV_ITEMS.map((item) => {
             const isActive = currentCategory === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`px-4 min-h-[44px] inline-flex items-center rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`px-3.5 min-h-[38px] inline-flex items-center shrink-0 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
                   isActive
                     ? 'bg-[#bb142e] text-white shadow-xs'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'

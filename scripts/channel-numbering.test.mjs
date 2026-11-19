@@ -5,6 +5,7 @@ import sharp from 'sharp';
 import {Window} from 'happy-dom';
 import {CHANNELS,channelForPath,renderChannelDirectory} from './cc-channel-numbering.mjs';
 import {applyPageStandard} from './cc-page-standard.mjs';
+import {isPublicFile} from './cc-release-files.mjs';
 
 test('approved order has 17 broadcast and 20 CCN channels with unique contiguous numbers and valid assets',async()=>{
   assert.deepEqual(CHANNELS.map(c=>c.number),Array.from({length:37},(_,i)=>i+1));
@@ -46,13 +47,17 @@ test('catalogue /nadawaj shows the official number for every numbered broadcast 
   assert.match(raw,/data-cc-channel-number=/);
 });
 
-test('all CCN portal roots get an accessible identity strip; protected broadcast sources remain byte-identical',()=>{
+test('all CCN portal roots get an accessible identity strip and mobile stylesheet; protected broadcast sources remain byte-identical',()=>{
+  assert.ok(fs.existsSync('css/cc-ccn-mobile.css'));
+  assert.ok(isPublicFile('css/cc-ccn-mobile.css'));
   for(const c of CHANNELS.filter(c=>c.kind==='ccn')){
     const file=c.url.slice(1)+'.html';
     const raw=fs.readFileSync(file,'utf8');
     const output=applyPageStandard(file,raw);
     assert.match(output,new RegExp(`Kanał ${c.number}`));
     assert.ok(output.includes(c.image));
+    assert.ok(output.includes('/css/cc-ccn-mobile.css?v=20261119_ccnmob1'), `${file} must load shared CCN mobile stylesheet`);
+    assert.ok(output.includes('/css/cc-channel-numbering.css?v=20261119_numbers3'), `${file} must load updated channel numbering stylesheet`);
     assert.equal(applyPageStandard(file,output),output);
   }
   for(const file of ['cctv24-worship.html','cctv24-worship-live.html','stream-scene.html','cctv24.html','snadaniowa-live.html','zapolske-live.html']){

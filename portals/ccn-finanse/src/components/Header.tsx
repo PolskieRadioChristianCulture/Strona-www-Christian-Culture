@@ -160,40 +160,40 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-gray-200 transition-shadow shadow-xs">
       {/* Top CC Ecosystem Navigation Bar */}
-      <div className="bg-[#010101] text-zinc-300 text-[11px] font-bold tracking-wider uppercase border-b border-[#1f1f1f] px-4 sm:px-6 py-2">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="hidden md:inline-flex items-center gap-1.5 text-zinc-400">
+      <div className="news-ecosystem-strip bg-[#010101] text-zinc-300 text-[11px] font-bold tracking-wider uppercase border-b border-[#1f1f1f] px-3 sm:px-6 py-1.5 sm:py-2 max-w-full overflow-hidden">
+        <div className="news-ecosystem-row max-w-7xl mx-auto flex items-center justify-between min-w-0 max-w-full">
+          <div className="news-ecosystem-links flex items-center gap-3 min-w-0 max-w-full flex-1">
+            <span className="hidden md:inline-flex items-center gap-1.5 text-zinc-400 shrink-0">
               <span className="w-1.5 h-1.5 rounded-full bg-[#f9282b]"></span>
               Ekosystem Christian Culture:
             </span>
-            <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto py-0.5 scrollbar-none">
-              <a href="/player" className="hover:text-[#f9282b] transition-colors">Radio</a>
-              <a href="/lumina" className="hover:text-[#f9282b] transition-colors">LUMINA</a>
-              <a href="/akademia" className="hover:text-[#f9282b] transition-colors">Akademia</a>
-              <a href="/vod" className="hover:text-[#f9282b] transition-colors">Kino VOD</a>
-              <a href="/mojabiblia" className="hover:text-[#f9282b] transition-colors">Biblia</a>
-              <a href="/biznes" className="hover:text-[#f9282b] transition-colors">Biznes</a>
-              <a href="/kultura" className="hover:text-[#f9282b] transition-colors">Kultura</a>
-              <a href="/biblioteka" className="hover:text-[#f9282b] transition-colors">Biblioteka</a>
-              <a href="/news" className="text-[#f9282b] font-black border-b border-[#f9282b] pb-0.5">NEWS</a>
-              <a href="/live" className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1">
+            <nav aria-label="Portale Christian Culture" tabIndex={0} className="news-ecosystem-nav flex items-center gap-4 sm:gap-6 min-w-0 max-w-full flex-1 overflow-x-auto whitespace-nowrap py-0.5 scrollbar-none">
+              <a href="/player" className="hover:text-[#f9282b] transition-colors shrink-0 whitespace-nowrap">Radio</a>
+              <a href="/lumina" className="hover:text-[#f9282b] transition-colors shrink-0 whitespace-nowrap">LUMINA</a>
+              <a href="/akademia" className="hover:text-[#f9282b] transition-colors shrink-0 whitespace-nowrap">Akademia</a>
+              <a href="/vod" className="hover:text-[#f9282b] transition-colors shrink-0 whitespace-nowrap">Kino VOD</a>
+              <a href="/mojabiblia" className="hover:text-[#f9282b] transition-colors shrink-0 whitespace-nowrap">Biblia</a>
+              <a href="/biznes" className="hover:text-[#f9282b] transition-colors shrink-0 whitespace-nowrap">Biznes</a>
+              <a href="/kultura" className="hover:text-[#f9282b] transition-colors shrink-0 whitespace-nowrap">Kultura</a>
+              <a href="/biblioteka" className="hover:text-[#f9282b] transition-colors shrink-0 whitespace-nowrap">Biblioteka</a>
+              <a href="/news" className="text-[#f9282b] font-black border-b border-[#f9282b] pb-0.5 shrink-0 whitespace-nowrap">NEWS</a>
+              <a href="/live" className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 shrink-0 whitespace-nowrap">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                 LIVE
               </a>
-            </div>
+            </nav>
           </div>
-          <div className="hidden sm:flex items-center gap-3 text-[10px] text-zinc-400 font-serif">
+          <div className="hidden sm:flex items-center gap-3 text-[10px] text-zinc-400 font-serif shrink-0">
             <span>Soli Deo Gloria</span>
           </div>
         </div>
       </div>
 
       {/* Main Brand & Nav Row */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between py-3 sm:py-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6">
+        <div className="news-brand-row flex items-center justify-between gap-2 py-2.5 sm:py-4 flex-nowrap">
           {/* Logo */}
-          <a href="/news" className="group cursor-pointer focus:outline-none text-left block" aria-label="CCN News – Christian Culture Strona Główna" title="Przejdź do strony głównej CCN News"><CcnLogo layout="horizontal" disableLink={true} /></a>
+          <a href="/news" className="news-brand-button group cursor-pointer focus:outline-none text-left block min-w-0 shrink" aria-label="CCN News – Christian Culture Strona Główna" title="Przejdź do strony głównej CCN News"><CcnLogo layout="horizontal" disableLink={true} /></a>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-sm font-medium text-gray-700">
