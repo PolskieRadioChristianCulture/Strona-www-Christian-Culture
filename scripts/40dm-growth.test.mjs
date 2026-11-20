@@ -86,3 +86,29 @@ test('Rut can open the 40DM knowledge card and the canonical Messenger loads the
   assert.equal((messenger.match(/cc-assistant\.js\?v=20261120_40dm_growth1/g) || []).length,1);
   assert.match(messenger,/lumi-live-rooms\.js\?v=20261120_40dm_growth1/);
 });
+
+test('1:1 40DM program loads 5 sections, 40 days PL/EN, 7 steps, 9 UBG-2025 promises and 13 caring activities', () => {
+  const ctx = { window: {} };
+  vm.runInNewContext(readFileSync('40DM/program.js', 'utf8'), ctx);
+  const prog = ctx.window.CC_40DM_PROGRAM;
+  assert.ok(prog);
+  assert.equal(prog.sections.pl.length, 5);
+  assert.equal(prog.sections.en.length, 5);
+  assert.equal(prog.days.length, 40);
+  assert.equal(prog.intro.pl.steps.length, 7);
+  assert.equal(prog.intro.en.steps.length, 7);
+  assert.equal(prog.intro.pl.promises.length, 9);
+  assert.equal(prog.intro.en.promises.length, 9);
+  assert.equal(prog.intro.pl.caringActivities.length, 13);
+  assert.equal(prog.intro.en.caringActivities.length, 13);
+  for (const page of ['40DM/index.html', '40DM/en/index.html']) {
+    const html = readFileSync(page, 'utf8');
+    assert.match(html, /\/40DM\/program\.js\?v=20261120_growth1/);
+    assert.match(html, /id="guide-steps-body"/);
+    assert.match(html, /id="guide-promises-body"/);
+    assert.match(html, /id="guide-caring-body"/);
+    assert.match(html, /id="guide-after-body"/);
+    assert.match(html, /id="note-thought"/);
+    assert.match(html, /id="note-verse"/);
+  }
+});

@@ -24,6 +24,7 @@
 <meta name="description" content="Bezpłatny chrześcijański plan 40 dni modlitwy, codzienne tematy, przypomnienia w kalendarzu i pokój w LUMI MESS.">
 <title>40 Dni Modlitwy · Christian Culture</title>
 <link rel="stylesheet" href="/40DM/style.css?v=20261120_growth1">
+<script src="/40DM/program.js?v=20261120_growth1" defer></script>
 <script src="/40DM/page.js?v=20261120_growth1" defer></script>
 <script type="module" src="/40DM/room-auth.js?v=20261120_growth1"></script>
 <script type="module" src="/40DM/community.js?v=20261120_growth1"></script>
@@ -103,7 +104,25 @@
         <div><h2 id="plan-title" data-i="planTitle">Twój plan modlitwy</h2><p data-i="planCopy">Wybierz dzień. Zaznacz go po modlitwie, żeby móc wrócić do swojego rytmu.</p></div>
         <div class="progress" aria-live="polite"><div class="progress-track" aria-hidden="true"><i></i></div><strong id="progress-count">0 / 40</strong><span data-i="progressText">ukończonych dni</span></div>
       </div>
-      <p class="book-source"><a class="button glass" id="book-link" href="https://www.reviewandherald.com/product-page/40-days-prayers-and-devotions-to-prepare-for-the-second-coming-book-1" target="_blank" rel="noopener noreferrer" data-i="bookEdition">Książka u wydawcy ↗</a></p>
+      <div class="book-source"><p class="source-credit" data-i="source">Autorski program Christian Culture (1:1 wg struktury i metodyki książki „40 Days: Prayers and Devotions to Prepare for the Second Coming” Dennisa Smitha).</p><a class="button glass" id="book-link" href="https://www.reviewandherald.com/product-page/40-days-prayers-and-devotions-to-prepare-for-the-second-coming-book-1" target="_blank" rel="noopener noreferrer" data-i="bookEdition">Książka u wydawcy ↗</a></div>
+      <div class="program-guides">
+        <details class="prayer-guide" id="guide-steps">
+          <summary data-i="guideTitle">Jak zacząć — 7 kroków i prywatna Karta Modlitewna (5 osób)</summary>
+          <div class="guide-body" id="guide-steps-body"></div>
+        </details>
+        <details class="prayer-guide" id="guide-promises">
+          <summary data-i="promisesTitle">9 Obietnic Biblijnych w modlitwie za bliskich (UBG-2025)</summary>
+          <div class="guide-body" id="guide-promises-body"></div>
+        </details>
+        <details class="prayer-guide" id="guide-caring">
+          <summary data-i="caringTitle">13 praktycznych gestów życzliwości i troski</summary>
+          <div class="guide-body" id="guide-caring-body"></div>
+        </details>
+        <details class="prayer-guide" id="guide-after">
+          <summary data-i="afterTitle">Po zakończeniu 40 dni modlitwy i rozważań...</summary>
+          <div class="guide-body" id="guide-after-body"></div>
+        </details>
+      </div>
       <form class="community-card reminder" id="reminder-form">
         <div><h3 data-i="reminderTitle">Przypomnienie o kolejnym dniu</h3><p data-i="reminderIntro">Wybierz godzinę. Po dodaniu pliku do kalendarza przypomnienia zaczną się jutro i obejmą pozostałe dni planu.</p></div>
         <div class="community-actions"><label for="reminder-time" data-i="reminderTime">Godzina lokalna</label><input type="time" id="reminder-time" value="18:00" required>
@@ -113,13 +132,29 @@
       <div class="journal-layout">
         <div class="calendar">
           <div class="periods" id="periods" role="group" aria-label="Zakres dni"></div>
+          <p class="phase-name" id="phase-name">Sekcja I: Chrzest Duchem Świętym</p>
           <div class="days" id="days" role="group" aria-label="Wybierz dzień"></div>
           <noscript>Włącz JavaScript, aby wybrać dzień i zapisać postęp.</noscript>
         </div>
         <article class="day-note">
           <p class="note-day" id="note-day">Dzień 1</p>
-          <h3 id="note-title">Zatrzymaj się</h3>
-          <p id="note-copy">Wybierz krótką chwilę ciszy. Opowiedz Bogu własnymi słowami, z czym dziś przychodzisz.</p>
+          <h3 id="note-title">Dwa dzieła Ducha Świętego</h3>
+          <div class="reading-wrap">
+            <a id="reading" class="reading" href="https://polskieradio.cc/mojabiblia?book=JHN&amp;ch=14" target="_blank" rel="noopener noreferrer">Otwórz w MojaBiblia: Ewangelia Jana 14,16–17 ↗</a>
+            <p id="reading-list" class="reading-list"></p>
+          </div>
+          <div id="note-copy" class="note-copy"><p>Pismo Święte ukazuje dwa wyraźne etapy działania Ducha Świętego w życiu człowieka.</p></div>
+          <blockquote id="note-thought" class="note-thought"></blockquote>
+          <dl class="day-exercise">
+            <dt data-i="questionLabel">Osobista refleksja i rozmowa z partnerem modlitwy</dt>
+            <dd id="note-question"></dd>
+            <dt data-i="practiceLabel">Praktyka modlitewna dnia</dt>
+            <dd id="note-practice"></dd>
+            <dt id="verse-label">Werset modlitewny dnia (UBG-2025)</dt>
+            <dd id="note-verse"></dd>
+            <dt data-i="prayerLabel">Modlitwa na zakończenie</dt>
+            <dd id="note-prayer"></dd>
+          </dl>
           <button class="button done" type="button" id="done" aria-pressed="false">✓ Zaznacz jako ukończony</button>
           <p class="local-note" data-i="local">Postęp zapisuje się w tej przeglądarce.</p>
         </article>

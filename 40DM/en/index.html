@@ -24,6 +24,7 @@
 <meta name="description" content="A free 40-day Christian prayer plan, daily prompts, calendar reminders and a dedicated LUMI MESS prayer room.">
 <title>40 Days of Prayer · Christian Culture</title>
 <link rel="stylesheet" href="/40DM/style.css?v=20261120_growth1">
+<script src="/40DM/program.js?v=20261120_growth1" defer></script>
 <script src="/40DM/page.js?v=20261120_growth1" defer></script>
 <script type="module" src="/40DM/room-auth.js?v=20261120_growth1"></script>
 <script type="module" src="/40DM/community.js?v=20261120_growth1"></script>
@@ -103,7 +104,25 @@
         <div><h2 id="plan-title" data-i="planTitle">Your prayer plan</h2><p data-i="planCopy">Choose a day. Mark it when you finish praying so you can return to your rhythm.</p></div>
         <div class="progress" aria-live="polite"><div class="progress-track" aria-hidden="true"><i></i></div><strong id="progress-count">0 / 40</strong><span data-i="progressText">days completed</span></div>
       </div>
-      <p class="book-source"><a class="button glass" id="book-link" href="https://www.reviewandherald.com/product-page/40-days-prayers-and-devotions-to-prepare-for-the-second-coming-book-1" target="_blank" rel="noopener noreferrer" data-i="bookEdition">Book from the publisher ↗</a></p>
+      <div class="book-source"><p class="source-credit" data-i="source">An original Christian Culture 1:1 programme following the structure and methodology of Dennis Smith’s “40 Days: Prayers and Devotions to Prepare for the Second Coming”.</p><a class="button glass" id="book-link" href="https://www.reviewandherald.com/product-page/40-days-prayers-and-devotions-to-prepare-for-the-second-coming-book-1" target="_blank" rel="noopener noreferrer" data-i="bookEdition">Book from the publisher ↗</a></div>
+      <div class="program-guides">
+        <details class="prayer-guide" id="guide-steps">
+          <summary data-i="guideTitle">Getting Started — 7 Steps &amp; Private Prayer Card (5 People)</summary>
+          <div class="guide-body" id="guide-steps-body"></div>
+        </details>
+        <details class="prayer-guide" id="guide-promises">
+          <summary data-i="promisesTitle">9 Biblical Promises for Intercessory Prayer</summary>
+          <div class="guide-body" id="guide-promises-body"></div>
+        </details>
+        <details class="prayer-guide" id="guide-caring">
+          <summary data-i="caringTitle">13 Practical Caring Activities</summary>
+          <div class="guide-body" id="guide-caring-body"></div>
+        </details>
+        <details class="prayer-guide" id="guide-after">
+          <summary data-i="afterTitle">After the 40 Days of Prayer and Devotional Time...</summary>
+          <div class="guide-body" id="guide-after-body"></div>
+        </details>
+      </div>
       <form class="community-card reminder" id="reminder-form">
         <div><h3 data-i="reminderTitle">A reminder for your next day</h3><p data-i="reminderIntro">Choose a time. After you add the file to your calendar, reminders begin tomorrow and cover the remaining days.</p></div>
         <div class="community-actions"><label for="reminder-time" data-i="reminderTime">Local time</label><input type="time" id="reminder-time" value="18:00" required>
@@ -113,13 +132,29 @@
       <div class="journal-layout">
         <div class="calendar">
           <div class="periods" id="periods" role="group" aria-label="Day range"></div>
+          <p class="phase-name" id="phase-name">Section I: The Baptism of the Holy Spirit</p>
           <div class="days" id="days" role="group" aria-label="Choose a day"></div>
           <noscript>Enable JavaScript to select a day and save progress.</noscript>
         </div>
         <article class="day-note">
           <p class="note-day" id="note-day">Day 1</p>
-          <h3 id="note-title">Pause</h3>
-          <p id="note-copy">Take a short moment of silence. Tell God in your own words what you are bringing today.</p>
+          <h3 id="note-title">Two Ministries of the Holy Spirit</h3>
+          <div class="reading-wrap">
+            <a id="reading" class="reading" href="https://polskieradio.cc/mojabiblia?book=JHN&amp;ch=14" target="_blank" rel="noopener noreferrer">Open in MojaBiblia: John 14:16–17 ↗</a>
+            <p id="reading-list" class="reading-list"></p>
+          </div>
+          <div id="note-copy" class="note-copy"><p>Scripture reveals two distinct dimensions of the Holy Spirit’s work in a person’s life.</p></div>
+          <blockquote id="note-thought" class="note-thought"></blockquote>
+          <dl class="day-exercise">
+            <dt data-i="questionLabel">Personal Reflection and Discussion with Prayer Partner</dt>
+            <dd id="note-question"></dd>
+            <dt data-i="practiceLabel">Daily Prayer Activity</dt>
+            <dd id="note-practice"></dd>
+            <dt id="verse-label">Daily Prayer Scripture</dt>
+            <dd id="note-verse"></dd>
+            <dt data-i="prayerLabel">Closing Prayer</dt>
+            <dd id="note-prayer"></dd>
+          </dl>
           <button class="button done" type="button" id="done" aria-pressed="false">✓ Mark as complete</button>
           <p class="local-note" data-i="local">Your progress is saved in this browser.</p>
         </article>
