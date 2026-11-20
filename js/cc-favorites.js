@@ -828,6 +828,11 @@
     // Bezpieczeństwo kanałów transmisyjnych LIVE i narzędzi operatorskich
     if (/(?:live|stream|obs|embed|admin|cctv24)/i.test(path)) return;
 
+    // Na stronach portali CCN gwiazdka nie może kolidować z belką ekosystemu ani tożsamością kanału
+    const isCcn = /^\/(?:news|nauka|historia|biologia|prawo|seks|kultura|biznes|kuchnia|ziu|ogloszenia|wspolpraca|network|biblioteka|edukacja|psychologia|finanse|technologie|misje|apologetyka)(?:\/|\.html|$)/i.test(path)
+      || (typeof document !== 'undefined' && !!document.querySelector?.('.news-brand-row, .ccn-brand-bar, .ccn-site-nav, .ccn-article-wrapper, .news-ecosystem-strip, header img[src*="ccn-logo"]'));
+    if (isCcn) return;
+
     const favBtn = document.createElement('button');
     favBtn.type = 'button';
     favBtn.id = 'ccTopBarFavBtn';

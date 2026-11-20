@@ -325,6 +325,13 @@ ${JSON.stringify(jsonLd, null, 2)}
       }
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html, body { max-width: 100%; overflow-x: clip; }
+      #ccFloatingTopBarWrap,
+      .cc-floating-topbar-wrap,
+      #ccTopBarFavBtn.cc-floating-topbar {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
       body {
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
         background-color: #f9fafb;
