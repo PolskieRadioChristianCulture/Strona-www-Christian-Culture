@@ -457,11 +457,17 @@
     "id": "genesis-31",
     "book": "genesis",
     "chapter": 31,
-    "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "description": "Boży nakaz powrotu do ziemi ojców, ucieczka Jakuba z Rachelą i Leą z Paddan-Aram, przestroga Boga dla Labana we śnie i zawarcie przymierza pokoju Galed i Myspa na górze Gilead.",
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_31_1-55_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 31,1–55 (UBG) — Powrót Jakuba do Kanaanu i Przymierze w Gilead",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_31_1-55_Biblia_Audio_CC.mp3",
+        "verses": "1–55"
+      }
+    ]
   },
   {
     "id": "genesis-32",
