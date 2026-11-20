@@ -4,7 +4,9 @@
   'use strict';
   if (window.CCUnifiedChat) return;
   const canonical = /^\/mess(?:\/|\.html)?$/.test(location.pathname);
-  const embedded = canonical && new URLSearchParams(location.search).get('embed') === '1';
+  const params = new URLSearchParams(location.search);
+  const embedded = canonical && params.get('embed') === '1';
+  const dedicatedPrayerRoom = embedded && params.get('room') === 'prayer_40dm';
   const scriptPromises = new Map();
   function load(src, globalName) {
     if (window[globalName]) return Promise.resolve();
@@ -82,6 +84,8 @@
   document.head.appendChild(style);
   let host, frame, previousOverflow, opener, request = { tab: 'public' };
   function openCurrent(next = request, tries = 0) {
+    // The 40DM embed is routed by LumiLiveRooms and keeps its room through auth changes.
+    if (dedicatedPrayerRoom) return;
     request = next;
     const isAssistantReq =
       next.tab === 'assistant' ||

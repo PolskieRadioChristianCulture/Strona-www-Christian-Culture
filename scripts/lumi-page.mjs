@@ -19,7 +19,7 @@ export function renderLumiPage(html) {
     .replace(/<script src="\/js\/lumina-theme-manager\.js[^"]*"><\/script>/g, '')
     .replace(/<button [^>]*id="luminaThemeSwitchBtn"[^>]*>[\s\S]*?<\/button>/g, '')
     .replace(/(<meta name="apple-mobile-web-app-title" content=")[^"]*(">)/, '$1LumiMess$2')
-    .replace(/\/js\/cc-chat-integration\.js\?v=[\w-]+/g, '/js/cc-chat-integration.js?v=20261111_mess_repair')
+    .replace(/\/js\/cc-chat-integration\.js\?v=[\w-]+/g, '/js/cc-chat-integration.js?v=20261120_prayer40dm')
     .replace(/(<form id="publicChatForm"[^>]*>[\s\S]*?<\/form>)/, '$1<a class="lumi-public-login" href="/lumina?action=login">Zaloguj się, aby napisać na czacie</a>')
     .replace('</head>', `<script>
 try {

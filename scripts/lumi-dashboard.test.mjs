@@ -290,3 +290,22 @@ test('family room entries use generic private labels', () => {
   familyChannel.click();
   assert.equal(cmd.opens[0].tab, 'family');
 });
+
+test('embedded 40DM never switches to public chat during authentication', async () => {
+  const source = await readFile('js/cc-chat-integration.js', 'utf8');
+  for (const [roomParam, expected] of [['&room=prayer_40dm', []], ['', ['public', 'public']]]) {
+    const win = new Window({ url: 'https://polskieradio.cc/mess?embed=1' + roomParam,
+      settings: { disableJavaScriptFileLoading: true, disableCSSFileLoading: true, disableIframePageLoading: true } });
+    windows.push(win);
+    const opened = [];
+    win.openDirectMessagesModal = tab => opened.push(tab);
+    win.CCRadioStations = [];
+    win.CCRadioMilion = true;
+    win.CCChatRadio = { stations: [], prepare: async () => {}, subscribe: () => () => {} };
+    await win.happyDOM.whenAsyncComplete();
+    const context = { window: win, document: win.document, location: win.location, localStorage: win.localStorage, URLSearchParams, console, setTimeout: () => 0, clearTimeout: () => {} };
+    vm.runInNewContext(source, context);
+    win.dispatchEvent(new win.Event('lumina-auth-state'));
+    assert.deepEqual(opened, expected);
+  }
+});
