@@ -1,16 +1,16 @@
 {
-  "exportedAt": "2026-11-20T15:56:53.584Z",
+  "exportedAt": "2026-11-20T18:31:20.564Z",
   "flags": [
     {
       "key": "kill_switch",
       "value": "0",
-      "updated_at": "2026-11-20T15:56:51.617Z",
+      "updated_at": "2026-11-20T18:31:18.077Z",
       "updated_by": "system_init"
     },
     {
       "key": "production_approved",
-      "value": "0",
-      "updated_at": "2026-11-20T15:56:51.617Z",
+      "value": "1",
+      "updated_at": "2026-11-20T18:31:18.077Z",
       "updated_by": "system_init"
     }
   ],
@@ -18,7 +18,7 @@
   "jobs": [
     {
       "job_id": "PAT-20261123-mission-report",
-      "created_at": "2026-11-20T15:56:52.018Z",
+      "created_at": "2026-11-20T18:31:18.524Z",
       "scheduled_for": "2026-11-23T09:00:00+01:00",
       "prep_at": "2026-11-23T07:00:00+01:00",
       "series_type": "mission-report",
@@ -34,7 +34,7 @@
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261123-mission-report",
       "remote_post_id": "PAT-20261123-mission-report",
-      "verified_at": "2026-11-20T15:56:52.016Z",
+      "verified_at": "2026-11-20T18:31:18.521Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
@@ -148,13 +148,13 @@
           "source_name": "polskieradio.cc/biblia-audio",
           "source_ref": "biblia-audio/data/catalog.json",
           "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T15:56:52.018Z"
+          "created_at": "2026-11-20T18:31:18.528Z"
         }
       ]
     },
     {
       "job_id": "PAT-20261125-behind-the-scenes",
-      "created_at": "2026-11-20T15:56:52.308Z",
+      "created_at": "2026-11-20T18:31:18.846Z",
       "scheduled_for": "2026-11-25T18:00:00+01:00",
       "prep_at": "2026-11-25T16:00:00+01:00",
       "series_type": "behind-the-scenes",
@@ -170,7 +170,7 @@
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261125-behind-the-scenes",
       "remote_post_id": "PAT-20261125-behind-the-scenes",
-      "verified_at": "2026-11-20T15:56:52.307Z",
+      "verified_at": "2026-11-20T18:31:18.843Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
@@ -284,13 +284,13 @@
           "source_name": "polskieradio.cc/vod & /news",
           "source_ref": "data/ecosystem-map.json + vod.html + news.html",
           "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T15:56:52.309Z"
+          "created_at": "2026-11-20T18:31:18.847Z"
         }
       ]
     },
     {
       "job_id": "PAT-20261127-thank-you",
-      "created_at": "2026-11-20T15:56:52.604Z",
+      "created_at": "2026-11-20T18:31:19.170Z",
       "scheduled_for": "2026-11-27T10:00:00+01:00",
       "prep_at": "2026-11-27T08:00:00+01:00",
       "series_type": "thank-you",
@@ -306,7 +306,7 @@
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261127-thank-you",
       "remote_post_id": "PAT-20261127-thank-you",
-      "verified_at": "2026-11-20T15:56:52.603Z",
+      "verified_at": "2026-11-20T18:31:19.166Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
@@ -420,13 +420,13 @@
           "source_name": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia)",
           "source_ref": "data/bible/szukaj-ubg.json#PSA:23:1",
           "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T15:56:52.605Z"
+          "created_at": "2026-11-20T18:31:19.170Z"
         }
       ]
     },
     {
       "job_id": "PAT-20261130-mission-report",
-      "created_at": "2026-11-20T15:56:52.913Z",
+      "created_at": "2026-11-20T18:31:19.493Z",
       "scheduled_for": "2026-11-30T09:00:00+01:00",
       "prep_at": "2026-11-30T07:00:00+01:00",
       "series_type": "mission-report",
@@ -442,7 +442,7 @@
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261130-mission-report",
       "remote_post_id": "PAT-20261130-mission-report",
-      "verified_at": "2026-11-20T15:56:52.912Z",
+      "verified_at": "2026-11-20T18:31:19.491Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
@@ -556,13 +556,13 @@
           "source_name": "polskieradio.cc/akademia",
           "source_ref": "akademia/kurscodzienny/dzien-51.html",
           "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T15:56:52.914Z"
+          "created_at": "2026-11-20T18:31:19.494Z"
         }
       ]
     },
     {
       "job_id": "PAT-20261202-behind-the-scenes",
-      "created_at": "2026-11-20T15:56:53.262Z",
+      "created_at": "2026-11-20T18:31:19.847Z",
       "scheduled_for": "2026-12-02T18:00:00+01:00",
       "prep_at": "2026-12-02T16:00:00+01:00",
       "series_type": "behind-the-scenes",
@@ -578,7 +578,7 @@
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261202-behind-the-scenes",
       "remote_post_id": "PAT-20261202-behind-the-scenes",
-      "verified_at": "2026-11-20T15:56:53.261Z",
+      "verified_at": "2026-11-20T18:31:19.844Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
@@ -692,13 +692,13 @@
           "source_name": "polskieradio.cc/lumina & /mapa",
           "source_ref": "lumina.html + data/ecosystem-map.json",
           "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T15:56:53.263Z"
+          "created_at": "2026-11-20T18:31:19.848Z"
         }
       ]
     },
     {
       "job_id": "PAT-20261204-thank-you",
-      "created_at": "2026-11-20T15:56:53.579Z",
+      "created_at": "2026-11-20T18:31:20.552Z",
       "scheduled_for": "2026-12-04T10:00:00+01:00",
       "prep_at": "2026-12-04T08:00:00+01:00",
       "series_type": "thank-you",
@@ -714,7 +714,7 @@
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261204-thank-you",
       "remote_post_id": "PAT-20261204-thank-you",
-      "verified_at": "2026-11-20T15:56:53.577Z",
+      "verified_at": "2026-11-20T18:31:20.550Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
@@ -828,7 +828,7 @@
           "source_name": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia)",
           "source_ref": "data/bible/szukaj-ubg.json#ISA:40:31",
           "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T15:56:53.579Z"
+          "created_at": "2026-11-20T18:31:20.553Z"
         }
       ]
     }

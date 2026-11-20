@@ -1,5 +1,5 @@
 {
-  "collectedAt": "2026-11-20T15:56:51.618Z",
+  "collectedAt": "2026-11-20T18:31:18.078Z",
   "sourcesCount": 16,
   "items": [
     {
@@ -187,6 +187,22 @@
       "nextWorkFact": null
     },
     {
+      "id": "git-commit-426acbe7",
+      "priority": 5,
+      "type": "git_commit_only",
+      "sourceName": "GitHub repo log (426acbe7)",
+      "sourceRef": "git:426acbe7",
+      "verifiedDate": "2026-11-20",
+      "hasLiveArtifact": false,
+      "isCommitOnly": true,
+      "isPlanOnly": false,
+      "seriesPreference": [],
+      "headlineFact": "feat(patronite): wdrozenie CC Patronite Mission Reporter (@ICC-PATRONITE-001) oraz podgladu /test/patronite",
+      "summaryFact": "feat(patronite): wdrozenie CC Patronite Mission Reporter (@ICC-PATRONITE-001) oraz podgladu /test/patronite",
+      "publicUrl": "https://polskieradio.cc",
+      "nextWorkFact": null
+    },
+    {
       "id": "git-commit-9785a2f1",
       "priority": 5,
       "type": "git_commit_only",
@@ -295,22 +311,6 @@
       "seriesPreference": [],
       "headlineFact": "fix(ccn): eliminate floating star collision on CCN and add dedicated CCN theme for chat button and drawer",
       "summaryFact": "fix(ccn): eliminate floating star collision on CCN and add dedicated CCN theme for chat button and drawer",
-      "publicUrl": "https://polskieradio.cc",
-      "nextWorkFact": null
-    },
-    {
-      "id": "git-commit-7ba238bb",
-      "priority": 5,
-      "type": "git_commit_only",
-      "sourceName": "GitHub repo log (7ba238bb)",
-      "sourceRef": "git:7ba238bb",
-      "verifiedDate": "2026-11-20",
-      "hasLiveArtifact": false,
-      "isCommitOnly": true,
-      "isPlanOnly": false,
-      "seriesPreference": [],
-      "headlineFact": "fix(ccn): serve 3:1 Islam 2035 banner at versioned filename and set max-age=0 for news/brand images",
-      "summaryFact": "fix(ccn): serve 3:1 Islam 2035 banner at versioned filename and set max-age=0 for news/brand images",
       "publicUrl": "https://polskieradio.cc",
       "nextWorkFact": null
     }

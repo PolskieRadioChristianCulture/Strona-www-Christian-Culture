@@ -1,8 +1,8 @@
 {
   "directive": "@ICC-PATRONITE-001",
-  "generatedAt": "2026-11-20T15:56:33.309Z",
-  "mode": "test_simulation",
-  "productionApprovedByOwner": false,
+  "generatedAt": "2026-11-20T18:31:15.342Z",
+  "mode": "production_draft_moderator",
+  "productionApprovedByOwner": true,
   "killSwitch": false,
   "integrationStatus": {
     "patroniteProfileUrl": "https://patronite.pl/osobowoscplus",

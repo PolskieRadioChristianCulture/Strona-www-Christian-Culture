@@ -3,8 +3,8 @@ import path from 'node:path';
 
 const DEFAULT_REPO_ROOT = path.resolve(import.meta.dirname, '..', '..');
 
-export function writeCycleReport({ repoRoot = DEFAULT_REPO_ROOT, cycleResult }) {
-  const reportsDir = path.join(repoRoot, 'patronite', 'reports');
+export function writeCycleReport({ repoRoot = DEFAULT_REPO_ROOT, reportsDir: customReportsDir = null, cycleResult }) {
+  const reportsDir = customReportsDir || path.join(repoRoot, 'patronite', 'reports');
   fs.mkdirSync(reportsDir, { recursive: true });
   const datePart = cycleResult.scheduledForWarsaw.slice(0, 10);
   const filePath = path.join(reportsDir, `${cycleResult.jobId}.md`);

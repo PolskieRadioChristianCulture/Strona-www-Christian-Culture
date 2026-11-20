@@ -82,9 +82,11 @@ async function init() {
   const data = await res.json();
   state.data = data;
 
-  el('approvalStatusVal').textContent = data.productionApprovedByOwner ? 'ZATWIERDZONO L0' : 'OCZEKUJE NA ZGODĘ L0 (BLOKADA LIVE)';
+  el('approvalStatusVal').textContent = data.productionApprovedByOwner ? 'ZATWIERDZONO L0 (HARMONOGRAM AKTYWNY)' : 'OCZEKUJE NA ZGODĘ L0 (BLOKADA LIVE)';
   el('adapterNoteVal').textContent = data.integrationStatus?.activeAdapter || 'DraftPackagePublisher';
-  el('killSwitchVal').textContent = data.killSwitch ? 'WYŁĄCZNIK AWARYJNY AKTYWNY' : 'TRYB TEST_SIMULATION (GOTOWY)';
+  el('killSwitchVal').textContent = data.killSwitch
+    ? 'WYŁĄCZNIK AWARYJNY AKTYWNY'
+    : (data.productionApprovedByOwner ? 'HARMONOGRAM AKTYWNY (PON/ŚR/PT)' : 'TRYB TEST_SIMULATION (GOTOWY)');
   el('simSummaryVal').textContent = `${data.cyclesCount} / ${data.cyclesCount} cykli · QA 12/12 PASS`;
 
   const tabsContainer = el('cycleTabs');

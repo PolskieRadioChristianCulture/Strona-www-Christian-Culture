@@ -15,7 +15,7 @@ import { generatePatroniteDraft } from '../src/text-writer.mjs';
 import { renderPatroniteGraphic } from '../src/visual-director.mjs';
 import { runQualityGuardian } from '../src/quality-guardian.mjs';
 import { assertPermittedAction, executePublishWithGuards, PatroniteOfficialApiAdapter } from '../src/publisher.mjs';
-import { simulateTwoWeeks } from '../src/pipeline.mjs';
+import { runNextCycle, simulateTwoWeeks } from '../src/pipeline.mjs';
 
 const require = createRequire(import.meta.url);
 const sharp = require('sharp');
@@ -221,6 +221,7 @@ test('7-15. Obsługa awarii API (503), wygasłej sesji (401), błędu publikacji
   const qaPass = { overallStatus: 'PASS', passedCount: 12, totalCount: 12, failedChecks: [] };
   const fakeMeta = { outputPath: path.join(REPO_ROOT, 'patronite', 'templates', 'assets', 'brand-header-lockup.png') };
 
+  db.setFlag('production_approved', '0', 'test_guard_check');
   const blockedNoApproval = await executePublishWithGuards({
     draft,
     graphicMeta: fakeMeta,
@@ -421,4 +422,52 @@ test('7b. Strona testowa /test/patronite istnieje, posiada noindex, zewnętrzne 
   assert.equal(fs.existsSync(simPath), true);
   const sim = JSON.parse(fs.readFileSync(simPath, 'utf8'));
   assert.equal(sim.cycles.length, 6);
+});
+
+test('17. runNextCycle przestrzega okna szabatowego w piątek wieczorem, tworzy szkic w poniedziałek i zachowuje idempotentność', async t => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cc-patronite-next-'));
+  t.after(() => fs.rmSync(dir, { recursive: true, force: true, maxRetries: 6, retryDelay: 50 }));
+  const dbPath = path.join(dir, 'next.sqlite');
+  const draftsDir = path.join(dir, 'drafts');
+  const reportsDir = path.join(dir, 'reports');
+
+  // 1) Piątek wieczór po 14:30 — bezwzględne wstrzymanie przed szabatem
+  const fridayBlocked = await runNextCycle({
+    repoRoot: REPO_ROOT,
+    now: new Date('2026-11-20T19:25:00+01:00'),
+    dbPath,
+    draftsDir,
+    reportsDir,
+  });
+  assert.equal(fridayBlocked.executed, false);
+  assert.equal(fridayBlocked.status, 'WSTRZYMANO');
+  assert.equal(fridayBlocked.code, 'FRIDAY_SABBATH_WINDOW');
+
+  // 2) Poniedziałek 07:00 (okno -2h przed 09:00) — przygotowanie kompletnego pakietu szkicu i grafik
+  const mondayRun = await runNextCycle({
+    repoRoot: REPO_ROOT,
+    now: new Date('2026-11-23T07:00:00+01:00'),
+    dbPath,
+    draftsDir,
+    reportsDir,
+  });
+  assert.equal(mondayRun.executed, true);
+  assert.equal(mondayRun.alreadyPrepared, false);
+  assert.equal(mondayRun.jobId, 'PAT-20261123-mission-report');
+  assert.equal(mondayRun.cycleResult.status, 'SZKIC');
+  assert.equal(mondayRun.cycleResult.qaResult.overallStatus, 'PASS');
+  assert.ok(fs.existsSync(path.join(draftsDir, 'PAT-20261123-mission-report', 'post.json')));
+  assert.ok(fs.existsSync(path.join(draftsDir, 'PAT-20261123-mission-report', 'graphic-1068x630.png')));
+
+  // 3) Ponowne wywołanie dla tego samego cyklu nie duplikuje pracy
+  const mondayRepeat = await runNextCycle({
+    repoRoot: REPO_ROOT,
+    now: new Date('2026-11-23T07:05:00+01:00'),
+    dbPath,
+    draftsDir,
+    reportsDir,
+  });
+  assert.equal(mondayRepeat.executed, false);
+  assert.equal(mondayRepeat.alreadyPrepared, true);
+  assert.equal(mondayRepeat.jobId, 'PAT-20261123-mission-report');
 });

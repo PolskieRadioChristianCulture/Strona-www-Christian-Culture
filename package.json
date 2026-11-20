@@ -65,6 +65,8 @@
     "seo:indexnow:dry": "node scripts/cc-instant-indexing.mjs --dry-run",
     "seo:ping": "node scripts/cc-instant-indexing.mjs --ping-only",
     "patronite:simulate": "node patronite/src/pipeline.mjs simulate-two-weeks",
+    "patronite:run-next": "node patronite/src/pipeline.mjs run-next-cycle",
+    "patronite:approve-l0": "node patronite/src/pipeline.mjs approve-l0",
     "patronite:status": "node patronite/src/pipeline.mjs status",
     "patronite:pause": "node patronite/src/pipeline.mjs pause",
     "patronite:resume": "node patronite/src/pipeline.mjs resume",

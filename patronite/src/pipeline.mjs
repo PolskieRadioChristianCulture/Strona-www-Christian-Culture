@@ -15,12 +15,17 @@ import { buildWeeklyThreeCycleSummary, writeCycleReport } from './reporter.mjs';
 const DEFAULT_REPO_ROOT = path.resolve(import.meta.dirname, '..', '..');
 
 export function writeOpenBotProposal({ repoRoot = DEFAULT_REPO_ROOT, config }) {
+  const approved = Boolean(config.productionApprovedByOwner);
   const proposal = {
     id: 'icc-patronite-mission-reporter',
     name: 'CC Patronite Mission Reporter (@ICC-PATRONITE-001)',
-    enabled: false,
-    requiresOwnerApprovalL0: true,
-    note: 'Zarejestrowane wylacznie jako propozycja wylaczona do istniejacej infrastruktury @ICC (OpenBot/Agent-Cron), aby nie tworzyc drugiego rownoleglego demona cron przed zgoda L0.',
+    enabled: approved,
+    requiresOwnerApprovalL0: !approved,
+    approvedAt: config.productionApprovedAt || null,
+    activeScheduler: 'PM2 Agent-Cron (Wektor1_VideoFactory/cron_agent.js)',
+    note: approved
+      ? 'Aktywowane przez właściciela L0 (Cezary Rogowski). Podpięte pod istniejący harmonogram PM2 Agent-Cron bez drugiego równoległego demona cron.'
+      : 'Zarejestrowane wyłącznie jako propozycja wyłączona do istniejącej infrastruktury @ICC (OpenBot/Agent-Cron), aby nie tworzyć drugiego równoległego demona cron przed zgodą L0.',
     provider: 'opencode',
     model: 'opencode/deepseek-v4.1-flash-free',
     timezone: config.timezone,
@@ -45,6 +50,8 @@ export async function runCycle({
   validatedSnapshot,
   isSimulation = true,
   adapter = null,
+  draftsDir: customDraftsRoot = null,
+  reportsDir: customReportsDir = null,
 }) {
   const execCheck = canExecuteCycle({ config, db, slotDate: new Date(cycle.scheduledForUtc) });
   if (!execCheck.allowed) {
@@ -79,7 +86,8 @@ export async function runCycle({
   const draft = generatePatroniteDraft({ cycle, topic, config });
   const contentHash = computeContentHash(draft.title, draft.body);
 
-  const draftDir = path.join(repoRoot, 'patronite', 'drafts', cycle.jobId);
+  const draftsRoot = customDraftsRoot || path.join(repoRoot, 'patronite', 'drafts');
+  const draftDir = path.join(draftsRoot, cycle.jobId);
   const landscapeOut = path.join(draftDir, 'graphic-1068x630.png');
   const squareOut = path.join(draftDir, 'promo-1080x1080.png');
 
@@ -113,7 +121,7 @@ export async function runCycle({
     repoRoot,
   });
 
-  const activeAdapter = adapter || new DraftPackagePublisher({ repoRoot });
+  const activeAdapter = adapter || new DraftPackagePublisher({ repoRoot, draftsDir: draftsRoot });
   const publishRes = await executePublishWithGuards({
     draft,
     graphicMeta,
@@ -196,7 +204,7 @@ export async function runCycle({
     qaResult,
   };
 
-  writeCycleReport({ repoRoot, cycleResult });
+  writeCycleReport({ repoRoot, reportsDir: customReportsDir, cycleResult });
   return cycleResult;
 }
 
@@ -207,7 +215,8 @@ export async function simulateTwoWeeks({
   exportTestPreview = true,
 } = {}) {
   const config = loadConfig(repoRoot);
-  const db = openPatroniteDb({ repoRoot, dbPath });
+  const resolvedSimDb = dbPath || path.join(repoRoot, 'patronite', 'state', 'patronite-simulation.sqlite');
+  const db = openPatroniteDb({ repoRoot, dbPath: resolvedSimDb });
 
   try {
     // Wyczyść poprzednie rekordy symulacji dla powtarzalnego testu deterministycznego 6 cykli
@@ -284,7 +293,7 @@ export async function simulateTwoWeeks({
         directive: config.directive,
         generatedAt: new Date().toISOString(),
         mode: config.mode,
-        productionApprovedByOwner: db.getFlag('production_approved') === '1',
+        productionApprovedByOwner: Boolean(config.productionApprovedByOwner) || db.getFlag('production_approved') === '1',
         killSwitch: db.getFlag('kill_switch') === '1',
         integrationStatus: {
           patroniteProfileUrl: config.integration.patroniteProfileUrl,
@@ -308,6 +317,105 @@ export async function simulateTwoWeeks({
   }
 }
 
+export async function runNextCycle({
+  repoRoot = DEFAULT_REPO_ROOT,
+  now = new Date(),
+  dbPath,
+  draftsDir,
+  reportsDir,
+} = {}) {
+  const config = loadConfig(repoRoot);
+  const isCustomTestDb = Boolean(dbPath);
+  const db = openPatroniteDb({ repoRoot, dbPath });
+
+  try {
+    const execCheck = canExecuteCycle({ config, db, slotDate: now });
+    if (!execCheck.allowed) {
+      db.logAudit({ actor: 'scheduler', action: 'run_next_cycle_blocked', status: 'WSTRZYMANO', details: execCheck });
+      return {
+        executed: false,
+        alreadyPrepared: false,
+        status: 'WSTRZYMANO',
+        code: execCheck.code,
+        message: execCheck.message,
+      };
+    }
+
+    const upcoming = buildUpcomingCycles({ fromDate: now, count: 1, config });
+    const cycle = upcoming[0];
+    if (!cycle) {
+      return {
+        executed: false,
+        alreadyPrepared: false,
+        status: 'WSTRZYMANO',
+        code: 'NO_UPCOMING_CYCLE',
+        message: 'Brak kolejnego okna w harmonogramie.',
+      };
+    }
+
+    const existing = db.listJobs(50).find(
+      j => j.job_id === cycle.jobId && j.qa_status === 'PASS' && ['SZKIC', 'ZAPLANOWANO', 'OPUBLIKOWANO'].includes(j.publish_status),
+    );
+    if (existing) {
+      db.logAudit({
+        actor: 'pipeline',
+        action: 'run_next_cycle_already_prepared',
+        jobId: cycle.jobId,
+        status: existing.publish_status,
+        details: { scheduledFor: existing.scheduled_for },
+      });
+      return {
+        executed: false,
+        alreadyPrepared: true,
+        jobId: cycle.jobId,
+        status: existing.publish_status,
+        scheduledForWarsaw: cycle.scheduledForWarsaw,
+      };
+    }
+
+    const snapshot = collectAuthorizedSources(repoRoot, { saveSnapshot: !isCustomTestDb });
+    const validatedSnapshot = validateCollectedSnapshot(snapshot, repoRoot);
+    const adapter = new DraftPackagePublisher({ repoRoot, draftsDir });
+    const cycleResult = await runCycle({
+      cycle,
+      repoRoot,
+      db,
+      config,
+      validatedSnapshot,
+      isSimulation: false,
+      adapter,
+      draftsDir,
+      reportsDir,
+    });
+
+    if (!isCustomTestDb) {
+      db.exportRegistrySnapshot(path.join(repoRoot, 'patronite', 'state', 'registry-export.json'));
+      const statusPath = path.join(repoRoot, 'patronite', 'state', 'latest-cycle-status.json');
+      fs.writeFileSync(statusPath, JSON.stringify({
+        updatedAt: new Date().toISOString(),
+        jobId: cycleResult.jobId,
+        seriesLabel: cycleResult.seriesLabel,
+        scheduledForWarsaw: cycleResult.scheduledForWarsaw,
+        status: cycleResult.status,
+        qaOverall: cycleResult.qaResult?.overallStatus,
+        title: cycleResult.title || null,
+        draftDir: cycleResult.draftDir || null,
+        blockReason: cycleResult.blockReason || null,
+      }, null, 2), 'utf8');
+    }
+
+    return {
+      executed: true,
+      alreadyPrepared: false,
+      jobId: cycleResult.jobId,
+      status: cycleResult.status,
+      cycleResult,
+    };
+  } finally {
+    db.close();
+  }
+}
+
 async function main() {
   const cmd = process.argv[2] || 'status';
   const repoRoot = DEFAULT_REPO_ROOT;
@@ -322,21 +430,56 @@ async function main() {
     return;
   }
 
+  if (cmd === 'run-next-cycle') {
+    const res = await runNextCycle({ repoRoot });
+    if (!res.executed && res.alreadyPrepared) {
+      console.log(`ℹ️ Cykl ${res.jobId} jest już wcześniej przygotowany (${res.status}) na ${res.scheduledForWarsaw}.`);
+      console.log(JSON.stringify(res, null, 2));
+      return;
+    }
+    if (!res.executed) {
+      console.log(`⏸️ Cykl wstrzymany [${res.code}]: ${res.message}`);
+      console.log(JSON.stringify(res, null, 2));
+      return;
+    }
+    const r = res.cycleResult;
+    console.log(`✅ Cykl ${r.jobId} (${r.seriesLabel}) | status=${r.status} | QA=${r.qaResult?.passedCount}/${r.qaResult?.totalCount}`);
+    console.log(JSON.stringify({
+      jobId: r.jobId,
+      status: r.status,
+      scheduledForWarsaw: r.scheduledForWarsaw,
+      qa: r.qaResult?.overallStatus,
+      draftDir: r.draftDir || null,
+      blockReason: r.blockReason || null,
+    }, null, 2));
+    if (r.status === 'BŁĄD') {
+      process.exitCode = 1;
+    }
+    return;
+  }
+
   const db = openPatroniteDb({ repoRoot });
   try {
-    if (cmd === 'pause') {
+    if (cmd === 'approve-l0') {
+      db.setFlag('production_approved', '1', 'owner_l0_2026-11-20');
+      writeOpenBotProposal({ repoRoot, config });
+      console.log('✅ Zgoda L0 (production_approved=1) zapisana w bazie oraz w deskryptorze harmonogramu.');
+    } else if (cmd === 'pause') {
       db.setFlag('kill_switch', '1', 'operator_cli');
       console.log('🛑 Wyłącznik awaryjny (kill_switch=1) AKTYWNY. Publikacje wstrzymane.');
     } else if (cmd === 'resume') {
       db.setFlag('kill_switch', '0', 'operator_cli');
-      console.log('▶️ Wyłącznik awaryjny wyłączony (kill_switch=0). Tryb testowy gotowy.');
+      console.log('▶️ Wyłącznik awaryjny wyłączony (kill_switch=0). Harmonogram gotowy.');
     } else if (cmd === 'status') {
       const jobs = db.listJobs(20);
+      const next = buildUpcomingCycles({ fromDate: new Date(), count: 1, config })[0];
       console.log(JSON.stringify({
         directive: config.directive,
         mode: config.mode,
         killSwitch: db.getFlag('kill_switch') === '1',
         productionApproved: db.getFlag('production_approved') === '1',
+        nextCycle: next?.scheduledForWarsaw || null,
+        nextPrep: next?.prepAtWarsaw || null,
         storedJobsCount: jobs.length,
         lastJobs: jobs.map(j => ({ jobId: j.job_id, scheduled: j.scheduled_for, qa: j.qa_status, status: j.publish_status })),
       }, null, 2));
