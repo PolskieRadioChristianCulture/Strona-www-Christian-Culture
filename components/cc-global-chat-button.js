@@ -667,6 +667,12 @@
       }
 
       /* ── PRZYCISK CZATU CCN: DEDYKOWANY STYL KRWISTEJ CZERWIENI I WĘGLA DLA PORTALI CCN ── */
+      #ccGlobalChatFab.cc-chat-ccn-theme {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 50% !important;
+      }
       #ccGlobalChatFab.cc-chat-ccn-theme .cc-chat-fab-btn {
         background: radial-gradient(circle at 30% 28%, #221215 0%, #0a0a0a 88%) !important;
         border: 1.5px solid rgba(187, 20, 46, 0.85) !important;

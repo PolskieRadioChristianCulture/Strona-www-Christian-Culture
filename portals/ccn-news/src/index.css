@@ -116,23 +116,35 @@ button.ekocc-info-trigger {
 
 /* CCN-specific Chat Button Theme */
 #ccGlobalChatFab.cc-chat-ccn-theme {
-  background: radial-gradient(circle at 35% 35%, #2a080c 0%, #120305 60%, #0a0a0a 100%) !important;
-  border: 1.5px solid rgba(187, 20, 46, 0.55) !important;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.8), 0 0 16px rgba(187, 20, 46, 0.45) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 50% !important;
 }
 
-#ccGlobalChatFab.cc-chat-ccn-theme:hover {
+#ccGlobalChatFab.cc-chat-ccn-theme .cc-chat-fab-btn {
+  background: radial-gradient(circle at 30% 28%, #221215 0%, #0a0a0a 88%) !important;
+  border: 1.5px solid rgba(187, 20, 46, 0.85) !important;
+  border-radius: 50% !important;
+  filter: drop-shadow(0 8px 20px rgba(187, 20, 46, 0.42)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.85)) !important;
+}
+
+#ccGlobalChatFab.cc-chat-ccn-theme .cc-chat-fab-btn:hover {
   border-color: #f9282b !important;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.9), 0 0 24px rgba(249, 40, 43, 0.65) !important;
+  filter: drop-shadow(0 10px 26px rgba(249, 40, 43, 0.55)) drop-shadow(0 4px 14px rgba(187, 20, 46, 0.50)) !important;
 }
 
-#ccGlobalChatFab.cc-chat-ccn-theme picture {
+#ccGlobalChatFab.cc-chat-ccn-theme .cc-chat-fab-btn picture {
   display: none !important;
 }
 
 #ccGlobalChatFab.cc-chat-ccn-theme .cc-chat-fab-gold-icon {
-  display: block !important;
+  display: inline-flex !important;
+  color: #f9282b !important;
+}
+
+#ccGlobalChatFab.cc-chat-ccn-theme .cc-chat-fab-gold-icon svg {
   stroke: #f9282b !important;
-  filter: drop-shadow(0 0 5px rgba(249, 40, 43, 0.8)) !important;
+  filter: drop-shadow(0 0 5px rgba(249, 40, 43, 0.65)) !important;
 }
 
