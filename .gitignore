@@ -66,3 +66,7 @@ ccMC/gcal-mission.json
 
 # CC Skaner Wizualny — raporty lokalne
 reports/cc-skaner/
+
+# CC Patronite Mission Reporter — lokalny stan SQLite i logi robocze
+patronite/state/*.sqlite*
+patronite/logs/

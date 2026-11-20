@@ -13,6 +13,7 @@ const privatePaths = [
   '.codex/config.json', '.cursor/rules/local.mdc', '.git/config', '.claude/settings.json',
   'cert/private.pem', 'cert/private.KEY', 'cert/client.p12', 'cert/client.pfx',
   'serviceAccountKey.json', 'luminaServiceAccountKey.json', 'cudaServiceAccountKey.json',
+  'patronite/state/patronite.sqlite', 'patronite/logs/audit.jsonl', 'patronite/src/pipeline.mjs',
   'nested/custom_service_account_key.json', 'config/service-account.json', 'project-firebase-adminsdk-example.json',
   'storage.rules', 'firestore.rules',
 ];
@@ -35,6 +36,7 @@ test('public assets and the required worker helper retain their release contract
     'lib/bu-voting-worker.js', 'data/bible/strong_lexicon.json', 'data/ccn-article-routes.js',
     'data/cc-channels.json', 'data/ecosystem-map.json', 'manifest-lumina.json',
     'images/news/art-example.jpg', 'assets/news-index-example.js', '.well-known/security.txt',
+    'test/patronite/index.html', 'test/patronite/simulation-data.json',
     'cctv24-worship.html', 'stream-scene.html']) assert.equal(isPublicFile(file), true, file);
   for (const file of ['scripts/internal.js', 'functions/internal.js', 'lib/private.js', 'package.json', 'backup/private.json', 'source.ts']) assert.equal(isPublicFile(file), false, file);
 });

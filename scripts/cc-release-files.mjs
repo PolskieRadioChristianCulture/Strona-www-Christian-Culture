@@ -4,7 +4,7 @@ const BLOCKED_DIRECTORIES = new Set([
   '.git', '.codex', '.codex-remote-attachments', '.codex-attachments', '.cursor', '.claude', 'repozytoria-cc', 'joma_shared_memory',
   '.agents', '.firebase', '.gemini', '.github', '.vscode', '.wrangler', '_wydanie',
   'cloudflare', 'cloudflare-worker', 'docs', 'firebase_functions', 'functions', 'migrations', 'node_modules',
-  'lib', 'scratch', 'scripts', 'src', 'test', 'tests', 'windows_tools', 'cc-cross-channel-boost',
+  'lib', 'patronite', 'scratch', 'scripts', 'src', 'test', 'tests', 'windows_tools', 'cc-cross-channel-boost',
   // Zatwierdzone lekcje czekające na swoją datę — nigdy nie mogą trafić na stronę przed czasem.
   'kolejka-publikacji',
 ]);
@@ -37,6 +37,7 @@ export function isPublicFile(relativePath) {
   if (/^data\/whatsapp_[^/]*\.json$/.test(lower)) return false;
   if (file === 'lib/bu-voting-worker.js') return true;
   if (file === 'test/wspieraj/index.html') return true;
+  if (file.startsWith('test/patronite/')) return true;
   if (file === 'network-pilot.html' || file === 'test/network/index.html') return true;
   if (file === 'lumina-pilot.html' || file === 'test/lumina/index.html') return true;
   if (file === 'czat-pilot.html' || file === 'test/czat/index.html') return true;

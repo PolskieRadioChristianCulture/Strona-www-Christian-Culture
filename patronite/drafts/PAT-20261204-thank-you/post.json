@@ -1,0 +1,31 @@
+{
+  "jobId": "PAT-20261204-thank-you",
+  "seriesType": "thank-you",
+  "seriesLabel": "DZIĘKI, ŻE JESTEŚ",
+  "scheduledForWarsaw": "2026-12-04T10:00:00+01:00",
+  "visibility": "PUBLICZNY",
+  "notifyPatronsEmail": false,
+  "title": "Dzięki, że jesteś: pokój nadziei na próg kolejnego szabatu",
+  "teaser": "Zatrzymujemy się w piątkowy poranek z wdzięcznością dla naszych Patronów oraz krótką refleksją opartą na fragmencie: Księga Izajasza 40:31 (UBG).",
+  "body": "Drodzy Patroni i Przyjaciele Christian Culture, w ten piątkowy poranek nie chcemy rozpoczynać od żadnej listy zadań. Najpierw pragniemy po prostu podziękować — Bogu za Jego wierną opiekę przez cały mijający tydzień oraz Wam za serce, modlitwę i obecność przy tym dziele.\n\nNa dzisiejsze wyciszenie przed wieczornym rozpoczęciem szabatu zabieramy słowa Pisma Świętego z księgi Księga Izajasza (rozdział 40, werset 31, przekład Uwspółcześniona Biblia Gdańska): „Ale ci, którzy oczekują Pana, nabiorą nowych sił; wzbiją się na skrzydłach jak orły, będą biec, a się nie zmęczą, będą chodzić, a nie ustaną.”.\n\nTen krótki fragment przypomina nam o fundamentalnej prawdzie Ewangelii: bezpieczeństwo i sens naszej codzienności nie opierają się na ludzkiej sile ani na pośpiechu tego świata, ale na wierności Jezusa Chrystusa. W praktyce oznacza to pokój serca pośród zwykłych obowiązków — umiejętność zatrzymania się, odłożenia lęku oraz okazania życzliwości domownikom i sąsiadom.\n\nDzięki Waszemu wsparciu na Patronite możemy dalej spokojnie dzielić się żywym Słowem Bożym na stronie https://polskieradio.cc/mojabiblia oraz w codziennym czytaniu bez barier finansowych dla nikogo. Każda dobra myśl i życzliwość wracają tu z podziękowaniem.\n\nZa co szczególnie pragniecie dziś podziękować Bogu u progu tego odpoczynku — i o co możemy wspólnie się pomodlić?\n\nŻyczymy Wam i Waszym bliskim spokojnego, pełnego pokoju Bożego i błogosławionego szabatu. Zaglądajcie do Pisma Świętego na https://polskieradio.cc/mojabiblia",
+  "question": "Za co jesteście dziś szczególnie wdzięczni Bogu przed nadchodzącym szabatem?",
+  "cta": "Czytaj Pismo Święte w spokoju na https://polskieradio.cc/mojabiblia",
+  "hashtags": [
+    "#DziękiŻeJesteś",
+    "#Szabat",
+    "#ChristianCulture"
+  ],
+  "altText": "Grafika Dzięki, że jesteś: Księga Izajasza 40:31 z życzeniami błogosławionego szabatu dla Patronów Christian Culture",
+  "sources": [
+    {
+      "sourceName": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia)",
+      "sourceRef": "data/bible/szukaj-ubg.json#ISA:40:31",
+      "verifiedDate": "2026-11-20",
+      "status": "ZREALIZOWANE",
+      "publicUrl": "https://polskieradio.cc/werset-dnia",
+      "claim": "Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku"
+    }
+  ],
+  "honestAdapterNote": "Brak publicznego API zapisu postow Patronite — pakiet zapisany jako kompletny szkic gotowy do recznego wklejenia/zaplanowania w oficjalnym panelu Moderatora.",
+  "savedAt": "2026-11-20T15:56:53.577Z"
+}

@@ -1,0 +1,111 @@
+{
+  "directive": "@ICC-PATRONITE-001",
+  "systemName": "CC Patronite Mission Reporter",
+  "version": "1.0.0",
+  "mode": "test_simulation",
+  "productionApprovedByOwner": false,
+  "autoPublishEnabled": false,
+  "killSwitch": false,
+  "zeroCostOnly": true,
+  "timezone": "Europe/Warsaw",
+  "prepLeadTimeHours": 2,
+  "fridaySabbathCutoff": {
+    "hour": 14,
+    "minute": 30,
+    "note": "W piątki publikacja i zadania redakcyjne wymagające człowieka muszą zakończyć się przed szabatem."
+  },
+  "dedupeWindowDays": 30,
+  "similarityThreshold": 0.65,
+  "publisherAdapter": "draft_package",
+  "schedule": [
+    {
+      "id": "monday-mission-report",
+      "weekday": 1,
+      "weekdayName": "Poniedziałek",
+      "hour": 9,
+      "minute": 0,
+      "seriesType": "mission-report",
+      "seriesLabel": "DZIENNIK MISJI",
+      "defaultVisibility": "PUBLICZNY",
+      "notifyPatronsEmail": false
+    },
+    {
+      "id": "wednesday-behind-the-scenes",
+      "weekday": 3,
+      "weekdayName": "Środa",
+      "hour": 18,
+      "minute": 0,
+      "seriesType": "behind-the-scenes",
+      "seriesLabel": "ZA KULISAMI CHRISTIAN CULTURE",
+      "defaultVisibility": "PUBLICZNY",
+      "notifyPatronsEmail": false
+    },
+    {
+      "id": "friday-thank-you",
+      "weekday": 5,
+      "weekdayName": "Piątek",
+      "hour": 10,
+      "minute": 0,
+      "seriesType": "thank-you",
+      "seriesLabel": "DZIĘKI, ŻE JESTEŚ",
+      "defaultVisibility": "PUBLICZNY",
+      "notifyPatronsEmail": false
+    }
+  ],
+  "textLimits": {
+    "language": "pl",
+    "titleMin": 35,
+    "titleMax": 85,
+    "teaserMin": 120,
+    "teaserMax": 250,
+    "bodyMin": 900,
+    "bodyMax": 1800,
+    "maxHashtags": 3,
+    "maxCtaCount": 1
+  },
+  "graphics": {
+    "templateBaseName": "DOBRO, KTÓRE TWORZYMY RAZEM",
+    "width": 1068,
+    "height": 630,
+    "format": "png",
+    "maxBytes": 10485760,
+    "companionSquareSize": 1080,
+    "palette": ["#0D223B", "#E8431B", "#FFFFFF"],
+    "maxDominantColors": 3,
+    "maxMainBlocks": 3,
+    "logoPath": "patronite/templates/assets/brand-header-lockup.png"
+  },
+  "paths": {
+    "sqliteDb": "patronite/state/patronite.sqlite",
+    "auditLogJsonl": "patronite/logs/audit.jsonl",
+    "sourcesSnapshot": "patronite/sources/latest-snapshot.json",
+    "draftsDir": "patronite/drafts",
+    "publishedDir": "patronite/published",
+    "reportsDir": "patronite/reports",
+    "testPreviewDir": "test/patronite"
+  },
+  "integration": {
+    "patroniteProfileUrl": "https://patronite.pl/osobowoscplus",
+    "officialApiDocsStatus": "NO_PUBLIC_WRITE_API_CLOSED_BETA",
+    "officialApiContact": "kontakt@patronite.pl",
+    "moderatorRoleSupported": true,
+    "allowCredentialStorage": false,
+    "allowCaptchaOr2faBypass": false,
+    "allowUndocumentedPrivateEndpoints": false
+  },
+  "permissions": {
+    "allowedActions": [
+      "create_draft",
+      "update_draft",
+      "schedule_post",
+      "publish_post",
+      "read_post"
+    ],
+    "forbiddenActions": [
+      "read_patron_finances",
+      "send_private_message",
+      "modify_tiers",
+      "modify_account_settings"
+    ]
+  }
+}

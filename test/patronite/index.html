@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pl" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>CC Patronite Mission Reporter — Środowisko Testowe (6 cykli)</title>
+  <link rel="icon" type="image/png" href="/images/logo_gold_200.png" />
+  <link rel="stylesheet" href="/test/patronite/patronite-preview.css" />
+  <script type="module" src="/test/patronite/patronite-preview.js"></script>
+</head>
+<body>
+  <header class="pt-header">
+    <div class="pt-container pt-header-inner">
+      <div class="pt-brand">
+        <span class="pt-badge">TRYB TESTOWY · BRAK PUBLIKACJI NA ŻYWO</span>
+        <h1>Christian Culture × Patronite</h1>
+        <p class="pt-subtitle">Symulacja 2 pełnych tygodni (6 cykli redakcyjnych Pon/Śr/Pt) · Format grafik 1068×630 px + 1080×1080 px</p>
+      </div>
+      <div class="pt-actions">
+        <a class="pt-btn pt-btn-secondary" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer">Profil Patronite ↗</a>
+        <button id="toggleViewportBtn" type="button" class="pt-btn pt-btn-primary" aria-pressed="false">Podgląd smartfona (390px)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-container pt-main" id="main">
+    <section class="pt-status-grid" aria-label="Status systemu i bramek bezpieczeństwa">
+      <article class="pt-stat-card">
+        <span class="pt-stat-label">Dyrektywa i budżet</span>
+        <strong class="pt-stat-val">@ICC-PATRONITE-001 · 0,00 zł</strong>
+        <small>Lokalny Node.js + SQLite + Sharp + Biblia UBG-2025</small>
+      </article>
+      <article class="pt-stat-card">
+        <span class="pt-stat-label">Status produkcji i akceptacji</span>
+        <strong class="pt-stat-val" id="approvalStatusVal">OCZEKUJE NA ZGODĘ L0</strong>
+        <small id="adapterNoteVal">Domyślny tryb uczciwych szkiców gotowych do planowania</small>
+      </article>
+      <article class="pt-stat-card">
+        <span class="pt-stat-label">Wyłącznik awaryjny i harmonogram</span>
+        <strong class="pt-stat-val" id="killSwitchVal">HARMONOGRAM WSTRZYMANY (TEST)</strong>
+        <small>Europe/Warsaw · Pon 09:00 · Śr 18:00 · Pt 10:00 (przed szabatem)</small>
+      </article>
+      <article class="pt-stat-card">
+        <span class="pt-stat-label">Wynik 6 cykli symulacji</span>
+        <strong class="pt-stat-val" id="simSummaryVal">6 / 6 · QA 12/12 PASS</strong>
+        <small>Zero duplikatów (okno 30 dni) · 100% zweryfikowanych źródeł</small>
+      </article>
+    </section>
+
+    <section class="pt-controls" aria-label="Wybór cyklu symulacji">
+      <div class="pt-cycle-tabs" id="cycleTabs" role="tablist" aria-label="Sześć próbnych publikacji"></div>
+    </section>
+
+    <section class="pt-workspace" id="previewWorkspace">
+      <article class="pt-preview-panel">
+        <div class="pt-panel-head">
+          <h2 id="postSeriesHeading">Podgląd publikacji</h2>
+          <span class="pt-pill" id="postSchedulePill"></span>
+        </div>
+
+        <div class="pt-graphics-showcase">
+          <figure class="pt-figure">
+            <figcaption>Grafika główna Patronite (1068 × 630 px)</figcaption>
+            <img id="landscapeGraphic" src="" alt="" width="1068" height="630" loading="eager" />
+          </figure>
+          <figure class="pt-figure pt-figure-square">
+            <figcaption>Wariant promocyjny 1:1 (1080 × 1080 px)</figcaption>
+            <img id="squareGraphic" src="" alt="" width="1080" height="1080" loading="eager" />
+          </figure>
+        </div>
+
+        <div class="pt-post-box">
+          <div class="pt-meta-row">
+            <span>Widoczność: <strong id="postVisibility"></strong></span>
+            <span>Status: <strong id="postStatus"></strong></span>
+            <span>Długość: <strong id="postLengths"></strong></span>
+          </div>
+          <h3 id="postTitle"></h3>
+          <p class="pt-teaser" id="postTeaser"></p>
+          <div class="pt-body" id="postBody"></div>
+          <div class="pt-cta-block">
+            <p><strong>Pytanie angażujące:</strong> <span id="postQuestion"></span></p>
+            <p><strong>Wezwanie do działania:</strong> <span id="postCta"></span></p>
+            <p><strong>Hashtagi:</strong> <span id="postHashtags"></span></p>
+            <p><strong>Tekst alternatywny (ALT):</strong> <span id="postAlt"></span></p>
+          </div>
+          <div class="pt-copy-bar">
+            <button type="button" class="pt-btn pt-btn-primary" id="copyFullPostBtn">Kopiuj pełny post do Patronite</button>
+            <span class="pt-copy-msg" id="copyStatus" aria-live="polite"></span>
+          </div>
+        </div>
+      </article>
+
+      <aside class="pt-audit-panel">
+        <h2>Kontrola Jakości (12/12)</h2>
+        <p class="pt-audit-note">Każda kontrola krytyczna ma charakter twardej blokady (brak uśredniania).</p>
+        <ul class="pt-qa-list" id="qaList"></ul>
+
+        <h3>Źródła dowodowe posta</h3>
+        <ul class="pt-sources-list" id="sourcesList"></ul>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

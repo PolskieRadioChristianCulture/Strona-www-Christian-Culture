@@ -1,0 +1,20 @@
+{
+  "id": "thank-you",
+  "seriesLabel": "DZIĘKI, ŻE JESTEŚ",
+  "closingSlogan": "BŁOGOSŁAWIONEGO SZABATU",
+  "footerUrl": "polskieradio.cc",
+  "palette": {
+    "navy": "#0D223B",
+    "accent": "#E8431B",
+    "white": "#FFFFFF"
+  },
+  "blocks": ["header-brand-ribbon", "hero-safe-zone-message", "footer-mission-ribbon"],
+  "defaultPhoto": "images/ogloszenia-biblia-gdanska.jpg",
+  "approvedPhotos": [
+    "images/ogloszenia-biblia-gdanska.jpg",
+    "images/ogloszenia-hero.jpg",
+    "images/ogloszenia-infolinia-nadzieja.jpg"
+  ],
+  "safeZoneLandscape": { "x": 56, "y": 136, "maxWidth": 620, "maxBottomY": 495 },
+  "safeZoneSquare": { "x": 64, "y": 175, "maxWidth": 820, "maxBottomY": 890 }
+}

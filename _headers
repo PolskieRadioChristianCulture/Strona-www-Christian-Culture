@@ -326,4 +326,14 @@
 /js/ccn-footer-fb.js*
   Cache-Control: public, max-age=0, must-revalidate
 
+# Środowisko testowe CC Patronite Mission Reporter — wyłącznie noindex + brak cache
+/test/patronite
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/test/patronite/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
+
 

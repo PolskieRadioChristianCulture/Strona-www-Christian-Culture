@@ -1,0 +1,32 @@
+{
+  "id": "icc-patronite-mission-reporter",
+  "name": "CC Patronite Mission Reporter (@ICC-PATRONITE-001)",
+  "enabled": false,
+  "requiresOwnerApprovalL0": true,
+  "note": "Zarejestrowane wylacznie jako propozycja wylaczona do istniejacej infrastruktury @ICC (OpenBot/Agent-Cron), aby nie tworzyc drugiego rownoleglego demona cron przed zgoda L0.",
+  "provider": "opencode",
+  "model": "opencode/deepseek-v4.1-flash-free",
+  "timezone": "Europe/Warsaw",
+  "prepSchedule": [
+    {
+      "weekday": "Monday",
+      "time": "07:00",
+      "targetPublish": "09:00",
+      "seriesType": "mission-report"
+    },
+    {
+      "weekday": "Wednesday",
+      "time": "16:00",
+      "targetPublish": "18:00",
+      "seriesType": "behind-the-scenes"
+    },
+    {
+      "weekday": "Friday",
+      "time": "08:00",
+      "targetPublish": "10:00",
+      "seriesType": "thank-you",
+      "sabbathCutoff": "14:30"
+    }
+  ],
+  "command": "node patronite/src/pipeline.mjs run-next-cycle"
+}

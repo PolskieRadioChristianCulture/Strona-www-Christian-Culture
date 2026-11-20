@@ -1,0 +1,21 @@
+{
+  "id": "behind-the-scenes",
+  "seriesLabel": "ZA KULISAMI CC",
+  "closingSlogan": "TWORZYMY TO RAZEM Z TOBĄ",
+  "footerUrl": "polskieradio.cc",
+  "palette": {
+    "navy": "#0D223B",
+    "accent": "#E8431B",
+    "white": "#FFFFFF"
+  },
+  "blocks": ["header-brand-ribbon", "hero-safe-zone-message", "footer-mission-ribbon"],
+  "defaultPhoto": "images/ogloszenia-sprzet-studio.jpg",
+  "approvedPhotos": [
+    "images/ogloszenia-sprzet-studio.jpg",
+    "images/ogloszenia-dom-studio.jpg",
+    "images/ogloszenia-widget-radio.webp",
+    "images/ogloszenia-tworcy-wolontariat.jpg"
+  ],
+  "safeZoneLandscape": { "x": 56, "y": 136, "maxWidth": 620, "maxBottomY": 495 },
+  "safeZoneSquare": { "x": 64, "y": 175, "maxWidth": 820, "maxBottomY": 890 }
+}
