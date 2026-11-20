@@ -20,7 +20,11 @@ after(async () => {
   }
 });
 
-function createAssistantFixture({ url = 'https://polskieradio.cc/mess', flags = null } = {}) {
+function createAssistantFixture({ url = 'https://polskieradio.cc/mess', flags = null, withDashboard = false } = {}) {
+  while (windows.length >= 2) {
+    const oldWin = windows.shift();
+    try { oldWin.happyDOM.close(); } catch (_) {}
+  }
   const win = new Window({
     url,
     settings: {
@@ -37,7 +41,7 @@ function createAssistantFixture({ url = 'https://polskieradio.cc/mess', flags = 
 
   win.document.body.className = 'user-is-guest lumi-standalone';
   win.document.body.innerHTML = `
-    ${renderLumiDashboard()}
+    ${withDashboard ? renderLumiDashboard() : '<div id="lumiLanding"></div>'}
     <div id="directMessagesModal" class="modal-overlay">
       <div class="dm-container">
         <div class="messenger-tabs-bar">
@@ -51,10 +55,6 @@ function createAssistantFixture({ url = 'https://polskieradio.cc/mess', flags = 
       </div>
     </div>
   `;
-
-  const style = win.document.createElement('style');
-  style.textContent = assistantCss;
-  win.document.head.appendChild(style);
 
   if (flags) {
     win.__CC_ASSISTANT_FLAGS__ = flags;
@@ -457,7 +457,7 @@ test('T21-T25: CSS ergonomics (min 44px touch targets, Classic Orange #FF7A00 CT
   assert.match(messOutput, /id="lumiOpenAssistant"/);
 
   // Verify LumiDashboard renders assistant card when CCAssistant is enabled
-  const { win } = createAssistantFixture();
+  const { win } = createAssistantFixture({ withDashboard: true });
   win.CCGlobalChat = { getMembers: () => [] };
   win.CCChatRadioReady = Promise.resolve();
   win.CCChatRadio = { stations: [], prepare: async () => {}, subscribe: () => () => {}, state: () => ({}) };

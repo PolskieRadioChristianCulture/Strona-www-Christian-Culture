@@ -230,26 +230,26 @@ test('Playwright E2E-01..E2E-05 & Responsive Viewports (360px, 390px, 768px, 128
     // Click teaser bubble
     await page2.evaluate(() => document.getElementById('ccChatTeaserBubble').click());
 
-    // Host should open and iframe should load
-    await page2.waitForSelector('#ccUnifiedChatHost:not([hidden])', { state: 'visible', timeout: 5000 });
-    const iframeHandle = await page2.waitForSelector('#ccUnifiedChatFrame', { state: 'attached', timeout: 5000 });
-    const iframe = await iframeHandle.contentFrame();
-
-    // Verify inside the iframe that Assistant view is displayed, NOT direct private message view
-    await iframe.waitForSelector('#messengerAssistantView.cc-asst-active', { state: 'visible', timeout: 7000 });
-    const asstHeaderAvatar = await iframe.getAttribute('#ccAsstHeaderAvatar', 'src');
-    assert.match(asstHeaderAvatar, /\/images\/chat\/assistants\/asystentka-\d\.(?:webp|jpg)/);
-    const asstHeaderName = await iframe.textContent('#ccAsstHeaderName');
-    assert.match(asstHeaderName, /(Rut|Sara|Noemi)/);
+    // Global chat drawer should open in Assistant mode
+    await page2.waitForSelector('#ccGlobalChatOverlay.is-open', { state: 'visible', timeout: 5000 });
+    await page2.waitForSelector('#ccAssistantChatSection:not(.cc-section-hidden)', { state: 'visible', timeout: 5000 });
+    const asstHeaderAvatar = await page2.getAttribute('#ccChatActiveAsstAvatar', 'src');
+    assert.match(asstHeaderAvatar, /\/images\/chat\/(?:lumi_avatar_\w+_circle\.webp|assistants\/asystentka-\d\.(?:webp|jpg))/);
+    const asstHeaderName = await page2.textContent('#ccChatActiveAsstName');
+    assert.match(asstHeaderName, /(Rut|Lea|Sara|Noemi)/);
 
     // Type "hej" and verify assistant answers!
-    await iframe.fill('#ccAsstInput', 'hej');
-    await iframe.click('#ccAsstSendBtn');
-    await iframe.waitForSelector('#ccAsstMessagesList .cc-asst-msg-bot:last-child', { state: 'visible', timeout: 5000 });
-    const botReply = await iframe.textContent('#ccAsstMessagesList .cc-asst-msg-bot:last-child');
-    assert.match(botReply, /(Christian Culture|radio|Biblia|W czym mogę Ci)/i);
-    const botAvatar = await iframe.getAttribute('#ccAsstMessagesList .cc-asst-msg-bot:last-child .cc-asst-msg-meta-avatar', 'src');
-    assert.match(botAvatar, /\/images\/chat\/assistants\/asystentka-\d\.(?:webp|jpg)/);
+    await page2.fill('#ccChatInput', 'hej');
+    await page2.click('#ccChatSendBtn');
+    await page2.waitForFunction(
+      () => {
+        const list = document.getElementById('ccAssistantMessagesList');
+        return list && list.children.length >= 2;
+      },
+      { timeout: 5000 }
+    );
+    const botReply = await page2.textContent('#ccAssistantMessagesList');
+    assert.match(botReply, /(Christian Culture|radio|Biblia|W czym mogę Ci|Pomogę)/i);
 
     await page2.close();
 

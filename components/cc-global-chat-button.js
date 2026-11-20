@@ -46,6 +46,7 @@
   const CC_FAB_HIDDEN_KEY = 'cc_lumi_fab_hidden';
   const CC_FAB_HIDDEN_AT_KEY = 'cc_lumi_fab_hidden_at';
   const CC_FAB_UNREAD_AT_HIDE_KEY = 'cc_lumi_fab_unread_at_hide';
+  const CC_FAB_POS_LEGACY_KEY = 'cc_lumi_fab_pos_v1';
   const CC_FAB_POS_KEY = 'cc_lumi_fab_pos_v2';
 
   function safeLsGet(key) {

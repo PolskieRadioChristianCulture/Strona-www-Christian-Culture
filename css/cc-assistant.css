@@ -197,10 +197,11 @@ body.user-is-guest #directMessagesModal.open[data-cc-assistant] {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 8px 14px;
   border-bottom: 1px solid var(--cc-asst-border);
   background: var(--cc-asst-bg-surface);
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .cc-asst-header-info {
@@ -214,21 +215,27 @@ body.user-is-guest #directMessagesModal.open[data-cc-assistant] {
 .cc-asst-header-titles {
   min-width: 0;
   flex: 1;
+  overflow: hidden;
 }
 
 .cc-asst-header-title-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .cc-asst-header-name {
   margin: 0;
-  font-size: 0.98rem;
-  font-weight: 700;
+  font-size: 0.96rem;
+  font-weight: 800;
   color: var(--cc-asst-text-main);
   line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .cc-asst-header-sub {
@@ -236,6 +243,9 @@ body.user-is-guest #directMessagesModal.open[data-cc-assistant] {
   font-size: 0.76rem;
   color: var(--cc-asst-text-muted);
   line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cc-asst-header-tools {
@@ -260,6 +270,8 @@ body.user-is-guest #directMessagesModal.open[data-cc-assistant] {
   font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
+  box-sizing: border-box;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
@@ -268,17 +280,37 @@ body.user-is-guest #directMessagesModal.open[data-cc-assistant] {
   border-color: var(--cc-asst-gold-border);
 }
 
-/* Quick Starter Chips Bar */
-.cc-asst-quick-bar {
+/* Unified Scroll Body (Showcase Banner + Quick Chips + Messages Feed) */
+.cc-asst-scroll-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Quick Starter Chips Bar (shown when showcase banner is collapsed) */
+.cc-asst-quick-bar {
+  display: none;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
-  border-bottom: 1px solid var(--cc-asst-border);
-  background: rgba(15, 23, 42, 0.45);
+  padding: 6px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(15, 23, 42, 0.35);
   overflow-x: auto;
-  scrollbar-width: thin;
+  scrollbar-width: none;
   flex-shrink: 0;
+}
+
+.cc-asst-showcase.is-collapsed ~ .cc-asst-quick-bar {
+  display: flex;
+}
+
+.cc-asst-quick-bar::-webkit-scrollbar {
+  display: none;
 }
 
 .cc-asst-chip {
@@ -293,11 +325,12 @@ body.user-is-guest #directMessagesModal.open[data-cc-assistant] {
   border: 1px solid var(--cc-asst-gold-border);
   background: rgba(196, 163, 90, 0.11);
   color: var(--cc-asst-text-main);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
   flex-shrink: 0;
+  box-sizing: border-box;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
@@ -308,15 +341,13 @@ body.user-is-guest #directMessagesModal.open[data-cc-assistant] {
 
 /* Messages Stream */
 .cc-asst-messages {
-  flex: 1;
+  flex: 1 0 auto;
   min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 14px;
+  overflow: visible;
+  padding: 12px 14px 18px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  scroll-behavior: smooth;
 }
 
 .cc-asst-msg {
@@ -636,10 +667,42 @@ body.light-theme .cc-asst-input {
   outline-offset: 2px;
 }
 
-/* Responsive adjustments for mobile 360px / 390px */
-@media (max-width: 640px) {
+/* Responsive adjustments for mobile 360px / 390px / 640px */
+@media (max-width: 680px) {
   .cc-asst-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
     padding: 8px 10px;
+  }
+  .cc-asst-header-info {
+    width: 100%;
+    gap: 10px;
+  }
+  .cc-asst-header-title-row {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+  .cc-asst-header-name {
+    font-size: 0.92rem;
+  }
+  .cc-asst-header-sub {
+    font-size: 0.74rem;
+  }
+  .cc-asst-header-tools {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+  }
+  .cc-asst-header-tools .cc-asst-icon-btn {
+    width: 100%;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 8px;
+    font-size: 0.76rem;
+    justify-content: center;
   }
   .cc-asst-messages {
     padding: 10px;
@@ -655,12 +718,13 @@ body.light-theme .cc-asst-input {
     width: 100%;
   }
   .cc-asst-composer {
-    padding: 8px 10px;
+    padding: 4px 0;
   }
 }
 
 /* Reduced motion compliance */
 @media (prefers-reduced-motion: reduce) {
+  .cc-asst-scroll-body,
   .cc-asst-messages {
     scroll-behavior: auto;
   }
@@ -685,12 +749,13 @@ body.light-theme .cc-asst-input {
   color: #20C997 !important;
   border-color: rgba(32, 201, 151, 0.4) !important;
   font-size: 0.65rem !important;
+  flex-shrink: 0;
 }
 
 /* ── BANER ASYSTENTEK (SHOWCASE w /mess) ── */
 .cc-asst-showcase {
   position: relative;
-  margin: 0 12px 4px 12px;
+  margin: 8px 12px 4px 12px;
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid #343A50;
@@ -740,12 +805,12 @@ body.light-theme .cc-asst-input {
   box-shadow: inset 0 0 0 1.5px rgba(242, 209, 124, 0.5);
 }
 
-.cc-hs-lea { top: 15%; left: 2%; width: 23%; height: 62%; border-radius: 14px; }
-.cc-hs-rut { top: 13%; left: 37%; width: 26%; height: 65%; border-radius: 14px; }
-.cc-hs-noemi { top: 16%; left: 65%; width: 23%; height: 60%; border-radius: 14px; }
-.cc-hs-pill1 { bottom: 3.5%; left: 2%; width: 32.5%; height: 16%; border-radius: 999px; }
-.cc-hs-pill2 { bottom: 3.5%; left: 36%; width: 31%; height: 16%; border-radius: 999px; }
-.cc-hs-pill3 { bottom: 3.5%; left: 68.5%; width: 29.5%; height: 16%; border-radius: 999px; }
+.cc-hs-lea { top: 15%; left: 2%; width: 23%; height: 60%; border-radius: 14px; }
+.cc-hs-rut { top: 13%; left: 37%; width: 26%; height: 62%; border-radius: 14px; }
+.cc-hs-noemi { top: 16%; left: 65%; width: 23%; height: 58%; border-radius: 14px; }
+.cc-hs-pill1.cc-asst-chip, .cc-hs-pill1 { position: absolute; bottom: 0; left: 2%; width: 32.5%; height: 24%; min-height: 44px; min-width: 44px; padding: 0; border-radius: 999px; background: transparent; border: none; }
+.cc-hs-pill2.cc-asst-chip, .cc-hs-pill2 { position: absolute; bottom: 0; left: 36%; width: 31%; height: 24%; min-height: 44px; min-width: 44px; padding: 0; border-radius: 999px; background: transparent; border: none; }
+.cc-hs-pill3.cc-asst-chip, .cc-hs-pill3 { position: absolute; bottom: 0; left: 68.5%; width: 29.5%; height: 24%; min-height: 44px; min-width: 44px; padding: 0; border-radius: 999px; background: transparent; border: none; }
 
 /* Fioletowa linia rozdzielająca */
 .cc-lumi-divider-dm {
@@ -937,10 +1002,10 @@ body.light-theme .cc-asst-input {
 }
 
 .cc-asst-plus-btn {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  min-height: 40px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   background: #1D2235;
   border: 1.5px solid #343A50;
@@ -1003,10 +1068,10 @@ body.light-theme .cc-asst-input {
 }
 
 .cc-asst-mic-btn {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  min-height: 36px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   border: none;
   background: transparent;

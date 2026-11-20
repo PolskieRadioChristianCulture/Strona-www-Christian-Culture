@@ -129,11 +129,7 @@
         }
       }
     } catch (_) {}
-    const keys = ['asystentka-1', 'asystentka-2', 'asystentka-3'];
-    const now = new Date();
-    const dayIndex = Math.floor(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) / 86400000);
-    const defaultKey = keys[dayIndex % keys.length];
-    return ROTATING_ASSISTANTS[defaultKey];
+    return ROTATING_ASSISTANTS['asystentka-1'];
   }
 
   function setActiveAssistant(id) {
@@ -2007,26 +2003,37 @@
           </button>
         </div>
 
-        <!-- BANER ASYSTENTEK CC (1:1 ARTWORK + HOTSPOTY) -->
-        <section class="cc-asst-showcase" id="ccAsstShowcase" aria-label="Asystentki Christian Culture">
-          <div class="cc-hero-art-container">
-            <img src="/images/chat/lumi_hero_banner.webp" alt="Asystentki Christian Culture - Lea, Rut, Noemi" class="cc-hero-art-img" width="474" height="288" loading="eager" onerror="this.style.display='none'">
-            <div class="cc-hero-hotspots-dm">
-              <button type="button" class="cc-hs cc-hs-lea cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea - Organizer i planista" title="Lea - Organizer i planista"></button>
-              <button type="button" class="cc-hs cc-hs-rut cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut - Wspieram Cię i pomagam" title="Rut - Wspieram Cię i pomagam"></button>
-              <button type="button" class="cc-hs cc-hs-noemi cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi - Twoje zasoby i rozwiązania" title="Noemi - Twoje zasoby i rozwiązania"></button>
-              <button type="button" class="cc-hs cc-hs-pill1" id="ccDmPillRadio" aria-label="Posłuchaj radia" title="Posłuchaj radia" data-asst-query="Jak posłuchać radia?"></button>
-              <button type="button" class="cc-hs cc-hs-pill2" id="ccDmPillBible" aria-label="Poznaj Biblię" title="Poznaj Biblię" data-asst-query="Gdzie znajdę Biblię i rozważania?"></button>
-              <button type="button" class="cc-hs cc-hs-pill3" id="ccDmPillDiscover" aria-label="Odkryj CC" title="Odkryj CC" data-asst-query="Czym jest Christian Culture?"></button>
+        <!-- PRZEWIJANY OBSZAR GŁÓWNY (BANER + SZYBKIE PYTANIA + STRUMIEŃ WIADOMOŚCI) -->
+        <div class="cc-asst-scroll-body" id="ccAsstScrollBody">
+          <!-- BANER ASYSTENTEK CC (1:1 ARTWORK + HOTSPOTY) -->
+          <section class="cc-asst-showcase" id="ccAsstShowcase" aria-label="Asystentki Christian Culture">
+            <div class="cc-hero-art-container">
+              <img src="/images/chat/lumi_hero_banner.webp" alt="Asystentki Christian Culture - Lea, Rut, Noemi" class="cc-hero-art-img" width="474" height="288" loading="eager" onerror="this.style.display='none'">
+              <div class="cc-hero-hotspots-dm">
+                <button type="button" class="cc-hs cc-hs-lea cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea - Organizer i planista" title="Lea - Organizer i planista"></button>
+                <button type="button" class="cc-hs cc-hs-rut cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut - Wspieram Cię i pomagam" title="Rut - Wspieram Cię i pomagam"></button>
+                <button type="button" class="cc-hs cc-hs-noemi cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi - Twoje zasoby i rozwiązania" title="Noemi - Twoje zasoby i rozwiązania"></button>
+                <button type="button" class="cc-hs cc-hs-pill1 cc-asst-chip" id="ccDmPillRadio" aria-label="Posłuchaj radia" title="Posłuchaj radia" data-asst-query="Jak posłuchać radia?"></button>
+                <button type="button" class="cc-hs cc-hs-pill2 cc-asst-chip" id="ccDmPillBible" aria-label="Poznaj Biblię" title="Poznaj Biblię" data-asst-query="Gdzie znajdę Biblię i rozważania?"></button>
+                <button type="button" class="cc-hs cc-hs-pill3 cc-asst-chip" id="ccDmPillDiscover" aria-label="Odkryj CC" title="Odkryj CC" data-asst-query="Czym jest Christian Culture?"></button>
+              </div>
             </div>
+          </section>
+
+          <!-- FIOLETOWA LINIA ROZDZIELAJĄCA -->
+          <div class="cc-lumi-divider-dm" aria-hidden="true"></div>
+
+          <!-- PASEK SZYBKICH PYTAŃ (44px WCAG 2.2 AA) -->
+          <div class="cc-asst-quick-bar" id="ccAsstQuickBar" role="toolbar" aria-label="Szybkie pytania do Asystentki">
+            <button type="button" class="cc-asst-chip" data-asst-query="Jak posłuchać radia?">🎧 Posłuchaj radia</button>
+            <button type="button" class="cc-asst-chip" data-asst-query="Gdzie znajdę Biblię i rozważania?">📖 Poznaj Biblię</button>
+            <button type="button" class="cc-asst-chip" data-asst-query="Chcę uczyć się Biblii">🎓 Akademia Biblijna</button>
+            <button type="button" class="cc-asst-chip" data-asst-query="Czym jest Christian Culture?">🧭 Odkryj CC</button>
           </div>
-        </section>
 
-        <!-- FIOLETOWA LINIA ROZDZIELAJĄCA -->
-        <div class="cc-lumi-divider-dm" aria-hidden="true"></div>
-
-        <!-- FEED WIADOMOŚCI -->
-        <div class="cc-asst-messages" id="ccAsstMessagesList" role="log" aria-live="polite"></div>
+          <!-- FEED WIADOMOŚCI -->
+          <div class="cc-asst-messages" id="ccAsstMessagesList" role="log" aria-live="polite"></div>
+        </div>
 
         <!-- COMPOSER 1:1 -->
         <div class="cc-asst-composer-premium-dm">
@@ -2065,13 +2072,26 @@
         });
       });
 
-      // Bind pill hotspots (quick queries via banner pills)
+      // Bind pill hotspots & starter chips (quick queries)
       view.querySelectorAll('[data-asst-query]').forEach((btn) => {
         btn.addEventListener('click', () => {
           const q = btn.getAttribute('data-asst-query') || '';
+          const showcase = view.querySelector('#ccAsstShowcase');
+          if (showcase) showcase.classList.add('is-collapsed');
           this.sendUserQuery(q);
         });
       });
+
+      // Bind plus button to toggle showcase / scroll to quick chips
+      const plusBtn = view.querySelector('.cc-asst-plus-btn');
+      if (plusBtn) {
+        plusBtn.addEventListener('click', () => {
+          const showcase = view.querySelector('#ccAsstShowcase');
+          if (showcase) showcase.classList.toggle('is-collapsed');
+          const scrollBody = view.querySelector('#ccAsstScrollBody');
+          if (scrollBody) scrollBody.scrollTop = 0;
+        });
+      }
 
       // Bind composer
       const form = view.querySelector('#ccAsstComposerForm');
@@ -2082,10 +2102,9 @@
           const val = input.value;
           if (!val || !val.trim()) return;
           input.value = '';
-          this.sendUserQuery(val);
-          // Collapse showcase after first user message
           const showcase = view.querySelector('#ccAsstShowcase');
           if (showcase) showcase.classList.add('is-collapsed');
+          this.sendUserQuery(val);
         });
       }
 
@@ -2244,8 +2263,13 @@
           headline.textContent = `Cześć! ❤️ Dobrze, że jesteś.`;
           const lead = root.document.createElement('p');
           lead.className = 'cc-welcome-lead';
-          // Safe textContent
-          lead.textContent = msg.text || asst.welcomeText || '';
+          // Safe textContent without duplicating headline or closing question
+          const rawWelcome = String(msg.text || asst.welcomeText || '');
+          const cleanLead = rawWelcome
+            .replace(/^Cześć!\s*❤️\s*Dobrze,\s*że\s*jesteś\.?\s*/i, '')
+            .replace(/\s*W\s+czym\s+mogę\s+Ci\s+dziś\s+pomóc\??\s*$/i, '')
+            .trim();
+          lead.textContent = cleanLead || rawWelcome;
           const ask = root.document.createElement('p');
           ask.className = 'cc-welcome-ask';
           ask.textContent = 'W czym mogę Ci dziś pomóc?';
@@ -2380,7 +2404,14 @@
         list.appendChild(item);
       }
 
-      list.scrollTop = list.scrollHeight;
+      const scrollBody = root.document.getElementById('ccAsstScrollBody');
+      if (messages.length <= 1) {
+        if (scrollBody) scrollBody.scrollTop = 0;
+        list.scrollTop = 0;
+      } else {
+        if (scrollBody) scrollBody.scrollTop = scrollBody.scrollHeight;
+        list.scrollTop = list.scrollHeight;
+      }
     },
 
     sendUserQuery(queryText) {
@@ -2623,16 +2654,25 @@
       // Refresh dynamic header elements
       const headerAvatar = doc.getElementById('ccAsstHeaderAvatar');
       if (headerAvatar) {
-        headerAvatar.src = asst.avatar;
+        headerAvatar.src = asst.circleAvatar || asst.avatar;
         headerAvatar.alt = asst.name;
         headerAvatar.onerror = function () { if (this.src !== asst.avatarFallback) this.src = asst.avatarFallback; };
       }
       const headerName = doc.getElementById('ccAsstHeaderName');
-      if (headerName) headerName.textContent = asst.name;
+      if (headerName) headerName.textContent = `${asst.shortName} · Asystentka CC`;
       const headerBadge = doc.getElementById('ccAsstHeaderBadge');
       if (headerBadge) headerBadge.textContent = asst.badge;
       const headerSub = doc.getElementById('ccAsstHeaderSub');
-      if (headerSub) headerSub.textContent = `${asst.subtitle} · Asystent Christian Culture`;
+      if (headerSub) headerSub.textContent = asst.subtitle;
+
+      const assistantViewEl = doc.getElementById('messengerAssistantView');
+      if (assistantViewEl) {
+        assistantViewEl.querySelectorAll('.cc-trio-card').forEach((btn) => {
+          const active = btn.getAttribute('data-asst-id') === asst.id;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-checked', String(active));
+        });
+      }
 
       // Refresh pinned DM item
       const pinnedAvatar = doc.getElementById('ccAsstPinnedAvatar');
