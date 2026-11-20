@@ -1885,12 +1885,15 @@
     window.triggerSecretAdminPrompt = async function(e) {
         if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
 
-        const isCurrentlyAdmin = !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin());
-        if (isCurrentlyAdmin) {
-            if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.openAllProfilesManager === 'function') {
-                window.LuminaAdminSuite.openAllProfilesManager();
-            } else if (window.LuminaSecurity && typeof window.LuminaSecurity.lockMasterAdmin === 'function') {
-                window.LuminaSecurity.lockMasterAdmin();
+        const hasAdminPerm = !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin());
+        if (hasAdminPerm) {
+            if (window.LuminaAdminSuite) {
+                const isActive = typeof window.LuminaAdminSuite.isAdminModeActive === 'function' && window.LuminaAdminSuite.isAdminModeActive();
+                if (!isActive && typeof window.LuminaAdminSuite.unlockAdminMode === 'function') {
+                    window.LuminaAdminSuite.unlockAdminMode();
+                } else if (typeof window.LuminaAdminSuite.openAllProfilesManager === 'function') {
+                    window.LuminaAdminSuite.openAllProfilesManager();
+                }
             }
             return;
         }

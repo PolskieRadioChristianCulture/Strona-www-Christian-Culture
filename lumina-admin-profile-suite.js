@@ -55,9 +55,17 @@
         return 'profile_default';
     }
 
-    // Sprawdza czy aktywny jest zweryfikowany tryb Master Admina (wyłącznie Firebase Auth via LuminaGuard)
-    function isUserMasterAdmin() {
+    // Domyślnie pasek i tryb Master Admin są WYŁĄCZONE (nawet dla zalogowanego konta admina),
+    // dopóki administrator jawnie ich nie uruchomi; zamknięcie przyciskiem X natychmiast wyłącza tryb.
+    let _adminHudExplicitlyOpened = false;
+
+    function hasMasterAdminPermission() {
         return !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin());
+    }
+
+    // Sprawdza czy aktywny jest zweryfikowany tryb Master Admina (uprawnienia Firebase Auth + jawne włączenie paska)
+    function isUserMasterAdmin() {
+        return _adminHudExplicitlyOpened && hasMasterAdminPermission();
     }
 
     // Pobiera listę wszystkich zablokowanych profili
@@ -751,10 +759,11 @@
                                 <i class="fa-solid fa-minus" id="hudMinimizeIcon"></i>
                             </button>
                             <button type="button" 
+                                    id="hudBtnCloseAdmin"
                                     class="admin-hud-control-btn btn-close-admin" 
-                                    onclick="window.LuminaAdminSuite.lockAdminMode()" 
-                                    title="Zamknij i wyjdź z panelu Administratora (Wyloguj)"
-                                    aria-label="Wyjdź z trybu Administratora">
+                                    onclick="if(event){event.stopPropagation();} window.LuminaAdminSuite.lockAdminMode();" 
+                                    title="Zamknij i wyjdź z panelu Administratora"
+                                    aria-label="Zamknij panel Administratora">
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </div>
@@ -1420,14 +1429,34 @@
         } else {
             document.body.prepend(container);
         }
+
+        // Bezpośrednie bindowanie wszystkich przycisków zamykania (X oraz Wyloguj)
+        container.querySelectorAll('.btn-close-admin, #hudBtnCloseAdmin').forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.lockAdminMode === 'function') {
+                    window.LuminaAdminSuite.lockAdminMode();
+                }
+            });
+        });
     }
 
     // Główny obiekt API Master Admin Suite
     window.LuminaAdminSuite = {
         slug: detectCurrentProfileSlug(),
 
+        isAdminModeActive: function() {
+            return isUserMasterAdmin();
+        },
+
+        hasAdminPermission: function() {
+            return hasMasterAdminPermission();
+        },
+
         init: function() {
             purgeLegacyAdminStorage();
+            _adminHudExplicitlyOpened = false;
             this.ensureMediaReplacerLoaded();
             this.slug = detectCurrentProfileSlug();
             injectAdminStyles();
@@ -1464,11 +1493,16 @@
             const navH = (topNav && topNav.offsetHeight > 0) ? topNav.offsetHeight : 56;
             hud.style.top = navH + 'px';
 
-            const isHudActive = hud.classList.contains('active');
+            const isHudActive = hud.classList.contains('active') && isUserMasterAdmin();
             const hudH = isHudActive ? hud.offsetHeight : 0;
 
             if (inspBanner) {
                 inspBanner.style.top = (navH + hudH) + 'px';
+            }
+
+            if (!isHudActive && (!inspBanner || inspBanner.style.display === 'none')) {
+                document.body.style.removeProperty('padding-top');
+                return;
             }
 
             let totalTop = navH + hudH;
@@ -1487,6 +1521,7 @@
             if (isAdmin) {
                 document.body.classList.add('lumina-admin-mode', 'owner-mode-active', 'has-admin-hud');
                 if (hud) {
+                    hud.style.removeProperty('display');
                     hud.classList.add('active');
                     const isMin = sessionStorage.getItem('lumina_admin_hud_minimized') === 'true';
                     if (isMin) {
@@ -1509,12 +1544,15 @@
                     window.LuminaMediaReplacer.scanAndAttachButtons();
                 }
             } else {
-                document.body.classList.remove('lumina-admin-mode', 'owner-mode-active', 'has-admin-hud', 'hud-minimized');
-                if (hud) hud.classList.remove('active', 'minimized');
+                document.body.classList.remove('lumina-admin-mode', 'has-admin-hud', 'hud-minimized');
+                if (hud) {
+                    hud.classList.remove('active', 'minimized');
+                    hud.style.setProperty('display', 'none', 'important');
+                }
                 if (shield) shield.classList.remove('unlocked');
                 if (shieldContainer) shieldContainer.classList.remove('unlocked');
 
-                // Usuń przyciski wymiany po wylogowaniu
+                // Usuń przyciski wymiany po wyłączeniu trybu Master Admin
                 document.querySelectorAll('.btn-lumina-replace-floating, .btn-lumina-replace-action').forEach(el => el.remove());
             }
 
@@ -1544,10 +1582,32 @@
             }
         },
 
+        unlockAdminMode: function() {
+            if (!hasMasterAdminPermission()) {
+                this.openPinPrompt();
+                return false;
+            }
+            _adminHudExplicitlyOpened = true;
+            try { sessionStorage.removeItem('lumina_admin_hud_minimized'); } catch (_) {}
+            const hud = document.getElementById('luminaAdminHudBar');
+            if (hud) hud.style.removeProperty('display');
+            this.checkAndApplyAdminState();
+            try {
+                window.dispatchEvent(new CustomEvent('lumina-admin-mode-changed', { detail: { active: true } }));
+            } catch (_) {}
+            if (typeof window.showToast === 'function') {
+                window.showToast('👑 Panel Master Admin aktywny.');
+            }
+            return true;
+        },
+
         openPinPrompt: async function() {
-            const isAdmin = isUserMasterAdmin();
-            if (isAdmin) {
-                this.openAllProfilesManager();
+            if (hasMasterAdminPermission()) {
+                if (!_adminHudExplicitlyOpened) {
+                    this.unlockAdminMode();
+                } else {
+                    this.openAllProfilesManager();
+                }
                 return;
             }
             if (typeof window.showToast === 'function') {
@@ -1563,15 +1623,27 @@
         },
 
         lockAdminMode: function() {
+            _adminHudExplicitlyOpened = false;
             purgeLegacyAdminStorage();
-            if (window.LuminaSecurity && typeof window.LuminaSecurity.lockMasterAdmin === 'function') {
-                window.LuminaSecurity.lockMasterAdmin();
+            try { sessionStorage.removeItem('lumina_admin_hud_minimized'); } catch (_) {}
+            if (this.isInspectorActive && typeof this.deactivateAgentInspector === 'function') {
+                this.deactivateAgentInspector();
+            }
+            document.querySelectorAll('#luminaAdminSuiteContainer .modal-overlay').forEach((m) => {
+                m.classList.remove('open');
+                m.style.display = 'none';
+            });
+            const hud = document.getElementById('luminaAdminHudBar');
+            if (hud) {
+                hud.classList.remove('active', 'minimized');
+                hud.style.setProperty('display', 'none', 'important');
             }
             this.checkAndApplyAdminState();
+            try {
+                window.dispatchEvent(new CustomEvent('lumina-admin-mode-changed', { detail: { active: false } }));
+            } catch (_) {}
             if (typeof window.showToast === 'function') {
-                window.showToast('🔒 Wylogowano z trybu Administratora. Pasek został schowany.');
-            } else {
-                alert('🔒 Wylogowano z trybu Administratora.');
+                window.showToast('🔒 Panel Master Admin został zamknięty.');
             }
         },
 

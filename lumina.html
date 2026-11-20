@@ -7290,7 +7290,8 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
 
         window.addEventListener('DOMContentLoaded', () => {
             const checkAuth = () => {
-                if (window.LuminaDB) {
+                if (typeof window.LuminaDB?.onAuthChange === 'function') {
+                    window.removeEventListener('lumina-auth-state', checkAuth);
                     window.LuminaDB.onAuthChange((user, profile) => {
                         window.setLuminaAuthView(Boolean(user));
                         const profilePill = document.getElementById('userNavProfile');
@@ -7316,7 +7317,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                         }
                     });
                 } else {
-                    setTimeout(checkAuth, 250);
+                    window.addEventListener('lumina-auth-state', checkAuth);
                 }
             };
             checkAuth();
@@ -9868,7 +9869,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
         };
 
         window.sendGreet = async function() {
-            let user = (window.LuminaDB && window.LuminaDB.getCurrentUser()) || JSON.parse(localStorage.getItem('lumina_current_user') || 'null');
+            let user = window.LuminaDB?.getCurrentUser?.() || JSON.parse(localStorage.getItem('lumina_current_user') || 'null');
             if (!user) {
                 closeModal('profileModal');
                 if (typeof switchAuthTab === 'function') switchAuthTab('register');
@@ -9894,7 +9895,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
         };
 
         window.sendCoffeeInvite = async function() {
-            let user = (window.LuminaDB && window.LuminaDB.getCurrentUser()) || JSON.parse(localStorage.getItem('lumina_current_user') || 'null');
+            let user = window.LuminaDB?.getCurrentUser?.() || JSON.parse(localStorage.getItem('lumina_current_user') || 'null');
             if (!user) {
                 closeModal('profileModal');
                 if (typeof switchAuthTab === 'function') switchAuthTab('register');
@@ -9920,7 +9921,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
         };
 
         window.sendPray = async function() {
-            let user = (window.LuminaDB && window.LuminaDB.getCurrentUser()) || JSON.parse(localStorage.getItem('lumina_current_user') || 'null');
+            let user = window.LuminaDB?.getCurrentUser?.() || JSON.parse(localStorage.getItem('lumina_current_user') || 'null');
             if (!user) {
                 closeModal('profileModal');
                 if (typeof switchAuthTab === 'function') switchAuthTab('register');
@@ -9946,7 +9947,7 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
         };
 
         window.sendMsg = function() {
-            let user = (window.LuminaDB && window.LuminaDB.getCurrentUser()) || JSON.parse(localStorage.getItem('lumina_current_user') || 'null');
+            let user = window.LuminaDB?.getCurrentUser?.() || JSON.parse(localStorage.getItem('lumina_current_user') || 'null');
             if (!user) {
                 closeModal('profileModal');
                 if (typeof switchAuthTab === 'function') switchAuthTab('register');
@@ -9966,8 +9967,8 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
 
         window.showMatchModal = function(partner) {
             currentMatchedPartner = partner;
-            const myProfile = window.LuminaDB?.getCurrentProfile();
-            const myUser = window.LuminaDB?.getCurrentUser();
+            const myProfile = window.LuminaDB?.getCurrentProfile?.();
+            const myUser = window.LuminaDB?.getCurrentUser?.();
 
             const myAvatar = document.getElementById('matchUserAvatar');
             if (myAvatar) {
@@ -12446,8 +12447,8 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
             }
 
             if (window.LuminaDB && typeof window.LuminaDB.sendPublicChatMessage === 'function') {
-                const myUser = window.LuminaDB?.getCurrentUser();
-                const myProfile = window.LuminaDB?.getCurrentProfile();
+                const myUser = window.LuminaDB?.getCurrentUser?.();
+                const myProfile = window.LuminaDB?.getCurrentProfile?.();
                 const rawFrom = myProfile?.slug || myProfile?.uid || myUser?.slug || myUser?.uid || localStorage.getItem('lumina_current_user_slug') || 'guest';
                 const fromId = window.LuminaDB.normalizeChatUserId(rawFrom);
 
@@ -13084,10 +13085,10 @@ window.addEventListener('lumina-auth-state', () => {
 
             // 3. P0: Dołącz aktywne wątki rodzinne LUMI KIDS i zatwierdzone rozmowy z Firestore
             if (window._luminaUserChatsCache && Array.isArray(window._luminaUserChatsCache)) {
-                const myUser = window.LuminaDB?.getCurrentUser();
-                const myProfile = window.LuminaDB?.getCurrentProfile();
+                const myUser = window.LuminaDB?.getCurrentUser?.();
+                const myProfile = window.LuminaDB?.getCurrentProfile?.();
                 const rawFrom = myProfile?.slug || myProfile?.uid || myUser?.slug || myUser?.uid || localStorage.getItem('lumina_current_user_slug') || 'guest';
-                const myId = window.LuminaDB ? window.LuminaDB.normalizeChatUserId(rawFrom) : rawFrom;
+                const myId = window.LuminaDB?.normalizeChatUserId?.(rawFrom) ?? rawFrom;
                 window._luminaUserChatsCache.forEach(chat => {
                     if (!chat) return;
                     const usersList = Array.isArray(chat.users) ? chat.users : [];
@@ -13126,7 +13127,7 @@ window.addEventListener('lumina-auth-state', () => {
             let _userChatsUnsub = null;
             function hookUserChats() {
                 if (_userChatsUnsub) { try { _userChatsUnsub(); } catch(e){} _userChatsUnsub = null; }
-                const user = window.LuminaDB?.getCurrentUser();
+                const user = window.LuminaDB?.getCurrentUser?.();
                 if (!user || user.isAnonymous || !window.LuminaDB?.subscribeToUserChats) {
                     // Sesja Firebase odtwarza się asynchronicznie — ponów, zamiast zostawić listę bez rozmów rodzinnych.
                     hookUserChats._tries = (hookUserChats._tries || 0) + 1;
@@ -13193,10 +13194,10 @@ window.addEventListener('lumina-auth-state', () => {
                 slug: f.uid, uid: f.uid, name: f.name, avatar: f.avatar,
                 badge: '⭐ LUMI KIDS · rodzina', job: 'Prywatna rozmowa rodzinna', isMission: false, isFamily: true
             })).concat((baseUsers || []).filter(u => !familyIds.has(String(u.uid || u.slug || '').toLowerCase())));
-            const myUser = window.LuminaDB?.getCurrentUser();
-            const myProfile = window.LuminaDB?.getCurrentProfile();
+            const myUser = window.LuminaDB?.getCurrentUser?.();
+            const myProfile = window.LuminaDB?.getCurrentProfile?.();
             const rawFrom = myProfile?.slug || myProfile?.uid || myUser?.slug || myUser?.uid || localStorage.getItem('lumina_current_user_slug') || 'guest';
-            const myId = window.LuminaDB ? window.LuminaDB.normalizeChatUserId(rawFrom) : rawFrom;
+            const myId = window.LuminaDB?.normalizeChatUserId?.(rawFrom) ?? rawFrom;
 
             // Sprawdź nieprzeczytane powiadomienia i aktywne pokoje rozmów
             const unreadUserMap = new Map();
@@ -13257,7 +13258,7 @@ window.addEventListener('lumina-auth-state', () => {
             }
 
             let filtered = users.filter(u => {
-                const normSlug = window.LuminaDB ? window.LuminaDB.normalizeChatUserId(u.slug) : u.slug;
+                const normSlug = window.LuminaDB?.normalizeChatUserId?.(u.slug) ?? u.slug;
                 if (normSlug === myId) return false;
 
                 if (currentDmSearchQuery) {
@@ -13525,11 +13526,11 @@ window.addEventListener('lumina-auth-state', () => {
             if (nameEl) nameEl.textContent = name;
             if (avatarEl) avatarEl.src = avatar || 'lumina_icon.jpg';
 
-            const myUser = window.LuminaDB?.getCurrentUser();
-            const myProfile = window.LuminaDB?.getCurrentProfile();
+            const myUser = window.LuminaDB?.getCurrentUser?.();
+            const myProfile = window.LuminaDB?.getCurrentProfile?.();
             const rawFrom = myProfile?.slug || myProfile?.uid || myUser?.slug || myUser?.uid || localStorage.getItem('lumina_current_user_slug') || (localStorage.getItem('lumina_guest_id') || 'guest');
-            const fromId = window.LuminaDB ? window.LuminaDB.normalizeChatUserId(rawFrom) : rawFrom;
-            let toId = window.LuminaDB ? window.LuminaDB.normalizeChatUserId(slug || name) : (slug || name.toLowerCase().replace(/\s+/g, ''));
+            const fromId = window.LuminaDB?.normalizeChatUserId?.(rawFrom) ?? rawFrom;
+            let toId = window.LuminaDB?.normalizeChatUserId?.(slug || name) ?? (slug || name.toLowerCase().replace(/\s+/g, ''));
 
             if (fromId === toId) {
                 if (fromId === 'cezaryrgowski') {
@@ -13545,7 +13546,7 @@ window.addEventListener('lumina-auth-state', () => {
 
             const familyRoom = (window._luminaFamilyChats || []).find(room =>
                 window.LuminaDB?.normalizeChatUserId(room.uid) === toId);
-            const chatId = familyRoom?.chatId || (window.LuminaDB ? window.LuminaDB.getChatId(fromId, toId) : [fromId, toId].sort().join('_'));
+            const chatId = familyRoom?.chatId || (window.LuminaDB?.getChatId?.(fromId, toId) ?? [fromId, toId].sort().join('_'));
 
             window.LumiChatDrafts?.open(chatId);
             activeChatSession = {
@@ -13578,7 +13579,7 @@ window.addEventListener('lumina-auth-state', () => {
             try {
                 localStorage.setItem(`lumina_chat_read_${chatId}`, String(Date.now()));
                 try { window.LuminaDB?.markChatRoomRead?.(chatId); } catch (_) {}
-                const normRoomKey = window.LuminaDB ? window.LuminaDB.getChatId(fromId, toId) : chatId;
+                const normRoomKey = window.LuminaDB?.getChatId?.(fromId, toId) ?? chatId;
                 localStorage.setItem(`lumina_chat_read_${normRoomKey}`, String(Date.now()));
 
                 const localJson = localStorage.getItem('lumina_unread_rooms_json');
@@ -13989,11 +13990,11 @@ window.addEventListener('lumina-auth-state', () => {
     <!-- Single canonical CC back-to-top standard (js/cc-back-to-top.js) -->
     <script src="lumina-story-card-generator.js?v=20260918_v1" defer></script>
     <script src="lumina-smart-blessings.js" defer></script>
-    <script src="js/lumina-groups-engine.js?v=20260913_fix_v3" defer></script>
+    <script src="js/lumina-groups-engine.js?v=20261120_startup" defer></script>
     <script src="/js/lumi-chat-drafts.js?v=20261014_drafts1" defer></script>
     <script src="js/lumina-messenger-composer.js?v=20261007_guardian2" defer></script>
     <script src="js/lumina-message-requests.js?v=20260914_chatfix_v1" defer></script>
-    <script src="js/lumina-events-engine.js" defer></script>
+    <script src="js/lumina-events-engine.js?v=20261120_startup" defer></script>
     <script src="js/lumina-discovery-filters.js?v=20260912_values_filter_v3"></script>
     <script src="js/lumina-background-mission-service.js" defer></script>
     <script src="/lumina-bottom-nav.js?v=20261014_luminav1" defer></script>
@@ -14057,10 +14058,15 @@ window.addEventListener('lumina-auth-state', () => {
 
     try {
         if (!localStorage.getItem('lumina_cookie_consent')) {
-            setTimeout(() => {
+            const showBanner = () => {
                 const b = document.getElementById('lumina-cookie-banner');
                 if (b) b.style.display = 'flex';
-            }, 4000);
+            };
+            if (document.documentElement.matches('.lumi-mess-page:not(.cc-mess-embedded)')) {
+                showBanner();
+            } else {
+                setTimeout(showBanner, 4000);
+            }
         } else {
             const b = document.getElementById('lumina-cookie-banner');
             if (b) b.remove();
@@ -14520,10 +14526,10 @@ window.addEventListener('lumina-auth-state', () => {
             const p = _activeQuickActionProfile || {};
             const name = p.name || slug;
 
-            const myUser = window.LuminaDB?.getCurrentUser();
-            const myProfile = window.LuminaDB?.getCurrentProfile();
+            const myUser = window.LuminaDB?.getCurrentUser?.();
+            const myProfile = window.LuminaDB?.getCurrentProfile?.();
             const fromId = myProfile?.slug || myProfile?.uid || myUser?.slug || myUser?.uid || localStorage.getItem('lumina_current_user_slug') || 'guest';
-            const chatId = window.LuminaDB ? window.LuminaDB.getChatId(fromId, slug) : [fromId, slug].sort().join('_');
+            const chatId = window.LuminaDB?.getChatId?.(fromId, slug) ?? [fromId, slug].sort().join('_');
 
             if (window.LuminaDB && typeof window.LuminaDB.sendDirectMessageToCloud === 'function') {
                 window.LuminaDB.sendDirectMessageToCloud(chatId, {
@@ -14587,10 +14593,10 @@ window.addEventListener('lumina-auth-state', () => {
             const p = _activeQuickActionProfile || {};
             const name = p.name || slug;
 
-            const myUser = window.LuminaDB?.getCurrentUser();
-            const myProfile = window.LuminaDB?.getCurrentProfile();
+            const myUser = window.LuminaDB?.getCurrentUser?.();
+            const myProfile = window.LuminaDB?.getCurrentProfile?.();
             const fromId = myProfile?.slug || myProfile?.uid || myUser?.slug || myUser?.uid || localStorage.getItem('lumina_current_user_slug') || 'guest';
-            const chatId = window.LuminaDB ? window.LuminaDB.getChatId(fromId, slug) : [fromId, slug].sort().join('_');
+            const chatId = window.LuminaDB?.getChatId?.(fromId, slug) ?? [fromId, slug].sort().join('_');
 
             if (window.LuminaDB && typeof window.LuminaDB.sendDirectMessageToCloud === 'function') {
                 window.LuminaDB.sendDirectMessageToCloud(chatId, {
@@ -14665,7 +14671,7 @@ window.addEventListener('lumina-auth-state', () => {
     </script>
 
     <script src="js/lumina-admin-media-replacer.js?v=20260917_autohide_final_v10"></script>
-    <script src="lumina-admin-profile-suite.js?v=20260918_autolink_1x1"></script>
+    <script src="lumina-admin-profile-suite.js?v=20261120_hud_off_default"></script>
 <script>
 
         // ── TOP NAV COLLAPSIBLE DRAWER CONTROLLER ──

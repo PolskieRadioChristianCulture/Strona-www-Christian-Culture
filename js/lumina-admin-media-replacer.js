@@ -10,13 +10,12 @@
 (function(global) {
     'use strict';
 
-    // ── 1. Zweryfikowane sprawdzenie uprawnień Administratora (wyłącznie Firebase Auth) ──
+    // ── 1. Zweryfikowane sprawdzenie aktywnego trybu Administratora (wymaga jawnie włączonego paska Master Admin) ──
     function isMasterAdmin() {
-        return Boolean(
-            (global.LuminaGuard && typeof global.LuminaGuard.isMasterAdmin === 'function' && global.LuminaGuard.isMasterAdmin()) ||
-            (global.LuminaDB && typeof global.LuminaDB.isLuminaMasterAdmin === 'function' && global.LuminaDB.isLuminaMasterAdmin()) ||
-            (global.LuminaSecurity && typeof global.LuminaSecurity.isMasterAdmin === 'function' && global.LuminaSecurity.isMasterAdmin())
-        );
+        if (global.LuminaAdminSuite && typeof global.LuminaAdminSuite.isAdminModeActive === 'function') {
+            return Boolean(global.LuminaAdminSuite.isAdminModeActive());
+        }
+        return false;
     }
 
     // ── 2. Parser linków zewnętrznych (YouTube & Dysk Google) ──

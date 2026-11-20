@@ -1042,7 +1042,7 @@
             box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
         }
 
-        /* ── Master Admin Command HUD Bar (Zastąpiony przez uniwersalny lumina-admin-profile-suite.js) ── */
+        /* ── Master Admin Command HUD Bar (Zastąpiony przez uniwersalny lumina-admin-profile-suite.js?v=20261120_hud_off_default) ── */
         .admin-master-hud {
             display: none !important;
         }
@@ -3001,7 +3001,7 @@
             </div>
         </div>
     </nav>
-    <!-- Master Administrator HUD Bar jest dostarczany globalnie przez lumina-admin-profile-suite.js -->
+    <!-- Master Administrator HUD Bar jest dostarczany globalnie przez lumina-admin-profile-suite.js?v=20261120_hud_off_default -->
 
     <!-- Hidden File Inputs for Direct Photo Uploads -->
     <input type="file" id="avatarFileInput" accept="image/*" style="display:none;" onchange="handleAvatarFileSelect(event)">
@@ -5887,11 +5887,15 @@
             }
             const targetUid = curProf?.uid || null;
 
-            // 1. Sprawdzenie czy użytkownik to Główny Administrator (WYŁĄCZNIE po autoryzacji PIN-em w bieżącej sesji!)
-            // 🛡️ STRAŻNIK: uprawnienia wyłącznie z zalogowanego konta (Firebase Auth), nie z flag w przeglądarce
+            // 1. Sprawdzenie czy użytkownik to Główny Administrator (wymaga jawnie włączonego trybu Master Admin)
+            // 🛡️ STRAŻNIK: uprawnienia wyłącznie z zalogowanego konta (Firebase Auth), a tryb HUD domyślnie wyłączony
             let isMaster = false;
             try {
-                isMaster = !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin());
+                isMaster = !!(
+                    window.LuminaAdminSuite &&
+                    typeof window.LuminaAdminSuite.isAdminModeActive === 'function' &&
+                    window.LuminaAdminSuite.isAdminModeActive()
+                );
                 localStorage.removeItem('lumina_auth_master_admin');
             } catch(e) {}
             let isSelf = false;
@@ -6009,14 +6013,27 @@
         }
         
         function toggleOwnerAuthMode() {
-            const isMaster = !!(window.LuminaGuard && typeof window.LuminaGuard.isMasterAdmin === 'function' && window.LuminaGuard.isMasterAdmin());
-            if (isMaster) {
+            const isAdminActive = !!(
+                window.LuminaAdminSuite &&
+                typeof window.LuminaAdminSuite.isAdminModeActive === 'function' &&
+                window.LuminaAdminSuite.isAdminModeActive()
+            );
+            const hasAdminPerm = !!(
+                window.LuminaGuard &&
+                typeof window.LuminaGuard.isMasterAdmin === 'function' &&
+                window.LuminaGuard.isMasterAdmin()
+            );
+            if (isAdminActive) {
                 if (window.LuminaAdminSuite && typeof window.LuminaAdminSuite.lockAdminMode === 'function') {
                     window.LuminaAdminSuite.lockAdminMode();
                 } else if (window.LuminaSecurity && typeof window.LuminaSecurity.lockMasterAdmin === 'function') {
                     window.LuminaSecurity.lockMasterAdmin();
                 }
                 showToast('✨ Zablokowano tryb Administratora (Widok Gościa)');
+                checkOwnerAuthSession();
+                renderProfile();
+            } else if (hasAdminPerm && window.LuminaAdminSuite && typeof window.LuminaAdminSuite.unlockAdminMode === 'function') {
+                window.LuminaAdminSuite.unlockAdminMode();
                 checkOwnerAuthSession();
                 renderProfile();
             } else {
@@ -6028,6 +6045,10 @@
                 }
             }
         }
+        window.addEventListener('lumina-admin-mode-changed', function() {
+            checkOwnerAuthSession();
+            renderProfile();
+        });
 
         async function toggleBlockCurrentProfileAdmin() {
             const slug = getRequestedUserSlug();
@@ -11552,7 +11573,7 @@ window.addEventListener('lumina-auth-state', (e) => {
     </div>
 
     <script src="js/lumina-admin-media-replacer.js?v=20260917_autohide_final_v10"></script>
-    <script src="lumina-admin-profile-suite.js?v=20260918_autolink_1x1"></script>
+    <script src="lumina-admin-profile-suite.js?v=20261120_hud_off_default"></script>
     <script src="/lumina-premium-video-avatar.js?v=20261008_compact_v1"></script>
 <script>
 
