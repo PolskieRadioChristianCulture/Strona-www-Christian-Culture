@@ -155,7 +155,13 @@ section[id]{scroll-margin-top:20px}
   .mobile-art .hero-bottom{display:grid;gap:16px;padding-bottom:max(36px,6.5svh,env(safe-area-inset-bottom))}
 }
 
-.book-source{display:flex;flex-wrap:wrap;align-items:center;gap:9px 16px;margin:0 0 18px}.book-source p{margin:0}.source-credit{color:var(--soft);font-size:.92rem;max-width:66ch}.room-actions .room-status{align-self:center;margin:0}.room-frame{height:clamp(680px,82svh,920px)}.room-preview{padding-bottom:12px}
+.book-source{display:flex;flex-wrap:wrap;align-items:center;gap:9px 16px;margin:0 0 18px}.book-source p{margin:0}.source-credit{color:var(--soft);font-size:.92rem;max-width:66ch}.room-frame{height:clamp(680px,82svh,920px)}.room-preview{padding:14px 0 12px}
+.room-copy{font-size:.93rem;line-height:1.5;color:#c8d6cd;margin:0;max-width:56ch}
+.room-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 14px}
+.room-actions>#lumina-signed{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:8px 15px;border-radius:999px;background:#142d21;border:1px solid #e5c68459;color:var(--warm);font-size:.83rem;font-weight:700;letter-spacing:.01em;margin:0}
+.room-actions>#lumina-signed::before{content:"";width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55ed9;flex-shrink:0}
+.room-actions>.whatsapp{border-color:#4ade8059;background:#132b1f;color:#eefbf2;min-height:46px;padding:10px 18px}
+.room-actions>.whatsapp:hover{background:#1c3f2e;border-color:#4ade80a6}
 .program-guides{display:grid;gap:10px;margin-bottom:20px}
 .prayer-guide{border:1px solid var(--line);border-radius:16px;padding:0 18px;background:#102119}
 .prayer-guide summary{min-height:44px;padding:12px 0;cursor:pointer;font-weight:680;color:var(--warm)}
