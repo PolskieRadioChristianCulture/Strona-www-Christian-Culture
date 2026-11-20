@@ -1,0 +1,144 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { packageEkoccArticle } from './package-ekocc-article.mjs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const ROOT = path.resolve(__dirname, '..');
+
+export const articleData = {
+  portal: 'finanse',
+  type: 'ANALIZA',
+  title: 'Czarny piątek, czerwone konto: jak nie kupować szczęścia na kredyt?',
+  slug: 'czarny-piatek-czerwone-konto-jak-nie-kupowac-szczescia-na-kredyt',
+  author: 'Cezary Rogowski',
+  date: '2026-11-19',
+  lead: 'Listopadowa gorączka wyprzedaży przed Black Friday zbiega się w 2026 roku z graniczną datą unijnej dyrektywy o kredycie konsumenckim CCD2 (20 listopada 2026 r.) oraz rosnącą popularnością odroczonych płatności w polskich sklepach internetowych. Z danych Biura Informacji Kredytowej wynika, że opcja „kup teraz, zapłać później” stała się dla co piątego nowego klienta pierwszą bramą na rynek kredytowy, a blisko jedna czwarta takich transakcji kończy się rozłożeniem na raty. Aby nie obudzić się w grudniu z czerwonym saldem na koncie, warto oddzielić marketingową iluzję okazji od twardych faktów prawnych oraz biblijnej mądrości o wolności od długu i chciwości.',
+  sections: [
+    {
+      heading: '1. LICZBY BEZ MAKIJAŻU: CO MÓWIĄ DANE BIK O PŁATNOŚCIACH ODROCZONYCH W 2026 ROKU',
+      paragraphs: [
+        'Zanim przyjrzymy się duchowemu wymiarowi przedświątecznych zakupów, warto spojrzeć na twarde dane rynkowe opublikowane w 2026 roku przez Biuro Informacji Kredytowej (BIK). Według analizy BIK opublikowanej 9 lipca 2026 r. na podstawie „Raportu BIK: Płatności odroczone 2025. Segmentacja i kluczowe zjawiska”, w Polsce jest 14,8 miliona aktywnych kredytobiorców, a każdego miesiąca na rynek wchodzi około 50 tysięcy nowych klientów. Aż 20,5 procent wszystkich nowych debiutantów kredytowych trafia do systemu właśnie przez płatności odroczone typu „kup teraz, zapłać później” (BNPL), co daje tej usłudze drugie miejsce w kraju tuż za klasycznymi kredytami ratalnymi (34,3 procent).',
+        'Szczególną grupą korzystającą z kliknięcia „zapłać za 30 dni” są młodzi dorośli u progu samodzielności. Z przywołanego raportu BIK wynika, że 41,5 procent osób debiutujących na rynku dzięki BNPL to młodzi ludzie w wieku od 18 do 24 lat, którzy nigdy wcześniej nie mieli żadnego produktu kredytowego. Sama usługa bywa reklamowana jako niewinne narzędzie wygody w koszyku sklepowym, lecz z perspektywy sektora finansowego każda taka operacja jest formalnym zobowiązaniem raportowanym do BIK i obniżającym bieżącą zdolność kredytową.',
+        'Jesienne statystyki z października 2026 roku pokazują wyraźnie, jak szybko drobne odroczenia potrafią zamienić się w realne zadłużenie ratalne. W komunikacie z 26 października 2026 r. („Dane o rynku kredytowym we wrześniu 2026 r.”) BIK poinformował, że banki i SKOK-i udzieliły we wrześniu o 37,7 procent więcej kredytów ratalnych niż rok wcześniej, przy wzroście ich wartości o 21,8 procent rok do roku i średniej kwocie 1 890 złotych. Główny analityk Grupy BIK dr hab. Waldemar Rogowski zwrócił przy tym uwagę, że około 25 procent transakcji BNPL nie jest spłacanych w darmowym okresie bezodsetkowym i ulega konwersji na raty, a w sektorze pożyczek pozabankowych sprzedaż pożyczek ratalnych wzrosła we wrześniu 2026 r. do 770 milionów złotych (+31,5 procent rok do roku).'
+      ]
+    },
+    {
+      heading: '2. PRAWO PO STRONIE ROZWAGI: DYREKTYWA CCD2 (20 LISTOPADA 2026), PROJEKT UC171 I ZASADA 30 DNI UOKiK',
+      paragraphs: [
+        'Skala mikrozadłużenia w handlu internetowym stała się jednym z głównych powodów głębokiej reformy unijnego prawa konsumenckiego. Dyrektywa Parlamentu Europejskiego i Rady (UE) 2023/2225 z dnia 18 października 2023 r. w sprawie umów o kredyt konsumencki (tzw. dyrektywa CCD2), która zastępuje wcześniejszą dyrektywę 2008/48/WE, wyznaczyła państwom członkowskim termin wdrożenia przepisów krajowych do 20 listopada 2025 r. oraz rozpoczęcia ich stosowania od 20 listopada 2026 r. Nowe ramy unijne znoszą dotychczasowe luki prawne i wprost obejmują ochroną kredytu konsumenckiego również małe pożyczki oraz krótkoterminowe płatności odroczone BNPL, wymagając rzetelnej oceny zdolności kredytowej i ostrzeżeń przed kosztami pożyczania.',
+        'Dla polskiego czytelnika kluczowe znaczenie ma uczciwe rozróżnienie między unijnym kalendarzem a aktualnym stanem prawa krajowego na dzień 19 listopada 2026 roku. Rządowy projekt nowej ustawy o kredycie konsumenckim (oznaczony w wykazie prac Rady Ministrów numerem UC171, przejęty przez Ministerstwo Sprawiedliwości po wcześniejszym projekcie UC82) znajduje się na etapie prac legislacyjnych i nie wszedł jeszcze w życie przed datą 20 listopada 2026 roku. Oznacza to, że do czasu uchwalenia i wejścia w życie nowej ustawy polskie umowy nadal podlegają dotychczasowej Ustawie z dnia 12 maja 2011 r. o kredycie konsumenckim, dlatego konsument nie może zakładać automatycznie, że każde okienko z odroczoną płatnością w sieci chroni go już według docelowych przepisów wdrażających CCD2.',
+        'Jednocześnie w przedświątecznym szczycie zakupowym obowiązują w Polsce twarde reguły jawności cen oraz ochrony przed manipulacją, na które regularnie wskazuje Urząd Ochrony Konkurencji i Konsumentów (UOKiK). Na mocy wdrożonej dyrektywy Omnibus każdy sprzedawca ogłaszający obniżkę ceny ma obowiązek podać obok ceny promocyjnej najniższą cenę tego samego towaru z ostatnich 30 dni przed wprowadzeniem rabatu. W ramach kampanii „Sprawdź, czy Cię stać!” UOKiK przypomina również, że odroczona płatność to w rzeczywistości kredyt, a tzw. dark patterns — takie jak tykające zegary rzekomego końca promocji, komunikaty o ostatnich sztukach czy automatycznie dodawane płatne usługi w koszyku — mają za zadanie wyłączyć chłodną kalkulację kupującego.'
+      ]
+    },
+    {
+      heading: '3. FAKTY PSYCHOLOGICZNE A ILUZJA OKAZJI: DLACZEGO KUPUJEMY WIĘCEJ, GDY NIE BOLI PŁACENIE',
+      paragraphs: [
+        'Warto w tym miejscu wyraźnie oddzielić ustalenia ekonomii behawioralnej od oceny moralnej konkretnego człowieka. Badania nad podejmowaniem decyzji konsumenckich pokazują, że gotówka wywołuje w mózgu naturalny sygnał ostrzegawczy zwany „bólem płacenia” — widząc ubywające z portfela banknoty, automatycznie ważymy sens wydatku. Karta zbliżeniowa, zapisane dane płatności jednym kliknięciem oraz odroczenie rachunku o 30 dni osłabiają ten hamulec: produkt trafia do paczkomatu od razu, a poczucie ubytku pieniędzy zostaje przesunięte na przyszły miesiąc.',
+        'Na ten mechanizm nakłada się listopadowy pośpiech i porównywanie stylu życia w mediach społecznościowych. Jeśli produkt przeceniony z 500 na 300 złotych nie był nam w ogóle potrzebny, nie zaoszczędziliśmy 200 złotych — wydaliśmy 300 złotych na rzecz, która bez czerwonego napisu „promocja” nigdy nie znalazłaby się w naszym budżecie. W dodatku kilka pozornie drobnych koszyków po 100 lub 200 złotych z listopada kumuluje się dokładnie w połowie grudnia, kiedy domowy budżet obciążają wydatki na święta, ogrzewanie i początek nowego roku.',
+        'Zgodnie z zasadami odpowiedzialnego poradnictwa należy także dodać ważne zastrzeżenie praktyczne. Niniejszy artykuł ma charakter edukacyjny i nie zastępuje profesjonalnej porady finansowej ani prawnej. Jeżeli czytelnik zmaga się już z nawarstwionymi ratami, windykacją lub brakiem płynności, rozwiązaniem nie są kolejne pożyczki konsolidacyjne reklamowane jednym kliknięciem, lecz bezpłatna pomoc powiatowego lub miejskiego rzecznika konsumentów, Rzecznika Finansowego albo certyfikowanego doradcy prawnego w punktach nieodpłatnej pomocy.'
+      ]
+    },
+    {
+      heading: '4. ROZDZIELENIE FAKTÓW OD TEOLOGII: CO BIBLIA MÓWI O DŁUGU, CHCIWOŚCI I POKOJU SERCA (UBG)',
+      paragraphs: [
+        'Po przedstawieniu danych BIK i kontekstu prawnego przechodzimy do odrębnej, wyraźnie oddzielonej refleksji teologicznej i egzegezy Pisma Świętego w przekładzie Uwspółcześnionej Biblii Gdańskiej (UBG), w pełnej zgodności z 28 Zasadami Wiary Kościoła Bożego. Biblia nie potępia ani posiadania dóbr materialnych, ani rzetelnego handlu, ani dawania bliskim dobrych prezentów. Przeciwnie — uznaje dobra materialne za narzędzie powierzone człowiekowi w odpowiedzialne szafarstwo, lecz bardzo trzeźwo ostrzega przed dwoma wrogami wolności: porywczością finansową i wiarą, że rzeczy potrafią zaspokoić głód duszy.',
+        'W Księdze Przypowieści Salomona znajdujemy zwięzłą obserwację ludzkiej natury: „Myśli pracowitego przynoszą pewny dostatek, a myśli każdego spieszącego się – niedostatek” (Prz 21:5 UBG). Hebrajski rzeczownik machszawah (Strong H4284) oznacza przemyślany plan, rozważną kalkulację i celowe projektowanie działań, którym Salomon przeciwstawia nerwowy pośpiech podejmujący decyzje pod wpływem chwili. Kilka wersów dalej księga ta dodaje drugie ostrzeżenie: „Bogaty panuje nad ubogimi, a ten, co pożycza, jest sługą tego, który mu pożycza” (Prz 22:7 UBG). Hebrajskie słowo eved (Strong H5650) oznacza sługę lub osobę zależną — tekst nie zakazuje każdego kredytu w skrajnych sytuacjach życiowych, lecz realistycznie przypomina, że dług oddaje część naszej przyszłej wolności, snu i decyzyjności w ręce wierzyciela.',
+        'Jeszcze głębiej sięga nauczanie Nowego Testamentu o korzeniu naszych zakupowych impulsów. Pan Jezus ostrzega w Ewangelii według św. Łukasza: „Uważajcie i strzeżcie się chciwości, gdyż nie od tego, że ktoś ma obfitość dóbr, zależy jego życie” (Łk 12:15 UBG), używając greckiego słowa pleonexia (Strong G4124) oznaczającego nienasycone pragnienie posiadania coraz więcej. Apostoł Paweł rozwija tę prawdę w Pierwszym Liście do Tymoteusza, pisząc: „Wielkim zaś zyskiem jest pobożność wraz z poprzestawaniem na tym, co się ma. Niczego bowiem nie przynieśliśmy na ten świat, z pewnością też niczego wynieść nie możemy” (1 Tm 6:6–7 UBG). Greckie pojęcie autarkeia (Strong G0841) nie oznacza bierności ani biedy, lecz wewnętrzną wystarczalność serca zakorzenionego w Bogu, która chroni przed „miłością do pieniędzy” (gr. philargyria, Strong G5365, 1 Tm 6:10 UBG).',
+        'Równie ważna dla równowagi ewangelicznej jest nauka o łasce i wierności. W Liście do Hebrajczyków czytamy wezwanie do postawy wolnej od chciwości (gr. aphilargyros, Strong G0866): „Wasze postępowanie niech będzie wolne od chciwości, poprzestawajcie na tym, co macie. Sam bowiem powiedział: Nie porzucę cię ani nie opuszczę” (Hbr 13:5 UBG). Chrześcijanin nie zarabia na miłość Boga ani na zbawienie doskonałym prowadzeniem domowego arkusza wydatków — fundamentem pozostaje Sola Gratia: „Łaską bowiem jesteście zbawieni przez wiarę, i to nie jest z was, jest to dar Boga. Nie z uczynków, aby nikt się nie chlubił” (Ef 2:8–9 UBG). Kiedy jednak wiemy, że nasza wartość i bezpieczeństwo są zakotwiczone w Chrystusie, a nie w tym, co kupimy w listopadowej promocji, łatwiej zachować trzeźwość i kierować środki ku dobrym uczynkom (Ef 2:10; Mt 6:19–21, 24 UBG).'
+      ]
+    },
+    {
+      heading: '5. CZEGO NIE MÓWIĄ REKLAMY „ZERO PROCENT”: KONIEC MITU DARMOWYCH PIENIĘDZY',
+      paragraphs: [
+        'Hasła w rodzaju „zero procent”, „zapłać później bez kosztów” czy „podziel na wygodne raty” tworzą złudzenie, że można mieć rzecz dziś bez żadnego kosztu dla jutrzejszego spokoju. Tymczasem przytoczone wcześniej dane BIK o niemal jednej czwartej transakcji BNPL przechodzących w spłatę ratalną dowodzą, że dla milionów osób granica między wygodą a spiralą kosztów bywa cienka. Gdy w jednym miesiącu nakładają się na siebie dwa opóźnienia lub nieprzewidziany wydatek zdrowotny czy naprawa auta, darmowa promocja zamienia się w odsetki, opłaty upominawcze i stres przed każdym otwarciem aplikacji bankowej.',
+        'W uczciwej refleksji biblijnej musimy też stanowczo odrzucić tzw. teologię sukcesu. Pismo Święte nigdzie nie obiecuje, że pobożny człowiek nigdy nie doświadczy trudności materialnych ani że modlitwa zwalnia ze sprawdzania umowy, pilnowania terminów i życia na miarę własnych dochodów. Prawdziwe błogosławieństwo mądrego szafarstwa nie polega na nieograniczonej konsumpcji, ale na czystym sumieniu, braku lęku przed listonoszem i wolności do dzielenia się z potrzebującymi bez zaciągania na ten cel długu.'
+      ]
+    },
+    {
+      heading: '6. PIĘĆ ZASAD OCHRONY PORTFELA I POKOJU PRZED BLACK FRIDAY: PRZEWODNIK EkoCC',
+      paragraphs: [
+        'Aby listopadowe wyprzedaże nie zamieniły grudnia w miesiąc nerwowego liczenia każdej złotówki, Redakcja CCN Finanse przygotowała pięć prostych, sprawdzonych barier ochronnych do wdrożenia jeszcze przed piątkiem 27 listopada:',
+        '1. Zasada listy sprzed promocji i 48 godzin zwłoki (Prz 21:5 UBG). Zapisz dziś na kartce wyłącznie te rzeczy, których Twoja rodzina naprawdę potrzebuje przed zimą, wraz z maksymalnym limitem kwoty. Jeśli coś wpadnie Ci w oko pod wpływem reklamy, odczekaj pełne 48 godzin bez klikania „kup” — większość emocjonalnych zachcianek mija po dwóch przespanych nocach.',
+        '2. Kontrola historii ceny z 30 dni (dyrektywa Omnibus) i ignorowanie liczników czasu. Zanim uznasz ofertę za wyjątkową, sprawdź obowiązkową adnotację o najniższej cenie z ostatnich 30 dni oraz porównaj cenę u dwóch niezależnych sprzedawców. Jeżeli strona sklepu straszy zegarem odliczającym sekundy lub wyskakującymi okienkami o ostatnich sztukach, potraktuj to jak sygnał alarmowy do zamknięcia karty przeglądarki.',
+        '3. Zero płatności odroczonych BNPL i kart kredytowych na prezenty oraz konsumpcję (Prz 22:7 UBG). Przyjmij prostą zasadę: jeśli po opłaceniu czynszu, rachunków, żywności i odłożeniu rezerwy na styczeń nie masz dziś na koncie pełnej kwoty na dany zakup, to nie kupujesz tego na „zapłać za 30 dni”. Brak gotówki w tej chwili jest najlepszą informacją zwrotną z własnego budżetu.',
+        '4. Oczyszczenie telefonu z pokus przed tygodniem wyprzedaży. Wyloguj zapisane karty płatnicze z przeglądarek, wyłącz powiadomienia push w aplikacjach zakupowych i wypisz się z promocyjnych newsletterów, które każdego dnia podsycają sztuczne poczucie braku.',
+        '5. Zastąpienie drogich gestów spokojną obecnością (1 Tm 6:6–8; Hbr 13:5 UBG). Porozmawiaj wcześniej z rodziną o skromnym limicie prezentowym lub losowaniu jednej obdarowywanej osoby. Bliscy bardziej niż kolejnego gadżetu na kredyt potrzebują domowników, którzy nie są rozdrażnieni i wyczerpani pracą na spłatę grudniowych rat.'
+      ]
+    }
+  ],
+  conclusion: 'Jak nie kupować szczęścia na kredyt w gorączce Czarnego Piątku? Zaczynając od prawdy, że żadna przeceniona rzecz nie da człowiekowi poczucia wartości, bezpieczeństwa ani rodzinnej bliskości — te dary nie leżą na sklepowej półce, lecz rodzą się w sercu pojednanym z Bogiem i żyjącym w granicach własnych możliwości. Łącząc znajomość praw konsumenta (zasada 30 dni UOKiK i świadomość luk przed pełnym wdrożeniem dyrektywy CCD2), twardą matematykę domowego budżetu oraz biblijną mądrość poprzestawania na tym, co mamy (1 Tm 6:6; Prz 21:5 UBG), zyskujemy coś bezcennego: spokojny sen w grudniu i wolność od czerwonego salda w nowym roku.',
+  cta: 'Zanim nadejdzie wyprzedażowy weekend, usiądź na piętnaście minut z kartką, spisz swój realny limit wydatków na koniec roku i wyłącz powiadomienia w aplikacjach sklepowych. Jeśli znasz kogoś, kto waha się przed kliknięciem „zapłać później”, prześlij mu ten tekst i porozmawiajcie szczerze o spokojnych świętach bez rat. Możesz też powierzyć swoje decyzje finansowe Bogu w krótkiej modlitwie:\n\n„Panie Boże, Dawco wszelkiego dobra, dziękuję Ci za to, co już powierzyłeś naszemu domowi, oraz za pokój, który nie zależy od stanu konta ani posiadanych rzeczy. Strzeż mojego serca przed chciwością, pośpiechem i lękiem przed opinią ludzi. Naucz nas mądrego, uczciwego szafarstwa, odwagi mówienia „nie” zbędnym wydatkom i wdzięczności za łaskę okazaną nam w Jezusie Chrystusie. Amen.”\n\n[Status redakcyjny: Do autoryzacji autora i akceptacji wydawcy — Bramka bezpieczeństwa T4 (L0). Slot kalendarza 365 EkoCC: lp. 24 (2026-11-27, Priorytet A). Docelowy portal kanoniczny: CCN Finanse — https://polskieradio.cc/finanse/czarny-piatek-czerwone-konto-jak-nie-kupowac-szczescia-na-kredyt]',
+  sources: [
+    {
+      name: 'Biuro Informacji Kredytowej (BIK) — „Odroczona płatność za zakupy a wejście w dorosłość finansową” oraz „Raport BIK: Płatności odroczone 2025. Segmentacja i kluczowe zjawiska” (publikacja z 9 lipca 2026 r.: 14,8 mln aktywnych kredytobiorców, 20,5% nowych klientów przez BNPL, 41,5% debiutantów w wieku 18–24 lata)',
+      url: 'https://media.bik.pl/informacje-prasowe/873237/odroczona-platnosc-za-zakupy-a-wejscie-w-doroslosc-finansowa'
+    },
+    {
+      name: 'Biuro Informacji Kredytowej (BIK) — „Dane o rynku kredytowym we wrześniu 2026 r.” (publikacja z 26 października 2026 r.: wzrost liczby kredytów ratalnych o +37,7% r/r, ok. 25% transakcji BNPL konwertowanych na raty, wypowiedź dr. hab. Waldemara Rogowskiego) oraz „Newsletter pożyczkowy BIK” z 28 października 2026 r.',
+      url: 'https://media.bik.pl/informacje-prasowe/878917/ip_bik_dane-o-rynku-kredytowym-we-wrzesniu-2026-r-_26_10_20264254068'
+    },
+    {
+      name: 'Unia Europejska (EUR-Lex) — Dyrektywa Parlamentu Europejskiego i Rady (UE) 2023/2225 z dnia 18 października 2023 r. w sprawie umów o kredyt konsumencki oraz uchylająca dyrektywę 2008/48/WE (CCD2; art. 48: termin transpozycji 20 listopada 2025 r., termin stosowania od 20 listopada 2026 r.)',
+      url: 'https://eur-lex.europa.eu/legal-content/PL/TXT/?uri=CELEX:32023L2225'
+    },
+    {
+      name: 'Kancelaria Prezesa Rady Ministrów / Ministerstwo Sprawiedliwości — Wykaz prac legislacyjnych i programowych Rady Ministrów: Projekt ustawy o kredycie konsumenckim oraz o zmianie niektórych innych ustaw (nr UC171) oraz obowiązująca Ustawa z dnia 12 maja 2011 r. o kredycie konsumenckim (ISAP)',
+      url: 'https://www.gov.pl/web/premier/projekt-ustawy-o-kredycie-konsumenckim-oraz-o-zmianie-niektorych-innych-ustaw2'
+    },
+    {
+      name: 'Urząd Ochrony Konkurencji i Konsumentów (UOKiK) — Serwis Prawa Konsumenta, zasada informowania o najniższej cenie z ostatnich 30 dni (Dyrektywa Omnibus) oraz kampania edukacyjna „Sprawdź, czy Cię stać!” (ostrzeżenia przed BNPL i dark patterns)',
+      url: 'https://prawakonsumenta.uokik.gov.pl/'
+    },
+    {
+      name: 'Uwspółcześniona Biblia Gdańska (UBG-2025) — Księga Przypowieści Salomona 21:5; 22:7; Ewangelia według św. Mateusza 6:19–21, 24; Ewangelia według św. Łukasza 12:15; 1 List do Tymoteusza 6:6–10; List do Efezjan 2:8–10; List do Hebrajczyków 13:5',
+      url: 'https://polskieradio.cc/mojabiblia'
+    },
+    {
+      name: 'Strong’s Hebrew & Greek Concordance (słownik interlinearny MojaBiblia CC) — Hasła: H4284 (machszawah — przemyślany plan), H5650 (eved — sługa), G4124 (pleonexia — chciwość), G0841 (autarkeia — poprzestawanie na tym, co wystarcza), G5365 (philargyria — miłość do pieniędzy), G0866 (aphilargyros — wolny od chciwości)',
+      url: 'https://polskieradio.cc/mojabiblia'
+    }
+  ],
+  scripture: 'Księga Przypowieści Salomona 21:5; 22:7 („ten, co pożycza, jest sługą tego, który mu pożycza”); Ewangelia według św. Łukasza 12:15 („Uważajcie i strzeżcie się chciwości”); 1 List do Tymoteusza 6:6–10 („Wielkim zaś zyskiem jest pobożność wraz z poprzestawaniem na tym, co się ma”); List do Hebrajczyków 13:5; List do Efezjan 2:8–10 (UBG)',
+  imagePath: path.join(ROOT, 'images/finanse/art-czarny-piatek-czerwone-konto-jak-nie-kupowac-szczescia-na-kredyt.jpg'),
+  imageCaption: 'Ilustracja AI (poglądowa, nieprzedstawiająca konkretnego wydarzenia): Spokojny domowy stół wieczorem z otwartym notatnikiem do planowania wydatków, zamkniętym portfelem, odłożonym telefonem i Pismem Świętym — symbol wolności od impulsywnych zakupów na kredyt.',
+  tags: [
+    '@CezaryRogowski',
+    '@ChristianCulture',
+    '#CCNFinanse',
+    '#BlackFriday',
+    '#BNPL',
+    '#BezDlugow',
+    '#Szafarstwo',
+    '#EkoCC',
+    '#BibliaUBG'
+  ],
+  seo: {
+    title: 'Czarny piątek, czerwone konto: jak nie kupować na kredyt?',
+    description: 'Dane BIK o BNPL, unijna dyrektywa CCD2 od 20 listopada 2026 i zasada 30 dni UOKiK. Sprawdź, jak przetrwać Black Friday bez długu w świetle Biblii UBG.',
+    keywords: [
+      'czarny piątek kredyt BNPL',
+      'płatności odroczone BIK 2026',
+      'dyrektywa CCD2 20 listopada 2026',
+      'projekt ustawy o kredycie konsumenckim UC171',
+      'UOKiK zasada 30 dni Omnibus',
+      'dark patterns Black Friday',
+      'Przypowieści 22:7 Biblia o długu',
+      '1 Tymoteusza 6:6 poprzestawanie',
+      'CCN Finanse Cezary Rogowski',
+      'Christian Culture EkoCC'
+    ]
+  }
+};
+
+// Zapisz dedykowany JSON dla skryptu pakującego (bez nadpisywania current-article-data.json z LP 17)
+const jsonPath = path.join(ROOT, 'scripts/article-lp24-finanse-2026-11-19.json');
+fs.writeFileSync(jsonPath, JSON.stringify(articleData, null, 2), 'utf8');
+
+if (!fs.existsSync(articleData.imagePath)) {
+  throw new Error(`Brak pliku grafiki 16:9 pod ścieżką: ${articleData.imagePath}`);
+}
+
+const result = await packageEkoccArticle(articleData);
+console.log('✅ Pakiet redakcyjny LP 24 (CCN Finanse) utworzony:', result);

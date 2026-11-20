@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-20T05:25:38.941Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 442
+    },
+    {
+      "timestamp": "2026-11-20T05:25:38.379Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 442
+    },
+    {
+      "timestamp": "2026-11-20T05:25:37.061Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc",
+        "https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus",
+        "https://polskieradio.cc/news/dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko"
+      ]
+    },
+    {
       "timestamp": "2026-11-20T05:19:55.725Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",
