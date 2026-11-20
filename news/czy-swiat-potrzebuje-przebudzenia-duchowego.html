@@ -1088,6 +1088,70 @@
           width: 72px;
         }
       }
+      .ccn-article-footer {
+        background: #0a0a0c;
+        color: #d4d4d8;
+        border-top: 1px solid #27272a;
+        padding: 24px 16px;
+        margin-top: 40px;
+      }
+      .ccn-article-footer-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .ccn-article-footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 0.875rem;
+      }
+      .ccn-article-footer-brand strong {
+        color: #ffffff;
+        font-size: 0.95rem;
+      }
+      .ccn-article-footer-brand span {
+        color: #a1a1aa;
+        font-size: 0.8rem;
+      }
+      .ccn-fb-official-link {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 16px;
+        border-radius: 9999px;
+        background: rgba(24, 119, 242, 0.14);
+        border: 1px solid rgba(24, 119, 242, 0.48);
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 700;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+      .ccn-fb-official-link:hover {
+        background: #1877F2;
+        transform: translateY(-1px);
+      }
+      .ccn-fb-official-icon {
+        width: 24px;
+        height: 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        background: #1877F2;
+        color: #ffffff;
+        flex-shrink: 0;
+      }
+      .ccn-fb-official-link:hover .ccn-fb-official-icon {
+        background: rgba(255, 255, 255, 0.18);
+      }
     </style>
   </head>
   <body>
@@ -1342,6 +1406,31 @@
         </div>
       </article>
     </main>
+
+    <footer class="ccn-article-footer" aria-label="Stopka portalu CCN News">
+      <div class="ccn-article-footer-inner">
+        <div class="ccn-article-footer-brand">
+          <strong>CCN News — Christian Culture Network</strong>
+          <span>Niezależny portal chrześcijański · polskieradio.cc/news</span>
+        </div>
+        <a
+          href="https://www.facebook.com/CCNews.ChristianCulture"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-ccn-fb-native="1"
+          class="ccn-fb-official-link"
+          aria-label="Oficjalna strona CCN News na Facebooku"
+          title="Oficjalna strona CCN News na Facebooku"
+        >
+          <span class="ccn-fb-official-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+              <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.099 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.099 24 12.073z"/>
+            </svg>
+          </span>
+          <span>CCN News na Facebooku</span>
+        </a>
+      </div>
+    </footer>
 
     
     <!-- Global Support Footer -->

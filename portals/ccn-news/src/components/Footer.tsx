@@ -32,15 +32,19 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
               </p>
 
               {/* Social icons */}
-              <div className="flex gap-4 mt-5">
+              <div className="flex items-center gap-3 mt-5">
                 <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/CCNews.ChristianCulture"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center text-gray-400 hover:text-white hover:bg-neutral-800 transition text-xs font-bold"
-                  aria-label="Facebook"
+                  data-ccn-fb-native="1"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-[#1877F2] hover:bg-[#166FE5] text-white flex items-center justify-center shadow-md shadow-[#1877F2]/30 transition-transform hover:scale-105"
+                  aria-label="Oficjalna strona CCN News na Facebooku"
+                  title="Oficjalna strona CCN News na Facebooku"
                 >
-                  f
+                  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.099 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.099 24 12.073z" />
+                  </svg>
                 </a>
                 <a
                   href="https://instagram.com"
