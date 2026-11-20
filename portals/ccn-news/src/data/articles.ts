@@ -41,6 +41,7 @@ export const AUTHORS: Record<string, Author> = {
 };
 
 export const BREAKING_NEWS: string[] = [
+  "NOWY ARTYKUŁ CCN NEWS: Już za 9 lat islam może być największą religią świata. Co czeka Europę? Analiza Cezarego Rogowskiego (https://polskieradio.cc/news/islam-najwieksza-religia-2035-co-czeka-europe)",
   "NOWY ARTYKUŁ CCN NEWS (DZIEŃ MĘŻCZYZN): Silni aż do wyczerpania: dlaczego mężczyźni wciąż boją się prosić o pomoc? Analiza Cezarego Rogowskiego (https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc)",
   "NOWY ARTYKUŁ CCN NEWS: Dzień Tolerancji: czy szacunek oznacza zgodę na wszystko? Analiza Cezarego Rogowskiego o prawdzie w miłości i Deklaracji UNESCO (https://polskieradio.cc/news/dzien-tolerancji-czy-szacunek-oznacza-zgode-na-wszystko)",
   "NOWY ARTYKUŁ CCN NAUKA & BIOETYKA: Implanty mózgowe, interfejs mózg-komputer i granica człowieczeństwa — analiza bioetyczna Cezarego Rogowskiego (Rdz 1:26–27; Ps 139:13–16 UBG) (https://polskieradio.cc/news/implanty-mozgowe-bci-neuralink-bioetyka-imago-dei)",
@@ -97,6 +98,105 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    "id": "art-islam-najwieksza-religia-2035-co-czeka-europe",
+    "title": "Już za 9 lat islam może być największą religią świata. Co czeka Europę?",
+    "slug": "islam-najwieksza-religia-2035-co-czeka-europe",
+    "excerpt": "Nowe prognozy Pew Research Center, europejska sekularyzacja i chrześcijańska odpowiedź bez lęku oraz wrogości. Według raportu Pew Research Center z 18 listopada 2026 roku islam może około 2035 roku wyprzedzić chrześcijaństwo pod względem liczby wyznawców na świecie — co jednak pokazują dane dla Europy i jak odpowiadać z Ewangelią bez lęku oraz wrogości?",
+    "content": [
+      "Jeszcze niedawno podobny nagłówek mógłby zostać uznany za wyolbrzymienie. Tym razem opiera się jednak na nowej prognozie renomowanego ośrodka badawczego. Według raportu Pew Research Center z 18 listopada 2026 roku islam może około 2035 roku wyprzedzić chrześcijaństwo pod względem liczby wyznawców na świecie. Czy oznacza to, że Europa stanie się islamska? Nie. Dane pokazują znacznie bardziej złożoną rzeczywistość. A chrześcijanom stawiają pytanie, którego nie da się rozstrzygnąć za pomocą demograficznego strachu: co zrobiliśmy z Ewangelią, którą powierzono nam głosić?",
+      "1. Co naprawdę mówi najnowszy raport Pew?",
+      "W opublikowanym 18 listopada 2026 roku badaniu „The Future of World Religions: Population Growth Projections, 2020–2070” Pew Research Center przewiduje, że przy utrzymaniu niedawnych trendów demograficznych liczba muzułmanów przekroczy liczbę chrześcijan około roku 2035. Do 2070 roku wyznawcy islamu mogą stanowić około 36% światowej populacji, a chrześcijanie około 29%. W liczbach bezwzględnych raport przewiduje na 2070 rok około 3,6 miliarda muzułmanów.",
+      "Jest to prognoza warunkowa, oparta na założeniach dotyczących dzietności, wieku, śmiertelności, migracji i zmian religijnej identyfikacji, a nie stwierdzenie pewnego przyszłego faktu. Wojny, kryzysy, nowe fale migracji, zmiany postaw społecznych i inne zdarzenia mogą zmienić te ścieżki. Dlatego właściwe sformułowanie brzmi: „islam może stać się największą religią około 2035 roku”, a nie: „wiemy na pewno, co nastąpi”.",
+      "To również nie oznacza, że liczba chrześcijan na świecie musi gwałtownie spadać. Raport przewiduje ich wzrost liczbowy w części regionów, zwłaszcza w Afryce Subsaharyjskiej, przy jednoczesnym szybszym wzroście populacji muzułmańskiej na świecie.",
+      "2. Skąd tak duża zmiana? Demografia to nie opowieść o masowych konwersjach",
+      "Kluczowe czynniki to młodsza przeciętnie populacja muzułmańska oraz wyższa dzietność. Według Pew w latach 2020–2025 na kobietę identyfikującą się jako muzułmanka przypadało przeciętnie 3,1 dziecka, a na kobietę identyfikującą się jako chrześcijanka 2,5 dziecka. Liczby te są średnimi demograficznymi i silnie różnią się pomiędzy krajami. Nie opisują pojedynczych rodzin ani nie pozwalają oceniać wartości ludzi.",
+      "To nie dowód, że chrześcijanie masowo przechodzą na islam. Prognozy Pew na lata 2020–2070 zakładają w przybliżeniu podobną skalę przejść między tymi dwiema religiami w obie strony. Ważniejszym zjawiskiem jest odchodzenie części osób wychowanych w chrześcijaństwie do kategorii bezwyznaniowej.",
+      "Istotna jest też geografia. Większość wzrostu populacji muzułmańskiej przypadnie regionom, w których muzułmanie już dziś stanowią duży odsetek mieszkańców. Rozwój islamu jako największej religii świata nie jest równoznaczny z tym, że jego wyznawcy będą stanowili większość w Europie.",
+      "3. Co czeka Europę? Dane nie potwierdzają opowieści o rychłej większości muzułmańskiej",
+      "W Europie sytuacja wygląda inaczej niż w skali globu. Według najnowszej prognozy Pew z 18 listopada 2026 roku chrześcijanie stanowili około 67% mieszkańców kontynentu w 2020 roku; do 2070 roku ich udział może obniżyć się do 52%. Udział muzułmanów może wzrosnąć z około 6% do 13%, a osób niezwiązanych z żadną religią z około 25% do jednej trzeciej ludności.",
+      "Warto rozłożyć te liczby na części. Udział islamu w Europie ma według modelu rosnąć, jednak również w 2070 roku przewidywana jest wyraźna przewaga chrześcijan jako największej grupy wyznaniowej. Drugą największą kategorią w zestawieniu wszystkich tożsamości religijnych i niereligijnych mają pozostać osoby bezwyznaniowe, nie muzułmanie.",
+      "To oznacza, że rzeczywistym wyzwaniem dla europejskiego chrześcijaństwa nie jest wyłącznie relacja z islamem. Jest nim także utrata znaczenia praktyk i przekonań religijnych przez ludzi, którzy wcześniej określali się jako chrześcijanie. Niektórzy nadal zachowują chrześcijańską tożsamość kulturową, inni świadomie odchodzą od religii.",
+      "Europa nie jest jednolita. Francja, Niemcy, Polska, Albania czy Szwecja różnią się historią, poziomem religijności i strukturą migracji. Jeden kontynentalny procent nie opisuje poprawnie sytuacji każdego kraju.",
+      "4. Czy liczba wyznawców świadczy o prawdziwości wiary?",
+      "Tu dochodzimy do pytania szczególnie istotnego dla Christian Culture. Czy chrześcijaństwo staje się mniej prawdziwe, jeżeli spada jego udział w światowej populacji? Czy religia zyskuje rację teologiczną, gdy przewyższa inną liczebnie?",
+      "Pismo Święte nie stawia znaku równości między większością statystyczną a prawdą objawioną. Jezus mówił o wąskiej bramie i drodze prowadzącej do życia (Mt 7,13–14). Nie było to zaproszenie do pogardy dla większości, lecz wezwanie do osobistej odpowiedzialności i autentycznej wiary. Również historia Izraela pokazuje, że wierność Bogu nie daje się mierzyć samą liczebnością (por. 1 Krl 19,18).",
+      "Dla chrześcijanina źródłem wiary jest Jezus Chrystus i świadectwo Pisma, nie sondaż ani prognoza ludnościowa. „Królestwo moje nie jest z tego świata” — przypomina Jezus w J 18,36. Nie wolno więc zamieniać Ewangelii w wyścig o procenty i budować nadziei na demograficznej dominacji.",
+      "5. Chrystocentryczna odpowiedź: nie strach, lecz prawda głoszona w miłości",
+      "Jezus Chrystus posyła uczniów do wszystkich narodów z przesłaniem dobrej nowiny (Mt 28,18–20). W Dz 1,8 mówi o świadectwie aż po krańce ziemi. To zadanie pozostaje aktualne niezależnie od tego, czy chrześcijanie stanowią w danym miejscu większość, mniejszość czy niewielką wspólnotę.",
+      "Biblia zarazem uczy, jak rozmawiać z ludźmi o odmiennych przekonaniach. 1 P 3,15–16 wzywa, by odpowiadać z łagodnością i szacunkiem. Jezus nakazuje miłować bliźniego (Mt 22,37–40), a przypowieść o miłosiernym Samarytaninie obnaża niebezpieczeństwo budowania moralnych granic wyłącznie według przynależności grupowej (Łk 10,25–37).",
+      "Muzułmanin nie jest statystycznym zagrożeniem, które można bezkarnie odczłowieczyć. Jest człowiekiem posiadającym godność, rodzinę, sumienie i własną historię. Możemy uczciwie wyjaśniać zasadnicze różnice między chrześcijańskim rozumieniem Jezusa jako Syna Bożego a islamskim rozumieniem Jezusa jako proroka. Możemy bronić prawa do głoszenia Ewangelii i wolności religijnej. Nie wolno jednak przedstawiać wszystkich wyznawców islamu jako wrogów, przypisywać im zbiorowej winy ani nawoływać do dyskryminacji.",
+      "Nie ma sprzeczności między odważnym wyznawaniem Chrystusa a szacunkiem wobec człowieka, który w Niego nie wierzy.",
+      "6. Największe pytanie do europejskich Kościołów nie brzmi: „Ilu ich będzie?”",
+      "Znacznie trudniejsze jest inne pytanie: czy ci, którzy publicznie nazywają siebie chrześcijanami, rzeczywiście żyją nauką Jezusa? Czy nasze wspólnoty są miejscem uczciwości, pomocy potrzebującym, troski o rodziny, ochrony dzieci i poszanowania prawdy? Czy ludzie spotykający Kościół widzą służbę, czy jedynie wewnętrzne konflikty i walkę o wpływy?",
+      "Chrystus uczy, że uczniów poznaje się po owocach (Mt 7,16–20), a o ich wspólnotowej tożsamości świadczy wzajemna miłość (J 13,34–35). Jakub ostrzega przed religijnością, która poprzestaje na deklaracjach i nie niesie pomocy potrzebującym (Jk 1,26–27; 2,14–17). Apostoł Paweł wskazuje na zbawienie z łaski przez wiarę, które prowadzi do dobrych czynów, nie jest nimi kupowane (Ef 2,8–10).",
+      "Jeżeli obawiamy się przyszłości chrześcijaństwa, odpowiedzią nie może być produkowanie lęku przed sąsiadem wyznającym islam. Musi nią być odnowa wiary, rozumnego nauczania Biblii, relacji międzyludzkich i wiarygodności naszego świadectwa.",
+      "Nie można oczekiwać, że Europa uwierzy w Ewangelię tylko dlatego, że została kiedyś wpisana w jej historię. Każde pokolenie musi usłyszeć ją na nowo.",
+      "7. Wolność religijna to wartość, której powinniśmy bronić dla wszystkich",
+      "Demograficzne przemiany mogą rodzić konkretne pytania: o integrację, edukację, miejsca kultu, relacje państwa z religiami, równość wobec prawa i prawo do zmiany wyznania. Są to ważne kwestie społeczne, które wymagają rzetelnych danych i spokojnej debaty, a nie plotek o „nieuchronnym starciu cywilizacji”.",
+      "Chrześcijanin może zdecydowanie opowiadać się za wolnością głoszenia Chrystusa i zarazem bronić wolności sumienia muzułmanów, osób niewierzących oraz przedstawicieli innych tradycji. Wolność religijna przestaje być wolnością, jeżeli uznajemy ją tylko dla własnej grupy.",
+      "Jezus nie budował swojej misji na przymusowej dominacji politycznej (J 18,36). Apostołowie głosili wiarę, argumentowali i dawali świadectwo, nie otrzymali jednak nakazu przymuszania ludzi do przyjęcia Ewangelii (por. Dz 17,22–34). Niech prawda będzie silna argumentem i świadectwem życia, nie zastraszaniem.",
+      "8. Co może zrobić czytelnik Christian Culture już dzisiaj?",
+      "Zacznij od rzetelnego spojrzenia na dane. Nie utożsamiaj prognozy liczby wyznawców islamu w świecie z prognozą większości muzułmańskiej w Europie. Nie udostępniaj zdjęć i wykresów bez sprawdzenia źródła i daty. Pytaj, czy chodzi o aktualne dane, czy o symulację za kilkadziesiąt lat.",
+      "Następnie przyjrzyj się własnemu świadectwu. Czy czytasz Biblię regularnie? Czy umiesz spokojnie wyjaśnić, dlaczego wierzysz w boskość Jezusa Chrystusa, Jego śmierć i zmartwychwstanie? Czy Twoja rodzina i sąsiedzi spotykają w Tobie szacunek, prawdomówność i miłosierdzie?",
+      "Wreszcie — rozmawiaj z osobami innych wyznań. Nie zaczynaj od oskarżenia. Zacznij od słuchania i zadawania uczciwych pytań. Nie rezygnuj z Ewangelii, ale nie zamieniaj Ewangelii w broń wymierzoną przeciw godności rozmówcy.",
+      "Prawdziwa siła chrześcijańskiego świadectwa nie polega na liczbie udostępnień dramatycznego nagłówka. Polega na wierności Chrystusowi, któremu powierzamy nasze życie.",
+      "Zakończenie. Kto będzie największy? A kto pozostanie wierny?",
+      "Możliwe, że około roku 2035 islam stanie się liczebnie największą religią świata. Tak wynika z nowego modelu Pew Research Center — pod warunkiem utrzymania obecnych tendencji. Nie znaczy to jednak, że za dziewięć lat Europa stanie się muzułmańska. Prognozy dla kontynentu mówią o wzroście udziału islamu, spadku udziału chrześcijaństwa i silniejszej pozycji osób niereligijnych.",
+      "Chrześcijańska odpowiedź nie polega ani na zaprzeczaniu faktom, ani na wzbudzaniu strachu przed ludźmi. Polega na powrocie do źródła: do Jezusa Chrystusa, który przyszedł, aby szukać i zbawić to, co zginęło (Łk 19,10), oraz do Ojca, którego objawił (J 14,6–9).",
+      "Nie pytajmy jedynie, ilu będzie chrześcijan. Zapytajmy, jakimi chrześcijanami będziemy: czy wiernymi Ewangelii, czy uczciwymi w relacjach, czy odważnymi w świadectwie, czy pełnymi miłości do bliźniego — także tego, z którym się nie zgadzamy.",
+      "Panie Jezu Chryste, naucz nas odróżniać prawdę od sensacji, odwagę od wrogości, a wierność od pychy. Daj nam serca gotowe słuchać Twojego Słowa i traktować każdego człowieka z godnością. Amen.",
+      "Cezary Rogowski\nChristian Culture Network — CCN News\nhttps://polskieradio.cc/news",
+      "ŹRÓDŁA:\nPew Research Center, The Future of the Global Muslim Population, 18.11.2026 — https://www.pewresearch.org/religion/2026/11/18/the-future-of-the-global-muslim-population-2/\nPew Research Center, The Future of Religion in Europe, 18.11.2026 — https://www.pewresearch.org/religion/2026/11/18/the-future-of-religion-in-europe/\nPew Research Center, Islam Will Soon Be the World's Largest Religion, 18.11.2026 — https://www.pewresearch.org/short-reads/2026/11/18/islam-will-soon-be-the-worlds-largest-religion-but-christianity-will-keep-growing-too/\nPew Research Center, globalne prognozy 2020–2070 — https://www.pewresearch.org/future-of-world-religions/region/world/"
+    ],
+    "primaryPortalLabel": "CCN NEWS • ŚWIAT I RELIGIE",
+    "category": "swiat",
+    "categoryLabel": "CCN NEWS • ŚWIAT I RELIGIE",
+    "author": AUTHORS.cezary,
+    "publishedAt": "2026-11-20T06:00:00Z",
+    "dateFormatted": "20 listopada 2026",
+    "imageUrl": "/images/news/art-islam-najwieksza-religia-2035-co-czeka-europe.jpg",
+    "imageCaption": "Ilustracja redakcyjna CCN News — Kaaba i pielgrzymi w Mekce. Obraz użyty w kontekście danych demograficznych; nie łączyć religii z zagrożeniem ani przestępczością.",
+    "readTimeMinutes": 7,
+    "isHero": true,
+    "isPopular": true,
+    "popularRank": 1,
+    "tags": [
+      "@CezaryRogowski",
+      "@ChristianCulture",
+      "#CCNNews",
+      "#Islam",
+      "#Chrześcijaństwo",
+      "#Europa",
+      "#PewResearch",
+      "#Religia",
+      "#BibliaUBG"
+    ],
+    "viewsCount": 1420,
+    "scriptureReference": {
+      "verse": "1 List Piotra 3:15 (UBG)",
+      "text": "Lecz Pana Boga uświęcajcie w waszych sercach i bądźcie zawsze gotowi udzielić odpowiedzi każdemu, kto domaga się od was uzasadnienia waszej nadziei, z łagodnością i bojaźnią.",
+      "strongCode": "G1680"
+    },
+    "sourceCitation": {
+      "sourceName": "Pew Research Center — The Future of World Religions: Population Growth Projections, 2020–2070 (18.11.2026)",
+      "sourceUrl": "https://www.pewresearch.org/religion/2026/11/18/the-future-of-religion-in-europe/"
+    },
+    "actionLinks": [
+      {
+        "label": "MojaBiblia — 1 List Piotra 3 (UBG)",
+        "url": "https://polskieradio.cc/mojabiblia?ref=1P3:15"
+      },
+      {
+        "label": "Akademia Biblijna — Kurs Codzienny",
+        "url": "https://polskieradio.cc/akademia#kurscodzienny"
+      },
+      {
+        "label": "CCN News — Wszystkie artykuły",
+        "url": "https://polskieradio.cc/news"
+      }
+    ]
+  },
   {
     "id": "art-silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc",
     "title": "Silni aż do wyczerpania: dlaczego mężczyźni wciąż boją się prosić o pomoc?",
