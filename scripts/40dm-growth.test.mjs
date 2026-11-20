@@ -84,7 +84,7 @@ test('Rut can open the 40DM knowledge card and the canonical Messenger loads the
   assert.equal(assistant.KnowledgeService.getById('40dm').url,'/40DM');
   const messenger = renderLumiPage(readFileSync('lumina.html','utf8'));
   assert.equal((messenger.match(/cc-assistant\.js\?v=20261120_40dm_growth1/g) || []).length,1);
-  assert.match(messenger,/lumi-live-rooms\.js\?v=20261120_40dm_v3/);
+  assert.match(messenger,/lumi-live-rooms\.js\?v=20261120_40dm_v4/);
 });
 
 test('1:1 40DM program loads 5 sections, 40 days PL/EN, 7 steps, 9 UBG-2025 promises and 13 caring activities', () => {

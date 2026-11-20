@@ -318,6 +318,10 @@ function injectUi() {
     html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .lumi-room-navigation{background:#152e23!important;border:1px solid rgba(229,198,132,.25)!important;border-radius:14px!important;padding:4px!important;margin-top:8px!important}
     html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .lumi-room-navigation>button{background:transparent!important;color:#bdcac1!important;box-shadow:none!important;border-radius:10px!important}
     html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .lumi-room-navigation>button:hover,html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] #tabBtnLiveTv{background:#234636!important;color:var(--prayer-accent)!important;box-shadow:none!important}
+    body.cc-mess-embedded #directMessagesModal[data-lumi-live-room="prayer_40dm"]{padding:0!important;height:100dvh!important;max-height:100dvh!important}
+    body.cc-mess-embedded #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.modal-card,.lumina-messenger-modal-card){width:100%!important;max-width:100%!important;height:100dvh!important;min-height:100dvh!important;max-height:100dvh!important;margin:0!important;border-radius:14px!important;display:flex!important;flex-direction:column!important}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] #messengerLiveView{flex:1 1 auto!important;min-height:0!important;height:100%!important}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] #llrBox{flex:1 1 auto!important;min-height:240px!important}
     body.cc-mess-embedded #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.chat-close-btn,.chat-fullscreen-btn){display:none!important}
     html body #directMessagesModal[data-lumi-live-room="prayer_40dm"]:not([data-lumi-more-open="true"]) :is(.cc-chat-radio,.lumi-room-navigation,.chat-header-bar>.lumi-room-navigation,#messengerLiveView .llr-head>.llr-nav-extra){display:none!important}
     #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.llr-head,.llr-compose,.llr-box,.llr-host){border-color:#e5c68440;background:var(--prayer-surface)}
