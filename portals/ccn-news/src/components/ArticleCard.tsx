@@ -150,7 +150,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
             title="Udostępnij na Tablicy Społeczności LUMINA"
             aria-label="Udostępnij na Tablicy LUMINA"
           >
-            <span className="w-7 h-7 rounded-full bg-[#0b0b10] flex items-center justify-center shadow-2xs transition group-hover/l:scale-110"><img src="/images/lumina/lumina-icon-transparent.png?v=20261025" alt="" width={20} height={20} className="w-5 h-5" /></span>
+            <span className="w-6 h-6 rounded-full bg-[#0b0b10] flex items-center justify-center shadow-2xs transition group-hover/l:scale-110"><img src="/images/lumina/lumina-icon-transparent.png?v=20261025" alt="" width={16} height={16} className="w-4 h-4 object-contain" /></span>
           </button>
         </div>
       </div>

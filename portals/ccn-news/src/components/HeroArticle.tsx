@@ -43,7 +43,7 @@ export const HeroArticle: React.FC<HeroArticleProps> = ({
           title="Udostępnij na platformie X"
           aria-label="Udostępnij na platformie X"
         >
-          <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+          <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
           </svg>
         </button>
@@ -61,7 +61,7 @@ export const HeroArticle: React.FC<HeroArticleProps> = ({
           title="Udostępnij na Tablicy Społeczności LUMINA"
           aria-label="Udostępnij na Tablicy LUMINA"
         >
-          <img src="/images/lumina/lumina-icon-transparent.png?v=20261025" alt="" width={32} height={32} className="w-8 h-8" />
+          <img src="/images/lumina/lumina-icon-transparent.png?v=20261025" alt="" width={20} height={20} className="w-5 h-5 object-contain" />
         </button>
 
         <button
