@@ -154,3 +154,5 @@ section[id]{scroll-margin-top:20px}
   .mobile-art .hero-type>p{font-size:1.03rem}
   .mobile-art .hero-bottom{display:grid;gap:16px;padding-bottom:max(36px,6.5svh,env(safe-area-inset-bottom))}
 }
+
+.book-source{margin:0 0 18px}.room-actions .room-status{align-self:center;margin:0}.room-frame{height:clamp(370px,60svh,580px)}.room-preview{padding-bottom:12px}

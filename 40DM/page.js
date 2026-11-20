@@ -4,8 +4,9 @@ const copy = {
   pl: {
     skip:'Przejdź do treści', planLink:'Plan 40 dni', roomLink:'Pokój modlitwy', support:'Wspieram to',
     title:'40 Dni Modlitwy', intro:'Zatrzymaj się przy Słowie Bożym. Wybierz swój dzień albo dołącz do wspólnej modlitwy w LUMI MESS.',
-    heroLine:'Czterdzieści dni ze Słowem i modlitwą.', heroPlan:'Otwórz plan', gathering:'Modlimy się razem.', roomTitle:'Pokój modlitwy', preview:'Pokój w przygotowaniu',
-    roomLead:'Dołącz już teraz przez WhatsApp.', roomCopy:'Po uruchomieniu dedykowany pokój otworzy się tutaj od razu po wejściu na stronę.',
+    heroLine:'Czterdzieści dni ze Słowem i modlitwą.', heroPlan:'Otwórz plan', gathering:'Modlimy się razem.', roomTitle:'Pokój modlitwy',
+    roomCopy:'Dedykowany pokój dla zalogowanych członków LUMINA. Nie zamieszczaj nazwisk ani wrażliwych intencji.',
+    googleLogin:'Zaloguj się przez Google', signed:'Zalogowano w LUMINA', authError:'Nie udało się zalogować. Spróbuj ponownie w LUMINA.', bookEdition:'Książka u wydawcy ↗',
     openRoom:'Otwórz w LUMI MESS ↗', whatsapp:'Dołącz przez WhatsApp ↗',
     planTitle:'Twój plan modlitwy', planCopy:'Wybierz dzień. Zaznacz go po modlitwie, żeby móc wrócić do swojego rytmu.',
     progressText:'ukończonych dni', local:'Postęp zapisuje się w tej przeglądarce.',
@@ -31,8 +32,9 @@ const copy = {
   en: {
     skip:'Skip to content', planLink:'40-day plan', roomLink:'Prayer room', support:'Support this',
     title:'40 Days of Prayer', intro:'Take a moment with Scripture. Choose your day or join the community in prayer in LUMI MESS.',
-    heroLine:'Forty days with Scripture and prayer.', heroPlan:'Open the plan', gathering:'Praying together.', roomTitle:'Prayer room', preview:'Room in preparation',
-    roomLead:'Join the group on WhatsApp.', roomCopy:'Once activated, the dedicated room will open here as soon as you visit this page.',
+    heroLine:'Forty days with Scripture and prayer.', heroPlan:'Open the plan', gathering:'Praying together.', roomTitle:'Prayer room',
+    roomCopy:'A dedicated room for signed-in LUMINA members. Keep names and sensitive prayer requests private.',
+    googleLogin:'Sign in with Google', signed:'Signed in to LUMINA', authError:'Sign-in failed. Try again in LUMINA.', bookEdition:'Book from the publisher ↗',
     openRoom:'Open in LUMI MESS ↗', whatsapp:'Join via WhatsApp ↗',
     planTitle:'Your prayer plan', planCopy:'Choose a day. Mark it when you finish praying so you can return to your rhythm.',
     progressText:'days completed', local:'Your progress is saved in this browser.',
@@ -150,21 +152,6 @@ language.addEventListener('click', () => {
   render();
 });
 
-// Wstaw rzeczywisty identyfikator po rejestracji i sprawdzeniu pokoju w LUMI MESS.
-const roomId = null;
-if (roomId && location.origin === 'https://polskieradio.cc') {
-  const fullUrl = new URL('/mess', location.origin);
-  fullUrl.searchParams.set('room', roomId);
-  const open = byId('room-open');
-  open.href = fullUrl;
-  open.hidden = false;
-  fullUrl.searchParams.set('embed', '1');
-  const frame = document.createElement('iframe');
-  frame.className = 'room-frame';
-  frame.title = copy[lang].frame;
-  frame.src = fullUrl;
-  byId('room-preview').replaceWith(frame);
-}
 render();
 
 

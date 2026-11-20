@@ -11,12 +11,14 @@
  * Koszt: zero — bez serwera; wpisy prowadzących są liczone w przeglądarce z dzisiejszego scenariusza.
  */
 import { getApps, getApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { getAuth } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 import {
   getFirestore, collection, query, orderBy, limit, onSnapshot, addDoc, deleteDoc, doc, serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
 export const LIVE_ROOMS = [
+  { id: 'prayer_40dm', name: '40 Dni Modlitwy', url: '/40DM', logo: '/40DM/room.jpg', memberOnly: true,
+    placeholder: 'Napisz krótką wiadomość do uczestników…', desc: 'Pokój modlitwy dla zalogowanych członków LUMINA. Nie podawaj wrażliwych danych.' },
   { id: 'tv_cctv24', name: 'CCTV24 · Telewizja Śniadaniowa', url: '/cctv24', icon: '📺', reflection: true, desc: 'Rozważanie „Z Biblią za Pan Brat” z Noemi i Sarą — na żywo.' },
   { id: 'tv_zapolske', name: 'Zjednoczeni za Polskę', url: '/zapolske-live', icon: '🇵🇱', reflection: true, prayers: true, desc: 'Módl się z nami — Twoja modlitwa pojawi się na antenie.' },
   // BCM24 (2026-10-23): całodobowy kanał modlitwy — intencje z kategorią trafiają na antenę /BCM24 po kilku sekundach.
@@ -213,7 +215,7 @@ function hookPublicChat() {
 }
 
 // ── Zakładka LIVE TV ─────────────────────────────────────────────────────────
-const state = { fb: null, room: null, unsub: null, docs: [], tick: null, renderedSig: '' };
+const state = { fb: null, room: null, unsub: null, stopRoomAuth: null, memberRoomDenied: false, docs: [], tick: null, renderedSig: '' };
 
 function styleTab(btn, active) {
   if (!btn) return;
@@ -241,6 +243,7 @@ function injectUi() {
     body.user-is-guest #directMessagesModal.open[data-lumi-live-room]{display:flex!important;pointer-events:auto!important;opacity:1!important;visibility:visible!important}
     #messengerLiveView .llr-list{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;background:rgba(0,0,0,.2)}
     #messengerLiveView .llr-card{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:12px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#fff;font:inherit;cursor:pointer;min-height:64px}
+    #messengerLiveView .llr-room-logo{object-fit:cover;border-radius:50%;flex:0 0 auto}
     #messengerLiveView .llr-card:hover,#messengerLiveView .llr-card:focus-visible{border-color:#f59e0b;outline:none}
     #messengerLiveView .llr-ico{font-size:1.6rem;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:rgba(239,68,68,.15);flex-shrink:0}
     #messengerLiveView .llr-name{font-weight:800}#messengerLiveView .llr-desc{font-size:.75rem;color:#cbd5e1}
@@ -318,8 +321,12 @@ function isAdmin() {
 
 async function openLive() {
   if (!state.fb) state.fb = await firebaseReady();
+  if (state.room?.memberOnly) { watchMemberRoom(state.room); return; }
   await loadSession();
-  if (state.room) { subscribeRoom(state.room); renderRoom(); } else renderList();
+  if (state.room) {
+    if (state.room.memberOnly) watchMemberRoom(state.room);
+    else { subscribeRoom(state.room); renderRoom(); }
+  } else renderList();
 }
 
 function renderList() {
@@ -329,7 +336,7 @@ function renderList() {
   const list = el('div', { class: 'llr-list', role: 'list' },
     el('div', { class: 'llr-note', text: '📺 Pokoje LIVE TV — rozmawiaj z innymi podczas transmisji. Rozważanie Noemi i Sary codziennie o 9:00; powtórka o 18:00 czasu polskiego.' }),
     LIVE_ROOMS.map((r) => el('button', { type: 'button', class: 'llr-card', role: 'listitem', onclick: () => enterRoom(r.id) },
-      el('span', { class: 'llr-ico', 'aria-hidden': 'true', text: r.icon }),
+      r.logo ? el('img', { class: 'llr-room-logo', src:r.logo, width:36, height:36, alt:'' }) : el('span', { class: 'llr-ico', 'aria-hidden': 'true', text: r.icon }),
       el('span', {},
         el('span', { class: 'llr-name', text: r.name }), (live && r.reflection) ? el('span', { class: 'llr-live', text: 'NA ŻYWO' }) : null,
         el('br'), el('span', { class: 'llr-desc', text: r.desc })))));
@@ -337,9 +344,11 @@ function renderList() {
 }
 
 function leaveRoom() {
+  state.stopRoomAuth?.();
+  state.stopRoomAuth = null;
   if (state.unsub) { try { state.unsub(); } catch (_) {} }
   if (state.tick) clearInterval(state.tick);
-  state.unsub = null; state.tick = null; state.room = null; state.docs = []; state.renderedSig = '';
+  state.unsub = null; state.tick = null; state.room = null; state.docs = []; state.renderedSig = ''; state.memberRoomDenied = false;
 }
 
 function enterRoom(roomId) {
@@ -365,6 +374,7 @@ function enterRoom(roomId) {
     }, el('span', { 'aria-hidden': 'true', text: c.icon }), c.id))) : null;
   const send = async () => {
     err.textContent = '';
+    if (state.room !== r || (r.memberOnly && state.memberRoomDenied)) return;
     const user = currentUser();
     const raw = input.value.trim();
     if (!raw) return;
@@ -386,8 +396,10 @@ function enterRoom(roomId) {
   view.replaceChildren(
     el('div', { class: 'llr-head' },
       el('button', { type: 'button', 'aria-label': 'Wróć do listy pokoi', onclick: () => { leaveRoom(); renderList(); }, text: '←' }),
-      el('span', { class: 'llr-title', text: r.icon + ' ' + r.name }),
-      el('a', { href: r.url, target: '_blank', rel: 'noopener', text: 'Oglądaj ↗', 'aria-label': 'Otwórz transmisję ' + r.name })),
+      r.logo ? el('img', { class: 'llr-room-logo', src:r.logo, width:36, height:36, alt:'' }) : null,
+      el('span', { class: 'llr-title', text: r.logo ? r.name : r.icon + ' ' + r.name }),
+      el('a', { href: r.url, target: '_blank', rel: 'noopener', text: r.memberOnly ? 'Plan 40DM ↗' : 'Oglądaj ↗', 'aria-label': r.memberOnly ? 'Otwórz plan 40 Dni Modlitwy' : 'Otwórz transmisję ' + r.name })),
+    r.memberOnly ? el('p', {class:'llr-note', text:'Treść widzą zalogowani członkowie LUMINA. Nie wpisuj cudzych intencji ani danych wrażliwych.'}) : null,
     box, typing,
     el('div', { class: 'llr-compose' },
       prayer ? el('label', { class: 'llr-check', for: 'llrPrayer' }, prayer, el('span', { text: r.prayerLabel || '🙏 To modlitwa — pokaż ją na antenie „Zjednoczeni za Polskę”' })) : null,
@@ -395,20 +407,44 @@ function enterRoom(roomId) {
       el('div', { class: 'llr-row' }, input, el('button', { type: 'button', class: 'llr-send', 'aria-label': 'Wyślij', onclick: send, text: '➤' })),
       err));
 
-  subscribeRoom(r);
+  if (r.memberOnly) watchMemberRoom(r);
+  else subscribeRoom(r);
   state.tick = setInterval(() => renderRoom(false), 1000);
   renderRoom(true);
 }
 
+function watchMemberRoom(r) {
+  if (!state.fb || state.stopRoomAuth || state.room !== r) return;
+  state.stopRoomAuth = onAuthStateChanged(state.fb.auth, () => {
+    if (state.room !== r) return;
+    state.unsub?.();
+    state.unsub = null;
+    state.docs = [];
+    state.memberRoomDenied = false;
+    $('llrInput').value = '';
+    subscribeRoom(r);
+    renderRoom(true);
+  });
+}
+
 function subscribeRoom(r) {
+  if (r.memberOnly && !currentUser()) return;
   if (state.fb && state.room === r && !state.unsub) {
     const q = query(collection(state.fb.db, 'lumina_live_rooms', r.id, 'messages'), orderBy('createdAt', 'desc'), limit(80));
-    state.unsub = onSnapshot(q, (snap) => {
+    const memberUid = r.memberOnly ? currentUser().uid : null;
+    const receive = (snap) => {
+      if (state.room !== r || (memberUid && (currentUser()?.uid !== memberUid || snap.metadata.fromCache))) return;
       const docs = [];
       snap.forEach((d) => docs.push({ id: d.id, ...d.data() }));
       state.docs = docs;
       renderRoom(true);
-    }, () => { renderRoom(true); });
+    };
+    const reject = () => {
+      if (state.room !== r || (memberUid && currentUser()?.uid !== memberUid)) return;
+      if (memberUid) { state.docs = []; state.memberRoomDenied = true; }
+      renderRoom(true);
+    };
+    state.unsub = memberUid ? onSnapshot(q, { includeMetadataChanges: true }, receive, reject) : onSnapshot(q, receive, reject);
   }
 }
 
@@ -416,6 +452,16 @@ function renderRoom(force) {
   const r = state.room;
   const box = $('llrBox');
   if (!r || !box) return;
+  if (r.memberOnly) {
+    const allowed = !!currentUser() && !state.memberRoomDenied;
+    $('llrInput').disabled = !allowed;
+    const send = box.parentElement.querySelector('.llr-send');
+    if (send) send.disabled = !allowed;
+    if (!allowed) {
+      if (force || !box.firstChild) box.replaceChildren(el('p', {class:'llr-note', text: state.memberRoomDenied ? 'Konto nie ma dostępu do tego pokoju.' : 'Zaloguj się w LUMINA, aby wejść do pokoju.'}));
+      return;
+    }
+  }
   if (window.CCTvDialogue) shiftSession(window.CCTvDialogue);
   const now = Date.now();
   const hosts = r.reflection ? presenterMessages(now) : [];
@@ -473,7 +519,7 @@ function renderRoom(force) {
         el('div', { class: 'llr-meta' }, el('span', { text: hhmm(m.at) }), del),
         liveBar)));
   });
-  if (!all.length && !(r.reflection && session.items.length && now < session.liveStart)) nodes.push(el('div', { class: 'llr-note', text: 'Bądź pierwszy — przywitaj się z widzami! 👋' }));
+  if (!all.length && !(r.reflection && session.items.length && now < session.liveStart)) nodes.push(el('div', { class: 'llr-note', text: r.memberOnly ? 'Pokój jest gotowy na pierwszą wiadomość.' : 'Bądź pierwszy — przywitaj się z widzami! 👋' }));
   box.replaceChildren(...nodes);
   if (force || nearBottom) box.scrollTop = box.scrollHeight;
 }

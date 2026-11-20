@@ -541,9 +541,9 @@ service cloud.firestore {
     // Czat widzów podczas transmisji (CCTV24, Zjednoczeni za Polskę, Master Live…). Publiczny odczyt,
     // pisze tylko zalogowany członek (bez kont dzieci), sam tekst do 1000 znaków, czas serwera.
     match /lumina_live_rooms/{roomId}/messages/{messageId} {
-      allow read: if true;
+      allow read: if roomId != 'prayer_40dm' || (isMember() && notKidsChild());
       allow create: if isMember() && notKidsChild() &&
-        roomId.matches('^(tv|radio)_[a-z0-9_]{2,40}$') &&
+        (roomId == 'prayer_40dm' || roomId.matches('^(tv|radio)_[a-z0-9_]{2,40}$')) &&
         request.resource.data.keys().hasOnly(['roomId', 'text', 'senderAuthUid', 'senderName', 'senderAvatar', 'kind', 'createdAt']) &&
         request.resource.data.roomId == roomId &&
         request.resource.data.senderAuthUid == request.auth.uid &&
@@ -552,6 +552,7 @@ service cloud.firestore {
         request.resource.data.senderName is string && request.resource.data.senderName.size() <= 80 &&
         request.resource.data.senderAvatar is string && request.resource.data.senderAvatar.size() <= 500 &&
         request.resource.data.kind in ['text', 'prayer'] &&
+        (roomId != 'prayer_40dm' || request.resource.data.kind == 'text') &&
         request.resource.data.createdAt == request.time;
       allow update: if isMasterAdmin();
       allow delete: if isMasterAdmin() || (isMember() && resource.data.senderAuthUid == request.auth.uid);
