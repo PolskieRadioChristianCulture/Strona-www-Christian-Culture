@@ -155,7 +155,7 @@ export const INITIAL_ARTICLES: Article[] = [
     "author": AUTHORS.cezary,
     "publishedAt": "2026-11-20T06:00:00Z",
     "dateFormatted": "20 listopada 2026",
-    "imageUrl": "/images/news/art-islam-najwieksza-religia-2035-co-czeka-europe.jpg",
+    "imageUrl": "/images/news/art-islam-najwieksza-religia-2035-co-czeka-europe-3x1.jpg",
     "imageCaption": "Ilustracja redakcyjna CCN News — Kaaba i pielgrzymi w Mekce. Obraz użyty w kontekście danych demograficznych; nie łączyć religii z zagrożeniem ani przestępczością.",
     "readTimeMinutes": 7,
     "isHero": true,

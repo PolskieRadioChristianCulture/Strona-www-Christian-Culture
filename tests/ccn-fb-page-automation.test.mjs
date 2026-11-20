@@ -20,18 +20,31 @@ const WEKTOR_PUBLISHER = path.resolve(ROOT, '..', 'Wektor1_VideoFactory', 'publi
 const ISLAM_SLUG = 'islam-najwieksza-religia-2035-co-czeka-europe';
 
 test('Islam 2035 article is built, indexed in catalog, and has verified 3:1 article banner and 1:1 FB graphic', async () => {
-  assert.equal(fs.existsSync(path.join(ROOT, 'news', `${ISLAM_SLUG}.html`)), true);
+  const staticArticlePath = path.join(ROOT, 'news', `${ISLAM_SLUG}.html`);
+  assert.equal(fs.existsSync(staticArticlePath), true);
   assert.equal(fs.existsSync(path.join(ROOT, 'news', ISLAM_SLUG, 'index.html')), true);
 
+  const staticHtml = fs.readFileSync(staticArticlePath, 'utf8');
+  assert.equal(
+    staticHtml.includes(`art-${ISLAM_SLUG}-3x1.jpg`),
+    true,
+    'Built static article must reference versioned 3:1 banner'
+  );
+
   const imgBanner = path.join(ROOT, 'images', 'news', `art-${ISLAM_SLUG}.jpg`);
+  const imgBanner3x1 = path.join(ROOT, 'images', 'news', `art-${ISLAM_SLUG}-3x1.jpg`);
   const img1 = path.join(ROOT, 'images', 'social', 'ccn-fb', `fb-${ISLAM_SLUG}.jpg`);
   assert.equal(fs.existsSync(imgBanner), true);
+  assert.equal(fs.existsSync(imgBanner3x1), true);
   assert.equal(fs.existsSync(img1), true);
 
   const metaBanner = await sharp(imgBanner).metadata();
+  const metaBanner3x1 = await sharp(imgBanner3x1).metadata();
   const meta1 = await sharp(img1).metadata();
   assert.equal(metaBanner.width, 1024);
   assert.equal(metaBanner.height, 341);
+  assert.equal(metaBanner3x1.width, 1024);
+  assert.equal(metaBanner3x1.height, 341);
   assert.equal(meta1.width, 1080);
   assert.equal(meta1.height, 1080);
 

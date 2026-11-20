@@ -316,3 +316,14 @@
 /css/lumina-shared-shell.css*
   Cache-Control: public, max-age=0, must-revalidate
 
+# Grafiki CCN News i wzorce redakcyjne — natychmiastowe odświeżanie po aktualizacji
+/images/news/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/images/brand/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/js/ccn-footer-fb.js*
+  Cache-Control: public, max-age=0, must-revalidate
+
+

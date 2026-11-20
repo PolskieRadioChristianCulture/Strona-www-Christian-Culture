@@ -21,7 +21,7 @@ export const HeroArticle: React.FC<HeroArticleProps> = ({
       <img
         src={article.imageUrl}
         alt={`${article.title} — ilustracja redakcyjna CCN`}
-        className="w-full h-auto sm:h-64 max-h-72 object-contain sm:object-cover object-center bg-black motion-safe:transition duration-700 ease-out"
+        className="w-full h-auto max-h-[340px] object-contain object-center bg-black motion-safe:transition duration-700 ease-out"
       />
       {article.imageCaption && (
         <p className="bg-zinc-900 px-4 py-2 text-[11px] leading-relaxed text-zinc-300">{article.imageCaption}</p>
