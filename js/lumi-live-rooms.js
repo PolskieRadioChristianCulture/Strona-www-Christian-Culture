@@ -22,13 +22,13 @@ const prayerCopy = prayerEn ? {
   welcome: 'Welcome. Choose a day in your plan or use my help to find the right Christian Culture resource.',
   help: 'Talk to Rut', privacy: 'Signed-in LUMINA members can read these messages. Keep other people’s names and sensitive requests private.',
   guest: 'Sign in to LUMINA to enter the prayer room.', denied: 'This account cannot access the prayer room.',
-  empty: 'The room is ready for its first message.', input: 'Write a short message to participants…', send: 'Send'
+  empty: 'The room is ready for its first message.', input: 'Write a short prayer…', send: 'Send'
 } : {
   name: '40 Dni Modlitwy', plan: 'Plan 40DM', back: 'Wróć do listy pokoi', host: 'Rut · wirtualna gospodyni CC',
   welcome: 'Witaj. Wybierz dzień w planie albo poproś mnie o pomoc w znalezieniu materiałów Christian Culture.',
   help: 'Porozmawiaj z Rut', privacy: 'Treść widzą zalogowani członkowie LUMINA. Nie wpisuj cudzych intencji ani danych wrażliwych.',
   guest: 'Zaloguj się w LUMINA, aby wejść do pokoju.', denied: 'Konto nie ma dostępu do tego pokoju.',
-  empty: 'Pokój jest gotowy na pierwszą wiadomość.', input: 'Napisz krótką wiadomość do uczestników…', send: 'Wyślij'
+  empty: 'Pokój jest gotowy na pierwszą wiadomość.', input: 'Napisz krótką modlitwę…', send: 'Wyślij'
 };
 
 export const LIVE_ROOMS = [
@@ -307,22 +307,37 @@ function injectUi() {
 
     #directMessagesModal:not([data-lumi-live-room="prayer_40dm"]) #btnChatHeaderMore{display:none!important}
     #directMessagesModal[data-lumi-live-room="prayer_40dm"]{--prayer-surface:#11271e;--prayer-panel:#1c392d;--prayer-accent:#e5c684;--prayer-text:#f6f4e8}
-    #directMessagesModal[data-lumi-live-room="prayer_40dm"] #btnChatHeaderMore{display:inline-flex!important;align-items:center;justify-content:center;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;max-width:44px!important;max-height:44px!important;border-radius:12px;border:1px solid rgba(229,198,132,.45);background:rgba(255,255,255,.06);color:var(--prayer-accent);font-size:1.1rem;cursor:pointer;padding:0;margin:0;flex:0 0 44px;transition:all .2s}
-    #directMessagesModal[data-lumi-live-room="prayer_40dm"] #btnChatHeaderMore[aria-expanded="true"]{background:rgba(229,198,132,.22);border-color:var(--prayer-accent);color:#fff}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.modal-card,.lumina-messenger-modal-card,.cc-chat-header,#messengerLiveView){background:var(--prayer-surface)!important;color:var(--prayer-text)!important;border-color:rgba(229,198,132,.3)!important}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.chat-header-bar,.cc-chat-header){background:linear-gradient(180deg,#0d2219 0%,#11271e 100%)!important;border-bottom:1px solid rgba(229,198,132,.26)!important;color:var(--prayer-text)!important;padding:10px 14px!important}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .chat-header-logo-icon{background:linear-gradient(145deg,#1c392d,#11271e)!important;border:1px solid rgba(229,198,132,.45)!important;color:var(--prayer-accent)!important;box-shadow:none!important}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(#btnChatSettingsModal,#btnChatHeaderMore){display:inline-flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;max-width:44px!important;max-height:44px!important;border-radius:12px!important;border:1px solid rgba(229,198,132,.45)!important;background:#183327!important;color:var(--prayer-accent)!important;font-size:1.05rem!important;cursor:pointer!important;padding:0!important;margin:0!important;flex:0 0 44px!important;transition:all .2s}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] #btnChatHeaderMore[aria-expanded="true"]{background:#284d3c!important;border-color:var(--prayer-accent)!important;color:#fff!important}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .cc-chat-radio{background:#163024!important;border:1px solid rgba(229,198,132,.38)!important;color:var(--prayer-text)!important;border-radius:14px!important}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .cc-chat-radio select,html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .cc-chat-radio select option{background:#163024!important;color:var(--prayer-text)!important}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .cc-chat-radio button{background:linear-gradient(135deg,#e5c684,#c4a35a)!important;color:#112218!important}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .lumi-room-navigation{background:#152e23!important;border:1px solid rgba(229,198,132,.25)!important;border-radius:14px!important;padding:4px!important;margin-top:8px!important}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .lumi-room-navigation>button{background:transparent!important;color:#bdcac1!important;box-shadow:none!important;border-radius:10px!important}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] .lumi-room-navigation>button:hover,html body #directMessagesModal[data-lumi-live-room="prayer_40dm"] #tabBtnLiveTv{background:#234636!important;color:var(--prayer-accent)!important;box-shadow:none!important}
     body.cc-mess-embedded #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.chat-close-btn,.chat-fullscreen-btn){display:none!important}
-    #directMessagesModal[data-lumi-live-room="prayer_40dm"]:not([data-lumi-more-open="true"]) :is(.cc-chat-radio,.lumi-room-navigation,.llr-host,.llr-privacy-note,#messengerLiveView .llr-head>button,#messengerLiveView .llr-head>a){display:none!important}
-    #directMessagesModal[data-lumi-live-room="prayer_40dm"]:not([data-lumi-more-open="true"]) .chat-header-bar{padding-bottom:10px!important}
-    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .modal-card,#directMessagesModal[data-lumi-live-room="prayer_40dm"] .lumina-messenger-modal-card,#directMessagesModal[data-lumi-live-room="prayer_40dm"] .cc-chat-header,#directMessagesModal[data-lumi-live-room="prayer_40dm"] #messengerLiveView{background:var(--prayer-surface)!important;color:var(--prayer-text)}
+    html body #directMessagesModal[data-lumi-live-room="prayer_40dm"]:not([data-lumi-more-open="true"]) :is(.cc-chat-radio,.lumi-room-navigation,.chat-header-bar>.lumi-room-navigation,#messengerLiveView .llr-head>.llr-nav-extra){display:none!important}
     #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.llr-head,.llr-compose,.llr-box,.llr-host){border-color:#e5c68440;background:var(--prayer-surface)}
     #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.llr-b,.llr-msg.me .llr-b,.llr-note){background:var(--prayer-panel);color:var(--prayer-text)}
     #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.llr-title,.llr-who,.llr-head a,.llr-host a,.llr-host strong){color:var(--prayer-accent)}
     #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-msg.me .llr-b{background:#315143;border:1px solid #e5c68460}
     #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-send{background:#ff7a00;color:#172119}
-    #directMessagesModal[data-lumi-live-room="prayer_40dm"] #tabBtnLiveTv{background:#365345!important;color:var(--prayer-accent)!important;box-shadow:none!important}
-    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host{margin:8px 12px;border:1px solid #e5c68440;padding:9px 10px;border-radius:12px;display:flex;align-items:center;gap:10px;flex-shrink:0}
-    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host img{border-radius:50%;flex:none;object-fit:cover}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host{margin:8px 12px;border:1px solid #e5c68455;padding:9px 10px;border-radius:12px;display:flex;align-items:flex-start;gap:10px;flex-shrink:0;position:relative;background:#163024!important}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host[hidden]{display:none!important}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host img{border-radius:50%;flex:none;object-fit:cover;border:1.5px solid var(--prayer-accent)}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host-body{flex:1;min-width:0}
     #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host p{margin:3px 0;font-size:.78rem;line-height:1.35}
     #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host a{display:inline-flex;align-items:center;min-height:44px;font-size:.8rem;font-weight:700}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host-close{min-width:44px;min-height:44px;width:44px;height:44px;border-radius:10px;border:1px solid rgba(229,198,132,.3);background:rgba(0,0,0,.2);color:var(--prayer-accent);font-size:1.2rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;flex-shrink:0}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host-avatar-btn{position:relative;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;padding:0!important;border-radius:50%!important;border:1.5px solid var(--prayer-accent)!important;background:#183327!important;display:inline-flex!important;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host-avatar-btn img{width:36px;height:36px;border-radius:50%;object-fit:cover;display:block}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host-dot{position:absolute;right:1px;bottom:1px;width:10px;height:10px;border-radius:50%;background:#22c55e;border:2px solid #11271e}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-privacy-note{margin:6px 12px 0;transition:opacity .4s ease,transform .4s ease}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-privacy-note.is-fading-out{opacity:0;transform:translateY(-4px);pointer-events:none}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-privacy-note[hidden]{display:none!important}
     @keyframes llrPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.85)}}
     #messengerLiveView .llr-note{align-self:center;text-align:center;font-size:.75rem;color:#cbd5e1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:8px 14px;border-radius:12px;max-width:92%}
     #messengerLiveView .llr-sec{align-self:center;font-size:.7rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fcd34d;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);padding:3px 12px;border-radius:999px}
@@ -452,17 +467,63 @@ function enterRoom(roomId) {
     } catch (e) { err.textContent = 'Nie udało się wysłać. Sprawdź, czy jesteś zalogowany.'; }
   };
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); send(); } });
+  let hostCard = null;
+  let hostAvatarBtn = null;
+  if (r.memberOnly) {
+    hostCard = el('section', { class: 'llr-host', id: 'llrHostCard', 'aria-label': prayerCopy.host, hidden: true },
+      el('img', { src: '/images/chat/assistants/asystentka-1.webp', width: 38, height: 38, loading: 'lazy', alt: '' }),
+      el('div', { class: 'llr-host-body' },
+        el('strong', { text: prayerCopy.host }),
+        el('p', { text: prayerCopy.welcome }),
+        el('a', { href: '/mess?assistant=cc&asst=asystentka-1&source=40dm&topic=40dm', target: '_blank', rel: 'noopener', text: prayerCopy.help + ' ↗' })
+      ),
+      el('button', {
+        type: 'button',
+        id: 'llrHostCloseBtn',
+        class: 'llr-host-close',
+        'aria-label': prayerEn ? 'Close host card' : 'Zamknij wizytówkę gospodyni',
+        title: prayerEn ? 'Close' : 'Zamknij',
+        onclick: () => {
+          hostCard.hidden = true;
+          hostAvatarBtn?.setAttribute('aria-expanded', 'false');
+        },
+        text: '×'
+      })
+    );
+    hostAvatarBtn = el('button', {
+      type: 'button',
+      id: 'llrHostAvatarBtn',
+      class: 'llr-host-avatar-btn',
+      'aria-expanded': 'false',
+      'aria-controls': 'llrHostCard',
+      'aria-label': prayerCopy.host,
+      title: prayerCopy.host,
+      onclick: () => {
+        const nextOpen = hostCard.hidden;
+        hostCard.hidden = !nextOpen;
+        hostAvatarBtn.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+      }
+    },
+      el('img', { src: '/images/chat/assistants/asystentka-1.webp', width: 36, height: 36, alt: '' }),
+      el('span', { class: 'llr-host-dot', 'aria-hidden': 'true' })
+    );
+  }
+  const privacyNote = r.memberOnly ? el('p', { class: 'llr-note llr-privacy-note', text: prayerCopy.privacy }) : null;
+  if (privacyNote) {
+    setTimeout(() => {
+      privacyNote.classList.add('is-fading-out');
+      setTimeout(() => { privacyNote.hidden = true; }, 450);
+    }, 4500);
+  }
   view.replaceChildren(
     el('div', { class: 'llr-head' },
-      el('button', { type: 'button', 'aria-label': r.memberOnly ? prayerCopy.back : 'Wróć do listy pokoi', onclick: () => { $('directMessagesModal')?.removeAttribute('data-lumi-live-room'); leaveRoom(); renderList(); }, text: '←' }),
+      el('button', { type: 'button', class: 'llr-nav-extra', 'aria-label': r.memberOnly ? prayerCopy.back : 'Wróć do listy pokoi', onclick: () => { $('directMessagesModal')?.removeAttribute('data-lumi-live-room'); leaveRoom(); renderList(); }, text: '←' }),
       r.logo ? el('img', { class: 'llr-room-logo', src:r.logo, width:36, height:36, alt:'' }) : null,
       el('span', { class: 'llr-title', text: r.logo ? r.name : r.icon + ' ' + r.name }),
-      el('a', { href: r.url, target: '_blank', rel: 'noopener', text: r.memberOnly ? prayerCopy.plan + ' ↗' : 'Oglądaj ↗', 'aria-label': r.memberOnly ? prayerCopy.plan : 'Otwórz transmisję ' + r.name })),
-    r.memberOnly ? el('section', {class:'llr-host', 'aria-label':prayerCopy.host},
-      el('img', {src:'/images/chat/assistants/asystentka-1.webp', width:38, height:38, loading:'lazy', alt:''}),
-      el('div', {}, el('strong', {text:prayerCopy.host}), el('p', {text:prayerCopy.welcome}),
-        el('a', {href:'/mess?assistant=cc&asst=asystentka-1&source=40dm&topic=40dm', target:'_blank', rel:'noopener', text:prayerCopy.help + ' ↗'}))) : null,
-    r.memberOnly ? el('p', {class:'llr-note llr-privacy-note', text:prayerCopy.privacy}) : null,
+      el('a', { class: 'llr-nav-extra', href: r.url, target: '_blank', rel: 'noopener', text: r.memberOnly ? prayerCopy.plan + ' ↗' : 'Oglądaj ↗', 'aria-label': r.memberOnly ? prayerCopy.plan : 'Otwórz transmisję ' + r.name }),
+      hostAvatarBtn),
+    hostCard,
+    privacyNote,
     box, typing,
     el('div', { class: 'llr-compose' },
       prayer ? el('label', { class: 'llr-check', for: 'llrPrayer' }, prayer, el('span', { text: r.prayerLabel || '🙏 To modlitwa — pokaż ją na antenie „Zjednoczeni za Polskę”' })) : null,

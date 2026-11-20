@@ -7,7 +7,7 @@ if (location.origin === 'https://polskieradio.cc') {
   frame.className = 'room-frame';
   frame.title = document.documentElement.lang === 'en'
     ? '40 Days of Prayer room in LUMI MESS' : 'Pokój 40 Dni Modlitwy w LUMI MESS';
-  frame.src = '/mess?embed=1&room=prayer_40dm' + (document.documentElement.lang === 'en' ? '&lang=en' : '');
+  frame.src = '/mess?embed=1&room=prayer_40dm&v=20261120_40dm_v3' + (document.documentElement.lang === 'en' ? '&lang=en' : '');
   document.getElementById('room-slot').append(frame);
 
   try {
