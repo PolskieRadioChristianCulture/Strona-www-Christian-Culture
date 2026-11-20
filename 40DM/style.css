@@ -156,3 +156,21 @@ section[id]{scroll-margin-top:20px}
 }
 
 .book-source{margin:0 0 18px}.room-actions .room-status{align-self:center;margin:0}.room-frame{height:clamp(370px,60svh,580px)}.room-preview{padding-bottom:12px}
+
+.hero-en-title{margin:0 0 12px;color:#fff;font-size:clamp(1.9rem,4vw,3.8rem);line-height:1.06}
+.hero-en-title i{color:var(--warm);font-style:normal}
+.community-card,.sharing,.questions,.statistics{border:1px solid var(--line);border-radius:18px;background:#13271f}
+.community-card{padding:20px;margin-block:20px}
+.community-card h3,.sharing h2,.questions h2{margin:0 0 10px}
+.community-card p,.sharing p,.statistics p,.questions p{color:var(--soft);margin:8px 0}
+#prayer-count{display:block;color:var(--warm);font-size:clamp(2.5rem,7vw,4.5rem);font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums}
+.community-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.community-actions input{max-width:100%;min-height:48px;border:1px solid var(--line);border-radius:12px;padding:0 12px;color:#fff;background:var(--ink);font:inherit;color-scheme:dark}
+#invite-url{flex:1 1 240px;min-width:0}
+.community-status:empty{display:none}
+.reminder{display:grid;gap:10px}
+.sharing,.questions,.statistics{padding:clamp(18px,4vw,36px);margin-block:26px}
+.sharing summary,.questions summary,.statistics summary{min-height:44px;padding:10px 0;cursor:pointer;font-weight:700}
+.questions details+details{border-top:1px solid var(--line)}
+.social-actions{padding:5px 0}
+@media(max-width:540px){.community-card{padding:16px}.hero-en-title{font-size:1.8rem}}

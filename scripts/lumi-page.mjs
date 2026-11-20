@@ -4,6 +4,8 @@ export function renderLumiPage(html) {
   if (!html.includes('id="directMessagesModal"') || !html.includes('manifest-lumina.json')) {
     throw new Error('LUMI: canonical chat/manifest contract is missing');
   }
+  const assistantScript = html.match(/<script defer src="\/js\/cc-assistant\.js[^"]*"><\/script>/)?.[0] || '';
+  if (assistantScript) html = html.replace(assistantScript, '');
   const title = 'LUMI Messenger — chrześcijański komunikator | Christian Culture';
   const description = 'Rozmawiaj, poznawaj społeczność i dziel się wiarą. LUMI Messenger łączy rozmowy LUMINA i Christian Culture w jednym miejscu.';
   html = html.replace(/<html(?:\s+[^>]*)?>/i, '<html lang="pl" data-lumina-theme="dark" class="lumi-mess-page" data-no-onboarding="true">')
@@ -33,7 +35,7 @@ try {
 <link rel="stylesheet" href="/css/lumi-standalone.css?v=20261112_message_menu">
 <link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261114_rooms_v2">
 <link rel="stylesheet" href="/css/cc-assistant.css?v=20261114_mess_asst3">
-<script defer src="/js/cc-assistant.js?v=20261114_mess_asst3"></script>
+${assistantScript}
 <script defer src="/js/lumi-standalone.js?v=20261112_chat_ready"></script>
 <script defer src="/js/lumi-dashboard.js?v=20261111_mess_repair"></script>
 <script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@type':'WebApplication',name:'LUMI Messenger',url:'https://polskieradio.cc/mess',applicationCategory:'CommunicationApplication',description,inLanguage:'pl'})}</script>

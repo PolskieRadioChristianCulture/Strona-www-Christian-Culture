@@ -14600,21 +14600,39 @@
     {
       "title": "40 Dni Modlitwy · Christian Culture",
       "category": "Modlitwa i wspólnota",
-      "url": "https://polskieradio.cc/40DM",
-      "description": "40 Dni Modlitwy Christian Culture. Plan PL/EN z lokalnym zapisem postępu, Słowo Boże i wspólna modlitwa.",
+      "url": "https://polskieradio.cc/40DM/",
+      "description": "Bezpłatny chrześcijański plan 40 dni modlitwy, przypomnienia w kalendarzu i pokój w LUMI MESS.",
       "tags": [
         "40DM",
         "40 dni modlitwy",
-        "40 Days of Prayer",
         "modlitwa",
         "plan modlitwy",
-        "wspólnota",
+        "wspólna modlitwa",
+        "przypomnienia",
         "Biblia",
         "Christian Culture"
       ],
       "type": "page",
       "access": "public",
       "lang": "pl"
+    },
+    {
+      "title": "40 Days of Prayer · Christian Culture",
+      "category": "Prayer and community",
+      "url": "https://polskieradio.cc/40DM/en/",
+      "description": "A free 40-day Christian prayer plan, calendar reminders and a dedicated LUMI MESS prayer room.",
+      "tags": [
+        "40DM",
+        "40 days of prayer",
+        "daily prayer",
+        "prayer plan",
+        "prayer community",
+        "Bible",
+        "Christian Culture"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
     }
   ]
 }

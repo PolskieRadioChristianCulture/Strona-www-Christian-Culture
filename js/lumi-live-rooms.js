@@ -16,9 +16,24 @@ import {
   getFirestore, collection, query, orderBy, limit, onSnapshot, addDoc, deleteDoc, doc, serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
+const prayerEn = new URLSearchParams(window.location?.search).get('lang') === 'en';
+const prayerCopy = prayerEn ? {
+  name: '40 Days of Prayer', plan: 'Prayer plan', back: 'Back to rooms', host: 'Rut · virtual CC host',
+  welcome: 'Welcome. Choose a day in your plan or use my help to find the right Christian Culture resource.',
+  help: 'Talk to Rut', privacy: 'Signed-in LUMINA members can read these messages. Keep other people’s names and sensitive requests private.',
+  guest: 'Sign in to LUMINA to enter the prayer room.', denied: 'This account cannot access the prayer room.',
+  empty: 'The room is ready for its first message.', input: 'Write a short message to participants…', send: 'Send'
+} : {
+  name: '40 Dni Modlitwy', plan: 'Plan 40DM', back: 'Wróć do listy pokoi', host: 'Rut · wirtualna gospodyni CC',
+  welcome: 'Witaj. Wybierz dzień w planie albo poproś mnie o pomoc w znalezieniu materiałów Christian Culture.',
+  help: 'Porozmawiaj z Rut', privacy: 'Treść widzą zalogowani członkowie LUMINA. Nie wpisuj cudzych intencji ani danych wrażliwych.',
+  guest: 'Zaloguj się w LUMINA, aby wejść do pokoju.', denied: 'Konto nie ma dostępu do tego pokoju.',
+  empty: 'Pokój jest gotowy na pierwszą wiadomość.', input: 'Napisz krótką wiadomość do uczestników…', send: 'Wyślij'
+};
+
 export const LIVE_ROOMS = [
-  { id: 'prayer_40dm', name: '40 Dni Modlitwy', url: '/40DM', logo: '/40DM/room.jpg', memberOnly: true,
-    placeholder: 'Napisz krótką wiadomość do uczestników…', desc: 'Pokój modlitwy dla zalogowanych członków LUMINA. Nie podawaj wrażliwych danych.' },
+  { id: 'prayer_40dm', name: prayerCopy.name, url: prayerEn ? '/40DM/en/' : '/40DM/', logo: '/40DM/room.jpg', memberOnly: true,
+    placeholder: prayerCopy.input, desc: 'Pokój modlitwy dla zalogowanych członków LUMINA. Nie podawaj wrażliwych danych.' },
   { id: 'tv_cctv24', name: 'CCTV24 · Telewizja Śniadaniowa', url: '/cctv24', icon: '📺', reflection: true, desc: 'Rozważanie „Z Biblią za Pan Brat” z Noemi i Sarą — na żywo.' },
   { id: 'tv_zapolske', name: 'Zjednoczeni za Polskę', url: '/zapolske-live', icon: '🇵🇱', reflection: true, prayers: true, desc: 'Módl się z nami — Twoja modlitwa pojawi się na antenie.' },
   // BCM24 (2026-10-23): całodobowy kanał modlitwy — intencje z kategorią trafiają na antenę /BCM24 po kilku sekundach.
@@ -266,6 +281,19 @@ function injectUi() {
     #messengerLiveView .llr-del{background:none;border:none;color:#fca5a5;font:inherit;font-size:.66rem;cursor:pointer;min-height:32px}
     #messengerLiveView .llr-live-bar{margin:8px -13px -9px -13px;padding:6px 10px;background:linear-gradient(90deg,#dc2626,#991b1b);color:#ffffff;font-size:.72rem;font-weight:700;line-height:1.35;white-space:normal;word-break:normal;display:flex;align-items:center;gap:6px;border-top:1px solid rgba(255,255,255,.2);box-shadow:0 -1px 4px rgba(0,0,0,.15);letter-spacing:.1px;border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}
     #messengerLiveView .llr-live-dot{width:7px;height:7px;border-radius:50%;background:#ffffff;box-shadow:0 0 6px rgba(255,255,255,.9);flex-shrink:0;display:inline-block;animation:llrPulse 1.8s infinite ease-in-out}
+
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"]{--prayer-surface:#11271e;--prayer-panel:#1c392d;--prayer-accent:#e5c684;--prayer-text:#f6f4e8}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .modal-card,#directMessagesModal[data-lumi-live-room="prayer_40dm"] .lumina-messenger-modal-card,#directMessagesModal[data-lumi-live-room="prayer_40dm"] .cc-chat-header,#directMessagesModal[data-lumi-live-room="prayer_40dm"] #messengerLiveView{background:var(--prayer-surface)!important;color:var(--prayer-text)}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.llr-head,.llr-compose,.llr-box,.llr-host){border-color:#e5c68440;background:var(--prayer-surface)}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.llr-b,.llr-msg.me .llr-b,.llr-note){background:var(--prayer-panel);color:var(--prayer-text)}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] :is(.llr-title,.llr-who,.llr-head a,.llr-host a,.llr-host strong){color:var(--prayer-accent)}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-msg.me .llr-b{background:#315143;border:1px solid #e5c68460}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-send{background:#ff7a00;color:#172119}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] #tabBtnLiveTv{background:#365345!important;color:var(--prayer-accent)!important;box-shadow:none!important}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host{margin:8px 12px;border:1px solid #e5c68440;padding:9px 10px;border-radius:12px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host img{border-radius:50%;flex:none;object-fit:cover}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host p{margin:3px 0;font-size:.78rem;line-height:1.35}
+    #directMessagesModal[data-lumi-live-room="prayer_40dm"] .llr-host a{display:inline-flex;align-items:center;min-height:44px;font-size:.8rem;font-weight:700}
     @keyframes llrPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.85)}}
     #messengerLiveView .llr-note{align-self:center;text-align:center;font-size:.75rem;color:#cbd5e1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:8px 14px;border-radius:12px;max-width:92%}
     #messengerLiveView .llr-sec{align-self:center;font-size:.7rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fcd34d;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);padding:3px 12px;border-radius:999px}
@@ -395,16 +423,20 @@ function enterRoom(roomId) {
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); send(); } });
   view.replaceChildren(
     el('div', { class: 'llr-head' },
-      el('button', { type: 'button', 'aria-label': 'Wróć do listy pokoi', onclick: () => { leaveRoom(); renderList(); }, text: '←' }),
+      el('button', { type: 'button', 'aria-label': r.memberOnly ? prayerCopy.back : 'Wróć do listy pokoi', onclick: () => { $('directMessagesModal')?.removeAttribute('data-lumi-live-room'); leaveRoom(); renderList(); }, text: '←' }),
       r.logo ? el('img', { class: 'llr-room-logo', src:r.logo, width:36, height:36, alt:'' }) : null,
       el('span', { class: 'llr-title', text: r.logo ? r.name : r.icon + ' ' + r.name }),
-      el('a', { href: r.url, target: '_blank', rel: 'noopener', text: r.memberOnly ? 'Plan 40DM ↗' : 'Oglądaj ↗', 'aria-label': r.memberOnly ? 'Otwórz plan 40 Dni Modlitwy' : 'Otwórz transmisję ' + r.name })),
-    r.memberOnly ? el('p', {class:'llr-note', text:'Treść widzą zalogowani członkowie LUMINA. Nie wpisuj cudzych intencji ani danych wrażliwych.'}) : null,
+      el('a', { href: r.url, target: '_blank', rel: 'noopener', text: r.memberOnly ? prayerCopy.plan + ' ↗' : 'Oglądaj ↗', 'aria-label': r.memberOnly ? prayerCopy.plan : 'Otwórz transmisję ' + r.name })),
+    r.memberOnly ? el('section', {class:'llr-host', 'aria-label':prayerCopy.host},
+      el('img', {src:'/images/chat/assistants/asystentka-1.webp', width:38, height:38, loading:'lazy', alt:''}),
+      el('div', {}, el('strong', {text:prayerCopy.host}), el('p', {text:prayerCopy.welcome}),
+        el('a', {href:'/mess?assistant=cc&asst=asystentka-1&source=40dm&topic=40dm', target:'_blank', rel:'noopener', text:prayerCopy.help + ' ↗'}))) : null,
+    r.memberOnly ? el('p', {class:'llr-note', text:prayerCopy.privacy}) : null,
     box, typing,
     el('div', { class: 'llr-compose' },
       prayer ? el('label', { class: 'llr-check', for: 'llrPrayer' }, prayer, el('span', { text: r.prayerLabel || '🙏 To modlitwa — pokaż ją na antenie „Zjednoczeni za Polskę”' })) : null,
       cats,
-      el('div', { class: 'llr-row' }, input, el('button', { type: 'button', class: 'llr-send', 'aria-label': 'Wyślij', onclick: send, text: '➤' })),
+      el('div', { class: 'llr-row' }, input, el('button', { type: 'button', class: 'llr-send', 'aria-label': r.memberOnly ? prayerCopy.send : 'Wyślij', onclick: send, text: '➤' })),
       err));
 
   if (r.memberOnly) watchMemberRoom(r);
@@ -458,7 +490,7 @@ function renderRoom(force) {
     const send = box.parentElement.querySelector('.llr-send');
     if (send) send.disabled = !allowed;
     if (!allowed) {
-      if (force || !box.firstChild) box.replaceChildren(el('p', {class:'llr-note', text: state.memberRoomDenied ? 'Konto nie ma dostępu do tego pokoju.' : 'Zaloguj się w LUMINA, aby wejść do pokoju.'}));
+      if (force || !box.firstChild) box.replaceChildren(el('p', {class:'llr-note', text: state.memberRoomDenied ? prayerCopy.denied : prayerCopy.guest}));
       return;
     }
   }
@@ -519,7 +551,7 @@ function renderRoom(force) {
         el('div', { class: 'llr-meta' }, el('span', { text: hhmm(m.at) }), del),
         liveBar)));
   });
-  if (!all.length && !(r.reflection && session.items.length && now < session.liveStart)) nodes.push(el('div', { class: 'llr-note', text: r.memberOnly ? 'Pokój jest gotowy na pierwszą wiadomość.' : 'Bądź pierwszy — przywitaj się z widzami! 👋' }));
+  if (!all.length && !(r.reflection && session.items.length && now < session.liveStart)) nodes.push(el('div', { class: 'llr-note', text: r.memberOnly ? prayerCopy.empty : 'Bądź pierwszy — przywitaj się z widzami! 👋' }));
   box.replaceChildren(...nodes);
   if (force || nearBottom) box.scrollTop = box.scrollHeight;
 }

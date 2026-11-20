@@ -3,18 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="canonical" href="https://polskieradio.cc/40DM">
+<link rel="canonical" href="https://polskieradio.cc/40DM/">
+<link rel="alternate" hreflang="pl" href="https://polskieradio.cc/40DM/">
+<link rel="alternate" hreflang="en" href="https://polskieradio.cc/40DM/en/">
+<link rel="alternate" hreflang="x-default" href="https://polskieradio.cc/40DM/">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Christian Culture">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="40 Dni Modlitwy · Christian Culture">
-<meta property="og:url" content="https://polskieradio.cc/40DM">
+<meta property="og:url" content="https://polskieradio.cc/40DM/">
 <meta property="og:image" content="https://polskieradio.cc/40DM/hero.jpg">
-<meta property="og:description" content="40 Dni Modlitwy Christian Culture. Plan PL/EN z lokalnym zapisem postępu, Słowo Boże i wspólna modlitwa.">
+<meta property="og:image:width" content="1916">
+<meta property="og:image:height" content="821">
+<meta property="og:image:alt" content="40 Dni Modlitwy — otwarta Biblia i wschód słońca nad zielonymi wzgórzami">
+<meta property="og:description" content="Bezpłatny chrześcijański plan 40 dni modlitwy, codzienne tematy, przypomnienia w kalendarzu i pokój w LUMI MESS.">
 <meta name="theme-color" content="#10261c">
-<meta name="description" content="40 Dni Modlitwy Christian Culture. Wspólny pokój modlitwy i osobisty plan na czterdzieści dni.">
+<meta name="description" content="Bezpłatny chrześcijański plan 40 dni modlitwy, codzienne tematy, przypomnienia w kalendarzu i pokój w LUMI MESS.">
 <title>40 Dni Modlitwy · Christian Culture</title>
-<link rel="stylesheet" href="/40DM/style.css?v=20261120_room1">
-<script src="/40DM/page.js?v=20261120_room1" defer></script>
-<script type="module" src="/40DM/room-auth.js?v=20261120_room1"></script>
+<link rel="stylesheet" href="/40DM/style.css?v=20261120_growth1">
+<script src="/40DM/page.js?v=20261120_growth1" defer></script>
+<script type="module" src="/40DM/room-auth.js?v=20261120_growth1"></script>
+<script type="module" src="/40DM/community.js?v=20261120_growth1"></script>
+<script type="module" src="/40DM/analytics.js?v=20261120_growth1"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","url":"https://polskieradio.cc/40DM/","name":"40 Dni Modlitwy · Christian Culture","description":"Bezpłatny chrześcijański plan 40 dni modlitwy, codzienne tematy, przypomnienia w kalendarzu i pokój w LUMI MESS.","inLanguage":"pl","isAccessibleForFree":true,"primaryImageOfPage":{"@type":"ImageObject","url":"https://polskieradio.cc/40DM/hero.jpg","width":1916,"height":821},"publisher":{"@type":"Organization","name":"Christian Culture","url":"https://polskieradio.cc/"}}</script>
 </head>
 <body>
 <a class="skip" href="#main" data-i="skip">Przejdź do treści</a>
@@ -27,9 +41,10 @@
     <nav aria-label="40 Dni Modlitwy">
       <a href="#plan" data-i="planLink">Plan 40 dni</a>
       <a href="#pokoj" data-i="roomLink">Pokój modlitwy</a>
+      <a href="#zaproszenie" data-i="inviteNav">Zaproś</a>
     </nav>
     <div class="tools">
-      <button type="button" id="language" aria-label="English" lang="en">EN</button>
+      <a href="/40DM/en/" id="language" aria-label="English" lang="en">EN</a>
       <a class="support" href="https://polskieradio.cc/wspieraj" data-i="support">Wspieram to</a>
     </div>
   </div>
@@ -54,7 +69,15 @@
   <div class="wrap gathering">
     <div class="gathering-copy">
       <h2 data-i="gathering">Modlimy się razem.</h2>
+      <p data-i="discovery">Darmowy chrześcijański plan 40 dni modlitwy</p>
       <p data-i="intro">Zatrzymaj się przy Słowie Bożym. Wybierz swój dzień albo dołącz do wspólnej modlitwy w LUMI MESS.</p>
+      <section class="community-card" aria-labelledby="count-label">
+        <h3 id="count-label" data-i="countLabel">Dzisiejsze potwierdzenia modlitwy</h3>
+        <output id="prayer-count" aria-labelledby="count-label">–</output>
+        <p data-i="countExplain">Dobrowolne potwierdzenia raz dziennie w przeglądarce. Licznik zmienia dzień o północy czasu polskiego.</p>
+        <button class="button glass" id="confirm-prayer" type="button" data-i="countConfirm">Potwierdzam dzisiejszą modlitwę</button>
+        <p class="community-status" id="counter-status" role="status"></p>
+      </section>
     </div>
     <section class="room" id="pokoj" aria-labelledby="room-title">
       <header class="room-head">
@@ -81,6 +104,12 @@
         <div class="progress" aria-live="polite"><div class="progress-track" aria-hidden="true"><i></i></div><strong id="progress-count">0 / 40</strong><span data-i="progressText">ukończonych dni</span></div>
       </div>
       <p class="book-source"><a class="button glass" id="book-link" href="https://www.reviewandherald.com/product-page/40-days-prayers-and-devotions-to-prepare-for-the-second-coming-book-1" target="_blank" rel="noopener noreferrer" data-i="bookEdition">Książka u wydawcy ↗</a></p>
+      <form class="community-card reminder" id="reminder-form">
+        <div><h3 data-i="reminderTitle">Przypomnienie o kolejnym dniu</h3><p data-i="reminderIntro">Wybierz godzinę. Po dodaniu pliku do kalendarza przypomnienia zaczną się jutro i obejmą pozostałe dni planu.</p></div>
+        <div class="community-actions"><label for="reminder-time" data-i="reminderTime">Godzina lokalna</label><input type="time" id="reminder-time" value="18:00" required>
+        <button type="submit" class="button glass" data-i="reminderSave">Dodaj do kalendarza</button></div>
+        <p id="reminder-status" class="community-status" role="status"></p>
+      </form>
       <div class="journal-layout">
         <div class="calendar">
           <div class="periods" id="periods" role="group" aria-label="Zakres dni"></div>
@@ -97,6 +126,28 @@
       </div>
     </div>
   </section>
+  <section class="wrap sharing" id="zaproszenie" aria-labelledby="invite-title">
+    <h2 id="invite-title" data-i="inviteTitle">Zaproś jedną osobę do wspólnej modlitwy</h2>
+    <p data-i="inviteCopy">Umówcie się na chwilę modlitwy każdego dnia. Możecie zacząć w dowolnym terminie.</p>
+    <div class="community-actions">
+      <label for="invite-url" class="visually-hidden" data-i="inviteLabel">Link do zaproszenia</label>
+      <input id="invite-url" type="url" value="https://polskieradio.cc/40DM/" readonly>
+      <button type="button" id="copy-invite" class="button glass" data-i="inviteCopyButton">Kopiuj link</button>
+      <button type="button" id="share-invite" class="button primary" hidden data-i="inviteShareButton">Udostępnij</button>
+    </div>
+    <p id="invite-status" class="community-status" role="status"></p>
+    <details id="share-more">
+      <summary data-i="shareMore">Więcej sposobów udostępniania</summary>
+      <div class="community-actions social-actions"><a class="button glass" data-share="WhatsApp" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text=Do%C5%82%C4%85cz%20do%20mnie%20w%20akcji%2040%20Dni%20Modlitwy.%20https%3A%2F%2Fpolskieradio.cc%2F40DM%2F">WhatsApp</a><a class="button glass" data-share="Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpolskieradio.cc%2F40DM%2F">Facebook</a><a class="button glass" data-share="Telegram" target="_blank" rel="noopener noreferrer" href="https://t.me/share/url?url=https%3A%2F%2Fpolskieradio.cc%2F40DM%2F&amp;text=Do%C5%82%C4%85cz%20do%20mnie%20w%20akcji%2040%20Dni%20Modlitwy.">Telegram</a><a class="button glass" data-share="X" target="_blank" rel="noopener noreferrer" href="https://x.com/intent/tweet?url=https%3A%2F%2Fpolskieradio.cc%2F40DM%2F&amp;text=Do%C5%82%C4%85cz%20do%20mnie%20w%20akcji%2040%20Dni%20Modlitwy.">X</a><a class="button glass" data-share="email" data-i="email" href="mailto:?subject=Do%C5%82%C4%85cz%20do%20mnie%20w%20akcji%2040%20Dni%20Modlitwy.&amp;body=Do%C5%82%C4%85cz%20do%20mnie%20w%20akcji%2040%20Dni%20Modlitwy.%20https%3A%2F%2Fpolskieradio.cc%2F40DM%2F">E-mail</a><a class="button glass" data-share="sms" href="sms:?body=Do%C5%82%C4%85cz%20do%20mnie%20w%20akcji%2040%20Dni%20Modlitwy.%20https%3A%2F%2Fpolskieradio.cc%2F40DM%2F">SMS</a></div>
+    </details>
+    <noscript><p>Udostępnij link, korzystając z jednego z odnośników powyżej.</p></noscript>
+  </section>
+  <section class="wrap questions" aria-labelledby="questions-title">
+    <h2 id="questions-title" data-i="questions">Najczęstsze pytania</h2>
+    <details><summary data-i="qStart">Czy muszę zacząć konkretnego dnia?</summary><p data-i="aStart">Rozpocznij od pierwszego dnia w dowolnym terminie. Wybieraj kolejne dni w swoim tempie.</p></details>
+    <details><summary data-i="qAccount">Czy potrzebuję konta?</summary><p data-i="aAccount">Możesz korzystać z planu bez konta. Do czytania i pisania w pokoju potrzebujesz konta LUMINA.</p></details>
+    <details><summary data-i="qProgress">Gdzie zapisuje się postęp?</summary><p data-i="aProgress">Ukończone dni zapisują się w tej przeglądarce. Możesz też dodać przypomnienia do swojego kalendarza.</p></details>
+  </section>
   <section class="wrap resources" aria-labelledby="resources-title">
     <h2 id="resources-title" data-i="resources">Modlitwa w ekosystemie CC</h2>
     <div class="resource-grid">
@@ -106,6 +157,12 @@
       <a href="https://polskieradio.cc/lumina"><strong>LUMINA</strong><span data-i="community">Odwiedź społeczność <b aria-hidden="true">↗</b></span></a>
     </div>
   </section>
+  <details class="wrap statistics">
+    <summary data-i="measurement">Statystyki odsłon</summary>
+    <p data-i="measurementCopy">Opcjonalna zgoda dotyczy pomiaru odsłon strony w Google Analytics. Treść czatu, postęp modlitwy i potwierdzenia są odrębne od statystyk.</p>
+    <div class="community-actions"><button class="button glass" type="button" id="analytics-allow" data-i="allow">Włącz statystyki</button><button class="button glass" type="button" id="analytics-deny" data-i="deny">Wyłącz statystyki</button></div>
+    <p id="analytics-status" class="community-status" role="status"></p>
+  </details>
 </main>
 <footer class="footer"><div class="wrap"><a href="https://polskieradio.cc/">Christian Culture</a><a href="#main" data-i="top">Wróć na górę ↑</a></div></footer>
 </body>

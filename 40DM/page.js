@@ -2,6 +2,33 @@
 
 const copy = {
   pl: {
+    "discovery": "Darmowy chrześcijański plan 40 dni modlitwy",
+    "inviteTitle": "Zaproś jedną osobę do wspólnej modlitwy",
+    "inviteCopy": "Umówcie się na chwilę modlitwy każdego dnia. Możecie zacząć w dowolnym terminie.",
+    "inviteNav": "Zaproś",
+    "inviteLabel": "Link do zaproszenia",
+    "inviteCopyButton": "Kopiuj link",
+    "inviteShareButton": "Udostępnij",
+    "shareMore": "Więcej sposobów udostępniania",
+    "email": "E-mail",
+    "reminderTitle": "Przypomnienie o kolejnym dniu",
+    "reminderIntro": "Wybierz godzinę. Po dodaniu pliku do kalendarza przypomnienia zaczną się jutro i obejmą pozostałe dni planu.",
+    "reminderTime": "Godzina lokalna",
+    "reminderSave": "Dodaj do kalendarza",
+    "countLabel": "Dzisiejsze potwierdzenia modlitwy",
+    "countExplain": "Dobrowolne potwierdzenia raz dziennie w przeglądarce. Licznik zmienia dzień o północy czasu polskiego.",
+    "countConfirm": "Potwierdzam dzisiejszą modlitwę",
+    "questions": "Najczęstsze pytania",
+    "qStart": "Czy muszę zacząć konkretnego dnia?",
+    "aStart": "Rozpocznij od pierwszego dnia w dowolnym terminie. Wybieraj kolejne dni w swoim tempie.",
+    "qAccount": "Czy potrzebuję konta?",
+    "aAccount": "Możesz korzystać z planu bez konta. Do czytania i pisania w pokoju potrzebujesz konta LUMINA.",
+    "qProgress": "Gdzie zapisuje się postęp?",
+    "aProgress": "Ukończone dni zapisują się w tej przeglądarce. Możesz też dodać przypomnienia do swojego kalendarza.",
+    "measurement": "Statystyki odsłon",
+    "measurementCopy": "Opcjonalna zgoda dotyczy pomiaru odsłon strony w Google Analytics. Treść czatu, postęp modlitwy i potwierdzenia są odrębne od statystyk.",
+    "allow": "Włącz statystyki",
+    "deny": "Wyłącz statystyki",
     skip:'Przejdź do treści', planLink:'Plan 40 dni', roomLink:'Pokój modlitwy', support:'Wspieram to',
     title:'40 Dni Modlitwy', intro:'Zatrzymaj się przy Słowie Bożym. Wybierz swój dzień albo dołącz do wspólnej modlitwy w LUMI MESS.',
     heroLine:'Czterdzieści dni ze Słowem i modlitwą.', heroPlan:'Otwórz plan', gathering:'Modlimy się razem.', roomTitle:'Pokój modlitwy',
@@ -30,6 +57,33 @@ const copy = {
     ]
   },
   en: {
+    "discovery": "A free 40-day Christian prayer plan",
+    "inviteTitle": "Invite one person to pray with you",
+    "inviteCopy": "Set aside a little time to pray together each day. You can begin whenever you are ready.",
+    "inviteNav": "Invite",
+    "inviteLabel": "Invitation link",
+    "inviteCopyButton": "Copy link",
+    "inviteShareButton": "Share",
+    "shareMore": "More ways to share",
+    "email": "Email",
+    "reminderTitle": "A reminder for your next day",
+    "reminderIntro": "Choose a time. After you add the file to your calendar, reminders begin tomorrow and cover the remaining days.",
+    "reminderTime": "Local time",
+    "reminderSave": "Add to calendar",
+    "countLabel": "Prayer confirmations today",
+    "countExplain": "Voluntary confirmations once a day per browser. The counter resets at midnight in Poland.",
+    "countConfirm": "Confirm today’s prayer",
+    "questions": "Frequently asked questions",
+    "qStart": "Do I need to start on a specific date?",
+    "aStart": "Start with Day 1 whenever you are ready. Continue through the days at your own pace.",
+    "qAccount": "Do I need an account?",
+    "aAccount": "You can use the plan without an account. You need a LUMINA account to read and write in the prayer room.",
+    "qProgress": "Where is my progress saved?",
+    "aProgress": "Completed days are saved in this browser. You can also add reminders to your calendar.",
+    "measurement": "Page statistics",
+    "measurementCopy": "Optional consent enables Google Analytics page views. Chat, prayer progress and prayer confirmations are separate from these statistics.",
+    "allow": "Enable statistics",
+    "deny": "Disable statistics",
     skip:'Skip to content', planLink:'40-day plan', roomLink:'Prayer room', support:'Support this',
     title:'40 Days of Prayer', intro:'Take a moment with Scripture. Choose your day or join the community in prayer in LUMI MESS.',
     heroLine:'Forty days with Scripture and prayer.', heroPlan:'Open the plan', gathering:'Praying together.', roomTitle:'Prayer room',
@@ -64,8 +118,11 @@ let canSave = true;
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem(key)) || {}; } catch { canSave = false; }
 const completed = new Set(Array.isArray(saved.completed) ? saved.completed.filter(day => Number.isInteger(day) && day >= 1 && day <= 40) : []);
-let lang = saved.lang === 'en' ? 'en' : 'pl';
-let day = Number.isInteger(saved.day) && saved.day >= 1 && saved.day <= 40 ? saved.day : 1;
+const lang = document.documentElement.lang === 'en' ? 'en' : 'pl';
+const nextDay = () => Array.from({length:40}, (_, index) => index+1).find(number => !completed.has(number));
+const resumeNext = new URLSearchParams(location.search).get('next') === '1';
+const previousDay = Number.isInteger(saved.day) && saved.day >= 1 && saved.day <= 40 ? saved.day : 1;
+let day = resumeNext ? (nextDay() || 40) : previousDay;
 const byId = id => document.getElementById(id);
 const language = byId('language');
 const periods = byId('periods');
@@ -92,7 +149,7 @@ function render() {
   document.documentElement.lang = lang;
   document.title = t.title + ' · Christian Culture';
   document.querySelectorAll('[data-i]').forEach(el => {
-    if (el.id === 'title') return;
+    if (el.id === 'title' || !Object.hasOwn(t, el.dataset.i)) return;
     el.textContent = el.dataset.i === 'local' && !canSave ? t.temporary : t[el.dataset.i];
   });
   const accent = document.createElement('i');
@@ -114,6 +171,7 @@ function render() {
     button.setAttribute('aria-label', t.day + ' ' + number + (marked ? ', ' + t.finished : ''));
     return button;
   }));
+  byId('plan').dataset.remaining = String(40 - completed.size);
   byId('progress-count').textContent = completed.size + ' / 40';
   byId('hero-day').textContent = String(day).padStart(2, '0');
   document.querySelector('.progress-track').style.setProperty('--done', (completed.size / 40 * 100) + '%');
@@ -146,12 +204,6 @@ done.addEventListener('click', () => {
   save();
   render();
 });
-language.addEventListener('click', () => {
-  lang = lang === 'pl' ? 'en' : 'pl';
-  save();
-  render();
-});
-
 render();
 
 

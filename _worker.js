@@ -10,6 +10,7 @@ import { handleAssistantIdeaApiRequest } from './services/cc-assistant/idea-serv
 import { handleArkContestApiRequest } from './services/cc-ark-contest/contest-service.js';
 import { handleSpiritualSoundsFeed, handleSpiritualSoundsPlaylist } from './services/spiritual-sounds/feed-service.js';
 import { handleLumiChatApi } from './services/lumi-chat/lumi-chat-service.js';
+import { handlePrayerCounter } from './services/prayer-40dm/counter-service.js';
 
 const BLOCKED_PREFIXES = [
   '/.git/', '/.codex/', '/.cursor/', '/.claude/', '/repozytoria-cc/', '/joma_shared_memory/',
@@ -2319,6 +2320,8 @@ export default {
     // ──────────────────────────────────────────────────────────────────────────
     // GLOBALNY LICZNIK KAMPANII: /api/milion/count (CLOUDFLARE D1)
     // ──────────────────────────────────────────────────────────────────────────
+    if (url.pathname === '/api/40dm/counter') return handlePrayerCounter(request, env.milion_db);
+
     if (url.pathname === '/api/milion/count') {
       const headers = {
         'Content-Type': 'application/json',
