@@ -3,7 +3,7 @@
   "series": "What's Up Prof? — Walter Veith & Martin Smith (Clash of Minds)",
   "scheduleOffsetHours": 48,
   "dailyCron": "CRON_TZ=Europe/Warsaw 0 15 * * *",
-  "lastRunAt": "2026-11-18T17:25:34.933Z",
+  "lastRunAt": "2026-11-19T16:03:01.611Z",
   "episodes": {
     "1": {
       "seq": 1,
@@ -368,6 +368,79 @@
         }
       },
       "scheduledYmd": "2026-11-20",
+      "scheduledTime": "15:00"
+    },
+    "6": {
+      "seq": 6,
+      "epCode": "006",
+      "completed": true,
+      "channels": {
+        "Personality Plus": {
+          "status": "ok",
+          "channelId": "UCSwb927uMg2PxIl_Aakht0Q",
+          "videoUrl": "https://youtu.be/XhbRPJWkT5Q",
+          "title": "006. Which Bible? Part 2 | Prof. Walter Veith & Martin Smith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-19T14:13:24.480Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/syAK5f3c5TM",
+          "title": "006. Która Biblia? Część 2 | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-19T14:19:32.231Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "ok",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "videoUrl": "https://youtu.be/1q6lkH_2jLg",
+          "title": "006. Która Biblia? Część 2 | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-19T14:32:00.163Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/-j-klx8eCPc",
+          "title": "006. Która Biblia? Część 2 | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-19T14:43:22.605Z"
+        },
+        "Christian Culture TV": {
+          "status": "ok",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "videoUrl": "https://youtu.be/jTPJ0Q-KnGw",
+          "title": "006. Która Biblia? Część 2 | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-19T14:50:44.921Z"
+        },
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "videoUrl": "https://youtu.be/8kV2Sqam5Nw",
+          "title": "006. Która Biblia? Część 2 | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-19T15:04:04.152Z"
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "videoUrl": "https://youtu.be/iXD6x718Q9U",
+          "title": "006. Która Biblia? Część 2 | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-19T15:24:46.329Z"
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "videoUrl": "https://youtu.be/PauuSjK1oD8",
+          "title": "006. Która Biblia? Część 2 | Prof. Walter Veith (What's Up Prof?)",
+          "skipped": false,
+          "publishedAt": "2026-11-19T16:03:01.611Z"
+        }
+      },
+      "scheduledYmd": "2026-11-21",
       "scheduledTime": "15:00"
     }
   }

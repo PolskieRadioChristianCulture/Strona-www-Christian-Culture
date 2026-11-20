@@ -1,7 +1,7 @@
 {
-  "lastIndex": 9,
-  "lastChannelId": "cc_prayer_24",
-  "lastTimestamp": "2026-11-18T17:05:48.015Z",
+  "lastIndex": 11,
+  "lastChannelId": "cc_film",
+  "lastTimestamp": "2026-11-19T17:00:17.358Z",
   "history": [
     {
       "index": 0,
@@ -110,6 +110,28 @@
       "url": "https://www.youtube.com/@CCPrayer24",
       "targetAudience": "Ludzie w kryzysie życiowym, chorzy, osoby szukające wsparcia modlitewnego",
       "hook": "Nosisz w sercu ciężar, z którym nie masz już siły walczyć samemu?"
+    },
+    {
+      "index": 10,
+      "channelId": "top_seven",
+      "timestamp": "2026-11-19T09:00:24.881Z",
+      "status": "PROMOTED",
+      "channelName": "Top Seven (Lista Przebojów CC)",
+      "handle": "@TopSeven_CC",
+      "url": "https://www.youtube.com/@TopSeven_CC",
+      "targetAudience": "Młodzież i fani nowoczesnej muzyki chrześcijańskiej szukający świeżych trendów i playlist",
+      "hook": "Myślisz, że muzyka chrześcijańska jest nudna? Posłuchaj premier, które podbijają listy przebojów!"
+    },
+    {
+      "index": 11,
+      "channelId": "cc_film",
+      "timestamp": "2026-11-19T17:00:17.359Z",
+      "status": "PROMOTED",
+      "channelName": "CC FILM (Kino Chrześcijańskie)",
+      "handle": "@CCFILM77",
+      "url": "https://www.youtube.com/@CCFILM77",
+      "targetAudience": "Rodziny, kinomaniacy szukający filmów z przesłaniem bez wulgaryzmów i demoralizacji",
+      "hook": "Szukasz filmu na wieczór, który poruszy Twoje serce zamiast zatruwać umysł cynizmem?"
     }
   ]
 }

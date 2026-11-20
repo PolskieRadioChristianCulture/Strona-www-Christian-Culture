@@ -368,11 +368,19 @@
       "portal_docelowy": "EkoCC — rodzina i relacje (dokładny URL do potwierdzenia)",
       "priorytet": "A",
       "start_przygotowania": "2026-11-06",
-      "status": "Planowany / do opracowania",
+      "status": "Opracowany / Czeka na autoryzację L0",
       "zrodlo_pomyslu": "Poprzedni kalendarz",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "badania/eksperci; bez diagnoz i liczb bez źródeł",
-      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk."
+      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk.",
+      "bramka_bezpieczenstwa": "T4 (DO AUTORYZACJI CZŁOWIEKA - L0)",
+      "autor": "Cezary Rogowski",
+      "slug": "dziecko-nie-jest-wlasnoscia-rodzica-co-biblia-mowi-o-godnosci-najmlodszych",
+      "pakiet_zip": "C:\\Users\\czark\\Desktop\\EkoCC_news_dziecko-nie-jest-wlasnoscia-rodzica-co-biblia-mowi-o-godnosci-najmlodszych_2026-11-20.zip",
+      "pakiet_docx": "C:\\Users\\czark\\Desktop\\EkoCC_news_dziecko-nie-jest-wlasnoscia-rodzica-co-biblia-mowi-o-godnosci-najmlodszych_2026-11-20.docx",
+      "grafika_16_9": "images/news/art-dziecko-nie-jest-wlasnoscia-rodzica-co-biblia-mowi-o-godnosci-najmlodszych.jpg",
+      "data_opracowania": "2026-11-19T10:05:00+01:00",
+      "uwagi_redakcyjne": "Portal docelowy do potwierdzenia L0 (pakiet przygotowany roboczo jako news / propozycja kanoniczna: /news lub dedykowany dział rodzinny)."
     },
     {
       "lp": 18,
@@ -487,11 +495,19 @@
       "portal_docelowy": "CCN Finanse",
       "priorytet": "A",
       "start_przygotowania": "2026-11-13",
-      "status": "Planowany / do opracowania",
+      "status": "Opracowany / Czeka na autoryzację L0",
       "zrodlo_pomyslu": "Rozwinięcie propozycji użytkownika",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "dane i prawo aktualne na dzień pisania; przykładowe wyliczenia oznaczyć",
-      "uwagi_bezpieczenstwa": "Nie podawać cen/stawek bez aktualnego sprawdzenia."
+      "uwagi_bezpieczenstwa": "Nie podawać cen/stawek bez aktualnego sprawdzenia.",
+      "bramka_bezpieczenstwa": "T4 (DO AUTORYZACJI CZŁOWIEKA - L0)",
+      "autor": "Cezary Rogowski",
+      "slug": "czarny-piatek-czerwone-konto-jak-nie-kupowac-szczescia-na-kredyt",
+      "pakiet_zip": "C:\\Users\\czark\\Desktop\\EkoCC_finanse_czarny-piatek-czerwone-konto-jak-nie-kupowac-szczescia-na-kredyt_2026-11-19.zip",
+      "pakiet_docx": "C:\\Users\\czark\\Desktop\\EkoCC_finanse_czarny-piatek-czerwone-konto-jak-nie-kupowac-szczescia-na-kredyt_2026-11-19.docx",
+      "grafika_16_9": "images/finanse/art-czarny-piatek-czerwone-konto-jak-nie-kupowac-szczescia-na-kredyt.jpg",
+      "data_opracowania": "2026-11-19T14:10:00+01:00",
+      "url_kanoniczny_szkic": "https://polskieradio.cc/finanse/czarny-piatek-czerwone-konto-jak-nie-kupowac-szczescia-na-kredyt"
     },
     {
       "lp": 25,

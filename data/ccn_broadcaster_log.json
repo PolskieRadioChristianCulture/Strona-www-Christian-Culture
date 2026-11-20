@@ -1,5 +1,245 @@
 [
   {
+    "timestamp": "2026-11-20T05:17:57.567Z",
+    "title": "Premier HeatFix UK — Certyfikowane Usługi Gazowe i Hydrauliczne w Londynie",
+    "url": "https://polskieradio.cc/premier-heatfix",
+    "type": "profile",
+    "image": "ogloszenia-premier-heatfix.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T21:31:10.122Z",
+    "title": "Studio Dobrego Słowa — Cykl „Apokalipsa: Księga Nadziei”",
+    "url": "https://polskieradio.cc/kursy/apokalipsa/",
+    "type": "course",
+    "image": "banner-promo.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T21:01:11.107Z",
+    "title": "Ark of Fire — Artist Showcase",
+    "url": "https://polskieradio.cc/ArkOfFire",
+    "type": "music",
+    "image": "ark-of-fire-hero.webp",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T20:31:08.970Z",
+    "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+    "url": "https://polskieradio.cc/vod",
+    "type": "vod",
+    "image": "vod-christian-culture-01-smarttv.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T20:01:14.225Z",
+    "title": "Aplikacje CC Hub — Centrum Pobierania Aplikacji Mobilnych i Webowych (PWA)",
+    "url": "https://polskieradio.cc/cc-light",
+    "type": "module",
+    "image": "topic-cc-light-cd7bb964.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T19:01:22.600Z",
+    "title": "CC Pomoc: Depresja – nie musisz cierpieć w samotności",
+    "url": "https://polskieradio.cc/depresja",
+    "type": "help",
+    "image": "topic-depresja-5ecaab6f.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T18:31:09.194Z",
+    "title": "Werset Dnia: „Szukajcie Pana, dopóki może być znaleziony; wzywajcie Go, dopóki jest blisko” (Księga Izajasza 55:6, UBG)",
+    "url": "https://polskieradio.cc/werset-dnia?day=341",
+    "type": "verse",
+    "image": "werset-day-341-ksiega-izajasza-55-6.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T18:01:06.635Z",
+    "title": "Nie czekaj, aż życie się zmieni. Zacznij od siebie — z Bogiem możesz więcej!",
+    "url": "https://polskieradio.cc/news/nie-czekaj-az-zycie-sie-zmieni-zacznij-od-siebie-z-bogiem-mozesz-wiecej",
+    "type": "news",
+    "image": "topic-nie-czekaj-az-zycie-sie-zmieni-zacznij-od-siebie-aa6e060e.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T17:31:12.435Z",
+    "title": "Półka z Książkami: Cezary Rogowski — Oficjalna Biblioteka Autorska",
+    "url": "https://polskieradio.cc/ksiazki-autora",
+    "type": "book",
+    "image": "ksiazki-autora-og.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T16:33:18.862Z",
+    "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
+    "url": "https://polskieradio.cc/lumina-tablica",
+    "type": "profile",
+    "image": "card-lumina.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T15:31:53.383Z",
+    "title": "Kurs 28 Kroków — Lekcja 6: Stworzenie — Geneza Wszechświata i Godność Człowieka",
+    "url": "https://polskieradio.cc/kursy/06-stworzenie.html",
+    "type": "course",
+    "image": "6.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T14:01:46.695Z",
+    "title": "topTEN — Oficjalna Lista Przebojów i Notowania Muzyki Chrześcijańskiej",
+    "url": "https://polskieradio.cc/topTEN",
+    "type": "music",
+    "image": "wspieramto-banner.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T13:31:21.623Z",
+    "title": "Werset Dnia: „Góry mogą ustąpić i pagórki się zachwiać, ale moje miłosierdzie nie odstąpi od ciebie” (Księga Izajasza 54:10, UBG)",
+    "url": "https://polskieradio.cc/werset-dnia?day=340",
+    "type": "verse",
+    "image": "werset-day-340-ksiega-izajasza-54-10.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T13:01:19.710Z",
+    "title": "SURVIVAL — przetrwać to za mało. Jak przygotować się na trudne czasy, nie tracąc wiary, człowieczeństwa i nadziei?",
+    "url": "https://polskieradio.cc/news/survival-christian-culture-przygotowanie-na-trudne-czasy",
+    "type": "news",
+    "image": "survival-christian-culture-przygotowanie-na-trudne-czasy.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T12:31:27.689Z",
+    "title": "Projektant CC — Wewnętrzne Studio Kreatora Grafik & Postów Social Media",
+    "url": "https://polskieradio.cc/projektant",
+    "type": "module",
+    "image": "cezary-wioletta-radiocc.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T12:01:15.437Z",
+    "title": "Książka: Pokonać Goliata — Cezary Rogowski. Twoja walka, Boże zwycięstwo",
+    "url": "https://polskieradio.cc/pokonac-goliata",
+    "type": "book",
+    "image": "art-pokonac-goliata.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T11:31:44.180Z",
+    "title": "Radio SKINS 2.0 — Interaktywny Odtwarzacz & 5 Skórek Wizualnych",
+    "url": "https://polskieradio.cc/skins",
+    "type": "music",
+    "image": "skin-earth.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T10:31:09.842Z",
+    "title": "Kurs 28 Kroków — Lekcja 5: Bóg Duch Święty — Pocieszyciel, Nauczyciel i Moc Przemiany",
+    "url": "https://polskieradio.cc/kursy/05-bog-duch-swiety.html",
+    "type": "course",
+    "image": "5.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T10:01:14.572Z",
+    "title": "LumiMess — Chrześcijański Komunikator",
+    "url": "https://polskieradio.cc/mess",
+    "type": "profile",
+    "image": "lumi-mess-bg.webp",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T09:31:45.397Z",
+    "title": "Kino VOD & YouTube: Studio Dobrego Słowa — Proroctwa Księgi Apokalipsy",
+    "url": "https://polskieradio.cc/vod",
+    "type": "vod",
+    "image": "art-cbdc-prawo-niedzielne-apokalipsa-13.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T09:01:19.798Z",
+    "title": "Werset Dnia: „On daje siłę zmęczonemu i bezsilnemu pomnaża moc” (Księga Izajasza 40:29, UBG)",
+    "url": "https://polskieradio.cc/werset-dnia?day=339",
+    "type": "verse",
+    "image": "werset-day-339-ksiega-izajasza-40-29.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T08:31:03.054Z",
+    "title": "Proście, a będzie wam dane! A jeśli nie otrzymujesz? Być może Bóg przygotowuje dla Ciebie coś znacznie wspanialszego",
+    "url": "https://polskieradio.cc/news/prosicie-a-bedzie-wam-dane-ale-co-gdy-nie-otrzymujesz",
+    "type": "news",
+    "image": "art-prosicie-a-bedzie-wam-dane.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T08:01:26.363Z",
+    "title": "Książka: Kod Źródłowy Duszy — Cezary Rogowski. Biblijna tożsamość i sens istnienia",
+    "url": "https://polskieradio.cc/news/kod-zrodlowy-duszy-jak-zresetowac-wewnetrzny-system-i-odrzucic-falszywy-blysk-sukcesu",
+    "type": "book",
+    "image": "art-kod-zrodlowy.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T07:31:12.794Z",
+    "title": "Bank Treści — Darmowe Materiały Ewangelizacyjne, Grafiki i Słowo Boże",
+    "url": "https://polskieradio.cc/bank-tresci",
+    "type": "module",
+    "image": "cezary-wioletta-radiocc.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T07:03:19.755Z",
+    "title": "Nowość Muzyczna: Cezary Rogowski — Cokolwiek na świecie (Rz 8:38-39 / CC Men)",
+    "url": "https://polskieradio.cc/CezaryRogowski",
+    "type": "music",
+    "image": "cezary-hero.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T06:31:16.588Z",
+    "title": "Werset Dnia: „Trawa usycha, kwiat więdnie, ale słowo naszego Boga trwa na wieki” (Księga Izajasza 40:8, UBG)",
+    "url": "https://polskieradio.cc/werset-dnia?day=338",
+    "type": "verse",
+    "image": "werset-day-338-ksiega-izajasza-40-8.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T06:01:35.954Z",
+    "title": "Kurs 28 Kroków — Lekcja 4: Bóg Syn — Wcielenie, Bóstwo i Zbawiciel Świata",
+    "url": "https://polskieradio.cc/kursy/04-bog-syn.html",
+    "type": "course",
+    "image": "4.png",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T05:31:16.385Z",
+    "title": "Silni aż do wyczerpania: dlaczego mężczyźni wciąż boją się prosić o pomoc?",
+    "url": "https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc",
+    "type": "news",
+    "image": "art-silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T05:01:07.169Z",
+    "title": "LUMINA — Portal Społecznościowy",
+    "url": "https://polskieradio.cc/lumina",
+    "type": "profile",
+    "image": "card-lumina.jpg",
+    "status": "PUBLISHED"
+  },
+  {
+    "timestamp": "2026-11-19T04:31:37.455Z",
+    "title": "Książka: Bóg jest MIŁOŚCIĄ? — Cezary Rogowski. Powieść dialogowa o charakterze Boga",
+    "url": "https://polskieradio.cc/bog-jest-miloscia",
+    "type": "book",
+    "image": "bog-jest-miloscia-og.jpg",
+    "status": "PUBLISHED"
+  },
+  {
     "timestamp": "2026-11-18T20:33:18.645Z",
     "title": "Ark of Fire — Chrześcijański Rock i Metal z Holandii w Polskim Radiu CC",
     "url": "https://polskieradio.cc/ArkOfFire/pl/",

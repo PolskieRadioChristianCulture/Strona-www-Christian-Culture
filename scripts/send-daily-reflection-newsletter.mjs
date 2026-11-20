@@ -39,22 +39,32 @@ export async function prepareDailyReflectionContent({ title, verse, verseRef, te
         day: "2-digit"
       }).format(now);
       const bazaPath = path.resolve(ROOT, 'rozwazania_baza.json');
+      const queuePath = path.resolve(ROOT, 'kolejka-publikacji', 'kurs-codzienny', todayIso, 'rozwazanie.json');
+      let found = null;
       if (fs.existsSync(bazaPath)) {
         const list = JSON.parse(fs.readFileSync(bazaPath, 'utf8'));
-        const found = list.find(x => x.date === todayIso) || list[0];
-        if (found) {
-          if (!displayTitle) displayTitle = found.title;
-          if (!displayText) displayText = found.contentWeb || found.fullText;
-          if (!displayVerse) {
-            if (found.memoryVerse) {
-              displayVerse = found.memoryVerse;
-              displayVerseRef = found.reading ? `— ${found.reading}` : '— UBG';
-            } else if (found.contentWeb) {
-              const vMatch = found.contentWeb.match(/Jezus mówi dziś do Ciebie:\s*([^\n]+)/i);
-              if (vMatch) {
-                displayVerse = vMatch[1].trim();
-                displayVerseRef = '— UBG';
-              }
+        found = list.find(x => x.date === todayIso) || null;
+        if (!found && fs.existsSync(queuePath)) {
+          found = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
+        }
+        if (!found) {
+          found = list[0];
+        }
+      } else if (fs.existsSync(queuePath)) {
+        found = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
+      }
+      if (found) {
+        if (!displayTitle) displayTitle = found.title;
+        if (!displayText) displayText = found.contentWeb || found.fullText;
+        if (!displayVerse) {
+          if (found.memoryVerse) {
+            displayVerse = found.memoryVerse;
+            displayVerseRef = found.reading ? `— ${found.reading}` : '— UBG';
+          } else if (found.contentWeb) {
+            const vMatch = found.contentWeb.match(/Jezus mówi dziś do Ciebie:\s*([^\n]+)/i);
+            if (vMatch) {
+              displayVerse = vMatch[1].trim();
+              displayVerseRef = '— UBG';
             }
           }
         }

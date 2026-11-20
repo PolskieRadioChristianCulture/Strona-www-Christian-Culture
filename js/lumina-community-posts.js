@@ -50,6 +50,43 @@
 
     const LUMINA_CORE_POSTS_DATA = [
         {
+            id: 'post_ckd_2026_11_19',
+            type: 'post',
+            author: 'Andrzej Thiel',
+            authorRole: 'Opracowuje Rozważania „Cuda Każdego Dnia” ✨ • Sieradz',
+            authorAvatar: 'avatar_andrzej_thiel.jpg',
+            authorSlug: 'andrzejthiel',
+            time: '19 LISTOPADA 2026 • 📖 Cuda Każdego Dnia (Dzisiaj)',
+            title: 'Wyjdź ze strefy komfortu • Cuda Każdego Dnia ✨',
+            text: `CUDA KAŻDEGO DNIA!
+19 LISTOPADA 2026.
+Przeczytaj i zobacz jak Bóg przemienia twoje życie.
+
+WYJDŹ ZE STREFY KOMFORTU
+
+Czy w ostatnim czasie zdarzyło ci się, zrobić coś nowego? Jaka jest twoja pierwsza reakcja na myśl o konieczności wyjścia poza strefę komfortu?
+Zakładając po raz pierwszy maskę do snorkelingu, musiałam przełamać lęki, ale zanurzenie się i obserwowanie piękna podwodnego życia było tego warte.
+
+Każdy ma swoją strefę komfortu, w której czuje się pewnie i bezpiecznie. I mało kto chętnie z niej wychodzi. Lubimy to, co znamy, bo strach przed niewiadomą wydaje się zbyt wielki do pokonania. A jednak Bóg lubi nas często z tej strefy wypychać, bo wie, że jeśli się zdecydujemy wyjść, to będzie mógł poprowadzić nas w cudowne miejsca, które tylko z Nim odkryjemy. On też nigdy nie zostawi nas samych.
+
+Przekonał się o tym Abraham, kiedy w odpowiedzi na Boże polecenie zostawił swoje miejsce zamieszkania i poszedł do ziemi, którą miał mu wskazać Bóg. Ten wielki krok wiary został wynagrodzony obietnicą: „Uczynię z ciebie naród wielki i będę ci błogosławił, i uczynię sławnym imię twoje, tak że staniesz się błogosławieństwem” (Rdz 12,2).
+
+W Liście do Hebrajczyków czytamy: „A wiara jest pewnością tego, czego się spodziewamy, przeświadczeniem o tym, czego nie widzimy” (Hbr 11,1). Abraham zaufał Bogu, że to, czego jeszcze nie widział, stanie się rzeczywistością.
+
+Może Bóg będzie chciał poprosić cię o krok wiary, który wyda ci się bez sensu. Ale to właśnie wtedy, kiedy zaufasz, kiedy się odważysz, doświadczysz największych błogosławieństw. Jeśli pozostaniesz przy tym, co znasz, ominie się to, co dla ciebie przygotował.
+
+Czy jest coś, co Bóg ci pokazuje, ale boisz się za tym iść? Zrób to pomimo lęku!
+
+„Panie, chcę zaufać, że mnie poprowadzisz, że pójdziesz przede mną. Pomóż mi zrobić ten krok wiary. Pomóż mi się odważyć i razem z Tobą dojść do miejsca, w którym chcesz mnie mieć”.
+
+/opr. Andrzej Thiel • na podst. wiad. B.K./.
+
+Dziękuję, że jesteś! ❤️`,
+            image: 'cuda_kazdego_dnia_19_listopada_2026.jpg',
+            likes: 312,
+            amen: 285
+        },
+        {
           "id": "post_biblia_czy_jezus_naprawde_byl_bogiem_20261114",
           "type": "post",
           "category": "wiara",

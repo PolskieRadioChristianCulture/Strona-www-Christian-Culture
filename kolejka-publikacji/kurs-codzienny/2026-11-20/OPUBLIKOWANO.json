@@ -1,0 +1,97 @@
+{
+  "data": "2026-11-20",
+  "dzien": 51,
+  "opublikowano": "2026-11-20T05:20:34.159Z",
+  "agent": "@A001 (antigravity)",
+  "ostrzezenia": [],
+  "pliki": [
+    {
+      "plik": "akademia/kurscodzienny/dzien-51.html",
+      "sha256": "388d4c4b21d799f4d1508b3fbaf13e639ee19773d45c38f68ade4d4de2c1133c"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-51/index.html",
+      "sha256": "388d4c4b21d799f4d1508b3fbaf13e639ee19773d45c38f68ade4d4de2c1133c"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-51.html",
+      "sha256": "388d4c4b21d799f4d1508b3fbaf13e639ee19773d45c38f68ade4d4de2c1133c"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-51/index.html",
+      "sha256": "388d4c4b21d799f4d1508b3fbaf13e639ee19773d45c38f68ade4d4de2c1133c"
+    },
+    {
+      "plik": "images/academy/daily/kc_day_51_prawa_przymierza_godnosc_zycia.jpg",
+      "sha256": "9d8e73b0f93ebac0f373f1fe3f31c9df888de68293de59aa32f16cd28745c6ad"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-50.html",
+      "sha256": "3d50405e2bef5d66db45d610084b7dd4dfc65e8f1c5a210df0a9a27221170213"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-50/index.html",
+      "sha256": "3d50405e2bef5d66db45d610084b7dd4dfc65e8f1c5a210df0a9a27221170213"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-50.html",
+      "sha256": "3d50405e2bef5d66db45d610084b7dd4dfc65e8f1c5a210df0a9a27221170213"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-50/index.html",
+      "sha256": "3d50405e2bef5d66db45d610084b7dd4dfc65e8f1c5a210df0a9a27221170213"
+    },
+    {
+      "plik": "akademia.html",
+      "sha256": "235c9146d2b8a55a0b142caa3400e490d130ef6969394ae0924957701897f8dc"
+    },
+    {
+      "plik": "akademia/index.html",
+      "sha256": "235c9146d2b8a55a0b142caa3400e490d130ef6969394ae0924957701897f8dc"
+    },
+    {
+      "plik": "akademia/kurscodzienny.html",
+      "sha256": "c4ff4304f88c4bf8b880c5babe5b87568eee9a8bc06895b764e51b528ebc09f3"
+    },
+    {
+      "plik": "akademia/kurscodzienny/index.html",
+      "sha256": "c4ff4304f88c4bf8b880c5babe5b87568eee9a8bc06895b764e51b528ebc09f3"
+    },
+    {
+      "plik": "kursy.html",
+      "sha256": "235c9146d2b8a55a0b142caa3400e490d130ef6969394ae0924957701897f8dc"
+    },
+    {
+      "plik": "kursy/index.html",
+      "sha256": "235c9146d2b8a55a0b142caa3400e490d130ef6969394ae0924957701897f8dc"
+    },
+    {
+      "plik": "kursy/kurscodzienny.html",
+      "sha256": "c4ff4304f88c4bf8b880c5babe5b87568eee9a8bc06895b764e51b528ebc09f3"
+    },
+    {
+      "plik": "kursy/kurscodzienny/index.html",
+      "sha256": "c4ff4304f88c4bf8b880c5babe5b87568eee9a8bc06895b764e51b528ebc09f3"
+    },
+    {
+      "plik": "szukaj/catalog.json",
+      "sha256": "f6d679cec9b92e4227b477f7f05f104875bd52b777951a7d8a13e15602ee9d74"
+    },
+    {
+      "plik": "data/cc-search-index.json",
+      "sha256": "f6d679cec9b92e4227b477f7f05f104875bd52b777951a7d8a13e15602ee9d74"
+    },
+    {
+      "plik": "sitemaps/akademia.xml",
+      "sha256": "a4d5832a578c012e9d4ed02974c531bf5e6e340c157d810e327fe9b6105489c0"
+    },
+    {
+      "plik": "rozwazania_baza.json",
+      "sha256": "bdb8b05f5fdd7878058d8dbe324563fa8eafadf2303fc37dd59211b74ba73014"
+    },
+    {
+      "plik": "data/ecosystem-map.json",
+      "sha256": "8524483fa9faef51006fea9a01a42e4e156719ba75b6376a70db5514030a53e6"
+    }
+  ]
+}

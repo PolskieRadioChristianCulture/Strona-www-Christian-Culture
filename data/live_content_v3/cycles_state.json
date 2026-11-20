@@ -1,9 +1,9 @@
 {
-  "lastRadarRun": "2026-11-18T05:19:24.019Z",
-  "lastHourlyRun": "2026-11-18T05:19:24.019Z",
-  "lastDailyRun": "2026-11-18T05:19:24.019Z",
+  "lastRadarRun": "2026-11-19T04:10:40.023Z",
+  "lastHourlyRun": "2026-11-19T04:10:40.023Z",
+  "lastDailyRun": "2026-11-19T04:10:40.023Z",
   "lastWeeklyRun": "2026-11-17T09:52:09.351Z",
-  "lastQaRun": "2026-11-18T05:19:24.019Z",
+  "lastQaRun": "2026-11-19T04:10:40.023Z",
   "lastPublishRun": null,
   "history": [
     {
@@ -88,6 +88,17 @@
     },
     {
       "timestamp": "2026-11-18T05:19:24.019Z",
+      "cyclesCount": 5,
+      "cycles": [
+        "trend_radar_15m:OK",
+        "topics_desk_hourly:OK",
+        "cc_inside_hourly:OK",
+        "daily_edition:OK",
+        "editorial_qa:PASS"
+      ]
+    },
+    {
+      "timestamp": "2026-11-19T04:10:40.023Z",
       "cyclesCount": 5,
       "cycles": [
         "trend_radar_15m:OK",
