@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
@@ -9,6 +10,7 @@ import {
   generateCcnFbSquareCard,
   getCcnFbSquareRelativePath,
 } from '../scripts/generate-ccn-fb-square-card.mjs';
+import { generateCcnArticleBanner } from '../scripts/generate-ccn-article-banner.mjs';
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -17,19 +19,19 @@ const WEKTOR_PUBLISHER = path.resolve(ROOT, '..', 'Wektor1_VideoFactory', 'publi
 
 const ISLAM_SLUG = 'islam-najwieksza-religia-2035-co-czeka-europe';
 
-test('Islam 2035 article is built, indexed in catalog, and has verified 16:9 and 1:1 graphics', async () => {
+test('Islam 2035 article is built, indexed in catalog, and has verified 3:1 article banner and 1:1 FB graphic', async () => {
   assert.equal(fs.existsSync(path.join(ROOT, 'news', `${ISLAM_SLUG}.html`)), true);
   assert.equal(fs.existsSync(path.join(ROOT, 'news', ISLAM_SLUG, 'index.html')), true);
 
-  const img16 = path.join(ROOT, 'images', 'news', `art-${ISLAM_SLUG}.jpg`);
+  const imgBanner = path.join(ROOT, 'images', 'news', `art-${ISLAM_SLUG}.jpg`);
   const img1 = path.join(ROOT, 'images', 'social', 'ccn-fb', `fb-${ISLAM_SLUG}.jpg`);
-  assert.equal(fs.existsSync(img16), true);
+  assert.equal(fs.existsSync(imgBanner), true);
   assert.equal(fs.existsSync(img1), true);
 
-  const meta16 = await sharp(img16).metadata();
+  const metaBanner = await sharp(imgBanner).metadata();
   const meta1 = await sharp(img1).metadata();
-  assert.equal(meta16.width, 1600);
-  assert.equal(meta16.height, 900);
+  assert.equal(metaBanner.width, 1024);
+  assert.equal(metaBanner.height, 341);
   assert.equal(meta1.width, 1080);
   assert.equal(meta1.height, 1080);
 
@@ -46,18 +48,42 @@ test('Islam 2035 article is built, indexed in catalog, and has verified 16:9 and
   assert.equal(ccPomocCount, 200, 'All 200 CC Pomoc pages must remain indexed');
 });
 
-test('All 5 CCN NEWS brand templates are installed in images/brand/ccn-news-templates', () => {
+test('All official CCN NEWS brand templates are installed in images/brand/ccn-news-templates', () => {
   const expected = [
     'ccn-news-template-1x1-guide.jpg',
     'ccn-news-banner.jpg',
     'ccn-news-example-16x9.jpg',
     'ccn-news-logo-square.jpg',
     'ccn-news-example-1x1.jpg',
+    'ccn-news-article-banner-3x1-template.jpg',
+    'README.md',
   ];
   for (const name of expected) {
     const full = path.join(ROOT, 'images', 'brand', 'ccn-news-templates', name);
     assert.equal(fs.existsSync(full), true, `Missing brand template ${name}`);
-    assert.ok(fs.statSync(full).size > 15000);
+    assert.ok(fs.statSync(full).size > 500);
+  }
+});
+
+test('generateCcnArticleBanner creates 1536x512 (3:1) JPEG banner without Link w komentarzu', async () => {
+  const tmpOut = path.join(os.tmpdir(), `ccn-banner-test-${Date.now()}.jpg`);
+  try {
+    const res = await generateCcnArticleBanner({
+      title: 'Silni aż do wyczerpania: dlaczego mężczyźni wciąż boją się prosić o pomoc?',
+      sourceImagePath:
+        'images/news/art-silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc.jpg',
+      outputPath: tmpOut,
+      skipMirror: true,
+    });
+    assert.equal(res.ok, true);
+    assert.equal(res.width, 1536);
+    assert.equal(res.height, 512);
+    const meta = await sharp(tmpOut).metadata();
+    assert.equal(meta.width, 1536);
+    assert.equal(meta.height, 512);
+    assert.equal(meta.format, 'jpeg');
+  } finally {
+    if (fs.existsSync(tmpOut)) fs.unlinkSync(tmpOut);
   }
 });
 
