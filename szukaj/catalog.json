@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-20T07:13:30.931Z",
-  "totalItems": 667,
+  "updatedAt": "2026-11-20T18:58:32.643Z",
+  "totalItems": 668,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -14596,6 +14596,25 @@
       "type": "page",
       "access": "public",
       "lang": "en"
+    },
+    {
+      "title": "40 Dni Modlitwy · Christian Culture",
+      "category": "Modlitwa i wspólnota",
+      "url": "https://polskieradio.cc/40DM",
+      "description": "40 Dni Modlitwy Christian Culture. Plan PL/EN z lokalnym zapisem postępu, Słowo Boże i wspólna modlitwa.",
+      "tags": [
+        "40DM",
+        "40 dni modlitwy",
+        "40 Days of Prayer",
+        "modlitwa",
+        "plan modlitwy",
+        "wspólnota",
+        "Biblia",
+        "Christian Culture"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
     }
   ]
 }

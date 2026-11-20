@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="canonical" href="https://polskieradio.cc/40DM">
+<meta property="og:type" content="website">
+<meta property="og:title" content="40 Dni Modlitwy · Christian Culture">
+<meta property="og:url" content="https://polskieradio.cc/40DM">
+<meta property="og:image" content="https://polskieradio.cc/40DM/hero.jpg">
+<meta property="og:description" content="40 Dni Modlitwy Christian Culture. Plan PL/EN z lokalnym zapisem postępu, Słowo Boże i wspólna modlitwa.">
+<meta name="theme-color" content="#10261c">
+<meta name="description" content="40 Dni Modlitwy Christian Culture. Wspólny pokój modlitwy i osobisty plan na czterdzieści dni.">
+<title>40 Dni Modlitwy · Christian Culture</title>
+<link rel="stylesheet" href="/40DM/style.css">
+<script src="/40DM/page.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main" data-i="skip">Przejdź do treści</a>
+<header class="mast">
+  <div class="wrap topbar">
+    <a class="brand" href="https://polskieradio.cc/" aria-label="Christian Culture">
+      <img src="/40DM/cc-logo.png" width="46" height="46" alt="">
+      <span>Christian Culture</span>
+    </a>
+    <nav aria-label="40 Dni Modlitwy">
+      <a href="#plan" data-i="planLink">Plan 40 dni</a>
+      <a href="#pokoj" data-i="roomLink">Pokój modlitwy</a>
+    </nav>
+    <div class="tools">
+      <button type="button" id="language" aria-label="English" lang="en">EN</button>
+      <a class="support" href="https://polskieradio.cc/wspieraj" data-i="support">Wspieram to</a>
+    </div>
+  </div>
+</header>
+<main id="main">
+    <section class="hero mobile-art" aria-labelledby="title">
+    <div class="hero-atmosphere" aria-hidden="true"></div>
+    <figure class="hero-art">
+      <img src="/40DM/hero.jpg" width="1916" height="821" fetchpriority="high" alt="40 Dni Modlitwy — otwarta Biblia i wschód słońca nad zielonymi wzgórzami" data-aria="heroAlt">
+    </figure>
+    <div class="wrap hero-bottom">
+      <div class="hero-type">
+        <h1 id="title" class="visually-hidden" data-i="title">40 Dni Modlitwy</h1>
+        <p data-i="heroLine">Czterdzieści dni ze Słowem i modlitwą.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button primary" href="#plan"><span data-i="heroPlan">Otwórz plan</span><span id="hero-day" aria-hidden="true">01</span></a>
+        <a class="button glass" href="#pokoj"><span data-i="roomLink">Pokój modlitwy</span><span class="arrow" aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </section>
+  <div class="wrap gathering">
+    <div class="gathering-copy">
+      <h2 data-i="gathering">Modlimy się razem.</h2>
+      <p data-i="intro">Zatrzymaj się przy Słowie Bożym. Wybierz swój dzień albo dołącz do wspólnej modlitwy w LUMI MESS.</p>
+    </div>
+    <section class="room" id="pokoj" aria-labelledby="room-title">
+      <header class="room-head">
+        <img src="/40DM/room.jpg" width="68" height="68" alt="">
+        <div><span class="room-service">LUMI MESS</span><h2 id="room-title" data-i="roomTitle">Pokój modlitwy</h2></div>
+      </header>
+      <div class="room-preview" id="room-preview">
+        <p class="room-status" data-i="preview">Pokój w przygotowaniu</p>
+        <p class="room-lead" data-i="roomLead">Dołącz już teraz przez WhatsApp.</p>
+        <p class="room-copy" data-i="roomCopy">Po uruchomieniu dedykowany pokój otworzy się tutaj od razu po wejściu na stronę.</p>
+      </div>
+      <div class="room-actions">
+        <a class="button room-open" id="room-open" hidden data-i="openRoom">Otwórz w LUMI MESS ↗</a>
+        <a class="button whatsapp" href="https://chat.whatsapp.com/LnZGvps6tuv5kOks1EvjuB?s=cl&amp;p=a&amp;iam=2" target="_blank" rel="noopener noreferrer" data-i="whatsapp">Dołącz przez WhatsApp <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </div>
+  <section class="journal" id="plan" aria-labelledby="plan-title">
+    <div class="wrap journal-inner">
+      <div class="journal-head">
+        <div><h2 id="plan-title" data-i="planTitle">Twój plan modlitwy</h2><p data-i="planCopy">Wybierz dzień. Zaznacz go po modlitwie, żeby móc wrócić do swojego rytmu.</p></div>
+        <div class="progress" aria-live="polite"><div class="progress-track" aria-hidden="true"><i></i></div><strong id="progress-count">0 / 40</strong><span data-i="progressText">ukończonych dni</span></div>
+      </div>
+      <div class="journal-layout">
+        <div class="calendar">
+          <div class="periods" id="periods" role="group" aria-label="Zakres dni"></div>
+          <div class="days" id="days" role="group" aria-label="Wybierz dzień"></div>
+          <noscript>Włącz JavaScript, aby wybrać dzień i zapisać postęp.</noscript>
+        </div>
+        <article class="day-note">
+          <p class="note-day" id="note-day">Dzień 1</p>
+          <h3 id="note-title">Zatrzymaj się</h3>
+          <p id="note-copy">Wybierz krótką chwilę ciszy. Opowiedz Bogu własnymi słowami, z czym dziś przychodzisz.</p>
+          <button class="button done" type="button" id="done" aria-pressed="false">✓ Zaznacz jako ukończony</button>
+          <p class="local-note" data-i="local">Postęp zapisuje się w tej przeglądarce.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="wrap resources" aria-labelledby="resources-title">
+    <h2 id="resources-title" data-i="resources">Modlitwa w ekosystemie CC</h2>
+    <div class="resource-grid">
+      <a href="https://polskieradio.cc/mojabiblia"><strong>MojaBiblia</strong><span data-i="read">Czytaj Słowo Boże <b aria-hidden="true">↗</b></span></a>
+      <a href="https://polskieradio.cc/biblia-audio"><strong data-i="audio">Biblia Audio</strong><span data-i="listen">Posłuchaj Pisma <b aria-hidden="true">↗</b></span></a>
+      <a href="https://polskieradio.cc/BCM24"><strong data-i="bcm">Biblijny Czas Modlitwy</strong><span data-i="join">Przejdź do BCM24 <b aria-hidden="true">↗</b></span></a>
+      <a href="https://polskieradio.cc/lumina"><strong>LUMINA</strong><span data-i="community">Odwiedź społeczność <b aria-hidden="true">↗</b></span></a>
+    </div>
+  </section>
+</main>
+<footer class="footer"><div class="wrap"><a href="https://polskieradio.cc/">Christian Culture</a><a href="#main" data-i="top">Wróć na górę ↑</a></div></footer>
+</body>
+</html>

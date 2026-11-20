@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-20",
+      "topic": "40 Dni Modlitwy — interaktywny plan PL/EN",
+      "agent": "G"
+    },
+    {
+      "date": "2026-11-20",
       "topic": "Wdrożenie środowiska testowego CC Patronite Mission Reporter (/test/patronite) — 6 cykli symulacji i 3 szablony graficzne",
       "agent": "A"
     },
@@ -5595,6 +5600,28 @@
       ],
       "connections": [
         "cc-help-debt"
+      ]
+    },
+    {
+      "id": "40-dni-modlitwy",
+      "branchId": "spolecznosc",
+      "name": "40 Dni Modlitwy",
+      "shortDesc": "Interaktywny plan modlitwy na czterdzieści dni.",
+      "fullDesc": "40 Dni Modlitwy Christian Culture. Plan PL/EN z lokalnym zapisem postępu, Słowo Boże i wspólna modlitwa.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/40DM",
+      "status": "active",
+      "lang": "pl",
+      "icon": "🙏",
+      "category": "Społeczność & Modlitwa",
+      "keywords": [
+        "40DM",
+        "40 dni modlitwy",
+        "40 Days of Prayer",
+        "modlitwa"
+      ],
+      "connections": [
+        "bcm-modlitwa"
       ]
     }
   ],
