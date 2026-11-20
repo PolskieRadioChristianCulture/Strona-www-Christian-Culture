@@ -103,3 +103,36 @@ button.ekocc-info-trigger {
   pointer-events: none !important;
   opacity: 0 !important;
 }
+
+/* Suppression of conflicting floating favorite star button on CCN */
+#ccFloatingTopBarWrap,
+.cc-floating-topbar-wrap,
+#ccTopBarFavBtn {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+/* CCN-specific Chat Button Theme */
+#ccGlobalChatFab.cc-chat-ccn-theme {
+  background: radial-gradient(circle at 35% 35%, #2a080c 0%, #120305 60%, #0a0a0a 100%) !important;
+  border: 1.5px solid rgba(187, 20, 46, 0.55) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.8), 0 0 16px rgba(187, 20, 46, 0.45) !important;
+}
+
+#ccGlobalChatFab.cc-chat-ccn-theme:hover {
+  border-color: #f9282b !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.9), 0 0 24px rgba(249, 40, 43, 0.65) !important;
+}
+
+#ccGlobalChatFab.cc-chat-ccn-theme picture {
+  display: none !important;
+}
+
+#ccGlobalChatFab.cc-chat-ccn-theme .cc-chat-fab-gold-icon {
+  display: block !important;
+  stroke: #f9282b !important;
+  filter: drop-shadow(0 0 5px rgba(249, 40, 43, 0.8)) !important;
+}
+

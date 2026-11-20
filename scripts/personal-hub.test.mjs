@@ -57,7 +57,7 @@ assert(favScriptContent.includes('moje-centrum'), 'Toast notification links to M
 
 const pageStandardPath = path.join(rootDir, 'scripts', 'cc-page-standard.mjs');
 const pageStandardContent = fs.readFileSync(pageStandardPath, 'utf8');
-assert(pageStandardContent.includes('/js/cc-favorites.js?v=20261119_fav3'), 'cc-page-standard.mjs enforces updated cc-favorites.js?v=20261119_fav3');
+assert(pageStandardContent.includes('/js/cc-favorites.js?v=20261120_fav4'), 'cc-page-standard.mjs enforces updated cc-favorites.js?v=20261120_fav4');
 
 // 2. Test firestore.rules
 console.log('\n--- 2. Testing firestore.rules Security & Isolation ---');
