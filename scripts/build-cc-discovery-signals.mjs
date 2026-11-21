@@ -463,13 +463,14 @@ export function buildAllDiscoverySignals() {
   }));
   fs.writeFileSync(path.join(sitemapsDir, 'pages.xml'), buildStandardUrlsetXml(pagesEntries), 'utf8');
 
-  // 8. /sitemaps/en.xml (Dwustronny hreflang PL <-> EN)
+  // 8. /sitemaps/en.xml (Pełny indeks stron EN i wielojęzycznych + hreflang PL <-> EN)
+  const enToday = new Date().toISOString().slice(0, 10);
   const enEntries = [
     {
       loc: `${PRIMARY_ORIGIN}/Global/`,
-      lastmod: '2026-10-15',
+      lastmod: enToday,
       changefreq: 'weekly',
-      priority: '0.90',
+      priority: '0.95',
       alternates: [
         { hreflang: 'en', href: `${PRIMARY_ORIGIN}/Global/` },
         { hreflang: 'pl', href: `${PRIMARY_ORIGIN}/` },
@@ -477,6 +478,56 @@ export function buildAllDiscoverySignals() {
       ],
     },
   ];
+  const addEnFile = (relPath, urlPath, priority = '0.75', alts = null) => {
+    const fp = path.join(ROOT, relPath);
+    if (!fs.existsSync(fp)) return;
+    const lm = fs.statSync(fp).mtime.toISOString().slice(0, 10);
+    enEntries.push({
+      loc: `${PRIMARY_ORIGIN}${urlPath}`,
+      lastmod: lm,
+      changefreq: 'weekly',
+      priority,
+      ...(alts ? { alternates: alts } : {}),
+    });
+  };
+  const enDir = path.join(ROOT, 'en');
+  if (fs.existsSync(enDir)) {
+    for (const f of fs.readdirSync(enDir).sort()) {
+      if (!f.endsWith('.html')) continue;
+      const slug = f === 'index.html' ? '' : f.replace(/\.html$/, '');
+      addEnFile(`en/${f}`, slug ? `/en/${slug}` : '/en/', '0.75');
+    }
+  }
+  const globalArticlesDir = path.join(ROOT, 'Global/articles');
+  if (fs.existsSync(globalArticlesDir)) {
+    for (const f of fs.readdirSync(globalArticlesDir).sort()) {
+      if (!f.endsWith('.html')) continue;
+      addEnFile(`Global/articles/${f}`, `/Global/articles/${f.replace(/\.html$/, '')}`, '0.80');
+    }
+  }
+  addEnFile('40DM/en/index.html', '/40DM/en/', '0.85', [
+    { hreflang: 'en', href: `${PRIMARY_ORIGIN}/40DM/en/` },
+    { hreflang: 'pl', href: `${PRIMARY_ORIGIN}/40DM/` },
+    { hreflang: 'x-default', href: `${PRIMARY_ORIGIN}/40DM/` },
+  ]);
+  addEnFile('aplikacje/en/index.html', '/aplikacje/en/', '0.85', [
+    { hreflang: 'en', href: `${PRIMARY_ORIGIN}/aplikacje/en/` },
+    { hreflang: 'pl', href: `${PRIMARY_ORIGIN}/aplikacje/` },
+    { hreflang: 'x-default', href: `${PRIMARY_ORIGIN}/aplikacje/` },
+  ]);
+  addEnFile('ArkOfFire/en/index.html', '/ArkOfFire/en/', '0.80', [
+    { hreflang: 'en', href: `${PRIMARY_ORIGIN}/ArkOfFire/en/` },
+    { hreflang: 'pl', href: `${PRIMARY_ORIGIN}/ArkOfFire/pl/` },
+  ]);
+  addEnFile('Welch/en/index.html', '/Welch/en/', '0.80', [
+    { hreflang: 'en', href: `${PRIMARY_ORIGIN}/Welch/en/` },
+    { hreflang: 'pl', href: `${PRIMARY_ORIGIN}/Welch/pl/` },
+  ]);
+  addEnFile('SpiritualSounds/en/index.html', '/SpiritualSounds/en/', '0.80');
+  for (const lang of ['en', 'de', 'es', 'fr', 'ar', 'hi', 'id', 'pt']) {
+    addEnFile(`badz-blisko/${lang}/index.html`, `/badz-blisko/${lang}/`, '0.75');
+    addEnFile(`pomogebomoge/${lang}/index.html`, `/pomogebomoge/${lang}/`, '0.75');
+  }
   fs.writeFileSync(path.join(sitemapsDir, 'en.xml'), buildStandardUrlsetXml(enEntries, false, true), 'utf8');
 
   // 9. /news/feed.xml (RSS 2.0 dla CCN News)
