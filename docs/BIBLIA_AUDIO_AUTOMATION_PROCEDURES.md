@@ -18,6 +18,7 @@ Gdy poprzedniemu agentowi wyczerpią się tokeny, każdy dyżurny agent Federacj
 2. **Są pliki `.mp3` i `.wav`, brak `_4K.mp4` lub `_Shorts_9x16.mp4`** ➔ Start od **Etapu 3 i 4 (Montaż Wideo 4K i Shorts)**.
 3. **Rozdział ma `status: "in_production"` w `biblia-audio/data/catalog.json`** ➔ Start od **Etapu 5 (Publikacja WWW)**.
 4. **Brak wpisów dzisiejszego rozdziału w `data/youtube_published_history.json`** ➔ Start od **Etapu 6 (Dystrybucja Multi-Channel YouTube)**.
+5. **Brak wpisów dzisiejszego rozdziału w `data/spotify_published_history.json` (`v7Published`)** ➔ Start od **Etapu 7 (Publikacja Podcastu MP3 na Spotify for Creators `6M2mU6VzRCPCOjWihgO8Aw`)**.
 
 ---
 
@@ -31,7 +32,8 @@ flowchart TD
     C --> E[4. Montaż Wideo Shorts 9:16 Safe Zone 680px]
     D & E --> F[5. Publikacja WWW polskieradio.cc/biblia-audio + Dual Push]
     F --> G[6. Dystrybucja YouTube Multi-Channel Sekwencyjnie]
-    G --> H[7. Sprzątanie, Mapa @m, Raport JOMA i KONIEC w Skrzynce]
+    G --> S[7. Publikacja Podcastu MP3 na Spotify for Creators 6M2mU6VzRCPCOjWihgO8Aw]
+    S --> H[8. Sprzątanie, Mapa @m, Raport JOMA i KONIEC w Skrzynce]
 
     subgraph YouTube [Dystrybucja YouTube Multi-Channel]
         G1[Biblia Audio Christian Culture - Komplet 4K + Shorts]
@@ -102,8 +104,25 @@ node "C:\Users\czark\Desktop\Biblia Audio Christian Culture\skrypty\publish_to_w
    ```
 3. **Playlista główna `PLcU_14pQp0SY`:** Przypisz opublikowany film w YouTube Studio do playlisty `Księga Rodzaju`.
 
-### Etap 7: Sprzątanie, Rejestry, Mapa `@m` i Raport JOMA
+### Etap 7: Publikacja Podcastu MP3 na Spotify for Creators (`6M2mU6VzRCPCOjWihgO8Aw`)
+- **Panel Twórcy:** `https://creators.spotify.com/home/show/6M2mU6VzRCPCOjWihgO8Aw`
+- **Publiczny Show:** `https://open.spotify.com/show/6M2mU6VzRCPCOjWihgO8Aw` (*Biblia Audio Christian Culture*)
+- **Audyt zaległości i porównanie z API Spotify:**
+  ```powershell
+  node "C:\Users\czark\Christian_Culture_Projekty\polskieradio.cc\scripts\publish_spotify_biblia_audio.mjs" --audit
+  ```
+- **Publikacja dziennego odcinka (np. `GEN-032`):**
+  ```powershell
+  node "C:\Users\czark\Christian_Culture_Projekty\polskieradio.cc\scripts\publish_spotify_biblia_audio.mjs" --episode GEN-0XX
+  ```
+- **Publikacja zaległości (Batch z ochroną Anti-Duplicate):**
+  ```powershell
+  node "C:\Users\czark\Christian_Culture_Projekty\polskieradio.cc\scripts\publish_spotify_biblia_audio.mjs" --batch --limit 5
+  ```
+- **Rejestr publikacji i zaległości:** `data/spotify_published_history.json`
+
+### Etap 8: Sprzątanie, Rejestry, Mapa `@m` i Raport JOMA
 1. Usuń `produkcja/GEN-0XX/temp_v7` oraz `verify_pitch.py`.
 2. Zaktualizuj `KATALOG_RADIO_BIBLIA_AUDIO.md`, `README_KATALOG_EMISYJNY.md` oraz `data/ecosystem-map.json` (`@m`).
-3. Zsynchronizuj `data/ecosystem-map.json` i `data/youtube_published_history.json` z `.pages-release` oraz `Desktop/@ICC/LUMINA`, uruchom `npm.cmd run test:guardian` i `npm.cmd run test:mobile-premium`, wykonaj podwójny push Git.
+3. Zsynchronizuj `data/ecosystem-map.json`, `data/youtube_published_history.json` i `data/spotify_published_history.json` z `.pages-release` oraz `Desktop/@ICC/LUMINA`, uruchom `npm.cmd run test:guardian` i `npm.cmd run test:mobile-premium`, wykonaj podwójny push Git.
 4. Dopisz raport (`status: done`) do `JOMA_STATUS.md` i `JOMA_HANDOFFS.md` oraz wyślij meldunek `KONIEC` w Skrzynce Misji CC.
