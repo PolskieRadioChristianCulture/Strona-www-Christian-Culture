@@ -18,12 +18,12 @@
 
   const MODAL_ID = 'ccWspieramToModal';
 
-  // Waluty i predefiniowane kwoty
+  // Waluty i predefiniowane kwoty (w tym cegiełka na Nowe Studio RTV 250 / 490 zł)
   const CURRENCIES = {
-    PLN: { symbol: 'zł', tiers: [19, 49, 99, 199], defaultTier: 49 },
-    GBP: { symbol: '£', tiers: [4.99, 9.99, 19.99, 49.99], defaultTier: 9.99 },
-    EUR: { symbol: '€', tiers: [4.99, 11.99, 24.99, 49.99], defaultTier: 11.99 },
-    USD: { symbol: '$', tiers: [5.99, 12.99, 27.99, 59.99], defaultTier: 12.99 }
+    PLN: { symbol: 'zł', tiers: [19, 49, 99, 250, 490], defaultTier: 49 },
+    GBP: { symbol: '£', tiers: [5, 10, 25, 50, 100], defaultTier: 10 },
+    EUR: { symbol: '€', tiers: [5, 12, 25, 55, 115], defaultTier: 12 },
+    USD: { symbol: '$', tiers: [6, 15, 30, 60, 125], defaultTier: 15 }
   };
 
   let currentCurrency = 'PLN';
@@ -142,7 +142,7 @@
       margin-bottom: 16px;
     }
     .cc-wt-curr-btn {
-      min-height: 38px;
+      min-height: 44px;
       padding: 0 12px;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -161,9 +161,28 @@
     /* Wybór kwoty */
     .cc-wt-tiers {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
       gap: 8px;
       margin-bottom: 18px;
+    }
+    .cc-wt-studio-bar {
+      background: linear-gradient(135deg, rgba(255, 122, 0, 0.12), rgba(196, 163, 90, 0.12));
+      border: 1px solid rgba(255, 122, 0, 0.35);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: #e2e8f0;
+      text-align: center;
+      line-height: 1.45;
+    }
+    .cc-wt-studio-bar strong {
+      color: #FFB366;
+    }
+    .cc-wt-studio-bar a {
+      color: #E2CC9A;
+      text-decoration: underline;
+      font-weight: 700;
     }
     .cc-wt-tier-btn {
       min-height: 48px;
@@ -248,7 +267,7 @@
       color: #94a3b8;
     }
     .cc-wt-copy-btn {
-      min-height: 38px;
+      min-height: 44px;
       padding: 0 14px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.08);
@@ -298,7 +317,11 @@
       <div class="cc-wt-header">
         <span class="cc-wt-badge">MECENAT CHRISTIAN CULTURE</span>
         <h2 class="cc-wt-title" id="ccWtTitle">WspieramTO &bull; Wolne Słowo</h2>
-        <p class="cc-wt-sub">Wybierz kwotę i formę darowizny. Wolne od prowizji pośredników.</p>
+        <p class="cc-wt-sub">Utrzymanie mediów 24/7 i budowa nowego studia radiowo-telewizyjnego CC.</p>
+      </div>
+
+      <div class="cc-wt-studio-bar">
+        Cel miesięczny: <strong>25 000 zł</strong> (Radio 24/7, Biblia Audio, Akademia) &bull; Budowa Nowego Studia RTV: <strong>80 000 zł</strong> (<a href="/wspieramto#nowe-studio">zobacz plan &rarr;</a>)
       </div>
 
       <!-- Wybór waluty -->
