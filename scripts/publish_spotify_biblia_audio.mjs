@@ -400,19 +400,18 @@ export async function runSpotifyBacklogAudit({ saveHistory = true } = {}) {
 /**
  * Publikacja pojedynczego odcinka na Spotify for Creators przez Playwright
  */
-export async function publishEpisodeToSpotify(episodeItem, { headless = true } = {}) {
+export async function publishEpisodeToSpotify(episodeItem, { headless = true, existingSession = null } = {}) {
   console.log(`\n🎙️ [SPOTIFY] Rozpoczynam publikację odcinka ${episodeItem.code}: ${episodeItem.spotifyTitle}`);
   if (!fs.existsSync(episodeItem.mp3Path)) {
     throw new Error(`Brak pliku MP3: ${episodeItem.mp3Path}`);
   }
 
-  const { ctx, page } = await launchStudio({
-    headless
-  });
+  const session = existingSession || (await launchStudio({ headless }));
+  const { ctx, page } = session;
 
   try {
     await page.goto(SHOW_CREATORS_HOME_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await sleep(4000);
+    await sleep(3000);
 
     // Automatyczne odświeżenie sesji przez Google SSO w profilu .youtube_browser_profile
     if (page.url().includes('accounts.spotify.com') || page.url().includes('/login')) {
@@ -448,7 +447,34 @@ export async function publishEpisodeToSpotify(episodeItem, { headless = true } =
       }).catch(() => {});
     }
 
-    await dismissCookieBanner();
+    // Usuń ewentualne niedokończone szkice ("Wersja robocza" / "Bez tytułu") przed nowym wgraniem
+    async function cleanupDraftsIfAny() {
+      await page.goto(SHOW_CREATORS_EPISODES_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
+      await sleep(3500);
+      await dismissCookieBanner();
+      for (let pass = 0; pass < 3; pass++) {
+        const draftRow = page.locator('tr:has-text("Wersja robocza"), tr:has-text("Draft")').first();
+        if (!(await draftRow.isVisible().catch(() => false))) break;
+        const menuBtn = draftRow.locator('button').last();
+        await menuBtn.click().catch(() => {});
+        await sleep(1000);
+        const delItem = page.locator('[role="menuitem"]:has-text("Usuń"), button:has-text("Usuń"), a:has-text("Usuń")').first();
+        if (await delItem.isVisible().catch(() => false)) {
+          await delItem.click();
+          await sleep(1200);
+          const confirmDel = page.locator('[role="dialog"] button[data-encore-id="buttonPrimary"], [role="dialog"] button:has-text("Tak, usuń"), [role="dialog"] button:has-text("Usuń")').first();
+          if (await confirmDel.isVisible().catch(() => false)) {
+            await confirmDel.click();
+            await sleep(2500);
+            console.log('   🧹 Usunięto niedokończony szkic (Wersja robocza)');
+          }
+        } else {
+          break;
+        }
+      }
+    }
+
+    await cleanupDraftsIfAny();
 
     // Przejdź bezpośrednio do kreatora nowego odcinka dla show 6M2mU6VzRCPCOjWihgO8Aw (Biblia Audio Christian Culture)
     await page.goto(SHOW_CREATORS_WIZARD_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -548,7 +574,9 @@ export async function publishEpisodeToSpotify(episodeItem, { headless = true } =
 
     return { ok: true, code: episodeItem.code, url: page.url() };
   } finally {
-    await ctx.close();
+    if (!existingSession) {
+      await ctx.close();
+    }
   }
 }
 
@@ -585,7 +613,7 @@ async function main() {
   const epIdx = args.indexOf('--episode');
   const targetEpisodeArg = epIdx !== -1 ? args[epIdx + 1] : null;
   const limitIdx = args.indexOf('--limit');
-  const batchLimit = limitIdx !== -1 ? Number(args[limitIdx + 1]) : 5;
+  const batchLimit = limitIdx !== -1 ? Number(args[limitIdx + 1]) : 999;
 
   if (isLogin) {
     await runInteractiveLogin();
@@ -637,10 +665,34 @@ async function main() {
 
   if (isBatch) {
     const toPublish = backlog.slice(0, batchLimit);
-    console.log(`\n🚀 [BATCH] Publikuję ${toPublish.length} z ${backlog.length} zaległych odcinków...`);
-    for (const item of toPublish) {
-      await publishEpisodeToSpotify(item);
-      await sleep(5000);
+    console.log(`\n🚀 [BATCH] Publikuję jednym ciągiem ${toPublish.length} z ${backlog.length} zaległych odcinków...`);
+    let session = await launchStudio({ headless: true });
+    let publishedCount = 0;
+    try {
+      for (let idx = 0; idx < toPublish.length; idx++) {
+        const item = toPublish[idx];
+        console.log(`\n=== [${idx + 1}/${toPublish.length}] ${item.code} (Rdz ${item.verseLabel}) ===`);
+        for (let attempt = 1; attempt <= 2; attempt++) {
+          try {
+            await publishEpisodeToSpotify(item, { headless: true, existingSession: session });
+            publishedCount++;
+            break;
+          } catch (err) {
+            console.warn(`⚠️ [Próba ${attempt}/2] Błąd przy odcinku ${item.code}: ${err.message}`);
+            try { await session.ctx.close(); } catch {}
+            await sleep(3000);
+            session = await launchStudio({ headless: true });
+            if (attempt === 2) {
+              throw err;
+            }
+          }
+        }
+        await sleep(3000);
+      }
+      console.log(`\n🎉 [BATCH UKOŃCZONY] Pomyślnie opublikowano ${publishedCount}/${toPublish.length} odcinków na Spotify for Creators!`);
+    } finally {
+      try { await session.ctx.close(); } catch {}
+      await runSpotifyBacklogAudit({ saveHistory: true });
     }
   }
 }

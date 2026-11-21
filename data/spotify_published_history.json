@@ -4,7 +4,7 @@
   "showName": "Biblia Audio Christian Culture",
   "creatorsUrl": "https://creators.spotify.com/home/show/6M2mU6VzRCPCOjWihgO8Aw",
   "publicUrl": "https://open.spotify.com/show/6M2mU6VzRCPCOjWihgO8Aw",
-  "auditedAt": "2026-11-21T13:17:01.081Z",
+  "auditedAt": "2026-11-21T13:43:07.467Z",
   "liveSpotifyTotalCount": 77,
   "latestOnSpotify": {
     "id": "4WVur9iL9Slld8foA4lujp",
@@ -20,8 +20,8 @@
     "ksiegaRodzaju": 0
   },
   "v7InventoryTotal": 33,
-  "v7PublishedCount": 1,
-  "v7BacklogCount": 32,
+  "v7PublishedCount": 33,
+  "v7BacklogCount": 0,
   "v7Published": [
     {
       "code": "GEN-001-A",
@@ -38,426 +38,257 @@
       "spotifyTitle": "Księga Rodzaju 1:20–31; 2:1–3 (UBG) — Stworzenie Człowieka i Szabat Boży | Biblia Audio CC | polskieradio.cc",
       "publishedAt": "2026-11-21T13:17:37.417Z",
       "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
-    }
-  ],
-  "v7Backlog": [
-    {
-      "code": "GEN-001-B",
-      "chapter": 1,
-      "verseLabel": "1:20–31; 2:1–3",
-      "theme": "Stworzenie Człowieka i Szabat Boży",
-      "mp3File": "Ksiega_Rodzaju_1_20-31_2_1-3_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 7.94,
-      "producedAt": "2026-10-30T14:14:44.883Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 1:20–31; 2:1–3 (UBG) — Stworzenie Człowieka i Szabat Boży | Biblia Audio CC | polskieradio.cc"
     },
     {
       "code": "GEN-002",
       "chapter": 2,
-      "verseLabel": "2:4–25",
-      "theme": "Ogród Eden, Człowiek i Pierwsze Małżeństwo",
       "mp3File": "Ksiega_Rodzaju_2_4-25_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 8.4,
-      "producedAt": "2026-10-30T14:24:41.075Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 2:4–25 (UBG) — Ogród Eden, Człowiek i Pierwsze Małżeństwo | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 2:4–25 (UBG) — Ogród Eden, Człowiek i Pierwsze Małżeństwo | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:21:37.403Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-003",
       "chapter": 3,
-      "verseLabel": "3:1–24",
-      "theme": "Kuszenie, Upadek Człowieka i Protoewangelia",
       "mp3File": "Ksiega_Rodzaju_3_1-24_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 9.96,
-      "producedAt": "2026-10-30T14:54:50.231Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 3:1–24 (UBG) — Kuszenie, Upadek Człowieka i Protoewangelia | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 3:1–24 (UBG) — Kuszenie, Upadek Człowieka i Protoewangelia | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:22:19.044Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-004",
       "chapter": 4,
-      "verseLabel": "4:1–26",
-      "theme": "Kain i Abel, Potomkowie Kaina i Narodziny Seta",
       "mp3File": "Ksiega_Rodzaju_4_1-26_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 9.85,
-      "producedAt": "2026-10-30T15:06:00.850Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 4:1–26 (UBG) — Kain i Abel, Potomkowie Kaina i Narodziny Seta | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 4:1–26 (UBG) — Kain i Abel, Potomkowie Kaina i Narodziny Seta | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:23:02.028Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-005",
       "chapter": 5,
-      "verseLabel": "5:1–32",
-      "theme": "Rodowód od Adama do Noego i Chodzenie Henocha z Bogiem",
       "mp3File": "Ksiega_Rodzaju_5_1-32_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 8.12,
-      "producedAt": "2026-10-30T15:37:39.363Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 5:1–32 (UBG) — Rodowód od Adama do Noego i Chodzenie Henocha z Bogiem | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 5:1–32 (UBG) — Rodowód od Adama do Noego i Chodzenie Henocha z Bogiem | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:23:43.646Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-006",
       "chapter": 6,
-      "verseLabel": "6:1–22",
-      "theme": "Zepsucie Ziemi, Boża Łaska dla Noego i Nakaz Budowy Arki",
       "mp3File": "Ksiega_Rodzaju_6_1-22_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 8.87,
-      "producedAt": "2026-10-30T15:57:25.464Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 6:1–22 (UBG) — Zepsucie Ziemi, Boża Łaska dla Noego i Nakaz Budowy Arki | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 6:1–22 (UBG) — Zepsucie Ziemi, Boża Łaska dla Noego i Nakaz Budowy Arki | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:24:28.495Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-007",
       "chapter": 7,
-      "verseLabel": "7:1–24",
-      "theme": "Wejście do Arki i Wody Potopu na Ziemi",
       "mp3File": "Ksiega_Rodzaju_7_1-24_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 8.67,
-      "producedAt": "2026-10-30T16:15:19.805Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 7:1–24 (UBG) — Wejście do Arki i Wody Potopu na Ziemi | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 7:1–24 (UBG) — Wejście do Arki i Wody Potopu na Ziemi | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:25:10.878Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-008",
       "chapter": 8,
-      "verseLabel": "8:1–22",
-      "theme": "Opadnięcie Wód Potopu, Gołębica i Ołtarz Noego",
       "mp3File": "Ksiega_Rodzaju_8_1-22_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 7.83,
-      "producedAt": "2026-10-30T16:35:25.080Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 8:1–22 (UBG) — Opadnięcie Wód Potopu, Gołębica i Ołtarz Noego | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 8:1–22 (UBG) — Opadnięcie Wód Potopu, Gołębica i Ołtarz Noego | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:25:52.950Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-009",
       "chapter": 9,
-      "verseLabel": "9:1–29",
-      "theme": "Przymierze Tęczy i Błogosławieństwo Noego",
       "mp3File": "Ksiega_Rodzaju_9_1-29_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 10.18,
-      "producedAt": "2026-10-31T08:32:54.851Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 9:1–29 (UBG) — Przymierze Tęczy i Błogosławieństwo Noego | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 9:1–29 (UBG) — Przymierze Tęczy i Błogosławieństwo Noego | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:26:35.180Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-010",
       "chapter": 10,
-      "verseLabel": "10:1–32",
-      "theme": "Tablica Narodów — Potomkowie Sema, Chama i Jafeta",
       "mp3File": "Ksiega_Rodzaju_10_1-32_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 8.9,
-      "producedAt": "2026-11-01T07:05:15.971Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 10:1–32 (UBG) — Tablica Narodów — Potomkowie Sema, Chama i Jafeta | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 10:1–32 (UBG) — Tablica Narodów — Potomkowie Sema, Chama i Jafeta | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:27:17.310Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-011",
       "chapter": 11,
-      "verseLabel": "11:1–32",
-      "theme": "Wieża Babel, Pomieszanie Języków i Rodowód Abrama",
       "mp3File": "Ksiega_Rodzaju_11_1-32_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 9.42,
-      "producedAt": "2026-11-02T07:56:21.023Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 11:1–32 (UBG) — Wieża Babel, Pomieszanie Języków i Rodowód Abrama | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 11:1–32 (UBG) — Wieża Babel, Pomieszanie Języków i Rodowód Abrama | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:27:59.654Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-012",
       "chapter": 12,
-      "verseLabel": "12:1–20",
-      "theme": "Powołanie Abrama, Przymierze Błogosławieństwa i Próba w Egipcie",
       "mp3File": "Ksiega_Rodzaju_12_1-20_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 7.94,
-      "producedAt": "2026-11-03T07:25:15.691Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 12:1–20 (UBG) — Powołanie Abrama, Przymierze Błogosławieństwa i Próba w Egipcie | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 12:1–20 (UBG) — Powołanie Abrama, Przymierze Błogosławieństwa i Próba w Egipcie | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:28:40.619Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-013",
       "chapter": 13,
-      "verseLabel": "13:1–18",
-      "theme": "Rozstanie Abrama z Lotem i Obietnica Ziemi Kanaan",
       "mp3File": "Ksiega_Rodzaju_13_1-18_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 6.89,
-      "producedAt": "2026-11-04T07:06:54.966Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 13:1–18 (UBG) — Rozstanie Abrama z Lotem i Obietnica Ziemi Kanaan | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 13:1–18 (UBG) — Rozstanie Abrama z Lotem i Obietnica Ziemi Kanaan | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:29:20.414Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-014",
       "chapter": 14,
-      "verseLabel": "14:1–24",
-      "theme": "Uwolnienie Lota przez Abrama i Błogosławieństwo Melchizedeka",
       "mp3File": "Ksiega_Rodzaju_14_1-24_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 9.23,
-      "producedAt": "2026-11-05T07:15:44.777Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 14:1–24 (UBG) — Uwolnienie Lota przez Abrama i Błogosławieństwo Melchizedeka | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 14:1–24 (UBG) — Uwolnienie Lota przez Abrama i Błogosławieństwo Melchizedeka | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:30:05.410Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-015",
       "chapter": 15,
-      "verseLabel": "15:1–21",
-      "theme": "Przymierze Boga z Abramem i Usprawiedliwienie z Wiary",
       "mp3File": "Ksiega_Rodzaju_15_1-21_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 7.44,
-      "producedAt": "2026-11-06T15:17:14.272Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 15:1–21 (UBG) — Przymierze Boga z Abramem i Usprawiedliwienie z Wiary | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 15:1–21 (UBG) — Przymierze Boga z Abramem i Usprawiedliwienie z Wiary | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:30:45.815Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-016",
       "chapter": 16,
-      "verseLabel": "16:1–16",
-      "theme": "Hagar na Pustyni, Bóg Widzący i Narodziny Izmaela",
       "mp3File": "Ksiega_Rodzaju_16_1-16_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 7,
-      "producedAt": "2026-11-07T07:06:56.058Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 16:1–16 (UBG) — Hagar na Pustyni, Bóg Widzący i Narodziny Izmaela | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 16:1–16 (UBG) — Hagar na Pustyni, Bóg Widzący i Narodziny Izmaela | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:31:28.035Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-017",
       "chapter": 17,
-      "verseLabel": "17:1–27",
-      "theme": "Przymierze Obrzezania, Nowe Imiona Abraham i Sara oraz Obietnica Izaaka",
       "mp3File": "Ksiega_Rodzaju_17_1-27_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 10.65,
-      "producedAt": "2026-11-09T07:36:09.159Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 17:1–27 (UBG) — Przymierze Obrzezania, Nowe Imiona Abraham i Sara oraz Obietnica Izaaka | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 17:1–27 (UBG) — Przymierze Obrzezania, Nowe Imiona Abraham i Sara oraz Obietnica Izaaka | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:32:10.198Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-018",
       "chapter": 18,
-      "verseLabel": "18:1–33",
-      "theme": "Goście pod Dębami Mamre i Wstawiennicza Modlitwa Abrahama za Sodomą",
       "mp3File": "Ksiega_Rodzaju_18_1-33_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 13.97,
-      "producedAt": "2026-11-09T07:08:54.012Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 18:1–33 (UBG) — Goście pod Dębami Mamre i Wstawiennicza Modlitwa Abrahama za Sodomą | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 18:1–33 (UBG) — Goście pod Dębami Mamre i Wstawiennicza Modlitwa Abrahama za Sodomą | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:32:51.795Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-019",
       "chapter": 19,
-      "verseLabel": "19:1–38",
-      "theme": "Sąd nad Sodomą i Gomorą oraz Ocalenie Lota",
       "mp3File": "Ksiega_Rodzaju_19_1-38_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 15.64,
-      "producedAt": "2026-11-10T20:00:40.782Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 19:1–38 (UBG) — Sąd nad Sodomą i Gomorą oraz Ocalenie Lota | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 19:1–38 (UBG) — Sąd nad Sodomą i Gomorą oraz Ocalenie Lota | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:33:33.578Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-020",
       "chapter": 20,
-      "verseLabel": "20:1–18",
-      "theme": "Abraham i Sara w Gerarze u Króla Abimeleka",
       "mp3File": "Ksiega_Rodzaju_20_1-18_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 7.87,
-      "producedAt": "2026-11-10T19:14:30.454Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 20:1–18 (UBG) — Abraham i Sara w Gerarze u Króla Abimeleka | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 20:1–18 (UBG) — Abraham i Sara w Gerarze u Króla Abimeleka | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:34:15.035Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-021",
       "chapter": 21,
-      "verseLabel": "21:1–34",
-      "theme": "Narodziny Izaaka, Oddalenie Hagar i Przymierze w Beer-Szebie",
       "mp3File": "Ksiega_Rodzaju_21_1-34_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 11.31,
-      "producedAt": "2026-11-11T07:03:28.783Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 21:1–34 (UBG) — Narodziny Izaaka, Oddalenie Hagar i Przymierze w Beer-Szebie | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 21:1–34 (UBG) — Narodziny Izaaka, Oddalenie Hagar i Przymierze w Beer-Szebie | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:34:58.804Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-022",
       "chapter": 22,
-      "verseLabel": "22:1–24",
-      "theme": "Próba Wiary Abrahama na Górze Moria i Jahwe-Jireh",
       "mp3File": "Ksiega_Rodzaju_22_1-24_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 10.01,
-      "producedAt": "2026-11-13T07:24:19.745Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 22:1–24 (UBG) — Próba Wiary Abrahama na Górze Moria i Jahwe-Jireh | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 22:1–24 (UBG) — Próba Wiary Abrahama na Górze Moria i Jahwe-Jireh | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:35:39.497Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-023",
       "chapter": 23,
-      "verseLabel": "23:1–20",
-      "theme": "Śmierć Sary i Zakup Jaskini Makpela w Hebronie",
       "mp3File": "Ksiega_Rodzaju_23_1-20_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 7.61,
-      "producedAt": "2026-11-13T07:24:19.807Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 23:1–20 (UBG) — Śmierć Sary i Zakup Jaskini Makpela w Hebronie | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 23:1–20 (UBG) — Śmierć Sary i Zakup Jaskini Makpela w Hebronie | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:36:18.358Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-024",
       "chapter": 24,
-      "verseLabel": "24:1–67",
-      "theme": "Poszukiwanie Żony dla Izaaka i Rebeka przy Studni",
       "mp3File": "Ksiega_Rodzaju_24_1-67_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 24.82,
-      "producedAt": "2026-11-14T07:20:12.319Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 24:1–67 (UBG) — Poszukiwanie Żony dla Izaaka i Rebeka przy Studni | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 24:1–67 (UBG) — Poszukiwanie Żony dla Izaaka i Rebeka przy Studni | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:37:05.324Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-025",
       "chapter": 25,
-      "verseLabel": "25:1–34",
-      "theme": "Śmierć Abrahama, Narodziny Ezawa i Jakuba oraz Pierworództwo",
       "mp3File": "Ksiega_Rodzaju_25_1-34_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 11.36,
-      "producedAt": "2026-11-15T19:34:38.862Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 25:1–34 (UBG) — Śmierć Abrahama, Narodziny Ezawa i Jakuba oraz Pierworództwo | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 25:1–34 (UBG) — Śmierć Abrahama, Narodziny Ezawa i Jakuba oraz Pierworództwo | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:37:48.440Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-026",
       "chapter": 26,
-      "verseLabel": "26:1–35",
-      "theme": "Izaak w Gerarze, Studnie Abrahama i Przymierze w Beer-Szebie",
       "mp3File": "Ksiega_Rodzaju_26_1-35_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 12.37,
-      "producedAt": "2026-11-16T05:01:44.045Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 26:1–35 (UBG) — Izaak w Gerarze, Studnie Abrahama i Przymierze w Beer-Szebie | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 26:1–35 (UBG) — Izaak w Gerarze, Studnie Abrahama i Przymierze w Beer-Szebie | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:38:31.913Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-027",
       "chapter": 27,
-      "verseLabel": "27:1–46",
-      "theme": "Błogosławieństwo Jakuba i Płacz Ezawa",
       "mp3File": "Ksiega_Rodzaju_27_1-46_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 17.73,
-      "producedAt": "2026-11-17T06:39:16.278Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 27:1–46 (UBG) — Błogosławieństwo Jakuba i Płacz Ezawa | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 27:1–46 (UBG) — Błogosławieństwo Jakuba i Płacz Ezawa | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:39:18.808Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-028",
       "chapter": 28,
-      "verseLabel": "28:1–22",
-      "theme": "Drabina Jakuba w Betel, Przymierze PANA i Ślubowanie",
       "mp3File": "Ksiega_Rodzaju_28_1-22_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 8.7,
-      "producedAt": "2026-11-17T07:09:14.158Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 28:1–22 (UBG) — Drabina Jakuba w Betel, Przymierze PANA i Ślubowanie | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 28:1–22 (UBG) — Drabina Jakuba w Betel, Przymierze PANA i Ślubowanie | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:39:59.621Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-029",
       "chapter": 29,
-      "verseLabel": "29:1–35",
-      "theme": "Jakub u Labana, Lea i Rachela",
       "mp3File": "Ksiega_Rodzaju_29_1-35_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 12.28,
-      "producedAt": "2026-11-18T07:10:21.846Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 29:1–35 (UBG) — Jakub u Labana, Lea i Rachela | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 29:1–35 (UBG) — Jakub u Labana, Lea i Rachela | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:40:40.874Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-030",
       "chapter": 30,
-      "verseLabel": "30:1–43",
-      "theme": "Narodziny Synów Jakuba i Józefa oraz Błogosławieństwo PANA",
       "mp3File": "Ksiega_Rodzaju_30_1-43_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 14.47,
-      "producedAt": "2026-11-19T07:09:26.339Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 30:1–43 (UBG) — Narodziny Synów Jakuba i Józefa oraz Błogosławieństwo PANA | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 30:1–43 (UBG) — Narodziny Synów Jakuba i Józefa oraz Błogosławieństwo PANA | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:41:39.415Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-031",
       "chapter": 31,
-      "verseLabel": "31:1–55",
-      "theme": "Powrót Jakuba do Kanaanu i Przymierze w Gilead",
       "mp3File": "Ksiega_Rodzaju_31_1-55_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 19.87,
-      "producedAt": "2026-11-20T07:09:29.805Z",
-      "webStatus": "published",
-      "has4kVideo": true,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 31:1–55 (UBG) — Powrót Jakuba do Kanaanu i Przymierze w Gilead | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 31:1–55 (UBG) — Powrót Jakuba do Kanaanu i Przymierze w Gilead | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:42:22.472Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     },
     {
       "code": "GEN-032",
       "chapter": 32,
-      "verseLabel": "32:1–32",
-      "theme": "Modlitwa Jakuba nad Jabbokiem, Walka z Bogiem w Peniel i Nowe Imię Izrael",
       "mp3File": "Ksiega_Rodzaju_32_1-32_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 11.53,
-      "producedAt": "2026-11-21T08:32:35.360Z",
-      "webStatus": "in_production",
-      "has4kVideo": false,
-      "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 32:1–32 (UBG) — Modlitwa Jakuba nad Jabbokiem, Walka z Bogiem w Peniel i Nowe Imię Izrael | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 32:1–32 (UBG) — Modlitwa Jakuba nad Jabbokiem, Walka z Bogiem w Peniel i Nowe Imię Izrael | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:43:03.230Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     }
   ],
+  "v7Backlog": [],
   "liveEpisodes": [
     {
       "id": "4WVur9iL9Slld8foA4lujp",
