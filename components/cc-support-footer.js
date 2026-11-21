@@ -95,6 +95,12 @@
       </div>
     </details>
 
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px 0 12px;">
+      <a href="${(['en','de','es','fr'].includes((document.documentElement.lang||'').slice(0,2).toLowerCase()) ? '/pomogebomoge/' + (document.documentElement.lang||'').slice(0,2).toLowerCase() : '/wspieraj')}" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:999px;background:#FF7A00;color:#FFFFFF;font-weight:700;font-size:14px;text-decoration:none;letter-spacing:0.03em;">
+        WspieramTO &bull; ${(['en','de','es','fr'].includes((document.documentElement.lang||'').slice(0,2).toLowerCase()) ? 'Support the Mission' : 'Pomogę, bo mogę')}
+      </a>
+    </div>
+
     <p class="cc-support-footer__note">
       Twoje wsparcie pomaga rozwijać studio, radio, telewizję,
       produkcję multimedialną, aplikacje i infrastrukturę Christian Culture,

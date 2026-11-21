@@ -127,10 +127,11 @@ function buildGoogleNewsSitemapXml(articles, referenceNow = new Date()) {
 }
 
 function buildVideoSitemapXml() {
+  const today = new Date().toISOString().slice(0, 10);
   const videos = [
     {
       loc: `${PRIMARY_ORIGIN}/vod`,
-      lastmod: '2026-10-15',
+      lastmod: today,
       thumbnailLoc: `${PRIMARY_ORIGIN}/images/milion-og.jpg`,
       title: 'Kino Chrześcijańskie VOD — Filmy fabularne, dokumentalne i świadectwa | Christian Culture',
       description: 'Bezpłatne kino chrześcijańskie VOD w ekosystemie Christian Culture. Oglądaj wartościowe filmy fabularne, dokumentalne, historie biblijne i wykłady.',
@@ -143,6 +144,86 @@ function buildVideoSitemapXml() {
       title: 'Studio Dobrego Słowa (Odc. 26): Dlaczego Sąd Boży jest Dobrą Nowiną?',
       description: 'Wykład biblijny z serii Studio Dobrego Słowa poświęcony biblijnemu znaczeniu Bożego sądu i sprawiedliwości.',
       contentLoc: `${PRIMARY_ORIGIN}/news/studio-dobrego-slowa-odc-26-dlaczego-sad-jest-dobra-nowina`,
+    },
+    {
+      loc: `${PRIMARY_ORIGIN}/biblia-audio`,
+      lastmod: today,
+      thumbnailLoc: `${PRIMARY_ORIGIN}/images/milion-og.jpg`,
+      title: 'Biblia Audio Christian Culture — Słuchowisko Biblijne 4K UHD (UBG)',
+      description: 'Cała Biblia w jakości słuchowiskowej z podziałem na role głosowe i przestrzennym masteringiem radiowym.',
+      contentLoc: `${PRIMARY_ORIGIN}/biblia-audio`,
+    },
+    {
+      loc: `${PRIMARY_ORIGIN}/master-live`,
+      lastmod: today,
+      thumbnailLoc: `${PRIMARY_ORIGIN}/images/milion-og.jpg`,
+      title: 'Christian Culture Master TV LIVE 24/7',
+      description: 'Całodobowa chrześcijańska telewizja internetowa: uwielbienie, wykłady biblijne, świadectwa i Biblia Śpiewana.',
+      contentLoc: `${PRIMARY_ORIGIN}/master-live`,
+    },
+    {
+      loc: `${PRIMARY_ORIGIN}/smart-tv`,
+      lastmod: today,
+      thumbnailLoc: `${PRIMARY_ORIGIN}/images/milion-og.jpg`,
+      title: 'Smart TV CC — Chrześcijańska Telewizja 24/7',
+      description: 'Oglądaj kanały Christian Culture TV na ekranie Smart TV i w przeglądarce.',
+      contentLoc: `${PRIMARY_ORIGIN}/smart-tv`,
+    },
+    {
+      loc: `${PRIMARY_ORIGIN}/ArkOfFire/en/`,
+      lastmod: today,
+      thumbnailLoc: `${PRIMARY_ORIGIN}/ArkOfFire/hero.jpg`,
+      title: 'Ark of Fire — It Is Finished | Christian Music Video Showcase',
+      description: 'Official Ark of Fire worship music showcase and live video experience on Christian Culture.',
+      contentLoc: `${PRIMARY_ORIGIN}/ArkOfFire/en/`,
+    },
+    {
+      loc: `${PRIMARY_ORIGIN}/Welch/en/`,
+      lastmod: today,
+      thumbnailLoc: `${PRIMARY_ORIGIN}/Welch/hero.jpg`,
+      title: 'Gerald Welch — THE CALL | Christian Rock & Testimony',
+      description: 'Gerald Welch music showcase and spiritual awakening call on Christian Culture Global.',
+      contentLoc: `${PRIMARY_ORIGIN}/Welch/en/`,
+    },
+    {
+      loc: `${PRIMARY_ORIGIN}/SpiritualSounds/tv`,
+      lastmod: today,
+      thumbnailLoc: `${PRIMARY_ORIGIN}/images/milion-og.jpg`,
+      title: 'Spiritual Sounds TV — Christian Ambient & Worship Video Stream',
+      description: '24/7 peaceful Christian worship, instrumental prayer music and spiritual video stream.',
+      contentLoc: `${PRIMARY_ORIGIN}/SpiritualSounds/tv`,
+    },
+    {
+      loc: `${PRIMARY_ORIGIN}/spiewajmy-panu-live`,
+      lastmod: today,
+      thumbnailLoc: `${PRIMARY_ORIGIN}/images/milion-og.jpg`,
+      title: 'Śpiewajmy Panu LIVE — Całodobowe Uwielbienie',
+      description: 'Kanał wideo LIVE z pieśniami uwielbienia Christian Culture.',
+      contentLoc: `${PRIMARY_ORIGIN}/spiewajmy-panu-live`,
+    },
+    {
+      loc: `${PRIMARY_ORIGIN}/studium-live`,
+      lastmod: today,
+      thumbnailLoc: `${PRIMARY_ORIGIN}/images/milion-og.jpg`,
+      title: 'Studium Pisma Świętego LIVE — Christian Culture',
+      description: 'Wykłady i studium biblijne online na żywo 24/7.',
+      contentLoc: `${PRIMARY_ORIGIN}/studium-live`,
+    },
+    {
+      loc: `${PRIMARY_ORIGIN}/swiadectwa-live`,
+      lastmod: today,
+      thumbnailLoc: `${PRIMARY_ORIGIN}/images/milion-og.jpg`,
+      title: 'Świadectwa Wiary LIVE — Christian Culture',
+      description: 'Prawdziwe historie nawrócenia i działania Boga w życiu ludzi.',
+      contentLoc: `${PRIMARY_ORIGIN}/swiadectwa-live`,
+    },
+    {
+      loc: `${PRIMARY_ORIGIN}/wieczor-ze-slowem-bozym-live`,
+      lastmod: today,
+      thumbnailLoc: `${PRIMARY_ORIGIN}/images/milion-og.jpg`,
+      title: 'Wieczór ze Słowem Bożym LIVE — Christian Culture',
+      description: 'Codzienne wieczorne rozważania i modlitwa przy Słowie Bożym.',
+      contentLoc: `${PRIMARY_ORIGIN}/wieczor-ze-slowem-bozym-live`,
     },
   ];
 
