@@ -8,7 +8,7 @@ const seedPath = path.join(__dirname, 'records-seed.json');
 const outRoot = path.join(rootDir, 'test', 'adventist-world');
 const ORIGIN = 'https://polskieradio.cc';
 const BASE = '/test/adventist-world';
-const ASSET_VER = '20261121_aw3';
+const ASSET_VER = '20261121_aw4';
 
 const records = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
 if (!Array.isArray(records) || records.length !== 49) {

@@ -71,7 +71,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   outline-offset: 2px;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 
 .wrap {
   width: min(1240px, 100% - 40px);
@@ -1409,9 +1409,11 @@ img { max-width: 100%; display: block; }
 .promo-card:hover { transform: translateY(-3px); border-color: var(--gold-2); }
 .promo-card img {
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
-  background: #0b1733;
+  object-fit: contain;
+  background: #050b18;
+  border-bottom: 1px solid rgba(196, 163, 90, 0.16);
 }
 .promo-body {
   padding: 16px 18px;

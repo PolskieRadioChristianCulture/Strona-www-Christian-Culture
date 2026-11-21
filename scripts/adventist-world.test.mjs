@@ -66,6 +66,7 @@ test('PL & EN catalogs satisfy strict P0 noindex, CC standards, and descender-sa
   assert.ok(css.includes('.hero.is-ready h1 .l'), 'Hero is-ready descender override missing');
   assert.ok(css.includes('#ff7a00'), 'Orange CTA token #FF7A00 missing');
   assert.ok(css.includes('prefers-reduced-motion: reduce'), 'Reduced-motion rule missing');
+  assert.ok(/\.promo-card img\s*\{[^}]*height:\s*auto/s.test(css), '.promo-card img must enforce height: auto for true 16:9 ratio');
 });
 
 test('All 98 static PL & EN institution profiles exist cleanly with noindex, WspieramTO and valid links', () => {
