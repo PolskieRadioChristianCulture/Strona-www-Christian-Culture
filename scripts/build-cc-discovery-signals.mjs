@@ -582,8 +582,11 @@ export function buildAllDiscoverySignals() {
   const globalArticlesDir = path.join(ROOT, 'Global/articles');
   if (fs.existsSync(globalArticlesDir)) {
     for (const f of fs.readdirSync(globalArticlesDir).sort()) {
-      if (!f.endsWith('.html')) continue;
-      addEnFile(`Global/articles/${f}`, `/Global/articles/${f.replace(/\.html$/, '')}`, '0.80');
+      if (f.endsWith('.html')) {
+        addEnFile(`Global/articles/${f}`, `/Global/articles/${f.replace(/\.html$/, '')}`, '0.80');
+      } else if (fs.existsSync(path.join(globalArticlesDir, f, 'index.html'))) {
+        addEnFile(`Global/articles/${f}/index.html`, `/Global/articles/${f}/`, '0.80');
+      }
     }
   }
   addEnFile('40DM/en/index.html', '/40DM/en/', '0.85', [
