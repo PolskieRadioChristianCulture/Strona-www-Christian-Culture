@@ -8,7 +8,7 @@ const seedPath = path.join(__dirname, 'records-seed.json');
 const outRoot = path.join(rootDir, 'test', 'adventist-world');
 const ORIGIN = 'https://polskieradio.cc';
 const BASE = '/test/adventist-world';
-const ASSET_VER = '20261121_aw2';
+const ASSET_VER = '20261121_aw3';
 
 const records = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
 if (!Array.isArray(records) || records.length !== 49) {
@@ -105,6 +105,7 @@ function headHtml({ lang, title, description, canonical, plUrl, enUrl, jsonLd, e
 <script src="/components/cc-omni-search.js?v=20261030_feat11" defer></script>
 <script src="/components/cc-global-chat-button.js?v=20261119_gold2" defer></script>
 <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
+<script src="/components/cc-wspieramto-modal.js?v=20261121_1" defer></script>
 <script src="/components/cc-support-footer.js?v=20261116_a007_column" defer></script>
 <script src="${BASE}/aw-eco.js?v=${ASSET_VER}" defer></script>
 <script src="${BASE}/aw.js?v=${ASSET_VER}" defer></script>
@@ -150,12 +151,12 @@ function tickerAndHeaderHtml({ lang, plPath, enPath, isProfile = false }) {
     { href: '/', label: isEn ? 'Christian Culture Home' : 'Strona główna CC' },
     { href: isEn ? '/aplikacje/en/' : '/aplikacje/', label: isEn ? 'CC Apps Hub' : 'Centrum Aplikacji CC' },
     { href: '/mojabiblia', label: 'MojaBiblia' },
-    { href: '/wspieraj', label: isEn ? 'Support Mission' : 'Wspieram to' }
+    { href: '/wspieramto', label: '♥ WspieramTO', wspieramto: true }
   ];
 
   const skipText = isEn ? 'Skip to main content' : 'Przejdź do treści';
   const badgeText = isEn ? 'ECOSYSTEM 24/7' : 'EKOSYSTEM 24/7';
-  const ctaText = isEn ? 'Support' : 'Wspieram to';
+  const ctaText = 'WspieramTO';
 
   return `
 <a class="skip" href="#tresc">${esc(skipText)}</a>
@@ -185,7 +186,7 @@ function tickerAndHeaderHtml({ lang, plPath, enPath, isProfile = false }) {
 
     <!-- .header-right hosts Favorites Star (cc-favorites.js) + Global Auth + Support CTA + Lang Switch -->
     <div class="header-right">
-      <a class="btn-orange head-cta" href="/wspieraj" aria-label="${esc(ctaText)}">
+      <a class="btn-orange head-cta wspieramto-trigger" href="/wspieramto" data-cc-wspieramto aria-label="WspieramTO">
         <span class="cta-heart" aria-hidden="true">♥</span>
         <span class="cta-text">${esc(ctaText)}</span>
       </a>
@@ -206,7 +207,7 @@ function tickerAndHeaderHtml({ lang, plPath, enPath, isProfile = false }) {
     <strong style="font-family:var(--display);font-size:1.35rem;color:var(--gold-2);">Adventist World</strong>
     <button type="button" class="drawer-close" id="awDrawerClose" aria-label="${isEn ? 'Close menu' : 'Zamknij menu'}">✕</button>
   </div>
-  ${drawerLinks.map((l) => `<a class="d-link" href="${esc(l.href)}"><span>${esc(l.label)}</span><span aria-hidden="true">→</span></a>`).join('\n  ')}
+  ${drawerLinks.map((l) => `<a class="d-link${l.wspieramto ? ' wspieramto-trigger' : ''}" href="${esc(l.href)}"${l.wspieramto ? ' data-cc-wspieramto' : ''}><span>${esc(l.label)}</span><span aria-hidden="true">→</span></a>`).join('\n  ')}
 </aside>`;
 }
 
@@ -222,7 +223,7 @@ function promoAndFooterHtml(lang) {
           <h2 class="h2">${isEn ? 'Explore more <em>Christian Culture</em> tools' : 'Poznaj narzędzia <em>Christian Culture</em>'}</h2>
           <p class="sec-lead">${isEn ? 'Radio 24/7, interlinear Bible, prayer plans, and apps built to remain free and ad-free for everyone.' : 'Radio 24/7, interlinearna Biblia, plany modlitwy i aplikacje — wszystkie całkowicie darmowe i wolne od reklam.'}</p>
         </div>
-        <a class="btn-orange" href="https://patronite.pl/ChristianCulture" target="_blank" rel="noopener noreferrer">♥ ${isEn ? 'Support on Patronite' : 'Wesprzyj na Patronite'}</a>
+        <a class="btn-orange wspieramto-trigger" href="/wspieramto" data-cc-wspieramto>♥ WspieramTO</a>
       </div>
       <div class="promo-grid" id="awPromoGrid"></div>
     </div>
@@ -258,6 +259,7 @@ function promoAndFooterHtml(lang) {
           <li><a href="/">${isEn ? 'Main Portal' : 'Strona główna CC'}</a></li>
           <li><a href="${isEn ? '/aplikacje/en/' : '/aplikacje/'}">${isEn ? 'CC Apps Hub' : 'Centrum Aplikacji'}</a></li>
           <li><a href="/mojabiblia">MojaBiblia Interlinearna</a></li>
+          <li><a class="wspieramto-trigger" href="/wspieramto" data-cc-wspieramto>♥ WspieramTO</a></li>
           <li><a href="https://patronite.pl/ChristianCulture" target="_blank" rel="noopener noreferrer">Patronite · 0 zł</a></li>
         </ul>
       </div>
@@ -367,6 +369,7 @@ ${tickerAndHeaderHtml({ lang, plPath: `${BASE}/`, enPath: `${BASE}/en/`, isProfi
         <p class="hero-lead">${esc(description)}</p>
         <div class="hero-actions">
           <a class="btn-orange" href="#katalog">▶ ${isEn ? 'Explore Directory (49)' : 'Przeglądaj katalog (49)'}</a>
+          <a class="btn-wspieramto wspieramto-trigger" href="/wspieramto" data-cc-wspieramto>♥ WspieramTO</a>
           <a class="btn-glass" href="${BASE}/data/institutions.json" target="_blank" rel="noopener noreferrer">↓ ${isEn ? 'Open Data JSON' : 'Dane otwarte JSON'}</a>
         </div>
         <p class="hero-note">
@@ -667,7 +670,8 @@ ${tickerAndHeaderHtml({ lang, plPath: `${BASE}/instytucja/${rec.slug}/`, enPath:
       <h1 class="profile-h1">${esc(name)}</h1>
       <p class="hero-lead" style="margin-bottom:22px;">${esc(desc)}</p>
       <div class="hero-actions" style="margin-bottom:0;">
-        ${extPrimary ? `<a class="btn-orange" href="${esc(extPrimary)}" target="_blank" rel="noopener noreferrer">${isEn ? (rec.website ? 'Visit Official Website ↗' : 'View Official Source ↗') : (rec.website ? 'Otwórz oficjalną stronę ↗' : 'Zobacz w wykazie źródłowym ↗')}</a>` : ''}
+        ${extPrimary ? `<a class="btn-gold" href="${esc(extPrimary)}" target="_blank" rel="noopener noreferrer">${isEn ? (rec.website ? 'Visit Official Website ↗' : 'View Official Source ↗') : (rec.website ? 'Otwórz oficjalną stronę ↗' : 'Zobacz w wykazie źródłowym ↗')}</a>` : ''}
+        <a class="btn-orange wspieramto-trigger" href="/wspieramto" data-cc-wspieramto>♥ WspieramTO</a>
         <a class="btn-glass" href="${catalogHref}#katalog">← ${isEn ? 'Back to All 49 Institutions' : 'Wróć do wszystkich 49 instytucji'}</a>
       </div>
     </div>
@@ -721,7 +725,10 @@ ${tickerAndHeaderHtml({ lang, plPath: `${BASE}/instytucja/${rec.slug}/`, enPath:
             ? `This entry is informational only (status: unclaimed). Switch language (${altLangLabel}) or propose a verified correction using our public-source JSON builder.`
             : `Wpis ma charakter wyłącznie informacyjny (status: unclaimed, brak osobistego właściciela). W etapie P1 instytucja będzie mogła zgłosić korektę lub objąć opiekę nad wizytówką.`}
         </p>
-        <a class="btn-glass" href="${catalogHref}#zgloszenie">${isEn ? 'Propose a Correction →' : 'Zgłoś korektę danych →'}</a>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <a class="btn-wspieramto wspieramto-trigger" href="/wspieramto" data-cc-wspieramto>♥ WspieramTO</a>
+          <a class="btn-glass" href="${catalogHref}#zgloszenie">${isEn ? 'Propose a Correction →' : 'Zgłoś korektę danych →'}</a>
+        </div>
       </div>
 
       <div class="panel-card">

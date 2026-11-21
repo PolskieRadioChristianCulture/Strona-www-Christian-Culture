@@ -58,6 +58,8 @@ test('PL & EN catalogs satisfy strict P0 noindex, CC standards, and descender-sa
     assert.ok(html.includes('patronite.pl/ChristianCulture'), `Missing Patronite support link in ${rel}`);
     assert.ok(html.includes('og-adventist-world-1200x630.jpg'), `Missing OG image in ${rel}`);
     assert.ok(html.includes('hreflang="pl"') && html.includes('hreflang="en"'), `Missing hreflang in ${rel}`);
+    assert.ok(html.includes('cc-wspieramto-modal.js'), `Missing WspieramTO modal script in ${rel}`);
+    assert.ok(html.includes('href="/wspieramto"') && html.includes('data-cc-wspieramto') && html.includes('WspieramTO'), `Missing WspieramTO trigger in ${rel}`);
   }
 
   const css = fs.readFileSync(path.join(awRoot, 'aw.css'), 'utf8');
@@ -66,7 +68,7 @@ test('PL & EN catalogs satisfy strict P0 noindex, CC standards, and descender-sa
   assert.ok(css.includes('prefers-reduced-motion: reduce'), 'Reduced-motion rule missing');
 });
 
-test('All 98 static PL & EN institution profiles exist cleanly with noindex and valid links', () => {
+test('All 98 static PL & EN institution profiles exist cleanly with noindex, WspieramTO and valid links', () => {
   for (const rec of distJson) {
     for (const rel of [`instytucja/${rec.slug}/index.html`, `en/institution/${rec.slug}/index.html`]) {
       const fullPath = path.join(awRoot, rel);
@@ -75,6 +77,8 @@ test('All 98 static PL & EN institution profiles exist cleanly with noindex and 
       assert.ok(html.includes('<meta name="robots" content="noindex,nofollow">'), `Missing noindex in ${rel}`);
       assert.ok(!html.includes('Mission Control'), `Forbidden phrase in ${rel}`);
       assert.ok(html.includes(rec.slug), `Slug reference missing in ${rel}`);
+      assert.ok(html.includes('cc-wspieramto-modal.js'), `Missing WspieramTO modal script in ${rel}`);
+      assert.ok(html.includes('href="/wspieramto"') && html.includes('data-cc-wspieramto') && html.includes('WspieramTO'), `Missing WspieramTO trigger in ${rel}`);
     }
   }
 });

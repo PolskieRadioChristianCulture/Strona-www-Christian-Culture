@@ -32,7 +32,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
-<link rel="stylesheet" href="/test/adventist-world/aw.css?v=20261121_aw2">
+<link rel="stylesheet" href="/test/adventist-world/aw.css?v=20261121_aw3">
 <script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 <script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
 <script src="/js/cc-favorites.js?v=20261114_favz1" defer></script>
@@ -41,9 +41,10 @@
 <script src="/components/cc-omni-search.js?v=20261030_feat11" defer></script>
 <script src="/components/cc-global-chat-button.js?v=20261119_gold2" defer></script>
 <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
+<script src="/components/cc-wspieramto-modal.js?v=20261121_1" defer></script>
 <script src="/components/cc-support-footer.js?v=20261116_a007_column" defer></script>
-<script src="/test/adventist-world/aw-eco.js?v=20261121_aw2" defer></script>
-<script src="/test/adventist-world/aw.js?v=20261121_aw2" defer></script>
+<script src="/test/adventist-world/aw-eco.js?v=20261121_aw3" defer></script>
+<script src="/test/adventist-world/aw.js?v=20261121_aw3" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Adventist World","item":"https://polskieradio.cc/test/adventist-world/"},{"@type":"ListItem","position":2,"name":"Zbór ADS — Kraków-Nowa Huta","item":"https://polskieradio.cc/test/adventist-world/instytucja/zbor-ads-krakow-nowa-huta/"}]},{"@type":"Church","@id":"https://polskieradio.cc/test/adventist-world/instytucja/zbor-ads-krakow-nowa-huta/#entity","name":"Zbór ADS — Kraków-Nowa Huta","url":"https://polskieradio.cc/test/adventist-world/instytucja/zbor-ads-krakow-nowa-huta/","sameAs":["https://adwent.pl/kontakt/zbory/"],"description":"Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.","address":{"@type":"PostalAddress","streetAddress":"os. Teatralne 24","addressLocality":"Kraków-Nowa Huta","addressCountry":"PL"}}]}</script>
 </head>
 <body data-lang="pl">
@@ -78,9 +79,9 @@
 
     <!-- .header-right hosts Favorites Star (cc-favorites.js) + Global Auth + Support CTA + Lang Switch -->
     <div class="header-right">
-      <a class="btn-orange head-cta" href="/wspieraj" aria-label="Wspieram to">
+      <a class="btn-orange head-cta wspieramto-trigger" href="/wspieramto" data-cc-wspieramto aria-label="WspieramTO">
         <span class="cta-heart" aria-hidden="true">♥</span>
-        <span class="cta-text">Wspieram to</span>
+        <span class="cta-text">WspieramTO</span>
       </a>
       <div class="lang-pill" role="group" aria-label="Wybór języka">
         <a href="/test/adventist-world/instytucja/zbor-ads-krakow-nowa-huta/" hreflang="pl" lang="pl" class="is-active" aria-current="page">PL</a>
@@ -106,7 +107,7 @@
   <a class="d-link" href="/"><span>Strona główna CC</span><span aria-hidden="true">→</span></a>
   <a class="d-link" href="/aplikacje/"><span>Centrum Aplikacji CC</span><span aria-hidden="true">→</span></a>
   <a class="d-link" href="/mojabiblia"><span>MojaBiblia</span><span aria-hidden="true">→</span></a>
-  <a class="d-link" href="/wspieraj"><span>Wspieram to</span><span aria-hidden="true">→</span></a>
+  <a class="d-link wspieramto-trigger" href="/wspieramto" data-cc-wspieramto><span>♥ WspieramTO</span><span aria-hidden="true">→</span></a>
 </aside>
 
 <main id="tresc">
@@ -127,7 +128,8 @@
       <h1 class="profile-h1">Zbór ADS — Kraków-Nowa Huta</h1>
       <p class="hero-lead" style="margin-bottom:22px;">Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.</p>
       <div class="hero-actions" style="margin-bottom:0;">
-        <a class="btn-orange" href="https://adwent.pl/kontakt/zbory/" target="_blank" rel="noopener noreferrer">Zobacz w wykazie źródłowym ↗</a>
+        <a class="btn-gold" href="https://adwent.pl/kontakt/zbory/" target="_blank" rel="noopener noreferrer">Zobacz w wykazie źródłowym ↗</a>
+        <a class="btn-orange wspieramto-trigger" href="/wspieramto" data-cc-wspieramto>♥ WspieramTO</a>
         <a class="btn-glass" href="/test/adventist-world/#katalog">← Wróć do wszystkich 49 instytucji</a>
       </div>
     </div>
@@ -179,7 +181,10 @@
         <p style="margin:0 0 14px;font-size:14.5px;color:var(--ink-2);">
           Wpis ma charakter wyłącznie informacyjny (status: unclaimed, brak osobistego właściciela). W etapie P1 instytucja będzie mogła zgłosić korektę lub objąć opiekę nad wizytówką.
         </p>
-        <a class="btn-glass" href="/test/adventist-world/#zgloszenie">Zgłoś korektę danych →</a>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <a class="btn-wspieramto wspieramto-trigger" href="/wspieramto" data-cc-wspieramto>♥ WspieramTO</a>
+          <a class="btn-glass" href="/test/adventist-world/#zgloszenie">Zgłoś korektę danych →</a>
+        </div>
       </div>
 
       <div class="panel-card">
@@ -202,7 +207,7 @@
           <h2 class="h2">Poznaj narzędzia <em>Christian Culture</em></h2>
           <p class="sec-lead">Radio 24/7, interlinearna Biblia, plany modlitwy i aplikacje — wszystkie całkowicie darmowe i wolne od reklam.</p>
         </div>
-        <a class="btn-orange" href="https://patronite.pl/ChristianCulture" target="_blank" rel="noopener noreferrer">♥ Wesprzyj na Patronite</a>
+        <a class="btn-orange wspieramto-trigger" href="/wspieramto" data-cc-wspieramto>♥ WspieramTO</a>
       </div>
       <div class="promo-grid" id="awPromoGrid"></div>
     </div>
@@ -236,6 +241,7 @@
           <li><a href="/">Strona główna CC</a></li>
           <li><a href="/aplikacje/">Centrum Aplikacji</a></li>
           <li><a href="/mojabiblia">MojaBiblia Interlinearna</a></li>
+          <li><a class="wspieramto-trigger" href="/wspieramto" data-cc-wspieramto>♥ WspieramTO</a></li>
           <li><a href="https://patronite.pl/ChristianCulture" target="_blank" rel="noopener noreferrer">Patronite · 0 zł</a></li>
         </ul>
       </div>
