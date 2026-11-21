@@ -94,6 +94,50 @@ export const ALBUM_CAMPAIGN = [
     scheduleYmd: '2026-11-27',
     scheduleTime: '12:00',
     extraTags: 'Uwielbienie w Ciszy Serca, Odbierz Chwałę, Adoracja'
+  },
+  {
+    num: '08',
+    folder: '08 - Ja, Nazir',
+    mp4: 'CC_08_Ja_Nazir_Shorts_9x16.mp4',
+    title: 'Ja, Nazir — Jestem Poświęcony Panu | Nowy Album Christian Culture #Shorts',
+    quote: 'Pieśni poświęcenia, powołania i wierności Bogu w codziennym życiu.',
+    featuredTrack: '01. Ja, Nazir – Jestem Poświęcony Panu',
+    scheduleYmd: '2026-11-28',
+    scheduleTime: '12:00',
+    extraTags: 'Ja Nazir, Jestem Poświęcony Panu, Powołanie, Poświęcenie'
+  },
+  {
+    num: '09',
+    folder: '09 - Radość, Której Nie Zatrzymasz',
+    mp4: 'CC_09_Radosc_Ktorej_Nie_Zatrzymasz_Shorts_9x16.mp4',
+    title: 'Radość, Której Nie Zatrzymasz — Ból i Radość | Nowy Album Christian Culture #Shorts',
+    quote: '„Radość PANA jest waszą siłą, źródłem pokoju każdego dnia.” (Nehemiasza 8,10 UBG)',
+    featuredTrack: '01. Ból i Radość',
+    scheduleYmd: '2026-11-29',
+    scheduleTime: '12:00',
+    extraTags: 'Radość Której Nie Zatrzymasz, Ból i Radość, Nehemiasza 8, Wdzięczność'
+  },
+  {
+    num: '10',
+    folder: '10 - Spojrzenie Pełne Światła',
+    mp4: 'CC_10_Spojrzenie_Pelne_Swiatla_Shorts_9x16.mp4',
+    title: 'Spojrzenie Pełne Światła — Światło w Mroku | Nowy Album Christian Culture #Shorts',
+    quote: '„Spojrzeli na Niego i zostali oświeceni, a ich twarze nie zaznają wstydu.” (Psalm 34,5 UBG)',
+    featuredTrack: '01. Światło w Mroku',
+    scheduleYmd: '2026-11-30',
+    scheduleTime: '12:00',
+    extraTags: 'Spojrzenie Pełne Światła, Światło w Mroku, Psalm 34, CC Women'
+  },
+  {
+    num: '11',
+    folder: '11 - Christian Culture - Ogień Wiary',
+    mp4: 'CC_11_Ogien_Wiary_Shorts_9x16.mp4',
+    title: 'Ogień Wiary — Mojżesz – Z Bogiem Możesz Więcej | Christian Culture #Shorts',
+    quote: '„Nasz Bóg bowiem jest ogniem trawiącym.” (Hebrajczyków 12,29 UBG) Mocne pieśni o żywej wierze.',
+    featuredTrack: '01. Mojżesz – Z Bogiem Możesz Więcej',
+    scheduleYmd: '2026-12-01',
+    scheduleTime: '12:00',
+    extraTags: 'Ogień Wiary, Z Bogiem Możesz Więcej, Hebrajczyków 12, Wiara'
   }
 ];
 
