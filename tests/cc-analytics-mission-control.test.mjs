@@ -452,3 +452,20 @@ test('Scenariusz 20: Brak błędów wykonania przy braku obiektu gtag lub nietyp
     audio.pause();
   });
 });
+
+// 21. Optymalizacja SEO /mojabiblia, /biblia-do-pobrania oraz higiena ?in_mcr=1 w _worker.js (Etap D)
+test('Scenariusz 21: Optymalizacja meta SEO /mojabiblia i /biblia-do-pobrania pod zapytania z GSC oraz przekierowania 301 dla ?in_mcr=1 i uszkodzonych parametrów w _worker.js', () => {
+  const mbHtml = readFileSync('mojabiblia.html', 'utf8');
+  assert.match(mbHtml, /<title>Biblia Interlinearna Online/i);
+  assert.match(mbHtml, /<link rel="canonical" href="https:\/\/polskieradio\.cc\/mojabiblia">/);
+
+  const dlHtml = readFileSync('biblia-do-pobrania.html', 'utf8');
+  assert.match(dlHtml, /<title>Biblia do pobrania za darmo/i);
+  assert.match(dlHtml, /<link rel="canonical" href="https:\/\/polskieradio\.cc\/biblia-do-pobrania">/);
+  assert.match(dlHtml, /href="\/mojabiblia"/);
+  assert.match(dlHtml, /href="\/biblia-audio\/"/);
+
+  const workerJs = readFileSync('_worker.js', 'utf8');
+  assert.match(workerJs, /cleanLiveUrl\.searchParams\.delete\('in_mcr'\)/);
+  assert.match(workerJs, /cleanMbUrl\.searchParams\.delete\('chapter'\)/);
+});

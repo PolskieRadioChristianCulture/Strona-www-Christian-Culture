@@ -2039,6 +2039,52 @@ export default {
       decodedP = p;
     }
 
+    // ──────────────────────────────────────────────────────────────────────────
+    // CC ANALYTICS & SEO HYGIENE (ETAP D / A3):
+    // 1. Oczyszczanie z indeksu Google technicznego parametru ?in_mcr=1 (i towarzyszących ?muted=1, ?mute=1)
+    //    dla botów wyszukiwarek oraz użytkowników wchodzących z wyników wyszukiwania (Google/Bing),
+    //    aby zewnętrzni odbiorcy nie byli błędnie oznaczani jako traffic_type='internal'.
+    // 2. Oczyszczanie uszkodzonych parametrów w /mojabiblia (np. "?book=EXO&chapter=9)." z kropką i nawiasem w GSC).
+    // ──────────────────────────────────────────────────────────────────────────
+    const refererHeader = (request.headers.get('referer') || '').toLowerCase();
+    const isSearchEngineBot = /googlebot|bingbot|duckduckbot|yandexbot|baiduspider|applebot/i.test(ua);
+    const isFromSearchEngine = /\b(google\.|bing\.com|duckduckgo\.com|yahoo\.com|ecosia\.org)/i.test(refererHeader);
+    if (url.searchParams.has('in_mcr') && (isSearchEngineBot || isFromSearchEngine)) {
+      const cleanLiveUrl = new URL(request.url);
+      cleanLiveUrl.pathname = cleanLiveUrl.pathname.replace(/\.html$/i, '');
+      cleanLiveUrl.searchParams.delete('in_mcr');
+      cleanLiveUrl.searchParams.delete('muted');
+      cleanLiveUrl.searchParams.delete('mute');
+      return Response.redirect(cleanLiveUrl.toString(), 301);
+    }
+
+    if (decodedP === '/mojabiblia' || decodedP === '/mojabiblia.html') {
+      let needsMojabibliaRedirect = decodedP === '/mojabiblia.html';
+      const cleanMbUrl = new URL(request.url);
+      cleanMbUrl.pathname = '/mojabiblia';
+
+      // Naprawa uszkodzonych wartości parametrów z nawiasem/kropką z czatów/Markdown, np. ?chapter=9).
+      for (const [k, v] of Array.from(cleanMbUrl.searchParams.entries())) {
+        const cleanedVal = String(v || '').replace(/[).,\];]+$/g, '');
+        if (cleanedVal !== v) {
+          cleanMbUrl.searchParams.set(k, cleanedVal);
+          needsMojabibliaRedirect = true;
+        }
+      }
+      // Ujednolicenie duplikatu ?ch=X oraz ?chapter=X (w GSC oba warianty indeksowały się osobno)
+      if (cleanMbUrl.searchParams.has('ch') && cleanMbUrl.searchParams.has('chapter')) {
+        cleanMbUrl.searchParams.delete('chapter');
+        needsMojabibliaRedirect = true;
+      } else if (cleanMbUrl.searchParams.has('chapter') && !cleanMbUrl.searchParams.has('ch')) {
+        cleanMbUrl.searchParams.set('ch', cleanMbUrl.searchParams.get('chapter'));
+        cleanMbUrl.searchParams.delete('chapter');
+        needsMojabibliaRedirect = true;
+      }
+      if (needsMojabibliaRedirect) {
+        return Response.redirect(cleanMbUrl.toString(), 301);
+      }
+    }
+
     // Przechwycenie social crawlerów dla /milion oraz /widget
     if (decodedP === '/milion' || decodedP === '/milion.html' || decodedP === '/widget' || decodedP === '/widget.html') {
       if (isCrawler) {
@@ -2840,6 +2886,11 @@ export default {
       fallbackUrl.pathname = url.pathname.replace(/\/$/, '') + '.html';
       let fallbackResp = await env.ASSETS.fetch(new Request(fallbackUrl, request));
       if (fallbackResp.status < 400) {
+        if (url.searchParams.has('q') || url.searchParams.has('query') || url.searchParams.has('in_mcr')) {
+          const r = new Response(fallbackResp.body, fallbackResp);
+          r.headers.set('X-Robots-Tag', 'noindex, follow, noarchive');
+          return r;
+        }
         return fallbackResp;
       }
 
@@ -2847,12 +2898,17 @@ export default {
       lowerFallbackUrl.pathname = lowerPath + '.html';
       fallbackResp = await env.ASSETS.fetch(new Request(lowerFallbackUrl, request));
       if (fallbackResp.status < 400) {
+        if (url.searchParams.has('q') || url.searchParams.has('query') || url.searchParams.has('in_mcr')) {
+          const r = new Response(fallbackResp.body, fallbackResp);
+          r.headers.set('X-Robots-Tag', 'noindex, follow, noarchive');
+          return r;
+        }
         return fallbackResp;
       }
     }
 
     const finalResp = assetResp;
-    if (url.searchParams.has('q') || url.searchParams.has('query')) {
+    if (url.searchParams.has('q') || url.searchParams.has('query') || url.searchParams.has('in_mcr')) {
       const respWithHeader = new Response(finalResp.body, finalResp);
       respWithHeader.headers.set('X-Robots-Tag', 'noindex, follow, noarchive');
       return respWithHeader;
