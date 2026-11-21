@@ -419,9 +419,12 @@ test('Scenariusz 17: Dane w snapshotcie są w 100% zgodne z odczytem GA4 Data AP
 });
 
 // 18. Zgodność danych SEO z Search Console i rzetelny status API
-test('Scenariusz 18: Sekcja Search Console nie symuluje fikcyjnych kliknięć przed nadaniem uprawnień w GSC i rzetelnie prezentuje sesje GA4 Organic', () => {
+test('Scenariusz 18: Sekcja Search Console prezentuje prawdziwe dane z Google Search Console API (sc-domain:polskieradio.cc, 200 OK) oraz sesje GA4 Organic', () => {
   const gsc = ANALYTICS_MC_SNAPSHOT.searchConsole;
-  assert.equal(gsc.apiStatus, 'API_ENABLED_REQUIRES_GSC_PROPERTY_USER_GRANT');
+  assert.equal(gsc.apiStatus, 'ACTIVE_VERIFIED');
+  assert.equal(gsc.totals30d.clicks, 20);
+  assert.equal(gsc.totals30d.impressions, 1087);
+  assert.ok(gsc.gscTopQueries30d.length >= 10);
   assert.ok(gsc.ga4OrganicLandingPages30d.length >= 10);
   const bibliaDownload = gsc.ga4OrganicLandingPages30d.find((p) => p.landingPage === '/biblia-do-pobrania');
   assert.equal(bibliaDownload.sessions, 13);

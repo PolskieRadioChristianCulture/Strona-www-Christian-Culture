@@ -852,19 +852,35 @@
         <section class="panel span-6">
           <div class="panel-header">
             <div>
-              <h2 class="panel-title">SEO &amp; Google Search Console (Etap D)</h2>
-              <p class="panel-subtitle">Podstrony docelowe Google Organic w GA4 oraz status Search Console API</p>
+              <h2 class="panel-title">SEO &amp; Google Search Console (Etap D — NA ŻYWO)</h2>
+              <p class="panel-subtitle">Zweryfikowane zapytania i strony z Search Console API (sc-domain:polskieradio.cc) oraz GA4 Organic</p>
             </div>
-            <span class="badge badge-warn" id="gscApiBadge">GSC API: WYMAGA WŁĄCZENIA W GCP</span>
+            <span class="badge badge-ok" id="gscApiBadge">GSC API: ACTIVE_VERIFIED (200 OK)</span>
           </div>
           <div id="gscStatusNotice" style="font-size:0.82rem; color:var(--ink-dim); margin-bottom:12px; padding:12px; border-radius:10px; background:var(--bg-2); border:1px solid var(--border-subtle);"></div>
+          <h3 style="font-size:0.8rem; color:var(--gold-light); text-transform:uppercase; letter-spacing:0.05em; margin:12px 0 8px;">1. Najważniejsze zapytania w Google Search Console (30 dni)</h3>
+          <div class="table-wrap" style="margin-bottom:16px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Zapytanie w Google (GSC Query)</th>
+                  <th class="num">Kliknięcia</th>
+                  <th class="num">Wyświetlenia</th>
+                  <th class="num">CTR</th>
+                  <th class="num">Śr. pozycja</th>
+                </tr>
+              </thead>
+              <tbody id="gscQueriesTableBody"></tbody>
+            </table>
+          </div>
+          <h3 style="font-size:0.8rem; color:var(--gold-light); text-transform:uppercase; letter-spacing:0.05em; margin:12px 0 8px;">2. Strony wejścia Google Organic w GA4 vs GSC (30 dni)</h3>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
                   <th>Strona wejścia (Google Organic)</th>
-                  <th>Sekcja</th>
-                  <th class="num">Sesje</th>
+                  <th>Sekcja / Porównanie GSC</th>
+                  <th class="num">Sesje GA4</th>
                   <th class="num">Zaangaż.</th>
                   <th class="num">Śr. czas</th>
                 </tr>
@@ -1037,8 +1053,14 @@
       document.getElementById('kpiSupport').textContent = fmtInt(k.supportInteractionsEvents);
       document.getElementById('kpiSupportSub').textContent = `Odsłony: ${k.supportInteractionsBreakdown.support_view} | Kliknięcia: ${k.supportInteractionsBreakdown.donate_click} | Potwierdzone wpłaty: ${k.supportInteractionsBreakdown.donation_complete}`;
 
-      document.getElementById('kpiOrganic').textContent = fmtInt(k.organicSearchSessionsGA4);
-      document.getElementById('kpiOrganicSub').textContent = `${fmtInt(k.organicSearchUsersGA4)} użytk. | Zaangażowanie: ${k.organicSearchEngagementRatePct}%`;
+      const gscTotals = data.searchConsole && data.searchConsole.totals30d;
+      if (gscTotals) {
+        document.getElementById('kpiOrganic').textContent = `${fmtInt(gscTotals.clicks)} / ${fmtInt(k.organicSearchSessionsGA4)}`;
+        document.getElementById('kpiOrganicSub').textContent = `GSC: ${fmtInt(gscTotals.clicks)} klik. (${fmtInt(gscTotals.impressions)} wyśw., poz. ${gscTotals.position}) | GA4: ${fmtInt(k.organicSearchSessionsGA4)} sesji`;
+      } else {
+        document.getElementById('kpiOrganic').textContent = fmtInt(k.organicSearchSessionsGA4);
+        document.getElementById('kpiOrganicSub').textContent = `${fmtInt(k.organicSearchUsersGA4)} użytk. | Zaangażowanie: ${k.organicSearchEngagementRatePct}%`;
+      }
 
       // Porównanie tygodni
       const w1 = data.weekComparison.week1.kpis;
@@ -1131,6 +1153,21 @@
 
       // Search Console & Organic Search (D)
       document.getElementById('gscStatusNotice').textContent = data.searchConsole.noFakeDataNotice;
+      const gscQueriesBody = document.getElementById('gscQueriesTableBody');
+      if (gscQueriesBody && Array.isArray(data.searchConsole.gscTopQueries30d)) {
+        gscQueriesBody.innerHTML = data.searchConsole.gscTopQueries30d.map(q => `
+          <tr>
+            <td>
+              <strong>${q.query}</strong>
+              <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--ink-dim);">${q.targetPage || ''}</div>
+            </td>
+            <td class="num">${fmtInt(q.clicks)}</td>
+            <td class="num">${fmtInt(q.impressions)}</td>
+            <td class="num">${Number(q.ctrPct || 0).toFixed(2)}%</td>
+            <td class="num">${Number(q.position || 0).toFixed(2)}</td>
+          </tr>
+        `).join('');
+      }
       document.getElementById('organicPagesTableBody').innerHTML = data.searchConsole.ga4OrganicLandingPages30d.map(o => `
         <tr>
           <td style="font-family:var(--font-mono); font-size:0.78rem;">${o.landingPage}</td>

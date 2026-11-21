@@ -119,17 +119,52 @@ Zgodnie z dyrektywą nie klasyfikowano botów wyłącznie na podstawie kraju —
 
 ---
 
-## 5. ETAP D — SEO I GOOGLE SEARCH CONSOLE
+## 5. ETAP D — SEO I GOOGLE SEARCH CONSOLE (ZWERYFIKOWANE DANE NA ŻYWO Z GSC API)
 
-### 5.1. Status techniczny Google Search Console API
-- Sprawdzono połączenie z `https://www.googleapis.com/webmasters/v3/sites` przy użyciu wszystkich 3 kluczy serwisowych (`lumina-cc`, `cc-mission-control`, `cuda-398c0`).
-- **Wynik:** HTTP `403 PERMISSION_DENIED` (`reason: SERVICE_DISABLED` — `Google Search Console API has not been used in project 413985877183 before or it is disabled`).
-- Zgodnie z zakazem symulowania danych (Etap E4), żadne fikcyjne liczby kliknięć GSC nie zostały wygenerowane. Aby odblokować bezpośredni pobór tabel z GSC API do `/test/analityka`:
-  1. Włączyć `Google Search Console API` w projekcie GCP `413985877183` (`lumina-cc`).
-  2. W panelu Google Search Console dla domeny `sc-domain:polskieradio.cc` dodać adres `firebase-adminsdk-fbsvc@lumina-cc.iam.gserviceaccount.com` z uprawnieniem **Ograniczone (Restricted / Read-only)**.
+### 5.1. Status techniczny Google Search Console API (`ACTIVE_VERIFIED` — HTTP 200 OK)
+- Włączono `Google Search Console API` (`searchconsole.googleapis.com`) oraz `Google Analytics Admin API` (`analyticsadmin.googleapis.com`) w projekcie GCP `413985877183` (`lumina-cc`).
+- Dodano konto serwisowe `firebase-adminsdk-fbsvc@lumina-cc.iam.gserviceaccount.com` jako użytkownika `siteRestrictedUser` w usłudze Google Search Console **`sc-domain:polskieradio.cc`**.
+- **Wynik z GSC API za ostatnie 30 pełnych dni (22 X – 20 XI 2026):**
+  - **Kliknięcia organiczne:** `20`
+  - **Wyświetlenia w Google:** `1 087`
+  - **Średni CTR:** `1,84%`
+  - **Średnia pozycja:** `9,16`
+  - **Unikalne zapytania:** `93` | **Zaindeksowane adresy URL z wyświetleniami:** `180`
+  - **Podział wg urządzeń:** Mobile (`10` kliknięć, `707` wyśw., CTR `1,41%`, poz. `8,13`), Desktop (`10` kliknięć, `360` wyśw., CTR `2,78%`, poz. `11,32`), Tablet (`0` kliknięć, `20` wyśw., poz. `7,05`).
 
-### 5.2. Analiza ruchu organicznego z wyszukiwarek (GA4 Organic Search — 30 dni)
-W ostatnich 30 dniach kanał `Organic Search` w usłudze `548623550` wygenerował **243 sesje** (`241` Google Organic + `2` Bing Organic) od **132 użytkowników**, z bardzo wysokim wskaźnikiem zaangażowania **63,90%** i średnim czasem sesji **4 min 03 s** (`242,92 s`):
+### 5.1b. Najważniejsze zapytania i strony w Google Search Console (`sc-domain:polskieradio.cc`, 30 dni)
+
+| Zapytanie w Google (`query`) | Kliknięcia | Wyświetlenia | CTR | Śr. pozycja | Główna strona docelowa w SERP |
+|---|---:|---:|---:|---:|---|
+| **`biblia do pobrania za darmo`** | **3** | **5** | **60,00%** | **6,60** | `https://polskieradio.cc/biblia-do-pobrania` |
+| **`biblia interlinearna`** | **0** | **90** | **0,00%** | **8,26** | `https://polskieradio.cc/mojabiblia` |
+| **`vod filmy za darmo z lektorem`** | **0** | **44** | **0,00%** | **8,30** | `https://polskieradio.cc/vod` |
+| **`biblia interlinearna online`** | **0** | **39** | **0,00%** | **9,00** | `https://polskieradio.cc/mojabiblia` |
+| **`christian culture`** | **0** | **24** | **0,00%** | **2,00** | `https://polskieradio.cc/` |
+| **`interlinearna biblia`** | **0** | **12** | **0,00%** | **8,08** | `https://polskieradio.cc/mojabiblia` |
+| **`żona lota biblia`** | **0** | **11** | **0,00%** | **32,55** | `https://polskieradio.cc/biblia/pamietajcie-o-zonie-lota` |
+| **`księga jozuego 1`** | **0** | **7** | **0,00%** | **10,86** | `https://polskieradio.cc/mojabiblia?book=JOS&ch=1&mode=reader` |
+| **`bestia z apokalipsy`** | **0** | **6** | **0,00%** | **10,33** | `https://polskieradio.cc/akademia/apokalipsa/lekcja-09` |
+| **`biblia do pobrania na telefon za darmo`** | **0** | **5** | **0,00%** | **8,40** | `https://polskieradio.cc/biblia-do-pobrania` |
+
+| Podstrona w Google Search Console (`page`) | Kliknięcia | Wyświetlenia | CTR | Śr. pozycja | Diagnoza SEO |
+|---|---:|---:|---:|---:|---|
+| `https://polskieradio.cc/` | 5 | 67 | 7,46% | 3,72 | Główna strona radia |
+| `https://polskieradio.cc/player` | 4 | 18 | 22,22% | 4,67 | Bardzo wysoki CTR odtwarzacza |
+| `https://polskieradio.cc/biblia-do-pobrania` | 3 | 38 | 7,89% | 8,47 | Najlepsza konwersja biblijna |
+| `https://polskieradio.cc/si/ai-antychryst` | 2 | 7 | 28,57% | 8,29 | Wysoki CTR artykułu |
+| `https://polskieradio.cc/news/historia-hymnu-cudowna-boza-laska-amazing-grace` | 1 | 29 | 3,45% | 7,79 | Artykuł CCN News |
+| **`https://polskieradio.cc/mojabiblia`** | **0** | **163** | **0,00%** | **8,67** | **ALARM CTR: TOP 9 Google, 163 wyświetlenia i 0 kliknięć!** |
+| `https://polskieradio.cc/akademia/apokalipsa/lekcja-22` | 0 | 46 | 0,00% | 8,15 | Wysoka pozycja (8,15), wymaga poprawy Title/Description |
+| `https://polskieradio.cc/vod` | 0 | 45 | 0,00% | 8,51 | Wysoka pozycja (8,51), wymaga poprawy snippetu SERP |
+| `https://polskieradio.cc/akademia/apokalipsa/lekcja-09` | 0 | 42 | 0,00% | 12,07 | Na progu pierwszej dziesiątki Google |
+| `https://polskieradio.cc/news/kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc` | 0 | 27 | 0,00% | 7,74 | TOP 8 Google, wymaga bardziej klikalnego meta description |
+
+### 5.2. Analiza ruchu organicznego z wyszukiwarek (GA4 Organic Search — 30 dni) i wyjaśnienie różnicy GSC (`20`) vs GA4 (`241`)
+W ostatnich 30 dniach kanał `Organic Search` w usłudze `548623550` wygenerował **243 sesje** (`241` Google Organic + `2` Bing Organic) od **132 użytkowników**, z bardzo wysokim wskaźnikiem zaangażowania **63,90%** i średnim czasem sesji **4 min 03 s** (`242,92 s`).
+- **Dlaczego GSC wykazuje `20` kliknięć, a GA4 `241` sesji `google / organic`?**
+  1. W GA4 aż `162` sesje `google / organic` na stronie głównej `/` oraz `22` sesje na `/player` pochodzą od powracających użytkowników (lub odświeżanych kart odtwarzacza po 30 minutach nieaktywności), którym model atrybucji GA4 przypisał Google Organic jako źródło sesji.
+  2. GSC mierzy wyłącznie bezpośrednie kliknięcia w wynikach wyszukiwania Google (`20` kliknięć z `1 087` wyświetleń).
 
 | Sekcja / Strona wejścia (`landingPagePlusQueryString`) | Sesje Organic | Użytkownicy | Sesje zaangażowane | Śr. czas sesji |
 |---|---:|---:|---:|---:|
@@ -144,14 +179,13 @@ W ostatnich 30 dniach kanał `Organic Search` w usłudze `548623550` wygenerowa�
 | `/mojabiblia?book=MAT&ch=1&mode=interlinear&chapter=1` | 2 | 1 | 1 (50,0%) | 2 min 00 s |
 | `/akademia/apokalipsa/lekcja-22` | 2 | 2 | 1 (50,0%) | 1 min 27 s |
 
-### 5.3. Diagnoza 3 priorytetowych zapytań biblijnych
+### 5.3. Diagnoza 3 priorytetowych zapytań biblijnych (Potwierdzona w GSC API)
 1. **`biblia do pobrania za darmo` (`/biblia-do-pobrania`):**
-   - **Stan obecny:** Najlepiej konwertująca podstrona biblijna w wyszukiwarce Google (`13` sesji organicznych, `76,9%` zaangażowania, śr. czas `2 min 38 s`, `15` zdarzeń `file_download`).
-   - **Rekomendacja SEO/CRO:** Dodać nad linią zgięcia bezpośrednie odnośniki do czytania online w `/mojabiblia` (Tryb Czytnik UBG) oraz słuchania w `/biblia-audio/`, aby użytkownik pobierający plik PDF/EPUB zostawał na portalu.
-2. **`biblia interlinearna` oraz `biblia interlinearna online` (`/mojabiblia`):**
-   - **Stan obecny:** Podstrona `/mojabiblia` ma bardzo wysokie zaangażowanie wśród użytkowników portalu (`230` odsłon, `87,5%` sesji zaangażowanych), ale z wyszukiwarki Google pozyskała tylko `2` sesje (i to na niekanoniczny URL z parametrami `?book=MAT&ch=1&mode=interlinear&chapter=1`).
-   - **Przyczyna techniczna:** Cały tekst biblijny, kody Stronga i słownik grecko-hebrajski w `/mojabiblia` są ładowane dynamicznie przez JavaScript po stronie klienta (CSR). Ponadto w parametrach URL używane są naprzemiennie `ch=1` i `chapter=1`, co rozprasza sygnał kanoniczny.
-   - **Rekomendacja SEO:** Wprowadzić statyczny blok wprowadzający SSR/HTML na `/mojabiblia` z wyraźnymi nagłówkami `H1`/`H2` zawierającymi frazy *„Biblia Interlinearna Online — Grecko-Polska i Hebrajsko-Polska z kodami Stronga (UBG / BW / BT / BG)”*, ujednolicić `<link rel="canonical" href="https://polskieradio.cc/mojabiblia">` oraz wyeliminować z indeksu Google duplikaty parametrów `?ch=` i `?chapter=`.
-3. **Wykryty błąd SEO — parametr `?in_mcr=1` w wynikach organicznych Google:**
-   - W Google zaindeksował się adres `/codzienne-uwielbienie-live?muted=1&mute=1&in_mcr=1`. Ponieważ parametr `in_mcr=1` włącza w snippety GA4 flagę `traffic_type: 'internal'`, każdy odbiorca klikający ten wynik w Google jest oznaczany jako ruch wewnętrzny reżyserii!
-   - **Rekomendacja naprawcza:** W `_worker.js` dla zapytań od botów wyszukiwarek (`Googlebot`, `bingbot`) lub posiadających w `Referer` domenę `google.` wykonywać przekierowanie `301` usuwające parametry techniczne `?in_mcr=1`, `?muted=1`, `?mute=1` na czysty kanoniczny URL `/codzienne-uwielbienie-live`.
+   - **Dowód z GSC API:** `3` kliknięcia z `5` wyświetleń (**60,0% CTR!**, średnia pozycja **6,60**), a cała podstrona `/biblia-do-pobrania` ma `38` wyświetleń w Google i `13` sesji organicznych w GA4 (`76,9%` zaangażowania, `15` pobrań `file_download`).
+   - **Rekomendacja SEO/CRO:** Dodać nad linią zgięcia bezpośrednie odnośniki do czytania online w `/mojabiblia` (Tryb Czytnik UBG) oraz słuchania w `/biblia-audio/`.
+2. **`biblia interlinearna` (`90` wyśw., poz. `8,26`), `biblia interlinearna online` (`39` wyśw., poz. `9,00`), `interlinearna biblia` (`12` wyśw., poz. `8,08`):**
+   - **Dowód z GSC API:** Podstrona `https://polskieradio.cc/mojabiblia` jest już na **pierwszej stronie Google (pozycje 8–9)** i uzyskała łącznie **163 wyświetlenia** (plus `35` wyświetleń adresów z parametrami `?book=JOS&ch=1`, `?book=GEN&ch=6`, a nawet uszkodzonego linku `?book=EXO&chapter=9).`), lecz ma **0 kliknięć (0% CTR)**!
+   - **Przyczyna techniczna:** 1) Tytuł i opis meta (`<title>` / `<meta name="description">`) w wynikach Google nie komunikują wystarczająco wyraźnie, że to **darmowa Biblia Interlinearna Online (Hebrajsko-Polska i Grecko-Polska z kodami Stronga i 4 przekładami UBG/BW/BT/BG bez logowania)**; 2) Rozproszenie adresów URL z parametrami `?book=...&ch=...&chapter=...` w indeksie Google.
+3. **Wykryty błąd SEO — parametry techniczne `?in_mcr=1` w wynikach organicznych Google:**
+   - W GSC potwierdzono obecność w indeksie adresu `https://polskieradio.cc/totalny-atak-live.html?muted=1&mute=1&in_mcr=1` (`1` kliknięcie, `2` wyświetlenia, pozycja `2,0`!) oraz w GA4 `/codzienne-uwielbienie-live?muted=1&mute=1&in_mcr=1`. Ponieważ parametr `in_mcr=1` włącza flagę `traffic_type: 'internal'`, każdy odbiorca klikający ten wynik w Google jest oznaczany jako ruch wewnętrzny reżyserii!
+   - **Rekomendacja naprawcza:** W `_worker.js` wykonywać przekierowanie `301` usuwające parametry `?in_mcr=1`, `?muted=1`, `?mute=1` dla wejść z wyszukiwarek oraz dodać `<link rel="canonical">` bez parametrów query.

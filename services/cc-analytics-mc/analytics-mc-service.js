@@ -15,9 +15,9 @@ export const AUTHORIZED_ANALYTICS_ADMINS = new Set([
 ]);
 
 export const ANALYTICS_MC_SNAPSHOT = {
-  schemaVersion: '1.0.0',
-  auditTimestamp: '2026-11-21T09:50:00+01:00',
-  lastDataSync: '2026-11-21T09:56:00+01:00',
+  schemaVersion: '1.1.0',
+  auditTimestamp: '2026-11-21T10:02:00+01:00',
+  lastDataSync: '2026-11-21T10:05:00+01:00',
   mode: 'ZERO COST / TEST FIRST / APPROVAL REQUIRED',
   environment: 'https://polskieradio.cc/test/analityka',
   guardrails: {
@@ -31,15 +31,22 @@ export const ANALYTICS_MC_SNAPSHOT = {
   properties: [
     {
       propertyId: '548623550',
-      name: 'Christian Culture (Polskie Radio CC — Główna Usługa)',
+      accountId: '385962006',
+      name: 'Christian Culture (Polskie Radio CC — Główna Usługa, Konto: 385962006)',
       measurementId: 'G-Y4EFTVBPE3',
       streamId: '15383676066',
-      gcpProject: 'lumina-cc (413985877183)',
+      gcpProject: 'lumina-cc (413985877183) — Admin & Data API ACTIVE (200 OK)',
       domains: ['polskieradio.cc', 'www.polskieradio.cc', 'cclite.pl'],
       htmlFilesCount: 1801,
       apiAccessStatus: 'ACTIVE_VERIFIED',
       httpStatus: 200,
       hasData30d: true,
+      adminAudit: {
+        eventDataRetention: 'TWO_MONTHS (wymaga zmiany na FOURTEEN_MONTHS)',
+        googleSignals: 'GOOGLE_SIGNALS_ENABLED (wymaga wyłączenia ze względu na brak Consent Mode v2 dla remarketingu)',
+        customDimensionsCount: 0,
+        keyEventsCount: 1
+      },
       summary30d: {
         dateRange: '2026-10-22 – 2026-11-20',
         activeUsers: 1521,
@@ -56,15 +63,22 @@ export const ANALYTICS_MC_SNAPSHOT = {
     },
     {
       propertyId: '550097091',
-      name: 'Lumina (Portal Społecznościowy)',
+      accountId: '385962006',
+      name: 'Lumina (Portal Społecznościowy, Konto: 385962006)',
       measurementId: 'G-M24C85RG49',
       streamId: '15444169939',
-      gcpProject: 'lumina-cc (413985877183)',
+      gcpProject: 'lumina-cc (413985877183) — Admin & Data API ACTIVE (200 OK)',
       domains: ['polskieradio.cc/lumina', 'polskieradio.cc/mess', 'polskieradio.cc/tablica', 'polskieradio.cc/werset-dnia'],
       htmlFilesCount: 223,
       apiAccessStatus: 'ACTIVE_VERIFIED',
       httpStatus: 200,
       hasData30d: true,
+      adminAudit: {
+        eventDataRetention: 'TWO_MONTHS',
+        googleSignals: 'GOOGLE_SIGNALS_DISABLED',
+        customDimensionsCount: 0,
+        keyEventsCount: 1
+      },
       summary30d: {
         dateRange: '2026-10-22 – 2026-11-20',
         activeUsers: 73,
@@ -81,15 +95,22 @@ export const ANALYTICS_MC_SNAPSHOT = {
     },
     {
       propertyId: '526422549',
+      accountId: '385962006',
       name: 'Biblia Audio CC (Konto GA4: 385962006)',
       measurementId: 'G-K8PKXF3KSM (defaultUri: https://biblia.cclite.pl, zastąpiony przez G-Y4EFTVBPE3)',
       streamId: '13684646910',
-      gcpProject: 'lumina-cc (413985877183) — Google Analytics Admin API WŁĄCZONE (200 OK)',
+      gcpProject: 'lumina-cc (413985877183) — Admin & Data API ACTIVE (200 OK)',
       domains: ['biblia.cclite.pl', 'polskieradio.cc/biblia-audio (obecnie pod G-Y4EFTVBPE3)'],
       htmlFilesCount: 0,
       apiAccessStatus: 'ACTIVE_EMPTY_0_ROWS',
       httpStatus: 200,
       hasData30d: false,
+      adminAudit: {
+        eventDataRetention: 'TWO_MONTHS',
+        googleSignals: 'GOOGLE_SIGNALS_DISABLED',
+        customDimensionsCount: 0,
+        keyEventsCount: 1
+      },
       summary30d: {
         dateRange: '2026-10-22 – 2026-11-20',
         activeUsers: 0,
@@ -106,76 +127,81 @@ export const ANALYTICS_MC_SNAPSHOT = {
     },
     {
       propertyId: '518223715',
-      name: 'christian-culture',
-      measurementId: 'G-6440T9VBQB (prawdopodobny z firebase-messaging-sw.js / dist)',
-      streamId: 'WYMAGA UPRAWNIEŃ IAM',
-      gcpProject: 'christian-culture (.firebaserc w Christian-Culture-Web-App)',
+      accountId: '379195658',
+      name: 'christian-culture (Konto GA4: 379195658 — Default Account for Firebase)',
+      measurementId: 'G-6440T9VBQB (z firebase-messaging-sw.js / dist)',
+      streamId: 'WYMAGA UPRAWNIEŃ IAM NA KONCIE 379195658',
+      gcpProject: 'christian-culture (.firebaserc w Christian-Culture-Web-App) — API WŁĄCZONE',
       domains: ['christian-culture.web.app', 'christian-culture.firebaseapp.com'],
       htmlFilesCount: 21,
       apiAccessStatus: 'REQUIRES_IAM_PERMISSION',
       httpStatus: 403,
       hasData30d: null,
-      errorDetail: 'User does not have sufficient permissions for this property (konto serwisowe firebase-adminsdk-fbsvc@lumina-cc.iam.gserviceaccount.com nie zostało dodane jako Viewer w GA4 Admin -> Zarządzanie dostępem do usługi 518223715).',
+      errorDetail: 'User does not have sufficient permissions for this property (konto serwisowe firebase-adminsdk-fbsvc@lumina-cc.iam.gserviceaccount.com wymaga dodania jako Viewer na koncie GA4 379195658 / usłudze 518223715).',
       purpose: 'Pierwotny projekt Firebase Hosting aplikacji Christian-Culture-Web-App.',
-      recommendation: 'NADAĆ UPRAWNIENIA VIEWER DLA KONTA SERWISOWEGO W CELU WERYFIKACJI RUCHU HISTORYCZNEGO'
+      recommendation: 'NADAĆ UPRAWNIENIA VIEWER NA KONCIE GA4 379195658 W CELU WERYFIKACJI RUCHU HISTORYCZNEGO'
     },
     {
       propertyId: '529214226',
-      name: 'gen-lang-client-0094354839',
+      accountId: '379195658',
+      name: 'gen-lang-client-0094354839 (Konto GA4: 379195658 — Default Account for Firebase)',
       measurementId: 'WYMAGA UPRAWNIEŃ IAM (prawdopodobny G-9M92G6S27M lub G-P5L6Q1MXRL)',
-      streamId: 'WYMAGA UPRAWNIEŃ IAM',
+      streamId: 'WYMAGA UPRAWNIEŃ IAM NA KONCIE 379195658',
       gcpProject: 'gen-lang-client-0094354839 (Auto-utworzony projekt Google AI Studio / Gemini API)',
       domains: ['Google Cloud / Google AI Studio / Firebase Auto-Link'],
       htmlFilesCount: 0,
       apiAccessStatus: 'REQUIRES_IAM_PERMISSION',
       httpStatus: 403,
       hasData30d: null,
-      errorDetail: 'User does not have sufficient permissions for this property (403 PERMISSION_DENIED).',
-      purpose: 'IDENTYFIKACJA WŁAŚCICIELA I PRZEZNACZENIA: Prefiks "gen-lang-client-*" (Generative Language Client) to automatyczny projekt Google Cloud tworzony przez Google AI Studio podczas generowania klucza Gemini API na koncie Google właściciela (nazirczarkes@gmail.com), do którego następnie podpięto Google Analytics przy inicjalizacji Firebase.',
-      recommendation: 'ZWERYFIKOWAĆ W KONSOLI GCP (project ID: gen-lang-client-0094354839) I WYŁĄCZYĆ ZBIERANIE ANALYTICS JEŚLI SŁUŻY WYŁĄCZNIE DO KLUCZA GEMINI API'
+      errorDetail: 'User does not have sufficient permissions for this property (403 PERMISSION_DENIED — konto GA4 379195658).',
+      purpose: 'IDENTYFIKACJA WŁAŚCICIELA I PRZEZNACZENIA: Znajduje się na koncie GA4 379195658 ("Default Account for Firebase"). Prefiks "gen-lang-client-*" (Generative Language Client) to automatyczny projekt Google Cloud tworzony przez Google AI Studio podczas generowania klucza Gemini API na koncie Google właściciela (nazirczarkes@gmail.com), do którego podpięto Google Analytics przy inicjalizacji Firebase.',
+      recommendation: 'NIE SCALAĆ — PROJEKT TECHNICZNY GEMINI API NA KONCIE 379195658'
     },
     {
       propertyId: '522101206',
-      name: 'christian-culture-global',
-      measurementId: 'WYMAGA UPRAWNIEŃ IAM',
-      streamId: 'WYMAGA UPRAWNIEŃ IAM',
-      gcpProject: 'christian-culture-global (.firebaserc w worship-audio-cdn)',
+      accountId: '382396237',
+      name: 'christian-culture-global (Konto GA4: 382396237)',
+      measurementId: 'WYMAGA UPRAWNIEŃ IAM NA KONCIE 382396237',
+      streamId: 'WYMAGA UPRAWNIEŃ IAM NA KONCIE 382396237',
+      gcpProject: 'christian-culture-global (.firebaserc w worship-audio-cdn) — API WŁĄCZONE',
       domains: ['christian-culture-global.web.app (CDN audio dla Biblical Worship)'],
       htmlFilesCount: 0,
       apiAccessStatus: 'REQUIRES_IAM_PERMISSION',
       httpStatus: 403,
       hasData30d: null,
-      errorDetail: 'User does not have sufficient permissions for this property (403 PERMISSION_DENIED).',
+      errorDetail: 'User does not have sufficient permissions for this property (403 PERMISSION_DENIED — konto GA4 382396237).',
       purpose: 'Projekt Firebase Hosting wykorzystywany jako bezkosztowy CDN plików MP3 dla modułu Biblijne Uwielbienie (worship-audio-cdn).',
       recommendation: 'USŁUGA TECHNICZNA CDN — NIE WYMAGA TAGÓW GA4 HTML'
     },
     {
       propertyId: '534305954',
-      name: 'aplikacja-christian-culture',
+      accountId: '382396237',
+      name: 'aplikacja-christian-culture (Konto GA4: 382396237)',
       measurementId: 'WYMAGA UPRAWNIEŃ IAM (Strumień Android / Web)',
-      streamId: 'WYMAGA UPRAWNIEŃ IAM',
+      streamId: 'WYMAGA UPRAWNIEŃ IAM NA KONCIE 382396237',
       gcpProject: 'cuda-398c0 / cc-mission-control',
       domains: ['Aplikacja mobilna Android / PWA'],
       htmlFilesCount: 0,
       apiAccessStatus: 'REQUIRES_IAM_PERMISSION',
       httpStatus: 403,
       hasData30d: null,
-      errorDetail: 'User does not have sufficient permissions for this property (403 PERMISSION_DENIED). Ponadto w projektach GCP 519207260358 i 422075095518 interfejs Google Analytics Data API jest wyłączony.',
+      errorDetail: 'User does not have sufficient permissions for this property (403 PERMISSION_DENIED — konto GA4 382396237).',
       purpose: 'Usługa GA4 powiązana z aplikacją mobilną ekosystemu Christian Culture.',
-      recommendation: 'NADAĆ UPRAWNIENIA VIEWER DLA KONTA SERWISOWEGO LUMINA-CC W GA4 ADMIN'
+      recommendation: 'NADAĆ UPRAWNIENIA VIEWER NA KONCIE GA4 382396237'
     },
     {
       propertyId: '526414935',
-      name: 'Radio CC Lite',
-      measurementId: 'WYMAGA UPRAWNIEŃ IAM',
-      streamId: 'WYMAGA UPRAWNIEŃ IAM',
+      accountId: '385960831',
+      name: 'Radio CC Lite (Konto GA4: 385960831)',
+      measurementId: 'WYMAGA UPRAWNIEŃ IAM NA KONCIE 385960831',
+      streamId: 'WYMAGA UPRAWNIEŃ IAM NA KONCIE 385960831',
       gcpProject: 'cclite.pl / _cclite-release',
       domains: ['cclite.pl'],
       htmlFilesCount: 0,
       apiAccessStatus: 'REQUIRES_IAM_PERMISSION',
       httpStatus: 403,
       hasData30d: null,
-      errorDetail: 'User does not have sufficient permissions for this property (403 PERMISSION_DENIED).',
+      errorDetail: 'User does not have sufficient permissions for this property (403 PERMISSION_DENIED — konto GA4 385960831).',
       purpose: 'Usługa utworzona dla lekkiego odtwarzacza Radio CC Lite (cclite.pl). Obecnie domena cclite.pl wysyła dane do głównej usługi 548623550 (10 użytkowników, 12 sesji, 21 odsłon w ostatnich 30 dniach).',
       recommendation: 'UTRZYMAĆ RAPORTOWANIE CCLITE.PL W GŁÓWNEJ USŁUDZE 548623550'
     }
@@ -556,49 +582,101 @@ export const ANALYTICS_MC_SNAPSHOT = {
     { pagePath: '/pomogebomoge', type: 'support', views: 35, activeUsers: 29, sessions: 31, engagedSessions: 9, engagementRatePct: 29.03, avgSessionDurationSec: 190.81 }
   ],
 
-  // ── STATUS GOOGLE SEARCH CONSOLE & SEO (ETAP D) ──
+  // ── STATUS GOOGLE SEARCH CONSOLE & SEO (ETAP D — DANE NA ŻYWO Z GSC API) ──
   searchConsole: {
-    apiStatus: 'API_ENABLED_REQUIRES_GSC_PROPERTY_USER_GRANT',
-    gcpProjectChecked: '413985877183 (lumina-cc) — searchconsole.googleapis.com oraz analyticsadmin.googleapis.com WŁĄCZONE (HTTP 200 OK)',
+    apiStatus: 'ACTIVE_VERIFIED',
+    siteUrl: 'sc-domain:polskieradio.cc',
+    permissionLevel: 'siteRestrictedUser',
+    gcpProjectChecked: '413985877183 (lumina-cc) — searchconsole.googleapis.com oraz analyticsadmin.googleapis.com WŁĄCZONE I ZWERYFIKOWANE (HTTP 200 OK)',
     httpStatus: 200,
-    exactError: 'Google Search Console API zwraca HTTP 200 OK ({}) — interfejs API w GCP został pomyślnie włączony. Pozostaje wyłącznie dopisanie adresu firebase-adminsdk-fbsvc@lumina-cc.iam.gserviceaccount.com w ustawieniach użytkowników Search Console dla sc-domain:polskieradio.cc.',
-    noFakeDataNotice: 'Interfejsy Google Search Console API oraz Google Analytics Admin API zostały aktywowane (HTTP 200 OK) w projekcie GCP lumina-cc (413985877183). Po dodaniu konta serwisowego jako użytkownika Ograniczonego (Restricted) w Search Console tabela automatycznie pobierze kliknięcia i wyświetlenia GSC. Poniżej znajdują się zweryfikowane dane GA4 Organic Search (243 sesje, 63,9% zaangażowania).',
+    exactError: null,
+    noFakeDataNotice: 'Google Search Console API (sc-domain:polskieradio.cc) działa na żywo (HTTP 200 OK, uprawnienia siteRestrictedUser). W ostatnich 30 dniach (22 X – 20 XI 2026) GSC zarejestrowało 20 kliknięć organicznych, 1 087 wyświetleń w Google, śr. CTR 1,84% oraz śr. pozycję 9,16 (93 unikalne zapytania, 180 zaindeksowanych adresów URL). W tym samym okresie GA4 zarejestrowało 241 sesji google / organic (w tym sesje powracające z przypisanym pierwszym źródłem Google).',
+    totals30d: {
+      dateRange: '2026-10-22 – 2026-11-20',
+      clicks: 20,
+      impressions: 1087,
+      ctrPct: 1.84,
+      position: 9.16,
+      distinctQueriesCount: 93,
+      distinctPagesCount: 180
+    },
+    devices30d: [
+      { device: 'MOBILE', clicks: 10, impressions: 707, ctrPct: 1.41, position: 8.13 },
+      { device: 'DESKTOP', clicks: 10, impressions: 360, ctrPct: 2.78, position: 11.32 },
+      { device: 'TABLET', clicks: 0, impressions: 20, ctrPct: 0.0, position: 7.05 }
+    ],
+    gscTopQueries30d: [
+      { query: 'biblia do pobrania za darmo', clicks: 3, impressions: 5, ctrPct: 60.0, position: 6.6, targetPage: 'https://polskieradio.cc/biblia-do-pobrania' },
+      { query: 'biblia interlinearna', clicks: 0, impressions: 90, ctrPct: 0.0, position: 8.26, targetPage: 'https://polskieradio.cc/mojabiblia' },
+      { query: 'vod filmy za darmo z lektorem', clicks: 0, impressions: 44, ctrPct: 0.0, position: 8.3, targetPage: 'https://polskieradio.cc/vod' },
+      { query: 'biblia interlinearna online', clicks: 0, impressions: 39, ctrPct: 0.0, position: 9.0, targetPage: 'https://polskieradio.cc/mojabiblia' },
+      { query: 'christian culture', clicks: 0, impressions: 24, ctrPct: 0.0, position: 2.0, targetPage: 'https://polskieradio.cc/' },
+      { query: 'interlinearna biblia', clicks: 0, impressions: 12, ctrPct: 0.0, position: 8.08, targetPage: 'https://polskieradio.cc/mojabiblia' },
+      { query: 'żona lota biblia', clicks: 0, impressions: 11, ctrPct: 0.0, position: 32.55, targetPage: 'https://polskieradio.cc/biblia/pamietajcie-o-zonie-lota' },
+      { query: 'księga jozuego 1', clicks: 0, impressions: 7, ctrPct: 0.0, position: 10.86, targetPage: 'https://polskieradio.cc/mojabiblia?book=JOS&ch=1&mode=reader' },
+      { query: 'bestia z apokalipsy', clicks: 0, impressions: 6, ctrPct: 0.0, position: 10.33, targetPage: 'https://polskieradio.cc/akademia/apokalipsa/lekcja-09' },
+      { query: 'biblia do pobrania na telefon za darmo', clicks: 0, impressions: 5, ctrPct: 0.0, position: 8.4, targetPage: 'https://polskieradio.cc/biblia-do-pobrania' },
+      { query: 'biblia do czytania za darmo', clicks: 0, impressions: 4, ctrPct: 0.0, position: 18.0, targetPage: 'https://polskieradio.cc/biblia-do-pobrania' },
+      { query: 'darmowe vod z polskim lektorem', clicks: 0, impressions: 4, ctrPct: 0.0, position: 7.75, targetPage: 'https://polskieradio.cc/vod' }
+    ],
+    gscTopPages30d: [
+      { page: 'https://polskieradio.cc/', clicks: 5, impressions: 67, ctrPct: 7.46, position: 3.72, section: 'Strona Główna & Radio' },
+      { page: 'https://polskieradio.cc/player', clicks: 4, impressions: 18, ctrPct: 22.22, position: 4.67, section: 'Odtwarzacz Radio CC' },
+      { page: 'https://polskieradio.cc/biblia-do-pobrania', clicks: 3, impressions: 38, ctrPct: 7.89, position: 8.47, section: 'Biblia do pobrania' },
+      { page: 'https://polskieradio.cc/si/ai-antychryst', clicks: 2, impressions: 7, ctrPct: 28.57, position: 8.29, section: 'Portal SI / Apologetyka' },
+      { page: 'https://polskieradio.cc/news/historia-hymnu-cudowna-boza-laska-amazing-grace', clicks: 1, impressions: 29, ctrPct: 3.45, position: 7.79, section: 'CCN News' },
+      { page: 'https://polskieradio.cc/mojabiblia', clicks: 0, impressions: 163, ctrPct: 0.0, position: 8.67, section: 'Biblia Interlinearna (WYSOKIE WYŚWIETLENIA / 0% CTR!)' },
+      { page: 'https://polskieradio.cc/akademia/apokalipsa/lekcja-22', clicks: 0, impressions: 46, ctrPct: 0.0, position: 8.15, section: 'Akademia / Apokalipsa (0% CTR)' },
+      { page: 'https://polskieradio.cc/vod', clicks: 0, impressions: 45, ctrPct: 0.0, position: 8.51, section: 'Kino VOD (0% CTR)' },
+      { page: 'https://polskieradio.cc/akademia/apokalipsa/lekcja-09', clicks: 0, impressions: 42, ctrPct: 0.0, position: 12.07, section: 'Akademia / Apokalipsa (0% CTR)' },
+      { page: 'https://polskieradio.cc/news/kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc', clicks: 0, impressions: 27, ctrPct: 0.0, position: 7.74, section: 'CCN News (0% CTR)' },
+      { page: 'https://polskieradio.cc/news/gerald-welch-the-call-a-rock-driven-wake-up-call-to-conscience-and-living-faith', clicks: 0, impressions: 24, ctrPct: 0.0, position: 7.42, section: 'CCN News (0% CTR)' },
+      { page: 'https://polskieradio.cc/biblia/czy-jezus-naprawde-byl-bogiem-biblijne-dowody', clicks: 0, impressions: 23, ctrPct: 0.0, position: 8.39, section: 'Biblia / Apologetyka (0% CTR)' }
+    ],
     ga4OrganicLandingPages30d: [
-      { landingPage: '/', sessions: 162, activeUsers: 98, engagedSessions: 126, avgDurationSec: 138.4, targetSection: 'Strona Główna & Radio' },
-      { landingPage: '/player', sessions: 22, activeUsers: 14, engagedSessions: 16, avgDurationSec: 432.1, targetSection: 'Odtwarzacz Radio CC' },
-      { landingPage: '/biblia-do-pobrania', sessions: 13, activeUsers: 12, engagedSessions: 10, avgDurationSec: 157.7, targetSection: 'Biblia do pobrania za darmo' },
-      { landingPage: '/news/kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc', sessions: 8, activeUsers: 8, engagedSessions: 7, avgDurationSec: 181.3, targetSection: 'CCN News / Poradnik Kryzysowy' },
+      { landingPage: '/', sessions: 162, activeUsers: 98, engagedSessions: 126, avgDurationSec: 138.4, targetSection: 'Strona Główna & Radio (GSC: 5 kliknięć, 67 wyśw., poz. 3.72)' },
+      { landingPage: '/player', sessions: 22, activeUsers: 14, engagedSessions: 16, avgDurationSec: 432.1, targetSection: 'Odtwarzacz Radio CC (GSC: 4 kliknięcia, 18 wyśw., CTR 22.2%)' },
+      { landingPage: '/biblia-do-pobrania', sessions: 13, activeUsers: 12, engagedSessions: 10, avgDurationSec: 157.7, targetSection: 'Biblia do pobrania (GSC: 3 kliknięcia, 38 wyśw., CTR 7.89%)' },
+      { landingPage: '/news/kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc', sessions: 8, activeUsers: 8, engagedSessions: 7, avgDurationSec: 181.3, targetSection: 'CCN News / Poradnik Kryzysowy (GSC: 27 wyśw., poz. 7.74)' },
       { landingPage: '/milion', sessions: 8, activeUsers: 1, engagedSessions: 2, avgDurationSec: 197.9, targetSection: 'Misja Milion' },
       { landingPage: '/topTEN/', sessions: 8, activeUsers: 3, engagedSessions: 8, avgDurationSec: 374.1, targetSection: 'Lista Przebojów TopTEN' },
-      { landingPage: '/RozwiążProblem', sessions: 5, activeUsers: 2, engagedSessions: 5, avgDurationSec: 16.3, targetSection: 'Kursy Rozwiąż Problem' },
-      { landingPage: '/codzienne-uwielbienie-live?muted=1&mute=1&in_mcr=1', sessions: 6, activeUsers: 1, engagedSessions: 6, avgDurationSec: 31.2, targetSection: 'Kanały TV LIVE (Uwaga: link z parametrem in_mcr=1 w indeksie!)' },
-      { landingPage: '/mojabiblia?book=MAT&ch=1&mode=interlinear&chapter=1', sessions: 2, activeUsers: 1, engagedSessions: 1, avgDurationSec: 119.8, targetSection: 'Biblia Interlinearna Online (/mojabiblia)' },
-      { landingPage: '/akademia/apokalipsa/lekcja-22', sessions: 2, activeUsers: 2, engagedSessions: 1, avgDurationSec: 87.1, targetSection: 'Akademia Biblijna' }
+      { landingPage: '/RozwiążProblem', sessions: 5, activeUsers: 2, engagedSessions: 5, avgDurationSec: 16.3, targetSection: 'Kursy Rozwiąż Problem (GSC: 1 kliknięcie, 6 wyśw., poz. 5.67)' },
+      { landingPage: '/codzienne-uwielbienie-live?muted=1&mute=1&in_mcr=1', sessions: 6, activeUsers: 1, engagedSessions: 6, avgDurationSec: 31.2, targetSection: 'Kanały TV LIVE (Uwaga: w GSC zaindeksowany też /totalny-atak-live.html?in_mcr=1!)' },
+      { landingPage: '/mojabiblia?book=MAT&ch=1&mode=interlinear&chapter=1', sessions: 2, activeUsers: 1, engagedSessions: 1, avgDurationSec: 119.8, targetSection: 'Biblia Interlinearna (/mojabiblia ma w GSC 163 wyśw. na poz. 8.67 i 0 kliknięć!)' },
+      { landingPage: '/akademia/apokalipsa/lekcja-22', sessions: 2, activeUsers: 2, engagedSessions: 1, avgDurationSec: 87.1, targetSection: 'Akademia Biblijna (GSC: 46 wyśw., poz. 8.15)' }
     ],
     priorityKeywordsAnalysis: [
       {
-        query: 'biblia do pobrania za darmo',
+        query: 'biblia do pobrania za darmo (+ biblia do pobrania na telefon za darmo)',
         targetUrl: 'https://polskieradio.cc/biblia-do-pobrania',
+        gscClicks30d: 3,
+        gscImpressions30d: 38,
+        gscCtrPct: 7.89,
+        gscAvgPosition: 8.47,
         ga4OrganicSessions30d: 13,
         ga4EngagementRatePct: 76.92,
         avgDurationSec: 157.7,
-        technicalDiagnosis: 'Podstrona /biblia-do-pobrania generuje już stały, wartościowy ruch organiczny (13 sesji, śr. 2 min 38 s, 15 pobrań file_download). Wymaga dopisania bezpośredniego CTA do /mojabiblia oraz /biblia-audio/ nad linią zgięcia.'
+        technicalDiagnosis: 'GSC potwierdza bardzo wysoką skuteczność frazy "biblia do pobrania za darmo" (3 kliknięcia z 5 wyświetleń = 60% CTR, śr. pozycja 6,60!) oraz 38 wyświetleń całej podstrony /biblia-do-pobrania. Rekomendacja: dodać wyróżnione linki wewnętrzne do /mojabiblia i /biblia-audio/ bezpośrednio pod przyciskiem pobierania PDF/EPUB.'
       },
       {
-        query: 'biblia interlinearna / biblia interlinearna online',
+        query: 'biblia interlinearna (90 wyśw., poz. 8.26) + biblia interlinearna online (39 wyśw., poz. 9.00) + interlinearna biblia (12 wyśw., poz. 8.08)',
         targetUrl: 'https://polskieradio.cc/mojabiblia',
+        gscClicks30d: 0,
+        gscImpressions30d: 163,
+        gscCtrPct: 0.0,
+        gscAvgPosition: 8.67,
         ga4OrganicSessions30d: 2,
         ga4TotalViews30d: 230,
         ga4EngagementRatePct: 87.50,
         avgDurationSec: 70.2,
-        technicalDiagnosis: 'Mimo bardzo wysokiego zaangażowania (87,5% z 88 sesji ogółem), z Google Organic przyszły tylko 2 sesje (i to na niekanoniczny URL z parametrami ?book=MAT&ch=1&mode=interlinear&chapter=1). Przyczyna: treść rozdziałów w /mojabiblia ładowana jest po stronie klienta (CSR), a kanoniczne podstrony ksiąg nie mają statycznych kart SSR dla Googlebota.'
+        technicalDiagnosis: 'KLUCZOWE ODKRYCIE GSC API: Podstrona https://polskieradio.cc/mojabiblia jest już w TOP 10 Google (średnia pozycja 8,26–9,00!) i wygenerowała aż 163 wyświetlenia (plus 35 wyświetleń zduplikowanych URL z parametrami ?book=JOS&ch=1, ?book=GEN&ch=6, a nawet błędny link z kropką i nawiasem ?book=EXO&chapter=9).), ale uzyskała 0 kliknięć (0% CTR)! Przyczyna: 1) Zbyt ogólny tytuł/meta description w SERP nie podkreśla darmowego dostępu bez logowania do kodów Stronga, greki, hebrajskiego i 4 przekładów (UBG/BW/BT/BG); 2) Rozproszenie kanoniczności przez parametry ?book=...&mode=... w indeksie Google.'
       }
     ],
     whyGscClicksDifferFromGa4Organic: [
-      '1. Różna definicja zdarzenia: GSC rejestruje kliknięcie w wynikach wyszukiwania Google (przed załadowaniem strony), natomiast GA4 rejestruje sesję dopiero po pobraniu dokumentu HTML i wykonaniu skryptu gtag.js.',
-      '2. Odmowa zgody / AdBlock / Brave / Firefox ETP: Użytkownicy blokujący skrypt googletagmanager.com lub odrzucający zgodę w banerze (np. na /wyszukiwarka, /40DM, /the-journal, /uslugi) są widoczni w GSC, ale nie w GA4.',
-      '3. Okno atrybucji GA4: Wielokrotne kliknięcia tego samego użytkownika w Google w ciągu 30 minut tworzą w GSC osobne kliknięcia, ale w GA4 jedną sesję.',
-      '4. Rozszczepienie usług GA4 (G-Y4EFTVBPE3 vs G-M24C85RG49): Część stron (np. /lumina, /mess, /tablica) raportowała wyłącznie do usługi 550097091 zamiast do głównej 548623550.'
+      '1. Potwierdzona rozbieżność (20 kliknięć w GSC vs 241 sesji google / organic w GA4): W GA4 aż 162 sesje google / organic na stronie głównej "/" pochodzą od 98 użytkowników powracających (lub odświeżających otwarte karty radia/odtwarzacza), którym model atrybucji GA4 przypisał Google Organic jako źródło sesji lub pierwszego pozyskania.',
+      '2. Różna definicja zdarzenia: GSC mierzy wyłącznie bezpośrednie kliknięcia w SERP Google (20 kliknięć z 1 087 wyświetleń), natomiast GA4 tworzy nową sesję przy każdym powrocie na otwartą kartę po 30 minutach nieaktywności.',
+      '3. Zduplikowane adresy z parametrami w GSC: Google zaindeksował osobno /mojabiblia oraz warianty z parametrami (?book=JOS&ch=1&mode=reader, ?book=EXO&chapter=9).) oraz techniczną scenę /totalny-atak-live.html?muted=1&mute=1&in_mcr=1 (1 kliknięcie w GSC, które w GA4 zostało oznaczone jako traffic_type=internal z powodu parametru in_mcr=1!).',
+      '4. Odmowa zgody / AdBlock: Część użytkowników klikających w Google blokuje skrypt gtag.js, przez co pojedyncze kliknięcia w GSC na artykuły (np. /si/ai-antychryst — 2 kliknięcia w GSC) nie zawsze tworzą odpowiadającą sesję w GA4.'
     ]
   },
 
@@ -685,13 +763,13 @@ export const ANALYTICS_MC_SNAPSHOT = {
     integrationErrors: [
       {
         id: 'IE-01',
-        title: 'Google Search Console API wyłączone w GCP (HTTP 403 SERVICE_DISABLED)',
-        details: 'Interfejs searchconsole.googleapis.com nie został jeszcze aktywowany w projekcie GCP 413985877183 (lumina-cc), a konto serwisowe nie jest dodane jako użytkownik w Search Console dla sc-domain:polskieradio.cc.'
+        title: 'ROZWIĄZANE: Google Search Console API aktywne i podpięte (HTTP 200 OK — sc-domain:polskieradio.cc)',
+        details: 'Interfejs searchconsole.googleapis.com w projekcie GCP 413985877183 (lumina-cc) został aktywowany, a konto serwisowe firebase-adminsdk-fbsvc@lumina-cc.iam.gserviceaccount.com uzyskało dostęp siteRestrictedUser. Pobrano pełne dane 30-dniowe (20 kliknięć, 1 087 wyświetleń, 93 zapytania, 180 stron).'
       },
       {
         id: 'IE-02',
-        title: 'Google Analytics Admin API wyłączone w GCP (HTTP 403 SERVICE_DISABLED)',
-        details: 'Interfejs analyticsadmin.googleapis.com nie jest włączony w projekcie GCP 413985877183, co blokuje automatyczny odczyt listy strumieni, filtrów Data Filters i ustawień retencji przez API (odczytano je przez Data API i inspekcję kodu).'
+        title: 'ROZWIĄZANE: Google Analytics Admin API aktywne (HTTP 200 OK — Konto GA4 385962006)',
+        details: 'Interfejs analyticsadmin.googleapis.com w projekcie GCP 413985877183 został włączony. Odczytano pełne metadane strumieni, retencji (TWO_MONTHS -> rekomendacja FOURTEEN_MONTHS) i Google Signals dla usług 548623550, 550097091 i 526422549.'
       },
       {
         id: 'IE-03',
@@ -700,8 +778,8 @@ export const ANALYTICS_MC_SNAPSHOT = {
       },
       {
         id: 'IE-04',
-        title: 'Zaindeksowany w Google link techniczny z parametrem ?in_mcr=1',
-        details: 'W raporcie Google Organic widnieją wejścia na "/codzienne-uwielbienie-live?muted=1&mute=1&in_mcr=1" — parametr ?in_mcr=1 oznacza ruch reżyserski (traffic_type=internal), więc zwykły użytkownik wchodzący z takiego linku w Google jest błędnie oznaczany jako ruch wewnętrzny.'
+        title: 'Zaindeksowane w Google linki techniczne z parametrem ?in_mcr=1 oraz błędnym nawiasem',
+        details: 'W Search Console i GA4 Organic widnieją wejścia z Google na "/totalny-atak-live.html?muted=1&mute=1&in_mcr=1" (1 kliknięcie, poz. 2.0 w GSC!) oraz "/codzienne-uwielbienie-live?muted=1&mute=1&in_mcr=1", a także uszkodzony URL "/mojabiblia?book=EXO&chapter=9)." (4 wyświetlenia w GSC). Parametr ?in_mcr=1 oznacza ruch reżyserski (traffic_type=internal), więc zwykły użytkownik z Google jest oznaczany jako ruch wewnętrzny.'
       }
     ],
     sourceDiscrepancies: [
