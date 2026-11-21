@@ -1,0 +1,1473 @@
+[
+  {
+    "id": "aw-001",
+    "slug": "zbor-warszawa-centrum",
+    "name": "Zbór Warszawa-Centrum",
+    "name_en": "Warsaw Centrum SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Warszawa",
+    "address": "ul. Foksal 8",
+    "service_hours": "",
+    "website": "https://adwent.pl/",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Lokalny zbór Kościoła Adwentystów Dnia Siódmego. Informacje o miejscu spotkań i godzinach według oficjalnego wykazu.",
+    "description_en": "Local Seventh-day Adventist congregation in central Warsaw. Location and schedule details follow the official directory.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Warszawa"
+    ]
+  },
+  {
+    "id": "aw-002",
+    "slug": "zbor-ostrowiec-swietokrzyski",
+    "name": "Zbór Ostrowiec Świętokrzyski",
+    "name_en": "Ostrowiec Świętokrzyski SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Ostrowiec Świętokrzyski",
+    "address": "ul. Górzysta 5/11",
+    "service_hours": "",
+    "website": "https://adwent.pl/",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Lokalny zbór Kościoła Adwentystów Dnia Siódmego. Informacje o miejscu spotkań i godzinach według oficjalnego wykazu.",
+    "description_en": "Local Seventh-day Adventist congregation in Ostrowiec Świętokrzyski. Meeting address sourced from the official church directory.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Ostrowiec Świętokrzyski"
+    ]
+  },
+  {
+    "id": "aw-003",
+    "slug": "zbor-lublin",
+    "name": "Zbór Lublin",
+    "name_en": "Lublin SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Lublin",
+    "address": "ul. Niecała 4",
+    "service_hours": "",
+    "website": "https://adwent.pl/",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Lokalny zbór Kościoła Adwentystów Dnia Siódmego. Informacje o miejscu spotkań i godzinach według oficjalnego wykazu.",
+    "description_en": "Local Seventh-day Adventist congregation in Lublin. Location and visiting notes follow the official church directory.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Lublin"
+    ]
+  },
+  {
+    "id": "aw-004",
+    "slug": "zbor-stalowa-wola",
+    "name": "Zbór Stalowa Wola",
+    "name_en": "Stalowa Wola SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Stalowa Wola",
+    "address": "ul. Ofiar Katynia 37",
+    "service_hours": "",
+    "website": "https://maranatha.pl/stalowa-wola/",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Lokalny zbór Kościoła Adwentystów Dnia Siódmego. Informacje o miejscu spotkań i godzinach według oficjalnego wykazu.",
+    "description_en": "Local Seventh-day Adventist congregation in Stalowa Wola. Public address and congregation page verified via official listings.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Stalowa Wola"
+    ]
+  },
+  {
+    "id": "aw-005",
+    "slug": "zbor-krakow",
+    "name": "Zbór Kraków",
+    "name_en": "Kraków Lubelska SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Kraków",
+    "address": "ul. Lubelska 25",
+    "service_hours": "",
+    "website": "https://maranatha.pl/krakowlubelska/",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Lokalny zbór Kościoła Adwentystów Dnia Siódmego. Informacje o miejscu spotkań i godzinach według oficjalnego wykazu.",
+    "description_en": "Local Seventh-day Adventist congregation in Kraków (Lubelska Street). Location and congregation website from official listings.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Kraków"
+    ]
+  },
+  {
+    "id": "aw-006",
+    "slug": "zbor-warszawa-ursynow",
+    "name": "Zbór Warszawa-Ursynów",
+    "name_en": "Warsaw Ursynów SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Warszawa",
+    "address": "ul. Meander 15",
+    "service_hours": "",
+    "website": "https://adwent.pl/",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Lokalny zbór Kościoła Adwentystów Dnia Siódmego. Informacje o miejscu spotkań i godzinach według oficjalnego wykazu.",
+    "description_en": "Local Seventh-day Adventist congregation in Warsaw Ursynów. Address details compiled from the official church directory.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Warszawa"
+    ]
+  },
+  {
+    "id": "aw-007",
+    "slug": "zbor-bialystok",
+    "name": "Zbór Białystok",
+    "name_en": "Białystok SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Białystok",
+    "address": "ul. Jurowiecka 24",
+    "service_hours": "",
+    "website": "https://adwent.pl/",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Lokalny zbór Kościoła Adwentystów Dnia Siódmego. Informacje o miejscu spotkań i godzinach według oficjalnego wykazu.",
+    "description_en": "Local Seventh-day Adventist congregation in Białystok. Meeting address listed according to the official Polish church directory.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Białystok"
+    ]
+  },
+  {
+    "id": "aw-008",
+    "slug": "zbor-wroclaw",
+    "name": "Zbór Wrocław",
+    "name_en": "Wrocław SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Wrocław",
+    "address": "ul. Dąbrowskiego 14",
+    "service_hours": "",
+    "website": "https://wroclaw.adwentysci.org",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Lokalny zbór Kościoła Adwentystów Dnia Siódmego. Informacje o miejscu spotkań i godzinach według oficjalnego wykazu.",
+    "description_en": "Local Seventh-day Adventist congregation in Wrocław. Public address and local congregation website from official listings.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Wrocław"
+    ]
+  },
+  {
+    "id": "aw-009",
+    "slug": "zbor-katowice",
+    "name": "Zbór Katowice",
+    "name_en": "Katowice SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Katowice",
+    "address": "ul. Chopina 1/4",
+    "service_hours": "",
+    "website": "https://maranatha.pl/katowice/",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Lokalny zbór Kościoła Adwentystów Dnia Siódmego. Informacje o miejscu spotkań i godzinach według oficjalnego wykazu.",
+    "description_en": "Local Seventh-day Adventist congregation in Katowice. Public address and local congregation portal from official listings.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Katowice"
+    ]
+  },
+  {
+    "id": "aw-010",
+    "slug": "zbor-podkowa-lesna",
+    "name": "Zbór Podkowa Leśna",
+    "name_en": "Podkowa Leśna SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Podkowa Leśna",
+    "address": "ul. Jana Pawła II 39",
+    "service_hours": "",
+    "website": "https://adwent.pl/",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Lokalny zbór Kościoła Adwentystów Dnia Siódmego. Informacje o miejscu spotkań i godzinach według oficjalnego wykazu.",
+    "description_en": "Local Seventh-day Adventist congregation in Podkowa Leśna, located near the theological campus.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Podkowa Leśna"
+    ]
+  },
+  {
+    "id": "aw-011",
+    "slug": "kosciol-adwentystow-dnia-siodmego-w-rp",
+    "name": "Kościół Adwentystów Dnia Siódmego w RP",
+    "name_en": "Seventh-day Adventist Church in Poland",
+    "category": "Organizacje",
+    "category_en": "Organizations",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Warszawa",
+    "address": "ul. Foksal 8",
+    "service_hours": "",
+    "website": "https://adwent.pl/",
+    "source": "https://adwent.pl/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Krajowa organizacja Kościoła Adwentystów Dnia Siódmego w Polsce.",
+    "description_en": "National administrative body of the Seventh-day Adventist Church in the Republic of Poland.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": true,
+    "tags": [
+      "Organizacje",
+      "Polska",
+      "Warszawa"
+    ]
+  },
+  {
+    "id": "aw-012",
+    "slug": "fundacja-adra-polska",
+    "name": "Fundacja ADRA Polska",
+    "name_en": "ADRA Poland Foundation",
+    "category": "Fundacje",
+    "category_en": "Foundations",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Wrocław",
+    "address": "ul. Oleśnicka 4",
+    "service_hours": "",
+    "website": "https://www.adra.pl/",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Fundacja działająca na rzecz pomocy humanitarnej, rozwoju i integracji.",
+    "description_en": "Adventist Development and Relief Agency in Poland — humanitarian aid, development, and community integration programs.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": true,
+    "tags": [
+      "Fundacje",
+      "Polska",
+      "Wrocław"
+    ]
+  },
+  {
+    "id": "aw-013",
+    "slug": "hope-media-polska",
+    "name": "Hope Media Polska",
+    "name_en": "Hope Media Poland",
+    "category": "Media",
+    "category_en": "Media",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Warszawa",
+    "address": "ul. Foksal 8",
+    "service_hours": "",
+    "website": "https://hopemedia.pl/",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Adwentystyczna platforma medialna i wydawnicza tworząca materiały poświęcone wierze, Biblii i edukacji.",
+    "description_en": "Adventist media and publishing platform creating faith, Bible, family, and educational broadcasts and publications.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": true,
+    "tags": [
+      "Media",
+      "Polska",
+      "Warszawa"
+    ]
+  },
+  {
+    "id": "aw-014",
+    "slug": "dom-opieki-samarytanin",
+    "name": "Dom Opieki Samarytanin",
+    "name_en": "Samarytanin Care Home",
+    "category": "Opieka",
+    "category_en": "Care",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Bielsko-Biała",
+    "address": "ul. Bednarska 10",
+    "service_hours": "",
+    "website": "https://samarytanin.com.pl/",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Placówka opiekuńcza i edukacji zdrowotnej opisana w oficjalnym wykazie instytucji.",
+    "description_en": "Senior care and health education facility in Bielsko-Biała listed in the official Adventist institutions directory.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Opieka",
+      "Polska",
+      "Bielsko-Biała"
+    ]
+  },
+  {
+    "id": "aw-015",
+    "slug": "wyzsza-szkola-teologiczno-humanistyczna",
+    "name": "Wyższa Szkoła Teologiczno-Humanistyczna",
+    "name_en": "Polish College of Theology and Humanities (WSTH)",
+    "category": "Edukacja",
+    "category_en": "Education",
+    "schema_type": "CollegeOrUniversity",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Podkowa Leśna",
+    "address": "ul. Jana Pawła II 39",
+    "service_hours": "",
+    "website": "https://wsth.pl/",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Uczelnia prowadząca studia i kształcenie teologiczne oraz humanistyczne.",
+    "description_en": "Higher education college in Podkowa Leśna offering theological, pastoral, and humanities programs.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": true,
+    "tags": [
+      "Edukacja",
+      "Polska",
+      "Podkowa Leśna"
+    ]
+  },
+  {
+    "id": "aw-016",
+    "slug": "chrzescijanska-sluzba-charytatywna",
+    "name": "Chrześcijańska Służba Charytatywna",
+    "name_en": "Christian Charitable Service (ChSCh)",
+    "category": "Fundacje",
+    "category_en": "Foundations",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Warszawa",
+    "address": "ul. Foksal 8",
+    "service_hours": "",
+    "website": "https://www.chsch.pl/",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Organizacja prowadząca działania dobroczynne i humanitarne.",
+    "description_en": "National charitable and social-aid organization affiliated with the Seventh-day Adventist Church in Poland.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Fundacje",
+      "Polska",
+      "Warszawa"
+    ]
+  },
+  {
+    "id": "aw-017",
+    "slug": "fundacja-zrodla-zycia",
+    "name": "Fundacja Źródła Życia",
+    "name_en": "Springs of Life Foundation (Źródła Życia)",
+    "category": "Zdrowie",
+    "category_en": "Health",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Budy Zasłona",
+    "address": "Budy Zasłona 18",
+    "service_hours": "",
+    "website": "https://fzz.pl/",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Niezależna fundacja promująca edukację zdrowotną i programy stylu życia.",
+    "description_en": "Independent foundation promoting evidence-based health education, preventive medicine, and healthy lifestyle programs.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zdrowie",
+      "Polska",
+      "Budy Zasłona"
+    ]
+  },
+  {
+    "id": "aw-018",
+    "slug": "adwentystyczne-stowarzyszenie-inicjatyw",
+    "name": "Adwentystyczne Stowarzyszenie Inicjatyw",
+    "name_en": "Adventist Association of Initiatives (ASI Poland)",
+    "category": "Organizacje",
+    "category_en": "Organizations",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Warszawa",
+    "address": "ul. Nowogrodzka 12/3",
+    "service_hours": "",
+    "website": "https://asi.org.pl/",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Autonomiczne stowarzyszenie współpracujące z Kościołem Adwentystów Dnia Siódmego.",
+    "description_en": "Autonomous lay association cooperating with and supporting the outreach mission of the Seventh-day Adventist Church.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Organizacje",
+      "Polska",
+      "Warszawa"
+    ]
+  },
+  {
+    "id": "aw-019",
+    "slug": "osrodek-wypoczynkowy-orion",
+    "name": "Ośrodek Wypoczynkowy Orion",
+    "name_en": "Orion Retreat Center (Wisła)",
+    "category": "Wypoczynek",
+    "category_en": "Retreats",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Wisła",
+    "address": "ul. Spacerowa 7",
+    "service_hours": "",
+    "website": "https://www.osrodekorion.pl/",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Ośrodek turystyczno-wypoczynkowy wymieniony w oficjalnym wykazie instytucji.",
+    "description_en": "Mountain retreat and conference center in Wisła listed in the official Polish Adventist institutions directory.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Wypoczynek",
+      "Polska",
+      "Wisła"
+    ]
+  },
+  {
+    "id": "aw-020",
+    "slug": "centrum-rekreacyjno-wypoczynkowe-polubie",
+    "name": "Centrum Rekreacyjno-Wypoczynkowe Polubie",
+    "name_en": "Polubie Recreation & Retreat Center",
+    "category": "Wypoczynek",
+    "category_en": "Retreats",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Zatonie-Lubieszewo",
+    "address": "",
+    "service_hours": "",
+    "website": "https://polubie.pl/",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Ośrodek rekreacji, obozów i wypoczynku wymieniony w oficjalnym wykazie.",
+    "description_en": "Lakeside recreation, youth camp, and retreat center in Zatonie-Lubieszewo listed in the official directory.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Wypoczynek",
+      "Polska",
+      "Zatonie-Lubieszewo"
+    ]
+  },
+  {
+    "id": "aw-021",
+    "slug": "general-conference-of-seventh-day-adventists",
+    "name": "General Conference of Seventh-day Adventists",
+    "name_en": "General Conference of Seventh-day Adventists",
+    "category": "Organizacje",
+    "category_en": "Organizations",
+    "schema_type": "Organization",
+    "country": "USA",
+    "country_en": "USA",
+    "country_code": "US",
+    "city": "Silver Spring",
+    "address": "",
+    "service_hours": "",
+    "website": "https://gc.adventist.org/",
+    "source": "https://gc.adventist.org/visit-us/",
+    "languages": [
+      "en"
+    ],
+    "description_pl": "Światowa administracja Kościoła Adwentystów Dnia Siódmego.",
+    "description_en": "World administrative headquarters of the Seventh-day Adventist Church in Silver Spring, Maryland, USA.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": true,
+    "tags": [
+      "Organizacje",
+      "USA",
+      "Silver Spring"
+    ]
+  },
+  {
+    "id": "aw-022",
+    "slug": "loma-linda-university",
+    "name": "Loma Linda University",
+    "name_en": "Loma Linda University",
+    "category": "Edukacja",
+    "category_en": "Education",
+    "schema_type": "CollegeOrUniversity",
+    "country": "USA",
+    "country_en": "USA",
+    "country_code": "US",
+    "city": "Loma Linda",
+    "address": "",
+    "service_hours": "",
+    "website": "https://llu.edu/",
+    "source": "https://llu.edu/about-llu",
+    "languages": [
+      "en"
+    ],
+    "description_pl": "Adwentystyczna uczelnia specjalizująca się między innymi w naukach o zdrowiu.",
+    "description_en": "Seventh-day Adventist health sciences university and academic medical system in Loma Linda, California.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Edukacja",
+      "USA",
+      "Loma Linda"
+    ]
+  },
+  {
+    "id": "aw-023",
+    "slug": "andrews-university",
+    "name": "Andrews University",
+    "name_en": "Andrews University",
+    "category": "Edukacja",
+    "category_en": "Education",
+    "schema_type": "CollegeOrUniversity",
+    "country": "USA",
+    "country_en": "USA",
+    "country_code": "US",
+    "city": "Berrien Springs",
+    "address": "",
+    "service_hours": "",
+    "website": "https://www.andrews.edu/",
+    "source": "https://www.andrews.edu/",
+    "languages": [
+      "en"
+    ],
+    "description_pl": "Uniwersytet związany z Kościołem Adwentystów Dnia Siódmego.",
+    "description_en": "Flagship Seventh-day Adventist university in Berrien Springs, Michigan, serving global church leadership and academia.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Edukacja",
+      "USA",
+      "Berrien Springs"
+    ]
+  },
+  {
+    "id": "aw-024",
+    "slug": "zbor-ads-sandomierz",
+    "name": "Zbór ADS — Sandomierz",
+    "name_en": "SDA Church — Sandomierz",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Sandomierz",
+    "address": "ul. 15 Sierpnia 5",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Sandomierz, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Sandomierz"
+    ]
+  },
+  {
+    "id": "aw-025",
+    "slug": "zbor-ads-warszawa-miedzynarodowy",
+    "name": "Zbór ADS — Warszawa Międzynarodowy",
+    "name_en": "Warsaw International SDA Church",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Warszawa",
+    "address": "ul. Foksal 8",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl",
+      "en"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "International Seventh-day Adventist congregation meeting in central Warsaw. Verify current service times on official listings.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Warszawa"
+    ]
+  },
+  {
+    "id": "aw-026",
+    "slug": "zbor-ads-krakow-nowa-huta",
+    "name": "Zbór ADS — Kraków-Nowa Huta",
+    "name_en": "SDA Church — Kraków (Nowa Huta)",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Kraków-Nowa Huta",
+    "address": "os. Teatralne 24",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Kraków (Nowa Huta), Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Kraków-Nowa Huta"
+    ]
+  },
+  {
+    "id": "aw-027",
+    "slug": "zbor-ads-radom",
+    "name": "Zbór ADS — Radom",
+    "name_en": "SDA Church — Radom",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Radom",
+    "address": "ul. Okulickiego 32a",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Radom, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Radom"
+    ]
+  },
+  {
+    "id": "aw-028",
+    "slug": "zbor-ads-rzeszow",
+    "name": "Zbór ADS — Rzeszów",
+    "name_en": "SDA Church — Rzeszów",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Rzeszów",
+    "address": "ul. Twardowskiego 3a",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Rzeszów, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Rzeszów"
+    ]
+  },
+  {
+    "id": "aw-029",
+    "slug": "zbor-ads-bielsko-biala",
+    "name": "Zbór ADS — Bielsko-Biała",
+    "name_en": "SDA Church — Bielsko-Biała",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Bielsko-Biała",
+    "address": "ul. Kochanowskiego 2",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Bielsko-Biała, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Bielsko-Biała"
+    ]
+  },
+  {
+    "id": "aw-030",
+    "slug": "zbor-ads-czestochowa",
+    "name": "Zbór ADS — Częstochowa",
+    "name_en": "SDA Church — Częstochowa",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Częstochowa",
+    "address": "ul. Kazimierza Pułaskiego 21",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Częstochowa, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Częstochowa"
+    ]
+  },
+  {
+    "id": "aw-031",
+    "slug": "zbor-ads-kielce",
+    "name": "Zbór ADS — Kielce",
+    "name_en": "SDA Church — Kielce",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Kielce",
+    "address": "ul. Kąpielowa 3",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Kielce, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Kielce"
+    ]
+  },
+  {
+    "id": "aw-032",
+    "slug": "zbor-ads-gdansk",
+    "name": "Zbór ADS — Gdańsk",
+    "name_en": "SDA Church — Gdańsk",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Gdańsk",
+    "address": "ul. Jaśkowa Dolina 21",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Gdańsk, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Gdańsk"
+    ]
+  },
+  {
+    "id": "aw-033",
+    "slug": "zbor-ads-gdynia",
+    "name": "Zbór ADS — Gdynia",
+    "name_en": "SDA Church — Gdynia",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Gdynia",
+    "address": "ul. Krasickiego 32",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Gdynia, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Gdynia"
+    ]
+  },
+  {
+    "id": "aw-034",
+    "slug": "zbor-ads-poznan",
+    "name": "Zbór ADS — Poznań",
+    "name_en": "SDA Church — Poznań",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Poznań",
+    "address": "ul. Zeylanda 11",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Poznań, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Poznań"
+    ]
+  },
+  {
+    "id": "aw-035",
+    "slug": "zbor-ads-szczecin",
+    "name": "Zbór ADS — Szczecin",
+    "name_en": "SDA Church — Szczecin",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Szczecin",
+    "address": "Plac Mariacki 4",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Szczecin, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Szczecin"
+    ]
+  },
+  {
+    "id": "aw-036",
+    "slug": "zbor-ads-torun",
+    "name": "Zbór ADS — Toruń",
+    "name_en": "SDA Church — Toruń",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Toruń",
+    "address": "ul. Idzikowskiego 1d",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Toruń, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Toruń"
+    ]
+  },
+  {
+    "id": "aw-037",
+    "slug": "zbor-ads-lodz-gorna",
+    "name": "Zbór ADS — Łódź-Górna",
+    "name_en": "SDA Church — Łódź (Górna)",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Łódź-Górna",
+    "address": "ul. Płocka 28",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Łódź (Górna), Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Łódź-Górna"
+    ]
+  },
+  {
+    "id": "aw-038",
+    "slug": "zbor-ads-olsztyn",
+    "name": "Zbór ADS — Olsztyn",
+    "name_en": "SDA Church — Olsztyn",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Olsztyn",
+    "address": "ul. Konopna 4",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Olsztyn, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Olsztyn"
+    ]
+  },
+  {
+    "id": "aw-039",
+    "slug": "zbor-ads-opole",
+    "name": "Zbór ADS — Opole",
+    "name_en": "SDA Church — Opole",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Opole",
+    "address": "ul. Żeromskiego 6",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Opole, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Opole"
+    ]
+  },
+  {
+    "id": "aw-040",
+    "slug": "zbor-ads-bydgoszcz",
+    "name": "Zbór ADS — Bydgoszcz",
+    "name_en": "SDA Church — Bydgoszcz",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Bydgoszcz",
+    "address": "ul. Lipowa 9",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Bydgoszcz, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Bydgoszcz"
+    ]
+  },
+  {
+    "id": "aw-041",
+    "slug": "zbor-ads-zamosc",
+    "name": "Zbór ADS — Zamość",
+    "name_en": "SDA Church — Zamość",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Zamość",
+    "address": "ul. Żdanowska 4",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Zamość, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Zamość"
+    ]
+  },
+  {
+    "id": "aw-042",
+    "slug": "zbor-ads-zdunska-wola",
+    "name": "Zbór ADS — Zduńska Wola",
+    "name_en": "SDA Church — Zduńska Wola",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Zduńska Wola",
+    "address": "ul. Ogrodowa 7",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Zduńska Wola, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Zduńska Wola"
+    ]
+  },
+  {
+    "id": "aw-043",
+    "slug": "zbor-ads-wisla",
+    "name": "Zbór ADS — Wisła",
+    "name_en": "SDA Church — Wisła",
+    "category": "Zbory",
+    "category_en": "Congregations",
+    "schema_type": "Church",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Wisła",
+    "address": "ul. Spacerowa 9",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/zbory/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wspólnota Kościoła Adwentystów Dnia Siódmego. Godziny według oficjalnego wykazu — przed wizytą potwierdź aktualność.",
+    "description_en": "Seventh-day Adventist congregation in Wisła, Poland. Meeting address taken from the official church directory — confirm current hours before visiting.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Zbory",
+      "Polska",
+      "Wisła"
+    ]
+  },
+  {
+    "id": "aw-044",
+    "slug": "fundacja-pociecha",
+    "name": "Fundacja Pociecha",
+    "name_en": "Pociecha Foundation",
+    "category": "Fundacje",
+    "category_en": "Foundations",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Wrocław",
+    "address": "ul. Kamieniecka 15",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wsparcie dzieci i młodzieży.",
+    "description_en": "Charitable foundation in Wrocław focused on supporting children and youth through education and daily care initiatives.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Fundacje",
+      "Polska",
+      "Wrocław"
+    ]
+  },
+  {
+    "id": "aw-045",
+    "slug": "osrodek-wypoczynkowy-przystan",
+    "name": "Ośrodek Wypoczynkowy Przystań",
+    "name_en": "Przystań Coastal Retreat Center",
+    "category": "Wypoczynek",
+    "category_en": "Retreats",
+    "schema_type": "Organization",
+    "country": "Polska",
+    "country_en": "Poland",
+    "country_code": "PL",
+    "city": "Grzybowo",
+    "address": "ul. Plażowa 19",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adwent.pl/kontakt/instytucje/",
+    "languages": [
+      "pl"
+    ],
+    "description_pl": "Wypoczynek nad morzem.",
+    "description_en": "Baltic seaside retreat and vacation center in Grzybowo listed in the official institutions directory.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Wypoczynek",
+      "Polska",
+      "Grzybowo"
+    ]
+  },
+  {
+    "id": "aw-046",
+    "slug": "adventist-organizational-directory",
+    "name": "Adventist Organizational Directory",
+    "name_en": "Adventist Organizational Directory",
+    "category": "Organizacje",
+    "category_en": "Organizations",
+    "schema_type": "Organization",
+    "country": "USA",
+    "country_en": "USA",
+    "country_code": "US",
+    "city": "Silver Spring",
+    "address": "",
+    "service_hours": "",
+    "website": "",
+    "source": "https://www.adventistdirectory.org/",
+    "languages": [
+      "en"
+    ],
+    "description_pl": "Oficjalna wyszukiwarka organizacji adwentystycznych na świecie.",
+    "description_en": "Official global search directory of Seventh-day Adventist conferences, churches, schools, and institutions.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Organizacje",
+      "USA",
+      "Silver Spring"
+    ]
+  },
+  {
+    "id": "aw-047",
+    "slug": "adra-international",
+    "name": "ADRA International",
+    "name_en": "ADRA International",
+    "category": "Fundacje",
+    "category_en": "Foundations",
+    "schema_type": "Organization",
+    "country": "USA",
+    "country_en": "USA",
+    "country_code": "US",
+    "city": "Silver Spring",
+    "address": "",
+    "service_hours": "",
+    "website": "",
+    "source": "https://adra.org/about/our-story",
+    "languages": [
+      "en"
+    ],
+    "description_pl": "Międzynarodowa adwentystyczna organizacja humanitarna.",
+    "description_en": "Global humanitarian agency of the Seventh-day Adventist Church delivering disaster relief and community development.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Fundacje",
+      "USA",
+      "Silver Spring"
+    ]
+  },
+  {
+    "id": "aw-048",
+    "slug": "adventist-university-of-africa",
+    "name": "Adventist University of Africa",
+    "name_en": "Adventist University of Africa",
+    "category": "Edukacja",
+    "category_en": "Education",
+    "schema_type": "CollegeOrUniversity",
+    "country": "Kenia",
+    "country_en": "Kenya",
+    "country_code": "KE",
+    "city": "Nairobi",
+    "address": "",
+    "service_hours": "",
+    "website": "",
+    "source": "https://www.adventistdirectory.org/ViewAdmFieldSubEntities.aspx?AdmFieldID=GC&EntityType=E&ShowContained=-1",
+    "languages": [
+      "en"
+    ],
+    "description_pl": "Adwentystyczna uczelnia podyplomowa w Kenii.",
+    "description_en": "Postgraduate Seventh-day Adventist university near Nairobi, Kenya, training leaders across Africa and beyond.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Edukacja",
+      "Kenia",
+      "Nairobi"
+    ]
+  },
+  {
+    "id": "aw-049",
+    "slug": "adventist-international-institute-of-advanced-studies",
+    "name": "Adventist International Institute of Advanced Studies",
+    "name_en": "Adventist International Institute of Advanced Studies (AIIAS)",
+    "category": "Edukacja",
+    "category_en": "Education",
+    "schema_type": "CollegeOrUniversity",
+    "country": "Filipiny",
+    "country_en": "Philippines",
+    "country_code": "PH",
+    "city": "Silang",
+    "address": "",
+    "service_hours": "",
+    "website": "",
+    "source": "https://www.adventistdirectory.org/ViewAdmFieldSubEntities.aspx?AdmFieldID=GC&EntityType=E&ShowContained=-1",
+    "languages": [
+      "en"
+    ],
+    "description_pl": "Adwentystyczna uczelnia studiów zaawansowanych na Filipinach.",
+    "description_en": "Graduate Seventh-day Adventist institution in Silang, Philippines, focusing on theology, business, and public health.",
+    "verification": "public_source",
+    "claim_status": "unclaimed",
+    "featured": false,
+    "tags": [
+      "Edukacja",
+      "Filipiny",
+      "Silang"
+    ]
+  }
+]

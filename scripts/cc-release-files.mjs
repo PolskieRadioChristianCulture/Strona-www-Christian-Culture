@@ -48,6 +48,8 @@ export function isPublicFile(relativePath) {
   if (file.startsWith('test/spiritual-sounds/')) return true;
   if (file === 'test/cc-youtube-boost/index.html' || file === 'test/cc-youtube-boost/data.json') return true;
   if (file === 'test/analityka/index.html') return true;
+  // Adventist World P0 preview (noindex,nofollow) — PL/EN katalog + 98 profili + otwarte dane.
+  if (file.startsWith('test/adventist-world/')) return true;
   if (segments.some((segment) => BLOCKED_DIRECTORIES.has(segment))) return false;
   if (BLOCKED_FILES.has(lower) || BLOCKED_FILES.has(path.posix.basename(lower))) return false;
   if (lower.includes('backup') || lower.includes('.matrix_sessions')) return false;

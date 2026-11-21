@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-21",
+      "topic": "Adventist World P0 (/test/adventist-world/ PL i EN) — dwujęzyczny katalog 49 instytucji w 4 krajach, 98 profili statycznych oraz eksport JSON/CSV",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-21",
       "topic": "CC Analytics 1.0 — audyt GA4/GSC, zunifikowany standard zdarzeń v2.0 oraz prywatne środowisko diagnostyczne (/test/analityka)",
       "agent": "A"
     },

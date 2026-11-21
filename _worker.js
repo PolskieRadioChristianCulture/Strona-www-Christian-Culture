@@ -2180,6 +2180,17 @@ export default {
       redirectUrl.pathname = '/aplikacje/';
       return Response.redirect(redirectUrl.toString(), 301);
     }
+    // Adventist World P0 Preview (/test/adventist-world/ & /en/) — trailing slash 301
+    if (url.pathname === '/test/adventist-world') {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/test/adventist-world/';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
+    if (url.pathname === '/test/adventist-world/en') {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/test/adventist-world/en/';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
     if (/^\/(usługi|uslugi|katalog-uslug|katalog-usług)\/?$/i.test(decodedP)) {
       const targetUrl = new URL(request.url);
       targetUrl.pathname = '/uslugi/';
