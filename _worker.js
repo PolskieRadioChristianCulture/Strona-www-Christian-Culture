@@ -1588,7 +1588,7 @@ async function handleSupportRoute(request, env) {
   // (omija wbudowany mechanizm canonical redirect Cloudflare Pages → 308)
   if (path === '/wspieraj' || path === '/wspieramto') {
     const assetUrl = new URL(request.url);
-    assetUrl.pathname = path === '/wspieramto' ? '/wspieramto.html' : '/wspieraj.html';
+    assetUrl.pathname = path === '/wspieramto' ? '/wspieramto/index.html' : '/wspieraj.html';
     assetUrl.search = '';
     const assetResp = await env.ASSETS.fetch(new Request(assetUrl.toString(), { method: 'GET', headers: { 'Accept': 'text/html' } }));
     // Zwróć świeży 200 niezależnie od tego co CF Pages odpowiedział wewnętrznie
@@ -2226,7 +2226,7 @@ export default {
       redirectUrl.pathname = '/aplikacje/';
       return Response.redirect(redirectUrl.toString(), 301);
     }
-    // Adventist World P0 Preview (/test/adventist-world/ & /en/) — trailing slash 301
+    // Adventist World P0 Preview (/test/adventist-world/ & /en/) — trailing slash 301 + /adventist-world/* 302 alias
     if (url.pathname === '/test/adventist-world') {
       const redirectUrl = new URL(request.url);
       redirectUrl.pathname = '/test/adventist-world/';
@@ -2236,6 +2236,21 @@ export default {
       const redirectUrl = new URL(request.url);
       redirectUrl.pathname = '/test/adventist-world/en/';
       return Response.redirect(redirectUrl.toString(), 301);
+    }
+    if (url.pathname === '/adventist-world' || url.pathname === '/adventist-world/') {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/test/adventist-world/';
+      return Response.redirect(redirectUrl.toString(), 302);
+    }
+    if (url.pathname === '/adventist-world/en' || url.pathname === '/adventist-world/en/') {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/test/adventist-world/en/';
+      return Response.redirect(redirectUrl.toString(), 302);
+    }
+    if (url.pathname.startsWith('/adventist-world/')) {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/test' + url.pathname;
+      return Response.redirect(redirectUrl.toString(), 302);
     }
     if (/^\/(usługi|uslugi|katalog-uslug|katalog-usług)\/?$/i.test(decodedP)) {
       const targetUrl = new URL(request.url);
