@@ -154,3 +154,12 @@ test('allowlista wydania, routing 200/301, indeks @w, sitemap, llms.txt i strona
   assert.ok(worker.includes("decodedP === '/apps/en' || decodedP === '/test/aplikacje/en'"), '_worker.js /apps/en');
   assert.ok(worker.includes("decodedP === '/apps' || decodedP === '/test/aplikacje'"), '_worker.js /apps');
 });
+
+test('no-regression: pełna widoczność polskich znaków z ogonkami i descenderów (bez obcinania w H1/H2)', () => {
+  const h1Match = apCss.match(/\.hero\s+h1\s*\{[^}]*\}/);
+  assert.ok(h1Match, 'brak reguły .hero h1');
+  assert.match(h1Match[0], /\/1\.(?:0[5-9]|[1-9]\d)/, 'line-height w .hero h1 musi wynosić >= 1.05');
+  assert.match(apCss, /\.hero\.is-ready\s+h1\s+\.l\s*\{\s*overflow:\s*visible\b/);
+  assert.match(apCss, /\.hero\s+h1\s+\.l\s*>\s*span\s*\{[^}]*padding:/);
+  assert.match(apCss, /\.h2\s+em\s*\{[^}]*display:\s*inline-block;[^}]*padding:/);
+});

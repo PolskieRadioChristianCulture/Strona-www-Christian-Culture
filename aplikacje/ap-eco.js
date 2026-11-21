@@ -173,7 +173,7 @@
     });
 
     if (typeof fetch === 'function') {
-      fetch('/data/ccn-news-ticker.json', { credentials: 'omit' })
+      fetch('/data/ccn-news-ticker.json', { credentials: 'omit', cache: 'no-cache' })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (data) {
           if (!data || !Array.isArray(data.items) || !data.items.length) return;

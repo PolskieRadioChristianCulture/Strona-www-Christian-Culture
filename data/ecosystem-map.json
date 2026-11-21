@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-21",
+      "topic": "Centrum Aplikacji (/aplikacje/) — poprawka odstępów i pełnej widoczności ogonków polskich liter w nagłówkach oraz świeżości danych",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-21",
       "topic": "Publikacja produkcyjnego Centrum Aplikacji Christian Culture (/aplikacje/ i /aplikacje/en/) oraz integracja z menu głównym, @w i mapą strony",
       "agent": "A"
     },

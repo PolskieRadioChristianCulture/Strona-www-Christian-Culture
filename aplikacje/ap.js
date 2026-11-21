@@ -250,7 +250,7 @@
 
   // Żywe dane z /rozwazania_baza.json (prawdziwy dzisiejszy dzień i liczba rozważań)
   if (typeof fetch === 'function') {
-    fetch('/rozwazania_baza.json', { credentials: 'omit' })
+    fetch('/rozwazania_baza.json', { credentials: 'omit', cache: 'no-cache' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (arr) {
         if (!Array.isArray(arr) || !arr.length) return;

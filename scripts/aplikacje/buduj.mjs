@@ -14,7 +14,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const ASSETS_V = '20261121_prod1';
+const ASSETS_V = '20261121_prod2';
 
 export const PLAY_APP_PL = 'https://play.google.com/store/apps/details?id=pl.cclite.app&hl=pl';
 export const PLAY_APP_EN = 'https://play.google.com/store/apps/details?id=pl.cclite.app&hl=en';
