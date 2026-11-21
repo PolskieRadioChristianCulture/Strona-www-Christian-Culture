@@ -76,6 +76,21 @@ let STATIONS = {
             "Revelation - Chapter 22"
         ]
     },
+    pozytywne_audio: {
+        id: "pozytywne_audio",
+        name: "POZYTYWNE AUDIO",
+        lang: "pl",
+        isPlaylist: true,
+        useZeno: false,
+        playlistUrl: "./pozytywne_audio_playlist.json",
+        baseAudioUrl: "https://audio.pozytywneaudio.pl/",
+        accentColors: ["#D4AF37", "#FF7A00"],
+        logo: "./Logo Globalna Biblia Audio.jpg",
+        tracks: [
+            "Życie ma sens — Alejandro Bullón",
+            "26 Audiobooków • 505 Rozdziałów (Pętla 24/7)"
+        ]
+    },
     instrumental_worship: {
         id: "instrumental_worship",
         name: "INSTRUMENTAL WORSHIP",
@@ -139,6 +154,9 @@ let metadataEventSource = null;
 let globalPlaylist = [];
 let totalDuration = 0;
 let globalBibleTimer = null;
+let pozytywneAudioPlaylist = [];
+let pozytywneAudioTotalDuration = 0;
+let pozytywneAudioTrackIndex = 0;
 let currentAudioUrl = "";
 let animFrameId = null;
 let waveOffset = 0;
@@ -725,8 +743,32 @@ audio.addEventListener('ended', () => {
         playNextBibliaSpiewanaTrack();
     } else if (activeStation && activeStation.id === 'global_biblia') {
         playNextGlobalBibleTrack();
+    } else if (activeStation && activeStation.id === 'pozytywne_audio') {
+        playNextPozytywneAudioTrack();
     }
 });
+
+function playNextPozytywneAudioTrack() {
+    if (!pozytywneAudioPlaylist || pozytywneAudioPlaylist.length === 0) return;
+    pozytywneAudioTrackIndex = (pozytywneAudioTrackIndex + 1) % pozytywneAudioPlaylist.length;
+    const nextTrack = pozytywneAudioPlaylist[pozytywneAudioTrackIndex];
+    audio.src = nextTrack.url;
+    currentAudioUrl = nextTrack.url;
+    playerTrackTitle.textContent = `${nextTrack.bookTitle} — ${nextTrack.chapterTitle}`;
+
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            isPlaying = true;
+            updatePlayerUI(true);
+            playerStatusText.textContent = "";
+        }).catch(err => {
+            console.error('Pozytywne Audio next track error:', err);
+            isPlaying = false;
+            updatePlayerUI(false);
+        });
+    }
+}
 
 let globalBibleTrackIndex = 0;
 
@@ -1325,6 +1367,31 @@ function playRadio() {
             targetUrl = "https://ebible.org/eng-web/mp3/01_01_Matthew.mp3";
             playerTrackTitle.textContent = "Global Bible (English WEB) — Matthew 1";
         }
+    } else if (activeStation.id === 'pozytywne_audio') {
+        if (pozytywneAudioPlaylist && pozytywneAudioPlaylist.length > 0) {
+            const totalDur = pozytywneAudioTotalDuration || pozytywneAudioPlaylist.reduce((acc, t) => acc + (t.durationSec || 600), 0);
+            const epochSeconds = Math.floor(Date.now() / 1000);
+            let remaining = epochSeconds % (totalDur || 50000);
+            let targetIndex = 0;
+            let seekSeconds = 0;
+            for (let i = 0; i < pozytywneAudioPlaylist.length; i++) {
+                const dur = pozytywneAudioPlaylist[i].durationSec || 600;
+                if (remaining < dur) {
+                    targetIndex = i;
+                    seekSeconds = remaining;
+                    break;
+                }
+                remaining -= dur;
+            }
+            pozytywneAudioTrackIndex = targetIndex;
+            const currentTrack = pozytywneAudioPlaylist[targetIndex];
+            targetUrl = currentTrack.url;
+            seekOffset = seekSeconds;
+            playerTrackTitle.textContent = `${currentTrack.bookTitle} — ${currentTrack.chapterTitle}`;
+        } else {
+            targetUrl = "https://audio.pozytywneaudio.pl/audiobooki/zycie-ma-sens/001.mp3";
+            playerTrackTitle.textContent = "Pozytywne Audio — Życie ma sens (Wstęp)";
+        }
     } else {
         // Live radio streams (Radio PL, Radio Global, Radio Biblia)
         targetUrl = activeStation.streamUrl;
@@ -1421,7 +1488,7 @@ function pauseRadio() {
     audio.volume = previousVolume;
     
     // Clear audio source on pause only for live streams so they don't buffer outdated content
-    if (activeStation && activeStation.id !== "instrumental_worship" && activeStation.id !== "biblia_spiewana" && activeStation.id !== "global_biblia") {
+    if (activeStation && activeStation.id !== "instrumental_worship" && activeStation.id !== "biblia_spiewana" && activeStation.id !== "global_biblia" && activeStation.id !== "pozytywne_audio") {
         audio.src = "";
         currentAudioUrl = "";
     }
@@ -1548,6 +1615,18 @@ function updateVolumeIcon(vol) {
     }
 }
 
+async function loadPozytywneAudioPlaylist() {
+    if (pozytywneAudioPlaylist.length > 0) return;
+    try {
+        const res = await fetch("./pozytywne_audio_playlist.json");
+        pozytywneAudioPlaylist = await res.json();
+        pozytywneAudioTotalDuration = pozytywneAudioPlaylist.reduce((acc, item) => acc + (item.durationSec || 600), 0);
+    } catch (e) {
+        console.error("Failed to load pozytywne_audio_playlist.json", e);
+    }
+}
+loadPozytywneAudioPlaylist();
+
 async function loadGlobalPlaylist() {
     if (globalPlaylist.length > 0) return;
     try {
@@ -1607,6 +1686,17 @@ function connectStationMetadata(stationId) {
             playerTrackTitle.textContent = `${tr.bookName} — Chapter ${tr.chapter}`;
         } else {
             playerTrackTitle.textContent = "Global Bible (English WEB) — Matthew 1";
+        }
+        return;
+    }
+
+    if (stationId === "pozytywne_audio") {
+        if (pozytywneAudioPlaylist.length > 0) {
+            const tr = pozytywneAudioPlaylist[pozytywneAudioTrackIndex] || pozytywneAudioPlaylist[0];
+            playerTrackTitle.textContent = `${tr.bookTitle} — ${tr.chapterTitle}`;
+        } else {
+            playerTrackTitle.textContent = "Pozytywne Audio — 26 Audiobooków (Pętla 24/7)";
+            loadPozytywneAudioPlaylist();
         }
         return;
     }
