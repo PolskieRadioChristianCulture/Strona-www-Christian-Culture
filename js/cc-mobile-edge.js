@@ -387,6 +387,36 @@
           }
         });
       }
+      if (url.pathname === '/wspieraj' || url.pathname === '/wspieramto') {
+        a.setAttribute('data-cc-wspieramto', 'true');
+        a.addEventListener('click', event => {
+          if (typeof window.openCcWspieramtoModal === 'function') {
+            event.preventDefault();
+            close();
+            window.openCcWspieramtoModal();
+            return;
+          }
+          if (typeof window.loadCcWspieramtoModal === 'function') {
+            event.preventDefault();
+            close();
+            window.loadCcWspieramtoModal(() => {
+              if (typeof window.openCcWspieramtoModal === 'function') window.openCcWspieramtoModal();
+            });
+            return;
+          }
+          if (!document.getElementById('ccWspieramtoModalScript')) {
+            event.preventDefault();
+            close();
+            const s = document.createElement('script');
+            s.id = 'ccWspieramtoModalScript';
+            s.src = '/components/cc-wspieramto-modal.js';
+            s.onload = () => {
+              if (typeof window.openCcWspieramtoModal === 'function') window.openCcWspieramtoModal();
+            };
+            document.head.appendChild(s);
+          }
+        });
+      }
       a.addEventListener('click',close); nav.append(a);
     }
 

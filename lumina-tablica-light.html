@@ -4828,6 +4828,9 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                         <div class="card-916-title" data-i18n="support_gods_work">Wspieraj Dzieło Boże</div>
                         <div class="card-916-sub" data-i18n="patron_desc">Twoje wsparcie pozwala nam nadawać Radio CC 24/7, nagrywać rozważania i rozwijać portal bez reklam.</div>
                         <div style="display:flex; flex-direction:column; gap:6px; width:100%;">
+                            <a href="/wspieramto" data-cc-wspieramto="true" class="btn-916-action" style="background:linear-gradient(135deg, #FF7A00, #E66A00); color:#FFFFFF; font-weight:800; text-decoration:none; box-shadow:0 4px 14px rgba(255,122,0,0.4);">
+                                <i class="fa-solid fa-bolt" style="margin-right:6px;"></i> <span>WspieramTO (1-Click)</span>
+                            </a>
                             <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="btn-916-action" style="background:linear-gradient(135deg, #e11d48, #be123c); text-decoration:none;">
                                 <i class="fa-solid fa-heart" style="margin-right:6px;"></i> <span data-i18n="btn_patronite">Zostań Patronem (Patronite)</span>
                             </a>
@@ -7419,8 +7422,8 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 title: 'Zostań Mecenasem Ewangelizacji – Wspieraj Rozwój Mediów CC',
                 desc: 'Dzięki Twoim modlitwom i darowiznom możemy docierać ze Słowem Bożym do setek tysięcy serc każdego miesiąca. Dziękujemy za każde wsparcie!',
                 image: 'wsparcie_cc_qr.png',
-                btnText: 'Wspieraj Dzieło Ewangelizacji ✨✨',
-                btnUrl: 'https://polskieradio.cc',
+                btnText: 'WspieramTO — 1-Click ✨',
+                btnUrl: 'https://polskieradio.cc/wspieramto',
                 author: 'Fundacja Christian Culture',
                 authorRole: 'Wsparcie Misyjne ✨',
                 authorAvatar: 'icon.png',
@@ -16831,5 +16834,6 @@ window.initFeedCarousels = function(container) {
 <script type="module" src="/js/lumi-live-rooms.js?v=20261019_rooms_v6"></script>
 <link rel="stylesheet" href="/css/lumi-room-navigation.css?v=20261019_family1">
 <script type="module" src="/components/lumi-room-navigation-boot.js?v=20261019_family2"></script>
+<script defer src="/components/cc-wspieramto-modal.js"></script>
 </body>
 </html>
