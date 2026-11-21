@@ -2,28 +2,117 @@
 // Kanały „menedżerskie” (Biblia Audio CC, Werset Dnia, Polskie Radio CC) są dostępne w Studio
 // TYLKO z tożsamości „Osobowość +”. Kanały marki (CC TV, CC Women, CC Men, Osobowość +) — przez przełącznik.
 // Każde wejście kończy się weryfikacją, że Studio pokazuje DOKŁADNIE żądany kanał.
+import fs from 'node:fs';
 import { chromium } from 'playwright';
 import { execSync } from 'node:child_process';
 
 export const PROFILE_DIR = 'C:\\Users\\czark\\.youtube_browser_profile';
+export const PROFILE_LOCK_FILE = 'C:\\Users\\czark\\.youtube_browser_profile.lock.json';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36';
+
+let exitHookRegistered = false;
+
+function readLockInfo() {
+  if (!fs.existsSync(PROFILE_LOCK_FILE)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(PROFILE_LOCK_FILE, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+function releaseProfileLock(ownerPid = process.pid) {
+  try {
+    if (!fs.existsSync(PROFILE_LOCK_FILE)) return;
+    const lock = readLockInfo();
+    if (lock && Number(lock.pid) === Number(ownerPid)) {
+      fs.unlinkSync(PROFILE_LOCK_FILE);
+    }
+  } catch {}
+}
+
+function registerExitHook() {
+  if (!exitHookRegistered) {
+    exitHookRegistered = true;
+    process.once('exit', () => releaseProfileLock(process.pid));
+  }
+}
+
+function listProcessTable() {
+  try {
+    const out = execSync(
+      'powershell -NoProfile -Command "Get-CimInstance Win32_Process | Select-Object ProcessId, ParentProcessId, Name, CommandLine | ConvertTo-Json -Compress"',
+      { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000 }
+    ).trim();
+    if (!out || out === 'null') return [];
+    const parsed = JSON.parse(out);
+    return Array.isArray(parsed) ? parsed : [parsed];
+  } catch {
+    return [];
+  }
+}
+
+export function classifyProfileProcesses(procList, currentPid = process.pid, lockInfo = null) {
+  const byPid = new Map();
+  for (const p of procList || []) {
+    if (p && p.ProcessId != null) byPid.set(Number(p.ProcessId), p);
+  }
+
+  const profileChromes = (procList || []).filter(p =>
+    p &&
+    String(p.Name || '').toLowerCase() === 'chrome.exe' &&
+    typeof p.CommandLine === 'string' &&
+    p.CommandLine.toLowerCase().includes('youtube_browser_profile')
+  );
+
+  const liveOwners = new Set();
+  for (const c of profileChromes) {
+    let cur = c;
+    for (let hop = 0; hop < 6 && cur; hop++) {
+      const ppid = Number(cur.ParentProcessId);
+      if (!ppid || !byPid.has(ppid)) break;
+      const parent = byPid.get(ppid);
+      if (String(parent.Name || '').toLowerCase() === 'node.exe' && Number(parent.ProcessId) !== Number(currentPid)) {
+        liveOwners.add(Number(parent.ProcessId));
+        break;
+      }
+      cur = parent;
+    }
+  }
+
+  if (lockInfo && lockInfo.pid != null && Number(lockInfo.pid) !== Number(currentPid) && byPid.has(Number(lockInfo.pid))) {
+    liveOwners.add(Number(lockInfo.pid));
+  }
+
+  return {
+    liveOwners: [...liveOwners],
+    orphanChromes: liveOwners.size === 0 ? profileChromes : []
+  };
+}
 
 export function killOrphanChromeProfiles() {
   try {
-    const out = execSync(
-      'powershell -NoProfile -Command "Get-CimInstance Win32_Process | Select-Object ProcessId, Name, CommandLine | ConvertTo-Json -Compress"',
-      { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'], timeout: 10000 }
-    );
-    const procs = JSON.parse(out);
-    const list = Array.isArray(procs) ? procs : [procs];
-    const chromeProcs = list.filter(p => p && p.Name === 'chrome.exe' && p.CommandLine && p.CommandLine.toLowerCase().includes('youtube_browser_profile'));
-    for (const p of chromeProcs) {
-      try { process.kill(p.ProcessId, 'SIGKILL'); } catch (e) {}
+    const list = listProcessTable();
+    const lockInfo = readLockInfo();
+    const { liveOwners, orphanChromes } = classifyProfileProcesses(list, process.pid, lockInfo);
+    if (liveOwners.length > 0) {
+      console.log(`  -> [ProfileGuard] Profil zajęty przez aktywny proces node (PID: ${liveOwners.join(', ')}) — NIE przerywam.`);
+      return { killed: 0, liveOwners };
     }
-    if (chromeProcs.length > 0) {
-      console.log(`  -> [Auto-recovery] Wyczyszczono ${chromeProcs.length} osieroconych procesów Chrome blokujących profil.`);
+    let killed = 0;
+    for (const p of orphanChromes) {
+      try {
+        process.kill(p.ProcessId, 'SIGKILL');
+        killed++;
+      } catch {}
     }
-  } catch (e) {}
+    if (killed > 0) {
+      console.log(`  -> [Auto-recovery] Wyczyszczono ${killed} osieroconych procesów Chrome blokujących profil.`);
+    }
+    return { killed, liveOwners: [] };
+  } catch {
+    return { killed: 0, liveOwners: [] };
+  }
 }
 
 const CORE_PL_CHANNELS = {
@@ -53,34 +142,107 @@ export const CHANNELS = {
   'Worship LIVE CC': { id: null, handle: '@WorshipLiveCC', via: '@WorshipLiveCC' },
   'Popraw Koronę': { id: 'UCquRtlfo1jrhZGO8LqFVllQ', handle: '@PoprawKoronęCC', via: '@PoprawKoronęCC' },
   'Katarzyna Fedków': { id: 'UCnipJdX6mtsxaoEENzEVusA', handle: '@katarzynafedkow', via: '@katarzynafedkow' },
-  'Top Seven': { id: 'UCdo_1-cjf5TEjSfEG_rxmyw', handle: '@TopSeven_CC', via: '@TopSeven_CC' }
+  'Top Seven': { id: 'UCdo_1-cjf5TEjSfEG_rxmyw', handle: '@TopSeven_CC', via: '@TopSeven_CC' },
+  'CC MUSIC': { id: null, handle: '@CCMUSIC7', via: '@CCMUSIC7' },
+  'CC Shorts': { id: null, handle: '@CCShorts77', via: '@CCShorts77' },
+  'Christian Culture POP': { id: null, handle: '@ChristianCulturePOP', via: '@ChristianCulturePOP' }
 };
 
 // Biblia Audio: KOMPLET (4K + Shorts) na wszystkich 7 głównych kanałach PL — decyzja L0 02.11.2026.
 export const BIBLIA_AUDIO_CHANNELS = Object.keys(CORE_PL_CHANNELS);
 
-export async function launchStudio({ headless = true } = {}) {
-  let ctx = null;
-  for (let attempt = 1; attempt <= 4; attempt++) {
-    try {
-      ctx = await chromium.launchPersistentContext(PROFILE_DIR, {
-        headless, channel: 'chrome', viewport: { width: 1600, height: 1000 }, userAgent: UA,
-        args: ['--disable-blink-features=AutomationControlled', '--no-sandbox']
-      });
-      break;
-    } catch (err) {
-      if (err.message && err.message.includes('ProcessSingleton')) {
-        console.log(`  [Retry ${attempt}/4] Wykryto ProcessSingleton — uruchamiam auto-recovery...`);
-        killOrphanChromeProfiles();
-        await new Promise(r => setTimeout(r, 2000));
-      } else if (attempt < 4) {
-        console.log(`  [Retry ${attempt}/4] Błąd uruchamiania kontekstu: ${err.message}. Ponawiam za 3s...`);
-        await new Promise(r => setTimeout(r, 3000));
+async function acquireProfileLock(lockWaitMs) {
+  const start = Date.now();
+  let lastLog = 0;
+  while (true) {
+    const list = listProcessTable();
+    const byPid = new Map(list.filter(p => p && p.ProcessId != null).map(p => [Number(p.ProcessId), p]));
+    const lockInfo = readLockInfo();
+    const { liveOwners } = classifyProfileProcesses(list, process.pid, lockInfo);
+
+    if (liveOwners.length > 0) {
+      if (Date.now() - start >= lockWaitMs) {
+        throw new Error(`Profil .youtube_browser_profile zajęty > ${Math.round(lockWaitMs / 60000)} min przez PID: ${liveOwners.join(', ')}`);
+      }
+      if (Date.now() - lastLog >= 60000) {
+        console.log(`  -> [ProfileGuard] Oczekuję na zwolnienie profilu przez aktywny proces node (PID: ${liveOwners.join(', ')})...`);
+        lastLog = Date.now();
+      }
+      await new Promise(r => setTimeout(r, 10000));
+      continue;
+    }
+
+    if (fs.existsSync(PROFILE_LOCK_FILE)) {
+      const stale = !lockInfo?.pid || !byPid.has(Number(lockInfo.pid)) || Number(lockInfo.pid) === Number(process.pid);
+      if (stale) {
+        try { fs.unlinkSync(PROFILE_LOCK_FILE); } catch {}
       } else {
-        throw err;
+        await new Promise(r => setTimeout(r, 5000));
+        continue;
       }
     }
+
+    killOrphanChromeProfiles();
+
+    try {
+      fs.writeFileSync(
+        PROFILE_LOCK_FILE,
+        JSON.stringify({ pid: process.pid, acquiredAt: new Date().toISOString() }, null, 2),
+        { flag: 'wx' }
+      );
+      registerExitHook();
+      return;
+    } catch (err) {
+      if (err && err.code === 'EEXIST') {
+        if (Date.now() - start >= lockWaitMs) {
+          throw new Error('Wyścig blokady .youtube_browser_profile.lock.json przekroczył limit czasu.');
+        }
+        await new Promise(r => setTimeout(r, 2000));
+        continue;
+      }
+      throw err;
+    }
   }
+}
+
+export async function launchStudio({ headless = true, lockWaitMs = Number(process.env.CC_YT_LOCK_WAIT_MS ?? 35 * 60 * 1000) } = {}) {
+  await acquireProfileLock(lockWaitMs);
+  let ctx = null;
+  try {
+    for (let attempt = 1; attempt <= 4; attempt++) {
+      try {
+        ctx = await chromium.launchPersistentContext(PROFILE_DIR, {
+          headless, channel: 'chrome', viewport: { width: 1600, height: 1000 }, userAgent: UA,
+          args: ['--disable-blink-features=AutomationControlled', '--no-sandbox']
+        });
+        break;
+      } catch (err) {
+        if (err.message && err.message.includes('ProcessSingleton')) {
+          console.log(`  [Retry ${attempt}/4] Wykryto ProcessSingleton — sprawdzam bezpiecznie stan profilu...`);
+          const res = killOrphanChromeProfiles();
+          await new Promise(r => setTimeout(r, res.liveOwners.length > 0 ? 10000 : 2000));
+        } else if (attempt < 4) {
+          console.log(`  [Retry ${attempt}/4] Błąd uruchamiania kontekstu: ${err.message}. Ponawiam za 3s...`);
+          await new Promise(r => setTimeout(r, 3000));
+        } else {
+          throw err;
+        }
+      }
+    }
+  } catch (err) {
+    releaseProfileLock(process.pid);
+    throw err;
+  }
+
+  const origClose = ctx.close.bind(ctx);
+  ctx.close = async (...args) => {
+    try {
+      return await origClose(...args);
+    } finally {
+      releaseProfileLock(process.pid);
+    }
+  };
+
   const page = ctx.pages()[0] || await ctx.newPage();
   return { ctx, page };
 }

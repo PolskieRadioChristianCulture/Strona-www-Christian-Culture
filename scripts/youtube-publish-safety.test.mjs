@@ -8,7 +8,7 @@ import path from 'node:path';
 import { findPublished, uploadStateFromText, waitForUploadComplete, studioDate, scheduleTarget } from './publish_perfect.mjs';
 import { studioStatusOf, reconcile } from './yt_reconcile_history.mjs';
 import { stateOf } from './yt_repair_biblia_audio.mjs';
-import { CHANNELS } from './yt_studio_session.mjs';
+import { CHANNELS, classifyProfileProcesses } from './yt_studio_session.mjs';
 
 const tmpHistory = (published) => {
   const f = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'yt-hist-')), 'h.json');
@@ -103,4 +103,23 @@ test('mapa kanałów: Osobowość + ≠ Christian Culture TV, kanały menedżers
   assert.equal(CHANNELS['Osobowość +'].id, 'UCHmPxDM2zzlUAf5ZvlotPLw');
   assert.notEqual(CHANNELS['Christian Culture TV'].id, 'UCHmPxDM2zzlUAf5ZvlotPLw');
   for (const n of ['Biblia Audio Christian Culture', 'Werset Dnia - Chrześcijański Serwis Biblijny', 'Polskie Radio CHRISTIAN CULTURE']) assert.equal(CHANNELS[n].via, '@osobowośćPLUS');
+});
+
+test('blokada profilu: chrome potomny żywego node innego agenta NIE jest uznany za sierotę, osierocony chrome bez rodzica jest czyszczony', () => {
+  const procWithLiveOwner = [
+    { ProcessId: 5956, ParentProcessId: 1000, Name: 'node.exe', CommandLine: 'node publish_lck_01.mjs' },
+    { ProcessId: 32292, ParentProcessId: 5956, Name: 'chrome.exe', CommandLine: 'chrome.exe --user-data-dir="C:\\Users\\czark\\.youtube_browser_profile"' },
+    { ProcessId: 26692, ParentProcessId: 32292, Name: 'chrome.exe', CommandLine: 'chrome.exe --type=renderer --user-data-dir="C:\\Users\\czark\\.youtube_browser_profile"' }
+  ];
+  const aliveRes = classifyProfileProcesses(procWithLiveOwner, 99999, null);
+  assert.deepEqual(aliveRes.liveOwners, [5956]);
+  assert.deepEqual(aliveRes.orphanChromes, []);
+
+  const orphanOnly = [
+    { ProcessId: 41000, ParentProcessId: 88888, Name: 'chrome.exe', CommandLine: 'chrome.exe --user-data-dir="C:\\Users\\czark\\.youtube_browser_profile"' }
+  ];
+  const orphanRes = classifyProfileProcesses(orphanOnly, 99999, { pid: 88888 });
+  assert.deepEqual(orphanRes.liveOwners, []);
+  assert.equal(orphanRes.orphanChromes.length, 1);
+  assert.equal(orphanRes.orphanChromes[0].ProcessId, 41000);
 });
