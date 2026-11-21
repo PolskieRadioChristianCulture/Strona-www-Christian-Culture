@@ -337,75 +337,22 @@
         }
 
         @media (max-width: 768px) {
-            .cc-auth-google-btn {
-                min-height: 38px;
-                height: 38px;
-            }
-            .cc-auth-google-btn span.cc-auth-btn-text-full {
-                display: none;
-            }
-            .cc-auth-google-btn span.cc-auth-btn-text-short {
-                display: inline;
-            }
             .cc-auth-toast {
                 left: 16px;
                 right: 16px;
                 bottom: 80px;
                 max-width: none;
             }
-            /* TABLET / INTERMEDIATE: Zminimalizowana pigułka logowania z imieniem */
-            .cc-auth-user-pill,
-            .user-nav-profile.cc-auth-user-pill {
-                padding: 3px 8px 3px 4px !important;
-                gap: 5px !important;
-                max-width: 140px !important;
-                min-height: 38px !important;
-                height: 38px !important;
-            }
-            .cc-auth-user-name,
-            .user-nav-name {
-                display: inline-block !important;
-                font-size: 0.78rem !important;
-                font-weight: 700 !important;
-                color: #ffffff !important;
-                max-width: 68px !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
-                white-space: nowrap !important;
-                line-height: 1 !important;
-            }
-            .cc-auth-avatar-wrap,
-            .user-nav-avatar-wrap {
-                width: 28px !important;
-                height: 28px !important;
-                min-width: 28px !important;
-                flex: 0 0 28px !important;
-            }
-            .cc-auth-avatar-img,
-            .user-nav-avatar {
-                width: 28px !important;
-                height: 28px !important;
-                min-width: 28px !important;
-                max-width: 28px !important;
-                flex: 0 0 28px !important;
-            }
-            .cc-auth-user-chevron,
-            .user-nav-chevron {
-                display: inline-block !important;
-                font-size: 0.65rem !important;
-            }
-        }
-        @media (max-width: 640px) {
-            /* 📱 MOBILE PHONES: Inteligentne zwinięcie do intuicyjnych okrągłych ikon (standard @SMCC min. 44px) */
+            /* 📱 MOBILE & TABLET (<= 768px): Ograniczenie przycisku logowania/profilu wyłącznie do okrągłego avatara */
             .cc-auth-user-pill,
             .user-nav-profile.cc-auth-user-pill {
                 padding: 3px !important;
                 gap: 0 !important;
-                width: 38px !important;
-                min-width: 38px !important;
-                max-width: 38px !important;
-                min-height: 38px !important;
-                height: 38px !important;
+                width: 40px !important;
+                min-width: 40px !important;
+                max-width: 40px !important;
+                min-height: 40px !important;
+                height: 40px !important;
                 aspect-ratio: 1 / 1 !important;
                 border-radius: 50% !important;
                 justify-content: center !important;
@@ -420,22 +367,22 @@
             }
             .cc-auth-avatar-wrap,
             .user-nav-avatar-wrap {
-                width: 30px !important;
-                height: 30px !important;
-                min-width: 30px !important;
-                max-width: 30px !important;
+                width: 32px !important;
+                height: 32px !important;
+                min-width: 32px !important;
+                max-width: 32px !important;
                 aspect-ratio: 1 / 1 !important;
-                flex: 0 0 30px !important;
+                flex: 0 0 32px !important;
                 margin: 0 !important;
             }
             .cc-auth-avatar-img,
             .user-nav-avatar {
-                width: 30px !important;
-                height: 30px !important;
-                min-width: 30px !important;
-                max-width: 30px !important;
+                width: 32px !important;
+                height: 32px !important;
+                min-width: 32px !important;
+                max-width: 32px !important;
                 aspect-ratio: 1 / 1 !important;
-                flex: 0 0 30px !important;
+                flex: 0 0 32px !important;
             }
             .cc-auth-google-btn {
                 width: 44px !important;
