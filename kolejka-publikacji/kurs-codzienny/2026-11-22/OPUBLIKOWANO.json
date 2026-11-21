@@ -1,0 +1,101 @@
+{
+  "data": "2026-11-22",
+  "dzien": 53,
+  "opublikowano": "2026-11-21T23:06:30.323Z",
+  "zatwierdzil": "@A001 (nocna publikacja 00:00)",
+  "ostrzezenia": [],
+  "pliki": [
+    {
+      "plik": "akademia/kurscodzienny/dzien-53.html",
+      "sha256": "b77dc62e458515367a4f71e3fecdd299731f9af9076fa94a47e27d493f518373"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-53/index.html",
+      "sha256": "b77dc62e458515367a4f71e3fecdd299731f9af9076fa94a47e27d493f518373"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-53.html",
+      "sha256": "b77dc62e458515367a4f71e3fecdd299731f9af9076fa94a47e27d493f518373"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-53/index.html",
+      "sha256": "b77dc62e458515367a4f71e3fecdd299731f9af9076fa94a47e27d493f518373"
+    },
+    {
+      "plik": "images/academy/daily/kc_day_53_sprawiedliwy_sad_aniol_przymierza.jpg",
+      "sha256": "6d72ca393a8368b938a3817d2e5e8854c4c04a2c39d8264204607452f027fc04"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-52.html",
+      "sha256": "39a8c6f43529b0edf07bb10da48f63fb13451cc097181725e131e27b3e09822d"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-52/index.html",
+      "sha256": "39a8c6f43529b0edf07bb10da48f63fb13451cc097181725e131e27b3e09822d"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-52.html",
+      "sha256": "39a8c6f43529b0edf07bb10da48f63fb13451cc097181725e131e27b3e09822d"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-52/index.html",
+      "sha256": "39a8c6f43529b0edf07bb10da48f63fb13451cc097181725e131e27b3e09822d"
+    },
+    {
+      "plik": "akademia.html",
+      "sha256": "7d8bce0253d24a1f50e3aa241e0507032ab01847e11a176d7338e9aafbbdc39e"
+    },
+    {
+      "plik": "akademia/index.html",
+      "sha256": "7d8bce0253d24a1f50e3aa241e0507032ab01847e11a176d7338e9aafbbdc39e"
+    },
+    {
+      "plik": "akademia/kurscodzienny.html",
+      "sha256": "9a106c709706accf9f786caeb6024286acfd23434f57d6777bca846d667b209e"
+    },
+    {
+      "plik": "akademia/kurscodzienny/index.html",
+      "sha256": "9a106c709706accf9f786caeb6024286acfd23434f57d6777bca846d667b209e"
+    },
+    {
+      "plik": "kursy.html",
+      "sha256": "7d8bce0253d24a1f50e3aa241e0507032ab01847e11a176d7338e9aafbbdc39e"
+    },
+    {
+      "plik": "kursy/index.html",
+      "sha256": "7d8bce0253d24a1f50e3aa241e0507032ab01847e11a176d7338e9aafbbdc39e"
+    },
+    {
+      "plik": "kursy/kurscodzienny.html",
+      "sha256": "9a106c709706accf9f786caeb6024286acfd23434f57d6777bca846d667b209e"
+    },
+    {
+      "plik": "kursy/kurscodzienny/index.html",
+      "sha256": "9a106c709706accf9f786caeb6024286acfd23434f57d6777bca846d667b209e"
+    },
+    {
+      "plik": "szukaj/catalog.json",
+      "sha256": "5ee77a91bb4b2231724e66930f743f636e1d4704174e36456021e429b64cb5a7"
+    },
+    {
+      "plik": "data/cc-search-index.json",
+      "sha256": "5ee77a91bb4b2231724e66930f743f636e1d4704174e36456021e429b64cb5a7"
+    },
+    {
+      "plik": "sitemaps/akademia.xml",
+      "sha256": "00beba08765676a9d31c495664f062a770e6133879c8337faf6b1282a1e5649a"
+    },
+    {
+      "plik": "sitemaps/pages.xml",
+      "sha256": "4aa51e93f7ab57f706adbc6d9dedf9ec62ec383c21135c9584443878be4e5560"
+    },
+    {
+      "plik": "rozwazania_baza.json",
+      "sha256": "45b80a5e8416109fcbfba718bce961692cd5a57a0188911b63a969101de8489a"
+    },
+    {
+      "plik": "data/ecosystem-map.json",
+      "sha256": "8ac84a2754711c2b6f176cb076ed003fb10d3bf565feecf036c23551ae9e65c0"
+    }
+  ]
+}

@@ -1,19 +1,19 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-20T05:25:37.064Z",
+  "generatedAt": "2026-11-21T23:05:52.317Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 102,
-    "validUrls": 102,
+    "totalValidatedUrls": 103,
+    "validUrls": 103,
     "invalidUrls": 0,
-    "newsArticlesCount": 96,
-    "googleNews48hCount": 50,
-    "akademiaUrlsCount": 82,
+    "newsArticlesCount": 97,
+    "googleNews48hCount": 51,
+    "akademiaUrlsCount": 84,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
-    "videoUrlsCount": 2,
-    "pagesUrlsCount": 38,
-    "enUrlsCount": 1
+    "videoUrlsCount": 12,
+    "pagesUrlsCount": 41,
+    "enUrlsCount": 132
   },
   "discoveryFiles": [
     {
@@ -31,31 +31,31 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 25756,
+      "sizeBytes": 25875,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 34722,
+      "sizeBytes": 34500,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 43835,
+      "sizeBytes": 44315,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 39742,
+      "sizeBytes": 40497,
       "status": "OK"
     },
     {
       "path": "/sitemaps/akademia.xml",
       "exists": true,
-      "sizeBytes": 15514,
+      "sizeBytes": 15892,
       "status": "OK"
     },
     {
@@ -73,27 +73,27 @@
     {
       "path": "/sitemaps/video.xml",
       "exists": true,
-      "sizeBytes": 1620,
+      "sizeBytes": 7508,
       "status": "OK"
     },
     {
       "path": "/sitemaps/pages.xml",
       "exists": true,
-      "sizeBytes": 6402,
+      "sizeBytes": 6906,
       "status": "OK"
     },
     {
       "path": "/sitemaps/en.xml",
       "exists": true,
-      "sizeBytes": 582,
+      "sizeBytes": 25256,
       "status": "OK"
     }
   ],
   "indexNow": {
     "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 49,
-    "pendingCount": 49,
+    "totalQueued": 50,
+    "pendingCount": 50,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-20T05:25:37.060Z",
+        "queuedAt": "2026-11-21T23:05:52.313Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-20T05:25:37.060Z",
+        "queuedAt": "2026-11-21T23:05:52.313Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-20T05:25:37.060Z",
+        "queuedAt": "2026-11-21T23:05:52.313Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-20T05:25:37.060Z",
+        "queuedAt": "2026-11-21T23:05:52.313Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-20T05:25:37.060Z",
+        "queuedAt": "2026-11-21T23:05:52.313Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 442,
-    "lastSubmittedCount": 442,
-    "lastSubmittedAt": "2026-11-20T05:25:38.942Z"
+    "totalIndexedUrls": 485,
+    "lastSubmittedCount": 485,
+    "lastSubmittedAt": "2026-11-21T23:05:53.767Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/islam-najwieksza-religia-2035-co-czeka-europe.html",
+      "canonicalUrl": "https://polskieradio.cc/news/islam-najwieksza-religia-2035-co-czeka-europe",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc.html",
       "canonicalUrl": "https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc",
@@ -593,15 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/bioetyka-edycja-genomu-syntetyczne-embriony-biblia.html",
-      "canonicalUrl": "https://polskieradio.cc/news/bioetyka-edycja-genomu-syntetyczne-embriony-biblia",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-20T05:25:38.942Z"
+  "lastInstantIndexingAt": "2026-11-21T23:05:53.767Z"
 }

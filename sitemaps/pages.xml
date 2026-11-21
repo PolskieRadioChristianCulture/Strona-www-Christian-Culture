@@ -223,12 +223,6 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://polskieradio.cc/Rozwi%C4%85%C5%BCProblem</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-  <url>
     <loc>https://polskieradio.cc/aplikacje/</loc>
     <lastmod>2026-11-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -243,6 +237,12 @@
   <url>
     <loc>https://polskieradio.cc/wspieramto</loc>
     <lastmod>2026-11-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/Rozwi%C4%85%C5%BCProblem</loc>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>

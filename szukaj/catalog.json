@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-21T10:45:16.656Z",
-  "totalItems": 673,
+  "updatedAt": "2026-11-21T23:05:54.035Z",
+  "totalItems": 675,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1062,50 +1062,6 @@
   },
   "items": [
     {
-      "id": "station-pozytywne-audio",
-      "title": "Pozytywne Audio — 26 Audiobooków Chrześcijańskich (Pętla 24/7)",
-      "category": "Audycje & Muzyka",
-      "type": "radio",
-      "url": "https://polskieradio.cc/player",
-      "description": "Całodobowa stacja audiobooków chrześcijańskich (26 książek, 505 rozdziałów w ciągłej pętli): duchowość, rodzina, psychologia, zdrowie i proroctwa.",
-      "keywords": [
-        "pozytywne audio",
-        "audiobooki",
-        "książki audio",
-        "alejandro bullon",
-        "ellen white",
-        "wielki bój",
-        "życie ma sens",
-        "radio 24/7"
-      ],
-      "streamStation": "pozytywne_audio",
-      "icon": "radio"
-    },
-    {
-      "title": "Z Biblią za Pan Brat — Dzień 52 (Lekcja 52 na dziś): Dzień 52: PRAWO WŁASNOŚCI, ZADOŚĆUCZYNIENIA I ŚWIĘTOŚCI LUDU BOŻEGO (Wj 22:1–31)",
-      "category": "Biblia i formacja",
-      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-52",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 52 (Lekcja 52 na dziś, 21 listopada 2026). Biblijne prawo ochrony własności, wielokrotnego zadośćuczynienia, odrzucenia okultyzmu oraz opieki nad przybyszem, wdową i sierotą (Wj 22:1–31).",
-      "tags": [
-        "lekcja 52",
-        "lekcja 52 na dziś",
-        "lekcja na dziś",
-        "dzień 52",
-        "dzien 52",
-        "rozważanie 52",
-        "rozważanie na dziś",
-        "słowo na dziś",
-        "wj 22",
-        "z biblią za pan brat",
-        "kurs codzienny",
-        "akademia biblijna",
-        "21 listopada 2026",
-        "dzisiaj",
-        "dziś"
-      ],
-      "featured": true
-    },
-    {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
       "url": "https://cclite.pl",
@@ -1145,57 +1101,6 @@
         "rozważanie na dziś",
         "wieczorne inspiracje cclite",
         "cclite"
-      ],
-      "featured": true
-    },
-    {
-      "title": "Aplikacje Christian Culture — Android (Google Play) i Web/PWA",
-      "category": "Aplikacje i narzędzia",
-      "url": "https://polskieradio.cc/aplikacje/",
-      "description": "Oficjalne centrum 14 bezpłatnych aplikacji Christian Culture bez reklam: aplikacja Android w Google Play (pl.cclite.app), CC Lite PWA (cclite.pl), Dobrze, że jesteś, LUMINA, LUMI Messenger, Player PolskieRadio.cc, MojaBiblia Interlinearna, Biblia Audio, Akademia Biblijna, 40 Dni Modlitwy, Kino VOD, Werset Dnia, HOLOS i GPT Dla Jezusa.",
-      "tags": [
-        "aplikacje",
-        "aplikacja",
-        "apps",
-        "android",
-        "google play",
-        "pwa",
-        "iphone",
-        "ios",
-        "pobierz",
-        "instalacja",
-        "cclite",
-        "pl.cclite.app",
-        "dobrze ze jestes",
-        "lumina",
-        "lumi mess",
-        "mojabiblia",
-        "40dm",
-        "holos",
-        "narzedzia"
-      ],
-      "featured": true
-    },
-    {
-      "title": "Christian Culture Apps — Android (Google Play) & Web/PWA Hub (EN)",
-      "category": "Aplikacje i narzędzia",
-      "url": "https://polskieradio.cc/aplikacje/en/",
-      "description": "Official directory of 14 free, ad-free Christian Culture apps across Android (Google Play), iOS and Web PWA: Radio 24/7, Good That You Are Here daily reflections, LUMINA, MojaBiblia Interlinear, 40 Days of Prayer, VOD and HOLOS.",
-      "tags": [
-        "apps",
-        "android",
-        "google play",
-        "pwa",
-        "iphone",
-        "ios",
-        "download",
-        "install",
-        "aplikacje",
-        "christian culture",
-        "cclite",
-        "lumina",
-        "bible",
-        "prayer"
       ],
       "featured": true
     },
@@ -2050,15 +1955,19 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 42 (Lekcja 42): Święto Paschy, Krew Baranka i Wykupienie Pierworodnych (Wj 11:1–12:36)",
+      "title": "Z Biblią za Pan Brat — Dzień 42 (Lekcja 42 na dziś): Święto Paschy, Krew Baranka i Wykupienie Pierworodnych (Wj 11:1–12:36)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-42",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 42 (Lekcja 42, 11 listopada 2026). Księga Wyjścia 11:1–12:36: Ustanowienie Paschy, krew baranka bez skazy na odrzwiach w Goszen, sąd o północy nad bogami Egiptu, śmierć pierworodnych i triumfalne wyjście z domu niewoli.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 42 (Lekcja 42 na dziś, 11 listopada 2026). Księga Wyjścia 11:1–12:36: Ustanowienie Paschy, krew baranka bez skazy na odrzwiach w Goszen, sąd o północy nad bogami Egiptu, śmierć pierworodnych i triumfalne wyjście z domu niewoli.",
       "tags": [
         "lekcja 42",
+        "lekcja 42 na dziś",
+        "lekcja na dziś",
         "dzień 42",
         "dzien 42",
         "rozważanie 42",
+        "rozważanie na dziś",
+        "słowo na dziś",
         "pascha",
         "baranek paschalny",
         "krew baranka",
@@ -2070,20 +1979,26 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "11 listopada 2026"
+        "11 listopada 2026",
+        "dzisiaj",
+        "dziś"
       ],
-      "featured": false
+      "featured": true
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 41 (Lekcja 41): Plagi szarańczy i ciemności egipskiej — Sąd nad fałszywym światłem i wolność bez kompromisów (Wj 10:1–29)",
+      "title": "Z Biblią za Pan Brat — Dzień 41 (Lekcja 41 na dziś): Plagi szarańczy i ciemności egipskiej — Sąd nad fałszywym światłem i wolność bez kompromisów (Wj 10:1–29)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-41",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 41 (Lekcja 41, 10 listopada 2026). Księga Wyjścia 10:1–29: Plagi szarańczy i namacalnej ciemności egipskiej. Sąd nad fałszywym światłem i bóstwem Ra, Boża suwerenność i bezkompromisowa wolność przymierza w Chrystusie.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 41 (Lekcja 41 na dziś, 10 listopada 2026). Księga Wyjścia 10:1–29: Plagi szarańczy i namacalnej ciemności egipskiej. Sąd nad fałszywym światłem i bóstwem Ra, Boża suwerenność i bezkompromisowa wolność przymierza w Chrystusie.",
       "tags": [
         "lekcja 41",
+        "lekcja 41 na dziś",
+        "lekcja na dziś",
         "dzień 41",
         "dzien 41",
         "rozważanie 41",
+        "rozważanie na dziś",
+        "słowo na dziś",
         "szarańcza",
         "ciemność egipska",
         "plagi egipskie",
@@ -2094,7 +2009,9 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "10 listopada 2026"
+        "10 listopada 2026",
+        "dzisiaj",
+        "dziś"
       ],
       "featured": false
     },
@@ -2460,15 +2377,19 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 22 (Lekcja 22): Jakub walczy z Bogiem — Przemiana człowieka (Rdz 31:1–32:32)",
+      "title": "Z Biblią za Pan Brat — Dzień 22 (Lekcja 22 na dziś): Jakub walczy z Bogiem — Przemiana człowieka (Rdz 31:1–32:32)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-22",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 22 (Lekcja 22, 22 października 2026). Przymierze z Labanem w Gileadzie, lęk przed Ezawem, nocne zmaganie nad potokiem Jabbok i nowe imię Izrael — Rdz 31:1–32:32. Prawdziwe zwycięstwo w Chrystusie przez pokorę i moc w słabości.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 22 (Lekcja 22 na dziś, 22 października 2026). Przymierze z Labanem w Gileadzie, lęk przed Ezawem, nocne zmaganie nad potokiem Jabbok i nowe imię Izrael — Rdz 31:1–32:32. Prawdziwe zwycięstwo w Chrystusie przez pokorę i moc w słabości.",
       "tags": [
         "lekcja 22",
+        "lekcja 22 na dziś",
+        "lekcja na dziś",
         "dzień 22",
         "dzien 22",
         "rozważanie 22",
+        "rozważanie na dziś",
+        "słowo na dziś",
         "jakub walczy z bogiem",
         "jabbok",
         "peniel",
@@ -2478,9 +2399,11 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "22 października 2026"
+        "22 października 2026",
+        "dzisiaj",
+        "dziś"
       ],
-      "featured": false
+      "featured": true
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 21: Bóg działa pośród niedoskonałych rodzin (Rdz 29:1–30:43)",
@@ -3229,6 +3152,117 @@
         "ogłoszenia"
       ],
       "featured": true
+    },
+    {
+      "title": "Aplikacje Christian Culture — Android (Google Play) i Web/PWA",
+      "category": "Aplikacje i narzędzia",
+      "url": "https://polskieradio.cc/aplikacje/",
+      "description": "Oficjalne centrum 14 bezpłatnych aplikacji Christian Culture bez reklam: aplikacja Android w Google Play (pl.cclite.app), CC Lite PWA (cclite.pl), Dobrze, że jesteś, LUMINA, LUMI Messenger, Player PolskieRadio.cc, MojaBiblia Interlinearna, Biblia Audio, Akademia Biblijna, 40 Dni Modlitwy, Kino VOD, Werset Dnia, HOLOS i GPT Dla Jezusa.",
+      "tags": [
+        "aplikacje",
+        "aplikacja",
+        "apps",
+        "android",
+        "google play",
+        "pwa",
+        "iphone",
+        "ios",
+        "pobierz",
+        "instalacja",
+        "cclite",
+        "pl.cclite.app",
+        "dobrze ze jestes",
+        "lumina",
+        "lumi mess",
+        "mojabiblia",
+        "40dm",
+        "holos",
+        "narzedzia"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Christian Culture Apps — Android (Google Play) & Web/PWA Hub (EN)",
+      "category": "Aplikacje i narzędzia",
+      "url": "https://polskieradio.cc/aplikacje/en/",
+      "description": "Official directory of 14 free, ad-free Christian Culture apps across Android (Google Play), iOS and Web PWA: Radio 24/7, Good That You Are Here daily reflections, LUMINA, MojaBiblia Interlinear, 40 Days of Prayer, VOD and HOLOS.",
+      "tags": [
+        "apps",
+        "android",
+        "google play",
+        "pwa",
+        "iphone",
+        "ios",
+        "download",
+        "install",
+        "aplikacje",
+        "christian culture",
+        "cclite",
+        "lumina",
+        "bible",
+        "prayer"
+      ],
+      "featured": true
+    },
+    {
+      "title": "40 Dni Modlitwy · Christian Culture",
+      "category": "Modlitwa i wspólnota",
+      "url": "https://polskieradio.cc/40DM/",
+      "description": "Bezpłatny chrześcijański plan 40 dni modlitwy, przypomnienia w kalendarzu i pokój w LUMI MESS.",
+      "tags": [
+        "40DM",
+        "40 dni modlitwy",
+        "modlitwa",
+        "plan modlitwy",
+        "wspólna modlitwa",
+        "przypomnienia",
+        "Biblia",
+        "Christian Culture",
+        "pokój modlitwy",
+        "pokoj modlitwy"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "pl"
+    },
+    {
+      "title": "40 Days of Prayer · Christian Culture",
+      "category": "Prayer and community",
+      "url": "https://polskieradio.cc/40DM/en/",
+      "description": "A free 40-day Christian prayer plan, calendar reminders and a dedicated LUMI MESS prayer room.",
+      "tags": [
+        "40DM",
+        "40 days of prayer",
+        "daily prayer",
+        "prayer plan",
+        "prayer community",
+        "Bible",
+        "Christian Culture",
+        "prayer room"
+      ],
+      "type": "page",
+      "access": "public",
+      "lang": "en"
+    },
+    {
+      "id": "station-pozytywne-audio",
+      "title": "Pozytywne Audio — 26 Audiobooków Chrześcijańskich (Pętla 24/7)",
+      "category": "Audycje & Muzyka",
+      "type": "radio",
+      "url": "https://polskieradio.cc/player",
+      "description": "Całodobowa stacja audiobooków chrześcijańskich (26 książek, 505 rozdziałów w ciągłej pętli): duchowość, rodzina, psychologia, zdrowie i proroctwa.",
+      "keywords": [
+        "pozytywne audio",
+        "audiobooki",
+        "książki audio",
+        "alejandro bullon",
+        "ellen white",
+        "wielki bój",
+        "życie ma sens",
+        "radio 24/7"
+      ],
+      "streamStation": "pozytywne_audio",
+      "icon": "radio"
     },
     {
       "title": "Rozwiąż problem — Rzuć palenie. Chrześcijański kurs 14 dni",
@@ -8885,6 +8919,48 @@
       "featured": false
     },
     {
+      "title": "Z Biblią za Pan Brat — Dzień 52: PRAWO WŁASNOŚCI, ZADOŚĆUCZYNIENIA I ŚWIĘTOŚCI LUDU BOŻEGO (Wj 22:1–31)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-52",
+      "description": "Dzień 52 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. Księga Wyjścia Wj 22:1–31: Biblijne prawo ochrony własności, wielokrotnego zadośćuczynienia, odrzucenia okultyzmu i bałwochwalstwa, opieki nad przybyszem, wdową i sierotą oraz wezwania do świętości ludu Bożego (Wj 22:1–31)",
+      "tags": [
+        "kurs codzienny",
+        "z biblią za pan brat",
+        "dzień 52",
+        "dzien 52",
+        "lekcja 52",
+        "księga wyjścia",
+        "lekcja biblijna",
+        "rozważanie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 53: SPRAWIEDLIWY SĄD, MIŁOŚĆ NIEPRZYJACIÓŁ, ROK SZABATOWY I ANIOŁ PRZYMIERZA (Wj 23:1–33)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-53",
+      "description": "Dzień 53 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 23:1–33: Biblijna etyka prawdy w sądzie, nakaz czynnej pomocy nieprzyjacielowi, odpoczynek siódmego dnia i siódmego roku, trzy święta pielgrzymie oraz obietnica Anioła niosącego Imię PANA (Wj 23:1–33)",
+      "tags": [
+        "kurs codzienny",
+        "z biblią za pan brat",
+        "dzień 53",
+        "dzien 53",
+        "lekcja 53",
+        "księga wyjścia",
+        "lekcja biblijna",
+        "rozważanie",
+        "lekcja 53 na dziś",
+        "lekcja na dziś",
+        "rozważanie na dziś",
+        "słowo na dziś",
+        "wj 23",
+        "22 listopada 2026",
+        "dzisiaj",
+        "dziś"
+      ],
+      "featured": true
+    },
+    {
       "title": "Leksykon: Paruzja (Parousia)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/apokalipsa/lekcja-20",
@@ -9008,6 +9084,26 @@
         "słownik biblijny"
       ],
       "scripture": "Jeremiasza 31:33: Lecz takie będzie przymierze, które zawrę z domem Izraela po tych dniach, mówi Pan: Złożę moje prawo w ich wnętrzu i wypiszę je na ich sercach. Łukasza 22:20: Podobnie i kielich po wieczerzy, mówiąc: Ten kielich to nowe przymierze w mojej krwi, która się za was wylewa. Hebrajczyków 8:6: Teraz zaś otrzymał zaszczytniejszą służbę, o ile jest pośrednikiem lepszego przymierza, opartego na lepszych obietnicach.",
+      "featured": false
+    },
+    {
+      "title": "Rozważanie: JESTEŚ DAREM BOŻYM DLA INNYCH!",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/dzj",
+      "description": "21 LISTOPADA 2026: Jedna z czytelniczek w odpowiedzi na przeczytane słowo przesłała tę modlitwę: „Dziękuję, Panie, za to, co czynisz z moim życiem. Dziękuję za to, kim byłam wczoraj i kim jestem dzis… Modlitwa: …",
+      "contentSnippet": "Jedna z czytelniczek w odpowiedzi na przeczytane słowo przesłała tę modlitwę: „Dziękuję, Panie, za to, co czynisz z moim życiem. Dziękuję za to, kim byłam wczoraj i kim jestem dzisiaj. Dałeś mi siły, by przejść przez próby; zawstydziłeś moich wrogów, zamieniłeś porażki w zwycięstwa. To, gdzie się dzisiaj znajduję, jest dokładnie tym miejscem, w którym powinnam być, bo ty czynisz tę drogę doskonałą",
+      "tags": [
+        "dobrze że jesteś",
+        "cuda każdego dnia",
+        "rozważanie",
+        "modlitwa",
+        "poranna inspiracja",
+        "21 LISTOPADA 2026",
+        "nadzieja",
+        "pokój boży",
+        "wiara",
+        "słowo boże"
+      ],
       "featured": false
     },
     {
@@ -14673,46 +14769,193 @@
       "type": "page",
       "access": "public",
       "lang": "en"
-    },
-    {
-      "title": "40 Dni Modlitwy · Christian Culture",
-      "category": "Modlitwa i wspólnota",
-      "url": "https://polskieradio.cc/40DM/",
-      "description": "Bezpłatny chrześcijański plan 40 dni modlitwy, przypomnienia w kalendarzu i pokój w LUMI MESS.",
-      "tags": [
-        "40DM",
-        "40 dni modlitwy",
-        "modlitwa",
-        "plan modlitwy",
-        "wspólna modlitwa",
-        "przypomnienia",
-        "Biblia",
-        "Christian Culture",
-        "pokój modlitwy",
-        "pokoj modlitwy"
-      ],
-      "type": "page",
-      "access": "public",
-      "lang": "pl"
-    },
-    {
-      "title": "40 Days of Prayer · Christian Culture",
-      "category": "Prayer and community",
-      "url": "https://polskieradio.cc/40DM/en/",
-      "description": "A free 40-day Christian prayer plan, calendar reminders and a dedicated LUMI MESS prayer room.",
-      "tags": [
-        "40DM",
-        "40 days of prayer",
-        "daily prayer",
-        "prayer plan",
-        "prayer community",
-        "Bible",
-        "Christian Culture",
-        "prayer room"
-      ],
-      "type": "page",
-      "access": "public",
-      "lang": "en"
     }
-  ]
+  ],
+  "recommendedToday": [
+    {
+      "tag": "Inspiracja na Dziś",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 22",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 22 listopada 2026.",
+      "url": "/player",
+      "icon": "heart"
+    },
+    {
+      "tag": "Akademia Biblijna",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 53)",
+      "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
+      "url": "/akademia/kurscodzienny/dzien-53",
+      "icon": "book"
+    },
+    {
+      "tag": "Dzień Reformacji 2026 • Na Dziś",
+      "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
+      "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
+      "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
+      "icon": "newspaper"
+    },
+    {
+      "tag": "Nadajemy 24/7",
+      "title": "Radio Christian Culture & Player",
+      "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
+      "url": "/player",
+      "icon": "radio"
+    }
+  ],
+  "searchRecommendations": {
+    "updatedAt": "2026-11-21T23:05:54.285Z",
+    "heading": "Polecane na dziś",
+    "dateFormattedPL": "22 listopada 2026",
+    "pools": [
+      [
+        {
+          "tag": "Inspiracja na Dziś",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 22",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 22 listopada 2026.",
+          "url": "/player",
+          "icon": "heart"
+        },
+        {
+          "tag": "Słowo Boże na Dziś",
+          "title": "Mój Werset Dnia z Obietnicą",
+          "desc": "Losuj i rozważaj żywe obietnice Pisma Świętego przygotowane na dziś.",
+          "url": "/werset-dnia",
+          "icon": "sparkle"
+        },
+        {
+          "tag": "Modlitwa & Wstawiennictwo",
+          "title": "Zjednoczeni za Polskę — Czuwanie",
+          "desc": "Wspólna modlitwa narodu o pokój, Boże prowadzenie i przebudzenie.",
+          "url": "/modlitwa",
+          "icon": "shield"
+        },
+        {
+          "tag": "Słuchowisko Biblijne",
+          "title": "Biblia Audio — Nowy Testament UBG",
+          "desc": "Żywe Słowo Boże z profesjonalną muzyką i udźwiękowieniem radiowym.",
+          "url": "/player",
+          "icon": "volume"
+        }
+      ],
+      [
+        {
+          "tag": "Akademia Biblijna",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 53)",
+          "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
+          "url": "/akademia/kurscodzienny/dzien-53",
+          "icon": "book"
+        },
+        {
+          "tag": "Interlinearna Biblia",
+          "title": "MojaBiblia: Kody Stronga & Greka",
+          "desc": "Oryginalne znaczenie słów hebrajskich i greckich w Twojej przeglądarce.",
+          "url": "/mojabiblia",
+          "icon": "scroll"
+        },
+        {
+          "tag": "Wyszukiwarka Ekosystemu",
+          "title": "Błyskawiczne Odkrywanie w CC",
+          "desc": "Szukaj wersetów, lekcji, audycji i artykułów natychmiast od 1. litery.",
+          "url": "/wyszukiwarka",
+          "icon": "search"
+        },
+        {
+          "tag": "Kurs Proroctw Biblijnych",
+          "title": "Księga Daniela — 2300 Wieczorów i Poranków",
+          "desc": "Klucz do zrozumienia czasów ostatecznych i nadziei Zbawienia w Chrystusie.",
+          "url": "/akademia",
+          "icon": "compass"
+        }
+      ],
+      [
+        {
+          "tag": "Dzień Reformacji 2026 • Na Dziś",
+          "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
+          "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
+          "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
+          "icon": "newspaper"
+        },
+        {
+          "tag": "Rodzina & Zdrowie • Nowość",
+          "title": "Cyfrowy detoks w chrześcijańskim domu",
+          "desc": "Jak odzyskać prawdziwą bliskość przy wspólnym stole (Wioletta Rogowska).",
+          "url": "/news/cyfrowy-detoks-rodziny-jak-odzyskac-bliskosc-i-spokoj",
+          "icon": "newspaper"
+        },
+        {
+          "tag": "Podcast Spotify SDS",
+          "title": "APOKALIPSA — Księga Nadziei",
+          "desc": "Profetyczny cykl wykładów biblijnych Studia Dobrego Słowa.",
+          "url": "/podcasty",
+          "icon": "mic"
+        },
+        {
+          "tag": "Kino Chrześcijańskie VOD",
+          "title": "Filmy Fabularne i Dokumentalne CC",
+          "desc": "Wartościowe kino chrześcijańskie bez reklam, opłat i subskrypcji.",
+          "url": "/vod",
+          "icon": "film"
+        }
+      ],
+      [
+        {
+          "tag": "Nadajemy 24/7",
+          "title": "Radio Christian Culture & Player",
+          "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
+          "url": "/player",
+          "icon": "radio"
+        },
+        {
+          "tag": "Przegląd Ekosystemu • Nowość",
+          "title": "Tętno Misji: Nowe Lekcje i Artykuły",
+          "desc": "Aktualne premiery, audycje i materiały w całym ekosystemie CC.",
+          "url": "/news/przeglad-ekosystemu-nowe-artykuly-i-lekcje-akademii",
+          "icon": "sparkle"
+        },
+        {
+          "tag": "Telewizja CCTV24 Worship",
+          "title": "CCTV24 — Pasmo Bożej Obecności",
+          "desc": "Nocne czuwania, modlitwy i pieśni chwały w krystalicznej jakości HD.",
+          "url": "/cctv24-worship",
+          "icon": "play"
+        },
+        {
+          "tag": "Społeczność Wiary",
+          "title": "Portal Społecznościowy LUMINA",
+          "desc": "Dołącz do chrześcijan z całej Polski — dyskusje, świadectwa, modlitwa.",
+          "url": "/lumina",
+          "icon": "users"
+        }
+      ]
+    ],
+    "recommendedToday": [
+      {
+        "tag": "Inspiracja na Dziś",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 22",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 22 listopada 2026.",
+        "url": "/player",
+        "icon": "heart"
+      },
+      {
+        "tag": "Akademia Biblijna",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 53)",
+        "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
+        "url": "/akademia/kurscodzienny/dzien-53",
+        "icon": "book"
+      },
+      {
+        "tag": "Dzień Reformacji 2026 • Na Dziś",
+        "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
+        "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
+        "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
+        "icon": "newspaper"
+      },
+      {
+        "tag": "Nadajemy 24/7",
+        "title": "Radio Christian Culture & Player",
+        "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
+        "url": "/player",
+        "icon": "radio"
+      }
+    ]
+  }
 }

@@ -533,6 +533,9 @@ export function buildAllDiscoverySignals() {
     { path: '/biznes', lastmod: '2026-10-15', priority: '0.85', changefreq: 'daily' },
     { path: '/lumina.cezaryrgowski.html', lastmod: '2026-10-15', priority: '0.85', changefreq: 'weekly' },
     { path: '/lumina.wiolettarogowska.html', lastmod: '2026-10-15', priority: '0.85', changefreq: 'weekly' },
+    { path: '/aplikacje/', lastmod: '2026-11-21', priority: '0.90', changefreq: 'weekly' },
+    { path: '/aplikacje/en/', lastmod: '2026-11-21', priority: '0.90', changefreq: 'weekly' },
+    { path: '/wspieramto', lastmod: '2026-11-21', priority: '0.90', changefreq: 'weekly' },
     // Kursy serii Rozwiąż problem — z scripts/content/rozwiaz-problem/*/kurs.json
     ...loadCourses().map(sitemapPath),
   ];

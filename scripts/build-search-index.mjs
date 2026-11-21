@@ -260,6 +260,53 @@ const CORE_PROJECTS = [
   tags: ["wizytówki", "wizytowki", "wizytówka", "wizytowka", "katalog wizytówek", "kącik ewangelizacyjny", "profile", "służby", "ogłoszenia"],
   featured: true
 },
+{
+  title: "Aplikacje Christian Culture — Android (Google Play) i Web/PWA",
+  category: "Aplikacje i narzędzia",
+  url: "https://polskieradio.cc/aplikacje/",
+  description: "Oficjalne centrum 14 bezpłatnych aplikacji Christian Culture bez reklam: aplikacja Android w Google Play (pl.cclite.app), CC Lite PWA (cclite.pl), Dobrze, że jesteś, LUMINA, LUMI Messenger, Player PolskieRadio.cc, MojaBiblia Interlinearna, Biblia Audio, Akademia Biblijna, 40 Dni Modlitwy, Kino VOD, Werset Dnia, HOLOS i GPT Dla Jezusa.",
+  tags: ["aplikacje", "aplikacja", "apps", "android", "google play", "pwa", "iphone", "ios", "pobierz", "instalacja", "cclite", "pl.cclite.app", "dobrze ze jestes", "lumina", "lumi mess", "mojabiblia", "40dm", "holos", "narzedzia"],
+  featured: true
+},
+{
+  title: "Christian Culture Apps — Android (Google Play) & Web/PWA Hub (EN)",
+  category: "Aplikacje i narzędzia",
+  url: "https://polskieradio.cc/aplikacje/en/",
+  description: "Official directory of 14 free, ad-free Christian Culture apps across Android (Google Play), iOS and Web PWA: Radio 24/7, Good That You Are Here daily reflections, LUMINA, MojaBiblia Interlinear, 40 Days of Prayer, VOD and HOLOS.",
+  tags: ["apps", "android", "google play", "pwa", "iphone", "ios", "download", "install", "aplikacje", "christian culture", "cclite", "lumina", "bible", "prayer"],
+  featured: true
+},
+{
+  title: "40 Dni Modlitwy · Christian Culture",
+  category: "Modlitwa i wspólnota",
+  url: "https://polskieradio.cc/40DM/",
+  description: "Bezpłatny chrześcijański plan 40 dni modlitwy, przypomnienia w kalendarzu i pokój w LUMI MESS.",
+  tags: ["40DM", "40 dni modlitwy", "modlitwa", "plan modlitwy", "wspólna modlitwa", "przypomnienia", "Biblia", "Christian Culture", "pokój modlitwy", "pokoj modlitwy"],
+  type: "page",
+  access: "public",
+  lang: "pl"
+},
+{
+  title: "40 Days of Prayer · Christian Culture",
+  category: "Prayer and community",
+  url: "https://polskieradio.cc/40DM/en/",
+  description: "A free 40-day Christian prayer plan, calendar reminders and a dedicated LUMI MESS prayer room.",
+  tags: ["40DM", "40 days of prayer", "daily prayer", "prayer plan", "prayer community", "Bible", "Christian Culture", "prayer room"],
+  type: "page",
+  access: "public",
+  lang: "en"
+},
+{
+  id: "station-pozytywne-audio",
+  title: "Pozytywne Audio — 26 Audiobooków Chrześcijańskich (Pętla 24/7)",
+  category: "Audycje & Muzyka",
+  type: "radio",
+  url: "https://polskieradio.cc/player",
+  description: "Całodobowa stacja audiobooków chrześcijańskich (26 książek, 505 rozdziałów w ciągłej pętli): duchowość, rodzina, psychologia, zdrowie i proroctwa.",
+  keywords: ["pozytywne audio", "audiobooki", "książki audio", "alejandro bullon", "ellen white", "wielki bój", "życie ma sens", "radio 24/7"],
+  streamStation: "pozytywne_audio",
+  icon: "radio"
+},
 // Kursy serii Rozwiąż problem — z scripts/content/rozwiaz-problem/*/kurs.json
 ...ROZWIAZ_PROBLEM_ITEMS,
 {
@@ -1088,9 +1135,10 @@ function loadDailyCourseLessons() {
             `lekcja ${num}`,
             "księga wyjścia",
             "lekcja biblijna",
-            "rozważanie"
+            "rozważanie",
+            ...(num === 53 ? ["lekcja 53 na dziś", "lekcja na dziś", "rozważanie na dziś", "słowo na dziś", "wj 23", "22 listopada 2026", "dzisiaj", "dziś"] : [])
           ],
-          featured: num === 41
+          featured: num === 53
         });
       }
     }
