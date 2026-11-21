@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-20T18:58:32.643Z",
-  "totalItems": 668,
+  "updatedAt": "2026-11-21T07:33:30.693Z",
+  "totalItems": 670,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1062,6 +1062,30 @@
   },
   "items": [
     {
+      "title": "Z Biblią za Pan Brat — Dzień 52 (Lekcja 52 na dziś): Dzień 52: PRAWO WŁASNOŚCI, ZADOŚĆUCZYNIENIA I ŚWIĘTOŚCI LUDU BOŻEGO (Wj 22:1–31)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-52",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 52 (Lekcja 52 na dziś, 21 listopada 2026). Biblijne prawo ochrony własności, wielokrotnego zadośćuczynienia, odrzucenia okultyzmu oraz opieki nad przybyszem, wdową i sierotą (Wj 22:1–31).",
+      "tags": [
+        "lekcja 52",
+        "lekcja 52 na dziś",
+        "lekcja na dziś",
+        "dzień 52",
+        "dzien 52",
+        "rozważanie 52",
+        "rozważanie na dziś",
+        "słowo na dziś",
+        "wj 22",
+        "z biblią za pan brat",
+        "kurs codzienny",
+        "akademia biblijna",
+        "21 listopada 2026",
+        "dzisiaj",
+        "dziś"
+      ],
+      "featured": true
+    },
+    {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",
       "url": "https://cclite.pl",
@@ -1955,19 +1979,15 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 42 (Lekcja 42 na dziś): Święto Paschy, Krew Baranka i Wykupienie Pierworodnych (Wj 11:1–12:36)",
+      "title": "Z Biblią za Pan Brat — Dzień 42 (Lekcja 42): Święto Paschy, Krew Baranka i Wykupienie Pierworodnych (Wj 11:1–12:36)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-42",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 42 (Lekcja 42 na dziś, 11 listopada 2026). Księga Wyjścia 11:1–12:36: Ustanowienie Paschy, krew baranka bez skazy na odrzwiach w Goszen, sąd o północy nad bogami Egiptu, śmierć pierworodnych i triumfalne wyjście z domu niewoli.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 42 (Lekcja 42, 11 listopada 2026). Księga Wyjścia 11:1–12:36: Ustanowienie Paschy, krew baranka bez skazy na odrzwiach w Goszen, sąd o północy nad bogami Egiptu, śmierć pierworodnych i triumfalne wyjście z domu niewoli.",
       "tags": [
         "lekcja 42",
-        "lekcja 42 na dziś",
-        "lekcja na dziś",
         "dzień 42",
         "dzien 42",
         "rozważanie 42",
-        "rozważanie na dziś",
-        "słowo na dziś",
         "pascha",
         "baranek paschalny",
         "krew baranka",
@@ -1979,26 +1999,20 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "11 listopada 2026",
-        "dzisiaj",
-        "dziś"
+        "11 listopada 2026"
       ],
-      "featured": true
+      "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 41 (Lekcja 41 na dziś): Plagi szarańczy i ciemności egipskiej — Sąd nad fałszywym światłem i wolność bez kompromisów (Wj 10:1–29)",
+      "title": "Z Biblią za Pan Brat — Dzień 41 (Lekcja 41): Plagi szarańczy i ciemności egipskiej — Sąd nad fałszywym światłem i wolność bez kompromisów (Wj 10:1–29)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-41",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 41 (Lekcja 41 na dziś, 10 listopada 2026). Księga Wyjścia 10:1–29: Plagi szarańczy i namacalnej ciemności egipskiej. Sąd nad fałszywym światłem i bóstwem Ra, Boża suwerenność i bezkompromisowa wolność przymierza w Chrystusie.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 41 (Lekcja 41, 10 listopada 2026). Księga Wyjścia 10:1–29: Plagi szarańczy i namacalnej ciemności egipskiej. Sąd nad fałszywym światłem i bóstwem Ra, Boża suwerenność i bezkompromisowa wolność przymierza w Chrystusie.",
       "tags": [
         "lekcja 41",
-        "lekcja 41 na dziś",
-        "lekcja na dziś",
         "dzień 41",
         "dzien 41",
         "rozważanie 41",
-        "rozważanie na dziś",
-        "słowo na dziś",
         "szarańcza",
         "ciemność egipska",
         "plagi egipskie",
@@ -2009,9 +2023,7 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "10 listopada 2026",
-        "dzisiaj",
-        "dziś"
+        "10 listopada 2026"
       ],
       "featured": false
     },
@@ -2377,19 +2389,15 @@
       "featured": false
     },
     {
-      "title": "Z Biblią za Pan Brat — Dzień 22 (Lekcja 22 na dziś): Jakub walczy z Bogiem — Przemiana człowieka (Rdz 31:1–32:32)",
+      "title": "Z Biblią za Pan Brat — Dzień 22 (Lekcja 22): Jakub walczy z Bogiem — Przemiana człowieka (Rdz 31:1–32:32)",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-22",
-      "description": "Kurs Codzienny Pisma Świętego — Dzień 22 (Lekcja 22 na dziś, 22 października 2026). Przymierze z Labanem w Gileadzie, lęk przed Ezawem, nocne zmaganie nad potokiem Jabbok i nowe imię Izrael — Rdz 31:1–32:32. Prawdziwe zwycięstwo w Chrystusie przez pokorę i moc w słabości.",
+      "description": "Kurs Codzienny Pisma Świętego — Dzień 22 (Lekcja 22, 22 października 2026). Przymierze z Labanem w Gileadzie, lęk przed Ezawem, nocne zmaganie nad potokiem Jabbok i nowe imię Izrael — Rdz 31:1–32:32. Prawdziwe zwycięstwo w Chrystusie przez pokorę i moc w słabości.",
       "tags": [
         "lekcja 22",
-        "lekcja 22 na dziś",
-        "lekcja na dziś",
         "dzień 22",
         "dzien 22",
         "rozważanie 22",
-        "rozważanie na dziś",
-        "słowo na dziś",
         "jakub walczy z bogiem",
         "jabbok",
         "peniel",
@@ -2399,11 +2407,9 @@
         "z biblią za pan brat",
         "kurs codzienny",
         "akademia biblijna",
-        "22 października 2026",
-        "dzisiaj",
-        "dziś"
+        "22 października 2026"
       ],
-      "featured": true
+      "featured": false
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 21: Bóg działa pośród niedoskonałych rodzin (Rdz 29:1–30:43)",
@@ -14610,7 +14616,9 @@
         "wspólna modlitwa",
         "przypomnienia",
         "Biblia",
-        "Christian Culture"
+        "Christian Culture",
+        "pokój modlitwy",
+        "pokoj modlitwy"
       ],
       "type": "page",
       "access": "public",
@@ -14628,7 +14636,8 @@
         "prayer plan",
         "prayer community",
         "Bible",
-        "Christian Culture"
+        "Christian Culture",
+        "prayer room"
       ],
       "type": "page",
       "access": "public",

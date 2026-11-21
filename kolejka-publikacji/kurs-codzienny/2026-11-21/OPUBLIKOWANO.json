@@ -1,0 +1,94 @@
+{
+  "data": "2026-11-21",
+  "dzien": 52,
+  "opublikowano": "2026-11-21T07:33:02.631Z",
+  "zatwierdzil": "@A001 + L0 (rozkaz 2026-11-21)",
+  "zatwierdzono": "2026-11-21T08:17:00+01:00",
+  "ostrzezenia": [],
+  "pliki": [
+    {
+      "plik": "akademia/kurscodzienny/dzien-52.html",
+      "sha256": "1b7b3bd9f8b698af7122a12161a00eec70d354574574aa4c939bc463e0bc1eb9"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-52/index.html",
+      "sha256": "1b7b3bd9f8b698af7122a12161a00eec70d354574574aa4c939bc463e0bc1eb9"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-52.html",
+      "sha256": "1b7b3bd9f8b698af7122a12161a00eec70d354574574aa4c939bc463e0bc1eb9"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-52/index.html",
+      "sha256": "1b7b3bd9f8b698af7122a12161a00eec70d354574574aa4c939bc463e0bc1eb9"
+    },
+    {
+      "plik": "images/academy/daily/kc_day_52_wlasnosc_zadoscuczynienie_swietosc.jpg",
+      "sha256": "d51ff72b0414cdd36b39fe137374f542735cacebbb6da4b8143ca78fea79d4a6"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-51.html",
+      "sha256": "9b83e291350f38abba7d8eb680e6741cef865e99b107570b0da39f3b508e013d"
+    },
+    {
+      "plik": "akademia/kurscodzienny/dzien-51/index.html",
+      "sha256": "9b83e291350f38abba7d8eb680e6741cef865e99b107570b0da39f3b508e013d"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-51.html",
+      "sha256": "9b83e291350f38abba7d8eb680e6741cef865e99b107570b0da39f3b508e013d"
+    },
+    {
+      "plik": "kursy/kurscodzienny/dzien-51/index.html",
+      "sha256": "9b83e291350f38abba7d8eb680e6741cef865e99b107570b0da39f3b508e013d"
+    },
+    {
+      "plik": "akademia.html",
+      "sha256": "8617e585605d009aa1e8a53b3b03fae0b98ff6909be0824f84b8b044f27ad624"
+    },
+    {
+      "plik": "akademia/index.html",
+      "sha256": "8617e585605d009aa1e8a53b3b03fae0b98ff6909be0824f84b8b044f27ad624"
+    },
+    {
+      "plik": "akademia/kurscodzienny.html",
+      "sha256": "273ffbd51edbb5d1c889ecfca7f23cb8a5ab563488220dfc8c71e6b78d2e984f"
+    },
+    {
+      "plik": "akademia/kurscodzienny/index.html",
+      "sha256": "273ffbd51edbb5d1c889ecfca7f23cb8a5ab563488220dfc8c71e6b78d2e984f"
+    },
+    {
+      "plik": "kursy.html",
+      "sha256": "8617e585605d009aa1e8a53b3b03fae0b98ff6909be0824f84b8b044f27ad624"
+    },
+    {
+      "plik": "kursy/index.html",
+      "sha256": "8617e585605d009aa1e8a53b3b03fae0b98ff6909be0824f84b8b044f27ad624"
+    },
+    {
+      "plik": "kursy/kurscodzienny.html",
+      "sha256": "273ffbd51edbb5d1c889ecfca7f23cb8a5ab563488220dfc8c71e6b78d2e984f"
+    },
+    {
+      "plik": "kursy/kurscodzienny/index.html",
+      "sha256": "273ffbd51edbb5d1c889ecfca7f23cb8a5ab563488220dfc8c71e6b78d2e984f"
+    },
+    {
+      "plik": "szukaj/catalog.json",
+      "sha256": "6e024d8543c42a2e9950a71f6a5f0950055401cb6f76e85a3b70dcc2b162db2f"
+    },
+    {
+      "plik": "data/cc-search-index.json",
+      "sha256": "6e024d8543c42a2e9950a71f6a5f0950055401cb6f76e85a3b70dcc2b162db2f"
+    },
+    {
+      "plik": "sitemaps/akademia.xml",
+      "sha256": "d318f342a5b3846dd2e20cdcb5b6187089910591ead35a46bff731d0d7b4b179"
+    },
+    {
+      "plik": "rozwazania_baza.json",
+      "sha256": "aefef6148c5dd40c9a1c30964ff0cb57f1908d58ff670c4189574a659e8e93c4"
+    }
+  ]
+}

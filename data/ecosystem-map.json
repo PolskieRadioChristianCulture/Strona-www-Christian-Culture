@@ -5,6 +5,16 @@
   "updatesLog": [
     {
       "date": "2026-11-21",
+      "topic": "Pakiet promocyjny 40 Dni Modlitwy (/40DM/ PL i EN): grafiki 16:9, 1:1, 9:16 oraz start komunikacji",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-21",
+      "topic": "Publikacja i aktywacja Kursu Codziennego Dzień 52 (Wj 22:1–31 — Prawo własności, zadośćuczynienia i świętości ludu Bożego) oraz rozważania dnia",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-21",
       "topic": "LUMI MESS — prostszy ekran rozmów i menu dodatkowych opcji",
       "agent": "G"
     },
@@ -1222,7 +1232,7 @@
       "lang": "pl",
       "icon": "📖",
       "category": "Biblia & Edukacja",
-      "verifiedDate": "2026-11-01",
+      "verifiedDate": "2026-11-21",
       "keywords": [
         "kurs codzienny",
         "z biblią za pan brat",
@@ -5647,7 +5657,8 @@
       ],
       "connections": [
         "bcm-modlitwa"
-      ]
+      ],
+      "verifiedDate": "2026-11-21"
     }
   ],
   "lastUpdated": "2026-11-20",
