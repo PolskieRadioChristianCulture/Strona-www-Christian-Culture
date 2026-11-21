@@ -3,7 +3,35 @@
 **Data:** 21 listopada 2026  
 **Wykonawca:** Antigravity (`@A001`)  
 **Docelowa usługa główna:** `548623550` (`Christian Culture`, strumień `15383676066`, `G-Y4EFTVBPE3`)  
-**Tryb:** `WYMAGA AKCEPTACJI / WYMAGA UPRAWNIEŃ ADMINISTRATORA GA4` (żadna nieodwracalna zmiana nie została uruchomiona bez zgody właściciela)
+**Status:** **`ZROBIONE I ZWERYFIKOWANE PRZEZ GOOGLE ANALYTICS ADMIN API (HTTP 200 OK — 21.11.2026)`**
+
+---
+
+## 0. POTWIERDZENIE WDROŻENIA W GOOGLE ANALYTICS ADMIN API (`properties/548623550`)
+
+Po zatwierdzeniu przez Właściciela wszystkie kluczowe zmiany administracyjne w usłudze `548623550` zostały wprowadzone i potwierdzone bezpośrednim odczytem z `analyticsadmin.googleapis.com`:
+
+1. **Retencja danych (`properties/548623550/dataRetentionSettings`) — `ZROBIONE`:**
+   - `eventDataRetention`: **`FOURTEEN_MONTHS`** (zmieniono z `TWO_MONTHS`),
+   - `userDataRetention`: **`FOURTEEN_MONTHS`**, `resetUserDataOnNewActivity`: **`true`**.
+2. **Google Signals (`properties/548623550/googleSignalsSettings`) — `ZROBIONE`:**
+   - `state`: **`GOOGLE_SIGNALS_DISABLED`** (wyłączono zbieranie danych reklamowych zgodnie z minimalizacją danych RODO).
+3. **Najważniejsze zdarzenia / Key Events (`properties/548623550/keyEvents`) — `ZROBIONE (6/6 utworzonych)`:**
+   - `radio_listen_300s` (`properties/548623550/keyEvents/16386885611`)
+   - `tv_watch_300s` (`properties/548623550/keyEvents/16386855059`)
+   - `bible_audio_complete` (`properties/548623550/keyEvents/16386860325`)
+   - `lesson_complete` (`properties/548623550/keyEvents/16386896463`)
+   - `support_form_submit` (`properties/548623550/keyEvents/16386870205`)
+   - `donation_complete` (`properties/548623550/keyEvents/16386913077`)
+4. **Wymiary niestandardowe / Custom Dimensions (`properties/548623550/customDimensions`) — `ZROBIONE (6/6 utworzonych, zakres: EVENT)`:**
+   - `Book Code` -> `book_code` (`customDimensions/16386904576`)
+   - `Chapter Number` -> `chapter_number` (`customDimensions/16386895594`)
+   - `Bible Translation` -> `translation` (`customDimensions/16386914941`)
+   - `Content Type` -> `content_type` (`customDimensions/16386892763`)
+   - `Player Type` -> `player_type` (`customDimensions/16386881635`)
+   - `Initiation Type` -> `initiation_type` (`customDimensions/16386923932`)
+5. **Naprawa błędnego parametru `utm_source=chatgpt.com)` — `ZROBIONE W KODZIE (_worker.js + js/cc-analytics.js)`:**
+   - Na poziomie Cloudflare Worker (`_worker.js` — przekierowanie `301`) oraz w skrypcie `js/cc-analytics.js` (`normalizeCampaignQueryInUrl()`) automatycznie usuwany jest doklejony nawias zamykający `)` z parametrów `utm_*` i dopisywane `utm_medium=ai-assistant`, dzięki czemu ruch z ChatGPT trafia do kanału `AI Assistant`, a nie `Unassigned`.
 
 ---
 

@@ -15,9 +15,9 @@ export const AUTHORIZED_ANALYTICS_ADMINS = new Set([
 ]);
 
 export const ANALYTICS_MC_SNAPSHOT = {
-  schemaVersion: '1.1.0',
-  auditTimestamp: '2026-11-21T10:02:00+01:00',
-  lastDataSync: '2026-11-21T10:05:00+01:00',
+  schemaVersion: '1.2.0',
+  auditTimestamp: '2026-11-21T10:55:00+01:00',
+  lastDataSync: '2026-11-21T10:56:00+01:00',
   mode: 'ZERO COST / TEST FIRST / APPROVAL REQUIRED',
   environment: 'https://polskieradio.cc/test/analityka',
   guardrails: {
@@ -42,10 +42,12 @@ export const ANALYTICS_MC_SNAPSHOT = {
       httpStatus: 200,
       hasData30d: true,
       adminAudit: {
-        eventDataRetention: 'TWO_MONTHS (wymaga zmiany na FOURTEEN_MONTHS)',
-        googleSignals: 'GOOGLE_SIGNALS_ENABLED (wymaga wyłączenia ze względu na brak Consent Mode v2 dla remarketingu)',
-        customDimensionsCount: 0,
-        keyEventsCount: 1
+        eventDataRetention: 'FOURTEEN_MONTHS (ZAKTUALIZOWANO I ZWERYFIKOWANO 21.11.2026)',
+        googleSignals: 'GOOGLE_SIGNALS_DISABLED (WYŁĄCZONO I ZWERYFIKOWANO 21.11.2026)',
+        customDimensionsCount: 6,
+        customDimensionsRegistered: ['book_code', 'chapter_number', 'translation', 'content_type', 'player_type', 'initiation_type'],
+        keyEventsCount: 7,
+        keyEventsRegistered: ['radio_listen_300s', 'tv_watch_300s', 'bible_audio_complete', 'lesson_complete', 'support_form_submit', 'donation_complete', 'purchase']
       },
       summary30d: {
         dateRange: '2026-10-22 – 2026-11-20',
@@ -756,8 +758,8 @@ export const ANALYTICS_MC_SNAPSHOT = {
       },
       {
         id: 'MD-04',
-        title: 'Zero zarejestrowanych zdarzeń kluczowych (Key Events = 0) w GA4',
-        details: 'Do 21.11.2026 w usłudze 548623550 nie oznaczono żadnego zdarzenia jako Key Event (Konwersji) oraz nie istniały zdarzenia progowe radio_listen_300s, tv_watch_300s, lesson_complete i bible_audio_complete.'
+        title: 'ROZWIĄZANE: Zarejestrowano 6 najważniejszych zdarzeń (Key Events) i 6 wymiarów niestandardowych w GA4 (548623550)',
+        details: 'W dniu 21.11.2026 w usłudze 548623550 utworzono i potwierdzono przez Google Analytics Admin API 6 zdarzeń kluczowych (radio_listen_300s, tv_watch_300s, bible_audio_complete, lesson_complete, support_form_submit, donation_complete), 6 wymiarów niestandardowych (book_code, chapter_number, translation, content_type, player_type, initiation_type), zwiększono retencję danych z 2 do 14 miesięcy (FOURTEEN_MONTHS) i wyłączono Google Signals (GOOGLE_SIGNALS_DISABLED).'
       }
     ],
     integrationErrors: [

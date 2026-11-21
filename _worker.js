@@ -2058,6 +2058,20 @@ export default {
       return Response.redirect(cleanLiveUrl.toString(), 301);
     }
 
+    // Oczyszczanie zniekształconego utm_source=chatgpt.com) z nawiasem zamykającym Markdown (Etap C2 — 79 sesji w Unassigned)
+    if (url.searchParams.has('utm_source')) {
+      const rawUtmSource = url.searchParams.get('utm_source') || '';
+      const cleanUtmSource = rawUtmSource.replace(/[)\]>.,;]+$/g, '').trim();
+      if (cleanUtmSource !== rawUtmSource) {
+        const cleanUtmUrl = new URL(request.url);
+        cleanUtmUrl.searchParams.set('utm_source', cleanUtmSource);
+        if (cleanUtmSource === 'chatgpt.com' && !cleanUtmUrl.searchParams.get('utm_medium')) {
+          cleanUtmUrl.searchParams.set('utm_medium', 'ai-assistant');
+        }
+        return Response.redirect(cleanUtmUrl.toString(), 301);
+      }
+    }
+
     if (decodedP === '/mojabiblia' || decodedP === '/mojabiblia.html') {
       let needsMojabibliaRedirect = decodedP === '/mojabiblia.html';
       const cleanMbUrl = new URL(request.url);

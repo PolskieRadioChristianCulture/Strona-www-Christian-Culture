@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-21",
+      "topic": "CC Analytics 1.0 & SEO — integracja żywego Google Search Console API, konfiguracja GA4 Admin (14 mies., 6 Key Events, 6 Custom Dimensions) oraz optymalizacja CTR /mojabiblia i /biblia-do-pobrania",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-21",
       "topic": "Adventist World P0 (/test/adventist-world/) — dodanie przycisku i modalu WspieramTO 2.0 w katalogu PL/EN oraz we wszystkich 98 (i przyszłych) wizytówkach instytucji",
       "agent": "A"
     },

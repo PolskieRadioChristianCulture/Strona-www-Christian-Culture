@@ -29,6 +29,38 @@
     'cc_analytics_consent'
   ];
 
+  // ── 0. SANITYZACJA BŁĘDNYCH PARAMETRÓW UTM (np. utm_source=chatgpt.com) Z LINKÓW MARKDOWN — ETAP C2) ──
+  function normalizeCampaignQueryInUrl() {
+    try {
+      if (typeof location === 'undefined' || !location.search || typeof history === 'undefined' || !history.replaceState) return false;
+      var u = new URL(location.href);
+      var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+      var changed = false;
+      for (var i = 0; i < utmKeys.length; i++) {
+        var k = utmKeys[i];
+        if (u.searchParams.has(k)) {
+          var rawVal = u.searchParams.get(k) || '';
+          var cleanVal = rawVal.replace(/[)\]>.,;]+$/g, '').trim();
+          if (cleanVal !== rawVal) {
+            u.searchParams.set(k, cleanVal);
+            changed = true;
+          }
+        }
+      }
+      // Jeśli utm_source to chatgpt.com (po oczyszczeniu), a brak utm_medium, ustawiamy ai-assistant, aby nie wpadało do Unassigned
+      if (u.searchParams.get('utm_source') === 'chatgpt.com' && !u.searchParams.get('utm_medium')) {
+        u.searchParams.set('utm_medium', 'ai-assistant');
+        changed = true;
+      }
+      if (changed) {
+        history.replaceState(null, '', u.pathname + u.search + u.hash);
+        return true;
+      }
+    } catch (_) {}
+    return false;
+  }
+  normalizeCampaignQueryInUrl();
+
   // ── 1. DETEKCJA ZGODY I RUCHU TECHNICZNEGO (STAGE A3 & C3) ──
   function getConsentState() {
     try {
