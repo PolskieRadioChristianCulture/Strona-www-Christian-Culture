@@ -589,6 +589,17 @@ export function buildAllDiscoverySignals() {
       }
     }
   }
+  for (const gLang of ['es', 'pt']) {
+    addEnFile(`Global/${gLang}/index.html`, `/Global/${gLang}/`, '0.90');
+    const langArtDir = path.join(ROOT, 'Global', 'articles', gLang);
+    if (fs.existsSync(langArtDir)) {
+      for (const f of fs.readdirSync(langArtDir).sort()) {
+        if (fs.existsSync(path.join(langArtDir, f, 'index.html'))) {
+          addEnFile(`Global/articles/${gLang}/${f}/index.html`, `/Global/articles/${gLang}/${f}/`, '0.80');
+        }
+      }
+    }
+  }
   addEnFile('40DM/en/index.html', '/40DM/en/', '0.85', [
     { hreflang: 'en', href: `${PRIMARY_ORIGIN}/40DM/en/` },
     { hreflang: 'pl', href: `${PRIMARY_ORIGIN}/40DM/` },
