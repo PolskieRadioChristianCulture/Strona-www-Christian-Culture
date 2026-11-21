@@ -410,11 +410,20 @@
       "portal_docelowy": "eM — Motywacja Christian Culture",
       "priorytet": "B",
       "start_przygotowania": "2026-11-14",
-      "status": "Planowany / do opracowania",
+      "status": "Opracowany / Czeka na autoryzację L0",
       "zrodlo_pomyslu": "Nowa propozycja redakcyjna",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "egzegeza i praktyczne zastosowanie; nie wymyślać biografii autora",
-      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk."
+      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk.",
+      "bramka_bezpieczenstwa": "T4 (DO AUTORYZACJI CZŁOWIEKA - L0)",
+      "autor": "Cezary Rogowski",
+      "slug": "kiedy-dobroczynnosc-staje-sie-autopromocja",
+      "pakiet_zip": "C:\\\\Users\\\\czark\\\\Desktop\\\\EkoCC_em_kiedy-dobroczynnosc-staje-sie-autopromocja_2026-11-22.zip",
+      "pakiet_docx": "C:\\\\Users\\\\czark\\\\Desktop\\\\EkoCC_em_kiedy-dobroczynnosc-staje-sie-autopromocja_2026-11-22.docx",
+      "grafika_16_9": "images/em/art-kiedy-dobroczynnosc-staje-sie-autopromocja.jpg",
+      "data_opracowania": "2026-11-21T14:07:00+01:00",
+      "url_kanoniczny_szkic": "https://polskieradio.cc/news/kiedy-dobroczynnosc-staje-sie-autopromocja",
+      "uwagi_redakcyjne": "Pakiet przygotowany dla działu eM (propozycja kanoniczna URL po zatwierdzeniu L0: /news/kiedy-dobroczynnosc-staje-sie-autopromocja). Zweryfikowane źródła: Bénabou & Tirole (2006, AER, DOI: 10.1257/aer.96.5.1652), Ariely, Bracha & Meier (2009, AER, DOI: 10.1257/aer.99.1.544), Kristofferson, White & Peloza (2014, JCR, DOI: 10.1086/674137) oraz egzegeza UBG (Mt 6:1-4, 5-6, 16-18; Mt 5:16; Łk 21:1-4; Dz 5:1-4; 2 Kor 9:6-8; Ef 2:8-10; 1 J 3:17-18)."
     },
     {
       "lp": 20,
