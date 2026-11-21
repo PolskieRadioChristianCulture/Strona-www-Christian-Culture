@@ -473,11 +473,17 @@
     "id": "genesis-32",
     "book": "genesis",
     "chapter": 32,
-    "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "description": "Spotkanie z aniołami Boga w Machanaim, pokorna modlitwa Jakuba przed spotkaniem z Ezawem, nocna walka z Bogiem nad brodem Jabboku, nadanie nowego imienia Izrael oraz błogosławieństwo w Penuel.",
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_32_1-32_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 32,1–32 (UBG) — Walka Jakuba z Bogiem w Penuel i Nowe Imię Izrael",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_32_1-32_Biblia_Audio_CC.mp3",
+        "verses": "1–32"
+      }
+    ]
   },
   {
     "id": "genesis-33",
