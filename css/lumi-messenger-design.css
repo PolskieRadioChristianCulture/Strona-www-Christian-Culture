@@ -194,6 +194,29 @@ html body #lumiLanding .lumi-new-conversation:active { background: #e66a00; }
 html body #lumiLanding .lumi-new-conversation svg { width: 24px; height: 24px; }
 
 @media (max-width: 640px) {
+  html.lumi-mess-page:not(.cc-mess-embedded) {
+    --lumi-dock-inset: max(12px, env(safe-area-inset-bottom));
+    --lumi-pen-bottom: calc(var(--lumi-dock-inset) + 90px);
+  }
+
+  html body.lumi-standalone #lumiLanding.lumi-dashboard {
+    padding-bottom: calc(var(--lumi-pen-bottom, 102px) + 60px);
+  }
+
+  html body #lumiLanding .lumi-new-conversation {
+    position: fixed;
+    right: max(20px, env(safe-area-inset-right));
+    bottom: var(--lumi-pen-bottom, 102px);
+  }
+
+  html.lumi-mess-page:not(.cc-mess-embedded) body.lumi-standalone > #lumina-cookie-banner {
+    bottom: calc(var(--lumi-pen-bottom) + 60px) !important;
+    right: 16px !important;
+    left: 16px;
+    max-height: 42dvh;
+    overflow: auto;
+  }
+
   #lumiLanding #lumiMorePanel .lumi-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   #lumiMorePanel .lumi-community-hero { padding-inline: 14px; }
 }

@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-21",
+      "topic": "LUMI MESS — przycisk nowej rozmowy pod kciukiem",
+      "agent": "G"
+    },
+    {
+      "date": "2026-11-21",
       "topic": "MojaBiblia — usunięcie duplikatu pływającego przycisku Zgłoś Problem z lewego dolnego rogu i poprawa ergonomii mobilnej 44px",
       "agent": "A"
     },
