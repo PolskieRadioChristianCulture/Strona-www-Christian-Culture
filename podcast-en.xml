@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:podcast="https://podcastindex.org/namespace/1.0"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Christian Culture Global • Bible Audio, Worship &amp; Prayer Sounds</title>
+    <link>https://polskieradio.cc/Global/</link>
+    <description>Official English-language &amp; instrumental podcast feed of Christian Culture Global. Experience sung Scripture (Proverbs in Music), peaceful prayer soundscapes, and faith-building audio from polskieradio.cc/Global.</description>
+    <language>en</language>
+    <copyright>© 2026 Christian Culture. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 21 Nov 2026 09:48:00 GMT</lastBuildDate>
+    <itunes:author>Christian Culture Global</itunes:author>
+    <itunes:summary>Official English-language &amp; instrumental podcast feed of Christian Culture Global — sung Scripture, prayer soundscapes, and uplifting Christian audio.</itunes:summary>
+    <itunes:type>episodic</itunes:type>
+    <itunes:owner>
+      <itunes:name>Christian Culture</itunes:name>
+      <itunes:email>kontakt@polskieradio.cc</itunes:email>
+    </itunes:owner>
+    <itunes:image href="https://polskieradio.cc/Logo_Biblia_Spiewana.jpg"/>
+    <itunes:category text="Religion &amp; Spirituality">
+      <itunes:category text="Christianity"/>
+    </itunes:category>
+    <itunes:category text="Music"/>
+    <itunes:explicit>false</itunes:explicit>
+    <atom:link href="https://polskieradio.cc/podcast-en.xml" rel="self" type="application/rss+xml"/>
+    <generator>Christian Culture Global Podcast Engine 1.0</generator>
+    <item>
+      <title>Proverbs Chapter 1 in Sacred Song — Wisdom &amp; Reverence | Christian Culture</title>
+      <itunes:title>Proverbs Chapter 1 in Sacred Song</itunes:title>
+      <itunes:episode>1</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:author>Christian Culture Music</itunes:author>
+      <description><![CDATA[Musical setting of Proverbs Chapter 1 by Christian Culture Music. Listen to 24/7 Christian Music & Bible Radio at https://polskieradio.cc/Global/]]></description>
+      <enclosure url="https://polskieradio.cc/audio/biblia_spiewana/%C5%9Apiewane%20Przypowie%C5%9Bci%20Salomona%201.mp3" length="5200000" type="audio/mpeg"/>
+      <guid isPermaLink="false">cc-global-proverbs-01</guid>
+      <pubDate>Sat, 21 Nov 2026 09:00:00 GMT</pubDate>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://polskieradio.cc/Logo_Biblia_Spiewana.jpg"/>
+    </item>
+    <item>
+      <title>Peaceful Prayer Ambience — Gentle Rain for Scripture Meditation | Spiritual Sounds</title>
+      <itunes:title>Peaceful Prayer Ambience — Gentle Rain</itunes:title>
+      <itunes:episode>2</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:author>Spiritual Sounds CC</itunes:author>
+      <description><![CDATA[Calm, distraction-free prayer soundscape designed for quiet Bible reading and daily devotion. Explore more at https://polskieradio.cc/SpiritualSounds/en/]]></description>
+      <enclosure url="https://polskieradio.cc/audio/rain.mp3" length="3000000" type="audio/mpeg"/>
+      <guid isPermaLink="false">cc-global-prayer-rain</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://polskieradio.cc/Logo_Biblia_Spiewana.jpg"/>
+    </item>
+    <item>
+      <title>Warm Fireplace Stillness — Evening Devotion &amp; Psalm Reflection | Spiritual Sounds</title>
+      <itunes:title>Warm Fireplace Stillness — Evening Devotion</itunes:title>
+      <itunes:episode>3</itunes:episode>
+      <itunes:season>1</itunes:season>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:author>Spiritual Sounds CC</itunes:author>
+      <description><![CDATA[Warm ambient soundscape for evening prayer and 40 Days of Prayer reflection. Join at https://polskieradio.cc/40DM/en/]]></description>
+      <enclosure url="https://polskieradio.cc/audio/fireplace.mp3" length="3000000" type="audio/mpeg"/>
+      <guid isPermaLink="false">cc-global-prayer-fireplace</guid>
+      <pubDate>Thu, 19 Nov 2026 09:00:00 GMT</pubDate>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:image href="https://polskieradio.cc/Logo_Biblia_Spiewana.jpg"/>
+    </item>
+  </channel>
+</rss>

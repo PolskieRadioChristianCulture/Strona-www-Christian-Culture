@@ -1,0 +1,90 @@
+{
+  "version": "1.0",
+  "language": "en",
+  "items": [
+    {
+      "id": "global-hub",
+      "title": "Christian Culture Global — 24/7 Christian Music & Bible Radio",
+      "url": "https://polskieradio.cc/Global/",
+      "cta": "Listen free 24/7 — no ads, no paywalls",
+      "hashtags": ["#ChristianRadio", "#WorshipMusic", "#BibleRadio", "#ChristianCulture"]
+    },
+    {
+      "id": "40dm-en",
+      "title": "40 Days of Prayer — Daily Christian Prayer Journey",
+      "url": "https://polskieradio.cc/40DM/en/",
+      "cta": "Join the free 40-day prayer plan & community room",
+      "hashtags": ["#40DaysOfPrayer", "#ChristianPrayer", "#BibleStudy", "#Faith"]
+    },
+    {
+      "id": "apps-en",
+      "title": "Christian Culture Free Apps — Radio, Bible, Prayer & Community",
+      "url": "https://polskieradio.cc/aplikacje/en/",
+      "cta": "Explore all free Christian apps in one place",
+      "hashtags": ["#ChristianApps", "#BibleApp", "#Worship", "#ChristianCulture"]
+    },
+    {
+      "id": "ark-of-fire-en",
+      "title": "Ark of Fire — It Is Finished (Worship Showcase)",
+      "url": "https://polskieradio.cc/ArkOfFire/en/",
+      "cta": "Watch & listen to Ark of Fire worship music",
+      "hashtags": ["#ArkOfFire", "#Worship", "#ChristianMusic", "#Gospel"]
+    },
+    {
+      "id": "welch-en",
+      "title": "Gerald Welch — THE CALL (Christian Rock & Testimony)",
+      "url": "https://polskieradio.cc/Welch/en/",
+      "cta": "Discover the music and spiritual call of Gerald Welch",
+      "hashtags": ["#GeraldWelch", "#TheCall", "#ChristianRock", "#Testimony"]
+    },
+    {
+      "id": "spiritual-sounds-en",
+      "title": "Spiritual Sounds — Instrumental Prayer & Bible Ambience",
+      "url": "https://polskieradio.cc/SpiritualSounds/en/",
+      "cta": "Find peace in instrumental worship and Scripture",
+      "hashtags": ["#InstrumentalWorship", "#PrayerMusic", "#PeaceInChrist"]
+    },
+    {
+      "id": "article-jesus-history",
+      "title": "Did Jesus Really Exist? Historical Evidence Outside the Bible",
+      "url": "https://polskieradio.cc/Global/articles/did-jesus-really-exist-historical-evidence/",
+      "cta": "Read the historical case for Jesus of Nazareth",
+      "hashtags": ["#Apologetics", "#HistoricalJesus", "#BibleHistory", "#Christianity"]
+    },
+    {
+      "id": "article-jesus-god",
+      "title": "Is Jesus Really God? Clear Biblical Evidence",
+      "url": "https://polskieradio.cc/Global/articles/is-jesus-really-god-biblical-proofs/",
+      "cta": "Explore what Scripture teaches about Christ's divinity",
+      "hashtags": ["#BiblicalTruth", "#Apologetics", "#JesusChrist", "#Gospel"]
+    },
+    {
+      "id": "article-manuscripts",
+      "title": "5,800+ New Testament Manuscripts — Why the Bible Is Historically Reliable",
+      "url": "https://polskieradio.cc/Global/articles/5800-new-testament-manuscripts-reliability/",
+      "cta": "See how manuscript evidence confirms the New Testament",
+      "hashtags": ["#BibleReliability", "#Manuscripts", "#NewTestament", "#Apologetics"]
+    },
+    {
+      "id": "article-luther-95",
+      "title": "Martin Luther's 95 Theses (Wittenberg 1517) — Return to Scripture Alone",
+      "url": "https://polskieradio.cc/Global/articles/95-theses-martin-luther-wittenberg-1517/",
+      "cta": "Discover why Sola Scriptura still matters today",
+      "hashtags": ["#Reformation", "#SolaScriptura", "#ChurchHistory", "#GraceAlone"]
+    },
+    {
+      "id": "article-cbdc-rev13",
+      "title": "Digital Currency, Sunday Law & Revelation 13 — A Biblical Perspective",
+      "url": "https://polskieradio.cc/Global/articles/cbdc-sunday-law-and-revelation-13/",
+      "cta": "Read the prophetic & economic analysis",
+      "hashtags": ["#BibleProphecy", "#Revelation13", "#EndTimes", "#ChristianCulture"]
+    },
+    {
+      "id": "wspieramto-en",
+      "title": "Support the Mission — Keep Free Bible & Christian Radio Running Worldwide",
+      "url": "https://polskieradio.cc/pomogebomoge/en",
+      "cta": "Learn how to stand with Christian Culture",
+      "hashtags": ["#ChristianMission", "#SupportTheGospel", "#ChristianCulture"]
+    }
+  ]
+}
