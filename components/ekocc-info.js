@@ -777,8 +777,13 @@
         }
       }
 
-      const baseBottom = headerRect ? headerRect.bottom : (plusRect ? plusRect.bottom : (clientW <= 640 ? 60 : 70));
-      const topOffset = Math.max(48, Math.min(168, Math.round(baseBottom + 10)));
+      let baseBottom = headerRect ? headerRect.bottom : (plusRect ? plusRect.bottom : (clientW <= 640 ? 60 : 70));
+      const subToolbar = document.querySelector('.mb-toolbar, .sub-header, .secondary-toolbar');
+      const subToolbarRect = this.isElementVisibleBox(subToolbar);
+      if (subToolbarRect && subToolbarRect.top <= baseBottom + 16 && subToolbarRect.bottom <= 220) {
+        baseBottom = Math.max(baseBottom, subToolbarRect.bottom);
+      }
+      const topOffset = Math.max(48, Math.min(220, Math.round(baseBottom + 10)));
 
       if (plusRect && plusRect.width > 0) {
         // Obliczenie osi pionowej (center X) przycisku plus na górnej belce

@@ -2143,10 +2143,9 @@
       }
     }
 
-    /* Pozycjonowanie pływającego przycisku ⓘ poniżej paska narzędzi (.mb-toolbar), bez kolizji z A+ */
+    /* Przycisk ⓘ znajduje się w głównej górnej belce (.mb-header-actions), pływający duplikat ukryty */
     #ekoccInfoTriggerBtn.ekocc-info-trigger {
-      top: 142px !important;
-      right: 20px !important;
+      display: none !important;
     }
 
     /* Karta misyjna Biblia Audio */
@@ -2997,6 +2996,9 @@
       <a href="lumina" class="mb-nav-link-btn" title="Portal LUMINA">
         <i class="fa-solid fa-wand-magic-sparkles" style="color:#c084fc;"></i>
       </a>
+      <button type="button" class="mb-nav-link-btn" data-ekocc-info-trigger="true" title="Informacje o projekcie MojaBiblia" aria-label="Informacje o tej stronie">
+        <i class="fa-solid fa-circle-info" style="color:var(--gold-bright);"></i>
+      </button>
       <div class="cc-auth-widget-container" data-cc-auth-mount="true"></div>
       <button class="mb-report-btn header-report" id="mbHeaderReportBtn" onclick="window.mbApp.openReportProblemModal()" title="Zgłoś Problem / Kontakt z misją Biblia Audio CC">
         <i class="fa-solid fa-triangle-exclamation"></i>
@@ -3034,14 +3036,14 @@
     <!-- Przełącznik trybów i narzędzia czytania -->
     <div class="mb-nav-secondary-row">
       <div class="mb-modes-bar">
-        <button class="mb-mode-btn active" data-mode="interlinear" onclick="window.mbApp.setMode('interlinear')">
+        <button class="mb-mode-btn active" data-mode="reader" onclick="window.mbApp.setMode('reader')">
+          <i class="fa-solid fa-book-open"></i> <span>Czytnik</span>
+        </button>
+        <button class="mb-mode-btn" data-mode="interlinear" onclick="window.mbApp.setMode('interlinear')">
           <i class="fa-solid fa-microscope"></i> <span>Interlinia</span>
         </button>
         <button class="mb-mode-btn" data-mode="parallel" onclick="window.mbApp.setMode('parallel')">
           <i class="fa-solid fa-table-columns"></i> <span>Porównanie</span>
-        </button>
-        <button class="mb-mode-btn" data-mode="reader" onclick="window.mbApp.setMode('reader')">
-          <i class="fa-solid fa-book-open"></i> <span>Czytnik</span>
         </button>
       </div>
 
@@ -3209,9 +3211,9 @@
 
   <!-- Silnik Lumina Share & MojaBiblia -->
   <script defer src="js/lumina-share.js"></script>
-  <script defer src="mojabiblia-engine.js?v=2.4.0_20261013_cachebust"></script>
+  <script defer src="mojabiblia-engine.js?v=2.5.0_20261121_reader_default"></script>
 <!-- EkoCC INFO ⓘ Standard Strategiczny -->
-<script defer src="/components/ekocc-info.js?v=20261020_1"></script>
+<script defer src="/components/ekocc-info.js?v=20261121_toolbar_safe"></script>
   <script defer src="/js/cc-mobile-edge.js?v=20261030_edge10"></script>
 </body>
 </html>

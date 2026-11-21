@@ -86,9 +86,9 @@
       this.currentVerseEnd = null;
       this.fromSource = null;
       this.returnSlug = null;
-      this.currentMode = 'interlinear'; // 'interlinear' | 'parallel' | 'reader'
+      this.currentMode = 'reader'; // 'reader' | 'interlinear' | 'parallel'
       this.activeTranslations = ['UBG', 'BW', 'BT', 'BG'];
-      this.reverseInterlinear = true;
+      this.reverseInterlinear = false;
       this.currentChapterData = null;
       this.fontSizeDelta = 0;
       this.bookmarks = [];
@@ -122,9 +122,13 @@
 
     loadLocalPreferences() {
       try {
-        const savedMode = localStorage.getItem('mb_mode');
-        if (savedMode) this.currentMode = savedMode;
-        const savedRev = localStorage.getItem('mb_reverse_interlinear');
+        localStorage.removeItem('mb_mode');
+        const savedMode = localStorage.getItem('mb_mode_v2');
+        if (savedMode && ['reader', 'interlinear', 'parallel'].includes(savedMode)) {
+          this.currentMode = savedMode;
+        }
+        localStorage.removeItem('mb_reverse_interlinear');
+        const savedRev = localStorage.getItem('mb_reverse_interlinear_v2');
         if (savedRev !== null) this.reverseInterlinear = savedRev === 'true';
         const savedTrans = localStorage.getItem('mb_active_trans');
         if (savedTrans) this.activeTranslations = JSON.parse(savedTrans);
@@ -141,8 +145,8 @@
 
     savePreferences() {
       try {
-        localStorage.setItem('mb_mode', this.currentMode);
-        localStorage.setItem('mb_reverse_interlinear', this.reverseInterlinear ? 'true' : 'false');
+        localStorage.setItem('mb_mode_v2', this.currentMode);
+        localStorage.setItem('mb_reverse_interlinear_v2', this.reverseInterlinear ? 'true' : 'false');
         localStorage.setItem('mb_active_trans', JSON.stringify(this.activeTranslations));
         localStorage.setItem('mb_bookmarks', JSON.stringify(this.bookmarks));
         localStorage.setItem('mb_notes', JSON.stringify(this.notes));
@@ -199,7 +203,16 @@
         if (slugParam) this.returnSlug = slugParam;
 
         if (modeParam && ['interlinear', 'parallel', 'reader'].includes(modeParam)) {
-          this.currentMode = modeParam;
+          // Jednorazowa migracja ze starego domyślnego URL-a (?book=JHN&ch=1&chapter=1&mode=interlinear) na domyślny Czytnik
+          const isLegacyAutoUrl = modeParam === 'interlinear' && urlParams.has('ch') && urlParams.has('chapter') && !localStorage.getItem('mb_reader_default_migrated_v1');
+          if (isLegacyAutoUrl) {
+            try { localStorage.setItem('mb_reader_default_migrated_v1', '1'); } catch (_) {}
+            this.currentMode = 'reader';
+          } else {
+            this.currentMode = modeParam;
+          }
+        } else {
+          try { localStorage.setItem('mb_reader_default_migrated_v1', '1'); } catch (_) {}
         }
 
         if (qParam) {

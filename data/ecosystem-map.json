@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-21",
+      "topic": "MojaBiblia — Czytnik jako pierwszy domyślny tryb czytania Biblii oraz integracja przycisku informacji w górnej belce bez kolizji",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-21",
       "topic": "Werset Dnia i globalna autoryzacja — ograniczenie przycisku logowania/profilu do okrągłego avatara na górnej belce mobilnej",
       "agent": "A"
     },
