@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-21T07:33:30.693Z",
-  "totalItems": 670,
+  "updatedAt": "2026-11-21T08:46:40.510Z",
+  "totalItems": 672,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1125,6 +1125,57 @@
         "rozważanie na dziś",
         "wieczorne inspiracje cclite",
         "cclite"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Aplikacje Christian Culture — Android (Google Play) i Web/PWA",
+      "category": "Aplikacje i narzędzia",
+      "url": "https://polskieradio.cc/aplikacje/",
+      "description": "Oficjalne centrum 14 bezpłatnych aplikacji Christian Culture bez reklam: aplikacja Android w Google Play (pl.cclite.app), CC Lite PWA (cclite.pl), Dobrze, że jesteś, LUMINA, LUMI Messenger, Player PolskieRadio.cc, MojaBiblia Interlinearna, Biblia Audio, Akademia Biblijna, 40 Dni Modlitwy, Kino VOD, Werset Dnia, HOLOS i GPT Dla Jezusa.",
+      "tags": [
+        "aplikacje",
+        "aplikacja",
+        "apps",
+        "android",
+        "google play",
+        "pwa",
+        "iphone",
+        "ios",
+        "pobierz",
+        "instalacja",
+        "cclite",
+        "pl.cclite.app",
+        "dobrze ze jestes",
+        "lumina",
+        "lumi mess",
+        "mojabiblia",
+        "40dm",
+        "holos",
+        "narzedzia"
+      ],
+      "featured": true
+    },
+    {
+      "title": "Christian Culture Apps — Android (Google Play) & Web/PWA Hub (EN)",
+      "category": "Aplikacje i narzędzia",
+      "url": "https://polskieradio.cc/aplikacje/en/",
+      "description": "Official directory of 14 free, ad-free Christian Culture apps across Android (Google Play), iOS and Web PWA: Radio 24/7, Good That You Are Here daily reflections, LUMINA, MojaBiblia Interlinear, 40 Days of Prayer, VOD and HOLOS.",
+      "tags": [
+        "apps",
+        "android",
+        "google play",
+        "pwa",
+        "iphone",
+        "ios",
+        "download",
+        "install",
+        "aplikacje",
+        "christian culture",
+        "cclite",
+        "lumina",
+        "bible",
+        "prayer"
       ],
       "featured": true
     },

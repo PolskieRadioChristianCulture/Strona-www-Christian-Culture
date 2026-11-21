@@ -25,21 +25,6 @@
     setTimeout(function () { heroEl.classList.add('is-ready'); }, 3000);
   }
 
-  // ---------- Pasek podglądu testowego ----------
-  var testBar = $('testBar');
-  var testClose = $('testDismiss');
-  try {
-    if (testBar && sessionStorage.getItem('cc_apps_testbar_hidden') === '1') {
-      testBar.hidden = true;
-    }
-  } catch (e) {}
-  if (testBar && testClose) {
-    testClose.addEventListener('click', function () {
-      testBar.hidden = true;
-      try { sessionStorage.setItem('cc_apps_testbar_hidden', '1'); } catch (e) {}
-    });
-  }
-
   // ---------- Nawigacja + Szuflada mobilna ----------
   var nav = $('nav');
   var burger = $('menuToggle');

@@ -46,8 +46,6 @@ export function isPublicFile(relativePath) {
   if (file.startsWith('test/wizytowki/') || file.startsWith('test/wizytowka/')) return true;
   // Spiritual Sounds × CC — wersja testowa (noindex) do akceptacji L0 (@007 2026-11-18).
   if (file.startsWith('test/spiritual-sounds/')) return true;
-  // Aplikacje Christian Culture (Android & Web/PWA) — wersja testowa (noindex) do akceptacji L0 (2026-11-21).
-  if (file.startsWith('test/aplikacje/')) return true;
   if (file === 'test/cc-youtube-boost/index.html' || file === 'test/cc-youtube-boost/data.json') return true;
   if (segments.some((segment) => BLOCKED_DIRECTORIES.has(segment))) return false;
   if (BLOCKED_FILES.has(lower) || BLOCKED_FILES.has(path.posix.basename(lower))) return false;

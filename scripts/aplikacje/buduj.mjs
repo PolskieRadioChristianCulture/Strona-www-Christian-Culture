@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /*
- * Jedno źródło prawdy dla Centrum Aplikacji Christian Culture (/test/aplikacje/ oraz EN).
+ * Jedno źródło prawdy dla Centrum Aplikacji Christian Culture (/aplikacje/ PL oraz /aplikacje/en/ EN).
  * Generuje deterministycznie:
- *   - test/aplikacje/index.html (PL, noindex,nofollow)
- *   - test/aplikacje/en/index.html (EN, noindex,nofollow)
+ *   - aplikacje/index.html (PL, index,follow)
+ *   - aplikacje/en/index.html (EN, index,follow)
  * Zasady pancerne:
  *   - Tylko publiczne usługi Christian Culture (bez prywatnego panelu dowodzenia)
  *   - Zero martwych linków Google Play 404 (pl.cclite.app + oficjalny profil dev?id=5215448773598149938)
@@ -14,7 +14,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const ASSETS_V = '20261121_2';
+const ASSETS_V = '20261121_prod1';
 
 export const PLAY_APP_PL = 'https://play.google.com/store/apps/details?id=pl.cclite.app&hl=pl';
 export const PLAY_APP_EN = 'https://play.google.com/store/apps/details?id=pl.cclite.app&hl=en';
@@ -316,12 +316,9 @@ const T = {
     ogDesc: 'Jedno miejsce dla wszystkich aplikacji misji Christian Culture na Androida, iPhone i przeglądarkę. 100% bezpłatnie i bez reklam.',
     ogImageAlt: 'Aplikacje Christian Culture na Androida i Web/PWA — Christian Culture, CC Lite, LUMINA, Biblia Audio, HOLOS',
     canonical: 'https://polskieradio.cc/aplikacje/',
-    urlSelf: '/test/aplikacje/',
-    urlPl: '/test/aplikacje/',
-    urlEn: '/test/aplikacje/en/',
-    testBadge: 'Podgląd testowy',
-    testText: 'Projekt dedykowanego Centrum Aplikacji CC (/test/aplikacje/) — bez indeksowania przed akceptacją.',
-    testDismissAria: 'Ukryj pasek podglądu',
+    urlSelf: '/aplikacje/',
+    urlPl: '/aplikacje/',
+    urlEn: '/aplikacje/en/',
     skip: 'Przejdź do treści',
     tickBadge: 'Ekosystem 24/7',
     tickLabel: 'Pasek aktualności Christian Culture',
@@ -462,12 +459,9 @@ const T = {
     ogDesc: 'One place for all Christian Culture faith, Bible study, 24/7 radio and community apps on Android, iOS and Web. Free & ad-free.',
     ogImageAlt: 'Christian Culture Apps on Android & Web/PWA — Christian Culture, CC Lite, LUMINA, Biblia Audio, HOLOS',
     canonical: 'https://polskieradio.cc/aplikacje/en/',
-    urlSelf: '/test/aplikacje/en/',
-    urlPl: '/test/aplikacje/',
-    urlEn: '/test/aplikacje/en/',
-    testBadge: 'Test preview',
-    testText: 'Preview build of the Christian Culture Apps Hub (/test/aplikacje/en/) — noindex until approval.',
-    testDismissAria: 'Hide preview notice',
+    urlSelf: '/aplikacje/en/',
+    urlPl: '/aplikacje/',
+    urlEn: '/aplikacje/en/',
     skip: 'Skip to content',
     tickBadge: 'Ecosystem 24/7',
     tickLabel: 'Christian Culture live ticker',
@@ -684,7 +678,7 @@ function renderPage(lang) {
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
+<meta name="robots" content="index,follow">
 <meta name="theme-color" content="#04070f">
 <title>${esc(c.title)}</title>
 <meta name="description" content="${esc(c.desc)}">
@@ -699,21 +693,21 @@ function renderPage(lang) {
 <meta property="og:title" content="${esc(c.ogTitle)}">
 <meta property="og:description" content="${esc(c.ogDesc)}">
 <meta property="og:url" content="https://polskieradio.cc${c.urlSelf}">
-<meta property="og:image" content="https://polskieradio.cc/test/aplikacje/img/og-aplikacje-1200x630.jpg">
+<meta property="og:image" content="https://polskieradio.cc/aplikacje/img/og-aplikacje-1200x630.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="${esc(c.ogImageAlt)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(c.ogTitle)}">
 <meta name="twitter:description" content="${esc(c.ogDesc)}">
-<meta name="twitter:image" content="https://polskieradio.cc/test/aplikacje/img/og-aplikacje-1200x630.jpg">
+<meta name="twitter:image" content="https://polskieradio.cc/aplikacje/img/og-aplikacje-1200x630.jpg">
 <link rel="icon" type="image/png" href="/app-christian-culture.png">
 <link rel="apple-touch-icon" href="/app-christian-culture.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;600;700;800&display=swap">
 <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
-<link rel="stylesheet" href="/test/aplikacje/ap.css?v=${ASSETS_V}">
+<link rel="stylesheet" href="/aplikacje/ap.css?v=${ASSETS_V}">
 <script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
 <script src="/js/cc-favorites.js?v=20261114_favz1" defer></script>
 <script src="/js/cc-mobile-edge.js?v=20261110_edge12" defer></script>
@@ -722,23 +716,13 @@ function renderPage(lang) {
 <script src="/components/cc-global-chat-button.js?v=20261119_gold2" defer></script>
 <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
 <script src="/components/cc-support-footer.js?v=20261116_a007_column" defer></script>
-<script src="/test/aplikacje/ap-eco.js?v=${ASSETS_V}" defer></script>
-<script src="/test/aplikacje/ap.js?v=${ASSETS_V}" defer></script>
+<script src="/aplikacje/ap-eco.js?v=${ASSETS_V}" defer></script>
+<script src="/aplikacje/ap.js?v=${ASSETS_V}" defer></script>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <script type="application/json" id="deviceScreensData">${JSON.stringify(c.stageTabs)}</script>
 </head>
 <body data-lang="${lang}">
 <a class="skip" href="#tresc">${esc(c.skip)}</a>
-
-<div class="testbar" id="testBar" role="region" aria-label="${esc(c.testBadge)}">
-  <div class="wrap testbar__in">
-    <div class="testbar__txt">
-      <span class="testbar__pill">${esc(c.testBadge)}</span>
-      <span>${esc(c.testText)}</span>
-    </div>
-    <button type="button" class="testbar__close" id="testDismiss" aria-label="${esc(c.testDismissAria)}">&times;</button>
-  </div>
-</div>
 
 <div class="tick" role="region" aria-label="${esc(c.tickLabel)}">
   <span class="tick__badge"><i aria-hidden="true"></i>${esc(c.tickBadge)}</span>
@@ -1025,14 +1009,14 @@ export function buildAll(writeFiles = true) {
   const plHtml = renderPage('pl');
   const enHtml = renderPage('en');
   if (writeFiles) {
-    fs.mkdirSync(path.join(ROOT, 'test/aplikacje/en'), { recursive: true });
-    fs.writeFileSync(path.join(ROOT, 'test/aplikacje/index.html'), plHtml, 'utf8');
-    fs.writeFileSync(path.join(ROOT, 'test/aplikacje/en/index.html'), enHtml, 'utf8');
+    fs.mkdirSync(path.join(ROOT, 'aplikacje/en'), { recursive: true });
+    fs.writeFileSync(path.join(ROOT, 'aplikacje/index.html'), plHtml, 'utf8');
+    fs.writeFileSync(path.join(ROOT, 'aplikacje/en/index.html'), enHtml, 'utf8');
   }
   return { plHtml, enHtml };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   buildAll(true);
-  console.log('Generated test/aplikacje/index.html and test/aplikacje/en/index.html');
+  console.log('Generated aplikacje/index.html and aplikacje/en/index.html');
 }
