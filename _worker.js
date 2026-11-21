@@ -11,6 +11,7 @@ import { handleArkContestApiRequest } from './services/cc-ark-contest/contest-se
 import { handleSpiritualSoundsFeed, handleSpiritualSoundsPlaylist } from './services/spiritual-sounds/feed-service.js';
 import { handleLumiChatApi } from './services/lumi-chat/lumi-chat-service.js';
 import { handlePrayerCounter } from './services/prayer-40dm/counter-service.js';
+import { handleAnalyticsMissionControlApi } from './services/cc-analytics-mc/analytics-mc-service.js';
 
 const BLOCKED_PREFIXES = [
   '/.git/', '/.codex/', '/.cursor/', '/.claude/', '/repozytoria-cc/', '/joma_shared_memory/',
@@ -1932,6 +1933,26 @@ export default {
     }
     if (url.pathname.startsWith('/api/mission-calendar') || url.pathname.startsWith('/api/calendar')) {
       return handleMissionCalendarApi(request, env, ctx, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
+    }
+    if (url.pathname.startsWith('/api/analytics-mc')) {
+      return handleAnalyticsMissionControlApi(request, env, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
+    }
+    if (url.pathname === '/test/analityka' || url.pathname === '/test/analityka/' || url.pathname === '/test/analityka/index.html') {
+      const targetUrl = new URL(request.url);
+      targetUrl.pathname = '/test/analityka/index.html';
+      targetUrl.search = '';
+      const assetResp = await env.ASSETS.fetch(new Request(targetUrl.toString(), { method: 'GET', headers: { Accept: 'text/html' } }));
+      const body = await assetResp.arrayBuffer();
+      return new Response(body, {
+        status: assetResp.status === 404 ? 404 : 200,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'private, no-store, no-cache, must-revalidate',
+          'X-Robots-Tag': 'noindex, nofollow, noarchive',
+          'X-Content-Type-Options': 'nosniff',
+          'Referrer-Policy': 'no-referrer'
+        }
+      });
     }
     if (url.pathname === '/api/answer' || url.pathname.startsWith('/api/search-rag')) {
       return handleSearchRagApi(request, env);
