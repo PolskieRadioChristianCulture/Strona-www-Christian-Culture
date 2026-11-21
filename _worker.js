@@ -2148,6 +2148,17 @@ export default {
       redirectUrl.pathname = '/lumina';
       return Response.redirect(redirectUrl.toString(), 301);
     }
+    // Centrum Aplikacji Christian Culture (/aplikacje/ PL & /aplikacje/en/ EN) — aliasy 301
+    if (decodedP === '/apps/en' || decodedP === '/test/aplikacje/en') {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/aplikacje/en/';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
+    if (decodedP === '/apps' || decodedP === '/test/aplikacje' || (decodedP === '/aplikacje' && url.pathname !== '/aplikacje/' && url.pathname !== '/aplikacje')) {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/aplikacje/';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
     if (/^\/(usługi|uslugi|katalog-uslug|katalog-usług)\/?$/i.test(decodedP)) {
       const targetUrl = new URL(request.url);
       targetUrl.pathname = '/uslugi/';

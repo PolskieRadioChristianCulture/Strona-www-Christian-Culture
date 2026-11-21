@@ -149,4 +149,8 @@ test('allowlista wydania, routing 200/301, indeks @w, sitemap, llms.txt i strona
     assert.ok(list.some((x) => x.url === 'https://polskieradio.cc/aplikacje/'), `${idxPath} PL`);
     assert.ok(list.some((x) => x.url === 'https://polskieradio.cc/aplikacje/en/'), `${idxPath} EN`);
   }
+
+  const worker = read('_worker.js');
+  assert.ok(worker.includes("decodedP === '/apps/en' || decodedP === '/test/aplikacje/en'"), '_worker.js /apps/en');
+  assert.ok(worker.includes("decodedP === '/apps' || decodedP === '/test/aplikacje'"), '_worker.js /apps');
 });
