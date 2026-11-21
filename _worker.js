@@ -1584,11 +1584,11 @@ async function handleSupportRoute(request, env) {
       },
     });
   }
-  // Bezpośrednia obsługa /wspieraj i /wspieraj/ — worker pobiera asset i zwraca świeży 200
+  // Bezpośrednia obsługa /wspieraj i /wspieramto — worker pobiera asset i zwraca świeży 200
   // (omija wbudowany mechanizm canonical redirect Cloudflare Pages → 308)
-  if (path === '/wspieraj') {
+  if (path === '/wspieraj' || path === '/wspieramto') {
     const assetUrl = new URL(request.url);
-    assetUrl.pathname = '/wspieraj.html';
+    assetUrl.pathname = path === '/wspieramto' ? '/wspieramto.html' : '/wspieraj.html';
     assetUrl.search = '';
     const assetResp = await env.ASSETS.fetch(new Request(assetUrl.toString(), { method: 'GET', headers: { 'Accept': 'text/html' } }));
     // Zwróć świeży 200 niezależnie od tego co CF Pages odpowiedział wewnętrznie

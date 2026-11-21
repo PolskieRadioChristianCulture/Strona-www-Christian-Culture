@@ -47,6 +47,13 @@
 /wyszukiwarka/ /wyszukiwarka/index.html 200
 /Wyszukiwarka /wyszukiwarka 301
 /Wyszukiwarka/ /wyszukiwarka 301
+
+# === WSPIERAMTO 2.0 GLOBAL (/wspieramto) ===
+/wspieramto /wspieramto/index.html 200
+/wspieramto/ /wspieramto/index.html 200
+/WspieramTO /wspieramto 301
+/Wspieramto /wspieramto 301
+
 # === WIZYTÓWKI EKOCC — KATALOG WSZYSTKICH WIZYTÓWEK (/wizytowki, /wizytówki) ===
 /wizytowki /wizytowki/index.html 200
 /wizytowki/ /wizytowki/index.html 200
