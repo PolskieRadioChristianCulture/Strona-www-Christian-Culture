@@ -400,7 +400,7 @@ export async function runSpotifyBacklogAudit({ saveHistory = true } = {}) {
 /**
  * Publikacja pojedynczego odcinka na Spotify for Creators przez Playwright
  */
-export async function publishEpisodeToSpotify(episodeItem, { headless = false } = {}) {
+export async function publishEpisodeToSpotify(episodeItem, { headless = true } = {}) {
   console.log(`\n🎙️ [SPOTIFY] Rozpoczynam publikację odcinka ${episodeItem.code}: ${episodeItem.spotifyTitle}`);
   if (!fs.existsSync(episodeItem.mp3Path)) {
     throw new Error(`Brak pliku MP3: ${episodeItem.mp3Path}`);
@@ -414,71 +414,120 @@ export async function publishEpisodeToSpotify(episodeItem, { headless = false } 
     await page.goto(SHOW_CREATORS_HOME_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await sleep(4000);
 
+    // Automatyczne odświeżenie sesji przez Google SSO w profilu .youtube_browser_profile
+    if (page.url().includes('accounts.spotify.com') || page.url().includes('/login')) {
+      const googleBtn = page.locator('button:has-text("Google"), a:has-text("Google")').first();
+      if (await googleBtn.isVisible().catch(() => false)) {
+        console.log('   🔄 [Auto-SSO] Sesja wygasła — loguję automatycznie przez Google SSO...');
+        await googleBtn.click();
+        await sleep(6000);
+        const acc = page.locator('[data-identifier]').first();
+        if (await acc.isVisible().catch(() => false)) {
+          await acc.click();
+          await sleep(6000);
+        }
+      }
+    }
+
     if (page.url().includes('accounts.spotify.com') || page.url().includes('/login')) {
       throw new Error(
         'SPOTIFY_AUTH_REQUIRED: Sesja Spotify for Creators nie jest zalogowana w profilu przeglądarki. Uruchom: node scripts/publish_spotify_biblia_audio.mjs --login'
       );
     }
 
-    // Przejdź do kreatora nowego odcinka
-    const newEpBtn = page
-      .locator('a[href*="/episode/wizard"], button:has-text("New episode"), button:has-text("Nowy odcinek"), a:has-text("New episode"), a:has-text("Nowy odcinek")')
-      .first();
-    if (await newEpBtn.isVisible().catch(() => false)) {
-      await newEpBtn.click();
-    } else {
-      await page.goto(SHOW_CREATORS_WIZARD_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    // Zamknij baner OneTrust (cookies), który potrafi zasłonić dolny pasek z przyciskiem "Dalej" / "Opublikuj"
+    async function dismissCookieBanner() {
+      const acceptBtn = page.locator('#onetrust-accept-btn-handler, button#onetrust-accept-btn-handler').first();
+      if (await acceptBtn.isVisible().catch(() => false)) {
+        await acceptBtn.click({ force: true }).catch(() => {});
+        await sleep(1000);
+      }
+      await page.evaluate(() => {
+        const sdk = document.getElementById('onetrust-consent-sdk');
+        if (sdk) sdk.remove();
+      }).catch(() => {});
     }
-    await sleep(4000);
 
-    // 1. Wgraj plik MP3
+    await dismissCookieBanner();
+
+    // Przejdź bezpośrednio do kreatora nowego odcinka dla show 6M2mU6VzRCPCOjWihgO8Aw (Biblia Audio Christian Culture)
+    await page.goto(SHOW_CREATORS_WIZARD_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await sleep(4000);
+    await dismissCookieBanner();
+
+    // 1. Wgraj plik MP3 (Krok 1: Prześlij)
     const fileInput = page.locator('input[type="file"]').first();
     await fileInput.waitFor({ state: 'attached', timeout: 30000 });
     await fileInput.setInputFiles(episodeItem.mp3Path);
     console.log(`   📤 Wgrano plik MP3: ${episodeItem.mp3File} (${episodeItem.mp3SizeMb} MB)`);
     await sleep(4000);
+    await dismissCookieBanner();
 
-    // 2. Wypełnij tytuł odcinka
+    // 2. Wypełnij tytuł odcinka (Krok 2: Szczegóły -> input#title-input[name="title"])
     const titleInput = page
-      .locator('input[name="title"], input[placeholder*="title" i], input[placeholder*="tytuł" i], input[id*="title" i]')
+      .locator('input#title-input[name="title"], input[name="title"], input[placeholder*="Nazwij swój odcinek" i], input[placeholder*="title" i]')
       .first();
     await titleInput.waitFor({ state: 'visible', timeout: 30000 });
-    await titleInput.fill(episodeItem.spotifyTitle);
+    await titleInput.fill(episodeItem.spotifyTitle.slice(0, 200));
 
-    // 3. Wypełnij opis odcinka
+    // 3. Wypełnij opis odcinka ([contenteditable="true"][name="description"][role="textbox"])
     const descEditor = page
-      .locator('[contenteditable="true"], textarea[name="description"], textarea[placeholder*="description" i], textarea[placeholder*="opis" i]')
+      .locator('[contenteditable="true"][name="description"], [contenteditable="true"][role="textbox"], textarea[name="description"]')
       .first();
     await descEditor.waitFor({ state: 'visible', timeout: 30000 });
     await descEditor.click();
     await page.keyboard.press('Control+A');
-    await page.keyboard.insertText(episodeItem.spotifyDescription);
-    await sleep(2000);
+    await page.keyboard.insertText(episodeItem.spotifyDescription.slice(0, 3950));
+    await sleep(1500);
+    await dismissCookieBanner();
 
-    // 4. Kliknij Next / Dalej (i poczekaj na zakończenie przetwarzania pliku audio)
-    const nextBtn = page.locator('button:has-text("Next"), button:has-text("Dalej")').first();
+    // 4. Kliknij Dalej / Next (Krok 2 -> Krok 3: button[form="details-form"]) i poczekaj na przetworzenie audio
+    const nextBtn = page.locator('button[form="details-form"], button[data-encore-id="buttonPrimary"]:has-text("Dalej"), button:has-text("Dalej"), button:has-text("Next")').first();
     if (await nextBtn.isVisible().catch(() => false)) {
-      for (let i = 0; i < 60; i++) {
+      for (let i = 0; i < 90; i++) {
         const disabled = await nextBtn.isDisabled().catch(() => false);
         if (!disabled) break;
         await sleep(2000);
       }
+      await dismissCookieBanner();
       await nextBtn.click();
-      await sleep(3000);
+      await sleep(4000);
     }
 
-    // 5. Kliknij Publish / Opublikuj
+    // 5. Krok 3 (Zweryfikuj -> review-form): Zaznacz wymagane pole "Data publikacji*: Teraz" (input#publish-date-now)
+    await dismissCookieBanner();
+    const terazRadio = page.locator('label:has-text("Teraz"), input#publish-date-now[name="wizardPublishDateSelection"]').first();
+    if (await terazRadio.isVisible().catch(() => false)) {
+      await terazRadio.click({ force: true }).catch(() => {});
+    } else {
+      await page.evaluate(() => {
+        const r = document.querySelector('input#publish-date-now');
+        if (r) r.click();
+      }).catch(() => {});
+    }
+    await sleep(1500);
+
+    // 6. Kliknij Opublikuj / Publish (button[form="review-form"])
     const publishBtn = page
-      .locator('button:has-text("Publish"), button:has-text("Opublikuj"), button[type="submit"]:has-text("Publish"), button[type="submit"]:has-text("Opublikuj")')
+      .locator('button[form="review-form"], button[data-encore-id="buttonPrimary"]:has-text("Opublikuj"), button:has-text("Opublikuj"), button:has-text("Publish")')
       .first();
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 90; i++) {
       const visible = await publishBtn.isVisible().catch(() => false);
       const disabled = await publishBtn.isDisabled().catch(() => true);
       if (visible && !disabled) break;
       await sleep(2000);
     }
+    await dismissCookieBanner();
     await publishBtn.click();
-    await sleep(6000);
+    await sleep(7000);
+
+    // 7. Weryfikacja w tabeli odcinków, że status to "Opublikowano" (a nie "Wersja robocza")
+    await page.goto(SHOW_CREATORS_EPISODES_URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await sleep(4000);
+    const firstRowText = await page.locator('tr').nth(1).innerText().catch(() => '');
+    if (!firstRowText.includes('Opublikowano') && !firstRowText.includes('Published')) {
+      throw new Error(`Weryfikacja po publikacji nie powiodła się. Wiersz tabeli: ${firstRowText.replace(/\s+/g, ' ')}`);
+    }
 
     console.log(`   ✅ Opublikowano na Spotify for Creators: ${episodeItem.spotifyTitle}`);
 

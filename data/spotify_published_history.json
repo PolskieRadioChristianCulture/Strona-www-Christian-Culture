@@ -4,7 +4,7 @@
   "showName": "Biblia Audio Christian Culture",
   "creatorsUrl": "https://creators.spotify.com/home/show/6M2mU6VzRCPCOjWihgO8Aw",
   "publicUrl": "https://open.spotify.com/show/6M2mU6VzRCPCOjWihgO8Aw",
-  "auditedAt": "2026-11-21T12:06:24.299Z",
+  "auditedAt": "2026-11-21T13:17:01.081Z",
   "liveSpotifyTotalCount": 77,
   "latestOnSpotify": {
     "id": "4WVur9iL9Slld8foA4lujp",
@@ -20,23 +20,27 @@
     "ksiegaRodzaju": 0
   },
   "v7InventoryTotal": 33,
-  "v7PublishedCount": 0,
-  "v7BacklogCount": 33,
-  "v7Published": [],
-  "v7Backlog": [
+  "v7PublishedCount": 1,
+  "v7BacklogCount": 32,
+  "v7Published": [
     {
       "code": "GEN-001-A",
       "chapter": 1,
-      "verseLabel": "1:1–19",
-      "theme": "Stworzenie Świata: Dni 1–4",
       "mp3File": "Ksiega_Rodzaju_1_1-19_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 6.69,
-      "producedAt": "2026-10-30T13:48:19.014Z",
-      "webStatus": "published",
-      "has4kVideo": false,
-      "hasShortsVideo": true,
-      "spotifyTitle": "Księga Rodzaju 1:1–19 (UBG) — Stworzenie Świata: Dni 1–4 | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 1:1–19 (UBG) — Stworzenie Świata: Dni 1–4 | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:11:27.440Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episode/2NDmUAWNtTvGnsHfvyScac/wizard"
     },
+    {
+      "code": "GEN-001-B",
+      "chapter": 1,
+      "mp3File": "Ksiega_Rodzaju_1_20-31_2_1-3_Biblia_Audio_CC.mp3",
+      "spotifyTitle": "Księga Rodzaju 1:20–31; 2:1–3 (UBG) — Stworzenie Człowieka i Szabat Boży | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-21T13:17:37.417Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
+    }
+  ],
+  "v7Backlog": [
     {
       "code": "GEN-001-B",
       "chapter": 1,
