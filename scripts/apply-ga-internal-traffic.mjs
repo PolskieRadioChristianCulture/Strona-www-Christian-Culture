@@ -19,8 +19,8 @@ export const INTERNAL_PARAMS = "(function(){try{var s=location.search,k='cc_team
 export const CONFIG_CALL = `gtag('config','${GA_ID}',${INTERNAL_PARAMS})`;
 const ANALYTICS_TAG = `<script src="${ANALYTICS_SRC}" defer></script>`;
 
-// Zamrożone kanały nadawcze (scripts/joma_guard_sentinel.cjs) — tylko do odczytu, zmiana wyłącznie za zgodą Dowódcy
-export const FROZEN = new Set(['cctv24-worship.html', 'cctv24-worship-live.html', 'stream-scene.html']);
+// Zamrożone kanały nadawcze i prywatne środowiska testowe — tylko do odczytu
+export const FROZEN = new Set(['cctv24-worship.html', 'cctv24-worship-live.html', 'stream-scene.html', 'test/analityka/index.html']);
 
 const OLD_CONFIG = new RegExp(`gtag\\(\\s*['"]config['"]\\s*,\\s*['"]${GA_ID}['"]\\s*\\)`, 'g');
 

@@ -8232,7 +8232,7 @@ ${isStandalonePage ? '' : `
             </div>
             <div class="cc-omni-footer-right">
               <span id="ccOmniShareMsg" class="cc-omni-share-msg" role="status" aria-live="polite"></span>
-              <a href="https://polskieradio.cc/wspieraj" id="ccOmniSupport" class="cc-omni-iconbtn cc-omni-support-btn" aria-label="Wspieram To — Wolne Media Boże" title="Wspieram To">
+              <a href="https://polskieradio.cc/wspieraj" data-cc-wspieramto="true" id="ccOmniSupport" class="cc-omni-iconbtn cc-omni-support-btn" aria-label="Wspieram To — Wolne Media Boże" title="Wspieram To">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
               </a>
               <button type="button" id="ccOmniShare" class="cc-omni-iconbtn" aria-label="Udostępnij wyszukiwarkę Christian Culture" title="Udostępnij">

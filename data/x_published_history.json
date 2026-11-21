@@ -2,6 +2,16 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "moja-ksiazka",
+      "title": "Moja Książka – Biblia Kultura Chrześcijańska | PolskieRadio.cc",
+      "url": "https://polskieradio.cc/moja-ksiazka",
+      "type": "book",
+      "topicId": null,
+      "image": "ogloszenia-biblia-gdanska.jpg",
+      "publishedAt": "2026-11-21T10:02:46.917Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "premier-heatfix",
       "title": "Premier HeatFix UK — Certyfikowane Usługi Gazowe i Hydrauliczne w Londynie",
       "url": "https://polskieradio.cc/premier-heatfix",

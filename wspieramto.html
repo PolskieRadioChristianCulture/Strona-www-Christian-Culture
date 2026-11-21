@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script>
+<script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WspieramTO — Mecenat Wolnych Mediów Bożych | Christian Culture</title>
+<link rel="canonical" href="https://polskieradio.cc/wspieramto">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Christian Culture">
+<meta property="og:title" content="WspieramTO — Mecenat Wolnych Mediów Bożych | Christian Culture">
+<meta property="og:description" content="Radio 24/7, telewizja CCTV24, Biblia Audio i Akademia są w 100% bezpłatne dzięki dobrowolnym Mecenasom. Dołącz do grona WspieramTO.">
+<meta property="og:url" content="https://polskieradio.cc/wspieramto">
+<meta property="og:image" content="https://polskieradio.cc/images/banners/banner-global-support.jpg">
+<meta name="theme-color" content="#07121D">
+<link rel="icon" href="/app-christian-culture.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ground: #07121D;
+  --ground-2: #0E1C2A;
+  --ground-3: #172A3C;
+  --ink: #EEF1F5;
+  --soft: #A4B3C2;
+  --gold: #C4A35A;
+  --gold-hover: #D4B578;
+  --gold-light: #E2CC9A;
+  --action: #FF7A00;
+  --action-hover: #FF8C33;
+  --action-press: #E66A00;
+  --line: rgba(196, 163, 90, 0.22);
+  --serif: 'Lora', Georgia, serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 3px solid var(--action); outline-offset: 3px; border-radius: 8px; }
+
+.ramka {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+}
+.brand img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.brand span span {
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.nav-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  color: var(--soft);
+  transition: color 0.2s;
+}
+.nav-links a:hover {
+  color: var(--gold-light);
+}
+
+/* Hero */
+.hero {
+  padding: 56px 0 36px;
+  text-align: center;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(196, 163, 90, 0.15);
+  border: 1px solid rgba(196, 163, 90, 0.4);
+  color: var(--gold-light);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+.hero-title span {
+  color: var(--gold);
+}
+.hero-lead {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  color: var(--soft);
+  max-width: 680px;
+  margin: 0 auto 36px;
+}
+
+/* Licznik celu transparentności */
+.goal-card {
+  background: var(--ground-2);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px 28px;
+  max-width: 760px;
+  margin: 0 auto 48px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+.goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.goal-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.goal-status {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+}
+.goal-bar-bg {
+  width: 100%;
+  height: 12px;
+  background: var(--ground-3);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.goal-bar-fill {
+  height: 100%;
+  width: 64%;
+  background: linear-gradient(90deg, #C4A35A, #FF7A00);
+  border-radius: 999px;
+  transition: width 1s ease-in-out;
+}
+.goal-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--soft);
+}
+.goal-meta a {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+/* Siatka Poziomów Mecenatu */
+.tiers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 56px;
+}
+.tier-card {
+  background: var(--ground-2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.tier-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 32px rgba(196, 163, 90, 0.15);
+}
+.tier-card.featured {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(196, 163, 90, 0.12) 0%, var(--ground-2) 100%);
+}
+.tier-ribbon {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: var(--action);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.tier-name {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #fff;
+}
+.tier-price {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--gold-light);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.tier-price span {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--soft);
+}
+.tier-desc {
+  font-size: 13px;
+  color: var(--soft);
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+.tier-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold-light);
+}
+.tier-btn:hover {
+  background: var(--gold);
+  color: var(--ground);
+}
+.tier-card.featured .tier-btn {
+  background: var(--action);
+  border-color: var(--action);
+  color: #fff;
+}
+.tier-card.featured .tier-btn:hover {
+  background: var(--action-hover);
+}
+
+/* Sekcja Metod Płatności */
+.methods-section {
+  background: var(--ground-2);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: clamp(24px, 4vw, 48px);
+  margin-bottom: 56px;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  text-align: center;
+  margin: 0 0 8px;
+}
+.section-sub {
+  text-align: center;
+  color: var(--soft);
+  font-size: 14px;
+  margin: 0 0 36px;
+}
+
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.method-box {
+  background: var(--ground-3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.method-box h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.method-box p {
+  font-size: 13px;
+  color: var(--soft);
+  margin: 0 0 16px;
+  flex-grow: 1;
+}
+.data-row {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.data-val {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+.btn-copy {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--gold-light);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-copy:hover {
+  background: var(--gold);
+  color: var(--ground);
+}
+.btn-action-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  width: 100%;
+  border-radius: 999px;
+  background: var(--action);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  transition: background-color 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.btn-action-primary:hover {
+  background: var(--action-hover);
+}
+
+/* Baner Global */
+.global-banner {
+  margin-bottom: 56px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+}
+.global-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Stopka */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 40px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--soft);
+}
+.footer p { margin: 6px 0; }
+.footer a { color: var(--gold); text-decoration: underline; }
+</style>
+</head>
+
+<body>
+
+  <header class="top-bar ramka">
+    <a href="/" class="brand" title="Christian Culture">
+      <img src="/app-christian-culture.png" alt="CC" width="40" height="40">
+      <span>Christian <span>Culture</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="/player">Radio 24/7</a>
+      <a href="/biblia-audio">Biblia Audio</a>
+      <a href="/akademia">Akademia</a>
+      <a href="https://cc-skarbiec-misji.web.app" target="_blank" rel="noopener">Skarbiec Misji ↗</a>
+    </nav>
+  </header>
+
+  <main class="ramka">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge">WspieramTO &bull; Wolne Media Boże</div>
+      <h1 class="hero-title">Razem tworzymy <span>Niezależne Media Boże</span></h1>
+      <p class="hero-lead">
+        Radio, telewizja CCTV24, Biblia Audio i codzienne lekcje Pisma są wolne od reklam i dostępne bezpłatnie dla każdego na świecie — dzięki dobrowolnym Mecenasom.
+      </p>
+
+      <!-- Transparentny Licznik Celu -->
+      <div class="goal-card">
+        <div class="goal-header">
+          <span class="goal-title">Bieżący Cel Miesięczny (Serwery, Studio, Streaming, TTS)</span>
+          <span class="goal-status">64% celu osiągnięte</span>
+        </div>
+        <div class="goal-bar-bg" aria-hidden="true">
+          <div class="goal-bar-fill"></div>
+        </div>
+        <div class="goal-meta">
+          <span>Cel: 5 000 zł / miesiąc</span>
+          <span>100% jawności w <a href="https://cc-skarbiec-misji.web.app" target="_blank" rel="noopener">Skarbcu Misji CC</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- POZIOMY MECENATU -->
+    <section>
+      <div class="tiers-grid">
+        <!-- 19 PLN -->
+        <div class="tier-card">
+          <h2 class="tier-name">Przyjaciel Misji</h2>
+          <div class="tier-price">19 zł <span>/ mies.</span></div>
+          <p class="tier-desc">Pokrywa transfer serwerowy i zapewnia dostęp do Radia oraz Biblii Audio dla 50 nowych słuchaczy.</p>
+          <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:19, currency:'PLN'})">Wspieram 19 zł</button>
+        </div>
+
+        <!-- 49 PLN -->
+        <div class="tier-card featured">
+          <span class="tier-ribbon">Najpopularniejszy</span>
+          <h2 class="tier-name">Patron Pisma</h2>
+          <div class="tier-price">49 zł <span>/ mies.</span></div>
+          <p class="tier-desc">Umożliwia profesjonalną produkcję kolejnych rozdziałów Biblii Audio oraz codzienne lekcje Akademii Biblijnej.</p>
+          <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:49, currency:'PLN'})">Wspieram 49 zł</button>
+        </div>
+
+        <!-- 99 PLN -->
+        <div class="tier-card">
+          <h2 class="tier-name">Filar Ekosystemu</h2>
+          <div class="tier-price">99 zł <span>/ mies.</span></div>
+          <p class="tier-desc">Gwarantuje stabilność techniczną 24/7, zaplecze retransmisyjne OBS, rozwój portalu LUMINA i aplikacji mobilnej.</p>
+          <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:99, currency:'PLN'})">Wspieram 99 zł</button>
+        </div>
+
+        <!-- 490 PLN -->
+        <div class="tier-card">
+          <h2 class="tier-name">Mecenas Rozdziału</h2>
+          <div class="tier-price">490 zł <span>/ dar</span></div>
+          <p class="tier-desc">Dedykowany patronat nad realizacją całego rozdziału słuchowiska dramatyzowanego Pisma Świętego.</p>
+          <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:490, currency:'PLN'})">Zostań Mecenasem</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BANER POLONII I ZAGRANICY -->
+    <div class="global-banner">
+      <a href="javascript:void(0)" onclick="window.openWspieramToModal({currency:'GBP'})" title="Supporting from Abroad?">
+        <img src="/images/banners/banner-global-support.jpg" alt="Supporting from Abroad? Direct donations in GBP, EUR, USD via SEPA/SWIFT Revolut account." loading="lazy">
+      </a>
+    </div>
+
+    <!-- METODY PŁATNOŚCI BEZPOŚREDNICH -->
+    <section class="methods-section">
+      <h2 class="section-title">Wybierz Wygodną Formę Wsparcia</h2>
+      <p class="section-sub">Zero prowizji platform pośredniczących. 100% Twojego daru trafia bezpośrednio na rozwój dzieła.</p>
+
+      <div class="methods-grid">
+        <!-- REVOLUT PAY / 1-CLICK -->
+        <div class="method-box">
+          <h3><span>Revolut Pay &bull; 1-Click</span> <span style="color:#C4A35A;">Online</span></h3>
+          <p>Błyskawiczna płatność kartą, Apple Pay, Google Pay lub bezpośrednio z aplikacji Revolut w dowolnej walucie.</p>
+          <a href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" class="btn-action-primary">
+            Wpłać przez Revolut.me &rarr;
+          </a>
+        </div>
+
+        <!-- BLIK NA TELEFON -->
+        <div class="method-box">
+          <h3><span>BLIK na telefon</span> <span style="color:#FF7A00;">Polska</span></h3>
+          <p>W aplikacji swojego polskiego banku wybierz „Przelew na telefon BLIK” i podaj poniższy numer telefonu:</p>
+          <div class="data-row">
+            <span class="data-val">537 137 043</span>
+            <button type="button" class="btn-copy" onclick="copyData('537137043', this)">Kopiuj</button>
+          </div>
+          <span style="font-size:12px;color:var(--soft);">Odbiorca: Cezary Rogowski &bull; Tytuł: Wsparcie Christian Culture</span>
+        </div>
+
+        <!-- ZAGRANICA GBP / EUR / USD -->
+        <div class="method-box">
+          <h3><span>Przelew Walutowy</span> <span style="color:#C4A35A;">SEPA / SWIFT</span></h3>
+          <p>Bezpośredni rachunek Revolut Bank UAB Vilnius bez opłat za przewalutowanie dla Polonii i darczyńców z zagranicy:</p>
+          <div class="data-row">
+            <span class="data-val">LT23 3250 0920 7156 6231</span>
+            <button type="button" class="btn-copy" onclick="copyData('LT233250092071566231', this)">Kopiuj IBAN</button>
+          </div>
+          <span style="font-size:12px;color:var(--soft);">BIC: <strong>REVOLT21</strong> &bull; Bank: Revolut Bank UAB Vilnius</span>
+        </div>
+
+        <!-- PRZELEW PLN -->
+        <div class="method-box">
+          <h3><span>Przelew Bankowy</span> <span style="color:var(--soft);">PLN</span></h3>
+          <p>Dedykowany rachunek misyjny w złotych polskich na rozwój studia, radia, telewizji i technologii:</p>
+          <div class="data-row">
+            <span class="data-val">74 2910 0006 2469 8002 1062 8039</span>
+            <button type="button" class="btn-copy" onclick="copyData('74291000062469800210628039', this)">Kopiuj</button>
+          </div>
+          <span style="font-size:12px;color:var(--soft);">Odbiorca: Cezary Rogowski &bull; Tytuł: Rozwój Christian Culture</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer ramka">
+    <p>
+      <strong>Nota Prawna & Misja:</strong> Christian Culture (polskieradio.cc) to niezależna, prywatna chrześcijańska inicjatywa misyjna i ewangelizacyjna, finansowana z dobrowolnych darowizn i prowadzona w duchu chrześcijańskiego wolontariatu.
+    </p>
+    <p>
+      Projekt nie jest powiązany ani stowarzyszony z publicznym nadawcą <em>Polskie Radio S.A.</em> (polskieradio.pl).
+    </p>
+    <p>
+      <a href="/privacy">Polityka Prywatności</a> &bull; <a href="https://cc-skarbiec-misji.web.app" target="_blank" rel="noopener">Transparentny Skarbiec Misji CC</a> &bull; &copy; 2026 Christian Culture
+    </p>
+  </footer>
+
+  <!-- Modal WspieramTO 2.0 -->
+  <script src="/components/cc-wspieramto-modal.js?v=20261121_1" defer></script>
+
+  <script>
+    function copyData(text, btn) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          var orig = btn.textContent;
+          btn.textContent = 'Skopiowano!';
+          setTimeout(function() { btn.textContent = orig; }, 2000);
+        });
+      } else {
+        prompt('Skopiuj dane:', text);
+      }
+    }
+  </script>
+</body>
+</html>

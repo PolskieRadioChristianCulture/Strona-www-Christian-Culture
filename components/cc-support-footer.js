@@ -15,6 +15,14 @@
   if (window._ccSupportFooterInitialized) return;
   window._ccSupportFooterInitialized = true;
 
+  // Doładowanie modułu WspieramTO 2.0 Modal
+  if (!window._ccWspieramToModalInitialized && !document.querySelector('script[src*="cc-wspieramto-modal"]')) {
+    var s = document.createElement('script');
+    s.src = '/components/cc-wspieramto-modal.js?v=20261121_1';
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
   // 2. Szablon HTML modułu wsparcia
   const FOOTER_HTML = `
 <section class="cc-support-footer" aria-labelledby="cc-support-title">
@@ -96,7 +104,7 @@
     </details>
 
     <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px 0 12px;">
-      <a href="${(['en','de','es','fr'].includes((document.documentElement.lang||'').slice(0,2).toLowerCase()) ? '/pomogebomoge/' + (document.documentElement.lang||'').slice(0,2).toLowerCase() : '/wspieraj')}" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:999px;background:#FF7A00;color:#FFFFFF;font-weight:700;font-size:14px;text-decoration:none;letter-spacing:0.03em;">
+      <a href="/wspieramto" data-cc-wspieramto="true" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:999px;background:#FF7A00;color:#FFFFFF;font-weight:700;font-size:14px;text-decoration:none;letter-spacing:0.03em;">
         WspieramTO &bull; ${(['en','de','es','fr'].includes((document.documentElement.lang||'').slice(0,2).toLowerCase()) ? 'Support the Mission' : 'Pomogę, bo mogę')}
       </a>
     </div>
