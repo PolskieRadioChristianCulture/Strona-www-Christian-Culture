@@ -796,10 +796,9 @@ button {
     max-width: 480px;
     height: auto;
     object-fit: cover;
-    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.8));
-    /* Softly blends the bottom edge of the image into the background */
-    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    /* Softly blends all edges (especially right/left vertical seams) into the hero background */
+    mask-image: radial-gradient(ellipse 50% 54% at 48% 48%, #000 50%, rgba(0, 0, 0, 0.72) 70%, transparent 98%);
+    -webkit-mask-image: radial-gradient(ellipse 50% 54% at 48% 48%, #000 50%, rgba(0, 0, 0, 0.72) 70%, transparent 98%);
 }
 
 /* Right Column: Branding Text */
