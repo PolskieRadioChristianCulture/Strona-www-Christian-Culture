@@ -140,6 +140,44 @@ html body.lumi-standalone .cc-chat-radio select{flex:1;border:none!important;bac
 /* EkoCC v2 PREMIUM (@007, 25.10): dolna nawigacja LUMI na ekranach ≤360 px — każdy przycisk co najmniej 44 px szerokości (WCAG 2.5.8). */
 @media(max-width:360px){html body #lumiLanding .lumi-bottom-navigation{width:calc(100% - 16px);padding-left:4px;padding-right:4px}html body #lumiLanding.lumi-dashboard .lumi-bottom-navigation button,html body #lumiLanding.lumi-dashboard .lumi-bottom-navigation a{min-width:44px!important;font-size:12px!important}}
 
+#lumiRadioPlay .lumi-play-orb {
+  background: #ff7a00;
+  color: #fff;
+  box-shadow: none;
+}
+
+#lumiRadioPlay:not(:disabled):hover .lumi-play-orb { background: #ff8c33; }
+#lumiRadioPlay:not(:disabled):active .lumi-play-orb { background: #e66a00; }
+
+html.lumi-mess-page:not(.cc-mess-embedded) body.lumi-standalone > #lumina-cookie-banner {
+  position: static !important;
+  box-sizing: border-box;
+  width: calc(100% - 32px) !important;
+  max-width: 1032px !important;
+  margin: 12px auto 0;
+  animation: none !important;
+  box-shadow: none !important;
+}
+
+html.lumi-mess-page:not(.cc-mess-embedded) #lumina-cookie-banner > div:last-child {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  #lumiLanding .lumi-dashboard-header { gap: 8px; }
+  #lumiLanding .lumi-community-hero { height: 96px; padding-block: 8px; }
+  #lumiLanding .lumi-community-hero p { font-size: 17px; }
+  #lumiLanding .lumi-community-hero > div { margin-top: 16px; }
+  #lumiLanding .lumi-community-hero strong { font-size: 22px; }
+  #lumiLanding .lumi-community-hero > div > span { margin-top: 3px; }
+  html body #lumiLanding .lumi-category-grid { margin-bottom: 10px; }
+  #lumiLanding .lumi-category { min-height: 64px; gap: 4px; padding: 6px 2px; }
+  #lumiLanding .lumi-category > span { display: none; }
+  #lumiLanding .lumi-category svg { width: 21px; height: 21px; }
+  html body #lumiLanding .lumi-filter-bar { margin-bottom: 10px; }
+  html body #lumiLanding .lumi-filter-bar:not(.is-expanded) { display: none; }
+  html body #lumiLanding .lumi-filter-bar.is-expanded { flex-wrap: wrap; overflow: visible; }
+}
 
 html body #lumiLanding .lumi-directory-heading {
   justify-content: flex-end;
