@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-21T08:46:40.519Z",
-  "totalItems": 672,
+  "updatedAt": "2026-11-21T10:45:16.665Z",
+  "totalItems": 673,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1061,6 +1061,26 @@
     }
   },
   "items": [
+    {
+      "id": "station-pozytywne-audio",
+      "title": "Pozytywne Audio — 26 Audiobooków Chrześcijańskich (Pętla 24/7)",
+      "category": "Audycje & Muzyka",
+      "type": "radio",
+      "url": "https://polskieradio.cc/player",
+      "description": "Całodobowa stacja audiobooków chrześcijańskich (26 książek, 505 rozdziałów w ciągłej pętli): duchowość, rodzina, psychologia, zdrowie i proroctwa.",
+      "keywords": [
+        "pozytywne audio",
+        "audiobooki",
+        "książki audio",
+        "alejandro bullon",
+        "ellen white",
+        "wielki bój",
+        "życie ma sens",
+        "radio 24/7"
+      ],
+      "streamStation": "pozytywne_audio",
+      "icon": "radio"
+    },
     {
       "title": "Z Biblią za Pan Brat — Dzień 52 (Lekcja 52 na dziś): Dzień 52: PRAWO WŁASNOŚCI, ZADOŚĆUCZYNIENIA I ŚWIĘTOŚCI LUDU BOŻEGO (Wj 22:1–31)",
       "category": "Biblia i formacja",

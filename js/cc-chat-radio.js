@@ -130,10 +130,10 @@
   function playlistTrack(station) {
     const tracks = playlists.get(station.id);
     if (!tracks?.length) return { url: station.streamUrl, offset: 0 };
-    const duration = tracks.reduce((total, track) => total + (Number(track.duration) || 240), 0);
+    const duration = tracks.reduce((total, track) => total + (Number(track.duration || track.durationSec) || 240), 0);
     let remaining = Math.floor(Date.now() / 1000) % duration;
     for (const track of tracks) {
-      const seconds = Number(track.duration) || 240;
+      const seconds = Number(track.duration || track.durationSec) || 240;
       if (remaining < seconds) return { url: track.url.startsWith('./') ? track.url.slice(1) : track.url, offset: remaining };
       remaining -= seconds;
     }

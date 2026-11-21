@@ -9953,7 +9953,8 @@ ${isStandalonePage ? '' : `
     biblia_spiewana: 'Biblia Śpiewana 24/7',
     instrumental_worship: 'Pasmo Uwielbienia & Modlitwy',
     global: 'Radio CC Global (EN)',
-    global_biblia: 'Global Bible Audio'
+    global_biblia: 'Global Bible Audio',
+    pozytywne_audio: 'Pozytywne Audio — 26 Audiobooków 24/7'
   };
 
   function resolveCardStream(card) {
