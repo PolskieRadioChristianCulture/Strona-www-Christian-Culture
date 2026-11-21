@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-21",
+      "topic": "Panel radiowy (polskieradio.cc) — usunięcie ramki wokół przycisku Odkryj Więcej",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-21",
       "topic": "Centrum Aplikacji (/aplikacje/) — poprawka odstępów i pełnej widoczności ogonków polskich liter w nagłówkach oraz świeżości danych",
       "agent": "A"
     },
