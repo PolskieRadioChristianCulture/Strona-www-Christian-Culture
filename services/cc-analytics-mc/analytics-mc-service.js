@@ -81,11 +81,11 @@ export const ANALYTICS_MC_SNAPSHOT = {
     },
     {
       propertyId: '526422549',
-      name: 'Biblia Audio CC',
-      measurementId: 'Brak aktywnego tagu w kodzie (zastąpiony przez G-Y4EFTVBPE3)',
-      streamId: 'N/A (wymaga włączenia Analytics Admin API)',
-      gcpProject: 'lumina-cc (uprawnienia Viewer aktywne)',
-      domains: ['polskieradio.cc/biblia-audio (obecnie pod G-Y4EFTVBPE3)'],
+      name: 'Biblia Audio CC (Konto GA4: 385962006)',
+      measurementId: 'G-K8PKXF3KSM (defaultUri: https://biblia.cclite.pl, zastąpiony przez G-Y4EFTVBPE3)',
+      streamId: '13684646910',
+      gcpProject: 'lumina-cc (413985877183) — Google Analytics Admin API WŁĄCZONE (200 OK)',
+      domains: ['biblia.cclite.pl', 'polskieradio.cc/biblia-audio (obecnie pod G-Y4EFTVBPE3)'],
       htmlFilesCount: 0,
       apiAccessStatus: 'ACTIVE_EMPTY_0_ROWS',
       httpStatus: 200,
@@ -101,7 +101,7 @@ export const ANALYTICS_MC_SNAPSHOT = {
         averageSessionDurationSec: 0,
         eventCount: 0
       },
-      purpose: 'Historyczna usługa dedykowana dla Biblii Audio. Obecnie odtwarzacz /biblia-audio/ raportuje bezpośrednio do głównej usługi 548623550 (134 odsłony, 43 użytkowników w 30 dni).',
+      purpose: 'Historyczna usługa utworzona 01.03.2026 dla domeny biblia.cclite.pl (tag G-K8PKXF3KSM). Obecnie odtwarzacz /biblia-audio/ raportuje bezpośrednio do głównej usługi 548623550 (134 odsłony, 43 użytkowników w 30 dni).',
       recommendation: 'ZARCHIWIZOWAĆ / NIE SCALAĆ (ruch /biblia-audio/ jest już w 548623550)'
     },
     {
@@ -558,11 +558,11 @@ export const ANALYTICS_MC_SNAPSHOT = {
 
   // ── STATUS GOOGLE SEARCH CONSOLE & SEO (ETAP D) ──
   searchConsole: {
-    apiStatus: 'SERVICE_DISABLED_AND_REQUIRES_GRANT',
-    gcpProjectChecked: '413985877183 (lumina-cc), 519207260358 (cc-mission-control), 422075095518 (cuda-398c0)',
-    httpStatus: 403,
-    exactError: 'Google Search Console API has not been used in project 413985877183 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/searchconsole.googleapis.com/overview?project=413985877183',
-    noFakeDataNotice: 'Zgodnie z dyrektywą Etapu E4 ("Nie symulować danych, jeżeli API lub uprawnienia są niedostępne") kafelki GSC pokazują rzeczywisty status integracji API oraz zweryfikowane dane GA4 Organic Search (241 sesji Google Organic + 2 sesje Bing Organic = 243 sesje, 63,9% zaangażowania).',
+    apiStatus: 'API_ENABLED_REQUIRES_GSC_PROPERTY_USER_GRANT',
+    gcpProjectChecked: '413985877183 (lumina-cc) — searchconsole.googleapis.com oraz analyticsadmin.googleapis.com WŁĄCZONE (HTTP 200 OK)',
+    httpStatus: 200,
+    exactError: 'Google Search Console API zwraca HTTP 200 OK ({}) — interfejs API w GCP został pomyślnie włączony. Pozostaje wyłącznie dopisanie adresu firebase-adminsdk-fbsvc@lumina-cc.iam.gserviceaccount.com w ustawieniach użytkowników Search Console dla sc-domain:polskieradio.cc.',
+    noFakeDataNotice: 'Interfejsy Google Search Console API oraz Google Analytics Admin API zostały aktywowane (HTTP 200 OK) w projekcie GCP lumina-cc (413985877183). Po dodaniu konta serwisowego jako użytkownika Ograniczonego (Restricted) w Search Console tabela automatycznie pobierze kliknięcia i wyświetlenia GSC. Poniżej znajdują się zweryfikowane dane GA4 Organic Search (243 sesje, 63,9% zaangażowania).',
     ga4OrganicLandingPages30d: [
       { landingPage: '/', sessions: 162, activeUsers: 98, engagedSessions: 126, avgDurationSec: 138.4, targetSection: 'Strona Główna & Radio' },
       { landingPage: '/player', sessions: 22, activeUsers: 14, engagedSessions: 16, avgDurationSec: 432.1, targetSection: 'Odtwarzacz Radio CC' },

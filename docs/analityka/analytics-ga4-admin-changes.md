@@ -85,13 +85,22 @@ Audyt repozytorium wykazał **niespójność mechanizmu zgody** pomiędzy sekcja
    - Moduł `cc-analytics.js` v2.0 sprawdza wszystkie klucze zgody (`lumina_cookie_consent`, `cc-search-analytics-consent-v1`, `cc-40dm-analytics-consent`, `cc-journal-analytics-consent`, `cc_analytics_consent`) oraz flagę `window['ga-disable-G-Y4EFTVBPE3']`. Jeżeli użytkownik wyraził odmowę (`denied` / `rejected`), `ccTrack()` blokuje wysyłanie jakichkolwiek zdarzeń.
    - Dodatkowo we wszystkich zdarzeniach wyłączono przesyłanie jakichkolwiek danych osobowych (PII), kwot darowizn, adresów e-mail, numerów telefonów oraz treści prywatnych modlitw i notatek.
 
-### 3.3. Retencja danych i ustawienia prywatności w GA4 Admin
-W panelu **GA4 -> Administracja -> Zbieranie i modyfikowanie danych** dla usługi `548623550` oraz `550097091` należy zweryfikować:
+### 3.3. Retencja danych i ustawienia prywatności w GA4 Admin (Potwierdzone przez świeżo włączone Google Analytics Admin API)
+Odczyt z **Google Analytics Admin API (`v1beta/v1alpha`)** wykonany 21.11.2026 wykazał następujący rzeczywisty stan konfiguracji usług na koncie `accounts/385962006`:
+- **Usługa `548623550` (`Polskie Radio Christian Culture`):**
+  - `eventDataRetention`: **`TWO_MONTHS` (2 miesiące!)** — `userDataRetention`: `FOURTEEN_MONTHS` (`resetUserDataOnNewActivity: true`).
+  - `googleSignalsSettings`: **`GOOGLE_SIGNALS_ENABLED`** (`consent: GOOGLE_SIGNALS_CONSENT_CONSENTED`).
+  - `keyEvents`: tylko domyślne `purchase` (`ONCE_PER_EVENT`).
+  - `customDimensions`: `{}` (brak zarejestrowanych wymiarów niestandardowych).
+- **Usługa `550097091` (`Lumina`) oraz `526422549` (`Biblia Audio CC`):**
+  - `eventDataRetention`: **`TWO_MONTHS` (2 miesiące!)**, `googleSignalsSettings`: `GOOGLE_SIGNALS_DISABLED`.
+
+W panelu **GA4 -> Administracja -> Zbieranie i modyfikowanie danych** dla usługi `548623550` oraz `550097091` należy zmienić:
 1. **Przechowywanie danych (Data retention):**
-   - *Przechowywanie danych o zdarzeniach (Event data retention)*: ustawić na **14 miesięcy** (maksymalny bezpłatny okres w standardowym GA4, niezbędny do porównań rok do roku w eksploracjach).
-   - *Resetuj dane użytkownika przy nowej aktywności (Reset user data on new activity)*: **Włączone (ON)**.
+   - *Przechowywanie danych o zdarzeniach (Event data retention)*: zmienić z obecnych **2 miesięcy (`TWO_MONTHS`)** na **14 miesięcy (`FOURTEEN_MONTHS`)** (maksymalny bezpłatny okres w standardowym GA4, niezbędny do porównań rok do roku w eksploracjach).
+   - *Resetuj dane użytkownika przy nowej aktywności (Reset user data on new activity)*: pozostawić **Włączone (ON)**.
 2. **Zbieranie danych (Data collection — Google Signals):**
-   - *Zbieranie danych przez Google Signals*: **Wyłączone (OFF)** — zgodnie z zasadą minimalizacji danych RODO i brakiem kampanii remarketingowych Google Ads w misji Christian Culture.
+   - W usłudze `548623550` zmienić *Zbieranie danych przez Google Signals* z obecnego `GOOGLE_SIGNALS_ENABLED` na **Wyłączone (OFF)** — zgodnie z zasadą minimalizacji danych RODO i brakiem kampanii remarketingowych Google Ads w misji Christian Culture.
 3. **Niestandardowe wymiary (Custom dimensions) do zarejestrowania w GA4 Admin (`Zakres: Zdarzenie`):**
    - `book_code` (Kod księgi biblijnej, np. `JHN`, `GEN`)
    - `chapter_number` (Numer rozdziału)
