@@ -9,8 +9,7 @@
   gtag('js', new Date());
 
   gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
-</script>
-<script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+</script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>WspieramTO — Mecenat Wolnych Mediów Bożych | Christian Culture</title>
@@ -152,35 +151,71 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto 36px;
 }
 
-/* Licznik celu transparentności */
+/* Licznik celu transparentności i budowy nowego studia RTV */
+.goals-dual-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  max-width: 1080px;
+  margin: 0 auto 48px;
+  text-align: left;
+}
 .goal-card {
   background: var(--ground-2);
   border: 1px solid var(--line);
   border-radius: 20px;
-  padding: 24px 28px;
-  max-width: 760px;
-  margin: 0 auto 48px;
+  padding: 24px 26px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.goal-card.goal-card--studio {
+  border-color: rgba(255, 122, 0, 0.45);
+  background: linear-gradient(155deg, rgba(255, 122, 0, 0.10) 0%, rgba(196, 163, 90, 0.08) 45%, var(--ground-2) 100%);
+}
+.goal-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+.goal-card--studio .goal-eyebrow {
+  color: #FFB366;
 }
 .goal-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+  align-items: baseline;
+  margin-bottom: 10px;
   flex-wrap: wrap;
   gap: 8px;
 }
 .goal-title {
-  font-size: 14px;
+  font-family: var(--serif);
+  font-size: 19px;
   font-weight: 700;
-  color: var(--gold-light);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.goal-status {
-  font-size: 14px;
-  font-weight: 800;
   color: #fff;
+}
+.goal-amount-big {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--gold-light);
+  white-space: nowrap;
+}
+.goal-card--studio .goal-amount-big {
+  color: var(--action);
+}
+.goal-desc {
+  font-size: 13px;
+  color: var(--soft);
+  margin: 0 0 14px;
+  line-height: 1.55;
 }
 .goal-bar-bg {
   width: 100%;
@@ -192,20 +227,167 @@ a { color: inherit; text-decoration: none; }
 }
 .goal-bar-fill {
   height: 100%;
-  width: 64%;
+  width: 28%;
   background: linear-gradient(90deg, #C4A35A, #FF7A00);
   border-radius: 999px;
   transition: width 1s ease-in-out;
 }
+.goal-bar-fill--studio {
+  width: 18%;
+  background: linear-gradient(90deg, #FF7A00, #FFB366);
+}
 .goal-meta {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   font-size: 12px;
   color: var(--soft);
 }
 .goal-meta a {
   color: var(--gold);
   text-decoration: underline;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Sekcja Budowy Nowego Studia Radiowo-Telewizyjnego CC */
+.studio-section {
+  background: linear-gradient(160deg, rgba(14, 28, 42, 0.96) 0%, rgba(7, 18, 29, 0.98) 100%);
+  border: 1px solid rgba(196, 163, 90, 0.35);
+  border-radius: 24px;
+  padding: clamp(24px, 4vw, 44px);
+  margin-bottom: 56px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+.studio-top {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.studio-visual {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(196, 163, 90, 0.35);
+  background: var(--ground-3);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+.studio-visual img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.studio-copy h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+  color: #fff;
+  margin: 8px 0 12px;
+  line-height: 1.2;
+}
+.studio-copy h2 span {
+  color: var(--gold);
+}
+.studio-copy p {
+  font-size: 15px;
+  color: var(--soft);
+  margin: 0 0 14px;
+}
+.studio-milestones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.studio-item {
+  background: rgba(23, 42, 60, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 18px;
+}
+.studio-item-tag {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--action);
+  margin-bottom: 6px;
+  display: block;
+}
+.studio-item h3 {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: #fff;
+  margin: 0 0 6px;
+}
+.studio-item-cost {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+.studio-item p {
+  font-size: 13px;
+  color: var(--soft);
+  margin: 0;
+  line-height: 1.5;
+}
+.studio-bottom-bar {
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(196, 163, 90, 0.25);
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.studio-verse {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--gold-light);
+  max-width: 640px;
+}
+.studio-verse cite {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--soft);
+  font-size: 12px;
+  display: block;
+  margin-top: 4px;
+}
+.studio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.btn-studio-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--action);
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  box-shadow: 0 6px 20px rgba(255, 122, 0, 0.35);
+}
+.btn-studio-cta:hover {
+  background: var(--action-hover);
+  transform: translateY(-2px);
+}
+.btn-studio-cta:active {
+  background: var(--action-press);
 }
 
 /* Siatka Poziomów Mecenatu */
@@ -450,24 +632,58 @@ a { color: inherit; text-decoration: none; }
 
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-badge">WspieramTO &bull; Wolne Media Boże</div>
-      <h1 class="hero-title">Razem tworzymy <span>Niezależne Media Boże</span></h1>
+      <div class="hero-badge">WspieramTO &bull; Wolne Media Boże &amp; Budowa Nowego Studia RTV</div>
+      <h1 class="hero-title">Razem tworzymy <span>Niezależne Media Boże</span> i budujemy <span>Nowe Studio RTV</span></h1>
       <p class="hero-lead">
-        Radio, telewizja CCTV24, Biblia Audio i codzienne lekcje Pisma są wolne od reklam i dostępne bezpłatnie dla każdego na świecie — dzięki dobrowolnym Mecenasom.
+        Radio 24/7, telewizja CCTV24, Biblia Audio i codzienne lekcje Pisma są wolne od reklam i dostępne bezpłatnie dla każdego na świecie — a dziś wspólnie zbieramy na ich utrzymanie oraz budowę nowego, własnego studia radiowo-telewizyjnego.
       </p>
 
-      <!-- Transparentny Licznik Celu -->
-      <div class="goal-card">
-        <div class="goal-header">
-          <span class="goal-title">Bieżący Cel Miesięczny (Serwery, Studio, Streaming, TTS)</span>
-          <span class="goal-status">64% celu osiągnięte</span>
+      <!-- Dwufilarowy Transparentny Licznik Celu Finansowego -->
+      <div class="goals-dual-grid">
+        <!-- FILAR 1: Bieżący Cel Miesięczny -->
+        <div class="goal-card">
+          <div>
+            <span class="goal-eyebrow">Filar I &bull; Samowystarczalność Ekosystemu 24/7</span>
+            <div class="goal-header">
+              <span class="goal-title">Utrzymanie, Produkcja &amp; Fundusz Studia</span>
+              <span class="goal-amount-big">25 000 zł / mies.</span>
+            </div>
+            <p class="goal-desc">
+              Serwery chmurowe, emisja Radia 24/7 i 17 kanałów TV LIVE, codzienna produkcja słuchowisk Biblii Audio V7 i Kursu Codziennego (15 000 zł) oraz stały comiesięczny odpis na budowę nowego studia (10 000 zł).
+            </p>
+          </div>
+          <div>
+            <div class="goal-bar-bg" aria-hidden="true">
+              <div class="goal-bar-fill"></div>
+            </div>
+            <div class="goal-meta">
+              <span>Próg I (Serwery &amp; AI): 5 000 zł &bull; Próg II (Pełna produkcja): 15 000 zł</span>
+              <a href="#nowe-studio">Zobacz plan studia &darr;</a>
+            </div>
+          </div>
         </div>
-        <div class="goal-bar-bg" aria-hidden="true">
-          <div class="goal-bar-fill"></div>
-        </div>
-        <div class="goal-meta">
-          <span>Cel: 5 000 zł / miesiąc</span>
-          <span>100% jawności w <a href="https://cc-skarbiec-misji.web.app" target="_blank" rel="noopener">Skarbcu Misji CC</a></span>
+
+        <!-- FILAR 2: Budowa Nowego Studia Radiowo-Telewizyjnego CC -->
+        <div class="goal-card goal-card--studio">
+          <div>
+            <span class="goal-eyebrow">Filar II &bull; Inwestycja Strategiczna Misji</span>
+            <div class="goal-header">
+              <span class="goal-title">Budowa Nowego Studia Radiowo-Telewizyjnego</span>
+              <span class="goal-amount-big">80 000 zł</span>
+            </div>
+            <p class="goal-desc">
+              Własne, wyciszone studio radiowo-telewizyjne 4K (adaptacja akustyczna, kamery, mikrofony nadawcze, konsoleta, światło, stacja emisji 24/7) w ramach projektu <strong>Dom z Miejscem na Studio Misji (1 230 000 zł)</strong>.
+            </p>
+          </div>
+          <div>
+            <div class="goal-bar-bg" aria-hidden="true">
+              <div class="goal-bar-fill goal-bar-fill--studio"></div>
+            </div>
+            <div class="goal-meta">
+              <span>Etap I (Rozruch &amp; Akustyka): <strong>25 000 zł</strong> &bull; Pełne Studio RTV: <strong>80 000 zł</strong></span>
+              <a href="javascript:void(0)" onclick="window.openWspieramToModal({amount:250, currency:'PLN'})">Wesprzyj budowę studia &rarr;</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -479,7 +695,7 @@ a { color: inherit; text-decoration: none; }
         <div class="tier-card">
           <h2 class="tier-name">Przyjaciel Misji</h2>
           <div class="tier-price">19 zł <span>/ mies.</span></div>
-          <p class="tier-desc">Pokrywa transfer serwerowy i zapewnia dostęp do Radia oraz Biblii Audio dla 50 nowych słuchaczy.</p>
+          <p class="tier-desc">Pokrywa transfer serwerowy i zapewnia bezpłatny dostęp do Radia 24/7 oraz Biblii Audio dla 50 nowych słuchaczy.</p>
           <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:19, currency:'PLN'})">Wspieram 19 zł</button>
         </div>
 
@@ -488,24 +704,82 @@ a { color: inherit; text-decoration: none; }
           <span class="tier-ribbon">Najpopularniejszy</span>
           <h2 class="tier-name">Patron Pisma</h2>
           <div class="tier-price">49 zł <span>/ mies.</span></div>
-          <p class="tier-desc">Umożliwia profesjonalną produkcję kolejnych rozdziałów Biblii Audio oraz codzienne lekcje Akademii Biblijnej.</p>
+          <p class="tier-desc">Umożliwia profesjonalną produkcję kolejnych rozdziałów Biblii Audio V7 oraz codzienne lekcje Akademii Biblijnej.</p>
           <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:49, currency:'PLN'})">Wspieram 49 zł</button>
         </div>
 
         <!-- 99 PLN -->
         <div class="tier-card">
-          <h2 class="tier-name">Filar Ekosystemu</h2>
+          <h2 class="tier-name">Budowniczy Studia RTV</h2>
           <div class="tier-price">99 zł <span>/ mies.</span></div>
-          <p class="tier-desc">Gwarantuje stabilność techniczną 24/7, zaplecze retransmisyjne OBS, rozwój portalu LUMINA i aplikacji mobilnej.</p>
+          <p class="tier-desc">Wspiera ciągłość emisji 24/7 oraz zasila Fundusz Budowy i Wyposażenia Nowego Studia Radiowo-Telewizyjnego CC.</p>
           <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:99, currency:'PLN'})">Wspieram 99 zł</button>
         </div>
 
         <!-- 490 PLN -->
         <div class="tier-card">
-          <h2 class="tier-name">Mecenas Rozdziału</h2>
+          <h2 class="tier-name">Fundator Studia &amp; Rozdziału</h2>
           <div class="tier-price">490 zł <span>/ dar</span></div>
-          <p class="tier-desc">Dedykowany patronat nad realizacją całego rozdziału słuchowiska dramatyzowanego Pisma Świętego.</p>
-          <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:490, currency:'PLN'})">Zostań Mecenasem</button>
+          <p class="tier-desc">Cegiełka fundatorska na sprzęt do nowego studia radiowo-telewizyjnego 4K oraz patronat nad rozdziałem Biblii Audio.</p>
+          <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:490, currency:'PLN'})">Zostań Fundatorem</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEDYKOWANA SEKCJA: BUDOWA NOWEGO STUDIA RADIOWO-TELEWIZYJNEGO CC -->
+    <section class="studio-section" id="nowe-studio" aria-labelledby="studio-heading">
+      <div class="studio-top">
+        <div class="studio-copy">
+          <span class="hero-badge" style="margin-bottom:10px;">Cel Strategiczny &bull; Dom &amp; Studio Misji</span>
+          <h2 id="studio-heading">Budujemy <span>Nowe Studio Radiowo-Telewizyjne</span> Christian Culture</h2>
+          <p>
+            Od trzech lat każdego dnia nadajemy Ewangelię, nagrywamy słuchowiska Biblii Audio, prowadzimy wykłady i transmisje na żywo. Dziś stoimy przed kolejnym krokiem wiary: stworzeniem <strong>własnego, cichego studia radiowo-telewizyjnego 4K</strong> połączonego z domem misyjnym.
+          </p>
+          <p>
+            Własne studio to niezależność od kosztów wynajmu, profesjonalna akustyka do nagrań Pisma Świętego, wielokamerowa realizacja programów telewizyjnych CCTV24 oraz niezawodne centrum nadawcze 24/7 dla całego ekosystemu.
+          </p>
+        </div>
+        <div class="studio-visual">
+          <img src="/images/ogloszenia-dom-studio.webp" alt="Wizja nowego studia radiowo-telewizyjnego Christian Culture w domu misyjnym" width="800" height="450" loading="lazy">
+        </div>
+      </div>
+
+      <div class="studio-milestones">
+        <article class="studio-item">
+          <span class="studio-item-tag">Etap 1 &bull; Akustyka i Lektorium</span>
+          <h3>Kabina Lektorska &amp; Adaptacja</h3>
+          <div class="studio-item-cost">20 000 zł</div>
+          <p>Wyciszenie akustyczne pomieszczenia, panele pochłaniające, dyfuzory i stanowisko do nagrań Biblii Audio V7 oraz Biblii Śpiewanej.</p>
+        </article>
+        <article class="studio-item">
+          <span class="studio-item-tag">Etap 2 &bull; Telewizja CCTV24 4K</span>
+          <h3>Tor Kamerowy &amp; Światło Studyjne</h3>
+          <div class="studio-item-cost">28 000 zł</div>
+          <p>Kamery 4K UHD, oświetlenie studyjne LED o wysokim CRI, prompter i mikser wideo do wykładów, rozmów i Wieczorów ze Słowem Bożym.</p>
+        </article>
+        <article class="studio-item">
+          <span class="studio-item-tag">Etap 3 &bull; Reżyserka Radio &amp; DAW</span>
+          <h3>Konsoleta Audio &amp; Stacja Emisji</h3>
+          <div class="studio-item-cost">20 000 zł</div>
+          <p>Mikrofony broadcastowe, interfejsy i procesory głosu, stacja montażowa DAW / DaVinci Resolve oraz serwer emisji ciągłej 17 kanałów LIVE.</p>
+        </article>
+        <article class="studio-item">
+          <span class="studio-item-tag">Etap 4 &bull; Infrastruktura &amp; Dom</span>
+          <h3>Zasilanie, Archiwum &amp; Przestrzeń</h3>
+          <div class="studio-item-cost">12 000 zł <span style="font-size:12px;color:var(--soft);font-weight:500">(+ fundusz domu 1,15 mln zł)</span></div>
+          <p>Macierz dyskowa NAS/NVMe na archiwum produkcji 4K, zasilanie awaryjne UPS, okablowanie oraz fundusz docelowego domu ze studiem misji.</p>
+        </article>
+      </div>
+
+      <div class="studio-bottom-bar">
+        <blockquote class="studio-verse" style="margin:0;">
+          „Jeśli Pan nie zbuduje domu, na próżno trudzą się ci, którzy go wznoszą.” (Ps 127:1, UBG) &bull; „Dom buduje się mądrością, a umacnia się rozumem.” (Prz 24:3, UBG)
+          <cite>Przyjmujemy także sprawny sprzęt studyjny, mikrofony, kamery, monitory i komputery do studia (kontakt: radiochristianculture@gmail.com)</cite>
+        </blockquote>
+        <div class="studio-actions">
+          <button type="button" class="btn-studio-cta" onclick="window.openWspieramToModal({amount:250, currency:'PLN'})">
+            Dokładam cegiełkę na Studio RTV &rarr;
+          </button>
         </div>
       </div>
     </section>
