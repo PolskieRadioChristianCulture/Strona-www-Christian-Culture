@@ -139,3 +139,61 @@ html body.lumi-standalone .cc-chat-radio select{flex:1;border:none!important;bac
 }
 /* EkoCC v2 PREMIUM (@007, 25.10): dolna nawigacja LUMI na ekranach ≤360 px — każdy przycisk co najmniej 44 px szerokości (WCAG 2.5.8). */
 @media(max-width:360px){html body #lumiLanding .lumi-bottom-navigation{width:calc(100% - 16px);padding-left:4px;padding-right:4px}html body #lumiLanding.lumi-dashboard .lumi-bottom-navigation button,html body #lumiLanding.lumi-dashboard .lumi-bottom-navigation a{min-width:44px!important;font-size:12px!important}}
+
+
+html body #lumiLanding .lumi-directory-heading {
+  justify-content: flex-end;
+  margin-block: 0 10px;
+}
+
+#lumiLanding .lumi-dashboard-header { flex-wrap: nowrap; }
+#lumiLanding .lumi-brand { width: auto; min-width: 0; }
+#lumiLanding #lumiMoreButton svg { width: 24px; height: 24px; }
+
+#lumiMorePanel {
+  margin-block: 0 16px;
+  padding: 12px;
+  border: 1px solid #7994c044;
+  border-radius: 20px;
+  background: #111b34;
+}
+
+#lumiMorePanel .lumi-search-field { flex: 1; min-width: 0; }
+#lumiMorePanel .lumi-header-tools { flex-wrap: wrap; }
+#lumiMorePanel .lumi-radio-pill { min-width: 0; }
+#lumiMorePanel .lumi-heading-actions { gap: 0 12px; }
+#lumiMorePanel .lumi-community-hero { margin-inline: 0; border-radius: 16px; }
+#lumiLanding #lumiMorePanel .lumi-filter-bar { display: flex; flex-wrap: wrap; overflow: visible; }
+
+#lumiLanding #lumiDirectoryHeading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+#lumiLanding .lumi-directory-status:empty { margin: 0; min-height: 0; }
+
+html body #lumiLanding .lumi-new-conversation {
+  position: static;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+  padding: 0;
+  background: #ff7a00;
+  color: #fff;
+  box-shadow: none;
+}
+
+html body #lumiLanding .lumi-new-conversation:hover { background: #ff8c33; }
+html body #lumiLanding .lumi-new-conversation:active { background: #e66a00; }
+html body #lumiLanding .lumi-new-conversation svg { width: 24px; height: 24px; }
+
+@media (max-width: 640px) {
+  #lumiLanding #lumiMorePanel .lumi-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #lumiMorePanel .lumi-community-hero { padding-inline: 14px; }
+}

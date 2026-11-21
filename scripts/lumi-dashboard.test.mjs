@@ -8,9 +8,10 @@ import { renderLumiPage } from './lumi-page.mjs';
 const source = await readFile('js/lumi-dashboard.js', 'utf8');
 const windows = [];
 after(async () => { for (const win of windows) await win.happyDOM.close(); });
-function fixture(loggedIn = false, commander = false) {
+function fixture(loggedIn = false, commander = false, mobile = false) {
   const win = new Window({ url: 'https://polskieradio.cc/mess', settings: { disableJavaScriptFileLoading: true, disableCSSFileLoading: true, disableIframePageLoading: true } });
   windows.push(win); win.document.body.innerHTML = renderLumiDashboard();
+  if (mobile) win.happyDOM.setViewport({ width: 390, height: 844 });
   let user = loggedIn ? { uid: commander ? 'cezaryrgowski' : 'fixture-owner', email: commander ? 'nazirczarkes@gmail.com' : 'user@example.com', emailVerified: true } : null;
   const snapshots = [], opens = [], radioStates = [], plays = [], timers = [];
   const people = [
@@ -129,6 +130,47 @@ test('private preview and unread badge require an authenticated own-room snapsho
   assert.ok(f.win.document.getElementById('lumiNotificationCount').hidden);
 });
 
+test('mobile opens with recent private conversations and New conversation restores directory search', () => {
+  const f = fixture(true, false, true);
+  const { document } = f.win;
+  const search = document.getElementById('lumiDirectorySearch');
+  const heading = document.getElementById('lumiDirectoryHeading');
+  const cards = document.getElementById('lumiConversationCards');
+  const compose = document.getElementById('lumiNewConversation');
+  assert.equal(compose.parentElement, heading.parentElement);
+  const panel = document.getElementById('lumiMorePanel');
+  const more = document.getElementById('lumiMoreButton');
+  assert.ok(panel.hidden);
+  assert.ok(panel.contains(search));
+  assert.ok(panel.contains(document.getElementById('lumiOpen')));
+  more.click();
+  assert.equal(more.getAttribute('aria-expanded'), 'true');
+  assert.equal(panel.hidden, false);
+  f.snapshots[0].fn([
+    { users: ['fixture-owner', 'formation-peer'], lastSenderId: 'formation-peer', lastMessageTimestamp: 1 },
+    { users: ['fixture-owner', 'community-peer'], lastSenderId: 'community-peer', lastMessageTimestamp: 2 }
+  ]);
+  assert.deepEqual([...cards.querySelectorAll('.lumi-card-title')].map(card => card.firstChild.textContent), ['Próba Społeczność', 'Próba Formacja', 'Próba Misja']);
+  document.querySelector('[data-lumi-filter="recent"]').click();
+  assert.equal(heading.textContent, 'Ostatnie rozmowy');
+  assert.equal(cards.children.length, 2);
+  more.click();
+  document.querySelector('[data-lumi-filter="all"]').click();
+  more.click();
+  search.value = 'Misja';
+  search.dispatchEvent(new f.win.Event('input'));
+  assert.match(cards.textContent, /Próba Misja/);
+  compose.click();
+  assert.equal(document.activeElement, search);
+  assert.equal(document.getElementById('lumiMoreOptions').hidden, true);
+  assert.equal(search.value, '');
+  assert.equal(cards.children.length, 3);
+  search.dispatchEvent(new f.win.KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  assert.ok(panel.hidden);
+  assert.equal(more.getAttribute('aria-expanded'), 'false');
+  assert.equal(document.activeElement, more);
+});
+
 test('snapshot arriving after account switch cannot populate another account dashboard', () => {
   const f = fixture(true); const stale = f.snapshots[0].fn;
   f.setUser({ uid: 'fixture-second-owner' });
@@ -187,23 +229,19 @@ test('avatar circle geometry and footer line alignment are strictly enforced in 
 
 test('new conversation button uses feather quill icon and radio dropdown uses elegant svg chevron', async () => {
   const markup = renderLumiDashboard();
-  // Feather quill pen icon in new conversation button and separated words
+  // The icon-only feather keeps its accessible name.
   assert.match(markup, /id="lumiNewConversation"[^>]*aria-label="Nowa rozmowa"/);
   assert.match(markup, /M20\.24 12\.24a6 6 0 0 0-8\.49-8\.49L5 10\.5V19h8\.5z/);
-  assert.match(markup, /<span>Nowa rozmowa<\/span>/);
+  assert.doesNotMatch(markup, /<span>Nowa rozmowa<\/span>/);
   assert.doesNotMatch(markup, /Nowarozmowa|Nowa<br>rozmowa/);
   // Radio dropdown uses SVG chevronDown and never raw unicode caret character
   assert.match(markup, /id="lumiRadioMenu"[^>]*><svg[^>]*><path d="m6 9 6 6 6-6"/);
   assert.doesNotMatch(markup, /id="lumiRadioMenu"[^>]*>⌄/);
 
   const css = await readFile('css/lumi-messenger-design.css', 'utf8');
-  // Desktop button label whitespace
-  assert.match(css, /\.lumi-new-conversation span\{white-space:nowrap\}/);
   // Dropdown rotation and styling
   assert.match(css, /\.lumi-radio-pill button:last-child\[aria-expanded=true\] svg\{transform:rotate\(180deg\)\}/);
-  // Mobile clean circular FAB without overflowing text
-  assert.match(css, /\.lumi-new-conversation\{[^}]*width:58px;height:58px;min-width:58px;min-height:58px;border-radius:50%[^}]*\}/);
-  assert.match(css, /\.lumi-new-conversation span\{display:none!important\}/);
+  assert.match(css, /#lumiLanding \.lumi-new-conversation \{[^}]*width: 48px;[^}]*min-height: 48px;[^}]*border-radius: 50%/);
   // Search input has no rectangular outline and delegates focus styling to rounded pill container
   assert.doesNotMatch(css, /\.lumi-dashboard input:focus-visible/);
   assert.match(css, /\.lumi-search-field:focus-within\{border-color:#f2a3ff/);

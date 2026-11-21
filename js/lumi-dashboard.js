@@ -3,7 +3,8 @@
   if (window.LumiDashboard) return;
   const root = document.getElementById('lumiLanding');
   if (!root?.classList.contains('lumi-dashboard')) return;
-  let category = 'all', filter = 'all', query = '', owner = '', rooms = [], roomStop = null;
+  const mobile = window.matchMedia('(max-width: 640px)');
+  let category = 'all', selectedFilter = null, query = '', owner = '', rooms = [], roomStop = null;
   let generation = 0, radioBound = false;
   const $ = id => document.getElementById(id);
   const currentUser = () => window.LuminaDB?.getCurrentUser?.();
@@ -292,16 +293,21 @@
       btnFamily.style.display = showFam ? 'inline-flex' : 'none';
     }
     root.querySelectorAll('[data-lumi-category]').forEach(button => { const active = button.dataset.lumiCategory === category; button.classList.toggle('is-active', active); button.setAttribute('aria-pressed', String(active)); });
+    let list = entries();
+    const filter = selectedFilter ?? 'all';
+    const recentFirst = selectedFilter === null && mobile.matches && !query;
     root.querySelectorAll('[data-lumi-filter]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lumiFilter === filter)));
     if (category === 'channels') { renderChannels(); $('lumiDirectoryHeading').textContent = 'Kanały i wspólnota'; $('lumiDirectoryStatus').textContent = 'Wybierz miejsce, do którego chcesz przejść'; return; }
-    let list = entries();
     const unreadRooms = list.filter(entry => unread(entry) > 0).length;
     const badge = $('lumiNotificationCount'); badge.hidden = unreadRooms === 0; badge.textContent = String(unreadRooms); badge.setAttribute('aria-label', `${unreadRooms} nieprzeczytanych rozmów`);
     if (category !== 'all') list = list.filter(entry => entryCategory(entry) === category);
     if (filter === 'unread') list = list.filter(entry => unread(entry) > 0);
     if (filter === 'mine' || filter === 'recent') list = list.filter(entry => entry.room);
     if (query) list = list.filter(entry => `${entry.name} ${entry.desc || ''} ${entry.room?.lastMessageText || ''}`.toLocaleLowerCase('pl-PL').includes(query));
-    if (filter === 'recent') list.sort((a, b) => timestamp(b.room?.lastMessageTimestamp) - timestamp(a.room?.lastMessageTimestamp));
+    const newestFirst = (a, b) => timestamp(b.room?.lastMessageTimestamp) - timestamp(a.room?.lastMessageTimestamp);
+    if (filter === 'recent') list.sort(newestFirst);
+    const recent = recentFirst ? list.filter(entry => entry.room).sort(newestFirst) : [];
+    if (recent.length) list = list.filter(entry => !entry.room);
     const cards = list.map(card);
     if (window.CCAssistant?.isEnabled?.()) {
       const assistantMatches = !query || 'asystent christian culture wirtualny gospodarz pomoc inspiracja pytanie biblia radio'.includes(query);
@@ -321,14 +327,15 @@
         cards.unshift(commanderCard());
       }
     }
-    $('lumiConversationCards').replaceChildren(...cards);
-    $('lumiDirectoryHeading').textContent = filter === 'mine' ? 'Moje czaty' : filter === 'unread' ? 'Nieprzeczytane rozmowy' : 'Rozmowy i społeczność';
-    $('lumiDirectoryStatus').textContent = cards.length ? (isMember() ? 'Wybierz rozmowę lub rozpocznij nową' : 'Zaloguj się, aby rozpocząć rozmowę prywatną') : query ? 'Brak osób lub rozmów pasujących do wyszukiwania' : !window.CCGlobalChat ? 'Wczytywanie społeczności…' : 'Brak rozmów w tym widoku';
+    $('lumiConversationCards').replaceChildren(...recent.map(card), ...cards);
+    $('lumiDirectoryHeading').textContent = filter === 'mine' ? 'Moje czaty' : filter === 'unread' ? 'Nieprzeczytane rozmowy' : filter === 'recent' ? 'Ostatnie rozmowy' : 'Rozmowy i społeczność';
+    $('lumiDirectoryStatus').textContent = recent.length || cards.length ? '' : query ? 'Brak osób lub rozmów pasujących do wyszukiwania' : !window.CCGlobalChat ? 'Wczytywanie społeczności…' : 'Brak rozmów w tym widoku';
   }
   function bindSession() {
     const user = currentUser(); const next = user && !user.isAnonymous ? String(user.uid || '') : '';
     if (next !== owner) {
       generation++; roomStop?.(); roomStop = null; rooms = []; owner = next;
+      selectedFilter = null;
       $('lumiNotificationCount').hidden = true; $('lumiNotificationCount').textContent = '';
     }
     if (owner && !roomStop && typeof window.LuminaDB?.subscribeToUserChats === 'function') {
@@ -387,23 +394,46 @@
       prepare();
     }).catch(() => { $('lumiRadioStatus').textContent = 'Radio niedostępne. Odśwież stronę.'; });
   }
+  function setMore(open, focusTarget, searchOnly = false) {
+    const button = $('lumiMoreButton');
+    $('lumiMorePanel').hidden = !open;
+    $('lumiMoreOptions').hidden = searchOnly;
+    button.setAttribute('aria-expanded', String(open));
+    focusTarget?.focus({ preventScroll: true });
+  }
   function setup() {
+    const more = $('lumiMoreButton');
+    const panel = $('lumiMorePanel');
+    const search = $('lumiDirectorySearch');
+    const showSearch = () => {
+      setMore(true, search, true);
+      search.scrollIntoView?.({ block: 'nearest' });
+    };
+    more.addEventListener('click', () => setMore(panel.hidden || $('lumiMoreOptions').hidden));
+    root.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || panel.hidden || (!panel.contains(event.target) && event.target !== more)) return;
+      event.preventDefault();
+      setMore(false, more);
+    });
+    mobile.addEventListener('change', render);
     root.addEventListener('click', event => {
       const categoryButton = event.target.closest('[data-lumi-category]');
-      if (categoryButton) { category = categoryButton.dataset.lumiCategory; filter = 'all'; render(); }
+      if (categoryButton) {
+        category = categoryButton.dataset.lumiCategory; selectedFilter = 'all'; render();
+        setMore(false, panel.contains(categoryButton) ? more : undefined);
+      }
       const filterButton = event.target.closest('[data-lumi-filter]');
-      if (filterButton) { if (!isMember() && filterButton.dataset.lumiFilter !== 'all') return login(); category = 'all'; filter = filterButton.dataset.lumiFilter; render(); }
+      if (filterButton) { if (!isMember() && filterButton.dataset.lumiFilter !== 'all') return login(); category = 'all'; selectedFilter = filterButton.dataset.lumiFilter; render(); setMore(false, more); }
       const action = event.target.closest('[data-lumi-action]')?.dataset.lumiAction;
-      if (action === 'radio') toggleRadioPanel();
-      if (action === 'search') $('lumiDirectorySearch').focus();
-      if (action === 'chats') { category = 'all'; filter = 'all'; render(); }
-      if (action === 'notifications') { if (!isMember()) return login(); category = 'all'; filter = 'unread'; render(); $('lumiDirectoryHeading').scrollIntoView?.({ block: 'start' }); }
-      if (action === 'settings') window.openChatSettingsModal?.();
+      if (action === 'radio') { setMore(true); if ($('lumiRadioPanel').hidden) toggleRadioPanel(); $('lumiRadioSelect').focus(); }
+      if (action === 'chats') { category = 'all'; selectedFilter = null; query = ''; search.value = ''; render(); setMore(false); }
+      if (action === 'notifications') { if (!isMember()) return login(); category = 'all'; selectedFilter = 'unread'; render(); setMore(false, panel.contains(event.target) ? more : undefined); }
+      if (action === 'settings') { setMore(false); window.openChatSettingsModal?.(); }
+      if (event.target.closest('.lumi-open-room, #lumiFilterBcm24, #lumiAccountAction, #lumiSettings, #lumiReplayIntro')) setMore(false);
     });
-    $('lumiDirectorySearch').addEventListener('input', event => { query = event.target.value.trim().toLocaleLowerCase('pl-PL'); render(); });
+    search.addEventListener('input', event => { query = event.target.value.trim().toLocaleLowerCase('pl-PL'); $('lumiMoreOptions').hidden = true; render(); });
     $('lumiRadioMenu').addEventListener('click', toggleRadioPanel);
-    $('lumiFilterButton').addEventListener('click', () => { const active = $('lumiFilters').classList.toggle('is-expanded'); $('lumiFilterButton').setAttribute('aria-expanded', String(active)); });
-    $('lumiNewConversation').addEventListener('click', () => { category = 'all'; filter = 'all'; query = ''; $('lumiDirectorySearch').value = ''; render(); $('lumiDirectorySearch').focus(); $('lumiDirectorySearch').scrollIntoView?.({ block: 'center' }); });
+    $('lumiNewConversation').addEventListener('click', () => { category = 'all'; selectedFilter = 'all'; query = ''; search.value = ''; render(); showSearch(); });
     $('lumiAccountAction').addEventListener('click', () => isMember() ? window.openChatSettingsModal?.() : login());
     $('lumiFilterBcm24')?.addEventListener('click', openBcm24Room);
     $('lumiOpenCommander')?.addEventListener('click', openCommanderRoom);

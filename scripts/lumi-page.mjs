@@ -33,11 +33,11 @@ try {
 </script>
 <style>html.cc-mess-embedded #lumiLanding,html.cc-mess-embedded #lumiIntroOverlay{display:none!important}</style>
 <link rel="stylesheet" href="/css/lumi-standalone.css?v=20261112_message_menu">
-<link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261114_rooms_v2">
+<link rel="stylesheet" href="/css/lumi-messenger-design.css?v=20261121_more_options">
 <link rel="stylesheet" href="/css/cc-assistant.css?v=20261120_mess_clean1">
 ${assistantScript}
 <script defer src="/js/lumi-standalone.js?v=20261112_chat_ready"></script>
-<script defer src="/js/lumi-dashboard.js?v=20261111_mess_repair"></script>
+<script defer src="/js/lumi-dashboard.js?v=20261121_more_options"></script>
 <script type="application/ld+json">${JSON.stringify({'@context':'https://schema.org','@type':'WebApplication',name:'LUMI Messenger',url:'https://polskieradio.cc/mess',applicationCategory:'CommunicationApplication',description,inLanguage:'pl'})}</script>
 </head>`)
     .replace('<body class="user-is-guest">', `<body class="user-is-guest lumi-standalone">
