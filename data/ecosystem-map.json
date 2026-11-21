@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-21",
+      "topic": "Podgląd dedykowanego Centrum Aplikacji Christian Culture na Androida i Web/PWA (/test/aplikacje/)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-21",
       "topic": "Werset Dnia — ograniczenie przycisku Szukaj w polu wyszukiwarki do okrągłej ikony ze strzałką",
       "agent": "A"
     },
