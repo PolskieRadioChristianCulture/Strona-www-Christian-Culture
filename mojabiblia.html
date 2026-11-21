@@ -231,6 +231,11 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
     body {
       background-color: var(--bg-dark);
       background-image: 
@@ -2127,48 +2132,21 @@
     }
     @media (max-width: 680px) {
       .mb-report-btn span { display: none; }
-      .mb-report-btn { padding: 7px 12px; }
+      .mb-report-btn {
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+        min-height: 44px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+      }
     }
 
-    /* Pływający FAB Zgłoś Problem */
-    .mb-fab-report {
-      position: fixed;
-      bottom: 24px;
-      left: 24px;
-      right: auto;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 10px 18px;
-      min-height: 48px;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      border: 1.5px solid var(--gold-primary);
-      border-radius: 50px;
-      color: #fff;
-      font-size: 0.86rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 18px var(--gold-glow);
-      transition: all 0.25s ease;
-    }
-    .mb-fab-report i {
-      color: var(--gold-bright);
-      font-size: 1.1rem;
-    }
-    .mb-fab-report:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 24px var(--gold-glow);
-      border-color: var(--gold-bright);
-    }
-    @media (max-width: 600px) {
-      .mb-fab-report {
-        bottom: 18px;
-        left: 18px;
-        right: auto;
-        padding: 10px 14px;
-      }
-      .mb-fab-label { display: none; }
+    /* Pozycjonowanie pływającego przycisku ⓘ poniżej paska narzędzi (.mb-toolbar), bez kolizji z A+ */
+    #ekoccInfoTriggerBtn.ekocc-info-trigger {
+      top: 142px !important;
+      right: 20px !important;
     }
 
     /* Karta misyjna Biblia Audio */
@@ -2533,7 +2511,17 @@
         display: none !important; /* Dostępne w menu pigułki i drawerze, chroni pigułkę przed ściśnięciem */
       }
       .mb-report-btn.header-report {
-        display: none !important; /* Dostępne przez pływający FAB na dole ekranu */
+        width: 44px !important;
+        min-width: 44px !important;
+        height: 44px !important;
+        min-height: 44px !important;
+        padding: 0 !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        flex-shrink: 0;
+      }
+      .mb-report-btn.header-report span {
+        display: none !important;
       }
       @media (max-width: 540px) {
         .mb-audio-pill .mb-audio-short-label {
@@ -2594,7 +2582,8 @@
         min-width: 0;
       }
       .mb-select {
-        height: 42px;
+        height: 44px;
+        min-height: 44px;
         font-size: 0.82rem;
         border-radius: 10px;
         padding: 0 6px;
@@ -2607,11 +2596,11 @@
         overflow: hidden;
       }
       .mb-chapter-select {
-        width: 72px;
-        min-width: 68px;
-        max-width: 78px;
+        width: 92px;
+        min-width: 88px;
+        max-width: 98px;
         flex-shrink: 0;
-        padding: 0 2px 0 4px;
+        padding: 0 6px;
       }
       .mb-nav-secondary-row {
         width: 100%;
@@ -2708,13 +2697,15 @@
         font-size: 0.88rem;
       }
       .mb-verse-actions {
-        gap: 4px;
+        gap: 6px;
       }
       .mb-action-btn {
-        width: 34px;
-        height: 34px;
-        font-size: 0.80rem;
-        border-radius: 8px;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+        font-size: 0.88rem;
+        border-radius: 10px;
       }
       .mb-verse-smooth-text {
         font-size: calc(var(--mb-font-scale) * 1.15);
@@ -2839,19 +2830,9 @@
         font-size: 0.65rem;
       }
       .mb-ch-btn {
-        min-width: 38px;
-        min-height: 38px;
-        font-size: 0.82rem;
-      }
-      .mb-fab-report {
-        bottom: 16px;
-        left: 16px;
-        right: auto;
-        padding: 10px 12px;
+        min-width: 44px;
         min-height: 44px;
-      }
-      .mb-fab-label {
-        display: none !important;
+        font-size: 0.84rem;
       }
     }
 
@@ -3183,12 +3164,6 @@
       </div>
     </div>
   </div>
-
-  <!-- ══════════ PŁYWAJĄCY PRZYCISK ZGŁOŚ PROBLEM (FAB) ══════════ -->
-  <button class="mb-fab-report" id="mbFabReportBtn" onclick="window.mbApp.openReportProblemModal()" title="Zgłoś problem lub skontaktuj się z zespołem Biblia Audio CC">
-    <i class="fa-solid fa-comment-dots"></i>
-    <span class="mb-fab-label">Zgłoś Problem</span>
-  </button>
 
   <!-- ══════════ MODAL ZGŁOŚ PROBLEM (GROWTH LOOP SPOŁECZNOŚCI LUMINA & CZAT BIBLIA AUDIO) ══════════ -->
   <div id="mbReportProblemModal" class="mb-modal-overlay" style="display:none;" onclick="if(event.target===this) window.mbApp.closeReportProblemModal()">

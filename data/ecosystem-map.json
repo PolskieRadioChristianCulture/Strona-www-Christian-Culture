@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-21",
+      "topic": "MojaBiblia — usunięcie duplikatu pływającego przycisku Zgłoś Problem z lewego dolnego rogu i poprawa ergonomii mobilnej 44px",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-21",
       "topic": "Pakiet promocyjny 40 Dni Modlitwy (/40DM/ PL i EN): grafiki 16:9, 1:1, 9:16 oraz start komunikacji",
       "agent": "A"
     },
