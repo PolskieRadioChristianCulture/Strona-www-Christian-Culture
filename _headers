@@ -229,6 +229,19 @@
 /*.webp
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
+# Pozostałe formaty obrazów — ta sama zasada (@007, 22.11: strażnik scripts/cc-image-freshness-guard.mjs).
+/*.jpeg
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/*.gif
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/*.svg
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/*.avif
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
 /*.mp4
   Cache-Control: public, max-age=31536000, immutable
 

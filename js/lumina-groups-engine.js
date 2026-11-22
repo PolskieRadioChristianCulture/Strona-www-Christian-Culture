@@ -159,7 +159,7 @@
                         <div class="group-card-item" onclick="window.openGroupChatRoom('${g.id}')">
                             <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
                                 <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
-                                    <img src="${g.avatar}" alt="${g.name}" style="width: 44px; height: 44px; border-radius: 12px; object-fit: cover; border: 2px solid ${g.borderColor}; flex-shrink: 0;" onerror="this.src='lumina_icon.jpg'">
+                                    <img src="${g.avatar}" alt="${g.name}" loading="lazy" decoding="async" style="width: 44px; height: 44px; border-radius: 12px; object-fit: cover; border: 2px solid ${g.borderColor}; flex-shrink: 0;" onerror="this.src='lumina_icon.jpg'">
                                     <div style="min-width: 0;">
                                         <div style="font-size: 0.92rem; font-weight: 800; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             ${g.name}
@@ -366,7 +366,7 @@
 
             html += `
                 <div style="display:flex; gap:8px; margin-bottom:8px; align-items:flex-start; ${isMe ? 'flex-direction:row-reverse;' : ''}">
-                    <img src="${avatar}" alt="${authorName}" style="width:32px; height:32px; border-radius:50%; object-fit:cover; border:1px solid rgba(255,255,255,0.2); flex-shrink:0;" onerror="this.src='lumina_icon.jpg'">
+                    <img src="${avatar}" alt="${authorName}" loading="lazy" decoding="async" style="width:32px; height:32px; border-radius:50%; object-fit:cover; border:1px solid rgba(255,255,255,0.2); flex-shrink:0;" onerror="this.src='lumina_icon.jpg'">
                     <div style="max-width:78%; display:flex; flex-direction:column; ${isMe ? 'align-items:flex-end;' : 'align-items:flex-start;'}">
                         <div style="display:flex; align-items:center; gap:5px; margin-bottom:2px;">
                             <span style="font-size:0.72rem; font-weight:800; color:#fff;">${authorName}</span>

@@ -10,6 +10,7 @@ import { isPublicFile } from './cc-release-files.mjs';
 import { sprawdzPliki, plikiLekcji } from './kurs-codzienny/straznik-lekcji.mjs';
 import { enforceReleaseBranch } from './cc-release-branch-guard.mjs';
 import { enforceProtectedPages } from './cc-protected-pages.mjs';
+import { enforceImageFreshness } from './cc-image-freshness-guard.mjs';
 
 const ROOT = process.cwd();
 const OUTPUT = path.join(ROOT, '.pages-release');
@@ -58,6 +59,8 @@ const tracked = execFileSync('git', ['ls-files', '-z'], {
   windowsHide: true,
   maxBuffer: 32 * 1024 * 1024,
 }).split('\0').filter(Boolean);
+// Strażnik świeżości obrazów (@007, L0 22.11.2026): bez „immutable” dla obrazów i bez ciężkich zdjęć w LUMINA.
+enforceImageFreshness({ root: ROOT, trackedFiles: tracked });
 
 let copied = 0;
 for (const relativePath of tracked) {

@@ -837,7 +837,7 @@
                 row.className = 'notif-item' + (n.unread ? ' unread' : '');
                 row.setAttribute('role', 'button');
                 row.tabIndex = 0;
-                row.innerHTML = '<img class="notif-avatar" alt=""><div class="notif-content"><div class="notif-item-title"></div><div class="notif-item-body"></div><div class="notif-time"></div></div>';
+                row.innerHTML = '<img class="notif-avatar" alt="" loading="lazy" decoding="async"><div class="notif-content"><div class="notif-item-title"></div><div class="notif-item-body"></div><div class="notif-time"></div></div>';
                 const image = row.querySelector('img');
                 image.src = safeNotificationUrl(n.icon, '/lumina_icon.jpg');
                 image.addEventListener('error', () => { image.src = '/lumina_icon.jpg'; }, { once: true });

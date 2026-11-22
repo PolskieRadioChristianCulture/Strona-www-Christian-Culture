@@ -625,7 +625,7 @@
       btn.setAttribute('aria-haspopup', 'dialog');
       btn.setAttribute('aria-expanded', 'false');
       btn.setAttribute('aria-controls', 'ekoccInfoDialog');
-      btn.innerHTML = '<img src="/images/icons/ekocc-info-gold-128.png" srcset="/images/icons/ekocc-info-gold-128.png 1x, /images/icons/ekocc-info-gold.png 2x" alt="" class="ekocc-info-icon-img" width="48" height="48" loading="eager" decoding="async">';
+      btn.innerHTML = '<img src="/images/icons/ekocc-info-gold-128.png" alt="" class="ekocc-info-icon-img" width="48" height="48" loading="eager" decoding="async">';
       btn.title = UNIVERSAL_TEXT[this.currentLang].labels.openInfo;
 
       document.body.appendChild(btn);
@@ -817,7 +817,7 @@
         <div class="ekocc-info-panel" id="ekoccInfoPanel" data-page-theme="home">
           <header class="ekocc-info-header">
             <div class="ekocc-info-brand">
-              <div class="ekocc-info-badge"><img src="/images/icons/ekocc-info-gold-128.png" srcset="/images/icons/ekocc-info-gold-128.png 1x, /images/icons/ekocc-info-gold.png 2x" alt="" class="ekocc-info-badge-img" width="36" height="36"></div>
+              <div class="ekocc-info-badge"><img src="/images/icons/ekocc-info-gold-128.png" alt="" class="ekocc-info-badge-img" width="36" height="36"></div>
               <h2 class="ekocc-info-title" id="ekoccInfoTitle">Christian Culture</h2>
             </div>
             <div class="ekocc-info-actions">
