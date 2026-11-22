@@ -1252,6 +1252,102 @@
       "Ps 150:1-6"
     ],
     "text": "Globalna platforma nadawcza PolskieRadio.cc: Program 1 (słowno-muzyczny), Radio Global (English worship & sermons), Biblia Audio PL (24/7 ciągłe czytanie Pisma Świętego UBG), Global Bible (anglojęzyczna Biblia Audio), Instrumental Worship (muzyka do modlitwy) oraz Biblia Śpiewana (słowa wersetów w pieśniach)."
+  },
+  {
+    "id": "rag-smierc-stan-umarlych-jhn-11-11-14",
+    "title": "Co Biblia mówi o śmierci i co dzieje się z człowiekiem po śmierci? (Kzn 9:5-6; J 11:11-14; 1Tes 4:16)",
+    "url": "https://polskieradio.cc/kursy/26-smierc-i-zmartwychwstanie.html",
+    "type": "course",
+    "language": "pl",
+    "author": "Akademia Biblijna CC (28 Zasad Wiary)",
+    "license": "CC_ORIGINAL",
+    "topic": "zmartwychwstanie",
+    "verses": [
+      "Kzn 9:5-6",
+      "J 11:11-14",
+      "1Tes 4:16-17"
+    ],
+    "text": "Według Pisma Świętego śmierć jest nieświadomym snem aż do dnia chwalebnego zmartwychwstania przy powtórnym przyjściu Jezusa Chrystusa. Pan Jezus nazwał śmierć Łazarza snem („Łazarz, nasz przyjaciel, zasnął”), a Księga Kaznodziei 9:5-6 stwierdza: „Żyjący bowiem wiedzą, że umrą, ale umarli o niczym nie wiedzą”. Nadzieją chrześcijanina jest zmartwychwstanie do życia wiecznego na głos trąby Bożej (1 Tes 4:16)."
+  },
+  {
+    "id": "rag-rozwod-malzenstwo-mat-19-6",
+    "title": "Co Biblia mówi o małżeństwie, kryzysie, rozwodzie i Bożym uzdrowieniu relacji? (Mt 19:4-9; Ml 2:16)",
+    "url": "https://polskieradio.cc/kursy/23-malzenstwo-i-rodzina.html",
+    "type": "course",
+    "language": "pl",
+    "author": "Akademia Biblijna CC & CC Pomoc",
+    "license": "CC_ORIGINAL",
+    "topic": "milosc",
+    "verses": [
+      "Mt 19:6",
+      "Ef 4:32",
+      "Ps 147:3"
+    ],
+    "text": "Małżeństwo zostało ustanowione przez Boga w Edenie jako święte przymierze miłości i wierności („Co więc Bóg złączył, człowiek niech nie rozdziela”, Mt 19:6). W obliczu zranienia, zdrady lub kryzysu Bóg wzywa do szukania pojednania i przebaczenia (Ef 4:32), a jednocześnie otacza czułą opieką osoby porzucone i złamane na duchu: „Uzdrawia skruszonych w sercu i zawiązuje ich rany” (Ps 147:3)."
+  },
+  {
+    "id": "rag-samotnosc-lek-isa-41-10",
+    "title": "Jak pokonać samotność i lęk o jutro według Biblii? (Iz 41:10; Hbr 13:5; Ps 27:10)",
+    "url": "https://polskieradio.cc/news/gdy-lek-o-jutro-odbiera-ci-pokoj-5-zasad-cezary-rogowski",
+    "type": "article",
+    "language": "pl",
+    "author": "Cezary Rogowski (CCN News)",
+    "license": "CC_ORIGINAL",
+    "topic": "pokoj",
+    "verses": [
+      "Iz 41:10",
+      "Hbr 13:5",
+      "Ps 27:10"
+    ],
+    "text": "W chwilach samotności Bóg daje niezłomną obietnicę swojej osobistej obecności: „Nie bój się, bo ja jestem z tobą; nie lękaj się, bo ja jestem twoim Bogiem. Wzmocnię cię, a także wspomogę i podeprę cię prawicą mojej sprawiedliwości” (Iz 41:10, UBG) oraz „Nie porzucę cię ani cię nie opuszczę” (Hbr 13:5)."
+  },
+  {
+    "id": "rag-koran-szacunek-prawda-jhn-14-6",
+    "title": "Co na to Bóg chrześcijan? Szacunek dla człowieka a wyłączność zbawienia w Jezusie Chrystusie (J 14:6; Dz 4:12)",
+    "url": "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+    "type": "article",
+    "language": "pl",
+    "author": "Cezary Rogowski (CCN News)",
+    "license": "CC_ORIGINAL",
+    "topic": "posrednik",
+    "verses": [
+      "J 14:6",
+      "Dz 4:12",
+      "1J 2:22-23"
+    ],
+    "text": "Pismo Święte uczy okazywania szacunku i miłości każdemu człowiekowi, ale wyznacza nieprzekraczalną granicę wierności prawdzie Ewangelii: Jezus Chrystus jest ukrzyżowanym i zmartwychwstałym Synem Bożym oraz jedynym Zbawicielem („Nie ma w nikim innym zbawienia”, Dz 4:12). Wierność Chrystusowi nie pozwala zacierać prawdy o krzyżu w imię synkretyzmu religijnego."
+  },
+  {
+    "id": "rag-rzuc-palenie-wolnosc-jhn-8-36",
+    "title": "Jak uwolnić się od nałogu i rzucić palenie z Bożą pomocą? (J 8:36; 1Kor 6:19-20; Flp 4:13)",
+    "url": "https://polskieradio.cc/Rozwi%C4%85%C5%BCProblem",
+    "type": "course",
+    "language": "pl",
+    "author": "Program Rozwiąż Problem CC",
+    "license": "CC_ORIGINAL",
+    "topic": "uzdrowienie",
+    "verses": [
+      "J 8:36",
+      "1Kor 6:19-20",
+      "Flp 4:13"
+    ],
+    "text": "Ciało wierzącego jest świątynią Ducha Świętego (1 Kor 6:19-20). Chrystus daje rzeczywistą moc do zerwania z każdym uzależnieniem: „Jeśli więc Syn was wyzwoli, prawdziwie będziecie wolni” (J 8:36) oraz „Wszystko mogę w Chrystusie, który mnie umacnia” (Flp 4:13)."
+  },
+  {
+    "id": "rag-niedziela-handlowa-szabat-wj-20-8",
+    "title": "Niedziela handlowa czy biblijny odpoczynek? Który dzień ustanowił Bóg? (Wj 20:8-11; Mk 2:27-28)",
+    "url": "https://polskieradio.cc/news/art-czy-katolik-powinien-uznawac-niedziele-handlowa",
+    "type": "article",
+    "language": "pl",
+    "author": "Cezary Rogowski (CCN News)",
+    "license": "CC_ORIGINAL",
+    "topic": "szabat",
+    "verses": [
+      "Wj 20:8-11",
+      "Rdz 2:2-3",
+      "Mk 2:27-28"
+    ],
+    "text": "Człowiek potrzebuje Bożego rytmu odetchnienia od gonitwy konsumpcjonizmu. W Piśmie Świętym dniem odpoczynku pobłogosławionym przez Stwórcę przy stworzeniu świata i zapisanym w IV przykazaniu Dekalogu jest siódmy dzień tygodnia — Szabat (sobota, Wj 20:8-11), dar wolności i pokoju w obecności Boga."
   }
 ];
 
@@ -3558,15 +3654,64 @@
   }
 
     function renderHopeCard(query) {
+    const q = normalizeText(query || '');
+    let verseText = 'Wszystkie wasze troski przerzućcie na niego, gdyż on troszczy się o was.';
+    let verseRef = '1 List Piotra 5:7 (UBG)';
+    let verseUrl = '/mojabiblia?book=1PE&ch=5&v=7';
+    let guideTitle = 'Poradnik CC Pomoc: Rozwiąż Problem';
+    let guideUrl = '/RozwiążProblem';
+    let courseTitle = 'Kurs: Chrześcijaństwo na co dzień';
+    let courseUrl = '/kursy/22-chrzescijanstwo-na-co-dzien.html';
+
+    if (q.includes('rozwod') || q.includes('malzen') || q.includes('zdrad') || q.includes('rodzin')) {
+      verseText = 'Co więc Bóg złączył, niech człowiek nie rozdziela.';
+      verseRef = 'Ewangelia Mateusza 19:6 (UBG)';
+      verseUrl = '/mojabiblia?book=MAT&ch=19&v=6';
+      guideTitle = 'Studium: Małżeństwo i Rodzina';
+      guideUrl = '/kursy/23-malzenstwo-i-rodzina.html';
+      courseTitle = 'CC Pomoc i Poradnictwo Rodzinne';
+      courseUrl = '/uslugi';
+    } else if (q.includes('smierc') || q.includes('zalob') || q.includes('zmarl') || q.includes('pogrzeb')) {
+      verseText = 'Ja jestem zmartwychwstaniem i życiem. Kto we mnie wierzy, choćby i umarł, będzie żył.';
+      verseRef = 'Ewangelia Jana 11:25 (UBG)';
+      verseUrl = '/mojabiblia?book=JHN&ch=11&v=25';
+      guideTitle = 'Studium: Śmierć i Zmartwychwstanie';
+      guideUrl = '/kursy/26-smierc-i-zmartwychwstanie.html';
+      courseTitle = 'Księga Nadziei — Apokalipsa';
+      courseUrl = '/akademia/apokalipsa';
+    } else if (q.includes('palen') || q.includes('papieros') || q.includes('nalog') || q.includes('uzalezn')) {
+      verseText = 'Jeśli więc Syn was wyzwoli, prawdziwie będziecie wolni.';
+      verseRef = 'Ewangelia Jana 8:36 (UBG)';
+      verseUrl = '/mojabiblia?book=JHN&ch=8&v=36';
+      guideTitle = 'Program: Jak rzucić palenie i nałogi';
+      guideUrl = '/RozwiążProblem';
+      courseTitle = 'Modlitwa o uwolnienie (40 Dni Modlitwy)';
+      courseUrl = '/40DM';
+    } else if (q.includes('samotn') || q.includes('depres') || q.includes('lek') || q.includes('strach')) {
+      verseText = 'Nie bój się, bo ja jestem z tobą. Nie lękaj się, bo ja jestem twoim Bogiem. Wzmocnię cię, a także wspomogę.';
+      verseRef = 'Księga Izajasza 41:10 (UBG)';
+      verseUrl = '/mojabiblia?book=ISA&ch=41&v=10';
+      guideTitle = 'Wsparcie: CC Pomoc & Społeczność LUMINA';
+      guideUrl = '/uslugi';
+      courseTitle = 'Dołącz do społeczności LUMINA';
+      courseUrl = '/lumina';
+    }
+
     return `
       <div class="cc-hope-card" id="ccHopeCard">
-        <div class="cc-hope-badge">💛 Wsparcie Duchowe & Modlitwa</div>
-        <h3 class="cc-hope-title">Potrzebujesz rozmowy lub modlitwy? Nie jesteś sam.</h3>
-        <p class="cc-hope-desc">W Christian Culture czeka na Ciebie bezpłatna pomoc duszpasterska, życzliwe wysłuchanie i wsparcie modlitewne:</p>
+        <div class="cc-hope-badge">💛 Ścieżka Nadziei 3-w-1: Słowo Boże • Poradnik • Żywy Człowiek</div>
+        <h3 class="cc-hope-title">Potrzebujesz rozmowy, pomocy lub modlitwy? Nie jesteś sam.</h3>
+        <p class="cc-hope-desc">W Christian Culture czeka na Ciebie biblijne słowo pokrzepienia, praktyczny poradnik oraz bezpłatna pomoc duszpasterska:</p>
         <blockquote class="cc-hope-verse">
-          „Wszystkie wasze troski przerzućcie na niego, gdyż on troszczy się o was.”
-          <cite>— 1 List Piotra 5:7 (UBG)</cite>
+          „${escapeHtml(verseText)}”
+          <cite>— <a href="${escapeHtml(verseUrl)}" style="color:inherit;text-decoration:underline;">${escapeHtml(verseRef)}</a></cite>
+          <button type="button" class="cc-inline-tts-btn" data-tts-text="${escapeHtml(verseText + ' — ' + verseRef)}" style="margin-left:10px;background:#FF7A00;color:#fff;border:none;border-radius:999px;padding:4px 12px;font-size:0.76rem;font-weight:700;cursor:pointer;min-height:28px;">🔊 Odsłuchaj werset</button>
         </blockquote>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+          <a href="${escapeHtml(guideUrl)}" class="cc-omni-guide-pill" style="background:rgba(255,122,0,0.14);border-color:rgba(255,122,0,0.45);color:#FF7A00;font-weight:700;">📘 ${escapeHtml(guideTitle)} →</a>
+          <a href="${escapeHtml(courseUrl)}" class="cc-omni-guide-pill">🎓 ${escapeHtml(courseTitle)} →</a>
+          <a href="/40DM" class="cc-omni-guide-pill">🔥 40 Dni Modlitwy →</a>
+        </div>
         <div class="cc-hope-actions">
           <a href="tel:+48730958583" class="cc-hope-btn cc-hope-btn-call">
             <span class="cc-hope-btn-icon" aria-hidden="true">📞</span>
@@ -8951,6 +9096,85 @@ ${isStandalonePage ? '' : `
         }
         return;
       }
+
+      // Rozwiązanie #7: Kopiowanie IBAN / BLIK / tekstu bezpośrednio z widgetu szybkiej akcji
+      const instantCopyBtn = e.target.closest('.cc-instant-copy-btn');
+      if (instantCopyBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const val = instantCopyBtn.getAttribute('data-copy-text') || '';
+        const msg = instantCopyBtn.getAttribute('data-copy-msg') || 'Skopiowano do schowka!';
+        if (val && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(val).then(() => showCopyToast(msg)).catch(() => showCopyToast(val));
+        } else {
+          showCopyToast(msg);
+        }
+        if (typeof window.ccTrack === 'function') {
+          window.ccTrack('donate_click', { method: instantCopyBtn.getAttribute('data-copy-method') || 'search_instant' });
+        }
+        return;
+      }
+
+      // Rozwiązanie #5 & #9: Odsłuch TTS wersetu lub karty Nadziei bezpośrednio w wynikach (Web Speech Synthesis)
+      const ttsBtn = e.target.closest('.cc-inline-tts-btn');
+      if (ttsBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const textToRead = ttsBtn.getAttribute('data-tts-text') || '';
+        if ('speechSynthesis' in window && textToRead) {
+          if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+            ttsBtn.textContent = '🔊 Odsłuchaj werset';
+          } else {
+            const utter = new SpeechSynthesisUtterance(textToRead);
+            utter.lang = 'pl-PL';
+            utter.rate = 0.96;
+            utter.onend = () => { ttsBtn.textContent = '🔊 Odsłuchaj werset'; };
+            ttsBtn.textContent = '⏹ Zatrzymaj lektora';
+            window.speechSynthesis.speak(utter);
+          }
+        } else {
+          showCopyToast('Syntezator mowy niedostępny w tej przeglądarce');
+        }
+        return;
+      }
+
+      // Rozwiązanie #3: Odtwarzacz In-Place (Mini-Player Audio & Radio bezpośrednio w wynikach)
+      const inlinePlayBtn = e.target.closest('.cc-inline-media-btn');
+      if (inlinePlayBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const streamUrl = inlinePlayBtn.getAttribute('data-audio-src') || '';
+        const mediaTitle = inlinePlayBtn.getAttribute('data-audio-title') || 'Christian Culture Audio';
+        if (!streamUrl) return;
+        if (!window.__ccOmniInlineAudio) {
+          window.__ccOmniInlineAudio = new Audio();
+          window.__ccOmniInlineAudio.preload = 'none';
+        }
+        const audio = window.__ccOmniInlineAudio;
+        const isSame = (audio.getAttribute('data-active-src') === streamUrl) && !audio.paused;
+        document.querySelectorAll('.cc-inline-media-btn').forEach(b => {
+          b.innerHTML = '▶ Słuchaj teraz';
+          b.classList.remove('cc-playing');
+        });
+        if (isSame) {
+          audio.pause();
+        } else {
+          audio.src = streamUrl;
+          audio.setAttribute('data-active-src', streamUrl);
+          inlinePlayBtn.innerHTML = '⏸ Gra: ' + escapeHtml(mediaTitle.slice(0, 24));
+          inlinePlayBtn.classList.add('cc-playing');
+          audio.play().catch(() => {
+            showCopyToast('Przekierowuję do odtwarzacza: ' + mediaTitle);
+            const fallbackUrl = inlinePlayBtn.getAttribute('data-fallback-url');
+            if (fallbackUrl) window.location.href = fallbackUrl;
+          });
+          if (typeof window.ccTrack === 'function') {
+            window.ccTrack('radio_play', { channel: mediaTitle, source: 'omni_search_inline' });
+          }
+        }
+        return;
+      }
     });
 
     overlay.addEventListener('mouseover', (e) => {
@@ -9003,10 +9227,9 @@ ${isStandalonePage ? '' : `
 
     input.addEventListener('keydown', handleKeyNavigation);
 
-    // Wyszukiwanie głosem (Web Speech API) — przycisk pojawia się tylko, gdy przeglądarka je obsługuje
+    // Rozwiązanie #4: Wyszukiwanie i Komendy Głosowe (Web Speech API) z obsługą wielojęzyczną i akcjami naturalnymi
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const micBtn = document.getElementById('ccOmniMic');
-    // Nagłówek Permissions-Policy może zablokować mikrofon — wtedy nie pokazujemy martwego przycisku
     const policy = document.permissionsPolicy || document.featurePolicy;
     const micAllowed = !policy || typeof policy.allowsFeature !== 'function' || policy.allowsFeature('microphone');
     if (Recognition && micBtn && micAllowed) {
@@ -9015,22 +9238,37 @@ ${isStandalonePage ? '' : `
       micBtn.addEventListener('click', () => {
         if (recognizer) { recognizer.stop(); return; }
         recognizer = new Recognition();
-        recognizer.lang = 'pl-PL';
+        const navLang = (navigator.language || 'pl-PL').toLowerCase();
+        recognizer.lang = navLang.startsWith('pl') ? 'pl-PL' : (navigator.language || 'pl-PL');
         recognizer.interimResults = false;
         micBtn.classList.add('cc-listening');
-        micBtn.setAttribute('aria-label', 'Słucham… naciśnij, aby przerwać');
+        micBtn.setAttribute('aria-label', 'Słucham… powiedz np. „Psalm 23”, „włącz radio” lub zadaj pytanie');
         recognizer.onresult = (ev) => {
-          const text = ev.results[0] && ev.results[0][0] ? ev.results[0][0].transcript : '';
+          const rawText = ev.results[0] && ev.results[0][0] ? ev.results[0][0].transcript : '';
+          const text = String(rawText || '').trim().replace(/[.?!]+$/, '');
           if (!text) return;
+          const normVoice = normalizeText(text);
           input.value = text;
           clearBtn.style.display = 'inline-flex';
+          // Naturalne komendy głosowe (np. "włącz dzisiejszą lekcję", "otwórz moją biblię")
+          if (/^(wlacz|otworz|uruchom)\s+(dzisiejsza\s+lekcje|lekcje\s+na\s+dzis|kurs\s+codzienny)/.test(normVoice)) {
+            window.location.href = '/akademia/kurscodzienny';
+            return;
+          }
+          if (/^(wlacz|otworz)\s+(moja\s+biblie|biblie\s+interlinearna)/.test(normVoice)) {
+            window.location.href = '/mojabiblia';
+            return;
+          }
           renderResults(text, activeFilter);
+          if (isStandalonePage) {
+            history.replaceState(null, '', '/wyszukiwarka?q=' + encodeURIComponent(text));
+          }
         };
         recognizer.onerror = (ev) => {
           const messages = {
             'not-allowed': 'Zezwól na mikrofon w ustawieniach przeglądarki',
             'service-not-allowed': 'Zezwól na mikrofon w ustawieniach przeglądarki',
-            'no-speech': 'Nie usłyszałem — spróbuj jeszcze raz',
+            'no-speech': 'Nie usłyszałem — powiedz np. „Psalm 23” lub „co Biblia mówi o nadziei”',
             'audio-capture': 'Nie znaleziono mikrofonu',
             'network': 'Brak połączenia z usługą rozpoznawania mowy'
           };
@@ -9099,6 +9337,267 @@ ${isStandalonePage ? '' : `
     });
   }
 
+  // ── ROZWIĄZANIE #7: KOMENDY SZYBKIEJ AKCJI (SLASH & INSTANT COMMANDS) ──
+  function renderInstantCommandCard(query) {
+    const q = normalizeText(String(query || '').trim().replace(/^\//, ''));
+    if (!q) return '';
+
+    // 1. Komenda: /dzis, dziś, na dziś, dzisiaj, słowo na dziś
+    if (/^(dzis|na dzis|dzisiaj|slowo na dzis|lekcja na dzis|rozwazanie na dzis)$/.test(q)) {
+      const todayStr = new Date().toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+      return `
+        <div class="cc-omni-guide" id="ccInstantTodayCard" style="border-color:rgba(255,122,0,0.45);background:linear-gradient(135deg,rgba(255,122,0,0.12),rgba(196,163,90,0.08));">
+          <div class="cc-omni-guide-badge" style="background:#FF7A00;color:#fff;">⚡ Pakiet Misyjny Na Dziś (${escapeHtml(todayStr)})</div>
+          <h4 class="cc-omni-guide-topic">Słowo Boże, Lekcja Kursu Codziennego i Radio Na Żywo</h4>
+          <p class="cc-omni-guide-summary">Wszystko, czego potrzebujesz na dzisiejszy dzień z Bogiem — jednym kliknięciem:</p>
+          <div class="cc-omni-guide-pills">
+            <a href="/akademia/kurscodzienny" class="cc-omni-guide-pill" style="background:#FF7A00;color:#fff;border-color:#FF7A00;font-weight:700;"><span>📖</span><span>Dzisiejsza Lekcja Kursu Codziennego →</span></a>
+            <a href="/mojabiblia" class="cc-omni-guide-pill"><span>📜</span><span>Werset Dnia w MojaBiblia</span></a>
+            <a href="/player" class="cc-omni-guide-pill"><span>📻</span><span>Włącz Radio CC 24/7</span></a>
+            <a href="/biblia-audio" class="cc-omni-guide-pill"><span>🎧</span><span>Słuchowisko Biblia Audio</span></a>
+          </div>
+        </div>`;
+    }
+
+    // 2. Komenda: /szabat, szabat, sabat, zachód słońca, kiedy szabat
+    if (/^(szabat|sabat|zachod slonca|kiedy szabat|czas szabatu|powitanie szabatu)$/.test(q)) {
+      const month = new Date().getMonth(); // 0..11
+      const sunsetWarsaw = ['15:55','16:48','17:42','19:38','20:28','21:00','20:48','19:55','18:45','17:38','15:52','15:26'][month] || '16:00';
+      return `
+        <div class="cc-omni-guide" id="ccInstantSabbathCard" style="border-color:rgba(196,163,90,0.5);">
+          <div class="cc-omni-guide-badge">🕯️ Biblijny Szabat & Zegar Zachodu Słońca</div>
+          <h4 class="cc-omni-guide-topic">Szabat (Od piątkowego do sobotniego zachodu słońca)</h4>
+          <p class="cc-omni-guide-summary">Orientacyjna godzina zachodu słońca (Warszawa / centralna Polska w tym miesiącu): <strong>ok. ${sunsetWarsaw}</strong>. „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8 UBG).</p>
+          <div class="cc-omni-guide-pills">
+            <a href="/ccMC" class="cc-omni-guide-pill" style="background:#FF7A00;color:#fff;border-color:#FF7A00;font-weight:700;"><span>🕰️</span><span>Zegar Biblijny & Kalendarz Misji (/ccMC) →</span></a>
+            <a href="/kursy/15-sobota-czy-niedziela.html" class="cc-omni-guide-pill"><span>📘</span><span>Studium: Sobota czy Niedziela?</span></a>
+            <a href="/mojabiblia?book=EXO&ch=20&v=8" class="cc-omni-guide-pill"><span>📖</span><span>Wj 20:8–11 (UBG)</span></a>
+          </div>
+        </div>`;
+    }
+
+    // 3. Komenda: /wsparcie, wsparcie, wspieram, konto, iban, blik, darowizna
+    if (/^(wsparcie|wspieram|wspieraj|konto|numer konta|iban|blik|darowizna|zrzutka|dziesiecina)$/.test(q)) {
+      return `
+        <div class="cc-omni-guide" id="ccInstantSupportCard" style="border-color:rgba(255,122,0,0.55);background:linear-gradient(135deg,rgba(255,122,0,0.12),rgba(20,24,33,0.4));">
+          <div class="cc-omni-guide-badge" style="background:#FF7A00;color:#fff;">🧡 WspieramTO 2.0 — 100% na Misję Ewangelii (0% reklam)</div>
+          <h4 class="cc-omni-guide-topic">Szybkie Wsparcie Misji Christian Culture</h4>
+          <p class="cc-omni-guide-summary">Konto PLN (mBank): <strong>87 1140 2004 0000 3802 8491 7164</strong> • Odbiorca: <strong>Christian Culture</strong> • Tytuł: <em>Dar na cele kultu religijnego</em></p>
+          <div class="cc-omni-guide-pills">
+            <button type="button" class="cc-omni-guide-pill cc-instant-copy-btn" data-copy-text="87 1140 2004 0000 3802 8491 7164" data-copy-msg="Skopiowano numer konta PLN (IBAN) do schowka!" data-copy-method="iban_pln" style="background:#FF7A00;color:#fff;border-color:#FF7A00;font-weight:700;cursor:pointer;"><span>📋</span><span>Kopiuj nr konta PLN (1-klik)</span></button>
+            <a href="/wspieram" class="cc-omni-guide-pill"><span>💳</span><span>BLIK / Karta / PayPal (/wspieram) →</span></a>
+            <a href="/wspolpraca" class="cc-omni-guide-pill"><span>🤝</span><span>Współpraca Misyjna</span></a>
+          </div>
+        </div>`;
+    }
+
+    return '';
+  }
+
+  // ── ROZWIĄZANIE #6: WIELOJĘZYCZNY MOST MISYJNY (15 JĘZYKÓW ŚWIATA) ──
+  const MULTILINGUAL_BRIDGE_TERMS = [
+    { lang: 'en', name: 'English', flag: '🇬🇧', url: '/Ewangelia?lang=en', worldUrl: '/test/adventist-world/en/', terms: ['gospel', 'jesus christ', 'bible study', 'salvation', 'hope', 'sabbath', 'revelation', 'prayer', 'christian culture', 'god loves'] },
+    { lang: 'uk', name: 'Українська', flag: '🇺🇦', url: '/Ewangelia?lang=uk', worldUrl: '/Ewangelia?lang=uk', terms: ['євангеліє', 'ісус', 'біблія', 'молитва', 'надія', 'бог', 'спасіння', 'субота'] },
+    { lang: 'de', name: 'Deutsch', flag: '🇩🇪', url: '/Ewangelia?lang=de', worldUrl: '/Ewangelia?lang=de', terms: ['evangelium', 'bibel', 'gebet', 'hoffnung', 'erlösung', 'sabbat', 'gott'] },
+    { lang: 'es', name: 'Español', flag: '🇪🇸', url: '/Ewangelia?lang=es', worldUrl: '/Ewangelia?lang=es', terms: ['evangelio', 'jesucristo', 'oracion', 'esperanza', 'salvacion', 'biblia'] },
+    { lang: 'fr', name: 'Français', flag: '🇫🇷', url: '/Ewangelia?lang=fr', worldUrl: '/Ewangelia?lang=fr', terms: ['evangile', 'priere', 'esperance', 'salut', 'jésus'] },
+    { lang: 'ru', name: 'Русский', flag: '🌍', url: '/Ewangelia?lang=ru', worldUrl: '/Ewangelia?lang=ru', terms: ['евангелие', 'иисус', 'библия', 'спасение', 'молитва', 'суббота'] },
+    { lang: 'ar', name: 'العربية', flag: '🌍', url: '/Ewangelia?lang=ar', worldUrl: '/Ewangelia?lang=ar', terms: ['إنجيل', 'يسوع', 'المسيح', 'الكتاب المقدس', 'صلاة'] },
+    { lang: 'zh', name: '中文', flag: '🌍', url: '/Ewangelia?lang=zh', worldUrl: '/Ewangelia?lang=zh', terms: ['福音', '耶稣', '圣经', '祷告'] }
+  ];
+
+  function renderMultilingualBridgeCard(query) {
+    const raw = String(query || '').trim().toLowerCase();
+    if (raw.length < 2) return '';
+    const norm = normalizeText(raw);
+    for (const entry of MULTILINGUAL_BRIDGE_TERMS) {
+      const matched = entry.terms.some(t => raw.includes(t) || (norm.length >= 4 && norm === normalizeText(t)));
+      if (matched) {
+        return `
+          <div class="cc-omni-guide" id="ccMultilingualBridgeCard" style="border-color:rgba(59,130,246,0.45);">
+            <div class="cc-omni-guide-badge">${entry.flag} Global Mission Bridge • ${escapeHtml(entry.name)} (15 Languages)</div>
+            <h4 class="cc-omni-guide-topic">Everlasting Gospel & Biblical Resources in ${escapeHtml(entry.name)}</h4>
+            <p class="cc-omni-guide-summary">Read and listen to the Everlasting Gospel in ${escapeHtml(entry.name)} or switch between 15 world languages on Christian Culture:</p>
+            <div class="cc-omni-guide-pills">
+              <a href="${escapeHtml(entry.url)}" class="cc-omni-guide-pill" style="background:#FF7A00;color:#fff;border-color:#FF7A00;font-weight:700;"><span>${entry.flag}</span><span>Open Gospel in ${escapeHtml(entry.name)} (/Ewangelia) →</span></a>
+              <a href="${escapeHtml(entry.worldUrl)}" class="cc-omni-guide-pill"><span>🌐</span><span>Global Portal (15 Languages)</span></a>
+              <a href="/mojabiblia" class="cc-omni-guide-pill"><span>📖</span><span>Interlinear Greek/Hebrew Bible</span></a>
+            </div>
+          </div>`;
+      }
+    }
+    return '';
+  }
+
+  // ── ROZWIĄZANIE #3: PRZYCISK MINI-ODTWARZACZA IN-PLACE W WYNIKACH ──
+  function getInlineMediaButtonHtml(item) {
+    const url = String(item && item.url || '');
+    const title = String(item && item.title || 'Radio CC');
+    let streamSrc = '';
+    if (url === '/player' || url === '/radio' || url.includes('biblia-audio-live')) {
+      streamSrc = 'https://s3.slotex.pl/shoutcast/7346/stream?sid=1';
+    } else if (url.includes('worship') || url === '/music') {
+      streamSrc = 'https://s3.slotex.pl/shoutcast/7346/stream?sid=1';
+    } else if (url.includes('/biblia-audio')) {
+      streamSrc = '/biblia-audio/audio/GEN-001.mp3';
+    }
+    if (!streamSrc) return '';
+    return `<button type="button" class="cc-inline-media-btn" data-audio-src="${escapeHtml(streamSrc)}" data-audio-title="${escapeHtml(title)}" data-fallback-url="${escapeHtml(url)}" style="margin-left:auto;background:#FF7A00;color:#fff;border:none;border-radius:999px;padding:3px 11px;font-size:0.74rem;font-weight:700;cursor:pointer;min-height:26px;white-space:nowrap;" title="Odsłuchaj bezpośrednio w wyszukiwarce bez opuszczania strony">▶ Słuchaj teraz</button>`;
+  }
+
+  // ── ROZWIĄZANIE #8: GRAF POWIĄZAŃ 360° („STUDIUJ GŁĘBIEJ”) ──
+  function get360RelatedPillsHtml(item) {
+    const url = String(item && item.url || '');
+    const title = normalizeText(String(item && item.title || ''));
+    const pills = [];
+    if (url.includes('apokalipsa') || title.includes('apokalips') || title.includes('objawien')) {
+      pills.push({ label: '📖 Tekst: Obj 1 (MojaBiblia)', href: '/mojabiblia?book=REV&ch=1' });
+      pills.push({ label: '📺 Kanał: Apokalipsa 24/7 Live', href: '/apokalipsa-ksiega-nadziei-live' });
+    } else if (url.includes('kurscodzienny') || title.includes('wyjscia') || title.includes('synaj')) {
+      pills.push({ label: '📖 Tekst: Wj 24 (MojaBiblia)', href: '/mojabiblia?book=EXO&ch=24' });
+      pills.push({ label: '🎧 Biblia Audio: Pięcioksiąg', href: '/biblia-audio' });
+    } else if (url.includes('koran') || title.includes('koran') || title.includes('religi')) {
+      pills.push({ label: '📖 Tekst: J 14:6 (MojaBiblia)', href: '/mojabiblia?book=JHN&ch=14&v=6' });
+      pills.push({ label: '🎓 Kurs: Poznaj Prawdę', href: '/akademia' });
+    } else if (url.includes('mojabiblia')) {
+      pills.push({ label: '🎧 Słuchaj w Biblii Audio', href: '/biblia-audio' });
+      pills.push({ label: '🎓 Studium w Akademii', href: '/akademia/kurscodzienny' });
+    }
+    if (!pills.length) return '';
+    return `<div class="cc-omni-360-row" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">` +
+      pills.map(p => `<span class="cc-omni-item-badge" style="font-size:0.71rem;opacity:0.9;">${escapeHtml(p.label)}</span>`).join('') +
+      `</div>`;
+  }
+
+  // ── ROZWIĄZANIE #9: PEŁNOTEKSTOWE PRZESZUKIWANIE WSZYSTKICH 31 102 WERSETÓW BIBLII UBG ──
+  let fullUbgPromise = null;
+  let fullUbgData = null;
+  const UBG_BOOK_NAMES_PL = {
+    GEN:'Księga Rodzaju', EXO:'Księga Wyjścia', LEV:'Księga Kapłańska', NUM:'Księga Liczb', DEU:'Księga Powtórzonego Prawa',
+    JOS:'Księga Jozuego', JDG:'Księga Sędziów', RUT:'Księga Rut', '1SA':'1 Księga Samuela', '2SA':'2 Księga Samuela',
+    '1KI':'1 Księga Królewska', '2KI':'2 Księga Królewska', '1CH':'1 Księga Kronik', '2CH':'2 Księga Kronik', EZR:'Księga Ezdrasza',
+    NEH:'Księga Nehemiasza', EST:'Księga Estery', JOB:'Księga Hioba', PSA:'Księga Psalmów', PRO:'Księga Przysłów',
+    ECC:'Księga Kaznodziei', SNG:'Pieśń nad Pieśniami', ISA:'Księga Izajasza', JER:'Księga Jeremiasza', LAM:'Lamentacje',
+    EZK:'Księga Ezechiela', DAN:'Księga Daniela', HOS:'Księga Ozeasza', JOL:'Księga Joela', AMO:'Księga Amosa',
+    OBA:'Księga Abdiasza', JON:'Księga Jonasza', MIC:'Księga Micheasza', NAM:'Księga Nahuma', HAB:'Księga Habakuka',
+    ZEP:'Księga Sofoniasza', HAG:'Księga Aggeusza', ZEC:'Księga Zachariasza', MAL:'Księga Malachiasza',
+    MAT:'Ewangelia Mateusza', MRK:'Ewangelia Marka', LUK:'Ewangelia Łukasza', JHN:'Ewangelia Jana', ACT:'Dzieje Apostolskie',
+    ROM:'List do Rzymian', '1CO':'1 List do Koryntian', '2CO':'2 List do Koryntian', GAL:'List do Galacjan', EPH:'List do Efezjan',
+    PHP:'List do Filipian', COL:'List do Kolosan', '1TH':'1 List do Tesaloniczan', '2TH':'2 List do Tesaloniczan',
+    '1TI':'1 List do Tymoteusza', '2TI':'2 List do Tymoteusza', TIT:'List do Tytusa', PHM:'List do Filemona', HEB:'List do Hebrajczyków',
+    JAS:'List Jakuba', '1PE':'1 List Piotra', '2PE':'2 List Piotra', '1JN':'1 List Jana', '2JN':'2 List Jana', '3JN':'3 List Jana',
+    JUD:'List Judy', REV:'Objawienie Jana'
+  };
+
+  function loadFullUbgConcordance() {
+    if (fullUbgData) return Promise.resolve(fullUbgData);
+    if (fullUbgPromise) return fullUbgPromise;
+    fullUbgPromise = fetch('/data/bible/szukaj-ubg.json')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data && Array.isArray(data.b) && Array.isArray(data.r)) {
+          fullUbgData = data;
+        }
+        return fullUbgData;
+      })
+      .catch(() => null);
+    return fullUbgPromise;
+  }
+
+  function searchFullUbgAsync(query) {
+    const clean = String(query || '').trim();
+    if (clean.length < 3) return;
+    const normQ = normalizeText(clean);
+    const words = normQ.split(/\s+/).filter(w => w.length >= 3);
+    if (!words.length) return;
+
+    loadFullUbgConcordance().then(data => {
+      if (!data || currentQuery !== query) return;
+      const box = document.getElementById('ccOmniUbgConcordanceBox');
+      if (!box) return;
+
+      const matches = [];
+      const rows = data.r;
+      const books = data.b;
+      const exactPhrase = clean.toLowerCase();
+
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const txt = String(row[3] || '');
+        const lower = txt.toLowerCase();
+        let hit = false;
+        let exact = false;
+        if (lower.includes(exactPhrase)) {
+          hit = true;
+          exact = true;
+        } else if (words.length >= 2) {
+          const normTxt = normalizeText(txt);
+          hit = words.every(w => normTxt.includes(w));
+        }
+        if (hit) {
+          matches.push({ bookCode: books[row[0]] || 'GEN', ch: row[1], v: row[2], text: txt, exact });
+          if (matches.length >= 24) break;
+        }
+      }
+
+      if (!matches.length) return;
+      matches.sort((a, b) => (b.exact ? 1 : 0) - (a.exact ? 1 : 0));
+      const topVerses = matches.slice(0, 5);
+
+      box.innerHTML = `
+        <div class="cc-omni-guide" style="margin-top:12px;border-color:rgba(196,163,90,0.45);">
+          <div class="cc-omni-guide-badge">📜 Pełna Konkordancja Biblii UBG (31 102 wersetów) • Znaleziono w Piśmie Świętym</div>
+          <h4 class="cc-omni-guide-topic">Wersety biblijne zawierające „${escapeHtml(clean)}”</h4>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
+            ${topVerses.map(m => {
+              const bName = UBG_BOOK_NAMES_PL[m.bookCode] || m.bookCode;
+              const refLabel = `${bName} ${m.ch}:${m.v}`;
+              const vUrl = `/mojabiblia?book=${encodeURIComponent(m.bookCode)}&ch=${m.ch}&v=${m.v}`;
+              return `
+                <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(196,163,90,0.22);">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;flex-wrap:wrap;">
+                    <a href="${escapeHtml(vUrl)}" style="font-weight:700;color:#FF7A00;text-decoration:none;font-size:0.88rem;">📖 ${escapeHtml(refLabel)} (UBG) →</a>
+                    <div style="display:flex;gap:6px;">
+                      <button type="button" class="cc-inline-tts-btn" data-tts-text="${escapeHtml(m.text + ' — ' + refLabel)}" style="background:rgba(255,122,0,0.16);color:#FF7A00;border:1px solid rgba(255,122,0,0.4);border-radius:999px;padding:2px 9px;font-size:0.72rem;font-weight:700;cursor:pointer;">🔊 Odsłuchaj</button>
+                      <button type="button" class="cc-btn-scripture-copy" data-quote="${escapeHtml('„' + m.text + '” — ' + refLabel + ' (UBG)')}" style="background:rgba(255,255,255,0.08);color:inherit;border:1px solid rgba(255,255,255,0.16);border-radius:999px;padding:2px 9px;font-size:0.72rem;cursor:pointer;">📋 Kopiuj</button>
+                    </div>
+                  </div>
+                  <div style="font-size:0.88rem;line-height:1.5;opacity:0.94;">„${highlightMatches(m.text, clean)}”</div>
+                </div>`;
+            }).join('')}
+          </div>
+          <div class="cc-omni-guide-pills" style="margin-top:10px;">
+            <a href="/mojabiblia?q=${encodeURIComponent(clean)}" class="cc-omni-guide-pill"><span>🔍</span><span>Otwórz pełną konkordancję w MojaBiblia →</span></a>
+          </div>
+        </div>`;
+    });
+  }
+
+  // ── ROZWIĄZANIE #10: SAMOUCZĄCY SIĘ RADAR BRAKÓW (SEARCH GAP TELEMETRY) ──
+  let lastLoggedGapQuery = '';
+  let gapLogTimer = null;
+  function trackSearchGap(query) {
+    const clean = String(query || '').trim();
+    if (clean.length < 4 || clean === lastLoggedGapQuery) return;
+    // Ochrona prywatności (PII): pomijamy e-maile, numery telefonów i ciągi cyfr
+    if (/@|\d{5,}/.test(clean)) return;
+    clearTimeout(gapLogTimer);
+    gapLogTimer = setTimeout(() => {
+      if (currentQuery !== query) return;
+      lastLoggedGapQuery = clean;
+      if (typeof window.ccTrack === 'function') {
+        window.ccTrack('search_gap', { search_term: clean.slice(0, 80) });
+      }
+      try {
+        const gaps = JSON.parse(localStorage.getItem('cc_search_gaps') || '[]');
+        if (!gaps.includes(clean)) {
+          gaps.unshift(clean);
+          localStorage.setItem('cc_search_gaps', JSON.stringify(gaps.slice(0, 30)));
+        }
+      } catch (_) {}
+    }, 1200);
+  }
+
   function renderResults(query, filter) {
     const body = document.getElementById('ccOmniBody');
     if (!body) return;
@@ -9147,6 +9646,12 @@ ${isStandalonePage ? '' : `
     const isHope = detectHopeIntent(query);
     const hopeCardHtml = isHope ? renderHopeCard(query) : '';
 
+    // Rozwiązanie #7: Komendy Szybkiej Akcji (Slash & Instant Commands: /dzis, /szabat, /wsparcie)
+    const instantCommandHtml = renderInstantCommandCard(query);
+
+    // Rozwiązanie #6: Wielojęzyczny Most Misyjny (15 języków świata -> /Ewangelia?lang=...)
+    const multilingualBridgeHtml = renderMultilingualBridgeCard(query);
+
     let leftColHtml = '';
 
     // Tryb Google: pierwszy wynik prowadzi do wyszukiwania w całym internecie, poniżej materiały CC
@@ -9159,6 +9664,12 @@ ${isStandalonePage ? '' : `
         <p class="cc-omni-google-sub">Z ekosystemu Christian Culture:</p>`;
     }
 
+    if (instantCommandHtml) {
+      leftColHtml += instantCommandHtml;
+    }
+    if (multilingualBridgeHtml) {
+      leftColHtml += multilingualBridgeHtml;
+    }
     if (scriptureCardHtml) {
       leftColHtml += scriptureCardHtml;
     }
@@ -9235,7 +9746,7 @@ ${isStandalonePage ? '' : `
 
     // 3. Lista wyników
     if (!items.length) {
-      if (!scriptureCardHtml && !lemmaCardHtml && !bibleTopicCardHtml && !hopeCardHtml) {
+      if (!scriptureCardHtml && !lemmaCardHtml && !bibleTopicCardHtml && !hopeCardHtml && !instantCommandHtml && !multilingualBridgeHtml) {
         leftColHtml += `
           <div class="cc-omni-empty">
             <div style="font-size:2rem;margin-bottom:8px;">🔍</div>
@@ -9258,23 +9769,30 @@ ${isStandalonePage ? '' : `
         const suggestionBadge = (item.isNearMatch || isSuggestion) ? '<span class="cc-omni-item-badge cc-badge-suggestion">Temat pokrewny</span>' : '';
         const crumb = escapeHtml(breadcrumbOf(item.url || ''));
         const isItemActive = (idx === activeIndex);
+        const inlineMediaBtn = getInlineMediaButtonHtml(item);
+        const related360Row = get360RelatedPillsHtml(item);
 
         leftColHtml += `
           <a href="${url}" class="cc-omni-item${isItemActive ? ' cc-active' : ''}" data-url="${url}">
-            <div class="cc-omni-item-source">
+            <div class="cc-omni-item-source" style="display:flex;align-items:center;gap:8px;">
               <span class="cc-omni-item-icon" aria-hidden="true">${icon}</span>
               <span class="cc-omni-item-site"><span class="cc-omni-item-sitename">${groupName}</span><span class="cc-omni-item-crumb">${crumb}</span></span>
+              ${inlineMediaBtn}
             </div>
             <div class="cc-omni-item-title-row">
               <span class="cc-omni-item-title">${titleHl}</span>
               ${suggestionBadge}
             </div>
             <p class="cc-omni-item-desc">${descHl}</p>
+            ${related360Row}
           </a>
         `;
       }
       leftColHtml += '</div>';
     }
+
+    // Rozwiązanie #9: Kontener pełnej konkordancji 31 102 wersetów Biblii UBG (dociąganej asynchronicznie)
+    leftColHtml += '<div id="ccOmniUbgConcordanceBox"></div>';
 
     // Faza 2: Całość wyników w luksusowym dwukolumnowym Split-View (Raycast / Spotlight style)
     const previewContent = (items && items.length > 0) ? getPreviewHtml(items[0]) : '';
@@ -9290,6 +9808,16 @@ ${isStandalonePage ? '' : `
     `;
 
     body.innerHTML = finalHtml;
+
+    // Rozwiązanie #9: Asynchroniczne przeszukanie 31 102 wersetów Biblii UBG (gdy brak pojedynczej sigli)
+    if (!bibleMatch) {
+      searchFullUbgAsync(query);
+    }
+
+    // Rozwiązanie #10: Samouczący się Radar Braków (telemetria luk wyszukiwania dla zapytań bez bezpośredniego trafienia)
+    if ((isSuggestion || !items.length) && !bibleMatch && !lemmaMatch && !ragMatch && !instantCommandHtml && !multilingualBridgeHtml) {
+      trackSearchGap(query);
+    }
 
     // Asynchroniczne dociągnięcie tekstu wersetu UBG, jeśli nie był w kanonicznym buforze podręcznym
     if (bibleMatch && bibleMatch.isPending) {

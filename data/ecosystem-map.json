@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-22",
+      "topic": "Wyszukiwarka @w 2.0 (/wyszukiwarka & cc-omni-search.js) — wdrożenie kompletu 10 inteligentnych rozwiązań: pełna konkordancja 31 102 wersetów Biblii UBG (szukaj-ubg.json), rozszerzony Biblijny Asystent RAG Q&A, odtwarzacz In-Place Audio/Radio, komendy głosowe Web Speech API, ścieżki duszpasterskie 3-w-1 z TTS, Most 15 Języków (/Ewangelia), Komendy Szybkiej Akcji (/dzis, /szabat, /wsparcie), Graf Powiązań 360° i Radar Braków (search_gap)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-22",
       "topic": "Apokalipsa: Księga Nadziei (Odc. 33 — Apokalipsa 15: Wstęp do plag) — publikacja 4K na 5 kanałach YouTube CC z dedykowanymi miniaturami i tytułami",
       "agent": "A"
     },
