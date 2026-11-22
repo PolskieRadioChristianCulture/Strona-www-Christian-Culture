@@ -7,9 +7,36 @@
       "emittedAt": "2026-11-22T05:05:47Z",
       "results": {
         "slotId": 1,
-        "tablica": { "ok": true, "docId": "zjyhkqhoZqkuuYStI7vU" },
-        "x": { "ok": true },
-        "whatsapp": { "ok": true, "docId": "TaB400dR1bp74p4k2ybK" }
+        "tablica": {
+          "ok": true,
+          "docId": "zjyhkqhoZqkuuYStI7vU"
+        },
+        "x": {
+          "ok": true
+        },
+        "whatsapp": {
+          "ok": true,
+          "docId": "TaB400dR1bp74p4k2ybK"
+        }
+      }
+    },
+    "2": {
+      "status": "EMITTED",
+      "emittedAt": "2026-11-22T10:33:30.488Z",
+      "results": {
+        "slotId": 2,
+        "time": "2026-11-22T10:33:30.488Z",
+        "tablica": {
+          "ok": true,
+          "docId": "N43avIMzyK604E3XmGGD"
+        },
+        "x": {
+          "ok": true
+        },
+        "whatsapp": {
+          "ok": true,
+          "docId": "WUqZOk8bPDAFCG4gLKFg"
+        }
       }
     }
   }

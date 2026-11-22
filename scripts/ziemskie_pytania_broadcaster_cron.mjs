@@ -233,16 +233,33 @@ async function emitToX(slot) {
     await page.waitForTimeout(1000);
 
     if (fs.existsSync(imageAbsPath)) {
-      const fileInput = page.locator('input[type="file"][data-testid="fileInput"]').first();
+      const isDialog = await page.locator('[role="dialog"]').isVisible().catch(() => false);
+      const fileInput = isDialog
+        ? page.locator('[role="dialog"] input[data-testid="fileInput"]').first()
+        : page.locator('input[data-testid="fileInput"]').last();
       if (await fileInput.count() > 0) {
         await fileInput.setInputFiles(imageAbsPath);
         await page.waitForTimeout(3000);
       }
     }
 
-    const tweetButton = page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').first();
-    await tweetButton.click();
-    await page.waitForTimeout(4000);
+    const isDialog = await page.locator('[role="dialog"]').isVisible().catch(() => false);
+    const postBtn = isDialog
+      ? page.locator('[role="dialog"] [data-testid="tweetButton"]')
+      : page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').last();
+
+    const btnVisible = await postBtn.isVisible({ timeout: 5000 }).catch(() => false);
+    if (btnVisible) {
+      await postBtn.click({ force: true }).catch(() => {});
+    }
+
+    await page.waitForTimeout(1500);
+    if (await postBtn.isVisible().catch(() => false)) {
+      console.log('🔄 [X] Ponawiam próbę wysłania skrótem Control+Enter...');
+      await textarea.focus().catch(() => {});
+      await page.keyboard.press('Control+Enter');
+    }
+    await page.waitForTimeout(3000);
     console.log(`🎉 [X] Slot ${slot.id} opublikowany pomyślnie!`);
     await context.close();
     return { ok: true };
@@ -255,7 +272,8 @@ async function emitToX(slot) {
 // 3. Emisja do CommandQueue (WhatsApp Grupa Nazira)
 async function emitToWhatsApp(slot) {
   const req = createRequire(import.meta.url);
-  const admin = req('firebase-admin');
+  const adminPath = path.join(WEKTOR_ROOT, 'node_modules', 'firebase-admin');
+  const admin = req(adminPath);
   const saPath = path.join(WEKTOR_ROOT, 'serviceAccountKey.json');
   if (!fs.existsSync(saPath)) return { ok: false, reason: 'no_sa_key' };
 
