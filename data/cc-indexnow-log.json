@@ -1,6 +1,64 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-22T05:03:43.530Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 489
+    },
+    {
+      "timestamp": "2026-11-22T05:03:42.966Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 489
+    },
+    {
+      "timestamp": "2026-11-22T05:03:42.016Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa",
+        "https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad",
+        "https://polskieradio.cc/finanse/fundusz-sprawiedliwosci-ktorego-nie-znasz"
+      ]
+    },
+    {
+      "timestamp": "2026-11-22T04:20:07.625Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 485
+    },
+    {
+      "timestamp": "2026-11-22T04:20:07.126Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 485
+    },
+    {
+      "timestamp": "2026-11-22T04:20:05.571Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/islam-najwieksza-religia-2035-co-czeka-europe",
+        "https://polskieradio.cc/news/silni-az-do-wyczerpania-dlaczego-mezczyzni-wciaz-boja-sie-prosic-o-pomoc",
+        "https://polskieradio.cc/news/papiez-leon-xiv-rozaniec-peru-jeden-ojciec-jezus"
+      ]
+    },
+    {
       "timestamp": "2026-11-21T23:05:53.765Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",

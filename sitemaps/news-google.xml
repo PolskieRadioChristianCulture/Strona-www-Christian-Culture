@@ -3,6 +3,66 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-22T05:00:00.000Z</news:publication_date>
+      <news:title>Czy katolik powinien uznawać niedzielę handlową? Odpowiedź, której nie znajdziesz na sklepowych drzwiach</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-czy-katolik-powinien-uznawac-niedziele-handlowa.jpg</image:loc>
+      <image:title>Czy katolik powinien uznawać niedzielę handlową? Odpowiedź, której nie znajdziesz na sklepowych drzwiach</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-22T05:15:00.000Z</news:publication_date>
+      <news:title>Trybunał Konstytucyjny czy Najwyższy? Jest jeszcze sąd, przed którym stanie każdy człowiek</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-trybunal-konstytucyjny-czy-najwyzszy.jpg</image:loc>
+      <image:title>Trybunał Konstytucyjny czy Najwyższy? Jest jeszcze sąd, przed którym stanie każdy człowiek</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/finanse/fundusz-sprawiedliwosci-ktorego-nie-znasz</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-22T05:30:00.000Z</news:publication_date>
+      <news:title>Fundusz Sprawiedliwości, którego nie znasz. Kto zapłacił za Twój dług wobec Boga?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-fundusz-sprawiedliwosci-ktorego-nie-znasz.jpg</image:loc>
+      <image:title>Fundusz Sprawiedliwości, którego nie znasz. Kto zapłacił za Twój dług wobec Boga?</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://polskieradio.cc/news/okno-zycia-wola-takze-do-ciebie</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-22T05:45:00.000Z</news:publication_date>
+      <news:title>Okno życia woła także do Ciebie. Czy przyjmiesz dar, którego nie możesz kupić?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-okno-zycia-wola-takze-do-ciebie.jpg</image:loc>
+      <image:title>Okno życia woła także do Ciebie. Czy przyjmiesz dar, którego nie możesz kupić?</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/news/islam-najwieksza-religia-2035-co-czeka-europe</loc>
     <news:news>
       <news:publication>

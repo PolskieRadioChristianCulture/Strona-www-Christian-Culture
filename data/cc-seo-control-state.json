@@ -1,13 +1,13 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-22T04:20:05.574Z",
+  "generatedAt": "2026-11-22T05:03:42.018Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 103,
-    "validUrls": 103,
+    "totalValidatedUrls": 107,
+    "validUrls": 107,
     "invalidUrls": 0,
-    "newsArticlesCount": 97,
-    "googleNews48hCount": 51,
+    "newsArticlesCount": 101,
+    "googleNews48hCount": 55,
     "akademiaUrlsCount": 84,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
@@ -31,25 +31,25 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 25875,
+      "sizeBytes": 24788,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 34500,
+      "sizeBytes": 33690,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 44315,
+      "sizeBytes": 46250,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 40497,
+      "sizeBytes": 43592,
       "status": "OK"
     },
     {
@@ -92,8 +92,8 @@
   "indexNow": {
     "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 50,
-    "pendingCount": 50,
+    "totalQueued": 54,
+    "pendingCount": 54,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-22T04:20:05.568Z",
+        "queuedAt": "2026-11-22T05:03:42.015Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-22T04:20:05.568Z",
+        "queuedAt": "2026-11-22T05:03:42.015Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-22T04:20:05.568Z",
+        "queuedAt": "2026-11-22T05:03:42.015Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-22T04:20:05.568Z",
+        "queuedAt": "2026-11-22T05:03:42.015Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-22T04:20:05.568Z",
+        "queuedAt": "2026-11-22T05:03:42.015Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 485,
-    "lastSubmittedCount": 485,
-    "lastSubmittedAt": "2026-11-22T04:20:07.627Z"
+    "totalIndexedUrls": 489,
+    "lastSubmittedCount": 489,
+    "lastSubmittedAt": "2026-11-22T05:03:43.532Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,38 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/czy-katolik-powinien-uznawac-niedziele-handlowa.html",
+      "canonicalUrl": "https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "file": "news/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad.html",
+      "canonicalUrl": "https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "file": "news/fundusz-sprawiedliwosci-ktorego-nie-znasz.html",
+      "canonicalUrl": "https://polskieradio.cc/finanse/fundusz-sprawiedliwosci-ktorego-nie-znasz",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "file": "news/okno-zycia-wola-takze-do-ciebie.html",
+      "canonicalUrl": "https://polskieradio.cc/news/okno-zycia-wola-takze-do-ciebie",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/islam-najwieksza-religia-2035-co-czeka-europe.html",
       "canonicalUrl": "https://polskieradio.cc/news/islam-najwieksza-religia-2035-co-czeka-europe",
@@ -569,39 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/sprawozdanie-misyjne-pazdziernik-2026.html",
-      "canonicalUrl": "https://polskieradio.cc/news/sprawozdanie-misyjne-pazdziernik-2026",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "file": "news/kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc.html",
-      "canonicalUrl": "https://polskieradio.cc/news/kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "file": "news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski.html",
-      "canonicalUrl": "https://polskieradio.cc/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
-    },
-    {
-      "file": "news/z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro.html",
-      "canonicalUrl": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-31-bog-obrocil-to-w-dobro",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-22T04:20:07.627Z"
+  "lastInstantIndexingAt": "2026-11-22T05:03:43.532Z"
 }
