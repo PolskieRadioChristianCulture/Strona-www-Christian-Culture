@@ -1112,9 +1112,9 @@ button, input { font: inherit; }
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.1 5.2 3 1.6-1.9 3.1-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>
             Wybieram swój gest (od 2 zł)
           </a>
-          <button class="btn btn--ghost" type="button" id="btnHeroListenSpot">
+          <button class="btn btn--ghost" type="button" id="btnHeroListenSpot" data-audio-src="/test/milion-gestow/audio/spot-30s.mp3" data-default-label="Posłuchaj spotu kampanii (30s)">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>
-            Posłuchaj spotu kampanii (30s)
+            <span>Posłuchaj spotu kampanii (30s)</span>
           </button>
           <a class="btn btn--ghost" href="#bez-pieniedzy">
             Pomogę modlitwą i udostępnieniem
@@ -1349,11 +1349,11 @@ button, input { font: inherit; }
             <div class="scard__preview">
               <img src="/images/banners/milion-gestow-16x9.svg" width="640" height="360" loading="lazy" alt="Szablon 16:9 Milion drobnych gestów">
             </div>
-            <small style="font:800 11px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--amber2);">Format 16:9 (1920×1080) · Spot Radiowy 15 s</small>
+            <small style="font:800 11px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--amber2);">Format 16:9 (1920×1080) · Spot Radiowy 15 s (ElevenLabs Master -16 LUFS)</small>
             <blockquote>„Mały gest może być częścią wielkiej misji. Wspieraj bezpłatne radio, Biblię Audio i telewizję Christian Culture już od kilku złotych miesięcznie.”</blockquote>
           </div>
-          <button type="button" class="btn btn--cc btn-tts-spot" style="width:100%;min-height:46px;" data-spot-text="Mały gest może być częścią wielkiej misji. Wspieraj bezpłatne radio, Biblię Audio i telewizję Christian Culture już od kilku złotych miesięcznie. Ty decydujesz, ile możesz dać. Milion drobnych gestów. Mały gest. Wielka misja. Szczegóły na polskieradio.cc.">
-            🔊 Odsłuchaj Spot 15 s
+          <button type="button" class="btn btn--cc btn-tts-spot" style="width:100%;min-height:46px;" data-audio-src="/test/milion-gestow/audio/spot-15s.mp3" data-default-label="▶ Odsłuchaj Spot 15 s (ElevenLabs)">
+            ▶ Odsłuchaj Spot 15 s (ElevenLabs)
           </button>
         </article>
 
@@ -1362,11 +1362,11 @@ button, input { font: inherit; }
             <div class="scard__preview">
               <img src="/images/banners/milion-gestow-1x1.svg" width="360" height="360" loading="lazy" alt="Szablon 1:1 Milion drobnych gestów">
             </div>
-            <small style="font:800 11px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--amber2);">Format 1:1 (1080×1080) · Spot Radio &amp; TV 30 s</small>
+            <small style="font:800 11px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--amber2);">Format 1:1 (1080×1080) · Spot Radio &amp; TV 30 s (ElevenLabs Master -16 LUFS)</small>
             <blockquote>„A gdyby pięć złotych miesięcznie mogło stać się częścią czegoś naprawdę wielkiego? Jedna osoba. Jeden mały gest. A teraz wyobraź sobie tysiące takich osób...”</blockquote>
           </div>
-          <button type="button" class="btn btn--cc btn-tts-spot" style="width:100%;min-height:46px;" data-spot-text="A gdyby pięć złotych miesięcznie mogło stać się częścią czegoś naprawdę wielkiego? Jedna osoba. Jeden mały gest. A teraz wyobraź sobie tysiące takich osób. Razem możemy pomagać, by Biblia, Ewangelia i słowa nadziei docierały do kolejnych ludzi. Dołącz do kampanii Christian Culture — Milion drobnych gestów! Ty decydujesz, ile możesz przekazać. Mały gest. Wielka misja.">
-            🔊 Odsłuchaj Spot 30 s
+          <button type="button" class="btn btn--cc btn-tts-spot" style="width:100%;min-height:46px;" data-audio-src="/test/milion-gestow/audio/spot-30s.mp3" data-default-label="▶ Odsłuchaj Spot 30 s (ElevenLabs)">
+            ▶ Odsłuchaj Spot 30 s (ElevenLabs)
           </button>
         </article>
 
@@ -1375,12 +1375,17 @@ button, input { font: inherit; }
             <div class="scard__preview">
               <img src="/images/banners/milion-gestow-9x16.svg" width="240" height="426" loading="lazy" alt="Szablon 9:16 Milion drobnych gestów">
             </div>
-            <small style="font:800 11px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--amber2);">Format 9:16 (1080×1920) · Short / Reels ≤25 s</small>
-            <blockquote>„00–03 s: Czy 5 złotych może pomóc nieść Ewangelię dalej? Samo niewiele. Ale tysiąc takich gestów to już realne wsparcie bezpłatnych treści!”</blockquote>
+            <small style="font:800 11px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--amber2);">Format 9:16 (1080×1920) · Spot 45 s &amp; Short (ElevenLabs Master -16 LUFS)</small>
+            <blockquote>„Nie wszystko, co wielkie, zaczyna się od wielkich pieniędzy. Czasem wystarczy decyzja: chcę mieć w tym swój mały udział...”</blockquote>
           </div>
-          <button type="button" class="btn btn--cc btn-tts-spot" style="width:100%;min-height:46px;" data-spot-text="Czy 5 złotych może pomóc nieść Ewangelię dalej? Samo niewiele. Ale tysiąc takich gestów to już realne wsparcie bezpłatnych treści. Dołącz do Miliona drobnych gestów. Wybierz kwotę i pomagaj, jeśli możesz. Mały gest. Wielka misja.">
-            🔊 Odsłuchaj Scenariusz Short
-          </button>
+          <div style="display:grid;gap:8px;">
+            <button type="button" class="btn btn--cc btn-tts-spot" style="width:100%;min-height:46px;" data-audio-src="/test/milion-gestow/audio/spot-45s.mp3" data-default-label="▶ Odsłuchaj Spot 45 s (ElevenLabs)">
+              ▶ Odsłuchaj Spot 45 s (ElevenLabs)
+            </button>
+            <button type="button" class="btn btn--ghost btn-tts-spot" style="width:100%;min-height:44px;font-size:12px;" data-audio-src="/test/milion-gestow/audio/short-hook.mp3" data-default-label="▶ Odsłuchaj Short 9:16 Hook">
+              ▶ Odsłuchaj Short 9:16 Hook
+            </button>
+          </div>
         </article>
       </div>
     </div>
@@ -1784,31 +1789,62 @@ button, input { font: inherit; }
     });
   });
 
-  // ---------- Odsłuch spotów radiowych (Web Speech Synthesis) ----------
-  function playSpotTts(text, btn) {
-    if (!('speechSynthesis' in window)) {
-      say('Syntezator mowy niedostępny w tej przeglądarce');
-      return;
-    }
-    if (window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-      if (btn) btn.textContent = '🔊 Odsłuchaj Spot';
-      return;
-    }
-    var u = new SpeechSynthesisUtterance(text);
-    u.lang = 'pl-PL';
-    u.rate = 0.96;
-    if (btn) btn.textContent = '⏹ Zatrzymaj lektora';
-    u.onend = function () { if (btn) btn.textContent = '🔊 Odsłuchaj ponownie'; };
-    window.speechSynthesis.speak(u);
-    say('🎙️ Odtwarzam spot radiowy „Milion Drobnych Gestów”…');
+  // ---------- Odsłuch studyjnych spotów ElevenLabs Master MP3 (-16 LUFS) ----------
+  var spotPlayer = new Audio();
+  spotPlayer.preload = 'none';
+  var activeSpotBtn = null;
+
+  function resetSpotBtn(b) {
+    if (!b) return;
+    var def = b.getAttribute('data-default-label') || '▶ Odsłuchaj Spot';
+    var sp = b.querySelector('span');
+    if (sp) sp.textContent = def; else b.textContent = def;
   }
+
+  function playElevenLabsSpot(src, btn) {
+    if (!src) return;
+    if (radioAudio && !radioAudio.paused) {
+      radioAudio.pause();
+      if (radioBtn) radioBtn.textContent = '▶ Radio CC';
+    }
+    var isSame = (spotPlayer.getAttribute('data-active-src') === src) && !spotPlayer.paused;
+    if (isSame) {
+      spotPlayer.pause();
+      resetSpotBtn(btn);
+      activeSpotBtn = null;
+      say('⏸ Zatrzymano odtwarzanie spotu');
+      return;
+    }
+    if (activeSpotBtn && activeSpotBtn !== btn) {
+      resetSpotBtn(activeSpotBtn);
+    }
+    activeSpotBtn = btn;
+    spotPlayer.src = src;
+    spotPlayer.setAttribute('data-active-src', src);
+    var sp = btn ? btn.querySelector('span') : null;
+    if (sp) sp.textContent = '⏹ Zatrzymaj spot';
+    else if (btn) btn.textContent = '⏹ Zatrzymaj spot';
+
+    spotPlayer.onended = function () {
+      resetSpotBtn(btn);
+      activeSpotBtn = null;
+    };
+    spotPlayer.play().then(function () {
+      say('🎙️ Odtwarzam studyjny spot ElevenLabs (-16 LUFS)…');
+    }).catch(function () {
+      resetSpotBtn(btn);
+      say('Nie udało się odtworzyć pliku audio spotu.');
+    });
+  }
+
   document.querySelectorAll('.btn-tts-spot').forEach(function (b) {
-    b.addEventListener('click', function () { playSpotTts(b.getAttribute('data-spot-text'), b); });
+    b.addEventListener('click', function () {
+      playElevenLabsSpot(b.getAttribute('data-audio-src'), b);
+    });
   });
   if ($('btnHeroListenSpot')) {
     $('btnHeroListenSpot').addEventListener('click', function () {
-      playSpotTts('A gdyby pięć złotych miesięcznie mogło stać się częścią czegoś naprawdę wielkiego? Jedna osoba. Jeden mały gest. A teraz wyobraź sobie tysiące takich osób. Dołącz do kampanii Christian Culture — Milion drobnych gestów! Mały gest. Wielka misja.');
+      playElevenLabsSpot($('btnHeroListenSpot').getAttribute('data-audio-src'), $('btnHeroListenSpot'));
     });
   }
 
