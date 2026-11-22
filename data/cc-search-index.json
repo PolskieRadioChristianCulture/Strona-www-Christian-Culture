@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-21T23:05:54.035Z",
-  "totalItems": 675,
+  "updatedAt": "2026-11-22T04:20:08.107Z",
+  "totalItems": 676,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -9087,6 +9087,26 @@
       "featured": false
     },
     {
+      "title": "Rozważanie: CUDA JAKO ZNAKI!",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/dzj",
+      "description": "22 LISTOPADA 2026: Jeśli oglądasz serial „The Chosen”, to z pewnością przybliżył ci on bardzo osobę Jezusa i Jego 3-letnią służbę tu na ziemi. Równie pouczające jest też poznawanie Jego uczniów, praw… Modlitwa: …",
+      "contentSnippet": "Jeśli oglądasz serial „The Chosen”, to z pewnością przybliżył ci on bardzo osobę Jezusa i Jego 3-letnią służbę tu na ziemi. Równie pouczające jest też poznawanie Jego uczniów, prawda? Może nawet marzysz, żeby znaleźć się na ich miejscu? Przebywanie z Jezusem, rozmawianie z Nim twarzą w twarz, uczenie się od Niego, doświadczanie Jego pomocy i oglądanie na własne oczy tak wielu cudów musiało być nie",
+      "tags": [
+        "dobrze że jesteś",
+        "cuda każdego dnia",
+        "rozważanie",
+        "modlitwa",
+        "poranna inspiracja",
+        "22 LISTOPADA 2026",
+        "nadzieja",
+        "pokój boży",
+        "wiara",
+        "słowo boże"
+      ],
+      "featured": false
+    },
+    {
       "title": "Rozważanie: JESTEŚ DAREM BOŻYM DLA INNYCH!",
       "category": "Biblia i formacja",
       "url": "https://polskieradio.cc/dzj",
@@ -14802,7 +14822,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-21T23:05:54.285Z",
+    "updatedAt": "2026-11-22T04:20:08.987Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "22 listopada 2026",
     "pools": [
