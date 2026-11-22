@@ -1111,12 +1111,20 @@ footer {
 .topbar-lang-switcher {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(196, 163, 90, 0.3);
   border-radius: 999px;
   padding: 3px 6px;
   backdrop-filter: blur(8px);
+  max-width: 480px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.topbar-lang-switcher::-webkit-scrollbar {
+  display: none;
 }
 
 .lang-btn {
@@ -1125,14 +1133,16 @@ footer {
   color: #cfd6dc;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  padding: 0 10px;
+  letter-spacing: 0.04em;
+  padding: 0 8px;
   min-height: 38px;
   min-width: 38px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
@@ -1521,4 +1531,20 @@ footer {
   .topbar-lang-switcher {
     display: none; /* Accessible in mobile menu */
   }
+}
+
+/* RTL Support for Arabic (ar) */
+[dir="rtl"] .prayer-header,
+[dir="rtl"] .prayer-stanza,
+[dir="rtl"] .prayer-intro-box,
+[dir="rtl"] .prayer-aftermath,
+[dir="rtl"] .hero-copy {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .truth-quote {
+  border-left: none;
+  border-right: 3px solid var(--gold);
+  padding: 8px 18px 8px 0;
 }

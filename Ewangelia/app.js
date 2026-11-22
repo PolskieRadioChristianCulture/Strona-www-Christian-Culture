@@ -402,6 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (e) {}
 
       document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
       const dict = EWANGELIA_I18N[lang];
 
       // Meta & Title

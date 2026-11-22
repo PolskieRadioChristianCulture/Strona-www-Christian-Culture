@@ -26,15 +26,18 @@ test('prayer section exists and contains no markdown artifacts (#, *, \\)', () =
   assert.equal(/\\/.test(prayerPart), false, 'Found raw backslashes in prayer section');
 });
 
-test('i18n dictionary supports all 6 target languages with complete prayers and promises', () => {
-  const targetLangs = ['pl', 'en', 'de', 'uk', 'es', 'ru'];
+test('i18n dictionary supports all 15 world languages with complete prayers and promises', () => {
+  const targetLangs = ['pl', 'en', 'de', 'uk', 'es', 'ru', 'zh', 'fr', 'pt', 'ar', 'hi', 'id', 'it', 'ja', 'ko'];
+  assert.equal(Object.keys(EWANGELIA_I18N).length >= 15, true);
   for (const lang of targetLangs) {
     const dict = EWANGELIA_I18N[lang];
     assert.ok(dict, `Missing language: ${lang}`);
+    assert.ok(dict.langName, `Missing langName for language: ${lang}`);
     assert.ok(dict.prayer, `Missing prayer for language: ${lang}`);
     assert.ok(dict.prayer.title, `Missing prayer title for language: ${lang}`);
     assert.ok(dict.prayer.stanzas && dict.prayer.stanzas.length >= 10, `Missing prayer stanzas for language: ${lang}`);
     assert.ok(dict.prayer.aftermath && dict.prayer.aftermath.promises.length >= 7, `Missing promises for language: ${lang}`);
+    assert.ok(dict.prayer.aftermath.truthMain, `Missing truthMain for language: ${lang}`);
   }
 });
 
@@ -44,11 +47,15 @@ test('page switches languages correctly and updates DOM in happy-dom', () => {
 
   // Check language buttons
   const buttons = w.document.querySelectorAll('[data-lang]');
-  assert.ok(buttons.length >= 6);
+  assert.ok(buttons.length >= 15 * 3); // topbar + menu + prayer section
 
   // Check topbar language switcher
   const topbarBtns = w.document.querySelectorAll('.topbar-lang-switcher [data-lang]');
-  assert.equal(topbarBtns.length, 6);
+  assert.equal(topbarBtns.length, 15);
+
+  // Check prayer language switcher pills
+  const prayerBtns = w.document.querySelectorAll('.prayer-lang-pills [data-lang]');
+  assert.equal(prayerBtns.length, 15);
 
   w.happyDOM.close();
 });
