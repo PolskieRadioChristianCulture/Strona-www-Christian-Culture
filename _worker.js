@@ -2143,6 +2143,21 @@ export default {
       return Response.redirect('https://polskieradio.cc/pomogebomoge', 301);
     }
 
+    // Strona Współpraca (/wspolpraca): obsługa polskich znaków (ó, ł), wielkich liter (/Współpraca, /Wspolpraca) oraz aliasów → 301 do /wspolpraca
+    if (
+      url.pathname !== '/wspolpraca' &&
+      url.pathname !== '/wspolpraca/' &&
+      url.pathname !== '/wspolpraca.html' &&
+      url.pathname !== '/wspolpraca/index.html' &&
+      (decodedP.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').replace(/\/$/, '') === '/wspolpraca' ||
+        decodedP === '/partner' ||
+        decodedP === '/partnerstwo')
+    ) {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/wspolpraca';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
+
     // Przechwycenie social crawlerów dla /tablica?post=... oraz /lumina-tablica?post=...
     if ((decodedP === '/tablica' || decodedP === '/lumina-tablica' || decodedP === '/lumina-tablica.html') && (url.searchParams.has('post') || url.searchParams.has('id'))) {
       if (isCrawler) {

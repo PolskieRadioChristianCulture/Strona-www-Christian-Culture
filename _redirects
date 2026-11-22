@@ -645,8 +645,16 @@
 # === WSPÓŁPRACA MISYJNA ===
 /wspolpraca /wspolpraca/index.html 200
 /wspolpraca/ /wspolpraca/index.html 200
+/Wspolpraca /wspolpraca 301
+/Wspolpraca/ /wspolpraca 301
 /współpraca /wspolpraca 301
+/współpraca/ /wspolpraca 301
+/Współpraca /wspolpraca 301
+/Współpraca/ /wspolpraca 301
 /wsp%C3%B3%C5%82praca /wspolpraca 301
+/wsp%C3%B3%C5%82praca/ /wspolpraca 301
+/Wsp%C3%B3%C5%82praca /wspolpraca 301
+/Wsp%C3%B3%C5%82praca/ /wspolpraca 301
 /partner /wspolpraca 301
 /partnerzy /wspolpraca 301
 /partnerstwo /wspolpraca 301
