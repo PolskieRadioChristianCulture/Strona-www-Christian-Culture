@@ -9376,17 +9376,17 @@ ${isStandalonePage ? '' : `
         </div>`;
     }
 
-    // 3. Komenda: /wsparcie, wsparcie, wspieram, konto, iban, blik, darowizna
-    if (/^(wsparcie|wspieram|wspieraj|konto|numer konta|iban|blik|darowizna|zrzutka|dziesiecina)$/.test(q)) {
+    // 3. Komenda: /wsparcie, wsparcie, wspieram, konto, iban, blik, darowizna, milion gestów
+    if (/^(wsparcie|wspieram|wspieraj|konto|numer konta|iban|blik|darowizna|zrzutka|dziesiecina|milion gestow|milion drobnych gestow|maly gest)$/.test(q)) {
       return `
         <div class="cc-omni-guide" id="ccInstantSupportCard" style="border-color:rgba(255,122,0,0.55);background:linear-gradient(135deg,rgba(255,122,0,0.12),rgba(20,24,33,0.4));">
-          <div class="cc-omni-guide-badge" style="background:#FF7A00;color:#fff;">🧡 WspieramTO 2.0 — 100% na Misję Ewangelii (0% reklam)</div>
-          <h4 class="cc-omni-guide-topic">Szybkie Wsparcie Misji Christian Culture</h4>
+          <div class="cc-omni-guide-badge" style="background:#FF7A00;color:#fff;">🧡 Milion Drobnych Gestów & WspieramTO 2.0 (100% na Misję Ewangelii)</div>
+          <h4 class="cc-omni-guide-topic">Mały gest. Wielka misja. Wsparcie od 2 zł / 5 zł</h4>
           <p class="cc-omni-guide-summary">Konto PLN (mBank): <strong>87 1140 2004 0000 3802 8491 7164</strong> • Odbiorca: <strong>Christian Culture</strong> • Tytuł: <em>Dar na cele kultu religijnego</em></p>
           <div class="cc-omni-guide-pills">
-            <button type="button" class="cc-omni-guide-pill cc-instant-copy-btn" data-copy-text="87 1140 2004 0000 3802 8491 7164" data-copy-msg="Skopiowano numer konta PLN (IBAN) do schowka!" data-copy-method="iban_pln" style="background:#FF7A00;color:#fff;border-color:#FF7A00;font-weight:700;cursor:pointer;"><span>📋</span><span>Kopiuj nr konta PLN (1-klik)</span></button>
-            <a href="/wspieram" class="cc-omni-guide-pill"><span>💳</span><span>BLIK / Karta / PayPal (/wspieram) →</span></a>
-            <a href="/wspolpraca" class="cc-omni-guide-pill"><span>🤝</span><span>Współpraca Misyjna</span></a>
+            <a href="/milion-gestow" class="cc-omni-guide-pill" style="background:#FF7A00;color:#fff;border-color:#FF7A00;font-weight:700;"><span>✨</span><span>Milion Drobnych Gestów (/milion-gestow) →</span></a>
+            <button type="button" class="cc-omni-guide-pill cc-instant-copy-btn" data-copy-text="87 1140 2004 0000 3802 8491 7164" data-copy-msg="Skopiowano numer konta PLN (IBAN) do schowka!" data-copy-method="iban_pln" style="cursor:pointer;"><span>📋</span><span>Kopiuj nr konta PLN (1-klik)</span></button>
+            <a href="/wspieramto" class="cc-omni-guide-pill"><span>💳</span><span>WspieramTO 2.0 (/wspieramto) →</span></a>
           </div>
         </div>`;
     }

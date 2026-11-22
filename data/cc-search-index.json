@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-22T17:21:50.504Z",
-  "totalItems": 683,
+  "updatedAt": "2026-11-22T18:51:34.444Z",
+  "totalItems": 684,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1061,6 +1061,25 @@
     }
   },
   "items": [
+    {
+      "id": "module-milion-drobnych-gestow",
+      "title": "Milion Drobnych Gestów — Mały gest. Wielka misja.",
+      "description": "Wspieraj bezpłatne Radio 24/7, Biblię Audio, Telewizję CC i Ewangelię w 15 językach świata już od 2 lub 5 zł miesięcznie. Dobrowolnie, przejrzyście i bez presji.",
+      "url": "/milion-gestow",
+      "category": "Moduły & Platformy",
+      "tags": [
+        "milion drobnych gestów",
+        "milion gestow",
+        "mały gest wielka misja",
+        "wsparcie",
+        "wspieram",
+        "darowizna",
+        "5 zł",
+        "2 zł",
+        "patronat",
+        "wspieramto"
+      ]
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",

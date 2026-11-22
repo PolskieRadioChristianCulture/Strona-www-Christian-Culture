@@ -7,9 +7,14 @@ import { createGivingLedger, verifyWebhookSignature } from './milion-gestow-ledg
 
 const htmlPath = path.resolve('test/milion-gestow/index.html');
 const html = fs.readFileSync(htmlPath, 'utf8');
+const prodHtmlPath = path.resolve('milion-gestow/index.html');
+const prodHtml = fs.readFileSync(prodHtmlPath, 'utf8');
 
-test('T01-T04 & T11-T12: Landing /test/milion-gestow spełnia wymogi CC FULL PREMIUM, noindex, progów 2/5/10/20 zł, trybu demo i oficjalnej nazwy CHRISTIAN CULTURE', () => {
+test('T01-T04 & T11-T12: Landing /test/milion-gestow oraz produkcyjny /milion-gestow spełniają wymogi CC FULL PREMIUM, progów 2/5/10/20 zł i oficjalnej nazwy CHRISTIAN CULTURE', () => {
   assert.match(html, /<meta name="robots" content="noindex,nofollow">/);
+  assert.match(prodHtml, /<meta name="robots" content="index,follow">/);
+  assert.match(prodHtml, /https:\/\/polskieradio\.cc\/milion-gestow/);
+  assert.match(prodHtml, /\/milion-gestow\/audio\/spot-30s\.mp3/);
   assert.match(html, /data-value="2"/);
   assert.match(html, /data-value="5"/);
   assert.match(html, /data-value="10"/);
@@ -17,6 +22,7 @@ test('T01-T04 & T11-T12: Landing /test/milion-gestow spełnia wymogi CC FULL PRE
   assert.match(html, /data-freq="monthly"/);
   assert.match(html, /data-freq="once"/);
   assert.match(html, /id="btnDemoCheckout"[^>]*disabled/);
+  assert.match(prodHtml, /id="btnProdCheckout"/);
   assert.match(html, /CHRISTIAN CULTURE/);
   assert.match(html, /Milion Drobnych/i);
   assert.match(html, /Mały gest\. Wielka misja\./);
