@@ -2126,9 +2126,10 @@ export default {
           const dynDesc = `Czytaj i studiuj: ${bName}, rozdział ${rawChParam} (${bShort} ${rawChParam}) w darmowej Biblii Interlinearnej Online. Oryginał słowo po słowie, polski słownik Stronga oraz 4 przekłady (UBG, BW, BT, BG).`;
           const dynCanon = `https://polskieradio.cc/mojabiblia?book=${rawBookParam}&ch=${rawChParam}`;
           const assetTarget = new URL(request.url);
-          assetTarget.pathname = '/mojabiblia.html';
-          const assetRes = await env.ASSETS.fetch(new Request(assetTarget, request));
-          if (assetRes.ok && (assetRes.headers.get('content-type') || '').includes('text/html')) {
+          assetTarget.pathname = '/mojabiblia';
+          assetTarget.search = '';
+          const assetRes = await env.ASSETS.fetch(new Request(assetTarget.toString(), { method: 'GET', headers: request.headers }));
+          if (assetRes.ok) {
             let html = await assetRes.text();
             html = html
               .replace(/<title>[\s\S]*?<\/title>/, `<title>${dynTitle}</title>`)
@@ -2139,7 +2140,7 @@ export default {
               .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${dynCanon}">`);
             const headers = new Headers(assetRes.headers);
             headers.set('Content-Type', 'text/html; charset=utf-8');
-            return new Response(html, { status: 200, headers });
+            return new Response(request.method === 'HEAD' ? null : html, { status: 200, headers });
           }
         }
       }
