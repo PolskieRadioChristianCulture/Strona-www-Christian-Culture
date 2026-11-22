@@ -102,8 +102,8 @@ test('radio uses the canonical measurement module once per page, never counts th
     navigator:{sendBeacon:(url,body)=>{counted.push({url,body});return true;}},Blob,HTMLMediaElement:w.HTMLMediaElement};
   vm.runInNewContext(src,context);
   d.getElementById('audio').dispatchEvent(new w.Event('play'));assert.equal(counted.length,0);
-  d.getElementById('ccRadioAudio').dispatchEvent(new w.Event('play'));
-  d.getElementById('ccRadioAudio').dispatchEvent(new w.Event('play'));
+  d.getElementById('ccRadioAudio').dispatchEvent(new w.Event('playing'));
+  d.getElementById('ccRadioAudio').dispatchEvent(new w.Event('playing'));
   assert.equal(counted.length,1);assert.equal(counted[0].url,'/api/milion/count');
   assert.equal(await counted[0].body.text(),'{"type":"radio"}');
   await w.happyDOM.close();

@@ -17,6 +17,14 @@
   <meta name="description" content="Dobra Nowina. Poznaj przesłanie Jezusa. Posłuchaj bezpłatnego nagrania, odkryj nadzieję i podziel się Ewangelią.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
   <link rel="canonical" href="https://polskieradio.cc/Ewangelia">
+  <link rel="alternate" hreflang="pl" href="https://polskieradio.cc/Ewangelia">
+  <link rel="alternate" hreflang="en" href="https://polskieradio.cc/Ewangelia?lang=en">
+  <link rel="alternate" hreflang="de" href="https://polskieradio.cc/Ewangelia?lang=de">
+  <link rel="alternate" hreflang="uk" href="https://polskieradio.cc/Ewangelia?lang=uk">
+  <link rel="alternate" hreflang="es" href="https://polskieradio.cc/Ewangelia?lang=es">
+  <link rel="alternate" hreflang="ru" href="https://polskieradio.cc/Ewangelia?lang=ru">
+  <link rel="alternate" hreflang="x-default" href="https://polskieradio.cc/Ewangelia">
+
   <link rel="preload" as="image" href="/Ewangelia/assets/hero-jezus-v3.webp" fetchpriority="high">
   <link rel="icon" href="/Ewangelia/assets/radio-cc-logo.png" type="image/png">
   <meta name="theme-color" content="#20252a">
@@ -91,12 +99,22 @@
       <img src="/Ewangelia/assets/radio-cc-logo.png" width="230" height="75" alt="Radio CC — Christian Culture">
     </a>
     <nav class="mainnav" aria-label="Nawigacja główna">
-      <a href="https://polskieradio.cc">Start</a>
-      <a href="#top" aria-current="page">Dobra Nowina</a>
-      <a href="#audio-player">Rozmowy</a>
-      <a href="#footer">O projekcie</a>
+      <a href="https://polskieradio.cc" data-i18n="nav.start">Start</a>
+      <a href="#top" aria-current="page" data-i18n="nav.goodNews">Dobra Nowina</a>
+      <a href="#audio-player" data-i18n="nav.audio">Rozmowy</a>
+      <a href="#modlitwa" data-i18n="nav.prayer">Modlitwa Oddania Życia</a>
+      <a href="#values" data-i18n="nav.values">Wartości</a>
+      <a href="#footer" data-i18n="nav.about">O projekcie</a>
     </nav>
     <div class="head-actions">
+      <div class="topbar-lang-switcher" role="navigation" aria-label="Wybierz język / Select language">
+        <button type="button" class="lang-btn is-active" data-lang="pl" aria-pressed="true">PL</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        <button type="button" class="lang-btn" data-lang="de" aria-pressed="false">DE</button>
+        <button type="button" class="lang-btn" data-lang="uk" aria-pressed="false">UK</button>
+        <button type="button" class="lang-btn" data-lang="es" aria-pressed="false">ES</button>
+        <button type="button" class="lang-btn" data-lang="ru" aria-pressed="false">RU</button>
+      </div>
       <button class="search-btn" id="searchBtn" type="button" aria-label="Szukaj w ekosystemie Christian Culture">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"/><path d="m16 16 5 5"/></svg>
       </button>
@@ -121,9 +139,21 @@
     <div class="menu-heading"><h2 id="menuTitle">Christian Culture</h2><button type="button" id="menuClose" aria-label="Zamknij menu" autofocus>×</button></div>
     <nav aria-label="Menu mobilne">
       <a href="/">Strona główna</a><a href="#audio-player">Posłuchaj Dobrej Nowiny</a>
+      <a href="#modlitwa">Modlitwa Oddania Życia</a>
       <a href="#radioCtaBtn">Radio CC</a><a href="/milion">Licznik słuchaczy</a>
       <a href="/szukaj">Szukaj w Christian Culture</a><a href="/lumina">LUMINA</a>
     </nav>
+    <div class="menu-lang-group">
+      <span class="menu-lang-title">Język / Language:</span>
+      <div class="menu-lang-pills">
+        <button type="button" class="lang-pill is-active" data-lang="pl">Polski</button>
+        <button type="button" class="lang-pill" data-lang="en">English</button>
+        <button type="button" class="lang-pill" data-lang="de">Deutsch</button>
+        <button type="button" class="lang-pill" data-lang="uk">Українська</button>
+        <button type="button" class="lang-pill" data-lang="es">Español</button>
+        <button type="button" class="lang-pill" data-lang="ru">Русский</button>
+      </div>
+    </div>
   </dialog>
 
   <!-- MAIN -->
@@ -134,19 +164,20 @@
       <div class="hero-shading" aria-hidden="true"></div>
       
       <div class="hero-copy">
-        <p class="kicker">SŁOWA, KTÓRE ZMIENIAJĄ ŻYCIE</p>
-        <h1>Dobra<br><em>Nowina</em></h1>
+        <p class="kicker" data-i18n="hero.kicker">SŁOWA, KTÓRE ZMIENIAJĄ ŻYCIE</p>
+        <h1><span data-i18n="hero.title1">Dobra</span><br><em data-i18n="hero.title2">Nowina</em></h1>
         <span class="gold-rule" aria-hidden="true"></span>
-        <p class="intro">Rozmowa o życiu, nadziei i tym, co naprawdę ważne. Odkryj przesłanie, które wciąż jest aktualne.</p>
+        <p class="intro" data-i18n="hero.intro">Rozmowa o życiu, nadziei i tym, co naprawdę ważne. Odkryj przesłanie, które wciąż jest aktualne.</p>
       </div>
 
       <blockquote class="verse">
-        <p>„Przyszedłem,<br>aby mieli życie<br>i mieli je w obfitości.”</p>
-        <cite>— J 10,10</cite>
+        <p data-i18n="hero.verseText">„Przyszedłem, aby mieli życie i mieli je w obfitości.”</p>
+        <cite data-i18n="hero.verseCite">— Ewangelia Jana 10,10 (UBG)</cite>
       </blockquote>
 
       <div class="listening-choice">
         <a class="listen-recording" href="#audio-player"><span aria-hidden="true">▶</span> Posłuchaj Dobrej Nowiny</a>
+        <a class="prayer-hero-btn" href="#modlitwa"><span aria-hidden="true">✝</span> <span data-i18n="hero.prayerBtn">Módl się modlitwą oddania życia ↓</span></a>
         <div class="radio-choice">
           <button class="glass-btn radio-cta" id="radioCtaBtn" type="button" aria-label="Włącz Radio Christian Culture na żywo" aria-pressed="false" data-state="idle">
             <span class="radio-cta-dot" aria-hidden="true">◉</span><span class="radio-cta-label">Słuchaj Radia CC</span>
@@ -267,29 +298,216 @@
     </section>
 
     <!-- VALUES SECTION -->
+    
+    <!-- VALUES SECTION -->
     <section class="values" id="values" aria-label="Wartości Dobrej Nowiny">
       <div class="value">
         <span class="value-icon">
           <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#C4A35A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>
         </span>
-        <h3>Nadzieja</h3>
-        <p>na każdy dzień</p>
+        <h3 data-i18n="values.v1Title">Nadzieja</h3>
+        <p data-i18n="values.v1Desc">na każdy dzień</p>
       </div>
       <div class="value">
         <span class="value-icon">
           <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#C4A35A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
         </span>
-        <h3>Sens</h3>
-        <p>w codzienności</p>
+        <h3 data-i18n="values.v2Title">Sens</h3>
+        <p data-i18n="values.v2Desc">w codzienności</p>
       </div>
       <div class="value">
         <span class="value-icon">
           <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#C4A35A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         </span>
-        <h3>Życie</h3>
-        <p>w obfitości</p>
+        <h3 data-i18n="values.v3Title">Życie</h3>
+        <p data-i18n="values.v3Desc">w obfitości</p>
       </div>
     </section>
+
+    <!-- PRAYER SECTION / MODLITWA ODDANIA ŻYCIA JEZUSOWI CHRYSTUSOWI -->
+    <section class="prayer-section" id="modlitwa" aria-labelledby="prayerMainTitle">
+      <div class="prayer-container">
+        <div class="prayer-header">
+          <span class="prayer-kicker" data-i18n="prayer.kicker">DECYZJA WIARY I ZBAWIENIA</span>
+          <h2 id="prayerMainTitle" data-i18n="prayer.title">Modlitwa Oddania Życia Jezusowi Chrystusowi</h2>
+          <p class="prayer-subtitle" data-i18n="prayer.subtitle">Modlitwa pokuty, wiary i przyjęcia zbawienia z łaski przez wiarę w Jezusa Chrystusa jako jedynego Pana i osobistego Zbawiciela.</p>
+          
+          <div class="prayer-lang-bar">
+            <span class="prayer-lang-label" data-i18n="prayer.langLabel">Wybierz język modlitwy:</span>
+            <div class="prayer-lang-pills">
+              <button type="button" class="lang-pill is-active" data-lang="pl" aria-pressed="true">Polski</button>
+              <button type="button" class="lang-pill" data-lang="en" aria-pressed="false">English</button>
+              <button type="button" class="lang-pill" data-lang="de" aria-pressed="false">Deutsch</button>
+              <button type="button" class="lang-pill" data-lang="uk" aria-pressed="false">Українська</button>
+              <button type="button" class="lang-pill" data-lang="es" aria-pressed="false">Español</button>
+              <button type="button" class="lang-pill" data-lang="ru" aria-pressed="false">Русский</button>
+            </div>
+          </div>
+        </div>
+
+        <blockquote class="prayer-verse-box">
+          <p class="prayer-verse-text" data-i18n="prayer.verseEphText">„Łaską bowiem jesteście zbawieni przez wiarę, i to nie z was, Boży to dar; nie z uczynków, aby się kto nie chlubił”.</p>
+          <cite class="prayer-verse-cite" data-i18n="prayer.verseEphCite">— List do Efezjan 2,8–9 (UBG)</cite>
+        </blockquote>
+
+        <div class="prayer-intro-box">
+          <p data-i18n="prayer.intro">Jeżeli pragniesz szczerze oddać swoje życie Jezusowi Chrystusowi, możesz zwrócić się do Niego w modlitwie poniższymi słowami. Nie chodzi o samo wypowiedzenie określonej formuły, lecz o prawdziwą wiarę, skruchę serca i osobiste zaufanie Zbawicielowi.</p>
+        </div>
+
+        <div class="prayer-card">
+          <div class="prayer-stanzas" id="prayerStanzas">
+            <div class="prayer-stanza">
+              <h3 class="prayer-stanza-title">Panie Jezu Chryste, Synu Boga żywego!</h3>
+              <div class="prayer-stanza-body">
+                <p>Przychodzę dziś do Ciebie takim, jakim jestem — z całą moją przeszłością, moimi grzechami, słabościami, lękami, wątpliwościami i pragnieniami.</p>
+                <p>Przychodzę, ponieważ potrzebuję Ciebie. Potrzebuję Twojej miłości, Twojego przebaczenia, Twojej łaski i Twojego zbawienia.</p>
+                <p><strong>Wierzę, Panie Jezu, że jesteś Synem Bożym, obiecanym Mesjaszem, jedynym Zbawicielem świata i jedyną drogą do Boga Ojca.</strong></p>
+                <p>Wierzę, że z miłości do mnie przyszedłeś na ten świat, przyjąłeś ludzką naturę i prowadziłeś życie doskonałego posłuszeństwa Ojcu, nie popełniając żadnego grzechu.</p>
+                <p>Wierzę, że dobrowolnie oddałeś swoje życie na krzyżu Golgoty, aby ponieść karę za moje grzechy i pojednać mnie z Bogiem.</p>
+                <p>Wierzę, że umarłeś za mnie, zostałeś pogrzebany i trzeciego dnia zmartwychwstałeś, zwyciężając grzech, śmierć i moc szatana.</p>
+                <p>Wierzę, że żyjesz na wieki, że jesteś moim jedynym Pośrednikiem przed Ojcem i że tylko w Tobie mogę otrzymać przebaczenie grzechów, zbawienie i życie wieczne.</p>
+              </div>
+            </div>
+
+            <div class="prayer-stanza">
+              <h3 class="prayer-stanza-title">Panie Jezu, wyznaję przed Tobą, że jestem grzesznikiem.</h3>
+              <div class="prayer-stanza-body">
+                <p>Zgrzeszyłem przeciwko Bogu myślą, słowem, czynem i zaniedbaniem. Wiele razy postępowałem według własnej woli, lekceważąc Twoją prawdę i przykazania.</p>
+                <p>Nie zawsze kochałem Boga całym sercem, całą duszą i całym umysłem. Nie zawsze kochałem bliźniego jak siebie samego.</p>
+                <p>Uznaję, że nie jestem w stanie sam siebie zbawić. Żadne moje dobre uczynki, religijne praktyki, wysiłki ani zasługi nie mogą usunąć moich grzechów ani zapewnić mi życia wiecznego.</p>
+                <p>Nie chcę usprawiedliwiać swoich grzechów ani ich ukrywać. Szczerze za nie żałuję i wyznaję je przed Tobą.</p>
+              </div>
+            </div>
+
+            <div class="prayer-stanza">
+              <h3 class="prayer-stanza-title">Panie Jezu, zmiłuj się nade mną, grzesznikiem.</h3>
+              <div class="prayer-stanza-body">
+                <p>Proszę Cię, przebacz mi wszystkie moje grzechy — świadome i nieświadome, popełnione w przeszłości i obecnie.</p>
+                <p>Oczyść mnie swoją drogocenną krwią przelaną na krzyżu.</p>
+                <p>Uwolnij mnie od winy i potępienia. Ulecz moje zranione serce, oczyść moje sumienie i pojednaj mnie z moim Ojcem Niebieskim.</p>
+                <p>Odwracam się od grzechu i od życia bez Ciebie. Nie chcę już podążać drogą, która prowadzi mnie z dala od Boga.</p>
+                <p>Proszę, przemieniaj moje serce, abym coraz bardziej nienawidził grzechu, a miłował sprawiedliwość, prawdę i świętość.</p>
+                <p>Wiem, że sam z siebie nie mam siły żyć tak, jak powinienem. Dlatego całkowicie polegam na Twojej łasce i mocy.</p>
+              </div>
+            </div>
+
+            <div class="prayer-stanza">
+              <h3 class="prayer-stanza-title">Panie Jezu, w tej chwili z wiarą przyjmuję Ciebie jako mojego jedynego Pana i osobistego Zbawiciela.</h3>
+              <div class="prayer-stanza-body">
+                <p>Ufam wyłącznie Tobie i Twojej doskonałej ofierze dokonanej na krzyżu.</p>
+                <p>Wierzę, że Twoja śmierć jest wystarczającą zapłatą za moje grzechy i że Twoje zmartwychwstanie jest zwycięstwem, które daje mi nadzieję życia wiecznego.</p>
+                <p>Nie opieram mojej nadziei na zbawienie na własnej dobroci, uczynkach ani religijności.</p>
+                <p><strong>Przyjmuję zbawienie jako niezasłużony dar Twojej łaski, wyłącznie przez wiarę w Ciebie.</strong></p>
+                <p>Dziękuję Ci, że nie muszę zapracować na Twoją miłość, lecz mogę przyjąć ją z wdzięcznością.</p>
+                <p>Wierzę Twojej obietnicy, że tego, kto przychodzi do Ciebie, nie odrzucisz.</p>
+                <p>Dlatego przychodzę do Ciebie z ufnością i powierzam Ci całe swoje życie.</p>
+              </div>
+            </div>
+
+            <div class="prayer-stanza">
+              <h3 class="prayer-stanza-title">Jezu Chryste, uznaję Cię za mojego jedynego Pana, Króla i Zbawiciela.</h3>
+              <div class="prayer-stanza-body">
+                <p>Nie chcę już żyć tylko dla siebie.</p>
+                <p>Oddaję Ci moje serce, umysł, sumienie, wolę i ciało.</p>
+                <p>Oddaję Ci moją przeszłość, teraźniejszość i przyszłość.</p>
+                <p>Powierzam Ci moje plany, marzenia, decyzje, relacje, rodzinę, pracę, zdrowie, troski i wszystkie dziedziny mojego życia.</p>
+                <p>Oddaję Ci to, co dobre, i to, czego się wstydzę. Oddaję Ci moje zwycięstwa i porażki, moje nadzieje i obawy.</p>
+                <p>Nie chcę zatrzymywać przed Tobą żadnej części mojego życia.</p>
+                <p>Pragnę, abyś odtąd zajmował pierwsze miejsce w moim sercu.</p>
+                <p>Bądź Panem moich myśli, słów, czynów, wyborów i pragnień.</p>
+                <p>Ucz mnie nie tylko nazywać Cię Panem, ale również żyć zgodnie z Twoją wolą.</p>
+              </div>
+            </div>
+
+            <div class="prayer-stanza">
+              <h3 class="prayer-stanza-title">Ojcze Niebieski, w imieniu Jezusa Chrystusa proszę Cię, przyjmij mnie jako swoje dziecko.</h3>
+              <div class="prayer-stanza-body">
+                <p>Dziękuję Ci, że tak umiłowałeś świat, iż dałeś swojego jednorodzonego Syna, aby każdy, kto w Niego wierzy, nie zginął, ale miał życie wieczne.</p>
+                <p>Pragnę należeć do Twojej rodziny, żyć w Twojej obecności i poznawać Cię każdego dnia coraz głębiej.</p>
+              </div>
+            </div>
+
+            <div class="prayer-stanza">
+              <h3 class="prayer-stanza-title">Duchu Święty, proszę Cię, odrodź mnie duchowo i zamieszkaj w moim sercu.</h3>
+              <div class="prayer-stanza-body">
+                <p>Daj mi nowe serce, nowe pragnienia i nowe życie.</p>
+                <p>Prowadź mnie do poznania całej prawdy objawionej w Piśmie Świętym.</p>
+                <p>Otwieraj mój umysł na zrozumienie Słowa Bożego, kształtuj mój charakter na podobieństwo Chrystusa i ucz mnie żyć w miłości, pokorze, świętości oraz posłuszeństwie Bogu.</p>
+                <p>Pomagaj mi zwyciężać pokusy i odwracać się od wszystkiego, co sprzeciwia się Twojej woli.</p>
+                <p>Kiedy upadnę, nie pozwól mi uciekać od Ciebie w rozpaczy. Prowadź mnie do szczerego wyznania grzechów, pokuty i ponownego uchwycenia się Twojej łaski.</p>
+                <p>Naucz mnie przebaczać innym, tak jak Ty przebaczasz mnie.</p>
+                <p>Naucz mnie kochać ludzi Twoją miłością, czynić dobro i być świadkiem Twojej prawdy.</p>
+              </div>
+            </div>
+
+            <div class="prayer-stanza">
+              <h3 class="prayer-stanza-title">Panie Jezu, pragnę od dzisiaj być Twoim uczniem.</h3>
+              <div class="prayer-stanza-body">
+                <p>Pragnę codziennie poznawać Cię przez modlitwę, studiowanie Pisma Świętego i społeczność z Tobą.</p>
+                <p>Pragnę wzrastać w wierze, trwać w Twoim Słowie i należeć do wspólnoty ludzi, którzy szczerze Cię kochają i przestrzegają Twoich przykazań.</p>
+                <p>Pragnę również wyznać swoją wiarę przed ludźmi i przyjąć chrzest zgodnie z Twoim poleceniem, jako świadectwo mojego nawrócenia, śmierci dla dawnego życia i rozpoczęcia nowego życia z Tobą.</p>
+                <p>Niech moje posłuszeństwo nie będzie próbą zasłużenia na zbawienie, lecz owocem wdzięczności, miłości i zbawiającej wiary.</p>
+              </div>
+            </div>
+
+            <div class="prayer-stanza">
+              <h3 class="prayer-stanza-title">Panie Jezu, od tej chwili całkowicie powierzam Ci moje zbawienie i moją wieczność.</h3>
+              <div class="prayer-stanza-body">
+                <p>Nie chcę polegać na swoich uczuciach, własnej sile ani zmiennych okolicznościach.</p>
+                <p>Chcę polegać na Twoich niezmiennych obietnicach, Twojej wierności i doskonałej ofierze.</p>
+                <p>Dziękuję Ci, że Twoja łaska jest większa niż mój grzech.</p>
+                <p>Dziękuję Ci, że w Tobie jest przebaczenie, pojednanie z Bogiem, nowe życie i nadzieja zmartwychwstania.</p>
+                <p>Dziękuję Ci, że mogę przychodzić do Ojca przez Ciebie i że jesteś zawsze gotów wstawiać się za tymi, którzy zbliżają się do Boga przez Ciebie.</p>
+                <p>Pomóż mi wytrwać w wierze, trwać w Twojej miłości i pozostać Ci wiernym aż do końca.</p>
+                <p>Pragnę żyć w oczekiwaniu na Twój chwalebny powrót i spotkać Cię, gdy przyjdziesz ponownie.</p>
+              </div>
+            </div>
+
+            <div class="prayer-stanza is-culmination">
+              <h3 class="prayer-stanza-title">Wyznanie wiary i oddania</h3>
+              <div class="prayer-stanza-body">
+                <p><strong>Panie Jezu Chryste, jesteś moim jedynym Panem i osobistym Zbawicielem.</strong></p>
+                <p><strong>W Tobie pokładam całą nadzieję mojego zbawienia.</strong></p>
+                <p><strong>Tobie oddaję moje serce.</strong></p>
+                <p><strong>Tobie powierzam całe moje życie.</strong></p>
+                <p><strong>Tobie powierzam moją wieczność.</strong></p>
+                <p>Niech odtąd moje życie należy do Ciebie i przynosi chwałę Twojemu świętemu imieniu.</p>
+                <p>Dziękuję Ci za Twoją niezasłużoną łaskę, za Twoją nieskończoną miłość i za dar zbawienia, który przyjmuję przez wiarę.</p>
+                <p><strong>W imieniu Jezusa Chrystusa, mojego jedynego Pana, Odkupiciela i Zbawiciela, modlę się z całego serca.</strong></p>
+                <p><strong class="prayer-amen">Amen.</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prayer-aftermath">
+          <h3 class="aftermath-title" data-i18n="prayer.aftermath.title">Co powinien wiedzieć człowiek, który szczerze wypowiedział tę modlitwę?</h3>
+          <p class="aftermath-lead" data-i18n="prayer.aftermath.lead">Najważniejsza prawda jest następująca: <strong>nie modlitwa sama w sobie zbawia człowieka, lecz Jezus Chrystus.</strong> Modlitwa jest wyrazem szczerej wiary i odpowiedzią serca na Bożą łaskę.</p>
+
+          <h4 class="promises-title" data-i18n="prayer.aftermath.promisesTitle">Pismo Święte daje człowiekowi wierzącemu konkretne obietnice:</h4>
+          <ul class="promises-list" id="promisesList">
+            <li><strong>Efezjan 2,8–9</strong> — zbawienie jest darem łaski przyjmowanym przez wiarę, nie zapłatą za uczynki.</li>
+            <li><strong>Rzymian 10,9–10</strong> — wiara w zmartwychwstałego Chrystusa i wyznanie Go jako Pana są związane ze zbawieniem.</li>
+            <li><strong>Jana 1,12</strong> — ci, którzy przyjmują Chrystusa i wierzą w Jego imię, otrzymują prawo stać się dziećmi Bożymi.</li>
+            <li><strong>Jana 6,37</strong> — Jezus obiecuje, że nie odrzuci człowieka, który do Niego przychodzi.</li>
+            <li><strong>1 Jana 1,9</strong> — Bóg jest wierny i sprawiedliwy, aby przebaczyć wyznane grzechy i oczyścić z nieprawości.</li>
+            <li><strong>2 Koryntian 5,17</strong> — człowiek będący w Chrystusie jest nowym stworzeniem.</li>
+            <li><strong>Dzieje Apostolskie 2,38</strong> — odpowiedź na Ewangelię obejmuje pokutę, chrzest w imię Jezusa Chrystusa i obietnicę daru Ducha Świętego.</li>
+          </ul>
+
+          <div class="truth-highlight-box">
+            <h4 data-i18n="prayer.aftermath.truthTitle">Zapamiętaj tę prawdę</h4>
+            <p class="truth-main-text" data-i18n="prayer.aftermath.truthMain"><strong>Nie jesteś zbawiony dlatego, że wypowiedziałeś doskonałą modlitwę. Nie jesteś zbawiony dlatego, że jesteś wystarczająco dobry. Zbawienie jest możliwe dlatego, że Jezus Chrystus umarł za Twoje grzechy i zmartwychwstał. Przyjmujesz je z łaski, przez wiarę w Niego.</strong></p>
+            <p data-i18n="prayer.aftermath.truthSub">Prawdziwa wiara prowadzi do nawrócenia, nowego życia, miłości i posłuszeństwa Chrystusowi — nie jako ceny zbawienia, lecz jako owocu Jego łaski (Efezjan 2,10; Jana 14,15).</p>
+            <blockquote class="truth-quote">
+              <p data-i18n="prayer.aftermath.truthQuote">„To wam napisałem, którzy wierzycie w imię Syna Bożego, abyście wiedzieli, że macie życie wieczne”.</p>
+              <cite data-i18n="prayer.aftermath.truthCite">— 1 Jana 5,13 (tłumaczenie sensu NKJV)</cite>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- FOOTER -->

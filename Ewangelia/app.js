@@ -341,4 +341,112 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = $('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
+
+  // ── 8. SYSTEM MULTIJĘZYCZNY I OBSŁUGA MODLITWY ODDANIA ŻYCIA ──
+  function initI18n(EWANGELIA_I18N) {
+    if (!EWANGELIA_I18N) return;
+    function getNestedValue(obj, path) {
+      if (!obj || !path) return undefined;
+      return path.split('.').reduce((acc, part) => (acc && acc[part] !== undefined ? acc[part] : undefined), obj);
+    }
+
+    function getInitialLang() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLang = urlParams.get('lang');
+        if (urlLang && EWANGELIA_I18N[urlLang.toLowerCase()]) {
+          return urlLang.toLowerCase();
+        }
+        const savedLang = localStorage.getItem('cc_ewangelia_lang');
+        if (savedLang && EWANGELIA_I18N[savedLang]) {
+          return savedLang;
+        }
+        const browserLang = (navigator.language || '').slice(0, 2).toLowerCase();
+        if (browserLang && EWANGELIA_I18N[browserLang]) {
+          return browserLang;
+        }
+      } catch (e) {}
+      return 'pl';
+    }
+
+    function renderPrayerStanzas(stanzas) {
+      const container = $('prayerStanzas');
+      if (!container || !stanzas) return;
+      container.innerHTML = stanzas.map((stanza) => {
+        const isCulmination = stanza.isCulmination ? ' is-culmination' : '';
+        const paragraphsHtml = stanza.paragraphs.map(p => '<p>' + p + '</p>').join('');
+        return '<div class="prayer-stanza' + isCulmination + '">' +
+          '<h3 class="prayer-stanza-title">' + stanza.heading + '</h3>' +
+          '<div class="prayer-stanza-body">' + paragraphsHtml + '</div>' +
+          '</div>';
+      }).join('');
+    }
+
+    function renderPromises(promises) {
+      const list = $('promisesList');
+      if (!list || !promises) return;
+      list.innerHTML = promises.map(pr => '<li>' + pr + '</li>').join('');
+    }
+
+    function setLanguage(lang) {
+      if (!EWANGELIA_I18N[lang]) lang = 'pl';
+      try {
+        localStorage.setItem('cc_ewangelia_lang', lang);
+        const url = new URL(window.location.href);
+        if (lang === 'pl') {
+          url.searchParams.delete('lang');
+        } else {
+          url.searchParams.set('lang', lang);
+        }
+        window.history.replaceState({}, '', url.toString());
+      } catch (e) {}
+
+      document.documentElement.lang = lang;
+      const dict = EWANGELIA_I18N[lang];
+
+      // Meta & Title
+      if (dict.metaTitle) document.title = dict.metaTitle;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && dict.metaDescription) metaDesc.setAttribute('content', dict.metaDescription);
+
+      // Update all elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.getAttribute('data-i18n');
+        const val = getNestedValue(dict, key);
+        if (val !== undefined) {
+          el.innerHTML = val;
+        }
+      });
+
+      // Update active states on language buttons
+      document.querySelectorAll('[data-lang]').forEach((btn) => {
+        const isSelected = btn.getAttribute('data-lang') === lang;
+        btn.classList.toggle('is-active', isSelected);
+        btn.setAttribute('aria-pressed', String(isSelected));
+      });
+
+      // Render dynamic stanzas and promises
+      if (dict.prayer && dict.prayer.stanzas) {
+        renderPrayerStanzas(dict.prayer.stanzas);
+      }
+      if (dict.prayer && dict.prayer.aftermath && dict.prayer.aftermath.promises) {
+        renderPromises(dict.prayer.aftermath.promises);
+      }
+    }
+
+    // Bind click handlers for all language buttons and pills
+    document.querySelectorAll('[data-lang]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const lang = btn.getAttribute('data-lang');
+        setLanguage(lang);
+      });
+    });
+
+    // Initialize
+    setLanguage(getInitialLang());
+  }
+
+  if (typeof window !== 'undefined' && window.EWANGELIA_I18N) {
+    initI18n(window.EWANGELIA_I18N);
+  }
 });
