@@ -328,6 +328,9 @@ consentForm.addEventListener('submit', async event => {
       })
     });
     announce('Zapisano ustawienia podziękowań.');
+    if (window.CCAnalyticsMC && typeof window.CCAnalyticsMC.trackSupportFormSubmit === 'function') {
+      window.CCAnalyticsMC.trackSupportFormSubmit('thanks_consent');
+    }
     await refreshThanks();
   } catch {
     announce('Nie zapisano ustawień. Spróbuj ponownie za chwilę.');

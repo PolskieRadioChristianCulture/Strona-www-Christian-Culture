@@ -100,6 +100,11 @@ function chooseChapter(id) {
   if (!item) return;
 
   selected = item;
+  if (chapterAudio) {
+    chapterAudio.dataset.bookCode = (item.book === 'genesis' || !item.book) ? 'GEN' : String(item.book).toUpperCase().slice(0, 6);
+    chapterAudio.dataset.chapterNumber = String(item.chapter || 1);
+    chapterAudio.dataset.translation = 'UBG';
+  }
   $('#chapterTitle').textContent = `Księga Rodzaju — Rozdział ${item.chapter}`;
   $('#chapterDescription').textContent = item.description;
 

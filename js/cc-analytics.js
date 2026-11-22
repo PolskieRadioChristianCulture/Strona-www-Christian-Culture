@@ -618,6 +618,24 @@
         }
       } catch (_) {}
     }, { passive: true });
+
+    if (typeof setInterval === 'function') {
+      var lessonTimer = setInterval(function () {
+        try {
+          if (lessonState.completed) {
+            clearInterval(lessonTimer);
+            return;
+          }
+          if (typeof document !== 'undefined' && document.hidden) return;
+          lessonState.engagedSeconds += 1;
+          if (lessonState.maxScrollPct >= 80 && lessonState.engagedSeconds >= 30 && !lessonState.completed) {
+            markLessonComplete('scroll_80pct_and_30s', 100);
+            clearInterval(lessonTimer);
+          }
+        } catch (_) {}
+      }, 1000);
+      if (lessonTimer && typeof lessonTimer.unref === 'function') lessonTimer.unref();
+    }
   }
 
   // ── 10. PUBLICZNE API MODUŁU CC ANALYTICS MISSION CONTROL (STAGE B1–B5) ──

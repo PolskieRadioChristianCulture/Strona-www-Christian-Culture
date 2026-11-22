@@ -1,0 +1,135 @@
+# Z BIBLIĄ ZA PAN BRAT — KOMPLET 5 WERSJI
+## Dzień 54 (23 listopada 2026): Krew Przymierza, Uczta Starszych i Chwała PANA na Synaju (Wj 24:1–18)
+
+====================================================================
+WERSJA 1: ROZWAŻANIE PORANNE (TTS / Aplikacja „Dobrze, że jesteś”)
+====================================================================
+
+☀️ Z Biblią za Pan Brat — Dzień Pięćdziesiąty Czwarty
+
+**Czy wiesz, że dzięki krwi Przymierza możesz dziś zasiąść przy stole z samym Bogiem pod czystym, szafirowym niebem Jego łaski?**
+
+Zatrzymaj się w ten poniedziałkowy poranek, dwudziestego trzeciego listopada dwa tysiące dwudziestego szóstego roku. Rozpoczyna się nowy tydzień pracy, obowiązków i decyzji. Zanim ruszysz w bieg dzisiejszych zadań, weź spokojny oddech i pomyśl przez chwilę: na czym opiera się Twoja więź z Bogiem? Czy na lęku, że za chwilę zostaniesz odrzucony za swoją słabość, czy na pewności nierozerwalnego Przymierza przypieczętowanego krwią? W ciszy porannej modlitwy zapytaj dziś swojego Ojca: Tato, czy wchodzę w ten nowy tydzień jako przestraszony daleki przechodzień, czy jako Twoje dziecko zaproszone do stołu pod szafirowym niebem Twojej obecności?
+
+W dwudziestym czwartym rozdziale Księgi Wyjścia jesteśmy świadkami jednej z najbardziej niezwykłych scen w całym Piśmie Świętym. Mojżesz schodzi do ludu, opowiada wszystkie słowa Pana i spisuje je w Księdze Przymierza. O świcie buduje u stóp góry ołtarz oraz dwanaście słupów odpowiadających dwunastu pokoleniom Izraela. Młodzieńcy składają ofiary całopalne i pojednawcze, a Mojżesz bierze połowę krwi i kropi nią ołtarz, po czym odczytuje głośno Księgę Przymierza. Cały lud odpowiada jednym głosem: Wypełnimy wszystko, co Pan mówił, i będziemy posłuszni! Wtedy Mojżesz kropi drugą połową krwi lud i wypowiada słowa, które zapiszą się na wieki: Oto krew przymierza, które Pan zawarł z wami! Zaraz po tym dzieje się coś zapierającego dech w piersiach: Mojżesz, Aaron, Nadab, Abihu i siedemdziesięciu starszych wstępują na górę i widzą Boga Izraela! Pod Jego stopami lśni dzieło z szafirowego kamienia, czyste jak jasne niebo. I choć widzą Świętego Boga, Pan nie wyciąga na nich ręki — jedzą i piją w Jego obecności! Na koniec Mojżesz zostawia w obozie Aarona i Chura, a sam z Jozuem wstępuje wyżej i wchodzi w środek obłoku chwały Pana, wyglądającej jak ogień pożerający, na czterdzieści dni i czterdzieści nocy, by otrzymać kamienne tablice Prawa.
+
+Psychologia więzi i poczucia bezpieczeństwa potwierdza, że człowiek rozkwita dopiero wtedy, gdy wie, że relacja nie opiera się na przelotnym nastroju, lecz na uroczystym, nierozerwalnym zobowiązaniu. Wspólny posiłek przy jednym stole od wieków jest najwyższym znakiem pokoju, przebaczenia i pełnej akceptacji.
+
+A w świetle Ewangelii całe to wydarzenie prowadzi nas prosto do Wieczernika i na Golgotę! Gdy Pan Jezus podaje uczniom kielich i mówi: To jest bowiem moja krew nowego przymierza, która się wylewa za wielu na przebaczenie grzechów, nawiązuje bezpośrednio do słów Mojżesza spod góry Synaj! Tam krew cielców otworzyła starszym drogę na zbocze góry, a tutaj przelana krew Syna Bożego otwiera każdemu wierzącemu śmiały przystęp do tronu łaski i do wiecznej uczty w Królestwie Ojca!
+
+Jezus mówi dziś do Ciebie:
+„To jest bowiem moja krew nowego przymierza, która się wylewa za wielu na przebaczenie grzechów.” (Ewangelia według świętego Mateusza, rozdział dwudziesty szósty, werset dwudziestyósmy, UBG)
+
+Zadanie Taktyczne:
+Rozpocznij ten poniedziałek od świadomego odnowienia swojego przymierza posłuszeństwa i wdzięczności wobec Boga. Zanim podejmiesz pierwszą ważną decyzję w pracy lub w domu, przypomnij sobie słowa: Wypełnimy wszystko, co Pan mówił, i będziemy posłuszni! Podczas dzisiejszego posiłku podziękuj Jezusowi za Jego krew Nowego Przymierza, dzięki której masz pokój z Bogiem i czyste, szafirowe niebo nad swoim życiem.
+
+W Christian Culture aplikacje i portale są dla Ciebie zawsze bezpłatne.
+
+Modlitwa Bojowa:
+Ojcze w niebie, dziękuję Ci za uroczystą chwilę pod górą Synaj, w której przypieczętowałeś swoje Przymierze z ludem, i za szafirowe niebo Twojej świętej obecności. Przepraszam Cię za chwile, gdy zapominałem o swoich obietnicach wierności i żyłem tak, jakby Twoje Słowo było tylko luźną propozycją. Panie Jezu Chryste, dziękuję Ci za Twoją najdroższą krew Nowego Przymierza przelaną na przebaczenie moich grzechów. Dziękuję Ci, że dzięki Twojej ofierze nie wyciągasz przeciwko mnie ręki sądu, lecz zapraszasz mnie do swojego stołu, karmisz i prowadzisz w obłok swojej chwały. Wypisz swoje prawo na tablicach mojego serca na cały ten tydzień. Tobie chwała na wieki. Amen.
+
+Rozkaz Dnia (Zadbaj o wzrost):
+Otwórz swoje serce na sześćdziesiąt sześć miesięcy codziennej formacji biblijnej w akademii. Wejdź do wspólnoty ludzi wiernych Pismu, buduj codzienny nawyk czytania Słowa Bożego i każdego dnia wzrastaj w poznaniu Jezusa Chrystusa.
+
+Błogosławieństwo:
+Niech krew Nowego Przymierza w Chrystusie Jezusie strzeże Twojego sumienia w czystości i pokoju, niech nad Twoim domem jaśnieje pogodne niebo Bożej łaski, a Duch Święty niech prowadzi Cię przez wszystkie dni nowego tygodnia. Dobrego dnia! Podaj dalej.
+
+====================================================================
+WERSJA 2: WERSJA WWW / PORTAL (LUMINA / Tablica / cclite.pl z linkami i cyframi)
+====================================================================
+
+☀️ Z Biblią za Pan Brat — Dzień 54 (23 listopada 2026 r.)
+📖 Księga Wyjścia 24:1–18: Krew Przymierza, Uczta Starszych i Chwała PANA na Synaju
+
+Czy zastanawiałeś się kiedyś, skąd wzięły się słowa Pana Jezusa z Wieczernika: „To jest krew moja nowego przymierza” — i jak wyglądało szafirowe niebo pod stopami Boga, gdy siedemdziesięciu starszych Izraela jadło i piło przed Jego obliczem?
+
+W 54. dniu codziennej formacji biblijnej (https://polskieradio.cc/akademia#kurscodzienny) otwieramy 24. rozdział Księgi Wyjścia (Wj 24:1–18: https://polskieradio.cc/mojabiblia?book=EXO&chapter=24). Jesteśmy świadkami uroczystego przypieczętowania Przymierza u stóp góry Synaj oraz wejścia Mojżesza w ogień i obłok Bożej chwały na 40 dni i 40 nocy.
+
+Kluczowe filary dzisiejszego studium:
+1. Księga i Krew Przymierza (Wj 24:1–8): Mojżesz spisuje wszystkie słowa PANA, buduje ołtarz i 12 słupów, a po jednogłośnej deklaracji ludu („Wypełnimy wszystko, co PAN mówił, i będziemy posłuszni”, w. 7) kropi ołtarz oraz lud krwią ze słowami: „Oto krew przymierza, które PAN zawarł z wami” (w. 8; por. Hbr 9:18–20).
+2. Szafirowe niebo i uczta w obecności Boga (Wj 24:9–11): Mojżesz, Aaron, Nadab, Abihu i 70 starszych wstępują na górę i oglądają Boga Izraela, pod którego stopami lśni dzieło z szafirowego kamienia jak pogodne niebo (w. 10). Dzięki krwi przymierza Bóg nie wyciąga na nich ręki sądu — „widzieli Boga, jedli i pili” (w. 11)!
+3. Obłok chwały i kamienne tablice (Wj 24:12–18): PAN wzywa Mojżesza na szczyt, by przekazać mu kamienne tablice z Prawem i przykazaniami (w. 12). Chwała PANA spoczywa na Synaju jak ogień pożerający, a Mojżesz po sześciu dniach oczekiwania wchodzi w środek obłoku na 40 dni i 40 nocy (w. 16–18).
+
+Jezus mówi dziś do Ciebie:
+„To jest bowiem moja krew nowego przymierza, która się wylewa za wielu na przebaczenie grzechów.” (Mt 26:28, UBG)
+
+Zadanie Taktyczne:
+• Czytaj: Wj 24:1–18 oraz Mt 26:26–29 i Hbr 9:18–24.
+• Wierz: Przelana krew Jezusa Chrystusa otwiera Ci bezpieczny przystęp do stołu i obecności żywego Boga.
+• Działaj: Rozpocznij nowy tydzień od świadomej deklaracji posłuszeństwa Bożemu Słowu w swoim domu i pracy.
+
+Studiuj pełny tekst UBG, 8 kodów Stronga, 45-punktową egzegezę i quiz z 20 pytaniami:
+👉 https://polskieradio.cc/akademia/kurscodzienny/dzien-54
+
+Dołącz do wspólnoty wzrostu:
+💬 https://chat.whatsapp.com/DBTRDxQWamZDWaOkjupSt0
+Wspieraj misję Słowa: https://polskieradio.cc/wspieramto
+
+====================================================================
+WERSJA 3: WERSJA WIECZORNA (SMS)
+====================================================================
+
+Dzień 54 (Wj 24:8): „Oto krew przymierza, które PAN zawarł z wami”. Dzięki krwi Chrystusa masz dziś pokój z Bogiem i dostęp do Jego chwały! polskieradio.cc
+
+====================================================================
+WERSJA 4: SCENARIUSZ WIDEO (Christian Culture TV / Studio Dobrego Słowa)
+====================================================================
+
+[OPRAWA GRAFICZNA & MUZYCZNA]
+Nowoczesne, eleganckie studio Christian Culture TV w głębokiej czerni (#000000) oraz szlachetnym złocie Champagne Gold (#C4A35A / #D4AF37). Na wielkoformatowym ekranie za prowadzącymi monumentalna scena biblijna: ołtarz i dwanaście kamiennych słupów u podnóża góry Synaj, szafirowy blask czystego nieba ponad obłokiem oraz ogień chwały PANA na szczycie góry. Tytuł na ekranie: „Z BIBLIĄ ZA PAN BRAT — DZIEŃ 54: KREW PRZYMIERZA, UCZTA STARSZYCH I CHWAŁA PANA NA SYNAJU (WJ 24:1–18)”.
+
+[INTRO: PRZYPIECZĘTOWANIE PRZYMIERZA]
+Noemi: Dzień dobry w poniedziałkowy poranek! Witamy bardzo serdecznie w pięćdziesiątym czwartym dniu naszego kursu „Z Biblią za Pan Brat”! Po ogłoszeniu Dekalogu w dwudziestym rozdziale i Księgi Przymierza w rozdziałach od dwudziestego pierwszego do dwudziestego trzeciego nadchodzi dziś moment uroczystej ratyfikacji Przymierza w dwudziestym czwartym rozdziale Księgi Wyjścia!
+Sara: Witaj Noemi, witamy wszystkich widzów Christian Culture TV na progu nowego tygodnia! Ten rozdział to jedna z najpiękniejszych i najbardziej przełomowych kart całej Biblii. Mojżesz schodzi do ludu, opowiada wszystkie słowa PANA, spisuje je w Księdze Przymierza, a rano buduje ołtarz reprezentujący Boga oraz dwanaście słupów reprezentujących dwanaście pokoleń Izraela!
+
+[ANALIZA PROBLEMOWA: KREW PRZYMIERZA I SZAFIROWE NIEBO POD STOPAMI BOGA]
+Noemi: Zwróćmy uwagę na symbolikę krwi w wersetach od szóstego do ósmego! Mojżesz dzieli krew ofiar na dwie części: pierwszą połową kropi ołtarz, następnie czyta głośno Księgę Przymierza, a gdy lud odpowiada: „Wypełnimy wszystko, co PAN mówił, i będziemy posłuszni”, kropi lud drugą połową krwi i woła: „Oto krew przymierza, które PAN zawarł z wami”!
+Sara: I zobaczmy, co otwiera ta krew przymierza w wersetach od dziewiątego do jedenastego! Mojżesz, Aaron, Nadab, Abihu oraz siedemdziesięciu starszych Izraela wstępują na górę i czytamy niezwykłe słowa: „I widzieli Boga Izraela, a pod jego nogami było jakby dzieło z szafirowego kamienia jak niebo, gdy jest jasne. A na przywódców synów Izraela PAN nie wyciągnął swej ręki, choć widzieli Boga, jedli i pili”!
+Noemi: Jeszcze niedawno góra dymiła i nikt nie mógł jej dotknąć pod karą śmierci, a teraz — po pokropieniu krwią przymierza — przedstawiciele ludu zasiadają do uczty pokoju w obecności samego Boga pod czystym, szafirowym niebem!
+
+[SŁOWO ROZKAZU: JEZUS W CENTRUM I CZTERDZIEŚCI DNI W OBŁOKU]
+Sara: A w drugiej części rozdziału Bóg wzywa Mojżesza jeszcze wyżej: „Wstąp do mnie na górę i bądź tam, a dam ci kamienne tablice, prawo i przykazania, które napisałem, abyś ich nauczał”. Mojżesz zostawia w obozie Aarona i Chura, idzie z Jozuem, przez sześć dni czeka przed obłokiem, aż siódmego dnia — w Szabat! — Bóg woła go spośród obłoku i ognia chwały na czterdzieści dni i czterdzieści nocy!
+Noemi: I spójrzmy, jak wszystko to wypełnia się w Jezusie Chrystusie! W Wieczerniku Pan Jezus bierze kielich i wypowiada dokładnie słowa z Księgi Wyjścia dwadzieścia cztery osiem: „To jest bowiem moja krew nowego przymierza, która się wylewa za wielu na przebaczenie grzechów”! Dzięki przelanej krwi Chrystusa nie stoimy już z daleka w strachu, lecz zostaliśmy zaproszeni do stołu Ojca, a Duch Święty wypisuje Boże Prawo nie tylko na kamiennych tablicach, ale na żywych tablicach naszych serc!
+
+[ZADANIE TAKTYCZNE: CZYTAJ, WIERZ, DZIAŁAJ]
+Sara: Jak wejść w ten poniedziałek z mocą dwudziestego czwartego rozdziału Księgi Wyjścia?
+• Czytaj: dwudziesty czwarty rozdział Księgi Wyjścia oraz dziewiąty rozdział Listu do Hebrajczyków.
+• Wierz: Krew Nowego Przymierza w Jezusie Chrystusie oczyszcza Twoje sumienie i otwiera nad Tobą jasne, szafirowe niebo Bożej łaski.
+• Działaj: wypowiedz dziś przed Bogiem szczere „Wypełnię wszystko, co PAN mówił, i będę posłuszny” w konkretnej sprawie nowego tygodnia!
+
+[MANIFEST: MODLITWA BOJOWA]
+Noemi: Pomódlmy się wspólnie! Ojcze Niebieski, dziękujemy Ci za dar Twojego świętego Przymierza, za Twoje Słowo spisane dla naszego pouczenia oraz za krew naszego Zbawiciela Jezusa Chrystusa, która jedna nas z Tobą.
+Sara: Panie Jezu, dziękujemy Ci, że dzięki Twojej krwi zapraszasz nas do swojej obecności i karmisz przy swoim stole. Wprowadź nas w ten nowy tydzień w mocy Twojej chwały i wypisz swoje przykazania w naszych sercach. W imieniu Jezusa. Amen!
+
+[OUTRO: BŁOGOSŁAWIEŃSTWO I WZROST]
+Noemi: Niech szafirowe niebo Bożego pokoju i łaski jaśnieje nad całym Twoim tygodniem!
+Sara: Czytaj, wierz, działaj. Dla Jezusa! Do zobaczenia jutro w dwudziestym piątym rozdziale Księgi Wyjścia!
+
+====================================================================
+WERSJA 5: ARTYKUŁ TEOLOGICZNY (CCN NEWS)
+====================================================================
+
+🌐 CCN | WIADOMOŚCI Z KRAJU I ZE ŚWIATA / LEKSYKON BIBLIJNY
+## @CCN: KREW PRZYMIERZA, SZAFIROWE NIEBO I CZTERDZIEŚCI DNI W OBŁOKU CHWAŁY — EGZEGEZA WJ 24:1–18
+Autor: Cezary Rogowski, red. nacz. CCN News | Data publikacji: 23 listopada 2026 r.
+
+Dwudziesty czwarty rozdział Księgi Wyjścia (Wj 24:1–18) stanowi liturgiczne i teologiczne zwieńczenie pierwszej części objawienia synajskiego (Wj 19–24). Po ogłoszeniu Dekalogu (Wj 20) oraz szczegółowych praw Księgi Przymierza (Wj 21–23) następuje oficjalna ceremonia zawarcia i ratyfikacji Przymierza między Jahwe a dwunastoma pokoleniami Izraela.
+
+1. Ołtarz, dwanaście słupów i Księga Przymierza (Wj 24:1–7)
+> „Następnie wziął księgę przymierza i czytał ludowi, a oni powiedzieli: Wypełnimy wszystko, co PAN mówił, i będziemy posłuszni.” — Księga Wyjścia 24:7 (UBG)
+
+Mojżesz nie pozostawia Bożego objawienia wyłącznie w zawodnej pamięci ustnej, lecz „spisał wszystkie słowa PANA” (Wj 24:4), tworząc *Sefer HaBerit* (סֵפֶר הַבְּרִית — „Księgę Przymierza”, Wj 24:7). U podnóża góry buduje ołtarz (reprezentujący obecność Boga) oraz dwanaście kamiennych słupów (*maccewa*, Strong H4676) odpowiadających dwunastu pokoleniom Izraela. Dwukrotna odpowiedź narodu, zwieńczona hebrajskim wyznaniem *naaseh weniszma* („Wypełnimy i będziemy posłuszni”, Wj 24:7), wyraża świadome przyjęcie Bożego panowania.
+
+2. „Oto krew przymierza” — pomost od Synaju do Wieczernika (Wj 24:6, 8)
+Krew ofiar całopalnych i pojednawczych (*szelamim*, Strong H8002) zostaje podzielona na dwie równe części: pierwsza kropi ołtarz, druga — po odczytaniu Księgi Przymierza — kropi lud ze słowami: „Oto krew przymierza (*dam ha-berit*, דַּם־הַבְּרִית), które PAN zawarł z wami” (Wj 24:8, UBG). Autor Listu do Hebrajczyków (Hbr 9:18–22) wskazuje ten moment jako bezpośrednią zapowiedź ofiary Chrystusa, a sam Pan Jezus podczas Ostatniej Wieczerzy cytuje formułę Mojżesza: „To jest bowiem moja krew nowego przymierza, która się wylewa za wielu na przebaczenie grzechów” (Mt 26:28, UBG).
+
+3. Szafirowe sklepienie i uczta przymierza w obecności Boga (Wj 24:9–11)
+Bezpośrednim owocem pokropienia krwią przymierza jest bezpieczny przystęp do Świętego Boga. Mojżesz, Aaron, Nadab, Abihu oraz siedemdziesięciu starszych Izraela wstępują na zbocze Synaju i oglądają teofanię Boga Izraela, pod którego stopami widnieje „jakby dzieło z szafirowego kamienia (*liwnat ha-sappir*, Strong H5601) jak niebo, gdy jest jasne” (Wj 24:10; por. Ez 1:26). Werset 11 podkreśla cud łaski: „PAN nie wyciągnął swej ręki, choć widzieli Boga, jedli i pili” — zapowiadając ucztę odkupionych w Królestwie Bożym.
+
+4. Kamienne tablice i czterdzieści dni w ogniu chwały PANA (Wj 24:12–18)
+W finałowej scenie Bóg powołuje Mojżesza na sam szczyt, by przekazać mu kamienne tablice (*luchot ha-ewen*), Prawo (*tora*, Strong H8451) i przykazania (*micwa*, Strong H4687) napisane przez samego Boga „abyś ich nauczał” (Wj 24:12). Mojżesz powierza sprawy sądownicze w obozie Aaronowi i Churowi, zabiera ze sobą Jozuego, a po sześciu dniach oczekiwania przed obłokiem zostaje zawołany przez PANA w dniu siódmym (Szabat!) i wchodzi w środek chwały PANA (*kewod Jahwe*, Strong H3519), płonącej jak ogień pożerający, na czterdzieści dni i czterdzieści nocy (Wj 24:16–18).
+
+📌 PODSUMOWANIE REDAKCYJNE CCN:
+Księga Wyjścia 24:1–18 objawia istotę biblijnej wiary: Słowo spisane i przyjęte z posłuszeństwem, Przymierze przypieczętowane krwią Odkupiciela, radosną społeczność przy Bożym stole oraz przemieniające spotkanie z chwałą PANA.
+
+🌐 Źródła i serwisy pokrewne: polskieradio.cc | polskieradio.cc/akademia | mojabiblia.cc

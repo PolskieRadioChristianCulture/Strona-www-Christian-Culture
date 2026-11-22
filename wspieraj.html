@@ -351,13 +351,13 @@ const giftsEl=document.getElementById('gifts');
 function showGifts(a){giftsEl.querySelectorAll('.gift').forEach(g=>g.classList.add('swap'));
   setTimeout(()=>{giftsEl.innerHTML=GIFTS[a].map(g=>`<div class="gift swap"><div class="ic">${g[0]}</div><div><b>${g[1]}</b><span>${g[2]}</span></div></div>`).join('');
     giftsEl.querySelectorAll('.gift').forEach((g,i)=>setTimeout(()=>g.classList.remove('swap'),60+i*120));},220);}
-document.querySelectorAll('.amounts button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.amounts button').forEach(x=>x.setAttribute('aria-pressed',x===b));odoSet(document.getElementById('amt'),b.dataset.a);showGifts(b.dataset.a);}));
+document.querySelectorAll('.amounts button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.amounts button').forEach(x=>x.setAttribute('aria-pressed',x===b));odoSet(document.getElementById('amt'),b.dataset.a);showGifts(b.dataset.a);if(window.CCAnalyticsMC&&window.CCAnalyticsMC.trackSupportMethodSelect)window.CCAnalyticsMC.trackSupportMethodSelect('amount_'+b.dataset.a);}));
 showGifts(50);
 
 /* kopiowanie obsługuje support.js (komunikat w #status); tu tylko zielone potwierdzenie i GA4 */
 function toast(t){}
-document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{b.classList.add('ok');setTimeout(()=>b.classList.remove('ok'),1600);window.gtag&&gtag('event','donate_click',{method:b.dataset.label||'kopiuj'});}));
-document.querySelectorAll('[data-donate]').forEach(a=>a.addEventListener('click',()=>window.gtag&&gtag('event','donate_click',{method:a.dataset.donate})));
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{b.classList.add('ok');setTimeout(()=>b.classList.remove('ok'),1600);if(window.CCAnalyticsMC&&window.CCAnalyticsMC.trackSupportCopyAccount){window.CCAnalyticsMC.trackSupportCopyAccount('PLN',b.dataset.label||'kopiuj');}else if(window.gtag){gtag('event','support_copy_account',{currency:'PLN',place:b.dataset.label||'kopiuj'});}}));
+document.querySelectorAll('[data-donate]').forEach(a=>a.addEventListener('click',()=>{if(window.CCAnalyticsMC&&window.CCAnalyticsMC.trackSupportMethodSelect){window.CCAnalyticsMC.trackSupportMethodSelect(a.dataset.donate||'online');}else if(window.gtag){gtag('event','donate_click',{method:a.dataset.donate});}}));
 
 /* nagłówki słowo po słowie, kolejność wejść, odsłanianie */
 document.querySelectorAll('.sec-head h2').forEach(h=>{h.innerHTML=h.textContent.split(' ').map((w,i)=>`<span class="w" style="--i:${i}">${w}</span>`).join(' ');});

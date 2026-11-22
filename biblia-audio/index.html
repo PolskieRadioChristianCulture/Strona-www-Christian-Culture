@@ -38,7 +38,6 @@
     gtag('js', new Date());
     gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
   </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
-  <script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 
   <!-- EkoCC Edge Panel & Page Styles -->
   <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261030_1">
@@ -48,16 +47,39 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Biblia Audio Christian Culture",
-    "url": "https://polskieradio.cc/biblia-audio",
-    "description": "Słuchaj Pisma Świętego rozdział po rozdziale w jakości studyjnej EBU R128.",
-    "inLanguage": "pl",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Christian Culture",
-      "url": "https://polskieradio.cc"
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Biblia Audio Christian Culture",
+        "url": "https://polskieradio.cc/biblia-audio",
+        "description": "Słuchaj Pisma Świętego rozdział po rozdziale w jakości studyjnej EBU R128 (-16 LUFS).",
+        "inLanguage": "pl",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Christian Culture",
+          "url": "https://polskieradio.cc"
+        }
+      },
+      {
+        "@type": ["Audiobook", "PodcastSeries"],
+        "name": "Biblia Audio Christian Culture — Księga Rodzaju (UBG)",
+        "url": "https://polskieradio.cc/biblia-audio",
+        "description": "Wielościeżkowe słuchowisko Pisma Świętego w przekładzie Uwspółcześnionej Biblii Gdańskiej (UBG), mastering EBU R128 (-16 LUFS), dostępne na WWW, Spotify i YouTube 4K.",
+        "inLanguage": "pl",
+        "abridged": false,
+        "isAccessibleForFree": true,
+        "encodingFormat": "audio/mpeg",
+        "author": {
+          "@type": "Organization",
+          "name": "Christian Culture"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Polskie Radio Christian Culture",
+          "url": "https://polskieradio.cc"
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -272,9 +294,9 @@
       <div class="supportContent">
         <p class="eyebrow">WSPÓLNIE DLA EWANGELII • ZERO COST</p>
         <h2>Pomóż nieść Słowo Boże do każdego domu</h2>
-        <p>Wszystkie nasze nagrania, radio 24/7 i narzędzia biblijne udostępniamy w 100% bezpłatnie dzięki wsparciu ludzi dobrej woli. Zostań Mecenasem produkcji kolejnych rozdziałów Biblii Audio.</p>
+        <p>Wszystkie nasze nagrania, radio 24/7 i narzędzia biblijne udostępniamy w 100% bezpłatnie dzięki wsparciu ludzi dobrej woli. Zostań Mecenasem produkcji kolejnych rozdziałów Biblii Audio oraz budowy Domu + Nowego Studia Radiowo-Telewizyjnego CC.</p>
         <div class="actions">
-          <a id="supportLink" class="btnPrimary" href="https://polskieradio.cc/wspieraj" rel="noopener">♡ Zostań Mecenasem Misji</a>
+          <a id="supportLink" class="btnPrimary" href="https://polskieradio.cc/wspieramto" rel="noopener">♡ WspieramTO — Dom + Studio CC</a>
           <button id="shareBottom" class="btnOutline" type="button">Podziel się Słowem</button>
         </div>
       </div>

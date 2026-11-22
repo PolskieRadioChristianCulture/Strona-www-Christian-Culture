@@ -388,6 +388,15 @@
     async loadChapter(bookId, chapterNum, keepVerse = true) {
       this.currentBookId = bookId;
       this.currentChapter = chapterNum;
+      if (window.CCAnalyticsMC && typeof window.CCAnalyticsMC.trackBibleChapterOpen === 'function') {
+        window.CCAnalyticsMC.trackBibleChapterOpen({
+          book_code: bookId,
+          chapter_number: chapterNum,
+          translation: (this.activeTranslations && this.activeTranslations[0]) || 'UBG',
+          content_type: this.currentMode || 'reader',
+          player_type: 'mojabiblia'
+        });
+      }
       if (!keepVerse) {
         this.currentVerse = null;
         this.currentVerseEnd = null;
@@ -1075,6 +1084,14 @@
       document.querySelectorAll('.mb-trans-filter').forEach(btn => {
         btn.classList.toggle('active', this.activeTranslations.includes(btn.dataset.trans));
       });
+      if (window.CCAnalyticsMC && typeof window.CCAnalyticsMC.trackBibleTranslationSelect === 'function') {
+        window.CCAnalyticsMC.trackBibleTranslationSelect({
+          book_code: this.currentBookId || 'GEN',
+          chapter_number: this.currentChapter || 1,
+          translation: trans || 'UBG',
+          player_type: 'mojabiblia'
+        });
+      }
       this.savePreferences();
       if (this.currentMode === 'parallel') {
         this.renderParallelView();
@@ -1383,6 +1400,15 @@
       } else {
         this.bookmarks.push(key);
         this.showToast(`Zapisano werset w sercu (Ulubione)! ❤️`);
+        if (window.CCAnalyticsMC && typeof window.CCAnalyticsMC.trackBibleBookmarkAdd === 'function') {
+          window.CCAnalyticsMC.trackBibleBookmarkAdd({
+            book_code: bookId,
+            chapter_number: ch,
+            translation: (this.activeTranslations && this.activeTranslations[0]) || 'UBG',
+            content_type: 'bookmark',
+            player_type: 'mojabiblia'
+          });
+        }
       }
       this.savePreferences();
       this.renderCurrentView();
@@ -1938,6 +1964,12 @@
     handleSearch(query) {
       if (!query) return;
       const q = query.trim();
+      if (window.CCAnalyticsMC && typeof window.CCAnalyticsMC.trackBibleSearch === 'function') {
+        window.CCAnalyticsMC.trackBibleSearch(q, {
+          translation: (this.activeTranslations && this.activeTranslations[0]) || 'UBG',
+          player_type: 'mojabiblia'
+        });
+      }
 
       // Jeśli kod Stronga (np. G3056, H7225)
       const strongMatch = q.match(/^([GHgh]\d{1,5})$/);

@@ -255,6 +255,21 @@
       var host = document.getElementById('course-view-kurscodzienny') || document.querySelector('main');
       if (host) host.appendChild(box);
     }
+
+    if (!document.getElementById('ccWspieramToCourseBox')) {
+      var wBox = document.createElement('section');
+      wBox.id = 'ccWspieramToCourseBox';
+      wBox.className = 'cc-wa-channel';
+      wBox.style.borderColor = 'rgba(196,163,90,0.45)';
+      wBox.setAttribute('aria-label', 'WspieramTO — Dom i Nowe Studio Christian Culture');
+      wBox.innerHTML = '<h2 style="color:#E2CC9A">WspieramTO — Budujemy Dom + Nowe Studio CC</h2>'
+        + '<p>Wszystkie lekcje Akademii, Biblia Audio i Radio 24/7 są w 100% bezpłatne (ZERO COST). Pomóż nam utrzymać codzienną misję i wybudować Nowe Studio Radiowo-Telewizyjne Christian Culture.</p>'
+        + '<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:10px">'
+        + '<a href="/wspieramto" style="background:#FF7A00;color:#fff"><i class="fa-solid fa-heart" aria-hidden="true"></i><span>WspieramTO — Dom + Studio CC →</span></a>'
+        + '<a href="/biblia-audio" style="background:#161b26;color:#E2CC9A;border:1px solid rgba(196,163,90,0.45)"><i class="fa-solid fa-headphones" aria-hidden="true"></i><span>Słuchaj Biblii Audio →</span></a>'
+        + '</div>';
+      box.insertAdjacentElement('afterend', wBox);
+    }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
   else mount();
