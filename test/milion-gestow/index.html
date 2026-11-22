@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script>
+<script src="/js/cc-analytics.js?v=20261122_2" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Milion Drobnych Gestów | Mały gest. Wielka misja. — Christian Culture</title>
+<meta name="description" content="Mały gest. Wielka misja. Wspieraj bezpłatne radio 24/7, Biblię Audio, telewizję i nauczanie biblijne Christian Culture już od kilku złotych miesięcznie. Dobrowolnie, przejrzyście i bez presji.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Christian Culture">
+<meta property="og:title" content="Milion Drobnych Gestów — Mały gest. Wielka misja. | Christian Culture">
+<meta property="og:description" content="Już 5 zł miesięcznie w rękach wspólnoty pozwala utrzymać w 100% bezpłatną Biblię Audio, Radio 24/7 i 15 języków Ewangelii bez reklam.">
+<meta property="og:image" content="https://polskieradio.cc/images/banners/milion-gestow-16x9.svg">
+<meta name="theme-color" content="#07131E">
+<link rel="icon" href="/app-christian-culture.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,600;0,700;1,500&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-deep: #07131E;
+  --bg-navy: #102A35;
+  --bg-card: rgba(16, 42, 53, 0.72);
+  --bg-card-solid: #0D222C;
+  --gold: #F2C879;
+  --gold-champagne: #C4A35A;
+  --ivory: #F6F4EE;
+  --soft: #A9BEC7;
+  --orange: #FF7A00;
+  --orange-hover: #FF8C33;
+  --orange-active: #E66A00;
+  --emerald: #22C55E;
+  --line: rgba(242, 200, 121, 0.22);
+  --line-strong: rgba(242, 200, 121, 0.45);
+  --font-display: 'Manrope', 'Inter', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Lora', Georgia, serif;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: radial-gradient(circle at 50% 0%, #143644 0%, var(--bg-deep) 58%, #040B11 100%);
+  color: var(--ivory);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 10px; }
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Test Prototype Banner */
+.proto-ribbon {
+  background: linear-gradient(90deg, rgba(255,122,0,0.18), rgba(242,200,121,0.18), rgba(255,122,0,0.18));
+  border-bottom: 1px solid var(--line);
+  padding: 8px 16px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+}
+.proto-ribbon strong { color: #fff; }
+
+/* Header */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: rgba(7, 19, 30, 0.84);
+  border-bottom: 1px solid var(--line);
+}
+.top-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+  gap: 16px;
+}
+.brand-id {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  color: var(--ivory);
+}
+.brand-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 14px var(--gold);
+  animation: pulseGlow 2.4s infinite ease-in-out;
+}
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+.nav-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--soft);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-pill:hover {
+  color: #fff;
+  background: rgba(242, 200, 121, 0.1);
+}
+.btn-orange-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(255, 122, 0, 0.35);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.btn-orange-cta:hover:not(:disabled) {
+  background: var(--orange-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(255, 122, 0, 0.48);
+}
+.btn-orange-cta:active:not(:disabled) {
+  background: var(--orange-active);
+  transform: translateY(0);
+}
+.btn-orange-cta:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* HERO WITH INTERACTIVE CONSTELLATION CANVAS */
+.hero-stage {
+  position: relative;
+  padding: 56px 0 64px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+#gestureCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+}
+.hero-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 36px;
+  align-items: center;
+}
+.eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(242, 200, 121, 0.12);
+  border: 1px solid var(--line-strong);
+  color: var(--gold);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.35rem, 5.4vw, 4.35rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+}
+.hero-title span {
+  background: linear-gradient(135deg, #FFF6DF 0%, var(--gold) 55%, #FF9E44 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-motto {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+  color: var(--gold);
+  font-weight: 600;
+  margin: 0 0 18px;
+}
+.hero-lead {
+  font-size: 1.08rem;
+  color: var(--soft);
+  max-width: 590px;
+  margin: 0 0 26px;
+}
+.hero-lead strong { color: var(--ivory); }
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.btn-secondary-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: rgba(242, 200, 121, 0.1);
+  border: 1.5px solid var(--line-strong);
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+.btn-secondary-gold:hover {
+  background: rgba(242, 200, 121, 0.2);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.hero-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--soft);
+}
+.hero-trust-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Interactive Constellation Visual Card in Hero */
+.constellation-card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(16, 42, 53, 0.88), rgba(7, 19, 30, 0.94));
+  border: 1px solid var(--line-strong);
+  border-radius: 26px;
+  padding: 26px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(242, 200, 121, 0.08);
+  text-align: center;
+}
+.constellation-svg-wrap {
+  position: relative;
+  width: 240px;
+  height: 220px;
+  margin: 0 auto 14px;
+}
+.constellation-svg-wrap svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.heart-dot {
+  fill: var(--gold);
+  transform-origin: center;
+  animation: twinkleDot 3.2s infinite ease-in-out;
+}
+.heart-dot.user-spark {
+  fill: var(--orange);
+  filter: drop-shadow(0 0 10px var(--orange));
+}
+@keyframes twinkleDot {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+.constellation-status {
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.constellation-caption {
+  font-size: 14px;
+  color: var(--soft);
+  margin: 0 0 16px;
+}
+.btn-spark-gesture {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 14px;
+  background: rgba(255, 122, 0, 0.15);
+  border: 1px solid rgba(255, 122, 0, 0.5);
+  color: #FFB26B;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-spark-gesture:hover {
+  background: var(--orange);
+  color: #fff;
+}
+
+/* LIVE ECOSYSTEM HEARTBEAT BAR */
+.pulse-bar {
+  background: rgba(13, 34, 44, 0.9);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+}
+.pulse-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.pulse-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(242, 200, 121, 0.14);
+}
+.pulse-live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--emerald);
+  box-shadow: 0 0 10px var(--emerald);
+  flex-shrink: 0;
+}
+.pulse-meta strong {
+  display: block;
+  font-size: 13.5px;
+  color: #fff;
+}
+.pulse-meta small {
+  font-size: 12px;
+  color: var(--soft);
+}
+
+/* MAIN SECTIONS */
+.section-block {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--line);
+}
+.section-header {
+  max-width: 740px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+.section-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.4vw, 2.55rem);
+  font-weight: 800;
+  margin: 0 0 10px;
+  line-height: 1.18;
+}
+.section-sub {
+  color: var(--soft);
+  font-size: 1.02rem;
+  margin: 0;
+}
+
+/* GESTURE CONFIGURATOR & SYNERGY CALCULATOR */
+.configurator-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
+  align-items: stretch;
+}
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: clamp(22px, 3.5vw, 34px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+}
+
+.freq-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  background: rgba(7, 19, 30, 0.75);
+  padding: 6px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  margin-bottom: 22px;
+}
+.freq-btn {
+  min-height: 46px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  color: var(--soft);
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.freq-btn.active {
+  background: var(--gold);
+  color: var(--bg-deep);
+  box-shadow: 0 6px 18px rgba(242, 200, 121, 0.28);
+}
+
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.tier-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 82px;
+  padding: 12px 8px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(242, 200, 121, 0.22);
+  color: var(--ivory);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tier-btn:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.tier-btn.active {
+  background: linear-gradient(145deg, rgba(255, 122, 0, 0.24), rgba(242, 200, 121, 0.16));
+  border-color: var(--orange);
+  box-shadow: 0 0 24px rgba(255, 122, 0, 0.28);
+}
+.tier-amount {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+}
+.tier-name {
+  font-size: 11.5px;
+  color: var(--gold);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.custom-amount-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.custom-amount-row label {
+  font-size: 13.5px;
+  color: var(--soft);
+  font-weight: 600;
+}
+.custom-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 180px;
+}
+.custom-input-wrap input {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 44px 10px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: rgba(7, 19, 30, 0.85);
+  color: #fff;
+  font-weight: 700;
+}
+.custom-input-wrap span {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 13.5px;
+}
+
+.choice-summary-box {
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: rgba(242, 200, 121, 0.08);
+  border: 1px solid var(--line-strong);
+  margin-bottom: 18px;
+}
+.choice-headline {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.choice-subnote {
+  font-size: 13px;
+  color: var(--soft);
+  margin: 0;
+}
+
+/* Right Column: Community Multiplier Simulator */
+.synergy-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(165deg, rgba(16, 42, 53, 0.92), rgba(9, 25, 34, 0.96));
+}
+.slider-box {
+  margin: 18px 0;
+}
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.slider-header span {
+  font-size: 13.5px;
+  color: var(--soft);
+}
+.slider-header strong {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--gold);
+}
+input[type="range"].cc-range {
+  width: 100%;
+  accent-color: var(--orange);
+  height: 8px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.synergy-result-card {
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(7, 19, 30, 0.72);
+  border: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+.synergy-numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.synergy-stat small {
+  display: block;
+  font-size: 12px;
+  color: var(--soft);
+}
+.synergy-stat strong {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  color: #fff;
+}
+.synergy-stat strong.gold-txt {
+  color: var(--gold);
+}
+.synergy-progress-wrap {
+  margin-top: 8px;
+}
+.synergy-progress-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.synergy-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--orange));
+  width: 28%;
+  transition: width 0.25s ease;
+}
+
+/* ZERO-FEE DIRECT GESTURE CHANNELS (BANK / BLIK / REVOLUT) */
+.direct-channels-box {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+}
+.copy-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.btn-copy-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  color: var(--ivory);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-copy-chip:hover {
+  border-color: var(--orange);
+  background: rgba(255, 122, 0, 0.14);
+}
+
+/* AUDITABLE LEDGER & COUNTER */
+.ledger-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.ledger-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px;
+}
+.ledger-stat-card .stat-label {
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--gold);
+  font-weight: 700;
+}
+.ledger-stat-card .stat-value {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 800;
+  margin: 8px 0 6px;
+  color: #fff;
+}
+.ledger-stat-card .stat-desc {
+  font-size: 13px;
+  color: var(--soft);
+  margin: 0;
+}
+
+/* PILLARS WE SUPPORT */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.pillar-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.pillar-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+}
+.pillar-icon {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+.pillar-card h3 {
+  font-size: 1.12rem;
+  margin: 0 0 8px;
+}
+.pillar-card p {
+  font-size: 13.5px;
+  color: var(--soft);
+  margin: 0 0 14px;
+}
+.pillar-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* AUDIO SPOT & 9:16 SHORTS STUDIO PREVIEW */
+.media-preview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.spot-card {
+  background: rgba(7, 19, 30, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.spot-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.spot-badge {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.btn-tts-spot {
+  min-height: 36px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.spot-script {
+  font-size: 13.5px;
+  color: var(--ivory);
+  font-style: italic;
+  margin: 0;
+}
+
+/* NON-FINANCIAL GESTURE (PRAYER & SHARE) */
+.grace-banner {
+  background: linear-gradient(135deg, rgba(16, 42, 53, 0.95), rgba(24, 58, 72, 0.88));
+  border: 1.5px solid var(--line-strong);
+  border-radius: 26px;
+  padding: clamp(24px, 4vw, 40px);
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 28px;
+  align-items: center;
+}
+.grace-quote {
+  margin: 14px 0 0;
+  padding-left: 14px;
+  border-left: 3px solid var(--gold);
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--gold);
+  font-size: 0.98rem;
+}
+
+/* FAQ */
+.faq-list {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 4px 20px;
+}
+.faq-item summary {
+  cursor: pointer;
+  padding: 16px 0;
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: #fff;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-item summary::after {
+  content: '+';
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+.faq-item[open] summary::after {
+  content: '−';
+}
+.faq-item p {
+  margin: 0 0 16px;
+  color: var(--soft);
+  font-size: 14.5px;
+}
+
+/* BRAND ASSETS SHOWCASE */
+.assets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.asset-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px;
+  text-align: center;
+}
+.asset-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  background: #07131E;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 10px;
+}
+
+.footer-box {
+  padding: 44px 0 60px;
+  text-align: center;
+  color: var(--soft);
+  font-size: 13.5px;
+}
+
+/* Toast */
+.cc-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+  background: #102A35;
+  border: 1.5px solid var(--gold);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.55);
+  transform: translateY(120%);
+  opacity: 0;
+  transition: all 0.25s ease;
+}
+.cc-toast.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (max-width: 960px) {
+  .hero-grid, .configurator-grid, .media-preview-grid, .grace-banner {
+    grid-template-columns: 1fr;
+  }
+  .pulse-grid, .pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ledger-grid, .assets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .pulse-grid, .pillars-grid, .tier-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .synergy-numbers {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="proto-ribbon" role="status">
+  ⚡ <strong>ŚRODOWISKO TESTOWE (/test/milion-gestow • noindex)</strong> — Interaktywny demonstrator kampanii „Milion Drobnych Gestów” zgodny z protokołem ZERO-COST &amp; EkoCC v2 PREMIUM.
+</div>
+
+<header class="top-nav">
+  <div class="container top-nav-inner">
+    <a href="/" class="brand-id" aria-label="Christian Culture — Strona główna">
+      <span class="brand-dot" aria-hidden="true"></span>
+      <span>CHRISTIAN CULTURE</span>
+    </a>
+    <nav class="nav-pills" aria-label="Nawigacja kampanii">
+      <a href="#wybierz-gest" class="nav-pill">Wybierz gest</a>
+      <a href="#kalkulator-wspolnoty" class="nav-pill">Siła wspólnoty</a>
+      <a href="#ksiega-gestow" class="nav-pill">Licznik &amp; Audyt</a>
+      <a href="#studio-kreacji" class="nav-pill">Spoty &amp; Grafiki</a>
+      <a href="#bez-pieniedzy" class="nav-pill">Gest modlitwy</a>
+      <a href="#wybierz-gest" class="btn-orange-cta" style="min-height:44px;padding:8px 18px;font-size:13.5px;">
+        <span>▶ Dołącz gestem</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- 1. HERO Z ŻYWĄ KONSTELACJĄ DROBNYCH GESTÓW -->
+<section class="hero-stage">
+  <canvas id="gestureCanvas" aria-hidden="true"></canvas>
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow-badge">
+        <span>✨ Program Wspólnotowy Christian Culture</span>
+      </div>
+      <h1 class="hero-title">
+        MILION DROBNYCH <span>GESTÓW</span>
+      </h1>
+      <p class="hero-motto">Mały gest. Wielka misja.</p>
+      <p class="hero-lead">
+        Czy <strong>5 złotych miesięcznie</strong> może zmienić czyjąś wieczność? W pojedynkę to mniej niż pół kawy. Ale gdy łączymy tysiące drobnych, dobrowolnych gestów — utrzymujemy w 100% bezpłatne <strong>Radio 24/7, Biblię Audio, telewizję LIVE, MojaBiblia i Ewangelię w 15 językach świata</strong>. Bez reklam. Bez barier.
+      </p>
+      <div class="hero-actions">
+        <a href="#wybierz-gest" class="btn-orange-cta">
+          <span>🧡 Wybieram swój gest (od 2 zł)</span>
+        </a>
+        <a href="#bez-pieniedzy" class="btn-secondary-gold">
+          <span>🙏 Nie mogę wpłacić — pomogę modlitwą i udostępnieniem</span>
+        </a>
+      </div>
+      <div class="hero-trust-strip">
+        <span>🛡️ <strong>100% dobrowolności</strong> (2 Kor 9:7)</span>
+        <span>📊 <strong>1 rozliczona wpłata = 1 gest</strong></span>
+        <span>🔓 <strong>Treści CC zawsze za darmo</strong></span>
+      </div>
+    </div>
+
+    <!-- Interaktywna Konstelacja Serca Wspólnoty -->
+    <aside class="constellation-card" aria-label="Interaktywna konstelacja drobnych gestów">
+      <div class="constellation-status" id="constellationStatus">Żywa Konstelacja Wspólnoty</div>
+      <div class="constellation-svg-wrap">
+        <svg viewBox="0 0 360 320" id="heartConstellationSvg" role="img" aria-label="Serce utworzone z drobnych punktów światła">
+          <!-- Ścieżka pomocnicza obrysu serca -->
+          <path d="M180 278 C180 278 42 194 42 104 C42 56 80 24 124 24 C152 24 170 40 180 62 C190 40 208 24 236 24 C280 24 318 56 318 104 C318 194 180 278 180 278 Z" fill="none" stroke="rgba(242,200,121,0.16)" stroke-width="1.5" stroke-dasharray="4 6"/>
+          <g id="heartDotsGroup"></g>
+        </svg>
+      </div>
+      <p class="constellation-caption" id="constellationCaption">
+        Każdy złoty punkt symbolizuje pojedynczy drobny gest słuchacza. Razem tworzą serce misji.
+      </p>
+      <button type="button" class="btn-spark-gesture" id="btnSparkLight">
+        ✨ Zapal swój symboliczny płomyk w konstelacji
+      </button>
+    </aside>
+  </div>
+</section>
+
+<!-- PASEK TĘTNA MISJI NA ŻYWO -->
+<div class="pulse-bar" aria-label="Co utrzymują drobne gesty">
+  <div class="container pulse-grid">
+    <div class="pulse-item">
+      <span class="pulse-live-dot" aria-hidden="true"></span>
+      <div class="pulse-meta">
+        <strong>Radio &amp; 17 Kanałów LIVE</strong>
+        <small>Emisja 24/7 bez bloków reklamowych</small>
+      </div>
+    </div>
+    <div class="pulse-item">
+      <span class="pulse-live-dot" aria-hidden="true"></span>
+      <div class="pulse-meta">
+        <strong>Biblia Audio Superprodukcja</strong>
+        <small>35 rozdziałów Księgi Rodzaju na WWW i Spotify</small>
+      </div>
+    </div>
+    <div class="pulse-item">
+      <span class="pulse-live-dot" aria-hidden="true"></span>
+      <div class="pulse-meta">
+        <strong>MojaBiblia &amp; Akademia</strong>
+        <small>1189 rozdziałów Stronga + Kurs Codzienny</small>
+      </div>
+    </div>
+    <div class="pulse-item">
+      <span class="pulse-live-dot" aria-hidden="true"></span>
+      <div class="pulse-meta">
+        <strong>Ewangelia w 15 Językach</strong>
+        <small>Globalny zasięg od Polski po Azję i Bliski Wschód</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <!-- 2. SELEKTOR GESTU + SYMULATOR SIŁY WSPÓLNOTY -->
+  <section class="section-block" id="wybierz-gest">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Krok 1 • Twój Dobrowolny Udział</span>
+        <h2 class="section-title">Wybierz swój gest na miarę możliwości</h2>
+        <p class="section-sub">Progi 2, 5, 10 i 20 zł to wyłącznie łagodne sugestie. Możesz wpisać dowolną kwotę, wspierać co miesiąc lub jednorazowo.</p>
+      </div>
+
+      <div class="configurator-grid">
+        <!-- Lewy panel: Wybór kwoty i częstotliwości -->
+        <div class="glass-panel">
+          <div class="freq-toggle" role="group" aria-label="Częstotliwość wsparcia">
+            <button type="button" class="freq-btn active" data-freq="monthly" aria-pressed="true">
+              🔄 Co miesiąc (Stały gest)
+            </button>
+            <button type="button" class="freq-btn" data-freq="once" aria-pressed="false">
+              ⚡ Jednorazowo
+            </button>
+          </div>
+
+          <div class="tier-grid" role="group" aria-label="Sugerowane progi wsparcia">
+            <button type="button" class="tier-btn" data-value="2" data-label="Mały gest" aria-pressed="false">
+              <span class="tier-amount">2 zł</span>
+              <span class="tier-name">Mały gest</span>
+            </button>
+            <button type="button" class="tier-btn active" data-value="5" data-label="Gest nadziei" aria-pressed="true">
+              <span class="tier-amount">5 zł</span>
+              <span class="tier-name">Gest nadziei ★</span>
+            </button>
+            <button type="button" class="tier-btn" data-value="10" data-label="Gest wsparcia" aria-pressed="false">
+              <span class="tier-amount">10 zł</span>
+              <span class="tier-name">Gest wsparcia</span>
+            </button>
+            <button type="button" class="tier-btn" data-value="20" data-label="Gest rozwoju" aria-pressed="false">
+              <span class="tier-amount">20 zł</span>
+              <span class="tier-name">Gest rozwoju</span>
+            </button>
+          </div>
+
+          <div class="custom-amount-row">
+            <label for="customAmountInput">Lub wpisz własną kwotę (1 – 100 000 zł):</label>
+            <div class="custom-input-wrap">
+              <input type="number" id="customAmountInput" inputmode="decimal" min="1" max="100000" step="1" placeholder="Inna kwota">
+              <span>PLN</span>
+            </div>
+          </div>
+
+          <div class="choice-summary-box" aria-live="polite">
+            <div class="choice-headline" id="choiceHeadline">Twój wybór: 5 zł co miesiąc (Gest nadziei)</div>
+            <p class="choice-subnote" id="choiceSubnote">
+              Przy kwocie 5 zł rekomendujemy bezprowizyjne zlecenie stałe w Twoim banku lub BLIK — wtedy 100% kwoty (pełne 5,00 zł) zasila misję bez potrąceń operatorów kartowych.
+            </p>
+          </div>
+
+          <!-- Bramka demonstracyjna zgodnie z MASTER_PROMPT (zablokowana automatyczna płatność kartą do czasu decyzji GO) -->
+          <button type="button" class="btn-orange-cta" id="btnDemoCheckout" disabled aria-disabled="true" style="width:100%;margin-bottom:10px;" title="Automatyczna bramka subskrypcji oczekuje na zatwierdzenie operatora (decyzja GO)">
+            <span>🔒 Automatyczna subskrypcja kartą (Aktywna po decyzji GO operatora)</span>
+          </button>
+          <p style="font-size:12px;color:var(--soft);margin:0 0 14px;text-align:center;">
+            Status bramki API: <strong>TRYB TESTOWY (DEMO)</strong> — strona nie pobiera danych kart płatniczych i nie obciąża konta.
+          </p>
+
+          <!-- Bezpośrednie, sprawdzone kanały 0% prowizji dla chętnych już dziś -->
+          <div class="direct-channels-box">
+            <div style="font-size:12.5px;font-weight:700;color:var(--gold);">
+              💡 Chcę przekazać drobny gest bez prowizji pośredników (Zlecenie stałe / BLIK):
+            </div>
+            <div class="copy-pill-row">
+              <button type="button" class="btn-copy-chip" data-copy="87 1140 2004 0000 3802 8491 7164" data-label="Numer konta PLN mBank (87 1140...)">
+                📋 Kopiuj konto PLN (0% prowizji)
+              </button>
+              <button type="button" class="btn-copy-chip" data-copy="537 137 043" data-label="Numer telefonu BLIK (537 137 043)">
+                📱 Kopiuj telefon BLIK
+              </button>
+              <button type="button" class="btn-copy-chip" id="btnCopyTransferTitle" data-copy="Dar na cele kultu religijnego - Milion Drobnych Gestow (5 zl)" data-label="Tytuł przelewu">
+                ✍️ Kopiuj tytuł przelewu
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prawy panel: Interaktywny Symulator Siły Wspólnoty -->
+        <div class="glass-panel synergy-panel" id="kalkulator-wspolnoty">
+          <div>
+            <span class="section-tag">Efekt Synergii • Matematyka Małych Gestów</span>
+            <h3 style="font-family:var(--font-display);font-size:1.45rem;margin:4px 0 10px;">
+              Zobacz, co się dzieje, gdy łączymy siły
+            </h3>
+            <p style="font-size:13.8px;color:var(--soft);margin:0 0 16px;">
+              Przesuń suwak liczby osób wspierających misję wybraną przez Ciebie kwotą (<strong id="simCurrentAmountLabel" style="color:#fff;">5 zł</strong>) i zobacz realny wpływ na utrzymanie wolnych mediów Bożych:
+            </p>
+
+            <div class="slider-box">
+              <div class="slider-header">
+                <span>Liczba osób robiących ten sam mały gest w miesiącu:</span>
+                <strong id="simPeopleCount">1 000 osób</strong>
+              </div>
+              <input type="range" class="cc-range" id="simPeopleSlider" min="50" max="5000" step="50" value="1000" aria-label="Liczba osób wspierających miesięcznie">
+              <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--soft);margin-top:4px;">
+                <span>50 osób (D30)</span>
+                <span>300 osób (D90)</span>
+                <span>1 000 osób</span>
+                <span>5 000 osób</span>
+              </div>
+            </div>
+
+            <div class="synergy-result-card">
+              <div class="synergy-numbers">
+                <div class="synergy-stat">
+                  <small>Miesięczny fundusz wspólnoty (brutto):</small>
+                  <strong class="gold-txt" id="simMonthlyTotal">5 000 zł / mies.</strong>
+                </div>
+                <div class="synergy-stat">
+                  <small>Nowych gestów w skali roku:</small>
+                  <strong id="simYearlyGestures">12 000 gestów</strong>
+                </div>
+              </div>
+              <div class="synergy-progress-wrap">
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+                  <span>Pokrycie miesięcznych kosztów emisji i produkcji CC (cel: 25 000 zł):</span>
+                  <strong id="simGoalPercent" style="color:var(--gold);">20%</strong>
+                </div>
+                <div class="synergy-progress-bar" aria-hidden="true">
+                  <div class="synergy-progress-fill" id="simProgressFill" style="width:20%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="font-size:12.5px;color:var(--soft);background:rgba(255,255,255,0.03);padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.07);">
+            📌 <strong>Uczciwa matematyka:</strong> Symulator pokazuje działanie mnożnika wspólnoty (liczba osób × wybrana kwota). Nie jest to prognoza finansowa ani licznik już zebranych wpłat.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. AUDYTOWALNY LICZNIK I KSIĘGA TRANSAKCJI (LEDGER) -->
+  <section class="section-block" id="ksiega-gestow">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Transparentność 100% • Zero Fikcyjnych Liczb</span>
+        <h2 class="section-title">Wspólnie ku milionowi: Audytowalny Licznik Gestów</h2>
+        <p class="section-sub">
+          Zgodnie z konstytucją Christian Culture nigdy nie wyświetlamy sztucznych pasków postępu ani symulowanych wpłat. Każdy gest w liczniku musi pochodzić ze zweryfikowanej księgi transakcji (`status = settled`).
+        </p>
+      </div>
+
+      <div class="ledger-grid">
+        <article class="ledger-stat-card">
+          <div class="stat-label">1. Liczba Skutecznych Gestów (Netto)</div>
+          <div class="stat-value">Oczekuje na Ledger API</div>
+          <p class="stat-desc">
+            <strong>Definicja:</strong> 1 skutecznie rozliczona wpłata finansowa = 1 gest (niezależnie od kwoty). Zwroty i chargebacki automatycznie odejmują gest (`settled - refunded`).
+          </p>
+        </article>
+        <article class="ledger-stat-card">
+          <div class="stat-label">2. Aktywni Wspierający Co Miesiąc</div>
+          <div class="stat-value">Raportowane Osobno</div>
+          <p class="stat-desc">
+            <strong>Definicja:</strong> Unikalne aktywne subskrypcje w bieżącym cyklu rozliczeniowym. Jeden stały darczyńca tworzy 12 kolejnych gestów w ciągu roku.
+          </p>
+        </article>
+        <article class="ledger-stat-card">
+          <div class="stat-label">3. Raporty Miesięczne &amp; Skarbiec</div>
+          <div class="stat-value">Cykl Miesięczny</div>
+          <p class="stat-desc">
+            Pełne rozliczenie wpływów brutto, kosztów operatora i wydatków misyjnych publikujemy co miesiąc bez ujawniania danych osobowych darczyńców.
+          </p>
+        </article>
+      </div>
+
+      <div class="glass-panel" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div>
+          <strong style="color:var(--gold);display:block;font-size:15px;">🛡️ Gwarancja Idempotentności Księgi (Anti-Duplicate Ledger)</strong>
+          <span style="font-size:13.5px;color:var(--soft);">
+            Podwójny webhook operatora (`event_id` / `payment_id` UNIQUE) jest odrzucany. Transakcje `pending`, `failed` oraz testowe nigdy nie zwiększają publicznego licznika.
+          </span>
+        </div>
+        <a href="/wspieramto" class="btn-secondary-gold">
+          <span>Zobacz aktualne cele WspieramTO 2.0 →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CO WSPIERASZ SWOIM GESTEM -->
+  <section class="section-block">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Realne Owoce Misji</span>
+        <h2 class="section-title">Na co przeznaczamy każdy drobny gest?</h2>
+        <p class="section-sub">Wszystkie nasze kanały są i pozostaną w 100% bezpłatne dla każdego odbiorcy.</p>
+      </div>
+
+      <div class="pillars-grid">
+        <article class="pillar-card">
+          <div>
+            <div class="pillar-icon" aria-hidden="true">📻</div>
+            <h3>Radio 24/7 &amp; Muzyka Uwielbienia</h3>
+            <p>Utrzymanie serwerów strumieniowych, pasm audio 320 kbps i całodobowej emisji Słów Nadziei bez reklam.</p>
+          </div>
+          <a href="/player" class="pillar-link">Otwórz Odtwarzacz Radio CC →</a>
+        </article>
+        <article class="pillar-card">
+          <div>
+            <div class="pillar-icon" aria-hidden="true">🎧</div>
+            <h3>Biblia Audio Superprodukcja</h3>
+            <p>Wielościeżkowa produkcja słuchowisk Pisma Świętego (UBG), mastering -16 LUFS i bezpłatna dystrybucja na WWW oraz Spotify.</p>
+          </div>
+          <a href="/biblia-audio" class="pillar-link">Słuchaj Biblii Audio →</a>
+        </article>
+        <article class="pillar-card">
+          <div>
+            <div class="pillar-icon" aria-hidden="true">📺</div>
+            <h3>Telewizja LIVE &amp; Kino VOD</h3>
+            <p>Nadawanie 17 kanałów tematycznych (w tym Apokalipsa 24/7 Live, Worship, Biblia Śpiewana) oraz chrześcijańskie kino VOD.</p>
+          </div>
+          <a href="/vod" class="pillar-link">Zobacz Kino Chrześcijańskie VOD →</a>
+        </article>
+        <article class="pillar-card">
+          <div>
+            <div class="pillar-icon" aria-hidden="true">🌍</div>
+            <h3>MojaBiblia, Akademia &amp; 15 Języków</h3>
+            <p>Interlinearna Biblia grecko-hebrajska, Kurs Codzienny „Z Biblią za Pan Brat” oraz głoszenie Ewangelii w 15 językach świata.</p>
+          </div>
+          <a href="/Ewangelia" class="pillar-link">Zobacz Ewangelię w 15 językach →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. STUDIO KREACJI: ODSŁUCH SPOTÓW RADIOWYCH + SZABLONY 16:9 / 1:1 / 9:16 -->
+  <section class="section-block" id="studio-kreacji">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Komunikacja 360° • Pakiet Produkcyjny</span>
+        <h2 class="section-title">Posłuchaj spotów radiowych i zobacz kreacje kampanii</h2>
+        <p class="section-sub">Gotowe materiały z pakietu wdrożeniowego — kliknij „Odsłuchaj lektora”, aby przetestować brzmienie spotów na żywo.</p>
+      </div>
+
+      <div class="media-preview-grid">
+        <!-- Spoty radiowe z syntezą lektora -->
+        <div class="glass-panel">
+          <h3 style="margin:0 0 14px;font-family:var(--font-display);">🎙️ Spoty Radiowe i Telewizyjne (15 s / 30 s / 45 s)</h3>
+
+          <div class="spot-card">
+            <div class="spot-head">
+              <span class="spot-badge">Spot 15 sekund • Radio CC</span>
+              <button type="button" class="btn-tts-spot" data-spot-text="Mały gest może być częścią wielkiej misji. Wspieraj bezpłatne radio, Biblię Audio i telewizję Christian Culture już od kilku złotych miesięcznie. Ty decydujesz, ile możesz dać. Milion drobnych gestów. Mały gest. Wielka misja. Szczegóły na polskieradio.cc.">
+                🔊 Odsłuchaj (15s)
+              </button>
+            </div>
+            <p class="spot-script">„Mały gest może być częścią wielkiej misji. Wspieraj bezpłatne radio, Biblię Audio i telewizję Christian Culture już od kilku złotych miesięcznie. Ty decydujesz, ile możesz dać. Milion drobnych gestów. Mały gest. Wielka misja.”</p>
+          </div>
+
+          <div class="spot-card">
+            <div class="spot-head">
+              <span class="spot-badge">Spot 30 sekund • Radio &amp; TV LIVE</span>
+              <button type="button" class="btn-tts-spot" data-spot-text="A gdyby pięć złotych miesięcznie mogło stać się częścią czegoś naprawdę wielkiego? Jedna osoba. Jeden mały gest. A teraz wyobraź sobie tysiące takich osób. Razem możemy pomagać, by Biblia, Ewangelia i słowa nadziei docierały do kolejnych ludzi. Dołącz do kampanii Christian Culture — Milion drobnych gestów! Ty decydujesz, ile możesz przekazać. Mały gest. Wielka misja.">
+                🔊 Odsłuchaj (30s)
+              </button>
+            </div>
+            <p class="spot-script">„A gdyby pięć złotych miesięcznie mogło stać się częścią czegoś naprawdę wielkiego? Jedna osoba. Jeden mały gest. A teraz wyobraź sobie tysiące takich osób... Dołącz do kampanii Christian Culture — Milion drobnych gestów!”</p>
+          </div>
+
+          <div class="spot-card" style="margin-bottom:0;">
+            <div class="spot-head">
+              <span class="spot-badge">Short 9:16 • Scenariusz HOOK (≤25 s)</span>
+              <button type="button" class="btn-tts-spot" data-spot-text="Czy 5 złotych może pomóc nieść Ewangelię dalej? Samo niewiele. Ale tysiąc takich gestów to już realne wsparcie bezpłatnych treści. Dołącz do Miliona drobnych gestów. Wybierz kwotę i pomagaj, jeśli możesz. Mały gest. Wielka misja.">
+                🔊 Odsłuchaj Short
+              </button>
+            </div>
+            <p class="spot-script">00–03s: „Czy 5 złotych może pomóc nieść Ewangelię dalej?” → 03–10s: „Samo niewiele. Ale tysiąc takich gestów to już realne wsparcie bezpłatnych treści.” → CTA: „Mały gest. Wielka misja.”</p>
+          </div>
+        </div>
+
+        <!-- Wzorce graficzne SVG 16:9, 1:1, 9:16 -->
+        <div class="glass-panel">
+          <h3 style="margin:0 0 14px;font-family:var(--font-display);">🎨 Wzorce Graficzne Kampanii (Maks. 3 kolory, 3 elementy)</h3>
+          <p style="font-size:13.5px;color:var(--soft);margin:0 0 16px;">
+            Zgodnie z Brand Guide: paleta Granat `#102A35`, Ciepłe Złoto `#F2C879`, Kość Słoniowa `#F6F4EE`, motyw serca z drobnych punktów i oficjalny podpis tekstowy <strong>CHRISTIAN CULTURE</strong>.
+          </p>
+          <div class="assets-grid">
+            <div class="asset-card">
+              <img src="/images/banners/milion-gestow-16x9.svg" alt="Szablon 16:9 Milion drobnych gestów" loading="lazy">
+              <strong style="font-size:12.5px;display:block;">Format 16:9 (1920×1080)</strong>
+              <small style="color:var(--soft);font-size:11.5px;">YouTube / TV / Hero</small>
+            </div>
+            <div class="asset-card">
+              <img src="/images/banners/milion-gestow-1x1.svg" alt="Szablon 1:1 Milion drobnych gestów" loading="lazy">
+              <strong style="font-size:12.5px;display:block;">Format 1:1 (1080×1080)</strong>
+              <small style="color:var(--soft);font-size:11.5px;">Post FB / IG / LUMINA</small>
+            </div>
+            <div class="asset-card">
+              <img src="/images/banners/milion-gestow-9x16.svg" alt="Szablon 9:16 Milion drobnych gestów" loading="lazy">
+              <strong style="font-size:12.5px;display:block;">Format 9:16 (1080×1920)</strong>
+              <small style="color:var(--soft);font-size:11.5px;">Shorts / Reels / Stories</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. ALTERNATYWA BEZ PIENIĘDZY — PEŁNOPRAWNY UCZESTNIK MISJI -->
+  <section class="section-block" id="bez-pieniedzy">
+    <div class="container">
+      <div class="grace-banner">
+        <div>
+          <span class="section-tag">Zero Presji • Każdy Jest Ważny</span>
+          <h2 style="font-family:var(--font-display);font-size:clamp(1.55rem,3vw,2.2rem);margin:4px 0 12px;">
+            Nie możesz dziś wesprzeć finansowo? Twój gest modlitwy i udostępnienia ma ogromną wartość!
+          </h2>
+          <p style="color:var(--soft);font-size:15px;margin:0;">
+            W Christian Culture nikt nie jest oceniany miarą portfela. Jeśli przechodzisz trudniejszy czas finansowy — korzystaj z wszystkich materiałów całkowicie bezpłatnie. Możesz stać się pełnoprawnym uczestnikiem „Miliona Drobnych Gestów” przez szczerą modlitwę za misję oraz przesłanie dobrej wiadomości jednej osobie.
+          </p>
+          <blockquote class="grace-quote">
+            „Każdy niech daje tak, jak postanowił w sercu, nie z żalem albo z przymusu. Bóg bowiem kocha radosnego dawcę.” — 2 List do Koryntian 9:7 (UBG)
+          </blockquote>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <button type="button" class="btn-orange-cta" id="btnShareCampaign" style="width:100%;">
+            <span>📤 Udostępnij informację o misji (Bezpłatny gest)</span>
+          </button>
+          <a href="/modlitwa" class="btn-secondary-gold" style="width:100%;">
+            <span>🙏 Dołącz do Ściany Modlitwy Christian Culture</span>
+          </a>
+          <a href="/40DM" class="btn-secondary-gold" style="width:100%;">
+            <span>🔥 40 Dni Modlitwy</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FAQ -->
+  <section class="section-block" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Pytania i Odpowiedzi</span>
+        <h2 class="section-title">Częste pytania (FAQ)</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Czy muszę wpłacać, aby korzystać z radia, Biblii Audio lub kursów?</summary>
+          <p>Nie. Wszystkie materiały Christian Culture (Radio 24/7, Biblia Audio, MojaBiblia, Akademia, VOD, LUMINA) są i pozostaną w 100% bezpłatne. Kampania opiera się wyłącznie na dobrowolnej wdzięczności i współodpowiedzialności za misję.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Co dokładnie oznacza „1 gest” w liczniku Miliona Drobnych Gestów?</summary>
+          <p>Jeden gest to jedna skutecznie rozliczona wpłata finansowa (`status = settled`), niezależnie od jej wysokości (zarówno 2 zł, 5 zł, jak i 50 zł to jeden gest). Jeśli darczyńca wspiera misję co miesiąc przez rok, jego regularność wygeneruje 12 gestów. Ewentualne zwroty lub chargebacki korygują licznik w dół.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Czy mogę przekazać tylko 2 zł lub 5 zł miesięcznie bez utraty większości kwoty na prowizje?</summary>
+          <p>Tak! Przy mikrodarowiznach (2 zł i 5 zł) najlepszym rozwiązaniem jest ustawienie bezpłatnego zlecenia stałego w swoim banku na nasze konto PLN lub przelew na telefon BLIK — wówczas prowizja wynosi 0 zł i pełne 100% Twojego gestu pracuje dla misji.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Czy w każdej chwili będę mógł anulować wsparcie comiesięczne?</summary>
+          <p>Oczywiście. Wsparcie cykliczne można zakończyć w dowolnym momencie jednym kliknięciem w panelu operatora płatności lub w swoim banku — bez żadnych zobowiązań ani formalności.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Kto jest formalnym odbiorcą wsparcia i jak chroniona jest moja prywatność?</summary>
+          <p>Strona Christian Culture nie pobiera ani nie przechowuje numerów kart płatniczych. W publicznych raportach miesięcznych prezentujemy wyłącznie zagregowane sumy i liczbę gestów — bez jakichkolwiek danych osobowych darczyńców.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer-box container">
+  <strong style="color:#fff;letter-spacing:0.1em;font-family:var(--font-display);">CHRISTIAN CULTURE</strong>
+  <p style="margin:6px 0;">Milion Drobnych Gestów — Mały gest. Wielka misja.</p>
+  <p style="margin:6px 0;font-size:12.5px;">
+    Środowisko demonstracyjne `/test/milion-gestow` (`noindex, nofollow`). Brak automatycznego obciążania kart do czasu decyzji GO.
+  </p>
+  <p style="margin:12px 0 0;font-size:12.5px;">
+    <a href="/" style="color:var(--gold);">Strona główna</a> &bull;
+    <a href="/wspieramto" style="color:var(--gold);">WspieramTO 2.0</a> &bull;
+    <a href="/privacy" style="color:var(--gold);">Polityka Prywatności</a>
+  </p>
+</footer>
+
+<div class="cc-toast" id="ccGestureToast" role="status" aria-live="polite"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  var state = {
+    freq: 'monthly',
+    amount: 5,
+    tierLabel: 'Gest nadziei',
+    supporters: 1000
+  };
+
+  var toastEl = document.getElementById('ccGestureToast');
+  var toastTimer = null;
+  function showToast(msg) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function() {
+      toastEl.classList.remove('visible');
+    }, 3200);
+  }
+
+  function trackEvent(name, params) {
+    try {
+      if (typeof window.ccTrack === 'function') {
+        window.ccTrack(name, params || {});
+      }
+    } catch (_) {}
+  }
+
+  // Zdarzenie wejścia na stronę kampanii (zgodnie z ARCHITEKTURA_I_API.md)
+  trackEvent('giving_page_view', { campaign: 'milion_drobnych_gestow', env: 'test' });
+
+  // 1. Renderowanie sercowej konstelacji SVG (48 punktów z pakietu + dynamiczne płomyki)
+  var heartCoords = [
+    [180,68],[182,63],[187,51],[198,35],[216,22],[238,16],[262,21],[284,36],[300,58],[308,85],
+    [306,115],[296,144],[278,172],[256,198],[232,222],[210,244],[193,262],[183,274],[180,278],
+    [177,274],[167,262],[150,244],[128,222],[104,198],[82,172],[64,144],[54,115],[52,85],
+    [60,58],[76,36],[98,21],[122,16],[144,22],[162,35],[173,51],[178,63],
+    [180,115],[152,95],[208,95],[135,130],[225,130],[155,168],[205,168],[180,205]
+  ];
+  var dotsGroup = document.getElementById('heartDotsGroup');
+  if (dotsGroup) {
+    heartCoords.forEach(function(pt, idx) {
+      var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', pt[0]);
+      c.setAttribute('cy', pt[1]);
+      c.setAttribute('r', (idx % 3 === 0) ? '4.5' : (idx % 2 === 0 ? '3.5' : '2.6'));
+      c.setAttribute('class', 'heart-dot');
+      c.style.animationDelay = ((idx * 0.14) % 3).toFixed(2) + 's';
+      dotsGroup.appendChild(c);
+    });
+  }
+
+  var sparkCount = 0;
+  var btnSpark = document.getElementById('btnSparkLight');
+  var statusEl = document.getElementById('constellationStatus');
+  var captionEl = document.getElementById('constellationCaption');
+  if (btnSpark && dotsGroup) {
+    btnSpark.addEventListener('click', function() {
+      sparkCount++;
+      var angle = Math.random() * Math.PI * 2;
+      var radius = 25 + Math.random() * 55;
+      var cx = Math.round(180 + Math.cos(angle) * radius);
+      var cy = Math.round(135 + Math.sin(angle) * radius * 0.85);
+      var spark = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      spark.setAttribute('cx', cx);
+      spark.setAttribute('cy', cy);
+      spark.setAttribute('r', '6');
+      spark.setAttribute('class', 'heart-dot user-spark');
+      dotsGroup.appendChild(spark);
+
+      if (statusEl) statusEl.textContent = '✨ Twój płomyk rozbłysł w sercu misji!';
+      if (captionEl) captionEl.textContent = 'Dodano symboliczny płomyk (#' + sparkCount + ' w tej sesji). Każdy mały gest rozświetla wspólnotę.';
+      showToast('✨ Twój symboliczny płomyk dołączył do Konstelacji Wspólnoty!');
+      trackEvent('giving_amount_select', { action: 'spark_light', count: sparkCount });
+    });
+  }
+
+  // 2. Aktualizacja kalkulatora i selektora kwot
+  var choiceHeadline = document.getElementById('choiceHeadline');
+  var choiceSubnote = document.getElementById('choiceSubnote');
+  var customInput = document.getElementById('customAmountInput');
+  var copyTitleBtn = document.getElementById('btnCopyTransferTitle');
+
+  var simAmountLabel = document.getElementById('simCurrentAmountLabel');
+  var simPeopleSlider = document.getElementById('simPeopleSlider');
+  var simPeopleCount = document.getElementById('simPeopleCount');
+  var simMonthlyTotal = document.getElementById('simMonthlyTotal');
+  var simYearlyGestures = document.getElementById('simYearlyGestures');
+  var simGoalPercent = document.getElementById('simGoalPercent');
+  var simProgressFill = document.getElementById('simProgressFill');
+
+  function formatPln(num) {
+    return Number(num || 0).toLocaleString('pl-PL');
+  }
+
+  function updateUI() {
+    var amt = Math.max(1, Math.min(100000, Number(state.amount) || 5));
+    var freqText = (state.freq === 'monthly') ? 'co miesiąc' : 'jednorazowo';
+    var labelSuffix = state.tierLabel ? ' (' + state.tierLabel + ')' : '';
+
+    if (choiceHeadline) {
+      choiceHeadline.textContent = 'Twój wybór: ' + formatPln(amt) + ' zł ' + freqText + labelSuffix;
+    }
+    if (choiceSubnote) {
+      if (amt <= 5) {
+        choiceSubnote.textContent = 'Przy drobnym geście ' + amt + ' zł najlepiej wybrać bezpłatne zlecenie stałe w banku lub BLIK na telefon — 0 zł prowizji, pełne 100% kwoty służy Ewangelii.';
+      } else {
+        choiceSubnote.textContent = 'Twój gest ' + formatPln(amt) + ' zł ' + freqText + ' realnie wzmacnia bezpłatną emisję Radia 24/7, produkcję Biblii Audio i rozwój 15 języków Ewangelii.';
+      }
+    }
+    if (copyTitleBtn) {
+      var kindStr = (state.freq === 'monthly') ? 'staly gest' : 'jednorazowy gest';
+      copyTitleBtn.setAttribute('data-copy', 'Dar na cele kultu religijnego - Milion Drobnych Gestow (' + amt + ' zl, ' + kindStr + ')');
+    }
+
+    // Aktualizacja symulatora wspólnoty
+    var people = Number(simPeopleSlider ? simPeopleSlider.value : 1000) || 1000;
+    state.supporters = people;
+    var monthlySum = people * amt;
+    var yearlyGestures = (state.freq === 'monthly') ? (people * 12) : people;
+    var goalPct = Math.min(100, Math.round((monthlySum / 25000) * 100));
+
+    if (simAmountLabel) simAmountLabel.textContent = formatPln(amt) + ' zł';
+    if (simPeopleCount) simPeopleCount.textContent = formatPln(people) + ' osób';
+    if (simMonthlyTotal) simMonthlyTotal.textContent = formatPln(monthlySum) + ' zł / mies.';
+    if (simYearlyGestures) simYearlyGestures.textContent = formatPln(yearlyGestures) + ' gestów';
+    if (simGoalPercent) simGoalPercent.textContent = goalPct + '%';
+    if (simProgressFill) simProgressFill.style.width = Math.max(4, goalPct) + '%';
+  }
+
+  document.querySelectorAll('.freq-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      state.freq = btn.getAttribute('data-freq') || 'monthly';
+      document.querySelectorAll('.freq-btn').forEach(function(b) {
+        var on = (b === btn);
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      updateUI();
+      trackEvent('giving_amount_select', { frequency: state.freq, amount: state.amount });
+    });
+  });
+
+  document.querySelectorAll('.tier-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      state.amount = Number(btn.getAttribute('data-value')) || 5;
+      state.tierLabel = btn.getAttribute('data-label') || '';
+      if (customInput) customInput.value = '';
+      document.querySelectorAll('.tier-btn').forEach(function(b) {
+        var on = (b === btn);
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      updateUI();
+      trackEvent('giving_amount_select', { frequency: state.freq, amount: state.amount });
+    });
+  });
+
+  if (customInput) {
+    customInput.addEventListener('input', function() {
+      var raw = customInput.value.trim();
+      if (!raw) return;
+      var val = Math.max(1, Math.min(100000, Number(raw) || 1));
+      state.amount = val;
+      state.tierLabel = 'Kwota własna';
+      document.querySelectorAll('.tier-btn').forEach(function(b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      updateUI();
+    });
+  }
+
+  if (simPeopleSlider) {
+    simPeopleSlider.addEventListener('input', updateUI);
+  }
+
+  // 3. Kopiowanie danych przelewu 0% prowizji
+  document.querySelectorAll('.btn-copy-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      var text = chip.getAttribute('data-copy') || '';
+      var label = chip.getAttribute('data-label') || 'Dane';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          showToast('✅ Skopiowano: ' + label);
+        }).catch(function() {
+          showToast('Skopiuj: ' + text);
+        });
+      } else {
+        showToast('Skopiuj: ' + text);
+      }
+      trackEvent('donate_click', { method: label, amount: state.amount, campaign: 'milion_gestow_test' });
+    });
+  });
+
+  // 4. Odsłuch spotów radiowych (Web Speech Synthesis)
+  document.querySelectorAll('.btn-tts-spot').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var text = btn.getAttribute('data-spot-text') || '';
+      if (!('speechSynthesis' in window)) {
+        showToast('Syntezator głosu nie jest wspierany w tej przeglądarce.');
+        return;
+      }
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        document.querySelectorAll('.btn-tts-spot').forEach(function(b) {
+          b.textContent = '🔊 Odsłuchaj';
+        });
+        return;
+      }
+      var utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'pl-PL';
+      utter.rate = 0.96;
+      btn.textContent = '⏹ Zatrzymaj';
+      utter.onend = function() {
+        btn.textContent = '🔊 Odsłuchaj ponownie';
+      };
+      window.speechSynthesis.speak(utter);
+    });
+  });
+
+  // 5. Przycisk udostępnienia kampanii (Gest bez pieniędzy)
+  var btnShare = document.getElementById('btnShareCampaign');
+  if (btnShare) {
+    btnShare.addEventListener('click', function() {
+      var shareText = 'Milion Drobnych Gestów — Mały gest. Wielka misja. Wspólnie utrzymujemy bezpłatne Radio 24/7, Biblię Audio i Ewangelię w Christian Culture: https://polskieradio.cc/wspieramto';
+      if (navigator.share) {
+        navigator.share({
+          title: 'Milion Drobnych Gestów | Christian Culture',
+          text: shareText,
+          url: 'https://polskieradio.cc/wspieramto'
+        }).catch(function() {});
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareText).then(function() {
+          showToast('📤 Skopiowano zaproszenie do schowka — wyślij znajomym!');
+        });
+      }
+    });
+  }
+
+  // 6. Tło Canvas: delikatne złote iskierki unoszące się w sekcji Hero
+  var canvas = document.getElementById('gestureCanvas');
+  if (canvas && canvas.getContext && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    function resizeCanvas() {
+      canvas.width = canvas.parentElement.offsetWidth || window.innerWidth;
+      canvas.height = canvas.parentElement.offsetHeight || 560;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas, { passive: true });
+
+    for (var i = 0; i < 36; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: 1.2 + Math.random() * 2.4,
+        vy: -0.18 - Math.random() * 0.35,
+        vx: (Math.random() - 0.5) * 0.25,
+        alpha: 0.2 + Math.random() * 0.55
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (var j = 0; j < particles.length; j++) {
+        var p = particles[j];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.y < -10) {
+          p.y = canvas.height + 10;
+          p.x = Math.random() * canvas.width;
+        }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(242, 200, 121, ' + p.alpha.toFixed(2) + ')';
+        ctx.fill();
+      }
+      requestAnimationFrame(drawParticles);
+    }
+    requestAnimationFrame(drawParticles);
+  }
+
+  updateUI();
+})();
+</script>
+</body>
+</html>
