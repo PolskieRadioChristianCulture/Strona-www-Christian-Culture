@@ -365,7 +365,33 @@
     // Nowe technologie, Sztuczna Inteligencja & Praca (Specyfikacja § 6)
     'ai': ['sztuczna inteligencja', 'si', 'automatyzacja', 'technologia', 'etyka technologii', 'praca', 'algorytmy'],
     'praca': ['automatyzacja', 'zawód', 'etyka pracy', 'bezrobocie', 'ai', 'zarządzanie'],
-    'automatyzacja': ['ai', 'technologia', 'praca', 'robotyzacja']
+    'automatyzacja': ['ai', 'technologia', 'praca', 'robotyzacja'],
+
+    // Najczęstsze realne zapytania użytkowników z GA4 @w i Google Search Console (22.11.2026)
+    'miusi': ['music', 'cc music', 'muzyka', 'worship', 'pieśni', 'uwielbienie', 'biblia śpiewana'],
+    'miusic': ['music', 'cc music', 'muzyka', 'worship', 'pieśni', 'uwielbienie'],
+    'music': ['muzyka', 'cc music', 'worship', 'pieśni', 'uwielbienie', 'biblia śpiewana'],
+    'sluchana': ['słuchana', 'biblia audio', 'audiobook', 'słuchowisko', 'audio'],
+    'słuchana': ['sluchana', 'biblia audio', 'audiobook', 'słuchowisko', 'audio'],
+    'rozwod': ['rozwód', 'kryzys małżeński', 'małżeństwo', 'zdrada', 'rodzina', 'pomoc', 'przebaczenie'],
+    'rozwód': ['rozwod', 'kryzys małżeński', 'małżeństwo', 'zdrada', 'rodzina', 'pomoc', 'przebaczenie'],
+    'samotnosc': ['samotność', 'izolacja', 'bliskość', 'relacje', 'wspólnota', 'depresja', 'pomoc'],
+    'samotność': ['samotnosc', 'izolacja', 'bliskość', 'relacje', 'wspólnota', 'depresja', 'pomoc'],
+    'smierc': ['śmierć', 'śmierci', 'stan umarłych', 'zmartwychwstanie', 'żałoba', 'nadzieja', 'lekcja 10'],
+    'śmierć': ['smierc', 'śmierci', 'stan umarłych', 'zmartwychwstanie', 'żałoba', 'nadzieja', 'lekcja 10'],
+    'smierci': ['śmierci', 'śmierć', 'stan umarłych', 'zmartwychwstanie', 'żałoba', 'nadzieja', 'lekcja 10'],
+    'śmierci': ['smierci', 'śmierć', 'stan umarłych', 'zmartwychwstanie', 'żałoba', 'nadzieja', 'lekcja 10'],
+    'starosc': ['starość', 'seniorzy', 'opieka', 'samotność', 'sens życia'],
+    'starość': ['starosc', 'seniorzy', 'opieka', 'samotność', 'sens życia'],
+    'palenie': ['rzuć palenie', 'papierosy', 'nikotyna', 'uzależnienie', 'wolność od nałogu', 'rozwiąż problem'],
+    'papierosy': ['rzuć palenie', 'palenie', 'nikotyna', 'uzależnienie', 'rozwiąż problem'],
+    'hepl': ['help', 'pomoc', 'cc pomoc', 'usługi', 'wsparcie'],
+    'wiwytowki': ['wizytówki', 'wizytowki', 'katalog wizytówek', 'wizytówka'],
+    'wiwytówki': ['wizytówki', 'wizytowki', 'katalog wizytówek', 'wizytówka'],
+    'wizytowki': ['wizytówki', 'katalog wizytówek', 'wizytówka', 'specjaliści'],
+    'wizytówki': ['wizytowki', 'katalog wizytówek', 'wizytówka', 'specjaliści'],
+    'blizej': ['bliżej', 'bądź bliżej', 'modlitwa', 'relacja z bogiem', '40 dni'],
+    'bliżej': ['blizej', 'bądź bliżej', 'modlitwa', 'relacja z bogiem', '40 dni']
   };
 
   // Damerau-Levenshtein distance (tolerancja literówek i przestawień liter)
@@ -3580,7 +3606,9 @@
     'pokój', 'pokoj', 'miłość', 'milosc', 'wiara', 'łaska', 'laska',
     'świadectwo', 'swiadectwo', 'ewangelia', 'apostoł', 'apostol',
     'stworzenie', 'sabat', 'szabat', 'proroctwo', 'palla', 'rogowski',
-    'rogowska', 'mariusz'
+    'rogowska', 'mariusz', 'music', 'muzyka', 'wizytówki', 'wizytowki',
+    'rozwód', 'rozwod', 'samotność', 'samotnosc', 'śmierć', 'smierc',
+    'starość', 'starosc', 'palenie', 'papierosy', 'współpraca', 'wspolpraca'
   ];
 
   function detectTypoCorrection(normQuery, queryWords) {

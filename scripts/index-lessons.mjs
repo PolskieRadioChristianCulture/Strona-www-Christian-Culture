@@ -380,10 +380,10 @@ const fundamentalLessons = [
   { num: 20, title: "Lekcja 20: Szabat — Dzień Odpoczynku, Pamiątka Stworzenia i Znak Przymierza", file: "20-szabat.html", tags: ["lekcja 20", "szabat", "dzień odpoczynku", "sobota"] },
   { num: 21, title: "Lekcja 21: Szafarstwo — Wierność w Zarządzaniu Czasem, Ciałem i Dobrami", file: "21-szafarstwo.html", tags: ["lekcja 21", "szafarstwo", "zarządzanie dobrami", "dziesięcina"] },
   { num: 22, title: "Lekcja 22: Chrześcijańskie Zachowanie — Czystość Serca, Ubiór i Styl Życia", file: "22-chrzescijanskie-zachowanie.html", tags: ["lekcja 22", "styl życia", "czystość serca"] },
-  { num: 23, title: "Lekcja 23: Małżeństwo i Rodzina — Boży Wzór Przymierza i Wychowania", file: "23-malzenstwo-i-rodzina.html", tags: ["lekcja 23", "małżeństwo", "rodzina", "świętość przymierza"] },
+  { num: 23, title: "Lekcja 23: Małżeństwo i Rodzina — Boży Wzór Przymierza i Wychowania", file: "23-malzenstwo-i-rodzina.html", tags: ["lekcja 23", "małżeństwo", "rodzina", "świętość przymierza", "rozwód", "rozwod", "kryzys małżeński", "co biblia mówi o rozwodzie"] },
   { num: 24, title: "Lekcja 24: Służba Chrystusa w Niebiańskiej Świątyni — Arykapłan i Orędownik", file: "24-sluzba-chrystusa-w-niebianskiej-swiatyni.html", tags: ["lekcja 24", "świątynia niebiańska", "arcykapłan", "orędownik"] },
   { num: 25, title: "Lekcja 25: Powtórne Przyjście Chrystusa — Błogosławiona Nadzieja Chrześcijan", file: "25-powtorne-przyjscie-chrystusa.html", tags: ["lekcja 25", "paruzja", "powtórne przyjście", "nadzieja"] },
-  { num: 26, title: "Lekcja 26: Śmierć i Zmartwychwstanie — Stan Umarłych i Zwycięstwo Życia", file: "26-smierc-i-zmartwychwstanie.html", tags: ["lekcja 26", "śmierć", "stan umarłych", "zmartwychwstanie"] },
+  { num: 26, title: "Lekcja 26: Śmierć i Zmartwychwstanie — Stan Umarłych i Zwycięstwo Życia", file: "26-smierc-i-zmartwychwstanie.html", tags: ["lekcja 26", "śmierć", "stan umarłych", "zmartwychwstanie", "co biblia mówi o śmierci", "co dzieje się po śmierci", "żałoba"] },
   { num: 27, title: "Lekcja 27: Tysiąclecie i Koniec Grzechu — Sąd Ostateczny i Nowy Początek", file: "27-tysiaclecie-i-koniec-grzechu.html", tags: ["lekcja 27", "millennium", "tysiąclecie", "sąd ostateczny"] },
   { num: 28, title: "Lekcja 28: Nowa Ziemia — Wieczność w Obecności Boga i Brak Cierpienia", file: "28-nowa-ziemia.html", tags: ["lekcja 28", "nowa ziemia", "nowe jeruzalem", "wieczność"] }
 ].map(item => ({
@@ -395,7 +395,58 @@ const fundamentalLessons = [
   featured: item.num === 15 || item.num === 1 || item.num === 20
 }));
 
-const allNewItems = [...dailyLessons, ...fundamentalLessons];
+const userIntentItems = [
+  {
+    title: "CC Music — Portal Muzyki Chrześcijańskiej, Worship 24/7 i Biblia Śpiewana (/music)",
+    category: "Radio i Muzyka",
+    url: "https://polskieradio.cc/music",
+    description: "Oficjalny portal muzyczny Christian Culture (CC Music): całodobowa muzyka uwielbieniowa, Biblia Śpiewana, Spiritual Sounds, śpiewnik karaoke i albumy chrześcijańskie.",
+    tags: ["cc music", "cc miusi", "miusi", "muzyka", "worship", "biblia śpiewana", "pieśni", "uwielbienie", "karaoke"],
+    featured: true
+  },
+  {
+    title: "Biblia Audio Christian Culture — Słuchaj Pisma Świętego (Biblia Słuchana -16 LUFS)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/biblia-audio",
+    description: "Wielościeżkowe słuchowisko Pisma Świętego rozdział po rozdziale (Biblia słuchana, Biblia Audio UBG) w jakości studyjnej EBU R128 (-16 LUFS) oraz Radio Biblia 24/7.",
+    tags: ["biblia audio", "biblia słuchana", "biblia sluchana", "biblia radio", "audiobook biblia", "słuchowisko biblijne", "księga rodzaju audio"],
+    featured: true
+  },
+  {
+    title: "Rozwiąż Problem: Wolność od Nałogów — Rzuć Palenie i Pokonaj Uzależnienie",
+    category: "Pomoc i Wsparcie",
+    url: "https://polskieradio.cc/RozwiążProblem",
+    description: "Praktyczny, bezpłatny program wychodzenia z uzależnień (nikotyna, papierosy, alkohol, nawyki) oparty na psychologii i duchowym wsparciu Christian Culture.",
+    tags: ["rzuć palenie", "rzuc palenie", "papierosy", "palenie", "nikotyna", "uzależnienie", "rozwiąż problem", "nałóg"],
+    featured: true
+  },
+  {
+    title: "40 Dni Modlitwy i Biblijny Czas Modlitwy — Zjednoczeni w Modlitwie (/40DM & /modlitwa)",
+    category: "Społeczność i Modlitwa",
+    url: "https://polskieradio.cc/40DM/",
+    description: "Codzienny biblijny czas modlitwy, 40 Dni Modlitwy, ściana intencji modlitewnych oraz wspólnota wstawiennicza Christian Culture — Bądź Bliżej Boga.",
+    tags: ["biblijny czas modlitwy", "biblijny czas modlitwa", "40 dni", "40 dni modlitwy", "bądź bliżej", "badz blizej", "bądź blisko", "modlitwa", "ściana modlitwy"],
+    featured: true
+  },
+  {
+    title: "Katalog Wizytówek Christian Culture — Ludzie, Służby i Projekty (/wizytowki)",
+    category: "Społeczność",
+    url: "https://polskieradio.cc/wizytowki",
+    description: "Oficjalny katalog wizytówek ekosystemu Christian Culture: duszpasterze, autorzy, specjaliści CC Pomoc, kanały nadawcze i inicjatywy misyjne.",
+    tags: ["wizytówki", "wizytowki", "wiwytówki", "wiwytowki", "wizytówka", "katalog wizytówek"],
+    featured: true
+  },
+  {
+    title: "CC Pomoc (CC Help) — Bezpłatne Centrum Wsparcia: Małżeństwo, Rozwód, Samotność, Starość (/uslugi)",
+    category: "Pomoc i Wsparcie",
+    url: "https://polskieradio.cc/uslugi",
+    description: "Bezpłatne poradniki pierwszego kroku i wsparcie duszpastersko-psychologiczne: kryzys małżeński i rozwód, samotność, depresja, starość, żałoba oraz Infolinia Nadziei.",
+    tags: ["cc pomoc", "cc help", "hepl", "help", "pomoc", "rozwód", "rozwod", "samotność", "samotnosc", "starość", "starosc", "dzieci", "kryzys"],
+    featured: true
+  }
+];
+
+const allNewItems = [...userIntentItems, ...dailyLessons, ...fundamentalLessons];
 const newUrls = new Set(allNewItems.map(i => i.url.toLowerCase()));
 
 // Usuń stare duplikaty wg URL jeśli istniały

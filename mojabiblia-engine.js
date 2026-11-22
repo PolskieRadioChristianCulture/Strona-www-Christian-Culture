@@ -420,6 +420,9 @@
       if (bottomLabel) {
         bottomLabel.textContent = `${bName} ${chapterNum}`;
       }
+      if (typeof document !== 'undefined') {
+        document.title = `${bName} ${chapterNum} (${shortName} ${chapterNum}) — Biblia Interlinearna Online, Kody Stronga, UBG | MojaBiblia`;
+      }
 
       if (this.contentContainer) {
         this.contentContainer.innerHTML = `

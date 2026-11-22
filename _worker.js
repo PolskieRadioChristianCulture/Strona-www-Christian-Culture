@@ -2097,6 +2097,52 @@ export default {
       if (needsMojabibliaRedirect) {
         return Response.redirect(cleanMbUrl.toString(), 301);
       }
+
+      // Dynamiczne wstrzykiwanie tytułu SEO, meta description, canonical i og:title dla wszystkich 1189 rozdziałów /mojabiblia?book=XXX&ch=YY
+      const rawBookParam = (cleanMbUrl.searchParams.get('book') || '').trim().toUpperCase();
+      const rawChParam = parseInt(cleanMbUrl.searchParams.get('ch') || '1', 10);
+      if (rawBookParam && !isNaN(rawChParam) && rawChParam >= 1) {
+        const MB_BOOKS_SEO = {
+          GEN: ['Księga Rodzaju', 'Rdz', 'ST'], EXO: ['Księga Wyjścia', 'Wj', 'ST'], LEV: ['Księga Kapłańska', 'Kpł', 'ST'], NUM: ['Księga Liczb', 'Lb', 'ST'], DEU: ['Księga Powtórzonego Prawa', 'Pwt', 'ST'],
+          JOS: ['Księga Jozuego', 'Joz', 'ST'], JDG: ['Księga Sędziów', 'Sdz', 'ST'], RUT: ['Księga Rut', 'Rut', 'ST'], '1SA': ['1 Księga Samuela', '1Sm', 'ST'], '2SA': ['2 Księga Samuela', '2Sm', 'ST'],
+          '1KI': ['1 Księga Królewska', '1Krl', 'ST'], '2KI': ['2 Księga Królewska', '2Krl', 'ST'], '1CH': ['1 Księga Kronik', '1Krn', 'ST'], '2CH': ['2 Księga Kronik', '2Krn', 'ST'], EZR: ['Księga Ezdrasza', 'Ezd', 'ST'],
+          NEH: ['Księga Nehemiasza', 'Neh', 'ST'], EST: ['Księga Estery', 'Est', 'ST'], JOB: ['Księga Hioba', 'Hi', 'ST'], PSA: ['Księga Psalmów', 'Ps', 'ST'], PRO: ['Księga Przysłów', 'Prz', 'ST'],
+          ECC: ['Księga Koheleta (Kaznodziei)', 'Koh', 'ST'], SNG: ['Pieśń nad Pieśniami', 'PnP', 'ST'], ISA: ['Księga Izajasza', 'Iz', 'ST'], JER: ['Księga Jeremiasza', 'Jer', 'ST'], LAM: ['Lamentacje Jeremiasza', 'Lm', 'ST'],
+          EZK: ['Księga Ezechiela', 'Ez', 'ST'], DAN: ['Księga Daniela', 'Dn', 'ST'], HOS: ['Księga Ozeasza', 'Oz', 'ST'], JOL: ['Księga Joela', 'Jl', 'ST'], AMO: ['Księga Amosa', 'Am', 'ST'],
+          OBA: ['Księga Abdiasza', 'Abd', 'ST'], JON: ['Księga Jonasza', 'Jon', 'ST'], MIC: ['Księga Micheasza', 'Mich', 'ST'], NAM: ['Księga Nahuma', 'Nah', 'ST'], HAB: ['Księga Habakuka', 'Hab', 'ST'],
+          ZEP: ['Księga Sofoniasza', 'Sof', 'ST'], HAG: ['Księga Aggeusza', 'Agg', 'ST'], ZEC: ['Księga Zachariasza', 'Zach', 'ST'], MAL: ['Księga Malachiasza', 'Mal', 'ST'],
+          MAT: ['Ewangelia św. Mateusza', 'Mt', 'NT'], MRK: ['Ewangelia św. Marka', 'Mk', 'NT'], LUK: ['Ewangelia św. Łukasza', 'Łk', 'NT'], JHN: ['Ewangelia św. Jana', 'J', 'NT'], ACT: ['Dzieje Apostolskie', 'Dz', 'NT'],
+          ROM: ['List do Rzymian', 'Rz', 'NT'], '1CO': ['1 List do Koryntian', '1Kor', 'NT'], '2CO': ['2 List do Koryntian', '2Kor', 'NT'], GAL: ['List do Galacjan', 'Gal', 'NT'], EPH: ['List do Efezjan', 'Ef', 'NT'],
+          PHP: ['List do Filipian', 'Flp', 'NT'], COL: ['List do Kolosan', 'Kol', 'NT'], '1TH': ['1 List do Tesaloniczan', '1Tes', 'NT'], '2TH': ['2 List do Tesaloniczan', '2Tes', 'NT'], '1TI': ['1 List do Tymoteusza', '1Tm', 'NT'],
+          '2TI': ['2 List do Tymoteusza', '2Tm', 'NT'], TIT: ['List do Tytusa', 'Tt', 'NT'], PHM: ['List do Filemona', 'Flm', 'NT'], HEB: ['List do Hebrajczyków', 'Hbr', 'NT'], JAS: ['List św. Jakuba', 'Jk', 'NT'],
+          '1PE': ['1 List św. Piotra', '1P', 'NT'], '2PE': ['2 List św. Piotra', '2P', 'NT'], '1JN': ['1 List św. Jana', '1J', 'NT'], '2JN': ['2 List św. Jana', '2J', 'NT'], '3JN': ['3 List św. Jana', '3J', 'NT'],
+          JUD: ['List św. Judy', 'Jud', 'NT'], REV: ['Objawienie św. Jana (Apokalipsa)', 'Obj', 'NT']
+        };
+        const bInfo = MB_BOOKS_SEO[rawBookParam];
+        if (bInfo && ['GET', 'HEAD'].includes(request.method)) {
+          const [bName, bShort, testament] = bInfo;
+          const origLang = testament === 'NT' ? 'Grecko-Polska (Kody Stronga G)' : 'Hebrajsko-Polska (Kody Stronga H)';
+          const dynTitle = `${bName} ${rawChParam} (${bShort} ${rawChParam}) — Biblia Interlinearna ${origLang}, UBG, BW, BT, BG | MojaBiblia`;
+          const dynDesc = `Czytaj i studiuj: ${bName}, rozdział ${rawChParam} (${bShort} ${rawChParam}) w darmowej Biblii Interlinearnej Online. Oryginał słowo po słowie, polski słownik Stronga oraz 4 przekłady (UBG, BW, BT, BG).`;
+          const dynCanon = `https://polskieradio.cc/mojabiblia?book=${rawBookParam}&ch=${rawChParam}`;
+          const assetTarget = new URL(request.url);
+          assetTarget.pathname = '/mojabiblia.html';
+          const assetRes = await env.ASSETS.fetch(new Request(assetTarget, request));
+          if (assetRes.ok && (assetRes.headers.get('content-type') || '').includes('text/html')) {
+            let html = await assetRes.text();
+            html = html
+              .replace(/<title>[\s\S]*?<\/title>/, `<title>${dynTitle}</title>`)
+              .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${dynDesc}">`)
+              .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${dynCanon}">`)
+              .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${dynTitle}">`)
+              .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${dynDesc}">`)
+              .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${dynCanon}">`);
+            const headers = new Headers(assetRes.headers);
+            headers.set('Content-Type', 'text/html; charset=utf-8');
+            return new Response(html, { status: 200, headers });
+          }
+        }
+      }
     }
 
     // Przechwycenie social crawlerów dla /milion oraz /widget

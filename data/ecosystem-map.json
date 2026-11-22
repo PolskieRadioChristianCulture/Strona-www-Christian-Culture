@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-22",
+      "topic": "MojaBiblia & Wyszukiwarka @w — dynamiczne meta-tytuły SEO na brzegu Cloudflare (_worker.js) dla wszystkich 1189 rozdziałów /mojabiblia?book=XXX&ch=YY oraz rozszerzenie słownika @w o najczęstsze zapytania użytkowników (CC Music/miusi, rozwód, samotność, śmierć, rzuć palenie, wizytówki)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-22",
       "topic": "Skalowanie SEO & Konwersji (GSC/GA4) — optymalizacja meta-tytułów i opisów + Schema.org ItemList/Movie dla /vod oraz LearningResource dla wszystkich 31 lekcji Kursu Apokalipsa (80 tras) + integracja WspieramTO 2.0 i Apokalipsa 24/7 Live",
       "agent": "A"
     },
