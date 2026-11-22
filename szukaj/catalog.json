@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-22T05:03:43.801Z",
-  "totalItems": 680,
+  "updatedAt": "2026-11-22T06:50:30.654Z",
+  "totalItems": 681,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -4318,6 +4318,36 @@
         "psychologia",
         "artykuł"
       ],
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-22T07:45:00+01:00",
+      "title": "Co na to Bóg chrześcijan? Jan Paweł II pocałował Koran. Czy gest szacunku może przekroczyć granicę wierności Jezusowi Chrystusowi?",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+      "description": "Jedna fotografia, tysiące komentarzy i pytanie o granicę między szacunkiem dla człowieka a wiernością Słowu Bożemu. Co — w świetle Biblii — chrześcijanin powinien wyznawać wobec innych religii?",
+      "contentSnippet": "Jedna fotografia, tysiące komentarzy i pytanie o granicę między szacunkiem dla człowieka a wiernością Słowu Bożemu. Jan Paweł II rzeczywiście ucałował egzemplarz Koranu podczas spotkania z iracką delegacją w Watykanie 14 maja 1999 roku. Jedni uznali to za gest dialogu, inni za niepokojący znak religijnego kompromisu. Ale czy na podstawie jednego zd…",
+      "author": "Cezary Rogowski",
+      "date": "22 listopada 2026",
+      "tags": [
+        "Jan Paweł II",
+        "Koran",
+        "Islam a Chrześcijaństwo",
+        "Dialog Międzyreligijny",
+        "Jezus Chrystus",
+        "Biblia i Teologia",
+        "Cezary Rogowski",
+        "CCN News",
+        "wiara",
+        "CCN Biblia & Teologia",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "J 14:6; 1 Tm 2:5; 1 P 3:15–16 Ja jestem drogą, prawdą i życiem. Nikt nie przychodzi do Ojca inaczej, jak tylko przeze mnie... Jeden bowiem jest Bóg, jeden też pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus.",
       "featured": true
     },
     {
@@ -14940,7 +14970,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-22T05:03:44.043Z",
+    "updatedAt": "2026-11-22T06:50:30.907Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "22 listopada 2026",
     "pools": [

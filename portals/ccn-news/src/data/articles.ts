@@ -41,6 +41,7 @@ export const AUTHORS: Record<string, Author> = {
 };
 
 export const BREAKING_NEWS: string[] = [
+  "NOWY ARTYKUŁ CCN NEWS & BIBLIA: Co na to Bóg chrześcijan? Jan Paweł II pocałował Koran. Czy gest szacunku może przekroczyć granicę wierności Jezusowi Chrystusowi? — analiza Cezarego Rogowskiego (https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran)",
   "NOWY ARTYKUŁ CCN BIBLIA: Czy katolik powinien uznawać niedzielę handlową? Odpowiedź Cezarego Rogowskiego (https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa)",
   "NOWY ARTYKUŁ CCN PRAWO: Trybunał Konstytucyjny czy Najwyższy? Jest jeszcze sąd, przed którym stanie każdy człowiek — analiza Cezarego Rogowskiego (https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad)",
   "NOWY ARTYKUŁ CCN FINANSE: Fundusz Sprawiedliwości, którego nie znasz. Kto zapłacił za Twój dług wobec Boga? — felieton Cezarego Rogowskiego (https://polskieradio.cc/finanse/fundusz-sprawiedliwosci-ktorego-nie-znasz)",
@@ -102,6 +103,85 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    "id": "art-co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+    "title": "Co na to Bóg chrześcijan? Jan Paweł II pocałował Koran. Czy gest szacunku może przekroczyć granicę wierności Jezusowi Chrystusowi?",
+    "slug": "co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+    "excerpt": "Jedna fotografia, tysiące komentarzy i pytanie o granicę między szacunkiem dla człowieka a wiernością Słowu Bożemu. Co — w świetle Biblii — chrześcijanin powinien wyznawać wobec innych religii?",
+    "content": [
+      "Jedna fotografia, tysiące komentarzy i pytanie o granicę między szacunkiem dla człowieka a wiernością Słowu Bożemu. Jan Paweł II rzeczywiście ucałował egzemplarz Koranu podczas spotkania z iracką delegacją w Watykanie 14 maja 1999 roku. Jedni uznali to za gest dialogu, inni za niepokojący znak religijnego kompromisu. Ale czy na podstawie jednego zdjęcia wolno orzekać o czyjejś wierze? I co — w świetle Biblii — chrześcijanin powinien wyznawać wobec innych religii?",
+      "1. Najpierw fakty. Co wydarzyło się 14 maja 1999 roku?",
+      "Podczas audiencji w Watykanie Jan Paweł II spotkał się z delegacją związaną z Irakiem, w której uczestniczyli przedstawiciele chrześcijańscy i muzułmańscy. Wręczono mu egzemplarz Koranu, który papież ucałował. Wydarzenie jest znane z fotografii i zostało opisane w relacjach świadków; Vatican News przypomniało je z okazji 25. rocznicy, a o geście pisano także w materiałach naukowych poświęconych dialogowi międzyreligijnemu.",
+      "Ważna jest precyzja: gest miał miejsce w Watykanie, a nie podczas wizyty papieża w meczecie. Nie znamy pełni jego wewnętrznych intencji. Relacje uczestników wyjaśniają go jako wyraz szacunku wobec gości i ich religii. Samo zdjęcie nie pozwala natomiast stwierdzić, że papież przyjął naukę islamu, uznał Koran za natchniony na równi z Biblią albo wyrzekł się boskości Chrystusa.",
+      "Można zadać pytanie, czy gest był roztropny teologicznie i czy jego symbolika była wystarczająco czytelna. Nie należy jednak budować oskarżenia o apostazję na domniemaniu, którego obraz nie dowodzi.",
+      "2. Czy Bóg Biblii nakazuje szanować wyznawców innych religii?",
+      "Tak. Człowiek pozostaje stworzony na obraz Boga bez względu na wyznanie, pochodzenie i przekonania (Rdz 1,26–27). Apostoł Piotr wzywa do szanowania wszystkich ludzi (1 P 2,17). Jezus nakazuje miłować bliźniego, a przypowieść o miłosiernym Samarytaninie przekracza granice religijnej i społecznej niechęci (Łk 10,25–37).",
+      "Rozmowa z muzułmaninem, zaproszenie go do stołu, pomoc jego rodzinie i obrona jego godności nie są zdradą Chrystusa. Przeciwnie, stanowią sposobność do okazania miłości bliźniego. W 1 P 3,15–16 chrześcijanie są wezwani do uzasadniania swej nadziei z łagodnością i szacunkiem. W ten sposób można mówić o zasadniczych różnicach doktrynalnych bez lekceważenia człowieka.",
+      "Ale szacunek dla osoby nie jest tym samym co uznanie za prawdziwych wszystkich twierdzeń, które ta osoba wyznaje. Tę różnicę musimy zachować, jeśli chcemy rozmawiać uczciwie.",
+      "3. W czym chrześcijańska Ewangelia różni się od islamu?",
+      "Chrześcijaństwo i islam podkreślają jedyność Boga, wagę modlitwy, moralną odpowiedzialność i znaczenie objawienia. Różnice nie ograniczają się jednak do rytuałów czy sposobu ubierania się.",
+      "Centralnym wyznaniem Nowego Testamentu jest to, że Jezus jest odwiecznym Słowem, które stało się ciałem (J 1,1–3.14), że Tomasz wyznał wobec Zmartwychwstałego: „Pan mój i Bóg mój” (J 20,28), a zbawienie jest zakorzenione w Jego śmierci i zmartwychwstaniu (1 Kor 15,3–4). Koran uznaje Jezusa — Isę — za niezwykłego wysłannika i Mesjasza, lecz odrzuca chrześcijańskie wyznanie Jego boskiego Synostwa; teksty takie jak Koran 4:171 i 5:72–75 pokazują realną rozbieżność doktrynalną. Koran 4:157 bywa rozumiany jako zakwestionowanie ukrzyżowania Jezusa, choć istnieją zróżnicowane interpretacje tego wersetu.",
+      "Nie wolno rozmywać tych różnic zdaniem, że „wszyscy wierzą dokładnie w to samo”. Nie wolno również wykorzystywać ich do odczłowieczania wyznawców islamu. Prawda teologiczna i miłość bliźniego nie są przeciwnikami.",
+      "4. Czy każdy gest wobec cudzej księgi religijnej jest bałwochwalstwem?",
+      "Biblia wyraźnie zabrania oddawania czci innym bogom (Wj 20,3–5). Przestrzega także przed utożsamianiem religijnych przedmiotów z Bogiem: gdy wąż miedziany zaczął być otaczany niewłaściwą czcią, król Ezechiasz go zniszczył (2 Krl 18,4). Zarazem samo fizyczne dotknięcie przedmiotu, otrzymanie książki czy gest uprzejmości nie jest automatycznie aktem kultu.",
+      "Ocena wymaga zbadania znaczenia gestu w danej kulturze, intencji jego wykonawcy oraz tego, jaki przekaz mógł powstać u odbiorców. Pocałunek książki w wielu tradycjach jest znakiem głębokiego poważania. Wobec księgi uznawanej przez inną religię za świętą może zostać odczytany zarówno jako szacunek wobec ludzi, jak i jako religijne uznanie samego tekstu. Ta wieloznaczność jest uzasadnionym powodem dyskusji o roztropności gestu.",
+      "Można więc uznać papieski pocałunek Koranu za nieostrożny i teologicznie niejasny bez twierdzenia, że wiemy, co działo się w sercu Jana Pawła II. Nie jesteśmy sędziami ludzkich intencji; możemy natomiast oceniać publiczne symbole i nauczanie w świetle Pisma (1 Tes 5,21).",
+      "5. „Nikt nie przychodzi do Ojca inaczej jak przeze Mnie”",
+      "Tutaj kończy się możliwość kompromisu w samym centrum chrześcijańskiego wyznania. Jezus stwierdza w J 14,6, że jest drogą, prawdą i życiem, i że do Ojca przychodzi się przez Niego. Piotr głosi w Dz 4,12 wyjątkowość zbawienia w imieniu Jezusa. Paweł przedstawia Chrystusa jako jedynego Pośrednika między Bogiem i ludźmi (1 Tm 2,5).",
+      "Nie są to wersety służące pogardzie dla innych. Są świadectwem tego, w kim chrześcijanie pokładają swoją nadzieję. Nie zbawia nas dyplomacja, urząd kościelny, tradycja ani przynależność kulturowa. Zbawienie jest darem łaski przez wiarę w Chrystusa, a dobre czyny stanowią owoc tej łaski (Ef 2,8–10).",
+      "Kiedy przedstawiamy wiarę jako jeden z wielu równoważnych systemów docierania do zbawienia, przestajemy oddawać sprawiedliwość własnej Ewangelii. Kiedy natomiast głosimy wyjątkowość Chrystusa bez miłości, zdradzamy sposób, w jaki polecił nam świadczyć o Nim (J 13,34–35). Potrzebujemy obu rzeczy naraz: prawdy i miłości.",
+      "6. Co faktycznie nauczał Jan Paweł II o Jezusie?",
+      "Aby ocenić sens wydarzenia, trzeba patrzeć nie tylko na jeden moment, lecz również na publiczne nauczanie papieża. Jan Paweł II wielokrotnie wyznawał Chrystusa jako Zbawiciela. W encyklice „Redemptoris missio” z 1990 roku podkreślał jedyność i powszechne znaczenie zbawczego pośrednictwa Jezusa oraz potrzebę misji Kościoła. W tym sensie nie można uczciwie twierdzić, że publicznie nauczał o bezwartościowości lub zbędności Chrystusa.",
+      "Równocześnie jego gesty dialogu międzyreligijnego wzbudzały spory wśród chrześcijan, również katolików. Jedni podkreślali pokojowy zamiar i troskę o wzajemny szacunek; drudzy obawiali się relatywizmu religijnego. Właściwą drogą jest porównanie konkretnych wypowiedzi, czynów i Pisma, zamiast zamykania rozmowy etykietą.",
+      "W chrześcijańskim rozumieniu ani papież, ani pastor, ani autor artykułu nie stoi ponad natchnionym Słowem (2 Tm 3,16–17; Dz 17,11). Wszyscy potrzebujemy korekty, pokory i prawdy.",
+      "7. Dialog czy kompromis? Granica, której nie wolno zacierać",
+      "W Dziejach Apostolskich 17,22–31 Paweł rozmawia w Atenach z ludźmi o odmiennej religijności. Poznaje ich sposób myślenia, cytuje ich poetów i podejmuje dialog. Nie kończy jednak na zdaniu, że wszystkie bóstwa są równoważne. Wzywa do nawrócenia i mówi o Bożym sądzie przez wyznaczonego Człowieka, którego Bóg wskrzesił z martwych.",
+      "To znakomity model chrześcijańskiej postawy. Mogę słuchać, szanować, rozumieć kontekst i szukać pokoju. Nie muszę wyśmiewać tekstu religijnego ważnego dla drugiej osoby. Ale nie powinienem ukrywać, że moje ostateczne zaufanie należy do Chrystusa. W 2 Kor 5,18–20 Paweł nazywa wierzących posłami pojednania: nie ambasadorami własnej pychy, lecz przedstawicielami przesłania o pojednaniu człowieka z Bogiem przez Chrystusa.",
+      "Kiedy chrześcijański przywódca uczestniczy w dialogu, musi rozważyć również czytelność swoich symbolicznych gestów. Sam gest przyjaźni można wykonać na wiele sposobów. Mądre jest wybrać taki, który niepotrzebnie nie zaciera podstawowego wyznania wiary. Jest to ocena roztropności, nie uprawnienie do odgadywania cudzej duchowej kondycji.",
+      "8. Pytanie, które powinienem zadać sobie, a nie tylko papieżowi",
+      "Łatwo ocenia się gest człowieka, którego zna cały świat. O wiele trudniej spojrzeć na własne ustępstwa. Czy ja nie całuję symbolicznie tego, co odciąga mnie od Chrystusa — prestiżu, pieniędzy, uznania, polityki, popularności? Czy potrafię stanąć przy Ewangelii także wtedy, gdy ktoś uzna moje przekonania za niemodne? Czy potrafię mówić o prawdzie tak, aby w moich słowach było miejsce na szacunek dla człowieka?",
+      "Jezus przestrzega przed usuwaniem drzazgi z oka bliźniego przy jednoczesnym lekceważeniu własnej belki (Mt 7,1–5). Nie oznacza to zakazu oceny doktryny, lecz wezwanie do pokory i samokontroli. Chrześcijanin nie może żądać odpowiedzialności od przywódców, a sobie samemu przyznawać zwolnienia z uczciwości.",
+      "Jeśli to zdjęcie ma mieć dla mnie jakąś wartość, niech prowadzi mnie do Biblii, a nie do satysfakcji z cudzego kontrowersyjnego gestu.",
+      "9. Co na to Bóg chrześcijan? Odpowiedź, którą można uzasadnić",
+      "Nie mogę powiedzieć: „Bóg osądził ten jeden gest dokładnie tak”, jeśli Pismo nie daje mi dostępu do serca wykonawcy. Mogę natomiast powiedzieć, czego Bóg naucza chrześcijan przez swoje Słowo: kochaj bliźniego i szanuj jego godność (Mt 22,37–40; 1 P 2,17); nie oddawaj czci innym bogom (Wj 20,3–5); wyznawaj Jezusa Chrystusa jako jedyną drogę do Ojca i Pośrednika zbawienia (J 14,6; 1 Tm 2,5); mów prawdę w miłości (Ef 4,15).",
+      "Z tego wynika odpowiedzialna ocena: gest Jana Pawła II można krytykować jako niejasny symbolicznie i zdolny do wywołania wrażenia religijnego uznania Koranu. Nie wolno jednak na podstawie samego zdjęcia głosić jako faktu, że papież odrzucił Chrystusa, albo potępiać wszystkich katolików czy muzułmanów.",
+      "Chrześcijaństwo nie sprowadza się ani do wojny religijnych symboli, ani do relatywizowania wszystkiego w imię uprzejmości. Prawdziwy uczeń Chrystusa umie okazać miłość bez zdrady Ewangelii. Potrafi powiedzieć „szanuję Cię” i jednocześnie „wierzę, że jedynym Zbawicielem jest Jezus”.",
+      "10. Zakończenie: od fotografii do krzyża",
+      "Historia jednego pocałunku trwa w internecie od ponad ćwierćwiecza. Możemy zamienić ją w kolejną kłótnię, ale możemy też wykorzystać ją do rzetelnego rachunku wiary. Nie potrzebuję potępiać człowieka, by wyznać Chrystusa. Nie muszę wyśmiewać muzułmanina, by uznać Biblię za Słowo Boże.",
+      "Jeśli Jezus naprawdę jest Panem i Bogiem, wówczas moja wierność wobec Niego musi być czymś więcej niż ostrym komentarzem. Powinna oznaczać modlitwę, uczciwość, gotowość wyznania grzechu, miłość do bliźniego i odwagę publicznego świadectwa. Chrystus nie przyszedł jedynie po religijną poprawność. Przyszedł, aby szukać i zbawić zagubionych (Łk 19,10).",
+      "Panie Jezu Chryste, ucz mnie kochać ludzi bez utraty wierności prawdzie. Nie pozwól mi mylić szacunku z religijnym kompromisem ani gorliwości z pogardą. Ojcze w niebie, prowadź moje myśli, słowa i wybory przez Twoje Słowo. Amen."
+    ],
+    "category": "wiara",
+    "categoryLabel": "CCN Biblia & Teologia",
+    "author": AUTHORS.cezary,
+    "publishedAt": "2026-11-22T07:45:00+01:00",
+    "dateFormatted": "22 listopada 2026",
+    "imageUrl": "/images/news/art-co-na-to-bog-chrzescijan-jan-pawel-ii-koran.jpg",
+    "imageCaption": "Ilustracja redakcyjna: Spotkanie Jana Pawła II z delegacją iracką (14 maja 1999 r.) a biblijne pytanie o granicę między szacunkiem dla człowieka a wiernością Jezusowi Chrystusowi (opracowanie graficzne CCN News).",
+    "readTimeMinutes": 6,
+    "isPopular": true,
+    "popularRank": 1,
+    "tags": [
+      "Jan Paweł II",
+      "Koran",
+      "Islam a Chrześcijaństwo",
+      "Dialog Międzyreligijny",
+      "Jezus Chrystus",
+      "Biblia i Teologia",
+      "Cezary Rogowski",
+      "CCN News"
+    ],
+    "scriptureReference": {
+      "verse": "J 14:6; 1 Tm 2:5; 1 P 3:15–16",
+      "text": "Ja jestem drogą, prawdą i życiem. Nikt nie przychodzi do Ojca inaczej, jak tylko przeze mnie... Jeden bowiem jest Bóg, jeden też pośrednik między Bogiem a ludźmi, człowiek Chrystus Jezus."
+    },
+    "sourceCitation": {
+      "sourceName": "Vatican News / Encyklika Redemptoris missio (1990) / Audiencja 14.05.1999",
+      "sourceUrl": "https://www.vaticannews.va/hr/crkva/news/2024-05/ivan-pavao-ii-i-poljubac-kur-ana-25-godina-poslije.html"
+    },
+    "primaryPortalUrl": "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+    "primaryPortalLabel": "CCN Biblia & Teologia"
+  },
   {
     "id": "art-czy-katolik-powinien-uznawac-niedziele-handlowa",
     "title": "Czy katolik powinien uznawać niedzielę handlową? Odpowiedź, której nie znajdziesz na sklepowych drzwiach",
