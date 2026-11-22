@@ -8,7 +8,7 @@ import { createGivingLedger, verifyWebhookSignature } from './milion-gestow-ledg
 const htmlPath = path.resolve('test/milion-gestow/index.html');
 const html = fs.readFileSync(htmlPath, 'utf8');
 
-test('T01-T04 & T11-T12: Landing /test/milion-gestow spełnia wymogi noindex, progów 2/5/10/20 zł, trybu demo i oficjalnej nazwy CHRISTIAN CULTURE', () => {
+test('T01-T04 & T11-T12: Landing /test/milion-gestow spełnia wymogi CC FULL PREMIUM, noindex, progów 2/5/10/20 zł, trybu demo i oficjalnej nazwy CHRISTIAN CULTURE', () => {
   assert.match(html, /<meta name="robots" content="noindex,nofollow">/);
   assert.match(html, /data-value="2"/);
   assert.match(html, /data-value="5"/);
@@ -18,8 +18,11 @@ test('T01-T04 & T11-T12: Landing /test/milion-gestow spełnia wymogi noindex, pr
   assert.match(html, /data-freq="once"/);
   assert.match(html, /id="btnDemoCheckout"[^>]*disabled/);
   assert.match(html, /CHRISTIAN CULTURE/);
-  assert.match(html, /MILION DROBNYCH/);
+  assert.match(html, /Milion Drobnych/i);
   assert.match(html, /Mały gest\. Wielka misja\./);
+  assert.match(html, /class="header-right/);
+  assert.match(html, /id="tickRun"/);
+  assert.match(html, /id="promoStage"/);
 });
 
 test('T05: Podwójny webhook SETTLED zalicza dokładnie 1 gest i 1 wpłatę (idempotentność)', () => {
