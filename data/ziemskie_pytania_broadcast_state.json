@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-22",
+  "series": "ziemskie_pytania_wieczne_odpowiedzi",
+  "slots": {
+    "1": {
+      "status": "EMITTED",
+      "emittedAt": "2026-11-22T05:05:47Z",
+      "results": {
+        "slotId": 1,
+        "tablica": { "ok": true, "docId": "zjyhkqhoZqkuuYStI7vU" },
+        "x": { "ok": true },
+        "whatsapp": { "ok": true, "docId": "TaB400dR1bp74p4k2ybK" }
+      }
+    }
+  }
+}
