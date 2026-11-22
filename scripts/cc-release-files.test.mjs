@@ -51,7 +51,7 @@ test('real release builder excludes private fixtures and keeps public and frozen
   };
   for (const file of ['build-pages-release.mjs', 'cc-release-files.mjs', 'cc-release-secret-scan.mjs',
     'daily-course-manifest.mjs', 'cc-page-standard.mjs', 'cc-channel-numbering.mjs', 'lumi-page.mjs', 'lumi-dashboard.mjs',
-    'kurs-codzienny/straznik-lekcji.mjs', 'kurs-codzienny/lib.mjs', 'cc-release-branch-guard.mjs', 'cc-protected-pages.mjs']) {
+    'kurs-codzienny/straznik-lekcji.mjs', 'kurs-codzienny/lib.mjs', 'cc-release-branch-guard.mjs', 'cc-protected-pages.mjs', 'cc-image-freshness-guard.mjs']) {
     put('scripts/' + file, fs.readFileSync(new URL(file, import.meta.url)));
   }
   put('data/cc-channels.json', fs.readFileSync(new URL('../data/cc-channels.json', import.meta.url)));
@@ -60,6 +60,8 @@ test('real release builder excludes private fixtures and keeps public and frozen
   for (const file of ['index.html', 'semantic-index.html', 'lumina.html', 'lumina-tablica.html']) put(file, html);
   for (const file of ['data/ccn-article-routes.js', '_headers', '_redirects', '_worker.js', 'lib/bu-voting-worker.js',
     'firebase-messaging-sw.js', 'manifest-lumina.json', 'robots.txt', 'js/cc-back-to-top.js', 'js/cc-edge-plus.js', 'components/cc-omni-search.js', 'js/cc-favorites.js']) put(file, 'fixture');
+  // Prawdziwe _headers: strażnik świeżości obrazów (cc-image-freshness-guard.mjs) sprawdza w budowaniu politykę cache.
+  put('_headers', fs.readFileSync(new URL('../_headers', import.meta.url)));
   const frozen = ['cctv24-worship.html', 'cctv24-worship-live.html', 'stream-scene.html', 'cctv24.html', 'snadaniowa-live.html', 'zapolske-live.html'];
   for (const file of frozen) put(file, html);
   for (const file of privatePaths) put(file, 'PRIVATE_FIXTURE_MARKER');

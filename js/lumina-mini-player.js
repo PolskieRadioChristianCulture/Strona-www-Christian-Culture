@@ -258,7 +258,7 @@
                 </div>
                 ${STATIONS.map((s, idx) => `
                     <button type="button" class="lmp-station-option ${idx === currentStationIndex ? 'active' : ''}" onclick="window.LuminaMiniPlayer.selectStation(${idx}, event)">
-                        <img src="${s.logo}" alt="${s.name}" class="lmp-station-option-img" onerror="this.src='logo_radio_cc.jpg'">
+                        <img src="${s.logo}" alt="${s.name}" class="lmp-station-option-img" loading="lazy" decoding="async" onerror="this.src='logo_radio_cc.jpg'">
                         <div class="lmp-station-option-info">
                             <div class="lmp-station-option-title">${s.name}</div>
                             <div class="lmp-station-option-sub">${s.sub}</div>
