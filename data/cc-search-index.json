@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-22T04:20:08.107Z",
-  "totalItems": 676,
+  "updatedAt": "2026-11-22T04:38:43.764Z",
+  "totalItems": 680,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -4318,6 +4318,124 @@
         "psychologia",
         "artykuł"
       ],
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-22T06:00:00+01:00",
+      "title": "Czy katolik powinien uznawać niedzielę handlową? Odpowiedź, której nie znajdziesz na sklepowych drzwiach",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa",
+      "description": "Między przepisami o handlu, czwartym przykazaniem i prawdziwym odpoczynkiem w Chrystusie",
+      "contentSnippet": "1. Czy otwarty sklep jest dowodem niewierności Bogu? W Polsce dyskusja o niedzielach handlowych potrafi dzielić rodziny. Jedni bronią wolnego dnia dla pracowników, inni prawa do zakupów, jeszcze inni przekonują, że niedzielny handel narusza Boże przykazania. Pytanie jest prowokacyjne: czy katolik powinien uznawać niedzielę handlową? Odpowiedź wymag…",
+      "author": "Cezary Rogowski",
+      "date": "22 listopada 2026",
+      "tags": [
+        "Niedziela Handlowa",
+        "Dekalog",
+        "Szabat",
+        "Czwarty Nakaz",
+        "Prawo Pracy",
+        "Odpoczynek",
+        "Cezary Rogowski",
+        "CCN News",
+        "wiara",
+        "CCN Biblia & Społeczeństwo",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "Wj 20:8–11; Mk 2:27–28 Szabat został ustanowiony dla człowieka, a nie człowiek dla szabatu. Tak więc Syn Człowieczy jest Panem także szabatu.",
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-22T06:15:00+01:00",
+      "title": "Trybunał Konstytucyjny czy Najwyższy? Jest jeszcze sąd, przed którym stanie każdy człowiek",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad",
+      "description": "Od sporów o polskie sądy do świątyni w niebie i Chrystusa — Sędziego oraz Orędownika",
+      "contentSnippet": "1. Który sąd naprawdę jest najwyższy? „Trybunał Konstytucyjny — Najwyższy?” To pytanie brzmi jak kolejna odsłona polskiej debaty politycznej. W natłoku komentarzy łatwo pomieszać instytucje, kompetencje i osobiste oceny. Tymczasem polska Konstytucja rozróżnia Sąd Najwyższy i Trybunał Konstytucyjny. Zgodnie z art. 183 Sąd Najwyższy sprawuje nadzór n…",
+      "author": "Cezary Rogowski",
+      "date": "22 listopada 2026",
+      "tags": [
+        "Sąd Najwyższy",
+        "Trybunał Konstytucyjny",
+        "Sąd Boży",
+        "Sprawiedliwość",
+        "Orędownik",
+        "Chrystus",
+        "Cezary Rogowski",
+        "CCN Prawo",
+        "prawo",
+        "CCN Prawo & Wiara",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "Dn 7:9–10; Hbr 4:14–16 Przystąpmy więc z ufnością do tronu łaski, abyśmy dostąpili miłosierdzia i znaleźli łaskę ku pomocy w stosownym czasie.",
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-22T06:30:00+01:00",
+      "title": "Fundusz Sprawiedliwości, którego nie znasz. Kto zapłacił za Twój dług wobec Boga?",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/finanse/fundusz-sprawiedliwosci-ktorego-nie-znasz",
+      "description": "Od pomocy pokrzywdzonym do daru usprawiedliwienia z łaski przez wiarę",
+      "contentSnippet": "1. Za głośną nazwą są prawdziwi pokrzywdzeni „Fundusz Sprawiedliwości” kojarzy się wielu osobom z wiadomościami politycznymi. Ale pod tą nazwą kryje się państwowy fundusz celowy — Fundusz Pomocy Pokrzywdzonym oraz Pomocy Postpenitencjarnej — którym dysponuje Minister Sprawiedliwości. Jego ustawowe zadania obejmują pomoc pokrzywdzonym przestępstwem …",
+      "author": "Cezary Rogowski",
+      "date": "22 listopada 2026",
+      "tags": [
+        "Fundusz Sprawiedliwości",
+        "Odkupienie",
+        "Łaska",
+        "Usprawiedliwienie",
+        "Zadośćuczynienie",
+        "Pomoc Pokrzywdzonym",
+        "Cezary Rogowski",
+        "finanse",
+        "CCN Finanse & Wiara",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "Rz 3:23–24; Ef 2:8–9 Wszyscy bowiem zgrzeszyli i są pozbawieni chwały Bożej; a zostają usprawiedliwieni darmo, z Jego łaski, przez odkupienie, które jest w Chrystusie Jezusie.",
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-22T06:45:00+01:00",
+      "title": "Okno życia woła także do Ciebie. Czy przyjmiesz dar, którego nie możesz kupić?",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/news/okno-zycia-wola-takze-do-ciebie",
+      "description": "Od ratowania noworodka po osobiste zawierzenie Jezusowi Chrystusowi",
+      "contentSnippet": "1. Za małym oknem może kryć się dramat całego życia „Okno życia” brzmi jak piękny symbol. W rzeczywistości bywa ostatnim miejscem, w którym ktoś w dramatycznych okolicznościach szuka bezpiecznej opieki dla noworodka. Nie znamy historii każdej osoby, która staje przed takim oknem. Nie znamy presji, samotności, lęku ani możliwej przemocy. Chrześcijań…",
+      "author": "Cezary Rogowski",
+      "date": "22 listopada 2026",
+      "tags": [
+        "Okno Życia",
+        "Nowe Narodzenie",
+        "Obrona Życia",
+        "Modlitwa Zawierzenia",
+        "Łaska",
+        "Rodzina",
+        "Cezary Rogowski",
+        "kraj",
+        "eM Rodzina & Wiara",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "J 3:3; 1 J 1:9 Jeśli ktoś się nie narodzi na nowo, nie może ujrzeć królestwa Bożego... Jeśli wyznajemy nasze grzechy, On jest wierny i sprawiedliwy, aby nam przebaczyć grzechy i oczyścić nas z wszelkiej nieprawości.",
       "featured": true
     },
     {
@@ -14790,192 +14908,5 @@
       "access": "public",
       "lang": "en"
     }
-  ],
-  "recommendedToday": [
-    {
-      "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 22",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 22 listopada 2026.",
-      "url": "/player",
-      "icon": "heart"
-    },
-    {
-      "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 53)",
-      "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-53",
-      "icon": "book"
-    },
-    {
-      "tag": "Dzień Reformacji 2026 • Na Dziś",
-      "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
-      "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
-      "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-      "icon": "newspaper"
-    },
-    {
-      "tag": "Nadajemy 24/7",
-      "title": "Radio Christian Culture & Player",
-      "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
-      "url": "/player",
-      "icon": "radio"
-    }
-  ],
-  "searchRecommendations": {
-    "updatedAt": "2026-11-22T04:20:08.987Z",
-    "heading": "Polecane na dziś",
-    "dateFormattedPL": "22 listopada 2026",
-    "pools": [
-      [
-        {
-          "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 22",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 22 listopada 2026.",
-          "url": "/player",
-          "icon": "heart"
-        },
-        {
-          "tag": "Słowo Boże na Dziś",
-          "title": "Mój Werset Dnia z Obietnicą",
-          "desc": "Losuj i rozważaj żywe obietnice Pisma Świętego przygotowane na dziś.",
-          "url": "/werset-dnia",
-          "icon": "sparkle"
-        },
-        {
-          "tag": "Modlitwa & Wstawiennictwo",
-          "title": "Zjednoczeni za Polskę — Czuwanie",
-          "desc": "Wspólna modlitwa narodu o pokój, Boże prowadzenie i przebudzenie.",
-          "url": "/modlitwa",
-          "icon": "shield"
-        },
-        {
-          "tag": "Słuchowisko Biblijne",
-          "title": "Biblia Audio — Nowy Testament UBG",
-          "desc": "Żywe Słowo Boże z profesjonalną muzyką i udźwiękowieniem radiowym.",
-          "url": "/player",
-          "icon": "volume"
-        }
-      ],
-      [
-        {
-          "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 53)",
-          "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-53",
-          "icon": "book"
-        },
-        {
-          "tag": "Interlinearna Biblia",
-          "title": "MojaBiblia: Kody Stronga & Greka",
-          "desc": "Oryginalne znaczenie słów hebrajskich i greckich w Twojej przeglądarce.",
-          "url": "/mojabiblia",
-          "icon": "scroll"
-        },
-        {
-          "tag": "Wyszukiwarka Ekosystemu",
-          "title": "Błyskawiczne Odkrywanie w CC",
-          "desc": "Szukaj wersetów, lekcji, audycji i artykułów natychmiast od 1. litery.",
-          "url": "/wyszukiwarka",
-          "icon": "search"
-        },
-        {
-          "tag": "Kurs Proroctw Biblijnych",
-          "title": "Księga Daniela — 2300 Wieczorów i Poranków",
-          "desc": "Klucz do zrozumienia czasów ostatecznych i nadziei Zbawienia w Chrystusie.",
-          "url": "/akademia",
-          "icon": "compass"
-        }
-      ],
-      [
-        {
-          "tag": "Dzień Reformacji 2026 • Na Dziś",
-          "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
-          "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
-          "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-          "icon": "newspaper"
-        },
-        {
-          "tag": "Rodzina & Zdrowie • Nowość",
-          "title": "Cyfrowy detoks w chrześcijańskim domu",
-          "desc": "Jak odzyskać prawdziwą bliskość przy wspólnym stole (Wioletta Rogowska).",
-          "url": "/news/cyfrowy-detoks-rodziny-jak-odzyskac-bliskosc-i-spokoj",
-          "icon": "newspaper"
-        },
-        {
-          "tag": "Podcast Spotify SDS",
-          "title": "APOKALIPSA — Księga Nadziei",
-          "desc": "Profetyczny cykl wykładów biblijnych Studia Dobrego Słowa.",
-          "url": "/podcasty",
-          "icon": "mic"
-        },
-        {
-          "tag": "Kino Chrześcijańskie VOD",
-          "title": "Filmy Fabularne i Dokumentalne CC",
-          "desc": "Wartościowe kino chrześcijańskie bez reklam, opłat i subskrypcji.",
-          "url": "/vod",
-          "icon": "film"
-        }
-      ],
-      [
-        {
-          "tag": "Nadajemy 24/7",
-          "title": "Radio Christian Culture & Player",
-          "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
-          "url": "/player",
-          "icon": "radio"
-        },
-        {
-          "tag": "Przegląd Ekosystemu • Nowość",
-          "title": "Tętno Misji: Nowe Lekcje i Artykuły",
-          "desc": "Aktualne premiery, audycje i materiały w całym ekosystemie CC.",
-          "url": "/news/przeglad-ekosystemu-nowe-artykuly-i-lekcje-akademii",
-          "icon": "sparkle"
-        },
-        {
-          "tag": "Telewizja CCTV24 Worship",
-          "title": "CCTV24 — Pasmo Bożej Obecności",
-          "desc": "Nocne czuwania, modlitwy i pieśni chwały w krystalicznej jakości HD.",
-          "url": "/cctv24-worship",
-          "icon": "play"
-        },
-        {
-          "tag": "Społeczność Wiary",
-          "title": "Portal Społecznościowy LUMINA",
-          "desc": "Dołącz do chrześcijan z całej Polski — dyskusje, świadectwa, modlitwa.",
-          "url": "/lumina",
-          "icon": "users"
-        }
-      ]
-    ],
-    "recommendedToday": [
-      {
-        "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 22",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 22 listopada 2026.",
-        "url": "/player",
-        "icon": "heart"
-      },
-      {
-        "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 53)",
-        "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-53",
-        "icon": "book"
-      },
-      {
-        "tag": "Dzień Reformacji 2026 • Na Dziś",
-        "title": "Reformacja nie skończyła się w 1517 roku — film „Luter”",
-        "desc": "509 lat od 1517 r. Sola Scriptura, Sola Gratia i odnowa sumienia (Cezary Rogowski).",
-        "url": "/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-        "icon": "newspaper"
-      },
-      {
-        "tag": "Nadajemy 24/7",
-        "title": "Radio Christian Culture & Player",
-        "desc": "Muzyka uwielbienia, słuchowiska Biblia Audio i stacje tematyczne.",
-        "url": "/player",
-        "icon": "radio"
-      }
-    ]
-  }
+  ]
 }

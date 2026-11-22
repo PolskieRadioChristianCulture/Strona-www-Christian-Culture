@@ -1303,6 +1303,65 @@ const PORTALS = [
     ],
     articles: [
       {
+            "id": "art-trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad",
+            "title": "Trybunał Konstytucyjny czy Najwyższy? Jest jeszcze sąd, przed którym stanie każdy człowiek",
+            "slug": "trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad",
+            "excerpt": "Od sporów o polskie sądy do świątyni w niebie i Chrystusa — Sędziego oraz Orędownika",
+            "content": [
+                  "1. Który sąd naprawdę jest najwyższy?",
+                  "„Trybunał Konstytucyjny — Najwyższy?” To pytanie brzmi jak kolejna odsłona polskiej debaty politycznej. W natłoku komentarzy łatwo pomieszać instytucje, kompetencje i osobiste oceny. Tymczasem polska Konstytucja rozróżnia Sąd Najwyższy i Trybunał Konstytucyjny. Zgodnie z art. 183 Sąd Najwyższy sprawuje nadzór nad działalnością sądów powszechnych i wojskowych w zakresie orzekania, wykonując też inne ustawowe zadania. Trybunał Konstytucyjny na podstawie art. 188 bada zgodność określonych aktów normatywnych z Konstytucją i rozstrzyga inne sprawy powierzone mu przez ustawę zasadniczą.",
+                  "Nie są to dwie nazwy jednego „najwyższego sądu”. Nie musimy opowiadać się po żadnej stronie bieżącej politycznej polemiki, aby uczciwie przyznać tę różnicę. Słowo prawdy powinno zaczynać się od poprawnego opisu faktów, a nie od nagłówka obliczonego na oburzenie.",
+                  "2. Czy istnieje trybunał ponad ludzkimi instytucjami?",
+                  "Biblia przedstawia obraz sądu, wobec którego spory ziemskich państw tracą swoją ostateczność. W Dn 7,9–10 prorok widzi trony, „Przedwiecznego” oraz otwarte księgi. Następnie w Dn 7,13–14 pojawia się postać podobna do Syna Człowieczego, otrzymująca wieczne panowanie. To wizja Bożej suwerenności i sprawiedliwości wobec potęg świata.",
+                  "Ap 20,11–15 opisuje sąd przed wielkim białym tronem i otwarcie ksiąg. Koh 12,14 przypomina, że Bóg osądzi ludzkie czyny, również te ukryte. Nie wolno z tych tekstów konstruować tezy, że konkretny polski organ państwowy jest proroczym symbolem konkretnej niebiańskiej instytucji. To **analogia**, nie dosłowna identyfikacja. Język Biblii prowadzi do pytania o odpowiedzialność każdego z nas wobec Boga.",
+                  "3. Świątynia w niebie: proroctwo i Ewangelia",
+                  "Hbr 8,1–2 przedstawia Chrystusa jako Arcykapłana w prawdziwym niebiańskim przybytku; Hbr 9,24 opisuje Jego pojawienie się przed obliczem Boga dla nas. Ap 11,19 ukazuje otwartą świątynię Boga w niebie. Ap 14,6–7 wzywa do oddawania chwały Stwórcy w kontekście sądu. Te teksty poszerzają perspektywę: historia człowieka nie kończy się na sali sądowej ani w gabinecie polityka.",
+                  "W interpretacji historycystycznej fragment Dn 8,14 odczytywany jest wraz z Hbr 8–9 jako część nauki o szczególnej służbie Chrystusa i sądzie przed Jego powtórnym przyjściem. Inne tradycje chrześcijańskie widzą w Dn 8,14 przede wszystkim historyczne wydarzenia związane ze świątynią, a w Liście do Hebrajczyków pełnię skuteczności już dokonanej ofiary. Uczciwość wobec Biblii wymaga odróżnienia treści, którą tekst mówi bezpośrednio, od rozbudowanej konstrukcji interpretacyjnej.",
+                  "4. Najbardziej niezwykłe: Sędzia jest także Orędownikiem",
+                  "Sama myśl o sądzie może budzić strach. Kto potrafi udowodnić, że nigdy nie skłamał, nie skrzywdził bliźniego i nie zaniedbał dobra, które mógł uczynić? Rz 3,23 uczy o powszechności grzechu. Ale kolejny werset wskazuje na usprawiedliwienie z łaski dzięki odkupieniu w Chrystusie (Rz 3,24–26).",
+                  "W J 5,22 Jezus mówi o sądzie powierzonym Synowi. W 1 J 2,1 czytamy o Jezusie Chrystusie jako Orędowniku wierzących; Hbr 7,25 wskazuje, że żyje On, aby się za nimi wstawiać. Hbr 4,14–16 zachęca, aby z ufnością przystępować do tronu łaski. Nie ma tu sprzeczności między Bożą sprawiedliwością a miłosierdziem: Ewangelia mówi, że Bóg traktuje grzech poważnie, a ratunek daje przez ofiarę Syna.",
+                  "To nie oznacza amnestii dla świadomej krzywdy bez pokuty. Sprawiedliwość Boża nie ma nic wspólnego z korupcją. Chrystus wzywa do odwrócenia się od zła i przyjęcia nowego życia, nie do kupienia uniewinnienia religijną deklaracją.",
+                  "5. Wyrok nad naszym sumieniem",
+                  "Zapytaj dziś nie tylko, czy instytucje państwa działają zgodnie z prawem. Zapytaj, czy Ty żyjesz zgodnie z prawdą. Jak traktujesz pracowników, bliskich, ludzi o innych poglądach? Czy potrafisz naprawić wyrządzoną szkodę? Czy uznajesz własną winę, czy wyłącznie oskarżasz innych? Jezus przestrzega przed obłudnym sądzeniem bliźnich (Mt 7,1–5) i stawia miłosierdzie oraz sprawiedliwość ponad religijną pozą (Mt 23,23).",
+                  "Niebiańskiego sądu nie należy używać jako straszaka w sporze partyjnym. Jest przede wszystkim wezwaniem mnie samego do spotkania z prawdą. A największą nadzieją jest to, że prawda ta ma imię Jezus Chrystus. Nie bronię się przed Nim listą własnych zasług. Przyjmuję Jego łaskę, wyznaję grzech (1 J 1,9) i uczę się sprawiedliwie żyć."
+            ],
+            "category": "prawo",
+            "categoryLabel": "CCN Prawo & Wiara",
+            "author": {
+                  "id": "cezary-rogowski",
+                  "name": "Cezary Rogowski",
+                  "role": "Założyciel Christian Culture",
+                  "avatarUrl": "/avatar_cezary_official.jpg"
+            },
+            "publishedAt": "2026-11-22T06:15:00+01:00",
+            "dateFormatted": "22 listopada 2026",
+            "imageUrl": "/images/news/art-trybunal-konstytucyjny-czy-najwyzszy.jpg",
+            "imageCaption": "Ilustracja koncepcyjna AI: Ziemskie sądownictwo i sale orzekania a wieczny niebiański tron Bożej sprawiedliwości i łaski (ilustracja poglądowa wygenerowana z pomocą AI — nie przedstawia autentycznych wydarzeń).",
+            "readTimeMinutes": 4,
+            "isPopular": true,
+            "popularRank": 4,
+            "tags": [
+                  "Sąd Najwyższy",
+                  "Trybunał Konstytucyjny",
+                  "Sąd Boży",
+                  "Sprawiedliwość",
+                  "Orędownik",
+                  "Chrystus",
+                  "Cezary Rogowski",
+                  "CCN Prawo"
+            ],
+            "scriptureReference": {
+                  "verse": "Dn 7:9–10; Hbr 4:14–16",
+                  "text": "Przystąpmy więc z ufnością do tronu łaski, abyśmy dostąpili miłosierdzia i znaleźli łaskę ku pomocy w stosownym czasie."
+            },
+            "sourceCitation": {
+                  "sourceName": "Konstytucja Rzeczypospolitej Polskiej (Rozdział VIII: Sądy i Trybunały)",
+                  "sourceUrl": "https://www.prezydent.pl/prawo/konstytucja-rp/rozdzial-viii-sady-i-trybunaly"
+            },
+            "primaryPortalUrl": "https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad",
+            "primaryPortalLabel": "CCN Prawo"
+      },
+      {
             "id": "art-dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
             "title": "Reformacja nie skończyła się w 1517 roku — wróćmy do Pisma i Ewangelii łaski",
             "slug": "dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",

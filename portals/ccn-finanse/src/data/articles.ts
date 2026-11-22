@@ -35,6 +35,7 @@ export const AUTHORS: Record<string, Author> = {
 
 
 export const BREAKING_NEWS: string[] = [
+  "NOWY ARTYKUŁ CCN FINANSE: Fundusz Sprawiedliwości, którego nie znasz. Kto zapłacił za Twój dług wobec Boga? — felieton Cezarego Rogowskiego (https://polskieradio.cc/finanse/fundusz-sprawiedliwosci-ktorego-nie-znasz)",
   "NOWY ARTYKUŁ CCN FINANSE: Jak przygotować domowy budżet na grudzień bez kredytu? Praktyczny przewodnik Cezarego Rogowskiego (https://polskieradio.cc/finanse/jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu)",
   "CCN FINANSE + AUDIO (17:51): Cyfrowy pieniądz, prawo niedzielne i Apokalipsa 13 — analiza Cezarego Rogowskiego o CBDC i wolności sumienia",
   "Szafarstwo Boże: Ponad 2350 wersetów w Biblii dotyczy pieniędzy i odpowiedzialności za powierzone dobra",
@@ -44,6 +45,59 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    "id": "art-fundusz-sprawiedliwosci-ktorego-nie-znasz",
+    "title": "Fundusz Sprawiedliwości, którego nie znasz. Kto zapłacił za Twój dług wobec Boga?",
+    "slug": "fundusz-sprawiedliwosci-ktorego-nie-znasz",
+    "excerpt": "Od pomocy pokrzywdzonym do daru usprawiedliwienia z łaski przez wiarę",
+    "content": [
+      "1. Za głośną nazwą są prawdziwi pokrzywdzeni",
+      "„Fundusz Sprawiedliwości” kojarzy się wielu osobom z wiadomościami politycznymi. Ale pod tą nazwą kryje się państwowy fundusz celowy — Fundusz Pomocy Pokrzywdzonym oraz Pomocy Postpenitencjarnej — którym dysponuje Minister Sprawiedliwości. Jego ustawowe zadania obejmują pomoc pokrzywdzonym przestępstwem i świadkom, przeciwdziałanie przestępczości oraz wsparcie postpenitencjarne. Według oficjalnych materiałów odpowiednie programy obejmują m.in. pomoc psychologiczną, prawną i materialną, zależnie od uprawnień i dostępności.",
+      "Nie wolno opowiadać o tym funduszu wyłącznie jako o metaforze religijnej, ignorując krzywdę realnych ofiar. Człowiek po przemocy, oszustwie czy innym przestępstwie potrzebuje bezpieczeństwa, specjalistów i dostępu do sprawiedliwych procedur. Aktualne formy pomocy i placówki należy weryfikować na stronie ministerstwa oraz Funduszu. Kontrowersje dotyczące wydatkowania środków wymagają odrębnej, źródłowo udokumentowanej analizy, a nie insynuacji o odpowiedzialności dowolnych osób.",
+      "2. Sprawiedliwość bez miłosierdzia? Biblia nie wybiera takiej drogi",
+      "Iz 1,16–17 wzywa do czynienia dobra i obrony pokrzywdzonych. Mi 6,8 mówi o sprawiedliwości, miłosierdziu i pokornym chodzeniu z Bogiem. Jezus w przypowieści o miłosiernym Samarytaninie pokazuje, że prawdziwe współczucie kosztuje czas, wysiłek i pieniądze (Łk 10,25–37).",
+      "Dlatego nie wystarczy wygłosić religijnej mowy do ofiary przestępstwa. Potrzebna jest realna pomoc, a czasem natychmiastowa ochrona przed sprawcą. Wymuszanie przebaczenia bez zapewnienia bezpieczeństwa może pogłębić krzywdę. Nie nazywajmy tego Ewangelią. Kościół powinien być miejscem prawdy, ochrony słabszych i odpowiedzialności także wobec własnych przywódców.",
+      "3. Kto sfinansował Twoje usprawiedliwienie?",
+      "Tu zmieniamy poziom rozmowy: od budżetu państwa do zbawienia. To świadoma **metafora**, nie twierdzenie, że w niebie istnieje finansowy fundusz rozliczający grzechy. Biblia mówi o darze niesprowadzalnym do pieniężnych rachunków. W Rz 3,23–26 Paweł wyjaśnia, że wszyscy zgrzeszyli, a usprawiedliwienie jest z Bożej łaski dzięki odkupieniu w Chrystusie Jezusie. W Ef 2,8–10 czytamy, że zbawienie otrzymujemy przez wiarę jako dar, a nie wynagrodzenie za uczynki.",
+      "Nie mogę opłacić swojej winy hojnością, praktykami religijnymi, reputacją ani osiągnięciami moralnymi. Krzyż Chrystusa ujawnia powagę grzechu i ogrom Bożej miłości (Rz 5,6–8). 2 Kor 5,18–21 mówi o pojednaniu, którego źródłem jest działanie Boga w Chrystusie.",
+      "Największy „fundusz sprawiedliwości” w tytule jest więc obrazem łaski. Nie działa jak bank, nie przyjmuje składek i nie obiecuje zysku. To Chrystus poniósł koszt zbawienia. To On, a nie instytucja i nie moje zasługi, jest fundamentem usprawiedliwienia.",
+      "4. Czy łaska oznacza bezkarność?",
+      "Nie. Rz 6,1–4 wprost odrzuca pomysł, że skoro łaska jest wielka, wolno świadomie trwać w grzechu. Przebaczenie i odpowiedzialność nie są wrogami. Jeśli oszukałem klienta, powinienem naprawić szkodę. Jeśli skrzywdziłem bliskiego, muszę zaprzestać krzywdy, a nie domagać się od niego natychmiastowego pojednania. Spotkanie Zacheusza z Jezusem prowadziło do konkretnych działań naprawczych (Łk 19,1–10).",
+      "Żaden człowiek nie ma moralnego prawa nazywać nadużycia władzy „posługą” tylko dlatego, że sprawca lubi religijną retorykę. Ale też żaden chrześcijanin nie ma prawa arbitralnie ogłaszać winy osób, których sprawy nie zostały rzetelnie wyjaśnione. Prawdomówność, domniemanie niewinności w wymiarze prawnym i troska o pokrzywdzonych muszą pozostać razem.",
+      "5. Proste pytanie: gdzie szukasz sprawiedliwości dla siebie?",
+      "Nawet najlepszy państwowy fundusz nie rozwiąże problemu grzechu. Tylko Chrystus ma władzę pojednać człowieka z Ojcem. 1 J 1,9 obiecuje przebaczenie wyznanych grzechów, a Hbr 4,14–16 zachęca do podejścia do tronu łaski. To zaproszenie również dla człowieka, który zna własną winę i nie chce dalej udawać niewinności.",
+      "Nie proponuję bezrefleksyjnego spokoju sumienia. Proponuję wyznanie grzechu, porzucenie zła i wiarę w wystarczalność ofiary Chrystusa. Otrzymawszy łaskę, pomóż komuś, kto potrzebuje rzeczywistej obrony lub wsparcia. Sprawiedliwość i miłosierdzie nie kończą się na pięknym tytule. Mają stać się treścią życia."
+    ],
+    "category": "finanse",
+    "categoryLabel": "CCN Finanse & Wiara",
+    "author": AUTHORS.cezary,
+    "publishedAt": "2026-11-22T06:30:00+01:00",
+    "dateFormatted": "22 listopada 2026",
+    "imageUrl": "/images/news/art-fundusz-sprawiedliwosci-ktorego-nie-znasz.jpg",
+    "imageCaption": "Ilustracja koncepcyjna AI: Pomoc pokrzywdzonym i zadośćuczynienie a Boża sprawiedliwość i dar odkupienia w Chrystusie (ilustracja poglądowa wygenerowana z pomocą AI — nie przedstawia autentycznych wydarzeń).",
+    "readTimeMinutes": 3,
+    "isPopular": true,
+    "popularRank": 4,
+    "tags": [
+      "Fundusz Sprawiedliwości",
+      "Odkupienie",
+      "Łaska",
+      "Usprawiedliwienie",
+      "Zadośćuczynienie",
+      "Pomoc Pokrzywdzonym",
+      "Cezary Rogowski"
+    ],
+    "scriptureReference": {
+      "verse": "Rz 3:23–24; Ef 2:8–9",
+      "text": "Wszyscy bowiem zgrzeszyli i są pozbawieni chwały Bożej; a zostają usprawiedliwieni darmo, z Jego łaski, przez odkupienie, które jest w Chrystusie Jezusie."
+    },
+    "sourceCitation": {
+      "sourceName": "Ministerstwo Sprawiedliwości — Fundusz Pomocy Pokrzywdzonym",
+      "sourceUrl": "https://www.gov.pl/web/sprawiedliwosc/fs-obszary-pomocy"
+    },
+    "primaryPortalUrl": "https://polskieradio.cc/finanse/fundusz-sprawiedliwosci-ktorego-nie-znasz",
+    "primaryPortalLabel": "CCN Finanse"
+  },
   {
     "id": "art-jak-przygotowac-domowy-budzet-na-grudzien-bez-kredytu",
     "title": "Jak przygotować domowy budżet na grudzień bez kredytu?",
