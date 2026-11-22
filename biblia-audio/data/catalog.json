@@ -516,10 +516,16 @@
     "book": "genesis",
     "chapter": 35,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_35_1-29_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 35,1–29 (UBG) — Powrót do Betel, Imię Izrael i Pożegnanie Racheli oraz Izaaka",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_35_1-29_Biblia_Audio_CC.mp3",
+        "verses": "1–29"
+      }
+    ]
   },
   {
     "id": "genesis-36",
