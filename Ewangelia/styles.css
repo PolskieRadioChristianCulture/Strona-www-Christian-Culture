@@ -1027,7 +1027,7 @@ footer {
 .account-dropdown a, .account-dropdown button { display: flex; align-items: center; width: 100%; min-height: 44px; padding: 10px 12px; font-size: 14px; border: 0; background: transparent; color: #fffdf8; text-align: left; }
 .account-dropdown a:hover, .account-dropdown button:hover { background: #ffffff15; }
 .menu-toggle { display: none; }
-.site-menu { position: fixed; inset: 0 auto 0 0; margin: 0; padding: 24px; height: 100dvh; max-height: none; width: min(86vw, 360px); max-width: none; border: 0; background: #172129; color: #fffdf8; }
+.site-menu { position: fixed; inset: 0 auto 0 0; margin: 0; padding: 24px; height: 100dvh; max-height: none; width: min(86vw, 360px); max-width: none; border: 0; background: #172129; color: #fffdf8; overflow-y: auto; }
 .site-menu::backdrop { background: #0009; }
 .menu-heading { display: flex; gap: 12px; align-items: center; justify-content: space-between; }
 .menu-heading h2 { font-size: 20px; }
@@ -1109,52 +1109,116 @@ footer {
 
 /* ── MULTILINGUAL SWITCHER & PRAYER SECTION ── */
 .topbar-lang-switcher {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(196, 163, 90, 0.3);
-  border-radius: 999px;
-  padding: 3px 6px;
-  backdrop-filter: blur(8px);
-  max-width: 480px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  position: relative;
 }
 
-.topbar-lang-switcher::-webkit-scrollbar {
+.topbar-lang-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(196, 163, 90, 0.55);
+  border-radius: 999px;
+  background: #172129e6;
+  color: #fffdf8;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  list-style: none;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.topbar-lang-summary::-webkit-details-marker {
   display: none;
 }
 
-.lang-btn {
-  background: transparent;
-  border: none;
-  color: #cfd6dc;
+.topbar-lang-summary:hover {
+  border-color: var(--gold);
+  background: #172129;
+}
+
+.topbar-lang-summary:focus-visible {
+  outline: 3px solid #e2cc9a;
+  outline-offset: 3px;
+}
+
+.lang-count {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.lang-caret {
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 0 8px;
-  min-height: 38px;
-  min-width: 38px;
-  border-radius: 999px;
+  color: #cfd6dc;
+}
+
+.topbar-lang-switcher:not([open]) .topbar-lang-dropdown {
+  display: none;
+}
+
+.topbar-lang-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  width: min(340px, 92vw);
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 10px;
+  background: #172129;
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+}
+
+.lang-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e6ecf1;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 10px;
+  min-height: 44px;
+  border-radius: 10px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  justify-content: flex-start;
+  gap: 8px;
+  text-align: left;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+.lang-btn span {
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  flex-shrink: 0;
 }
 
 .lang-btn:hover {
   color: #fff;
   background: rgba(196, 163, 90, 0.2);
+  border-color: rgba(196, 163, 90, 0.45);
 }
 
 .lang-btn.is-active {
   background: var(--gold);
+  border-color: var(--gold);
   color: #12171a;
   box-shadow: 0 2px 8px rgba(196, 163, 90, 0.4);
+}
+
+.lang-btn.is-active span {
+  color: #12171a;
 }
 
 .menu-lang-group {
@@ -1527,12 +1591,6 @@ footer {
   color: var(--gold);
 }
 
-@media (max-width: 900px) {
-  .topbar-lang-switcher {
-    display: none; /* Accessible in mobile menu */
-  }
-}
-
 /* RTL Support for Arabic (ar) */
 [dir="rtl"] .prayer-header,
 [dir="rtl"] .prayer-stanza,
@@ -1543,8 +1601,30 @@ footer {
   direction: rtl;
 }
 
+[dir="rtl"] .topbar-lang-dropdown {
+  right: auto;
+  left: 0;
+}
+
 [dir="rtl"] .truth-quote {
   border-left: none;
   border-right: 3px solid var(--gold);
   padding: 8px 18px 8px 0;
+}
+
+@media (max-width: 690px) {
+  .topbar-lang-summary {
+    padding: 0 10px;
+  }
+  .lang-count {
+    display: none;
+  }
+  .topbar-lang-dropdown,
+  [dir="rtl"] .topbar-lang-dropdown {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    top: 76px;
+    width: auto;
+  }
 }

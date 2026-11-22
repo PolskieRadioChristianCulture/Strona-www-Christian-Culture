@@ -2195,7 +2195,7 @@ export const EWANGELIA_I18N = {
           "paragraphs": [
             "Berikanlah aku hati yang baru, kerinduan yang kudus, dan hidup yang baru.",
             "Pimpinlah aku ke dalam seluruh kebenaran yang dinyatakan dalam Alkitab.",
-            "Bukalah pengertianku untuk memahami Firman Allah, bentuklah karakternya menjadi serupa dengan Kristus, dan ajarlah aku hidup dalam kasih, kerendahan hati, kekudusan, dan ketaatan kepada Allah.",
+            "Bukalah pengertianku untuk memahami Firman Allah, bentuklah karakterku menjadi serupa dengan Kristus, dan ajarlah aku hidup dalam kasih, kerendahan hati, kekudusan, dan ketaatan kepada Allah.",
             "Tolonglah aku mengalahkan pencobaan dan menjauhkan diri dari segala hal yang bertentangan dengan kehendak-Mu.",
             "Bila aku jatuh, jangan biarkan aku lari dalam keputusasaan, melainkan bimbinglah aku untuk mengakui dosa, bertobat, dan berpegang kembali pada kasih karunia-Mu.",
             "Ajarlah aku mengampuni orang lain sama seperti Engkau telah mengampuni aku.",
@@ -2435,7 +2435,7 @@ export const EWANGELIA_I18N = {
           "<strong>Efesini 2:8–9</strong> — La salvezza è dono gratuito della grazia ricevuto mediante la fede, non salario per le opere.",
           "<strong>Romani 10:9–10</strong> — La fede nel Cristo risorto e la confessione pubblica della Sua signoria conducono alla salvezza.",
           "<strong>Giovanni 1:12</strong> — A tutti quelli che L’hanno ricevuto Egli ha dato il diritto di diventare figli di Dio, a quelli cioè che credono nel Suo nome.",
-          "<strong>Giovanni 6:37</strong> — Gesù promette: colui che viene a me, io non lo corderò fuori.",
+          "<strong>Giovanni 6:37</strong> — Gesù promette: colui che viene a me, io non lo caccerò fuori.",
           "<strong>1 Giovanni 1:9</strong> — Se confessiamo i nostri peccati, Egli è fedele e giusto da perdonarci i peccati e purificarci da ogni iniquità.",
           "<strong>2 Corinzi 5:17</strong> — Se dunque uno è in Cristo, egli è una nuova creatura; le cose vecchie sono passate: ecco, sono diventate nuove.",
           "<strong>Atti 2:38</strong> — La risposta all’Evangelo comprende il ravvedimento, il battesimo nel nome di Gesù Cristo per il perdono dei peccati e il dono dello Spirito Santo."

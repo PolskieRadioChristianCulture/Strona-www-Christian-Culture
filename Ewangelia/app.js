@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   const $ = (id) => document.getElementById(id);
+  let activeDict = null;
 
   // ── 1. ELEMENTY DOM DLA DOBREJ NOWINY (MP3) ──
   const audio = $('audio');
@@ -85,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
     if (radioCtaLabel) {
-      radioCtaLabel.textContent = playing ? 'Stop Radia CC' : 'Słuchaj Radia CC';
+      radioCtaLabel.textContent = playing ? (activeDict?.hero?.radioStop || 'Stop Radia CC') : (activeDict?.hero?.radioPlay || 'Słuchaj Radia CC');
     }
   };
 
@@ -253,7 +254,14 @@ document.addEventListener('DOMContentLoaded', () => {
     b.setAttribute('aria-pressed', String(newValue));
     b.textContent = newValue ? '♥' : '♡';
     if (s) {
-      s.textContent = newValue ? '♥  Dodano do ulubionych' : '♡  Dodaj do ulubionych';
+      const saveLabel = newValue ? '♥  Dodano do ulubionych' : (activeDict?.player?.favorite || 'Dodaj do ulubionych');
+      const saveSpan = s.querySelector('span');
+      if (saveSpan) {
+        saveSpan.textContent = saveLabel;
+      } else {
+        s.textContent = newValue ? '♥  Dodano do ulubionych' : ('♡  ' + saveLabel);
+      }
+      s.setAttribute('aria-pressed', String(newValue));
     }
   }
   async function favorite() {
@@ -404,6 +412,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.lang = lang;
       document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
       const dict = EWANGELIA_I18N[lang];
+      activeDict = dict;
+
+      const langCurrent = $('topbarLangCurrent');
+      if (langCurrent) langCurrent.textContent = lang.toUpperCase();
 
       // Meta & Title
       if (dict.metaTitle) document.title = dict.metaTitle;
@@ -426,6 +438,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.setAttribute('aria-pressed', String(isSelected));
       });
 
+      // Refresh dynamically rendered controls
+      if (!radioRequested) setRadioPlayingState(false);
+      renderFavorite();
+
       // Render dynamic stanzas and promises
       if (dict.prayer && dict.prayer.stanzas) {
         renderPrayerStanzas(dict.prayer.stanzas);
@@ -435,11 +451,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    const langSwitcher = $('topbarLangSwitcher');
+    if (langSwitcher) {
+      document.addEventListener('click', (event) => {
+        if (langSwitcher.open && !langSwitcher.contains(event.target)) {
+          langSwitcher.removeAttribute('open');
+        }
+      });
+    }
+
     // Bind click handlers for all language buttons and pills
     document.querySelectorAll('[data-lang]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const lang = btn.getAttribute('data-lang');
         setLanguage(lang);
+        if (langSwitcher) langSwitcher.removeAttribute('open');
+        if (menu && menu.open) menu.close();
       });
     });
 
