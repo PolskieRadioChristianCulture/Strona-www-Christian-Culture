@@ -12,7 +12,6 @@
   gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
     <meta charset="UTF-8">
-    <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zjednoczeni za Polskę — Transmisja na Żywo | Telewizja CC 24</title>
 
@@ -2313,16 +2312,29 @@
                 localStorage.setItem('lumina_lang', lang);
             } catch(e){}
 
-            // Dynamic Google Translate cookie
+            // Dynamic Google Translate & reflection translation management
             try {
                 if (isEn) {
+                    // W trybie EN odblokuj kartę i treść rozważania do tłumaczenia
+                    document.querySelectorAll('.reflection-canvas-card, .canvas-slide-container, .canvas-slide, .canvas-card-footer, #cycleBadge, .chat-container, .chat-bubble').forEach(el => {
+                        el.classList.remove('notranslate');
+                        el.removeAttribute('translate');
+                    });
                     document.cookie = "googtrans=/pl/en; path=/";
                     document.cookie = "googtrans=/pl/en; path=/; domain=" + window.location.hostname;
                     document.cookie = "googtrans=/pl/en; path=/; domain=.polskieradio.cc";
                 } else {
+                    // W trybie PL zablokuj tłumaczenie karty i przywróć czysty oryginał
+                    document.querySelectorAll('.reflection-canvas-card, .canvas-slide-container, .canvas-slide, .canvas-card-footer, #cycleBadge, .chat-container, .chat-bubble').forEach(el => {
+                        el.classList.add('notranslate');
+                        el.setAttribute('translate', 'no');
+                    });
                     document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname + ";";
                     document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.polskieradio.cc;";
+                    if (typeof renderReflection === 'function' && Array.isArray(reflectionsData) && reflectionsData[currentDayIndex]) {
+                        renderReflection(reflectionsData[currentDayIndex]);
+                    }
                 }
                 const select = document.querySelector('.goog-te-combo');
                 if (select) {
@@ -2430,7 +2442,42 @@
                 if (isEn && t === 'PISMO ŚWIĘTE') s.textContent = 'HOLY SCRIPTURE';
                 else if (!isEn && t === 'HOLY SCRIPTURE') s.textContent = 'PISMO ŚWIĘTE';
             });
+
+            // 6. Polskie / Angielskie korekty tłumaczenia maszynowego (eliminacja "Mr. Brother")
+            if (isEn) {
+                document.querySelectorAll('.chat-msg-text, .slide-title, .slide-text, .card-cycle-badge, #cycleBadge, .slide-tag, .chat-sender-name').forEach(el => {
+                    if (!el || !el.innerHTML) return;
+                    if (el.innerHTML.includes('Mr. Brother') || el.innerHTML.includes('With the Bible for Mr. Brother')) {
+                        el.innerHTML = el.innerHTML
+                            .replace(/With the Bible for Mr\. Brother/gi, 'Walking with the Bible')
+                            .replace(/With the Bible for your Brother/gi, 'Walking with the Bible')
+                            .replace(/Mr\. Brother/gi, 'Walking with the Bible');
+                    }
+                    if (el.innerHTML.includes('POWTÓRKA · ROZWAŻANIE')) {
+                        el.innerHTML = el.innerHTML.replace('POWTÓRKA · ROZWAŻANIE', 'DAILY DEVOTION · REPLAY');
+                    }
+                });
+            }
         }
+
+        // Ciągły strażnik jakości tłumaczenia w trybie EN
+        setInterval(() => {
+            const curLang = safeStorage.getItem('cc_user_lang_choice') || localStorage.getItem('lumina_lang') || 'pl';
+            if (curLang === 'en') {
+                document.querySelectorAll('.chat-msg-text, .slide-title, .slide-text, .card-cycle-badge, #cycleBadge, .slide-tag, .chat-sender-name').forEach(el => {
+                    if (!el || !el.innerHTML) return;
+                    if (el.innerHTML.includes('Mr. Brother') || el.innerHTML.includes('With the Bible for Mr. Brother')) {
+                        el.innerHTML = el.innerHTML
+                            .replace(/With the Bible for Mr\. Brother/gi, 'Walking with the Bible')
+                            .replace(/With the Bible for your Brother/gi, 'Walking with the Bible')
+                            .replace(/Mr\. Brother/gi, 'Walking with the Bible');
+                    }
+                    if (el.innerHTML.includes('POWTÓRKA · ROZWAŻANIE')) {
+                        el.innerHTML = el.innerHTML.replace('POWTÓRKA · ROZWAŻANIE', 'DAILY DEVOTION · REPLAY');
+                    }
+                });
+            }
+        }, 1200);
 
         window.addEventListener('message', function(e) {
             if (!e || !e.data) return;
