@@ -319,6 +319,9 @@
   // Stan lokalny i użytkownika
   let currentChatPartner = COMMUNITY_MEMBERS[0];
   let currentPartnerRealtimeMessages = null;
+  // @007 (L0 23.11.2026): wysłana wiadomość pojawia się natychmiast ze statusem Wysyłanie → Wysłano → Przeczytali.
+  const pendingPublicMessages = [];
+  let lastPublicSeenMarkAt = 0;
   let chatMode = 'public'; // 'public' (Czat ogólny) | 'assistant' (3 Asystentki CC) | 'direct' (Rozmowy 1:1)
   const assistantHistories = {};
   let assistantConversationHistory = [];
@@ -4580,6 +4583,37 @@
     }
 
     // Czat Ogólny i rozmowy 1:1: wysyłanie do chmury LUMINA (bez ingerencji asystentek)
+    function sendPendingPublicMessage(pending) {
+      pending._status = 'sending';
+      Promise.resolve(window.LuminaDB.sendPublicChatMessage({
+        text: pending.text,
+        senderId: pending.senderId,
+        senderName: pending.senderName,
+        senderAvatar: pending.senderAvatar,
+        senderBadge: pending.senderBadge
+      })).then((id) => {
+        if (id && !String(id).startsWith('local_')) {
+          pending._status = 'sent';
+          pending._realId = id;
+        } else {
+          pending._status = 'failed';
+        }
+        renderChatMessages();
+        scrollToBottom();
+      }).catch((err) => {
+        console.warn('Public chat send error:', err);
+        pending._status = 'failed';
+        renderChatMessages();
+      });
+    }
+    window.ccRetryPublicMessage = function (pendingId) {
+      const p = pendingPublicMessages.find(x => x.id === pendingId);
+      if (!p || !window.LuminaDB || typeof window.LuminaDB.sendPublicChatMessage !== 'function') return;
+      renderChatMessages();
+      sendPendingPublicMessage(p);
+      renderChatMessages();
+    };
+
     function sendCommunityMessage(text) {
       if (!text || !text.trim()) return;
       const cleanText = text.trim();
@@ -4609,13 +4643,23 @@
 
       if (currentChatPartner && currentChatPartner.isPublic) {
         if (window.LuminaDB && typeof window.LuminaDB.sendPublicChatMessage === 'function') {
-          Promise.resolve(window.LuminaDB.sendPublicChatMessage({
+          const now = new Date();
+          const pending = {
+            id: 'pending_' + now.getTime() + '_' + Math.random().toString(36).slice(2, 6),
+            _pending: true,
+            _status: 'sending',
             text: cleanText,
             senderId: user.slug || user.uid,
+            senderAuthUid: user.uid,
             senderName: user.name,
             senderAvatar: user.avatar,
-            senderBadge: user.badge
-          })).then(() => scrollToBottom()).catch(err => console.warn('Public chat send error:', err));
+            senderBadge: user.badge,
+            dateStr: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          };
+          pendingPublicMessages.push(pending);
+          renderChatMessages();
+          scrollToBottom();
+          sendPendingPublicMessage(pending);
         }
       } else if (currentChatPartner) {
         const partnerId = currentChatPartner.slug || currentChatPartner.id;
@@ -6147,13 +6191,63 @@
     }
   }
 
+  function ccNormChatId(v) {
+    try {
+      if (window.LuminaDB && typeof window.LuminaDB.normalizeChatUserId === 'function') return window.LuminaDB.normalizeChatUserId(v);
+    } catch (_) {}
+    return String(v || '').trim().toLowerCase().replace(/^u_/, '');
+  }
+  function renderPublicMsgStatus(m) {
+    const wrap = (inner) => `<div class="cc-msg-status" style="display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:6px;margin-top:4px;font-size:0.72rem;color:#A5AEC4;">${inner}</div>`;
+    if (m._pending) {
+      if (m._status === 'failed') {
+        return wrap(`<span style="color:#FF8A8A;">⚠️ Nie wysłano</span><button type="button" onclick="window.ccRetryPublicMessage('${escapeHtml(m.id)}')" style="min-height:44px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,138,138,0.5);background:transparent;color:#FFB3B3;font-size:0.75rem;font-weight:700;cursor:pointer;">Spróbuj ponownie</button>`);
+      }
+      if (m._status === 'sent') return wrap('<span>✓ Wysłano</span>');
+      return wrap('<span>⏳ Wysyłanie…</span>');
+    }
+    const senderNorm = ccNormChatId(m.senderId);
+    const seen = [];
+    const seenIds = new Set();
+    (Array.isArray(m.seenBy) ? m.seenBy : []).forEach(e => {
+      const id = ccNormChatId(typeof e === 'string' ? e : (e && e.id));
+      if (!id || id === 'guest' || id === senderNorm || seenIds.has(id)) return;
+      seenIds.add(id);
+      seen.push(typeof e === 'string' ? { id } : e);
+    });
+    if (!seen.length) return wrap('<span>✓ Wysłano</span>');
+    const shown = seen.slice(-6);
+    const faces = shown.map((e, i) => {
+      const member = COMMUNITY_MEMBERS.find(c => ccNormChatId(c.slug || c.id) === ccNormChatId(e.id));
+      const name = e.name || (member && member.name) || 'Użytkownik LUMINA';
+      const avRaw = String(e.avatar || (member && member.avatar) || '');
+      const av = !avRaw ? '' : (/^(https?:|\/|data:|blob:)/i.test(avRaw) ? avRaw : '/' + avRaw.replace(/^\.\//, ''));
+      const initials = name.split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
+      const style = `width:22px;height:22px;border-radius:50%;border:1.5px solid #0D1020;margin-left:${i ? '-6px' : '0'};object-fit:cover;display:inline-flex;align-items:center;justify-content:center;background:#2A3150;color:#F2D17C;font-size:9px;font-weight:800;`;
+      return av
+        ? `<img src="${escapeHtml(av)}" alt="" title="${escapeHtml(name)}" style="${style}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'${escapeHtml(initials)}',title:'${escapeHtml(name)}',style:this.getAttribute('style')}))">`
+        : `<span title="${escapeHtml(name)}" style="${style}">${escapeHtml(initials)}</span>`;
+    }).join('');
+    const names = seen.map(e => e.name || e.id).join(', ');
+    const more = seen.length > shown.length ? `<span>+${seen.length - shown.length}</span>` : '';
+    return wrap(`<span style="color:#7DD3A8;">✓✓ Przeczytali (${seen.length})</span><span style="display:inline-flex;align-items:center;" aria-label="Przeczytali: ${escapeHtml(names)}" title="${escapeHtml(names)}">${faces}</span>${more}`);
+  }
+
   function renderChatMessages() {
     const list = document.getElementById('ccChatMessagesList');
     if (!list) return;
 
-    const msgs = getChatMessagesForPartner(currentChatPartner);
+    let msgs = getChatMessagesForPartner(currentChatPartner);
     const user = getUserState();
     const dailyHtml = currentChatPartner.isPublic ? renderDailyDialogueCardHtml() : '';
+    if (currentChatPartner.isPublic && pendingPublicMessages.length) {
+      const base = Array.isArray(msgs) ? msgs : [];
+      const ids = new Set(base.map(x => x && x.id));
+      for (let i = pendingPublicMessages.length - 1; i >= 0; i--) {
+        if (pendingPublicMessages[i]._realId && ids.has(pendingPublicMessages[i]._realId)) pendingPublicMessages.splice(i, 1);
+      }
+      msgs = base.filter(x => !(x && String(x.id || '').startsWith('local_'))).concat(pendingPublicMessages);
+    }
 
     if (!msgs || msgs.length === 0) {
       if (currentChatPartner.isPublic) {
@@ -6232,6 +6326,7 @@
               ${renderChatMedia(text, m.id)}
               ${m.type === 'wzn_card' && m.wzn ? renderWznChatCard(m) : ''}
             </div>
+            ${isMe && currentChatPartner.isPublic ? renderPublicMsgStatus(m) : ''}
           </div>
         </div>
       `;
@@ -6386,6 +6481,17 @@
               currentPartnerRealtimeMessages = msgs;
               renderChatMessages();
               if (chatMode !== 'assistant') scrollToBottom();
+              try {
+                const ov = document.getElementById('ccGlobalChatOverlay');
+                const u = getUserState();
+                const nowMs = Date.now();
+                if (ov && ov.classList.contains('is-open') && document.visibilityState === 'visible' && chatMode !== 'assistant'
+                    && u.isLoggedIn && u.uid && nowMs - lastPublicSeenMarkAt > 3000
+                    && window.LuminaDB && typeof window.LuminaDB.markPublicMessagesSeen === 'function') {
+                  lastPublicSeenMarkAt = nowMs;
+                  window.LuminaDB.markPublicMessagesSeen(msgs, { slug: u.slug, uid: u.uid, name: u.name, avatar: u.avatar });
+                }
+              } catch (_) {}
             }
           });
         } catch(err) {

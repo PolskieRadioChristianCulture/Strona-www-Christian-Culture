@@ -3780,9 +3780,12 @@ export async function markPublicMessagesSeen(messages, currentUser) {
         const promises = unread.map(m => {
             const ref = doc(db, 'lumina_public_chat_messages', m.id);
             const currentSeen = m.seenBy || [];
+            // @007 (L0 23.11.2026): awatar czytelnika do podglądu „Przeczytali” pod wiadomością
+            const rawAvatar = String(currentUser?.avatar || currentUser?.photoURL || '');
             const newSeen = currentSeen.concat({
                 id: normId,
                 name: userName,
+                ...(rawAvatar && !rawAvatar.startsWith('data:') && rawAvatar.length < 500 ? { avatar: rawAvatar } : {}),
                 time: Date.now()
             });
             return updateDoc(ref, { seenBy: newSeen }).catch(() => {});
