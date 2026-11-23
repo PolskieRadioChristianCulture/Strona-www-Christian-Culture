@@ -578,6 +578,11 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            width: 520px;
+            box-sizing: border-box;
+            flex-shrink: 0;
+            margin-right: 0;
+            margin-top: 95px;
             background: var(--glass-bg);
             backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
@@ -632,7 +637,9 @@
             border-radius: 28px;
             padding: 30px 35px;
             box-shadow: 0 20px 50px var(--glass-shadow);
-            position: absolute;
+            position: relative;
+            flex-shrink: 0;
+            box-sizing: border-box;
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
@@ -666,10 +673,14 @@
         }
 
         body.mode-studio .reflection-canvas-card {
-            left: 320px; /* Centered layout */
-            top: 180px; /* Lowered to align with sidebars */
-            width: 1280px;
-            height: 700px;
+            right: 0;
+            left: auto;
+            top: 0;
+            width: 520px;
+            height: 525px;
+            flex-shrink: 0;
+            padding: 22px 26px;
+            box-sizing: border-box;
             transform: translateZ(0);
         }
 
@@ -691,15 +702,20 @@
         }
 
         body.evening-layout.mode-presenters .reflection-canvas-card {
-            left: 0; /* Align to the left edge of right-panel (which is 70px from screen border) */
+            left: 0;
+            right: auto;
+            top: 0;
             width: 510px; /* Fits exactly within the window width in the background picture */
-            height: 610px;
+            height: 525px;
             transform: translateZ(0);
         }
 
+        body.evening-layout .card-clock-widget,
+        body.evening-layout .live-helpline-panel,
         body.evening-layout.mode-presenters .card-clock-widget {
+            width: 510px;
             margin-right: auto;
-            margin-left: 0; /* Align clock to the left edge of the text card */
+            margin-left: 0; /* Align clock & helpline to the left edge of the text card */
         }
 
         /* Shift special ad overlay to the right side in evening layout to avoid overlapping presenters */
@@ -1827,9 +1843,8 @@ body.za-polske-wallpaper #livePrayerOverlay { position: fixed !important; bottom
             }
         });
     </script>
-    <link rel="stylesheet" href="live-window-manager.css">
     <link rel="stylesheet" href="/css/cc-tv-calm.css?v=20261026_3">
-    <script src="/js/cc-tv-dialogue.js?v=20261019_tv7_a007chat1117"></script>
+    <script src="/js/cc-tv-dialogue.js?v=20261019_tv7_a007chat1123"></script>
 </head>
 <body>
 
@@ -2461,18 +2476,14 @@ body.za-polske-wallpaper #livePrayerOverlay { position: fixed !important; bottom
                     if (activeReflectionObj) {
                         renderReflection(activeReflectionObj);
                     }
-                    if (safeStorage.getItem("dzj_stream_image") === "breakfast_presenters.jpg" || !safeStorage.getItem("dzj_stream_image")) {
-                        initBackground();
-                    }
+                    initBackground();
                 }
 
                 // Real-time dynamic background check (swaps backgrounds in the slideshow, etc.)
-                if (safeStorage.getItem("dzj_stream_image") === "breakfast_presenters.jpg" || !safeStorage.getItem("dzj_stream_image")) {
-                    const currentBg = getDynamicBackground("breakfast_presenters.jpg");
-                    const currentSrcFilename = bgActiveImg.src.substring(bgActiveImg.src.lastIndexOf('/') + 1);
-                    if (currentSrcFilename !== currentBg) {
-                        bgActiveImg.src = currentBg;
-                    }
+                const currentBg = getActiveBackground();
+                const currentSrcFilename = (bgActiveImg && bgActiveImg.src) ? bgActiveImg.src.substring(bgActiveImg.src.lastIndexOf('/') + 1) : "";
+                if (bgActiveImg && currentSrcFilename !== currentBg && bgActiveImg.dataset.fallbackApplied !== "1") {
+                    bgActiveImg.src = currentBg;
                 }
             }
             setInterval(updateClock, 1000);
@@ -2735,24 +2746,27 @@ function getWeatherPreset(city) {
                 }
             }, 8000);
 
-            // Load saved settings
+            // Always start public broadcast view with verified time-of-day presenters background (ignore poisoned cross-site localStorage)
             if (safeStorage.getItem("dzj_stream_day")) {
                 currentDayIndex = parseInt(safeStorage.getItem("dzj_stream_day"), 10);
             }
-            if (safeStorage.getItem("dzj_stream_image")) {
-                customImgSrc = safeStorage.getItem("dzj_stream_image");
-                bgImageSelect.value = customImgSrc;
-                bgActiveImg.src = getDynamicBackground(customImgSrc);
-            } else {
-                bgActiveImg.src = getDynamicBackground(customImgSrc);
-            }
-            if (safeStorage.getItem("dzj_stream_video")) {
-                customVideoSrc = safeStorage.getItem("dzj_stream_video");
-                bgVideoSelect.value = customVideoSrc;
+            customImgSrc = "breakfast_presenters.jpg";
+            if (bgImageSelect) bgImageSelect.value = customImgSrc;
+            if (bgActiveImg) {
+                bgActiveImg.addEventListener("error", () => {
+                    if (bgActiveImg.dataset.fallbackApplied === "1") return;
+                    bgActiveImg.dataset.fallbackApplied = "1";
+                    customImgSrc = "breakfast_presenters.jpg";
+                    bgActiveImg.src = "breakfast_presenters.jpg";
+                    bgActiveImg.style.opacity = "1";
+                    applyBodyModeClass();
+                });
+                bgActiveImg.src = getActiveBackground();
+                bgActiveImg.style.opacity = "1";
             }
             if (safeStorage.getItem("dzj_stream_duration")) {
                 slideDurationMs = parseInt(safeStorage.getItem("dzj_stream_duration"), 10) * 1000;
-                slideDurationInput.value = slideDurationMs / 1000;
+                if (slideDurationInput) slideDurationInput.value = slideDurationMs / 1000;
             }
 
             // Apply body styling mode class based on selected background
@@ -2846,8 +2860,10 @@ function getWeatherPreset(city) {
             function initBackground() {
                 const activeBg = getActiveBackground();
                 if (bgActiveImg) {
-                    bgActiveImg.src = activeBg;
-                    bgActiveImg.style.opacity = 1;
+                    if (bgActiveImg.dataset.fallbackApplied !== "1") {
+                        bgActiveImg.src = activeBg;
+                    }
+                    bgActiveImg.style.opacity = "1";
                 }
                 applyBodyModeClass();
             }
@@ -3700,7 +3716,6 @@ function getWeatherPreset(city) {
     </script>
 
     <audio id="stream-audio" src="https://stream.zeno.fm/vz96pvl3pnktv"></audio>
-    <script src="live-window-manager.js"></script>
     <!-- Czat widzów LUMI MESS ze wszystkich pokoi LIVE TV (Claude @A007, 19.10) — położenie w kadrze 1920×1080 -->
     <script src="/js/cc-live-viewer-chat.js?v=20261019_a007c" data-left="610" data-bottom="100" data-width="640" data-height="230" data-hide="#livePrayerOverlay"></script>
 <script src="/js/cc-tv-calm.js?v=20261026_4" defer></script>

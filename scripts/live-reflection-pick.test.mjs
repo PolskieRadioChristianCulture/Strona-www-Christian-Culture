@@ -48,9 +48,13 @@ test('rozwazania_baza.json: każdy wpis ma id, date, title oraz treść', () => 
   });
 });
 
-test('cctv24-pl.html: bezpieczne parsowanie ref.id, odporny catch i brak googtrans=/pl/en', () => {
+test('cctv24-pl.html: bezpieczne parsowanie ref.id, odporny catch, brak googtrans=/pl/en i odporność na stary localStorage', () => {
   const plHtml = fs.readFileSync(path.join(ROOT, 'cctv24-pl.html'), 'utf8');
   assert.doesNotMatch(plHtml, /ref\.id\.replace\(/, 'cctv24-pl.html: niechronione wywołanie ref.id.replace');
   assert.doesNotMatch(plHtml, /document\.querySelector\(["']\.slide-title["']\)\.textContent\s*=/, 'cctv24-pl.html: niechroniony zapis do .slide-title.textContent');
   assert.doesNotMatch(plHtml, /googtrans=\/pl\/en/, 'cctv24-pl.html: niepożądane wymuszanie angielskiego tłumaczenia na polskim kanale');
+  assert.doesNotMatch(plHtml, /<script\s+src="live-window-manager\.js"/i, 'cctv24-pl.html: live-window-manager.js nie może wstrzykiwać zatrutego live_win_cfg_*');
+  assert.doesNotMatch(plHtml, /customImgSrc\s*=\s*safeStorage\.getItem\(["']dzj_stream_image["']\)/, 'cctv24-pl.html: nie może wczytywać potencjalnie martwego dzj_stream_image z globalnego localStorage');
+  assert.doesNotMatch(plHtml, /body\.mode-studio\s+\.reflection-canvas-card\s*\{[^}]*left:\s*320px/i, 'cctv24-pl.html: mode-studio nie może wypychać karty o 320px w prawo');
+  assert.match(plHtml, /bgActiveImg\.addEventListener\(["']error["']/, 'cctv24-pl.html: wymagany fallback error na #bg-img-active');
 });
