@@ -401,10 +401,37 @@ service cloud.firestore {
       }
     }
 
+    // CCN Ogłoszenia (kind 'cc_ogloszenie') — moderacja i wyróżnienie Patrona (@007, 2026-11-23, decyzja L0 „NAPRAW”).
+    // Publicznie widać tylko 'published'. Zwykły członek tworzy wyłącznie 'pending', bez pól Patrona;
+    // po edycji ogłoszenie wraca do 'pending'. Zatwierdza/odrzuca i nadaje Patrona tylko Master Admin.
+    function userPostNoPatron(d) {
+      return d.get('featured', false) == false &&
+        d.get('isPatron', false) == false &&
+        d.get('patronBadge', '') == '';
+    }
+    function userPostPatronUnchanged() {
+      return request.resource.data.get('featured', false) == resource.data.get('featured', false) &&
+        request.resource.data.get('isPatron', false) == resource.data.get('isPatron', false) &&
+        request.resource.data.get('patronBadge', '') == resource.data.get('patronBadge', '');
+    }
     match /user_posts/{postId} {
-      allow read: if true;
-      allow create: if isMasterAdmin() || (isMember() && notKidsChild() && request.resource.data.authorUid == request.auth.uid);
-      allow update, delete: if isMasterAdmin() || (isMember() && resource.data.authorUid == request.auth.uid);
+      allow read: if resource.data.get('status', '') == 'published' ||
+        isMasterAdmin() ||
+        (isMember() && resource.data.authorUid == request.auth.uid);
+      allow create: if isMasterAdmin() || (
+        isMember() && notKidsChild() &&
+        request.resource.data.authorUid == request.auth.uid &&
+        request.resource.data.get('status', '') == 'pending' &&
+        userPostNoPatron(request.resource.data)
+      );
+      allow update: if isMasterAdmin() || (
+        isMember() && notKidsChild() &&
+        resource.data.authorUid == request.auth.uid &&
+        request.resource.data.authorUid == resource.data.authorUid &&
+        request.resource.data.get('status', '') == 'pending' &&
+        userPostPatronUnchanged()
+      );
+      allow delete: if isMasterAdmin() || (isMember() && resource.data.authorUid == request.auth.uid);
     }
 
     match /lumina_posts/{postId} {

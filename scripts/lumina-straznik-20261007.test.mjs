@@ -341,7 +341,7 @@ test('dolny pasek: podpisy pod ikonami i środkowy „+” do napisania posta; d
 test('CCN Ogłoszenia: tylko prawdziwe ogłoszenia Christian Culture, bez fikcyjnych osób i telefonów', async () => {
   for (const f of ['ogloszenia/index.html', 'ogloszenia.html']) {
     const t = await readFile(f, 'utf8');
-    assert.match(t, /<script src="\/js\/cc-ogloszenia-data\.js\?v=[^"]+"><\/script>\s*<script type="module" src="\/js\/cc-ogloszenia-store\.js\?v=[^"]+"><\/script>\s*<script type="module" crossorigin src="\/assets\/ogloszenia-index-cc20261013[a-z0-9]+\.js">/, f);
+    assert.match(t, /<script src="\/js\/cc-ogloszenia-data\.js\?v=[^"]+"><\/script>\s*<script type="module" src="\/js\/cc-ogloszenia-store\.js\?v=[^"]+"><\/script>\s*<script type="module" crossorigin src="\/assets\/ogloszenia-index-cc2026\d{4}[a-z0-9]*\.js">/, f);
   }
   const bundle = await readFile('assets/ogloszenia-index-cc20261013b.js', 'utf8');
   // Formularz publikuje do wspólnej bazy (widzą wszyscy), nie tylko do localStorage autora.

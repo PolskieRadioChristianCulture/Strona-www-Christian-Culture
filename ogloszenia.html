@@ -18,17 +18,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="CCN Ogłoszenia">
     
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal) {
-        await OneSignal.init({
-          appId: "c68fe286-4c70-43b0-ba5a-1e4d195b09c6",
-          notifyButton: { enable: true, position: 'bottom-left' },
-        });
-      });
-    </script>
-    
+    <!-- OneSignal usunięty 2026-11-23 (@007): aplikacja OneSignal działa tylko na cclite.pl, tu dawała błąd w konsoli. -->
+
     <title>CCN Ogłoszenia – Tablica Społeczności Chrześcijańskiej | Christian Culture</title>
     <meta name="description" content="Otwarte ogłoszenia wzajemnego wsparcia, darów serca, pracy, mieszkań, motoryzacji i wolontariatu dla społeczności Christian Culture. Publikuj za darmo." />
     <link rel="canonical" href="https://polskieradio.cc/ogloszenia" />
@@ -83,15 +74,20 @@
       .ccn-ticker-track:hover {
         animation-play-state: paused !important;
       }
+      /* Telefon (@007, 2026-11-23): prostszy pasek górny — bez przycisku udostępniania LUMINA
+         (lumina-share.js nadaje mu display:inline-flex, więc klasa „hidden” nie wystarcza). */
+      @media (max-width: 639px) {
+        header .lumina-share-btn-l { display: none !important; }
+      }
 
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="/js/cc-global-auth.js?v=20261007_auth_v2" defer></script>
   <script src="/components/cc-support-footer.js" defer></script>
-    <script src="/js/cc-ogloszenia-data.js?v=20261013_5"></script>
-    <script type="module" src="/js/cc-ogloszenia-store.js?v=20261013_4"></script>
-    <script type="module" crossorigin src="/assets/ogloszenia-index-cc20261013h.js"></script>
+    <script src="/js/cc-ogloszenia-data.js?v=20261123_1"></script>
+    <script type="module" src="/js/cc-ogloszenia-store.js?v=20261123_1"></script>
+    <script type="module" crossorigin src="/assets/ogloszenia-index-cc20261123.js"></script>
       <script defer src="/js/lumina-share.js"></script>
   </head>
   <body class="bg-gray-50 text-gray-900 antialiased selection:bg-[#bb142e] selection:text-white">
