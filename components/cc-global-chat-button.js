@@ -447,6 +447,17 @@
         touch-action: none !important;
         overscroll-behavior: none !important;
       }
+      /* @007 (L0 23.11.2026): przy otwartym czacie przewija się tylko czat, nigdy strona pod nim. */
+      html.cc-chat-scroll-lock,
+      html.cc-chat-scroll-lock body {
+        overflow: hidden !important;
+        overscroll-behavior: none !important;
+      }
+      #ccGlobalChatOverlay,
+      #ccGlobalChatOverlay .cc-chat-tab-panel,
+      #ccGlobalChatOverlay .cc-chat-feed {
+        overscroll-behavior: contain !important;
+      }
 
       html[data-lumina-theme] .cc-chat-fab-wrap,
       body.theme-lumina-light .cc-chat-fab-wrap,
@@ -1964,6 +1975,63 @@
         display: flex !important;
         align-items: center !important;
         gap: 8px !important;
+        min-width: 0 !important;
+      }
+      /* @007 (L0 23.11.2026): pole pisania może się zwężać — „Wyślij” zawsze mieści się na ekranie */
+      #ccGlobalChatOverlay .cc-composer-input-wrap {
+        min-width: 0 !important;
+        flex: 1 1 auto !important;
+      }
+      #ccGlobalChatOverlay .cc-composer-textarea {
+        min-width: 0 !important;
+        width: 100% !important;
+        font-size: 0.9rem !important;
+      }
+      @media (max-width: 420px) {
+        #ccGlobalChatOverlay .cc-chat-composer-form { gap: 6px !important; }
+        #ccGlobalChatOverlay .cc-composer-send-btn { padding: 0 12px !important; }
+      }
+      /* Menu pod „+”: czytelny panel z dużymi pozycjami */
+      #ccGlobalChatOverlay .cc-composer-popover {
+        position: absolute !important;
+        left: 12px !important;
+        right: 12px !important;
+        bottom: calc(100% + 8px) !important;
+        display: grid !important;
+        gap: 6px !important;
+        padding: 10px !important;
+        border-radius: 18px !important;
+        background: #141A30 !important;
+        border: 1px solid rgba(216, 173, 87, 0.45) !important;
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6) !important;
+        z-index: 30 !important;
+        max-width: 460px !important;
+      }
+      #ccGlobalChatOverlay .cc-composer-popover[hidden] {
+        display: none !important;
+      }
+      #ccGlobalChatOverlay .cc-popover-item {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        width: 100% !important;
+        min-height: 52px !important;
+        padding: 10px 16px !important;
+        border-radius: 12px !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        color: #F7F8FC !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        text-align: left !important;
+        cursor: pointer !important;
+        touch-action: manipulation !important;
+      }
+      #ccGlobalChatOverlay .cc-popover-item:hover,
+      #ccGlobalChatOverlay .cc-popover-item:focus-visible {
+        background: rgba(216, 173, 87, 0.16) !important;
+        border-color: rgba(216, 173, 87, 0.55) !important;
+        outline: none !important;
       }
 
       .cc-composer-plus-btn {
@@ -3268,7 +3336,7 @@
                   id="ccChatInput"
                   class="cc-composer-textarea"
                   rows="1"
-                  placeholder="Zadaj pytanie (np. radio, Biblia, kursy, pomoc)"
+                  placeholder="Napisz wiadomość"
                   maxlength="500"
                   autocomplete="off"
                   aria-label="Zadaj pytanie asystentce"
@@ -3697,21 +3765,21 @@
       if (isAsstMode) {
         const asst = getActiveAssistant();
         refreshAssistantUI(asst);
-        if (inputEl) inputEl.placeholder = `Zapytaj ${asst.shortName || asst.name} (radio, Biblia, kursy)...`;
+        if (inputEl) inputEl.placeholder = 'Napisz wiadomość';
       } else if (normalized === 'direct' && currentChatPartner && !currentChatPartner.isPublic) {
         if (publicHeaderTitle) {
           publicHeaderTitle.innerHTML = `<span>💬</span><span>Rozmowa 1:1: ${escapeHtml(currentChatPartner.name)}</span>`;
         }
         if (publicBackBtn) publicBackBtn.hidden = false;
         if (headerSub) headerSub.textContent = `Rozmowa: ${currentChatPartner.name}`;
-        if (inputEl) inputEl.placeholder = `Napisz do ${currentChatPartner.name}...`;
+        if (inputEl) inputEl.placeholder = 'Napisz wiadomość';
       } else {
         if (publicHeaderTitle) {
           publicHeaderTitle.innerHTML = '<span>🌐</span><span>Czat Ogólny Społeczności LUMINA</span>';
         }
         if (publicBackBtn) publicBackBtn.hidden = true;
         if (headerSub) headerSub.textContent = 'Na żywo w Chrystusie';
-        if (inputEl) inputEl.placeholder = 'Napisz na Czacie Ogólnym...';
+        if (inputEl) inputEl.placeholder = 'Napisz wiadomość';
         if (typeof renderChatMessages === 'function') renderChatMessages();
       }
     }
@@ -3727,7 +3795,7 @@
         if (liveBtn) liveBtn.click();
       } else if (chatMode === 'assistant') {
         const inputEl = document.getElementById('ccChatInput');
-        if (inputEl) inputEl.placeholder = `Zapytaj ${asst.shortName || asst.name} (radio, Biblia, kursy)...`;
+        if (inputEl) inputEl.placeholder = 'Napisz wiadomość';
       }
     };
 
@@ -4322,12 +4390,12 @@
         };
         recognition.onerror = () => {
           micBtn.classList.remove('is-listening');
-          chatInput.placeholder = 'Zadaj pytanie (np. radio, Biblia, kursy, pomoc)';
+          chatInput.placeholder = 'Napisz wiadomość';
           isListening = false;
         };
         recognition.onend = () => {
           micBtn.classList.remove('is-listening');
-          chatInput.placeholder = 'Zadaj pytanie (np. radio, Biblia, kursy, pomoc)';
+          chatInput.placeholder = 'Napisz wiadomość';
           isListening = false;
         };
 
@@ -4655,6 +4723,7 @@
       overlay.classList.add('is-open');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      document.documentElement.classList.add('cc-chat-scroll-lock');
       syncGlobalChatViewportHeight();
       setChatMode(chatMode);
       renderChatMessages();
@@ -4669,6 +4738,7 @@
       overlay.classList.remove('is-open');
       overlay.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      document.documentElement.classList.remove('cc-chat-scroll-lock');
       try { document.documentElement.style.removeProperty('--lumi-viewport-height'); } catch (_) {}
       syncChatOverlayTopLayer(overlay, false, false);
     }
@@ -4678,6 +4748,7 @@
       new MutationObserver(() => {
         const isOpenNow = overlay.classList.contains('is-open');
         syncChatOverlayTopLayer(overlay, isOpenNow, false);
+        document.documentElement.classList.toggle('cc-chat-scroll-lock', isOpenNow);
         if (!isOpenNow && document.body.style.overflow === 'hidden') {
           document.body.style.overflow = '';
         }
