@@ -783,6 +783,115 @@
             .dekalog-brand-badge { padding: 0 10px; }
             .dekalog-brand-title { font-size: 0.72rem; }
         }
+
+        /* ── ZRZUTKA.PL STREAMING WIDGET OVERLAY (TRYB TESTOWY DLA KANAŁU MASTER) ── */
+        .mcr-zrzutka-toggle-btn {
+            position: fixed;
+            top: calc(var(--dekalog-height) + 12px);
+            right: 20px;
+            z-index: 100006;
+            background: rgba(18, 14, 20, 0.88);
+            border: 1.5px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .mcr-zrzutka-toggle-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            color: #ffffff;
+            border-color: #ffffff;
+            transform: scale(1.04);
+        }
+
+        .mcr-zrzutka-toggle-btn.active {
+            background: linear-gradient(135deg, #c4122f, #881313);
+            border-color: var(--gold-primary);
+            color: #ffffff;
+        }
+
+        .master-zrzutka-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100002;
+            pointer-events: none;
+            display: none;
+        }
+
+        .master-zrzutka-overlay.visible {
+            display: block;
+        }
+
+        /* 1. Ranking po lewej */
+        .zrzutka-frame-leaderboard {
+            position: absolute;
+            top: calc(var(--dekalog-height) + 24px);
+            left: 28px;
+            width: 380px;
+            height: 540px;
+            border: none;
+            background: transparent;
+            pointer-events: auto;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.65);
+        }
+
+        /* 2. Kod QR po prawej u góry */
+        .zrzutka-frame-qr {
+            position: absolute;
+            top: calc(var(--dekalog-height) + 64px);
+            right: 28px;
+            width: 220px;
+            height: 270px;
+            border: none;
+            background: transparent;
+            pointer-events: auto;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.65);
+        }
+
+        /* 3. Pasek postępu na dole nad tickerem */
+        .zrzutka-frame-progress {
+            position: absolute;
+            bottom: calc(var(--ticker-height) + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1100px;
+            max-width: 90vw;
+            height: 80px;
+            border: none;
+            background: transparent;
+            pointer-events: auto;
+        }
+
+        /* 4. Ostatnie wpłaty (feed) */
+        .zrzutka-frame-feed {
+            position: absolute;
+            bottom: calc(var(--ticker-height) + 96px);
+            right: 28px;
+            width: 360px;
+            height: 260px;
+            border: none;
+            background: transparent;
+            pointer-events: auto;
+            border-radius: 16px;
+        }
     </style>
 </head>
 <body>
@@ -952,6 +1061,24 @@
         <span>KLIKNIJ, ABY WŁĄCZYĆ DŹWIĘK TRANSMISJI NA ŻYWO</span>
     </div>
 
+    <!-- PRZYCISK TESTOWY ZRZUTKA LIVE (MCR TEST BUTTON) -->
+    <button id="btnZrzutkaToggle" class="mcr-zrzutka-toggle-btn" onclick="toggleZrzutkaOverlay();" aria-label="Włącz lub wyłącz podgląd widgetów Zrzutka.pl">
+        <i class="fa-solid fa-hand-holding-heart"></i>
+        <span>Zrzutka Live (Test)</span>
+    </button>
+
+    <!-- ── ZRZUTKA.PL TEST STREAMING OVERLAY (KANAŁ MASTER LIVE) ── -->
+    <div id="masterZrzutkaOverlay" class="master-zrzutka-overlay">
+        <!-- 1. Ranking wpłacających (Leaderboard) -->
+        <iframe class="zrzutka-frame-leaderboard" src="https://zrzutka.pl/rs4g4v/widget/leaderboard" title="Ranking wpłacających Zrzutka.pl" allowtransparency="true"></iframe>
+        <!-- 2. Kod QR 'WESPRZYJ!' (BLIK) -->
+        <iframe class="zrzutka-frame-qr" src="https://zrzutka.pl/rs4g4v/widget/qr-code" title="Kod QR do wpłat Zrzutka.pl" allowtransparency="true"></iframe>
+        <!-- 3. Pasek postępu (Progress Bar) -->
+        <iframe class="zrzutka-frame-progress" src="https://zrzutka.pl/rs4g4v/widget/progress" title="Pasek celu zbiórki Zrzutka.pl" allowtransparency="true"></iframe>
+        <!-- 4. Ostatnie wpłaty (Feed) -->
+        <iframe class="zrzutka-frame-feed" src="https://zrzutka.pl/rs4g4v/widget/feed" title="Ostatnie wpłaty Zrzutka.pl" allowtransparency="true"></iframe>
+    </div>
+
     <!-- ── NEW CCN NEWS MASTER BROADCAST TICKER (OBS LOWER THIRD) ── -->
     <!-- Zegar Polonii usunięty na polecenie Dowódcy (nie zasłania wideo) -->
 
@@ -997,6 +1124,11 @@
                     <span class="separator">✦</span>
                 </div>
                 <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-support" style="background: linear-gradient(135deg, #FF7A00, #E66A00);"><i class="fa-solid fa-hand-holding-heart"></i> ZRZUTKA LIVE</span>
+                    <span>Wspieraj rozwój Telewizji CC na <strong class="gold-text">zrzutka.pl/rs4g4v</strong> • Zeskanuj kod QR na ekranie</span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
                     <span class="ccn-badge ccn-badge-app"><i class="fa-solid fa-mobile-screen"></i> APLIKACJE CC</span>
                     <span>Pobierz aplikację mobilną <strong class="gold-text">„Dobrze, że jesteś”</strong> (Google Play) oraz PWA na <strong class="gold-text">cclite.pl</strong></span>
                     <span class="separator">✦</span>
@@ -1036,6 +1168,11 @@
                 <div class="ccn-ticker-item">
                     <span class="ccn-badge ccn-badge-support"><i class="fa-solid fa-heart"></i> WSPARCIE MISJI</span>
                     <span>Zostań patronem: <strong class="gold-text">patronite.pl/osobowoscplus</strong> • BLIK: <strong class="gold-text">537 137 043</strong> • Nr konta: <strong class="gold-text">48 2910 0006 0000 0000 0527 2629</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-support" style="background: linear-gradient(135deg, #FF7A00, #E66A00);"><i class="fa-solid fa-hand-holding-heart"></i> ZRZUTKA LIVE</span>
+                    <span>Wspieraj rozwój Telewizji CC na <strong class="gold-text">zrzutka.pl/rs4g4v</strong> • Zeskanuj kod QR na ekranie</span>
                     <span class="separator">✦</span>
                 </div>
                 <div class="ccn-ticker-item">
@@ -1092,6 +1229,18 @@
             document.documentElement.classList.add('no-ticker', 'embedded-mode');
             if (document.body) document.body.classList.add('no-ticker', 'embedded-mode');
             else window.addEventListener('DOMContentLoaded', () => document.body.classList.add('no-ticker', 'embedded-mode'));
+        }
+
+        // ── OBSŁUGA ZRZUTKA.PL STREAMING WIDGET (TRYB TESTOWY KANAŁU MASTER) ──
+        function toggleZrzutkaOverlay() {
+            const overlay = document.getElementById('masterZrzutkaOverlay');
+            const btn = document.getElementById('btnZrzutkaToggle');
+            if (!overlay) return;
+            const isVis = overlay.classList.toggle('visible');
+            if (btn) btn.classList.toggle('active', isVis);
+        }
+        if (urlParams.get('zrzutka') === '1' || urlParams.get('zrzutka') === 'test') {
+            toggleZrzutkaOverlay();
         }
 
         const programMeta = {
