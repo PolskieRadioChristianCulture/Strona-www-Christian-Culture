@@ -5583,6 +5583,7 @@ window.LuminaDB = Object.assign(window.LuminaDB || {}, {
     sendPublicChatMessage,
     changeOwnPublicChatMessage,
     markPublicMessagesSeen,
+    setChatTyping,
     togglePublicChatMessageReaction,
     subscribeToUserChats,
     recordProfileLike,
@@ -5707,6 +5708,38 @@ export function startPresenceHeartbeat() {
 }
 
 let sharedPresenceChannel = null;
+
+// @007 (L0 23.11.2026): „Ktoś pisze…” — stan pisania w dokumencie obecności użytkownika (bez nowych kolekcji i reguł).
+// Wywoływać najwyżej co kilka sekund; room = 'public' albo identyfikator rozmowy; null = przestał pisać.
+let chatTypingLastRoom = null;
+let chatTypingLastAt = 0;
+export async function setChatTyping(room, isTyping) {
+    try {
+        const u = currentUserState || (window.LuminaDB?.getCurrentUser ? window.LuminaDB.getCurrentUser() : null);
+        if (!db || !u || u.isAnonymous || !u.uid) return false;
+        const nextRoom = isTyping ? String(room || 'public').slice(0, 120) : null;
+        const now = Date.now();
+        if (nextRoom === chatTypingLastRoom && nextRoom && now - chatTypingLastAt < 4000) return true;
+        if (!nextRoom && !chatTypingLastRoom) return true;
+        chatTypingLastRoom = nextRoom;
+        chatTypingLastAt = now;
+        const p = currentProfileState;
+        await setDoc(doc(db, 'lumina_presence', u.uid), {
+            uid: u.uid,
+            displayName: (p && p.name) || u.displayName || 'Użytkownik LUMINA',
+            avatar: (p && p.avatar) || u.photoURL || 'lumina_icon.jpg',
+            slug: (p && p.slug) || u.uid,
+            isLoggedIn: true,
+            typingRoom: nextRoom,
+            typingAt: now,
+            lastActive: serverTimestamp(),
+            lastActiveMillis: now
+        }, { merge: true });
+        return true;
+    } catch (_) {
+        return false;
+    }
+}
 
 export function subscribeToOnlinePresence(callback) {
     if (!db || typeof callback !== 'function') return () => {};

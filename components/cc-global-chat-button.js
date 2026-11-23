@@ -450,6 +450,50 @@
         touch-action: none !important;
         overscroll-behavior: none !important;
       }
+      /* @007 (L0 23.11.2026): reakcje, menu wiadomości, „pisze…” */
+      #ccGlobalChatOverlay .cc-msg-reactions { display: flex !important; flex-wrap: wrap !important; gap: 6px !important; margin-top: 6px !important; }
+      #ccGlobalChatOverlay .cc-react-chip {
+        min-height: 34px !important; padding: 0 10px !important; border-radius: 999px !important; cursor: pointer !important;
+        border: 1px solid rgba(255,255,255,0.14) !important; background: rgba(255,255,255,0.05) !important; color: #F7F8FC !important;
+        font-size: 0.85rem !important; display: inline-flex !important; align-items: center !important; gap: 4px !important;
+      }
+      #ccGlobalChatOverlay .cc-react-chip.is-mine { border-color: rgba(216,173,87,0.75) !important; background: rgba(216,173,87,0.18) !important; }
+      #ccGlobalChatOverlay .cc-react-picker { display: none !important; gap: 4px !important; flex-wrap: wrap !important; margin-top: 6px !important; }
+      #ccGlobalChatOverlay .cc-react-picker.is-open { display: flex !important; }
+      #ccGlobalChatOverlay .cc-react-picker button {
+        width: 44px !important; height: 44px !important; border-radius: 50% !important; border: 1px solid rgba(255,255,255,0.12) !important;
+        background: rgba(255,255,255,0.06) !important; font-size: 1.2rem !important; cursor: pointer !important;
+      }
+      #ccGlobalChatOverlay .cc-msg-edited { font-size: 0.7rem !important; color: #8E99B3 !important; margin-left: 6px !important; }
+      #ccTypingIndicator { display: flex !important; align-items: center !important; gap: 8px !important; min-height: 28px !important; padding: 4px 2px !important; font-size: 0.78rem !important; color: #C9CFDF !important; }
+      #ccTypingIndicator[hidden] { display: none !important; }
+      #ccTypingIndicator img { width: 20px !important; height: 20px !important; border-radius: 50% !important; object-fit: cover !important; }
+      #ccTypingIndicator .cc-dots span { display: inline-block !important; width: 5px !important; height: 5px !important; margin: 0 1px !important; border-radius: 50% !important; background: #D8AD57 !important; }
+      @media (prefers-reduced-motion: no-preference) {
+        #ccTypingIndicator .cc-dots span { animation: ccTypingDot 1.2s infinite ease-in-out !important; }
+        #ccTypingIndicator .cc-dots span:nth-child(2) { animation-delay: .2s !important; }
+        #ccTypingIndicator .cc-dots span:nth-child(3) { animation-delay: .4s !important; }
+        @keyframes ccTypingDot { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+      }
+      #ccChatSheet { position: absolute !important; inset: 0 !important; z-index: 61 !important; display: flex !important; align-items: flex-end !important; justify-content: center !important; background: rgba(5,7,15,0.7) !important; padding: 12px !important; }
+      #ccChatSheet[hidden] { display: none !important; }
+      #ccChatSheet .cc-sheet-card { width: 100% !important; max-width: 460px !important; background: #111628 !important; color: #F7F8FC !important; border: 1px solid rgba(216,173,87,0.45) !important; border-radius: 20px !important; padding: 16px !important; }
+      #ccChatSheet h3 { margin: 0 0 10px !important; font-size: 1rem !important; color: #F2D17C !important; }
+      #ccChatSheet .cc-sheet-btn { display: flex !important; align-items: center !important; gap: 10px !important; width: 100% !important; min-height: 52px !important; padding: 0 14px !important; margin-bottom: 6px !important; border-radius: 12px !important; border: 1px solid rgba(255,255,255,0.08) !important; background: rgba(255,255,255,0.04) !important; color: #F7F8FC !important; font-size: 0.95rem !important; font-weight: 600 !important; text-align: left !important; cursor: pointer !important; }
+      #ccChatSheet .cc-sheet-btn.is-danger { color: #FCA5A5 !important; }
+      #ccChatSheet textarea { width: 100% !important; min-height: 110px !important; border-radius: 12px !important; padding: 10px !important; background: #0D1020 !important; color: #FFF !important; border: 1px solid rgba(216,173,87,0.45) !important; font: inherit !important; font-size: 0.95rem !important; box-sizing: border-box !important; }
+      #ccChatSheet .cc-sheet-row { display: flex !important; gap: 8px !important; margin-top: 10px !important; }
+      #ccChatSheet .cc-sheet-row button { flex: 1 !important; min-height: 48px !important; border-radius: 999px !important; font-weight: 800 !important; cursor: pointer !important; border: 1px solid rgba(255,255,255,0.18) !important; background: transparent !important; color: #E5E7EB !important; }
+      #ccChatSheet .cc-sheet-row button.is-primary { background: linear-gradient(135deg,#D8AD57,#B58A38) !important; color: #0D1020 !important; border: 0 !important; }
+      #ccChatSheet .cc-sheet-note { font-size: 0.8rem !important; color: #A5AEC4 !important; margin: 0 0 8px !important; }
+      /* @007 (L0 23.11.2026): daty między wiadomościami i separator „Nowe wiadomości” */
+      #ccGlobalChatOverlay .cc-chat-day-sep { display: flex !important; justify-content: center !important; margin: 10px 0 4px !important; }
+      #ccGlobalChatOverlay .cc-chat-day-sep span {
+        font-size: 0.72rem !important; font-weight: 700 !important; color: #C9CFDF !important; letter-spacing: 0.02em !important;
+        padding: 4px 12px !important; border-radius: 999px !important; background: rgba(255, 255, 255, 0.07) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      }
+      #ccGlobalChatOverlay .cc-chat-unread-sep { display: flex !important; align-items: center !important; gap: 10px !important; margin: 10px 0 !important; color: #FF9A3D !important; font-size: 0.75rem !important; font-weight: 800 !important; }
+      #ccGlobalChatOverlay .cc-chat-unread-sep::before, #ccGlobalChatOverlay .cc-chat-unread-sep::after { content: "" !important; flex: 1 !important; height: 1px !important; background: rgba(255, 154, 61, 0.55) !important; }
       /* @007 (L0 23.11.2026): pakiet startowy LUMI Messenger (zgody jak w Messengerze/WhatsAppie) */
       #ccLumiOnboarding {
         position: absolute !important; inset: 0 !important; z-index: 60 !important;
@@ -4798,13 +4842,16 @@
     // Czat Ogólny i rozmowy 1:1: wysyłanie do chmury LUMINA (bez ingerencji asystentek)
     function sendPendingPublicMessage(pending) {
       pending._status = 'sending';
-      Promise.resolve(window.LuminaDB.sendPublicChatMessage({
+      Promise.resolve(window.ccEnsureLuminaDb ? window.ccEnsureLuminaDb() : true).then((ok) => {
+        if (!ok || !window.LuminaDB || typeof window.LuminaDB.sendPublicChatMessage !== 'function') throw new Error('lumina-db-unavailable');
+        return window.LuminaDB.sendPublicChatMessage({
         text: pending.text,
         senderId: pending.senderId,
         senderName: pending.senderName,
         senderAvatar: pending.senderAvatar,
         senderBadge: pending.senderBadge
-      })).then((id) => {
+      });
+      }).then((id) => {
         if (id && !String(id).startsWith('local_')) {
           pending._status = 'sent';
           pending._realId = id;
@@ -4819,9 +4866,21 @@
         renderChatMessages();
       });
     }
+    if (chatInput) {
+      let typingIdle = null;
+      chatInput.addEventListener('input', () => {
+        if (chatMode === 'assistant' || !currentChatPartner || !currentChatPartner.isPublic) return;
+        const db = window.LuminaDB;
+        if (!db || typeof db.setChatTyping !== 'function') return;
+        const hasText = !!(chatInput.value || '').trim();
+        db.setChatTyping('public', hasText);
+        clearTimeout(typingIdle);
+        if (hasText) typingIdle = setTimeout(() => db.setChatTyping('public', false), 6000);
+      });
+    }
     window.ccRetryPublicMessage = function (pendingId) {
       const p = pendingPublicMessages.find(x => x.id === pendingId);
-      if (!p || !window.LuminaDB || typeof window.LuminaDB.sendPublicChatMessage !== 'function') return;
+      if (!p) return;
       renderChatMessages();
       sendPendingPublicMessage(p);
       renderChatMessages();
@@ -4855,7 +4914,7 @@
       }
 
       if (currentChatPartner && currentChatPartner.isPublic) {
-        if (window.LuminaDB && typeof window.LuminaDB.sendPublicChatMessage === 'function') {
+        {
           const now = new Date();
           const pending = {
             id: 'pending_' + now.getTime() + '_' + Math.random().toString(36).slice(2, 6),
@@ -4870,6 +4929,7 @@
             dateStr: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
           };
           pendingPublicMessages.push(pending);
+          try { if (window.LuminaDB && typeof window.LuminaDB.setChatTyping === 'function') window.LuminaDB.setChatTyping('public', false); } catch (_) {}
           renderChatMessages();
           scrollToBottom();
           sendPendingPublicMessage(pending);
@@ -5007,6 +5067,10 @@
         syncChatOverlayTopLayer(overlay, isOpenNow, false);
         document.documentElement.classList.toggle('cc-chat-scroll-lock', isOpenNow);
         if (isOpenNow && typeof window.ccLumiMaybeShowOnboarding === 'function') setTimeout(window.ccLumiMaybeShowOnboarding, 700);
+        if (typeof window.ccResetUnreadAnchors === 'function') window.ccResetUnreadAnchors(isOpenNow);
+        if (isOpenNow && typeof window.ccEnsureLuminaDb === 'function') {
+          window.ccEnsureLuminaDb().then(() => { if (typeof window.ccStartTypingWatch === 'function') window.ccStartTypingWatch(); });
+        }
         if (!isOpenNow && document.body.style.overflow === 'hidden') {
           document.body.style.overflow = '';
         }
@@ -5912,6 +5976,8 @@
       return window.renderChatMedia(escapedText, msgId);
     }
     if (!escapedText) return '';
+    // @007 (L0 23.11.2026): akapity w wiadomościach (tekst jest już bezpiecznie zakodowany — tylko \n → <br>)
+    escapedText = String(escapedText).replace(/\r?\n/g, '<br>');
     const urlRegex = /(https?:\/\/[^\s<>"']+)/gi;
     let firstYtId = null;
 
@@ -6447,6 +6513,278 @@
     return wrap(`<span style="color:#7DD3A8;">✓✓ Przeczytali (${seen.length})</span><span style="display:inline-flex;align-items:center;" aria-label="Przeczytali: ${escapeHtml(names)}" title="${escapeHtml(names)}">${faces}</span>${more}`);
   }
 
+  // @007 (L0 23.11.2026): Lumi Messenger działa na każdej stronie — bez lumina-db.js czat nie odbierał nowych
+  // wiadomości na żywo, a wysłana wiadomość przepadała. Ten sam adres modułu co cc-global-auth.js (jedna instancja Firebase).
+  const CC_LUMINA_DB_URL = '/lumina-db.js?v=20261013_notifsafe1';
+  let ccDbPromise = null;
+  function ccHasDb() { return !!(window.LuminaDB && typeof window.LuminaDB.subscribeToPublicChat === 'function' && typeof window.LuminaDB.sendPublicChatMessage === 'function'); }
+  window.ccEnsureLuminaDb = function () {
+    if (ccHasDb()) return Promise.resolve(true);
+    if (!ccDbPromise) {
+      ccDbPromise = import(CC_LUMINA_DB_URL)
+        .then(async (mod) => {
+          try { if (mod && typeof mod.ensureDbReady === 'function') await mod.ensureDbReady(); } catch (_) {}
+          const ok = ccHasDb();
+          if (ok && currentChatPartner) { try { setChatPartner(currentChatPartner); } catch (_) {} }
+          return ok;
+        })
+        .catch(() => { ccDbPromise = null; return false; });
+    }
+    return ccDbPromise;
+  };
+
+  // @007 (L0 23.11.2026): reakcje, edycja/usuwanie, zgłoś/ukryj, „pisze…” — na istniejących funkcjach LuminaDB.
+  const CC_REACTIONS = ['🙏', '❤️', '👍', '😊', '🔥', '✝️', '🕊️'];
+  function ccIsRealMsgId(id) { return typeof id === 'string' && /^[A-Za-z0-9_-]{1,128}$/.test(id) && !id.startsWith('local_') && !id.startsWith('pending_'); }
+  function ccIsHiddenSender(senderId) {
+    try { return !!(senderId && window.LuminaDB && typeof window.LuminaDB.isUserBlocked === 'function' && window.LuminaDB.isUserBlocked(String(senderId))); } catch (_) { return false; }
+  }
+  function ccFindMsg(id) { return (getChatMessagesForPartner(currentChatPartner) || []).find(m => m && m.id === id) || null; }
+  function ccRenderReactions(m, user) {
+    if (!ccIsRealMsgId(m.id)) return '';
+    const me = ccNormChatId(user.slug || user.uid || '');
+    const r = (m.reactions && typeof m.reactions === 'object') ? m.reactions : {};
+    const chips = Object.keys(r).filter(e => Array.isArray(r[e]) && r[e].length).map(e => {
+      const list = r[e];
+      const mine = list.some(x => ccNormChatId(typeof x === 'string' ? x : (x && x.id)) === me);
+      const names = list.map(x => (typeof x === 'string' ? x : (x && (x.name || x.id))) || '').join(', ');
+      return `<button type="button" class="cc-react-chip ${mine ? 'is-mine' : ''}" onclick="window.ccReact('${escapeHtml(m.id)}','${escapeHtml(e)}')" title="${escapeHtml(names)}" aria-label="${escapeHtml(e)} ${list.length}: ${escapeHtml(names)}">${escapeHtml(e)} ${list.length}</button>`;
+    }).join('');
+    const pickId = 'ccPick_' + String(m.id).replace(/[^A-Za-z0-9_-]/g, '_');
+    const picker = CC_REACTIONS.map(e => `<button type="button" onclick="window.ccReact('${escapeHtml(m.id)}','${e}')" aria-label="Zareaguj ${e}">${e}</button>`).join('');
+    return `<div class="cc-msg-reactions">${chips}<button type="button" class="cc-react-chip" onclick="window.ccToggleReactPicker('${pickId}')" aria-label="Dodaj reakcję" title="Dodaj reakcję">☺＋</button></div>
+      <div class="cc-react-picker" id="${pickId}" role="group" aria-label="Wybierz reakcję">${picker}</div>`;
+  }
+  window.ccToggleReactPicker = function (id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('is-open');
+  };
+  window.ccReact = async function (msgId, emoji) {
+    const u = getUserState();
+    if (!u.isLoggedIn) { ccSheet('<h3>Zaloguj się</h3><p class="cc-sheet-note">Reagować mogą zalogowani członkowie LUMINA.</p><div class="cc-sheet-row"><button type="button" data-sheet-close>OK</button></div>'); return; }
+    try {
+      if (window.LuminaDB && typeof window.LuminaDB.togglePublicChatMessageReaction === 'function') {
+        await window.LuminaDB.togglePublicChatMessageReaction(msgId, emoji, { slug: u.slug, uid: u.uid, name: u.name });
+      }
+    } catch (_) {}
+  };
+  function ccSheet(html) {
+    let sh = document.getElementById('ccChatSheet');
+    if (!sh) {
+      const host = document.querySelector('#ccGlobalChatOverlay .cc-chat-drawer') || document.getElementById('ccGlobalChatOverlay');
+      if (!host) return null;
+      sh = document.createElement('div');
+      sh.id = 'ccChatSheet';
+      sh.setAttribute('role', 'dialog');
+      sh.setAttribute('aria-modal', 'true');
+      host.appendChild(sh);
+      sh.addEventListener('click', (e) => { if (e.target === sh || e.target.closest('[data-sheet-close]')) sh.hidden = true; });
+      sh.addEventListener('keydown', (e) => { if (e.key === 'Escape') sh.hidden = true; });
+    }
+    sh.innerHTML = '<div class="cc-sheet-card">' + html + '</div>';
+    sh.hidden = false;
+    const f = sh.querySelector('textarea, button');
+    if (f) f.focus();
+    return sh;
+  }
+  window.ccOpenMsgMenu = function (msgId) {
+    const m = ccFindMsg(msgId);
+    if (!m) return;
+    const u = getUserState();
+    const mine = !!(u.uid && (m.senderAuthUid === u.uid));
+    const sh = ccSheet(`<h3>Wiadomość</h3>
+      <button type="button" class="cc-sheet-btn" data-act="react">☺ Zareaguj</button>
+      ${mine ? '<button type="button" class="cc-sheet-btn" data-act="edit">✏️ Edytuj</button><button type="button" class="cc-sheet-btn is-danger" data-act="delete">🗑️ Usuń</button>'
+              : '<button type="button" class="cc-sheet-btn" data-act="report">🚩 Zgłoś wiadomość</button><button type="button" class="cc-sheet-btn is-danger" data-act="hide">🙈 Ukryj wiadomości tej osoby</button>'}
+      <div class="cc-sheet-row"><button type="button" data-sheet-close>Anuluj</button></div>`);
+    if (!sh) return;
+    sh.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => ccMsgAction(b.getAttribute('data-act'), m)));
+  };
+  function ccSheetMessage(title, note) {
+    ccSheet(`<h3>${escapeHtml(title)}</h3><p class="cc-sheet-note">${escapeHtml(note)}</p><div class="cc-sheet-row"><button type="button" data-sheet-close class="is-primary">OK</button></div>`);
+  }
+  function ccMsgAction(act, m) {
+    const db = window.LuminaDB || {};
+    const u = getUserState();
+    if (act === 'react') {
+      const sh = ccSheet(`<h3>Zareaguj</h3><div class="cc-react-picker is-open" style="justify-content:center;">${CC_REACTIONS.map(e => `<button type="button" data-emoji="${e}" aria-label="Zareaguj ${e}">${e}</button>`).join('')}</div><div class="cc-sheet-row"><button type="button" data-sheet-close>Zamknij</button></div>`);
+      sh && sh.querySelectorAll('[data-emoji]').forEach(b => b.addEventListener('click', async () => { sh.hidden = true; await window.ccReact(m.id, b.getAttribute('data-emoji')); }));
+    } else if (act === 'edit') {
+      const sh = ccSheet(`<h3>Edytuj wiadomość</h3><textarea maxlength="2000" aria-label="Treść wiadomości">${escapeHtml(m.text || '')}</textarea><div class="cc-sheet-row"><button type="button" data-sheet-close>Anuluj</button><button type="button" class="is-primary" data-save>Zapisz</button></div>`);
+      sh && sh.querySelector('[data-save]').addEventListener('click', async () => {
+        const v = sh.querySelector('textarea').value.trim();
+        if (!v) return;
+        try { await db.changeOwnPublicChatMessage(m.id, m.text, v); sh.hidden = true; }
+        catch (e) { ccSheetMessage('Nie zapisano', String(e && e.message).includes('changed') ? 'Wiadomość zmieniła się w międzyczasie. Otwórz ją ponownie.' : 'Spróbuj ponownie za chwilę.'); }
+      });
+    } else if (act === 'delete') {
+      const sh = ccSheet('<h3>Usunąć wiadomość?</h3><p class="cc-sheet-note">Zniknie dla wszystkich na Czacie Ogólnym. Tej operacji nie da się cofnąć.</p><div class="cc-sheet-row"><button type="button" data-sheet-close>Anuluj</button><button type="button" class="is-primary" data-del>Usuń</button></div>');
+      sh && sh.querySelector('[data-del]').addEventListener('click', async () => {
+        try { await db.changeOwnPublicChatMessage(m.id, m.text, null); sh.hidden = true; }
+        catch (_) { ccSheetMessage('Nie usunięto', 'Spróbuj ponownie za chwilę.'); }
+      });
+    } else if (act === 'report') {
+      const reasons = ['Spam lub reklama', 'Obraźliwa lub raniąca treść', 'Fałszywe nauczanie / manipulacja', 'Inny powód'];
+      const sh = ccSheet(`<h3>Zgłoś wiadomość</h3><p class="cc-sheet-note">Zgłoszenie trafi do moderatorów LUMINA. Autor nie dowie się, kto zgłosił.</p>${reasons.map(r => `<button type="button" class="cc-sheet-btn" data-reason="${escapeHtml(r)}">${escapeHtml(r)}</button>`).join('')}<div class="cc-sheet-row"><button type="button" data-sheet-close>Anuluj</button></div>`);
+      sh && sh.querySelectorAll('[data-reason]').forEach(b => b.addEventListener('click', async () => {
+        if (!u.isLoggedIn) { ccSheetMessage('Zaloguj się', 'Zgłaszać mogą zalogowani członkowie LUMINA.'); return; }
+        let res = null;
+        try { res = await db.reportContent({ targetType: 'message', targetId: m.id, targetAuthorId: m.senderId || '', reason: b.getAttribute('data-reason'), details: String(m.text || '').slice(0, 300) }); } catch (_) {}
+        ccSheetMessage(res && res.success ? 'Dziękujemy' : 'Nie wysłano', res && res.message ? res.message : 'Spróbuj ponownie za chwilę.');
+      }));
+    } else if (act === 'hide') {
+      const sh = ccSheet(`<h3>Ukryć wiadomości tej osoby?</h3><p class="cc-sheet-note">Nie będziesz widzieć wiadomości od: ${escapeHtml(m.senderName || 'tej osoby')}. Możesz to cofnąć w ustawieniach konta LUMINA.</p><div class="cc-sheet-row"><button type="button" data-sheet-close>Anuluj</button><button type="button" class="is-primary" data-hide>Ukryj</button></div>`);
+      sh && sh.querySelector('[data-hide]').addEventListener('click', async () => {
+        try { if (typeof db.blockUser === 'function') await db.blockUser(String(m.senderId || '')); } catch (_) {}
+        sh.hidden = true;
+        renderChatMessages();
+      });
+    }
+  }
+  // „Ktoś pisze…” — odczyt z kanału obecności (jedna subskrypcja na stronę)
+  let ccTypingStop = null;
+  let ccTypingTimer = null;
+  let ccTypingMembers = [];
+  function ccRenderTyping() {
+    const list = document.getElementById('ccChatMessagesList');
+    if (!list) return;
+    let el = document.getElementById('ccTypingIndicator');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'ccTypingIndicator';
+      el.setAttribute('aria-live', 'polite');
+      el.hidden = true;
+      list.insertAdjacentElement('afterend', el);
+    }
+    const u = getUserState();
+    const now = Date.now();
+    const typers = ccTypingMembers.filter(x => x && x.typingRoom === 'public' && now - Number(x.typingAt || 0) < 7000 && x.uid && x.uid !== u.uid);
+    if (!typers.length || !currentChatPartner || !currentChatPartner.isPublic || chatMode === 'assistant') { el.hidden = true; return; }
+    const first = (n) => String(n || 'Ktoś').split(' ')[0];
+    const label = typers.length === 1 ? `${first(typers[0].displayName)} pisze…`
+      : (typers.length === 2 ? `${first(typers[0].displayName)} i ${first(typers[1].displayName)} piszą…` : `${typers.length} osoby piszą…`);
+    const faces = typers.slice(0, 3).map(t => {
+      const a = String(t.avatar || '');
+      const src = /^(https?:|\/)/.test(a) ? a : '/' + a.replace(/^\.\//, '');
+      return a ? `<img src="${escapeHtml(src)}" alt="" onerror="this.remove()">` : '';
+    }).join('');
+    el.innerHTML = `${faces}<span>${escapeHtml(label)}</span><span class="cc-dots" aria-hidden="true"><span></span><span></span><span></span></span>`;
+    el.hidden = false;
+    if (ccFeedNearBottom()) scrollToBottom();
+  }
+  function ccStartTypingWatch() {
+    if (ccTypingStop || !window.LuminaDB || typeof window.LuminaDB.subscribeToOnlinePresence !== 'function') return;
+    try {
+      ccTypingStop = window.LuminaDB.subscribeToOnlinePresence((_active, info) => {
+        ccTypingMembers = (info && Array.isArray(info.members)) ? info.members : [];
+        ccRenderTyping();
+      });
+    } catch (_) {}
+    if (!ccTypingTimer) ccTypingTimer = setInterval(() => { if (document.getElementById('ccGlobalChatOverlay')?.classList.contains('is-open')) ccRenderTyping(); }, 2000);
+  }
+
+  // @007 (L0 23.11.2026): nieprzeczytane jak w Messengerze — kotwica „Nowe wiadomości” liczona przy otwarciu rozmowy.
+  const ccUnreadAnchor = {};
+  let ccInitialScrollPending = true;
+  function ccRoomKey() {
+    if (!currentChatPartner) return 'public';
+    return currentChatPartner.isPublic ? 'public' : 'dm_' + ccNormChatId(currentChatPartner.slug || currentChatPartner.id);
+  }
+  function ccMsgTs(m) {
+    if (!m) return 0;
+    const ts = m.timestamp || m.createdAt || m.sentAt;
+    if (!ts) return m._pending ? Date.now() : 0;
+    if (typeof ts === 'number') return ts > 1e11 ? ts : ts * 1000;
+    if (typeof ts.toMillis === 'function') { try { return ts.toMillis(); } catch (_) { return 0; } }
+    if (typeof ts.seconds === 'number') return ts.seconds * 1000;
+    const parsed = Date.parse(String(ts));
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+  function ccLastRead(room) { try { return Number(localStorage.getItem('lumi_mess_last_read_' + room) || 0) || 0; } catch (_) { return 0; } }
+  function ccSetLastRead(room, ts) {
+    if (!ts) return;
+    try { if (ts > ccLastRead(room)) localStorage.setItem('lumi_mess_last_read_' + room, String(ts)); } catch (_) {}
+  }
+  function ccDayLabel(ts) {
+    const d = new Date(ts);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const day = new Date(d); day.setHours(0, 0, 0, 0);
+    const diff = Math.round((today - day) / 86400000);
+    if (diff === 0) return 'Dzisiaj';
+    if (diff === 1) return 'Wczoraj';
+    const opts = { weekday: 'short', day: 'numeric', month: 'long' };
+    if (d.getFullYear() !== today.getFullYear()) opts.year = 'numeric';
+    return d.toLocaleDateString('pl-PL', opts);
+  }
+  function ccFeedNearBottom() {
+    const f = document.getElementById('ccChatFeed');
+    return !f || (f.scrollHeight - f.scrollTop - f.clientHeight) < 140;
+  }
+  function ccChatVisibleOpen() {
+    const ov = document.getElementById('ccGlobalChatOverlay');
+    return !!(ov && ov.classList.contains('is-open') && document.visibilityState === 'visible' && chatMode !== 'assistant');
+  }
+  function ccMarkRoomReadIfAtBottom() {
+    if (!ccChatVisibleOpen() || !ccFeedNearBottom()) return;
+    const msgs = getChatMessagesForPartner(currentChatPartner) || [];
+    let max = 0;
+    msgs.forEach(m => { const t = ccMsgTs(m); if (t > max) max = t; });
+    ccSetLastRead(ccRoomKey(), max);
+    ccUpdateJumpButton(0);
+  }
+  function ccUpdateJumpButton(count) {
+    const b = document.getElementById('ccChatScrollBottomBtn');
+    if (!b) return;
+    b.textContent = count > 0 ? `↓ ${count} ${count === 1 ? 'nowa wiadomość' : (count < 5 ? 'nowe wiadomości' : 'nowych wiadomości')}` : 'Przejdź do najnowszych ↓';
+    if (count > 0) b.style.display = 'block';
+  }
+  // Po otwarciu rozmowy: przewiń do „Nowe wiadomości”, a gdy ich brak — na dół.
+  window.ccStartTypingWatch = ccStartTypingWatch;
+  window.ccResetUnreadAnchors = function (opening) {
+    if (opening) {
+      Object.keys(ccUnreadAnchor).forEach(k => delete ccUnreadAnchor[k]);
+      ccInitialScrollPending = true;
+      try { renderChatMessages(); } catch (_) {}
+      setTimeout(() => { if (ccInitialScrollPending) window.ccScrollToUnreadOrBottom(); }, 250);
+    }
+  };
+  window.ccScrollToUnreadOrBottom = function () {
+    const f = document.getElementById('ccChatFeed');
+    const sep = document.getElementById('ccUnreadSep');
+    if (f && sep && chatMode !== 'assistant') {
+      f.scrollTop = Math.max(0, sep.offsetTop - 60);
+    } else {
+      scrollToBottom();
+    }
+    ccInitialScrollPending = false;
+    setTimeout(ccMarkRoomReadIfAtBottom, 400);
+  };
+  // Po nowych wiadomościach na żywo: dół tylko gdy użytkownik już był na dole albo pisał sam; inaczej licznik na przycisku.
+  function ccAfterRealtimeRender(wasNearBottom) {
+    if (ccInitialScrollPending) { window.ccScrollToUnreadOrBottom(); return; }
+    const msgs = getChatMessagesForPartner(currentChatPartner) || [];
+    const last = msgs[msgs.length - 1];
+    const u = getUserState();
+    const lastMine = !!(last && (last._pending || (u.uid && (last.senderAuthUid === u.uid || last.senderUid === u.uid)) || (u.slug && last.senderId === u.slug)));
+    if (wasNearBottom || lastMine) {
+      scrollToBottom();
+      setTimeout(ccMarkRoomReadIfAtBottom, 300);
+      return;
+    }
+    const lastRead = ccLastRead(ccRoomKey());
+    const fresh = msgs.filter(m => ccMsgTs(m) > lastRead && !(u.slug && m.senderId === u.slug) && !(u.uid && m.senderAuthUid === u.uid)).length;
+    ccUpdateJumpButton(fresh);
+  }
+  (function ccBindFeedReadTracking() {
+    const attach = () => {
+      const f = document.getElementById('ccChatFeed');
+      if (!f) { setTimeout(attach, 800); return; }
+      let t = null;
+      f.addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(ccMarkRoomReadIfAtBottom, 250); }, { passive: true });
+    };
+    attach();
+  })();
+
   function renderChatMessages() {
     const list = document.getElementById('ccChatMessagesList');
     if (!list) return;
@@ -6501,8 +6839,26 @@
     }
 
     let html = '';
+    const room = ccRoomKey();
+    if (!(room in ccUnreadAnchor)) ccUnreadAnchor[room] = ccLastRead(room);
+    const anchor = ccUnreadAnchor[room];
+    let prevDay = '';
+    let unreadPlaced = false;
     msgs.forEach(m => {
       const isMe = m.isMe || (user.uid && (m.senderAuthUid === user.uid || m.senderUid === user.uid)) || (user.slug && m.senderId === user.slug);
+      if (!isMe && currentChatPartner.isPublic && ccIsHiddenSender(m.senderId)) return;
+      const mTs = ccMsgTs(m);
+      if (mTs) {
+        const dayLabel = ccDayLabel(mTs);
+        if (dayLabel !== prevDay) {
+          html += `<div class="cc-chat-day-sep" role="separator"><span>${escapeHtml(dayLabel)}</span></div>`;
+          prevDay = dayLabel;
+        }
+      }
+      if (!unreadPlaced && anchor > 0 && mTs > anchor && !isMe && !m._pending) {
+        html += '<div class="cc-chat-unread-sep" id="ccUnreadSep" role="separator" aria-label="Nowe wiadomości">Nowe wiadomości</div>';
+        unreadPlaced = true;
+      }
       const name = escapeHtml(m.senderName || (isMe ? user.name : currentChatPartner.name));
       const avatar = escapeHtml(m.senderAvatar || (isMe ? user.avatar : currentChatPartner.avatar) || '/images/chat/cc-chat-button-120.webp');
       const badge = escapeHtml(m.senderBadge || (isMe ? user.badge : currentChatPartner.badge) || '🕊️ CC');
@@ -6535,11 +6891,13 @@
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
               </button>
               <button type="button" class="cc-chat-lumina-btn" onclick="window.ccChatShareToLumina(this)" data-share-sender="${name}" data-share-text="${text}" style="background:transparent; border:none; box-shadow:none; color:rgba(255,255,255,0.7); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; font:700 16px/1 Georgia, 'Times New Roman', serif;" title="Opublikuj tę wiadomość na Tablicy LUMINA" aria-label="Opublikuj tę wiadomość na Tablicy LUMINA">L</button>
+              ${currentChatPartner.isPublic && ccIsRealMsgId(m.id) ? `<button type="button" class="cc-chat-more-btn" onclick="window.ccOpenMsgMenu('${escapeHtml(m.id)}')" style="background:transparent; border:none; color:rgba(255,255,255,0.75); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; font-size:20px; line-height:1;" title="Więcej opcji wiadomości" aria-label="Więcej opcji wiadomości">⋯</button>` : ''}
             </div>
             <div class="cc-chat-msg-bubble">
-              ${renderChatMedia(text, m.id)}
+              ${renderChatMedia(text, m.id)}${m.editedAt ? '<span class="cc-msg-edited">(edytowano)</span>' : ''}
               ${m.type === 'wzn_card' && m.wzn ? renderWznChatCard(m) : ''}
             </div>
+            ${currentChatPartner.isPublic ? ccRenderReactions(m, user) : ''}
             ${isMe && currentChatPartner.isPublic ? renderPublicMsgStatus(m) : ''}
           </div>
         </div>
@@ -6692,9 +7050,10 @@
           activeRealtimeUnsubscribe = window.LuminaDB.subscribeToPublicChat(function (msgs) {
             if (currentChatPartner.isPublic && Array.isArray(msgs)) {
               trackPublicReveal(msgs);
+              const wasNearBottom = ccFeedNearBottom();
               currentPartnerRealtimeMessages = msgs;
               renderChatMessages();
-              if (chatMode !== 'assistant') scrollToBottom();
+              if (chatMode !== 'assistant') ccAfterRealtimeRender(wasNearBottom);
               try {
                 const ov = document.getElementById('ccGlobalChatOverlay');
                 const u = getUserState();
