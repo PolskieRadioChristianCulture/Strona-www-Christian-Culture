@@ -2,6 +2,16 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "10-doswiadczenie-zbawienia.html",
+      "title": "Kurs 28 Kroków — Lekcja 10: Doświadczenie Zbawienia — Łaska, Wiara i Nowe Narodzenie",
+      "url": "https://polskieradio.cc/kursy/10-doswiadczenie-zbawienia.html",
+      "type": "course",
+      "topicId": null,
+      "image": "10.png",
+      "publishedAt": "2026-11-23T05:31:16.236Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "SpiritualSounds",
       "title": "Spiritual Sounds – Psalmy po polsku",
       "url": "https://polskieradio.cc/SpiritualSounds",
