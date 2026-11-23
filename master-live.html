@@ -2022,7 +2022,7 @@
                 const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
                 if (doc) {
                     doc.querySelectorAll('audio, video').forEach(m => {
-                        if (m.id === 'ccWorshipFallbackAudio' && m.paused) return;
+                        if (m.id === 'ccWorshipFallbackAudio') return;
                         m.muted = false;
                         m.volume = 1.0;
                         if (m.id !== 'ccWorshipFallbackAudio') {

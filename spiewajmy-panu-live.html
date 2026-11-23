@@ -542,7 +542,10 @@
             playerIframe.src = `https://www.youtube.com/embed/videoseries?list=${PLAYLIST_ID}&index=${initialTrackIndex}&autoplay=1&mute=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}&widget_referrer=${encodeURIComponent(location.href)}&controls=0&rel=0&modestbranding=1&loop=1&cc_load_policy=0&iv_load_policy=3`;
         }
 
+        let ytPlayerInitStarted = false;
         function onYouTubeIframeAPIReady() {
+            if (ytPlayerInitStarted) return;
+            ytPlayerInitStarted = true;
             player = new YT.Player('yt-player', {
                 playerVars: {
                     cc_load_policy: 0,
@@ -555,22 +558,44 @@
                 }
             });
         }
+        if (window.YT && window.YT.Player && !ytPlayerInitStarted) {
+            onYouTubeIframeAPIReady();
+        }
 
         function enableAudio() {
             isPreloadMuted = false;
             const overlay = document.getElementById("startOverlay");
             if (overlay) overlay.style.display = "none";
 
+            const guard = window.__ccAudioGuard;
+            if (guard) {
+                guard.setFrameMuted(false);
+                if (guard.isFallbackActive()) {
+                    if (guard.isYtPlaying()) {
+                        guard.stopFallback();
+                    } else {
+                        guard.muteYouTubeOnly();
+                        return;
+                    }
+                } else if (guard.isObsMode() && !guard.isYtConfirmedAlive()) {
+                    guard.pingYouTube();
+                    return;
+                } else {
+                    guard.stopFallback();
+                }
+            }
+
             try {
                 if (player && typeof player.getPlayerState === 'function') {
                     const st = player.getPlayerState();
-                    if (st !== YT.PlayerState.PLAYING && st !== YT.PlayerState.BUFFERING) {
+                    if (st !== YT.PlayerState.PLAYING && st !== YT.PlayerState.BUFFERING && !(guard && guard.isYtPlaying())) {
                         // Jeśli wideo jeszcze nie gra (np. -1 lub 5), najpierw uruchom je wyciszone (gwarancja startu wideo), a potem odcisz
                         try { player.mute(); } catch(e) {}
                         try { player.playVideo(); } catch(e) {}
                         setTimeout(() => {
                             try {
-                                if (!isPreloadMuted && player && typeof player.unMute === 'function') {
+                                const g2 = window.__ccAudioGuard;
+                                if (!isPreloadMuted && !(g2 && g2.isFallbackActive()) && player && typeof player.unMute === 'function') {
                                     player.unMute();
                                     player.setVolume(100);
                                 }
@@ -597,6 +622,7 @@
 
         function disableAudio() {
             isPreloadMuted = true;
+            if (window.__ccAudioGuard) window.__ccAudioGuard.setFrameMuted(true);
             try {
                 if (player && typeof player.mute === 'function') {
                     player.mute();
@@ -726,6 +752,7 @@
         }, 25000);
 
         function onPlayerReady(event) {
+            if (window.__ccAudioGuard) window.__ccAudioGuard.notifyYtReady();
             try { if (window.parent && window.parent !== window) { window.parent.postMessage({ type: 'YT_PLAYER_READY' }, '*'); } } catch(e) {}
             ytReadyFired = true;
             // Zawsze wycisz przed loadPlaylist, aby Chromium/CEF 150 natychmiast wystartował obraz (playerState=1)
@@ -826,6 +853,10 @@
         function onPlayerStateChange(event) {
             if (checkAndSkipExcludedVideo()) {
                 return;
+            }
+
+            if (window.__ccAudioGuard && (event.data === YT.PlayerState.PLAYING || event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.BUFFERING)) {
+                window.__ccAudioGuard.notifyYtState(event.data);
             }
 
             if (event.data === YT.PlayerState.PLAYING) {
@@ -939,48 +970,88 @@
     (function () {
         // Na antenie strona działa w ramce master-live (in_mcr=1) — tam window.obsstudio istnieje tylko w oknie nadrzędnym
         var IS_OBS = !!window.obsstudio || /[?&](in_mcr|obs)=1(&|$)/.test(location.search);
-        if (!IS_OBS) return; // w zwykłej przeglądarce zachowanie bez zmian
-        var NOT_PLAYING_LIMIT_MS = 8000;
+        var NOT_PLAYING_LIMIT_MS = 12000;
         var CHECK_EVERY_MS = 2000;
         var audio = document.getElementById('ccWorshipFallbackAudio');
         // Ten sam stan wyciszenia co strona: master-live wstępnie ładuje kanał wyciszony (muted=1) i odcisza komunikatem
         var isFrameMuted = /[?&]muted=1(&|$)/.test(location.search);
         audio.muted = true;
-        window.addEventListener('message', function (e) {
-            var d = e && e.data; var type = '';
-            if (typeof d === 'string') { try { var p = JSON.parse(d); type = p.type || p.event || ''; if (p.func === 'unMute') type = 'UNMUTE_AUDIO'; if (p.func === 'mute') type = 'MUTE_AUDIO'; } catch (err) { type = d; } }
-            else if (d && typeof d === 'object') { type = d.type || ''; }
-            if (type === 'UNMUTE_AUDIO' || type === 'unMute') {
-                isFrameMuted = false;
-                notPlayingSince = Date.now();
-                audio.muted = !fallbackOn;
-            }
-            else if (type === 'MUTE_AUDIO' || type === 'mute') {
-                isFrameMuted = true;
-                stopFallback();
-            }
-        });
+
         var tracks = [];
         var idx = 0;
         var fallbackOn = false;
         var notPlayingSince = Date.now();
 
-        function hideOverlay() {
-            var o = document.getElementById('startOverlay');
-            if (o) o.style.display = 'none';
+        var ytApiConfirmed = (typeof ytReadyFired !== 'undefined' && !!ytReadyFired);
+        var ytMsgState = null;
+        var ytLastAliveAt = 0;
+        var lastYtTime = null;
+        var ytTimeAdvancingAt = 0;
+        var ytUnmutedOnce = false;
+
+        function getYtIframe() {
+            return document.querySelector('#yt-player iframe') || document.getElementById('yt-player');
         }
-        hideOverlay(); // w OBS nikt nie kliknie
+
+        function muteYouTubeOnly() {
+            ytUnmutedOnce = false;
+            try {
+                if (typeof player !== 'undefined' && player) {
+                    if (typeof player.mute === 'function') player.mute();
+                    if (typeof player.setVolume === 'function') player.setVolume(0);
+                }
+            } catch (e) {}
+            try {
+                var f = getYtIframe();
+                if (f && f.contentWindow) {
+                    f.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+                    f.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[0]}', '*');
+                }
+            } catch (e) {}
+        }
+
+        function pingYouTube() {
+            try {
+                var f = getYtIframe();
+                if (f && f.contentWindow) {
+                    f.contentWindow.postMessage('{"event":"listening","id":1,"channel":"widget"}', '*');
+                    if (typeof player !== 'undefined' && player && typeof player.getPlayerState === 'function') {
+                        var st = player.getPlayerState();
+                        if (st !== 1 && st !== 3) {
+                            try { player.mute(); } catch (e) {}
+                            try { player.playVideo(); } catch (e) {}
+                        }
+                    }
+                }
+            } catch (e) {}
+        }
 
         function ytIsPlaying() {
             try {
                 // YouTube „żyje” = gra, pauza albo buforowanie (w OBS API potrafi stale zgłaszać buforowanie mimo odtwarzania).
-                // Dźwięk zastępczy tylko gdy odtwarzacza brak albo nie wystartował / skończył (bez podwójnego dźwięku).
                 var st = (typeof player !== 'undefined' && player && typeof player.getPlayerState === 'function') ? player.getPlayerState() : null;
-                return st === 1 || st === 2 || st === 3;
-            } catch (e) {
-                return false;
+                if (st === 1 || st === 2 || st === 3) {
+                    ytApiConfirmed = true;
+                    ytLastAliveAt = Date.now();
+                    return true;
+                }
+            } catch (e) {}
+            var now = Date.now();
+            if ((ytMsgState === 1 || ytMsgState === 2 || ytMsgState === 3) && (now - ytLastAliveAt < 20000)) {
+                return true;
             }
+            if (now - ytTimeAdvancingAt < 12000) {
+                return true;
+            }
+            return false;
         }
+
+        function hideOverlay() {
+            if (!IS_OBS) return;
+            var o = document.getElementById('startOverlay');
+            if (o) o.style.display = 'none';
+        }
+        hideOverlay(); // w OBS nikt nie kliknie
 
         function loadTracks() {
             if (tracks.length) return Promise.resolve(tracks);
@@ -1007,7 +1078,8 @@
         audio.addEventListener('error', function () { setTimeout(playNext, 1500); });
 
         function startFallback(reason) {
-            if (fallbackOn || isFrameMuted || ytIsPlaying()) return;
+            if (!IS_OBS || fallbackOn || isFrameMuted || ytIsPlaying()) return;
+            muteYouTubeOnly();
             fallbackOn = true;
             audio.muted = false;
             console.warn('[uwielbienie] dźwięk zastępczy ON (' + reason + ') ' + new Date().toISOString());
@@ -1019,7 +1091,8 @@
         }
 
         function stopFallback() {
-            if (!fallbackOn && !audio.getAttribute('src')) return;
+            var wasActive = fallbackOn || !!audio.getAttribute('src');
+            if (!wasActive) return false;
             fallbackOn = false;
             try {
                 audio.pause();
@@ -1028,24 +1101,151 @@
                 audio.load();
             } catch (e) {}
             console.info('[uwielbienie] YouTube gra — dźwięk zastępczy OFF ' + new Date().toISOString());
+            return true;
         }
 
-        window.ccWorshipFallbackState = function () {
-            return { obs: IS_OBS, fallbackOn: fallbackOn, muted: audio.muted, ytPlaying: ytIsPlaying(), track: audio.currentSrc || '' };
-        };
-
-        setInterval(function () {
-            if (ytIsPlaying()) {
-                notPlayingSince = Date.now();
-                stopFallback();
+        window.addEventListener('message', function (e) {
+            var origin = (e && e.origin) || '';
+            var d = e && e.data;
+            if (/^https:\/\/(www\.)?youtube(-nocookie)?\.com$/.test(origin)) {
+                var ytMsg = d;
+                if (typeof d === 'string') {
+                    try { ytMsg = JSON.parse(d); } catch (err) { ytMsg = null; }
+                }
+                if (ytMsg && typeof ytMsg === 'object') {
+                    var evName = ytMsg.event || '';
+                    if (evName === 'onReady') {
+                        ytApiConfirmed = true;
+                    } else if (evName === 'onStateChange' && typeof ytMsg.info === 'number') {
+                        ytMsgState = ytMsg.info;
+                        ytApiConfirmed = true;
+                        if (ytMsgState === 1 || ytMsgState === 2 || ytMsgState === 3) {
+                            ytLastAliveAt = Date.now();
+                            notPlayingSince = Date.now();
+                            var wasFbState = stopFallback();
+                            if (ytMsgState === 1 && !isFrameMuted && (wasFbState || !ytUnmutedOnce) && typeof enableAudio === 'function') {
+                                ytUnmutedOnce = true;
+                                enableAudio();
+                            }
+                        }
+                    } else if ((evName === 'infoDelivery' || evName === 'initialDelivery') && ytMsg.info && typeof ytMsg.info === 'object') {
+                        if (typeof ytMsg.info.playerState === 'number') {
+                            ytMsgState = ytMsg.info.playerState;
+                            ytApiConfirmed = true;
+                            if (ytMsgState === 1 || ytMsgState === 2 || ytMsgState === 3) {
+                                ytLastAliveAt = Date.now();
+                                notPlayingSince = Date.now();
+                                var wasFbInfo = stopFallback();
+                                if (ytMsgState === 1 && !isFrameMuted && (wasFbInfo || ytMsg.info.muted === true || !ytUnmutedOnce) && typeof enableAudio === 'function') {
+                                    ytUnmutedOnce = true;
+                                    enableAudio();
+                                }
+                            }
+                        }
+                        if (typeof ytMsg.info.currentTime === 'number') {
+                            if (lastYtTime !== null && ytMsg.info.currentTime > lastYtTime + 0.05) {
+                                ytApiConfirmed = true;
+                                ytTimeAdvancingAt = Date.now();
+                                ytLastAliveAt = Date.now();
+                                notPlayingSince = Date.now();
+                                var wasFbTime = stopFallback();
+                                if (!isFrameMuted && (wasFbTime || ytMsg.info.muted === true || !ytUnmutedOnce) && typeof enableAudio === 'function') {
+                                    ytUnmutedOnce = true;
+                                    enableAudio();
+                                }
+                            }
+                            lastYtTime = ytMsg.info.currentTime;
+                        }
+                    }
+                }
                 return;
             }
+
+            var type = '';
+            if (typeof d === 'string') { try { var p = JSON.parse(d); type = p.type || p.event || ''; if (p.func === 'unMute') type = 'UNMUTE_AUDIO'; if (p.func === 'mute') type = 'MUTE_AUDIO'; } catch (err) { type = d; } }
+            else if (d && typeof d === 'object') { type = d.type || ''; }
+            if (type === 'UNMUTE_AUDIO' || type === 'unMute') {
+                isFrameMuted = false;
+                notPlayingSince = Date.now();
+                audio.muted = !fallbackOn;
+            }
+            else if (type === 'MUTE_AUDIO' || type === 'mute') {
+                isFrameMuted = true;
+                ytUnmutedOnce = false;
+                stopFallback();
+            }
+        });
+
+        window.__ccAudioGuard = {
+            isObsMode: function () { return IS_OBS; },
+            isFallbackActive: function () { return fallbackOn; },
+            isYtPlaying: ytIsPlaying,
+            isYtConfirmedAlive: function () { return ytApiConfirmed || ytIsPlaying(); },
+            setFrameMuted: function (muted) {
+                var next = !!muted;
+                if (next) {
+                    isFrameMuted = true;
+                    ytUnmutedOnce = false;
+                    notPlayingSince = Date.now();
+                    stopFallback();
+                    muteYouTubeOnly();
+                } else {
+                    if (isFrameMuted) notPlayingSince = Date.now();
+                    isFrameMuted = false;
+                    audio.muted = !fallbackOn;
+                }
+            },
+            notifyYtReady: function () { ytApiConfirmed = true; },
+            notifyYtState: function (st) {
+                ytApiConfirmed = true;
+                ytMsgState = st;
+                if (st === 1 || st === 2 || st === 3) {
+                    ytLastAliveAt = Date.now();
+                    notPlayingSince = Date.now();
+                    stopFallback();
+                }
+            },
+            stopFallback: stopFallback,
+            muteYouTubeOnly: muteYouTubeOnly,
+            pingYouTube: pingYouTube
+        };
+
+        window.ccWorshipFallbackState = function () {
+            return { obs: IS_OBS, fallbackOn: fallbackOn, muted: audio.muted, ytPlaying: ytIsPlaying(), ytConfirmed: ytApiConfirmed, ytMsgState: ytMsgState, track: audio.currentSrc || '' };
+        };
+
+        if (!IS_OBS) return; // w zwykłej przeglądarce nie uruchamiaj watchdog/fallbacku audio
+
+        var ytIframeEl = document.getElementById('yt-player');
+        if (ytIframeEl) {
+            ytIframeEl.addEventListener('load', function () { pingYouTube(); });
+        }
+        setTimeout(function () { if (!ytApiConfirmed) pingYouTube(); }, 1200);
+        setTimeout(function () { if (!ytApiConfirmed) pingYouTube(); }, 3500);
+
+        setInterval(function () {
             if (isFrameMuted) {
                 notPlayingSince = Date.now();
                 stopFallback();
+                muteYouTubeOnly();
                 return;
             }
-            if (!fallbackOn && Date.now() - notPlayingSince >= NOT_PLAYING_LIMIT_MS) {
+            if (ytIsPlaying()) {
+                notPlayingSince = Date.now();
+                var wasFb = stopFallback();
+                if (wasFb || !ytUnmutedOnce) {
+                    if (typeof enableAudio === 'function') {
+                        ytUnmutedOnce = true;
+                        enableAudio();
+                    }
+                }
+                return;
+            }
+            if (fallbackOn) {
+                muteYouTubeOnly();
+                return;
+            }
+            if (Date.now() - notPlayingSince >= NOT_PLAYING_LIMIT_MS) {
                 startFallback('YouTube nie gra od ' + Math.round((Date.now() - notPlayingSince) / 1000) + ' s');
             }
         }, CHECK_EVERY_MS);
