@@ -784,8 +784,9 @@
             .dekalog-brand-title { font-size: 0.72rem; }
         }
 
-        /* ── ZRZUTKA.PL STREAMING WIDGET OVERLAY (TRYB TESTOWY DLA KANAŁU MASTER) ── */
+        /* ── ZRZUTKA.PL STREAMING WIDGET OVERLAY (TRYB AUTOMATYCZNY DLA KANAŁU MASTER) ── */
         .mcr-zrzutka-toggle-btn {
+            display: none !important;
             position: fixed;
             top: calc(var(--dekalog-height) + 12px);
             right: 20px;
@@ -800,7 +801,7 @@
             font-weight: 800;
             letter-spacing: 0.8px;
             cursor: pointer;
-            display: flex;
+            display: none !important;
             align-items: center;
             gap: 8px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
@@ -1230,7 +1231,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const isEmbedMode = urlParams.has('embed') || urlParams.get('embed') === '1' || urlParams.has('noticker') || urlParams.get('ticker') === '0' || urlParams.get('muted') === '1' || (window.self !== window.top);
         const shouldHideTicker = isEmbedMode || urlParams.has('noticker') || urlParams.get('ticker') === '0';
-        let isMutedDefault = urlParams.get('muted') !== '0';
+        let isMutedDefault = urlParams.get('muted') === '1' ? true : (urlParams.get('muted') === '0' || urlParams.get('unmute') === '1' || !!window.obsstudio ? false : true);
 
         if (!isMutedDefault) {
             const unmuteBanner = document.getElementById('masterUnmuteBanner');
