@@ -2255,6 +2255,30 @@ export default {
       return Response.redirect(redirectUrl.toString(), 301);
     }
 
+    // Wiadomość z Nieba (@wiadomosci_z_nieba) — produkcja L0 23.11.2026
+    if (
+      decodedP === '/wiadomość-z-nieba' ||
+      decodedP === '/wiadomosci-z-nieba' ||
+      decodedP === '/wiadomości-z-nieba' ||
+      decodedP === '/test/wiadomosci-z-nieba' ||
+      (decodedP === '/wiadomosc-z-nieba' && url.pathname !== '/wiadomosc-z-nieba/' && url.pathname !== '/wiadomosc-z-nieba')
+    ) {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/wiadomosc-z-nieba/';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
+    if (decodedP === '/wiadomosc-z-nieba' && url.pathname === '/wiadomosc-z-nieba') {
+      const targetUrl = new URL(request.url);
+      targetUrl.pathname = '/wiadomosc-z-nieba/';
+      return env.ASSETS.fetch(new Request(targetUrl, request));
+    }
+    if (decodedP === '/lumina/wiadomosci_z_nieba' || decodedP === '/@wiadomosci_z_nieba') {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/lumina-profile.html';
+      redirectUrl.search = '?u=wiadomosci_z_nieba';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
+
     if (decodedP === '/ksiazki' || decodedP === '/audiobooki' || decodedP === '/ebooki') {
       const redirectUrl = new URL(request.url);
       redirectUrl.pathname = '/biblioteka';
@@ -2464,13 +2488,10 @@ export default {
       return env.ASSETS.fetch(new Request(ambientUrl, request));
     }
 
-    if (decodedP === '/master' || decodedP === '/master/' || decodedP === '/master.html' || decodedP === '/master-live' || decodedP === '/master-live/') {
+    if (decodedP === '/master' || decodedP === '/master/') {
       const masterUrl = new URL(request.url);
-      masterUrl.pathname = '/master-live.html';
-      const masterResp = await env.ASSETS.fetch(new Request(masterUrl.toString(), request));
-      const resWithNoCache = new Response(masterResp.body, masterResp);
-      resWithNoCache.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
-      return resWithNoCache;
+      masterUrl.pathname = '/master-live';
+      return Response.redirect(masterUrl.toString(), 302);
     }
 
     if (p === '/akademia') {

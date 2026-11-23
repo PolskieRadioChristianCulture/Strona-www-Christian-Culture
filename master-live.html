@@ -17,6 +17,7 @@
         }
     </script>
     <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
     <script src="/js/cc-ramowka.js?v=20261027_v1"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -1061,10 +1062,10 @@
         <span>KLIKNIJ, ABY WŁĄCZYĆ DŹWIĘK TRANSMISJI NA ŻYWO</span>
     </div>
 
-    <!-- PRZYCISK TESTOWY ZRZUTKA LIVE (MCR TEST BUTTON) -->
-    <button id="btnZrzutkaToggle" class="mcr-zrzutka-toggle-btn" onclick="toggleZrzutkaOverlay();" aria-label="Włącz lub wyłącz podgląd widgetów Zrzutka.pl">
+    <!-- PRZYCISK ROTACJI ZRZUTKA LIVE (MCR CYKLICZNY) -->
+    <button id="btnZrzutkaToggle" class="mcr-zrzutka-toggle-btn" onclick="toggleZrzutkaOverlay();" aria-label="Włącz lub wyłącz widżety Zrzutka.pl">
         <i class="fa-solid fa-hand-holding-heart"></i>
-        <span>Zrzutka Live (Test)</span>
+        <span>Zrzutka Live (Rotacja)</span>
     </button>
 
     <!-- ── ZRZUTKA.PL TEST STREAMING OVERLAY (KANAŁ MASTER LIVE) ── -->
@@ -1231,16 +1232,53 @@
             else window.addEventListener('DOMContentLoaded', () => document.body.classList.add('no-ticker', 'embedded-mode'));
         }
 
-        // ── OBSŁUGA ZRZUTKA.PL STREAMING WIDGET (TRYB TESTOWY KANAŁU MASTER) ──
-        function toggleZrzutkaOverlay() {
+        // ── OBSŁUGA ZRZUTKA.PL STREAMING WIDGET (TRYB CYKLICZNY KANAŁU MASTER) ──
+        let zrzutkaCycleTimer = null;
+        let isZrzutkaOverlayActive = false;
+
+        function showZrzutkaOverlay(show) {
             const overlay = document.getElementById('masterZrzutkaOverlay');
             const btn = document.getElementById('btnZrzutkaToggle');
             if (!overlay) return;
-            const isVis = overlay.classList.toggle('visible');
-            if (btn) btn.classList.toggle('active', isVis);
+            isZrzutkaOverlayActive = (typeof show === 'boolean') ? show : !isZrzutkaOverlayActive;
+            overlay.classList.toggle('visible', isZrzutkaOverlayActive);
+            if (btn) btn.classList.toggle('active', isZrzutkaOverlayActive);
         }
-        if (urlParams.get('zrzutka') === '1' || urlParams.get('zrzutka') === 'test') {
-            toggleZrzutkaOverlay();
+
+        function toggleZrzutkaOverlay() {
+            showZrzutkaOverlay(!isZrzutkaOverlayActive);
+        }
+
+        // Cykl naprzemienny: Rozważanie (120s = 2 minuty) ↔ Widżety Zrzutki (45s)
+        const REFLECTION_DURATION_MS = 120000; // 2 minuty rozważanie
+        const ZRZUTKA_DURATION_MS = 45000;    // 45 sekund widżety Zrzutki
+
+        function runZrzutkaAlternatingCycle() {
+            function stepReflection() {
+                showZrzutkaOverlay(false);
+                if (zrzutkaCycleTimer) clearTimeout(zrzutkaCycleTimer);
+                zrzutkaCycleTimer = setTimeout(stepZrzutka, REFLECTION_DURATION_MS);
+            }
+            
+            function stepZrzutka() {
+                showZrzutkaOverlay(true);
+                if (zrzutkaCycleTimer) clearTimeout(zrzutkaCycleTimer);
+                zrzutkaCycleTimer = setTimeout(stepReflection, ZRZUTKA_DURATION_MS);
+            }
+
+            if (urlParams.get('zrzutka') === '1' || urlParams.get('zrzutka') === 'test') {
+                showZrzutkaOverlay(true);
+                zrzutkaCycleTimer = setTimeout(stepReflection, ZRZUTKA_DURATION_MS);
+            } else {
+                showZrzutkaOverlay(false);
+                zrzutkaCycleTimer = setTimeout(stepZrzutka, REFLECTION_DURATION_MS);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', runZrzutkaAlternatingCycle);
+        } else {
+            runZrzutkaAlternatingCycle();
         }
 
         const programMeta = {

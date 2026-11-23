@@ -12,6 +12,7 @@
   gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
     <meta charset="UTF-8">
+    <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zjednoczeni za Polskę — Transmisja na Żywo | Telewizja CC 24</title>
 
@@ -2091,23 +2092,23 @@
                     </div>
 
                     <!-- Main Glass Card Container -->
-                    <div class="reflection-canvas-card" data-window-always-visible="true">
+                    <div class="reflection-canvas-card notranslate" translate="no" data-window-always-visible="true">
                         
                         <!-- Slide text content area -->
-                        <div class="canvas-slide-container" id="slidesContainer">
-                            <div class="canvas-slide active">
-                                <div class="tv-logo-slide">
+                        <div class="canvas-slide-container notranslate" translate="no" id="slidesContainer">
+                            <div class="canvas-slide active notranslate" translate="no">
+                                <div class="tv-logo-slide notranslate" translate="no">
                                     <img src="Projekt bez nazwy (64).png" alt="Dobrze, że jesteś logo">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Footer of card -->
-                        <div class="canvas-card-footer">
+                        <div class="canvas-card-footer notranslate" translate="no">
                             <div class="slide-pagination" id="slidePagination">
                                 <!-- Dots loaded dynamically -->
                             </div>
-                            <div class="card-cycle-badge" id="cycleBadge">Dzień 19 | Z BIBLIĄ ZA PAN BRAT</div>
+                            <div class="card-cycle-badge notranslate" translate="no" id="cycleBadge">Dzień 19 | Z BIBLIĄ ZA PAN BRAT</div>
                         </div>
 
                     </div>
@@ -2319,9 +2320,9 @@
                     document.cookie = "googtrans=/pl/en; path=/; domain=" + window.location.hostname;
                     document.cookie = "googtrans=/pl/en; path=/; domain=.polskieradio.cc";
                 } else {
-                    document.cookie = "googtrans=/pl/pl; path=/";
-                    document.cookie = "googtrans=/pl/pl; path=/; domain=" + window.location.hostname;
-                    document.cookie = "googtrans=/pl/pl; path=/; domain=.polskieradio.cc";
+                    document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname + ";";
+                    document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.polskieradio.cc;";
                 }
                 const select = document.querySelector('.goog-te-combo');
                 if (select) {
@@ -2446,6 +2447,10 @@
             document.cookie = "googtrans=/pl/en; path=/; domain=" + window.location.hostname;
             document.cookie = "googtrans=/pl/en; path=/; domain=.polskieradio.cc";
             setTimeout(() => { applySubframeLanguage('en'); }, 500);
+        } else {
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname + ";";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.polskieradio.cc;";
         }
 
         // ── AUDIO INIT (global scope — called from overlay onclick) ──
