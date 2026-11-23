@@ -43,7 +43,7 @@ test('Strona i bundle: nowy bundle, bez OneSignal, kategorie z banera, moderacja
     const h = await read(page);
     assert.doesNotMatch(h, /OneSignalSDK|OneSignal\.init/, page);
     assert.match(h, /\/assets\/ogloszenia-index-cc20261123\.js/, page);
-    assert.match(h, /cc-ogloszenia-store\.js\?v=20261123_1/, page);
+    assert.match(h, /cc-ogloszenia-store\.js\?v=20261123_2/, page);
   }
   const b = await read('assets/ogloszenia-index-cc20261123.js');
   for (const label of ['Kupuj\\u0119', 'Sprzedaj\\u0119', 'Wymieniam', 'Wydarzenia', 'Wsp\\xF3\\u0142praca w misji', 'Czeka na zatwierdzenie', 'Zatwierd\\u017A', 'Opcjonalnie']) {

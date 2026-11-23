@@ -382,7 +382,7 @@ function renderAdminBar() {
     if (!isAdmin(currentUser)) { if (bar) bar.remove(); closeAdminPanel(); return; }
     if (!bar) {
         bar = el('button', { id: 'ccOglAdminBar', type: 'button', onclick: openAdminPanel,
-            style: 'position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147482000;min-height:44px;padding:10px 16px;border-radius:999px;border:0;font:800 14px system-ui;box-shadow:0 6px 20px rgba(0,0,0,.25);cursor:pointer' });
+            style: 'position:fixed;left:50%;transform:translateX(-50%);white-space:nowrap;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:2147482000;min-height:44px;padding:10px 16px;border-radius:999px;border:0;font:800 14px system-ui;box-shadow:0 6px 20px rgba(0,0,0,.25);cursor:pointer' });
         document.body.append(bar);
     }
     const n = pendingForAdmin.length;
