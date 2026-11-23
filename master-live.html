@@ -832,66 +832,80 @@
             height: 100%;
             z-index: 100002;
             pointer-events: none;
-            display: none;
+            opacity: 0;
+            visibility: hidden;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.42) 100%);
+            backdrop-filter: blur(2px);
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
         .master-zrzutka-overlay.visible {
-            display: block;
+            opacity: 1;
+            visibility: visible;
         }
 
-        /* 1. Ranking po lewej */
+        /* 1. Ranking po lewej (skalibrowany z lewym marginesem, bez zasłaniania twarzy) */
         .zrzutka-frame-leaderboard {
             position: absolute;
-            top: calc(var(--dekalog-height) + 24px);
-            left: 28px;
-            width: 380px;
-            height: 540px;
-            border: none;
-            background: transparent;
+            top: calc(var(--dekalog-height) + 16px);
+            left: 20px;
+            width: 290px;
+            height: 400px;
+            border: 1px solid rgba(255, 122, 0, 0.35);
+            background: rgba(15, 18, 30, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             pointer-events: auto;
             border-radius: 16px;
-            box-shadow: 0 12px 32px rgba(0,0,0,0.65);
+            box-shadow: 0 16px 36px rgba(0,0,0,0.75);
+            transform: scale(0.92);
+            transform-origin: top left;
         }
 
-        /* 2. Kod QR po prawej u góry */
+        /* 2. Kod QR po prawej u góry (zgrabna, kompaktowa ramka) */
         .zrzutka-frame-qr {
             position: absolute;
-            top: calc(var(--dekalog-height) + 64px);
-            right: 28px;
-            width: 220px;
-            height: 270px;
-            border: none;
-            background: transparent;
+            top: calc(var(--dekalog-height) + 54px);
+            right: 20px;
+            width: 155px;
+            height: 175px;
+            border: 1px solid rgba(255, 122, 0, 0.4);
+            background: #ffffff;
             pointer-events: auto;
-            border-radius: 16px;
-            box-shadow: 0 12px 32px rgba(0,0,0,0.65);
+            border-radius: 14px;
+            box-shadow: 0 14px 32px rgba(0,0,0,0.75);
+            transform: scale(0.92);
+            transform-origin: top right;
         }
 
-        /* 3. Pasek postępu na dole nad tickerem */
+        /* 3. Pasek postępu na dole nad tickerem (wyśrodkowany, elegancki) */
         .zrzutka-frame-progress {
             position: absolute;
             bottom: calc(var(--ticker-height) + 12px);
             left: 50%;
             transform: translateX(-50%);
-            width: 1100px;
-            max-width: 90vw;
-            height: 80px;
+            width: 760px;
+            max-width: 86vw;
+            height: 60px;
             border: none;
             background: transparent;
             pointer-events: auto;
+            filter: drop-shadow(0 4px 14px rgba(0,0,0,0.85));
         }
 
-        /* 4. Ostatnie wpłaty (feed) */
+        /* 4. Ostatnie wpłaty (feed) w prawym dolnym rogu */
         .zrzutka-frame-feed {
             position: absolute;
-            bottom: calc(var(--ticker-height) + 96px);
-            right: 28px;
-            width: 360px;
-            height: 260px;
+            bottom: calc(var(--ticker-height) + 76px);
+            right: 20px;
+            width: 300px;
+            height: 180px;
             border: none;
             background: transparent;
             pointer-events: auto;
-            border-radius: 16px;
+            border-radius: 14px;
+            transform: scale(0.92);
+            transform-origin: bottom right;
         }
     </style>
 </head>

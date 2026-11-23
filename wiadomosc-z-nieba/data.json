@@ -1,0 +1,1026 @@
+{
+  "generatedAt": "2026-11-23T10:14:51.827Z",
+  "environment": "PRODUCTION",
+  "mode": "PRODUCTION_LIVE",
+  "autoPublishEnabled": true,
+  "productionApprovedByOwner": true,
+  "zeroCost": true,
+  "profile": {
+    "displayName": "Jezus Chrystus",
+    "seriesName": "Wiadomości z nieba",
+    "fullTitle": "Jezus Chrystus — Wiadomości z nieba",
+    "handle": "@wiadomosci_z_nieba",
+    "slug": "wiadomosci_z_nieba",
+    "category": "Biblia / Inspiracje / Wiara",
+    "publisher": "Christian Culture",
+    "profileType": "Oficjalny profil tematyczny Christian Culture",
+    "editorialDisclosure": "Oficjalny profil redakcyjny prowadzony przez Christian Culture. Publikacje przedstawiają nauczanie biblijne i zweryfikowane wersety Pisma Świętego (UBG-2025). Profil nie jest prywatnym kontem Jezusa ani zbiorem nowych, bezpośrednich objawień.",
+    "slogan": "Nie masz nowych wiadomości? A może jedna czeka na Ciebie od Boga?",
+    "bio": "📩 Masz dziś wiadomość ze Słowa Bożego! ❤️ Każdego dnia jeden werset, jedna chwila refleksji i jedna okazja, aby zbliżyć się do Jezusa. 📖 Odkryj wiadomość przygotowaną na dziś",
+    "mainUrl": "https://polskieradio.cc/werset-dnia",
+    "publicUrl": "https://polskieradio.cc/wiadomosc-z-nieba/",
+    "luminaProfileUrl": "https://polskieradio.cc/lumina-profile.html?u=wiadomosci_z_nieba",
+    "avatarPng": "/images/lumina/wiadomosci-z-nieba-avatar.png",
+    "avatarWebp": "/images/lumina/wiadomosci-z-nieba-avatar.webp",
+    "coverUrl": "/images/wiadomosc-z-nieba/hero-16x9-og.jpg"
+  },
+  "schedule": {
+    "id": "icc-wiadomosci-z-nieba-daily",
+    "name": "Jezus Chrystus — Wiadomości z nieba (@wiadomosci_z_nieba)",
+    "enabled": true,
+    "requiresOwnerApprovalL0": false,
+    "approvedAt": "2026-11-23T10:47:49+01:00",
+    "activeScheduler": "PM2 Agent-Cron (Wektor1_VideoFactory/cron_agent.js)",
+    "mode": "PRODUCTION_LIVE",
+    "zeroCost": true,
+    "provider": "opencode",
+    "model": "opencode/deepseek-v4.1-flash-free",
+    "timezone": "Europe/Warsaw",
+    "publishTime": "07:00",
+    "cronExpression": "0 7 * * *",
+    "command": "node wiadomosci-z-nieba/src/pipeline.mjs run-daily",
+    "note": "Aktywowane przez właściciela L0 (Cezary Rogowski). Podpięte pod istniejący harmonogram PM2 Agent-Cron o 07:00 Europe/Warsaw."
+  },
+  "tenDays": [
+    {
+      "dayIndex": 1,
+      "runDate": "2026-11-23",
+      "status": "PUBLISHED_LIVE",
+      "postId": "wzn_post_2026-11-23",
+      "idempotencyKey": "wzn:2026-11-23:day:327",
+      "verse": {
+        "day": 327,
+        "reference": "Księga Przysłów 14:12",
+        "referencePl": "Księga Przysłów 14,12",
+        "text": "Jest droga, która człowiekowi wydaje się słuszna, lecz końcem jej jest droga do śmierci.",
+        "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+        "license": "CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei",
+        "canonicalVerified": true,
+        "sha256": "6696e917422dd229b66215f91eb5451e53a444280ad3707f7229b2f273333714"
+      },
+      "themeId": "trudne_decyzje",
+      "themeLabel": "Trudne decyzje — Boże prowadzenie i mądrość",
+      "sections": {
+        "hook": "🧭 Zanim podejmiesz ważną decyzję, zatrzymaj się na chwilę.",
+        "verseBlock": "📖 „Jest droga, która człowiekowi wydaje się słuszna, lecz końcem jej jest droga do śmierci.”\nKsięga Przysłów 14,12 — przekład UBG-2025.",
+        "reflection": "Często mamy gotowy plan i oczekujemy jedynie, że wszystko potoczy się dokładnie po naszej myśli. Pismo Święte pokazuje, że prawdziwa dojrzałość polega na oddaniu swoich ścieżek pod mądre prowadzenie Boga. Taka postawa chroni przed pochopnymi błędami i daje spokojniejszą pewność co do kolejnego kroku.",
+        "primaryCta": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia",
+        "secondaryInvite": "💬 Napisz w komentarzu „Amen”, jeśli utożsamiasz się z przesłaniem.",
+        "ctaBlock": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Napisz w komentarzu „Amen”, jeśli utożsamiasz się z przesłaniem.",
+        "signature": "❤️ Wiadomości z nieba | Christian Culture"
+      },
+      "bodyText": "🧭 Zanim podejmiesz ważną decyzję, zatrzymaj się na chwilę.\n\n📖 „Jest droga, która człowiekowi wydaje się słuszna, lecz końcem jej jest droga do śmierci.”\nKsięga Przysłów 14,12 — przekład UBG-2025.\n\nCzęsto mamy gotowy plan i oczekujemy jedynie, że wszystko potoczy się dokładnie po naszej myśli. Pismo Święte pokazuje, że prawdziwa dojrzałość polega na oddaniu swoich ścieżek pod mądre prowadzenie Boga. Taka postawa chroni przed pochopnymi błędami i daje spokojniejszą pewność co do kolejnego kroku.\n\n📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Napisz w komentarzu „Amen”, jeśli utożsamiasz się z przesłaniem.\n\n❤️ Wiadomości z nieba | Christian Culture",
+      "dedicatedImage": "/images/werset-dnia/generated/werset-day-327-ksiega-przyslow-14-12.jpg",
+      "actionUrl": "https://polskieradio.cc/werset-dnia",
+      "theology": {
+        "ok": true,
+        "passedCount": 10,
+        "totalCount": 10,
+        "checks": [
+          {
+            "id": "source_verified",
+            "label": "Autorytatywne źródło Werset Dnia i licencja UBG",
+            "passed": true,
+            "detail": "UBG-2025 (Uwspółcześniona Biblia Gdańska) | CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei"
+          },
+          {
+            "id": "verbatim_quote_preserved",
+            "label": "Dosłowny cytat biblijny zachowany w 100%",
+            "passed": true,
+            "detail": "Księga Przysłów 14,12"
+          },
+          {
+            "id": "five_elements_present",
+            "label": "Kompletność 5 elementów (Hak, Werset, Refleksja 2–3 zdania, CTA, Podpis)",
+            "passed": true,
+            "detail": "zdania refleksji: 3, długość: 301 zn."
+          },
+          {
+            "id": "publisher_disclosed",
+            "label": "Jawne oznaczenie wydawcy Christian Culture",
+            "passed": true,
+            "detail": "wydawca: Christian Culture"
+          },
+          {
+            "id": "no_supernatural_impersonation",
+            "label": "Brak podszywania się pod bezpośrednie nadprzyrodzone autorstwo",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_prosperity_or_guilt_manipulation",
+            "label": "Brak obietnic sukcesu/uzdrowienia za klik i brak szantażu emocjonalnego",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_unbiblical_jesus_quotes",
+            "label": "Brak niebiblijnych cytatów poza zweryfikowanym wersetem",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_nonbiblical_traditions",
+            "label": "Zgodność teologiczna z Biblią (Sola Scriptura)",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_internal_jargon",
+            "label": "Czysty język bez nazw wewnętrznego zaplecza i żargonu",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "link_integrity",
+            "label": "Poprawny link główny https://polskieradio.cc/werset-dnia",
+            "passed": true,
+            "detail": "https://polskieradio.cc/werset-dnia"
+          }
+        ]
+      }
+    },
+    {
+      "dayIndex": 2,
+      "runDate": "2026-11-24",
+      "status": "SCHEDULED_VERIFIED",
+      "postId": "wzn_post_2026-11-24",
+      "idempotencyKey": "wzn:2026-11-24:day:328",
+      "verse": {
+        "day": 328,
+        "reference": "Księga Przysłów 16:9",
+        "referencePl": "Księga Przysłów 16,9",
+        "text": "Serce człowieka obmyśla swe drogi, ale PAN kieruje jego krokami.",
+        "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+        "license": "CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei",
+        "canonicalVerified": true,
+        "sha256": "c097e0a7bd432d17ab5c07251aa435c98f5040538408b5d582c2d9d9bb592b29"
+      },
+      "themeId": "trudne_decyzje",
+      "themeLabel": "Trudne decyzje — Boże prowadzenie i mądrość",
+      "sections": {
+        "hook": "💬 Może właśnie tych słów potrzebujesz, gdy stoisz na rozdrożu.",
+        "verseBlock": "📖 „Serce człowieka obmyśla swe drogi, ale PAN kieruje jego krokami.”\nKsięga Przysłów 16,9 — przekład UBG-2025.",
+        "reflection": "Codziennie podejmujemy dziesiątki wyborów — czasem drobnych, a czasem wpływających na całe lata życia. To biblijne przypomnienie zachęca, by nie ufać wyłącznie chwilowym emocjom czy pierwszym wrażeniom, ale pytać o Bożą mądrość. Zanim dziś podejmiesz ostateczną decyzję, zatrzymaj się na chwilę refleksji w świetle Słowa Bożego.",
+        "primaryCta": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia",
+        "secondaryInvite": "💬 Przeczytaj dzisiaj fragment Biblii.",
+        "ctaBlock": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Przeczytaj dzisiaj fragment Biblii.",
+        "signature": "❤️ Wiadomości z nieba | Christian Culture"
+      },
+      "bodyText": "💬 Może właśnie tych słów potrzebujesz, gdy stoisz na rozdrożu.\n\n📖 „Serce człowieka obmyśla swe drogi, ale PAN kieruje jego krokami.”\nKsięga Przysłów 16,9 — przekład UBG-2025.\n\nCodziennie podejmujemy dziesiątki wyborów — czasem drobnych, a czasem wpływających na całe lata życia. To biblijne przypomnienie zachęca, by nie ufać wyłącznie chwilowym emocjom czy pierwszym wrażeniom, ale pytać o Bożą mądrość. Zanim dziś podejmiesz ostateczną decyzję, zatrzymaj się na chwilę refleksji w świetle Słowa Bożego.\n\n📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Przeczytaj dzisiaj fragment Biblii.\n\n❤️ Wiadomości z nieba | Christian Culture",
+      "dedicatedImage": "/images/werset-dnia/generated/werset-day-328-ksiega-przyslow-16-9.jpg",
+      "actionUrl": "https://polskieradio.cc/werset-dnia",
+      "theology": {
+        "ok": true,
+        "passedCount": 10,
+        "totalCount": 10,
+        "checks": [
+          {
+            "id": "source_verified",
+            "label": "Autorytatywne źródło Werset Dnia i licencja UBG",
+            "passed": true,
+            "detail": "UBG-2025 (Uwspółcześniona Biblia Gdańska) | CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei"
+          },
+          {
+            "id": "verbatim_quote_preserved",
+            "label": "Dosłowny cytat biblijny zachowany w 100%",
+            "passed": true,
+            "detail": "Księga Przysłów 16,9"
+          },
+          {
+            "id": "five_elements_present",
+            "label": "Kompletność 5 elementów (Hak, Werset, Refleksja 2–3 zdania, CTA, Podpis)",
+            "passed": true,
+            "detail": "zdania refleksji: 3, długość: 328 zn."
+          },
+          {
+            "id": "publisher_disclosed",
+            "label": "Jawne oznaczenie wydawcy Christian Culture",
+            "passed": true,
+            "detail": "wydawca: Christian Culture"
+          },
+          {
+            "id": "no_supernatural_impersonation",
+            "label": "Brak podszywania się pod bezpośrednie nadprzyrodzone autorstwo",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_prosperity_or_guilt_manipulation",
+            "label": "Brak obietnic sukcesu/uzdrowienia za klik i brak szantażu emocjonalnego",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_unbiblical_jesus_quotes",
+            "label": "Brak niebiblijnych cytatów poza zweryfikowanym wersetem",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_nonbiblical_traditions",
+            "label": "Zgodność teologiczna z Biblią (Sola Scriptura)",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_internal_jargon",
+            "label": "Czysty język bez nazw wewnętrznego zaplecza i żargonu",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "link_integrity",
+            "label": "Poprawny link główny https://polskieradio.cc/werset-dnia",
+            "passed": true,
+            "detail": "https://polskieradio.cc/werset-dnia"
+          }
+        ]
+      }
+    },
+    {
+      "dayIndex": 3,
+      "runDate": "2026-11-25",
+      "status": "SCHEDULED_VERIFIED",
+      "postId": "wzn_post_2026-11-25",
+      "idempotencyKey": "wzn:2026-11-25:day:329",
+      "verse": {
+        "day": 329,
+        "reference": "Księga Przysłów 16:18",
+        "referencePl": "Księga Przysłów 16,18",
+        "text": "Pycha poprzedza zgubę, a wyniosły duch – upadek.",
+        "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+        "license": "CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei",
+        "canonicalVerified": true,
+        "sha256": "4a11d45f2e0fcbbc225f3cacdffbdc8cfb2e89f010bf38b7b47eac1aba43110f"
+      },
+      "themeId": "relacje",
+      "themeLabel": "Relacje — miłość, pojednanie i przebaczenie",
+      "sections": {
+        "hook": "📩 Dobra relacja zaczyna się od uważnego, pokornego serca.",
+        "verseBlock": "📖 „Pycha poprzedza zgubę, a wyniosły duch – upadek.”\nKsięga Przysłów 16,18 — przekład UBG-2025.",
+        "reflection": "Relacje potrzebują prawdy połączonej z cierpliwością, bo same dobre chęci czasem nie wystarczają. Przykład Jezusa pokazuje, że prawdziwa siła przejawia się w szacunku, przebaczeniu i trosce o drugiego człowieka. Warto dziś świadomie wybrać budowanie zamiast oceniania.",
+        "primaryCta": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia",
+        "secondaryInvite": "💬 Podziel się tym przesłaniem z kimś bliskim.",
+        "ctaBlock": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Podziel się tym przesłaniem z kimś bliskim.",
+        "signature": "❤️ Wiadomości z nieba | Christian Culture"
+      },
+      "bodyText": "📩 Dobra relacja zaczyna się od uważnego, pokornego serca.\n\n📖 „Pycha poprzedza zgubę, a wyniosły duch – upadek.”\nKsięga Przysłów 16,18 — przekład UBG-2025.\n\nRelacje potrzebują prawdy połączonej z cierpliwością, bo same dobre chęci czasem nie wystarczają. Przykład Jezusa pokazuje, że prawdziwa siła przejawia się w szacunku, przebaczeniu i trosce o drugiego człowieka. Warto dziś świadomie wybrać budowanie zamiast oceniania.\n\n📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Podziel się tym przesłaniem z kimś bliskim.\n\n❤️ Wiadomości z nieba | Christian Culture",
+      "dedicatedImage": "/images/werset-dnia/generated/werset-day-329-ksiega-przyslow-16-18.jpg",
+      "actionUrl": "https://polskieradio.cc/werset-dnia",
+      "theology": {
+        "ok": true,
+        "passedCount": 10,
+        "totalCount": 10,
+        "checks": [
+          {
+            "id": "source_verified",
+            "label": "Autorytatywne źródło Werset Dnia i licencja UBG",
+            "passed": true,
+            "detail": "UBG-2025 (Uwspółcześniona Biblia Gdańska) | CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei"
+          },
+          {
+            "id": "verbatim_quote_preserved",
+            "label": "Dosłowny cytat biblijny zachowany w 100%",
+            "passed": true,
+            "detail": "Księga Przysłów 16,18"
+          },
+          {
+            "id": "five_elements_present",
+            "label": "Kompletność 5 elementów (Hak, Werset, Refleksja 2–3 zdania, CTA, Podpis)",
+            "passed": true,
+            "detail": "zdania refleksji: 3, długość: 268 zn."
+          },
+          {
+            "id": "publisher_disclosed",
+            "label": "Jawne oznaczenie wydawcy Christian Culture",
+            "passed": true,
+            "detail": "wydawca: Christian Culture"
+          },
+          {
+            "id": "no_supernatural_impersonation",
+            "label": "Brak podszywania się pod bezpośrednie nadprzyrodzone autorstwo",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_prosperity_or_guilt_manipulation",
+            "label": "Brak obietnic sukcesu/uzdrowienia za klik i brak szantażu emocjonalnego",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_unbiblical_jesus_quotes",
+            "label": "Brak niebiblijnych cytatów poza zweryfikowanym wersetem",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_nonbiblical_traditions",
+            "label": "Zgodność teologiczna z Biblią (Sola Scriptura)",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_internal_jargon",
+            "label": "Czysty język bez nazw wewnętrznego zaplecza i żargonu",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "link_integrity",
+            "label": "Poprawny link główny https://polskieradio.cc/werset-dnia",
+            "passed": true,
+            "detail": "https://polskieradio.cc/werset-dnia"
+          }
+        ]
+      }
+    },
+    {
+      "dayIndex": 4,
+      "runDate": "2026-11-26",
+      "status": "SCHEDULED_VERIFIED",
+      "postId": "wzn_post_2026-11-26",
+      "idempotencyKey": "wzn:2026-11-26:day:330",
+      "verse": {
+        "day": 330,
+        "reference": "Księga Przysłów 19:21",
+        "referencePl": "Księga Przysłów 19,21",
+        "text": "Wiele jest zamysłów w sercu człowieka, ale rada PANA się ostoi.",
+        "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+        "license": "CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei",
+        "canonicalVerified": true,
+        "sha256": "cbd1c8d31d6c742478faa22f24487ba5ad441d6a6d258bfd106e6949fab190f4"
+      },
+      "themeId": "niepokoj",
+      "themeLabel": "Niepokój — zaufanie i Boży pokój",
+      "sections": {
+        "hook": "🤍 Nie musisz wszystkiego dźwigać sam.",
+        "verseBlock": "📖 „Wiele jest zamysłów w sercu człowieka, ale rada PANA się ostoi.”\nKsięga Przysłów 19,21 — przekład UBG-2025.",
+        "reflection": "Kiedy myśli krążą wokół jutra i rzeczy, na które nie mamy wpływu, łatwo stracić wewnętrzną równowagę. To słowo przypomina, że pokój przychodzi wtedy, gdy oddajemy Bogu to, czego sami nie potrafimy poskładać. W dzisiejszych obowiązkach zrób krok z zaufaniem, zamiast z lękiem.",
+        "primaryCta": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia",
+        "secondaryInvite": "💬 Zatrzymaj się na chwilę modlitwy.",
+        "ctaBlock": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Zatrzymaj się na chwilę modlitwy.",
+        "signature": "❤️ Wiadomości z nieba | Christian Culture"
+      },
+      "bodyText": "🤍 Nie musisz wszystkiego dźwigać sam.\n\n📖 „Wiele jest zamysłów w sercu człowieka, ale rada PANA się ostoi.”\nKsięga Przysłów 19,21 — przekład UBG-2025.\n\nKiedy myśli krążą wokół jutra i rzeczy, na które nie mamy wpływu, łatwo stracić wewnętrzną równowagę. To słowo przypomina, że pokój przychodzi wtedy, gdy oddajemy Bogu to, czego sami nie potrafimy poskładać. W dzisiejszych obowiązkach zrób krok z zaufaniem, zamiast z lękiem.\n\n📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Zatrzymaj się na chwilę modlitwy.\n\n❤️ Wiadomości z nieba | Christian Culture",
+      "dedicatedImage": "/images/werset-dnia/generated/werset-day-330-ksiega-przyslow-19-21.jpg",
+      "actionUrl": "https://polskieradio.cc/werset-dnia",
+      "theology": {
+        "ok": true,
+        "passedCount": 10,
+        "totalCount": 10,
+        "checks": [
+          {
+            "id": "source_verified",
+            "label": "Autorytatywne źródło Werset Dnia i licencja UBG",
+            "passed": true,
+            "detail": "UBG-2025 (Uwspółcześniona Biblia Gdańska) | CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei"
+          },
+          {
+            "id": "verbatim_quote_preserved",
+            "label": "Dosłowny cytat biblijny zachowany w 100%",
+            "passed": true,
+            "detail": "Księga Przysłów 19,21"
+          },
+          {
+            "id": "five_elements_present",
+            "label": "Kompletność 5 elementów (Hak, Werset, Refleksja 2–3 zdania, CTA, Podpis)",
+            "passed": true,
+            "detail": "zdania refleksji: 3, długość: 275 zn."
+          },
+          {
+            "id": "publisher_disclosed",
+            "label": "Jawne oznaczenie wydawcy Christian Culture",
+            "passed": true,
+            "detail": "wydawca: Christian Culture"
+          },
+          {
+            "id": "no_supernatural_impersonation",
+            "label": "Brak podszywania się pod bezpośrednie nadprzyrodzone autorstwo",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_prosperity_or_guilt_manipulation",
+            "label": "Brak obietnic sukcesu/uzdrowienia za klik i brak szantażu emocjonalnego",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_unbiblical_jesus_quotes",
+            "label": "Brak niebiblijnych cytatów poza zweryfikowanym wersetem",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_nonbiblical_traditions",
+            "label": "Zgodność teologiczna z Biblią (Sola Scriptura)",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_internal_jargon",
+            "label": "Czysty język bez nazw wewnętrznego zaplecza i żargonu",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "link_integrity",
+            "label": "Poprawny link główny https://polskieradio.cc/werset-dnia",
+            "passed": true,
+            "detail": "https://polskieradio.cc/werset-dnia"
+          }
+        ]
+      }
+    },
+    {
+      "dayIndex": 5,
+      "runDate": "2026-11-27",
+      "status": "SCHEDULED_VERIFIED",
+      "postId": "wzn_post_2026-11-27",
+      "idempotencyKey": "wzn:2026-11-27:day:331",
+      "verse": {
+        "day": 331,
+        "reference": "Księga Przysłów 20:24",
+        "referencePl": "Księga Przysłów 20,24",
+        "text": "Od PANA pochodzą drogi człowieka; jakże może człowiek zrozumieć własną drogę?",
+        "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+        "license": "CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei",
+        "canonicalVerified": true,
+        "sha256": "52a87fbb0384a101eca2b90787d155cdaf27898fc20b6eb579dca62f4b679ad6"
+      },
+      "themeId": "trudne_decyzje",
+      "themeLabel": "Trudne decyzje — Boże prowadzenie i mądrość",
+      "sections": {
+        "hook": "💬 Może właśnie tych słów potrzebujesz, gdy stoisz na rozdrożu.",
+        "verseBlock": "📖 „Od PANA pochodzą drogi człowieka; jakże może człowiek zrozumieć własną drogę?”\nKsięga Przysłów 20,24 — przekład UBG-2025.",
+        "reflection": "Często mamy gotowy plan i oczekujemy jedynie, że wszystko potoczy się dokładnie po naszej myśli. Pismo Święte pokazuje, że prawdziwa dojrzałość polega na oddaniu swoich ścieżek pod mądre prowadzenie Boga. Taka postawa chroni przed pochopnymi błędami i daje spokojniejszą pewność co do kolejnego kroku.",
+        "primaryCta": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia",
+        "secondaryInvite": "💬 Napisz w komentarzu „Amen”, jeśli utożsamiasz się z przesłaniem.",
+        "ctaBlock": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Napisz w komentarzu „Amen”, jeśli utożsamiasz się z przesłaniem.",
+        "signature": "❤️ Wiadomości z nieba | Christian Culture"
+      },
+      "bodyText": "💬 Może właśnie tych słów potrzebujesz, gdy stoisz na rozdrożu.\n\n📖 „Od PANA pochodzą drogi człowieka; jakże może człowiek zrozumieć własną drogę?”\nKsięga Przysłów 20,24 — przekład UBG-2025.\n\nCzęsto mamy gotowy plan i oczekujemy jedynie, że wszystko potoczy się dokładnie po naszej myśli. Pismo Święte pokazuje, że prawdziwa dojrzałość polega na oddaniu swoich ścieżek pod mądre prowadzenie Boga. Taka postawa chroni przed pochopnymi błędami i daje spokojniejszą pewność co do kolejnego kroku.\n\n📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Napisz w komentarzu „Amen”, jeśli utożsamiasz się z przesłaniem.\n\n❤️ Wiadomości z nieba | Christian Culture",
+      "dedicatedImage": "/images/werset-dnia/generated/werset-day-331-ksiega-przyslow-20-24.jpg",
+      "actionUrl": "https://polskieradio.cc/werset-dnia",
+      "theology": {
+        "ok": true,
+        "passedCount": 10,
+        "totalCount": 10,
+        "checks": [
+          {
+            "id": "source_verified",
+            "label": "Autorytatywne źródło Werset Dnia i licencja UBG",
+            "passed": true,
+            "detail": "UBG-2025 (Uwspółcześniona Biblia Gdańska) | CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei"
+          },
+          {
+            "id": "verbatim_quote_preserved",
+            "label": "Dosłowny cytat biblijny zachowany w 100%",
+            "passed": true,
+            "detail": "Księga Przysłów 20,24"
+          },
+          {
+            "id": "five_elements_present",
+            "label": "Kompletność 5 elementów (Hak, Werset, Refleksja 2–3 zdania, CTA, Podpis)",
+            "passed": true,
+            "detail": "zdania refleksji: 3, długość: 301 zn."
+          },
+          {
+            "id": "publisher_disclosed",
+            "label": "Jawne oznaczenie wydawcy Christian Culture",
+            "passed": true,
+            "detail": "wydawca: Christian Culture"
+          },
+          {
+            "id": "no_supernatural_impersonation",
+            "label": "Brak podszywania się pod bezpośrednie nadprzyrodzone autorstwo",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_prosperity_or_guilt_manipulation",
+            "label": "Brak obietnic sukcesu/uzdrowienia za klik i brak szantażu emocjonalnego",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_unbiblical_jesus_quotes",
+            "label": "Brak niebiblijnych cytatów poza zweryfikowanym wersetem",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_nonbiblical_traditions",
+            "label": "Zgodność teologiczna z Biblią (Sola Scriptura)",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_internal_jargon",
+            "label": "Czysty język bez nazw wewnętrznego zaplecza i żargonu",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "link_integrity",
+            "label": "Poprawny link główny https://polskieradio.cc/werset-dnia",
+            "passed": true,
+            "detail": "https://polskieradio.cc/werset-dnia"
+          }
+        ]
+      }
+    },
+    {
+      "dayIndex": 6,
+      "runDate": "2026-11-28",
+      "status": "SCHEDULED_VERIFIED",
+      "postId": "wzn_post_2026-11-28",
+      "idempotencyKey": "wzn:2026-11-28:day:332",
+      "verse": {
+        "day": 332,
+        "reference": "Księga Przysłów 24:16",
+        "referencePl": "Księga Przysłów 24,16",
+        "text": "Bo sprawiedliwy upada siedem razy, jednak znowu powstaje; a niegodziwi popadną w nieszczęście.",
+        "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+        "license": "CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei",
+        "canonicalVerified": true,
+        "sha256": "65862270e734ff1d95f7b6131d8567353852e07e311edf2e72b4931dc7ba5873"
+      },
+      "themeId": "brak_nadziei",
+      "themeLabel": "Brak nadziei — nowy początek",
+      "sections": {
+        "hook": "❤️ Nawet po upadku można podnieść się z nadzieją.",
+        "verseBlock": "📖 „Bo sprawiedliwy upada siedem razy, jednak znowu powstaje; a niegodziwi popadną w nieszczęście.”\nKsięga Przysłów 24,16 — przekład UBG-2025.",
+        "reflection": "Gdy coś nie wyszło raz czy kolejny, najłatwiej uwierzyć, że nic już się nie zmieni. Słowo Boże niesie jednak inną perspektywę: historia człowieka z Bogiem nie kończy się w miejscu upadku ani łez. W Chrystusie zawsze istnieje droga ku odnowie, która zaczyna się od dzisiejszego zaufania.",
+        "primaryCta": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia",
+        "secondaryInvite": "💬 Przeczytaj dzisiaj fragment Biblii.",
+        "ctaBlock": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Przeczytaj dzisiaj fragment Biblii.",
+        "signature": "❤️ Wiadomości z nieba | Christian Culture"
+      },
+      "bodyText": "❤️ Nawet po upadku można podnieść się z nadzieją.\n\n📖 „Bo sprawiedliwy upada siedem razy, jednak znowu powstaje; a niegodziwi popadną w nieszczęście.”\nKsięga Przysłów 24,16 — przekład UBG-2025.\n\nGdy coś nie wyszło raz czy kolejny, najłatwiej uwierzyć, że nic już się nie zmieni. Słowo Boże niesie jednak inną perspektywę: historia człowieka z Bogiem nie kończy się w miejscu upadku ani łez. W Chrystusie zawsze istnieje droga ku odnowie, która zaczyna się od dzisiejszego zaufania.\n\n📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Przeczytaj dzisiaj fragment Biblii.\n\n❤️ Wiadomości z nieba | Christian Culture",
+      "dedicatedImage": "/images/werset-dnia/generated/werset-day-332-ksiega-przyslow-24-16.jpg",
+      "actionUrl": "https://polskieradio.cc/werset-dnia",
+      "theology": {
+        "ok": true,
+        "passedCount": 10,
+        "totalCount": 10,
+        "checks": [
+          {
+            "id": "source_verified",
+            "label": "Autorytatywne źródło Werset Dnia i licencja UBG",
+            "passed": true,
+            "detail": "UBG-2025 (Uwspółcześniona Biblia Gdańska) | CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei"
+          },
+          {
+            "id": "verbatim_quote_preserved",
+            "label": "Dosłowny cytat biblijny zachowany w 100%",
+            "passed": true,
+            "detail": "Księga Przysłów 24,16"
+          },
+          {
+            "id": "five_elements_present",
+            "label": "Kompletność 5 elementów (Hak, Werset, Refleksja 2–3 zdania, CTA, Podpis)",
+            "passed": true,
+            "detail": "zdania refleksji: 3, długość: 286 zn."
+          },
+          {
+            "id": "publisher_disclosed",
+            "label": "Jawne oznaczenie wydawcy Christian Culture",
+            "passed": true,
+            "detail": "wydawca: Christian Culture"
+          },
+          {
+            "id": "no_supernatural_impersonation",
+            "label": "Brak podszywania się pod bezpośrednie nadprzyrodzone autorstwo",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_prosperity_or_guilt_manipulation",
+            "label": "Brak obietnic sukcesu/uzdrowienia za klik i brak szantażu emocjonalnego",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_unbiblical_jesus_quotes",
+            "label": "Brak niebiblijnych cytatów poza zweryfikowanym wersetem",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_nonbiblical_traditions",
+            "label": "Zgodność teologiczna z Biblią (Sola Scriptura)",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_internal_jargon",
+            "label": "Czysty język bez nazw wewnętrznego zaplecza i żargonu",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "link_integrity",
+            "label": "Poprawny link główny https://polskieradio.cc/werset-dnia",
+            "passed": true,
+            "detail": "https://polskieradio.cc/werset-dnia"
+          }
+        ]
+      }
+    },
+    {
+      "dayIndex": 7,
+      "runDate": "2026-11-29",
+      "status": "SCHEDULED_VERIFIED",
+      "postId": "wzn_post_2026-11-29",
+      "idempotencyKey": "wzn:2026-11-29:day:333",
+      "verse": {
+        "day": 333,
+        "reference": "Księga Przysłów 28:13",
+        "referencePl": "Księga Przysłów 28,13",
+        "text": "Kto ukrywa swe grzechy, nie będzie miał szczęścia, ale kto je wyznaje i porzuca, dostąpi miłosierdzia.",
+        "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+        "license": "CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei",
+        "canonicalVerified": true,
+        "sha256": "f106350027f7fa37c017a21e63f5563ca25a75a792e6ca77aa0038f9f27e9ad5"
+      },
+      "themeId": "poczucie_winy",
+      "themeLabel": "Poczucie winy — przebaczenie i łaska",
+      "sections": {
+        "hook": "🌅 Dzisiaj możesz zacząć od nowa.",
+        "verseBlock": "📖 „Kto ukrywa swe grzechy, nie będzie miał szczęścia, ale kto je wyznaje i porzuca, dostąpi miłosierdzia.”\nKsięga Przysłów 28,13 — przekład UBG-2025.",
+        "reflection": "Często potrafimy surowo oceniać samych siebie za przeszłość, której nie da się cofnąć. Biblia pokazuje jednak drogę szczerego wyznania i przemiany serca, na końcu której czeka miłosierdzie, a nie odrzucenie. Nie pozwól, by dawne potknięcia zatrzymały Cię przed dzisiejszym dobrem.",
+        "primaryCta": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia",
+        "secondaryInvite": "💬 Podziel się tym przesłaniem z kimś bliskim.",
+        "ctaBlock": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Podziel się tym przesłaniem z kimś bliskim.",
+        "signature": "❤️ Wiadomości z nieba | Christian Culture"
+      },
+      "bodyText": "🌅 Dzisiaj możesz zacząć od nowa.\n\n📖 „Kto ukrywa swe grzechy, nie będzie miał szczęścia, ale kto je wyznaje i porzuca, dostąpi miłosierdzia.”\nKsięga Przysłów 28,13 — przekład UBG-2025.\n\nCzęsto potrafimy surowo oceniać samych siebie za przeszłość, której nie da się cofnąć. Biblia pokazuje jednak drogę szczerego wyznania i przemiany serca, na końcu której czeka miłosierdzie, a nie odrzucenie. Nie pozwól, by dawne potknięcia zatrzymały Cię przed dzisiejszym dobrem.\n\n📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Podziel się tym przesłaniem z kimś bliskim.\n\n❤️ Wiadomości z nieba | Christian Culture",
+      "dedicatedImage": "/images/werset-dnia/generated/werset-day-333-ksiega-przyslow-28-13.jpg",
+      "actionUrl": "https://polskieradio.cc/werset-dnia",
+      "theology": {
+        "ok": true,
+        "passedCount": 10,
+        "totalCount": 10,
+        "checks": [
+          {
+            "id": "source_verified",
+            "label": "Autorytatywne źródło Werset Dnia i licencja UBG",
+            "passed": true,
+            "detail": "UBG-2025 (Uwspółcześniona Biblia Gdańska) | CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei"
+          },
+          {
+            "id": "verbatim_quote_preserved",
+            "label": "Dosłowny cytat biblijny zachowany w 100%",
+            "passed": true,
+            "detail": "Księga Przysłów 28,13"
+          },
+          {
+            "id": "five_elements_present",
+            "label": "Kompletność 5 elementów (Hak, Werset, Refleksja 2–3 zdania, CTA, Podpis)",
+            "passed": true,
+            "detail": "zdania refleksji: 3, długość: 280 zn."
+          },
+          {
+            "id": "publisher_disclosed",
+            "label": "Jawne oznaczenie wydawcy Christian Culture",
+            "passed": true,
+            "detail": "wydawca: Christian Culture"
+          },
+          {
+            "id": "no_supernatural_impersonation",
+            "label": "Brak podszywania się pod bezpośrednie nadprzyrodzone autorstwo",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_prosperity_or_guilt_manipulation",
+            "label": "Brak obietnic sukcesu/uzdrowienia za klik i brak szantażu emocjonalnego",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_unbiblical_jesus_quotes",
+            "label": "Brak niebiblijnych cytatów poza zweryfikowanym wersetem",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_nonbiblical_traditions",
+            "label": "Zgodność teologiczna z Biblią (Sola Scriptura)",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_internal_jargon",
+            "label": "Czysty język bez nazw wewnętrznego zaplecza i żargonu",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "link_integrity",
+            "label": "Poprawny link główny https://polskieradio.cc/werset-dnia",
+            "passed": true,
+            "detail": "https://polskieradio.cc/werset-dnia"
+          }
+        ]
+      }
+    },
+    {
+      "dayIndex": 8,
+      "runDate": "2026-11-30",
+      "status": "SCHEDULED_VERIFIED",
+      "postId": "wzn_post_2026-11-30",
+      "idempotencyKey": "wzn:2026-11-30:day:334",
+      "verse": {
+        "day": 334,
+        "reference": "Księga Izajasza 7:14",
+        "referencePl": "Księga Izajasza 7,14",
+        "text": "Dlatego sam Pan da wam znak. Oto dziewica pocznie i urodzi syna, i nazwie go Emmanuel.",
+        "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+        "license": "CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei",
+        "canonicalVerified": true,
+        "sha256": "e5d1a6dcf5987de96fbcc37cd371282206d52b65a4f4905f2e1be24f4911d7b3"
+      },
+      "themeId": "samotnosc",
+      "themeLabel": "Samotność — Bóg pamięta o człowieku",
+      "sections": {
+        "hook": "❤️ Nie jesteś zapomniany.",
+        "verseBlock": "📖 „Dlatego sam Pan da wam znak. Oto dziewica pocznie i urodzi syna, i nazwie go Emmanuel.”\nKsięga Izajasza 7,14 — przekład UBG-2025.",
+        "reflection": "Nawet jeśli dziś telefon milczy i czujesz, że wszystko musisz udźwignąć w pojedynkę, ten fragment przypomina, że Bóg o Tobie nie zapomniał. Jego obecność w Chrystusie nie zależy od tego, jak głośny jest Twój dzień, ale od Jego wierności. Spróbuj dzisiaj choć na chwilę zaufać, że nie idziesz przez ten dzień sam.",
+        "primaryCta": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia",
+        "secondaryInvite": "💬 Zatrzymaj się na chwilę modlitwy.",
+        "ctaBlock": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Zatrzymaj się na chwilę modlitwy.",
+        "signature": "❤️ Wiadomości z nieba | Christian Culture"
+      },
+      "bodyText": "❤️ Nie jesteś zapomniany.\n\n📖 „Dlatego sam Pan da wam znak. Oto dziewica pocznie i urodzi syna, i nazwie go Emmanuel.”\nKsięga Izajasza 7,14 — przekład UBG-2025.\n\nNawet jeśli dziś telefon milczy i czujesz, że wszystko musisz udźwignąć w pojedynkę, ten fragment przypomina, że Bóg o Tobie nie zapomniał. Jego obecność w Chrystusie nie zależy od tego, jak głośny jest Twój dzień, ale od Jego wierności. Spróbuj dzisiaj choć na chwilę zaufać, że nie idziesz przez ten dzień sam.\n\n📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Zatrzymaj się na chwilę modlitwy.\n\n❤️ Wiadomości z nieba | Christian Culture",
+      "dedicatedImage": "/images/werset-dnia/generated/werset-day-334-ksiega-izajasza-7-14.jpg",
+      "actionUrl": "https://polskieradio.cc/werset-dnia",
+      "theology": {
+        "ok": true,
+        "passedCount": 10,
+        "totalCount": 10,
+        "checks": [
+          {
+            "id": "source_verified",
+            "label": "Autorytatywne źródło Werset Dnia i licencja UBG",
+            "passed": true,
+            "detail": "UBG-2025 (Uwspółcześniona Biblia Gdańska) | CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei"
+          },
+          {
+            "id": "verbatim_quote_preserved",
+            "label": "Dosłowny cytat biblijny zachowany w 100%",
+            "passed": true,
+            "detail": "Księga Izajasza 7,14"
+          },
+          {
+            "id": "five_elements_present",
+            "label": "Kompletność 5 elementów (Hak, Werset, Refleksja 2–3 zdania, CTA, Podpis)",
+            "passed": true,
+            "detail": "zdania refleksji: 3, długość: 312 zn."
+          },
+          {
+            "id": "publisher_disclosed",
+            "label": "Jawne oznaczenie wydawcy Christian Culture",
+            "passed": true,
+            "detail": "wydawca: Christian Culture"
+          },
+          {
+            "id": "no_supernatural_impersonation",
+            "label": "Brak podszywania się pod bezpośrednie nadprzyrodzone autorstwo",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_prosperity_or_guilt_manipulation",
+            "label": "Brak obietnic sukcesu/uzdrowienia za klik i brak szantażu emocjonalnego",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_unbiblical_jesus_quotes",
+            "label": "Brak niebiblijnych cytatów poza zweryfikowanym wersetem",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_nonbiblical_traditions",
+            "label": "Zgodność teologiczna z Biblią (Sola Scriptura)",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_internal_jargon",
+            "label": "Czysty język bez nazw wewnętrznego zaplecza i żargonu",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "link_integrity",
+            "label": "Poprawny link główny https://polskieradio.cc/werset-dnia",
+            "passed": true,
+            "detail": "https://polskieradio.cc/werset-dnia"
+          }
+        ]
+      }
+    },
+    {
+      "dayIndex": 9,
+      "runDate": "2026-12-01",
+      "status": "SCHEDULED_VERIFIED",
+      "postId": "wzn_post_2026-12-01",
+      "idempotencyKey": "wzn:2026-12-01:day:335",
+      "verse": {
+        "day": 335,
+        "reference": "Księga Izajasza 12:2",
+        "referencePl": "Księga Izajasza 12,2",
+        "text": "Oto Bóg jest moim zbawieniem, zaufam i nie będę się lękał, gdyż JEHOWA BÓG jest moją mocą i moją pieśnią; i on stał się moim zbawieniem.",
+        "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+        "license": "CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei",
+        "canonicalVerified": true,
+        "sha256": "6e3333aaa1b01638fcc0905f8151efff2a5903efa4086c0de11c6da5fdc031e6"
+      },
+      "themeId": "strach",
+      "themeLabel": "Strach — odwaga i Boża obecność",
+      "sections": {
+        "hook": "🤍 Odwaga zaczyna się tam, gdzie kończy się samotne zmaganie.",
+        "verseBlock": "📖 „Oto Bóg jest moim zbawieniem, zaufam i nie będę się lękał, gdyż JEHOWA BÓG jest moją mocą i moją pieśnią; i on stał się moim zbawieniem.”\nKsięga Izajasza 12,2 — przekład UBG-2025.",
+        "reflection": "Odwaga w rozumieniu Pisma Świętego nie oznacza braku emocji, ale świadome oparcie się na Bogu pośród niepewności. W Chrystusie mamy pewność, że nawet trudne ścieżki nie są poza zasięgiem Jego opieki. Zrób dzisiejszy krok spokojnie, nie oddając steru swojego serca lękowi.",
+        "primaryCta": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia",
+        "secondaryInvite": "💬 Napisz w komentarzu „Amen”, jeśli utożsamiasz się z przesłaniem.",
+        "ctaBlock": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Napisz w komentarzu „Amen”, jeśli utożsamiasz się z przesłaniem.",
+        "signature": "❤️ Wiadomości z nieba | Christian Culture"
+      },
+      "bodyText": "🤍 Odwaga zaczyna się tam, gdzie kończy się samotne zmaganie.\n\n📖 „Oto Bóg jest moim zbawieniem, zaufam i nie będę się lękał, gdyż JEHOWA BÓG jest moją mocą i moją pieśnią; i on stał się moim zbawieniem.”\nKsięga Izajasza 12,2 — przekład UBG-2025.\n\nOdwaga w rozumieniu Pisma Świętego nie oznacza braku emocji, ale świadome oparcie się na Bogu pośród niepewności. W Chrystusie mamy pewność, że nawet trudne ścieżki nie są poza zasięgiem Jego opieki. Zrób dzisiejszy krok spokojnie, nie oddając steru swojego serca lękowi.\n\n📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Napisz w komentarzu „Amen”, jeśli utożsamiasz się z przesłaniem.\n\n❤️ Wiadomości z nieba | Christian Culture",
+      "dedicatedImage": "/images/werset-dnia/generated/werset-day-335-ksiega-izajasza-12-2.jpg",
+      "actionUrl": "https://polskieradio.cc/werset-dnia",
+      "theology": {
+        "ok": true,
+        "passedCount": 10,
+        "totalCount": 10,
+        "checks": [
+          {
+            "id": "source_verified",
+            "label": "Autorytatywne źródło Werset Dnia i licencja UBG",
+            "passed": true,
+            "detail": "UBG-2025 (Uwspółcześniona Biblia Gdańska) | CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei"
+          },
+          {
+            "id": "verbatim_quote_preserved",
+            "label": "Dosłowny cytat biblijny zachowany w 100%",
+            "passed": true,
+            "detail": "Księga Izajasza 12,2"
+          },
+          {
+            "id": "five_elements_present",
+            "label": "Kompletność 5 elementów (Hak, Werset, Refleksja 2–3 zdania, CTA, Podpis)",
+            "passed": true,
+            "detail": "zdania refleksji: 3, długość: 271 zn."
+          },
+          {
+            "id": "publisher_disclosed",
+            "label": "Jawne oznaczenie wydawcy Christian Culture",
+            "passed": true,
+            "detail": "wydawca: Christian Culture"
+          },
+          {
+            "id": "no_supernatural_impersonation",
+            "label": "Brak podszywania się pod bezpośrednie nadprzyrodzone autorstwo",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_prosperity_or_guilt_manipulation",
+            "label": "Brak obietnic sukcesu/uzdrowienia za klik i brak szantażu emocjonalnego",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_unbiblical_jesus_quotes",
+            "label": "Brak niebiblijnych cytatów poza zweryfikowanym wersetem",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_nonbiblical_traditions",
+            "label": "Zgodność teologiczna z Biblią (Sola Scriptura)",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_internal_jargon",
+            "label": "Czysty język bez nazw wewnętrznego zaplecza i żargonu",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "link_integrity",
+            "label": "Poprawny link główny https://polskieradio.cc/werset-dnia",
+            "passed": true,
+            "detail": "https://polskieradio.cc/werset-dnia"
+          }
+        ]
+      }
+    },
+    {
+      "dayIndex": 10,
+      "runDate": "2026-12-02",
+      "status": "SCHEDULED_VERIFIED",
+      "postId": "wzn_post_2026-12-02",
+      "idempotencyKey": "wzn:2026-12-02:day:336",
+      "verse": {
+        "day": 336,
+        "reference": "Księga Izajasza 25:8",
+        "referencePl": "Księga Izajasza 25,8",
+        "text": "Połknie śmierć w zwycięstwie, a Pan BÓG otrze łzy z każdego oblicza i zdejmie z całej ziemi hańbę swego ludu, bo tak PAN powiedział.",
+        "translation": "UBG-2025 (Uwspółcześniona Biblia Gdańska)",
+        "license": "CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei",
+        "canonicalVerified": true,
+        "sha256": "397eb80b938daddc44864a3bdffa33a26e677e635beeb1f335cb48b124b60cbb"
+      },
+      "themeId": "brak_nadziei",
+      "themeLabel": "Brak nadziei — nowy początek",
+      "sections": {
+        "hook": "🌅 Dzisiaj możesz zacząć od nowa.",
+        "verseBlock": "📖 „Połknie śmierć w zwycięstwie, a Pan BÓG otrze łzy z każdego oblicza i zdejmie z całej ziemi hańbę swego ludu, bo tak PAN powiedział.”\nKsięga Izajasza 25,8 — przekład UBG-2025.",
+        "reflection": "Gdy coś nie wyszło raz czy kolejny, najłatwiej uwierzyć, że nic już się nie zmieni. Słowo Boże niesie jednak inną perspektywę: historia człowieka z Bogiem nie kończy się w miejscu upadku ani łez. W Chrystusie zawsze istnieje droga ku odnowie, która zaczyna się od dzisiejszego zaufania.",
+        "primaryCta": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia",
+        "secondaryInvite": "💬 Przeczytaj dzisiaj fragment Biblii.",
+        "ctaBlock": "📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Przeczytaj dzisiaj fragment Biblii.",
+        "signature": "❤️ Wiadomości z nieba | Christian Culture"
+      },
+      "bodyText": "🌅 Dzisiaj możesz zacząć od nowa.\n\n📖 „Połknie śmierć w zwycięstwie, a Pan BÓG otrze łzy z każdego oblicza i zdejmie z całej ziemi hańbę swego ludu, bo tak PAN powiedział.”\nKsięga Izajasza 25,8 — przekład UBG-2025.\n\nGdy coś nie wyszło raz czy kolejny, najłatwiej uwierzyć, że nic już się nie zmieni. Słowo Boże niesie jednak inną perspektywę: historia człowieka z Bogiem nie kończy się w miejscu upadku ani łez. W Chrystusie zawsze istnieje droga ku odnowie, która zaczyna się od dzisiejszego zaufania.\n\n📖 Odkryj swój dzisiejszy werset i zatrzymaj się na chwilę przy Słowie Bożym:\nhttps://polskieradio.cc/werset-dnia\n\n💬 Przeczytaj dzisiaj fragment Biblii.\n\n❤️ Wiadomości z nieba | Christian Culture",
+      "dedicatedImage": "/images/werset-dnia/generated/werset-day-336-ksiega-izajasza-25-8.jpg",
+      "actionUrl": "https://polskieradio.cc/werset-dnia",
+      "theology": {
+        "ok": true,
+        "passedCount": 10,
+        "totalCount": 10,
+        "checks": [
+          {
+            "id": "source_verified",
+            "label": "Autorytatywne źródło Werset Dnia i licencja UBG",
+            "passed": true,
+            "detail": "UBG-2025 (Uwspółcześniona Biblia Gdańska) | CC BY-ND 4.0 / Logos Media / Fundacja Wrota Nadziei"
+          },
+          {
+            "id": "verbatim_quote_preserved",
+            "label": "Dosłowny cytat biblijny zachowany w 100%",
+            "passed": true,
+            "detail": "Księga Izajasza 25,8"
+          },
+          {
+            "id": "five_elements_present",
+            "label": "Kompletność 5 elementów (Hak, Werset, Refleksja 2–3 zdania, CTA, Podpis)",
+            "passed": true,
+            "detail": "zdania refleksji: 3, długość: 286 zn."
+          },
+          {
+            "id": "publisher_disclosed",
+            "label": "Jawne oznaczenie wydawcy Christian Culture",
+            "passed": true,
+            "detail": "wydawca: Christian Culture"
+          },
+          {
+            "id": "no_supernatural_impersonation",
+            "label": "Brak podszywania się pod bezpośrednie nadprzyrodzone autorstwo",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_prosperity_or_guilt_manipulation",
+            "label": "Brak obietnic sukcesu/uzdrowienia za klik i brak szantażu emocjonalnego",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_unbiblical_jesus_quotes",
+            "label": "Brak niebiblijnych cytatów poza zweryfikowanym wersetem",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_nonbiblical_traditions",
+            "label": "Zgodność teologiczna z Biblią (Sola Scriptura)",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "no_internal_jargon",
+            "label": "Czysty język bez nazw wewnętrznego zaplecza i żargonu",
+            "passed": true,
+            "detail": "OK"
+          },
+          {
+            "id": "link_integrity",
+            "label": "Poprawny link główny https://polskieradio.cc/werset-dnia",
+            "passed": true,
+            "detail": "https://polskieradio.cc/werset-dnia"
+          }
+        ]
+      }
+    }
+  ]
+}
