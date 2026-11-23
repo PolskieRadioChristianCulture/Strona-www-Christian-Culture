@@ -45,7 +45,9 @@ a { color: var(--wzn-red-hi); }
 
 /* HERO */
 .wzn-hero { position: relative; background: #000; }
-.wzn-hero-media img { width: 100%; height: auto; aspect-ratio: 1672 / 941; object-fit: cover; }
+/* Pełny kadr 16:9 bez przycinania (L0 23.11): szerokość ograniczona tak, by cały obraz mieścił się w oknie. */
+.wzn-hero-media { display: block; background: #000; }
+.wzn-hero-media img { width: min(100%, calc(86svh * 1672 / 941)); height: auto; aspect-ratio: 1672 / 941; margin-inline: auto; object-fit: contain; }
 .wzn-hero-copy {
   position: relative; text-align: center; padding: 28px 16px 44px;
   background: linear-gradient(180deg, #000 0%, var(--wzn-bg) 100%);
@@ -56,8 +58,8 @@ a { color: var(--wzn-red-hi); }
 .wzn-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 
 @media (min-width: 900px) {
-  .wzn-hero-media img { max-height: 78vh; object-position: center 30%; }
   .wzn-hero-copy { padding: 36px 16px 56px; }
+  .wzn-hero-media img { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%); }
 }
 
 /* BUTTONS */
