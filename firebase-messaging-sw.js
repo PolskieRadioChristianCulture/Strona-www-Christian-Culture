@@ -109,7 +109,7 @@ try {
             actions: actions
         };
 
-        return self.registration.showNotification(title, notificationOptions);
+        return self.registration.showNotification(title, notificationOptions).then(ccUpdateAppBadge);
     });
     fcmBackgroundReady = true;
 } catch(err) {
@@ -121,7 +121,7 @@ try {
 // High-performance caching, stale-while-revalidate & offline navigation
 // ══════════════════════════════════════════════════════════════════════════
 
-const CACHE_NAME = 'lumina-pwa-cache-v4.2.6-20261123-chat-target';
+const CACHE_NAME = 'lumina-pwa-cache-v4.2.7-20261123-badge';
 const APP_SHELL_ASSETS = [
     './',
     './lumina.html',
@@ -309,9 +309,21 @@ self.addEventListener('push', (event) => {
     };
 
     event.waitUntil(
-        self.registration.showNotification(title, options)
+        self.registration.showNotification(title, options).then(ccUpdateAppBadge)
     );
 });
+
+// @007 (L0 23.11.2026): licznik na ikonie zainstalowanej aplikacji = liczba widocznych powiadomień LUMINA.
+function ccUpdateAppBadge() {
+    try {
+        if (!self.navigator || typeof self.navigator.setAppBadge !== 'function') return Promise.resolve();
+        return self.registration.getNotifications().then((list) => {
+            const n = list.length;
+            return n > 0 ? self.navigator.setAppBadge(n) : (self.navigator.clearAppBadge ? self.navigator.clearAppBadge() : undefined);
+        }).catch(() => {});
+    } catch (_) { return Promise.resolve(); }
+}
+self.addEventListener('notificationclose', () => { ccUpdateAppBadge(); });
 
 // ══════════════════════════════════════════════════════════════════════════
 // NOTIFICATION CLICK HANDLER — DEEP-LINKING TO PAGES & CHAT
@@ -335,6 +347,7 @@ function openLumiKids() {
 function handleLuminaNotificationClick(event) {
     event.stopImmediatePropagation();
     event.notification.close();
+    ccUpdateAppBadge();
     event.waitUntil(isLumiKidsDevice().then((kids) => {
         if (kids) return openLumiKids();
         const inner = [];

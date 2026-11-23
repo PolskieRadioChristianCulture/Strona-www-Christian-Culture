@@ -450,6 +450,15 @@
         touch-action: none !important;
         overscroll-behavior: none !important;
       }
+      /* @007 (L0 23.11.2026): zdjęcia, głosówki, godziny ciszy */
+      #ccGlobalChatOverlay .cc-msg-img { display: block !important; max-width: 100% !important; max-height: 320px !important; border-radius: 12px !important; margin-top: 8px !important; cursor: zoom-in !important; object-fit: cover !important; }
+      #ccGlobalChatOverlay .cc-msg-audio { display: block !important; width: 100% !important; max-width: 280px !important; margin-top: 8px !important; }
+      #ccVoiceBar { display: flex !important; align-items: center !important; gap: 10px !important; padding: 8px 12px !important; margin: 0 0 6px !important; border-radius: 14px !important; background: rgba(239,68,68,0.12) !important; border: 1px solid rgba(239,68,68,0.45) !important; color: #FECACA !important; font-weight: 700 !important; font-size: 0.85rem !important; }
+      #ccVoiceBar[hidden] { display: none !important; }
+      #ccVoiceBar .cc-rec-dot { width: 10px !important; height: 10px !important; border-radius: 50% !important; background: #EF4444 !important; }
+      #ccVoiceBar button { min-height: 44px !important; padding: 0 14px !important; border-radius: 999px !important; font-weight: 800 !important; cursor: pointer !important; border: 1px solid rgba(255,255,255,0.2) !important; background: transparent !important; color: #F7F8FC !important; }
+      #ccVoiceBar button.is-send { background: #FF7A00 !important; border: 0 !important; color: #fff !important; }
+      #ccGlobalChatOverlay .cc-popover-item.is-media { border-color: rgba(216,173,87,0.45) !important; }
       /* @007 (L0 23.11.2026): reakcje, menu wiadomości, „pisze…” */
       #ccGlobalChatOverlay .cc-msg-reactions { display: flex !important; flex-wrap: wrap !important; gap: 6px !important; margin-top: 6px !important; }
       #ccGlobalChatOverlay .cc-react-chip {
@@ -3409,6 +3418,8 @@
           <!-- 6. STAŁE POLE WPISYWANIA WIADOMOŚCI -->
           <div class="cc-chat-composer-premium" id="ccChatComposer">
             <div class="cc-composer-popover" id="ccComposerPopover" hidden>
+              <button type="button" class="cc-popover-item is-media" data-media="image">📷 Wyślij zdjęcie</button>
+              <button type="button" class="cc-popover-item is-media" data-media="voice">🎙️ Nagraj wiadomość głosową</button>
               <button type="button" class="cc-popover-item" data-query="Jak posłuchać radia?">🎧 Radio 24/7</button>
               <button type="button" class="cc-popover-item" data-query="Gdzie znajdę Biblię i rozważania?">📖 Biblia i rozważania</button>
               <button type="button" class="cc-popover-item" data-query="Jakie kursy oferuje Akademia Biblijna?">🎓 Akademia Biblijna</button>
@@ -3596,6 +3607,21 @@
                 <span id="ccDrawerOnboardingStatus" style="font-size:0.76rem;color:var(--lumi-text-muted);">Powiadomienia, dźwięk, aplikacja i potwierdzenia przeczytania</span>
               </div>
               <button type="button" id="ccOpenOnboardingBtn" class="cc-showcase-pill is-primary" style="min-height:44px;padding:0 14px;">Otwórz</button>
+            </div>
+
+            <div id="ccDrawerQuietCard" style="background:var(--lumi-card-surface);border:1px solid var(--lumi-border);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                <div>
+                  <label for="ccQuietToggle" style="font-size:0.86rem;font-weight:700;display:block;color:var(--lumi-text-main);cursor:pointer;">🌙 Godziny ciszy powiadomień</label>
+                  <span style="font-size:0.76rem;color:var(--lumi-text-muted);">W tym czasie telefon nie dostaje powiadomień z czatu (to urządzenie)</span>
+                </div>
+                <input type="checkbox" id="ccQuietToggle" style="width:24px;height:24px;min-width:24px;min-height:24px;accent-color:#D8AD57;cursor:pointer;" aria-label="Włącz godziny ciszy">
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.84rem;color:var(--lumi-text-main);">
+                <label for="ccQuietStart">od</label><input type="time" id="ccQuietStart" value="22:00" style="min-height:44px;border-radius:10px;padding:0 8px;background:#0D1020;color:#fff;border:1px solid rgba(216,173,87,0.45);">
+                <label for="ccQuietEnd">do</label><input type="time" id="ccQuietEnd" value="07:00" style="min-height:44px;border-radius:10px;padding:0 8px;background:#0D1020;color:#fff;border:1px solid rgba(216,173,87,0.45);">
+              </div>
+              <span id="ccQuietStatus" style="font-size:0.74rem;color:var(--lumi-text-muted);" aria-live="polite"></span>
             </div>
 
             <div id="ccDrawerSoundCard" style="background:var(--lumi-card-surface);border:1px solid var(--lumi-border);border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
@@ -4849,7 +4875,9 @@
         senderId: pending.senderId,
         senderName: pending.senderName,
         senderAvatar: pending.senderAvatar,
-        senderBadge: pending.senderBadge
+        senderBadge: pending.senderBadge,
+        ...(pending.imageUrl ? { imageUrl: pending.imageUrl } : {}),
+        ...(pending.audioUrl ? { audioUrl: pending.audioUrl, audioDuration: pending.audioDuration || 0 } : {})
       });
       }).then((id) => {
         if (id && !String(id).startsWith('local_')) {
@@ -4878,6 +4906,169 @@
         if (hasText) typingIdle = setTimeout(() => db.setChatTyping('public', false), 6000);
       });
     }
+    // @007 (L0 23.11.2026): zdjęcie (kompresja do ~330 KB) i głosówka (do 60 s) — bez płatnego magazynu plików.
+    function ccQueueMedia(media) {
+      const user = getUserState();
+      if (!user.isLoggedIn || !user.uid) { ccSheetMessage('Zaloguj się', 'Zdjęcia i wiadomości głosowe mogą wysyłać zalogowani członkowie LUMINA.'); return; }
+      if (!currentChatPartner || !currentChatPartner.isPublic || chatMode === 'assistant') { ccSheetMessage('Czat Ogólny', 'Zdjęcia i wiadomości głosowe wyślesz na Czacie Ogólnym.'); return; }
+      const now = new Date();
+      const caption = (chatInput && chatInput.value || '').trim();
+      if (chatInput) chatInput.value = '';
+      const pending = {
+        id: 'pending_' + now.getTime() + '_' + Math.random().toString(36).slice(2, 6),
+        _pending: true, _status: 'sending',
+        text: caption,
+        senderId: user.slug || user.uid, senderAuthUid: user.uid, senderName: user.name, senderAvatar: user.avatar, senderBadge: user.badge,
+        dateStr: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        ...media
+      };
+      pendingPublicMessages.push(pending);
+      renderChatMessages();
+      scrollToBottom();
+      sendPendingPublicMessage(pending);
+    }
+    function ccCompressImage(file) {
+      return new Promise((resolve, reject) => {
+        if (!file || !/^image\//.test(file.type)) { reject(new Error('type')); return; }
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+          try {
+            const max = 1280;
+            const scale = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+            const c = document.createElement('canvas');
+            c.width = Math.round(img.naturalWidth * scale); c.height = Math.round(img.naturalHeight * scale);
+            c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+            let q = 0.82, out = c.toDataURL('image/jpeg', q);
+            while (out.length > 450000 && q > 0.4) { q -= 0.08; out = c.toDataURL('image/jpeg', q); }
+            URL.revokeObjectURL(url);
+            if (out.length > 600000) { reject(new Error('size')); return; }
+            resolve(out);
+          } catch (e) { reject(e); }
+        };
+        img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('decode')); };
+        img.src = url;
+      });
+    }
+    let ccRec = null;
+    function ccVoiceBar() {
+      let bar = document.getElementById('ccVoiceBar');
+      if (!bar) {
+        const composer = document.getElementById('ccChatComposer');
+        if (!composer) return null;
+        bar = document.createElement('div');
+        bar.id = 'ccVoiceBar';
+        bar.hidden = true;
+        bar.setAttribute('role', 'status');
+        bar.innerHTML = '<span class="cc-rec-dot" aria-hidden="true"></span><span id="ccVoiceTime">Nagrywanie 0:00</span><span style="flex:1"></span><button type="button" data-voice="cancel">Anuluj</button><button type="button" class="is-send" data-voice="send">Wyślij</button>';
+        composer.insertBefore(bar, composer.firstChild);
+        bar.addEventListener('click', (e) => {
+          const b = e.target.closest('[data-voice]');
+          if (!b || !ccRec) return;
+          ccRec.sendOnStop = b.getAttribute('data-voice') === 'send';
+          try { ccRec.recorder.stop(); } catch (_) {}
+        });
+      }
+      return bar;
+    }
+    async function ccStartVoice() {
+      const user = getUserState();
+      if (!user.isLoggedIn) { ccSheetMessage('Zaloguj się', 'Wiadomości głosowe mogą wysyłać zalogowani członkowie LUMINA.'); return; }
+      if (!currentChatPartner || !currentChatPartner.isPublic || chatMode === 'assistant') { ccSheetMessage('Czat Ogólny', 'Wiadomości głosowe wyślesz na Czacie Ogólnym.'); return; }
+      if (!navigator.mediaDevices || !window.MediaRecorder) { ccSheetMessage('Nieobsługiwane', 'Ta przeglądarka nie nagrywa dźwięku. Użyj Chrome lub zainstalowanej aplikacji.'); return; }
+      if (ccRec) return;
+      let stream;
+      try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+      catch (_) { ccSheetMessage('Brak dostępu do mikrofonu', 'Zezwól na mikrofon dla polskieradio.cc w ustawieniach przeglądarki i spróbuj ponownie.'); return; }
+      const types = ['audio/webm;codecs=opus', 'audio/ogg;codecs=opus', 'audio/mp4', 'audio/webm'];
+      const mimeType = types.find(t => { try { return MediaRecorder.isTypeSupported(t); } catch (_) { return false; } }) || '';
+      const recorder = new MediaRecorder(stream, mimeType ? { mimeType, audioBitsPerSecond: 24000 } : { audioBitsPerSecond: 24000 });
+      const chunks = [];
+      const started = Date.now();
+      ccRec = { recorder, sendOnStop: false };
+      const bar = ccVoiceBar();
+      if (bar) bar.hidden = false;
+      const tick = setInterval(() => {
+        const sec = Math.floor((Date.now() - started) / 1000);
+        const t = document.getElementById('ccVoiceTime');
+        if (t) t.textContent = 'Nagrywanie ' + Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0') + ' / 1:00';
+        if (sec >= 60) { ccRec.sendOnStop = true; try { recorder.stop(); } catch (_) {} }
+      }, 250);
+      recorder.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+      recorder.onstop = () => {
+        clearInterval(tick);
+        stream.getTracks().forEach(tr => tr.stop());
+        if (bar) bar.hidden = true;
+        const send = ccRec && ccRec.sendOnStop;
+        const duration = Math.min(60, Math.round((Date.now() - started) / 1000));
+        ccRec = null;
+        if (!send || !chunks.length) return;
+        const blob = new Blob(chunks, { type: (recorder.mimeType || 'audio/webm').split(';')[0] });
+        const reader = new FileReader();
+        reader.onload = () => {
+          const url = String(reader.result || '');
+          if (url.length > 900000) { ccSheetMessage('Za długie nagranie', 'Nagraj krótszą wiadomość (do 60 sekund).'); return; }
+          ccQueueMedia({ audioUrl: url.replace(/^data:audio\/([a-z0-9]+);codecs=[^;]+;/, 'data:audio/$1;'), audioDuration: duration });
+        };
+        reader.readAsDataURL(blob);
+      };
+      recorder.start(250);
+    }
+    (function ccBindMediaButtons() {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/jpeg,image/png,image/webp';
+      fileInput.hidden = true;
+      fileInput.id = 'ccChatImageInput';
+      document.body.appendChild(fileInput);
+      fileInput.addEventListener('change', async () => {
+        const f = fileInput.files && fileInput.files[0];
+        fileInput.value = '';
+        if (!f) return;
+        try { ccQueueMedia({ imageUrl: await ccCompressImage(f) }); }
+        catch (_) { ccSheetMessage('Nie dodano zdjęcia', 'Wybierz zdjęcie JPG, PNG lub WEBP.'); }
+      });
+      document.querySelectorAll('#ccComposerPopover [data-media]').forEach(btn => btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const pop = document.getElementById('ccComposerPopover');
+        if (pop) pop.hidden = true;
+        if (btn.getAttribute('data-media') === 'image') {
+          const user = getUserState();
+          if (!user.isLoggedIn) { ccSheetMessage('Zaloguj się', 'Zdjęcia mogą wysyłać zalogowani członkowie LUMINA.'); return; }
+          fileInput.click();
+        } else {
+          ccStartVoice();
+        }
+      }));
+    })();
+    // Godziny ciszy (Ustawienia czatu)
+    (function ccBindQuietHours() {
+      const tg = document.getElementById('ccQuietToggle');
+      const st = document.getElementById('ccQuietStart');
+      const en = document.getElementById('ccQuietEnd');
+      const status = document.getElementById('ccQuietStatus');
+      if (!tg || !st || !en) return;
+      try {
+        const cfg = JSON.parse(localStorage.getItem('lumi_mess_quiet_hours') || 'null');
+        if (cfg) { tg.checked = !!cfg.enabled; st.value = cfg.start || '22:00'; en.value = cfg.end || '07:00'; }
+      } catch (_) {}
+      const save = async () => {
+        if (status) status.textContent = 'Zapisuję…';
+        try { if (window.ccEnsureLuminaDb) await window.ccEnsureLuminaDb(); } catch (_) {}
+        let res = { saved: 'local' };
+        try {
+          if (window.LuminaDB && typeof window.LuminaDB.setPushQuietHours === 'function') res = await window.LuminaDB.setPushQuietHours({ enabled: tg.checked, start: st.value, end: en.value });
+          else localStorage.setItem('lumi_mess_quiet_hours', JSON.stringify({ enabled: tg.checked, start: st.value, end: en.value }));
+        } catch (_) {}
+        if (status) status.textContent = res.saved === 'device'
+          ? (tg.checked ? `Cisza ${st.value}–${en.value} zapisana dla tego urządzenia.` : 'Godziny ciszy wyłączone.')
+          : 'Zapisano lokalnie. Najpierw włącz powiadomienia (Pakiet startowy), aby cisza działała na telefonie.';
+      };
+      tg.addEventListener('change', save);
+      st.addEventListener('change', save);
+      en.addEventListener('change', save);
+    })();
+
     window.ccRetryPublicMessage = function (pendingId) {
       const p = pendingPublicMessages.find(x => x.id === pendingId);
       if (!p) return;
@@ -6533,6 +6724,36 @@
     return ccDbPromise;
   };
 
+  // @007 (L0 23.11.2026): zdjęcia i głosówki (bezpieczne typy: jpeg/png/webp, audio webm/ogg/mp4/mpeg), podgląd zdjęcia.
+  function ccSafeImg(u) { return typeof u === 'string' && (/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(u) || /^https:\/\//.test(u)); }
+  function ccSafeAudio(u) { return typeof u === 'string' && (/^data:audio\/(webm|ogg|mp4|mpeg|aac)(;codecs=[a-z0-9.]+)?;base64,[A-Za-z0-9+/=]+$/.test(u) || /^https:\/\//.test(u)); }
+  function ccRenderMsgMedia(m) {
+    let out = '';
+    if (ccSafeImg(m.imageUrl)) out += `<img class="cc-msg-img" src="${escapeHtml(m.imageUrl)}" alt="Zdjęcie od: ${escapeHtml(m.senderName || 'członek LUMINA')}" loading="lazy" onclick="window.ccOpenImage(this.src)">`;
+    if (ccSafeAudio(m.audioUrl)) out += `<audio class="cc-msg-audio" controls preload="metadata" src="${escapeHtml(m.audioUrl)}" aria-label="Wiadomość głosowa${m.audioDuration ? ' ' + Math.round(m.audioDuration) + ' s' : ''}"></audio>`;
+    return out;
+  }
+  window.ccOpenImage = function (src) {
+    if (!ccSafeImg(src)) return;
+    ccSheet(`<h3>Zdjęcie</h3><img src="${escapeHtml(src)}" alt="Zdjęcie z czatu" style="width:100%;max-height:60vh;object-fit:contain;border-radius:12px;background:#000;"><div class="cc-sheet-row"><button type="button" data-sheet-close>Zamknij</button><a href="${escapeHtml(src)}" download="zdjecie-lumina.jpg" style="flex:1;min-height:48px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#D8AD57,#B58A38);color:#0D1020;font-weight:800;text-decoration:none;">Pobierz</a></div>`);
+  };
+  // Licznik na ikonie aplikacji i powiadomienia czatu znikają po przeczytaniu
+  function ccClearChatBadge() {
+    try {
+      if (!('serviceWorker' in navigator)) { if (navigator.clearAppBadge) navigator.clearAppBadge(); return; }
+      navigator.serviceWorker.getRegistration('/').then((reg) => {
+        if (!reg || !reg.getNotifications) { if (navigator.clearAppBadge) navigator.clearAppBadge(); return; }
+        return reg.getNotifications().then((list) => {
+          list.forEach((n) => { const t = n.data && (n.data.type || (n.data.FCM_MSG && n.data.FCM_MSG.data && n.data.FCM_MSG.data.type)); if (t === 'public_chat' || t === 'mention') n.close(); });
+          return reg.getNotifications();
+        }).then((left) => {
+          if (!left) return;
+          if (left.length && navigator.setAppBadge) navigator.setAppBadge(left.length); else if (navigator.clearAppBadge) navigator.clearAppBadge();
+        });
+      }).catch(() => {});
+    } catch (_) {}
+  }
+
   // @007 (L0 23.11.2026): reakcje, edycja/usuwanie, zgłoś/ukryj, „pisze…” — na istniejących funkcjach LuminaDB.
   const CC_REACTIONS = ['🙏', '❤️', '👍', '😊', '🔥', '✝️', '🕊️'];
   function ccIsRealMsgId(id) { return typeof id === 'string' && /^[A-Za-z0-9_-]{1,128}$/.test(id) && !id.startsWith('local_') && !id.startsWith('pending_'); }
@@ -6731,6 +6952,7 @@
     msgs.forEach(m => { const t = ccMsgTs(m); if (t > max) max = t; });
     ccSetLastRead(ccRoomKey(), max);
     ccUpdateJumpButton(0);
+    ccClearChatBadge();
   }
   function ccUpdateJumpButton(count) {
     const b = document.getElementById('ccChatScrollBottomBtn');
@@ -6894,7 +7116,7 @@
               ${currentChatPartner.isPublic && ccIsRealMsgId(m.id) ? `<button type="button" class="cc-chat-more-btn" onclick="window.ccOpenMsgMenu('${escapeHtml(m.id)}')" style="background:transparent; border:none; color:rgba(255,255,255,0.75); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; font-size:20px; line-height:1;" title="Więcej opcji wiadomości" aria-label="Więcej opcji wiadomości">⋯</button>` : ''}
             </div>
             <div class="cc-chat-msg-bubble">
-              ${renderChatMedia(text, m.id)}${m.editedAt ? '<span class="cc-msg-edited">(edytowano)</span>' : ''}
+              ${renderChatMedia(text, m.id)}${ccRenderMsgMedia(m)}${m.editedAt ? '<span class="cc-msg-edited">(edytowano)</span>' : ''}
               ${m.type === 'wzn_card' && m.wzn ? renderWznChatCard(m) : ''}
             </div>
             ${currentChatPartner.isPublic ? ccRenderReactions(m, user) : ''}

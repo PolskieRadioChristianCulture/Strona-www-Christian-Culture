@@ -3725,6 +3725,8 @@ export async function sendPublicChatMessage(messageObj) {
         text: messageObj.text || '',
         type: messageObj.type || 'text',
         ...(messageObj.imageUrl ? { imageUrl: messageObj.imageUrl } : {}),
+        // @007 (L0 23.11.2026): wiadomości głosowe (skompresowane, do 60 s) w Lumi Messenger
+        ...(messageObj.audioUrl ? { audioUrl: messageObj.audioUrl, audioDuration: Number(messageObj.audioDuration || 0) } : {}),
         ...(messageObj.replyToMessageId ? {
             replyToMessageId: messageObj.replyToMessageId,
             replyToSenderName: messageObj.replyToSenderName || '',
@@ -5584,6 +5586,7 @@ window.LuminaDB = Object.assign(window.LuminaDB || {}, {
     changeOwnPublicChatMessage,
     markPublicMessagesSeen,
     setChatTyping,
+    setPushQuietHours,
     togglePublicChatMessageReaction,
     subscribeToUserChats,
     recordProfileLike,
@@ -5708,6 +5711,23 @@ export function startPresenceHeartbeat() {
 }
 
 let sharedPresenceChannel = null;
+
+// @007 (L0 23.11.2026): godziny ciszy powiadomień (jak „Nie przeszkadzać”) — zapis w dokumencie tego urządzenia.
+// Demon push pomija urządzenie w podanym przedziale (czas Europe/Warsaw). start/end: 'HH:MM'.
+export async function setPushQuietHours({ enabled, start, end } = {}) {
+    try {
+        const cfg = { enabled: !!enabled, start: /^\d{2}:\d{2}$/.test(start || '') ? start : '22:00', end: /^\d{2}:\d{2}$/.test(end || '') ? end : '07:00', tz: 'Europe/Warsaw' };
+        try { localStorage.setItem('lumi_mess_quiet_hours', JSON.stringify(cfg)); } catch (_) {}
+        const token = localStorage.getItem('lumina_fcm_token');
+        const u = auth?.currentUser;
+        if (!db || !token || !u || u.isAnonymous) return { saved: 'local' };
+        const tokenKey = token.replace(/[^a-zA-Z0-9_-]/g, '').slice(-32);
+        await setDoc(doc(db, 'LuminaDeviceTokens', tokenKey), { uid: u.uid, quietHours: cfg, updatedAt: serverTimestamp() }, { merge: true });
+        return { saved: 'device' };
+    } catch (_) {
+        return { saved: 'error' };
+    }
+}
 
 // @007 (L0 23.11.2026): „Ktoś pisze…” — stan pisania w dokumencie obecności użytkownika (bez nowych kolekcji i reguł).
 // Wywoływać najwyżej co kilka sekund; room = 'public' albo identyfikator rozmowy; null = przestał pisać.
