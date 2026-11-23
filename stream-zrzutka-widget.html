@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Christian Culture — Zrzutka.pl Streaming Widget Overlay (OBS Live)</title>
+  <title>Christian Culture — Zrzutka.pl Live Stream Overlay (Ranking & Wpłaty)</title>
   <meta name="robots" content="noindex, nofollow" />
   
   <!-- Czcionki Christian Culture -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
       --cc-gold: #C4A35A;
       --cc-gold-hover: #D4B578;
       --cc-gold-dark: #A08040;
-      --cc-bg-dark: rgba(10, 10, 12, 0.88);
-      --cc-border: rgba(196, 163, 90, 0.35);
-      --cc-text: #F8FAFC;
-      --cc-text-muted: #94A3B8;
-      --cc-orange-btn: #FF7A00;
+      --cc-bg-card: rgba(18, 14, 20, 0.88);
+      --cc-border-card: rgba(196, 163, 90, 0.35);
+      --cc-text-light: #F8FAFC;
+      --cc-text-muted: #A0AEC0;
+      --cc-accent-pink: #E11D48;
+      --cc-accent-gradient: linear-gradient(90deg, #A08040 0%, #C4A35A 50%, #FF7A00 100%);
     }
 
     * {
@@ -29,10 +30,10 @@
       padding: 0;
     }
 
-    /* OBS Browser Source transparent background */
+    /* OBS Browser Source transparent canvas */
     body {
       background: transparent !important;
-      color: var(--cc-text);
+      color: var(--cc-text-light);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       overflow: hidden;
       width: 100vw;
@@ -41,439 +42,510 @@
       user-select: none;
     }
 
-    /* Kontener pełnoekranowy 1920x1080 */
-    .stream-overlay-canvas {
-      width: 100%;
-      height: 100%;
+    /* Główny kontener transmisyjny 1920x1080 */
+    .stream-stage {
+      width: 1920px;
+      height: 1080px;
       position: absolute;
       top: 0;
       left: 0;
-      pointer-events: none; /* Kliknięcia przechodzą pod spód chyba że interakcja */
+      pointer-events: none;
     }
 
-    /* Karta w stylu EkoCC Glassmorphism */
-    .cc-widget-card {
+    /* Wspólny styl paneli (Glassmorphism + akcent CC) */
+    .overlay-panel {
       pointer-events: auto;
-      background: var(--cc-bg-dark);
+      background: var(--cc-bg-card);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1.5px solid var(--cc-border);
+      border: 1.5px solid var(--cc-border-card);
       border-radius: 16px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(196, 163, 90, 0.15);
-      padding: 16px 20px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), 0 0 24px rgba(196, 163, 90, 0.12);
       position: absolute;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* 1. STREFA: PRAWY GÓRNY RÓG (Pasek Celu / Goal Bar) */
-    .cc-widget-goal {
-      top: 32px;
-      right: 36px;
-      width: 440px;
-    }
-
-    .cc-widget-header {
+    /* ════════════════════════════════════════════════════════════════
+       1. LEWA STRONA: RANKING WPŁACAJĄCYCH (UKŁAD ZE ZDJĘCIA ZRZUTKI)
+       ════════════════════════════════════════════════════════════════ */
+    .ranking-box {
+      top: 140px;
+      left: 48px;
+      width: 380px;
+      max-height: 580px;
+      padding: 20px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
+      flex-direction: column;
     }
 
-    .cc-widget-brand {
+    .ranking-header {
+      font-size: 18px;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ranking-header-title {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .cc-brand-badge {
-      background: linear-gradient(135deg, #17140F, #2A211B);
-      border: 1px solid var(--cc-gold);
-      color: var(--cc-gold);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.8px;
-      padding: 3px 8px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      font-family: 'Cinzel', serif;
-    }
-
-    .cc-widget-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: #E2E8F0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .cc-widget-amount {
-      font-size: 13px;
+    .ranking-header-badge {
+      font-size: 11px;
       font-weight: 700;
       color: var(--cc-gold);
-      font-feature-settings: 'tnum';
+      background: rgba(196, 163, 90, 0.15);
+      border: 1px solid var(--cc-gold);
+      padding: 2px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
     }
 
-    .cc-progress-track {
-      width: 100%;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      position: relative;
+    .ranking-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: hidden;
     }
 
-    .cc-progress-fill {
-      height: 100%;
-      width: 64%;
-      background: linear-gradient(90deg, var(--cc-gold-dark) 0%, var(--cc-gold) 60%, var(--cc-orange-btn) 100%);
-      border-radius: 999px;
-      position: relative;
-      transition: width 1s ease-in-out;
-      box-shadow: 0 0 12px rgba(196, 163, 90, 0.5);
-    }
-
-    .cc-progress-glow {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      animation: sweepGlow 2.5s infinite;
-    }
-
-    @keyframes sweepGlow {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    .cc-widget-footer {
+    .ranking-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 8px;
-      font-size: 11px;
-      color: var(--cc-text-muted);
+      font-size: 14px;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: background 0.2s;
     }
 
-    .cc-widget-target {
-      font-weight: 600;
+    .ranking-item.top-1 {
+      color: #FFDF78;
+      font-weight: 800;
+      font-size: 15px;
+    }
+    .ranking-item.top-1 .donor-amount {
+      color: #FFDF78;
+      font-weight: 800;
+    }
+
+    .ranking-item.top-2 {
+      color: #E2E8F0;
+      font-weight: 700;
+    }
+    .ranking-item.top-2 .donor-amount {
+      color: #E2E8F0;
+      font-weight: 700;
+    }
+
+    .ranking-item.top-3 {
+      color: #D4B578;
+      font-weight: 700;
+    }
+    .ranking-item.top-3 .donor-amount {
+      color: #D4B578;
+      font-weight: 700;
+    }
+
+    .ranking-item.regular {
       color: #CBD5E1;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    .ranking-item.regular .donor-amount {
+      color: var(--cc-gold);
+      font-weight: 600;
     }
 
-    /* 2. STREFA: PRAWY DOLNY RÓG (KOD QR DO SZYBKICH WPŁAT BLIK) */
-    .cc-widget-qr {
-      bottom: 96px; /* Nad belką RDS / tickerem */
-      right: 36px;
-      width: 200px;
+    .donor-name {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 230px;
+    }
+
+    .donor-pos {
+      min-width: 20px;
+      opacity: 0.8;
+      font-feature-settings: 'tnum';
+    }
+
+    .donor-amount {
+      font-feature-settings: 'tnum';
+      white-space: nowrap;
+    }
+
+    .ranking-empty {
+      font-size: 13px;
+      color: var(--cc-text-muted);
+      font-style: italic;
       text-align: center;
-      padding: 14px;
+      padding: 20px 0;
     }
 
-    .cc-qr-box {
-      width: 140px;
-      height: 140px;
-      margin: 0 auto 10px auto;
+    /* ════════════════════════════════════════════════════════════════
+       2. PRAWY GÓRNY RÓG: WIZYTÓWKA "WESPRZYJ!" Z KODEM QR
+       ════════════════════════════════════════════════════════════════ */
+    .qr-badge-card {
+      top: 48px;
+      right: 48px;
       background: #FFFFFF;
-      border-radius: 12px;
-      padding: 8px;
+      border-radius: 20px;
+      padding: 14px 16px 16px 16px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 20px rgba(196, 163, 90, 0.3);
+      width: 190px;
+      border: 3px solid var(--cc-gold);
+    }
+
+    .qr-badge-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: #BB142E;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Cinzel', 'Inter', sans-serif;
+      margin-bottom: 8px;
+    }
+
+    .qr-badge-img-wrapper {
+      width: 154px;
+      height: 154px;
+      margin: 0 auto;
+      border-radius: 10px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-      border: 2px solid var(--cc-gold);
+      background: #FFFFFF;
     }
 
-    .cc-qr-img {
+    .qr-badge-img {
       width: 100%;
       height: 100%;
       object-fit: contain;
     }
 
-    .cc-qr-label {
-      font-size: 11px;
-      font-weight: 700;
-      color: #FFFFFF;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      line-height: 1.3;
-    }
-
-    .cc-qr-sub {
+    .qr-badge-footer {
       font-size: 10px;
-      color: var(--cc-gold);
-      margin-top: 2px;
-    }
-
-    /* 3. STREFA: ALERT WPŁATY NA ŻYWO (POP-UP) */
-    .cc-widget-alert {
-      top: 40px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-150%);
-      width: 500px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: linear-gradient(135deg, rgba(20, 16, 12, 0.95), rgba(42, 33, 27, 0.95));
-      border: 2px solid var(--cc-gold);
-      border-radius: 20px;
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8), 0 0 30px rgba(196, 163, 90, 0.4);
-      padding: 16px 24px;
-      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .cc-widget-alert.show {
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .cc-alert-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--cc-orange-btn), #E66A00);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      flex-shrink: 0;
-      box-shadow: 0 0 16px rgba(255, 122, 0, 0.6);
-      animation: pulseAlert 1.5s infinite;
-    }
-
-    @keyframes pulseAlert {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-
-    .cc-alert-info {
-      flex: 1;
-    }
-
-    .cc-alert-heading {
-      font-family: 'Cinzel', serif;
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--cc-gold);
-      letter-spacing: 1px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-top: 6px;
+      letter-spacing: 0.4px;
       text-transform: uppercase;
     }
 
-    .cc-alert-donor {
-      font-size: 16px;
-      font-weight: 700;
-      color: #FFFFFF;
-      margin: 2px 0;
+    /* ════════════════════════════════════════════════════════════════
+       3. PRAWY DÓŁ: OSTATNIE WPŁATY / POWIADOMIENIA (JAK NA ZDJĘCIU)
+       ════════════════════════════════════════════════════════════════ */
+    .recent-donations-box {
+      bottom: 120px;
+      right: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 360px;
     }
 
-    .cc-alert-msg {
-      font-size: 12px;
-      color: #CBD5E1;
-      font-style: italic;
+    .donation-pill {
+      background: linear-gradient(135deg, rgba(28, 20, 26, 0.92), rgba(46, 28, 40, 0.92));
+      border: 1.5px solid rgba(225, 29, 72, 0.5);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      animation: slideInRight 0.5s ease-out;
     }
 
-    .cc-alert-badge {
-      background: rgba(196, 163, 90, 0.15);
-      border: 1px solid var(--cc-gold);
-      color: var(--cc-gold);
-      font-size: 16px;
+    @keyframes slideInRight {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .pill-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pill-amount {
+      font-size: 15px;
       font-weight: 800;
-      padding: 6px 12px;
-      border-radius: 10px;
+      color: #FFFFFF;
+      background: #E11D48;
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 2px;
       font-feature-settings: 'tnum';
     }
 
-    /* IFRAME DLA OFICJALNEGO WIDGETU ZRZUTKA.PL */
-    .zrzutka-external-frame {
+    .pill-message {
+      font-size: 12px;
+      color: #E2E8F0;
+      font-style: italic;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+
+    .pill-donor {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cc-gold);
+      text-align: right;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       4. DÓŁ EKRANU: DŁUGI PASEK POSTĘPU ZBIÓRKI (JAK NA ZDJĘCIU)
+       ════════════════════════════════════════════════════════════════ */
+    .goal-bottom-bar {
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1080px;
+      text-align: center;
+    }
+
+    .goal-amount-label {
+      font-size: 20px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      font-feature-settings: 'tnum';
+    }
+
+    .goal-progress-track {
+      width: 100%;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1.5px solid rgba(196, 163, 90, 0.4);
+      position: relative;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+    }
+
+    .goal-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #A08040 0%, #C4A35A 50%, #E11D48 100%);
+      border-radius: 999px;
+      position: relative;
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 16px rgba(196, 163, 90, 0.6);
+    }
+
+    .goal-subtext {
+      font-size: 12px;
+      color: var(--cc-text-muted);
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 6px;
+    }
+
+    /* IFRAME DLA OFICJALNYCH WIDGETÓW ZRZUTKA.PL */
+    .zrzutka-live-frame {
       width: 100%;
       height: 100%;
       border: none;
       background: transparent;
-      display: none;
-    }
-
-    .zrzutka-external-frame.active {
-      display: block;
-    }
-
-    /* PANEL KONFIGURACYJNY DO OBS INTERACT */
-    .cc-config-panel {
       position: absolute;
-      bottom: 20px;
-      left: 20px;
-      background: #0D1117;
-      border: 1px solid #30363D;
-      border-radius: 12px;
-      padding: 14px 18px;
-      font-size: 12px;
-      color: #8B949E;
-      pointer-events: auto;
-      max-width: 380px;
+      top: 0;
+      left: 0;
       display: none;
     }
-
-    .cc-config-panel.visible {
+    .zrzutka-live-frame.active {
       display: block;
-    }
-
-    .cc-config-btn {
-      background: var(--cc-gold);
-      color: #17140F;
-      border: none;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 11px;
-      margin-top: 8px;
     }
   </style>
 </head>
 <body>
 
-  <!-- PŁÓTNO NAKŁADKI EMISYJNEJ (1920x1080) -->
-  <div class="stream-overlay-canvas">
+  <!-- OBS STAGE CANVAS 1920x1080 -->
+  <div class="stream-stage">
 
-    <!-- TRYB 1: ZEWNĘTRZNY WIDGET ZE ZRZUTKA.PL (jeśli podano ?widgetUrl=) -->
-    <iframe id="zrzutkaFrame" class="zrzutka-external-frame" src="about:blank" allowtransparency="true"></iframe>
+    <!-- TRYB ZEWNĘTRZNY: Jeśli użytkownik wklei gotowy link ze Zrzutka.pl (?widgetUrl=) -->
+    <iframe id="zrzutkaDirectFrame" class="zrzutka-live-frame" allowtransparency="true"></iframe>
 
-    <!-- TRYB 2: NAKŁADKA EKOCC PREMIUM (domyślna lub nakładana) -->
-    <div id="ccNativeWidgets">
-      
-      <!-- 1. ALERT WPŁATY NA ŻYWO (Pop-up) -->
-      <div id="liveAlert" class="cc-widget-alert">
-        <div class="cc-alert-icon">🎁</div>
-        <div class="cc-alert-info">
-          <div class="cc-alert-heading">Nowe Wsparcie Misji CC</div>
-          <div id="alertDonor" class="cc-alert-donor">Darczyńca z Warszawy</div>
-          <div id="alertMessage" class="cc-alert-msg">„Niech Bóg błogosławi dzieło Radia!”</div>
-        </div>
-        <div id="alertAmount" class="cc-alert-badge">+100 zł</div>
-      </div>
+    <div id="nativeOverlay">
 
-      <!-- 2. PASEK CELU ZBIÓRKI (Prawy Górny Róg) -->
-      <div id="goalWidget" class="cc-widget-card cc-widget-goal">
-        <div class="cc-widget-header">
-          <div class="cc-widget-brand">
-            <span class="cc-brand-badge">Wspieram CC</span>
-            <span id="goalTitle" class="cc-widget-title">Rozwój Radia & Słuchowisk 2026</span>
+      <!-- 1. RANKING WPŁACAJĄCYCH (PO LEWEJ STRONIE, JAK NA ZDJĘCIU) -->
+      <div id="rankingPanel" class="overlay-panel ranking-box">
+        <div class="ranking-header">
+          <div class="ranking-header-title">
+            <span>Ranking:</span>
           </div>
-          <span id="goalPercent" class="cc-widget-amount">64%</span>
+          <span class="ranking-header-badge">Wspierający</span>
         </div>
-        
-        <div class="cc-progress-track">
-          <div id="goalProgress" class="cc-progress-fill" style="width: 64%;">
-            <div class="cc-progress-glow"></div>
-          </div>
-        </div>
-
-        <div class="cc-widget-footer">
-          <span>Zebrano: <strong id="goalCollected" style="color: #F8FAFC;">16 000 zł</strong></span>
-          <span class="cc-widget-target">Cel: <strong id="goalTarget">25 000 zł</strong></span>
+        <ul id="rankingList" class="ranking-list">
+          <!-- Wypełniane dynamicznie przez JS na podstawie rzeczywistych wpłat -->
+        </ul>
+        <div id="rankingEmptyState" class="ranking-empty" style="display: none;">
+          Bądź pierwszym darczyńcą tej zbiórki! ❤️
         </div>
       </div>
 
-      <!-- 3. KOD QR DO SZYBKICH WPŁAT BLIK (Prawy Dolny Róg nad RDS) -->
-      <div id="qrWidget" class="cc-widget-card cc-widget-qr">
-        <div class="cc-qr-box">
-          <!-- Wygenerowany QR do oficjalnej zbiórki Christian Culture: https://zrzutka.pl/rs4g4v -->
+      <!-- 2. WESPRZYJ! BADGE Z KODEM QR (W PRAWYM GÓRNYM ROGU, JAK NA ZDJĘCIU) -->
+      <div id="qrPanel" class="qr-badge-card">
+        <div class="qr-badge-title">WESPRZYJ!</div>
+        <div class="qr-badge-img-wrapper">
           <img 
-            id="qrImage"
-            class="cc-qr-img" 
-            src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fzrzutka.pl%2Frs4g4v&margin=6" 
-            alt="Zeskanuj i wesprzyj przez BLIK" 
+            id="qrCodeImg" 
+            class="qr-badge-img" 
+            src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fzrzutka.pl%2Frs4g4v&margin=4" 
+            alt="Kod QR Zrzutka.pl" 
           />
         </div>
-        <div class="cc-qr-label">Zeskanuj i wesprzyj</div>
-        <div class="cc-qr-sub">BLIK • Przelew • Karta</div>
+        <div class="qr-badge-footer">Zeskanuj • BLIK</div>
       </div>
 
-    </div>
+      <!-- 3. OSTATNIE WPŁATY / POWIADOMIENIA (PO PRAWEJ NA DOLE) -->
+      <div id="recentDonations" class="recent-donations-box">
+        <!-- Renderowane dynamicznie -->
+      </div>
 
-    <!-- PANEL KONFIGURACYJNY / TESTOWY (OBS INTERACTION) -->
-    <div id="configPanel" class="cc-config-panel">
-      <strong style="color: #C4A35A;">Panel Zarządzania Zrzutka Widget:</strong>
-      <p style="margin: 4px 0;">Parametry URL: <code>?widgetUrl=...</code>, <code>?goal=40000</code>, <code>?collected=25000</code>, <code>?mode=goal|qr|alerts|all</code></p>
-      <button class="cc-config-btn" onclick="testTriggerAlert()">Przetestuj Alert Wpłaty</button>
-      <button class="cc-config-btn" style="background: #30363D; color: #FFF; margin-left: 6px;" onclick="toggleConfig()">Ukryj</button>
+      <!-- 4. PASEK POSTĘPU ZBIÓRKI (NA SAMYM DOLE, JAK NA ZDJĘCIU) -->
+      <div id="goalPanel" class="goal-bottom-bar">
+        <div id="goalAmountLabel" class="goal-amount-label">0 zł</div>
+        <div class="goal-progress-track">
+          <div id="goalProgressFill" class="goal-progress-fill" style="width: 0%;"></div>
+        </div>
+        <div class="goal-subtext">
+          <span id="collectedSpan">Zebrano: <strong>0 zł</strong></span>
+          <span id="targetSpan">Cel: <strong>Zbiórka Otwarta</strong></span>
+        </div>
+      </div>
+
     </div>
 
   </div>
 
   <script>
-    // Inicjalizacja parametrów URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const widgetUrl = urlParams.get('widgetUrl') || urlParams.get('url');
-    const mode = urlParams.get('mode') || 'all'; // all, goal, qr, alerts
-    const targetZrzutka = urlParams.get('zrzutka') || 'rs4g4v';
-    const showConfig = urlParams.get('config') === '1' || urlParams.get('demo') === '1';
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const widgetUrl = params.get('widgetUrl') || params.get('url');
 
-    // Jeśli podano zewnętrzny URL widgetu ze Zrzutka.pl
-    if (widgetUrl) {
-      const frame = document.getElementById('zrzutkaFrame');
-      frame.src = widgetUrl;
-      frame.classList.add('active');
-      document.getElementById('ccNativeWidgets').style.display = 'none';
-    } else {
-      // Konfiguracja trybów wyświetlania
-      if (mode === 'goal') {
-        document.getElementById('qrWidget').style.display = 'none';
-      } else if (mode === 'qr') {
-        document.getElementById('goalWidget').style.display = 'none';
-      } else if (mode === 'alerts') {
-        document.getElementById('goalWidget').style.display = 'none';
-        document.getElementById('qrWidget').style.display = 'none';
+      // Jeśli podano bezpośredni link widgetu wygenerowany ze Zrzutka.pl
+      if (widgetUrl) {
+        const frame = document.getElementById('zrzutkaDirectFrame');
+        frame.src = widgetUrl;
+        frame.classList.add('active');
+        document.getElementById('nativeOverlay').style.display = 'none';
+        return;
       }
 
-      // Aktualizacja kodu QR jeśli wybrano inną zbiórkę
-      if (targetZrzutka !== 'rs4g4v') {
-        const fullUrl = `https://zrzutka.pl/${encodeURIComponent(targetZrzutka)}`;
-        document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(fullUrl)}&margin=6`;
+      // Identyfikator zbiórki
+      const zrzutkaSlug = params.get('zrzutka') || 'rs4g4v';
+      const targetUrl = `https://zrzutka.pl/${encodeURIComponent(zrzutkaSlug)}`;
+      document.getElementById('qrCodeImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(targetUrl)}&margin=4`;
+
+      // 1. Zasilenie Paska Celu (Prawdziwe dane z parametrów URL lub bazy)
+      // Przykład w OBS: https://polskieradio.cc/stream-zrzutka-widget.html?collected=350&target=5000
+      const rawCollected = parseFloat(params.get('collected')) || 0;
+      const rawTarget = parseFloat(params.get('target')) || 0;
+
+      const collectedFormatted = rawCollected.toLocaleString('pl-PL') + ' zł';
+      document.getElementById('goalAmountLabel').textContent = collectedFormatted;
+      document.getElementById('collectedSpan').innerHTML = `Zebrano: <strong>${collectedFormatted}</strong>`;
+
+      if (rawTarget > 0) {
+        const targetFormatted = rawTarget.toLocaleString('pl-PL') + ' zł';
+        const pct = Math.min(100, Math.round((rawCollected / rawTarget) * 100));
+        document.getElementById('targetSpan').innerHTML = `Cel: <strong>${targetFormatted} (${pct}%)</strong>`;
+        document.getElementById('goalProgressFill').style.width = pct + '%';
+      } else {
+        document.getElementById('targetSpan').innerHTML = `Cel: <strong>Wsparcie Misji CC</strong>`;
+        document.getElementById('goalProgressFill').style.width = rawCollected > 0 ? '10%' : '0%';
       }
 
-      // Dostosowanie kwot jeśli podano w parametrach
-      const collectedParam = urlParams.get('collected');
-      const targetParam = urlParams.get('target');
-      if (collectedParam && targetParam) {
-        const c = parseInt(collectedParam, 10);
-        const t = parseInt(targetParam, 10);
-        const pct = Math.min(100, Math.round((c / t) * 100));
-        document.getElementById('goalCollected').textContent = c.toLocaleString('pl-PL') + ' zł';
-        document.getElementById('goalTarget').textContent = t.toLocaleString('pl-PL') + ' zł';
-        document.getElementById('goalPercent').textContent = pct + '%';
-        document.getElementById('goalProgress').style.width = pct + '%';
+      // 2. Zasilenie Rankingu Darczyńców (Prawdziwe dane!)
+      // Parametr: ?ranking=Darczyńca1:500,Darczyńca2:200,Darczyńca3:100
+      const rawRanking = params.get('ranking');
+      const rankingList = document.getElementById('rankingList');
+      const emptyState = document.getElementById('rankingEmptyState');
+
+      let donors = [];
+      if (rawRanking) {
+        try {
+          donors = rawRanking.split(',').map(pair => {
+            const [name, amount] = pair.split(':');
+            return { name: (name || '').trim(), amount: parseFloat(amount) || 0 };
+          }).filter(d => d.name && d.amount > 0);
+          donors.sort((a, b) => b.amount - a.amount);
+        } catch(e) {}
       }
-    }
 
-    // Pokazanie panelu konfiguracyjnego w trybie demo
-    if (showConfig) {
-      document.getElementById('configPanel').classList.add('visible');
-    }
+      if (donors.length > 0) {
+        rankingList.innerHTML = '';
+        donors.forEach((donor, idx) => {
+          const li = document.createElement('li');
+          const tierClass = idx === 0 ? 'top-1' : (idx === 1 ? 'top-2' : (idx === 2 ? 'top-3' : 'regular'));
+          li.className = `ranking-item ${tierClass}`;
+          li.innerHTML = `
+            <div class="donor-name">
+              <span class="donor-pos">${idx + 1}.</span>
+              <span>${escapeHtml(donor.name)}</span>
+            </div>
+            <div class="donor-amount">${donor.amount.toLocaleString('pl-PL')} zł</div>
+          `;
+          rankingList.appendChild(li);
+        });
+      } else {
+        emptyState.style.display = 'block';
+      }
 
-    // Funkcja testowa alertu wpłaty
-    function testTriggerAlert(donor = 'Marek z Poznania', amount = '50 zł', msg = '„Dziękuję za codzienne słuchowiska!”') {
-      const alertEl = document.getElementById('liveAlert');
-      document.getElementById('alertDonor').textContent = donor;
-      document.getElementById('alertAmount').textContent = '+' + amount;
-      document.getElementById('alertMessage').textContent = msg;
+      // 3. Ostatnie wpłaty (alerty po prawej stronie)
+      // Parametr: ?recent=Kwota:Nick:Wiadomość
+      const rawRecent = params.get('recent');
+      const recentContainer = document.getElementById('recentDonations');
+      if (rawRecent) {
+        try {
+          const items = rawRecent.split(';').map(item => {
+            const [amt, donor, msg] = item.split(':');
+            return { amount: amt || '50 zł', donor: donor || 'Anonim', msg: msg || 'Dziękuję za Radio!' };
+          });
+          items.forEach(d => {
+            const pill = document.createElement('div');
+            pill.className = 'donation-pill';
+            pill.innerHTML = `
+              <div class="pill-left">
+                <span class="pill-amount">${escapeHtml(d.amount)}</span>
+                <span class="pill-message">„${escapeHtml(d.msg)}”</span>
+              </div>
+              <div class="pill-donor">${escapeHtml(d.donor)}</div>
+            `;
+            recentContainer.appendChild(pill);
+          });
+        } catch(e) {}
+      }
 
-      alertEl.classList.add('show');
-      setTimeout(() => {
-        alertEl.classList.remove('show');
-      }, 6500);
-    }
+      // Ukrywanie sekcji na życzenie (?hideRanking=1, ?hideQR=1, ?hideGoal=1)
+      if (params.get('hideRanking') === '1') document.getElementById('rankingPanel').style.display = 'none';
+      if (params.get('hideQR') === '1') document.getElementById('qrPanel').style.display = 'none';
+      if (params.get('hideGoal') === '1') document.getElementById('goalPanel').style.display = 'none';
 
-    function toggleConfig() {
-      document.getElementById('configPanel').classList.toggle('visible');
-    }
-
-    // Automatyczny test w trybie demo
-    if (urlParams.get('demo') === '1') {
-      setTimeout(() => {
-        testTriggerAlert();
-      }, 2500);
-    }
+      function escapeHtml(str) {
+        return String(str || '').replace(/[&<>"']/g, function(m) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+        });
+      }
+    })();
   </script>
 </body>
 </html>
