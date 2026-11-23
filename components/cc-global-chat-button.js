@@ -1458,6 +1458,60 @@
 
       #ccPublicDailyDialogue.is-collapsed {
         padding: 10px 12px !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 6 !important;
+        background-color: #0E1224 !important;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.55) !important;
+      }
+      #ccPublicDailyDialogue .cc-daily-dialogue-tab {
+        display: none !important;
+      }
+      #ccGlobalChatOverlay[class] #ccPublicDailyDialogue.is-mini,
+      #ccPublicDailyDialogue.is-mini {
+        background: transparent !important;
+        background-color: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 0 4px auto !important;
+        width: max-content !important;
+        align-self: flex-end !important;
+      }
+      #ccPublicDailyDialogue.is-mini > :not(.cc-daily-dialogue-tab) {
+        display: none !important;
+      }
+      #ccPublicDailyDialogue.is-mini .cc-daily-dialogue-tab {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        min-height: 44px !important;
+        padding: 0 16px !important;
+        border: 0 !important;
+        border-radius: 0 0 14px 14px !important;
+        background: linear-gradient(180deg, #ff3b3b, #c8101a) !important;
+        color: #fff !important;
+        font-size: 0.82rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.02em !important;
+        box-shadow: 0 6px 16px rgba(200, 16, 26, 0.45) !important;
+        cursor: pointer !important;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        #ccPublicDailyDialogue.is-mini .cc-daily-dialogue-tab { animation: ccDailyTabIn .35s ease-out; }
+        @keyframes ccDailyTabIn { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
+      }
+      #ccPublicDailyDialogue .cc-daily-dialogue-close-bottom {
+        width: 100% !important;
+        min-height: 44px !important;
+        margin-top: 8px !important;
+        border-radius: 12px !important;
+        border: 1px solid rgba(216, 173, 87, 0.45) !important;
+        background: rgba(216, 173, 87, 0.1) !important;
+        color: #F2D17C !important;
+        font-size: 0.8rem !important;
+        font-weight: 700 !important;
+        cursor: pointer !important;
       }
 
       .cc-daily-dialogue-header {
@@ -5611,6 +5665,25 @@
   }
 
   if (typeof window.shareChatMessage !== 'function') {
+    // @007 (L0 23.11.2026): małe „L” przy wiadomości czatu publikuje treść tej wiadomości na Tablicy LUMINA.
+    window.ccChatShareToLumina = function(btn) {
+      const sender = btn.getAttribute('data-share-sender') || 'Czat LUMINA';
+      const text = btn.getAttribute('data-share-text') || '';
+      const payload = {
+        title: '💬 ' + sender + ' • Czat Ogólny LUMINA',
+        text: text,
+        url: 'https://polskieradio.cc/lumina?openPublicChat=1',
+        imageUrl: '',
+        videoUrl: ''
+      };
+      if (typeof window.shareToLumina === 'function') {
+        window.shareToLumina(payload);
+        return;
+      }
+      const q = new URLSearchParams({ share_title: payload.title, share_text: text.slice(0, 1800), share_url: payload.url, url: payload.url });
+      window.open('/lumina-tablica.html?' + q.toString(), '_blank');
+    };
+
     window.shareChatMessage = function(triggerEl, senderParam, textParam) {
       let sender = senderParam;
       let text = textParam;
@@ -5796,6 +5869,20 @@
   let dailyDialogueCache = null;
   let dailyDialogueFetching = false;
   let dailyDialogueCollapsed = true;
+  // @007 (L0 23.11.2026): po 6 s zwinięte rozważanie chowa się do czerwonego języczka „Rozważanie”.
+  let dailyDialogueMini = false;
+  let dailyDialogueMiniTimer = null;
+  const DAILY_DIALOGUE_MINI_AFTER_MS = 6000;
+  function scheduleDailyDialogueMini() {
+    clearTimeout(dailyDialogueMiniTimer);
+    if (!dailyDialogueCollapsed || dailyDialogueMini) return;
+    dailyDialogueMiniTimer = setTimeout(() => {
+      if (!dailyDialogueCollapsed) return;
+      dailyDialogueMini = true;
+      const card = document.getElementById('ccPublicDailyDialogue');
+      if (card) card.classList.add('is-mini');
+    }, DAILY_DIALOGUE_MINI_AFTER_MS);
+  }
   let dailyDialogueTimer = null;
   let dailyLastVisibleCount = -1;
 
@@ -5919,10 +6006,12 @@
           <a href="${escapeHtml(d.lessonUrl || '/akademia/kurscodzienny')}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;background:#FF7A00;color:#FFFFFF;font-weight:700;font-size:0.78rem;text-decoration:none;">📖 Czytaj całość${d.day ? ` (Dzień ${escapeHtml(String(d.day))})` : ''}</a>
           <button type="button" class="cc-showcase-pill is-primary" style="min-height:44px;font-size:0.78rem;" onclick="window.setCCChatMode('assistant')">✨ Zapytaj Asystentki (4)</button>
         </div>
+        <button type="button" id="ccCloseDailyDialogueBottomBtn" class="cc-daily-dialogue-close-bottom" aria-controls="ccDailyDialogueBody" aria-label="Zwiń rozważanie dnia">▴ Zwiń rozważanie</button>
       </div>
     `;
     return `
-      <div id="ccPublicDailyDialogue" class="cc-daily-dialogue-card ${dailyDialogueCollapsed ? 'is-collapsed' : 'is-expanded'}" data-collapsed="${dailyDialogueCollapsed ? 'true' : 'false'}" style="border:1px solid rgba(216,173,87,0.32);background:linear-gradient(145deg,rgba(24,29,56,0.92),rgba(14,18,36,0.95));border-radius:16px;padding:12px 13px;margin-bottom:6px;box-shadow:0 6px 20px rgba(0,0,0,0.28);">
+      <div id="ccPublicDailyDialogue" class="cc-daily-dialogue-card ${dailyDialogueCollapsed ? 'is-collapsed' : 'is-expanded'}${dailyDialogueCollapsed && dailyDialogueMini ? ' is-mini' : ''}" data-collapsed="${dailyDialogueCollapsed ? 'true' : 'false'}" style="border:1px solid rgba(216,173,87,0.32);background:linear-gradient(145deg,rgba(24,29,56,0.92),rgba(14,18,36,0.95));border-radius:16px;padding:12px 13px;margin-bottom:6px;box-shadow:0 6px 20px rgba(0,0,0,0.28);">
+        <button type="button" id="ccDailyDialogueTab" class="cc-daily-dialogue-tab" aria-label="Rozwiń rozważanie dnia">☀️ Rozważanie</button>
         <div id="ccDailyDialogueHeader" class="cc-daily-dialogue-header">
           <div style="min-width:0;flex:1;">
             <div style="font-size:0.72rem;font-weight:800;letter-spacing:0.03em;color:#D8AD57;text-transform:uppercase;">${statusBadge}</div>
@@ -5941,6 +6030,8 @@
 
   function toggleDailyDialogue() {
     dailyDialogueCollapsed = !dailyDialogueCollapsed;
+    dailyDialogueMini = false;
+    clearTimeout(dailyDialogueMiniTimer);
     renderChatMessages();
     if (!dailyDialogueCollapsed) {
       const card = document.getElementById('ccPublicDailyDialogue');
@@ -5953,6 +6044,22 @@
   }
 
   function bindDailyDialogueToggle() {
+    const tab = document.getElementById('ccDailyDialogueTab');
+    if (tab) {
+      tab.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dailyDialogueCollapsed = true; // toggle → rozwinięcie
+        toggleDailyDialogue();
+      });
+    }
+    if (document.getElementById('ccPublicDailyDialogue')) scheduleDailyDialogueMini();
+    const bottomClose = document.getElementById('ccCloseDailyDialogueBottomBtn');
+    if (bottomClose) {
+      bottomClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleDailyDialogue();
+      });
+    }
     const btn = document.getElementById('ccToggleDailyDialogueBtn');
     const header = document.getElementById('ccDailyDialogueHeader');
     if (btn) {
@@ -6048,6 +6155,7 @@
               <button type="button" class="cc-chat-share-btn" onclick="window.shareChatMessage(this)" data-share-sender="${name}" data-share-text="${text}" style="background:transparent; border:none; box-shadow:none; color:rgba(255,255,255,0.7); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; margin-left:auto;" title="Udostępnij tę wiadomość" aria-label="Udostępnij wiadomość">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
               </button>
+              <button type="button" class="cc-chat-lumina-btn" onclick="window.ccChatShareToLumina(this)" data-share-sender="${name}" data-share-text="${text}" style="background:transparent; border:none; box-shadow:none; color:rgba(255,255,255,0.7); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; font:700 16px/1 Georgia, 'Times New Roman', serif;" title="Opublikuj tę wiadomość na Tablicy LUMINA" aria-label="Opublikuj tę wiadomość na Tablicy LUMINA">L</button>
             </div>
             <div class="cc-chat-msg-bubble">
               ${renderChatMedia(text, m.id)}
@@ -6057,7 +6165,8 @@
         </div>
       `;
     });
-    html += dailyHtml;
+    // @007 (L0 23.11.2026): rozważanie przypięte na górze czatu, nie przeszkadza w korespondencji.
+    html = dailyHtml + html;
     list.innerHTML = html;
     bindDailyDialogueToggle();
   }

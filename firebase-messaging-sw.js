@@ -31,7 +31,7 @@ try {
         const title = notification.title || data.title || 'LUMINA ✨';
         const body = notification.body || data.body || data.text || 'Masz nowe powiadomienie w portalu LUMINA.';
         const origin = (self.location && self.location.origin) ? self.location.origin : 'https://polskieradio.cc';
-        const defaultIcon = origin + '/lumina-notif-icon-v2.png';
+        const defaultIcon = origin + '/images/push/push-default-192.png'; // L0 23.11.2026: zamiast białego krzyża
         const defaultBadge = origin + '/lumina-push-badge-v4.1.5.svg';
         const icon = type === 'direct_message'
             ? (data.avatar || data.icon || notification.icon || defaultIcon)
@@ -121,7 +121,7 @@ try {
 // High-performance caching, stale-while-revalidate & offline navigation
 // ══════════════════════════════════════════════════════════════════════════
 
-const CACHE_NAME = 'lumina-pwa-cache-v4.2.4-20261023-bcm24-rooms';
+const CACHE_NAME = 'lumina-pwa-cache-v4.2.5-20261123-push-icons';
 const APP_SHELL_ASSETS = [
     './',
     './lumina.html',
@@ -131,6 +131,7 @@ const APP_SHELL_ASSETS = [
     './lumina-push-badge-v4.1.5.svg',
     './lumina-badge-monochrome.png',
     './lumina-notif-icon-v2.png',
+    './images/push/push-default-192.png',
     './lumina-icon-192.png',
     './lumina-icon-512.png',
     './icon.png',
@@ -254,7 +255,7 @@ self.addEventListener('push', (event) => {
     const type = data.type || 'general';
 
     const origin = (self.location && self.location.origin) ? self.location.origin : 'https://polskieradio.cc';
-    const defaultIcon = origin + '/lumina-notif-icon-v2.png';
+    const defaultIcon = origin + '/images/push/push-default-192.png'; // L0 23.11.2026: zamiast białego krzyża
     const defaultBadge = origin + '/lumina-push-badge-v4.1.5.svg';
     const title = notification.title || data.title || 'LUMINA • Społeczność Chrześcijańska';
     const body = notification.body || data.body || 'Otrzymałeś nową wiadomość w portalu LUMINA.';
