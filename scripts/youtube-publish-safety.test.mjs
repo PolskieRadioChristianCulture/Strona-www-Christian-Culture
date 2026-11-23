@@ -61,6 +61,17 @@ test('termin premiery: +2 dni 18:00, kolejny wolny dzień na kanale, format pola
   assert.equal(scheduleTarget({ channelName: 'X', now, history: backlog }, 2, '18:00').ymd, '2026-11-21');
 });
 
+test('termin premiery: jawne null lub pusty czas nie zwraca null (ochrona przed błędem Playwright locator.fill)', () => {
+  const now = new Date('2026-11-02T10:00:00+01:00');
+  const empty = { published: [] };
+  const fromNull = scheduleTarget({ channelName: 'X', now, history: empty }, 2, null);
+  assert.equal(typeof fromNull.time, 'string');
+  assert.match(fromNull.time, /^\d\d:\d\d$/);
+  const fromEmpty = scheduleTarget({ channelName: 'X', now, history: empty }, 2, '');
+  assert.equal(typeof fromEmpty.time, 'string');
+  assert.match(fromEmpty.time, /^\d\d:\d\d$/);
+});
+
 test('Biblia Audio: komplet na wszystkich 7 kanałach, każdy z ID', async () => {
   const { BIBLIA_AUDIO_CHANNELS } = await import('./yt_studio_session.mjs');
   const { targetChannels } = await import('./yt_repair_biblia_audio.mjs');

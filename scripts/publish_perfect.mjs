@@ -41,17 +41,18 @@ const addDays = (ymd, n) => { const d = new Date(`${ymd}T12:00:00Z`); d.setUTCDa
 export function scheduleTarget({ channelName = null, isShorts = false, now = new Date(), history = null } = {},
   days = Number(process.env.CC_YT_SCHEDULE_DAYS ?? 2), time = process.env.CC_YT_SCHEDULE_TIME || '18:00') {
   if (!days) return null;
+  const safeTime = String(time || process.env.CC_YT_SCHEDULE_TIME || '18:00');
   let ymd = addDays(warsawDay(now), days);
   if (channelName) {
     const taken = (history || readHistory()).published
       // Kolejka liczona osobno dla każdej pory (slotu): zaległości 18:00 nie opóźniają bieżącego odcinka 20:00.
       .filter(p => p.channel === channelName && Boolean(p.scheduledDate) && /shorts/i.test(p.videoFile) === isShorts
-        && ((p.scheduledFor || '').match(/\d\d:\d\d/) || ['18:00'])[0] === time)
+        && ((p.scheduledFor || '').match(/\d\d:\d\d/) || ['18:00'])[0] === safeTime)
       .map(p => p.scheduledDate).sort();
     const last = taken[taken.length - 1];
     if (last && last >= ymd) ymd = addDays(last, 1);
   }
-  return { ymd, date: studioDate(new Date(`${ymd}T12:00:00Z`)), time };
+  return { ymd, date: studioDate(new Date(`${ymd}T12:00:00Z`)), time: safeTime };
 }
 
 // Termin premiery dokładnie N godzin do przodu (Europe/Warsaw, wyrównany do kwadransów dropdownu YT Studio: 00/15/30/45).
@@ -222,6 +223,8 @@ async function ensureTitleDescLanguageOnEdit(page, videoUrl, lang) {
 }
 
 async function scheduleVisibility(page, { date, time }, premiere) {
+  const safeDate = String(date || '').trim();
+  const safeTime = String(time || '18:00').trim();
   const expand = page.locator('ytcp-uploads-dialog #second-container-expand-button').first();
   await expand.waitFor({ state: 'visible', timeout: 15000 });
   await expand.click({ force: true });
@@ -231,12 +234,12 @@ async function scheduleVisibility(page, { date, time }, premiere) {
   await page.waitForTimeout(1000);
   const dateInput = page.locator('ytcp-date-picker tp-yt-paper-input input, ytcp-date-picker input').first();
   await dateInput.waitFor({ state: 'visible', timeout: 10000 });
-  await dateInput.fill(date);
+  await dateInput.fill(safeDate);
   await dateInput.press('Enter');
   await page.waitForTimeout(1000);
 
   const timeInput = page.locator('ytcp-uploads-dialog #time-of-day-container input').first();
-  await timeInput.fill(time);
+  await timeInput.fill(safeTime);
   await timeInput.press('Enter');
   await page.waitForTimeout(800);
 
@@ -247,8 +250,8 @@ async function scheduleVisibility(page, { date, time }, premiere) {
 
   const shownDate = (await page.locator('ytcp-uploads-dialog #datepicker-trigger').first().innerText()).replace(/\s+/g, ' ').trim();
   const shownTime = await timeInput.inputValue();
-  if (!shownDate.includes(date) || shownTime !== time) {
-    throw new Error(`Nie ustawiono terminu premiery (jest: "${shownDate} ${shownTime}", oczekiwano: "${date} ${time}"). NIE publikuję.`);
+  if (!shownDate.includes(safeDate) || shownTime !== safeTime) {
+    throw new Error(`Nie ustawiono terminu premiery (jest: "${shownDate} ${shownTime}", oczekiwano: "${safeDate} ${safeTime}"). NIE publikuję.`);
   }
   console.log(`  -> Zaplanowano publikację: ${shownDate} ${shownTime}${premiere ? ' (premiera)' : ''}`);
 }
@@ -351,8 +354,8 @@ export async function uploadEpisodeToChannel({
     try { meta = JSON.parse(fs.readFileSync(metaPath, 'utf8')); } catch {}
   }
 
-  const title = (meta.title || path.basename(videoPath, path.extname(videoPath))).slice(0, 100);
-  const description = (meta.description || meta.full_description || title).slice(0, 5000);
+  const title = String(meta.title || path.basename(videoPath, path.extname(videoPath))).slice(0, 100);
+  const description = String(meta.description || meta.full_description || title).slice(0, 5000);
   const tags = Array.isArray(meta.tags) ? meta.tags.join(', ') : (meta.tags || '');
   const resolvedThumbPath = thumbnailPath || meta.thumbnailPath;
   const resolvedVideoLang = videoLanguage || meta.videoLanguage;
@@ -362,9 +365,9 @@ export async function uploadEpisodeToChannel({
   console.log(`• Plik: ${path.basename(videoPath)}`);
   const isShorts = /shorts/i.test(path.basename(videoPath));
   const schedule = visibility !== 'public' ? null
-    : scheduleYmd ? { ymd: scheduleYmd, date: studioDate(new Date(`${scheduleYmd}T12:00:00Z`)), time: scheduleTime || '20:00' }
+    : scheduleYmd ? { ymd: scheduleYmd, date: studioDate(new Date(`${scheduleYmd}T12:00:00Z`)), time: String(scheduleTime || '20:00') }
     : scheduleOffsetHours != null ? computeOffsetSchedule(scheduleOffsetHours)
-    : scheduleTarget({ channelName, isShorts }, undefined, scheduleTime);
+    : scheduleTarget({ channelName, isShorts }, undefined, scheduleTime || undefined);
   console.log(`• Widoczność: ${visibility}${schedule ? ` — zaplanowana na ${schedule.date} ${schedule.time}${isShorts ? '' : ' (premiera)'}` : ''}`);
 
   const headless = process.env.CC_YT_HEADLESS === '1';
