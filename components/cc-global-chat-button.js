@@ -450,6 +450,46 @@
         touch-action: none !important;
         overscroll-behavior: none !important;
       }
+      /* @007 (L0 23.11.2026): pakiet startowy LUMI Messenger (zgody jak w Messengerze/WhatsAppie) */
+      #ccLumiOnboarding {
+        position: absolute !important; inset: 0 !important; z-index: 60 !important;
+        display: flex !important; align-items: flex-end !important; justify-content: center !important;
+        background: rgba(5, 7, 15, 0.72) !important; padding: 12px !important;
+      }
+      #ccLumiOnboarding[hidden] { display: none !important; }
+      @media (min-width: 768px) { #ccLumiOnboarding { align-items: center !important; } }
+      #ccLumiOnboarding .lumi-ob-card {
+        width: 100% !important; max-width: 460px !important; max-height: 100% !important; overflow-y: auto !important;
+        overscroll-behavior: contain !important; background: #111628 !important; color: #F7F8FC !important;
+        border: 1px solid rgba(216, 173, 87, 0.5) !important; border-radius: 22px !important; padding: 18px 16px 14px !important;
+        box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.6) !important; font-size: 0.92rem !important;
+      }
+      #ccLumiOnboarding h2 { margin: 0 0 4px !important; font-size: 1.15rem !important; color: #F2D17C !important; }
+      #ccLumiOnboarding .lumi-ob-lead { margin: 0 0 14px !important; color: #A5AEC4 !important; font-size: 0.85rem !important; line-height: 1.45 !important; }
+      #ccLumiOnboarding .lumi-ob-row {
+        display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px !important; margin-bottom: 8px !important;
+        border-radius: 14px !important; background: rgba(255, 255, 255, 0.04) !important; border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      }
+      #ccLumiOnboarding .lumi-ob-ico { font-size: 1.5rem !important; width: 34px !important; text-align: center !important; flex-shrink: 0 !important; }
+      #ccLumiOnboarding .lumi-ob-txt { flex: 1 !important; min-width: 0 !important; }
+      #ccLumiOnboarding .lumi-ob-txt strong { display: block !important; font-size: 0.92rem !important; }
+      #ccLumiOnboarding .lumi-ob-txt span { display: block !important; font-size: 0.78rem !important; color: #A5AEC4 !important; line-height: 1.4 !important; margin-top: 2px !important; }
+      #ccLumiOnboarding .lumi-ob-btn {
+        min-height: 44px !important; min-width: 88px !important; padding: 0 14px !important; border-radius: 999px !important; border: 0 !important;
+        background: #FF7A00 !important; color: #FFFFFF !important; font-weight: 800 !important; font-size: 0.82rem !important; cursor: pointer !important; flex-shrink: 0 !important;
+      }
+      #ccLumiOnboarding .lumi-ob-btn.is-done { background: rgba(52, 211, 153, 0.16) !important; color: #6EE7B7 !important; cursor: default !important; }
+      #ccLumiOnboarding .lumi-ob-btn.is-off { background: rgba(255, 255, 255, 0.08) !important; color: #E5E7EB !important; }
+      #ccLumiOnboarding .lumi-ob-help { display: block !important; margin-top: 6px !important; font-size: 0.76rem !important; color: #FDBA74 !important; }
+      #ccLumiOnboarding .lumi-ob-actions { display: flex !important; gap: 10px !important; margin-top: 12px !important; }
+      #ccLumiOnboarding .lumi-ob-primary {
+        flex: 1 !important; min-height: 48px !important; border-radius: 999px !important; border: 0 !important; cursor: pointer !important;
+        background: linear-gradient(135deg, #D8AD57, #B58A38) !important; color: #0D1020 !important; font-weight: 800 !important; font-size: 0.95rem !important;
+      }
+      #ccLumiOnboarding .lumi-ob-later {
+        min-height: 48px !important; padding: 0 16px !important; border-radius: 999px !important; cursor: pointer !important;
+        background: transparent !important; color: #A5AEC4 !important; border: 1px solid rgba(255, 255, 255, 0.18) !important; font-weight: 700 !important;
+      }
       /* @007 (L0 23.11.2026): przy otwartym czacie przewija się tylko czat, nigdy strona pod nim. */
       html.cc-chat-scroll-lock,
       html.cc-chat-scroll-lock body {
@@ -3506,6 +3546,14 @@
               </div>
             </div>
 
+            <div id="ccDrawerOnboardingCard" style="background:var(--lumi-card-surface);border:1px solid rgba(216,173,87,0.45);border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <div style="min-width:0;flex:1;">
+                <span style="font-size:0.86rem;font-weight:700;display:block;color:var(--lumi-text-main);">🚀 Pakiet startowy LUMI Messenger</span>
+                <span id="ccDrawerOnboardingStatus" style="font-size:0.76rem;color:var(--lumi-text-muted);">Powiadomienia, dźwięk, aplikacja i potwierdzenia przeczytania</span>
+              </div>
+              <button type="button" id="ccOpenOnboardingBtn" class="cc-showcase-pill is-primary" style="min-height:44px;padding:0 14px;">Otwórz</button>
+            </div>
+
             <div id="ccDrawerSoundCard" style="background:var(--lumi-card-surface);border:1px solid var(--lumi-border);border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
               <div>
                 <label for="ccDrawerSoundToggle" style="font-size:0.86rem;font-weight:700;display:block;color:var(--lumi-text-main);cursor:pointer;">🔔 Dźwięk powiadomień czatu</label>
@@ -4247,6 +4295,163 @@
     const settingsBtn = document.getElementById('ccChatSettingsBtn');
     const notifBtn = document.getElementById('ccChatNotifBtn');
 
+    // ── @007 (L0 23.11.2026): PAKIET STARTOWY LUMI MESSENGER ──
+    // Raz po zalogowaniu: powiadomienia (zgoda + rejestracja urządzenia), dźwięk, aplikacja na ekranie, potwierdzenia przeczytania.
+    try {
+      window.addEventListener('beforeinstallprompt', (e) => { window.__ccDeferredInstall = e; });
+    } catch (_) {}
+    const OB_KEY = (uid) => 'lumi_mess_onboarding_v1_' + uid;
+    const OB_LATER_KEY = 'lumi_mess_onboarding_later_until';
+    function obGet(k) { try { return localStorage.getItem(k); } catch (_) { return null; } }
+    function obSet(k, v) { try { localStorage.setItem(k, v); } catch (_) {} }
+    function obIsStandalone() {
+      try { return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true; } catch (_) { return false; }
+    }
+    function obIsIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent || ''); }
+    function obNotifState() {
+      if (!('Notification' in window)) return obIsIOS() && !obIsStandalone() ? 'ios-install' : 'unsupported';
+      return Notification.permission; // granted | denied | default
+    }
+    function obPlayTestChime() {
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        const ctx = new Ctx();
+        [[880, 0], [1318.5, 0.16]].forEach(([freq, at]) => {
+          const o = ctx.createOscillator(); const g = ctx.createGain();
+          o.type = 'sine'; o.frequency.value = freq;
+          g.gain.setValueAtTime(0.0001, ctx.currentTime + at);
+          g.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + at + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + at + 0.28);
+          o.connect(g); g.connect(ctx.destination); o.start(ctx.currentTime + at); o.stop(ctx.currentTime + at + 0.3);
+        });
+        setTimeout(() => { try { ctx.close(); } catch (_) {} }, 900);
+      } catch (_) {}
+    }
+    function obRender() {
+      const box = document.getElementById('ccLumiOnboarding');
+      if (!box) return;
+      const n = obNotifState();
+      const soundOn = obGet('lumina_chat_sound_enabled') !== 'false';
+      const receiptsOn = obGet('lumi_mess_read_receipts') !== 'off';
+      const installed = obIsStandalone();
+      const canInstall = !!(window.__ccDeferredInstall || (window.LuminaPWA && typeof window.LuminaPWA.promptInstall === 'function'));
+      const nBtn = n === 'granted'
+        ? '<button type="button" class="lumi-ob-btn is-done" disabled>✓ Włączone</button>'
+        : (n === 'default' ? '<button type="button" class="lumi-ob-btn" data-ob="notif">Włącz</button>' : '');
+      const nHelp = n === 'denied'
+        ? '<span class="lumi-ob-help">Powiadomienia są zablokowane. W Chrome: ⋮ → Ustawienia → Ustawienia witryn → Powiadomienia → polskieradio.cc → Zezwalaj. Potem wróć tutaj.</span>'
+        : (n === 'ios-install' ? '<span class="lumi-ob-help">Na iPhonie powiadomienia działają po dodaniu aplikacji do ekranu: Udostępnij → „Do ekranu początkowego”, potem otwórz ją z ikony.</span>'
+        : (n === 'unsupported' ? '<span class="lumi-ob-help">Ta przeglądarka nie obsługuje powiadomień. Użyj Chrome lub zainstaluj aplikację.</span>' : ''));
+      const iBtn = installed
+        ? '<button type="button" class="lumi-ob-btn is-done" disabled>✓ Jest</button>'
+        : (canInstall ? '<button type="button" class="lumi-ob-btn" data-ob="install">Zainstaluj</button>'
+          : (obIsIOS() ? '<button type="button" class="lumi-ob-btn" data-ob="ios">Jak?</button>' : ''));
+      box.querySelector('.lumi-ob-body').innerHTML = `
+        <div class="lumi-ob-row"><div class="lumi-ob-ico" aria-hidden="true">🔔</div>
+          <div class="lumi-ob-txt"><strong>Powiadomienia o wiadomościach</strong><span>Na belce telefonu, ze zdjęciem osoby, nawet gdy strona jest zamknięta.</span>${nHelp}</div>${nBtn}</div>
+        <div class="lumi-ob-row"><div class="lumi-ob-ico" aria-hidden="true">🔊</div>
+          <div class="lumi-ob-txt"><strong>Dźwięk nowej wiadomości</strong><span>Krótki sygnał w otwartym czacie. Kliknij, by usłyszeć próbkę.</span></div>
+          <button type="button" class="lumi-ob-btn ${soundOn ? '' : 'is-off'}" data-ob="sound" aria-pressed="${soundOn}">${soundOn ? '✓ Wł.' : 'Wył.'}</button></div>
+        <div class="lumi-ob-row"><div class="lumi-ob-ico" aria-hidden="true">📲</div>
+          <div class="lumi-ob-txt"><strong>Aplikacja na ekranie głównym</strong><span>Szybsze otwieranie i pewniejsze powiadomienia — jak Messenger.</span></div>${iBtn}</div>
+        <div class="lumi-ob-row"><div class="lumi-ob-ico" aria-hidden="true">👁️</div>
+          <div class="lumi-ob-txt"><strong>Potwierdzenia przeczytania</strong><span>Inni widzą Twój awatar pod wiadomością, którą przeczytałeś(-aś). Możesz to wyłączyć.</span></div>
+          <button type="button" class="lumi-ob-btn ${receiptsOn ? '' : 'is-off'}" data-ob="receipts" aria-pressed="${receiptsOn}">${receiptsOn ? '✓ Wł.' : 'Wył.'}</button></div>`;
+      const status = document.getElementById('ccDrawerOnboardingStatus');
+      if (status) status.textContent = (n === 'granted' ? '🔔 Powiadomienia włączone' : '🔔 Powiadomienia wyłączone') + ' · ' + (soundOn ? '🔊 dźwięk wł.' : '🔇 dźwięk wył.');
+    }
+    function obEnsureMarkup() {
+      let box = document.getElementById('ccLumiOnboarding');
+      if (box) return box;
+      // Wewnątrz okna czatu (ma najwyższą warstwę) — inaczej pakiet byłby przykryty.
+      const host = document.querySelector('#ccGlobalChatOverlay .cc-chat-drawer') || document.getElementById('ccGlobalChatOverlay');
+      if (!host) return null;
+      box = document.createElement('div');
+      box.id = 'ccLumiOnboarding';
+      box.hidden = true;
+      box.setAttribute('role', 'dialog');
+      box.setAttribute('aria-modal', 'true');
+      box.setAttribute('aria-labelledby', 'ccLumiOnboardingTitle');
+      box.innerHTML = `<div class="lumi-ob-card">
+        <h2 id="ccLumiOnboardingTitle">Witaj w LUMI Messenger 🕊️</h2>
+        <p class="lumi-ob-lead">Jeden krok, żeby nic Cię nie ominęło: włącz powiadomienia i dźwięk — tak jak w Messengerze czy WhatsAppie. Możesz to zmienić w każdej chwili w Ustawieniach czatu.</p>
+        <div class="lumi-ob-body"></div>
+        <div class="lumi-ob-actions">
+          <button type="button" class="lumi-ob-later" data-ob="later">Później</button>
+          <button type="button" class="lumi-ob-primary" data-ob="done">Gotowe</button>
+        </div></div>`;
+      host.appendChild(box);
+      box.addEventListener('click', async (e) => {
+        const btn = e.target.closest('[data-ob]');
+        if (!btn) { if (e.target === box) obClose(false); return; }
+        const what = btn.getAttribute('data-ob');
+        const user = getUserState();
+        if (what === 'notif') {
+          btn.disabled = true; btn.textContent = '…';
+          try {
+            if (window.LuminaDB && typeof window.LuminaDB.requestNotificationPermission === 'function') {
+              await window.LuminaDB.requestNotificationPermission(user.uid);
+            } else if ('Notification' in window) {
+              await Notification.requestPermission();
+            }
+          } catch (_) {}
+          obRender();
+        } else if (what === 'sound') {
+          const on = obGet('lumina_chat_sound_enabled') === 'false';
+          obSet('lumina_chat_sound_enabled', on ? 'true' : 'false');
+          if (typeof window.toggleChatSoundSetting === 'function') { try { window.toggleChatSoundSetting(on); } catch (_) {} }
+          const t = document.getElementById('ccDrawerSoundToggle'); if (t) t.checked = on;
+          if (on) obPlayTestChime();
+          obRender();
+        } else if (what === 'receipts') {
+          obSet('lumi_mess_read_receipts', obGet('lumi_mess_read_receipts') === 'off' ? 'on' : 'off');
+          obRender();
+        } else if (what === 'install') {
+          try {
+            if (window.__ccDeferredInstall) { await window.__ccDeferredInstall.prompt(); window.__ccDeferredInstall = null; }
+            else if (window.LuminaPWA && typeof window.LuminaPWA.promptInstall === 'function') await window.LuminaPWA.promptInstall();
+          } catch (_) {}
+          obRender();
+        } else if (what === 'ios') {
+          if (window.LuminaPWA && typeof window.LuminaPWA.showIOSGuide === 'function') window.LuminaPWA.showIOSGuide();
+        } else if (what === 'done') {
+          obClose(true);
+        } else if (what === 'later') {
+          obClose(false);
+        }
+      });
+      box.addEventListener('keydown', (e) => { if (e.key === 'Escape') obClose(false); });
+      return box;
+    }
+    function obClose(done) {
+      const box = document.getElementById('ccLumiOnboarding');
+      if (box) box.hidden = true;
+      const user = getUserState();
+      if (done && user.uid) obSet(OB_KEY(user.uid), 'done');
+      if (!done) obSet(OB_LATER_KEY, String(Date.now() + 3 * 24 * 3600 * 1000));
+      if (chatInput && window.innerWidth > 768) chatInput.focus();
+    }
+    window.ccLumiOpenOnboarding = function () {
+      const box = obEnsureMarkup();
+      if (!box) return;
+      obRender();
+      box.hidden = false;
+      const first = box.querySelector('[data-ob="notif"], [data-ob="sound"]');
+      if (first) first.focus();
+    };
+    window.ccLumiMaybeShowOnboarding = function () {
+      const user = getUserState();
+      if (!user.isLoggedIn || !user.uid) return;
+      if (obGet(OB_KEY(user.uid)) === 'done') return;
+      const later = Number(obGet(OB_LATER_KEY) || 0);
+      if (later && Date.now() < later) return;
+      const ov = document.getElementById('ccGlobalChatOverlay');
+      if (!ov || !ov.classList.contains('is-open')) return;
+      window.ccLumiOpenOnboarding();
+    };
+    document.getElementById('ccOpenOnboardingBtn')?.addEventListener('click', () => window.ccLumiOpenOnboarding());
+
     function refreshDrawerSettingsUI() {
       const soundToggle = document.getElementById('ccDrawerSoundToggle');
       if (soundToggle) {
@@ -4254,6 +4459,14 @@
         try { soundOn = localStorage.getItem('lumina_chat_sound_enabled') !== 'false'; } catch (_) {}
         soundToggle.checked = soundOn;
       }
+      try {
+        const st = document.getElementById('ccDrawerOnboardingStatus');
+        if (st) {
+          const perm = ('Notification' in window) ? Notification.permission : 'unsupported';
+          let snd = true; try { snd = localStorage.getItem('lumina_chat_sound_enabled') !== 'false'; } catch (_) {}
+          st.textContent = (perm === 'granted' ? '🔔 Powiadomienia włączone' : '🔔 Powiadomienia wyłączone — włącz tutaj') + ' · ' + (snd ? '🔊 dźwięk wł.' : '🔇 dźwięk wył.');
+        }
+      } catch (_) {}
       const statusEl = document.getElementById('ccDrawerAccountStatus');
       const actionBtn = document.getElementById('ccDrawerAccountActionBtn');
       const user = getUserState();
@@ -4793,6 +5006,7 @@
         const isOpenNow = overlay.classList.contains('is-open');
         syncChatOverlayTopLayer(overlay, isOpenNow, false);
         document.documentElement.classList.toggle('cc-chat-scroll-lock', isOpenNow);
+        if (isOpenNow && typeof window.ccLumiMaybeShowOnboarding === 'function') setTimeout(window.ccLumiMaybeShowOnboarding, 700);
         if (!isOpenNow && document.body.style.overflow === 'hidden') {
           document.body.style.overflow = '';
         }
@@ -6487,6 +6701,7 @@
                 const nowMs = Date.now();
                 if (ov && ov.classList.contains('is-open') && document.visibilityState === 'visible' && chatMode !== 'assistant'
                     && u.isLoggedIn && u.uid && nowMs - lastPublicSeenMarkAt > 3000
+                    && (function () { try { return localStorage.getItem('lumi_mess_read_receipts') !== 'off'; } catch (_) { return true; } })()
                     && window.LuminaDB && typeof window.LuminaDB.markPublicMessagesSeen === 'function') {
                   lastPublicSeenMarkAt = nowMs;
                   window.LuminaDB.markPublicMessagesSeen(msgs, { slug: u.slug, uid: u.uid, name: u.name, avatar: u.avatar });
