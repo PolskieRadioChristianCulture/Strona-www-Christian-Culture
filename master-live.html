@@ -316,6 +316,7 @@
         /* 3. TICKER TRACK WRAPPER */
         .ccn-ticker-track-wrap {
             flex: 1;
+            min-width: 0;
             height: 100%;
             overflow: hidden;
             position: relative;
@@ -589,8 +590,13 @@
 
         .cc-master-controls-capsule .master-sound-btn.is-active {
             background: #FF7A00 !important;
-            color: #1a0d00 !important;
+            color: #FFFFFF !important;
             box-shadow: 0 0 10px rgba(255, 122, 0, 0.6);
+        }
+
+        .cc-master-controls-capsule .cc-lang-pill-btn[aria-pressed="true"] {
+            background: #FF7A00 !important;
+            color: #FFFFFF !important;
         }
         @media (max-width: 900px) {
             :root { --ticker-height: 44px; }
@@ -1111,13 +1117,10 @@
         </div>
     </div>
 
-    <!-- TRANSPARENT AUDIO ACTIVATION OVERLAY (ANY CLICK ON STREAM TURNS ON SOUND) -->
-    <div id="masterAudioActivationOverlay" onclick="unmuteSubframe();" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; cursor: pointer; background: transparent;"></div>
-
-    <!-- MASTER UNMUTE BANNER -->
-    <div id="masterUnmuteBanner" onclick="unmuteSubframe();" style="position: fixed; top: calc(var(--dekalog-height) + 12px); left: 50%; transform: translateX(-50%); z-index: 100005; background: rgba(12, 12, 16, 0.94); border: 2px solid #FF7A00; color: #fff; padding: 10px 28px; border-radius: 50px; font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; cursor: pointer; box-shadow: 0 8px 32px rgba(0,0,0,0.95), 0 0 25px rgba(255,122,0,0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; align-items: center; gap: 12px; transition: opacity 0.5s ease;">
-        <i class="fa-solid fa-volume-high" style="color: #FF7A00; font-size: 1.4rem;"></i>
-        <span>KLIKNIJ, ABY WŁĄCZYĆ DŹWIĘK TRANSMISJI NA ŻYWO</span>
+    <!-- MASTER UNMUTE BANNER (NON-OCCLUDING TOP PILL, MIN 44PX) -->
+    <div id="masterUnmuteBanner" role="button" tabindex="0" onclick="unmuteSubframe();" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();unmuteSubframe();}" style="position: fixed; top: calc(var(--dekalog-height) + 10px); left: 50%; transform: translateX(-50%); z-index: 100005; background: rgba(12, 12, 16, 0.94); border: 2px solid #FF7A00; color: #fff; padding: 8px 22px; min-height: 44px; max-width: calc(100vw - 16px); box-sizing: border-box; white-space: nowrap; border-radius: 50px; font-weight: 800; font-size: 0.88rem; letter-spacing: 0.8px; cursor: pointer; box-shadow: 0 8px 32px rgba(0,0,0,0.95), 0 0 25px rgba(255,122,0,0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; gap: 10px; transition: opacity 0.5s ease;">
+        <i class="fa-solid fa-volume-high" style="color: #FF7A00; font-size: 1.2rem; flex-shrink: 0;"></i>
+        <span style="overflow: hidden; text-overflow: ellipsis;">KLIKNIJ, ABY WŁĄCZYĆ DŹWIĘK TRANSMISJI NA ŻYWO</span>
     </div>
 
     <!-- PRZYCISK ROTACJI ZRZUTKA LIVE (MCR CYKLICZNY) -->
@@ -2607,7 +2610,7 @@
     .ccn-master-ticker { border-top-color: #FF7A00 !important; box-shadow: 0 -8px 25px rgba(0,0,0,.95), 0 0 20px rgba(255,122,0,.35) !important; }
     .ccn-live-badge { background: linear-gradient(180deg, #FF8C33 0%, #E66A00 100%) !important; color: #1a0d00 !important; }
     .cc-lang-toggle { border-color: rgba(255,122,0,.55) !important; }
-    .cc-lang-pill-btn[style*="#d4af37"], .cc-lang-pill-btn[style*="#D4AF37"] { background: #FF7A00 !important; color: #1a0d00 !important; }
+    .cc-lang-pill-btn[aria-pressed="true"], .cc-lang-pill-btn[style*="#d4af37"], .cc-lang-pill-btn[style*="#D4AF37"] { background: #FF7A00 !important; color: #FFFFFF !important; }
     .ccn-ticker-item .gold-text { color: #FF8C33 !important; }
     .ccn-badge-now { background: #FF7A00 !important; color: #1a0d00 !important; border-color: #FF8C33 !important; }
     .ccn-badge:not(.ccn-badge-now):not(.ccn-badge-next) { background: #14161d !important; color: #FF8C33 !important; border: 1px solid rgba(255,122,0,.5) !important; }
@@ -2641,17 +2644,17 @@
 
     /* TELEFON PIONOWO: paski proporcjonalne, obraz 16:9 na pełną szerokość, pod nim autopromocja */
     @media (orientation: portrait) and (max-width: 900px) {
-        :root { --dekalog-height: 44px; --ticker-height: 44px; --ml-video-h: calc(100vw * 9 / 16); }
+        :root { --dekalog-height: 44px; --ticker-height: 48px; --ml-video-h: calc(100vw * 9 / 16); }
         .dekalog-brand-badge { padding: 0 8px; }
         .dekalog-brand-title { font-size: .6rem; letter-spacing: .6px; }
         .dekalog-content { font-size: .88rem; }
-        .ccn-ticker-brand img { max-width: 92px; }
-        .ccn-live-badge { padding: 0 8px; font-size: .68rem; }
+        .ccn-ticker-brand img { max-width: 64px; }
+        .ccn-live-badge { padding: 0 7px; font-size: .64rem; gap: 5px; }
         .ccn-ticker-content { font-size: .85rem; }
         .ccn-clock-box { display: none; }
         .channel-frame { top: var(--dekalog-height) !important; height: var(--ml-video-h) !important; }
         #mlPromo { display: flex; top: calc(var(--dekalog-height) + var(--ml-video-h)); bottom: var(--ticker-height); }
-        #masterUnmuteBanner { top: calc(var(--dekalog-height) + var(--ml-video-h) - 64px) !important; padding: 10px 18px !important; font-size: .8rem !important; }
+        #masterUnmuteBanner { top: calc(var(--dekalog-height) + 6px) !important; padding: 6px 14px !important; font-size: clamp(0.64rem, 2.7vw, 0.85rem) !important; letter-spacing: 0.25px !important; gap: 8px !important; min-height: 44px !important; max-width: calc(100vw - 16px) !important; white-space: nowrap !important; }
         #mlL3 { display: none; }
         .master-zrzutka-overlay {
             top: calc(var(--dekalog-height) + var(--ml-video-h));

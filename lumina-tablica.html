@@ -5740,11 +5740,10 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 
                     <!-- EMBEDDED LIVING AUTOSTART BROADCAST PLAYER -->
                     <div class="mission-live-player-wrapper" style="position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:#000; box-shadow:0 8px 30px rgba(0,0,0,0.7); border:1px solid rgba(255,255,255,0.1); margin: 0 0 10px 0;">
-                        <iframe src="master-live.html?muted=1&mute=1&in_mcr=1"
+                        <iframe data-lazy-src="master-live.html?muted=1&mute=1&in_mcr=1"
                                 title="Telewizja Christian Culture TV 24/7 — Transmisja na Żywo Społeczności LUMINA"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowfullscreen
-                                loading="eager"
                                 style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"></iframe>
                         <div class="mission-live-player-overlay">
                             <button type="button" class="btn-unmute-live" data-unmuted="false" onclick="unmuteMissionIframe(this)" title="Włącz dźwięk transmisji">
@@ -9664,7 +9663,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                         <p style="color:#cbd5e1; font-size:0.88rem; margin-bottom:14px; line-height:1.5;">Każdy dar serca to realne wsparcie ewangelizacji w mediach. Dziękujemy Wam za wspólne budowanie tego Bożego dzieła! ✨✨</p>
 
                         <div style="width: 100%; border-radius:14px; overflow:hidden; background:transparent; display:flex; justify-content:center;">
-                            <iframe height="85px" width="100%" src="https://donorbox.org/embed/christian-culture-radio?donor_wall_color=%23f59e0b&only_donor_wall=true" style="width: 100%; max-width:500px; min-width:310px; min-height: 85px; height: 85px; border-radius:10px; filter: invert(1) hue-rotate(180deg) contrast(1.2) brightness(1.1);" seamless="seamless" name="donorbox" frameborder="0" scrolling="no"></iframe>
+                            <iframe loading="lazy" height="85px" width="100%" src="https://donorbox.org/embed/christian-culture-radio?donor_wall_color=%23f59e0b&only_donor_wall=true" style="width: 100%; max-width:500px; min-width:310px; min-height: 85px; height: 85px; border-radius:10px; filter: invert(1) hue-rotate(180deg) contrast(1.2) brightness(1.1);" seamless="seamless" name="donorbox" frameborder="0" scrolling="no"></iframe>
                         </div>
                     </div>`;
                 }
@@ -15758,7 +15757,7 @@ window.addEventListener('lumina-auth-state', () => {
             </div>
 
             <div style="width:100%; border-radius:14px; overflow:hidden; background:transparent; display:flex; justify-content:center;">
-                <script type="module" src="https://donorbox.org/widgets.js" async></script>
+                <!-- widgets.js wczytuje window.openSupportModal (dopiero po kliknięciu „Wesprzyj”) -->
                 <dbox-widget campaign="christian-culture-radio" type="donation_form" interval="1 M" amount="50" enable-auto-scroll="true"></dbox-widget>
             </div>
         </div>
@@ -15981,6 +15980,15 @@ window.addEventListener('lumina-auth-state', () => {
         window.openSupportModal = function() {
             const modal = document.getElementById('supportLuminaModal');
             if(modal) {
+                // @007 23.11.2026: formularz Donorbox (Stripe, ~10 ramek) ładujemy dopiero przy otwarciu okna
+                if (!window.__ccDonorboxLoaded) {
+                    window.__ccDonorboxLoaded = true;
+                    const s = document.createElement('script');
+                    s.type = 'module';
+                    s.src = 'https://donorbox.org/widgets.js';
+                    s.async = true;
+                    document.head.appendChild(s);
+                }
                 modal.classList.add('open');
             }
         };
@@ -15995,7 +16003,7 @@ window.addEventListener('lumina-auth-state', () => {
 
 <script src="js/lumina-admin-media-replacer.js?v=20260917_autohide_final_v10"></script>
 <script src="lumina-admin-profile-suite.js?v=20261120_hud_off_default"></script>
-<script src="js/cc-lazy-video.js?v=20261123"></script>
+<script src="js/cc-lazy-video.js?v=20261123b"></script>
 <script src="lumina-premium-video-avatar.js?v=20261123"></script>
 <script>
 
