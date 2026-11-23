@@ -475,7 +475,9 @@
 /wieczor-ze-slowem-bozym /wieczor-ze-slowem-bozym-live 200
 /spokoj-serca /wieczor-ze-slowem-bozym-live 200
 /live /master-live 200
-/master /master-live 200
+/master /master-live.html 200
+/master/ /master-live.html 200
+/master-live /master-live.html 200
 /TVW /tvw 200
 /TVW/ /tvw 200
 /tvw/ /tvw 200

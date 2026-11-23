@@ -2464,6 +2464,15 @@ export default {
       return env.ASSETS.fetch(new Request(ambientUrl, request));
     }
 
+    if (decodedP === '/master' || decodedP === '/master/' || decodedP === '/master.html' || decodedP === '/master-live' || decodedP === '/master-live/') {
+      const masterUrl = new URL(request.url);
+      masterUrl.pathname = '/master-live.html';
+      const masterResp = await env.ASSETS.fetch(new Request(masterUrl.toString(), request));
+      const resWithNoCache = new Response(masterResp.body, masterResp);
+      resWithNoCache.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+      return resWithNoCache;
+    }
+
     if (p === '/akademia') {
       const akademiaUrl = new URL(request.url);
       akademiaUrl.pathname = '/akademia';

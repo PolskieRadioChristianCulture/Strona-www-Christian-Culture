@@ -1,0 +1,2659 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+</script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+    <script src="/js/cc-polonia-hub.js?v=20261119_master3" defer></script>
+    <script>
+        if (window.self !== window.top || window.location.search.includes('noticker') || window.location.search.includes('embed') || window.location.search.includes('muted')) {
+            document.documentElement.classList.add('no-ticker', 'embedded-mode');
+        }
+    </script>
+    <meta charset="UTF-8">
+    <script src="/js/cc-ramowka.js?v=20261027_v1"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>CC Master Control Room (Auto-Switch) | Telewizja Christian Culture 24/7</title>
+
+    <!-- Facebook & Open Graph Video Player Metadata -->
+    <meta property="og:type" content="video.other">
+    <meta property="og:site_name" content="Telewizja Christian Culture 24/7">
+    <meta property="og:title" content="🔴 TELEWIZJA CC TV24 LIVE — Transmisja na Żywo 24/7">
+    <meta property="og:description" content="Oglądaj na żywo transmisję telewizyjną Christian Culture: Zjednoczeni za Polskę, Studium Biblijne, Muzyka Uwielbienia, Apokalipsa oraz wykłady prof. Waltera Veitha. Kliknij, aby włączyć transmisję!">
+    <meta property="og:url" content="https://polskieradio.cc/master">
+    <meta property="og:image" content="https://polskieradio.cc/tv24_master_live.png">
+    <meta property="og:image:secure_url" content="https://polskieradio.cc/tv24_master_live.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Telewizja CC TV24 Transmisja Na Żywo">
+    <meta property="og:video" content="https://polskieradio.cc/master">
+    <meta property="og:video:secure_url" content="https://polskieradio.cc/master">
+    <meta property="og:video:type" content="text/html">
+    <meta property="og:video:width" content="1280">
+    <meta property="og:video:height" content="720">
+
+    <!-- Twitter / X Player Card -->
+    <meta name="twitter:card" content="player">
+    <meta name="twitter:title" content="🔴 CC TV24 LIVE — Transmisja Telewizyjna Na Żywo">
+    <meta name="twitter:description" content="Dołącz do transmisji telewizyjnej Christian Culture 24/7. Kliknij i oglądaj na żywo!">
+    <meta name="twitter:image" content="https://polskieradio.cc/tv24_master_live.png">
+    <meta name="twitter:player" content="https://polskieradio.cc/master">
+    <meta name="twitter:player:width" content="1280">
+    <meta name="twitter:player:height" content="720">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-light: #ffffff;
+            --gold-dark: #AA7C11;
+            --bg-dark: #05070c;
+            --ticker-height: 44px;
+            --ccn-red: #c4122f;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .channel-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .channel-frame.active {
+            opacity: 1;
+            z-index: 2;
+            pointer-events: auto;
+        }
+
+        .channel-frame.inactive {
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #fade-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+            display: none;
+        }
+
+        /* --- FULL-SCREEN VIDEO BUMPER OVERLAY --- */
+        #bumper-video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 10000;
+            display: none;
+            align-items: flex-end; /* Position info card at bottom so presenters' faces remain visible! */
+            justify-content: center;
+            opacity: 0;
+            padding-bottom: 95px; /* Stay nicely above bottom ticker bar */
+            transition: opacity 0.6s ease;
+            overflow: hidden;
+        }
+
+        #bumper-video-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        #bumperVideo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Ambient dark vignette gradient at bottom behind glass card */
+        .bumper-vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.7) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .bumper-glass-card {
+            position: relative;
+            z-index: 3;
+            background: rgba(8, 10, 16, 0.45); /* Semi-transparent so background video is clearly visible */
+            border: 1.5px solid rgba(212, 175, 55, 0.35);
+            border-radius: 20px;
+            padding: 20px 45px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.15);
+            max-width: 780px;
+            width: 85%;
+            margin-bottom: 25px;
+            overflow: hidden;
+            animation: bumperPulse 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes bumperPulse {
+            0% { border-color: rgba(212, 175, 55, 0.35); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.15); }
+            100% { border-color: rgba(212, 175, 55, 0.7); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 50px rgba(212, 175, 55, 0.3); }
+        }
+
+        .bumper-channel-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .bumper-channel-brand i {
+            font-size: 1.1rem;
+        }
+
+        .bumper-next-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #d4d4d8;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .bumper-program-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            line-height: 1.25;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+        }
+
+        .bumper-program-desc {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 18px;
+        }
+
+        .bumper-progress-container {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bumper-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary), #ffffff);
+            box-shadow: 0 0 15px var(--gold-primary);
+        }
+
+        /* --- NEW CCN NEWS MASTER BROADCAST TICKER (OBS LOWER THIRD - 89px) --- */
+        .ccn-master-ticker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: var(--ticker-height);
+            z-index: 99999;
+            background: #000000;
+            border-top: 3px solid var(--ccn-red);
+            box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.95), 0 0 15px rgba(196, 18, 47, 0.3);
+            display: flex;
+            align-items: stretch;
+            overflow: hidden;
+            user-select: none;
+            box-sizing: border-box;
+        }
+
+        /* 1. LEFT BRAND LOGO BOX (nowy pasek informacji.png) */
+        .ccn-ticker-brand {
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 14px;
+            flex-shrink: 0;
+            z-index: 10;
+            border-right: 2px solid var(--ccn-red);
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .ccn-ticker-brand img {
+            height: 84%;
+            width: auto;
+            max-width: 320px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* 2. LIVE STATUS BADGE */
+        .ccn-live-badge {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: linear-gradient(180deg, #b91c1c 0%, #881313 100%);
+            color: #ffffff;
+            padding: 0 12px;
+            font-size: 0.82rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 3px 0 12px rgba(0, 0, 0, 0.5);
+            z-index: 9;
+        }
+
+        .ccn-live-dot {
+            width: 10px;
+            height: 10px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ffffff;
+            animation: ccnPulse 1.4s infinite alternate ease-in-out;
+        }
+
+        @keyframes ccnPulse {
+            0% { transform: scale(0.85); opacity: 0.6; }
+            100% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px #ffffff; }
+        }
+
+        /* 3. TICKER TRACK WRAPPER */
+        .ccn-ticker-track-wrap {
+            flex: 1;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: #000000;
+            contain: layout paint;
+        }
+
+        .ccn-ticker-content {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            animation: ccnTickerScroll 160s linear infinite;
+            font-size: 2.0rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .ccn-ticker-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes ccnTickerScroll {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        .ccn-ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0 40px;
+        }
+
+        .ccn-ticker-item strong {
+            color: #ffffff;
+            font-weight: 900;
+        }
+
+        .ccn-ticker-item .gold-text {
+            color: #FFD700;
+            font-weight: 800;
+        }
+
+        .ccn-ticker-item .separator {
+            color: var(--ccn-red);
+            font-size: 1.8rem;
+            padding: 0 10px;
+            opacity: 0.85;
+        }
+
+        /* Category Badges inside Marquee */
+        .ccn-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            flex-shrink: 0;
+            line-height: 1.1;
+        }
+
+        .ccn-badge-now {
+            background: #b91c1c;
+            color: #ffffff;
+            border: 1px solid #ef4444;
+        }
+
+        .ccn-badge-next {
+            background: #1e293b;
+            color: #94a3b8;
+            border: 1px solid #475569;
+        }
+
+        .ccn-badge-bible {
+            background: linear-gradient(135deg, #15803d, #166534);
+            color: #ffffff;
+            border: 1px solid #22c55e;
+        }
+
+        .ccn-badge-sms {
+            background: linear-gradient(135deg, #b45309, #78350f);
+            color: #fef08a;
+            border: 1px solid #f59e0b;
+        }
+
+        .ccn-badge-lumina {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #ffffff;
+            border: 1px solid #38bdf8;
+        }
+
+        .ccn-badge-support {
+            background: linear-gradient(135deg, #be185d, #9d174d);
+            color: #fdf2f8;
+            border: 1px solid #f472b6;
+        }
+
+        .ccn-badge-app {
+            background: linear-gradient(135deg, #6366f1, #4338ca);
+            color: #ffffff;
+            border: 1px solid #818cf8;
+        }
+
+        .ccn-badge-contact {
+            background: #334155;
+            color: #e2e8f0;
+            border: 1px solid #64748b;
+        }
+
+        /* 4. RIGHT CLOCK & DATE BOX */
+        .ccn-clock-box {
+            height: 100%;
+            background: #05070e;
+            border-left: 2px solid rgba(255, 255, 255, 0.12);
+            padding: 0 12px;
+            width: 184px;
+            min-width: 184px;
+            max-width: 184px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-shrink: 0;
+            z-index: 10;
+            box-shadow: -5px 0 16px rgba(0, 0, 0, 0.7);
+        }
+
+        .ccn-clock-time {
+            font-family: 'Inter', monospace;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1px;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum" 1;
+            display: inline-block;
+            width: 92px;
+            min-width: 92px;
+            text-align: center;
+        }
+
+        .ccn-clock-date {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #FFD700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-top: 0;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 1400px) {
+            :root { --ticker-height: 44px; }
+            .ccn-ticker-content { font-size: 1.5rem; }
+            .ccn-clock-time { font-size: 1.15rem; }
+            .ccn-clock-date { font-size: 0.7rem; }
+            .ccn-badge { font-size: 0.85rem; padding: 2px 8px; }
+        }
+
+        
+        /* Całkowite wyłączenie zegara Polonii na życzenie Dowódcy - nie zasłania ekranu transmisji */
+        [data-cc-polonia-clock], .cc-polonia-clock-wrap { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+
+        /* Zintegrowana, kompaktowa kapsuła sterowania dźwiękiem i językiem (Dowódca 17.11) */
+        .cc-master-controls-capsule {
+            display: inline-flex;
+            align-items: center;
+            align-self: center;
+            background: rgba(18, 18, 26, 0.88);
+            border: 1px solid rgba(255, 122, 0, 0.5);
+            border-radius: 20px;
+            padding: 2px 4px;
+            gap: 3px;
+            margin: 0 8px;
+            flex-shrink: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .cc-controls-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
+            margin: 0 1px;
+        }
+
+        .cc-master-controls-capsule .cc-lang-toggle {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            gap: 2px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            flex-shrink: 0 !important;
+        }
+
+        .cc-master-controls-capsule .cc-lang-pill-btn {
+            min-width: 44px !important;
+            width: auto !important;
+            height: 36px !important;
+            min-height: 36px !important;
+            padding: 0 8px !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            border-radius: 18px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-shrink: 0 !important;
+        }
+
+        .cc-master-controls-capsule .master-sound-btn {
+            width: 36px !important;
+            min-width: 36px !important;
+            height: 36px !important;
+            min-height: 36px !important;
+            padding: 0 !important;
+            border-radius: 18px !important;
+            border: none !important;
+            cursor: pointer;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-shrink: 0 !important;
+            font-size: 0.95rem !important;
+            transition: all 0.2s ease !important;
+            color: #cbd5e1;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        @media (max-width: 900px) {
+            .cc-master-controls-capsule {
+                margin: 0 4px !important;
+                padding: 1px 3px !important;
+                gap: 2px !important;
+            }
+            .cc-master-controls-capsule .master-sound-btn,
+            .cc-master-controls-capsule .cc-lang-pill-btn {
+                min-width: 44px !important;
+                min-height: 44px !important;
+                height: 44px !important;
+            }
+            .ccn-ticker-brand {
+                padding: 0 6px !important;
+            }
+            .ccn-ticker-brand img {
+                max-width: 72px !important;
+            }
+        }
+
+        .cc-master-controls-capsule .master-sound-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .cc-master-controls-capsule .master-sound-btn.is-active {
+            background: #FF7A00 !important;
+            color: #1a0d00 !important;
+            box-shadow: 0 0 10px rgba(255, 122, 0, 0.6);
+        }
+        @media (max-width: 900px) {
+            :root { --ticker-height: 44px; }
+            .ccn-ticker-brand img { max-width: 140px; }
+            .ccn-live-badge { padding: 0 12px; font-size: 0.8rem; }
+            .ccn-ticker-content { font-size: 0.95rem; }
+            .ccn-clock-box { padding: 0 14px; }
+            [data-cc-polonia-clock] { display: none !important; }
+            .ccn-clock-time { font-size: 1.1rem; }
+            .ccn-clock-date { font-size: 0.58rem; }
+        }
+
+        /* Embedded / No-Ticker Mode (np. na Tablicy LUMINA) */
+        body.embedded-mode .ccn-master-ticker,
+        body.no-ticker .ccn-master-ticker,
+        html.no-ticker .ccn-master-ticker,
+        html.embedded-mode .ccn-master-ticker,
+        body.embedded-mode .dekalog-top-ticker,
+        body.no-ticker .dekalog-top-ticker,
+        html.no-ticker .dekalog-top-ticker,
+        html.embedded-mode .dekalog-top-ticker,
+        body.embedded-mode [data-cc-polonia-clock],
+        body.no-ticker [data-cc-polonia-clock],
+        html.no-ticker [data-cc-polonia-clock],
+        html.embedded-mode [data-cc-polonia-clock] {
+            display: none !important;
+        }
+
+        body.embedded-mode .channel-frame,
+        body.no-ticker .channel-frame,
+        html.no-ticker .channel-frame,
+        html.embedded-mode .channel-frame {
+            height: 100% !important;
+        }
+
+        body.embedded-mode #bumper-video-overlay,
+        body.no-ticker #bumper-video-overlay,
+        html.no-ticker #bumper-video-overlay,
+        html.embedded-mode #bumper-video-overlay {
+            padding-bottom: 0 !important;
+        }
+
+        body.embedded-mode #masterUnmuteBanner,
+        html.embedded-mode #masterUnmuteBanner {
+            display: none !important;
+        }
+
+        #master-status {
+            position: absolute; top: 20px; left: 20px; color: rgba(255,255,255,0.3);
+            z-index: 10000; font-size: 10px; pointer-events: none; text-transform: uppercase; letter-spacing: 2px;
+            display: none;
+        }
+
+        /* ── GÓRNY PASEK EMISYJNY: DEKALOG BIBLIJNY (BJW) ── */
+        :root {
+            --dekalog-height: 44px;
+        }
+
+        .dekalog-top-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--dekalog-height);
+            z-index: 99999;
+            background: #000000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: stretch;
+            overflow: hidden;
+            user-select: none;
+            box-sizing: border-box;
+        }
+
+        .dekalog-brand-badge {
+            display: none !important;
+        }
+
+        .dekalog-brand-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.92rem;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            font-style: normal !important;
+        }
+
+        .dekalog-brand-title .gold-accent {
+            color: var(--gold-primary);
+        }
+
+        .dekalog-track-wrap {
+            flex: 1;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: #000000;
+            contain: layout paint;
+        }
+
+        .dekalog-content {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            animation: dekalogScroll 210s linear infinite;
+            font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.0rem;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .dekalog-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes dekalogScroll {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        .dekalog-segment {
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .dekalog-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 28px;
+        }
+
+        .dekalog-num {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-primary);
+            font-weight: 900;
+            font-size: 1.28rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .dekalog-text {
+            color: #f1f5f9;
+            line-height: 1;
+        }
+
+        .dekalog-separator {
+            color: var(--gold-primary);
+            font-size: 1.15rem;
+            padding: 0 10px;
+            opacity: 0.8;
+        }
+
+        .dekalog-sigla {
+            color: #cbd5e1;
+            font-style: italic;
+            font-size: 1.15rem;
+            padding: 0 28px;
+        }
+
+        .dekalog-sigla strong {
+            color: var(--gold-primary);
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        @media (max-width: 1400px) {
+            :root { --dekalog-height: 44px; }
+            .dekalog-content { font-size: 1.5rem; }
+            .dekalog-num { font-size: 1.15rem; }
+            .dekalog-brand-title { font-size: 0.8rem; letter-spacing: 1.2px; }
+        }
+
+        @media (max-width: 900px) {
+            :root { --dekalog-height: 44px; }
+            .dekalog-content { font-size: 0.95rem; }
+            .dekalog-num { font-size: 1.0rem; }
+            .dekalog-brand-badge { padding: 0 10px; }
+            .dekalog-brand-title { font-size: 0.72rem; }
+        }
+
+        /* ── ZRZUTKA.PL STREAMING WIDGET OVERLAY (TRYB TESTOWY DLA KANAŁU MASTER) ── */
+        .mcr-zrzutka-toggle-btn {
+            position: fixed;
+            top: calc(var(--dekalog-height) + 12px);
+            right: 20px;
+            z-index: 100006;
+            background: rgba(18, 14, 20, 0.88);
+            border: 1.5px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .mcr-zrzutka-toggle-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            color: #ffffff;
+            border-color: #ffffff;
+            transform: scale(1.04);
+        }
+
+        .mcr-zrzutka-toggle-btn.active {
+            background: linear-gradient(135deg, #c4122f, #881313);
+            border-color: var(--gold-primary);
+            color: #ffffff;
+        }
+
+        .master-zrzutka-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100002;
+            pointer-events: none;
+            display: none;
+        }
+
+        .master-zrzutka-overlay.visible {
+            display: block;
+        }
+
+        /* 1. Ranking po lewej */
+        .zrzutka-frame-leaderboard {
+            position: absolute;
+            top: calc(var(--dekalog-height) + 24px);
+            left: 28px;
+            width: 380px;
+            height: 540px;
+            border: none;
+            background: transparent;
+            pointer-events: auto;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.65);
+        }
+
+        /* 2. Kod QR po prawej u góry */
+        .zrzutka-frame-qr {
+            position: absolute;
+            top: calc(var(--dekalog-height) + 64px);
+            right: 28px;
+            width: 220px;
+            height: 270px;
+            border: none;
+            background: transparent;
+            pointer-events: auto;
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.65);
+        }
+
+        /* 3. Pasek postępu na dole nad tickerem */
+        .zrzutka-frame-progress {
+            position: absolute;
+            bottom: calc(var(--ticker-height) + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1100px;
+            max-width: 90vw;
+            height: 80px;
+            border: none;
+            background: transparent;
+            pointer-events: auto;
+        }
+
+        /* 4. Ostatnie wpłaty (feed) */
+        .zrzutka-frame-feed {
+            position: absolute;
+            bottom: calc(var(--ticker-height) + 96px);
+            right: 28px;
+            width: 360px;
+            height: 260px;
+            border: none;
+            background: transparent;
+            pointer-events: auto;
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- DUAL IFRAME ENGINE (ZERO BUFFER LAG) -->
+    <iframe id="channel-frame-a" class="channel-frame active" allow="autoplay; camera; microphone; fullscreen; picture-in-picture; display-capture; clipboard-write; clipboard-read; accelerometer; encrypted-media; gyroscope; web-share"></iframe>
+    <iframe id="channel-frame-b" class="channel-frame inactive" allow="autoplay; camera; microphone; fullscreen; picture-in-picture; display-capture; clipboard-write; clipboard-read; accelerometer; encrypted-media; gyroscope; web-share"></iframe>
+    
+    <div id="fade-overlay"></div>
+
+    <!-- FULL-SCREEN VIDEO BUMPER OVERLAY -->
+    <div id="bumper-video-overlay">
+        <video id="bumperVideo" src="przebitka_cc.mp4" playsinline preload="auto"></video>
+        <div class="bumper-vignette"></div>
+        <div class="bumper-glass-card">
+            <div class="bumper-channel-brand">
+                <i class="fa-solid fa-tv"></i> TELEWIZJA CHRISTIAN CULTURE
+            </div>
+            <div class="bumper-next-tag">ZA CHWILĘ W PROGRAMIE</div>
+            <h1 class="bumper-program-title" id="bumperProgramTitle">ŁADOWANIE PROGRAMU...</h1>
+            <div class="bumper-program-desc" id="bumperProgramDesc">Zapraszamy na transmisję na żywo.</div>
+            <div class="bumper-progress-container">
+                <div class="bumper-progress-bar" id="bumperProgressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── GÓRNY PASEK EMISYJNY: DEKALOG BIBLIJNY CO DO SŁOWA (BJW 1962) ── -->
+    <div class="dekalog-top-ticker" aria-label="Dekalog w przekładzie ks. Jakuba Wujka">
+        <div class="dekalog-track-wrap">
+            <div class="dekalog-content" id="dekalogContent">
+                <!-- SET 1 -->
+                <div class="dekalog-segment">
+                    <div class="dekalog-item">
+                        <span class="dekalog-num"><i class="fa-solid fa-book-bible"></i></span>
+                        <span class="dekalog-text"><strong>Dziesięć przykazań Bożych wg Biblii w tł. ks. Jakuba Wujka (BJW)</strong></span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">I.</span>
+                        <span class="dekalog-text">Nie będziesz miał bogów cudzych przede mną.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">II.</span>
+                        <span class="dekalog-text">Nie uczynisz sobie obrazu rytego ani żadnej podobizny tego, co jest na niebie w górze i co na ziemi nisko, ani z tych rzeczy, które są w wodach pod ziemią. Nie będziesz się im kłaniał ani służył. Ja jestem Pan, Bóg twój, mocny, zawistny, karzący nieprawość ojców na synach do trzeciego i czwartego pokolenia tych, którzy mnie nienawidzą; a czyniący miłosierdzie tysiącom tych, którzy mię miłują i strzegą przykazań moich.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">III.</span>
+                        <span class="dekalog-text">Nie będziesz brał imienia Pana, Boga twego, nadaremno; bo nie będzie miał Pan za niewinnego tego, który by wziął imię Pana, Boga swego, nadaremno.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">IV.</span>
+                        <span class="dekalog-text">Pamiętaj, abyś dzień sobotni święcił. Sześć dni robic będziesz i będziesz wykonywał wszystkie roboty twoje; ale dnia siódmego sabat Pana, Boga twego, jest: nie będziesz wykonywał weń żadnej roboty, ty i syn twój, i córka twoja, sługa twój i służebnica twoja, bydlę twoje i gość, który jest między bramami twymi. Przez sześć dni bowiem czynił Pan niebo i ziemię, i morze, i wszystko, co w nich jest, a odpoczął dnia siódmego; i dlatego pobłogosławił Pan dniowi sobotniemu i poświęcił go.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">V.</span>
+                        <span class="dekalog-text">Czcij ojca twego i matkę twoją, abyś długo żył na ziemi, którą Pan, Bóg twój, da tobie.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">VI.</span>
+                        <span class="dekalog-text">Nie będziesz zabijał.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">VII.</span>
+                        <span class="dekalog-text">Nie będziesz cudzołożył.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">VIII.</span>
+                        <span class="dekalog-text">Nie będziesz kradzieży czynił.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">IX.</span>
+                        <span class="dekalog-text">Nie będziesz mówił fałszywego świadectwa przeciw bliźniemu twemu.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">X.</span>
+                        <span class="dekalog-text">Nie będziesz pożądał domu bliźniego twego, ani będziesz pragnął żony jego, ani sługi, ani służebnicy, ani wołu, ani osła, ani żadnej rzeczy, która jego jest.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-sigla">
+                        <strong>Księga Wyjścia 20,1-17</strong> (Biblia w przekładzie Ks. Jakuba Wujka, wyd.III 1962r.)
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                </div>
+
+                <!-- SET 2 (SEAMLESS CONTINUOUS LOOP DUPLICATION) -->
+                <div class="dekalog-segment">
+                    <div class="dekalog-item">
+                        <span class="dekalog-num"><i class="fa-solid fa-book-bible"></i></span>
+                        <span class="dekalog-text"><strong>Dziesięć przykazań Bożych wg Biblii w tł. ks. Jakuba Wujka (BJW)</strong></span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">I.</span>
+                        <span class="dekalog-text">Nie będziesz miał bogów cudzych przede mną.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">II.</span>
+                        <span class="dekalog-text">Nie uczynisz sobie obrazu rytego ani żadnej podobizny tego, co jest na niebie w górze i co na ziemi nisko, ani z tych rzeczy, które są w wodach pod ziemią. Nie będziesz się im kłaniał ani służył. Ja jestem Pan, Bóg twój, mocny, zawistny, karzący nieprawość ojców na synach do trzeciego i czwartego pokolenia tych, którzy mnie nienawidzą; a czyniący miłosierdzie tysiącom tych, którzy mię miłują i strzegą przykazań moich.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">III.</span>
+                        <span class="dekalog-text">Nie będziesz brał imienia Pana, Boga twego, nadaremno; bo nie będzie miał Pan za niewinnego tego, który by wziął imię Pana, Boga swego, nadaremno.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">IV.</span>
+                        <span class="dekalog-text">Pamiętaj, abyś dzień sobotni święcił. Sześć dni robic będziesz i będziesz wykonywał wszystkie roboty twoje; ale dnia siódmego sabat Pana, Boga twego, jest: nie będziesz wykonywał weń żadnej roboty, ty i syn twój, i córka twoja, sługa twój i służebnica twoja, bydlę twoje i gość, który jest między bramami twymi. Przez sześć dni bowiem czynił Pan niebo i ziemię, i morze, i wszystko, co w nich jest, a odpoczął dnia siódmego; i dlatego pobłogosławił Pan dniowi sobotniemu i poświęcił go.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">V.</span>
+                        <span class="dekalog-text">Czcij ojca twego i matkę twoją, abyś długo żył na ziemi, którą Pan, Bóg twój, da tobie.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">VI.</span>
+                        <span class="dekalog-text">Nie będziesz zabijał.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">VII.</span>
+                        <span class="dekalog-text">Nie będziesz cudzołożył.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">VIII.</span>
+                        <span class="dekalog-text">Nie będziesz kradzieży czynił.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">IX.</span>
+                        <span class="dekalog-text">Nie będziesz mówił fałszywego świadectwa przeciw bliźniemu twemu.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-item">
+                        <span class="dekalog-num">X.</span>
+                        <span class="dekalog-text">Nie będziesz pożądał domu bliźniego twego, ani będziesz pragnął żony jego, ani sługi, ani służebnicy, ani wołu, ani osła, ani żadnej rzeczy, która jego jest.</span>
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                    <div class="dekalog-sigla">
+                        <strong>Księga Wyjścia 20,1-17</strong> (Biblia w przekładzie Ks. Jakuba Wujka, wyd.III 1962r.)
+                        <span class="dekalog-separator">✦</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSPARENT AUDIO ACTIVATION OVERLAY (ANY CLICK ON STREAM TURNS ON SOUND) -->
+    <div id="masterAudioActivationOverlay" onclick="unmuteSubframe();" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; cursor: pointer; background: transparent;"></div>
+
+    <!-- MASTER UNMUTE BANNER -->
+    <div id="masterUnmuteBanner" onclick="unmuteSubframe();" style="position: fixed; top: calc(var(--dekalog-height) + 12px); left: 50%; transform: translateX(-50%); z-index: 100005; background: rgba(12, 12, 16, 0.94); border: 2px solid #FF7A00; color: #fff; padding: 10px 28px; border-radius: 50px; font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; cursor: pointer; box-shadow: 0 8px 32px rgba(0,0,0,0.95), 0 0 25px rgba(255,122,0,0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; align-items: center; gap: 12px; transition: opacity 0.5s ease;">
+        <i class="fa-solid fa-volume-high" style="color: #FF7A00; font-size: 1.4rem;"></i>
+        <span>KLIKNIJ, ABY WŁĄCZYĆ DŹWIĘK TRANSMISJI NA ŻYWO</span>
+    </div>
+
+    <!-- PRZYCISK TESTOWY ZRZUTKA LIVE (MCR TEST BUTTON) -->
+    <button id="btnZrzutkaToggle" class="mcr-zrzutka-toggle-btn" onclick="toggleZrzutkaOverlay();" aria-label="Włącz lub wyłącz podgląd widgetów Zrzutka.pl">
+        <i class="fa-solid fa-hand-holding-heart"></i>
+        <span>Zrzutka Live (Test)</span>
+    </button>
+
+    <!-- ── ZRZUTKA.PL TEST STREAMING OVERLAY (KANAŁ MASTER LIVE) ── -->
+    <div id="masterZrzutkaOverlay" class="master-zrzutka-overlay">
+        <!-- 1. Ranking wpłacających (Leaderboard) -->
+        <iframe class="zrzutka-frame-leaderboard" src="https://zrzutka.pl/rs4g4v/widget/leaderboard" title="Ranking wpłacających Zrzutka.pl" allowtransparency="true"></iframe>
+        <!-- 2. Kod QR 'WESPRZYJ!' (BLIK) -->
+        <iframe class="zrzutka-frame-qr" src="https://zrzutka.pl/rs4g4v/widget/qr-code" title="Kod QR do wpłat Zrzutka.pl" allowtransparency="true"></iframe>
+        <!-- 3. Pasek postępu (Progress Bar) -->
+        <iframe class="zrzutka-frame-progress" src="https://zrzutka.pl/rs4g4v/widget/progress" title="Pasek celu zbiórki Zrzutka.pl" allowtransparency="true"></iframe>
+        <!-- 4. Ostatnie wpłaty (Feed) -->
+        <iframe class="zrzutka-frame-feed" src="https://zrzutka.pl/rs4g4v/widget/feed" title="Ostatnie wpłaty Zrzutka.pl" allowtransparency="true"></iframe>
+    </div>
+
+    <!-- ── NEW CCN NEWS MASTER BROADCAST TICKER (OBS LOWER THIRD) ── -->
+    <!-- Zegar Polonii usunięty na polecenie Dowódcy (nie zasłania wideo) -->
+
+    <div class="ccn-master-ticker">
+        <!-- 1. BRAND LOGO (Projekt bez nazwy (32).png) -->
+        <a href="/news" class="ccn-ticker-brand" title="CCN News Christian Culture – Przejdź do strony głównej">
+            <img src="ccn_news_logo.png" alt="CCN News Christian Culture">
+        </a>
+
+        <!-- 2. LIVE STATUS BADGE -->
+        <div class="ccn-live-badge">
+            <span class="ccn-live-dot"></span>
+            <span class="ccn-live-text">NA ŻYWO</span>
+        </div>
+
+        <!-- 3. TICKER TRACK WRAPPER -->
+        <div class="ccn-ticker-track-wrap">
+            <div class="ccn-ticker-content" id="ccnTickerContent">
+                <!-- SET 1 -->
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-now"><i class="fa-solid fa-tower-broadcast"></i> TERAZ W EMISJI</span>
+                    <span><strong class="dynamic-current-program gold-text">BIBLIA ŚPIEWANA & WORSHIP 24/7</strong> — Całodobowa transmisja Słowa Bożego i pieśni chwały</span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-bible"><i class="fa-solid fa-book-bible"></i> DARMOWA BIBLIA PDF</span>
+                    <span>Pobierz bezpłatny egzemplarz Pisma Świętego (UBG / Wujek) na <strong class="gold-text">polskieradio.cc/biblia-do-pobrania</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-sms"><i class="fa-solid fa-box-archive"></i> BIBLIA W DRUKU</span>
+                    <span>Zamów bezpłatną drukowaną Biblię — wyślij SMS: <strong class="gold-text">BIBLIA</strong> pod numer <strong class="gold-text">507 821 789</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-lumina"><i class="fa-solid fa-globe"></i> PORTAL LUMINA</span>
+                    <span>Pierwsza polska chrześcijańska platforma relacji i wartości — wolna od hejtu i komercji • Wejdź na <strong class="gold-text">polskieradio.cc/lumina</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-support"><i class="fa-solid fa-heart"></i> WSPARCIE MISJI</span>
+                    <span>Zostań patronem: <strong class="gold-text">patronite.pl/osobowoscplus</strong> • BLIK: <strong class="gold-text">537 137 043</strong> • Nr konta: <strong class="gold-text">48 2910 0006 0000 0000 0527 2629</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-support" style="background: linear-gradient(135deg, #FF7A00, #E66A00);"><i class="fa-solid fa-hand-holding-heart"></i> ZRZUTKA LIVE</span>
+                    <span>Wspieraj rozwój Telewizji CC na <strong class="gold-text">zrzutka.pl/rs4g4v</strong> • Zeskanuj kod QR na ekranie</span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-app"><i class="fa-solid fa-mobile-screen"></i> APLIKACJE CC</span>
+                    <span>Pobierz aplikację mobilną <strong class="gold-text">„Dobrze, że jesteś”</strong> (Google Play) oraz PWA na <strong class="gold-text">cclite.pl</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-contact"><i class="fa-solid fa-envelope"></i> KONTAKT</span>
+                    <span>Napisz do redakcji: <strong class="gold-text">polskiercctv@gmail.com</strong> | <strong class="gold-text">radiochristianculture@gmail.com</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-next"><i class="fa-solid fa-forward-step"></i> W RAMÓWCE</span>
+                    <span><strong>Codzienne Uwielbienie • Apokalipsa Dzień po Dniu • Zjednoczeni za Polskę • Studium Biblijne</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+
+                <!-- SET 2 (SEAMLESS LOOP DUPLICATION) -->
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-now"><i class="fa-solid fa-tower-broadcast"></i> TERAZ W EMISJI</span>
+                    <span><strong class="dynamic-current-program gold-text">BIBLIA ŚPIEWANA & WORSHIP 24/7</strong> — Całodobowa transmisja Słowa Bożego i pieśni chwały</span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-bible"><i class="fa-solid fa-book-bible"></i> DARMOWA BIBLIA PDF</span>
+                    <span>Pobierz bezpłatny egzemplarz Pisma Świętego (UBG / Wujek) na <strong class="gold-text">polskieradio.cc/biblia-do-pobrania</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-sms"><i class="fa-solid fa-box-archive"></i> BIBLIA W DRUKU</span>
+                    <span>Zamów bezpłatną drukowaną Biblię — wyślij SMS: <strong class="gold-text">BIBLIA</strong> pod numer <strong class="gold-text">507 821 789</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-lumina"><i class="fa-solid fa-globe"></i> PORTAL LUMINA</span>
+                    <span>Pierwsza polska chrześcijańska platforma relacji i wartości — wolna od hejtu i komercji • Wejdź na <strong class="gold-text">polskieradio.cc/lumina</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-support"><i class="fa-solid fa-heart"></i> WSPARCIE MISJI</span>
+                    <span>Zostań patronem: <strong class="gold-text">patronite.pl/osobowoscplus</strong> • BLIK: <strong class="gold-text">537 137 043</strong> • Nr konta: <strong class="gold-text">48 2910 0006 0000 0000 0527 2629</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-support" style="background: linear-gradient(135deg, #FF7A00, #E66A00);"><i class="fa-solid fa-hand-holding-heart"></i> ZRZUTKA LIVE</span>
+                    <span>Wspieraj rozwój Telewizji CC na <strong class="gold-text">zrzutka.pl/rs4g4v</strong> • Zeskanuj kod QR na ekranie</span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-app"><i class="fa-solid fa-mobile-screen"></i> APLIKACJE CC</span>
+                    <span>Pobierz aplikację mobilną <strong class="gold-text">„Dobrze, że jesteś”</strong> (Google Play) oraz PWA na <strong class="gold-text">cclite.pl</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-contact"><i class="fa-solid fa-envelope"></i> KONTAKT</span>
+                    <span>Napisz do redakcji: <strong class="gold-text">polskiercctv@gmail.com</strong> | <strong class="gold-text">radiochristianculture@gmail.com</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+                <div class="ccn-ticker-item">
+                    <span class="ccn-badge ccn-badge-next"><i class="fa-solid fa-forward-step"></i> W RAMÓWCE</span>
+                    <span><strong>Codzienne Uwielbienie • Apokalipsa Dzień po Dniu • Zjednoczeni za Polskę • Studium Biblijne</strong></span>
+                    <span class="separator">✦</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. RIGHT CONTROLS: COMPACT INTEGRATED AUDIO & LANG CAPSULE + CLOCK -->
+        <div class="cc-master-controls-capsule" role="group" aria-label="Sterowanie dźwiękiem i językiem">
+            <button id="masterMuteToggleBtn" class="master-sound-btn" onclick="toggleMasterAudio(event);" aria-label="Włącz lub wyłącz dźwięk transmisji" title="Włącz lub wyłącz dźwięk transmisji">
+                <i id="masterMuteIcon" class="fa-solid fa-volume-xmark"></i>
+                <span id="masterMuteText" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">WYCISZONY</span>
+            </button>
+            <div class="cc-controls-divider"></div>
+            <div data-cc-lang-switcher style="display:inline-flex;align-items:center;"></div>
+        </div>
+        <div class="ccn-clock-box">
+            <div class="ccn-clock-time" id="ccnClockTime">--:--:--</div>
+            <div class="ccn-clock-date" id="ccnClockDate">-- ---</div>
+        </div>
+    </div>
+
+
+    <div id="master-status">MCR: INITIALIZING...</div>
+
+    <script>
+        // ── EMBED / MUTED / NO-TICKER DETECTION (np. Tablica LUMINA) ──
+        const urlParams = new URLSearchParams(window.location.search);
+        const isEmbedMode = urlParams.has('embed') || urlParams.get('embed') === '1' || urlParams.has('noticker') || urlParams.get('ticker') === '0' || urlParams.get('muted') === '1' || (window.self !== window.top);
+        const shouldHideTicker = isEmbedMode || urlParams.has('noticker') || urlParams.get('ticker') === '0';
+        let isMutedDefault = urlParams.get('muted') !== '0';
+
+        if (!isMutedDefault) {
+            const unmuteBanner = document.getElementById('masterUnmuteBanner');
+            if (unmuteBanner) unmuteBanner.style.display = 'none';
+            const audioOverlay = document.getElementById('masterAudioActivationOverlay');
+            if (audioOverlay) audioOverlay.style.display = 'none';
+        }
+
+        if (shouldHideTicker) {
+            document.documentElement.classList.add('no-ticker', 'embedded-mode');
+            if (document.body) document.body.classList.add('no-ticker', 'embedded-mode');
+            else window.addEventListener('DOMContentLoaded', () => document.body.classList.add('no-ticker', 'embedded-mode'));
+        }
+
+        // ── OBSŁUGA ZRZUTKA.PL STREAMING WIDGET (TRYB TESTOWY KANAŁU MASTER) ──
+        function toggleZrzutkaOverlay() {
+            const overlay = document.getElementById('masterZrzutkaOverlay');
+            const btn = document.getElementById('btnZrzutkaToggle');
+            if (!overlay) return;
+            const isVis = overlay.classList.toggle('visible');
+            if (btn) btn.classList.toggle('active', isVis);
+        }
+        if (urlParams.get('zrzutka') === '1' || urlParams.get('zrzutka') === 'test') {
+            toggleZrzutkaOverlay();
+        }
+
+        const programMeta = {
+            "spiewajmy-panu-live.html": {
+                title: "CODZIENNE UWIELBIENIE — BLOK MUZYCZNY",
+                desc: "Najpiękniejsze utwory uwielbienia i nowości muzyczne Christian Culture Music"
+            },
+            "studium-live.html": {
+                title: "STUDIUM TELEWIZYJNE PISMA ŚWIĘTEGO",
+                desc: "Wyczerpujący 572-odcinkowy wykład biblijny werset po wersecie"
+            },
+            "apokalipsa-live.html": {
+                title: "APOKALIPSA DZIEŃ PO DNIU",
+                desc: "Dzienny komentarz proroczy i analiza Księgi Objawienia św. Jana"
+            },
+            "apokalipsa-ksiega-nadziei-live.html": {
+                title: "APOKALIPSA: KSIĘGA NADZIEI",
+                desc: "Kompletny cykl odkrywania nadziei w proroctwach biblijnych (24/7)"
+            },
+            "biblia-spiewana-live.html": {
+                title: "BIBLIA ŚPIEWANA & WORSHIP 24/7",
+                desc: "Śpiewane Przypowieści Salomona oraz całodobowa muzyka uwielbienia"
+            },
+            "zapolske-live.html": {
+                title: "ZJEDNOCZENI ZA POLSKĘ",
+                desc: "Poranny blok modlitewny i transmisja radiowo-telewizyjna"
+            },
+            "swiadectwa-live.html": {
+                title: "ŚWIADECTWA — HISTORIE WIARY",
+                desc: "Poruszające opowieści nawrócenia, uzdrowień i cudów na niedzielne wieczory"
+            },
+            "totalny-atak-live.html": {
+                title: "TOTALNY ATAK — WYKŁADY BIBLIJNE",
+                desc: "Seria wykładów apologetycznych i profetycznych prof. Waltera Veitha (Pon-Pt 18:00)"
+            },
+            "nocne-czuwanie-live.html": {
+                title: "NOCNE CZUWANIE & WORSHIP",
+                desc: "Nocny blok kontemplacji z cyklem 23 rotacyjnych filmów wyciszenia i uwielbienia"
+            },
+            "cctv24-worship.html": {
+                title: "NOCNE CZUWANIE & WORSHIP 24/7",
+                desc: "Nocny strumień muzyczny i czuwanie modlitewne Christian Culture"
+            },
+            "randki-malzenstwo-live.html": {
+                title: "RANDKI & MAŁŻEŃSTWO — PRAWDZIWE SZCZĘŚCIE W RODZINIE",
+                desc: "Kurs relacji, narzeczeństwa, małżeństwa i rodziny z Romanem Chałupką (Pt, Sob, Ndz 22:00)"
+            }
+        };
+
+        const frameA = document.getElementById('channel-frame-a');
+        const frameB = document.getElementById('channel-frame-b');
+        const fade = document.getElementById('fade-overlay');
+        const bumperOverlay = document.getElementById('bumper-video-overlay');
+        const bumperVideo = document.getElementById('bumperVideo');
+        const bumperTitle = document.getElementById('bumperProgramTitle');
+        const bumperDesc = document.getElementById('bumperProgramDesc');
+        const bumperProgress = document.getElementById('bumperProgressBar');
+        const status = document.getElementById('master-status');
+
+        let activeFrameIndex = 0; // 0 = Frame A, 1 = Frame B
+        let currentUrl = null;
+        let currentBlockKey = null;
+        let earlyFinishedSlots = {};
+        let isSafeMonetizationMode = (urlParams.get('safe_monetization') !== '0');
+        console.log("MCR: [CC MONETIZATION SHIELD] Inteligentne Sito Bezpieczeństwa:", isSafeMonetizationMode ? "AKTYWNE (100% ochrona przed roszczeniami Content ID)" : "WYŁĄCZONE");
+        let isSwitchingWithBumper = false;
+
+        function getActiveFrame() {
+            return activeFrameIndex === 0 ? frameA : frameB;
+        }
+
+        function getInactiveFrame() {
+            return activeFrameIndex === 0 ? frameB : frameA;
+        }
+
+        function endSpecialSlot() {
+            if (currentBlockKey) {
+                console.log("MCR: Oznaczono slot bloku jako przedwcześnie ukończony:", currentBlockKey);
+                earlyFinishedSlots[currentBlockKey] = true;
+            }
+            checkSchedule();
+        }
+
+        // Zachód słońca (algorytm NOAA, dokładność ok. 1–2 min) dla środka Polski (Warszawa).
+        const CC_LAT = 52.23, CC_LON = 21.01;
+        function ccSunsetMs(day) {
+            const rad = Math.PI / 180;
+            const y = day.getFullYear(), m = day.getMonth(), d = day.getDate();
+            const doy = Math.round((Date.UTC(y, m, d) - Date.UTC(y, 0, 0)) / 864e5);
+            const g = 2 * Math.PI / 365 * (doy - 1);
+            const eqtime = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+            const decl = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g) - 0.006758 * Math.cos(2 * g) + 0.000907 * Math.sin(2 * g) - 0.002697 * Math.cos(3 * g) + 0.00148 * Math.sin(3 * g);
+            const ha = Math.acos(Math.cos(90.833 * rad) / (Math.cos(CC_LAT * rad) * Math.cos(decl)) - Math.tan(CC_LAT * rad) * Math.tan(decl)) / rad;
+            const sunsetMinUtc = 720 - 4 * (CC_LON - ha) - eqtime;
+            return Date.UTC(y, m, d) + sunsetMinUtc * 60000;
+        }
+        // Okno wewnętrzne pt (od zachodu) – sob (do zachodu). Tylko dobór repertuaru — nigdy nie oznaczamy go publicznie.
+        function ccIsRestWindow(now) {
+            const day = now.getDay();
+            if (day === 5) return now.getTime() >= ccSunsetMs(now);
+            if (day === 6) return now.getTime() < ccSunsetMs(now);
+            return false;
+        }
+        // W oknie: zamiast pasm publicystycznych i rozrywkowych — uwielbienie i Słowo.
+        const CC_REST_SWAP = {
+            "zapolske-live.html": "spiewajmy-panu-live.html?playlist=PLHy3TNFso_uLnL_I1TPR4d35H6FuSVIUW&brand=cctv",
+            "randki-malzenstwo-live.html": "biblia-spiewana-live.html",
+            "totalny-atak-live.html": "biblia-spiewana-live.html"
+        };
+
+        function getScheduleState(now = new Date()) {
+            if (window.CC_RAMOWKA && typeof window.CC_RAMOWKA.getScheduleState === 'function') {
+                return window.CC_RAMOWKA.getScheduleState(now, {
+                    earlyFinishedSlots: earlyFinishedSlots,
+                    isSafeMonetizationMode: isSafeMonetizationMode
+                });
+            }
+            const state = getBaseScheduleState(now);
+            if (ccIsRestWindow(now) && CC_REST_SWAP[state.channel]) {
+                state.channel = CC_REST_SWAP[state.channel];
+            }
+            return state;
+        }
+
+        function getBaseScheduleState(now) {
+            const dayOfWeek = now.getDay(); // 0 = Niedziela, 5 = Piątek, 6 = Sobota
+            const hour = now.getHours();
+            const min = now.getMinutes();
+
+            let blockKey = "";
+            let channel = "";
+
+            // 1) 08:00 - 08:52: Studium Telewizyjne Pisma Świętego Poranek
+            if (hour === 8 && min < 52) {
+                blockKey = "08_studium";
+                channel = earlyFinishedSlots["08_studium"] ? "zapolske-live.html" : "studium-live.html";
+            }
+            // 2) 08:52 - 09:00: Zjednoczeni za Polskę Przedpołudnie
+            else if (hour === 8 && min >= 52) {
+                blockKey = "08_52_zapolske";
+                channel = "zapolske-live.html";
+            }
+            // 3) 09:00 - 09:06: Apokalipsa Dzień po Dniu Poranek
+            else if (hour === 9 && min < 6) {
+                blockKey = "09_apokalipsa";
+                channel = earlyFinishedSlots["09_apokalipsa"] ? "zapolske-live.html" : "apokalipsa-live.html";
+            }
+            // 4) 09:06 - 10:00: Zjednoczeni za Polskę Przedpołudnie
+            else if (hour === 9 && min >= 6) {
+                blockKey = "09_06_zapolske";
+                channel = "zapolske-live.html";
+            }
+            // 5) 10:00 - 10:55: Apokalipsa: Księga Nadziei
+            else if (hour === 10 && min < 55) {
+                blockKey = "10_ksiega_nadziei";
+                channel = earlyFinishedSlots["10_ksiega_nadziei"] ? "zapolske-live.html" : "apokalipsa-ksiega-nadziei-live.html";
+            }
+            // 6) 10:55 - 12:00: Zjednoczeni za Polskę (Pasmo Południowe)
+            else if ((hour === 10 && min >= 55) || hour === 11) {
+                blockKey = "11_zapolske_poludnie";
+                channel = "zapolske-live.html";
+            }
+            // 7) 12:00 - 13:00: Biblia Śpiewana (Wydanie Południowe)
+            else if (hour === 12) {
+                blockKey = "12_biblia_spiewana_poludnie";
+                channel = "biblia-spiewana-live.html";
+            }
+            // 8) 13:00 - 15:00: Pasmo Popołudniowe: Dobrze, że jesteś — Hity Osobowość PLUS & Christian Culture
+            else if (hour >= 13 && hour < 15) {
+                blockKey = "13_15_osobowoscplus";
+                channel = "spiewajmy-panu-live.html?playlist=PLQBdxcl9HBc8jNIM45udIp2N6ucvK75rW&brand=osobowoscplus";
+            }
+            // 9) 15:00 - 15:06: Apokalipsa Dzień po Dniu Popołudnie
+            else if (hour === 15 && min < 6) {
+                blockKey = "15_apokalipsa";
+                channel = earlyFinishedSlots["15_apokalipsa"] ? "biblia-spiewana-live.html" : "apokalipsa-live.html";
+            }
+            // 10) 15:06 - 16:00: Osobowość PLUS & CC — Utwory Chwały i Przebudzenia
+            else if (hour === 15 && min >= 6) {
+                blockKey = "15_06_osobowoscplus";
+                channel = "spiewajmy-panu-live.html?playlist=PLQBdxcl9HBc8jNIM45udIp2N6ucvK75rW&brand=osobowoscplus";
+            }
+            // 11) 16:00 - 18:00: Śpiewajmy Panu — Codzienne Uwielbienie CCTV24 (538 Utworów Chwały)
+            else if (hour >= 16 && hour < 18) {
+                blockKey = "16_18_spiewajmy_panu";
+                channel = "spiewajmy-panu-live.html?playlist=PLHy3TNFso_uLnL_I1TPR4d35H6FuSVIUW&brand=cctv";
+            }
+            // 12) 18:00 - 20:00: Pasmo Wieczorne
+            else if (hour >= 18 && hour < 20) {
+                blockKey = "18_20_evening_" + dayOfWeek;
+                if (dayOfWeek === 0) channel = isSafeMonetizationMode ? "biblia-spiewana-live.html" : "swiadectwa-live.html";
+                else if (dayOfWeek === 6) channel = "spiewajmy-panu-live.html?mix=1"; // Sobotni Wieczór Chwały — Muzyczny Mikser CC (O+ & CCTV24 & Radio CC)
+                else if (dayOfWeek === 5) channel = "spiewajmy-panu-live.html?playlist=PLHy3TNFso_uLnL_I1TPR4d35H6FuSVIUW&brand=cctv"; // Piątkowy wieczór uwielbienia
+                else if (dayOfWeek === 2 || dayOfWeek === 4) channel = "spiewajmy-panu-live.html?mix=1"; // Wt i Czw: Wieczór Chwały — mikser (urozmaicenie)
+                else channel = isSafeMonetizationMode ? "biblia-spiewana-live.html" : "totalny-atak-live.html";
+            }
+            // 13) 20:00 - 20:52: Studium Telewizyjne Pisma Świętego Wieczór
+            else if (hour === 20 && min < 52) {
+                blockKey = "20_studium";
+                channel = earlyFinishedSlots["20_studium"] ? "biblia-spiewana-live.html" : "studium-live.html";
+            }
+            // 14) 20:52 - 21:00: Biblia Śpiewana
+            else if (hour === 20 && min >= 52) {
+                blockKey = "20_52_biblia_spiewana";
+                channel = "biblia-spiewana-live.html";
+            }
+            // 15) 21:00 - 21:06: Apokalipsa Dzień po Dniu Wieczór
+            else if (hour === 21 && min < 6) {
+                blockKey = "21_apokalipsa";
+                channel = earlyFinishedSlots["21_apokalipsa"] ? "biblia-spiewana-live.html" : "apokalipsa-live.html";
+            }
+            // 16) 21:06 - 22:00: Biblia Śpiewana (Finał Dnia)
+            else if (hour === 21 && min >= 6) {
+                blockKey = "21_06_biblia_spiewana";
+                channel = "biblia-spiewana-live.html";
+            }
+            // 17) 22:00 - 22:55: Randki & Małżeństwo (Pt, Sob, Ndz) lub Apokalipsa: Księga Nadziei (Pon - Czw)
+            else if (hour === 22 && min < 55) {
+                const isWeekendNight = (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0);
+                blockKey = "22_special_" + (isWeekendNight ? "randki" : "ksiega");
+                const targetSpecial = isWeekendNight ? "randki-malzenstwo-live.html" : "apokalipsa-ksiega-nadziei-live.html";
+                channel = earlyFinishedSlots[blockKey] ? (isSafeMonetizationMode ? "biblia-spiewana-live.html" : "nocne-czuwanie-live.html") : targetSpecial;
+            }
+            // 18) 06:00 - 08:00: Zjednoczeni za Polskę Poranek
+            else if (hour >= 6 && hour < 8) {
+                blockKey = "06_08_zapolske_poranek";
+                channel = "zapolske-live.html";
+            }
+            // 19) 22:55 - 06:00: Nocne Czuwanie & Worship (W trybie bezpiecznym: autorska Biblia Śpiewana CC)
+            else {
+                blockKey = "night_nocne_czuwanie";
+                channel = isSafeMonetizationMode ? "biblia-spiewana-live.html" : "nocne-czuwanie-live.html";
+            }
+
+            return { blockKey, channel };
+        }
+
+        // 🛡️ STRAŻNIK EMISJI (2026-10-08)
+        let ccSlotsDay = new Date().toDateString();
+        let ccSwitchStartedAt = 0;
+        window.ccBroadcastLog = window.ccBroadcastLog || [];
+        function ccNote(msg) {
+            window.ccBroadcastLog.push(new Date().toISOString() + ' ' + msg);
+            if (window.ccBroadcastLog.length > 50) window.ccBroadcastLog.shift();
+            console.warn('[MCR Strażnik] ' + msg);
+        }
+
+        function checkSchedule() {
+            // Nowy dzień = nowa ramówka. Wcześniej znacznik „blok skończył się wcześniej” zostawał na
+            // zawsze i np. poranne Studium było pomijane każdego kolejnego dnia aż do przeładowania.
+            const ccToday = new Date().toDateString();
+            if (ccToday !== ccSlotsDay) { ccSlotsDay = ccToday; earlyFinishedSlots = {}; }
+            if (isSwitchingWithBumper) {
+                // Przejście z przebitką trwa ok. 8 s; jeśli „wisi” dłużej niż 30 s — odblokowujemy ramówkę.
+                if (ccSwitchStartedAt && Date.now() - ccSwitchStartedAt > 30000) {
+                    ccNote('przejście zawisło — odblokowuję ramówkę');
+                    clearSwitchTimers();
+                    isSwitchingWithBumper = false;
+                    bumperOverlay.classList.remove('show');
+                    bumperOverlay.style.opacity = '1';
+                } else return;
+            }
+
+            const now = new Date();
+            const { blockKey, channel } = getScheduleState(now);
+
+            if (currentBlockKey === null) {
+                // Initial load
+                currentBlockKey = blockKey;
+                switchChannel(channel);
+            } else if (currentBlockKey !== blockKey) {
+                console.log("MCR: Przejście do nowego bloku ramówkowego [" + currentBlockKey + " -> " + blockKey + "]: " + channel);
+                currentBlockKey = blockKey;
+                // Force transition with bumper overlay for new scheduled block
+                switchChannel(channel, true);
+            } else if (currentUrl !== channel) {
+                console.log("MCR: Wymiana kanału w ramach bloku [" + blockKey + "]: " + currentUrl + " -> " + channel);
+                switchChannel(channel);
+            }
+        }
+
+        let switchTimers = [];
+        function clearSwitchTimers() {
+            while (switchTimers.length > 0) {
+                clearTimeout(switchTimers.pop());
+            }
+        }
+
+        function switchChannel(newChannel, force = false) {
+            if (currentUrl === newChannel && !force) return;
+            clearSwitchTimers();
+            console.log("MCR: Przełączanie kanału na " + newChannel + (force ? " (wymuszone przejście do nowego bloku)" : ""));
+            status.textContent = "MCR: " + newChannel;
+            const isFirstLoad = (currentUrl === null);
+            currentUrl = newChannel;
+
+            const cleanChannelKey = newChannel.split('?')[0];
+            let meta = programMeta[cleanChannelKey] || {
+                title: "PROGRAM CHRISTIAN CULTURE",
+                desc: "Emisja na żywo w Christian Culture TV"
+            };
+            if (newChannel.includes('osobowoscplus') || newChannel.includes('PLQBdxcl9HBc8jNIM45udIp2N6ucvK75rW')) {
+                meta = {
+                    title: "OSOBOWOŚĆ PLUS & CC — HITY I PIEŚNI CHWAŁY",
+                    desc: "Najlepsze autorskie utwory i pieśni budzenia z kanału Osobowość PLUS oraz Christian Culture"
+                };
+            } else if (newChannel.includes('mix=1')) {
+                meta = {
+                    title: new Date().getDay() === 6 ? "SOBOTNI WIECZÓR CHWAŁY — MUZYCZNY MIKSER CC" : "WIECZÓR CHWAŁY — MUZYCZNY MIKSER CC",
+                    desc: "Rotacyjny miks utworów chwały i uwielbienia z kanałów Osobowość PLUS, CCTV24 i Radia CC"
+                };
+            }
+
+            // Update ticker titles
+            updateProgramTitles(meta.title);
+
+            const activeFrame = getActiveFrame();
+            const inactiveFrame = getInactiveFrame();
+
+            if (isFirstLoad) {
+                isSwitchingWithBumper = false;
+                silenceFrame(inactiveFrame, true);
+                if (inactiveFrame) inactiveFrame.src = 'about:blank';
+                // First load -> direct smooth load on Active Frame
+                const sepChar = newChannel.includes("?") ? "&" : "?";
+                const audioQuery = isMutedDefault ? "muted=1&autoplay=1" : "autoplay=1";
+                const safeParam = isSafeMonetizationMode ? "&safe_monetization=1" : "&safe_monetization=0";
+                activeFrame.src = newChannel + sepChar + audioQuery + "&in_mcr=1&noticker=1" + safeParam + "&t=" + Date.now();
+                fade.style.display = "block";
+                fade.style.opacity = "1";
+                switchTimers.push(setTimeout(() => {
+                    fade.style.opacity = "0";
+                    switchTimers.push(setTimeout(() => { fade.style.display = "none"; }, 800));
+                }, 600));
+            } else {
+                // Subsequent program switches -> Launch Video Bumper + Dual-Iframe Preload without audio overlap
+                isSwitchingWithBumper = true;
+                ccSwitchStartedAt = Date.now();
+                bumperTitle.textContent = meta.title;
+                bumperDesc.textContent = meta.desc;
+                
+                bumperProgress.style.transition = 'none';
+                bumperProgress.style.width = '0%';
+
+                // 1) Silence & pause both outgoing and preloading frames immediately
+                silenceFrame(activeFrame, true);
+                silenceFrame(inactiveFrame, true);
+                if (inactiveFrame) inactiveFrame.src = 'about:blank';
+
+                // 2) Show bumper overlay and play transition video
+                bumperOverlay.style.opacity = '1';
+                bumperOverlay.classList.add('show');
+                try {
+                    bumperVideo.currentTime = 0;
+                    bumperVideo.muted = isMutedDefault;
+                    const playPromise = bumperVideo.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(err => {
+                            console.log("MCR Video Bumper autoplay muted fallback:", err);
+                            bumperVideo.muted = true;
+                            bumperVideo.play().catch(() => {});
+                        });
+                    }
+                } catch(e) {
+                    console.error("Video Bumper play error:", e);
+                }
+
+                // 3) Preload incoming channel at T=500ms strictly MUTED so it buffers without audio bleed
+                switchTimers.push(setTimeout(() => {
+                    const sep = newChannel.includes('?') ? '&' : '?';
+                    const safeParam = isSafeMonetizationMode ? "&safe_monetization=1" : "&safe_monetization=0";
+                    inactiveFrame.src = newChannel + sep + "muted=1&autoplay=1&in_mcr=1&noticker=1" + safeParam + "&t=" + Date.now();
+                }, 500));
+
+                // 4) Determine video duration (default 8s fallback)
+                const durationSec = (bumperVideo.duration && !isNaN(bumperVideo.duration) && bumperVideo.duration > 2) ? bumperVideo.duration : 8;
+
+                switchTimers.push(setTimeout(() => {
+                    bumperProgress.style.transition = `width ${durationSec}s linear`;
+                    bumperProgress.style.width = '100%';
+                }, 50));
+
+                // 5) Silence & unload outgoing channel + bumper BEFORE unmuting incoming channel
+                const switchLeadTime = Math.max((durationSec - 0.5) * 1000, 3000);
+
+                switchTimers.push(setTimeout(() => {
+                    try {
+                        if (bumperVideo) {
+                            bumperVideo.pause();
+                            bumperVideo.muted = true;
+                        }
+                    } catch(e) {}
+
+                    // Stop and clear outgoing frame first so two audio streams never overlap
+                    silenceFrame(activeFrame, true);
+                    if (activeFrame) activeFrame.src = 'about:blank';
+
+                    inactiveFrame.classList.remove('inactive');
+                    inactiveFrame.classList.add('active');
+
+                    activeFrame.classList.remove('active');
+                    activeFrame.classList.add('inactive');
+
+                    // Swap index pointer before applying target audio state
+                    activeFrameIndex = activeFrameIndex === 0 ? 1 : 0;
+
+                    if (!isMutedDefault) {
+                        unmuteFrame(inactiveFrame);
+                    } else {
+                        silenceFrame(inactiveFrame, false);
+                    }
+
+                    // Fade out bumper overlay smoothly
+                    bumperOverlay.style.opacity = '0';
+
+                    switchTimers.push(setTimeout(() => {
+                        bumperOverlay.classList.remove('show');
+                        bumperOverlay.style.opacity = '1';
+                        bumperProgress.style.width = '0%';
+                        isSwitchingWithBumper = false;
+                    }, 600));
+
+                }, switchLeadTime));
+            }
+        }
+
+        // ── CCN CLOCK & CALENDAR ──
+        function updateCcnClock() {
+            const timeEl = document.getElementById('ccnClockTime');
+            const dateEl = document.getElementById('ccnClockDate');
+            if (!timeEl || !dateEl) return;
+            const now = new Date();
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            const ss = String(now.getSeconds()).padStart(2, '0');
+            timeEl.textContent = `${hh}:${mm}:${ss}`;
+
+            const isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
+            const monthsPl = ['STY', 'LUT', 'MAR', 'KWI', 'MAJ', 'CZE', 'LIP', 'SIE', 'WRZ', 'PAŹ', 'LIS', 'GRU'];
+            const monthsEn = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+            const months = isEn ? monthsEn : monthsPl;
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+            dateEl.textContent = `${day} ${month}`;
+        }
+        updateCcnClock();
+        setInterval(updateCcnClock, 1000);
+        setInterval(() => { 
+            const f = getActiveFrame();
+            suppressSubframeTicker(f);
+            applySubframeLanguage(f);
+        }, 2000);
+
+        // ── SUPPRESS SUB-CHANNEL TICKERS (ENSURE ONLY 1 CCN NEWS LOWER THIRD) ──
+        function suppressSubframeTicker(frame) {
+            if (!frame) return;
+            try {
+                const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+                if (doc) {
+                    if (doc.documentElement) doc.documentElement.classList.add('inside-iframe', 'no-ticker');
+                    if (doc.body) doc.body.classList.add('inside-iframe', 'no-ticker');
+
+                    // @007 2026-11-17: w Master Live kanały dostają kolor misji (pomarańcz CC) zamiast żółtego/złotego
+                    if (doc.head && !doc.getElementById('ml-cc-orange-palette')) {
+                        const pal = doc.createElement('style');
+                        pal.id = 'ml-cc-orange-palette';
+                        pal.textContent = ':root{--gold-primary:#FF8C33 !important;--gold-dark:#E66A00 !important;--breakfast-accent:#FF7A00 !important;--accent-gold:#FF8C33 !important;--gold:#FF8C33 !important}'
+                            // czytelność rozważania: ciemniejsze tło karty, prosty krój tytułu, jaśniejszy tekst
+                            + '.reflection-canvas-card{background:rgba(6,8,14,.86) !important;border-color:rgba(255,122,0,.45) !important}'
+                            + '.slide-title{font-family:"Outfit","Segoe UI",sans-serif !important;font-weight:800 !important;letter-spacing:0 !important;line-height:1.22 !important;font-variant:normal !important;color:#fff !important}'
+                            + '.slide-text,.slide-text *{color:#fff !important;font-weight:500 !important;line-height:1.5 !important}'
+                            + '.slide-text{text-shadow:0 1px 3px rgba(0,0,0,.7)}'
+                            + '.slide-tag{letter-spacing:1.5px !important}'
+                            // okno rozważania wyśrodkowane między paskami Master Live (nie dotyka górnej belki)
+                            // bez srebrnego paska przewijania w oknie rozważania (L0)
+                            + '.reflection-canvas-card,.reflection-canvas-card *{scrollbar-width:none !important;-ms-overflow-style:none !important}'
+                            + '.reflection-canvas-card ::-webkit-scrollbar,.reflection-canvas-card::-webkit-scrollbar{display:none !important;width:0 !important;height:0 !important}'
+                            + 'html body .right-panel .reflection-canvas-card.live-window-card{height:660px !important;max-height:660px !important;position:relative !important;top:120px !important}';
+                        doc.head.appendChild(pal);
+                    }
+
+                    try {
+                        const so = doc.getElementById("startOverlay") || doc.querySelector(".start-overlay");
+                        if (so) so.style.display = "none";
+                    } catch(e) {}
+                    if (!doc.getElementById('ccn-master-ticker-suppressor')) {
+                        const style = doc.createElement('style');
+                        style.id = 'ccn-master-ticker-suppressor';
+                        style.textContent = `
+                            footer, .footer, .footer-ticker, .ticker-popup-tab,
+                            .bottom-ticker-bar, .tv24-ticker-system, .worship-live-ticker,
+                            .lumina-master-ticker, .ticker-wrap, .radio-ticker-wrap,
+                            .top-header-bar, .top-header, .header-bar, .channel-header-bar,
+                            .episode-badge-box, #episode-badge-box,
+                            #startOverlay, .start-overlay, #masterUnmuteBanner {
+                                display: none !important;
+                                opacity: 0 !important;
+                                pointer-events: none !important;
+                                visibility: hidden !important;
+                                height: 0 !important;
+                            }
+                            body, html {
+                                padding-bottom: 0 !important;
+                                margin-bottom: 0 !important;
+                                padding-top: 0 !important;
+                                margin-top: 0 !important;
+                            }
+                            #ccLiveViewerChat {
+                                left: 96px !important;
+                                right: auto !important;
+                                bottom: 189px !important;
+                                top: auto !important;
+                            }
+                            #livePrayerOverlay {
+                                left: 96px !important;
+                                bottom: 189px !important;
+                            }
+                        `;
+                        (doc.head || doc.documentElement).appendChild(style);
+                    }
+                }
+            } catch(e) {
+                // Cross-origin fallback (postMessage or query params handled)
+            }
+        }
+
+        function applySubframeLanguage(frame) {
+            if (!frame) return;
+            try {
+                const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+                if (!doc) return;
+                const isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
+                
+                // 1. Prayer Title & Badge
+                const prayerTitle = doc.getElementById('livePrayerHeaderTitle') || doc.querySelector('#livePrayerOverlay span:first-child');
+                if (prayerTitle) {
+                    prayerTitle.innerHTML = isEn 
+                        ? '<i class="fa-solid fa-hands-praying"></i> COMMUNITY PRAYER LIVE' 
+                        : '<i class="fa-solid fa-hands-praying"></i> WSPÓLNA MODLITWA LIVE';
+                }
+                const prayerBadge = doc.getElementById('livePrayerHeaderBadge') || doc.querySelector('#livePrayerOverlay span:nth-child(2)');
+                if (prayerBadge) {
+                    prayerBadge.textContent = isEn ? 'NOW' : 'TERAZ';
+                }
+
+                // 2. Fallback Prayer text & author
+                const prayerText = doc.getElementById('livePrayerText');
+                if (prayerText && prayerText.textContent) {
+                    if (isEn) {
+                        if (prayerText.textContent.includes('Módlmy się o pokój')) {
+                            prayerText.textContent = '„Let us pray for peace and security for our Homeland and for all who guard her borders.”';
+                        } else if (prayerText.textContent.includes('Panie, daj nam mądrość')) {
+                            prayerText.textContent = '„Lord, grant us wisdom, courage and unity in this challenging time.”';
+                        }
+                    } else {
+                        if (prayerText.textContent.includes('Let us pray for peace')) {
+                            prayerText.textContent = '„Módlmy się o pokój i bezpieczeństwo dla naszej Ojczyzny oraz wszystkich strzegących jej granic.”';
+                        } else if (prayerText.textContent.includes('Lord, grant us wisdom')) {
+                            prayerText.textContent = '„Panie, daj nam mądrość, odwagę i jedność w tym trudnym czasie.”';
+                        }
+                    }
+                }
+                const prayerAuthor = doc.getElementById('livePrayerAuthor');
+                if (prayerAuthor && prayerAuthor.textContent) {
+                    if (isEn) {
+                        prayerAuthor.textContent = prayerAuthor.textContent
+                            .replace(/Wspólnota,\s*Polska/i, 'Community, Poland')
+                            .replace(/Redakcja,\s*Christian Culture/i, 'Editorial Team, Christian Culture')
+                            .replace(/na żywo z LUMI Messenger/i, 'live from LUMI Messenger');
+                    } else {
+                        prayerAuthor.textContent = prayerAuthor.textContent
+                            .replace(/Community,\s*Poland/i, 'Wspólnota, Polska')
+                            .replace(/Editorial Team,\s*Christian Culture/i, 'Redakcja, Christian Culture')
+                            .replace(/live from LUMI Messenger/i, 'na żywo z LUMI Messenger');
+                    }
+                }
+
+                // 3. Cycle Badge in reflection footer
+                const cycleBadge = doc.getElementById('cycleBadge');
+                if (cycleBadge && cycleBadge.textContent) {
+                    if (isEn) {
+                        cycleBadge.textContent = cycleBadge.textContent
+                            .replace(/Dzień\s*(\d+)/i, 'Day $1')
+                            .replace(/Z Biblią za pan brat/i, 'Walking with the Bible');
+                    } else {
+                        cycleBadge.textContent = cycleBadge.textContent
+                            .replace(/Day\s*(\d+)/i, 'Dzień $1')
+                            .replace(/Walking with the Bible/i, 'Z Biblią za pan brat');
+                    }
+                }
+
+                // 4. Slide Tags & Titles
+                doc.querySelectorAll('.slide-tag span, .slide-tag').forEach(tag => {
+                    const t = tag.textContent.trim();
+                    if (isEn) {
+                        if (t === 'Słowo Wprowadzenia') tag.textContent = 'Daily Devotion';
+                        else if (t === 'Dzień dzisiejszy') tag.textContent = 'Today\'s Word';
+                        else if (t === 'Słowo Pana') tag.textContent = 'Word of the Lord';
+                        else if (t === 'Zadanie Taktyczne') tag.textContent = 'Action for Today';
+                        else if (t === 'Zabezpieczenie Dnia') tag.textContent = 'Daily Protection';
+                        else if (t.includes('ROZWAŻANIE NA ŻYWO')) tag.textContent = t.replace('NA ŻYWO · ROZWAŻANIE', 'LIVE · DEVOTION');
+                    } else {
+                        if (t === 'Daily Devotion') tag.textContent = 'Słowo Wprowadzenia';
+                        else if (t === 'Today\'s Word') tag.textContent = 'Dzień dzisiejszy';
+                        else if (t === 'Word of the Lord') tag.textContent = 'Słowo Pana';
+                        else if (t === 'Action for Today') tag.textContent = 'Zadanie Taktyczne';
+                        else if (t === 'Daily Protection') tag.textContent = 'Zabezpieczenie Dnia';
+                        else if (t.includes('LIVE · DEVOTION')) tag.textContent = t.replace('LIVE · DEVOTION', 'NA ŻYWO · ROZWAŻANIE');
+                    }
+                });
+
+                doc.querySelectorAll('.slide-title').forEach(title => {
+                    const t = title.textContent.trim();
+                    if (isEn) {
+                        if (t === 'Duchowy Horyzont') title.textContent = 'Spiritual Horizon';
+                        else if (t === 'Jezus mówi do Ciebie') title.textContent = 'Jesus Speaks to You';
+                        else if (t === 'Praktyka i Czyn') title.textContent = 'Faith in Action';
+                        else if (t === 'Oręż Modlitewny') title.textContent = 'Armor of Prayer';
+                    } else {
+                        if (t === 'Spiritual Horizon') title.textContent = 'Duchowy Horyzont';
+                        else if (t === 'Jesus Speaks to You') title.textContent = 'Jezus mówi do Ciebie';
+                        else if (t === 'Faith in Action') title.textContent = 'Praktyka i Czyn';
+                        else if (t === 'Armor of Prayer') title.textContent = 'Oręż Modlitewny';
+                    }
+                });
+
+                // 5. Chat senders
+                doc.querySelectorAll('.chat-sender-name').forEach(s => {
+                    const t = s.textContent.trim();
+                    if (isEn && t === 'PISMO ŚWIĘTE') s.textContent = 'HOLY SCRIPTURE';
+                    else if (!isEn && t === 'HOLY SCRIPTURE') s.textContent = 'PISMO ŚWIĘTE';
+                });
+            } catch(e) {}
+        }
+
+        function updateProgramTitles(titleText) {
+            if (!titleText) return;
+            document.querySelectorAll('.dynamic-current-program').forEach(el => {
+                el.textContent = titleText;
+            });
+        }
+
+        // Unmute banner controls
+        function hideMasterBanner() {
+            const banner = document.getElementById('masterUnmuteBanner');
+            if (banner) {
+                banner.style.transition = 'opacity 0.6s ease';
+                banner.style.opacity = '0';
+                setTimeout(() => { banner.style.display = 'none'; }, 600);
+            }
+        }
+
+        // Forward click/touch interaction to unmute nested iframes & video bumper
+        function silenceFrame(frame, shouldPause = false) {
+            if (!frame) return;
+            try {
+                const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+                if (doc) {
+                    doc.querySelectorAll('audio, video').forEach(m => {
+                        m.muted = true;
+                        if (shouldPause) {
+                            try { m.pause(); } catch(err) {}
+                        }
+                    });
+                }
+            } catch(err) {}
+            if (frame.contentWindow) {
+                try {
+                    frame.contentWindow.postMessage({ type: 'MUTE_AUDIO' }, '*');
+                    frame.contentWindow.postMessage('MUTE_AUDIO', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+                    if (shouldPause) {
+                        frame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                        frame.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+                    }
+                } catch(err) {}
+            }
+        }
+
+        function unmuteFrame(frame) {
+            if (!frame) return;
+            try {
+                const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+                if (doc) {
+                    doc.querySelectorAll('audio, video').forEach(m => {
+                        if (m.id === 'ccWorshipFallbackAudio' && m.paused) return;
+                        m.muted = false;
+                        m.volume = 1.0;
+                        if (m.id !== 'ccWorshipFallbackAudio') {
+                            m.play().catch(() => {});
+                        }
+                    });
+                }
+            } catch(err) {}
+            if (frame.contentWindow) {
+                try {
+                    frame.contentWindow.postMessage({ type: 'UNMUTE_AUDIO' }, '*');
+                    frame.contentWindow.postMessage('UNMUTE_AUDIO', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[100]}', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"unloadModule","args":["captions"]}', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"unloadModule","args":["cc"]}', '*');
+                    frame.contentWindow.postMessage('{"event":"command","func":"setOption","args":["captions","track",{}]}', '*');
+                } catch(err) {}
+            }
+        }
+
+        function updateMuteUi() {
+            const isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
+            const icon = document.getElementById('masterMuteIcon');
+            const text = document.getElementById('masterMuteText');
+            const btn = document.getElementById('masterMuteToggleBtn');
+            const banner = document.getElementById('masterUnmuteBanner');
+            const audioOverlay = document.getElementById('masterAudioActivationOverlay');
+            if (isMutedDefault) {
+                if (icon) icon.className = 'fa-solid fa-volume-xmark';
+                if (text) text.textContent = isEn ? 'MUTED' : 'WYCISZONY';
+                if (btn) {
+                    btn.classList.remove('is-active');
+                    btn.setAttribute('title', isEn ? 'Unmute live audio' : 'Włącz dźwięk transmisji');
+                    btn.setAttribute('aria-label', isEn ? 'Unmute live audio' : 'Włącz dźwięk transmisji');
+                }
+                if (banner && !isEmbedMode) {
+                    banner.style.display = 'flex';
+                    banner.style.opacity = '1';
+                }
+                if (audioOverlay && !isEmbedMode) {
+                    audioOverlay.style.display = 'block';
+                }
+            } else {
+                if (icon) icon.className = 'fa-solid fa-volume-high';
+                if (text) text.textContent = isEn ? 'SOUND: ON' : 'DŹWIĘK: WŁ';
+                if (btn) {
+                    btn.classList.add('is-active');
+                    btn.setAttribute('title', isEn ? 'Mute live audio' : 'Wycisz dźwięk transmisji');
+                    btn.setAttribute('aria-label', isEn ? 'Mute live audio' : 'Wycisz dźwięk transmisji');
+                }
+                if (banner) {
+                    banner.style.display = 'none';
+                }
+                if (audioOverlay) {
+                    audioOverlay.style.display = 'none';
+                }
+            }
+        }
+
+        function toggleMasterAudio(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            if (isMutedDefault) {
+                unmuteSubframe();
+            } else {
+                muteSubframe();
+            }
+        }
+
+        function unmuteSubframe() {
+            isMutedDefault = false;
+            hideMasterBanner();
+            const audioOverlay = document.getElementById('masterAudioActivationOverlay');
+            if (audioOverlay) audioOverlay.style.display = 'none';
+            try {
+                silenceFrame(getInactiveFrame(), true);
+                if (isSwitchingWithBumper) {
+                    if (bumperVideo && !bumperVideo.paused) {
+                        bumperVideo.muted = false;
+                    }
+                    return;
+                }
+                if (bumperVideo) {
+                    bumperVideo.muted = true;
+                    try { bumperVideo.pause(); } catch(err) {}
+                }
+                unmuteFrame(getActiveFrame());
+            } catch(e) {}
+            updateMuteUi();
+        }
+
+        function muteSubframe() {
+            isMutedDefault = true;
+            try {
+                if (bumperVideo) {
+                    bumperVideo.muted = true;
+                }
+                silenceFrame(frameA, false);
+                silenceFrame(frameB, false);
+            } catch(e) {}
+            updateMuteUi();
+        }
+
+        // ── I18N BILINGUAL SYSTEM (PL <-> EN) ──
+        const DEKALOG_HTML_PL = `
+<div class="dekalog-segment">
+    <div class="dekalog-item">
+        <span class="dekalog-num"><i class="fa-solid fa-book-bible"></i></span>
+        <span class="dekalog-text"><strong>Dziesięć przykazań Bożych wg Biblii w tł. ks. Jakuba Wujka (BJW)</strong></span>
+        <span class="dekalog-separator">✦</span>
+    </div>
+    <div class="dekalog-item"><span class="dekalog-num">I.</span><span class="dekalog-text">Nie będziesz miał bogów cudzych przede mną.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">II.</span><span class="dekalog-text">Nie uczynisz sobie obrazu rytego ani żadnej podobizny tego, co jest na niebie w górze i co na ziemi nisko, ani z tych rzeczy, które są w wodach pod ziemią. Nie będziesz się im kłaniał ani służył. Ja jestem Pan, Bóg twój, mocny, zawistny, karzący nieprawość ojców na synach do trzeciego i czwartego pokolenia tych, którzy mnie nienawidzą; a czyniący miłosierdzie tysiącom tych, którzy mię miłują i strzegą przykazań moich.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">III.</span><span class="dekalog-text">Nie będziesz brał imienia Pana, Boga twego, nadaremno; bo nie będzie miał Pan za niewinnego tego, który by wziął imię Pana, Boga swego, nadaremno.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">IV.</span><span class="dekalog-text">Pamiętaj, abyś dzień sobotni święcił. Sześć dni robic będziesz i będziesz wykonywał wszystkie roboty twoje; ale dnia siódmego sabat Pana, Boga twego, jest: nie będziesz wykonywał weń żadnej roboty, ty i syn twój, i córka twoja, sługa twój i służebnica twoja, bydlę twoje i gość, który jest między bramami twymi. Przez sześć dni bowiem czynił Pan niebo i ziemię, i morze, i wszystko, co w nich jest, a odpoczął dnia siódmego; i dlatego pobłogosławił Pan dniowi sobotniemu i poświęcił go.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">V.</span><span class="dekalog-text">Czcij ojca twego i matkę twoją, abyś długo żył na ziemi, którą Pan, Bóg twój, da tobie.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VI.</span><span class="dekalog-text">Nie będziesz zabijał.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VII.</span><span class="dekalog-text">Nie będziesz cudzołożył.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VIII.</span><span class="dekalog-text">Nie będziesz kradł.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">IX.</span><span class="dekalog-text">Nie będziesz mówił przeciw bliźniemu twemu świadectwa fałszywego.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">X.</span><span class="dekalog-text">Nie będziesz pożądał domu bliźniego twego, ani będziesz pragnął żony jego, ani sługi, ani służebnicy, ani wołu, ani osła, ani żadnej rzeczy, która jego jest.</span><span class="dekalog-separator">✦</span></div>
+</div>
+<!-- SET 2 -->
+<div class="dekalog-segment">
+    <div class="dekalog-item">
+        <span class="dekalog-num"><i class="fa-solid fa-book-bible"></i></span>
+        <span class="dekalog-text"><strong>Dziesięć przykazań Bożych wg Biblii w tł. ks. Jakuba Wujka (BJW)</strong></span>
+        <span class="dekalog-separator">✦</span>
+    </div>
+    <div class="dekalog-item"><span class="dekalog-num">I.</span><span class="dekalog-text">Nie będziesz miał bogów cudzych przede mną.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">II.</span><span class="dekalog-text">Nie uczynisz sobie obrazu rytego ani żadnej podobizny tego, co jest na niebie w górze i co na ziemi nisko, ani z tych rzeczy, które są w wodach pod ziemią. Nie będziesz się im kłaniał ani służył. Ja jestem Pan, Bóg twój, mocny, zawistny, karzący nieprawość ojców na synach do trzeciego i czwartego pokolenia tych, którzy mnie nienawidzą; a czyniący miłosierdzie tysiącom tych, którzy mię miłują i strzegą przykazań moich.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">III.</span><span class="dekalog-text">Nie będziesz brał imienia Pana, Boga twego, nadaremno; bo nie będzie miał Pan za niewinnego tego, który by wziął imię Pana, Boga swego, nadaremno.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">IV.</span><span class="dekalog-text">Pamiętaj, abyś dzień sobotni święcił. Sześć dni robic będziesz i będziesz wykonywał wszystkie roboty twoje; ale dnia siódmego sabat Pana, Boga twego, jest: nie będziesz wykonywał weń żadnej roboty, ty i syn twój, i córka twoja, sługa twój i służebnica twoja, bydlę twoje i gość, który jest między bramami twymi. Przez sześć dni bowiem czynił Pan niebo i ziemię, i morze, i wszystko, co w nich jest, a odpoczął dnia siódmego; i dlatego pobłogosławił Pan dniowi sobotniemu i poświęcił go.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">V.</span><span class="dekalog-text">Czcij ojca twego i matkę twoją, abyś długo żył na ziemi, którą Pan, Bóg twój, da tobie.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VI.</span><span class="dekalog-text">Nie będziesz zabijał.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VII.</span><span class="dekalog-text">Nie będziesz cudzołożył.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VIII.</span><span class="dekalog-text">Nie będziesz kradł.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">IX.</span><span class="dekalog-text">Nie będziesz mówił przeciw bliźniemu twemu świadectwa fałszywego.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">X.</span><span class="dekalog-text">Nie będziesz pożądał domu bliźniego twego, ani będziesz pragnął żony jego, ani sługi, ani służebnicy, ani wołu, ani osła, ani żadnej rzeczy, która jego jest.</span><span class="dekalog-separator">✦</span></div>
+</div>`;
+
+        const DEKALOG_HTML_EN = `
+<div class="dekalog-segment">
+    <div class="dekalog-item">
+        <span class="dekalog-num"><i class="fa-solid fa-book-bible"></i></span>
+        <span class="dekalog-text"><strong>The Ten Commandments of God according to the Holy Scriptures</strong></span>
+        <span class="dekalog-separator">✦</span>
+    </div>
+    <div class="dekalog-item"><span class="dekalog-num">I.</span><span class="dekalog-text">You shall have no other gods before Me.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">II.</span><span class="dekalog-text">You shall not make for yourself a carved image, or any likeness of anything that is in heaven above or that is in the earth beneath. You shall not bow down to them nor serve them. For I, the Lord your God, am a jealous God.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">III.</span><span class="dekalog-text">You shall not take the name of the Lord your God in vain, for the Lord will not hold him guiltless who takes His name in vain.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">IV.</span><span class="dekalog-text">Remember the Sabbath day, to keep it holy. Six days you shall labor and do all your work, but the seventh day is the Sabbath of the Lord your God. For in six days the Lord made the heavens and the earth, the sea, and all that is in them, and rested the seventh day.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">V.</span><span class="dekalog-text">Honor your father and your mother, that your days may be long upon the land which the Lord your God is giving you.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VI.</span><span class="dekalog-text">You shall not murder.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VII.</span><span class="dekalog-text">You shall not commit adultery.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VIII.</span><span class="dekalog-text">You shall not steal.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">IX.</span><span class="dekalog-text">You shall not bear false witness against your neighbor.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">X.</span><span class="dekalog-text">You shall not covet your neighbor's house; you shall not covet your neighbor's wife, nor his manservant, nor his maidservant, nor his ox, nor his donkey, nor anything that is your neighbor's.</span><span class="dekalog-separator">✦</span></div>
+</div>
+<!-- SET 2 -->
+<div class="dekalog-segment">
+    <div class="dekalog-item">
+        <span class="dekalog-num"><i class="fa-solid fa-book-bible"></i></span>
+        <span class="dekalog-text"><strong>The Ten Commandments of God according to the Holy Scriptures</strong></span>
+        <span class="dekalog-separator">✦</span>
+    </div>
+    <div class="dekalog-item"><span class="dekalog-num">I.</span><span class="dekalog-text">You shall have no other gods before Me.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">II.</span><span class="dekalog-text">You shall not make for yourself a carved image, or any likeness of anything that is in heaven above or that is in the earth beneath. You shall not bow down to them nor serve them. For I, the Lord your God, am a jealous God.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">III.</span><span class="dekalog-text">You shall not take the name of the Lord your God in vain, for the Lord will not hold him guiltless who takes His name in vain.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">IV.</span><span class="dekalog-text">Remember the Sabbath day, to keep it holy. Six days you shall labor and do all your work, but the seventh day is the Sabbath of the Lord your God. For in six days the Lord made the heavens and the earth, the sea, and all that is in them, and rested the seventh day.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">V.</span><span class="dekalog-text">Honor your father and your mother, that your days may be long upon the land which the Lord your God is giving you.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VI.</span><span class="dekalog-text">You shall not murder.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VII.</span><span class="dekalog-text">You shall not commit adultery.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">VIII.</span><span class="dekalog-text">You shall not steal.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">IX.</span><span class="dekalog-text">You shall not bear false witness against your neighbor.</span><span class="dekalog-separator">✦</span></div>
+    <div class="dekalog-item"><span class="dekalog-num">X.</span><span class="dekalog-text">You shall not covet your neighbor's house; you shall not covet your neighbor's wife, nor his manservant, nor his maidservant, nor his ox, nor his donkey, nor anything that is your neighbor's.</span><span class="dekalog-separator">✦</span></div>
+</div>`;
+
+        const CCN_TICKER_HTML_PL = `
+<!-- SET 1 -->
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-now"><i class="fa-solid fa-tower-broadcast"></i> TERAZ W EMISJI</span>
+    <span><strong class="dynamic-current-program gold-text">BIBLIA ŚPIEWANA & WORSHIP 24/7</strong> — Całodobowa transmisja Słowa Bożego i pieśni chwały</span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-bible"><i class="fa-solid fa-book-bible"></i> DARMOWA BIBLIA PDF</span>
+    <span>Pobierz bezpłatny egzemplarz Pisma Świętego (UBG / Wujek) na <strong class="gold-text">polskieradio.cc/biblia-do-pobrania</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-sms"><i class="fa-solid fa-box-archive"></i> BIBLIA W DRUKU</span>
+    <span>Zamów bezpłatną drukowaną Biblię — wyślij SMS: <strong class="gold-text">BIBLIA</strong> pod numer <strong class="gold-text">507 821 789</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-lumina"><i class="fa-solid fa-globe"></i> PORTAL LUMINA</span>
+    <span>Pierwsza polska chrześcijańska platforma relacji i wartości — wolna od hejtu i komercji • Wejdź na <strong class="gold-text">polskieradio.cc/lumina</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-support"><i class="fa-solid fa-heart"></i> WSPARCIE MISJI</span>
+    <span>Zostań patronem: <strong class="gold-text">patronite.pl/osobowoscplus</strong> • BLIK: <strong class="gold-text">537 137 043</strong> • Nr konta: <strong class="gold-text">48 2910 0006 0000 0000 0527 2629</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-app"><i class="fa-solid fa-mobile-screen"></i> APLIKACJE CC</span>
+    <span>Pobierz aplikację mobilną <strong class="gold-text">„Dobrze, że jesteś”</strong> (Google Play) oraz PWA na <strong class="gold-text">cclite.pl</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-contact"><i class="fa-solid fa-envelope"></i> KONTAKT</span>
+    <span>Napisz do redakcji: <strong class="gold-text">polskiercctv@gmail.com</strong> | <strong class="gold-text">radiochristianculture@gmail.com</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-next"><i class="fa-solid fa-forward-step"></i> W RAMÓWCE</span>
+    <span><strong>Codzienne Uwielbienie • Apokalipsa Dzień po Dniu • Zjednoczeni za Polskę • Studium Biblijne</strong></span>
+    <span class="separator">✦</span>
+</div>
+<!-- SET 2 -->
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-now"><i class="fa-solid fa-tower-broadcast"></i> TERAZ W EMISJI</span>
+    <span><strong class="dynamic-current-program gold-text">BIBLIA ŚPIEWANA & WORSHIP 24/7</strong> — Całodobowa transmisja Słowa Bożego i pieśni chwały</span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-bible"><i class="fa-solid fa-book-bible"></i> DARMOWA BIBLIA PDF</span>
+    <span>Pobierz bezpłatny egzemplarz Pisma Świętego (UBG / Wujek) na <strong class="gold-text">polskieradio.cc/biblia-do-pobrania</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-sms"><i class="fa-solid fa-box-archive"></i> BIBLIA W DRUKU</span>
+    <span>Zamów bezpłatną drukowaną Biblię — wyślij SMS: <strong class="gold-text">BIBLIA</strong> pod numer <strong class="gold-text">507 821 789</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-lumina"><i class="fa-solid fa-globe"></i> PORTAL LUMINA</span>
+    <span>Pierwsza polska chrześcijańska platforma relacji i wartości — wolna od hejtu i komercji • Wejdź na <strong class="gold-text">polskieradio.cc/lumina</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-support"><i class="fa-solid fa-heart"></i> WSPARCIE MISJI</span>
+    <span>Zostań patronem: <strong class="gold-text">patronite.pl/osobowoscplus</strong> • BLIK: <strong class="gold-text">537 137 043</strong> • Nr konta: <strong class="gold-text">48 2910 0006 0000 0000 0527 2629</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-app"><i class="fa-solid fa-mobile-screen"></i> APLIKACJE CC</span>
+    <span>Pobierz aplikację mobilną <strong class="gold-text">„Dobrze, że jesteś”</strong> (Google Play) oraz PWA na <strong class="gold-text">cclite.pl</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-contact"><i class="fa-solid fa-envelope"></i> KONTAKT</span>
+    <span>Napisz do redakcji: <strong class="gold-text">polskiercctv@gmail.com</strong> | <strong class="gold-text">radiochristianculture@gmail.com</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-next"><i class="fa-solid fa-forward-step"></i> W RAMÓWCE</span>
+    <span><strong>Codzienne Uwielbienie • Apokalipsa Dzień po Dniu • Zjednoczeni za Polskę • Studium Biblijne</strong></span>
+    <span class="separator">✦</span>
+</div>`;
+
+        const CCN_TICKER_HTML_EN = `
+<!-- SET 1 -->
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-now"><i class="fa-solid fa-tower-broadcast"></i> ON AIR NOW</span>
+    <span><strong class="dynamic-current-program gold-text">SINGING BIBLE & WORSHIP 24/7</strong> — 24/7 continuous broadcast of God's Word and songs of praise</span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-bible"><i class="fa-solid fa-book-bible"></i> FREE BIBLE PDF</span>
+    <span>Download a free digital copy of the Holy Scriptures at <strong class="gold-text">polskieradio.cc/biblia-do-pobrania</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-sms"><i class="fa-solid fa-box-archive"></i> PRINTED BIBLE</span>
+    <span>Order a free printed Bible — send SMS: <strong class="gold-text">BIBLIA</strong> to <strong class="gold-text">+48 507 821 789</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-lumina"><i class="fa-solid fa-globe"></i> LUMINA PORTAL</span>
+    <span>The global Christian relational community — free of hate and commercialism • Visit <strong class="gold-text">polskieradio.cc/lumina</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-support"><i class="fa-solid fa-heart"></i> MISSION SUPPORT</span>
+    <span>Become a Patron: <strong class="gold-text">patronite.pl/osobowoscplus</strong> • Bank Account: <strong class="gold-text">48 2910 0006 0000 0000 0527 2629</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-app"><i class="fa-solid fa-mobile-screen"></i> CC APPS</span>
+    <span>Download mobile app <strong class="gold-text">"Glad You Are Here"</strong> (Google Play) & PWA at <strong class="gold-text">cclite.pl</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-contact"><i class="fa-solid fa-envelope"></i> CONTACT</span>
+    <span>Write to the editorial team: <strong class="gold-text">polskiercctv@gmail.com</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-next"><i class="fa-solid fa-forward-step"></i> ON SCHEDULE</span>
+    <span><strong>Daily Worship • Book of Revelation Day by Day • United for Poland • Bible Study</strong></span>
+    <span class="separator">✦</span>
+</div>
+<!-- SET 2 -->
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-now"><i class="fa-solid fa-tower-broadcast"></i> ON AIR NOW</span>
+    <span><strong class="dynamic-current-program gold-text">SINGING BIBLE & WORSHIP 24/7</strong> — 24/7 continuous broadcast of God's Word and songs of praise</span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-bible"><i class="fa-solid fa-book-bible"></i> FREE BIBLE PDF</span>
+    <span>Download a free digital copy of the Holy Scriptures at <strong class="gold-text">polskieradio.cc/biblia-do-pobrania</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-sms"><i class="fa-solid fa-box-archive"></i> PRINTED BIBLE</span>
+    <span>Order a free printed Bible — send SMS: <strong class="gold-text">BIBLIA</strong> to <strong class="gold-text">+48 507 821 789</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-lumina"><i class="fa-solid fa-globe"></i> LUMINA PORTAL</span>
+    <span>The global Christian relational community — free of hate and commercialism • Visit <strong class="gold-text">polskieradio.cc/lumina</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-support"><i class="fa-solid fa-heart"></i> MISSION SUPPORT</span>
+    <span>Become a Patron: <strong class="gold-text">patronite.pl/osobowoscplus</strong> • Bank Account: <strong class="gold-text">48 2910 0006 0000 0000 0527 2629</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-app"><i class="fa-solid fa-mobile-screen"></i> CC APPS</span>
+    <span>Download mobile app <strong class="gold-text">"Glad You Are Here"</strong> (Google Play) & PWA at <strong class="gold-text">cclite.pl</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-contact"><i class="fa-solid fa-envelope"></i> CONTACT</span>
+    <span>Write to the editorial team: <strong class="gold-text">polskiercctv@gmail.com</strong></span>
+    <span class="separator">✦</span>
+</div>
+<div class="ccn-ticker-item">
+    <span class="ccn-badge ccn-badge-next"><i class="fa-solid fa-forward-step"></i> ON SCHEDULE</span>
+    <span><strong>Daily Worship • Book of Revelation Day by Day • United for Poland • Bible Study</strong></span>
+    <span class="separator">✦</span>
+</div>`;
+
+        window.updateMasterLiveLanguage = function(lang) {
+            const isEn = (lang === 'en');
+            try {
+                localStorage.setItem('cc_user_lang_choice', lang);
+                localStorage.setItem('lumina_lang', lang);
+            } catch(e){}
+
+            // Set googtrans cookies for full site translation
+            try {
+                if (isEn) {
+                    document.cookie = "googtrans=/pl/en; path=/";
+                    document.cookie = "googtrans=/pl/en; path=/; domain=" + window.location.hostname;
+                    document.cookie = "googtrans=/pl/en; path=/; domain=.polskieradio.cc";
+                } else {
+                    document.cookie = "googtrans=/pl/pl; path=/";
+                    document.cookie = "googtrans=/pl/pl; path=/; domain=" + window.location.hostname;
+                    document.cookie = "googtrans=/pl/pl; path=/; domain=.polskieradio.cc";
+                }
+            } catch(e){}
+
+            const dekalogEl = document.getElementById('dekalogContent');
+            if (dekalogEl) {
+                dekalogEl.innerHTML = isEn ? DEKALOG_HTML_EN : DEKALOG_HTML_PL;
+            }
+            const tickerEl = document.getElementById('ccnTickerContent');
+            if (tickerEl) {
+                tickerEl.innerHTML = isEn ? CCN_TICKER_HTML_EN : CCN_TICKER_HTML_PL;
+            }
+            const liveText = document.querySelector('.ccn-live-text');
+            if (liveText) {
+                liveText.textContent = isEn ? 'LIVE' : 'NA ŻYWO';
+            }
+            const bannerSpan = document.querySelector('#masterUnmuteBanner span');
+            if (bannerSpan) {
+                bannerSpan.textContent = isEn ? 'CLICK TO UNMUTE 24/7 LIVE BROADCAST' : 'KLIKNIJ, ABY WŁĄCZYĆ DŹWIĘK TRANSMISJI NA ŻYWO';
+            }
+            const l3Tag = document.querySelector('#mlL3 .t');
+            if (l3Tag) {
+                l3Tag.textContent = isEn ? 'RECOMMENDED' : 'POLECAMY';
+            }
+            const nowTag = document.querySelector('#mlPromo .ml-now b');
+            if (nowTag) {
+                nowTag.textContent = isEn ? 'NOW' : 'TERAZ';
+            }
+            const headTag = document.querySelector('#mlPromo .ml-head');
+            if (headTag) {
+                const dotsEl = document.getElementById('mlDots');
+                const dotsHtml = dotsEl ? dotsEl.outerHTML : '<div class="ml-dots" id="mlDots"></div>';
+                headTag.innerHTML = (isEn ? '★ RECOMMENDED' : '★ POLECAMY') + dotsHtml;
+            }
+            document.querySelectorAll('.ml-links a').forEach(a => {
+                const p = a.getAttribute('data-promo');
+                if (p === 'akademia') a.textContent = isEn ? 'Daily Bible Course' : 'Kurs Codzienny';
+                else if (p === 'biblia-audio') a.textContent = isEn ? 'Audio Bible' : 'Biblia Audio';
+                else if (p === 'wspieraj') a.textContent = isEn ? 'Support the mission' : 'Wspieraj misję';
+            });
+            updateMuteUi();
+            updateCcnClock();
+            if (typeof window.updatePromoLanguage === 'function') {
+                window.updatePromoLanguage(lang);
+            }
+
+            // Notify and translate subframes of language change
+            [frameA, frameB].forEach(f => {
+                try {
+                    if (f) {
+                        applySubframeLanguage(f);
+                        if (f.contentWindow) {
+                            f.contentWindow.postMessage({ type: 'SET_LANGUAGE', lang: lang }, '*');
+                        }
+                    }
+                } catch(e){}
+            });
+        };
+
+        window.addEventListener('ccLanguageChanged', (e) => {
+            if (e && e.detail && e.detail.lang) {
+                window.updateMasterLiveLanguage(e.detail.lang);
+            }
+        });
+
+        // Direct click fallback on language buttons
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest && e.target.closest('.cc-lang-pill-btn');
+            if (btn) {
+                const lang = btn.getAttribute('data-lang');
+                if (lang && typeof window.updateMasterLiveLanguage === 'function') {
+                    window.updateMasterLiveLanguage(lang);
+                }
+            }
+        });
+
+        // Initialize language on startup
+        document.addEventListener('DOMContentLoaded', () => {
+            const curLang = localStorage.getItem('cc_user_lang_choice') || localStorage.getItem('lumina_lang') || 'pl';
+            if (curLang === 'en') {
+                window.updateMasterLiveLanguage('en');
+            }
+            updateMuteUi();
+        });
+
+        // Only listen for global un-mute click if NOT in embedded/muted mode
+        if (!isMutedDefault && !isEmbedMode) {
+            window.addEventListener('click', unmuteSubframe);
+            window.addEventListener('touchstart', unmuteSubframe);
+            // Automated audio unlock attempts for OBS Studio CEF and unattended players
+            [800, 1500, 3000, 5000].forEach(delay => {
+                setTimeout(unmuteSubframe, delay);
+            });
+        }
+
+        // When frames load, enforce muting & suppress duplicate sub-channel tickers
+        [frameA, frameB].forEach(f => {
+            if (f) {
+                f.addEventListener('load', () => {
+                    suppressSubframeTicker(f);
+                    applySubframeLanguage(f);
+                    const curLang = localStorage.getItem('cc_user_lang_choice') || localStorage.getItem('lumina_lang') || 'pl';
+                    if (f.contentWindow) {
+                        try { f.contentWindow.postMessage({ type: 'SET_LANGUAGE', lang: curLang }, '*'); } catch(_) {}
+                    }
+                    if (isMutedDefault || f !== getActiveFrame() || isSwitchingWithBumper) {
+                        silenceFrame(f, false);
+                    } else {
+                        [300, 1200, 3000].forEach(delay => {
+                            setTimeout(() => {
+                                if (!isMutedDefault && f === getActiveFrame() && !isSwitchingWithBumper) {
+                                    unmuteFrame(f);
+                                }
+                            }, delay);
+                        });
+                    }
+                });
+            }
+        });
+
+        // Listen for control & completion signals (from LUMINA feed parent or sub-channels)
+        window.addEventListener('message', (event) => {
+            if (!event || !event.data) return;
+            let type = '';
+            if (typeof event.data === 'string') {
+                try {
+                    const parsed = JSON.parse(event.data);
+                    type = parsed.type || parsed.event || '';
+                    if (parsed.func === 'unMute') type = 'UNMUTE_AUDIO';
+                    if (parsed.func === 'mute') type = 'MUTE_AUDIO';
+                } catch(err) {
+                    type = event.data;
+                }
+            } else if (typeof event.data === 'object') {
+                type = event.data.type || '';
+            }
+
+            if (type === 'UNMUTE_AUDIO' || type === 'unMute') {
+                isMutedDefault = false;
+                unmuteSubframe();
+                return;
+            }
+            if (type === 'MUTE_AUDIO' || type === 'mute') {
+                isMutedDefault = true;
+                muteSubframe();
+                return;
+            }
+            if (type === 'YT_PLAYER_PLAYING' || type === 'YT_PLAYER_READY') {
+                if (!isMutedDefault && !isSwitchingWithBumper) {
+                    unmuteFrame(getActiveFrame());
+                }
+                return;
+            }
+            if (type === 'APOKALIPSA_FINISHED' || type === 'STUDIUM_FINISHED' || type === 'KSIEGA_NADZIEI_FINISHED' || type === 'APOKALIPSA_KSIEGA_NADZIEI_FINISHED' || type === 'RANDKI_MALZENSTWO_FINISHED' || type === 'PROGRAM_FINISHED') {
+                console.log("MCR: Received completion signal (" + type + ") from sub-channel. Ending special slot immediately!");
+                endSpecialSlot();
+            }
+        });
+
+        // Share to Facebook handler with pre-populated live broadcast link & autoplay
+        window.shareToFacebook = function() {
+            const shareUrl = encodeURIComponent('https://polskieradio.cc/master?autoplay=1&source=fb');
+            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`;
+            window.open(fbUrl, '_blank', 'width=640,height=560,toolbar=0,menubar=0,location=0,status=0');
+        };
+
+        // Smart Autoplay & Fast Unmute for Facebook / Social Referrers
+        (function detectSocialReferrer() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const isSocial = urlParams.has('fbclid') || urlParams.get('source') === 'fb' || urlParams.get('autoplay') === '1' || document.referrer.includes('facebook.com') || (navigator.userAgent && (navigator.userAgent.includes('FBAN') || navigator.userAgent.includes('FBAV')));
+            if (isSocial) {
+                console.log("MCR: Visitor arrived from Social / Facebook. Engaging instant autostart & un-muted playback!");
+                [100, 300, 600, 1000, 1800, 3200].forEach(delay => setTimeout(unmuteSubframe, delay));
+            }
+        })();
+
+        // Start checking schedule every 10 seconds
+        setInterval(checkSchedule, 10000);
+
+        // 🛡️ Strażnik obrazu: jeśli aktywny kanał nie wczytał się (np. chwilowy brak sieci = pusta
+        // strona błędu), po 30 s ładujemy go ponownie — zamiast nadawać pusty ekran do następnego bloku.
+        let ccBadTicks = 0;
+        setInterval(() => {
+            if (isSwitchingWithBumper || !currentUrl) return;
+            const f = getActiveFrame();
+            let bad = false;
+            try {
+                const d = f.contentDocument;
+                bad = !d || !d.body || d.location.href === 'about:blank' || d.body.childElementCount === 0;
+            } catch (e) { bad = true; }
+            ccBadTicks = bad ? ccBadTicks + 1 : 0;
+            if (ccBadTicks >= 3) {
+                ccBadTicks = 0;
+                ccNote('kanał nie odpowiada — ponowne wczytanie: ' + currentUrl);
+                const sep = currentUrl.includes('?') ? '&' : '?';
+                const audioQuery = isMutedDefault ? 'muted=1&autoplay=1' : 'autoplay=1';
+                const safeParam = isSafeMonetizationMode ? '&safe_monetization=1' : '&safe_monetization=0';
+                f.src = currentUrl + sep + audioQuery + '&in_mcr=1&noticker=1' + safeParam + '&t=' + Date.now();
+            }
+        }, 10000);
+        
+        // Initial load
+        window.addEventListener("DOMContentLoaded", () => {
+            checkSchedule();
+        });
+    </script>
+    <!-- Christian Culture & LUMINA Universal Google Auth Connector -->
+    <script src="js/cc-global-auth.js?v=20260907_auth1" defer></script>
+<!-- ═══ @007 2026-11-17: układ telefonu (pion/poziom) + autopromocja „Polecamy” + kolory spójne z banerami (czerń + pomarańcz CC) ═══ -->
+<style>
+    :root { --gold-primary: #FF8C33; --gold-dark: #E66A00; --ccn-red: #FF7A00; }
+    .dekalog-top-ticker { border-bottom: 2px solid #FF7A00; box-shadow: 0 4px 20px rgba(0,0,0,.95), 0 2px 18px rgba(255,122,0,.28) !important; }
+    .dekalog-brand-badge { display: none !important; }
+    .dekalog-brand-title { display: none !important; }
+    .dekalog-text { color: #ffffff !important; }
+    .ccn-master-ticker { border-top-color: #FF7A00 !important; box-shadow: 0 -8px 25px rgba(0,0,0,.95), 0 0 20px rgba(255,122,0,.35) !important; }
+    .ccn-live-badge { background: linear-gradient(180deg, #FF8C33 0%, #E66A00 100%) !important; color: #1a0d00 !important; }
+    .cc-lang-toggle { border-color: rgba(255,122,0,.55) !important; }
+    .cc-lang-pill-btn[style*="#d4af37"], .cc-lang-pill-btn[style*="#D4AF37"] { background: #FF7A00 !important; color: #1a0d00 !important; }
+    .ccn-ticker-item .gold-text { color: #FF8C33 !important; }
+    .ccn-badge-now { background: #FF7A00 !important; color: #1a0d00 !important; border-color: #FF8C33 !important; }
+    .ccn-badge:not(.ccn-badge-now):not(.ccn-badge-next) { background: #14161d !important; color: #FF8C33 !important; border: 1px solid rgba(255,122,0,.5) !important; }
+    #mlPromo{display:none;position:fixed;left:0;right:0;z-index:99990;box-sizing:border-box;flex-direction:column;gap:12px;padding:14px max(14px,env(safe-area-inset-left,0px)) 12px max(14px,env(safe-area-inset-right,0px));background:radial-gradient(90% 60% at 80% 0%,rgba(255,122,0,.16),transparent 70%),#05070c;overflow:hidden;font-family:'Outfit','Segoe UI',sans-serif;color:#f7f3ec}
+    #mlPromo .ml-now{display:flex;align-items:center;gap:10px;font-size:.95rem;line-height:1.3}
+    #mlPromo .ml-now b{color:#FF8C33;font-size:.72rem;letter-spacing:.14em;white-space:nowrap}
+    #mlPromo .ml-now span{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    #mlPromo .ml-head{display:flex;align-items:center;font-weight:800;font-size:.78rem;letter-spacing:.16em;color:#FF8C33}
+    #mlPromo .ml-dots{margin-left:auto;display:flex;gap:6px}
+    #mlPromo .ml-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.22);transition:background .3s}
+    #mlPromo .ml-dots i.on{background:#FF7A00}
+    #mlPromo .ml-slide{position:relative;width:100%;aspect-ratio:16/9;max-height:42vh;border-radius:14px;overflow:hidden;background:#0d1018;border:1px solid rgba(255,140,51,.35);flex:none}
+    #mlPromo .ml-slide a{position:absolute;inset:0;display:block;color:inherit;text-decoration:none;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .8s}
+    #mlPromo .ml-slide a.ml-in{transform:translateX(100%);opacity:0}
+    #mlPromo .ml-slide a.ml-out{transform:translateX(-60%);opacity:0}
+    #mlPromo .ml-slide img{width:100%;height:100%;object-fit:contain;display:block}
+    #mlPromo .ml-card{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:16px;background:radial-gradient(80% 90% at 90% 10%,rgba(255,122,0,.32),transparent 60%),#0d1018}
+    #mlPromo .ml-card small{font-weight:800;font-size:.72rem;letter-spacing:.14em;color:#FF8C33;text-transform:uppercase}
+    #mlPromo .ml-card strong{display:block;font-size:1.45rem;line-height:1.15;margin-top:6px}
+    #mlPromo .ml-card p{margin:6px 0 0;font-size:.92rem;color:#c3bcb0}
+    #mlPromo .ml-card em{align-self:flex-start;font-style:normal;background:#FF7A00;color:#1a0d00;font-weight:800;font-size:.85rem;padding:6px 12px;border-radius:99px}
+    #mlPromo .ml-bar{height:3px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;flex:none}
+    #mlPromo .ml-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#FF7A00,#f2c46d)}
+    #mlPromo .ml-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+    #mlPromo .ml-links a{min-height:48px;display:flex;align-items:center;justify-content:center;text-align:center;padding:6px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,140,51,.22);color:#f7f3ec;text-decoration:none;font-weight:700;font-size:.82rem;line-height:1.2}
+    #mlL3{position:fixed;left:32px;bottom:calc(var(--ticker-height) + 24px);z-index:99991;display:flex;align-items:stretch;transform:translateX(-130%);transition:transform .8s cubic-bezier(.2,.8,.2,1);text-decoration:none;font-family:'Outfit','Segoe UI',sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+    #mlL3.ml-show{transform:none}
+    #mlL3 .t{background:#FF7A00;color:#1a0d00;font-weight:800;letter-spacing:.1em;padding:12px 16px;display:flex;align-items:center;font-size:1rem}
+    #mlL3 .x{background:rgba(8,10,16,.94);color:#fff;font-weight:800;padding:10px 18px;display:flex;align-items:center;gap:12px;font-size:1.25rem}
+    #mlL3 .x span{color:#f2c46d}
+
+    /* TELEFON PIONOWO: paski proporcjonalne, obraz 16:9 na pełną szerokość, pod nim autopromocja */
+    @media (orientation: portrait) and (max-width: 900px) {
+        :root { --dekalog-height: 44px; --ticker-height: 44px; --ml-video-h: calc(100vw * 9 / 16); }
+        .dekalog-brand-badge { padding: 0 8px; }
+        .dekalog-brand-title { font-size: .6rem; letter-spacing: .6px; }
+        .dekalog-content { font-size: .88rem; }
+        .ccn-ticker-brand img { max-width: 92px; }
+        .ccn-live-badge { padding: 0 8px; font-size: .68rem; }
+        .ccn-ticker-content { font-size: .85rem; }
+        .ccn-clock-box { display: none; }
+        .channel-frame { top: var(--dekalog-height) !important; height: var(--ml-video-h) !important; }
+        #mlPromo { display: flex; top: calc(var(--dekalog-height) + var(--ml-video-h)); bottom: var(--ticker-height); }
+        #masterUnmuteBanner { top: calc(var(--dekalog-height) + var(--ml-video-h) - 64px) !important; padding: 10px 18px !important; font-size: .8rem !important; }
+        #mlL3 { display: none; }
+    }
+    /* TELEFON POZIOMO: pełny obraz, górny pasek ukryty, cienki pasek CCN pod obrazem */
+    @media (orientation: landscape) and (max-height: 500px) {
+        :root { --dekalog-height: 0px; --ticker-height: 40px; }
+        .dekalog-top-ticker { display: none !important; }
+        .channel-frame { top: 0 !important; height: calc(100% - var(--ticker-height)) !important; }
+        .ccn-ticker-brand img { max-width: 80px; }
+        .ccn-live-badge { padding: 0 8px; font-size: .66rem; }
+        .ccn-ticker-content { font-size: .8rem; }
+        .ccn-clock-box { display: none; }
+        #masterUnmuteBanner { top: 12px !important; padding: 8px 16px !important; font-size: .78rem !important; }
+        #mlL3 { display: none; }
+    }
+    html.no-ticker #mlPromo, html.embedded-mode #mlPromo, body.no-ticker #mlPromo, body.embedded-mode #mlPromo,
+    html.no-ticker #mlL3, html.embedded-mode #mlL3, body.no-ticker #mlL3, body.embedded-mode #mlL3 { display: none !important; }
+</style>
+<aside id="mlPromo" aria-label="Polecamy">
+    <div class="ml-now"><b>TERAZ</b><span class="dynamic-current-program">Telewizja Christian Culture 24/7</span></div>
+    <div class="ml-head">★ POLECAMY<div class="ml-dots" id="mlDots"></div></div>
+    <div class="ml-slide" id="mlSlide"></div>
+    <div class="ml-bar"><i id="mlBar"></i></div>
+    <nav class="ml-links" aria-label="Szybkie linki">
+        <a href="/akademia" target="_blank" rel="noopener" data-promo="akademia">Kurs Codzienny</a>
+        <a href="/biblia-audio" target="_blank" rel="noopener" data-promo="biblia-audio">Biblia Audio</a>
+        <a href="/wspieraj" target="_blank" rel="noopener" data-promo="wspieraj">Wspieraj misję</a>
+    </nav>
+</aside>
+<a id="mlL3" href="/wspieraj" target="_blank" rel="noopener" data-promo="l3"><span class="t">POLECAMY</span><span class="x" id="mlL3txt"></span></a>
+<script>
+(function () {
+    var SL = [
+        { id: 'wspieraj', href: '/wspieraj', img: '/assets/promo/promo-wspieraj-klasyczny.webp', alt: 'Pomóż nam nieść Ewangelię dalej – polskieradio.cc/wspieraj', l3: 'Pomóż nam nieść Ewangelię dalej · <span>polskieradio.cc/wspieraj</span>', l3En: 'Help us proclaim the Gospel · <span>polskieradio.cc/wspieraj</span>' },
+        { id: 'akademia', href: '/akademia/kurscodzienny', img: '/assets/promo/promo-kurscodzienny-16x9.webp', alt: 'Kurs Codzienny – 10 minut ze Słowem każdego dnia – polskieradio.cc/akademia', k: 'Akademia', kEn: 'Academy', h: 'Kurs Codzienny', hEn: 'Daily Bible Course', p: '10 minut ze Słowem każdego dnia. Dziś nowa lekcja.', pEn: '10 minutes in the Word each day. New lesson today.', u: 'polskieradio.cc/akademia', l3: 'Kurs Codzienny · <span>polskieradio.cc/akademia</span>', l3En: 'Daily Bible Course · <span>polskieradio.cc/akademia</span>' },
+        { id: 'biblia-audio', href: '/biblia-audio', img: '/assets/promo/promo-biblia-audio-16x9.webp', alt: 'Biblia Audio – Całe Pismo do słuchania 24/7 – polskieradio.cc/biblia-audio', k: 'Słuchaj', kEn: 'Listen', h: 'Biblia Audio', hEn: 'Audio Bible', p: 'Całe Pismo do słuchania w drodze, w domu i w pracy.', pEn: 'All Scripture to listen on the road, at home, at work.', u: 'polskieradio.cc/biblia-audio', l3: 'Biblia Audio · <span>polskieradio.cc/biblia-audio</span>', l3En: 'Audio Bible 24/7 · <span>polskieradio.cc/biblia-audio</span>' },
+        { id: 'topten', href: '/topten', img: '/assets/promo/promo-topten-16x9.webp', alt: 'topTEN – Wybierz pieśni tygodnia – polskieradio.cc/topten', k: 'Głosuj', kEn: 'Vote', h: 'topTEN tygodnia', hEn: 'topTEN of the Week', p: 'Wybierz pieśni, które usłyszy Polska i świat.', pEn: 'Vote for the songs Poland and the world will hear.', u: 'polskieradio.cc/topten', l3: 'topTEN · <span>polskieradio.cc/topten</span>', l3En: 'topTEN of the Week · <span>polskieradio.cc/topten</span>' },
+        { id: 'ccwomen', href: '/ccwomen', img: '/assets/promo/promo-ccwomen-16x9.webp', alt: 'CC Women – Telewizja Kobiet 24/7 – polskieradio.cc/ccwomen', k: 'TVW', kEn: 'TVW', h: 'Telewizja Kobiet 24/7', hEn: 'Women’s TV 24/7', p: 'Słowo, rozmowy, rodzina, modlitwa i muzyka.', pEn: 'The Word, conversations, family, prayer and music.', u: 'polskieradio.cc/ccwomen', l3: 'CC Women · <span>polskieradio.cc/ccwomen</span>', l3En: 'CC Women 24/7 · <span>polskieradio.cc/ccwomen</span>' },
+        { id: 'vod', href: '/vod', img: '/assets/promo/promo-vod-16x9.webp', alt: 'Kino VOD – Bezpłatne filmy chrześcijańskie – polskieradio.cc/vod', k: 'Kino VOD', kEn: 'Christian VOD', h: 'Bezpłatne filmy chrześcijańskie', hEn: 'Free Christian Films', p: 'Poruszające filmy i dokumenty dla całej rodziny.', pEn: 'Inspiring films and documentaries for the whole family.', u: 'polskieradio.cc/vod', l3: 'Kino VOD · <span>polskieradio.cc/vod</span>', l3En: 'Christian VOD · <span>polskieradio.cc/vod</span>' },
+        { id: 'lumina', href: '/lumina', img: '/assets/promo/promo-lumina-16x9.webp', alt: 'LUMINA & LUMI Messenger – Chrześcijańska społeczność – polskieradio.cc/lumina', k: 'Społeczność', kEn: 'Community', h: 'LUMINA & LUMI Messenger', hEn: 'LUMINA & LUMI Messenger', p: 'Chrześcijańska społeczność bez algorytmów.', pEn: 'Christian community without algorithms.', u: 'polskieradio.cc/lumina', l3: 'LUMINA · <span>polskieradio.cc/lumina</span>', l3En: 'LUMINA & LUMI · <span>polskieradio.cc/lumina</span>' },
+        { id: 'spiritual-sounds', href: '/SpiritualSounds', img: '/assets/promo/promo-spiritual-sounds-16x9.webp', alt: 'Spiritual Sounds 24/7 – Psalmy i Słowo Boże w muzyce – polskieradio.cc/SpiritualSounds', k: 'Muzyka 24/7', kEn: 'Music 24/7', h: 'Spiritual Sounds 24/7', hEn: 'Spiritual Sounds 24/7', p: 'Psalmy i Słowo Boże w muzyce przez całą dobę.', pEn: 'Psalms and Scripture in music around the clock.', u: 'polskieradio.cc/SpiritualSounds', l3: 'Spiritual Sounds · <span>polskieradio.cc/SpiritualSounds</span>', l3En: 'Spiritual Sounds · <span>polskieradio.cc/SpiritualSounds</span>' },
+        { id: 'wizytowki', href: '/wizytowki', img: '/assets/promo/promo-wizytowki-16x9.webp', alt: 'Wizytówki CC – Zamów bezpłatnie i dziel się Słowem – polskieradio.cc/wizytowki', k: 'Wizytówki CC', kEn: 'CC Cards', h: 'Podziel się Słowem', hEn: 'Share the Word', p: 'Zamów darmowe wizytówki i przekaż dobrą nowinę dalej.', pEn: 'Order free cards and pass the Good News forward.', u: 'polskieradio.cc/wizytowki', l3: 'Wizytówki CC · <span>polskieradio.cc/wizytowki</span>', l3En: 'CC Cards · <span>polskieradio.cc/wizytowki</span>' },
+        { id: 'mojabiblia', href: '/mojabiblia', k: 'Czytaj', kEn: 'Read', h: 'Moja Biblia', hEn: 'My Bible Study', p: 'Tekst, przekłady i słowo po słowie.', pEn: 'Scripture, translations and original texts.', u: 'polskieradio.cc/mojabiblia', l3: 'Moja Biblia · <span>polskieradio.cc/mojabiblia</span>', l3En: 'My Bible Study · <span>polskieradio.cc/mojabiblia</span>' }
+    ];
+    var box = document.getElementById('mlSlide'), dots = document.getElementById('mlDots'), bar = document.getElementById('mlBar');
+    var l3 = document.getElementById('mlL3'), l3t = document.getElementById('mlL3txt');
+    if (!box) return;
+    function ga(name, id) { try { if (window.gtag) gtag('event', name, { promo_id: id, placement: 'master_live' }); } catch (e) {} }
+    dots.innerHTML = SL.map(function () { return '<i></i>'; }).join('');
+    var i = -1, cur = null, DUR = 15000, seen = {};
+    function card(s) {
+        var isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
+        var a = document.createElement('a'); a.href = s.href; a.target = '_blank'; a.rel = 'noopener'; a.setAttribute('data-promo', s.id);
+        a.innerHTML = s.img ? '<img src="' + s.img + '" alt="' + s.alt + '" loading="lazy">' :
+            '<div class="ml-card"><div><small>' + (isEn ? (s.kEn || s.k) : s.k) + '</small><strong>' + (isEn ? (s.hEn || s.h) : s.h) + '</strong><p>' + (isEn ? (s.pEn || s.p) : s.p) + '</p></div><em>' + s.u + '</em></div>';
+        return a;
+    }
+    function visible() { return getComputedStyle(document.getElementById('mlPromo')).display !== 'none'; }
+    function next() {
+        i = (i + 1) % SL.length;
+        if (visible()) {
+            var n = card(SL[i]); n.className = 'ml-in'; box.appendChild(n); void n.offsetWidth; n.className = '';
+            if (cur) { var c = cur; c.className = 'ml-out'; setTimeout(function () { c.remove(); }, 850); }
+            cur = n;
+            [].forEach.call(dots.children, function (d, k) { d.classList.toggle('on', k === i); });
+            bar.style.transition = 'none'; bar.style.width = '0'; void bar.offsetWidth;
+            bar.style.transition = 'width ' + DUR + 'ms linear'; bar.style.width = '100%';
+            if (!seen[SL[i].id]) { seen[SL[i].id] = 1; ga('promo_impression', SL[i].id); }
+        }
+        setTimeout(next, DUR);
+    }
+    next();
+    // Duży ekran: belka „Polecamy” co 4 min na 14 s (tylko gdy nie widać panelu telefonu)
+    var j = 0;
+    function belka() {
+        if (!visible() && innerWidth > 900) {
+            var isEn = (localStorage.getItem('cc_user_lang_choice') === 'en' || localStorage.getItem('lumina_lang') === 'en');
+            var s = SL[j++ % SL.length]; l3.href = s.href; l3.setAttribute('data-promo', 'l3-' + s.id); l3t.innerHTML = isEn ? (s.l3En || s.l3) : s.l3;
+            l3.classList.add('ml-show'); ga('promo_impression', 'l3-' + s.id);
+            setTimeout(function () { l3.classList.remove('ml-show'); }, 14000);
+        }
+    }
+    setTimeout(belka, 60000); setInterval(belka, 240000);
+    window.updatePromoLanguage = function(lang) {
+        var isEn = (lang === 'en');
+        var idx = j > 0 ? (j - 1) % SL.length : 0;
+        var s = SL[idx] || SL[0];
+        if (l3t && s) {
+            l3t.innerHTML = isEn ? (s.l3En || s.l3) : s.l3;
+        }
+        var promoCard = box && box.querySelector('.ml-card');
+        if (promoCard && s) {
+            var sm = promoCard.querySelector('small'); if (sm) sm.textContent = isEn ? (s.kEn || s.k) : s.k;
+            var str = promoCard.querySelector('strong'); if (str) str.textContent = isEn ? (s.hEn || s.h) : s.h;
+            var p = promoCard.querySelector('p'); if (p) p.textContent = isEn ? (s.pEn || s.p) : s.p;
+        }
+    };
+    document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('[data-promo]'); if (a) ga('promo_click', a.getAttribute('data-promo')); });
+})();
+</script>
+</body>
+</html>
