@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-23T05:37:01.260Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 493
+    },
+    {
+      "timestamp": "2026-11-23T05:37:00.782Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 493
+    },
+    {
+      "timestamp": "2026-11-23T05:36:59.467Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien",
+        "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+        "https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa"
+      ]
+    },
+    {
       "timestamp": "2026-11-23T05:27:26.690Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",

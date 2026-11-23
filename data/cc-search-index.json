@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-23T05:29:46.207Z",
-  "totalItems": 686,
+  "updatedAt": "2026-11-23T05:37:01.656Z",
+  "totalItems": 687,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -4356,6 +4356,35 @@
         "psychologia",
         "artykuł"
       ],
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-23T06:35:00+01:00",
+      "title": "Miłość do bliźniego w praktyce: jeden telefon, który może zmienić dzień",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien",
+      "description": "Badania psychologii społecznej (Kumar i Epley 2021, Liu i in. 2022) oraz egzegeza przypowieści o miłosiernym Samarytaninie (Łk 10:25–37 UBG): dlaczego zwykły telefon buduje więź silniej, niż podpowiadają nasze obawy, i jak praktycznie kochać czynem.",
+      "contentSnippet": "W świecie błyskawicznych komunikatorów i zdawkowych reakcji emotikoną coraz rzadziej wybieramy numer, by po prostu usłyszeć czyjś głos. Z obawy przed niezręcznością lub zakłóceniem cudzego spokoju odkładamy rozmowę na „lepszy moment”, który często nie nadchodzi tygodniami. Tymczasem recenzowane badania z psychologii społecznej pokazują, że niespodz…",
+      "author": "Cezary Rogowski",
+      "date": "23 listopada 2026",
+      "tags": [
+        "Miłość Bliźniego",
+        "Jeden Telefon",
+        "Miłosierny Samarytanin",
+        "Motywacja eM",
+        "Relacje",
+        "Cezary Rogowski",
+        "CCN News",
+        "wiara",
+        "eM — Motywacja Christian Culture",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "Łk 10:33–37; Prz 12:25; 1 Tes 5:11 Troska w sercu człowieka przygnębia je, a dobre słowo je rozwesela... Dlatego zachęcajcie jedni drugich i budujcie się wzajemnie.",
       "featured": true
     },
     {
@@ -15062,7 +15091,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-23T05:29:46.569Z",
+    "updatedAt": "2026-11-23T05:37:02.092Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "23 listopada 2026",
     "pools": [

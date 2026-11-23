@@ -1,13 +1,13 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-23T05:27:24.722Z",
+  "generatedAt": "2026-11-23T05:36:59.469Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 108,
-    "validUrls": 108,
+    "totalValidatedUrls": 109,
+    "validUrls": 109,
     "invalidUrls": 0,
-    "newsArticlesCount": 102,
-    "googleNews48hCount": 56,
+    "newsArticlesCount": 103,
+    "googleNews48hCount": 57,
     "akademiaUrlsCount": 86,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
@@ -31,25 +31,25 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 24516,
+      "sizeBytes": 24224,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 33286,
+      "sizeBytes": 33356,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 46782,
+      "sizeBytes": 47268,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 44459,
+      "sizeBytes": 45220,
       "status": "OK"
     },
     {
@@ -92,8 +92,8 @@
   "indexNow": {
     "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 55,
-    "pendingCount": 55,
+    "totalQueued": 56,
+    "pendingCount": 56,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-23T05:27:24.682Z",
+        "queuedAt": "2026-11-23T05:36:59.464Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-23T05:27:24.682Z",
+        "queuedAt": "2026-11-23T05:36:59.464Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-23T05:27:24.682Z",
+        "queuedAt": "2026-11-23T05:36:59.464Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-23T05:27:24.682Z",
+        "queuedAt": "2026-11-23T05:36:59.464Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-23T05:27:24.682Z",
+        "queuedAt": "2026-11-23T05:36:59.464Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 492,
-    "lastSubmittedCount": 492,
-    "lastSubmittedAt": "2026-11-23T05:27:26.693Z"
+    "totalIndexedUrls": 493,
+    "lastSubmittedCount": 493,
+    "lastSubmittedAt": "2026-11-23T05:37:01.262Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien.html",
+      "canonicalUrl": "https://polskieradio.cc/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran.html",
       "canonicalUrl": "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
@@ -593,15 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga.html",
-      "canonicalUrl": "https://polskieradio.cc/news/z-biblia-za-pan-brat-dzien-34-plonacy-krzak-swiete-imie-boga",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-23T05:27:26.693Z"
+  "lastInstantIndexingAt": "2026-11-23T05:37:01.262Z"
 }
