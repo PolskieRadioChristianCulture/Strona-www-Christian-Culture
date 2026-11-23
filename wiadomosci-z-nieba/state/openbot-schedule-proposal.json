@@ -1,0 +1,15 @@
+{
+  "id": "icc-wiadomosci-z-nieba-daily",
+  "name": "Jezus Chrystus — Wiadomości z nieba (@wiadomosci_z_nieba)",
+  "enabled": false,
+  "requiresOwnerApprovalL0": true,
+  "mode": "TEST_SIMULATION",
+  "zeroCost": true,
+  "provider": "opencode",
+  "model": "opencode/deepseek-v4.1-flash-free",
+  "timezone": "Europe/Warsaw",
+  "publishTime": "07:00",
+  "cronExpression": "0 7 * * *",
+  "command": "node wiadomosci-z-nieba/src/pipeline.mjs run-daily",
+  "note": "Wyłączone w środowisku TEST. Aktywacja automatycznej publikacji o 07:00 Europe/Warsaw wymaga jawnej akceptacji L0 po zakończeniu testów."
+}

@@ -348,5 +348,14 @@
   X-Robots-Tag: noindex, nofollow, noarchive
   Cache-Control: no-cache, no-store, must-revalidate
 
+# Środowisko testowe „Jezus Chrystus — Wiadomości z nieba” — wyłącznie noindex + brak cache
+/test/wiadomosci-z-nieba
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/test/wiadomosci-z-nieba/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
 
 

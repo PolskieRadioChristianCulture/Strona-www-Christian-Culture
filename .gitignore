@@ -70,3 +70,7 @@ reports/cc-skaner/
 # CC Patronite Mission Reporter — lokalny stan SQLite i logi robocze
 patronite/state/*.sqlite*
 patronite/logs/
+
+# Wiadomości z nieba — lokalny stan SQLite i pliki próbne
+wiadomosci-z-nieba/state/*.sqlite*
+wiadomosci-z-nieba/state/probe-*

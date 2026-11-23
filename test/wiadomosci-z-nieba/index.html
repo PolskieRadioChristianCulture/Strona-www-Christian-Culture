@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pl" dir="ltr" data-lumina-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta name="theme-color" content="#07090E" />
+  <title>Jezus Chrystus — Wiadomości z nieba (@wiadomosci_z_nieba) | Środowisko TEST · Christian Culture</title>
+  <link rel="icon" type="image/png" href="/images/lumina/wiadomosci-z-nieba-avatar.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/test/wiadomosci-z-nieba/wiadomosci-preview.css" />
+  <script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+  <script type="module" src="/test/wiadomosci-z-nieba/wiadomosci-preview.js"></script>
+</head>
+<body>
+  <div class="wzn-test-banner" role="status">
+    <div class="wzn-container wzn-banner-inner">
+      <span class="wzn-pill-alert">ŚRODOWISKO TESTOWE · NOINDEX · AUTOMATYCZNA PUBLIKACJA PRODUKCYJNA WYŁĄCZONA</span>
+      <span class="wzn-banner-note" id="approvalStateText">Oczekuje na testy i akceptację właściciela (L0) · Koszt: 0,00 zł</span>
+    </div>
+  </div>
+
+  <header class="wzn-header">
+    <div class="wzn-container wzn-header-inner">
+      <div class="wzn-header-brand">
+        <span class="wzn-eyebrow">Christian Culture · Projekt pilotażowy</span>
+        <h1>Wiadomości z nieba — podgląd profilu i automatyzacji</h1>
+        <p class="wzn-slogan" id="profileSlogan">„Nie masz nowych wiadomości? A może jedna czeka na Ciebie od Boga?”</p>
+      </div>
+      <div class="wzn-toolbar" role="group" aria-label="Sterowanie podglądem testowym">
+        <button type="button" id="toggleThemeBtn" class="wzn-btn wzn-btn-ghost" aria-pressed="false">Motyw jasny (test awatara)</button>
+        <button type="button" id="toggleViewportBtn" class="wzn-btn wzn-btn-ghost" aria-pressed="false">Podgląd smartfona (390px)</button>
+        <a class="wzn-btn wzn-btn-orange" href="https://polskieradio.cc/werset-dnia" target="_blank" rel="noopener noreferrer" id="headerWersetCta">▶ Odkryj Werset Dnia</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wzn-container wzn-main" id="main">
+    <section class="wzn-profile-card" aria-label="Karta profilu redakcyjnego Wiadomości z nieba">
+      <div class="wzn-profile-grid">
+        <div class="wzn-avatar-stage" title="Zatwierdzony okrągły awatar na przezroczystym tle">
+          <picture>
+            <source srcset="/images/lumina/wiadomosci-z-nieba-avatar.webp" type="image/webp" />
+            <img
+              id="profileAvatarImg"
+              class="wzn-avatar-img"
+              src="/images/lumina/wiadomosci-z-nieba-avatar.png"
+              alt="Okrągły wizerunek Jezusa Chrystusa ze złotą obwódką — profil Wiadomości z nieba"
+              width="512"
+              height="512"
+            />
+          </picture>
+        </div>
+
+        <div class="wzn-profile-meta">
+          <div class="wzn-badges-row">
+            <span class="wzn-badge-gold" id="profileTypeBadge">Oficjalny profil tematyczny Christian Culture</span>
+            <span class="wzn-badge-outline" id="profileCategoryBadge">Biblia / Inspiracje / Wiara</span>
+          </div>
+
+          <h2 class="wzn-profile-title">
+            <span id="profileDisplayName">Jezus Chrystus</span>
+            <span class="wzn-series-sep">—</span>
+            <span id="profileSeriesName">Wiadomości z nieba</span>
+          </h2>
+
+          <p class="wzn-handle-row">
+            <strong id="profileHandle">@wiadomosci_z_nieba</strong>
+            <span aria-hidden="true">·</span>
+            <span>Wydawca: <strong id="profilePublisher">Christian Culture</strong></span>
+            <span aria-hidden="true">·</span>
+            <span>Harmonogram: <strong id="scheduleLabel">07:00 Europe/Warsaw</strong> (wstrzymany w TEST)</span>
+          </p>
+
+          <p class="wzn-bio" id="profileBio"></p>
+
+          <div class="wzn-disclosure-box" id="profileDisclosure" role="note"></div>
+
+          <div class="wzn-profile-actions">
+            <a class="wzn-btn wzn-btn-orange" id="profilePrimaryLink" href="https://polskieradio.cc/werset-dnia" target="_blank" rel="noopener noreferrer">
+              📖 Przejdź do „Mój Werset Dnia”
+            </a>
+            <button type="button" class="wzn-btn wzn-btn-gold" id="followProfileBtn" aria-pressed="false">
+              Obserwuj profil
+            </button>
+            <button type="button" class="wzn-btn wzn-btn-ghost" id="optInNotifBtn" aria-pressed="false">
+              Subskrybuj powiadomienia dzienne (opt-in)
+            </button>
+            <button type="button" class="wzn-btn wzn-btn-ghost" id="shareProfileBtn">
+              Udostępnij publikację
+            </button>
+          </div>
+          <p class="wzn-action-feedback" id="actionFeedback" aria-live="polite">
+            Powiadomienia dzienne są domyślnie wyłączone (wymagają Twojej zgody; brak automatycznych wiadomości prywatnych).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wzn-day-selector" aria-label="Wybór dnia symulacji 10-dniowej">
+      <div class="wzn-section-head">
+        <h2>Strumień publikacji dziennych — symulacja 10 kolejnych dni</h2>
+        <span class="wzn-sub-note" id="simSummaryNote">10 dni z weryfikacją UBG-2025</span>
+      </div>
+      <div class="wzn-day-tabs" id="dayTabs" role="tablist" aria-label="Symulowane dni publikacji"></div>
+    </section>
+
+    <section class="wzn-workspace" id="previewWorkspace">
+      <article class="wzn-post-panel" aria-label="Podgląd wybranej wiadomości z nieba">
+        <div class="wzn-post-header">
+          <div class="wzn-post-author-mini">
+            <img
+              src="/images/lumina/wiadomosci-z-nieba-avatar.webp"
+              alt="Awatar profilu Wiadomości z nieba"
+              width="48"
+              height="48"
+            />
+            <div>
+              <strong id="postAuthorHeading">Jezus Chrystus — Wiadomości z nieba</strong>
+              <div class="wzn-post-submeta" id="postSubmeta"></div>
+            </div>
+          </div>
+          <span class="wzn-theme-pill" id="postThemePill"></span>
+        </div>
+
+        <figure class="wzn-verse-graphic-wrap" id="verseGraphicFigure" hidden>
+          <img id="verseGraphicImg" src="" alt="" loading="lazy" />
+          <figcaption id="verseGraphicCaption"></figcaption>
+        </figure>
+
+        <div class="wzn-post-body-card">
+          <p class="wzn-hook" id="postHook"></p>
+          <blockquote class="wzn-verse-quote" id="postVerseBlock"></blockquote>
+          <p class="wzn-reflection" id="postReflection"></p>
+          <div class="wzn-post-cta-zone">
+            <a class="wzn-btn wzn-btn-orange" id="postMainCtaLink" href="https://polskieradio.cc/werset-dnia" target="_blank" rel="noopener noreferrer">
+              📖 Odkryj swój dzisiejszy werset na polskieradio.cc/werset-dnia
+            </a>
+            <p class="wzn-secondary-cta" id="postSecondaryCta"></p>
+          </div>
+          <p class="wzn-signature" id="postSignature"></p>
+        </div>
+
+        <div class="wzn-post-footer-bar">
+          <button type="button" class="wzn-btn wzn-btn-ghost" id="reactAmenBtn">🙏 Amen (<span id="amenCount">0</span>)</button>
+          <button type="button" class="wzn-btn wzn-btn-ghost" id="sharePostBtn">↗ Udostępnij ten werset</button>
+          <span class="wzn-meta-chip" id="postIdChip"></span>
+        </div>
+      </article>
+
+      <aside class="wzn-side-panel" aria-label="Nadzór teologiczny, źródło i analityka">
+        <div class="wzn-card">
+          <h3>Weryfikacja źródła biblijnego</h3>
+          <dl class="wzn-kv-list" id="verseMetaList"></dl>
+        </div>
+
+        <div class="wzn-card">
+          <h3>Bramka Bezpieczeństwa Teologicznego (10/10)</h3>
+          <ul class="wzn-check-list" id="theologyCheckList"></ul>
+        </div>
+
+        <div class="wzn-card">
+          <h3>Analityka i status systemu TEST</h3>
+          <p class="wzn-privacy-note">Wyłącznie liczniki zbiorcze (bez profilowania przekonań użytkowników).</p>
+          <dl class="wzn-kv-list" id="analyticsMetaList"></dl>
+        </div>
+
+        <div class="wzn-card">
+          <h3>Kryteria weryfikacji (§11)</h3>
+          <ul class="wzn-check-list" id="acceptanceCheckList"></ul>
+        </div>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

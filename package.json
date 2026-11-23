@@ -70,7 +70,13 @@
     "patronite:status": "node patronite/src/pipeline.mjs status",
     "patronite:pause": "node patronite/src/pipeline.mjs pause",
     "patronite:resume": "node patronite/src/pipeline.mjs resume",
-    "test:patronite": "node --test patronite/tests/patronite-system.test.mjs"
+    "test:patronite": "node --test patronite/tests/patronite-system.test.mjs",
+    "wzn:simulate": "node wiadomosci-z-nieba/src/pipeline.mjs simulate-ten-days",
+    "wzn:run-daily": "node wiadomosci-z-nieba/src/pipeline.mjs run-daily",
+    "wzn:status": "node wiadomosci-z-nieba/src/pipeline.mjs status",
+    "wzn:pause": "node wiadomosci-z-nieba/src/pipeline.mjs pause",
+    "wzn:resume": "node wiadomosci-z-nieba/src/pipeline.mjs resume",
+    "test:wzn": "node --test wiadomosci-z-nieba/tests/wiadomosci-z-nieba.test.mjs"
   },
   "dependencies": {
     "@pdf-lib/fontkit": "^1.1.1",

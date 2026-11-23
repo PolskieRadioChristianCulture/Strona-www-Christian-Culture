@@ -1,0 +1,52 @@
+{
+  "projectId": "icc-wiadomosci-z-nieba",
+  "version": "1.0.0",
+  "mode": "TEST_SIMULATION",
+  "autoPublishEnabled": false,
+  "productionApprovedByOwner": false,
+  "killSwitch": false,
+  "privateMessagesAllowed": false,
+  "zeroCost": true,
+  "profile": {
+    "displayName": "Jezus Chrystus",
+    "seriesName": "Wiadomości z nieba",
+    "fullTitle": "Jezus Chrystus — Wiadomości z nieba",
+    "handle": "@wiadomosci_z_nieba",
+    "slug": "wiadomosci_z_nieba",
+    "category": "Biblia / Inspiracje / Wiara",
+    "publisher": "Christian Culture",
+    "profileType": "Oficjalny profil tematyczny Christian Culture",
+    "editorialDisclosure": "Oficjalny profil redakcyjny prowadzony przez Christian Culture. Publikacje przedstawiają nauczanie biblijne i zweryfikowane wersety Pisma Świętego (UBG-2025). Profil nie jest prywatnym kontem Jezusa ani zbiorem nowych, bezpośrednich objawień.",
+    "slogan": "Nie masz nowych wiadomości? A może jedna czeka na Ciebie od Boga?",
+    "bio": "📩 Masz dziś wiadomość ze Słowa Bożego! ❤️ Każdego dnia jeden werset, jedna chwila refleksji i jedna okazja, aby zbliżyć się do Jezusa. 📖 Odkryj wiadomość przygotowaną na dziś",
+    "mainUrl": "https://polskieradio.cc/werset-dnia",
+    "avatarPng": "/images/lumina/wiadomosci-z-nieba-avatar.png",
+    "avatarWebp": "/images/lumina/wiadomosci-z-nieba-avatar.webp"
+  },
+  "schedule": {
+    "timezone": "Europe/Warsaw",
+    "publishTime": "07:00",
+    "maxRetryAttempts": 3,
+    "retryBackoffMs": 250
+  },
+  "verseSource": {
+    "path": "data/werset_dnia_365_ubg.json",
+    "bibleChaptersDir": "data/bible",
+    "allowedTranslations": [
+      "UBG",
+      "UBG-2025",
+      "Uwspółcześniona Biblia Gdańska"
+    ],
+    "requiredLicenseSubstring": "CC BY-ND 4.0"
+  },
+  "paths": {
+    "sqliteDb": "wiadomosci-z-nieba/state/wiadomosci.sqlite",
+    "simulationSqliteDb": "wiadomosci-z-nieba/state/wiadomosci-simulation.sqlite",
+    "draftsDir": "wiadomosci-z-nieba/drafts",
+    "reportsDir": "wiadomosci-z-nieba/reports",
+    "alertsPath": "wiadomosci-z-nieba/reports/ALERTS.md",
+    "latestStatusPath": "wiadomosci-z-nieba/state/latest-status.json",
+    "openbotProposalPath": "wiadomosci-z-nieba/state/openbot-schedule-proposal.json",
+    "previewDataPath": "test/wiadomosci-z-nieba/simulation-data.json"
+  }
+}

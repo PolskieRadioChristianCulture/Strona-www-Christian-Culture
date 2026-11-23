@@ -418,6 +418,8 @@
 /test/czat/ /test/czat/index.html 200
 /test/mess /test/czat/index.html 200
 /test/mess/ /test/czat/index.html 200
+/test/wiadomosci-z-nieba /test/wiadomosci-z-nieba/index.html 200
+/test/wiadomosci-z-nieba/ /test/wiadomosci-z-nieba/index.html 200
 # Spiritual Sounds × CC — PRODUKCJA (/SpiritualSounds + /SpiritualSounds/tv)
 /SpiritualSounds /SpiritualSounds/index.html 200
 /SpiritualSounds/ /SpiritualSounds/index.html 200
