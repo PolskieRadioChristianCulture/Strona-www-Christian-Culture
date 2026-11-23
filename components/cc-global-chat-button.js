@@ -5317,6 +5317,155 @@
     }
   }
 
+  // ── Wiadomość z Nieba (@007, L0 23.11.2026): karta 1:1 na szablonie L0 + Pobierz PNG + Udostępnij ──
+  const WZN_TEMPLATE = '/images/wiadomosc-z-nieba/szablon-1x1.jpg';
+  function wznEnsureFonts() {
+    if (document.getElementById('wzn-chat-fonts')) return;
+    const l = document.createElement('link');
+    l.id = 'wzn-chat-fonts';
+    l.rel = 'stylesheet';
+    l.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Cormorant+Garamond:ital,wght@1,600&display=swap';
+    document.head.appendChild(l);
+  }
+  function wznVerseSize(len) {
+    return len <= 70 ? 4.8 : len <= 100 ? 4.2 : len <= 130 ? 3.7 : len <= 170 ? 3.2 : 2.8;
+  }
+  function renderWznChatCard(m) {
+    wznEnsureFonts();
+    const w = m.wzn || {};
+    const verse = String(w.verseText || '');
+    const ref = String(w.reference || '');
+    const vEsc = escapeHtml(verse);
+    const rEsc = escapeHtml(ref);
+    const dEsc = escapeHtml(String(w.runDate || ''));
+    const uEsc = escapeHtml(String(w.pageUrl || 'https://polskieradio.cc/wiadomosc-z-nieba/'));
+    const size = wznVerseSize(verse.length);
+    const btn = 'min-height:44px;min-width:44px;padding:10px 14px;border-radius:999px;font:600 0.8rem/1.2 inherit;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;';
+    return `
+      <div class="cc-wzn-card-wrap" style="margin-top:10px;">
+        <div class="cc-wzn-card" role="img" aria-label="Grafika Wiadomość z Nieba: „${vEsc}” — ${rEsc}"
+          style="position:relative;width:100%;max-width:340px;aspect-ratio:1/1;border-radius:14px;overflow:hidden;container-type:inline-size;background:#000 url('${WZN_TEMPLATE}') center/cover no-repeat;box-shadow:0 8px 24px rgba(0,0,0,.5);">
+          <div style="position:absolute;left:45%;right:5%;top:23%;bottom:17%;display:flex;flex-direction:column;justify-content:center;gap:2cqw;text-align:left;">
+            <span style="font:600 2.1cqw/1.2 'Cinzel',Georgia,serif;letter-spacing:.2em;text-transform:uppercase;color:#ff3b3b;">Masz nową wiadomość</span>
+            <p style="margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:${size}cqw;line-height:1.28;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.85);">„${vEsc}”</p>
+            <span style="font:600 2.6cqw/1.3 'Cinzel',Georgia,serif;color:#d9d9de;">${rEsc}<small style="display:block;margin-top:.5cqw;font:500 1.8cqw/1.3 system-ui,sans-serif;color:#9a9aa3;">Biblia UBG-2025</small></span>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+          <button type="button" onclick="window.wznChatDownload(this)" data-wzn-verse="${vEsc}" data-wzn-ref="${rEsc}" data-wzn-date="${dEsc}" data-wzn-url="${uEsc}"
+            style="${btn}background:linear-gradient(180deg,#ff3b3b,#e3121b);color:#fff;border:0;" aria-label="Pobierz grafikę z wersetem">⬇ Pobierz grafikę</button>
+          <button type="button" onclick="window.wznChatShare(this)" data-wzn-verse="${vEsc}" data-wzn-ref="${rEsc}" data-wzn-date="${dEsc}" data-wzn-url="${uEsc}"
+            style="${btn}background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.25);" aria-label="Udostępnij grafikę z wersetem">↗ Udostępnij</button>
+        </div>
+        <div class="cc-wzn-feedback" aria-live="polite" style="min-height:1.2em;margin-top:4px;font-size:0.75rem;color:#A5AEC4;"></div>
+      </div>`;
+  }
+  function wznWrap(ctx, text, maxW) {
+    const words = text.split(/\s+/);
+    const lines = [];
+    let line = '';
+    for (const word of words) {
+      const test = line ? line + ' ' + word : word;
+      if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = word; } else { line = test; }
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+  async function wznRenderPng(verse, ref) {
+    wznEnsureFonts();
+    try {
+      await Promise.all([
+        document.fonts.load('italic 600 48px "Cormorant Garamond"'),
+        document.fonts.load('600 28px "Cinzel"'),
+      ]);
+    } catch (e) {}
+    const img = await new Promise((resolve, reject) => {
+      const i = new Image();
+      i.onload = () => resolve(i);
+      i.onerror = reject;
+      i.src = WZN_TEMPLATE;
+    });
+    const S = 1080;
+    const c = document.createElement('canvas');
+    c.width = S; c.height = S;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0, S, S);
+    const x = S * 0.45, w = S * 0.5, top = S * 0.23, bottom = S * 0.83;
+    const vt = '„' + verse + '”';
+    let size = 50, lines = [], lh = 64;
+    for (; size >= 26; size -= 2) {
+      ctx.font = 'italic 600 ' + size + 'px "Cormorant Garamond", Georgia, serif';
+      lines = wznWrap(ctx, vt, w);
+      lh = size * 1.28;
+      if (lines.length * lh + 160 <= bottom - top) break;
+    }
+    let y = top + Math.max(0, (bottom - top - (60 + lines.length * lh + 100)) / 2);
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#ff3b3b';
+    ctx.font = '600 22px "Cinzel", Georgia, serif';
+    ctx.fillText('MASZ NOWĄ WIADOMOŚĆ', x, y);
+    const g = ctx.createLinearGradient(x, 0, x + 100, 0);
+    g.addColorStop(0, '#ff3b3b'); g.addColorStop(1, 'rgba(255,59,59,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(x, y + 40, 100, 4);
+    y += 60;
+    ctx.font = 'italic 600 ' + size + 'px "Cormorant Garamond", Georgia, serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = 'rgba(0,0,0,.8)'; ctx.shadowBlur = 12;
+    lines.forEach(l => { ctx.fillText(l, x, y); y += lh; });
+    ctx.shadowBlur = 0;
+    y += 30;
+    ctx.fillStyle = '#d9d9de';
+    ctx.font = '600 28px "Cinzel", Georgia, serif';
+    ctx.fillText(ref, x, y);
+    ctx.fillStyle = '#9a9aa3';
+    ctx.font = '500 20px system-ui, sans-serif';
+    ctx.fillText('Biblia UBG-2025', x, y + 40);
+    return new Promise(resolve => c.toBlob(resolve, 'image/png'));
+  }
+  function wznFeedback(btn, msg) {
+    const box = btn.closest('.cc-wzn-card-wrap');
+    const fb = box && box.querySelector('.cc-wzn-feedback');
+    if (fb) fb.textContent = msg;
+  }
+  window.wznChatDownload = async function(btn) {
+    const d = btn.dataset;
+    wznFeedback(btn, 'Przygotowuję grafikę…');
+    try {
+      const blob = await wznRenderPng(d.wznVerse || '', d.wznRef || '');
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'wiadomosc-z-nieba-' + (d.wznDate || 'dzis') + '.png';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      wznFeedback(btn, 'Grafika 1080×1080 pobrana.');
+    } catch (e) {
+      wznFeedback(btn, 'Nie udało się przygotować grafiki. Spróbuj ponownie.');
+    }
+  };
+  window.wznChatShare = async function(btn) {
+    const d = btn.dataset;
+    const text = '„' + (d.wznVerse || '') + '” — ' + (d.wznRef || '') + ' (UBG-2025)';
+    const url = d.wznUrl || 'https://polskieradio.cc/wiadomosc-z-nieba/';
+    try {
+      if (navigator.share) {
+        const blob = await wznRenderPng(d.wznVerse || '', d.wznRef || '').catch(() => null);
+        const file = blob ? new File([blob], 'wiadomosc-z-nieba-' + (d.wznDate || 'dzis') + '.png', { type: 'image/png' }) : null;
+        if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ title: 'Wiadomość z Nieba', text, url, files: [file] });
+        } else {
+          await navigator.share({ title: 'Wiadomość z Nieba', text, url });
+        }
+        wznFeedback(btn, 'Dziękujemy za udostępnienie.');
+      } else {
+        await navigator.clipboard.writeText(text + '\n' + url);
+        wznFeedback(btn, 'Tekst i link skopiowane. Grafikę zapiszesz przyciskiem „Pobierz grafikę”.');
+      }
+    } catch (e) {
+      if (!e || e.name !== 'AbortError') wznFeedback(btn, 'Nie udało się udostępnić — użyj „Pobierz grafikę”.');
+    }
+  };
+
   function renderChatMedia(escapedText, msgId) {
     if (typeof window.renderChatMedia === 'function') {
       return window.renderChatMedia(escapedText, msgId);
@@ -5814,6 +5963,7 @@
             </div>
             <div class="cc-chat-msg-bubble">
               ${renderChatMedia(text, m.id)}
+              ${m.type === 'wzn_card' && m.wzn ? renderWznChatCard(m) : ''}
             </div>
           </div>
         </div>

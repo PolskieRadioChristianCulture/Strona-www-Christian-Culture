@@ -215,6 +215,19 @@ export function createLuminaAdminFirestoreClient(repoRoot = DEFAULT_REPO_ROOT) {
       });
       return { postId: docId };
     },
+    // @007 (L0 23.11.2026): Wiadomość z Nieba w czacie głównym Lumi Mess — tylko czat publiczny.
+    async getPublicChatMessage(docId) {
+      const snap = await db.collection('lumina_public_chat_messages').doc(docId).get();
+      return snap.exists ? { exists: true, data: snap.data() } : { exists: false };
+    },
+    async createPublicChatMessage(docId, doc) {
+      // create() = brak nadpisania istniejącej wiadomości (idempotencja na poziomie bazy).
+      await db.collection('lumina_public_chat_messages').doc(docId).create({
+        ...doc,
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      });
+      return { messageId: docId };
+    },
     async getProfile(docId = 'wiadomosci_z_nieba') {
       const snap = await db.collection('lumina_profiles').doc(docId).get();
       return snap.exists ? { exists: true, data: snap.data() } : { exists: false };

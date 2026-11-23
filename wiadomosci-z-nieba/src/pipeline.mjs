@@ -15,6 +15,7 @@ import {
   publishWithControlledRetry,
 } from './publisher.mjs';
 import { writeOpenBotScheduleProposal } from './scheduler.mjs';
+import { broadcastDailyToPublicChat } from './chat-broadcast.mjs';
 
 const DEFAULT_REPO_ROOT = path.resolve(import.meta.dirname, '..', '..');
 
@@ -615,8 +616,15 @@ async function main() {
       rootDir: DEFAULT_REPO_ROOT,
       actorContext,
     });
+    let chat = null;
     if (cfg.mode === 'PRODUCTION_LIVE' && (res.ok || res.status === 'SKIPPED_DUPLICATE')) {
       syncPublicSiteData({ rootDir: DEFAULT_REPO_ROOT });
+      // @007 (L0 23.11.2026): ta sama wiadomość w czacie głównym Lumi Mess (07:00). Błąd czatu nie cofa publikacji dnia.
+      try {
+        chat = await broadcastDailyToPublicChat({ slot: 'morning', date: dateArg, rootDir: DEFAULT_REPO_ROOT, firestoreClient: createLuminaAdminFirestoreClient(DEFAULT_REPO_ROOT), config: cfg });
+      } catch (chatErr) {
+        chat = { ok: false, status: 'ERROR_CHAT', reason: chatErr.message };
+      }
     }
     console.log(JSON.stringify({
       ok: res.ok,
@@ -625,7 +633,21 @@ async function main() {
       postId: res.postId || null,
       code: res.code || null,
       reason: res.reason || null,
+      chat,
     }, null, 2));
+    if (!res.ok) process.exit(1);
+    return;
+  }
+
+  // @007 (L0 23.11.2026): 19:00 — ten sam werset dnia ponownie w czacie głównym Lumi Mess.
+  // Użycie: run-evening [--date RRRR-MM-DD]   |   broadcast-chat --slot morning|evening [--date RRRR-MM-DD]
+  if (cmd === 'run-evening' || cmd === 'broadcast-chat') {
+    const dateIdx = args.indexOf('--date');
+    const slotIdx = args.indexOf('--slot');
+    const slot = cmd === 'run-evening' ? 'evening' : (slotIdx !== -1 ? args[slotIdx + 1] : 'morning');
+    const dateArg = dateIdx !== -1 ? new Date(`${args[dateIdx + 1]}T12:00:00+01:00`) : new Date();
+    const res = await broadcastDailyToPublicChat({ slot, date: dateArg, rootDir: DEFAULT_REPO_ROOT, firestoreClient: createLuminaAdminFirestoreClient(DEFAULT_REPO_ROOT), config: cfg });
+    console.log(JSON.stringify(res, null, 2));
     if (!res.ok) process.exit(1);
     return;
   }
