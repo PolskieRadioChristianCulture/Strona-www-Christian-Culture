@@ -1456,6 +1456,58 @@
         white-space: nowrap !important;
       }
 
+      #ccPublicDailyDialogue.is-collapsed {
+        padding: 10px 12px !important;
+      }
+
+      .cc-daily-dialogue-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 10px !important;
+        cursor: pointer !important;
+      }
+
+      .cc-daily-dialogue-hosts {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        margin-top: 6px !important;
+        min-width: 0 !important;
+      }
+
+      .cc-daily-dialogue-avatars {
+        display: inline-flex !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+      }
+
+      .cc-daily-dialogue-host-avatar {
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        border: 1.5px solid #D8AD57 !important;
+        background: #14182E !important;
+        flex-shrink: 0 !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45) !important;
+        position: relative !important;
+      }
+
+      .cc-daily-dialogue-host-avatar + .cc-daily-dialogue-host-avatar {
+        margin-left: -7px !important;
+      }
+
+      .cc-daily-dialogue-host-names {
+        font-size: 0.72rem !important;
+        color: #B8C0D4 !important;
+        font-weight: 600 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        min-width: 0 !important;
+      }
+
       /* ── BANER ASYSTENTEK CC (SHOWCASE 1:1 ARTWORK & HOTSPOTS) ── */
       .cc-chat-asst-showcase {
         position: relative !important;
@@ -2415,6 +2467,9 @@
         background: rgba(12, 12, 11, 0.88) !important;
         border-color: rgba(212, 169, 74, 0.16) !important;
       }
+      #ccGlobalChatOverlay.cc-chat-home-theme #ccPublicDailyDialogue .cc-daily-dialogue-host-avatar {
+        border-color: #D4A94A !important;
+      }
       #ccGlobalChatOverlay.cc-chat-home-theme .cc-chat-msg-bubble {
         background: #151514 !important;
         border-color: rgba(212, 169, 74, 0.22) !important;
@@ -2629,6 +2684,9 @@
       #ccGlobalChatOverlay.cc-chat-ccn-theme #ccPublicDailyDialogue .cc-daily-dialogue-turn {
         background: rgba(14, 13, 13, 0.88) !important;
         border-color: rgba(187, 20, 46, 0.18) !important;
+      }
+      #ccGlobalChatOverlay.cc-chat-ccn-theme #ccPublicDailyDialogue .cc-daily-dialogue-host-avatar {
+        border-color: #bb142e !important;
       }
       #ccGlobalChatOverlay.cc-chat-ccn-theme .cc-chat-msg-bubble {
         background: #161616 !important;
@@ -5737,7 +5795,7 @@
 
   let dailyDialogueCache = null;
   let dailyDialogueFetching = false;
-  let dailyDialogueCollapsed = false;
+  let dailyDialogueCollapsed = true;
   let dailyDialogueTimer = null;
   let dailyLastVisibleCount = -1;
 
@@ -5840,8 +5898,14 @@
       ? `<span style="display:inline-flex;align-items:center;gap:5px;color:#34D399;font-weight:800;">● NA ŻYWO · ${escapeHtml(liveState.sessionLabel)}</span> <span id="ccDailyDialogueCountdown" style="color:#A5AEC4;font-weight:500;">${liveState.nextInSec > 0 ? `Kolejna myśl za ${liveState.nextInSec} s` : 'Finał sesji na żywo'}</span>`
       : `<span>☀️ Rozważanie dnia · Zapis (${escapeHtml(liveState.sessions.join(' i '))} NA ŻYWO)</span>`;
 
+    const hosts = ROTATING_ASSISTANTS.slice(0, 4);
+    const hostAvatarsHtml = hosts.map((a, idx) => `
+      <img src="${escapeHtml(a.circleAvatar || a.avatar)}" alt="${escapeHtml(a.shortName)}" title="${escapeHtml(a.shortName + ' · ' + a.role)}" class="cc-daily-dialogue-host-avatar" style="z-index:${4 - idx};" onerror="this.onerror=null;this.src='${escapeHtml(a.avatarFallback || '/images/chat/cc-chat-button-120.webp')}'">
+    `).join('');
+    const hostNamesLabel = 'Rut, Lea, Noemi i Miriam';
+
     const turnsHtml = dailyDialogueCollapsed ? '' : `
-      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+      <div id="ccDailyDialogueBody" style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
         ${shownTurns.map(t => `
           <div class="cc-daily-dialogue-turn" style="display:flex;gap:8px;align-items:flex-start;background:rgba(13,16,32,0.55);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:8px 10px;">
             <img src="${escapeHtml(t.avatar)}" alt="${escapeHtml(t.name)}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1.5px solid #D8AD57;flex-shrink:0;margin-top:2px;" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
@@ -5858,25 +5922,49 @@
       </div>
     `;
     return `
-      <div id="ccPublicDailyDialogue" style="border:1px solid rgba(216,173,87,0.32);background:linear-gradient(145deg,rgba(24,29,56,0.92),rgba(14,18,36,0.95));border-radius:16px;padding:12px 13px;margin-bottom:6px;box-shadow:0 6px 20px rgba(0,0,0,0.28);">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-          <div style="min-width:0;">
+      <div id="ccPublicDailyDialogue" class="cc-daily-dialogue-card ${dailyDialogueCollapsed ? 'is-collapsed' : 'is-expanded'}" data-collapsed="${dailyDialogueCollapsed ? 'true' : 'false'}" style="border:1px solid rgba(216,173,87,0.32);background:linear-gradient(145deg,rgba(24,29,56,0.92),rgba(14,18,36,0.95));border-radius:16px;padding:12px 13px;margin-bottom:6px;box-shadow:0 6px 20px rgba(0,0,0,0.28);">
+        <div id="ccDailyDialogueHeader" class="cc-daily-dialogue-header">
+          <div style="min-width:0;flex:1;">
             <div style="font-size:0.72rem;font-weight:800;letter-spacing:0.03em;color:#D8AD57;text-transform:uppercase;">${statusBadge}</div>
             <div style="font-size:0.86rem;font-weight:700;color:#FFFFFF;margin-top:2px;line-height:1.3;">${escapeHtml(d.title || 'Z Biblią za Pan Brat')}${d.reading ? ` <span style="color:#A5AEC4;font-weight:500;">(${escapeHtml(d.reading)})</span>` : ''}</div>
+            <div class="cc-daily-dialogue-hosts">
+              <span class="cc-daily-dialogue-avatars" aria-label="Prowadzące rozważanie: Rut, Lea, Noemi i Miriam">${hostAvatarsHtml}</span>
+              <span class="cc-daily-dialogue-host-names">Prowadzą: ${escapeHtml(hostNamesLabel)}</span>
+            </div>
           </div>
-          <button type="button" id="ccToggleDailyDialogueBtn" aria-label="Zwiń lub rozwiń rozważanie dnia" style="min-width:44px;min-height:44px;padding:0 10px;border-radius:10px;border:1px solid rgba(216,173,87,0.3);background:rgba(255,255,255,0.05);color:#E2CC9A;cursor:pointer;font-size:0.82rem;flex-shrink:0;">${dailyDialogueCollapsed ? '▾ Rozwiń' : '▴ Zwiń'}</button>
+          <button type="button" id="ccToggleDailyDialogueBtn" aria-expanded="${!dailyDialogueCollapsed}" aria-controls="ccDailyDialogueBody" aria-label="${dailyDialogueCollapsed ? 'Rozwiń rozważanie dnia prowadzone przez cztery asystentki' : 'Zwiń rozważanie dnia'}" style="min-width:44px;min-height:44px;padding:0 10px;border-radius:10px;border:1px solid rgba(216,173,87,0.3);background:rgba(255,255,255,0.05);color:#E2CC9A;cursor:pointer;font-size:0.82rem;font-weight:700;flex-shrink:0;">${dailyDialogueCollapsed ? '▾ Rozwiń' : '▴ Zwiń'}</button>
         </div>
         ${turnsHtml}
       </div>
     `;
   }
 
+  function toggleDailyDialogue() {
+    dailyDialogueCollapsed = !dailyDialogueCollapsed;
+    renderChatMessages();
+    if (!dailyDialogueCollapsed) {
+      const card = document.getElementById('ccPublicDailyDialogue');
+      if (card && typeof card.scrollIntoView === 'function') {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else if (typeof scrollToBottom === 'function') {
+      scrollToBottom();
+    }
+  }
+
   function bindDailyDialogueToggle() {
     const btn = document.getElementById('ccToggleDailyDialogueBtn');
+    const header = document.getElementById('ccDailyDialogueHeader');
     if (btn) {
-      btn.addEventListener('click', () => {
-        dailyDialogueCollapsed = !dailyDialogueCollapsed;
-        renderChatMessages();
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleDailyDialogue();
+      });
+    }
+    if (header) {
+      header.addEventListener('click', (e) => {
+        if (e.target.closest('button, a')) return;
+        toggleDailyDialogue();
       });
     }
   }

@@ -238,3 +238,21 @@ test('deep-linked room subscribes once when Firebase becomes ready after room se
  ready({db:{}});await opening;assert.equal(reads.length,1);assert.deepEqual(Array.from(reads[0][0]),['lumina_live_rooms','tv_bcm24','messages']);
  await vm.runInContext('openLive()',context);assert.equal(reads.length,1,'reopening does not duplicate the listener');
 });
+
+test('LUMI Messenger Czat ogólny defaults daily reflection to collapsed with 4 host avatars', async () => {
+  const source = await readFile('components/cc-global-chat-button.js', 'utf8');
+  assert.match(source, /let dailyDialogueCollapsed = true;/, 'daily reflection must default to collapsed');
+  assert.match(source, /class="cc-daily-dialogue-avatars"/, 'daily reflection must render 4 host avatars container');
+  for (const avatar of [
+    'lumi_avatar_rut_circle.webp',
+    'lumi_avatar_lea_circle.webp',
+    'lumi_avatar_noemi_circle.webp',
+    'lumi_avatar_miriam_circle.webp',
+  ]) {
+    assert.ok(source.includes(avatar), `missing host avatar ${avatar}`);
+  }
+  assert.match(source, /id="ccToggleDailyDialogueBtn"[^>]*aria-expanded=/, 'toggle button exposes aria-expanded');
+  assert.match(source, /id="ccToggleDailyDialogueBtn"[^>]*aria-controls="ccDailyDialogueBody"/, 'toggle button controls ccDailyDialogueBody');
+  assert.match(source, /id="ccToggleDailyDialogueBtn"[^>]*min-height:\s*44px/, 'toggle button meets 44px touch target');
+  assert.match(source, /const turnsHtml = dailyDialogueCollapsed \? '' : `[\s\S]*?id="ccDailyDialogueBody"/, 'turns body is omitted when collapsed');
+});
