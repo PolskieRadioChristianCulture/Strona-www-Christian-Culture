@@ -34,3 +34,23 @@ for (const file of CHANNELS) {
     assert.doesNotMatch(html, /let nextDay = \(parseInt\(safeStorage\.getItem\("dzj_stream_day"\)/, 'cofanie indeksu o północy');
   });
 }
+
+test('rozwazania_baza.json: każdy wpis ma id, date, title oraz treść', () => {
+  const list = JSON.parse(fs.readFileSync(path.join(ROOT, 'rozwazania_baza.json'), 'utf8'));
+  assert.ok(Array.isArray(list) && list.length > 0, 'rozwazania_baza.json musi być niepustą tablicą');
+  list.forEach((entry, idx) => {
+    assert.ok(entry && typeof entry === 'object', `wpis #${idx} musi być obiektem`);
+    assert.ok(typeof entry.id === 'string' && entry.id.trim().length > 0, `wpis #${idx} (${entry.date || '?'}) nie ma id`);
+    assert.match(String(entry.date || ''), /^\d{4}-\d{2}-\d{2}$/, `wpis #${idx} (${entry.id}) ma błędną datę: ${entry.date}`);
+    assert.ok(typeof entry.title === 'string' && entry.title.trim().length > 0, `wpis #${idx} (${entry.id}) nie ma title`);
+    const text = entry.fullText || entry.contentApp || entry.contentWeb || '';
+    assert.ok(typeof text === 'string' && text.trim().length > 0, `wpis #${idx} (${entry.id}) nie ma treści`);
+  });
+});
+
+test('cctv24-pl.html: bezpieczne parsowanie ref.id, odporny catch i brak googtrans=/pl/en', () => {
+  const plHtml = fs.readFileSync(path.join(ROOT, 'cctv24-pl.html'), 'utf8');
+  assert.doesNotMatch(plHtml, /ref\.id\.replace\(/, 'cctv24-pl.html: niechronione wywołanie ref.id.replace');
+  assert.doesNotMatch(plHtml, /document\.querySelector\(["']\.slide-title["']\)\.textContent\s*=/, 'cctv24-pl.html: niechroniony zapis do .slide-title.textContent');
+  assert.doesNotMatch(plHtml, /googtrans=\/pl\/en/, 'cctv24-pl.html: niepożądane wymuszanie angielskiego tłumaczenia na polskim kanale');
+});

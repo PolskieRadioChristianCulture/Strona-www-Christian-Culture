@@ -568,8 +568,9 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: flex-end;
+            gap: 14px;
         }
 
         /* Floating Clock Widget */
@@ -583,7 +584,7 @@
             border-radius: 16px;
             padding: 12px 28px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-            margin-bottom: 15px;
+            margin-bottom: 0;
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -647,15 +648,19 @@
         body.mode-presenters .reflection-canvas-card {
             right: 0; /* Align flush to .right-panel edge, utilizing main-viewport 70px padding for exact 70px screen margin */
             left: auto; /* Override default left: 450px style */
-            top: 180px; /* Top aligned with left-panel schedule widget */
+            top: 0; /* Sits naturally below clock + helpline inside .right-panel */
             width: 520px; /* EXACT SAME WIDTH as left panel window (520px) */
-            height: 595px; /* Bottom edge raised slightly to align level with the bottom edge of the QR window */
+            height: 525px; /* Fits cleanly between helpline and ticker without shrinking */
+            flex-shrink: 0;
+            padding: 22px 26px;
+            box-sizing: border-box;
             transform: translateZ(0); /* Hardware accelerated */
         }
 
         body.mode-presenters .card-clock-widget {
             width: 520px; /* Fixed width matching the 520px card */
             box-sizing: border-box;
+            flex-shrink: 0;
             margin-right: 0; /* Flush right matching card */
             margin-top: 95px; /* Brought down closer to the top of the reflection card */
         }
@@ -731,16 +736,33 @@
             pointer-events: auto;
         }
 
+        .tv-logo-slide {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tv-logo-slide img {
+            max-width: 75%;
+            max-height: 75%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.45));
+        }
+
         .slide-tag {
-            font-size: 1.45rem; /* Enlarged for mobile readability */
+            font-size: 0.96rem;
             font-weight: 850;
             color: var(--breakfast-accent);
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 0.6px;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             white-space: nowrap;
         }
 
@@ -1683,7 +1705,7 @@ body.za-polske-wallpaper #livePrayerOverlay { position: fixed !important; bottom
             -webkit-backdrop-filter: blur(15px);
             margin-right: 15px;
         }
-        /* --- LIVE HELPLINE PANEL (lewy panel - pod zegarem) --- */
+        /* --- LIVE HELPLINE PANEL (prawa kolumna 520 px - pod zegarem) --- */
         .live-helpline-panel {
             display: flex !important;
             align-items: center;
@@ -1695,13 +1717,15 @@ body.za-polske-wallpaper #livePrayerOverlay { position: fixed !important; bottom
             border-top: 1.5px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 15px 35px var(--glass-shadow);
             border-radius: 20px;
-            padding: 16px 26px;
+            padding: 12px 20px;
             margin: 0;
             text-decoration: none;
             cursor: pointer;
             transition: background 0.2s, border-color 0.2s;
             animation: live-helpline-pulse 2.4s infinite alternate;
-            width: 100%;
+            width: 520px;
+            max-width: 100%;
+            flex-shrink: 0;
             box-sizing: border-box;
         }
         .live-helpline-panel:hover {
@@ -1991,14 +2015,14 @@ body.za-polske-wallpaper #livePrayerOverlay { position: fixed !important; bottom
                     </div>
 
                     
-                    <!-- INFOLINIA NADZIEJA CC — pod zegarem, nad Program Dnia -->
+                    <!-- INFOLINIA NADZIEJA CC — pod zegarem, nad kartą rozważania -->
                     <a href="tel:+48730958583" class="live-helpline-panel" title="Zadzwoń: Infolinia Nadzieja Christian Culture">
-                        <div style="width:84px; height:84px; border-radius:50%; background:linear-gradient(135deg,#f5c518,#e6a817); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 20px rgba(245,197,24,0.6);">
-                            <i class="fa-solid fa-phone-volume" style="color:#000; font-size:2.3rem; animation:live-phone-ring 1.6s infinite alternate;"></i>
+                        <div style="width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,#f5c518,#e6a817); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 16px rgba(245,197,24,0.55);">
+                            <i class="fa-solid fa-phone-volume" style="color:#000; font-size:1.45rem; animation:live-phone-ring 1.6s infinite alternate;"></i>
                         </div>
-                        <div style="display:flex; flex-direction:column; line-height:1.4;">
-                            <span style="font-size:1.16rem; font-weight:800; color:rgba(245,197,24,0.85); text-transform:uppercase; letter-spacing:1.5px; font-family:'Montserrat',sans-serif;">Infolinia &ldquo;Nadzieja Christian Culture&rdquo;</span>
-                            <span style="font-size:2.3rem; font-weight:900; color:#fff; letter-spacing:1px; font-family:'Montserrat',sans-serif;">+48 730 958 583</span>
+                        <div style="display:flex; flex-direction:column; line-height:1.25;">
+                            <span style="font-size:0.85rem; font-weight:800; color:rgba(245,197,24,0.9); text-transform:uppercase; letter-spacing:1.2px; font-family:'Montserrat',sans-serif;">Infolinia &ldquo;Nadzieja Christian Culture&rdquo;</span>
+                            <span style="font-size:1.75rem; font-weight:900; color:#fff; letter-spacing:0.8px; font-family:'Montserrat',sans-serif;">+48 730 958 583</span>
                         </div>
                     </a>
 
@@ -2191,11 +2215,6 @@ body.za-polske-wallpaper #livePrayerOverlay { position: fixed !important; bottom
             }
         };
 
-
-        // Force Google Translate to translate to English immediately
-        document.cookie = "googtrans=/pl/en; path=/";
-        document.cookie = "googtrans=/pl/en; path=/; domain=" + window.location.hostname;
-        document.cookie = "googtrans=/pl/en; path=/; domain=.polskieradio.cc";
 
         // ── AUDIO INIT (global scope — called from overlay onclick) ──
         function initStream() {
@@ -3480,49 +3499,79 @@ function getWeatherPreset(city) {
                 }, 8000); // Toggle flip state every 8 seconds
             }
 
+            // Start independent studio UI & data feeds immediately (never block on reflections JSON)
+            initBackground();
+            initCtaRotation();
+            initTickerFlipper();
+            fetchRealWeather();
+            setInterval(fetchRealWeather, 900000); // Refresh weather from API every 15 minutes
+            loadNewsMarquee();
+            setInterval(loadNewsMarquee, 600000); // Refresh news headlines every 10 minutes
+            runQrSidecarLoop(); // Start weather/Patronite QR sidecar loop
+
             // Load database with cache buster
             fetch("rozwazania_baza.json?t=" + new Date().getTime())
-                .then(res => res.json())
+                .then(res => {
+                    if (!res.ok) throw new Error("HTTP " + res.status);
+                    return res.json();
+                })
                 .then(data => {
+                    if (!Array.isArray(data) || data.length === 0) {
+                        throw new Error("Empty reflections dataset");
+                    }
                     reflectionsData = data;
-                    if (reflectionsData.length === 0) return;
 
                     // Populate select list
-                    daySelect.innerHTML = "";
-                    reflectionsData.forEach((ref, idx) => {
-                        const dayLabel = ref.id.replace("ref_day", "Dzień ").replace("ref_", "");
-                        const dateLabel = ref.date ? ` (${ref.date})` : "";
-                        const opt = document.createElement("option");
-                        opt.value = idx;
-                        opt.textContent = `${dayLabel}: ${ref.title}${dateLabel}`;
-                    daySelect.appendChild(opt);
-                    });
+                    if (daySelect) {
+                        daySelect.innerHTML = "";
+                        reflectionsData.forEach((ref, idx) => {
+                            if (!ref || typeof ref !== "object") return;
+                            const rawId = String(ref.id || (ref.day ? "ref_day" + ref.day : "ref_" + (idx + 1)));
+                            const dayLabel = rawId.replace("ref_day", "Dzień ").replace("ref_", "");
+                            const dateLabel = ref.date ? ` (${ref.date})` : "";
+                            const opt = document.createElement("option");
+                            opt.value = idx;
+                            opt.textContent = `${dayLabel}: ${ref.title || "Rozważanie"}${dateLabel}`;
+                            daySelect.appendChild(opt);
+                        });
+                    }
 
                     if (currentDayIndex >= reflectionsData.length) {
                         currentDayIndex = 0;
                     }
-                    daySelect.value = currentDayIndex;
+                    if (daySelect) {
+                        daySelect.value = currentDayIndex;
+                    }
 
                     // Match today's date if no manual index override is saved
                     const todayStr = (()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
-                    const foundIdx = reflectionsData.findIndex(r => r.date === todayStr);
+                    const foundIdx = reflectionsData.findIndex(r => r && r.date === todayStr);
                     let matchedIdx = (foundIdx !== -1) ? foundIdx : window.ccPickReflectionIdx(reflectionsData);
                     if (daySelect && matchedIdx !== undefined) daySelect.value = matchedIdx;
 
-                    renderReflection(reflectionsData[matchedIdx] || reflectionsData[reflectionsData.length - 1] || reflectionsData[0]);
-                    initBackground();
-                    initCtaRotation();
-                    initTickerFlipper();
-                    fetchRealWeather();
-                    setInterval(fetchRealWeather, 900000); // Refresh weather from API every 15 minutes
-                    loadNewsMarquee();
-                    setInterval(loadNewsMarquee, 600000); // Refresh news headlines every 10 minutes
-                    runQrSidecarLoop(); // Start weather/Patronite QR sidecar loop
+                    renderReflection(reflectionsData[matchedIdx] || reflectionsData[0]);
                 })
                 .catch(err => {
                     console.error("Error loading reflections:", err);
-                    document.querySelector(".slide-title").textContent = "Błąd Bazy Danych";
-                    document.querySelector(".slide-text").textContent = "Nie udało się wczytać pliku rozważań. Upewnij się, że plik rozwazania_baza.json istnieje.";
+                    const titleEl = document.querySelector(".slide-title");
+                    const textEl = document.querySelector(".slide-text");
+                    if (titleEl && textEl) {
+                        titleEl.textContent = "Błąd Bazy Danych";
+                        textEl.textContent = "Nie udało się wczytać pliku rozważań. Spróbuj ponownie za chwilę.";
+                    } else if (slidesContainer) {
+                        slidesContainer.innerHTML = "";
+                        const slide = document.createElement("div");
+                        slide.className = "canvas-slide active";
+                        const t = document.createElement("div");
+                        t.className = "slide-title";
+                        t.textContent = "Błąd Bazy Danych";
+                        const p = document.createElement("div");
+                        p.className = "slide-text";
+                        p.textContent = "Nie udało się wczytać pliku rozważań. Spróbuj ponownie za chwilę.";
+                        slide.appendChild(t);
+                        slide.appendChild(p);
+                        slidesContainer.appendChild(slide);
+                    }
                 });
         });
     </script>
