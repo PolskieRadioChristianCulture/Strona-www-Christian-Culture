@@ -1,293 +1,337 @@
-const ACCEPTANCE_CRITERIA = [
-  'Wyświetlanie profilu „Jezus Chrystus — Wiadomości z nieba” i jawne oznaczenie Christian Culture jako wydawcy',
-  'Okrągły awatar na przezroczystym tle (komputer i smartfon, motyw ciemny i jasny)',
-  'Poprawność linków głównych prowadzących do https://polskieradio.cc/werset-dnia',
-  'Rzeczywiste źródło Wersetu Dnia (data/werset_dnia_365_ubg.json)',
-  'Krzyżowa weryfikacja autentyczności cytatu z kanoniczną Biblią UBG oraz licencją CC BY-ND 4.0',
-  'Formatowanie 5-elementowe + katalog 10 tematów + bramka bezpieczeństwa teologicznego (10/10)',
-  'Konfigurowalny harmonogram 07:00 Europe/Warsaw (wstrzymany w TEST)',
-  'Odporność na podwójne uruchomienie i bezpieczne ponowienia bez duplikatu',
-  'Zatrzymanie publikacji (fail-closed) i powiadomienie nadzoru przy niedostępności źródła',
-  'Zabezpieczenia konta publikacyjnego i twarda blokada publikacji bez zgody L0',
-  'Brak automatycznych wiadomości prywatnych (wyłącznie dobrowolna subskrypcja opt-in z rezygnacją)',
-  'Zbiorcza analityka i dzienny status bez profilowania przekonań religijnych',
-];
+// Wiadomość z Nieba — wersja premium (@007, L0 23.11.2026).
+// Dane: simulation-data.json (pipeline Antigravity, wersety UBG-2025 zweryfikowane). Zero kosztów, zero zewnętrznych API.
+const DATA_URL = '/test/wiadomosci-z-nieba/simulation-data.json';
+const TEMPLATE_IMG = '/images/wiadomosci-z-nieba/szablon-1x1.jpg';
+const SITE_URL = 'https://polskieradio.cc/test/wiadomosci-z-nieba/';
 
-const sandboxState = {
-  following: false,
-  followersCount: 0,
-  optInSubscribed: false,
-  optInCount: 0,
-  amenClicksByDay: {},
-  wersetClicks: 0,
-  sharesCount: 0,
-  selectedIndex: 0,
-  data: null,
-};
+const $ = (id) => document.getElementById(id);
+const MONTHS = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
+const WEEKDAYS = ['nd', 'pn', 'wt', 'śr', 'cz', 'pt', 'sb'];
 
-function trackEvent(eventName, params = {}) {
-  try {
-    if (typeof window.ccTrack === 'function') {
-      window.ccTrack(eventName, {
-        module: 'wiadomosci_z_nieba_test',
-        ...params,
-      });
-    }
-  } catch {
-    // Brak wpływu błędu telemetrii na interfejs użytkownika
+let days = [];
+let current = 0;
+
+function parseDate(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d, 12));
+}
+function longDate(iso) {
+  const dt = parseDate(iso);
+  return `${dt.getUTCDate()} ${MONTHS[dt.getUTCMonth()]} ${dt.getUTCFullYear()}`;
+}
+function todayWarsaw() {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw' }).format(new Date());
+}
+function stripEmoji(s) {
+  return String(s || '').replace(/^[\p{Extended_Pictographic}️‍\s]+/u, '').trim();
+}
+function themeShort(label) {
+  return String(label || '').split('—')[0].trim();
+}
+
+function cardMarkup(day) {
+  const card = document.createElement('div');
+  card.className = 'wzn-card-text';
+  const label = document.createElement('span');
+  label.className = 'wzn-card-label';
+  label.textContent = 'Masz nową wiadomość';
+  const verse = document.createElement('p');
+  verse.className = 'wzn-card-verse';
+  verse.textContent = `„${day.verse.text}”`;
+  const ref = document.createElement('span');
+  ref.className = 'wzn-card-ref';
+  ref.textContent = day.verse.referencePl;
+  const small = document.createElement('small');
+  small.textContent = 'Biblia UBG-2025';
+  ref.append(small);
+  card.append(label, verse, ref);
+  return card;
+}
+
+// Dopasowanie wielkości wersetu do czarnego pola szablonu (długie wersety = mniejsza czcionka).
+function fitCard(cardEl) {
+  const box = cardEl.querySelector('.wzn-card-text');
+  const verse = cardEl.querySelector('.wzn-card-verse');
+  if (!box || !verse || !cardEl.clientWidth) return;
+  let size = 4.6;
+  verse.style.fontSize = `${size}cqw`;
+  while (box.scrollHeight > box.clientHeight + 1 && size > 2.4) {
+    size -= 0.2;
+    verse.style.fontSize = `${size}cqw`;
   }
 }
 
-function setFeedback(text) {
-  const el = document.getElementById('actionFeedback');
-  if (el) el.textContent = text;
+function renderCard(target, day) {
+  target.replaceChildren(cardMarkup(day));
+  target.setAttribute('role', 'img');
+  target.setAttribute('aria-label', `Grafika Wiadomość z Nieba: „${day.verse.text}” — ${day.verse.referencePl}`);
+  requestAnimationFrame(() => fitCard(target));
 }
 
-function appendKvRow(dl, label, value) {
-  const dt = document.createElement('dt');
-  dt.textContent = label;
-  const dd = document.createElement('dd');
-  dd.textContent = String(value ?? '—');
-  dl.append(dt, dd);
-}
-
-function renderProfileHeader(sim) {
-  const p = sim.profile || {};
-  document.getElementById('profileDisplayName').textContent = p.displayName || 'Jezus Chrystus';
-  document.getElementById('profileSeriesName').textContent = p.seriesName || 'Wiadomości z nieba';
-  document.getElementById('profileHandle').textContent = p.handle || '@wiadomosci_z_nieba';
-  document.getElementById('profilePublisher').textContent = p.publisher || 'Christian Culture';
-  document.getElementById('profileTypeBadge').textContent = p.profileType || 'Oficjalny profil tematyczny Christian Culture';
-  document.getElementById('profileCategoryBadge').textContent = p.category || 'Biblia / Inspiracje / Wiara';
-  document.getElementById('profileSlogan').textContent = `„${p.slogan || ''}”`;
-  document.getElementById('profileBio').textContent = p.bio || '';
-  document.getElementById('profileDisclosure').textContent = p.editorialDisclosure || '';
-
-  const mainUrl = p.mainUrl || 'https://polskieradio.cc/werset-dnia';
-  document.getElementById('profilePrimaryLink').href = mainUrl;
-  document.getElementById('headerWersetCta').href = mainUrl;
-
-  const sched = sim.schedule || {};
-  document.getElementById('scheduleLabel').textContent = `${sched.publishTime || '07:00'} ${sched.timezone || 'Europe/Warsaw'}`;
-  document.getElementById('approvalStateText').textContent =
-    `Tryb: ${sim.mode} · Opublikowano w symulacji: ${sim.tenDays?.length || 0} dni · Koszt: 0,00 zł`;
-  document.getElementById('simSummaryNote').textContent =
-    `${sim.tenDays?.length || 0} dni UBG-2025 · Duplikat zablokowany: ${sim.verificationChecks?.duplicateRunBlocked ? 'TAK' : 'NIE'} · Fail-closed źródła: ${sim.verificationChecks?.missingSourceBlocked ? 'TAK' : 'NIE'}`;
-}
-
-function renderAnalyticsAndAcceptance(sim) {
-  const analyticsList = document.getElementById('analyticsMetaList');
-  analyticsList.textContent = '';
-  const totals = sim.analyticsSummary?.totals || {};
-  appendKvRow(analyticsList, 'Opublikowane (TEST)', totals.published_count ?? 0);
-  appendKvRow(analyticsList, 'Zablokowane duplikaty', totals.duplicates_blocked_count ?? 0);
-  appendKvRow(analyticsList, 'Błędy produkcyjne', totals.errors_count ?? 0);
-  appendKvRow(analyticsList, 'Kliknięcia Werset Dnia (sesja)', sandboxState.wersetClicks);
-  appendKvRow(analyticsList, 'Obserwujący (piaskownica)', sandboxState.followersCount);
-  appendKvRow(analyticsList, 'Subskrypcje opt-in (piaskownica)', sandboxState.optInCount);
-  appendKvRow(analyticsList, 'Udostępnienia (sesja)', sandboxState.sharesCount);
-  appendKvRow(analyticsList, 'Auto-publikacja live', sim.autoPublishEnabled ? 'WŁĄCZONA' : 'WYŁĄCZONA (oczekuje L0)');
-
-  const accList = document.getElementById('acceptanceCheckList');
-  accList.textContent = '';
-  for (const label of ACCEPTANCE_CRITERIA) {
-    const li = document.createElement('li');
-    li.className = 'wzn-check-item';
-    const mark = document.createElement('span');
-    mark.className = 'wzn-check-pass';
-    mark.textContent = 'PASS';
-    const text = document.createElement('span');
-    text.textContent = label;
-    li.append(mark, text);
-    accList.append(li);
-  }
-}
-
-function renderSelectedDay(index) {
-  const sim = sandboxState.data;
-  if (!sim || !Array.isArray(sim.tenDays) || !sim.tenDays[index]) return;
-  sandboxState.selectedIndex = index;
-  const item = sim.tenDays[index];
-
-  document.querySelectorAll('.wzn-day-tab').forEach((btn, idx) => {
-    btn.setAttribute('aria-selected', idx === index ? 'true' : 'false');
-  });
-
-  document.getElementById('postSubmeta').textContent =
-    `${item.runDate} · Dzień roku ${item.verse.day} · Status: ${item.status} · Wydawca: Christian Culture`;
-  document.getElementById('postThemePill').textContent = item.themeLabel;
-
-  const fig = document.getElementById('verseGraphicFigure');
-  const img = document.getElementById('verseGraphicImg');
-  const cap = document.getElementById('verseGraphicCaption');
-  if (item.dedicatedImage) {
-    img.src = item.dedicatedImage;
-    img.alt = `Grafika biblijna do wersetu ${item.verse.referencePl} (UBG-2025)`;
-    cap.textContent = `Dedykowana karta Wersetu Dnia (${item.verse.referencePl})`;
-    fig.hidden = false;
-  } else {
-    fig.hidden = true;
-    img.removeAttribute('src');
-  }
-
-  document.getElementById('postHook').textContent = item.sections.hook;
-  document.getElementById('postVerseBlock').textContent = item.sections.verseBlock;
-  document.getElementById('postReflection').textContent = item.sections.reflection;
-  const mainCta = document.getElementById('postMainCtaLink');
-  mainCta.href = item.actionUrl || 'https://polskieradio.cc/werset-dnia';
-  document.getElementById('postSecondaryCta').textContent = item.sections.secondaryInvite;
-  document.getElementById('postSignature').textContent = item.sections.signature;
-  document.getElementById('postIdChip').textContent = `ID: ${item.postId}`;
-  document.getElementById('amenCount').textContent = String(sandboxState.amenClicksByDay[item.runDate] || 0);
-
-  const verseMeta = document.getElementById('verseMetaList');
-  verseMeta.textContent = '';
-  appendKvRow(verseMeta, 'Odnośnik', item.verse.referencePl);
-  appendKvRow(verseMeta, 'Przekład', item.verse.translation);
-  appendKvRow(verseMeta, 'Licencja', item.verse.license);
-  appendKvRow(verseMeta, 'Zgodność UBG', item.verse.canonicalVerified ? 'ZWERYFIKOWANA (100%)' : 'NIEZWERYFIKOWANA');
-  appendKvRow(verseMeta, 'SHA-256 wersetu', `${String(item.verse.sha256 || '').slice(0, 16)}…`);
-
-  const thList = document.getElementById('theologyCheckList');
-  thList.textContent = '';
-  for (const check of item.theology?.checks || []) {
-    const li = document.createElement('li');
-    li.className = 'wzn-check-item';
-    const mark = document.createElement('span');
-    mark.className = check.passed ? 'wzn-check-pass' : 'wzn-check-fail';
-    mark.textContent = check.passed ? 'PASS' : 'FAIL';
-    const span = document.createElement('span');
-    span.textContent = `${check.label} (${check.detail})`;
-    li.append(mark, span);
-    thList.append(li);
-  }
-}
-
-function renderDayTabs(sim) {
-  const tabs = document.getElementById('dayTabs');
-  tabs.textContent = '';
-  (sim.tenDays || []).forEach((item, idx) => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'wzn-day-tab';
-    btn.setAttribute('role', 'tab');
-    btn.setAttribute('aria-selected', idx === 0 ? 'true' : 'false');
-
-    const title = document.createElement('span');
-    title.textContent = `Dzień ${item.dayIndex} · ${item.runDate.slice(5)}`;
-    const sub = document.createElement('small');
-    sub.textContent = item.verse.referencePl;
-    btn.append(title, sub);
-
-    btn.addEventListener('click', () => {
-      renderSelectedDay(idx);
-      trackEvent('wzn_test_day_select', { item_id: item.postId });
-    });
-    tabs.append(btn);
-  });
-}
-
-function bindControls() {
-  const themeBtn = document.getElementById('toggleThemeBtn');
-  themeBtn.addEventListener('click', () => {
-    const html = document.documentElement;
-    const isLight = html.getAttribute('data-lumina-theme') === 'light';
-    const next = isLight ? 'dark' : 'light';
-    html.setAttribute('data-lumina-theme', next);
-    themeBtn.setAttribute('aria-pressed', next === 'light' ? 'true' : 'false');
-    themeBtn.textContent = next === 'light' ? 'Motyw ciemny (Obsidian)' : 'Motyw jasny (test awatara)';
-  });
-
-  const vpBtn = document.getElementById('toggleViewportBtn');
-  vpBtn.addEventListener('click', () => {
-    const active = document.body.classList.toggle('wzn-mobile-preview');
-    vpBtn.setAttribute('aria-pressed', active ? 'true' : 'false');
-    vpBtn.textContent = active ? 'Widok pełny (desktop)' : 'Podgląd smartfona (390px)';
-  });
-
-  const followBtn = document.getElementById('followProfileBtn');
-  followBtn.addEventListener('click', () => {
-    sandboxState.following = !sandboxState.following;
-    sandboxState.followersCount = sandboxState.following ? 1 : 0;
-    followBtn.setAttribute('aria-pressed', sandboxState.following ? 'true' : 'false');
-    followBtn.textContent = sandboxState.following ? 'Obserwujesz ✓' : 'Obserwuj profil';
-    setFeedback(
-      sandboxState.following
-        ? 'Obserwujesz profil „Jezus Chrystus — Wiadomości z nieba” w trybie testowym.'
-        : 'Przestałeś obserwować profil w trybie testowym.'
-    );
-    trackEvent('wzn_profile_follow', { following: sandboxState.following });
-    renderAnalyticsAndAcceptance(sandboxState.data);
-  });
-
-  const optInBtn = document.getElementById('optInNotifBtn');
-  optInBtn.addEventListener('click', () => {
-    sandboxState.optInSubscribed = !sandboxState.optInSubscribed;
-    sandboxState.optInCount = sandboxState.optInSubscribed ? 1 : 0;
-    optInBtn.setAttribute('aria-pressed', sandboxState.optInSubscribed ? 'true' : 'false');
-    optInBtn.textContent = sandboxState.optInSubscribed
-      ? 'Subskrypcja aktywna (Wypisz się)'
-      : 'Subskrybuj powiadomienia dzienne (opt-in)';
-    setFeedback(
-      sandboxState.optInSubscribed
-        ? 'Włączono dobrowolną subskrypcję porannych powiadomień (07:00). Możesz zrezygnować w każdej chwili jednym kliknięciem.'
-        : 'Wypisano z powiadomień dziennych. Nie otrzymasz żadnych wiadomości automatycznych.'
-    );
-    trackEvent('wzn_optin_subscription', { subscribed: sandboxState.optInSubscribed });
-    renderAnalyticsAndAcceptance(sandboxState.data);
-  });
-
-  const shareCurrent = async (source) => {
-    sandboxState.sharesCount += 1;
-    const item = sandboxState.data?.tenDays?.[sandboxState.selectedIndex];
-    const url = item?.actionUrl || 'https://polskieradio.cc/werset-dnia';
-    try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(url);
+function renderTabs() {
+  const track = $('dayTabs');
+  track.replaceChildren();
+  days.forEach((day, i) => {
+    const dt = parseDate(day.runDate);
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'wzn-day';
+    b.id = `tab-${day.runDate}`;
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-controls', 'messagePanel');
+    b.setAttribute('aria-label', longDate(day.runDate));
+    b.innerHTML = `${WEEKDAYS[dt.getUTCDay()]}<strong>${dt.getUTCDate()}</strong>${MONTHS[dt.getUTCMonth()].slice(0, 3)}`;
+    b.addEventListener('click', () => select(i, true));
+    b.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + days.length) % days.length;
+        select(n, true);
+        $(`tab-${days[n].runDate}`).focus();
       }
+    });
+    track.append(b);
+  });
+}
+
+function renderArchive() {
+  const grid = $('archiveGrid');
+  grid.replaceChildren();
+  days.forEach((day, i) => {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'wzn-tile';
+    b.dataset.index = String(i);
+    const card = document.createElement('div');
+    card.className = 'wzn-card';
+    renderCard(card, day);
+    card.setAttribute('aria-hidden', 'true');
+    card.removeAttribute('role');
+    const meta = document.createElement('span');
+    meta.className = 'wzn-tile-meta';
+    meta.innerHTML = `<strong></strong><br>`;
+    meta.querySelector('strong').textContent = longDate(day.runDate);
+    meta.append(document.createTextNode(themeShort(day.themeLabel)));
+    b.setAttribute('aria-label', `${longDate(day.runDate)}: ${day.verse.referencePl}`);
+    b.append(card, meta);
+    b.addEventListener('click', () => {
+      select(i, true);
+      $('wiadomosc').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
+    li.append(b);
+    grid.append(li);
+  });
+}
+
+function renderOps(day) {
+  const kv = $('verseMetaList');
+  kv.replaceChildren();
+  const rows = [
+    ['Werset', day.verse.referencePl],
+    ['Przekład', day.verse.translation],
+    ['Licencja', day.verse.license],
+    ['Zweryfikowany', day.verse.canonicalVerified ? 'tak' : 'NIE'],
+    ['SHA-256', String(day.verse.sha256 || '').slice(0, 16) + '…'],
+    ['ID wpisu', day.postId],
+  ];
+  for (const [k, v] of rows) {
+    const dt = document.createElement('dt'); dt.textContent = k;
+    const dd = document.createElement('dd'); dd.textContent = v || '—';
+    kv.append(dt, dd);
+  }
+  const ul = $('theologyCheckList');
+  ul.replaceChildren();
+  for (const c of day.theology?.checks || []) {
+    const li = document.createElement('li');
+    li.textContent = c.label;
+    if (!c.passed) li.className = 'fail';
+    ul.append(li);
+  }
+}
+
+function select(i, fromUser = false) {
+  current = i;
+  const day = days[i];
+  document.querySelectorAll('.wzn-day').forEach((b, n) => {
+    b.setAttribute('aria-selected', String(n === i));
+    b.tabIndex = n === i ? 0 : -1;
+  });
+  document.querySelectorAll('.wzn-tile').forEach((b, n) => b.setAttribute('aria-current', String(n === i)));
+  $('messagePanel').setAttribute('aria-labelledby', `tab-${day.runDate}`);
+  const isToday = day.runDate === todayWarsaw();
+  $('wznTodayKicker').textContent = isToday ? `Wiadomość na dziś · ${longDate(day.runDate)}` : `Wiadomość z dnia ${longDate(day.runDate)}`;
+  $('msgTheme').textContent = themeShort(day.themeLabel);
+  $('msgHook').textContent = stripEmoji(day.sections.hook);
+  $('msgVerse').textContent = `„${day.verse.text}”`;
+  $('msgRef').textContent = `${day.verse.referencePl} · UBG-2025`;
+  $('msgReflection').textContent = day.sections.reflection;
+  $('actionFeedback').textContent = '';
+  renderCard($('mainCard'), day);
+  renderOps(day);
+  if (fromUser) history.replaceState(null, '', `#dzien-${day.runDate}`);
+  const active = $(`tab-${day.runDate}`);
+  if (active && fromUser) active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'auto' });
+}
+
+// ── Grafika 1080×1080 (PNG) generowana w przeglądarce na szablonie L0 ──
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+function wrapLines(ctx, text, maxWidth) {
+  const words = text.split(/\s+/);
+  const lines = [];
+  let line = '';
+  for (const w of words) {
+    const test = line ? `${line} ${w}` : w;
+    if (ctx.measureText(test).width > maxWidth && line) { lines.push(line); line = w; } else { line = test; }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+async function renderPng(day) {
+  await document.fonts.ready;
+  await Promise.all([
+    document.fonts.load('italic 600 48px "Cormorant Garamond"'),
+    document.fonts.load('600 28px "Cinzel"'),
+  ]).catch(() => {});
+  const S = 1080;
+  const canvas = document.createElement('canvas');
+  canvas.width = S; canvas.height = S;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(await loadImage(TEMPLATE_IMG), 0, 0, S, S);
+  const x = S * 0.45, w = S * 0.5, top = S * 0.23, bottom = S * 0.83;
+  const verseText = `„${day.verse.text}”`;
+  let size = 50, lines, lh;
+  for (; size >= 26; size -= 2) {
+    ctx.font = `italic 600 ${size}px "Cormorant Garamond", Georgia, serif`;
+    lines = wrapLines(ctx, verseText, w);
+    lh = size * 1.28;
+    if (lines.length * lh + 160 <= bottom - top) break;
+  }
+  const blockH = 60 + lines.length * lh + 30 + 70;
+  let y = top + Math.max(0, (bottom - top - blockH) / 2);
+  ctx.textBaseline = 'top';
+  ctx.fillStyle = '#ff3b3b';
+  ctx.font = '600 22px "Cinzel", Georgia, serif';
+  ctx.letterSpacing = '5px';
+  ctx.fillText('MASZ NOWĄ WIADOMOŚĆ', x, y);
+  ctx.letterSpacing = '0px';
+  const grad = ctx.createLinearGradient(x, 0, x + 100, 0);
+  grad.addColorStop(0, '#ff3b3b'); grad.addColorStop(1, 'rgba(255,59,59,0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(x, y + 40, 100, 4);
+  y += 60;
+  ctx.font = `italic 600 ${size}px "Cormorant Garamond", Georgia, serif`;
+  ctx.fillStyle = '#ffffff';
+  ctx.shadowColor = 'rgba(0,0,0,.8)'; ctx.shadowBlur = 12;
+  for (const l of lines) { ctx.fillText(l, x, y); y += lh; }
+  ctx.shadowBlur = 0;
+  y += 30;
+  ctx.fillStyle = '#d9d9de';
+  ctx.font = '600 28px "Cinzel", Georgia, serif';
+  ctx.fillText(day.verse.referencePl, x, y);
+  ctx.fillStyle = '#9a9aa3';
+  ctx.font = '500 20px "Inter", system-ui, sans-serif';
+  ctx.fillText('Biblia UBG-2025', x, y + 40);
+  return new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+}
+
+function postText(day) {
+  return day.bodyText || [day.sections.hook, day.sections.verseBlock, day.sections.reflection, day.sections.ctaBlock, day.sections.signature].join('\n\n');
+}
+function feedback(msg) { $('actionFeedback').textContent = msg; }
+
+function bindActions() {
+  $('downloadBtn').addEventListener('click', async () => {
+    const day = days[current];
+    feedback('Przygotowuję grafikę…');
+    try {
+      const blob = await renderPng(day);
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `wiadomosc-z-nieba-${day.runDate}.png`;
+      document.body.append(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      feedback('Grafika 1080×1080 pobrana.');
     } catch {
-      // Ignoruj brak uprawnień schowka w środowisku bez HTTPS
+      feedback('Nie udało się przygotować grafiki. Spróbuj ponownie.');
     }
-    setFeedback(`Skopiowano link do publikacji (${url}) w trybie testowym.`);
-    trackEvent('wzn_share', { source });
-    renderAnalyticsAndAcceptance(sandboxState.data);
+  });
+  $('shareBtn').addEventListener('click', async () => {
+    const day = days[current];
+    const url = `${SITE_URL}#dzien-${day.runDate}`;
+    const text = `„${day.verse.text}” — ${day.verse.referencePl}`;
+    try {
+      if (navigator.share) {
+        const blob = await renderPng(day).catch(() => null);
+        const file = blob ? new File([blob], `wiadomosc-z-nieba-${day.runDate}.png`, { type: 'image/png' }) : null;
+        if (file && navigator.canShare?.({ files: [file] })) await navigator.share({ title: 'Wiadomość z Nieba', text, url, files: [file] });
+        else await navigator.share({ title: 'Wiadomość z Nieba', text, url });
+        feedback('Dziękujemy za udostępnienie.');
+      } else {
+        await navigator.clipboard.writeText(`${text}\n${url}`);
+        feedback('Link skopiowany do schowka.');
+      }
+    } catch (e) {
+      if (e?.name !== 'AbortError') feedback('Nie udało się udostępnić. Skopiuj link z paska adresu.');
+    }
+  });
+  // Zgoda opt-in: zapamiętana tylko na tym urządzeniu; w TEST nic nie jest wysyłane.
+  const optBtn = $('optInNotifBtn');
+  const KEY = 'wzn_optin_test';
+  const setOpt = (on) => {
+    optBtn.setAttribute('aria-pressed', String(on));
+    optBtn.textContent = on ? 'Zgoda zapisana — wyłącz' : 'Chcę dostawać wiadomość codziennie';
   };
-
-  document.getElementById('shareProfileBtn').addEventListener('click', () => shareCurrent('profile'));
-  document.getElementById('sharePostBtn').addEventListener('click', () => shareCurrent('post'));
-
-  document.getElementById('reactAmenBtn').addEventListener('click', () => {
-    const item = sandboxState.data?.tenDays?.[sandboxState.selectedIndex];
-    if (!item) return;
-    sandboxState.amenClicksByDay[item.runDate] = (sandboxState.amenClicksByDay[item.runDate] || 0) + 1;
-    document.getElementById('amenCount').textContent = String(sandboxState.amenClicksByDay[item.runDate]);
-    trackEvent('wzn_reaction_amen', { item_id: item.postId });
+  try { setOpt(localStorage.getItem(KEY) === '1'); } catch { setOpt(false); }
+  optBtn.addEventListener('click', () => {
+    const on = optBtn.getAttribute('aria-pressed') !== 'true';
+    setOpt(on);
+    try { on ? localStorage.setItem(KEY, '1') : localStorage.removeItem(KEY); } catch { /* tryb prywatny */ }
+    $('optInNote').textContent = on
+      ? 'Dziękujemy. Zgoda zapisana na tym urządzeniu. W wersji testowej powiadomienia nie są jeszcze wysyłane.'
+      : 'Zgoda wycofana. Nie otrzymasz żadnych powiadomień — brak automatycznych wiadomości prywatnych.';
   });
 
-  ['headerWersetCta', 'profilePrimaryLink', 'postMainCtaLink'].forEach(id => {
-    document.getElementById(id).addEventListener('click', () => {
-      sandboxState.wersetClicks += 1;
-      trackEvent('wzn_werset_dnia_click', { cta_id: id });
-      renderAnalyticsAndAcceptance(sandboxState.data);
-    });
+  $('copyBtn').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(postText(days[current]));
+      feedback('Tekst posta skopiowany do schowka.');
+    } catch {
+      feedback('Schowek niedostępny w tej przeglądarce.');
+    }
   });
 }
 
 async function init() {
-  bindControls();
-  const res = await fetch('/test/wiadomosci-z-nieba/simulation-data.json', { cache: 'no-store' });
-  if (!res.ok) {
-    setFeedback('Nie udało się wczytać danych symulacji testowej.');
-    return;
-  }
-  const sim = await res.json();
-  sandboxState.data = sim;
-  renderProfileHeader(sim);
-  renderDayTabs(sim);
-  renderSelectedDay(0);
-  renderAnalyticsAndAcceptance(sim);
+  const res = await fetch(DATA_URL, { cache: 'no-cache' });
+  const data = await res.json();
+  days = [...(data.tenDays || [])].sort((a, b) => a.runDate.localeCompare(b.runDate));
+  const p = data.profile || {};
+  $('profileBio').textContent = p.bio || '';
+  $('profileDisclosure').textContent = p.editorialDisclosure || '';
+  renderTabs();
+  renderArchive();
+  bindActions();
+  const hashDate = (location.hash.match(/dzien-(\d{4}-\d{2}-\d{2})/) || [])[1];
+  const today = todayWarsaw();
+  let idx = days.findIndex((d) => d.runDate === hashDate);
+  if (idx < 0) idx = days.findIndex((d) => d.runDate === today);
+  if (idx < 0) { const past = days.map((d, n) => [d, n]).filter(([d]) => d.runDate <= today); idx = past.length ? past.at(-1)[1] : 0; }
+  select(idx);
+  const refit = () => document.querySelectorAll('.wzn-card').forEach(fitCard);
+  document.fonts?.ready.then(refit);
+  let t;
+  addEventListener('resize', () => { clearTimeout(t); t = setTimeout(refit, 150); });
 }
 
 init().catch(() => {
-  setFeedback('Błąd inicjalizacji podglądu testowego Wiadomości z nieba.');
+  $('wznTodayTitle').textContent = 'Nie udało się wczytać wiadomości';
+  $('msgReflection').textContent = 'Odśwież stronę albo odwiedź polskieradio.cc/werset-dnia.';
 });
