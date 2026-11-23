@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { isPublicFile } from './cc-release-files.mjs';
 
 const ROOT = process.cwd();
 const DATA_PATH = path.join(ROOT, 'test', 'biblioteka-pionierow', 'data', 'partia-01.json');
@@ -88,3 +89,11 @@ test('All 10 books are indexed in @w (szukaj/catalog.json & data/cc-search-index
   const sitemap = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
   assert.ok(!sitemap.includes('/test/biblioteka-pionierow'), 'noindex preview must not be in sitemap.xml');
 });
+
+test('Preview and cover files are whitelisted for Cloudflare Pages release', () => {
+  assert.equal(isPublicFile('test/biblioteka-pionierow/index.html'), true);
+  assert.equal(isPublicFile('test/biblioteka-pionierow/pioneers-library.css'), true);
+  assert.equal(isPublicFile('test/biblioteka-pionierow/ksiazka/e-j-waggoner-christ-and-his-righteousness/index.html'), true);
+  assert.equal(isPublicFile('images/biblioteka/pionierzy/001.webp'), true);
+});
+

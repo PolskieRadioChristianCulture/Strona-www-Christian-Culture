@@ -52,6 +52,8 @@ export function isPublicFile(relativePath) {
   if (file === 'test/analityka/index.html') return true;
   // Adventist World P0 preview (noindex,nofollow) — PL/EN katalog + 98 profili + otwarte dane.
   if (file.startsWith('test/adventist-world/')) return true;
+  // Biblioteka Pionierów CC — Partia 01 preview (noindex,nofollow) 001–010.
+  if (file.startsWith('test/biblioteka-pionierow/')) return true;
   if (segments.some((segment) => BLOCKED_DIRECTORIES.has(segment))) return false;
   if (BLOCKED_FILES.has(lower) || BLOCKED_FILES.has(path.posix.basename(lower))) return false;
   if (lower.includes('backup') || lower.includes('.matrix_sessions')) return false;

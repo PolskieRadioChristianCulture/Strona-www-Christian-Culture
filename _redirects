@@ -484,6 +484,9 @@
 /test/adventist-world/ /test/adventist-world/index.html 200
 /test/adventist-world/en /test/adventist-world/en/index.html 200
 /test/adventist-world/en/ /test/adventist-world/en/index.html 200
+# === BIBLIOTEKA PIONIERÓW PARTIA 01 PREVIEW (noindex,nofollow) ===
+/test/biblioteka-pionierow /test/biblioteka-pionierow/index.html 200
+/test/biblioteka-pionierow/ /test/biblioteka-pionierow/index.html 200
 /lumina/studiodobregoslowa /lumina.studiodobregoslowa 200
 /lumina/studio-dobrego-slowa /lumina.studiodobregoslowa 200
 /studiodobregoslowa /lumina.studiodobregoslowa 200
