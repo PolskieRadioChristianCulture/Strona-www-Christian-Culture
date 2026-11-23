@@ -158,7 +158,8 @@ function generateArticleHtml(article, allArticles, portalOpts = {}) {
       "url": "https://polskieradio.cc/"
     },
     "headline": article.title,
-    "description": article.excerpt,
+    "description": article.metaDescription || article.excerpt,
+    ...(Array.isArray(article.sources) && article.sources.length ? { "citation": article.sources.map(src => ({ "@type": "CreativeWork", "name": src.label, "url": src.url })) } : {}),
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": canonicalUrl
@@ -271,8 +272,8 @@ function generateArticleHtml(article, allArticles, portalOpts = {}) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>${escapeHtml(article.title)} – CCN News | Christian Culture</title>
-    <meta name="description" content="${escapeAttribute(article.excerpt)}" />
+    <title>${escapeHtml(article.seoTitle || article.title)} – CCN News | Christian Culture</title>
+    <meta name="description" content="${escapeAttribute(article.metaDescription || article.excerpt)}" />
     <meta name="author" content="${escapeAttribute(article.author.name)}" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <link rel="canonical" href="${canonicalUrl}" />
@@ -285,10 +286,11 @@ function generateArticleHtml(article, allArticles, portalOpts = {}) {
     <meta property="og:site_name" content="CCN News — Christian Culture" />
     <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:title" content="${escapeAttribute(article.title)} – CCN News" />
-    <meta property="og:description" content="${escapeAttribute(article.excerpt)}" />
+    <meta property="og:description" content="${escapeAttribute(article.metaDescription || article.excerpt)}" />
     <meta property="og:image" content="${cleanImageUrl}" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="675" />
+    <meta property="og:image:height" content="675" />${article.imageAlt ? `
+    <meta property="og:image:alt" content="${escapeAttribute(article.imageAlt)}" />` : ''}
     <meta property="article:published_time" content="${article.publishedAt}" />
     <meta property="article:author" content="${escapeAttribute(article.author.name)}" />
     <meta property="og:locale" content="pl_PL" />
@@ -297,7 +299,7 @@ function generateArticleHtml(article, allArticles, portalOpts = {}) {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="${canonicalUrl}" />
     <meta name="twitter:title" content="${escapeAttribute(article.title)} – CCN News" />
-    <meta name="twitter:description" content="${escapeAttribute(article.excerpt)}" />
+    <meta name="twitter:description" content="${escapeAttribute(article.metaDescription || article.excerpt)}" />
     <meta name="twitter:image" content="${cleanImageUrl}" />
 
     <!-- Schema.org JSON-LD -->
@@ -1423,7 +1425,7 @@ ${JSON.stringify(jsonLd, null, 2)}
 
         <!-- Hero Media -->
         <figure class="ccn-media-box">
-          <img src="${escapeAttribute(article.imageUrl)}" alt="${escapeAttribute(article.title)}" loading="eager" onerror="this.src='/ccn-logo-square.png'">
+          <img src="${escapeAttribute(article.imageUrl)}" alt="${escapeAttribute(article.imageAlt || article.title)}" loading="eager" fetchpriority="high" onerror="this.src='/ccn-logo-square.png'">
           ${article.imageCaption ? `<figcaption>${escapeHtml(article.imageCaption)}</figcaption>` : ''}
         </figure>
 
@@ -1644,8 +1646,15 @@ ${JSON.stringify(jsonLd, null, 2)}
           </p>
         </div>` : ''}
 
-        <!-- Source Citation -->
-        ${article.sourceCitation ? `
+        ${Array.isArray(article.sources) && article.sources.length ? `<!-- Standard CCN Premium: pelna lista zrodel pierwotnych -->
+        <section class="ccn-source-box" aria-labelledby="ccnSourcesHeading">
+          <h2 id="ccnSourcesHeading" style="font-size:1.05rem; margin:0 0 0.5rem 0;">Źródła i weryfikacja</h2>
+          <ol style="margin:0; padding-left:1.25rem; line-height:1.6;">
+            ${article.sources.map(src => `<li style="margin:0.15rem 0;"><a href="${escapeAttribute(src.url)}" target="_blank" rel="noopener noreferrer" style="display:inline-block; min-height:44px; padding:10px 0;">${escapeHtml(src.label)}</a></li>`).join('\n            ')}
+          </ol>
+        </section>
+` : ''}<!-- Source Citation -->
+        ${article.sourceCitation && !(Array.isArray(article.sources) && article.sources.length) ? `
         <div class="ccn-source-box">
           <p><strong>Źródło i weryfikacja faktograficzna:</strong> ${escapeHtml(article.sourceCitation.sourceName)}</p>
           ${article.sourceCitation.sourceUrl ? `<p style="margin-top:0.3rem;"><a href="${escapeAttribute(article.sourceCitation.sourceUrl)}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Zobacz oficjalne źródło i dokumentację</a> (${escapeHtml(article.sourceCitation.quotationDate || '')})</p>` : ''}

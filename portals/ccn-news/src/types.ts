@@ -22,6 +22,9 @@ export interface Author {
 
 export interface SourceCitation {
   sourceName: string;
+  /** Starsze wpisy używają name/url zamiast sourceName/sourceUrl. */
+  name?: string;
+  url?: string;
   sourceUrl?: string;
   quotationDate?: string;
   originalTitle?: string;
@@ -115,6 +118,18 @@ export interface Article {
   dateFormatted: string;
   imageUrl: string;
   imageCaption?: string;
+  /** Standard CCN Premium: opis alternatywny grafiki (WCAG); domyślnie tytuł. */
+  imageAlt?: string;
+  /** Standard CCN Premium: tytuł SEO do 60 znaków; domyślnie title. */
+  seoTitle?: string;
+  /** Standard CCN Premium: meta description 120–160 znaków; domyślnie excerpt. */
+  metaDescription?: string;
+  /** Seria redakcyjna, np. Ziemskie pytania — Niebiańskie odpowiedzi. */
+  series?: string;
+  /** Standard CCN Premium: pełna lista źródeł pierwotnych z linkami. */
+  sources?: { label: string; url: string }[];
+  /** Linki działań (MojaBiblia, kursy) — dane historyczne. */
+  actionLinks?: { label: string; url: string }[];
   readTimeMinutes: number;
   isHero?: boolean;
   isPopular?: boolean;

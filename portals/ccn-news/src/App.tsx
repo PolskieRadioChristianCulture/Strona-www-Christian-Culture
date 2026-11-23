@@ -183,7 +183,13 @@ export default function App() {
   };
 
   const isHome = currentCategory === 'home';
-  const heroCandidates = [...articles.filter(a => a.isHero), ...articles.filter(a => !a.isHero && (a.category === 'kraj' || a.category === 'swiat'))];
+  // Standard CCN Premium: czołówka = najnowsze materiały (isHero lub Kraj/Świat), od najnowszego, maks. 6 w rotacji.
+  const HERO_LIMIT = 6;
+  const byNewest = (x: Article, y: Article) => new Date(y.publishedAt).getTime() - new Date(x.publishedAt).getTime();
+  const heroCandidates = articles
+    .filter(a => a.isHero || a.category === 'kraj' || a.category === 'swiat')
+    .sort(byNewest)
+    .slice(0, HERO_LIMIT);
   const heroRotation = useHeadlineRotation(heroCandidates.length);
   const heroArticle = heroCandidates[heroRotation.index] || articles[0];
 

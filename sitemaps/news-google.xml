@@ -3,6 +3,21 @@
         xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://polskieradio.cc/news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Christian Culture News (CCN)</news:name>
+        <news:language>pl</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-23T08:30:00.000Z</news:publication_date>
+      <news:title>Czy będę musiał zapłacić karę finansową w Kościele? A kto zapłaci za mój grzech przed Bogiem?</news:title>
+    </news:news>
+    <image:image>
+      <image:loc>https://polskieradio.cc/images/news/art-czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska.jpg</image:loc>
+      <image:title>Czy będę musiał zapłacić karę finansową w Kościele? A kto zapłaci za mój grzech przed Bogiem?</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://polskieradio.cc/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien</loc>
     <news:news>
       <news:publication>

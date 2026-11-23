@@ -22,7 +22,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
         <div className="relative overflow-hidden bg-gray-900 cursor-pointer" onClick={() => onReadArticle(article)}>
           <img
             src={article.imageUrl}
-            alt={article.title}
+            alt={article.imageAlt || article.title}
             className="w-full h-48 object-cover group-hover:scale-103 transition duration-500"
             loading="lazy"
           />

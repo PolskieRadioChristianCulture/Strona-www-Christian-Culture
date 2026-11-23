@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-23T05:37:01.656Z",
-  "totalItems": 687,
+  "updatedAt": "2026-11-23T08:24:36.831Z",
+  "totalItems": 688,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -4356,6 +4356,37 @@
         "psychologia",
         "artykuł"
       ],
+      "featured": true
+    },
+    {
+      "type": "article",
+      "access": "public",
+      "publishedAt": "2026-11-23T09:30:00+01:00",
+      "title": "Czy będę musiał zapłacić karę finansową w Kościele? A kto zapłaci za mój grzech przed Bogiem?",
+      "category": "Artykuły & Wiedza CCN",
+      "url": "https://polskieradio.cc/news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska",
+      "description": "Nowe stawki grzywien kanonicznych, trudne pytania o sprawiedliwość i bezcenny dar usprawiedliwienia w Jezusie Chrystusie. Dekret KEP obowiązuje od 1 marca 2026 r.; od 1 stycznia 2027 r. widełki rosną do 2475–99 000 zł — ale to nie „rachunek za grzech” dla każdego wiernego.",
+      "contentSnippet": "Widzisz nagłówek: „Nawet 99 tysięcy złotych kary w Kościele!”. Pierwsza myśl jest całkiem ludzka: „Za co? Czy to dotyczy także mnie? Czy ktoś policzy moje grzechy i przyśle rachunek?”. To dobry moment, aby oddzielić przepisy prawa kanonicznego od sensacji, a później zadać pytanie znacznie ważniejsze: skoro pieniądze nie mogą kupić Bożej łaski, to n…",
+      "author": "Cezary Rogowski",
+      "date": "23 listopada 2026",
+      "tags": [
+        "Prawo kanoniczne",
+        "Dekret KEP",
+        "Grzywna kościelna",
+        "Łaska",
+        "Usprawiedliwienie",
+        "Ewangelia",
+        "Jezus Chrystus",
+        "Cezary Rogowski",
+        "CCN News",
+        "wiara",
+        "CCN Biblia & Teologia",
+        "Cezary Rogowski",
+        "artykuł",
+        "wiedza",
+        "ccn"
+      ],
+      "scripture": "Rz 6:23; 1 P 1:18–19; Ef 2:8–9 Zapłatą za grzech jest śmierć, a darem łaski Bożej jest życie wieczne w Chrystusie Jezusie, naszym Panu.",
       "featured": true
     },
     {

@@ -351,7 +351,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
               <div className="flex items-center justify-center p-2 sm:p-4 min-h-[260px]">
                 <img
                   src={article.imageUrl}
-                  alt={article.title}
+                  alt={article.imageAlt || article.title}
                   className="ccn-article-media"
                   style={{ objectFit: 'contain', maxHeight: '520px', width: '100%' }}
                 />
@@ -468,6 +468,22 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({
               );
             })}
           </div>
+
+          {article.sources && article.sources.length > 0 && (
+            <section aria-labelledby="ccn-sources-title" className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:p-5">
+              <h2 id="ccn-sources-title" className="font-serif font-bold text-lg text-gray-900 mb-3">Źródła i weryfikacja</h2>
+              <ol className="space-y-2 text-sm text-gray-700 list-decimal pl-5">
+                {article.sources.map(src => (
+                  <li key={src.url}>
+                    <a href={src.url} target="_blank" rel="noopener noreferrer"
+                      className="inline-flex min-h-11 items-center gap-1.5 font-medium text-[#8f0f23] underline decoration-[#bb142e]/30 underline-offset-2 hover:decoration-[#bb142e]">
+                      {src.label}<ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
 
           {article.resourceLinks && (
             <nav aria-label="Źródła i społeczność programu" className="flex flex-wrap gap-3 border-t border-gray-200 pt-4">

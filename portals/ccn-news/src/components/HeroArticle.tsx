@@ -20,7 +20,7 @@ export const HeroArticle: React.FC<HeroArticleProps> = ({
       {/* Background Image */}
       <img
         src={article.imageUrl}
-        alt={`${article.title} — ilustracja redakcyjna CCN`}
+        alt={article.imageAlt || `${article.title} — ilustracja redakcyjna CCN`}
         className="w-full h-auto max-h-[340px] object-contain object-center bg-black motion-safe:transition duration-700 ease-out"
       />
       {article.imageCaption && (

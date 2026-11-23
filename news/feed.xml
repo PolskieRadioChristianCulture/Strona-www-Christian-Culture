@@ -8,8 +8,18 @@
     <atom:link href="https://polskieradio.cc/news/feed.xml" rel="self" type="application/rss+xml" />
     <description>Najnowsze wiadomości, analizy społeczne, nauka, edukacja i refleksja biblijna w ekosystemie Christian Culture.</description>
     <language>pl-PL</language>
-    <lastBuildDate>Mon, 23 Nov 2026 05:36:59 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Nov 2026 08:23:35 GMT</lastBuildDate>
     <generator>CC SEO Engine 2026 v1.0</generator>
+    <item>
+      <title>Czy będę musiał zapłacić karę finansową w Kościele? A kto zapłaci za mój grzech przed Bogiem?</title>
+      <link>https://polskieradio.cc/news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska</link>
+      <guid isPermaLink="true">https://polskieradio.cc/news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska</guid>
+      <pubDate>Mon, 23 Nov 2026 08:30:00 GMT</pubDate>
+      <dc:creator>Cezary Rogowski</dc:creator>
+      <category>CCN Biblia &amp; Teologia</category>
+      <description>Nowe stawki grzywien kanonicznych, trudne pytania o sprawiedliwość i bezcenny dar usprawiedliwienia w Jezusie Chrystusie. Dekret KEP obowiązuje od 1 marca 2026 r.; od 1 stycznia 2027 r. widełki rosną do 2475–99 000 zł — ale to nie „rachunek za grzech” dla każdego wiernego.</description>
+      <enclosure url="https://polskieradio.cc/images/news/art-czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska.jpg" type="image/jpeg" length="0" />
+    </item>
     <item>
       <title>Miłość do bliźniego w praktyce: jeden telefon, który może zmienić dzień</title>
       <link>https://polskieradio.cc/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien</link>
@@ -299,16 +309,6 @@
       <category>CCN SURVIVAL &amp; BEZPIECZEŃSTWO • RAPORT 2026</category>
       <description>W obliczu narastających napięć geopolitycznych, cyberataków na europejskie sieci przesyłowe oraz powtarzających się awarii infrastruktury komunalnej, temat gotowości na przerwę w dostawach prądu i wody przestaje być domeną entuzjastów survivalu, a staje się podstawową powinnością każdego odpowiedzialnego gospodarza. Rządowe Centrum Bezpieczeństwa (RCB) oraz europejskie agencje ochrony ludności rekomendują przygotowanie każdego gospodarstwa domowego na minimum 72 godziny całkowitej samowystarczalności. W biblijnej perspektywie roztropność nie jest przejawem braku wiary, lecz owocem mądrości, która pozwala zachować spokój w godzinie próby i stać się oparciem dla potrzebujących sąsiadów.</description>
       <enclosure url="https://polskieradio.cc/images/news/art-kryzys-infrastrukturalny-blackout-72-godziny-rodzina-roztropnosc.jpg" type="image/jpeg" length="0" />
-    </item>
-    <item>
-      <title>Reformacja nie skończyła się w 1517 roku — wróćmy do Pisma i Ewangelii łaski</title>
-      <link>https://polskieradio.cc/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski</link>
-      <guid isPermaLink="true">https://polskieradio.cc/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski</guid>
-      <pubDate>Sat, 31 Oct 2026 08:00:00 GMT</pubDate>
-      <dc:creator>Cezary Rogowski</dc:creator>
-      <category>CCN WIARA &amp; HISTORIA • DZIEŃ REFORMACJI 2026</category>
-      <description>Dziś, 31 października 2026 roku, przypada Dzień Reformacji. Mija 509 lat od 1517 roku, gdy Marcin Luter ogłosił 95 tez w Wittenberdze. Dlaczego Sola Scriptura i Sola Gratia pozostają żywym wezwaniem do przemiany serca i sumienia? Obejrzyj film „Luter” na Christian Culture TV.</description>
-      <enclosure url="https://polskieradio.cc/images/news/art-dzien-reformacji-2026.jpg" type="image/jpeg" length="0" />
     </item>
   </channel>
 </rss>

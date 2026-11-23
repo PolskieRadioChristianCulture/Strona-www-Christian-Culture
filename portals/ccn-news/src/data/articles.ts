@@ -41,6 +41,7 @@ export const AUTHORS: Record<string, Author> = {
 };
 
 export const BREAKING_NEWS: string[] = [
+  "NOWY ARTYKUŁ CCN NEWS & BIBLIA: Czy będę musiał zapłacić karę finansową w Kościele? Dekret KEP, stawki na 2027 r. i dar łaski, którego nie kupisz — analiza Cezarego Rogowskiego (https://polskieradio.cc/news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska)",
   "NOWY ARTYKUŁ eM (@MCC): Miłość do bliźniego w praktyce: jeden telefon, który może zmienić dzień — analiza naukowa i egzegeza Łk 10:25–37 UBG Cezarego Rogowskiego (https://polskieradio.cc/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien)",
   "START KAMPANII WSPÓLNOTOWEJ: Milion Drobnych Gestów — Mały gest. Wielka misja. Wspieraj bezpłatne Radio 24/7, Biblię Audio i 15 języków Ewangelii już od 2 lub 5 zł (https://polskieradio.cc/milion-gestow)",
   "NOWY ARTYKUŁ CCN NEWS & BIBLIA: Co na to Bóg chrześcijan? Jan Paweł II pocałował Koran. Czy gest szacunku może przekroczyć granicę wierności Jezusowi Chrystusowi? — analiza Cezarego Rogowskiego (https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran)",
@@ -105,6 +106,103 @@ export const BREAKING_NEWS: string[] = [
 ];
 
 export const INITIAL_ARTICLES: Article[] = [
+  {
+    "id": "art-czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska",
+    "title": "Czy będę musiał zapłacić karę finansową w Kościele? A kto zapłaci za mój grzech przed Bogiem?",
+    "slug": "czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska",
+    "seoTitle": "Czy zapłacę karę w Kościele? Nowe grzywny i łaska Jezusa",
+    "metaDescription": "Czy zwykły katolik zapłaci karę finansową? Sprawdź zasady dekretu KEP, stawki na 2027 rok i to, co Biblia mówi o przebaczeniu z łaski.",
+    "excerpt": "Nowe stawki grzywien kanonicznych, trudne pytania o sprawiedliwość i bezcenny dar usprawiedliwienia w Jezusie Chrystusie. Dekret KEP obowiązuje od 1 marca 2026 r.; od 1 stycznia 2027 r. widełki rosną do 2475–99 000 zł — ale to nie „rachunek za grzech” dla każdego wiernego.",
+    "content": [
+      "Widzisz nagłówek: „Nawet 99 tysięcy złotych kary w Kościele!”. Pierwsza myśl jest całkiem ludzka: „Za co? Czy to dotyczy także mnie? Czy ktoś policzy moje grzechy i przyśle rachunek?”. To dobry moment, aby oddzielić przepisy prawa kanonicznego od sensacji, a później zadać pytanie znacznie ważniejsze: skoro pieniądze nie mogą kupić Bożej łaski, to na jakiej podstawie grzeszny człowiek może zostać usprawiedliwiony?",
+      "1. Najpierw fakty: dekret już obowiązuje, a nie dopiero „od nowego roku”",
+      "Nie chodzi o ustawę polskiego parlamentu ani o nowy podatek od chodzenia do kościoła. Konferencja Episkopatu Polski ogłosiła 26 lutego 2026 roku dekret określający wysokość i zasady stosowania finansowych sankcji kanonicznych. Dekret wszedł w życie 1 marca 2026 roku. Wykonuje on regulacje Kodeksu Prawa Kanonicznego zreformowanego w 2021 roku, w którym przewidziano między innymi grzywnę oraz pozbawienie części lub całości wynagrodzenia kościelnego.",
+      "Dlaczego więc wracają nagłówki o „nowych karach od stycznia”? Dlatego, że polskie stawki powiązano z minimalnym wynagrodzeniem. Sam mechanizm działa już od marca, ale od 1 stycznia 2027 roku rośnie ustawowa płaca minimalna — a wraz z nią matematyczne granice grzywien. To ważne sprostowanie, ponieważ „nowa kara” i „wyższa kwota istniejącej kary” nie są tym samym.",
+      "Tekst dekretu KEP ustala dolną granicę na połowę miesięcznej płacy minimalnej brutto, a górną na jej dwudziestokrotność. Dla płacy 4806 zł w roku 2026 daje to odpowiednio 2403 zł i 96 120 zł. Od 1 stycznia 2027 roku płaca minimalna ma wynosić 4950 zł, co oznacza widełki od 2475 zł do 99 000 zł. Są to ramy dla określonych sankcji, a nie kary automatycznie wymierzane każdemu wiernemu.",
+      "2. Czy zwykły katolik dostanie grzywnę za grzech, nieobecność na Mszy albo odmienne zdanie?",
+      "Nie. Przekaz sugerujący, że każdemu katolikowi grozi automatycznie kara za codzienne przewinienia religijne, byłby mylący. Sankcje finansowe mogą być stosowane w odniesieniu do przestępstw kanonicznych, na podstawie odpowiednich norm i w wymaganym postępowaniu. Ekspert prawa kanonicznego ks. prof. Piotr Majer wyjaśnia, że instrument jest skierowany głównie do duchownych oraz świeckich pełniących urzędy lub funkcje w Kościele, jeśli przestępstwo dotyczy ich obowiązków.",
+      "Przykłady omawiane przez kanonistów obejmują sprzeniewierzenie kościelnego majątku, nadużycia urzędowe, łapownictwo, fałszowanie dokumentów czy inne czyny przewidziane w kodeksie. Nie oznacza to, że każda taka sprawa skończy się grzywną: sankcja zależy od przepisów, ustaleń i oceny konkretnego przypadku.",
+      "Dekret przewiduje ponadto, że pozbawienie wynagrodzenia kościelnego nie może odebrać ukaranemu środków koniecznych do godziwego utrzymania. Rzetelność wymaga również rozróżnienia prawa kościelnego i cywilnego: kanoniczna sankcja nie staje się automatycznie państwową grzywną ani nie zastępuje odpowiedzialności karnej przed sądem powszechnym. Jeśli jesteś rzeczywiście stroną postępowania, skorzystaj z właściwej pomocy prawnej zamiast polegać na skrótowym nagłówku.",
+      "3. Po co wspólnocie chrześcijańskiej dyscyplina?",
+      "Nie byłoby uczciwie przedstawiać każdej dyscypliny kościelnej jako zniewagi wobec Ewangelii. Nowy Testament zna odpowiedzialność przywódców, napominanie i rozliczanie krzywd. Jezus uczy, jak postępować wobec grzeszącego brata i wspólnoty (Mt 18,15–17). Paweł w 1 Kor 5 wskazuje, że świadome poważne zło nie powinno być tolerowane pod pozorem duchowej wolności. W 1 Tm 5,19–21 mówi natomiast o odpowiedzialnym rozpatrywaniu oskarżeń przeciw starszym i bezstronnym napominaniu.",
+      "Z tych fragmentów nie wynika obowiązek nakładania kościelnych kar pieniężnych. Wynika jednak prawo i powinność wspólnoty do uczciwego reagowania na nadużycia. Wierzący mają prawo oczekiwać, że pieniądze, władza i pozycja duchowna nie będą osłoną dla bezkarności. Równocześnie oskarżony ma prawo do sprawiedliwej procedury, a pokrzywdzony do bezpieczeństwa i realnej pomocy.",
+      "Dyscyplina ma służyć prawdzie, ochronie ludzi i — tam gdzie możliwe — naprawie, a nie finansowemu interesowi instytucji. To kryterium etyczne powinniśmy stosować do każdej wspólnoty, również własnej.",
+      "4. Jest jednak dług, którego nie spłacisz przelewem",
+      "Tu kończy się reportaż o kanonicznych stawkach, a zaczyna najważniejsza wiadomość biblijna. Grzech nie jest rachunkiem administracyjnym. Według Rz 3,23 wszyscy zgrzeszyli, a według Rz 6,23 zapłatą grzechu jest śmierć; ale w tym samym wersecie Paweł mówi o darze życia wiecznego w Jezusie Chrystusie. Bóg nie wystawia cennika za każdy grzech i nie prowadzi zbiórki, w której wystarczająco duży przelew zapewni człowiekowi odkupienie.",
+      "Gdy Piotr mówi o cenie naszego odkupienia, stwierdza, że nie dokonano go za przemijające srebro ani złoto, lecz przez drogocenną krew Chrystusa (1 P 1,18–19). To jedna z najsilniejszych biblijnych odpowiedzi na wszystkie pomysły kupowania pokoju z Bogiem.",
+      "Nawet gdybym mógł wpłacić największą kościelną grzywnę, nie uzyskałbym w ten sposób usprawiedliwienia przed Bogiem. Tak samo brak grzywny nie byłby dowodem mojej niewinności. Prawo kanoniczne reguluje odpowiedzialność w określonej wspólnocie; Ewangelia rozstrzyga coś głębszego — jak grzesznik może zostać pojednany z Ojcem.",
+      "5. Chrystus nie sprzedaje przebaczenia. Dar łaski jest bezcenny",
+      "Rz 3,21–26 przedstawia sprawiedliwość Bożą objawioną niezależnie od uczynków Prawa, otrzymywaną przez wiarę w Jezusa Chrystusa. Ef 2,8–10 podkreśla, że zbawienie jest darem łaski, a nie osiągnięciem, którym można się chlubić. Dobre uczynki są owocem odnowionego życia, nie jego ceną wejściową.",
+      "Nie wolno więc sprowadzać krzyża do obrazu dosłownej księgowej operacji, jakby Ojciec prowadził kasę grzywien, a Jezus przyniósł wymagany worek pieniędzy. Biblijne obrazy odkupienia i zapłaty mówią o rzeczywistym koszcie zbawienia, lecz to ofiara z samego siebie, a nie transfer gotówki. Bóg działa sprawiedliwie i miłosiernie w Chrystusie.",
+      "Jeśli odczuwasz ciężar winy, nie potrzebujesz następnej zbiórki ani drogiego rytuału. Potrzebujesz Zbawiciela. Przyjdź do Jezusa w wierze, wyznaj prawdę o swoim życiu i poproś o przebaczenie. 1 J 1,9 mówi o Bożej wierności w odpuszczaniu wyznanych grzechów; 1 J 2,1 nazywa Jezusa Chrystusa naszym Orędownikiem.",
+      "6. Czy łaska oznacza, że mogę krzywdzić i nie ponosić konsekwencji?",
+      "Nie. To jedno z najbardziej niebezpiecznych nieporozumień. Rz 6,1–4 odrzuca pogląd, że można świadomie trwać w grzechu po to, aby łaska była obfitsza. Zacheusz po spotkaniu z Jezusem zadeklarował naprawienie wyrządzonych szkód (Łk 19,1–10). Prawdziwa pokuta obejmuje zmianę postępowania, a gdzie to możliwe — zadośćuczynienie i przyjęcie odpowiedzialności.",
+      "Osoba, która skrzywdziła dziecko, dopuściła się oszustwa albo wykorzystała władzę religijną, nie może zasłaniać się modlitwą, by uniknąć odpowiedzialności wobec pokrzywdzonych i państwa. Przebaczenie duchowe nie unieważnia obowiązku ochrony ofiar, współpracy z właściwymi organami ani uczciwego naprawienia krzywdy. Z kolei osoba pokrzywdzona nie jest zobowiązana do rezygnacji z bezpieczeństwa, aby udowodnić swą wiarę.",
+      "Miłosierdzie nie jest pobłażliwością dla przemocy. Boża łaska nie usuwa sprawiedliwości z życia człowieka — uczy nas ją kochać.",
+      "7. A zatem: czy będę musiał zapłacić karę?",
+      "Jeśli jesteś zwykłym wiernym i martwisz się, że Kościół wystawi Ci automatycznie rachunek za nieobecność, słabość lub zwykły grzech — przedstawiany dekret tego nie ustanawia. Jeśli uczestniczysz w sprawowaniu urzędu lub funkcji kościelnej i jesteś objęty postępowaniem o przestępstwo kanoniczne, odpowiedź zależy od konkretnego czynu i właściwych przepisów. Zajrzyj do oficjalnego dekretu, zamiast opierać się na sensacyjnym poście.",
+      "Ale ważniejsze pytanie brzmi: czy będę musiał sam zapłacić za swoje zbawienie? Ewangelia odpowiada: nie mogę i nie muszę. Zbawienie nie jest na sprzedaż. Chrystus oddał za nas życie, zmartwychwstał i zaprasza do wiary, pokuty i pojednania z Bogiem.",
+      "Dziś możesz powiedzieć własnymi słowami: „Panie Jezu, znam swoją winę i nie chcę już jej ukrywać. Wierzę, że Twoja łaska jest większa niż moja możliwość naprawienia siebie. Przebacz mi, prowadź mnie w prawdzie i daj mi odwagę naprawić krzywdy. Uznaję Cię za mojego Pana i Zbawiciela. Amen”.",
+      "Nie magiczna formuła, nie kościelny przelew, lecz żywa wiara w Jezusa Chrystusa jest właściwą odpowiedzią na dar zbawienia."
+    ],
+    "category": "wiara",
+    "categoryLabel": "CCN Biblia & Teologia",
+    "author": AUTHORS.cezary,
+    "publishedAt": "2026-11-23T09:30:00+01:00",
+    "dateFormatted": "23 listopada 2026",
+    "imageUrl": "/images/news/art-czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska.jpg",
+    "imageAlt": "Waga sprawiedliwości, monety, otwarta Biblia i krzyż — ilustracja kościelnej kary i zbawienia z łaski.",
+    "imageCaption": "Ilustracja redakcyjna wygenerowana przez AI (nie fotografia dokumentalna): waga sprawiedliwości, monety, otwarta Biblia i krzyż.",
+    "readTimeMinutes": 8,
+    "isHero": true,
+    "isPopular": true,
+    "popularRank": 1,
+    "series": "Ziemskie pytania — Niebiańskie odpowiedzi",
+    "tags": [
+      "Prawo kanoniczne",
+      "Dekret KEP",
+      "Grzywna kościelna",
+      "Łaska",
+      "Usprawiedliwienie",
+      "Ewangelia",
+      "Jezus Chrystus",
+      "Cezary Rogowski",
+      "CCN News"
+    ],
+    "scriptureReference": {
+      "verse": "Rz 6:23; 1 P 1:18–19; Ef 2:8–9",
+      "text": "Zapłatą za grzech jest śmierć, a darem łaski Bożej jest życie wieczne w Chrystusie Jezusie, naszym Panu."
+    },
+    "sourceCitation": {
+      "sourceName": "Dekret ogólny Konferencji Episkopatu Polski o sankcjach finansowych (promulgacja 26.02.2026, w mocy od 01.03.2026)",
+      "sourceUrl": "https://episkopat.pl/doc/243019.Promulgacja-Dekretu-Ogolnego-Konferencji-Episkopatu-Polski-w",
+      "quotationDate": "26.02.2026"
+    },
+    "sources": [
+      {
+        "label": "Konferencja Episkopatu Polski, promulgacja dekretu — 26.02.2026",
+        "url": "https://episkopat.pl/doc/243019.Promulgacja-Dekretu-Ogolnego-Konferencji-Episkopatu-Polski-w"
+      },
+      {
+        "label": "Dekret ogólny KEP o sankcjach finansowych (tekst oficjalny)",
+        "url": "https://opoka.org.pl/files/26.bkt/02/25/17/037720_TmwY_Dekret_Ogolny_KEP_01_2026.pdf"
+      },
+      {
+        "label": "Ekspert prawa kanonicznego, UPJPII/KAI",
+        "url": "https://wpk.upjp2.edu.pl/aktualnosci/od-1-iii-2026-kary-finansowe-dla-ksiezy-i-swieckich-lamiacych-prawo-kanoniczne-rozmowa-kai-z-ks-prof-piotrem-majerem-upjpii-74.html"
+      },
+      {
+        "label": "Płaca minimalna 2027 — Dz.U. 2026 poz. 1213",
+        "url": "https://www.infor.pl/akt-prawny/DZU.2026.258.0001213,rozporzadzenie-rady-ministrow-w-sprawie-wysokosci-minimalnego-wynagrodzenia-za-prace-oraz-wysokosci-minimalnej-stawki-godzinowej-w-2027-r.html"
+      },
+      {
+        "label": "Materiał inicjujący Infor.pl (dostęp ograniczony; dane sprawdzone w źródłach pierwotnych)",
+        "url": "https://www.infor.pl/7713888,od-nowego-roku-wyzsze-kary-w-kosciele-dla-ksiezy-i-wiernych-nawet-9.html"
+      }
+    ],
+    "primaryPortalUrl": "https://polskieradio.cc/news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska",
+    "primaryPortalLabel": "CCN Biblia & Teologia"
+  },
   {
     "id": "art-milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien",
     "title": "Miłość do bliźniego w praktyce: jeden telefon, który może zmienić dzień",
