@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Christian Culture × Zrzutka.pl (rs4g4v) — Zsynchronizowane Aktualizacje</title>
+  <link rel="icon" type="image/png" href="/images/logo_gold_200.png" />
+  <link rel="stylesheet" href="/test/patronite/patronite-preview.css" />
+  <link rel="stylesheet" href="/test/zrzutka/zrzutka-preview.css" />
+  <script type="module" src="/test/zrzutka/zrzutka-preview.js"></script>
+</head>
+<body>
+  <header class="pt-header zrz-header">
+    <div class="pt-container pt-header-inner">
+      <div class="pt-brand">
+        <span class="pt-badge zrz-badge">SYNCHRONIZACJA 1:1 Z PATRONITE · 3× W TYGODNIU</span>
+        <h1>Christian Culture × Zrzutka.pl (rs4g4v)</h1>
+        <p class="pt-subtitle">Te same zweryfikowane raporty misyjne i grafiki 1068×630 + 1080×1080 dla Darczyńców zrzutki · Pon 09:00 · Śr 18:00 · Pt 10:00</p>
+      </div>
+      <div class="pt-actions">
+        <a class="pt-btn pt-btn-secondary" href="/test/patronite">← Podgląd Patronite</a>
+        <a class="pt-btn pt-btn-secondary" href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer">Otwórz zrzutkę rs4g4v ↗</a>
+        <button id="toggleViewportBtn" type="button" class="pt-btn pt-btn-primary zrz-btn-orange" aria-pressed="false">Podgląd smartfona (390px)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-container pt-main" id="main">
+    <section class="pt-status-grid" aria-label="Status synchronizacji Zrzutka.pl i bramek bezpieczeństwa">
+      <article class="pt-stat-card">
+        <span class="pt-stat-label">Kanał i budżet</span>
+        <strong class="pt-stat-val">@ICC-ZRZUTKA-001 · 0,00 zł</strong>
+        <small>Lustro 1:1 z @ICC-PATRONITE-001 · zrzutka.pl/rs4g4v</small>
+      </article>
+      <article class="pt-stat-card">
+        <span class="pt-stat-label">Status harmonogramu i zgody L0</span>
+        <strong class="pt-stat-val" id="approvalStatusVal">ŁADOWANIE STATUSU...</strong>
+        <small id="adapterNoteVal">Przygotowanie kompletnych pakietów 1-Click + grafik PNG</small>
+      </article>
+      <article class="pt-stat-card">
+        <span class="pt-stat-label">Harmonogram automatyczny (Europe/Warsaw)</span>
+        <strong class="pt-stat-val" id="killSwitchVal">PON 07:00→09:00 · ŚR 16:00→18:00 · PT 08:00→10:00</strong>
+        <small>Przygotowanie -2h przed oknem · Piątek przed szabatem (14:30)</small>
+      </article>
+      <article class="pt-stat-card">
+        <span class="pt-stat-label">Wynik 6 cykli synchronizacji</span>
+        <strong class="pt-stat-val" id="simSummaryVal">6 / 6 · QA 12/12 PASS</strong>
+        <small>Zero duplikatów (30 dni) · 100% zweryfikowanych projektów CC</small>
+      </article>
+    </section>
+
+    <section class="zrz-notice-banner" aria-label="Informacja o trybie integracji Zrzutka.pl">
+      <strong>Jak działa publikacja na zrzutka.pl/rs4g4v:</strong>
+      <span id="integrationNoteText">Serwis zrzutka.pl chroni panel przez Cloudflare i nie udostępnia otwartego publicznego REST API zapisu aktualizacji. System automatycznie o tych samych porach co Patronite przygotowuje gotowy tekst i grafiki Zrzutka.pl — wystarczy 1 kliknięcie poniżej i wklejenie w zakładce „Aktualizacje” na zrzutka.pl/rs4g4v.</span>
+    </section>
+
+    <section class="pt-controls" aria-label="Wybór zsynchronizowanego cyklu Zrzutka.pl">
+      <div class="pt-cycle-tabs" id="cycleTabs" role="tablist" aria-label="Sześć zsynchronizowanych aktualizacji Zrzutka.pl"></div>
+    </section>
+
+    <section class="pt-workspace" id="previewWorkspace">
+      <article class="pt-preview-panel">
+        <div class="pt-panel-head">
+          <h2 id="postSeriesHeading">Podgląd aktualizacji Zrzutka.pl</h2>
+          <span class="pt-pill" id="postSchedulePill"></span>
+        </div>
+
+        <div class="pt-graphics-showcase">
+          <figure class="pt-figure">
+            <figcaption>Grafika główna Zrzutka.pl (1068 × 630 px)</figcaption>
+            <img id="landscapeGraphic" src="" alt="" width="1068" height="630" loading="eager" />
+          </figure>
+          <figure class="pt-figure pt-figure-square">
+            <figcaption>Wariant promocyjny 1:1 (1080 × 1080 px)</figcaption>
+            <img id="squareGraphic" src="" alt="" width="1080" height="1080" loading="eager" />
+          </figure>
+        </div>
+
+        <div class="pt-post-box">
+          <div class="pt-meta-row">
+            <span>Zsynchronizowano z: <strong id="sourcePatroniteId"></strong></span>
+            <span>Status: <strong id="postStatus"></strong></span>
+            <span>Długość: <strong id="postLengths"></strong></span>
+          </div>
+          <h3 id="postTitle"></h3>
+          <p class="pt-teaser" id="postTeaser"></p>
+          <div class="pt-body" id="postBody"></div>
+          <div class="pt-cta-block">
+            <p><strong>Pytanie do Darczyńców:</strong> <span id="postQuestion"></span></p>
+            <p><strong>Wezwanie do działania:</strong> <span id="postCta"></span></p>
+            <p><strong>Hashtagi:</strong> <span id="postHashtags"></span></p>
+            <p><strong>Tekst alternatywny (ALT):</strong> <span id="postAlt"></span></p>
+          </div>
+          <div class="pt-copy-bar zrz-action-bar">
+            <button type="button" class="pt-btn pt-btn-primary zrz-btn-orange" id="copyFullUpdateBtn">Kopiuj gotową aktualizację na Zrzutka.pl</button>
+            <button type="button" class="pt-btn zrz-btn-outline" id="copyTitleBtn">Kopiuj sam tytuł</button>
+            <a class="pt-btn zrz-btn-outline" id="downloadLandscapeBtn" href="#" download>Pobierz grafikę 1068×630 PNG</a>
+            <a class="pt-btn zrz-btn-outline" id="downloadSquareBtn" href="#" download>Pobierz 1080×1080 PNG</a>
+            <a class="pt-btn zrz-btn-outline" href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer">Wklej na zrzutka.pl/rs4g4v ↗</a>
+            <span class="pt-copy-msg" id="copyStatus" aria-live="polite"></span>
+          </div>
+        </div>
+      </article>
+
+      <aside class="pt-audit-panel">
+        <h2>Kontrola Jakości (12/12)</h2>
+        <p class="pt-audit-note">Każda kontrola krytyczna ma charakter twardej blokady (brak uśredniania i brak fikcyjnych danych).</p>
+        <ul class="pt-qa-list" id="qaList"></ul>
+
+        <h3>Źródła dowodowe aktualizacji</h3>
+        <ul class="pt-sources-list" id="sourcesList"></ul>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,5 +1,6 @@
 {
   "jobId": "PAT-20261204-thank-you",
+  "topicKey": "src-thankyou-bible-ISA-40-31",
   "seriesType": "thank-you",
   "seriesLabel": "DZIĘKI, ŻE JESTEŚ",
   "scheduledForWarsaw": "2026-12-04T10:00:00+01:00",
@@ -16,16 +17,33 @@
     "#ChristianCulture"
   ],
   "altText": "Grafika Dzięki, że jesteś: Księga Izajasza 40:31 z życzeniami błogosławionego szabatu dla Patronów Christian Culture",
+  "scripture": {
+    "book": "Księga Izajasza",
+    "bookCode": "ISA",
+    "chapter": 40,
+    "verse": 31,
+    "reference": "Księga Izajasza 40:31",
+    "text": "Ale ci, którzy oczekują Pana, nabiorą nowych sił; wzbiją się na skrzydłach jak orły, będą biec, a się nie zmęczą, będą chodzić, a nie ustaną.",
+    "translation": "Uwspółcześniona Biblia Gdańska (UBG)"
+  },
+  "graphicSpec": {
+    "seriesType": "thank-you",
+    "headline": "SŁOWO POKOJU",
+    "accentHeadline": "NA DZIEŃ SZABATU",
+    "subtitle": "Księga Izajasza 40:31 — Uwspółcześniona Biblia Gdańska.",
+    "photoRelPath": "images/ogloszenia-hero.jpg",
+    "altText": "Grafika Dzięki, że jesteś: Księga Izajasza 40:31 z życzeniami błogosławionego szabatu dla Patronów Christian Culture"
+  },
   "sources": [
     {
       "sourceName": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia)",
       "sourceRef": "data/bible/szukaj-ubg.json#ISA:40:31",
-      "verifiedDate": "2026-11-20",
+      "verifiedDate": "2026-11-23",
       "status": "ZREALIZOWANE",
       "publicUrl": "https://polskieradio.cc/werset-dnia",
-      "claim": "Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku"
+      "claim": "Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku (Księga Izajasza 40:31)"
     }
   ],
   "honestAdapterNote": "Brak publicznego API zapisu postow Patronite — pakiet zapisany jako kompletny szkic gotowy do recznego wklejenia/zaplanowania w oficjalnym panelu Moderatora.",
-  "savedAt": "2026-11-20T18:31:20.548Z"
+  "savedAt": "2026-11-23T10:15:33.955Z"
 }

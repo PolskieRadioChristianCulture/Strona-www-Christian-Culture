@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-23",
+      "topic": "Automatyzacja aktualizacji Zrzutka.pl (zrzutka.pl/rs4g4v) w synchronizacji 1:1 z Patronite (Pon 09:00, Śr 18:00, Pt 10:00), dedykowane grafiki 1068×630 i 1080×1080, panel 1-Click (/test/zrzutka) oraz rozszerzenie raportów misyjnych o MojaBiblia, Centrum Aplikacji, CCN News, Nowe Studio RTV i LUMINA",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-23",
       "topic": "Biblia Audio CC — produkcja V7 i publikacja WWW/Spotify Księgi Rodzaju 36 (GEN-036: Ród Ezawa, Książęta Seiru i Królowie Edomu)",
       "agent": "A"
     },

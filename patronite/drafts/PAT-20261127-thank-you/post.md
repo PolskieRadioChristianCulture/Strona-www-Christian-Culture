@@ -34,4 +34,4 @@ Czytaj Pismo Święte w spokoju na https://polskieradio.cc/mojabiblia
 Grafika Dzięki, że jesteś: Księga Psalmów 23:1 z życzeniami błogosławionego szabatu dla Patronów Christian Culture
 
 ## Rejestr źródeł
-- [ZREALIZOWANE] Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia) (data/bible/szukaj-ubg.json#PSA:23:1, data: 2026-11-20) — https://polskieradio.cc/mojabiblia
+- [ZREALIZOWANE] Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia) (data/bible/szukaj-ubg.json#PSA:23:1, data: 2026-11-23) — https://polskieradio.cc/mojabiblia

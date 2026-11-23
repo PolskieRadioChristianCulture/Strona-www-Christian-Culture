@@ -14,7 +14,9 @@
     "images/ogloszenia-tworcy-wolontariat.jpg",
     "images/ogloszenia-widget-radio.webp",
     "images/ogloszenia-infolinia-nadzieja.jpg",
-    "images/ogloszenia-dom-studio.jpg"
+    "images/ogloszenia-dom-studio.jpg",
+    "images/ogloszenia-biblia-gdanska.jpg",
+    "images/ogloszenia-sprzet-studio.jpg"
   ],
   "safeZoneLandscape": { "x": 56, "y": 136, "maxWidth": 620, "maxBottomY": 495 },
   "safeZoneSquare": { "x": 64, "y": 175, "maxWidth": 820, "maxBottomY": 890 }

@@ -35,8 +35,9 @@ function validateUrlInRepo(urlStr, repoRoot) {
     return false;
   }
   if (u.protocol !== 'https:' && u.protocol !== 'http:') return false;
-  if (u.hostname !== 'polskieradio.cc' && u.hostname !== 'patronite.pl') return true;
+  if (u.hostname !== 'polskieradio.cc' && u.hostname !== 'patronite.pl' && u.hostname !== 'zrzutka.pl') return true;
   if (u.hostname === 'patronite.pl') return u.pathname === '/osobowoscplus';
+  if (u.hostname === 'zrzutka.pl') return u.pathname === '/rs4g4v';
 
   const cleanPath = u.pathname.replace(/^\/+|\/+$/g, '');
   if (!cleanPath) return fs.existsSync(path.join(repoRoot, 'index.html'));
@@ -130,7 +131,9 @@ export async function runQualityGuardian({
   const logoOk = Boolean(graphicMeta) && ratioDiff < 0.02;
   checks.push(makeResult(
     'logo_integrity',
-    'Oryginalne proporcje znaków Christian Culture i Patronite',
+    draft.channel === 'zrzutka'
+      ? 'Oryginalne proporcje znaków Christian Culture i Zrzutka.pl'
+      : 'Oryginalne proporcje znaków Christian Culture i Patronite',
     logoOk,
     logoOk ? `Proporcja lockupu nienaruszona (${graphicMeta.logoRenderedAspectRatio}).` : `Odchylenie proporcji logo: ${ratioDiff}`,
   ));
@@ -164,7 +167,9 @@ export async function runQualityGuardian({
   ));
 
   // 10. Działające odnośniki wewnętrzne polskieradio.cc
-  const urls = Array.from(new Set(fullText.match(/https?:\/\/[^\s)>,]+/g) || []));
+  const urls = Array.from(new Set(
+    (fullText.match(/https?:\/\/[^\s)>,]+/g) || []).map(u => u.replace(/[.,;:!?]+$/, '')),
+  ));
   const brokenUrls = urls.filter(u => !validateUrlInRepo(u, repoRoot));
   const linksOk = urls.length > 0 && brokenUrls.length === 0;
   checks.push(makeResult(

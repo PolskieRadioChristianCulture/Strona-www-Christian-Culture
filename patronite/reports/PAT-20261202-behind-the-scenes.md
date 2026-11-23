@@ -6,5 +6,5 @@
 - **Status:** SZKIC
 - **Adres / pakiet:** C:\Users\czark\Christian_Culture_Projekty\polskieradio.cc\patronite\drafts\PAT-20261202-behind-the-scenes
 - **Najważniejsze źródła:**
-  - [ZREALIZOWANE] polskieradio.cc/lumina & /mapa (lumina.html + data/ecosystem-map.json, data: 2026-11-20)
+  - [ZREALIZOWANE] polskieradio.cc/lumina & /mapa (lumina.html + data/ecosystem-map.json, data: 2026-11-23)
 - **Wyniki kontroli Quality Guardian:** 12/12 (PASS)

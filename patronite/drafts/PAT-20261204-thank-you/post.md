@@ -34,4 +34,4 @@ Czytaj Pismo Święte w spokoju na https://polskieradio.cc/mojabiblia
 Grafika Dzięki, że jesteś: Księga Izajasza 40:31 z życzeniami błogosławionego szabatu dla Patronów Christian Culture
 
 ## Rejestr źródeł
-- [ZREALIZOWANE] Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia) (data/bible/szukaj-ubg.json#ISA:40:31, data: 2026-11-20) — https://polskieradio.cc/werset-dnia
+- [ZREALIZOWANE] Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia) (data/bible/szukaj-ubg.json#ISA:40:31, data: 2026-11-23) — https://polskieradio.cc/werset-dnia

@@ -34,4 +34,4 @@ Zobacz całą mapę serwisów na https://polskieradio.cc/mapa
 Grafika Za kulisami CC: porządkowanie ekosystemu polskieradio.cc z myślą o użytkownikach telefonów
 
 ## Rejestr źródeł
-- [ZREALIZOWANE] polskieradio.cc/lumina & /mapa (lumina.html + data/ecosystem-map.json, data: 2026-11-20) — https://polskieradio.cc/mapa
+- [ZREALIZOWANE] polskieradio.cc/lumina & /mapa (lumina.html + data/ecosystem-map.json, data: 2026-11-23) — https://polskieradio.cc/mapa

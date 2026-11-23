@@ -1,4 +1,4 @@
-# Dziennik Misji: 31 rozdziałów Księgi Rodzaju już w Biblii Audio CC
+# Dziennik Misji: 35 rozdziałów Księgi Rodzaju już w Biblii Audio CC
 
 **Seria:** DZIENNIK MISJI (mission-report)
 **Planowany termin (Europe/Warsaw):** 2026-11-23T09:00:00+01:00
@@ -11,7 +11,7 @@ Sprawdź, co nowego pojawiło się w naszej darmowej Biblii Audio oraz jak syste
 ## Treść główna
 Drodzy Patroni, rozpoczynamy kolejny tydzień krótkim, rzeczowym sprawozdaniem z tego, co w ostatnich dniach zostało ukończone i przekazane słuchaczom na polskieradio.cc.
 
-W dziale Biblia Audio Christian Culture (https://polskieradio.cc/biblia-audio) udostępniliśmy już 31 z 50 rozdziałów Księgi Rodzaju. Każdy opublikowany odcinek przechodzi pełne przygotowanie lektorskie, wyrównanie poziomu głośności do standardu radiowego oraz zapis w formacie do wygodnego odsłuchu w przeglądarce i w drodze.
+W dziale Biblia Audio Christian Culture (https://polskieradio.cc/biblia-audio) udostępniliśmy już 35 z 50 rozdziałów Księgi Rodzaju. Każdy opublikowany odcinek przechodzi pełne przygotowanie lektorskie, wyrównanie poziomu głośności do standardu radiowego oraz zapis w formacie do wygodnego odsłuchu w przeglądarce i w drodze.
 
 Dlaczego to tak ważne dla odbiorców? Wiele osób chce codziennie wracać do Pisma Świętego, ale w zabieganiu łatwiej włączyć im czyste nagranie podczas spaceru, jazdy autem czy wieczornego odpoczynku w domu. Dzięki Wam w całym serwisie nie pojawiają się reklamy przerywające lekturę Słowa Bożego.
 
@@ -31,7 +31,7 @@ Posłuchaj bezpłatnych rozdziałów Biblii Audio na https://polskieradio.cc/bib
 #ChristianCulture #BibliaAudio #Patronite
 
 ## Tekst alternatywny grafiki (1068×630)
-Grafika Dziennik Misji Christian Culture i Patronite: 31 rozdziałów Biblii Audio CC dostępnych bezpłatnie na polskieradio.cc
+Grafika Dziennik Misji Christian Culture i Patronite: 35 rozdziałów Biblii Audio CC dostępnych bezpłatnie na polskieradio.cc
 
 ## Rejestr źródeł
-- [ZREALIZOWANE] polskieradio.cc/biblia-audio (biblia-audio/data/catalog.json, data: 2026-11-20) — https://polskieradio.cc/biblia-audio
+- [ZREALIZOWANE] polskieradio.cc/biblia-audio (biblia-audio/data/catalog.json, data: 2026-11-23) — https://polskieradio.cc/biblia-audio

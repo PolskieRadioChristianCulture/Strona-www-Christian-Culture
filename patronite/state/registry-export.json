@@ -1,50 +1,51 @@
 {
-  "exportedAt": "2026-11-20T18:31:20.564Z",
+  "exportedAt": "2026-11-23T10:14:25.475Z",
   "flags": [
     {
       "key": "kill_switch",
       "value": "0",
-      "updated_at": "2026-11-20T18:31:18.077Z",
+      "updated_at": "2026-11-23T10:14:20.749Z",
       "updated_by": "system_init"
     },
     {
       "key": "production_approved",
       "value": "1",
-      "updated_at": "2026-11-20T18:31:18.077Z",
+      "updated_at": "2026-11-23T10:14:20.749Z",
       "updated_by": "system_init"
     }
   ],
   "jobsCount": 6,
+  "zrzutkaJobsCount": 6,
   "jobs": [
     {
       "job_id": "PAT-20261123-mission-report",
-      "created_at": "2026-11-20T18:31:18.524Z",
+      "created_at": "2026-11-23T10:14:21.288Z",
       "scheduled_for": "2026-11-23T09:00:00+01:00",
       "prep_at": "2026-11-23T07:00:00+01:00",
       "series_type": "mission-report",
-      "title": "Dziennik Misji: 31 rozdziałów Księgi Rodzaju już w Biblii Audio CC",
+      "title": "Dziennik Misji: 35 rozdziałów Księgi Rodzaju już w Biblii Audio CC",
       "topic_key": "src-biblia-audio-progress",
-      "content_hash": "1899a9aa444cefeec384cf3bf5d24de8377ebb364712bfde8f021b096525d446",
-      "sources_json": "[{\"sourceName\":\"polskieradio.cc/biblia-audio\",\"sourceRef\":\"biblia-audio/data/catalog.json\",\"verifiedDate\":\"2026-11-20\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/biblia-audio\",\"claim\":\"Udostępniliśmy już 31 z 50 rozdziałów Księgi Rodzaju w serii Biblia Audio CC\"}]",
+      "content_hash": "4b07645367249b852daa189ddc43e63fdd6a3650d52e06016889dc59c2946c60",
+      "sources_json": "[{\"sourceName\":\"polskieradio.cc/biblia-audio\",\"sourceRef\":\"biblia-audio/data/catalog.json\",\"verifiedDate\":\"2026-11-23\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/biblia-audio\",\"claim\":\"Udostępniliśmy już 35 z 50 rozdziałów Księgi Rodzaju w serii Biblia Audio CC\"}]",
       "qa_status": "PASS",
-      "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 66, zajawka 144, treść 1312).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Brak cytatów wymagających korekty.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 809 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Patronite\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=350 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-tworcy-wolontariat.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
+      "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 66, zajawka 144, treść 1312).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Brak cytatów wymagających korekty.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 713 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Patronite\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=350 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-sprzet-studio.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
       "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261123-mission-report\\graphic-1068x630.png",
       "square_graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261123-mission-report\\promo-1080x1080.png",
       "visibility": "PUBLICZNY",
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261123-mission-report",
       "remote_post_id": "PAT-20261123-mission-report",
-      "verified_at": "2026-11-20T18:31:18.521Z",
+      "verified_at": "2026-11-23T10:14:21.287Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
         {
           "sourceName": "polskieradio.cc/biblia-audio",
           "sourceRef": "biblia-audio/data/catalog.json",
-          "verifiedDate": "2026-11-20",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/biblia-audio",
-          "claim": "Udostępniliśmy już 31 z 50 rozdziałów Księgi Rodzaju w serii Biblia Audio CC"
+          "claim": "Udostępniliśmy już 35 z 50 rozdziałów Księgi Rodzaju w serii Biblia Audio CC"
         }
       ],
       "qaDetails": {
@@ -93,7 +94,7 @@
             "name": "Grafika 1068 × 630 px i limit 10 MB",
             "passed": true,
             "status": "PASS",
-            "message": "1068×630 png, 809 KB"
+            "message": "1068×630 png, 713 KB"
           },
           {
             "id": "logo_integrity",
@@ -114,7 +115,7 @@
             "name": "Prawa autorskie fotografii i ochrona prywatności",
             "passed": true,
             "status": "PASS",
-            "message": "Zatwierdzone źródło foto CC: images/ogloszenia-tworcy-wolontariat.jpg"
+            "message": "Zatwierdzone źródło foto CC: images/ogloszenia-sprzet-studio.jpg"
           },
           {
             "id": "links_valid",
@@ -143,25 +144,25 @@
         {
           "evidence_id": "PAT-20261123-mission-report-EV-1",
           "job_id": "PAT-20261123-mission-report",
-          "claim": "Udostępniliśmy już 31 z 50 rozdziałów Księgi Rodzaju w serii Biblia Audio CC",
+          "claim": "Udostępniliśmy już 35 z 50 rozdziałów Księgi Rodzaju w serii Biblia Audio CC",
           "status": "ZREALIZOWANE",
           "source_name": "polskieradio.cc/biblia-audio",
           "source_ref": "biblia-audio/data/catalog.json",
-          "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T18:31:18.528Z"
+          "verified_date": "2026-11-23",
+          "created_at": "2026-11-23T10:14:21.290Z"
         }
       ]
     },
     {
       "job_id": "PAT-20261125-behind-the-scenes",
-      "created_at": "2026-11-20T18:31:18.846Z",
+      "created_at": "2026-11-23T10:14:22.104Z",
       "scheduled_for": "2026-11-25T18:00:00+01:00",
       "prep_at": "2026-11-25T16:00:00+01:00",
       "series_type": "behind-the-scenes",
       "title": "Za kulisami CC: jak powstają nagrania Studia Dobrego Słowa i Biblii Audio",
       "topic_key": "src-behind-scenes-audio-vod-ccn",
       "content_hash": "1be516707667d91ae7e1cb21d457725e8fa1a7e4eaf9988f6e86b17ca98ee644",
-      "sources_json": "[{\"sourceName\":\"polskieradio.cc/vod & /news\",\"sourceRef\":\"data/ecosystem-map.json + vod.html + news.html\",\"verifiedDate\":\"2026-11-20\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/vod\",\"claim\":\"Jak powstają słuchowiska Biblia Audio, wykłady Studio Dobrego Słowa i artykuły CCN News\"}]",
+      "sources_json": "[{\"sourceName\":\"polskieradio.cc/vod & /news\",\"sourceRef\":\"data/ecosystem-map.json + vod.html + news.html\",\"verifiedDate\":\"2026-11-23\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/vod\",\"claim\":\"Jak powstają słuchowiska Biblia Audio, wykłady Studio Dobrego Słowa i artykuły CCN News\"}]",
       "qa_status": "PASS",
       "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 73, zajawka 151, treść 1292).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Brak cytatów wymagających korekty.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 714 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Patronite\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=378 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-sprzet-studio.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
       "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261125-behind-the-scenes\\graphic-1068x630.png",
@@ -170,14 +171,14 @@
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261125-behind-the-scenes",
       "remote_post_id": "PAT-20261125-behind-the-scenes",
-      "verified_at": "2026-11-20T18:31:18.843Z",
+      "verified_at": "2026-11-23T10:14:22.102Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
         {
           "sourceName": "polskieradio.cc/vod & /news",
           "sourceRef": "data/ecosystem-map.json + vod.html + news.html",
-          "verifiedDate": "2026-11-20",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/vod",
           "claim": "Jak powstają słuchowiska Biblia Audio, wykłady Studio Dobrego Słowa i artykuły CCN News"
@@ -283,40 +284,40 @@
           "status": "ZREALIZOWANE",
           "source_name": "polskieradio.cc/vod & /news",
           "source_ref": "data/ecosystem-map.json + vod.html + news.html",
-          "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T18:31:18.847Z"
+          "verified_date": "2026-11-23",
+          "created_at": "2026-11-23T10:14:22.105Z"
         }
       ]
     },
     {
       "job_id": "PAT-20261127-thank-you",
-      "created_at": "2026-11-20T18:31:19.170Z",
+      "created_at": "2026-11-23T10:14:22.939Z",
       "scheduled_for": "2026-11-27T10:00:00+01:00",
       "prep_at": "2026-11-27T08:00:00+01:00",
       "series_type": "thank-you",
       "title": "Dzięki, że jesteś: Słowo Boże daje siłę przed rozpoczynającym się szabatem",
       "topic_key": "src-thankyou-bible-PSA-23-1",
       "content_hash": "4d855928023de126b63a5224b07e51978561d24e1fd8436ce9d0a22d18a43fd9",
-      "sources_json": "[{\"sourceName\":\"Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia)\",\"sourceRef\":\"data/bible/szukaj-ubg.json#PSA:23:1\",\"verifiedDate\":\"2026-11-20\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/mojabiblia\",\"claim\":\"Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem\"}]",
+      "sources_json": "[{\"sourceName\":\"Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia)\",\"sourceRef\":\"data/bible/szukaj-ubg.json#PSA:23:1\",\"verifiedDate\":\"2026-11-23\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/mojabiblia\",\"claim\":\"Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem (Księga Psalmów 23:1)\"}]",
       "qa_status": "PASS",
-      "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 74, zajawka 143, treść 1412).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano werset Księga Psalmów 23:1 w UBG-2025.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 814 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Patronite\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=378 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-biblia-gdanska.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
+      "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 74, zajawka 143, treść 1412).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano werset Księga Psalmów 23:1 w UBG-2025.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 56 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Patronite\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=378 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-biblia-gdanska.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
       "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261127-thank-you\\graphic-1068x630.png",
       "square_graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261127-thank-you\\promo-1080x1080.png",
       "visibility": "PUBLICZNY",
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261127-thank-you",
       "remote_post_id": "PAT-20261127-thank-you",
-      "verified_at": "2026-11-20T18:31:19.166Z",
+      "verified_at": "2026-11-23T10:14:22.937Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
         {
           "sourceName": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia)",
           "sourceRef": "data/bible/szukaj-ubg.json#PSA:23:1",
-          "verifiedDate": "2026-11-20",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/mojabiblia",
-          "claim": "Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem"
+          "claim": "Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem (Księga Psalmów 23:1)"
         }
       ],
       "qaDetails": {
@@ -365,7 +366,7 @@
             "name": "Grafika 1068 × 630 px i limit 10 MB",
             "passed": true,
             "status": "PASS",
-            "message": "1068×630 png, 814 KB"
+            "message": "1068×630 png, 56 KB"
           },
           {
             "id": "logo_integrity",
@@ -415,25 +416,25 @@
         {
           "evidence_id": "PAT-20261127-thank-you-EV-1",
           "job_id": "PAT-20261127-thank-you",
-          "claim": "Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem",
+          "claim": "Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem (Księga Psalmów 23:1)",
           "status": "ZREALIZOWANE",
           "source_name": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia)",
           "source_ref": "data/bible/szukaj-ubg.json#PSA:23:1",
-          "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T18:31:19.170Z"
+          "verified_date": "2026-11-23",
+          "created_at": "2026-11-23T10:14:22.940Z"
         }
       ]
     },
     {
       "job_id": "PAT-20261130-mission-report",
-      "created_at": "2026-11-20T18:31:19.493Z",
+      "created_at": "2026-11-23T10:14:23.671Z",
       "scheduled_for": "2026-11-30T09:00:00+01:00",
       "prep_at": "2026-11-30T07:00:00+01:00",
       "series_type": "mission-report",
-      "title": "Dziennik Misji: 51 lekcji kursu Z Biblią za Pan Brat na Akademii CC",
+      "title": "Dziennik Misji: 55 lekcji kursu Z Biblią za Pan Brat na Akademii CC",
       "topic_key": "src-akademia-kurs-codzienny",
-      "content_hash": "79b0151765472395e58deed35c273e9e653acb489b2a8c13197ed4cba4e8d5b2",
-      "sources_json": "[{\"sourceName\":\"polskieradio.cc/akademia\",\"sourceRef\":\"akademia/kurscodzienny/dzien-51.html\",\"verifiedDate\":\"2026-11-20\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/akademia\",\"claim\":\"W Akademii Biblijnej działa już 51 lekcji Kursu Codziennego „Z Biblią za Pan Brat”\"}]",
+      "content_hash": "b3ae044a162d784df85669e1e5fce472e5bcf63f6027a58008b878fd381f8aa7",
+      "sources_json": "[{\"sourceName\":\"polskieradio.cc/akademia\",\"sourceRef\":\"akademia/kurscodzienny/dzien-55.html\",\"verifiedDate\":\"2026-11-23\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/akademia\",\"claim\":\"W Akademii Biblijnej działa już 55 lekcji Kursu Codziennego „Z Biblią za Pan Brat”\"}]",
       "qa_status": "PASS",
       "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 67, zajawka 135, treść 1189).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Brak cytatów wymagających korekty.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 806 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Patronite\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=350 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-tworcy-wolontariat.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
       "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261130-mission-report\\graphic-1068x630.png",
@@ -442,17 +443,17 @@
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261130-mission-report",
       "remote_post_id": "PAT-20261130-mission-report",
-      "verified_at": "2026-11-20T18:31:19.491Z",
+      "verified_at": "2026-11-23T10:14:23.670Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
         {
           "sourceName": "polskieradio.cc/akademia",
-          "sourceRef": "akademia/kurscodzienny/dzien-51.html",
-          "verifiedDate": "2026-11-20",
+          "sourceRef": "akademia/kurscodzienny/dzien-55.html",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/akademia",
-          "claim": "W Akademii Biblijnej działa już 51 lekcji Kursu Codziennego „Z Biblią za Pan Brat”"
+          "claim": "W Akademii Biblijnej działa już 55 lekcji Kursu Codziennego „Z Biblią za Pan Brat”"
         }
       ],
       "qaDetails": {
@@ -551,25 +552,25 @@
         {
           "evidence_id": "PAT-20261130-mission-report-EV-1",
           "job_id": "PAT-20261130-mission-report",
-          "claim": "W Akademii Biblijnej działa już 51 lekcji Kursu Codziennego „Z Biblią za Pan Brat”",
+          "claim": "W Akademii Biblijnej działa już 55 lekcji Kursu Codziennego „Z Biblią za Pan Brat”",
           "status": "ZREALIZOWANE",
           "source_name": "polskieradio.cc/akademia",
-          "source_ref": "akademia/kurscodzienny/dzien-51.html",
-          "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T18:31:19.494Z"
+          "source_ref": "akademia/kurscodzienny/dzien-55.html",
+          "verified_date": "2026-11-23",
+          "created_at": "2026-11-23T10:14:23.672Z"
         }
       ]
     },
     {
       "job_id": "PAT-20261202-behind-the-scenes",
-      "created_at": "2026-11-20T18:31:19.847Z",
+      "created_at": "2026-11-23T10:14:24.419Z",
       "scheduled_for": "2026-12-02T18:00:00+01:00",
       "prep_at": "2026-12-02T16:00:00+01:00",
       "series_type": "behind-the-scenes",
       "title": "Za kulisami CC: porządkujemy blisko 200 miejsc serwisu pod smartfony",
       "topic_key": "src-behind-scenes-mobile-lumina-care",
       "content_hash": "baa3dbf83be5d555d2c4d615a178a1f85b2a3347474bbf1567c5fd90f1a3f1e7",
-      "sources_json": "[{\"sourceName\":\"polskieradio.cc/lumina & /mapa\",\"sourceRef\":\"lumina.html + data/ecosystem-map.json\",\"verifiedDate\":\"2026-11-20\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/mapa\",\"claim\":\"Upraszczamy ekosystem 195 modułów, aby wszystko działało płynnie na każdym smartfonie\"}]",
+      "sources_json": "[{\"sourceName\":\"polskieradio.cc/lumina & /mapa\",\"sourceRef\":\"lumina.html + data/ecosystem-map.json\",\"verifiedDate\":\"2026-11-23\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/mapa\",\"claim\":\"Upraszczamy ekosystem 196 modułów, aby wszystko działało płynnie na każdym smartfonie\"}]",
       "qa_status": "PASS",
       "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 68, zajawka 136, treść 1339).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Brak cytatów wymagających korekty.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 1101 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Patronite\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=350 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-dom-studio.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 2 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
       "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261202-behind-the-scenes\\graphic-1068x630.png",
@@ -578,17 +579,17 @@
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261202-behind-the-scenes",
       "remote_post_id": "PAT-20261202-behind-the-scenes",
-      "verified_at": "2026-11-20T18:31:19.844Z",
+      "verified_at": "2026-11-23T10:14:24.418Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
         {
           "sourceName": "polskieradio.cc/lumina & /mapa",
           "sourceRef": "lumina.html + data/ecosystem-map.json",
-          "verifiedDate": "2026-11-20",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/mapa",
-          "claim": "Upraszczamy ekosystem 195 modułów, aby wszystko działało płynnie na każdym smartfonie"
+          "claim": "Upraszczamy ekosystem 196 modułów, aby wszystko działało płynnie na każdym smartfonie"
         }
       ],
       "qaDetails": {
@@ -687,25 +688,25 @@
         {
           "evidence_id": "PAT-20261202-behind-the-scenes-EV-1",
           "job_id": "PAT-20261202-behind-the-scenes",
-          "claim": "Upraszczamy ekosystem 195 modułów, aby wszystko działało płynnie na każdym smartfonie",
+          "claim": "Upraszczamy ekosystem 196 modułów, aby wszystko działało płynnie na każdym smartfonie",
           "status": "ZREALIZOWANE",
           "source_name": "polskieradio.cc/lumina & /mapa",
           "source_ref": "lumina.html + data/ecosystem-map.json",
-          "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T18:31:19.848Z"
+          "verified_date": "2026-11-23",
+          "created_at": "2026-11-23T10:14:24.420Z"
         }
       ]
     },
     {
       "job_id": "PAT-20261204-thank-you",
-      "created_at": "2026-11-20T18:31:20.552Z",
+      "created_at": "2026-11-23T10:14:25.148Z",
       "scheduled_for": "2026-12-04T10:00:00+01:00",
       "prep_at": "2026-12-04T08:00:00+01:00",
       "series_type": "thank-you",
       "title": "Dzięki, że jesteś: pokój nadziei na próg kolejnego szabatu",
       "topic_key": "src-thankyou-bible-ISA-40-31",
       "content_hash": "e1fcc41c17e59976e6a4fbda7057c87f1deaea2167f816f32320e6eb953d288d",
-      "sources_json": "[{\"sourceName\":\"Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia)\",\"sourceRef\":\"data/bible/szukaj-ubg.json#ISA:40:31\",\"verifiedDate\":\"2026-11-20\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/werset-dnia\",\"claim\":\"Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku\"}]",
+      "sources_json": "[{\"sourceName\":\"Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia)\",\"sourceRef\":\"data/bible/szukaj-ubg.json#ISA:40:31\",\"verifiedDate\":\"2026-11-23\",\"status\":\"ZREALIZOWANE\",\"publicUrl\":\"https://polskieradio.cc/werset-dnia\",\"claim\":\"Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku (Księga Izajasza 40:31)\"}]",
       "qa_status": "PASS",
       "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 58, zajawka 145, treść 1505).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano werset Księga Izajasza 40:31 w UBG-2025.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 910 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Patronite\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=378 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-hero.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
       "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261204-thank-you\\graphic-1068x630.png",
@@ -714,17 +715,17 @@
       "publish_status": "SZKIC",
       "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\drafts\\PAT-20261204-thank-you",
       "remote_post_id": "PAT-20261204-thank-you",
-      "verified_at": "2026-11-20T18:31:20.550Z",
+      "verified_at": "2026-11-23T10:14:25.146Z",
       "error_code": null,
       "attempts": 1,
       "sources": [
         {
           "sourceName": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia)",
           "sourceRef": "data/bible/szukaj-ubg.json#ISA:40:31",
-          "verifiedDate": "2026-11-20",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/werset-dnia",
-          "claim": "Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku"
+          "claim": "Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku (Księga Izajasza 40:31)"
         }
       ],
       "qaDetails": {
@@ -823,14 +824,700 @@
         {
           "evidence_id": "PAT-20261204-thank-you-EV-1",
           "job_id": "PAT-20261204-thank-you",
-          "claim": "Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku",
+          "claim": "Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku (Księga Izajasza 40:31)",
           "status": "ZREALIZOWANE",
           "source_name": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia)",
           "source_ref": "data/bible/szukaj-ubg.json#ISA:40:31",
-          "verified_date": "2026-11-20",
-          "created_at": "2026-11-20T18:31:20.553Z"
+          "verified_date": "2026-11-23",
+          "created_at": "2026-11-23T10:14:25.148Z"
         }
       ]
+    }
+  ],
+  "zrzutkaJobs": [
+    {
+      "zrzutka_job_id": "ZRZ-20261123-mission-report",
+      "patronite_job_id": "PAT-20261123-mission-report",
+      "fundraiser_code": "rs4g4v",
+      "created_at": "2026-11-23T10:14:21.683Z",
+      "scheduled_for": "2026-11-23T09:00:00+01:00",
+      "prep_at": "2026-11-23T07:00:00+01:00",
+      "series_type": "mission-report",
+      "title": "Dziennik Misji: 35 rozdziałów Księgi Rodzaju już w Biblii Audio CC",
+      "topic_key": "src-biblia-audio-progress",
+      "content_hash": "3f700a7a9d266daf9eed066e139990a8d6168fc67d152ae6dccbceb5540818dd",
+      "qa_status": "PASS",
+      "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 66, zajawka 144, treść 1314).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Brak cytatów wymagających korekty.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 711 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Zrzutka.pl\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=350 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-sprzet-studio.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
+      "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261123-mission-report\\graphic-1068x630.png",
+      "square_graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261123-mission-report\\promo-1080x1080.png",
+      "publish_status": "SZKIC",
+      "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261123-mission-report",
+      "remote_update_id": "ZRZ-20261123-mission-report",
+      "verified_at": "2026-11-23T10:14:21.681Z",
+      "error_code": null,
+      "attempts": 1,
+      "qaDetails": {
+        "overallStatus": "PASS",
+        "passedCount": 12,
+        "totalCount": 12,
+        "failedChecks": [],
+        "checks": [
+          {
+            "id": "sources_confirmed",
+            "name": "Źródła informacji dostępne i potwierdzone",
+            "passed": true,
+            "status": "PASS",
+            "message": "Potwierdzono 1 źródło(a) faktów."
+          },
+          {
+            "id": "language_and_lengths",
+            "name": "Poprawność językowa oraz limity redakcyjne",
+            "passed": true,
+            "status": "PASS",
+            "message": "Długości w normie (tytuł 66, zajawka 144, treść 1314)."
+          },
+          {
+            "id": "no_unverified_promises",
+            "name": "Brak niepotwierdzonych obietnic, klikbajtu i manipulacji",
+            "passed": true,
+            "status": "PASS",
+            "message": "Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw."
+          },
+          {
+            "id": "bible_quotes_verified",
+            "name": "Cytaty biblijne i pełne nazwy ksiąg",
+            "passed": true,
+            "status": "PASS",
+            "message": "Brak cytatów wymagających korekty."
+          },
+          {
+            "id": "mission_doctrine_compliance",
+            "name": "Zgodność doktrynalna i misyjna Christian Culture",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego."
+          },
+          {
+            "id": "graphic_dimensions",
+            "name": "Grafika 1068 × 630 px i limit 10 MB",
+            "passed": true,
+            "status": "PASS",
+            "message": "1068×630 png, 711 KB"
+          },
+          {
+            "id": "logo_integrity",
+            "name": "Oryginalne proporcje znaków Christian Culture i Zrzutka.pl",
+            "passed": true,
+            "status": "PASS",
+            "message": "Proporcja lockupu nienaruszona (8.625)."
+          },
+          {
+            "id": "safe_zones_and_alt",
+            "name": "Napisy w bezpiecznych strefach + tekst alternatywny obrazu",
+            "passed": true,
+            "status": "PASS",
+            "message": "Strefa bezpieczna y<=350 (limit 495)."
+          },
+          {
+            "id": "copyright_and_privacy",
+            "name": "Prawa autorskie fotografii i ochrona prywatności",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zatwierdzone źródło foto CC: images/ogloszenia-sprzet-studio.jpg"
+          },
+          {
+            "id": "links_valid",
+            "name": "Weryfikacja poprawności wszystkich odnośników",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zweryfikowano 1 link(i) w repozytorium polskieradio.cc."
+          },
+          {
+            "id": "not_duplicate",
+            "name": "Brak powtórzeń z ostatnich 30 dni",
+            "passed": true,
+            "status": "PASS",
+            "message": "Temat i treść unikalne w oknie 30 dni."
+          },
+          {
+            "id": "visibility_config",
+            "name": "Poprawna konfiguracja widoczności posta",
+            "passed": true,
+            "status": "PASS",
+            "message": "Widoczność ustawiona na: PUBLICZNY"
+          }
+        ]
+      }
+    },
+    {
+      "zrzutka_job_id": "ZRZ-20261125-behind-the-scenes",
+      "patronite_job_id": "PAT-20261125-behind-the-scenes",
+      "fundraiser_code": "rs4g4v",
+      "created_at": "2026-11-23T10:14:22.513Z",
+      "scheduled_for": "2026-11-25T18:00:00+01:00",
+      "prep_at": "2026-11-25T16:00:00+01:00",
+      "series_type": "behind-the-scenes",
+      "title": "Za kulisami CC: jak powstają nagrania Studia Dobrego Słowa i Biblii Audio",
+      "topic_key": "src-behind-scenes-audio-vod-ccn",
+      "content_hash": "1be516707667d91ae7e1cb21d457725e8fa1a7e4eaf9988f6e86b17ca98ee644",
+      "qa_status": "PASS",
+      "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 73, zajawka 151, treść 1292).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Brak cytatów wymagających korekty.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 712 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Zrzutka.pl\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=378 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-sprzet-studio.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
+      "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261125-behind-the-scenes\\graphic-1068x630.png",
+      "square_graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261125-behind-the-scenes\\promo-1080x1080.png",
+      "publish_status": "SZKIC",
+      "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261125-behind-the-scenes",
+      "remote_update_id": "ZRZ-20261125-behind-the-scenes",
+      "verified_at": "2026-11-23T10:14:22.511Z",
+      "error_code": null,
+      "attempts": 1,
+      "qaDetails": {
+        "overallStatus": "PASS",
+        "passedCount": 12,
+        "totalCount": 12,
+        "failedChecks": [],
+        "checks": [
+          {
+            "id": "sources_confirmed",
+            "name": "Źródła informacji dostępne i potwierdzone",
+            "passed": true,
+            "status": "PASS",
+            "message": "Potwierdzono 1 źródło(a) faktów."
+          },
+          {
+            "id": "language_and_lengths",
+            "name": "Poprawność językowa oraz limity redakcyjne",
+            "passed": true,
+            "status": "PASS",
+            "message": "Długości w normie (tytuł 73, zajawka 151, treść 1292)."
+          },
+          {
+            "id": "no_unverified_promises",
+            "name": "Brak niepotwierdzonych obietnic, klikbajtu i manipulacji",
+            "passed": true,
+            "status": "PASS",
+            "message": "Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw."
+          },
+          {
+            "id": "bible_quotes_verified",
+            "name": "Cytaty biblijne i pełne nazwy ksiąg",
+            "passed": true,
+            "status": "PASS",
+            "message": "Brak cytatów wymagających korekty."
+          },
+          {
+            "id": "mission_doctrine_compliance",
+            "name": "Zgodność doktrynalna i misyjna Christian Culture",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego."
+          },
+          {
+            "id": "graphic_dimensions",
+            "name": "Grafika 1068 × 630 px i limit 10 MB",
+            "passed": true,
+            "status": "PASS",
+            "message": "1068×630 png, 712 KB"
+          },
+          {
+            "id": "logo_integrity",
+            "name": "Oryginalne proporcje znaków Christian Culture i Zrzutka.pl",
+            "passed": true,
+            "status": "PASS",
+            "message": "Proporcja lockupu nienaruszona (8.625)."
+          },
+          {
+            "id": "safe_zones_and_alt",
+            "name": "Napisy w bezpiecznych strefach + tekst alternatywny obrazu",
+            "passed": true,
+            "status": "PASS",
+            "message": "Strefa bezpieczna y<=378 (limit 495)."
+          },
+          {
+            "id": "copyright_and_privacy",
+            "name": "Prawa autorskie fotografii i ochrona prywatności",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zatwierdzone źródło foto CC: images/ogloszenia-sprzet-studio.jpg"
+          },
+          {
+            "id": "links_valid",
+            "name": "Weryfikacja poprawności wszystkich odnośników",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zweryfikowano 1 link(i) w repozytorium polskieradio.cc."
+          },
+          {
+            "id": "not_duplicate",
+            "name": "Brak powtórzeń z ostatnich 30 dni",
+            "passed": true,
+            "status": "PASS",
+            "message": "Temat i treść unikalne w oknie 30 dni."
+          },
+          {
+            "id": "visibility_config",
+            "name": "Poprawna konfiguracja widoczności posta",
+            "passed": true,
+            "status": "PASS",
+            "message": "Widoczność ustawiona na: PUBLICZNY"
+          }
+        ]
+      }
+    },
+    {
+      "zrzutka_job_id": "ZRZ-20261127-thank-you",
+      "patronite_job_id": "PAT-20261127-thank-you",
+      "fundraiser_code": "rs4g4v",
+      "created_at": "2026-11-23T10:14:23.324Z",
+      "scheduled_for": "2026-11-27T10:00:00+01:00",
+      "prep_at": "2026-11-27T08:00:00+01:00",
+      "series_type": "thank-you",
+      "title": "Dzięki, że jesteś: Słowo Boże daje siłę przed rozpoczynającym się szabatem",
+      "topic_key": "src-thankyou-bible-PSA-23-1",
+      "content_hash": "b4758fa89839e8fa40105e5cb17cf4eeb8154e1ab638f033d7e187d6552e92f9",
+      "qa_status": "PASS",
+      "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 74, zajawka 145, treść 1415).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano werset Księga Psalmów 23:1 w UBG-2025.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 812 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Zrzutka.pl\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=378 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-biblia-gdanska.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
+      "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261127-thank-you\\graphic-1068x630.png",
+      "square_graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261127-thank-you\\promo-1080x1080.png",
+      "publish_status": "SZKIC",
+      "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261127-thank-you",
+      "remote_update_id": "ZRZ-20261127-thank-you",
+      "verified_at": "2026-11-23T10:14:23.323Z",
+      "error_code": null,
+      "attempts": 1,
+      "qaDetails": {
+        "overallStatus": "PASS",
+        "passedCount": 12,
+        "totalCount": 12,
+        "failedChecks": [],
+        "checks": [
+          {
+            "id": "sources_confirmed",
+            "name": "Źródła informacji dostępne i potwierdzone",
+            "passed": true,
+            "status": "PASS",
+            "message": "Potwierdzono 1 źródło(a) faktów."
+          },
+          {
+            "id": "language_and_lengths",
+            "name": "Poprawność językowa oraz limity redakcyjne",
+            "passed": true,
+            "status": "PASS",
+            "message": "Długości w normie (tytuł 74, zajawka 145, treść 1415)."
+          },
+          {
+            "id": "no_unverified_promises",
+            "name": "Brak niepotwierdzonych obietnic, klikbajtu i manipulacji",
+            "passed": true,
+            "status": "PASS",
+            "message": "Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw."
+          },
+          {
+            "id": "bible_quotes_verified",
+            "name": "Cytaty biblijne i pełne nazwy ksiąg",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zweryfikowano werset Księga Psalmów 23:1 w UBG-2025."
+          },
+          {
+            "id": "mission_doctrine_compliance",
+            "name": "Zgodność doktrynalna i misyjna Christian Culture",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego."
+          },
+          {
+            "id": "graphic_dimensions",
+            "name": "Grafika 1068 × 630 px i limit 10 MB",
+            "passed": true,
+            "status": "PASS",
+            "message": "1068×630 png, 812 KB"
+          },
+          {
+            "id": "logo_integrity",
+            "name": "Oryginalne proporcje znaków Christian Culture i Zrzutka.pl",
+            "passed": true,
+            "status": "PASS",
+            "message": "Proporcja lockupu nienaruszona (8.625)."
+          },
+          {
+            "id": "safe_zones_and_alt",
+            "name": "Napisy w bezpiecznych strefach + tekst alternatywny obrazu",
+            "passed": true,
+            "status": "PASS",
+            "message": "Strefa bezpieczna y<=378 (limit 495)."
+          },
+          {
+            "id": "copyright_and_privacy",
+            "name": "Prawa autorskie fotografii i ochrona prywatności",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zatwierdzone źródło foto CC: images/ogloszenia-biblia-gdanska.jpg"
+          },
+          {
+            "id": "links_valid",
+            "name": "Weryfikacja poprawności wszystkich odnośników",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zweryfikowano 1 link(i) w repozytorium polskieradio.cc."
+          },
+          {
+            "id": "not_duplicate",
+            "name": "Brak powtórzeń z ostatnich 30 dni",
+            "passed": true,
+            "status": "PASS",
+            "message": "Temat i treść unikalne w oknie 30 dni."
+          },
+          {
+            "id": "visibility_config",
+            "name": "Poprawna konfiguracja widoczności posta",
+            "passed": true,
+            "status": "PASS",
+            "message": "Widoczność ustawiona na: PUBLICZNY"
+          }
+        ]
+      }
+    },
+    {
+      "zrzutka_job_id": "ZRZ-20261130-mission-report",
+      "patronite_job_id": "PAT-20261130-mission-report",
+      "fundraiser_code": "rs4g4v",
+      "created_at": "2026-11-23T10:14:24.006Z",
+      "scheduled_for": "2026-11-30T09:00:00+01:00",
+      "prep_at": "2026-11-30T07:00:00+01:00",
+      "series_type": "mission-report",
+      "title": "Dziennik Misji: 55 lekcji kursu Z Biblią za Pan Brat na Akademii CC",
+      "topic_key": "src-akademia-kurs-codzienny",
+      "content_hash": "263831fc77c1a61e3216c41d7cd5bfe944b795e298a8c8263a03d46f19b13506",
+      "qa_status": "PASS",
+      "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 67, zajawka 135, treść 1192).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Brak cytatów wymagających korekty.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 804 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Zrzutka.pl\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=350 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-tworcy-wolontariat.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
+      "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261130-mission-report\\graphic-1068x630.png",
+      "square_graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261130-mission-report\\promo-1080x1080.png",
+      "publish_status": "SZKIC",
+      "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261130-mission-report",
+      "remote_update_id": "ZRZ-20261130-mission-report",
+      "verified_at": "2026-11-23T10:14:24.004Z",
+      "error_code": null,
+      "attempts": 1,
+      "qaDetails": {
+        "overallStatus": "PASS",
+        "passedCount": 12,
+        "totalCount": 12,
+        "failedChecks": [],
+        "checks": [
+          {
+            "id": "sources_confirmed",
+            "name": "Źródła informacji dostępne i potwierdzone",
+            "passed": true,
+            "status": "PASS",
+            "message": "Potwierdzono 1 źródło(a) faktów."
+          },
+          {
+            "id": "language_and_lengths",
+            "name": "Poprawność językowa oraz limity redakcyjne",
+            "passed": true,
+            "status": "PASS",
+            "message": "Długości w normie (tytuł 67, zajawka 135, treść 1192)."
+          },
+          {
+            "id": "no_unverified_promises",
+            "name": "Brak niepotwierdzonych obietnic, klikbajtu i manipulacji",
+            "passed": true,
+            "status": "PASS",
+            "message": "Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw."
+          },
+          {
+            "id": "bible_quotes_verified",
+            "name": "Cytaty biblijne i pełne nazwy ksiąg",
+            "passed": true,
+            "status": "PASS",
+            "message": "Brak cytatów wymagających korekty."
+          },
+          {
+            "id": "mission_doctrine_compliance",
+            "name": "Zgodność doktrynalna i misyjna Christian Culture",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego."
+          },
+          {
+            "id": "graphic_dimensions",
+            "name": "Grafika 1068 × 630 px i limit 10 MB",
+            "passed": true,
+            "status": "PASS",
+            "message": "1068×630 png, 804 KB"
+          },
+          {
+            "id": "logo_integrity",
+            "name": "Oryginalne proporcje znaków Christian Culture i Zrzutka.pl",
+            "passed": true,
+            "status": "PASS",
+            "message": "Proporcja lockupu nienaruszona (8.625)."
+          },
+          {
+            "id": "safe_zones_and_alt",
+            "name": "Napisy w bezpiecznych strefach + tekst alternatywny obrazu",
+            "passed": true,
+            "status": "PASS",
+            "message": "Strefa bezpieczna y<=350 (limit 495)."
+          },
+          {
+            "id": "copyright_and_privacy",
+            "name": "Prawa autorskie fotografii i ochrona prywatności",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zatwierdzone źródło foto CC: images/ogloszenia-tworcy-wolontariat.jpg"
+          },
+          {
+            "id": "links_valid",
+            "name": "Weryfikacja poprawności wszystkich odnośników",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zweryfikowano 1 link(i) w repozytorium polskieradio.cc."
+          },
+          {
+            "id": "not_duplicate",
+            "name": "Brak powtórzeń z ostatnich 30 dni",
+            "passed": true,
+            "status": "PASS",
+            "message": "Temat i treść unikalne w oknie 30 dni."
+          },
+          {
+            "id": "visibility_config",
+            "name": "Poprawna konfiguracja widoczności posta",
+            "passed": true,
+            "status": "PASS",
+            "message": "Widoczność ustawiona na: PUBLICZNY"
+          }
+        ]
+      }
+    },
+    {
+      "zrzutka_job_id": "ZRZ-20261202-behind-the-scenes",
+      "patronite_job_id": "PAT-20261202-behind-the-scenes",
+      "fundraiser_code": "rs4g4v",
+      "created_at": "2026-11-23T10:14:24.810Z",
+      "scheduled_for": "2026-12-02T18:00:00+01:00",
+      "prep_at": "2026-12-02T16:00:00+01:00",
+      "series_type": "behind-the-scenes",
+      "title": "Za kulisami CC: porządkujemy blisko 200 miejsc serwisu pod smartfony",
+      "topic_key": "src-behind-scenes-mobile-lumina-care",
+      "content_hash": "baa3dbf83be5d555d2c4d615a178a1f85b2a3347474bbf1567c5fd90f1a3f1e7",
+      "qa_status": "PASS",
+      "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 68, zajawka 136, treść 1339).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Brak cytatów wymagających korekty.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 1099 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Zrzutka.pl\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=350 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-dom-studio.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 2 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
+      "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261202-behind-the-scenes\\graphic-1068x630.png",
+      "square_graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261202-behind-the-scenes\\promo-1080x1080.png",
+      "publish_status": "SZKIC",
+      "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261202-behind-the-scenes",
+      "remote_update_id": "ZRZ-20261202-behind-the-scenes",
+      "verified_at": "2026-11-23T10:14:24.809Z",
+      "error_code": null,
+      "attempts": 1,
+      "qaDetails": {
+        "overallStatus": "PASS",
+        "passedCount": 12,
+        "totalCount": 12,
+        "failedChecks": [],
+        "checks": [
+          {
+            "id": "sources_confirmed",
+            "name": "Źródła informacji dostępne i potwierdzone",
+            "passed": true,
+            "status": "PASS",
+            "message": "Potwierdzono 1 źródło(a) faktów."
+          },
+          {
+            "id": "language_and_lengths",
+            "name": "Poprawność językowa oraz limity redakcyjne",
+            "passed": true,
+            "status": "PASS",
+            "message": "Długości w normie (tytuł 68, zajawka 136, treść 1339)."
+          },
+          {
+            "id": "no_unverified_promises",
+            "name": "Brak niepotwierdzonych obietnic, klikbajtu i manipulacji",
+            "passed": true,
+            "status": "PASS",
+            "message": "Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw."
+          },
+          {
+            "id": "bible_quotes_verified",
+            "name": "Cytaty biblijne i pełne nazwy ksiąg",
+            "passed": true,
+            "status": "PASS",
+            "message": "Brak cytatów wymagających korekty."
+          },
+          {
+            "id": "mission_doctrine_compliance",
+            "name": "Zgodność doktrynalna i misyjna Christian Culture",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego."
+          },
+          {
+            "id": "graphic_dimensions",
+            "name": "Grafika 1068 × 630 px i limit 10 MB",
+            "passed": true,
+            "status": "PASS",
+            "message": "1068×630 png, 1099 KB"
+          },
+          {
+            "id": "logo_integrity",
+            "name": "Oryginalne proporcje znaków Christian Culture i Zrzutka.pl",
+            "passed": true,
+            "status": "PASS",
+            "message": "Proporcja lockupu nienaruszona (8.625)."
+          },
+          {
+            "id": "safe_zones_and_alt",
+            "name": "Napisy w bezpiecznych strefach + tekst alternatywny obrazu",
+            "passed": true,
+            "status": "PASS",
+            "message": "Strefa bezpieczna y<=350 (limit 495)."
+          },
+          {
+            "id": "copyright_and_privacy",
+            "name": "Prawa autorskie fotografii i ochrona prywatności",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zatwierdzone źródło foto CC: images/ogloszenia-dom-studio.jpg"
+          },
+          {
+            "id": "links_valid",
+            "name": "Weryfikacja poprawności wszystkich odnośników",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zweryfikowano 2 link(i) w repozytorium polskieradio.cc."
+          },
+          {
+            "id": "not_duplicate",
+            "name": "Brak powtórzeń z ostatnich 30 dni",
+            "passed": true,
+            "status": "PASS",
+            "message": "Temat i treść unikalne w oknie 30 dni."
+          },
+          {
+            "id": "visibility_config",
+            "name": "Poprawna konfiguracja widoczności posta",
+            "passed": true,
+            "status": "PASS",
+            "message": "Widoczność ustawiona na: PUBLICZNY"
+          }
+        ]
+      }
+    },
+    {
+      "zrzutka_job_id": "ZRZ-20261204-thank-you",
+      "patronite_job_id": "PAT-20261204-thank-you",
+      "fundraiser_code": "rs4g4v",
+      "created_at": "2026-11-23T10:14:25.470Z",
+      "scheduled_for": "2026-12-04T10:00:00+01:00",
+      "prep_at": "2026-12-04T08:00:00+01:00",
+      "series_type": "thank-you",
+      "title": "Dzięki, że jesteś: pokój nadziei na próg kolejnego szabatu",
+      "topic_key": "src-thankyou-bible-ISA-40-31",
+      "content_hash": "9dece92fd041b467c926a8a172ace94d511dba64f99a0dd9c4bcf207627354aa",
+      "qa_status": "PASS",
+      "qa_details_json": "{\"overallStatus\":\"PASS\",\"passedCount\":12,\"totalCount\":12,\"failedChecks\":[],\"checks\":[{\"id\":\"sources_confirmed\",\"name\":\"Źródła informacji dostępne i potwierdzone\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Potwierdzono 1 źródło(a) faktów.\"},{\"id\":\"language_and_lengths\",\"name\":\"Poprawność językowa oraz limity redakcyjne\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Długości w normie (tytuł 58, zajawka 147, treść 1508).\"},{\"id\":\"no_unverified_promises\",\"name\":\"Brak niepotwierdzonych obietnic, klikbajtu i manipulacji\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw.\"},{\"id\":\"bible_quotes_verified\",\"name\":\"Cytaty biblijne i pełne nazwy ksiąg\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano werset Księga Izajasza 40:31 w UBG-2025.\"},{\"id\":\"mission_doctrine_compliance\",\"name\":\"Zgodność doktrynalna i misyjna Christian Culture\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego.\"},{\"id\":\"graphic_dimensions\",\"name\":\"Grafika 1068 × 630 px i limit 10 MB\",\"passed\":true,\"status\":\"PASS\",\"message\":\"1068×630 png, 908 KB\"},{\"id\":\"logo_integrity\",\"name\":\"Oryginalne proporcje znaków Christian Culture i Zrzutka.pl\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Proporcja lockupu nienaruszona (8.625).\"},{\"id\":\"safe_zones_and_alt\",\"name\":\"Napisy w bezpiecznych strefach + tekst alternatywny obrazu\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Strefa bezpieczna y<=378 (limit 495).\"},{\"id\":\"copyright_and_privacy\",\"name\":\"Prawa autorskie fotografii i ochrona prywatności\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zatwierdzone źródło foto CC: images/ogloszenia-hero.jpg\"},{\"id\":\"links_valid\",\"name\":\"Weryfikacja poprawności wszystkich odnośników\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Zweryfikowano 1 link(i) w repozytorium polskieradio.cc.\"},{\"id\":\"not_duplicate\",\"name\":\"Brak powtórzeń z ostatnich 30 dni\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Temat i treść unikalne w oknie 30 dni.\"},{\"id\":\"visibility_config\",\"name\":\"Poprawna konfiguracja widoczności posta\",\"passed\":true,\"status\":\"PASS\",\"message\":\"Widoczność ustawiona na: PUBLICZNY\"}]}",
+      "graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261204-thank-you\\graphic-1068x630.png",
+      "square_graphic_path": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261204-thank-you\\promo-1080x1080.png",
+      "publish_status": "SZKIC",
+      "published_url": "C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\patronite\\zrzutka\\drafts\\ZRZ-20261204-thank-you",
+      "remote_update_id": "ZRZ-20261204-thank-you",
+      "verified_at": "2026-11-23T10:14:25.469Z",
+      "error_code": null,
+      "attempts": 1,
+      "qaDetails": {
+        "overallStatus": "PASS",
+        "passedCount": 12,
+        "totalCount": 12,
+        "failedChecks": [],
+        "checks": [
+          {
+            "id": "sources_confirmed",
+            "name": "Źródła informacji dostępne i potwierdzone",
+            "passed": true,
+            "status": "PASS",
+            "message": "Potwierdzono 1 źródło(a) faktów."
+          },
+          {
+            "id": "language_and_lengths",
+            "name": "Poprawność językowa oraz limity redakcyjne",
+            "passed": true,
+            "status": "PASS",
+            "message": "Długości w normie (tytuł 58, zajawka 147, treść 1508)."
+          },
+          {
+            "id": "no_unverified_promises",
+            "name": "Brak niepotwierdzonych obietnic, klikbajtu i manipulacji",
+            "passed": true,
+            "status": "PASS",
+            "message": "Treść wolna od manipulacji, obietnic bez pokrycia i poufnych nazw."
+          },
+          {
+            "id": "bible_quotes_verified",
+            "name": "Cytaty biblijne i pełne nazwy ksiąg",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zweryfikowano werset Księga Izajasza 40:31 w UBG-2025."
+          },
+          {
+            "id": "mission_doctrine_compliance",
+            "name": "Zgodność doktrynalna i misyjna Christian Culture",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zgodny z misją i 28 Zasadami Wiary Kościoła Bożego."
+          },
+          {
+            "id": "graphic_dimensions",
+            "name": "Grafika 1068 × 630 px i limit 10 MB",
+            "passed": true,
+            "status": "PASS",
+            "message": "1068×630 png, 908 KB"
+          },
+          {
+            "id": "logo_integrity",
+            "name": "Oryginalne proporcje znaków Christian Culture i Zrzutka.pl",
+            "passed": true,
+            "status": "PASS",
+            "message": "Proporcja lockupu nienaruszona (8.625)."
+          },
+          {
+            "id": "safe_zones_and_alt",
+            "name": "Napisy w bezpiecznych strefach + tekst alternatywny obrazu",
+            "passed": true,
+            "status": "PASS",
+            "message": "Strefa bezpieczna y<=378 (limit 495)."
+          },
+          {
+            "id": "copyright_and_privacy",
+            "name": "Prawa autorskie fotografii i ochrona prywatności",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zatwierdzone źródło foto CC: images/ogloszenia-hero.jpg"
+          },
+          {
+            "id": "links_valid",
+            "name": "Weryfikacja poprawności wszystkich odnośników",
+            "passed": true,
+            "status": "PASS",
+            "message": "Zweryfikowano 1 link(i) w repozytorium polskieradio.cc."
+          },
+          {
+            "id": "not_duplicate",
+            "name": "Brak powtórzeń z ostatnich 30 dni",
+            "passed": true,
+            "status": "PASS",
+            "message": "Temat i treść unikalne w oknie 30 dni."
+          },
+          {
+            "id": "visibility_config",
+            "name": "Poprawna konfiguracja widoczności posta",
+            "passed": true,
+            "status": "PASS",
+            "message": "Widoczność ustawiona na: PUBLICZNY"
+          }
+        ]
+      }
     }
   ]
 }

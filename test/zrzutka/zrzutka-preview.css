@@ -1,0 +1,60 @@
+:root {
+  --zrz-orange: #FF7A00;
+  --zrz-orange-hover: #FF8C33;
+  --zrz-orange-active: #E66A00;
+}
+
+.zrz-header {
+  border-bottom-color: var(--zrz-orange);
+}
+
+.zrz-badge {
+  background: var(--zrz-orange);
+}
+
+.zrz-btn-orange {
+  background: var(--zrz-orange);
+  color: #FFFFFF;
+}
+
+.zrz-btn-orange:hover {
+  background: var(--zrz-orange-hover);
+}
+
+.zrz-btn-orange:active {
+  background: var(--zrz-orange-active);
+}
+
+.zrz-btn-outline {
+  background: #FFFFFF;
+  color: var(--pt-navy);
+  border: 2px solid var(--pt-border);
+}
+
+.zrz-btn-outline:hover {
+  border-color: var(--pt-navy);
+  background: #F8FAFC;
+}
+
+.zrz-notice-banner {
+  background: #FFF7ED;
+  border: 1px solid #FDBA74;
+  border-left: 4px solid var(--zrz-orange);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  color: var(--pt-navy);
+}
+
+.zrz-action-bar {
+  gap: 10px;
+}
+
+.pt-tab-btn[aria-selected="true"] {
+  box-shadow: 0 3px 0 var(--zrz-orange);
+}
+
+.pt-teaser {
+  border-left-color: var(--zrz-orange);
+}

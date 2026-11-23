@@ -1,0 +1,35 @@
+{
+  "channel": "zrzutka",
+  "jobId": "ZRZ-20261123-mission-report",
+  "sourcePatroniteJobId": "PAT-20261123-mission-report",
+  "fundraiserUrl": "https://zrzutka.pl/rs4g4v",
+  "fundraiserCode": "rs4g4v",
+  "fundraiserOrganizer": "Wioletta Rogowska (Christian Culture)",
+  "seriesType": "mission-report",
+  "seriesLabel": "DZIENNIK MISJI",
+  "scheduledForWarsaw": "2026-11-23T09:00:00+01:00",
+  "visibility": "PUBLICZNY",
+  "title": "Dziennik Misji: 35 rozdziałów Księgi Rodzaju już w Biblii Audio CC",
+  "teaser": "Sprawdź, co nowego pojawiło się w naszej darmowej Biblii Audio oraz jak systematycznie udostępniamy kolejne rozdziały Pisma Świętego bez reklam.",
+  "body": "Drodzy Darczyńcy, rozpoczynamy kolejny tydzień krótkim, rzeczowym sprawozdaniem z tego, co w ostatnich dniach zostało ukończone i przekazane słuchaczom na polskieradio.cc.\n\nW dziale Biblia Audio Christian Culture (https://polskieradio.cc/biblia-audio) udostępniliśmy już 35 z 50 rozdziałów Księgi Rodzaju. Każdy opublikowany odcinek przechodzi pełne przygotowanie lektorskie, wyrównanie poziomu głośności do standardu radiowego oraz zapis w formacie do wygodnego odsłuchu w przeglądarce i w drodze.\n\nDlaczego to tak ważne dla odbiorców? Wiele osób chce codziennie wracać do Pisma Świętego, ale w zabieganiu łatwiej włączyć im czyste nagranie podczas spaceru, jazdy autem czy wieczornego odpoczynku w domu. Dzięki Wam w całym serwisie nie pojawiają się reklamy przerywające lekturę Słowa Bożego.\n\nWsparcie naszej społeczności pozwala utrzymywać infrastrukturę publikacji, archiwum audio i równoległą dystrybucję materiałów na kanałach YouTube całkowicie bezpłatnie dla każdego, kto szuka pokoju i biblijnej prawdy.\n\nCzy słuchaliście już ostatnich rozdziałów Księgi Rodzaju w naszym odtwarzaczu — i w jakiej porze dnia najchętniej wracacie do nagrań Pisma Świętego?\n\nJeśli ten kierunek jest Wam bliski, zajrzyjcie na polskieradio.cc/biblia-audio i udostępnijcie wybrany odcinek osobie, której może dziś dodać otuchy.",
+  "question": "W jakiej porze dnia najchętniej wracacie do słuchania Pisma Świętego w wersji audio?",
+  "cta": "Posłuchaj bezpłatnych rozdziałów Biblii Audio na https://polskieradio.cc/biblia-audio",
+  "hashtags": [
+    "#ChristianCulture",
+    "#BibliaAudio",
+    "#Zrzutka"
+  ],
+  "altText": "Grafika Dziennik Misji Christian Culture i Zrzutka.pl (rs4g4v): 35 rozdziałów Biblii Audio CC dostępnych bezpłatnie na polskieradio.cc",
+  "sources": [
+    {
+      "sourceName": "polskieradio.cc/biblia-audio",
+      "sourceRef": "biblia-audio/data/catalog.json",
+      "verifiedDate": "2026-11-23",
+      "status": "ZREALIZOWANE",
+      "publicUrl": "https://polskieradio.cc/biblia-audio",
+      "claim": "Udostępniliśmy już 35 z 50 rozdziałów Księgi Rodzaju w serii Biblia Audio CC"
+    }
+  ],
+  "honestAdapterNote": "Serwis zrzutka.pl jest chroniony przez Cloudflare i nie udostępnia otwartego publicznego REST API zapisu aktualizacji — pakiet zapisany uczciwie jako kompletny szkic gotowy do 1-kliknięciowego wklejenia na https://zrzutka.pl/rs4g4v.",
+  "savedAt": "2026-11-23T10:15:39.592Z"
+}

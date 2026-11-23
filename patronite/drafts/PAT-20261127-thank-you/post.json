@@ -1,5 +1,6 @@
 {
   "jobId": "PAT-20261127-thank-you",
+  "topicKey": "src-thankyou-bible-PSA-23-1",
   "seriesType": "thank-you",
   "seriesLabel": "DZIĘKI, ŻE JESTEŚ",
   "scheduledForWarsaw": "2026-11-27T10:00:00+01:00",
@@ -16,16 +17,33 @@
     "#ChristianCulture"
   ],
   "altText": "Grafika Dzięki, że jesteś: Księga Psalmów 23:1 z życzeniami błogosławionego szabatu dla Patronów Christian Culture",
+  "scripture": {
+    "book": "Księga Psalmów",
+    "bookCode": "PSA",
+    "chapter": 23,
+    "verse": 1,
+    "reference": "Księga Psalmów 23:1",
+    "text": "Pan jest moim pasterzem, niczego mi nie zabraknie.",
+    "translation": "Uwspółcześniona Biblia Gdańska (UBG)"
+  },
+  "graphicSpec": {
+    "seriesType": "thank-you",
+    "headline": "DOBRO, KTÓRE",
+    "accentHeadline": "TWORZYMY RAZEM",
+    "subtitle": "Księga Psalmów 23:1 — Uwspółcześniona Biblia Gdańska.",
+    "photoRelPath": "images/ogloszenia-biblia-gdanska.jpg",
+    "altText": "Grafika Dzięki, że jesteś: Księga Psalmów 23:1 z życzeniami błogosławionego szabatu dla Patronów Christian Culture"
+  },
   "sources": [
     {
       "sourceName": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia)",
       "sourceRef": "data/bible/szukaj-ubg.json#PSA:23:1",
-      "verifiedDate": "2026-11-20",
+      "verifiedDate": "2026-11-23",
       "status": "ZREALIZOWANE",
       "publicUrl": "https://polskieradio.cc/mojabiblia",
-      "claim": "Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem"
+      "claim": "Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem (Księga Psalmów 23:1)"
     }
   ],
   "honestAdapterNote": "Brak publicznego API zapisu postow Patronite — pakiet zapisany jako kompletny szkic gotowy do recznego wklejenia/zaplanowania w oficjalnym panelu Moderatora.",
-  "savedAt": "2026-11-20T18:31:19.166Z"
+  "savedAt": "2026-11-23T10:15:28.596Z"
 }

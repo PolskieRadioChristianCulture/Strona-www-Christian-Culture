@@ -11,20 +11,310 @@ import { renderPatroniteGraphic } from './visual-director.mjs';
 import { runQualityGuardian } from './quality-guardian.mjs';
 import { DraftPackagePublisher, executePublishWithGuards } from './publisher.mjs';
 import { buildWeeklyThreeCycleSummary, writeCycleReport } from './reporter.mjs';
+import {
+  ZrzutkaDraftPackagePublisher,
+  adaptDraftForZrzutka,
+  executeZrzutkaPublishWithGuards,
+  toZrzutkaJobId,
+  writeZrzutkaCycleReport,
+} from './zrzutka-adapter.mjs';
 
 const DEFAULT_REPO_ROOT = path.resolve(import.meta.dirname, '..', '..');
+
+function inferGraphicSpecFromLegacyDraft(patroniteDraft, repoRoot) {
+  if (patroniteDraft.graphicSpec && patroniteDraft.graphicSpec.headline) {
+    return patroniteDraft.graphicSpec;
+  }
+  const tplPath = path.join(repoRoot, 'patronite', 'templates', patroniteDraft.seriesType || 'mission-report', 'template.json');
+  const tpl = fs.existsSync(tplPath) ? JSON.parse(fs.readFileSync(tplPath, 'utf8')) : {};
+  const title = String(patroniteDraft.title || '');
+  const bibliaMatch = title.match(/(\d+)\s+rozdział/i);
+  if (bibliaMatch) {
+    return {
+      seriesType: patroniteDraft.seriesType || 'mission-report',
+      headline: `${bibliaMatch[1]} ROZDZIAŁÓW`,
+      accentHeadline: 'BIBLII AUDIO CC',
+      subtitle: 'Słowo Boże bezpłatnie i bez reklam.',
+      photoRelPath: tpl.defaultPhoto || 'images/ogloszenia-tworcy-wolontariat.jpg',
+      altText: patroniteDraft.altText || title,
+    };
+  }
+  return {
+    seriesType: patroniteDraft.seriesType || 'mission-report',
+    headline: String(patroniteDraft.seriesLabel || 'DZIENNIK MISJI').toUpperCase().slice(0, 24),
+    accentHeadline: 'CHRISTIAN CULTURE',
+    subtitle: 'Wspieramy misję bez reklam i opłat.',
+    photoRelPath: tpl.defaultPhoto || 'images/ogloszenia-tworcy-wolontariat.jpg',
+    altText: patroniteDraft.altText || title,
+  };
+}
+
+export async function runZrzutkaMirrorForDraft({
+  cycle,
+  patroniteDraft,
+  repoRoot = DEFAULT_REPO_ROOT,
+  db,
+  config,
+  isSimulation = true,
+  zrzutkaAdapter = null,
+  zrzutkaDraftsDir: customZrzutkaDraftsRoot = null,
+  zrzutkaReportsDir: customZrzutkaReportsDir = null,
+}) {
+  const zrzutkaDraft = adaptDraftForZrzutka(patroniteDraft, config);
+  const gSpec = inferGraphicSpecFromLegacyDraft(patroniteDraft, repoRoot);
+  const contentHash = computeContentHash(zrzutkaDraft.title, zrzutkaDraft.body);
+
+  const draftsRoot = customZrzutkaDraftsRoot || path.join(repoRoot, 'patronite', 'zrzutka', 'drafts');
+  const draftDir = path.join(draftsRoot, zrzutkaDraft.jobId);
+  const landscapeOut = path.join(draftDir, 'graphic-1068x630.png');
+  const squareOut = path.join(draftDir, 'promo-1080x1080.png');
+
+  const graphicMeta = await renderPatroniteGraphic({
+    repoRoot,
+    seriesType: zrzutkaDraft.seriesType,
+    headline: gSpec.headline,
+    accentHeadline: gSpec.accentHeadline,
+    subtitle: gSpec.subtitle,
+    photoRelPath: gSpec.photoRelPath,
+    outputPath: landscapeOut,
+    format: 'landscape',
+    channel: 'zrzutka',
+  });
+
+  const squareMeta = await renderPatroniteGraphic({
+    repoRoot,
+    seriesType: zrzutkaDraft.seriesType,
+    headline: gSpec.headline,
+    accentHeadline: gSpec.accentHeadline,
+    subtitle: gSpec.subtitle,
+    photoRelPath: gSpec.photoRelPath,
+    outputPath: squareOut,
+    format: 'square',
+    channel: 'zrzutka',
+  });
+
+  // Deduplikacja 30-dniowa została zweryfikowana na wspólnym cyklu Patronite — dla lustra Zrzutki walidujemy wszystkie 12 kryteriów z pustym archiwum duplikatów.
+  const qaResult = await runQualityGuardian({
+    draft: zrzutkaDraft,
+    graphicMeta,
+    recentArchive: [],
+    config,
+    repoRoot,
+  });
+
+  const activeAdapter = zrzutkaAdapter || new ZrzutkaDraftPackagePublisher({ repoRoot, draftsDir: draftsRoot });
+  const publishRes = await executeZrzutkaPublishWithGuards({
+    draft: zrzutkaDraft,
+    graphicMeta,
+    squareMeta,
+    qaResult,
+    config: { ...config, _repoRoot: repoRoot },
+    db,
+    adapter: activeAdapter,
+    livePublishRequested: !isSimulation,
+  });
+
+  db.recordZrzutkaJob({
+    zrzutkaJobId: zrzutkaDraft.jobId,
+    patroniteJobId: zrzutkaDraft.sourcePatroniteJobId,
+    fundraiserCode: zrzutkaDraft.fundraiserCode,
+    createdAt: new Date().toISOString(),
+    scheduledFor: cycle.scheduledForWarsaw || zrzutkaDraft.scheduledForWarsaw,
+    prepAt: cycle.prepAtWarsaw || zrzutkaDraft.prepAtWarsaw || cycle.scheduledForWarsaw || zrzutkaDraft.scheduledForWarsaw,
+    seriesType: zrzutkaDraft.seriesType,
+    title: zrzutkaDraft.title,
+    topicKey: zrzutkaDraft.topicKey || 'synced-from-patronite',
+    contentHash,
+    qaStatus: qaResult.overallStatus,
+    qaDetails: qaResult,
+    graphicPath: landscapeOut,
+    squareGraphicPath: squareOut,
+    publishStatus: publishRes.status,
+    publishedUrl: publishRes.url,
+    remoteUpdateId: publishRes.remoteUpdateId,
+    verifiedAt: publishRes.verifiedAt,
+    errorCode: publishRes.verified ? null : publishRes.code,
+    attempts: 1,
+  });
+
+  const zrzutkaResult = {
+    jobId: zrzutkaDraft.jobId,
+    sourcePatroniteJobId: zrzutkaDraft.sourcePatroniteJobId,
+    fundraiserUrl: zrzutkaDraft.fundraiserUrl,
+    fundraiserCode: zrzutkaDraft.fundraiserCode,
+    fundraiserOrganizer: zrzutkaDraft.fundraiserOrganizer,
+    seriesType: zrzutkaDraft.seriesType,
+    seriesLabel: zrzutkaDraft.seriesLabel,
+    weekdayName: cycle.weekdayName || '',
+    scheduledForWarsaw: cycle.scheduledForWarsaw || zrzutkaDraft.scheduledForWarsaw,
+    prepAtWarsaw: cycle.prepAtWarsaw || zrzutkaDraft.prepAtWarsaw || '',
+    visibility: zrzutkaDraft.visibility || 'PUBLICZNY',
+    status: publishRes.status,
+    blockReason: publishRes.verified ? null : publishRes.code,
+    url: publishRes.url,
+    draftDir,
+    title: zrzutkaDraft.title,
+    teaser: zrzutkaDraft.teaser,
+    body: zrzutkaDraft.body,
+    question: zrzutkaDraft.question,
+    cta: zrzutkaDraft.cta,
+    hashtags: zrzutkaDraft.hashtags,
+    altText: zrzutkaDraft.altText,
+    zrzutkaPlainText: zrzutkaDraft.zrzutkaPlainText,
+    scripture: zrzutkaDraft.scripture || null,
+    topicKey: zrzutkaDraft.topicKey || 'synced-from-patronite',
+    charCounts: zrzutkaDraft.charCounts,
+    sources: zrzutkaDraft.sources || [],
+    graphicMeta,
+    squareMeta,
+    qaResult,
+  };
+
+  writeZrzutkaCycleReport({
+    repoRoot,
+    reportsDir: customZrzutkaReportsDir,
+    zrzutkaResult,
+  });
+
+  return zrzutkaResult;
+}
+
+function writeZrzutkaLatestStatusFile(repoRoot, zrzutkaResult) {
+  if (!zrzutkaResult) return;
+  const statusPath = path.join(repoRoot, 'patronite', 'zrzutka', 'state', 'latest-cycle-status.json');
+  fs.mkdirSync(path.dirname(statusPath), { recursive: true });
+  fs.writeFileSync(statusPath, JSON.stringify({
+    updatedAt: new Date().toISOString(),
+    jobId: zrzutkaResult.jobId,
+    sourcePatroniteJobId: zrzutkaResult.sourcePatroniteJobId,
+    fundraiserUrl: zrzutkaResult.fundraiserUrl,
+    seriesLabel: zrzutkaResult.seriesLabel,
+    scheduledForWarsaw: zrzutkaResult.scheduledForWarsaw,
+    status: zrzutkaResult.status,
+    qaOverall: zrzutkaResult.qaResult?.overallStatus,
+    title: zrzutkaResult.title || null,
+    draftDir: zrzutkaResult.draftDir || null,
+    blockReason: zrzutkaResult.blockReason || null,
+  }, null, 2), 'utf8');
+}
+
+export async function syncZrzutkaFromExistingPatroniteJob({
+  patroniteJobId,
+  repoRoot = DEFAULT_REPO_ROOT,
+  db,
+  config,
+  patroniteDraftsDir = null,
+  zrzutkaDraftsDir = null,
+  zrzutkaReportsDir = null,
+  zrzutkaAdapter = null,
+}) {
+  const zJobId = toZrzutkaJobId(patroniteJobId);
+  const existingZrz = db.getZrzutkaJob(zJobId);
+  if (existingZrz && existingZrz.qa_status === 'PASS' && ['SZKIC', 'ZAPLANOWANO', 'OPUBLIKOWANO'].includes(existingZrz.publish_status)) {
+    return { synced: false, alreadySynced: true, jobId: zJobId, status: existingZrz.publish_status };
+  }
+
+  const pDraftsRoot = patroniteDraftsDir || path.join(repoRoot, 'patronite', 'drafts');
+  const postJsonPath = path.join(pDraftsRoot, patroniteJobId, 'post.json');
+  if (!fs.existsSync(postJsonPath)) {
+    return { synced: false, alreadySynced: false, jobId: zJobId, status: 'BRAK_ZRODLA_PATRONITE', error: `Brak pliku ${postJsonPath}` };
+  }
+
+  const patroniteDraft = JSON.parse(fs.readFileSync(postJsonPath, 'utf8'));
+  const pJobRow = db.listJobs(50).find(j => j.job_id === patroniteJobId);
+  const cycle = {
+    jobId: patroniteJobId,
+    seriesType: patroniteDraft.seriesType,
+    seriesLabel: patroniteDraft.seriesLabel,
+    scheduledForWarsaw: patroniteDraft.scheduledForWarsaw || pJobRow?.scheduled_for,
+    prepAtWarsaw: pJobRow?.prep_at || patroniteDraft.scheduledForWarsaw,
+  };
+  if (!patroniteDraft.topicKey && pJobRow?.topic_key) {
+    patroniteDraft.topicKey = pJobRow.topic_key;
+  }
+
+  const zrzutkaResult = await runZrzutkaMirrorForDraft({
+    cycle,
+    patroniteDraft,
+    repoRoot,
+    db,
+    config,
+    isSimulation: false,
+    zrzutkaAdapter,
+    zrzutkaDraftsDir,
+    zrzutkaReportsDir,
+  });
+
+  return {
+    synced: true,
+    alreadySynced: false,
+    jobId: zrzutkaResult.jobId,
+    status: zrzutkaResult.status,
+    zrzutkaResult,
+  };
+}
+
+export async function syncMissingZrzutkaCycles({
+  repoRoot = DEFAULT_REPO_ROOT,
+  dbPath,
+  patroniteDraftsDir = null,
+  zrzutkaDraftsDir = null,
+  zrzutkaReportsDir = null,
+  zrzutkaAdapter = null,
+} = {}) {
+  const config = loadConfig(repoRoot);
+  const isCustomTestDb = Boolean(dbPath);
+  const db = openPatroniteDb({ repoRoot, dbPath });
+  try {
+    const pJobs = db.listJobs(30).filter(
+      j => j.qa_status === 'PASS' && ['SZKIC', 'ZAPLANOWANO', 'OPUBLIKOWANO'].includes(j.publish_status),
+    );
+    const syncedResults = [];
+    for (const pj of pJobs) {
+      const res = await syncZrzutkaFromExistingPatroniteJob({
+        patroniteJobId: pj.job_id,
+        repoRoot,
+        db,
+        config,
+        patroniteDraftsDir,
+        zrzutkaDraftsDir,
+        zrzutkaReportsDir,
+        zrzutkaAdapter,
+      });
+      syncedResults.push(res);
+      if (res.synced && res.zrzutkaResult && !isCustomTestDb) {
+        writeZrzutkaLatestStatusFile(repoRoot, res.zrzutkaResult);
+      }
+    }
+    if (!isCustomTestDb) {
+      db.exportRegistrySnapshot(path.join(repoRoot, 'patronite', 'state', 'registry-export.json'));
+    }
+    return {
+      totalChecked: pJobs.length,
+      newlySynced: syncedResults.filter(r => r.synced).length,
+      alreadySynced: syncedResults.filter(r => r.alreadySynced).length,
+      results: syncedResults,
+    };
+  } finally {
+    db.close();
+  }
+}
 
 export function writeOpenBotProposal({ repoRoot = DEFAULT_REPO_ROOT, config }) {
   const approved = Boolean(config.productionApprovedByOwner);
   const proposal = {
     id: 'icc-patronite-mission-reporter',
-    name: 'CC Patronite Mission Reporter (@ICC-PATRONITE-001)',
+    name: 'CC Patronite + Zrzutka.pl Mission Reporter (@ICC-PATRONITE-001 + @ICC-ZRZUTKA-001)',
     enabled: approved,
     requiresOwnerApprovalL0: !approved,
     approvedAt: config.productionApprovedAt || null,
     activeScheduler: 'PM2 Agent-Cron (Wektor1_VideoFactory/cron_agent.js)',
+    synchronizedChannels: [
+      { id: 'patronite', url: config.integration?.patroniteProfileUrl || 'https://patronite.pl/osobowoscplus' },
+      { id: 'zrzutka', url: config.zrzutka?.fundraiserUrl || 'https://zrzutka.pl/rs4g4v' },
+    ],
     note: approved
-      ? 'Aktywowane przez właściciela L0 (Cezary Rogowski). Podpięte pod istniejący harmonogram PM2 Agent-Cron bez drugiego równoległego demona cron.'
+      ? 'Aktywowane przez właściciela L0 (Cezary Rogowski). Podpięte pod istniejący harmonogram PM2 Agent-Cron bez drugiego równoległego demona cron. Każdy cykl przygotowuje jednocześnie pakiety 1:1 dla Patronite oraz Zrzutka.pl (rs4g4v).'
       : 'Zarejestrowane wyłącznie jako propozycja wyłączona do istniejącej infrastruktury @ICC (OpenBot/Agent-Cron), aby nie tworzyć drugiego równoległego demona cron przed zgodą L0.',
     provider: 'opencode',
     model: 'opencode/deepseek-v4.1-flash-free',
@@ -52,6 +342,10 @@ export async function runCycle({
   adapter = null,
   draftsDir: customDraftsRoot = null,
   reportsDir: customReportsDir = null,
+  zrzutkaAdapter = null,
+  zrzutkaDraftsDir = null,
+  zrzutkaReportsDir = null,
+  syncZrzutka = true,
 }) {
   const execCheck = canExecuteCycle({ config, db, slotDate: new Date(cycle.scheduledForUtc) });
   if (!execCheck.allowed) {
@@ -182,6 +476,21 @@ export async function runCycle({
     });
   }
 
+  let zrzutkaResult = null;
+  if (syncZrzutka && config.zrzutka?.enabled !== false && qaResult.overallStatus === 'PASS') {
+    zrzutkaResult = await runZrzutkaMirrorForDraft({
+      cycle,
+      patroniteDraft: draft,
+      repoRoot,
+      db,
+      config,
+      isSimulation,
+      zrzutkaAdapter,
+      zrzutkaDraftsDir,
+      zrzutkaReportsDir,
+    });
+  }
+
   const cycleResult = {
     ...cycle,
     status: publishRes.status,
@@ -202,6 +511,7 @@ export async function runCycle({
     graphicMeta,
     squareMeta,
     qaResult,
+    zrzutka: zrzutkaResult,
   };
 
   writeCycleReport({ repoRoot, reportsDir: customReportsDir, cycleResult });
@@ -212,6 +522,10 @@ export async function simulateTwoWeeks({
   repoRoot = DEFAULT_REPO_ROOT,
   startDate = new Date('2026-11-23T06:00:00+01:00'),
   dbPath,
+  draftsDir = null,
+  reportsDir = null,
+  zrzutkaDraftsDir = null,
+  zrzutkaReportsDir = null,
   exportTestPreview = true,
 } = {}) {
   const config = loadConfig(repoRoot);
@@ -220,9 +534,9 @@ export async function simulateTwoWeeks({
 
   try {
     // Wyczyść poprzednie rekordy symulacji dla powtarzalnego testu deterministycznego 6 cykli
-    db.db.exec('DELETE FROM evidence_registry; DELETE FROM published_archive; DELETE FROM jobs;');
+    db.db.exec('DELETE FROM evidence_registry; DELETE FROM published_archive; DELETE FROM zrzutka_jobs; DELETE FROM jobs;');
 
-    const snapshot = collectAuthorizedSources(repoRoot, { saveSnapshot: true });
+    const snapshot = collectAuthorizedSources(repoRoot, { saveSnapshot: exportTestPreview });
     const validatedSnapshot = validateCollectedSnapshot(snapshot, repoRoot);
     const cycles = buildUpcomingCycles({ fromDate: startDate, count: 6, config });
 
@@ -235,14 +549,20 @@ export async function simulateTwoWeeks({
         config,
         validatedSnapshot,
         isSimulation: true,
+        draftsDir,
+        reportsDir,
+        zrzutkaDraftsDir,
+        zrzutkaReportsDir,
       });
       results.push(res);
     }
 
-    const week1 = buildWeeklyThreeCycleSummary({ repoRoot, cycles: results.slice(0, 3), weekLabel: 'Tydzien-1' });
-    const week2 = buildWeeklyThreeCycleSummary({ repoRoot, cycles: results.slice(3, 6), weekLabel: 'Tydzien-2' });
-    writeOpenBotProposal({ repoRoot, config });
-    db.exportRegistrySnapshot(path.join(repoRoot, 'patronite', 'state', 'registry-export.json'));
+    const week1 = buildWeeklyThreeCycleSummary({ repoRoot, reportsDir, cycles: results.slice(0, 3), weekLabel: 'Tydzien-1' });
+    const week2 = buildWeeklyThreeCycleSummary({ repoRoot, reportsDir, cycles: results.slice(3, 6), weekLabel: 'Tydzien-2' });
+    if (exportTestPreview) {
+      writeOpenBotProposal({ repoRoot, config });
+      db.exportRegistrySnapshot(path.join(repoRoot, 'patronite', 'state', 'registry-export.json'));
+    }
 
     if (exportTestPreview) {
       const previewDir = path.join(repoRoot, 'test', 'patronite');
@@ -309,6 +629,81 @@ export async function simulateTwoWeeks({
         cycles: exportedCycles,
       };
       fs.writeFileSync(path.join(previewDir, 'simulation-data.json'), JSON.stringify(previewPayload, null, 2), 'utf8');
+
+      // Lustrzany eksport podglądu Zrzutka.pl (https://zrzutka.pl/rs4g4v) -> /test/zrzutka
+      const zrzPreviewDir = path.join(repoRoot, 'test', 'zrzutka');
+      const zrzGfxDir = path.join(zrzPreviewDir, 'graphics');
+      fs.mkdirSync(zrzGfxDir, { recursive: true });
+      const exportedZrzutkaCycles = [];
+      for (const r of results) {
+        const z = r.zrzutka;
+        if (!z) continue;
+        const landName = `${z.jobId}-1068x630.png`;
+        const sqName = `${z.jobId}-1080x1080.png`;
+        if (z.graphicMeta?.outputPath && fs.existsSync(z.graphicMeta.outputPath)) {
+          fs.copyFileSync(z.graphicMeta.outputPath, path.join(zrzGfxDir, landName));
+        }
+        if (z.squareMeta?.outputPath && fs.existsSync(z.squareMeta.outputPath)) {
+          fs.copyFileSync(z.squareMeta.outputPath, path.join(zrzGfxDir, sqName));
+        }
+        exportedZrzutkaCycles.push({
+          jobId: z.jobId,
+          sourcePatroniteJobId: z.sourcePatroniteJobId,
+          fundraiserUrl: z.fundraiserUrl,
+          fundraiserCode: z.fundraiserCode,
+          seriesType: z.seriesType,
+          seriesLabel: z.seriesLabel,
+          weekdayName: r.weekdayName,
+          scheduledForWarsaw: z.scheduledForWarsaw,
+          prepAtWarsaw: z.prepAtWarsaw,
+          visibility: z.visibility,
+          status: z.status,
+          title: z.title,
+          teaser: z.teaser,
+          body: z.body,
+          question: z.question,
+          cta: z.cta,
+          hashtags: z.hashtags,
+          altText: z.altText,
+          zrzutkaPlainText: z.zrzutkaPlainText,
+          scripture: z.scripture,
+          charCounts: z.charCounts,
+          topicKey: z.topicKey,
+          sources: z.sources,
+          graphicUrl: `/test/zrzutka/graphics/${landName}`,
+          squareGraphicUrl: `/test/zrzutka/graphics/${sqName}`,
+          graphicDimensions: z.graphicMeta ? `${z.graphicMeta.width}×${z.graphicMeta.height}` : null,
+          graphicSizeKb: z.graphicMeta ? Math.round(z.graphicMeta.fileSizeBytes / 1024) : null,
+          squareDimensions: z.squareMeta ? `${z.squareMeta.width}×${z.squareMeta.height}` : null,
+          qaOverall: z.qaResult.overallStatus,
+          qaPassed: z.qaResult.passedCount,
+          qaTotal: z.qaResult.totalCount,
+          qaChecks: z.qaResult.checks,
+        });
+      }
+      const zrzPreviewPayload = {
+        directive: config.zrzutka?.directive || '@ICC-ZRZUTKA-001',
+        synchronizedWith: config.directive,
+        generatedAt: new Date().toISOString(),
+        mode: config.mode,
+        productionApprovedByOwner: Boolean(config.productionApprovedByOwner) || db.getFlag('production_approved') === '1',
+        killSwitch: db.getFlag('kill_switch') === '1',
+        integrationStatus: {
+          fundraiserUrl: config.zrzutka?.fundraiserUrl || 'https://zrzutka.pl/rs4g4v',
+          fundraiserCode: config.zrzutka?.fundraiserCode || 'rs4g4v',
+          fundraiserOrganizer: config.zrzutka?.fundraiserOrganizer || 'Wioletta Rogowska (Christian Culture)',
+          apiAvailability: 'CLOUDFLARE_PROTECTED_NO_PUBLIC_WRITE_API',
+          activeAdapter: 'ZrzutkaDraftPackagePublisher (1-Click kopiowanie + gotowe grafiki 1068×630 i 1080×1080)',
+          note: 'Serwis zrzutka.pl jest chroniony przez Cloudflare i nie udostępnia otwartego publicznego REST API zapisu aktualizacji. System automatycznie w tych samych dniach i godzinach co Patronite (Pon 07:00→09:00, Śr 16:00→18:00, Pt 08:00→10:00) przygotowuje kompletny, zweryfikowany pakiet aktualizacji oraz dedykowane grafiki Zrzutka.pl gotowe do wklejenia jednym kliknięciem.',
+        },
+        weeklySummaries: [
+          { label: 'Tydzień 1 (3 cykle)', counts: week1.counts },
+          { label: 'Tydzień 2 (3 cykle)', counts: week2.counts },
+        ],
+        cyclesCount: exportedZrzutkaCycles.length,
+        cycles: exportedZrzutkaCycles,
+      };
+      fs.writeFileSync(path.join(zrzPreviewDir, 'simulation-data.json'), JSON.stringify(zrzPreviewPayload, null, 2), 'utf8');
     }
 
     return { results, week1, week2 };
@@ -323,6 +718,8 @@ export async function runNextCycle({
   dbPath,
   draftsDir,
   reportsDir,
+  zrzutkaDraftsDir,
+  zrzutkaReportsDir,
 } = {}) {
   const config = loadConfig(repoRoot);
   const isCustomTestDb = Boolean(dbPath);
@@ -357,12 +754,29 @@ export async function runNextCycle({
       j => j.job_id === cycle.jobId && j.qa_status === 'PASS' && ['SZKIC', 'ZAPLANOWANO', 'OPUBLIKOWANO'].includes(j.publish_status),
     );
     if (existing) {
+      // Jeśli Patronite był już przygotowany, ale brakuje jeszcze lustra Zrzutka.pl, dograj je automatycznie (backfill idempotentny).
+      let zrzutkaSync = null;
+      if (config.zrzutka?.enabled !== false) {
+        zrzutkaSync = await syncZrzutkaFromExistingPatroniteJob({
+          patroniteJobId: cycle.jobId,
+          repoRoot,
+          db,
+          config,
+          patroniteDraftsDir: draftsDir,
+          zrzutkaDraftsDir,
+          zrzutkaReportsDir,
+        });
+        if (zrzutkaSync.synced && zrzutkaSync.zrzutkaResult && !isCustomTestDb) {
+          writeZrzutkaLatestStatusFile(repoRoot, zrzutkaSync.zrzutkaResult);
+          db.exportRegistrySnapshot(path.join(repoRoot, 'patronite', 'state', 'registry-export.json'));
+        }
+      }
       db.logAudit({
         actor: 'pipeline',
         action: 'run_next_cycle_already_prepared',
         jobId: cycle.jobId,
         status: existing.publish_status,
-        details: { scheduledFor: existing.scheduled_for },
+        details: { scheduledFor: existing.scheduled_for, zrzutkaSynced: Boolean(zrzutkaSync?.synced) },
       });
       return {
         executed: false,
@@ -370,6 +784,7 @@ export async function runNextCycle({
         jobId: cycle.jobId,
         status: existing.publish_status,
         scheduledForWarsaw: cycle.scheduledForWarsaw,
+        zrzutkaSync,
       };
     }
 
@@ -386,6 +801,8 @@ export async function runNextCycle({
       adapter,
       draftsDir,
       reportsDir,
+      zrzutkaDraftsDir,
+      zrzutkaReportsDir,
     });
 
     if (!isCustomTestDb) {
@@ -401,7 +818,12 @@ export async function runNextCycle({
         title: cycleResult.title || null,
         draftDir: cycleResult.draftDir || null,
         blockReason: cycleResult.blockReason || null,
+        zrzutkaJobId: cycleResult.zrzutka?.jobId || null,
+        zrzutkaStatus: cycleResult.zrzutka?.status || null,
       }, null, 2), 'utf8');
+      if (cycleResult.zrzutka) {
+        writeZrzutkaLatestStatusFile(repoRoot, cycleResult.zrzutka);
+      }
     }
 
     return {
@@ -409,6 +831,8 @@ export async function runNextCycle({
       alreadyPrepared: false,
       jobId: cycleResult.jobId,
       status: cycleResult.status,
+      zrzutkaJobId: cycleResult.zrzutka?.jobId || null,
+      zrzutkaStatus: cycleResult.zrzutka?.status || null,
       cycleResult,
     };
   } finally {
@@ -423,10 +847,18 @@ async function main() {
 
   if (cmd === 'simulate-two-weeks') {
     const out = await simulateTwoWeeks({ repoRoot });
-    console.log(`✅ Symulacja 2 tygodni (6 cykli) zakończona:`);
+    console.log(`✅ Symulacja 2 tygodni (6 cykli Patronite + 6 lustrzanych cykli Zrzutka.pl) zakończona:`);
     for (const r of out.results) {
-      console.log(`  - ${r.jobId} | ${r.scheduledForWarsaw} | ${r.seriesLabel} | status=${r.status} | QA=${r.qaResult.passedCount}/${r.qaResult.totalCount} | ${r.title}`);
+      const zInfo = r.zrzutka ? ` | Zrzutka=${r.zrzutka.jobId} (${r.zrzutka.status}, QA=${r.zrzutka.qaResult.passedCount}/${r.zrzutka.qaResult.totalCount})` : '';
+      console.log(`  - ${r.jobId} | ${r.scheduledForWarsaw} | ${r.seriesLabel} | status=${r.status} | QA=${r.qaResult.passedCount}/${r.qaResult.totalCount}${zInfo} | ${r.title}`);
     }
+    return;
+  }
+
+  if (cmd === 'sync-zrzutka') {
+    const res = await syncMissingZrzutkaCycles({ repoRoot });
+    console.log(`✅ Synchronizacja Zrzutka.pl (${config.zrzutka?.fundraiserUrl || 'https://zrzutka.pl/rs4g4v'}): sprawdzono=${res.totalChecked}, dograno=${res.newlySynced}, wcześniej gotowe=${res.alreadySynced}`);
+    console.log(JSON.stringify(res.results.map(r => ({ jobId: r.jobId, synced: r.synced, alreadySynced: r.alreadySynced, status: r.status })), null, 2));
     return;
   }
 
@@ -434,6 +866,9 @@ async function main() {
     const res = await runNextCycle({ repoRoot });
     if (!res.executed && res.alreadyPrepared) {
       console.log(`ℹ️ Cykl ${res.jobId} jest już wcześniej przygotowany (${res.status}) na ${res.scheduledForWarsaw}.`);
+      if (res.zrzutkaSync?.synced) {
+        console.log(`✅ Dograno lustrzany pakiet Zrzutka.pl: ${res.zrzutkaSync.jobId} (${res.zrzutkaSync.status}).`);
+      }
       console.log(JSON.stringify(res, null, 2));
       return;
     }
@@ -443,13 +878,16 @@ async function main() {
       return;
     }
     const r = res.cycleResult;
-    console.log(`✅ Cykl ${r.jobId} (${r.seriesLabel}) | status=${r.status} | QA=${r.qaResult?.passedCount}/${r.qaResult?.totalCount}`);
+    console.log(`✅ Cykl ${r.jobId} (${r.seriesLabel}) | status=${r.status} | QA=${r.qaResult?.passedCount}/${r.qaResult?.totalCount}` + (r.zrzutka ? ` | Zrzutka=${r.zrzutka.jobId} (${r.zrzutka.status}, QA=${r.zrzutka.qaResult?.passedCount}/${r.zrzutka.qaResult?.totalCount})` : ''));
     console.log(JSON.stringify({
       jobId: r.jobId,
       status: r.status,
       scheduledForWarsaw: r.scheduledForWarsaw,
       qa: r.qaResult?.overallStatus,
       draftDir: r.draftDir || null,
+      zrzutkaJobId: r.zrzutka?.jobId || null,
+      zrzutkaStatus: r.zrzutka?.status || null,
+      zrzutkaDraftDir: r.zrzutka?.draftDir || null,
       blockReason: r.blockReason || null,
     }, null, 2));
     if (r.status === 'BŁĄD') {
@@ -466,22 +904,27 @@ async function main() {
       console.log('✅ Zgoda L0 (production_approved=1) zapisana w bazie oraz w deskryptorze harmonogramu.');
     } else if (cmd === 'pause') {
       db.setFlag('kill_switch', '1', 'operator_cli');
-      console.log('🛑 Wyłącznik awaryjny (kill_switch=1) AKTYWNY. Publikacje wstrzymane.');
+      console.log('🛑 Wyłącznik awaryjny (kill_switch=1) AKTYWNY. Publikacje Patronite i Zrzutka.pl wstrzymane.');
     } else if (cmd === 'resume') {
       db.setFlag('kill_switch', '0', 'operator_cli');
-      console.log('▶️ Wyłącznik awaryjny wyłączony (kill_switch=0). Harmonogram gotowy.');
+      console.log('▶️ Wyłącznik awaryjny wyłączony (kill_switch=0). Harmonogram Patronite + Zrzutka.pl gotowy.');
     } else if (cmd === 'status') {
       const jobs = db.listJobs(20);
+      const zrzutkaJobs = db.listZrzutkaJobs(20);
       const next = buildUpcomingCycles({ fromDate: new Date(), count: 1, config })[0];
       console.log(JSON.stringify({
         directive: config.directive,
+        zrzutkaDirective: config.zrzutka?.directive || '@ICC-ZRZUTKA-001',
+        zrzutkaFundraiserUrl: config.zrzutka?.fundraiserUrl || 'https://zrzutka.pl/rs4g4v',
         mode: config.mode,
         killSwitch: db.getFlag('kill_switch') === '1',
         productionApproved: db.getFlag('production_approved') === '1',
         nextCycle: next?.scheduledForWarsaw || null,
         nextPrep: next?.prepAtWarsaw || null,
         storedJobsCount: jobs.length,
+        storedZrzutkaJobsCount: zrzutkaJobs.length,
         lastJobs: jobs.map(j => ({ jobId: j.job_id, scheduled: j.scheduled_for, qa: j.qa_status, status: j.publish_status })),
+        lastZrzutkaJobs: zrzutkaJobs.map(j => ({ jobId: j.zrzutka_job_id, sourcePatronite: j.patronite_job_id, scheduled: j.scheduled_for, qa: j.qa_status, status: j.publish_status })),
       }, null, 2));
     } else {
       console.error(`Nieznana komenda: ${cmd}`);

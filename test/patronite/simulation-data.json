@@ -1,6 +1,6 @@
 {
   "directive": "@ICC-PATRONITE-001",
-  "generatedAt": "2026-11-20T18:31:15.342Z",
+  "generatedAt": "2026-11-23T10:14:17.033Z",
   "mode": "production_draft_moderator",
   "productionApprovedByOwner": true,
   "killSwitch": false,
@@ -41,9 +41,9 @@
       "prepAtWarsaw": "2026-11-23T07:00:00+01:00",
       "visibility": "PUBLICZNY",
       "status": "SZKIC",
-      "title": "Dziennik Misji: 31 rozdziałów Księgi Rodzaju już w Biblii Audio CC",
+      "title": "Dziennik Misji: 35 rozdziałów Księgi Rodzaju już w Biblii Audio CC",
       "teaser": "Sprawdź, co nowego pojawiło się w naszej darmowej Biblii Audio oraz jak systematycznie udostępniamy kolejne rozdziały Pisma Świętego bez reklam.",
-      "body": "Drodzy Patroni, rozpoczynamy kolejny tydzień krótkim, rzeczowym sprawozdaniem z tego, co w ostatnich dniach zostało ukończone i przekazane słuchaczom na polskieradio.cc.\n\nW dziale Biblia Audio Christian Culture (https://polskieradio.cc/biblia-audio) udostępniliśmy już 31 z 50 rozdziałów Księgi Rodzaju. Każdy opublikowany odcinek przechodzi pełne przygotowanie lektorskie, wyrównanie poziomu głośności do standardu radiowego oraz zapis w formacie do wygodnego odsłuchu w przeglądarce i w drodze.\n\nDlaczego to tak ważne dla odbiorców? Wiele osób chce codziennie wracać do Pisma Świętego, ale w zabieganiu łatwiej włączyć im czyste nagranie podczas spaceru, jazdy autem czy wieczornego odpoczynku w domu. Dzięki Wam w całym serwisie nie pojawiają się reklamy przerywające lekturę Słowa Bożego.\n\nWsparcie naszej społeczności pozwala utrzymywać infrastrukturę publikacji, archiwum audio i równoległą dystrybucję materiałów na kanałach YouTube całkowicie bezpłatnie dla każdego, kto szuka pokoju i biblijnej prawdy.\n\nCzy słuchaliście już ostatnich rozdziałów Księgi Rodzaju w naszym odtwarzaczu — i w jakiej porze dnia najchętniej wracacie do nagrań Pisma Świętego?\n\nJeśli ten kierunek jest Wam bliski, zajrzyjcie na polskieradio.cc/biblia-audio i udostępnijcie wybrany odcinek osobie, której może dziś dodać otuchy.",
+      "body": "Drodzy Patroni, rozpoczynamy kolejny tydzień krótkim, rzeczowym sprawozdaniem z tego, co w ostatnich dniach zostało ukończone i przekazane słuchaczom na polskieradio.cc.\n\nW dziale Biblia Audio Christian Culture (https://polskieradio.cc/biblia-audio) udostępniliśmy już 35 z 50 rozdziałów Księgi Rodzaju. Każdy opublikowany odcinek przechodzi pełne przygotowanie lektorskie, wyrównanie poziomu głośności do standardu radiowego oraz zapis w formacie do wygodnego odsłuchu w przeglądarce i w drodze.\n\nDlaczego to tak ważne dla odbiorców? Wiele osób chce codziennie wracać do Pisma Świętego, ale w zabieganiu łatwiej włączyć im czyste nagranie podczas spaceru, jazdy autem czy wieczornego odpoczynku w domu. Dzięki Wam w całym serwisie nie pojawiają się reklamy przerywające lekturę Słowa Bożego.\n\nWsparcie naszej społeczności pozwala utrzymywać infrastrukturę publikacji, archiwum audio i równoległą dystrybucję materiałów na kanałach YouTube całkowicie bezpłatnie dla każdego, kto szuka pokoju i biblijnej prawdy.\n\nCzy słuchaliście już ostatnich rozdziałów Księgi Rodzaju w naszym odtwarzaczu — i w jakiej porze dnia najchętniej wracacie do nagrań Pisma Świętego?\n\nJeśli ten kierunek jest Wam bliski, zajrzyjcie na polskieradio.cc/biblia-audio i udostępnijcie wybrany odcinek osobie, której może dziś dodać otuchy.",
       "question": "W jakiej porze dnia najchętniej wracacie do słuchania Pisma Świętego w wersji audio?",
       "cta": "Posłuchaj bezpłatnych rozdziałów Biblii Audio na https://polskieradio.cc/biblia-audio",
       "hashtags": [
@@ -51,7 +51,7 @@
         "#BibliaAudio",
         "#Patronite"
       ],
-      "altText": "Grafika Dziennik Misji Christian Culture i Patronite: 31 rozdziałów Biblii Audio CC dostępnych bezpłatnie na polskieradio.cc",
+      "altText": "Grafika Dziennik Misji Christian Culture i Patronite: 35 rozdziałów Biblii Audio CC dostępnych bezpłatnie na polskieradio.cc",
       "scripture": null,
       "charCounts": {
         "title": 66,
@@ -63,16 +63,16 @@
         {
           "sourceName": "polskieradio.cc/biblia-audio",
           "sourceRef": "biblia-audio/data/catalog.json",
-          "verifiedDate": "2026-11-20",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/biblia-audio",
-          "claim": "Udostępniliśmy już 31 z 50 rozdziałów Księgi Rodzaju w serii Biblia Audio CC"
+          "claim": "Udostępniliśmy już 35 z 50 rozdziałów Księgi Rodzaju w serii Biblia Audio CC"
         }
       ],
       "graphicUrl": "/test/patronite/graphics/PAT-20261123-mission-report-1068x630.png",
       "squareGraphicUrl": "/test/patronite/graphics/PAT-20261123-mission-report-1080x1080.png",
       "graphicDimensions": "1068×630",
-      "graphicSizeKb": 809,
+      "graphicSizeKb": 713,
       "squareDimensions": "1080×1080",
       "qaOverall": "PASS",
       "qaPassed": 12,
@@ -118,7 +118,7 @@
           "name": "Grafika 1068 × 630 px i limit 10 MB",
           "passed": true,
           "status": "PASS",
-          "message": "1068×630 png, 809 KB"
+          "message": "1068×630 png, 713 KB"
         },
         {
           "id": "logo_integrity",
@@ -139,7 +139,7 @@
           "name": "Prawa autorskie fotografii i ochrona prywatności",
           "passed": true,
           "status": "PASS",
-          "message": "Zatwierdzone źródło foto CC: images/ogloszenia-tworcy-wolontariat.jpg"
+          "message": "Zatwierdzone źródło foto CC: images/ogloszenia-sprzet-studio.jpg"
         },
         {
           "id": "links_valid",
@@ -195,7 +195,7 @@
         {
           "sourceName": "polskieradio.cc/vod & /news",
           "sourceRef": "data/ecosystem-map.json + vod.html + news.html",
-          "verifiedDate": "2026-11-20",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/vod",
           "claim": "Jak powstają słuchowiska Biblia Audio, wykłady Studio Dobrego Słowa i artykuły CCN News"
@@ -335,10 +335,10 @@
         {
           "sourceName": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia)",
           "sourceRef": "data/bible/szukaj-ubg.json#PSA:23:1",
-          "verifiedDate": "2026-11-20",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/mojabiblia",
-          "claim": "Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem"
+          "claim": "Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem (Księga Psalmów 23:1)"
         }
       ],
       "graphicUrl": "/test/patronite/graphics/PAT-20261127-thank-you-1068x630.png",
@@ -445,9 +445,9 @@
       "prepAtWarsaw": "2026-11-30T07:00:00+01:00",
       "visibility": "PUBLICZNY",
       "status": "SZKIC",
-      "title": "Dziennik Misji: 51 lekcji kursu Z Biblią za Pan Brat na Akademii CC",
-      "teaser": "Codzienna lektura Biblii z prostym komentarzem działa już przez 51 kolejnych dni w Akademii Christian Culture — bezpłatnie dla każdego.",
-      "body": "Drodzy Patroni, dzielimy się dziś wymiernym efektem naszej codziennej pracy nad przystępnym studium Pisma Świętego w ramach Akademii Christian Culture.\n\nNa stronie https://polskieradio.cc/akademia opublikowaliśmy już 51 lekcji Kursu Codziennego „Z Biblią za Pan Brat”. Każdy dzień zawiera konkretny fragment biblijny z Uwspółcześnionej Biblii Gdańskiej, spokojne wyjaśnienie kontekstu oraz krótkie pytania pomagające zastosować treść rozdziału w zwykłych domowych decyzjach.\n\nDla wielu odbiorców najważniejsze jest to, że próg wejścia pozostaje bardzo prosty: wystarczy kilka minut rano lub wieczorem przy herbacie, bez konieczności kupowania podręczników ani zakładania płatnych kont. Jednym kliknięciem można też przesłać wybraną lekcję przyjacielowi.\n\nRegularne wsparcie na Patronite pozwala nam przygotowywać te lekcje dzień po dniu, dbać o oprawę wizualną i utrzymywać cały serwis otwarty dla osób z Polski i z zagranicy. Dziękujemy, że dokładacie do tej pracy swoją wierną cegiełkę.\n\nCo najbardziej pomaga Wam utrzymywać codzienny rytm czytania Pisma Świętego w trakcie zabieganego tygodnia?\n\nOdwiedźcie Akademię i zajrzyjcie do dzisiejszej lekcji na https://polskieradio.cc/akademia",
+      "title": "Dziennik Misji: 55 lekcji kursu Z Biblią za Pan Brat na Akademii CC",
+      "teaser": "Codzienna lektura Biblii z prostym komentarzem działa już przez 55 kolejnych dni w Akademii Christian Culture — bezpłatnie dla każdego.",
+      "body": "Drodzy Patroni, dzielimy się dziś wymiernym efektem naszej codziennej pracy nad przystępnym studium Pisma Świętego w ramach Akademii Christian Culture.\n\nNa stronie https://polskieradio.cc/akademia opublikowaliśmy już 55 lekcji Kursu Codziennego „Z Biblią za Pan Brat”. Każdy dzień zawiera konkretny fragment biblijny z Uwspółcześnionej Biblii Gdańskiej, spokojne wyjaśnienie kontekstu oraz krótkie pytania pomagające zastosować treść rozdziału w zwykłych domowych decyzjach.\n\nDla wielu odbiorców najważniejsze jest to, że próg wejścia pozostaje bardzo prosty: wystarczy kilka minut rano lub wieczorem przy herbacie, bez konieczności kupowania podręczników ani zakładania płatnych kont. Jednym kliknięciem można też przesłać wybraną lekcję przyjacielowi.\n\nRegularne wsparcie na Patronite pozwala nam przygotowywać te lekcje dzień po dniu, dbać o oprawę wizualną i utrzymywać cały serwis otwarty dla osób z Polski i z zagranicy. Dziękujemy, że dokładacie do tej pracy swoją wierną cegiełkę.\n\nCo najbardziej pomaga Wam utrzymywać codzienny rytm czytania Pisma Świętego w trakcie zabieganego tygodnia?\n\nOdwiedźcie Akademię i zajrzyjcie do dzisiejszej lekcji na https://polskieradio.cc/akademia",
       "question": "Co pomaga Wam zachować codzienny spokój na przeczytanie krótkiego fragmentu Biblii?",
       "cta": "Sprawdź dzisiejszą lekcję biblijną na https://polskieradio.cc/akademia",
       "hashtags": [
@@ -455,7 +455,7 @@
         "#AkademiaCC",
         "#Biblia"
       ],
-      "altText": "Grafika Dziennik Misji: 51 opublikowanych lekcji Kursu Codziennego na polskieradio.cc/akademia",
+      "altText": "Grafika Dziennik Misji: 55 opublikowanych lekcji Kursu Codziennego na polskieradio.cc/akademia",
       "scripture": null,
       "charCounts": {
         "title": 67,
@@ -466,11 +466,11 @@
       "sources": [
         {
           "sourceName": "polskieradio.cc/akademia",
-          "sourceRef": "akademia/kurscodzienny/dzien-51.html",
-          "verifiedDate": "2026-11-20",
+          "sourceRef": "akademia/kurscodzienny/dzien-55.html",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/akademia",
-          "claim": "W Akademii Biblijnej działa już 51 lekcji Kursu Codziennego „Z Biblią za Pan Brat”"
+          "claim": "W Akademii Biblijnej działa już 55 lekcji Kursu Codziennego „Z Biblią za Pan Brat”"
         }
       ],
       "graphicUrl": "/test/patronite/graphics/PAT-20261130-mission-report-1068x630.png",
@@ -599,10 +599,10 @@
         {
           "sourceName": "polskieradio.cc/lumina & /mapa",
           "sourceRef": "lumina.html + data/ecosystem-map.json",
-          "verifiedDate": "2026-11-20",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/mapa",
-          "claim": "Upraszczamy ekosystem 195 modułów, aby wszystko działało płynnie na każdym smartfonie"
+          "claim": "Upraszczamy ekosystem 196 modułów, aby wszystko działało płynnie na każdym smartfonie"
         }
       ],
       "graphicUrl": "/test/patronite/graphics/PAT-20261202-behind-the-scenes-1068x630.png",
@@ -739,10 +739,10 @@
         {
           "sourceName": "Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia)",
           "sourceRef": "data/bible/szukaj-ubg.json#ISA:40:31",
-          "verifiedDate": "2026-11-20",
+          "verifiedDate": "2026-11-23",
           "status": "ZREALIZOWANE",
           "publicUrl": "https://polskieradio.cc/werset-dnia",
-          "claim": "Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku"
+          "claim": "Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku (Księga Izajasza 40:31)"
         }
       ],
       "graphicUrl": "/test/patronite/graphics/PAT-20261204-thank-you-1068x630.png",

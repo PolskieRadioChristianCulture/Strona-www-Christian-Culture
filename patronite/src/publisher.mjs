@@ -45,6 +45,7 @@ export class DraftPackagePublisher {
 
     const postPayload = {
       jobId: draft.jobId,
+      topicKey: draft.topicKey || null,
       seriesType: draft.seriesType,
       seriesLabel: draft.seriesLabel,
       scheduledForWarsaw: draft.scheduledForWarsaw,
@@ -57,6 +58,8 @@ export class DraftPackagePublisher {
       cta: draft.cta,
       hashtags: draft.hashtags,
       altText: draft.altText,
+      scripture: draft.scripture || null,
+      graphicSpec: draft.graphicSpec || null,
       sources: draft.sources,
       honestAdapterNote: 'Brak publicznego API zapisu postow Patronite — pakiet zapisany jako kompletny szkic gotowy do recznego wklejenia/zaplanowania w oficjalnym panelu Moderatora.',
       savedAt: new Date().toISOString(),

@@ -1,13 +1,14 @@
 {
   "jobId": "PAT-20261130-mission-report",
+  "topicKey": "src-akademia-kurs-codzienny",
   "seriesType": "mission-report",
   "seriesLabel": "DZIENNIK MISJI",
   "scheduledForWarsaw": "2026-11-30T09:00:00+01:00",
   "visibility": "PUBLICZNY",
   "notifyPatronsEmail": false,
-  "title": "Dziennik Misji: 51 lekcji kursu Z Biblią za Pan Brat na Akademii CC",
-  "teaser": "Codzienna lektura Biblii z prostym komentarzem działa już przez 51 kolejnych dni w Akademii Christian Culture — bezpłatnie dla każdego.",
-  "body": "Drodzy Patroni, dzielimy się dziś wymiernym efektem naszej codziennej pracy nad przystępnym studium Pisma Świętego w ramach Akademii Christian Culture.\n\nNa stronie https://polskieradio.cc/akademia opublikowaliśmy już 51 lekcji Kursu Codziennego „Z Biblią za Pan Brat”. Każdy dzień zawiera konkretny fragment biblijny z Uwspółcześnionej Biblii Gdańskiej, spokojne wyjaśnienie kontekstu oraz krótkie pytania pomagające zastosować treść rozdziału w zwykłych domowych decyzjach.\n\nDla wielu odbiorców najważniejsze jest to, że próg wejścia pozostaje bardzo prosty: wystarczy kilka minut rano lub wieczorem przy herbacie, bez konieczności kupowania podręczników ani zakładania płatnych kont. Jednym kliknięciem można też przesłać wybraną lekcję przyjacielowi.\n\nRegularne wsparcie na Patronite pozwala nam przygotowywać te lekcje dzień po dniu, dbać o oprawę wizualną i utrzymywać cały serwis otwarty dla osób z Polski i z zagranicy. Dziękujemy, że dokładacie do tej pracy swoją wierną cegiełkę.\n\nCo najbardziej pomaga Wam utrzymywać codzienny rytm czytania Pisma Świętego w trakcie zabieganego tygodnia?\n\nOdwiedźcie Akademię i zajrzyjcie do dzisiejszej lekcji na https://polskieradio.cc/akademia",
+  "title": "Dziennik Misji: 55 lekcji kursu Z Biblią za Pan Brat na Akademii CC",
+  "teaser": "Codzienna lektura Biblii z prostym komentarzem działa już przez 55 kolejnych dni w Akademii Christian Culture — bezpłatnie dla każdego.",
+  "body": "Drodzy Patroni, dzielimy się dziś wymiernym efektem naszej codziennej pracy nad przystępnym studium Pisma Świętego w ramach Akademii Christian Culture.\n\nNa stronie https://polskieradio.cc/akademia opublikowaliśmy już 55 lekcji Kursu Codziennego „Z Biblią za Pan Brat”. Każdy dzień zawiera konkretny fragment biblijny z Uwspółcześnionej Biblii Gdańskiej, spokojne wyjaśnienie kontekstu oraz krótkie pytania pomagające zastosować treść rozdziału w zwykłych domowych decyzjach.\n\nDla wielu odbiorców najważniejsze jest to, że próg wejścia pozostaje bardzo prosty: wystarczy kilka minut rano lub wieczorem przy herbacie, bez konieczności kupowania podręczników ani zakładania płatnych kont. Jednym kliknięciem można też przesłać wybraną lekcję przyjacielowi.\n\nRegularne wsparcie na Patronite pozwala nam przygotowywać te lekcje dzień po dniu, dbać o oprawę wizualną i utrzymywać cały serwis otwarty dla osób z Polski i z zagranicy. Dziękujemy, że dokładacie do tej pracy swoją wierną cegiełkę.\n\nCo najbardziej pomaga Wam utrzymywać codzienny rytm czytania Pisma Świętego w trakcie zabieganego tygodnia?\n\nOdwiedźcie Akademię i zajrzyjcie do dzisiejszej lekcji na https://polskieradio.cc/akademia",
   "question": "Co pomaga Wam zachować codzienny spokój na przeczytanie krótkiego fragmentu Biblii?",
   "cta": "Sprawdź dzisiejszą lekcję biblijną na https://polskieradio.cc/akademia",
   "hashtags": [
@@ -15,17 +16,26 @@
     "#AkademiaCC",
     "#Biblia"
   ],
-  "altText": "Grafika Dziennik Misji: 51 opublikowanych lekcji Kursu Codziennego na polskieradio.cc/akademia",
+  "altText": "Grafika Dziennik Misji: 55 opublikowanych lekcji Kursu Codziennego na polskieradio.cc/akademia",
+  "scripture": null,
+  "graphicSpec": {
+    "seriesType": "mission-report",
+    "headline": "55 LEKCJI BIBLII",
+    "accentHeadline": "KURS CODZIENNY",
+    "subtitle": "Krok po kroku przez Słowo Boże.",
+    "photoRelPath": "images/ogloszenia-tworcy-wolontariat.jpg",
+    "altText": "Grafika Dziennik Misji: 55 opublikowanych lekcji Kursu Codziennego na polskieradio.cc/akademia"
+  },
   "sources": [
     {
       "sourceName": "polskieradio.cc/akademia",
-      "sourceRef": "akademia/kurscodzienny/dzien-51.html",
-      "verifiedDate": "2026-11-20",
+      "sourceRef": "akademia/kurscodzienny/dzien-55.html",
+      "verifiedDate": "2026-11-23",
       "status": "ZREALIZOWANE",
       "publicUrl": "https://polskieradio.cc/akademia",
-      "claim": "W Akademii Biblijnej działa już 51 lekcji Kursu Codziennego „Z Biblią za Pan Brat”"
+      "claim": "W Akademii Biblijnej działa już 55 lekcji Kursu Codziennego „Z Biblią za Pan Brat”"
     }
   ],
   "honestAdapterNote": "Brak publicznego API zapisu postow Patronite — pakiet zapisany jako kompletny szkic gotowy do recznego wklejenia/zaplanowania w oficjalnym panelu Moderatora.",
-  "savedAt": "2026-11-20T18:31:19.491Z"
+  "savedAt": "2026-11-23T10:15:30.127Z"
 }

@@ -1,5 +1,6 @@
 {
   "jobId": "PAT-20261202-behind-the-scenes",
+  "topicKey": "src-behind-scenes-mobile-lumina-care",
   "seriesType": "behind-the-scenes",
   "seriesLabel": "ZA KULISAMI CHRISTIAN CULTURE",
   "scheduledForWarsaw": "2026-12-02T18:00:00+01:00",
@@ -16,16 +17,25 @@
     "#ChristianCulture"
   ],
   "altText": "Grafika Za kulisami CC: porządkowanie ekosystemu polskieradio.cc z myślą o użytkownikach telefonów",
+  "scripture": null,
+  "graphicSpec": {
+    "seriesType": "behind-the-scenes",
+    "headline": "PROSTOTA NA",
+    "accentHeadline": "KAŻDYM TELEFONIE",
+    "subtitle": "Porządkujemy i testujemy ekosystem CC.",
+    "photoRelPath": "images/ogloszenia-dom-studio.jpg",
+    "altText": "Grafika Za kulisami CC: porządkowanie ekosystemu polskieradio.cc z myślą o użytkownikach telefonów"
+  },
   "sources": [
     {
       "sourceName": "polskieradio.cc/lumina & /mapa",
       "sourceRef": "lumina.html + data/ecosystem-map.json",
-      "verifiedDate": "2026-11-20",
+      "verifiedDate": "2026-11-23",
       "status": "ZREALIZOWANE",
       "publicUrl": "https://polskieradio.cc/mapa",
-      "claim": "Upraszczamy ekosystem 195 modułów, aby wszystko działało płynnie na każdym smartfonie"
+      "claim": "Upraszczamy ekosystem 196 modułów, aby wszystko działało płynnie na każdym smartfonie"
     }
   ],
   "honestAdapterNote": "Brak publicznego API zapisu postow Patronite — pakiet zapisany jako kompletny szkic gotowy do recznego wklejenia/zaplanowania w oficjalnym panelu Moderatora.",
-  "savedAt": "2026-11-20T18:31:19.844Z"
+  "savedAt": "2026-11-23T10:15:31.815Z"
 }

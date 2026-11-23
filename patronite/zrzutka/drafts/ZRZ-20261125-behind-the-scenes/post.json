@@ -1,0 +1,35 @@
+{
+  "channel": "zrzutka",
+  "jobId": "ZRZ-20261125-behind-the-scenes",
+  "sourcePatroniteJobId": "PAT-20261125-behind-the-scenes",
+  "fundraiserUrl": "https://zrzutka.pl/rs4g4v",
+  "fundraiserCode": "rs4g4v",
+  "fundraiserOrganizer": "Wioletta Rogowska (Christian Culture)",
+  "seriesType": "behind-the-scenes",
+  "seriesLabel": "ZA KULISAMI CHRISTIAN CULTURE",
+  "scheduledForWarsaw": "2026-11-25T18:00:00+01:00",
+  "visibility": "PUBLICZNY",
+  "title": "Za kulisami CC: jak powstają nagrania Studia Dobrego Słowa i Biblii Audio",
+  "teaser": "Pomiędzy pomysłem a publikacją odcinka trwa długa praca nad czystym dźwiękiem, zgodnością z Biblią i przejrzystością przekazu. Zobaczcie nasz warsztat.",
+  "body": "Środowe popołudnie to dobry moment, żeby zaprosić Was za kulisy codziennej pracy nad nagraniami dźwiękowymi i wideo w Christian Culture oraz Studiu Dobrego Słowa.\n\nWyzwanie przy produkcji materiałów biblijnych jest bardzo konkretne: łatwo dziś wypuścić w sieć treści robione w pośpiechu, pełne hałasu i błędów tekstowych. My wybraliśmy dłuższą drogę, ponieważ zależy nam na szacunku do Słowa Bożego i do uwagi każdego słuchacza.\n\nNad każdym nowym odcinkiem Biblii Audio oraz wykładami publikowanymi w dziale VOD (https://polskieradio.cc/vod) pracujemy etapami: najpierw weryfikujemy tekst w Uwspółcześnionej Biblii Gdańskiej, następnie przygotowujemy nagranie i wielościeżkowy montaż dźwięku z zachowaniem równego poziomu głośności, a na końcu składamy czytelne plansze i napisy bez zbędnego przepychu.\n\nTen proces wciąż doskonalimy i porządkujemy, aby kolejne rozdziały Biblii oraz wykłady mogły ukazywać się jeszcze sprawniej w kolejnych tygodniach. Dla całej misji oznacza to materiały, którymi bez wstydu można podzielić się zarówno z osobą wierzącą, jak i kimś, kto dopiero poznaje Ewangelię.\n\nCzy wolicie krótkie formy audio do posłuchania w biegu, czy dłuższe wykłady i słuchowiska na spokojny wieczór?\n\nZobaczcie efekty tej pracy w naszym kinie misyjnym na https://polskieradio.cc/vod",
+  "question": "Czy wolicie krótkie materiały do posłuchania w drodze, czy dłuższe wykłady na spokojny wieczór?",
+  "cta": "Odwiedź Kino VOD Christian Culture pod adresem https://polskieradio.cc/vod",
+  "hashtags": [
+    "#ZaKulisamiCC",
+    "#StudioDobregoSłowa",
+    "#ChristianCulture"
+  ],
+  "altText": "Grafika Za kulisami Christian Culture: mikrofon studyjny i stanowisko montażowe audio",
+  "sources": [
+    {
+      "sourceName": "polskieradio.cc/vod & /news",
+      "sourceRef": "data/ecosystem-map.json + vod.html + news.html",
+      "verifiedDate": "2026-11-23",
+      "status": "ZREALIZOWANE",
+      "publicUrl": "https://polskieradio.cc/vod",
+      "claim": "Jak powstają słuchowiska Biblia Audio, wykłady Studio Dobrego Słowa i artykuły CCN News"
+    }
+  ],
+  "honestAdapterNote": "Serwis zrzutka.pl jest chroniony przez Cloudflare i nie udostępnia otwartego publicznego REST API zapisu aktualizacji — pakiet zapisany uczciwie jako kompletny szkic gotowy do 1-kliknięciowego wklejenia na https://zrzutka.pl/rs4g4v.",
+  "savedAt": "2026-11-23T10:15:27.957Z"
+}

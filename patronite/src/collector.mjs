@@ -188,6 +188,107 @@ export function collectAuthorizedSources(repoRoot = DEFAULT_REPO_ROOT, options =
     });
   }
 
+  // 5b. Dodatkowe zweryfikowane projekty ekosystemu (aby darczyńcy Patronite i Zrzutka.pl poznali cały dorobek CC)
+  if (fs.existsSync(path.join(repoRoot, 'mojabiblia.html'))) {
+    rawItems.push({
+      id: 'src-mojabiblia-interlinearna',
+      priority: 2,
+      type: 'public_page',
+      sourceName: 'polskieradio.cc/mojabiblia',
+      sourceRef: 'mojabiblia.html + data/bible/szukaj-ubg.json',
+      artifactPath: 'mojabiblia.html',
+      verifiedDate: todayStr,
+      hasLiveArtifact: true,
+      isCommitOnly: false,
+      isPlanOnly: false,
+      seriesPreference: ['mission-report'],
+      headlineFact: `MojaBiblia Interlinearna udostępnia 4 polskie przekłady Pisma Świętego, kody Stronga oraz nowy tryb Czytnika`,
+      summaryFact: `Na polskieradio.cc/mojabiblia każdy może bezpłatnie czytać Biblię w czystym Czytniku lub badać oryginalny tekst grecki i hebrajski z kodami Stronga i porównaniem UBG, BW, BT oraz BG.`,
+      publicUrl: 'https://polskieradio.cc/mojabiblia',
+      photoRelPath: 'images/ogloszenia-biblia-gdanska.jpg',
+    });
+  }
+
+  if (fs.existsSync(path.join(repoRoot, 'aplikacje', 'index.html'))) {
+    rawItems.push({
+      id: 'src-aplikacje-centrum',
+      priority: 2,
+      type: 'public_page',
+      sourceName: 'polskieradio.cc/aplikacje',
+      sourceRef: 'aplikacje/index.html',
+      artifactPath: 'aplikacje/index.html',
+      verifiedDate: todayStr,
+      hasLiveArtifact: true,
+      isCommitOnly: false,
+      isPlanOnly: false,
+      seriesPreference: ['mission-report'],
+      headlineFact: `Centrum Aplikacji Christian Culture gromadzi w jednym miejscu nasze bezpłatne narzędzia mobilne i webowe`,
+      summaryFact: `Pod adresem polskieradio.cc/aplikacje udostępniliśmy przejrzysty katalog bezpłatnych aplikacji na telefon i komputer — od codziennych rozważań i odtwarzacza radia 24/7 po narzędzia biblijne.`,
+      publicUrl: 'https://polskieradio.cc/aplikacje',
+      photoRelPath: 'images/ogloszenia-widget-radio.webp',
+    });
+  }
+
+  if (ccnNewsExists) {
+    rawItems.push({
+      id: 'src-ccn-news-portale',
+      priority: 2,
+      type: 'public_page',
+      sourceName: 'polskieradio.cc/news',
+      sourceRef: 'news.html + data/ccn-article-routes.js',
+      artifactPath: 'news.html',
+      verifiedDate: todayStr,
+      hasLiveArtifact: true,
+      isCommitOnly: false,
+      isPlanOnly: false,
+      seriesPreference: ['mission-report'],
+      headlineFact: `CCN News i 20 portali tematycznych budują rzetelną chrześcijańską publicystykę bez reklam i klikbajtu`,
+      summaryFact: `Na polskieradio.cc/news oraz w działach Nauka, Historia, Biologia, Prawo i Rodzina publikujemy pogłębione, weryfikowane artykuły pomagające patrzeć na współczesny świat w świetle Pisma Świętego.`,
+      publicUrl: 'https://polskieradio.cc/news',
+      photoRelPath: 'images/ogloszenia-tworcy-wolontariat.jpg',
+    });
+  }
+
+  if (fs.existsSync(path.join(repoRoot, 'wspieramto.html'))) {
+    rawItems.push({
+      id: 'src-behind-scenes-nowe-studio-rtv',
+      priority: 3,
+      type: 'public_ecosystem',
+      sourceName: 'polskieradio.cc/wspieramto',
+      sourceRef: 'wspieramto.html',
+      artifactPath: 'wspieramto.html',
+      verifiedDate: todayStr,
+      hasLiveArtifact: true,
+      isCommitOnly: false,
+      isPlanOnly: false,
+      seriesPreference: ['behind-the-scenes'],
+      headlineFact: `Na co idą środki darczyńców: utrzymanie mediów 24/7 oraz przygotowania do budowy nowego studia RTV`,
+      summaryFact: `Na polskieradio.cc/wspieramto pokazujemy jasno, jak wsparcie darczyńców przekłada się na pracę serwerów, codzienną produkcję Biblii Audio i konsekwentne budowanie własnego studia radiowo-telewizyjnego.`,
+      publicUrl: 'https://polskieradio.cc/wspieramto',
+      photoRelPath: 'images/ogloszenia-dom-studio.jpg',
+    });
+  }
+
+  if (fs.existsSync(path.join(repoRoot, 'lumina.html'))) {
+    rawItems.push({
+      id: 'src-behind-scenes-lumina-spolecznosc',
+      priority: 3,
+      type: 'public_ecosystem',
+      sourceName: 'polskieradio.cc/lumina',
+      sourceRef: 'lumina.html + lumina-tablica.html',
+      artifactPath: 'lumina.html',
+      verifiedDate: todayStr,
+      hasLiveArtifact: true,
+      isCommitOnly: false,
+      isPlanOnly: false,
+      seriesPreference: ['behind-the-scenes'],
+      headlineFact: `Rozwijamy portal społecznościowy LUMINA — bezpieczną przestrzeń rozmowy, modlitwy i świadectw bez reklam`,
+      summaryFact: `W portalu LUMINA (polskieradio.cc/lumina) budujemy spokojną alternatywę dla komercyjnych sieci społecznościowych: tablicę świadectw, profile twórców oraz czat wspólnotowy bez algorytmów podkręcających emocje.`,
+      publicUrl: 'https://polskieradio.cc/lumina',
+      photoRelPath: 'images/ogloszenia-tworcy-wolontariat.jpg',
+    });
+  }
+
   // 6. Wersety UBG na piątki ("DZIĘKI, ŻE JESTEŚ") — weryfikowane 1:1 z kanonicznego szukaj-ubg.json
   const wersetData = readJsonSafe(path.join(repoRoot, 'data', 'werset_dnia_365_ubg.json'));
   const szukajUbg = readJsonSafe(path.join(repoRoot, 'data', 'bible', 'szukaj-ubg.json'));
@@ -202,69 +303,58 @@ export function collectAuthorizedSources(repoRoot = DEFAULT_REPO_ROOT, options =
     ? wersetData.verses.filter(v => ['Księga Psalmów', 'Ewangelia Jana', 'List do Rzymian', 'Księga Izajasza', 'List do Filipian'].includes(v.book))
     : [];
 
-  const thankYouVerse1 = bibleVersesPool.find(v => v.bookCode === 'PSA') || bibleVersesPool[0];
-  const thankYouVerse2 = bibleVersesPool.find(v => v.bookCode === 'ISA' && v.day !== thankYouVerse1?.day)
-    || bibleVersesPool.find(v => v.day !== thankYouVerse1?.day);
+  const pickedThankYou = [];
+  const preferredOrder = ['PSA', 'ISA', 'ROM', 'JHN', 'PHP', 'PSA'];
+  for (const code of preferredOrder) {
+    const match = bibleVersesPool.find(v => v.bookCode === code && !pickedThankYou.some(p => p.day === v.day))
+      || bibleVersesPool.find(v => !pickedThankYou.some(p => p.day === v.day));
+    if (match) pickedThankYou.push(match);
+  }
 
-  const canonicalText1 = thankYouVerse1 ? getCanonicalVerseText(thankYouVerse1.bookCode, thankYouVerse1.chapter, thankYouVerse1.verses[0]) : null;
-  if (thankYouVerse1 && canonicalText1) {
+  const thankYouPhotos = [
+    'images/ogloszenia-biblia-gdanska.jpg',
+    'images/ogloszenia-hero.jpg',
+    'images/ogloszenia-infolinia-nadzieja.jpg',
+  ];
+
+  pickedThankYou.forEach((verseEntry, idx) => {
+    const canonicalText = getCanonicalVerseText(verseEntry.bookCode, verseEntry.chapter, verseEntry.verses[0]);
+    if (!canonicalText) return;
+    const isPrimaryPair = idx < 2;
+    const useWersetPage = idx % 2 === 1;
     rawItems.push({
-      id: `src-thankyou-bible-${thankYouVerse1.bookCode}-${thankYouVerse1.chapter}-${thankYouVerse1.verses[0]}`,
-      priority: 1,
+      id: `src-thankyou-bible-${verseEntry.bookCode}-${verseEntry.chapter}-${verseEntry.verses[0]}`,
+      priority: isPrimaryPair ? 1 : 2,
       type: 'verified_scripture_reflection',
-      sourceName: 'Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia)',
-      sourceRef: `data/bible/szukaj-ubg.json#${thankYouVerse1.bookCode}:${thankYouVerse1.chapter}:${thankYouVerse1.verses[0]}`,
-      artifactPath: 'mojabiblia.html',
+      sourceName: useWersetPage
+        ? 'Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia)'
+        : 'Uwspółcześniona Biblia Gdańska (polskieradio.cc/mojabiblia)',
+      sourceRef: `data/bible/szukaj-ubg.json#${verseEntry.bookCode}:${verseEntry.chapter}:${verseEntry.verses[0]}`,
+      artifactPath: useWersetPage ? 'werset-dnia.html' : 'mojabiblia.html',
       verifiedDate: todayStr,
-      hasLiveArtifact: fs.existsSync(path.join(repoRoot, 'mojabiblia.html')),
+      hasLiveArtifact: useWersetPage
+        ? (fs.existsSync(path.join(repoRoot, 'werset-dnia.html')) || fs.existsSync(path.join(repoRoot, 'werset-dnia', 'index.html')))
+        : fs.existsSync(path.join(repoRoot, 'mojabiblia.html')),
       isCommitOnly: false,
       isPlanOnly: false,
       seriesPreference: ['thank-you'],
-      headlineFact: `Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem`,
-      summaryFact: `Każda lekcja biblijna, nagranie radiowe i materiał wideo są możliwe dzięki cichej wierności Boga oraz wspólnocie ludzi, którym zależy na czystej Ewangelii.`,
-      publicUrl: 'https://polskieradio.cc/mojabiblia',
-      photoRelPath: 'images/ogloszenia-biblia-gdanska.jpg',
+      headlineFact: idx % 2 === 0
+        ? `Wdzięczność za wspólne niesienie Słowa Bożego przed nadchodzącym szabatem (${verseEntry.book} ${verseEntry.chapter}:${verseEntry.verses[0]})`
+        : `Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku (${verseEntry.book} ${verseEntry.chapter}:${verseEntry.verses[0]})`,
+      summaryFact: `W hałasie codziennych spraw wracamy do tego, co nie przemija: do wierności Zbawiciela oraz obietnic z księgi ${verseEntry.book}.`,
+      publicUrl: useWersetPage ? 'https://polskieradio.cc/werset-dnia' : 'https://polskieradio.cc/mojabiblia',
+      photoRelPath: thankYouPhotos[idx % thankYouPhotos.length],
       scripture: {
-        book: thankYouVerse1.book,
-        bookCode: thankYouVerse1.bookCode,
-        chapter: thankYouVerse1.chapter,
-        verse: thankYouVerse1.verses[0],
-        reference: `${thankYouVerse1.book} ${thankYouVerse1.chapter}:${thankYouVerse1.verses[0]}`,
-        text: canonicalText1,
+        book: verseEntry.book,
+        bookCode: verseEntry.bookCode,
+        chapter: verseEntry.chapter,
+        verse: verseEntry.verses[0],
+        reference: `${verseEntry.book} ${verseEntry.chapter}:${verseEntry.verses[0]}`,
+        text: canonicalText,
         translation: 'Uwspółcześniona Biblia Gdańska (UBG)',
       },
     });
-  }
-
-  const canonicalText2 = thankYouVerse2 ? getCanonicalVerseText(thankYouVerse2.bookCode, thankYouVerse2.chapter, thankYouVerse2.verses[0]) : null;
-  if (thankYouVerse2 && canonicalText2) {
-    rawItems.push({
-      id: `src-thankyou-bible-${thankYouVerse2.bookCode}-${thankYouVerse2.chapter}-${thankYouVerse2.verses[0]}`,
-      priority: 1,
-      type: 'verified_scripture_reflection',
-      sourceName: 'Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia)',
-      sourceRef: `data/bible/szukaj-ubg.json#${thankYouVerse2.bookCode}:${thankYouVerse2.chapter}:${thankYouVerse2.verses[0]}`,
-      artifactPath: 'werset-dnia.html',
-      verifiedDate: todayStr,
-      hasLiveArtifact: fs.existsSync(path.join(repoRoot, 'werset-dnia.html')) || fs.existsSync(path.join(repoRoot, 'werset-dnia', 'index.html')),
-      isCommitOnly: false,
-      isPlanOnly: false,
-      seriesPreference: ['thank-you'],
-      headlineFact: `Nadzieja w Chrystusie i spokojne wejście w dzień Pańskiego odpoczynku`,
-      summaryFact: `W hałasie codziennych spraw wracamy do tego, co nie przemija: do obecności Zbawiciela i Jego wiernych obietnic dla każdego domu.`,
-      publicUrl: 'https://polskieradio.cc/werset-dnia',
-      photoRelPath: 'images/ogloszenia-hero.jpg',
-      scripture: {
-        book: thankYouVerse2.book,
-        bookCode: thankYouVerse2.bookCode,
-        chapter: thankYouVerse2.chapter,
-        verse: thankYouVerse2.verses[0],
-        reference: `${thankYouVerse2.book} ${thankYouVerse2.chapter}:${thankYouVerse2.verses[0]}`,
-        text: canonicalText2,
-        translation: 'Uwspółcześniona Biblia Gdańska (UBG)',
-      },
-    });
-  }
+  });
 
   // 7. Rejestr ostatnich commitów Git (TYLKO informacyjnie jako W TRAKCIE, nigdy dowód zakończenia!)
   if (options.includeGitLog !== false) {

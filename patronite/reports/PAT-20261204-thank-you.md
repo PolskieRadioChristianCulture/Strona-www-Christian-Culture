@@ -6,5 +6,5 @@
 - **Status:** SZKIC
 - **Adres / pakiet:** C:\Users\czark\Christian_Culture_Projekty\polskieradio.cc\patronite\drafts\PAT-20261204-thank-you
 - **Najważniejsze źródła:**
-  - [ZREALIZOWANE] Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia) (data/bible/szukaj-ubg.json#ISA:40:31, data: 2026-11-20)
+  - [ZREALIZOWANE] Uwspółcześniona Biblia Gdańska (polskieradio.cc/werset-dnia) (data/bible/szukaj-ubg.json#ISA:40:31, data: 2026-11-23)
 - **Wyniki kontroli Quality Guardian:** 12/12 (PASS)

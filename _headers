@@ -348,6 +348,15 @@
   X-Robots-Tag: noindex, nofollow, noarchive
   Cache-Control: no-cache, no-store, must-revalidate
 
+# Środowisko testowe CC Zrzutka.pl Sync (rs4g4v) — wyłącznie noindex + brak cache
+/test/zrzutka
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/test/zrzutka/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
 # Środowisko testowe „Jezus Chrystus — Wiadomości z nieba” — wyłącznie noindex + brak cache
 /test/wiadomosci-z-nieba
   X-Robots-Tag: noindex, nofollow, noarchive
@@ -356,6 +365,16 @@
 /test/wiadomosci-z-nieba/*
   X-Robots-Tag: noindex, nofollow, noarchive
   Cache-Control: no-cache, no-store, must-revalidate
+
+# Wiadomość z Nieba — produkcja (zawsze świeży odczyt danych i strony)
+/wiadomosc-z-nieba/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/wiadomosc-z-nieba/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/wiadomosc-z-nieba/data.json
+  Cache-Control: public, max-age=0, must-revalidate
 
 
 

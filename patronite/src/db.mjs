@@ -110,6 +110,29 @@ export function openPatroniteDb({ dbPath, auditLogJsonlPath, repoRoot = DEFAULT_
       status TEXT NOT NULL,
       details_json TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS zrzutka_jobs (
+      zrzutka_job_id TEXT PRIMARY KEY,
+      patronite_job_id TEXT NOT NULL,
+      fundraiser_code TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      scheduled_for TEXT NOT NULL,
+      prep_at TEXT NOT NULL,
+      series_type TEXT NOT NULL,
+      title TEXT NOT NULL,
+      topic_key TEXT NOT NULL,
+      content_hash TEXT NOT NULL,
+      qa_status TEXT NOT NULL,
+      qa_details_json TEXT NOT NULL,
+      graphic_path TEXT,
+      square_graphic_path TEXT,
+      publish_status TEXT NOT NULL,
+      published_url TEXT,
+      remote_update_id TEXT,
+      verified_at TEXT,
+      error_code TEXT,
+      attempts INTEGER NOT NULL DEFAULT 0
+    );
   `);
 
   function seedDefaultFlag(key, value) {
@@ -258,17 +281,85 @@ export function openPatroniteDb({ dbPath, auditLogJsonlPath, repoRoot = DEFAULT_
     return db.prepare(`SELECT * FROM audit_log ORDER BY id DESC LIMIT ?`).all(limit);
   }
 
+  function recordZrzutkaJob(job) {
+    const now = new Date().toISOString();
+    db.exec('BEGIN IMMEDIATE');
+    try {
+      db.prepare(`
+        INSERT INTO zrzutka_jobs (
+          zrzutka_job_id, patronite_job_id, fundraiser_code, created_at, scheduled_for, prep_at,
+          series_type, title, topic_key, content_hash, qa_status, qa_details_json,
+          graphic_path, square_graphic_path, publish_status, published_url, remote_update_id,
+          verified_at, error_code, attempts
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(zrzutka_job_id) DO UPDATE SET
+          title=excluded.title,
+          topic_key=excluded.topic_key,
+          content_hash=excluded.content_hash,
+          qa_status=excluded.qa_status,
+          qa_details_json=excluded.qa_details_json,
+          graphic_path=excluded.graphic_path,
+          square_graphic_path=excluded.square_graphic_path,
+          publish_status=excluded.publish_status,
+          published_url=excluded.published_url,
+          remote_update_id=excluded.remote_update_id,
+          verified_at=excluded.verified_at,
+          error_code=excluded.error_code,
+          attempts=excluded.attempts
+      `).run(
+        job.zrzutkaJobId || job.jobId,
+        job.patroniteJobId || job.sourcePatroniteJobId,
+        job.fundraiserCode || 'rs4g4v',
+        job.createdAt || now,
+        job.scheduledFor,
+        job.prepAt || job.scheduledFor,
+        job.seriesType,
+        job.title,
+        job.topicKey || 'synced-from-patronite',
+        job.contentHash,
+        job.qaStatus,
+        JSON.stringify(job.qaDetails || {}),
+        job.graphicPath || null,
+        job.squareGraphicPath || null,
+        job.publishStatus,
+        job.publishedUrl || null,
+        job.remoteUpdateId || null,
+        job.verifiedAt || null,
+        job.errorCode || null,
+        Number(job.attempts || 0),
+      );
+      db.exec('COMMIT');
+    } catch (err) {
+      db.exec('ROLLBACK');
+      throw err;
+    }
+  }
+
+  function getZrzutkaJob(zrzutkaJobId) {
+    return db.prepare(`SELECT * FROM zrzutka_jobs WHERE zrzutka_job_id = ?`).get(zrzutkaJobId) || null;
+  }
+
+  function listZrzutkaJobs(limit = 50) {
+    return db.prepare(`SELECT * FROM zrzutka_jobs ORDER BY scheduled_for ASC LIMIT ?`).all(limit);
+  }
+
   function exportRegistrySnapshot(outPath) {
     const jobs = listJobs(200);
+    const zrzutkaJobs = listZrzutkaJobs(200);
     const snapshot = {
       exportedAt: new Date().toISOString(),
       flags: db.prepare(`SELECT * FROM system_flags`).all(),
       jobsCount: jobs.length,
+      zrzutkaJobsCount: zrzutkaJobs.length,
       jobs: jobs.map(j => ({
         ...j,
         sources: JSON.parse(j.sources_json),
         qaDetails: JSON.parse(j.qa_details_json),
         evidence: listEvidence(j.job_id),
+      })),
+      zrzutkaJobs: zrzutkaJobs.map(z => ({
+        ...z,
+        qaDetails: JSON.parse(z.qa_details_json),
       })),
     };
     fs.mkdirSync(path.dirname(outPath), { recursive: true });
@@ -287,11 +378,14 @@ export function openPatroniteDb({ dbPath, auditLogJsonlPath, repoRoot = DEFAULT_
     setFlag,
     logAudit,
     recordJob,
+    recordZrzutkaJob,
     recordEvidence,
     recordPublished,
     getRecentArchive,
     getJob,
+    getZrzutkaJob,
     listJobs,
+    listZrzutkaJobs,
     listEvidence,
     listAudit,
     exportRegistrySnapshot,

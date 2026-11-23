@@ -1,11 +1,21 @@
 {
   "id": "icc-patronite-mission-reporter",
-  "name": "CC Patronite Mission Reporter (@ICC-PATRONITE-001)",
+  "name": "CC Patronite + Zrzutka.pl Mission Reporter (@ICC-PATRONITE-001 + @ICC-ZRZUTKA-001)",
   "enabled": true,
   "requiresOwnerApprovalL0": false,
   "approvedAt": "2026-11-20T19:25:55+01:00",
   "activeScheduler": "PM2 Agent-Cron (Wektor1_VideoFactory/cron_agent.js)",
-  "note": "Aktywowane przez właściciela L0 (Cezary Rogowski). Podpięte pod istniejący harmonogram PM2 Agent-Cron bez drugiego równoległego demona cron.",
+  "synchronizedChannels": [
+    {
+      "id": "patronite",
+      "url": "https://patronite.pl/osobowoscplus"
+    },
+    {
+      "id": "zrzutka",
+      "url": "https://zrzutka.pl/rs4g4v"
+    }
+  ],
+  "note": "Aktywowane przez właściciela L0 (Cezary Rogowski). Podpięte pod istniejący harmonogram PM2 Agent-Cron bez drugiego równoległego demona cron. Każdy cykl przygotowuje jednocześnie pakiety 1:1 dla Patronite oraz Zrzutka.pl (rs4g4v).",
   "provider": "opencode",
   "model": "opencode/deepseek-v4.1-flash-free",
   "timezone": "Europe/Warsaw",

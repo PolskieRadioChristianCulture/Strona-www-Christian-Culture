@@ -6,5 +6,5 @@
 - **Status:** SZKIC
 - **Adres / pakiet:** C:\Users\czark\Christian_Culture_Projekty\polskieradio.cc\patronite\drafts\PAT-20261125-behind-the-scenes
 - **Najważniejsze źródła:**
-  - [ZREALIZOWANE] polskieradio.cc/vod & /news (data/ecosystem-map.json + vod.html + news.html, data: 2026-11-20)
+  - [ZREALIZOWANE] polskieradio.cc/vod & /news (data/ecosystem-map.json + vod.html + news.html, data: 2026-11-23)
 - **Wyniki kontroli Quality Guardian:** 12/12 (PASS)

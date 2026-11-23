@@ -171,6 +171,116 @@ export function generatePatroniteDraft({ cycle, topic, config }) {
       photoRelPath: topic.photoRelPath || 'images/ogloszenia-dom-studio.jpg',
       altText: `Grafika Za kulisami CC: porządkowanie ekosystemu polskieradio.cc z myślą o użytkownikach telefonów`,
     };
+  } else if (topic.id === 'src-mojabiblia-interlinearna') {
+    title = `Dziennik Misji: MojaBiblia Interlinearna z kodami Stronga i trybem Czytnika`;
+    teaser = `Na polskieradio.cc/mojabiblia udostępniamy bezpłatne studium Pisma Świętego w 4 przekładach (UBG, BW, BT, BG) wraz z greką, hebrajskim i Czytnikiem.`;
+    body = composeBody([
+      `Drodzy Patroni, na początku tygodnia prezentujemy jeden z filarów edukacyjnych ekosystemu Christian Culture, który każdego dnia służy czytelnikom Pisma Świętego zupełnie za darmo.`,
+      `Pod adresem https://polskieradio.cc/mojabiblia działa rozbudowana platforma MojaBiblia Interlinearna. Umożliwia ona zarówno spokojną codzienną lekturę w przejrzystym domyślnym Czytniku, jak i głębokie badanie tekstu oryginalnego z kodami Stronga, morfologią grecką i hebrajską oraz równoległym porównaniem czterech polskich przekładów: Uwspółcześnionej Biblii Gdańskiej, Biblii Warszawskiej, Biblii Tysiąclecia i Biblii Gdańskiej.`,
+      `Dlaczego inwestujemy czas i infrastrukturę w takie narzędzie? Ponieważ wiele osób pragnie samodzielnie sprawdzać znaczenie biblijnych słów bez drogich programów teologicznych, barier językowych i nachalnych reklam. Jednym kliknięciem można tu otworzyć rozdział, wyszukać werset albo włączyć całodobowe Radio Biblia Audio.`,
+      `Wasze regularne wsparcie na Patronite pozwala utrzymywać serwery, bazę danych biblijnych i ciągły rozwój interfejsu na smartfony i komputery bez opłat abonamentowych dla odbiorców.`,
+      `Z którego przekładu Biblii korzystacie na co dzień najczęściej — i czy sięgacie czasem do oryginalnych znaczeń słów greckich lub hebrajskich?`,
+      `Otwórzcie MojaBiblia na https://polskieradio.cc/mojabiblia i przetestujcie wygodny widok Czytnika oraz porównywarkę przekładów.`,
+    ]);
+    question = `Z którego przekładu Pisma Świętego korzystacie najczęściej podczas codziennej lektury?`;
+    cta = `Badaj Pismo Święte bezpłatnie na https://polskieradio.cc/mojabiblia`;
+    hashtags = ['#ChristianCulture', '#MojaBiblia', '#Patronite'];
+    graphicSpec = {
+      seriesType: 'mission-report',
+      headline: 'MOJABIBLIA CC',
+      accentHeadline: '4 PRZEKŁADY I GREKA',
+      subtitle: 'Czytnik, kody Stronga i Biblia bez reklam.',
+      photoRelPath: topic.photoRelPath || 'images/ogloszenia-biblia-gdanska.jpg',
+      altText: `Grafika Dziennik Misji Christian Culture i Patronite: MojaBiblia Interlinearna z 4 przekładami i kodami Stronga na polskieradio.cc/mojabiblia`,
+    };
+  } else if (topic.id === 'src-aplikacje-centrum') {
+    title = `Dziennik Misji: Centrum Aplikacji Christian Culture otwarte na telefony`;
+    teaser = `Pod jednym adresem polskieradio.cc/aplikacje zebraliśmy bezpłatne aplikacje misyjne na Androida i przeglądarkę — bez reklam i ukrytych opłat.`;
+    body = composeBody([
+      `Witamy serdecznie! Dzisiaj pokazujemy nowe, uporządkowane miejsce w naszym ekosystemie, dzięki któremu każdy odbiorca może mieć treści Christian Culture zawsze pod ręką w telefonie.`,
+      `Uruchomiliśmy produkcyjne Centrum Aplikacji pod adresem https://polskieradio.cc/aplikacje (w wersji polskiej oraz angielskiej). Z jednego przejrzystego ekranu można poznać i zainstalować nasze bezpłatne rozwiązania: aplikację codziennych rozważań „Dobrze, że jesteś”, lekki dostęp webowy CC Lite, odtwarzacz radia 24/7 oraz interaktywne narzędzia biblijne.`,
+      `Często słyszeliśmy od naszych odbiorców, że mają trudność z odnalezieniem wszystkich projektów Christian Culture w jednym miejscu. Nowe Centrum Aplikacji rozwiązuje ten problem — tłumaczy krok po kroku, do czego służy każda aplikacja i jak bezpiecznie z niej korzystać na smartfonie bez śledzenia i reklam komercyjnych.`,
+      `To właśnie dzięki Waszemu wsparciu na Patronite możemy rozwijać darmowe oprogramowanie misyjne i udostępniać je rodzinom, młodzieży i seniorom w Polsce oraz wśród Polonii za granicą.`,
+      `Z której aplikacji lub strony Christian Culture korzystacie w swoim telefonie najczęściej każdego dnia?`,
+      `Odwiedźcie https://polskieradio.cc/aplikacje i sprawdźcie, które narzędzia mogą najlepiej posłużyć Wam i Waszym bliskim.`,
+    ]);
+    question = `Które narzędzie Christian Culture najchętniej otwieracie na swoim telefonie?`;
+    cta = `Zobacz wszystkie bezpłatne aplikacje na https://polskieradio.cc/aplikacje`;
+    hashtags = ['#ChristianCulture', '#AplikacjeCC', '#Patronite'];
+    graphicSpec = {
+      seriesType: 'mission-report',
+      headline: 'CENTRUM APLIKACJI',
+      accentHeadline: 'MISJA W TELEFONIE',
+      subtitle: 'Bezpłatne narzędzia CC na Android i Web.',
+      photoRelPath: topic.photoRelPath || 'images/ogloszenia-widget-radio.webp',
+      altText: `Grafika Dziennik Misji Christian Culture i Patronite: Centrum Aplikacji Christian Culture dostępne bezpłatnie pod adresem polskieradio.cc/aplikacje`,
+    };
+  } else if (topic.id === 'src-ccn-news-portale') {
+    title = `Dziennik Misji: CCN News i 20 portali tematycznych wiedzy biblijnej`;
+    teaser = `Na polskieradio.cc/news budujemy niezależną, spokojną publicystykę chrześcijańską — od nauki i historii po rodzinę, zdrowie i apologetykę.`;
+    body = composeBody([
+      `Drodzy Patroni, w natłoku sensacyjnych nagłówków w internecie coraz trudniej o rzetelny, spokojny komentarz oparty na faktach i biblijnym światopoglądzie. Właśnie po to rozwijamy sieć CCN News.`,
+      `Pod adresem https://polskieradio.cc/news oraz w dwudziestu powiązanych działach tematycznych (m.in. Nauka, Historia, Biologia, Prawo, Rodzina, Kultura, Zdrowie i Apologetyka) publikujemy autorskie artykuły, opracowania oraz wiadomości przygotowywane z dbałością o źródła i przejrzystość przekazu.`,
+      `Każdy materiał ma pomagać czytelnikowi rozumieć wyzwania współczesności bez lęku, manipulacji i krzykliwych reklam. Stawiamy na klarowną typografię, czytelny układ na telefonach i szybkie wyszukiwanie tematów ważnych dla chrześcijańskich rodzin.`,
+      `Utrzymanie takiej sieci portali wymaga codziennej pracy redakcyjnej, graficznej i technicznej. Dzięki wsparciu Patronów cały dostęp pozostaje w stu procentach otwarty i bezpłatny dla każdego, kto szuka prawdy i rzetelnej wiedzy.`,
+      `Który z działów tematycznych CCN News — nauka, historia, rodzina czy apologetyka — czytacie najchętniej?`,
+      `Zajrzyjcie do najświeższych publikacji na https://polskieradio.cc/news i podzielcie się wybranym artykułem z bliskimi.`,
+    ]);
+    question = `Jakie tematy z zakresu nauki, historii lub życia rodzinnego chcielibyście częściej czytać w CCN News?`;
+    cta = `Czytaj niezależne artykuły biblijne na https://polskieradio.cc/news`;
+    hashtags = ['#ChristianCulture', '#CCNNews', '#Patronite'];
+    graphicSpec = {
+      seriesType: 'mission-report',
+      headline: 'CCN NEWS I 20',
+      accentHeadline: 'PORTALI WIEDZY',
+      subtitle: 'Rzetelna publicystyka bez reklam i hałasu.',
+      photoRelPath: topic.photoRelPath || 'images/ogloszenia-tworcy-wolontariat.jpg',
+      altText: `Grafika Dziennik Misji Christian Culture i Patronite: CCN News i 20 portali tematycznych Christian Culture na polskieradio.cc/news`,
+    };
+  } else if (topic.id === 'src-behind-scenes-nowe-studio-rtv') {
+    title = `Za kulisami CC: na co idą środki darczyńców i plan nowego studia RTV`;
+    teaser = `Transparentnie pokazujemy, jak każda złotówka wspiera serwery 24/7, produkcję Biblii Audio oraz cel budowy własnego studia radiowo-telewizyjnego.`;
+    body = composeBody([
+      `W dzisiejszym wpisie „Za kulisami” odpowiadamy wprost na bardzo ważne pytanie wielu naszych darczyńców: na co dokładnie trafia wsparcie finansowe i jak planujemy dalszy rozwój misji Christian Culture?`,
+      `Pierwszy filar to codzienna praca całego ekosystemu: serwery chmurowe, emisja całodobowego radia i siedemnastu kanałów telewizji LIVE, codzienna produkcja słuchowisk Biblii Audio, lekcje Kursu Codziennego oraz narzędzia techniczne pozwalające udostępniać wszystko za darmo i bez reklam.`,
+      `Drugi wielki cel, do którego krok po kroku zmierzamy, to stworzenie własnego, wyciszonego studia radiowo-telewizyjnego 4K — z adaptacją akustyczną, kamerami, mikrofonami nadawczymi, konsoletą audio oraz stacją emisji ciągłej. Szczegółowy plan i etapy tej inwestycji opisaliśmy jawnie na stronie https://polskieradio.cc/wspieramto.`,
+      `Zależy nam na pełnej przejrzystości i uczciwości przed Bogiem oraz ludźmi: nic nie robimy na pokaz, a każda cegiełka realnie przybliża moment, w którym z własnego studia Ewangelia popłynie jeszcze dalej i w jeszcze wyższej jakości.`,
+      `Co według Was powinno być pierwszym cyklicznym programem nagrywanym na żywo w nowym studiu radiowo-telewizyjnym Christian Culture?`,
+      `Zobaczcie pełny podział celów i etapów budowy studia na https://polskieradio.cc/wspieramto`,
+    ]);
+    question = `Jaki program na żywo chcielibyście zobaczyć jako pierwszy z nowego studia radiowo-telewizyjnego CC?`;
+    cta = `Zobacz przejrzysty plan utrzymania i nowego studia RTV na https://polskieradio.cc/wspieramto`;
+    hashtags = ['#ZaKulisamiCC', '#NoweStudioRTV', '#ChristianCulture'];
+    graphicSpec = {
+      seriesType: 'behind-the-scenes',
+      headline: 'NOWE STUDIO',
+      accentHeadline: 'RADIOWO-TELEWIZYJNE',
+      subtitle: 'Pełna jawność celów i wspólne budowanie misji.',
+      photoRelPath: topic.photoRelPath || 'images/ogloszenia-dom-studio.jpg',
+      altText: `Grafika Za kulisami Christian Culture i Patronite: plan budowy nowego studia radiowo-telewizyjnego i jawność celów na polskieradio.cc/wspieramto`,
+    };
+  } else if (topic.id === 'src-behind-scenes-lumina-spolecznosc') {
+    title = `Za kulisami CC: budujemy czystą społeczność LUMINA bez manipulacji`;
+    teaser = `W świecie pełnym hałaśliwych algorytmów rozwijamy spokojną przestrzeń świadectw, modlitwy i rozmowy w portalu LUMINA na polskieradio.cc/lumina.`;
+    body = composeBody([
+      `Środowe popołudnie poświęcamy dziś kulisom projektu LUMINA — naszego chrześcijańskiego portalu społecznościowego dostępnego pod adresem https://polskieradio.cc/lumina.`,
+      `Dlaczego w ogóle zdecydowaliśmy się budować własną przestrzeń społecznościową? Ponieważ tradycyjne media społecznościowe coraz częściej nagradzają spór, pośpiech i krzykliwe reklamy, a ciche wartościowe treści znikają pod płatnym zasięgiem. W LUMINA tworzymy spokojne miejsce na świadectwa, intencje modlitewne, codzienne rozważania i rozmowy na czacie.`,
+      `Za kulisami trwa ciągła, żmudna praca nad stabilnością i bezpieczeństwem: ujednolicamy wygląd wszystkich profili w jednym czystym standardzie, dbamy o wersję jasną i ciemną, testujemy działanie na smartfonach z Androidem i iOS oraz pilnujemy prywatności danych użytkowników bez sprzedaży informacji reklamodawcom.`,
+      `Każda cegiełka naszych darczyńców sprawia, że ta społeczność może rosnąć organicznie — z szacunkiem do drugiego człowieka i bez nachalnej komercji.`,
+      `Czego najbardziej brakuje Wam w dzisiejszym internecie, a co chcielibyście znajdować na chrześcijańskim portalu takim jak LUMINA?`,
+      `Odwiedźcie portal społecznościowy LUMINA pod adresem https://polskieradio.cc/lumina i zobaczcie, co nowego słychać na tablicy.`,
+    ]);
+    question = `Jakich treści lub funkcji najbardziej potrzebujecie w spokojnej społeczności chrześcijańskiej online?`;
+    cta = `Poznaj portal społecznościowy LUMINA na https://polskieradio.cc/lumina`;
+    hashtags = ['#ZaKulisamiCC', '#LUMINA', '#ChristianCulture'];
+    graphicSpec = {
+      seriesType: 'behind-the-scenes',
+      headline: 'SPOŁECZNOŚĆ',
+      accentHeadline: 'LUMINA BEZ REKLAM',
+      subtitle: 'Świadectwa, modlitwa i rozmowa w pokoju.',
+      photoRelPath: topic.photoRelPath || 'images/ogloszenia-tworcy-wolontariat.jpg',
+      altText: `Grafika Za kulisami Christian Culture i Patronite: portal społecznościowy LUMINA dostępny na polskieradio.cc/lumina`,
+    };
   } else {
     // Piątek — DZIĘKI, ŻE JESTEŚ (z wersetem zweryfikowanym z UBG-2025)
     const sc = topic.scripture;
@@ -178,9 +288,14 @@ export function generatePatroniteDraft({ cycle, topic, config }) {
       throw new Error('Piątkowy cykl thank-you wymaga zweryfikowanego wersetu biblijnego UBG.');
     }
     const isFirstVerse = topic.id.includes('PSA') || sc.bookCode === 'PSA';
-    title = isFirstVerse
-      ? `Dzięki, że jesteś: Słowo Boże daje siłę przed rozpoczynającym się szabatem`
-      : `Dzięki, że jesteś: pokój nadziei na próg kolejnego szabatu`;
+    const titleByBook = {
+      PSA: `Dzięki, że jesteś: Słowo Boże daje siłę przed rozpoczynającym się szabatem`,
+      ISA: `Dzięki, że jesteś: pokój nadziei na próg kolejnego szabatu`,
+      ROM: `Dzięki, że jesteś: wierność Boga niesie nas w dzień Pańskiego odpoczynku`,
+      JHN: `Dzięki, że jesteś: światło Ewangelii rozjaśnia dom przed szabatem`,
+      PHP: `Dzięki, że jesteś: radość w Chrystusie na spokojny weekend i szabat`,
+    };
+    title = titleByBook[sc.bookCode] || `Dzięki, że jesteś: pokój w Słowie Bożym (${sc.book} ${sc.chapter}:${sc.verse})`;
     teaser = `Zatrzymujemy się w piątkowy poranek z wdzięcznością dla naszych Patronów oraz krótką refleksją opartą na fragmencie: ${sc.reference} (UBG).`;
     body = composeBody([
       `Drodzy Patroni i Przyjaciele Christian Culture, w ten piątkowy poranek nie chcemy rozpoczynać od żadnej listy zadań. Najpierw pragniemy po prostu podziękować — Bogu za Jego wierną opiekę przez cały mijający tydzień oraz Wam za serce, modlitwę i obecność przy tym dziele.`,

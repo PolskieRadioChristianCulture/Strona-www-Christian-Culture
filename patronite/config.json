@@ -109,5 +109,43 @@
       "modify_tiers",
       "modify_account_settings"
     ]
+  },
+  "zrzutka": {
+    "directive": "@ICC-ZRZUTKA-001",
+    "systemName": "CC Zrzutka Mission Reporter (Mirror 1:1 Patronite)",
+    "enabled": true,
+    "syncWithPatroniteSchedule": true,
+    "fundraiserUrl": "https://zrzutka.pl/rs4g4v",
+    "fundraiserCode": "rs4g4v",
+    "fundraiserOrganizer": "Wioletta Rogowska (Christian Culture)",
+    "officialApiDocsStatus": "CLOUDFLARE_PROTECTED_NO_PUBLIC_WRITE_API",
+    "officialApiContact": "kontakt@zrzutka.pl",
+    "publisherAdapter": "draft_package",
+    "autoPublishEnabled": false,
+    "allowCredentialStorage": false,
+    "allowCaptchaOr2faBypass": false,
+    "allowUndocumentedPrivateEndpoints": false,
+    "logoPath": "patronite/templates/assets/brand-header-lockup-zrzutka.png",
+    "paths": {
+      "draftsDir": "patronite/zrzutka/drafts",
+      "reportsDir": "patronite/zrzutka/reports",
+      "statusFile": "patronite/zrzutka/state/latest-cycle-status.json",
+      "testPreviewDir": "test/zrzutka"
+    },
+    "permissions": {
+      "allowedActions": [
+        "create_update_draft",
+        "update_draft",
+        "publish_update",
+        "read_update"
+      ],
+      "forbiddenActions": [
+        "read_donor_pii",
+        "withdraw_funds",
+        "modify_goal",
+        "modify_payout_bank",
+        "modify_account_settings"
+      ]
+    }
   }
 }

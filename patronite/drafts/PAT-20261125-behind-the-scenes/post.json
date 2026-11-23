@@ -1,5 +1,6 @@
 {
   "jobId": "PAT-20261125-behind-the-scenes",
+  "topicKey": "src-behind-scenes-audio-vod-ccn",
   "seriesType": "behind-the-scenes",
   "seriesLabel": "ZA KULISAMI CHRISTIAN CULTURE",
   "scheduledForWarsaw": "2026-11-25T18:00:00+01:00",
@@ -16,16 +17,25 @@
     "#ChristianCulture"
   ],
   "altText": "Grafika Za kulisami Christian Culture: mikrofon studyjny i stanowisko montażowe audio",
+  "scripture": null,
+  "graphicSpec": {
+    "seriesType": "behind-the-scenes",
+    "headline": "OD TEKSTU DO",
+    "accentHeadline": "CZYSTEGO AUDIO",
+    "subtitle": "Kulisy montażu i kontroli jakości nagrań.",
+    "photoRelPath": "images/ogloszenia-sprzet-studio.jpg",
+    "altText": "Grafika Za kulisami Christian Culture: mikrofon studyjny i stanowisko montażowe audio"
+  },
   "sources": [
     {
       "sourceName": "polskieradio.cc/vod & /news",
       "sourceRef": "data/ecosystem-map.json + vod.html + news.html",
-      "verifiedDate": "2026-11-20",
+      "verifiedDate": "2026-11-23",
       "status": "ZREALIZOWANE",
       "publicUrl": "https://polskieradio.cc/vod",
       "claim": "Jak powstają słuchowiska Biblia Audio, wykłady Studio Dobrego Słowa i artykuły CCN News"
     }
   ],
   "honestAdapterNote": "Brak publicznego API zapisu postow Patronite — pakiet zapisany jako kompletny szkic gotowy do recznego wklejenia/zaplanowania w oficjalnym panelu Moderatora.",
-  "savedAt": "2026-11-20T18:31:18.842Z"
+  "savedAt": "2026-11-23T10:15:27.597Z"
 }

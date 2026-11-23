@@ -56,9 +56,11 @@ export async function renderPatroniteGraphic({
   closingSlogan,
   outputPath,
   format = 'landscape', // 'landscape' (1068x630) | 'square' (1080x1080)
+  channel = 'patronite', // 'patronite' | 'zrzutka'
 }) {
   const tpl = loadSeriesTemplate(seriesType, repoRoot);
   const isSquare = format === 'square';
+  const isZrzutka = channel === 'zrzutka';
   const W = isSquare ? 1080 : 1068;
   const H = isSquare ? 1080 : 630;
   const { navy, accent, white } = tpl.palette;
@@ -71,10 +73,26 @@ export async function renderPatroniteGraphic({
     throw new Error(`Brak zatwierdzonej fotografii tla: ${chosenRelPhoto}`);
   }
 
-  const lockupPath = path.join(repoRoot, 'patronite', 'templates', 'assets', 'brand-header-lockup.png');
-  const lockupMetaPath = path.join(repoRoot, 'patronite', 'templates', 'assets', 'brand-lockup-meta.json');
+  const lockupPath = path.join(
+    repoRoot,
+    'patronite',
+    'templates',
+    'assets',
+    isZrzutka ? 'brand-header-lockup-zrzutka.png' : 'brand-header-lockup.png',
+  );
+  const lockupMetaPath = path.join(
+    repoRoot,
+    'patronite',
+    'templates',
+    'assets',
+    isZrzutka ? 'brand-lockup-zrzutka-meta.json' : 'brand-lockup-meta.json',
+  );
   if (!fs.existsSync(lockupPath) || !fs.existsSync(lockupMetaPath)) {
-    throw new Error('Brak oficjalnego lockupu CHRISTIAN CULTURE | PATRONITE.');
+    throw new Error(
+      isZrzutka
+        ? 'Brak oficjalnego lockupu CHRISTIAN CULTURE | ZRZUTKA.PL.'
+        : 'Brak oficjalnego lockupu CHRISTIAN CULTURE | PATRONITE.',
+    );
   }
   const lockupExpected = JSON.parse(fs.readFileSync(lockupMetaPath, 'utf8'));
   const targetLogoHeight = isSquare ? 72 : 56;
@@ -238,6 +256,7 @@ export async function renderPatroniteGraphic({
 
   return {
     outputPath,
+    channel: isZrzutka ? 'zrzutka' : 'patronite',
     format,
     seriesType,
     width: outMeta.width,
