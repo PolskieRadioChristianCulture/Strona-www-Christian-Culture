@@ -4852,10 +4852,10 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                 <div class="card-916-media-wrap" style="position: relative; aspect-ratio: 9 / 16; width: 100%; overflow: hidden; background: #000;">
                     <a href="https://my-store-1009741.creator-spring.com/listing/alleluja?product=375" target="_blank" rel="noopener noreferrer" style="display:block; width:100%; height:100%; text-decoration:none;">
                         <video id="reklamaAllelujaVideo"
-                               src="reklama_sklep_alleluja.mp4"
+                               data-lazy-src="reklama_sklep_alleluja.mp4?v=20261123"
                                poster="reklama_sklep_alleluja_poster.jpg"
                                class="card-916-img"
-                               autoplay loop muted playsinline
+                               autoplay loop muted playsinline preload="none"
                                style="object-fit:cover; width:100%; height:100%; display:block;"></video>
                     </a>
                     <!-- Przycisk włączania / wyłączania dźwięku (44px SMCC touch-target) -->
@@ -4985,7 +4985,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                     <span class="badge-patron" style="color:#25d366;"><i class="fa-brands fa-whatsapp"></i> Dom Modlitwy • Grupa WhatsApp</span>
                 </div>
                 <a href="https://chat.whatsapp.com/LGzSCB9K5Vp2jTF8dIALI6" target="_blank" rel="noopener noreferrer" class="card-916-media-wrap" title="Dołącz do grupy: Jeśli chcesz, pomodlę się o Ciebie">
-                    <video src="dom_modlitwy_narod_zydowski.mp4" poster="dom_modlitwy_poster.jpg" class="card-916-img" autoplay loop muted playsinline style="object-fit:cover; width:100%; height:100%; display:block;"></video>
+                    <video data-lazy-src="dom_modlitwy_narod_zydowski.mp4?v=20261123" poster="dom_modlitwy_poster.jpg" class="card-916-img" autoplay loop muted playsinline preload="none" style="object-fit:cover; width:100%; height:100%; display:block;"></video>
                     <div class="card-916-overlay">
                         <div class="card-916-title" style="color:#fff; font-size:1.02rem; text-transform:uppercase;">DOM MODLITWY O ZBAWIENIE NARODU ŻYDOWSKIEGO</div>
                         <div class="card-916-sub">I PRZECIW ANTYSEMITYZMOWI • Grupa modlitewna: <em>„Jeśli chcesz, pomodlę się o Ciebie”</em>. Dołącz do wstawiennictwa!</div>
@@ -5278,7 +5278,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 
                     <!-- 4. Świadectwo Wiary (Modlitwa) -->
                     <a href="rolki#short_swiadectwo_grzegorz" class="fb-story-card" title="Rolka: Dom Modlitwy • Świadectwo Wiary">
-                        <video class="fb-story-bg fb-story-video" src="dom_modlitwy_narod_zydowski.mp4" poster="tlo_tv_dzj.jpg" autoplay loop muted playsinline webkit-playsinline preload="metadata"></video>
+                        <video class="fb-story-bg fb-story-video" data-lazy-src="dom_modlitwy_narod_zydowski.mp4?v=20261123" poster="tlo_tv_dzj.jpg" autoplay loop muted playsinline webkit-playsinline preload="none"></video>
                         <div class="fb-story-gradient"></div>
                         <div class="fb-story-video-badge"><i class="fa-solid fa-play"></i> ROLKA</div>
                         <div class="fb-story-avatar-badge" style="border-color:#f59e0b;">
@@ -5289,7 +5289,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 
                     <!-- 5. Alleluja Wear -->
                     <a href="rolki#short_alleluja_wear" class="fb-story-card" title="Rolka: Kolekcja Alleluja • Noś wiarę z odwagą">
-                        <video class="fb-story-bg fb-story-video" src="reklama_sklep_alleluja.mp4" poster="reklama_sklep_alleluja_poster.jpg" autoplay loop muted playsinline webkit-playsinline preload="metadata"></video>
+                        <video class="fb-story-bg fb-story-video" data-lazy-src="reklama_sklep_alleluja.mp4?v=20261123" poster="reklama_sklep_alleluja_poster.jpg" autoplay loop muted playsinline webkit-playsinline preload="none"></video>
                         <div class="fb-story-gradient"></div>
                         <div class="fb-story-video-badge"><i class="fa-solid fa-play"></i> ROLKA</div>
                         <div class="fb-story-avatar-badge" style="border-color:#facc15;">
@@ -5311,7 +5311,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
 
                     <!-- 7. Słowo Boże Jan -->
                     <a href="rolki#short_slowo_zycia_jan" class="fb-story-card" title="Rolka: Na początku było Słowo • Cezary Rogowski">
-                        <video class="fb-story-bg fb-story-video" src="tlo_profilowe_cezary.mp4" poster="tlo_profilowe_cezary.jpg" autoplay loop muted playsinline webkit-playsinline preload="metadata"></video>
+                        <video class="fb-story-bg fb-story-video" data-lazy-src="tlo_profilowe_cezary.mp4?v=20261123" poster="tlo_profilowe_cezary.jpg" autoplay loop muted playsinline webkit-playsinline preload="none"></video>
                         <div class="fb-story-gradient"></div>
                         <div class="fb-story-video-badge"><i class="fa-solid fa-play"></i> ROLKA</div>
                         <div class="fb-story-avatar-badge" style="border-color:#8b5cf6;">
@@ -5567,7 +5567,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                                 const poster = item.poster || (item.videoType === 'youtube' && videoSrc ? `https://i.ytimg.com/vi/${videoSrc}/hqdefault.jpg` : 'tlo_tv_dzj.jpg');
 
                                 const mediaMarkup = isMp4
-                                    ? `<video class="fb-story-bg fb-story-video" src="${videoSrc}" poster="${poster}" autoplay loop muted playsinline webkit-playsinline preload="metadata"></video>`
+                                    ? `<video class="fb-story-bg fb-story-video" data-lazy-src="${videoSrc}" poster="${poster}" autoplay loop muted playsinline webkit-playsinline preload="none"></video>`
                                     : `<img src="${poster}" alt="${item.author || 'Rolka'}" class="fb-story-bg" loading="lazy" onerror="this.src='tlo_tv_dzj.jpg'">`;
 
                                 const badgeHtml = isNew
@@ -5820,8 +5820,8 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                     <span style="font-size:0.65rem; color:#fde047; font-weight:900; background:rgba(250,204,21,0.15); border:1px solid rgba(250,204,21,0.4); padding:1px 7px; border-radius:8px; text-transform:uppercase; letter-spacing:0.5px;">KINO 24/7</span>
                 </div>
                 <div class="card-916-media-wrap">
-                    <video id="vod-ad-video" class="card-916-img" autoplay loop muted playsinline webkit-playsinline preload="auto" poster="vod_hity_kina_poster.jpg" style="object-fit:cover; width:100%; height:100%; display:block;">
-                        <source src="vod_hity_kina.mp4" type="video/mp4">
+                    <video id="vod-ad-video" class="card-916-img" autoplay loop muted playsinline webkit-playsinline preload="none" poster="vod_hity_kina_poster.jpg" style="object-fit:cover; width:100%; height:100%; display:block;">
+                        <source data-lazy-src="vod_hity_kina.mp4?v=20261123" type="video/mp4">
                     </video>
                     <div class="card-916-overlay" style="padding:14px; background:linear-gradient(to top, rgba(7, 14, 36, 0.98) 0%, rgba(7, 14, 36, 0.90) 60%, rgba(7, 14, 36, 0.25) 88%, transparent 100%);">
                         <div class="card-916-title" style="font-size:1.08rem; color:#fde047; margin-bottom:6px; text-shadow:0 2px 10px rgba(0,0,0,0.9); font-weight:900;">
@@ -10166,7 +10166,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                                 : 'aspect-ratio:16/9; width:100%; border-radius:18px; margin-bottom:14px;';
                             const mediaTag = isVideoMedia
                                 ? `<div class="lumina-video-wrapper" style="${videoWrapperStyle}">
-                                    <video src="${cardImgSrc}" class="lumina-feed-video ${isCampaign ? 'campaign-img-full' : 'media-img-1x1'}" autoplay muted playsinline webkit-playsinline loop preload="metadata" poster="${item.posterImage || 'vod_hity_kina_poster.jpg'}" onerror="this.poster='logo_cc.png'"></video>
+                                    <video data-lazy-src="${cardImgSrc}" class="lumina-feed-video ${isCampaign ? 'campaign-img-full' : 'media-img-1x1'}" autoplay muted playsinline webkit-playsinline loop preload="none" poster="${item.posterImage || 'vod_hity_kina_poster.jpg'}" onerror="this.poster='logo_cc.png'"></video>
                                     <button type="button" class="btn-feed-video-sound" onclick="toggleFeedVideoAudio(this, event)" title="Dotknij, by włączyć dźwięk" aria-label="Włącz lub wyłącz dźwięk">
                                         <i class="fa-solid fa-volume-xmark sound-icon-muted"></i>
                                         <i class="fa-solid fa-volume-high sound-icon-unmuted" style="display:none;"></i>
@@ -15995,7 +15995,8 @@ window.addEventListener('lumina-auth-state', () => {
 
 <script src="js/lumina-admin-media-replacer.js?v=20260917_autohide_final_v10"></script>
 <script src="lumina-admin-profile-suite.js?v=20261120_hud_off_default"></script>
-<script src="lumina-premium-video-avatar.js"></script>
+<script src="js/cc-lazy-video.js?v=20261123"></script>
+<script src="lumina-premium-video-avatar.js?v=20261123"></script>
 <script>
 
         // ── TOP NAV COLLAPSIBLE DRAWER CONTROLLER ──
@@ -16757,6 +16758,8 @@ window.initFeedCarousels = function(container) {
         var video = document.getElementById('vod-ad-video');
         if (!video) return;
         if (!video.paused) return; // already playing
+        // @007 23.11.2026: wideo ładuje js/cc-lazy-video.js dopiero przy przewinięciu — tu bez wymuszania.
+        if (video.querySelector('source[data-lazy-src]')) return;
         tryPlay(video);
 
         // On any user interaction, try to re-activate video

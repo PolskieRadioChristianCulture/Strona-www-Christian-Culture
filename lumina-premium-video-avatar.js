@@ -15,28 +15,28 @@
             id: 'preset_cezary_official',
             title: 'Cezary Rogowski • Oficjalne Wideo',
             badge: 'Założyciel CC',
-            url: 'wideo_profilowe_cezary_rogowski.mp4',
+            url: 'wideo_profilowe_cezary_rogowski.mp4?v=20261123',
             desc: 'Oficjalne wideo profilowe z charakterystycznym uśmiechem i logo Christian Culture'
         },
         {
             id: 'preset_wioletta_official',
             title: 'Wioletta Rogowska • Oficjalne Wideo',
             badge: 'Współzałożycielka CC',
-            url: 'wioletta_profile_video.mp4',
+            url: 'wioletta_profile_video.mp4?v=20261123',
             desc: 'Oficjalne wideo profilowe Współzałożycielki Christian Culture'
         },
         {
             id: 'preset_ccwomen_official',
             title: 'CC Women • Służba Kobiet CC',
             badge: 'Oficjalne CC Women',
-            url: 'wideo_profilowe_ccwomen.mp4',
+            url: 'wideo_profilowe_ccwomen.mp4?v=20261123',
             desc: 'Oficjalne wideo profilowe społeczności Christian Culture Women'
         },
         {
             id: 'preset_cc_store',
             title: 'Christian Culture • Oficjalne Wideo CC',
             badge: 'Polecane CC',
-            url: 'Reklama Sklep CC Karuzela Profili.mp4',
+            url: 'avatar_video_sklep_karuzela.mp4?v=20261123',
             desc: 'Dynamiczna pętla misyjna Christian Culture'
         },
         {
@@ -50,28 +50,28 @@
             id: 'preset_light_welcome',
             title: 'Cześć! Dobrze, że jesteś ✨',
             badge: 'Powitanie',
-            url: 'czesc_dobrze_ze_jestes.mp4',
+            url: 'czesc_dobrze_ze_jestes.mp4?v=20261123',
             desc: 'Ciepłe, osobiste powitanie chrześcijańskie'
         },
         {
             id: 'preset_shop_faith',
             title: 'Misja & Sklep CC • Dobre Dzieła',
             badge: 'Wsparcie Misji',
-            url: 'Reklama 2 Sklep CC.mp4',
+            url: 'avatar_video_sklep_cc2.mp4?v=20261123',
             desc: 'Wideo prezentujące dzieła wspierające ewangelizację'
         }
     ];
 
     // Domyślne przypisania wideo dla profili specjalnych (jeśli użytkownik jeszcze nie wgrał własnego)
     const SPECIAL_PROFILES_DEFAULT_VIDEOS = {
-        'cezaryrgowski': 'wideo_profilowe_cezary_rogowski.mp4',
-        'studiodobregoslowa': 'czesc_dobrze_ze_jestes.mp4',
-        'cctv': 'Reklama 2 Sklep CC.mp4',
-        'radiocc': 'Reklama Sklep CC Karuzela Profili.mp4',
-        'ccmen': 'Reklama Sklep CC Karuzela Profili.mp4',
-        'ccwomen': 'wideo_profilowe_ccwomen.mp4',
-        'osobowoscplus': 'czesc_dobrze_ze_jestes.mp4',
-        'wiolettarogowska': 'wioletta_profile_video.mp4',
+        'cezaryrgowski': 'wideo_profilowe_cezary_rogowski.mp4?v=20261123',
+        'studiodobregoslowa': 'czesc_dobrze_ze_jestes.mp4?v=20261123',
+        'cctv': 'avatar_video_sklep_cc2.mp4?v=20261123',
+        'radiocc': 'avatar_video_sklep_karuzela.mp4?v=20261123',
+        'ccmen': 'avatar_video_sklep_karuzela.mp4?v=20261123',
+        'ccwomen': 'wideo_profilowe_ccwomen.mp4?v=20261123',
+        'osobowoscplus': 'czesc_dobrze_ze_jestes.mp4?v=20261123',
+        'wiolettarogowska': 'wioletta_profile_video.mp4?v=20261123',
         'u_bibliaaudiochristianculture_3248': 'avatar_biblia_audio.gif',
         'bibliaaudio': 'avatar_biblia_audio.gif'
     };
@@ -614,7 +614,14 @@
                             }
                         };
 
-                        if (videoEl.getAttribute('data-src') !== videoUrl) {
+                        const lazyApi = window.ccLazyVideo;
+                        if (lazyApi && !videoEl.getAttribute('src') && videoEl.getAttribute('data-src') !== videoUrl) {
+                            // @007 23.11.2026: pobieraj dopiero, gdy awatar jest blisko ekranu (js/cc-lazy-video.js)
+                            videoEl.setAttribute('data-src', videoUrl);
+                            videoEl.setAttribute('preload', 'none');
+                            videoEl.setAttribute('data-lazy-src', videoUrl);
+                            lazyApi.observe(videoEl);
+                        } else if (videoEl.getAttribute('data-src') !== videoUrl) {
                             videoEl.setAttribute('data-src', videoUrl);
                             videoEl.src = videoUrl;
                             videoEl.load();

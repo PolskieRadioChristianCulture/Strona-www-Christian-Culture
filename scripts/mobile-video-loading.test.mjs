@@ -13,7 +13,8 @@ for (const file of ['lumina-tablica.html','lumina-tablica-light.html']) {
     assert.ok(start>=0 && end>start);
     assert.doesNotMatch(html,/vod_hity_kina\.gif/);
     assert.match(html,/<video id="vod-ad-video"[^>]*poster="vod_hity_kina_poster\.jpg"/);
-    assert.match(html,/<source src="vod_hity_kina\.mp4" type="video\/mp4">/);
+    // @007 23.11.2026: plik ładuje js/cc-lazy-video.js dopiero przy przewinięciu (data-lazy-src)
+    assert.match(html,/<source (?:data-lazy-)?src="vod_hity_kina\.mp4(?:\?v=\d+)?" type="video\/mp4">/);
     assert.ok(fs.statSync(new URL('../vod_hity_kina_poster.jpg',import.meta.url)).size < fs.statSync(new URL('../vod_hity_kina.gif',import.meta.url)).size * .05);
   });
   test(file+': rejected playback uses one cover and successful playback keeps the original player',async()=>{
