@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-23",
+      "topic": "Kalendarz 365 EkoCC (LP #20, eM) & Poniedziałkowy Impuls Kampanii Milion Drobnych Gestów — publikacja artykułu „Miłość do bliźniego w praktyce: jeden telefon, który może zmienić dzień” (/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien) oraz emisja inauguracyjna /milion-gestow na Tablicy LUMINA i platformie X",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-23",
       "topic": "Strategiczny Audyt CC Guardian 360 (36 prób / 12 serwisów × 3 ekrany), weryfikacja LUMINA & LUMI MESS, poprawki mobilnych celów dotykowych 44×44 px (/mojabiblia), synchronizacja indeksów wyszukiwarki @w, GA4 oraz panelu Kursu Codziennego — 100% PASS (Guardian, Mobile Premium, 700/701 CC Regression)",
       "agent": "A"
     },
