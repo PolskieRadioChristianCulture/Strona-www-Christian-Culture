@@ -9923,14 +9923,17 @@ function renderPublicChatMessages(messages) {
                 setTimeout(() => {
                     const targetEl = document.getElementById('msg_' + targetMsgId);
                     if (targetEl) {
-                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        targetEl.classList.add('chat-message-highlight');
+                        // @007 (L0 23.11.2026): wiadomość z powiadomienia od razu na środku + wyraźna złota ramka (6 s),
+                        // działa także przy wyłączonych animacjach systemu.
+                        targetEl.scrollIntoView({ behavior: 'auto', block: 'center' });
+                        targetEl.classList.add('chat-message-highlight', 'chat-message-target');
                         setTimeout(() => targetEl.classList.remove('chat-message-highlight'), 3000);
+                        setTimeout(() => targetEl.classList.remove('chat-message-target'), 6000);
                         window._targetChatMessageId = null;
                     } else {
                         scrollChatToBottom(box, false);
                     }
-                }, 100);
+                }, 150);
             } else if (!window._publicChatInitialScrollDone || wasNearBottom) {
                 scrollChatToBottom(box, window._publicChatInitialScrollDone ? true : false);
                 window._publicChatInitialScrollDone = true;

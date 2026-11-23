@@ -2556,3 +2556,13 @@ html.lumi-mess-page #directMessagesModal .lumi-composer-emoji-btn {
 
 
 
+
+/* @007 (L0 23.11.2026): wiadomość otwarta z powiadomienia push — stała, wyraźna złota ramka (6 s).
+   Bez animacji, więc widoczna także przy systemowym ograniczeniu ruchu. */
+.chat-message-target {
+    outline: 3px solid #D8AD57 !important;
+    outline-offset: 4px !important;
+    border-radius: 16px !important;
+    background-color: rgba(216, 173, 87, 0.16) !important;
+    box-shadow: 0 0 0 6px rgba(216, 173, 87, 0.18), 0 0 24px rgba(216, 173, 87, 0.35) !important;
+}

@@ -11709,14 +11709,17 @@ Słowo Ewangelii pokazuje postawę Jezusa, który z całkowitym spokojem i król
                 setTimeout(() => {
                     const targetEl = document.getElementById('msg_' + targetMsgId);
                     if (targetEl) {
-                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        targetEl.classList.add('chat-message-highlight');
+                        // @007 (L0 23.11.2026): wiadomość z powiadomienia od razu na środku + wyraźna złota ramka (6 s),
+                        // działa także przy wyłączonych animacjach systemu.
+                        targetEl.scrollIntoView({ behavior: 'auto', block: 'center' });
+                        targetEl.classList.add('chat-message-highlight', 'chat-message-target');
                         setTimeout(() => targetEl.classList.remove('chat-message-highlight'), 3000);
+                        setTimeout(() => targetEl.classList.remove('chat-message-target'), 6000);
                         window._targetChatMessageId = null;
                     } else {
                         scrollChatToBottom(box, false);
                     }
-                }, 100);
+                }, 150);
             } else if (!window._publicChatInitialScrollDone || wasNearBottom) {
                 scrollChatToBottom(box, window._publicChatInitialScrollDone ? true : false);
                 window._publicChatInitialScrollDone = true;
@@ -14806,26 +14809,57 @@ window.addEventListener('lumina-auth-state', () => {
                     history.replaceState(history.state, '', clean.pathname + (clean.search || '') + (clean.hash && !clean.hash.includes('=') ? clean.hash : ''));
                 } catch (_) {}
             } else if (openPublic) {
-                let attempts = 0;
-                const tryOpenPublic = () => {
-                    attempts++;
-                    const modal = document.getElementById('publicChatModal') || document.getElementById('directMessagesModal');
-                    if (modal) {
-                        modal.style.display = 'flex';
-                        modal.classList.add('open');
-                        if (typeof switchMessengerMainTab === 'function') switchMessengerMainTab('public');
-                    } else if (attempts < 30) {
-                        setTimeout(tryOpenPublic, 150);
-                    }
-                };
-                tryOpenPublic();
+                window.luminaOpenPublicChatAt(msgId);
+                // Usuń parametry, żeby powrót do karty (focus) nie otwierał czatu i nie przewijał ponownie.
+                try {
+                    const clean = new URL(window.location.href);
+                    ['openPublicChat', 'publicChat', 'messageId', 'msgId'].forEach(k => clean.searchParams.delete(k));
+                    history.replaceState(history.state, '', clean.pathname + (clean.search || '') + (clean.hash && !clean.hash.includes('=') ? clean.hash : ''));
+                } catch (_) {}
             }
         }
+
+        // @007 (L0 23.11.2026): otwórz Czat Ogólny i pokaż wiadomość z powiadomienia (środek okna + złota ramka).
+        window.luminaOpenPublicChatAt = function(msgId) {
+            if (msgId) window._targetChatMessageId = msgId;
+            let attempts = 0;
+            const tryOpenPublic = () => {
+                attempts++;
+                const modal = document.getElementById('publicChatModal') || document.getElementById('directMessagesModal');
+                if (modal) {
+                    modal.style.display = 'flex';
+                    modal.classList.add('open');
+                    if (typeof switchMessengerMainTab === 'function') switchMessengerMainTab('public');
+                    if (msgId) focusTargetMessage(0);
+                } else if (attempts < 30) {
+                    setTimeout(tryOpenPublic, 150);
+                }
+            };
+            // Gdy czat był już otwarty i wiadomość jest na liście — przewiń bez czekania na przerysowanie.
+            const focusTargetMessage = (n) => {
+                const el = document.getElementById('msg_' + msgId);
+                if (el && window._targetChatMessageId === msgId) {
+                    el.scrollIntoView({ behavior: 'auto', block: 'center' });
+                    el.classList.add('chat-message-highlight', 'chat-message-target');
+                    setTimeout(() => el.classList.remove('chat-message-highlight'), 3000);
+                    setTimeout(() => el.classList.remove('chat-message-target'), 6000);
+                    window._targetChatMessageId = null;
+                } else if (window._targetChatMessageId === msgId && n < 25) {
+                    setTimeout(() => focusTargetMessage(n + 1), 300);
+                }
+            };
+            tryOpenPublic();
+        };
 
         // Listener for Service Worker postMessage
         const onChatMsgEvent = (event) => {
             if (event.data && event.data.type === 'OPEN_LUMINA_CHAT') {
                 const chatData = event.data.chatData || {};
+                // Czat ogólny: nigdy nie otwieraj prywatnej rozmowy z autorem wiadomości.
+                if (chatData.type === 'public') {
+                    window.luminaOpenPublicChatAt(chatData.messageId || null);
+                    return;
+                }
                 const senderId = chatData.senderId || chatData.openChat;
                 if (senderId) {
                     openChatByTargetUser(senderId, chatData.messageId, { name: chatData.senderName || '', reply: !!chatData.reply });

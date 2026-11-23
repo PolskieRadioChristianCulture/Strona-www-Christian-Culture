@@ -74,7 +74,7 @@ try {
             actions = [
                 { action: 'open', title: '💬 Dołącz do rozmowy' }
             ];
-            urlToOpen = '/lumina?openPublicChat=1';
+            urlToOpen = '/lumina?openPublicChat=1' + (data.messageId ? '&messageId=' + encodeURIComponent(data.messageId) : '');
         } else if (type === 'daily_mission') {
             actions = [
                 { action: 'prayer', title: '🙏 Pomódl się' },
@@ -121,7 +121,7 @@ try {
 // High-performance caching, stale-while-revalidate & offline navigation
 // ══════════════════════════════════════════════════════════════════════════
 
-const CACHE_NAME = 'lumina-pwa-cache-v4.2.5-20261123-push-icons';
+const CACHE_NAME = 'lumina-pwa-cache-v4.2.6-20261123-chat-target';
 const APP_SHELL_ASSETS = [
     './',
     './lumina.html',
@@ -355,7 +355,8 @@ function handleLuminaNotificationClickDefault(event) {
 
     const sender = data.senderId || data.senderSlug || data.chatPartnerId || data.openChat || (data.data && (data.data.senderId || data.data.senderSlug || data.data.openChat));
     const msgId = data.messageId || data.msgId || (data.data && (data.data.messageId || data.data.msgId));
-    const isPublic = data.type === 'public' || data.type === 'public_chat' || data.openPublicChat || (data.data && data.data.type === 'public');
+    const isPublic = data.type === 'public' || data.type === 'public_chat' || data.openPublicChat || (data.data && data.data.type === 'public')
+        || (data.type === 'mention' && (data.roomId || 'public') === 'public'); // @wzmianka z czatu ogólnego → czat ogólny, nie rozmowa prywatna
 
     if (action === 'revolut' || action === 'support') {
         if (clients.openWindow) {
@@ -387,7 +388,8 @@ function handleLuminaNotificationClickDefault(event) {
             ? data.url 
             : `/lumina-tablica.html?postId=${encodeURIComponent(postId || '')}${authorSlug ? '&author=' + encodeURIComponent(authorSlug) : ''}`;
     } else if (isPublic) {
-        targetUrl = `/lumina?openPublicChat=1`;
+        // @007 (L0 23.11.2026): otwórz czat ogólny od razu przy tej wiadomości (przewinięcie + złota ramka).
+        targetUrl = `/lumina?openPublicChat=1` + (msgId ? '&messageId=' + encodeURIComponent(msgId) : '');
     } else if (sender) {
         // Prywatna wiadomość: zawsze kanoniczny LUMI Messenger (/mess) i konkretny pokój rozmowy.
         const senderName = String(data.senderName || '').slice(0, 80);
@@ -412,7 +414,8 @@ function handleLuminaNotificationClickDefault(event) {
         type: 'OPEN_LUMINA_CHAT',
         targetUrl: fullTargetUrl,
         chatData: {
-            senderId: sender,
+            // Czat ogólny: bez nadawcy — inaczej strona otworzyłaby prywatną rozmowę z autorem zamiast czatu ogólnego.
+            senderId: isPublic ? '' : sender,
             senderName: data.senderName || '',
             senderAvatar: data.avatar || data.icon || 'lumina_icon.jpg',
             type: isPublic ? 'public' : 'private',
