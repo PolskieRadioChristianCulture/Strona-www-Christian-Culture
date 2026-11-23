@@ -484,9 +484,14 @@
 /test/adventist-world/ /test/adventist-world/index.html 200
 /test/adventist-world/en /test/adventist-world/en/index.html 200
 /test/adventist-world/en/ /test/adventist-world/en/index.html 200
-# === BIBLIOTEKA PIONIERÓW PARTIA 01 PREVIEW (noindex,nofollow) ===
-/test/biblioteka-pionierow /test/biblioteka-pionierow/index.html 200
-/test/biblioteka-pionierow/ /test/biblioteka-pionierow/index.html 200
+# === BIBLIOTEKA PIONIERÓW CHRISTIAN CULTURE (/biblioteka-pionierow, /pionierzy) ===
+/biblioteka-pionierow /biblioteka-pionierow/index.html 200
+/biblioteka-pionierow/ /biblioteka-pionierow/index.html 200
+/pionierzy /biblioteka-pionierow/ 301
+/pionierzy/ /biblioteka-pionierow/ 301
+/test/biblioteka-pionierow /biblioteka-pionierow/ 301
+/test/biblioteka-pionierow/ /biblioteka-pionierow/ 301
+/test/biblioteka-pionierow/ksiazka/* /biblioteka-pionierow/ksiazka/:splat 301
 /lumina/studiodobregoslowa /lumina.studiodobregoslowa 200
 /lumina/studio-dobrego-slowa /lumina.studiodobregoslowa 200
 /studiodobregoslowa /lumina.studiodobregoslowa 200

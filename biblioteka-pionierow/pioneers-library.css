@@ -1121,6 +1121,20 @@ input {
   .bp-detail-panel {
     padding: 20px;
   }
+
+  .bp-support-cta {
+    padding: 0 11px !important;
+    min-width: 44px;
+  }
+
+  .bp-support-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

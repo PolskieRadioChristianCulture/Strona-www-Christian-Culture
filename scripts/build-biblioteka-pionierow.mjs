@@ -1,17 +1,26 @@
 #!/usr/bin/env node
 /**
- * Deterministic generator for /test/biblioteka-pionierow/ (Partia 01: books 001–010)
- * Reads test/biblioteka-pionierow/data/partia-01.json and generates:
- *   - test/biblioteka-pionierow/index.html
- *   - test/biblioteka-pionierow/ksiazka/<slug>/index.html (10 individual Book pages with JSON-LD Book)
+ * Deterministic generator for /biblioteka-pionierow/ (Partia 01: books 001–010)
+ * Reads biblioteka-pionierow/data/partia-01.json and generates:
+ *   - biblioteka-pionierow/index.html
+ *   - biblioteka-pionierow/ksiazka/<slug>/index.html (10 individual Book pages with JSON-LD Book)
  */
 import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = process.cwd();
-const BASE_DIR = path.join(ROOT, 'test', 'biblioteka-pionierow');
+const BASE_DIR = path.join(ROOT, 'biblioteka-pionierow');
 const DATA_PATH = path.join(BASE_DIR, 'data', 'partia-01.json');
-const ASSET_VER = '20261123p1';
+const ASSET_VER = '20261123prod1';
+const GA4_HEAD_SNIPPET = `  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+  </script>
+  <script src="/js/cc-analytics.js?v=20261026_1" defer></script>`;
 
 function escHtml(str) {
   return String(str ?? '')
@@ -27,7 +36,7 @@ function safeJsonForScript(obj) {
 }
 
 function buildBookJsonLd(book, siteOrigin = 'https://polskieradio.cc') {
-  const pageUrl = `${siteOrigin}/test/biblioteka-pionierow/ksiazka/${book.slug}/`;
+  const pageUrl = `${siteOrigin}/biblioteka-pionierow/ksiazka/${book.slug}/`;
   return {
     '@context': 'https://schema.org',
     '@type': 'Book',
@@ -64,12 +73,10 @@ function buildBookJsonLd(book, siteOrigin = 'https://polskieradio.cc') {
 }
 
 function renderNav(isDetail = false) {
-  const catalogHref = isDetail ? '/test/biblioteka-pionierow/' : '#katalog';
-  return `  <div class="bp-testbar" role="status" data-i18n="testbar">Podgląd testowy (noindex) · Biblioteka Pionierów — Partia 01 (001–010 z 428 tomów) · Christian Culture</div>
-
-  <nav class="bp-nav" aria-label="Nawigacja główna">
+  const catalogHref = isDetail ? '/biblioteka-pionierow/' : '#katalog';
+  return `  <nav class="bp-nav" aria-label="Nawigacja główna">
     <div class="bp-wrap bp-nav-inner">
-      <a class="bp-brand" href="/test/biblioteka-pionierow/">
+      <a class="bp-brand" href="/biblioteka-pionierow/">
         <span class="bp-brand-mark" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <path d="M2 6.5C2 5.4 2.9 4.5 4 4.5h5.5A3.5 3.5 0 0 1 13 8v12a2.5 2.5 0 0 0-2.5-2.5H4a2 2 0 0 1-2-2v-9Z"/>
@@ -82,10 +89,14 @@ function renderNav(isDetail = false) {
         </span>
       </a>
 
-      <div class="bp-nav-actions">
+      <div class="bp-nav-actions header-right">
         <a class="bp-nav-link" href="${catalogHref}" data-pl="Katalog (001–010)" data-en="Catalog (001–010)">Katalog (001–010)</a>
         <a class="bp-nav-link" href="/biblioteka" data-pl="CCN Biblioteka" data-en="CCN Library">CCN Biblioteka</a>
         <a class="bp-nav-link" href="/mojabiblia" data-pl="MojaBiblia" data-en="MyBible">MojaBiblia</a>
+        <a class="bp-btn bp-btn-primary bp-support-cta" style="min-height:44px;padding:8px 14px;font-size:0.86rem;" href="/wspieraj" aria-label="Wspieram to — wsparcie misji Christian Culture">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <span class="bp-support-text" data-pl="Wspieram to" data-en="Support">Wspieram to</span>
+        </a>
         <button type="button" class="bp-icon-btn" data-cc-omni-search aria-label="Otwórz wyszukiwarkę ekosystemu Christian Culture">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"/>
@@ -104,7 +115,7 @@ function renderNav(isDetail = false) {
 function renderFooter() {
   return `  <footer class="bp-footer">
     <div class="bp-wrap bp-footer-inner">
-      <p class="bp-footer-copy" data-pl="© Christian Culture · Biblioteka Pionierów (Podgląd testowy Partii 01: tomy 001–010 z 428) · Otwarty dostęp PDF." data-en="© Christian Culture · Pioneers Library (Preview Batch 01: volumes 001–010 of 428) · Free public PDF access.">© Christian Culture · Biblioteka Pionierów (Podgląd testowy Partii 01: tomy 001–010 z 428) · Otwarty dostęp PDF.</p>
+      <p class="bp-footer-copy" data-pl="© Christian Culture · Biblioteka Pionierów (Partia 01: tomy 001–010 z 428) · Otwarty dostęp PDF." data-en="© Christian Culture · Pioneers Library (Batch 01: volumes 001–010 of 428) · Free public PDF access.">© Christian Culture · Biblioteka Pionierów (Partia 01: tomy 001–010 z 428) · Otwarty dostęp PDF.</p>
       <div class="bp-footer-links">
         <a class="bp-nav-link" href="/">PolskieRadio.cc</a>
         <a class="bp-nav-link" href="/biblioteka">CCN Biblioteka</a>
@@ -125,7 +136,7 @@ function renderIndexPage(catalog) {
     '@type': 'CollectionPage',
     name: 'Biblioteka Pionierów Christian Culture — Partia 01 (001–010)',
     alternateName: 'Christian Culture Pioneers Library — Batch 01 (001–010)',
-    url: 'https://polskieradio.cc/test/biblioteka-pionierow/',
+    url: 'https://polskieradio.cc/biblioteka-pionierow/',
     inLanguage: ['pl', 'en'],
     isAccessibleForFree: true,
     publisher: {
@@ -166,7 +177,7 @@ function renderIndexPage(catalog) {
         ...(book.tags || []),
       ].join(' ');
 
-      const detailUrl = `/test/biblioteka-pionierow/ksiazka/${book.slug}/`;
+      const detailUrl = `/biblioteka-pionierow/ksiazka/${book.slug}/`;
       return `        <li class="bp-card" data-book-card data-author="${escHtml(book.author)}" data-search="${escHtml(searchTokens)}">
           <div class="bp-card-media">
             <a href="${detailUrl}" aria-label="${escHtml(book.titlePl)} — ${escHtml(book.author)}">
@@ -201,14 +212,18 @@ function renderIndexPage(catalog) {
   return `<!DOCTYPE html>
 <html lang="pl" dir="ltr">
 <head>
+${GA4_HEAD_SNIPPET}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="robots" content="noindex, nofollow" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="theme-color" content="#04070f" />
   <title>Biblioteka Pionierów — Partia 01 (001–010) | Christian Culture</title>
-  <meta name="description" content="Podgląd testowy Biblioteki Pionierów Christian Culture: klasyczne dzieła E. J. Waggonera, A. T. Jonesa, W. W. Prescotta, Uriaha Smitha, J. N. Andrewsa i S. N. Haskella w bezpłatnym dostępie PDF." />
+  <meta name="description" content="Biblioteka Pionierów Christian Culture: klasyczne dzieła E. J. Waggonera, A. T. Jonesa, W. W. Prescotta, Uriaha Smitha, J. N. Andrewsa i S. N. Haskella w bezpłatnym dostępie PDF (Partia 01: tomy 001–010 z 428)." />
+  <link rel="canonical" href="https://polskieradio.cc/biblioteka-pionierow/" />
+  <link rel="icon" type="image/png" href="/app-christian-culture.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Christian Culture" />
+  <meta property="og:url" content="https://polskieradio.cc/biblioteka-pionierow/" />
   <meta property="og:title" content="Biblioteka Pionierów — Partia 01 (001–010) | Christian Culture" />
   <meta property="og:description" content="10 fundamentalnych dzieł pionierów wiary w otwartym archiwum cyfrowym Christian Culture (opisy PL + EN, bezpłatne PDF)." />
   <meta property="og:image" content="https://polskieradio.cc${escHtml(featured.coverWebp)}" />
@@ -217,12 +232,12 @@ function renderIndexPage(catalog) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/test/biblioteka-pionierow/pioneers-library.css?v=${ASSET_VER}" />
+  <link rel="stylesheet" href="/biblioteka-pionierow/pioneers-library.css?v=${ASSET_VER}" />
   <script type="application/ld+json">
 ${safeJsonForScript(collectionJsonLd)}
   </script>
   <script src="/components/cc-omni-search.js" defer></script>
-  <script src="/test/biblioteka-pionierow/pioneers-library.js?v=${ASSET_VER}" defer></script>
+  <script src="/biblioteka-pionierow/pioneers-library.js?v=${ASSET_VER}" defer></script>
 </head>
 <body>
   <div class="bp-backdrop" aria-hidden="true"></div>
@@ -271,7 +286,7 @@ ${renderNav(false)}
           <p class="bp-featured-desc" data-pl="${escHtml(featured.summaryPl)}" data-en="${escHtml(featured.summaryEn)}">${escHtml(featured.summaryPl)}</p>
           <div class="bp-featured-actions">
             <a class="bp-btn bp-btn-primary" href="${escHtml(featured.pdfUrl)}" target="_blank" rel="noopener noreferrer" data-pl="Pobierz PDF (${featured.pdfSizeMb.toFixed(2)} MB)" data-en="Download PDF (${featured.pdfSizeMb.toFixed(2)} MB)">Pobierz PDF (${featured.pdfSizeMb.toFixed(2)} MB)</a>
-            <a class="bp-btn bp-btn-gold" href="/test/biblioteka-pionierow/ksiazka/${featured.slug}/" data-i18n="featuredDetails">Karta książki</a>
+            <a class="bp-btn bp-btn-gold" href="/biblioteka-pionierow/ksiazka/${featured.slug}/" data-i18n="featuredDetails">Karta książki</a>
           </div>
         </div>
       </article>
@@ -337,7 +352,7 @@ ${cardsHtml}
           </div>
           <div class="bp-info-card">
             <h3 data-pl="Kolekcja rozbudowywana partiami" data-en="Expanding batch by batch">Kolekcja rozbudowywana partiami</h3>
-            <p data-pl="Partia 01 obejmuje tomy 001–010. Po akceptacji wyglądu i architektury kolejne partie zasilą docelową Bibliotekę na polskieradio.cc/biblioteka." data-en="Batch 01 covers volumes 001–010. Once this preview is approved, subsequent batches will expand the production library at polskieradio.cc/biblioteka.">Partia 01 obejmuje tomy 001–010. Po akceptacji wyglądu i architektury kolejne partie zasilą docelową Bibliotekę na polskieradio.cc/biblioteka.</p>
+            <p data-pl="Partia 01 obejmuje tomy 001–010 z 428. Kolekcja jest systematycznie rozbudowywana o kolejne partie po 10 tomów w otwartym archiwum Christian Culture." data-en="Batch 01 covers volumes 001–010 of 428. The collection is systematically expanded in batches of 10 volumes in the open Christian Culture archive.">Partia 01 obejmuje tomy 001–010 z 428. Kolekcja jest systematycznie rozbudowywana o kolejne partie po 10 tomów w otwartym archiwum Christian Culture.</p>
           </div>
         </div>
       </div>
@@ -358,7 +373,7 @@ ${cardsHtml}
           <p id="bpModalDesc" class="bp-featured-desc"></p>
           <div class="bp-featured-actions">
             <a id="bpModalPdf" class="bp-btn bp-btn-primary" href="${escHtml(featured.pdfUrl)}" target="_blank" rel="noopener noreferrer">Pobierz PDF</a>
-            <a id="bpModalPage" class="bp-btn bp-btn-gold" href="/test/biblioteka-pionierow/ksiazka/${featured.slug}/">Karta książki</a>
+            <a id="bpModalPage" class="bp-btn bp-btn-gold" href="/biblioteka-pionierow/ksiazka/${featured.slug}/">Karta książki</a>
           </div>
         </div>
       </div>
@@ -377,7 +392,7 @@ ${renderFooter()}
 
 function renderBookPage(book, prevBook, nextBook) {
   const jsonLd = buildBookJsonLd(book);
-  const pageUrl = `https://polskieradio.cc/test/biblioteka-pionierow/ksiazka/${book.slug}/`;
+  const pageUrl = `https://polskieradio.cc/biblioteka-pionierow/ksiazka/${book.slug}/`;
 
   const highlightsHtml = book.highlightsPl
     .map((hPl, i) => {
@@ -387,21 +402,21 @@ function renderBookPage(book, prevBook, nextBook) {
     .join('\n');
 
   const prevHtml = prevBook
-    ? `        <a class="bp-pager-card" href="/test/biblioteka-pionierow/ksiazka/${prevBook.slug}/">
+    ? `        <a class="bp-pager-card" href="/biblioteka-pionierow/ksiazka/${prevBook.slug}/">
           <span class="bp-pager-label" data-pl="← Poprzedni tom (#${prevBook.id})" data-en="← Previous volume (#${prevBook.id})">← Poprzedni tom (#${prevBook.id})</span>
           <span class="bp-pager-title" data-pl="${escHtml(prevBook.titlePl)}" data-en="${escHtml(prevBook.titleEn)}">${escHtml(prevBook.titlePl)}</span>
         </a>`
-    : `        <a class="bp-pager-card" href="/test/biblioteka-pionierow/">
+    : `        <a class="bp-pager-card" href="/biblioteka-pionierow/">
           <span class="bp-pager-label" data-pl="← Katalog Partii 01" data-en="← Batch 01 Catalog">← Katalog Partii 01</span>
           <span class="bp-pager-title" data-pl="Wszystkie 10 tomów" data-en="All 10 volumes">Wszystkie 10 tomów</span>
         </a>`;
 
   const nextHtml = nextBook
-    ? `        <a class="bp-pager-card is-next" href="/test/biblioteka-pionierow/ksiazka/${nextBook.slug}/">
+    ? `        <a class="bp-pager-card is-next" href="/biblioteka-pionierow/ksiazka/${nextBook.slug}/">
           <span class="bp-pager-label" data-pl="Następny tom (#${nextBook.id}) →" data-en="Next volume (#${nextBook.id}) →">Następny tom (#${nextBook.id}) →</span>
           <span class="bp-pager-title" data-pl="${escHtml(nextBook.titlePl)}" data-en="${escHtml(nextBook.titleEn)}">${escHtml(nextBook.titlePl)}</span>
         </a>`
-    : `        <a class="bp-pager-card is-next" href="/test/biblioteka-pionierow/">
+    : `        <a class="bp-pager-card is-next" href="/biblioteka-pionierow/">
           <span class="bp-pager-label" data-pl="Powrót do spisu →" data-en="Back to index →">Powrót do spisu →</span>
           <span class="bp-pager-title" data-pl="Biblioteka Pionierów (Partia 01)" data-en="Pioneers Library (Batch 01)">Biblioteka Pionierów (Partia 01)</span>
         </a>`;
@@ -409,14 +424,18 @@ function renderBookPage(book, prevBook, nextBook) {
   return `<!DOCTYPE html>
 <html lang="pl" dir="ltr">
 <head>
+${GA4_HEAD_SNIPPET}
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="robots" content="noindex, nofollow" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="theme-color" content="#04070f" />
   <title>${escHtml(book.titlePl)} — ${escHtml(book.author)} | Biblioteka Pionierów CC</title>
   <meta name="description" content="${escHtml(book.summaryPl)}" />
+  <link rel="canonical" href="${escHtml(pageUrl)}" />
+  <link rel="icon" type="image/png" href="/app-christian-culture.png" />
   <meta property="og:type" content="book" />
   <meta property="og:site_name" content="Christian Culture" />
+  <meta property="og:url" content="${escHtml(pageUrl)}" />
   <meta property="og:title" content="${escHtml(book.titlePl)} (${escHtml(book.titleEn)}) — ${escHtml(book.author)}" />
   <meta property="og:description" content="${escHtml(book.summaryPl)}" />
   <meta property="og:image" content="https://polskieradio.cc${escHtml(book.coverWebp)}" />
@@ -425,12 +444,12 @@ function renderBookPage(book, prevBook, nextBook) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/test/biblioteka-pionierow/pioneers-library.css?v=${ASSET_VER}" />
+  <link rel="stylesheet" href="/biblioteka-pionierow/pioneers-library.css?v=${ASSET_VER}" />
   <script type="application/ld+json">
 ${safeJsonForScript(jsonLd)}
   </script>
   <script src="/components/cc-omni-search.js" defer></script>
-  <script src="/test/biblioteka-pionierow/pioneers-library.js?v=${ASSET_VER}" defer></script>
+  <script src="/biblioteka-pionierow/pioneers-library.js?v=${ASSET_VER}" defer></script>
 </head>
 <body>
   <div class="bp-backdrop" aria-hidden="true"></div>
@@ -440,7 +459,7 @@ ${renderNav(true)}
 
   <main id="bookMain" class="bp-wrap">
     <nav class="bp-breadcrumb" aria-label="Ścieżka nawigacji">
-      <a href="/test/biblioteka-pionierow/" data-i18n="detailBack">← Powrót do Partii 01</a>
+      <a href="/biblioteka-pionierow/" data-i18n="detailBack">← Powrót do Partii 01</a>
       <span aria-hidden="true">/</span>
       <span>#${escHtml(book.id)} · ${escHtml(book.author)}</span>
     </nav>

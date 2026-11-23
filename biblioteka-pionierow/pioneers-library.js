@@ -7,7 +7,6 @@
 
   const UI_COPY = {
     pl: {
-      testbar: 'Podgląd testowy (noindex) · Biblioteka Pionierów — Partia 01 (001–010 z 428 tomów) · Christian Culture',
       eyebrow: 'Christian Culture · Dziedzictwo Pionierów',
       heroTitleStart: 'Biblioteka',
       heroTitleAccent: 'Pionierów',
@@ -41,7 +40,6 @@
       detailPdfNote: 'Oryginalne wydanie angielskie w formacie PDF (otwarty dostęp, bez rejestracji).',
     },
     en: {
-      testbar: 'Preview environment (noindex) · Pioneers Library — Batch 01 (001–010 of 428 volumes) · Christian Culture',
       eyebrow: 'Christian Culture · Pioneer Heritage',
       heroTitleStart: 'Pioneers',
       heroTitleAccent: 'Library',
@@ -234,7 +232,7 @@
       descEl.textContent = isEn ? book.descriptionEn : book.descriptionPl;
       pdfEl.href = book.pdfUrl;
       pdfEl.textContent = `${(UI_COPY[currentLang] || UI_COPY.pl).btnDownload} (${book.pdfSizeMb.toFixed(2)} MB)`;
-      pageEl.href = `/test/biblioteka-pionierow/ksiazka/${book.slug}/`;
+      pageEl.href = `/biblioteka-pionierow/ksiazka/${book.slug}/`;
       pageEl.textContent = (UI_COPY[currentLang] || UI_COPY.pl).btnDetails;
 
       modal.hidden = false;

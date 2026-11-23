@@ -5,8 +5,8 @@
   "totalCatalogBooks": 428,
   "publishedInPreview": 10,
   "updatedAt": "2026-11-23",
-  "previewBaseUrl": "/test/biblioteka-pionierow/",
-  "canonicalPreviewUrl": "https://polskieradio.cc/test/biblioteka-pionierow/",
+  "baseUrl": "/biblioteka-pionierow/",
+  "canonicalUrl": "https://polskieradio.cc/biblioteka-pionierow/",
   "books": [
     {
       "id": "001",

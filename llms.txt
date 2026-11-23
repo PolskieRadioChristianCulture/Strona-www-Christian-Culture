@@ -179,17 +179,17 @@
     - *Zakres*: Główny portal informacyjny: aktualności z Polski i ze świata, sytuacja Kościoła Prześladowanego, rzetelne fakty i publicystyka.
 17. **CCN Biblioteka** — https://polskieradio.cc/biblioteka
     - *Zakres*: Książki chrześcijańskie, e-booki, audiobooki, klasyka literatury duchowej, traktaty ewangelizacyjne.
-    - *Biblioteka Pionierów (Partia 01 — podgląd testowy 001–010 z 428 tomów)*: https://polskieradio.cc/test/biblioteka-pionierow/ — bezpłatne klasyczne tomy PDF z opisami PL/EN i danymi JSON-LD `Book`:
-      - **001**: E. J. Waggoner — *Chrystus i Jego sprawiedliwość* (*Christ and His Righteousness*, 1890)
-      - **002**: E. J. Waggoner — *Dobra Nowina (List do Galacjan)* (*The Glad Tidings*, 1900)
-      - **003**: E. J. Waggoner — *Wieczne Przymierze* (*The Everlasting Covenant*, 1900)
-      - **004**: A. T. Jones — *Poświęcona droga do chrześcijańskiej doskonałości* (*The Consecrated Way to Christian Perfection*, 1905)
-      - **005**: A. T. Jones — *Dwie Republiki — Rzym a Stany Zjednoczone* (*The Two Republics, or Rome and the United States of America*, 1891)
-      - **006**: W. W. Prescott — *Nauka Chrystusa* (*The Doctrine of Christ*, 1920)
-      - **007**: W. W. Prescott — *Zwycięstwo w Chrystusie* (*Victory in Christ*, 1919)
-      - **008**: Uriah Smith — *Księga Daniela i Apokalipsa* (*Daniel and The Revelation*, 1897)
-      - **009**: J. N. Andrews — *Historia Sabatu i pierwszego dnia tygodnia* (*History of the Sabbath and First Day of the Week*, 1873)
-      - **010**: Stephen N. Haskell — *Krzyż i jego cień* (*The Cross and its Shadow*, 1914)
+    - *Biblioteka Pionierów Christian Culture (Partia 01: 001–010 z 428 tomów)*: https://polskieradio.cc/biblioteka-pionierow/ — bezpłatne klasyczne tomy PDF z opisami PL/EN i danymi JSON-LD `Book`:
+      - **001**: E. J. Waggoner — *Chrystus i Jego sprawiedliwość* (*Christ and His Righteousness*, 1890) — https://polskieradio.cc/biblioteka-pionierow/ksiazka/e-j-waggoner-christ-and-his-righteousness/
+      - **002**: E. J. Waggoner — *Dobra Nowina (List do Galacjan)* (*The Glad Tidings*, 1900) — https://polskieradio.cc/biblioteka-pionierow/ksiazka/e-j-waggoner-the-glad-tidings/
+      - **003**: E. J. Waggoner — *Wieczne Przymierze* (*The Everlasting Covenant*, 1900) — https://polskieradio.cc/biblioteka-pionierow/ksiazka/e-j-waggoner-the-everlasting-covenant/
+      - **004**: A. T. Jones — *Poświęcona droga do chrześcijańskiej doskonałości* (*The Consecrated Way to Christian Perfection*, 1905) — https://polskieradio.cc/biblioteka-pionierow/ksiazka/a-t-jones-the-consecrated-way-to-christian-perfection/
+      - **005**: A. T. Jones — *Dwie Republiki — Rzym a Stany Zjednoczone* (*The Two Republics, or Rome and the United States of America*, 1891) — https://polskieradio.cc/biblioteka-pionierow/ksiazka/a-t-jones-the-two-republics-or-rome-and-the-united-states-of-america/
+      - **006**: W. W. Prescott — *Nauka Chrystusa* (*The Doctrine of Christ*, 1920) — https://polskieradio.cc/biblioteka-pionierow/ksiazka/w-w-prescott-the-doctrine-of-christ/
+      - **007**: W. W. Prescott — *Zwycięstwo w Chrystusie* (*Victory in Christ*, 1919) — https://polskieradio.cc/biblioteka-pionierow/ksiazka/w-w-prescott-victory-in-christ/
+      - **008**: Uriah Smith — *Księga Daniela i Apokalipsa* (*Daniel and The Revelation*, 1897) — https://polskieradio.cc/biblioteka-pionierow/ksiazka/uriah-smith-daniel-and-the-revelation/
+      - **009**: J. N. Andrews — *Historia Sabatu i pierwszego dnia tygodnia* (*History of the Sabbath and First Day of the Week*, 1873) — https://polskieradio.cc/biblioteka-pionierow/ksiazka/j-n-andrews-history-of-the-sabbath-and-first-day-of-the-week/
+      - **010**: Stephen N. Haskell — *Krzyż i jego cień* (*The Cross and its Shadow*, 1914) — https://polskieradio.cc/biblioteka-pionierow/ksiazka/stephen-n-haskell-the-cross-and-its-shadow/
 18. **CCN Misje & Świadectwa** — https://polskieradio.cc/misje
     - *Zakres*: Świadectwa nawróceń, relacje z misji krajowych i zagranicznych, cuda Bożej łaski we współczesnym świecie.
 19. **CCN Współpraca Misyjna** — https://polskieradio.cc/wspolpraca
