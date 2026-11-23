@@ -207,7 +207,11 @@ export function buildV7EpisodesInventory() {
     '29_1-35': 'Jakub u Labana, Lea i Rachela',
     '30_1-43': 'Narodziny Synów Jakuba i Józefa oraz Błogosławieństwo PANA',
     '31_1-55': 'Powrót Jakuba do Kanaanu i Przymierze w Gilead',
-    '32_1-32': 'Modlitwa Jakuba nad Jabbokiem, Walka z Bogiem w Peniel i Nowe Imię Izrael'
+    '32_1-32': 'Modlitwa Jakuba nad Jabbokiem, Walka z Bogiem w Peniel i Nowe Imię Izrael',
+    '33_1-20': 'Pojednanie Jakuba i Ezawa',
+    '34_1-31': 'Hańba Diny i Zemsta Synów Jakuba',
+    '35_1-29': 'Powrót do Betel, Nowe Imię Izrael i Pożegnanie Racheli oraz Izaaka',
+    '36_1-43': 'Ród Ezawa, Książęta Seiru i Królowie Edomu'
   };
 
   const items = [];
@@ -522,25 +526,27 @@ export async function publishEpisodeToSpotify(episodeItem, { headless = true, ex
 
     // 5. Krok 3 (Zweryfikuj -> review-form): Zaznacz wymagane pole "Data publikacji*: Teraz" (input#publish-date-now)
     await dismissCookieBanner();
-    const terazRadio = page.locator('label:has-text("Teraz"), input#publish-date-now[name="wizardPublishDateSelection"]').first();
-    if (await terazRadio.isVisible().catch(() => false)) {
-      await terazRadio.click({ force: true }).catch(() => {});
-    } else {
-      await page.evaluate(() => {
-        const r = document.querySelector('input#publish-date-now');
-        if (r) r.click();
-      }).catch(() => {});
+    const terazInput = page.locator('input#publish-date-now[name="wizardPublishDateSelection"]').first();
+    const terazLabel = page.locator('label[for="publish-date-now"], label:has-text("Teraz")').first();
+    if (await terazLabel.isVisible().catch(() => false)) {
+      await terazLabel.click({ force: true }).catch(() => {});
+    }
+    if (!(await terazInput.isChecked().catch(() => false))) {
+      await terazInput.check({ force: true }).catch(() => {});
     }
     await sleep(1500);
 
-    // 6. Kliknij Opublikuj / Publish (button[form="review-form"])
+    // 6. Kliknij Opublikuj / Publish (button[form="review-form"]) — czekaj do 15 minut na zakończenie uploadu i transkodowania
     const publishBtn = page
       .locator('button[form="review-form"], button[data-encore-id="buttonPrimary"]:has-text("Opublikuj"), button:has-text("Opublikuj"), button:has-text("Publish")')
       .first();
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 450; i++) {
       const visible = await publishBtn.isVisible().catch(() => false);
       const disabled = await publishBtn.isDisabled().catch(() => true);
       if (visible && !disabled) break;
+      if (i > 0 && i % 15 === 0) {
+        console.log(`   ⏳ Oczekiwanie na przesłanie i przetworzenie audio na Spotify (${i * 2}s)...`);
+      }
       await sleep(2000);
     }
     await dismissCookieBanner();
