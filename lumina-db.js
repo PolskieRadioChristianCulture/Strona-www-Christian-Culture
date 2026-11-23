@@ -325,8 +325,20 @@ try {
 // ── Web Push Notifications (FCM) Permission & Token Request ──
 export async function showForegroundPushNotification(payload, environment = window) {
     const data = payload?.data || {};
-    // Keep existing chat notification ownership unchanged to prevent duplicate alerts.
-    if (!['daily_course_lesson', 'owner_push_test'].includes(data.type)) return false;
+    // @007 (L0 23.11.2026): wiadomości czatu też trafiają na belkę Androida, gdy strona jest otwarta,
+    // ale okno czatu jest zamknięte (przy otwartym czacie wiadomość widać na ekranie — bez dublowania).
+    const CHAT_TYPES = ['public_chat', 'direct_message', 'direct_message_request', 'mention'];
+    const isChat = CHAT_TYPES.includes(data.type);
+    if (!isChat && !['daily_course_lesson', 'owner_push_test'].includes(data.type)) return false;
+    if (isChat) {
+        try {
+            const doc = environment.document;
+            const chatOpen = doc?.getElementById?.('ccGlobalChatOverlay')?.classList?.contains('is-open')
+                || doc?.getElementById?.('directMessagesModal')?.classList?.contains('open')
+                || doc?.getElementById?.('modalCcMessages')?.classList?.contains('open');
+            if (chatOpen) return false;
+        } catch (_) { /* brak DOM — traktujemy czat jako zamknięty */ }
+    }
     if (environment.Notification?.permission !== 'granted') return false;
     const serviceWorker = environment.navigator?.serviceWorker;
     if (!serviceWorker?.getRegistration) return false;
@@ -339,13 +351,23 @@ export async function showForegroundPushNotification(payload, environment = wind
         } catch (_) { /* Invalid links safely fall back to LUMINA. */ }
         const registration = await serviceWorker.getRegistration('/');
         if (!registration?.active || !registration.showNotification) return false;
+        // Ikona: awatar nadawcy / logo akcji (tylko https), zastępczo wizerunek wybrany przez L0 (bez białego krzyża).
+        let icon = new URL('/images/push/push-default-192.png', origin).href;
+        try {
+            const rawIcon = String(data.avatar || data.icon || '');
+            if (rawIcon) {
+                const candidateIcon = new URL(rawIcon, origin);
+                if (candidateIcon.protocol === 'https:' && !candidateIcon.username && !candidateIcon.password) icon = candidateIcon.href;
+            }
+        } catch (_) { /* zostaje ikona zastępcza */ }
+        const actionTitle = isChat ? 'Otwórz czat' : (data.type === 'owner_push_test' ? 'Otwórz lekcję testową' : 'Czytaj lekcję');
         await registration.showNotification(payload.notification?.title || data.title || 'Christian Culture', {
             body: payload.notification?.body || data.body || 'Nowe powiadomienie Christian Culture.',
-            icon: new URL('/lumina-notif-icon-v2.png', origin).href,
+            icon,
             badge: new URL('/lumina-push-badge-v4.1.5.svg', origin).href,
             tag: data.tag || `lumina_${data.type}`,
             data: { url: url.href, type: data.type },
-            actions: [{ action: 'open', title: data.type === 'owner_push_test' ? 'Otwórz lekcję testową' : 'Czytaj lekcję' }]
+            actions: [{ action: 'open', title: actionTitle }]
         });
         return true;
     } catch (_) {

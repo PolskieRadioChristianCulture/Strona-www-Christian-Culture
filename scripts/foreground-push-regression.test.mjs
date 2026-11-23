@@ -86,12 +86,31 @@ test('default or denied permission never triggers an automatic permission prompt
         assert.equal(f.calls.length, 0);
     }
 });
-test('existing chat paths are not duplicated by the new foreground handler', async () => {
-    for (const type of ['direct_message', 'direct_message_request', 'public_chat', 'mention', undefined]) {
+// @007 (L0 23.11.2026): wiadomości czatu na belce Androida także przy otwartej stronie — ale nie przy otwartym czacie.
+test('chat messages reach the Android tray when the chat window is closed, with the sender avatar', async () => {
+    for (const type of ['direct_message', 'direct_message_request', 'public_chat', 'mention']) {
         const f = fixture();
-        assert.equal(await show({ data: { type } }, f.environment), false);
-        assert.equal(f.calls.length, 0);
+        const ok = await show({ data: { type, title: '💬 Wioletta Rogowska • Czat Ogólny', body: 'Szczęść Boże!',
+            icon: 'https://polskieradio.cc/avatar_wioletta_official.webp', url: 'https://polskieradio.cc/lumina?openPublicChat=1' } }, f.environment);
+        assert.equal(ok, true, type);
+        assert.equal(f.calls.length, 1);
+        assert.equal(f.calls[0].options.icon, 'https://polskieradio.cc/avatar_wioletta_official.webp');
+        assert.equal(f.calls[0].options.actions[0].title, 'Otwórz czat');
+        assert.doesNotMatch(f.calls[0].options.icon, /lumina-notif-icon-v2/);
     }
+});
+test('open chat window suppresses the tray notification (no duplicate with the visible message)', async () => {
+    const f = fixture();
+    f.environment.document = { getElementById: (id) => (id === 'ccGlobalChatOverlay' ? { classList: { contains: (c) => c === 'is-open' } } : null) };
+    assert.equal(await show({ data: { type: 'public_chat', title: 'x', body: 'y' } }, f.environment), false);
+    assert.equal(f.calls.length, 0);
+});
+test('unknown types are still ignored and non-https icons fall back to the default image', async () => {
+    const f = fixture();
+    assert.equal(await show({ data: { type: undefined } }, f.environment), false);
+    const g = fixture();
+    await show({ data: { type: 'public_chat', icon: 'javascript:alert(1)' } }, g.environment);
+    assert.equal(g.calls[0].options.icon, 'https://polskieradio.cc/images/push/push-default-192.png');
 });
 test('missing or inactive SW and display rejection cannot claim success', async () => {
     assert.equal(await show(payload, { Notification: { permission: 'granted' } }), false);
