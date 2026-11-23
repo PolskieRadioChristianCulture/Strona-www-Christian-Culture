@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christian Culture — Zrzutka.pl Streaming Widget Overlay (OBS Live)</title>
+  <meta name="robots" content="noindex, nofollow" />
+  
+  <!-- Czcionki Christian Culture -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --cc-gold: #C4A35A;
+      --cc-gold-hover: #D4B578;
+      --cc-gold-dark: #A08040;
+      --cc-bg-dark: rgba(10, 10, 12, 0.88);
+      --cc-border: rgba(196, 163, 90, 0.35);
+      --cc-text: #F8FAFC;
+      --cc-text-muted: #94A3B8;
+      --cc-orange-btn: #FF7A00;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* OBS Browser Source transparent background */
+    body {
+      background: transparent !important;
+      color: var(--cc-text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      user-select: none;
+    }
+
+    /* Kontener pełnoekranowy 1920x1080 */
+    .stream-overlay-canvas {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none; /* Kliknięcia przechodzą pod spód chyba że interakcja */
+    }
+
+    /* Karta w stylu EkoCC Glassmorphism */
+    .cc-widget-card {
+      pointer-events: auto;
+      background: var(--cc-bg-dark);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid var(--cc-border);
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(196, 163, 90, 0.15);
+      padding: 16px 20px;
+      position: absolute;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 1. STREFA: PRAWY GÓRNY RÓG (Pasek Celu / Goal Bar) */
+    .cc-widget-goal {
+      top: 32px;
+      right: 36px;
+      width: 440px;
+    }
+
+    .cc-widget-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .cc-widget-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cc-brand-badge {
+      background: linear-gradient(135deg, #17140F, #2A211B);
+      border: 1px solid var(--cc-gold);
+      color: var(--cc-gold);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+    }
+
+    .cc-widget-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #E2E8F0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cc-widget-amount {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cc-gold);
+      font-feature-settings: 'tnum';
+    }
+
+    .cc-progress-track {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+
+    .cc-progress-fill {
+      height: 100%;
+      width: 64%;
+      background: linear-gradient(90deg, var(--cc-gold-dark) 0%, var(--cc-gold) 60%, var(--cc-orange-btn) 100%);
+      border-radius: 999px;
+      position: relative;
+      transition: width 1s ease-in-out;
+      box-shadow: 0 0 12px rgba(196, 163, 90, 0.5);
+    }
+
+    .cc-progress-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: sweepGlow 2.5s infinite;
+    }
+
+    @keyframes sweepGlow {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .cc-widget-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--cc-text-muted);
+    }
+
+    .cc-widget-target {
+      font-weight: 600;
+      color: #CBD5E1;
+    }
+
+    /* 2. STREFA: PRAWY DOLNY RÓG (KOD QR DO SZYBKICH WPŁAT BLIK) */
+    .cc-widget-qr {
+      bottom: 96px; /* Nad belką RDS / tickerem */
+      right: 36px;
+      width: 200px;
+      text-align: center;
+      padding: 14px;
+    }
+
+    .cc-qr-box {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 10px auto;
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+      border: 2px solid var(--cc-gold);
+    }
+
+    .cc-qr-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .cc-qr-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.3;
+    }
+
+    .cc-qr-sub {
+      font-size: 10px;
+      color: var(--cc-gold);
+      margin-top: 2px;
+    }
+
+    /* 3. STREFA: ALERT WPŁATY NA ŻYWO (POP-UP) */
+    .cc-widget-alert {
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-150%);
+      width: 500px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: linear-gradient(135deg, rgba(20, 16, 12, 0.95), rgba(42, 33, 27, 0.95));
+      border: 2px solid var(--cc-gold);
+      border-radius: 20px;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8), 0 0 30px rgba(196, 163, 90, 0.4);
+      padding: 16px 24px;
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .cc-widget-alert.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .cc-alert-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cc-orange-btn), #E66A00);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(255, 122, 0, 0.6);
+      animation: pulseAlert 1.5s infinite;
+    }
+
+    @keyframes pulseAlert {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .cc-alert-info {
+      flex: 1;
+    }
+
+    .cc-alert-heading {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--cc-gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .cc-alert-donor {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 2px 0;
+    }
+
+    .cc-alert-msg {
+      font-size: 12px;
+      color: #CBD5E1;
+      font-style: italic;
+    }
+
+    .cc-alert-badge {
+      background: rgba(196, 163, 90, 0.15);
+      border: 1px solid var(--cc-gold);
+      color: var(--cc-gold);
+      font-size: 16px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-feature-settings: 'tnum';
+    }
+
+    /* IFRAME DLA OFICJALNEGO WIDGETU ZRZUTKA.PL */
+    .zrzutka-external-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: transparent;
+      display: none;
+    }
+
+    .zrzutka-external-frame.active {
+      display: block;
+    }
+
+    /* PANEL KONFIGURACYJNY DO OBS INTERACT */
+    .cc-config-panel {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: #0D1117;
+      border: 1px solid #30363D;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 12px;
+      color: #8B949E;
+      pointer-events: auto;
+      max-width: 380px;
+      display: none;
+    }
+
+    .cc-config-panel.visible {
+      display: block;
+    }
+
+    .cc-config-btn {
+      background: var(--cc-gold);
+      color: #17140F;
+      border: none;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PŁÓTNO NAKŁADKI EMISYJNEJ (1920x1080) -->
+  <div class="stream-overlay-canvas">
+
+    <!-- TRYB 1: ZEWNĘTRZNY WIDGET ZE ZRZUTKA.PL (jeśli podano ?widgetUrl=) -->
+    <iframe id="zrzutkaFrame" class="zrzutka-external-frame" src="about:blank" allowtransparency="true"></iframe>
+
+    <!-- TRYB 2: NAKŁADKA EKOCC PREMIUM (domyślna lub nakładana) -->
+    <div id="ccNativeWidgets">
+      
+      <!-- 1. ALERT WPŁATY NA ŻYWO (Pop-up) -->
+      <div id="liveAlert" class="cc-widget-alert">
+        <div class="cc-alert-icon">🎁</div>
+        <div class="cc-alert-info">
+          <div class="cc-alert-heading">Nowe Wsparcie Misji CC</div>
+          <div id="alertDonor" class="cc-alert-donor">Darczyńca z Warszawy</div>
+          <div id="alertMessage" class="cc-alert-msg">„Niech Bóg błogosławi dzieło Radia!”</div>
+        </div>
+        <div id="alertAmount" class="cc-alert-badge">+100 zł</div>
+      </div>
+
+      <!-- 2. PASEK CELU ZBIÓRKI (Prawy Górny Róg) -->
+      <div id="goalWidget" class="cc-widget-card cc-widget-goal">
+        <div class="cc-widget-header">
+          <div class="cc-widget-brand">
+            <span class="cc-brand-badge">Wspieram CC</span>
+            <span id="goalTitle" class="cc-widget-title">Rozwój Radia & Słuchowisk 2026</span>
+          </div>
+          <span id="goalPercent" class="cc-widget-amount">64%</span>
+        </div>
+        
+        <div class="cc-progress-track">
+          <div id="goalProgress" class="cc-progress-fill" style="width: 64%;">
+            <div class="cc-progress-glow"></div>
+          </div>
+        </div>
+
+        <div class="cc-widget-footer">
+          <span>Zebrano: <strong id="goalCollected" style="color: #F8FAFC;">16 000 zł</strong></span>
+          <span class="cc-widget-target">Cel: <strong id="goalTarget">25 000 zł</strong></span>
+        </div>
+      </div>
+
+      <!-- 3. KOD QR DO SZYBKICH WPŁAT BLIK (Prawy Dolny Róg nad RDS) -->
+      <div id="qrWidget" class="cc-widget-card cc-widget-qr">
+        <div class="cc-qr-box">
+          <!-- Wygenerowany QR do oficjalnej zbiórki Christian Culture: https://zrzutka.pl/rs4g4v -->
+          <img 
+            id="qrImage"
+            class="cc-qr-img" 
+            src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fzrzutka.pl%2Frs4g4v&margin=6" 
+            alt="Zeskanuj i wesprzyj przez BLIK" 
+          />
+        </div>
+        <div class="cc-qr-label">Zeskanuj i wesprzyj</div>
+        <div class="cc-qr-sub">BLIK • Przelew • Karta</div>
+      </div>
+
+    </div>
+
+    <!-- PANEL KONFIGURACYJNY / TESTOWY (OBS INTERACTION) -->
+    <div id="configPanel" class="cc-config-panel">
+      <strong style="color: #C4A35A;">Panel Zarządzania Zrzutka Widget:</strong>
+      <p style="margin: 4px 0;">Parametry URL: <code>?widgetUrl=...</code>, <code>?goal=40000</code>, <code>?collected=25000</code>, <code>?mode=goal|qr|alerts|all</code></p>
+      <button class="cc-config-btn" onclick="testTriggerAlert()">Przetestuj Alert Wpłaty</button>
+      <button class="cc-config-btn" style="background: #30363D; color: #FFF; margin-left: 6px;" onclick="toggleConfig()">Ukryj</button>
+    </div>
+
+  </div>
+
+  <script>
+    // Inicjalizacja parametrów URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const widgetUrl = urlParams.get('widgetUrl') || urlParams.get('url');
+    const mode = urlParams.get('mode') || 'all'; // all, goal, qr, alerts
+    const targetZrzutka = urlParams.get('zrzutka') || 'rs4g4v';
+    const showConfig = urlParams.get('config') === '1' || urlParams.get('demo') === '1';
+
+    // Jeśli podano zewnętrzny URL widgetu ze Zrzutka.pl
+    if (widgetUrl) {
+      const frame = document.getElementById('zrzutkaFrame');
+      frame.src = widgetUrl;
+      frame.classList.add('active');
+      document.getElementById('ccNativeWidgets').style.display = 'none';
+    } else {
+      // Konfiguracja trybów wyświetlania
+      if (mode === 'goal') {
+        document.getElementById('qrWidget').style.display = 'none';
+      } else if (mode === 'qr') {
+        document.getElementById('goalWidget').style.display = 'none';
+      } else if (mode === 'alerts') {
+        document.getElementById('goalWidget').style.display = 'none';
+        document.getElementById('qrWidget').style.display = 'none';
+      }
+
+      // Aktualizacja kodu QR jeśli wybrano inną zbiórkę
+      if (targetZrzutka !== 'rs4g4v') {
+        const fullUrl = `https://zrzutka.pl/${encodeURIComponent(targetZrzutka)}`;
+        document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(fullUrl)}&margin=6`;
+      }
+
+      // Dostosowanie kwot jeśli podano w parametrach
+      const collectedParam = urlParams.get('collected');
+      const targetParam = urlParams.get('target');
+      if (collectedParam && targetParam) {
+        const c = parseInt(collectedParam, 10);
+        const t = parseInt(targetParam, 10);
+        const pct = Math.min(100, Math.round((c / t) * 100));
+        document.getElementById('goalCollected').textContent = c.toLocaleString('pl-PL') + ' zł';
+        document.getElementById('goalTarget').textContent = t.toLocaleString('pl-PL') + ' zł';
+        document.getElementById('goalPercent').textContent = pct + '%';
+        document.getElementById('goalProgress').style.width = pct + '%';
+      }
+    }
+
+    // Pokazanie panelu konfiguracyjnego w trybie demo
+    if (showConfig) {
+      document.getElementById('configPanel').classList.add('visible');
+    }
+
+    // Funkcja testowa alertu wpłaty
+    function testTriggerAlert(donor = 'Marek z Poznania', amount = '50 zł', msg = '„Dziękuję za codzienne słuchowiska!”') {
+      const alertEl = document.getElementById('liveAlert');
+      document.getElementById('alertDonor').textContent = donor;
+      document.getElementById('alertAmount').textContent = '+' + amount;
+      document.getElementById('alertMessage').textContent = msg;
+
+      alertEl.classList.add('show');
+      setTimeout(() => {
+        alertEl.classList.remove('show');
+      }, 6500);
+    }
+
+    function toggleConfig() {
+      document.getElementById('configPanel').classList.toggle('visible');
+    }
+
+    // Automatyczny test w trybie demo
+    if (urlParams.get('demo') === '1') {
+      setTimeout(() => {
+        testTriggerAlert();
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
