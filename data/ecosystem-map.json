@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-23",
+      "topic": "CCN Ogłoszenia — start szerokiej kampanii promującej portal darmowych ogłoszeń (/ogloszenia) w ekosystemie Christian Culture i social media",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-23",
       "topic": "Kalendarz 365 EkoCC (LP #20, eM) & Poniedziałkowy Impuls Kampanii Milion Drobnych Gestów — publikacja artykułu „Miłość do bliźniego w praktyce: jeden telefon, który może zmienić dzień” (/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien) oraz emisja inauguracyjna /milion-gestow na Tablicy LUMINA i platformie X",
       "agent": "A"
     },
@@ -2334,15 +2339,15 @@
       "id": "ccn-ogloszenia",
       "branchId": "media-wiedza",
       "name": "CCN Ogłoszenia Społeczności",
-      "shortDesc": "Tablica ogłoszeń, praca, mieszkania, pomoc i inicjatywy chrześcijan.",
-      "fullDesc": "Platforma wzajemnej pomocy i wymiany kontaktów w środowisku chrześcijańskim. Zaufane oferty pracy, wynajmu, korepetycji i zbiórek celowych.",
+      "shortDesc": "Darmowa tablica ogłoszeń społeczności: praca, nieruchomości, motoryzacja, usługi i pomoc.",
+      "fullDesc": "Bezpłatna platforma ogłoszeniowa Christian Culture. Publikuj za darmo ogłoszenia w kategoriach: Kupię, Sprzedam, Wymienię, Szukam pracy, Usługi, Wydarzenia, Współpraca w misji i Dary serca.",
       "type": "portal",
       "url": "https://polskieradio.cc/ogloszenia",
       "status": "active",
       "lang": "pl",
       "icon": "📌",
       "category": "Media & Wiedza",
-      "verifiedDate": "2026-10-11",
+      "verifiedDate": "2026-11-23",
       "keywords": [
         "ogłoszenia",
         "praca",
@@ -2355,7 +2360,8 @@
         "ccn-biznes",
         "centrum-cclite",
         "lumina-tablica"
-      ]
+      ],
+      "promoImage": "https://polskieradio.cc/images/ogloszenia/cc-ogloszenia-promo-square.jpg"
     },
     {
       "id": "music-main",
@@ -5848,6 +5854,11 @@
   ],
   "lastUpdated": "2026-11-23",
   "recentUpdates": [
+    {
+      "topic": "CCN Ogłoszenia — uruchomienie promocji darmowej tablicy ogłoszeń (/ogloszenia) z oficjalną identyfikacją wizualną",
+      "date": "2026-11-23",
+      "agent": "A"
+    },
     {
       "topic": "CCN News — premiera i publikacja autorskiego wideo Short 9:16 \"Niedziela handlowa czy odpoczynek?\"",
       "date": "2026-11-22",
