@@ -58,3 +58,14 @@ test('cctv24-pl.html: bezpieczne parsowanie ref.id, odporny catch, brak googtran
   assert.doesNotMatch(plHtml, /body\.mode-studio\s+\.reflection-canvas-card\s*\{[^}]*left:\s*320px/i, 'cctv24-pl.html: mode-studio nie może wypychać karty o 320px w prawo');
   assert.match(plHtml, /bgActiveImg\.addEventListener\(["']error["']/, 'cctv24-pl.html: wymagany fallback error na #bg-img-active');
 });
+
+test('master-live.html: widżety Zrzutki powiększone na TV (1920x1080), bez pustego dołu rankingu i bez kolizji na telefonie', () => {
+  const masterHtml = fs.readFileSync(path.join(ROOT, 'master-live.html'), 'utf8');
+  const lbMatch = masterHtml.match(/\.zrzutka-frame-leaderboard\s*\{([^}]*)\}/);
+  assert.ok(lbMatch, 'master-live.html: brak reguły .zrzutka-frame-leaderboard');
+  assert.match(lbMatch[1], /height:\s*238px/, 'ranking musi mieć wysokość dopasowaną do 11 pozycji (238px bez pustego dołu)');
+  assert.doesNotMatch(lbMatch[1], /scale\(0\.92\)/, 'ranking bazowy nie może być pomniejszony scale(0.92)');
+  assert.match(masterHtml, /@media\s*\(min-width:\s*1600px\)[\s\S]*?\.zrzutka-frame-leaderboard[^}]*scale\(1\.78\)/, 'TV 1920x1080 musi powiększać ranking do scale(1.78)');
+  assert.match(masterHtml, /@media\s*\(min-width:\s*1600px\)[\s\S]*?\.zrzutka-frame-qr[^}]*scale\(1\.88\)/, 'TV 1920x1080 musi powiększać kod QR do scale(1.88)');
+  assert.match(masterHtml, /@media\s*\(orientation:\s*portrait\)\s*and\s*\(max-width:\s*900px\)[\s\S]*?\.master-zrzutka-overlay/, 'telefon w pionie musi mieć osobny układ .master-zrzutka-overlay pod obrazem 16:9');
+});

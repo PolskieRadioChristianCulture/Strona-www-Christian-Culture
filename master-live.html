@@ -844,68 +844,112 @@
             visibility: visible;
         }
 
-        /* 1. Ranking po lewej (skalibrowany z lewym marginesem, bez zasłaniania twarzy) */
+        /* 1. Ranking po lewej (ściśle dopasowana wysokość bez pustego dołu, powiększony dla TV i tel.) */
         .zrzutka-frame-leaderboard {
             position: absolute;
-            top: calc(var(--dekalog-height) + 16px);
-            left: 20px;
-            width: 290px;
-            height: 400px;
-            border: 1px solid rgba(255, 122, 0, 0.35);
-            background: rgba(15, 18, 30, 0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            top: calc(var(--dekalog-height) + 14px);
+            left: 18px;
+            width: 300px;
+            height: 238px;
+            border: 1.5px solid rgba(255, 122, 0, 0.55);
+            background: rgba(12, 14, 24, 0.78);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             pointer-events: auto;
-            border-radius: 16px;
-            box-shadow: 0 16px 36px rgba(0,0,0,0.75);
-            transform: scale(0.92);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 16px 38px rgba(0,0,0,0.8);
+            transform: scale(1.32);
             transform-origin: top left;
         }
 
-        /* 2. Kod QR po prawej u góry (zgrabna, kompaktowa ramka) */
+        /* 2. Kod QR po prawej u góry (duży, wyraźny do skanowania z TV i telefonu) */
         .zrzutka-frame-qr {
             position: absolute;
-            top: calc(var(--dekalog-height) + 54px);
-            right: 20px;
-            width: 155px;
-            height: 175px;
-            border: 1px solid rgba(255, 122, 0, 0.4);
+            top: calc(var(--dekalog-height) + 14px);
+            right: 18px;
+            width: 185px;
+            height: 210px;
+            border: 2.5px solid #FF7A00;
             background: #ffffff;
             pointer-events: auto;
             border-radius: 14px;
-            box-shadow: 0 14px 32px rgba(0,0,0,0.75);
-            transform: scale(0.92);
+            overflow: hidden;
+            box-shadow: 0 18px 44px rgba(0,0,0,0.85);
+            transform: scale(1.40);
             transform-origin: top right;
         }
 
-        /* 3. Pasek postępu na dole nad tickerem (wyśrodkowany, elegancki) */
+        /* 3. Pasek postępu na dole nad tickerem */
         .zrzutka-frame-progress {
             position: absolute;
-            bottom: calc(var(--ticker-height) + 12px);
+            bottom: calc(var(--ticker-height) + 10px);
             left: 50%;
-            transform: translateX(-50%);
-            width: 760px;
-            max-width: 86vw;
-            height: 60px;
+            width: 600px;
+            max-width: 74vw;
+            height: 64px;
             border: none;
             background: transparent;
             pointer-events: auto;
-            filter: drop-shadow(0 4px 14px rgba(0,0,0,0.85));
+            overflow: hidden;
+            filter: drop-shadow(0 6px 18px rgba(0,0,0,0.9));
+            transform: translateX(-50%) scale(1.26);
+            transform-origin: bottom center;
         }
 
         /* 4. Ostatnie wpłaty (feed) w prawym dolnym rogu */
         .zrzutka-frame-feed {
             position: absolute;
-            bottom: calc(var(--ticker-height) + 76px);
-            right: 20px;
-            width: 300px;
-            height: 180px;
+            bottom: calc(var(--ticker-height) + 100px);
+            right: 18px;
+            width: 310px;
+            height: 150px;
             border: none;
             background: transparent;
             pointer-events: auto;
             border-radius: 14px;
-            transform: scale(0.92);
+            overflow: hidden;
+            transform: scale(1.22);
             transform-origin: bottom right;
+        }
+
+        /* TV Full HD / OBS 1920x1080 — czytelny ranking i skanowalny kod QR z kanapy */
+        @media (min-width: 1600px) {
+            .zrzutka-frame-leaderboard {
+                top: calc(var(--dekalog-height) + 18px);
+                left: 24px;
+                transform: scale(1.78);
+            }
+            .zrzutka-frame-qr {
+                top: calc(var(--dekalog-height) + 18px);
+                right: 24px;
+                transform: scale(1.88);
+            }
+            .zrzutka-frame-progress {
+                bottom: calc(var(--ticker-height) + 14px);
+                width: 640px;
+                max-width: none;
+                transform: translateX(-50%) scale(1.68);
+            }
+            .zrzutka-frame-feed {
+                bottom: calc(var(--ticker-height) + 136px);
+                right: 24px;
+                transform: scale(1.65);
+            }
+        }
+
+        /* Mniejszy desktop / tablet poziomo */
+        @media (max-width: 1199px) and (min-width: 901px) {
+            .zrzutka-frame-leaderboard { transform: scale(1.10); }
+            .zrzutka-frame-qr { transform: scale(1.16); }
+            .zrzutka-frame-progress {
+                width: 540px;
+                transform: translateX(-50%) scale(1.08);
+            }
+            .zrzutka-frame-feed {
+                bottom: calc(var(--ticker-height) + 86px);
+                transform: scale(1.04);
+            }
         }
     </style>
 </head>
@@ -1085,13 +1129,13 @@
     <!-- ── ZRZUTKA.PL TEST STREAMING OVERLAY (KANAŁ MASTER LIVE) ── -->
     <div id="masterZrzutkaOverlay" class="master-zrzutka-overlay">
         <!-- 1. Ranking wpłacających (Leaderboard) -->
-        <iframe class="zrzutka-frame-leaderboard" src="https://zrzutka.pl/rs4g4v/widget/leaderboard" title="Ranking wpłacających Zrzutka.pl" allowtransparency="true"></iframe>
+        <iframe class="zrzutka-frame-leaderboard" src="https://zrzutka.pl/rs4g4v/widget/leaderboard" title="Ranking wpłacających Zrzutka.pl" allowtransparency="true" scrolling="no"></iframe>
         <!-- 2. Kod QR 'WESPRZYJ!' (BLIK) -->
-        <iframe class="zrzutka-frame-qr" src="https://zrzutka.pl/rs4g4v/widget/qr-code" title="Kod QR do wpłat Zrzutka.pl" allowtransparency="true"></iframe>
+        <iframe class="zrzutka-frame-qr" src="https://zrzutka.pl/rs4g4v/widget/qr-code" title="Kod QR do wpłat Zrzutka.pl" allowtransparency="true" scrolling="no"></iframe>
         <!-- 3. Pasek postępu (Progress Bar) -->
-        <iframe class="zrzutka-frame-progress" src="https://zrzutka.pl/rs4g4v/widget/progress" title="Pasek celu zbiórki Zrzutka.pl" allowtransparency="true"></iframe>
+        <iframe class="zrzutka-frame-progress" src="https://zrzutka.pl/rs4g4v/widget/progress" title="Pasek celu zbiórki Zrzutka.pl" allowtransparency="true" scrolling="no"></iframe>
         <!-- 4. Ostatnie wpłaty (Feed) -->
-        <iframe class="zrzutka-frame-feed" src="https://zrzutka.pl/rs4g4v/widget/feed" title="Ostatnie wpłaty Zrzutka.pl" allowtransparency="true"></iframe>
+        <iframe class="zrzutka-frame-feed" src="https://zrzutka.pl/rs4g4v/widget/feed" title="Ostatnie wpłaty Zrzutka.pl" allowtransparency="true" scrolling="no"></iframe>
     </div>
 
     <!-- ── NEW CCN NEWS MASTER BROADCAST TICKER (OBS LOWER THIRD) ── -->
@@ -2609,6 +2653,43 @@
         #mlPromo { display: flex; top: calc(var(--dekalog-height) + var(--ml-video-h)); bottom: var(--ticker-height); }
         #masterUnmuteBanner { top: calc(var(--dekalog-height) + var(--ml-video-h) - 64px) !important; padding: 10px 18px !important; font-size: .8rem !important; }
         #mlL3 { display: none; }
+        .master-zrzutka-overlay {
+            top: calc(var(--dekalog-height) + var(--ml-video-h));
+            bottom: var(--ticker-height);
+            left: 0;
+            right: 0;
+            width: auto;
+            height: auto;
+            background: rgba(5, 7, 12, 0.94);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px 14px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .master-zrzutka-overlay.visible {
+            pointer-events: auto;
+        }
+        .zrzutka-frame-leaderboard,
+        .zrzutka-frame-qr,
+        .zrzutka-frame-progress,
+        .zrzutka-frame-feed {
+            position: static;
+            top: auto;
+            right: auto;
+            bottom: auto;
+            left: auto;
+            transform: none;
+            flex-shrink: 0;
+        }
+        .zrzutka-frame-progress { order: 1; width: 100%; max-width: 100%; height: 68px; }
+        .zrzutka-frame-leaderboard { order: 2; width: 100%; max-width: 366px; height: 238px; }
+        .zrzutka-frame-qr { order: 3; width: 210px; height: 238px; }
+        .zrzutka-frame-feed { order: 4; width: 100%; max-width: 366px; height: 150px; }
     }
     /* TELEFON POZIOMO: pełny obraz, górny pasek ukryty, cienki pasek CCN pod obrazem */
     @media (orientation: landscape) and (max-height: 500px) {
@@ -2621,6 +2702,16 @@
         .ccn-clock-box { display: none; }
         #masterUnmuteBanner { top: 12px !important; padding: 8px 16px !important; font-size: .78rem !important; }
         #mlL3 { display: none; }
+        .zrzutka-frame-leaderboard { top: 8px; left: 10px; transform: scale(0.92); }
+        .zrzutka-frame-qr { top: 8px; right: 10px; transform: scale(0.96); }
+        .zrzutka-frame-progress {
+            bottom: calc(var(--ticker-height) + 6px);
+            width: 520px;
+            max-width: 90vw;
+            height: 58px;
+            transform: translateX(-50%) scale(0.95);
+        }
+        .zrzutka-frame-feed { display: none; }
     }
     html.no-ticker #mlPromo, html.embedded-mode #mlPromo, body.no-ticker #mlPromo, body.embedded-mode #mlPromo,
     html.no-ticker #mlL3, html.embedded-mode #mlL3, body.no-ticker #mlL3, body.embedded-mode #mlL3 { display: none !important; }
