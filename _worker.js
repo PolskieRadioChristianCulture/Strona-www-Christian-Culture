@@ -2326,6 +2326,35 @@ export default {
       redirectUrl.pathname = '/aplikacje/';
       return Response.redirect(redirectUrl.toString(), 301);
     }
+    // Biblioteka Pionierów Adwentyzmu (/biblioteka-pionierow/) — produkcja L0 23.11.2026
+    if (p.startsWith('/test/biblioteka-pionierow/ksiazka/')) {
+      const slug = p
+        .slice('/test/biblioteka-pionierow/ksiazka/'.length)
+        .replace(/\/index\.html$/i, '')
+        .replace(/\/+$/, '');
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = /^[a-z0-9-]+$/i.test(slug)
+        ? `/biblioteka-pionierow/ksiazka/${slug.toLowerCase()}/`
+        : '/biblioteka-pionierow/';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
+    if (
+      decodedP === '/pionierzy' ||
+      decodedP === '/pionierzy-adwentyzmu' ||
+      decodedP === '/test/biblioteka-pionierow' ||
+      decodedP.startsWith('/test/biblioteka-pionierow/') ||
+      decodedP === '/biblioteka-pionierow/index.html' ||
+      (decodedP === '/biblioteka-pionierow' && url.pathname !== '/biblioteka-pionierow/')
+    ) {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = '/biblioteka-pionierow/';
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
+    if (/^\/biblioteka-pionierow\/ksiazka\/[a-z0-9-]+$/i.test(p) && url.pathname !== `${p}/`) {
+      const redirectUrl = new URL(request.url);
+      redirectUrl.pathname = `${p}/`;
+      return Response.redirect(redirectUrl.toString(), 301);
+    }
     // Adventist World P0 Preview (/test/adventist-world/ & /en/) — trailing slash 301 + /adventist-world/* 302 alias
     if (url.pathname === '/test/adventist-world') {
       const redirectUrl = new URL(request.url);

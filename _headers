@@ -376,5 +376,18 @@
 /wiadomosc-z-nieba/data.json
   Cache-Control: public, max-age=0, must-revalidate
 
+# Biblioteka Pionierów — produkcja (natychmiastowe odświeżanie katalogu i zasobów przy kolejnych partiach)
+/biblioteka-pionierow/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/biblioteka-pionierow/pioneers-library.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/biblioteka-pionierow/pioneers-library.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/biblioteka-pionierow/data/*
+  Cache-Control: public, max-age=0, must-revalidate
+
 
 

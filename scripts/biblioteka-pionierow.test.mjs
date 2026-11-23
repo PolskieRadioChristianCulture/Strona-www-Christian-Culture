@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { isPublicFile } from './cc-release-files.mjs';
+import worker from '../_worker.js';
 
 const ROOT = process.cwd();
 const DATA_PATH = path.join(ROOT, 'biblioteka-pionierow', 'data', 'partia-01.json');
@@ -126,4 +127,44 @@ test('_redirects and release allowlist serve /biblioteka-pionierow/ and 301-redi
   assert.equal(isPublicFile('biblioteka-pionierow/pioneers-library.css'), true);
   assert.equal(isPublicFile('biblioteka-pionierow/ksiazka/e-j-waggoner-christ-and-his-righteousness/index.html'), true);
   assert.equal(isPublicFile('images/biblioteka/pionierzy/001.webp'), true);
+});
+
+test('_worker.js executes 301 redirects for legacy preview, /pionierzy, and trailing slash without looping canonical URLs', async () => {
+  const env = { ASSETS: { fetch: async () => new Response('ok', { status: 200 }) } };
+  const redirectCases = [
+    ['https://polskieradio.cc/test/biblioteka-pionierow/', 'https://polskieradio.cc/biblioteka-pionierow/'],
+    ['https://polskieradio.cc/test/biblioteka-pionierow', 'https://polskieradio.cc/biblioteka-pionierow/'],
+    [
+      'https://polskieradio.cc/test/biblioteka-pionierow/ksiazka/e-j-waggoner-christ-and-his-righteousness/',
+      'https://polskieradio.cc/biblioteka-pionierow/ksiazka/e-j-waggoner-christ-and-his-righteousness/',
+    ],
+    [
+      'https://polskieradio.cc/test/biblioteka-pionierow/ksiazka/e-j-waggoner-christ-and-his-righteousness',
+      'https://polskieradio.cc/biblioteka-pionierow/ksiazka/e-j-waggoner-christ-and-his-righteousness/',
+    ],
+    ['https://polskieradio.cc/pionierzy/', 'https://polskieradio.cc/biblioteka-pionierow/'],
+    ['https://polskieradio.cc/pionierzy', 'https://polskieradio.cc/biblioteka-pionierow/'],
+    ['https://polskieradio.cc/biblioteka-pionierow', 'https://polskieradio.cc/biblioteka-pionierow/'],
+    [
+      'https://polskieradio.cc/biblioteka-pionierow/ksiazka/e-j-waggoner-christ-and-his-righteousness',
+      'https://polskieradio.cc/biblioteka-pionierow/ksiazka/e-j-waggoner-christ-and-his-righteousness/',
+    ],
+  ];
+
+  for (const [sourceUrl, expectedLocation] of redirectCases) {
+    const res = await worker.fetch(new Request(sourceUrl), env);
+    assert.equal(res.status, 301, `Expected 301 for ${sourceUrl}`);
+    assert.equal(res.headers.get('Location'), expectedLocation, `Unexpected Location for ${sourceUrl}`);
+  }
+
+  const canonicalPassThrough = [
+    'https://polskieradio.cc/biblioteka-pionierow/',
+    'https://polskieradio.cc/biblioteka-pionierow/ksiazka/e-j-waggoner-christ-and-his-righteousness/',
+    'https://polskieradio.cc/biblioteka-pionierow/pioneers-library.css',
+  ];
+
+  for (const passUrl of canonicalPassThrough) {
+    const res = await worker.fetch(new Request(passUrl), env);
+    assert.equal(res.status, 200, `Expected 200 pass-through without redirect loop for ${passUrl}`);
+  }
 });
