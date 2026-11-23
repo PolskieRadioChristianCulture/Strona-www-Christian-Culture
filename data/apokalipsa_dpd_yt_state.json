@@ -1,0 +1,62 @@
+{
+  "version": "1.0",
+  "series": "Apokalipsa Dzień po Dniu (365 Odcinków)",
+  "license": "CC BY-NC-ND 4.0 PL",
+  "episodes": {
+    "1": {
+      "epNum": 1,
+      "title": "APOKALIPSA Dzień Po Dniu - Jezus Objawiony #001",
+      "channels": {
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/l2_f0sLMs7k",
+          "publishedAt": "2026-11-23T18:51:37.762Z",
+          "verifiedLive": true
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "ok",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "videoUrl": "https://youtu.be/LKaxxP0Pbuw",
+          "publishedAt": "2026-11-23T18:52:57.400Z",
+          "verifiedLive": true
+        },
+        "Christian Culture TV": {
+          "status": "ok",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "videoUrl": "https://youtu.be/nkaaHgrQ3q4",
+          "publishedAt": "2026-11-23T18:57:42.497Z",
+          "verifiedLive": true
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/cSqUjmDoh2k",
+          "publishedAt": "2026-11-23T19:03:09.002Z",
+          "verifiedLive": true
+        },
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "videoUrl": "https://youtu.be/IKo2J7L17UQ",
+          "publishedAt": "2026-11-23T19:08:51.693Z",
+          "verifiedLive": true
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "videoUrl": "https://youtu.be/vgDiq_tJAII",
+          "publishedAt": "2026-11-23T19:10:06.000Z",
+          "verifiedLive": true
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "videoUrl": "https://youtu.be/naXB8UmI9Ko",
+          "publishedAt": "2026-11-23T19:11:25.206Z",
+          "verifiedLive": true
+        }
+      }
+    }
+  }
+}
