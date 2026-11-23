@@ -2,9 +2,11 @@
  * Wideo pobiera się i gra dopiero, gdy jest blisko ekranu; poza ekranem pauzuje.
  * Znacznik:  <video data-lazy-src="plik.mp4" preload="none" autoplay muted loop playsinline poster="...">
  *        albo <source data-lazy-src="plik.mp4" type="video/mp4"> wewnątrz <video>.
- * API: window.ccLazyVideo.observe(videoEl) — dla wideo tworzonych w JS.
- * Save-Data: nie startuje samo, ładuje dopiero po dotknięciu (plakat zostaje).
- * Uwaga: nie wyłączamy ruchu przy prefers-reduced-motion (L0 16.11.2026 — jego system to zgłasza).
+ *        albo <iframe data-lazy-src="..."> (np. osadzona transmisja) — ładowana 300 px przed ekranem.
+ * API: window.ccLazyVideo.observe(el) — dla wideo/ramek tworzonych w JS.
+ * Save-Data: wideo nie startuje samo, ładuje dopiero po dotknięciu (plakat zostaje).
+ * „Ogranicz ruch”: blokujemy tylko filmy prowadzone przez lumina-media-economy.js (jak dotąd);
+ * pozostałe zachowują dotychczasowe autoodtwarzanie (L0 16.11.2026 — jego system to zgłasza).
  */
 (function () {
   'use strict';
@@ -16,6 +18,10 @@
   function hydrate(video) {
     var changed = false;
     var own = video.getAttribute('data-lazy-src');
+    if (video.tagName === 'IFRAME') {
+      if (own) { video.removeAttribute('data-lazy-src'); video.setAttribute('src', own); }
+      return !!own;
+    }
     if (own) {
       video.removeAttribute('data-lazy-src');
       video.setAttribute('src', own);
@@ -65,7 +71,10 @@
     io = new IntersectionObserver(function (entries) {
       for (var i = 0; i < entries.length; i++) {
         var video = entries[i].target;
-        if (entries[i].isIntersecting && (!saveData || video.__ccUserStarted)) {
+        if (entries[i].isIntersecting && video.tagName === 'IFRAME') {
+          hydrate(video);
+          io.unobserve(video);
+        } else if (entries[i].isIntersecting && (!saveData || video.__ccUserStarted)) {
           hydrate(video);
           playIfAllowed(video);
         }
@@ -92,7 +101,14 @@
   }
 
   function observe(video) {
-    if (!video || video.tagName !== 'VIDEO') return;
+    if (!video) return;
+    if (video.tagName === 'IFRAME') {
+      if (!video.hasAttribute('data-lazy-src')) return;
+      if (seen) { if (seen.has(video)) return; seen.add(video); }
+      if (io) io.observe(video); else hydrate(video);
+      return;
+    }
+    if (video.tagName !== 'VIDEO') return;
     if (seen) { if (seen.has(video)) return; seen.add(video); }
     else { if (video.__ccLazySeen) return; video.__ccLazySeen = true; }
     var lazy = video.hasAttribute('data-lazy-src') || !!video.querySelector('source[data-lazy-src]');
@@ -104,8 +120,8 @@
 
   function scan(root) {
     if (!root || !root.querySelectorAll) return;
-    if (root.tagName === 'VIDEO') observe(root);
-    var list = root.querySelectorAll('video');
+    if (root.tagName === 'VIDEO' || root.tagName === 'IFRAME') observe(root);
+    var list = root.querySelectorAll('video, iframe[data-lazy-src]');
     for (var i = 0; i < list.length; i++) observe(list[i]);
   }
 

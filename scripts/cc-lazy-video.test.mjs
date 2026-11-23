@@ -79,6 +79,39 @@ test('reduced motion: media-economy videos stay still, feed videos keep previous
   feed.near(); assert.equal(feed.video.plays, 1);
 });
 
+test('lazy iframe (live TV embed) gets its src only near the screen', () => {
+  const observers = [];
+  const attrs = { 'data-lazy-src': 'master-live.html?muted=1' };
+  const frame = { tagName: 'IFRAME', getAttribute: k => (k in attrs ? attrs[k] : null), setAttribute: (k, v) => { attrs[k] = v; },
+    removeAttribute: k => { delete attrs[k]; }, hasAttribute: k => k in attrs, querySelectorAll: () => [] };
+  const win = { innerHeight: 800, innerWidth: 400, matchMedia: () => ({ matches: false }),
+    IntersectionObserver: class { constructor(fn) { this.fn = fn; observers.push(this); } observe() {} unobserve() {} } };
+  Object.assign(win, { window: win, navigator: {}, WeakSet,
+    document: { readyState: 'complete', hidden: false, documentElement: {}, querySelectorAll: () => [frame], addEventListener() {} } });
+  vm.runInNewContext(source, win);
+  assert.equal(attrs.src, undefined);
+  observers[0].fn([{ target: frame, isIntersecting: true }]);
+  assert.equal(attrs.src, 'master-live.html?muted=1');
+});
+
+test('Tablica: Donorbox/Stripe loads only when the support window opens; live TV embed is lazy', () => {
+  for (const file of ['lumina-tablica.html', 'lumina-tablica-light.html']) {
+    const html = fs.readFileSync(new URL('../' + file, import.meta.url), 'utf8');
+    assert.doesNotMatch(html, /<script[^>]*src="https:\/\/donorbox\.org\/widgets\.js"/, file);
+    assert.match(html, /window\.__ccDonorboxLoaded/, file);
+    assert.match(html, /<iframe data-lazy-src="master-live\.html/, file);
+  }
+});
+
+test('closed chat window does not render its content, chat images are lazy', () => {
+  const chat = fs.readFileSync(new URL('../components/cc-global-chat-button.js', import.meta.url), 'utf8');
+  assert.match(chat, /\.cc-chat-drawer-overlay:not\(\.is-open\) \.cc-chat-drawer \{\s*content-visibility: hidden !important;/);
+  assert.doesNotMatch(chat, /<img (?![^>]*\bloading=)/);
+  // „eager” tylko dla zawsze widocznych: przycisk czatu (FAB) i dymek zaczepki — nigdy w oknie czatu
+  const eager = chat.split('\n').filter(l => /loading="eager"/.test(l));
+  assert.ok(eager.every(l => /cc-chat-fab-img|cc-chat-teaser-avatar/.test(l)), eager.join('\n'));
+});
+
 test('Tablica pages load the module before the avatar script and have no eager video src', () => {
   for (const file of ['lumina-tablica.html', 'lumina-tablica-light.html']) {
     const html = fs.readFileSync(new URL('../' + file, import.meta.url), 'utf8');

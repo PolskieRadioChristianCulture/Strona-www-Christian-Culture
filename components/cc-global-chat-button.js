@@ -1046,6 +1046,12 @@
         opacity: 1 !important;
       }
 
+      /* @007 23.11.2026 „Szybkość”: zamknięte okno nie renderuje treści, więc zdjęcia (loading=lazy)
+         nie pobierają się na każdej stronie (~1,4 MB). Po otwarciu wszystko wraca od razu. */
+      .cc-chat-drawer-overlay:not(.is-open) .cc-chat-drawer {
+        content-visibility: hidden !important;
+      }
+
       /* ── 1. NAGŁÓWEK LUMI MESSENGER ── */
       #ccGlobalChatOverlay .cc-chat-radio,
       .cc-chat-drawer .cc-chat-radio,
@@ -3167,7 +3173,7 @@
         <header class="cc-chat-header">
           <a href="/mess" class="cc-chat-header-brand" id="ccChatHeaderBrand" title="LUMI Messenger">
             <div class="cc-chat-header-logo-wrap" aria-hidden="true">
-              <img src="/images/chat/lumi_header_logo.webp" id="ccChatHeaderPartnerAvatar" alt="LUMI Messenger" class="cc-chat-header-icon" width="38" height="38" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+              <img loading="lazy" decoding="async" src="/images/chat/lumi_header_logo.webp" id="ccChatHeaderPartnerAvatar" alt="LUMI Messenger" class="cc-chat-header-icon" width="38" height="38" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
               <span class="cc-chat-header-gold-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
               </span>
@@ -3260,7 +3266,7 @@
           <div class="cc-asst-picker-strip" id="ccAssistantSelectorStrip" role="radiogroup" aria-label="Wybierz Asystentkę Christian Culture" hidden>
             <button type="button" class="cc-asst-pick-btn cc-trio-card is-active" data-asst-id="asystentka-1" role="radio" aria-checked="true" aria-label="Wybierz Rut — Gospodyni LUMI MESS">
               <span class="cc-asst-pick-avatar-wrap" aria-hidden="true">
-                <img src="/images/chat/lumi_avatar_rut_circle.webp" alt="Rut" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.jpg'">
+                <img loading="lazy" decoding="async" src="/images/chat/lumi_avatar_rut_circle.webp" alt="Rut" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.jpg'">
                 <span class="cc-asst-pick-dot"></span>
               </span>
               <span class="cc-asst-pick-meta">
@@ -3270,7 +3276,7 @@
             </button>
             <button type="button" class="cc-asst-pick-btn cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea — Przewodnik i planista">
               <span class="cc-asst-pick-avatar-wrap" aria-hidden="true">
-                <img src="/images/chat/lumi_avatar_lea_circle.webp" alt="Lea" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-2.jpg'">
+                <img loading="lazy" decoding="async" src="/images/chat/lumi_avatar_lea_circle.webp" alt="Lea" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-2.jpg'">
                 <span class="cc-asst-pick-dot"></span>
               </span>
               <span class="cc-asst-pick-meta">
@@ -3280,7 +3286,7 @@
             </button>
             <button type="button" class="cc-asst-pick-btn cc-trio-card" data-asst-id="asystentka-3" role="radio" aria-checked="false" aria-label="Wybierz Noemi — Doradca i zasoby">
               <span class="cc-asst-pick-avatar-wrap" aria-hidden="true">
-                <img src="/images/chat/lumi_avatar_noemi_circle.webp" alt="Noemi" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-3.jpg'">
+                <img loading="lazy" decoding="async" src="/images/chat/lumi_avatar_noemi_circle.webp" alt="Noemi" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-3.jpg'">
                 <span class="cc-asst-pick-dot"></span>
               </span>
               <span class="cc-asst-pick-meta">
@@ -3290,7 +3296,7 @@
             </button>
             <button type="button" class="cc-asst-pick-btn cc-trio-card" data-asst-id="asystentka-4" role="radio" aria-checked="false" aria-label="Wybierz Miriam — Psalmy i uwielbienie">
               <span class="cc-asst-pick-avatar-wrap" aria-hidden="true">
-                <img src="/images/chat/lumi_avatar_miriam_circle.webp" alt="Miriam" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-4.jpg'">
+                <img loading="lazy" decoding="async" src="/images/chat/lumi_avatar_miriam_circle.webp" alt="Miriam" class="cc-asst-pick-avatar" onerror="this.src='/images/chat/assistants/asystentka-4.jpg'">
                 <span class="cc-asst-pick-dot"></span>
               </span>
               <span class="cc-asst-pick-meta">
@@ -3320,7 +3326,7 @@
               <!-- BANER ASYSTENTEK CC (SHOWCASE 1:1 ARTWORK & HOTSPOTS) -->
               <section class="cc-chat-asst-showcase" id="ccChatAsstShowcase" aria-label="Asystentki Christian Culture">
                 <div class="cc-hero-art-container">
-                  <img src="/images/chat/lumi_hero_banner.webp" alt="Asystentki Christian Culture - Lea, Rut, Noemi" class="cc-hero-art-img" width="474" height="288" loading="eager">
+                  <img src="/images/chat/lumi_hero_banner.webp" alt="Asystentki Christian Culture - Lea, Rut, Noemi" class="cc-hero-art-img" width="474" height="288" loading="lazy" decoding="async">
                   <div class="cc-hero-hotspots">
                     <!-- Lea -->
                     <button type="button" class="cc-hotspot cc-hotspot-lea cc-trio-card" data-asst-id="asystentka-2" role="radio" aria-checked="false" aria-label="Wybierz Lea - Organizer i planista" title="Lea - Organizer i planista"></button>
@@ -3343,7 +3349,7 @@
               <div class="cc-chat-active-asst-bar" id="ccChatActiveAsstBar">
                 <div class="cc-active-asst-left">
                   <div class="cc-active-asst-avatar-wrap" aria-hidden="true">
-                    <img src="/images/chat/lumi_avatar_rut_circle.webp" alt="Rut" id="ccChatActiveAsstAvatar" class="cc-active-asst-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.webp'">
+                    <img loading="lazy" decoding="async" src="/images/chat/lumi_avatar_rut_circle.webp" alt="Rut" id="ccChatActiveAsstAvatar" class="cc-active-asst-avatar" onerror="this.src='/images/chat/assistants/asystentka-1.webp'">
                     <span class="cc-active-asst-dot"></span>
                   </div>
                   <div class="cc-active-asst-meta">
@@ -3365,7 +3371,7 @@
                   <div class="cc-welcome-ask" id="ccChatWelcomeAsk">W czym mogę Ci dziś pomóc?</div>
                 </div>
                 <div class="cc-welcome-art-wrap" aria-hidden="true">
-                  <img src="/images/chat/lumi_welcome_cross_bible.webp" alt="Krzyż i Biblia" class="cc-welcome-art-img" width="88" height="168">
+                  <img loading="lazy" decoding="async" src="/images/chat/lumi_welcome_cross_bible.webp" alt="Krzyż i Biblia" class="cc-welcome-art-img" width="88" height="168">
                 </div>
               </div>
 
@@ -3373,7 +3379,7 @@
               <div class="cc-chat-quick-cards-grid" id="ccChatQuickCardsGrid">
                 <a href="/player" class="cc-quick-card cc-qc-gold" id="ccQcRadio" aria-label="Posłuchaj radia">
                   <div class="cc-qc-thumb-wrap" aria-hidden="true">
-                    <img src="/images/chat/lumi_thumb_mic.webp" alt="Radio 24/7" class="cc-qc-thumb-img" width="76" height="48">
+                    <img loading="lazy" decoding="async" src="/images/chat/lumi_thumb_mic.webp" alt="Radio 24/7" class="cc-qc-thumb-img" width="76" height="48">
                   </div>
                   <div class="cc-qc-meta">
                     <span class="cc-qc-title">🎧 Posłuchaj radia</span>
@@ -3384,7 +3390,7 @@
 
                 <a href="/Ewangelia" class="cc-quick-card cc-qc-blue" id="ccQcBible" aria-label="Poznaj Dobrą Nowinę">
                   <div class="cc-qc-thumb-wrap" aria-hidden="true">
-                    <img src="/images/chat/lumi_thumb_bible.webp" alt="Biblia" class="cc-qc-thumb-img" width="76" height="48">
+                    <img loading="lazy" decoding="async" src="/images/chat/lumi_thumb_bible.webp" alt="Biblia" class="cc-qc-thumb-img" width="76" height="48">
                   </div>
                   <div class="cc-qc-meta">
                     <span class="cc-qc-title">📖 Poznaj Dobrą Nowinę</span>
@@ -3395,7 +3401,7 @@
 
                 <a href="/akademia" class="cc-quick-card cc-qc-purple" id="ccQcAcademy" aria-label="Akademia Biblijna">
                   <div class="cc-qc-thumb-wrap" aria-hidden="true">
-                    <img src="/images/chat/lumi_thumb_cap.webp" alt="Akademia Biblijna" class="cc-qc-thumb-img" width="76" height="48">
+                    <img loading="lazy" decoding="async" src="/images/chat/lumi_thumb_cap.webp" alt="Akademia Biblijna" class="cc-qc-thumb-img" width="76" height="48">
                   </div>
                   <div class="cc-qc-meta">
                     <span class="cc-qc-title">🎓 Akademia Biblijna</span>
@@ -3727,7 +3733,7 @@
         }
         return `
           <div class="cc-chat-msg-row">
-            <img src="${escapeHtml(asst.avatar)}" alt="${escapeHtml(asst.name)}" class="cc-chat-msg-avatar" onerror="this.src='${escapeHtml(asst.avatarFallback)}'">
+            <img loading="lazy" decoding="async" src="${escapeHtml(asst.avatar)}" alt="${escapeHtml(asst.name)}" class="cc-chat-msg-avatar" onerror="this.src='${escapeHtml(asst.avatarFallback)}'">
             <div class="cc-chat-msg-content">
               <div class="cc-chat-msg-meta">
                 <span class="cc-chat-msg-sender">${escapeHtml(asst.name)}</span>
@@ -5179,7 +5185,7 @@
 
       list.innerHTML = filtered.map(m => `
         <div class="cc-card-item" data-partner-id="${m.id}">
-          <img src="${escapeHtml(m.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(m.name)}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid var(--lumi-border);" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+          <img loading="lazy" decoding="async" src="${escapeHtml(m.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(m.name)}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid var(--lumi-border);" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
           <div class="cc-card-info">
             <span class="cc-card-title">${escapeHtml(m.name)}</span>
             <span class="cc-card-sub">${escapeHtml(m.desc || m.badge)}</span>
@@ -6430,7 +6436,7 @@
     if (!bar) return;
     bar.innerHTML = COMMUNITY_MEMBERS.map(m => `
       <button type="button" class="cc-chat-partner-chip ${m.id === currentChatPartner.id ? 'is-active' : ''}" data-partner-id="${m.id}" title="${escapeHtml(m.name)}" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--lumi-panel);border:1px solid ${m.id === currentChatPartner.id ? 'var(--lumi-accent)' : 'var(--lumi-border)'};color:var(--lumi-text);font-size:0.75rem;cursor:pointer;white-space:nowrap;min-height:36px;">
-        <img src="${escapeHtml(m.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(m.name)}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+        <img loading="lazy" decoding="async" src="${escapeHtml(m.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(m.name)}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
         <span>${escapeHtml(m.name.split(' ')[0])}</span>
       </button>
     `).join('');
@@ -6573,7 +6579,7 @@
 
     const hosts = ROTATING_ASSISTANTS.slice(0, 4);
     const hostAvatarsHtml = hosts.map((a, idx) => `
-      <img src="${escapeHtml(a.circleAvatar || a.avatar)}" alt="${escapeHtml(a.shortName)}" title="${escapeHtml(a.shortName + ' · ' + a.role)}" class="cc-daily-dialogue-host-avatar" style="z-index:${4 - idx};" onerror="this.onerror=null;this.src='${escapeHtml(a.avatarFallback || '/images/chat/cc-chat-button-120.webp')}'">
+      <img loading="lazy" decoding="async" src="${escapeHtml(a.circleAvatar || a.avatar)}" alt="${escapeHtml(a.shortName)}" title="${escapeHtml(a.shortName + ' · ' + a.role)}" class="cc-daily-dialogue-host-avatar" style="z-index:${4 - idx};" onerror="this.onerror=null;this.src='${escapeHtml(a.avatarFallback || '/images/chat/cc-chat-button-120.webp')}'">
     `).join('');
     const hostNamesLabel = 'Rut, Lea, Noemi i Miriam';
 
@@ -6581,7 +6587,7 @@
       <div id="ccDailyDialogueBody" style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
         ${shownTurns.map(t => `
           <div class="cc-daily-dialogue-turn" style="display:flex;gap:8px;align-items:flex-start;background:rgba(13,16,32,0.55);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:8px 10px;">
-            <img src="${escapeHtml(t.avatar)}" alt="${escapeHtml(t.name)}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1.5px solid #D8AD57;flex-shrink:0;margin-top:2px;" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+            <img loading="lazy" decoding="async" src="${escapeHtml(t.avatar)}" alt="${escapeHtml(t.name)}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1.5px solid #D8AD57;flex-shrink:0;margin-top:2px;" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
             <div style="min-width:0;flex:1;">
               <div style="font-size:0.74rem;font-weight:700;color:#E2CC9A;">${escapeHtml(t.name)} <span style="font-weight:500;color:#8E99B3;">· ${escapeHtml(t.role)}</span></div>
               <div style="font-size:0.8rem;line-height:1.45;color:#EEF1F8;margin-top:2px;">${escapeHtml(t.text)}</div>
@@ -6696,7 +6702,7 @@
       const initials = name.split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
       const style = `width:22px;height:22px;border-radius:50%;border:1.5px solid #0D1020;margin-left:${i ? '-6px' : '0'};object-fit:cover;display:inline-flex;align-items:center;justify-content:center;background:#2A3150;color:#F2D17C;font-size:9px;font-weight:800;`;
       return av
-        ? `<img src="${escapeHtml(av)}" alt="" title="${escapeHtml(name)}" style="${style}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'${escapeHtml(initials)}',title:'${escapeHtml(name)}',style:this.getAttribute('style')}))">`
+        ? `<img loading="lazy" decoding="async" src="${escapeHtml(av)}" alt="" title="${escapeHtml(name)}" style="${style}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'${escapeHtml(initials)}',title:'${escapeHtml(name)}',style:this.getAttribute('style')}))">`
         : `<span title="${escapeHtml(name)}" style="${style}">${escapeHtml(initials)}</span>`;
     }).join('');
     const names = seen.map(e => e.name || e.id).join(', ');
@@ -6735,7 +6741,7 @@
   }
   window.ccOpenImage = function (src) {
     if (!ccSafeImg(src)) return;
-    ccSheet(`<h3>Zdjęcie</h3><img src="${escapeHtml(src)}" alt="Zdjęcie z czatu" style="width:100%;max-height:60vh;object-fit:contain;border-radius:12px;background:#000;"><div class="cc-sheet-row"><button type="button" data-sheet-close>Zamknij</button><a href="${escapeHtml(src)}" download="zdjecie-lumina.jpg" style="flex:1;min-height:48px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#D8AD57,#B58A38);color:#0D1020;font-weight:800;text-decoration:none;">Pobierz</a></div>`);
+    ccSheet(`<h3>Zdjęcie</h3><img loading="lazy" decoding="async" src="${escapeHtml(src)}" alt="Zdjęcie z czatu" style="width:100%;max-height:60vh;object-fit:contain;border-radius:12px;background:#000;"><div class="cc-sheet-row"><button type="button" data-sheet-close>Zamknij</button><a href="${escapeHtml(src)}" download="zdjecie-lumina.jpg" style="flex:1;min-height:48px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#D8AD57,#B58A38);color:#0D1020;font-weight:800;text-decoration:none;">Pobierz</a></div>`);
   };
   // Licznik na ikonie aplikacji i powiadomienia czatu znikają po przeczytaniu
   function ccClearChatBadge() {
@@ -6887,7 +6893,7 @@
     const faces = typers.slice(0, 3).map(t => {
       const a = String(t.avatar || '');
       const src = /^(https?:|\/)/.test(a) ? a : '/' + a.replace(/^\.\//, '');
-      return a ? `<img src="${escapeHtml(src)}" alt="" onerror="this.remove()">` : '';
+      return a ? `<img loading="lazy" decoding="async" src="${escapeHtml(src)}" alt="" onerror="this.remove()">` : '';
     }).join('');
     el.innerHTML = `${faces}<span>${escapeHtml(label)}</span><span class="cc-dots" aria-hidden="true"><span></span><span></span><span></span></span>`;
     el.hidden = false;
@@ -7039,7 +7045,7 @@
       } else {
         list.innerHTML = `
           <div class="cc-chat-empty-state" style="text-align:center;padding:24px 16px;color:#A5AEC4;">
-            <img src="${escapeHtml(currentChatPartner.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(currentChatPartner.name)}" style="width:56px;height:56px;border-radius:50%;margin:0 auto 10px;display:block;border:2px solid #D8AD57;object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,0.4);" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+            <img loading="lazy" decoding="async" src="${escapeHtml(currentChatPartner.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(currentChatPartner.name)}" style="width:56px;height:56px;border-radius:50%;margin:0 auto 10px;display:block;border:2px solid #D8AD57;object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,0.4);" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
             <div style="font-weight:700;color:#F7F8FC;font-size:0.95rem;margin-bottom:4px;">${escapeHtml(currentChatPartner.name)}</div>
             <div style="display:inline-block;font-size:0.75rem;color:#D8AD57;background:rgba(216,173,87,0.12);border:1px solid rgba(216,173,87,0.3);padding:2px 10px;border-radius:999px;margin-bottom:10px;">${escapeHtml(currentChatPartner.badge)}</div>
             <p style="font-size:0.85rem;line-height:1.5;max-width:300px;margin:0 auto;color:#A5AEC4;">
@@ -7102,7 +7108,7 @@
       html += `
         <div class="cc-chat-msg-row ${isMe ? 'is-me' : ''}">
           <a href="${escapeHtml(profileLink)}" target="_blank" rel="noopener noreferrer" title="Otwórz profil: ${name}" style="display:inline-flex;text-decoration:none;">
-            <img src="${avatar}" alt="${name}" class="cc-chat-msg-avatar" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+            <img loading="lazy" decoding="async" src="${avatar}" alt="${name}" class="cc-chat-msg-avatar" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
           </a>
           <div class="cc-chat-msg-content">
             <div class="cc-chat-msg-meta">
