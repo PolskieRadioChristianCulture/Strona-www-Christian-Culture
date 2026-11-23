@@ -4987,6 +4987,38 @@
                 photos: ['avatar_biblia_audio.gif', 'lumina_default_cover.jpg'],
                 posts: []
             },
+            'wiadomosci_z_nieba': {
+                uid: 'wiadomosci_z_nieba',
+                slug: 'wiadomosci_z_nieba',
+                handle: '@wiadomosci_z_nieba',
+                name: 'Jezus Chrystus — Wiadomości z nieba',
+                age: '',
+                isMissionAccount: true,
+                isEditorialChannel: true,
+                verified: true,
+                city: 'Christian Culture',
+                avatar: '/images/lumina/wiadomosci-z-nieba-avatar.png',
+                cover: '/images/wiadomosc-z-nieba/hero-16x9-og.jpg',
+                coverPosY: '50%',
+                job: 'Oficjalny profil tematyczny Christian Culture',
+                role: 'Wiadomości z nieba • Oficjalny profil tematyczny Christian Culture',
+                church: 'Christian Culture',
+                denom: 'Biblia / Inspiracje / Wiara',
+                status: 'Codzienna wiadomość ze Słowa Bożego (07:00)',
+                pin: '7777',
+                visibility: 'public',
+                match: '100%',
+                publisher: 'Christian Culture',
+                websiteUrl: 'https://polskieradio.cc/werset-dnia',
+                pageUrl: 'https://polskieradio.cc/wiadomosc-z-nieba/',
+                verse: '„Nie porzucę cię ani cię nie opuszczę.”',
+                verseRef: '— List do Hebrajczyków 13, 5 (UBG-2025)',
+                bio: '📩 Masz dziś wiadomość ze Słowa Bożego! ❤️ Każdego dnia jeden werset, jedna chwila refleksji i jedna okazja, aby zbliżyć się do Jezusa. 📖 Odkryj wiadomość przygotowaną na dziś',
+                editorialDisclosure: 'Oficjalny profil redakcyjny prowadzony przez Christian Culture. Publikacje przedstawiają nauczanie biblijne i zweryfikowane wersety Pisma Świętego (UBG-2025). Profil nie jest prywatnym kontem Jezusa ani zbiorem nowych, bezpośrednich objawień.',
+                tags: ['Wiadomość z Nieba', 'Werset Dnia', 'Słowo Boże', 'Biblia UBG', 'Christian Culture'],
+                photos: ['/images/lumina/wiadomosci-z-nieba-avatar.png', '/images/wiadomosc-z-nieba/hero-16x9-og.jpg'],
+                posts: []
+            },
             'u_zytagrzesik_7502': {
                 uid: 'z3PXzHryYuP8rQiXKW4jRORTFCg2',
                 slug: 'u_zytagrzesik_7502',
@@ -5699,6 +5731,10 @@
             }
             if (slug.includes('robert') || slug === 'u_robertukaszpio_5668' || slug === 'robertlukaszpio' || slug === 'robertukaszpio') {
                 return PROFILES_DB['robertlukaszpio'] || PROFILES_DB['u_robertukaszpio_5668'] || PROFILES_DB['robertukaszpio'];
+            }
+
+            if (slug === 'wiadomosci_z_nieba' || slug === 'wiadomosci-z-nieba' || slug === '@wiadomosci_z_nieba') {
+                return PROFILES_DB['wiadomosci_z_nieba'];
             }
 
             if (PROFILES_DB[slug]) {

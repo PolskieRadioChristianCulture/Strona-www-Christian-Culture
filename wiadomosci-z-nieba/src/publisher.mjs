@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { createRequire } from 'node:module';
 import { loadWznConfig } from './db.mjs';
 
 const DEFAULT_REPO_ROOT = path.resolve(import.meta.dirname, '..', '..');
@@ -151,6 +152,142 @@ export class TestSimulationPublisher {
       url: null,
     };
   }
+}
+
+export function resolveLuminaServiceAccountPath(repoRoot = DEFAULT_REPO_ROOT) {
+  const wektorRoot = path.resolve(repoRoot, '..', 'Wektor1_VideoFactory');
+  const candidates = [
+    process.env.LUMINA_SERVICE_ACCOUNT_PATH,
+    path.join(repoRoot, 'luminaServiceAccountKey.json'),
+    path.join(wektorRoot, 'luminaServiceAccountKey.json'),
+  ].filter(Boolean);
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  return null;
+}
+
+export function createLuminaAdminFirestoreClient(repoRoot = DEFAULT_REPO_ROOT) {
+  const saPath = resolveLuminaServiceAccountPath(repoRoot);
+  if (!saPath) {
+    const err = new Error('Brak pliku luminaServiceAccountKey.json dla połączenia z LUMINA Firestore.');
+    err.code = 'FIRESTORE_CLIENT_MISSING';
+    throw err;
+  }
+
+  const req = createRequire(import.meta.url);
+  let admin;
+  try {
+    admin = req('firebase-admin');
+  } catch {
+    admin = req(path.join(path.resolve(repoRoot, '..', 'Wektor1_VideoFactory'), 'node_modules', 'firebase-admin'));
+  }
+
+  const serviceAccount = JSON.parse(fs.readFileSync(saPath, 'utf8'));
+  const appName = 'lumina-wiadomosci-z-nieba';
+  const existing = admin.apps.find(a => a && a.name === appName);
+  const app =
+    existing ||
+    admin.initializeApp(
+      {
+        credential: admin.credential.cert(serviceAccount),
+        projectId: serviceAccount.project_id || 'lumina-cc',
+      },
+      appName
+    );
+  const db = app.firestore();
+
+  return {
+    async getPost(docId) {
+      const snap = await db.collection('lumina_posts').doc(docId).get();
+      return snap.exists ? { exists: true, data: snap.data() } : { exists: false };
+    },
+    async setPost(docId, doc) {
+      const cardImage = doc.image || '/images/wiadomosc-z-nieba/hero-16x9-og.jpg';
+      await db.collection('lumina_posts').doc(docId).set({
+        ...doc,
+        image: cardImage,
+        imageUrl: doc.imageUrl || cardImage,
+        isDevotion: false,
+        _isCkdDaily: false,
+        createdAtTimestamp: admin.firestore.FieldValue.serverTimestamp(),
+        publishedAt: doc.publishedAt || new Date().toISOString(),
+      });
+      return { postId: docId };
+    },
+    async getProfile(docId = 'wiadomosci_z_nieba') {
+      const snap = await db.collection('lumina_profiles').doc(docId).get();
+      return snap.exists ? { exists: true, data: snap.data() } : { exists: false };
+    },
+    async upsertEditorialProfile(profileDoc) {
+      const docId = profileDoc.slug || 'wiadomosci_z_nieba';
+      await db
+        .collection('lumina_profiles')
+        .doc(docId)
+        .set(
+          {
+            ...profileDoc,
+            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        );
+      return { profileId: docId };
+    },
+  };
+}
+
+export async function syncEditorialProfileToFirestore({
+  repoRoot = DEFAULT_REPO_ROOT,
+  firestoreClient = null,
+  config = null,
+} = {}) {
+  const cfg = config || loadWznConfig(repoRoot);
+  const p = cfg.profile || {};
+  const client = firestoreClient || createLuminaAdminFirestoreClient(repoRoot);
+  const profileDoc = {
+    uid: p.slug || 'wiadomosci_z_nieba',
+    slug: p.slug || 'wiadomosci_z_nieba',
+    handle: p.handle || '@wiadomosci_z_nieba',
+    name: p.fullTitle || 'Jezus Chrystus — Wiadomości z nieba',
+    displayName: p.displayName || 'Jezus Chrystus',
+    seriesName: p.seriesName || 'Wiadomości z nieba',
+    publisher: p.publisher || 'Christian Culture',
+    profileType: p.profileType || 'Oficjalny profil tematyczny Christian Culture',
+    category: p.category || 'Biblia / Inspiracje / Wiara',
+    avatar: p.avatarPng || '/images/lumina/wiadomosci-z-nieba-avatar.png',
+    cover: p.coverUrl || '/images/wiadomosc-z-nieba/hero-16x9-og.jpg',
+    coverPosY: '50%',
+    job: 'Oficjalny profil tematyczny Christian Culture',
+    role: 'Wiadomości z nieba • Oficjalny profil tematyczny Christian Culture',
+    church: p.publisher || 'Christian Culture',
+    denom: p.category || 'Biblia / Inspiracje / Wiara',
+    status: 'Codzienna wiadomość ze Słowa Bożego (07:00)',
+    visibility: 'public',
+    isMissionAccount: true,
+    isEditorialChannel: true,
+    verified: true,
+    isVerified: true,
+    isOfficial: true,
+    privateMessagesAllowed: false,
+    bio: p.bio,
+    slogan: p.slogan,
+    editorialDisclosure: p.editorialDisclosure,
+    websiteUrl: p.mainUrl || 'https://polskieradio.cc/werset-dnia',
+    pageUrl: p.publicUrl || 'https://polskieradio.cc/wiadomosc-z-nieba/',
+    profileUrl: 'lumina-profile.html?u=wiadomosci_z_nieba',
+    verse: '„Nie porzucę cię ani cię nie opuszczę.”',
+    verseRef: '— List do Hebrajczyków 13, 5 (UBG-2025)',
+    tags: ['Wiadomość z Nieba', 'Werset Dnia', 'Słowo Boże', 'Biblia UBG', 'Christian Culture'],
+    photos: [p.avatarPng || '/images/lumina/wiadomosci-z-nieba-avatar.png', p.coverUrl || '/images/wiadomosc-z-nieba/hero-16x9-og.jpg'],
+  };
+
+  await client.upsertEditorialProfile(profileDoc);
+  const readBack = await client.getProfile(profileDoc.slug);
+  return {
+    ok: Boolean(readBack?.exists),
+    profileId: profileDoc.slug,
+    data: readBack?.data || null,
+  };
 }
 
 export class LuminaTablicaFirestorePublisher {

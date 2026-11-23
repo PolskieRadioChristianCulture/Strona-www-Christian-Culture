@@ -213,7 +213,7 @@ service cloud.firestore {
 
     // P0 (Strażnik): slugi zastrzeżone dla kont oficjalnych — tylko Master Admin może je nadać.
     function isReservedSlug(slug) {
-      return slug in ['cezaryrgowski', 'wiolettarogowska', 'radiocc', 'andrzejthiel', 'christianculture', 'lumina'];
+      return slug in ['cezaryrgowski', 'wiolettarogowska', 'radiocc', 'andrzejthiel', 'christianculture', 'lumina', 'wiadomosci_z_nieba', 'wiadomosci-z-nieba'];
     }
 
     // P0 (Strażnik): pola uprzywilejowane — zwykły użytkownik nie może ich PODNIEŚĆ.
@@ -295,7 +295,7 @@ service cloud.firestore {
 
     function postIdentityIsSafe(data) {
       return !isReservedSlug(data.get('authorSlug', '')) &&
-        data.get('author', '') != 'Cezary Rogowski';
+        !(data.get('author', '') in ['Cezary Rogowski', 'Jezus Chrystus', 'Jezus Chrystus — Wiadomości z nieba']);
     }
 
     function directMessageAllowed(data) {

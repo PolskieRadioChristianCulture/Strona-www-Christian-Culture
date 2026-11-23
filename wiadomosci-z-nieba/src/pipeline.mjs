@@ -8,6 +8,9 @@ import { validateComposedPublication } from './theology-guard.mjs';
 import {
   assertPermittedAction,
   assertPublisherAccountSecurity,
+  createLuminaAdminFirestoreClient,
+  LuminaTablicaFirestorePublisher,
+  syncEditorialProfileToFirestore,
   TestSimulationPublisher,
   publishWithControlledRetry,
 } from './publisher.mjs';
@@ -54,7 +57,7 @@ export async function runDailyCycle({
   });
   const resolvedAlertsPath = alertsPath || path.resolve(rootDir, cfg.paths.alertsPath);
   const resolvedDraftsDir = draftsDir || path.resolve(rootDir, cfg.paths.draftsDir);
-  const publishAdapter = adapter || new TestSimulationPublisher({ repoRoot: rootDir, draftsDir: resolvedDraftsDir });
+  let publishAdapter = adapter;
 
   try {
     assertPermittedAction('record_daily_analytics');
@@ -208,6 +211,12 @@ export async function runDailyCycle({
 
     // 5. Kontrolowana publikacja z idempotentnym odzyskiwaniem
     try {
+      if (!publishAdapter) {
+        publishAdapter =
+          mode === 'PRODUCTION_LIVE'
+            ? new LuminaTablicaFirestorePublisher({ firestoreClient: createLuminaAdminFirestoreClient(rootDir) })
+            : new TestSimulationPublisher({ repoRoot: rootDir, draftsDir: resolvedDraftsDir });
+      }
       const pubResult = await publishWithControlledRetry({
         adapter: publishAdapter,
         payload: composed.luminaPostPayload,
@@ -457,10 +466,126 @@ export async function simulateTenDays({
   return simulationPayload;
 }
 
+export function syncPublicSiteData({
+  startDate = null,
+  days = 10,
+  rootDir = DEFAULT_REPO_ROOT,
+} = {}) {
+  const cfg = loadWznConfig(rootDir);
+  const todayStr = getWarsawDateParts(new Date()).dateStr;
+  let windowStart = startDate;
+  if (!windowStart) {
+    if (todayStr <= '2026-12-02') {
+      windowStart = '2026-11-23';
+    } else {
+      windowStart = getWarsawDateParts(addDaysToIsoDate(todayStr, -(days - 1))).dateStr;
+    }
+  }
+
+  const recentThemes = [];
+  const tenDays = [];
+  for (let i = 0; i < days; i++) {
+    const cycleDate = addDaysToIsoDate(windowStart, i);
+    const runDate = getWarsawDateParts(cycleDate).dateStr;
+    const verseRes = fetchVerifiedDailyVerse({ date: cycleDate, rootDir, config: cfg });
+    if (!verseRes.ok) {
+      throw new Error(`Nie można odświeżyć publicznych danych (${runDate}): ${verseRes.code} ${verseRes.reason}`);
+    }
+    const composed = composeDailyMessage({
+      verse: verseRes.verse,
+      runDate,
+      recentThemes,
+      config: cfg,
+      rootDir,
+    });
+    const theology = validateComposedPublication({ composed, verse: verseRes.verse, config: cfg });
+    if (!theology.ok) {
+      throw new Error(`Blokada teologiczna w publicznych danych (${runDate})`);
+    }
+    recentThemes.push(composed.themeId);
+    tenDays.push({
+      dayIndex: i + 1,
+      runDate,
+      status: runDate <= todayStr ? 'PUBLISHED_LIVE' : 'SCHEDULED_VERIFIED',
+      postId: composed.postId,
+      idempotencyKey: composed.idempotencyKey,
+      verse: {
+        day: verseRes.verse.day,
+        reference: verseRes.verse.reference,
+        referencePl: verseRes.verse.referencePl,
+        text: verseRes.verse.text,
+        translation: verseRes.verse.translation,
+        license: verseRes.verse.license,
+        canonicalVerified: verseRes.verse.canonicalVerified,
+        sha256: verseRes.verse.sha256,
+      },
+      themeId: composed.themeId,
+      themeLabel: composed.themeLabel,
+      sections: composed.sections,
+      bodyText: composed.bodyText,
+      dedicatedImage: composed.dedicatedImage,
+      actionUrl: cfg.profile.mainUrl,
+      theology,
+    });
+  }
+
+  const proposalPath = path.resolve(rootDir, cfg.paths.openbotProposalPath);
+  const scheduleProposal = writeOpenBotScheduleProposal(proposalPath, cfg);
+  const publicDataPath = path.resolve(rootDir, cfg.paths.publicDataPath || 'wiadomosc-z-nieba/data.json');
+  const payload = {
+    generatedAt: new Date().toISOString(),
+    environment: 'PRODUCTION',
+    mode: cfg.mode,
+    autoPublishEnabled: cfg.autoPublishEnabled === true,
+    productionApprovedByOwner: cfg.productionApprovedByOwner === true,
+    zeroCost: true,
+    profile: cfg.profile,
+    schedule: scheduleProposal,
+    tenDays,
+  };
+  fs.mkdirSync(path.dirname(publicDataPath), { recursive: true });
+  fs.writeFileSync(publicDataPath, JSON.stringify(payload, null, 2), 'utf8');
+  return payload;
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const cmd = args[0] || 'status';
   const cfg = loadWznConfig(DEFAULT_REPO_ROOT);
+
+  if (cmd === 'approve-l0') {
+    const db = openWznDb({ repoRoot: DEFAULT_REPO_ROOT });
+    db.setFlag('kill_switch', '0');
+    db.setFlag('auto_publish_enabled', cfg.autoPublishEnabled ? '1' : '0');
+    db.setFlag('production_approved_by_owner', cfg.productionApprovedByOwner ? '1' : '0');
+    const summary = db.exportStateSummary();
+    db.close();
+    const proposal = writeOpenBotScheduleProposal(
+      path.resolve(DEFAULT_REPO_ROOT, cfg.paths.openbotProposalPath),
+      cfg
+    );
+    const siteData = syncPublicSiteData({ rootDir: DEFAULT_REPO_ROOT });
+    console.log(JSON.stringify({
+      ok: true,
+      flags: summary.flags,
+      scheduleEnabled: proposal.enabled,
+      publicDaysCount: siteData.tenDays.length,
+    }, null, 2));
+    return;
+  }
+
+  if (cmd === 'sync-profile') {
+    const res = await syncEditorialProfileToFirestore({ rootDir: DEFAULT_REPO_ROOT, config: cfg });
+    console.log(JSON.stringify(res, null, 2));
+    if (!res.ok) process.exit(1);
+    return;
+  }
+
+  if (cmd === 'sync-site') {
+    const res = syncPublicSiteData({ rootDir: DEFAULT_REPO_ROOT });
+    console.log(JSON.stringify({ ok: true, count: res.tenDays.length, path: cfg.paths.publicDataPath }, null, 2));
+    return;
+  }
 
   if (cmd === 'simulate-ten-days') {
     const startIdx = args.indexOf('--start-date');
@@ -480,7 +605,19 @@ async function main() {
   if (cmd === 'run-daily') {
     const dateIdx = args.indexOf('--date');
     const dateArg = dateIdx !== -1 ? new Date(`${args[dateIdx + 1]}T07:00:00+01:00`) : new Date();
-    const res = await runDailyCycle({ date: dateArg, mode: cfg.mode, rootDir: DEFAULT_REPO_ROOT });
+    const actorContext =
+      cfg.mode === 'PRODUCTION_LIVE'
+        ? { authenticated: true, role: 'server_admin', provider: 'admin_sdk' }
+        : { authenticated: true, role: 'test_operator', provider: 'local' };
+    const res = await runDailyCycle({
+      date: dateArg,
+      mode: cfg.mode,
+      rootDir: DEFAULT_REPO_ROOT,
+      actorContext,
+    });
+    if (cfg.mode === 'PRODUCTION_LIVE' && (res.ok || res.status === 'SKIPPED_DUPLICATE')) {
+      syncPublicSiteData({ rootDir: DEFAULT_REPO_ROOT });
+    }
     console.log(JSON.stringify({
       ok: res.ok,
       status: res.status,

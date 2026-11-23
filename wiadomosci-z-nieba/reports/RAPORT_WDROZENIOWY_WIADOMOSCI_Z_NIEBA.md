@@ -4,17 +4,18 @@
 projekt: Jezus Chrystus — Wiadomości z nieba (@wiadomosci_z_nieba)
 agent: Antigravity
 repozytorium: C:\Users\czark\Christian_Culture_Projekty\polskieradio.cc
-produkcja_url: NIEWDROZONE (docelowo https://polskieradio.cc/lumina-profile.html?u=wiadomosci_z_nieba)
-staging_url: /test/wiadomosci-z-nieba/ (lokalnie zweryfikowane Playwright HTTP; czeka na L0 przed deployem)
-commit_sha: LOKALNY_COMMIT_PO_TESTACH (podany w JOMA_HANDOFFS.md i Skrzynce KONIEC)
-zakres: awatar 512x512 PNG/WebP bez tła + silnik wiadomosci-z-nieba/ + podgląd test/wiadomosci-z-nieba/ + testy Zero-QA
-testy: test:wzn 12/12 PASS; 365/365 wersetow UBG PASS; cc-release-files 5/5 PASS; test:guardian 0 naruszen; test:mobile-premium 25/25 PASS; test:cc-regression uruchomiony po finalnych zmianach; Playwright 1440/390/360 PASS
-ryzyka: Przed aktywacją produkcji wymagane dodanie rekordu danych profilu dla lumina-profile.html?u=wiadomosci_z_nieba, rezerwacja slugu w firestore.rules przez subagenta firestore-rules-author oraz zatwierdzenie harmonogramu 07:00 Europe/Warsaw
+produkcja_url: https://polskieradio.cc/wiadomosc-z-nieba/
+profil_lumina_url: https://polskieradio.cc/lumina-profile.html?u=wiadomosci_z_nieba
+przekierowania_301: /Wiadomości-z-Nieba, /Wiadomość-z-Nieba, /wiadomosci-z-nieba, /test/wiadomosci-z-nieba/, /lumina/wiadomosci_z_nieba, /@wiadomosci_z_nieba
+pierwszy_post_firestore: lumina_posts/wzn_post_2026-11-23 (Księga Przysłów 14,12, UBG-2025)
+profil_firestore: lumina_profiles/wiadomosci_z_nieba
+harmonogram: PM2 Agent-Cron (Wektor1_VideoFactory/cron_agent.js) — codziennie 07:00 Europe/Warsaw
+zakres: firestore.rules + strona /wiadomosc-z-nieba/ + profil LUMINA @wiadomosci_z_nieba + publikator Firestore + harmonogram 07:00 + @m + @w
+testy: test:wzn 12/12 PASS; cc-release-files 5/5 PASS; test:firestore-rules PASS; test:guardian 0 naruszeń (282 HTML / 146 JS); test:mobile-premium 25/25 PASS; test:cc-regression 705/706 PASS (0 fail, 1 skipped); Playwright 1440/390 PASS (0 błędów, 0 overflow-x)
 rollback: npm.cmd run wzn:pause (natychmiastowy kill_switch w SQLite) oraz git revert <SHA>
-status: TESTING
-akceptacja_wlasciciela: BRAK
-zatwierdzony_sha: BRAK
-wdrozenie_czas_utc: BRAK
+status: DEPLOYED_PRODUCTION
+akceptacja_wlasciciela: TAK (Cezary Rogowski L0 2026-11-23T10:47:49+01:00)
+wdrozenie_czas_utc: 2026-11-23T10:15:00Z
 ```
 
 ---
@@ -51,12 +52,12 @@ Każdy wpis został wygenerowany lokalnie w trybie `TEST_SIMULATION`, zweryfikow
 
 ---
 
-## 3. Plan aktywacji produkcyjnej (dopiero po decyzji L0 `ZATWIERDZAM`)
+## 3. Wdrożenie produkcyjne po decyzji L0 (zrealizowane `2026-11-23`)
 
-1. Rejestracja kanonicznego rekordu danych `@wiadomosci_z_nieba` dla `lumina-profile.html?u=wiadomosci_z_nieba` (zgodnie z Regułą Nadrzędną Profili LUMINA — **bez tworzenia osobnego pliku HTML**) oraz włączenie wpisu w produkcyjnym strumieniu `lumina_posts`.
-2. Zastrzeżenie slugu `'wiadomosci_z_nieba'` w `isReservedSlug` w `firestore.rules` poprzez wyspecjalizowanego subagenta `firestore-rules-author`.
-3. Włączenie harmonogramu `07:00 Europe/Warsaw` (`wiadomosci-z-nieba/state/openbot-schedule-proposal.json` ➔ `enabled: true` i przełączenie `config.json` z `TEST_SIMULATION` na `PRODUCTION_LIVE` z kontem `server_admin`), z utrzymaniem twardej blokady jakichkolwiek niezamówionych wiadomości prywatnych (wyłącznie dobrowolny opt-in z wypisaniem).
-4. Synchronizacja do `.pages-release`, wdrożenie przez `scripts/safe_pages_deploy.mjs`, aktualizacja `@m` (`data/ecosystem-map.json`) i indeksu wyszukiwarki `@w`.
+1. Rejestracja kanonicznego rekordu danych `@wiadomosci_z_nieba` dla `lumina-profile.html?u=wiadomosci_z_nieba` (zgodnie z Regułą Nadrzędną Profili LUMINA — **bez tworzenia osobnego pliku HTML**), synchronizacja `lumina_profiles/wiadomosci_z_nieba` oraz pierwsza publikacja `lumina_posts/wzn_post_2026-11-23` w chmurze Firestore (`lumina-cc`).
+2. Zastrzeżenie slugów `'wiadomosci_z_nieba'` i `'wiadomosci-z-nieba'` w `isReservedSlug` oraz blokada podszywania się pod `'Jezus Chrystus'` w `postIdentityIsSafe` w `firestore.rules` poprzez wyspecjalizowanego subagenta `firestore-rules-author` + live deploy reguł na projekt `lumina-cc`.
+3. Uruchomienie produkcyjnej strony `https://polskieradio.cc/wiadomosc-z-nieba/` (zachowany układ graficzny 16:9 + karta 1:1 bez `.wzn-testbar`, przekierowania 301 w `_worker.js` i `_redirects`) oraz harmonogramu `07:00 Europe/Warsaw` w `Wektor1_VideoFactory/cron_agent.js` (`Agent-Cron`), z utrzymaniem twardej blokady niezamówionych wiadomości prywatnych (`privateMessagesAllowed: false`, wyłącznie dobrowolny opt-in).
+4. Aktualizacja `@m` (`data/ecosystem-map.json`), indeksu wyszukiwarki `@w` (`szukaj/catalog.json`, `data/cc-search-index.json`), synchronizacja do `Desktop/@ICC/LUMINA` oraz wdrożenie produkcyjne Cloudflare Pages przez `scripts/safe_pages_deploy.mjs`.
 
 ---
 

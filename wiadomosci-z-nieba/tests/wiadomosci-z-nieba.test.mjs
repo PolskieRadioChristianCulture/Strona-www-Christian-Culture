@@ -35,7 +35,7 @@ function makeTempDir(t, prefix = 'wzn-test-') {
   return dir;
 }
 
-test('1. Konfiguracja profilu i powierzchnia TEST wskazują jawnie Christian Culture jako wydawcę', () => {
+test('1. Konfiguracja profilu i strona produkcyjna wskazują jawnie Christian Culture jako wydawcę', () => {
   const cfg = loadWznConfig(REPO_ROOT);
   assert.equal(cfg.profile.displayName, 'Jezus Chrystus');
   assert.equal(cfg.profile.seriesName, 'Wiadomości z nieba');
@@ -47,13 +47,17 @@ test('1. Konfiguracja profilu i powierzchnia TEST wskazują jawnie Christian Cul
   assert.match(cfg.profile.bio, /Masz dziś wiadomość ze Słowa Bożego/);
   assert.match(cfg.profile.slogan, /Nie masz nowych wiadomości\? A może jedna czeka na Ciebie od Boga\?/);
   assert.match(cfg.profile.editorialDisclosure, /Christian Culture/);
+  assert.equal(cfg.mode, 'PRODUCTION_LIVE');
   assert.equal(cfg.zeroCost, true);
-  assert.equal(cfg.autoPublishEnabled, false);
-  assert.equal(cfg.productionApprovedByOwner, false);
+  assert.equal(cfg.autoPublishEnabled, true);
+  assert.equal(cfg.productionApprovedByOwner, true);
+  assert.equal(cfg.privateMessagesAllowed, false);
 
-  const html = fs.readFileSync(path.join(REPO_ROOT, 'test', 'wiadomosci-z-nieba', 'index.html'), 'utf8');
-  assert.match(html, /noindex,\s*nofollow,\s*noarchive/);
+  const html = fs.readFileSync(path.join(REPO_ROOT, 'wiadomosc-z-nieba', 'index.html'), 'utf8');
+  assert.match(html, /index,\s*follow/);
+  assert.doesNotMatch(html, /wzn-testbar/);
   assert.match(html, /Christian Culture/);
+  assert.match(html, /https:\/\/polskieradio\.cc\/werset-dnia/);
   assert.doesNotMatch(html, /mission\s+control/i);
 });
 
@@ -82,7 +86,7 @@ test('2. Okrągły awatar Jezusa PNG i WebP ma 512x512, przezroczyste rogi i opt
 
 test('3. Link główny https://polskieradio.cc/werset-dnia jest poprawny we wszystkich wygenerowanych postach', () => {
   const cfg = loadWznConfig(REPO_ROOT);
-  const sim = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'test', 'wiadomosci-z-nieba', 'simulation-data.json'), 'utf8'));
+  const sim = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'wiadomosc-z-nieba', 'data.json'), 'utf8'));
   assert.equal(sim.tenDays.length, 10);
   for (const day of sim.tenDays) {
     assert.equal(day.actionUrl, 'https://polskieradio.cc/werset-dnia');
@@ -168,11 +172,18 @@ test('7. Harmonogram 07:00 Europe/Warsaw (CET/CEST), propozycja OpenBot oraz Kil
   assert.equal(isScheduledWindowDue(new Date('2026-11-23T06:00:00Z'), '07:00').due, true);
 
   const proposal = buildOpenBotScheduleProposal(cfg, REPO_ROOT);
-  assert.equal(proposal.enabled, false);
-  assert.equal(proposal.requiresOwnerApprovalL0, true);
+  assert.equal(proposal.enabled, true);
+  assert.equal(proposal.requiresOwnerApprovalL0, false);
   assert.equal(proposal.provider, 'opencode');
   assert.equal(proposal.model, 'opencode/deepseek-v4.1-flash-free');
   assert.equal(proposal.cronExpression, '0 7 * * *');
+
+  const proposalUnapproved = buildOpenBotScheduleProposal(
+    { ...cfg, productionApprovedByOwner: false, autoPublishEnabled: false },
+    REPO_ROOT
+  );
+  assert.equal(proposalUnapproved.enabled, false);
+  assert.equal(proposalUnapproved.requiresOwnerApprovalL0, true);
 
   const tmp = makeTempDir(t);
   const dbPath = path.join(tmp, 'wzn.sqlite');
@@ -272,11 +283,18 @@ test('10. Zabezpieczenia konta publikacyjnego blokują produkcję bez L0 i konte
   const tmp = makeTempDir(t);
   const dbPath = path.join(tmp, 'wzn.sqlite');
   const db = openWznDb({ dbPath, repoRoot: REPO_ROOT });
+  const unapprovedCfg = {
+    ...loadWznConfig(REPO_ROOT),
+    productionApprovedByOwner: false,
+    autoPublishEnabled: false,
+  };
   try {
+    db.setFlag('production_approved_by_owner', '0');
     assert.throws(
       () =>
         assertPublisherAccountSecurity({
           mode: 'PRODUCTION_LIVE',
+          config: unapprovedCfg,
           db,
           actorContext: { authenticated: true, role: 'server_admin', provider: 'admin_sdk' },
           repoRoot: REPO_ROOT,
@@ -288,6 +306,7 @@ test('10. Zabezpieczenia konta publikacyjnego blokują produkcję bez L0 i konte
       () =>
         assertPublisherAccountSecurity({
           mode: 'TEST_SIMULATION',
+          config: unapprovedCfg,
           db,
           actorContext: { authenticated: false, role: 'guest', provider: 'anonymous' },
           repoRoot: REPO_ROOT,
@@ -305,24 +324,22 @@ test('11. Twarda blokada niezamówionych wiadomości prywatnych (DM/push) i wym�
     assert.throws(() => assertPermittedAction(forbidden), err => err.code === 'PERMISSION_DENIED');
   }
 
-  const html = fs.readFileSync(path.join(REPO_ROOT, 'test', 'wiadomosci-z-nieba', 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(REPO_ROOT, 'wiadomosc-z-nieba', 'index.html'), 'utf8');
   assert.match(html, /id="optInNotifBtn"[^>]*aria-pressed="false"/);
   assert.match(html, /brak automatycznych wiadomości prywatnych/);
 });
 
-test('12. Analityka i symulacja 10-dniowa działają w trybie TEST bez profilowania jednostek', async t => {
-  const previewJson = fs.readFileSync(path.join(REPO_ROOT, 'test', 'wiadomosci-z-nieba', 'simulation-data.json'), 'utf8');
-  const sim = JSON.parse(previewJson);
-  assert.equal(sim.tenDays.length, 10);
-  assert.equal(sim.verificationChecks.duplicateRunBlocked, true);
-  assert.equal(sim.verificationChecks.missingSourceBlocked, true);
-  assert.equal(sim.analyticsSummary.totals.published_count, 10);
-  assert.equal(sim.analyticsSummary.totals.errors_count, 0);
+test('12. Analityka i publikacja produkcyjna 10-dniowa działają bez profilowania jednostek', async t => {
+  const prodJson = fs.readFileSync(path.join(REPO_ROOT, 'wiadomosc-z-nieba', 'data.json'), 'utf8');
+  const data = JSON.parse(prodJson);
+  assert.equal(data.environment, 'PRODUCTION');
+  assert.equal(data.tenDays.length, 10);
+  assert.equal(data.zeroCost, true);
 
   const schemaSql = fs.readFileSync(path.join(REPO_ROOT, 'wiadomosci-z-nieba', 'src', 'db.mjs'), 'utf8');
   assert.doesNotMatch(schemaSql, /user_email|belief_profile|religion_score|phone_number/i);
 
-  const html = fs.readFileSync(path.join(REPO_ROOT, 'test', 'wiadomosci-z-nieba', 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(REPO_ROOT, 'wiadomosc-z-nieba', 'index.html'), 'utf8');
   assert.match(html, /\/js\/cc-analytics\.js/);
 
   // Szybkie sprawdzenie eksportowanego simulateTenDays w izolowanym środowisku nie psuje domyślnego podglądu

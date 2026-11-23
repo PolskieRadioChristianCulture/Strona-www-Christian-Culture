@@ -1,9 +1,11 @@
 {
   "projectId": "icc-wiadomosci-z-nieba",
   "version": "1.0.0",
-  "mode": "TEST_SIMULATION",
-  "autoPublishEnabled": false,
-  "productionApprovedByOwner": false,
+  "mode": "PRODUCTION_LIVE",
+  "autoPublishEnabled": true,
+  "productionApprovedByOwner": true,
+  "approvedAt": "2026-11-23T10:47:49+01:00",
+  "approvedBy": "Cezary Rogowski (L0)",
   "killSwitch": false,
   "privateMessagesAllowed": false,
   "zeroCost": true,
@@ -20,8 +22,11 @@
     "slogan": "Nie masz nowych wiadomości? A może jedna czeka na Ciebie od Boga?",
     "bio": "📩 Masz dziś wiadomość ze Słowa Bożego! ❤️ Każdego dnia jeden werset, jedna chwila refleksji i jedna okazja, aby zbliżyć się do Jezusa. 📖 Odkryj wiadomość przygotowaną na dziś",
     "mainUrl": "https://polskieradio.cc/werset-dnia",
+    "publicUrl": "https://polskieradio.cc/wiadomosc-z-nieba/",
+    "luminaProfileUrl": "https://polskieradio.cc/lumina-profile.html?u=wiadomosci_z_nieba",
     "avatarPng": "/images/lumina/wiadomosci-z-nieba-avatar.png",
-    "avatarWebp": "/images/lumina/wiadomosci-z-nieba-avatar.webp"
+    "avatarWebp": "/images/lumina/wiadomosci-z-nieba-avatar.webp",
+    "coverUrl": "/images/wiadomosc-z-nieba/hero-16x9-og.jpg"
   },
   "schedule": {
     "timezone": "Europe/Warsaw",
@@ -47,6 +52,7 @@
     "alertsPath": "wiadomosci-z-nieba/reports/ALERTS.md",
     "latestStatusPath": "wiadomosci-z-nieba/state/latest-status.json",
     "openbotProposalPath": "wiadomosci-z-nieba/state/openbot-schedule-proposal.json",
-    "previewDataPath": "test/wiadomosci-z-nieba/simulation-data.json"
+    "previewDataPath": "test/wiadomosci-z-nieba/simulation-data.json",
+    "publicDataPath": "wiadomosc-z-nieba/data.json"
   }
 }

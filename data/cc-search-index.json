@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-23T08:24:36.831Z",
-  "totalItems": 688,
+  "updatedAt": "2026-11-23T10:17:43.456Z",
+  "totalItems": 689,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -1061,6 +1061,27 @@
     }
   },
   "items": [
+    {
+      "title": "Wiadomość z Nieba — Jezus Chrystus (@wiadomosci_z_nieba)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/wiadomosc-z-nieba/",
+      "description": "Codzienny zweryfikowany werset z Pisma Świętego (UBG-2025), osobista refleksja i grafika 1080×1080 do udostępnienia. Oficjalny profil tematyczny Christian Culture.",
+      "tags": [
+        "wiadomość z nieba",
+        "wiadomosci z nieba",
+        "wiadomosc z nieba",
+        "jezus chrystus",
+        "@wiadomosci_z_nieba",
+        "werset dnia",
+        "słowo na dziś",
+        "biblia ubg",
+        "lumina",
+        "refleksja",
+        "nadzieja",
+        "christian culture"
+      ],
+      "featured": true
+    },
     {
       "title": "cclite.pl — Oficjalna Aplikacja Webowa Ekosystemu Christian Culture (PWA)",
       "category": "Narzędzia i misja",

@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-23",
+      "topic": "Wiadomość z Nieba (@wiadomosci_z_nieba) — wdrożenie produkcyjne strony /wiadomosc-z-nieba/, profilu LUMINA i codziennej publikacji UBG-2025 o 07:00",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-23",
       "topic": "Automatyzacja aktualizacji Zrzutka.pl (zrzutka.pl/rs4g4v) w synchronizacji 1:1 z Patronite (Pon 09:00, Śr 18:00, Pt 10:00), dedykowane grafiki 1068×630 i 1080×1080, panel 1-Click (/test/zrzutka) oraz rozszerzenie raportów misyjnych o MojaBiblia, Centrum Aplikacji, CCN News, Nowe Studio RTV i LUMINA",
       "agent": "A"
     },
@@ -5860,10 +5865,44 @@
         "bcm-modlitwa"
       ],
       "verifiedDate": "2026-11-21"
+    },
+    {
+      "id": "wiadomosc-z-nieba",
+      "branchId": "biblia-edukacja",
+      "name": "Wiadomość z Nieba — Jezus Chrystus (@wiadomosci_z_nieba)",
+      "shortDesc": "Codzienny zweryfikowany werset Biblii UBG-2025 z osobistą refleksją (07:00).",
+      "fullDesc": "Oficjalny profil tematyczny Christian Culture w LUMINA Mesh oraz strona Wiadomość z Nieba z codziennym wersetem z Pisma Świętego, refleksją i grafiką 1080×1080 do pobrania.",
+      "type": "portal",
+      "url": "https://polskieradio.cc/wiadomosc-z-nieba/",
+      "status": "active",
+      "lang": "pl",
+      "icon": "📩",
+      "category": "Biblia i Edukacja",
+      "keywords": [
+        "Wiadomość z Nieba",
+        "Wiadomości z nieba",
+        "Jezus Chrystus",
+        "@wiadomosci_z_nieba",
+        "Werset Dnia",
+        "Biblia UBG",
+        "LUMINA",
+        "Christian Culture"
+      ],
+      "connections": [
+        "werset-dnia-app",
+        "lumina-main",
+        "lumina-profile",
+        "lumina-tablica"
+      ]
     }
   ],
   "lastUpdated": "2026-11-23",
   "recentUpdates": [
+    {
+      "date": "2026-11-23",
+      "topic": "Wiadomość z Nieba (@wiadomosci_z_nieba) — wdrożenie produkcyjne strony /wiadomosc-z-nieba/, profilu LUMINA i codziennej publikacji UBG-2025 o 07:00",
+      "agent": "A"
+    },
     {
       "topic": "CCN Ogłoszenia — uruchomienie promocji darmowej tablicy ogłoszeń (/ogloszenia) z oficjalną identyfikacją wizualną",
       "date": "2026-11-23",

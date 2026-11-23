@@ -89,11 +89,14 @@ export function buildOpenBotScheduleProposal(config = null, repoRoot = null) {
   const { hour, minute, formatted } = parsePublishTime(
     process.env.WZN_PUBLISH_TIME || cfg.schedule?.publishTime || '07:00'
   );
+  const approved = cfg.productionApprovedByOwner === true && cfg.autoPublishEnabled === true;
   return {
     id: 'icc-wiadomosci-z-nieba-daily',
     name: 'Jezus Chrystus — Wiadomości z nieba (@wiadomosci_z_nieba)',
-    enabled: false,
-    requiresOwnerApprovalL0: true,
+    enabled: approved,
+    requiresOwnerApprovalL0: !approved,
+    approvedAt: approved ? (cfg.approvedAt || null) : null,
+    activeScheduler: approved ? 'PM2 Agent-Cron (Wektor1_VideoFactory/cron_agent.js)' : 'NONE (TEST)',
     mode: cfg.mode || 'TEST_SIMULATION',
     zeroCost: true,
     provider: 'opencode',
@@ -102,7 +105,9 @@ export function buildOpenBotScheduleProposal(config = null, repoRoot = null) {
     publishTime: formatted,
     cronExpression: `${minute} ${hour} * * *`,
     command: 'node wiadomosci-z-nieba/src/pipeline.mjs run-daily',
-    note: 'Wyłączone w środowisku TEST. Aktywacja automatycznej publikacji o 07:00 Europe/Warsaw wymaga jawnej akceptacji L0 po zakończeniu testów.',
+    note: approved
+      ? 'Aktywowane przez właściciela L0 (Cezary Rogowski). Podpięte pod istniejący harmonogram PM2 Agent-Cron o 07:00 Europe/Warsaw.'
+      : 'Wyłączone w środowisku TEST. Aktywacja automatycznej publikacji o 07:00 Europe/Warsaw wymaga jawnej akceptacji L0 po zakończeniu testów.',
   };
 }
 

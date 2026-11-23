@@ -1450,6 +1450,40 @@ export const PROFILES_DB = {
         tags: ['Rozważania Biblijne', 'Słowo na Dziś', 'Wiara', 'Modlitwa', 'Społeczność LUMINA'],
         photos: ['avatar_marek_jakubowski.jpg', 'lumina_default_cover.jpg'],
         posts: []
+    },
+
+    // ── Jezus Chrystus — Wiadomości z nieba (@wiadomosci_z_nieba) ──
+    'wiadomosci_z_nieba': {
+        uid: 'wiadomosci_z_nieba',
+        slug: 'wiadomosci_z_nieba',
+        handle: '@wiadomosci_z_nieba',
+        profileUrl: 'lumina-profile.html?u=wiadomosci_z_nieba',
+        name: 'Jezus Chrystus — Wiadomości z nieba',
+        age: '',
+        city: 'Christian Culture',
+        avatar: '/images/lumina/wiadomosci-z-nieba-avatar.png',
+        cover: '/images/wiadomosc-z-nieba/hero-16x9-og.jpg',
+        coverPosY: '50%',
+        job: 'Oficjalny profil tematyczny Christian Culture',
+        role: 'Wiadomości z nieba • Oficjalny profil tematyczny Christian Culture',
+        church: 'Christian Culture',
+        denom: 'Biblia / Inspiracje / Wiara',
+        status: 'Codzienna wiadomość ze Słowa Bożego (07:00)',
+        visibility: 'public',
+        isMissionAccount: true,
+        isEditorialChannel: true,
+        verified: true,
+        publisher: 'Christian Culture',
+        websiteUrl: 'https://polskieradio.cc/werset-dnia',
+        pageUrl: 'https://polskieradio.cc/wiadomosc-z-nieba/',
+        stats: { friends: '0', posts: '1', likes: '0' },
+        verse: '„Nie porzucę cię ani cię nie opuszczę.”',
+        verseRef: '— List do Hebrajczyków 13, 5 (UBG-2025)',
+        bio: '📩 Masz dziś wiadomość ze Słowa Bożego! ❤️ Każdego dnia jeden werset, jedna chwila refleksji i jedna okazja, aby zbliżyć się do Jezusa. 📖 Odkryj wiadomość przygotowaną na dziś',
+        editorialDisclosure: 'Oficjalny profil redakcyjny prowadzony przez Christian Culture. Publikacje przedstawiają nauczanie biblijne i zweryfikowane wersety Pisma Świętego (UBG-2025). Profil nie jest prywatnym kontem Jezusa ani zbiorem nowych, bezpośrednich objawień.',
+        tags: ['Wiadomość z Nieba', 'Werset Dnia', 'Słowo Boże', 'Biblia UBG', 'Christian Culture'],
+        photos: ['/images/lumina/wiadomosci-z-nieba-avatar.png', '/images/wiadomosc-z-nieba/hero-16x9-og.jpg'],
+        posts: []
     }
 };
 
