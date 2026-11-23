@@ -36,7 +36,7 @@ const MEMORY_VERSE = `„${MEMORY_VERSE_QUOTE}” — Księga Wyjścia 24:8 (UBG
 const THEME =
   'Dwudziesty czwarty rozdział Księgi Wyjścia to jeden z najbardziej majestatycznych punktów zwrotnych w całej historii zbawienia: uroczysta ratyfikacja Przymierza zawartego między świętym Bogiem a odkupionym ludem u stóp góry Synaj. Po odczytaniu przez Mojżesza Księgi Przymierza cały lud jednogłośnie odpowiada: „Wypełnimy wszystko, co PAN mówił, i będziemy posłuszni” (Wj 24:7). Wówczas Mojżesz kropi krwią zarówno ołtarz, jak i lud, wypowiadając prorocze słowa: „Oto krew przymierza, które PAN zawarł z wami” (Wj 24:8) — dokładnie te same słowa, które piętnaście wieków później wypowie Pan Jezus Chrystus w Wieczerniku przy ustanowieniu Wieczerzy Pańskiej: „To jest bowiem moja krew nowego przymierza, która się wylewa za wielu na przebaczenie grzechów” (Mt 26:28; Hbr 9:18–20)! Dzięki krwi Przymierza siedemdziesięciu starszych wraz z Mojżeszem, Aaronem, Nadabem i Abihu wstępuje na górę, ogląda Boga Izraela ponad szafirowym sklepieniem czystego nieba, je i pije w Jego obecności bez trwogi o śmierć, a sam Mojżesz wchodzi w środek obłoku i ognia chwały PANA na czterdzieści dni i czterdzieści nocy, by otrzymać kamienne tablice Prawa!';
 
-const IMG_FILENAME = 'kc_day_54_krew_przymierza_chwala_synaj.jpg';
+const IMG_FILENAME = 'kc_day_54_krew_przymierza_szafirowe_niebo.jpg';
 const IMG_REL_PATH = `images/academy/daily/${IMG_FILENAME}`;
 const IMG_CAPTION =
   'Ilustracja biblijna: Ratyfikacja Przymierza u stóp góry Synaj, szafirowe niebo pod stopami Boga Izraela i Mojżesz wstępujący w obłok chwały PANA — Wj 24:8–18';

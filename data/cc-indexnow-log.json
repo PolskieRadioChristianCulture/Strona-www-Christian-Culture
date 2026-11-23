@@ -1,6 +1,183 @@
 {
   "entries": [
     {
+      "timestamp": "2026-11-23T05:27:26.690Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 492
+    },
+    {
+      "timestamp": "2026-11-23T05:27:26.263Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 492
+    },
+    {
+      "timestamp": "2026-11-23T05:27:24.709Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+        "https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa",
+        "https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad"
+      ]
+    },
+    {
+      "timestamp": "2026-11-23T05:25:51.486Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 492
+    },
+    {
+      "timestamp": "2026-11-23T05:25:51.037Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 492
+    },
+    {
+      "timestamp": "2026-11-23T05:25:49.763Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+        "https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa",
+        "https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad"
+      ]
+    },
+    {
+      "timestamp": "2026-11-23T05:24:56.746Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 491
+    },
+    {
+      "timestamp": "2026-11-23T05:24:56.155Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 491
+    },
+    {
+      "timestamp": "2026-11-23T05:24:55.055Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+        "https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa",
+        "https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad"
+      ]
+    },
+    {
+      "timestamp": "2026-11-23T05:23:40.932Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 491
+    },
+    {
+      "timestamp": "2026-11-23T05:23:40.485Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 491
+    },
+    {
+      "timestamp": "2026-11-23T05:23:38.696Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+        "https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa",
+        "https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad"
+      ]
+    },
+    {
+      "timestamp": "2026-11-22T17:03:20.845Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 490
+    },
+    {
+      "timestamp": "2026-11-22T17:03:20.416Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 490
+    },
+    {
+      "timestamp": "2026-11-22T06:53:20.688Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 490
+    },
+    {
+      "timestamp": "2026-11-22T06:53:20.022Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 490
+    },
+    {
+      "timestamp": "2026-11-22T06:50:30.366Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "Bing Direct",
+      "httpStatus": 200,
+      "urlCount": 490
+    },
+    {
+      "timestamp": "2026-11-22T06:50:29.846Z",
+      "level": "INFO",
+      "event": "INDEXNOW_SUBMIT_SUCCESS",
+      "endpoint": "IndexNow Global",
+      "httpStatus": 200,
+      "urlCount": 490
+    },
+    {
+      "timestamp": "2026-11-22T06:50:28.454Z",
+      "level": "INFO",
+      "event": "INDEXNOW_ENQUEUED",
+      "count": 17,
+      "sampleUrls": [
+        "https://polskieradio.cc/finanse/cbdc-prawo-niedzielne-apokalipsa-13",
+        "https://polskieradio.cc/finanse",
+        "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+        "https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa",
+        "https://polskieradio.cc/prawo/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad"
+      ]
+    },
+    {
       "timestamp": "2026-11-22T05:03:43.530Z",
       "level": "INFO",
       "event": "INDEXNOW_SUBMIT_SUCCESS",

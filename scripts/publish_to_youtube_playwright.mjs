@@ -12,7 +12,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { chromium } from 'playwright';
+import { openChannelStudio, CHANNELS, launchStudio } from './yt_studio_session.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,33 +44,13 @@ function saveHistory(history) {
   }
 }
 
-// Uruchomienie kontekstu przeglądarki
+// Uruchomienie kontekstu przeglądarki (wyłącznie Chrome z profilu — bez fallbacku na Chromium bez ABE)
 async function getBrowserContext(headless = true) {
   if (!fs.existsSync(PROFILE_DIR)) {
     fs.mkdirSync(PROFILE_DIR, { recursive: true });
   }
-
-  const launchOptions = {
-    headless,
-    channel: 'chrome',
-    viewport: { width: 1440, height: 900 },
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
-    args: [
-      '--disable-blink-features=AutomationControlled',
-      '--no-sandbox',
-      '--disable-infobars'
-    ]
-  };
-
-  let context;
-  try {
-    context = await chromium.launchPersistentContext(PROFILE_DIR, launchOptions);
-  } catch (err) {
-    delete launchOptions.channel;
-    context = await chromium.launchPersistentContext(PROFILE_DIR, launchOptions);
-  }
-
-  return context;
+  const { ctx } = await launchStudio({ headless });
+  return ctx;
 }
 
 // Sprawdzenie stanu logowania
@@ -93,13 +73,56 @@ async function checkLoginState(page) {
 
 const KNOWN_CHANNELS = {
   'Biblia Audio Christian Culture': 'UCCqHRCEuSDhlRcvcQ6qM1Kw',
-  'Christian Culture TV': 'UCHmPxDM2zzlUAf5ZvlotPLw'
+  'Christian Culture TV': 'UCG5Y4dwJi5436Gu6QH3nNUQ',
+  'Osobowość +': 'UCHmPxDM2zzlUAf5ZvlotPLw',
+  'Polskie Radio CHRISTIAN CULTURE': 'UCNnCdsJ-K6FXulZzXZHWkjQ',
+  'CC Women': 'UC-LPFt-vmJCeap746DOWMgw'
 };
 
 // Przełączanie kanału w ramach sesji YouTube Studio
 async function switchChannelInStudio(page, targetChannel) {
   if (!targetChannel) return;
   console.log(`[Kanał] Przełączam sesję na wskazany kanał: "${targetChannel}"...`);
+
+  const expectedId = KNOWN_CHANNELS[targetChannel] || (CHANNELS[targetChannel] && CHANNELS[targetChannel].id) || (targetChannel.startsWith('UC') ? targetChannel : null);
+  const currentUrl = page.url();
+  const hasCreateBtn = await page.locator('#create-icon, ytcp-button#create-icon').first().isVisible().catch(() => false);
+  const bodyHasError = await page.evaluate(() => /nie masz uprawnień|oops|ups,/i.test((document.body && document.body.innerText) || '')).catch(() => false);
+  if (expectedId && currentUrl.includes(expectedId) && hasCreateBtn && !bodyHasError) {
+    console.log(`[Kanał] Już jesteśmy w aktywnym Studio kanału ${targetChannel} (${expectedId}).`);
+    return;
+  }
+
+  if (CHANNELS[targetChannel]) {
+    // Spróbuj bezpiecznego przełączenia przez YouTube Avatar Switcher lub channel_switcher z weryfikacją bez ?approve_browser_access=true
+    const ch = CHANNELS[targetChannel];
+    try {
+      await page.goto('https://www.youtube.com/channel_switcher', { waitUntil: 'domcontentloaded', timeout: 45000 });
+      await page.locator('ytd-account-item-renderer').first().waitFor({ timeout: 30000 });
+      await page.waitForTimeout(1500);
+      const item = page.locator('ytd-account-item-renderer', { hasText: ch.via }).first();
+      if (await item.count()) {
+        await item.scrollIntoViewIfNeeded().catch(() => {});
+        await item.click();
+        await page.waitForTimeout(5000);
+      }
+      const targetId = ch.id || expectedId;
+      if (targetId) {
+        await page.goto(`https://studio.youtube.com/channel/${targetId}`, { waitUntil: 'domcontentloaded', timeout: 45000 });
+        await page.waitForTimeout(4000);
+        const okBtn = await page.locator('#create-icon, ytcp-button#create-icon').first().isVisible().catch(() => false);
+        const errTxt = await page.evaluate(() => /nie masz uprawnień|oops|ups,/i.test((document.body && document.body.innerText) || '')).catch(() => false);
+        if (okBtn && !errTxt && page.url().includes(targetId)) {
+          console.log(`[Kanał] Otwarto Studio kanału ${targetChannel} (${targetId}).`);
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn('[Kanał] Próba bezpośredniego przełączenia nie powiodła się, przechodzę do openChannelStudio:', e.message);
+    }
+    await openChannelStudio(page, targetChannel);
+    return;
+  }
 
   // Jeśli kanał ma znany stały identyfikator, przechodzimy bezpośrednio
   const channelId = KNOWN_CHANNELS[targetChannel] || (targetChannel.startsWith('UC') ? targetChannel : null);
@@ -296,6 +319,20 @@ async function uploadToYouTube({ videoPath, metaPath, visibility = 'public', hea
     await descBox.fill(description);
     await page.waitForTimeout(1000);
 
+    // 4b. Opcjonalne wgranie dedykowanej miniatury 1920x1080 (jeśli podano w meta.thumbnailPath)
+    if (meta.thumbnailPath && fs.existsSync(meta.thumbnailPath)) {
+      try {
+        const thumbInput = await page.$('ytcp-thumbnail-uploader input[type="file"], input#file-loader[accept*="image"]');
+        if (thumbInput) {
+          await thumbInput.setInputFiles(path.resolve(meta.thumbnailPath));
+          console.log(`  -> Wgrano dedykowaną miniaturę: ${path.basename(meta.thumbnailPath)}`);
+          await page.waitForTimeout(2000);
+        }
+      } catch (err) {
+        console.warn('  [Ostrzeżenie] Nie udało się wgrać miniatury:', err.message);
+      }
+    }
+
     // 5. Oznaczenie: "Nie, ten film nie jest przeznaczony dla dzieci" (wymóg prawny COPPA)
     console.log('[5/7] Konfiguracja opcji widowni (COPPA: nie dla dzieci)...');
     const notForKidsRadio = await page.waitForSelector(
@@ -338,12 +375,46 @@ async function uploadToYouTube({ videoPath, metaPath, visibility = 'public', hea
       console.log('  -> Oczekuję na link w końcowym oknie...');
     }
 
-    // 6. Przejście przez kolejne kroki (Dalej -> Dalej -> Dalej -> Widoczność)
+    // 6. Przejście przez kolejne kroki (Szczegóły -> [Zarabianie / Zgodność] -> Elementy -> Kontrole -> Widoczność)
     console.log('[6/7] Przechodzenie do ustawień widoczności...');
-    for (let step = 1; step <= 3; step++) {
-      const nextBtn = await page.waitForSelector('#next-button, button#next-button', { timeout: 15000 });
-      await nextBtn.click();
-      await page.waitForTimeout(1500);
+    for (let step = 1; step <= 6; step++) {
+      const publicVisible = await page.locator('tp-yt-paper-radio-button[name="PUBLIC"], [name="PUBLIC"]').first().isVisible().catch(() => false);
+      if (publicVisible) break;
+
+      // Jeśli na ekranie jest przełącznik Zarabianie / Monetization (dla kanałów monetyzowanych), włącz je automatycznie
+      try {
+        const monDropdown = page.locator('ytcp-video-monetization-basics ytcp-dropdown-trigger, ytcp-icon-button[aria-label*="Zarabianie"], ytcp-video-monetization-basics #select-monetization').first();
+        if (await monDropdown.isVisible().catch(() => false)) {
+          await monDropdown.click().catch(() => {});
+          await page.waitForTimeout(800);
+          const onOpt = page.locator('tp-yt-paper-radio-button:has-text("Włącz"), tp-yt-paper-radio-button:has-text("On")').first();
+          if (await onOpt.isVisible().catch(() => false)) {
+            await onOpt.click().catch(() => {});
+            const doneMon = page.locator('#save-button:has-text("Gotowe"), #save-button:has-text("Done")').first();
+            if (await doneMon.isVisible().catch(() => false)) await doneMon.click().catch(() => {});
+            await page.waitForTimeout(1000);
+          }
+        }
+        // Zgodność z wymogami reklamodawców (Ad suitability): "Żadne z powyższych" + "Prześlij ocenę"
+        const noneAbove = page.locator('tp-yt-paper-checkbox:has-text("Żadne z powyższych"), tp-yt-paper-checkbox:has-text("None of the above")').first();
+        if (await noneAbove.isVisible().catch(() => false)) {
+          await noneAbove.click().catch(() => {});
+          await page.waitForTimeout(600);
+          const submitRating = page.locator('#submit-questionnaire-button, ytcp-button:has-text("Prześlij ocenę"), ytcp-button:has-text("Submit rating")').first();
+          if (await submitRating.isVisible().catch(() => false)) {
+            await submitRating.click().catch(() => {});
+            await page.waitForTimeout(2000);
+          }
+        }
+      } catch {}
+
+      const nextBtn = page.locator('#next-button, button#next-button').first();
+      if (await nextBtn.isVisible().catch(() => false)) {
+        await nextBtn.click();
+        await page.waitForTimeout(1500);
+      } else {
+        break;
+      }
     }
 
     // Ustawienie widoczności
@@ -369,17 +440,31 @@ async function uploadToYouTube({ videoPath, metaPath, visibility = 'public', hea
     }
     await page.waitForTimeout(1500);
 
-    // 7. Kliknij "Zapisz" / "Opublikuj" ("Publish" / "Done")
-    console.log('[7/7] Zatwierdzanie publikacji (Zapisz / Opublikuj)...');
+    // 7. Poczekaj na zakończenie przesyłania pliku MP4 (dla pełnych albumów ~65-75 MB) zanim zamkniemy okno
+    console.log('[7/7] Weryfikacja postępu uploadu i zatwierdzanie publikacji...');
+    const uploadWaitStart = Date.now();
+    while (Date.now() - uploadWaitStart < 240000) {
+      const progressTxt = await page.evaluate(() => {
+        const el = document.querySelector('ytcp-video-upload-progress, span.progress-label');
+        return el ? (el.innerText || '').trim() : '';
+      }).catch(() => '');
+      if (!progressTxt || !/przesyłan|uploading|\d+%/i.test(progressTxt) || /zakończono|100%|przetwarz|checks|processing|sprawdz/i.test(progressTxt)) {
+        if (progressTxt) console.log(`  -> Status uploadu: ${progressTxt}`);
+        break;
+      }
+      console.log(`  -> Upload w toku: ${progressTxt}`);
+      await page.waitForTimeout(4000);
+    }
+
     const doneBtn = await page.waitForSelector(
-      '#done-button, button#done-button, ytcp-button#done-button',
-      { timeout: 15000 }
+      '#done-button:not([aria-disabled="true"]), button#done-button:not([disabled]), ytcp-button#done-button:not([aria-disabled="true"])',
+      { timeout: 60000 }
     );
     await doneBtn.click();
 
-    // Czekaj na okno potwierdzenia lub zamknięcie dialogu
-    console.log('Oczekiwanie na potwierdzenie przyjęcia pliku przez YouTube...');
-    await page.waitForTimeout(5000);
+    // Czekaj na okno potwierdzenia lub zakończenie zapisu przez YouTube
+    console.log('Oczekiwanie na potwierdzenie przyjęcia i zapisu filmu przez YouTube...');
+    await page.waitForTimeout(8000);
 
     // Sprawdź końcowy URL w oknie "Przesłano film" jeśli wcześniej nie udało się pobrać
     if (!videoUrl) {
@@ -462,5 +547,8 @@ async function main() {
 export { uploadToYouTube, runLogin, getBrowserContext, checkLoginState };
 
 if (process.argv[1] && process.argv[1].endsWith('publish_to_youtube_playwright.mjs')) {
-  main().catch(() => process.exit(1));
+  main().catch((err) => {
+    console.error('[BŁĄD FATALNY]', err?.message || err);
+    process.exit(1);
+  });
 }

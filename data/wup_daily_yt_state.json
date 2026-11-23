@@ -3,7 +3,7 @@
   "series": "What's Up Prof? — Walter Veith & Martin Smith (Clash of Minds)",
   "scheduleOffsetHours": 48,
   "dailyCron": "CRON_TZ=Europe/Warsaw 0 15 * * *",
-  "lastRunAt": "2026-11-19T16:03:01.611Z",
+  "lastRunAt": "2026-11-23T05:26:50.581Z",
   "episodes": {
     "1": {
       "seq": 1,
@@ -441,6 +441,144 @@
         }
       },
       "scheduledYmd": "2026-11-21",
+      "scheduledTime": "15:00"
+    },
+    "7": {
+      "seq": 7,
+      "epCode": "007",
+      "completed": true,
+      "channels": {
+        "Personality Plus": {
+          "status": "ok",
+          "channelId": "UCSwb927uMg2PxIl_Aakht0Q",
+          "videoUrl": "https://youtu.be/HdMjX-bNsmc",
+          "title": "007. What Do We Believe, Why Do We Believe It? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-21T14:11:39.963Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/zkrf7zInewo",
+          "title": "007. W co wierzymy i dlaczego w to wierzymy? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-21T14:13:44.253Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "ok",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "videoUrl": "https://youtu.be/NfyJIMXyJEo",
+          "title": "007. W co wierzymy i dlaczego w to wierzymy? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-21T14:16:43.588Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/Aqm-D9vVpFY",
+          "title": "007. W co wierzymy i dlaczego w to wierzymy? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-21T14:18:52.207Z"
+        },
+        "Christian Culture TV": {
+          "status": "ok",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "videoUrl": "https://youtu.be/2FadWnCW1wY",
+          "title": "007. W co wierzymy i dlaczego w to wierzymy? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-21T14:20:49.412Z"
+        },
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "videoUrl": "https://youtu.be/GlAm1H1XN9U",
+          "title": "007. W co wierzymy i dlaczego w to wierzymy? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-21T14:22:42.174Z"
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "videoUrl": "https://youtu.be/LpT0aOX30vE",
+          "title": "007. W co wierzymy i dlaczego w to wierzymy? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-21T14:24:42.137Z"
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "videoUrl": "https://youtu.be/yVymeiDrNlU",
+          "title": "007. W co wierzymy i dlaczego w to wierzymy? | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-21T14:26:36.561Z"
+        }
+      },
+      "scheduledYmd": "2026-11-23",
+      "scheduledTime": "15:15"
+    },
+    "8": {
+      "seq": 8,
+      "epCode": "008",
+      "completed": false,
+      "channels": {
+        "Personality Plus": {
+          "status": "ok",
+          "channelId": "UCSwb927uMg2PxIl_Aakht0Q",
+          "videoUrl": "https://youtu.be/PSwzgTkXgIs",
+          "title": "008. Is This The End? Part 1 (In Depth Study) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-22T19:09:10.672Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/ta9nHCZcwJ4",
+          "title": "008. Czy to już koniec? Cz. 1 (Pogłębione studium) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-22T20:18:17.611Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "ok",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "videoUrl": "https://youtu.be/dE3XWJiSjzQ",
+          "title": "008. Czy to już koniec? Cz. 1 (Pogłębione studium) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-22T20:32:08.851Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/twMOSvb6C8w",
+          "title": "008. Czy to już koniec? Cz. 1 (Pogłębione studium) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-23T05:26:50.581Z"
+        },
+        "Christian Culture TV": {
+          "status": "error",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "error": "Przekroczono limit 900s oczekiwania na zwolnienie profilu C:\\Users\\czark\\.youtube_browser_profile.",
+          "failedAt": "2026-11-22T15:24:52.867Z"
+        },
+        "Osobowość +": {
+          "status": "error",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "error": "Przekroczono limit 900s oczekiwania na zwolnienie profilu C:\\Users\\czark\\.youtube_browser_profile.",
+          "failedAt": "2026-11-22T15:39:55.939Z"
+        },
+        "CC Women": {
+          "status": "error",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "error": "Przekroczono limit 900s oczekiwania na zwolnienie profilu C:\\Users\\czark\\.youtube_browser_profile.",
+          "failedAt": "2026-11-22T15:55:01.023Z"
+        },
+        "CC Men": {
+          "status": "error",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "error": "Przekroczono limit 900s oczekiwania na zwolnienie profilu C:\\Users\\czark\\.youtube_browser_profile.",
+          "failedAt": "2026-11-22T16:10:06.121Z"
+        }
+      },
+      "scheduledYmd": "2026-11-24",
       "scheduledTime": "15:00"
     }
   }

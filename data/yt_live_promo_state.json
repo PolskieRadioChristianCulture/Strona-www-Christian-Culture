@@ -1,7 +1,29 @@
 {
-  "lastPromotedIndex": 5,
-  "lastPromotedDate": "2026-11-19",
+  "lastPromotedIndex": 6,
+  "lastPromotedDate": "2026-11-22",
   "history": [
+    {
+      "date": "2026-11-22",
+      "channelName": "CC Men",
+      "handle": "@CCMen7",
+      "url": "https://www.youtube.com/@CCMen7/live",
+      "results": {
+        "lumina": {
+          "status": "published",
+          "docId": "3EaFeVRiQhxZfdxVUwlK"
+        },
+        "x": {
+          "status": "published"
+        },
+        "fb": {
+          "status": "published"
+        },
+        "wa": {
+          "status": "queued",
+          "targets": 3
+        }
+      }
+    },
     {
       "date": "2026-11-19",
       "channelName": "CC Women",

@@ -1,0 +1,76 @@
+import { chromium } from 'playwright';
+import path from 'node:path';
+
+const PROFILE_DIR = 'C:\\Users\\czark\\.youtube_browser_profile';
+const THUMBNAIL_PATH = path.resolve('scripts/thumbnail_tvw_live.jpg');
+
+async function testWerset() {
+  const ctx = await chromium.launchPersistentContext(PROFILE_DIR, {
+    headless: true, channel: 'chrome', viewport: { width: 1600, height: 1000 },
+    args: ['--disable-blink-features=AutomationControlled', '--no-sandbox']
+  });
+  const page = ctx.pages()[0] || await ctx.newPage();
+
+  async function updateOne(handle, name, vid) {
+    console.log(`\n=== ${name} (${handle}, vid: ${vid}) ===`);
+    await page.goto('https://www.youtube.com/channel_switcher', { waitUntil: 'domcontentloaded' });
+    await page.locator('ytd-account-item-renderer').first().waitFor({ timeout: 20000 });
+    const items = await page.locator('ytd-account-item-renderer').all();
+    for (const it of items) {
+      const text = await it.innerText().catch(() => '');
+      if (text.includes(handle) || text.toLowerCase().includes(name.toLowerCase())) {
+        await Promise.all([
+          page.waitForNavigation({ waitUntil: 'domcontentloaded' }).catch(() => {}),
+          it.click()
+        ]);
+        await page.waitForTimeout(2000);
+        console.log(`  Switched to ${name}`);
+        break;
+      }
+    }
+
+    await page.goto(`https://studio.youtube.com/video/${vid}/edit`, { waitUntil: 'domcontentloaded' });
+    
+    // Poll for gate or loader
+    for (let i = 0; i < 10; i++) {
+      const gate = page.locator('a:has-text("PRZEJDŹ DO YOUTUBE STUDIO"), a:has-text("GO TO YOUTUBE STUDIO")').first();
+      if (await gate.isVisible().catch(() => false)) {
+        console.log(`  Gate found on attempt ${i}, clicking!`);
+        await gate.click();
+        await page.waitForTimeout(4000);
+        break;
+      }
+      const hasLoader = await page.locator('input#file-loader').count();
+      if (hasLoader > 0) {
+        console.log(`  input#file-loader already present on attempt ${i}!`);
+        break;
+      }
+      await page.waitForTimeout(1000);
+    }
+
+    console.log('  Waiting for input#file-loader attached...');
+    await page.waitForSelector('input#file-loader', { state: 'attached', timeout: 20000 });
+    console.log('  Setting files...');
+    await page.locator('input#file-loader').setInputFiles(THUMBNAIL_PATH);
+    await page.waitForTimeout(2500);
+    await page.keyboard.press('Escape');
+
+    const saveBtn = page.locator('#save-button, ytcp-button:has-text("Zapisz"), button:has-text("Zapisz")').first();
+    const isEnabled = await saveBtn.evaluate(el => !el.hasAttribute('disabled') && el.getAttribute('aria-disabled') !== 'true').catch(() => false);
+    console.log('  Save button enabled:', isEnabled);
+    if (isEnabled) {
+      await saveBtn.click({ force: true });
+      await page.waitForTimeout(4000);
+      console.log(`  ✅ SAVED thumbnail for ${name}!`);
+    } else {
+      console.log(`  ℹ️ Save button not active (already set)`);
+    }
+  }
+
+  await updateOne('@wersetdnia_ChSB', 'Werset Dnia', 'bt8m8st5GOE');
+  await updateOne('@TopSeven_CC', 'Top Seven', 'tIF2WJl9G1c');
+
+  await ctx.close();
+}
+
+testWerset().catch(console.error);

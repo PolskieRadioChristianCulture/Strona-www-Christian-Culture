@@ -268,7 +268,8 @@
         + '<a href="/wspieramto" style="background:#FF7A00;color:#fff"><i class="fa-solid fa-heart" aria-hidden="true"></i><span>WspieramTO — Dom + Studio CC →</span></a>'
         + '<a href="/biblia-audio" style="background:#161b26;color:#E2CC9A;border:1px solid rgba(196,163,90,0.45)"><i class="fa-solid fa-headphones" aria-hidden="true"></i><span>Słuchaj Biblii Audio →</span></a>'
         + '</div>';
-      box.insertAdjacentElement('afterend', wBox);
+      var anchor = document.getElementById('ccDailyAccountInvitation') || box;
+      anchor.insertAdjacentElement('afterend', wBox);
     }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);

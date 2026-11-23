@@ -4,9 +4,8 @@ import { launchStudio, openChannelStudio } from './yt_studio_session.mjs';
 
 const HISTORY_FILE = path.resolve('C:\\Users\\czark\\Christian_Culture_Projekty\\polskieradio.cc\\data\\youtube_published_history.json');
 
-// Maks. czas na przesłanie pliku (4K ~400 MB). Zamknięcie przeglądarki przed końcem
-// przesyłania przerywa upload i zostawia w Studio wersję roboczą — dlatego czekamy.
-const UPLOAD_TIMEOUT_MS = 60 * 60 * 1000;
+// Maks. czas na przesłanie pliku. Domyślnie 120 min (zabezpieczenie przed przerwaniem przy dużych plikach).
+const UPLOAD_TIMEOUT_MS = Number(process.env.CC_YT_UPLOAD_TIMEOUT_MS ?? 120 * 60 * 1000);
 const PROGRESS_SELECTOR = 'ytcp-uploads-dialog ytcp-video-upload-progress, ytcp-uploads-dialog .progress-label';
 
 function readHistory(historyFile = HISTORY_FILE) {
@@ -268,15 +267,17 @@ export async function waitForUploadComplete(page, { timeoutMs = UPLOAD_TIMEOUT_M
   const start = Date.now();
   let lastLog = 0;
   while (Date.now() - start < timeoutMs) {
+    if (typeof page.isClosed === 'function' && page.isClosed()) throw new Error('Strona formularza przesyłania została zamknięta.');
     const text = await page.locator(selector).first().innerText({ timeout: 2000 }).catch(() => '');
     const state = uploadStateFromText(text);
     if (state === 'done') return text.trim();
     if (state === 'error') throw new Error(`YouTube zgłosił błąd przesyłania: ${text.trim()}`);
-    if (Date.now() - lastLog > 60000) {
+    if (Date.now() - lastLog > 15000) {
       console.log(`  -> Przesyłanie trwa: "${text.trim().replace(/\s+/g, ' ') || 'brak etykiety postępu'}"`);
       lastLog = Date.now();
     }
-    await page.waitForTimeout(pollMs);
+    if (typeof page.evaluate === 'function') await page.evaluate(() => Date.now()).catch(() => {});
+    await new Promise(r => setTimeout(r, pollMs));
   }
   throw new Error(`Przesyłanie nie zakończyło się w ${Math.round(timeoutMs / 60000)} min — NIE publikuję.`);
 }
@@ -366,7 +367,8 @@ export async function uploadEpisodeToChannel({
     : scheduleTarget({ channelName, isShorts }, undefined, scheduleTime);
   console.log(`• Widoczność: ${visibility}${schedule ? ` — zaplanowana na ${schedule.date} ${schedule.time}${isShorts ? '' : ' (premiera)'}` : ''}`);
 
-  const { ctx, page } = await launchStudio();
+  const headless = process.env.CC_YT_HEADLESS === '1';
+  const { ctx, page } = await launchStudio({ headless });
 
   try {
     // 1. Otwórz Studio WŁAŚCIWEGO kanału (tożsamość + weryfikacja ID) — inaczej film trafia na kanał, na którym akurat jest sesja
@@ -763,20 +765,25 @@ export async function uploadEpisodeToChannel({
 
     // Sukces tylko, gdy YouTube pokaże okno „opublikowano” (lub „nadal przetwarzany — zostanie opublikowany”)
     console.log('Oczekiwanie na potwierdzenie publikacji przez YouTube...');
-    // Okno „Nadal sprawdzamy Twoje treści” (sprawdzanie praw autorskich w toku) trzeba zamknąć „OK” — dopiero wtedy YouTube pokazuje potwierdzenie.
-    const confirmText = page.getByText(/Film został (zaplanowany|opublikowany)|Film zostanie opublikowany|zostanie ustawiony jako publiczny|Video (published|scheduled)|Video will be published/i).first();
+    // Okno „Nadal sprawdzamy Twoje treści” (sprawdzanie praw autorskich w toku) trzeba zamknąć „OK” lub „Opublikuj mimo to” — dopiero wtedy YouTube pokazuje potwierdzenie.
+    const confirmText = page.getByText(/Film został (zaplanowany|opublikowany)|Opublikowano film|Film zostanie opublikowany|zostanie ustawiony jako publiczny|Przetwarzanie filmu|zostanie przesłany jako publiczny|Video (published|scheduled)|Video will be published/i).first();
+    const shareDialog = page.locator('ytcp-video-share-dialog').first();
     const stillChecking = page.locator('tp-yt-paper-dialog:visible, ytcp-dialog:visible').filter({ hasText: /Nadal sprawdzamy|still checking/i }).first();
     let confirmed = false;
     let clickedOk = false;
     for (const end = Date.now() + 90000; Date.now() < end && !confirmed;) {
-      if (await confirmText.isVisible().catch(() => false)) { confirmed = true; break; }
+      if (await confirmText.isVisible().catch(() => false) || await shareDialog.isVisible().catch(() => false)) { confirmed = true; break; }
       if (await stillChecking.isVisible().catch(() => false)) {
-        console.log('  -> YouTube: „Nadal sprawdzamy Twoje treści” — zamykam OK.');
-        await stillChecking.locator('ytcp-button, button').filter({ hasText: /^\s*OK\s*$/ }).first().click().then(() => { clickedOk = true; }).catch(() => {});
+        console.log('  -> YouTube: „Nadal sprawdzamy Twoje treści” — klikam OK / Opublikuj mimo to.');
+        const confirmCheckBtn = stillChecking.locator('ytcp-button, button').filter({ hasText: /^\s*(OK|Opublikuj mimo to|Publish anyway)\s*$/i }).first();
+        if (await confirmCheckBtn.isVisible().catch(() => false)) {
+          await confirmCheckBtn.click({ force: true }).then(() => { clickedOk = true; }).catch(() => {});
+          await page.waitForTimeout(2500);
+        }
       }
       await page.waitForTimeout(1500);
-      if (!confirmed && clickedOk && !(await page.locator('ytcp-uploads-dialog #title-textarea').first().isVisible().catch(() => false))) {
-        confirmed = true; // dialog zamknięty po OK = zaplanowano; stan i tak weryfikuje yt_reconcile_history
+      if (!confirmed && clickedOk && !(await page.locator('ytcp-uploads-dialog').first().isVisible().catch(() => false))) {
+        confirmed = true; // dialog zamknięty po potwierdzeniu = opublikowano/zaplanowano; stan i tak weryfikuje yt_reconcile_history
       }
     }
     if (!confirmed) {

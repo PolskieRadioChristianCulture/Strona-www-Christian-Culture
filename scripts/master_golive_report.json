@@ -1,0 +1,424 @@
+{
+  "updatedAt": "2026-11-22T18:50:00.567Z",
+  "totalProcessed": 22,
+  "results": [
+    {
+      "channelName": "Polskie Radio CC",
+      "handle": "@RadioChristianCulture",
+      "id": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+      "aitumOutput": "RCC",
+      "status": "LIVE_STARTED",
+      "health": "Doskonały",
+      "videoId": "RxyWYOGWZ6c",
+      "thumbStatus": "SAVE_DISABLED_UNCHANGED",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "TURNED_ON",
+        "autoStop": "ALREADY_OFF"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/video/RxyWYOGWZ6c/livestreaming",
+      "error": null,
+      "pathUsed": "MANAGE_ROW"
+    },
+    {
+      "channelName": "Biblia Audio CC",
+      "handle": "@bibliaaudiocc",
+      "id": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+      "aitumOutput": "Biblia Audio",
+      "status": "NO_ENCODER_SIGNAL",
+      "health": "Brak danych",
+      "videoId": "LXF-yIcnO_g",
+      "thumbStatus": "SAVE_DISABLED_UNCHANGED",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "TURNED_ON",
+        "autoStop": "ALREADY_OFF"
+      },
+      "studioKey": "wf6b-91hh-e6jt-ga17-41yh",
+      "roomUrl": "https://studio.youtube.com/video/LXF-yIcnO_g/livestreaming",
+      "error": null,
+      "pathUsed": "MANAGE_ROW"
+    },
+    {
+      "channelName": "Osobowość +",
+      "handle": "@osobowoscPLUS",
+      "id": "UCHmPxDM2zzlUAf5ZvlotPLw",
+      "aitumOutput": "O+",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCHmPxDM2zzlUAf5ZvlotPLw/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "Werset Dnia",
+      "handle": "@wersetdnia_ChSB",
+      "id": "UCyOvW5DuDLVq5XWFyijgtbw",
+      "aitumOutput": "Werset Dnia",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCyOvW5DuDLVq5XWFyijgtbw/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "CC Men",
+      "handle": "@CCMen7",
+      "id": "UCUpuq9JS7jitIcm9iBn0jnA",
+      "aitumOutput": "CC MEN",
+      "status": "LIVE_STARTED",
+      "health": "Doskonały",
+      "videoId": "hkct4gOpx-0",
+      "thumbStatus": "SAVED",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "TURNED_ON",
+        "autoStop": "ALREADY_OFF"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/video/hkct4gOpx-0/livestreaming",
+      "error": null,
+      "pathUsed": "MANAGE_ROW"
+    },
+    {
+      "channelName": "Popraw Koronę",
+      "handle": "@PoprawKoronęCC",
+      "id": "UCquRtlfo1jrhZGO8LqFVllQ",
+      "aitumOutput": "Popraw Koronę",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "Doskonały",
+      "videoId": "9H_xc4mdUro",
+      "thumbStatus": "SAVE_DISABLED_UNCHANGED",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "ALREADY_ON",
+        "autoStop": "TURNED_OFF"
+      },
+      "studioKey": "yv2h-0h70-eybp-589d-4fy7",
+      "roomUrl": "https://studio.youtube.com/video/9H_xc4mdUro/livestreaming",
+      "error": null,
+      "pathUsed": "MANAGE_ROW"
+    },
+    {
+      "channelName": "CC Women",
+      "handle": "@CCWomen7",
+      "id": "UC-LPFt-vmJCeap746DOWMgw",
+      "aitumOutput": "CC Women",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UC-LPFt-vmJCeap746DOWMgw/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "Christian Culture TV",
+      "handle": "@ChristianCultureTV",
+      "id": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+      "aitumOutput": "CC TV",
+      "status": "ALREADY_LIVE_THUMB_UPDATED",
+      "health": "Doskonały",
+      "videoId": "KdOBA_zRU0c",
+      "thumbStatus": "SAVE_DISABLED_UNCHANGED",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "TURNED_ON",
+        "autoStop": "ALREADY_OFF"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/video/KdOBA_zRU0c/livestreaming",
+      "error": null,
+      "pathUsed": "MANAGE_ROW"
+    },
+    {
+      "channelName": "Robert Łukasz Pio",
+      "handle": "@RobertŁukaszPio",
+      "id": "UC34DD8FTh_y2GhZhg3qBaIQ",
+      "aitumOutput": "Robert",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UC34DD8FTh_y2GhZhg3qBaIQ/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "Katarzyna Fedków",
+      "handle": "@katarzynafedkow",
+      "id": "UCnipJdX6mtsxaoEENzEVusA",
+      "aitumOutput": "Katarzyna",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCnipJdX6mtsxaoEENzEVusA/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "Top Seven",
+      "handle": "@TopSeven_CC",
+      "id": "UCdo_1-cjf5TEjSfEG_rxmyw",
+      "aitumOutput": "TOP SEVEN",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCdo_1-cjf5TEjSfEG_rxmyw/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "RCC TV 24",
+      "handle": "@ToDlaCiebieGramy",
+      "id": "UCgzGpVUtw4T-9GcwygPeyfw",
+      "aitumOutput": "RCC TV24",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCgzGpVUtw4T-9GcwygPeyfw/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "CC Prayer 24",
+      "handle": "@CCPrayer24",
+      "id": "UCPDuMcFijIDEjMWf20J_QCQ",
+      "aitumOutput": "CC Modlitwa 24",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCPDuMcFijIDEjMWf20J_QCQ/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "Christian Culture Network",
+      "handle": "@ChristianCultureNetwork",
+      "id": "UCnY5U9TRJa16yCNoY6RtIfg",
+      "aitumOutput": "CC Network",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCnY5U9TRJa16yCNoY6RtIfg/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "CC Bible Deep",
+      "handle": "@CCBibleDeep",
+      "id": "UCMwu-cSUiTnvjS5fLiUPXtg",
+      "aitumOutput": "CC BIBLE DEEP",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCMwu-cSUiTnvjS5fLiUPXtg/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "Christian Culture POP",
+      "handle": "@ChristianCulturePOP",
+      "id": "UCeba0BVF0NA9yuTcizK_iSA",
+      "aitumOutput": "CC POP",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCeba0BVF0NA9yuTcizK_iSA/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "Worship LIVE CC",
+      "handle": "@WorshipLiveCC",
+      "id": "UC62PrabNO4QTYtpCY282eUw",
+      "aitumOutput": "CC Worship",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UC62PrabNO4QTYtpCY282eUw/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "CC Instrumental",
+      "handle": "@ChristianCultureInstrumental",
+      "id": "UCN8lW1NMAO9dzRDzVQQa3OA",
+      "aitumOutput": "CC Instrumental",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCN8lW1NMAO9dzRDzVQQa3OA/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "CC Identity",
+      "handle": "@CCIdentityTwojaDuchowaTożsamoś",
+      "id": "UCvxaulj99hFri5nG0uNLxmw",
+      "aitumOutput": "CC Identity",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCvxaulj99hFri5nG0uNLxmw/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "CC FILM",
+      "handle": "@CCFILM77",
+      "id": "UCWACuxJkDjYKcJ0-gV62UtA",
+      "aitumOutput": "CC FILM",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCWACuxJkDjYKcJ0-gV62UtA/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "CC Nature Sounds",
+      "handle": "@CCNatureSounds",
+      "id": "UCCs6Cmah9yw4KHnJqC_zR4Q",
+      "aitumOutput": "CC Dzwięki Natury",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCCs6Cmah9yw4KHnJqC_zR4Q/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    },
+    {
+      "channelName": "Personality Plus",
+      "handle": "@PersonalityPlusCC",
+      "id": "UCSwb927uMg2PxIl_Aakht0Q",
+      "aitumOutput": "Personality Plus",
+      "status": "TIMEOUT_PREVIEW_OR_DISABLED",
+      "health": "nieznany",
+      "videoId": null,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "unknown",
+        "autoStop": "unknown"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/channel/UCSwb927uMg2PxIl_Aakht0Q/livestreaming/manage",
+      "error": null,
+      "pathUsed": "DEFAULT_STREAM_ROOM"
+    }
+  ]
+}

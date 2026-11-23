@@ -2,6 +2,74 @@
   "version": "2.1",
   "items": [
     {
+      "id": "social-topic-https-polskieradio-cc-milion-gestow-5266dd0d",
+      "format": "16:9",
+      "headline": "Milion Drobnych Gestów — Mały gest. Wielka misja.",
+      "reference": "https://polskieradio.cc/milion-gestow",
+      "motif": "MODUŁY & PLATFORMY • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-milion-gestow-e25d45e3.jpg",
+      "hash": "5266dd0d",
+      "createdAt": "2026-11-22T20:31:06.127Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-40dm-bef6eb6a",
+      "format": "16:9",
+      "headline": "40 Dni Modlitwy i Biblijny Czas Modlitwy — Zjednoczeni w Modlitwie (/40DM & /mod",
+      "reference": "https://polskieradio.cc/40DM/",
+      "motif": "SPOŁECZNOŚĆ I MODLITWA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-40dm-8c519078.jpg",
+      "hash": "bef6eb6a",
+      "createdAt": "2026-11-22T17:30:52.577Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-aplikacje-en-bbca0a1f",
+      "format": "16:9",
+      "headline": "Christian Culture Apps — Android (Google Play) & Web/PWA Hub (EN)",
+      "reference": "https://polskieradio.cc/aplikacje/en/",
+      "motif": "APLIKACJE I NARZĘDZIA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-en-4cee05d4.jpg",
+      "hash": "bbca0a1f",
+      "createdAt": "2026-11-21T17:30:53.294Z"
+    },
+    {
+      "id": "social-topic-https-polskieradio-cc-aplikacje-0139bf31",
+      "format": "16:9",
+      "headline": "Aplikacje Christian Culture — Android (Google Play) i Web/PWA",
+      "reference": "https://polskieradio.cc/aplikacje/",
+      "motif": "APLIKACJE I NARZĘDZIA • CHRISTIAN CULTURE",
+      "palette": {
+        "bg": "#0B0F19",
+        "text": "#FFFFFF",
+        "accent": "#FF7A00"
+      },
+      "layout": "editorial-topic-card",
+      "emotion": "Prawda",
+      "file": "images/social/generated/topic-aplikacje-78dc6986.jpg",
+      "hash": "0139bf31",
+      "createdAt": "2026-11-21T13:01:00.563Z"
+    },
+    {
       "id": "social-topic-https-polskieradio-cc-cc-light-db5ca676",
       "format": "16:9",
       "headline": "Aplikacje CC Hub — Centrum Pobierania Aplikacji Mobilnych i Webowych (PWA)",

@@ -1,0 +1,46 @@
+{
+  "updatedAt": "2026-11-22T19:11:55.558Z",
+  "totalTracked": 2,
+  "results": [
+    {
+      "channelName": "Biblia Audio CC",
+      "handle": "@bibliaaudiocc",
+      "id": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+      "aitumOutput": "Biblia Audio",
+      "status": "NO_ENCODER_SIGNAL",
+      "health": "Brak danych",
+      "videoId": "LLO4p4XNJoY",
+      "keySelection": "NO_KEY_DROPDOWN",
+      "reconnectedObs": true,
+      "thumbStatus": "SAVE_DISABLED_UNCHANGED",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "TURNED_ON",
+        "autoStop": "ALREADY_OFF"
+      },
+      "studioKey": "wf6b-91hh-e6jt-ga17-41yh",
+      "roomUrl": "https://studio.youtube.com/video/LLO4p4XNJoY/livestreaming",
+      "error": null
+    },
+    {
+      "channelName": "CC Women",
+      "handle": "@CCWomen7",
+      "id": "UC-LPFt-vmJCeap746DOWMgw",
+      "aitumOutput": "CC Women",
+      "status": "ALREADY_LIVE",
+      "health": "Doskonały",
+      "videoId": "_WcI41BD_Qs",
+      "keySelection": null,
+      "reconnectedObs": false,
+      "thumbStatus": "NO_EDIT_BTN",
+      "privacyStatus": "UNKNOWN",
+      "toggles": {
+        "autoStart": "TURNED_ON",
+        "autoStop": "ALREADY_OFF"
+      },
+      "studioKey": null,
+      "roomUrl": "https://studio.youtube.com/video/_WcI41BD_Qs/livestreaming",
+      "error": null
+    }
+  ]
+}

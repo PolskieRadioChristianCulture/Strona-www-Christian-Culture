@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Christian Culture TV",
+    "handle": "@ChristianCultureTV",
+    "vid": "KdOBA_zRU0c",
+    "thumbStatus": "FAILED_NO_INPUT",
+    "liveStatus": "NO_GO_LIVE_BTN"
+  },
+  {
+    "name": "Popraw Koronę",
+    "handle": "@PoprawKoronęCC",
+    "vid": "9H_xc4mdUro",
+    "thumbStatus": "FAILED_NO_INPUT",
+    "liveStatus": "NO_GO_LIVE_BTN"
+  },
+  {
+    "name": "CC Women",
+    "handle": "@CCWomen7",
+    "vid": "QoIgzHsu_Hg",
+    "thumbStatus": "FAILED_NO_INPUT",
+    "liveStatus": "NO_GO_LIVE_BTN"
+  }
+]

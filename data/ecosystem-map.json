@@ -4,6 +4,21 @@
   "name": "Mapa Ekosystemu Christian Culture",
   "updatesLog": [
     {
+      "date": "2026-11-23",
+      "topic": "Strategiczny Audyt CC Guardian 360 (36 prób / 12 serwisów × 3 ekrany), weryfikacja LUMINA & LUMI MESS, poprawki mobilnych celów dotykowych 44×44 px (/mojabiblia), synchronizacja indeksów wyszukiwarki @w, GA4 oraz panelu Kursu Codziennego — 100% PASS (Guardian, Mobile Premium, 700/701 CC Regression)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-23",
+      "topic": "Przygotowanie Kursu Codziennego Dzień 55 (2026-11-24: Wj 25:1–40 — Dobrowolny Dar Serca, Arka Przymierza, Stół i Złoty Świecznik): pełna lekcja 12 sekcji (45 pkt, 20 pytań quizu), pakiet 5 wersji, DOCX na Google Drive, 4 ścieżki Clean URLs, unikalna grafika 16:9 i kolejka przedpublikacyjna",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-23",
+      "topic": "Poranna aktywacja i synchronizacja Kursu Codziennego Dzień 54 (2026-11-23: Wj 24:1–18 — Krew Przymierza, Uczta Starszych i Chwała PANA na Synaju), baza rozważań, discovery @w i newsletter",
+      "agent": "A"
+    },
+    {
       "date": "2026-11-22",
       "topic": "Milion Drobnych Gestów (/milion-gestow) — produkcyjna publikacja strony kampanii w standardzie CC FULL PREMIUM (Żywe wideo 24/7 + Fala Światła Canvas, Konstelacja Serca Wspólnoty, Symulator Synergii Małych Gestów 2–20 zł, 4 studyjne spoty ElevenLabs -16 LUFS, Ticker Master, ★ POLECAMY, integracja z WspieramTO 2.0 i Wyszukiwarką @w)",
       "agent": "A"
@@ -1397,7 +1412,7 @@
       "lang": "pl",
       "icon": "📖",
       "category": "Biblia & Edukacja",
-      "verifiedDate": "2026-11-22",
+      "verifiedDate": "2026-11-23",
       "keywords": [
         "kurs codzienny",
         "z biblią za pan brat",
@@ -5826,7 +5841,7 @@
       "verifiedDate": "2026-11-21"
     }
   ],
-  "lastUpdated": "2026-11-22",
+  "lastUpdated": "2026-11-23",
   "recentUpdates": [
     {
       "topic": "CCN News — premiera i publikacja autorskiego wideo Short 9:16 \"Niedziela handlowa czy odpoczynek?\"",

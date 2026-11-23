@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Christian Culture TV",
+    "handle": "@ChristianCultureTV",
+    "vid": "KdOBA_zRU0c",
+    "thumbStatus": "SUCCESS",
+    "liveStatus": "AUTOSTART_OR_DIRECT"
+  },
+  {
+    "name": "Popraw Koronę",
+    "handle": "@PoprawKoronęCC",
+    "vid": "9H_xc4mdUro",
+    "thumbStatus": "NO_INPUT",
+    "liveStatus": "AUTOSTART_OR_DIRECT"
+  },
+  {
+    "name": "CC Women",
+    "handle": "@CCWomen7",
+    "vid": "QoIgzHsu_Hg",
+    "thumbStatus": "NO_INPUT",
+    "liveStatus": "AUTOSTART_OR_DIRECT"
+  },
+  {
+    "name": "Polskie Radio CC",
+    "handle": "@RadioChristianCulture",
+    "vid": "RxyWYOGWZ6c",
+    "thumbStatus": "NO_INPUT",
+    "liveStatus": "AUTOSTART_OR_DIRECT"
+  }
+]

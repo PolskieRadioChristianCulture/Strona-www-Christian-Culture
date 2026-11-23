@@ -1,0 +1,37 @@
+[
+  {
+    "name": "CC Men",
+    "handle": "@CCMen7",
+    "vid": "hkct4gOpx-0",
+    "thumbStatus": "SAVED",
+    "liveStatus": "AUTOSTART_OR_DIRECT"
+  },
+  {
+    "name": "Osobowość +",
+    "handle": "@osobowoscPLUS",
+    "vid": "g46DVjPR6o0",
+    "thumbStatus": "LOADER_TIMEOUT",
+    "liveStatus": "AUTOSTART_OR_DIRECT"
+  },
+  {
+    "name": "Werset Dnia",
+    "handle": "@wersetdnia_ChSB",
+    "vid": "bt8m8st5GOE",
+    "thumbStatus": "LOADER_TIMEOUT",
+    "liveStatus": "AUTOSTART_OR_DIRECT"
+  },
+  {
+    "name": "Robert Łukasz Pio",
+    "handle": "@RobertŁukaszPio",
+    "vid": "PVs7mdhxFOw",
+    "thumbStatus": "LOADER_TIMEOUT",
+    "liveStatus": "AUTOSTART_OR_DIRECT"
+  },
+  {
+    "name": "Katarzyna Fedków",
+    "handle": "@katarzynafedkow",
+    "vid": "oF9U8da3bFY",
+    "thumbStatus": "LOADER_TIMEOUT",
+    "liveStatus": "AUTOSTART_OR_DIRECT"
+  }
+]

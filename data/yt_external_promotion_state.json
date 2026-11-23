@@ -1,7 +1,7 @@
 {
-  "lastIndex": 11,
-  "lastChannelId": "cc_film",
-  "lastTimestamp": "2026-11-19T17:00:17.358Z",
+  "lastIndex": 14,
+  "lastChannelId": "popraw_korone",
+  "lastTimestamp": "2026-11-22T17:00:40.526Z",
   "history": [
     {
       "index": 0,
@@ -132,6 +132,39 @@
       "url": "https://www.youtube.com/@CCFILM77",
       "targetAudience": "Rodziny, kinomaniacy szukający filmów z przesłaniem bez wulgaryzmów i demoralizacji",
       "hook": "Szukasz filmu na wieczór, który poruszy Twoje serce zamiast zatruwać umysł cynizmem?"
+    },
+    {
+      "index": 12,
+      "channelId": "cc_identity",
+      "timestamp": "2026-11-21T17:03:09.101Z",
+      "status": "PROMOTED",
+      "channelName": "CC Identity (Twoja Duchowa Tożsamość)",
+      "handle": "@CCIdentityTwojaDuchowaTożsamoś",
+      "url": "https://www.youtube.com/@CCIdentityTwojaDuchowaTożsamoś",
+      "targetAudience": "Młodzież i dorośli zmagający się z poczuciem odrzucenia, lękiem społecznym i brakiem sensu",
+      "hook": "Wiesz, kim naprawdę jesteś, gdy znikają opinie innych ludzi i lajki w telefonie?"
+    },
+    {
+      "index": 13,
+      "channelId": "cc_nature_sounds",
+      "timestamp": "2026-11-22T09:00:29.303Z",
+      "status": "PROMOTED",
+      "channelName": "CC Nature Sounds",
+      "handle": "@CCNatureSounds",
+      "url": "https://www.youtube.com/@CCNatureSounds",
+      "targetAudience": "Pracownicy umysłowi, osoby z bezsennością, szukające relaksujących dźwięków natury",
+      "hook": "Potrzebujesz głębokiego wyciszenia po stresującym dniu? Posłuchaj piękna Bożego stworzenia."
+    },
+    {
+      "index": 14,
+      "channelId": "popraw_korone",
+      "timestamp": "2026-11-22T17:00:40.527Z",
+      "status": "PROMOTED",
+      "channelName": "Popraw Koronę",
+      "handle": "@PoprawKoronęCC",
+      "url": "https://www.youtube.com/@PoprawKoronęCC",
+      "targetAudience": "Kobiety potrzebujące podniesienia po życiowych porażkach, rozwodach czy kryzysach",
+      "hook": "Upadłaś? Bóg nie skończył jeszcze z Twoją historią. Czas wstać i poprawić koronę córki Króla."
     }
   ]
 }

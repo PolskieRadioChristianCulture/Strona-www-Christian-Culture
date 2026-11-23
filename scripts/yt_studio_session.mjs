@@ -213,7 +213,15 @@ export async function launchStudio({ headless = true, lockWaitMs = Number(proces
       try {
         ctx = await chromium.launchPersistentContext(PROFILE_DIR, {
           headless, channel: 'chrome', viewport: { width: 1600, height: 1000 }, userAgent: UA,
-          args: ['--disable-blink-features=AutomationControlled', '--no-sandbox']
+          args: [
+            '--disable-blink-features=AutomationControlled',
+            '--no-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-background-timer-throttling',
+            '--disable-backgrounding-occluded-windows',
+            '--disable-renderer-backgrounding',
+            '--disable-features=CalculateNativeWinOcclusion'
+          ]
         });
         break;
       } catch (err) {
@@ -260,16 +268,14 @@ async function switchIdentity(page, handle) {
       await page.waitForTimeout(1500);
       const item = page.locator('ytd-account-item-renderer', { hasText: handle }).first();
       if (!(await item.count())) throw new Error(`Brak tożsamości ${handle} w przełączniku kanałów`);
-      await Promise.all([
-        page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 20000 }).catch(() => {}),
-        item.click()
-      ]);
-      await new Promise(r => setTimeout(r, 4000));
+      await item.click({ force: true });
+      await page.waitForLoadState('domcontentloaded').catch(() => {});
+      await new Promise(r => setTimeout(r, 3000));
       return;
     } catch (err) {
       if (attempt === 1) {
         console.log(`  [switchIdentity retry] Ponawiam przełączanie tożsamości do ${handle}...`);
-        await page.waitForTimeout(3000);
+        await new Promise(r => setTimeout(r, 3000));
       } else {
         throw err;
       }

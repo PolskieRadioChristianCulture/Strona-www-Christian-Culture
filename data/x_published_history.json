@@ -2,6 +2,306 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "SpiritualSounds",
+      "title": "Spiritual Sounds – Psalmy po polsku",
+      "url": "https://polskieradio.cc/SpiritualSounds",
+      "type": "music",
+      "topicId": null,
+      "image": "ss-og-1200x630.jpg",
+      "publishedAt": "2026-11-23T05:20:38.581Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "milion-gestow",
+      "title": "Milion Drobnych Gestów — Mały gest. Wielka misja.",
+      "url": "https://polskieradio.cc/milion-gestow",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-milion-gestow-e25d45e3.jpg",
+      "publishedAt": "2026-11-22T20:31:23.441Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "wsparcie-malzenstwa",
+      "title": "CC Pomoc: Małżeństwo – miłość, która dojrzewa",
+      "url": "https://polskieradio.cc/wsparcie-malzenstwa",
+      "type": "help",
+      "topicId": "malzenstwo",
+      "image": "topic-wsparcie-malzenstwa-45b1d9b6.jpg",
+      "publishedAt": "2026-11-22T19:01:08.973Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "topicId": null,
+      "image": "vod-christian-culture-03-dobre-kino-24-7.jpg",
+      "publishedAt": "2026-11-22T18:31:17.686Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=345",
+      "title": "Werset Dnia: „Zanim cię ukształtowałem w łonie matki, znałem cię; poświęciłem cię na proroka” (Księga Jeremiasza 1:5, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=345",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-345-ksiega-jeremiasza-1-5.jpg",
+      "publishedAt": "2026-11-22T18:01:14.925Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "40DM",
+      "title": "40 Dni Modlitwy i Biblijny Czas Modlitwy — Zjednoczeni w Modlitwie (/40DM & /modlitwa)",
+      "url": "https://polskieradio.cc/40DM/",
+      "type": "profile",
+      "topicId": null,
+      "image": "topic-40dm-8c519078.jpg",
+      "publishedAt": "2026-11-22T17:31:17.977Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "fundusz-sprawiedliwosci-ktorego-nie-znasz",
+      "title": "Fundusz Sprawiedliwości, którego nie znasz. Kto zapłacił za Twój dług wobec Boga?",
+      "url": "https://polskieradio.cc/news/fundusz-sprawiedliwosci-ktorego-nie-znasz",
+      "type": "news",
+      "topicId": null,
+      "image": "art-fundusz-sprawiedliwosci-ktorego-nie-znasz.jpg",
+      "publishedAt": "2026-11-22T17:01:28.333Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "komentarz-do-listu-do-rzymian-sprawiedliwosc-z-wiary-pdf",
+      "title": "Komentarz do Listu do Rzymian: Sprawiedliwość z Wiary i Tryumf Bożej Łaski (PDF) – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/komentarz-do-listu-do-rzymian-sprawiedliwosc-z-wiary-pdf",
+      "type": "book",
+      "topicId": null,
+      "image": "topic-komentarz-do-listu-do-rzymian-sprawiedliwosc-z-w-9a9e715f.jpg",
+      "publishedAt": "2026-11-22T16:31:11.781Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "09-zycie-smierc-i-zmartwychwstanie-chrystusa.html",
+      "title": "Kurs 28 Kroków — Lekcja 9: Życie, Śmierć i Zmartwychwstanie Chrystusa — Serce Ewangelii",
+      "url": "https://polskieradio.cc/kursy/09-zycie-smierc-i-zmartwychwstanie-chrystusa.html",
+      "type": "course",
+      "topicId": null,
+      "image": "9.png",
+      "publishedAt": "2026-11-22T16:01:19.050Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "live-worship",
+      "title": "INSTRUMENTAL WORSHIP - Radio Christian Culture",
+      "url": "https://polskieradio.cc/live-worship",
+      "type": "music",
+      "topicId": null,
+      "image": "worship_bg.jpg",
+      "publishedAt": "2026-11-22T15:31:13.304Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "rolki",
+      "title": "Rolki Wiary — Krótkie Inspiracje Wideo & Świadectwa (Format Pionowy 9:16)",
+      "url": "https://polskieradio.cc/rolki",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-rolki-bac7bea8.jpg",
+      "publishedAt": "2026-11-22T15:01:05.644Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "psycholog",
+      "title": "CC Pomoc: Psycholog chrześcijański – rozmowa i wsparcie",
+      "url": "https://polskieradio.cc/psycholog",
+      "type": "help",
+      "topicId": "psycholog",
+      "image": "topic-psycholog-bd459e40.jpg",
+      "publishedAt": "2026-11-22T14:31:12.472Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=344",
+      "title": "Werset Dnia: „Duch Pana Boga jest nade mną, bo Pan mnie namaścił, abym zwiastował dobrą nowinę ubogim” (Księga Izajasza 61:1, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=344",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-344-ksiega-izajasza-61-1.jpg",
+      "publishedAt": "2026-11-22T14:01:28.071Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad",
+      "title": "Trybunał Konstytucyjny czy Najwyższy? Jest jeszcze sąd, przed którym stanie każdy człowiek",
+      "url": "https://polskieradio.cc/news/trybunal-konstytucyjny-czy-najwyzszy-jest-jeszcze-sad",
+      "type": "news",
+      "topicId": null,
+      "image": "art-trybunal-konstytucyjny-czy-najwyzszy.jpg",
+      "publishedAt": "2026-11-22T13:31:25.093Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "lumina",
+      "title": "LUMINA — Portal Społecznościowy",
+      "url": "https://polskieradio.cc/lumina",
+      "type": "profile",
+      "topicId": null,
+      "image": "card-lumina.jpg",
+      "publishedAt": "2026-11-22T13:01:16.684Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "gdzie-jestes-anatomia-upadku-i-pierwsza-ewangelia-edenu",
+      "title": "Gdzie jesteś? Anatomia upadku i pierwsza Ewangelia Edenu – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/gdzie-jestes-anatomia-upadku-i-pierwsza-ewangelia-edenu",
+      "type": "book",
+      "topicId": null,
+      "image": "kc_day_03_fall.jpg",
+      "publishedAt": "2026-11-22T12:31:21.622Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "08-wielki-boj.html",
+      "title": "Kurs 28 Kroków — Lekcja 8: Wielki Bój — Kosmiczny Konflikt między Dobrem a Złem",
+      "url": "https://polskieradio.cc/kursy/08-wielki-boj.html",
+      "type": "course",
+      "topicId": null,
+      "image": "8.png",
+      "publishedAt": "2026-11-22T12:01:16.239Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "karaoke-studio",
+      "title": "Karaoke Sync Studio",
+      "url": "https://polskieradio.cc/karaoke-studio",
+      "type": "music",
+      "topicId": null,
+      "image": "topic-karaoke-studio-5a870c55.jpg",
+      "publishedAt": "2026-11-22T11:33:18.052Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "widget",
+      "title": "Widget Radiowy CC — Osadź Radio i Słowo Boże na Swojej Stronie Internetowej",
+      "url": "https://polskieradio.cc/widget",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-widget-7a8ae004.jpg",
+      "publishedAt": "2026-11-22T11:01:09.002Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "topicId": null,
+      "image": "vod-christian-culture-02-rodzina-24-7.jpg",
+      "publishedAt": "2026-11-22T10:31:11.900Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "infidelity-and-trust",
+      "title": "CC Help: Infidelity and trust",
+      "url": "https://polskieradio.cc/en/infidelity-and-trust",
+      "type": "help",
+      "topicId": "zdrada",
+      "image": "topic-infidelity-and-trust-0e37c2fa.jpg",
+      "publishedAt": "2026-11-22T10:01:13.445Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=343",
+      "title": "Werset Dnia: „Powstań, zajaśnij, gdyż nadeszła twoja światłość, a chwała Pana wzeszła nad tobą” (Księga Izajasza 60:1, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=343",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-343-ksiega-izajasza-60-1.jpg",
+      "publishedAt": "2026-11-22T09:31:17.251Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+      "title": "Co na to Bóg chrześcijan? Jan Paweł II pocałował Koran. Czy gest szacunku może przekroczyć granicę wierności Jezusowi Chrystusowi?",
+      "url": "https://polskieradio.cc/news/co-na-to-bog-chrzescijan-jan-pawel-ii-koran",
+      "type": "news",
+      "topicId": null,
+      "image": "art-co-na-to-bog-chrzescijan-jan-pawel-ii-koran.jpg",
+      "publishedAt": "2026-11-22T09:01:19.805Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "holistyczny-coaching",
+      "title": "Holistyczny Coaching & Terapia Wolności — Paweł Murawski",
+      "url": "https://polskieradio.cc/holistyczny-coaching",
+      "type": "profile",
+      "topicId": null,
+      "image": "avatar_pawel_murawski.jpg",
+      "publishedAt": "2026-11-22T08:31:16.276Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "dziesiec-przykazan-bozych-biblia-jakub-wujek-bjw-dekalog",
+      "title": "Dziesięć przykazań Bożych wg Biblii w tł. ks. Jakuba Wujka (BJW) – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/dziesiec-przykazan-bozych-biblia-jakub-wujek-bjw-dekalog",
+      "type": "book",
+      "topicId": null,
+      "image": "art-dekalog-dziesiec-przykazan-wujek.jpg",
+      "publishedAt": "2026-11-22T08:01:51.198Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "07-natura-ludzka.html",
+      "title": "Kurs 28 Kroków — Lekcja 7: Natura Ludzka — Obraz Boga, Upadek i Potrzeba Zbawienia",
+      "url": "https://polskieradio.cc/kursy/07-natura-ludzka.html",
+      "type": "course",
+      "topicId": null,
+      "image": "7.png",
+      "publishedAt": "2026-11-22T07:31:18.875Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "audioteka",
+      "title": "Audioteka Christian Culture — Audiobiblioteka Wiary 0,00 zł | Zawsze za Darmo",
+      "url": "https://polskieradio.cc/audioteka",
+      "type": "music",
+      "topicId": null,
+      "image": "audioteka-og-1200x630.jpg",
+      "publishedAt": "2026-11-22T07:02:58.127Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "studio",
+      "title": "CC STUDIO DAW — Profesjonalne Studio Nagrań & Montażu Słuchowisk Biblia Audio",
+      "url": "https://polskieradio.cc/studio",
+      "type": "module",
+      "topicId": null,
+      "image": "ogloszenia-biblia-gdanska.jpg",
+      "publishedAt": "2026-11-22T06:31:37.857Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "dlugi",
+      "title": "CC Pomoc: Wyjść z długów. Odzyskać spokój",
+      "url": "https://polskieradio.cc/dlugi",
+      "type": "help",
+      "topicId": "dlugi",
+      "image": "topic-dlugi-ea8b5453.jpg",
+      "publishedAt": "2026-11-22T06:02:16.639Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=342",
+      "title": "Werset Dnia: „Jeśli powstrzymasz swoją nogę od łamania szabatu i nazwiesz szabat rozkoszą... będziesz się rozkoszował Panem” (Księga Izajasza 58:13-14, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=342",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-342-ksiega-izajasza-58-13-14.jpg",
+      "publishedAt": "2026-11-22T05:32:40.315Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "czy-katolik-powinien-uznawac-niedziele-handlowa",
       "title": "Czy katolik powinien uznawać niedzielę handlową? Odpowiedź, której nie znajdziesz na sklepowych drzwiach",
       "url": "https://polskieradio.cc/news/czy-katolik-powinien-uznawac-niedziele-handlowa",

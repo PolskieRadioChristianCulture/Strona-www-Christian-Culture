@@ -1136,9 +1136,9 @@ function loadDailyCourseLessons() {
             "księga wyjścia",
             "lekcja biblijna",
             "rozważanie",
-            ...(num === 53 ? ["lekcja 53 na dziś", "lekcja na dziś", "rozważanie na dziś", "słowo na dziś", "wj 23", "22 listopada 2026", "dzisiaj", "dziś"] : [])
+            ...(num === 54 ? ["lekcja 54 na dziś", "lekcja na dziś", "rozważanie na dziś", "słowo na dziś", "wj 24", "23 listopada 2026", "dzisiaj", "dziś"] : [])
           ],
-          featured: num === 53
+          featured: num === 54
         });
       }
     }

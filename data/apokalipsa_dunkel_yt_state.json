@@ -1,5 +1,5 @@
 {
-  "lastPublishedEpisode": 11,
+  "lastPublishedEpisode": 14,
   "history": [
     {
       "ep": 1,
@@ -213,6 +213,78 @@
       ],
       "allChannelsOk": true,
       "at": "2026-11-19T09:33:26.174Z"
+    },
+    {
+      "ep": 12,
+      "title": "Mały róg wzbija się w pychę",
+      "premiere": "2026-11-24 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/VPuVWBX1Hp0"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/Ps6SSAjh2Lk"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/5WhKHXSyUok"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-22T09:09:17.113Z"
+    },
+    {
+      "ep": 13,
+      "title": "Dziwne chrześcijaństwo",
+      "premiere": "2026-11-24 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/5X3x6zcuW8s"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/173k8zXL9FE"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/Sdb5T3zMPuo"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-22T09:15:09.291Z"
+    },
+    {
+      "ep": 14,
+      "title": "Cel uświęca środki",
+      "premiere": "2026-11-24 20:00",
+      "results": [
+        {
+          "channel": "Osobowość +",
+          "ok": true,
+          "url": "https://youtu.be/Up50HQNk0WI"
+        },
+        {
+          "channel": "Polskie Radio CHRISTIAN CULTURE",
+          "ok": true,
+          "url": "https://youtu.be/cXKBfeeToRo"
+        },
+        {
+          "channel": "Christian Culture TV",
+          "ok": true,
+          "url": "https://youtu.be/82KrEL8QIR8"
+        }
+      ],
+      "allChannelsOk": true,
+      "at": "2026-11-22T09:31:53.462Z"
     }
   ]
 }

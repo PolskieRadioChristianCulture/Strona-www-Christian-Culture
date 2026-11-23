@@ -126,7 +126,8 @@ function resolveSlugKey(item = {}) {
 
 export function getCcnFbSquareRelativePath(item = {}) {
   const slugKey = resolveSlugKey(item);
-  return `images/social/ccn-fb/fb-${slugKey}.jpg`;
+  const langSuffix = String(item.lang || '').toLowerCase() === 'en' && !slugKey.endsWith('-en') ? '-en' : '';
+  return `images/social/ccn-fb/fb-${slugKey}${langSuffix}.jpg`;
 }
 
 function resolveCandidatePhotoPath(item = {}, rootDir = DEFAULT_ROOT) {
@@ -261,11 +262,15 @@ export async function generateCcnFbSquareCard(item = {}, options = {}) {
     )
     .join('\n    ');
 
+  const ctaText = escapeXml(
+    item.ctaText || (String(item.lang || '').toLowerCase() === 'en' ? 'Link in comment' : CTA_TEXT)
+  );
+
   const bottomCardSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${CARD_SIZE}" height="${CARD_SIZE}" viewBox="0 0 ${CARD_SIZE} ${CARD_SIZE}">
     <rect width="${CARD_SIZE}" height="${CARD_SIZE}" fill="#FFFFFF"/>
     ${titleLinesSvg}
     <rect x="40" y="986" width="1000" height="4" rx="2" fill="${BURGUNDY}"/>
-    <text x="540" y="1044" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="34" font-weight="600" fill="#111111">${CTA_TEXT}</text>
+    <text x="540" y="1044" text-anchor="middle" font-family="'Segoe UI', Arial, sans-serif" font-size="34" font-weight="600" fill="#111111">${ctaText}</text>
   </svg>`;
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
