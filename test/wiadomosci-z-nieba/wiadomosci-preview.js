@@ -1,7 +1,7 @@
 // Wiadomość z Nieba — wersja premium (@007, L0 23.11.2026).
 // Dane: simulation-data.json (pipeline Antigravity, wersety UBG-2025 zweryfikowane). Zero kosztów, zero zewnętrznych API.
 const DATA_URL = '/test/wiadomosci-z-nieba/simulation-data.json';
-const TEMPLATE_IMG = '/images/wiadomosci-z-nieba/szablon-1x1.jpg';
+const TEMPLATE_IMG = '/images/wiadomosc-z-nieba/szablon-1x1.jpg';
 const SITE_URL = 'https://polskieradio.cc/test/wiadomosci-z-nieba/';
 
 const $ = (id) => document.getElementById(id);

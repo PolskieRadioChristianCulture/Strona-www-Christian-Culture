@@ -102,7 +102,7 @@ a { color: var(--wzn-red-hi); }
 /* SQUARE CARD — wzór L0 (szablon 1:1) z wersetem w czarnym polu po prawej */
 .wzn-card {
   position: relative; aspect-ratio: 1 / 1; width: 100%; border-radius: var(--wzn-radius); overflow: hidden;
-  background: #000 url("/images/wiadomosci-z-nieba/szablon-1x1.webp") center / cover no-repeat;
+  background: #000 url("/images/wiadomosc-z-nieba/szablon-1x1.webp") center / cover no-repeat;
   container-type: inline-size; box-shadow: 0 24px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06);
 }
 .wzn-card-text {
