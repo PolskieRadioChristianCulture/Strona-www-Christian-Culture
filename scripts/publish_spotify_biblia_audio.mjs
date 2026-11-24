@@ -211,7 +211,8 @@ export function buildV7EpisodesInventory() {
     '33_1-20': 'Pojednanie Jakuba i Ezawa',
     '34_1-31': 'Hańba Diny i Zemsta Synów Jakuba',
     '35_1-29': 'Powrót do Betel, Nowe Imię Izrael i Pożegnanie Racheli oraz Izaaka',
-    '36_1-43': 'Ród Ezawa, Książęta Seiru i Królowie Edomu'
+    '36_1-43': 'Ród Ezawa, Książęta Seiru i Królowie Edomu',
+    '37_1-36': 'Sny Józefa, Zdrada Braci i Sprzedaż do Egiptu'
   };
 
   const items = [];
