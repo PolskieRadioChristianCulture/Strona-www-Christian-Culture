@@ -41,6 +41,8 @@ test('strona główna ładuje baner wideo wsparcia 1× dziennie z autostartem, d
   assert.equal(banner.includes('/wspieramto/assets/wsparcie-zrzutka-web.mp4'), true);
   assert.equal(banner.includes('https://zrzutka.pl/z/ChristianCulture'), true);
   assert.equal(banner.includes('vid.muted = false'), true);
+  assert.equal(banner.includes('top:50%'), true);
+  assert.equal(banner.includes('1× dziennie &bull;'), false);
   assert.equal(banner.includes('cc-skarbiec-misji.web.app'), false);
 });
 
