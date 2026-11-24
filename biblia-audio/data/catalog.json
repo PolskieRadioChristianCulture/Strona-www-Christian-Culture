@@ -548,10 +548,16 @@
     "book": "genesis",
     "chapter": 37,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_37_1-36_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 37,1–36 — Sny Józefa, Zdrada Braci i Sprzedaż do Egiptu",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_37_1-36_Biblia_Audio_CC.mp3",
+        "verses": "1–36"
+      }
+    ]
   },
   {
     "id": "genesis-38",
