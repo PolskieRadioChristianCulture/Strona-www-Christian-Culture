@@ -597,6 +597,17 @@
     console.warn('CCN Logo click handler warning:', err);
   }
 
+  // 9z. @007 (L0 24.11.2026): wspólny zegar północy (Europe/Warsaw) — zdarzenie 'cc:new-day' odświeża rozważania dnia
+  try {
+    if (!window.ccOnNewDay && !document.getElementById('ccNewDayScript')) {
+      const newDayScript = document.createElement('script');
+      newDayScript.id = 'ccNewDayScript';
+      newDayScript.src = '/js/cc-new-day.js?v=20261124_1';
+      newDayScript.defer = true;
+      document.head.appendChild(newDayScript);
+    }
+  } catch (newDayErr) {}
+
   // 10. Automatyczne załadowanie uniwersalnego komponentu CCGlobalChatButton (neonowy przycisk w szkle)
   try {
     if (!window.CCGlobalChatButton && !document.getElementById('ccGlobalChatScript') && !document.querySelector('script[src*="cc-global-chat-button"]')) {

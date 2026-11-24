@@ -3820,6 +3820,13 @@
         });
     }
 
+    // @007 (L0 24.11.2026): o północy czasu polskiego — nowy werset/rozważanie w powitaniu asystentki
+    window.addEventListener('cc:new-day', () => {
+      ccDailyVerseData = null;
+      ccDailyVerseLoading = false;
+      try { refreshAssistantUI(getActiveAssistant()); } catch (_) {}
+    });
+
     function refreshAssistantUI(asst) {
       activeAssistant = asst;
       loadDailyVerseForWelcome();
@@ -6547,6 +6554,17 @@
       }
     }, 1000);
   }
+
+  // @007 (L0 24.11.2026): o północy czasu polskiego — przypięte rozważanie dnia w czacie pobiera się od nowa
+  window.addEventListener('cc:new-day', (e) => {
+    const date = e && e.detail && e.detail.date;
+    if (date && dailyDialogueCache && dailyDialogueCache.date === date) return;
+    dailyDialogueCache = null;
+    dailyDialogueFetching = false;
+    try {
+      if (currentChatPartner && currentChatPartner.isPublic) renderChatMessages();
+    } catch (_) {}
+  });
 
   function renderDailyDialogueCardHtml() {
     if (!dailyDialogueCache || !Array.isArray(dailyDialogueCache.turns) || !dailyDialogueCache.turns.length) {

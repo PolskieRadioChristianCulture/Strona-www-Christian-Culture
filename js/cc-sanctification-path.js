@@ -851,17 +851,28 @@
     renderReflectionCard(null);
     renderMap(null);
 
-    fetch('/rozwazania_baza.json', { cache: 'no-cache' })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (list) {
-        activeReflection = pickReflection(list, info.dateStr);
-        if (activeReflection) {
-          renderVerse(activeReflection);
-          renderReflectionCard(activeReflection);
-          renderMap(activeReflection);
-        }
-      })
-      .catch(function () {});
+    function loadTodayReflection() {
+      fetch('/rozwazania_baza.json', { cache: 'no-cache' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (list) {
+          activeReflection = pickReflection(list, info.dateStr);
+          if (activeReflection) {
+            renderVerse(activeReflection);
+            renderReflectionCard(activeReflection);
+            renderMap(activeReflection);
+          }
+        })
+        .catch(function () {});
+    }
+    loadTodayReflection();
+
+    // @007 (L0 24.11.2026): o północy czasu polskiego (js/cc-new-day.js) — Werset i rozważanie nowego dnia
+    window.addEventListener('cc:new-day', function (e) {
+      var date = e && e.detail && e.detail.date;
+      info = getWarsawNowInfo();
+      if (date && activeReflection && activeReflection.date === date) return;
+      loadTodayReflection();
+    });
   }
 
 

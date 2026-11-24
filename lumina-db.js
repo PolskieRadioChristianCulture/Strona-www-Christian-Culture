@@ -5676,6 +5676,7 @@ export function startPresenceHeartbeat() {
             presenceNextPingAt = Date.now() + 60000;
             const p = currentProfileState;
             const sessionId = getSessionId();
+            const pingAt = Date.now();
             const docId = (u && u.uid) ? u.uid : sessionId;
             const presenceRef = doc(db, 'lumina_presence', docId);
 
@@ -5694,20 +5695,54 @@ export function startPresenceHeartbeat() {
                 gender: detectedGender || 'unknown',
                 page: window.location.pathname.split('/').pop() || 'lumina.html',
                 lastActive: serverTimestamp(),
-                lastActiveMillis: Date.now()
+                lastActiveMillis: pingAt,
+                // @007 (L0 24.11.2026): osobny znacznik każdej karty/urządzenia — zamknięcie jednej nie wylogowuje drugiej
+                sessions: { [sessionId]: pingAt },
+                sessionsAt: pingAt
             }, { merge: true });
+            presenceMarkedOffline = false;
         } catch(e) {
             if (e?.code === 'resource-exhausted') presenceNextPingAt = Date.now() + 300000;
         }
     };
 
+    // @007 (L0 24.11.2026): status offline w czasie rzeczywistym. Zamknięcie karty → od razu offline;
+    // schowanie karty/aplikacji → offline po 20 s (szybki powrót nie kosztuje zapisów). Inne karty i urządzenia
+    // tego samego konta zostają online (każda ma swój znacznik w `sessions`). Awaria sieci → jak dotąd po ~90 s.
+    let presenceMarkedOffline = false;
+    let presenceHideTimer = null;
+    const markPresenceOffline = () => {
+        try {
+            if (presenceHideTimer) { clearTimeout(presenceHideTimer); presenceHideTimer = null; }
+            const u = currentUserState || (window.LuminaDB?.getCurrentUser ? window.LuminaDB.getCurrentUser() : null);
+            if (!u || u.isAnonymous || !u.uid || presenceLastUid !== u.uid || presenceMarkedOffline) return;
+            presenceMarkedOffline = true;
+            presenceNextPingAt = 0; // po powrocie do karty: natychmiast znów online
+            Promise.resolve(setDoc(doc(db, 'lumina_presence', u.uid), {
+                sessions: { [getSessionId()]: 0 },
+                sessionsAt: Date.now(),
+                offlineAtMillis: Date.now()
+            }, { merge: true })).catch(() => {});
+        } catch (_) {}
+    };
+    const onPresenceVisibility = () => {
+        if (document.visibilityState === 'hidden') {
+            if (!presenceHideTimer && typeof setTimeout === 'function') presenceHideTimer = setTimeout(markPresenceOffline, 20000);
+        } else if (presenceHideTimer) {
+            clearTimeout(presenceHideTimer);
+            presenceHideTimer = null;
+        }
+    };
+
     sendPing();
     presenceHeartbeatTimer = setInterval(sendPing, 60000);
+    document.addEventListener('visibilitychange', onPresenceVisibility);
     document.addEventListener('visibilitychange', sendPing);
+    if (typeof window.addEventListener === 'function') window.addEventListener('pagehide', markPresenceOffline);
     onAuthChange(sendPing);
 
-    // Let the confirmed timestamp expire. Deleting one UID on tab close would
-    // incorrectly mark a second active device offline and creates an extra write.
+    // Nie usuwamy dokumentu UID przy zamknięciu karty (drugie urządzenie zniknęłoby z listy):
+    // zerujemy tylko znacznik tej karty w `sessions`; lista online liczy aktywne znaczniki.
 }
 
 let sharedPresenceChannel = null;

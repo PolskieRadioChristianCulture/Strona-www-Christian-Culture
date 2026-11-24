@@ -130,8 +130,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const loadReflectionData = async () => {
         const now = new Date();
         const pad = (n) => n < 10 ? '0' + n : n;
-        const todayStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-        
+        // @007 (L0 24.11.2026): data według czasu polskiego (Europe/Warsaw)
+        const todayStr = (typeof window.ccWarsawDate === 'function' && window.ccWarsawDate(now))
+            || `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+
         let docData = null;
 
         // 1. Próba pobrania z Firestore
@@ -257,6 +259,9 @@ Apps: https://play.google.com/store/apps/dev?id=5215448773598149938`;
     if (closeBtn) closeBtn.addEventListener("click", closeModal);
     if (closeFooterBtn) closeFooterBtn.addEventListener("click", closeModal);
     if (modalOverlay) modalOverlay.addEventListener("click", closeModal);
+
+    // @007 (L0 24.11.2026): o północy czasu polskiego (js/cc-new-day.js) — rozważanie nowego dnia bez przeładowania
+    window.addEventListener('cc:new-day', () => { loadReflectionData().catch(() => {}); });
 
     // Initial fetch to load page reflection
     loadReflectionData().then(() => {

@@ -231,7 +231,12 @@ export function formatLuminaDevotionalContent(rawText) {
 export async function fetchCanonicalDailyReflection(options = {}) {
     const now = options.now instanceof Date ? options.now : new Date();
     const pad = (n) => (n < 10 ? '0' + n : String(n));
-    const todayStr = options.todayStr || `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    // @007 (L0 24.11.2026): „dzisiaj” zawsze według czasu polskiego (Europe/Warsaw), nie strefy urządzenia.
+    let warsawToday = '';
+    try {
+        warsawToday = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+    } catch (_) {}
+    const todayStr = options.todayStr || warsawToday || `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
 
     if (!options.forceRefresh && _reflectionCache.has(todayStr)) {
         return _reflectionCache.get(todayStr);
@@ -324,7 +329,9 @@ export async function fetchCanonicalDailyReflection(options = {}) {
     };
 
     const payload = { data: devotionData, formattedDatePl, todayStr, reflectionRecord };
-    _reflectionCache.set(todayStr, payload);
+    // Zapamiętujemy tylko prawdziwe rozważanie z dzisiaj. Zastępstwo (wczorajsze, gdy nowe nie jest jeszcze
+    // opublikowane tuż po północy) nie blokuje ponownych prób — kolejne odświeżenie pobierze nowe.
+    if (devotionData.date === todayStr) _reflectionCache.set(todayStr, payload);
     return payload;
 }
 
@@ -389,6 +396,16 @@ export function initDevotionalFeedAutoRefresh() {
     }
     if (!window._luminaDevotionalInterval) {
         window._luminaDevotionalInterval = setInterval(runIfPresent, 900000);
+    }
+    // @007 (L0 24.11.2026): o północy czasu polskiego (js/cc-new-day.js) — od razu nowe rozważanie.
+    if (!window._luminaDevotionalNewDay) {
+        window._luminaDevotionalNewDay = true;
+        window.addEventListener('cc:new-day', (e) => {
+            const date = e && e.detail && e.detail.date;
+            const current = window._luminaDailyReflection;
+            if (date && current && current.date === date) return; // już mamy dzisiejsze
+            runIfPresent();
+        });
     }
 }
 
