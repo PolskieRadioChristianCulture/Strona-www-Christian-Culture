@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { openChannelStudio, CHANNELS, launchStudio } from './yt_studio_session.mjs';
+import { ensureYoutubeSupportFooter } from './publish_perfect.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -245,7 +246,9 @@ async function uploadToYouTube({ videoPath, metaPath, visibility = 'public', hea
     }
   }
   title = title.slice(0, 100);
-  description = (description || title).slice(0, 5000);
+  description = ensureYoutubeSupportFooter(description || title, {
+    lang: meta.titleDescriptionLanguage || meta.videoLanguage || (/Personality Plus|International|Praise & Worship/i.test(channel || '') ? 'en' : 'pl')
+  });
   const tags = Array.isArray(meta.tags) ? meta.tags.join(', ') : (meta.tags || 'Shorts, Biblia, Werset Dnia, UBG, Christian Culture, Wiara, Jezus');
 
   console.log('Parametry publikacji:');

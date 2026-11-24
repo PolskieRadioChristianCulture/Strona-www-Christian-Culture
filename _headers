@@ -269,6 +269,9 @@
 /js/cc-global-auth*
   Cache-Control: no-cache, no-store, must-revalidate
 
+/js/cc-analytics.js*
+  Cache-Control: public, max-age=0, must-revalidate
+
 /components/*
   Cache-Control: no-cache, no-store, must-revalidate
 

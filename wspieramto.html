@@ -625,7 +625,7 @@ a { color: inherit; text-decoration: none; }
       <a href="/biblia-audio">Biblia Audio</a>
       <a href="/milion-gestow" style="color:var(--action);font-weight:700;">Milion Drobnych Gestów (od 2 zł)</a>
       <a href="/akademia">Akademia</a>
-      <a href="https://cc-skarbiec-misji.web.app" target="_blank" rel="noopener">Skarbiec Misji ↗</a>
+      <a href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer" style="color:var(--gold-light);font-weight:700;">Zrzutka (BLIK/Karta) ↗</a>
     </nav>
   </header>
 
@@ -798,11 +798,29 @@ a { color: inherit; text-decoration: none; }
       <p class="section-sub">Zero prowizji platform pośredniczących. 100% Twojego daru trafia bezpośrednio na rozwój dzieła.</p>
 
       <div class="methods-grid">
-        <!-- REVOLUT PAY / 1-CLICK -->
+        <!-- ZRZUTKA.PL 1-CLICK BLIK / KARTA (POLSKA) -->
+        <div class="method-box" style="border-color:rgba(255,122,0,0.45);">
+          <h3><span>Zrzutka.pl &bull; BLIK / Karta</span> <span style="color:#FF7A00;">Polska 1-Click</span></h3>
+          <p>Najszybsza wpłata w Polsce (BLIK 6-cyfrowy, szybki przelew, karta, Apple/Google Pay) z 3 progami wdzięczności: <strong>25 zł / 99 zł / 490 zł</strong>.</p>
+          <a href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer" class="btn-action-primary" data-support-method="zrzutka_1click">
+            Wpłać przez Zrzutka.pl (BLIK / Karta) &rarr;
+          </a>
+        </div>
+
+        <!-- PATRONITE (STAŁE WSPARCIE CO MIESIĄC) -->
+        <div class="method-box" style="border-color:rgba(196,163,90,0.4);">
+          <h3><span>Patronite &bull; Co Miesiąc</span> <span style="color:#C4A35A;">Stały Patron</span></h3>
+          <p>Regularne comiesięczne wsparcie zapewniające stabilność emisji Radia 24/7, nagrań Biblii Audio i stały odpis na budowę Nowego Studia RTV.</p>
+          <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="background:linear-gradient(135deg,#C4A35A,#A08040);color:#07121D;" data-support-method="patronite_monthly">
+            Zostań stałym Patronem na Patronite &rarr;
+          </a>
+        </div>
+
+        <!-- REVOLUT PAY / 1-CLICK (POLONIA I ZAGRANICA) -->
         <div class="method-box">
-          <h3><span>Revolut Pay &bull; 1-Click</span> <span style="color:#C4A35A;">Online</span></h3>
-          <p>Błyskawiczna płatność kartą, Apple Pay, Google Pay lub bezpośrednio z aplikacji Revolut w dowolnej walucie.</p>
-          <a href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" class="btn-action-primary">
+          <h3><span>Revolut Pay &bull; GBP/EUR/USD</span> <span style="color:#C4A35A;">Polonia</span></h3>
+          <p>Błyskawiczna płatność kartą, Apple Pay, Google Pay lub bezpośrednio z aplikacji Revolut bez przewalutowania z UK, Niemiec, UE i USA.</p>
+          <a href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" class="btn-action-primary" data-support-method="revolut_global_1click">
             Wpłać przez Revolut.me &rarr;
           </a>
         </div>
@@ -813,7 +831,7 @@ a { color: inherit; text-decoration: none; }
           <p>W aplikacji swojego polskiego banku wybierz „Przelew na telefon BLIK” i podaj poniższy numer telefonu:</p>
           <div class="data-row">
             <span class="data-val">537 137 043</span>
-            <button type="button" class="btn-copy" onclick="copyData('537137043', this)">Kopiuj</button>
+            <button type="button" class="btn-copy" data-copy-account="true" data-currency="PLN" onclick="copyData('537137043', this)">Kopiuj</button>
           </div>
           <span style="font-size:12px;color:var(--soft);">Odbiorca: Cezary Rogowski &bull; Tytuł: Wsparcie Christian Culture</span>
         </div>
@@ -824,7 +842,7 @@ a { color: inherit; text-decoration: none; }
           <p>Bezpośredni rachunek Revolut Bank UAB Vilnius bez opłat za przewalutowanie dla Polonii i darczyńców z zagranicy:</p>
           <div class="data-row">
             <span class="data-val">LT23 3250 0920 7156 6231</span>
-            <button type="button" class="btn-copy" onclick="copyData('LT233250092071566231', this)">Kopiuj IBAN</button>
+            <button type="button" class="btn-copy" data-copy-account="true" data-currency="EUR" onclick="copyData('LT233250092071566231', this)">Kopiuj IBAN</button>
           </div>
           <span style="font-size:12px;color:var(--soft);">BIC: <strong>REVOLT21</strong> &bull; Bank: Revolut Bank UAB Vilnius</span>
         </div>
@@ -835,7 +853,7 @@ a { color: inherit; text-decoration: none; }
           <p>Dedykowany rachunek misyjny w złotych polskich na rozwój studia, radia, telewizji i technologii:</p>
           <div class="data-row">
             <span class="data-val">74 2910 0006 2469 8002 1062 8039</span>
-            <button type="button" class="btn-copy" onclick="copyData('74291000062469800210628039', this)">Kopiuj</button>
+            <button type="button" class="btn-copy" data-copy-account="true" data-currency="PLN" onclick="copyData('74291000062469800210628039', this)">Kopiuj</button>
           </div>
           <span style="font-size:12px;color:var(--soft);">Odbiorca: Cezary Rogowski &bull; Tytuł: Rozwój Christian Culture</span>
         </div>
@@ -852,12 +870,12 @@ a { color: inherit; text-decoration: none; }
       Projekt nie jest powiązany ani stowarzyszony z publicznym nadawcą <em>Polskie Radio S.A.</em> (polskieradio.pl).
     </p>
     <p>
-      <a href="/privacy">Polityka Prywatności</a> &bull; <a href="https://cc-skarbiec-misji.web.app" target="_blank" rel="noopener">Transparentny Skarbiec Misji CC</a> &bull; &copy; 2026 Christian Culture
+      <a href="/privacy">Polityka Prywatności</a> &bull; <a href="#nowe-studio">Jawny Plan Celów i Nowego Studia RTV</a> &bull; <a href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer">Zrzutka.pl (rs4g4v)</a> &bull; &copy; 2026 Christian Culture
     </p>
   </footer>
 
   <!-- Modal WspieramTO 2.0 -->
-  <script src="/components/cc-wspieramto-modal.js?v=20261121_1" defer></script>
+  <script src="/components/cc-wspieramto-modal.js?v=20261124_funnel1" defer></script>
 
   <script>
     function copyData(text, btn) {

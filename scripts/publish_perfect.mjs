@@ -24,6 +24,37 @@ export function findPublished(videoPath, channelId, historyFile = HISTORY_FILE, 
     !DEAD_STATUSES.has(p.studioStatus)) || null;
 }
 
+const YT_SUPPORT_FOOTER_PL = [
+  '💛 WESPRZYJ DARMOWE MEDIA BOŻE I BUDOWĘ NOWEGO STUDIA RTV CC:',
+  '• Szybka wpłata (BLIK / Karta — progi 25 / 99 / 490 zł): https://zrzutka.pl/rs4g4v',
+  '• Stały Patron (co miesiąc): https://patronite.pl/osobowoscplus',
+  '• Wszystkie formy wsparcia (PL & Polonia GBP/EUR/USD): https://polskieradio.cc/wspieramto',
+  '🌍 Darmowe Radio 24/7, Biblia Audio i MojaBiblia bez reklam: https://polskieradio.cc',
+].join('\n');
+
+const YT_SUPPORT_FOOTER_EN = [
+  '💛 SUPPORT FREE AD-FREE CHRISTIAN MEDIA & OUR NEW 4K STUDIO:',
+  '• International 1-Click Support (GBP / EUR / USD): https://polskieradio.cc/wspieramto',
+  '• Fundraiser (Zrzutka.pl): https://zrzutka.pl/rs4g4v',
+  '🌍 Free 24/7 Radio, Audio Bible & Study Tools: https://polskieradio.cc/Global/',
+].join('\n');
+
+/**
+ * Automatycznie i idempotentnie dopisuje stopkę wsparcia Christian Culture do opisu filmu YouTube
+ * z zachowaniem limitu 5000 znaków YouTube Studio.
+ */
+export function ensureYoutubeSupportFooter(description, { lang = 'pl' } = {}) {
+  const base = String(description || '').trim();
+  if (/zrzutka\.pl\/rs4g4v/i.test(base) && /polskieradio\.cc\/wspieramto/i.test(base)) {
+    return base.slice(0, 5000);
+  }
+  const isEn = /^en/i.test(String(lang || 'pl'));
+  const footer = isEn ? YT_SUPPORT_FOOTER_EN : YT_SUPPORT_FOOTER_PL;
+  const sep = base ? '\n\n' : '';
+  const maxBaseLen = Math.max(0, 5000 - sep.length - footer.length);
+  return `${base.slice(0, maxBaseLen)}${sep}${footer}`.slice(0, 5000);
+}
+
 // Data w formacie pola „Zaplanuj” YouTube Studio (PL), np. „4 lis 2026”.
 const PL_MONTHS = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'];
 export function studioDate(d) {
@@ -355,11 +386,14 @@ export async function uploadEpisodeToChannel({
   }
 
   const title = String(meta.title || path.basename(videoPath, path.extname(videoPath))).slice(0, 100);
-  const description = String(meta.description || meta.full_description || title).slice(0, 5000);
-  const tags = Array.isArray(meta.tags) ? meta.tags.join(', ') : (meta.tags || '');
-  const resolvedThumbPath = thumbnailPath || meta.thumbnailPath;
   const resolvedVideoLang = videoLanguage || meta.videoLanguage;
   const resolvedTitleDescLang = titleDescriptionLanguage || meta.titleDescriptionLanguage;
+  const description = ensureYoutubeSupportFooter(
+    String(meta.description || meta.full_description || title),
+    { lang: resolvedTitleDescLang || resolvedVideoLang || 'pl' }
+  );
+  const tags = Array.isArray(meta.tags) ? meta.tags.join(', ') : (meta.tags || '');
+  const resolvedThumbPath = thumbnailPath || meta.thumbnailPath;
 
   console.log(`• Tytuł: ${title}`);
   console.log(`• Plik: ${path.basename(videoPath)}`);

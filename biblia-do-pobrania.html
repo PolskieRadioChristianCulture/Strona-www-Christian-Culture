@@ -206,6 +206,11 @@
                 <!-- Google Translate Dropdown (Rendered off-screen so Google Translate initializes properly) -->
                 <div id="google_translate_element" style="position: absolute; left: -9999px; top: -9999px; visibility: hidden;"></div>
                 
+                <a href="/wspieramto" data-cc-wspieramto="true" aria-label="Wesprzyj misję Christian Culture" title="Wesprzyj misję (BLIK / Karta / Patronite)" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;min-width:44px;padding:0 14px;border-radius:999px;background:#FF7A00;color:#FFFFFF;font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;text-decoration:none;white-space:nowrap;box-shadow:0 4px 14px rgba(255,122,0,0.32);">
+                    <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                    <span>Wesprzyj</span>
+                </a>
+
                 <div style="display: flex; align-items: center; gap: 6px;">
                     <button class="sms-button" id="navDzjIconBtn" aria-label="Dobrze, że jesteś" title="Dzisiejsze Rozważanie">
                         <div class="avatar-ring" style="overflow: hidden; padding: 0; background: #000;">
@@ -350,6 +355,16 @@
                         </a>
                         <a href="/biblia-audio/" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; background: rgba(196, 163, 90, 0.16); border: 1px solid rgba(196, 163, 90, 0.55); color: #f3e5ab; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.92rem; padding: 12px 26px; border-radius: 50px; text-decoration: none;">
                             <i class="fa-solid fa-headphones"></i> SŁUCHAJ BIBLII AUDIO CC
+                        </a>
+                    </div>
+
+                    <!-- Moduł wdzięczności i wsparcia misji 1-Click -->
+                    <div style="margin-top: 28px; padding: 20px 22px; border-radius: 16px; background: rgba(14, 28, 42, 0.78); border: 1px solid rgba(255, 122, 0, 0.35); text-align: center;">
+                        <p style="font-family: 'Montserrat', sans-serif; font-size: 0.92rem; color: #e2e8f0; margin: 0 0 14px; line-height: 1.55;">
+                            Pismo Święte, Radio 24/7 i Biblię Audio udostępniamy w <strong>100% za darmo i bez reklam</strong>. Jeśli chcesz pomóc nieść Słowo Boże dalej i budować nasze Nowe Studio RTV:
+                        </p>
+                        <a href="/wspieramto" data-cc-wspieramto="true" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; background: #FF7A00; color: #ffffff; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.92rem; padding: 12px 26px; border-radius: 50px; text-decoration: none; box-shadow: 0 6px 20px rgba(255, 122, 0, 0.35);">
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i> WESPRZYJ MISJĘ 1-CLICK (BLIK / KARTA / PATRONITE)
                         </a>
                     </div>
                 </div>
@@ -527,5 +542,6 @@
     <script type="module" src="dobrzezejestes.js?v=6"></script>
     <!-- Christian Culture & LUMINA Universal Google Auth Connector -->
     <script src="js/cc-global-auth.js?v=20261007_auth_v2" defer></script>
+    <script src="/components/cc-wspieramto-modal.js?v=20261124_funnel1" defer></script>
 </body>
 </html>

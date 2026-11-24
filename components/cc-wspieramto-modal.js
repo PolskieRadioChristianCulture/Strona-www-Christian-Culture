@@ -18,9 +18,9 @@
 
   const MODAL_ID = 'ccWspieramToModal';
 
-  // Waluty i predefiniowane kwoty (w tym cegiełka na Nowe Studio RTV 250 / 490 zł)
+  // Waluty i predefiniowane kwoty (spójne z progami Zrzutka.pl 25/99/490 zł oraz cegiełką na Nowe Studio RTV)
   const CURRENCIES = {
-    PLN: { symbol: 'zł', tiers: [19, 49, 99, 250, 490], defaultTier: 49 },
+    PLN: { symbol: 'zł', tiers: [25, 49, 99, 250, 490], defaultTier: 49 },
     GBP: { symbol: '£', tiers: [5, 10, 25, 50, 100], defaultTier: 10 },
     EUR: { symbol: '€', tiers: [5, 12, 25, 55, 115], defaultTier: 12 },
     USD: { symbol: '$', tiers: [6, 15, 30, 60, 125], defaultTier: 15 }
@@ -237,6 +237,29 @@
       background: #E66A00;
       transform: none;
     }
+    .cc-wt-secondary-btn {
+      width: 100%;
+      min-height: 46px;
+      border-radius: 999px;
+      background: rgba(196, 163, 90, 0.14);
+      border: 1px solid rgba(196, 163, 90, 0.45);
+      color: #E2CC9A;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background-color 0.2s, border-color 0.2s;
+      margin-bottom: 14px;
+    }
+    .cc-wt-secondary-btn:hover {
+      background: rgba(196, 163, 90, 0.24);
+      border-color: #C4A35A;
+      color: #ffffff;
+    }
     /* Karty szybkich metod */
     .cc-wt-methods {
       display: flex;
@@ -335,9 +358,15 @@
       <!-- Pigułki kwot -->
       <div class="cc-wt-tiers" id="ccWtTiers"></div>
 
-      <!-- Przycisk 1-Click Online -->
-      <a href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" class="cc-wt-primary-btn" id="ccWtPrimaryCta">
-        <span>Przejdź do wpłaty 1-Click &bull; <strong id="ccWtAmountDisplay">${currentAmount} zł</strong></span>
+      <!-- Przycisk 1-Click Online (Polska: Zrzutka.pl BLIK/Karta; Zagranica: Revolut.me) -->
+      <a href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer" class="cc-wt-primary-btn" id="ccWtPrimaryCta" data-support-method="zrzutka_1click">
+        <span id="ccWtPrimaryLabel">Wpłać 1-Click (BLIK / Karta — Zrzutka.pl) &bull; <strong id="ccWtAmountDisplay">${currentAmount} zł</strong></span>
+        <span>&rarr;</span>
+      </a>
+
+      <!-- Wsparcie regularne miesięczne (Patronite) -->
+      <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="cc-wt-secondary-btn" id="ccWtPatroniteCta" data-support-method="patronite_monthly">
+        <span>Lub zostań stałym Patronem co miesiąc (Patronite)</span>
         <span>&rarr;</span>
       </a>
 
@@ -349,7 +378,7 @@
             <strong>BLIK na telefon (Polska)</strong>
             <span>Numer: <strong>537 137 043</strong> (Cezary Rogowski)</span>
           </div>
-          <button type="button" class="cc-wt-copy-btn" data-copy="537137043">Kopiuj nr</button>
+          <button type="button" class="cc-wt-copy-btn" data-copy="537137043" data-currency="PLN" data-copy-account="true">Kopiuj nr</button>
         </div>
 
         <!-- Przelew zagraniczny SEPA / SWIFT -->
@@ -358,7 +387,7 @@
             <strong>Przelew walutowy (GBP / EUR / USD)</strong>
             <span>IBAN: <strong>LT23 3250 0920 7156 6231</strong> &bull; BIC: REVOLT21</span>
           </div>
-          <button type="button" class="cc-wt-copy-btn" data-copy="LT233250092071566231">Kopiuj IBAN</button>
+          <button type="button" class="cc-wt-copy-btn" data-copy="LT233250092071566231" data-currency="EUR" data-copy-account="true">Kopiuj IBAN</button>
         </div>
 
         <!-- Przelew bankowy PLN -->
@@ -367,13 +396,13 @@
             <strong>Przelew PLN (Rozwój CC)</strong>
             <span>Konto: <strong>74 2910 0006 2469 8002 1062 8039</strong></span>
           </div>
-          <button type="button" class="cc-wt-copy-btn" data-copy="74291000062469800210628039">Kopiuj PLN</button>
+          <button type="button" class="cc-wt-copy-btn" data-copy="74291000062469800210628039" data-currency="PLN" data-copy-account="true">Kopiuj PLN</button>
         </div>
       </div>
 
       <div class="cc-wt-footer-note">
-        100% jawności finansowej w <a href="https://cc-skarbiec-misji.web.app" target="_blank" rel="noopener">Skarbcu Misji CC</a>.<br>
-        Wszystkie materiały pozostają bezpłatne dzięki dobrowolnym darczyńcom.
+        100% jawności celów i etapów budowy studia na <a href="/wspieramto#nowe-studio">polskieradio.cc/wspieramto</a>.<br>
+        Wszystkie treści pozostają bezpłatne i bez reklam dzięki dobrowolnym darczyńcom.
       </div>
     </div>
   `;
@@ -395,6 +424,9 @@
         currentAmount = tier;
         renderTiers();
         updatePrimaryCta();
+        if (window.CCAnalyticsMC && typeof window.CCAnalyticsMC.trackSupportMethodSelect === 'function') {
+          window.CCAnalyticsMC.trackSupportMethodSelect('tier_' + currentCurrency.toLowerCase() + '_' + tier);
+        }
       });
       tiersContainer.appendChild(btn);
     });
@@ -402,14 +434,18 @@
 
   function updatePrimaryCta() {
     const config = CURRENCIES[currentCurrency];
-    const displayEl = document.getElementById('ccWtAmountDisplay');
     const primaryCta = document.getElementById('ccWtPrimaryCta');
-    if (displayEl) {
-      displayEl.textContent = currentAmount + ' ' + config.symbol;
+    const primaryLabel = document.getElementById('ccWtPrimaryLabel');
+    const isPln = currentCurrency === 'PLN';
+
+    if (primaryLabel) {
+      primaryLabel.innerHTML = isPln
+        ? `Wpłać 1-Click (BLIK / Karta — Zrzutka.pl) &bull; <strong id="ccWtAmountDisplay">${currentAmount} ${config.symbol}</strong>`
+        : `Wpłać 1-Click Kartą / Apple Pay (Revolut) &bull; <strong id="ccWtAmountDisplay">${currentAmount} ${config.symbol}</strong>`;
     }
     if (primaryCta) {
-      // Prekonfiguracja linku do Revolut
-      primaryCta.href = `https://revolut.me/christianculture`;
+      primaryCta.href = isPln ? 'https://zrzutka.pl/rs4g4v' : 'https://revolut.me/christianculture';
+      primaryCta.setAttribute('data-support-method', isPln ? 'zrzutka_1click' : 'revolut_global_1click');
     }
   }
 
@@ -458,6 +494,9 @@
 
     modalDiv.classList.add('cc-wt-open');
     document.body.style.overflow = 'hidden';
+    if (window.CCAnalyticsMC && typeof window.CCAnalyticsMC.trackSupportView === 'function') {
+      window.CCAnalyticsMC.trackSupportView({ page_path: location.pathname, source: 'wspieramto_modal' });
+    }
     const closeBtn = document.getElementById('ccWtClose');
     if (closeBtn) closeBtn.focus();
   }

@@ -500,11 +500,11 @@
     };
   }
 
-  if (/^\/(wspieraj|pomogebomoge|darowizna|patron|mecenas)\b/i.test(path)) {
+  if (/^\/(wspieraj|wspieramto|milion-gestow|milion|pomogebomoge|darowizna|patron|mecenas)\b/i.test(path)) {
     ccTrack('support_view', { page_path: path });
   }
 
-  var DONATE_RE = /\/wspieraj\b|patronite\.pl|paypal\.(com|me)|zrzutka\.pl|revolut\.me|buycoffee\.to|buymeacoffee\.com|tipply\.pl|suppi\.pl/i;
+  var DONATE_RE = /\/(wspieraj|wspieramto|milion-gestow)\b|patronite\.pl|paypal\.(com|me)|zrzutka\.pl|revolut\.me|buycoffee\.to|buymeacoffee\.com|tipply\.pl|suppi\.pl/i;
   var SHARE_RE = /facebook\.com\/sharer|twitter\.com\/intent|x\.com\/intent|wa\.me\/\?text|api\.whatsapp\.com\/send\?text|linkedin\.com\/share|t\.me\/share/i;
 
   document.addEventListener('click', function (e) {
