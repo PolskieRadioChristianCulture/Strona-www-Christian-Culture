@@ -70,7 +70,7 @@
 
     var style = document.createElement('style');
     style.textContent = [
-      '.cc-hvb-wrap{position:fixed;left:18px;top:calc(50% - 16px);bottom:auto;z-index:9200;width:clamp(148px,calc((100vh - 360px) * 0.5625),220px);max-width:calc(100vw - 24px);transform:translateY(calc(-50% + 18px)) scale(.96);opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.2,.75,.2,1),opacity .4s ease;font-family:Inter,Manrope,system-ui,-apple-system,sans-serif;}',
+      '.cc-hvb-wrap{position:fixed;left:18px;top:calc(50% - 16px);bottom:auto;z-index:9200;width:clamp(148px,calc((100vh - 415px) * 0.5625),224px);max-width:calc(100vw - 24px);transform:translateY(calc(-50% + 18px)) scale(.96);opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.2,.75,.2,1),opacity .4s ease;font-family:Inter,Manrope,system-ui,-apple-system,sans-serif;}',
       '.cc-hvb-wrap.is-open{transform:translateY(-50%) scale(1);opacity:1;pointer-events:auto;}',
       '.cc-hvb-shell{position:relative;border-radius:22px;padding:2px;overflow:hidden;background:rgba(196,163,90,.28);box-shadow:0 24px 60px rgba(0,0,0,.68);}',
       '.cc-hvb-orbit{position:absolute;inset:-60%;pointer-events:none;background:conic-gradient(from 0deg,transparent 0deg,transparent 260deg,#ff7a00 315deg,#ffe4a1 345deg,transparent 360deg);animation:ccHvbSpin 5.5s linear infinite;}',
@@ -86,12 +86,15 @@
       '.cc-hvb-media video{position:absolute;inset:0;width:100% !important;height:100% !important;max-width:none !important;max-height:none !important;object-fit:cover !important;display:block;}',
       '.cc-hvb-sound-pill{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(5,9,20,.88);backdrop-filter:blur(8px);color:#fff;font-size:12.5px;font-weight:800;white-space:nowrap;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.55);transition:opacity .25s,transform .25s;}',
       '.cc-hvb-sound-pill.is-hidden{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(8px);}',
-      '.cc-hvb-foot{padding:8px 10px 9px;background:#081224;display:flex;flex-direction:column;gap:5px;}',
+      '.cc-hvb-foot{padding:8px 10px 9px;background:#081224;display:flex;flex-direction:column;gap:6px;}',
       '.cc-hvb-cta{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;width:100%;border-radius:999px;background:#ff7a00;color:#fff;text-decoration:none;font-size:13px;font-weight:800;box-shadow:0 8px 22px rgba(255,122,0,.38);transition:background .2s;}',
       '.cc-hvb-cta:hover{background:#ff8c33;}',
+      '.cc-hvb-gift{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:44px;width:100%;padding:6px 10px;border-radius:999px;background:rgba(196,163,90,.18);border:1px solid rgba(235,214,159,.68);color:#fff6dc;text-decoration:none;font-size:12px;font-weight:800;line-height:1.15;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.28);transition:background .2s,border-color .2s,transform .15s;}',
+      '.cc-hvb-gift:hover{background:rgba(196,163,90,.32);border-color:#ffe4a1;color:#fff;}',
+      '.cc-hvb-gift:active{transform:scale(.98);}',
       '.cc-hvb-sub{text-align:center;font-size:11.5px;color:#aebcd0;}',
       '.cc-hvb-sub a{color:#ebd69f;text-decoration:underline;}',
-      '@media (max-width:640px){.cc-hvb-wrap{left:12px;top:calc(50% - 26px);width:206px;}.cc-hvb-media{max-height:calc(100vh - 350px);}.cc-hvb-sound-pill{font-size:11.5px;padding:0 11px;}}',
+      '@media (max-width:640px){.cc-hvb-wrap{left:12px;top:calc(50% - 26px);width:206px;}.cc-hvb-media{max-height:calc(100vh - 405px);}.cc-hvb-sound-pill{font-size:11.5px;padding:0 11px;}.cc-hvb-gift{font-size:11.5px;padding:5px 8px;}}',
       '@media (prefers-reduced-motion:reduce){.cc-hvb-orbit{animation-duration:22s;}}',
     ].join('');
     document.head.appendChild(style);
@@ -120,6 +123,7 @@
       '    </div>',
       '    <div class="cc-hvb-foot">',
       '      <a class="cc-hvb-cta" id="ccHvbCta" href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" data-support-method="zrzutka_home_video_banner">Wesprzyj (BLIK / Karta) &rarr;</a>',
+      '      <a class="cc-hvb-gift" id="ccHvbGift" href="https://drive.google.com/drive/folders/1GIUc1GlNmByFBDCmjmJN4PSukewnzYTc" target="_blank" rel="noopener noreferrer" data-gift-album="best_of_cc_2026">🎁 Odbierz prezent za darmo</a>',
       '      <div class="cc-hvb-sub"><a href="/wspieramto">Plan Nowego Studia RTV</a></div>',
       '    </div>',
       '  </div>',
@@ -133,6 +137,7 @@
     var soundPill = document.getElementById('ccHvbSoundPill');
     var mediaBox = document.getElementById('ccHvbMedia');
     var cta = document.getElementById('ccHvbCta');
+    var giftBtn = document.getElementById('ccHvbGift');
 
     function syncAudioUI() {
       if (!vid) return;
@@ -182,6 +187,11 @@
       cta.addEventListener('click', function () {
         try { localStorage.setItem(KEY_SNOOZE, String(Date.now() + 7 * 24 * 3600 * 1000)); } catch (e) {}
         if (vid) { try { vid.pause(); } catch (e) {} }
+      });
+    }
+    if (giftBtn) {
+      giftBtn.addEventListener('click', function () {
+        if (vid) { try { vid.pause(); } catch (e) {} syncAudioUI(); }
       });
     }
 
