@@ -61,3 +61,19 @@ test('WspieramTO v3 embeds mastered spot video, new zrzutka.pl/z/ChristianCultur
     assert.equal(fs.existsSync(path.join(ROOT, rel)), true, `Missing asset: ${rel}`);
   }
 });
+
+test('Production /wspieramto (index.html + wspieramto.html) runs WspieramTO 3.0 with index,follow and zero /test/oferta/ links', () => {
+  for (const rel of ['wspieramto/index.html', 'wspieramto.html']) {
+    const prod = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+    assert.match(prod, /<meta\s+name="robots"\s+content="index,\s*follow/i, `${rel} must be indexed`);
+    assert.doesNotMatch(prod, /noindex/i, `${rel} must NOT contain noindex`);
+    assert.doesNotMatch(prod, /\/test\/oferta\//i, `${rel} must NOT link to withheld /test/oferta/`);
+    assert.doesNotMatch(prod, /\/test\/wspieramto\//i, `${rel} must NOT point to preview assets`);
+    assert.match(prod, /\/wspieramto\/wspieramto-v3\.css/);
+    assert.match(prod, /\/wspieramto\/wspieramto-v3\.js/);
+    assert.match(prod, /id="wideo-wsparcia"/);
+    assert.match(prod, /https:\/\/zrzutka\.pl\/z\/ChristianCulture/);
+  }
+  assert.equal(fs.existsSync(path.join(ROOT, 'wspieramto/wspieramto-v3.css')), true);
+  assert.equal(fs.existsSync(path.join(ROOT, 'wspieramto/wspieramto-v3.js')), true);
+});

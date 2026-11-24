@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="pl">
+<!doctype html>
+<html lang="pl" class="no-js">
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
@@ -7,1043 +7,559 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
 </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>WspieramTO — Mecenat Wolnych Mediów Bożych | Christian Culture</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#050914">
+<title>WspieramTO — Mecenat Wolnych Mediów Bożych i Nowego Studia RTV | Christian Culture</title>
+<meta name="description" content="Radio 24/7, telewizja CCTV24, Biblia Audio V7 i Akademia Biblijna są w 100% bezpłatne dzięki ludziom dobrego serca. Obejrzyj zaproszenie wideo i zobacz jak Twój dar buduje Nowe Studio RTV 4K.">
 <link rel="canonical" href="https://polskieradio.cc/wspieramto">
+<link rel="alternate" hreflang="pl" href="https://polskieradio.cc/wspieramto">
+<link rel="alternate" hreflang="en" href="https://polskieradio.cc/wspieramto?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://polskieradio.cc/wspieramto">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <meta property="og:site_name" content="Christian Culture">
-<meta property="og:title" content="WspieramTO — Mecenat Wolnych Mediów Bożych | Christian Culture">
-<meta property="og:description" content="Radio 24/7, telewizja CCTV24, Biblia Audio i Akademia są w 100% bezpłatne dzięki dobrowolnym Mecenasom. Dołącz do grona WspieramTO.">
+<meta property="og:title" content="WspieramTO — Razem niesiemy światu nadzieję | Christian Culture">
+<meta property="og:description" content="Obejrzyj 21-sekundowe zaproszenie Cezarego i Wioletty, sprawdź interaktywny wpływ swojego daru i pomóż budować Nowe Studio RTV 4K.">
 <meta property="og:url" content="https://polskieradio.cc/wspieramto">
-<meta property="og:image" content="https://polskieradio.cc/images/banners/banner-global-support.jpg">
-<meta name="theme-color" content="#07121D">
-<link rel="icon" href="/app-christian-culture.png">
-
-<!-- Fonts -->
+<meta property="og:image" content="https://polskieradio.cc/wspieramto/assets/wsparcie-zrzutka-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="/app-christian-culture.png">
+<link rel="preload" as="image" href="/wspieramto/assets/wsparcie-zrzutka-poster.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
-
-<style>
-:root {
-  --ground: #07121D;
-  --ground-2: #0E1C2A;
-  --ground-3: #172A3C;
-  --ink: #EEF1F5;
-  --soft: #A4B3C2;
-  --gold: #C4A35A;
-  --gold-hover: #D4B578;
-  --gold-light: #E2CC9A;
-  --action: #FF7A00;
-  --action-hover: #FF8C33;
-  --action-press: #E66A00;
-  --line: rgba(196, 163, 90, 0.22);
-  --serif: 'Lora', Georgia, serif;
-  --sans: 'Inter', system-ui, -apple-system, sans-serif;
-  color-scheme: dark;
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: clip; }
-body {
-  margin: 0;
-  background: var(--ground);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: clip;
-  -webkit-font-smoothing: antialiased;
-}
-
-a { color: inherit; text-decoration: none; }
-:focus-visible { outline: 3px solid var(--action); outline-offset: 3px; border-radius: 8px; }
-
-.ramka {
-  width: 100%;
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* Header */
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  padding: 10px 20px;
-  min-height: 72px;
-  border-bottom: 1px solid var(--line);
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--serif);
-  font-weight: 700;
-  font-size: 18px;
-  color: #fff;
-}
-.brand img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-.brand span span {
-  color: var(--gold);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-}
-.nav-links a {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  font-size: 14px;
-  color: var(--soft);
-  transition: color 0.2s;
-}
-.nav-links a:hover {
-  color: var(--gold-light);
-}
-
-/* Hero */
-.hero {
-  padding: 56px 0 36px;
-  text-align: center;
-}
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  border-radius: 999px;
-  background: rgba(196, 163, 90, 0.15);
-  border: 1px solid rgba(196, 163, 90, 0.4);
-  color: var(--gold-light);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.hero-title {
-  font-family: var(--serif);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.15;
-  margin: 0 0 16px;
-}
-.hero-title span {
-  color: var(--gold);
-}
-.hero-lead {
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
-  color: var(--soft);
-  max-width: 680px;
-  margin: 0 auto 36px;
-}
-
-/* Licznik celu transparentności i budowy nowego studia RTV */
-.goals-dual-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
-  max-width: 1080px;
-  margin: 0 auto 48px;
-  text-align: left;
-}
-.goal-card {
-  background: var(--ground-2);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 24px 26px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.goal-card.goal-card--studio {
-  border-color: rgba(255, 122, 0, 0.45);
-  background: linear-gradient(155deg, rgba(255, 122, 0, 0.10) 0%, rgba(196, 163, 90, 0.08) 45%, var(--ground-2) 100%);
-}
-.goal-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gold-light);
-  margin-bottom: 8px;
-}
-.goal-card--studio .goal-eyebrow {
-  color: #FFB366;
-}
-.goal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.goal-title {
-  font-family: var(--serif);
-  font-size: 19px;
-  font-weight: 700;
-  color: #fff;
-}
-.goal-amount-big {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--gold-light);
-  white-space: nowrap;
-}
-.goal-card--studio .goal-amount-big {
-  color: var(--action);
-}
-.goal-desc {
-  font-size: 13px;
-  color: var(--soft);
-  margin: 0 0 14px;
-  line-height: 1.55;
-}
-.goal-bar-bg {
-  width: 100%;
-  height: 12px;
-  background: var(--ground-3);
-  border-radius: 999px;
-  overflow: hidden;
-  margin-bottom: 12px;
-}
-.goal-bar-fill {
-  height: 100%;
-  width: 28%;
-  background: linear-gradient(90deg, #C4A35A, #FF7A00);
-  border-radius: 999px;
-  transition: width 1s ease-in-out;
-}
-.goal-bar-fill--studio {
-  width: 18%;
-  background: linear-gradient(90deg, #FF7A00, #FFB366);
-}
-.goal-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--soft);
-}
-.goal-meta a {
-  color: var(--gold);
-  text-decoration: underline;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-}
-
-/* Spot wideo 9:16 od Cezarego i Wioletty */
-.video-spot-section {
-  background: linear-gradient(155deg, rgba(255, 122, 0, 0.08) 0%, rgba(196, 163, 90, 0.08) 48%, rgba(14, 28, 42, 0.96) 100%);
-  border: 1px solid rgba(196, 163, 90, 0.38);
-  border-radius: 24px;
-  padding: clamp(22px, 3.6vw, 38px);
-  margin: 0 auto 48px;
-  max-width: 1080px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
-}
-.video-spot-grid {
-  display: grid;
-  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
-  gap: clamp(22px, 4vw, 42px);
-  align-items: center;
-}
-.video-spot-frame {
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-  aspect-ratio: 9 / 16;
-  border-radius: 20px;
-  overflow: hidden;
-  border: 2px solid rgba(196, 163, 90, 0.55);
-  background: #050b14;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.65);
-}
-.video-spot-frame video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.video-spot-copy {
-  text-align: left;
-}
-.video-spot-copy h2 {
-  font-family: var(--serif);
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  color: #fff;
-  margin: 8px 0 12px;
-  line-height: 1.2;
-}
-.video-spot-copy h2 span { color: var(--gold); }
-.video-spot-quote {
-  margin: 0 0 16px;
-  padding: 14px 18px;
-  border-left: 3px solid var(--action);
-  background: rgba(7, 18, 29, 0.55);
-  border-radius: 0 12px 12px 0;
-  color: #eef3f9;
-  font-style: italic;
-  font-size: 15px;
-  line-height: 1.58;
-}
-.video-spot-copy p {
-  font-size: 15px;
-  color: var(--soft);
-  margin: 0 0 18px;
-}
-.video-spot-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.video-spot-actions a,
-.video-spot-actions button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  border: 1px solid transparent;
-  transition: transform 0.2s, background-color 0.2s, border-color 0.2s;
-}
-.video-spot-btn-orange {
-  background: var(--action);
-  color: #fff;
-  box-shadow: 0 10px 26px rgba(255, 122, 0, 0.35);
-}
-.video-spot-btn-orange:hover { background: var(--action-hover); transform: translateY(-1px); }
-.video-spot-btn-gold {
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  color: #07121D;
-}
-.video-spot-btn-gold:hover { transform: translateY(-1px); }
-.video-spot-btn-ghost {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.2) !important;
-  color: #fff;
-}
-.video-spot-btn-ghost:hover { background: rgba(255, 255, 255, 0.14); border-color: var(--gold) !important; }
-@media (max-width: 760px) {
-  .video-spot-grid { grid-template-columns: 1fr; }
-  .video-spot-copy { text-align: center; }
-  .video-spot-quote { text-align: left; }
-  .video-spot-actions { justify-content: center; }
-  .video-spot-actions a, .video-spot-actions button { width: 100%; }
-}
-
-/* Sekcja Budowy Nowego Studia Radiowo-Telewizyjnego CC */
-.studio-section {
-  background: linear-gradient(160deg, rgba(14, 28, 42, 0.96) 0%, rgba(7, 18, 29, 0.98) 100%);
-  border: 1px solid rgba(196, 163, 90, 0.35);
-  border-radius: 24px;
-  padding: clamp(24px, 4vw, 44px);
-  margin-bottom: 56px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-}
-.studio-top {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 28px;
-  align-items: center;
-  margin-bottom: 32px;
-}
-.studio-visual {
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(196, 163, 90, 0.35);
-  background: var(--ground-3);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
-}
-.studio-visual img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-.studio-copy h2 {
-  font-family: var(--serif);
-  font-size: clamp(1.6rem, 3.2vw, 2.35rem);
-  color: #fff;
-  margin: 8px 0 12px;
-  line-height: 1.2;
-}
-.studio-copy h2 span {
-  color: var(--gold);
-}
-.studio-copy p {
-  font-size: 15px;
-  color: var(--soft);
-  margin: 0 0 14px;
-}
-.studio-milestones {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 16px;
-  margin-bottom: 28px;
-}
-.studio-item {
-  background: rgba(23, 42, 60, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 18px;
-}
-.studio-item-tag {
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--action);
-  margin-bottom: 6px;
-  display: block;
-}
-.studio-item h3 {
-  font-family: var(--serif);
-  font-size: 17px;
-  color: #fff;
-  margin: 0 0 6px;
-}
-.studio-item-cost {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--gold-light);
-  margin-bottom: 8px;
-}
-.studio-item p {
-  font-size: 13px;
-  color: var(--soft);
-  margin: 0;
-  line-height: 1.5;
-}
-.studio-bottom-bar {
-  background: rgba(0, 0, 0, 0.28);
-  border: 1px solid rgba(196, 163, 90, 0.25);
-  border-radius: 16px;
-  padding: 18px 22px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-.studio-verse {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 14px;
-  color: var(--gold-light);
-  max-width: 640px;
-}
-.studio-verse cite {
-  font-style: normal;
-  font-weight: 700;
-  color: var(--soft);
-  font-size: 12px;
-  display: block;
-  margin-top: 4px;
-}
-.studio-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.btn-studio-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0 24px;
-  border-radius: 999px;
-  background: var(--action);
-  color: #fff;
-  font-weight: 800;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
-  box-shadow: 0 6px 20px rgba(255, 122, 0, 0.35);
-}
-.btn-studio-cta:hover {
-  background: var(--action-hover);
-  transform: translateY(-2px);
-}
-.btn-studio-cta:active {
-  background: var(--action-press);
-}
-
-/* Siatka Poziomów Mecenatu */
-.tiers-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-  margin-bottom: 56px;
-}
-.tier-card {
-  background: var(--ground-2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
-}
-.tier-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--gold);
-  box-shadow: 0 12px 32px rgba(196, 163, 90, 0.15);
-}
-.tier-card.featured {
-  border-color: var(--gold);
-  background: linear-gradient(180deg, rgba(196, 163, 90, 0.12) 0%, var(--ground-2) 100%);
-}
-.tier-ribbon {
-  position: absolute;
-  top: -12px;
-  right: 20px;
-  background: var(--action);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 4px 10px;
-  border-radius: 999px;
-}
-.tier-name {
-  font-family: var(--serif);
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 8px;
-  color: #fff;
-}
-.tier-price {
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--gold-light);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-.tier-price span {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--soft);
-}
-.tier-desc {
-  font-size: 13px;
-  color: var(--soft);
-  margin-bottom: 24px;
-  flex-grow: 1;
-}
-.tier-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 14px;
-  transition: all 0.2s;
-  cursor: pointer;
-  border: 1px solid var(--gold);
-  background: transparent;
-  color: var(--gold-light);
-}
-.tier-btn:hover {
-  background: var(--gold);
-  color: var(--ground);
-}
-.tier-card.featured .tier-btn {
-  background: var(--action);
-  border-color: var(--action);
-  color: #fff;
-}
-.tier-card.featured .tier-btn:hover {
-  background: var(--action-hover);
-}
-
-/* Sekcja Metod Płatności */
-.methods-section {
-  background: var(--ground-2);
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  padding: clamp(24px, 4vw, 48px);
-  margin-bottom: 56px;
-}
-.section-title {
-  font-family: var(--serif);
-  font-size: clamp(1.5rem, 3vw, 2.2rem);
-  text-align: center;
-  margin: 0 0 8px;
-}
-.section-sub {
-  text-align: center;
-  color: var(--soft);
-  font-size: 14px;
-  margin: 0 0 36px;
-}
-
-.methods-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-.method-box {
-  background: var(--ground-3);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-.method-box h3 {
-  font-size: 17px;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.method-box p {
-  font-size: 13px;
-  color: var(--soft);
-  margin: 0 0 16px;
-  flex-grow: 1;
-}
-.data-row {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 10px;
-  padding: 10px 14px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-.data-val {
-  font-family: monospace;
-  font-weight: 700;
-  font-size: 14px;
-  color: #fff;
-  overflow-wrap: anywhere;
-}
-.btn-copy {
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--gold-light);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-copy:hover {
-  background: var(--gold);
-  color: var(--ground);
-}
-.btn-action-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  width: 100%;
-  border-radius: 999px;
-  background: var(--action);
-  color: #fff;
-  font-weight: 700;
-  font-size: 15px;
-  transition: background-color 0.2s;
-  border: none;
-  cursor: pointer;
-}
-.btn-action-primary:hover {
-  background: var(--action-hover);
-}
-
-/* Baner Global */
-.global-banner {
-  margin-bottom: 56px;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
-}
-.global-banner img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Stopka */
-.footer {
-  border-top: 1px solid var(--line);
-  padding: 40px 0;
-  text-align: center;
-  font-size: 13px;
-  color: var(--soft);
-}
-.footer p { margin: 6px 0; }
-.footer a { color: var(--gold); text-decoration: underline; }
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
+<link rel="stylesheet" href="/wspieramto/wspieramto-v3.css?v=20261124_prod1">
+<script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
+<script src="/js/cc-favorites.js?v=20261114_favz1" defer></script>
+<script src="/js/cc-mobile-edge.js?v=20261110_edge12" defer></script>
+<script src="/js/cc-edge-plus.js?v=20261110_edgep2" defer></script>
+<script src="/components/cc-omni-search.js?v=20261030_feat11" defer></script>
+<script src="/components/cc-global-chat-button.js?v=20261119_gold2" defer></script>
+<script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
+<script src="/components/cc-support-footer.js?v=20261119_gold2" defer></script>
+<script src="/js/cc-eco-bars.js?v=20261118_1" defer></script>
+<script src="/components/cc-wspieramto-modal.js?v=20261124_funnel1" defer></script>
+<script src="/wspieramto/wspieramto-v3.js?v=20261124_prod1" defer></script>
 </head>
-
 <body>
+<a class="skip" href="#tresc" data-i18n="skip">Przejdź do treści</a>
 
-  <header class="top-bar ramka">
-    <a href="/" class="brand" title="Christian Culture">
-      <img src="/app-christian-culture.png" alt="CC" width="40" height="40">
-      <span>Christian <span>Culture</span></span>
+<!-- Górny pasek informacyjny (CCEco Ticker) -->
+<div class="tick" role="region" aria-label="Pasek informacyjny ekosystemu">
+  <span class="tick__badge"><i aria-hidden="true"></i><span data-i18n="tickBadge">WspieramTO LIVE</span></span>
+  <div class="tick__track"><div class="tick__run" id="tickRun"></div></div>
+</div>
+
+<!-- Nawigacja główna + Motion Primitives ScrollProgress -->
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="/" aria-label="Christian Culture — strona główna">
+      <img src="/app-christian-culture.png" width="38" height="38" alt="Christian Culture">
+      <span><b>Christian Culture</b><small data-i18n="brandSub">WspieramTO · Mecenat 24/7</small></span>
     </a>
-    <nav class="nav-links">
-      <a href="/player">Radio 24/7</a>
-      <a href="/biblia-audio">Biblia Audio</a>
-      <a href="/milion-gestow" style="color:var(--action);font-weight:700;">Milion Drobnych Gestów (od 2 zł)</a>
-      <a href="/akademia">Akademia</a>
-      <a href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" style="color:var(--gold-light);font-weight:700;">Zrzutka (BLIK/Karta) ↗</a>
+
+    <nav aria-label="Nawigacja WspieramTO">
+      <ul class="menu" id="menu">
+        <li><a href="#symulator" data-i18n="navSim">Wpływ daru</a></li>
+        <li><a href="#przeplyw" data-i18n="navFlow">Jak to działa</a></li>
+        <li><a href="#nowe-studio" data-i18n="navStudio">Nowe Studio 4K</a></li>
+        <li><a href="#metody" data-i18n="navPay">Metody wpłat</a></li>
+        <li><a href="/milion-gestow" data-i18n="navMilion">Od 2 zł</a></li>
+      </ul>
     </nav>
-  </header>
 
-  <main class="ramka">
+    <div class="header-right nav__actions">
+      <a class="support-btn magnetic" href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" data-support-method="zrzutka_header_cta" aria-label="Wesprzyj teraz na Zrzutka.pl">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.1 5.2 3 1.6-1.9 3.1-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>
+        <span class="support-txt" data-i18n="navCta">Wesprzyj teraz</span>
+      </a>
+      <div class="lang-sw" role="group" aria-label="Język strony">
+        <button type="button" class="lang-btn is-on" data-lang="pl" aria-pressed="true">PL</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-badge">WspieramTO &bull; Wolne Media Boże &amp; Budowa Nowego Studia RTV</div>
-      <h1 class="hero-title">Razem tworzymy <span>Niezależne Media Boże</span> i budujemy <span>Nowe Studio RTV</span></h1>
-      <p class="hero-lead">
-        Radio 24/7, telewizja CCTV24, Biblia Audio i codzienne lekcje Pisma są wolne od reklam i dostępne bezpłatnie dla każdego na świecie — a dziś wspólnie zbieramy na ich utrzymanie oraz budowę nowego, własnego studia radiowo-telewizyjnego.
-      </p>
+    <button class="burger" id="burgerBtn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Otwórz menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <!-- Motion Primitives ScrollProgress -->
+  <div class="scroll-progress" aria-hidden="true"><i id="scrollProgressBar"></i></div>
+</header>
 
-      <!-- Dwufilarowy Transparentny Licznik Celu Finansowego -->
-      <div class="goals-dual-grid">
-        <!-- FILAR 1: Bieżący Cel Miesięczny -->
-        <div class="goal-card">
-          <div>
-            <span class="goal-eyebrow">Filar I &bull; Samowystarczalność Ekosystemu 24/7</span>
-            <div class="goal-header">
-              <span class="goal-title">Utrzymanie, Produkcja &amp; Fundusz Studia</span>
-              <span class="goal-amount-big">25 000 zł / mies.</span>
-            </div>
-            <p class="goal-desc">
-              Serwery chmurowe, emisja Radia 24/7 i 17 kanałów TV LIVE, codzienna produkcja słuchowisk Biblii Audio V7 i Kursu Codziennego (15 000 zł) oraz stały comiesięczny odpis na budowę nowego studia (10 000 zł).
-            </p>
-          </div>
-          <div>
-            <div class="goal-bar-bg" aria-hidden="true">
-              <div class="goal-bar-fill"></div>
-            </div>
-            <div class="goal-meta">
-              <span>Próg I (Serwery &amp; AI): 5 000 zł &bull; Próg II (Pełna produkcja): 15 000 zł</span>
-              <a href="#nowe-studio">Zobacz plan studia &darr;</a>
-            </div>
-          </div>
+<main id="tresc">
+  <!-- 1. HERO: LIVING CINEMA + CANVAS PARTICLES + WORD ROTATE + BORDER BEAM VIDEO CONSOLE -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="hero__bg-photo" aria-hidden="true"></div>
+    <div class="hero__grid-bg" aria-hidden="true"></div>
+    <canvas class="hero__canvas" id="heroParticles" aria-hidden="true"></canvas>
+    <div class="hero__spotlight" id="heroSpotlight" aria-hidden="true"></div>
+    <div class="hero__vignette" aria-hidden="true"></div>
+
+    <div class="wrap hero__stage">
+      <div class="hero__copy">
+        <div class="hero-pill">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          <span data-i18n="heroBadge">WspieramTO · Wolne Media Boże 24/7</span>
         </div>
 
-        <!-- FILAR 2: Budowa Nowego Studia Radiowo-Telewizyjnego CC -->
-        <div class="goal-card goal-card--studio">
-          <div>
-            <span class="goal-eyebrow">Filar II &bull; Inwestycja Strategiczna Misji</span>
-            <div class="goal-header">
-              <span class="goal-title">Budowa Nowego Studia Radiowo-Telewizyjnego</span>
-              <span class="goal-amount-big">80 000 zł</span>
+        <h1 id="h1">
+          <span class="l"><span data-i18n="h1a">Razem niesiemy</span></span>
+          <span class="l">
+            <span class="word-rotate shimmer" id="wordRotate" aria-live="off" data-i18n="h1b">żywą nadzieję</span>
+          </span>
+        </h1>
+
+        <p class="hero__lead" data-i18n="heroLead">
+          37 kanałów Radia i TV 24/7, Biblia Audio V7, MojaBiblia i Akademia działają w 100% bezpłatnie i bez ani jednej reklamy. Każdy Twój gest utrzymuje wolny sygnał Ewangelii i buduje Nowe Studio RTV 4K Christian Culture.
+        </p>
+
+        <div class="hero__ctas">
+          <a class="btn btn--orange btn--shimmer magnetic" href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" data-support-method="zrzutka_hero_v3">
+            <span data-i18n="ctaHeroMain">Wesprzyj teraz (BLIK / Karta)</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn--glass magnetic" href="#symulator" data-i18n="ctaHeroSim">Sprawdź moc Twojego daru ↓</a>
+        </div>
+
+        <div class="hero__trust">
+          <span class="trust-chip"><i aria-hidden="true"></i><span data-i18n="trust1">0% reklam i paywalli</span></span>
+          <span class="trust-chip"><i aria-hidden="true"></i><span data-i18n="trust2">BLIK · Karta · Patronite · Revolut</span></span>
+          <span class="trust-chip"><i aria-hidden="true"></i><span data-i18n="trust3">zrzutka.pl/z/ChristianCulture</span></span>
+        </div>
+      </div>
+
+      <!-- PRAWA STRONA HERO: KONSOLA WIDEO 9:16 Z MAGIC UI BORDER BEAM & GLOW EFFECT -->
+      <div class="hero-video-wrap" id="wideo-wsparcia" data-tilt>
+        <div class="glow-aura" aria-hidden="true"></div>
+        <div class="border-beam-shell">
+          <span class="border-beam-orbit" aria-hidden="true"></span>
+          <div class="video-console">
+            <div class="video-console__top">
+              <span class="vc-live"><i aria-hidden="true"></i><span data-i18n="vcBadge">Zaproszenie · 0:21</span></span>
+              <div class="vc-eq" id="vcEq" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i>
+              </div>
             </div>
-            <p class="goal-desc">
-              Własne, wyciszone studio radiowo-telewizyjne 4K (adaptacja akustyczna, kamery, mikrofony nadawcze, konsoleta, światło, stacja emisji 24/7) w ramach projektu <strong>Dom z Miejscem na Studio Misji (1 230 000 zł)</strong>.
-            </p>
-          </div>
-          <div>
-            <div class="goal-bar-bg" aria-hidden="true">
-              <div class="goal-bar-fill goal-bar-fill--studio"></div>
+
+            <div class="video-console__screen">
+              <video id="heroSpotVideo" playsinline preload="metadata" poster="/wspieramto/assets/wsparcie-zrzutka-poster.jpg" aria-label="Zaproszenie wideo Cezarego i Wioletty Rogowskich — Każdy gest ma znaczenie">
+                <source src="/wspieramto/assets/wsparcie-zrzutka-web.mp4" type="video/mp4">
+              </video>
+              <button type="button" class="vc-play-overlay" id="vcPlayBtn" aria-label="Odtwórz 21-sekundowe zaproszenie z dźwiękiem">
+                <span class="vc-play-ring">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>
+                </span>
+                <strong data-i18n="vcPlayText">Obejrzyj z dźwiękiem (0:21)</strong>
+                <small data-i18n="vcPlaySub">Cezary &amp; Wioletta + pieśń „Dobrze, że jesteś”</small>
+              </button>
             </div>
-            <div class="goal-meta">
-              <span>Etap I (Rozruch &amp; Akustyka): <strong>25 000 zł</strong> &bull; Pełne Studio RTV: <strong>80 000 zł</strong></span>
-              <a href="javascript:void(0)" onclick="window.openWspieramToModal({amount:250, currency:'PLN'})">Wesprzyj budowę studia &rarr;</a>
+
+            <div class="video-console__foot">
+              <button type="button" class="vc-mini-btn" id="vcTogglePlay" aria-label="Odtwórz lub zatrzymaj wideo">
+                <span id="vcToggleLabel" data-i18n="vcBtnPlay">▶ Odtwórz</span>
+              </button>
+              <button type="button" class="vc-mini-btn" id="vcToggleMute" aria-label="Włącz lub wycisz dźwięk">
+                <span id="vcMuteLabel">🔊 Dźwięk</span>
+              </button>
+              <button type="button" class="vc-mini-btn" id="vcShareBtn" aria-label="Udostępnij spot wideo">
+                <span data-i18n="vcShare">Udostępnij ↗</span>
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SPOT WIDEO OD CEZAREGO I WIOLETTY -->
-    <section class="video-spot-section" id="wideo-wsparcia" aria-labelledby="video-spot-heading">
-      <div class="video-spot-grid">
-        <div class="video-spot-frame">
-          <video controls playsinline preload="metadata" poster="/wspieramto/assets/wsparcie-zrzutka-poster.jpg" aria-label="Zaproszenie wideo Cezarego i Wioletty Rogowskich do wsparcia misji Christian Culture na Zrzutka.pl">
-            <source src="/wspieramto/assets/wsparcie-zrzutka-web.mp4" type="video/mp4">
-            Twoja przeglądarka nie obsługuje wideo HTML5. Przejdź bezpośrednio na zrzutka.pl/z/ChristianCulture.
-          </video>
-        </div>
-        <div class="video-spot-copy">
-          <span class="hero-badge" style="margin-bottom:8px;">Zaproszenie Wideo &bull; 21 sekund</span>
-          <h2 id="video-spot-heading">„Każdy gest ma <span>znaczenie</span>” — obejrzyj zaproszenie</h2>
-          <blockquote class="video-spot-quote">
-            „Witajcie kochani. Pomóżcie nam nieść światu nadzieję. Wesprzyjcie Christian Culture na zrzutka.pl. Każdy gest ma znaczenie — dobrze, że jesteś, dobrze, że tu… Twoje życie ma znaczenie, to dar od Króla chwał.”
-          </blockquote>
-          <p>
-            Krótki adres naszej zbiórki to <strong>zrzutka.pl/z/ChristianCulture</strong> — wpłacisz w kilkanaście sekund BLIK-iem, kartą lub szybkim przelewem. Dziękujemy za każdą cegiełkę i udostępnienie tego wideo bliskim!
-          </p>
-          <div class="video-spot-actions">
-            <a href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" class="video-spot-btn-orange" data-support-method="zrzutka_video_cta">
-              Wesprzyj na zrzutka.pl/z/ChristianCulture &rarr;
+  <!-- 2. MAGIC UI MARQUEE + ŻYWE LICZNIKI EKOSYSTEMU (PRAWDA Z KATALOGÓW JSON) -->
+  <section class="marquee-band" aria-label="Żywe statystyki ekosystemu Christian Culture">
+    <div class="wrap live-counters-grid">
+      <div class="counter-card magic-card reveal">
+        <div class="counter-val"><span class="reel" id="statChannels" data-target="37">37</span></div>
+        <div class="counter-label" data-i18n="statCh">całodobowych kanałów Radia i TV CC (0 reklam)</div>
+      </div>
+      <div class="counter-card magic-card reveal">
+        <div class="counter-val"><span class="reel" id="statBible" data-target="37">37</span><span class="unit">/50</span></div>
+        <div class="counter-label" data-i18n="statBib">rozdziałów Księgi Rodzaju w Biblii Audio V7</div>
+      </div>
+      <div class="counter-card magic-card reveal">
+        <div class="counter-val"><span class="reel" id="statCards" data-target="26">26</span></div>
+        <div class="counter-label" data-i18n="statWiz">aktywnych wizytówek w katalogu /wizytowki</div>
+      </div>
+      <div class="counter-card magic-card reveal">
+        <div class="counter-val"><span class="reel" data-target="100">100</span><span class="unit">%</span></div>
+        <div class="counter-label" data-i18n="statFree">treści dostępnych za darmo dla każdego na świecie</div>
+      </div>
+    </div>
+
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee-track">
+        <span>PolskieRadio.cc 24/7</span><i>✦</i>
+        <span>Biblia Audio V7 (-16 LUFS)</span><i>✦</i>
+        <span>MojaBiblia Strong PL/HEB/GR</span><i>✦</i>
+        <span>Kurs Codzienny „Z Biblią za Pan Brat”</span><i>✦</i>
+        <span>Telewizja CCTV24 LIVE</span><i>✦</i>
+        <span>Portal LUMINA &amp; LUMI Mess</span><i>✦</i>
+        <span>Nowe Studio RTV 4K</span><i>✦</i>
+        <span>PolskieRadio.cc 24/7</span><i>✦</i>
+        <span>Biblia Audio V7 (-16 LUFS)</span><i>✦</i>
+        <span>MojaBiblia Strong PL/HEB/GR</span><i>✦</i>
+        <span>Kurs Codzienny „Z Biblią za Pan Brat”</span><i>✦</i>
+        <span>Telewizja CCTV24 LIVE</span><i>✦</i>
+        <span>Portal LUMINA &amp; LUMI Mess</span><i>✦</i>
+        <span>Nowe Studio RTV 4K</span><i>✦</i>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. INTERAKTYWNY SYMULATOR WPŁYWU DARU (MOTION PRIMITIVES SLIDING NUMBER + MAGIC CARD) -->
+  <section class="sect" id="symulator" aria-labelledby="h-sim">
+    <div class="wrap">
+      <div class="sect__head reveal">
+        <p class="eyebrow" data-i18n="simEyebrow">Interaktywny kalkulator misji · Wybierz i zobacz efekt</p>
+        <h2 id="h-sim" data-i18n="simTitle">Zobacz, co dokładnie uruchamia Twój dar</h2>
+        <p class="sect__lead" data-i18n="simLead">Przesuń suwak albo kliknij próg — poniżej na żywo przeliczysz, ile darmowego czasu nadawania, produkcji Biblii Audio i cegiełek Nowego Studia RTV tworzy Twoja decyzja.</p>
+      </div>
+
+      <div class="sim-shell border-beam-shell reveal">
+        <span class="border-beam-orbit" aria-hidden="true"></span>
+        <div class="sim-card magic-card">
+          <div class="sim-top">
+            <div class="curr-pills" role="radiogroup" aria-label="Waluta wsparcia">
+              <button type="button" class="curr-pill is-on" data-curr="PLN" aria-checked="true">PLN (zł)</button>
+              <button type="button" class="curr-pill" data-curr="GBP" aria-checked="false">GBP (£)</button>
+              <button type="button" class="curr-pill" data-curr="EUR" aria-checked="false">EUR (€)</button>
+              <button type="button" class="curr-pill" data-curr="USD" aria-checked="false">USD ($)</button>
+            </div>
+            <div class="sim-tier-badge" id="simTierBadge">Patron Pisma</div>
+          </div>
+
+          <div class="sim-display">
+            <div class="sim-amount-wrap">
+              <span class="sim-amount" id="simAmountDisplay">99</span>
+              <span class="sim-symbol" id="simSymbolDisplay">zł</span>
+            </div>
+            <p class="sim-headline" id="simHeadline">Zasilasz emisję 37 kanałów 24/7 oraz dokładasz cegiełkę na budowę Nowego Studia RTV 4K.</p>
+          </div>
+
+          <div class="sim-slider-wrap">
+            <label for="simSlider" class="sr-only">Wybierz kwotę wsparcia</label>
+            <input type="range" id="simSlider" min="0" max="5" step="1" value="2" aria-label="Suwak kwoty wsparcia">
+            <div class="sim-quick-pills" id="simQuickPills" role="group" aria-label="Szybkie progi wsparcia"></div>
+          </div>
+
+          <!-- 3 żywe metryki wpływu -->
+          <div class="sim-impacts">
+            <div class="impact-box">
+              <small data-i18n="imp1Label">Darmowe Radio 24/7 (37 kanałów)</small>
+              <strong id="impRadioVal">48 godzin</strong>
+              <div class="impact-bar"><i id="impRadioBar" style="width:45%"></i></div>
+            </div>
+            <div class="impact-box">
+              <small data-i18n="imp2Label">Produkcja Biblii Audio V7</small>
+              <strong id="impBibleVal">20% rozdziału 4K</strong>
+              <div class="impact-bar"><i id="impBibleBar" style="width:20%"></i></div>
+            </div>
+            <div class="impact-box">
+              <small data-i18n="imp3Label">Fundusz Nowego Studia RTV 4K</small>
+              <strong id="impStudioVal">Cegiełka Budowniczego</strong>
+              <div class="impact-bar"><i id="impStudioBar" style="width:50%"></i></div>
+            </div>
+          </div>
+
+          <div class="sim-reward" id="simRewardNote">
+            <strong>Wyraz wdzięczności (Zrzutka.pl):</strong> Dołączasz do kręgu Budowniczych Studia RTV — publikujemy regularne raporty postępów i kulisy nagrań.
+          </div>
+
+          <div class="sim-actions">
+            <a class="btn btn--orange btn--shimmer magnetic" id="simPrimaryCta" href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" data-support-method="zrzutka_sim_cta">
+              <span id="simPrimaryLabel">Wpłać 99 zł na Zrzutka.pl (BLIK / Karta)</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
-            <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="video-spot-btn-gold" data-support-method="patronite_video_cta">
-              Stały Patron (Patronite) &rarr;
+            <a class="btn btn--gold magnetic" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" data-support-method="patronite_sim_cta">
+              <span data-i18n="simPatronite">Stały Patron co miesiąc (Patronite) ↗</span>
             </a>
-            <button type="button" class="video-spot-btn-ghost" onclick="shareSpotWsparcia(this)">
-              Udostępnij spot
+            <button type="button" class="btn btn--glass" data-cc-wspieramto="true" data-i18n="simDirectBtn">
+              Dane do przelewu / BLIK na tel.
             </button>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- POZIOMY MECENATU -->
-    <section>
-      <div class="tiers-grid">
-        <!-- 19 PLN -->
-        <div class="tier-card">
-          <h2 class="tier-name">Przyjaciel Misji</h2>
-          <div class="tier-price">19 zł <span>/ mies.</span></div>
-          <p class="tier-desc">Pokrywa transfer serwerowy i zapewnia bezpłatny dostęp do Radia 24/7 oraz Biblii Audio dla 50 nowych słuchaczy.</p>
-          <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:19, currency:'PLN'})">Wspieram 19 zł</button>
-        </div>
-
-        <!-- 49 PLN -->
-        <div class="tier-card featured">
-          <span class="tier-ribbon">Najpopularniejszy</span>
-          <h2 class="tier-name">Patron Pisma</h2>
-          <div class="tier-price">49 zł <span>/ mies.</span></div>
-          <p class="tier-desc">Umożliwia profesjonalną produkcję kolejnych rozdziałów Biblii Audio V7 oraz codzienne lekcje Akademii Biblijnej.</p>
-          <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:49, currency:'PLN'})">Wspieram 49 zł</button>
-        </div>
-
-        <!-- 99 PLN -->
-        <div class="tier-card">
-          <h2 class="tier-name">Budowniczy Studia RTV</h2>
-          <div class="tier-price">99 zł <span>/ mies.</span></div>
-          <p class="tier-desc">Wspiera ciągłość emisji 24/7 oraz zasila Fundusz Budowy i Wyposażenia Nowego Studia Radiowo-Telewizyjnego CC.</p>
-          <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:99, currency:'PLN'})">Wspieram 99 zł</button>
-        </div>
-
-        <!-- 490 PLN -->
-        <div class="tier-card">
-          <h2 class="tier-name">Fundator Studia &amp; Rozdziału</h2>
-          <div class="tier-price">490 zł <span>/ dar</span></div>
-          <p class="tier-desc">Cegiełka fundatorska na sprzęt do nowego studia radiowo-telewizyjnego 4K oraz patronat nad rozdziałem Biblii Audio.</p>
-          <button type="button" class="tier-btn" onclick="window.openWspieramToModal({amount:490, currency:'PLN'})">Zostań Fundatorem</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- DEDYKOWANA SEKCJA: BUDOWA NOWEGO STUDIA RADIOWO-TELEWIZYJNEGO CC -->
-    <section class="studio-section" id="nowe-studio" aria-labelledby="studio-heading">
-      <div class="studio-top">
-        <div class="studio-copy">
-          <span class="hero-badge" style="margin-bottom:10px;">Cel Strategiczny &bull; Dom &amp; Studio Misji</span>
-          <h2 id="studio-heading">Budujemy <span>Nowe Studio Radiowo-Telewizyjne</span> Christian Culture</h2>
-          <p>
-            Od trzech lat każdego dnia nadajemy Ewangelię, nagrywamy słuchowiska Biblii Audio, prowadzimy wykłady i transmisje na żywo. Dziś stoimy przed kolejnym krokiem wiary: stworzeniem <strong>własnego, cichego studia radiowo-telewizyjnego 4K</strong> połączonego z domem misyjnym.
-          </p>
-          <p>
-            Własne studio to niezależność od kosztów wynajmu, profesjonalna akustyka do nagrań Pisma Świętego, wielokamerowa realizacja programów telewizyjnych CCTV24 oraz niezawodne centrum nadawcze 24/7 dla całego ekosystemu.
-          </p>
-        </div>
-        <div class="studio-visual">
-          <img src="/images/ogloszenia-dom-studio.webp" alt="Wizja nowego studia radiowo-telewizyjnego Christian Culture w domu misyjnym" width="800" height="450" loading="lazy">
-        </div>
-      </div>
-
-      <div class="studio-milestones">
-        <article class="studio-item">
-          <span class="studio-item-tag">Etap 1 &bull; Akustyka i Lektorium</span>
-          <h3>Kabina Lektorska &amp; Adaptacja</h3>
-          <div class="studio-item-cost">20 000 zł</div>
-          <p>Wyciszenie akustyczne pomieszczenia, panele pochłaniające, dyfuzory i stanowisko do nagrań Biblii Audio V7 oraz Biblii Śpiewanej.</p>
-        </article>
-        <article class="studio-item">
-          <span class="studio-item-tag">Etap 2 &bull; Telewizja CCTV24 4K</span>
-          <h3>Tor Kamerowy &amp; Światło Studyjne</h3>
-          <div class="studio-item-cost">28 000 zł</div>
-          <p>Kamery 4K UHD, oświetlenie studyjne LED o wysokim CRI, prompter i mikser wideo do wykładów, rozmów i Wieczorów ze Słowem Bożym.</p>
-        </article>
-        <article class="studio-item">
-          <span class="studio-item-tag">Etap 3 &bull; Reżyserka Radio &amp; DAW</span>
-          <h3>Konsoleta Audio &amp; Stacja Emisji</h3>
-          <div class="studio-item-cost">20 000 zł</div>
-          <p>Mikrofony broadcastowe, interfejsy i procesory głosu, stacja montażowa DAW / DaVinci Resolve oraz serwer emisji ciągłej 17 kanałów LIVE.</p>
-        </article>
-        <article class="studio-item">
-          <span class="studio-item-tag">Etap 4 &bull; Infrastruktura &amp; Dom</span>
-          <h3>Zasilanie, Archiwum &amp; Przestrzeń</h3>
-          <div class="studio-item-cost">12 000 zł <span style="font-size:12px;color:var(--soft);font-weight:500">(+ fundusz domu 1,15 mln zł)</span></div>
-          <p>Macierz dyskowa NAS/NVMe na archiwum produkcji 4K, zasilanie awaryjne UPS, okablowanie oraz fundusz docelowego domu ze studiem misji.</p>
-        </article>
-      </div>
-
-      <div class="studio-bottom-bar">
-        <blockquote class="studio-verse" style="margin:0;">
-          „Jeśli Pan nie zbuduje domu, na próżno trudzą się ci, którzy go wznoszą.” (Ps 127:1, UBG) &bull; „Dom buduje się mądrością, a umacnia się rozumem.” (Prz 24:3, UBG)
-          <cite>Przyjmujemy także sprawny sprzęt studyjny, mikrofony, kamery, monitory i komputery do studia (kontakt: radiochristianculture@gmail.com)</cite>
-        </blockquote>
-        <div class="studio-actions">
-          <button type="button" class="btn-studio-cta" onclick="window.openWspieramToModal({amount:250, currency:'PLN'})">
-            Dokładam cegiełkę na Studio RTV &rarr;
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- BANER POLONII I ZAGRANICY -->
-    <div class="global-banner">
-      <a href="javascript:void(0)" onclick="window.openWspieramToModal({currency:'GBP'})" title="Supporting from Abroad?">
-        <img src="/images/banners/banner-global-support.jpg" alt="Supporting from Abroad? Direct donations in GBP, EUR, USD via SEPA/SWIFT Revolut account." loading="lazy">
-      </a>
     </div>
+  </section>
 
-    <!-- METODY PŁATNOŚCI BEZPOŚREDNICH -->
-    <section class="methods-section">
-      <h2 class="section-title">Wybierz Wygodną Formę Wsparcia</h2>
-      <p class="section-sub">Zero prowizji platform pośredniczących. 100% Twojego daru trafia bezpośrednio na rozwój dzieła.</p>
+  <!-- 4. MAGIC UI ANIMATED BEAM — ŻYWY PRZEPŁYW SYGNAŁU (OD TWOJEGO DARU DO EWANGELII 24/7) -->
+  <section class="sect sect--alt" id="przeplyw" aria-labelledby="h-flow">
+    <div class="wrap">
+      <div class="sect__head reveal">
+        <p class="eyebrow" data-i18n="flowEyebrow">100% przejrzystości · Żywy obieg dobra</p>
+        <h2 id="h-flow" data-i18n="flowTitle">Jak Twój dar zamienia się w bezpłatne Słowo 24/7</h2>
+        <p class="sect__lead" data-i18n="flowLead">Nie mamy sponsorów komercyjnych ani reklam. Zobacz, jak każda wpłata zasila bezpośrednio nasze czterofilarowe centrum nadawcze Christian Culture.</p>
+      </div>
 
-      <div class="methods-grid">
-        <!-- ZRZUTKA.PL 1-CLICK BLIK / KARTA (POLSKA) -->
-        <div class="method-box" style="border-color:rgba(255,122,0,0.45);">
-          <h3><span>Zrzutka.pl &bull; BLIK / Karta</span> <span style="color:#FF7A00;">Polska 1-Click</span></h3>
-          <p>Najszybsza wpłata w Polsce (BLIK 6-cyfrowy, szybki przelew, karta, Apple/Google Pay) z 3 progami wdzięczności: <strong>25 zł / 99 zł / 490 zł</strong>.</p>
-          <a href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" class="btn-action-primary" data-support-method="zrzutka_1click">
-            Wpłać przez Zrzutka.pl (BLIK / Karta) &rarr;
+      <div class="beam-stage reveal" aria-label="Schemat przepływu wsparcia w ekosystemie Christian Culture">
+        <!-- SVG Animated Light Beams -->
+        <svg class="beam-svg" viewBox="0 0 1000 360" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="beamGradGold" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FF7A00" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#FF7A00" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#E7D19B" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="beamGradWarm" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#C4A35A" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#FFE4A3" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#FF7A00" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- Static base paths -->
+          <path class="beam-base" d="M 190 70 C 330 70, 360 180, 500 180"/>
+          <path class="beam-base" d="M 190 180 C 330 180, 360 180, 500 180"/>
+          <path class="beam-base" d="M 190 290 C 330 290, 360 180, 500 180"/>
+          <path class="beam-base" d="M 500 180 C 640 180, 670 55, 810 55"/>
+          <path class="beam-base" d="M 500 180 C 640 180, 670 138, 810 138"/>
+          <path class="beam-base" d="M 500 180 C 640 180, 670 222, 810 222"/>
+          <path class="beam-base" d="M 500 180 C 640 180, 670 305, 810 305"/>
+          <!-- Animated light pulses -->
+          <path class="beam-pulse bp-1" stroke="url(#beamGradGold)" d="M 190 70 C 330 70, 360 180, 500 180"/>
+          <path class="beam-pulse bp-2" stroke="url(#beamGradGold)" d="M 190 180 C 330 180, 360 180, 500 180"/>
+          <path class="beam-pulse bp-3" stroke="url(#beamGradGold)" d="M 190 290 C 330 290, 360 180, 500 180"/>
+          <path class="beam-pulse bp-4" stroke="url(#beamGradWarm)" d="M 500 180 C 640 180, 670 55, 810 55"/>
+          <path class="beam-pulse bp-5" stroke="url(#beamGradWarm)" d="M 500 180 C 640 180, 670 138, 810 138"/>
+          <path class="beam-pulse bp-6" stroke="url(#beamGradWarm)" d="M 500 180 C 640 180, 670 222, 810 222"/>
+          <path class="beam-pulse bp-7" stroke="url(#beamGradWarm)" d="M 500 180 C 640 180, 670 305, 810 305"/>
+        </svg>
+
+        <div class="beam-col beam-col--left">
+          <a class="beam-node magic-card" href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer">
+            <span class="bn-tag">BLIK / Karta</span>
+            <strong>Zrzutka.pl</strong>
+            <small>zrzutka.pl/z/ChristianCulture</small>
+          </a>
+          <a class="beam-node magic-card" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer">
+            <span class="bn-tag">Co miesiąc</span>
+            <strong>Patronite</strong>
+            <small>Stały fundament misji</small>
+          </a>
+          <a class="beam-node magic-card" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer">
+            <span class="bn-tag">Polonia · Świat</span>
+            <strong>Revolut / IBAN</strong>
+            <small>GBP · EUR · USD · PLN</small>
           </a>
         </div>
 
-        <!-- PATRONITE (STAŁE WSPARCIE CO MIESIĄC) -->
-        <div class="method-box" style="border-color:rgba(196,163,90,0.4);">
-          <h3><span>Patronite &bull; Co Miesiąc</span> <span style="color:#C4A35A;">Stały Patron</span></h3>
-          <p>Regularne comiesięczne wsparcie zapewniające stabilność emisji Radia 24/7, nagrań Biblii Audio i stały odpis na budowę Nowego Studia RTV.</p>
-          <a href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" class="btn-action-primary" style="background:linear-gradient(135deg,#C4A35A,#A08040);color:#07121D;" data-support-method="patronite_monthly">
-            Zostań stałym Patronem na Patronite &rarr;
+        <div class="beam-hub">
+          <div class="hub-ring" aria-hidden="true"></div>
+          <div class="hub-core">
+            <img src="/app-christian-culture.png" width="60" height="60" alt="Christian Culture">
+            <strong>Christian Culture</strong>
+            <small data-i18n="hubSub">100% na misję</small>
+          </div>
+        </div>
+
+        <div class="beam-col beam-col--right">
+          <a class="beam-node beam-node--out magic-card" href="/player">
+            <strong>Radio &amp; TV 24/7</strong>
+            <small>37 kanałów non-stop bez reklam</small>
           </a>
-        </div>
-
-        <!-- REVOLUT PAY / 1-CLICK (POLONIA I ZAGRANICA) -->
-        <div class="method-box">
-          <h3><span>Revolut Pay &bull; GBP/EUR/USD</span> <span style="color:#C4A35A;">Polonia</span></h3>
-          <p>Błyskawiczna płatność kartą, Apple Pay, Google Pay lub bezpośrednio z aplikacji Revolut bez przewalutowania z UK, Niemiec, UE i USA.</p>
-          <a href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" class="btn-action-primary" data-support-method="revolut_global_1click">
-            Wpłać przez Revolut.me &rarr;
+          <a class="beam-node beam-node--out magic-card" href="/biblia-audio/">
+            <strong>Biblia Audio V7</strong>
+            <small>37/50 rozdz. Rdz · WWW &amp; Spotify</small>
           </a>
-        </div>
-
-        <!-- BLIK NA TELEFON -->
-        <div class="method-box">
-          <h3><span>BLIK na telefon</span> <span style="color:#FF7A00;">Polska</span></h3>
-          <p>W aplikacji swojego polskiego banku wybierz „Przelew na telefon BLIK” i podaj poniższy numer telefonu:</p>
-          <div class="data-row">
-            <span class="data-val">537 137 043</span>
-            <button type="button" class="btn-copy" data-copy-account="true" data-currency="PLN" onclick="copyData('537137043', this)">Kopiuj</button>
-          </div>
-          <span style="font-size:12px;color:var(--soft);">Odbiorca: Cezary Rogowski &bull; Tytuł: Wsparcie Christian Culture</span>
-        </div>
-
-        <!-- ZAGRANICA GBP / EUR / USD -->
-        <div class="method-box">
-          <h3><span>Przelew Walutowy</span> <span style="color:#C4A35A;">SEPA / SWIFT</span></h3>
-          <p>Bezpośredni rachunek Revolut Bank UAB Vilnius bez opłat za przewalutowanie dla Polonii i darczyńców z zagranicy:</p>
-          <div class="data-row">
-            <span class="data-val">LT23 3250 0920 7156 6231</span>
-            <button type="button" class="btn-copy" data-copy-account="true" data-currency="EUR" onclick="copyData('LT233250092071566231', this)">Kopiuj IBAN</button>
-          </div>
-          <span style="font-size:12px;color:var(--soft);">BIC: <strong>REVOLT21</strong> &bull; Bank: Revolut Bank UAB Vilnius</span>
-        </div>
-
-        <!-- PRZELEW PLN -->
-        <div class="method-box">
-          <h3><span>Przelew Bankowy</span> <span style="color:var(--soft);">PLN</span></h3>
-          <p>Dedykowany rachunek misyjny w złotych polskich na rozwój studia, radia, telewizji i technologii:</p>
-          <div class="data-row">
-            <span class="data-val">74 2910 0006 2469 8002 1062 8039</span>
-            <button type="button" class="btn-copy" data-copy-account="true" data-currency="PLN" onclick="copyData('74291000062469800210628039', this)">Kopiuj</button>
-          </div>
-          <span style="font-size:12px;color:var(--soft);">Odbiorca: Cezary Rogowski &bull; Tytuł: Rozwój Christian Culture</span>
+          <a class="beam-node beam-node--out magic-card" href="/mojabiblia">
+            <strong>MojaBiblia &amp; Akademia</strong>
+            <small>Kody Stronga i Kurs Codzienny</small>
+          </a>
+          <a class="beam-node beam-node--out magic-card" href="#nowe-studio">
+            <strong>Nowe Studio RTV 4K</strong>
+            <small>Niezależne centrum nadawcze</small>
+          </a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <!-- 5. MAGIC UI BENTO GRID — BUDOWA NOWEGO STUDIA RADIOWO-TELEWIZYJNEGO 4K (4 ETAPY + DISCLOSURE) -->
+  <section class="sect" id="nowe-studio" aria-labelledby="h-studio">
+    <div class="wrap">
+      <div class="sect__head reveal">
+        <p class="eyebrow" data-i18n="stEyebrow">Jawny plan inwestycji · Dom &amp; Studio Misji</p>
+        <h2 id="h-studio" data-i18n="stTitle">Budujemy Nowe Studio RTV 4K Christian Culture</h2>
+        <p class="sect__lead" data-i18n="stLead">Własne, wyciszone studio to niezależność od kosztów wynajmu, studyjna akustyka do nagrań Pisma Świętego i niezawodne centrum emisji 24/7. Kliknij dowolny etap, aby zobaczyć szczegóły.</p>
+      </div>
 
-  <footer class="footer ramka">
-    <p>
-      <strong>Nota Prawna & Misja:</strong> Christian Culture (polskieradio.cc) to niezależna, prywatna chrześcijańska inicjatywa misyjna i ewangelizacyjna, finansowana z dobrowolnych darowizn i prowadzona w duchu chrześcijańskiego wolontariatu.
-    </p>
-    <p>
-      Projekt nie jest powiązany ani stowarzyszony z publicznym nadawcą <em>Polskie Radio S.A.</em> (polskieradio.pl).
-    </p>
-    <p>
-      <a href="/privacy">Polityka Prywatności</a> &bull; <a href="#nowe-studio">Jawny Plan Celów i Nowego Studia RTV</a> &bull; <a href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer">zrzutka.pl/z/ChristianCulture</a> &bull; &copy; 2026 Christian Culture
-    </p>
-  </footer>
+      <div class="bento-grid">
+        <!-- Duża karta wizualna z dwoma żywymi paskami celów -->
+        <article class="bento-hero magic-card reveal" data-tilt>
+          <div class="bento-hero__img">
+            <img src="/images/ogloszenia-dom-studio.webp" width="900" height="506" alt="Wizja Nowego Studia Radiowo-Telewizyjnego 4K Christian Culture w domu misyjnym" loading="lazy" decoding="async">
+            <span class="bento-badge">Cel Strategiczny · 2 Filary</span>
+          </div>
+          <div class="bento-hero__body">
+            <div class="goal-meter">
+              <div class="goal-meter__row">
+                <strong data-i18n="g1Title">Filar I · Utrzymanie 24/7 &amp; Fundusz Studia</strong>
+                <span class="gm-gold">25 000 zł / mies.</span>
+              </div>
+              <div class="gm-bar"><i data-bar="28" style="width:28%"></i></div>
+              <small data-i18n="g1Note">Serwery, emisja 37 kanałów, produkcja Biblii Audio V7 (15 000 zł) + stały odpis na studio (10 000 zł).</small>
+            </div>
 
-  <!-- Modal WspieramTO 2.0 -->
-  <script src="/components/cc-wspieramto-modal.js?v=20261124_funnel1" defer></script>
+            <div class="goal-meter">
+              <div class="goal-meter__row">
+                <strong data-i18n="g2Title">Filar II · Wyposażenie Nowego Studia RTV 4K</strong>
+                <span class="gm-orange">80 000 zł</span>
+              </div>
+              <div class="gm-bar gm-bar--orange"><i data-bar="18" style="width:18%"></i></div>
+              <small data-i18n="g2Note">Etap I (Akustyka i rozruch): 25 000 zł · Docelowy Dom ze Studiem Misji: 1 230 000 zł.</small>
+            </div>
 
-  <script>
-    function copyData(text, btn) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function() {
-          var orig = btn.textContent;
-          btn.textContent = 'Skopiowano!';
-          setTimeout(function() { btn.textContent = orig; }, 2000);
-        });
-      } else {
-        prompt('Skopiuj dane:', text);
-      }
-    }
-    function shareSpotWsparcia(btn) {
-      var shareUrl = 'https://polskieradio.cc/wspieramto#wideo-wsparcia';
-      var shareData = {
-        title: 'Wesprzyj misję Christian Culture — każdy gest ma znaczenie',
-        text: 'Obejrzyj 20-sekundowe zaproszenie od Cezarego i Wioletty oraz wesprzyj wolne media Boże na zrzutka.pl/z/ChristianCulture',
-        url: shareUrl
-      };
-      if (navigator.share) {
-        navigator.share(shareData).catch(function() {});
-      } else {
-        copyData(shareUrl, btn);
-      }
-    }
-  </script>
+            <a class="btn btn--orange magnetic" href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" data-support-method="zrzutka_studio_bento">
+              <span data-i18n="stCta">Dokładam cegiełkę na Studio RTV →</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- 4 interaktywne karty etapów (Motion Primitives Disclosure + Magic Card + Tilt) -->
+        <article class="bento-stage magic-card reveal" data-tilt>
+          <span class="bs-tag">Etap 1 · Akustyka</span>
+          <h3>Kabina Lektorska &amp; Adaptacja</h3>
+          <div class="bs-cost">20 000 zł</div>
+          <p>Wyciszenie akustyczne pomieszczenia, panele pochłaniające, dyfuzory i ciche stanowisko nagrań Biblii Audio V7.</p>
+          <button type="button" class="disc-btn" aria-expanded="false" data-disc="d1">Szczegóły techniczne +</button>
+          <div class="disc-panel" id="d1" hidden>
+            <p>Pułapki basowe, ustroje szerokopasmowe, wyciszenie drzwi i podłogi pływającej pod nagrania lektorskie -16 LUFS bez pogłosu.</p>
+          </div>
+        </article>
+
+        <article class="bento-stage magic-card reveal" data-tilt>
+          <span class="bs-tag">Etap 2 · Obraz 4K</span>
+          <h3>Tor Kamerowy &amp; Światło Studyjne</h3>
+          <div class="bs-cost">28 000 zł</div>
+          <p>Kamery 4K UHD, oświetlenie LED CRI 96+, prompter i mikser wideo do wykładów, rozmów i Wieczorów ze Słowem.</p>
+          <button type="button" class="disc-btn" aria-expanded="false" data-disc="d2">Szczegóły techniczne +</button>
+          <div class="disc-panel" id="d2" hidden>
+            <p>Wielokamerowa realizacja na żywo dla kanałów CCTV24 oraz nagrań studyjnych w jakości kinowej 4K bez wynajmowania zewnętrznych hal.</p>
+          </div>
+        </article>
+
+        <article class="bento-stage magic-card reveal" data-tilt>
+          <span class="bs-tag">Etap 3 · Reżyserka</span>
+          <h3>Konsoleta Audio &amp; Stacja Emisji</h3>
+          <div class="bs-cost">20 000 zł</div>
+          <p>Mikrofony broadcastowe, interfejsy i procesory głosu, stacja montażowa DAW oraz serwer emisji ciągłej LIVE.</p>
+          <button type="button" class="disc-btn" aria-expanded="false" data-disc="d3">Szczegóły techniczne +</button>
+          <div class="disc-panel" id="d3" hidden>
+            <p>Niezawodna maszyna emisyjna 24/7/365 obsługująca strumienie radiowe i telewizyjne z pełną redundancją sygnału.</p>
+          </div>
+        </article>
+
+        <article class="bento-stage magic-card reveal" data-tilt>
+          <span class="bs-tag">Etap 4 · Infrastruktura</span>
+          <h3>Zasilanie, Archiwum &amp; Dom Misji</h3>
+          <div class="bs-cost">12 000 zł <small>(+ 1,15 mln dom)</small></div>
+          <p>Macierz dyskowa NAS/NVMe na archiwum 4K, zasilanie awaryjne UPS oraz fundusz docelowego domu ze studiem.</p>
+          <button type="button" class="disc-btn" aria-expanded="false" data-disc="d4">Szczegóły techniczne +</button>
+          <div class="disc-panel" id="d4" hidden>
+            <p>Przyjmujemy także sprawny sprzęt studyjny (mikrofony, kamery, statywy, monitory, dyski) — napisz: radiochristianculture@gmail.com.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Werset Pisma Świętego (ściśle statyczny — ochrona Świętego Tekstu JOMA-D045) -->
+      <blockquote class="scripture-box reveal">
+        „Jeśli Pan nie zbuduje domu, na próżno trudzą się ci, którzy go wznoszą.” (Ps 127:1, UBG) &bull; „Dom buduje się mądrością, a umacnia się rozumem.” (Prz 24:3, UBG)
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- 6. BEZPOŚREDNIE METODY WPŁAT (1-CLICK COPY + ZRZUTKA + PATRONITE + REVOLUT + BLIK + IBAN) -->
+  <section class="sect sect--alt" id="metody" aria-labelledby="h-pay">
+    <div class="wrap">
+      <div class="sect__head reveal">
+        <p class="eyebrow" data-i18n="payEyebrow">Polska &amp; Polonia (GBP · EUR · USD)</p>
+        <h2 id="h-pay" data-i18n="payTitle">Wybierz najwygodniejszą formę wsparcia</h2>
+        <p class="sect__lead" data-i18n="payLead">Wpłacisz w kilkanaście sekund z Polski i z każdego miejsca na świecie — jednym kliknięciem lub kopiując dane przelewu bez pośredników.</p>
+      </div>
+
+      <div class="pay-grid">
+        <article class="pay-card pay-card--hot magic-card reveal">
+          <div class="pay-head"><h3>Zrzutka.pl · BLIK / Karta</h3><span>Polska 1-Click</span></div>
+          <p>Najszybsza wpłata w Polsce (BLIK, karta, szybki przelew, Apple/Google Pay) z 3 progami wdzięczności: <b>25 / 99 / 490 zł</b>.</p>
+          <a class="btn btn--orange btn--full magnetic" href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" data-support-method="zrzutka_grid_cta">
+            zrzutka.pl/z/ChristianCulture ↗
+          </a>
+        </article>
+
+        <article class="pay-card magic-card reveal">
+          <div class="pay-head"><h3>Patronite · Co Miesiąc</h3><span class="tag-gold">Stały Patron</span></div>
+          <p>Regularne comiesięczne wsparcie, które daje misji stabilność emisji 24/7 i stały comiesięczny odpis na Nowe Studio RTV.</p>
+          <a class="btn btn--gold btn--full magnetic" href="https://patronite.pl/osobowoscplus" target="_blank" rel="noopener noreferrer" data-support-method="patronite_grid_cta">
+            patronite.pl/osobowoscplus ↗
+          </a>
+        </article>
+
+        <article class="pay-card magic-card reveal">
+          <div class="pay-head"><h3>Revolut Pay · Świat</h3><span class="tag-gold">GBP · EUR · USD</span></div>
+          <p>Błyskawiczna płatność kartą, Apple Pay lub z aplikacji Revolut dla Polonii w UK, Niemczech, UE, USA i Kanadzie.</p>
+          <a class="btn btn--glass btn--full magnetic" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-support-method="revolut_grid_cta">
+            revolut.me/christianculture ↗
+          </a>
+        </article>
+
+        <article class="pay-card magic-card reveal">
+          <div class="pay-head"><h3>BLIK na telefon</h3><span>Polska</span></div>
+          <p>W aplikacji bankowej wybierz „Przelew na telefon BLIK” (odbiorca: Cezary Rogowski, tytuł: Wsparcie Christian Culture):</p>
+          <div class="copy-row">
+            <code>537 137 043</code>
+            <button type="button" class="copy-btn" data-copy="537137043" data-copy-account="true" data-currency="PLN">Kopiuj</button>
+          </div>
+        </article>
+
+        <article class="pay-card magic-card reveal">
+          <div class="pay-head"><h3>Przelew Walutowy IBAN</h3><span class="tag-gold">SEPA / SWIFT</span></div>
+          <p>Rachunek Revolut Bank UAB Vilnius bez zbędnych opłat przewalutowania (BIC: <b>REVOLT21</b>):</p>
+          <div class="copy-row">
+            <code>LT23 3250 0920 7156 6231</code>
+            <button type="button" class="copy-btn" data-copy="LT233250092071566231" data-copy-account="true" data-currency="EUR">Kopiuj IBAN</button>
+          </div>
+        </article>
+
+        <article class="pay-card magic-card reveal">
+          <div class="pay-head"><h3>Przelew Bankowy PLN</h3><span class="tag-soft">Rachunek Misji</span></div>
+          <p>Bezpośredni rachunek w PLN (Cezary Rogowski, tytuł: Rozwój Christian Culture):</p>
+          <div class="copy-row">
+            <code>74 2910 0006 2469 8002 1062 8039</code>
+            <button type="button" class="copy-btn" data-copy="74291000062469800210628039" data-copy-account="true" data-currency="PLN">Kopiuj</button>
+          </div>
+        </article>
+      </div>
+
+      <!-- ★ POLECAMY (Wspólny ekosystem CCEco) -->
+      <div class="promo-box reveal">
+        <div class="promo-box__head">
+          <h2>★ Polecamy w ekosystemie Christian Culture</h2>
+          <div class="promo-dots" id="promoDots" aria-label="Slajdy poleceń"></div>
+        </div>
+        <div class="promo-stage" id="promoStage"></div>
+        <div class="promo-bar" aria-hidden="true"><i id="promoBar"></i></div>
+      </div>
+
+      <!-- Nota prawna i uczciwość misji -->
+      <footer class="legal-note reveal">
+        <p><strong>Nota Prawna &amp; Misja:</strong> Christian Culture (polskieradio.cc) to niezależna, prywatna chrześcijańska inicjatywa misyjna i ewangelizacyjna, finansowana z dobrowolnych darowizn i prowadzona w duchu wolontariatu. Projekt nie jest powiązany ani stowarzyszony z publicznym nadawcą <em>Polskie Radio S.A.</em> (polskieradio.pl).</p>
+        <p><a href="/privacy">Polityka Prywatności</a> &bull; <a href="/milion-gestow">Kampania Milion Drobnych Gestów (od 2 zł)</a> &bull; <a href="/wizytowki">Katalog Wizytówek CC</a> &bull; <a href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer">zrzutka.pl/z/ChristianCulture</a></p>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<div class="cc-toast" id="ccToast" role="status" aria-live="polite"></div>
 </body>
 </html>

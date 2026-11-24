@@ -410,5 +410,21 @@
 /biblioteka-pionierow/data/*
   Cache-Control: public, max-age=0, must-revalidate
 
+# WspieramTO 3.0 — produkcja (świeże odświeżanie strony mecenatu i zasobów)
+/wspieramto
+  Cache-Control: public, max-age=0, must-revalidate
+
+/wspieramto/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/wspieramto.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/wspieramto/wspieramto-v3.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/wspieramto/wspieramto-v3.js
+  Cache-Control: public, max-age=0, must-revalidate
+
 
 
