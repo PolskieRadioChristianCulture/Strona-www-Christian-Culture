@@ -453,6 +453,10 @@
       /* @007 (L0 23.11.2026): zdjęcia, głosówki, godziny ciszy */
       #ccGlobalChatOverlay .cc-msg-img { display: block !important; max-width: 100% !important; max-height: 320px !important; border-radius: 12px !important; margin-top: 8px !important; cursor: zoom-in !important; object-fit: cover !important; }
       #ccGlobalChatOverlay .cc-msg-audio { display: block !important; width: 100% !important; max-width: 280px !important; margin-top: 8px !important; }
+      /* @007 (L0 24.11.2026): te same załączniki w pełnym czacie LUMINA (window.ccRenderChatAttachments) */
+      .cc-chat-attach .cc-msg-img { display: block; max-width: 100%; max-height: 320px; border-radius: 12px; margin-top: 8px; cursor: zoom-in; object-fit: cover; }
+      .cc-chat-attach .cc-msg-audio { display: block; width: 100%; max-width: 280px; margin-top: 8px; }
+      .cc-chat-attach:empty { display: none; }
       #ccVoiceBar { display: flex !important; align-items: center !important; gap: 10px !important; padding: 8px 12px !important; margin: 0 0 6px !important; border-radius: 14px !important; background: rgba(239,68,68,0.12) !important; border: 1px solid rgba(239,68,68,0.45) !important; color: #FECACA !important; font-weight: 700 !important; font-size: 0.85rem !important; }
       #ccVoiceBar[hidden] { display: none !important; }
       #ccVoiceBar .cc-rec-dot { width: 10px !important; height: 10px !important; border-radius: 50% !important; background: #EF4444 !important; }
@@ -4962,7 +4966,13 @@
         senderAvatar: pending.senderAvatar,
         senderBadge: pending.senderBadge,
         ...(pending.imageUrl ? { imageUrl: pending.imageUrl } : {}),
-        ...(pending.audioUrl ? { audioUrl: pending.audioUrl, audioDuration: pending.audioDuration || 0 } : {})
+        ...(pending.audioUrl ? { audioUrl: pending.audioUrl, audioDuration: pending.audioDuration || 0 } : {}),
+        ...(pending.replyToMessageId ? {
+          replyToMessageId: pending.replyToMessageId,
+          replyToSenderName: pending.replyToSenderName || '',
+          replyToSenderId: pending.replyToSenderId || '',
+          replyToText: pending.replyToText || ''
+        } : {})
       });
       }).then((id) => {
         if (id && !String(id).startsWith('local_')) {
@@ -5202,8 +5212,16 @@
             senderName: user.name,
             senderAvatar: user.avatar,
             senderBadge: user.badge,
-            dateStr: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            dateStr: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            // @007 (L0 24.11.2026): odpowiedź z cytatem
+            ...(window.ccReplyTo ? {
+              replyToMessageId: window.ccReplyTo.id,
+              replyToSenderName: window.ccReplyTo.name,
+              replyToSenderId: window.ccReplyTo.senderId,
+              replyToText: window.ccReplyTo.text
+            } : {})
           };
+          if (window.ccCancelReply) window.ccCancelReply();
           pendingPublicMessages.push(pending);
           try { if (window.LuminaDB && typeof window.LuminaDB.setChatTyping === 'function') window.LuminaDB.setChatTyping('public', false); } catch (_) {}
           renderChatMessages();
@@ -6831,8 +6849,67 @@
     if (ccSafeAudio(m.audioUrl)) out += `<audio class="cc-msg-audio" controls preload="metadata" src="${escapeHtml(m.audioUrl)}" aria-label="Wiadomość głosowa${m.audioDuration ? ' ' + Math.round(m.audioDuration) + ' s' : ''}"></audio>`;
     return out;
   }
+  // @007 (L0 24.11.2026): odpowiedź z cytatem w Lumi Messenger (jak w pełnym czacie LUMINA)
+  function ccRenderReplyQuote(m) {
+    if (!m || !(m.replyToMessageId || m.replyToText)) return '';
+    return `<div class="cc-reply-quote" style="background:rgba(0,0,0,0.25);border-left:3px solid #D8AD57;padding:5px 9px;border-radius:8px;margin-bottom:6px;font-size:0.76rem;">
+      <div style="font-weight:700;color:#F2D17C;">↩ ${escapeHtml(m.replyToSenderName || 'Użytkownik')}</div>
+      <div style="color:rgba(255,255,255,0.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;">${escapeHtml(String(m.replyToText || 'Oryginalna wiadomość').slice(0, 140))}</div>
+    </div>`;
+  }
+  window.ccReplyTo = null;
+  window.ccStartReply = function (id) {
+    const m = ccFindMsg(id);
+    if (!m) return;
+    const plain = String(m.text || '').replace(/\s+/g, ' ').trim() || (m.imageUrl ? '📷 Zdjęcie' : (m.audioUrl ? '🎤 Wiadomość głosowa' : ''));
+    window.ccReplyTo = { id: m.id, name: m.senderName || 'Użytkownik', senderId: m.senderId || '', text: plain.slice(0, 300) };
+    let bar = document.getElementById('ccReplyBar');
+    const form = document.getElementById('ccChatForm');
+    if (!bar && form) {
+      bar = document.createElement('div');
+      bar.id = 'ccReplyBar';
+      bar.setAttribute('role', 'status');
+      bar.style.cssText = 'display:flex;align-items:center;gap:8px;padding:6px 10px;margin:0 0 6px;border-radius:12px;background:rgba(216,173,87,0.10);border-left:3px solid #D8AD57;color:#F7F8FC;font-size:0.8rem;';
+      form.parentNode.insertBefore(bar, form);
+    }
+    if (bar) {
+      bar.hidden = false;
+      bar.innerHTML = `<div style="flex:1;min-width:0;"><div style="font-weight:700;color:#F2D17C;">↩ Odpowiadasz: ${escapeHtml(window.ccReplyTo.name)}</div><div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#A5AEC4;">${escapeHtml(window.ccReplyTo.text)}</div></div><button type="button" onclick="window.ccCancelReply()" aria-label="Anuluj odpowiedź" style="min-width:44px;min-height:44px;border:none;background:transparent;color:#F7F8FC;font-size:1.1rem;cursor:pointer;">✕</button>`;
+    }
+    const input = document.getElementById('ccChatInput');
+    if (input) input.focus();
+  };
+  window.ccCancelReply = function () {
+    window.ccReplyTo = null;
+    const bar = document.getElementById('ccReplyBar');
+    if (bar) { bar.hidden = true; bar.innerHTML = ''; }
+  };
+  // Załączniki (zdjęcie, głosówka, karta Wiadomości z Nieba) — także dla pełnego czatu LUMINA (lumina*.html)
+  window.ccRenderChatAttachments = function (m) {
+    try {
+      if (!m) return '';
+      let out = ccRenderMsgMedia(m);
+      if (m.type === 'wzn_card' && m.wzn) out += renderWznChatCard(m);
+      return out;
+    } catch (_) { return ''; }
+  };
+  function ccStandaloneImageViewer(src) {
+    let v = document.getElementById('ccImageViewer');
+    if (!v) {
+      v = document.createElement('div');
+      v.id = 'ccImageViewer';
+      v.setAttribute('role', 'dialog');
+      v.setAttribute('aria-modal', 'true');
+      v.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;';
+      v.addEventListener('click', (e) => { if (e.target === v || e.target.closest('[data-viewer-close]')) v.remove(); });
+      document.body.appendChild(v);
+    }
+    v.innerHTML = `<img loading="lazy" decoding="async" src="${escapeHtml(src)}" alt="Zdjęcie z czatu" style="max-width:100%;max-height:80vh;object-fit:contain;border-radius:12px;"><div style="display:flex;gap:10px;"><button type="button" data-viewer-close style="min-height:48px;padding:0 20px;border-radius:999px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#fff;font-weight:700;cursor:pointer;">Zamknij</button><a href="${escapeHtml(src)}" download="zdjecie-lumina.jpg" style="min-height:48px;padding:0 20px;border-radius:999px;display:inline-flex;align-items:center;background:linear-gradient(135deg,#D8AD57,#B58A38);color:#0D1020;font-weight:800;text-decoration:none;">Pobierz</a></div>`;
+  }
   window.ccOpenImage = function (src) {
     if (!ccSafeImg(src)) return;
+    // Poza otwartym oknem Lumi (np. pełny czat LUMINA) — osobny podgląd na całym ekranie
+    if (!document.querySelector('#ccGlobalChatOverlay.is-open, .cc-chat-drawer-overlay.is-open')) { ccStandaloneImageViewer(src); return; }
     ccSheet(`<h3>Zdjęcie</h3><img loading="lazy" decoding="async" src="${escapeHtml(src)}" alt="Zdjęcie z czatu" style="width:100%;max-height:60vh;object-fit:contain;border-radius:12px;background:#000;"><div class="cc-sheet-row"><button type="button" data-sheet-close>Zamknij</button><a href="${escapeHtml(src)}" download="zdjecie-lumina.jpg" style="flex:1;min-height:48px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#D8AD57,#B58A38);color:#0D1020;font-weight:800;text-decoration:none;">Pobierz</a></div>`);
   };
   // Licznik na ikonie aplikacji i powiadomienia czatu znikają po przeczytaniu
@@ -7240,14 +7317,15 @@
               <a href="${escapeHtml(profileLink)}" target="_blank" rel="noopener noreferrer" class="cc-chat-msg-sender" title="Otwórz profil: ${name}" style="text-decoration:none;">${name}</a>
               <span class="cc-chat-msg-badge">${badge}</span>
               ${time ? `<span style="opacity: 0.7;">${time}</span>` : ''}
-              <button type="button" class="cc-chat-share-btn" onclick="window.shareChatMessage(this)" data-share-sender="${name}" data-share-text="${text}" style="background:transparent; border:none; box-shadow:none; color:rgba(255,255,255,0.7); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; margin-left:auto;" title="Udostępnij tę wiadomość" aria-label="Udostępnij wiadomość">
+              ${currentChatPartner.isPublic && ccIsRealMsgId(m.id) ? `<button type="button" class="cc-chat-reply-btn" onclick="window.ccStartReply('${escapeHtml(m.id)}')" style="background:transparent; border:none; box-shadow:none; color:rgba(255,255,255,0.75); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; margin-left:auto; font-size:18px; line-height:1;" title="Odpowiedz na tę wiadomość" aria-label="Odpowiedz na wiadomość">↩</button>` : ''}
+              <button type="button" class="cc-chat-share-btn" onclick="window.shareChatMessage(this)" data-share-sender="${name}" data-share-text="${text}" style="background:transparent; border:none; box-shadow:none; color:rgba(255,255,255,0.7); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; margin-left:${currentChatPartner.isPublic && ccIsRealMsgId(m.id) ? '0' : 'auto'};" title="Udostępnij tę wiadomość" aria-label="Udostępnij wiadomość">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
               </button>
               <button type="button" class="cc-chat-lumina-btn" onclick="window.ccChatShareToLumina(this)" data-share-sender="${name}" data-share-text="${text}" style="background:transparent; border:none; box-shadow:none; color:rgba(255,255,255,0.7); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; font:700 16px/1 Georgia, 'Times New Roman', serif;" title="Opublikuj tę wiadomość na Tablicy LUMINA" aria-label="Opublikuj tę wiadomość na Tablicy LUMINA">L</button>
               ${currentChatPartner.isPublic && ccIsRealMsgId(m.id) ? `<button type="button" class="cc-chat-more-btn" onclick="window.ccOpenMsgMenu('${escapeHtml(m.id)}')" style="background:transparent; border:none; color:rgba(255,255,255,0.75); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; display:inline-flex; align-items:center; justify-content:center; font-size:20px; line-height:1;" title="Więcej opcji wiadomości" aria-label="Więcej opcji wiadomości">⋯</button>` : ''}
             </div>
             <div class="cc-chat-msg-bubble">
-              ${renderChatMedia(text, m.id)}${ccRenderMsgMedia(m)}${m.editedAt ? '<span class="cc-msg-edited">(edytowano)</span>' : ''}
+              ${ccRenderReplyQuote(m)}${renderChatMedia(text, m.id)}${ccRenderMsgMedia(m)}${m.editedAt ? '<span class="cc-msg-edited">(edytowano)</span>' : ''}
               ${m.type === 'wzn_card' && m.wzn ? renderWznChatCard(m) : ''}
             </div>
             ${currentChatPartner.isPublic ? ccRenderReactions(m, user) : ''}

@@ -78,6 +78,22 @@ test('chat composer grows with the message (up to ~6 lines) and stays dark in th
   assert.match(chat, /-webkit-text-fill-color: #FFFFFF !important;/);
 });
 
+test('replies and attachments: Lumi Messenger reply + full LUMINA chat shows photos, voice and the WZN card', () => {
+  const chat = fs.readFileSync(new URL('../components/cc-global-chat-button.js', import.meta.url), 'utf8');
+  assert.match(chat, /window\.ccStartReply = function/);
+  assert.match(chat, /replyToMessageId: pending\.replyToMessageId/);
+  assert.match(chat, /\$\{ccRenderReplyQuote\(m\)\}\$\{renderChatMedia\(text, m\.id\)\}/);
+  assert.match(chat, /window\.ccRenderChatAttachments = function/);
+  assert.match(chat, /m\.type === 'wzn_card' && m\.wzn\) out \+= renderWznChatCard\(m\)/);
+  for (const f of ['lumina.html', 'lumina-profile.html', 'lumina-tablica.html', 'lumina-tablica-light.html', 'lumina.cezaryrgowski.html', 'lumina.wiolettarogowska.html']) {
+    const html = fs.readFileSync(new URL('../' + f, import.meta.url), 'utf8');
+    const start = html.indexOf('function renderPublicChatMessages(messages) {');
+    const body = html.slice(start, start + 15000);
+    assert.match(body, /window\.ccRenderChatAttachments\(msg\)/, f);
+    assert.match(body, /class="lumina-reply-btn"/, f);
+  }
+});
+
 function newDayContext(nowMs) {
   const win = new EventTarget();
   const doc = new EventTarget(); doc.visibilityState = 'visible';

@@ -6533,10 +6533,12 @@ function renderPublicChatMessages(messages) {
                             </div>
                             ${quoteHtml}
                             <div class="lumina-msg-text-body" style="word-break:break-word;">${renderChatMedia(escapeHtml(msg.text), msg.id)}</div>
+                            ${typeof window.ccRenderChatAttachments === 'function' ? '<div class="cc-chat-attach">' + window.ccRenderChatAttachments(msg) + '</div>' : ''}
                             ${reactionsHtml}
                             <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.65rem; color:rgba(255,255,255,0.6); margin-top:4px; gap:8px;">
                                 <span>${escapeHtml(time)}</span>
                                 <div style="display:flex; align-items:center; gap:6px;">
+                                    ${(!msg.virtual && msg.id && !String(msg.id).startsWith('local_')) ? `<button type="button" class="lumina-reply-btn" onclick="(function(b){var r=b.closest('.lumina-msg-row');var s=r&&r.querySelector('.cc-chat-share-btn');if(r&&window.startPublicChatQuote)window.startPublicChatQuote(r.dataset.messageId,r.dataset.senderName,r.dataset.senderId,(s&&s.getAttribute('data-share-text'))||'');})(this)" style="background:none; border:none; color:#fbbf24; font-size:0.65rem; cursor:pointer; font-weight:700; padding:0 4px; min-height:44px; display:inline-flex; align-items:center;" title="Odpowiedz z cytatem" aria-label="Odpowiedz z cytatem">↩ Odpowiedz</button>` : ''}
                                     ${!isMe ? `
                                         <button type="button" onclick="${senderAction}" style="background:none; border:none; color:#38bdf8; font-size:0.65rem; cursor:pointer; font-weight:700; padding:0; min-height:44px; display:inline-flex; align-items:center;">${isTvPresenter ? 'Napisz do TV 📺' : 'Napisz Priv 💬'}</button>
                                     ` : ''}
