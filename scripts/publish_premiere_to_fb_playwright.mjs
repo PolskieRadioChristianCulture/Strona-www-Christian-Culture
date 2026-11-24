@@ -36,6 +36,9 @@ Ustaw powiadomienie (dzwoneczek), zasubskrybuj kanał i udostępnij to zaproszen
 const ytUrl = 'https://youtu.be/UHAcOhDvlys';
 
 async function main() {
+  console.log('⛔ Automatyzacja Facebooka (Puppeteer/Playwright) została WYŁĄCZONA decyzją Dowódcy z 2026-11-24 (ochrona konta FB). Pomijam bez uruchamiania przeglądarki.');
+  return;
+
   if (!fs.existsSync(SESSION_PATH)) {
     console.log('Brak fb_session.json');
     return;

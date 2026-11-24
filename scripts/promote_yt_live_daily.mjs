@@ -394,6 +394,9 @@ async function publishToX(tweetText, dryRun) {
 }
 
 async function publishToFacebook(postText, dryRun) {
+  console.log('⛔ Automatyzacja Facebooka (Puppeteer/Playwright) została WYŁĄCZONA decyzją Dowódcy z 2026-11-24 (ochrona konta FB). Pomijam bez uruchamiania przeglądarki.');
+  return { status: 'skipped_disabled', reason: 'fb_disabled_by_owner_20261124' };
+
   if (dryRun) {
     console.log(`[DRY-RUN][FB]\n${postText}`);
     return { status: 'dry_run' };

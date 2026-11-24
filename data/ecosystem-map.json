@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-24",
+      "topic": "Całkowite wyłączenie przeglądarkowej automatyzacji Facebooka (Puppeteer/Playwright, harmonogramy CRON i sesje FB) decyzją L0 w celu ochrony konta przed blokadą; publikacje na Tablicy LUMINA, X, WhatsApp, YouTube, Patronite i Biblii Audio pozostają aktywne",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-24",
       "topic": "Silnik 2 — podgląd testowy strony ofertowej Wizytówek Firmowych Premium CC (299 zł/rok), Patronatu Odcinków Biblii Audio V7 (490 zł) i Partnerstwa Strategicznego & Produkcji CC (/test/oferta/, noindex do akceptacji L0)",
       "agent": "A"
     },
