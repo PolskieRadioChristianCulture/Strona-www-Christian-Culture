@@ -37,7 +37,10 @@
         var L = db();
         var user = typeof L.getCurrentUser === 'function' ? L.getCurrentUser() : null;
         var profile = typeof L.getCurrentProfile === 'function' ? L.getCurrentProfile() : null;
-        if (user && profile && typeof L.getLuminaProfileCompletion === 'function') return cb(user, profile);
+        // @007 (L0 24.11.2026): decyzja tylko na podstawie profilu Z BAZY. Kopia z przeglądarki ma zdjęcie
+        // podmienione na ikonę LUMINA — wcześniej kreator prosił o zdjęcie na każdej stronie.
+        var fromServer = !!(user && window.__luminaProfileServerUid === user.uid);
+        if (user && profile && fromServer && typeof L.getLuminaProfileCompletion === 'function') return cb(user, profile);
         if (tries > 60) return; // ~30 s — gość lub brak sieci: nic nie pokazujemy
         setTimeout(function () { waitForIdentity(cb, tries + 1); }, 500);
     }
@@ -225,8 +228,9 @@
         } else {
             html = '<div class="lob-ok" aria-hidden="true">✨</div>' +
                 '<h2 class="lob-title" id="lobTitle" style="text-align:center">Gotowe! Witamy w społeczności</h2>' +
-                '<p class="lob-lead" style="text-align:center">Twój profil jest kompletny. Inni członkowie LUMINA mogą Cię teraz poznać.</p>' +
-                '<div class="lob-actions"><button type="button" class="lob-btn lob-btn-primary" data-act="close">Przejdź do LUMINA</button></div>';
+                '<p class="lob-lead" style="text-align:center">Za chwilę przeniesiemy Cię na Twój profil — możesz tam dodać więcej o sobie.</p>' +
+                '<div class="lob-actions"><button type="button" class="lob-btn lob-btn-primary" data-act="profile">Przejdź do mojego profilu</button></div>' +
+                '<button type="button" class="lob-later" data-act="close">Zostań na tej stronie</button>';
         }
         $('.lob-card').innerHTML = html;
         var first = $('input:not([hidden]), select, textarea, .lob-btn-primary');
@@ -245,6 +249,18 @@
         if (root) root.remove();
         root = null;
         document.documentElement.style.overflow = '';
+    }
+
+    function goToOwnProfile() {
+        if (state.redirectTimer) { clearTimeout(state.redirectTimer); state.redirectTimer = null; }
+        var p = db().getCurrentProfile ? db().getCurrentProfile() : null;
+        var slug = p && (p.slug || p.uid);
+        close(false);
+        if (!slug) return;
+        var target = 'lumina-profile.html?u=' + encodeURIComponent(slug) + '&nowy=1';
+        // Już na własnym profilu — tylko odśwież, żeby pokazać nowe zdjęcie
+        if (/lumina-profile/.test(location.pathname) && new RegExp('[?&]u(ser)?=' + slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(location.search)) { location.reload(); return; }
+        location.href = '/' + target;
     }
 
     function handleFile(file, user, profile) {
@@ -306,7 +322,8 @@
             if (!btn || state.saving) return;
             var act = btn.getAttribute('data-act');
             if (act === 'later') return close(true);
-            if (act === 'close') return close(false);
+            if (act === 'close') { if (state.redirectTimer) clearTimeout(state.redirectTimer); return close(false); }
+            if (act === 'profile') return goToOwnProfile();
             if (act === 'next') { state.step = 2; return render(user, profile); }
             if (act === 'back') { state.step = Math.max(1, state.step - 1); return render(user, profile); }
             if (act === 'camera') return $('#lobCam').click();
@@ -337,7 +354,11 @@
                 L.completeOwnLuminaProfile(payload).then(function (res) {
                     state.saving = false;
                     profile = L.getCurrentProfile() || profile;
-                    if (res && res.complete) { state.step = 4; render(user, profile); }
+                    if (res && res.complete) {
+                        state.step = 4; render(user, profile);
+                        // @007 (L0 24.11.2026): po zdjęciu od razu na własny profil, by go uzupełnić
+                        state.redirectTimer = setTimeout(goToOwnProfile, 2500);
+                    }
                     else {
                         state.step = 2; render(user, profile);
                         showError('Uzupełnij jeszcze brakujące pola.');
@@ -358,7 +379,12 @@
 
     function boot() {
         waitForIdentity(function (user, profile) {
-            if (shouldOpen(user, profile)) setTimeout(function () { if (!root) open(user, profile); }, 1200);
+            if (!shouldOpen(user, profile)) return;
+            setTimeout(function () {
+                // ponowne sprawdzenie tuż przed otwarciem (profil mógł się w międzyczasie zaktualizować)
+                var fresh = db().getCurrentProfile ? db().getCurrentProfile() : profile;
+                if (!root && shouldOpen(user, fresh || profile)) open(user, fresh || profile);
+            }, 1200);
         });
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });

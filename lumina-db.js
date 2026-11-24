@@ -641,7 +641,15 @@ try {
     const savedUser = localStorage.getItem('lumina_current_user');
     if (savedUser) currentUserState = JSON.parse(savedUser);
     const savedProf = localStorage.getItem('lumina_current_user_profile');
-    if (savedProf) currentProfileState = JSON.parse(savedProf);
+    if (savedProf) {
+        currentProfileState = JSON.parse(savedProf);
+        // @007 (L0 24.11.2026): to tylko kopia z przeglądarki — zdjęcie (data:) mogło zostać w niej
+        // podmienione na ikonę LUMINA (sanitizeProfileForLocalStorage). Profil z bazy przyjdzie po chwili.
+        // Znacznik niewidoczny dla JSON/kopiowania — nigdy nie trafi do bazy ani z powrotem do pamięci przeglądarki.
+        if (currentProfileState && typeof currentProfileState === 'object') {
+            Object.defineProperty(currentProfileState, '__fromLocalCache', { value: true, enumerable: false, configurable: true });
+        }
+    }
 } catch(e) {}
 
 const authSubscribers = [];
@@ -723,6 +731,8 @@ if (auth) {
                 
                 if (userDoc.exists()) {
                     currentProfileState = { uid: user.uid, ...userDoc.data() };
+                    // @007 (L0 24.11.2026): profil z bazy (nie kopia) — kreator profilu czeka na ten sygnał
+                    try { window.__luminaProfileServerUid = user.uid; } catch (_) {}
                     
                     // Auto-fix if radiochristianculture was previously assigned cezaryrgowski slug
                     if (isRadioCC && currentProfileState.slug === 'cezaryrgowski') {
@@ -862,6 +872,7 @@ if (auth) {
                         createdAt: serverTimestamp(),
                         updatedAt: serverTimestamp()
                     };
+                    try { window.__luminaProfileServerUid = user.uid; } catch (_) {}
 
                     // Persist newly created profile to Firestore so it's guaranteed to exist
                     if (db) {
@@ -7503,7 +7514,9 @@ export function getLuminaProfileCompletion(profile) {
     const missing = [];
     if (name.length < 3 || LUMINA_PLACEHOLDER_NAMES.includes(name.toLowerCase())) missing.push('name');
     if (!String(p.city || '').trim()) missing.push('city');
-    if (!isLuminaRealPersonPhoto(p.avatar, slug)) missing.push('photo');
+    // Kopia z przeglądarki ma zdjęcie zastąpione ikoną — liczy się zapisany w bazie znacznik prawdziwego zdjęcia.
+    const photoInLocalStore = p.__fromLocalCache === true && p.hasRealPhoto === true;
+    if (!isLuminaRealPersonPhoto(p.avatar, slug) && !photoInLocalStore) missing.push('photo');
     return { complete: missing.length === 0, missing };
 }
 

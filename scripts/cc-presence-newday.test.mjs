@@ -118,6 +118,20 @@ test('threads: long-press panel with quick reactions, quote jumps to original, "
   assert.match(chat, /function ccLuminaWrapMenu\(\)/);
 });
 
+test('profile wizard: decides only on the server profile, a cached copy with the icon is not "no photo", then goes to own profile', () => {
+  const dbSrc = fs.readFileSync(new URL('../lumina-db.js', import.meta.url), 'utf8');
+  assert.match(dbSrc, /Object\.defineProperty\(currentProfileState, '__fromLocalCache', \{ value: true, enumerable: false/);
+  assert.match(dbSrc, /const photoInLocalStore = p\.__fromLocalCache === true && p\.hasRealPhoto === true;/);
+  assert.ok((dbSrc.match(/window\.__luminaProfileServerUid = user\.uid;/g) || []).length >= 2);
+  const onb = fs.readFileSync(new URL('../js/lumina-onboarding.js', import.meta.url), 'utf8');
+  assert.match(onb, /var fromServer = !!\(user && window\.__luminaProfileServerUid === user\.uid\);/);
+  assert.match(onb, /state\.redirectTimer = setTimeout\(goToOwnProfile, 2500\);/);
+  assert.match(onb, /lumina-profile\.html\?u=/);
+  for (const f of ['lumina.html', 'lumina-profile.html', 'lumina-tablica.html', 'lumina-tablica-light.html']) {
+    assert.match(fs.readFileSync(new URL('../' + f, import.meta.url), 'utf8'), /js\/lumina-onboarding\.js\?v=20261124_photo1/, f);
+  }
+});
+
 function newDayContext(nowMs) {
   const win = new EventTarget();
   const doc = new EventTarget(); doc.visibilityState = 'visible';
