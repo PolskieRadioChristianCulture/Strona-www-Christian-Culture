@@ -2217,6 +2217,34 @@
         padding: 0 !important;
       }
 
+      /* @007 (L0 24.11.2026): pole pisania rośnie razem z tekstem (do 6 linii), dalej przewija się w środku.
+         Przyciski +, mikrofon i Wyślij zostają przy dolnej krawędzi pola. */
+      #ccGlobalChatOverlay .cc-chat-composer-form { align-items: flex-end !important; }
+      #ccGlobalChatOverlay .cc-composer-input-wrap { min-height: 44px !important; }
+      #ccGlobalChatOverlay .cc-composer-textarea {
+        height: var(--cc-ta-h, 22px) !important;
+        max-height: 132px !important;
+        overflow-y: var(--cc-ta-ov, hidden) !important;
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        /* jasny motyw Tablicy (lumina-light-edition.css) malował pole na biało w ciemnym czacie */
+        background: transparent !important;
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+      /* Podczas pisania mikrofon chowa się (jak w Messengerze) — więcej miejsca na tekst */
+      #ccGlobalChatOverlay .cc-chat-composer-form.has-text .cc-composer-mic-btn { display: none !important; }
+      #ccGlobalChatOverlay .cc-composer-input-wrap.is-multiline {
+        border-radius: 20px !important;
+        align-items: flex-end !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+      }
+
       .cc-composer-textarea::placeholder {
         color: #7E88A2 !important;
         white-space: nowrap !important;
@@ -4376,6 +4404,29 @@
     const micBtn = document.getElementById('ccChatMicBtn');
     const scrollBottomBtn = document.getElementById('ccChatScrollBottomBtn');
 
+    // @007 (L0 24.11.2026): pole pisania rośnie razem z wiadomością — widać cały tekst przed wysłaniem.
+    const CC_TA_MAX = 132; // ok. 6 linii; dłuższy tekst przewija się wewnątrz pola
+    function ccAutosizeComposer() {
+      if (!chatInput) return;
+      // najpierw układ (ukrycie mikrofonu zmienia szerokość pola), potem pomiar wysokości
+      if (chatForm) chatForm.classList.toggle('has-text', !!(chatInput.value || '').trim());
+      chatInput.style.setProperty('--cc-ta-h', 'auto');
+      const full = chatInput.scrollHeight || 22;
+      const h = Math.max(22, Math.min(full, CC_TA_MAX));
+      chatInput.style.setProperty('--cc-ta-h', h + 'px');
+      chatInput.style.setProperty('--cc-ta-ov', full > CC_TA_MAX ? 'auto' : 'hidden');
+      const wrap = chatInput.closest('.cc-composer-input-wrap');
+      if (wrap) wrap.classList.toggle('is-multiline', h > 26);
+    }
+    window.ccAutosizeComposer = ccAutosizeComposer;
+    if (chatInput) {
+      chatInput.addEventListener('input', ccAutosizeComposer);
+      chatInput.addEventListener('focus', ccAutosizeComposer);
+      // Po wysłaniu pole czyszczone jest w kodzie (bez zdarzenia „input”) — wracamy do jednej linii.
+      if (chatForm) chatForm.addEventListener('submit', () => { setTimeout(ccAutosizeComposer, 0); setTimeout(ccAutosizeComposer, 120); });
+      window.addEventListener('resize', ccAutosizeComposer);
+    }
+
     const tabLiveBtn = document.getElementById('ccChatTabLiveBtn');
     const tabTeamBtn = document.getElementById('ccChatTabTeamBtn');
     const tabMembersBtn = document.getElementById('ccChatTabMembersBtn');
@@ -4947,7 +4998,7 @@
       if (!currentChatPartner || !currentChatPartner.isPublic || chatMode === 'assistant') { ccSheetMessage('Czat Ogólny', 'Zdjęcia i wiadomości głosowe wyślesz na Czacie Ogólnym.'); return; }
       const now = new Date();
       const caption = (chatInput && chatInput.value || '').trim();
-      if (chatInput) chatInput.value = '';
+      if (chatInput) { chatInput.value = ''; if (window.ccAutosizeComposer) window.ccAutosizeComposer(); }
       const pending = {
         id: 'pending_' + now.getTime() + '_' + Math.random().toString(36).slice(2, 6),
         _pending: true, _status: 'sending',
@@ -5186,6 +5237,7 @@
       const text = (chatInput.value || '').trim();
       if (!text) return;
       chatInput.value = '';
+      if (window.ccAutosizeComposer) window.ccAutosizeComposer();
       if (chatMode === 'assistant') {
         sendAssistantMessage(text);
       } else {

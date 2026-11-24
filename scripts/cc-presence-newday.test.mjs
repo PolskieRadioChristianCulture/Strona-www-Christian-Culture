@@ -68,6 +68,16 @@ test('online = green dot on the avatar everywhere; offline = no dot (never red)'
   }
 });
 
+test('chat composer grows with the message (up to ~6 lines) and stays dark in the light theme', () => {
+  const chat = fs.readFileSync(new URL('../components/cc-global-chat-button.js', import.meta.url), 'utf8');
+  assert.match(chat, /function ccAutosizeComposer\(\)/);
+  assert.match(chat, /height: var\(--cc-ta-h, 22px\) !important;/);
+  assert.match(chat, /const CC_TA_MAX = 132;/);
+  assert.match(chat, /chatInput\.addEventListener\('input', ccAutosizeComposer\)/);
+  assert.match(chat, /\.cc-chat-composer-form\.has-text \.cc-composer-mic-btn \{ display: none !important; \}/);
+  assert.match(chat, /-webkit-text-fill-color: #FFFFFF !important;/);
+});
+
 function newDayContext(nowMs) {
   const win = new EventTarget();
   const doc = new EventTarget(); doc.visibilityState = 'visible';
