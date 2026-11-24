@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-24T05:09:11.791Z",
+  "updatedAt": "2026-11-24T05:16:02.460Z",
   "totalItems": 700,
   "contextGuides": {
     "nadzieja": {
@@ -9232,17 +9232,9 @@
         "lekcja 54",
         "księga wyjścia",
         "lekcja biblijna",
-        "rozważanie",
-        "lekcja 54 na dziś",
-        "lekcja na dziś",
-        "rozważanie na dziś",
-        "słowo na dziś",
-        "wj 24",
-        "23 listopada 2026",
-        "dzisiaj",
-        "dziś"
+        "rozważanie"
       ],
-      "featured": true
+      "featured": false
     },
     {
       "title": "Z Biblią za Pan Brat — Dzień 55: DOBROWOLNY DAR SERCA, ARKA PRZYMIERZA, STÓŁ I ZŁOTY ŚWIECZNIK (Wj 25:1–40)",
@@ -9257,9 +9249,16 @@
         "lekcja 55",
         "księga wyjścia",
         "lekcja biblijna",
-        "rozważanie"
+        "rozważanie",
+        "lekcja 55 na dziś",
+        "lekcja na dziś",
+        "rozważanie na dziś",
+        "słowo na dziś",
+        "24 listopada 2026",
+        "dzisiaj",
+        "dziś"
       ],
-      "featured": false
+      "featured": true
     },
     {
       "title": "Leksykon: Paruzja (Parousia)",
@@ -15391,7 +15390,7 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-24T05:09:12.156Z",
+    "updatedAt": "2026-11-24T05:16:02.922Z",
     "heading": "Polecane na dziś",
     "dateFormattedPL": "24 listopada 2026",
     "pools": [

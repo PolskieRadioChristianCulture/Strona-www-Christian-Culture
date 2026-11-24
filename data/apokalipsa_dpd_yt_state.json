@@ -57,6 +57,30 @@
           "verifiedLive": true
         }
       }
+    },
+    "2": {
+      "epNum": 2,
+      "title": "APOKALIPSA Dzień Po Dniu - Odpieczętowana księga #002",
+      "channels": {
+        "Biblia Audio Christian Culture": {
+          "status": "error",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-24T05:07:37.795Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "error",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-24T05:10:06.852Z"
+        },
+        "Christian Culture TV": {
+          "status": "error",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
+          "failedAt": "2026-11-24T05:15:54.061Z"
+        }
+      }
     }
   }
 }

@@ -1113,6 +1113,12 @@ function loadDailyCourseLessons() {
 
   // Wczytaj lekcje z plików HTML w akademia/kurscodzienny (np. Miesiąc 2: Księga Wyjścia)
   try {
+    const nowWarsaw = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Warsaw' }));
+    const wy = nowWarsaw.getFullYear(), wm = nowWarsaw.getMonth() + 1, wd = nowWarsaw.getDate();
+    const todayCycleDay = (wy === 2026 && wm === 10) ? wd : (wy === 2026 && wm === 11) ? 31 + wd : (wy === 2026 && wm === 12) ? 61 + wd : 55;
+    const plMonths = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
+    const todayDatePl = `${wd} ${plMonths[wm - 1]} ${wy}`;
+
     const akDir = path.join(ROOT, 'akademia/kurscodzienny');
     if (fs.existsSync(akDir)) {
       const files = fs.readdirSync(akDir).filter(f => /^dzien-\d+\.html$/.test(f));
@@ -1129,6 +1135,7 @@ function loadDailyCourseLessons() {
         const rawTitle = titleMatch ? titleMatch[1].replace(/\s*\|\s*Z Biblią.*$/i, '').replace(/\s*\|\s*LUMINA.*$/i, '').trim() : `Dzień ${num}`;
         const title = `Z Biblią za Pan Brat — ${rawTitle}`;
         const description = descMatch ? descMatch[1].trim() : `Kurs Codzienny Pisma Świętego — Dzień ${num}.`;
+        const isToday = num === todayCycleDay;
 
         lessons.push({
           title,
@@ -1144,9 +1151,9 @@ function loadDailyCourseLessons() {
             "księga wyjścia",
             "lekcja biblijna",
             "rozważanie",
-            ...(num === 54 ? ["lekcja 54 na dziś", "lekcja na dziś", "rozważanie na dziś", "słowo na dziś", "wj 24", "23 listopada 2026", "dzisiaj", "dziś"] : [])
+            ...(isToday ? [`lekcja ${num} na dziś`, "lekcja na dziś", "rozważanie na dziś", "słowo na dziś", todayDatePl, "dzisiaj", "dziś"] : [])
           ],
-          featured: num === 54
+          featured: isToday
         });
       }
     }
