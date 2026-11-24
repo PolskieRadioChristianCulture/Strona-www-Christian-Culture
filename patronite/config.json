@@ -116,6 +116,7 @@
     "enabled": true,
     "syncWithPatroniteSchedule": true,
     "fundraiserUrl": "https://zrzutka.pl/rs4g4v",
+    "prettyUrl": "https://zrzutka.pl/z/ChristianCulture",
     "fundraiserCode": "rs4g4v",
     "fundraiserOrganizer": "Wioletta Rogowska (Christian Culture)",
     "officialApiDocsStatus": "CLOUDFLARE_PROTECTED_NO_PUBLIC_WRITE_API",

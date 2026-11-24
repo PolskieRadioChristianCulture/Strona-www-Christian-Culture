@@ -1,0 +1,13 @@
+{
+  "jobId": "ZRZ-20261124-spot-wsparcia",
+  "createdAt": "2026-11-24T12:17:00+01:00",
+  "fundraiserUrl": "https://zrzutka.pl/z/ChristianCulture",
+  "fundraiserCode": "rs4g4v",
+  "title": "Nowy spot wideo Christian Culture — „Każdy gest ma znaczenie”",
+  "videoUrl": "https://polskieradio.cc/wspieramto/assets/wsparcie-zrzutka-web.mp4",
+  "posterUrl": "https://polskieradio.cc/wspieramto/assets/wsparcie-zrzutka-poster.jpg",
+  "landingUrl": "https://polskieradio.cc/wspieramto#wideo-wsparcia",
+  "loudnessLufs": -14.0,
+  "durationSec": 21.61,
+  "status": "ready_for_zrzutka_update"
+}

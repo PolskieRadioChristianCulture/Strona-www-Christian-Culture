@@ -49,7 +49,7 @@ test('Engine 2 contains honest commercial pricing (299 zł / 490 zł), live cata
   assert.match(html, /od 1 200 zł/);
   assert.match(html, /https:\/\/wa\.me\/48537137043/);
   assert.match(html, /mailto:radiochristianculture@gmail\.com/);
-  assert.match(html, /https:\/\/zrzutka\.pl\/rs4g4v/);
+  assert.match(html, /https:\/\/zrzutka\.pl\/z\/ChristianCulture/);
   assert.match(html, /https:\/\/patronite\.pl\/osobowoscplus/);
   assert.match(js, /\/biblia-audio\/data\/catalog\.json/);
   assert.match(js, /\/data\/wizytowki-katalog\.json/);

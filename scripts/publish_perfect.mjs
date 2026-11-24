@@ -26,7 +26,7 @@ export function findPublished(videoPath, channelId, historyFile = HISTORY_FILE, 
 
 const YT_SUPPORT_FOOTER_PL = [
   '💛 WESPRZYJ DARMOWE MEDIA BOŻE I BUDOWĘ NOWEGO STUDIA RTV CC:',
-  '• Szybka wpłata (BLIK / Karta — progi 25 / 99 / 490 zł): https://zrzutka.pl/rs4g4v',
+  '• Szybka wpłata (BLIK / Karta — progi 25 / 99 / 490 zł): https://zrzutka.pl/z/ChristianCulture',
   '• Stały Patron (co miesiąc): https://patronite.pl/osobowoscplus',
   '• Wszystkie formy wsparcia (PL & Polonia GBP/EUR/USD): https://polskieradio.cc/wspieramto',
   '🌍 Darmowe Radio 24/7, Biblia Audio i MojaBiblia bez reklam: https://polskieradio.cc',
@@ -35,7 +35,7 @@ const YT_SUPPORT_FOOTER_PL = [
 const YT_SUPPORT_FOOTER_EN = [
   '💛 SUPPORT FREE AD-FREE CHRISTIAN MEDIA & OUR NEW 4K STUDIO:',
   '• International 1-Click Support (GBP / EUR / USD): https://polskieradio.cc/wspieramto',
-  '• Fundraiser (Zrzutka.pl): https://zrzutka.pl/rs4g4v',
+  '• Fundraiser (Zrzutka.pl): https://zrzutka.pl/z/ChristianCulture',
   '🌍 Free 24/7 Radio, Audio Bible & Study Tools: https://polskieradio.cc/Global/',
 ].join('\n');
 
@@ -45,7 +45,7 @@ const YT_SUPPORT_FOOTER_EN = [
  */
 export function ensureYoutubeSupportFooter(description, { lang = 'pl' } = {}) {
   const base = String(description || '').trim();
-  if (/zrzutka\.pl\/rs4g4v/i.test(base) && /polskieradio\.cc\/wspieramto/i.test(base)) {
+  if (/zrzutka\.pl\/(z\/ChristianCulture|rs4g4v)/i.test(base) && /polskieradio\.cc\/wspieramto/i.test(base)) {
     return base.slice(0, 5000);
   }
   const isEn = /^en/i.test(String(lang || 'pl'));

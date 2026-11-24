@@ -359,7 +359,7 @@
       <div class="cc-wt-tiers" id="ccWtTiers"></div>
 
       <!-- Przycisk 1-Click Online (Polska: Zrzutka.pl BLIK/Karta; Zagranica: Revolut.me) -->
-      <a href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer" class="cc-wt-primary-btn" id="ccWtPrimaryCta" data-support-method="zrzutka_1click">
+      <a href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" class="cc-wt-primary-btn" id="ccWtPrimaryCta" data-support-method="zrzutka_1click">
         <span id="ccWtPrimaryLabel">Wpłać 1-Click (BLIK / Karta — Zrzutka.pl) &bull; <strong id="ccWtAmountDisplay">${currentAmount} zł</strong></span>
         <span>&rarr;</span>
       </a>
@@ -444,7 +444,7 @@
         : `Wpłać 1-Click Kartą / Apple Pay (Revolut) &bull; <strong id="ccWtAmountDisplay">${currentAmount} ${config.symbol}</strong>`;
     }
     if (primaryCta) {
-      primaryCta.href = isPln ? 'https://zrzutka.pl/rs4g4v' : 'https://revolut.me/christianculture';
+      primaryCta.href = isPln ? 'https://zrzutka.pl/z/ChristianCulture' : 'https://revolut.me/christianculture';
       primaryCta.setAttribute('data-support-method', isPln ? 'zrzutka_1click' : 'revolut_global_1click');
     }
   }

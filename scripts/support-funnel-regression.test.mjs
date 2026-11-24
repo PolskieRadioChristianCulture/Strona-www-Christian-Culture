@@ -14,12 +14,23 @@ test('publiczne strony wsparcia i modal NIE linkują do prywatnego Skarbca cc-sk
   }
 });
 
-test('modal WspieramTO kieruje PLN 1-Click na Zrzutka.pl (rs4g4v) + Patronite, a zagranicę (GBP/EUR/USD) na Revolut', () => {
+test('modal WspieramTO kieruje PLN 1-Click na Zrzutka.pl (z/ChristianCulture) + Patronite, a zagranicę (GBP/EUR/USD) na Revolut', () => {
   const modal = read('components/cc-wspieramto-modal.js');
-  assert.equal(modal.includes('https://zrzutka.pl/rs4g4v'), true);
+  assert.equal(modal.includes('https://zrzutka.pl/z/ChristianCulture'), true);
   assert.equal(modal.includes('https://patronite.pl/osobowoscplus'), true);
   assert.equal(modal.includes('https://revolut.me/christianculture'), true);
-  assert.equal(modal.includes("isPln ? 'https://zrzutka.pl/rs4g4v' : 'https://revolut.me/christianculture'"), true);
+  assert.equal(modal.includes("isPln ? 'https://zrzutka.pl/z/ChristianCulture' : 'https://revolut.me/christianculture'"), true);
+});
+
+test('strony /wspieramto osadzają zmasterowany spot wideo 9:16 i nowy adres zrzutka.pl/z/ChristianCulture', () => {
+  for (const rel of ['wspieramto/index.html', 'wspieramto.html']) {
+    const html = read(rel);
+    assert.equal(html.includes('/wspieramto/assets/wsparcie-zrzutka-web.mp4'), true, `${rel} musi osadzać spot wideo`);
+    assert.equal(html.includes('/wspieramto/assets/wsparcie-zrzutka-poster.jpg'), true, `${rel} musi mieć poster wideo`);
+    assert.equal(html.includes('https://zrzutka.pl/z/ChristianCulture'), true, `${rel} musi używać zrzutka.pl/z/ChristianCulture`);
+  }
+  assert.equal(fs.existsSync(path.join(REPO, 'wspieramto/assets/wsparcie-zrzutka-web.mp4')), true);
+  assert.equal(fs.existsSync(path.join(REPO, 'wspieramto/assets/wsparcie-zrzutka-poster.jpg')), true);
 });
 
 test('TOP 6 stron z realnym ruchem ładują cc-wspieramto-modal.js i mają widoczny wyzwalacz data-cc-wspieramto', () => {
@@ -46,16 +57,16 @@ test('js/cc-analytics.js rejestruje /wspieramto oraz /milion-gestow w support_vi
 
 test('ensureYoutubeSupportFooter dopisuje stopkę wsparcia PL/EN, jest idempotentna i mieści się w limicie 5000 znaków', () => {
   const pl = ensureYoutubeSupportFooter('Rozdział 36 Księgi Rodzaju (UBG).', { lang: 'pl' });
-  assert.equal(pl.includes('https://zrzutka.pl/rs4g4v'), true);
+  assert.equal(pl.includes('https://zrzutka.pl/z/ChristianCulture'), true);
   assert.equal(pl.includes('https://patronite.pl/osobowoscplus'), true);
   assert.equal(pl.includes('https://polskieradio.cc/wspieramto'), true);
   assert.equal(ensureYoutubeSupportFooter(pl, { lang: 'pl' }), pl, 'powtórne wywołanie nie może dublować stopki');
 
   const en = ensureYoutubeSupportFooter('Genesis Chapter 1.', { lang: 'en' });
   assert.equal(en.includes('https://polskieradio.cc/wspieramto'), true);
-  assert.equal(en.includes('https://zrzutka.pl/rs4g4v'), true);
+  assert.equal(en.includes('https://zrzutka.pl/z/ChristianCulture'), true);
 
   const huge = ensureYoutubeSupportFooter('A'.repeat(6000), { lang: 'pl' });
   assert.ok(huge.length <= 5000);
-  assert.equal(huge.includes('https://zrzutka.pl/rs4g4v'), true);
+  assert.equal(huge.includes('https://zrzutka.pl/z/ChristianCulture'), true);
 });

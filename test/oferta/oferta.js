@@ -261,7 +261,7 @@
       { id: 'patronat-490', b: en ? 'AUDIO BIBLE' : 'BIBLIA AUDIO', t: en ? 'Sponsor Genesis Chapter ' + state.nextChapterNum + ' — <strong>490 PLN</strong>' : 'Obejmij Patronatem Rozdział ' + state.nextChapterNum + ' Księgi Rodzaju — <strong>490 zł</strong>', href: '#zamowienie' },
       { id: 'studio-rtv', b: en ? 'NEW STUDIO' : 'NOWE STUDIO RTV', t: en ? '100% of proceeds build the Christian Culture 4K Broadcast Studio' : '100% wpływów wspiera darmową misję i budowę Nowego Studia RTV 4K', href: '/wspieramto', cc: true },
       { id: 'katalog', b: en ? 'DIRECTORY' : 'KATALOG', t: en ? '26 live showcase pages already online at /wizytowki' : '26 działających wizytówek w katalogu polskieradio.cc/wizytowki', href: '/wizytowki' },
-      { id: 'zrzutka', b: 'ZRZUTKA.PL', t: en ? '1-Click support via BLIK & Card (25 / 99 / 490 PLN)' : 'Szybkie wsparcie BLIK / Karta z 3 progami wdzięczności: zrzutka.pl/rs4g4v', href: 'https://zrzutka.pl/rs4g4v', cc: true },
+      { id: 'zrzutka', b: 'ZRZUTKA.PL', t: en ? '1-Click support via BLIK & Card (25 / 99 / 490 PLN)' : 'Szybkie wsparcie BLIK / Karta z 3 progami wdzięczności: zrzutka.pl/z/ChristianCulture', href: 'https://zrzutka.pl/z/ChristianCulture', cc: true },
     ];
     window.CCEco.mountTicker(document.getElementById('tickRun'), items, 'oferta-ticker');
     window.CCEco.mountPromo(document.getElementById('promoStage'), document.getElementById('promoDots'), document.getElementById('promoBar'), state.lang, 'oferta-promo', 10000);
