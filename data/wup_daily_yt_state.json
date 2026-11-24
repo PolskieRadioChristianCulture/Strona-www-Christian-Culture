@@ -3,7 +3,7 @@
   "series": "What's Up Prof? — Walter Veith & Martin Smith (Clash of Minds)",
   "scheduleOffsetHours": 48,
   "dailyCron": "CRON_TZ=Europe/Warsaw 0 15 * * *",
-  "lastRunAt": "2026-11-23T05:26:50.581Z",
+  "lastRunAt": "2026-11-24T06:03:52.192Z",
   "episodes": {
     "1": {
       "seq": 1,
@@ -580,6 +580,79 @@
       },
       "scheduledYmd": "2026-11-24",
       "scheduledTime": "15:00"
+    },
+    "9": {
+      "seq": 9,
+      "epCode": "009",
+      "completed": true,
+      "channels": {
+        "Personality Plus": {
+          "status": "ok",
+          "channelId": "UCSwb927uMg2PxIl_Aakht0Q",
+          "videoUrl": "https://youtu.be/2KB6W3QB9Es",
+          "title": "009. Is This The End? Part 2 (Questions Answered) | Prof. Walter Veith",
+          "skipped": true,
+          "publishedAt": "2026-11-24T05:43:14.906Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/2mqVk_sR8a8",
+          "title": "009. Czy to już koniec? Cz. 2 (Odpowiedzi na pytania) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T05:44:37.827Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "ok",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "videoUrl": "https://youtu.be/KUicnilrJ3w",
+          "title": "009. Czy to już koniec? Cz. 2 (Odpowiedzi na pytania) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T05:47:51.291Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/xoW6n4COqYY",
+          "title": "009. Czy to już koniec? Cz. 2 (Odpowiedzi na pytania) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T05:50:54.068Z"
+        },
+        "Christian Culture TV": {
+          "status": "ok",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "videoUrl": "https://youtu.be/aUtTqvBZo-A",
+          "title": "009. Czy to już koniec? Cz. 2 (Odpowiedzi na pytania) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T05:54:33.305Z"
+        },
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "videoUrl": "https://youtu.be/CdNgbmd8MnI",
+          "title": "009. Czy to już koniec? Cz. 2 (Odpowiedzi na pytania) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T05:57:37.255Z"
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "videoUrl": "https://youtu.be/KHtAdRauKSo",
+          "title": "009. Czy to już koniec? Cz. 2 (Odpowiedzi na pytania) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T06:00:32.329Z"
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "videoUrl": "https://youtu.be/mgbdIvS9hT0",
+          "title": "009. Czy to już koniec? Cz. 2 (Odpowiedzi na pytania) | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T06:03:52.191Z"
+        }
+      },
+      "scheduledYmd": "2026-11-26",
+      "scheduledTime": "06:45"
     }
   }
 }

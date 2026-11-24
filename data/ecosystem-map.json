@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-24",
+      "topic": "Poranny blok publikacji 24.11: publikacja Apokalipsa Dzień po Dniu Odc. 02 (7 kanałów YT + Spotify), render Odc. 03 na jutro oraz domknięcie What's Up Prof? Odc. 009 (8/8 kanałów YT)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-24",
       "topic": "Nocna publikacja i aktywacja Kursu Codziennego Dzień 55 (2026-11-24: Wj 25:1–40 — Dobrowolny Dar Serca, Arka Przymierza, Stół i Złoty Świecznik): synchronizacja /akademia#kurscodzienny (Hero CTA + kafle), nawigacja Dnia 54→55, discovery @w, sitemapy XML, llms.txt i produkcja Cloudflare Pages",
       "agent": "A"
     },

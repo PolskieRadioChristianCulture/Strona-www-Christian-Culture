@@ -63,22 +63,53 @@
       "title": "APOKALIPSA Dzień Po Dniu - Odpieczętowana księga #002",
       "channels": {
         "Biblia Audio Christian Culture": {
-          "status": "error",
+          "status": "ok",
           "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
-          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
-          "failedAt": "2026-11-24T05:07:37.795Z"
+          "videoUrl": "https://youtu.be/1iDB4NWuhZ0",
+          "publishedAt": "2026-11-24T05:42:59.935Z",
+          "verifiedLive": true
         },
         "Werset Dnia - Chrześcijański Serwis Biblijny": {
-          "status": "error",
+          "status": "ok",
           "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
-          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
-          "failedAt": "2026-11-24T05:10:06.852Z"
+          "videoUrl": "https://youtu.be/rz-dfGMXe6Y",
+          "publishedAt": "2026-11-24T05:42:59.935Z",
+          "verifiedLive": true
         },
         "Christian Culture TV": {
-          "status": "error",
+          "status": "ok",
           "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
-          "error": "YouTube nie potwierdził publikacji (brak okna udostępniania). Film może być wersją roboczą. Screenshot: youtube_publish_not_confirmed.png",
-          "failedAt": "2026-11-24T05:15:54.061Z"
+          "videoUrl": "https://youtu.be/KY0Od1nXBaM",
+          "publishedAt": "2026-11-24T05:42:59.935Z",
+          "verifiedLive": true
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/fLVnc0PUV_E",
+          "publishedAt": "2026-11-24T05:42:59.935Z",
+          "verifiedLive": true
+        },
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "videoUrl": "https://youtu.be/Aa0t2s6pn7I",
+          "publishedAt": "2026-11-24T05:42:59.935Z",
+          "verifiedLive": true
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "videoUrl": "https://youtu.be/pM7q0sewfIo",
+          "publishedAt": "2026-11-24T05:42:59.935Z",
+          "verifiedLive": true
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "videoUrl": "https://youtu.be/A0GsmPoRK70",
+          "publishedAt": "2026-11-24T05:42:59.935Z",
+          "verifiedLive": true
         }
       }
     }
