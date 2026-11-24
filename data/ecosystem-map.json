@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-24",
+      "topic": "Pływający baner wideo wsparcia na stronie głównej polskieradio.cc/ (1× dziennie na użytkownika, autostart z próbą dźwięku + fallback 1-tap, BorderBeam, zrzutka.pl/z/ChristianCulture)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-24",
       "topic": "WspieramTO 3.0 Multi-Active FULL PREMIUM (/test/wspieramto/, noindex do akceptacji L0) — Magic UI (Border Beam, Animated Beam, Bento Grid, Magic Card, Marquee, Canvas Particles) + Motion Primitives (Scroll Progress, Magnetic CTA, 3D Tilt, Disclosure, Interaktywny Symulator Daru) + osadzony spot Wsparcie.mp4",
       "agent": "A"
     },

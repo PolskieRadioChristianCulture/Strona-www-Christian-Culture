@@ -33,6 +33,17 @@ test('strony /wspieramto osadzają zmasterowany spot wideo 9:16 i nowy adres zrz
   assert.equal(fs.existsSync(path.join(REPO, 'wspieramto/assets/wsparcie-zrzutka-poster.jpg')), true);
 });
 
+test('strona główna ładuje baner wideo wsparcia 1× dziennie z autostartem, dźwiękiem i nowym linkiem zrzutka.pl/z/ChristianCulture', () => {
+  const home = read('index.html');
+  assert.equal(home.includes('/components/cc-home-video-banner.js'), true);
+  const banner = read('components/cc-home-video-banner.js');
+  assert.equal(banner.includes('cc_home_video_banner_day'), true);
+  assert.equal(banner.includes('/wspieramto/assets/wsparcie-zrzutka-web.mp4'), true);
+  assert.equal(banner.includes('https://zrzutka.pl/z/ChristianCulture'), true);
+  assert.equal(banner.includes('vid.muted = false'), true);
+  assert.equal(banner.includes('cc-skarbiec-misji.web.app'), false);
+});
+
 test('TOP 6 stron z realnym ruchem ładują cc-wspieramto-modal.js i mają widoczny wyzwalacz data-cc-wspieramto', () => {
   const top6 = [
     'index.html',
