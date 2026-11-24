@@ -41,6 +41,7 @@ test('public assets and the required worker helper retain their release contract
     'test/patronite/index.html', 'test/patronite/simulation-data.json',
     'test/zrzutka/index.html', 'test/zrzutka/simulation-data.json',
     'test/oferta/index.html', 'test/oferta/oferta.css', 'test/oferta/oferta.js',
+    'test/wspieramto/index.html', 'test/wspieramto/wspieramto-v3.css', 'test/wspieramto/wspieramto-v3.js',
     'test/wiadomosci-z-nieba/index.html', 'test/wiadomosci-z-nieba/simulation-data.json', 'images/lumina/wiadomosci-z-nieba-avatar.png', 'images/lumina/wiadomosci-z-nieba-avatar.webp',
     'wiadomosc-z-nieba/index.html', 'wiadomosc-z-nieba/data.json', 'images/wiadomosc-z-nieba/hero-16x9.webp',
     'cctv24-worship.html', 'stream-scene.html']) assert.equal(isPublicFile(file), true, file);

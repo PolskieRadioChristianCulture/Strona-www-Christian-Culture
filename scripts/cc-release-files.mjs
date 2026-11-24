@@ -41,6 +41,8 @@ export function isPublicFile(relativePath) {
   if (file.startsWith('test/zrzutka/')) return true;
   // Silnik 2 — Oferta Wizytówek Premium CC & Patronatu Odcinków Biblii Audio (noindex do akceptacji L0).
   if (file.startsWith('test/oferta/')) return true;
+  // WspieramTO v3 Multi-Active FULL PREMIUM (noindex do akceptacji L0).
+  if (file.startsWith('test/wspieramto/')) return true;
   if (file.startsWith('test/wiadomosci-z-nieba/')) return true;
   if (file === 'network-pilot.html' || file === 'test/network/index.html') return true;
   if (file === 'lumina-pilot.html' || file === 'test/lumina/index.html') return true;

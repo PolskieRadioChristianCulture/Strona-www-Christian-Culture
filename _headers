@@ -369,6 +369,15 @@
   X-Robots-Tag: noindex, nofollow, noarchive
   Cache-Control: no-cache, no-store, must-revalidate
 
+# Środowisko testowe WspieramTO v3 Multi-Active FULL PREMIUM (noindex do akceptacji L0)
+/test/wspieramto
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/test/wspieramto/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
 # Środowisko testowe „Jezus Chrystus — Wiadomości z nieba” — wyłącznie noindex + brak cache
 /test/wiadomosci-z-nieba
   X-Robots-Tag: noindex, nofollow, noarchive
