@@ -214,7 +214,10 @@ export function buildWaMessage(wave, { youtubeUrl = '', spotifyUrl = '' } = {}) 
     lines.push(`🎬 Pełna płyta na YouTube: ${youtubeUrl.trim()}`);
   }
   if (spotifyUrl && /^https?:\/\//i.test(spotifyUrl)) {
-    lines.push(`🎧 Pełny odsłuch na Spotify: ${spotifyUrl.trim()}`);
+    const spotifyLabel = /distrokid\.com\/hyperfollow/i.test(spotifyUrl)
+      ? '🎧 Płyta na Spotify (Pre-Save / odsłuch)'
+      : '🎧 Pełna płyta na Spotify';
+    lines.push(`${spotifyLabel}: ${spotifyUrl.trim()}`);
   }
 
   lines.push(
@@ -287,7 +290,8 @@ export function loadEligibleWaGroups(wektorRoot = WEKTOR_ROOT) {
         byJid.set(jid, {
           groupId: jid,
           name: g.name || jid,
-          lastGroupTouchMs: g.lastSentIso ? Date.parse(g.lastSentIso) || 0 : 0
+          lastGroupTouchMs: g.lastSentIso ? Date.parse(g.lastSentIso) || 0 : 0,
+          lastGroupTouchDate: g.lastSentDate || null
         });
       }
     } catch {}
@@ -299,7 +303,7 @@ export function loadEligibleWaGroups(wektorRoot = WEKTOR_ROOT) {
       for (const item of Array.isArray(dump) ? dump : []) {
         const jid = item?.jid;
         if (!jid || item.readOnly || EXCLUDED_WA_JIDS.has(jid)) continue;
-        byJid.set(jid, { groupId: jid, name: item.name || jid, lastGroupTouchMs: 0 });
+        byJid.set(jid, { groupId: jid, name: item.name || jid, lastGroupTouchMs: 0, lastGroupTouchDate: null });
       }
     } catch {}
   }
@@ -307,7 +311,7 @@ export function loadEligibleWaGroups(wektorRoot = WEKTOR_ROOT) {
   return [...byJid.values()];
 }
 
-export function selectNextWaGroups(groups, state, { maxCount = WA_MAX_GROUPS_PER_RUN, nowMs = Date.now(), minDays = WA_GROUP_DEDUP_DAYS } = {}) {
+export function selectNextWaGroups(groups, state, { maxCount = WA_MAX_GROUPS_PER_RUN, nowMs = Date.now(), minDays = WA_GROUP_DEDUP_DAYS, todayYmd = null } = {}) {
   const cap = Math.min(WA_MAX_GROUPS_PER_RUN, Math.max(0, Number(maxCount) || 0));
   if (cap === 0) return [];
   const minGapMs = minDays * 24 * 3600 * 1000;
@@ -319,14 +323,16 @@ export function selectNextWaGroups(groups, state, { maxCount = WA_MAX_GROUPS_PER
       const rec = sentMap[g.groupId];
       const campaignSentMs = rec?.lastSentIso ? Date.parse(rec.lastSentIso) : 0;
       const validCampaignMs = Number.isFinite(campaignSentMs) ? campaignSentMs : 0;
+      const touchedToday = Boolean(todayYmd && g.lastGroupTouchDate === todayYmd);
       return {
         ...g,
         campaignSentMs: validCampaignMs,
+        touchedToday,
         eligible: !validCampaignMs || nowMs - validCampaignMs >= minGapMs
       };
     })
     .filter((g) => g.eligible)
-    .sort((a, b) => a.campaignSentMs - b.campaignSentMs || a.lastGroupTouchMs - b.lastGroupTouchMs);
+    .sort((a, b) => Number(a.touchedToday) - Number(b.touchedToday) || a.campaignSentMs - b.campaignSentMs || a.lastGroupTouchMs - b.lastGroupTouchMs);
 
   return eligible.slice(0, cap);
 }
@@ -383,11 +389,21 @@ export async function publishXViaPlaywright(tweetText, imagePath, screenshotPath
     }
 
     let isDialog = await page.locator('[role="dialog"]').isVisible({ timeout: 1000 }).catch(() => false);
-    const dialogSel = '[role="dialog"] div[data-testid="tweetTextarea_0"], [role="dialog"] div[role="textbox"][contenteditable="true"]';
-    const inlineSel = 'div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]';
+    const dialogSel = '[role="dialog"] div[data-testid="tweetTextarea_0"], [role="dialog"] div[role="textbox"][contenteditable="true"], [role="dialog"] textarea';
+    const inlineSel = 'main textarea, textarea[aria-label="What\'s happening?"], textarea[placeholder*="Co się dzieje"], div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]';
     let textarea = isDialog ? page.locator(dialogSel).first() : page.locator(inlineSel).first();
 
-    if (!(await textarea.isVisible({ timeout: 10000 }).catch(() => false))) {
+    if (!(await textarea.isVisible({ timeout: 6000 }).catch(() => false))) {
+      const composeBtn = page.locator('[data-testid="SideNav_NewTweet_Button"], a[href="/compose/post"]').first();
+      if (await composeBtn.isVisible({ timeout: 2500 }).catch(() => false)) {
+        await composeBtn.click().catch(() => {});
+        await page.waitForTimeout(2000);
+        isDialog = await page.locator('[role="dialog"]').isVisible({ timeout: 1500 }).catch(() => false);
+        textarea = isDialog ? page.locator(dialogSel).first() : page.locator(inlineSel).first();
+      }
+    }
+
+    if (!(await textarea.isVisible({ timeout: 4000 }).catch(() => false))) {
       await page.goto('https://x.com/compose/post', { waitUntil: 'domcontentloaded', timeout: 30000 });
       await page.waitForTimeout(3000);
       isDialog = await page.locator('[role="dialog"]').isVisible({ timeout: 2000 }).catch(() => false);
@@ -411,7 +427,9 @@ export async function publishXViaPlaywright(tweetText, imagePath, screenshotPath
 
     isDialog = await page.locator('[role="dialog"]').isVisible().catch(() => false);
     const scope = isDialog ? page.locator('[role="dialog"]') : page.locator('main');
-    const postBtn = scope.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').last();
+    const postBtn = scope.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]')
+      .or(scope.getByRole('button', { name: /^(Post|Opublikuj)$/i }))
+      .last();
     await postBtn.waitFor({ state: 'visible', timeout: 10000 });
     for (let w = 0; w < 30; w++) {
       const dis = await postBtn.isDisabled().catch(() => true);
@@ -437,7 +455,7 @@ export async function publishXViaPlaywright(tweetText, imagePath, screenshotPath
       if (isDialog) {
         if (!(await page.locator('[role="dialog"]').isVisible().catch(() => true))) { confirmed = true; break; }
       } else {
-        const val = await textarea.innerText().catch(() => 'NONEMPTY');
+        const val = await textarea.inputValue().catch(() => textarea.innerText().catch(() => 'NONEMPTY'));
         if (!String(val).trim()) { confirmed = true; break; }
       }
       await page.waitForTimeout(500);
@@ -482,6 +500,7 @@ export async function runSylwesterCampaign(options = {}) {
   const dryRun = Boolean(options.dryRun);
   const scheduled = Boolean(options.scheduled);
   const runNow = Boolean(options.runNow);
+  const xOnly = Boolean(options.xOnly);
   const includeNazir = Boolean(options.includeNazir);
   const statePath = options.statePath || STATE_PATH;
 
@@ -505,11 +524,16 @@ export async function runSylwesterCampaign(options = {}) {
   const waText = buildWaMessage(wave, { youtubeUrl, spotifyUrl });
 
   const nowMs = now.getTime();
-  const shouldRunX = runNow || !state.lastXPostAt || nowMs - Date.parse(state.lastXPostAt) >= X_MIN_INTERVAL_MS;
-  const shouldRunTablica = runNow || !state.lastTablicaPostAt || nowMs - Date.parse(state.lastTablicaPostAt) >= TABLICA_MIN_INTERVAL_MS;
+  const shouldRunX = xOnly || runNow || !state.lastXPostAt || nowMs - Date.parse(state.lastXPostAt) >= X_MIN_INTERVAL_MS;
+  const shouldRunTablica = xOnly ? false : (runNow || !state.lastTablicaPostAt || nowMs - Date.parse(state.lastTablicaPostAt) >= TABLICA_MIN_INTERVAL_MS);
 
   const groups = loadEligibleWaGroups(WEKTOR_ROOT);
-  const nextWaGroups = selectNextWaGroups(groups, state, { maxCount: WA_MAX_GROUPS_PER_RUN, nowMs, minDays: WA_GROUP_DEDUP_DAYS });
+  const nextWaGroups = xOnly ? [] : selectNextWaGroups(groups, state, {
+    maxCount: WA_MAX_GROUPS_PER_RUN,
+    nowMs,
+    minDays: WA_GROUP_DEDUP_DAYS,
+    todayYmd: clock.ymd
+  });
 
   if (dryRun || options.statusOnly) {
     return {
@@ -572,7 +596,7 @@ export async function runSylwesterCampaign(options = {}) {
   }
 
   const waQueueTargets = [];
-  if (includeNazir) {
+  if (!xOnly && includeNazir) {
     waQueueTargets.push({ groupId: NAZIR_GROUP_JID, name: 'Grupa Nazira - Christian Culture', isNazir: true });
   }
   for (const g of nextWaGroups) waQueueTargets.push(g);
@@ -609,7 +633,8 @@ if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === imp
     dryRun: args.has('--dry-run'),
     statusOnly: args.has('--status'),
     runNow: args.has('--run-now'),
-    scheduled: args.has('--scheduled') || (!args.has('--dry-run') && !args.has('--status') && !args.has('--run-now')),
+    xOnly: args.has('--x-only'),
+    scheduled: args.has('--scheduled') || (!args.has('--dry-run') && !args.has('--status') && !args.has('--run-now') && !args.has('--x-only')),
     includeNazir: args.has('--include-nazir'),
     youtubeUrl: parseCliArg('--yt-url'),
     spotifyUrl: parseCliArg('--spotify-url'),

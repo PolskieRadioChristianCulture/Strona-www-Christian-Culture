@@ -44,8 +44,9 @@ test('wszystkie 6 fal mieszczą się w limicie ważonym X (<= 280 znaków) i prz
     assert.equal(forbiddenRe.test(wave.title + ' ' + wave.summary + ' ' + wave.waLead), false);
     const waText = buildWaMessage(wave, {
       youtubeUrl: 'https://youtu.be/vuLnz8S8ABU',
-      spotifyUrl: 'https://open.spotify.com/show/4iMs8lyni0poJEiZNCfRsW'
+      spotifyUrl: 'https://distrokid.com/hyperfollow/christianculture/the-best-of-christian-culture'
     });
+    assert.equal(waText.includes('Płyta na Spotify (Pre-Save / odsłuch)'), true);
     assert.equal(forbiddenRe.test(waText), false);
     assert.equal(dayCycleRe.test(waText), false, `Treść WhatsApp fali ${wave.id} nie może zawierać frazy „Dzień N”`);
 
@@ -53,7 +54,7 @@ test('wszystkie 6 fal mieszczą się w limicie ważonym X (<= 280 znaków) i prz
       const tweet = buildXPost(wave, {
         variantIndex: v,
         youtubeUrl: 'https://youtu.be/vuLnz8S8ABU',
-        spotifyUrl: 'https://open.spotify.com/show/4iMs8lyni0poJEiZNCfRsW'
+        spotifyUrl: 'https://distrokid.com/hyperfollow/christianculture/the-best-of-christian-culture'
       });
       assert.equal(forbiddenRe.test(tweet), false);
       assert.ok(weightedXLength(tweet) <= 280, `Fala ${wave.id} wariant ${v} przekracza 280 znaków: ${weightedXLength(tweet)}`);
@@ -67,9 +68,9 @@ test('rotacja FIFO WhatsApp wybiera maks. 2 grupy, respektuje 14-dniową karencj
     { groupId: '120363432900533490@g.us', name: 'Asystentka CC', lastGroupTouchMs: 0 },
     { groupId: NAZIR_GROUP_JID, name: 'Grupa Nazira', lastGroupTouchMs: 0 },
     { groupId: 'group-recent@g.us', name: 'Grupa Niedawna', lastGroupTouchMs: 100 },
-    { groupId: 'group-oldest-1@g.us', name: 'Grupa A', lastGroupTouchMs: 10 },
-    { groupId: 'group-oldest-2@g.us', name: 'Grupa B', lastGroupTouchMs: 20 },
-    { groupId: 'group-oldest-3@g.us', name: 'Grupa C', lastGroupTouchMs: 30 }
+    { groupId: 'group-oldest-1@g.us', name: 'Grupa A', lastGroupTouchMs: 10, lastGroupTouchDate: '2026-11-24' },
+    { groupId: 'group-oldest-2@g.us', name: 'Grupa B', lastGroupTouchMs: 20, lastGroupTouchDate: '2026-11-23' },
+    { groupId: 'group-oldest-3@g.us', name: 'Grupa C', lastGroupTouchMs: 30, lastGroupTouchDate: '2026-11-22' }
   ];
   const state = {
     waSentGroups: {
@@ -80,9 +81,9 @@ test('rotacja FIFO WhatsApp wybiera maks. 2 grupy, respektuje 14-dniową karencj
   assert.equal(EXCLUDED_WA_JIDS.has('120363432900533490@g.us'), true);
   assert.equal(EXCLUDED_WA_JIDS.has(NAZIR_GROUP_JID), true);
 
-  const picked = selectNextWaGroups(sampleGroups, state, { maxCount: 5, nowMs, minDays: 14 });
+  const picked = selectNextWaGroups(sampleGroups, state, { maxCount: 5, nowMs, minDays: 14, todayYmd: '2026-11-24' });
   assert.equal(picked.length, 2);
-  assert.deepEqual(picked.map((g) => g.groupId), ['group-oldest-1@g.us', 'group-oldest-2@g.us']);
+  assert.deepEqual(picked.map((g) => g.groupId), ['group-oldest-2@g.us', 'group-oldest-3@g.us']);
 });
 
 test('publiczna okładka kampanii istnieje w images/promo/the-best-of-christian-culture-2026.jpg', () => {
