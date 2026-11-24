@@ -6953,11 +6953,16 @@
   function ccFindMsg(id) { return (getChatMessagesForPartner(currentChatPartner) || []).find(m => m && m.id === id) || null; }
   function ccRenderReactions(m, user) {
     if (!ccIsRealMsgId(m.id)) return '';
-    const me = ccNormChatId(user.slug || user.uid || '');
+    const prof = (window.LuminaDB && typeof window.LuminaDB.getCurrentProfile === 'function') ? window.LuminaDB.getCurrentProfile() : null;
+    const meIds = new Set([prof && prof.slug, user.slug, user.uid].filter(Boolean).map(ccNormChatId).filter(Boolean));
     const r = (m.reactions && typeof m.reactions === 'object') ? m.reactions : {};
     const chips = Object.keys(r).filter(e => Array.isArray(r[e]) && r[e].length).map(e => {
       const list = r[e];
-      const mine = list.some(x => ccNormChatId(typeof x === 'string' ? x : (x && x.id)) === me);
+      const mine = list.some(x => {
+        if (typeof x === 'string') return meIds.has(ccNormChatId(x));
+        if (!x || typeof x !== 'object') return false;
+        return (x.id && meIds.has(ccNormChatId(x.id))) || (x.slug && meIds.has(ccNormChatId(x.slug)));
+      });
       const names = list.map(x => (typeof x === 'string' ? x : (x && (x.name || x.id))) || '').join(', ');
       return `<button type="button" class="cc-react-chip ${mine ? 'is-mine' : ''}" onclick="window.ccReact('${escapeHtml(m.id)}','${escapeHtml(e)}')" title="${escapeHtml(names)}" aria-label="${escapeHtml(e)} ${list.length}: ${escapeHtml(names)}">${escapeHtml(e)} ${list.length}</button>`;
     }).join('');
@@ -6967,17 +6972,65 @@
       <div class="cc-react-picker" id="${pickId}" role="group" aria-label="Wybierz reakcję">${picker}</div>`;
   }
   window.ccToggleReactPicker = function (id) {
+    document.querySelectorAll('#ccChatMessagesList .cc-react-picker.is-open').forEach((p) => {
+      if (p.id !== id) p.classList.remove('is-open');
+    });
     const el = document.getElementById(id);
     if (el) el.classList.toggle('is-open');
   };
+  const ccReactBusy = new Set();
   window.ccReact = async function (msgId, emoji) {
-    const u = getUserState();
-    if (!u.isLoggedIn) { ccSheet('<h3>Zaloguj się</h3><p class="cc-sheet-note">Reagować mogą zalogowani członkowie LUMINA.</p><div class="cc-sheet-row"><button type="button" data-sheet-close>OK</button></div>'); return; }
+    if (!msgId || !emoji || ccReactBusy.has(msgId)) return;
+    const openPicker = document.getElementById('ccPick_' + String(msgId).replace(/[^A-Za-z0-9_-]/g, '_'));
+    if (openPicker) openPicker.classList.remove('is-open');
+    ccReactBusy.add(msgId);
     try {
-      if (window.LuminaDB && typeof window.LuminaDB.togglePublicChatMessageReaction === 'function') {
-        await window.LuminaDB.togglePublicChatMessageReaction(msgId, emoji, { slug: u.slug, uid: u.uid, name: u.name });
+      if (window.ccEnsureLuminaDb) { try { await window.ccEnsureLuminaDb(); } catch (_) {} }
+      if (window.LuminaDB && typeof window.LuminaDB.waitForAuthReady === 'function') {
+        try { await window.LuminaDB.waitForAuthReady(2500); } catch (_) {}
       }
-    } catch (_) {}
+      const u = getUserState();
+      if (!u.isLoggedIn) {
+        ccSheet('<h3>Zaloguj się</h3><p class="cc-sheet-note">Reagować mogą zalogowani członkowie LUMINA.</p><div class="cc-sheet-row"><button type="button" data-sheet-close>OK</button></div>');
+        return;
+      }
+      if (!window.LuminaDB || typeof window.LuminaDB.togglePublicChatMessageReaction !== 'function') {
+        ccSheetMessage('Chwilowo niedostępne', 'Nie udało się połączyć z bazą czatu LUMINA. Odśwież stronę i spróbuj ponownie.');
+        return;
+      }
+      const prof = (typeof window.LuminaDB.getCurrentProfile === 'function') ? window.LuminaDB.getCurrentProfile() : null;
+      const res = await window.LuminaDB.togglePublicChatMessageReaction(msgId, emoji, {
+        slug: (prof && prof.slug) || u.slug || u.uid,
+        uid: u.uid,
+        name: (prof && prof.name) || u.name
+      });
+      if (res && res.success) {
+        if (res.reactions && Array.isArray(currentPartnerRealtimeMessages)) {
+          const target = currentPartnerRealtimeMessages.find(m => m && String(m.id) === String(msgId));
+          if (target) {
+            target.reactions = res.reactions;
+            renderChatMessages();
+          }
+        }
+      } else {
+        const reason = res && res.reason;
+        console.warn('LUMI Messenger reaction failed:', reason);
+        if (reason === 'unauthenticated') {
+          ccSheetMessage('Zaloguj się ponownie', 'Sesja logowania wymaga odświeżenia. Zaloguj się ponownie w LUMINA, aby dodawać reakcje.');
+        } else if (reason === 'resource-exhausted') {
+          ccSheetMessage('Chwilowy limit bazy', 'Baza czatu osiągnęła chwilowy limit zapytań. Spróbuj ponownie za chwilę.');
+        } else if (reason === 'not_found' || reason === 'local_message') {
+          ccSheetMessage('Wiadomość jeszcze się zapisuje', 'Poczekaj sekundę i kliknij emotikonę ponownie.');
+        } else {
+          ccSheetMessage('Nie zapisano reakcji', 'Nie udało się zapisać reakcji. Spróbuj ponownie za chwilę.');
+        }
+      }
+    } catch (err) {
+      console.warn('LUMI Messenger reaction error:', err);
+      ccSheetMessage('Nie zapisano reakcji', 'Nie udało się zapisać reakcji. Spróbuj ponownie za chwilę.');
+    } finally {
+      ccReactBusy.delete(msgId);
+    }
   };
   function ccSheet(html) {
     let sh = document.getElementById('ccChatSheet');

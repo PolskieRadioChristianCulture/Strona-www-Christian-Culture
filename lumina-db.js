@@ -42,7 +42,10 @@ import {
     increment,
     writeBatch,
     runTransaction,
-    getCountFromServer
+    getCountFromServer,
+    FieldPath,
+    arrayUnion,
+    arrayRemove
 } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 import { getAnalytics, isSupported as isAnalyticsSupported } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js';
 import { getMessaging, getToken, onMessage, isSupported as isMessagingSupported } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js';
@@ -3972,21 +3975,22 @@ export async function togglePublicChatMessageReaction(messageId, emoji, currentU
         return { success: false, reason: 'missing_args' };
     }
 
-    const user = currentUserState;
+    const user = (auth?.currentUser && !auth.currentUser.isAnonymous) ? auth.currentUser : currentUserState;
     if (!user || user.isAnonymous || !user.uid) {
         console.warn('Lumina Public Chat: reagowanie wymaga zalogowanego konta członka.');
         return { success: false, reason: 'unauthenticated' };
     }
 
-    const uid = currentUser?.slug || currentUser?.uid || user.slug || user.uid || 'guest';
+    const profileSlug = (typeof currentProfileState !== 'undefined' && currentProfileState?.slug) ? currentProfileState.slug : '';
+    const uid = currentUser?.slug || profileSlug || currentUser?.uid || user.slug || user.uid || 'guest';
     const normId = normalizeChatUserId(uid);
     const userName = currentUser?.name || currentUser?.displayName || user.displayName || (normId === 'cezaryrgowski' ? 'Cezary Rogowski' : (normId === 'wiolettarogowska' ? 'Wioletta Rogowska' : 'Użytkownik LUMINA'));
 
     if (!db) return { success: false, reason: 'no_db' };
     if (String(messageId).startsWith('local_')) return { success: false, reason: 'local_message' };
 
+    const ref = doc(db, 'lumina_public_chat_messages', messageId);
     try {
-        const ref = doc(db, 'lumina_public_chat_messages', messageId);
         return await runTransaction(db, async transaction => {
             const snapshot = await transaction.get(ref);
             if (!snapshot.exists()) return { success: false, reason: 'not_found' };
@@ -4001,6 +4005,39 @@ export async function togglePublicChatMessageReaction(messageId, emoji, currentU
             return { success: true, reactions };
         });
     } catch (error) {
+        if (
+            error?.code === 'resource-exhausted' &&
+            typeof updateDoc === 'function' &&
+            typeof FieldPath === 'function' &&
+            typeof arrayUnion === 'function' &&
+            typeof arrayRemove === 'function'
+        ) {
+            if (auth?.currentUser?.uid !== user.uid) return { success: false, reason: 'unauthenticated' };
+            const cachedList = (typeof activePublicChatMessages !== 'undefined' && Array.isArray(activePublicChatMessages)) ? activePublicChatMessages : [];
+            const cachedMsg = cachedList.find(m => m && String(m.id) === messageId) || null;
+            const reactions = { ...((cachedMsg && cachedMsg.reactions && typeof cachedMsg.reactions === 'object') ? cachedMsg.reactions : {}) };
+            const list = Array.isArray(reactions[emoji]) ? reactions[emoji] : [];
+            const isMine = entry => typeof entry === 'string' ? entry === normId : (entry?.id === normId || entry?.slug === normId);
+            const mineEntries = list.filter(isMine);
+            try {
+                const fieldPath = new FieldPath('reactions', emoji);
+                if (mineEntries.length > 0) {
+                    await updateDoc(ref, fieldPath, arrayRemove(...mineEntries));
+                    const next = list.filter(entry => !isMine(entry));
+                    if (next.length) reactions[emoji] = next;
+                    else delete reactions[emoji];
+                } else {
+                    const newEntry = { id: normId, name: userName };
+                    await updateDoc(ref, fieldPath, arrayUnion(newEntry));
+                    reactions[emoji] = [...list, newEntry];
+                }
+                if (cachedMsg) cachedMsg.reactions = reactions;
+                return { success: true, reactions, fallback: 'zero_read_update' };
+            } catch (fallbackErr) {
+                console.warn('Lumina public reaction fallback error:', fallbackErr);
+                return { success: false, reason: fallbackErr?.code || 'resource-exhausted' };
+            }
+        }
         console.warn('Lumina public reaction error:', error);
         return { success: false, reason: error?.code || 'save_failed' };
     }

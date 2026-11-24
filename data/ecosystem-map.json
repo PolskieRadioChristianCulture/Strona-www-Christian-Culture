@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-24",
+      "topic": "Naprawa reakcji emotikonami w czacie LUMI Messenger: fallback zero-read (FieldPath), synchronizacja tożsamości i blokada wielokliku (20261124_chat12)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-24",
       "topic": "Pakiet naprawczy lejka wsparcia Christian Culture: przekierowanie 1-Click PL na Zrzutka.pl (BLIK/Karta) + Patronite, usunięcie publicznych linków do prywatnego Skarbca, widoczny przycisk Wesprzyj + modal na TOP 6 stron (/, /player, /SpiritualSounds/tv/, /mojabiblia, /biblia-audio/, /biblia-do-pobrania), pomiar GA4 (/wspieramto, /milion-gestow) i automatyczna stopka wsparcia w opisach YouTube",
       "agent": "A"
     },
