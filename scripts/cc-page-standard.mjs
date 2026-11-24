@@ -31,7 +31,7 @@ export function applyPageStandard(file, html) {
   html = html.replace(/(src=["'])((?:\/|(?:\.\.\/)+)?js\/cc-global-auth\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261116_a007_auth$3');
   html = html.replace(/(src=["'])(\/?lumina-bottom-nav\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261122_consent1$3');
   html = html.replace(/(src=["'])(\/?app\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_stations1$3');
-  html = html.replace(/(src=["'])(\/components\/cc-global-chat-button\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261124_chat10$3');
+  html = html.replace(/(src=["'])(\/components\/cc-global-chat-button\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261124_chat11$3');
   html = html.replace(/(src=["'])(\/js\/cc-back-to-top\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_btt7$3');
   html = html.replace(/(src=["'])(\/components\/cc-omni-search\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261030_feat11$3');
   html = html.replace(/(src=["'])(\/js\/cc-favorites\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261120_fav4$3');

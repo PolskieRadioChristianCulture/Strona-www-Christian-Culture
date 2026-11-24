@@ -1056,6 +1056,20 @@
         content-visibility: hidden !important;
       }
 
+      /* @007 24.11.2026: wątki odpowiedzi — cytat połączony złotą linią, „↳ N odpowiedzi” pod oryginałem */
+      #ccGlobalChatOverlay .cc-chat-msg-bubble { -webkit-touch-callout: none; }
+      #ccGlobalChatOverlay .cc-chat-msg-row.is-reply .cc-chat-msg-bubble { border-left: 2px solid rgba(216,173,87,0.55) !important; }
+      #ccGlobalChatOverlay .cc-msg-jump-hl .cc-chat-msg-bubble { box-shadow: 0 0 0 2px #D8AD57, 0 0 18px rgba(216,173,87,0.45) !important; transition: box-shadow .3s ease; }
+      .cc-thread { margin: 4px 0 2px; }
+      .cc-thread-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px 0 6px; border-radius: 999px; border: 1px solid rgba(216,173,87,0.35); background: rgba(216,173,87,0.08); color: #F2D17C; font: 700 0.78rem/1 inherit; cursor: pointer; }
+      .cc-thread-faces { display: inline-flex; }
+      .cc-thread-faces img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; border: 1.5px solid #0D1020; margin-left: -6px; }
+      .cc-thread-faces img:first-child { margin-left: 0; }
+      .cc-thread-list { margin: 6px 0 0 14px; padding-left: 12px; border-left: 2px solid rgba(216,173,87,0.6); display: flex; flex-direction: column; gap: 4px; }
+      .cc-thread-item { display: flex; align-items: flex-start; gap: 8px; min-height: 44px; padding: 6px 8px; border-radius: 12px; border: 0; background: rgba(255,255,255,0.04); color: #E5E7EB; text-align: left; font-size: 0.8rem; line-height: 1.35; cursor: pointer; }
+      .cc-thread-item img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+      .cc-thread-item b { color: #F2D17C; }
+
       /* @007 24.11.2026: status online — zielona kropka na pierścieniu awatara (offline = brak kropki) */
       .cc-presence-wrap { position: relative !important; flex-shrink: 0; }
       .cc-presence-wrap.cc-online::after {
@@ -6852,7 +6866,8 @@
   // @007 (L0 24.11.2026): odpowiedź z cytatem w Lumi Messenger (jak w pełnym czacie LUMINA)
   function ccRenderReplyQuote(m) {
     if (!m || !(m.replyToMessageId || m.replyToText)) return '';
-    return `<div class="cc-reply-quote" style="background:rgba(0,0,0,0.25);border-left:3px solid #D8AD57;padding:5px 9px;border-radius:8px;margin-bottom:6px;font-size:0.76rem;">
+    const jump = m.replyToMessageId ? ` onclick="window.ccJumpToMsg('${escapeHtml(m.replyToMessageId)}')" role="button" tabindex="0" title="Pokaż wiadomość, na którą to odpowiedź"` : '';
+    return `<div class="cc-reply-quote"${jump} style="background:rgba(0,0,0,0.25);border-left:3px solid #D8AD57;padding:5px 9px;border-radius:8px;margin-bottom:6px;font-size:0.76rem;cursor:${m.replyToMessageId ? 'pointer' : 'default'};">
       <div style="font-weight:700;color:#F2D17C;">↩ ${escapeHtml(m.replyToSenderName || 'Użytkownik')}</div>
       <div style="color:rgba(255,255,255,0.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;">${escapeHtml(String(m.replyToText || 'Oryginalna wiadomość').slice(0, 140))}</div>
     </div>`;
@@ -6983,19 +6998,200 @@
     if (f) f.focus();
     return sh;
   }
+  // @007 (L0 24.11.2026): panel wiadomości (przytrzymanie / ⋯ / prawy przycisk) — emotki jednym dotknięciem + akcje
   window.ccOpenMsgMenu = function (msgId) {
     const m = ccFindMsg(msgId);
     if (!m) return;
     const u = getUserState();
     const mine = !!(u.uid && (m.senderAuthUid === u.uid));
-    const sh = ccSheet(`<h3>Wiadomość</h3>
-      <button type="button" class="cc-sheet-btn" data-act="react">☺ Zareaguj</button>
+    const sh = ccSheet(`<div class="cc-react-picker is-open cc-sheet-quick-react" role="group" aria-label="Szybka reakcja" style="justify-content:center;margin-bottom:8px;">${CC_REACTIONS.map(e => `<button type="button" data-emoji="${e}" aria-label="Zareaguj ${e}">${e}</button>`).join('')}</div>
+      <button type="button" class="cc-sheet-btn" data-act="reply">↩ Odpowiedz</button>
+      <button type="button" class="cc-sheet-btn" data-act="copy">📋 Kopiuj treść</button>
+      <button type="button" class="cc-sheet-btn" data-act="share">↗ Udostępnij</button>
       ${mine ? '<button type="button" class="cc-sheet-btn" data-act="edit">✏️ Edytuj</button><button type="button" class="cc-sheet-btn is-danger" data-act="delete">🗑️ Usuń</button>'
               : '<button type="button" class="cc-sheet-btn" data-act="report">🚩 Zgłoś wiadomość</button><button type="button" class="cc-sheet-btn is-danger" data-act="hide">🙈 Ukryj wiadomości tej osoby</button>'}
       <div class="cc-sheet-row"><button type="button" data-sheet-close>Anuluj</button></div>`);
     if (!sh) return;
-    sh.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => ccMsgAction(b.getAttribute('data-act'), m)));
+    sh.querySelectorAll('[data-emoji]').forEach(b => b.addEventListener('click', async () => { sh.hidden = true; await window.ccReact(m.id, b.getAttribute('data-emoji')); }));
+    sh.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => {
+      const act = b.getAttribute('data-act');
+      if (act === 'reply') { sh.hidden = true; window.ccStartReply(m.id); return; }
+      if (act === 'copy') {
+        sh.hidden = true;
+        try { navigator.clipboard && navigator.clipboard.writeText(String(m.text || '')); } catch (_) {}
+        return;
+      }
+      if (act === 'share') {
+        sh.hidden = true;
+        const row = document.querySelector(`#ccChatMessagesList [data-msg-id="${CSS.escape(m.id)}"] .cc-chat-share-btn`);
+        if (row && typeof window.shareChatMessage === 'function') window.shareChatMessage(row);
+        return;
+      }
+      ccMsgAction(act, m);
+    }));
   };
+
+  // ── Pełny czat LUMINA (lumina*.html, #publicChatMessagesBox): wątki „↳ N odpowiedzi” + szybkie emotki w menu ──
+  // Działa na już narysowanych wierszach (bez zmian 6 kopii renderPublicChatMessages).
+  var ccLuminaOpenThreads = new Set();
+  function ccLuminaThreads(box) {
+    const rows = Array.from(box.querySelectorAll('.lumina-msg-row[data-message-id]'));
+    const byId = new Map(rows.map(r => [r.getAttribute('data-message-id'), r]));
+    const replies = {};
+    rows.forEach(r => {
+      const q = r.querySelector('.lumina-quote-block[onclick]');
+      const mm = q && /scrollToChatMessage\('([^']+)'\)/.exec(q.getAttribute('onclick') || '');
+      if (mm && mm[1] && byId.has(mm[1])) (replies[mm[1]] = replies[mm[1]] || []).push(r);
+    });
+    rows.forEach(r => {
+      const id = r.getAttribute('data-message-id');
+      const bubble = r.querySelector('.lumina-bubble-mine, .lumina-bubble-theirs');
+      let host = r.querySelector(':scope .cc-thread');
+      const list = replies[id];
+      if (!list || !bubble) { if (host) host.remove(); return; }
+      const open = ccLuminaOpenThreads.has(id);
+      const sig = list.map(x => x.getAttribute('data-message-id')).join(',') + (open ? ':o' : ':c');
+      if (host && host.getAttribute('data-sig') === sig) return;
+      if (!host) { host = document.createElement('div'); host.className = 'cc-thread'; bubble.appendChild(host); }
+      host.setAttribute('data-sig', sig);
+      host.classList.toggle('is-open', open);
+      const faces = list.slice(-3).map(x => { const im = x.querySelector('img.lumina-chat-avatar'); return im ? `<img loading="lazy" decoding="async" src="${escapeHtml(im.getAttribute('src') || '')}" alt="">` : ''; }).join('');
+      const n = list.length;
+      const items = open ? list.map(x => {
+        const im = x.querySelector('img.lumina-chat-avatar');
+        const share = x.querySelector('.cc-chat-share-btn');
+        const txt = (share && share.getAttribute('data-share-text')) || '';
+        return `<button type="button" class="cc-thread-item" data-jump="${escapeHtml(x.getAttribute('data-message-id'))}"><img loading="lazy" decoding="async" src="${escapeHtml(im ? im.getAttribute('src') : '/lumina_icon.jpg')}" alt=""><span><b>${escapeHtml(x.getAttribute('data-sender-name') || 'Użytkownik')}</b> ${escapeHtml(txt.slice(0, 140))}</span></button>`;
+      }).join('') : '';
+      host.innerHTML = `<button type="button" class="cc-thread-toggle" data-toggle="${escapeHtml(id)}" aria-expanded="${open}"><span class="cc-thread-faces">${faces}</span>↳ ${n === 1 ? '1 odpowiedź' : n + ' odpowiedzi'}</button>${open ? `<div class="cc-thread-list">${items}</div>` : ''}`;
+    });
+  }
+  function ccLuminaWatch() {
+    const box = document.getElementById('publicChatMessagesBox');
+    if (!box || box.__ccThreads) return;
+    box.__ccThreads = true;
+    let t = null;
+    const run = () => { t = null; obs.disconnect(); try { ccLuminaThreads(box); } catch (_) {} obs.observe(box, { childList: true, subtree: true }); };
+    const obs = new MutationObserver(() => { if (!t) t = setTimeout(run, 80); });
+    obs.observe(box, { childList: true, subtree: true });
+    box.addEventListener('click', (e) => {
+      const tg = e.target.closest && e.target.closest('[data-toggle]');
+      if (tg && box.contains(tg)) {
+        const id = tg.getAttribute('data-toggle');
+        if (ccLuminaOpenThreads.has(id)) ccLuminaOpenThreads.delete(id); else ccLuminaOpenThreads.add(id);
+        run();
+        return;
+      }
+      const jp = e.target.closest && e.target.closest('[data-jump]');
+      if (jp && box.contains(jp) && typeof window.scrollToChatMessage === 'function') window.scrollToChatMessage(jp.getAttribute('data-jump'));
+    });
+    run();
+  }
+  // Szybkie emotki na górze menu wiadomości (przytrzymanie / prawy przycisk) w pełnym czacie LUMINA
+  function ccLuminaWrapMenu() {
+    const orig = window.openChatMessageMenu;
+    if (typeof orig !== 'function' || orig.__ccQuickReact) return;
+    const wrapped = function (rowEl, x, y) {
+      const res = orig.apply(this, arguments);
+      try {
+        const menus = document.querySelectorAll('.lumina-msg-action-menu');
+        const menu = menus[menus.length - 1];
+        const msgId = rowEl && rowEl.getAttribute('data-message-id');
+        const inPublic = rowEl && rowEl.closest && rowEl.closest('#publicChatMessagesBox');
+        if (menu && msgId && inPublic && !menu.querySelector('.cc-menu-quick-react') && typeof window.handleChatReaction === 'function') {
+          const row = document.createElement('div');
+          row.className = 'cc-menu-quick-react';
+          row.setAttribute('role', 'group');
+          row.setAttribute('aria-label', 'Szybka reakcja');
+          row.style.cssText = 'display:flex;gap:2px;justify-content:space-between;padding:4px 4px 8px;border-bottom:1px solid rgba(255,255,255,0.1);margin-bottom:4px;';
+          CC_REACTIONS.slice(0, 6).forEach(em => {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.textContent = em;
+            b.setAttribute('aria-label', 'Zareaguj ' + em);
+            b.style.cssText = 'min-width:44px;min-height:44px;border:0;background:transparent;font-size:1.35rem;cursor:pointer;border-radius:50%;';
+            b.onclick = () => { menu.remove(); window.handleChatReaction('public', 'public', msgId, em); };
+            row.appendChild(b);
+          });
+          menu.insertBefore(row, menu.firstChild);
+        }
+      } catch (_) {}
+      return res;
+    };
+    wrapped.__ccQuickReact = true;
+    window.openChatMessageMenu = wrapped;
+  }
+  (function ccLuminaBoot() {
+    let tries = 0;
+    const tick = () => { ccLuminaWatch(); ccLuminaWrapMenu(); if (++tries < 40) setTimeout(tick, 1500); };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tick); else tick();
+  })();
+
+  // Skok do oryginału (z cytatu albo z listy odpowiedzi) + złote podświetlenie
+  window.ccJumpToMsg = function (id) {
+    const el = document.querySelector(`#ccChatMessagesList [data-msg-id="${CSS.escape(String(id || ''))}"]`);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.classList.remove('cc-msg-jump-hl'); void el.offsetWidth; el.classList.add('cc-msg-jump-hl');
+    setTimeout(() => el.classList.remove('cc-msg-jump-hl'), 2600);
+  };
+
+  // „↳ N odpowiedzi” pod oryginałem — rozwijany wątek z pionową złotą linią
+  var ccOpenThreads = new Set(); // var: render może zajść wcześniej niż ta linia
+  function ccRenderThreadSummary(m, replies) {
+    if (!replies || !replies.length || !ccIsRealMsgId(m.id)) return '';
+    const open = ccOpenThreads.has(m.id);
+    const faces = replies.slice(-3).map(r => `<img loading="lazy" decoding="async" src="${escapeHtml(r.senderAvatar || '/images/chat/cc-chat-button-120.webp')}" alt="" onerror="this.remove()">`).join('');
+    const n = replies.length;
+    const label = n === 1 ? '1 odpowiedź' : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? `${n} odpowiedzi` : `${n} odpowiedzi`);
+    const items = replies.map(r => `<button type="button" class="cc-thread-item" onclick="window.ccJumpToMsg('${escapeHtml(r.id)}')" title="Pokaż odpowiedź w rozmowie">
+        <img loading="lazy" decoding="async" src="${escapeHtml(r.senderAvatar || '/images/chat/cc-chat-button-120.webp')}" alt="" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+        <span><b>${escapeHtml(r.senderName || 'Użytkownik')}</b> ${escapeHtml(String(r.text || (r.imageUrl ? '📷 Zdjęcie' : (r.audioUrl ? '🎤 Wiadomość głosowa' : ''))).slice(0, 140))}</span>
+      </button>`).join('');
+    return `<div class="cc-thread ${open ? 'is-open' : ''}">
+      <button type="button" class="cc-thread-toggle" onclick="window.ccToggleThread('${escapeHtml(m.id)}')" aria-expanded="${open}"><span class="cc-thread-faces">${faces}</span>↳ ${label}</button>
+      ${open ? `<div class="cc-thread-list">${items}</div>` : ''}
+    </div>`;
+  }
+  window.ccToggleThread = function (id) {
+    if (ccOpenThreads.has(id)) ccOpenThreads.delete(id); else ccOpenThreads.add(id);
+    renderChatMessages();
+    setTimeout(() => {
+      const el = document.querySelector(`#ccChatMessagesList [data-msg-id="${CSS.escape(String(id))}"] .cc-thread`);
+      if (el) el.scrollIntoView({ block: 'nearest' });
+    }, 0);
+  };
+
+  // Przytrzymanie wiadomości (~450 ms) lub prawy przycisk myszy → panel wiadomości
+  function ccBindLongPress(list) {
+    if (!list || list.__ccLongPress) return;
+    list.__ccLongPress = true;
+    let timer = null, sx = 0, sy = 0, fired = false;
+    const rowIdOf = (t) => {
+      if (!t || !t.closest || t.closest('a, button, audio, video, input, textarea, .cc-react-picker')) return '';
+      const row = t.closest('[data-msg-id]');
+      return row && t.closest('.cc-chat-msg-bubble') ? row.getAttribute('data-msg-id') : '';
+    };
+    const cancel = () => { if (timer) { clearTimeout(timer); timer = null; } };
+    list.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      const id = rowIdOf(e.target);
+      if (!id || !ccIsRealMsgId(id) || !(currentChatPartner && currentChatPartner.isPublic)) return;
+      fired = false; sx = e.clientX; sy = e.clientY;
+      cancel();
+      timer = setTimeout(() => { fired = true; try { navigator.vibrate && navigator.vibrate(30); } catch (_) {} window.ccOpenMsgMenu(id); }, 450);
+    });
+    list.addEventListener('pointermove', (e) => { if (timer && Math.hypot(e.clientX - sx, e.clientY - sy) > 10) cancel(); });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => list.addEventListener(ev, cancel));
+    list.addEventListener('scroll', cancel, { passive: true });
+    list.addEventListener('click', (e) => { if (fired) { e.preventDefault(); e.stopPropagation(); fired = false; } }, true);
+    list.addEventListener('contextmenu', (e) => {
+      const id = rowIdOf(e.target);
+      if (!id || !ccIsRealMsgId(id) || !(currentChatPartner && currentChatPartner.isPublic)) return;
+      e.preventDefault();
+      window.ccOpenMsgMenu(id);
+    });
+  }
   function ccSheetMessage(title, note) {
     ccSheet(`<h3>${escapeHtml(title)}</h3><p class="cc-sheet-note">${escapeHtml(note)}</p><div class="cc-sheet-row"><button type="button" data-sheet-close class="is-primary">OK</button></div>`);
   }
@@ -7270,6 +7466,11 @@
     const anchor = ccUnreadAnchor[room];
     let prevDay = '';
     let unreadPlaced = false;
+    // Odpowiedzi pogrupowane wg wiadomości, na którą odpowiadają (do „↳ N odpowiedzi”)
+    const ccRepliesById = {};
+    msgs.forEach(r => {
+      if (r && r.replyToMessageId && !ccIsHiddenSender(r.senderId)) (ccRepliesById[r.replyToMessageId] = ccRepliesById[r.replyToMessageId] || []).push(r);
+    });
     msgs.forEach(m => {
       const isMe = m.isMe || (user.uid && (m.senderAuthUid === user.uid || m.senderUid === user.uid)) || (user.slug && m.senderId === user.slug);
       if (!isMe && currentChatPartner.isPublic && ccIsHiddenSender(m.senderId)) return;
@@ -7308,7 +7509,7 @@
         : [m.senderAuthUid, m.senderUid, m.senderId, m.senderSlug, !currentChatPartner.isPublic ? (currentChatPartner.slug || currentChatPartner.id) : ''].filter(Boolean).join('|');
 
       html += `
-        <div class="cc-chat-msg-row ${isMe ? 'is-me' : ''}">
+        <div class="cc-chat-msg-row ${isMe ? 'is-me' : ''} ${m.replyToMessageId ? 'is-reply' : ''}" data-msg-id="${escapeHtml(m.id || '')}">
           <a href="${escapeHtml(profileLink)}" target="_blank" rel="noopener noreferrer" title="Otwórz profil: ${name}" class="cc-presence-wrap" data-presence="${escapeHtml(presenceKey)}" style="display:inline-flex;text-decoration:none;">
             <img loading="lazy" decoding="async" src="${avatar}" alt="${name}" class="cc-chat-msg-avatar" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
           </a>
@@ -7328,6 +7529,7 @@
               ${m.type === 'wzn_card' && m.wzn ? renderWznChatCard(m) : ''}
             </div>
             ${currentChatPartner.isPublic ? `<div class="cc-msg-footer-row" style="display:flex;align-items:flex-start;gap:6px;"><div style="flex:1;min-width:0;">${ccRenderReactions(m, user)}</div>${ccIsRealMsgId(m.id) ? `<button type="button" class="cc-chat-reply-btn" onclick="window.ccStartReply('${escapeHtml(m.id)}')" style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.8); cursor:pointer; width:44px; height:44px; min-width:44px; min-height:44px; padding:0; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin-top:6px; font-size:18px; line-height:1; flex-shrink:0;" title="Odpowiedz na tę wiadomość" aria-label="Odpowiedz na wiadomość">↩</button>` : ''}</div>` : ''}
+            ${currentChatPartner.isPublic ? ccRenderThreadSummary(m, ccRepliesById[m.id]) : ''}
             ${isMe && currentChatPartner.isPublic ? renderPublicMsgStatus(m) : ''}
           </div>
         </div>
@@ -7338,6 +7540,7 @@
     list.innerHTML = html;
     bindDailyDialogueToggle();
     ccApplyPresenceDots(list);
+    ccBindLongPress(list);
   }
 
   

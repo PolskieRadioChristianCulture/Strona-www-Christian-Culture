@@ -3681,28 +3681,79 @@ export function subscribeToPublicChat(onUpdate) {
     } catch(e) {}
 
     if (!db) return () => {};
-    try {
-        const publicQuery = query(
-            collection(db, 'lumina_public_chat_messages'),
-            // Claude 2026-10-12: 120 NAJNOWSZYCH (wcześniej 'asc' + limit = 120 najstarszych — po 120 wiadomościach
-            // nowe przestałyby się pojawiać). Kolejność do wyświetlenia odwracamy poniżej.
-            orderBy('timestamp', 'desc'),
-            limit(120)
-        );
-
-        return onSnapshot(publicQuery, (snap) => {
-            const msgs = [];
-            snap.forEach(d => msgs.push({ ...d.data(), id: d.id }));
-            msgs.reverse();
-            activePublicChatMessages = msgs;
-            try {
-                localStorage.setItem('lumina_public_chat_cache', JSON.stringify(msgs));
-            } catch(e) {}
-            onUpdate(msgs);
-        }, (err) => console.warn('Lumina Public Chat sync notice:', err));
-    } catch(e) {
-        return () => {};
-    }
+    // @007 (L0 24.11.2026): nasłuch czatu sam się odnawia. Wcześniej jeden błąd (uśpiony komputer w nocy,
+    // chwilowy limit bazy, zerwana sieć) kończył nasłuch na zawsze — strona pokazywała wczorajszą kopię.
+    let stopInner = null;
+    let stopped = false;
+    let retryTimer = null;
+    let retryDelay = 30000;
+    let failed = false;
+    let lastSnapAt = 0;
+    const listen = () => {
+        if (stopped) return;
+        if (retryTimer) { clearTimeout(retryTimer); retryTimer = null; }
+        try { if (stopInner) stopInner(); } catch (_) {}
+        stopInner = null;
+        try {
+            const publicQuery = query(
+                collection(db, 'lumina_public_chat_messages'),
+                // Claude 2026-10-12: 120 NAJNOWSZYCH (wcześniej 'asc' + limit = 120 najstarszych — po 120 wiadomościach
+                // nowe przestałyby się pojawiać). Kolejność do wyświetlenia odwracamy poniżej.
+                orderBy('timestamp', 'desc'),
+                limit(120)
+            );
+            stopInner = onSnapshot(publicQuery, (snap) => {
+                failed = false;
+                retryDelay = 30000;
+                lastSnapAt = Date.now();
+                const msgs = [];
+                snap.forEach(d => msgs.push({ ...d.data(), id: d.id }));
+                msgs.reverse();
+                activePublicChatMessages = msgs;
+                try {
+                    // Kopia bez ciężkich zdjęć/głosówek (data:) — inaczej przekracza limit pamięci i zostaje stara kopia.
+                    const light = msgs.map(m => {
+                        const c = { ...m };
+                        if (typeof c.imageUrl === 'string' && c.imageUrl.startsWith('data:')) delete c.imageUrl;
+                        if (typeof c.audioUrl === 'string' && c.audioUrl.startsWith('data:')) delete c.audioUrl;
+                        // np. awatary zapisane jako data: — w kopii zbędne (żywe dane przychodzą po chwili)
+                        Object.keys(c).forEach(k => { if (typeof c[k] === 'string' && c[k].length > 4000 && c[k].startsWith('data:')) delete c[k]; });
+                        return c;
+                    });
+                    localStorage.setItem('lumina_public_chat_cache', JSON.stringify(light));
+                } catch(e) {}
+                onUpdate(msgs);
+            }, (err) => {
+                console.warn('Lumina Public Chat sync notice:', err?.code || err);
+                failed = true;
+                stopInner = null;
+                if (stopped) return;
+                // Limit bazy: dłuższa przerwa; inne błędy: 30 s → 60 s → … do 5 min. Powrót do karty/sieci wznawia od razu.
+                const wait = err?.code === 'resource-exhausted' ? 600000 : retryDelay;
+                retryDelay = Math.min(retryDelay * 2, 300000);
+                retryTimer = setTimeout(listen, wait);
+            });
+        } catch (e) {
+            failed = true;
+            if (!stopped) retryTimer = setTimeout(listen, retryDelay);
+        }
+    };
+    const revive = () => {
+        if (stopped || document.visibilityState === 'hidden') return;
+        if (failed || !stopInner) listen();
+    };
+    const onVisible = () => { if (document.visibilityState === 'visible') revive(); };
+    document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('online', revive);
+    listen();
+    return () => {
+        stopped = true;
+        if (retryTimer) clearTimeout(retryTimer);
+        try { if (stopInner) stopInner(); } catch (_) {}
+        stopInner = null;
+        document.removeEventListener('visibilitychange', onVisible);
+        window.removeEventListener('online', revive);
+    };
 }
 
 export async function sendPublicChatMessage(messageObj) {

@@ -94,6 +94,30 @@ test('replies and attachments: Lumi Messenger reply + full LUMINA chat shows pho
   }
 });
 
+test('public chat listener heals itself after an error, on return to the tab and when the network comes back', () => {
+  const db = fs.readFileSync(new URL('../lumina-db.js', import.meta.url), 'utf8');
+  const start = db.indexOf('export function subscribeToPublicChat(onUpdate)');
+  const body = db.slice(start, start + 5000);
+  assert.match(body, /retryTimer = setTimeout\(listen, wait\)/);
+  assert.match(body, /resource-exhausted' \? 600000/);
+  assert.match(body, /document\.addEventListener\('visibilitychange', onVisible\)/);
+  assert.match(body, /window\.addEventListener\('online', revive\)/);
+  assert.match(body, /startsWith\('data:'\)\) delete c\.imageUrl/);
+});
+
+test('threads: long-press panel with quick reactions, quote jumps to original, "↳ N odpowiedzi" under the original', () => {
+  const chat = fs.readFileSync(new URL('../components/cc-global-chat-button.js', import.meta.url), 'utf8');
+  assert.match(chat, /function ccBindLongPress\(list\)/);
+  assert.match(chat, /ccBindLongPress\(list\);/);
+  assert.match(chat, /cc-sheet-quick-react/);
+  assert.match(chat, /window\.ccJumpToMsg = function/);
+  assert.match(chat, /ccRenderThreadSummary\(m, ccRepliesById\[m\.id\]\)/);
+  assert.match(chat, /data-msg-id="\$\{escapeHtml\(m\.id \|\| ''\)\}"/);
+  // pełny czat LUMINA: wątki i szybkie emotki dokładane do narysowanych wierszy
+  assert.match(chat, /function ccLuminaThreads\(box\)/);
+  assert.match(chat, /function ccLuminaWrapMenu\(\)/);
+});
+
 function newDayContext(nowMs) {
   const win = new EventTarget();
   const doc = new EventTarget(); doc.visibilityState = 'visible';
