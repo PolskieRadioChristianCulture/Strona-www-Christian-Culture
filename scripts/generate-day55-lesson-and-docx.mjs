@@ -1073,7 +1073,7 @@ html = html.replace(
 );
 
 const nav54Regex =
-  /<a href="\/akademia\/kurscodzienny\/dzien-53"[\s\S]*?<\/a>\s*<span class="px-3 py-1\.5 rounded-lg bg-zinc-900\/50[\s\S]*?<\/span>/;
+  /<a href="\/akademia\/kurscodzienny\/dzien-53"[\s\S]*?<\/a>\s*<span class="px-3 py-1\.5 rounded-lg bg-zinc-900\/50[\s\S]*?<\/span>\s*<\/span>/;
 const nav55Block = `<a href="/akademia/kurscodzienny/dzien-54" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-zinc-300 hover:text-white transition flex items-center gap-1.5 min-h-[44px]">
           <i class="fa-solid fa-chevron-left text-[10px]"></i>
           <span>← Dzień 54</span>

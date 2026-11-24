@@ -1,18 +1,18 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-23T05:36:59.469Z",
+  "generatedAt": "2026-11-24T05:09:11.492Z",
   "zeroFakeDataPolicy": true,
   "counts": {
-    "totalValidatedUrls": 109,
-    "validUrls": 109,
+    "totalValidatedUrls": 110,
+    "validUrls": 110,
     "invalidUrls": 0,
-    "newsArticlesCount": 103,
-    "googleNews48hCount": 57,
+    "newsArticlesCount": 104,
+    "googleNews48hCount": 58,
     "akademiaUrlsCount": 86,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 12,
-    "pagesUrlsCount": 41,
+    "pagesUrlsCount": 52,
     "enUrlsCount": 132
   },
   "discoveryFiles": [
@@ -31,25 +31,25 @@
     {
       "path": "/feed.xml",
       "exists": true,
-      "sizeBytes": 24224,
+      "sizeBytes": 24295,
       "status": "OK"
     },
     {
       "path": "/news/feed.xml",
       "exists": true,
-      "sizeBytes": 33356,
+      "sizeBytes": 33372,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news.xml",
       "exists": true,
-      "sizeBytes": 47268,
+      "sizeBytes": 47780,
       "status": "OK"
     },
     {
       "path": "/sitemaps/news-google.xml",
       "exists": true,
-      "sizeBytes": 45220,
+      "sizeBytes": 46031,
       "status": "OK"
     },
     {
@@ -79,7 +79,7 @@
     {
       "path": "/sitemaps/pages.xml",
       "exists": true,
-      "sizeBytes": 6906,
+      "sizeBytes": 9386,
       "status": "OK"
     },
     {
@@ -92,8 +92,8 @@
   "indexNow": {
     "keyConfigured": true,
     "keyNote": "Brak klucza INDEXNOW_KEY w zmiennych środowiskowych.",
-    "totalQueued": 56,
-    "pendingCount": 56,
+    "totalQueued": 57,
+    "pendingCount": 57,
     "submittedCount": 0,
     "failedCount": 0,
     "recentItems": [
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-23T05:36:59.464Z",
+        "queuedAt": "2026-11-24T05:09:11.487Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-23T05:36:59.464Z",
+        "queuedAt": "2026-11-24T05:09:11.487Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-23T05:36:59.464Z",
+        "queuedAt": "2026-11-24T05:09:11.487Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-23T05:36:59.464Z",
+        "queuedAt": "2026-11-24T05:09:11.487Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-23T05:36:59.464Z",
+        "queuedAt": "2026-11-24T05:09:11.487Z",
         "attempts": 0,
         "maxRetries": 3,
         "lastAttemptAt": null,
@@ -384,9 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 493,
-    "lastSubmittedCount": 493,
-    "lastSubmittedAt": "2026-11-23T05:37:01.262Z"
+    "totalIndexedUrls": 505,
+    "lastSubmittedCount": 505,
+    "lastSubmittedAt": "2026-11-24T05:09:14.166Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -402,6 +402,14 @@
   },
   "alerts": [],
   "sampleValidatedPages": [
+    {
+      "file": "news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska.html",
+      "canonicalUrl": "https://polskieradio.cc/news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska",
+      "section": "news",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    },
     {
       "file": "news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien.html",
       "canonicalUrl": "https://polskieradio.cc/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien",
@@ -593,15 +601,7 @@
       "valid": true,
       "errors": [],
       "warnings": []
-    },
-    {
-      "file": "news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan.html",
-      "canonicalUrl": "https://polskieradio.cc/news/gdy-kamienie-wolaja-archeologia-jerozolima-ezechiasz-tel-dan",
-      "section": "news",
-      "valid": true,
-      "errors": [],
-      "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-23T05:37:01.262Z"
+  "lastInstantIndexingAt": "2026-11-24T05:09:14.166Z"
 }

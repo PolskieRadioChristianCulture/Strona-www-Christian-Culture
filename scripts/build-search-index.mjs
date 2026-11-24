@@ -736,6 +736,14 @@ const CORE_PROJECTS = [
     featured: false
   },
   {
+    title: "Wiadomość z Nieba — Jezus Chrystus (@wiadomosci_z_nieba)",
+    category: "Biblia i formacja",
+    url: "https://polskieradio.cc/wiadomosc-z-nieba/",
+    description: "Codzienny zweryfikowany werset z Pisma Świętego (UBG-2025), osobista refleksja i grafika 1080×1080 do udostępnienia. Oficjalny profil tematyczny Christian Culture.",
+    tags: ["wiadomość z nieba", "wiadomosci z nieba", "wiadomosc z nieba", "jezus chrystus", "@wiadomosci_z_nieba", "werset dnia", "słowo na dziś", "biblia ubg", "lumina", "refleksja", "nadzieja", "christian culture"],
+    featured: true
+  },
+  {
     title: "Profil: Duszpasterz Mariusz",
     category: "Społeczność & Relacje",
     url: "https://polskieradio.cc/lumina.mariusz",
@@ -1245,6 +1253,49 @@ function loadDailyReflections() {
   }
 }
 
+function loadBibliotekaPionierow() {
+  const pionierzyPath = path.join(ROOT, 'biblioteka-pionierow', 'data', 'partia-01.json');
+  if (!fs.existsSync(pionierzyPath)) return [];
+  try {
+    const cat = JSON.parse(fs.readFileSync(pionierzyPath, 'utf8'));
+    const books = Array.isArray(cat.books) ? cat.books : [];
+    const items = [
+      {
+        title: "Biblioteka Pionierów Christian Culture — Partia 01 (001–010)",
+        category: "Wiedza i publicystyka",
+        url: "https://polskieradio.cc/biblioteka-pionierow/",
+        description: "Cyfrowa kolekcja klasycznych dzieł pionierów wiary (E. J. Waggoner, A. T. Jones, W. W. Prescott, Uriah Smith, J. N. Andrews, Stephen N. Haskell) z opisami PL/EN i bezpłatnym dostępem PDF.",
+        tags: ["biblioteka pionierów", "pionierzy adwentyzmu", "książki chrześcijańskie", "e-booki pdf", "E. J. Waggoner", "A. T. Jones", "W. W. Prescott", "Uriah Smith", "J. N. Andrews", "Stephen N. Haskell", "partia 01"],
+        featured: false
+      }
+    ];
+    for (const b of books) {
+      items.push({
+        title: `${b.titlePl} (${b.titleEn}) — ${b.author}`,
+        category: "Wiedza i publicystyka",
+        url: `https://polskieradio.cc/biblioteka-pionierow/ksiazka/${b.slug}/`,
+        description: `${b.summaryPl} Bezpłatne wydanie PDF (${Number(b.pdfSizeMb).toFixed(2)} MB) w Bibliotece Pionierów Christian Culture.`,
+        tags: [
+          "biblioteka pionierów",
+          "książka",
+          "pdf",
+          b.author,
+          b.authorFull,
+          b.titlePl,
+          b.titleEn,
+          b.categoryPl,
+          ...(Array.isArray(b.tags) ? b.tags : [])
+        ].filter(Boolean),
+        featured: false
+      });
+    }
+    return items;
+  } catch (err) {
+    console.warn('Nie udało się wczytać Biblioteki Pionierów:', err.message);
+    return [];
+  }
+}
+
 // --- 9. BUDOWANIE PEŁNEGO INDEKSU ---
 async function build() {
   console.log('🔄 Rozpoczynam indeksowanie ekosystemu Christian Culture...');
@@ -1266,6 +1317,9 @@ async function build() {
   const reflections = loadDailyReflections();
   console.log(`✅ Zindeksowano rozważania dzienne: ${reflections.length}`);
 
+  const pionierzy = loadBibliotekaPionierow();
+  console.log(`✅ Zindeksowano Bibliotekę Pionierów: ${pionierzy.length}`);
+
   const rawItems = [
     ...CORE_PROJECTS,
     ...CCN_PORTALS,
@@ -1273,7 +1327,8 @@ async function build() {
     ...apokalipsa,
     ...dailyCourse,
     ...lexicon,
-    ...reflections
+    ...reflections,
+    ...pionierzy
   ];
 
   // Resolve aliases and relative URLs before deduplication. Prefer current source records.

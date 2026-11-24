@@ -536,6 +536,25 @@ export function buildAllDiscoverySignals() {
     { path: '/aplikacje/', lastmod: '2026-11-21', priority: '0.90', changefreq: 'weekly' },
     { path: '/aplikacje/en/', lastmod: '2026-11-21', priority: '0.90', changefreq: 'weekly' },
     { path: '/wspieramto', lastmod: '2026-11-21', priority: '0.90', changefreq: 'weekly' },
+    ...(() => {
+      const pionierzyFile = path.join(ROOT, 'biblioteka-pionierow', 'data', 'partia-01.json');
+      if (!fs.existsSync(pionierzyFile)) return [];
+      try {
+        const cat = JSON.parse(fs.readFileSync(pionierzyFile, 'utf8'));
+        const lm = cat.updatedAt || '2026-11-23';
+        return [
+          { path: '/biblioteka-pionierow/', lastmod: lm, priority: '0.90', changefreq: 'weekly' },
+          ...(cat.books || []).map(b => ({
+            path: `/biblioteka-pionierow/ksiazka/${b.slug}/`,
+            lastmod: lm,
+            priority: '0.85',
+            changefreq: 'weekly',
+          })),
+        ];
+      } catch {
+        return [];
+      }
+    })(),
     // Kursy serii Rozwiąż problem — z scripts/content/rozwiaz-problem/*/kurs.json
     ...loadCourses().map(sitemapPath),
   ];

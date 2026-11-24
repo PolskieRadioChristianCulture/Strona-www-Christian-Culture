@@ -3,7 +3,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://polskieradio.cc/vod</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/images/milion-og.jpg</video:thumbnail_loc>
       <video:title>Kino Chrześcijańskie VOD — Filmy fabularne, dokumentalne i świadectwa | Christian Culture</video:title>
@@ -25,7 +25,7 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/biblia-audio</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/images/milion-og.jpg</video:thumbnail_loc>
       <video:title>Biblia Audio Christian Culture — Słuchowisko Biblijne 4K UHD (UBG)</video:title>
@@ -36,7 +36,7 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/master-live</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/images/milion-og.jpg</video:thumbnail_loc>
       <video:title>Christian Culture Master TV LIVE 24/7</video:title>
@@ -47,7 +47,7 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/smart-tv</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/images/milion-og.jpg</video:thumbnail_loc>
       <video:title>Smart TV CC — Chrześcijańska Telewizja 24/7</video:title>
@@ -58,7 +58,7 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/ArkOfFire/en/</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/ArkOfFire/hero.jpg</video:thumbnail_loc>
       <video:title>Ark of Fire — It Is Finished | Christian Music Video Showcase</video:title>
@@ -69,7 +69,7 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/Welch/en/</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/Welch/hero.jpg</video:thumbnail_loc>
       <video:title>Gerald Welch — THE CALL | Christian Rock &amp; Testimony</video:title>
@@ -80,7 +80,7 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/SpiritualSounds/tv</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/images/milion-og.jpg</video:thumbnail_loc>
       <video:title>Spiritual Sounds TV — Christian Ambient &amp; Worship Video Stream</video:title>
@@ -91,7 +91,7 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/spiewajmy-panu-live</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/images/milion-og.jpg</video:thumbnail_loc>
       <video:title>Śpiewajmy Panu LIVE — Całodobowe Uwielbienie</video:title>
@@ -102,7 +102,7 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/studium-live</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/images/milion-og.jpg</video:thumbnail_loc>
       <video:title>Studium Pisma Świętego LIVE — Christian Culture</video:title>
@@ -113,7 +113,7 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/swiadectwa-live</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/images/milion-og.jpg</video:thumbnail_loc>
       <video:title>Świadectwa Wiary LIVE — Christian Culture</video:title>
@@ -124,7 +124,7 @@
   </url>
   <url>
     <loc>https://polskieradio.cc/wieczor-ze-slowem-bozym-live</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <video:video>
       <video:thumbnail_loc>https://polskieradio.cc/images/milion-og.jpg</video:thumbnail_loc>
       <video:title>Wieczór ze Słowem Bożym LIVE — Christian Culture</video:title>

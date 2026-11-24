@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-23T05:37:02.092Z",
+  "updatedAt": "2026-11-24T05:09:12.156Z",
   "heading": "Polecane na dziś",
-  "dateFormattedPL": "23 listopada 2026",
+  "dateFormattedPL": "24 listopada 2026",
   "pools": [
     [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 23",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 23 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 24",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 24 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
@@ -36,9 +36,9 @@
     [
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 54)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 55)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-54",
+        "url": "/akademia/kurscodzienny/dzien-55",
         "icon": "book"
       },
       {
@@ -127,16 +127,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 23",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 23 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 24",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 24 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 54)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 55)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-54",
+      "url": "/akademia/kurscodzienny/dzien-55",
       "icon": "book"
     },
     {
