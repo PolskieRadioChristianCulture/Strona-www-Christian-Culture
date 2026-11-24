@@ -2,7 +2,9 @@
 (function (global) {
   'use strict';
   if (global.LuminaMemberPresence) return;
-  const colors = { online: '#76e6bf', offline: '#ef6464', unknown: '#94a3b8' };
+  // @007 (L0 24.11.2026): jeden znak w całym ekosystemie — zielona kropka = online; offline/nieznany = brak kropki
+  // (czerwona kropka przy większości osób wyglądała jak błąd).
+  const colors = { online: '#22C55E', offline: 'transparent', unknown: 'transparent' };
   const labels = { online: 'Online · aktywność w ostatnich 90 sekundach', offline: 'Offline · brak aktualnej aktywności', unknown: 'Status nieznany · brak aktualnych danych' };
   let records = [], available = false, stop = null, observer = null, scheduled = false;
   const normalize = value => global.LuminaDB?.normalizeChatUserId?.(String(value || '')) || String(value || '').toLowerCase();
@@ -39,7 +41,7 @@
     container.setAttribute('aria-label', 'Osoby online');
     online.forEach(p => {
       const button = document.createElement('button');button.type = 'button';
-      button.style.cssText = 'position:relative;flex:0 0 48px;width:48px;height:48px;padding:0;border:2px solid #76e6bf;border-radius:50%;background:#172034;cursor:pointer';
+      button.style.cssText = 'position:relative;flex:0 0 48px;width:48px;height:48px;padding:0;border:2px solid #22C55E;border-radius:50%;background:#172034;cursor:pointer';
       button.title = String(p.displayName || 'Członek społeczności') + ' · ' + labels.online;
       const image = document.createElement('img');image.src = safeImage(p.avatar);image.alt = String(p.displayName || 'Członek społeczności');
       image.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%';image.onerror = () => { image.onerror = null; image.src = '/lumina_icon.jpg'; };
@@ -56,6 +58,7 @@
     document.querySelectorAll('[data-lumina-presence-id]').forEach(dot => {
       const value = state(dot.dataset.luminaPresenceId, dot.dataset.luminaPresenceSlug);
       dot.dataset.presenceState = value;dot.title = labels[value];dot.setAttribute('aria-label', labels[value]);dot.style.backgroundColor = colors[value];
+      dot.hidden = value !== 'online';
     });
     strip(document.getElementById('tablicaOnlineAvatarsContainer'));
     const list = document.getElementById('dmConversationsList');

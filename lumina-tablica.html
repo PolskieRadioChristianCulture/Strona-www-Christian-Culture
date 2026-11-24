@@ -1366,6 +1366,20 @@
             border: 2px solid rgba(139,92,246,0.6);
             box-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
+        /* @007 24.11.2026: zielona kropka online (lumina-member-presence.js); offline = brak kropki */
+        .profile-carousel-online {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #22C55E;
+            border: 2px solid #0f172a;
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+            pointer-events: none;
+        }
+        .profile-carousel-online[hidden] { display: none; }
         .profile-carousel-verified {
             position: absolute;
             bottom: 0;
@@ -9616,6 +9630,7 @@ html[data-lumina-theme="light"] .mobile-auth-sep { color: #d6d3d1 !important; }
                         <div class="profile-carousel-avatar-wrap">
                             <img class="profile-carousel-avatar" src="${p.avatar}" alt="${p.name}" loading="lazy" decoding="async" width="72" height="72" onerror="window.luminaCarouselAvatarFallback?window.luminaCarouselAvatarFallback(this):(this.onerror=null,this.src='images/lumina-avatar-zastepczy.jpg')">
                             ${p.verified ? `<span class="profile-carousel-verified"><i class="fa-solid fa-check" style="font-size:0.45rem;"></i></span>` : ''}
+                            <span class="profile-carousel-online" data-lumina-presence-id="" data-lumina-presence-slug="${p.slug}" hidden></span>
                         </div>
                         <div class="profile-carousel-name">${p.name}</div>
                         <div class="profile-carousel-tag">${p.tag}</div>

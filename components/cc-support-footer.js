@@ -613,7 +613,7 @@
     if (!window.CCGlobalChatButton && !document.getElementById('ccGlobalChatScript') && !document.querySelector('script[src*="cc-global-chat-button"]')) {
       const chatScript = document.createElement('script');
       chatScript.id = 'ccGlobalChatScript';
-      chatScript.src = '/components/cc-global-chat-button.js?v=20261123_chat6';
+      chatScript.src = '/components/cc-global-chat-button.js?v=20261124_chat7';
       chatScript.defer = true;
       document.head.appendChild(chatScript);
     }
@@ -651,7 +651,7 @@
   if (!document.getElementById('luminaMemberPresenceScript')) {
     const script = document.createElement('script');
     script.id = 'luminaMemberPresenceScript';
-    script.src = '/js/lumina-member-presence.js?v=20261018_member1';
+    script.src = '/js/lumina-member-presence.js?v=20261124_dot1';
     document.head.appendChild(script);
   }
 

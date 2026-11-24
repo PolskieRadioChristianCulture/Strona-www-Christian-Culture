@@ -54,6 +54,20 @@ test('heartbeat writes a per-tab session marker; tab close writes it as 0', asyn
   assert.equal(JSON.stringify(writes[1].sessions), JSON.stringify({ tabA: 0 }));
 });
 
+test('online = green dot on the avatar everywhere; offline = no dot (never red)', () => {
+  const chat = fs.readFileSync(new URL('../components/cc-global-chat-button.js', import.meta.url), 'utf8');
+  assert.match(chat, /\.cc-presence-wrap\.cc-online::after \{[\s\S]{0,200}background: #22C55E/);
+  assert.match(chat, /class="cc-presence-wrap" data-presence="\$\{escapeHtml\(presenceKey\)\}"/);
+  assert.match(chat, /ccApplyPresenceDots\(list\);/);
+  assert.match(chat, /online teraz/);
+  const member = fs.readFileSync(new URL('../js/lumina-member-presence.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(member, /#ef6464/);
+  assert.match(member, /dot\.hidden = value !== 'online'/);
+  for (const f of ['lumina-tablica.html', 'lumina-tablica-light.html']) {
+    assert.match(fs.readFileSync(new URL('../' + f, import.meta.url), 'utf8'), /class="profile-carousel-online" data-lumina-presence-id="" data-lumina-presence-slug="\$\{p\.slug\}" hidden/, f);
+  }
+});
+
 function newDayContext(nowMs) {
   const win = new EventTarget();
   const doc = new EventTarget(); doc.visibilityState = 'visible';

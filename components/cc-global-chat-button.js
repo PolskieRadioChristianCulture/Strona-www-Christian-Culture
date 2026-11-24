@@ -1052,6 +1052,27 @@
         content-visibility: hidden !important;
       }
 
+      /* @007 24.11.2026: status online — zielona kropka na pierścieniu awatara (offline = brak kropki) */
+      .cc-presence-wrap { position: relative !important; flex-shrink: 0; }
+      .cc-presence-wrap.cc-online::after {
+        content: '';
+        position: absolute;
+        right: -1px;
+        bottom: -1px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #22C55E;
+        border: 2px solid #0D1020;
+        box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.45), 0 0 8px rgba(34, 197, 94, 0.55);
+        pointer-events: none;
+        animation: ccOnlinePop 0.35s ease-out;
+      }
+      .cc-presence-wrap.cc-presence-sm.cc-online::after { width: 8px; height: 8px; border-width: 1.5px; }
+      @keyframes ccOnlinePop { from { transform: scale(0.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+      .cc-presence-label { display: none; color: #4ADE80; font-size: 0.72rem; font-weight: 700; }
+      .cc-online + .cc-presence-label, [data-presence].cc-online .cc-presence-label { display: inline; }
+
       /* ── 1. NAGŁÓWEK LUMI MESSENGER ── */
       #ccGlobalChatOverlay .cc-chat-radio,
       .cc-chat-drawer .cc-chat-radio,
@@ -6443,10 +6464,11 @@
     if (!bar) return;
     bar.innerHTML = COMMUNITY_MEMBERS.map(m => `
       <button type="button" class="cc-chat-partner-chip ${m.id === currentChatPartner.id ? 'is-active' : ''}" data-partner-id="${m.id}" title="${escapeHtml(m.name)}" style="display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--lumi-panel);border:1px solid ${m.id === currentChatPartner.id ? 'var(--lumi-accent)' : 'var(--lumi-border)'};color:var(--lumi-text);font-size:0.75rem;cursor:pointer;white-space:nowrap;min-height:36px;">
-        <img loading="lazy" decoding="async" src="${escapeHtml(m.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(m.name)}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
+        <span class="cc-presence-wrap cc-presence-sm" data-presence="${m.isPublic ? '' : escapeHtml([m.slug, m.id].filter(Boolean).join('|'))}" style="display:inline-flex;"><img loading="lazy" decoding="async" src="${escapeHtml(m.avatar || '/images/chat/cc-chat-button-120.webp')}" alt="${escapeHtml(m.name)}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;" onerror="this.src='/images/chat/cc-chat-button-120.webp'"></span>
         <span>${escapeHtml(m.name.split(' ')[0])}</span>
       </button>
     `).join('');
+    ccApplyPresenceDots(bar);
 
     bar.querySelectorAll('[data-partner-id]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -6917,11 +6939,40 @@
     el.hidden = false;
     if (ccFeedNearBottom()) scrollToBottom();
   }
+  // @007 (L0 24.11.2026): status online — zielona kropka na pierścieniu awatara (jak Messenger/WhatsApp).
+  // Offline = brak kropki (czerwień kojarzyłaby się z błędem). Dane: wspólny kanał obecności (bez dodatkowych odczytów).
+  var ccOnlineKeys = new Set(); // var: render może wywołać ccApplyPresenceDots wcześniej niż ta linia
+  function ccPresenceKeysOf(p) {
+    return [p && p.uid, p && p.slug, p && p.id].filter(Boolean).map(s => String(s).toLowerCase());
+  }
+  function ccApplyPresenceDots(root) {
+    const scope = root || document;
+    if (!ccOnlineKeys || !scope || typeof scope.querySelectorAll !== 'function') return;
+    scope.querySelectorAll('[data-presence]').forEach(el => {
+      const keys = String(el.getAttribute('data-presence') || '').toLowerCase().split('|').filter(Boolean);
+      const on = keys.some(k => ccOnlineKeys.has(k));
+      el.classList.toggle('cc-online', on);
+      if (on) el.setAttribute('data-online-label', 'online'); else el.removeAttribute('data-online-label');
+    });
+    // Nagłówek rozmowy 1:1: „online teraz” przy rozmówcy
+    try {
+      const subText = document.getElementById('ccChatHeaderSubText');
+      if (subText && chatMode !== 'assistant' && currentChatPartner && !currentChatPartner.isPublic) {
+        const on = [currentChatPartner.slug, currentChatPartner.id].filter(Boolean).some(k => ccOnlineKeys.has(String(k).toLowerCase()));
+        subText.textContent = on ? `${currentChatPartner.name} · online teraz` : `Rozmowa: ${currentChatPartner.name}`;
+      }
+    } catch (_) {}
+  }
+  window.ccIsUserOnline = function (key) { return !!key && !!ccOnlineKeys && ccOnlineKeys.has(String(key).toLowerCase()); };
   function ccStartTypingWatch() {
     if (ccTypingStop || !window.LuminaDB || typeof window.LuminaDB.subscribeToOnlinePresence !== 'function') return;
     try {
-      ccTypingStop = window.LuminaDB.subscribeToOnlinePresence((_active, info) => {
+      ccTypingStop = window.LuminaDB.subscribeToOnlinePresence((active, info) => {
         ccTypingMembers = (info && Array.isArray(info.members)) ? info.members : [];
+        const next = new Set();
+        (Array.isArray(active) ? active : []).forEach(p => ccPresenceKeysOf(p).forEach(k => next.add(k)));
+        ccOnlineKeys = next;
+        ccApplyPresenceDots(document.querySelector('.cc-chat-drawer'));
         ccRenderTyping();
       });
     } catch (_) {}
@@ -7122,10 +7173,14 @@
       const text = escapeHtml(m.text || '');
       const partnerObj = COMMUNITY_MEMBERS.find(c => c.id === m.senderId || c.slug === m.senderId);
       const profileLink = partnerObj ? partnerObj.profileUrl : (isMe ? '/lumina-tablica.html' : currentChatPartner.profileUrl || '/lumina-tablica.html');
+      // @007 (L0 24.11.2026): zielona kropka online na awatarze (klucze: uid / slug nadawcy)
+      const presenceKey = isMe
+        ? [user.uid, user.slug].filter(Boolean).join('|')
+        : [m.senderAuthUid, m.senderUid, m.senderId, m.senderSlug, !currentChatPartner.isPublic ? (currentChatPartner.slug || currentChatPartner.id) : ''].filter(Boolean).join('|');
 
       html += `
         <div class="cc-chat-msg-row ${isMe ? 'is-me' : ''}">
-          <a href="${escapeHtml(profileLink)}" target="_blank" rel="noopener noreferrer" title="Otwórz profil: ${name}" style="display:inline-flex;text-decoration:none;">
+          <a href="${escapeHtml(profileLink)}" target="_blank" rel="noopener noreferrer" title="Otwórz profil: ${name}" class="cc-presence-wrap" data-presence="${escapeHtml(presenceKey)}" style="display:inline-flex;text-decoration:none;">
             <img loading="lazy" decoding="async" src="${avatar}" alt="${name}" class="cc-chat-msg-avatar" onerror="this.src='/images/chat/cc-chat-button-120.webp'">
           </a>
           <div class="cc-chat-msg-content">
@@ -7153,6 +7208,7 @@
     html = dailyHtml + html;
     list.innerHTML = html;
     bindDailyDialogueToggle();
+    ccApplyPresenceDots(list);
   }
 
   
