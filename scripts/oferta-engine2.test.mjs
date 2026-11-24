@@ -58,10 +58,11 @@ test('Engine 2 contains honest commercial pricing (299 zł / 490 zł), live cata
   assert.match(js, /CCEco\.mountPromo/);
 });
 
-test('Engine 2 has zero forbidden internal leaks and all referenced local visual assets exist on disk', () => {
+test('Engine 2 has zero forbidden internal leaks, zero Studio Dobrego Słowa coupling, and all local visual assets exist on disk', () => {
   for (const text of [html, css, js]) {
     assert.doesNotMatch(text, /Mission\s+Control/i);
     assert.doesNotMatch(text, /cc-skarbiec-misji\.web\.app/i);
+    assert.doesNotMatch(text, /Studio\s+Dobrego\s+Słowa|Studia\s+Dobrego\s+Słowa|Dobrego\s+Słowa|\bSDS\b/i);
   }
   const localAssets = [
     'app-christian-culture.png',
