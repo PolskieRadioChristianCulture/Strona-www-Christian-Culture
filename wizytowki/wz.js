@@ -1,6 +1,6 @@
 /*
- * Wizytówki Christian Culture — premium v2 (WERSJA TESTOWA), @007 2026-11-18.
- * Wspólne: pasek i „Polecamy” (js/cc-eco-bars.js), reveal, liczniki, 3D tilt, iskry (canvas), udostępnianie.
+ * Wizytówki Christian Culture — styl /ccwomen/ Ultra Premium w palecie CC Orange/Gold.
+ * Wspólne: pasek i „Polecamy” (js/cc-eco-bars.js), pasek postępu (#progress), reveal, bębenki cyfr, 3D tilt, wstęgi światła (canvas), udostępnianie.
  * Katalog: wyszukiwarka + filtry kategorii. Nabór: kreator zgłoszenia, radio (CCChatRadio + YouTube), wideo na kliknięcie.
  */
 (function () {
@@ -16,10 +16,16 @@
 
   setTimeout(function () { var h = document.querySelector('.hero'); if (h) h.classList.add('is-ready'); }, 3000);
 
-  // Nawigacja
-  var nav = $('nav'), burger = document.querySelector('.burger');
-  addEventListener('scroll', function () { nav.classList.toggle('is-scrolled', scrollY > 30); }, { passive: true });
-  if (burger) {
+  // Nawigacja i pasek postępu przewijania (#progress)
+  var nav = $('nav'), prog = $('progress'), burger = document.querySelector('.burger');
+  function onScroll() {
+    var y = window.scrollY || 0, h = document.documentElement.scrollHeight - (window.innerHeight || 0);
+    if (nav) nav.classList.toggle('is-scrolled', y > 30);
+    if (prog) prog.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, y / h) : 0) + ')';
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  if (burger && nav) {
     var setOpen = function (o) { nav.classList.toggle('is-open', o); burger.setAttribute('aria-expanded', o ? 'true' : 'false'); };
     burger.addEventListener('click', function () { setOpen(!nav.classList.contains('is-open')); });
     nav.querySelectorAll('.menu a').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
@@ -35,20 +41,58 @@
     a.addEventListener('click', function () { track('wizytowki_click', { target: a.getAttribute('data-track') }); });
   });
 
-  // Reveal + liczniki bębnowe
+  // Reveal + bębenki cyfr (wzorzec /ccwomen/: rzędy <i> w .reel__track, bez konfliktu <span>)
   function reel(el) {
-    var target = el.getAttribute('data-reel'); if (!target || el.dataset.done) return; el.dataset.done = '1';
-    el.innerHTML = target.split('').map(function (d) { var col = ''; for (var k = 0; k <= 9; k++) col += '<span>' + k + '</span>'; return '<span data-d="' + d + '">' + col + '</span>'; }).join('');
-    requestAnimationFrame(function () { requestAnimationFrame(function () {
-      el.querySelectorAll('[data-d]').forEach(function (c, i) { c.style.transitionDelay = (i * 120) + 'ms'; c.style.transform = 'translateY(-' + (Number(c.getAttribute('data-d')) * 10) + '%)'; });
-    }); });
+    var target = el.getAttribute('data-reel');
+    if (target === null || target === '' || el.dataset.done) return;
+    el.dataset.done = '1';
+    el.innerHTML = target.split('').map(function (d) {
+      var col = '';
+      for (var k = 0; k <= 9; k++) col += '<i>' + k + '</i>';
+      return '<span class="reel__col"><span class="reel__track" data-d="' + d + '">' + col + '</span></span>';
+    }).join('');
     el.setAttribute('aria-label', target);
+    var tracks = el.querySelectorAll('.reel__track');
+    if (typeof requestAnimationFrame === 'function') {
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          tracks.forEach(function (c, i) {
+            c.style.transitionDuration = (1.55 + i * 0.32) + 's';
+            c.style.transform = 'translateY(-' + Number(c.getAttribute('data-d')) + 'em)';
+          });
+        });
+      });
+    } else {
+      tracks.forEach(function (c) {
+        c.style.transform = 'translateY(-' + Number(c.getAttribute('data-d')) + 'em)';
+      });
+    }
   }
   var rev = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('is-in'); x.target.querySelectorAll('[data-reel]').forEach(reel); io.unobserve(x.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .06 });
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (x) {
+        if (x.isIntersecting) {
+          x.target.classList.add('is-in');
+          x.target.querySelectorAll('[data-reel]').forEach(reel);
+          io.unobserve(x.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
     rev.forEach(function (el) { io.observe(el); });
-  } else { rev.forEach(function (el) { el.classList.add('is-in'); }); document.querySelectorAll('[data-reel]').forEach(reel); }
+    setTimeout(function () {
+      rev.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < (window.innerHeight || 900) * 1.15) {
+          el.classList.add('is-in');
+          el.querySelectorAll('[data-reel]').forEach(reel);
+        }
+      });
+    }, 2500);
+  } else {
+    rev.forEach(function (el) { el.classList.add('is-in'); });
+    document.querySelectorAll('[data-reel]').forEach(reel);
+  }
 
   // 3D tilt + światło
   function bindTilt(el) {
@@ -62,28 +106,57 @@
   }
   document.querySelectorAll('[data-tilt]').forEach(bindTilt);
 
-  // Iskry i promienie (canvas) — tło hero
+  // Wstęgi światła (wzorzec /ccwomen/) + delikatne iskry (canvas) w tle hero
   (function fx() {
     var c = $('heroFx'); if (!c || !c.getContext) return;
-    var ctx = c.getContext('2d'); if (!ctx) return; var w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5), t = 0, vis = true, last = 0, parts = [];
-    function size() { var r = c.getBoundingClientRect(); w = r.width; h = r.height; c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      parts = []; var n = Math.round(Math.min(110, w / 11)); for (var i = 0; i < n; i++) parts.push({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.8 + .3, s: Math.random() * .5 + .12, a: Math.random() * .6 + .25, hue: Math.random() < .7 ? 26 : 42 }); }
+    var ctx = c.getContext('2d'); if (!ctx) return;
+    var w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5), t = 0, vis = true, last = 0, parts = [];
+    var ribbons = [
+      { a: .48, f: 1.15, s: .55, hue: 'rgba(255,122,0,', y: .78, amp: .065 },
+      { a: .34, f: 1.75, s: .40, hue: 'rgba(255,168,76,', y: .86, amp: .048 },
+      { a: .26, f: .90, s: .72, hue: 'rgba(242,196,109,', y: .92, amp: .038 }
+    ];
+    function size() {
+      var r = c.getBoundingClientRect(); w = r.width; h = r.height; c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      parts = [];
+      var n = Math.round(Math.min(84, Math.max(24, w / 14)));
+      for (var i = 0; i < n; i++) parts.push({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.7 + .35, s: Math.random() * .42 + .12, a: Math.random() * .52 + .22, hue: Math.random() < .68 ? 28 : 42 });
+    }
     size(); addEventListener('resize', size);
     if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { vis = e[0].isIntersecting; }).observe(c);
     function frame(ts) {
       requestAnimationFrame(frame);
-      if (!vis || document.hidden || ts - last < 33) return; last = ts; t += .016;
-      ctx.clearRect(0, 0, w, h); ctx.globalCompositeOperation = 'lighter';
+      if (!vis || document.hidden || ts - last < 33 || !w || !h) return;
+      last = ts; t += .016;
+      ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'lighter';
       var cx = w < 960 ? w * .5 : w * .72, cy = w < 960 ? 150 : h * .48;
-      for (var k = 0; k < 7; k++) {
-        var ang = t * .08 + k * .9, len = Math.max(w, h) * .9;
+      for (var k = 0; k < 6; k++) {
+        var ang = t * .07 + k * 1.05, len = Math.max(w, h) * .85;
         var g = ctx.createLinearGradient(cx, cy, cx + Math.cos(ang) * len, cy + Math.sin(ang) * len);
-        g.addColorStop(0, 'rgba(255,140,51,' + (.07 + .03 * Math.sin(t + k)) + ')'); g.addColorStop(1, 'rgba(255,140,51,0)');
-        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(ang - .05) * len, cy + Math.sin(ang - .05) * len); ctx.lineTo(cx + Math.cos(ang + .05) * len, cy + Math.sin(ang + .05) * len); ctx.closePath(); ctx.fillStyle = g; ctx.fill();
+        g.addColorStop(0, 'rgba(255,140,51,' + (.055 + .022 * Math.sin(t + k)) + ')');
+        g.addColorStop(1, 'rgba(255,140,51,0)');
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(ang - .045) * len, cy + Math.sin(ang - .045) * len); ctx.lineTo(cx + Math.cos(ang + .045) * len, cy + Math.sin(ang + .045) * len); ctx.closePath(); ctx.fillStyle = g; ctx.fill();
+      }
+      ctx.lineWidth = 2;
+      for (var r = 0; r < ribbons.length; r++) {
+        var b = ribbons[r];
+        var grad = ctx.createLinearGradient(0, 0, w, 0);
+        grad.addColorStop(0, b.hue + '0)'); grad.addColorStop(.36, b.hue + b.a + ')'); grad.addColorStop(1, b.hue + '0)');
+        ctx.strokeStyle = grad;
+        ctx.beginPath();
+        for (var x = 0; x <= w; x += 12) {
+          var y = h * b.y + Math.sin(x / w * Math.PI * 2 * b.f + t * b.s) * h * b.amp + Math.sin(x / 140 + t * b.s * .6) * 5;
+          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
       }
       for (var i = 0; i < parts.length; i++) {
-        var p = parts[i]; p.y -= p.s; p.x += Math.sin(t * 1.3 + i) * .25; if (p.y < -5) { p.y = h + 5; p.x = Math.random() * w; }
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fillStyle = 'hsla(' + p.hue + ',100%,62%,' + (p.a * (.55 + .45 * Math.sin(t * 2 + i))) + ')'; ctx.fill();
+        var p = parts[i]; p.y -= p.s; p.x += Math.sin(t * 1.2 + i) * .22;
+        if (p.y < -5) { p.y = h + 5; p.x = Math.random() * w; }
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283);
+        ctx.fillStyle = 'hsla(' + p.hue + ',100%,64%,' + (p.a * (.55 + .45 * Math.sin(t * 2 + i))) + ')';
+        ctx.fill();
       }
       ctx.globalCompositeOperation = 'source-over';
     }
@@ -106,7 +179,7 @@
   // ---------- KATALOG: wyszukiwarka i filtry ----------
   if (PAGE === 'katalog') {
     var q = $('wizytowkiSearch'), fbtns = document.querySelectorAll('.fbtn'), cards = document.querySelectorAll('[data-card]'), cats = document.querySelectorAll('.cat'), empty = $('empty'), active = 'all';
-    var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l'); };
+    var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l'); };
     function apply() {
       var term = norm(q.value.trim()), shown = 0;
       cards.forEach(function (c) {
@@ -126,7 +199,7 @@
       b.addEventListener('click', function () {
         active = b.getAttribute('data-f'); fbtns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
         apply(); track('wizytowki_filter', { target: active });
-        var t = document.querySelector('#katalog'); if (t && scrollY > t.offsetTop) t.scrollIntoView({ behavior: 'smooth' });
+        var t = document.querySelector('#katalog'); if (t && window.scrollY > t.offsetTop) t.scrollIntoView({ behavior: 'smooth' });
       });
     });
     var qt = null;
@@ -139,7 +212,7 @@
   if (PAGE === 'nabor') {
     var f = { name: $('cName'), field: $('cField'), desc: $('cDesc') };
     var pv = { url: $('pUrl'), field: $('pField'), name: $('pName'), desc: $('pDesc') };
-    var slug = function (s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ł/g, 'l').replace(/Ł/g, 'L').replace(/[^A-Za-z0-9]+/g, '').slice(0, 28) || 'TwojaMisja'; };
+    var slug = function (s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l').replace(/Ł/g, 'L').replace(/[^A-Za-z0-9]+/g, '').slice(0, 28) || 'TwojaMisja'; };
     function msg() {
       return 'Szczęść Boże! Zgłaszam wizytówkę do Christian Culture.\n\nNazwa: ' + (f.name.value.trim() || '—') + '\nDziedzina: ' + f.field.value + '\nO mnie / o misji: ' + (f.desc.value.trim() || '—') + '\nProponowany adres: polskieradio.cc/' + slug(f.name.value) + '\n\nRazem możemy więcej. Ku chwale Boga i dla dobra ludzi!';
     }

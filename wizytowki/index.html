@@ -14,7 +14,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!-- WYGENEROWANE: scripts/wizytowki/buduj.mjs z data/wizytowki-katalog.json — nie edytuj ręcznie. PRODUKCJA (✅ L0 18.11.2026). -->
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#050507">
+<meta name="theme-color" content="#070504">
 <title>Wizytówki Christian Culture — artyści, twórcy, kanały i służby | Katalog</title>
 <meta name="description" content="Katalog 26 wizytówek Christian Culture: artyści i zespoły z Polski i ze świata, kanały 24/7, książki, kąciki ewangelizacyjne i służby.">
 <link rel="canonical" href="https://polskieradio.cc/wizytowki">
@@ -29,9 +29,9 @@
 <link rel="icon" type="image/png" href="/app-christian-culture.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;700;800&family=Dancing+Script:wght@700&display=swap">
 <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
-<link rel="stylesheet" href="/wizytowki/wz.css?v=20261118_1">
+<link rel="stylesheet" href="/wizytowki/wz.css?v=20261124_ccw1">
 <script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
 <script src="/js/cc-favorites.js?v=20261114_favz1" defer></script>
 <script src="/js/cc-mobile-edge.js?v=20261110_edge12" defer></script>
@@ -40,11 +40,12 @@
 <script src="/components/cc-global-chat-button.js?v=20261119_gold2" defer></script>
 <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
 <script src="/components/cc-support-footer.js?v=20261119_gold2" defer></script>
-<script src="/js/cc-eco-bars.js?v=20261118_1" defer></script>
-<script src="/wizytowki/wz.js?v=20261118_1" defer></script>
+<script src="/js/cc-eco-bars.js?v=20261124_ccw1" defer></script>
+<script src="/wizytowki/wz.js?v=20261124_ccw1" defer></script>
 </head>
 <body data-page="katalog">
 <a class="skip" href="#tresc">Przejdź do treści</a>
+<div id="progress" aria-hidden="true"></div>
 <div class="tick" role="region" aria-label="Pasek informacyjny">
   <span class="tick__badge"><i aria-hidden="true"></i>Wizytówki CC</span>
   <div class="tick__track"><div class="tick__run" id="tickRun"></div></div>
@@ -77,7 +78,7 @@
     <div class="wrap hero__grid">
       <div>
         <ul class="chips" aria-label="Oznaczenia"><li class="chip"><span class="dot" aria-hidden="true"></span>26 wizytówek</li><li class="chip">Nowość: artyści i zespoły</li></ul>
-        <h1 id="h1"><span class="l"><span>Wizytówki</span></span><span class="l"><span>Christian Culture</span></span></h1>
+        <h1 id="h1"><span class="l"><span>Wizytówki</span></span><span class="l"><span class="script-line">Christian Culture</span></span></h1>
         <p class="lead">Ludzie, muzyka, książki i kanały, które niosą Ewangelię — w Polsce i na świecie. Znajdź artystę, kącik, służbę albo kanał 24/7.</p>
         <label class="search"><span class="vh">Szukaj wizytówki</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
@@ -104,13 +105,16 @@
         <img class="ring__logo" src="/app-christian-culture.png" width="150" height="150" alt="">
       </div>
     </div>
+    <span class="scroll-cue" aria-hidden="true"></span>
   </section>
 
-  <div class="stats" role="list">
-    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="26">26</span></strong><small>wizytówek w katalogu</small></div>
-    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="5">5</span></strong><small>artystów i zespołów</small></div>
-    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="7">7</span></strong><small>kanałów i społeczności</small></div>
-    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="0">0</span><span> zł</span></strong><small>koszt wizytówki</small></div>
+  <div class="wrap stats-wrap">
+    <div class="stats" role="list" aria-label="Katalog w liczbach">
+      <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="26">26</span></strong><p>wizytówek w katalogu</p></div>
+      <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="5">5</span></strong><p>artystów i zespołów</p></div>
+      <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="7">7</span></strong><p>kanałów i społeczności</p></div>
+      <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="0">0</span><span class="suf"> zł</span></strong><p>koszt wizytówki</p></div>
+    </div>
   </div>
 
   <section class="section spot" aria-labelledby="h-art">

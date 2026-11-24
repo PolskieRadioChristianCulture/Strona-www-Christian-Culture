@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-24",
+      "topic": "Standard wizualny /wizytówka w stylu /ccwomen/ i naprawa kart liczb",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-24",
       "topic": "Całkowite wyłączenie przeglądarkowej automatyzacji Facebooka (Puppeteer/Playwright, harmonogramy CRON i sesje FB) decyzją L0 w celu ochrony konta przed blokadą; publikacje na Tablicy LUMINA, X, WhatsApp, YouTube, Patronite i Biblii Audio pozostają aktywne",
       "agent": "A"
     },

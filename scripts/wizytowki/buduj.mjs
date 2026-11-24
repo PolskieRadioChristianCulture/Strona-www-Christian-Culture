@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const DATA = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'wizytowki-katalog.json'), 'utf8'));
-const V = '20261118_1';
+const V = '20261124_ccw1';
 const ORIGIN = 'https://polskieradio.cc';
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -68,7 +68,7 @@ ${GA}
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!-- WYGENEROWANE: scripts/wizytowki/buduj.mjs z data/wizytowki-katalog.json — nie edytuj ręcznie. PRODUKCJA (✅ L0 18.11.2026). -->
 <meta name="robots" content="index,follow">
-<meta name="theme-color" content="#050507">
+<meta name="theme-color" content="#070504">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${ORIGIN}${canonical}">
@@ -83,7 +83,7 @@ ${GA}
 <link rel="icon" type="image/png" href="/app-christian-culture.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;700;800&family=Dancing+Script:wght@700&display=swap">
 <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261113_edge13">
 <link rel="stylesheet" href="/wizytowki/wz.css?v=${V}">
 <script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
@@ -103,6 +103,7 @@ function topbar(active) {
     ? [['#artysci', 'Artyści', true], ['#kanaly', 'Kanały 24/7'], ['#ksiazki', 'Książki'], ['#kaciki', 'Kąciki'], ['#sluzby', 'Służby'], ['/wizytówka#zglos', 'Zgłoś wizytówkę']]
     : [['#zglos', 'Zgłoś się', true], ['#artysci', 'Artyści'], ['#radio', 'Radio'], ['#lumina', 'LUMINA'], ['/wizytówki', `Katalog (${total})`]];
   return `<a class="skip" href="#tresc">Przejdź do treści</a>
+<div id="progress" aria-hidden="true"></div>
 <div class="tick" role="region" aria-label="Pasek informacyjny">
   <span class="tick__badge"><i aria-hidden="true"></i>Wizytówki CC</span>
   <div class="tick__track"><div class="tick__run" id="tickRun"></div></div>
@@ -232,7 +233,7 @@ ${topbar('katalog')}
     <div class="wrap hero__grid">
       <div>
         <ul class="chips" aria-label="Oznaczenia"><li class="chip"><span class="dot" aria-hidden="true"></span>${total} wizytówek</li><li class="chip">Nowość: artyści i zespoły</li></ul>
-        <h1 id="h1"><span class="l"><span>Wizytówki</span></span><span class="l"><span>Christian Culture</span></span></h1>
+        <h1 id="h1"><span class="l"><span>Wizytówki</span></span><span class="l"><span class="script-line">Christian Culture</span></span></h1>
         <p class="lead">Ludzie, muzyka, książki i kanały, które niosą Ewangelię — w Polsce i na świecie. Znajdź artystę, kącik, służbę albo kanał 24/7.</p>
         <label class="search"><span class="vh">Szukaj wizytówki</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
@@ -242,13 +243,16 @@ ${topbar('katalog')}
       </div>
 ${ring(cards.filter((k) => k.cats[0] !== 'kanaly' || k.id === 'ss-tv'))}
     </div>
+    <span class="scroll-cue" aria-hidden="true"></span>
   </section>
 
-  <div class="stats" role="list">
-    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="${total}">${total}</span></strong><small>wizytówek w katalogu</small></div>
-    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="${artists.length}">${artists.length}</span></strong><small>artystów i zespołów</small></div>
-    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="${anyCount('kanaly')}">${anyCount('kanaly')}</span></strong><small>kanałów i społeczności</small></div>
-    <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="0">0</span><span> zł</span></strong><small>koszt wizytówki</small></div>
+  <div class="wrap stats-wrap">
+    <div class="stats" role="list" aria-label="Katalog w liczbach">
+      <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="${total}">${total}</span></strong><p>wizytówek w katalogu</p></div>
+      <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="${artists.length}">${artists.length}</span></strong><p>artystów i zespołów</p></div>
+      <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="${anyCount('kanaly')}">${anyCount('kanaly')}</span></strong><p>kanałów i społeczności</p></div>
+      <div role="listitem" class="stat reveal"><strong><span class="reel" data-reel="0">0</span><span class="suf"> zł</span></strong><p>koszt wizytówki</p></div>
+    </div>
   </div>
 
   <section class="section spot" aria-labelledby="h-art">
@@ -301,7 +305,7 @@ ${topbar('nabor')}
     <div class="wrap hero__grid">
       <div>
         <ul class="chips" aria-label="Oznaczenia"><li class="chip"><span class="dot" aria-hidden="true"></span>Bezpłatna promocja</li><li class="chip">${total} aktywnych wizytówek</li></ul>
-        <h1 id="h1"><span class="l"><span>Twoja misja</span></span><span class="l"><span>ma znaczenie.</span></span></h1>
+        <h1 id="h1"><span class="l"><span>Twoja misja</span></span><span class="l"><span>ma <em class="script">znaczenie.</em></span></span></h1>
         <p class="lead">Masz coś wartościowego do przekazania światu? Tworzysz muzykę, piszesz, nagrywasz, prowadzisz służbę albo firmę z wartościami? Przygotujemy dla Ciebie bezpłatną wizytówkę w ekosystemie Christian Culture.</p>
         <div class="cta">
           <a class="btn btn--wa" href="${esc(DATA.whatsapp)}" target="_blank" rel="noopener" data-track="hero-whatsapp">${WA}Dołącz do grupy WhatsApp</a>
@@ -311,15 +315,16 @@ ${topbar('nabor')}
       </div>
 ${ring(cards)}
     </div>
+    <span class="scroll-cue" aria-hidden="true"></span>
   </section>
 
-  <section class="section" aria-labelledby="h-ben" style="padding-bottom:40px">
+  <section class="section section--stats" aria-labelledby="h-ben">
     <div class="wrap">
-      <div class="benefits reveal">
-        <div class="benefit"><strong><span class="reel" data-reel="0">0</span> zł</strong><span>Całkowicie bezpłatne przygotowanie i utrzymanie wizytówki.</span></div>
-        <div class="benefit"><strong><span class="reel" data-reel="${total}">${total}</span></strong><span>Aktywnych wizytówek artystów, twórców, kanałów, książek i służb.</span></div>
-        <div class="benefit"><strong>/TwojaMisja</strong><span>Własny krótki adres i złoty kod QR gotowy do druku.</span></div>
-        <div class="benefit"><strong>24/7</strong><span>Obecność w katalogu, wyszukiwarce, LUMINA i audycjach radia CC.</span></div>
+      <div class="benefits reveal" aria-label="Wizytówki Christian Culture w liczbach">
+        <div class="benefit"><strong><span class="reel" data-reel="0">0</span><span class="suf"> zł</span></strong><p>Całkowicie bezpłatne przygotowanie i utrzymanie wizytówki.</p></div>
+        <div class="benefit"><strong><span class="reel" data-reel="${total}">${total}</span></strong><p>Aktywnych wizytówek artystów, twórców, kanałów, książek i służb.</p></div>
+        <div class="benefit"><strong class="is-slug"><span class="suf">/</span>TwojaMisja</strong><p>Własny krótki adres i złoty kod QR gotowy do druku.</p></div>
+        <div class="benefit"><strong><span class="reel" data-reel="24">24</span><span class="suf">/7</span></strong><p>Obecność w katalogu, wyszukiwarce, LUMINA i audycjach radia CC.</p></div>
       </div>
       <h2 class="vh" id="h-ben">Co otrzymujesz</h2>
     </div>
@@ -413,11 +418,11 @@ ${STATIONS.map((s, i) => `          <button class="station" type="button" aria-p
   <section class="section" id="milion" aria-labelledby="h-mil" style="padding-top:20px">
     <div class="wrap">
       <div class="reveal"><p class="eyebrow">Razem możemy więcej</p><h2 class="h2" id="h-mil">Misja <em>w liczbach</em></h2></div>
-      <div class="benefits reveal">
-        <div class="benefit"><strong data-count>—</strong><span>osób w liczniku „Celujemy w Pierwszy Milion”, stan na żywo · <a href="/milion" data-track="milion" style="color:var(--cc2)">Pierwszy Milion</a></span></div>
-        <div class="benefit"><strong>24/7</strong><span>radio, telewizja i wsparcie bez przerwy i bez opłat</span></div>
-        <div class="benefit"><strong>0 zł</strong><span>za przygotowanie i publikację Twojej wizytówki</span></div>
-        <div class="benefit"><strong>${total}</strong><span>wizytówek w katalogu — <a href="/wizytówki" style="color:var(--cc2)">zobacz wszystkie</a></span></div>
+      <div class="benefits reveal" aria-label="Misja w liczbach">
+        <div class="benefit"><strong data-count>—</strong><p>osób w liczniku „Celujemy w Pierwszy Milion”, stan na żywo · <a href="/milion" data-track="milion">Pierwszy Milion</a></p></div>
+        <div class="benefit"><strong><span class="reel" data-reel="24">24</span><span class="suf">/7</span></strong><p>radio, telewizja i wsparcie bez przerwy i bez opłat</p></div>
+        <div class="benefit"><strong><span class="reel" data-reel="0">0</span><span class="suf"> zł</span></strong><p>za przygotowanie i publikację Twojej wizytówki</p></div>
+        <div class="benefit"><strong><span class="reel" data-reel="${total}">${total}</span></strong><p>wizytówek w katalogu — <a href="/wizytówki">zobacz wszystkie</a></p></div>
       </div>
     </div>
   </section>

@@ -104,3 +104,17 @@ test('wydanie, trasy, kadrowanie zdjęć i ogonki liter (L0 18.11)', () => {
   assert.match(css, /\.hero h1 \.l>span\{padding-bottom:\.2em;margin-bottom:-\.2em/, 'zapas na ogonki liter (gradient)');
   assert.match(css, /\.ring__logo\{position:absolute;z-index:5;left:50%;top:0/, 'logo nad karuzelą');
 });
+
+test('standard wizualny /ccwomen/ i brak regresji kart liczb (0 zł, 26, /TwojaMisja, 24/7)', () => {
+  const css = read('wizytowki/wz.css');
+  const js = read('wizytowki/wz.js');
+  assert.doesNotMatch(css, /\.benefit\s+span\s*\{/, 'reguła .benefit span nie może nadpisywać rozmiaru/koloru bębenków cyfr');
+  assert.match(js, /class="reel__track"/, 'bębenek cyfr renderuje ścieżki .reel__track');
+  assert.match(js, /<i>/, 'bębenek cyfr używa <i> zamiast <span> w rzędach cyfr');
+  for (const html of [katalog, nabor]) {
+    assert.match(html, /family=Unbounded:.*Dancing\+Script/, 'typografia Unbounded + Dancing Script jak w /ccwomen/');
+    assert.match(html, /id="progress"/, 'pasek postępu przewijania na górze');
+  }
+  assert.match(nabor, /<span class="reel" data-reel="0">0<\/span><span class="suf"> zł<\/span><\/strong><p>/, 'karta 0 zł używa <p> i .suf');
+  assert.match(nabor, /<span class="reel" data-reel="24">24<\/span><span class="suf">\/7<\/span><\/strong><p>/, 'karta 24/7 używa .reel + .suf i <p>');
+});
