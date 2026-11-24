@@ -689,11 +689,21 @@
       "portal_docelowy": "EkoCC — historia / Biblia (URL do potwierdzenia)",
       "priorytet": "A",
       "start_przygotowania": "2026-11-21",
-      "status": "Planowany / do opracowania",
+      "status": "Opracowany / Czeka na autoryzację L0",
       "zrodlo_pomyslu": "Poprzedni kalendarz",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "źródła historyczne, data, odróżnienie tradycji od faktu",
-      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk."
+      "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk.",
+      "bramka_bezpieczenstwa": "T4 (DO AUTORYZACJI CZŁOWIEKA - L0)",
+      "autor": "Cezary Rogowski",
+      "slug": "swiety-mikolaj-kontra-reklama-skad-wziela-sie-tradycja-prezentow",
+      "pakiet_zip": "C:\\Users\\czark\\Desktop\\EkoCC_historia_swiety-mikolaj-kontra-reklama-skad-wziela-sie-tradycja-prezentow_2026-12-05.zip",
+      "pakiet_docx": "C:\\Users\\czark\\Desktop\\EkoCC_historia_swiety-mikolaj-kontra-reklama-skad-wziela-sie-tradycja-prezentow_2026-12-05.docx",
+      "pakiet_google_drive": "H:\\Mój dysk\\OA - orkiestracja Agentowa\\produkowane przez Agentów\\EkoCC_historia_swiety-mikolaj-kontra-reklama-skad-wziela-sie-tradycja-prezentow_2026-12-05.zip",
+      "grafika_16_9": "images/historia/art-swiety-mikolaj-kontra-reklama-tradycja-prezentow.jpg",
+      "data_opracowania": "2026-11-24T14:10:00+01:00",
+      "url_kanoniczny_szkic": "https://polskieradio.cc/historia/swiety-mikolaj-kontra-reklama-skad-wziela-sie-tradycja-prezentow",
+      "uwagi_redakcyjne": "Pakiet przygotowany dla działu HISTORIA / Priorytet A (lp. 32, Mikołajki, 2026-12-05; opracowano 2026-11-24). Zweryfikowane źródła: Encyclopaedia Britannica (Saint Nicholas, Santa Claus), St. Nicholas Center (Praxis de Stratelatis V–VI w. BHG 1349z/1350, Vita per Michaelem VIII–IX w., translacja do Bari 1087 — relacje Nicefora i archidiakona Jana), Jakub de Voragine (Legenda Aurea ok. 1260), Washington Irving (1809), John Pintard (1810), Clement Clarke Moore (1823), Thomas Nast (Harper's Weekly 1862–1881), The Coca-Cola Company / Haddon Sundblom (1931–1964), Lou Prentiss i White Rock Beverages (1915–1923) oraz egzegeza UBG (Mt 6:1–4 [G1654, G2927]; Dz 20:35 [G3107, G1325]; 2 Kor 9:7, 15 [G2431, G1395, G1431]; Ef 2:8–10 [G1435]; 1 Tm 2:5; 6:6–10, 17–18; Prz 11:24–25; Jk 1:17, 27)."
     },
     {
       "lp": 33,
