@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-25",
+      "topic": "Wyszukiwarka CC (/wyszukiwarka + Windows 2.4.1): sekcja NOWOŚCI z rotacją po 4 całego katalogu publicznych stron ekosystemu oraz oczyszczenie górnego menu aplikacji Windows ze skrótów klawiszowych",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-25",
       "topic": "Wydanie Wyszukiwarki Christian Culture na Windows 2.4.0 — panel i dymek Aplikacje CC pod ⊞, spis wszystkich publicznych stron ekosystemu (| Wszystko) oraz statystyki GA4 instalacji i ruchu (kraj/miasto)",
       "agent": "A"
     },

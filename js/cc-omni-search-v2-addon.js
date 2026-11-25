@@ -400,6 +400,130 @@
     });
   }
 
+
+  let ecoPublicCatalog = [];
+  let nowosciTimer = null;
+
+  function isPublicEcoUrl(rawUrl, name) {
+    if (!rawUrl) return false;
+    try {
+      const u = new URL(rawUrl, 'https://polskieradio.cc');
+      if (u.protocol !== 'https:') return false;
+      const hay = (u.hostname + u.pathname + ' ' + (name || '')).toLowerCase();
+      if (/mission[\s_-]?control|\/test(\/|$)|localhost|127\.0\.0\.1|\/admin(\/|$)|\/private(\/|$)/.test(hay)) return false;
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function buildEcoPublicCatalog(mapData) {
+    const branches = new Map(
+      (Array.isArray(mapData && mapData.branches) ? mapData.branches : [])
+        .map((b) => [String(b.id || ''), String(b.name || b.label || b.id || '')])
+    );
+    const seen = new Set();
+    const list = [];
+    for (const n of (Array.isArray(mapData && mapData.nodes) ? mapData.nodes : [])) {
+      const url = String(n.url || '').trim();
+      const title = String(n.name || n.title || '').trim();
+      if (!title || !isPublicEcoUrl(url, title)) continue;
+      const key = url.replace(/\/+$/, '').toLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      list.push({
+        url,
+        title,
+        desc: String(n.shortDesc || n.description || 'Publiczna strona ekosystemu Christian Culture.').trim(),
+        tag: (branches.get(String(n.branchId || '')) || String(n.category || 'EKOSYSTEM CC')).toUpperCase(),
+        icon: String(n.icon || '✨')
+      });
+    }
+    return list;
+  }
+
+  function enhanceNowosciRotator() {
+    const sec = document.querySelector('.cc-omni-featured-section');
+    if (!sec || sec.dataset.ccNowosciBound === '1') return;
+    if (!ecoPublicCatalog.length) return;
+    sec.dataset.ccNowosciBound = '1';
+    sec.setAttribute('aria-label', 'Nowości — publiczny katalog stron ekosystemu Christian Culture');
+
+    const label = sec.querySelector('.cc-omni-featured-label');
+    if (label) label.textContent = '☆ NOWOŚCI';
+
+    const head = sec.querySelector('.cc-omni-featured-head');
+    let nextBtn = sec.querySelector('.cc-nowosci-next');
+    if (head && !nextBtn) {
+      nextBtn = el('button', {
+        type: 'button',
+        className: 'cc-nowosci-next',
+        title: 'Pokaż kolejne 4 publiczne strony ekosystemu',
+        'aria-label': 'Pokaż kolejne 4 publiczne strony ekosystemu'
+      });
+      head.appendChild(nextBtn);
+    }
+
+    const grid = sec.querySelector('.cc-omni-featured-grid');
+    if (!grid) return;
+
+    const total = ecoPublicCatalog.length;
+    const pageSize = 4;
+    let offset = 0;
+    try {
+      const prev = parseInt(sessionStorage.getItem('cc_nowosci_offset') || '0', 10);
+      if (!Number.isNaN(prev) && prev >= 0) offset = prev % total;
+    } catch (_) {}
+
+    let paused = false;
+
+    const renderPage = () => {
+      grid.textContent = '';
+      for (let i = 0; i < Math.min(pageSize, total); i++) {
+        const item = ecoPublicCatalog[(offset + i) % total];
+        const a = el('a', { className: 'cc-omni-feat-card', href: item.url, 'data-slot-index': String(i) });
+        const ico = el('span', { className: 'cc-omni-feat-icon', 'aria-hidden': 'true' }, item.icon);
+        const info = el('span', { className: 'cc-omni-feat-info' });
+        info.appendChild(el('span', { className: 'cc-omni-feat-tag' }, item.tag));
+        info.appendChild(el('strong', { className: 'cc-omni-feat-title' }, item.title));
+        info.appendChild(el('span', { className: 'cc-omni-feat-desc' }, item.desc));
+        const arrow = el('span', { className: 'cc-omni-feat-arrow', 'aria-hidden': 'true' }, '→');
+        a.append(ico, info, arrow);
+        grid.appendChild(a);
+      }
+      const startNum = offset + 1;
+      const endNum = Math.min(offset + pageSize, total);
+      if (nextBtn) nextBtn.textContent = startNum + '–' + endNum + ' / ' + total + ' ↻';
+      try { sessionStorage.setItem('cc_nowosci_offset', String(offset)); } catch (_) {}
+    };
+
+    const advance = () => {
+      offset = (offset + pageSize) % total;
+      renderPage();
+    };
+
+    if (nextBtn) nextBtn.addEventListener('click', advance);
+    sec.addEventListener('mouseenter', () => { paused = true; });
+    sec.addEventListener('mouseleave', () => { paused = false; });
+    sec.addEventListener('focusin', () => { paused = true; });
+    sec.addEventListener('focusout', () => { paused = false; });
+
+    renderPage();
+
+    if (nowosciTimer) clearInterval(nowosciTimer);
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced && total > pageSize) {
+      nowosciTimer = setInterval(() => {
+        if (!document.body.contains(sec)) {
+          clearInterval(nowosciTimer);
+          nowosciTimer = null;
+          return;
+        }
+        if (!paused && !document.hidden) advance();
+      }, 8000);
+    }
+  }
+
   async function boot() {
     try {
       const [res, webRes] = await Promise.all([
@@ -424,6 +548,10 @@
       }
     }, 100);
   }
+
+  const nowosciObs = new MutationObserver(() => { if (ecoPublicCatalog.length) enhanceNowosciRotator(); });
+  if (document.body) nowosciObs.observe(document.body, { childList: true, subtree: true });
+  else document.addEventListener('DOMContentLoaded', () => nowosciObs.observe(document.body, { childList: true, subtree: true }), { once: true });
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();

@@ -1,11 +1,11 @@
 {
-    "version":  "2.4.0",
-    "notes":  "Nowy panel i dymek Aplikacje CC pod ikona ⊞, spis wszystkich publicznych stron ekosystemu (| Wszystko) oraz statystyki GA4 instalacji i ruchu (kraj/miasto).",
-    "pub_date":  "2026-11-25T18:45:20Z",
+    "version":  "2.4.1",
+    "notes":  "Usunieto skroty klawiszowe z gornego paska menu aplikacji Windows dla czystszego wygladu.",
+    "pub_date":  "2026-11-25T19:04:14Z",
     "platforms":  {
                       "windows-x86_64":  {
-                                             "signature":  "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNHdjV1c3VjV3NFp0dXhMdFpSUFpERmJVTm0weVE3QnMrSXc4OXVIQTl0NXBib24vTWhtaTBjdUU5ZFQ0azcvS3V6YjkrN0ZYbjIwbm5FRXBWVXpWMW15M0ZIeGFtd3dJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk1NjMyMzE4CWZpbGU6V3lzenVraXdhcmthIENocmlzdGlhbiBDdWx0dXJlXzIuNC4wX3g2NC1zZXR1cC5leGUJdmVyc2lvbjoyLjQuMAowU0FTZXhjcTZsSzBXYSsrQkYzVHZlRlR1VXUwWjlkZkR6Q01rUDVZR2RPTWJNc3FnNmRHdlZkc2tYcnJINHduWWxZSzFzcVdGemcyNzljcGxKd1JDQT09Cg==",
-                                             "url":  "https://polskieradio.cc/aplikacje/wyszukiwarka-windows/Wyszukiwarka-CC-Setup-2.4.0.exe"
+                                             "signature":  "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNHdjV1c3VjV3NGZOSm5jZHVSTDJDSnlNUFZXcERmV3pTcUJ0T2o0VmJ0U1l0bERoWW9XTzdETStFeTdSc1F0ZWVCVUw4OHByY1hOTllvM0RiYTVCNzQ0NWlZc0NtQ3dVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk1NjMzNDUyCWZpbGU6V3lzenVraXdhcmthIENocmlzdGlhbiBDdWx0dXJlXzIuNC4xX3g2NC1zZXR1cC5leGUJdmVyc2lvbjoyLjQuMQpmbVZRUGxBbkI2NjZXZE5ScGFMYm9QQjIxaXp0Wit4TkZQOGNoajR5Y01TNmswOXB1MFVnSEplRWRwR2ZBZGJVTDlFNGJsZXlQa2JZOHozeXFzd0ZCUT09Cg==",
+                                             "url":  "https://polskieradio.cc/aplikacje/wyszukiwarka-windows/Wyszukiwarka-CC-Setup-2.4.1.exe"
                                          }
                   }
 }
