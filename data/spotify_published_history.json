@@ -4,7 +4,7 @@
   "showName": "Biblia Audio Christian Culture",
   "creatorsUrl": "https://creators.spotify.com/home/show/6M2mU6VzRCPCOjWihgO8Aw",
   "publicUrl": "https://open.spotify.com/show/6M2mU6VzRCPCOjWihgO8Aw",
-  "auditedAt": "2026-11-25T05:43:14.276Z",
+  "auditedAt": "2026-11-25T07:13:57.518Z",
   "liveSpotifyTotalCount": 77,
   "latestOnSpotify": {
     "id": "4WVur9iL9Slld8foA4lujp",
@@ -19,8 +19,8 @@
     "ewangeliaJana": 14,
     "ksiegaRodzaju": 0
   },
-  "v7InventoryTotal": 39,
-  "v7PublishedCount": 38,
+  "v7InventoryTotal": 40,
+  "v7PublishedCount": 39,
   "v7BacklogCount": 1,
   "v7Published": [
     {
@@ -334,21 +334,29 @@
       "spotifyTitle": "Księga Rodzaju 38:1–30 (UBG) — Kolejny rozdział Księgi Rodzaju | Biblia Audio CC | polskieradio.cc",
       "publishedAt": "2026-11-25T05:43:54.957Z",
       "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
+    },
+    {
+      "code": "GEN-039",
+      "chapter": 39,
+      "mp3File": "Ksiega_Rodzaju_39_1-23_Biblia_Audio_CC.mp3",
+      "spotifyTitle": "Księga Rodzaju 39:1–23 (UBG) — Józef w Domu Potifara, Próba Wierności i Łaska PANA w Więzieniu | Biblia Audio CC | polskieradio.cc",
+      "publishedAt": "2026-11-25T07:14:38.191Z",
+      "url": "https://creators.spotify.com/pod/show/6M2mU6VzRCPCOjWihgO8Aw/episodes"
     }
   ],
   "v7Backlog": [
     {
-      "code": "GEN-038",
-      "chapter": 38,
-      "verseLabel": "38:1–30",
-      "theme": "Kolejny rozdział Księgi Rodzaju",
-      "mp3File": "Ksiega_Rodzaju_38_1-30_Biblia_Audio_CC.mp3",
-      "mp3SizeMb": 14,
-      "producedAt": "2026-11-25T05:42:14.487Z",
+      "code": "GEN-039",
+      "chapter": 39,
+      "verseLabel": "39:1–23",
+      "theme": "Józef w Domu Potifara, Próba Wierności i Łaska PANA w Więzieniu",
+      "mp3File": "Ksiega_Rodzaju_39_1-23_Biblia_Audio_CC.mp3",
+      "mp3SizeMb": 10.34,
+      "producedAt": "2026-11-25T07:11:38.682Z",
       "webStatus": "published",
       "has4kVideo": false,
       "hasShortsVideo": false,
-      "spotifyTitle": "Księga Rodzaju 38:1–30 (UBG) — Kolejny rozdział Księgi Rodzaju | Biblia Audio CC | polskieradio.cc"
+      "spotifyTitle": "Księga Rodzaju 39:1–23 (UBG) — Józef w Domu Potifara, Próba Wierności i Łaska PANA w Więzieniu | Biblia Audio CC | polskieradio.cc"
     }
   ],
   "liveEpisodes": [

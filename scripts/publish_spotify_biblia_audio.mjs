@@ -212,7 +212,9 @@ export function buildV7EpisodesInventory() {
     '34_1-31': 'Hańba Diny i Zemsta Synów Jakuba',
     '35_1-29': 'Powrót do Betel, Nowe Imię Izrael i Pożegnanie Racheli oraz Izaaka',
     '36_1-43': 'Ród Ezawa, Książęta Seiru i Królowie Edomu',
-    '37_1-36': 'Sny Józefa, Zdrada Braci i Sprzedaż do Egiptu'
+    '37_1-36': 'Sny Józefa, Zdrada Braci i Sprzedaż do Egiptu',
+    '38_1-30': 'Juda i Tamar, Prawda, Skrucha oraz Narodziny Peresa i Zeracha',
+    '39_1-23': 'Józef w Domu Potifara, Próba Wierności i Łaska PANA w Więzieniu'
   };
 
   const items = [];
