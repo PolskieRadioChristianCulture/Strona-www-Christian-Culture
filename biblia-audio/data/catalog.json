@@ -586,10 +586,16 @@
     "book": "genesis",
     "chapter": 39,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_39_1-23_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 39,1–23 (UBG) — Józef w domu Potifara, Próba Wierności i Łaska PANA w Więzieniu",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_39_1-23_Biblia_Audio_CC.mp3",
+        "verses": "1–23"
+      }
+    ]
   },
   {
     "id": "genesis-40",
