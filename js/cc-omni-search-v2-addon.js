@@ -444,7 +444,10 @@
 
   function enhanceNowosciRotator() {
     const sec = document.querySelector('.cc-omni-featured-section');
-    if (!sec || sec.dataset.ccNowosciBound === '1') return;
+    if (!sec) return;
+    const lblEarly = sec.querySelector('.cc-omni-featured-label');
+    if (lblEarly && lblEarly.textContent.trim() !== '☆ NOWOŚCI') lblEarly.textContent = '☆ NOWOŚCI';
+    if (sec.dataset.ccNowosciBound === '1') return;
     if (!ecoPublicCatalog.length) return;
     sec.dataset.ccNowosciBound = '1';
     sec.setAttribute('aria-label', 'Nowości — publiczny katalog stron ekosystemu Christian Culture');
@@ -525,28 +528,34 @@
   }
 
   async function boot() {
+    // Natychmiast podmień etykietę i podepnij elementy, nie czekając na sieć
+    let tries = 0;
+    const timer = setInterval(() => {
+      tries++;
+      enhanceAppsIcon();
+      enhanceTypingSuggestions();
+      enhanceNowosciRotator();
+      if ((document.getElementById('ccOmniInput') && document.getElementById('ccOmniApps') && document.querySelector('.cc-omni-featured-section[data-cc-nowosci-bound="1"]')) || tries > 100) {
+        clearInterval(timer);
+      }
+    }, 100);
+
     try {
-      const [res, webRes] = await Promise.all([
+      const [res, webRes, mapRes] = await Promise.all([
         fetch('/data/cc-search-media-index.json?v=20261125'),
-        fetch('/data/cc-search-index.json?v=20261125').catch(() => null)
+        fetch('/data/cc-search-index.json?v=20261125').catch(() => null),
+        fetch('/data/ecosystem-map.json', { cache: 'no-cache' }).catch(() => null)
       ]);
       if (res && res.ok) mediaIndex = await res.json();
       if (webRes && webRes.ok) {
         const w = await webRes.json();
         webCatalog = Array.isArray(w) ? w : (w.items || []);
       }
-    } catch (_) {}
-
-    // Poczekaj aż oryginalny cc-omni-search wyrenderuje #ccOmniInput i #ccOmniApps
-    let tries = 0;
-    const timer = setInterval(() => {
-      tries++;
-      enhanceAppsIcon();
-      enhanceTypingSuggestions();
-      if ((document.getElementById('ccOmniInput') && document.getElementById('ccOmniApps')) || tries > 60) {
-        clearInterval(timer);
+      if (mapRes && mapRes.ok) {
+        ecoPublicCatalog = buildEcoPublicCatalog(await mapRes.json());
+        enhanceNowosciRotator();
       }
-    }, 100);
+    } catch (_) {}
   }
 
   const nowosciObs = new MutationObserver(() => { if (ecoPublicCatalog.length) enhanceNowosciRotator(); });
