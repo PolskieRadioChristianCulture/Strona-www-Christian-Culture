@@ -77,6 +77,11 @@
             --mist: var(--cc-mist, #8A8578);
         }
 
+        html, body {
+            max-width: 100%;
+            overflow-x: clip;
+        }
+
         body {
             background-color: #0A0A0F;
             color: #EDE6D6;
@@ -230,20 +235,20 @@
     <!-- ═══════════════════════════════════════════════════════════════
          1. GÓRNY PASEK NAWIGACYJNY (TOP BAR)
          ═══════════════════════════════════════════════════════════════ -->
-    <header class="h-16 flex-shrink-0 border-b border-[rgba(212,169,74,0.18)] bg-[#0A0A0F]/95 backdrop-blur-md px-4 md:px-6 flex items-center justify-between z-30">
+    <header class="h-16 w-full max-w-full flex-shrink-0 border-b border-[rgba(212,169,74,0.18)] bg-[#0A0A0F]/95 backdrop-blur-md px-3 sm:px-4 md:px-6 flex items-center justify-between gap-2 md:gap-3 z-30">
         <!-- Logo -->
-        <div class="flex items-center gap-3">
-            <a href="/" class="flex items-center gap-2.5 group transition-transform duration-200 hover:scale-[1.02]">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E8C97A] via-[#D4A94A] to-[#B88D34] p-[1px] shadow-lg shadow-[rgba(212,169,74,0.25)]">
+        <div class="flex items-center gap-2 min-w-0 flex-shrink">
+            <a href="/" class="flex items-center gap-2 min-w-0 group transition-transform duration-200 hover:scale-[1.02]">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 rounded-xl bg-gradient-to-br from-[#E8C97A] via-[#D4A94A] to-[#B88D34] p-[1px] shadow-lg shadow-[rgba(212,169,74,0.25)]">
                     <div class="w-full h-full bg-[#0A0A0F] rounded-[11px] flex items-center justify-center">
-                        <span class="font-cinzel font-black text-lg gold-gradient-text tracking-tighter">CC</span>
+                        <span class="font-cinzel font-black text-base sm:text-lg gold-gradient-text tracking-tighter">CC</span>
                     </div>
                 </div>
-                <div class="flex flex-col">
-                    <span class="font-cinzel font-black text-base md:text-lg tracking-tight text-white flex items-center gap-1">
+                <div class="flex flex-col min-w-0">
+                    <span class="font-cinzel font-black text-sm sm:text-base md:text-lg tracking-tight text-white flex items-center gap-1 truncate">
                         PolskieRadio<span class="text-[#D4A94A] font-sans">.cc</span>
                     </span>
-                    <span class="text-[9px] uppercase tracking-widest text-[#8A8578] font-semibold leading-none">
+                    <span class="text-[8px] sm:text-[9px] uppercase tracking-wider sm:tracking-widest text-[#8A8578] font-semibold leading-none truncate">
                         Biblijna Platforma Medialna
                     </span>
                 </div>
@@ -292,8 +297,8 @@
         </nav>
 
         <!-- Right User Actions -->
-        <div class="flex items-center gap-2.5">
-            <a href="/wspieramto" data-cc-wspieramto="true" class="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white text-xs font-bold transition shadow-md shadow-[#FF7A00]/25 min-h-[44px] whitespace-nowrap" title="Wesprzyj misję Christian Culture (BLIK / Karta / Patronite)">
+        <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+            <a href="/wspieramto" data-cc-wspieramto="true" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-full bg-[#FF7A00] hover:bg-[#FF8C33] active:bg-[#E66A00] text-white text-xs font-bold transition shadow-md shadow-[#FF7A00]/25 min-h-[44px] min-w-[44px] whitespace-nowrap" title="Wesprzyj misję Christian Culture (BLIK / Karta / Patronite)">
                 <i class="fa-solid fa-heart text-[11px]" aria-hidden="true"></i>
                 <span class="hidden sm:inline">WspieramTO</span>
                 <span class="sm:hidden">Wesprzyj</span>
@@ -505,7 +510,7 @@
         <!-- ─────────────────────────────────────────────────────────────
              CENTRUM: GŁÓWNY PANEL TREŚCI (HERO + KANAŁY + PLAYLISTY YT)
              ───────────────────────────────────────────────────────────── -->
-        <main class="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-9" id="main-scroll-container">
+        <main class="flex-1 min-w-0 overflow-y-auto overflow-x-clip px-4 md:px-8 py-6 space-y-9" id="main-scroll-container">
 
             <!-- 1. HERO FEATURED PLAYER CARD (GŁÓWNY BANER Z ODTWARZACZEM) -->
             <section id="top-hero" class="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl bg-[#090d18] min-h-[220px] md:min-h-[260px] flex flex-col justify-end p-6 md:p-8">
@@ -520,9 +525,10 @@
                 <div class="relative z-10 max-w-xl">
                     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-amber-400/40 text-[11px] font-bold text-amber-300 shadow-md">
-                        <span id="hero-badge-channel">RADIO BIBLIA</span>
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span id="hero-badge-status" class="text-emerald-400">LIVE</span>
+                            <span id="hero-badge-channel">RADIO BIBLIA</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span id="hero-badge-status" class="text-emerald-400">LIVE</span>
+                        </div>
                     </div>
 
                     <h1 id="hero-title" class="text-2xl md:text-4xl font-extrabold text-white tracking-tight leading-tight mb-2">
