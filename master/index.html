@@ -316,6 +316,7 @@
         /* 3. TICKER TRACK WRAPPER */
         .ccn-ticker-track-wrap {
             flex: 1;
+            min-width: 0;
             height: 100%;
             overflow: hidden;
             position: relative;
@@ -589,8 +590,13 @@
 
         .cc-master-controls-capsule .master-sound-btn.is-active {
             background: #FF7A00 !important;
-            color: #1a0d00 !important;
+            color: #FFFFFF !important;
             box-shadow: 0 0 10px rgba(255, 122, 0, 0.6);
+        }
+
+        .cc-master-controls-capsule .cc-lang-pill-btn[aria-pressed="true"] {
+            background: #FF7A00 !important;
+            color: #FFFFFF !important;
         }
         @media (max-width: 900px) {
             :root { --ticker-height: 44px; }
@@ -784,8 +790,9 @@
             .dekalog-brand-title { font-size: 0.72rem; }
         }
 
-        /* ── ZRZUTKA.PL STREAMING WIDGET OVERLAY (TRYB TESTOWY DLA KANAŁU MASTER) ── */
+        /* ── ZRZUTKA.PL STREAMING WIDGET OVERLAY (TRYB AUTOMATYCZNY DLA KANAŁU MASTER) ── */
         .mcr-zrzutka-toggle-btn {
+            display: none !important;
             position: fixed;
             top: calc(var(--dekalog-height) + 12px);
             right: 20px;
@@ -800,7 +807,7 @@
             font-weight: 800;
             letter-spacing: 0.8px;
             cursor: pointer;
-            display: flex;
+            display: none !important;
             align-items: center;
             gap: 8px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
@@ -831,66 +838,124 @@
             height: 100%;
             z-index: 100002;
             pointer-events: none;
-            display: none;
+            opacity: 0;
+            visibility: hidden;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.42) 100%);
+            backdrop-filter: blur(2px);
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
         .master-zrzutka-overlay.visible {
-            display: block;
+            opacity: 1;
+            visibility: visible;
         }
 
-        /* 1. Ranking po lewej */
+        /* 1. Ranking po lewej (ściśle dopasowana wysokość bez pustego dołu, powiększony dla TV i tel.) */
         .zrzutka-frame-leaderboard {
             position: absolute;
-            top: calc(var(--dekalog-height) + 24px);
-            left: 28px;
-            width: 380px;
-            height: 540px;
-            border: none;
-            background: transparent;
+            top: calc(var(--dekalog-height) + 14px);
+            left: 18px;
+            width: 300px;
+            height: 238px;
+            border: 1.5px solid rgba(255, 122, 0, 0.55);
+            background: rgba(12, 14, 24, 0.78);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             pointer-events: auto;
-            border-radius: 16px;
-            box-shadow: 0 12px 32px rgba(0,0,0,0.65);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 16px 38px rgba(0,0,0,0.8);
+            transform: scale(1.32);
+            transform-origin: top left;
         }
 
-        /* 2. Kod QR po prawej u góry */
+        /* 2. Kod QR po prawej u góry (duży, wyraźny do skanowania z TV i telefonu) */
         .zrzutka-frame-qr {
             position: absolute;
-            top: calc(var(--dekalog-height) + 64px);
-            right: 28px;
-            width: 220px;
-            height: 270px;
-            border: none;
-            background: transparent;
+            top: calc(var(--dekalog-height) + 14px);
+            right: 18px;
+            width: 185px;
+            height: 210px;
+            border: 2.5px solid #FF7A00;
+            background: #ffffff;
             pointer-events: auto;
-            border-radius: 16px;
-            box-shadow: 0 12px 32px rgba(0,0,0,0.65);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 18px 44px rgba(0,0,0,0.85);
+            transform: scale(1.40);
+            transform-origin: top right;
         }
 
         /* 3. Pasek postępu na dole nad tickerem */
         .zrzutka-frame-progress {
             position: absolute;
-            bottom: calc(var(--ticker-height) + 12px);
+            bottom: calc(var(--ticker-height) + 10px);
             left: 50%;
-            transform: translateX(-50%);
-            width: 1100px;
-            max-width: 90vw;
-            height: 80px;
+            width: 600px;
+            max-width: 74vw;
+            height: 64px;
             border: none;
             background: transparent;
             pointer-events: auto;
+            overflow: hidden;
+            filter: drop-shadow(0 6px 18px rgba(0,0,0,0.9));
+            transform: translateX(-50%) scale(1.26);
+            transform-origin: bottom center;
         }
 
-        /* 4. Ostatnie wpłaty (feed) */
+        /* 4. Ostatnie wpłaty (feed) w prawym dolnym rogu */
         .zrzutka-frame-feed {
             position: absolute;
-            bottom: calc(var(--ticker-height) + 96px);
-            right: 28px;
-            width: 360px;
-            height: 260px;
+            bottom: calc(var(--ticker-height) + 100px);
+            right: 18px;
+            width: 310px;
+            height: 150px;
             border: none;
             background: transparent;
             pointer-events: auto;
-            border-radius: 16px;
+            border-radius: 14px;
+            overflow: hidden;
+            transform: scale(1.22);
+            transform-origin: bottom right;
+        }
+
+        /* TV Full HD / OBS 1920x1080 — czytelny ranking i skanowalny kod QR z kanapy */
+        @media (min-width: 1600px) {
+            .zrzutka-frame-leaderboard {
+                top: calc(var(--dekalog-height) + 18px);
+                left: 24px;
+                transform: scale(1.78);
+            }
+            .zrzutka-frame-qr {
+                top: calc(var(--dekalog-height) + 18px);
+                right: 24px;
+                transform: scale(1.88);
+            }
+            .zrzutka-frame-progress {
+                bottom: calc(var(--ticker-height) + 14px);
+                width: 640px;
+                max-width: none;
+                transform: translateX(-50%) scale(1.68);
+            }
+            .zrzutka-frame-feed {
+                bottom: calc(var(--ticker-height) + 136px);
+                right: 24px;
+                transform: scale(1.65);
+            }
+        }
+
+        /* Mniejszy desktop / tablet poziomo */
+        @media (max-width: 1199px) and (min-width: 901px) {
+            .zrzutka-frame-leaderboard { transform: scale(1.10); }
+            .zrzutka-frame-qr { transform: scale(1.16); }
+            .zrzutka-frame-progress {
+                width: 540px;
+                transform: translateX(-50%) scale(1.08);
+            }
+            .zrzutka-frame-feed {
+                bottom: calc(var(--ticker-height) + 86px);
+                transform: scale(1.04);
+            }
         }
     </style>
 </head>
@@ -1052,31 +1117,28 @@
         </div>
     </div>
 
-    <!-- TRANSPARENT AUDIO ACTIVATION OVERLAY (ANY CLICK ON STREAM TURNS ON SOUND) -->
-    <div id="masterAudioActivationOverlay" onclick="unmuteSubframe();" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; cursor: pointer; background: transparent;"></div>
-
-    <!-- MASTER UNMUTE BANNER -->
-    <div id="masterUnmuteBanner" onclick="unmuteSubframe();" style="position: fixed; top: calc(var(--dekalog-height) + 12px); left: 50%; transform: translateX(-50%); z-index: 100005; background: rgba(12, 12, 16, 0.94); border: 2px solid #FF7A00; color: #fff; padding: 10px 28px; border-radius: 50px; font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; cursor: pointer; box-shadow: 0 8px 32px rgba(0,0,0,0.95), 0 0 25px rgba(255,122,0,0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; align-items: center; gap: 12px; transition: opacity 0.5s ease;">
-        <i class="fa-solid fa-volume-high" style="color: #FF7A00; font-size: 1.4rem;"></i>
-        <span>KLIKNIJ, ABY WŁĄCZYĆ DŹWIĘK TRANSMISJI NA ŻYWO</span>
+    <!-- MASTER UNMUTE BANNER (NON-OCCLUDING TOP PILL, MIN 44PX) -->
+    <div id="masterUnmuteBanner" role="button" tabindex="0" onclick="unmuteSubframe();" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();unmuteSubframe();}" style="position: fixed; top: calc(var(--dekalog-height) + 10px); left: 50%; transform: translateX(-50%); z-index: 100005; background: rgba(12, 12, 16, 0.94); border: 2px solid #FF7A00; color: #fff; padding: 8px 22px; min-height: 44px; max-width: calc(100vw - 16px); box-sizing: border-box; white-space: nowrap; border-radius: 50px; font-weight: 800; font-size: 0.88rem; letter-spacing: 0.8px; cursor: pointer; box-shadow: 0 8px 32px rgba(0,0,0,0.95), 0 0 25px rgba(255,122,0,0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; gap: 10px; transition: opacity 0.5s ease;">
+        <i class="fa-solid fa-volume-high" style="color: #FF7A00; font-size: 1.2rem; flex-shrink: 0;"></i>
+        <span style="overflow: hidden; text-overflow: ellipsis;">KLIKNIJ, ABY WŁĄCZYĆ DŹWIĘK TRANSMISJI NA ŻYWO</span>
     </div>
 
-    <!-- PRZYCISK TESTOWY ZRZUTKA LIVE (MCR TEST BUTTON) -->
-    <button id="btnZrzutkaToggle" class="mcr-zrzutka-toggle-btn" onclick="toggleZrzutkaOverlay();" aria-label="Włącz lub wyłącz podgląd widgetów Zrzutka.pl">
+    <!-- PRZYCISK ROTACJI ZRZUTKA LIVE (MCR CYKLICZNY) -->
+    <button id="btnZrzutkaToggle" class="mcr-zrzutka-toggle-btn" onclick="toggleZrzutkaOverlay();" aria-label="Włącz lub wyłącz widżety Zrzutka.pl">
         <i class="fa-solid fa-hand-holding-heart"></i>
-        <span>Zrzutka Live (Test)</span>
+        <span>Zrzutka Live (Rotacja)</span>
     </button>
 
     <!-- ── ZRZUTKA.PL TEST STREAMING OVERLAY (KANAŁ MASTER LIVE) ── -->
     <div id="masterZrzutkaOverlay" class="master-zrzutka-overlay">
         <!-- 1. Ranking wpłacających (Leaderboard) -->
-        <iframe class="zrzutka-frame-leaderboard" src="https://zrzutka.pl/rs4g4v/widget/leaderboard" title="Ranking wpłacających Zrzutka.pl" allowtransparency="true"></iframe>
+        <iframe class="zrzutka-frame-leaderboard" src="https://zrzutka.pl/rs4g4v/widget/leaderboard" title="Ranking wpłacających Zrzutka.pl" allowtransparency="true" scrolling="no"></iframe>
         <!-- 2. Kod QR 'WESPRZYJ!' (BLIK) -->
-        <iframe class="zrzutka-frame-qr" src="https://zrzutka.pl/rs4g4v/widget/qr-code" title="Kod QR do wpłat Zrzutka.pl" allowtransparency="true"></iframe>
+        <iframe class="zrzutka-frame-qr" src="https://zrzutka.pl/rs4g4v/widget/qr-code" title="Kod QR do wpłat Zrzutka.pl" allowtransparency="true" scrolling="no"></iframe>
         <!-- 3. Pasek postępu (Progress Bar) -->
-        <iframe class="zrzutka-frame-progress" src="https://zrzutka.pl/rs4g4v/widget/progress" title="Pasek celu zbiórki Zrzutka.pl" allowtransparency="true"></iframe>
+        <iframe class="zrzutka-frame-progress" src="https://zrzutka.pl/rs4g4v/widget/progress" title="Pasek celu zbiórki Zrzutka.pl" allowtransparency="true" scrolling="no"></iframe>
         <!-- 4. Ostatnie wpłaty (Feed) -->
-        <iframe class="zrzutka-frame-feed" src="https://zrzutka.pl/rs4g4v/widget/feed" title="Ostatnie wpłaty Zrzutka.pl" allowtransparency="true"></iframe>
+        <iframe class="zrzutka-frame-feed" src="https://zrzutka.pl/rs4g4v/widget/feed" title="Ostatnie wpłaty Zrzutka.pl" allowtransparency="true" scrolling="no"></iframe>
     </div>
 
     <!-- ── NEW CCN NEWS MASTER BROADCAST TICKER (OBS LOWER THIRD) ── -->
@@ -1216,7 +1278,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const isEmbedMode = urlParams.has('embed') || urlParams.get('embed') === '1' || urlParams.has('noticker') || urlParams.get('ticker') === '0' || urlParams.get('muted') === '1' || (window.self !== window.top);
         const shouldHideTicker = isEmbedMode || urlParams.has('noticker') || urlParams.get('ticker') === '0';
-        let isMutedDefault = urlParams.get('muted') !== '0';
+        let isMutedDefault = urlParams.get('muted') === '1' ? true : (urlParams.get('muted') === '0' || urlParams.get('unmute') === '1' || !!window.obsstudio ? false : true);
 
         if (!isMutedDefault) {
             const unmuteBanner = document.getElementById('masterUnmuteBanner');
@@ -1231,16 +1293,53 @@
             else window.addEventListener('DOMContentLoaded', () => document.body.classList.add('no-ticker', 'embedded-mode'));
         }
 
-        // ── OBSŁUGA ZRZUTKA.PL STREAMING WIDGET (TRYB TESTOWY KANAŁU MASTER) ──
-        function toggleZrzutkaOverlay() {
+        // ── OBSŁUGA ZRZUTKA.PL STREAMING WIDGET (TRYB CYKLICZNY KANAŁU MASTER) ──
+        let zrzutkaCycleTimer = null;
+        let isZrzutkaOverlayActive = false;
+
+        function showZrzutkaOverlay(show) {
             const overlay = document.getElementById('masterZrzutkaOverlay');
             const btn = document.getElementById('btnZrzutkaToggle');
             if (!overlay) return;
-            const isVis = overlay.classList.toggle('visible');
-            if (btn) btn.classList.toggle('active', isVis);
+            isZrzutkaOverlayActive = (typeof show === 'boolean') ? show : !isZrzutkaOverlayActive;
+            overlay.classList.toggle('visible', isZrzutkaOverlayActive);
+            if (btn) btn.classList.toggle('active', isZrzutkaOverlayActive);
         }
-        if (urlParams.get('zrzutka') === '1' || urlParams.get('zrzutka') === 'test') {
-            toggleZrzutkaOverlay();
+
+        function toggleZrzutkaOverlay() {
+            showZrzutkaOverlay(!isZrzutkaOverlayActive);
+        }
+
+        // Cykl naprzemienny: Rozważanie (120s = 2 minuty) ↔ Widżety Zrzutki (45s)
+        const REFLECTION_DURATION_MS = 120000; // 2 minuty rozważanie
+        const ZRZUTKA_DURATION_MS = 45000;    // 45 sekund widżety Zrzutki
+
+        function runZrzutkaAlternatingCycle() {
+            function stepReflection() {
+                showZrzutkaOverlay(false);
+                if (zrzutkaCycleTimer) clearTimeout(zrzutkaCycleTimer);
+                zrzutkaCycleTimer = setTimeout(stepZrzutka, REFLECTION_DURATION_MS);
+            }
+            
+            function stepZrzutka() {
+                showZrzutkaOverlay(true);
+                if (zrzutkaCycleTimer) clearTimeout(zrzutkaCycleTimer);
+                zrzutkaCycleTimer = setTimeout(stepReflection, ZRZUTKA_DURATION_MS);
+            }
+
+            if (urlParams.get('zrzutka') === '1' || urlParams.get('zrzutka') === 'test') {
+                showZrzutkaOverlay(true);
+                zrzutkaCycleTimer = setTimeout(stepReflection, ZRZUTKA_DURATION_MS);
+            } else {
+                showZrzutkaOverlay(false);
+                zrzutkaCycleTimer = setTimeout(stepZrzutka, REFLECTION_DURATION_MS);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', runZrzutkaAlternatingCycle);
+        } else {
+            runZrzutkaAlternatingCycle();
         }
 
         const programMeta = {
@@ -1926,7 +2025,7 @@
                 const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
                 if (doc) {
                     doc.querySelectorAll('audio, video').forEach(m => {
-                        if (m.id === 'ccWorshipFallbackAudio' && m.paused) return;
+                        if (m.id === 'ccWorshipFallbackAudio') return;
                         m.muted = false;
                         m.volume = 1.0;
                         if (m.id !== 'ccWorshipFallbackAudio') {
@@ -2511,7 +2610,7 @@
     .ccn-master-ticker { border-top-color: #FF7A00 !important; box-shadow: 0 -8px 25px rgba(0,0,0,.95), 0 0 20px rgba(255,122,0,.35) !important; }
     .ccn-live-badge { background: linear-gradient(180deg, #FF8C33 0%, #E66A00 100%) !important; color: #1a0d00 !important; }
     .cc-lang-toggle { border-color: rgba(255,122,0,.55) !important; }
-    .cc-lang-pill-btn[style*="#d4af37"], .cc-lang-pill-btn[style*="#D4AF37"] { background: #FF7A00 !important; color: #1a0d00 !important; }
+    .cc-lang-pill-btn[aria-pressed="true"], .cc-lang-pill-btn[style*="#d4af37"], .cc-lang-pill-btn[style*="#D4AF37"] { background: #FF7A00 !important; color: #FFFFFF !important; }
     .ccn-ticker-item .gold-text { color: #FF8C33 !important; }
     .ccn-badge-now { background: #FF7A00 !important; color: #1a0d00 !important; border-color: #FF8C33 !important; }
     .ccn-badge:not(.ccn-badge-now):not(.ccn-badge-next) { background: #14161d !important; color: #FF8C33 !important; border: 1px solid rgba(255,122,0,.5) !important; }
@@ -2545,18 +2644,55 @@
 
     /* TELEFON PIONOWO: paski proporcjonalne, obraz 16:9 na pełną szerokość, pod nim autopromocja */
     @media (orientation: portrait) and (max-width: 900px) {
-        :root { --dekalog-height: 44px; --ticker-height: 44px; --ml-video-h: calc(100vw * 9 / 16); }
+        :root { --dekalog-height: 44px; --ticker-height: 48px; --ml-video-h: calc(100vw * 9 / 16); }
         .dekalog-brand-badge { padding: 0 8px; }
         .dekalog-brand-title { font-size: .6rem; letter-spacing: .6px; }
         .dekalog-content { font-size: .88rem; }
-        .ccn-ticker-brand img { max-width: 92px; }
-        .ccn-live-badge { padding: 0 8px; font-size: .68rem; }
+        .ccn-ticker-brand img { max-width: 64px; }
+        .ccn-live-badge { padding: 0 7px; font-size: .64rem; gap: 5px; }
         .ccn-ticker-content { font-size: .85rem; }
         .ccn-clock-box { display: none; }
         .channel-frame { top: var(--dekalog-height) !important; height: var(--ml-video-h) !important; }
         #mlPromo { display: flex; top: calc(var(--dekalog-height) + var(--ml-video-h)); bottom: var(--ticker-height); }
-        #masterUnmuteBanner { top: calc(var(--dekalog-height) + var(--ml-video-h) - 64px) !important; padding: 10px 18px !important; font-size: .8rem !important; }
+        #masterUnmuteBanner { top: calc(var(--dekalog-height) + 6px) !important; padding: 6px 14px !important; font-size: clamp(0.64rem, 2.7vw, 0.85rem) !important; letter-spacing: 0.25px !important; gap: 8px !important; min-height: 44px !important; max-width: calc(100vw - 16px) !important; white-space: nowrap !important; }
         #mlL3 { display: none; }
+        .master-zrzutka-overlay {
+            top: calc(var(--dekalog-height) + var(--ml-video-h));
+            bottom: var(--ticker-height);
+            left: 0;
+            right: 0;
+            width: auto;
+            height: auto;
+            background: rgba(5, 7, 12, 0.94);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px 14px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .master-zrzutka-overlay.visible {
+            pointer-events: auto;
+        }
+        .zrzutka-frame-leaderboard,
+        .zrzutka-frame-qr,
+        .zrzutka-frame-progress,
+        .zrzutka-frame-feed {
+            position: static;
+            top: auto;
+            right: auto;
+            bottom: auto;
+            left: auto;
+            transform: none;
+            flex-shrink: 0;
+        }
+        .zrzutka-frame-progress { order: 1; width: 100%; max-width: 100%; height: 68px; }
+        .zrzutka-frame-leaderboard { order: 2; width: 100%; max-width: 366px; height: 238px; }
+        .zrzutka-frame-qr { order: 3; width: 210px; height: 238px; }
+        .zrzutka-frame-feed { order: 4; width: 100%; max-width: 366px; height: 150px; }
     }
     /* TELEFON POZIOMO: pełny obraz, górny pasek ukryty, cienki pasek CCN pod obrazem */
     @media (orientation: landscape) and (max-height: 500px) {
@@ -2569,6 +2705,16 @@
         .ccn-clock-box { display: none; }
         #masterUnmuteBanner { top: 12px !important; padding: 8px 16px !important; font-size: .78rem !important; }
         #mlL3 { display: none; }
+        .zrzutka-frame-leaderboard { top: 8px; left: 10px; transform: scale(0.92); }
+        .zrzutka-frame-qr { top: 8px; right: 10px; transform: scale(0.96); }
+        .zrzutka-frame-progress {
+            bottom: calc(var(--ticker-height) + 6px);
+            width: 520px;
+            max-width: 90vw;
+            height: 58px;
+            transform: translateX(-50%) scale(0.95);
+        }
+        .zrzutka-frame-feed { display: none; }
     }
     html.no-ticker #mlPromo, html.embedded-mode #mlPromo, body.no-ticker #mlPromo, body.embedded-mode #mlPromo,
     html.no-ticker #mlL3, html.embedded-mode #mlL3, body.no-ticker #mlL3, body.embedded-mode #mlL3 { display: none !important; }
