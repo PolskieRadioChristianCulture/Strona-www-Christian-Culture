@@ -181,7 +181,10 @@ test('cc-omni-search.js: Command Center World-Class UI contracts (recents, tags,
   assert.ok(omniSearchCode.includes('Lekcja Dnia: Z Biblią za Pan Brat'), 'pillar 2: Akademia / Z Biblią za Pan Brat exists');
   assert.ok(omniSearchCode.includes('APOKALIPSA — Księga Nadziei'), 'pillar 3: Podcast Apokalipsa exists');
   assert.ok(omniSearchCode.includes('Radio Christian Culture & Player'), 'pillar 4: Radio CC & Player exists');
-  assert.ok(omniSearchCode.includes('#Apokalipsa') && omniSearchCode.includes('#KursCodzienny'), 'popular topic tags exist');
+  // L0 25.11.2026: chipy z hashtagami usunięte („nic nie wnoszą”) — nie mogą wrócić.
+  assert.ok(!omniSearchCode.includes("label: '#Apokalipsa'") && !omniSearchCode.includes('cc-omni-tag-chip" data-search-query'), 'popular hashtag chips are removed (L0)');
+  // Regresja 30.10–25.11: wołano niezdefiniowane normalizeText() → brak podpowiedzi przy pisaniu.
+  assert.match(omniSearchCode, /function normalizeText\s*\(/, 'normalizeText is defined (live suggestions)');
   assert.ok(omniSearchCode.includes('startPlaceholderRotation'), 'rotating placeholder logic exists');
   assert.ok(omniSearchCode.includes("Szukaj: 'Apokalipsa 14'"), 'placeholder Apokalipsa 14 exists');
   assert.ok(omniSearchCode.includes("Szukaj: 'Jak pokonać lęk'"), 'placeholder Jak pokonać lęk exists');
