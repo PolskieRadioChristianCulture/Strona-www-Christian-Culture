@@ -163,6 +163,9 @@
   }
 
   // 3. Normalizacja polskich znaków i tekstu
+  // normalizeText = normalizeStr (@007 25.11.2026): od 30.10 kod wołał niezdefiniowane normalizeText()
+  // → ReferenceError przy każdej literze → podpowiedzi na żywo przestały działać.
+  function normalizeText(str) { return normalizeStr(str); }
   function normalizeStr(str) {
     if (!str) return '';
     return str
@@ -10783,25 +10786,8 @@ ${isStandalonePage ? '' : `
         </div>
       </div>` : '';
 
-    // 2. Popularne tematy / szybkie tagi
-    const tags = [
-      { label: '#Apokalipsa', query: 'Apokalipsa' },
-      { label: '#KursCodzienny', query: 'Kurs Codzienny' },
-      { label: '#WersetDnia', query: 'Werset Dnia' },
-      { label: '#DobrzeŻeJesteś', query: 'Dobrze, że jesteś' },
-      { label: '#Radio24/7', query: 'Radio CC' },
-      { label: '#Lumina', query: 'LUMINA' },
-      { label: '#Wizytówki', query: 'Wizytówki' },
-      { label: '#Modlitwa', query: 'Modlitwa' },
-      { label: '#Pomoc', query: 'Pomoc' }
-    ];
-    const tagsHtml = `
-      <div class="cc-omni-tags-bar" role="navigation" aria-label="Popularne tematy">
-        <span class="cc-omni-tags-label">${svgIcon('sparkle', 14)} Popularne tematy:</span>
-        <div class="cc-omni-tags-list">
-          ${tags.map(t => `<button type="button" class="cc-omni-tag-chip" data-search-query="${escapeHtml(t.query)}">${escapeHtml(t.label)}</button>`).join('')}
-        </div>
-      </div>`;
+    // 2. Chipy „Popularne tematy” z hashtagami usunięte na życzenie L0 (25.11.2026): „nic nie wnoszą”.
+    const tagsHtml = '';
 
     // 3. 4 Kluczowe Okna Ekosystemu („POLECANE NA DZIŚ” — Kaskadowa Auto-Promocja Premium)
     const smartContext = getSmartContextInfo();
