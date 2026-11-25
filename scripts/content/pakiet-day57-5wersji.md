@@ -1,0 +1,66 @@
+# PAKIET 5 WERSJI ROZWAŻAŃ — DZIEŃ 57 (2026-11-26)
+## KSIĘGA WYJŚCIA Wj 27:1–21 — OŁTARZ CAŁOPALENIA, DZIEDZINIEC PRZYBYTKU I OLIWA DO ŚWIECZNIKA
+
+---
+### WERSJA 1: PORANNA TTS (Aplikacja / Radio)
+☀️ Z Biblią za Pan Brat — Dzień Pięćdziesiąty Siódmy
+
+**Czy wiesz, że w samym środku pustynnej nocy przed obliczem Boga musiało płonąć nieustanne światło z czystej, wytłoczonej oliwy, a droga do tego światła zaczynała się zawsze przy miedzianym ołtarzu łaski?**
+
+Zatrzymaj się w ten czwartkowy poranek, dwudziestego szóstego listopada dwa tysiące dwudziestego szóstego roku. Pomyśl przez chwilę o progu, przez który wchodzisz w każdy nowy dzień: kiedy przychodzisz do Boga ze swoimi zmaganiami, winą albo zmęczeniem, co spotykasz jako pierwsze? Zamknięte drzwi i mur wymagań, czy szeroką bramę i miejsce przebaczenia? Zapytaj dziś cicho swojego Niebieskiego Ojca: Panie, czy pozwalam, aby ogień Twojej łaski oczyszczał moje serce, i czy lampa Ducha Świętego płonie we mnie jasno od wieczora aż do poranka?
+
+W dwudziestym siódmym rozdziale Księgi Wyjścia Bóg opisuje dziedziniec Przybytku — jedyną część świątyni, na którą wchodził każdy zwykły człowiek z ludu. Kiedy przekraczałeś szeroką, barwną bramę wschodnią, pierwszą rzeczą przed Twoimi oczami był potężny, kwadratowy ołtarz całopalenia z drewna akacjowego pokrytego miedzią, z czterema rogami na narożnikach i miedzianą kratą sięgającą połowy wysokości. Wokół rozciągały się wysokie, śnieżnobiałe zasłony ze skręconego bisioru, zawieszone na słupach ze srebrnymi haczykami i miedzianymi podstawkami — jasny znak, że lud Boży otacza czystość i porządek, ale brama łaski pozostaje szeroko otwarta. Na końcu rozdziału Bóg wydaje uroczysty nakaz dla całego ludu: niech przyniosą czystą, wytłoczoną oliwę do oświetlenia, aby lampy przed Arką Świadectwa zawsze się paliły — od wieczora aż do poranka, jako wieczna ustawa!
+
+Psychologia duchowego życia podpowiada prostą prawdę: nikt nie utrzymuje wewnętrznego światła siłą samego wysiłku — lampa świeci tylko wtedy, gdy regularnie dolewa się do niej czystej oliwy. A najczystsza oliwa w starożytności powstawała wtedy, gdy oliwki były tłoczone, bez domieszek i pośpiechu.
+
+A w świetle Ewangelii każdy obraz tego rozdziału prowadzi nas wprost pod krzyż Jezusa Chrystusa! Miedziany ołtarz całopalenia był zapowiedzią Golgoty, gdzie Baranek Boży poniósł cały ogień sądu za nasz grzech, abyśmy mogli wejść dalej w pokoju. Cztery rogi ołtarza wskazywały na cztery strony świata — zbawienie jest dla każdego człowieka na ziemi! Szeroka, jedyna brama dziedzińca z błękitu, purpury, karmazynu i białego bisioru to sam Jezus, który powiedział: Ja jestem drzwiami. A czysta, wytłoczona oliwa płonąca nieustannie w ciemności nocy to dar Ducha Świętego, wylany dzięki męce Jezusa w ogrodzie Getsemani — czyli w miejscu tłoczni oliwnej — aby Twoje serce nigdy nie zgasło w ciemności tego świata!
+
+Jezus mówi dziś do Ciebie:
+„Tak niech świeci wasze światło przed ludźmi, aby widzieli wasze dobre uczynki i chwalili waszego Ojca, który jest w niebie.” (Ewangelia według świętego Mateusza, rozdział piąty, werset szesnasty, UBG)
+
+Zadanie Taktyczne:
+Zatrzymaj się dziś świadomie przy „ołtarzu krzyża” — oddaj Bogu jedną konkretną troskę lub winę i przyjmij Jego pełne przebaczenie. A potem dolej czystej oliwy do lampy swojego serca: poświęć kwadrans na spokojną modlitwę i lekturę Pisma Świętego, aby światło Chrystusa płonęło w Tobie przez cały czwartek.
+
+W Christian Culture aplikacje i portale są dla Ciebie zawsze bezpłatne.
+Błogosławionego czwartku w świetle Bożej łaski!
+
+---
+### WERSJA 2: CAŁODZIENNA WWW (WhatsApp / Facebook / LUMINA)
+☀️ Z Biblią za Pan Brat — Dzień 57 (26.11.2026, Czwartek)
+📖 Czytanie dnia: Księga Wyjścia 27:1–21 (UBG) — Ołtarz Całopalenia, Dziedziniec Przybytku i Oliwa do Świecznika
+
+„Rozkażesz synom Izraela, aby przynieśli do ciebie czystą, wytłoczoną oliwę do oświetlenia, aby lampy zawsze się paliły.” (Wj 27:20, UBG)
+
+W 27. rozdziale Księgi Wyjścia wchodzimy na dziedziniec Przybytku:
+• Miedziany ołtarz całopalenia (5 × 5 × 3 łokcie) z czterema rogami na cztery strony świata — pierwsze miejsce po przekroczeniu bramy, zapowiedź krzyża Golgoty (Wj 27:1–8),
+• Dziedziniec (100 × 50 łokci) otoczony białym bisiorem sprawiedliwości, ze srebrnymi haczykami odkupienia i jedną szeroką bramą (20 łokci) od wschodu (Wj 27:9–19),
+• Czysta, wytłoczona oliwa z oliwek podtrzymująca nieustanny płomień lamp od wieczora aż do poranka (Wj 27:20–21) — obraz Ducha Świętego danego nam przez tłocznię Getsemani i krzyż Chrystusa!
+
+📖 Pełna lekcja z komentarzem (45 punktów), kodami Stronga i quizem (20 pytań):
+👉 https://polskieradio.cc/akademia/kurscodzienny/dzien-57
+
+📜 Przeczytaj cały rozdział Wj 27 w MojaBiblia (UBG + interlinia):
+👉 https://polskieradio.cc/mojabiblia?book=EXO&chapter=27
+
+📻 Radio 24/7 i Biblia Audio: https://polskieradio.cc
+💛 WspieramTO — Budujemy Dom + Studio CC: https://polskieradio.cc/wspieramto
+
+---
+### WERSJA 3: WIECZORNA SMS
+Z Biblia za Pan Brat - Dzien 57 (Wj 27:1-21): Miedziany oltarz laski, szeroka brama dziedzinca i czysta oliwa, aby lampy zawsze sie palily! Niech swiatlo Ducha nie gasnie dzis w Twoim sercu. Lekcja: polskieradio.cc/akademia/kurscodzienny/dzien-57
+
+---
+### WERSJA 4: SKRYPT TV / SHORTS
+[SCENARIUSZ TV / SHORTS 60s — DZIEŃ 57: OŁTARZ, BRAMA I WIECZNA OLIWA (Wj 27:1–21)]
+0–5s (HAK): Pierwszą rzeczą, którą widziałeś po wejściu do świątyni Boga, nie był złoty tron, lecz miedziany ołtarz!
+5–25s (TREŚĆ): W Księdze Wyjścia 27 Bóg stawia szeroki na 20 łokci wstęp do białego dziedzińca, a tuż za nim kwadratowy ołtarz całopalenia z czterema rogami zwróconymi na cztery strony świata. A na końcu rozdziału nakazuje przynosić czystą, wytłoczoną oliwę, aby lampy płonęły przez całą noc!
+25–45s (CHRYSTUS): Droga do Boga zawsze zaczyna się od krzyża Jezusa. A czysta, wytłoczona oliwa to Duch Święty — wyproszony w Getsemani, czyli „tłoczni oliwnej”, aby w najciemniejszą noc Twoje światło nie zgasło!
+45–60s (CTA): Otwórz lekcję Dnia 57 i sprawdź się w 20 pytaniach quizu na polskieradio.cc/akademia!
+
+---
+### WERSJA 5: ARTYKUŁ CCN NEWS
+# Ołtarz Całopalenia, Dziedziniec Przybytku i Czysta Oliwa do Świecznika (Wj 27:1–21)
+
+Dwudziesty siódmy rozdział Księgi Wyjścia otwiera przed nami zewnętrzny dziedziniec Przybytku — przestrzeń spotkania grzesznego człowieka ze świętym Bogiem. Zanim kapłan mógł wejść do Miejsca Świętego, droga prowadziła przez jedną szeroką bramę wschodnią (20 łokci) prosto przed miedziany ołtarz całopalenia o wymiarach 5 × 5 × 3 łokcie.
+
+Każdy element tej architektury głosi Ewangelię: kwadratowy ołtarz z czterema rogami wskazuje na powszechność ofiary krzyża dla wszystkich czterech stron świata, białe zasłony z bisioru ukazują czystość sprawiedliwości Chrystusa, a czysta, wytłoczona oliwa płonąca „od wieczora aż do poranka” (Wj 27:20–21) przypomina o nieustannym prowadzeniu Ducha Świętego pośród mroków tego świata.
