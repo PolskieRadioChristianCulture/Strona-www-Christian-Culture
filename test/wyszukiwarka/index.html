@@ -1,150 +1,425 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Podgląd testowy — Multimedialna Wyszukiwarka Christian Culture</title>
-  <meta name="description" content="Strona testowa multimedialnej Wyszukiwarki Christian Culture — brama i centrum całego ekosystemu: wideo, audio, grafiki, Słowo Boże i polecane zasoby.">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#070a12">
+  <title data-i18n="search_meta_title">Wyszukiwarka Christian Culture — Globalna Wyszukiwarka Chrześcijańska</title>
+  <meta name="description" content="Globalna Wyszukiwarka Chrześcijańska Christian Culture: Słowo Boże, Kurs Codzienny, rozważania Dobrze że jesteś, podcast Apokalipsa, Radio CC 24/7 i społeczność LUMINA w jednym miejscu." data-i18n-meta="search_meta_desc">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/search/search-icon-32.png?v=20261026">
-  <link rel="stylesheet" href="./search-v2.css?v=20261125_2">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/search/search-icon-192.png?v=20261026">
+  <link rel="apple-touch-icon" sizes="192x192" href="/images/search/search-icon-192.png?v=20261026">
+  <link rel="canonical" href="https://polskieradio.cc/wyszukiwarka">
+  <link rel="alternate" hreflang="pl" href="https://polskieradio.cc/wyszukiwarka">
+  <link rel="alternate" hreflang="en" href="https://polskieradio.cc/wyszukiwarka?lang=en">
+  <link rel="alternate" hreflang="de" href="https://polskieradio.cc/wyszukiwarka?lang=de">
+  <link rel="alternate" hreflang="x-default" href="https://polskieradio.cc/wyszukiwarka">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Wyszukiwarka Christian Culture — Globalna Wyszukiwarka Chrześcijańska">
+  <meta property="og:description" content="Globalna Wyszukiwarka Chrześcijańska: Słowo Boże, rozważania, radio, kanały, CCN i LUMINA.">
+  <meta property="og:url" content="https://polskieradio.cc/wyszukiwarka">
+  <meta property="og:image" content="https://polskieradio.cc/images/search/polska-radio-1600.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wyszukiwarka Christian Culture — Globalna Wyszukiwarka Chrześcijańska">
+  <meta name="twitter:description" content="Globalna Wyszukiwarka Chrześcijańska: Słowo Boże, rozważania, radio, kanały, CCN i LUMINA.">
+  <meta name="theme-color" content="#05070c">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="ai-agent" content="enabled, allow-citations, format=markdown, llms-doc=https://polskieradio.cc/llms.txt">
+  <!-- Schema.org — Wyszukiwarka Ekosystemu & SearchAction (AEO / GEO / SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://polskieradio.cc/wyszukiwarka#webpage",
+        "url": "https://polskieradio.cc/wyszukiwarka",
+        "name": "Wyszukiwarka Christian Culture — Globalna Wyszukiwarka Chrześcijańska",
+        "description": "Globalna Wyszukiwarka Chrześcijańska Christian Culture: Słowo Boże, Kurs Codzienny, rozważania Dobrze że jesteś, podcast Apokalipsa, Radio CC 24/7 i społeczność LUMINA w jednym miejscu.",
+        "inLanguage": "pl-PL",
+        "isPartOf": {
+          "@id": "https://polskieradio.cc/#website"
+        },
+        "about": {
+          "@id": "https://polskieradio.cc/#organization"
+        },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Start",
+              "item": "https://polskieradio.cc/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Wyszukiwarka",
+              "item": "https://polskieradio.cc/wyszukiwarka"
+            }
+          ]
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://polskieradio.cc/wyszukiwarka?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="/css/ekocc-i18n.css?v=20261029_1">
+  <link rel="stylesheet" href="/css/cc-mobile-edge.css?v=20261030_edge9">
+  <link rel="stylesheet" href="/css/cc-edge-cue.css?v=20261021_1">
+  <style>
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #05070c url('/images/search/polska-radio-1600.webp') center / cover no-repeat fixed;
+      color: #F3E5C8;
+      font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .ccw-fallback {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .ccw-lang-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+    .ccw-fallback h1 {
+      margin: 0;
+      font-size: clamp(2rem, 7vw, 3.2rem);
+      color: #C4A35A;
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    }
+    .ccw-fallback p {
+      margin: 0;
+      font-size: 1.05rem;
+      color: rgba(243, 229, 200, 0.8);
+      max-width: 580px;
+    }
+    .ccw-fallback form {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 620px;
+      margin-top: 8px;
+    }
+    .ccw-fallback input {
+      min-height: 48px;
+      flex: 1;
+      min-width: min(80vw, 320px);
+      padding: 0 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(196, 163, 90, 0.4);
+      background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(16px);
+      color: #fff;
+      font: inherit;
+      outline: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    }
+    .ccw-fallback input:focus {
+      border-color: #FF7A00;
+      box-shadow: 0 0 14px rgba(255, 122, 0, 0.4);
+    }
+    .ccw-fallback button {
+      min-height: 48px;
+      padding: 0 28px;
+      border: 0;
+      border-radius: 24px;
+      background: #FF7A00;
+      color: #fff;
+      font: 700 1rem inherit;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(255, 122, 0, 0.45);
+      transition: background 0.15s, transform 0.15s;
+    }
+    .ccw-fallback button:hover {
+      background: #FF8C33;
+      transform: translateY(-1px);
+    }
+    .ccw-fallback-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      max-width: 640px;
+      margin-top: 6px;
+    }
+    .ccw-fallback-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 19px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(196, 163, 90, 0.25);
+      color: #F3E5C8;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .ccw-fallback-chip:hover {
+      background: rgba(196, 163, 90, 0.22);
+      border-color: #C4A35A;
+      color: #fff;
+    }
+    @media (max-width: 640px) {
+      html, body {
+        background-image: url('/images/search/polska-radio-800.webp');
+      }
+    }
+  
+    /* ── MCP AI Assistant Connect Card (Etap 4 UX) ── */
+    .ccw-mcp-trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 22px;
+      background: rgba(196, 163, 90, 0.12);
+      border: 1px solid rgba(196, 163, 90, 0.45);
+      color: #F3E5C8;
+      font: 600 0.88rem inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+    .ccw-mcp-trigger-btn:hover {
+      background: rgba(196, 163, 90, 0.25);
+      border-color: #C4A35A;
+      transform: translateY(-1px);
+    }
+    .ccw-mcp-trigger-btn svg {
+      color: #C4A35A;
+    }
+
+    /* Dialog modal */
+    .ccw-mcp-dialog {
+      position: fixed;
+      inset: 0;
+      margin: auto;
+      width: min(92vw, 560px);
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 24px;
+      border: 1.5px solid #C4A35A;
+      border-radius: 20px;
+      background: #0b1120;
+      color: #f5eedf;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 30px rgba(196,163,90,0.2);
+      box-sizing: border-box;
+    }
+    .ccw-mcp-dialog::backdrop {
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(4px);
+    }
+    .ccw-mcp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .ccw-mcp-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: #C4A35A;
+    }
+    .ccw-mcp-close-btn {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid rgba(196, 163, 90, 0.3);
+      border-radius: 50%;
+      color: #f5eedf;
+      font-size: 1.2rem;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 0.15s;
+    }
+    .ccw-mcp-close-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #C4A35A;
+    }
+    .ccw-mcp-body p {
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: rgba(245, 238, 223, 0.85);
+      margin: 0 0 14px 0;
+      text-align: left;
+    }
+    .ccw-mcp-code-wrap {
+      background: #050811;
+      border: 1px solid rgba(196, 163, 90, 0.3);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+    .ccw-mcp-code-wrap code {
+      font-family: monospace;
+      font-size: 0.84rem;
+      color: #C4A35A;
+      word-break: break-all;
+    }
+    .ccw-mcp-copy-btn {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 12px;
+      background: #FF7A00;
+      color: #fff;
+      border: 0;
+      font: 700 0.95rem inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+      touch-action: manipulation;
+    }
+    .ccw-mcp-copy-btn:hover {
+      background: #FF8C33;
+    }
+    .ccw-mcp-toast {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #22c55e;
+      text-align: center;
+      min-height: 20px;
+    }
+
+  </style>
+  <!-- Google tag (gtag.js) — wyszukiwarka w GA4 (decyzja L0 28.10.2026) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4EFTVBPE3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
+  </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+  <link rel="stylesheet" href="./cc-omni-search-v2-addon.css?v=20261125_4">
+  <script defer src="./cc-omni-search-test.js?v=20261125_4"></script>
+  <script defer src="./cc-omni-search-v2-addon.js?v=20261125_4"></script>
 </head>
 <body>
-  <header class="cc-topbar">
-    <div class="cc-topbar-inner">
-      <div class="cc-top-left">
-        <div class="cc-apps-anchor">
-          <button
-            type="button"
-            id="ccAppsLauncherBtn"
-            class="cc-apps-btn"
-            aria-label="Aplikacje Christian Culture"
-            aria-haspopup="dialog"
-            aria-expanded="false"
-            aria-controls="ccAppsDrawer"
-            title="Aplikacje Christian Culture"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <circle cx="5" cy="5" r="2.2"></circle><circle cx="12" cy="5" r="2.2"></circle><circle cx="19" cy="5" r="2.2"></circle>
-              <circle cx="5" cy="12" r="2.2"></circle><circle cx="12" cy="12" r="2.2"></circle><circle cx="19" cy="12" r="2.2"></circle>
-              <circle cx="5" cy="19" r="2.2"></circle><circle cx="12" cy="19" r="2.2"></circle><circle cx="19" cy="19" r="2.2"></circle>
-            </svg>
-          </button>
+  <main class="ccw-fallback">
+    <!-- EkoCC i18n Core — Przełącznik języka (Etap 1: Pilotaż PL / EN / DE) -->
+    <div class="ccw-lang-bar" data-ekocc-lang-mount></div>
 
-          <div id="ccAppsTooltip" class="cc-apps-tooltip" role="status" aria-live="polite">
-            <button type="button" id="ccAppsTooltipAction" class="cc-apps-tooltip-text">Poznaj aplikacje Christian Culture</button>
-            <button type="button" id="ccAppsTooltipClose" class="cc-apps-tooltip-close" aria-label="Zamknij podpowiedź">×</button>
-          </div>
+    <h1 data-i18n="search_title">Christian Culture</h1>
+    <p data-i18n="search_subtitle">Globalna Wyszukiwarka Chrześcijańska — Słowo Boże, wiedza, radio i społeczność.</p>
+    <!-- Bez JavaScriptu: formularz do pełnej wyszukiwarki /szukaj -->
+    <form action="/szukaj" method="get" role="search">
+      <label for="ccw-q" style="position:absolute;left:-9999px" data-i18n="search_label">Szukaj w ekosystemie Christian Culture</label>
+      <input id="ccw-q" name="q" type="search" placeholder="Zapytaj Christian Culture…" data-i18n-placeholder="search_placeholder" data-i18n-aria-label="search_label">
+      <button type="submit" data-i18n="search_btn">Szukaj</button>
+    </form>
+    
+    <!-- MCP AI Assistant Trigger -->
+    <button type="button" class="ccw-mcp-trigger-btn" id="ccwMcpOpenBtn" aria-haspopup="dialog" aria-controls="ccwMcpDialog" data-i18n="mcp_btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>
+      <span>Połącz z AI (MCP)</span>
+    </button>
 
-          <section id="ccAppsDrawer" class="cc-apps-drawer" role="dialog" aria-label="Aplikacje Christian Culture">
-            <div class="cc-apps-drawer-head">
-              <strong>⊞ Aplikacje Christian Culture</strong>
-              <button type="button" id="ccAppsDrawerClose" class="cc-apps-drawer-close" aria-label="Zamknij panel aplikacji">×</button>
-            </div>
-            <div class="cc-apps-section-label">Zainstaluj od razu na swoim urządzeniu</div>
-            <div id="ccInstallableAppsList" class="cc-install-list"></div>
-            <div class="cc-apps-section-label">Wszystkie aplikacje i serwisy ekosystemu</div>
-            <div id="ccEcosystemAppsGrid" class="cc-apps-grid"></div>
-            <div class="cc-apps-drawer-foot">
-              <a class="cc-ghost-btn" href="/aplikacje">Wszystkie aplikacje CC →</a>
-            </div>
-          </section>
+    <!-- MCP Modal Dialog -->
+    <dialog id="ccwMcpDialog" class="ccw-mcp-dialog" aria-labelledby="ccwMcpTitle">
+      <div class="ccw-mcp-header">
+        <h2 id="ccwMcpTitle" data-i18n="mcp_title">Połącz ze swoim asystentem AI</h2>
+        <button type="button" class="ccw-mcp-close-btn" id="ccwMcpCloseBtn" aria-label="Zamknij" data-i18n-aria-label="mcp_close">✕</button>
+      </div>
+      <div class="ccw-mcp-body">
+        <p data-i18n="mcp_desc">Christian Culture udostępnia otwarty serwer wiedzy Remote MCP (Model Context Protocol). Możesz zadawać pytania o Pismo Święte (UBG), audycje i artykuły bezpośrednio w programach Claude Desktop, Cursor i ChatGPT — 100% bezpłatnie i bez śledzenia.</p>
+        <div style="text-align:left;font-size:0.85rem;font-weight:700;margin-bottom:6px;color:#C4A35A;" data-i18n="mcp_url_label">Adres Remote MCP (SSE):</div>
+        <div class="ccw-mcp-code-wrap">
+          <code>https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp/sse</code>
         </div>
-
-        <a class="cc-brand" href="/test/wyszukiwarka/">
-          <img src="/images/search/search-icon-192.png" alt="Wyszukiwarka Christian Culture">
-          <span class="cc-brand-title">Wyszukiwarka CC</span>
-          <span class="cc-test-badge">Podgląd v2</span>
-        </a>
+        <button type="button" class="ccw-mcp-copy-btn" id="ccwMcpCopyBtn" data-i18n="mcp_copy_config">Kopiuj konfigurację JSON</button>
+        <div id="ccwMcpToast" class="ccw-mcp-toast" role="status" aria-live="polite"></div>
       </div>
-      <div class="cc-top-actions">
-        <div class="cc-engine-switch" role="group" aria-label="Tryb wyszukiwania">
-          <button type="button" class="cc-engine-btn" data-engine="cc" aria-pressed="true">Ekosystem CC</button>
-          <button type="button" class="cc-engine-btn" data-engine="google" aria-pressed="false">Google</button>
-        </div>
-      </div>
-    </div>
-  </header>
+    </dialog>
 
-  <main class="cc-main">
-    <section class="cc-hero">
-      <div class="cc-hero-kicker">✦ Centrum i Brama Ekosystemu Christian Culture</div>
-      <h1>Odkryj wszystko, co oferuje Christian Culture</h1>
-      <p class="cc-hero-sub" id="ccStatsBanner">Wideo, Biblia Audio, Radio 24/7, grafiki, Kurs Codzienny, MojaBiblia i społeczność LUMINA — do obejrzenia i posłuchania na miejscu.</p>
-
-      <div class="cc-search-wrap">
-        <form class="cc-search-form" id="ccSearchForm" role="search">
-          <span class="cc-search-icon" aria-hidden="true">🔍</span>
-          <label class="cc-sr-only" for="ccSearchInput">Wpisz szukane słowo</label>
-          <input
-            type="text"
-            id="ccSearchInput"
-            class="cc-search-input"
-            placeholder="Szukaj: Apokalipsa, Biblia Audio, Tamar, Radio, J 3:16, LUMINA…"
-            autocomplete="off"
-            spellcheck="false"
-            aria-autocomplete="list"
-            aria-controls="ccSugList"
-            aria-expanded="false"
-          >
-          <button type="button" id="ccClearBtn" class="cc-clear-btn" aria-label="Wyczyść wyszukiwanie">×</button>
-          <button type="submit" class="cc-submit-btn">Szukaj</button>
-        </form>
-
-        <div class="cc-suggestions" id="ccSuggestions" aria-label="Podpowiedzi podczas pisania">
-          <div class="cc-sug-head">
-            <span id="ccSugCount">Podpowiedzi multimedialne</span>
-            <span>↑↓ wybierz • Enter otwórz • Esc zamknij</span>
-          </div>
-          <ul class="cc-sug-list" id="ccSugList" role="listbox"></ul>
-          <div class="cc-sug-promo" id="ccSugPromo"></div>
-        </div>
-      </div>
-
-      <div class="cc-filters" id="ccFilters" role="group" aria-label="Filtry multimedialne">
-        <button type="button" class="cc-filter-btn" data-filter="all" aria-pressed="true">Wszystko <span class="cc-filter-count"></span></button>
-        <button type="button" class="cc-filter-btn" data-filter="video" aria-pressed="false">🎬 Wideo <span class="cc-filter-count"></span></button>
-        <button type="button" class="cc-filter-btn" data-filter="audio" aria-pressed="false">🎧 Audio <span class="cc-filter-count"></span></button>
-        <button type="button" class="cc-filter-btn" data-filter="image" aria-pressed="false">🖼️ Grafiki <span class="cc-filter-count"></span></button>
-        <button type="button" class="cc-filter-btn" data-filter="bible" aria-pressed="false">📖 Biblia i Lekcje <span class="cc-filter-count"></span></button>
-        <button type="button" class="cc-filter-btn" data-filter="ecosystem" aria-pressed="false">🌐 Ekosystem <span class="cc-filter-count"></span></button>
-      </div>
-
-      <div class="cc-recents" id="ccRecents" aria-label="Ostatnie wyszukiwania"></div>
-    </section>
-
-    <div id="ccResultsArea" aria-live="polite"></div>
-    <section id="ccFeaturedStart"></section>
-    <section id="ccEcosystemGateway"></section>
+    <footer class="ccw-fallback-footer" style="margin-top:24px;font-size:0.82rem;color:rgba(243,229,200,0.65);text-align:center;">
+      <div data-i18n="powered_by">Powered by <a href="https://polskieradio.cc/yis" style="color:#C4A35A;text-decoration:none;font-weight:600;" target="_blank" rel="noopener noreferrer">Your Imagination Studio</a> dla Christian Culture</div>
+      <div style="margin-top:6px;font-size:0.75rem;opacity:0.85;"><a href="https://github.com/PolskieRadioChristianCulture/Strona-www-Christian-Culture/blob/main/docs/bible-intelligence/SOURCE_REGISTER.md" style="color:rgba(243,229,200,0.7);text-decoration:none;" target="_blank" rel="noopener noreferrer" data-i18n="source_register">📜 Rejestr Źródeł i Licencji (R01–R40) — Biblia Intelligence CC</a></div>
+    </footer>
   </main>
+  <script defer src="/js/ekocc-i18n-core.js?v=20261029_1"></script>
+  <script defer src="/js/cc-mobile-edge.js?v=20261030_edge10"></script>
+  <!-- Baner „Zainstaluj na Windows” (@007, L0 25.11.2026) — tylko Windows, nie w samej aplikacji -->
+  <script defer src="/js/cc-windows-app-banner.js?v=20261125_1"></script>
 
-  <aside class="cc-mini-player" id="ccMiniPlayer" aria-label="Wbudowany odtwarzacz audio">
-    <img id="ccMiniImg" src="/images/kultura/card-biblia.jpg" alt="Okładka audio">
-    <div class="cc-mini-info">
-      <div class="cc-mini-title" id="ccMiniTitle">Odtwarzacz Christian Culture</div>
-      <div class="cc-mini-sub" id="ccMiniSub">Gotowy do odsłuchu</div>
-    </div>
-    <audio id="ccMiniAudio" controls preload="none"></audio>
-    <a class="cc-ghost-btn" id="ccMiniLink" href="/player">Otwórz →</a>
-    <button type="button" class="cc-mini-close" id="ccMiniClose" aria-label="Zamknij odtwarzacz">×</button>
-  </aside>
+  <script>
+    (() => {
+      const openBtn = document.getElementById('ccwMcpOpenBtn');
+      const dialog = document.getElementById('ccwMcpDialog');
+      const closeBtn = document.getElementById('ccwMcpCloseBtn');
+      const copyBtn = document.getElementById('ccwMcpCopyBtn');
+      const toast = document.getElementById('ccwMcpToast');
 
-  <div class="cc-modal" id="ccModal" role="dialog" aria-modal="true" aria-labelledby="ccModalTitle">
-    <div class="cc-modal-box">
-      <div class="cc-modal-head">
-        <strong id="ccModalTitle">Podgląd</strong>
-        <button type="button" class="cc-modal-close" id="ccModalClose" aria-label="Zamknij podgląd">×</button>
-      </div>
-      <div class="cc-modal-body" id="ccModalBody"></div>
-      <div class="cc-modal-foot">
-        <span class="cc-section-meta">Christian Culture — podgląd w wyszukiwarce</span>
-        <a class="cc-cta-btn" id="ccModalLink" href="/" target="_blank" rel="noopener noreferrer">Otwórz materiał →</a>
-      </div>
-    </div>
-  </div>
+      if (openBtn && dialog) {
+        openBtn.addEventListener('click', () => {
+          if (typeof dialog.showModal === 'function') dialog.showModal();
+          else dialog.setAttribute('open', '');
+        });
+      }
+      if (closeBtn && dialog) {
+        closeBtn.addEventListener('click', () => {
+          if (typeof dialog.close === 'function') dialog.close();
+          else dialog.removeAttribute('open');
+        });
+      }
+      if (dialog) {
+        dialog.addEventListener('click', (e) => {
+          const rect = dialog.getBoundingClientRect();
+          if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+            dialog.close();
+          }
+        });
+      }
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+          const cfg = {
+            mcpServers: {
+              "christian-culture": {
+                "url": "https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp/sse"
+              }
+            }
+          };
+          try {
+            await navigator.clipboard.writeText(JSON.stringify(cfg, null, 2));
+            if (toast) {
+              const lang = document.documentElement.lang || 'pl';
+              toast.textContent = lang === 'en' ? 'Copied to clipboard!' : (lang === 'de' ? 'In Zwischenablage kopiert!' : 'Skopiowano do schowka!');
+              setTimeout(() => { if (toast) toast.textContent = ''; }, 3000);
+            }
+          } catch {
+            if (toast) toast.textContent = 'https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp/sse';
+          }
+        });
+      }
+    })();
+  </script>
 
-  <script src="./search-v2.js?v=20261125_2" defer></script>
-  <script src="/js/cc-windows-app-banner.js?v=20261125" defer></script>
 </body>
 </html>

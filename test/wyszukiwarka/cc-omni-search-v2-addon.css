@@ -1,0 +1,330 @@
+/* Scoped addon styles — ZERO changes to original /wyszukiwarka look! */
+
+/* 1. Dymek 1x dziennie przy oryginalnej ikonie #ccOmniApps */
+.cc-omni-apps-wrap {
+  position: relative;
+}
+.cc-v2-apps-tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1000050;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px 8px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #FF7A00 0%, #E66A00 100%);
+  color: #fff;
+  box-shadow: 0 12px 32px rgba(255, 122, 0, 0.42), 0 4px 16px rgba(0, 0, 0, 0.55);
+  white-space: nowrap;
+  max-width: min(300px, calc(100vw - 24px));
+  font-family: inherit;
+}
+.cc-v2-apps-tooltip.is-visible { display: inline-flex; }
+.cc-v2-apps-tooltip::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 16px;
+  width: 12px;
+  height: 12px;
+  background: #FF7A00;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+.cc-v2-apps-tooltip-btn {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 2px 0;
+  cursor: pointer;
+  text-align: left;
+  white-space: normal;
+}
+.cc-v2-apps-tooltip-close {
+  min-width: 28px;
+  min-height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.24);
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* 2. Sekcja „Zainstaluj aplikacje” wewnątrz oryginalnego #ccOmniAppsMenu */
+.cc-v2-install-box {
+  margin: 0 0 12px;
+  padding: 10px;
+  border-radius: 14px;
+  background: rgba(255, 122, 0, 0.1);
+  border: 1px solid rgba(196, 163, 90, 0.35);
+}
+.cc-v2-install-head {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #E2CC9A;
+  margin: 0 0 8px;
+}
+.cc-v2-install-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cc-v2-install-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: rgba(10, 15, 28, 0.75);
+}
+.cc-v2-install-info {
+  min-width: 0;
+  flex: 1;
+}
+.cc-v2-install-info strong {
+  display: block;
+  font-size: 0.82rem;
+  color: #fff;
+}
+.cc-v2-install-info span {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(243, 229, 200, 0.72);
+}
+.cc-v2-install-cta {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: #FF7A00;
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.cc-v2-install-cta:hover { background: #FF8C33; }
+
+/* 3. Multimedialne podpowiedzi TYLKO podczas wpisywania w #ccOmniInput */
+.cc-v2-media-sugs {
+  margin-top: 8px;
+  width: 100%;
+  background: rgba(11, 16, 30, 0.97);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(196, 163, 90, 0.45);
+  border-radius: 18px;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.72);
+  overflow: hidden;
+  display: none;
+  text-align: left;
+}
+.cc-v2-media-sugs.is-open { display: block; }
+.cc-v2-sugs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(196, 163, 90, 0.16);
+  font-size: 0.74rem;
+  color: rgba(243, 229, 200, 0.72);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cc-v2-sugs-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: 380px;
+  overflow-y: auto;
+}
+.cc-v2-sug-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  min-height: 52px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.cc-v2-sug-item:hover, .cc-v2-sug-item.is-active {
+  background: rgba(196, 163, 90, 0.18);
+}
+.cc-v2-sug-thumb {
+  width: 58px;
+  height: 38px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #141c30;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.cc-v2-sug-body {
+  flex: 1;
+  min-width: 0;
+}
+.cc-v2-sug-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #F5EFE2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cc-v2-sug-meta {
+  font-size: 0.75rem;
+  color: rgba(243, 229, 200, 0.72);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+.cc-v2-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(196, 163, 90, 0.2);
+  color: #E2CC9A;
+}
+.cc-v2-badge.is-video { background: rgba(229, 9, 20, 0.24); color: #ff99a0; }
+.cc-v2-badge.is-audio { background: rgba(255, 122, 0, 0.24); color: #ffba7a; }
+.cc-v2-badge.is-image { background: rgba(56, 189, 248, 0.22); color: #7dd3fc; }
+.cc-v2-sug-action {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: #FF7A00;
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.cc-v2-sug-action:hover { background: #FF8C33; }
+
+.cc-v2-sug-promo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, rgba(196, 163, 90, 0.16), rgba(255, 122, 0, 0.14));
+  border-top: 1px solid rgba(196, 163, 90, 0.28);
+}
+.cc-v2-sug-promo img {
+  width: 60px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.cc-v2-promo-cta {
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #FF7A00;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Sticky Mini Audio Player & Lightbox Modal (aktywowane TYLKO po kliknięciu w podpowiedź) */
+.cc-v2-mini-player {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000080;
+  max-width: 860px;
+  margin: 0 auto;
+  background: rgba(11, 16, 30, 0.97);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(196, 163, 90, 0.55);
+  border-radius: 18px;
+  padding: 10px 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: #F5EFE2;
+}
+.cc-v2-mini-player.is-open { display: flex; }
+.cc-v2-mini-player img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; }
+.cc-v2-mini-info { flex: 1; min-width: 160px; }
+.cc-v2-mini-title { font-size: 0.88rem; font-weight: 700; color: #fff; }
+.cc-v2-mini-sub { font-size: 0.76rem; color: rgba(243, 229, 200, 0.72); }
+.cc-v2-mini-player audio { max-width: 320px; width: 100%; height: 36px; }
+.cc-v2-close-btn {
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(196, 163, 90, 0.4);
+  background: transparent;
+  color: #fff;
+  font-size: 1.15rem;
+  cursor: pointer;
+}
+
+.cc-v2-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000090;
+  background: rgba(3, 6, 12, 0.88);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.cc-v2-modal.is-open { display: flex; }
+.cc-v2-modal-box {
+  width: 100%;
+  max-width: 860px;
+  background: #0d1322;
+  border: 1px solid rgba(196, 163, 90, 0.55);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.85);
+  color: #F5EFE2;
+}
+.cc-v2-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(196, 163, 90, 0.18);
+}
+.cc-v2-modal-body { padding: 14px; text-align: center; }
+.cc-v2-modal-body img { max-width: 100%; max-height: 70vh; border-radius: 12px; object-fit: contain; }
+.cc-v2-video-wrap { width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 12px; overflow: hidden; }
+.cc-v2-video-wrap iframe { width: 100%; height: 100%; border: 0; }
+.cc-v2-modal-foot {
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(196, 163, 90, 0.14);
+}
