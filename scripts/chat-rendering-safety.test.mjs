@@ -256,3 +256,12 @@ test('LUMI Messenger Czat ogólny defaults daily reflection to collapsed with 4 
   assert.match(source, /id="ccToggleDailyDialogueBtn"[^>]*min-height:\s*44px/, 'toggle button meets 44px touch target');
   assert.match(source, /const turnsHtml = dailyDialogueCollapsed \? '' : `[\s\S]*?id="ccDailyDialogueBody"/, 'turns body is omitted when collapsed');
 });
+
+test('LUMI Messenger builds daily reflection and red tab directly from static /rozwazania_baza.json without Worker dependency', async () => {
+  const source = await readFile('components/cc-global-chat-button.js', 'utf8');
+  assert.ok(source.includes('function buildLocalDailyDialogue('), 'must define buildLocalDailyDialogue client-side');
+  assert.ok(source.includes('function fetchDailyDialogueStaticFirst('), 'must define static-first daily loader');
+  assert.ok(source.includes('/rozwazania_baza.json'), 'must fetch /rozwazania_baza.json directly');
+  assert.ok(source.includes('id="ccDailyDialogueTab" class="cc-daily-dialogue-tab"'), 'must render red Rozwazanie tab');
+  assert.match(source, /function renderDailyDialogueCardHtml\(\)\s*\{[\s\S]*?fetchDailyDialogueStaticFirst\(/, 'renderDailyDialogueCardHtml must use fetchDailyDialogueStaticFirst');
+});

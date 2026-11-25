@@ -327,6 +327,185 @@
   let assistantConversationHistory = [];
   let isShowcaseCollapsed = false;
 
+  let dailyDialogueCache = null;
+  let dailyDialogueFetching = false;
+  let dailyDialoguePromise = null;
+  let dailyDialogueCacheBustDate = '';
+
+  function getWarsawDateStr() {
+    try {
+      return new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Europe/Warsaw',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).format(new Date());
+    } catch (_) {
+      return new Date().toISOString().slice(0, 10);
+    }
+  }
+
+  function pickTodayReflectionLocal(list) {
+    if (!Array.isArray(list) || !list.length) return null;
+    const today = getWarsawDateStr();
+    const exact = list.find(x => x && x.date === today);
+    if (exact) return exact;
+    const pastOrToday = list
+      .filter(x => x && x.date && String(x.date) <= today)
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    if (pastOrToday.length) return pastOrToday[0];
+    const sorted = list
+      .filter(x => x && x.date)
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    return sorted[0] || list[0];
+  }
+
+  function extractLocalReflectionHighlights(reflection) {
+    const raw = String(reflection.contentWeb || reflection.fullText || '').replace(/\r/g, '');
+    const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+    const skipRe = /^(☀️|📖|👉|💬|w christian culture|dołącz|podaj dalej|www\.|https?:|wspomóż|zadanie taktyczne)/i;
+    const body = [];
+    let actionLine = '';
+    for (const l of lines) {
+      if (/^•\s*dzia[łl]aj:/i.test(l) || /^dzia[łl]aj:/i.test(l)) {
+        actionLine = l.replace(/^•\s*/i, '').trim();
+        continue;
+      }
+      if (skipRe.test(l)) continue;
+      if (l.length >= 35 && l.length <= 340) body.push(l);
+    }
+    return { body, actionLine };
+  }
+
+  function buildLocalDailyDialogue(reflection) {
+    if (!reflection) return null;
+    const day = reflection.day || '';
+    const title = String(reflection.title || '').replace(/^☀️\s*/, '').trim();
+    const reading = reflection.reading || '';
+    const verse = reflection.memoryVerse || '';
+    const teaser = reflection.teaser || reflection.theme || '';
+    const teaserSentences = String(teaser).split(/(?<=[.!?])\s+/).filter(Boolean);
+    const { body, actionLine } = extractLocalReflectionHighlights(reflection);
+
+    const p1 = teaserSentences[0] || body[0] || '';
+    const p2 = body.find(l => /^\d+\./.test(l)) || teaserSentences[1] || body[1] || 'Zatrzymajmy się dziś nad tym fragmentem i zobaczmy, jak Bóg przemawia do naszego serca.';
+    const p3 = body.find(l => /^2\./.test(l)) || teaserSentences[2] || body[2] || 'Słowo Boże nie jest teorią — uczy nas konkretnych decyzji w rodzinie, pracy i służbie.';
+    const p4 = actionLine || 'DZIAŁAJ: Wybierz dziś jedną konkretną sprawę, w której zaufasz Bogu bardziej niż własnym siłom.';
+
+    const turns = [
+      {
+        assistantId: 'rut',
+        name: 'Rut',
+        role: 'Gospodyni CC',
+        avatar: '/images/chat/lumi_avatar_rut_circle.webp',
+        text: `Dzień dobry kochani! ${day ? `Dziś Dzień ${day}` : 'Dziś'} rozważamy: „${title}”${reading ? ` (${reading})` : ''}.`
+      },
+      {
+        assistantId: 'noemi',
+        name: 'Noemi',
+        role: 'Doradca',
+        avatar: '/images/chat/lumi_avatar_noemi_circle.webp',
+        text: p1 || `Otwórzmy razem ${reading || 'Pismo Święte'} i wsłuchajmy się w to, co Bóg chce nam dziś powiedzieć.`
+      },
+      {
+        assistantId: 'lea',
+        name: 'Lea',
+        role: 'Planista',
+        avatar: '/images/chat/lumi_avatar_lea_circle.webp',
+        text: p2
+      },
+      {
+        assistantId: 'miriam',
+        name: 'Miriam',
+        role: 'Psalmy i Uwielbienie',
+        avatar: '/images/chat/lumi_avatar_miriam_circle.webp',
+        text: verse
+          ? `Werset przewodni na dziś: ${verse}`
+          : '„Słowo Twoje jest pochodnią nogom moim i światłością na ścieżce mojej.” (Ps 119:105, UBG)'
+      },
+      {
+        assistantId: 'rut',
+        name: 'Rut',
+        role: 'Gospodyni CC',
+        avatar: '/images/chat/lumi_avatar_rut_circle.webp',
+        text: p3
+      },
+      {
+        assistantId: 'lea',
+        name: 'Lea',
+        role: 'Planista',
+        avatar: '/images/chat/lumi_avatar_lea_circle.webp',
+        text: p4
+      },
+      {
+        assistantId: 'noemi',
+        name: 'Noemi',
+        role: 'Doradca',
+        avatar: '/images/chat/lumi_avatar_noemi_circle.webp',
+        text: 'Panie Jezu, dziękujemy Ci za Twoje Słowo. Prowadź nas dziś swoim Duchem, daj pokój w decyzjach i odwagę do dzielenia się Dobrą Nowiną.'
+      },
+      {
+        assistantId: 'miriam',
+        name: 'Miriam',
+        role: 'Psalmy i Uwielbienie',
+        avatar: '/images/chat/lumi_avatar_miriam_circle.webp',
+        text: 'Niech Pan błogosławi cały Twój dzień! Poniżej możesz podzielić się swoją myślą ze społecznością albo kliknąć i przeczytać pełne studium.'
+      }
+    ];
+
+    return {
+      day,
+      date: reflection.date || '',
+      title,
+      reading,
+      verse: verse || '„Słowo Twoje jest pochodnią nogom moim i światłością na ścieżce mojej.” (Ps 119:105, UBG)',
+      lessonUrl: day ? `/akademia/kurscodzienny/dzien-${day}` : '/akademia/kurscodzienny',
+      sessions: ['09:00', '19:00'],
+      stepSeconds: 18,
+      turns
+    };
+  }
+
+  function fetchDailyDialogueStaticFirst(cacheBustDate) {
+    if (dailyDialogueCache && Array.isArray(dailyDialogueCache.turns) && dailyDialogueCache.turns.length) {
+      return Promise.resolve(dailyDialogueCache);
+    }
+    if (dailyDialoguePromise) return dailyDialoguePromise;
+    if (typeof fetch !== 'function') return Promise.resolve(null);
+
+    const qs = cacheBustDate || dailyDialogueCacheBustDate ? `?d=${encodeURIComponent(cacheBustDate || dailyDialogueCacheBustDate)}` : '';
+    dailyDialoguePromise = fetch(`/rozwazania_baza.json${qs}`)
+      .then(r => (r && r.ok) ? r.json() : null)
+      .then(list => {
+        const picked = pickTodayReflectionLocal(list);
+        const built = buildLocalDailyDialogue(picked);
+        if (built && Array.isArray(built.turns) && built.turns.length) {
+          dailyDialogueCache = built;
+          return built;
+        }
+        return null;
+      })
+      .catch(() => null)
+      .then(staticDialogue => {
+        if (staticDialogue) return staticDialogue;
+        return fetch('/api/lumi-chat?daily=1')
+          .then(r => (r && r.ok) ? r.json() : null)
+          .then(data => {
+            if (data && data.ok && data.dialogue && Array.isArray(data.dialogue.turns) && data.dialogue.turns.length) {
+              dailyDialogueCache = data.dialogue;
+              return data.dialogue;
+            }
+            return null;
+          })
+          .catch(() => null);
+      })
+      .then(result => {
+        if (!result) dailyDialoguePromise = null;
+        return result;
+      });
+    return dailyDialoguePromise;
+  }
+
   function scrollToBottom() {
     const feed = document.getElementById('ccChatFeed');
     if (!feed) return;
@@ -3854,44 +4033,28 @@
     function loadDailyVerseForWelcome() {
       if (ccDailyVerseData || ccDailyVerseLoading || typeof fetch !== 'function') return;
       ccDailyVerseLoading = true;
-      fetch('/api/lumi-chat?daily=1')
-        .then(r => (r && r.ok) ? r.json() : null)
-        .then(data => {
-          if (data && data.ok && data.dialogue) {
-            ccDailyVerseData = data.dialogue;
+      fetchDailyDialogueStaticFirst()
+        .then(dialogue => {
+          ccDailyVerseLoading = false;
+          if (dialogue) {
+            ccDailyVerseData = dialogue;
             refreshAssistantUI(getActiveAssistant());
-            return;
           }
-          throw new Error('fallback');
         })
         .catch(() => {
-          fetch('/rozwazania_baza.json')
-            .then(r => (r && r.ok) ? r.json() : null)
-            .then(list => {
-              if (!Array.isArray(list) || !list.length) return;
-              let today = new Date().toISOString().slice(0, 10);
-              try {
-                today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Warsaw', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-              } catch (_) {}
-              const item = list.find(x => x && x.date === today) || list.filter(x => x && x.date).sort((a, b) => String(b.date).localeCompare(String(a.date)))[0] || list[0];
-              if (item) {
-                ccDailyVerseData = {
-                  day: item.day || '',
-                  title: item.title || '',
-                  reading: item.reading || '',
-                  verse: item.memoryVerse || ''
-                };
-                refreshAssistantUI(getActiveAssistant());
-              }
-            })
-            .catch(() => {});
+          ccDailyVerseLoading = false;
         });
     }
 
     // @007 (L0 24.11.2026): o północy czasu polskiego — nowy werset/rozważanie w powitaniu asystentki
-    window.addEventListener('cc:new-day', () => {
+    window.addEventListener('cc:new-day', (e) => {
+      const date = e && e.detail && e.detail.date;
+      if (date) dailyDialogueCacheBustDate = String(date);
       ccDailyVerseData = null;
       ccDailyVerseLoading = false;
+      dailyDialogueCache = null;
+      dailyDialogueFetching = false;
+      dailyDialoguePromise = null;
       try { refreshAssistantUI(getActiveAssistant()); } catch (_) {}
     });
 
@@ -6572,8 +6735,6 @@
     });
   }
 
-  let dailyDialogueCache = null;
-  let dailyDialogueFetching = false;
   let dailyDialogueCollapsed = true;
   // @007 (L0 23.11.2026): po 6 s zwinięte rozważanie chowa się do czerwonego języczka „Rozważanie”.
   let dailyDialogueMini = false;
@@ -6666,8 +6827,10 @@
   window.addEventListener('cc:new-day', (e) => {
     const date = e && e.detail && e.detail.date;
     if (date && dailyDialogueCache && dailyDialogueCache.date === date) return;
+    if (date) dailyDialogueCacheBustDate = String(date);
     dailyDialogueCache = null;
     dailyDialogueFetching = false;
+    dailyDialoguePromise = null;
     try {
       if (currentChatPartner && currentChatPartner.isPublic) renderChatMessages();
     } catch (_) {}
@@ -6677,18 +6840,20 @@
     if (!dailyDialogueCache || !Array.isArray(dailyDialogueCache.turns) || !dailyDialogueCache.turns.length) {
       if (!dailyDialogueFetching && typeof fetch === 'function') {
         dailyDialogueFetching = true;
-        fetch('/api/lumi-chat?daily=1')
-          .then(r => r.ok ? r.json() : null)
-          .then(data => {
-            if (data && data.ok && data.dialogue) {
-              dailyDialogueCache = data.dialogue;
+        fetchDailyDialogueStaticFirst()
+          .then(dialogue => {
+            dailyDialogueFetching = false;
+            if (dialogue && Array.isArray(dialogue.turns) && dialogue.turns.length) {
+              dailyDialogueCache = dialogue;
               if (currentChatPartner && currentChatPartner.isPublic) {
                 renderChatMessages();
                 if (chatMode === 'public' && typeof scrollToBottom === 'function') scrollToBottom();
               }
             }
           })
-          .catch(() => {});
+          .catch(() => {
+            dailyDialogueFetching = false;
+          });
       }
       return '';
     }
