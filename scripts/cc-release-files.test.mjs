@@ -43,6 +43,8 @@ test('public assets and the required worker helper retain their release contract
     'test/oferta/index.html', 'test/oferta/oferta.css', 'test/oferta/oferta.js',
     'test/wspieramto/index.html', 'test/wspieramto/wspieramto-v3.css', 'test/wspieramto/wspieramto-v3.js',
     'test/kartki/index.html', 'test/kartki/kartki.css', 'test/kartki/kartki.js', 'test/kartki/assets/card-urodziny.webp',
+    'kartki/index.html', 'kartki/kartki.css', 'kartki/kartki.js', 'kartki/assets/hero-urodziny-cc.webp',
+    'assets/promo/promo-mojabiblia-16x9.webp', 'assets/promo/promo-master-16x9.webp', 'assets/promo/promo-kartki-16x9.webp', 'assets/promo/promo-kartki-1x1.webp',
     'test/wiadomosci-z-nieba/index.html', 'test/wiadomosci-z-nieba/simulation-data.json', 'images/lumina/wiadomosci-z-nieba-avatar.png', 'images/lumina/wiadomosci-z-nieba-avatar.webp',
     'wiadomosc-z-nieba/index.html', 'wiadomosc-z-nieba/data.json', 'images/wiadomosc-z-nieba/hero-16x9.webp',
     'cctv24-worship.html', 'stream-scene.html']) assert.equal(isPublicFile(file), true, file);

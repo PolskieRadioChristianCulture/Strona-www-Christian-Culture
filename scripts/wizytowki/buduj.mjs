@@ -94,7 +94,7 @@ ${GA}
 <script src="/components/cc-global-chat-button.js?v=20261119_gold2" defer></script>
 <script src="/js/cc-back-to-top.js?v=20261116_btt5" defer></script>
 <script src="/components/cc-support-footer.js?v=20261119_gold2" defer></script>
-<script src="/js/cc-eco-bars.js?v=${V}" defer></script>
+<script src="/js/cc-eco-bars.js?v=20261125_promo1" defer></script>
 <script src="/wizytowki/wz.js?v=${V}" defer></script>`;
 }
 

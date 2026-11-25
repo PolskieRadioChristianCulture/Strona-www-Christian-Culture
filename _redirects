@@ -962,3 +962,15 @@
 /nadawaj-nowy.html /nadawaj 301
 /wspieraj-nowa /wspieraj 301
 /wspieraj-nowa.html /wspieraj 301
+
+# === MUZYCZNE E-KARTKI CC (/kartki) ===
+/kartki /kartki/index.html 200
+/kartki/ /kartki/index.html 200
+/Kartki /kartki/ 301
+/Kartki/ /kartki/ 301
+/e-kartki /kartki/ 301
+/e-kartki/ /kartki/ 301
+/ekartki /kartki/ 301
+/ekartki/ /kartki/ 301
+/test/kartki /kartki/ 301
+/test/kartki/ /kartki/ 301
