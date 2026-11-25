@@ -1,4 +1,4 @@
-/ccMC
+﻿/ccMC
   Cache-Control: no-cache, no-store, must-revalidate
 
 /ccMC/
@@ -440,3 +440,16 @@
 # Wyszukiwarka CC Windows (@007, 25.11.2026): plik aktualizacji zawsze świeży, inaczej aplikacje nie zobaczą nowej wersji.
 /aplikacje/wyszukiwarka-windows/latest.json
   Cache-Control: no-cache, no-store, must-revalidate
+
+# Wyszukiwarka CC (Antigravity + @007, 25.11.2026): zawsze świeży silnik i dodatek w przeglądarce i aplikacji Windows (WebView2).
+/components/cc-omni-search.js*
+  Cache-Control: no-cache, must-revalidate
+
+/js/cc-omni-search-v2-addon.js*
+  Cache-Control: no-cache, must-revalidate
+
+/css/cc-omni-search-v2-addon.css*
+  Cache-Control: no-cache, must-revalidate
+
+/data/cc-search-media-index.json*
+  Cache-Control: no-cache, must-revalidate
