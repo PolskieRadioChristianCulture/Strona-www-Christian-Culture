@@ -126,3 +126,15 @@ node "C:\Users\czark\Desktop\Biblia Audio Christian Culture\skrypty\publish_to_w
 2. Zaktualizuj `KATALOG_RADIO_BIBLIA_AUDIO.md`, `README_KATALOG_EMISYJNY.md` oraz `data/ecosystem-map.json` (`@m`).
 3. Zsynchronizuj `data/ecosystem-map.json`, `data/youtube_published_history.json` i `data/spotify_published_history.json` z `.pages-release` oraz `Desktop/@ICC/LUMINA`, uruchom `npm.cmd run test:guardian` i `npm.cmd run test:mobile-premium`, wykonaj podwójny push Git.
 4. Dopisz raport (`status: done`) do `JOMA_STATUS.md` i `JOMA_HANDOFFS.md` oraz wyślij meldunek `KONIEC` w Skrzynce Misji CC.
+
+
+---
+
+## 🎨 Dyrektywa Dowódcy 2026-11-25 — Unikalne Grafiki per Kanał (3 Priorytetowe Kanały YouTube)
+
+- **Plik polityki maszynowej:** `H:\Mój dysk\Biblia Audio Christian Culture (1)\skrypty\BIBLIA_AUDIO_CHANNEL_VISUAL_POLICY.json`
+- **3 Priorytetowe Kanały:**
+  1. `Osobowość +` (`UCHmPxDM2zzlUAf5ZvlotPLw`)
+  2. `Christian Culture TV` (`UCG5Y4dwJi5436Gu6QH3nNUQ`)
+  3. `Polskie Radio CHRISTIAN CULTURE` (`UCNnCdsJ-K6FXulZzXZHWkjQ`)
+- **Zasada Zero-Duplicate:** Dla każdego rozdziału Biblii Audio każdy z 3 kanałów musi otrzymać **osobny, niepowtarzalny wariant grafiki 16:9 (wideo 4K + miniatura)** oraz **osobny, niepowtarzalny wariant grafiki 9:16 (Shorts)**, w tym samym kinowym stylu (monochromatyczna fotografia + karmazynowa jedwabna wstęga + biało-czerwona typografia szeryfowa) z lekko zróżnicowanym viralowym tytułem, plus 1 grafika `1:1` do promocji na X i WhatsApp.

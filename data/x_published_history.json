@@ -2,6 +2,54 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "biblia-audio-gen-038",
+      "title": "Biblia Audio CC — Księga Rodzaju 38 (Juda i Tamar)",
+      "url": "https://youtu.be/pFBIaexrfwA",
+      "image": "C:\\Users\\czark\\Desktop\\Ksiega_Rodzaju_38_1-30_Promo_1x1.jpg",
+      "publishedAt": "2026-11-25T06:42:43.389Z",
+      "method": "playwright_free_with_image"
+    },
+    {
+      "slug": "paryz-godzina-policyjna-protesty-francja-biblia",
+      "title": "Paryż pod godziną policyjną. Francja protestuje, a Jezus ostrzega przed oziębnięciem miłości",
+      "url": "https://polskieradio.cc/news/paryz-godzina-policyjna-protesty-francja-biblia",
+      "type": "news",
+      "topicId": null,
+      "image": "art-paryz-godzina-policyjna-protesty-francja-biblia.jpg",
+      "publishedAt": "2026-11-25T06:31:34.303Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "pokonac-goliata-cezary-rogowski-recenzja-ebook-generator-mocy",
+      "title": "„Pokonać Goliata — Jak zwyciężać własne słabości” Cezarego Rogowskiego: Recenzja i Platforma Cyfrowa 2026 – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/pokonac-goliata-cezary-rogowski-recenzja-ebook-generator-mocy",
+      "type": "book",
+      "topicId": null,
+      "image": "pokonac-goliata-book-3d.webp",
+      "publishedAt": "2026-11-25T06:02:46.963Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "14-jednosc-ciala-chrystusa.html",
+      "title": "Kurs 28 Kroków — Lekcja 14: Jedność Ciała Chrystusa — Miłość Ponad Podziałami",
+      "url": "https://polskieradio.cc/kursy/14-jednosc-ciala-chrystusa.html",
+      "type": "course",
+      "topicId": null,
+      "image": "14.png",
+      "publishedAt": "2026-11-25T05:31:14.464Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "artysci",
+      "title": "Artyści i kanały",
+      "url": "https://polskieradio.cc/music/artysci",
+      "type": "music",
+      "topicId": null,
+      "image": "art-chan-muzyka.jpg",
+      "publishedAt": "2026-11-25T05:05:12.008Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "uslugi",
       "title": "CC Pomoc (CC Help) — Bezpłatne Centrum Wsparcia: Małżeństwo, Rozwód, Samotność, Starość (/uslugi)",
       "url": "https://polskieradio.cc/uslugi",
