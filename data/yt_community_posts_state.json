@@ -13,10 +13,44 @@
           "publishedAt": "2026-11-25T05:01:30.173Z"
         },
         "Christian Culture TV": {
-          "status": "error",
+          "status": "ok",
           "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
-          "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-label=\"Opublikuj\"]:visible, button[aria-label=\"Post\"]:visible').first()\u001b[22m\n\u001b[2m    - locator resolved to <button title=\"\" disabled=\"true\" aria-disabled=\"true\" aria-label=\"Opublikuj\" class=\"ytSpecButtonShapeNextHost ytSpecButtonShapeNextFilled ytSpecButtonShapeNextSizeM ytSpecButtonShapeNextDisabled ytSpecButtonShapeNextSegmentedStart ytSpecButtonShapeNextEnableBackdropFilterExperiment ytSpecButtonShapeNextMainstageIconSize ytSpecButtonShapeNextMainstagePadding\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
-          "failedAt": "2026-11-25T04:56:52.147Z"
+          "type": "image",
+          "url": "https://www.youtube.com/channel/UCG5Y4dwJi5436Gu6QH3nNUQ/posts",
+          "publishedAt": "2026-11-25T05:03:02.478Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "type": "image",
+          "url": "https://www.youtube.com/channel/UCNnCdsJ-K6FXulZzXZHWkjQ/posts",
+          "publishedAt": "2026-11-25T05:03:38.024Z"
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "type": "image",
+          "url": "https://www.youtube.com/channel/UC-LPFt-vmJCeap746DOWMgw/posts",
+          "publishedAt": "2026-11-25T05:04:11.955Z"
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "type": "image",
+          "url": "https://www.youtube.com/channel/UCUpuq9JS7jitIcm9iBn0jnA/posts",
+          "publishedAt": "2026-11-25T05:04:44.257Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "error",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "error": "Brak formularza tworzenia posta na karcie /posts (kanał może wymagać włączenia zakładki Posty lub nie przełączył konta).",
+          "failedAt": "2026-11-25T05:06:27.719Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "error",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "error": "Brak formularza tworzenia posta na karcie /posts (kanał może wymagać włączenia zakładki Posty lub nie przełączył konta).",
+          "failedAt": "2026-11-25T05:06:47.031Z"
         }
       }
     }

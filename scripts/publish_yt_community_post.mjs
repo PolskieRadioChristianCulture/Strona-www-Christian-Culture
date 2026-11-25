@@ -239,17 +239,19 @@ async function switchYouTubeChannel(page, ch) {
   // Match by handle first (most precise), fallback to channel name
   const accountItems = page.locator('ytd-account-item-renderer');
   let target = accountItems.filter({ hasText: ch.handle }).first();
-  if (!(await target.isVisible().catch(() => false))) {
+  if ((await target.count()) === 0) {
     target = accountItems.filter({ hasText: ch.name }).first();
   }
-  await target.scrollIntoViewIfNeeded().catch(() => {});
-  await target.waitFor({ state: 'visible', timeout: 10000 });
-  await target.click();
-  await page.waitForTimeout(4500);
+  await target.waitFor({ state: 'attached', timeout: 10000 });
+  await target.evaluate((el) => {
+    el.scrollIntoView({ block: 'center', behavior: 'instant' });
+    el.click();
+  });
+  await page.waitForTimeout(5500);
 
   // Navigate to this channel's Posts tab
   await page.goto(`https://www.youtube.com/channel/${ch.id}/posts`, { waitUntil: 'domcontentloaded', timeout: 45000 });
-  await page.waitForTimeout(4500);
+  await page.waitForTimeout(5000);
 }
 
 async function publishPostOnCurrentChannel(page, payload) {
