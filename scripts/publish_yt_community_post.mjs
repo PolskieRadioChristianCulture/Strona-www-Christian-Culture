@@ -384,11 +384,16 @@ async function main() {
   const args = process.argv.slice(2);
   let forcedType = null;
   let onlyChannel = null;
+  let customTextFile = null;
+  let customImage = null;
+  const forcePost = args.includes('--force');
   const headless = !args.includes('--headed');
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--type' && args[i + 1]) forcedType = args[++i];
     if (args[i] === '--channel' && args[i + 1]) onlyChannel = args[++i];
+    if (args[i] === '--custom-text-file' && args[i + 1]) customTextFile = args[++i];
+    if (args[i] === '--custom-image' && args[i + 1]) customImage = args[++i];
   }
 
   const state = loadState();
@@ -396,7 +401,7 @@ async function main() {
 
   // Automatyczne wygenerowanie oficjalnej karty 1:1 „Wiadomość z Nieba” na dziś (jeśli jeszcze nie istnieje)
   const expectedCard = path.join(ROOT, 'images', 'social', 'yt-community', `wiadomosc_z_nieba_${ymd}.jpg`);
-  if (!fs.existsSync(expectedCard)) {
+  if (!customTextFile && !fs.existsSync(expectedCard)) {
     try {
       await generateWiadomoscZNiebaCard(ymd, { outPath: expectedCard });
     } catch (err) {
@@ -404,7 +409,14 @@ async function main() {
     }
   }
 
-  const payload = buildDailyPostPayload(state, forcedType);
+  const payload = customTextFile
+    ? {
+        type: 'image',
+        id: `custom_${path.basename(customTextFile, path.extname(customTextFile))}`,
+        text: fs.readFileSync(customTextFile, 'utf8').trim(),
+        imagePath: customImage || null
+      }
+    : buildDailyPostPayload(state, forcedType);
 
   if (!state.postsByDate[ymd]) {
     state.postsByDate[ymd] = { type: payload.type, id: payload.id, channels: {} };
@@ -423,7 +435,7 @@ async function main() {
   let okCount = 0;
   try {
     for (const ch of targets) {
-      if (state.postsByDate[ymd].channels[ch.name]?.status === 'ok') {
+      if (!forcePost && state.postsByDate[ymd].channels[ch.name]?.status === 'ok') {
         console.log(`⏭️  [${ch.name}] Już opublikowano dziś (${ymd}) — pomijam.`);
         okCount++;
         continue;

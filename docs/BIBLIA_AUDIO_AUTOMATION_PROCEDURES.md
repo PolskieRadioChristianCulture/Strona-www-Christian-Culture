@@ -138,3 +138,8 @@ node "C:\Users\czark\Desktop\Biblia Audio Christian Culture\skrypty\publish_to_w
   2. `Christian Culture TV` (`UCG5Y4dwJi5436Gu6QH3nNUQ`)
   3. `Polskie Radio CHRISTIAN CULTURE` (`UCNnCdsJ-K6FXulZzXZHWkjQ`)
 - **Zasada Zero-Duplicate:** Dla każdego rozdziału Biblii Audio każdy z 3 kanałów musi otrzymać **osobny, niepowtarzalny wariant grafiki 16:9 (wideo 4K + miniatura)** oraz **osobny, niepowtarzalny wariant grafiki 9:16 (Shorts)**, w tym samym kinowym stylu (monochromatyczna fotografia + karmazynowa jedwabna wstęga + biało-czerwona typografia szeryfowa) z lekko zróżnicowanym viralowym tytułem, plus 1 grafika `1:1` do promocji na X i WhatsApp.
+
+### Aktualizacja Dyrektywy 2026-11-25 (CC Women + 5s Oryginalne Intro z Canvy + YouTube Safe Zone)
+- **4. Priorytetowy Kanał: `CC Women` (`UC-LPFt-vmJCeap746DOWMgw`, `@CCWomen7`)** — dedykowany kobiecy styl wizualny (`wzorce/CC_WOMEN_BIBLIA_AUDIO_STYLE_REF.jpg`: złote światło, kwiaty wiśni, róża, jedwabna fuksjowa wstęga, złota typografia `BIBLIA AUDIO / CHRISTIAN WOMEN`) + oryginalny post Społeczności (`1:1`) publikowany przez `scripts/publish_yt_community_post.mjs --channel "CC Women" --custom-text-file ... --custom-image ... --force`.
+- **Twarda blokada anty-stare-intro:** Kategoryczny zakaz używania intro z poprzedniego rozdziału (np. `GEN-034` w innym rozdziale) oraz sztucznych animacji FFmpeg. W Canvie każdą grafikę rozdziału (`16:9` i `9:16`) zamieniamy na oryginalny **5-sekundowy film MP4** („Zamień obraz w film”).
+- **YouTube Safe Zone i Napisy:** W projektach grafik (szczególnie Shorts `9:16`) oraz przy generowaniu napisów w Canvie napisy umieszczamy **NAD tytułem**, zostawiając czystą strefę omijającą dolny interfejs i boczne ikony YouTube.
