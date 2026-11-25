@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { isPublicFile } from './cc-release-files.mjs';
+import { applyPageStandard, INFOLINIA_NADZIEJA_SCRIPT } from './cc-page-standard.mjs';
 
 const componentSrc = await readFile(new URL('../components/cc-infolinia-nadzieja-modal.js', import.meta.url), 'utf8');
-const testPageHtml = await readFile(new URL('../test/infolinia-nadzieja/index.html', import.meta.url), 'utf8');
-const pageStandardSrc = await readFile(new URL('../scripts/cc-page-standard.mjs', import.meta.url), 'utf8');
+const publicPageHtml = await readFile(new URL('../infolinia-nadzieja/index.html', import.meta.url), 'utf8');
 
 test('cc-infolinia-nadzieja-modal.js parses cleanly and avoids innerHTML', () => {
   const res = spawnSync(process.execPath, ['--input-type=commonjs', '--check'], {
@@ -57,10 +58,32 @@ test('component implements mandatory confirmation and full WCAG accessibility co
   }
 });
 
-test('test environment page is noindex, allowed in release, and NOT yet wired into global cc-page-standard.mjs', () => {
-  assert.match(testPageHtml, /noindex,\s*nofollow/i);
-  assert.ok(testPageHtml.includes('/components/cc-infolinia-nadzieja-modal.js'));
-  assert.equal(isPublicFile('test/infolinia-nadzieja/index.html'), true);
+test('applyPageStandard injects and pins Infolinia NADZIEJA script globally without touching frozen channels', () => {
+  const baseHtml = '<html><head><title>Test</title></head><body><h1>Test</h1></body></html>';
+  const standardized = applyPageStandard('index.html', baseHtml);
+  assert.ok(standardized.includes(INFOLINIA_NADZIEJA_SCRIPT), 'Missing global INFOLINIA_NADZIEJA_SCRIPT on index.html');
+  assert.equal(applyPageStandard('index.html', standardized), standardized, 'applyPageStandard must remain idempotent');
+
+  const withOldVersion = '<html><head></head><body><script defer src="/components/cc-infolinia-nadzieja-modal.js?v=old"></script></body></html>';
+  const refreshed = applyPageStandard('o-nas.html', withOldVersion);
+  assert.equal((refreshed.match(/cc-infolinia-nadzieja-modal\.js/g) || []).length, 1, 'Script tag must not be duplicated');
+  assert.ok(refreshed.includes(INFOLINIA_NADZIEJA_SCRIPT), 'Version tag should refresh cleanly');
+
+  const frozenHtml = '<html><head></head><body><p>Live</p></body></html>';
+  for (const frozen of ['cctv24-worship.html', 'cctv24-worship-live.html', 'stream-scene.html', 'zapolske-live.html', 'the-journal/index.html']) {
+    assert.equal(applyPageStandard(frozen, frozenHtml), frozenHtml, `Frozen/exempt page altered: ${frozen}`);
+  }
+});
+
+test('public canonical page /infolinia-nadzieja/ meets CC release standards and temporary test preview is removed', () => {
+  assert.match(publicPageHtml, /<meta\s+name="robots"\s+content="index,\s*follow"/i);
+  assert.ok(publicPageHtml.includes('https://polskieradio.cc/infolinia-nadzieja/'));
+  assert.ok(publicPageHtml.includes('Ponad podziałami. Blisko człowieka. W duchu Chrystusa.'));
+  assert.ok(publicPageHtml.includes('#FF7A00'));
+  assert.ok(publicPageHtml.includes('tel:112'));
+  assert.ok(publicPageHtml.includes('/components/cc-infolinia-nadzieja-modal.js'));
+  assert.equal(isPublicFile('infolinia-nadzieja/index.html'), true);
   assert.equal(isPublicFile('components/cc-infolinia-nadzieja-modal.js'), true);
-  assert.equal(pageStandardSrc.includes('cc-infolinia-nadzieja-modal.js'), false, 'Stage 1 test-only deploy must wait for owner approval before global rollout');
+  assert.equal(isPublicFile('test/infolinia-nadzieja/index.html'), false);
+  assert.equal(fs.existsSync(new URL('../test/infolinia-nadzieja/index.html', import.meta.url)), false, 'Temporary test preview must be cleaned up');
 });

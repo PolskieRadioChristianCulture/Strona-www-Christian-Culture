@@ -7,6 +7,7 @@ export const NEWSLETTER_SCRIPT = '/js/cc-newsletter.js?v=20261030_nl1';
 export const MOBILE_EDGE_CSS = '/css/cc-mobile-edge.css?v=20261113_edge13';
 export const MOBILE_EDGE_SCRIPT = '/js/cc-mobile-edge.js?v=20261119_gold3';
 export const EDGE_PLUS_SCRIPT = '/js/cc-edge-plus.js?v=20261110_edgep2';
+export const INFOLINIA_NADZIEJA_SCRIPT = '/components/cc-infolinia-nadzieja-modal.js?v=20261125_in2';
 // #TOPTEN na muzycznych stronach EkoCC (spec. naturalnej rywalizacji §25): jeden komponent, zmiana w jednym miejscu.
 // Transmisje na żywo, OBS, embedy i LUMI KIDS są wykluczone wyżej w applyPageStandard.
 // /player celowo pominięty: aplikacja na pełny ekran — karta zasłoniłaby odtwarzacz (komponent i tak to wykrywa).
@@ -39,6 +40,7 @@ export function applyPageStandard(file, html) {
   html = html.replace(/(src=["'])(\/js\/cc-mobile-edge\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_gold3$3');
   html = html.replace(/(src=["'])(\/components\/ekocc-info\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261119_info2$3');
   html = html.replace(/(src=["'])(\/js\/cc-edge-plus\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261110_edgep2$3');
+  html = html.replace(/(src=["'])(\/components\/cc-infolinia-nadzieja-modal\.js)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261125_in2$3');
   html = html.replace(/(href=["'])(\/css\/cc-mobile-edge\.css)(?:\?[^"']*)?(["'])/g, '$1$2?v=20261113_edge13$3');
 
   // Herbaciarnia Między Słowami: wyjątkowo bez przycisku + w lewym górnym rogu (polecenie L0 08.11.2026)
@@ -66,6 +68,9 @@ export function applyPageStandard(file, html) {
   }
   if (!isHerbatka && !html.includes('cc-edge-plus.js')) {
     additions += `<script defer src="${EDGE_PLUS_SCRIPT}"></script>\n`;
+  }
+  if (!html.includes('cc-infolinia-nadzieja-modal.js')) {
+    additions += `<script defer src="${INFOLINIA_NADZIEJA_SCRIPT}"></script>\n`;
   }
   if (TOPTEN_CARD_PAGES.has(name) && !html.includes('cc-topten-card.js')) {
     additions += `<script defer src="${TOPTEN_CARD_SCRIPT}"></script>\n`;
