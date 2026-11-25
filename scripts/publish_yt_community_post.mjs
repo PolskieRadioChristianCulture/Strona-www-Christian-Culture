@@ -20,6 +20,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { launchStudio } from './yt_studio_session.mjs';
+import { generateWiadomoscZNiebaCard } from './generate_wiadomosc_z_nieba_card.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -391,8 +392,19 @@ async function main() {
   }
 
   const state = loadState();
+  const { ymd } = getWarsawDateInfo();
+
+  // Automatyczne wygenerowanie oficjalnej karty 1:1 „Wiadomość z Nieba” na dziś (jeśli jeszcze nie istnieje)
+  const expectedCard = path.join(ROOT, 'images', 'social', 'yt-community', `wiadomosc_z_nieba_${ymd}.jpg`);
+  if (!fs.existsSync(expectedCard)) {
+    try {
+      await generateWiadomoscZNiebaCard(ymd, { outPath: expectedCard });
+    } catch (err) {
+      console.warn(`⚠️ Nie udało się wygenerować karty Wiadomość z Nieba dla ${ymd}: ${err.message}`);
+    }
+  }
+
   const payload = buildDailyPostPayload(state, forcedType);
-  const { ymd } = payload;
 
   if (!state.postsByDate[ymd]) {
     state.postsByDate[ymd] = { type: payload.type, id: payload.id, channels: {} };
