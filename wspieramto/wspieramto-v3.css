@@ -517,6 +517,22 @@ a { color: inherit; }
 .legal-note p { margin: 6px 0; }
 .legal-note a { color: var(--gold-light); text-decoration: underline; }
 
+/* Sekcja darmowego prezentu (#prezent) */
+.sect--gift { padding: 48px 0 12px; scroll-margin-top: 96px; }
+.gift-shell { max-width: 1020px; margin: 0 auto; }
+.gift-card {
+  position: relative; z-index: 2; border-radius: 22px; padding: clamp(22px, 3vw, 34px);
+  background: linear-gradient(135deg, rgba(16, 26, 48, .94) 0%, rgba(10, 17, 34, .96) 100%);
+  border: 1px solid rgba(231, 209, 155, .36);
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(260px, .9fr); gap: clamp(18px, 3vw, 32px); align-items: center;
+}
+.gift-copy h2 { margin: 8px 0 10px; font-size: clamp(24px, 3vw, 34px); line-height: 1.15; }
+.gift-copy .sect__lead { margin: 0; font-size: 15.5px; }
+.gift-actions { display: flex; flex-direction: column; gap: 12px; }
+@media (max-width: 820px) {
+  .gift-card { grid-template-columns: 1fr; }
+}
+
 /* Reveal & Toast */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .85s var(--ease), transform .85s var(--ease); }
 .reveal.is-in { opacity: 1; transform: translateY(0); }

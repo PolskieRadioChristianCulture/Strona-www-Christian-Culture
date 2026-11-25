@@ -28,7 +28,7 @@ test('obce wersje bez polskich resztek (poza nazwami własnymi i danymi przelewu
 });
 
 test('dane płatności identyczne w każdym języku', () => {
-  const MUSI = ['537 137 043', '74 2910 0006 2469 8002 1062 8039', '48 2910 0006 0000 0000 0527 2629', 'https://patronite.pl/osobowoscplus', 'https://revolut.me/christianculture', 'https://zrzutka.pl/rs4g4v', 'https://zrzutka.pl/3bbxzn', 'Cezary Rogowski'];
+  const MUSI = ['537 137 043', '74 2910 0006 2469 8002 1062 8039', '48 2910 0006 0000 0000 0527 2629', 'https://patronite.pl/osobowoscplus', 'https://revolut.me/christianculture', 'https://zrzutka.pl/z/ChristianCulture', 'https://zrzutka.pl/3bbxzn', 'Cezary Rogowski'];
   for (const j of JEZYKI) {
     const html = strona(j, wszystkie);
     for (const m of MUSI) assert.ok(html.includes(m), `${j}: brak ${m}`);

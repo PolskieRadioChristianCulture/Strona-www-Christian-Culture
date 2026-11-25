@@ -128,6 +128,9 @@
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i];
       if (SENSITIVE_PARAM_KEYS.test(k)) continue;
+      // Zarezerwowane pole GA4 `source` nadpisuje źródło ruchu sesji (np. Facebook/Google) — przepinamy na bezpieczny klucz `event_source`
+      var outKey = (k === 'source') ? (Object.prototype.hasOwnProperty.call(rawParams, 'event_source') ? null : 'event_source') : k;
+      if (!outKey) continue;
       var v = rawParams[k];
       if (v === undefined || v === null) continue;
       if (typeof v === 'string') {
@@ -139,9 +142,9 @@
           PII_PHONE_RE.lastIndex = 0;
           v = v.replace(PII_PHONE_RE, '[PHONE_REDACTED]');
         }
-        clean[k] = v.slice(0, 160);
+        clean[outKey] = v.slice(0, 160);
       } else if (typeof v === 'number' || typeof v === 'boolean') {
-        clean[k] = v;
+        clean[outKey] = v;
       }
     }
     return clean;

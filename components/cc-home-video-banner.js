@@ -125,8 +125,8 @@
       '    </div>',
       '    <div class="cc-hvb-foot">',
       '      <a class="cc-hvb-cta" id="ccHvbCta" href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" data-support-method="zrzutka_home_video_banner"><span>Wesprzyj</span><span class="cc-hvb-cta-sub">(BLIK&nbsp;/&nbsp;Karta)&nbsp;&rarr;</span></a>',
-      '      <a class="cc-hvb-gift" id="ccHvbGift" href="https://drive.google.com/drive/folders/1GIUc1GlNmByFBDCmjmJN4PSukewnzYTc" target="_blank" rel="noopener noreferrer" data-gift-album="best_of_cc_2026">🎁 Odbierz prezent za darmo</a>',
-      '      <div class="cc-hvb-sub"><a href="/wspieramto">Plan Nowego Studia RTV</a></div>',
+      '      <a class="cc-hvb-gift" id="ccHvbGift" href="/wspieramto#prezent" data-gift-album="best_of_cc_2026">🎁 Odbierz prezent za darmo</a>',
+      '      <div class="cc-hvb-sub"><a id="ccHvbPlanLink" href="/wspieramto">Plan Nowego Studia RTV</a></div>',
       '    </div>',
       '  </div>',
       '</div>',
@@ -140,6 +140,28 @@
     var mediaBox = document.getElementById('ccHvbMedia');
     var cta = document.getElementById('ccHvbCta');
     var giftBtn = document.getElementById('ccHvbGift');
+    var planLink = document.getElementById('ccHvbPlanLink');
+    var trackedShow = false;
+    var trackedUnmute = false;
+
+    function trackBanner(eventName, extra) {
+      var payload = Object.assign({ banner_slot: 'home_video_banner', page_path: '/' }, extra || {});
+      try {
+        if (typeof window.ccTrack === 'function') {
+          window.ccTrack(eventName, payload);
+          return;
+        }
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', eventName, Object.assign({ transport_type: 'beacon' }, payload));
+        }
+      } catch (e) {}
+    }
+
+    function markShown(withSound) {
+      if (trackedShow) return;
+      trackedShow = true;
+      trackBanner('home_video_banner_show', { autoplay_with_sound: !!withSound });
+    }
 
     function syncAudioUI() {
       if (!vid) return;
@@ -148,58 +170,75 @@
       if (soundPill) soundPill.classList.toggle('is-hidden', !muted);
     }
 
-    function enableSound(restartIfShort) {
+    function enableSound(restartIfShort, trigger) {
       if (!vid) return;
       if (restartIfShort && vid.currentTime > 1.5 && vid.currentTime < 6) {
         try { vid.currentTime = 0; } catch (e) {}
       }
       vid.muted = false;
+      if (!trackedUnmute) {
+        trackedUnmute = true;
+        trackBanner('home_video_banner_unmute', { trigger: trigger || 'user' });
+      }
       vid.play().then(syncAudioUI).catch(syncAudioUI);
     }
 
-    function closeBanner() {
+    function closeBanner(trigger) {
+      var watchedSec = vid ? Math.round(vid.currentTime || 0) : 0;
+      trackBanner('home_video_banner_close', { trigger: trigger || 'button', watched_sec: watchedSec });
       if (vid) { try { vid.pause(); } catch (e) {} }
       wrap.classList.remove('is-open');
       setTimeout(function () { if (wrap.parentNode) wrap.parentNode.removeChild(wrap); }, 420);
     }
 
-    if (closeBtn) closeBtn.addEventListener('click', closeBanner);
+    if (closeBtn) closeBtn.addEventListener('click', function () { closeBanner('button'); });
     if (muteBtn) {
       muteBtn.addEventListener('click', function () {
         if (!vid) return;
-        if (vid.paused) { enableSound(false); return; }
+        if (vid.paused) { enableSound(false, 'mute_btn'); return; }
         vid.muted = !vid.muted;
+        if (!vid.muted && !trackedUnmute) {
+          trackedUnmute = true;
+          trackBanner('home_video_banner_unmute', { trigger: 'mute_btn' });
+        }
         syncAudioUI();
       });
     }
     if (soundPill) {
       soundPill.addEventListener('click', function (e) {
         e.stopPropagation();
-        enableSound(true);
+        enableSound(true, 'sound_pill');
       });
     }
     if (mediaBox) {
       mediaBox.addEventListener('click', function () {
         if (!vid) return;
-        if (vid.muted || vid.paused) enableSound(true);
+        if (vid.muted || vid.paused) enableSound(true, 'video_tap');
         else { vid.pause(); syncAudioUI(); }
       });
     }
     if (cta) {
       cta.addEventListener('click', function () {
+        trackBanner('home_video_banner_cta_click', { destination: 'zrzutka', watched_sec: vid ? Math.round(vid.currentTime || 0) : 0 });
         try { localStorage.setItem(KEY_SNOOZE, String(Date.now() + 7 * 24 * 3600 * 1000)); } catch (e) {}
         if (vid) { try { vid.pause(); } catch (e) {} }
       });
     }
     if (giftBtn) {
       giftBtn.addEventListener('click', function () {
+        trackBanner('home_video_banner_gift_click', { destination: '/wspieramto#prezent', gift_album: 'best_of_cc_2026', watched_sec: vid ? Math.round(vid.currentTime || 0) : 0 });
         if (vid) { try { vid.pause(); } catch (e) {} syncAudioUI(); }
+      });
+    }
+    if (planLink) {
+      planLink.addEventListener('click', function () {
+        trackBanner('home_video_banner_plan_click', { destination: '/wspieramto', watched_sec: vid ? Math.round(vid.currentTime || 0) : 0 });
       });
     }
 
     document.addEventListener('keydown', function onEsc(e) {
       if (e.key === 'Escape' && document.getElementById('ccHomeVideoBanner')) {
-        closeBanner();
+        closeBanner('escape');
         document.removeEventListener('keydown', onEsc);
       }
     });
@@ -222,10 +261,14 @@
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         wrap.classList.add('is-open');
-        if (!vid) return;
+        if (!vid) {
+          markShown(false);
+          return;
+        }
 
         if (isRadioPlaying()) {
           vid.muted = true;
+          markShown(false);
           vid.play().then(syncAudioUI).catch(syncAudioUI);
           return;
         }
@@ -233,12 +276,17 @@
         vid.muted = false;
         var playPromise = vid.play();
         if (playPromise && typeof playPromise.then === 'function') {
-          playPromise.then(syncAudioUI).catch(function () {
+          playPromise.then(function () {
+            markShown(true);
+            syncAudioUI();
+          }).catch(function () {
             // Polityka przeglądarki zablokowała autoplay z dźwiękiem przed kliknięciem — startujemy obraz + pokazujemy 🔊
             vid.muted = true;
+            markShown(false);
             vid.play().then(syncAudioUI).catch(syncAudioUI);
           });
         } else {
+          markShown(!vid.muted);
           syncAudioUI();
         }
       });

@@ -52,9 +52,37 @@ test('strona główna ładuje baner wideo wsparcia 1× dziennie z autostartem, d
   assert.equal(banner.includes('cc-hvb-cta-sub'), true);
   assert.equal(banner.includes('id="ccHvbGift"'), true);
   assert.equal(banner.includes('Odbierz prezent za darmo'), true);
-  assert.equal(banner.includes('https://drive.google.com/drive/folders/1GIUc1GlNmByFBDCmjmJN4PSukewnzYTc'), true);
+  assert.equal(banner.includes('href="/wspieramto#prezent"'), true);
+  assert.equal(banner.includes('home_video_banner_show'), true);
+  assert.equal(banner.includes('home_video_banner_unmute'), true);
+  assert.equal(banner.includes('home_video_banner_cta_click'), true);
+  assert.equal(banner.includes('home_video_banner_gift_click'), true);
+  assert.equal(banner.includes('home_video_banner_close'), true);
   assert.equal(banner.includes('1× dziennie &bull;'), false);
   assert.equal(banner.includes('cc-skarbiec-misji.web.app'), false);
+});
+
+test('sekcja /wspieramto#prezent udostępnia darmowy album bez rejestracji, a GA4 nie nadpisuje źródła sesji parametrem source', () => {
+  for (const rel of ['wspieramto/index.html', 'wspieramto.html']) {
+    const html = read(rel);
+    assert.equal(html.includes('id="prezent"'), true, `${rel} musi zawierać sekcję #prezent`);
+    assert.equal(html.includes('https://drive.google.com/drive/folders/1GIUc1GlNmByFBDCmjmJN4PSukewnzYTc'), true, `${rel} musi linkować do darmowego prezentu`);
+  }
+  const modal = read('components/cc-wspieramto-modal.js');
+  assert.equal(modal.includes("support_source: 'wspieramto_modal'"), true);
+  assert.doesNotMatch(modal, /\bsource:\s*['"]wspieramto_modal['"]/, 'zarezerwowane pole source psuje atrybucję GA4');
+
+  const analytics = read('js/cc-analytics.js');
+  assert.equal(analytics.includes("k === 'source'"), true, 'sanitizeParams musi chronić GA4 przed polem source');
+
+  for (const rel of ['wspieraj.html', 'pomogebomoge.html', 'biblijne-uwielbienie.html', 'milion.html', 'milion/index.html']) {
+    const html = read(rel);
+    assert.equal(html.includes('https://zrzutka.pl/z/ChristianCulture'), true, `${rel} musi kierować na nowy link zrzutka.pl/z/ChristianCulture`);
+    assert.equal(html.includes('https://zrzutka.pl/rs4g4v'), false, `${rel} nie może zawierać starego linku rs4g4v`);
+  }
+
+  const vod = read('vod.html');
+  assert.equal(vod.includes('<title>Filmy VOD za darmo z lektorem PL (Całe Filmy HD) | Kino CC</title>'), true);
 });
 
 test('TOP 6 stron z realnym ruchem ładują cc-wspieramto-modal.js i mają widoczny wyzwalacz data-cc-wspieramto', () => {

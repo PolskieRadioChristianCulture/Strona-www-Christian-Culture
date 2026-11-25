@@ -80,7 +80,8 @@ export function strona(j, wszystkie) {
         <a class="przycisk" href="https://revolut.me/christianculture" target="_blank" rel="noopener noreferrer" data-ga="support_external_click" data-ga-metoda="revolut">${esc(P.revolut.cta)}</a>`,
     zrzutka: `        <h3>${esc(P.zrzutka.h3)}</h3>
         <p>${esc(P.zrzutka.p)}</p>
-        <a class="przycisk" href="https://zrzutka.pl/rs4g4v" target="_blank" rel="noopener noreferrer" data-ga="support_external_click" data-ga-metoda="zrzutka_1">${esc(P.zrzutka.cta)} rs4g4v</a>
+        <a class="przycisk" href="https://zrzutka.pl/z/ChristianCulture" target="_blank" rel="noopener noreferrer" data-ga="support_external_click" data-ga-metoda="zrzutka_1">${esc(P.zrzutka.cta)} Christian Culture</a>
+        <a class="przycisk przycisk--cichy" href="/wspieramto" data-ga="support_external_click" data-ga-metoda="wspieramto_hub">WspieramTO (/wspieramto)</a>
         <a class="przycisk przycisk--cichy" href="https://zrzutka.pl/3bbxzn" target="_blank" rel="noopener noreferrer" data-ga="support_external_click" data-ga-metoda="zrzutka_2">${esc(P.zrzutka.cta)} 3bbxzn</a>`,
   };
   const url = BAZA + L.sciezka;

@@ -65,7 +65,7 @@ test('Pilot /test/wspieraj preserves 100% of verified payment methods and leaves
     '48 2910 0006 0000 0000 0527 2629',
     'https://patronite.pl/osobowoscplus',
     'https://revolut.me/christianculture',
-    'https://zrzutka.pl/rs4g4v',
+    'https://zrzutka.pl/z/ChristianCulture',
     'https://zrzutka.pl/3bbxzn',
     'https://my-store-1009741.creator-spring.com/',
     '+48 507 821 789',
@@ -80,7 +80,7 @@ test('Pilot /test/wspieraj preserves 100% of verified payment methods and leaves
   // @007 2026-11-18: L0 zatwierdził nową /wspieraj („✅ TAK, podmień”). Produkcja nie musi już być starym plikiem,
   // ale MUSI zachować 100% zweryfikowanych metod wsparcia i działający skrypt podziękowań/zgody.
   for (const snippet of ['537 137 043', 'Cezary Rogowski', '74 2910 0006 2469 8002 1062 8039', '48 2910 0006 0000 0000 0527 2629',
-    'LT23 3250 0920 7156 6231', 'https://patronite.pl/osobowoscplus', 'https://revolut.me/christianculture', 'https://zrzutka.pl/rs4g4v',
+    'LT23 3250 0920 7156 6231', 'https://patronite.pl/osobowoscplus', 'https://revolut.me/christianculture', 'https://zrzutka.pl/z/ChristianCulture',
     'https://zrzutka.pl/3bbxzn', 'https://my-store-1009741.creator-spring.com/', '+48 507 821 789', 'assets/cc-support/support.js',
     'id="consent-form"', 'id="thanks-list"']) {
     assert.ok(prodHtml.includes(snippet), `wspieraj.html musi zachować zweryfikowany element: ${snippet}`);

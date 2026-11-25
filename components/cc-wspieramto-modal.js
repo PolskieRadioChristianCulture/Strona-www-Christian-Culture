@@ -495,7 +495,7 @@
     modalDiv.classList.add('cc-wt-open');
     document.body.style.overflow = 'hidden';
     if (window.CCAnalyticsMC && typeof window.CCAnalyticsMC.trackSupportView === 'function') {
-      window.CCAnalyticsMC.trackSupportView({ page_path: location.pathname, source: 'wspieramto_modal' });
+      window.CCAnalyticsMC.trackSupportView({ page_path: location.pathname, support_source: 'wspieramto_modal' });
     }
     const closeBtn = document.getElementById('ccWtClose');
     if (closeBtn) closeBtn.focus();

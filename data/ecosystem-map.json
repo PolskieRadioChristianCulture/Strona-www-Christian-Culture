@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-25",
+      "topic": "WspieramTO & Kino VOD — sekcja darmowego prezentu /wspieramto#prezent, ujednolicenie linków zrzutka.pl/z/ChristianCulture, telemetria banera wideo i podbicie SEO /vod",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-25",
       "topic": "LumiChat — odczyt Rozważań Codziennych i czerwonej zakładki bezpośrednio ze statycznego /rozwazania_baza.json (0 wywołań Workera)",
       "agent": "A"
     },

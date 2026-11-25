@@ -20,6 +20,7 @@
       skip: 'Przejdź do treści',
       tickBadge: 'WspieramTO LIVE',
       brandSub: 'WspieramTO · Mecenat 24/7',
+      navGift: '🎁 Prezent',
       navSim: 'Wpływ daru',
       navFlow: 'Jak to działa',
       navStudio: 'Nowe Studio 4K',
@@ -68,11 +69,17 @@
       payEyebrow: 'Polska & Polonia (GBP · EUR · USD)',
       payTitle: 'Wybierz najwygodniejszą formę wsparcia',
       payLead: 'Wpłacisz w kilkanaście sekund z Polski i z każdego miejsca na świecie — jednym kliknięciem lub kopiując dane przelewu bez pośredników.',
+      giftEyebrow: '🎁 Darmowy prezent · Bez rejestracji i bez warunków',
+      giftTitle: 'Odbierz darmowy album „Najlepsze Utwory CC 2026”',
+      giftLead: 'Pobierz lub odsłuchaj za darmo bez podawania adresu e-mail — to nasz dar wdzięczności, że jesteś z nami. Jeśli nasza muzyka i Słowo Boże 24/7 dodają Ci otuchy, możesz przy okazji dorzucić dobrowolną cegiełkę na Nowe Studio RTV.',
+      giftCtaFree: '🎁 Otwórz i pobierz za darmo (Google Drive) ↗',
+      giftCtaSupport: 'Wesprzyj misję dobrowolnie (BLIK / Karta) →',
     },
     en: {
       skip: 'Skip to content',
       tickBadge: 'WspieramTO LIVE',
       brandSub: 'WspieramTO · 24/7 Patronage',
+      navGift: '🎁 Free Gift',
       navSim: 'Your Impact',
       navFlow: 'How It Works',
       navStudio: 'New 4K Studio',
@@ -121,6 +128,11 @@
       payEyebrow: 'Poland & International (GBP · EUR · USD)',
       payTitle: 'Choose your easiest way to give',
       payLead: 'Give in seconds from Poland or anywhere worldwide via 1-Click or direct SEPA/SWIFT transfer.',
+      giftEyebrow: '🎁 Free Gift · No sign-up, zero strings attached',
+      giftTitle: 'Download the free “Best of Christian Culture 2026” album',
+      giftLead: 'Listen or download freely with no email required — our thank-you gift for being here. If our 24/7 music and Scripture bless you, feel free to add an optional brick for the New 4K Studio.',
+      giftCtaFree: '🎁 Open & Download Free (Google Drive) ↗',
+      giftCtaSupport: 'Optional Support for the Mission →',
     },
   };
 
@@ -614,6 +626,19 @@
         btn.textContent = willOpen ? 'Ukryj szczegóły −' : 'Szczegóły techniczne +';
       });
     });
+
+    var giftBtn = document.getElementById('giftDriveBtn');
+    if (giftBtn) {
+      giftBtn.addEventListener('click', function () {
+        if (typeof window.ccTrack === 'function') {
+          window.ccTrack('gift_download_click', {
+            gift_album: 'best_of_cc_2026',
+            page_path: '/wspieramto',
+            placement: 'wspieramto_prezent_section'
+          });
+        }
+      });
+    }
 
     document.querySelectorAll('.copy-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
