@@ -36,12 +36,20 @@ test('strony /wspieramto osadzają zmasterowany spot wideo 9:16 i nowy adres zrz
 test('strona główna ładuje baner wideo wsparcia 1× dziennie z autostartem, dźwiękiem i nowym linkiem zrzutka.pl/z/ChristianCulture', () => {
   const home = read('index.html');
   assert.equal(home.includes('/components/cc-home-video-banner.js'), true);
+  assert.equal(home.includes('cc-top-support-label'), true);
+  assert.doesNotMatch(home, /class="cc-top-support-btn"[^>]*padding:0 14px/);
+  assert.match(home, /@media\s*\(max-width:\s*768px\)[\s\S]*?#mainHeader\s+\.cc-top-support-btn[\s\S]*?border-radius:\s*50%/);
+  assert.match(home, /#mainHeader\s+\.cc-top-support-btn\s+\.cc-top-support-label\s*\{\s*display:\s*none;/);
+  assert.match(home, /@media\s*\(max-width:\s*420px\)[\s\S]*?#mainHeader\s+\.header-container[\s\S]*?padding:\s*0\s+4px\s*!important;/);
   const banner = read('components/cc-home-video-banner.js');
   assert.equal(banner.includes('cc_home_video_banner_day'), true);
   assert.equal(banner.includes('/wspieramto/assets/wsparcie-zrzutka-web.mp4'), true);
   assert.equal(banner.includes('https://zrzutka.pl/z/ChristianCulture'), true);
   assert.equal(banner.includes('vid.muted = false'), true);
   assert.equal(banner.includes('top:calc(50% - 16px)'), true);
+  assert.equal(banner.includes('box-sizing:border-box'), true);
+  assert.equal(banner.includes('padding:7px 12px'), true);
+  assert.equal(banner.includes('cc-hvb-cta-sub'), true);
   assert.equal(banner.includes('id="ccHvbGift"'), true);
   assert.equal(banner.includes('Odbierz prezent za darmo'), true);
   assert.equal(banner.includes('https://drive.google.com/drive/folders/1GIUc1GlNmByFBDCmjmJN4PSukewnzYTc'), true);

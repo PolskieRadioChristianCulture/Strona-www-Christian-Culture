@@ -435,6 +435,30 @@
             transform: scale(1.08);
             background: linear-gradient(135deg, #ffe45e, #f5c518);
         }
+        .cc-top-support-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 44px;
+            min-width: 44px;
+            padding: 0 14px;
+            box-sizing: border-box;
+            border-radius: 999px;
+            background: #FF7A00;
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 13px;
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-shadow: 0 4px 14px rgba(255, 122, 0, 0.32);
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+        .cc-top-support-btn:hover { background: #FF8C33; color: #FFFFFF; }
+        .cc-top-support-btn:active { background: #E66A00; transform: scale(0.97); }
+        .cc-top-support-btn:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 2px; }
+        .cc-top-support-btn i { font-size: 0.95rem; line-height: 1; }
         /* Wyrównanie ikony czatu do ikony telefonu w dolnym pasku odtwarzacza na komputerze */
         @media (min-width: 769px) {
             #ccGlobalChatFab.cc-chat-fab-wrap {
@@ -446,6 +470,22 @@
         }
         @media (max-width: 768px) {
             #mainHeader .brand-logo { display: none !important; }
+            #mainHeader .cc-top-support-btn {
+                width: 44px;
+                height: 44px;
+                min-width: 44px;
+                min-height: 44px;
+                padding: 0;
+                gap: 0;
+                border-radius: 50%;
+            }
+            #mainHeader .cc-top-support-btn .cc-top-support-label {
+                display: none;
+            }
+            #mainHeader .cc-top-support-btn i {
+                font-size: 1.05rem;
+                margin: 0;
+            }
             #radioPlayerBar .player-right { min-width: 0 !important; width: 100% !important; box-sizing: border-box; padding-right: 88px !important; justify-content: flex-start !important; gap: 8px !important; }
             #radioPlayerBar .player-status { font-size: 0.55rem !important; padding: 2px 4px !important; }
             #radioPlayerBar .volume-slider { min-width: 0; width: auto !important; flex: 1 1 auto; }
@@ -462,6 +502,25 @@
             }
             #helplineFloat .hf-label {
                 display: none !important;
+            }
+        }
+        @media (max-width: 420px) {
+            #mainHeader .header-container {
+                padding: 0 4px !important;
+                gap: 4px !important;
+            }
+            #mainHeader .header-left {
+                gap: 0 !important;
+            }
+            #mainHeader #hamburgerBtn {
+                margin-right: 0 !important;
+            }
+            #mainHeader .header-right,
+            #mainHeader #quickActionsMenu {
+                gap: 3px !important;
+            }
+            #mainHeader .cc-header-lang-switcher {
+                margin: 0 !important;
             }
         }
     </style>
@@ -805,9 +864,9 @@
                 <!-- Polonia & Global Language Switcher (PL | EN) -->
                 <div data-cc-lang-switcher class="cc-header-lang-switcher" style="display: flex; align-items: center;"></div>
 
-                <a href="/wspieramto" data-cc-wspieramto="true" class="cc-top-support-btn" aria-label="Wesprzyj misję Christian Culture" title="Wesprzyj misję (BLIK / Karta / Zrzutka / Patronite)" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;min-width:44px;padding:0 14px;border-radius:999px;background:#FF7A00;color:#FFFFFF;font-weight:800;font-size:13px;text-decoration:none;white-space:nowrap;box-shadow:0 4px 14px rgba(255,122,0,0.32);">
+                <a href="/wspieramto" data-cc-wspieramto="true" class="cc-top-support-btn" aria-label="Wesprzyj misję Christian Culture" title="Wesprzyj misję (BLIK / Karta / Zrzutka / Patronite)">
                     <i class="fa-solid fa-heart" aria-hidden="true"></i>
-                    <span>Wesprzyj</span>
+                    <span class="cc-top-support-label">Wesprzyj</span>
                 </a>
                 
                 <div class="quick-actions-menu" id="quickActionsMenu" style="position: relative; display: flex; align-items: center; gap: 8px;">
@@ -4674,6 +4733,6 @@
     <script src="/js/cc-seasonal-campaigns.js?v=20261101_1" defer></script>
     <script src="/js/cc-sanctification-path.js?v=20261119_gold14" defer></script>
     <script src="/components/cc-wspieramto-modal.js?v=20261124_funnel1" defer></script>
-    <script src="/components/cc-home-video-banner.js?v=20261124_4" defer></script>
+    <script src="/components/cc-home-video-banner.js?v=20261125_5" defer></script>
 </body>
 </html>
