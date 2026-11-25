@@ -72,7 +72,27 @@ try {
   await page.goto(url, { waitUntil: 'networkidle' });
   await page.waitForSelector('.cc-pillar', { timeout: 10000 });
 
-  // 0. Zero hashtag chips
+  // 0. Ikona aplikacji w lewym górnym rogu + dymek 1× dziennie „Poznaj aplikacje Christian Culture”
+  const launcherVisible = await page.locator('#ccAppsLauncherBtn').isVisible();
+  assert(launcherVisible, 'Ikona aplikacji w lewym górnym rogu (#ccAppsLauncherBtn) jest widoczna');
+  const tooltipText = (await page.locator('#ccAppsTooltip').innerText()).trim();
+  const tooltipVisibleFirst = await page.locator('#ccAppsTooltip').evaluate((el) => el.classList.contains('is-visible'));
+  assert(tooltipVisibleFirst && tooltipText.includes('Poznaj aplikacje Christian Culture'), 'Dymek „Poznaj aplikacje Christian Culture” pojawia się przy 1. wizycie dnia');
+
+  // Kliknięcie dymka otwiera panel aplikacji z instalatorami i kafelkami ekosystemu
+  await page.click('#ccAppsTooltipAction');
+  const drawerOpen = await page.locator('#ccAppsDrawer').evaluate((el) => el.classList.contains('is-open'));
+  const installRows = await page.locator('#ccInstallableAppsList .cc-install-row').count();
+  const appTiles = await page.locator('#ccEcosystemAppsGrid .cc-app-tile').count();
+  assert(drawerOpen && installRows >= 3 && appTiles >= 15, `Panel aplikacji otwiera się z sekcją instalacji (${installRows}) i pełną siatką ekosystemu (${appTiles})`);
+  await page.keyboard.press('Escape');
+
+  // Po przeładowaniu tego samego dnia dymek NIE pojawia się drugi raz (1× dziennie)
+  await page.reload({ waitUntil: 'networkidle' });
+  const tooltipVisibleSecond = await page.locator('#ccAppsTooltip').evaluate((el) => el.classList.contains('is-visible'));
+  assert(!tooltipVisibleSecond, 'Dymek NIE pojawia się drugi raz tego samego dnia (1× dziennie)');
+
+  // 0b. Zero hashtag chips
   const bodyText = await page.locator('body').innerText();
   const hashtagChips = await page.locator('button, a').filter({ hasText: /^#[A-ZŻŹĆĄŚĘŁÓŃ]/ }).count();
   assert(hashtagChips === 0, `Brak chipów hashtagowych (znaleziono: ${hashtagChips})`);

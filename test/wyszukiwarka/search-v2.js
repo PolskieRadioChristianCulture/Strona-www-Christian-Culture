@@ -3,6 +3,63 @@
 
   const RECENTS_KEY = 'cc_v2_recent_searches';
   const ENGINE_KEY = 'cc_search_engine';
+  const TOOLTIP_DAY_KEY = 'cc_apps_tooltip_last_day';
+  let deferredPwaPrompt = null;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPwaPrompt = e;
+  });
+
+  const INSTALLABLE_APPS = [
+    {
+      id: 'app_win_search',
+      icon: '💻',
+      name: 'Wyszukiwarka CC (Windows)',
+      desc: 'Lekki instalator 2,3 MB • pasek zakładek i Ctrl+Shift+Spacja',
+      cta: 'Zainstaluj',
+      href: '/aplikacje/wyszukiwarka-windows/Wyszukiwarka-CC-Setup.exe',
+      download: true
+    },
+    {
+      id: 'app_dzj',
+      icon: '📱',
+      name: 'Dobrze, że jesteś',
+      desc: 'Codzienne rozważania, audio i inspiracje na telefon',
+      cta: 'Pobierz',
+      href: '/aplikacje#dobrze-ze-jestes'
+    },
+    {
+      id: 'app_pwa',
+      icon: '⚡',
+      name: 'Wyszukiwarka CC (Ekran główny)',
+      desc: 'Szybka ikona aplikacji na telefon lub komputer (PWA)',
+      cta: 'Zainstaluj',
+      pwaInstall: true,
+      href: '/aplikacje'
+    }
+  ];
+
+  const ECOSYSTEM_APPS = [
+    { icon: '📻', name: 'Radio 24/7', url: '/player' },
+    { icon: '🎧', name: 'Biblia Audio', url: '/biblia-audio/' },
+    { icon: '📖', name: 'MojaBiblia', url: '/mojabiblia' },
+    { icon: '🎓', name: 'Kurs Codzienny', url: '/akademia#kurscodzienny' },
+    { icon: '✨', name: 'LUMINA', url: '/lumina' },
+    { icon: '💬', name: 'LUMI Messenger', url: '/mess' },
+    { icon: '🎬', name: 'Kino VOD', url: '/vod' },
+    { icon: '📺', name: 'Kanały TV', url: '/SpiritualSounds/tv/' },
+    { icon: '💌', name: 'Wiad. z Nieba', url: '/wiadomosci-z-nieba/' },
+    { icon: '📰', name: 'CCN News', url: '/news' },
+    { icon: '🎵', name: 'topTEN', url: '/topten' },
+    { icon: '🌸', name: 'CC Women', url: '/ccwomen/' },
+    { icon: '🎁', name: 'E-Kartki', url: '/kartki/' },
+    { icon: '🗓️', name: 'HOLOS 2027', url: '/holos' },
+    { icon: '🤝', name: 'CC Pomoc', url: '/help' },
+    { icon: '📚', name: 'Biblioteka', url: '/biblioteka' },
+    { icon: '🗺️', name: 'Mapa CC', url: '/mapa' },
+    { icon: '💛', name: 'WspieramTO', url: '/wspieramto' }
+  ];
 
   const state = {
     engine: 'cc',
@@ -757,8 +814,113 @@
     });
   });
 
+  // APPS LAUNCHER (lewy górny róg) + Dymek 1× dziennie „Poznaj aplikacje Christian Culture”
+  function getTodayLocalYmd() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  function initAppsLauncher() {
+    const btn = $('ccAppsLauncherBtn');
+    const drawer = $('ccAppsDrawer');
+    const closeBtn = $('ccAppsDrawerClose');
+    const tooltip = $('ccAppsTooltip');
+    const tooltipAction = $('ccAppsTooltipAction');
+    const tooltipClose = $('ccAppsTooltipClose');
+    const installList = $('ccInstallableAppsList');
+    const appsGrid = $('ccEcosystemAppsGrid');
+    if (!btn || !drawer) return;
+
+    const markTooltipSeenToday = () => {
+      try { localStorage.setItem(TOOLTIP_DAY_KEY, getTodayLocalYmd()); } catch (_) {}
+      if (tooltip) tooltip.classList.remove('is-visible');
+    };
+
+    const openDrawer = () => {
+      markTooltipSeenToday();
+      drawer.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+    };
+    const closeDrawer = () => {
+      drawer.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    };
+
+    // Wypełnij listę aplikacji do zainstalowania z poziomu wyszukiwarki
+    installList.textContent = '';
+    for (const app of INSTALLABLE_APPS) {
+      const row = el('div', { className: 'cc-install-row' });
+      row.appendChild(el('div', { className: 'cc-install-icon', 'aria-hidden': 'true' }, app.icon));
+      const info = el('div', { className: 'cc-install-info' });
+      info.appendChild(el('strong', null, app.name));
+      info.appendChild(el('span', null, app.desc));
+      row.appendChild(info);
+      if (app.pwaInstall) {
+        row.appendChild(el('button', {
+          type: 'button',
+          className: 'cc-install-cta',
+          onClick: async () => {
+            if (deferredPwaPrompt) {
+              deferredPwaPrompt.prompt();
+              await deferredPwaPrompt.userChoice.catch(() => {});
+              deferredPwaPrompt = null;
+            } else {
+              window.location.href = app.href;
+            }
+          }
+        }, app.cta));
+      } else {
+        const aAttrs = { className: 'cc-install-cta', href: app.href };
+        if (app.download) aAttrs.download = '';
+        row.appendChild(el('a', aAttrs, app.cta));
+      }
+      installList.appendChild(row);
+    }
+
+    // Wypełnij pełną siatkę wszystkich aplikacji ekosystemu
+    appsGrid.textContent = '';
+    for (const app of ECOSYSTEM_APPS) {
+      const tile = el('a', { className: 'cc-app-tile', href: app.url });
+      tile.appendChild(el('span', { className: 'cc-app-tile-ico', 'aria-hidden': 'true' }, app.icon));
+      tile.appendChild(el('span', { className: 'cc-app-tile-name' }, app.name));
+      appsGrid.appendChild(tile);
+    }
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (drawer.classList.contains('is-open')) closeDrawer();
+      else openDrawer();
+    });
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (tooltipAction) tooltipAction.addEventListener('click', openDrawer);
+    if (tooltipClose) tooltipClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      markTooltipSeenToday();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.cc-apps-anchor')) closeDrawer();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
+    });
+
+    // Dymek raz dziennie przy ikonie w lewym górnym rogu
+    let lastShown = '';
+    try { lastShown = localStorage.getItem(TOOLTIP_DAY_KEY) || ''; } catch (_) {}
+    if (tooltip && lastShown !== getTodayLocalYmd()) {
+      tooltip.classList.add('is-visible');
+      // Zapisz od razu dzisiejszą datę wyświetlenia, aby po odświeżeniu nie wracał tego samego dnia
+      try { localStorage.setItem(TOOLTIP_DAY_KEY, getTodayLocalYmd()); } catch (_) {}
+    }
+  }
+
   // BOOTSTRAP DATA
   async function init() {
+    initAppsLauncher();
     renderRecents();
     try {
       const [mediaRes, webRes] = await Promise.all([

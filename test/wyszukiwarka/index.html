@@ -8,16 +8,56 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#070a12">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/search/search-icon-32.png?v=20261026">
-  <link rel="stylesheet" href="./search-v2.css?v=20261125_1">
+  <link rel="stylesheet" href="./search-v2.css?v=20261125_2">
 </head>
 <body>
   <header class="cc-topbar">
     <div class="cc-topbar-inner">
-      <a class="cc-brand" href="/test/wyszukiwarka/">
-        <img src="/images/search/search-icon-192.png" alt="Wyszukiwarka Christian Culture">
-        <span class="cc-brand-title">Wyszukiwarka CC</span>
-        <span class="cc-test-badge">Podgląd v2</span>
-      </a>
+      <div class="cc-top-left">
+        <div class="cc-apps-anchor">
+          <button
+            type="button"
+            id="ccAppsLauncherBtn"
+            class="cc-apps-btn"
+            aria-label="Aplikacje Christian Culture"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="ccAppsDrawer"
+            title="Aplikacje Christian Culture"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <circle cx="5" cy="5" r="2.2"></circle><circle cx="12" cy="5" r="2.2"></circle><circle cx="19" cy="5" r="2.2"></circle>
+              <circle cx="5" cy="12" r="2.2"></circle><circle cx="12" cy="12" r="2.2"></circle><circle cx="19" cy="12" r="2.2"></circle>
+              <circle cx="5" cy="19" r="2.2"></circle><circle cx="12" cy="19" r="2.2"></circle><circle cx="19" cy="19" r="2.2"></circle>
+            </svg>
+          </button>
+
+          <div id="ccAppsTooltip" class="cc-apps-tooltip" role="status" aria-live="polite">
+            <button type="button" id="ccAppsTooltipAction" class="cc-apps-tooltip-text">Poznaj aplikacje Christian Culture</button>
+            <button type="button" id="ccAppsTooltipClose" class="cc-apps-tooltip-close" aria-label="Zamknij podpowiedź">×</button>
+          </div>
+
+          <section id="ccAppsDrawer" class="cc-apps-drawer" role="dialog" aria-label="Aplikacje Christian Culture">
+            <div class="cc-apps-drawer-head">
+              <strong>⊞ Aplikacje Christian Culture</strong>
+              <button type="button" id="ccAppsDrawerClose" class="cc-apps-drawer-close" aria-label="Zamknij panel aplikacji">×</button>
+            </div>
+            <div class="cc-apps-section-label">Zainstaluj od razu na swoim urządzeniu</div>
+            <div id="ccInstallableAppsList" class="cc-install-list"></div>
+            <div class="cc-apps-section-label">Wszystkie aplikacje i serwisy ekosystemu</div>
+            <div id="ccEcosystemAppsGrid" class="cc-apps-grid"></div>
+            <div class="cc-apps-drawer-foot">
+              <a class="cc-ghost-btn" href="/aplikacje">Wszystkie aplikacje CC →</a>
+            </div>
+          </section>
+        </div>
+
+        <a class="cc-brand" href="/test/wyszukiwarka/">
+          <img src="/images/search/search-icon-192.png" alt="Wyszukiwarka Christian Culture">
+          <span class="cc-brand-title">Wyszukiwarka CC</span>
+          <span class="cc-test-badge">Podgląd v2</span>
+        </a>
+      </div>
       <div class="cc-top-actions">
         <div class="cc-engine-switch" role="group" aria-label="Tryb wyszukiwania">
           <button type="button" class="cc-engine-btn" data-engine="cc" aria-pressed="true">Ekosystem CC</button>
@@ -104,7 +144,7 @@
     </div>
   </div>
 
-  <script src="./search-v2.js?v=20261125_1" defer></script>
+  <script src="./search-v2.js?v=20261125_2" defer></script>
   <script src="/js/cc-windows-app-banner.js?v=20261125" defer></script>
 </body>
 </html>

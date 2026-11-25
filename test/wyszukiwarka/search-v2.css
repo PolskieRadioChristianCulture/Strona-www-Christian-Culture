@@ -57,6 +57,206 @@ button { font: inherit; color: inherit; cursor: pointer; }
   gap: 12px;
   flex-wrap: wrap;
 }
+.cc-top-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cc-apps-anchor {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.cc-apps-btn {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--cc-border-strong);
+  background: rgba(196, 163, 90, 0.14);
+  color: var(--cc-gold-light);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+.cc-apps-btn:hover, .cc-apps-btn[aria-expanded="true"] {
+  background: var(--cc-orange);
+  border-color: var(--cc-orange);
+  color: #fff;
+}
+
+/* Dymek 1x dziennie: „Poznaj aplikacje Christian Culture” */
+.cc-apps-tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 90;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px 8px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #FF7A00 0%, #E66A00 100%);
+  color: #fff;
+  box-shadow: 0 12px 32px rgba(255, 122, 0, 0.42), 0 4px 16px rgba(0, 0, 0, 0.55);
+  white-space: nowrap;
+  max-width: calc(100vw - 32px);
+}
+.cc-apps-tooltip.is-visible { display: inline-flex; }
+.cc-apps-tooltip::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 16px;
+  width: 12px;
+  height: 12px;
+  background: #FF7A00;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+.cc-apps-tooltip-text {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 700;
+  padding: 4px 0;
+  text-align: left;
+  white-space: normal;
+}
+.cc-apps-tooltip-close {
+  min-width: 32px;
+  min-height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.22);
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.cc-apps-tooltip-close:hover { background: rgba(0, 0, 0, 0.38); }
+
+/* Panel Aplikacji CC */
+.cc-apps-drawer {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 88;
+  width: min(440px, calc(100vw - 24px));
+  max-height: min(78vh, 660px);
+  overflow-y: auto;
+  background: #0d1322;
+  border: 1px solid var(--cc-border-strong);
+  border-radius: 20px;
+  box-shadow: 0 24px 68px rgba(0, 0, 0, 0.8);
+  padding: 14px;
+  display: none;
+}
+.cc-apps-drawer.is-open { display: block; }
+.cc-apps-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(196, 163, 90, 0.18);
+  color: var(--cc-gold-light);
+  font-size: 0.96rem;
+}
+.cc-apps-drawer-close {
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--cc-border);
+  background: transparent;
+  color: #fff;
+  font-size: 1.15rem;
+}
+.cc-apps-section-label {
+  margin: 12px 0 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cc-gold);
+}
+.cc-install-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cc-install-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 14px;
+  background: linear-gradient(120deg, rgba(196, 163, 90, 0.14), rgba(255, 122, 0, 0.1));
+  border: 1px solid var(--cc-border);
+}
+.cc-install-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+.cc-install-info { flex: 1; min-width: 0; }
+.cc-install-info strong { display: block; font-size: 0.88rem; color: #fff; }
+.cc-install-info span { display: block; font-size: 0.76rem; color: var(--cc-muted); }
+.cc-install-cta {
+  min-height: 38px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--cc-orange);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.cc-install-cta:hover { background: var(--cc-orange-hover); }
+
+.cc-apps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.cc-app-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+  padding: 10px 6px;
+  min-height: 78px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.14s, border-color 0.14s;
+}
+.cc-app-tile:hover {
+  background: rgba(196, 163, 90, 0.15);
+  border-color: var(--cc-border-strong);
+}
+.cc-app-tile-ico { font-size: 1.35rem; line-height: 1; }
+.cc-app-tile-name { font-size: 0.76rem; font-weight: 600; color: var(--cc-ink); line-height: 1.2; }
+.cc-apps-drawer-foot {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(196, 163, 90, 0.14);
+  display: flex;
+  justify-content: center;
+}
+
 .cc-brand {
   display: inline-flex;
   align-items: center;
