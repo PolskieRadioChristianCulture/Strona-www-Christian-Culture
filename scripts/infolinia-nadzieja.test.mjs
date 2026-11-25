@@ -81,9 +81,23 @@ test('public canonical page /infolinia-nadzieja/ meets CC release standards and 
   assert.ok(publicPageHtml.includes('Ponad podziałami. Blisko człowieka. W duchu Chrystusa.'));
   assert.ok(publicPageHtml.includes('#FF7A00'));
   assert.ok(publicPageHtml.includes('tel:112'));
-  assert.ok(publicPageHtml.includes('/components/cc-infolinia-nadzieja-modal.js'));
+  assert.ok(publicPageHtml.includes('/components/cc-infolinia-nadzieja-modal.js?v=20261125_in3'));
+  assert.ok(publicPageHtml.includes('3HBUoJDujVY'));
+  assert.ok(publicPageHtml.includes('VideoObject'));
+  assert.ok(publicPageHtml.includes('infoliniaPageVideoPlay'));
   assert.equal(isPublicFile('infolinia-nadzieja/index.html'), true);
   assert.equal(isPublicFile('components/cc-infolinia-nadzieja-modal.js'), true);
   assert.equal(isPublicFile('test/infolinia-nadzieja/index.html'), false);
   assert.equal(fs.existsSync(new URL('../test/infolinia-nadzieja/index.html', import.meta.url)), false, 'Temporary test preview must be cleaned up');
+});
+
+test('YouTube video 3HBUoJDujVY is embedded cleanly in the shared modal and resets on close', () => {
+  for (const token of [
+    '3HBUoJDujVY',
+    'youtube-nocookie.com/embed/3HBUoJDujVY',
+    'ccInfoliniaVideoTrigger',
+    'resetModalVideo',
+  ]) {
+    assert.ok(componentSrc.includes(token), `Missing video token in modal: ${token}`);
+  }
 });

@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-25",
+      "topic": "Infolinia NADZIEJA — dodanie oficjalnego wideo YouTube (3HBUoJDujVY) do komunikatu i strony /infolinia-nadzieja/",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-25",
       "topic": "Podgląd testowy Multimedialnej Wyszukiwarki CC v2 (/test/wyszukiwarka/, noindex) — podpowiedzi multimedialne od 2. litery (grafiki, audio inline, wideo YT lite-embed, autoreklama Polecane), zero hashtagów i Brama Całego Ekosystemu",
       "agent": "A"
     },

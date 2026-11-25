@@ -8,8 +8,7 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config','G-Y4EFTVBPE3',(function(){try{var s=location.search,k='cc_team';if(/[?&]cc_team=1/.test(s))localStorage.setItem(k,'1');if(/[?&]cc_team=0/.test(s))localStorage.removeItem(k);if(localStorage.getItem(k)==='1'||/[?&]in_mcr=1/.test(s)||window.obsstudio)return{traffic_type:'internal'}}catch(e){}return{}})());
-  </script>
-  <script src="/js/cc-analytics.js?v=20261026_1" defer></script>
+  </script><script src="/js/cc-analytics.js?v=20261026_1" defer></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Infolinia NADZIEJA Christian Culture — Ponadwyznaniowy wolontariat chrześcijański</title>
@@ -86,6 +85,19 @@
             }
           }
         ]
+      },
+      {
+        "@type": "VideoObject",
+        "name": "Infolinia NADZIEJA CC: Nie jesteś sam! Zadzwoń po WSPARCIE, MODLITWĘ i POMOC",
+        "description": "Oficjalne wideo informacyjne Infolinii NADZIEJA Christian Culture — ponadwyznaniowy wolontariat chrześcijański. Ponad podziałami. Blisko człowieka. W duchu Chrystusa.",
+        "thumbnailUrl": "https://i.ytimg.com/vi/3HBUoJDujVY/hqdefault.jpg",
+        "embedUrl": "https://www.youtube-nocookie.com/embed/3HBUoJDujVY",
+        "contentUrl": "https://youtu.be/3HBUoJDujVY",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Christian Culture",
+          "url": "https://polskieradio.cc/"
+        }
       }
     ]
   }
@@ -356,6 +368,73 @@
     .footer-links a { text-decoration: none; color: var(--gold-light); font-weight: 600; }
     .footer-links a:hover { text-decoration: underline; }
 
+    .video-showcase {
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(20px, 3.5vw, 28px);
+      margin-bottom: 24px;
+    }
+    .video-showcase__head {
+      display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+      gap: 10px; margin-bottom: 14px;
+    }
+    .video-showcase__head h2 {
+      margin: 0;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(20px, 3vw, 25px); color: #fff;
+    }
+    .video-showcase__sub {
+      margin: 4px 0 0; font-size: 14px; color: var(--muted);
+    }
+    .video-showcase__ext {
+      display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px;
+      border-radius: 12px; text-decoration: none; font-size: 13.5px; font-weight: 700;
+      color: var(--gold-light); background: rgba(196, 163, 90, 0.12);
+      border: 1px solid rgba(196, 163, 90, 0.36); white-space: nowrap;
+    }
+    .video-showcase__ext:hover { background: rgba(196, 163, 90, 0.22); color: #fff; }
+    .video-stage {
+      position: relative; width: 100%; aspect-ratio: 16 / 9;
+      border-radius: 18px; overflow: hidden; background: #04070E;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .video-stage__poster {
+      position: relative; width: 100%; height: 100%; display: block;
+      padding: 0; border: 0; background: #04070E; cursor: pointer;
+    }
+    .video-stage__poster img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+    .video-stage__poster:hover img { transform: scale(1.02); filter: brightness(0.88); }
+    .video-stage__scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(7,11,20,0.12) 0%, rgba(7,11,20,0.68) 100%);
+      pointer-events: none;
+    }
+    .video-stage__play {
+      position: absolute; inset: 0; margin: auto;
+      width: 72px; height: 72px; border-radius: 999px;
+      background: var(--orange); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 900; padding-left: 4px;
+      box-shadow: 0 14px 36px rgba(255, 122, 0, 0.48), 0 0 0 6px rgba(255, 122, 0, 0.24);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .video-stage__poster:hover .video-stage__play {
+      background: var(--orange-hover); transform: scale(1.06);
+    }
+    .video-stage__caption {
+      position: absolute; left: 16px; right: 16px; bottom: 14px; text-align: left;
+      font-size: 14px; font-weight: 700; color: #fff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      pointer-events: none;
+    }
+    .video-stage iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+    }
+
     @media (max-width: 520px) {
       .cta-row .btn { width: 100%; }
       .emergency-links a { width: 100%; justify-content: center; }
@@ -364,7 +443,7 @@
   <script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
   <script src="/js/cc-favorites.js?v=20261120_fav4" defer></script>
   <script src="/js/cc-eco-bars.js?v=20261125_promo1" defer></script>
-  <script src="/components/cc-infolinia-nadzieja-modal.js?v=20261125_in2" defer></script>
+  <script src="/components/cc-infolinia-nadzieja-modal.js?v=20261125_in3" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#tresc">Przejdź do treści</a>
@@ -423,6 +502,24 @@
           <span>Numer Infolinii NADZIEJA:</span>
           <strong>+48 730 958 583</strong>
           <span>· przed połączeniem wyświetli się komunikat informacyjny</span>
+        </div>
+      </section>
+
+      <section class="video-showcase" id="infoliniaWideo" aria-labelledby="infoliniaWideoHeading">
+        <div class="video-showcase__head">
+          <div>
+            <h2 id="infoliniaWideoHeading">Obejrzyj wideo o Infolinii NADZIEJA</h2>
+            <p class="video-showcase__sub">„Nie jesteś sam! Zadzwoń po wsparcie, modlitwę i pomoc” — Christian Culture TV</p>
+          </div>
+          <a class="video-showcase__ext" href="https://youtu.be/3HBUoJDujVY" target="_blank" rel="noopener noreferrer">Otwórz na YouTube ↗</a>
+        </div>
+        <div class="video-stage" id="infoliniaPageVideoStage">
+          <button type="button" class="video-stage__poster" id="infoliniaPageVideoPlay" aria-label="Odtwórz wideo YouTube: Infolinia NADZIEJA CC — Nie jesteś sam">
+            <img src="https://i.ytimg.com/vi/3HBUoJDujVY/hqdefault.jpg" alt="Infolinia NADZIEJA Christian Culture — Nie jesteś sam! Wideo informacyjne" loading="lazy" decoding="async">
+            <span class="video-stage__scrim" aria-hidden="true"></span>
+            <span class="video-stage__play" aria-hidden="true">▶</span>
+            <span class="video-stage__caption">Kliknij, aby obejrzeć zaproszenie wideo (YouTube · +48 730 958 583)</span>
+          </button>
         </div>
       </section>
 
@@ -493,6 +590,20 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      var videoBtn = document.getElementById('infoliniaPageVideoPlay');
+      var videoStage = document.getElementById('infoliniaPageVideoStage');
+      if (videoBtn && videoStage) {
+        videoBtn.addEventListener('click', function () {
+          videoStage.textContent = '';
+          var frame = document.createElement('iframe');
+          frame.src = 'https://www.youtube-nocookie.com/embed/3HBUoJDujVY?autoplay=1&rel=0';
+          frame.title = 'Infolinia NADZIEJA CC: Nie jesteś sam! Zadzwoń po WSPARCIE, MODLITWĘ i POMOC';
+          frame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+          frame.setAttribute('allowfullscreen', '');
+          frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+          videoStage.appendChild(frame);
+        });
+      }
       if (window.CCEco && typeof window.CCEco.mountPromo === 'function') {
         window.CCEco.mountPromo(
           document.getElementById('promoStage'),

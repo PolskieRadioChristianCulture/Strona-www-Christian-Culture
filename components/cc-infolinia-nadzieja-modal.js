@@ -23,6 +23,10 @@
   const PHONE_DIGITS = '730958583';
   const PHONE_E164 = '+48730958583';
   const PHONE_DISPLAY = '+48 730 958 583';
+  const YT_VIDEO_ID = '3HBUoJDujVY';
+  const YT_WATCH_URL = 'https://youtu.be/3HBUoJDujVY';
+  const YT_EMBED_URL = 'https://www.youtube-nocookie.com/embed/3HBUoJDujVY?autoplay=1&rel=0';
+  const YT_THUMB_URL = 'https://i.ytimg.com/vi/3HBUoJDujVY/hqdefault.jpg';
   const STYLE_ID = 'cc-infolinia-nadzieja-styles';
   const MODAL_ID = 'ccInfoliniaNadziejaOverlay';
 
@@ -36,6 +40,9 @@
   let copyBtn = null;
   let liveRegion = null;
   let modeBadgeEl = null;
+  let videoTriggerBtn = null;
+  let videoPlayerWrap = null;
+  let videoStageEl = null;
 
   let pendingAction = null; // { href, isExternal, label }
   let lastTriggerEl = null;
@@ -163,6 +170,50 @@
       '  background:rgba(255,122,0,0.13);border:1px solid rgba(255,122,0,0.45);',
       '  color:#FFFFFF;font-size:14.5px;font-weight:800;line-height:1.38;',
       '}',
+      `#${MODAL_ID} .ccin-video-box{`,
+      '  margin:0 0 10px 0;padding:8px 10px;border-radius:14px;',
+      '  background:rgba(5,9,20,0.72);border:1px solid rgba(196,163,90,0.32);',
+      '}',
+      `#${MODAL_ID} .ccin-video-row{`,
+      '  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;',
+      '}',
+      `#${MODAL_ID} .ccin-video-teaser{`,
+      '  display:flex;align-items:center;gap:10px;flex:1 1 260px;min-height:48px;',
+      '  padding:4px 8px 4px 4px;border-radius:10px;border:1px solid rgba(255,255,255,0.14);',
+      '  background:rgba(255,255,255,0.04);color:#FFFFFF;cursor:pointer;text-align:left;',
+      '  transition:background 0.2s ease,border-color 0.2s ease;',
+      '}',
+      `#${MODAL_ID} .ccin-video-teaser:hover{background:rgba(255,122,0,0.14);border-color:#FF7A00;}`,
+      `#${MODAL_ID} .ccin-video-thumb-wrap{`,
+      '  position:relative;width:88px;height:50px;flex-shrink:0;border-radius:8px;overflow:hidden;background:#000;',
+      '}',
+      `#${MODAL_ID} .ccin-video-thumb{width:100%;height:100%;object-fit:cover;display:block;}`,
+      `#${MODAL_ID} .ccin-video-play-badge{`,
+      '  position:absolute;inset:0;margin:auto;width:28px;height:28px;border-radius:999px;',
+      '  background:rgba(255,122,0,0.92);color:#FFFFFF;font-size:12px;font-weight:900;',
+      '  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.5);',
+      '}',
+      `#${MODAL_ID} .ccin-video-meta{display:flex;flex-direction:column;gap:2px;min-width:0;}`,
+      `#${MODAL_ID} .ccin-video-title{font-size:13px;font-weight:700;color:#FFFFFF;line-height:1.25;}`,
+      `#${MODAL_ID} .ccin-video-sub{font-size:11.5px;color:#E2CC9A;font-weight:600;}`,
+      `#${MODAL_ID} .ccin-video-ext{`,
+      '  display:inline-flex;align-items:center;min-height:44px;padding:6px 10px;border-radius:10px;',
+      '  color:#E2CC9A;font-size:12.5px;font-weight:700;text-decoration:none;white-space:nowrap;',
+      '  border:1px solid rgba(196,163,90,0.34);background:rgba(196,163,90,0.08);',
+      '}',
+      `#${MODAL_ID} .ccin-video-ext:hover{background:rgba(196,163,90,0.2);color:#FFFFFF;}`,
+      `#${MODAL_ID} .ccin-video-player-wrap{display:flex;flex-direction:column;gap:8px;width:100%;}`,
+      `#${MODAL_ID} .ccin-video-stage{`,
+      '  position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;',
+      '  border:1px solid rgba(196,163,90,0.36);',
+      '}',
+      `#${MODAL_ID} .ccin-video-stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}`,
+      `#${MODAL_ID} .ccin-video-collapse{`,
+      '  align-self:flex-end;min-height:44px;padding:6px 12px;border-radius:10px;',
+      '  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.22);',
+      '  color:#FFFFFF;font-size:12.5px;font-weight:700;cursor:pointer;',
+      '}',
+      `#${MODAL_ID} .ccin-video-collapse:hover{background:rgba(255,255,255,0.16);}`,
       `#${MODAL_ID} .ccin-disclaimer{`,
       '  margin:0 0 10px 0;padding:9px 12px;border-radius:12px;',
       '  background:rgba(255,255,255,0.04);border-left:3px solid rgba(148,163,184,0.65);',
@@ -297,6 +348,79 @@
 
     const callout = makeEl('h3', 'ccin-callout', 'Jesteśmy tutaj, aby Cię wysłuchać, wesprzeć i nieść nadzieję. ❤️');
 
+    const videoBox = makeEl('div', 'ccin-video-box');
+    videoBox.id = 'ccInfoliniaVideoBox';
+
+    const videoRow = makeEl('div', 'ccin-video-row');
+    videoRow.id = 'ccInfoliniaVideoRow';
+
+    videoTriggerBtn = makeEl('button', 'ccin-video-teaser');
+    videoTriggerBtn.type = 'button';
+    videoTriggerBtn.id = 'ccInfoliniaVideoTrigger';
+    videoTriggerBtn.setAttribute('aria-label', 'Odtwórz wideo YouTube: Infolinia NADZIEJA — Nie jesteś sam');
+
+    const thumbWrap = makeEl('span', 'ccin-video-thumb-wrap');
+    const thumbImg = document.createElement('img');
+    thumbImg.className = 'ccin-video-thumb';
+    thumbImg.src = YT_THUMB_URL;
+    thumbImg.alt = 'Miniatura wideo Infolinia NADZIEJA Christian Culture';
+    thumbImg.loading = 'lazy';
+    thumbImg.decoding = 'async';
+    const playBadge = makeEl('span', 'ccin-video-play-badge', '▶');
+    playBadge.setAttribute('aria-hidden', 'true');
+    thumbWrap.appendChild(thumbImg);
+    thumbWrap.appendChild(playBadge);
+
+    const videoMeta = makeEl('span', 'ccin-video-meta');
+    videoMeta.appendChild(makeEl('span', 'ccin-video-title', 'Obejrzyj wideo: Infolinia NADZIEJA — Nie jesteś sam!'));
+    videoMeta.appendChild(makeEl('span', 'ccin-video-sub', 'Kliknij, aby odtworzyć w oknie'));
+    videoTriggerBtn.appendChild(thumbWrap);
+    videoTriggerBtn.appendChild(videoMeta);
+
+    const videoExtLink = makeEl('a', 'ccin-video-ext', 'Otwórz na YouTube ↗');
+    videoExtLink.href = YT_WATCH_URL;
+    videoExtLink.target = '_blank';
+    videoExtLink.rel = 'noopener noreferrer';
+
+    videoRow.appendChild(videoTriggerBtn);
+    videoRow.appendChild(videoExtLink);
+
+    videoPlayerWrap = makeEl('div', 'ccin-video-player-wrap');
+    videoPlayerWrap.id = 'ccInfoliniaVideoPlayerWrap';
+    videoPlayerWrap.hidden = true;
+
+    videoStageEl = makeEl('div', 'ccin-video-stage');
+    videoStageEl.id = 'ccInfoliniaVideoPlayer';
+
+    const videoCollapseBtn = makeEl('button', 'ccin-video-collapse', 'Ukryj wideo');
+    videoCollapseBtn.type = 'button';
+    videoCollapseBtn.addEventListener('click', () => {
+      resetModalVideo();
+      if (videoTriggerBtn) videoTriggerBtn.focus();
+      announce('Zatrzymano odtwarzanie wideo.');
+    });
+
+    videoPlayerWrap.appendChild(videoStageEl);
+    videoPlayerWrap.appendChild(videoCollapseBtn);
+
+    videoTriggerBtn.addEventListener('click', () => {
+      if (!videoStageEl || !videoPlayerWrap || !videoRow) return;
+      videoStageEl.textContent = '';
+      const iframe = document.createElement('iframe');
+      iframe.src = YT_EMBED_URL;
+      iframe.title = 'Infolinia NADZIEJA CC: Nie jesteś sam! Zadzwoń po wsparcie, modlitwę i pomoc';
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      videoStageEl.appendChild(iframe);
+      videoRow.hidden = true;
+      videoPlayerWrap.hidden = false;
+      announce('Uruchomiono odtwarzanie wideo o Infolinii NADZIEJA.');
+    });
+
+    videoBox.appendChild(videoRow);
+    videoBox.appendChild(videoPlayerWrap);
+
     const disclaimer = makeEl(
       'p',
       'ccin-disclaimer',
@@ -377,6 +501,7 @@
     dialogEl.appendChild(motto);
     dialogEl.appendChild(desc);
     dialogEl.appendChild(callout);
+    dialogEl.appendChild(videoBox);
     dialogEl.appendChild(disclaimer);
     dialogEl.appendChild(phoneStrip);
     dialogEl.appendChild(ackLabel);
@@ -448,8 +573,16 @@
     }
   }
 
+  function resetModalVideo() {
+    const row = document.getElementById('ccInfoliniaVideoRow');
+    if (videoStageEl) videoStageEl.textContent = '';
+    if (videoPlayerWrap) videoPlayerWrap.hidden = true;
+    if (row) row.hidden = false;
+  }
+
   function openModal(action, triggerEl) {
     ensureModalBuilt();
+    resetModalVideo();
     pendingAction = action || { href: `tel:${PHONE_E164}`, isExternal: false, kind: 'tel' };
     lastTriggerEl = triggerEl || document.activeElement || null;
 
@@ -482,6 +615,7 @@
 
   function closeModal(restoreFocus) {
     if (!overlayEl || overlayEl.hidden) return;
+    resetModalVideo();
     overlayEl.hidden = true;
     overlayEl.setAttribute('aria-hidden', 'true');
     setBackgroundInert(false);
