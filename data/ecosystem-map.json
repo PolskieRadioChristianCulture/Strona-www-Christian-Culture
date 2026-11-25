@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-25",
+      "topic": "Optymalizacja Cloudflare Pages (_routes.json): wyłączenie statycznych zasobów spod wywołań Workera w celu ochrony dziennego limitu API i topTEN",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-25",
       "topic": "Biblia Audio CC GEN-038 — pełna publikacja 8/8 unikalnych wideo (4 priorytetowe kanały: Osobowość +, Christian Culture TV, Polskie Radio CC, CC Women) z oryginalnymi 5s wstępami z Canvy + dedykowany kobiecy styl i post Community CC Women + reguła YouTube Safe Zone dla napisów",
       "agent": "A"
     },

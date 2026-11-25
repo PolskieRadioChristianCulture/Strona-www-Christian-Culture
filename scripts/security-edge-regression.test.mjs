@@ -57,3 +57,53 @@ test('private release paths are denied for GET and HEAD before any old cached as
   }
   assert.equal(assetReads, 0);
 });
+
+test('Cloudflare Pages _routes.json excludes high-volume static assets while keeping all APIs and private paths guarded', async () => {
+  const { readFileSync } = await import('node:fs');
+  const routes = JSON.parse(readFileSync(new URL('../_routes.json', import.meta.url), 'utf8'));
+  assert.equal(routes.version, 1);
+  assert.ok(Array.isArray(routes.include) && routes.include.includes('/*'));
+  assert.ok(Array.isArray(routes.exclude) && routes.exclude.length > 0);
+  const allRules = [...routes.include, ...routes.exclude];
+  assert.ok(allRules.length <= 100, `Cloudflare Pages allows max 100 rules, got ${allRules.length}`);
+  for (const rule of allRules) {
+    assert.ok(typeof rule === 'string' && rule.startsWith('/') && rule.length <= 100, `Invalid rule: ${rule}`);
+    const starIdx = rule.indexOf('*');
+    if (starIdx !== -1) assert.equal(starIdx, rule.length - 1, `Wildcard allowed only at end: ${rule}`);
+  }
+  const matchesExclude = (p) => routes.exclude.some((rule) => (
+    rule.endsWith('*') ? p.startsWith(rule.slice(0, -1)) : p === rule
+  ));
+  for (const mustInvokeWorker of [
+    '/api/topten/charts',
+    '/api/newsletter/stats',
+    '/topTEN/',
+    '/sitemaps/topten.xml',
+    '/the-journal',
+    '/lumina.zbyszekgieron',
+    '/avatar_zbyszek_gieron.jpg',
+    '/data/whatsapp_hooks_state.json',
+    '/ccMC/gcalendar-live-report.json',
+    '/.git/config',
+    '/.env',
+    '/lumina-db.js',
+    '/firebase-messaging-sw.js',
+  ]) {
+    assert.equal(matchesExclude(mustInvokeWorker), false, `${mustInvokeWorker} must NOT bypass _worker.js`);
+  }
+  for (const mustBypassWorker of [
+    '/images/holos/holos_hero_bg.jpg',
+    '/assets/promo/promo-kartki-16x9.webp',
+    '/js/cc-global-auth.js',
+    '/css/cc-mobile-edge.css',
+    '/components/cc-omni-search.js',
+    '/audio/worship/track.mp3',
+    '/data/bible/ubg-2025/PRO-003.json',
+    '/kartki/assets/hero-urodziny-cc.webp',
+    '/topTEN/assets/topten-logo.png',
+    '/robots.txt',
+    '/sitemap.xml',
+  ]) {
+    assert.equal(matchesExclude(mustBypassWorker), true, `${mustBypassWorker} should bypass _worker.js`);
+  }
+});
