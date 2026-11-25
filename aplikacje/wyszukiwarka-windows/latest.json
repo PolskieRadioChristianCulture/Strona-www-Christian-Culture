@@ -1,0 +1,11 @@
+{
+    "version":  "2.3.0",
+    "notes":  "Import zakładek z Chrome, Edge, Brave, Opera i z pliku HTML (Firefox).",
+    "pub_date":  "2026-11-25T12:05:54Z",
+    "platforms":  {
+                      "windows-x86_64":  {
+                                             "signature":  "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNHdjV1c3VjV3NGRBNFdEazNVRjdNcGhoSDR6VXJMTmhmQkFzMVRkMFRhc3R2RGR3MktwaVBXMTZuaDUvVVYrVDU1TzVpRktSUGtld2pqQXNoZStPbDhoejF5QVlNSndjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk1NjA4MzUzCWZpbGU6V3lzenVraXdhcmthIENocmlzdGlhbiBDdWx0dXJlXzIuMy4wX3g2NC1zZXR1cC5leGUJdmVyc2lvbjoyLjMuMAppUUxqZGhsSlNaZGs3L1c3RXhJVXFBSW9NeGtSTE95eVFZNlpzTW5GWTIxOU9XT1JNMS9HQ29mZjUwNVJTUEl2dWh2YlY3V01yOTlNb0Y5SjZCdGdDQT09Cg==",
+                                             "url":  "https://polskieradio.cc/aplikacje/wyszukiwarka-windows/Wyszukiwarka-CC-Setup-2.3.0.exe"
+                                         }
+                  }
+}

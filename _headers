@@ -436,3 +436,7 @@
 
 
 
+
+# Wyszukiwarka CC Windows (@007, 25.11.2026): plik aktualizacji zawsze świeży, inaczej aplikacje nie zobaczą nowej wersji.
+/aplikacje/wyszukiwarka-windows/latest.json
+  Cache-Control: no-cache, no-store, must-revalidate
