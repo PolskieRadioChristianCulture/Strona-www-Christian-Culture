@@ -54,6 +54,8 @@ export function isPublicFile(relativePath) {
   if (file.startsWith('test/spiritual-sounds/')) return true;
   // Galeria Muzycznych E-Kartek CC — podglad testowy (noindex,nofollow).
   if (file.startsWith('test/kartki/')) return true;
+  // Środowisko testowe komunikatu Infolinia NADZIEJA CC (noindex przed akceptacją L0).
+  if (file.startsWith('test/infolinia-nadzieja/')) return true;
   if (file === 'test/cc-youtube-boost/index.html' || file === 'test/cc-youtube-boost/data.json') return true;
   if (file === 'test/analityka/index.html') return true;
   // Adventist World P0 preview (noindex,nofollow) — PL/EN katalog + 98 profili + otwarte dane.

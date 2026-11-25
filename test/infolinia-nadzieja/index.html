@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Środowisko Testowe — Infolinia NADZIEJA Christian Culture</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="icon" href="/images/brand/logo-circle.png">
+  <style>
+    :root {
+      --bg: #070b14;
+      --bg-card: #0e1629;
+      --gold: #C4A35A;
+      --gold-light: #E2CC9A;
+      --orange: #FF7A00;
+      --orange-hover: #FF8C33;
+      --orange-active: #E66A00;
+      --text: #F8FAFC;
+      --muted: #CBD5E1;
+      --line: rgba(196, 163, 90, 0.28);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body {
+      margin: 0; padding: 0; background: var(--bg); color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6; overflow-x: clip;
+    }
+    .test-banner {
+      background: linear-gradient(90deg, rgba(255,122,0,0.2), rgba(196,163,90,0.2));
+      border-bottom: 1px solid var(--line);
+      padding: 10px 16px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold-light);
+    }
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: clamp(24px, 4vw, 48px) 16px 80px;
+    }
+    .hero {
+      background: radial-gradient(circle at 80% 10%, rgba(255,122,0,0.12), transparent 45%), var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(22px, 4vw, 36px);
+      margin-bottom: 24px;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(28px, 4.5vw, 42px);
+      line-height: 1.15;
+      color: #fff;
+    }
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      max-width: 66ch;
+      font-size: 15.5px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      min-width: 0;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 17px;
+      color: #fff;
+    }
+    .card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 11px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14.5px;
+      border: 0;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .btn--orange { background: var(--orange); color: #fff; }
+    .btn--orange:hover { background: var(--orange-hover); }
+    .btn--orange:active { background: var(--orange-active); }
+    .btn--whatsapp { background: #1f8a4c; color: #fff; }
+    .btn--whatsapp:hover { background: #239d57; }
+    .btn--glass {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    .btn--glass:hover { background: rgba(255,255,255,0.16); }
+    .cc-inline-link {
+      color: var(--gold-light);
+      font-weight: 800;
+      text-decoration: underline;
+    }
+    .float-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 48px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(196,163,90,0.16);
+      border: 1px solid var(--gold);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .checklist {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 20px 24px;
+    }
+    .checklist h2 { margin: 0 0 10px; font-size: 18px; color: var(--gold-light); }
+    .checklist ul { margin: 0; padding-left: 20px; color: var(--muted); font-size: 14px; }
+    .checklist li { margin-bottom: 6px; }
+    :focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  </style>
+  <script src="/components/cc-infolinia-nadzieja-modal.js?v=20261125_in1" defer></script>
+</head>
+<body>
+  <div class="test-banner">
+    ŚRODOWISKO TESTOWE (noindex) · Podgląd wspólnego komunikatu Infolinii NADZIEJA przed akceptacją do całego ekosystemu
+  </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Christian Culture · Wspólny Komponent Ekosystemu</p>
+      <h1>Infolinia NADZIEJA — Środowisko Testowe</h1>
+      <p class="lead">
+        Kliknij dowolny przycisk połączenia poniżej („Zadzwoń”, „Połącz przez WhatsApp”, ikonę słuchawki lub numer w tekście).
+        Przed nawiązaniem połączenia pojawi się obowiązkowy komunikat informacyjny z wymaganym potwierdzeniem i obsługą czytników ekranu.
+      </p>
+    </section>
+
+    <section class="grid" aria-label="Scenariusze testowe przycisków połączenia">
+      <article class="card">
+        <div>
+          <h2>1. Główny przycisk „Zadzwoń teraz”</h2>
+          <p>Symuluje kliknięcie głównego pomarańczowego CTA <code>tel:+48730958583</code> na stronie głównej i w modalach.</p>
+        </div>
+        <a class="btn btn--orange" href="tel:+48730958583">📞 Zadzwoń teraz (+48 730 958 583)</a>
+      </article>
+
+      <article class="card">
+        <div>
+          <h2>2. Przycisk „Połącz przez WhatsApp”</h2>
+          <p>Przechwytuje również bezpośrednie połączenie WhatsApp na numer Infolinii NADZIEJA (<code>wa.me/48730958583</code>).</p>
+        </div>
+        <a class="btn btn--whatsapp" href="https://wa.me/48730958583?text=Dzie%C5%84%20dobry%2C%20kontaktuj%C4%99%20si%C4%99%20z%20Infolinii%20Nadzieja" target="_blank" rel="noopener noreferrer">💬 Połącz przez WhatsApp</a>
+      </article>
+
+      <article class="card">
+        <div>
+          <h2>3. Ikona słuchawki / pływający przycisk telefonu</h2>
+          <p>Odpowiednik przycisku <code>#helplineFloat</code> na belkach górnych oraz kart szybkiego dostępu.</p>
+        </div>
+        <div>
+          <a href="tel:+48730958583" id="helplineFloat" class="float-demo" aria-label="Ikona telefonu — Infolinia Nadzieja Christian Culture">
+            <span aria-hidden="true">📞</span>
+            <span>Infolinia NADZIEJA · +48 730 958 583</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div>
+          <h2>4. Link w tekście + kontrola numerów ratunkowych</h2>
+          <p>
+            Link do Infolinii: <a class="cc-inline-link" href="tel:+48730958583">+48 730 958 583</a> otwiera komunikat.<br>
+            Numer kryzysowy zewnętrzny: <a class="cc-inline-link" href="tel:800702222" id="negativeControlExternal">800 70 2222 (Centrum Wsparcia)</a> oraz <a class="cc-inline-link" href="tel:112" id="negativeControl112">112</a> <strong>nie są blokowane</strong>.
+          </p>
+        </div>
+        <button type="button" class="btn btn--glass" data-infolinia-nadzieja="true">Podgląd przez przycisk bez href</button>
+      </article>
+    </section>
+
+    <section class="checklist" aria-label="Zakres spełnionych wytycznych">
+      <h2>Zweryfikowane wytyczne w tym prototypie</h2>
+      <ul>
+        <li>Jeden wspólny plik: <code>/components/cc-infolinia-nadzieja-modal.js</code> gotowy do podpięcia pod <code>scripts/cc-page-standard.mjs</code> po akceptacji.</li>
+        <li>Hasło przewodnie: <strong>„Ponad podziałami. Blisko człowieka. W duchu Chrystusa.”</strong></li>
+        <li>Obowiązkowe zaznaczenie potwierdzenia przed odblokowaniem przycisku <strong>„Rozumiem – przejdź do połączenia”</strong>.</li>
+        <li>Dyskretna informacja o braku zastępowania pomocy medycznej, psychologicznej i służb ratunkowych (112).</li>
+        <li>Pełna dostępność (WCAG / czytniki ekranu): <code>role="dialog"</code>, <code>aria-modal="true"</code>, <code>inert</code> tła, pułapka fokusu (Tab/Shift+Tab), <code>Escape</code>, powrót fokusu, komunikaty <code>aria-live="polite"</code>.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
