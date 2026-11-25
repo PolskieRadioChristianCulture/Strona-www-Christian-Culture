@@ -381,5 +381,7 @@ const payload = {
 
 fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
 fs.writeFileSync(OUT_FILE, JSON.stringify(payload), 'utf8');
-console.log(`✅ Zbudowano ${OUT_FILE} (${(Buffer.byteLength(JSON.stringify(payload)) / 1024).toFixed(1)} KB)`);
+const PROD_OUT_FILE = path.join(ROOT, 'data', 'cc-search-media-index.json');
+fs.writeFileSync(PROD_OUT_FILE, JSON.stringify(payload), 'utf8');
+console.log(`✅ Zbudowano ${OUT_FILE} oraz ${PROD_OUT_FILE} (${(Buffer.byteLength(JSON.stringify(payload)) / 1024).toFixed(1)} KB)`);
 console.log('📊 Statystyki:', payload.stats);

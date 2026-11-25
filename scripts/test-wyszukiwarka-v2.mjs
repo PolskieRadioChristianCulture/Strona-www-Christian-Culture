@@ -47,7 +47,8 @@ function startServer() {
       fs.createReadStream(filePath).pipe(res);
     });
     server.listen(0, '127.0.0.1', () => {
-      resolve({ server, url: `http://127.0.0.1:${server.address().port}/test/wyszukiwarka/` });
+      const targetPath = process.argv.includes('--prod') ? '/wyszukiwarka/' : '/test/wyszukiwarka/';
+      resolve({ server, url: `http://127.0.0.1:${server.address().port}${targetPath}` });
     });
   });
 }
