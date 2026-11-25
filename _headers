@@ -387,6 +387,14 @@
   X-Robots-Tag: noindex, nofollow, noarchive
   Cache-Control: no-cache, no-store, must-revalidate
 
+/test/kartki
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/test/kartki/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+
 # Wiadomość z Nieba — produkcja (zawsze świeży odczyt danych i strony)
 /wiadomosc-z-nieba/
   Cache-Control: public, max-age=0, must-revalidate

@@ -52,6 +52,8 @@ export function isPublicFile(relativePath) {
   if (file.startsWith('test/wizytowki/') || file.startsWith('test/wizytowka/')) return true;
   // Spiritual Sounds × CC — wersja testowa (noindex) do akceptacji L0 (@007 2026-11-18).
   if (file.startsWith('test/spiritual-sounds/')) return true;
+  // Galeria Muzycznych E-Kartek CC — podglad testowy (noindex,nofollow).
+  if (file.startsWith('test/kartki/')) return true;
   if (file === 'test/cc-youtube-boost/index.html' || file === 'test/cc-youtube-boost/data.json') return true;
   if (file === 'test/analityka/index.html') return true;
   // Adventist World P0 preview (noindex,nofollow) — PL/EN katalog + 98 profili + otwarte dane.
