@@ -1,11 +1,11 @@
 {
-    "version":  "2.3.0",
-    "notes":  "Import zakładek z Chrome, Edge, Brave, Opera i z pliku HTML (Firefox).",
-    "pub_date":  "2026-11-25T12:05:54Z",
+    "version":  "2.4.0",
+    "notes":  "Nowy panel i dymek Aplikacje CC pod ikona ⊞, spis wszystkich publicznych stron ekosystemu (| Wszystko) oraz statystyki GA4 instalacji i ruchu (kraj/miasto).",
+    "pub_date":  "2026-11-25T18:45:20Z",
     "platforms":  {
                       "windows-x86_64":  {
-                                             "signature":  "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNHdjV1c3VjV3NGRBNFdEazNVRjdNcGhoSDR6VXJMTmhmQkFzMVRkMFRhc3R2RGR3MktwaVBXMTZuaDUvVVYrVDU1TzVpRktSUGtld2pqQXNoZStPbDhoejF5QVlNSndjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk1NjA4MzUzCWZpbGU6V3lzenVraXdhcmthIENocmlzdGlhbiBDdWx0dXJlXzIuMy4wX3g2NC1zZXR1cC5leGUJdmVyc2lvbjoyLjMuMAppUUxqZGhsSlNaZGs3L1c3RXhJVXFBSW9NeGtSTE95eVFZNlpzTW5GWTIxOU9XT1JNMS9HQ29mZjUwNVJTUEl2dWh2YlY3V01yOTlNb0Y5SjZCdGdDQT09Cg==",
-                                             "url":  "https://polskieradio.cc/aplikacje/wyszukiwarka-windows/Wyszukiwarka-CC-Setup-2.3.0.exe"
+                                             "signature":  "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSNHdjV1c3VjV3NFp0dXhMdFpSUFpERmJVTm0weVE3QnMrSXc4OXVIQTl0NXBib24vTWhtaTBjdUU5ZFQ0azcvS3V6YjkrN0ZYbjIwbm5FRXBWVXpWMW15M0ZIeGFtd3dJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk1NjMyMzE4CWZpbGU6V3lzenVraXdhcmthIENocmlzdGlhbiBDdWx0dXJlXzIuNC4wX3g2NC1zZXR1cC5leGUJdmVyc2lvbjoyLjQuMAowU0FTZXhjcTZsSzBXYSsrQkYzVHZlRlR1VXUwWjlkZkR6Q01rUDVZR2RPTWJNc3FnNmRHdlZkc2tYcnJINHduWWxZSzFzcVdGemcyNzljcGxKd1JDQT09Cg==",
+                                             "url":  "https://polskieradio.cc/aplikacje/wyszukiwarka-windows/Wyszukiwarka-CC-Setup-2.4.0.exe"
                                          }
                   }
 }

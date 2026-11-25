@@ -22,10 +22,10 @@
     "name": "Wyszukiwarka Christian Culture",
     "operatingSystem": "Windows 10, Windows 11",
     "applicationCategory": "ReferenceApplication",
-    "softwareVersion": "2.3.0",
+    "softwareVersion": "2.4.0",
     "fileSize": "2.4MB",
     "inLanguage": "pl-PL",
-    "downloadUrl": "https://polskieradio.cc/aplikacje/wyszukiwarka-windows/Wyszukiwarka-CC-Setup-2.3.0.exe",
+    "downloadUrl": "https://polskieradio.cc/aplikacje/wyszukiwarka-windows/Wyszukiwarka-CC-Setup-2.4.0.exe",
     "url": "https://polskieradio.cc/aplikacje/wyszukiwarka-windows/",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PLN" },
     "publisher": { "@id": "https://polskieradio.cc/#organization" }
@@ -101,14 +101,14 @@
           <div class="eyebrow">Aplikacja na Windows · za darmo</div>
           <h1>Wyszukiwarka Christian Culture na Twoim komputerze</h1>
           <p class="lead">Słowo Boże, Kurs Codzienny, rozważania, Radio CC 24/7 i LUMINA w jednym oknie. Z zakładkami jak w Chrome, trybem Google i skrótem, który otwiera wyszukiwarkę z każdego miejsca.</p>
-          <a class="dl" id="download" href="/aplikacje/wyszukiwarka-windows/Wyszukiwarka-CC-Setup-2.3.0.exe" download>
+          <a class="dl" id="download" href="/aplikacje/wyszukiwarka-windows/Wyszukiwarka-CC-Setup-2.4.0.exe" download>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
             <span>Pobierz dla Windows</span>
           </a>
-          <div class="meta">Wersja <span id="ver">2.3.0</span> · 2,4 MB · Windows 10 i 11 · aktualizuje się sama</div>
+          <div class="meta">Wersja <span id="ver">2.4.0</span> · 2,4 MB · Windows 10 i 11 · aktualizuje się sama</div>
         </div>
         <div class="shot" aria-hidden="true">
-          <div class="bar"><span class="dots">⠿</span><span class="chip">Moja Biblia</span><span class="chip">Radio CC</span><span class="chip">Akademia</span><span class="plus">＋ Dodaj zakładkę</span></div>
+          <div class="bar"><span class="dots">⠿</span><span class="chip">Moja Biblia</span><span class="chip">Radio CC</span><span class="chip">Akademia</span><span class="plus">＋ Dodaj zakładkę</span><span>| Wszystko</span></div>
           <div class="page"><div style="width:100%;display:grid;place-items:center"><div class="logo">Christian Culture</div><div class="field"></div></div></div>
         </div>
       </div>
@@ -132,7 +132,7 @@
           <li>Jeśli Windows pokaże „System Windows ochronił ten komputer”, kliknij <b>Więcej informacji</b> → <b>Uruchom mimo to</b>.</li>
           <li>Instalacja trwa kilka sekund. Ikona Christian Culture pojawi się na pulpicie i w menu Start.</li>
         </ol>
-        <p class="note">Ostrzeżenie Windows pojawia się przy nowych programach bez płatnego certyfikatu wydawcy. Plik pochodzi tylko z polskieradio.cc. Suma kontrolna SHA-256: <code id="sha">BFC249BDA708FDA8A5BAAC8B33CC0FB6A8C5751C74F998E6114BCB8C88016AD5</code></p>
+        <p class="note">Ostrzeżenie Windows pojawia się przy nowych programach bez płatnego certyfikatu wydawcy. Plik pochodzi tylko z polskieradio.cc. Suma kontrolna SHA-256: <code id="sha">D3A508D2A9B041873CAE5DA4C76BD4108DB90159FC7F640E872AE8681B620D0A</code></p>
       </section>
     </main>
 
@@ -152,6 +152,7 @@
         document.getElementById('ver').textContent = j.version;
       })
       .catch(() => {});
+    document.getElementById("download")?.addEventListener("click", function () { try { if (typeof gtag === "function") gtag("event", "cc_app_download", { app_platform: "windows", app_version: document.getElementById("ver")?.textContent || "2.4.0", event_category: "windows_app" }); } catch (e) {} });
   </script>
 </body>
 </html>
