@@ -594,15 +594,15 @@
       "okazja": "Pierwsza niedziela Adwentu",
       "tytul": "Adwent bez religijnych złudzeń. Na kogo naprawdę czekasz?",
       "dzial": "BIBLIA",
-      "portal_docelowy": "EkoCC — portal biblijny (dokładny URL do potwierdzenia)",
+      "portal_docelowy": "https://polskieradio.cc/news/adwent-bez-religijnych-zludzen-na-kogo-naprawde-czekasz",
       "priorytet": "A",
       "start_przygotowania": "2026-11-15",
-      "status": "Opracowany / Czeka na autoryzację L0",
+      "status": "Zatwierdzony L0 / Zaplanowany na termin",
       "zrodlo_pomyslu": "Poprzedni kalendarz",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "tekst + kontekst + uczciwe różnice interpretacyjne",
       "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk.",
-      "bramka_bezpieczenstwa": "T4 (DO AUTORYZACJI CZŁOWIEKA - L0)",
+      "bramka_bezpieczenstwa": "T4 (ZATWIERDZONO L0 — 2026-11-25)",
       "autor": "Cezary Rogowski",
       "slug": "adwent-bez-religijnych-zludzen-na-kogo-naprawde-czekasz",
       "pakiet_zip": "C:\\\\Users\\\\czark\\\\Desktop\\\\EkoCC_news_adwent-bez-religijnych-zludzen-na-kogo-naprawde-czekasz_2026-11-29.zip",
@@ -611,7 +611,14 @@
       "grafika_16_9": "images/news/art-adwent-bez-religijnych-zludzen-na-kogo-naprawde-czekasz.jpg",
       "data_opracowania": "2026-11-25T14:06:40+01:00",
       "url_kanoniczny_szkic": "https://polskieradio.cc/news/adwent-bez-religijnych-zludzen-na-kogo-naprawde-czekasz",
-      "uwagi_redakcyjne": "Pakiet przygotowany dla działu BIBLIA / Pierwsza niedziela Adwentu / Priorytet A na 29 listopada 2026 (propozycja kanoniczna URL po zatwierdzeniu L0: /news/adwent-bez-religijnych-zludzen-na-kogo-naprawde-czekasz). Zweryfikowane źródła: Encyclopaedia Britannica (Advent: Saragossa 380, Perpetuus z Tours ok. 480, synod w Mâcon 581, Grzegorz I Wielki ok. 591-592), CBOS (Komunikat nr 155/2023 Boże Narodzenie 2023: 62% rodzinne vs 19% religijne, ~15% start w Adwent), Adolf Deissmann / grecka parousia (G3952) i apantesis (G0529) vs rzymski adventus oraz egzegeza UBG (Iz 9:6; Za 9:9; Mt 24:36-44; 25:1-13; Łk 12:35-40; 21:34-36; Flp 2:12; 3:20-21; 1 Tes 4:15-18; 5:1-6; Tt 2:11-14; Hbr 9:27-28; 2 P 3:3-4,9-13; Ef 2:8-10; 28 Zasad Wiary: 1, 4, 9, 10, 25, 28)."
+      "uwagi_redakcyjne": "Pakiet przygotowany dla działu BIBLIA / Pierwsza niedziela Adwentu / Priorytet A na 29 listopada 2026 (propozycja kanoniczna URL po zatwierdzeniu L0: /news/adwent-bez-religijnych-zludzen-na-kogo-naprawde-czekasz). Zweryfikowane źródła: Encyclopaedia Britannica (Advent: Saragossa 380, Perpetuus z Tours ok. 480, synod w Mâcon 581, Grzegorz I Wielki ok. 591-592), CBOS (Komunikat nr 155/2023 Boże Narodzenie 2023: 62% rodzinne vs 19% religijne, ~15% start w Adwent), Adolf Deissmann / grecka parousia (G3952) i apantesis (G0529) vs rzymski adventus oraz egzegeza UBG (Iz 9:6; Za 9:9; Mt 24:36-44; 25:1-13; Łk 12:35-40; 21:34-36; Flp 2:12; 3:20-21; 1 Tes 4:15-18; 5:1-6; Tt 2:11-14; Hbr 9:27-28; 2 P 3:3-4,9-13; Ef 2:8-10; 28 Zasad Wiary: 1, 4, 9, 10, 25, 28).",
+      "autoryzacja_l0": {
+        "status": "APPROVED",
+        "approved_by": "Cezary Rogowski (L0)",
+        "approved_at": "2026-11-25T22:34:32+01:00",
+        "mode": "scheduled_on_date",
+        "scheduled_date": "2026-11-29"
+      }
     },
     {
       "lp": 27,
@@ -709,12 +716,12 @@
       "portal_docelowy": "EkoCC — historia / Biblia (URL do potwierdzenia)",
       "priorytet": "A",
       "start_przygotowania": "2026-11-21",
-      "status": "Opracowany / Czeka na autoryzację L0",
+      "status": "Zatwierdzony L0 / Zaplanowany na termin",
       "zrodlo_pomyslu": "Poprzedni kalendarz",
       "kat_redakcyjny": "Pytanie + realny problem + biblijna lub praktyczna odpowiedź",
       "wymagana_weryfikacja": "źródła historyczne, data, odróżnienie tradycji od faktu",
       "uwagi_bezpieczenstwa": "Bez clickbaitu niezgodnego z tekstem i niepotwierdzonych statystyk.",
-      "bramka_bezpieczenstwa": "T4 (DO AUTORYZACJI CZŁOWIEKA - L0)",
+      "bramka_bezpieczenstwa": "T4 (ZATWIERDZONO L0 — 2026-11-25)",
       "autor": "Cezary Rogowski",
       "slug": "swiety-mikolaj-kontra-reklama-skad-wziela-sie-tradycja-prezentow",
       "pakiet_zip": "C:\\Users\\czark\\Desktop\\EkoCC_historia_swiety-mikolaj-kontra-reklama-skad-wziela-sie-tradycja-prezentow_2026-12-05.zip",
@@ -723,7 +730,14 @@
       "grafika_16_9": "images/historia/art-swiety-mikolaj-kontra-reklama-tradycja-prezentow.jpg",
       "data_opracowania": "2026-11-24T14:10:00+01:00",
       "url_kanoniczny_szkic": "https://polskieradio.cc/historia/swiety-mikolaj-kontra-reklama-skad-wziela-sie-tradycja-prezentow",
-      "uwagi_redakcyjne": "Pakiet przygotowany dla działu HISTORIA / Priorytet A (lp. 32, Mikołajki, 2026-12-05; opracowano 2026-11-24). Zweryfikowane źródła: Encyclopaedia Britannica (Saint Nicholas, Santa Claus), St. Nicholas Center (Praxis de Stratelatis V–VI w. BHG 1349z/1350, Vita per Michaelem VIII–IX w., translacja do Bari 1087 — relacje Nicefora i archidiakona Jana), Jakub de Voragine (Legenda Aurea ok. 1260), Washington Irving (1809), John Pintard (1810), Clement Clarke Moore (1823), Thomas Nast (Harper's Weekly 1862–1881), The Coca-Cola Company / Haddon Sundblom (1931–1964), Lou Prentiss i White Rock Beverages (1915–1923) oraz egzegeza UBG (Mt 6:1–4 [G1654, G2927]; Dz 20:35 [G3107, G1325]; 2 Kor 9:7, 15 [G2431, G1395, G1431]; Ef 2:8–10 [G1435]; 1 Tm 2:5; 6:6–10, 17–18; Prz 11:24–25; Jk 1:17, 27)."
+      "uwagi_redakcyjne": "Pakiet przygotowany dla działu HISTORIA / Priorytet A (lp. 32, Mikołajki, 2026-12-05; opracowano 2026-11-24). Zweryfikowane źródła: Encyclopaedia Britannica (Saint Nicholas, Santa Claus), St. Nicholas Center (Praxis de Stratelatis V–VI w. BHG 1349z/1350, Vita per Michaelem VIII–IX w., translacja do Bari 1087 — relacje Nicefora i archidiakona Jana), Jakub de Voragine (Legenda Aurea ok. 1260), Washington Irving (1809), John Pintard (1810), Clement Clarke Moore (1823), Thomas Nast (Harper's Weekly 1862–1881), The Coca-Cola Company / Haddon Sundblom (1931–1964), Lou Prentiss i White Rock Beverages (1915–1923) oraz egzegeza UBG (Mt 6:1–4 [G1654, G2927]; Dz 20:35 [G3107, G1325]; 2 Kor 9:7, 15 [G2431, G1395, G1431]; Ef 2:8–10 [G1435]; 1 Tm 2:5; 6:6–10, 17–18; Prz 11:24–25; Jk 1:17, 27).",
+      "autoryzacja_l0": {
+        "status": "APPROVED",
+        "approved_by": "Cezary Rogowski (L0)",
+        "approved_at": "2026-11-25T22:34:32+01:00",
+        "mode": "scheduled_on_date",
+        "scheduled_date": "2026-12-05"
+      }
     },
     {
       "lp": 33,
