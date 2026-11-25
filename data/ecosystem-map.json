@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-25",
+      "topic": "Redakcja EkoCC 365 (LP 26): Opracowanie artykułu biblijnego na Pierwszą Niedzielę Adwentu (2026-11-29) i pakietowanie na Google Drive (do autoryzacji L0)",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-25",
       "topic": "Optymalizacja Cloudflare Pages (_routes.json): wyłączenie statycznych zasobów spod wywołań Workera w celu ochrony dziennego limitu API i topTEN",
       "agent": "A"
     },
