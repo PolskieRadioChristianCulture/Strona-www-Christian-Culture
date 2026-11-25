@@ -466,9 +466,10 @@
       /* @007 (L0 23.11.2026): reakcje, menu wiadomości, „pisze…” */
       #ccGlobalChatOverlay .cc-msg-reactions { display: flex !important; flex-wrap: wrap !important; gap: 6px !important; margin-top: 6px !important; }
       #ccGlobalChatOverlay .cc-react-chip {
-        min-height: 34px !important; padding: 0 10px !important; border-radius: 999px !important; cursor: pointer !important;
+        min-height: 44px !important; min-width: 44px !important; padding: 0 12px !important; border-radius: 999px !important; cursor: pointer !important;
         border: 1px solid rgba(255,255,255,0.14) !important; background: rgba(255,255,255,0.05) !important; color: #F7F8FC !important;
-        font-size: 0.85rem !important; display: inline-flex !important; align-items: center !important; gap: 4px !important;
+        font-size: 0.85rem !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 4px !important;
+        touch-action: manipulation !important;
       }
       #ccGlobalChatOverlay .cc-react-chip.is-mine { border-color: rgba(216,173,87,0.75) !important; background: rgba(216,173,87,0.18) !important; }
       #ccGlobalChatOverlay .cc-react-picker { display: none !important; gap: 4px !important; flex-wrap: wrap !important; margin-top: 6px !important; }

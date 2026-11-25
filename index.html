@@ -418,14 +418,14 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #f5c518, #e6a817);
+            background: #FF7A00;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
             align-self: center !important;
             font-size: 1.15rem;
-            color: #000;
-            box-shadow: 0 4px 15px rgba(245, 197, 24, 0.4);
+            color: #FFFFFF;
+            box-shadow: 0 4px 15px rgba(255, 122, 0, 0.4);
             animation: helpline-float-pulse 2.2s infinite, helpline-ring 4s 2s infinite;
             flex-shrink: 0;
             margin: 0 !important;
@@ -433,7 +433,10 @@
         }
         #helplineFloat:hover .hf-btn {
             transform: scale(1.08);
-            background: linear-gradient(135deg, #ffe45e, #f5c518);
+            background: #FF8C33;
+        }
+        #helplineFloat:active .hf-btn {
+            background: #E66A00;
         }
         .cc-top-support-btn {
             display: inline-flex;
@@ -496,9 +499,11 @@
             }
             #mainHeader #helplineFloat:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 50%; }
             #helplineFloat .hf-btn {
-                width: 38px !important;
-                height: 38px !important;
-                font-size: 0.95rem !important;
+                width: 44px !important;
+                height: 44px !important;
+                min-width: 44px !important;
+                min-height: 44px !important;
+                font-size: 1rem !important;
             }
             #helplineFloat .hf-label {
                 display: none !important;

@@ -927,11 +927,11 @@ div#directMessagesModal .lumina-messenger-modal-card.is-fullscreen,
     .chat-header-sync-btn,
     .chat-header-profile-btn {
         padding: 0 !important;
-        width: 34px !important;
-        height: 34px !important;
-        min-width: 34px !important;
-        min-height: 34px !important;
-        border-radius: 10px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        border-radius: 12px !important;
     }
     .sync-lounge-title-wrap {
         font-size: 0.76rem !important;
