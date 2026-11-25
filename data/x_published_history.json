@@ -2,6 +2,341 @@
   "version": "1.0",
   "published": [
     {
+      "slug": "uslugi",
+      "title": "CC Pomoc (CC Help) — Bezpłatne Centrum Wsparcia: Małżeństwo, Rozwód, Samotność, Starość (/uslugi)",
+      "url": "https://polskieradio.cc/uslugi",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-uslugi-090f0487.jpg",
+      "publishedAt": "2026-11-25T04:31:16.597Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "pornography-support",
+      "title": "CC Help: Compulsive pornography use",
+      "url": "https://polskieradio.cc/en/pornography-support",
+      "type": "help",
+      "topicId": "uzaleznienie-od-pornografii",
+      "image": "topic-pornography-support-5927fb98.jpg",
+      "publishedAt": "2026-11-25T04:01:15.576Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=349",
+      "title": "Werset Dnia: „On zmienia czasy i pory, usuwa królów i ustanawia królów; daje mądrość mądrym” (Księga Daniela 2:21, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=349",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-349-ksiega-daniela-2-21.jpg",
+      "publishedAt": "2026-11-25T03:31:23.170Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "premier-heatfix",
+      "title": "Premier HeatFix UK — Certyfikowane Usługi Gazowe i Hydrauliczne w Londynie",
+      "url": "https://polskieradio.cc/premier-heatfix",
+      "type": "profile",
+      "topicId": null,
+      "image": "ogloszenia-premier-heatfix.jpg",
+      "publishedAt": "2026-11-25T03:04:37.083Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "islam-najwieksza-religia-2035-co-czeka-europe",
+      "title": "Już za 9 lat islam może być największą religią świata. Co czeka Europę?",
+      "url": "https://polskieradio.cc/news/islam-najwieksza-religia-2035-co-czeka-europe",
+      "type": "news",
+      "topicId": null,
+      "image": "art-islam-najwieksza-religia-2035-co-czeka-europe-3x1.jpg",
+      "publishedAt": "2026-11-25T02:50:56.444Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "opowiesci-z-doliny-dobrej-nadziei-dla-dzieci",
+      "title": "„Opowieści z Doliny Dobrej Nadziei”: Ilustrowany Zbiór Opowiadań Biblijnych dla Dzieci – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/opowiesci-z-doliny-dobrej-nadziei-dla-dzieci",
+      "type": "book",
+      "topicId": null,
+      "image": "topic-opowiesci-z-doliny-dobrej-nadziei-dla-dzieci-3818274f.jpg",
+      "publishedAt": "2026-11-24T20:31:16.203Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "topicId": null,
+      "image": "vod-christian-culture-01-smarttv.jpg",
+      "publishedAt": "2026-11-24T20:01:07.047Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "13-ostatek-i-jego-misja.html",
+      "title": "Kurs 28 Kroków — Lekcja 13: Ostatek i Jego Misja — Wierność w Dniach Ostatnich",
+      "url": "https://polskieradio.cc/kursy/13-ostatek-i-jego-misja.html",
+      "type": "course",
+      "topicId": null,
+      "image": "13.png",
+      "publishedAt": "2026-11-24T19:31:07.946Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "en",
+      "title": "Ark of Fire — Artist Showcase",
+      "url": "https://polskieradio.cc/ArkOfFire/en",
+      "type": "music",
+      "topicId": null,
+      "image": "ark-of-fire-hero.webp",
+      "publishedAt": "2026-11-24T19:01:10.748Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "RozwiążProblem",
+      "title": "Rozwiąż Problem: Wolność od Nałogów — Rzuć Palenie i Pokonaj Uzależnienie",
+      "url": "https://polskieradio.cc/RozwiążProblem",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-rozwiazproblem-1374f646.jpg",
+      "publishedAt": "2026-11-24T18:31:10.440Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "uzaleznienia",
+      "title": "CC Pomoc: Uzależnienia – pierwszy krok do wolności",
+      "url": "https://polskieradio.cc/uzaleznienia",
+      "type": "help",
+      "topicId": "uzaleznienia",
+      "image": "topic-uzaleznienia-35fb9934.jpg",
+      "publishedAt": "2026-11-24T18:01:08.541Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=348",
+      "title": "Werset Dnia: „Dam wam serce nowe i ducha nowego dam do waszego wnętrza; usunę serce kamienne” (Księga Ezechiela 36:26, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=348",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-348-ksiega-ezechiela-36-26.jpg",
+      "publishedAt": "2026-11-24T17:31:23.822Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "lumina-tablica",
+      "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
+      "url": "https://polskieradio.cc/lumina-tablica",
+      "type": "profile",
+      "topicId": null,
+      "image": "card-lumina.jpg",
+      "publishedAt": "2026-11-24T17:01:20.119Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "id": "best-of-cc-1795538233654",
+      "title": "The Best of Christian Culture — darmowy album",
+      "url": "https://polskieradio.cc/?show_video_banner=1",
+      "image": "images/promo/the-best-of-christian-culture-2026.jpg",
+      "publishedAt": "2026-11-24T16:37:13.654Z"
+    },
+    {
+      "slug": "okno-zycia-wola-takze-do-ciebie",
+      "title": "Okno życia woła także do Ciebie. Czy przyjmiesz dar, którego nie możesz kupić?",
+      "url": "https://polskieradio.cc/news/okno-zycia-wola-takze-do-ciebie",
+      "type": "news",
+      "topicId": null,
+      "image": "art-okno-zycia-wola-takze-do-ciebie.jpg",
+      "publishedAt": "2026-11-24T16:31:04.795Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "o-nasladowaniu-chrystusa-tomasz-a-kempis",
+      "title": "„O naśladowaniu Chrystusa” Tomasza à Kempis: O Pokoju Serca i Pogardzie Pychy Świata – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/o-nasladowaniu-chrystusa-tomasz-a-kempis",
+      "type": "book",
+      "topicId": null,
+      "image": "topic-o-nasladowaniu-chrystusa-tomasz-a-kempis-08fc9c25.jpg",
+      "publishedAt": "2026-11-24T15:01:08.713Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "12-kosciol-bozy.html",
+      "title": "Kurs 28 Kroków — Lekcja 12: Kościół Boży — Ciało Chrystusa i Wspólnota Wiary",
+      "url": "https://polskieradio.cc/kursy/12-kosciol-bozy.html",
+      "type": "course",
+      "topicId": null,
+      "image": "12.png",
+      "publishedAt": "2026-11-24T14:31:18.043Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "Welch",
+      "title": "Gerald Welch",
+      "url": "https://polskieradio.cc/Welch",
+      "type": "music",
+      "topicId": null,
+      "image": "art-gerald-welch-the-call.jpg",
+      "publishedAt": "2026-11-24T14:01:10.911Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "wspolpraca",
+      "title": "CCN Współpraca — Dołącz do Misji Christian Culture, Wolontariat & Redakcja",
+      "url": "https://polskieradio.cc/wspolpraca",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-wspolpraca-c3a3a4d1.jpg",
+      "publishedAt": "2026-11-24T13:31:18.651Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "wsparcie-rodzicow",
+      "title": "CC Pomoc: Wychowanie dzieci w miłości i odpowiedzialności",
+      "url": "https://polskieradio.cc/wsparcie-rodzicow",
+      "type": "help",
+      "topicId": "wychowanie",
+      "image": "topic-wsparcie-rodzicow-eeff10fd.jpg",
+      "publishedAt": "2026-11-24T13:01:07.850Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=347",
+      "title": "Werset Dnia: „Wołaj do mnie, a odpowiem ci i oznajmię ci rzeczy wielkie i niedostępne, o których nie wiesz” (Księga Jeremiasza 33:3, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=347",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-347-ksiega-jeremiasza-33-3.jpg",
+      "publishedAt": "2026-11-24T12:31:08.399Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "mess",
+      "title": "LumiMess — Chrześcijański Komunikator",
+      "url": "https://polskieradio.cc/mess",
+      "type": "profile",
+      "topicId": null,
+      "image": "lumi-mess-bg.webp",
+      "publishedAt": "2026-11-24T12:01:13.870Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "vod",
+      "title": "Kino Chrześcijańskie VOD — Dobre Kino 24/7 i bezpłatne filmy z polskim lektorem",
+      "url": "https://polskieradio.cc/vod",
+      "type": "vod",
+      "topicId": null,
+      "image": "vod-christian-culture-01-smarttv.jpg",
+      "publishedAt": "2026-11-24T11:31:07.184Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "wspieramto-spot-wideo-20261124",
+      "title": "Spot wideo wsparcia Christian Culture — Każdy gest ma znaczenie",
+      "url": "https://zrzutka.pl/z/ChristianCulture",
+      "videoAttached": true,
+      "publishedAt": "2026-11-24T11:25:34.875Z",
+      "method": "playwright_video_free"
+    },
+    {
+      "slug": "milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien",
+      "title": "Miłość do bliźniego w praktyce: jeden telefon, który może zmienić dzień",
+      "url": "https://polskieradio.cc/news/milosc-do-blizniego-w-praktyce-jeden-telefon-ktory-moze-zmienic-dzien",
+      "type": "news",
+      "topicId": null,
+      "image": "art-milosc-do-blizniego-jeden-telefon.jpg",
+      "publishedAt": "2026-11-24T11:01:20.386Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "listy-starego-diabla-do-mlodego-cs-lewis-audiobook",
+      "title": "„Listy starego diabła do młodego” C.S. Lewisa: Audiobook z Biblijnym Komentarzem – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/listy-starego-diabla-do-mlodego-cs-lewis-audiobook",
+      "type": "book",
+      "topicId": null,
+      "image": "topic-listy-starego-diabla-do-mlodego-cs-lewis-audiobo-a26b40c1.jpg",
+      "publishedAt": "2026-11-24T10:31:27.592Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "11-wzrastanie-w-chrystusie.html",
+      "title": "Kurs 28 Kroków — Lekcja 11: Wzrastanie w Chrystusie — Zwycięstwo nad Ciemnością i Uświęcenie",
+      "url": "https://polskieradio.cc/kursy/11-wzrastanie-w-chrystusie.html",
+      "type": "course",
+      "topicId": null,
+      "image": "11.png",
+      "publishedAt": "2026-11-24T10:01:31.769Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "stacje",
+      "title": "Christian Culture Radio",
+      "url": "https://polskieradio.cc/stacje",
+      "type": "music",
+      "topicId": null,
+      "image": "topic-stacje-3e9dff87.jpg",
+      "publishedAt": "2026-11-24T09:31:28.137Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "certyfikat",
+      "title": "Certyfikat Ukończenia — Generator Imiennego Dyplomu Akademii Biblijnej CC",
+      "url": "https://polskieradio.cc/certyfikat",
+      "type": "module",
+      "topicId": null,
+      "image": "topic-certyfikat-dfd5a67e.jpg",
+      "publishedAt": "2026-11-24T08:01:18.930Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "digital-balance",
+      "title": "CC Help: Phone and internet addiction",
+      "url": "https://polskieradio.cc/en/digital-balance",
+      "type": "help",
+      "topicId": "uzaleznienie-od-telefonu",
+      "image": "topic-digital-balance-1ebae4dc.jpg",
+      "publishedAt": "2026-11-24T07:31:45.551Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "werset-dnia?day=346",
+      "title": "Werset Dnia: „Odwieczną miłością cię umiłowałem, dlatego przyciągnąłem cię łaskawością” (Księga Jeremiasza 31:3, UBG)",
+      "url": "https://polskieradio.cc/werset-dnia?day=346",
+      "type": "verse",
+      "topicId": null,
+      "image": "werset-day-346-ksiega-jeremiasza-31-3.jpg",
+      "publishedAt": "2026-11-24T07:06:38.381Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "wizytowki",
+      "title": "Katalog Wizytówek Christian Culture — Ludzie, Służby i Projekty (/wizytowki)",
+      "url": "https://polskieradio.cc/wizytowki",
+      "type": "profile",
+      "topicId": null,
+      "image": "topic-wizytowki-580ee6cf.jpg",
+      "publishedAt": "2026-11-24T06:31:28.320Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska",
+      "title": "Czy będę musiał zapłacić karę finansową w Kościele? A kto zapłaci za mój grzech przed Bogiem?",
+      "url": "https://polskieradio.cc/news/czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska",
+      "type": "news",
+      "topicId": null,
+      "image": "art-czy-zaplace-kare-finansowa-w-kosciele-grzywny-laska.jpg",
+      "publishedAt": "2026-11-24T06:01:40.481Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
+      "slug": "ksiega-psalmow-biblia-audio-cc-przeklad-ubg",
+      "title": "Księga Psalmów – Biblia Audio CC w Przekładzie Uwspółcześnionej Biblii Gdańskiej – CCN News",
+      "url": "https://polskieradio.cc/biblioteka/ksiega-psalmow-biblia-audio-cc-przeklad-ubg",
+      "type": "book",
+      "topicId": null,
+      "image": "topic-ksiega-psalmow-biblia-audio-cc-przeklad-ubg-8c8ae876.jpg",
+      "publishedAt": "2026-11-24T05:42:19.340Z",
+      "method": "ccn_auto_broadcaster"
+    },
+    {
       "slug": "10-doswiadczenie-zbawienia.html",
       "title": "Kurs 28 Kroków — Lekcja 10: Doświadczenie Zbawienia — Łaska, Wiara i Nowe Narodzenie",
       "url": "https://polskieradio.cc/kursy/10-doswiadczenie-zbawienia.html",
@@ -4344,127 +4679,6 @@
       "image": "art-sprawozdanie-misyjne-pazdziernik-2026.jpg",
       "publishedAt": "2026-10-31T20:35:16.624Z",
       "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "mapa",
-      "title": "Żywa Interaktywna Mapa Ekosystemu Christian Culture",
-      "url": "https://polskieradio.cc/mapa",
-      "type": "module",
-      "image": "planeta-poster.jpg",
-      "publishedAt": "2026-10-31T20:16:05.585Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "biblia-audio",
-      "title": "Biblia Audio CC — Księga Rodzaju w Kinowej Jakości Dźwięku i Słuchowiskach",
-      "url": "https://polskieradio.cc/biblia-audio",
-      "type": "module",
-      "image": "rodzaju-hero.jpg",
-      "publishedAt": "2026-10-31T19:36:39.688Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "lumina-tablica",
-      "title": "LUMINA — Wolna od Algorytmów Przestrzeń Społeczności Chrześcijańskiej",
-      "url": "https://polskieradio.cc/lumina-tablica",
-      "type": "profile",
-      "image": "card-lumina.jpg",
-      "publishedAt": "2026-10-31T19:04:15.911Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "lumina.wiolettarogowska",
-      "title": "Wizytówka: Wioletta Rogowska — Współzałożycielka Christian Culture, Rodzina i Wiara",
-      "url": "https://polskieradio.cc/lumina.wiolettarogowska",
-      "type": "profile",
-      "image": "wioletta-og.jpg",
-      "publishedAt": "2026-10-31T18:35:48.093Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "lumina.cezaryrgowski",
-      "title": "Wizytówka: Cezary Rogowski — Założyciel Christian Culture & Polskie Radio CC",
-      "url": "https://polskieradio.cc/lumina.cezaryrgowski",
-      "type": "profile",
-      "image": "cezary-wioletta-radiocc.jpg",
-      "publishedAt": "2026-10-31T18:06:21.422Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "biblia-spiewana",
-      "title": "Kanał Transmisyjny: Biblia Śpiewana Live — Słowo Boże ubrane w natchnioną muzykę",
-      "url": "https://polskieradio.cc/live/biblia-spiewana",
-      "type": "music",
-      "image": "Logo_Biblia_Spiewana.jpg",
-      "publishedAt": "2026-10-31T17:37:35.300Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "gerald-welch-the-call",
-      "title": "Nowość Muzyczna: Gerald Welch — THE CALL. Głębokie uwielbienie w Polskim Radiu CC",
-      "url": "https://polskieradio.cc/news/gerald-welch-the-call",
-      "type": "music",
-      "image": "art-gerald-welch-the-call.jpg",
-      "publishedAt": "2026-10-31T17:06:51.061Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "dekalog-bozy",
-      "title": "Werset Dnia: „Pamiętaj o dniu szabatu, aby go święcić” (Wj 20:8, UBG)",
-      "url": "https://polskieradio.cc/prawo/dekalog-bozy",
-      "type": "verse",
-      "image": "art-dekalog-dziesiec-przykazan-wujek.jpg",
-      "publishedAt": "2026-10-31T17:04:24.737Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "vod",
-      "title": "Kino Chrześcijańskie VOD — Filmy Fabularne, Dokumenty i Wykłady Biblijne",
-      "url": "https://polskieradio.cc/vod",
-      "publishedAt": "2026-10-31T16:34:19.969Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "podcasty",
-      "title": "Podcasty Christian Culture • Głos, który buduje serce i wiarę (/podcasty)",
-      "url": "https://polskieradio.cc/podcasty",
-      "publishedAt": "2026-10-31T16:02:43.946Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "95-tez-marcina-lutra-wittenberga-1517",
-      "title": "95 tez Marcina Lutra (Wittenberga, 1517) — Kompletny Tekst z Komentarzem",
-      "url": "https://polskieradio.cc/historia/95-tez-marcina-lutra-wittenberga-1517",
-      "publishedAt": "2026-10-31T15:47:31.336Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "player",
-      "title": "Polskie Radio CC — Odtwarzacz Muzyki Chrześcijańskiej i Transmisje 24/7",
-      "url": "https://polskieradio.cc/player",
-      "publishedAt": "2026-10-31T15:45:19.346Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "akademia",
-      "title": "Akademia Biblijna & Kurs Codzienny — Systematyczne Studium Słowa Bożego",
-      "url": "https://polskieradio.cc/akademia",
-      "publishedAt": "2026-10-31T15:15:57.962Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "news",
-      "title": "Portal Informacyjny CCN News — Wiadomości, Analizy i Rzetelna Publicystyka",
-      "url": "https://polskieradio.cc/news",
-      "publishedAt": "2026-10-31T15:14:59.139Z",
-      "method": "ccn_auto_broadcaster"
-    },
-    {
-      "slug": "dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-      "title": "Reformacja nie skończyła się w 1517 roku — wróćmy do Pisma i Ewangelii łaski",
-      "url": "https://polskieradio.cc/news/dzien-reformacji-2026-wrocmy-do-pisma-i-ewangelii-laski",
-      "publishedAt": "2026-10-31T14:54:00.793Z",
-      "method": "playwright_free"
     }
   ]
 }

@@ -3,7 +3,7 @@
   "series": "What's Up Prof? — Walter Veith & Martin Smith (Clash of Minds)",
   "scheduleOffsetHours": 48,
   "dailyCron": "CRON_TZ=Europe/Warsaw 0 15 * * *",
-  "lastRunAt": "2026-11-24T06:03:52.192Z",
+  "lastRunAt": "2026-11-24T14:42:17.491Z",
   "episodes": {
     "1": {
       "seq": 1,
@@ -519,7 +519,7 @@
     "8": {
       "seq": 8,
       "epCode": "008",
-      "completed": false,
+      "completed": true,
       "channels": {
         "Personality Plus": {
           "status": "ok",
@@ -554,32 +554,40 @@
           "publishedAt": "2026-11-23T05:26:50.581Z"
         },
         "Christian Culture TV": {
-          "status": "error",
+          "status": "ok",
           "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
-          "error": "Przekroczono limit 900s oczekiwania na zwolnienie profilu C:\\Users\\czark\\.youtube_browser_profile.",
-          "failedAt": "2026-11-22T15:24:52.867Z"
+          "videoUrl": "https://youtu.be/IZfXARVgKsg",
+          "title": "008. Czy to już koniec? Cz. 1 (Pogłębione studium) | Prof. Walter Veith",
+          "skipped": true,
+          "publishedAt": "2026-11-24T14:10:39.304Z"
         },
         "Osobowość +": {
-          "status": "error",
+          "status": "ok",
           "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
-          "error": "Przekroczono limit 900s oczekiwania na zwolnienie profilu C:\\Users\\czark\\.youtube_browser_profile.",
-          "failedAt": "2026-11-22T15:39:55.939Z"
+          "videoUrl": "https://youtu.be/71HGs0h_2eQ",
+          "title": "008. Czy to już koniec? Cz. 1 (Pogłębione studium) | Prof. Walter Veith",
+          "skipped": true,
+          "publishedAt": "2026-11-24T14:10:40.348Z"
         },
         "CC Women": {
-          "status": "error",
+          "status": "ok",
           "channelId": "UC-LPFt-vmJCeap746DOWMgw",
-          "error": "Przekroczono limit 900s oczekiwania na zwolnienie profilu C:\\Users\\czark\\.youtube_browser_profile.",
-          "failedAt": "2026-11-22T15:55:01.023Z"
+          "videoUrl": "https://youtu.be/gxEvuVhkWxI",
+          "title": "008. Czy to już koniec? Cz. 1 (Pogłębione studium) | Prof. Walter Veith",
+          "skipped": true,
+          "publishedAt": "2026-11-24T14:10:42.588Z"
         },
         "CC Men": {
-          "status": "error",
+          "status": "ok",
           "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
-          "error": "Przekroczono limit 900s oczekiwania na zwolnienie profilu C:\\Users\\czark\\.youtube_browser_profile.",
-          "failedAt": "2026-11-22T16:10:06.121Z"
+          "videoUrl": "https://youtu.be/TtgdlPzsnZo",
+          "title": "008. Czy to już koniec? Cz. 1 (Pogłębione studium) | Prof. Walter Veith",
+          "skipped": true,
+          "publishedAt": "2026-11-24T14:10:43.481Z"
         }
       },
-      "scheduledYmd": "2026-11-24",
-      "scheduledTime": "15:00"
+      "scheduledYmd": "2026-11-26",
+      "scheduledTime": "15:15"
     },
     "9": {
       "seq": 9,
@@ -653,6 +661,79 @@
       },
       "scheduledYmd": "2026-11-26",
       "scheduledTime": "06:45"
+    },
+    "10": {
+      "seq": 10,
+      "epCode": "010",
+      "completed": true,
+      "channels": {
+        "Personality Plus": {
+          "status": "ok",
+          "channelId": "UCSwb927uMg2PxIl_Aakht0Q",
+          "videoUrl": "https://youtu.be/R7_Cu5McAYQ",
+          "title": "010. QAnon, Dr. Fauci, Deep State, Spirit of Prophecy | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T14:28:24.176Z"
+        },
+        "Biblia Audio Christian Culture": {
+          "status": "ok",
+          "channelId": "UCCqHRCEuSDhlRcvcQ6qM1Kw",
+          "videoUrl": "https://youtu.be/kzn7g7vAW7Q",
+          "title": "010. QAnon, dr Fauci, głębokie państwo i Duch Proroctwa | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T14:30:21.380Z"
+        },
+        "Werset Dnia - Chrześcijański Serwis Biblijny": {
+          "status": "ok",
+          "channelId": "UCyOvW5DuDLVq5XWFyijgtbw",
+          "videoUrl": "https://youtu.be/z7-a1QXSnjk",
+          "title": "010. QAnon, dr Fauci, głębokie państwo i Duch Proroctwa | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T14:32:24.484Z"
+        },
+        "Polskie Radio CHRISTIAN CULTURE": {
+          "status": "ok",
+          "channelId": "UCNnCdsJ-K6FXulZzXZHWkjQ",
+          "videoUrl": "https://youtu.be/vO17EtUPvYI",
+          "title": "010. QAnon, dr Fauci, głębokie państwo i Duch Proroctwa | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T14:34:23.884Z"
+        },
+        "Christian Culture TV": {
+          "status": "ok",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "videoUrl": "https://youtu.be/eoyEivWhnI4",
+          "title": "010. QAnon, dr Fauci, głębokie państwo i Duch Proroctwa | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T14:36:22.760Z"
+        },
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "videoUrl": "https://youtu.be/bZafDhFaVRA",
+          "title": "010. QAnon, dr Fauci, głębokie państwo i Duch Proroctwa | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T14:38:18.033Z"
+        },
+        "CC Women": {
+          "status": "ok",
+          "channelId": "UC-LPFt-vmJCeap746DOWMgw",
+          "videoUrl": "https://youtu.be/9G3yafEg-W0",
+          "title": "010. QAnon, dr Fauci, głębokie państwo i Duch Proroctwa | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T14:40:20.329Z"
+        },
+        "CC Men": {
+          "status": "ok",
+          "channelId": "UCUpuq9JS7jitIcm9iBn0jnA",
+          "videoUrl": "https://youtu.be/XBV9xMSSQkU",
+          "title": "010. QAnon, dr Fauci, głębokie państwo i Duch Proroctwa | Prof. Walter Veith",
+          "skipped": false,
+          "publishedAt": "2026-11-24T14:42:17.491Z"
+        }
+      },
+      "scheduledYmd": "2026-11-26",
+      "scheduledTime": "15:30"
     }
   }
 }

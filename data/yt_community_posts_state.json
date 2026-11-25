@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "postsByDate": {
+    "2026-11-25": {
+      "type": "image",
+      "id": "promo_wiadomosc_z_nieba",
+      "channels": {
+        "Osobowość +": {
+          "status": "ok",
+          "channelId": "UCHmPxDM2zzlUAf5ZvlotPLw",
+          "type": "image",
+          "url": "https://www.youtube.com/channel/UCHmPxDM2zzlUAf5ZvlotPLw/posts",
+          "publishedAt": "2026-11-25T05:01:30.173Z"
+        },
+        "Christian Culture TV": {
+          "status": "error",
+          "channelId": "UCG5Y4dwJi5436Gu6QH3nNUQ",
+          "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[aria-label=\"Opublikuj\"]:visible, button[aria-label=\"Post\"]:visible').first()\u001b[22m\n\u001b[2m    - locator resolved to <button title=\"\" disabled=\"true\" aria-disabled=\"true\" aria-label=\"Opublikuj\" class=\"ytSpecButtonShapeNextHost ytSpecButtonShapeNextFilled ytSpecButtonShapeNextSizeM ytSpecButtonShapeNextDisabled ytSpecButtonShapeNextSegmentedStart ytSpecButtonShapeNextEnableBackdropFilterExperiment ytSpecButtonShapeNextMainstageIconSize ytSpecButtonShapeNextMainstagePadding\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+          "failedAt": "2026-11-25T04:56:52.147Z"
+        }
+      }
+    }
+  },
+  "promoIndex": 1,
+  "pollIndex": 0
+}

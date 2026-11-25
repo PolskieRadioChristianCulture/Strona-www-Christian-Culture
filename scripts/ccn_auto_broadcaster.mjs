@@ -1509,7 +1509,14 @@ function formatBroadcasterTweet(item) {
     }
   }
 
-  const hashtags = tagList.join(' ');
+  const estimateXLength = (txt) => {
+    const normalized = String(txt || '')
+      .replace(/https?:\/\/[^\s]+/gi, 'X'.repeat(23))
+      .replace(/\bpolskieradio\.cc(?:\/[^\s]*)?/gi, 'X'.repeat(23));
+    return normalized.length;
+  };
+
+  let hashtags = tagList.join(' ');
   const url = item.url;
   const subLine = subHeader ? `\n${subHeader}\n` : '\n\n';
   let bodyText = '';
@@ -1518,10 +1525,10 @@ function formatBroadcasterTweet(item) {
     if (item.text) {
       bodyText = item.reference ? `„${item.text}” (${item.reference}, UBG)` : `„${item.text}”`;
       const testTweet = `${header}${subLine}${bodyText}\n\n${callToAction}${url}\n\n${hashtags}`;
-      if (testTweet.length - url.length + 23 > 278 && item.reference) {
+      if (estimateXLength(testTweet) > 276 && item.reference) {
         bodyText = `„${item.text}” (${item.reference})`;
         const testTweet2 = `${header}${subLine}${bodyText}\n\n${callToAction}${url}\n\n${hashtags}`;
-        if (testTweet2.length - url.length + 23 > 278) {
+        if (estimateXLength(testTweet2) > 276) {
           bodyText = `„${item.text}”`;
         }
       }
@@ -1734,25 +1741,25 @@ function formatBroadcasterTweet(item) {
 
   let tweet = `${header}${subLine}${bodyText}\n\n${callToAction}${url}\n\n${hashtags}`;
 
-  // Limit 280 znaków (link t.co liczony jako 23 znaki)
-  const calcLen = () => tweet.length - url.length + 23;
+  // Limit 280 znaków (każdy link i domena polskieradio.cc/* liczone przez X jako 23 znaki t.co)
+  const calcLen = () => estimateXLength(tweet);
 
-  if (calcLen() > 278) {
+  if (calcLen() > 276) {
     // 1. Zredukuj dodatkowe hashtagi, aby zachować pełne zdanie tekstu lub wersetu
     if (tagList.length > 1) {
-      let currentTags = [...tagList];
-      while (currentTags.length > 1 && calcLen() > 278) {
+      const currentTags = [...tagList];
+      while (currentTags.length > 1 && calcLen() > 276) {
         currentTags.pop();
-        const testTags = currentTags.join(' ');
-        const testTweet = `${header}${subLine}${bodyText}\n\n${callToAction}${url}\n\n${testTags}`;
-        if (testTweet.length - url.length + 23 <= 278) {
-          return testTweet;
+        hashtags = currentTags.join(' ');
+        tweet = `${header}${subLine}${bodyText}\n\n${callToAction}${url}\n\n${hashtags}`;
+        if (calcLen() <= 276) {
+          return tweet;
         }
       }
     }
 
     // 2. Skróć treść, zachowując zamykający cudzysłów
-    while (calcLen() > 278 && bodyText.includes(' ')) {
+    while (calcLen() > 276 && bodyText.includes(' ')) {
       bodyText = bodyText.replace(/\s+\S+$/, '').trim();
       const cleaned = bodyText.replace(/\s+(według|w|z|do|i|a|o|na|oraz|ze|od|po|dla|pod|nad|u|przez)\s*$/i, '').trim();
       const closing = (bodyText.startsWith('„') || bodyText.startsWith('"')) ? '…”' : '…';
@@ -1817,8 +1824,9 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
     }
   ]);
 
+  let page = null;
   try {
-    const page = await context.newPage();
+    page = await context.newPage();
     console.log('🌐 [CCN Broadcaster] Otwieram x.com/home w tle...');
     await page.goto('https://x.com/home', { waitUntil: 'domcontentloaded', timeout: 30000 });
     await page.waitForTimeout(3000);
@@ -1828,12 +1836,20 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
       throw new Error('[CCN Broadcaster BŁĄD AUTORYZACJI] Sesja X wygasła. Wymagane odświeżenie X_AUTH_TOKEN w .env.local.');
     }
 
-    let isDialog = await page.locator('[role="dialog"]').isVisible({ timeout: 1000 }).catch(() => false);
-    let textarea = isDialog
-      ? page.locator('[role="dialog"] div[data-testid="tweetTextarea_0"], [role="dialog"] div[role="textbox"][contenteditable="true"]').first()
-      : page.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]').first();
+    const composeDialog = page.locator('[role="dialog"]').filter({
+      has: page.locator('[data-testid="tweetTextarea_0"], [data-testid="tweetButton"], div[role="textbox"][contenteditable="true"]')
+    }).first();
+    const hasComposeDialog = (timeout = 1000) => composeDialog.isVisible({ timeout }).catch(() => false);
 
-    const isReady = await textarea.isVisible({ timeout: 5000 }).catch(() => false);
+    const dialogTextareaSel = 'div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"], textarea';
+    const inlineTextareaSel = 'div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"], main textarea, textarea[aria-label="What\'s happening?"], textarea[placeholder*="Co się dzieje"]';
+
+    let isDialog = await hasComposeDialog(1000);
+    let textarea = isDialog
+      ? composeDialog.locator(dialogTextareaSel).first()
+      : page.locator(inlineTextareaSel).first();
+
+    const isReady = await textarea.isVisible({ timeout: 12000 }).catch(() => false);
     if (!isReady) {
       const sideNavBtn = page.locator('[data-testid="SideNav_NewTweet_Button"], a[href="/compose/post"]').first();
       if (await sideNavBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
@@ -1845,10 +1861,10 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
         await page.goto('https://x.com/compose/post', { waitUntil: 'domcontentloaded', timeout: 30000 });
         await page.waitForTimeout(3000);
       }
-      isDialog = await page.locator('[role="dialog"]').isVisible({ timeout: 2000 }).catch(() => false);
+      isDialog = await hasComposeDialog(2500);
       textarea = isDialog
-        ? page.locator('[role="dialog"] div[data-testid="tweetTextarea_0"], [role="dialog"] div[role="textbox"][contenteditable="true"]').first()
-        : page.locator('div[data-testid="tweetTextarea_0"], div[role="textbox"][contenteditable="true"]').last();
+        ? composeDialog.locator(dialogTextareaSel).first()
+        : page.locator(inlineTextareaSel).last();
     }
 
     await textarea.waitFor({ state: 'visible', timeout: 25000 });
@@ -1865,69 +1881,105 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
     // 2. Wgrywanie dedykowanej grafiki tematycznej
     if (imagePath && fs.existsSync(imagePath)) {
       console.log(`🖼️ [CCN Broadcaster] Załączam dedykowaną grafikę: ${path.basename(imagePath)}...`);
-      isDialog = await page.locator('[role="dialog"]').isVisible({ timeout: 1000 }).catch(() => false);
+      isDialog = await hasComposeDialog(1000);
       const fileInput = isDialog
-        ? page.locator('[role="dialog"] input[data-testid="fileInput"]').first()
-        : page.locator('input[data-testid="fileInput"]').last();
+        ? composeDialog.locator('input[data-testid="fileInput"], input[type="file"]').first()
+        : page.locator('input[data-testid="fileInput"], main input[type="file"], input[type="file"]').last();
       await fileInput.setInputFiles(imagePath);
       console.log('⏳ [CCN Broadcaster] Oczekuję na załadowanie podglądu załącznika...');
       try {
-        await page.waitForSelector('div[data-testid="attachments"], div[aria-label*="Usuń"], div[aria-label*="Remove"]', { timeout: 15000 });
+        await page.waitForSelector('div[data-testid="attachments"], div[aria-label*="Usuń"], div[aria-label*="Remove"], button[aria-label*="Remove"], button[aria-label*="Usuń"]', { timeout: 15000 });
         console.log('✅ [CCN Broadcaster] Dedykowana grafika została pomyślnie załączona!');
       } catch (e) {
         await page.waitForTimeout(4000);
       }
     }
 
-    // 3. Wysłanie posta (przycisk TweetButton z modalu lub Control+Enter)
+    // 3. Wysłanie posta (przycisk TweetButton / Post z modalu lub inline + Control+Enter)
     console.log('🔘 [CCN Broadcaster] Wysyłam post...');
-    isDialog = await page.locator('[role="dialog"]').isVisible().catch(() => false);
-    const postBtn = isDialog
-      ? page.locator('[role="dialog"] [data-testid="tweetButton"]')
-      : page.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]').last();
+    isDialog = await hasComposeDialog(1000);
+    const layersPostBtn = page.locator('#layers [data-testid="tweetButton"]').last();
+    const hasLayersComposer = !isDialog && (await layersPostBtn.isVisible({ timeout: 500 }).catch(() => false));
+    const scope = isDialog ? composeDialog : (hasLayersComposer ? page.locator('#layers') : page.locator('main'));
+    const postBtn = scope.locator('[data-testid="tweetButton"], [data-testid="tweetButtonInline"]')
+      .or(scope.getByRole('button', { name: /^(Post|Opublikuj)$/i }))
+      .last();
 
     const btnVisible = await postBtn.isVisible({ timeout: 5000 }).catch(() => false);
-    if (btnVisible) {
-      await postBtn.click({ force: true });
+    let btnDisabledBefore = btnVisible ? await postBtn.isDisabled().catch(() => false) : true;
+    let ariaDisabledBefore = btnVisible ? await postBtn.getAttribute('aria-disabled').catch(() => 'false') : 'true';
+    if (btnVisible && (btnDisabledBefore || ariaDisabledBefore === 'true')) {
+      console.log('⏳ [CCN Broadcaster] Oczekuję na zakończenie wgrywania grafiki i aktywację przycisku Post...');
+      for (let w = 0; w < 40; w++) {
+        await page.waitForTimeout(500);
+        btnDisabledBefore = await postBtn.isDisabled().catch(() => true);
+        ariaDisabledBefore = await postBtn.getAttribute('aria-disabled').catch(() => 'false');
+        if (!btnDisabledBefore && ariaDisabledBefore !== 'true') break;
+      }
     }
+    if (!btnVisible || btnDisabledBefore || ariaDisabledBefore === 'true') {
+      await page.screenshot({ path: path.join(__dirname, '../x_debug_screen.png') }).catch(() => {});
+      throw new Error(`[CCN Broadcaster BŁĄD PUBLIKACJI] Przycisk Post niedostępny lub nieaktywny (visible=${btnVisible}, disabled=${btnDisabledBefore}, ariaDisabled=${ariaDisabledBefore}).`);
+    }
+    await postBtn.click();
 
-    // Jeśli przycisk nadal widoczny po 1.5s, użyj natywnego skrótu Control+Enter
+    // Jeśli formularz nadal otwarty po 1.5s, ponów kliknięcie / skrót Control+Enter
     await page.waitForTimeout(1500);
-    if (await postBtn.isVisible().catch(() => false)) {
+    const stillVisibleAfterClick = await postBtn.isVisible({ timeout: 1000 }).catch(() => false);
+    const stillEnabledAfterClick = stillVisibleAfterClick
+      ? !(await postBtn.isDisabled().catch(() => true)) && (await postBtn.getAttribute('aria-disabled').catch(() => 'false')) !== 'true'
+      : false;
+    if (stillEnabledAfterClick) {
       console.log('🔄 [CCN Broadcaster] Ponawiam próbę wysłania skrótem Control+Enter...');
       await textarea.focus();
       await page.keyboard.press('Control+Enter');
     }
 
-    // Weryfikacja: powiadomienie o wysłaniu, toast, zniknięcie przycisku publikacji lub zamknięcie modalu dialogowego
-    const alertText = await page.locator('[role="alert"], div[data-testid="toast"]').innerText().catch(() => '');
-    const isSentAlert = alertText.toLowerCase().includes('sent') || alertText.toLowerCase().includes('wysłano') || alertText.toLowerCase().includes('post was sent');
+    // Weryfikacja: powiadomienie o wysłaniu, zamknięcie modalu dialogowego lub wyczyszczenie pola inline
+    const isSentMsg = (txt) => {
+      const l = String(txt || '').toLowerCase();
+      return l.includes('sent') || l.includes('wysłano') || l.includes('post was sent');
+    };
 
-    let confirmed = isSentAlert;
+    const isInlineCleared = async () => {
+      if (isDialog || hasLayersComposer) return false;
+      const val = await textarea.inputValue().catch(async () => await textarea.innerText().catch(() => 'NONEMPTY'));
+      return String(val || '').trim() === '';
+    };
+
+    let confirmed = isSentMsg(await page.locator('[role="alert"], div[data-testid="toast"]').first().innerText({ timeout: 1500 }).catch(() => ''));
     if (!confirmed) {
-      confirmed = await Promise.race([
-        page.waitForSelector('[role="alert"]', { timeout: 8000 }).then(async (el) => {
-          const t = await el.innerText().catch(() => '');
-          return t.toLowerCase().includes('sent') || t.toLowerCase().includes('wysłano') || t.toLowerCase().includes('post was sent');
-        }).catch(() => false),
-        postBtn.waitFor({ state: 'hidden', timeout: 8000 }).then(() => true).catch(() => false),
-        isDialog ? page.locator('[role="dialog"]').waitFor({ state: 'hidden', timeout: 8000 }).then(() => true).catch(() => false) : Promise.resolve(false)
-      ]);
+      for (let attempt = 0; attempt < 16; attempt++) {
+        const alertTxt = await page.locator('[role="alert"], div[data-testid="toast"]').first().innerText({ timeout: 500 }).catch(() => '');
+        if (isSentMsg(alertTxt)) {
+          confirmed = true;
+          break;
+        }
+        if (isDialog) {
+          const dlgVisible = await composeDialog.isVisible().catch(() => false);
+          if (!dlgVisible) {
+            confirmed = true;
+            break;
+          }
+        } else if (hasLayersComposer) {
+          const layersBtnVisible = await layersPostBtn.isVisible().catch(() => false);
+          if (!layersBtnVisible) {
+            confirmed = true;
+            break;
+          }
+        } else if (await isInlineCleared()) {
+          confirmed = true;
+          break;
+        }
+        await page.waitForTimeout(500);
+      }
     }
 
     if (!confirmed) {
-      const latestAlert = await page.locator('[role="alert"]').innerText().catch(() => '');
-      if (latestAlert.toLowerCase().includes('sent') || latestAlert.toLowerCase().includes('wysłano') || latestAlert.toLowerCase().includes('post was sent')) {
-        confirmed = true;
-      } else {
-        const errorText = await page.locator('div[data-testid="error-detail"]').innerText().catch(() => '');
-        const stillActive = await postBtn.isVisible().catch(() => false);
-        const ariaDisabled = await postBtn.getAttribute('aria-disabled').catch(() => 'false');
-        if (stillActive && ariaDisabled !== 'true') {
-          await page.screenshot({ path: path.join(__dirname, '../x_debug_screen.png') }).catch(() => {});
-          throw new Error('[CCN Broadcaster BŁĄD PUBLIKACJI] Przycisk publikacji nadal aktywny. Treść komunikatu: "' + (errorText || latestAlert) + '". Zrzut ekranu zapisano w x_debug_screen.png');
-        }
-      }
+      const latestAlert = await page.locator('[role="alert"], div[data-testid="toast"]').first().innerText({ timeout: 1000 }).catch(() => '');
+      const errorText = await page.locator('div[data-testid="error-detail"]').first().innerText({ timeout: 1000 }).catch(() => '');
+      await page.screenshot({ path: path.join(__dirname, '../x_debug_screen.png') }).catch(() => {});
+      throw new Error('[CCN Broadcaster BŁĄD PUBLIKACJI] Brak potwierdzenia wysłania posta na X. Treść komunikatu: "' + (errorText || latestAlert || 'brak alertu') + '". Zrzut ekranu zapisano w x_debug_screen.png');
     }
 
     await page.waitForTimeout(3000).catch(() => {});
@@ -1937,6 +1989,7 @@ async function publishToX(tweetText, imagePath, dryRun = false) {
     await Promise.race([context.close(), new Promise(r => setTimeout(r, 4000))]).catch(() => {});
     return { success: true };
   } catch (err) {
+    if (page) await page.screenshot({ path: path.join(__dirname, '../x_debug_screen.png') }).catch(() => {});
     await Promise.race([context.close(), new Promise(r => setTimeout(r, 4000))]).catch(() => {});
     throw err;
   }

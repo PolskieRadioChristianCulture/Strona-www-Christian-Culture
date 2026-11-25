@@ -1,7 +1,7 @@
 {
-  "lastIndex": 14,
-  "lastChannelId": "popraw_korone",
-  "lastTimestamp": "2026-11-22T17:00:40.526Z",
+  "lastIndex": 15,
+  "lastChannelId": "cc_instrumental",
+  "lastTimestamp": "2026-11-24T17:00:47.554Z",
   "history": [
     {
       "index": 0,
@@ -165,6 +165,17 @@
       "url": "https://www.youtube.com/@PoprawKoronęCC",
       "targetAudience": "Kobiety potrzebujące podniesienia po życiowych porażkach, rozwodach czy kryzysach",
       "hook": "Upadłaś? Bóg nie skończył jeszcze z Twoją historią. Czas wstać i poprawić koronę córki Króla."
+    },
+    {
+      "index": 15,
+      "channelId": "cc_instrumental",
+      "timestamp": "2026-11-24T17:00:47.555Z",
+      "status": "PROMOTED",
+      "channelName": "CC Instrumental",
+      "handle": "@ChristianCultureInstrumental",
+      "url": "https://www.youtube.com/@ChristianCultureInstrumental",
+      "targetAudience": "Osoby szukające muzyki instrumentalnej do pracy głębokiej, modlitwy kontemplacyjnej i czytania",
+      "hook": "Muzyka bez słów, która pozwala Twojemu umysłowi odpocząć i skupić się na tym, co najważniejsze."
     }
   ]
 }

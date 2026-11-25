@@ -1,0 +1,85 @@
+{
+  "campaignId": "best-of-cc-sylwester-2026",
+  "youtubeUrl": "https://youtu.be/vuLnz8S8ABU",
+  "spotifyUrl": "https://distrokid.com/hyperfollow/christianculture/the-best-of-christian-culture",
+  "lastXPostAt": "2026-11-24T16:37:01.735Z",
+  "xCount": 1,
+  "xVariantIdx": 1,
+  "lastTablicaPostAt": "2026-11-24T15:11:04.555Z",
+  "tablicaCount": 1,
+  "waSentGroups": {
+    "120363368533590919@g.us": {
+      "lastSentIso": "2026-11-24T15:11:04.555Z",
+      "waveId": "wave-1-premiera",
+      "groupName": "Osobowość+"
+    }
+  },
+  "waNazirLastSentAt": "2026-11-24T15:11:04.555Z",
+  "history": [
+    {
+      "timestamp": "2026-11-24T16:37:01.735Z",
+      "waveId": "wave-1-premiera",
+      "ymd": "2026-11-24",
+      "x": {
+        "ok": true,
+        "screenshotPath": "C:\\Users\\czark\\.gemini\\antigravity\\brain\\d6fb6723-88d9-47dd-951a-c934e6675ed7\\scratch\\x_best_of_cc_wave1.png"
+      },
+      "tablica": {
+        "ok": true,
+        "skipped": true,
+        "reason": "interval_96h"
+      },
+      "whatsapp": []
+    },
+    {
+      "timestamp": "2026-11-24T15:11:04.555Z",
+      "waveId": "wave-1-premiera",
+      "ymd": "2026-11-24",
+      "x": {
+        "ok": false,
+        "error": "locator.waitFor: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"dialog\"] div[data-testid=\"tweetTextarea_0\"], [role=\"dialog\"] div[role=\"textbox\"][contenteditable=\"true\"]').first() to be visible\u001b[22m\n"
+      },
+      "tablica": {
+        "ok": true,
+        "docId": "j4ro67SzZh7WVS9Qim8Q",
+        "voice": "cezaryrgowski",
+        "author": "Cezary Rogowski",
+        "title": "🎁 Niespodzianka od Christian Culture: darmowy album „The Best of Christian Culture” (12 utworów MP3)",
+        "sourceUrl": "https://polskieradio.cc/?show_video_banner=1#wave-1-premiera-2026-11-24",
+        "imageUrl": "https://polskieradio.cc/images/promo/the-best-of-christian-culture-2026.jpg"
+      },
+      "whatsapp": [
+        {
+          "ok": true,
+          "targetGroupId": "120363409279454206@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795533099154_24rhx",
+            "status": "pending"
+          },
+          "name": "Grupa Nazira - Christian Culture"
+        },
+        {
+          "ok": true,
+          "targetGroupId": "120363368533590919@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795533099358_03abo",
+            "status": "pending"
+          },
+          "name": "Osobowość+"
+        },
+        {
+          "ok": true,
+          "targetGroupId": "120363416073268021@g.us",
+          "d1": {
+            "success": true,
+            "id": "cmd_1795533099520_5yf61",
+            "status": "pending"
+          },
+          "name": "Cuda Każdego Dnia"
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,31 @@
 {
-  "lastPromotedIndex": 6,
-  "lastPromotedDate": "2026-11-22",
+  "lastPromotedIndex": 7,
+  "lastPromotedDate": "2026-11-24",
   "history": [
+    {
+      "date": "2026-11-24",
+      "channelName": "Top Seven",
+      "handle": "@TopSeven_CC",
+      "url": "https://www.youtube.com/@TopSeven_CC/live",
+      "results": {
+        "lumina": {
+          "status": "published",
+          "docId": "UTK6XsjuYVlUHy50Tsnb"
+        },
+        "x": {
+          "status": "error",
+          "error": "page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"tweetTextarea_0\"], div[role=\"textbox\"][contenteditable=\"true\"]') to be visible\u001b[22m\n"
+        },
+        "fb": {
+          "status": "error",
+          "error": "Nie znaleziono przycisku Opublikuj na Facebooku."
+        },
+        "wa": {
+          "status": "queued",
+          "targets": 3
+        }
+      }
+    },
     {
       "date": "2026-11-22",
       "channelName": "CC Men",
