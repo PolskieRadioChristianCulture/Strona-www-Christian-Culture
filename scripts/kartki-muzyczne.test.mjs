@@ -112,3 +112,20 @@ test('3 okazje muzyczne, osadzenie YouTube YSg_C27JYsI oraz doslowne wersety UBG
 
   assert.equal(/\.innerHTML\s*=/.test(JS), false, 'kartki.js nie powinien uzywac innerHTML');
 });
+
+test('Wyszukiwarka @w oraz SEO dla botow AI (llms.txt, llms-full.txt, sitemap, FAQPage JSON-LD) zawieraja /kartki/', () => {
+  const searchIdx = JSON.parse(readText('data/cc-search-index.json'));
+  const catalog = JSON.parse(readText('szukaj/catalog.json'));
+  assert.ok(searchIdx.items.some((it) => it && it.url === 'https://polskieradio.cc/kartki/'), 'Brak /kartki/ w data/cc-search-index.json');
+  assert.ok(catalog.items.some((it) => it && it.url === 'https://polskieradio.cc/kartki/'), 'Brak /kartki/ w szukaj/catalog.json');
+  assert.ok(readText('llms.txt').includes('https://polskieradio.cc/kartki/'), 'Brak /kartki/ w llms.txt');
+  assert.ok(readText('llms-full.txt').includes('https://polskieradio.cc/kartki/'), 'Brak /kartki/ w llms-full.txt');
+  assert.ok(readText('sitemaps/pages.xml').includes('https://polskieradio.cc/kartki/'), 'Brak /kartki/ w sitemaps/pages.xml');
+
+  const ldMatch = HTML.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  assert.ok(ldMatch, 'Brak bloku JSON-LD');
+  const parsed = JSON.parse(ldMatch[1]);
+  assert.ok(Array.isArray(parsed['@graph']), 'JSON-LD powinien miec @graph');
+  assert.ok(parsed['@graph'].some((n) => n['@type'] === 'WebApplication'));
+  assert.ok(parsed['@graph'].some((n) => n['@type'] === 'FAQPage'));
+});

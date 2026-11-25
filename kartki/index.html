@@ -42,14 +42,68 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Muzyczne E-Kartki Christian Culture",
-  "url": "https://polskieradio.cc/kartki/",
-  "applicationCategory": "MusicApplication",
-  "operatingSystem": "Web",
-  "inLanguage": ["pl", "en"],
-  "isAccessibleForFree": true,
-  "description": "Kreator bezpłatnych imiennych e-kartek muzycznych Christian Culture na Urodziny, codzienną zachętę i Nowy Rok 2027."
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Muzyczne E-Kartki Christian Culture",
+      "url": "https://polskieradio.cc/kartki/",
+      "image": "https://polskieradio.cc/kartki/assets/hero-urodziny-cc.webp",
+      "applicationCategory": "MusicApplication",
+      "operatingSystem": "Web",
+      "inLanguage": ["pl", "en"],
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PLN"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Christian Culture",
+        "url": "https://polskieradio.cc/"
+      },
+      "description": "Kreator bezpłatnych imiennych e-kartek muzycznych Christian Culture na Urodziny, codzienną zachętę i Nowy Rok 2027 z błogosławieństwem ze Słowa Bożego (UBG)."
+    },
+    {
+      "@type": "ItemList",
+      "name": "Dostępne Muzyczne E-Kartki Christian Culture",
+      "numberOfItems": 3,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Urodziny — Dziś Są Twoje Urodziny (4 Mojżeszowa 6,24–26 UBG)", "url": "https://polskieradio.cc/kartki/?okazja=urodziny" },
+        { "@type": "ListItem", "position": 2, "name": "Dobrze, że jesteś (Filipian 1,3–4 UBG)", "url": "https://polskieradio.cc/kartki/?okazja=dobrze" },
+        { "@type": "ListItem", "position": 3, "name": "Nowy Rok 2027 — Szczęśliwego Nowego Roku z Jezusem (Jeremiasza 29,11 UBG)", "url": "https://polskieradio.cc/kartki/?okazja=nowy_rok" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Czy wysłanie Muzycznej E-Kartki Christian Culture jest bezpłatne i wymaga rejestracji?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wszystkie e-kartki muzyczne na polskieradio.cc/kartki/ są w 100% bezpłatne, bez reklam i nie wymagają zakładania konta."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Jak działa prywatność imiennego linku do e-kartki?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Imię odbiorcy, podpis nadawcy i treść życzeń kodują się bezpośrednio w parametrze URL (?k=...) po stronie przeglądarki. Serwis nie zapisuje ani nie gromadzi danych osobowych z kartek na serwerze."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Jakie pieśni i wersety biblijne zawierają kartki na polskieradio.cc/kartki/?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dostępne są trzy okazje: Urodziny z piosenką Dziś Są Twoje Urodziny (Lb 6,24–26 UBG), Dobrze, że jesteś (Flp 1,3–4 UBG) oraz Nowy Rok 2027 z pieśnią Szczęśliwego Nowego Roku z Jezusem (Jr 29,11 UBG)."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 <script src="/js/cc-global-auth.js?v=20261116_a007_auth" defer></script>
