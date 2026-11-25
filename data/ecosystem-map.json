@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-25",
+      "topic": "HOLOS 2027 — Noworoczne Wyzwania, System Celów z Tarczą Szabatu, realną synchronizacją Google Cloud oraz CC FULL PREMIUM",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-25",
       "topic": "Biblia Audio CC — produkcja V7 (-15.9 LUFS, TP -2.0 dBFS, 16 kwestii UBG) i publikacja WWW (/biblia-audio), Spotify oraz czystego MP3 radiowego (Zeno.FM) Księgi Rodzaju 38 (GEN-038: Juda i Tamar, Prawda, Skrucha oraz Narodziny Peresa i Zeracha)",
       "agent": "A"
     },
@@ -2819,24 +2824,27 @@
     {
       "id": "holos-system",
       "branchId": "aplikacje-technologia",
-      "name": "HOLOS — Chrześcijański Life OS",
-      "shortDesc": "System planowania życia, nawyków, duchowego wzrostu i celów.",
-      "fullDesc": "Kompleksowy system operacyjny dla życia codziennego. Harmonogram uświęcenia, monitorowanie dobrych nawyków, kontrola czasu przed ekranem i rozwój duchowy.",
+      "name": "HOLOS 2027 — Wyzwania Noworoczne & Chrześcijański Life OS",
+      "shortDesc": "System wyzwań 2027, celów, nawyków z Tarczą Szabatu i synchronizacją Google.",
+      "fullDesc": "HOLOS 2027: wyzwania noworoczne w 5 sektorach życia, 14-dniowa mapa rytmu, Tarcza Szabatu, zegar 5·10·15, Koło Życia, Szafarstwo 10%, Google Calendar i bezpieczna synchronizacja po zalogowaniu Google.",
       "type": "app",
       "url": "https://polskieradio.cc/holos.html",
       "status": "active",
       "lang": "pl",
       "icon": "🧭",
       "category": "Aplikacje & Technologia",
-      "verifiedDate": "2026-10-11",
+      "verifiedDate": "2026-11-25",
       "keywords": [
         "holos",
+        "holos 2027",
+        "wyzwania noworoczne 2027",
+        "cele 2027",
         "life os",
         "planowanie",
         "nawyki",
-        "cele",
-        "duchowość",
-        "organizacja"
+        "szabat",
+        "synchronizacja google",
+        "duchowość"
       ],
       "connections": [
         "cclite",

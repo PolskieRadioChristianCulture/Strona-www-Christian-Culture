@@ -46,6 +46,9 @@
   - Generator fal binauralnych (dudnienia różnicowe): Delta 3 Hz (sen głęboki NREM 3/4) i Theta 6 Hz (relaksacja, modlitwa).
   - Sleep Timer (15, 30, 45, 60, 120 minut) z łagodnym 30-sekundowym wygaszaniem fade-out.
 ### F. CCN (Christian Culture Network) — Ekosystem 20 Portali Tematycznych
+### G. HOLOS 2027 — Wyzwania Noworoczne, System Celów & Chrześcijański Life OS
+- **URL**: https://polskieradio.cc/holos
+- **Opis**: Chrześcijański system rozwoju osobistego, planowania i wyzwań na Nowy Rok 2027 łączący metodę 5·10·15, Koło 5 Sektorów Życia, Kalkulator Szafarstwa 10/20/70, dwustronną synchronizację Google Calendar, Tarczę Szabatu (Sobota odpoczynku nie przerywa serii), 14-dniową mapę rytmu, kompas Słowa UBG-2025, AI Mentora Aura oraz bezpieczną synchronizację chmurową Firestore dla kont Google (`users/{uid}/personal_hub/holos_2027`). Tryb gościa działa w pełni lokalnie bez zakładania konta.
 - **Oficjalny Hub**: https://polskieradio.cc/news
 - **Redakcja & Kierownictwo**:
   - Założyciel & Redaktor Naczelny: Cezary Rogowski (https://polskieradio.cc/lumina.cezaryrgowski)
