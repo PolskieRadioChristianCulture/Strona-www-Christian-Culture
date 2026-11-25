@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Podgląd testowy — Multimedialna Wyszukiwarka Christian Culture</title>
+  <meta name="description" content="Strona testowa multimedialnej Wyszukiwarki Christian Culture — brama i centrum całego ekosystemu: wideo, audio, grafiki, Słowo Boże i polecane zasoby.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#070a12">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/search/search-icon-32.png?v=20261026">
+  <link rel="stylesheet" href="./search-v2.css?v=20261125_1">
+</head>
+<body>
+  <header class="cc-topbar">
+    <div class="cc-topbar-inner">
+      <a class="cc-brand" href="/test/wyszukiwarka/">
+        <img src="/images/search/search-icon-192.png" alt="Wyszukiwarka Christian Culture">
+        <span class="cc-brand-title">Wyszukiwarka CC</span>
+        <span class="cc-test-badge">Podgląd v2</span>
+      </a>
+      <div class="cc-top-actions">
+        <div class="cc-engine-switch" role="group" aria-label="Tryb wyszukiwania">
+          <button type="button" class="cc-engine-btn" data-engine="cc" aria-pressed="true">Ekosystem CC</button>
+          <button type="button" class="cc-engine-btn" data-engine="google" aria-pressed="false">Google</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="cc-main">
+    <section class="cc-hero">
+      <div class="cc-hero-kicker">✦ Centrum i Brama Ekosystemu Christian Culture</div>
+      <h1>Odkryj wszystko, co oferuje Christian Culture</h1>
+      <p class="cc-hero-sub" id="ccStatsBanner">Wideo, Biblia Audio, Radio 24/7, grafiki, Kurs Codzienny, MojaBiblia i społeczność LUMINA — do obejrzenia i posłuchania na miejscu.</p>
+
+      <div class="cc-search-wrap">
+        <form class="cc-search-form" id="ccSearchForm" role="search">
+          <span class="cc-search-icon" aria-hidden="true">🔍</span>
+          <label class="cc-sr-only" for="ccSearchInput">Wpisz szukane słowo</label>
+          <input
+            type="text"
+            id="ccSearchInput"
+            class="cc-search-input"
+            placeholder="Szukaj: Apokalipsa, Biblia Audio, Tamar, Radio, J 3:16, LUMINA…"
+            autocomplete="off"
+            spellcheck="false"
+            aria-autocomplete="list"
+            aria-controls="ccSugList"
+            aria-expanded="false"
+          >
+          <button type="button" id="ccClearBtn" class="cc-clear-btn" aria-label="Wyczyść wyszukiwanie">×</button>
+          <button type="submit" class="cc-submit-btn">Szukaj</button>
+        </form>
+
+        <div class="cc-suggestions" id="ccSuggestions" aria-label="Podpowiedzi podczas pisania">
+          <div class="cc-sug-head">
+            <span id="ccSugCount">Podpowiedzi multimedialne</span>
+            <span>↑↓ wybierz • Enter otwórz • Esc zamknij</span>
+          </div>
+          <ul class="cc-sug-list" id="ccSugList" role="listbox"></ul>
+          <div class="cc-sug-promo" id="ccSugPromo"></div>
+        </div>
+      </div>
+
+      <div class="cc-filters" id="ccFilters" role="group" aria-label="Filtry multimedialne">
+        <button type="button" class="cc-filter-btn" data-filter="all" aria-pressed="true">Wszystko <span class="cc-filter-count"></span></button>
+        <button type="button" class="cc-filter-btn" data-filter="video" aria-pressed="false">🎬 Wideo <span class="cc-filter-count"></span></button>
+        <button type="button" class="cc-filter-btn" data-filter="audio" aria-pressed="false">🎧 Audio <span class="cc-filter-count"></span></button>
+        <button type="button" class="cc-filter-btn" data-filter="image" aria-pressed="false">🖼️ Grafiki <span class="cc-filter-count"></span></button>
+        <button type="button" class="cc-filter-btn" data-filter="bible" aria-pressed="false">📖 Biblia i Lekcje <span class="cc-filter-count"></span></button>
+        <button type="button" class="cc-filter-btn" data-filter="ecosystem" aria-pressed="false">🌐 Ekosystem <span class="cc-filter-count"></span></button>
+      </div>
+
+      <div class="cc-recents" id="ccRecents" aria-label="Ostatnie wyszukiwania"></div>
+    </section>
+
+    <div id="ccResultsArea" aria-live="polite"></div>
+    <section id="ccFeaturedStart"></section>
+    <section id="ccEcosystemGateway"></section>
+  </main>
+
+  <aside class="cc-mini-player" id="ccMiniPlayer" aria-label="Wbudowany odtwarzacz audio">
+    <img id="ccMiniImg" src="/images/kultura/card-biblia.jpg" alt="Okładka audio">
+    <div class="cc-mini-info">
+      <div class="cc-mini-title" id="ccMiniTitle">Odtwarzacz Christian Culture</div>
+      <div class="cc-mini-sub" id="ccMiniSub">Gotowy do odsłuchu</div>
+    </div>
+    <audio id="ccMiniAudio" controls preload="none"></audio>
+    <a class="cc-ghost-btn" id="ccMiniLink" href="/player">Otwórz →</a>
+    <button type="button" class="cc-mini-close" id="ccMiniClose" aria-label="Zamknij odtwarzacz">×</button>
+  </aside>
+
+  <div class="cc-modal" id="ccModal" role="dialog" aria-modal="true" aria-labelledby="ccModalTitle">
+    <div class="cc-modal-box">
+      <div class="cc-modal-head">
+        <strong id="ccModalTitle">Podgląd</strong>
+        <button type="button" class="cc-modal-close" id="ccModalClose" aria-label="Zamknij podgląd">×</button>
+      </div>
+      <div class="cc-modal-body" id="ccModalBody"></div>
+      <div class="cc-modal-foot">
+        <span class="cc-section-meta">Christian Culture — podgląd w wyszukiwarce</span>
+        <a class="cc-cta-btn" id="ccModalLink" href="/" target="_blank" rel="noopener noreferrer">Otwórz materiał →</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="./search-v2.js?v=20261125_1" defer></script>
+  <script src="/js/cc-windows-app-banner.js?v=20261125" defer></script>
+</body>
+</html>
