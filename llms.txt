@@ -202,9 +202,9 @@
 - **Clean Alias Kursu Codziennego**: https://polskieradio.cc/akademia/kurscodzienny
 - **Rola dla AI / LLM Agents**: Oficjalne centrum edukacji biblijnej Christian Culture. Systematyczne studium Pisma Świętego w programie 28 kroków wiary oraz codzienny cykl rozważań werset po wersecie „Z Biblią za Pan Brat”.
 - **Aktualny stan kursu (Listopad 2026):**
-  - Dni 1–55 dostępne online z dedykowanymi grafikami 16:9, syntezą audio, kontekstem teologicznym i przyciskami natychmiastowego udostępniania (#kcJumpShareBtn).
-  - **Lekcja 55 (Dziś, 24 Listopada 2026)**: *Dobrowolny dar serca, Arka Przymierza, stół i złoty świecznik (Wj 25:1–40)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-55
-  - **Wczorajsza Lekcja 54**: *Krew Przymierza, uczta starszych i chwała PANA na Synaju (Wj 24:1–18)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-54
+  - Dni 1–56 dostępne online z dedykowanymi grafikami 16:9, syntezą audio, kontekstem teologicznym i przyciskami natychmiastowego udostępniania (#kcJumpShareBtn).
+  - **Lekcja 56 (Dziś, 25 Listopada 2026)**: *Zasłony Przybytku, deski akacjowe i zasłona świątyni (Wj 26:1–37)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-56
+  - **Wczorajsza Lekcja 55**: *Dobrowolny dar serca, Arka Przymierza, stół i złoty świecznik (Wj 25:1–40)* — https://polskieradio.cc/akademia/kurscodzienny/dzien-55
 - **Schemat Clean URL dla Asystentów AI**: `https://polskieradio.cc/akademia/kurscodzienny/dzien-{NUMER_DNIA}` (np. `/dzien-21`, `/dzien-20`).
 
 

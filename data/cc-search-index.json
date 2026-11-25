@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
-  "updatedAt": "2026-11-24T05:16:02.460Z",
-  "totalItems": 700,
+  "updatedAt": "2026-11-25T02:54:16.503Z",
+  "totalItems": 701,
   "contextGuides": {
     "nadzieja": {
       "keywords": [
@@ -9249,12 +9249,29 @@
         "lekcja 55",
         "księga wyjścia",
         "lekcja biblijna",
+        "rozważanie"
+      ],
+      "featured": false
+    },
+    {
+      "title": "Z Biblią za Pan Brat — Dzień 56: ZASŁONY PRZYBYTKU, DESKI AKACJOWE I ZASŁONA ŚWIĄTYNI (Wj 26:1–37)",
+      "category": "Biblia i formacja",
+      "url": "https://polskieradio.cc/akademia/kurscodzienny/dzien-56",
+      "description": "Dzień 56 Kursu Codziennego Pisma Świętego „Z Biblią za Pan Brat”. KSIĘGA WYJŚCIA Wj 26:1–37: Cztery warstwy okrycia, złote haczyki jedności, czterdzieści osiem desek akacjowych na srebrnych podstawkach oraz zasłona oddzielająca Miejsce Święte od Najświętszego (Wj 26:1–37)",
+      "tags": [
+        "kurs codzienny",
+        "z biblią za pan brat",
+        "dzień 56",
+        "dzien 56",
+        "lekcja 56",
+        "księga wyjścia",
+        "lekcja biblijna",
         "rozważanie",
-        "lekcja 55 na dziś",
+        "lekcja 56 na dziś",
         "lekcja na dziś",
         "rozważanie na dziś",
         "słowo na dziś",
-        "24 listopada 2026",
+        "25 listopada 2026",
         "dzisiaj",
         "dziś"
       ],
@@ -15362,16 +15379,16 @@
   "recommendedToday": [
     {
       "tag": "Inspiracja na Dziś",
-      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 24",
-      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 24 listopada 2026.",
+      "title": "Rozważanie „Dobrze, że jesteś” • Dzień 25",
+      "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 25 listopada 2026.",
       "url": "/player",
       "icon": "heart"
     },
     {
       "tag": "Akademia Biblijna",
-      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 55)",
+      "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 56)",
       "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-      "url": "/akademia/kurscodzienny/dzien-55",
+      "url": "/akademia/kurscodzienny/dzien-56",
       "icon": "book"
     },
     {
@@ -15390,15 +15407,15 @@
     }
   ],
   "searchRecommendations": {
-    "updatedAt": "2026-11-24T05:16:02.922Z",
+    "updatedAt": "2026-11-25T02:54:16.862Z",
     "heading": "Polecane na dziś",
-    "dateFormattedPL": "24 listopada 2026",
+    "dateFormattedPL": "25 listopada 2026",
     "pools": [
       [
         {
           "tag": "Inspiracja na Dziś",
-          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 24",
-          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 24 listopada 2026.",
+          "title": "Rozważanie „Dobrze, że jesteś” • Dzień 25",
+          "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 25 listopada 2026.",
           "url": "/player",
           "icon": "heart"
         },
@@ -15427,9 +15444,9 @@
       [
         {
           "tag": "Akademia Biblijna",
-          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 55)",
+          "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 56)",
           "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-          "url": "/akademia/kurscodzienny/dzien-55",
+          "url": "/akademia/kurscodzienny/dzien-56",
           "icon": "book"
         },
         {
@@ -15518,16 +15535,16 @@
     "recommendedToday": [
       {
         "tag": "Inspiracja na Dziś",
-        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 24",
-        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 24 listopada 2026.",
+        "title": "Rozważanie „Dobrze, że jesteś” • Dzień 25",
+        "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 25 listopada 2026.",
         "url": "/player",
         "icon": "heart"
       },
       {
         "tag": "Akademia Biblijna",
-        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 55)",
+        "title": "Lekcja Dnia: Z Biblią za Pan Brat (Dzień 56)",
         "desc": "Codzienne studium Pisma Świętego werset po wersecie z komentarzem.",
-        "url": "/akademia/kurscodzienny/dzien-55",
+        "url": "/akademia/kurscodzienny/dzien-56",
         "icon": "book"
       },
       {
