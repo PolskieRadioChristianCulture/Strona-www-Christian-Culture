@@ -58,6 +58,8 @@ export function isPublicFile(relativePath) {
   if (file === 'test/analityka/index.html') return true;
   // Adventist World P0 preview (noindex,nofollow) — PL/EN katalog + 98 profili + otwarte dane.
   if (file.startsWith('test/adventist-world/')) return true;
+  // Multimedialna Wyszukiwarka CC v2 — podgląd testowy (noindex,nofollow) do akceptacji L0 i przeglądu @007.
+  if (file.startsWith('test/wyszukiwarka/')) return true;
   if (segments.some((segment) => BLOCKED_DIRECTORIES.has(segment))) return false;
   if (BLOCKED_FILES.has(lower) || BLOCKED_FILES.has(path.posix.basename(lower))) return false;
   if (lower.includes('backup') || lower.includes('.matrix_sessions')) return false;
