@@ -570,10 +570,16 @@
     "book": "genesis",
     "chapter": 38,
     "description": "Kolejny rozdział Księgi Rodzaju",
-    "audioUrl": null,
+    "audioUrl": "/biblia-audio/audio/Ksiega_Rodzaju_38_1-30_Biblia_Audio_CC.mp3",
     "textUrl": "https://polskieradio.cc/mojabiblia",
-    "status": "in_production",
-    "audioParts": null
+    "status": "published",
+    "audioParts": [
+      {
+        "name": "Księga Rodzaju 38,1–30 (UBG) — Juda i Tamar, Prawda, Skrucha oraz Narodziny Peresa i Zeracha",
+        "url": "/biblia-audio/audio/Ksiega_Rodzaju_38_1-30_Biblia_Audio_CC.mp3",
+        "verses": "1–30"
+      }
+    ]
   },
   {
     "id": "genesis-39",
