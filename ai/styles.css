@@ -3617,6 +3617,23 @@ a:focus-visible {
   color: #8be09a;
 }
 
+.integration-row .connect-btn {
+  padding-inline: 4px;
+  border: 0;
+  background: transparent;
+  transition: color 160ms ease;
+}
+
+.integration-row .connect-btn.connected {
+  color: var(--text-secondary);
+}
+
+.integration-row .connect-btn:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* PRZYCISKI MOBILNE I DIALOG */
 .icon-btn {
   width: 44px;
