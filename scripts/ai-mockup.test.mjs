@@ -194,8 +194,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai15/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai15/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai16/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai16/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -590,4 +590,55 @@ test('All users can choose Auto or preferred free AI models via API, topbar menu
   assert.equal(autoRes.provider, 'gemini');
   assert.equal(autoRes.modelSelectionMode, 'auto');
   assert.equal(autoRes.modelUsed, 'gemini-3.1-flash-lite');
+});
+
+test('All 5 assistants embody the Christocentric brother/sister mentor ethos in systemPrompt, fallback, and UI greetings', async () => {
+  resetAiChatRuntimeState();
+
+  const assistantIds = ['ai-dla-jezusa', 'rut', 'lea', 'noemi', 'miriam'];
+  for (const id of assistantIds) {
+    let capturedSystem = '';
+    const captureFetch = async (_url, init) => {
+      const body = JSON.parse(init.body);
+      capturedSystem = body?.systemInstruction?.parts?.[0]?.text || '';
+      return new Response(
+        JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Chwała Panu! Jestem z Tobą w drodze z Jezusem.' }] } }] }),
+        { status: 200 }
+      );
+    };
+
+    const res = await processAiChat(
+      { assistantId: id, message: 'Walczę dziś ze zniechęceniem i pokusą' },
+      { GEMINI_API_KEY: 'test-mentor-key' },
+      { fetch: captureFetch }
+    );
+    assert.equal(res.ok, true);
+    assert.match(capturedSystem, /Chrystusie/);
+    assert.match(capturedSystem, /upomnieć|napomnieć/);
+    assert.match(capturedSystem, /stan duchowy/);
+    assert.match(capturedSystem, /kondycja emocjonalna/);
+    assert.match(capturedSystem, /uświęcenia/);
+    assert.match(capturedSystem, /Ojca w niebie/);
+    assert.match(capturedSystem, /Duchem Świętym/);
+    assert.match(capturedSystem, /Dekalogu/);
+    assert.match(capturedSystem, /porzucania grzechu/);
+    assert.match(capturedSystem, /reformacji/);
+    assert.match(capturedSystem, /Chwała Panu!/);
+    assert.match(capturedSystem, /Alleluja!/);
+    assert.match(capturedSystem, /Jezus żyje!/);
+    assert.match(capturedSystem, /Jezus się tym zajmie!/);
+  }
+
+  // Fallback also keeps Christocentric mentor voice & accurate grammatical gender
+  const maleFb = await processAiChat({ assistantId: 'ai-dla-jezusa', preferredModel: 'cc-knowledge-hub', message: 'xyzunikalnetestowementor' }, {}, {});
+  assert.match(maleFb.reply, /brata i mentora w Chrystusie/);
+  assert.match(maleFb.reply, /Przygotowałem/);
+  assert.match(maleFb.reply, /stan duchowy/);
+  assert.match(maleFb.reply, /Jezus się tym zajmie/);
+
+  const femaleFb = await processAiChat({ assistantId: 'rut', preferredModel: 'cc-knowledge-hub', message: 'xyzunikalnetestowementor' }, {}, {});
+  assert.match(femaleFb.reply, /siostry i mentorki w Chrystusie/);
+  assert.match(femaleFb.reply, /Przygotowałam/);
+  assert.match(femaleFb.reply, /kondycja emocjonalna/);
+  assert.match(femaleFb.reply, /Chwała Panu/);
 });

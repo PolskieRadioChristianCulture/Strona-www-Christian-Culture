@@ -613,10 +613,10 @@ function getPersonalizedHeroCopy() {
 
   const subtitles = {
     'ai-dla-jezusa': 'Technologia w służbie dobra. Jezus w centrum.',
-    rut: 'Tu Rut — Twoja gospodyni Christian Culture. Chętnie puszczę radio 24/7, VOD lub polecę rozmowę.',
-    lea: 'Tu Lea — Twoja planistka Słowa. Ułożymy razem plan Biblii, Kursu Codziennego i Akademii.',
-    noemi: 'Tu Noemi — doradczyni biblijna. Przyniosę Ci otuchę w Piśmie Świętym (UBG) i cichą modlitwę.',
-    miriam: 'Tu Miriam — zapraszam Cię do Psalmów, Biblii Śpiewanej i Spiritual Sounds 24/7.'
+    rut: 'Tu Rut — Twoja siostra w Chrystusie i gospodyni CC. Co u Ciebie słychać duchowo? Włączymy radio 24/7, VOD lub Słowo Boże!',
+    lea: 'Tu Lea — Twoja siostra i mentorka uświęcenia. Jak Twój etap drogi z Jezusem? Ułóżmy plan Słowa, Dekalogu i Kursu Codziennego.',
+    noemi: 'Tu Noemi — Twoja siostra i Doradczyni Biblijna. Jak się dziś czujesz w sercu? Chodź do Ojca i Słowa (UBG) — Jezus się tym zajmie!',
+    miriam: 'Tu Miriam — Alleluja! Chwała Panu! Jak Twój stan ducha? Rozświetlmy dzień Psalmami, Biblią Śpiewaną i modlitwą w Duchu Świętym!'
   };
 
   return {
