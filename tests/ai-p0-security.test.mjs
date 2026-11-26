@@ -75,7 +75,7 @@ test('failed provider attempt consumes one reservation and carries key only in h
     assert.equal(new URL(url).origin,'https://generativelanguage.googleapis.com');
     assert.equal(new URL(url).search,'');
     assert.equal(options.headers['x-goog-api-key'],env.AI_SHARED_FREE_GEMINI_KEY);
-    assert.equal(options.redirect,'error');
+    assert.equal(options.redirect,'manual');
     return Response.json({}, {status:503});
   };
   const first=await processAiChat({message:'J 3:16'},env,{fetch});

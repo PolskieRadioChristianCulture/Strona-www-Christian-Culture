@@ -486,7 +486,7 @@ export async function handleOwnerActionRequest(request, env = {}, deps = {}, cor
       );
     }
     const ytUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=6&q=${encodeURIComponent(query)}`;
-    const ytRes = await fetchImpl(ytUrl, { headers: { 'x-goog-api-key': env.YT_API_KEY }, redirect: 'error', signal: AbortSignal.timeout(8000) });
+    const ytRes = await fetchImpl(ytUrl, { headers: { 'x-goog-api-key': env.YT_API_KEY }, redirect: 'manual', signal: AbortSignal.timeout(8000) });
     if (!ytRes.ok) {
       return Response.json(
         { ok: false, error: 'youtube_api_error', detail: `YouTube API HTTP ${ytRes.status}` },

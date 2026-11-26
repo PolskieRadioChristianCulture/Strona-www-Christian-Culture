@@ -253,12 +253,12 @@ async function callGeminiChat(apiKeyOrPool, preferredModel, systemInstruction, h
       const apiKey = keys[kIdx];
       const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
       const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 7500);
+      const timer = setTimeout(() => ctrl.abort(), 15000);
       try {
         const res = await fetchImpl(endpoint, {
           method: 'POST',
           signal: ctrl.signal,
-          redirect: 'error',
+          redirect: 'manual',
           headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: systemInstruction }] },
@@ -301,7 +301,7 @@ async function callOpenAiCompatibleChat({ endpoint, apiKey, model, providerName,
   try {
     const res = await fetchImpl(endpoint, {
       method: 'POST',
-      redirect: 'error',
+      redirect: 'manual',
       signal: ctrl.signal,
       headers: {
         'Content-Type': 'application/json',
@@ -801,7 +801,7 @@ export async function handleAiTranscribeRequest(request, env = {}, deps = {}) {
         const res = await fetchImpl(endpoint, {
           method: 'POST',
           signal: ctrl.signal,
-          redirect: 'error',
+          redirect: 'manual',
           headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
           body: JSON.stringify({
             contents: [{
