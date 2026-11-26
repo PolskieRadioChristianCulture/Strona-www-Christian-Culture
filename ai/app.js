@@ -1,7 +1,7 @@
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
-const STORAGE_KEY = 'cc_ai_dla_jezusa_v2';
+const STORAGE_PREFIX = 'cc_ai_dla_jezusa_v2';
 const DEFAULT_PROJECTS = [
   'Studium Listu do Rzymian',
   'Plan treści – grudzień',
@@ -122,7 +122,10 @@ moduleStage.className = 'module-stage';
 moduleStage.hidden = true;
 conversationStage?.appendChild(moduleStage);
 
-let state = loadState();
+let currentUser = null;
+let luminaDb = null;
+let state = loadState('guest');
+let byokConfig = loadByokConfig('guest');
 let activeThreadId = null;
 let ephemeralThread = null;
 let currentNav = 'Czat';
@@ -137,7 +140,19 @@ let toastTimer = null;
 let recognition = null;
 let isListening = false;
 
-function loadState() {
+function getUidScope(uid = currentUser?.uid) {
+  return uid ? String(uid) : 'guest';
+}
+
+function getStorageKey(uid) {
+  return `${STORAGE_PREFIX}:${getUidScope(uid)}`;
+}
+
+function getByokKey(uid) {
+  return `${STORAGE_PREFIX}:byok:${getUidScope(uid)}`;
+}
+
+function loadState(uid = currentUser?.uid) {
   const empty = {
     chats: [],
     notes: [],
@@ -145,7 +160,7 @@ function loadState() {
     projects: [...DEFAULT_PROJECTS]
   };
   try {
-    const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    const raw = JSON.parse(localStorage.getItem(getStorageKey(uid)) || localStorage.getItem(STORAGE_PREFIX) || 'null');
     if (!raw || typeof raw !== 'object') return empty;
     return {
       chats: Array.isArray(raw.chats) ? raw.chats.slice(0, 40) : [],
@@ -160,9 +175,40 @@ function loadState() {
 
 function saveState() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(getStorageKey(), JSON.stringify(state));
   } catch {
     showToast('Pamięć przeglądarki jest pełna — historia działa tylko w tej sesji.');
+  }
+}
+
+function loadByokConfig(uid = currentUser?.uid) {
+  try {
+    const raw = JSON.parse(localStorage.getItem(getByokKey(uid)) || 'null');
+    if (!raw || typeof raw !== 'object') return { provider: '', apiKey: '', model: '' };
+    return {
+      provider: typeof raw.provider === 'string' ? raw.provider : '',
+      apiKey: typeof raw.apiKey === 'string' ? raw.apiKey : '',
+      model: typeof raw.model === 'string' ? raw.model : ''
+    };
+  } catch {
+    return { provider: '', apiKey: '', model: '' };
+  }
+}
+
+function saveByokConfig(nextCfg) {
+  byokConfig = {
+    provider: String(nextCfg?.provider || '').trim(),
+    apiKey: String(nextCfg?.apiKey || '').trim(),
+    model: String(nextCfg?.model || '').trim()
+  };
+  try {
+    if (!byokConfig.provider || !byokConfig.apiKey) {
+      localStorage.removeItem(getByokKey());
+    } else {
+      localStorage.setItem(getByokKey(), JSON.stringify(byokConfig));
+    }
+  } catch {
+    // ignoruj brak localStorage
   }
 }
 
@@ -690,9 +736,15 @@ async function sendChatMessage(textOverride, titleHint = '') {
     const activeTools = [...selectedTools];
     if (webSearchEnabled) activeTools.push('Przeszukiwanie CC');
 
+    const headers = { 'Content-Type': 'application/json' };
+    if (byokConfig.provider && byokConfig.apiKey) {
+      headers['X-User-AI-Provider'] = byokConfig.provider;
+      headers['X-User-AI-Key'] = byokConfig.apiKey;
+    }
+
     const res = await fetch('/api/ai-dla-jezusa/v1/chat', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify({
         message: rawText,
         history: historySnapshot,
@@ -702,7 +754,8 @@ async function sendChatMessage(textOverride, titleHint = '') {
         attachmentText: currentAttText,
         tools: activeTools,
         memoryNotes: privateMode ? [] : state.memory.map((m) => m.text),
-        privateMode
+        privateMode,
+        userModel: byokConfig.model || ''
       })
     });
     const data = await res.json();
@@ -1285,21 +1338,237 @@ $('#newChatBtn')?.addEventListener('click', () => {
 
 chatSearchInput?.addEventListener('input', renderRecentChats);
 
+// ================= KONTO GOOGLE (LUMINA AUTH) & USTAWIENIA BYOK =================
+function updateProfileFooterButton() {
+  const profileBtn = $('.footer-item[data-nav="Mój profil"]');
+  if (!profileBtn) return;
+  const labelSpan = profileBtn.querySelector('span');
+  const existingAvatar = profileBtn.querySelector('.footer-avatar');
+  if (currentUser && !currentUser.isAnonymous) {
+    const label = currentUser.displayName || currentUser.email || 'Konto LUMINA';
+    if (labelSpan) labelSpan.textContent = label;
+    if (currentUser.photoURL && !existingAvatar) {
+      const img = document.createElement('img');
+      img.src = currentUser.photoURL;
+      img.alt = '';
+      img.className = 'footer-avatar';
+      const svg = profileBtn.querySelector('svg');
+      if (svg) svg.hidden = true;
+      profileBtn.insertBefore(img, labelSpan);
+    }
+  } else {
+    if (labelSpan) labelSpan.textContent = 'Mój profil';
+    if (existingAvatar) existingAvatar.remove();
+    const svg = profileBtn.querySelector('svg');
+    if (svg) svg.hidden = false;
+  }
+}
+
+function handleAuthUpdate(user) {
+  const validUser = user && !user.isAnonymous && user.uid ? user : null;
+  const prevUid = getUidScope(currentUser?.uid);
+  const nextUid = getUidScope(validUser?.uid);
+  currentUser = validUser;
+  if (prevUid !== nextUid) {
+    activeThreadId = null;
+    ephemeralThread = null;
+    state = loadState(validUser?.uid);
+    byokConfig = loadByokConfig(validUser?.uid);
+    renderRecentChats();
+    renderRightProjects();
+    if (currentNav === 'Czat') showWelcomeView();
+    else renderModule(currentNav);
+  }
+  updateProfileFooterButton();
+}
+
+async function ensureLuminaDb() {
+  if (luminaDb) return luminaDb;
+  if (window.LuminaDB && typeof window.LuminaDB.loginWithGoogle === 'function') {
+    luminaDb = window.LuminaDB;
+    return luminaDb;
+  }
+  try {
+    const mod = await import('/lumina-db.js?v=20261013_notifsafe1');
+    luminaDb = mod;
+    return luminaDb;
+  } catch {
+    return null;
+  }
+}
+
+async function initLuminaAuthConnector() {
+  const mod = await ensureLuminaDb();
+  if (!mod) return;
+  try {
+    if (typeof mod.ensureDbReady === 'function') await mod.ensureDbReady();
+    if (typeof mod.waitForAuthReady === 'function') await mod.waitForAuthReady(2500);
+    if (typeof mod.onAuthChange === 'function') {
+      mod.onAuthChange(handleAuthUpdate);
+    } else if (typeof mod.getCurrentUser === 'function') {
+      handleAuthUpdate(mod.getCurrentUser());
+    }
+  } catch {
+    // Tryb gościa działa bez błędu nawet offline
+  }
+}
+
+function openSettingsModal() {
+  infoDialogTitle.textContent = 'Ustawienia i własne AI (BYOK)';
+  infoDialogBody.replaceChildren();
+
+  const summary = document.createElement('p');
+  summary.textContent = `Aktywny tryb: ${currentMode} · Tryb prywatny: ${privateMode ? 'Włączony' : 'Wyłączony'} · Wątki: ${state.chats.length} · Notatki: ${state.notes.length} · Pamięć: ${state.memory.length}.`;
+
+  const byokIntro = document.createElement('p');
+  byokIntro.textContent = 'Domyślnie korzystasz z darmowych zasobów Christian Culture (0 zł). Jeśli chcesz podpiąć tu także swój własny klucz (OpenRouter, GPT, Gemini, Groq), jest on zapisywany wyłącznie w Twojej przeglądarce:';
+
+  const form = document.createElement('form');
+  form.className = 'dialog-form';
+
+  const select = document.createElement('select');
+  select.className = 'dialog-input';
+  select.setAttribute('aria-label', 'Dostawca własnego klucza AI');
+  const providers = [
+    ['', 'Domyślny Christian Culture (0 zł)'],
+    ['openrouter', 'OpenRouter (DeepSeek / Llama / Claude / GPT)'],
+    ['gemini', 'Google Gemini (własny klucz)'],
+    ['openai', 'OpenAI (GPT)'],
+    ['groq', 'Groq (Llama 3.3 70B)']
+  ];
+  for (const [val, label] of providers) {
+    const opt = document.createElement('option');
+    opt.value = val;
+    opt.textContent = label;
+    if (byokConfig.provider === val) opt.selected = true;
+    select.appendChild(opt);
+  }
+
+  const modelInput = document.createElement('input');
+  modelInput.type = 'text';
+  modelInput.className = 'dialog-input';
+  modelInput.placeholder = 'Opcjonalna nazwa modelu (np. meta-llama/llama-3.3-70b-instruct:free)';
+  modelInput.value = byokConfig.model || '';
+
+  const keyInput = document.createElement('input');
+  keyInput.type = 'password';
+  keyInput.className = 'dialog-input';
+  keyInput.placeholder = 'Wklej swój klucz API (zostaje lokalnie w przeglądarce)...';
+  keyInput.value = byokConfig.apiKey || '';
+
+  const btnRow = document.createElement('div');
+  btnRow.className = 'dialog-actions-row';
+
+  const saveBtn = document.createElement('button');
+  saveBtn.type = 'submit';
+  saveBtn.className = 'connect-btn';
+  saveBtn.textContent = 'Zapisz ustawienia';
+
+  const clearBtn = document.createElement('button');
+  clearBtn.type = 'button';
+  clearBtn.className = 'dialog-btn-secondary';
+  clearBtn.textContent = 'Przywróć domyślny CC';
+  clearBtn.onclick = () => {
+    saveByokConfig({ provider: '', apiKey: '', model: '' });
+    select.value = '';
+    keyInput.value = '';
+    modelInput.value = '';
+    showToast('Przywrócono domyślny silnik Christian Culture (0 zł).');
+  };
+
+  btnRow.append(saveBtn, clearBtn);
+  form.append(select, modelInput, keyInput, btnRow);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    saveByokConfig({
+      provider: select.value,
+      apiKey: keyInput.value,
+      model: modelInput.value
+    });
+    showToast(byokConfig.provider && byokConfig.apiKey
+      ? `Zapisano własny klucz (${byokConfig.provider}).`
+      : 'Korzystasz z domyślnego silnika Christian Culture (0 zł).');
+    infoDialog.close();
+  });
+
+  infoDialogBody.append(summary, byokIntro, form);
+  infoDialog.showModal();
+}
+
+function openProfileModal() {
+  infoDialogTitle.textContent = 'Mój profil — LUMINA & AI dla Jezusa';
+  infoDialogBody.replaceChildren();
+
+  if (currentUser && !currentUser.isAnonymous) {
+    const info = document.createElement('p');
+    info.textContent = `Zalogowano jako: ${currentUser.displayName || 'Użytkownik LUMINA'} (${currentUser.email || 'konto Google'}). Twoja historia, notatki, projekty i pamięć są odizolowane dla tego konta.`;
+
+    const btnRow = document.createElement('div');
+    btnRow.className = 'dialog-actions-row';
+
+    const luminaLink = document.createElement('a');
+    luminaLink.href = '/lumina';
+    luminaLink.className = 'connect-btn';
+    luminaLink.textContent = 'Otwórz portal LUMINA →';
+
+    const logoutBtn = document.createElement('button');
+    logoutBtn.type = 'button';
+    logoutBtn.className = 'dialog-btn-secondary';
+    logoutBtn.textContent = 'Wyloguj';
+    logoutBtn.onclick = async () => {
+      const mod = await ensureLuminaDb();
+      if (mod && typeof mod.logoutUser === 'function') {
+        await mod.logoutUser();
+      }
+      handleAuthUpdate(null);
+      infoDialog.close();
+      showToast('Wylogowano z konta Google.');
+    };
+
+    btnRow.append(luminaLink, logoutBtn);
+    infoDialogBody.append(info, btnRow);
+  } else {
+    const desc = document.createElement('p');
+    desc.textContent = 'Zaloguj się kontem Google przez ekosystem LUMINA, aby oddzielić swoje rozmowy, projekty i notatki dla własnego konta.';
+
+    const loginBtn = document.createElement('button');
+    loginBtn.type = 'button';
+    loginBtn.className = 'google-login-btn';
+    loginBtn.textContent = 'Zaloguj przez Google (LUMINA)';
+    loginBtn.onclick = async () => {
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Łączenie z Google...';
+      try {
+        const mod = await ensureLuminaDb();
+        if (!mod || typeof mod.loginWithGoogle !== 'function') {
+          window.location.href = `/lumina-login?redirect=${encodeURIComponent(window.location.pathname)}`;
+          return;
+        }
+        const res = await mod.loginWithGoogle();
+        if (res?.user) {
+          handleAuthUpdate(res.user);
+          infoDialog.close();
+          showToast(`Zalogowano: ${res.user.displayName || res.user.email || 'LUMINA'}`);
+        }
+      } catch {
+        showToast('Logowanie Google zostało przerwane lub zablokowane przez okienko.');
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Zaloguj przez Google (LUMINA)';
+      }
+    };
+
+    infoDialogBody.append(desc, loginBtn);
+  }
+  infoDialog.showModal();
+}
+
 $$('.footer-item').forEach((btn) => {
   btn.addEventListener('click', () => {
     const name = btn.dataset.nav || 'Opcje';
-    if (name === 'Ustawienia') {
-      openDialog('Ustawienia przestrzeni AI', [
-        `Aktywny tryb: ${currentMode} · Tryb prywatny: ${privateMode ? 'Włączony' : 'Wyłączony'}.`,
-        `Zapisane wątki: ${state.chats.length} · Notatki: ${state.notes.length} · Wpisy pamięci: ${state.memory.length}.`,
-        'Dane pozostają wyłącznie lokalnie w Twojej przeglądarce — możesz je usunąć w dowolnej chwili.'
-      ]);
-    } else {
-      openDialog('Mój profil', [
-        'Korzystasz z otwartej przestrzeni AI dla Jezusa Christian Culture (ZERO COST).',
-        'Integracja konta LUMINA zostanie udostępniona w kolejnym etapie wdrożenia.'
-      ]);
-    }
+    if (name === 'Ustawienia') openSettingsModal();
+    else openProfileModal();
     closeDrawers();
   });
 });
@@ -1448,3 +1717,4 @@ composerForm?.addEventListener('submit', (e) => {
 renderRecentChats();
 renderRightProjects();
 hydrateDailyVerse();
+initLuminaAuthConnector();

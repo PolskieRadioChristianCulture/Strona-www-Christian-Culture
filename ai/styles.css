@@ -1209,6 +1209,70 @@ a:focus-visible {
   }
 }
 
+.footer-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--gold);
+  flex-shrink: 0;
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.dialog-input {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: #0d0d0d;
+  border: 1px solid #2e2e2e;
+  color: #ffffff;
+  font-size: 13.5px;
+}
+
+.dialog-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+  align-items: center;
+}
+
+.google-login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f4c757 0%, #cf9e2e 100%);
+  color: #16130c;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.dialog-btn-secondary {
+  min-height: 36px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid #333333;
+  background: #1a1a1a;
+  color: #d6d4ce;
+  font-size: 13px;
+}
+
+.dialog-btn-secondary:hover {
+  border-color: #555555;
+  color: #ffffff;
+}
+
 .workspace-footer {
   padding: 8px 20px 12px;
   flex-shrink: 0;

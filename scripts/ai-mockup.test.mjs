@@ -180,3 +180,70 @@ test('AI chat service enforces prompt injection, payload size, rate limits, and 
   }
   assert.equal(hit429, true, 'Expected HTTP 429 after 20 requests from one IP');
 });
+
+test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth with per-UID isolation, and supports BYOK + multi-model Gemini fallback', async () => {
+  resetAiChatRuntimeState();
+  const html = fs.readFileSync(path.join(ROOT, 'ai/index.html'), 'utf8');
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai3/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai3/);
+
+  assert.match(appJs, /\/lumina-db\.js/);
+  assert.match(appJs, /loginWithGoogle/);
+  assert.match(appJs, /logoutUser/);
+  assert.match(appJs, /onAuthChange/);
+  assert.match(appJs, /\$\{STORAGE_PREFIX\}:\$\{getUidScope\(uid\)\}/);
+  assert.match(appJs, /X-User-AI-Provider/);
+  assert.match(appJs, /X-User-AI-Key/);
+
+  // Multi-model Gemini fallback: first model 429 -> second model 200
+  let geminiCalls = 0;
+  const fallbackFetch = async () => {
+    geminiCalls += 1;
+    if (geminiCalls === 1) return new Response('rate limited', { status: 429 });
+    return new Response(
+      JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Odpowiedź z modelu zapasowego Gemini.' }] } }] }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  };
+  const fbRes = await processAiChat({ message: 'Nadzieja' }, { GEMINI_API_KEY: 'test-key' }, { fetch: fallbackFetch });
+  assert.equal(fbRes.ok, true);
+  assert.equal(fbRes.provider, 'gemini');
+  assert.equal(geminiCalls, 2);
+
+  // All Gemini models fail 429 -> safe non-secret providerDiagnostic returned
+  const fail429Fetch = async () => new Response('quota exhausted', { status: 429 });
+  const diagRes = await processAiChat({ message: 'Nadzieja' }, { GEMINI_API_KEY: 'secret-never-leaked' }, { fetch: fail429Fetch });
+  assert.equal(diagRes.provider, 'cc-knowledge-hub');
+  assert.match(diagRes.providerDiagnostic, /^gemini:429/);
+  assert.ok(!diagRes.providerDiagnostic.includes('secret-never-leaked'));
+
+  // BYOK OpenRouter routing via X-User-AI-* headers
+  let capturedUrl = '';
+  const openRouterFetch = async (url) => {
+    capturedUrl = String(url);
+    return new Response(
+      JSON.stringify({ choices: [{ message: { content: 'Odpowiedź z OpenRouter BYOK.' } }] }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  };
+  const byokHttpRes = await handleAiChatRequest(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-User-AI-Provider': 'openrouter',
+        'X-User-AI-Key': 'or-user-test',
+        'cf-connecting-ip': '198.51.100.77'
+      },
+      body: JSON.stringify({ message: 'Pokój Boży', userModel: 'meta-llama/llama-3.3-70b-instruct:free' })
+    }),
+    {},
+    { fetch: openRouterFetch }
+  );
+  assert.equal(byokHttpRes.status, 200);
+  const byokJson = await byokHttpRes.json();
+  assert.equal(byokJson.provider, 'openrouter-byok');
+  assert.equal(capturedUrl, 'https://openrouter.ai/api/v1/chat/completions');
+});

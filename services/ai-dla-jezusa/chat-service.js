@@ -1,6 +1,6 @@
 // =========================================================================
-// AI DLA JEZUSA — BACKEND KONWERSACYJNY + RAG (ETAP 2)
-// Standard: Sola Scriptura • ZERO COST FIRST • Gemini / Groq / Workers AI -> Knowledge Hub
+// AI DLA JEZUSA — BACKEND KONWERSACYJNY + RAG + BYOK (ETAP 2B)
+// Standard: Sola Scriptura • ZERO COST FIRST • Gemini / Groq / OpenRouter / Workers AI
 // =========================================================================
 
 import {
@@ -21,7 +21,7 @@ let quotaState = { day: new Date().toISOString().slice(0, 10), calls: 0 };
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Accept, X-Requested-With',
+  'Access-Control-Allow-Headers': 'Content-Type, Accept, X-Requested-With, X-User-AI-Key, X-User-AI-Provider',
   'Access-Control-Max-Age': '86400'
 };
 
@@ -34,7 +34,7 @@ const INJECTION_RE = [
 ];
 
 const MODE_INSTRUCTIONS = {
-  'CC Auto': 'Dobieraj styl i głębię odpowiedzi do potrzeby użytkownika — łącz wierność Słowo Bożemu z praktyczną pomocą i odniesieniami do zasobów Christian Culture.',
+  'CC Auto': 'Dobieraj styl i głębię odpowiedzi do potrzeby użytkownika — łącz wierność Słowu Bożemu z praktyczną pomocą i odniesieniami do zasobów Christian Culture.',
   'Studium Biblijne': 'Skup się na egzegezie, kontekście historycznym, teologii Pisma Świętego i wiernych cytatach z Uwspółcześnionej Biblii Gdańskiej (UBG). Zaproponuj 2-3 pytania do dalszej refleksji.',
   'Twórczość CC': 'Twórz angażujące, merytoryczne i klarowne treści chrześcijańskie (artykuły, szkice kazań, scenariusze, posty) z mocnym początkiem, treścią opartą o Ewangelię i czytelną strukturą Markdown.',
   'Deep Research': 'Analizuj temat wnikliwie i uporządkowanie: przedstaw tezy, argumentację biblijną, kontekst historyczno-proroczy oraz zweryfikowane źródła z bazy Christian Culture.'
@@ -144,10 +144,13 @@ function buildUserMessageWithAttachment(message, attachmentName, attachmentText)
   return `${message}\n\n---\nTreść ${safeName} do analizy:\n${attachmentText}`;
 }
 
-async function callGeminiChat(env, systemInstruction, history, userPrompt, fetchImpl = fetch) {
-  if (!env.GEMINI_API_KEY) return null;
-  const model = env.GEMINI_MODEL || 'gemini-2.5-flash';
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(env.GEMINI_API_KEY)}`;
+async function callGeminiChat(apiKey, preferredModel, systemInstruction, history, userPrompt, fetchImpl = fetch, diagnostics = []) {
+  if (!apiKey) return null;
+  const models = [...new Set([
+    preferredModel || 'gemini-2.5-flash',
+    'gemini-2.5-flash-lite',
+    'gemini-2.0-flash'
+  ].filter(Boolean))];
 
   const contents = history.map((h) => ({
     role: h.role === 'assistant' ? 'model' : 'user',
@@ -155,37 +158,44 @@ async function callGeminiChat(env, systemInstruction, history, userPrompt, fetch
   }));
   contents.push({ role: 'user', parts: [{ text: userPrompt }] });
 
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 14_000);
-  try {
-    const res = await fetchImpl(endpoint, {
-      method: 'POST',
-      signal: ctrl.signal,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemInstruction }] },
-        contents,
-        generationConfig: {
-          temperature: 0.5,
-          maxOutputTokens: 1400
-        }
-      })
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    const parts = data?.candidates?.[0]?.content?.parts;
-    const text = Array.isArray(parts) ? parts.map((p) => p?.text || '').join('').trim() : '';
-    return text ? { reply: text, provider: 'gemini' } : null;
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(timer);
+  for (const model of models) {
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    try {
+      const res = await fetchImpl(endpoint, {
+        method: 'POST',
+        signal: ctrl.signal,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: systemInstruction }] },
+          contents,
+          generationConfig: {
+            temperature: 0.5,
+            maxOutputTokens: 1400
+          }
+        })
+      });
+      if (!res.ok) {
+        diagnostics.push(`gemini:${res.status}`);
+        continue;
+      }
+      const data = await res.json();
+      const parts = data?.candidates?.[0]?.content?.parts;
+      const text = Array.isArray(parts) ? parts.map((p) => p?.text || '').join('').trim() : '';
+      if (text) return { reply: text, provider: 'gemini', model };
+      diagnostics.push('gemini:empty');
+    } catch {
+      diagnostics.push('gemini:timeout_or_net');
+    } finally {
+      clearTimeout(timer);
+    }
   }
+  return null;
 }
 
-async function callGroqChat(env, systemInstruction, history, userPrompt, fetchImpl = fetch) {
-  if (!env.GROQ_API_KEY) return null;
-  const model = env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+async function callOpenAiCompatibleChat({ endpoint, apiKey, model, providerName, extraHeaders = {} }, systemInstruction, history, userPrompt, fetchImpl = fetch, diagnostics = []) {
+  if (!apiKey) return null;
   const messages = [
     { role: 'system', content: systemInstruction },
     ...history.map((h) => ({ role: h.role, content: h.text })),
@@ -195,12 +205,13 @@ async function callGroqChat(env, systemInstruction, history, userPrompt, fetchIm
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 12_000);
   try {
-    const res = await fetchImpl('https://api.groq.com/openai/v1/chat/completions', {
+    const res = await fetchImpl(endpoint, {
       method: 'POST',
       signal: ctrl.signal,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${env.GROQ_API_KEY}`
+        Authorization: `Bearer ${apiKey}`,
+        ...extraHeaders
       },
       body: JSON.stringify({
         model,
@@ -209,18 +220,24 @@ async function callGroqChat(env, systemInstruction, history, userPrompt, fetchIm
         messages
       })
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      diagnostics.push(`${providerName}:${res.status}`);
+      return null;
+    }
     const data = await res.json();
     const text = data?.choices?.[0]?.message?.content;
-    return text ? { reply: String(text).trim(), provider: 'groq' } : null;
+    if (text) return { reply: String(text).trim(), provider: providerName, model };
+    diagnostics.push(`${providerName}:empty`);
+    return null;
   } catch {
+    diagnostics.push(`${providerName}:timeout_or_net`);
     return null;
   } finally {
     clearTimeout(timer);
   }
 }
 
-async function callWorkersAiChat(env, systemInstruction, history, userPrompt) {
+async function callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics = []) {
   if (!env.AI || typeof env.AI.run !== 'function') return null;
   try {
     const messages = [
@@ -236,6 +253,7 @@ async function callWorkersAiChat(env, systemInstruction, history, userPrompt) {
     const text = res && (res.response || res.text);
     return text ? { reply: String(text).trim(), provider: 'workers-ai' } : null;
   } catch {
+    diagnostics.push('workers-ai:err');
     return null;
   }
 }
@@ -263,6 +281,63 @@ function buildKnowledgeHubFallback({ message, scriptureHits, sources }) {
   return parts.join('\n\n');
 }
 
+async function runUserByokProvider({ provider, apiKey, userModel }, systemInstruction, history, userPrompt, fetchImpl, diagnostics) {
+  if (!apiKey || !provider) return null;
+  const p = String(provider).trim().toLowerCase();
+  const safeModel = typeof userModel === 'string' && /^[a-z0-9._:/-]{3,80}$/i.test(userModel.trim()) ? userModel.trim() : '';
+
+  if (p === 'gemini') {
+    return callGeminiChat(apiKey, safeModel || 'gemini-2.5-flash', systemInstruction, history, userPrompt, fetchImpl, diagnostics);
+  }
+  if (p === 'openrouter') {
+    return callOpenAiCompatibleChat(
+      {
+        endpoint: 'https://openrouter.ai/api/v1/chat/completions',
+        apiKey,
+        model: safeModel || 'meta-llama/llama-3.3-70b-instruct:free',
+        providerName: 'openrouter-byok',
+        extraHeaders: { 'HTTP-Referer': 'https://polskieradio.cc/ai/', 'X-Title': 'AI dla Jezusa Christian Culture' }
+      },
+      systemInstruction,
+      history,
+      userPrompt,
+      fetchImpl,
+      diagnostics
+    );
+  }
+  if (p === 'groq') {
+    return callOpenAiCompatibleChat(
+      {
+        endpoint: 'https://api.groq.com/openai/v1/chat/completions',
+        apiKey,
+        model: safeModel || 'llama-3.3-70b-versatile',
+        providerName: 'groq-byok'
+      },
+      systemInstruction,
+      history,
+      userPrompt,
+      fetchImpl,
+      diagnostics
+    );
+  }
+  if (p === 'openai') {
+    return callOpenAiCompatibleChat(
+      {
+        endpoint: 'https://api.openai.com/v1/chat/completions',
+        apiKey,
+        model: safeModel || 'gpt-4o-mini',
+        providerName: 'openai-byok'
+      },
+      systemInstruction,
+      history,
+      userPrompt,
+      fetchImpl,
+      diagnostics
+    );
+  }
+  return null;
+}
+
 export async function processAiChat(payload = {}, env = {}, deps = {}) {
   const rawMessage = typeof payload.message === 'string' ? payload.message.trim() : '';
   const mode = typeof payload.mode === 'string' && MODE_INSTRUCTIONS[payload.mode] ? payload.mode : 'CC Auto';
@@ -273,6 +348,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   const tools = sanitizeArrayOfStrings(payload.tools, 6, 40);
   const memoryNotes = privateMode ? [] : sanitizeArrayOfStrings(payload.memoryNotes, 8, 200);
   const history = sanitizeHistory(payload.history);
+  const userByok = deps.userByok || null;
 
   const effectiveMessage = rawMessage.slice(0, 2000) || (attachmentText ? `Przeanalizuj załączony materiał${attachmentName ? ` (${attachmentName})` : ''}.` : '');
 
@@ -329,13 +405,37 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   });
   const userPrompt = buildUserMessageWithAttachment(effectiveMessage, attachmentName, attachmentText);
   const fetchImpl = deps.fetch || fetch;
+  const diagnostics = [];
 
   let aiResult = null;
-  if (canUseDailyQuota()) {
+  if (userByok && userByok.apiKey && userByok.provider) {
+    aiResult = await runUserByokProvider(
+      { provider: userByok.provider, apiKey: userByok.apiKey, userModel: payload.userModel },
+      systemInstruction,
+      history,
+      userPrompt,
+      fetchImpl,
+      diagnostics
+    );
+  }
+
+  if (!aiResult && canUseDailyQuota()) {
     aiResult =
-      (await callGeminiChat(env, systemInstruction, history, userPrompt, fetchImpl)) ||
-      (await callGroqChat(env, systemInstruction, history, userPrompt, fetchImpl)) ||
-      (await callWorkersAiChat(env, systemInstruction, history, userPrompt));
+      (await callGeminiChat(env.GEMINI_API_KEY, env.GEMINI_MODEL, systemInstruction, history, userPrompt, fetchImpl, diagnostics)) ||
+      (await callOpenAiCompatibleChat(
+        {
+          endpoint: 'https://api.groq.com/openai/v1/chat/completions',
+          apiKey: env.GROQ_API_KEY,
+          model: env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+          providerName: 'groq'
+        },
+        systemInstruction,
+        history,
+        userPrompt,
+        fetchImpl,
+        diagnostics
+      )) ||
+      (await callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics));
     if (aiResult && aiResult.reply) {
       recordQuotaUsage();
     }
@@ -359,6 +459,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     ok: true,
     reply: buildKnowledgeHubFallback({ message: effectiveMessage, scriptureHits, sources }),
     provider: 'cc-knowledge-hub',
+    providerDiagnostic: diagnostics.length ? diagnostics.join(',') : (env.GEMINI_API_KEY ? 'gemini:unavailable' : 'no_key'),
     mode,
     module: moduleName,
     sources,
@@ -385,6 +486,7 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
           gemini: Boolean(env.GEMINI_API_KEY),
           groq: Boolean(env.GROQ_API_KEY),
           workersAi: Boolean(env.AI && typeof env.AI.run === 'function'),
+          byokSupported: ['gemini', 'openrouter', 'groq', 'openai'],
           knowledgeHubFallback: true
         }
       },
@@ -431,7 +533,14 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
     );
   }
 
-  const result = await processAiChat(body || {}, env, deps);
+  const userKey = (request.headers.get('X-User-AI-Key') || '').trim().slice(0, 256);
+  const userProvider = (request.headers.get('X-User-AI-Provider') || '').trim().slice(0, 32);
+  const mergedDeps = {
+    ...deps,
+    userByok: userKey && userProvider ? { provider: userProvider, apiKey: userKey } : deps.userByok
+  };
+
+  const result = await processAiChat(body || {}, env, mergedDeps);
   return Response.json(result, {
     status: result.ok ? 200 : 400,
     headers: {
