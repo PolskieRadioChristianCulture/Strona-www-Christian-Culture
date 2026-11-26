@@ -189,8 +189,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai8/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai8/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai9/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai9/);
   assert.match(html, /id="openLeftDrawer"[^>]*panel-toggle-btn/);
   assert.match(html, /id="openRightDrawer"[^>]*panel-toggle-btn/);
   assert.match(appJs, /toggleLeftPanel/);
@@ -413,4 +413,43 @@ test('Server-side GEMINI_API_KEYS pool failover + RS256 owner workspace (nazircz
   assert.equal(ytRes.status, 200);
   const ytJson = await ytRes.json();
   assert.equal(ytJson.media[0].youtubeId, 'dQw4w9WgXcQ');
+});
+
+test('Female assistants enforce feminine Polish grammar & voice while default assistant uses masculine grammar & voice', async () => {
+  resetAiChatRuntimeState();
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+  assert.match(appJs, /Aktywna asystentka/);
+  assert.match(appJs, /Doradczyni Biblijna/);
+  assert.match(appJs, /plMaleVoice/);
+  assert.match(appJs, /plFemaleVoice/);
+
+  // 1. Offline fallback: Rut uses feminine forms, default assistant uses masculine forms
+  const rutFallback = await processAiChat({ assistantId: 'rut', message: 'xyzunikalnetestowezapytanie' }, {}, {});
+  assert.equal(rutFallback.assistant.gender, 'female');
+  assert.match(rutFallback.reply, /Przygotowałam/);
+  assert.match(rutFallback.reply, /osadziłam/);
+  assert.doesNotMatch(rutFallback.reply, /Przygotowałem|osadziłem/);
+
+  const defaultFallback = await processAiChat({ assistantId: 'ai-dla-jezusa', message: 'xyzunikalnetestowezapytanie' }, {}, {});
+  assert.equal(defaultFallback.assistant.gender, 'male');
+  assert.match(defaultFallback.reply, /Przygotowałem/);
+  assert.match(defaultFallback.reply, /osadziłem/);
+  assert.doesNotMatch(defaultFallback.reply, /Przygotowałam|osadziłam/);
+
+  // 2. Gemini systemInstruction explicitly passes grammatical gender rules
+  let capturedSystem = '';
+  const captureFetch = async (_url, init) => {
+    const body = JSON.parse(init.body);
+    capturedSystem = body?.systemInstruction?.parts?.[0]?.text || '';
+    return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Przygotowałam odpowiedź.' }] } }] }), { status: 200 });
+  };
+
+  await processAiChat({ assistantId: 'noemi', message: 'Pomóż mi' }, { GEMINI_API_KEY: 'AIzaTestGenderKey1' }, { fetch: captureFetch });
+  assert.match(capturedSystem, /Doradczyni Biblijna/);
+  assert.match(capturedSystem, /rodzaju żeńskim/);
+  assert.match(capturedSystem, /przygotowałam/);
+
+  await processAiChat({ assistantId: 'ai-dla-jezusa', message: 'Pomóż mi' }, { GEMINI_API_KEY: 'AIzaTestGenderKey1' }, { fetch: captureFetch });
+  assert.match(capturedSystem, /rodzaju męskim/);
+  assert.match(capturedSystem, /przygotowałem/);
 });

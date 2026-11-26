@@ -155,6 +155,7 @@ function sanitizeHistory(history) {
 
 function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptureHits, contextGuides, todayReflection, media, memoryNotes, privateMode, tools }) {
   const modeNote = MODE_INSTRUCTIONS[mode] || MODE_INSTRUCTIONS['CC Auto'];
+  const isFemale = assistant?.gender === 'female';
   const lines = [
     assistant?.systemPrompt || 'Jesteś asystentem „AI dla Jezusa” w ekosystemie Christian Culture (polskieradio.cc).',
     'Misja: Technologia w służbie dobra. Jezus w centrum.',
@@ -163,9 +164,14 @@ function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptur
     'Zasady bezwzględne (Sola Scriptura & Zero-QA):',
     '1. Odpowiadaj po polsku, ciepło, mądrze i rzeczowo, stosując przejrzysty Markdown (nagłówki ##/###, listy, cytaty >).',
     '2. Wszelkie dosłowne cytaty biblijne podawaj wyłącznie w brzmieniu Uwspółcześnionej Biblii Gdańskiej (UBG), oznaczając siglum i przekład (np. Prz 3,5 UBG). Nigdy nie zmyślaj treści wersetów.',
-    '3. Nigdy nie podszywaj się pod Jezusa Chrystusa ani pod Boga — pomagasz jako chrześcijańskie narzędzie AI.',
+    isFemale
+      ? '3. Nigdy nie podszywaj się pod Jezusa Chrystusa ani pod Boga — pomagasz jako chrześcijańska asystentka AI.'
+      : '3. Nigdy nie podszywaj się pod Jezusa Chrystusa ani pod Boga — pomagasz jako chrześcijański asystent AI.',
     '4. Zatrzymuj użytkownika wewnątrz aplikacji AI dla Jezusa: najpierw daj kompletną treść i wskaż odtwarzacze multimedialne (audio, wideo, radio, grafiki) osadzone poniżej tej odpowiedzi, a linki zewnętrzne traktuj jako opcjonalny dodatek.',
-    '5. Przywołuj wyłącznie prawdziwe tytuły i zasoby z kontekstu poniżej.'
+    '5. Przywołuj wyłącznie prawdziwe tytuły i zasoby z kontekstu poniżej.',
+    isFemale
+      ? '6. FORMA GRAMATYCZNA (BEZWZGLĘDNA): Jesteś kobietą i asystentką — ZAWSZE pisz w rodzaju żeńskim (np. „przygotowałam”, „chciałabym Ci zaproponować”, „wybrałam”, „z przyjemnością pomogłam”, „jestem gotowa”). NIGDY nie używaj form męskich („przygotowałem”, „chciałbym”, „asystent”).'
+      : '6. FORMA GRAMATYCZNA (BEZWZGLĘDNA): Jesteś mężczyzną (głównym asystentem AI dla Jezusa) — ZAWSZE pisz w rodzaju męskim (np. „przygotowałem”, „chciałbym Ci zaproponować”, „wybrałem”, „jestem gotowy”). NIGDY nie używaj form żeńskich („przygotowałam”, „chciałabym”, „asystentka”).'
   ];
 
   if (Array.isArray(tools) && tools.length) {
@@ -343,6 +349,7 @@ async function callWorkersAiChat(env, systemInstruction, history, userPrompt, di
 function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, contextGuides, todayReflection, sources, media }) {
   const parts = [];
   const speaker = assistant?.name || 'AI dla Jezusa';
+  const isFemale = assistant?.gender === 'female';
   const heading = contextGuides?.[0]?.topic
     ? `### ${contextGuides[0].topic}`
     : `### ${speaker} · ${mode || 'Ekosystem Christian Culture'}`;
@@ -356,7 +363,7 @@ function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, co
       parts.push(`> „${verse.text}” — **${verse.ref}** (UBG)`);
     }
   } else {
-    parts.push(`${speaker}: Przygotowałem dla Ciebie najważniejsze treści i multimedia bezpośrednio tutaj, bez wychodzenia z aplikacji AI dla Jezusa.`);
+    parts.push(`${speaker}: ${isFemale ? 'Przygotowałam' : 'Przygotowałem'} dla Ciebie najważniejsze treści i multimedia bezpośrednio tutaj, bez wychodzenia z aplikacji AI dla Jezusa.`);
   }
 
   if (scriptureHits.length) {
@@ -379,7 +386,7 @@ function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, co
       parts.push(`- **${doc.title}**${doc.snippet ? ` — ${doc.snippet}` : ''}`);
     }
   } else if (!contextGuides?.length) {
-    parts.push(`Dla hasła „${message}” poniżej w oknie czatu osadziłem odtwarzacze multimedialne Christian Culture, a ponadto możesz przejrzeć pełne Pismo Święte w module **Biblia** po lewej.`);
+    parts.push(`Dla hasła „${message}” poniżej w oknie czatu ${isFemale ? 'osadziłam' : 'osadziłem'} odtwarzacze multimedialne Christian Culture, a ponadto możesz przejrzeć pełne Pismo Święte w module **Biblia** po lewej.`);
   }
 
   if (Array.isArray(media) && media.length) {
@@ -455,6 +462,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   const assistantMeta = {
     id: assistant.id,
     name: assistant.name,
+    gender: assistant.gender || 'male',
     role: assistant.role,
     avatar: assistant.avatar,
     avatarFallback: assistant.avatarFallback

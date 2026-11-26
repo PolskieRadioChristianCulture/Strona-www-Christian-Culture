@@ -7,15 +7,17 @@ const AI_PERSONAS = {
   'ai-dla-jezusa': {
     id: 'ai-dla-jezusa',
     name: 'AI dla Jezusa',
+    gender: 'male',
     role: 'Główny Asystent CC',
     avatar: '/ai/assets/icon-ai-halo.webp',
     avatarFallback: '/ai/assets/icon-ai-halo.webp',
     rate: 1.0,
-    pitch: 1.0
+    pitch: 0.94
   },
   rut: {
     id: 'rut',
     name: 'Rut',
+    gender: 'female',
     role: 'Gospodyni CC · Radio, VOD i Społeczność',
     avatar: '/images/chat/lumi_avatar_rut_circle.webp',
     avatarFallback: '/images/chat/assistants/asystentka-1.webp',
@@ -25,6 +27,7 @@ const AI_PERSONAS = {
   lea: {
     id: 'lea',
     name: 'Lea',
+    gender: 'female',
     role: 'Planistka · Kurs Codzienny i Akademia',
     avatar: '/images/chat/lumi_avatar_lea_circle.webp',
     avatarFallback: '/images/chat/assistants/asystentka-2.webp',
@@ -34,7 +37,8 @@ const AI_PERSONAS = {
   noemi: {
     id: 'noemi',
     name: 'Noemi',
-    role: 'Doradca Biblijny · Słowo i Modlitwa',
+    gender: 'female',
+    role: 'Doradczyni Biblijna · Słowo i Modlitwa',
     avatar: '/images/chat/lumi_avatar_noemi_circle.webp',
     avatarFallback: '/images/chat/assistants/asystentka-3.webp',
     rate: 0.96,
@@ -43,6 +47,7 @@ const AI_PERSONAS = {
   miriam: {
     id: 'miriam',
     name: 'Miriam',
+    gender: 'female',
     role: 'Psalmy, Biblia Śpiewana i Uwielbienie',
     avatar: '/images/chat/lumi_avatar_miriam_circle.webp',
     avatarFallback: '/images/chat/assistants/asystentka-4.webp',
@@ -318,7 +323,7 @@ function setActiveAssistant(id, { announce = true } = {}) {
   saveState();
   syncAssistantButtons();
   if (announce) {
-    showToast(`Aktywny asystent: ${persona.name} (${persona.role})`);
+    showToast(`${persona.gender === 'female' ? 'Aktywna asystentka' : 'Aktywny asystent'}: ${persona.name} (${persona.role})`);
   }
 }
 
@@ -443,10 +448,23 @@ function speakReply(text, assistantId, bubbleEl, btnEl) {
 
   try {
     const voices = synth.getVoices?.() || [];
-    const plVoice =
-      voices.find((v) => /^pl/i.test(v.lang) && /(zofia|paulina|ewa|agnieszka|ola|female|natural)/i.test(v.name)) ||
-      voices.find((v) => /^pl/i.test(v.lang));
-    if (plVoice) utter.voice = plVoice;
+    const plVoices = voices.filter((v) => /^pl/i.test(v.lang));
+    const femaleRe = /(zofia|paulina|ewa|agnieszka|ola|maja|karolina|katarzyna|anna|female|natural)/i;
+    const maleRe = /(marek|adam|krzysztof|piotr|pawe[łl]|jacek|jan|bartek|tomasz|male)/i;
+    if (persona.gender === 'female') {
+      const plFemaleVoice = plVoices.find((v) => femaleRe.test(v.name)) || plVoices[0];
+      if (plFemaleVoice) utter.voice = plFemaleVoice;
+    } else {
+      const plMaleVoice =
+        plVoices.find((v) => maleRe.test(v.name)) ||
+        plVoices.find((v) => !femaleRe.test(v.name));
+      if (plMaleVoice) {
+        utter.voice = plMaleVoice;
+      } else if (plVoices[0]) {
+        utter.voice = plVoices[0];
+        utter.pitch = Math.min(persona.pitch || 0.94, 0.88);
+      }
+    }
   } catch {}
 
   activeSpeakingBubble = bubbleEl;
