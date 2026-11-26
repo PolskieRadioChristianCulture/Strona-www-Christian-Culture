@@ -2362,7 +2362,7 @@ export default {
       const isStaticAsset = /\.[a-z0-9]{2,12}$/i.test(lastSeg) && lastSeg.toLowerCase() !== 'index.html';
       const targetUrl = new URL(request.url);
       if (!isStaticAsset) {
-        targetUrl.pathname = '/test/katolik/index.html';
+        targetUrl.pathname = '/test/katolik/';
       }
       const assetRes = await env.ASSETS.fetch(new Request(targetUrl, request));
       const res = new Response(assetRes.body, assetRes);

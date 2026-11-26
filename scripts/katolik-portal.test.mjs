@@ -156,7 +156,7 @@ test('Worker obsługuje deep links /test/katolik/* z HTTP 200 i X-Robots-Tag: no
     assert.equal(res.status, 200);
     assert.match(res.headers.get('X-Robots-Tag') || '', /noindex/i);
   }
-  assert.ok(fetched.every((p) => p === '/test/katolik/index.html'));
+  assert.ok(fetched.every((p) => p === '/test/katolik/'));
 
   const cssRes = await worker.fetch(new Request('https://polskieradio.cc/test/katolik/katolik.css'), env, {});
   assert.equal(cssRes.status, 200);
