@@ -203,8 +203,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai25_p0/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai25_p0/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai26_p0/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai26_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -837,4 +837,7 @@ test('AI dla Jezusa renders a minimalist 3-icon mobile composer, unified + sheet
   assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\);/s);
   assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.prompt-grid\s+\.prompt-card[\s\S]*height:\s*44px;/s);
   assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.disclaimer\s*\{[^}]*white-space:\s*nowrap;/s);
+  assert.match(css, /\.welcome-stage\s*\{[^}]*--welcome-gap:\s*20px;[^}]*gap:\s*var\(--welcome-gap\);/s);
+  assert.match(css, /\.hero-subtitle\.is-faded-out\s*\{[^}]*margin-top:\s*calc\(var\(--welcome-gap\)\s*\*\s*-1\);/s);
+  assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.welcome-stage\s*\{[^}]*--welcome-gap:\s*18px;/s);
 });
