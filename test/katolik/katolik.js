@@ -428,7 +428,7 @@ function renderHome() {
           </div>
         </div>
         <div class="hero-media">
-          <img src="/images/academy/hero_couple_cross.jpg" width="1280" height="800" fetchpriority="high" alt="Osoby odkrywające Pismo Święte w naturalnym świetle">
+          <img src="/images/academy/spotlight_bible_rays.jpg" width="1280" height="800" fetchpriority="high" alt="Otwarta Biblia oświetlona promieniem światła — osobiste odkrywanie Pisma Świętego">
           <div class="hero-media__caption">
             <strong>„Otwórz Biblię i sprawdź samodzielnie.”</strong>
             <span>Dzieje Apostolskie 17:11 (UBG-2025)</span>

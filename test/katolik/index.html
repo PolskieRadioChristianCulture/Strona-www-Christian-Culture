@@ -30,8 +30,8 @@
       var saved = localStorage.getItem('cc_katolik_theme_v1');
       if (saved === 'light' || saved === 'dark') {
         document.documentElement.setAttribute('data-theme', saved);
-      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
       }
     } catch (e) {}
   })();
@@ -142,7 +142,7 @@
         </div>
       </div>
       <div class="hero-media">
-        <img src="/images/academy/hero_couple_cross.jpg" width="1280" height="800" fetchpriority="high" alt="Osoby wspólnie odkrywające Pismo Święte w naturalnym świetle">
+        <img src="/images/academy/spotlight_bible_rays.jpg" width="1280" height="800" fetchpriority="high" alt="Otwarta Biblia oświetlona promieniem światła — osobiste odkrywanie Pisma Świętego">
         <div class="hero-media__caption">
           <strong>„Otwórz Biblię i sprawdź samodzielnie.”</strong>
           <span>Dzieje Apostolskie 17:11 (UBG)</span>
@@ -218,6 +218,6 @@
   </div>
 </footer>
 
-<script type="module" src="/test/katolik/katolik.js?v=20261126_1"></script>
+<script type="module" src="/test/katolik/katolik.js?v=20261126_2"></script>
 </body>
 </html>
