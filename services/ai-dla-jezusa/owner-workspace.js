@@ -18,6 +18,15 @@ export const OWNER_MODELS = [
   { id: 'gemini-flash-lite-latest', label: 'Gemini Flash Lite Latest', note: 'Najnowszy lekki' }
 ];
 
+export const PUBLIC_FREE_MODELS = [
+  { id: 'auto', provider: 'auto', label: 'Auto (najlepszy dostępny)', shortLabel: 'Auto', note: 'Automatyczny dobór darmowego AI' },
+  { id: 'gemini-3.5-flash-lite', provider: 'gemini', label: 'Gemini 3.5 Flash Lite', shortLabel: 'Gemini 3.5 Lite', note: 'Szybki darmowy · domyślny CC' },
+  { id: 'gemini-3.1-flash-lite', provider: 'gemini', label: 'Gemini 3.1 Flash Lite', shortLabel: 'Gemini 3.1 Lite', note: 'Stabilny darmowy · wysoka jakość' },
+  { id: 'gemini-3-flash-preview', provider: 'gemini', label: 'Gemini 3 Flash', shortLabel: 'Gemini 3 Flash', note: 'Głębsza analiza · darmowa pula CC' },
+  { id: 'gemini-flash-lite-latest', provider: 'gemini', label: 'Gemini Flash Lite Latest', shortLabel: 'Gemini Latest', note: 'Najnowszy lekki · darmowa pula CC' },
+  { id: 'cc-knowledge-hub', provider: 'cc-knowledge-hub', label: 'Baza Wiedzy CC (offline)', shortLabel: 'Baza Wiedzy CC', note: 'Natychmiastowy · 0 zł · cytaty UBG' }
+];
+
 export const ANTIGRAVITY_SKILLS = [
   {
     id: 'akademia',

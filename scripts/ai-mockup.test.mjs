@@ -194,8 +194,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai14/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai14/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai15/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai15/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -510,4 +510,84 @@ test('AI dla Jezusa is indexed across CC search catalogs, recommendations, and o
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
   assert.match(css, /\.pro-pill\s*\{[^}]*border:\s*0;[^}]*background:\s*transparent;/s);
   assert.match(appJs, /proBadgeBtn\.textContent\s*=\s*'PRO'/);
+});
+
+test('All users can choose Auto or preferred free AI models via API, topbar menu, and chat .provider-badge pill', async () => {
+  resetAiChatRuntimeState();
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
+
+  assert.match(appJs, /DEFAULT_PUBLIC_FREE_MODELS/);
+  assert.match(appJs, /provider-badge-btn/);
+  assert.match(appJs, /badge-model-menu/);
+  assert.match(appJs, /preferredModel/);
+  assert.match(appJs, /openSettingsModal/);
+  assert.match(css, /\.provider-badge-btn\b/);
+  assert.match(css, /\.badge-model-menu\b/);
+
+  // 1. GET returns availableModels for all visitors
+  const getRes = await handleAiChatRequest(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/chat', { method: 'GET' }),
+    { GEMINI_API_KEY: 'key-1' }
+  );
+  assert.equal(getRes.status, 200);
+  const getJson = await getRes.json();
+  assert.ok(Array.isArray(getJson.availableModels));
+  for (const id of ['auto', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'cc-knowledge-hub']) {
+    assert.ok(getJson.availableModels.some((m) => m.id === id), `Missing availableModels entry: ${id}`);
+  }
+
+  // 2. Guest user choosing preferred Gemini 3.1 Flash Lite tries that model first
+  const hitModels = [];
+  const prefFetch = async (url) => {
+    const u = String(url);
+    hitModels.push(u);
+    return new Response(
+      JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Odpowiedź z Gemini 3.1 Lite.' }] } }] }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  };
+  const prefRes = await processAiChat(
+    { message: 'Kim jest Jezus?', preferredModel: 'gemini-3.1-flash-lite' },
+    { GEMINI_API_KEY: 'guest-free-pool-key' },
+    { fetch: prefFetch }
+  );
+  assert.equal(prefRes.ok, true);
+  assert.equal(prefRes.provider, 'gemini');
+  assert.equal(prefRes.modelUsed, 'gemini-3.1-flash-lite');
+  assert.equal(prefRes.modelSelectionMode, 'preferred');
+  assert.ok(hitModels[0].includes('models/gemini-3.1-flash-lite:generateContent'));
+
+  // 3. Guest user choosing cc-knowledge-hub gets instant local answer without calling external fetch
+  let fetchCalledForHub = false;
+  const hubRes = await processAiChat(
+    { message: 'Nadzieja', preferredModel: 'cc-knowledge-hub' },
+    { GEMINI_API_KEY: 'guest-free-pool-key' },
+    { fetch: async () => { fetchCalledForHub = true; throw new Error('Should not fetch'); } }
+  );
+  assert.equal(fetchCalledForHub, false);
+  assert.equal(hubRes.ok, true);
+  assert.equal(hubRes.provider, 'cc-knowledge-hub');
+  assert.equal(hubRes.modelUsed, 'cc-knowledge-hub');
+  assert.equal(hubRes.modelSelectionMode, 'preferred');
+
+  // 4. Guest user with Auto fails over seamlessly on 429 to next available free model
+  let calls = 0;
+  const autoFetch = async () => {
+    calls += 1;
+    if (calls === 1) return new Response('busy', { status: 429 });
+    return new Response(
+      JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Odpowiedź z kolejnego modelu w Auto.' }] } }] }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  };
+  const autoRes = await processAiChat(
+    { message: 'Pokój Boży', preferredModel: 'auto' },
+    { GEMINI_API_KEY: 'guest-free-pool-key' },
+    { fetch: autoFetch }
+  );
+  assert.equal(autoRes.ok, true);
+  assert.equal(autoRes.provider, 'gemini');
+  assert.equal(autoRes.modelSelectionMode, 'auto');
+  assert.equal(autoRes.modelUsed, 'gemini-3.1-flash-lite');
 });

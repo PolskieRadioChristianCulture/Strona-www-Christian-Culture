@@ -18,7 +18,8 @@ import {
 import {
   parseGeminiKeyPool,
   verifyOwnerFromRequest,
-  OWNER_MODELS
+  OWNER_MODELS,
+  PUBLIC_FREE_MODELS
 } from './owner-workspace.js';
 
 const MAX_REQ_PER_MIN = 20;
@@ -215,6 +216,41 @@ function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptur
   }
 
   return lines.join('\n\n');
+}
+
+function buildAvailableFreeModels(env = {}) {
+  const models = PUBLIC_FREE_MODELS.map((m) => ({ ...m }));
+  if (env.GROQ_API_KEY) {
+    models.push({
+      id: 'groq',
+      provider: 'groq',
+      label: 'Llama 3.3 70B (Groq)',
+      shortLabel: 'Llama 3.3 Groq',
+      note: 'Darmowy szybki model'
+    });
+  }
+  if (env.AI && typeof env.AI.run === 'function') {
+    models.push({
+      id: 'workers-ai',
+      provider: 'workers-ai',
+      label: 'Cloudflare Workers AI',
+      shortLabel: 'Workers AI',
+      note: 'Model na brzegu sieci'
+    });
+  }
+  return models;
+}
+
+function resolvePreferredFreeModel(payload = {}, env = {}) {
+  const raw = String(payload.preferredModel || payload.ownerModel || '').trim();
+  if (!raw || raw === 'auto') return 'auto';
+  if (raw === 'cc-knowledge-hub') return 'cc-knowledge-hub';
+  const allowedGemini = new Set(OWNER_MODELS.map((m) => m.id));
+  if (env.GEMINI_MODEL) allowedGemini.add(String(env.GEMINI_MODEL).trim());
+  if (allowedGemini.has(raw)) return raw;
+  if (raw === 'groq' && env.GROQ_API_KEY) return 'groq';
+  if (raw === 'workers-ai' && env.AI && typeof env.AI.run === 'function') return 'workers-ai';
+  return 'auto';
 }
 
 function buildUserMessageWithAttachment(message, attachmentName, attachmentText) {
@@ -544,13 +580,13 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   const diagnostics = [];
   const ownerSession = deps.ownerSession || null;
   const geminiPool = parseGeminiKeyPool(env);
-  const allowedOwnerModelIds = new Set(OWNER_MODELS.map((m) => m.id));
-  const requestedOwnerModel = ownerSession?.isOwner && allowedOwnerModelIds.has(payload.ownerModel)
-    ? payload.ownerModel
-    : env.GEMINI_MODEL;
+  const requestedModel = resolvePreferredFreeModel(payload, env);
+  const preferGeminiModel = requestedModel === 'auto'
+    ? (env.GEMINI_MODEL || 'gemini-3.5-flash-lite')
+    : requestedModel;
 
   let aiResult = null;
-  if (userByok && userByok.apiKey && userByok.provider) {
+  if (userByok && userByok.apiKey && userByok.provider && (requestedModel === 'auto' || payload.preferredModel === 'byok')) {
     aiResult = await runUserByokProvider(
       { provider: userByok.provider, apiKey: userByok.apiKey, userModel: payload.userModel },
       systemInstruction,
@@ -561,23 +597,37 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     );
   }
 
-  if (!aiResult && (ownerSession?.isOwner || canUseDailyQuota())) {
-    aiResult =
-      (await callGeminiChat(geminiPool, requestedOwnerModel, systemInstruction, history, userPrompt, fetchImpl, diagnostics)) ||
-      (await callOpenAiCompatibleChat(
-        {
-          endpoint: 'https://api.groq.com/openai/v1/chat/completions',
-          apiKey: env.GROQ_API_KEY,
-          model: env.GROQ_MODEL || 'llama-3.3-70b-versatile',
-          providerName: 'groq'
-        },
-        systemInstruction,
-        history,
-        userPrompt,
-        fetchImpl,
-        diagnostics
-      )) ||
-      (await callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics));
+  if (!aiResult && requestedModel !== 'cc-knowledge-hub' && (ownerSession?.isOwner || canUseDailyQuota())) {
+    const callGroq = () => callOpenAiCompatibleChat(
+      {
+        endpoint: 'https://api.groq.com/openai/v1/chat/completions',
+        apiKey: env.GROQ_API_KEY,
+        model: env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+        providerName: 'groq'
+      },
+      systemInstruction,
+      history,
+      userPrompt,
+      fetchImpl,
+      diagnostics
+    );
+
+    if (requestedModel === 'groq') {
+      aiResult =
+        (await callGroq()) ||
+        (await callGeminiChat(geminiPool, env.GEMINI_MODEL, systemInstruction, history, userPrompt, fetchImpl, diagnostics)) ||
+        (await callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics));
+    } else if (requestedModel === 'workers-ai') {
+      aiResult =
+        (await callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics)) ||
+        (await callGeminiChat(geminiPool, env.GEMINI_MODEL, systemInstruction, history, userPrompt, fetchImpl, diagnostics)) ||
+        (await callGroq());
+    } else {
+      aiResult =
+        (await callGeminiChat(geminiPool, preferGeminiModel, systemInstruction, history, userPrompt, fetchImpl, diagnostics)) ||
+        (await callGroq()) ||
+        (await callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics));
+    }
     if (aiResult && aiResult.reply && !ownerSession?.isOwner) {
       recordQuotaUsage();
     }
@@ -588,7 +638,9 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       ok: true,
       reply: aiResult.reply,
       provider: aiResult.provider,
-      modelUsed: aiResult.model || requestedOwnerModel || 'gemini-3.5-flash-lite',
+      modelUsed: aiResult.model || preferGeminiModel || 'gemini-3.5-flash-lite',
+      modelRequested: requestedModel,
+      modelSelectionMode: requestedModel === 'auto' ? 'auto' : 'preferred',
       ownerActive: Boolean(ownerSession?.isOwner),
       assistant: assistantMeta,
       mode,
@@ -614,7 +666,12 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       media
     }),
     provider: 'cc-knowledge-hub',
-    providerDiagnostic: diagnostics.length ? diagnostics.join(',') : (geminiPool.length ? 'gemini:unavailable' : 'no_key'),
+    modelUsed: 'cc-knowledge-hub',
+    modelRequested: requestedModel,
+    modelSelectionMode: requestedModel === 'auto' ? 'auto' : 'preferred',
+    providerDiagnostic: requestedModel === 'cc-knowledge-hub'
+      ? 'selected:cc-knowledge-hub'
+      : (diagnostics.length ? diagnostics.join(',') : (geminiPool.length ? 'gemini:unavailable' : 'no_key')),
     ownerActive: Boolean(ownerSession?.isOwner),
     assistant: assistantMeta,
     mode,
@@ -644,6 +701,7 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
         zeroCostGuaranteed: true,
         geminiKeyPoolSize: poolSize,
         youtubeApi: Boolean(env.YT_API_KEY),
+        availableModels: buildAvailableFreeModels(env),
         assistants: hubs.assistants,
         hubs,
         providersConfigured: {

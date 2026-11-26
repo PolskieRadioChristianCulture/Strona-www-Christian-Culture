@@ -56,8 +56,101 @@ const AI_PERSONAS = {
   }
 };
 
+const DEFAULT_PUBLIC_FREE_MODELS = [
+  { id: 'auto', provider: 'auto', label: 'Auto (najlepszy dostępny)', shortLabel: 'Auto', note: 'Automatyczny dobór darmowego AI' },
+  { id: 'gemini-3.5-flash-lite', provider: 'gemini', label: 'Gemini 3.5 Flash Lite', shortLabel: 'Gemini 3.5 Lite', note: 'Szybki darmowy · domyślny CC' },
+  { id: 'gemini-3.1-flash-lite', provider: 'gemini', label: 'Gemini 3.1 Flash Lite', shortLabel: 'Gemini 3.1 Lite', note: 'Stabilny darmowy · wysoka jakość' },
+  { id: 'gemini-3-flash-preview', provider: 'gemini', label: 'Gemini 3 Flash', shortLabel: 'Gemini 3 Flash', note: 'Głębsza analiza · darmowa pula CC' },
+  { id: 'gemini-flash-lite-latest', provider: 'gemini', label: 'Gemini Flash Lite Latest', shortLabel: 'Gemini Latest', note: 'Najnowszy lekki · darmowa pula CC' },
+  { id: 'cc-knowledge-hub', provider: 'cc-knowledge-hub', label: 'Baza Wiedzy CC (offline)', shortLabel: 'Baza Wiedzy CC', note: 'Natychmiastowy · 0 zł · cytaty UBG' }
+];
+let availableFreeModels = DEFAULT_PUBLIC_FREE_MODELS.map((m) => ({ ...m }));
+
 function getPersona(id) {
   return AI_PERSONAS[id] || AI_PERSONAS[DEFAULT_ASSISTANT_ID];
+}
+
+function getPreferredModelId() {
+  const id = typeof state?.preferredModel === 'string' ? state.preferredModel.trim() : '';
+  if (id && availableFreeModels.some((m) => m.id === id)) return id;
+  return 'auto';
+}
+
+function getModelMeta(id) {
+  return availableFreeModels.find((m) => m.id === id) || availableFreeModels[0];
+}
+
+function formatBadgeModelLabel(msg) {
+  const used = String(msg?.modelUsed || '').trim();
+  const known = used ? availableFreeModels.find((m) => m.id === used) : null;
+  let modelPart = known?.shortLabel || '';
+  if (!modelPart && used) {
+    if (used === 'gemini-3.5-flash-lite') modelPart = 'Gemini 3.5 Lite';
+    else if (used === 'gemini-3.1-flash-lite') modelPart = 'Gemini 3.1 Lite';
+    else if (used === 'gemini-3-flash-preview') modelPart = 'Gemini 3 Flash';
+    else if (used === 'gemini-flash-lite-latest') modelPart = 'Gemini Latest';
+    else modelPart = used;
+  }
+  if (!modelPart) modelPart = providerLabel(msg?.provider);
+  return `${modelPart} · ${msg?.mode || currentMode}`;
+}
+
+function updateTopbarModelLabel() {
+  if (!activeModelLabel) return;
+  const pref = getPreferredModelId();
+  if (byokConfig?.provider && byokConfig?.apiKey && pref === 'auto') {
+    activeModelLabel.textContent = `${currentMode} · Własne API`;
+    return;
+  }
+  if (pref !== 'auto') {
+    activeModelLabel.textContent = `${getModelMeta(pref).shortLabel} · ${currentMode}`;
+    return;
+  }
+  activeModelLabel.textContent = currentMode;
+}
+
+function closeAllBadgeModelMenus() {
+  $$('.badge-model-menu').forEach((menu) => {
+    menu.hidden = true;
+    menu.classList.remove('open-up');
+  });
+  $$('.provider-badge-btn').forEach((btn) => {
+    btn.setAttribute('aria-expanded', 'false');
+  });
+}
+
+function setPreferredModel(modelId, { announce = true } = {}) {
+  const meta = getModelMeta(modelId);
+  const nextId = meta?.id || 'auto';
+  state.preferredModel = nextId;
+  selectedOwnerModel = nextId === 'auto' ? '' : nextId;
+  saveState();
+  syncModelMenu();
+  updateTopbarModelLabel();
+  closeAllBadgeModelMenus();
+  if (announce) {
+    trackAiEvent('ai_model_select', { model_id: nextId, mode: currentMode });
+    showToast(
+      nextId === 'auto'
+        ? 'Model AI: Auto (najlepszy dostępny z darmowej puli CC)'
+        : `Preferowany model AI: ${meta.label}`
+    );
+  }
+}
+
+async function hydrateAvailableModels() {
+  try {
+    const res = await fetch('/api/ai-dla-jezusa/v1/chat');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (Array.isArray(data?.availableModels) && data.availableModels.length) {
+      availableFreeModels = data.availableModels.filter((m) => m && m.id && m.label);
+      syncModelMenu();
+      updateTopbarModelLabel();
+    }
+  } catch {
+    // Zachowujemy wbudowaną listę darmowych modeli bez błędu
+  }
 }
 
 async function getAuthHeaders() {
@@ -71,37 +164,62 @@ async function getAuthHeaders() {
   return {};
 }
 
-function syncOwnerModelMenu() {
+function syncModelMenu() {
   if (!modelMenu) return;
-  modelMenu.querySelectorAll('.owner-model-opt').forEach((el) => el.remove());
-  if (!ownerSession?.isOwner || !Array.isArray(ownerSession.models)) return;
-  for (const m of ownerSession.models) {
+  modelMenu.querySelectorAll('.owner-model-opt, .model-menu-dynamic').forEach((el) => el.remove());
+
+  const activePref = getPreferredModelId();
+
+  const divider = document.createElement('div');
+  divider.className = 'model-menu-divider model-menu-dynamic';
+  divider.setAttribute('role', 'separator');
+
+  const groupLabel = document.createElement('div');
+  groupLabel.className = 'model-menu-group-label model-menu-dynamic';
+  groupLabel.textContent = 'Silnik AI (darmowe modele CC)';
+
+  modelMenu.append(divider, groupLabel);
+
+  for (const m of availableFreeModels) {
     const opt = document.createElement('button');
     opt.type = 'button';
     opt.role = 'option';
-    opt.className = 'dropdown-option owner-model-opt' + (selectedOwnerModel === m.id ? ' active' : '');
-    opt.dataset.ownerModel = m.id;
+    const isActive = activePref === m.id;
+    opt.className = 'dropdown-option free-model-opt model-menu-dynamic' + (isActive ? ' active' : '');
+    opt.dataset.freeModel = m.id;
+    opt.setAttribute('aria-selected', String(isActive));
     const span = document.createElement('span');
-    span.textContent = m.note;
+    span.textContent = m.note || '';
     opt.append(document.createTextNode(`${m.label} `), span);
     opt.addEventListener('click', () => {
-      selectedOwnerModel = m.id;
-      activeModelLabel.textContent = m.label;
+      setPreferredModel(m.id);
       modelMenu.hidden = true;
       modelPickerBtn?.setAttribute('aria-expanded', 'false');
-      syncOwnerModelMenu();
-      showToast(`Wybrano silnik właściciela: ${m.label}`);
     });
     modelMenu.appendChild(opt);
   }
+
+  const byokBtn = document.createElement('button');
+  byokBtn.type = 'button';
+  byokBtn.className = 'dropdown-option model-byok-shortcut model-menu-dynamic';
+  const byokNote = document.createElement('span');
+  byokNote.textContent = byokConfig?.provider && byokConfig?.apiKey
+    ? `Aktywne (${byokConfig.provider.toUpperCase()})`
+    : 'Podłącz swój klucz';
+  byokBtn.append(document.createTextNode('Własne API (BYOK)… '), byokNote);
+  byokBtn.addEventListener('click', () => {
+    modelMenu.hidden = true;
+    modelPickerBtn?.setAttribute('aria-expanded', 'false');
+    openSettingsModal();
+  });
+  modelMenu.appendChild(byokBtn);
 }
 
 async function refreshOwnerSession() {
   const authHeaders = await getAuthHeaders();
   if (!authHeaders.Authorization) {
     ownerSession = null;
-    selectedOwnerModel = '';
-    syncOwnerModelMenu();
+    syncModelMenu();
     updateProfileFooterButton();
     return;
   }
@@ -112,14 +230,10 @@ async function refreshOwnerSession() {
     });
     if (!res.ok) {
       ownerSession = null;
-      selectedOwnerModel = '';
     } else {
       const data = await res.json();
       if (data?.isOwner) {
         ownerSession = data;
-        if (!selectedOwnerModel && data.models?.[0]?.id) {
-          selectedOwnerModel = data.models[0].id;
-        }
       } else {
         ownerSession = null;
       }
@@ -127,7 +241,7 @@ async function refreshOwnerSession() {
   } catch {
     ownerSession = null;
   }
-  syncOwnerModelMenu();
+  syncModelMenu();
   syncProBadge();
   updateProfileFooterButton();
   if (['Umiejętności', 'Połączenia', 'Automatyzacje'].includes(currentNav)) {
@@ -716,6 +830,7 @@ function loadState(uid = currentUser?.uid) {
     notes: [],
     memory: [],
     projects: [...DEFAULT_PROJECTS],
+    preferredModel: 'auto',
     leftCollapsed: false,
     rightCollapsed: false
   };
@@ -728,6 +843,7 @@ function loadState(uid = currentUser?.uid) {
       memory: Array.isArray(raw.memory) ? raw.memory.slice(0, 20) : [],
       projects: Array.isArray(raw.projects) && raw.projects.length ? raw.projects.slice(0, 20) : [...DEFAULT_PROJECTS],
       assistantId: typeof raw.assistantId === 'string' && AI_PERSONAS[raw.assistantId] ? raw.assistantId : DEFAULT_ASSISTANT_ID,
+      preferredModel: typeof raw.preferredModel === 'string' && raw.preferredModel.trim() ? raw.preferredModel.trim() : 'auto',
       leftCollapsed: Boolean(raw.leftCollapsed),
       rightCollapsed: Boolean(raw.rightCollapsed)
     };
@@ -773,6 +889,8 @@ function saveByokConfig(nextCfg) {
   } catch {
     // ignoruj brak localStorage
   }
+  syncModelMenu();
+  updateTopbarModelLabel();
 }
 
 function showToast(msg) {
@@ -1500,10 +1618,144 @@ function renderConversation(animateMsgId = '') {
       speakerRole.textContent = msg.assistant?.role || persona.role;
       speaker.append(speakerName, speakerRole);
 
-      const badgeSpan = document.createElement('span');
-      badgeSpan.className = 'provider-badge';
-      badgeSpan.textContent = `${providerLabel(msg.provider)} · ${msg.mode || currentMode}`;
-      head.append(avatar, speaker, badgeSpan);
+      const badgeWrap = document.createElement('div');
+      badgeWrap.className = 'provider-badge-wrap';
+
+      const badgeBtn = document.createElement('button');
+      badgeBtn.type = 'button';
+      badgeBtn.className = 'provider-badge provider-badge-btn';
+      badgeBtn.setAttribute('aria-haspopup', 'listbox');
+      badgeBtn.setAttribute('aria-expanded', 'false');
+      badgeBtn.title = 'Kliknij, aby wybrać automatyczny lub preferowany model AI';
+
+      const badgeLabelSpan = document.createElement('span');
+      badgeLabelSpan.className = 'provider-badge-label';
+      badgeLabelSpan.textContent = formatBadgeModelLabel(msg);
+
+      const badgeChev = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      badgeChev.setAttribute('viewBox', '0 0 24 24');
+      badgeChev.setAttribute('fill', 'none');
+      badgeChev.setAttribute('stroke', 'currentColor');
+      badgeChev.setAttribute('stroke-width', '2');
+      badgeChev.setAttribute('stroke-linecap', 'round');
+      badgeChev.setAttribute('stroke-linejoin', 'round');
+      badgeChev.setAttribute('aria-hidden', 'true');
+      badgeChev.setAttribute('class', 'badge-chevron');
+      const badgeChevPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      badgeChevPath.setAttribute('d', 'm6 9 6 6 6-6');
+      badgeChev.appendChild(badgeChevPath);
+
+      badgeBtn.append(badgeLabelSpan, badgeChev);
+
+      let prevUserMsg = null;
+      for (let j = i - 1; j >= 0; j -= 1) {
+        if (thread.messages[j]?.role === 'user' && thread.messages[j]?.text) {
+          prevUserMsg = thread.messages[j];
+          break;
+        }
+      }
+
+      const badgeMenu = document.createElement('div');
+      badgeMenu.className = 'badge-model-menu';
+      badgeMenu.setAttribute('role', 'listbox');
+      badgeMenu.setAttribute('aria-label', 'Wybór modelu AI dla odpowiedzi');
+      badgeMenu.hidden = true;
+
+      const populateBadgeMenu = () => {
+        badgeMenu.replaceChildren();
+        const activePref = getPreferredModelId();
+
+        const menuHead = document.createElement('div');
+        menuHead.className = 'badge-model-head';
+        const menuTitle = document.createElement('strong');
+        menuTitle.textContent = 'Model AI (darmowa pula CC)';
+        const menuSub = document.createElement('small');
+        menuSub.textContent = activePref === 'auto'
+          ? 'Aktywny: Automatyczny (najlepszy dostępny)'
+          : `Preferowany: ${getModelMeta(activePref).label}`;
+        menuHead.append(menuTitle, menuSub);
+        badgeMenu.appendChild(menuHead);
+
+        for (const m of availableFreeModels) {
+          const isSelected = activePref === m.id;
+          const opt = document.createElement('button');
+          opt.type = 'button';
+          opt.role = 'option';
+          opt.className = 'badge-model-opt' + (isSelected ? ' active' : '');
+          opt.dataset.freeModel = m.id;
+          opt.setAttribute('aria-selected', String(isSelected));
+
+          const mainCol = document.createElement('span');
+          mainCol.className = 'badge-model-opt-main';
+          const nameB = document.createElement('b');
+          nameB.textContent = m.label;
+          const noteSm = document.createElement('small');
+          noteSm.textContent = m.note || '';
+          mainCol.append(nameB, noteSm);
+
+          const mark = document.createElement('span');
+          mark.className = 'badge-model-opt-state';
+          mark.textContent = isSelected ? '✓' : '';
+
+          opt.append(mainCol, mark);
+          opt.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            setPreferredModel(m.id);
+          });
+          badgeMenu.appendChild(opt);
+        }
+
+        const actionsBlock = document.createElement('div');
+        actionsBlock.className = 'badge-model-actions';
+
+        if (prevUserMsg) {
+          const retryBtn = document.createElement('button');
+          retryBtn.type = 'button';
+          retryBtn.className = 'badge-model-opt badge-model-action';
+          retryBtn.textContent = `↻ Ponów tym modelem (${getModelMeta(activePref).shortLabel})`;
+          retryBtn.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            closeAllBadgeModelMenus();
+            sendChatMessage(prevUserMsg.text);
+          });
+          actionsBlock.appendChild(retryBtn);
+        }
+
+        const byokOpt = document.createElement('button');
+        byokOpt.type = 'button';
+        byokOpt.className = 'badge-model-opt badge-model-action';
+        byokOpt.textContent = byokConfig?.provider && byokConfig?.apiKey
+          ? `⚙ Własne API (${byokConfig.provider.toUpperCase()})`
+          : '⚙ Podłącz własne API (BYOK)…';
+        byokOpt.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          closeAllBadgeModelMenus();
+          openSettingsModal();
+        });
+        actionsBlock.appendChild(byokOpt);
+
+        badgeMenu.appendChild(actionsBlock);
+      };
+
+      badgeBtn.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const willOpen = badgeMenu.hidden;
+        closeAllBadgeModelMenus();
+        if (modelMenu) modelMenu.hidden = true;
+        modelPickerBtn?.setAttribute('aria-expanded', 'false');
+        if (toolsMenu) toolsMenu.hidden = true;
+        toolsBtn?.setAttribute('aria-expanded', 'false');
+        if (willOpen) {
+          populateBadgeMenu();
+          badgeMenu.hidden = false;
+          badgeBtn.setAttribute('aria-expanded', 'true');
+          const rect = badgeBtn.getBoundingClientRect();
+          badgeMenu.classList.toggle('open-up', window.innerHeight - rect.bottom < 300);
+        }
+      });
+
+      badgeWrap.append(badgeBtn, badgeMenu);
+      head.append(avatar, speaker, badgeWrap);
       aiBubble.appendChild(head);
 
       const mdSlot = document.createElement('div');
@@ -1833,7 +2085,8 @@ async function sendChatMessage(textOverride, titleHint = '') {
         tools: activeTools,
         memoryNotes: privateMode ? [] : state.memory.map((m) => m.text),
         privateMode,
-        ownerModel: selectedOwnerModel || '',
+        preferredModel: getPreferredModelId(),
+        ownerModel: getPreferredModelId() !== 'auto' ? getPreferredModelId() : (selectedOwnerModel || ''),
         userModel: byokConfig.model || ''
       })
     });
@@ -1849,6 +2102,8 @@ async function sendChatMessage(textOverride, titleHint = '') {
       role: 'assistant',
       text: data.reply,
       provider: data.provider || 'cc-knowledge-hub',
+      modelUsed: data.modelUsed || '',
+      modelRequested: data.modelRequested || getPreferredModelId(),
       assistant: data.assistant || activeAsst,
       mode: data.mode || currentMode,
       media: Array.isArray(data.media) ? data.media : [],
@@ -1889,8 +2144,8 @@ function startPromptDirectly(promptText, titleHint = '', modeOverride = '') {
 
 function setMode(modeName) {
   currentMode = modeName || 'CC Auto';
-  activeModelLabel.textContent = currentMode;
-  $$('#modelMenu .dropdown-option').forEach((o) => {
+  updateTopbarModelLabel();
+  $$('#modelMenu .dropdown-option[data-model]').forEach((o) => {
     o.classList.toggle('active', o.dataset.model === currentMode);
   });
 }
@@ -2541,7 +2796,7 @@ modelPickerBtn?.addEventListener('click', (e) => {
   modelPickerBtn.setAttribute('aria-expanded', String(next));
 });
 
-$$('#modelMenu .dropdown-option').forEach((opt) => {
+$$('#modelMenu .dropdown-option[data-model]').forEach((opt) => {
   opt.addEventListener('click', () => {
     setMode(opt.dataset.model || 'CC Auto');
     modelMenu.hidden = true;
@@ -2580,6 +2835,21 @@ document.addEventListener('click', () => {
   if (!toolsMenu.hidden) {
     toolsMenu.hidden = true;
     toolsBtn?.setAttribute('aria-expanded', 'false');
+  }
+  closeAllBadgeModelMenus();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (modelMenu && !modelMenu.hidden) {
+      modelMenu.hidden = true;
+      modelPickerBtn?.setAttribute('aria-expanded', 'false');
+    }
+    if (toolsMenu && !toolsMenu.hidden) {
+      toolsMenu.hidden = true;
+      toolsBtn?.setAttribute('aria-expanded', 'false');
+    }
+    closeAllBadgeModelMenus();
   }
 });
 
@@ -2674,6 +2944,8 @@ function handleAuthUpdate(user) {
     renderRightProjects();
     syncAssistantButtons();
     syncPanelButtons();
+    syncModelMenu();
+    updateTopbarModelLabel();
     if (currentNav === 'Czat') showWelcomeView();
     else renderModule(currentNav);
   }
@@ -3586,6 +3858,9 @@ setTimeout(() => {
 // Inicjalizacja
 syncAssistantButtons();
 syncPanelButtons();
+syncModelMenu();
+updateTopbarModelLabel();
+hydrateAvailableModels();
 syncProBadge();
 updatePersonalizedHero();
 renderRecentChats();
