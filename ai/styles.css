@@ -814,7 +814,7 @@ a:focus-visible {
 
 .topbar {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   height: 58px;
   padding: 0 22px;
   display: flex;
