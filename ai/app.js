@@ -2882,6 +2882,59 @@ function renderConversation(animateMsgId = '') {
         aiBubble.appendChild(mediaDeck);
       }
 
+      if (Array.isArray(msg.mojabibliaVerses) && msg.mojabibliaVerses.length) {
+        const mbDeck = document.createElement('div');
+        mbDeck.className = 'mojabiblia-cards';
+        if (isStreamingThisMsg) {
+          mbDeck.classList.add('stream-reveal-deferred');
+          deferred.push(mbDeck);
+        }
+        for (const v of msg.mojabibliaVerses) {
+          if (!v?.shortRef || !v?.ubg) continue;
+          const card = document.createElement('div');
+          card.className = 'mojabiblia-card';
+          const mbHead = document.createElement('div');
+          mbHead.className = 'mojabiblia-head';
+          const mbTitle = document.createElement('strong');
+          mbTitle.textContent = `📖 MojaBiblia · ${v.shortRef} (UBG)`;
+          mbHead.appendChild(mbTitle);
+          if (v.originalLang) {
+            const langTag = document.createElement('span');
+            langTag.className = 'mojabiblia-lang-tag';
+            langTag.textContent = v.originalLang === 'Hebrew' ? 'Hebrajski + Strong' : 'Greka Koine + Strong';
+            mbHead.appendChild(langTag);
+          }
+          const ubgP = document.createElement('p');
+          ubgP.className = 'mojabiblia-ubg';
+          ubgP.textContent = `„${v.ubg}”`;
+          card.append(mbHead, ubgP);
+
+          if (Array.isArray(v.keyWords) && v.keyWords.length) {
+            const wordsWrap = document.createElement('div');
+            wordsWrap.className = 'mojabiblia-words';
+            for (const w of v.keyWords.slice(0, 6)) {
+              const pill = document.createElement('span');
+              pill.className = 'mojabiblia-word-pill';
+              pill.textContent = `${w.original} (${w.translit || w.strong} · ${w.strong})${w.glossPl ? `: ${w.glossPl}` : ''}`;
+              wordsWrap.appendChild(pill);
+            }
+            card.appendChild(wordsWrap);
+          }
+
+          if (v.interlinearUrl) {
+            const mbLink = document.createElement('a');
+            mbLink.className = 'mojabiblia-link';
+            mbLink.href = v.interlinearUrl;
+            mbLink.target = '_blank';
+            mbLink.rel = 'noopener noreferrer';
+            mbLink.textContent = 'Otwórz interlinearnie w MojaBiblia ↗';
+            card.appendChild(mbLink);
+          }
+          mbDeck.appendChild(card);
+        }
+        if (mbDeck.children.length) aiBubble.appendChild(mbDeck);
+      }
+
       if (Array.isArray(msg.sources) && msg.sources.length) {
         const srcWrap = document.createElement('div');
         srcWrap.className = 'source-chips';
@@ -3022,31 +3075,21 @@ function renderConversation(animateMsgId = '') {
 
       primaryRow.append(upBtn, downBtn, favBtn, opinionBtn, moreBtn);
 
-      const syncBubbleSaveButtons = (savedLater = false) => {
+      const syncBubbleSaveButtons = () => {
         if (saveNoteBtn) {
-          saveNoteBtn.textContent = savedLater ? 'Zapisano (na później) ✓' : 'Zapisano ✓';
+          saveNoteBtn.textContent = 'Zapisano ✓';
           saveNoteBtn.classList.add('is-done');
-        }
-        if (quickSaveBtn) {
-          quickSaveBtn.textContent = 'Zapisano ✓';
-          quickSaveBtn.classList.add('is-done');
-        }
-        if (quickLaterBtn && savedLater) {
-          quickLaterBtn.textContent = 'Na później ✓';
-          quickLaterBtn.classList.add('is-done');
         }
       };
 
       const existingNote = (state.notes || []).find((n) => n.id === msg.id);
       const isQuestionReply = hasInteractiveQuestion(msg.text, prevUserMsg?.text);
-      let quickSaveBtn = null;
-      let quickLaterBtn = null;
 
       if (isQuestionReply) {
         const quickBar = document.createElement('div');
         quickBar.className = 'quick-reply-bar';
         quickBar.setAttribute('role', 'group');
-        quickBar.setAttribute('aria-label', 'Szybkie odpowiedzi i zapis');
+        quickBar.setAttribute('aria-label', 'Szybkie odpowiedzi');
 
         const yesBtn = document.createElement('button');
         yesBtn.type = 'button';
@@ -3070,31 +3113,7 @@ function renderConversation(animateMsgId = '') {
           sendChatMessage('Nie');
         };
 
-        quickSaveBtn = document.createElement('button');
-        quickSaveBtn.type = 'button';
-        quickSaveBtn.className = 'quick-reply-btn is-save' + (existingNote ? ' is-done' : '');
-        quickSaveBtn.dataset.quickReply = 'save';
-        quickSaveBtn.textContent = existingNote ? 'Zapisano ✓' : 'Zapisz';
-        quickSaveBtn.onclick = () => {
-          const res = saveMessageToNotes(msg, prevUserMsg?.text || '', { savedLater: false });
-          syncBubbleSaveButtons(Boolean(existingNote?.savedLater));
-          trackAiEvent('ai_response_action', { action: 'save_note', ...reactionMeta });
-          showToast(res === 'exists' ? 'Ta odpowiedź jest już zapisana w Notatnikach.' : 'Zapisano w Notatnikach.');
-        };
-
-        quickLaterBtn = document.createElement('button');
-        quickLaterBtn.type = 'button';
-        quickLaterBtn.className = 'quick-reply-btn is-later' + (existingNote?.savedLater ? ' is-done' : '');
-        quickLaterBtn.dataset.quickReply = 'later';
-        quickLaterBtn.textContent = existingNote?.savedLater ? 'Na później ✓' : 'Zapisz na później';
-        quickLaterBtn.onclick = () => {
-          const res = saveMessageToNotes(msg, prevUserMsg?.text || '', { savedLater: true });
-          syncBubbleSaveButtons(true);
-          trackAiEvent('ai_response_action', { action: 'save_later', ...reactionMeta });
-          showToast(res === 'exists' ? 'Już oznaczone jako zapisane na później.' : 'Zapisano na później w Notatnikach.');
-        };
-
-        quickBar.append(yesBtn, noBtn, quickSaveBtn, quickLaterBtn);
+        quickBar.append(yesBtn, noBtn);
         morePanel.appendChild(quickBar);
       }
 
@@ -3132,7 +3151,7 @@ function renderConversation(animateMsgId = '') {
       rememberBtn.type = 'button';
       rememberBtn.className = 'msg-action-btn' + (alreadyRemembered ? ' is-done' : '');
       rememberBtn.dataset.action = 'remember';
-      rememberBtn.textContent = alreadyRemembered ? 'Zapamiętano ✓' : 'Zapamiętaj';
+      rememberBtn.textContent = alreadyRemembered ? 'Zapamiętano ✓' : 'Zapamiętaj dla AI';
       rememberBtn.onclick = () => {
         const added = rememberMessageInMemory(msg, prevUserMsg?.text || '');
         rememberBtn.textContent = 'Zapamiętano ✓';
@@ -3145,14 +3164,12 @@ function renderConversation(animateMsgId = '') {
       saveNoteBtn.type = 'button';
       saveNoteBtn.className = 'msg-action-btn' + (existingNote ? ' is-done' : '');
       saveNoteBtn.dataset.action = 'save';
-      saveNoteBtn.textContent = existingNote
-        ? (existingNote.savedLater ? 'Zapisano (na później) ✓' : 'Zapisano ✓')
-        : 'Zapisz';
+      saveNoteBtn.textContent = existingNote ? 'Zapisano ✓' : 'Zapisz notatkę';
       saveNoteBtn.onclick = () => {
         const res = saveMessageToNotes(msg, prevUserMsg?.text || '', { savedLater: false });
-        syncBubbleSaveButtons(Boolean(existingNote?.savedLater));
+        syncBubbleSaveButtons();
         trackAiEvent('ai_response_action', { action: 'save_note', ...reactionMeta });
-        showToast(res === 'exists' ? 'Ta odpowiedź jest już w Notatnikach.' : 'Zapisano odpowiedź w Notatnikach.');
+        showToast(res === 'exists' ? 'Ta odpowiedź jest już w Notatnikach.' : 'Zapisano notatkę w module Notatniki.');
       };
 
       const calendarBtn = document.createElement('button');
@@ -3449,6 +3466,7 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
       assistant: data.assistant || activeAsst,
       mode: data.mode || currentMode,
       media: Array.isArray(data.media) ? data.media : [],
+      mojabibliaVerses: Array.isArray(data.mojabibliaVerses) ? data.mojabibliaVerses : [],
       sources: Array.isArray(data.sources) ? data.sources : []
     };
     thread.messages.push(deliveredReply);
@@ -3523,21 +3541,145 @@ function renderModule(name) {
 
   if (name === 'Biblia' || name === 'Deep Research') {
     sub.textContent = name === 'Biblia'
-      ? 'Wyszukuj zweryfikowane materiały biblijne (UBG) i rozpoczynaj pogłębione studium z AI.'
+      ? 'Bezpośrednie połączenie z MojaBiblia Interlinear (hebrajski/greka + Strong) i wyszukiwarką Słowa (UBG).'
       : 'Przeszukuj ponad 700 dokumentów Christian Culture i zamieniaj wyniki w analizę Deep Research.';
+
+    let resultsBox;
+
+    if (name === 'Biblia') {
+      const mbBox = document.createElement('section');
+      mbBox.className = 'mb-inline-box';
+      const mbHead = document.createElement('div');
+      mbHead.className = 'mojabiblia-head';
+      const mbH = document.createElement('strong');
+      mbH.textContent = '📖 MojaBiblia Interlinear · Analiza słów oryginalnych';
+      const mbPortalLink = document.createElement('a');
+      mbPortalLink.className = 'mojabiblia-link';
+      mbPortalLink.href = 'https://polskieradio.cc/mojabiblia';
+      mbPortalLink.target = '_blank';
+      mbPortalLink.rel = 'noopener noreferrer';
+      mbPortalLink.textContent = 'Otwórz pełną MojaBiblia ↗';
+      mbHead.append(mbH, mbPortalLink);
+
+      const mbChips = document.createElement('div');
+      mbChips.className = 'mb-preset-chips';
+      for (const [refLabel, presetRef] of [
+        ['Mt 13,55 · Bracia Jezusa', 'Mt 13,55'],
+        ['Kol 4,10 · Kuzyn (anepsios)', 'Kol 4,10'],
+        ['Wj 20,8 · Sabat', 'Wj 20,8'],
+        ['J 3,16 · Ewangelia', 'J 3,16']
+      ]) {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'msg-action-btn';
+        chip.textContent = refLabel;
+        chip.onclick = () => loadMojaBibliaVerse(presetRef);
+        mbChips.appendChild(chip);
+      }
+
+      const mbOut = document.createElement('div');
+      mbOut.className = 'mb-inline-result';
+      mbBox.append(mbHead, mbChips, mbOut);
+      moduleStage.appendChild(mbBox);
+
+      const UI_BOOK_MAP = {
+        rdz: 'GEN', rodzaju: 'GEN', wj: 'EXO', wyjscia: 'EXO', kpl: 'LEV', lb: 'NUM', pwt: 'DEU',
+        ps: 'PSA', psalm: 'PSA', prz: 'PRO', koh: 'ECC', iz: 'ISA', dn: 'DAN',
+        mt: 'MAT', mk: 'MRK', lk: 'LUK', j: 'JHN', dz: 'ACT', rz: 'ROM',
+        '1 kor': '1CO', '2 kor': '2CO', ga: 'GAL', ef: 'EPH', flp: 'PHP', kol: 'COL', obj: 'REV'
+      };
+      let mbMetaCache = null;
+      let mbGlossCache = null;
+
+      async function loadMojaBibliaVerse(rawRef) {
+        const norm = String(rawRef || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l').trim();
+        const m = norm.match(/^([1-3]?\s*[a-z]+)\s+(\d{1,3})\s*[:,.]\s*(\d{1,3})/);
+        if (!m) {
+          mbOut.textContent = 'Wpisz siglum w formacie np. „Mt 13,55”, „Kol 4,10” lub „Wj 20,8”.';
+          return;
+        }
+        const bkRaw = m[1].replace(/\s+/g, ' ').trim();
+        const ch = Number(m[2]);
+        const vs = Number(m[3]);
+        mbOut.textContent = 'Ładuję tekst UBG i warstwę interlinearną z MojaBiblia...';
+        try {
+          if (!mbMetaCache) {
+            const [mRes, gRes] = await Promise.all([
+              fetch('/data/bible/bible_books_metadata.json'),
+              fetch('/data/bible/glosy-pl.json')
+            ]);
+            mbMetaCache = mRes.ok ? await mRes.json() : [];
+            mbGlossCache = gRes.ok ? await gRes.json() : {};
+          }
+          const byMeta = (mbMetaCache || []).find((b) =>
+            b.id.toLowerCase() === bkRaw ||
+            b.shortPl.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ł/g, 'l') === bkRaw
+          );
+          const bookId = UI_BOOK_MAP[bkRaw] || byMeta?.id || bkRaw.toUpperCase();
+          const chRes = await fetch(`/data/bible/${bookId}_${String(ch).padStart(2, '0')}.json`);
+          if (!chRes.ok) throw new Error(`HTTP ${chRes.status}`);
+          const chJson = await chRes.json();
+          const vObj = (chJson.verses || []).find((item) => Number(item.verse) === vs);
+          if (!vObj) throw new Error('Brak wersetu');
+
+          mbOut.replaceChildren();
+          const ubgText = vObj.text?.UBG || vObj.text?.BW || '';
+          const p = document.createElement('p');
+          p.className = 'mojabiblia-ubg';
+          p.textContent = `${chJson.shortPl || bookId} ${ch},${vs} (UBG): „${ubgText}”`;
+          mbOut.appendChild(p);
+
+          const wordsWrap = document.createElement('div');
+          wordsWrap.className = 'mojabiblia-words';
+          for (const w of (vObj.interlinear || []).slice(0, 18)) {
+            const st = String(w.strong || '');
+            const pad = /^[GH]\d{1,3}$/.test(st) ? st[0] + st.slice(1).padStart(4, '0') : st;
+            const gloss = (mbGlossCache && (mbGlossCache[pad] || mbGlossCache[st])) || w.gloss || '';
+            const pill = document.createElement('span');
+            pill.className = 'mojabiblia-word-pill';
+            pill.textContent = `${w.original} · ${w.translit || ''} (${pad})${gloss ? `: ${gloss}` : ''}`;
+            wordsWrap.appendChild(pill);
+          }
+          mbOut.appendChild(wordsWrap);
+
+          const foot = document.createElement('div');
+          foot.className = 'module-card-foot';
+          const askEx = document.createElement('button');
+          askEx.type = 'button';
+          askEx.className = 'connect-btn';
+          askEx.textContent = 'Analizuj egzegetycznie z AI →';
+          askEx.onclick = () => startPromptDirectly(
+            `Przeprowadź dokładną analizę egzegetyczną wersetu ${chJson.shortPl || bookId} ${ch},${vs} (UBG) na podstawie języka oryginalnego i kodów Stronga.`,
+            `Egzegeza ${chJson.shortPl || bookId} ${ch},${vs}`,
+            'Studium Biblijne'
+          );
+          const openMb = document.createElement('a');
+          openMb.className = 'gold-card-link';
+          openMb.href = `https://polskieradio.cc/mojabiblia?book=${encodeURIComponent(bookId)}&chapter=${ch}&verse=${vs}&mode=interlinear`;
+          openMb.target = '_blank';
+          openMb.rel = 'noopener noreferrer';
+          openMb.textContent = 'Otwórz w MojaBiblia ↗';
+          foot.append(askEx, openMb);
+          mbOut.appendChild(foot);
+        } catch {
+          mbOut.textContent = 'Nie udało się pobrać wersetu z MojaBiblia dla podanego siglum.';
+        }
+      }
+      loadMojaBibliaVerse('Mt 13,55');
+    }
 
     const row = document.createElement('form');
     row.className = 'module-search-row';
     const input = document.createElement('input');
     input.type = 'search';
-    input.placeholder = name === 'Biblia' ? 'Np. J 3:16, Rzymian 8, modlitwa, nadzieja...' : 'Wpisz temat analizy (np. szabat, historia, wolność sumienia)...';
+    input.placeholder = name === 'Biblia' ? 'Np. Mt 13,55, Kol 4,10, Wj 20,8 lub temat...' : 'Wpisz temat analizy (np. szabat, historia, wolność sumienia)...';
     const goBtn = document.createElement('button');
     goBtn.type = 'submit';
     goBtn.className = 'send-gold-btn module-go-btn';
     goBtn.textContent = 'Szukaj';
     row.append(input, goBtn);
 
-    const resultsBox = document.createElement('div');
+    resultsBox = document.createElement('div');
     resultsBox.className = 'module-grid';
 
     const runSearch = async (q) => {
@@ -4968,6 +5110,12 @@ $$('.footer-item').forEach((btn) => {
 $$('.connect-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
     const appName = btn.dataset.app || 'Aplikacja';
+    if (appName === 'MojaBiblia') {
+      showModuleView('Biblia');
+      closeDrawers();
+      showToast('Połączono z MojaBiblia Interlinear.');
+      return;
+    }
     if (appName === 'Biblia Audio CC') {
       btn.classList.add('connected');
       btn.textContent = 'Połączono';
@@ -5856,6 +6004,7 @@ voiceStopBtn?.addEventListener('click', () => {
 
 const AT_MENTIONS = [
   { id: 'Biblia', label: '@Biblia', hint: 'Pismo Święte UBG i egzegeza', insert: '@Biblia ' },
+  { id: 'MojaBiblia', label: '@MojaBiblia', hint: 'Interlinearny tekst grecki/hebrajski + Strong', insert: '@MojaBiblia ' },
   { id: 'Kurs', label: '@Kurs', hint: 'Kurs Codzienny „Z Biblią za Pan Brat”', insert: '@Kurs ' },
   { id: 'Rozważanie', label: '@Rozważanie', hint: 'Dzisiejsze słowo Christian Culture', insert: '@Rozważanie ' },
   { id: 'Notatniki', label: '@Notatniki', hint: 'Twoje zapisane notatki jako kontekst', insert: '@Notatniki ' },

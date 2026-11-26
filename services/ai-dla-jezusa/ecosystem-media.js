@@ -324,6 +324,27 @@ export const CC_SOCIAL_HUB = [
 ];
 
 const BUILTIN_DOCTRINAL_GUIDES = {
+  bracia_jezusa_jezyk_biblii: {
+    topic: 'Bracia i siostry Jezusa w języku oryginalnym Biblii (greka koine: ἀδελφός vs ἀνεψιός vs συγγενής)',
+    keywords: [
+      'bracia jezusa', 'bracia i siostry', 'kuzyni', 'kuzyn', 'kuzynami', 'bracmi',
+      'rodzeni bracia', 'rodzenstwo jezusa', 'adelphos', 'adelfos', 'anepsios', 'syngenes',
+      'pierworodny', 'prototokos', 'mt 13', 'mk 6', 'kol 4', 'lk 2', 'ga 1,19', 'j 7'
+    ],
+    mojabibliaRefs: ['Mt 13,55', 'Kol 4,10', 'Łk 2,44'],
+    summary:
+      'Nowy Testament został napisany po grecku i precyzyjnie odróżnia rodzonego brata od kuzyna i dalszego krewnego:\n' +
+      '1) ἀδελφός (adelphos, Strong G80) = brat (dosł. z tego samego łona / rodzeni bracia i siostry lub bliscy bracia). Tym słowem Ewangeliści nazywają braci Jezusa (Mt 12,46; Mt 13,55 — „Jakub, Józef, Szymon i Juda”; Mk 6,3; J 7,3–5; Dz 1,14; Ga 1,19 „Jakuba, brata Pańskiego”).\n' +
+      '2) ἀνεψιός (anepsios, Strong G431) = kuzyn, brat cioteczny/stryjeczny (użyte precyzyjnie w Kol 4,10 dla Marka, kuzyna Barnaby — autorzy NT znali i stosowali osobne słowo na kuzyna!).\n' +
+      '3) συγγενής (syngenes, Strong G4773) = krewny, powinowaty (użyte w Łk 2,44; Łk 1,58; Mk 6,4 w odróżnieniu od adelphoi).\n' +
+      'Dodatkowo Mt 1,25 (οὐκ ἐγίνωσκεν αὐτὴν ἕως οὗ — „nie obcował z nią, aż porodziła”) oraz Łk 2,7 (πρωτότοκος, prōtotokos, G4416 = pierworodny, w odróżnieniu od μονογενής G3439 = jednorodzony) wskazują wprost na naturalne braterstwo, a teza „bracia = kuzyni” pochodzi z późniejszej tradycji pozabiblijnej (Hieronim, IV w.), nie z greckiego tekstu Pisma.',
+    keyVerses: [
+      {
+        ref: 'Mt 13,55–56',
+        text: 'Czyż to nie jest syn cieśli? Czyż jego matce nie jest na imię Maria, a jego bracia to Jakub, Józef, Szymon i Juda? A jego siostry czy nie są wszystkie u nas?'
+      }
+    ]
+  },
   dekalog_i_sabat: {
     topic: 'Biblijny Dekalog (Wj 20,1–17) i Sabat — siódmy dzień (sobota)',
     keywords: [
@@ -332,12 +353,13 @@ const BUILTIN_DOCTRINAL_GUIDES = {
       'dzien swiety', 'dzien panski', 'plan tygodnia', 'wujka', 'obrazy',
       'balwochwalstwo', '28 zasad', 'prawo boze'
     ],
+    mojabibliaRefs: ['Wj 20,8', 'Mk 2,28'],
     summary:
       'Autentyczny Dekalog z Księgi Wyjścia 20,1–17 (zgodny z UBG i historycznym przekładem ks. Jakuba Wujka, wyd. III 1962 r.): ' +
       'I. Nie będziesz miał bogów cudzych przede mną. ' +
-      'II. Zakaz czynienia obrazów rytych i podobizn oraz oddawania im pokłonu (Wj 20,4–6). ' +
+      'II. Zakaz czynienia obrazów rytych i podobizn oraz oddawania im pokłonu (Wj 20,4–6; hebr. פֶּסֶל pesel H6459). ' +
       'III. Nie będziesz brał imienia Pana, Boga twego, nadaremno. ' +
-      'IV. Pamiętaj, abyś dzień sobotni święcił — sześć dni będziesz pracował, a siódmego dnia jest Sabat Pana (sobota, od zachodu słońca w piątek do zachodu w sobotę). Niedziela jest pierwszym dniem tygodnia (zwykłym dniem pracy) i nie zastępuje biblijnego Sabatu ani nie jest „Dniem Pańskim”. ' +
+      'IV. Pamiętaj, abyś dzień sobotni święcił — sześć dni będziesz pracował, a siódmego dnia jest Sabat Pana (hebr. שַׁבָּת szabbat H7676, gr. σάββατον sabbaton G4521 — sobota, od zachodu słońca w piątek do zachodu w sobotę). W Mk 2,28 Jezus ogłasza się Panem Sabatu (κύριος τοῦ σαββάτου), natomiast niedziela jest pierwszym dniem tygodnia (μία σαββάτων) i nie zastępuje Sabatu ani nie jest biblijnym „Dniem Pańskim”. ' +
       'V. Czcij ojca twego i matkę twoją. VI. Nie będziesz zabijał. VII. Nie będziesz cudzołożył. VIII. Nie będziesz kradzieży czynił. IX. Nie będziesz mówił fałszywego świadectwa przeciw bliźniemu twemu. ' +
       'X. Nie będziesz pożądał domu bliźniego twego, żony jego ani żadnej rzeczy jego (jedno X przykazanie).',
     keyVerses: [
@@ -346,13 +368,47 @@ const BUILTIN_DOCTRINAL_GUIDES = {
         text: 'Pamiętaj o dniu sabatu, aby go święcić. Sześć dni będziesz pracował i wykonywał wszelką swoją pracę; ale siódmego dnia jest sabat PANA, twego Boga.'
       }
     ]
+  },
+  stan_umarlych_dusza: {
+    topic: 'Stan umarłych, dusza i zmartwychwstanie w językach oryginalnych Biblii',
+    keywords: [
+      'stan umarlych', 'co sie dzieje po smierci', 'czysciec', 'dusza', 'niesmiertelna dusza',
+      'nefesz', 'nephesh', 'ruach', 'szeol', 'sheol', 'hades', 'zmartwychwstanie', 'sen smierci', 'koimaomai'
+    ],
+    mojabibliaRefs: ['Rdz 2,7', 'Koh 9,5', 'J 11,11'],
+    summary:
+      'W hebrajskim Starym Testamencie człowiek nie „ma” nieśmiertelnej duszy, lecz „stał się żywą istotą” — נֶפֶשׁ חַיָּה (nefesz chajjah, Strong H5315 + H2416, Rdz 2,7). ' +
+      'Śmierć polega na powrocie prochu do ziemi i tchnienia życia (רוּחַ ruach, H7307) do Boga (Koh 12,7), a grób / kraina umarłych to שְׁאוֹל (szeol, H7585) / gr. ᾅδης (hades, G86), gdzie umarli śpią (gr. κοιμάομαι koimaomai G2837 — J 11,11–14; 1 Tes 4,13–17) i „nic nie wiedzą” (Koh 9,5) aż do zmartwychwstania przy powrocie Chrystusa (1 Kor 15,51–54; 1 Tm 6,16 — tylko Bóg ma nieśmiertelność).',
+    keyVerses: [
+      {
+        ref: 'Koh 9,5',
+        text: 'Żyjący bowiem wiedzą, że umrą, ale umarli nic nie wiedzą i nie mają już żadnej zapłaty, bo pamięć o nich poszła w zapomnienie.'
+      }
+    ]
+  },
+  prawo_i_laska: {
+    topic: 'Prawo Boże (Torah / νόμος) a łaska (χάρις) i wiara (πίστις)',
+    keywords: [
+      'prawo i laska', 'zakon', 'stary testament prawo', 'zniesione prawo', 'zbawienie z laski',
+      'uczynki czy wiara', 'nomos', 'charis', 'pleroo', 'katalyo', 'mt 5,17', 'rz 3,31'
+    ],
+    mojabibliaRefs: ['Mt 5,17', 'Rz 3,31', 'Ef 2,8'],
+    summary:
+      'Zbawienie jest wyłącznie z łaski (χάρις charis G5485) przez wiarę (πίστις pistis G4102), a nie z zasług (Ef 2,8–9), lecz łaska nie unieważnia moralnego Prawa Bożego (νόμος nomos G3551). ' +
+      'W Mt 5,17 Jezus mówi: nie przyszedłem znieść/rozwiązać (καταλύω katalyō G2647) Prawa, lecz wypełnić/dopełnić (πληρόω plēroō G4137), a apostoł Paweł w Rz 3,31 pyta i odpowiada wprost: „Czy więc unieważniamy prawo (καтарγέω katargeō G2673) przez wiarę? Żadną miarą! Owszem, prawo utwierdzamy (ἱστάνω histanō G2476).”',
+    keyVerses: [
+      {
+        ref: 'Rz 3,31',
+        text: 'Czy więc przez wiarę unieważniamy prawo? Żadną miarą! Przeciwnie, prawo utwierdzamy.'
+      }
+    ]
   }
 };
 
 export function matchContextGuides(query = '') {
   const qn = normalizeText(query);
   if (!qn) return [];
-  const words = qn.split(/[^a-z0-9]+/).filter((w) => w.length >= 3);
+  const words = qn.split(/[^a-z0-9]+/).filter((w) => w.length >= 4);
   const guidesObj = { ...(searchIndexData?.contextGuides || {}), ...BUILTIN_DOCTRINAL_GUIDES };
   const hits = [];
 
@@ -362,8 +418,8 @@ export function matchContextGuides(query = '') {
     let score = 0;
     for (const kw of kws) {
       if (!kw) continue;
-      if (qn.includes(kw)) score += 30;
-      else if (words.some((w) => kw.includes(w) || w.includes(kw))) score += 12;
+      if (qn.includes(kw)) score += 35;
+      else if (words.some((w) => kw === w || (kw.length >= 5 && w.startsWith(kw.slice(0, 5))) || (w.length >= 5 && kw.includes(w)))) score += 12;
     }
     if (score > 0) hits.push({ score, key, ...guide });
   }

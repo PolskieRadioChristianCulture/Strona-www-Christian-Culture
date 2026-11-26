@@ -203,8 +203,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai27b_p0/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai27b_p0/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai28_p0/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai28_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -644,15 +644,15 @@ test('All 5 assistants embody the Christocentric brother/sister mentor ethos in 
   assert.match(femaleFb.reply, /Chwała Panu/);
 });
 
-test('Interactive chat actions (Zapamiętaj, Zapisz, Kalendarz, Przypomnij mi) and question quick replies (Tak, Nie, Zapisz, Zapisz na później) work cleanly', () => {
+test('Interactive chat actions (Zapamiętaj dla AI, Zapisz notatkę, Kalendarz, Przypomnij mi) and deduplicated quick replies (Tak, Nie) work cleanly', () => {
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
 
   for (const label of [
-    'Zapamiętaj',
+    'Zapamiętaj dla AI',
+    'Zapisz notatkę',
     'Dodaj do mojego kalendarza',
     'Przypomnij mi',
-    'Zapisz na później',
     'hasInteractiveQuestion',
     'buildGoogleCalendarUrl',
     'downloadIcsFile',
@@ -662,9 +662,9 @@ test('Interactive chat actions (Zapamiętaj, Zapisz, Kalendarz, Przypomnij mi) a
   ]) {
     assert.ok(appJs.includes(label), `Missing interactive feature in ai/app.js: ${label}`);
   }
+  assert.doesNotMatch(appJs, /quickSaveBtn|quickLaterBtn/, 'Duplicate Zapisz / Zapisz na później quick buttons must stay removed');
   assert.match(appJs, /textContent\s*=\s*'Tak'/);
   assert.match(appJs, /textContent\s*=\s*'Nie'/);
-  assert.match(appJs, /:\s*'Zapisz'/);
   assert.match(css, /\.quick-reply-bar\b/);
   assert.match(css, /\.quick-reply-btn\.is-yes\b/);
   assert.match(css, /min-height:\s*44px;/);
@@ -876,4 +876,58 @@ test('AI dla Jezusa shows thumbs, favorite, opinion + More Options drawer and se
 
   assert.match(worker, /decodedP === '\/ai\/aplikacja'[\s\S]*https:\/\/www\.googletagmanager\.com[\s\S]*https:\/\/\*\.google-analytics\.com/s);
   assert.match(privacyHtml, /id="ai-dla-jezusa"[\s\S]*Google Analytics/s);
+});
+
+test('AI dla Jezusa integrates live MojaBiblia interlinear, zero-fluff biblical exegesis (adelphos vs anepsios), and UI MojaBiblia cards (ai28)', async () => {
+  const { parseScriptureReference, resolveMojaBibliaVerses } = await import('../services/ai-dla-jezusa/mojabiblia-bridge.js');
+  const { matchContextGuides } = await import('../services/ai-dla-jezusa/ecosystem-media.js');
+
+  const parsedMt = parseScriptureReference('Mt 13,55');
+  assert.equal(parsedMt?.bookId, 'MAT');
+  assert.equal(parsedMt?.chapter, 13);
+  assert.equal(parsedMt?.verse, 55);
+
+  const localFetchAsset = async (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
+  const resolved = await resolveMojaBibliaVerses(['Mt 13,55', 'Kol 4,10', 'Łk 2,44'], {}, { fetchAsset: localFetchAsset });
+  assert.equal(resolved.length, 3);
+  assert.match(resolved[0].ubg, /bracia to Jakub/i);
+  assert.ok(resolved[0].allWords.some((w) => w.strong === 'G0080'), 'Mt 13,55 interlinear must expose G0080 adelphos');
+  assert.ok(resolved[1].allWords.some((w) => w.strong === 'G0431'), 'Kol 4,10 interlinear must expose G0431 anepsios');
+  assert.ok(resolved[2].allWords.some((w) => w.strong === 'G4773'), 'Łk 2,44 interlinear must expose G4773 syngenes');
+  assert.equal(resolved[0].interlinearUrl, 'https://polskieradio.cc/mojabiblia?book=MAT&chapter=13&mode=interlinear&verse=55');
+
+  const ewaQuestion = 'Czy Jezus miał braci czy kuzynów? Sprawdź w języku oryginalnym Biblii';
+  const guides = matchContextGuides(ewaQuestion);
+  assert.equal(guides[0]?.key, 'bracia_jezusa_jezyk_biblii');
+
+  let capturedSys = '';
+  const captureFetch = async (_u, opts) => {
+    const body = JSON.parse(opts.body);
+    capturedSys = body?.systemInstruction?.parts?.[0]?.text || '';
+    return new Response(
+      JSON.stringify({ candidates: [{ content: { parts: [{ text: 'W języku greckim Nowego Testamentu użyto słowa adelphos (G80 = brat), a nie anepsios (G431 = kuzyn).' }] } }] }),
+      { status: 200 }
+    );
+  };
+
+  const res = await processAiChat(
+    { message: ewaQuestion },
+    verifiedSharedFixture('test-mojabiblia'),
+    { fetch: captureFetch, fetchAsset: localFetchAsset }
+  );
+  assert.equal(res.ok, true);
+  assert.match(capturedSys, /KONKRET NA PIERWSZYM MIEJSCU/);
+  assert.match(capturedSys, /G0080/);
+  assert.match(capturedSys, /G0431/);
+  assert.match(capturedSys, /MojaBiblia CC/);
+  assert.ok(Array.isArray(res.mojabibliaVerses) && res.mojabibliaVerses.length >= 2);
+  assert.ok(res.toolsUsed.includes('mojabiblia_interlinear'));
+
+  const html = fs.readFileSync(path.join(ROOT, 'ai/index.html'), 'utf8');
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
+  assert.ok(html.includes('data-app="MojaBiblia"'));
+  assert.ok(appJs.includes('mojabiblia-cards'));
+  assert.ok(appJs.includes('@MojaBiblia'));
+  assert.ok(css.includes('.mojabiblia-card'));
 });

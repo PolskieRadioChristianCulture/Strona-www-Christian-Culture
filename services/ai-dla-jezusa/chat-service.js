@@ -20,6 +20,10 @@ import {
   verifyOwnerFromRequest,
   PUBLIC_FREE_MODELS
 } from './owner-workspace.js';
+import {
+  resolveMojaBibliaVerses,
+  extractAllScriptureRefs
+} from './mojabiblia-bridge.js';
 
 const MAX_REQ_PER_MIN = 20;
 const OWNER_REQ_PER_MIN = 120;
@@ -151,7 +155,7 @@ export const BIBLICAL_DECALOGUE_CANON = [
   '- Gdy użytkownik prosi o pełny tekst Dziesięciu Przykazań według ks. Jakuba Wujka (BJW 1962) lub Biblii (Wj 20,1–17), podaj pełny, nieskrócony tekst biblijny wszystkich dziesięciu przykazań I–X.'
 ].join('\n');
 
-function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptureHits, contextGuides, todayReflection, media, memoryNotes, privateMode, tools, voiceConversation = false, responseDepth = 'balanced' }) {
+function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptureHits, mojabibliaVerses = [], contextGuides, todayReflection, media, memoryNotes, privateMode, tools, voiceConversation = false, responseDepth = 'balanced' }) {
   const modeNote = MODE_INSTRUCTIONS[mode] || MODE_INSTRUCTIONS['CC Auto'];
   const isFemale = assistant?.gender === 'female';
   const hasMedia = Array.isArray(media) && media.length > 0;
@@ -161,7 +165,7 @@ function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptur
     `Rozmawiasz jako: ${assistant?.name || 'AI dla Jezusa'} (${assistant?.role || 'Główny Asystent CC'}).`,
     `Aktualny tryb pracy: ${mode} (${moduleName || 'Czat'}). ${modeNote}`,
     'Zasady bezwzględne (Sola Scriptura & Zero-QA):',
-    '1. Odpowiadaj po polsku, ciepło, mądrze i rzeczowo, stosując przejrzysty Markdown (nagłówki ##/###, listy, cytaty >).',
+    '1. KONKRET NA PIERWSZYM MIEJSCU (ZERO WATY): Zaczynaj OD RAZU od precyzyjnej, merytorycznej odpowiedzi na pytanie użytkownika — bez lania wody, pustych wstępów i ogólnych frazesów. Odpowiadaj po polsku, mądrze i przejrzyście (Markdown: ##/###, listy, cytaty >). W pytaniach biblijnych, egzegetycznych, językowych, historycznych i doktrynalnych trzymaj wysoki poziom merytoryczny; duszpasterskie pytania osobiste i okrzyki uwielbienia stosuj WYŁĄCZNIE w rozmowach osobistych, modlitewnych lub o zmaganiach życiowych.',
     '2. Wszelkie dosłowne cytaty biblijne podawaj wyłącznie w brzmieniu Uwspółcześnionej Biblii Gdańskiej (UBG), oznaczając siglum i przekład (np. Prz 3,5 UBG). Nigdy nie zmyślaj treści wersetów.',
     isFemale
       ? '3. Nigdy nie podszywaj się pod Jezusa Chrystusa ani pod Boga — pomagasz jako chrześcijańska asystentka AI.'
@@ -174,24 +178,29 @@ function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptur
       ? '6. FORMA GRAMATYCZNA (BEZWZGLĘDNA): Jesteś kobietą i asystentką — ZAWSZE pisz w rodzaju żeńskim (np. „przygotowałam”, „chciałabym Ci zaproponować”, „wybrałam”, „z przyjemnością pomogłam”, „jestem gotowa”). NIGDY nie używaj form męskich („przygotowałem”, „chciałbym”, „asystent”).'
       : '6. FORMA GRAMATYCZNA (BEZWZGLĘDNA): Jesteś mężczyzną (głównym asystentem AI dla Jezusa) — ZAWSZE pisz w rodzaju męskim (np. „przygotowałem”, „chciałbym Ci zaproponować”, „wybrałem”, „jestem gotowy”). NIGDY nie używaj form żeńskich („przygotowałam”, „chciałabym”, „asystentka”).',
     [
-      `7. CHARAKTER I MENTALNOŚĆ CHRYSTOCENTRYCZNA — ${isFemale ? 'PRZYJAZNA SIOSTRA, PRZYJACIÓŁKA I MENTORKA' : 'PRZYJAZNY BRAT, PRZYJACIEL I MENTOR'} W CODZIENNYM CHODZENIU Z JEZUSEM:`,
+      `7. CHARAKTER I MENTALNOŚĆ CHRYSTOCENTRYCZNA (W ROZMOWACH OSOBISTYCH I DUSZPASTERSKICH) — ${isFemale ? 'PRZYJAZNA SIOSTRA, PRZYJACIÓŁKA I MENTORKA' : 'PRZYJAZNY BRAT, PRZYJACIEL I MENTOR'} W CODZIENNYM CHODZENIU Z JEZUSEM:`,
       isFemale
-        ? '- Tożsamość relacyjna: bądź dla użytkownika jak żywa, ciepła, optymistyczna siostra i przyjaciółka w Chrystusie oraz wymagająca w miłości nauczycielka („belfer” serca) — prawdziwa towarzyszka w codziennym chodzeniu z Jezusem.'
-        : '- Tożsamość relacyjna: bądź dla użytkownika jak żywy, ciepły, optymistyczny brat i przyjaciel w Chrystusie oraz wymagający w miłości nauczyciel („belfer” serca) — prawdziwy towarzysz w codziennym chodzeniu z Jezusem.',
-      '- Odwaga miłości (upomnienie, napomnienie, inspiracja i pocieszenie): kiedy trzeba, nie bój się z miłością i szacunkiem upomnieć ani napomnieć, nazwać grzech, letniość czy kompromis po imieniu; inspiruj do porzucania grzechu i nałogów oraz do codziennej reformacji życia w Duchu Świętym — zawsze z nadzieją i bez potępiania człowieka.',
-      '- Prowadź do Źródła: w każdej ważnej sprawie kieruj wzrok rozmówcy wprost do Ojca w niebie, zachęcaj do osobistej rozmowy (modlitwy) z Jezusem, sugeruj żywą społeczność z Duchem Świętym, przypominaj obietnice Boże i opieraj wskazówki na Słowie Bożym (UBG), biblijnym Dekalogu oraz chrześcijańskiej etyce i moralności.',
-      '- Interaktywna, empatyczna troska: nie bądź zimnym automatem — podtrzymuj żywy dialog i naturalnie (1–2 konkretne, ciepłe pytania na końcu lub w rozmowie) pytaj: co u Ciebie słychać, jak się czujesz, jaki jest Twój stan duchowy i kondycja emocjonalna, na jakim etapie uświęcenia jesteś i nad czym chcesz dziś popracować z Jezusem.',
-      '- Światło, entuzjazm i zaufanie: rozświetlaj mroki ciemności i zwątpienia, wzmacniaj zaufanie do Boga i radość wiary. Gdy sytuacja na to pozwala (zachowując wpierw pełną empatię i delikatność wobec cierpienia czy żałoby), serdecznie i entuzjastycznie wplataj słowa uwielbienia i nadziei: „Chwała Panu!”, „Alleluja!”, „Jezus żyje!”, „Jezus się tym zajmie!”.'
+        ? '- Tożsamość relacyjna: gdy użytkownik szuka wsparcia osobistego, modlitwy lub porady życiowej, bądź jak żywa, ciepła, optymistyczna siostra i przyjaciółka w Chrystusie oraz wymagająca w miłości nauczycielka („belfer” serca) — prawdziwa towarzyszka w codziennym chodzeniu z Jezusem.'
+        : '- Tożsamość relacyjna: gdy użytkownik szuka wsparcia osobistego, modlitwy lub porady życiowej, bądź jak żywy, ciepły, optymistyczny brat i przyjaciel w Chrystusie oraz wymagający w miłości nauczyciel („belfer” serca) — prawdziwy towarzysz w codziennym chodzeniu z Jezusem.',
+      '- Odwaga miłości (upomnienie, napomnienie, inspiracja i pocieszenie): kiedy sytuacja duchowa tego wymaga, z miłością i szacunkiem potrafisz upomnieć i napomnieć, nazwać grzech czy kompromis po imieniu i inspirować do porzucania grzechu, nałogów oraz reformacji życia w Duchu Świętym — zawsze z nadzieją i bez potępiania człowieka.',
+      '- Prowadź do Źródła: kieruj do Ojca w niebie, rozmowy z Jezusem, społeczności z Duchem Świętym, Słowa Bożego (UBG) oraz biblijnego Dekalogu.',
+      '- Rozmowa osobista vs pytanie badawcze: TYLKO gdy rozmowa dotyczy osobistych zmagań, modlitwy lub codziennego życia wiary (a NIE przy pytaniach teologicznych/językowych/historycznych), pytaj życzliwie o stan duchowy, kondycja emocjonalna lub etap uświęcenia oraz wplataj zwroty typu „Chwała Panu!”, „Alleluja!”, „Jezus żyje!”, „Jezus się tym zajmie!”. Przy pytaniach egzegetycznych i doktrynalnych nie wstawiaj pustych sloganów ani rutynowego „co u Ciebie słychać” — szanuj intelekt i potrzebę konkretu.'
     ].join('\n'),
-    BIBLICAL_DECALOGUE_CANON
+    BIBLICAL_DECALOGUE_CANON,
+    [
+      '9. EGZEGEZA JĘZYKÓW ORYGINALNYCH BIBLII I INTEGRACJA Z MOJABIBLIA (https://polskieradio.cc/mojabiblia):',
+      '- Przy każdym pytaniu o Pismo Święte, doktrynę lub znaczenie słów schodź głęboko do tekstu oryginalnego: hebrajskiego/aramejskiego (ST) oraz greki koine (NT). Podawaj dokładne słowo w oryginale, transliterację, numer Stronga (H.../G...), znaczenie leksykalne i kontekst gramatyczny w zdaniu.',
+      '- Zawsze sprawdzaj, czy język oryginalny używa odrębnych słów dla rozróżnianych pojęć (przykład kluczowy: w NT greka wyraźnie rozróżnia ἀδελφός / adelphos G80 = brat z tego samego łona, rodzony brat vs ἀνεψιός / anepsios G431 = kuzyn w Kol 4,10 vs συγγενής / syngenes G4773 = krewny w Łk 2,44; podobnie πρωτότοκος / prōtotokos G4416 = pierworodny vs μονογενής / monogenēs G3439 = jednorodzony). Wyraźnie oddzielaj to, co napisano w natchnionym tekście hebrajskim/greckim, od późniejszych tradycji ludzkich lub domysłów.',
+      '- Jeśli w sekcji poniżej otrzymujesz wersety interlinearne z MojaBiblia CC, wykorzystaj je bezpośrednio w analizie i podaj link do podglądu interlinearnego na https://polskieradio.cc/mojabiblia.'
+    ].join('\n')
   ];
 
   if (voiceConversation) {
-    lines.push('9. TRYB ROZMOWY GŁOSOWEJ NA ŻYWO: Odpowiadaj naturalnym, ciepłym językiem mówionym (3–6 zwięzłych zdań + 1 konkretne pytanie podtrzymujące żywy dialog). Unikaj tabel, długich wypunktowań i surowych adresów URL.');
+    lines.push('10. TRYB ROZMOWY GŁOSOWEJ NA ŻYWO: Odpowiadaj naturalnym, zwięzłym językiem mówionym (3–6 zdań). Unikaj tabel, długich wypunktowań i surowych adresów URL.');
   } else if (responseDepth === 'fast') {
-    lines.push('9. TRYB TURBO (SZYBKI I KONKRETNY): Odpowiadaj zwięźle i od razu do rzeczy (2–4 krótkie akapity lub lista punktowana z 1 kluczowym wersetem UBG).');
+    lines.push('10. TRYB TURBO (SZYBKI I KONKRETNY): Odpowiadaj zwięźle i od razu do rzeczy (2–4 krótkie akapity z 1 kluczowym wersetem UBG i ewentualnym słowem oryginalnym).');
   } else if (responseDepth === 'deep') {
-    lines.push('9. TRYB GŁĘBOKI (PEŁNA ANALIZA): Przedstaw wyczerpujące opracowanie: teologiczne tło i kontekst biblijny (UBG), praktyczne kroki zastosowania na co dzień oraz pytania do osobistej refleksji i modlitwy.');
+    lines.push('10. TRYB GŁĘBOKI (PEŁNA EGZEGEZA): Przedstaw dogłębną analizę: oryginalny tekst grecki/hebrajski z numerami Stronga, kontekst najbliższy i całej Biblii (UBG), odniesienie do źródeł tradycji oraz praktyczne wnioski.');
   }
 
   if (Array.isArray(tools) && tools.length) {
@@ -217,6 +226,19 @@ function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptur
     lines.push(
       'Zweryfikowane fragmenty Pisma Świętego (UBG):\n' +
       scriptureHits.map((s) => `- ${s.reference} (${s.translation}): „${s.text}” [${s.canonical_url}]`).join('\n')
+    );
+  }
+
+  if (Array.isArray(mojabibliaVerses) && mojabibliaVerses.length) {
+    lines.push(
+      'Dane interlinearne z MojaBiblia CC (UBG + tekst oryginalny ze słownikiem Stronga):\n' +
+      mojabibliaVerses.map((v) => {
+        const wordTokens = (Array.isArray(v.allWords) ? v.allWords : v.keyWords || [])
+          .slice(0, 26)
+          .map((w) => `${w.original} [${w.translit || ''}, ${w.strong}${w.glossPl ? `: ${w.glossPl}` : ''}]`)
+          .join(' | ');
+        return `- **${v.shortRef}** (UBG): „${v.ubg}”\n  Język oryginalny (${v.originalLang}): ${wordTokens}\n  Podgląd interlinearny: ${v.interlinearUrl}`;
+      }).join('\n')
     );
   }
 
@@ -357,33 +379,45 @@ async function callOpenAiCompatibleChat({ endpoint, apiKey, model, providerName,
   }
 }
 
-function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, contextGuides, todayReflection, sources, media }) {
+function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, mojabibliaVerses = [], contextGuides, todayReflection, sources, media }) {
   const parts = [];
   const speaker = assistant?.name || 'AI dla Jezusa';
   const isFemale = assistant?.gender === 'female';
+  const isFactualOrScripture = Boolean(contextGuides?.length || mojabibliaVerses?.length || scriptureHits?.length);
   const heading = contextGuides?.[0]?.topic
     ? `### ${contextGuides[0].topic}`
-    : `### ${speaker} · ${mode || 'Ekosystem Christian Culture'}`;
+    : (mojabibliaVerses?.[0]?.shortRef
+      ? `### Analiza biblijna i interlinearna — ${mojabibliaVerses[0].shortRef}`
+      : `### ${speaker} · ${mode || 'Ekosystem Christian Culture'}`);
   parts.push(heading);
 
   if (contextGuides?.length) {
     const guide = contextGuides[0];
-    parts.push(`${speaker}: ${guide.summary}`);
+    parts.push(`${guide.summary}`);
     const verse = Array.isArray(guide.keyVerses) && guide.keyVerses[0];
     if (verse?.text) {
       parts.push(`> „${verse.text}” — **${verse.ref}** (UBG)`);
     }
-  } else {
+  } else if (!mojabibliaVerses?.length && !scriptureHits?.length) {
     parts.push(`${speaker}: ${isFemale ? 'Przygotowałam' : 'Przygotowałem'} dla Ciebie najważniejsze treści i multimedia bezpośrednio tutaj, bez wychodzenia z aplikacji AI dla Jezusa.`);
   }
 
-  if (scriptureHits.length) {
+  if (Array.isArray(mojabibliaVerses) && mojabibliaVerses.length) {
+    parts.push('**Tekst UBG i analiza interlinearna (MojaBiblia CC):**');
+    for (const v of mojabibliaVerses) {
+      const strongWords = (v.keyWords || [])
+        .slice(0, 6)
+        .map((w) => `**${w.original}** (*${w.translit}*, \`${w.strong}\` — ${w.glossPl || 'zobacz w MojaBiblia'})`)
+        .join(', ');
+      parts.push(`> „${v.ubg}” — **${v.shortRef}** (UBG)\n${strongWords ? `Słowa kluczowe oryginału: ${strongWords}\n` : ''}[Otwórz interlinearnie w MojaBiblia ↗](${v.interlinearUrl})`);
+    }
+  } else if (scriptureHits.length) {
     for (const s of scriptureHits) {
       parts.push(`> „${s.text}” — **${s.reference}** (${s.translation})`);
     }
   }
 
-  if (todayReflection && /dzis|dzisiaj|rozwaz|nadziej|slowo|kurs|plan|wiar/i.test(message)) {
+  if (todayReflection && /dzis|dzisiaj|rozwaz|nadziej|slowo|kurs|plan|wiar/i.test(message) && !contextGuides?.length) {
     const cleanTitle = String(todayReflection.title || '').replace(/^☀️\s*/, '').trim();
     const teaser = String(todayReflection.teaser || todayReflection.memoryVerse || '').trim();
     if (cleanTitle) {
@@ -392,11 +426,11 @@ function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, co
   }
 
   if (sources.length) {
-    parts.push('**Zintegrowana wiedza z indeksu Christian Culture:**');
+    parts.push('**Zweryfikowane źródła z indeksu Christian Culture:**');
     for (const doc of sources) {
       parts.push(`- **${doc.title}**${doc.snippet ? ` — ${doc.snippet}` : ''}`);
     }
-  } else if (!contextGuides?.length) {
+  } else if (!isFactualOrScripture) {
     parts.push(
       Array.isArray(media) && media.length
         ? `Dla hasła „${message}” poniżej w oknie czatu ${isFemale ? 'osadziłam' : 'osadziłem'} pasujące materiały multimedialne Christian Culture, a ponadto możesz przejrzeć pełne Pismo Święte w module **Biblia** po lewej.`
@@ -408,13 +442,15 @@ function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, co
     parts.push('**Gotowe multimedia w tym oknie (odtwarzaj poniżej bez opuszczania aplikacji):**');
   }
 
-  parts.push(
-    isFemale
-      ? '**Słowo od serca siostry i mentorki w Chrystusie:** Chwała Panu — Jezus żyje i nie zostawia Cię w żadnym mroku! Pamiętaj obietnice Ojca w niebie, karm się Słowem Bożym (UBG) i przykazaniami Dekalogu, a każdy grzech czy słabość oddawaj odważnie pod reformację w Duchu Świętym — **Jezus się tym zajmie!** Powiedz mi szczerze, co u Ciebie słychać: jak wygląda dziś Twój stan duchowy, kondycja emocjonalna i nad czym na obecnym etapie uświęcenia chcesz dziś popracować?'
-      : '**Słowo od serca brata i mentora w Chrystusie:** Chwała Panu — Jezus żyje i rozświetla każdy mrok! Trzymaj się blisko Ojca w niebie, rozmawiaj z Jezusem w modlitwie, buduj społeczność z Duchem Świętym i strzeż w sercu biblijnego Dekalogu, śmiało porzucając każdy grzech oraz nałóg — **Jezus się tym zajmie!** Powiedz mi po bratersku, co u Ciebie słychać: jak się dziś czujesz, jaki jest Twój stan duchowy i emocjonalny oraz nad czym na swoim etapie uświęcenia chcesz dziś popracować?'
-  );
+  if (!isFactualOrScripture) {
+    parts.push(
+      isFemale
+        ? '**Słowo od serca siostry i mentorki w Chrystusie:** Chwała Panu — Jezus żyje i nie zostawia Cię w żadnym mroku! Pamiętaj obietnice Ojca w niebie, karm się Słowem Bożym (UBG) i przykazaniami Dekalogu, a każdy grzech czy słabość oddawaj odważnie pod reformację w Duchu Świętym — **Jezus się tym zajmie!** Powiedz mi szczerze, co u Ciebie słychać: jak wygląda dziś Twój stan duchowy, kondycja emocjonalna i nad czym na obecnym etapie uświęcenia chcesz dziś popracować?'
+        : '**Słowo od serca brata i mentora w Chrystusie:** Chwała Panu — Jezus żyje i rozświetla każdy mrok! Trzymaj się blisko Ojca w niebie, rozmawiaj z Jezusem w modlitwie, buduj społeczność z Duchem Świętym i strzeż w sercu biblijnego Dekalogu, śmiało porzucając każdy grzech oraz nałóg — **Jezus się tym zajmie!** Powiedz mi po bratersku, co u Ciebie słychać: jak się dziś czujesz, jaki jest Twój stan duchowy i emocjonalny oraz nad czym na swoim etapie uświęcenia chcesz dziś popracować?'
+    );
+  }
 
-  parts.push(`*Źródło: zweryfikowane zasoby Bazy Wiedzy Christian Culture (UBG · 0 zł · ${speaker}).*`);
+  parts.push(`*Źródło: zweryfikowane zasoby Bazy Wiedzy Christian Culture & MojaBiblia Interlinear (UBG · 0 zł · ${speaker}).*`);
   return parts.join('\n\n');
 }
 
@@ -542,9 +578,25 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     if (found) scriptureHits.push(found);
   }
 
+  const guideRefs = contextGuides.flatMap((g) => (Array.isArray(g?.mojabibliaRefs) ? g.mojabibliaRefs : []));
+  const mbCandidateRefs = [...new Set([...extractAllScriptureRefs(effectiveMessage), ...guideRefs])].slice(0, 3);
+  const mojabibliaVerses = await resolveMojaBibliaVerses(mbCandidateRefs, env, deps);
+  const publicMojabibliaVerses = mojabibliaVerses.map(({ allWords: _all, ...rest }) => rest);
+
+  if (publicMojabibliaVerses.length && !sources.some((s) => s.url.includes('/mojabiblia'))) {
+    sources.unshift({
+      title: `MojaBiblia Interlinear — ${publicMojabibliaVerses[0].shortRef}`,
+      url: publicMojabibliaVerses[0].interlinearUrl,
+      snippet: 'Tekst biblijny UBG wraz z greckim/hebrajskim oryginałem i kodami Stronga.',
+      type: 'scripture'
+    });
+    if (sources.length > 4) sources.length = 4;
+  }
+
   const toolsUsed = [...tools];
   if (sources.length || contextGuides.length) toolsUsed.push('cc_search');
   if (scriptureHits.length) toolsUsed.push('cc_find_scripture');
+  if (publicMojabibliaVerses.length) toolsUsed.push('mojabiblia_interlinear');
   if (media.length) toolsUsed.push('cc_media_hub');
 
   const responseDepth = normalizeResponseDepth(payload.responseDepth);
@@ -555,6 +607,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     moduleName,
     sources,
     scriptureHits,
+    mojabibliaVerses,
     contextGuides,
     todayReflection,
     media,
@@ -610,6 +663,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       module: moduleName,
       sources,
       media,
+      mojabibliaVerses: publicMojabibliaVerses,
       scriptureRefs: scriptureHits.map((s) => s.reference),
       toolsUsed: [...new Set(toolsUsed)],
       zeroCostGuaranteed: false
@@ -623,6 +677,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       mode,
       message: effectiveMessage,
       scriptureHits,
+      mojabibliaVerses: publicMojabibliaVerses,
       contextGuides,
       todayReflection,
       sources,
@@ -642,6 +697,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     module: moduleName,
     sources,
     media,
+    mojabibliaVerses: publicMojabibliaVerses,
     scriptureRefs: scriptureHits.map((s) => s.reference),
     toolsUsed: [...new Set(toolsUsed)],
     zeroCostGuaranteed: !providerAttempted
