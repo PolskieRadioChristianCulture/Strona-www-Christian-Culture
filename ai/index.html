@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="/ai/styles.css?v=20261126_ai4">
+  <link rel="stylesheet" href="/ai/styles.css?v=20261126_ai5">
 </head>
 <body>
   <a class="skip-link" href="#prompt">Przejdź do rozmowy</a>
@@ -185,6 +185,30 @@
           <h1 class="hero-title">Co dobrego dziś stworzymy?</h1>
           <p class="hero-subtitle">Technologia w służbie dobra. Jezus w centrum.</p>
 
+          <!-- WYBÓR ASYSTENTA (DOMYŚLNIE AI DLA JEZUSA + 4 ASYSTENTKI CC) -->
+          <div id="assistantStrip" class="assistant-strip" role="radiogroup" aria-label="Wybierz asystenta do rozmowy">
+            <button type="button" class="assistant-pill active" data-assistant="ai-dla-jezusa" role="radio" aria-checked="true">
+              <img src="/ai/assets/icon-ai-halo.webp" alt="AI dla Jezusa" width="26" height="26" loading="eager" decoding="async">
+              <span>AI dla Jezusa</span>
+            </button>
+            <button type="button" class="assistant-pill" data-assistant="rut" role="radio" aria-checked="false">
+              <img src="/images/chat/lumi_avatar_rut_circle.webp" onerror="this.src='/images/chat/assistants/asystentka-1.webp'" alt="Rut" width="26" height="26" loading="eager" decoding="async">
+              <span>Rut</span>
+            </button>
+            <button type="button" class="assistant-pill" data-assistant="lea" role="radio" aria-checked="false">
+              <img src="/images/chat/lumi_avatar_lea_circle.webp" onerror="this.src='/images/chat/assistants/asystentka-2.webp'" alt="Lea" width="26" height="26" loading="eager" decoding="async">
+              <span>Lea</span>
+            </button>
+            <button type="button" class="assistant-pill" data-assistant="noemi" role="radio" aria-checked="false">
+              <img src="/images/chat/lumi_avatar_noemi_circle.webp" onerror="this.src='/images/chat/assistants/asystentka-3.webp'" alt="Noemi" width="26" height="26" loading="eager" decoding="async">
+              <span>Noemi</span>
+            </button>
+            <button type="button" class="assistant-pill" data-assistant="miriam" role="radio" aria-checked="false">
+              <img src="/images/chat/lumi_avatar_miriam_circle.webp" onerror="this.src='/images/chat/assistants/asystentka-4.webp'" alt="Miriam" width="26" height="26" loading="eager" decoding="async">
+              <span>Miriam</span>
+            </button>
+          </div>
+
           <!-- KOMPOZYTOR WIADOMOŚCI -->
           <div class="composer-box">
             <div id="attachmentChip" class="attachment-chip" hidden></div>
@@ -214,7 +238,7 @@
                   <button type="button" id="attachBtn" class="composer-circle-btn" aria-label="Dodaj załącznik">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
                   </button>
-                  <input type="file" id="fileInput" accept=".txt,.md,.pdf,text/plain,text/markdown" hidden>
+                  <input type="file" id="fileInput" accept=".txt,.md,.csv,.json,.pdf,image/*,audio/*,video/*" hidden>
 
                   <button type="button" id="webSearchBtn" class="composer-circle-btn" aria-pressed="false" aria-label="Przeszukuj zasoby sieci">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
@@ -235,7 +259,10 @@
                 </div>
 
                 <div class="composer-bar-right">
-                  <button type="button" id="micBtn" class="composer-plain-btn" aria-pressed="false" aria-label="Dyktowanie głosowe">
+                  <button type="button" id="voiceAutoReadBtn" class="composer-plain-btn" aria-pressed="false" aria-label="Automatyczne czytanie odpowiedzi głosem" title="Czytaj odpowiedzi głosem">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+                  </button>
+                  <button type="button" id="micBtn" class="composer-plain-btn" aria-pressed="false" aria-label="Dyktowanie głosowe" title="Dyktuj głosem (PL)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>
                   </button>
                   <button type="submit" id="sendBtn" class="send-gold-btn" aria-label="Wyślij wiadomość">
@@ -432,6 +459,6 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-  <script defer src="/ai/app.js?v=20261126_ai4"></script>
+  <script defer src="/ai/app.js?v=20261126_ai5"></script>
 </body>
 </html>

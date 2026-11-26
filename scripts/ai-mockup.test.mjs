@@ -72,17 +72,19 @@ test('AI dla Jezusa (/ai/) preserves 1:1 mockup structure and is exempt from glo
   }
 });
 
-test('Cloudflare _redirects and _worker.js serve /ai and /ai/ directly with HTTP 200 instead of redirecting to /si', () => {
+test('Cloudflare _redirects and _worker.js serve /ai, /ai/, and /ai/aplikacja with HTTP 200 and redirect /ai/podglad to /ai/aplikacja', () => {
   const redirects = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
   const worker = fs.readFileSync(path.join(ROOT, '_worker.js'), 'utf8');
 
   assert.doesNotMatch(redirects, /^\/ai\s+\/si\b/m, '_redirects must not redirect /ai to /si');
   assert.match(redirects, /^\/ai\s+\/ai\/index\.html\s+200$/m);
   assert.match(redirects, /^\/ai\/\s+\/ai\/index\.html\s+200$/m);
-  assert.match(redirects, /^\/ai\/podglad\s+\/ai\/index\.html\s+200$/m);
-  assert.match(redirects, /^\/ai\/podglad\/\s+\/ai\/index\.html\s+200$/m);
+  assert.match(redirects, /^\/ai\/aplikacja\s+\/ai\/index\.html\s+200$/m);
+  assert.match(redirects, /^\/ai\/aplikacja\/\s+\/ai\/index\.html\s+200$/m);
+  assert.match(redirects, /^\/ai\/podglad\s+\/ai\/aplikacja\s+302$/m);
 
-  assert.match(worker, /decodedP === '\/ai'\s*\|\|\s*decodedP === '\/ai\/index\.html'\s*\|\|\s*decodedP === '\/ai\/podglad'\s*\|\|\s*decodedP === '\/ai\/podglad\/index\.html'/);
+  assert.match(worker, /decodedP === '\/ai\/podglad'\s*\|\|\s*decodedP === '\/ai\/podglad\/index\.html'/);
+  assert.match(worker, /decodedP === '\/ai'\s*\|\|\s*decodedP === '\/ai\/index\.html'\s*\|\|\s*decodedP === '\/ai\/aplikacja'\s*\|\|\s*decodedP === '\/ai\/aplikacja\/index\.html'/);
   assert.match(worker, /targetUrl\.pathname = '\/ai\/'/);
   assert.doesNotMatch(worker, /decodedP === '\/technologia' \|\| decodedP === '\/ai'/);
 });
@@ -187,11 +189,19 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai4/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai4/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai5/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai5/);
   assert.match(html, /id="voiceBar"/);
   assert.match(html, /id="voiceWave"/);
   assert.match(html, /id="voiceStopBtn"/);
+  assert.match(html, /id="voiceAutoReadBtn"/);
+  assert.match(html, /id="assistantStrip"/);
+  assert.match(html, /data-assistant="ai-dla-jezusa"/);
+  assert.match(html, /data-assistant="rut"/);
+  assert.match(html, /data-assistant="lea"/);
+  assert.match(html, /data-assistant="noemi"/);
+  assert.match(html, /data-assistant="miriam"/);
+  assert.match(html, /image\/\*,\s*audio\/\*,\s*video\/\*/);
   assert.match(html, /id="aiAmbientCanvas"/);
 
   assert.match(appJs, /interimResults\s*=\s*true/);
@@ -199,7 +209,14 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   assert.match(appJs, /AudioContext/);
   assert.match(appJs, /initAmbientCanvas/);
   assert.match(appJs, /stopDictation/);
+  assert.match(appJs, /renderMediaDeck/);
+  assert.match(appJs, /speakReply/);
 
+  assert.match(css, /--cc-btn-orange:\s*#FF7A00/i);
+  assert.match(css, /\.assistant-pill\b/);
+  assert.match(css, /\.media-deck\b/);
+  assert.match(css, /\.media-card\b/);
+  assert.match(css, /\.chat-bubble-ai-avatar\b/);
   assert.match(css, /\.is-dictating\b/);
   assert.match(css, /\.voice-wave\b/);
   assert.match(css, /\.ambient-canvas\b/);
@@ -266,4 +283,35 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const byokJson = await byokHttpRes.json();
   assert.equal(byokJson.provider, 'openrouter-byok');
   assert.equal(capturedUrl, 'https://openrouter.ai/api/v1/chat/completions');
+});
+
+test('AI chat returns default AI halo avatar, supports switching 4 female assistants, and embeds playable ecosystem media + contextGuides', async () => {
+  resetAiChatRuntimeState();
+
+  const defRes = await processAiChat({ message: 'Księga Rodzaju 3 stworzenie i nadzieja' }, {}, {});
+  assert.equal(defRes.ok, true);
+  assert.equal(defRes.assistant.id, 'ai-dla-jezusa');
+  assert.equal(defRes.assistant.avatar, '/ai/assets/icon-ai-halo.webp');
+  assert.ok(Array.isArray(defRes.media) && defRes.media.length >= 2, 'Expected in-app multimedia cards');
+  assert.ok(defRes.media.some((m) => m.kind === 'audio' && m.audioUrl.includes('Ksiega_Rodzaju_3')), 'Expected playable Biblia Audio MP3');
+  assert.match(defRes.reply, /Nadzieja w Bogu/i);
+
+  for (const [id, avatar] of [
+    ['rut', '/images/chat/lumi_avatar_rut_circle.webp'],
+    ['lea', '/images/chat/lumi_avatar_lea_circle.webp'],
+    ['noemi', '/images/chat/lumi_avatar_noemi_circle.webp'],
+    ['miriam', '/images/chat/lumi_avatar_miriam_circle.webp']
+  ]) {
+    const r = await processAiChat({ assistantId: id, message: 'Co gra muzyka uwielbienia na YouTube i Spotify?' }, {}, {});
+    assert.equal(r.assistant.id, id);
+    assert.equal(r.assistant.avatar, avatar);
+    assert.ok(Array.isArray(r.media) && r.media.length >= 2);
+  }
+
+  const getRes = await handleAiChatRequest(new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/chat', { method: 'GET' }), {});
+  const getJson = await getRes.json();
+  assert.equal(getJson.assistants.length, 5);
+  assert.ok(getJson.hubs.radioStreams.length >= 3);
+  assert.ok(getJson.hubs.spotifyShows.length >= 4);
+  assert.ok(getJson.hubs.socialHub.length >= 5);
 });

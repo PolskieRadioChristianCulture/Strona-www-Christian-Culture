@@ -9,14 +9,22 @@ import {
   findScripture,
   extractScriptureRefs
 } from './knowledge-hub.js';
+import {
+  resolveAiAssistant,
+  matchContextGuides,
+  resolveEcosystemMedia,
+  getAllEcosystemHubs
+} from './ecosystem-media.js';
 
 const MAX_REQ_PER_MIN = 20;
 const RATE_WINDOW_MS = 60_000;
 const DAILY_AI_CALL_CAP = 600;
 const MAX_BODY_BYTES = 24 * 1024;
+const REFLECTION_CACHE_TTL_MS = 5 * 60_000;
 
 const ipBuckets = new Map();
 let quotaState = { day: new Date().toISOString().slice(0, 10), calls: 0 };
+let reflectionCache = { expiresAt: 0, items: null };
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -43,6 +51,45 @@ const MODE_INSTRUCTIONS = {
 export function resetAiChatRuntimeState() {
   ipBuckets.clear();
   quotaState = { day: new Date().toISOString().slice(0, 10), calls: 0 };
+  reflectionCache = { expiresAt: 0, items: null };
+}
+
+function getWarsawDateStr(now = new Date()) {
+  try {
+    return new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Europe/Warsaw',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(now);
+  } catch {
+    return now.toISOString().slice(0, 10);
+  }
+}
+
+async function loadTodayReflection(env = {}) {
+  try {
+    const now = Date.now();
+    let list = reflectionCache.expiresAt > now ? reflectionCache.items : null;
+    if (!list && env?.ASSETS && typeof env.ASSETS.fetch === 'function') {
+      const res = await env.ASSETS.fetch(new Request('https://polskieradio.cc/rozwazania_baza.json'));
+      if (res && res.ok) {
+        const parsed = await res.json();
+        list = Array.isArray(parsed) ? parsed : [];
+        reflectionCache = { expiresAt: now + REFLECTION_CACHE_TTL_MS, items: list };
+      }
+    }
+    if (!Array.isArray(list) || !list.length) return null;
+    const today = getWarsawDateStr();
+    return list.find((r) => r && r.date === today) || list.filter((r) => r?.date).sort((a, b) => String(b.date).localeCompare(String(a.date)))[0] || list[0];
+  } catch {
+    return null;
+  }
+}
+
+function extractCommaAndColonRefs(text = '') {
+  const normalized = String(text || '').replace(/\b([1-3]?\s?[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]{1,8})\s+(\d{1,3}),(\d{1,3}(?:-\d{1,3})?)\b/g, '$1 $2:$3');
+  return extractScriptureRefs(`${text} ${normalized}`);
 }
 
 function checkRate(ip = 'anon', now = Date.now()) {
@@ -100,17 +147,19 @@ function sanitizeHistory(history) {
     .slice(-8);
 }
 
-function buildSystemInstruction({ mode, moduleName, sources, scriptureHits, memoryNotes, privateMode, tools }) {
+function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptureHits, contextGuides, todayReflection, media, memoryNotes, privateMode, tools }) {
   const modeNote = MODE_INSTRUCTIONS[mode] || MODE_INSTRUCTIONS['CC Auto'];
   const lines = [
-    'Jesteś asystentem „AI dla Jezusa” w ekosystemie Christian Culture (polskieradio.cc).',
+    assistant?.systemPrompt || 'Jesteś asystentem „AI dla Jezusa” w ekosystemie Christian Culture (polskieradio.cc).',
     'Misja: Technologia w służbie dobra. Jezus w centrum.',
+    `Rozmawiasz jako: ${assistant?.name || 'AI dla Jezusa'} (${assistant?.role || 'Główny Asystent CC'}).`,
     `Aktualny tryb pracy: ${mode} (${moduleName || 'Czat'}). ${modeNote}`,
     'Zasady bezwzględne (Sola Scriptura & Zero-QA):',
     '1. Odpowiadaj po polsku, ciepło, mądrze i rzeczowo, stosując przejrzysty Markdown (nagłówki ##/###, listy, cytaty >).',
     '2. Wszelkie dosłowne cytaty biblijne podawaj wyłącznie w brzmieniu Uwspółcześnionej Biblii Gdańskiej (UBG), oznaczając siglum i przekład (np. Prz 3,5 UBG). Nigdy nie zmyślaj treści wersetów.',
     '3. Nigdy nie podszywaj się pod Jezusa Chrystusa ani pod Boga — pomagasz jako chrześcijańskie narzędzie AI.',
-    '4. Jeśli korzystasz z dostarczonych dokumentów Christian Culture, przywołuj wyłącznie prawdziwe tytuły i linki z kontekstu poniżej.'
+    '4. Zatrzymuj użytkownika wewnątrz aplikacji AI dla Jezusa: najpierw daj kompletną treść i wskaż odtwarzacze multimedialne (audio, wideo, radio, grafiki) osadzone poniżej tej odpowiedzi, a linki zewnętrzne traktuj jako opcjonalny dodatek.',
+    '5. Przywołuj wyłącznie prawdziwe tytuły i zasoby z kontekstu poniżej.'
   ];
 
   if (Array.isArray(tools) && tools.length) {
@@ -119,6 +168,17 @@ function buildSystemInstruction({ mode, moduleName, sources, scriptureHits, memo
 
   if (!privateMode && Array.isArray(memoryNotes) && memoryNotes.length) {
     lines.push('Zapisane wskazówki pamięci użytkownika (kontekst pomocniczy):\n- ' + memoryNotes.join('\n- '));
+  }
+
+  if (todayReflection) {
+    lines.push(`Dzisiejsze rozważanie Christian Culture: „${todayReflection.title || ''}” (${todayReflection.reading || ''}) — ${todayReflection.memoryVerse || todayReflection.teaser || ''}`.slice(0, 420));
+  }
+
+  if (Array.isArray(contextGuides) && contextGuides.length) {
+    lines.push(
+      'Przewodniki tematyczne CC:\n' +
+      contextGuides.map((g) => `- ${g.topic}: ${g.summary}`).join('\n')
+    );
   }
 
   if (scriptureHits.length) {
@@ -132,6 +192,13 @@ function buildSystemInstruction({ mode, moduleName, sources, scriptureHits, memo
     lines.push(
       'Powiązane zweryfikowane zasoby Christian Culture:\n' +
       sources.map((doc, i) => `${i + 1}. ${doc.title} — ${doc.snippet} (${doc.url})`).join('\n')
+    );
+  }
+
+  if (Array.isArray(media) && media.length) {
+    lines.push(
+      'Multimedia osadzone bezpośrednio w oknie czatu pod odpowiedzią:\n' +
+      media.map((m) => `- [${m.kind}] ${m.title}`).join('\n')
     );
   }
 
@@ -258,10 +325,24 @@ async function callWorkersAiChat(env, systemInstruction, history, userPrompt, di
   }
 }
 
-function buildKnowledgeHubFallback({ message, scriptureHits, sources }) {
+function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, contextGuides, todayReflection, sources, media }) {
   const parts = [];
-  parts.push('### Odpowiedź z Bazy Wiedzy Christian Culture');
-  parts.push('Połączenie z modelem generatywnym jest obecnie niedostępne, więc przedstawiam zweryfikowane materiały bezpośrednio z indeksu Christian Culture.');
+  const speaker = assistant?.name || 'AI dla Jezusa';
+  const heading = contextGuides?.[0]?.topic
+    ? `### ${contextGuides[0].topic}`
+    : `### ${speaker} · ${mode || 'Ekosystem Christian Culture'}`;
+  parts.push(heading);
+
+  if (contextGuides?.length) {
+    const guide = contextGuides[0];
+    parts.push(`${speaker}: ${guide.summary}`);
+    const verse = Array.isArray(guide.keyVerses) && guide.keyVerses[0];
+    if (verse?.text) {
+      parts.push(`> „${verse.text}” — **${verse.ref}** (UBG)`);
+    }
+  } else {
+    parts.push(`${speaker}: Przygotowałem dla Ciebie najważniejsze treści i multimedia bezpośrednio tutaj, bez wychodzenia z aplikacji AI dla Jezusa.`);
+  }
 
   if (scriptureHits.length) {
     for (const s of scriptureHits) {
@@ -269,15 +350,28 @@ function buildKnowledgeHubFallback({ message, scriptureHits, sources }) {
     }
   }
 
+  if (todayReflection && /dzis|dzisiaj|rozwaz|nadziej|slowo|kurs|plan|wiar/i.test(message)) {
+    const cleanTitle = String(todayReflection.title || '').replace(/^☀️\s*/, '').trim();
+    const teaser = String(todayReflection.teaser || todayReflection.memoryVerse || '').trim();
+    if (cleanTitle) {
+      parts.push(`**Dzisiejsze słowo w Christian Culture — ${cleanTitle}:** ${teaser}`);
+    }
+  }
+
   if (sources.length) {
-    parts.push('**Powiązane opracowania i narzędzia CC:**');
+    parts.push('**Zintegrowana wiedza z indeksu Christian Culture:**');
     for (const doc of sources) {
       parts.push(`- **${doc.title}**${doc.snippet ? ` — ${doc.snippet}` : ''}`);
     }
-  } else {
-    parts.push(`Dla zapytania „${message}” nie znaleziono bezpośredniego dopasowania w lokalnym indeksie, ale możesz otworzyć pełne Pismo Święte w **MojaBiblia (UBG)** albo skorzystać z modułu **Biblia** w panelu bocznym.`);
+  } else if (!contextGuides?.length) {
+    parts.push(`Dla hasła „${message}” poniżej w oknie czatu osadziłem odtwarzacze multimedialne Christian Culture, a ponadto możesz przejrzeć pełne Pismo Święte w module **Biblia** po lewej.`);
   }
 
+  if (Array.isArray(media) && media.length) {
+    parts.push('**Gotowe multimedia w tym oknie (odtwarzaj poniżej bez opuszczania aplikacji):**');
+  }
+
+  parts.push(`*Źródło: zweryfikowane zasoby Bazy Wiedzy Christian Culture (UBG · 0 zł · ${speaker}).*`);
   return parts.join('\n\n');
 }
 
@@ -342,6 +436,14 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   const rawMessage = typeof payload.message === 'string' ? payload.message.trim() : '';
   const mode = typeof payload.mode === 'string' && MODE_INSTRUCTIONS[payload.mode] ? payload.mode : 'CC Auto';
   const moduleName = typeof payload.module === 'string' && payload.module.trim() ? payload.module.trim().slice(0, 60) : 'Czat';
+  const assistant = resolveAiAssistant(payload.assistantId);
+  const assistantMeta = {
+    id: assistant.id,
+    name: assistant.name,
+    role: assistant.role,
+    avatar: assistant.avatar,
+    avatarFallback: assistant.avatarFallback
+  };
   const attachmentName = typeof payload.attachmentName === 'string' ? payload.attachmentName.trim().slice(0, 120) : '';
   const attachmentText = typeof payload.attachmentText === 'string' ? payload.attachmentText.trim().slice(0, 8000) : '';
   const privateMode = Boolean(payload.privateMode);
@@ -363,11 +465,13 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   if (INJECTION_RE.some((re) => re.test(effectiveMessage))) {
     return {
       ok: true,
-      reply: 'Jestem narzędziem „AI dla Jezusa” Christian Culture — pomagam w studiowaniu Pisma Świętego, tworzeniu wartościowych treści oraz pracy z dokumentami. W czym mogę Ci dziś pomóc?',
+      reply: `Jestem ${assistant.name} w ekosystemie „AI dla Jezusa” Christian Culture — pomagam w studiowaniu Pisma Świętego, tworzeniu treści i odkrywaniu naszych multimediów. W czym mogę Ci dziś pomóc?`,
       provider: 'guard',
+      assistant: assistantMeta,
       mode,
       module: moduleName,
       sources: [],
+      media: [],
       scriptureRefs: [],
       toolsUsed: tools,
       zeroCostGuaranteed: true
@@ -383,7 +487,11 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     type: item.type
   }));
 
-  const detectedRefs = extractScriptureRefs(effectiveMessage).slice(0, 2);
+  const contextGuides = matchContextGuides(effectiveMessage);
+  const media = resolveEcosystemMedia(effectiveMessage, { assistantId: assistant.id, mode, limit: 4 });
+  const todayReflection = await loadTodayReflection(env);
+
+  const detectedRefs = extractCommaAndColonRefs(effectiveMessage).slice(0, 2);
   const scriptureHits = [];
   for (const ref of detectedRefs) {
     const found = findScripture(ref);
@@ -391,14 +499,19 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   }
 
   const toolsUsed = [...tools];
-  if (sources.length) toolsUsed.push('cc_search');
+  if (sources.length || contextGuides.length) toolsUsed.push('cc_search');
   if (scriptureHits.length) toolsUsed.push('cc_find_scripture');
+  if (media.length) toolsUsed.push('cc_media_hub');
 
   const systemInstruction = buildSystemInstruction({
+    assistant,
     mode,
     moduleName,
     sources,
     scriptureHits,
+    contextGuides,
+    todayReflection,
+    media,
     memoryNotes,
     privateMode,
     tools: toolsUsed
@@ -446,9 +559,11 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       ok: true,
       reply: aiResult.reply,
       provider: aiResult.provider,
+      assistant: assistantMeta,
       mode,
       module: moduleName,
       sources,
+      media,
       scriptureRefs: scriptureHits.map((s) => s.reference),
       toolsUsed: [...new Set(toolsUsed)],
       zeroCostGuaranteed: true
@@ -457,12 +572,23 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
 
   return {
     ok: true,
-    reply: buildKnowledgeHubFallback({ message: effectiveMessage, scriptureHits, sources }),
+    reply: buildKnowledgeHubFallback({
+      assistant,
+      mode,
+      message: effectiveMessage,
+      scriptureHits,
+      contextGuides,
+      todayReflection,
+      sources,
+      media
+    }),
     provider: 'cc-knowledge-hub',
     providerDiagnostic: diagnostics.length ? diagnostics.join(',') : (env.GEMINI_API_KEY ? 'gemini:unavailable' : 'no_key'),
+    assistant: assistantMeta,
     mode,
     module: moduleName,
     sources,
+    media,
     scriptureRefs: scriptureHits.map((s) => s.reference),
     toolsUsed: [...new Set(toolsUsed)],
     zeroCostGuaranteed: true
@@ -476,12 +602,15 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
 
   if (request.method === 'GET') {
     const docs = getCanonicalDocuments();
+    const hubs = getAllEcosystemHubs();
     return Response.json(
       {
         ok: true,
         service: 'ai-dla-jezusa-chat',
         indexDocuments: docs.length,
         zeroCostGuaranteed: true,
+        assistants: hubs.assistants,
+        hubs,
         providersConfigured: {
           gemini: Boolean(env.GEMINI_API_KEY),
           groq: Boolean(env.GROQ_API_KEY),

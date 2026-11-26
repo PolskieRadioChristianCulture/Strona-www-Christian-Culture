@@ -2,6 +2,59 @@ const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
 const STORAGE_PREFIX = 'cc_ai_dla_jezusa_v2';
+const DEFAULT_ASSISTANT_ID = 'ai-dla-jezusa';
+const AI_PERSONAS = {
+  'ai-dla-jezusa': {
+    id: 'ai-dla-jezusa',
+    name: 'AI dla Jezusa',
+    role: 'Główny Asystent CC',
+    avatar: '/ai/assets/icon-ai-halo.webp',
+    avatarFallback: '/ai/assets/icon-ai-halo.webp',
+    rate: 1.0,
+    pitch: 1.0
+  },
+  rut: {
+    id: 'rut',
+    name: 'Rut',
+    role: 'Gospodyni CC · Radio, VOD i Społeczność',
+    avatar: '/images/chat/lumi_avatar_rut_circle.webp',
+    avatarFallback: '/images/chat/assistants/asystentka-1.webp',
+    rate: 1.02,
+    pitch: 1.06
+  },
+  lea: {
+    id: 'lea',
+    name: 'Lea',
+    role: 'Planistka · Kurs Codzienny i Akademia',
+    avatar: '/images/chat/lumi_avatar_lea_circle.webp',
+    avatarFallback: '/images/chat/assistants/asystentka-2.webp',
+    rate: 1.04,
+    pitch: 1.0
+  },
+  noemi: {
+    id: 'noemi',
+    name: 'Noemi',
+    role: 'Doradca Biblijny · Słowo i Modlitwa',
+    avatar: '/images/chat/lumi_avatar_noemi_circle.webp',
+    avatarFallback: '/images/chat/assistants/asystentka-3.webp',
+    rate: 0.96,
+    pitch: 0.96
+  },
+  miriam: {
+    id: 'miriam',
+    name: 'Miriam',
+    role: 'Psalmy, Biblia Śpiewana i Uwielbienie',
+    avatar: '/images/chat/lumi_avatar_miriam_circle.webp',
+    avatarFallback: '/images/chat/assistants/asystentka-4.webp',
+    rate: 1.0,
+    pitch: 1.1
+  }
+};
+
+function getPersona(id) {
+  return AI_PERSONAS[id] || AI_PERSONAS[DEFAULT_ASSISTANT_ID];
+}
+
 const DEFAULT_PROJECTS = [
   'Studium Listu do Rzymian',
   'Plan treści – grudzień',
@@ -110,6 +163,8 @@ const voiceWave = $('#voiceWave');
 const voiceInterimEl = $('#voiceInterim');
 const voiceStopBtn = $('#voiceStopBtn');
 const ambientCanvas = $('#aiAmbientCanvas');
+const assistantStrip = $('#assistantStrip');
+const voiceAutoReadBtn = $('#voiceAutoReadBtn');
 const micBtn = $('#micBtn');
 const sendBtn = $('#sendBtn');
 const infoDialog = $('#infoDialog');
@@ -142,7 +197,12 @@ let webSearchEnabled = false;
 let privateMode = false;
 let attachmentName = '';
 let attachmentText = '';
+let attachmentMediaUrl = '';
+let attachmentMediaKind = '';
 let busy = false;
+let autoReadEnabled = false;
+let activeSpeakingBubble = null;
+let activeAudioEl = null;
 let toastTimer = null;
 let recognition = null;
 let isListening = false;
@@ -157,6 +217,163 @@ let micStream = null;
 let speechEnergy = 0;
 let streamRevealTimer = null;
 const waveBars = voiceWave ? Array.from(voiceWave.querySelectorAll('span')) : [];
+
+function getActiveAssistantId() {
+  return AI_PERSONAS[state?.assistantId] ? state.assistantId : DEFAULT_ASSISTANT_ID;
+}
+
+function setActiveAssistant(id, { announce = true } = {}) {
+  const persona = getPersona(id);
+  state.assistantId = persona.id;
+  saveState();
+  syncAssistantButtons();
+  if (announce) {
+    showToast(`Aktywny asystent: ${persona.name} (${persona.role})`);
+  }
+}
+
+function syncAssistantButtons() {
+  const activeId = getActiveAssistantId();
+  $$('.assistant-pill').forEach((btn) => {
+    const match = btn.dataset.assistant === activeId;
+    btn.classList.toggle('active', match);
+    btn.setAttribute('aria-checked', String(match));
+  });
+}
+
+function buildAssistantBar(className = 'chat-assistant-bar') {
+  const bar = document.createElement('div');
+  bar.className = className;
+
+  const label = document.createElement('span');
+  label.className = 'chat-assistant-bar-label';
+  label.textContent = 'Rozmawiasz z:';
+
+  const group = document.createElement('div');
+  group.className = 'chat-assistant-pills';
+  group.setAttribute('role', 'radiogroup');
+  group.setAttribute('aria-label', 'Zmień asystenta w rozmowie');
+
+  const activeId = getActiveAssistantId();
+  for (const p of Object.values(AI_PERSONAS)) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'assistant-pill' + (p.id === activeId ? ' active' : '');
+    btn.dataset.assistant = p.id;
+    btn.setAttribute('role', 'radio');
+    btn.setAttribute('aria-checked', String(p.id === activeId));
+
+    const img = document.createElement('img');
+    img.src = p.avatar;
+    img.alt = p.name;
+    img.width = 22;
+    img.height = 22;
+    img.onerror = () => {
+      if (p.avatarFallback && img.src !== location.origin + p.avatarFallback) {
+        img.src = p.avatarFallback;
+      }
+    };
+
+    const span = document.createElement('span');
+    span.textContent = p.name;
+    btn.append(img, span);
+    btn.addEventListener('click', () => setActiveAssistant(p.id));
+    group.appendChild(btn);
+  }
+
+  bar.append(label, group);
+  return bar;
+}
+
+function pauseActiveAudio(exceptEl = null) {
+  if (activeAudioEl && activeAudioEl !== exceptEl) {
+    try { activeAudioEl.pause(); } catch {}
+    activeAudioEl = null;
+  }
+}
+
+function openImageLightbox(src, title = 'Podgląd grafiki Christian Culture') {
+  if (!src) return;
+  infoDialogTitle.textContent = title;
+  infoDialogBody.replaceChildren();
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = title;
+  img.style.width = '100%';
+  img.style.maxHeight = '65vh';
+  img.style.objectFit = 'contain';
+  img.style.borderRadius = '12px';
+  infoDialogBody.appendChild(img);
+  infoDialog.showModal();
+}
+
+function stopSpeaking() {
+  try {
+    window.speechSynthesis?.cancel?.();
+  } catch {}
+  if (activeSpeakingBubble) {
+    activeSpeakingBubble.classList.remove('is-speaking');
+    activeSpeakingBubble.querySelectorAll('.is-speaking-btn').forEach((b) => {
+      b.classList.remove('is-speaking-btn');
+      b.textContent = '🔊 Odsłuchaj';
+    });
+    activeSpeakingBubble = null;
+  }
+}
+
+function stripMarkdownForSpeech(mdText) {
+  return String(mdText || '')
+    .replace(/```[\s\S]*?```/g, ' kod programu ')
+    .replace(/[*_#`>~]/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function speakReply(text, assistantId, bubbleEl, btnEl) {
+  const synth = window.speechSynthesis;
+  if (!synth || typeof window.SpeechSynthesisUtterance !== 'function') {
+    showToast('Twoja przeglądarka nie obsługuje syntezatora mowy.');
+    return;
+  }
+
+  const wasSameBubble = activeSpeakingBubble === bubbleEl && synth.speaking;
+  stopSpeaking();
+  if (wasSameBubble) return;
+
+  const clean = stripMarkdownForSpeech(text).slice(0, 1400);
+  if (!clean) return;
+
+  const persona = getPersona(assistantId);
+  const utter = new SpeechSynthesisUtterance(clean);
+  utter.lang = 'pl-PL';
+  utter.rate = persona.rate || 1.0;
+  utter.pitch = persona.pitch || 1.0;
+
+  try {
+    const voices = synth.getVoices?.() || [];
+    const plVoice =
+      voices.find((v) => /^pl/i.test(v.lang) && /(zofia|paulina|ewa|agnieszka|ola|female|natural)/i.test(v.name)) ||
+      voices.find((v) => /^pl/i.test(v.lang));
+    if (plVoice) utter.voice = plVoice;
+  } catch {}
+
+  activeSpeakingBubble = bubbleEl;
+  bubbleEl?.classList.add('is-speaking');
+  if (btnEl) {
+    btnEl.classList.add('is-speaking-btn');
+    btnEl.textContent = '⏹ Zatrzymaj głos';
+  }
+
+  utter.onend = () => stopSpeaking();
+  utter.onerror = () => stopSpeaking();
+  try {
+    synth.speak(utter);
+  } catch {
+    stopSpeaking();
+  }
+}
 
 function getUidScope(uid = currentUser?.uid) {
   return uid ? String(uid) : 'guest';
@@ -184,10 +401,11 @@ function loadState(uid = currentUser?.uid) {
       chats: Array.isArray(raw.chats) ? raw.chats.slice(0, 40) : [],
       notes: Array.isArray(raw.notes) ? raw.notes.slice(0, 60) : [],
       memory: Array.isArray(raw.memory) ? raw.memory.slice(0, 20) : [],
-      projects: Array.isArray(raw.projects) && raw.projects.length ? raw.projects.slice(0, 20) : [...DEFAULT_PROJECTS]
+      projects: Array.isArray(raw.projects) && raw.projects.length ? raw.projects.slice(0, 20) : [...DEFAULT_PROJECTS],
+      assistantId: typeof raw.assistantId === 'string' && AI_PERSONAS[raw.assistantId] ? raw.assistantId : DEFAULT_ASSISTANT_ID
     };
   } catch {
-    return empty;
+    return { ...empty, assistantId: DEFAULT_ASSISTANT_ID };
   }
 }
 
@@ -286,6 +504,7 @@ infoDialog?.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     if (isListening) stopDictation();
+    stopSpeaking();
     closeDrawers();
     modelMenu.hidden = true;
     toolsMenu.hidden = true;
@@ -588,6 +807,191 @@ function stopStreamReveal() {
   }
 }
 
+function renderMediaDeck(mediaItems) {
+  if (!Array.isArray(mediaItems) || !mediaItems.length) return null;
+  const deck = document.createElement('div');
+  deck.className = 'media-deck';
+
+  for (const item of mediaItems) {
+    if (!item || !item.title) continue;
+    const card = document.createElement('article');
+    card.className = `media-card media-card-${item.kind || 'social'}`;
+
+    if (item.badge) {
+      const badge = document.createElement('span');
+      badge.className = 'media-card-badge';
+      if (item.kind === 'radio') {
+        const dot = document.createElement('span');
+        dot.className = 'media-live-dot';
+        badge.appendChild(dot);
+      }
+      badge.appendChild(document.createTextNode(item.badge));
+      card.appendChild(badge);
+    }
+
+    if (item.kind === 'video' && item.youtubeId) {
+      const posterWrap = document.createElement('div');
+      posterWrap.className = 'media-poster-wrap';
+      const posterImg = document.createElement('img');
+      posterImg.src = item.thumbnail || `https://i.ytimg.com/vi/${encodeURIComponent(item.youtubeId)}/hqdefault.jpg`;
+      posterImg.alt = item.title;
+      posterImg.loading = 'lazy';
+      posterImg.decoding = 'async';
+
+      const playFab = document.createElement('button');
+      playFab.type = 'button';
+      playFab.className = 'media-play-fab';
+      playFab.setAttribute('aria-label', `Odtwórz wideo: ${item.title}`);
+      playFab.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>';
+      playFab.onclick = () => {
+        pauseActiveAudio();
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(item.youtubeId)}?autoplay=1&rel=0`;
+        iframe.title = item.title;
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        posterWrap.replaceChildren(iframe);
+      };
+
+      posterWrap.append(posterImg, playFab);
+      card.appendChild(posterWrap);
+    } else if (item.kind === 'image' && (item.imageUrl || item.thumbnail)) {
+      const img = document.createElement('img');
+      img.className = 'media-image-zoom';
+      img.src = item.imageUrl || item.thumbnail;
+      img.alt = item.title;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.onclick = () => openImageLightbox(img.src, item.title);
+      card.appendChild(img);
+    }
+
+    const row = document.createElement('div');
+    row.className = 'media-card-row';
+    if (item.thumbnail && item.kind !== 'video' && item.kind !== 'image') {
+      const thumb = document.createElement('img');
+      thumb.className = 'media-thumb-sq';
+      thumb.src = item.thumbnail;
+      thumb.alt = '';
+      thumb.loading = 'lazy';
+      thumb.onclick = () => openImageLightbox(item.thumbnail, item.title);
+      row.appendChild(thumb);
+    }
+
+    const meta = document.createElement('div');
+    meta.className = 'media-card-meta';
+    const strong = document.createElement('strong');
+    strong.textContent = item.title;
+    const small = document.createElement('small');
+    small.textContent = item.subtitle || '';
+    meta.append(strong, small);
+    row.appendChild(meta);
+    card.appendChild(row);
+
+    if ((item.kind === 'audio' || item.kind === 'radio') && (item.audioUrl || item.streamUrl)) {
+      const srcUrl = item.audioUrl || item.streamUrl;
+      const audio = document.createElement('audio');
+      audio.className = 'media-audio-ctrl';
+      audio.controls = true;
+      audio.preload = 'none';
+      audio.src = srcUrl;
+      audio.addEventListener('play', () => {
+        pauseActiveAudio(audio);
+        activeAudioEl = audio;
+      });
+
+      const foot = document.createElement('div');
+      foot.className = 'media-card-foot';
+      const playBtn = document.createElement('button');
+      playBtn.type = 'button';
+      playBtn.className = 'media-play-btn';
+      playBtn.textContent = item.kind === 'radio' ? '▶ Słuchaj na żywo' : '▶ Odtwórz audio';
+      playBtn.onclick = () => {
+        if (audio.paused) {
+          pauseActiveAudio(audio);
+          activeAudioEl = audio;
+          audio.play().catch(() => showToast('Kliknij odtwarzacz powyżej, aby uruchomić dźwięk.'));
+          playBtn.textContent = '⏸ Pauza';
+        } else {
+          audio.pause();
+          playBtn.textContent = item.kind === 'radio' ? '▶ Słuchaj na żywo' : '▶ Odtwórz audio';
+        }
+      };
+      audio.addEventListener('pause', () => {
+        playBtn.textContent = item.kind === 'radio' ? '▶ Słuchaj na żywo' : '▶ Odtwórz audio';
+      });
+      audio.addEventListener('play', () => {
+        playBtn.textContent = '⏸ Pauza';
+      });
+
+      foot.appendChild(playBtn);
+      if (item.url) {
+        const ext = document.createElement('a');
+        ext.className = 'media-ext-link';
+        ext.href = item.url;
+        ext.target = '_blank';
+        ext.rel = 'noopener noreferrer';
+        ext.textContent = 'Otwórz stronę ↗';
+        foot.appendChild(ext);
+      }
+      card.append(audio, foot);
+    } else if (item.kind === 'spotify' && item.embedUrl) {
+      const spotifySlot = document.createElement('div');
+      const foot = document.createElement('div');
+      foot.className = 'media-card-foot';
+      const loadBtn = document.createElement('button');
+      loadBtn.type = 'button';
+      loadBtn.className = 'media-play-btn';
+      loadBtn.textContent = '▶ Odtwarzaj Spotify tutaj';
+      loadBtn.onclick = () => {
+        pauseActiveAudio();
+        const frame = document.createElement('iframe');
+        frame.className = 'media-spotify-frame';
+        frame.src = item.embedUrl;
+        frame.title = item.title;
+        frame.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+        frame.loading = 'lazy';
+        spotifySlot.replaceChildren(frame);
+        loadBtn.hidden = true;
+      };
+      foot.appendChild(loadBtn);
+      if (item.url) {
+        const ext = document.createElement('a');
+        ext.className = 'media-ext-link';
+        ext.href = item.url;
+        ext.target = '_blank';
+        ext.rel = 'noopener noreferrer';
+        ext.textContent = 'Otwórz ↗';
+        foot.appendChild(ext);
+      }
+      card.append(spotifySlot, foot);
+    } else if (item.url) {
+      const foot = document.createElement('div');
+      foot.className = 'media-card-foot';
+      if (item.kind === 'image') {
+        const zoomBtn = document.createElement('button');
+        zoomBtn.type = 'button';
+        zoomBtn.className = 'media-play-btn';
+        zoomBtn.textContent = '🔍 Powiększ grafikę';
+        zoomBtn.onclick = () => openImageLightbox(item.imageUrl || item.thumbnail, item.title);
+        foot.appendChild(zoomBtn);
+      }
+      const ext = document.createElement('a');
+      ext.className = 'media-ext-link';
+      ext.href = item.url;
+      ext.target = '_blank';
+      ext.rel = 'noopener noreferrer';
+      ext.textContent = 'Przejdź ↗';
+      foot.appendChild(ext);
+      card.appendChild(foot);
+    }
+
+    deck.appendChild(card);
+  }
+
+  return deck.children.length ? deck : null;
+}
+
 function renderConversation(animateMsgId = '') {
   stopStreamReveal();
   conversationLog.replaceChildren();
@@ -597,28 +1001,78 @@ function renderConversation(animateMsgId = '') {
     return;
   }
 
+  conversationLog.appendChild(buildAssistantBar('chat-assistant-bar'));
+
   let revealTarget = null;
   let revealFullText = '';
+  let revealBubble = null;
+  let revealSpeakBtn = null;
+  let revealAssistantId = getActiveAssistantId();
 
   for (let i = 0; i < thread.messages.length; i += 1) {
     const msg = thread.messages[i];
     if (msg.role === 'user') {
       const userBubble = document.createElement('article');
       userBubble.className = 'chat-bubble-user';
-      userBubble.textContent = msg.attachmentName ? `[${msg.attachmentName}]\n${msg.text}` : msg.text;
+      if (msg.attachmentName && !msg.mediaUrl) {
+        userBubble.textContent = `[${msg.attachmentName}]\n${msg.text}`;
+      } else {
+        userBubble.textContent = msg.text;
+      }
+      if (msg.mediaUrl) {
+        const mediaWrap = document.createElement('div');
+        mediaWrap.className = 'user-media-preview';
+        if (msg.mediaKind === 'image') {
+          const im = document.createElement('img');
+          im.src = msg.mediaUrl;
+          im.alt = msg.attachmentName || 'Załączony obraz';
+          im.onclick = () => openImageLightbox(msg.mediaUrl, msg.attachmentName || 'Załączony obraz');
+          mediaWrap.appendChild(im);
+        } else if (msg.mediaKind === 'audio') {
+          const au = document.createElement('audio');
+          au.controls = true;
+          au.src = msg.mediaUrl;
+          mediaWrap.appendChild(au);
+        } else if (msg.mediaKind === 'video') {
+          const vd = document.createElement('video');
+          vd.controls = true;
+          vd.src = msg.mediaUrl;
+          mediaWrap.appendChild(vd);
+        }
+        userBubble.appendChild(mediaWrap);
+      }
       conversationLog.appendChild(userBubble);
     } else {
+      const persona = getPersona(msg.assistant?.id || DEFAULT_ASSISTANT_ID);
       const aiBubble = document.createElement('article');
       aiBubble.className = 'chat-bubble-ai';
 
       const head = document.createElement('div');
       head.className = 'chat-bubble-ai-head';
-      const titleSpan = document.createElement('span');
-      titleSpan.textContent = 'AI dla Jezusa';
+      const avatar = document.createElement('img');
+      avatar.className = 'chat-bubble-ai-avatar';
+      avatar.src = msg.assistant?.avatar || persona.avatar;
+      avatar.alt = msg.assistant?.name || persona.name;
+      avatar.width = 32;
+      avatar.height = 32;
+      avatar.onerror = () => {
+        if (persona.avatarFallback && avatar.src !== location.origin + persona.avatarFallback) {
+          avatar.src = persona.avatarFallback;
+        }
+      };
+
+      const speaker = document.createElement('div');
+      speaker.className = 'chat-bubble-ai-speaker';
+      const speakerName = document.createElement('span');
+      speakerName.textContent = msg.assistant?.name || persona.name;
+      const speakerRole = document.createElement('small');
+      speakerRole.textContent = msg.assistant?.role || persona.role;
+      speaker.append(speakerName, speakerRole);
+
       const badgeSpan = document.createElement('span');
       badgeSpan.className = 'provider-badge';
       badgeSpan.textContent = `${providerLabel(msg.provider)} · ${msg.mode || currentMode}`;
-      head.append(titleSpan, badgeSpan);
+      head.append(avatar, speaker, badgeSpan);
       aiBubble.appendChild(head);
 
       const mdSlot = document.createElement('div');
@@ -626,11 +1080,18 @@ function renderConversation(animateMsgId = '') {
       if (animateMsgId && msg.id === animateMsgId && typeof msg.text === 'string' && msg.text.length > 24) {
         revealTarget = mdSlot;
         revealFullText = msg.text;
+        revealBubble = aiBubble;
+        revealAssistantId = persona.id;
         mdSlot.appendChild(renderMarkdownSafe(msg.text.slice(0, 12)));
       } else {
         mdSlot.appendChild(renderMarkdownSafe(msg.text));
       }
       aiBubble.appendChild(mdSlot);
+
+      const mediaDeck = renderMediaDeck(msg.media);
+      if (mediaDeck) {
+        aiBubble.appendChild(mediaDeck);
+      }
 
       if (Array.isArray(msg.sources) && msg.sources.length) {
         const srcWrap = document.createElement('div');
@@ -650,6 +1111,15 @@ function renderConversation(animateMsgId = '') {
 
       const actions = document.createElement('div');
       actions.className = 'msg-actions';
+
+      const speakBtn = document.createElement('button');
+      speakBtn.type = 'button';
+      speakBtn.className = 'msg-action-btn';
+      speakBtn.textContent = '🔊 Odsłuchaj';
+      speakBtn.onclick = () => speakReply(msg.text, persona.id, aiBubble, speakBtn);
+      if (animateMsgId && msg.id === animateMsgId) {
+        revealSpeakBtn = speakBtn;
+      }
 
       const copyBtn = document.createElement('button');
       copyBtn.type = 'button';
@@ -687,7 +1157,7 @@ function renderConversation(animateMsgId = '') {
         showToast('Zapisano odpowiedź w Notatnikach.');
       };
 
-      actions.append(copyBtn, saveNoteBtn);
+      actions.append(speakBtn, copyBtn, saveNoteBtn);
 
       if (i === thread.messages.length - 1 && thread.messages[i - 1]?.role === 'user') {
         const retryBtn = document.createElement('button');
@@ -710,9 +1180,29 @@ function renderConversation(animateMsgId = '') {
   }
 
   if (busy) {
+    const activeP = getPersona(getActiveAssistantId());
     const loading = document.createElement('article');
     loading.className = 'chat-bubble-ai typing-bubble';
-    loading.innerHTML = '<div class="chat-bubble-ai-head"><span>AI dla Jezusa</span><span class="provider-badge">Analiza</span></div><p class="typing-line"><span class="typing-dots" aria-hidden="true"><i></i><i></i><i></i></span> Sprawdzam źródła Christian Culture i przygotowuję odpowiedź...</p>';
+
+    const head = document.createElement('div');
+    head.className = 'chat-bubble-ai-head';
+    const av = document.createElement('img');
+    av.className = 'chat-bubble-ai-avatar';
+    av.src = activeP.avatar;
+    av.alt = activeP.name;
+    av.width = 32;
+    av.height = 32;
+    const sp = document.createElement('span');
+    sp.textContent = activeP.name;
+    const bdg = document.createElement('span');
+    bdg.className = 'provider-badge';
+    bdg.textContent = 'Analiza CC';
+    head.append(av, sp, bdg);
+
+    const pLine = document.createElement('p');
+    pLine.className = 'typing-line';
+    pLine.innerHTML = '<span class="typing-dots" aria-hidden="true"><i></i><i></i><i></i></span> Przeszukuję indeks Christian Culture i dobieram multimedia...';
+    loading.append(head, pLine);
     conversationLog.appendChild(loading);
   }
 
@@ -733,16 +1223,29 @@ function renderConversation(animateMsgId = '') {
       }
       revealTarget.replaceChildren(rendered);
       if (scroller) scroller.scrollTop = scroller.scrollHeight;
-      if (cursor >= revealFullText.length) stopStreamReveal();
+      if (cursor >= revealFullText.length) {
+        stopStreamReveal();
+        if (autoReadEnabled && revealBubble) {
+          speakReply(revealFullText, revealAssistantId, revealBubble, revealSpeakBtn);
+        }
+      }
     }, 34);
+  } else if (autoReadEnabled && animateMsgId) {
+    const last = thread.messages[thread.messages.length - 1];
+    if (last && last.id === animateMsgId && last.role === 'assistant') {
+      const lastBubble = conversationLog.querySelector('.chat-bubble-ai:last-of-type');
+      const lastBtn = lastBubble?.querySelector('.msg-action-btn');
+      if (lastBubble) speakReply(last.text, getActiveAssistantId(), lastBubble, lastBtn);
+    }
   }
 }
 
 // ================= WYSYŁANIE ZAPYTANIA DO PRAWDZIWEGO API =================
 async function sendChatMessage(textOverride, titleHint = '') {
   if (busy) return;
+  stopSpeaking();
   const rawText = (typeof textOverride === 'string' ? textOverride : promptInput.value).trim();
-  if (!rawText && !attachmentText) {
+  if (!rawText && !attachmentText && !attachmentMediaUrl) {
     promptInput.focus();
     return;
   }
@@ -771,12 +1274,17 @@ async function sendChatMessage(textOverride, titleHint = '') {
   const historySnapshot = thread.messages.slice(-8).map((m) => ({ role: m.role, text: m.text }));
   const currentAttName = attachmentName;
   const currentAttText = attachmentText;
+  const currentMediaUrl = attachmentMediaUrl;
+  const currentMediaKind = attachmentMediaKind;
+  const activeAsst = getPersona(getActiveAssistantId());
 
   thread.messages.push({
     id: 'u-' + Date.now(),
     role: 'user',
-    text: rawText || `Przeanalizuj załączony plik (${currentAttName}).`,
-    attachmentName: currentAttName
+    text: rawText || `Załączony materiał multimedialny: ${currentAttName || 'plik'}`,
+    attachmentName: currentAttName,
+    mediaUrl: currentMediaUrl,
+    mediaKind: currentMediaKind
   });
 
   if (typeof textOverride !== 'string') {
@@ -804,10 +1312,11 @@ async function sendChatMessage(textOverride, titleHint = '') {
       method: 'POST',
       headers,
       body: JSON.stringify({
-        message: rawText,
+        message: rawText || `Opowiedz o przesłanym pliku (${currentAttName}) w kontekście Christian Culture.`,
         history: historySnapshot,
         mode: currentMode,
         module: currentNav,
+        assistantId: activeAsst.id,
         attachmentName: currentAttName,
         attachmentText: currentAttText,
         tools: activeTools,
@@ -828,7 +1337,9 @@ async function sendChatMessage(textOverride, titleHint = '') {
       role: 'assistant',
       text: data.reply,
       provider: data.provider || 'cc-knowledge-hub',
+      assistant: data.assistant || activeAsst,
       mode: data.mode || currentMode,
+      media: Array.isArray(data.media) ? data.media : [],
       sources: Array.isArray(data.sources) ? data.sources : []
     });
     thread.updatedAt = new Date().toISOString();
@@ -843,7 +1354,9 @@ async function sendChatMessage(textOverride, titleHint = '') {
       role: 'assistant',
       text: `Nie udało się uzyskać odpowiedzi z serwera (${err.message}). Spróbuj ponownie za chwilę lub sprawdź połączenie z internetem.`,
       provider: 'guard',
+      assistant: activeAsst,
       mode: currentMode,
+      media: [],
       sources: []
     });
   } finally {
@@ -1080,9 +1593,44 @@ function renderModule(name) {
   }
 
   if (name === 'Agenci') {
-    sub.textContent = 'Wybierz wyspecjalizowanego asystenta Christian Culture, aby rozpocząć ukierunkowaną rozmowę.';
+    sub.textContent = 'Wybierz główny awatar AI dla Jezusa albo jedną z czterech asystentek Christian Culture (głos + obraz + wiedza ekosystemu).';
     const grid = document.createElement('div');
     grid.className = 'module-grid';
+    for (const p of Object.values(AI_PERSONAS)) {
+      const card = document.createElement('article');
+      card.className = 'module-card';
+      const row = document.createElement('div');
+      row.className = 'media-card-row';
+      const img = document.createElement('img');
+      img.className = 'media-thumb-sq';
+      img.src = p.avatar;
+      img.alt = p.name;
+      img.onerror = () => {
+        if (p.avatarFallback && img.src !== location.origin + p.avatarFallback) img.src = p.avatarFallback;
+      };
+      const meta = document.createElement('div');
+      meta.className = 'media-card-meta';
+      const strong = document.createElement('strong');
+      strong.textContent = p.name;
+      const small = document.createElement('small');
+      small.textContent = p.role;
+      meta.append(strong, small);
+      row.append(img, meta);
+
+      const foot = document.createElement('div');
+      foot.className = 'module-card-foot';
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'media-play-btn';
+      btn.textContent = p.id === getActiveAssistantId() ? 'Aktywna w czacie ✓' : 'Rozmawiaj teraz →';
+      btn.onclick = () => {
+        setActiveAssistant(p.id);
+        startPromptDirectly(`Cześć ${p.name}! Co dobrego polecasz mi dziś w ekosystemie Christian Culture?`, `Rozmowa z: ${p.name}`);
+      };
+      foot.appendChild(btn);
+      card.append(row, foot);
+      grid.appendChild(card);
+    }
     for (const ag of CC_AGENTS) {
       const card = document.createElement('article');
       card.className = 'module-card';
@@ -1164,36 +1712,44 @@ function renderModule(name) {
   }
 
   if (name === 'Połączenia') {
-    sub.textContent = 'Rzeczywisty status backendu AI dla Jezusa, indeksu wiedzy i serwera MCP Christian Culture.';
-    const box = document.createElement('div');
-    box.className = 'module-grid';
+    sub.textContent = 'Zintegrowane kanały Christian Culture: Radio 24/7, Biblia Audio, YouTube, Spotify, Facebook, WhatsApp, X/CCN i serwer MCP.';
+    const wrap = document.createElement('div');
+    wrap.className = 'module-stage';
     const loading = document.createElement('p');
     loading.className = 'module-empty';
-    loading.textContent = 'Sprawdzam połączenie z backendem /api/ai-dla-jezusa/v1...';
-    box.appendChild(loading);
-    moduleStage.appendChild(box);
+    loading.textContent = 'Ładuję zintegrowane kanały Christian Culture...';
+    wrap.appendChild(loading);
+    moduleStage.appendChild(wrap);
 
     Promise.all([
       fetch('/api/ai-dla-jezusa/v1/health').then((r) => r.json()).catch(() => null),
       fetch('/api/ai-dla-jezusa/v1/chat').then((r) => r.json()).catch(() => null)
     ]).then(([health, chatStatus]) => {
-      box.replaceChildren();
+      wrap.replaceChildren();
+
+      const hubs = chatStatus?.hubs;
+      if (hubs) {
+        const playable = [
+          ...(hubs.radioStreams || []),
+          ...(hubs.spotifyShows || []).slice(0, 2),
+          ...(hubs.socialHub || [])
+        ];
+        const deck = renderMediaDeck(playable);
+        if (deck) wrap.appendChild(deck);
+      }
+
+      const box = document.createElement('div');
+      box.className = 'module-grid';
       const items = [
         {
-          title: 'Indeks Wiedzy CC + RAG',
-          desc: health ? `Aktywny · ${health.index_documents} zweryfikowanych dokumentów (${health.governance})` : 'Brak odpowiedzi endpointu /health',
+          title: 'Indeks Wiedzy CC + Multimedia RAG',
+          desc: health ? `Aktywny · ${health.index_documents} dokumentów · ${hubs?.counts?.bibliaAudioEpisodes || 50} odcinków Biblii Audio · ${hubs?.counts?.uwielbienieVideos || 38} wideo śpiewanych` : 'Brak odpowiedzi endpointu /health',
           href: '/wyszukiwarka',
           linkText: 'Wyszukiwarka CC ↗'
         },
         {
-          title: 'Silnik Konwersacyjny AI',
-          desc: chatStatus ? `Gemini: ${chatStatus.providersConfigured?.gemini ? 'Aktywny ✓' : 'Wyłączony'} · Baza CC Fallback: Aktywny ✓ · Koszt: 0 zł` : 'Brak odpowiedzi /chat',
-          href: '/biblia-audio',
-          linkText: 'Biblia Audio CC ↗'
-        },
-        {
-          title: 'Zdalny Serwer MCP (Read-Only)',
-          desc: 'Endpoint JSON-RPC 2.0: https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp (narzędzia: cc_search, cc_find_scripture, cc_get_source_policy)',
+          title: 'Zdalny Serwer MCP (Read-Only · 0 zł)',
+          desc: 'Endpoint JSON-RPC 2.0: https://polskieradio.cc/api/ai-dla-jezusa/v1/mcp (cc_search, cc_find_scripture, cc_get_source_policy)',
           href: '/api/ai-dla-jezusa/v1/openapi.json',
           linkText: 'Specyfikacja OpenAPI ↗'
         }
@@ -1214,6 +1770,7 @@ function renderModule(name) {
         card.append(strong, p, a);
         box.appendChild(card);
       }
+      wrap.appendChild(box);
     });
     return;
   }
@@ -1437,6 +1994,7 @@ function handleAuthUpdate(user) {
     byokConfig = loadByokConfig(validUser?.uid);
     renderRecentChats();
     renderRightProjects();
+    syncAssistantButtons();
     if (currentNav === 'Czat') showWelcomeView();
     else renderModule(currentNav);
   }
@@ -1680,27 +2238,39 @@ $$('.prompt-card').forEach((card) => {
   });
 });
 
-// Załącznik tekstowy
-attachBtn?.addEventListener('click', () => fileInput?.click());
-fileInput?.addEventListener('change', async () => {
-  const f = fileInput.files?.[0];
+// Załączniki multimedialne (obraz, audio, wideo, tekst + wklejanie ze schowka i upuszczanie)
+async function handleAttachedFile(f) {
   if (!f) return;
-  attachmentName = f.name;
-  try {
-    if (/\.(txt|md|csv|json|html?|xml)$/i.test(f.name) || f.type.startsWith('text/')) {
+  clearAttachment();
+  attachmentName = f.name || 'załącznik';
+
+  if (f.type?.startsWith('image/')) {
+    attachmentMediaKind = 'image';
+    attachmentMediaUrl = URL.createObjectURL(f);
+  } else if (f.type?.startsWith('audio/')) {
+    attachmentMediaKind = 'audio';
+    attachmentMediaUrl = URL.createObjectURL(f);
+  } else if (f.type?.startsWith('video/')) {
+    attachmentMediaKind = 'video';
+    attachmentMediaUrl = URL.createObjectURL(f);
+  } else if (/\.(txt|md|csv|json|html?|xml)$/i.test(f.name) || f.type?.startsWith('text/')) {
+    try {
       const txt = await f.text();
       attachmentText = txt.slice(0, 12_000);
-    } else {
+    } catch {
       attachmentText = '';
-      showToast('Bezpośrednia analiza działa dla plików tekstowych (.txt, .md, .csv, .json). Dla PDF wklej fragment tekstu.');
     }
-  } catch {
-    attachmentText = '';
+  } else {
+    showToast('Obsługiwane są pliki tekstowe (.txt, .md, .csv, .json) oraz grafika, audio i wideo.');
   }
 
   attachmentChip.replaceChildren();
   const label = document.createElement('span');
-  label.textContent = attachmentText ? `Załącznik (${attachmentName} · wczytano treść)` : `Załącznik: ${attachmentName}`;
+  if (attachmentMediaKind === 'image') label.textContent = `Obraz: ${attachmentName}`;
+  else if (attachmentMediaKind === 'audio') label.textContent = `Audio: ${attachmentName}`;
+  else if (attachmentMediaKind === 'video') label.textContent = `Wideo: ${attachmentName}`;
+  else label.textContent = attachmentText ? `Załącznik (${attachmentName} · wczytano treść)` : `Załącznik: ${attachmentName}`;
+
   const removeBtn = document.createElement('button');
   removeBtn.type = 'button';
   removeBtn.textContent = '×';
@@ -1708,15 +2278,60 @@ fileInput?.addEventListener('change', async () => {
   removeBtn.onclick = clearAttachment;
   attachmentChip.append(label, removeBtn);
   attachmentChip.hidden = false;
+}
+
+attachBtn?.addEventListener('click', () => fileInput?.click());
+fileInput?.addEventListener('change', () => {
+  const f = fileInput.files?.[0];
+  if (f) handleAttachedFile(f);
+});
+
+composerBox?.addEventListener('dragover', (e) => {
+  e.preventDefault();
+});
+composerBox?.addEventListener('drop', (e) => {
+  const f = e.dataTransfer?.files?.[0];
+  if (f) {
+    e.preventDefault();
+    handleAttachedFile(f);
+  }
+});
+promptInput?.addEventListener('paste', (e) => {
+  const items = e.clipboardData?.items;
+  if (!items) return;
+  for (const it of items) {
+    if (it.kind === 'file') {
+      const f = it.getAsFile();
+      if (f) {
+        handleAttachedFile(f);
+        break;
+      }
+    }
+  }
 });
 
 function clearAttachment() {
   attachmentName = '';
   attachmentText = '';
+  attachmentMediaUrl = '';
+  attachmentMediaKind = '';
   if (fileInput) fileInput.value = '';
   attachmentChip.hidden = true;
   attachmentChip.replaceChildren();
 }
+
+assistantStrip?.querySelectorAll('.assistant-pill').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    setActiveAssistant(btn.dataset.assistant || DEFAULT_ASSISTANT_ID);
+  });
+});
+
+voiceAutoReadBtn?.addEventListener('click', () => {
+  autoReadEnabled = !autoReadEnabled;
+  voiceAutoReadBtn.setAttribute('aria-pressed', String(autoReadEnabled));
+  if (!autoReadEnabled) stopSpeaking();
+  showToast(autoReadEnabled ? 'Czytanie odpowiedzi głosem włączone.' : 'Czytanie odpowiedzi głosem wyłączone.');
+});
 
 // ================= DYNAMICZNE DYKTATOWANIE GŁOSOWE NA ŻYWO =================
 function formatDictationDuration(ms) {
@@ -2058,10 +2673,12 @@ function initAmbientCanvas() {
       if (p.x > width + 12) p.x = -12;
 
       const pulse = 0.78 + 0.22 * Math.sin(now * 0.002 + p.driftPhase);
-      const a = Math.min(0.65, p.alpha * pulse * (isListening ? 1.3 : 1));
+      const a = Math.min(0.68, p.alpha * pulse * (isListening || activeSpeakingBubble ? 1.35 : 1));
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(244, 199, 87, ${a.toFixed(3)})`;
+      ctx.fillStyle = p.driftPhase > Math.PI
+        ? `rgba(255, 138, 43, ${(a * 0.85).toFixed(3)})`
+        : `rgba(244, 199, 87, ${a.toFixed(3)})`;
       ctx.fill();
     }
   };
@@ -2074,7 +2691,7 @@ function initAmbientCanvas() {
 function initCardSpotlights() {
   if (!window.matchMedia?.('(hover: hover)')?.matches) return;
   document.addEventListener('pointermove', (e) => {
-    const card = e.target?.closest?.('.prompt-card, .space-card, .module-card');
+    const card = e.target?.closest?.('.prompt-card, .space-card, .module-card, .media-card');
     if (!card) return;
     const rect = card.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
@@ -2088,6 +2705,7 @@ setTimeout(() => {
 }, 3000);
 
 // Inicjalizacja
+syncAssistantButtons();
 renderRecentChats();
 renderRightProjects();
 hydrateDailyVerse();
