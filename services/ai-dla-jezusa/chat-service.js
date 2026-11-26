@@ -154,9 +154,10 @@ function sanitizeHistory(history) {
     .slice(-8);
 }
 
-function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptureHits, contextGuides, todayReflection, media, memoryNotes, privateMode, tools }) {
+function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptureHits, contextGuides, todayReflection, media, memoryNotes, privateMode, tools, voiceConversation = false }) {
   const modeNote = MODE_INSTRUCTIONS[mode] || MODE_INSTRUCTIONS['CC Auto'];
   const isFemale = assistant?.gender === 'female';
+  const hasMedia = Array.isArray(media) && media.length > 0;
   const lines = [
     assistant?.systemPrompt || 'Jesteś asystentem „AI dla Jezusa” w ekosystemie Christian Culture (polskieradio.cc).',
     'Misja: Technologia w służbie dobra. Jezus w centrum.',
@@ -168,7 +169,9 @@ function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptur
     isFemale
       ? '3. Nigdy nie podszywaj się pod Jezusa Chrystusa ani pod Boga — pomagasz jako chrześcijańska asystentka AI.'
       : '3. Nigdy nie podszywaj się pod Jezusa Chrystusa ani pod Boga — pomagasz jako chrześcijański asystent AI.',
-    '4. Zatrzymuj użytkownika wewnątrz aplikacji AI dla Jezusa: najpierw daj kompletną treść i wskaż odtwarzacze multimedialne (audio, wideo, radio, grafiki) osadzone poniżej tej odpowiedzi, a linki zewnętrzne traktuj jako opcjonalny dodatek.',
+    hasMedia
+      ? '4. Zatrzymuj użytkownika wewnątrz aplikacji AI dla Jezusa: najpierw daj kompletną treść i wskaż wyłącznie te odtwarzacze multimedialne (audio, wideo, radio), które są osadzone pod tą odpowiedzią i pasują do pytania.'
+      : '4. Skup się bezpośrednio na pytaniu użytkownika i Słowie Bożym — NIE reklamuj odtwarzaczy, radia ani zewnętrznych kanałów, skoro użytkownik o nie nie prosił.',
     '5. Przywołuj wyłącznie prawdziwe tytuły i zasoby z kontekstu poniżej.',
     isFemale
       ? '6. FORMA GRAMATYCZNA (BEZWZGLĘDNA): Jesteś kobietą i asystentką — ZAWSZE pisz w rodzaju żeńskim (np. „przygotowałam”, „chciałabym Ci zaproponować”, „wybrałam”, „z przyjemnością pomogłam”, „jestem gotowa”). NIGDY nie używaj form męskich („przygotowałem”, „chciałbym”, „asystent”).'
@@ -184,6 +187,10 @@ function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptur
       '- Światło, entuzjazm i zaufanie: rozświetlaj mroki ciemności i zwątpienia, wzmacniaj zaufanie do Boga i radość wiary. Gdy sytuacja na to pozwala (zachowując wpierw pełną empatię i delikatność wobec cierpienia czy żałoby), serdecznie i entuzjastycznie wplataj słowa uwielbienia i nadziei: „Chwała Panu!”, „Alleluja!”, „Jezus żyje!”, „Jezus się tym zajmie!”.'
     ].join('\n')
   ];
+
+  if (voiceConversation) {
+    lines.push('8. TRYB ROZMOWY GŁOSOWEJ NA ŻYWO: Odpowiadaj naturalnym, ciepłym językiem mówionym (3–6 zwięzłych zdań + 1 konkretne pytanie podtrzymujące żywy dialog). Unikaj tabel, długich wypunktowań i surowych adresów URL.');
+  }
 
   if (Array.isArray(tools) && tools.length) {
     lines.push(`Aktywne narzędzia użytkownika: ${tools.join(', ')}.`);
@@ -432,7 +439,11 @@ function buildKnowledgeHubFallback({ assistant, mode, message, scriptureHits, co
       parts.push(`- **${doc.title}**${doc.snippet ? ` — ${doc.snippet}` : ''}`);
     }
   } else if (!contextGuides?.length) {
-    parts.push(`Dla hasła „${message}” poniżej w oknie czatu ${isFemale ? 'osadziłam' : 'osadziłem'} odtwarzacze multimedialne Christian Culture, a ponadto możesz przejrzeć pełne Pismo Święte w module **Biblia** po lewej.`);
+    parts.push(
+      Array.isArray(media) && media.length
+        ? `Dla hasła „${message}” poniżej w oknie czatu ${isFemale ? 'osadziłam' : 'osadziłem'} pasujące materiały multimedialne Christian Culture, a ponadto możesz przejrzeć pełne Pismo Święte w module **Biblia** po lewej.`
+        : `Dla hasła „${message}” ${isFemale ? 'osadziłam' : 'osadziłem'} najważniejsze wskazówki bezpośrednio w tym oknie, a pełne Pismo Święte znajdziesz w module **Biblia** po lewej.`
+    );
   }
 
   if (Array.isArray(media) && media.length) {
@@ -589,7 +600,8 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     media,
     memoryNotes,
     privateMode,
-    tools: toolsUsed
+    tools: toolsUsed,
+    voiceConversation: Boolean(payload.voiceConversation)
   });
   const userPrompt = buildUserMessageWithAttachment(effectiveMessage, attachmentName, attachmentText);
   const fetchImpl = deps.fetch || fetch;
@@ -792,4 +804,116 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
       ...CORS_HEADERS
     }
   });
+}
+
+const ALLOWED_AUDIO_MIMES = new Set([
+  'audio/webm',
+  'audio/mp4',
+  'audio/ogg',
+  'audio/wav',
+  'audio/x-wav',
+  'audio/mpeg'
+]);
+const MAX_TRANSCRIBE_BYTES = 2.5 * 1024 * 1024;
+
+export async function handleAiTranscribeRequest(request, env = {}, deps = {}) {
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers: CORS_HEADERS });
+  }
+  if (request.method !== 'POST') {
+    return Response.json(
+      { ok: false, error: 'method_not_allowed', detail: 'Obsługiwane jest wyłącznie POST.' },
+      { status: 405, headers: { ...CORS_HEADERS, Allow: 'POST, OPTIONS' } }
+    );
+  }
+
+  const ownerSession = await verifyOwnerFromRequest(request, deps);
+  const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || 'anon';
+  if (!checkRate(ip, ownerSession?.isOwner ? OWNER_REQ_PER_MIN : MAX_REQ_PER_MIN)) {
+    return Response.json(
+      { ok: false, error: 'rate_limit_exceeded', detail: 'Zbyt wiele zapytań transkrypcji.' },
+      { status: 429, headers: { ...CORS_HEADERS, 'Retry-After': '60', 'Cache-Control': 'no-store' } }
+    );
+  }
+
+  const rawText = await request.text();
+  if (new TextEncoder().encode(rawText).byteLength > MAX_TRANSCRIBE_BYTES) {
+    return Response.json(
+      { ok: false, error: 'payload_too_large', detail: 'Nagranie audio jest zbyt długie.' },
+      { status: 413, headers: { ...CORS_HEADERS, 'Cache-Control': 'no-store' } }
+    );
+  }
+
+  let body;
+  try {
+    body = JSON.parse(rawText);
+  } catch {
+    return Response.json(
+      { ok: false, error: 'invalid_json', detail: 'Nieprawidłowy JSON żądania.' },
+      { status: 400, headers: { ...CORS_HEADERS, 'Cache-Control': 'no-store' } }
+    );
+  }
+
+  const audioBase64 = String(body?.audioBase64 || '').replace(/^data:[^;]+;base64,/, '').trim();
+  const baseMime = String(body?.mimeType || 'audio/webm').split(';')[0].trim().toLowerCase();
+  const mimeType = ALLOWED_AUDIO_MIMES.has(baseMime) ? baseMime : 'audio/webm';
+  if (!audioBase64 || audioBase64.length < 32) {
+    return Response.json(
+      { ok: false, error: 'empty_audio', detail: 'Brak danych audio do transkrypcji.' },
+      { status: 400, headers: { ...CORS_HEADERS, 'Cache-Control': 'no-store' } }
+    );
+  }
+
+  const keys = parseGeminiKeyPool(env);
+  if (!keys.length) {
+    return Response.json(
+      { ok: false, error: 'no_speech_engine', detail: 'Brak skonfigurowanej puli AI do transkrypcji.' },
+      { status: 503, headers: { ...CORS_HEADERS, 'Cache-Control': 'no-store' } }
+    );
+  }
+
+  const fetchImpl = deps.fetch || fetch;
+  const models = ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite'];
+  for (const model of models) {
+    for (let i = 0; i < Math.min(keys.length, 2); i += 1) {
+      const apiKey = keys[i];
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 9000);
+      try {
+        const res = await fetchImpl(endpoint, {
+          method: 'POST',
+          signal: ctrl.signal,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{
+              role: 'user',
+              parts: [
+                { text: 'Dokładnie przepisz wypowiedź z nagrania audio po polsku. Zwróć wyłącznie czysty tekst transkrypcji bez komentarzy ani znaczników. Jeśli nagranie jest puste lub niesłyszalne, zwróć pusty napis.' },
+                { inlineData: { mimeType, data: audioBase64 } }
+              ]
+            }],
+            generationConfig: { temperature: 0.1, maxOutputTokens: 320 }
+          })
+        });
+        if (!res.ok) continue;
+        const data = await res.json();
+        const parts = data?.candidates?.[0]?.content?.parts;
+        const text = Array.isArray(parts) ? parts.map((p) => p?.text || '').join('').trim() : '';
+        return Response.json(
+          { ok: true, text, provider: 'gemini-audio', modelUsed: model },
+          { headers: { 'Cache-Control': 'no-store', ...CORS_HEADERS } }
+        );
+      } catch {
+        // próba kolejnego klucza/modelu
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+  }
+
+  return Response.json(
+    { ok: false, error: 'transcribe_unavailable', detail: 'Nie udało się rozpoznać mowy po stronie serwera.' },
+    { status: 503, headers: { ...CORS_HEADERS, 'Cache-Control': 'no-store' } }
+  );
 }

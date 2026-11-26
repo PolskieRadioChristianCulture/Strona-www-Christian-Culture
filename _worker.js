@@ -2448,6 +2448,7 @@ export default {
       res.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
       res.headers.set('X-Robots-Tag', 'index, follow, max-image-preview:large');
       res.headers.set('Link', '<https://polskieradio.cc/ai/aplikacja>; rel="canonical"');
+      res.headers.set('Permissions-Policy', 'camera=(), microphone=(self), geolocation=()');
       return res;
     }
 

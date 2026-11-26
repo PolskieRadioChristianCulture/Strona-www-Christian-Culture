@@ -12,7 +12,7 @@ import {
 } from './knowledge-hub.js';
 import { openApiSpec } from './openapi.js';
 import { handleMcpRequest } from './mcp-server.js';
-import { handleAiChatRequest } from './chat-service.js';
+import { handleAiChatRequest, handleAiTranscribeRequest } from './chat-service.js';
 import { handleOwnerSessionRequest, handleOwnerActionRequest } from './owner-workspace.js';
 
 const CORS_HEADERS = {
@@ -43,9 +43,12 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
     return handleMcpRequest(request, env);
   }
 
-  // 0b. Rozmowy konwersacyjne + RAG: /api/ai-dla-jezusa/v1/chat
+  // 0b. Rozmowy konwersacyjne + RAG + Transkrypcja mowy:
   if (path === '/api/ai-dla-jezusa/v1/chat') {
     return handleAiChatRequest(request, env, deps);
+  }
+  if (path === '/api/ai-dla-jezusa/v1/transcribe') {
+    return handleAiTranscribeRequest(request, env, deps);
   }
 
   // 0c. Przestrzeń Właściciela (nazirczarek@gmail.com — Firebase RS256 Auth):

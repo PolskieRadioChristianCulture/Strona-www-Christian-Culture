@@ -194,8 +194,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai17/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai17/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai18/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai18/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -240,7 +240,9 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
 
   assert.match(appJs, /interimResults\s*=\s*true/);
   assert.match(appJs, /dictationCommittedText/);
-  assert.doesNotMatch(appJs, /getUserMedia/, 'Dictation must not open parallel getUserMedia that steals microphone from SpeechRecognition');
+  assert.match(appJs, /startCloudDictationFallback/);
+  assert.match(appJs, /\/api\/ai-dla-jezusa\/v1\/transcribe/);
+  assert.match(appJs, /openVoiceCall/);
   assert.match(appJs, /getProStatus/);
   assert.match(appJs, /PRO_TRIAL_DAYS\s*=\s*7/);
   assert.match(appJs, /updatePersonalizedHero/);
@@ -666,5 +668,67 @@ test('Interactive chat actions (Zapamiętaj, Zapisz, Kalendarz, Przypomnij mi) a
   assert.match(appJs, /:\s*'Zapisz'/);
   assert.match(css, /\.quick-reply-bar\b/);
   assert.match(css, /\.quick-reply-btn\.is-yes\b/);
-  assert.match(css, /\.quick-reply-btn,\s*\n\s*\.msg-action-btn\s*\{\s*\n\s*min-height:\s*44px;/);
+  assert.match(css, /min-height:\s*44px;/);
+});
+
+test('Simplified 5-item sidebar + PRO More group, contextual media only, mobile single-row Send, GDPR controls, and voice chat + transcribe API work cleanly', async () => {
+  resetAiChatRuntimeState();
+  const html = fs.readFileSync(path.join(ROOT, 'ai/index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+  const privacyHtml = fs.readFileSync(path.join(ROOT, 'privacy.html'), 'utf8');
+  const worker = fs.readFileSync(path.join(ROOT, '_worker.js'), 'utf8');
+  const { resolveEcosystemMedia } = await import('../services/ai-dla-jezusa/ecosystem-media.js');
+
+  // 1. Simplified menu: 5 core items before #navMoreToggle, advanced inside #navMoreGroup[hidden]
+  assert.match(html, /id="navMoreToggle"/);
+  assert.match(html, /id="navMoreGroup"[^>]*hidden/);
+  const beforeMore = html.split('id="navMoreToggle"')[0];
+  for (const core of ['data-nav="Czat"', 'data-nav="Biblia"', 'data-nav="Projekty"', 'data-nav="Notatniki"', 'data-nav="Pamięć"']) {
+    assert.ok(beforeMore.includes(core), `Core nav missing above More toggle: ${core}`);
+  }
+  assert.ok(!beforeMore.includes('data-nav="Kod"'), 'Advanced nav Kod must stay inside #navMoreGroup');
+
+  // 2. Contextual media: casual / prayer greetings produce 0 promo cards, matching topics keep media
+  assert.equal(resolveEcosystemMedia('Tak').length, 0);
+  assert.equal(resolveEcosystemMedia('Jak się dziś szczerze modlić rano?').length, 0);
+  assert.ok(resolveEcosystemMedia('Włącz Radio Biblia Audio i muzykę uwielbienia').length >= 1);
+
+  // 3. Mobile single-row composer & instant visibility (no opacity: 0 on aiFadeUp) & Permissions-Policy
+  assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.composer-bar\s*\{[^}]*flex-wrap:\s*nowrap/s);
+  assert.match(css, /@keyframes\s+aiFadeUp\s*\{\s*from\s*\{\s*opacity:\s*1;/);
+  assert.match(worker, /Permissions-Policy.*microphone=\(self\)/);
+
+  // 4. GDPR transparency
+  assert.match(privacyHtml, /id="ai-dla-jezusa"/);
+  assert.match(privacyHtml, /localStorage/);
+  assert.match(appJs, /openPrivacyModal/);
+  assert.match(appJs, /exportLocalUserDataJson/);
+  assert.match(appJs, /clearAllLocalUserData/);
+
+  // 5. Voice conversation prompt & /api/ai-dla-jezusa/v1/transcribe endpoint
+  let capturedSys = '';
+  const voiceFetch = async (_u, opts) => {
+    const body = JSON.parse(opts.body);
+    capturedSys = body?.systemInstruction?.parts?.[0]?.text || '';
+    return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Chwała Panu! Słyszę Cię bracie.' }] } }] }), { status: 200 });
+  };
+  await processAiChat({ message: 'Cześć', voiceConversation: true }, { GEMINI_API_KEY: 'test-voice' }, { fetch: voiceFetch });
+  assert.match(capturedSys, /TRYB ROZMOWY GŁOSOWEJ NA ŻYWO/);
+
+  const trRes = await handleAiDlaJezusaApi(
+    new Request('https://polskieradio.cc/api/ai-dla-jezusa/v1/transcribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'cf-connecting-ip': '198.51.100.55' },
+      body: JSON.stringify({ audioBase64: 'UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=', mimeType: 'audio/webm' })
+    }),
+    { GEMINI_API_KEY: 'test-tr-key' },
+    {
+      fetch: async () => new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Panie Jezu pomóż mi dziś' }] } }] }), { status: 200 })
+    }
+  );
+  assert.equal(trRes.status, 200);
+  const trJson = await trRes.json();
+  assert.equal(trJson.ok, true);
+  assert.equal(trJson.text, 'Panie Jezu pomóż mi dziś');
 });

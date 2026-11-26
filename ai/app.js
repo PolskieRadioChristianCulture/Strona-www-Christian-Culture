@@ -378,6 +378,23 @@ const sendBtn = $('#sendBtn');
 const heroTitle = $('#heroTitle');
 const heroSubtitle = $('#heroSubtitle');
 const proBadgeBtn = $('#proBadgeBtn');
+const navMoreToggle = $('#navMoreToggle');
+const navMoreGroup = $('#navMoreGroup');
+const voiceChatBtn = $('#voiceChatBtn');
+const voiceCallOverlay = $('#voiceCallOverlay');
+const voiceCallAssistants = $('#voiceCallAssistants');
+const voiceCallCloseBtn = $('#voiceCallCloseBtn');
+const voiceCallAvatarWrap = $('#voiceCallAvatarWrap');
+const voiceCallAvatar = $('#voiceCallAvatar');
+const voiceCallName = $('#voiceCallName');
+const voiceCallState = $('#voiceCallState');
+const voiceCallUserText = $('#voiceCallUserText');
+const voiceCallAiLabel = $('#voiceCallAiLabel');
+const voiceCallAiText = $('#voiceCallAiText');
+const voiceCallMuteBtn = $('#voiceCallMuteBtn');
+const voiceCallSendNowBtn = $('#voiceCallSendNowBtn');
+const voiceCallInterruptBtn = $('#voiceCallInterruptBtn');
+const voiceCallEndBtn = $('#voiceCallEndBtn');
 const infoDialog = $('#infoDialog');
 const infoDialogTitle = $('#infoDialogTitle');
 const infoDialogBody = $('#infoDialogBody');
@@ -755,19 +772,23 @@ function stripMarkdownForSpeech(mdText) {
     .trim();
 }
 
-function speakReply(text, assistantId, bubbleEl, btnEl) {
+function speakReply(text, assistantId, bubbleEl, btnEl, opts = {}) {
   const synth = window.speechSynthesis;
   if (!synth || typeof window.SpeechSynthesisUtterance !== 'function') {
     showToast('Twoja przeglądarka nie obsługuje syntezatora mowy.');
+    if (typeof opts?.onEnd === 'function') opts.onEnd();
     return;
   }
 
-  const wasSameBubble = activeSpeakingBubble === bubbleEl && synth.speaking;
+  const wasSameBubble = bubbleEl && activeSpeakingBubble === bubbleEl && synth.speaking;
   stopSpeaking();
   if (wasSameBubble) return;
 
   const clean = stripMarkdownForSpeech(text).slice(0, 1400);
-  if (!clean) return;
+  if (!clean) {
+    if (typeof opts?.onEnd === 'function') opts.onEnd();
+    return;
+  }
 
   const persona = getPersona(assistantId);
   const utter = new SpeechSynthesisUtterance(clean);
@@ -796,19 +817,27 @@ function speakReply(text, assistantId, bubbleEl, btnEl) {
     }
   } catch {}
 
-  activeSpeakingBubble = bubbleEl;
+  activeSpeakingBubble = bubbleEl || null;
   bubbleEl?.classList.add('is-speaking');
   if (btnEl) {
     btnEl.classList.add('is-speaking-btn');
     btnEl.textContent = '⏹ Zatrzymaj głos';
   }
 
-  utter.onend = () => stopSpeaking();
-  utter.onerror = () => stopSpeaking();
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    stopSpeaking();
+    if (typeof opts?.onEnd === 'function') opts.onEnd();
+  };
+
+  utter.onend = finish;
+  utter.onerror = finish;
   try {
     synth.speak(utter);
   } catch {
-    stopSpeaking();
+    finish();
   }
 }
 
@@ -1110,12 +1139,21 @@ function showModuleView(name) {
 }
 
 function setActiveNav(name) {
+  let matchedInsideMore = false;
   $$('.nav-item').forEach((b) => {
     const isMatch = b.dataset.nav === name;
     b.classList.toggle('active', isMatch);
-    if (isMatch) b.setAttribute('aria-current', 'page');
-    else b.removeAttribute('aria-current');
+    if (isMatch) {
+      b.setAttribute('aria-current', 'page');
+      if (navMoreGroup && navMoreGroup.contains(b)) matchedInsideMore = true;
+    } else {
+      b.removeAttribute('aria-current');
+    }
   });
+  if (matchedInsideMore && navMoreGroup && navMoreGroup.hidden) {
+    navMoreGroup.hidden = false;
+    navMoreToggle?.setAttribute('aria-expanded', 'true');
+  }
 }
 
 // ================= BEZPIECZNY RENDERER MARKDOWN (DOM-ONLY) =================
@@ -2464,7 +2502,7 @@ function renderConversation(animateMsgId = '') {
 }
 
 // ================= WYSYŁANIE ZAPYTANIA DO PRAWDZIWEGO API =================
-async function sendChatMessage(textOverride, titleHint = '') {
+async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
   if (busy) return;
   stopSpeaking();
   const rawText = (typeof textOverride === 'string' ? textOverride : promptInput.value).trim();
@@ -2522,6 +2560,7 @@ async function sendChatMessage(textOverride, titleHint = '') {
   showConversationView();
 
   let revealMsgId = '';
+  let deliveredReply = null;
   try {
     const activeTools = [...selectedTools];
     if (webSearchEnabled) activeTools.push('Przeszukiwanie CC');
@@ -2547,6 +2586,7 @@ async function sendChatMessage(textOverride, titleHint = '') {
         tools: activeTools,
         memoryNotes: privateMode ? [] : state.memory.map((m) => m.text),
         privateMode,
+        voiceConversation: Boolean(chatOpts?.voiceConversation),
         preferredModel: getPreferredModelId(),
         ownerModel: getPreferredModelId() !== 'auto' ? getPreferredModelId() : (selectedOwnerModel || ''),
         userModel: byokConfig.model || ''
@@ -2559,7 +2599,7 @@ async function sendChatMessage(textOverride, titleHint = '') {
     }
 
     revealMsgId = 'a-' + Date.now();
-    thread.messages.push({
+    deliveredReply = {
       id: revealMsgId,
       role: 'assistant',
       text: data.reply,
@@ -2570,7 +2610,8 @@ async function sendChatMessage(textOverride, titleHint = '') {
       mode: data.mode || currentMode,
       media: Array.isArray(data.media) ? data.media : [],
       sources: Array.isArray(data.sources) ? data.sources : []
-    });
+    };
+    thread.messages.push(deliveredReply);
     thread.updatedAt = new Date().toISOString();
     if (!privateMode) {
       saveState();
@@ -2578,7 +2619,7 @@ async function sendChatMessage(textOverride, titleHint = '') {
     }
   } catch (err) {
     revealMsgId = 'err-' + Date.now();
-    thread.messages.push({
+    deliveredReply = {
       id: revealMsgId,
       role: 'assistant',
       text: `Nie udało się uzyskać odpowiedzi z serwera (${err.message}). Spróbuj ponownie za chwilę lub sprawdź połączenie z internetem.`,
@@ -2587,11 +2628,15 @@ async function sendChatMessage(textOverride, titleHint = '') {
       mode: currentMode,
       media: [],
       sources: []
-    });
+    };
+    thread.messages.push(deliveredReply);
   } finally {
     busy = false;
     sendBtn.disabled = false;
     renderConversation(revealMsgId);
+    if (typeof chatOpts?.onReply === 'function') {
+      chatOpts.onReply(deliveredReply);
+    }
   }
 }
 
@@ -2894,7 +2939,17 @@ function renderModule(name) {
   }
 
   if (name === 'Pamięć') {
-    sub.textContent = 'Twoje wskazówki kontekstowe (np. cel misji, preferowany styl). Nie są wysyłane w Trybie prywatnym.';
+    sub.textContent = 'Twoje wskazówki kontekstowe zapisywane wyłącznie lokalnie w Twojej przeglądarce (RODO). Nie są wysyłane w Trybie prywatnym.';
+    const privacyHintRow = document.createElement('div');
+    privacyHintRow.style.marginBottom = '10px';
+    const privacyBtnInline = document.createElement('button');
+    privacyBtnInline.type = 'button';
+    privacyBtnInline.className = 'gold-card-link';
+    privacyBtnInline.textContent = 'Gdzie są zapisywane moje dane i jak je usunąć (RODO) →';
+    privacyBtnInline.onclick = () => openPrivacyModal();
+    privacyHintRow.appendChild(privacyBtnInline);
+    moduleStage.appendChild(privacyHintRow);
+
     const form = document.createElement('form');
     form.className = 'module-search-row';
     const input = document.createElement('input');
@@ -3369,6 +3424,10 @@ document.addEventListener('click', () => {
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
+    if (voiceCallActive) {
+      closeVoiceCall();
+      return;
+    }
     if (modelMenu && !modelMenu.hidden) {
       modelMenu.hidden = true;
       modelPickerBtn?.setAttribute('aria-expanded', 'false');
@@ -3379,6 +3438,13 @@ document.addEventListener('keydown', (e) => {
     }
     closeAllBadgeModelMenus();
   }
+});
+
+navMoreToggle?.addEventListener('click', () => {
+  if (!navMoreGroup) return;
+  const willOpen = navMoreGroup.hidden;
+  navMoreGroup.hidden = !willOpen;
+  navMoreToggle.setAttribute('aria-expanded', String(willOpen));
 });
 
 privacyToggleBtn?.addEventListener('click', () => {
@@ -3683,10 +3749,136 @@ function openProfileModal() {
   infoDialog.showModal();
 }
 
+function exportLocalUserDataJson() {
+  const payload = {
+    app: 'AI dla Jezusa (https://polskieradio.cc/ai/aplikacja)',
+    exportedAt: new Date().toISOString(),
+    accountScope: getUidScope(),
+    privacyMode: privateMode,
+    data: {
+      chats: state.chats || [],
+      memory: state.memory || [],
+      notes: state.notes || [],
+      reminders: state.reminders || [],
+      projects: state.projects || [],
+      assistantId: state.assistantId || DEFAULT_ASSISTANT_ID,
+      preferredModel: state.preferredModel || 'auto'
+    }
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8' });
+  const href = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = href;
+  a.download = `ai-dla-jezusa-dane-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(href), 2000);
+  trackAiEvent('ai_gdpr_export', { chats: (state.chats || []).length });
+  showToast('Wyeksportowano Twoje lokalne dane do pliku JSON.');
+}
+
+function clearAllLocalUserData() {
+  state = {
+    chats: [],
+    notes: [],
+    memory: [],
+    reminders: [],
+    projects: [...DEFAULT_PROJECTS],
+    assistantId: DEFAULT_ASSISTANT_ID,
+    preferredModel: 'auto',
+    leftCollapsed: state.leftCollapsed,
+    rightCollapsed: state.rightCollapsed
+  };
+  activeThreadId = null;
+  ephemeralThread = null;
+  selectedOwnerModel = '';
+  try {
+    const prefix = `${STORAGE_PREFIX}`;
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(prefix)) keysToRemove.push(k);
+    }
+    keysToRemove.forEach((k) => localStorage.removeItem(k));
+  } catch {}
+  byokConfig = { provider: '', apiKey: '', model: '' };
+  renderRecentChats();
+  renderRightProjects();
+  syncAssistantButtons();
+  syncModelMenu();
+  updateTopbarModelLabel();
+  updatePersonalizedHero();
+  showWelcomeView();
+  trackAiEvent('ai_gdpr_erase', { status: 'cleared' });
+  showToast('Usunięto wszystkie lokalne rozmowy, pamięć, notatki i przypomnienia z tej przeglądarki.');
+}
+
+function openPrivacyModal() {
+  trackAiEvent('ai_gdpr_modal_open', { private_mode: privateMode });
+  infoDialogTitle.textContent = 'Prywatność i RODO — Twoje dane w AI dla Jezusa';
+  infoDialogBody.replaceChildren();
+
+  const intro = document.createElement('p');
+  intro.textContent = 'Dbamy o Twoją prywatność zgodnie z RODO. Zobacz dokładnie, gdzie zapisywane są Twoje informacje i jak możesz nimi zarządzać:';
+
+  const list = document.createElement('ul');
+  list.className = 'pro-benefits';
+  const points = [
+    `Gdzie trafiają „Ostatnie rozmowy” (${(state.chats || []).length}), „Pamięć” (${(state.memory || []).length}), „Notatniki” (${(state.notes || []).length}) i „Przypomnienia” (${(state.reminders || []).length}): są zapisywane WYŁĄCZNIE lokalnie w Twojej przeglądarce (localStorage) na tym urządzeniu — nie trzymamy Twoich prywatnych rozmów w bazie danych na serwerze CC.`,
+    'Przetwarzanie zapytań AI: wpisane pytanie i kontekst rozmowy są szyfrowane (TLS) i wysyłane przez Worker Cloudflare do wybranego silnika AI (np. Google Gemini) wyłącznie w celu wygenerowania odpowiedzi. Opcja „Baza Wiedzy CC (offline)” działa całkowicie wewnątrz naszego indeksu bez zewnętrznych modeli.',
+    'Tryb prywatny (przełącznik u góry): natychmiast wstrzymuje zapis rozmów w localStorage i nie dołącza wpisów z Twojej Pamięci.',
+    'Własny klucz API (BYOK): jeśli go podasz, jest zapisany wyłącznie lokalnie w Twojej przeglądarce.'
+  ];
+  for (const pt of points) {
+    const li = document.createElement('li');
+    li.textContent = pt;
+    list.appendChild(li);
+  }
+
+  const row = document.createElement('div');
+  row.className = 'dialog-actions-row';
+
+  const exportBtn = document.createElement('button');
+  exportBtn.type = 'button';
+  exportBtn.className = 'connect-btn';
+  exportBtn.textContent = 'Eksportuj moje dane (JSON)';
+  exportBtn.onclick = () => exportLocalUserDataJson();
+
+  const policyLink = document.createElement('a');
+  policyLink.href = '/polityka-prywatnosci#ai-dla-jezusa';
+  policyLink.target = '_blank';
+  policyLink.rel = 'noopener noreferrer';
+  policyLink.className = 'dialog-btn-secondary';
+  policyLink.textContent = 'Pełna Polityka Prywatności ↗';
+
+  let armedErase = false;
+  const eraseBtn = document.createElement('button');
+  eraseBtn.type = 'button';
+  eraseBtn.className = 'danger-btn';
+  eraseBtn.textContent = 'Usuń wszystkie moje dane z przeglądarki';
+  eraseBtn.onclick = () => {
+    if (!armedErase) {
+      armedErase = true;
+      eraseBtn.textContent = 'Kliknij ponownie, aby potwierdzić trwałe usunięcie';
+      return;
+    }
+    clearAllLocalUserData();
+    infoDialog.close();
+  };
+
+  row.append(exportBtn, policyLink, eraseBtn);
+  infoDialogBody.append(intro, list, row);
+  infoDialog.showModal();
+}
+
+$('.recent-local-badge')?.addEventListener('click', openPrivacyModal);
+
 $$('.footer-item').forEach((btn) => {
   btn.addEventListener('click', () => {
     const name = btn.dataset.nav || 'Opcje';
     if (name === 'Ustawienia') openSettingsModal();
+    else if (name === 'Prywatność i RODO') openPrivacyModal();
     else openProfileModal();
     closeDrawers();
   });
@@ -3833,12 +4025,46 @@ voiceAutoReadBtn?.addEventListener('click', () => {
   showToast(autoReadEnabled ? 'Czytanie odpowiedzi głosem włączone.' : 'Czytanie odpowiedzi głosem wyłączone.');
 });
 
-// ================= DYNAMICZNE DYKTATOWANIE GŁOSOWE NA ŻYWO =================
+// ================= DYNAMICZNE DYKTATOWANIE GŁOSOWE NA ŻYWO + FALLBACK AI AUDIO =================
+let dictationWatchdogTimer = null;
+let cloudMediaStream = null;
+let cloudRecorder = null;
+let cloudFlushTimer = null;
+let cloudUploading = false;
+let cloudTranscribeQueue = [];
+
+let voiceCallActive = false;
+let voiceCallMuted = false;
+let voiceCallPhase = 'idle'; // listening | thinking | speaking
+let voiceCallDraft = '';
+let voiceCallRecognition = null;
+let voiceCallWatchdog = null;
+let voiceCallSilenceTimer = null;
+let voiceCallMediaStream = null;
+let voiceCallRecorder = null;
+let voiceCallAudioChunks = [];
+
 function formatDictationDuration(ms) {
   const totalSec = Math.max(0, Math.floor(ms / 1000));
   const min = Math.floor(totalSec / 60);
   const sec = String(totalSec % 60).padStart(2, '0');
   return `${min}:${sec}`;
+}
+
+function stopCloudRecorderResources() {
+  if (cloudFlushTimer) {
+    clearInterval(cloudFlushTimer);
+    cloudFlushTimer = null;
+  }
+  const rec = cloudRecorder;
+  cloudRecorder = null;
+  if (rec && rec.state !== 'inactive') {
+    try { rec.stop(); } catch {}
+  }
+  if (cloudMediaStream) {
+    try { cloudMediaStream.getTracks().forEach((t) => t.stop()); } catch {}
+    cloudMediaStream = null;
+  }
 }
 
 function releaseAudioResources() {
@@ -3850,6 +4076,11 @@ function releaseAudioResources() {
     clearTimeout(dictationRestartTimer);
     dictationRestartTimer = null;
   }
+  if (dictationWatchdogTimer) {
+    clearTimeout(dictationWatchdogTimer);
+    dictationWatchdogTimer = null;
+  }
+  stopCloudRecorderResources();
   speechEnergy = 0;
   for (const bar of waveBars) {
     bar.style.transform = 'scaleY(0.24)';
@@ -3879,19 +4110,149 @@ function runWaveAnimation() {
 }
 
 function startAudioWaveform() {
-  // Nie przejmujemy mikrofonu przez równoległy strumień audio obok SpeechRecognition (unikamy blokady na Androidzie/Windows)
+  // Nie przejmujemy mikrofonu obok aktywnego SpeechRecognition, aby uniknąć blokady w przeglądarce
   runWaveAnimation();
+}
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const res = String(reader.result || '');
+      const idx = res.indexOf('base64,');
+      resolve(idx >= 0 ? res.slice(idx + 7) : res);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function transcribeAudioBlob(blob) {
+  if (!blob || blob.size < 320) return '';
+  const base64 = await blobToBase64(blob);
+  const res = await fetch('/api/ai-dla-jezusa/v1/transcribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      audioBase64: base64,
+      mimeType: blob.type || 'audio/webm',
+      lang: 'pl-PL'
+    })
+  });
+  if (!res.ok) return '';
+  const data = await res.json();
+  return String(data?.text || '').trim();
+}
+
+function applyLiveDictationText(text) {
+  if (!promptInput) return;
+  promptInput.value = text;
+  resizeTextarea();
+  try {
+    promptInput.setSelectionRange(text.length, text.length);
+  } catch {}
+  promptInput.dispatchEvent(new Event('input', { bubbles: true }));
+  promptInput.scrollTop = promptInput.scrollHeight;
+}
+
+async function flushCloudChunk(blob) {
+  if (!blob || blob.size < 450) return;
+  cloudTranscribeQueue.push(blob);
+  if (cloudUploading) return;
+  cloudUploading = true;
+  try {
+    while (cloudTranscribeQueue.length) {
+      const nextBlob = cloudTranscribeQueue.shift();
+      const piece = await transcribeAudioBlob(nextBlob);
+      if (piece) {
+        dictationCommittedText = [dictationCommittedText, piece].filter(Boolean).join(' ').trim();
+        applyLiveDictationText(dictationCommittedText);
+        if (voiceInterimEl) {
+          const preview = piece.length > 34 ? `…${piece.slice(-33)}` : piece;
+          voiceInterimEl.textContent = `„${preview}”`;
+          voiceInterimEl.hidden = false;
+        }
+        speechEnergy = 0.9;
+      }
+    }
+  } catch {
+    // zachowaj płynność dyktowania
+  } finally {
+    cloudUploading = false;
+  }
+}
+
+async function startCloudDictationFallback(reason = '') {
+  if (!isListening || dictationManualStop) return;
+  if (cloudRecorder) return;
+
+  // Zamknij najpierw SpeechRecognition, zanim przejmiemy mikrofon przez MediaRecorder
+  const staleRec = recognition;
+  recognition = null;
+  if (staleRec) {
+    try { staleRec.onend = null; staleRec.onerror = null; staleRec.stop(); } catch {}
+  }
+
+  if (!navigator.mediaDevices?.getUserMedia || typeof window.MediaRecorder !== 'function') {
+    showToast(reason || 'Twoja przeglądarka nie obsługuje dyktowania głosem.');
+    stopDictation({ fromEnd: true });
+    return;
+  }
+
+  try {
+    cloudMediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    if (!isListening || dictationManualStop) {
+      stopCloudRecorderResources();
+      return;
+    }
+    if (voiceStatusLabel) voiceStatusLabel.textContent = 'Słucham (AI Audio na żywo)…';
+
+    const startChunkLoop = () => {
+      if (!isListening || dictationManualStop || !cloudMediaStream) return;
+      let chunks = [];
+      let mr;
+      try {
+        mr = new MediaRecorder(cloudMediaStream);
+      } catch {
+        stopDictation({ fromEnd: true });
+        return;
+      }
+      cloudRecorder = mr;
+      mr.ondataavailable = (ev) => {
+        if (ev.data && ev.data.size > 0) chunks.push(ev.data);
+      };
+      mr.onstop = () => {
+        const mime = mr.mimeType || 'audio/webm';
+        const blob = new Blob(chunks, { type: mime });
+        flushCloudChunk(blob);
+        if (isListening && !dictationManualStop && cloudMediaStream) {
+          startChunkLoop();
+        }
+      };
+      mr.start();
+    };
+
+    startChunkLoop();
+    cloudFlushTimer = setInterval(() => {
+      if (cloudRecorder && cloudRecorder.state === 'recording') {
+        try { cloudRecorder.stop(); } catch {}
+      }
+    }, 3200);
+  } catch {
+    showToast('Zezwól przeglądarce na dostęp do mikrofonu, aby dyktować.');
+    stopDictation({ fromEnd: true });
+  }
 }
 
 function stopDictation({ fromEnd = false } = {}) {
   dictationManualStop = true;
   const activeRec = recognition;
   recognition = null;
-  if (!isListening && !activeRec) return;
+  if (!isListening && !activeRec && !cloudRecorder) return;
 
   if (promptInput && dictationLastInterim) {
     dictationCommittedText = [dictationCommittedText, dictationLastInterim].filter(Boolean).join(' ').trim();
-    promptInput.value = dictationCommittedText;
+    applyLiveDictationText(dictationCommittedText);
   }
   dictationLastInterim = '';
 
@@ -3922,24 +4283,24 @@ function stopDictation({ fromEnd = false } = {}) {
 }
 
 function startDictation() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) {
-    showToast('Twoja przeglądarka nie obsługuje rozpoznawania mowy.');
-    return;
-  }
+  if (voiceCallActive) closeVoiceCall();
 
   if (isListening) {
     stopDictation();
     return;
   }
 
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
   dictationManualStop = false;
   dictationCommittedText = promptInput ? promptInput.value.trim() : '';
   dictationLastInterim = '';
   dictationStartedAt = Date.now();
+  cloudTranscribeQueue = [];
   isListening = true;
   trackAiEvent('ai_dictation_start', { assistant_id: getActiveAssistantId() });
 
+  promptInput?.focus();
   composerBox?.classList.add('is-dictating');
   micBtn?.classList.add('mic-listening');
   micBtn?.setAttribute('aria-pressed', 'true');
@@ -3958,16 +4319,37 @@ function startDictation() {
     }
   }, 250);
 
+  startAudioWaveform();
+
+  if (!SR) {
+    startCloudDictationFallback();
+    return;
+  }
+
   const isAndroid = /Android/i.test(navigator.userAgent || '');
+  let receivedAnyResult = false;
+  let switchedToCloud = false;
 
   const launchRecognitionSession = () => {
-    if (!isListening || dictationManualStop) return;
+    if (!isListening || dictationManualStop || switchedToCloud) return;
+    const baseAtSessionStart = dictationCommittedText;
+    let sessionFinal = '';
+    let sessionInterim = '';
+
     const rec = new SR();
     recognition = rec;
     rec.lang = 'pl-PL';
     rec.continuous = !isAndroid;
     rec.interimResults = true;
     rec.maxAlternatives = 1;
+
+    clearTimeout(dictationWatchdogTimer);
+    dictationWatchdogTimer = setTimeout(() => {
+      if (isListening && !dictationManualStop && !receivedAnyResult && !switchedToCloud) {
+        switchedToCloud = true;
+        startCloudDictationFallback();
+      }
+    }, 4500);
 
     rec.onstart = () => {
       if (recognition !== rec) return;
@@ -3984,41 +4366,35 @@ function startDictation() {
     };
 
     rec.onresult = (event) => {
-      if (recognition !== rec || !isListening) return;
+      if (recognition !== rec || !isListening || switchedToCloud) return;
+      receivedAnyResult = true;
+      clearTimeout(dictationWatchdogTimer);
       speechEnergy = 1;
 
-      let newlyFinal = '';
-      let liveInterim = '';
-      const startIdx = Number.isInteger(event?.resultIndex) ? event.resultIndex : 0;
-      for (let i = startIdx; i < event.results.length; i += 1) {
+      sessionFinal = '';
+      sessionInterim = '';
+      for (let i = 0; i < event.results.length; i += 1) {
         const result = event.results[i];
         const text = String(result?.[0]?.transcript || '').trim();
         if (!text) continue;
         if (result.isFinal) {
-          newlyFinal += (newlyFinal ? ' ' : '') + text;
+          sessionFinal += (sessionFinal ? ' ' : '') + text;
         } else {
-          liveInterim += (liveInterim ? ' ' : '') + text;
+          sessionInterim += (sessionInterim ? ' ' : '') + text;
         }
       }
 
-      if (newlyFinal) {
-        dictationCommittedText = [dictationCommittedText, newlyFinal].filter(Boolean).join(' ');
-      }
-      dictationLastInterim = liveInterim;
+      dictationCommittedText = [baseAtSessionStart, sessionFinal].filter(Boolean).join(' ').trim();
+      dictationLastInterim = sessionInterim;
 
-      const combined = [dictationCommittedText, liveInterim].filter(Boolean).join(' ');
-      if (promptInput) {
-        promptInput.value = combined;
-        resizeTextarea();
-        promptInput.dispatchEvent(new Event('input', { bubbles: true }));
-        promptInput.scrollTop = promptInput.scrollHeight;
-      }
+      const combined = [dictationCommittedText, sessionInterim].filter(Boolean).join(' ').trim();
+      applyLiveDictationText(combined);
 
       if (voiceStatusLabel) {
-        voiceStatusLabel.textContent = liveInterim || newlyFinal ? 'Mówisz — zapisuję na żywo…' : 'Słucham… Mów teraz';
+        voiceStatusLabel.textContent = sessionInterim || sessionFinal ? 'Mówisz — wpisuję na żywo…' : 'Słucham… Mów teraz';
       }
       if (voiceInterimEl) {
-        const previewSource = liveInterim || newlyFinal;
+        const previewSource = sessionInterim || sessionFinal;
         if (previewSource) {
           const preview = previewSource.length > 34 ? `…${previewSource.slice(-33)}` : previewSource;
           voiceInterimEl.textContent = `„${preview}”`;
@@ -4031,42 +4407,36 @@ function startDictation() {
     };
 
     rec.onerror = (event) => {
-      if (recognition !== rec) return;
+      if (recognition !== rec || switchedToCloud) return;
       const code = event?.error || '';
-      if (code === 'not-allowed' || code === 'service-not-allowed') {
-        dictationManualStop = true;
-        showToast('Zezwól przeglądarce na dostęp do mikrofonu, aby dyktować.');
-        stopDictation({ fromEnd: true });
+      if (code === 'not-allowed' || code === 'service-not-allowed' || code === 'network' || code === 'language-not-supported') {
+        switchedToCloud = true;
+        clearTimeout(dictationWatchdogTimer);
+        startCloudDictationFallback();
       } else if (code === 'audio-capture') {
         dictationManualStop = true;
         showToast('Nie wykryto aktywnego mikrofonu.');
         stopDictation({ fromEnd: true });
-      } else if (code === 'network') {
-        dictationManualStop = true;
-        showToast('Błąd sieci podczas rozpoznawania mowy.');
-        stopDictation({ fromEnd: true });
       } else if (code === 'no-speech') {
         if (voiceStatusLabel) voiceStatusLabel.textContent = 'Nie słychać mowy — mów wyraźnie bliżej mikrofonu…';
       } else if (code !== 'aborted') {
-        dictationManualStop = true;
-        showToast('Przerwano dyktowanie głosowe.');
-        stopDictation({ fromEnd: true });
+        switchedToCloud = true;
+        clearTimeout(dictationWatchdogTimer);
+        startCloudDictationFallback();
       }
     };
 
     rec.onend = () => {
-      if (recognition !== rec) return;
-      if (dictationLastInterim) {
-        dictationCommittedText = [dictationCommittedText, dictationLastInterim].filter(Boolean).join(' ').trim();
+      if (recognition !== rec || switchedToCloud) return;
+      if (sessionInterim) {
+        dictationCommittedText = [baseAtSessionStart, sessionFinal, sessionInterim].filter(Boolean).join(' ').trim();
+        sessionInterim = '';
         dictationLastInterim = '';
-        if (promptInput) {
-          promptInput.value = dictationCommittedText;
-          resizeTextarea();
-        }
+        applyLiveDictationText(dictationCommittedText);
       }
       if (isListening && !dictationManualStop) {
         clearTimeout(dictationRestartTimer);
-        dictationRestartTimer = setTimeout(launchRecognitionSession, 120);
+        dictationRestartTimer = setTimeout(launchRecognitionSession, 110);
         return;
       }
       stopDictation({ fromEnd: true });
@@ -4075,15 +4445,295 @@ function startDictation() {
     try {
       rec.start();
     } catch {
-      dictationManualStop = true;
-      stopDictation({ fromEnd: true });
-      showToast('Nie udało się uruchomić dyktowania głosowego.');
+      switchedToCloud = true;
+      startCloudDictationFallback();
     }
   };
 
   launchRecognitionSession();
-  startAudioWaveform();
 }
+
+// ================= DWUKIERUNKOWY CZAT GŁOSOWY NA ŻYWO =================
+function stopVoiceCallAudioStreams() {
+  if (voiceCallWatchdog) {
+    clearTimeout(voiceCallWatchdog);
+    voiceCallWatchdog = null;
+  }
+  if (voiceCallSilenceTimer) {
+    clearTimeout(voiceCallSilenceTimer);
+    voiceCallSilenceTimer = null;
+  }
+  const rec = voiceCallRecognition;
+  voiceCallRecognition = null;
+  if (rec) {
+    try { rec.onend = null; rec.onerror = null; rec.stop(); } catch {}
+  }
+  const mr = voiceCallRecorder;
+  voiceCallRecorder = null;
+  if (mr && mr.state !== 'inactive') {
+    try { mr.stop(); } catch {}
+  }
+  if (voiceCallMediaStream) {
+    try { voiceCallMediaStream.getTracks().forEach((t) => t.stop()); } catch {}
+    voiceCallMediaStream = null;
+  }
+}
+
+function setVoiceCallPhase(phase, statusMsg = '') {
+  voiceCallPhase = phase;
+  if (voiceCallAvatarWrap) {
+    voiceCallAvatarWrap.classList.remove('is-listening', 'is-thinking', 'is-speaking');
+    if (phase === 'listening' && !voiceCallMuted) voiceCallAvatarWrap.classList.add('is-listening');
+    if (phase === 'thinking') voiceCallAvatarWrap.classList.add('is-thinking');
+    if (phase === 'speaking') voiceCallAvatarWrap.classList.add('is-speaking');
+  }
+  if (voiceCallInterruptBtn) voiceCallInterruptBtn.hidden = phase !== 'speaking';
+  if (voiceCallSendNowBtn) voiceCallSendNowBtn.hidden = phase !== 'listening';
+  if (voiceCallState && statusMsg) voiceCallState.textContent = statusMsg;
+}
+
+function renderVoiceCallHeader() {
+  const persona = getPersona(getActiveAssistantId());
+  if (voiceCallAvatar) {
+    voiceCallAvatar.src = persona.avatar;
+    voiceCallAvatar.alt = persona.name;
+    voiceCallAvatar.onerror = () => {
+      if (persona.avatarFallback) voiceCallAvatar.src = persona.avatarFallback;
+    };
+  }
+  if (voiceCallName) voiceCallName.textContent = persona.name;
+  if (voiceCallAiLabel) voiceCallAiLabel.textContent = `${persona.name}:`;
+
+  if (voiceCallAssistants) {
+    voiceCallAssistants.replaceChildren();
+    for (const p of Object.values(AI_PERSONAS)) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'assistant-pill' + (p.id === persona.id ? ' active' : '');
+      btn.setAttribute('role', 'radio');
+      btn.setAttribute('aria-checked', String(p.id === persona.id));
+      const sp = document.createElement('span');
+      sp.textContent = p.name;
+      btn.appendChild(sp);
+      btn.onclick = () => {
+        setActiveAssistant(p.id, { announce: false });
+        renderVoiceCallHeader();
+      };
+      voiceCallAssistants.appendChild(btn);
+    }
+  }
+}
+
+async function sendVoiceCallTurn(rawSpokenText = '') {
+  const spoken = String(rawSpokenText || voiceCallDraft || '').trim();
+  voiceCallDraft = '';
+  stopVoiceCallAudioStreams();
+  if (!voiceCallActive) return;
+
+  if (!spoken) {
+    if (!voiceCallMuted) listenForVoiceCallTurn();
+    return;
+  }
+
+  if (voiceCallUserText) voiceCallUserText.textContent = spoken;
+  setVoiceCallPhase('thinking', `${getPersona(getActiveAssistantId()).name} rozważa odpowiedź…`);
+
+  await sendChatMessage(spoken, '', {
+    voiceConversation: true,
+    onReply: (replyMsg) => {
+      if (!voiceCallActive) return;
+      const clean = stripMarkdownForSpeech(replyMsg?.text || '');
+      if (voiceCallAiText) voiceCallAiText.textContent = clean || 'Gotowe.';
+      setVoiceCallPhase('speaking', `${getPersona(getActiveAssistantId()).name} mówi…`);
+      speakReply(replyMsg?.text || '', getActiveAssistantId(), null, null, {
+        onEnd: () => {
+          if (!voiceCallActive) return;
+          if (!voiceCallMuted) {
+            listenForVoiceCallTurn();
+          } else {
+            setVoiceCallPhase('listening', 'Mikrofon wyciszony — kliknij „Wycisz”, aby mówić dalej.');
+          }
+        }
+      });
+    }
+  });
+}
+
+async function startVoiceCallCloudCapture() {
+  if (!voiceCallActive || voiceCallMuted || voiceCallPhase !== 'listening') return;
+  if (!navigator.mediaDevices?.getUserMedia || typeof window.MediaRecorder !== 'function') {
+    setVoiceCallPhase('listening', 'Brak dostępu do mikrofonu w tej przeglądarce.');
+    return;
+  }
+  try {
+    voiceCallMediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    if (!voiceCallActive || voiceCallMuted) {
+      stopVoiceCallAudioStreams();
+      return;
+    }
+    setVoiceCallPhase('listening', 'Nagrywam wypowiedź (AI Audio) — kliknij „Wyślij teraz”, gdy skończysz…');
+    voiceCallAudioChunks = [];
+    const mr = new MediaRecorder(voiceCallMediaStream);
+    voiceCallRecorder = mr;
+    mr.ondataavailable = (ev) => {
+      if (ev.data && ev.data.size > 0) voiceCallAudioChunks.push(ev.data);
+    };
+    mr.start();
+  } catch {
+    setVoiceCallPhase('listening', 'Zezwól przeglądarce na dostęp do mikrofonu.');
+  }
+}
+
+function listenForVoiceCallTurn() {
+  if (!voiceCallActive || voiceCallMuted) return;
+  stopVoiceCallAudioStreams();
+  voiceCallDraft = '';
+  setVoiceCallPhase('listening', 'Słucham Cię… Mów swobodnie');
+  if (voiceCallUserText) voiceCallUserText.textContent = 'Słucham…';
+
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    startVoiceCallCloudCapture();
+    return;
+  }
+
+  let gotAnyResult = false;
+  let switchedToCloud = false;
+  const isAndroid = /Android/i.test(navigator.userAgent || '');
+
+  const rec = new SR();
+  voiceCallRecognition = rec;
+  rec.lang = 'pl-PL';
+  rec.continuous = !isAndroid;
+  rec.interimResults = true;
+  rec.maxAlternatives = 1;
+
+  voiceCallWatchdog = setTimeout(() => {
+    if (voiceCallActive && !voiceCallMuted && voiceCallPhase === 'listening' && !gotAnyResult && !switchedToCloud) {
+      switchedToCloud = true;
+      try { rec.onend = null; rec.onerror = null; rec.stop(); } catch {}
+      voiceCallRecognition = null;
+      startVoiceCallCloudCapture();
+    }
+  }, 5500);
+
+  rec.onresult = (event) => {
+    if (voiceCallRecognition !== rec || !voiceCallActive || voiceCallMuted) return;
+    gotAnyResult = true;
+    clearTimeout(voiceCallWatchdog);
+    let combined = '';
+    for (let i = 0; i < event.results.length; i += 1) {
+      const t = String(event.results[i]?.[0]?.transcript || '').trim();
+      if (t) combined += (combined ? ' ' : '') + t;
+    }
+    voiceCallDraft = combined.trim();
+    if (voiceCallUserText) voiceCallUserText.textContent = voiceCallDraft || 'Słucham…';
+
+    clearTimeout(voiceCallSilenceTimer);
+    if (voiceCallDraft) {
+      voiceCallSilenceTimer = setTimeout(() => {
+        if (voiceCallActive && voiceCallPhase === 'listening' && voiceCallDraft) {
+          sendVoiceCallTurn(voiceCallDraft);
+        }
+      }, 1400);
+    }
+  };
+
+  rec.onerror = (event) => {
+    if (voiceCallRecognition !== rec || switchedToCloud) return;
+    const code = event?.error || '';
+    if (code === 'no-speech') return;
+    switchedToCloud = true;
+    clearTimeout(voiceCallWatchdog);
+    try { rec.onend = null; rec.stop(); } catch {}
+    voiceCallRecognition = null;
+    startVoiceCallCloudCapture();
+  };
+
+  rec.onend = () => {
+    if (voiceCallRecognition !== rec || switchedToCloud) return;
+    if (voiceCallActive && !voiceCallMuted && voiceCallPhase === 'listening') {
+      if (voiceCallDraft) {
+        sendVoiceCallTurn(voiceCallDraft);
+      } else {
+        setTimeout(() => listenForVoiceCallTurn(), 160);
+      }
+    }
+  };
+
+  try {
+    rec.start();
+  } catch {
+    switchedToCloud = true;
+    startVoiceCallCloudCapture();
+  }
+}
+
+function openVoiceCall() {
+  if (isListening) stopDictation();
+  stopSpeaking();
+  voiceCallActive = true;
+  voiceCallMuted = false;
+  voiceCallDraft = '';
+  if (voiceCallMuteBtn) {
+    voiceCallMuteBtn.setAttribute('aria-pressed', 'false');
+    voiceCallMuteBtn.textContent = '🎙️ Wycisz';
+  }
+  renderVoiceCallHeader();
+  if (voiceCallAiText) voiceCallAiText.textContent = 'Po każdej Twojej wypowiedzi odpowiem Ci głosowo i znów zacznę słuchać.';
+  if (voiceCallOverlay) voiceCallOverlay.hidden = false;
+  trackAiEvent('ai_voice_call_start', { assistant_id: getActiveAssistantId() });
+  listenForVoiceCallTurn();
+}
+
+function closeVoiceCall() {
+  voiceCallActive = false;
+  voiceCallMuted = false;
+  voiceCallDraft = '';
+  stopVoiceCallAudioStreams();
+  stopSpeaking();
+  if (voiceCallOverlay) voiceCallOverlay.hidden = true;
+}
+
+voiceChatBtn?.addEventListener('click', openVoiceCall);
+voiceCallCloseBtn?.addEventListener('click', closeVoiceCall);
+voiceCallEndBtn?.addEventListener('click', closeVoiceCall);
+
+voiceCallMuteBtn?.addEventListener('click', () => {
+  voiceCallMuted = !voiceCallMuted;
+  voiceCallMuteBtn.setAttribute('aria-pressed', String(voiceCallMuted));
+  voiceCallMuteBtn.textContent = voiceCallMuted ? '🔇 Włącz mikrofon' : '🎙️ Wycisz';
+  if (voiceCallMuted) {
+    stopVoiceCallAudioStreams();
+    setVoiceCallPhase('listening', 'Mikrofon wyciszony — kliknij „Włącz mikrofon”, aby kontynuować.');
+  } else if (voiceCallPhase === 'listening') {
+    listenForVoiceCallTurn();
+  }
+});
+
+voiceCallInterruptBtn?.addEventListener('click', () => {
+  stopSpeaking();
+  if (voiceCallActive && !voiceCallMuted) {
+    listenForVoiceCallTurn();
+  }
+});
+
+voiceCallSendNowBtn?.addEventListener('click', async () => {
+  if (!voiceCallActive || voiceCallPhase !== 'listening') return;
+  if (voiceCallRecorder && voiceCallRecorder.state === 'recording') {
+    const mr = voiceCallRecorder;
+    voiceCallRecorder = null;
+    setVoiceCallPhase('thinking', 'Rozpoznaję Twoją wypowiedź…');
+    mr.onstop = async () => {
+      const blob = new Blob(voiceCallAudioChunks, { type: mr.mimeType || 'audio/webm' });
+      const text = await transcribeAudioBlob(blob);
+      await sendVoiceCallTurn(text);
+    };
+    try { mr.stop(); } catch {}
+    return;
+  }
+  await sendVoiceCallTurn(voiceCallDraft);
+});
 
 micBtn?.addEventListener('click', () => {
   if (isListening) stopDictation();

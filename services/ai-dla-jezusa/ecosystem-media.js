@@ -346,7 +346,28 @@ export function matchContextGuides(query = '') {
   return hits.slice(0, 2);
 }
 
-function matchBibliaAudioEpisodes(queryNorm, words) {
+const MEDIA_STOP_WORDS = new Set([
+  'jak', 'czy', 'sie', 'dla', 'nie', 'tak', 'jest', 'mam', 'masz', 'miec', 'moj', 'moje', 'moja',
+  'twoj', 'twoje', 'twoja', 'dzis', 'dzisiaj', 'wczoraj', 'jutro', 'rano', 'wieczor', 'prosze',
+  'chce', 'chcesz', 'pomoz', 'powiedz', 'dlaczego', 'kiedy', 'gdzie', 'ktory', 'ktora', 'ktore',
+  'tylko', 'bardzo', 'mozna', 'moge', 'trzeba', 'warto', 'szczerze', 'czasem', 'teraz', 'zawsze',
+  'wiecej', 'jeszcze', 'przez', 'przed', 'albo', 'oraz', 'ktos', 'czym', 'czego', 'jakis', 'mnie'
+]);
+
+function extractMeaningfulMediaWords(qNorm) {
+  return [...new Set(
+    String(qNorm || '')
+      .split(/[^a-z0-9]+/)
+      .filter((w) => w.length >= 4 && !MEDIA_STOP_WORDS.has(w))
+  )];
+}
+
+function hasWordToken(hay, word) {
+  if (!hay || !word) return false;
+  return hay.split(/[^a-z0-9]+/).some((tok) => tok === word || (word.length >= 5 && tok.startsWith(word.slice(0, 5))));
+}
+
+function matchBibliaAudioEpisodes(queryNorm, words, wantsMediaIntent = false) {
   const list = Array.isArray(bibliaAudioCatalog) ? bibliaAudioCatalog : [];
   const matches = [];
   const chMatch = queryNorm.match(/(?:rodzaju|gen|rozdzia[lł])\s*(\d{1,2})/);
@@ -359,9 +380,10 @@ function matchBibliaAudioEpisodes(queryNorm, words) {
     if (wantedCh && Number(ep.chapter) === wantedCh) score += 90;
     if (queryNorm.includes('rodzaju') && ep.book === 'genesis') score += 20;
     for (const w of words) {
-      if (descNorm.includes(w)) score += 18;
+      if (hasWordToken(descNorm, w)) score += 18;
     }
-    if (score > 0) {
+    const minScore = wantedCh > 0 || wantsMediaIntent ? 20 : 36;
+    if (score >= minScore) {
       matches.push({
         score,
         item: {
@@ -381,18 +403,20 @@ function matchBibliaAudioEpisodes(queryNorm, words) {
   return matches.slice(0, 2).map((m) => m.item);
 }
 
-function matchPlaylistVideos(queryNorm, words) {
+function matchPlaylistVideos(queryNorm, words, wantsMediaIntent = false) {
   const list = Array.isArray(uwielbieniePlaylist?.items) ? uwielbieniePlaylist.items : [];
   const matches = [];
+  const bookCue = queryNorm.includes('przypowiesc') || queryNorm.includes('przyslow') || queryNorm.includes('salomon');
   for (const it of list) {
     if (!it?.videoId || it.videoId === 'pending') continue;
     const hay = normalizeText(`${it.title} ${it.subtitle || ''} ${it.bookName || ''} przypowiesci`);
     let score = 0;
-    if (queryNorm.includes('przypowiesc') || queryNorm.includes('przyslow') || queryNorm.includes('salomon')) score += 20;
+    if (bookCue) score += 24;
     for (const w of words) {
-      if (hay.includes(w)) score += 16;
+      if (hasWordToken(hay, w)) score += 16;
     }
-    if (score > 0) {
+    const minScore = bookCue || wantsMediaIntent ? 24 : 32;
+    if (score >= minScore) {
       matches.push({
         score,
         item: {
@@ -420,7 +444,7 @@ function matchChannelGraphics(queryNorm, words) {
     const hay = normalizeText(`${ch.title} ${ch.url} ${ch.kind}`);
     let score = 0;
     for (const w of words) {
-      if (hay.includes(w)) score += 15;
+      if (hasWordToken(hay, w)) score += 15;
     }
     if (score > 0) {
       matches.push({
@@ -444,7 +468,13 @@ function matchChannelGraphics(queryNorm, words) {
 
 export function resolveEcosystemMedia(query = '', { assistantId = 'ai-dla-jezusa', mode = 'CC Auto', limit = 4 } = {}) {
   const qNorm = normalizeText(query);
-  const words = qNorm.split(/[^a-z0-9]+/).filter((w) => w.length >= 3);
+  if (!qNorm || /^(tak|nie|ok|dobrze|dziekuje|dzieki|czesc|hej|amen|chwala panu|alleluja)[.!?]*$/i.test(qNorm)) {
+    return [];
+  }
+  const words = extractMeaningfulMediaWords(qNorm);
+  const wantsMediaIntent = /(radio|sluch|posluch|audycj|stacj|muzyk|uwielbien|worship|psalm|spiritual|live|na zywo|biblia audio|film|wideo|video|vod|youtube|spotify|podcast|kanal|spiew)/.test(qNorm);
+  if (!words.length && !wantsMediaIntent) return [];
+
   const out = [];
   const seenIds = new Set();
 
@@ -458,42 +488,48 @@ export function resolveEcosystemMedia(query = '', { assistantId = 'ai-dla-jezusa
     out.push(enriched);
   };
 
-  // 1. Odtwarzalne odcinki Biblii Audio (.mp3)
-  const audioHits = matchBibliaAudioEpisodes(qNorm, words);
+  // 1. Odtwarzalne odcinki Biblii Audio (.mp3) — tylko przy dopasowaniu księgi/rozdziału lub zapytaniu audio
+  const audioHits = matchBibliaAudioEpisodes(qNorm, words, wantsMediaIntent);
   if (audioHits[0]) pushUnique(audioHits[0]);
 
-  // 2. Filmy i wideo YouTube / VOD CC
+  // 2. Filmy i wideo YouTube / VOD CC — wyłącznie przy mocnym dopasowaniu tematycznym lub intencji wideo/VOD
   const scoredVideos = [];
   for (const vid of CC_FEATURED_VIDEOS) {
     const hay = normalizeText(`${vid.title} ${vid.subtitle} ${(vid.tags || []).join(' ')}`);
     let score = 0;
     for (const w of words) {
-      if (hay.includes(w)) score += 15;
+      if (hasWordToken(hay, w)) score += 15;
     }
-    if (vid.tags?.includes(assistantId)) score += 8;
-    if (score > 0) scoredVideos.push({ score, vid });
+    const minVidScore = wantsMediaIntent ? 15 : 30;
+    if (score >= minVidScore) {
+      if (vid.tags?.includes(assistantId)) score += 8;
+      scoredVideos.push({ score, vid });
+    }
   }
   scoredVideos.sort((a, b) => b.score - a.score);
   if (scoredVideos[0]) pushUnique(scoredVideos[0].vid);
 
-  const plHits = matchPlaylistVideos(qNorm, words);
+  const plHits = matchPlaylistVideos(qNorm, words, wantsMediaIntent);
   if (plHits[0]) pushUnique(plHits[0]);
 
-  // 3. Stacje radiowe 24/7 na żywo
-  const scoredRadios = [];
-  for (const st of CC_RADIO_STREAMS) {
-    const hay = normalizeText(`${st.title} ${st.subtitle} ${(st.tags || []).join(' ')}`);
-    let score = 0;
-    for (const w of words) {
-      if (hay.includes(w)) score += 14;
+  // 3. Stacje radiowe 24/7 — wyłącznie gdy zapytanie nawiązuje do radia, słuchania lub muzyki
+  const wantsRadio = /(radio|sluch|posluch|audycj|stacj|muzyk|uwielbien|worship|psalm|spiritual|live|na zywo|biblia audio)/.test(qNorm);
+  if (wantsRadio) {
+    const scoredRadios = [];
+    for (const st of CC_RADIO_STREAMS) {
+      const hay = normalizeText(`${st.title} ${st.subtitle} ${(st.tags || []).join(' ')}`);
+      let score = 0;
+      for (const w of words) {
+        if (hasWordToken(hay, w)) score += 14;
+      }
+      if (score > 0 && st.tags?.includes(assistantId)) score += 10;
+      if (score > 0) scoredRadios.push({ score, st });
     }
-    if (st.tags?.includes(assistantId)) score += 10;
-    if (score > 0) scoredRadios.push({ score, st });
+    scoredRadios.sort((a, b) => b.score - a.score);
+    if (scoredRadios[0]) pushUnique(scoredRadios[0].st);
   }
-  scoredRadios.sort((a, b) => b.score - a.score);
-  if (scoredRadios[0]) pushUnique(scoredRadios[0].st);
 
-  // 4. Spotify / Kanały społecznościowe (YouTube, X, FB, WhatsApp)
+  // 4. Spotify / Kanały społecznościowe (YouTube, X, FB, WhatsApp) — wyłącznie na wyraźne zapytanie
   const wantsSocial = /(youtube|spotify|facebook|\bfb\b|whatsapp|kanal|social|wspolnot|komunikator|\bx\b|twitter|podcast)/.test(qNorm);
   if (wantsSocial || qNorm.includes('spotify') || qNorm.includes('podcast')) {
     const spHit = CC_SPOTIFY_SHOWS.find((s) => words.some((w) => normalizeText(`${s.title} ${s.tags.join(' ')}`).includes(w))) || CC_SPOTIFY_SHOWS[0];
@@ -508,29 +544,11 @@ export function resolveEcosystemMedia(query = '', { assistantId = 'ai-dla-jezusa
     }
   }
 
-  // 5. Grafika kanału CC (zawsze dla odpowiedzi multimedialnej)
-  const chImgs = matchChannelGraphics(qNorm, words);
-  if (chImgs[0]) pushUnique(chImgs[0]);
-
-  // 6. Uzupełnienie domyślnych kart kontekstowych wg aktywnego asystenta, aby czat był żywy i multimedialny bez wychodzenia z aplikacji
-  if (out.length < 2) {
-    if (assistantId === 'miriam' || mode === 'Twórczość CC') {
-      pushUnique(CC_RADIO_STREAMS[2]); // Spiritual Sounds
-      pushUnique(CC_FEATURED_VIDEOS[3]); // Przypowieści 3 Zaufaj Panu
-    } else if (assistantId === 'lea' || mode === 'Studium Biblijne') {
-      pushUnique(CC_RADIO_STREAMS[0]); // Radio Biblia Audio
-      pushUnique(CC_FEATURED_VIDEOS[1]); // Rdz 1:1-19
-    } else if (assistantId === 'noemi') {
-      pushUnique(CC_FEATURED_VIDEOS[3]); // Przypowieści 3
-      pushUnique(CC_RADIO_STREAMS[2]); // Spiritual Sounds
-    } else if (assistantId === 'rut') {
-      pushUnique(CC_RADIO_STREAMS[1]); // Polskie Radio CC
-      pushUnique(CC_FEATURED_VIDEOS[0]); // Sprawa Chrystusa VOD
-    } else {
-      pushUnique(CC_RADIO_STREAMS[0]); // Radio Biblia Audio
-      pushUnique(CC_FEATURED_VIDEOS[3]); // Przypowieści 3 Zaufaj Panu
-      pushUnique(CC_SPOTIFY_SHOWS[0]); // Biblia Audio Spotify
-    }
+  // 5. Grafika kanału CC — tylko gdy użytkownik pyta o konkretny kanał lub grafikę
+  const wantsChannelImg = /(kanal|channel|grafik|plakat|tv|cctv|seria|program)/.test(qNorm);
+  if (wantsChannelImg) {
+    const chImgs = matchChannelGraphics(qNorm, words);
+    if (chImgs[0]) pushUnique(chImgs[0]);
   }
 
   return out.slice(0, limit);

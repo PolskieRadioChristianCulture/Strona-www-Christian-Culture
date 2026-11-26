@@ -246,6 +246,18 @@
       <p>
         Czyszczenie odbywa się automatycznie raz w tygodniu, przy zamknięciu notowania (niedziela, 20:00). Możesz zażądać dostępu do danych, ich sprostowania lub usunięcia, pisząc na <a href="mailto:radiochristianculture@gmail.com">radiochristianculture@gmail.com</a>; usunięcie danych pseudonimizuje Twoje głosy bez zmiany opublikowanych wyników. Zasady notowania: <a href="/topTEN/regulamin/">Regulamin topTEN</a>.
       </p>
+
+      <h2 id="ai-dla-jezusa">10. Aplikacja „AI dla Jezusa” (polskieradio.cc/ai/aplikacja)</h2>
+      <p>
+        Aplikacja konwersacyjna <strong>AI dla Jezusa</strong> została zaprojektowana z poszanowaniem prywatności (zasada minimalizacji danych RODO):
+      </p>
+      <ul>
+        <li><strong>Gdzie zapisywane są „Ostatnie rozmowy”, „Pamięć”, „Notatniki” i „Przypomnienia”:</strong> wszystkie Twoje wątki rozmów, wpisy w module <em>Pamięć</em>, zapisane odpowiedzi w <em>Notatnikach</em> oraz przypomnienia są przechowywane <strong>wyłącznie lokalnie w pamięci Twojej przeglądarki (<code>localStorage</code>)</strong> na Twoim urządzeniu — nie przechowujemy treści prywatnych rozmów w bazie danych na serwerze Christian Culture.</li>
+        <li><strong>Tryb prywatny:</strong> włączenie przełącznika <em>Tryb prywatny</em> w górnym pasku blokuje zapis rozmowy w <code>localStorage</code> oraz zatrzymuje wysyłanie wskazówek z modułu <em>Pamięć</em>.</li>
+        <li><strong>Przetwarzanie zapytań AI:</strong> wpisana wiadomość i kontekst bieżącej rozmowy są przekazywane bezpiecznym połączeniem szyfrowanym TLS przez nasz brzegowy Worker Cloudflare do wybranego darmowego silnika AI (domyślnie Google Gemini API albo wskazany model z puli CC) w celu wygenerowania odpowiedzi. Wybranie wbudowanej opcji <strong>Baza Wiedzy CC (offline)</strong> przetwarza zapytanie wyłącznie w naszym lokalnym indeksie Christian Culture bez wysyłania treści do zewnętrznych modeli LLM.</li>
+        <li><strong>Własny klucz API (BYOK) i konto Google (LUMINA):</strong> opcjonalny klucz BYOK pozostaje wyłącznie w <code>localStorage</code> na Twoim urządzeniu. Dobrowolne logowanie kontem Google oddziela jedynie lokalną przestrzeń na urządzeniu według identyfikatora użytkownika.</li>
+        <li><strong>Eksport i usunięcie danych (RODO art. 15–20):</strong> bezpośrednio w aplikacji (w menu po lewej → <em>Prywatność i RODO</em>) możesz w każdej chwili jednym kliknięciem <strong>wyeksportować wszystkie zapisane dane do pliku JSON</strong> albo <strong>trwale usunąć wszystkie rozmowy, pamięć, notatki i przypomnienia z przeglądarki</strong>. W sprawach RODO napisz na <a href="mailto:radiochristianculture@gmail.com">radiochristianculture@gmail.com</a>.</li>
+      </ul>
     </article>
   </main>
   <script src="/components/cc-support-footer.js" defer></script>
