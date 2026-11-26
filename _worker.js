@@ -2434,8 +2434,8 @@ export default {
       return env.ASSETS.fetch(new Request(targetUrl, request));
     }
 
-    // AI dla Jezusa (/ai/ i /ai): odwzorowanie makiety UI (L0 26.11.2026)
-    if (decodedP === '/ai' || decodedP === '/ai/index.html') {
+    // AI dla Jezusa (/ai/, /ai i /ai/podglad): odwzorowanie makiety UI (L0 26.11.2026)
+    if (decodedP === '/ai' || decodedP === '/ai/index.html' || decodedP === '/ai/podglad' || decodedP === '/ai/podglad/index.html') {
       const targetUrl = new URL(request.url);
       targetUrl.pathname = '/ai/';
       const assetRes = await env.ASSETS.fetch(new Request(targetUrl, request));

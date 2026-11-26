@@ -12,10 +12,11 @@ import {
 } from './knowledge-hub.js';
 import { openApiSpec } from './openapi.js';
 import { handleMcpRequest } from './mcp-server.js';
+import { handleAiChatRequest } from './chat-service.js';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Accept, X-Requested-With',
   'Access-Control-Max-Age': '86400'
 };
@@ -39,6 +40,11 @@ export async function handleAiDlaJezusaApi(request, env = {}) {
   // 0. Remote MCP Server (Etap 3): /api/ai-dla-jezusa/v1/mcp
   if (path === '/api/ai-dla-jezusa/v1/mcp' || path.startsWith('/api/ai-dla-jezusa/v1/mcp/')) {
     return handleMcpRequest(request, env);
+  }
+
+  // 0b. Rozmowy konwersacyjne + RAG: /api/ai-dla-jezusa/v1/chat
+  if (path === '/api/ai-dla-jezusa/v1/chat') {
+    return handleAiChatRequest(request, env);
   }
 
   // Tylko metoda GET w publicznym API odczytowym
