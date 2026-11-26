@@ -3441,6 +3441,11 @@ navMoreToggle?.addEventListener('click', () => {
 
 privacyToggleBtn?.addEventListener('click', () => {
   privateMode = !privateMode;
+  if (privateMode) {
+    if (isListening) stopDictation();
+    if (voiceCallActive) closeVoiceCall();
+    stopSpeaking();
+  }
   privacyToggleBtn.setAttribute('aria-checked', String(privateMode));
   showToast(privateMode ? 'Tryb prywatny: bez zapisu i zewnętrznych modeli. Pytanie obsłuży Baza Wiedzy CC.' : 'Tryb prywatny wyłączony.');
 });
@@ -4189,6 +4194,7 @@ async function flushCloudChunk(blob) {
 }
 
 async function startCloudDictationFallback(reason = '') {
+  if (privateMode) return;
   if (!isListening || dictationManualStop) return;
   if (cloudRecorder) return;
 
@@ -4289,6 +4295,10 @@ function stopDictation({ fromEnd = false } = {}) {
 }
 
 function startDictation() {
+  if (privateMode) {
+    showToast('Wyłącz tryb prywatny, aby użyć mikrofonu.');
+    return;
+  }
   if (voiceCallActive) closeVoiceCall();
 
   if (isListening) {
@@ -4566,6 +4576,7 @@ async function sendVoiceCallTurn(rawSpokenText = '') {
 }
 
 async function startVoiceCallCloudCapture() {
+  if (privateMode) return;
   if (!voiceCallActive || voiceCallMuted || voiceCallPhase !== 'listening') return;
   if (!navigator.mediaDevices?.getUserMedia || typeof window.MediaRecorder !== 'function') {
     setVoiceCallPhase('listening', 'Brak dostępu do mikrofonu w tej przeglądarce.');
@@ -4591,6 +4602,7 @@ async function startVoiceCallCloudCapture() {
 }
 
 function listenForVoiceCallTurn() {
+  if (privateMode) return;
   if (!voiceCallActive || voiceCallMuted) return;
   stopVoiceCallAudioStreams();
   voiceCallDraft = '';
@@ -4676,6 +4688,10 @@ function listenForVoiceCallTurn() {
 }
 
 function openVoiceCall() {
+  if (privateMode) {
+    showToast('Wyłącz tryb prywatny, aby użyć mikrofonu.');
+    return;
+  }
   if (isListening) stopDictation();
   stopSpeaking();
   voiceCallActive = true;
