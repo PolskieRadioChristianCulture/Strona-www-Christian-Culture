@@ -517,8 +517,152 @@ let streamRevealTimer = null;
 let typingStatusTimer = null;
 const waveBars = voiceWave ? Array.from(voiceWave.querySelectorAll('span')) : [];
 
-// Analytics stays off until AI has its own consent integration.
-function trackAiEvent() {}
+const GA_MEASUREMENT_ID = 'G-Y4EFTVBPE3';
+const AI_ANALYTICS_CONSENT_KEYS = [
+  'cc_ai_analytics_consent',
+  'cc_analytics_consent',
+  'lumina_cookie_consent',
+  'cc-search-analytics-consent-v1'
+];
+const AI_GA_SENSITIVE_KEY_RE = /^(email|e-mail|phone|tel|note|comment|opinion_text|text|message|prompt|query|token|key|secret|password|name|full_name)$/i;
+const AI_GA_EMAIL_RE = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+const AI_GA_PHONE_RE = /(?:\+?\d[\d\s\-()]{6,}\d)/g;
+let aiGtagInitialized = false;
+
+function getAiAnalyticsConsent() {
+  try {
+    if (privateMode) return 'denied';
+    if (window[`ga-disable-${GA_MEASUREMENT_ID}`] === true) return 'denied';
+    for (const k of AI_ANALYTICS_CONSENT_KEYS) {
+      const val = localStorage.getItem(k);
+      if (val === 'denied' || val === 'rejected' || val === 'false') return 'denied';
+      if (val === 'granted' || val === 'accepted' || val === 'true') return 'granted';
+    }
+  } catch {}
+  return 'default';
+}
+
+function detectAiTrafficType() {
+  try {
+    const s = typeof location !== 'undefined' && location.search ? location.search : '';
+    const h = typeof location !== 'undefined' && location.hostname ? location.hostname : '';
+    if (/[?&]cc_team=1/.test(s)) {
+      try { localStorage.setItem('cc_team', '1'); } catch {}
+    }
+    if (/[?&]cc_team=0/.test(s)) {
+      try { localStorage.removeItem('cc_team'); } catch {}
+    }
+    let isTeam = false;
+    try { isTeam = localStorage.getItem('cc_team') === '1'; } catch {}
+    if (isTeam || /[?&]in_mcr=1/.test(s) || (typeof window !== 'undefined' && window.obsstudio)) {
+      return 'internal';
+    }
+    if (
+      (typeof navigator !== 'undefined' && navigator.webdriver === true) ||
+      /^(localhost|127\.0\.0\.1|0\.0\.0\.0|.*\.test)$/i.test(h) ||
+      /HeadlessChrome|Playwright|Puppeteer|PhantomJS|Lighthouse/i.test((typeof navigator !== 'undefined' && navigator.userAgent) || '')
+    ) {
+      return 'technical_monitor';
+    }
+  } catch {}
+  return null;
+}
+
+function sanitizeAiAnalyticsParams(raw) {
+  if (!raw || typeof raw !== 'object') return {};
+  const clean = {};
+  for (const [k, rawVal] of Object.entries(raw)) {
+    if (!k || AI_GA_SENSITIVE_KEY_RE.test(k)) continue;
+    const outKey = k === 'source' ? (Object.prototype.hasOwnProperty.call(raw, 'event_source') ? null : 'event_source') : k;
+    if (!outKey || rawVal === undefined || rawVal === null) continue;
+    if (typeof rawVal === 'string') {
+      let v = rawVal.replace(AI_GA_EMAIL_RE, '[EMAIL_REDACTED]').replace(AI_GA_PHONE_RE, '[PHONE_REDACTED]');
+      clean[outKey] = v.slice(0, 120);
+    } else if ((typeof rawVal === 'number' && Number.isFinite(rawVal)) || typeof rawVal === 'boolean') {
+      clean[outKey] = rawVal;
+    }
+  }
+  return clean;
+}
+
+function ensureAiGtagLoaded() {
+  if (getAiAnalyticsConsent() === 'denied') return false;
+  try {
+    window[`ga-disable-${GA_MEASUREMENT_ID}`] = false;
+    window.dataLayer = window.dataLayer || [];
+    if (typeof window.gtag !== 'function') {
+      window.gtag = function () { window.dataLayer.push(arguments); };
+    }
+    if (!aiGtagInitialized) {
+      aiGtagInitialized = true;
+      const trafficType = detectAiTrafficType();
+      window.gtag('consent', 'default', {
+        analytics_storage: 'granted',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+      window.gtag('js', new Date());
+      const cfg = {
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        anonymize_ip: true
+      };
+      if (trafficType) cfg.traffic_type = trafficType;
+      window.gtag('config', GA_MEASUREMENT_ID, cfg);
+    }
+    if (typeof document !== 'undefined' && document.head && !document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"]`)) {
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+      document.head.appendChild(s);
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function setAiAnalyticsConsent(granted) {
+  try {
+    localStorage.setItem('cc_ai_analytics_consent', granted ? 'granted' : 'denied');
+  } catch {}
+  try {
+    window[`ga-disable-${GA_MEASUREMENT_ID}`] = !granted;
+    if (granted) {
+      ensureAiGtagLoaded();
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', { analytics_storage: 'granted' });
+      }
+    } else if (aiGtagInitialized && typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', { analytics_storage: 'denied' });
+    }
+  } catch {}
+}
+
+function trackAiEvent(name, params = {}) {
+  try {
+    if (!name || typeof name !== 'string') return false;
+    if (getAiAnalyticsConsent() === 'denied') return false;
+    ensureAiGtagLoaded();
+    const clean = sanitizeAiAnalyticsParams(params);
+    const trafficType = detectAiTrafficType();
+    if (trafficType && !clean.traffic_type) clean.traffic_type = trafficType;
+    const payload = {
+      transport_type: 'beacon',
+      app_surface: 'ai_dla_jezusa',
+      ...clean
+    };
+    window.__ccAiAnalyticsLog = window.__ccAiAnalyticsLog || [];
+    window.__ccAiAnalyticsLog.push({ name, params: payload, ts: Date.now() });
+    if (window.__ccAiAnalyticsLog.length > 50) window.__ccAiAnalyticsLog.shift();
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', name, payload);
+      return true;
+    }
+  } catch {}
+  return false;
+}
 
 function getProStatus() {
   if (ownerSession?.isOwner) {
@@ -1008,6 +1152,9 @@ function loadState(uid = currentUser?.uid) {
   const empty = {
     chats: [],
     notes: [],
+    favorites: [],
+    reactions: {},
+    opinions: [],
     memory: [],
     reminders: [],
     projects: [...DEFAULT_PROJECTS],
@@ -1031,9 +1178,18 @@ function loadState(uid = currentUser?.uid) {
     const rawMode = typeof raw.mode === 'string' ? raw.mode.trim() : '';
     const rawDepth = typeof raw.responseDepth === 'string' ? raw.responseDepth.trim().toLowerCase() : '';
     const rawByokProvider = typeof raw.byokProvider === 'string' ? raw.byokProvider.trim().toLowerCase() : '';
+    const safeReactions = {};
+    if (raw.reactions && typeof raw.reactions === 'object' && !Array.isArray(raw.reactions)) {
+      for (const [rk, rv] of Object.entries(raw.reactions).slice(0, 200)) {
+        if (rv === 'up' || rv === 'down') safeReactions[String(rk).slice(0, 80)] = rv;
+      }
+    }
     return {
       chats: Array.isArray(raw.chats) ? raw.chats.slice(0, 40) : [],
       notes: Array.isArray(raw.notes) ? raw.notes.slice(0, 60) : [],
+      favorites: Array.isArray(raw.favorites) ? raw.favorites.slice(0, 80) : [],
+      reactions: safeReactions,
+      opinions: Array.isArray(raw.opinions) ? raw.opinions.slice(0, 80) : [],
       memory: Array.isArray(raw.memory) ? raw.memory.slice(0, 20) : [],
       reminders: Array.isArray(raw.reminders) ? raw.reminders.slice(0, 40) : [],
       projects: Array.isArray(raw.projects) && raw.projects.length ? raw.projects.slice(0, 20) : [...DEFAULT_PROJECTS],
@@ -1759,6 +1915,238 @@ function rememberMessageInMemory(msg, prevUserText = '') {
   saveState();
   if (currentNav === 'Pamięć') renderModule('Pamięć');
   return true;
+}
+
+function createReactionSvg(kind) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', kind === 'star-filled' ? 'currentColor' : 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '1.8');
+  svg.setAttribute('stroke-linecap', 'round');
+  svg.setAttribute('stroke-linejoin', 'round');
+  svg.setAttribute('aria-hidden', 'true');
+  const addPath = (d) => {
+    const p = document.createElementNS(ns, 'path');
+    p.setAttribute('d', d);
+    svg.appendChild(p);
+  };
+  if (kind === 'up') {
+    addPath('M7 10v12');
+    addPath('M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z');
+  } else if (kind === 'down') {
+    addPath('M17 14V2');
+    addPath('M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z');
+  } else if (kind === 'star' || kind === 'star-filled') {
+    const poly = document.createElementNS(ns, 'polygon');
+    poly.setAttribute('points', '12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2');
+    svg.appendChild(poly);
+  } else if (kind === 'opinion') {
+    addPath('M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8Z');
+    addPath('M8.5 11.5h7M8.5 14.5h4.5');
+  } else if (kind === 'more') {
+    for (const cx of [5, 12, 19]) {
+      const c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', String(cx));
+      c.setAttribute('cy', '12');
+      c.setAttribute('r', '1.6');
+      c.setAttribute('fill', 'currentColor');
+      svg.appendChild(c);
+    }
+  } else if (kind === 'chevron') {
+    svg.setAttribute('class', 'msg-more-chev');
+    addPath('m6 9 6 6 6-6');
+  }
+  return svg;
+}
+
+function toggleMessageReaction(msg, kind) {
+  if (!msg?.id || (kind !== 'up' && kind !== 'down')) return null;
+  if (!state.reactions || typeof state.reactions !== 'object') state.reactions = {};
+  const prev = state.reactions[msg.id] || '';
+  const next = prev === kind ? '' : kind;
+  if (next) state.reactions[msg.id] = next;
+  else delete state.reactions[msg.id];
+  saveState();
+  trackAiEvent('ai_response_reaction', {
+    reaction: kind === 'up' ? 'thumbs_up' : 'thumbs_down',
+    active: next === kind,
+    assistant_id: msg.assistantId || getActiveAssistantId(),
+    mode: msg.mode || currentMode,
+    model_id: msg.modelUsed || getPreferredModelId()
+  });
+  return next;
+}
+
+function toggleMessageFavorite(msg, prevUserText = '') {
+  if (!msg?.id) return false;
+  if (!Array.isArray(state.favorites)) state.favorites = [];
+  const idx = state.favorites.findIndex((f) => f.id === msg.id);
+  const added = idx === -1;
+  if (added) {
+    state.favorites.unshift({
+      id: msg.id,
+      title: buildMessageTitle(msg, prevUserText),
+      text: msg.text,
+      assistantId: msg.assistantId || getActiveAssistantId(),
+      mode: msg.mode || currentMode,
+      savedAt: new Date().toISOString()
+    });
+    state.favorites = state.favorites.slice(0, 80);
+  } else {
+    state.favorites.splice(idx, 1);
+  }
+  saveState();
+  if (currentNav === 'Notatniki') renderModule('Notatniki');
+  trackAiEvent('ai_response_favorite', {
+    action: added ? 'add' : 'remove',
+    assistant_id: msg.assistantId || getActiveAssistantId(),
+    mode: msg.mode || currentMode,
+    model_id: msg.modelUsed || getPreferredModelId()
+  });
+  return added;
+}
+
+function openOpinionModal(msg, _prevUserText = '', onSaved = null) {
+  const existing = (state.opinions || []).find((o) => o.msgId === msg.id);
+  trackAiEvent('ai_opinion_open', {
+    assistant_id: msg.assistantId || getActiveAssistantId(),
+    mode: msg.mode || currentMode,
+    model_id: msg.modelUsed || getPreferredModelId()
+  });
+
+  infoDialogTitle.textContent = 'Wystaw opinię o odpowiedzi';
+  infoDialogBody.replaceChildren();
+
+  const intro = document.createElement('p');
+  intro.textContent = 'Twoja ocena pomaga ulepszać odpowiedzi AI dla Jezusa. Do statystyk trafia wyłącznie ocena i kategoria — bez treści Twojego komentarza.';
+
+  const form = document.createElement('form');
+  form.className = 'dialog-form';
+
+  let rating = existing?.rating || 5;
+  const starRow = document.createElement('div');
+  starRow.className = 'opinion-stars';
+  starRow.setAttribute('role', 'radiogroup');
+  starRow.setAttribute('aria-label', 'Ocena gwiazdkowa');
+  const starBtns = [];
+  const syncStars = () => {
+    starBtns.forEach((btn, idx) => {
+      const val = idx + 1;
+      const active = val <= rating;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-checked', String(val === rating));
+      btn.textContent = active ? '★' : '☆';
+    });
+  };
+  for (let s = 1; s <= 5; s++) {
+    const sb = document.createElement('button');
+    sb.type = 'button';
+    sb.className = 'opinion-star-btn';
+    sb.dataset.star = String(s);
+    sb.setAttribute('role', 'radio');
+    sb.setAttribute('aria-label', `${s} na 5 gwiazdek`);
+    sb.onclick = () => {
+      rating = s;
+      syncStars();
+    };
+    starBtns.push(sb);
+    starRow.appendChild(sb);
+  }
+  syncStars();
+
+  let selectedCategory = existing?.category || 'pomocna';
+  const catOptions = [
+    ['pomocna', 'Pomocna'],
+    ['biblijna', 'Biblijnie trafna'],
+    ['za_dluga', 'Za długa'],
+    ['blad', 'Błąd merytoryczny'],
+    ['inne', 'Inne']
+  ];
+  const catRow = document.createElement('div');
+  catRow.className = 'opinion-cats';
+  const catBtns = [];
+  const syncCats = () => {
+    catBtns.forEach((b) => {
+      const active = b.dataset.category === selectedCategory;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', String(active));
+    });
+  };
+  for (const [catId, catLabel] of catOptions) {
+    const cb = document.createElement('button');
+    cb.type = 'button';
+    cb.className = 'opinion-cat-btn';
+    cb.dataset.category = catId;
+    cb.textContent = catLabel;
+    cb.onclick = () => {
+      selectedCategory = selectedCategory === catId ? '' : catId;
+      syncCats();
+    };
+    catBtns.push(cb);
+    catRow.appendChild(cb);
+  }
+  syncCats();
+
+  const noteInput = document.createElement('textarea');
+  noteInput.className = 'dialog-input';
+  noteInput.rows = 3;
+  noteInput.maxLength = 500;
+  noteInput.value = existing?.comment || '';
+  noteInput.placeholder = 'Napisz krótko, co było dobre lub co możemy poprawić (opcjonalnie)…';
+  noteInput.setAttribute('aria-label', 'Komentarz do opinii (zapisywany wyłącznie lokalnie)');
+
+  const btnRow = document.createElement('div');
+  btnRow.className = 'dialog-actions-row';
+
+  const submitBtn = document.createElement('button');
+  submitBtn.type = 'submit';
+  submitBtn.className = 'connect-btn';
+  submitBtn.textContent = 'Wyślij opinię';
+
+  const cancelBtn = document.createElement('button');
+  cancelBtn.type = 'button';
+  cancelBtn.className = 'dialog-btn-secondary';
+  cancelBtn.textContent = 'Anuluj';
+  cancelBtn.onclick = () => infoDialog.close();
+
+  form.onsubmit = (e) => {
+    e.preventDefault();
+    if (!Array.isArray(state.opinions)) state.opinions = [];
+    const comment = noteInput.value.trim().slice(0, 500);
+    const entry = {
+      id: existing?.id || `op-${Date.now()}`,
+      msgId: msg.id,
+      rating,
+      category: selectedCategory || 'brak',
+      comment,
+      assistantId: msg.assistantId || getActiveAssistantId(),
+      mode: msg.mode || currentMode,
+      createdAt: new Date().toISOString()
+    };
+    const pos = state.opinions.findIndex((o) => o.msgId === msg.id);
+    if (pos >= 0) state.opinions[pos] = entry;
+    else state.opinions.unshift(entry);
+    state.opinions = state.opinions.slice(0, 80);
+    saveState();
+    trackAiEvent('ai_response_opinion', {
+      rating,
+      category: selectedCategory || 'brak',
+      has_comment: Boolean(comment),
+      assistant_id: msg.assistantId || getActiveAssistantId(),
+      mode: msg.mode || currentMode,
+      model_id: msg.modelUsed || getPreferredModelId()
+    });
+    if (typeof onSaved === 'function') onSaved(entry);
+    showToast('Dziękujemy za Twoją opinię!');
+    infoDialog.close();
+  };
+
+  btnRow.append(submitBtn, cancelBtn);
+  form.append(starRow, catRow, noteInput, btnRow);
+  infoDialogBody.append(intro, form);
+  showInfoDialog();
 }
 
 function formatCalendarUtc(date) {
@@ -2516,6 +2904,124 @@ function renderConversation(animateMsgId = '') {
         }
       }
 
+      const actions = document.createElement('div');
+      actions.className = 'msg-actions' + (isStreamingThisMsg ? ' stream-reveal-deferred' : '');
+      if (isStreamingThisMsg) deferred.push(actions);
+
+      const primaryRow = document.createElement('div');
+      primaryRow.className = 'msg-actions-primary';
+      primaryRow.setAttribute('role', 'group');
+      primaryRow.setAttribute('aria-label', 'Reakcje i opcje odpowiedzi');
+
+      const reactionMeta = {
+        assistant_id: msg.assistantId || getActiveAssistantId(),
+        mode: msg.mode || currentMode,
+        model_id: msg.modelUsed || getPreferredModelId()
+      };
+
+      const upBtn = document.createElement('button');
+      upBtn.type = 'button';
+      upBtn.className = 'msg-action-btn msg-react-btn';
+      upBtn.dataset.reaction = 'up';
+      upBtn.setAttribute('aria-label', 'Łapka w górę — przydatna odpowiedź');
+      upBtn.title = 'Łapka w górę';
+      upBtn.appendChild(createReactionSvg('up'));
+
+      const downBtn = document.createElement('button');
+      downBtn.type = 'button';
+      downBtn.className = 'msg-action-btn msg-react-btn';
+      downBtn.dataset.reaction = 'down';
+      downBtn.setAttribute('aria-label', 'Łapka w dół — wymaga poprawy');
+      downBtn.title = 'Łapka w dół';
+      downBtn.appendChild(createReactionSvg('down'));
+
+      const syncThumbsUi = (val) => {
+        upBtn.classList.toggle('is-active-up', val === 'up');
+        upBtn.setAttribute('aria-pressed', String(val === 'up'));
+        downBtn.classList.toggle('is-active-down', val === 'down');
+        downBtn.setAttribute('aria-pressed', String(val === 'down'));
+      };
+      syncThumbsUi((state.reactions && state.reactions[msg.id]) || '');
+
+      upBtn.onclick = () => {
+        const next = toggleMessageReaction(msg, 'up');
+        syncThumbsUi(next);
+        showToast(next === 'up' ? 'Dziękujemy za pozytywną ocenę!' : 'Cofnięto ocenę.');
+      };
+
+      downBtn.onclick = () => {
+        const next = toggleMessageReaction(msg, 'down');
+        syncThumbsUi(next);
+        showToast(next === 'down' ? 'Zapisano zgłoszenie — ulepszymy tę odpowiedź.' : 'Cofnięto ocenę.');
+      };
+
+      const favBtn = document.createElement('button');
+      favBtn.type = 'button';
+      favBtn.className = 'msg-action-btn msg-react-btn';
+      favBtn.dataset.reaction = 'favorite';
+      favBtn.title = 'Dodaj do ulubionych';
+      const syncFavUi = () => {
+        const isFav = (state.favorites || []).some((f) => f.id === msg.id);
+        favBtn.classList.toggle('is-favorited', isFav);
+        favBtn.setAttribute('aria-pressed', String(isFav));
+        favBtn.setAttribute('aria-label', isFav ? 'Usuń z ulubionych' : 'Dodaj do ulubionych');
+        favBtn.replaceChildren(createReactionSvg(isFav ? 'star-filled' : 'star'));
+      };
+      syncFavUi();
+      favBtn.onclick = () => {
+        const added = toggleMessageFavorite(msg, prevUserMsg?.text || '');
+        syncFavUi();
+        showToast(added ? 'Dodano odpowiedź do ulubionych (★).' : 'Usunięto z ulubionych.');
+      };
+
+      const opinionBtn = document.createElement('button');
+      opinionBtn.type = 'button';
+      opinionBtn.className = 'msg-action-btn msg-opinion-btn';
+      opinionBtn.dataset.reaction = 'opinion';
+      opinionBtn.setAttribute('aria-label', 'Wystaw opinię o odpowiedzi');
+      opinionBtn.title = 'Wystaw opinię';
+      const opinionLabel = document.createElement('span');
+      const syncOpinionUi = () => {
+        const hasOp = (state.opinions || []).some((o) => o.msgId === msg.id);
+        opinionBtn.classList.toggle('is-done', hasOp);
+        opinionLabel.textContent = hasOp ? 'Opinia ✓' : 'Opinia';
+      };
+      opinionBtn.append(createReactionSvg('opinion'), opinionLabel);
+      syncOpinionUi();
+      opinionBtn.onclick = () => openOpinionModal(msg, prevUserMsg?.text || '', () => syncOpinionUi());
+
+      const morePanel = document.createElement('div');
+      morePanel.id = `msgMore-${msg.id}`;
+      morePanel.className = 'msg-more-panel';
+      morePanel.hidden = true;
+
+      const moreBtn = document.createElement('button');
+      moreBtn.type = 'button';
+      moreBtn.className = 'msg-action-btn msg-more-toggle';
+      moreBtn.setAttribute('aria-expanded', 'false');
+      moreBtn.setAttribute('aria-controls', morePanel.id);
+      const moreSpan = document.createElement('span');
+      moreSpan.textContent = 'Więcej opcji';
+      moreBtn.append(createReactionSvg('more'), moreSpan, createReactionSvg('chevron'));
+      moreBtn.onclick = () => {
+        const willOpen = morePanel.hidden;
+        if (willOpen && conversationLog) {
+          conversationLog.querySelectorAll('.msg-more-panel:not([hidden])').forEach((p) => {
+            p.hidden = true;
+          });
+          conversationLog.querySelectorAll('.msg-more-toggle.is-open').forEach((b) => {
+            b.classList.remove('is-open');
+            b.setAttribute('aria-expanded', 'false');
+          });
+        }
+        morePanel.hidden = !willOpen;
+        moreBtn.classList.toggle('is-open', willOpen);
+        moreBtn.setAttribute('aria-expanded', String(willOpen));
+        trackAiEvent('ai_more_options_toggle', { open: willOpen, ...reactionMeta });
+      };
+
+      primaryRow.append(upBtn, downBtn, favBtn, opinionBtn, moreBtn);
+
       const syncBubbleSaveButtons = (savedLater = false) => {
         if (saveNoteBtn) {
           saveNoteBtn.textContent = savedLater ? 'Zapisano (na później) ✓' : 'Zapisano ✓';
@@ -2538,10 +3044,9 @@ function renderConversation(animateMsgId = '') {
 
       if (isQuestionReply) {
         const quickBar = document.createElement('div');
-        quickBar.className = 'quick-reply-bar' + (isStreamingThisMsg ? ' stream-reveal-deferred' : '');
+        quickBar.className = 'quick-reply-bar';
         quickBar.setAttribute('role', 'group');
         quickBar.setAttribute('aria-label', 'Szybkie odpowiedzi i zapis');
-        if (isStreamingThisMsg) deferred.push(quickBar);
 
         const yesBtn = document.createElement('button');
         yesBtn.type = 'button';
@@ -2550,6 +3055,7 @@ function renderConversation(animateMsgId = '') {
         yesBtn.textContent = 'Tak';
         yesBtn.onclick = () => {
           if (busy) return;
+          trackAiEvent('ai_response_action', { action: 'quick_yes', ...reactionMeta });
           sendChatMessage('Tak');
         };
 
@@ -2560,6 +3066,7 @@ function renderConversation(animateMsgId = '') {
         noBtn.textContent = 'Nie';
         noBtn.onclick = () => {
           if (busy) return;
+          trackAiEvent('ai_response_action', { action: 'quick_no', ...reactionMeta });
           sendChatMessage('Nie');
         };
 
@@ -2571,6 +3078,7 @@ function renderConversation(animateMsgId = '') {
         quickSaveBtn.onclick = () => {
           const res = saveMessageToNotes(msg, prevUserMsg?.text || '', { savedLater: false });
           syncBubbleSaveButtons(Boolean(existingNote?.savedLater));
+          trackAiEvent('ai_response_action', { action: 'save_note', ...reactionMeta });
           showToast(res === 'exists' ? 'Ta odpowiedź jest już zapisana w Notatnikach.' : 'Zapisano w Notatnikach.');
         };
 
@@ -2582,22 +3090,25 @@ function renderConversation(animateMsgId = '') {
         quickLaterBtn.onclick = () => {
           const res = saveMessageToNotes(msg, prevUserMsg?.text || '', { savedLater: true });
           syncBubbleSaveButtons(true);
+          trackAiEvent('ai_response_action', { action: 'save_later', ...reactionMeta });
           showToast(res === 'exists' ? 'Już oznaczone jako zapisane na później.' : 'Zapisano na później w Notatnikach.');
         };
 
         quickBar.append(yesBtn, noBtn, quickSaveBtn, quickLaterBtn);
-        aiBubble.appendChild(quickBar);
+        morePanel.appendChild(quickBar);
       }
 
-      const actions = document.createElement('div');
-      actions.className = 'msg-actions' + (isStreamingThisMsg ? ' stream-reveal-deferred' : '');
-      if (isStreamingThisMsg) deferred.push(actions);
+      const moreActions = document.createElement('div');
+      moreActions.className = 'msg-more-actions';
 
       const speakBtn = document.createElement('button');
       speakBtn.type = 'button';
       speakBtn.className = 'msg-action-btn';
       speakBtn.textContent = '🔊 Odsłuchaj';
-      speakBtn.onclick = () => speakReply(msg.text, persona.id, aiBubble, speakBtn);
+      speakBtn.onclick = () => {
+        trackAiEvent('ai_response_action', { action: 'speak', ...reactionMeta });
+        speakReply(msg.text, persona.id, aiBubble, speakBtn);
+      };
       if (isStreamingThisMsg) {
         revealSpeakBtn = speakBtn;
       }
@@ -2607,6 +3118,7 @@ function renderConversation(animateMsgId = '') {
       copyBtn.className = 'msg-action-btn';
       copyBtn.textContent = 'Kopiuj';
       copyBtn.onclick = async () => {
+        trackAiEvent('ai_response_action', { action: 'copy', ...reactionMeta });
         try {
           await navigator.clipboard.writeText(msg.text);
           showToast('Skopiowano odpowiedź.');
@@ -2625,6 +3137,7 @@ function renderConversation(animateMsgId = '') {
         const added = rememberMessageInMemory(msg, prevUserMsg?.text || '');
         rememberBtn.textContent = 'Zapamiętano ✓';
         rememberBtn.classList.add('is-done');
+        trackAiEvent('ai_response_action', { action: 'remember', ...reactionMeta });
         showToast(added ? 'Zapamiętano w Twojej pamięci kontekstowej AI.' : 'Już zapisano w Pamięci.');
       };
 
@@ -2638,6 +3151,7 @@ function renderConversation(animateMsgId = '') {
       saveNoteBtn.onclick = () => {
         const res = saveMessageToNotes(msg, prevUserMsg?.text || '', { savedLater: false });
         syncBubbleSaveButtons(Boolean(existingNote?.savedLater));
+        trackAiEvent('ai_response_action', { action: 'save_note', ...reactionMeta });
         showToast(res === 'exists' ? 'Ta odpowiedź jest już w Notatnikach.' : 'Zapisano odpowiedź w Notatnikach.');
       };
 
@@ -2646,16 +3160,22 @@ function renderConversation(animateMsgId = '') {
       calendarBtn.className = 'msg-action-btn';
       calendarBtn.dataset.action = 'calendar';
       calendarBtn.textContent = 'Dodaj do mojego kalendarza';
-      calendarBtn.onclick = () => openCalendarModal(msg, prevUserMsg?.text || '');
+      calendarBtn.onclick = () => {
+        trackAiEvent('ai_response_action', { action: 'calendar', ...reactionMeta });
+        openCalendarModal(msg, prevUserMsg?.text || '');
+      };
 
       const reminderBtn = document.createElement('button');
       reminderBtn.type = 'button';
       reminderBtn.className = 'msg-action-btn';
       reminderBtn.dataset.action = 'reminder';
       reminderBtn.textContent = 'Przypomnij mi';
-      reminderBtn.onclick = () => openReminderModal(msg, prevUserMsg?.text || '');
+      reminderBtn.onclick = () => {
+        trackAiEvent('ai_response_action', { action: 'reminder', ...reactionMeta });
+        openReminderModal(msg, prevUserMsg?.text || '');
+      };
 
-      actions.append(speakBtn, copyBtn, rememberBtn, saveNoteBtn, calendarBtn, reminderBtn);
+      moreActions.append(speakBtn, copyBtn, rememberBtn, saveNoteBtn, calendarBtn, reminderBtn);
 
       if (i === thread.messages.length - 1 && thread.messages[i - 1]?.role === 'user') {
         const retryBtn = document.createElement('button');
@@ -2664,13 +3184,17 @@ function renderConversation(animateMsgId = '') {
         retryBtn.textContent = 'Ponów';
         retryBtn.onclick = () => {
           if (busy) return;
+          trackAiEvent('ai_response_action', { action: 'retry', ...reactionMeta });
           const lastUserText = thread.messages[i - 1].text;
           thread.messages.pop();
           thread.messages.pop();
           sendChatMessage(lastUserText);
         };
-        actions.appendChild(retryBtn);
+        moreActions.appendChild(retryBtn);
       }
+
+      morePanel.appendChild(moreActions);
+      actions.append(primaryRow, morePanel);
 
       if (isStreamingThisMsg) {
         revealSkipBtn = document.createElement('button');
@@ -3141,16 +3665,67 @@ function renderModule(name) {
   }
 
   if (name === 'Notatniki') {
-    sub.textContent = 'Odpowiedzi AI zapisane przyciskiem „Zapisz” lub „Zapisz na później” podczas Twoich rozmów.';
-    const grid = document.createElement('div');
-    grid.className = 'module-grid';
-    if (!state.notes.length) {
+    const favorites = state.favorites || [];
+    sub.textContent = 'Ulubione odpowiedzi (★) oraz notatki zapisane przyciskiem „Zapisz” lub „Zapisz na później”.';
+    if (!favorites.length && !state.notes.length) {
       const empty = document.createElement('p');
       empty.className = 'module-empty';
-      empty.textContent = 'Brak zapisanych notatek. Po rozmowie z AI kliknij „Zapisz” lub „Zapisz na później”, aby zachować odpowiedź.';
+      empty.textContent = 'Brak zapisanych notatek ani ulubionych. Kliknij ★ lub rozwiń „Więcej opcji → Zapisz”, aby zachować odpowiedź.';
       moduleStage.appendChild(empty);
       return;
     }
+    if (favorites.length) {
+      const favHead = document.createElement('h3');
+      favHead.className = 'fav-section-label';
+      favHead.textContent = `★ Ulubione odpowiedzi (${favorites.length})`;
+      const favGrid = document.createElement('div');
+      favGrid.className = 'module-grid';
+      for (const fav of favorites) {
+        const card = document.createElement('article');
+        card.className = 'module-card';
+        const strong = document.createElement('strong');
+        strong.textContent = `★ ${fav.title}`;
+        const preview = document.createElement('p');
+        preview.textContent = fav.text.slice(0, 260) + (fav.text.length > 260 ? '...' : '');
+        const foot = document.createElement('div');
+        foot.className = 'module-card-foot';
+        const resumeBtn = document.createElement('button');
+        resumeBtn.type = 'button';
+        resumeBtn.className = 'media-play-btn';
+        resumeBtn.textContent = 'Wróć do tematu →';
+        resumeBtn.onclick = () => startPromptDirectly(`Wróćmy do ulubionego tematu „${fav.title}” i pomóż mi podjąć kolejny krok.`, fav.title);
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'connect-btn';
+        copyBtn.textContent = 'Kopiuj całość';
+        copyBtn.onclick = async () => {
+          await navigator.clipboard.writeText(fav.text);
+          showToast('Skopiowano treść ulubionej odpowiedzi.');
+        };
+        const delBtn = document.createElement('button');
+        delBtn.type = 'button';
+        delBtn.className = 'msg-action-btn';
+        delBtn.textContent = 'Usuń ★';
+        delBtn.onclick = () => {
+          state.favorites = (state.favorites || []).filter((f) => f.id !== fav.id);
+          saveState();
+          renderModule('Notatniki');
+        };
+        foot.append(resumeBtn, copyBtn, delBtn);
+        card.append(strong, preview, foot);
+        favGrid.appendChild(card);
+      }
+      moduleStage.append(favHead, favGrid);
+    }
+    if (!state.notes.length) return;
+    if (favorites.length) {
+      const noteHead = document.createElement('h3');
+      noteHead.className = 'fav-section-label';
+      noteHead.textContent = `Zapisane notatki (${state.notes.length})`;
+      moduleStage.appendChild(noteHead);
+    }
+    const grid = document.createElement('div');
+    grid.className = 'module-grid';
     for (const note of state.notes) {
       const card = document.createElement('article');
       card.className = 'module-card';
@@ -4214,6 +4789,9 @@ function exportLocalUserDataJson() {
       chats: state.chats || [],
       memory: state.memory || [],
       notes: state.notes || [],
+      favorites: state.favorites || [],
+      reactions: state.reactions || {},
+      opinions: state.opinions || [],
       reminders: state.reminders || [],
       projects: state.projects || [],
       assistantId: state.assistantId || DEFAULT_ASSISTANT_ID,
@@ -4247,6 +4825,9 @@ function clearAllLocalUserData() {
   state = {
     chats: [],
     notes: [],
+    favorites: [],
+    reactions: {},
+    opinions: [],
     memory: [],
     reminders: [],
     projects: [...DEFAULT_PROJECTS],
@@ -4300,7 +4881,8 @@ function openPrivacyModal() {
   const points = [
     `Gdzie trafiają „Ostatnie rozmowy” (${(state.chats || []).length}), „Pamięć” (${(state.memory || []).length}), „Notatniki” (${(state.notes || []).length}) i „Przypomnienia” (${(state.reminders || []).length}): są zapisywane WYŁĄCZNIE lokalnie w Twojej przeglądarce (localStorage) na tym urządzeniu — nie trzymamy Twoich prywatnych rozmów w bazie danych na serwerze CC.`,
     'Przetwarzanie zapytań AI: wpisane pytanie i kontekst rozmowy są szyfrowane (TLS) i wysyłane przez Worker Cloudflare do wybranego silnika AI (np. Google Gemini) wyłącznie w celu wygenerowania odpowiedzi. Opcja „Baza Wiedzy CC (offline)” działa całkowicie wewnątrz naszego indeksu bez zewnętrznych modeli.',
-    'Tryb prywatny (przełącznik u góry): nie zapisuje rozmów, nie dołącza historii ani pamięci i korzysta wyłącznie z Bazy Wiedzy CC na serwerze Christian Culture.',
+    'Tryb prywatny (przełącznik u góry): nie zapisuje rozmów, nie dołącza historii ani pamięci i wstrzymuje pomiary Google Analytics.',
+    'Statystyki Google Analytics: rejestrujemy wyłącznie anonimowe zdarzenia reakcji i jakości (np. łapka w górę/dół, ulubione, gwiazdki opinii) bez treści pytań, komentarzy ani danych osobowych.',
     'Własny klucz API (BYOK): jeśli go podasz, jest zapisany wyłącznie lokalnie w Twojej przeglądarce.'
   ];
   for (const pt of points) {
@@ -4308,6 +4890,32 @@ function openPrivacyModal() {
     li.textContent = pt;
     list.appendChild(li);
   }
+
+  const gaRow = document.createElement('div');
+  gaRow.className = 'privacy-ga-row';
+  const gaMeta = document.createElement('div');
+  gaMeta.className = 'privacy-ga-meta';
+  const gaTitle = document.createElement('strong');
+  gaTitle.textContent = 'Statystyki Google Analytics';
+  const gaDesc = document.createElement('span');
+  gaDesc.textContent = 'Anonimowe reakcje (👍 👎 ★ opinia) bez treści rozmów.';
+  gaMeta.append(gaTitle, gaDesc);
+  const gaToggleBtn = document.createElement('button');
+  gaToggleBtn.type = 'button';
+  gaToggleBtn.className = 'dialog-btn-secondary';
+  const syncGaBtn = () => {
+    const enabled = getAiAnalyticsConsent() !== 'denied';
+    gaToggleBtn.textContent = enabled ? 'Włączone ✓' : 'Wyłączone';
+    gaToggleBtn.setAttribute('aria-pressed', String(enabled));
+  };
+  syncGaBtn();
+  gaToggleBtn.onclick = () => {
+    const nextEnabled = getAiAnalyticsConsent() === 'denied';
+    setAiAnalyticsConsent(nextEnabled);
+    syncGaBtn();
+    showToast(nextEnabled ? 'Włączono anonimowe statystyki Google Analytics.' : 'Wyłączono statystyki Google Analytics.');
+  };
+  gaRow.append(gaMeta, gaToggleBtn);
 
   const row = document.createElement('div');
   row.className = 'dialog-actions-row';
@@ -4341,7 +4949,7 @@ function openPrivacyModal() {
   };
 
   row.append(exportBtn, policyLink, eraseBtn);
-  infoDialogBody.append(intro, list, row);
+  infoDialogBody.append(intro, list, gaRow, row);
   showInfoDialog();
 }
 
@@ -5768,6 +6376,7 @@ function bindFallbackImages() {
 // Inicjalizacja
 bindFallbackImages();
 applyPreferencesFromState();
+ensureAiGtagLoaded();
 hydrateAvailableModels();
 syncProBadge();
 updatePersonalizedHero();

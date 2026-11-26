@@ -2833,24 +2833,215 @@ a:focus-visible {
 
 .msg-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 8px;
   margin-top: 12px;
 }
 
+.msg-actions-primary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
 .msg-action-btn {
-  min-height: 32px;
-  padding: 4px 10px;
-  border-radius: 7px;
+  min-height: 40px;
+  padding: 6px 12px;
+  border-radius: 9px;
   border: 1px solid #292929;
   background: #161616;
   color: #b8b6b0;
-  font-size: 12px;
+  font-size: 12.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, transform 140ms ease;
 }
 
 .msg-action-btn:hover {
   border-color: #4f452f;
   color: #ffffff;
+}
+
+.msg-action-btn:active {
+  transform: scale(0.97);
+}
+
+.msg-react-btn {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 11px;
+}
+
+.msg-react-btn svg,
+.msg-opinion-btn svg,
+.msg-more-toggle svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+
+.msg-opinion-btn,
+.msg-more-toggle {
+  min-height: 44px;
+  padding: 0 13px;
+  border-radius: 11px;
+  font-weight: 500;
+}
+
+.msg-more-toggle {
+  margin-left: auto;
+}
+
+.msg-more-toggle .msg-more-chev {
+  width: 14px;
+  height: 14px;
+  transition: transform 180ms ease;
+}
+
+.msg-more-toggle.is-open {
+  border-color: rgba(196, 163, 90, 0.55);
+  background: rgba(196, 163, 90, 0.12);
+  color: #f6e7be;
+}
+
+.msg-more-toggle.is-open .msg-more-chev {
+  transform: rotate(180deg);
+}
+
+.msg-react-btn.is-active-up {
+  border-color: rgba(255, 122, 0, 0.72);
+  background: rgba(255, 122, 0, 0.16);
+  color: #ffb266;
+}
+
+.msg-react-btn.is-active-down {
+  border-color: rgba(239, 108, 87, 0.65);
+  background: rgba(239, 108, 87, 0.14);
+  color: #ff9c8e;
+}
+
+.msg-react-btn.is-favorited {
+  border-color: rgba(230, 184, 76, 0.78);
+  background: rgba(230, 184, 76, 0.16);
+  color: #ffe28a;
+}
+
+.msg-more-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(14, 14, 14, 0.94);
+  border: 1px solid #282828;
+  animation: aiPopIn 160ms ease-out both;
+}
+
+.msg-more-panel[hidden] {
+  display: none;
+}
+
+.msg-more-panel .quick-reply-bar {
+  margin-top: 0;
+}
+
+.msg-more-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.msg-more-actions .msg-action-btn {
+  min-height: 40px;
+}
+
+.opinion-stars {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.opinion-star-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  border: 1px solid #2c2c2c;
+  background: #141414;
+  color: #6b6862;
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease, transform 140ms ease;
+}
+
+.opinion-star-btn.active {
+  border-color: rgba(230, 184, 76, 0.78);
+  background: rgba(230, 184, 76, 0.16);
+  color: #ffe28a;
+}
+
+.opinion-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.opinion-cat-btn {
+  min-height: 40px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #2c2c2c;
+  background: #141414;
+  color: #cfcdc7;
+  font-size: 12.5px;
+}
+
+.opinion-cat-btn.active {
+  border-color: rgba(255, 122, 0, 0.72);
+  background: rgba(255, 122, 0, 0.16);
+  color: #ffe2bd;
+}
+
+.privacy-ga-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  margin: 12px 0;
+  border-radius: 12px;
+  background: #141414;
+  border: 1px solid #282828;
+}
+
+.privacy-ga-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.privacy-ga-meta strong {
+  font-size: 13.5px;
+  color: #f4f2ec;
+}
+
+.privacy-ga-meta span {
+  font-size: 12px;
+  color: #a8a6a0;
+}
+
+.fav-section-label {
+  margin: 8px 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.02em;
 }
 
 .typing-line {
@@ -4172,6 +4363,22 @@ a:focus-visible {
     flex: 1 0 100%;
     max-width: 100%;
     order: 4;
+  }
+
+  .msg-actions-primary {
+    gap: 6px;
+  }
+
+  .msg-opinion-btn {
+    padding: 0 11px;
+  }
+
+  .msg-more-toggle {
+    padding: 0 11px;
+  }
+
+  .msg-more-actions .msg-action-btn {
+    min-height: 44px;
   }
 }
 

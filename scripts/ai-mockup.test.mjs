@@ -203,8 +203,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai26_p0/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai26_p0/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai27_p0/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai27_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -840,4 +840,40 @@ test('AI dla Jezusa renders a minimalist 3-icon mobile composer, unified + sheet
   assert.match(css, /\.welcome-stage\s*\{[^}]*--welcome-gap:\s*20px;[^}]*gap:\s*var\(--welcome-gap\);/s);
   assert.match(css, /\.hero-subtitle\.is-faded-out\s*\{[^}]*margin-top:\s*calc\(var\(--welcome-gap\)\s*\*\s*-1\);/s);
   assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.welcome-stage\s*\{[^}]*--welcome-gap:\s*18px;/s);
+});
+
+test('AI dla Jezusa shows thumbs, favorite, opinion + More Options drawer and sends sanitized GA4 telemetry (ai27)', () => {
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
+  const worker = fs.readFileSync(path.join(ROOT, '_worker.js'), 'utf8');
+  const privacyHtml = fs.readFileSync(path.join(ROOT, 'privacy.html'), 'utf8');
+
+  for (const needle of [
+    "dataset.reaction = 'up'",
+    "dataset.reaction = 'down'",
+    "dataset.reaction = 'favorite'",
+    "dataset.reaction = 'opinion'",
+    'Więcej opcji',
+    'msg-more-panel',
+    'openOpinionModal',
+    'toggleMessageReaction',
+    'toggleMessageFavorite',
+    'G-Y4EFTVBPE3',
+    'ai_response_reaction',
+    'ai_response_favorite',
+    'ai_opinion_open',
+    'ai_response_opinion',
+    'ai_more_options_toggle',
+    'ai_response_action',
+    'setAiAnalyticsConsent'
+  ]) {
+    assert.ok(appJs.includes(needle), `Missing ai27 feature in ai/app.js: ${needle}`);
+  }
+
+  for (const cssClass of ['.msg-actions-primary', '.msg-react-btn', '.msg-more-panel', '.opinion-star-btn']) {
+    assert.ok(css.includes(cssClass), `Missing CSS rule ${cssClass} in ai/styles.css`);
+  }
+
+  assert.match(worker, /decodedP === '\/ai\/aplikacja'[\s\S]*https:\/\/www\.googletagmanager\.com[\s\S]*https:\/\/\*\.google-analytics\.com/s);
+  assert.match(privacyHtml, /id="ai-dla-jezusa"[\s\S]*Google Analytics/s);
 });
