@@ -4938,14 +4938,20 @@ function updateProfileFooterButton() {
       img.alt = '';
       img.className = 'footer-avatar';
       const svg = profileBtn.querySelector('svg');
-      if (svg) svg.hidden = true;
+      if (svg) {
+        svg.setAttribute('hidden', '');
+        svg.style.display = 'none';
+      }
       profileBtn.insertBefore(img, labelSpan);
     }
   } else {
     if (labelSpan) labelSpan.textContent = 'Mój profil';
     if (existingAvatar) existingAvatar.remove();
     const svg = profileBtn.querySelector('svg');
-    if (svg) svg.hidden = false;
+    if (svg) {
+      svg.removeAttribute('hidden');
+      svg.style.display = '';
+    }
   }
 }
 

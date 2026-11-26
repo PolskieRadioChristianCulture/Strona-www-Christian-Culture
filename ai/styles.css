@@ -198,7 +198,7 @@ a:focus-visible {
 .new-chat-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   min-height: 44px;
   padding: 0 10px;
@@ -217,10 +217,10 @@ a:focus-visible {
 .search-box {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   min-height: 44px;
-  padding: 0 11px;
+  padding: 0 10px;
   border-radius: 8px;
   background: var(--bg-surface);
   border: 0;
@@ -266,7 +266,7 @@ a:focus-visible {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   min-height: 34px;
   padding: 5px 10px;
@@ -607,7 +607,7 @@ a:focus-visible {
 .recent-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   min-height: 32px;
   padding: 5px 10px;
@@ -634,7 +634,7 @@ a:focus-visible {
 .footer-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   min-height: 36px;
   padding: 6px 10px;
@@ -853,6 +853,15 @@ a:focus-visible {
   width: 16px;
   height: 16px;
   color: #a6a49d;
+  flex-shrink: 0;
+}
+
+.footer-item.privacy-toggle.sidebar-privacy-toggle {
+  width: 100%;
+  justify-content: flex-start;
+  min-height: 38px;
+  padding: 6px 10px;
+  gap: 10px;
 }
 
 .switch-track {
@@ -3254,8 +3263,9 @@ a:focus-visible {
 }
 
 .footer-avatar {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
+  margin-inline: -1px;
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--gold);
@@ -3482,10 +3492,16 @@ a:focus-visible {
   color: #d6d4ce;
 }
 
-.project-link svg,
-:where(.sidebar-left) :is(.nav-item, .recent-item, .footer-item, .search-box) svg {
+.project-link svg {
   width: 14px;
   height: 14px;
+  color: #8b8983;
+  flex-shrink: 0;
+}
+
+:where(.sidebar-left) :is(.nav-item, .recent-item, .footer-item, .search-box) svg {
+  width: 16px;
+  height: 16px;
   color: #8b8983;
   flex-shrink: 0;
 }

@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-26",
+      "topic": "AI dla Jezusa (/ai/aplikacja) — wyrównanie pionowej osi ikon w lewym panelu oraz poprawka wyświetlania awatara użytkownika",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-26",
       "topic": "AI dla Jezusa (/ai/aplikacja) — uproszczona nawigacja, zwijane paski ikon po obu stronach oraz zintegrowany panel ustawień",
       "agent": "A"
     },
