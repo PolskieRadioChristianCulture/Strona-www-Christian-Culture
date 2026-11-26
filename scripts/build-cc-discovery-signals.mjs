@@ -396,7 +396,7 @@ Sitemap: https://polskieradio.cc/sitemaps/en.xml
 `;
 }
 
-export function buildAllDiscoverySignals() {
+export async function buildAllDiscoverySignals() {
   const articles = loadArticles();
   const sitemapsDir = path.join(ROOT, 'sitemaps');
   fs.mkdirSync(sitemapsDir, { recursive: true });
@@ -537,6 +537,8 @@ export function buildAllDiscoverySignals() {
     { path: '/lumina.wiolettarogowska.html', lastmod: '2026-10-15', priority: '0.85', changefreq: 'weekly' },
     { path: '/aplikacje/', lastmod: '2026-11-21', priority: '0.90', changefreq: 'weekly' },
     { path: '/aplikacje/en/', lastmod: '2026-11-21', priority: '0.90', changefreq: 'weekly' },
+    { path: '/ai', lastmod: '2026-11-26', priority: '0.95', changefreq: 'daily' },
+    { path: '/ai/aplikacja', lastmod: '2026-11-26', priority: '0.98', changefreq: 'daily' },
     { path: '/wspieramto', lastmod: '2026-11-21', priority: '0.90', changefreq: 'weekly' },
     ...(() => {
       const pionierzyFile = path.join(ROOT, 'biblioteka-pionierow', 'data', 'partia-01.json');
@@ -782,6 +784,7 @@ export function buildAllDiscoverySignals() {
     { url: `${PRIMARY_ORIGIN}/holos`, section: 'pages', publishedAt: '2026-11-25T04:00:00Z' },
     { url: `${PRIMARY_ORIGIN}/vod`, section: 'pages', publishedAt: '2026-11-26T00:00:00Z' },
     { url: `${PRIMARY_ORIGIN}/akademia/kurscodzienny/dzien-57`, section: 'akademia', publishedAt: '2026-11-26T05:00:00Z' },
+    { url: `${PRIMARY_ORIGIN}/akademia/kurscodzienny/dzien-58`, section: 'akademia', publishedAt: '2026-11-27T00:00:00Z' },
   ];
   queueManager.enqueue(candidatesForQueue);
   const resolvedKey = resolveIndexNowKey({ rootDir: ROOT });
@@ -875,7 +878,7 @@ export function buildAllDiscoverySignals() {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const state = buildAllDiscoverySignals();
+  const state = await buildAllDiscoverySignals();
   console.log(JSON.stringify({
     status: 'OK',
     counts: state.counts,

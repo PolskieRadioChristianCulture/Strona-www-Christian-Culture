@@ -1,6 +1,6 @@
 {
   "standardVersion": "CCN Global SEO & AI Search 2026 v1.0",
-  "generatedAt": "2026-11-26T05:05:43.960Z",
+  "generatedAt": "2026-11-26T23:05:08.299Z",
   "zeroFakeDataPolicy": true,
   "counts": {
     "totalValidatedUrls": 110,
@@ -8,11 +8,11 @@
     "invalidUrls": 0,
     "newsArticlesCount": 104,
     "googleNews48hCount": 58,
-    "akademiaUrlsCount": 88,
+    "akademiaUrlsCount": 89,
     "bibliaUrlsCount": 7,
     "muzykaUrlsCount": 9,
     "videoUrlsCount": 12,
-    "pagesUrlsCount": 54,
+    "pagesUrlsCount": 56,
     "enUrlsCount": 132
   },
   "discoveryFiles": [
@@ -55,7 +55,7 @@
     {
       "path": "/sitemaps/akademia.xml",
       "exists": true,
-      "sizeBytes": 16648,
+      "sizeBytes": 16837,
       "status": "OK"
     },
     {
@@ -79,7 +79,7 @@
     {
       "path": "/sitemaps/pages.xml",
       "exists": true,
-      "sizeBytes": 9727,
+      "sizeBytes": 10053,
       "status": "OK"
     },
     {
@@ -92,9 +92,9 @@
   "indexNow": {
     "keyConfigured": true,
     "keyNote": "Skonfigurowany (cc77...8e)",
-    "totalQueued": 62,
+    "totalQueued": 63,
     "pendingCount": 0,
-    "submittedCount": 62,
+    "submittedCount": 63,
     "failedCount": 0,
     "recentItems": [
       {
@@ -291,7 +291,7 @@
         "url": "https://polskieradio.cc/edukacja/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "edukacja",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-26T05:05:43.955Z",
+        "queuedAt": "2026-11-26T23:05:08.292Z",
         "attempts": 1,
         "maxRetries": 3,
         "lastAttemptAt": "2026-11-26T06:52:44.421Z",
@@ -310,7 +310,7 @@
         "url": "https://polskieradio.cc/rodzina/tragedia-szkola-wyszkow-przemoc-biblia",
         "section": "rodzina",
         "publishedAt": "2026-10-17T08:15:00Z",
-        "queuedAt": "2026-11-26T05:05:43.955Z",
+        "queuedAt": "2026-11-26T23:05:08.292Z",
         "attempts": 1,
         "maxRetries": 3,
         "lastAttemptAt": "2026-11-26T06:52:44.421Z",
@@ -329,7 +329,7 @@
         "url": "https://polskieradio.cc/misje/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "misje",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-26T05:05:43.955Z",
+        "queuedAt": "2026-11-26T23:05:08.292Z",
         "attempts": 1,
         "maxRetries": 3,
         "lastAttemptAt": "2026-11-26T06:52:44.421Z",
@@ -348,7 +348,7 @@
         "url": "https://polskieradio.cc/spoleczenstwo/wojna-ukraina-jezus-pokoj-znaki-czasow",
         "section": "spoleczenstwo",
         "publishedAt": "2026-10-17T08:00:00Z",
-        "queuedAt": "2026-11-26T05:05:43.955Z",
+        "queuedAt": "2026-11-26T23:05:08.292Z",
         "attempts": 1,
         "maxRetries": 3,
         "lastAttemptAt": "2026-11-26T06:52:44.421Z",
@@ -367,7 +367,7 @@
         "url": "https://polskieradio.cc/akademia/dzien-17",
         "section": "akademia",
         "publishedAt": "2026-10-17T04:00:00Z",
-        "queuedAt": "2026-11-26T05:05:43.955Z",
+        "queuedAt": "2026-11-26T23:05:08.292Z",
         "attempts": 1,
         "maxRetries": 3,
         "lastAttemptAt": "2026-11-26T06:52:44.421Z",
@@ -384,12 +384,9 @@
       }
     ],
     "keyMasked": "cc777b...c28e",
-    "totalIndexedUrls": 509,
-    "lastSubmittedCount": 509,
-    "lastSubmittedAt": "2026-11-26T05:05:45.397Z",
-    "lastFlushAt": "2026-11-26T06:52:45.223Z",
-    "lastFlushStatus": "SUBMITTED",
-    "lastHttpStatus": 200
+    "totalIndexedUrls": 512,
+    "lastSubmittedCount": 512,
+    "lastSubmittedAt": "2026-11-26T23:05:09.995Z"
   },
   "externalWebmasterTools": {
     "googleSearchConsole": {
@@ -606,5 +603,5 @@
       "warnings": []
     }
   ],
-  "lastInstantIndexingAt": "2026-11-26T05:05:45.397Z"
+  "lastInstantIndexingAt": "2026-11-26T23:05:09.995Z"
 }
