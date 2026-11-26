@@ -1152,13 +1152,18 @@ a:focus-visible {
   transform: scale(0.95);
 }
 
-/* SIATKA 6 KART PROPOZYCJI (2x3) */
+/* SIATKA 6 KART PROPOZYCJI (kaskadowo 1 lekki rząd na raz, 0 ścisku) */
 .prompt-grid {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 11px;
   margin-top: 18px;
+}
+
+.prompt-grid.is-cascade-ready {
+  min-height: 104px;
+  align-content: start;
 }
 
 .prompt-card {
@@ -1184,6 +1189,76 @@ a:focus-visible {
 .prompt-card:nth-child(5) { animation-delay: 460ms; }
 .prompt-card:nth-child(6) { animation-delay: 510ms; }
 
+.prompt-grid.is-cascade-ready .prompt-card {
+  display: none;
+  opacity: 0;
+  transform: translateY(16px) scale(0.965);
+  pointer-events: none;
+  animation: none;
+  transition:
+    opacity 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms ease,
+    background-color 200ms ease,
+    box-shadow 240ms ease;
+}
+
+.prompt-grid.is-cascade-ready .prompt-card.is-wave-slot {
+  display: flex;
+}
+
+.prompt-grid.is-cascade-ready .prompt-card.is-wave-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.prompt-grid.is-cascade-ready .prompt-card.is-wave-leaving {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.965);
+  pointer-events: none;
+}
+
+.prompt-cascade-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.prompt-cascade-dot {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.prompt-cascade-dot::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  transition: width 240ms cubic-bezier(0.22, 1, 0.36, 1), background-color 240ms ease, box-shadow 240ms ease;
+}
+
+.prompt-cascade-dot:hover::after {
+  background: rgba(230, 184, 76, 0.65);
+}
+
+.prompt-cascade-dot.active::after {
+  width: 22px;
+  background: linear-gradient(90deg, var(--gold), var(--cc-btn-orange));
+  box-shadow: 0 0 12px rgba(255, 122, 0, 0.35);
+}
+
 .prompt-card::before,
 .space-card::before,
 .module-card::before {
@@ -1204,11 +1279,12 @@ a:focus-visible {
   }
 }
 
-.prompt-card:hover {
+.prompt-card:hover,
+.prompt-grid.is-cascade-ready .prompt-card.is-wave-visible:hover {
   background: #171613;
   border-color: rgba(230, 184, 76, 0.5);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45), 0 0 18px rgba(230, 184, 76, 0.08);
-  transform: translateY(-3px);
+  transform: translateY(-3px) scale(1);
 }
 
 .prompt-card:active {
@@ -1218,13 +1294,12 @@ a:focus-visible {
 .prompt-card-icon {
   color: var(--gold);
   margin-top: 2px;
+  flex-shrink: 0;
   transition: transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .prompt-card:hover .prompt-card-icon {
   transform: scale(1.1) rotate(-4deg);
-}
-  flex-shrink: 0;
 }
 
 .prompt-card-icon svg {
@@ -2611,8 +2686,13 @@ a:focus-visible {
     height: 44px;
   }
 
-  .prompt-grid {
+  .prompt-grid:not(.is-cascade-ready) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .prompt-cascade-dot {
+    min-width: 44px;
+    min-height: 44px;
   }
 }
 
@@ -2645,9 +2725,14 @@ a:focus-visible {
     margin-bottom: 18px;
   }
 
-  .prompt-grid {
+  .prompt-grid,
+  .prompt-grid.is-cascade-ready {
     grid-template-columns: 1fr;
     gap: 9px;
+  }
+
+  .prompt-grid.is-cascade-ready {
+    min-height: 168px;
   }
 
   .prompt-card {
@@ -2703,7 +2788,7 @@ a:focus-visible {
 .ai-ready .hero-title,
 .ai-ready .hero-subtitle,
 .ai-ready .composer-box,
-.ai-ready .prompt-card,
+.ai-ready .prompt-grid:not(.is-cascade-ready) .prompt-card,
 .ai-ready .space-card,
 .ai-ready .module-card {
   opacity: 1;
@@ -2905,6 +2990,10 @@ a:focus-visible {
   .send-gold-btn,
   .switch-thumb {
     transition-duration: 360ms;
+  }
+
+  .prompt-grid.is-cascade-ready .prompt-card {
+    transition-duration: 620ms;
   }
 
   .hero-emblem-wrap {

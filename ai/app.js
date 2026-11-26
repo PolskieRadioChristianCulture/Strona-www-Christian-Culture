@@ -3083,6 +3083,174 @@ function initCardSpotlights() {
   }, { passive: true });
 }
 
+function initPromptCascade() {
+  const grid = $('.prompt-grid');
+  const nav = $('#promptCascadeNav');
+  if (!grid) return;
+  const cards = Array.from(grid.querySelectorAll('.prompt-card'));
+  if (!cards.length) return;
+
+  const prefersCalm = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+  const getWaveSize = () => (window.innerWidth <= 560 ? 2 : 3);
+
+  let waveSize = getWaveSize();
+  let totalWaves = Math.ceil(cards.length / waveSize);
+  let waveIndex = 0;
+  let pausedByHover = false;
+  let pausedByFocus = false;
+  let timers = [];
+
+  const clearTimers = () => {
+    for (const t of timers) clearTimeout(t);
+    timers = [];
+  };
+
+  const renderDots = () => {
+    if (!nav) return;
+    nav.replaceChildren();
+    if (totalWaves <= 1) {
+      nav.hidden = true;
+      return;
+    }
+    nav.hidden = false;
+    for (let i = 0; i < totalWaves; i += 1) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'prompt-cascade-dot' + (i === waveIndex ? ' active' : '');
+      dot.setAttribute('aria-label', `Zestaw propozycji ${i + 1} z ${totalWaves}`);
+      dot.setAttribute('aria-pressed', String(i === waveIndex));
+      dot.addEventListener('click', () => {
+        showWave(i);
+      });
+      nav.appendChild(dot);
+    }
+  };
+
+  const syncDots = () => {
+    if (!nav) return;
+    const dots = nav.querySelectorAll('.prompt-cascade-dot');
+    dots.forEach((dot, idx) => {
+      const active = idx === waveIndex;
+      dot.classList.toggle('active', active);
+      dot.setAttribute('aria-pressed', String(active));
+    });
+  };
+
+  const scheduleCycle = () => {
+    clearTimers();
+    if (totalWaves <= 1) return;
+    if (pausedByHover || pausedByFocus || document.hidden || welcomeStage?.hidden) return;
+
+    const holdMs = prefersCalm ? 6000 : 4600;
+    const leaveStartTimer = setTimeout(() => {
+      if (pausedByHover || pausedByFocus || document.hidden || welcomeStage?.hidden) return;
+      const start = waveIndex * waveSize;
+      const slice = cards.slice(start, start + waveSize);
+      slice.forEach((card, i) => {
+        const leaveT = setTimeout(() => {
+          if (pausedByHover || pausedByFocus) {
+            card.classList.remove('is-wave-leaving');
+            card.classList.add('is-wave-visible');
+            return;
+          }
+          card.classList.remove('is-wave-visible');
+          card.classList.add('is-wave-leaving');
+        }, i * 170);
+        timers.push(leaveT);
+      });
+
+      const nextTimer = setTimeout(() => {
+        if (pausedByHover || pausedByFocus) {
+          showWave(waveIndex);
+          return;
+        }
+        showWave((waveIndex + 1) % totalWaves);
+      }, slice.length * 170 + 390);
+      timers.push(nextTimer);
+    }, holdMs);
+    timers.push(leaveStartTimer);
+  };
+
+  function showWave(nextIdx) {
+    clearTimers();
+    waveIndex = ((nextIdx % totalWaves) + totalWaves) % totalWaves;
+    syncDots();
+
+    const start = waveIndex * waveSize;
+    const end = start + waveSize;
+
+    cards.forEach((card, idx) => {
+      card.classList.remove('is-wave-slot', 'is-wave-visible', 'is-wave-leaving');
+      if (idx >= start && idx < end) {
+        card.classList.add('is-wave-slot');
+      }
+    });
+
+    // Wymuszenie układu przed kaskadą wejścia kolejnych kart
+    void grid.offsetHeight;
+
+    const visibleSlice = cards.slice(start, end);
+    visibleSlice.forEach((card, i) => {
+      const enterT = setTimeout(() => {
+        card.classList.remove('is-wave-leaving');
+        card.classList.add('is-wave-visible');
+      }, 40 + i * 210);
+      timers.push(enterT);
+    });
+
+    scheduleCycle();
+  }
+
+  grid.classList.add('is-cascade-ready');
+  renderDots();
+  showWave(0);
+
+  grid.addEventListener('mouseenter', () => {
+    pausedByHover = true;
+    clearTimers();
+    const start = waveIndex * waveSize;
+    cards.slice(start, start + waveSize).forEach((card) => {
+      card.classList.remove('is-wave-leaving');
+      card.classList.add('is-wave-visible');
+    });
+  });
+
+  grid.addEventListener('mouseleave', () => {
+    pausedByHover = false;
+    scheduleCycle();
+  });
+
+  grid.addEventListener('focusin', () => {
+    pausedByFocus = true;
+    clearTimers();
+    const start = waveIndex * waveSize;
+    cards.slice(start, start + waveSize).forEach((card) => {
+      card.classList.remove('is-wave-leaving');
+      card.classList.add('is-wave-visible');
+    });
+  });
+
+  grid.addEventListener('focusout', () => {
+    pausedByFocus = grid.contains(document.activeElement);
+    if (!pausedByFocus) scheduleCycle();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearTimers();
+    else showWave(waveIndex);
+  });
+
+  window.addEventListener('resize', () => {
+    const nextSize = getWaveSize();
+    if (nextSize !== waveSize) {
+      waveSize = nextSize;
+      totalWaves = Math.ceil(cards.length / waveSize);
+      renderDots();
+      showWave(0);
+    }
+  }, { passive: true });
+}
+
 setTimeout(() => {
   document.body.classList.add('ai-ready');
 }, 3000);
@@ -3096,3 +3264,4 @@ hydrateDailyVerse();
 initLuminaAuthConnector();
 initAmbientCanvas();
 initCardSpotlights();
+initPromptCascade();
