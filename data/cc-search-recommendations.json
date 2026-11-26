@@ -5,6 +5,13 @@
   "pools": [
     [
       {
+        "tag": "Nowość • 7 dni PRO na start",
+        "title": "AI dla Jezusa — Chrześcijańska Aplikacja AI",
+        "desc": "Rozmowy oparte na Biblii (UBG), 5 asystentów głosowych, multimedia CC i 7 dni PRO na start.",
+        "url": "/ai/aplikacja",
+        "icon": "sparkle"
+      },
+      {
         "tag": "Inspiracja na Dziś",
         "title": "Rozważanie „Dobrze, że jesteś” • Dzień 26",
         "desc": "Codzienne słowo umocnienia, modlitwa i Boży pokój na 26 listopada 2026.",
@@ -24,13 +31,6 @@
         "desc": "Wspólna modlitwa narodu o pokój, Boże prowadzenie i przebudzenie.",
         "url": "/modlitwa",
         "icon": "shield"
-      },
-      {
-        "tag": "Słuchowisko Biblijne",
-        "title": "Biblia Audio — Nowy Testament UBG",
-        "desc": "Żywe Słowo Boże z profesjonalną muzyką i udźwiękowieniem radiowym.",
-        "url": "/player",
-        "icon": "volume"
       }
     ],
     [
@@ -125,6 +125,13 @@
     ]
   ],
   "recommendedToday": [
+    {
+      "tag": "Nowość • 7 dni PRO na start",
+      "title": "AI dla Jezusa — Chrześcijańska Aplikacja AI",
+      "desc": "Rozmowy oparte na Biblii (UBG), 5 asystentów głosowych, multimedia CC i 7 dni PRO na start.",
+      "url": "/ai/aplikacja",
+      "icon": "sparkle"
+    },
     {
       "tag": "Inspiracja na Dziś",
       "title": "Rozważanie „Dobrze, że jesteś” • Dzień 26",

@@ -336,8 +336,14 @@
     'intencja': ['modlitwa', 'wstawiennictwo'],
 
     // Aplikacje & Narzędzia
-    'aplikacja': ['cclite', 'cclite.pl', 'apka', 'pwa', 'mobile', 'dobrze że jesteś'],
-    'apka': ['aplikacja', 'cclite', 'cclite.pl', 'mobile'],
+    'ai': ['ai dla jezusa', 'chrześcijańskie ai', 'sztuczna inteligencja', 'asystent', 'gpt', 'rut', 'lea', 'noemi', 'miriam'],
+    'gpt': ['ai dla jezusa', 'ai', 'chrześcijańskie ai', 'asystent', 'czat ai'],
+    'asystent': ['ai dla jezusa', 'asystentka', 'rut', 'lea', 'noemi', 'miriam', 'ai'],
+    'asystentka': ['ai dla jezusa', 'asystent', 'rut', 'lea', 'noemi', 'miriam', 'ai'],
+    'sztuczna': ['sztuczna inteligencja', 'ai dla jezusa', 'ai'],
+    'inteligencja': ['sztuczna inteligencja', 'ai dla jezusa', 'ai'],
+    'aplikacja': ['ai dla jezusa', 'cclite', 'cclite.pl', 'apka', 'pwa', 'mobile', 'dobrze że jesteś'],
+    'apka': ['ai dla jezusa', 'aplikacja', 'cclite', 'cclite.pl', 'mobile'],
 
     // Sklep & Zasoby
     'sklep': ['koszyk', 'zamówienie', 'współpraca', 'książki', 'literatura'],
@@ -2332,6 +2338,9 @@
     }
     if (url.includes('podcast') || url.includes('player') || url.includes('radio') || title.includes('radio')) {
       return '/images/ogloszenia-widget-radio.webp';
+    }
+    if (url.includes('/ai/aplikacja') || /\/ai\/?$/.test(url) || title.includes('ai dla jezusa')) {
+      return '/ai/assets/icon-512.png';
     }
     if (url.includes('duszpasterz') || title.includes('duszpasterz') || title.includes('mariusz')) {
       return '/images/ogloszenia-duszpasterz-mariusz.webp';

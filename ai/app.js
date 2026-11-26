@@ -370,7 +370,7 @@ function getProStatus() {
 function syncProBadge() {
   if (!proBadgeBtn) return;
   const st = getProStatus();
-  proBadgeBtn.textContent = st.label;
+  proBadgeBtn.textContent = 'PRO';
   proBadgeBtn.classList.toggle('is-free-tier', !st.active);
   proBadgeBtn.classList.toggle('is-patron', st.tier === 'patron' || st.tier === 'owner');
   if (st.tier === 'trial') {

@@ -194,8 +194,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai13/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai13/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai14/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai14/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -484,4 +484,30 @@ test('Female assistants enforce feminine Polish grammar & voice while default as
   await processAiChat({ assistantId: 'ai-dla-jezusa', message: 'Pomóż mi' }, { GEMINI_API_KEY: 'AIzaTestGenderKey1' }, { fetch: captureFetch });
   assert.match(capturedSystem, /rodzaju męskim/);
   assert.match(capturedSystem, /przygotowałem/);
+});
+
+test('AI dla Jezusa is indexed across CC search catalogs, recommendations, and omni-search synonyms', () => {
+  const searchIndex = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/cc-search-index.json'), 'utf8'));
+  const szukajCatalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'szukaj/catalog.json'), 'utf8'));
+  const recJson = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/cc-search-recommendations.json'), 'utf8'));
+  const omniJs = fs.readFileSync(path.join(ROOT, 'components/cc-omni-search.js'), 'utf8');
+  const szukajHtml = fs.readFileSync(path.join(ROOT, 'szukaj/index.html'), 'utf8');
+
+  for (const [label, data] of [['data/cc-search-index.json', searchIndex], ['szukaj/catalog.json', szukajCatalog]]) {
+    const hit = (data.items || []).find((it) => it.url === 'https://polskieradio.cc/ai/aplikacja');
+    assert.ok(hit, `Missing AI dla Jezusa item in ${label}`);
+    assert.match(hit.title, /AI dla Jezusa/);
+    assert.ok(data.contextGuides?.ai?.shortcuts?.some((s) => s.url === 'https://polskieradio.cc/ai/aplikacja'), `Missing ai contextGuide in ${label}`);
+  }
+
+  const allRecs = [...(recJson.recommendedToday || []), ...((recJson.pools || []).flat())];
+  assert.ok(allRecs.some((r) => r.url === '/ai/aplikacja'), 'Missing /ai/aplikacja in cc-search-recommendations.json');
+  assert.match(omniJs, /'ai':\s*\[[^\]]*'ai dla jezusa'/);
+  assert.match(omniJs, /\/ai\/assets\/icon-512\.png/);
+  assert.match(szukajHtml, /'ai':\s*\[[^\]]*'ai dla jezusa'/);
+
+  const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+  assert.match(css, /\.pro-pill\s*\{[^}]*border:\s*0;[^}]*background:\s*transparent;/s);
+  assert.match(appJs, /proBadgeBtn\.textContent\s*=\s*'PRO'/);
 });

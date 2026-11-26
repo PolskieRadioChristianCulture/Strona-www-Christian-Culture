@@ -231,6 +231,19 @@ const CONTEXT_GUIDES = {
       { title: "Klub Mecenasów Misji (polskieradio.cc/mecenas)", url: "https://polskieradio.cc/mecenas", icon: "🏛️" },
       { title: "Profil Patronite Osobowość Plus", url: "https://patronite.pl/osobowoscplus", icon: "✨" }
     ]
+  },
+  "ai": {
+    keywords: ["ai", "ai dla jezusa", "sztuczna inteligencja", "gpt", "gpt dla jezusa", "asystent", "asystentka", "rut", "lea", "noemi", "miriam", "czat ai"],
+    topic: "AI dla Jezusa — Chrześcijańska Aplikacja AI & Asystenci Christian Culture",
+    summary: "Chrześcijańska aplikacja AI (https://polskieradio.cc/ai/aplikacja) oparta o zweryfikowaną Biblię UBG, 5 asystentów (AI dla Jezusa, Rut, Lea, Noemi, Miriam), wbudowane multimedia CC i serwer MCP. Pierwsze 7 dni PRO na start dla każdego nowego użytkownika; stały dostęp PRO dla Patronów i Mecenasów.",
+    keyVerses: [
+      { ref: "Prz 3,5-6", text: "Zaufaj Panu z całego swego serca i nie polegaj na własnym rozumie. Pamiętaj o nim na wszystkich swoich drogach, a on będzie prostował twoje ścieżki.", url: "https://polskieradio.cc/mojabiblia" }
+    ],
+    shortcuts: [
+      { title: "Otwórz aplikację AI dla Jezusa (7 dni PRO)", url: "https://polskieradio.cc/ai/aplikacja", icon: "✨" },
+      { title: "MojaBiblia — Przekład UBG i Strong", url: "https://polskieradio.cc/mojabiblia", icon: "📖" },
+      { title: "Zostań Patronem Christian Culture", url: "https://polskieradio.cc/patron", icon: "❤️" }
+    ]
   }
 };
 
@@ -258,6 +271,20 @@ const CORE_PROJECTS = [
   url: "https://polskieradio.cc/wizytowki",
   description: "Centralny katalog wszystkich 23 wizytówek ekosystemu Christian Culture: Kąciki Ewangelizacyjne (/Żaneta, /Ewa, /CezaryRogowski), służby, projekty z wartościami i profile społeczności LUMINA.",
   tags: ["wizytówki", "wizytowki", "wizytówka", "wizytowka", "katalog wizytówek", "kącik ewangelizacyjny", "profile", "służby", "ogłoszenia"],
+  featured: true
+},
+{
+  title: "AI dla Jezusa — Chrześcijańska Aplikacja AI & Asystenci CC (PRO)",
+  category: "Aplikacje i narzędzia",
+  url: "https://polskieradio.cc/ai/aplikacja",
+  image: "/ai/assets/icon-512.png",
+  description: "Chrześcijańska aplikacja AI ekosystemu Christian Culture: 5 asystentów (AI dla Jezusa, Rut, Lea, Noemi, Miriam), Biblia UBG, radio 24/7, Biblia Audio, YouTube, Spotify i dyktowanie głosowe. Pierwsze 7 dni PRO na start bez opłat; pełna wersja PRO dla Patronów i Mecenasów.",
+  tags: [
+    "ai", "ai dla jezusa", "aplikacja ai", "chrześcijańskie ai", "chrzescijanskie ai",
+    "sztuczna inteligencja", "asystent", "asystentka", "asystent biblijny",
+    "rut", "lea", "noemi", "miriam", "czat ai", "chat ai", "gpt", "gpt dla jezusa",
+    "pro", "mcp", "biblia ai", "studium biblii ai", "christian culture ai", "polskieradio.cc/ai"
+  ],
   featured: true
 },
 {
