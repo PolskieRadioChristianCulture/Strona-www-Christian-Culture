@@ -10721,7 +10721,7 @@ ${isStandalonePage ? '' : `
           if (iconSpan) iconSpan.innerHTML = svgIcon(item.icon || 'star', 20);
           if (tagSpan) tagSpan.textContent = item.tag || '';
           if (badgeSpan) {
-            badgeSpan.textContent = item.badge || 'POLECANE';
+            badgeSpan.textContent = item.badge || 'NOWOŚCI';
             badgeSpan.style.display = item.badge ? 'inline-flex' : 'none';
           }
           if (titleEl) titleEl.textContent = item.title || '';
@@ -10803,11 +10803,11 @@ ${isStandalonePage ? '' : `
       : `${activeFeaturedSet + 1}/${FEATURED_MODES.length} • ${activeModeObj.fullLabel}`;
 
     const featuredCards = `
-      <section class="cc-omni-featured-section" aria-label="Polecane dziś w EkoCC">
+      <section class="cc-omni-featured-section" aria-label="Nowości — publiczny katalog stron ekosystemu Christian Culture">
         <div class="cc-omni-featured-head">
           <div class="cc-omni-featured-title-wrap">
             <span class="cc-omni-featured-label">
-              ☆ POLECANE DZIŚ W EKOCC
+              ☆ NOWOŚCI
             </span>
           </div>
         </div>

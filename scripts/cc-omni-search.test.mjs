@@ -986,8 +986,8 @@ test('cc-omni-search.js: Biblia Intelligence CC — P6 contracts (Karty Dzieleni
   assert.ok(omniSearchCode.includes('.cc-share-tg:hover'), 'defines .cc-share-tg Telegram color');
 });
 
-test('cc-omni-search.js: Tętniąca Życiem Wyszukiwarka EkoCC — dynamiczne okna propozycji (POLECANE NA DZIŚ, LIVE badge, pule rotacji)', () => {
-  assert.ok(omniSearchCode.includes('POLECANE DZIŚ W EKOCC') || omniSearchCode.includes('Polecane na dziś'), 'header renamed to POLECANE DZIŚ W EKOCC');
+test('cc-omni-search.js: Tętniąca Życiem Wyszukiwarka EkoCC — dynamiczne okna propozycji (NOWOŚCI, LIVE badge, pule rotacji)', () => {
+  assert.ok(omniSearchCode.includes('NOWOŚCI') || omniSearchCode.includes('POLECANE DZIŚ W EKOCC') || omniSearchCode.includes('Polecane na dziś'), 'header renamed to NOWOŚCI');
   assert.ok(omniSearchCode.includes('cc-omni-live-badge'), 'defines cc-omni-live-badge');
   assert.ok(omniSearchCode.includes('cc-live-pulse-dot'), 'defines cc-live-pulse-dot pulsing indicator');
   assert.ok(omniSearchCode.includes('ccPulseLive'), 'defines animation ccPulseLive');
