@@ -4374,6 +4374,7 @@ a:focus-visible {
   }
 
   .msg-more-toggle {
+    margin-left: 0;
     padding: 0 11px;
   }
 
