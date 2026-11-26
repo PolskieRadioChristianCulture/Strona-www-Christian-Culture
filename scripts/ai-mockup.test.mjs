@@ -6,6 +6,12 @@ import { applyPageStandard } from './cc-page-standard.mjs';
 import { isPublicFile } from './cc-release-files.mjs';
 import { handleAiDlaJezusaApi } from '../services/ai-dla-jezusa/api-v1.js';
 import { handleAiChatRequest, processAiChat, resetAiChatRuntimeState } from '../services/ai-dla-jezusa/chat-service.js';
+import {
+  computeFeedbackStats,
+  parseWranglerD1Json,
+  renderJomaFeedbackDigest,
+  scrubForJoma
+} from './sync-ai-feedback-joma.mjs';
 
 const ROOT = process.cwd();
 
@@ -1045,4 +1051,76 @@ test('AI dla Jezusa stores feedback in D1 with PII scrubbing and gates owner rea
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
   assert.ok(appJs.includes('sendFeedbackToServer'));
   assert.ok(appJs.includes('openOwnerFeedbackModal'));
+});
+
+test('sync-ai-feedback-joma scrubs PII/secrets, parses Wrangler JSON banners, and renders structured digest', () => {
+  const scrubbed = scrubForJoma(
+    'Kontakt user@example.com lub +48 600 123 456; token Bearer tok_demo_abcdef123456\nwielolinia   ok'
+  );
+  assert.doesNotMatch(scrubbed, /user@example\.com/);
+  assert.doesNotMatch(scrubbed, /600 123 456/);
+  assert.doesNotMatch(scrubbed, /tok_demo_abcdef123456/);
+  assert.match(scrubbed, /\[EMAIL_REDACTED\]/);
+  assert.match(scrubbed, /\[PHONE_REDACTED\]/);
+  assert.match(scrubbed, /\[SECRET_REDACTED\]/);
+  assert.ok(!scrubbed.includes('\n'));
+
+  const bannerStdout = ` ⛅️ wrangler 4.x\n-------------------\n[\n  {\n    "results": [\n      { "id": "fb_1", "kind": "thumbs_down", "rating": null, "category": "brak", "comment": "", "assistant_id": "ai-dla-jezusa", "mode": "CC Auto", "model_id": "gemini-3.1-flash-lite", "prompt_excerpt": "A | B", "reply_excerpt": "Odp | test", "created_at": "2026-11-26T18:00:00.000Z" }\n    ],\n    "success": true\n  }\n]`;
+  const parsed = parseWranglerD1Json(bannerStdout);
+  assert.equal(parsed.length, 1);
+  assert.equal(parsed[0].id, 'fb_1');
+
+  const rows = [
+    ...parsed,
+    {
+      id: 'fb_2',
+      created_at: '2026-11-26T18:54:27.213Z',
+      kind: 'opinion',
+      rating: 5,
+      category: 'biblijna',
+      comment: 'Podoba mi się | kontakt: test@example.com',
+      assistant_id: 'ai-dla-jezusa',
+      mode: 'CC Auto',
+      model_id: 'gemini-3.1-flash-lite',
+      prompt_excerpt: 'Co znaczy słowo Biblia',
+      reply_excerpt: ''
+    },
+    {
+      id: 'fb_3',
+      created_at: '2026-11-26T18:53:36.268Z',
+      kind: 'thumbs_up',
+      rating: null,
+      category: 'brak',
+      comment: '',
+      assistant_id: 'ai-dla-jezusa',
+      mode: 'CC Auto',
+      model_id: 'gemini-3.1-flash-lite',
+      prompt_excerpt: 'Co znaczy słowo Biblia',
+      reply_excerpt: ''
+    }
+  ];
+
+  const stats = computeFeedbackStats(rows, {
+    total: 3,
+    thumbs_up: 1,
+    thumbs_down: 1,
+    favorites: 0,
+    opinions: 1,
+    avg_rating: 5
+  });
+  assert.equal(stats.total, 3);
+  assert.equal(stats.thumbsDown, 1);
+  assert.equal(stats.priorityIssues.length, 1);
+
+  const md = renderJomaFeedbackDigest({
+    rows,
+    totalsRow: { total: 3, thumbs_up: 1, thumbs_down: 1, favorites: 0, opinions: 1, avg_rating: 5 },
+    generatedAt: '2026-11-26T19:00:00.000Z',
+    limit: 200
+  });
+
+  assert.match(md, /PRYWATNE @joma — NIE PUBLIKOWAĆ/);
+  assert.match(md, /## 🚨 Priorytet do poprawy[\s\S]*👎 Łapka w dół[\s\S]*A \\\| B/);
+  assert.match(md, /Podoba mi się \\\| kontakt: \[EMAIL_REDACTED\]/);
+  assert.doesNotMatch(md, /test@example\.com/);
 });

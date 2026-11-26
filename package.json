@@ -7,6 +7,7 @@
   "scripts": {
     "ram:clean": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/cc-ram-guard.ps1 -KillRunaway",
     "ram:guard": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/cc-ram-guard.ps1 -Loop -IntervalSeconds 90 -TriggerPercent 80",
+    "ai:feedback:sync": "node scripts/sync-ai-feedback-joma.mjs",
     "test:agent-chat": "node --test tests/lumi-agent-client.test.mjs tests/lumi-agent-ui.test.mjs tests/lumi-planner-omega.test.mjs",
     "test:karaoke-p0": "node --test tests/bu-karaoke-playback.test.mjs tests/bu-live-clock.test.mjs tests/bu-karaoke-vocal.test.mjs tests/bu-karaoke-top100.test.mjs tests/bu-karaoke-sync2.test.mjs tests/bu-karaoke-precision.test.mjs",
     "test:source-integrity": "node --test scripts/cc-source-check.test.mjs",
