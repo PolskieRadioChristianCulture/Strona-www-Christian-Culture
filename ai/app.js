@@ -103,6 +103,13 @@ const recentChatsList = $('#recentChats');
 const attachBtn = $('#attachBtn');
 const fileInput = $('#fileInput');
 const attachmentChip = $('#attachmentChip');
+const voiceBar = $('#voiceBar');
+const voiceStatusLabel = $('#voiceStatusLabel');
+const voiceTimerEl = $('#voiceTimer');
+const voiceWave = $('#voiceWave');
+const voiceInterimEl = $('#voiceInterim');
+const voiceStopBtn = $('#voiceStopBtn');
+const ambientCanvas = $('#aiAmbientCanvas');
 const micBtn = $('#micBtn');
 const sendBtn = $('#sendBtn');
 const infoDialog = $('#infoDialog');
@@ -139,6 +146,17 @@ let busy = false;
 let toastTimer = null;
 let recognition = null;
 let isListening = false;
+let dictationBaseText = '';
+let dictationFinalText = '';
+let dictationStartedAt = 0;
+let dictationTimerId = null;
+let voiceRafId = 0;
+let audioCtx = null;
+let analyser = null;
+let micStream = null;
+let speechEnergy = 0;
+let streamRevealTimer = null;
+const waveBars = voiceWave ? Array.from(voiceWave.querySelectorAll('span')) : [];
 
 function getUidScope(uid = currentUser?.uid) {
   return uid ? String(uid) : 'guest';
@@ -267,6 +285,7 @@ infoDialog?.addEventListener('click', (e) => {
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
+    if (isListening) stopDictation();
     closeDrawers();
     modelMenu.hidden = true;
     toolsMenu.hidden = true;
@@ -562,13 +581,24 @@ function providerLabel(provider) {
   return 'Baza wiedzy CC';
 }
 
-function renderConversation() {
+function stopStreamReveal() {
+  if (streamRevealTimer) {
+    clearInterval(streamRevealTimer);
+    streamRevealTimer = null;
+  }
+}
+
+function renderConversation(animateMsgId = '') {
+  stopStreamReveal();
   conversationLog.replaceChildren();
   const thread = getActiveThread();
   if (!thread || !thread.messages.length) {
     showWelcomeView();
     return;
   }
+
+  let revealTarget = null;
+  let revealFullText = '';
 
   for (let i = 0; i < thread.messages.length; i += 1) {
     const msg = thread.messages[i];
@@ -591,7 +621,16 @@ function renderConversation() {
       head.append(titleSpan, badgeSpan);
       aiBubble.appendChild(head);
 
-      aiBubble.appendChild(renderMarkdownSafe(msg.text));
+      const mdSlot = document.createElement('div');
+      mdSlot.className = 'ai-md-slot';
+      if (animateMsgId && msg.id === animateMsgId && typeof msg.text === 'string' && msg.text.length > 24) {
+        revealTarget = mdSlot;
+        revealFullText = msg.text;
+        mdSlot.appendChild(renderMarkdownSafe(msg.text.slice(0, 12)));
+      } else {
+        mdSlot.appendChild(renderMarkdownSafe(msg.text));
+      }
+      aiBubble.appendChild(mdSlot);
 
       if (Array.isArray(msg.sources) && msg.sources.length) {
         const srcWrap = document.createElement('div');
@@ -679,6 +718,24 @@ function renderConversation() {
 
   const scroller = $('.stage-scroll');
   if (scroller) scroller.scrollTop = scroller.scrollHeight;
+
+  if (revealTarget && revealFullText) {
+    let cursor = Math.min(24, revealFullText.length);
+    const step = Math.max(18, Math.ceil(revealFullText.length / 26));
+    streamRevealTimer = setInterval(() => {
+      cursor = Math.min(revealFullText.length, cursor + step);
+      const rendered = renderMarkdownSafe(revealFullText.slice(0, cursor));
+      if (cursor < revealFullText.length) {
+        const caret = document.createElement('span');
+        caret.className = 'ai-stream-cursor';
+        caret.setAttribute('aria-hidden', 'true');
+        (rendered.lastElementChild || rendered).appendChild(caret);
+      }
+      revealTarget.replaceChildren(rendered);
+      if (scroller) scroller.scrollTop = scroller.scrollHeight;
+      if (cursor >= revealFullText.length) stopStreamReveal();
+    }, 34);
+  }
 }
 
 // ================= WYSYŁANIE ZAPYTANIA DO PRAWDZIWEGO API =================
@@ -732,6 +789,7 @@ async function sendChatMessage(textOverride, titleHint = '') {
   sendBtn.disabled = true;
   showConversationView();
 
+  let revealMsgId = '';
   try {
     const activeTools = [...selectedTools];
     if (webSearchEnabled) activeTools.push('Przeszukiwanie CC');
@@ -764,8 +822,9 @@ async function sendChatMessage(textOverride, titleHint = '') {
       throw new Error(data?.detail || data?.error || `HTTP ${res.status}`);
     }
 
+    revealMsgId = 'a-' + Date.now();
     thread.messages.push({
-      id: 'a-' + Date.now(),
+      id: revealMsgId,
       role: 'assistant',
       text: data.reply,
       provider: data.provider || 'cc-knowledge-hub',
@@ -778,8 +837,9 @@ async function sendChatMessage(textOverride, titleHint = '') {
       renderRecentChats();
     }
   } catch (err) {
+    revealMsgId = 'err-' + Date.now();
     thread.messages.push({
-      id: 'err-' + Date.now(),
+      id: revealMsgId,
       role: 'assistant',
       text: `Nie udało się uzyskać odpowiedzi z serwera (${err.message}). Spróbuj ponownie za chwilę lub sprawdź połączenie z internetem.`,
       provider: 'guard',
@@ -789,7 +849,7 @@ async function sendChatMessage(textOverride, titleHint = '') {
   } finally {
     busy = false;
     sendBtn.disabled = false;
-    renderConversation();
+    renderConversation(revealMsgId);
   }
 }
 
@@ -1325,6 +1385,7 @@ $$('.nav-item').forEach((btn) => {
 
 $('#newChatBtn')?.addEventListener('click', () => {
   if (busy) return;
+  if (isListening) stopDictation();
   activeThreadId = null;
   ephemeralThread = null;
   promptInput.value = '';
@@ -1657,41 +1718,266 @@ function clearAttachment() {
   attachmentChip.replaceChildren();
 }
 
-// Dyktowanie głosowe Web Speech API
-micBtn?.addEventListener('click', () => {
+// ================= DYNAMICZNE DYKTATOWANIE GŁOSOWE NA ŻYWO =================
+function formatDictationDuration(ms) {
+  const totalSec = Math.max(0, Math.floor(ms / 1000));
+  const min = Math.floor(totalSec / 60);
+  const sec = String(totalSec % 60).padStart(2, '0');
+  return `${min}:${sec}`;
+}
+
+function releaseAudioResources() {
+  if (voiceRafId) {
+    cancelAnimationFrame(voiceRafId);
+    voiceRafId = 0;
+  }
+  if (micStream) {
+    micStream.getTracks().forEach((t) => {
+      try { t.stop(); } catch {}
+    });
+    micStream = null;
+  }
+  if (audioCtx) {
+    try { audioCtx.close().catch(() => {}); } catch {}
+    audioCtx = null;
+  }
+  analyser = null;
+  speechEnergy = 0;
+  for (const bar of waveBars) {
+    bar.style.transform = 'scaleY(0.24)';
+  }
+}
+
+function runWaveAnimation() {
+  const count = waveBars.length;
+  if (!count || !isListening) return;
+  const freqData = analyser ? new Uint8Array(analyser.frequencyBinCount) : null;
+
+  const tick = (now) => {
+    if (!isListening) return;
+    speechEnergy *= 0.92;
+    let hasSignal = false;
+    if (analyser && freqData) {
+      analyser.getByteFrequencyData(freqData);
+      for (let k = 0; k < Math.min(freqData.length, 24); k += 1) {
+        if (freqData[k] > 8) {
+          hasSignal = true;
+          break;
+        }
+      }
+    }
+
+    const t = now * 0.0085;
+    for (let i = 0; i < count; i += 1) {
+      let amp;
+      if (analyser && freqData && hasSignal) {
+        const bin = Math.min(freqData.length - 1, 1 + Math.floor((i / count) * 20));
+        amp = Math.min(1, freqData[bin] / 195);
+      } else {
+        const centerDist = Math.abs(i - (count - 1) / 2) / ((count - 1) / 2);
+        const envelope = 1 - centerDist * 0.42;
+        const baseWave = 0.28 + 0.22 * Math.sin(t + i * 0.65) + 0.14 * Math.cos(t * 1.45 - i * 0.9);
+        amp = Math.min(1, baseWave * envelope + speechEnergy * (0.45 + 0.35 * Math.sin(t * 1.9 + i)));
+      }
+      const scale = Math.max(0.22, Math.min(1.08, 0.22 + amp * 0.86));
+      waveBars[i].style.transform = `scaleY(${scale.toFixed(3)})`;
+    }
+    voiceRafId = requestAnimationFrame(tick);
+  };
+
+  voiceRafId = requestAnimationFrame(tick);
+}
+
+async function startAudioWaveform() {
+  runWaveAnimation();
+  if (!navigator.mediaDevices?.getUserMedia) return;
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: true, noiseSuppression: true }
+    });
+    if (!isListening) {
+      stream.getTracks().forEach((t) => {
+        try { t.stop(); } catch {}
+      });
+      return;
+    }
+    micStream = stream;
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    audioCtx = new AudioCtx();
+    const source = audioCtx.createMediaStreamSource(stream);
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 64;
+    analyser.smoothingTimeConstant = 0.72;
+    source.connect(analyser);
+  } catch {
+    // Brak bezpośredniego strumienia audio nie blokuje Web Speech API — działa animacja reaktywna
+  }
+}
+
+function stopDictation({ fromEnd = false } = {}) {
+  const activeRec = recognition;
+  recognition = null;
+  if (!isListening && !activeRec) return;
+
+  isListening = false;
+  clearInterval(dictationTimerId);
+  dictationTimerId = null;
+  releaseAudioResources();
+
+  composerBox?.classList.remove('is-dictating');
+  micBtn?.classList.remove('mic-listening');
+  micBtn?.setAttribute('aria-pressed', 'false');
+  if (voiceBar) voiceBar.hidden = true;
+  if (voiceInterimEl) {
+    voiceInterimEl.textContent = '';
+    voiceInterimEl.hidden = true;
+  }
+
+  if (!fromEnd && activeRec) {
+    try { activeRec.stop(); } catch {}
+  }
+
+  if (promptInput) {
+    promptInput.value = promptInput.value.replace(/\s+$/, '');
+    resizeTextarea();
+    if (fromEnd) promptInput.focus();
+  }
+}
+
+function startDictation() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) {
     showToast('Twoja przeglądarka nie obsługuje rozpoznawania mowy.');
     return;
   }
-  if (isListening && recognition) {
-    recognition.stop();
+
+  if (isListening) {
+    stopDictation();
     return;
   }
-  recognition = new SR();
-  recognition.lang = 'pl-PL';
-  recognition.interimResults = false;
-  recognition.onstart = () => {
-    isListening = true;
-    micBtn.classList.add('mic-listening');
-    showToast('Słucham... Mów po polsku.');
+
+  dictationBaseText = promptInput ? promptInput.value.trim() : '';
+  dictationFinalText = '';
+  dictationStartedAt = Date.now();
+  isListening = true;
+
+  composerBox?.classList.add('is-dictating');
+  micBtn?.classList.add('mic-listening');
+  micBtn?.setAttribute('aria-pressed', 'true');
+  if (voiceStatusLabel) voiceStatusLabel.textContent = 'Słucham… Mów teraz';
+  if (voiceTimerEl) voiceTimerEl.textContent = '0:00';
+  if (voiceInterimEl) {
+    voiceInterimEl.textContent = '';
+    voiceInterimEl.hidden = true;
+  }
+  if (voiceBar) voiceBar.hidden = false;
+
+  clearInterval(dictationTimerId);
+  dictationTimerId = setInterval(() => {
+    if (voiceTimerEl && isListening) {
+      voiceTimerEl.textContent = formatDictationDuration(Date.now() - dictationStartedAt);
+    }
+  }, 250);
+
+  const rec = new SR();
+  recognition = rec;
+  rec.lang = 'pl-PL';
+  rec.continuous = true;
+  rec.interimResults = true;
+  rec.maxAlternatives = 1;
+
+  rec.onstart = () => {
+    if (recognition !== rec) return;
+    if (voiceStatusLabel) voiceStatusLabel.textContent = 'Słucham… Mów teraz';
   };
-  recognition.onresult = (event) => {
-    const transcript = event.results?.[0]?.[0]?.transcript || '';
-    if (transcript) {
-      promptInput.value = (promptInput.value ? `${promptInput.value} ` : '') + transcript;
+
+  rec.onsoundstart = () => {
+    speechEnergy = 0.8;
+  };
+
+  rec.onspeechstart = () => {
+    speechEnergy = 1;
+    if (voiceStatusLabel) voiceStatusLabel.textContent = 'Rozpoznaję mowę na żywo…';
+  };
+
+  rec.onresult = (event) => {
+    if (recognition !== rec || !isListening) return;
+    speechEnergy = 1;
+
+    let finalPart = '';
+    let interimPart = '';
+    for (let i = 0; i < event.results.length; i += 1) {
+      const result = event.results[i];
+      const text = String(result?.[0]?.transcript || '').trim();
+      if (!text) continue;
+      if (result.isFinal) finalPart += (finalPart ? ' ' : '') + text;
+      else interimPart += (interimPart ? ' ' : '') + text;
+    }
+
+    dictationFinalText = finalPart;
+    const combined = [dictationBaseText, dictationFinalText, interimPart].filter(Boolean).join(' ');
+    if (promptInput) {
+      promptInput.value = combined;
       resizeTextarea();
-      promptInput.focus();
+      promptInput.scrollTop = promptInput.scrollHeight;
+    }
+
+    if (voiceStatusLabel) {
+      voiceStatusLabel.textContent = interimPart ? 'Mówisz — zapisuję na żywo…' : 'Słucham… Mów teraz';
+    }
+    if (voiceInterimEl) {
+      if (interimPart) {
+        const preview = interimPart.length > 34 ? `…${interimPart.slice(-33)}` : interimPart;
+        voiceInterimEl.textContent = `„${preview}”`;
+        voiceInterimEl.hidden = false;
+      } else {
+        voiceInterimEl.textContent = '';
+        voiceInterimEl.hidden = true;
+      }
     }
   };
-  recognition.onerror = () => {
-    showToast('Nie udało się rozpoznać mowy.');
+
+  rec.onerror = (event) => {
+    if (recognition !== rec) return;
+    const code = event?.error || '';
+    if (code === 'not-allowed' || code === 'service-not-allowed') {
+      showToast('Zezwól przeglądarce na dostęp do mikrofonu, aby dyktować.');
+      stopDictation({ fromEnd: true });
+    } else if (code === 'audio-capture') {
+      showToast('Nie wykryto aktywnego mikrofonu.');
+      stopDictation({ fromEnd: true });
+    } else if (code === 'network') {
+      showToast('Błąd sieci podczas rozpoznawania mowy.');
+      stopDictation({ fromEnd: true });
+    } else if (code !== 'aborted' && code !== 'no-speech') {
+      showToast('Przerwano dyktowanie głosowe.');
+      stopDictation({ fromEnd: true });
+    }
   };
-  recognition.onend = () => {
-    isListening = false;
-    micBtn.classList.remove('mic-listening');
+
+  rec.onend = () => {
+    if (recognition !== rec) return;
+    stopDictation({ fromEnd: true });
   };
-  recognition.start();
+
+  try {
+    rec.start();
+    startAudioWaveform();
+  } catch {
+    stopDictation({ fromEnd: true });
+    showToast('Nie udało się uruchomić dyktowania głosowego.');
+  }
+}
+
+micBtn?.addEventListener('click', () => {
+  if (isListening) stopDictation();
+  else startDictation();
+});
+
+voiceStopBtn?.addEventListener('click', () => {
+  stopDictation();
+  promptInput?.focus();
 });
 
 function resizeTextarea() {
@@ -1710,11 +1996,101 @@ promptInput?.addEventListener('keydown', (e) => {
 
 composerForm?.addEventListener('submit', (e) => {
   e.preventDefault();
+  if (isListening) stopDictation();
   sendChatMessage();
 });
+
+// ================= TŁO CZĄSTECZKOWE, ŚWIATŁO KART I GWARANCJA WIDOCZNOŚCI =================
+function initAmbientCanvas() {
+  if (!ambientCanvas) return;
+  const ctx = ambientCanvas.getContext('2d');
+  if (!ctx) return;
+
+  const prefersCalm = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+  let width = 0;
+  let height = 0;
+  let particles = [];
+  let lastFrame = 0;
+
+  const createParticles = (w, h) => {
+    const count = w < 720 ? 16 : 28;
+    particles = Array.from({ length: count }, (_, idx) => ({
+      x: ((idx + 0.5) / count) * w + (Math.random() - 0.5) * 40,
+      y: Math.random() * h,
+      r: 0.9 + Math.random() * 1.9,
+      vy: 0.14 + Math.random() * 0.28,
+      driftPhase: Math.random() * Math.PI * 2,
+      alpha: 0.14 + Math.random() * 0.34
+    }));
+  };
+
+  const resize = () => {
+    const rect = ambientCanvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    width = Math.round(rect.width);
+    height = Math.round(rect.height);
+    ambientCanvas.width = Math.round(width * dpr);
+    ambientCanvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (!particles.length) createParticles(width, height);
+  };
+
+  const draw = (now) => {
+    requestAnimationFrame(draw);
+    if (document.hidden || !width || !height) return;
+    if (now - lastFrame < 33) return;
+    lastFrame = now;
+
+    ctx.clearRect(0, 0, width, height);
+    const speedFactor = (prefersCalm ? 0.65 : 1) * (isListening ? 1.45 : 1);
+
+    for (const p of particles) {
+      p.y -= p.vy * speedFactor;
+      p.driftPhase += 0.015 * speedFactor;
+      p.x += Math.sin(p.driftPhase) * 0.22 * speedFactor;
+
+      if (p.y < -12) {
+        p.y = height + 12;
+        p.x = Math.random() * width;
+      }
+      if (p.x < -12) p.x = width + 12;
+      if (p.x > width + 12) p.x = -12;
+
+      const pulse = 0.78 + 0.22 * Math.sin(now * 0.002 + p.driftPhase);
+      const a = Math.min(0.65, p.alpha * pulse * (isListening ? 1.3 : 1));
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(244, 199, 87, ${a.toFixed(3)})`;
+      ctx.fill();
+    }
+  };
+
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+  requestAnimationFrame(draw);
+}
+
+function initCardSpotlights() {
+  if (!window.matchMedia?.('(hover: hover)')?.matches) return;
+  document.addEventListener('pointermove', (e) => {
+    const card = e.target?.closest?.('.prompt-card, .space-card, .module-card');
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    card.style.setProperty('--mx', `${(e.clientX - rect.left).toFixed(1)}px`);
+    card.style.setProperty('--my', `${(e.clientY - rect.top).toFixed(1)}px`);
+  }, { passive: true });
+}
+
+setTimeout(() => {
+  document.body.classList.add('ai-ready');
+}, 3000);
 
 // Inicjalizacja
 renderRecentChats();
 renderRightProjects();
 hydrateDailyVerse();
 initLuminaAuthConnector();
+initAmbientCanvas();
+initCardSpotlights();

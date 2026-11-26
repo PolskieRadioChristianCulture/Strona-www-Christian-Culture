@@ -159,9 +159,12 @@ a:focus-visible {
   border-radius: 5px;
   padding: 2px 7px;
   line-height: 1.25;
+  animation: aiBetaGlow 4.2s ease-in-out infinite;
 }
 
 .new-chat-btn {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,18 +178,44 @@ a:focus-visible {
   font-size: 13.5px;
   font-weight: 600;
   margin-bottom: 10px;
-  transition: border-color 180ms ease, background 180ms ease;
+  transition: border-color 180ms ease, background 180ms ease, transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 220ms ease;
+}
+
+.new-chat-btn::after {
+  content: "";
+  position: absolute;
+  inset: -40% auto -40% -60%;
+  width: 45%;
+  background: linear-gradient(110deg, transparent 20%, rgba(255, 233, 166, 0.24) 50%, transparent 80%);
+  transform: translateX(-120%) skewX(-18deg);
+  transition: transform 640ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
 }
 
 .new-chat-btn svg {
   width: 16px;
   height: 16px;
   color: var(--gold);
+  transition: transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .new-chat-btn:hover {
   border-color: var(--gold);
   background: linear-gradient(180deg, rgba(230, 184, 76, 0.22), rgba(230, 184, 76, 0.08));
+  box-shadow: 0 0 22px rgba(230, 184, 76, 0.2);
+  transform: translateY(-1px);
+}
+
+.new-chat-btn:hover::after {
+  transform: translateX(360%) skewX(-18deg);
+}
+
+.new-chat-btn:hover svg {
+  transform: rotate(90deg);
+}
+
+.new-chat-btn:active {
+  transform: scale(0.975);
 }
 
 .search-box {
@@ -239,6 +268,7 @@ a:focus-visible {
 }
 
 .nav-item {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -250,7 +280,21 @@ a:focus-visible {
   font-weight: 500;
   color: #cfcdc7;
   text-align: left;
-  transition: background-color 160ms ease, color 160ms ease;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.nav-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--gold);
+  opacity: 0;
+  transform: scaleY(0.4);
+  transition: opacity 200ms ease, transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .nav-item svg {
@@ -258,6 +302,7 @@ a:focus-visible {
   height: 16px;
   color: #9e9c96;
   flex-shrink: 0;
+  transition: transform 200ms ease, color 200ms ease;
 }
 
 .nav-item:hover {
@@ -265,10 +310,19 @@ a:focus-visible {
   color: #ffffff;
 }
 
+.nav-item:hover svg {
+  transform: translateX(2px);
+}
+
 .nav-item.active {
   background: linear-gradient(90deg, rgba(200, 156, 56, 0.25), rgba(200, 156, 56, 0.09));
   border: 1px solid rgba(230, 184, 76, 0.22);
   color: #ffffff;
+}
+
+.nav-item.active::before {
+  opacity: 1;
+  transform: scaleY(1);
 }
 
 .nav-item.active svg {
@@ -369,12 +423,37 @@ a:focus-visible {
   flex-direction: column;
   height: 100dvh;
   min-width: 0;
+  overflow: hidden;
   background:
     radial-gradient(circle at 50% 28%, rgba(230, 184, 76, 0.085), transparent 46%),
     var(--bg-main);
 }
 
+.ambient-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-aurora {
+  position: absolute;
+  inset: -12% -10% auto;
+  height: 70%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 46% 42% at 50% 34%, rgba(230, 184, 76, 0.12), transparent 72%),
+    radial-gradient(ellipse 32% 30% at 30% 24%, rgba(244, 199, 87, 0.06), transparent 74%),
+    radial-gradient(ellipse 30% 28% at 72% 28%, rgba(200, 160, 69, 0.06), transparent 74%);
+  animation: aiAuroraDrift 13s ease-in-out infinite alternate;
+}
+
 .topbar {
+  position: relative;
+  z-index: 2;
   height: 58px;
   padding: 0 22px;
   display: flex;
@@ -417,6 +496,7 @@ a:focus-visible {
   width: 16px;
   height: 16px;
   color: var(--gold);
+  animation: aiSparkTwinkle 4.5s ease-in-out infinite;
 }
 
 .chevron {
@@ -439,6 +519,8 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  transform-origin: top left;
+  animation: aiPopIn 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .dropdown-menu.dropdown-up {
@@ -555,6 +637,8 @@ a:focus-visible {
 }
 
 .stage-scroll {
+  position: relative;
+  z-index: 2;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -577,6 +661,7 @@ a:focus-visible {
 }
 
 .hero-emblem-wrap {
+  position: relative;
   width: 78px;
   height: 78px;
   border-radius: 18px;
@@ -588,6 +673,45 @@ a:focus-visible {
     0 10px 28px rgba(0, 0, 0, 0.75);
   display: grid;
   place-items: center;
+  animation:
+    aiFadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0ms both,
+    aiEmblemFloat 5.6s ease-in-out 0.6s infinite,
+    aiHaloBreath 4.6s ease-in-out 0.6s infinite;
+  will-change: transform;
+}
+
+.hero-emblem-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 220deg,
+    rgba(230, 184, 76, 0.28) 265deg,
+    #ffe28a 315deg,
+    rgba(230, 184, 76, 0.92) 345deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: aiSpinBorder 7.5s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero-emblem-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -30% auto -30% -80%;
+  width: 55%;
+  background: linear-gradient(110deg, transparent 15%, rgba(255, 240, 188, 0.28) 50%, transparent 85%);
+  transform: translateX(-140%) skewX(-20deg);
+  animation: aiEmblemSheen 6.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
 }
 
 .hero-emblem {
@@ -604,6 +728,15 @@ a:focus-visible {
   letter-spacing: -0.025em;
   line-height: 1.18;
   color: #ffffff;
+  background: linear-gradient(110deg, #ffffff 34%, #ffe8a6 49%, #ffffff 64%);
+  background-size: 240% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation:
+    aiFadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 80ms both,
+    aiTitleSheen 8s ease-in-out 1.2s infinite;
 }
 
 .hero-subtitle {
@@ -611,21 +744,150 @@ a:focus-visible {
   font-size: 15px;
   font-weight: 400;
   color: #a8a6a0;
+  animation: aiFadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 150ms both;
 }
 
 /* KOMPOZYTOR */
 .composer-box {
+  position: relative;
   width: 100%;
   background: var(--bg-surface);
   border: 1px solid #2c2c2c;
   border-radius: var(--radius-composer);
   box-shadow: 0 18px 46px rgba(0, 0, 0, 0.55);
-  transition: border-color 180ms ease;
+  transition: border-color 200ms ease, box-shadow 260ms ease;
   text-align: left;
 }
 
+.welcome-stage .composer-box {
+  animation: aiFadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 210ms both;
+}
+
 .composer-box:focus-within {
-  border-color: rgba(230, 184, 76, 0.52);
+  border-color: rgba(230, 184, 76, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(230, 184, 76, 0.2),
+    0 0 28px rgba(230, 184, 76, 0.14),
+    0 18px 46px rgba(0, 0, 0, 0.6);
+}
+
+.composer-box.is-dictating {
+  border-color: rgba(230, 184, 76, 0.85);
+  box-shadow:
+    0 0 0 1px rgba(230, 184, 76, 0.72),
+    0 0 34px rgba(230, 184, 76, 0.24),
+    0 18px 46px rgba(0, 0, 0, 0.6);
+  animation: aiDictateGlow 2.2s ease-in-out infinite;
+}
+
+/* PASEK AKTYWNEGO DYKTATOWANIA NA ŻYWO */
+.voice-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 14px;
+  border-radius: var(--radius-composer) var(--radius-composer) 0 0;
+  border-bottom: 1px solid rgba(230, 184, 76, 0.24);
+  background: linear-gradient(90deg, rgba(230, 184, 76, 0.16), rgba(230, 184, 76, 0.05) 55%, rgba(230, 184, 76, 0.13));
+  animation: aiVoiceBarIn 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.voice-bar-left,
+.voice-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.voice-dot {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe494 0%, #f0b238 65%, #e2533c 100%);
+  box-shadow: 0 0 10px rgba(230, 184, 76, 0.9);
+  flex-shrink: 0;
+}
+
+.voice-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(230, 184, 76, 0.8);
+  animation: aiSonarPulse 1.4s ease-out infinite;
+}
+
+.voice-status {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #f9ebc2;
+  white-space: nowrap;
+}
+
+.voice-timer {
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold);
+  background: rgba(230, 184, 76, 0.12);
+  border: 1px solid rgba(230, 184, 76, 0.26);
+  padding: 1px 7px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.voice-wave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 24px;
+  flex: 1;
+  max-width: 148px;
+}
+
+.voice-wave span {
+  width: 3px;
+  height: 22px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffe79e 0%, #e6b84c 55%, #b58324 100%);
+  box-shadow: 0 0 8px rgba(230, 184, 76, 0.35);
+  transform: scaleY(0.24);
+  transform-origin: center;
+  transition: transform 70ms ease-out;
+  will-change: transform;
+}
+
+.voice-interim {
+  max-width: 165px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-style: italic;
+  color: #e2cc9a;
+}
+
+.voice-stop-btn {
+  min-height: 30px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(230, 184, 76, 0.65);
+  background: rgba(230, 184, 76, 0.16);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 150ms ease;
+}
+
+.voice-stop-btn:hover {
+  background: rgba(230, 184, 76, 0.28);
+  border-color: var(--gold);
+  transform: translateY(-1px);
 }
 
 .attachment-chip {
@@ -745,6 +1007,8 @@ a:focus-visible {
 }
 
 .send-gold-btn {
+  position: relative;
+  overflow: hidden;
   width: 44px;
   height: 36px;
   border-radius: 10px;
@@ -754,17 +1018,35 @@ a:focus-visible {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 14px rgba(230, 184, 76, 0.25);
-  transition: transform 150ms ease, filter 150ms ease;
+  transition: transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 160ms ease, box-shadow 200ms ease;
+}
+
+.send-gold-btn::after {
+  content: "";
+  position: absolute;
+  inset: -40% auto -40% -90%;
+  width: 65%;
+  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.45) 50%, transparent 80%);
+  transform: translateX(-140%) skewX(-20deg);
+  animation: aiSendSheen 4.6s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .send-gold-btn svg {
   width: 17px;
   height: 17px;
+  position: relative;
+  z-index: 1;
 }
 
 .send-gold-btn:hover {
-  filter: brightness(1.07);
-  transform: translateY(-1px);
+  filter: brightness(1.08);
+  transform: translateY(-1.5px) scale(1.04);
+  box-shadow: 0 6px 20px rgba(230, 184, 76, 0.4);
+}
+
+.send-gold-btn:active {
+  transform: scale(0.95);
 }
 
 /* SIATKA 6 KART PROPOZYCJI (2x3) */
@@ -777,6 +1059,8 @@ a:focus-visible {
 }
 
 .prompt-card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: flex-start;
   gap: 11px;
@@ -786,18 +1070,57 @@ a:focus-visible {
   border: 1px solid #242424;
   text-align: left;
   min-height: 92px;
-  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+  transition: border-color 200ms ease, background-color 200ms ease, transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 240ms ease;
+  animation: aiFadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.prompt-card:nth-child(1) { animation-delay: 260ms; }
+.prompt-card:nth-child(2) { animation-delay: 310ms; }
+.prompt-card:nth-child(3) { animation-delay: 360ms; }
+.prompt-card:nth-child(4) { animation-delay: 410ms; }
+.prompt-card:nth-child(5) { animation-delay: 460ms; }
+.prompt-card:nth-child(6) { animation-delay: 510ms; }
+
+.prompt-card::before,
+.space-card::before,
+.module-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(230, 184, 76, 0.14), transparent 65%);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .prompt-card:hover::before,
+  .space-card:hover::before,
+  .module-card:hover::before {
+    opacity: 1;
+  }
 }
 
 .prompt-card:hover {
   background: #171613;
-  border-color: rgba(230, 184, 76, 0.45);
-  transform: translateY(-1px);
+  border-color: rgba(230, 184, 76, 0.5);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45), 0 0 18px rgba(230, 184, 76, 0.08);
+  transform: translateY(-3px);
+}
+
+.prompt-card:active {
+  transform: translateY(-1px) scale(0.985);
 }
 
 .prompt-card-icon {
   color: var(--gold);
   margin-top: 2px;
+  transition: transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.prompt-card:hover .prompt-card-icon {
+  transform: scale(1.1) rotate(-4deg);
+}
   flex-shrink: 0;
 }
 
@@ -844,6 +1167,7 @@ a:focus-visible {
   border: 1px solid #2c2c2c;
   font-size: 14.5px;
   white-space: pre-wrap;
+  animation: aiMsgIn 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .chat-bubble-ai {
@@ -851,6 +1175,18 @@ a:focus-visible {
   border-radius: 14px;
   background: #121212;
   border: 1px solid #262626;
+  animation: aiMsgIn 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ai-stream-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 15px;
+  margin-left: 3px;
+  vertical-align: -2px;
+  border-radius: 2px;
+  background: var(--gold);
+  animation: aiCursorBlink 0.75s step-end infinite;
 }
 
 .chat-bubble-ai-head {
@@ -882,6 +1218,8 @@ a:focus-visible {
 }
 
 .docked-composer-slot {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: 766px;
   margin: 0 auto;
@@ -1054,8 +1392,30 @@ a:focus-visible {
 }
 
 .mic-listening {
-  color: var(--gold);
-  background: rgba(230, 184, 76, 0.16);
+  position: relative;
+  color: #16130c;
+  background: linear-gradient(135deg, #f4c757 0%, #d6a22e 100%);
+  box-shadow: 0 0 18px rgba(230, 184, 76, 0.45);
+}
+
+.mic-listening::before,
+.mic-listening::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(230, 184, 76, 0.78);
+  animation: aiMicRipple 1.6s ease-out infinite;
+  pointer-events: none;
+}
+
+.mic-listening::after {
+  animation-delay: 0.8s;
+}
+
+.mic-listening:hover {
+  background: linear-gradient(135deg, #ffe082 0%, #e0ae38 100%);
+  color: #16130c;
 }
 
 .recent-row {
@@ -1151,6 +1511,8 @@ a:focus-visible {
 }
 
 .module-card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1158,6 +1520,13 @@ a:focus-visible {
   border-radius: 12px;
   background: #121212;
   border: 1px solid #252525;
+  transition: border-color 180ms ease, transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: aiFadeUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.module-card:hover {
+  border-color: rgba(230, 184, 76, 0.42);
+  transform: translateY(-2px);
 }
 
 .module-card strong {
@@ -1274,6 +1643,8 @@ a:focus-visible {
 }
 
 .workspace-footer {
+  position: relative;
+  z-index: 2;
   padding: 8px 20px 12px;
   flex-shrink: 0;
 }
@@ -1329,10 +1700,24 @@ a:focus-visible {
 }
 
 .space-card {
+  position: relative;
+  overflow: hidden;
   background: var(--bg-surface);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   padding: 14px 14px;
+  transition: border-color 200ms ease, transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 220ms ease;
+  animation: aiFadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.space-card:nth-child(1) { animation-delay: 160ms; }
+.space-card:nth-child(2) { animation-delay: 240ms; }
+.space-card:nth-child(3) { animation-delay: 320ms; }
+
+.space-card:hover {
+  border-color: rgba(230, 184, 76, 0.38);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(-1px);
 }
 
 .space-card-title {
@@ -1609,6 +1994,7 @@ a:focus-visible {
   font-size: 13px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
   max-width: calc(100vw - 32px);
+  animation: aiToastIn 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* =================== RESPONSYWNOŚĆ =================== */
@@ -1675,7 +2061,8 @@ a:focus-visible {
   .send-gold-btn,
   .connect-btn,
   .project-link,
-  .gold-card-link {
+  .gold-card-link,
+  .voice-stop-btn {
     min-height: 44px;
   }
 
@@ -1727,6 +2114,218 @@ a:focus-visible {
   .prompt-card {
     min-height: 76px;
   }
+
+  .voice-bar {
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    padding: 9px 12px;
+  }
+
+  .voice-wave {
+    order: 3;
+    flex: 1 0 100%;
+    max-width: none;
+  }
+
+  .voice-interim {
+    display: none;
+  }
+}
+
+/* Zabezpieczenie widoczności po 3 s + biblioteka animacji AI dla Jezusa */
+.ai-ready .hero-emblem-wrap,
+.ai-ready .hero-title,
+.ai-ready .hero-subtitle,
+.ai-ready .composer-box,
+.ai-ready .prompt-card,
+.ai-ready .space-card,
+.ai-ready .module-card {
+  opacity: 1;
+}
+
+@keyframes aiFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aiPopIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes aiMsgIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes aiVoiceBarIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aiToastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes aiEmblemFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes aiHaloBreath {
+  0%, 100% {
+    box-shadow: 0 0 34px rgba(230, 184, 76, 0.2), 0 10px 28px rgba(0, 0, 0, 0.75);
+  }
+  50% {
+    box-shadow: 0 0 54px rgba(230, 184, 76, 0.38), 0 12px 32px rgba(0, 0, 0, 0.8);
+  }
+}
+
+@keyframes aiSpinBorder {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes aiEmblemSheen {
+  0%, 60% {
+    transform: translateX(-140%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(380%) skewX(-20deg);
+  }
+}
+
+@keyframes aiTitleSheen {
+  0%, 55% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes aiAuroraDrift {
+  0% {
+    transform: translate3d(-2%, 0, 0) scale(1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(2%, 3%, 0) scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes aiBetaGlow {
+  0%, 100% {
+    border-color: rgba(230, 184, 76, 0.45);
+    box-shadow: 0 0 0 rgba(230, 184, 76, 0);
+  }
+  50% {
+    border-color: rgba(230, 184, 76, 0.85);
+    box-shadow: 0 0 12px rgba(230, 184, 76, 0.25);
+  }
+}
+
+@keyframes aiSparkTwinkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.92;
+  }
+  50% {
+    transform: scale(1.12) rotate(8deg);
+    opacity: 1;
+  }
+}
+
+@keyframes aiSendSheen {
+  0%, 58% {
+    transform: translateX(-140%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(360%) skewX(-20deg);
+  }
+}
+
+@keyframes aiDictateGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(230, 184, 76, 0.65),
+      0 0 28px rgba(230, 184, 76, 0.2),
+      0 18px 46px rgba(0, 0, 0, 0.6);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(244, 199, 87, 0.92),
+      0 0 42px rgba(230, 184, 76, 0.36),
+      0 18px 46px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@keyframes aiSonarPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes aiMicRipple {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@keyframes aiCursorBlink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1734,8 +2333,42 @@ a:focus-visible {
   .sidebar-right,
   .new-chat-btn,
   .prompt-card,
+  .space-card,
   .send-gold-btn,
   .switch-thumb {
     transition-duration: 380ms;
+  }
+
+  .hero-emblem-wrap {
+    animation-duration: 0.75s, 9s, 7.5s;
+  }
+
+  .hero-emblem-wrap::before {
+    animation-duration: 12s;
+  }
+
+  .hero-emblem-wrap::after {
+    animation-duration: 10s;
+  }
+
+  .hero-title {
+    animation-duration: 0.75s, 13s;
+  }
+
+  .ambient-aurora {
+    animation-duration: 20s;
+  }
+
+  .send-gold-btn::after {
+    animation-duration: 7.5s;
+  }
+
+  .mic-listening::before,
+  .mic-listening::after {
+    animation-duration: 2.4s;
+  }
+
+  .composer-box.is-dictating {
+    animation-duration: 3.4s;
   }
 }

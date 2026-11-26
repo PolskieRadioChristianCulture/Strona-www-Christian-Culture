@@ -184,10 +184,30 @@ test('AI chat service enforces prompt injection, payload size, rate limits, and 
 test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth with per-UID isolation, and supports BYOK + multi-model Gemini fallback', async () => {
   resetAiChatRuntimeState();
   const html = fs.readFileSync(path.join(ROOT, 'ai/index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai3/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai3/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai4/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai4/);
+  assert.match(html, /id="voiceBar"/);
+  assert.match(html, /id="voiceWave"/);
+  assert.match(html, /id="voiceStopBtn"/);
+  assert.match(html, /id="aiAmbientCanvas"/);
+
+  assert.match(appJs, /interimResults\s*=\s*true/);
+  assert.match(appJs, /continuous\s*=\s*true/);
+  assert.match(appJs, /AudioContext/);
+  assert.match(appJs, /initAmbientCanvas/);
+  assert.match(appJs, /stopDictation/);
+
+  assert.match(css, /\.is-dictating\b/);
+  assert.match(css, /\.voice-wave\b/);
+  assert.match(css, /\.ambient-canvas\b/);
+  const reducedBlocks = css.match(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{[\s\S]*?\n\}/g) || [];
+  assert.ok(reducedBlocks.length > 0, 'Expected prefers-reduced-motion blocks');
+  for (const blk of reducedBlocks) {
+    assert.doesNotMatch(blk, /animation\s*:\s*none/i, 'prefers-reduced-motion must slow animations gently rather than disabling them');
+  }
 
   assert.match(appJs, /\/lumina-db\.js/);
   assert.match(appJs, /loginWithGoogle/);
