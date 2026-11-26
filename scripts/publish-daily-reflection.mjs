@@ -158,7 +158,6 @@ async function publishMissionControl() {
 
     // WhatsApp CommandQueue
     const nazirGroupId = '120363403565056716@g.us';
-    const bartekTarget = '48509370007@c.us';
 
     const { getWarsawDayPhase, adjustReflectionTimeOfDay } = await import('./warsaw_day_phase.mjs');
     const phaseNow = getWarsawDayPhase();
@@ -166,6 +165,7 @@ async function publishMissionControl() {
     const ttsHeader = phaseNow === 'evening' ? 'WERSJA WIECZORNA TTS' : (phaseNow === 'afternoon' ? 'WERSJA POPOŁUDNIOWA TTS' : 'WERSJA PORANNA TTS');
     const normT = s => adjustReflectionTimeOfDay(s);
 
+    // Grupa Nazira: dokładnie 2 wersje (1. Poranna TTS, 2. Na cały dzień WWW) - Subskrypcja SMS trwale zlikwidowana
     const nazirCommands = [
       {
         action: 'send_whatsapp_message',
@@ -184,35 +184,13 @@ async function publishMissionControl() {
         priority: 'high', status: 'pending', date: DATE_STR, dayNumber: DAY_NUM,
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
         source: 'auto_universal_publisher'
-      },
-      {
-        action: 'send_whatsapp_message',
-        chatId: nazirGroupId,
-        command: `wyślij celowane [${nazirGroupId}]: 🌙 *3. ROZWAŻANIE WIECZORNE (SMS)* — Dzień ${DAY_NUM}\n\n${contentSms || ''}`,
-        message: `🌙 *WIECZORNA WERSJA SMS (Dzień ${DAY_NUM})*\n\n${contentSms || ''}`,
-        priority: 'high', status: 'pending', date: DATE_STR, dayNumber: DAY_NUM,
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-        source: 'auto_universal_publisher'
       }
     ];
 
     for (const cmd of nazirCommands) {
       await db.collection('CommandQueue').add(cmd);
     }
-    console.log('✔ [MC] Zakolejkowano 3 priorytety dla Grupy Nazira w CommandQueue.');
-
-    if (contentSms) {
-      await db.collection('CommandQueue').add({
-        action: 'send_whatsapp_message',
-        chatId: bartekTarget,
-        command: `wyślij celowane [${bartekTarget}]: ☀️ *Rozważanie SMS — Dzień ${DAY_NUM} (${READING}):*\n\n${contentSms}\n\n_Christian Culture_`,
-        message: `☀️ *Rozważanie SMS — Dzień ${DAY_NUM} (${READING}):*\n\n${contentSms}\n\n_Christian Culture_`,
-        priority: 'high', status: 'pending', date: DATE_STR, dayNumber: DAY_NUM,
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-        source: 'auto_universal_publisher'
-      });
-      console.log('✔ [MC] Zakolejkowano wersję SMS dla Bartka.');
-    }
+    console.log('✔ [MC] Zakolejkowano 2 priorytety dla Grupy Nazira (TTS + WWW) w CommandQueue.');
 
     const supportBlock = `🌿 Możesz wspierać misję Christian Culture\nmodlitwą, udostępniając i polecając nasze treści\noraz poprzez cykliczny dar finansowy 🕊️\nKażde wsparcie pomaga nam docierać z Ewangelią dalej\ni tworzyć przestrzeń wzrostu duchowego dla tysięcy osób ✨🙏\n\nWspieraj Bożą misję:\n👉 https://patronite.pl/osobowoscplus\n\n💳 Nr konta:\n48 2910 0006 0000 0000 0527 2629\nz dopiskiem: „Dar misyjny"\n\n💸 Revolut: https://revolut.me/christianculture\n📲 BLIK: 537 137 043\n\n🌿 Dziękujemy za Twoje wsparcie i zaufanie. 🤍`;
 
@@ -244,17 +222,12 @@ async function publishMissionControl() {
   try {
     const mc = require(path.join(WEKTOR_ROOT, 'mc_d1_client'));
     const nazirGroupId = '120363403565056716@g.us';
-    const bartekTarget = '48509370007@c.us';
     const { getWarsawDayPhase } = await import('./warsaw_day_phase.mjs');
     const phaseD1 = getWarsawDayPhase();
     const ttsLabelD1 = phaseD1 === 'evening' ? '1. ROZWAŻANIE WIECZORNE (TTS)' : (phaseD1 === 'afternoon' ? '1. ROZWAŻANIE POPOŁUDNIOWE (TTS)' : '1. ROZWAŻANIE PORANNE (TTS)');
     await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: 📖 *${ttsLabelD1}* — Dzień ${DAY_NUM}\n\n${contentApp}`, nazirGroupId, 9, DAY_NUM);
     await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: ☀️ *2. ROZWAŻANIE NA CAŁY DZIEŃ (WWW)* — Dzień ${DAY_NUM}\n\n${contentWeb}`, nazirGroupId, 8, DAY_NUM);
-    if (contentSms) {
-      await mc.pushCommand(`wyślij celowane [${nazirGroupId}]: 🌙 *3. ROZWAŻANIE WIECZORNE (SMS)* — Dzień ${DAY_NUM}\n\n${contentSms}`, nazirGroupId, 7, DAY_NUM);
-      await mc.pushCommand(`wyślij celowane [${bartekTarget}]: ☀️ *Rozważanie SMS — Dzień ${DAY_NUM} (${READING}):*\n\n${contentSms}`, bartekTarget, 6, DAY_NUM);
-    }
-    console.log('✔ [D1] Zapasowo zakolejkowano do Cloudflare D1.');
+    console.log('✔ [D1] Zapasowo zakolejkowano do Cloudflare D1 (TTS + WWW).');
   } catch (e) {
     console.warn('ℹ mc_d1_client:', e.message);
   }
