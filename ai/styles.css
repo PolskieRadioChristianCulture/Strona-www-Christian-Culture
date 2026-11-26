@@ -3945,11 +3945,13 @@ a:focus-visible {
     margin-left: 2px;
   }
 
-  .composer-box {
+  .composer-box,
+  .welcome-stage .composer-box {
     border-radius: 20px;
+    animation: none;
   }
 
-  .prompt-cascade-dots {
+  .prompt-cascade-nav {
     display: none !important;
   }
 
