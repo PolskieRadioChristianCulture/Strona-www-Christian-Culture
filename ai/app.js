@@ -452,6 +452,11 @@ const infoDialogTitle = $('#infoDialogTitle');
 const infoDialogBody = $('#infoDialogBody');
 const toastEl = $('#toast');
 
+function showInfoDialog() {
+  if (!infoDialog) return;
+  if (!infoDialog.open) infoDialog.showModal();
+}
+
 const PRO_TRIAL_STORAGE_KEY = 'cc_ai_pro_trial_start_v1';
 const PRO_PATRON_STORAGE_KEY = 'cc_ai_pro_patron_v1';
 const PRO_TRIAL_DAYS = 7;
@@ -619,7 +624,7 @@ function openProModal() {
 
   const patronLink = document.createElement('a');
   patronLink.className = 'pro-cta-primary';
-  patronLink.href = 'https://patronite.pl/ChristianCulture';
+  patronLink.href = 'https://patronite.pl/CRISTIANCULTURE';
   patronLink.target = '_blank';
   patronLink.rel = 'noopener noreferrer';
   patronLink.textContent = 'Zostań Patronem (Patronite) →';
@@ -627,7 +632,7 @@ function openProModal() {
 
   const wspieramLink = document.createElement('a');
   wspieramLink.className = 'pro-cta-secondary';
-  wspieramLink.href = '/wspieramto';
+  wspieramLink.href = 'https://polskieradio.cc/wspieramto';
   wspieramLink.target = '_blank';
   wspieramLink.rel = 'noopener noreferrer';
   wspieramLink.textContent = 'Mecenas CC (WspieramTO)';
@@ -655,7 +660,7 @@ function openProModal() {
 
   box.append(intro, list, row);
   infoDialogBody.appendChild(box);
-  infoDialog.showModal();
+  showInfoDialog();
 }
 
 const LAST_GREETING_STORAGE_KEY = 'aiDlaJezusa:lastGreetingIdx';
@@ -889,7 +894,7 @@ function openImageLightbox(src, title = 'Podgląd grafiki Christian Culture') {
   img.style.objectFit = 'contain';
   img.style.borderRadius = '12px';
   infoDialogBody.appendChild(img);
-  infoDialog.showModal();
+  showInfoDialog();
 }
 
 function stopSpeaking() {
@@ -1174,7 +1179,7 @@ function openDialog(title, lines) {
     p.textContent = line;
     infoDialogBody.appendChild(p);
   }
-  infoDialog.showModal();
+  showInfoDialog();
 }
 
 function isLeftOverlayMode() {
@@ -1862,7 +1867,7 @@ function openCalendarModal(msg, prevUserText = '') {
   btnRow.append(googleLink, icsBtn);
   form.append(titleInput, dtInput, notesInput, btnRow);
   infoDialogBody.append(intro, form);
-  infoDialog.showModal();
+  showInfoDialog();
 }
 
 function checkDueReminders() {
@@ -1992,7 +1997,7 @@ function openReminderModal(msg, prevUserText = '') {
   btnRow.append(saveRemBtn, calLink);
   form.append(titleInput, presets, dtInput, btnRow);
   infoDialogBody.append(intro, form);
-  infoDialog.showModal();
+  showInfoDialog();
 }
 
 function renderMediaDeck(mediaItems) {
@@ -3975,7 +3980,7 @@ function openSettingsModal() {
   });
 
   infoDialogBody.append(summary, proLine, byokIntro, form);
-  infoDialog.showModal();
+  showInfoDialog();
 }
 
 function openProfileModal() {
@@ -4051,7 +4056,7 @@ function openProfileModal() {
 
     infoDialogBody.append(desc, loginBtn);
   }
-  infoDialog.showModal();
+  showInfoDialog();
 }
 
 function exportLocalUserDataJson() {
@@ -4192,7 +4197,7 @@ function openPrivacyModal() {
 
   row.append(exportBtn, policyLink, eraseBtn);
   infoDialogBody.append(intro, list, row);
-  infoDialog.showModal();
+  showInfoDialog();
 }
 
 $('.recent-local-badge')?.addEventListener('click', openPrivacyModal);

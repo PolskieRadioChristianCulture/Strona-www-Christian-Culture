@@ -203,8 +203,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai21_p0/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai21_p0/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai21b_p0/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai21b_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -704,6 +704,11 @@ test('Simplified 5-item sidebar + PRO More group, contextual media only, mobile 
   assert.ok(appJs.indexOf('const ALLOWED_BYOK_PROVIDERS') < appJs.indexOf("let state = loadState('guest')"), 'ALLOWED_BYOK_PROVIDERS must be declared before initial loadState()');
   assert.ok(appJs.indexOf('const ALLOWED_DEPTHS') < appJs.indexOf("let state = loadState('guest')"), 'ALLOWED_DEPTHS must be declared before initial loadState()');
   assert.doesNotMatch(appJs, /👑\s*\$\{currentUser\.displayName/);
+  assert.doesNotMatch(appJs, /patronite\.pl\/ChristianCulture/);
+  assert.ok(appJs.includes('https://patronite.pl/CRISTIANCULTURE'), 'PRO modal Patronite link must use canonical URL');
+  assert.ok(appJs.includes('https://polskieradio.cc/wspieramto'), 'PRO modal WspieramTO link must use absolute URL');
+  assert.match(appJs, /function showInfoDialog\(\)\s*\{[\s\S]*if \(!infoDialog\.open\) infoDialog\.showModal\(\);[\s\S]*\}/);
+  assert.equal((appJs.match(/infoDialog\.showModal\(/g) || []).length, 1, 'infoDialog.showModal() must only be called inside showInfoDialog()');
   for (const proPiece of ['id="composerCommandPopup"', 'id="composerModelBtn"', 'id="depthBtn"']) {
     assert.ok(html.includes(proPiece), `Missing pro composer element in ai/index.html: ${proPiece}`);
   }
