@@ -694,10 +694,12 @@ test('Simplified 5-item sidebar + PRO More group, contextual media only, mobile 
   assert.equal(resolveEcosystemMedia('Jak się dziś szczerze modlić rano?').length, 0);
   assert.ok(resolveEcosystemMedia('Włącz Radio Biblia Audio i muzykę uwielbienia').length >= 1);
 
-  // 3. Mobile single-row composer & instant visibility (no opacity: 0 on aiFadeUp) & Permissions-Policy
+  // 3. Mobile single-row composer, single-line topbar & instant visibility (no opacity: 0 on aiFadeUp) & Permissions-Policy
+  assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.model-pill\s*\{[^}]*white-space:\s*nowrap/s);
   assert.match(css, /@media\s*\(max-width:\s*560px\)[\s\S]*\.composer-bar\s*\{[^}]*flex-wrap:\s*nowrap/s);
   assert.match(css, /@keyframes\s+aiFadeUp\s*\{\s*from\s*\{\s*opacity:\s*1;/);
   assert.match(worker, /Permissions-Policy.*microphone=\(self\)/);
+  assert.match(worker, /decodedP === '\/polityka-prywatnosci'/);
 
   // 4. GDPR transparency
   assert.match(privacyHtml, /id="ai-dla-jezusa"/);

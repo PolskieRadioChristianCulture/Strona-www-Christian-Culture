@@ -2434,6 +2434,12 @@ export default {
       return env.ASSETS.fetch(new Request(targetUrl, request));
     }
 
+    if (decodedP === '/polityka-prywatnosci' || decodedP === '/polityka') {
+      const targetUrl = new URL(request.url);
+      targetUrl.pathname = '/privacy.html';
+      return env.ASSETS.fetch(new Request(targetUrl, request));
+    }
+
     // AI dla Jezusa (/ai/podglad -> /ai/aplikacja 302; /ai, /ai/, /ai/aplikacja -> 200)
     if (decodedP === '/ai/podglad' || decodedP === '/ai/podglad/index.html') {
       const redirectUrl = new URL('/ai/aplikacja', request.url);

@@ -3499,7 +3499,31 @@ a:focus-visible {
 
 @media (max-width: 560px) {
   .topbar {
-    padding: 0 12px;
+    padding: 0 10px;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    gap: 4px;
+  }
+
+  .model-pill {
+    white-space: nowrap;
+    padding: 0 9px;
+    font-size: 12.5px;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+
+  .privacy-pill {
+    padding: 0 6px;
+    min-width: 44px;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .circle-help-btn {
+    display: none;
   }
 
   .voice-chat-text,

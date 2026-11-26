@@ -3846,7 +3846,7 @@ function openPrivacyModal() {
   exportBtn.onclick = () => exportLocalUserDataJson();
 
   const policyLink = document.createElement('a');
-  policyLink.href = '/polityka-prywatnosci#ai-dla-jezusa';
+  policyLink.href = '/privacy#ai-dla-jezusa';
   policyLink.target = '_blank';
   policyLink.rel = 'noopener noreferrer';
   policyLink.className = 'dialog-btn-secondary';
