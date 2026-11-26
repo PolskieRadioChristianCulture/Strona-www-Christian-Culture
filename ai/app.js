@@ -1384,9 +1384,17 @@ function syncPanelButtons() {
   const rightOverlay = isRightOverlayMode();
   const leftCollapsedDesktop = Boolean(state.leftCollapsed) && !leftOverlay;
   const rightCollapsedDesktop = Boolean(state.rightCollapsed) && !rightOverlay;
+  const focusedPanel = document.activeElement?.closest('#leftSidebar, #rightSidebar');
 
   document.body.classList.toggle('left-collapsed', leftCollapsedDesktop);
   document.body.classList.toggle('right-collapsed', rightCollapsedDesktop);
+
+  if ((focusedPanel?.id === 'leftSidebar' && leftCollapsedDesktop) ||
+      (focusedPanel?.id === 'rightSidebar' && rightCollapsedDesktop)) {
+    if (!document.activeElement?.closest('.panel-rail')) {
+      focusedPanel.querySelector('[data-rail-open]')?.focus();
+    }
+  }
 
   const leftOpen = leftOverlay
     ? document.body.classList.contains('left-drawer-open')
@@ -1501,6 +1509,27 @@ openLeftBtn?.addEventListener('click', toggleLeftPanel);
 closeLeftBtn?.addEventListener('click', closeLeftPanel);
 openRightBtn?.addEventListener('click', toggleRightPanel);
 closeRightBtn?.addEventListener('click', closeRightPanel);
+$$('.panel-rail-btn').forEach((button) => {
+  button.addEventListener('click', () => {
+    const { railClick, railFocus, railOpen, railNav } = button.dataset;
+    if (railClick) {
+      document.getElementById(railClick)?.click();
+      return;
+    }
+    if (railNav) {
+      document.querySelector(`#leftSidebar [data-nav="${CSS.escape(railNav)}"]`)?.click();
+      return;
+    }
+    const left = button.closest('#leftSidebar');
+    const toggle = left ? openLeftBtn : openRightBtn;
+    toggle?.click();
+    const focusTarget = railOpen ? toggle : document.getElementById(railFocus);
+    if (focusTarget) {
+      focusTarget.scrollIntoView?.({ block: 'nearest' });
+      focusTarget.focus();
+    }
+  });
+});
 scrim?.addEventListener('click', closeDrawers);
 mainWorkspace?.addEventListener('click', (e) => {
   if (window.getSelection?.()?.toString()?.trim()) return;
@@ -1605,6 +1634,9 @@ function setActiveNav(name) {
     } else {
       b.removeAttribute('aria-current');
     }
+  });
+  $$('.panel-rail-btn[data-rail-nav]').forEach((b) => {
+    b.classList.toggle('is-active', b.dataset.railNav === name);
   });
   if (matchedInsideMore && navMoreGroup && navMoreGroup.hidden) {
     navMoreGroup.hidden = false;

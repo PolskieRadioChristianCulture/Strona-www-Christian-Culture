@@ -97,7 +97,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <style>html,body{background:#0a0a0a;color:#f4f2ec;margin:0}</style>
-  <link rel="stylesheet" href="/ai/styles.css?v=20261126_ai32_integrations">
+  <link rel="stylesheet" href="/ai/styles.css?v=20261126_ai33_rails">
 </head>
 <body>
   <a class="skip-link" href="#prompt">Przejdź do rozmowy</a>
@@ -106,6 +106,21 @@
   <div class="app-shell">
     <!-- LEWY PANEL NAWIGACYJNY -->
     <aside id="leftSidebar" class="sidebar-left" aria-label="Nawigacja i rozmowy">
+      <div class="panel-rail" role="group" aria-label="Skróty lewego panelu">
+        <button type="button" class="panel-rail-btn" data-rail-open="left" aria-controls="leftSidebar" aria-label="Rozwiń lewy panel" title="Rozwiń lewy panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></button>
+        <button type="button" class="panel-rail-btn" data-rail-click="newChatBtn" aria-label="Nowa rozmowa" title="Nowa rozmowa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button type="button" class="panel-rail-btn" data-rail-focus="chatSearchInput" aria-label="Szukaj rozmów" title="Szukaj rozmów"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+        <button type="button" class="panel-rail-btn" data-rail-focus="recentHeading" aria-label="Ostatnie rozmowy" title="Ostatnie rozmowy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></button>
+        <span class="panel-rail-sep" aria-hidden="true"></span>
+        <button type="button" class="panel-rail-btn is-active" data-rail-nav="Czat" aria-label="Czat" title="Czat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8Z"/></svg></button>
+        <button type="button" class="panel-rail-btn" data-rail-nav="Biblia" aria-label="Biblia" title="Biblia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v15m0-15C9.5 3.8 5.5 3.8 2.5 5v14.5c3-1.1 7-1.1 9.5.5m0-14.5c2.5-1.7 6.5-1.7 9.5-.5V19.5c-3-1.1-7-1.1-9.5.5"/></svg></button>
+        <button type="button" class="panel-rail-btn" data-rail-nav="Projekty" aria-label="Projekty" title="Projekty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4.2a2 2 0 0 1 1.6.8l1.1 1.4a2 2 0 0 0 1.6.8H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg></button>
+        <button type="button" class="panel-rail-btn" data-rail-nav="Notatniki" aria-label="Notatniki" title="Notatniki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></button>
+        <div class="panel-rail-bottom">
+          <button type="button" class="panel-rail-btn" data-rail-nav="Ustawienia" aria-label="Ustawienia" title="Ustawienia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></button>
+          <button type="button" class="panel-rail-btn" data-rail-nav="Mój profil" aria-label="Mój profil" title="Mój profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></button>
+        </div>
+      </div>
       <div class="brand-block">
         <div class="brand-logo-wrap">
           <img src="/ai/assets/logo-ai-dla-jezusa.webp" alt="ai dla Jezusa" width="480" height="89" class="brand-logo">
@@ -131,7 +146,7 @@
 
       <div class="sidebar-scroll">
         <div class="recent-section">
-          <h3 class="recent-label">Ostatnie rozmowy</h3>
+          <h3 id="recentHeading" class="recent-label" tabindex="-1">Ostatnie rozmowy</h3>
           <ul id="recentChats" class="recent-list">
             <li>
               <button type="button" class="recent-item" data-chat="Studium Listu do Rzymian">
@@ -482,6 +497,13 @@
 
     <!-- PRAWY PANEL KONTEKSTOWY: TWOJA PRZESTRZEŃ -->
     <aside id="rightSidebar" class="sidebar-right" aria-label="Twoja przestrzeń">
+      <div class="panel-rail" role="group" aria-label="Skróty Twojej przestrzeni">
+        <button type="button" class="panel-rail-btn" data-rail-open="right" aria-controls="rightSidebar" aria-label="Rozwiń prawy panel" title="Rozwiń prawy panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></svg></button>
+        <span class="panel-rail-sep" aria-hidden="true"></span>
+        <button type="button" class="panel-rail-btn" data-rail-focus="verseHeading" aria-label="Werset dnia" title="Werset dnia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v15m0-15C9.5 3.8 5.5 3.8 2.5 5v14.5c3-1.1 7-1.1 9.5.5m0-14.5c2.5-1.7 6.5-1.7 9.5-.5V19.5c-3-1.1-7-1.1-9.5.5"/></svg></button>
+        <button type="button" class="panel-rail-btn" data-rail-focus="projectsHeading" aria-label="Aktywne projekty" title="Aktywne projekty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4.2a2 2 0 0 1 1.6.8l1.1 1.4a2 2 0 0 0 1.6.8H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg></button>
+        <button type="button" class="panel-rail-btn" data-rail-focus="integrationsHeading" aria-label="Połączone aplikacje" title="Połączone aplikacje"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5M9 8V2m6 6V2m3 6v5a6 6 0 0 1-12 0V8Z"/></svg></button>
+      </div>
       <div class="right-header">
         <h2>Twoja przestrzeń</h2>
         <button type="button" id="closeRightDrawer" class="icon-btn drawer-close" aria-label="Zamknij panel Twoja przestrzeń">
@@ -494,7 +516,7 @@
         <section class="space-card">
           <div class="space-card-title">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v15m0-15C9.5 3.8 5.5 3.8 2.5 5v14.5c3-1.1 7-1.1 9.5.5m0-14.5c2.5-1.7 6.5-1.7 9.5-.5V19.5c-3-1.1-7-1.1-9.5.5"/></svg>
-            <h3>Werset dnia</h3>
+            <h3 id="verseHeading" tabindex="-1">Werset dnia</h3>
           </div>
           <blockquote class="daily-verse">„Zaufaj Panu z całego swego serca i nie polegaj na swoim rozumie.”</blockquote>
           <p class="verse-ref">Przysłów 3,5</p>
@@ -504,7 +526,7 @@
         <section class="space-card">
           <div class="space-card-title">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4.2a2 2 0 0 1 1.6.8l1.1 1.4a2 2 0 0 0 1.6.8H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>
-            <h3>Aktywne projekty</h3>
+            <h3 id="projectsHeading" tabindex="-1">Aktywne projekty</h3>
           </div>
           <ul class="project-list">
             <li>
@@ -533,7 +555,7 @@
         <section class="space-card">
           <div class="space-card-title">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2M15 8V2"/><path d="M18 8v5a6 6 0 0 1-12 0V8Z"/></svg>
-            <h3>Połączone aplikacje</h3>
+            <h3 id="integrationsHeading" tabindex="-1">Połączone aplikacje</h3>
           </div>
           <ul class="integrations-list">
             <li class="integration-row">
@@ -667,6 +689,6 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-  <script defer src="/ai/app.js?v=20261126_ai31_panels"></script>
+  <script defer src="/ai/app.js?v=20261126_ai33_rails"></script>
 </body>
 </html>

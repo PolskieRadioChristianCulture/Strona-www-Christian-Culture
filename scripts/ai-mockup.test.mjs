@@ -209,8 +209,8 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
-  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai32_integrations/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai31_panels/);
+  assert.match(html, /\/ai\/styles\.css\?v=20261126_ai33_rails/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai33_rails/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -1128,4 +1128,29 @@ test('sync-ai-feedback-joma scrubs PII/secrets, parses Wrangler JSON banners, an
   assert.match(md, /## 🚨 Priorytet do poprawy[\s\S]*👎 Łapka w dół[\s\S]*A \\\| B/);
   assert.match(md, /Podoba mi się \\\| kontakt: \[EMAIL_REDACTED\]/);
   assert.doesNotMatch(md, /test@example\.com/);
+});
+
+test('AI dla Jezusa collapses desktop sidebars into compact icon rails like ChatGPT / Codex', () => {
+  const html = fs.readFileSync(path.join(ROOT, 'ai/index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(ROOT, 'ai/styles.css'), 'utf8');
+  const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
+
+  assert.match(html, /class="panel-rail"[^>]*aria-label="Skróty lewego panelu"/);
+  assert.match(html, /class="panel-rail"[^>]*aria-label="Skróty Twojej przestrzeni"/);
+  assert.match(html, /data-rail-open="left"/);
+  assert.match(html, /data-rail-open="right"/);
+  assert.match(html, /data-rail-click="newChatBtn"/);
+  assert.match(html, /data-rail-nav="Biblia"/);
+  assert.match(html, /data-rail-nav="Ustawienia"/);
+  assert.match(html, /data-rail-focus="verseHeading"/);
+  assert.match(html, /data-rail-focus="integrationsHeading"/);
+
+  assert.match(css, /\.panel-rail-btn\b/);
+  assert.match(css, /\.panel-rail-bottom\b/);
+  assert.match(css, /grid-template-columns:\s*56px\s+minmax\(0,\s*1fr\)\s+56px/);
+  assert.match(css, /body\.left-collapsed\s+#openLeftDrawer\s*\{\s*display:\s*none;/);
+  assert.match(css, /body\.right-collapsed\s+#openRightDrawer\s*\{\s*display:\s*none;/);
+
+  assert.match(appJs, /railNav/);
+  assert.match(appJs, /\.panel-rail-btn\[data-rail-nav\]/);
 });
