@@ -1,3 +1,4 @@
+import { readLimitedText } from './cost-guard.js';
 // =========================================================================
 // AI DLA JEZUSA — PRZESTRZEŃ WŁAŚCICIELA (nazirczarek@gmail.com)
 // Weryfikacja: Firebase Auth RS256 ID Token • Serwerowa pula bezpłatnych kluczy
@@ -444,7 +445,9 @@ export async function handleOwnerActionRequest(request, env = {}, deps = {}, cor
 
   let body = {};
   try {
-    body = await request.json();
+    const text = await readLimitedText(request, 4096);
+    if (text === null) return Response.json({ ok: false, error: 'payload_too_large' }, { status: 413, headers: { ...OWNER_HEADERS, ...corsHeaders } });
+    body = JSON.parse(text);
   } catch {
     return Response.json(
       { ok: false, error: 'invalid_json' },
@@ -457,25 +460,6 @@ export async function handleOwnerActionRequest(request, env = {}, deps = {}, cor
   const pool = parseGeminiKeyPool(env);
 
   if (action === 'health_audit') {
-    let geminiPingStatus = 0;
-    if (pool[0]) {
-      try {
-        const res = await fetchImpl(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${encodeURIComponent(pool[0])}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contents: [{ role: 'user', parts: [{ text: 'Odpowiedz jednym słowem: Pokój' }] }],
-              generationConfig: { maxOutputTokens: 16, temperature: 0.1 }
-            })
-          }
-        );
-        geminiPingStatus = res.status;
-      } catch {
-        geminiPingStatus = 504;
-      }
-    }
     return Response.json(
       {
         ok: true,
@@ -483,7 +467,7 @@ export async function handleOwnerActionRequest(request, env = {}, deps = {}, cor
         summary: {
           ownerEmail: check.owner.email,
           geminiPoolCount: pool.length,
-          geminiPingStatus,
+          geminiPingStatus: null,
           youtubeApiConfigured: Boolean(env.YT_API_KEY),
           indexDocuments: getCanonicalDocuments().length,
           checkedAt: new Date().toISOString()

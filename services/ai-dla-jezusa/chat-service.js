@@ -1,3 +1,4 @@
+import { SHARED_MODEL, sharedAiReady, reserveSharedAiAttempt, readLimitedText } from './cost-guard.js';
 // =========================================================================
 // AI DLA JEZUSA — BACKEND KONWERSACYJNY + RAG + BYOK (ETAP 2B)
 // Standard: Sola Scriptura • ZERO COST FIRST • Gemini / Groq / OpenRouter / Workers AI
@@ -16,25 +17,20 @@ import {
   getAllEcosystemHubs
 } from './ecosystem-media.js';
 import {
-  parseGeminiKeyPool,
   verifyOwnerFromRequest,
-  OWNER_MODELS,
   PUBLIC_FREE_MODELS
 } from './owner-workspace.js';
 
 const MAX_REQ_PER_MIN = 20;
 const OWNER_REQ_PER_MIN = 120;
 const RATE_WINDOW_MS = 60_000;
-const DAILY_AI_CALL_CAP = 600;
 const MAX_BODY_BYTES = 24 * 1024;
 const REFLECTION_CACHE_TTL_MS = 5 * 60_000;
 
 const ipBuckets = new Map();
-let quotaState = { day: new Date().toISOString().slice(0, 10), calls: 0 };
 let reflectionCache = { expiresAt: 0, items: null };
 
 const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, X-Requested-With, X-User-AI-Key, X-User-AI-Provider',
   'Access-Control-Max-Age': '86400'
@@ -57,7 +53,6 @@ const MODE_INSTRUCTIONS = {
 
 export function resetAiChatRuntimeState() {
   ipBuckets.clear();
-  quotaState = { day: new Date().toISOString().slice(0, 10), calls: 0 };
   reflectionCache = { expiresAt: 0, items: null };
 }
 
@@ -114,23 +109,6 @@ function checkRate(ip = 'anon', maxReq = MAX_REQ_PER_MIN, now = Date.now()) {
   if (entry.count >= maxReq) return false;
   entry.count += 1;
   return true;
-}
-
-function canUseDailyQuota(now = new Date()) {
-  const day = now.toISOString().slice(0, 10);
-  if (quotaState.day !== day) {
-    quotaState = { day, calls: 0 };
-  }
-  return quotaState.calls < DAILY_AI_CALL_CAP;
-}
-
-function recordQuotaUsage(now = new Date()) {
-  const day = now.toISOString().slice(0, 10);
-  if (quotaState.day !== day) {
-    quotaState = { day, calls: 0 };
-  }
-  quotaState.calls += 1;
-  return quotaState.calls;
 }
 
 function sanitizeArrayOfStrings(arr, maxItems, maxLen) {
@@ -236,37 +214,17 @@ function buildSystemInstruction({ assistant, mode, moduleName, sources, scriptur
 }
 
 function buildAvailableFreeModels(env = {}) {
-  const models = PUBLIC_FREE_MODELS.map((m) => ({ ...m }));
-  if (env.GROQ_API_KEY) {
-    models.push({
-      id: 'groq',
-      provider: 'groq',
-      label: 'Llama 3.3 70B (Groq)',
-      shortLabel: 'Llama 3.3 Groq',
-      note: 'Darmowy szybki model'
-    });
-  }
-  if (env.AI && typeof env.AI.run === 'function') {
-    models.push({
-      id: 'workers-ai',
-      provider: 'workers-ai',
-      label: 'Cloudflare Workers AI',
-      shortLabel: 'Workers AI',
-      note: 'Model na brzegu sieci'
-    });
-  }
-  return models;
+  return PUBLIC_FREE_MODELS.filter(model => model.id === 'auto' || model.id === 'cc-knowledge-hub' ||
+    (model.id === SHARED_MODEL && sharedAiReady(env))).map(model => ({ ...model }));
 }
 
 function resolvePreferredFreeModel(payload = {}, env = {}) {
   const raw = String(payload.preferredModel || payload.ownerModel || '').trim();
   if (!raw || raw === 'auto') return 'auto';
   if (raw === 'cc-knowledge-hub') return 'cc-knowledge-hub';
-  const allowedGemini = new Set(OWNER_MODELS.map((m) => m.id));
+  const allowedGemini = new Set(sharedAiReady(env) ? [SHARED_MODEL] : []);
   if (env.GEMINI_MODEL) allowedGemini.add(String(env.GEMINI_MODEL).trim());
   if (allowedGemini.has(raw)) return raw;
-  if (raw === 'groq' && env.GROQ_API_KEY) return 'groq';
-  if (raw === 'workers-ai' && env.AI && typeof env.AI.run === 'function') return 'workers-ai';
   return 'auto';
 }
 
@@ -282,13 +240,7 @@ async function callGeminiChat(apiKeyOrPool, preferredModel, systemInstruction, h
     : (apiKeyOrPool ? [String(apiKeyOrPool)] : []);
   if (!keys.length) return null;
 
-  const models = [...new Set([
-    preferredModel,
-    'gemini-3.5-flash-lite',
-    'gemini-3.1-flash-lite',
-    'gemini-flash-lite-latest',
-    'gemini-3-flash-preview'
-  ].filter(Boolean))];
+  const models = [preferredModel];
 
   const contents = history.map((h) => ({
     role: h.role === 'assistant' ? 'model' : 'user',
@@ -299,14 +251,15 @@ async function callGeminiChat(apiKeyOrPool, preferredModel, systemInstruction, h
   for (const model of models) {
     for (let kIdx = 0; kIdx < Math.min(keys.length, 3); kIdx += 1) {
       const apiKey = keys[kIdx];
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), 7500);
       try {
         const res = await fetchImpl(endpoint, {
           method: 'POST',
           signal: ctrl.signal,
-          headers: { 'Content-Type': 'application/json' },
+          redirect: 'error',
+          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: systemInstruction }] },
             contents,
@@ -348,6 +301,7 @@ async function callOpenAiCompatibleChat({ endpoint, apiKey, model, providerName,
   try {
     const res = await fetchImpl(endpoint, {
       method: 'POST',
+      redirect: 'error',
       signal: ctrl.signal,
       headers: {
         'Content-Type': 'application/json',
@@ -375,27 +329,6 @@ async function callOpenAiCompatibleChat({ endpoint, apiKey, model, providerName,
     return null;
   } finally {
     clearTimeout(timer);
-  }
-}
-
-async function callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics = []) {
-  if (!env.AI || typeof env.AI.run !== 'function') return null;
-  try {
-    const messages = [
-      { role: 'system', content: systemInstruction },
-      ...history.map((h) => ({ role: h.role, content: h.text })),
-      { role: 'user', content: userPrompt }
-    ];
-    const res = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
-      messages,
-      max_tokens: 1200,
-      temperature: 0.5
-    });
-    const text = res && (res.response || res.text);
-    return text ? { reply: String(text).trim(), provider: 'workers-ai' } : null;
-  } catch {
-    diagnostics.push('workers-ai:err');
-    return null;
   }
 }
 
@@ -535,7 +468,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   const privateMode = Boolean(payload.privateMode);
   const tools = sanitizeArrayOfStrings(payload.tools, 6, 40);
   const memoryNotes = privateMode ? [] : sanitizeArrayOfStrings(payload.memoryNotes, 8, 200);
-  const history = sanitizeHistory(payload.history);
+  const history = privateMode ? [] : sanitizeHistory(payload.history);
   const userByok = deps.userByok || null;
 
   const effectiveMessage = rawMessage.slice(0, 2000) || (attachmentText ? `Przeanalizuj załączony materiał${attachmentName ? ` (${attachmentName})` : ''}.` : '');
@@ -607,14 +540,16 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
   const fetchImpl = deps.fetch || fetch;
   const diagnostics = [];
   const ownerSession = deps.ownerSession || null;
-  const geminiPool = parseGeminiKeyPool(env);
+  const geminiPool = sharedAiReady(env) ? [env.AI_SHARED_FREE_GEMINI_KEY] : [];
   const requestedModel = resolvePreferredFreeModel(payload, env);
   const preferGeminiModel = requestedModel === 'auto'
     ? (env.GEMINI_MODEL || 'gemini-3.5-flash-lite')
     : requestedModel;
 
   let aiResult = null;
-  if (userByok && userByok.apiKey && userByok.provider && (requestedModel === 'auto' || payload.preferredModel === 'byok')) {
+  let providerAttempted = false;
+  if (!privateMode && userByok && userByok.apiKey && userByok.provider && payload.preferredModel === 'byok' && payload.byokConsent === true) {
+    providerAttempted = true;
     aiResult = await runUserByokProvider(
       { provider: userByok.provider, apiKey: userByok.apiKey, userModel: payload.userModel },
       systemInstruction,
@@ -625,40 +560,11 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     );
   }
 
-  if (!aiResult && requestedModel !== 'cc-knowledge-hub' && (ownerSession?.isOwner || canUseDailyQuota())) {
-    const callGroq = () => callOpenAiCompatibleChat(
-      {
-        endpoint: 'https://api.groq.com/openai/v1/chat/completions',
-        apiKey: env.GROQ_API_KEY,
-        model: env.GROQ_MODEL || 'llama-3.3-70b-versatile',
-        providerName: 'groq'
-      },
-      systemInstruction,
-      history,
-      userPrompt,
-      fetchImpl,
-      diagnostics
-    );
-
-    if (requestedModel === 'groq') {
-      aiResult =
-        (await callGroq()) ||
-        (await callGeminiChat(geminiPool, env.GEMINI_MODEL, systemInstruction, history, userPrompt, fetchImpl, diagnostics)) ||
-        (await callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics));
-    } else if (requestedModel === 'workers-ai') {
-      aiResult =
-        (await callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics)) ||
-        (await callGeminiChat(geminiPool, env.GEMINI_MODEL, systemInstruction, history, userPrompt, fetchImpl, diagnostics)) ||
-        (await callGroq());
-    } else {
-      aiResult =
-        (await callGeminiChat(geminiPool, preferGeminiModel, systemInstruction, history, userPrompt, fetchImpl, diagnostics)) ||
-        (await callGroq()) ||
-        (await callWorkersAiChat(env, systemInstruction, history, userPrompt, diagnostics));
-    }
-    if (aiResult && aiResult.reply && !ownerSession?.isOwner) {
-      recordQuotaUsage();
-    }
+  if (!aiResult && !payload.privateMode && payload.preferredModel !== 'byok' &&
+      (requestedModel === 'auto' || requestedModel === SHARED_MODEL) &&
+      await reserveSharedAiAttempt(env)) {
+    providerAttempted = true;
+    aiResult = await callGeminiChat(geminiPool, SHARED_MODEL, systemInstruction, history, userPrompt, fetchImpl, diagnostics);
   }
 
   if (aiResult && aiResult.reply) {
@@ -677,7 +583,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
       media,
       scriptureRefs: scriptureHits.map((s) => s.reference),
       toolsUsed: [...new Set(toolsUsed)],
-      zeroCostGuaranteed: true
+      zeroCostGuaranteed: false
     };
   }
 
@@ -708,7 +614,7 @@ export async function processAiChat(payload = {}, env = {}, deps = {}) {
     media,
     scriptureRefs: scriptureHits.map((s) => s.reference),
     toolsUsed: [...new Set(toolsUsed)],
-    zeroCostGuaranteed: true
+    zeroCostGuaranteed: !providerAttempted
   };
 }
 
@@ -720,13 +626,14 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
   if (request.method === 'GET') {
     const docs = getCanonicalDocuments();
     const hubs = getAllEcosystemHubs();
-    const poolSize = parseGeminiKeyPool(env).length;
+    const poolSize = sharedAiReady(env) ? 1 : 0;
     return Response.json(
       {
         ok: true,
         service: 'ai-dla-jezusa-chat',
         indexDocuments: docs.length,
-        zeroCostGuaranteed: true,
+        zeroCostGuaranteed: false,
+        sharedModelsEnabled: sharedAiReady(env),
         geminiKeyPoolSize: poolSize,
         youtubeApi: Boolean(env.YT_API_KEY),
         availableModels: buildAvailableFreeModels(env),
@@ -759,6 +666,11 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
     );
   }
 
+  if (request.headers.get('Origin') !== new URL(request.url).origin) {
+    return Response.json({ ok: false, error: 'origin_not_allowed' }, {
+      status: 403, headers: { 'Cache-Control': 'no-store' }
+    });
+  }
   const ownerSession = await verifyOwnerFromRequest(request, deps);
   const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || 'anon';
   if (!checkRate(ip, ownerSession?.isOwner ? OWNER_REQ_PER_MIN : MAX_REQ_PER_MIN)) {
@@ -768,8 +680,8 @@ export async function handleAiChatRequest(request, env = {}, deps = {}) {
     );
   }
 
-  const rawText = await request.text();
-  if (new TextEncoder().encode(rawText).byteLength > MAX_BODY_BYTES) {
+  const rawText = await readLimitedText(request, MAX_BODY_BYTES);
+  if (rawText === null) {
     return Response.json(
       { ok: false, error: 'payload_too_large', detail: 'Wiadomość wraz z załącznikiem przekracza limit 24 KB.' },
       { status: 413, headers: { ...CORS_HEADERS, 'Cache-Control': 'no-store' } }
@@ -827,6 +739,11 @@ export async function handleAiTranscribeRequest(request, env = {}, deps = {}) {
     );
   }
 
+  if (request.headers.get('Origin') !== new URL(request.url).origin) {
+    return Response.json({ ok: false, error: 'origin_not_allowed' }, {
+      status: 403, headers: { 'Cache-Control': 'no-store' }
+    });
+  }
   const ownerSession = await verifyOwnerFromRequest(request, deps);
   const ip = request.headers.get('cf-connecting-ip') || request.headers.get('x-forwarded-for') || 'anon';
   if (!checkRate(ip, ownerSession?.isOwner ? OWNER_REQ_PER_MIN : MAX_REQ_PER_MIN)) {
@@ -836,8 +753,8 @@ export async function handleAiTranscribeRequest(request, env = {}, deps = {}) {
     );
   }
 
-  const rawText = await request.text();
-  if (new TextEncoder().encode(rawText).byteLength > MAX_TRANSCRIBE_BYTES) {
+  const rawText = await readLimitedText(request, MAX_TRANSCRIBE_BYTES);
+  if (rawText === null) {
     return Response.json(
       { ok: false, error: 'payload_too_large', detail: 'Nagranie audio jest zbyt długie.' },
       { status: 413, headers: { ...CORS_HEADERS, 'Cache-Control': 'no-store' } }
@@ -864,8 +781,8 @@ export async function handleAiTranscribeRequest(request, env = {}, deps = {}) {
     );
   }
 
-  const keys = parseGeminiKeyPool(env);
-  if (!keys.length) {
+  const keys = sharedAiReady(env) ? [env.AI_SHARED_FREE_GEMINI_KEY] : [];
+  if (!keys.length || body?.privateMode || !await reserveSharedAiAttempt(env)) {
     return Response.json(
       { ok: false, error: 'no_speech_engine', detail: 'Brak skonfigurowanej puli AI do transkrypcji.' },
       { status: 503, headers: { ...CORS_HEADERS, 'Cache-Control': 'no-store' } }
@@ -873,18 +790,19 @@ export async function handleAiTranscribeRequest(request, env = {}, deps = {}) {
   }
 
   const fetchImpl = deps.fetch || fetch;
-  const models = ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite'];
+  const models = [SHARED_MODEL];
   for (const model of models) {
     for (let i = 0; i < Math.min(keys.length, 2); i += 1) {
       const apiKey = keys[i];
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), 9000);
       try {
         const res = await fetchImpl(endpoint, {
           method: 'POST',
           signal: ctrl.signal,
-          headers: { 'Content-Type': 'application/json' },
+          redirect: 'error',
+          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
           body: JSON.stringify({
             contents: [{
               role: 'user',

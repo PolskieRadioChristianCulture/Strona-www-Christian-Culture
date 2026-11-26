@@ -71,6 +71,7 @@ function getPersona(id) {
 }
 
 function getPreferredModelId() {
+  if (byokSelected) return 'byok';
   const id = typeof state?.preferredModel === 'string' ? state.preferredModel.trim() : '';
   if (id && availableFreeModels.some((m) => m.id === id)) return id;
   return 'auto';
@@ -98,7 +99,7 @@ function formatBadgeModelLabel(msg) {
 function updateTopbarModelLabel() {
   if (!activeModelLabel) return;
   const pref = getPreferredModelId();
-  if (byokConfig?.provider && byokConfig?.apiKey && pref === 'auto') {
+  if (pref === 'byok') {
     activeModelLabel.textContent = `${currentMode} · Własne API`;
     return;
   }
@@ -120,6 +121,7 @@ function closeAllBadgeModelMenus() {
 }
 
 function setPreferredModel(modelId, { announce = true } = {}) {
+  byokSelected = false;
   const meta = getModelMeta(modelId);
   const nextId = meta?.id || 'auto';
   state.preferredModel = nextId;
@@ -419,7 +421,9 @@ conversationStage?.appendChild(moduleStage);
 let currentUser = null;
 let luminaDb = null;
 let state = loadState('guest');
-let byokConfig = loadByokConfig('guest');
+let byokConfig = clearLegacyByok();
+let byokSelected = false;
+let conversationGeneration = 0;
 let activeThreadId = null;
 let ephemeralThread = null;
 let currentNav = 'Czat';
@@ -452,15 +456,8 @@ let streamRevealTimer = null;
 let typingStatusTimer = null;
 const waveBars = voiceWave ? Array.from(voiceWave.querySelectorAll('span')) : [];
 
-function trackAiEvent(name, params = {}) {
-  try {
-    if (typeof window.ccTrack === 'function') {
-      window.ccTrack(name, params);
-    } else if (typeof window.gtag === 'function') {
-      window.gtag('event', name, params);
-    }
-  } catch {}
-}
+// Analytics stays off until AI has its own consent integration.
+function trackAiEvent() {}
 
 function getProStatus() {
   if (ownerSession?.isOwner) {
@@ -849,10 +846,6 @@ function getStorageKey(uid) {
   return `${STORAGE_PREFIX}:${getUidScope(uid)}`;
 }
 
-function getByokKey(uid) {
-  return `${STORAGE_PREFIX}:byok:${getUidScope(uid)}`;
-}
-
 function loadState(uid = currentUser?.uid) {
   const empty = {
     chats: [],
@@ -865,7 +858,7 @@ function loadState(uid = currentUser?.uid) {
     rightCollapsed: false
   };
   try {
-    const raw = JSON.parse(localStorage.getItem(getStorageKey(uid)) || localStorage.getItem(STORAGE_PREFIX) || 'null');
+    const raw = JSON.parse(localStorage.getItem(getStorageKey(uid)) || 'null');
     if (!raw || typeof raw !== 'object') return empty;
     return {
       chats: Array.isArray(raw.chats) ? raw.chats.slice(0, 40) : [],
@@ -891,18 +884,14 @@ function saveState() {
   }
 }
 
-function loadByokConfig(uid = currentUser?.uid) {
+function clearLegacyByok() {
   try {
-    const raw = JSON.parse(localStorage.getItem(getByokKey(uid)) || 'null');
-    if (!raw || typeof raw !== 'object') return { provider: '', apiKey: '', model: '' };
-    return {
-      provider: typeof raw.provider === 'string' ? raw.provider : '',
-      apiKey: typeof raw.apiKey === 'string' ? raw.apiKey : '',
-      model: typeof raw.model === 'string' ? raw.model : ''
-    };
-  } catch {
-    return { provider: '', apiKey: '', model: '' };
-  }
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const key = localStorage.key(i);
+      if (key?.startsWith(STORAGE_PREFIX + ':byok:')) localStorage.removeItem(key);
+    }
+  } catch {}
+  return { provider: '', apiKey: '', model: '' };
 }
 
 function saveByokConfig(nextCfg) {
@@ -911,15 +900,7 @@ function saveByokConfig(nextCfg) {
     apiKey: String(nextCfg?.apiKey || '').trim(),
     model: String(nextCfg?.model || '').trim()
   };
-  try {
-    if (!byokConfig.provider || !byokConfig.apiKey) {
-      localStorage.removeItem(getByokKey());
-    } else {
-      localStorage.setItem(getByokKey(), JSON.stringify(byokConfig));
-    }
-  } catch {
-    // ignoruj brak localStorage
-  }
+  byokSelected = Boolean(byokConfig.provider && byokConfig.apiKey);
   syncModelMenu();
   updateTopbarModelLabel();
 }
@@ -2532,7 +2513,10 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
     }
   }
 
-  const historySnapshot = thread.messages.slice(-8).map((m) => ({ role: m.role, text: m.text }));
+  const requestPrivate = privateMode;
+  const requestGeneration = conversationGeneration;
+  const model = requestPrivate ? 'cc-knowledge-hub' : getPreferredModelId();
+  const historySnapshot = (requestPrivate ? [] : thread.messages.slice(-8)).map((m) => ({ role: m.role, text: m.text }));
   const currentAttName = attachmentName;
   const currentAttText = attachmentText;
   const currentMediaUrl = attachmentMediaUrl;
@@ -2567,7 +2551,8 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
 
     const authHeaders = await getAuthHeaders();
     const headers = { 'Content-Type': 'application/json', ...authHeaders };
-    if (byokConfig.provider && byokConfig.apiKey) {
+    const useByok = model === 'byok' && Boolean(byokConfig.provider && byokConfig.apiKey);
+    if (useByok) {
       headers['X-User-AI-Provider'] = byokConfig.provider;
       headers['X-User-AI-Key'] = byokConfig.apiKey;
     }
@@ -2581,19 +2566,21 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
         mode: currentMode,
         module: currentNav,
         assistantId: activeAsst.id,
-        attachmentName: currentAttName,
-        attachmentText: currentAttText,
+        attachmentName: requestPrivate ? '' : currentAttName,
+        attachmentText: requestPrivate ? '' : currentAttText,
         tools: activeTools,
-        memoryNotes: privateMode ? [] : state.memory.map((m) => m.text),
-        privateMode,
+        memoryNotes: requestPrivate ? [] : state.memory.map((m) => m.text),
+        privateMode: requestPrivate,
         voiceConversation: Boolean(chatOpts?.voiceConversation),
-        preferredModel: getPreferredModelId(),
+        preferredModel: model,
+        byokConsent: useByok,
         ownerModel: getPreferredModelId() !== 'auto' ? getPreferredModelId() : (selectedOwnerModel || ''),
         userModel: byokConfig.model || ''
       })
     });
     const data = await res.json();
 
+    if (requestGeneration !== conversationGeneration) return;
     if (!res.ok || !data?.ok) {
       throw new Error(data?.detail || data?.error || `HTTP ${res.status}`);
     }
@@ -2613,7 +2600,7 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
     };
     thread.messages.push(deliveredReply);
     thread.updatedAt = new Date().toISOString();
-    if (!privateMode) {
+    if (!requestPrivate && !privateMode && requestGeneration === conversationGeneration) {
       saveState();
       renderRecentChats();
     }
@@ -2634,7 +2621,7 @@ async function sendChatMessage(textOverride, titleHint = '', chatOpts = {}) {
     busy = false;
     sendBtn.disabled = false;
     renderConversation(revealMsgId);
-    if (typeof chatOpts?.onReply === 'function') {
+    if (requestGeneration === conversationGeneration && typeof chatOpts?.onReply === 'function') {
       chatOpts.onReply(deliveredReply);
     }
   }
@@ -3450,7 +3437,7 @@ navMoreToggle?.addEventListener('click', () => {
 privacyToggleBtn?.addEventListener('click', () => {
   privateMode = !privateMode;
   privacyToggleBtn.setAttribute('aria-checked', String(privateMode));
-  showToast(privateMode ? 'Tryb prywatny włączony (bez zapisu i pamięci).' : 'Tryb prywatny wyłączony.');
+  showToast(privateMode ? 'Tryb prywatny: bez zapisu i zewnętrznych modeli. Pytanie obsłuży Baza Wiedzy CC.' : 'Tryb prywatny wyłączony.');
 });
 
 webSearchBtn?.addEventListener('click', () => {
@@ -3533,7 +3520,9 @@ function handleAuthUpdate(user) {
     activeThreadId = null;
     ephemeralThread = null;
     state = loadState(validUser?.uid);
-    byokConfig = loadByokConfig(validUser?.uid);
+    byokConfig = clearLegacyByok();
+    byokSelected = false;
+    conversationGeneration++;
     renderRecentChats();
     renderRightProjects();
     syncAssistantButtons();
@@ -3630,7 +3619,8 @@ function openSettingsModal() {
   const keyInput = document.createElement('input');
   keyInput.type = 'password';
   keyInput.className = 'dialog-input';
-  keyInput.placeholder = 'Wklej swój klucz API (zostaje lokalnie w przeglądarce)...';
+  keyInput.placeholder = 'Klucz API (tylko do zamknięcia lub odświeżenia karty)';
+  keyInput.autocomplete = 'off';
   keyInput.value = byokConfig.apiKey || '';
 
   const btnRow = document.createElement('div');
@@ -3654,10 +3644,18 @@ function openSettingsModal() {
   };
 
   btnRow.append(saveBtn, clearBtn);
-  form.append(select, modelInput, keyInput, btnRow);
+  const byokConsent = document.createElement('label');
+  const allow = document.createElement('input');
+  allow.type = 'checkbox';
+  byokConsent.append(allow, document.createTextNode(' Zgadzam się wysyłać rozmowę do wybranego dostawcy. Może on naliczyć opłaty na moim koncie.'));
+  form.append(select, modelInput, keyInput, byokConsent, btnRow);
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (select.value && keyInput.value.trim() && !allow.checked) {
+      showToast('Potwierdź przekazanie danych i możliwe koszty własnego API.');
+      return;
+    }
     saveByokConfig({
       provider: select.value,
       apiKey: keyInput.value,
@@ -3779,6 +3777,7 @@ function exportLocalUserDataJson() {
 }
 
 function clearAllLocalUserData() {
+  conversationGeneration++;
   state = {
     chats: [],
     notes: [],
@@ -3803,6 +3802,7 @@ function clearAllLocalUserData() {
     keysToRemove.forEach((k) => localStorage.removeItem(k));
   } catch {}
   byokConfig = { provider: '', apiKey: '', model: '' };
+  byokSelected = false;
   renderRecentChats();
   renderRightProjects();
   syncAssistantButtons();
@@ -3811,7 +3811,7 @@ function clearAllLocalUserData() {
   updatePersonalizedHero();
   showWelcomeView();
   trackAiEvent('ai_gdpr_erase', { status: 'cleared' });
-  showToast('Usunięto wszystkie lokalne rozmowy, pamięć, notatki i przypomnienia z tej przeglądarki.');
+  showToast('Usunięto lokalne dane bieżącego konta.');
 }
 
 function openPrivacyModal() {
@@ -3827,7 +3827,7 @@ function openPrivacyModal() {
   const points = [
     `Gdzie trafiają „Ostatnie rozmowy” (${(state.chats || []).length}), „Pamięć” (${(state.memory || []).length}), „Notatniki” (${(state.notes || []).length}) i „Przypomnienia” (${(state.reminders || []).length}): są zapisywane WYŁĄCZNIE lokalnie w Twojej przeglądarce (localStorage) na tym urządzeniu — nie trzymamy Twoich prywatnych rozmów w bazie danych na serwerze CC.`,
     'Przetwarzanie zapytań AI: wpisane pytanie i kontekst rozmowy są szyfrowane (TLS) i wysyłane przez Worker Cloudflare do wybranego silnika AI (np. Google Gemini) wyłącznie w celu wygenerowania odpowiedzi. Opcja „Baza Wiedzy CC (offline)” działa całkowicie wewnątrz naszego indeksu bez zewnętrznych modeli.',
-    'Tryb prywatny (przełącznik u góry): natychmiast wstrzymuje zapis rozmów w localStorage i nie dołącza wpisów z Twojej Pamięci.',
+    'Tryb prywatny (przełącznik u góry): nie zapisuje rozmów, nie dołącza historii ani pamięci i korzysta wyłącznie z Bazy Wiedzy CC na serwerze Christian Culture.',
     'Własny klucz API (BYOK): jeśli go podasz, jest zapisany wyłącznie lokalnie w Twojej przeglądarce.'
   ];
   for (const pt of points) {
@@ -4128,7 +4128,7 @@ function blobToBase64(blob) {
 }
 
 async function transcribeAudioBlob(blob) {
-  if (!blob || blob.size < 320) return '';
+  if (privateMode || !blob || blob.size < 320) return '';
   const base64 = await blobToBase64(blob);
   const res = await fetch('/api/ai-dla-jezusa/v1/transcribe', {
     method: 'POST',

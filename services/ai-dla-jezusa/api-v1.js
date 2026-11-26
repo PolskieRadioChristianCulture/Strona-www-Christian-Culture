@@ -33,9 +33,17 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
   const url = new URL(request.url);
   const path = url.pathname.replace(/\/+$/, '') || '/';
 
+  const privateApi = ['/chat', '/transcribe', '/owner/session', '/owner/action']
+    .some(suffix => path === '/api/ai-dla-jezusa/v1' + suffix);
+  if (privateApi && request.headers.has('Origin') &&
+      request.headers.get('Origin') !== url.origin) {
+    return Response.json({ ok: false, error: 'origin_not_allowed' }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
+  }
+  const apiHeaders = privateApi ? { ...CORS_HEADERS, 'Access-Control-Allow-Origin': url.origin } : CORS_HEADERS;
+
   // Obsługa CORS Preflight
   if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: CORS_HEADERS });
+    return new Response(null, { status: 204, headers: apiHeaders });
   }
 
   // 0. Remote MCP Server (Etap 3): /api/ai-dla-jezusa/v1/mcp
@@ -53,10 +61,10 @@ export async function handleAiDlaJezusaApi(request, env = {}, deps = {}) {
 
   // 0c. Przestrzeń Właściciela (nazirczarek@gmail.com — Firebase RS256 Auth):
   if (path === '/api/ai-dla-jezusa/v1/owner/session') {
-    return handleOwnerSessionRequest(request, env, deps, CORS_HEADERS);
+    return handleOwnerSessionRequest(request, env, deps, apiHeaders);
   }
   if (path === '/api/ai-dla-jezusa/v1/owner/action') {
-    return handleOwnerActionRequest(request, env, deps, CORS_HEADERS);
+    return handleOwnerActionRequest(request, env, deps, apiHeaders);
   }
 
   // Tylko metoda GET w publicznym API odczytowym

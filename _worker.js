@@ -223,6 +223,15 @@ async function verifyFirebaseIdToken(token, fetchImpl = fetch, nowSec = Math.flo
   return ok ? payload : null;
 }
 
+export async function verifyAiOwnerToken(token, env, verify = verifyFirebaseIdToken) {
+  const uid = typeof env.AI_OWNER_UID === 'string' ? env.AI_OWNER_UID.trim() : '';
+  if (!uid) return null;
+  const payload = await verify(token);
+  return payload?.aud === 'lumina-cc' &&
+    payload.iss === 'https://securetoken.google.com/lumina-cc' &&
+    payload.sub === uid && payload.email_verified === true ? payload : null;
+}
+
 async function handleAdultContent(request, env, url, fetchImpl = fetch) {
   const json = (obj, status) => new Response(JSON.stringify(obj), {
     status,
@@ -1917,7 +1926,7 @@ export default {
       return handleSpiritualSoundsPlaylist(request, env, ctx);
     }
     if (url.pathname.startsWith('/api/ai-dla-jezusa/v1')) {
-      return handleAiDlaJezusaApi(request, env, { verifyToken: (tok) => verifyFirebaseIdToken(tok) });
+      return handleAiDlaJezusaApi(request, env, { verifyToken: (tok) => verifyAiOwnerToken(tok, env) });
     }
     if (url.pathname.startsWith('/api/newsletter')) {
       return handleNewsletterApiRequest(request, env, (tok) => verifyFirebaseIdToken(tok));
@@ -2446,7 +2455,7 @@ export default {
       redirectUrl.search = url.search;
       return Response.redirect(redirectUrl.toString(), 302);
     }
-    if (decodedP === '/ai' || decodedP === '/ai/index.html' || decodedP === '/ai/aplikacja' || decodedP === '/ai/aplikacja/index.html') {
+    if ((decodedP === '/test/ai' && url.hostname.endsWith('.polskieradio.pages.dev')) || decodedP === '/ai' || decodedP === '/ai/index.html' || decodedP === '/ai/aplikacja' || decodedP === '/ai/aplikacja/index.html') {
       const targetUrl = new URL(request.url);
       targetUrl.pathname = '/ai/';
       const assetRes = await env.ASSETS.fetch(new Request(targetUrl, request));
@@ -2454,6 +2463,11 @@ export default {
       res.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
       res.headers.set('X-Robots-Tag', 'index, follow, max-image-preview:large');
       res.headers.set('Link', '<https://polskieradio.cc/ai/aplikacja>; rel="canonical"');
+      if (url.hostname.endsWith('.polskieradio.pages.dev')) {
+        res.headers.set('X-Robots-Tag', 'noindex, nofollow');
+        res.headers.set('Cache-Control', 'no-store');
+      }
+      res.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' https://www.gstatic.com https://apis.google.com https://accounts.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.googleapis.com https://*.firebaseapp.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https://*.firebaseapp.com https://accounts.google.com https://www.youtube-nocookie.com https://www.youtube.com https://open.spotify.com; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
       res.headers.set('Permissions-Policy', 'camera=(), microphone=(self), geolocation=()');
       return res;
     }
