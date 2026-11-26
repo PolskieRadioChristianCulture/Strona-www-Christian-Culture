@@ -214,7 +214,8 @@ export function buildV7EpisodesInventory() {
     '36_1-43': 'Ród Ezawa, Książęta Seiru i Królowie Edomu',
     '37_1-36': 'Sny Józefa, Zdrada Braci i Sprzedaż do Egiptu',
     '38_1-30': 'Juda i Tamar, Prawda, Skrucha oraz Narodziny Peresa i Zeracha',
-    '39_1-23': 'Józef w Domu Potifara, Próba Wierności i Łaska PANA w Więzieniu'
+    '39_1-23': 'Józef w Domu Potifara, Próba Wierności i Łaska PANA w Więzieniu',
+    '40_1-23': 'Sny w Więzieniu, Wykładnia Józefa i Zapomnienie Podczaszego'
   };
 
   const items = [];

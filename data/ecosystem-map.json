@@ -5,6 +5,11 @@
   "updatesLog": [
     {
       "date": "2026-11-26",
+      "topic": "Biblia Audio CC — produkcja V7 (-15.9 LUFS, TP -2.0 dBFS, 16 kwestii UBG) i publikacja WWW (/biblia-audio), Spotify oraz czystego MP3 radiowego (Zeno.FM) Księgi Rodzaju 40 (GEN-040: Sny w Więzieniu, Wykładnia Józefa i Zapomnienie Podczaszego) + przygotowanie promptów wideo 16:9/9:16/1:1",
+      "agent": "A"
+    },
+    {
+      "date": "2026-11-26",
       "topic": "Najpilniejsze naprawy ze statystyk: eliminacja fałszywych błędów audio_error (app.js, player.html, cc-analytics.js), auto-detekcja klucza IndexNow i wysyłka kolejki SEO oraz 44px ergonomia dotyku na cclite.pl",
       "agent": "A"
     },
