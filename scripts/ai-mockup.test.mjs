@@ -69,3 +69,16 @@ test('AI dla Jezusa (/ai/) preserves 1:1 mockup structure and is exempt from glo
     assert.ok(html.includes(`data-app="${app}"`), `Missing connected app: ${app}`);
   }
 });
+
+test('Cloudflare _redirects and _worker.js serve /ai and /ai/ directly with HTTP 200 instead of redirecting to /si', () => {
+  const redirects = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
+  const worker = fs.readFileSync(path.join(ROOT, '_worker.js'), 'utf8');
+
+  assert.doesNotMatch(redirects, /^\/ai\s+\/si\b/m, '_redirects must not redirect /ai to /si');
+  assert.match(redirects, /^\/ai\s+\/ai\/index\.html\s+200$/m);
+  assert.match(redirects, /^\/ai\/\s+\/ai\/index\.html\s+200$/m);
+
+  assert.match(worker, /decodedP === '\/ai'\s*\|\|\s*decodedP === '\/ai\/index\.html'/);
+  assert.match(worker, /targetUrl\.pathname = '\/ai\/'/);
+  assert.doesNotMatch(worker, /decodedP === '\/technologia' \|\| decodedP === '\/ai'/);
+});

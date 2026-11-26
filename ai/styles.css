@@ -97,7 +97,7 @@ a:focus-visible {
 /* GŁÓWNA SIATKA 3-KOLUMNOWA (1:1 z makiety) */
 .app-shell {
   display: grid;
-  grid-template-columns: 248px minmax(0, 1fr) 304px;
+  grid-template-columns: 248px minmax(0, 1fr) 316px;
   height: 100dvh;
   width: 100%;
   overflow: hidden;
