@@ -3098,11 +3098,30 @@ function initPromptCascade() {
   let waveIndex = 0;
   let pausedByHover = false;
   let pausedByFocus = false;
-  let timers = [];
+  let enterTimers = [];
+  let cycleTimers = [];
+
+  const clearEnterTimers = () => {
+    for (const t of enterTimers) clearTimeout(t);
+    enterTimers = [];
+  };
+
+  const clearCycleTimers = () => {
+    for (const t of cycleTimers) clearTimeout(t);
+    cycleTimers = [];
+  };
 
   const clearTimers = () => {
-    for (const t of timers) clearTimeout(t);
-    timers = [];
+    clearEnterTimers();
+    clearCycleTimers();
+  };
+
+  const forceSliceVisible = () => {
+    const start = waveIndex * waveSize;
+    cards.slice(start, start + waveSize).forEach((card) => {
+      card.classList.add('is-wave-slot', 'is-wave-visible');
+      card.classList.remove('is-wave-leaving');
+    });
   };
 
   const renderDots = () => {
@@ -3137,7 +3156,7 @@ function initPromptCascade() {
   };
 
   const scheduleCycle = () => {
-    clearTimers();
+    clearCycleTimers();
     if (totalWaves <= 1) return;
     if (pausedByHover || pausedByFocus || document.hidden || welcomeStage?.hidden) return;
 
@@ -3156,7 +3175,7 @@ function initPromptCascade() {
           card.classList.remove('is-wave-visible');
           card.classList.add('is-wave-leaving');
         }, i * 170);
-        timers.push(leaveT);
+        cycleTimers.push(leaveT);
       });
 
       const nextTimer = setTimeout(() => {
@@ -3166,9 +3185,9 @@ function initPromptCascade() {
         }
         showWave((waveIndex + 1) % totalWaves);
       }, slice.length * 170 + 390);
-      timers.push(nextTimer);
+      cycleTimers.push(nextTimer);
     }, holdMs);
-    timers.push(leaveStartTimer);
+    cycleTimers.push(leaveStartTimer);
   };
 
   function showWave(nextIdx) {
@@ -3195,7 +3214,7 @@ function initPromptCascade() {
         card.classList.remove('is-wave-leaving');
         card.classList.add('is-wave-visible');
       }, 40 + i * 210);
-      timers.push(enterT);
+      enterTimers.push(enterT);
     });
 
     scheduleCycle();
@@ -3207,12 +3226,8 @@ function initPromptCascade() {
 
   grid.addEventListener('mouseenter', () => {
     pausedByHover = true;
-    clearTimers();
-    const start = waveIndex * waveSize;
-    cards.slice(start, start + waveSize).forEach((card) => {
-      card.classList.remove('is-wave-leaving');
-      card.classList.add('is-wave-visible');
-    });
+    clearCycleTimers();
+    forceSliceVisible();
   });
 
   grid.addEventListener('mouseleave', () => {
@@ -3222,12 +3237,8 @@ function initPromptCascade() {
 
   grid.addEventListener('focusin', () => {
     pausedByFocus = true;
-    clearTimers();
-    const start = waveIndex * waveSize;
-    cards.slice(start, start + waveSize).forEach((card) => {
-      card.classList.remove('is-wave-leaving');
-      card.classList.add('is-wave-visible');
-    });
+    clearCycleTimers();
+    forceSliceVisible();
   });
 
   grid.addEventListener('focusout', () => {
