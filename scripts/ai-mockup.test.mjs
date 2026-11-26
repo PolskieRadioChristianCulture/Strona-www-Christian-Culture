@@ -204,7 +204,7 @@ test('AI dla Jezusa (/ai/) cache-busts assets, integrates LUMINA Google Auth wit
   const appJs = fs.readFileSync(path.join(ROOT, 'ai/app.js'), 'utf8');
 
   assert.match(html, /\/ai\/styles\.css\?v=20261126_ai19c_p0/);
-  assert.match(html, /\/ai\/app\.js\?v=20261126_ai20_p0/);
+  assert.match(html, /\/ai\/app\.js\?v=20261126_ai20b_p0/);
   assert.match(html, /rel="manifest"\s+href="\/manifest-ai\.json\?v=20261126_ai12"/);
   assert.match(html, /rel="apple-touch-icon"[^>]*href="\/ai\/assets\/apple-touch-icon\.png\?v=20261126_ai12"/);
   assert.match(html, /rel="icon"[^>]*href="\/ai\/assets\/icon-192\.png\?v=20261126_ai12"/);
@@ -700,6 +700,8 @@ test('Simplified 5-item sidebar + PRO More group, contextual media only, mobile 
   assert.match(appJs, /scheduleHeroSubtitleAutoHide/);
   assert.match(appJs, /applyPreferencesFromState/);
   assert.match(appJs, /ALLOWED_MODES/);
+  assert.ok(appJs.indexOf('const ALLOWED_MODES') < appJs.indexOf("let state = loadState('guest')"), 'ALLOWED_MODES must be declared before initial loadState()');
+  assert.ok(appJs.indexOf('const ALLOWED_BYOK_PROVIDERS') < appJs.indexOf("let state = loadState('guest')"), 'ALLOWED_BYOK_PROVIDERS must be declared before initial loadState()');
   assert.match(appJs, /state\.mode\s*=/);
   assert.match(appJs, /state\.autoReadEnabled\s*=/);
   assert.match(appJs, /state\.webSearchEnabled\s*=/);

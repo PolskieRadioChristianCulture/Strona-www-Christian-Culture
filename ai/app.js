@@ -3,6 +3,8 @@ const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
 const STORAGE_PREFIX = 'cc_ai_dla_jezusa_v2';
 const DEFAULT_ASSISTANT_ID = 'ai-dla-jezusa';
+const ALLOWED_MODES = new Set(['CC Auto', 'Studium Biblijne', 'Twórczość CC', 'Deep Research']);
+const ALLOWED_BYOK_PROVIDERS = new Set(['openrouter', 'openai', 'gemini', 'groq']);
 const AI_PERSONAS = {
   'ai-dla-jezusa': {
     id: 'ai-dla-jezusa',
@@ -947,9 +949,6 @@ function getUidScope(uid = currentUser?.uid) {
 function getStorageKey(uid) {
   return `${STORAGE_PREFIX}:${getUidScope(uid)}`;
 }
-
-const ALLOWED_MODES = new Set(['CC Auto', 'Studium Biblijne', 'Twórczość CC', 'Deep Research']);
-const ALLOWED_BYOK_PROVIDERS = new Set(['openrouter', 'openai', 'gemini', 'groq']);
 
 function loadState(uid = currentUser?.uid) {
   const empty = {
