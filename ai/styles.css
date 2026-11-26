@@ -1148,6 +1148,7 @@ a:focus-visible {
   margin-bottom: 0;
   transform: translateY(-4px);
   pointer-events: none;
+  animation: aiSubtitleFadeOut 650ms ease forwards;
 }
 
 /* WYBÓR ASYSTENTA (DOMYŚLNIE AI DLA JEZUSA + 4 ASYSTENTKI CC) */
@@ -3685,6 +3686,17 @@ a:focus-visible {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes aiSubtitleFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
   }
 }
 
