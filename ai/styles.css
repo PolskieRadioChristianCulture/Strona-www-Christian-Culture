@@ -2495,6 +2495,33 @@ a:focus-visible {
     min-height: 76px;
   }
 
+  .docked-composer-slot {
+    padding: 8px 10px 2px;
+  }
+
+  .composer-bar {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px 8px 10px;
+  }
+
+  .composer-bar-left,
+  .composer-bar-right {
+    gap: 4px;
+  }
+
+  .composer-circle-btn,
+  .composer-plain-btn {
+    width: 42px;
+    height: 44px;
+  }
+
+  .tools-pill {
+    padding: 0 9px;
+    gap: 5px;
+    font-size: 12.5px;
+  }
+
   .voice-bar {
     flex-wrap: wrap;
     gap: 8px 10px;
